@@ -16,6 +16,5 @@ runner, and results as directly as its scientific form allows. Phase-local
 source trees remain separate when their frozen protocols or model definitions
 genuinely differ.
 
-The [master monograph](../FINITE_CAUSAL_NEURAL_PDE_MASTER_MONOGRAPH_v2.1_2026-07-28.md)
+The [master monograph](../FINITE_CAUSAL_NEURAL_PDE_MASTER_MONOGRAPH_v2.2_2026-07-31.md)
 is the authoritative synthesis.
-
