@@ -1,0 +1,242 @@
+[
+  {
+    "path": "README.md",
+    "size_bytes": 4814,
+    "sha256": "e46a483e612af18483d599a89b162ffebb633a8be5e64125cfcdf1657a8ed501"
+  },
+  {
+    "path": "REPORT.md",
+    "size_bytes": 7016,
+    "sha256": "b8cd192af000613284f68645cc45b55e7752e4a242fa31687d48a482a9357f22"
+  },
+  {
+    "path": "REPRODUCE.md",
+    "size_bytes": 1933,
+    "sha256": "7ad4fa3b58fd28c5966b88dc0426678e564dff3c1b7f9120a08bb2082f8f6d0a"
+  },
+  {
+    "path": "config/protocol.json",
+    "size_bytes": 2536,
+    "sha256": "d800b57533a0af2230b0b92317e8863438400195f72db4b9d80f05d2e7b02ae6"
+  },
+  {
+    "path": "figures/gram_entries_mid.png",
+    "size_bytes": 133843,
+    "sha256": "804784a9527e513ee219c9fa2f3439ccef22c955650ba496bd977637358d2009"
+  },
+  {
+    "path": "figures/gram_entries_out.png",
+    "size_bytes": 138805,
+    "sha256": "e68bf159e8b13160782bd0f771b22f6476ede84a2b3619e050b0962c36ef0e23"
+  },
+  {
+    "path": "figures/order_convergence.png",
+    "size_bytes": 57214,
+    "sha256": "a2bedf2eec7be56b6899a3b6c7ab5c0adc6437c3420d30507ffd95636ab020f8"
+  },
+  {
+    "path": "figures/representative_curves.png",
+    "size_bytes": 225561,
+    "sha256": "faac1ba9a6187aa451622e8bef70343785a35a541c0732e23a9fa1dd7a1d7c52"
+  },
+  {
+    "path": "figures/time_depth_gram_error.png",
+    "size_bytes": 55966,
+    "sha256": "9ca989244f2a17f67592433a49c2d25b85fb98397dca63eacde23e3ef83529fd"
+  },
+  {
+    "path": "make_manifest.py",
+    "size_bytes": 1274,
+    "sha256": "d743c80c2c48030e5e509b15786a8b55cdeb5125b6c902a5cf7326fa2d489811"
+  },
+  {
+    "path": "metadata/environment.json",
+    "size_bytes": 2248,
+    "sha256": "8cbc82bae25b66f39a855e000b2cbebc907a8ea43c35ac1aabbada88beb3ac02"
+  },
+  {
+    "path": "metadata/run_manifest.json",
+    "size_bytes": 22226,
+    "sha256": "b36fe061a324b74a4188ce042ed38274108ddbc8c6910609fe32fc1a5cfa6364"
+  },
+  {
+    "path": "metadata/source_sha256.txt",
+    "size_bytes": 65,
+    "sha256": "c174ad14691f1caa46dfdc5058058f39bb2113ae36bc8efb07b519a699ccccbe"
+  },
+  {
+    "path": "reproduce.sh",
+    "size_bytes": 284,
+    "sha256": "6cc6b2a79d2489a05b6178540953b53320ffa1aa50b4a61c1ad381119e5730a4"
+  },
+  {
+    "path": "requirements.txt",
+    "size_bytes": 32,
+    "sha256": "4c40934e438ae009a1eb0b5a9322cce029fba6ca1af6e314c088c1957cee0c04"
+  },
+  {
+    "path": "results/processed/aggregate.json",
+    "size_bytes": 54220,
+    "sha256": "79defad5dac8febedbe1c6abf7cd617c8ad159f090f6a1159f5bfb3ea81fbac9"
+  },
+  {
+    "path": "results/processed/analysis_manifest.json",
+    "size_bytes": 9550,
+    "sha256": "f900a8ace3688b60cd850133b0d1e2c8e5f41a7bcf9a1740b156b0f294b12d90"
+  },
+  {
+    "path": "results/processed/errors_by_horizon.csv",
+    "size_bytes": 179168,
+    "sha256": "72b085fb55b6b780538f6331c798017fafbcabc9c7f8612117aab519ccd8a52f"
+  },
+  {
+    "path": "results/processed/per_run.csv",
+    "size_bytes": 69371,
+    "sha256": "92e755e1330e1abd9d9c32f41e692e0eaffaa2cb053cfcc6aaaed09a8307479b"
+  },
+  {
+    "path": "results/processed/per_run.json",
+    "size_bytes": 992493,
+    "sha256": "80e9103cc388139f2177039b89218c55172890e2bd1aa9e99f08cd14e942af65"
+  },
+  {
+    "path": "results/processed/refinement.csv",
+    "size_bytes": 1315,
+    "sha256": "dd20341b192840c0275b5c217bdd8e6c9608880c32e57ad5bfe8351b1a73642d"
+  },
+  {
+    "path": "results/processed/required_order.csv",
+    "size_bytes": 17842,
+    "sha256": "b5ace42ad60c4a6592bac4189eac9e96e58e8bdd50f26899884fdd6fd0089182"
+  },
+  {
+    "path": "results/raw/central_n64_L16_s1_sw0p65_A1_g1_r0_dt0p02.npz",
+    "size_bytes": 2553513,
+    "sha256": "65c2e93c3fb054a9e1d46151105427abf3bce1216df28aa710c31d2ff9c910f2"
+  },
+  {
+    "path": "results/raw/central_n64_L16_s2_sw0p65_A1_g1_r0_dt0p02.npz",
+    "size_bytes": 2346393,
+    "sha256": "62edbe4bb9b7f681a1d2d8ded59bcd8a98cef5fb25f36d224d18ff1a9a9dff46"
+  },
+  {
+    "path": "results/raw/central_n64_L16_s3_sw0p65_A1_g1_r0_dt0p02.npz",
+    "size_bytes": 2485129,
+    "sha256": "b55277c834a38e45456a825938c9d1a356b829e6d7056982148a0e135fe30967"
+  },
+  {
+    "path": "results/raw/central_n64_L16_s4_sw0p65_A1_g1_r0_dt0p02.npz",
+    "size_bytes": 2882571,
+    "sha256": "369571650485ebec49bb5b02067e7135889f493812931ebd612dace002c86550"
+  },
+  {
+    "path": "results/raw/central_n64_L16_s5_sw0p65_A1_g1_r0_dt0p02.npz",
+    "size_bytes": 2217199,
+    "sha256": "be07f499384002e062cc7a3780ecc4e83df609bd3db6b9a0b2494ea9db7edb46"
+  },
+  {
+    "path": "results/raw/central_n64_L16_s6_sw0p65_A1_g1_r0_dt0p02.npz",
+    "size_bytes": 2351573,
+    "sha256": "b5ef97e556c2f4e6c10bdce9392d4552643c88fb3c043116736e28b27cf4ec71"
+  },
+  {
+    "path": "results/raw/control_n32_L8_s15_sw0p65_A1_g1_r0_dt0p01.npz",
+    "size_bytes": 531119,
+    "sha256": "ea47ab25c4c6e859ee45e5516038b892b39b004d85d65d72e55a61f711006a8b"
+  },
+  {
+    "path": "results/raw/depth_n64_L32_s8_sw0p65_A1_g1_r0_dt0p02.npz",
+    "size_bytes": 4175514,
+    "sha256": "bf5e6647cb4d571defdbaef9483ec280c29e4ab303ff7c90fd2a2e40597b0d46"
+  },
+  {
+    "path": "results/raw/depth_n64_L8_s8_sw0p65_A1_g1_r0_dt0p02.npz",
+    "size_bytes": 1529672,
+    "sha256": "cf83f4d1375205d802a578fd3077461c7af448b9ec3d9c05fd4b91db35b7941b"
+  },
+  {
+    "path": "results/raw/neighborhood_n64_L16_s11_sw0p6_A0p95_g1p05_r0_dt0p02.npz",
+    "size_bytes": 2569824,
+    "sha256": "15c671d61e7978ff936f031bdf942f1c56cc797101ac4ec86a4c1738983a4436"
+  },
+  {
+    "path": "results/raw/neighborhood_n64_L16_s12_sw0p7_A1p05_g0p95_r0_dt0p02.npz",
+    "size_bytes": 2446406,
+    "sha256": "88483ef1f5e386153129d5e15d9eb2454dfa42990b5900bf934af919e31fcf21"
+  },
+  {
+    "path": "results/raw/refinement_n64_L16_s4_sw0p65_A1_g1_r0_dt0p005.npz",
+    "size_bytes": 1392121,
+    "sha256": "8016a1859e9df19467ed7921c517a56140f21b67274ab8b5b33d20ea84212a21"
+  },
+  {
+    "path": "results/raw/refinement_n64_L16_s4_sw0p65_A1_g1_r0_dt0p01.npz",
+    "size_bytes": 1392055,
+    "sha256": "85dc83b4388ed36af12b21a66b284d3cf66c528d326740b35cbcbecaa64fb27a"
+  },
+  {
+    "path": "results/raw/restart_n64_L16_s13_sw0p65_A1_g1_r1_dt0p02.npz",
+    "size_bytes": 2195751,
+    "sha256": "affb865645343ec637fada9f8a57bf3c3555be4a6fc0343da40426c9a18acf1d"
+  },
+  {
+    "path": "results/raw/restart_n64_L16_s14_sw0p65_A1_g1_r1_dt0p02.npz",
+    "size_bytes": 2563323,
+    "sha256": "dbf1f447b394a8ee418f50f98e0d28ccc6cf3bd9937869be4f406bcd6c8ed6cf"
+  },
+  {
+    "path": "results/raw/stress_n64_L16_s10_sw1p2_A1_g1_r0_dt0p02.npz",
+    "size_bytes": 2697167,
+    "sha256": "9e34a69f2bd254c1dd6e4324159f6668adeee687390a2c2fc01af7f34d369202"
+  },
+  {
+    "path": "results/raw/stress_n64_L16_s9_sw1p2_A1_g1_r0_dt0p02.npz",
+    "size_bytes": 2520763,
+    "sha256": "0320635d2cf09b0bc2144871ff77f8e0f9fca1af3a3cda6ae44de3d03a200d95"
+  },
+  {
+    "path": "results/raw/width_n32_L16_s7_sw0p65_A1_g1_r0_dt0p02.npz",
+    "size_bytes": 3089140,
+    "sha256": "bc1c9044f50879014fbe5875258d18888e26ad9403c6170023adcb59abc5c75f"
+  },
+  {
+    "path": "results/raw/width_n96_L16_s7_sw0p65_A1_g1_r0_dt0p02.npz",
+    "size_bytes": 2776653,
+    "sha256": "8441e0ff28b5dfcb2b7cae6948ffff15b07ca439cbc865205b16c637b827815c"
+  },
+  {
+    "path": "run_all.py",
+    "size_bytes": 7058,
+    "sha256": "6612eaddee3dd4da116a983ab12640a143a9f58e903de1d194b72ed53b7618da"
+  },
+  {
+    "path": "src/dense_mup/__init__.py",
+    "size_bytes": 588,
+    "sha256": "c3f62e4993933324c71f6fd44a13b5355b424580439cca27d918efb5f6551ef4"
+  },
+  {
+    "path": "src/dense_mup/analysis.py",
+    "size_bytes": 47574,
+    "sha256": "df68ea29f878edede3bf0b57b74c3e5313ba3ec4c2efecc32e28624209638118"
+  },
+  {
+    "path": "src/dense_mup/core.py",
+    "size_bytes": 13294,
+    "sha256": "e89671181533373bd5f90b1638ad6545ff760bf0936d7b5725bedb01ff1f116b"
+  },
+  {
+    "path": "src/dense_mup/experiment.py",
+    "size_bytes": 6915,
+    "sha256": "b929fc697d80109435265a683c67b3a7e7ad6959f8b8dd0c1793ecdeb4c7501e"
+  },
+  {
+    "path": "tests/test_core.py",
+    "size_bytes": 8580,
+    "sha256": "af71ead4bf0ba51bacc1c4446d67ad6aaf9779bfd14bf0565b9eb1c08783f47a"
+  },
+  {
+    "path": "theory/dense_euclidean_continuous_depth_pde_conjecture.md",
+    "size_bytes": 67023,
+    "sha256": "51b3aa5a76c28c5a29c908dc4d12615cc15fea409711d647e744a7ff826c0d70"
+  }
+]

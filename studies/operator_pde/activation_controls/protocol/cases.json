@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "description": "Frozen activation-continuation and linear-null cases on the original B0 data",
+  "cases": {
+    "C0": {
+      "family": "activation_continuation",
+      "scope": "deep_linear_boundary",
+      "description": "Identity activation, c=0",
+      "X": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+      "y": [0.8, -0.55, 0.35],
+      "activation": "identity",
+      "sigma_w": 0.65,
+      "A": 1.0,
+      "gamma": 1.0
+    },
+    "C1": {
+      "family": "activation_continuation",
+      "scope": "original_anchor",
+      "description": "tanh(z), c=1",
+      "X": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+      "y": [0.8, -0.55, 0.35],
+      "activation": "tanh",
+      "sigma_w": 0.65,
+      "A": 1.0,
+      "gamma": 1.0
+    },
+    "C2": {
+      "family": "activation_continuation",
+      "scope": "moderate_saturation",
+      "description": "tanh(2 z)/2",
+      "X": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+      "y": [0.8, -0.55, 0.35],
+      "activation": "tanh_c2",
+      "sigma_w": 0.65,
+      "A": 1.0,
+      "gamma": 1.0
+    },
+    "C4": {
+      "family": "activation_continuation",
+      "scope": "strong_saturation",
+      "description": "tanh(4 z)/4",
+      "X": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+      "y": [0.8, -0.55, 0.35],
+      "activation": "tanh_c4",
+      "sigma_w": 0.65,
+      "A": 1.0,
+      "gamma": 1.0
+    },
+    "L2": {
+      "family": "linear_null",
+      "scope": "first_hermite_control",
+      "description": "Linear gain kappa_2 z, kappa_2=E sech^2(2*0.65 Z)",
+      "X": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+      "y": [0.8, -0.55, 0.35],
+      "activation": "linear_c2",
+      "sigma_w": 0.65,
+      "A": 1.0,
+      "gamma": 1.0
+    }
+  }
+}

@@ -1,0 +1,372 @@
+{
+  "basis_and_method_checks": {
+    "GH3_tensor_vs_primary_QMC": {
+      "grams": 0.01935982843528039,
+      "output": 0.010310209347280306,
+      "theta": 0.14583467373089254
+    },
+    "P5_vs_P15_refined_QMC": {
+      "grams": 0.0028138311517847997,
+      "output": 0.001151916430956893,
+      "theta": 0.022251515746775096
+    },
+    "P5_vs_P15_same_nominal_MR": {
+      "grams": 0.007444635832808725,
+      "output": 0.0036813397197423825,
+      "theta": 0.04187629622202625
+    },
+    "hybrid_P15_R128_vs_R256": {
+      "grams": 0.0009648097340811989,
+      "output": 0.0006044917458310758,
+      "theta": 0.0076804006606647456
+    },
+    "hybrid_P15_R256_vs_P35_R128": {
+      "grams": 0.007018504244093688,
+      "output": 0.0036819860490125483,
+      "theta": 0.059917760599799086
+    },
+    "hybrid_P15_R256_vs_refined_QMC_P15": {
+      "grams": 0.0007572662160701308,
+      "output": 0.0005653799343347296,
+      "theta": 0.01249514918522258
+    },
+    "hybrid_P35_final_min_projected_p_energy": 0.999999999983333,
+    "hybrid_nested_P5_vs_P15_R128": {
+      "grams": 0.002761220796577791,
+      "output": 0.0011237089124120675,
+      "theta": 0.020703676952026455
+    },
+    "primary_final_min_projected_p_energy": 0.9999997836831118,
+    "primary_min_projected_h_energy": 0.9999680532937119,
+    "refined_P15_final_min_projected_p_energy": 0.9999998034648189,
+    "warning": "The old P35/M64/R64 pilot is excluded. The clean-base P35/R128 run is valid directional stress evidence, but its fast raw condition 6.20 and lack of R refinement prevent a cofinal P-convergence claim."
+  },
+  "compiler_level_reference_checks": {
+    "QMC_P15_complete_quadratic": {
+      "max_absolute_gram_gap": 0.019810392694035478,
+      "max_gram_increment_gap": 0.009202036002098544,
+      "max_loss_of_mean_gap": 0.0019127959801223393,
+      "max_output_gap": 0.01075299760804061,
+      "max_output_gap_after_t0": 0.009453838803652768,
+      "max_theta_gap": 0.04728258799195597,
+      "pde_feature_motion": 0.6315521785488182,
+      "reference_feature_motion": 0.639909483539111,
+      "terminal_absolute_gram_gap": 0.019810373402201903,
+      "terminal_gram_increment_gap": 0.009202036002098544
+    },
+    "QMC_P5": {
+      "max_absolute_gram_gap": 0.019407504276630565,
+      "max_gram_increment_gap": 0.007243343266500024,
+      "max_loss_of_mean_gap": 0.0018456582720173254,
+      "max_output_gap": 0.010752997608040587,
+      "max_output_gap_after_t0": 0.009462677636536012,
+      "max_theta_gap": 0.03340430967791031,
+      "pde_feature_motion": 0.6338011211613804,
+      "reference_feature_motion": 0.639909483539111,
+      "terminal_absolute_gram_gap": 0.018788396123470764,
+      "terminal_gram_increment_gap": 0.007243343266500024
+    },
+    "hybrid_P15_R128_complete_quadratic": {
+      "max_absolute_gram_gap": 0.01995945257816738,
+      "max_gram_increment_gap": 0.009519052314346224,
+      "max_loss_of_mean_gap": 0.001902410696560053,
+      "max_output_gap": 0.010752997608041244,
+      "max_output_gap_after_t0": 0.009440489904852656,
+      "max_theta_gap": 0.050155476486692926,
+      "pde_feature_motion": 0.63122040515477,
+      "reference_feature_motion": 0.639909483539111,
+      "terminal_absolute_gram_gap": 0.01995944415797008,
+      "terminal_gram_increment_gap": 0.009519052314346224
+    },
+    "hybrid_P15_R256_complete_quadratic": {
+      "max_absolute_gram_gap": 0.019666444226366056,
+      "max_gram_increment_gap": 0.009222752796223534,
+      "max_loss_of_mean_gap": 0.0018456582720177694,
+      "max_output_gap": 0.010752997608041248,
+      "max_output_gap_after_t0": 0.009512175539851501,
+      "max_theta_gap": 0.04870110669106803,
+      "pde_feature_motion": 0.6317521608641666,
+      "reference_feature_motion": 0.639909483539111,
+      "terminal_absolute_gram_gap": 0.0196664345029441,
+      "terminal_gram_increment_gap": 0.009222752796223534
+    },
+    "hybrid_P35_R128_complete_cubic_stress": {
+      "max_absolute_gram_gap": 0.02381291833433925,
+      "max_gram_increment_gap": 0.013731297455703284,
+      "max_loss_of_mean_gap": 0.0026567412253232225,
+      "max_output_gap": 0.010752997608041248,
+      "max_output_gap_after_t0": 0.0094540924731613,
+      "max_theta_gap": 0.09770662285869765,
+      "pde_feature_motion": 0.6265674981303708,
+      "reference_feature_motion": 0.639909483539111,
+      "terminal_absolute_gram_gap": 0.023570199434315882,
+      "terminal_gram_increment_gap": 0.013731297455703284
+    },
+    "hybrid_P5": {
+      "max_absolute_gram_gap": 0.019407504276631193,
+      "max_gram_increment_gap": 0.007540310496398357,
+      "max_loss_of_mean_gap": 0.0018456582720177694,
+      "max_output_gap": 0.010752997608041251,
+      "max_output_gap_after_t0": 0.009462698524294788,
+      "max_theta_gap": 0.03340430967791105,
+      "pde_feature_motion": 0.6334667651730993,
+      "reference_feature_motion": 0.639909483539111,
+      "terminal_absolute_gram_gap": 0.018892154431257805,
+      "terminal_gram_increment_gap": 0.007540310496398357
+    }
+  },
+  "dense_depth_check": {
+    "interpretation": "These are finite-grid Cauchy diagnostics, not extrapolated ordered-limit estimates. See the preregistered bootstrap audit under agent_outputs/statistical_audit.",
+    "n256_L32_vs_L64_increment_gap": 0.004226285138990869,
+    "n256_vs_n512_at_L32_increment_gap": 0.009350424143982627
+  },
+  "depth_refinement_against_N32": {
+    "N16": {
+      "grams": 0.000844940571191566,
+      "output": 0.000205069537552901,
+      "theta": 0.00662832957364572
+    },
+    "N8": {
+      "grams": 0.002521182370129852,
+      "output": 0.0006108325025623169,
+      "theta": 0.019704891574016583
+    }
+  },
+  "plateau": {
+    "end_time": 32.0,
+    "max_abs_loss_derivative": 8.253299521758154e-25,
+    "max_all_depth_gram_drift": 4.236439840938928e-13,
+    "max_output_drift": 4.996256488546761e-13,
+    "max_residual": 4.996256488546761e-13,
+    "max_theta_drift": 4.168122297969498e-13,
+    "start_time": 8.0
+  },
+  "primary_pde": {
+    "A": 1.0,
+    "X": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "actual_width_independent_pde_run": true,
+    "base_latent_sha256": "0b32beed2ddd0e750d264ee43c5e6e041bcf8bc5fcf5a5430de0bd14d322582a",
+    "base_order": null,
+    "base_quadrature_M": 256,
+    "base_weights_sha256": "61464d1acd91206a343b7bc3b9f15909c7974e84238ff528f4ba1873153a180c",
+    "basis_size_P": 5,
+    "config_sha256": "d24e0eaf4f87f261a5fbe14ca9c6f9087c9de29770edc6933d6bc6bf61f7983d",
+    "contains_dense_network_weight_matrix": false,
+    "depth_nodes_N": 16,
+    "dt": 0.02,
+    "duration": 8.0,
+    "dynamic_characteristic_scalars": 2622464,
+    "elapsed_seconds": 145.6974814799978,
+    "end_time": 8.0,
+    "epsilon_sha256": "cbbfb4030ddcf9a67985012db25cd476c097df251fd206728f6190a06e3a2b6c",
+    "fast_cov_error": 3.53732733414477e-15,
+    "fast_mean_error": 3.9298739505653545e-17,
+    "fast_order": null,
+    "fast_quadrature_R": 128,
+    "fast_weights_sha256": "97ee58e5d48167c456565d441b2a5268c21ed96cf05c25f3134a2c6f534641b3",
+    "gamma": 1.0,
+    "model": "continuous-depth dense Euclidean-muP operator-Galerkin PDE",
+    "multi_indices": [
+      [
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "phi_sha256": "bdf906a198c311baa4e6d51c6968883002401c777bf88a1b39de4c05e2ab53bd",
+    "quadrature": "sobol",
+    "quadrature_seed": 20260723,
+    "raw_basis_condition": 1.0000000000000022,
+    "raw_basis_gram_error": 1.2577531102642814e-15,
+    "raw_basis_max_eigenvalue": 1.0000000000000013,
+    "raw_basis_min_eigenvalue": 0.9999999999999992,
+    "raw_fast_condition": 1.085497275160456,
+    "raw_fast_max_eigenvalue": 1.0446319475319248,
+    "raw_fast_min_eigenvalue": 0.9623533577065033,
+    "restart_from": null,
+    "sample_dt": 0.04,
+    "sigma_w": 0.65,
+    "solver": "weighted Sobol/Hermite characteristics + RK4",
+    "source_dimension_per_depth": 14,
+    "start_time": 0.0,
+    "static_compiler_sha256": "01c93ed809fffa298bc1142fceef178291a55119a444ffaf966327586cf1e8eb",
+    "whitened_basis_gram_error": 1.1954502271222235e-15,
+    "y": [
+      0.8,
+      -0.55,
+      0.35
+    ]
+  },
+  "qmc_replicates": {
+    "f_max_radius": 0.0007471902657177005,
+    "grams_max_radius": 0.0012393165272330088,
+    "theta_max_radius": 0.02090016339438889
+  },
+  "quadrature_refinement_against_M256_R128": {
+    "M128_R64": {
+      "grams": 0.0063823525090497156,
+      "output": 0.0035861685282362397,
+      "theta": 0.10119359271387608
+    },
+    "M256_R256": {
+      "grams": 0.0011603455013098605,
+      "output": 0.00011175609922917245,
+      "theta": 0.0063211383176348165
+    },
+    "M512_R128": {
+      "grams": 0.0007832182892096894,
+      "output": 0.00015256030449137885,
+      "theta": 0.0063229168529288105
+    },
+    "M64_R32": {
+      "grams": 0.012735122207011146,
+      "output": 0.007329895620904984,
+      "theta": 0.12136487553935488
+    }
+  },
+  "reference_comparisons": {
+    "n128_L32_S96": {
+      "max_absolute_gram_gap": 0.04115263921453266,
+      "max_gram_increment_gap": 0.009255071638256665,
+      "max_loss_of_mean_gap": 0.003777921417301905,
+      "max_output_gap": 0.01818146522623623,
+      "max_output_gap_after_t0": 0.017446115384561298,
+      "max_theta_gap": 0.17823262355817757,
+      "pde_feature_motion": 0.6338011211613804,
+      "reference_feature_motion": 0.6285346277636472,
+      "terminal_absolute_gram_gap": 0.03417482187305706,
+      "terminal_gram_increment_gap": 0.009175913333608721
+    },
+    "n256_L32_S128": {
+      "max_absolute_gram_gap": 0.019407504276630565,
+      "max_gram_increment_gap": 0.007243343266500024,
+      "max_loss_of_mean_gap": 0.0018456582720173254,
+      "max_output_gap": 0.010752997608040587,
+      "max_output_gap_after_t0": 0.009462677636536012,
+      "max_theta_gap": 0.03340430967791031,
+      "pde_feature_motion": 0.6338011211613804,
+      "reference_feature_motion": 0.639909483539111,
+      "terminal_absolute_gram_gap": 0.018788396123470764,
+      "terminal_gram_increment_gap": 0.007243343266500024
+    },
+    "n256_L32_S64": {
+      "max_absolute_gram_gap": 0.027867026247455448,
+      "max_gram_increment_gap": 0.006731083952815521,
+      "max_loss_of_mean_gap": 0.0014984253533976144,
+      "max_output_gap": 0.017075014944239644,
+      "max_output_gap_after_t0": 0.014655021383400671,
+      "max_theta_gap": 0.05112860118231206,
+      "pde_feature_motion": 0.6338011211613804,
+      "reference_feature_motion": 0.6392434782599088,
+      "terminal_absolute_gram_gap": 0.026486587966331673,
+      "terminal_gram_increment_gap": 0.006731083952815521
+    },
+    "n256_L64_S16": {
+      "max_absolute_gram_gap": 0.07698163697134468,
+      "max_gram_increment_gap": 0.00995221744107556,
+      "max_loss_of_mean_gap": 0.009909484249945089,
+      "max_output_gap": 0.022073051336681686,
+      "max_output_gap_after_t0": 0.018581686976935137,
+      "max_theta_gap": 0.1283021958747461,
+      "pde_feature_motion": 0.6338011211613804,
+      "reference_feature_motion": 0.6430229438490003,
+      "terminal_absolute_gram_gap": 0.07697062181491461,
+      "terminal_gram_increment_gap": 0.00995221744107556
+    },
+    "n256_L64_S64": {
+      "max_absolute_gram_gap": 0.03766028377901261,
+      "max_gram_increment_gap": 0.006563901629082725,
+      "max_loss_of_mean_gap": 0.0033176174105346012,
+      "max_output_gap": 0.01659875049720539,
+      "max_output_gap_after_t0": 0.014921992965734033,
+      "max_theta_gap": 0.05739133849211549,
+      "pde_feature_motion": 0.6338011211613804,
+      "reference_feature_motion": 0.6386204375335549,
+      "terminal_absolute_gram_gap": 0.035661048665347465,
+      "terminal_gram_increment_gap": 0.006563901628708429
+    },
+    "n512_L32_S16": {
+      "max_absolute_gram_gap": 0.03867551232416729,
+      "max_gram_increment_gap": 0.00989737127468801,
+      "max_loss_of_mean_gap": 0.019871846904901846,
+      "max_output_gap": 0.02397641402213585,
+      "max_output_gap_after_t0": 0.02223835784783019,
+      "max_theta_gap": 0.10917220470247121,
+      "pde_feature_motion": 0.6338011211613804,
+      "reference_feature_motion": 0.6351138414565706,
+      "terminal_absolute_gram_gap": 0.03629181051674813,
+      "terminal_gram_increment_gap": 0.003993128586622861
+    },
+    "n64_L32_S64": {
+      "max_absolute_gram_gap": 0.09000574347648613,
+      "max_gram_increment_gap": 0.024641863930901297,
+      "max_loss_of_mean_gap": 0.02065817531304248,
+      "max_output_gap": 0.04310912188842813,
+      "max_output_gap_after_t0": 0.03782234016871342,
+      "max_theta_gap": 0.13507222604740216,
+      "pde_feature_motion": 0.6338011211613804,
+      "reference_feature_motion": 0.6419056425411066,
+      "terminal_absolute_gram_gap": 0.08691084052519704,
+      "terminal_gram_increment_gap": 0.020523931370625997
+    }
+  },
+  "scientific_label": "genuine width-independent operator-Galerkin PDE experiment; not a simulation of the un-emitted K/J/N response compiler",
+  "time_step_refinement": {
+    "heun_vs_rk4_at_dt0.005": {
+      "grams": 1.5552226554687028e-05,
+      "output": 1.7272146760696694e-05,
+      "theta": 4.4423191948705165e-05
+    },
+    "rk4_dt0.01_vs_dt0.005": {
+      "grams": 6.6704141739187314e-09,
+      "output": 4.178868894815907e-09,
+      "theta": 2.176850373510182e-08
+    },
+    "rk4_dt0.02_vs_dt0.01": {
+      "grams": 1.0896051639615654e-07,
+      "output": 6.825755252539374e-08,
+      "theta": 3.558843561001401e-07
+    }
+  }
+}

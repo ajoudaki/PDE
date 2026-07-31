@@ -1,0 +1,728 @@
+{
+  "artifact_validation": {
+    "all_numeric_arrays_finite": true,
+    "files": {
+      "generator_shadow_mini.npz": {
+        "bytes": 59017,
+        "nonfinite_arrays": [],
+        "sha256": "ab591f44479b0962622aafb8922aef1cc18cf6db4cbe67fd20f0c24563d9f0d8"
+      },
+      "homogenization_mini.npz": {
+        "bytes": 118195,
+        "nonfinite_arrays": [],
+        "sha256": "0f4d3f3e656961e24839a250765b9f1460ec63b3ebf7f0b06cdac6e88110fb3f"
+      },
+      "ordered_scaling_mini.npz": {
+        "bytes": 209951,
+        "nonfinite_arrays": [],
+        "sha256": "d11e9e5ee34416cdd275e2d35e345f9fdcd98a72072e96d5dc9043f7624513ca"
+      },
+      "ordered_scaling_mini_root1.npz": {
+        "bytes": 209336,
+        "nonfinite_arrays": [],
+        "sha256": "b9cad75ec50f8f7a8e893aba7036e23a7f7a5510ac48e95f7e10a58493c5e15b"
+      },
+      "ordered_scaling_mini_root2.npz": {
+        "bytes": 210012,
+        "nonfinite_arrays": [],
+        "sha256": "1d173daad00c8f78ea9f20567772717febdf3bbdcd3e0060491bac9c3d4a2bb8"
+      },
+      "ordered_scaling_mini_root3.npz": {
+        "bytes": 211081,
+        "nonfinite_arrays": [],
+        "sha256": "10cf22db4393068a195fbc9d77ec2d67bd90750a0f38665032bb4e652aa44384"
+      },
+      "same_state_attack_mini.npz": {
+        "bytes": 159285,
+        "nonfinite_arrays": [],
+        "sha256": "f90c4a9706c79c79c43074e6eef3b6536dd80102f3e845571f34ec70ad742398"
+      }
+    }
+  },
+  "cubature_P5": {
+    "G_distance": 0.00033542006632254154,
+    "f_distance": 0.0002853670085363116,
+    "files": [
+      "numerics_36d5fd29297a22508f3a.npz",
+      "numerics_54ea1fb1c391e5cdb854.npz"
+    ],
+    "loss_sup_abs": 4.7976549261030677e-05,
+    "observable_distance": 0.00033542006632254154,
+    "projected_energy_minima": [
+      0.9999635243823441,
+      0.9999623266890598
+    ]
+  },
+  "depth_homogenization": {
+    "checkpoints": {
+      "0.0": {
+        "backward": {
+          "mean_to_pooled_rms": [
+            0.0374484077469675,
+            0.013436374133976763,
+            0.016240905002144344,
+            0.02923343152029186
+          ],
+          "rms": [
+            0.17549673941887395,
+            0.12230255103273897,
+            0.086826951593645,
+            0.06116332286979798
+          ],
+          "variance": [
+            0.030799105546656144,
+            0.01495791398911572,
+            0.007538919523045171,
+            0.003740952064475153
+          ]
+        },
+        "forward": {
+          "mean_to_pooled_rms": [
+            0.03176386112206917,
+            0.008357020601940629,
+            0.013287364667744135,
+            0.0246963683934882
+          ],
+          "rms": [
+            0.1687834365255399,
+            0.11829539635821958,
+            0.08363246241947378,
+            0.059198877271740266
+          ],
+          "variance": [
+            0.02848784844537095,
+            0.013993800799548269,
+            0.006994388770344695,
+            0.003504507070234566
+          ]
+        },
+        "slopes": {
+          "backward_bias_slope": -0.07983674191602946,
+          "backward_rms_slope": -0.5056356261112291,
+          "backward_variance_slope": -1.0112712522224583,
+          "forward_bias_slope": -0.04202677520733855,
+          "forward_rms_slope": -0.5034853822296772,
+          "forward_variance_slope": -1.0069707644593544
+        }
+      },
+      "0.5": {
+        "backward": {
+          "mean_to_pooled_rms": [
+            0.04180431265003844,
+            0.014831195363449269,
+            0.018474555609734995,
+            0.032201303511120584
+          ],
+          "rms": [
+            0.19617289336724605,
+            0.13752023134730929,
+            0.09870039325423316,
+            0.06902870397272763
+          ],
+          "variance": [
+            0.03848380409207689,
+            0.018911814029817467,
+            0.009741767628540274,
+            0.004764961972154464
+          ]
+        },
+        "forward": {
+          "mean_to_pooled_rms": [
+            0.03327230629185661,
+            0.009610252347462883,
+            0.013944989525097977,
+            0.025868206501235964
+          ],
+          "rms": [
+            0.17161265345370383,
+            0.12091203030729397,
+            0.08541951949258013,
+            0.0605393850973023
+          ],
+          "variance": [
+            0.02945090282542104,
+            0.014619719073031976,
+            0.007296494310343278,
+            0.0036650171479594676
+          ]
+        },
+        "slopes": {
+          "backward_bias_slope": -0.08126932963217559,
+          "backward_rms_slope": -0.4999088353707396,
+          "backward_variance_slope": -0.9998176707414792,
+          "forward_bias_slope": -0.05523248846182991,
+          "forward_rms_slope": -0.501095011807801,
+          "forward_variance_slope": -1.002190023615602
+        }
+      }
+    },
+    "config": {
+      "checkpoints": [
+        0.0,
+        0.5
+      ],
+      "depths": [
+        8,
+        16,
+        32,
+        64
+      ],
+      "dt": 0.02,
+      "ensemble_size": 4,
+      "n": 128,
+      "wall_seconds": 4.407320261001587
+    }
+  },
+  "experiment_ledger": [
+    {
+      "evidence": "4 coupled roots; n=64,128,256; L=8,16,32; T=0.5",
+      "question": "Does the ordered dense target show contraction?",
+      "result": "FAVORABLE_DIAGNOSTIC",
+      "scope_limit": "Reduced grid/horizon and four roots; not the preregistered full Stage-1 pass."
+    },
+    {
+      "evidence": "n=128; L=8,16,32,64; 4 W replicas; t=0,0.5",
+      "question": "Do trained centered depth fluctuations homogenize?",
+      "result": "FAVORABLE_DIAGNOSTIC",
+      "scope_limit": "Tests centered cancellation, not correctness of the conditional/Onsager mean."
+    },
+    {
+      "evidence": "n=128,L=16; 3 amplitudes; horizons 0.1,0.5",
+      "question": "Can a P<=35-invisible same-state perturbation cause a large future gap?",
+      "result": "NO_LARGE_COUNTEREXAMPLE_FOUND",
+      "scope_limit": "One root, reduced cell, off-manifold attack; null result is not a sufficiency proof."
+    },
+    {
+      "evidence": "Nested P=5,15,35; M=625,N=4,R=128,dt=0.04; six checkpoints",
+      "question": "Do pure-Hermite generator defects contract from 5->15 to 15->35?",
+      "result": "ADVERSE_NONCONTRACTION_WARNING",
+      "scope_limit": "One cubature seed and reduced N/dt; needs one resolution/seed confirmation before a strong rejection."
+    },
+    {
+      "evidence": "Generator shadow restart h=0.05 at six checkpoints",
+      "question": "Are measured truncation discrepancies strongly amplified over a short restart?",
+      "result": "SMALL_ABSOLUTE_SHADOW_BUT_NONCONTRACTING_WITH_P",
+      "scope_limit": "Actual shadow discrepancy, not the Stage-5 worst-direction adjoint gain."
+    },
+    {
+      "evidence": "Existing raw canonical C1 dense ensemble and P=5 PDE through t=8",
+      "question": "Do canonical dense/PDE observables re-emerge after fitting?",
+      "result": "FAVORABLE_FINITE_TAIL",
+      "scope_limit": "Observable drift only through t=8; not state arclength or infinite-time perturbation stability."
+    },
+    {
+      "evidence": "Two frozen P=5 M=625,N=16,R=256 trajectories through t=2",
+      "question": "Is P=5 cubature stable across two scrambles?",
+      "result": "FAVORABLE_DIAGNOSTIC",
+      "scope_limit": "P=5 only; says nothing about P=15/35 numerical resolution."
+    }
+  ],
+  "generator_consistency_and_shadow": {
+    "checkpoints": [
+      0.0,
+      0.25,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "config": {
+      "M": 625,
+      "N": 4,
+      "R": 128,
+      "base_order": 5,
+      "checkpoints": [
+        0.0,
+        0.25,
+        0.5,
+        1.0,
+        1.5,
+        2.0
+      ],
+      "conditional_p70_authorized": false,
+      "dt": 0.04,
+      "levels": [
+        5,
+        15,
+        35
+      ],
+      "max_level": 35,
+      "pairs": [
+        [
+          5,
+          15
+        ],
+        [
+          15,
+          35
+        ],
+        [
+          5,
+          35
+        ]
+      ],
+      "resolution_axis": "lean",
+      "resolution_family": "lean_postfreeze_diagnostic",
+      "resolution_is_primary": false,
+      "seed": 20260723,
+      "shadow_horizons": [
+        0.05
+      ]
+    },
+    "pairs": {
+      "P15_Q35": {
+        "R_back_integral": 0.004016221675444524,
+        "R_back_max": 0.006892803407431797,
+        "R_back_total_path": [
+          1.0973279322825325e-16,
+          0.006892803407431797,
+          0.004594616215819663,
+          0.0008179808864916496,
+          0.00022315511694084232,
+          0.0001978869637517678
+        ],
+        "R_out_lift_integral": 0.00022246481171933006,
+        "R_out_lift_max": 0.00032714637707749927,
+        "R_out_lift_path": [
+          1.6966661886539671e-16,
+          0.00020731764047701677,
+          0.00032714637707749927,
+          8.337852614170132e-05,
+          1.1734986276889216e-05,
+          1.595015946788673e-06
+        ],
+        "back_observable_integral": 0.000527595515519865,
+        "back_observable_max_over_time": 0.000383347540080005,
+        "back_observable_max_path": [
+          0.0,
+          3.060966718945355e-05,
+          0.00016345215431949256,
+          0.00034662268471369263,
+          0.0003790006269516887,
+          0.000383347540080005
+        ],
+        "lift_low_total_max": 0.006894140866323587,
+        "lift_low_total_path": [
+          1.0973279322825325e-16,
+          0.006894140866323587,
+          0.004595422808981348,
+          0.0007993015204629211,
+          0.0001124036703959404,
+          3.3556362910611185e-05
+        ],
+        "shadow_h005_final_path": [
+          3.816560820613456e-07,
+          6.242173641381087e-06,
+          3.2696408267880613e-06,
+          1.4690079319501249e-05,
+          1.7018853025751193e-05,
+          1.733389894137808e-05
+        ],
+        "shadow_h005_max_over_checkpoints": 1.733389894137808e-05
+      },
+      "P5_Q15": {
+        "R_back_integral": 0.0015262460402265762,
+        "R_back_max": 0.002708484951336582,
+        "R_back_total_path": [
+          2.762565265614864e-16,
+          0.002708484951336582,
+          0.0017624020755975115,
+          0.0003062954994789915,
+          5.3149104382947336e-05,
+          3.4006888449439336e-05
+        ],
+        "R_out_lift_integral": 8.636162421900892e-06,
+        "R_out_lift_max": 1.2329703257003642e-05,
+        "R_out_lift_path": [
+          5.506684284003452e-16,
+          9.90836165031461e-06,
+          1.2329703257003642e-05,
+          2.696772971801682e-06,
+          3.5264440836038924e-07,
+          4.289839118401381e-08
+        ],
+        "back_observable_integral": 8.829445451879561e-05,
+        "back_observable_max_over_time": 6.4353891916053e-05,
+        "back_observable_max_path": [
+          0.0,
+          6.238821382715579e-06,
+          2.638373923456713e-05,
+          5.7921582585637626e-05,
+          6.358316537664397e-05,
+          6.4353891916053e-05
+        ],
+        "lift_low_total_max": 0.00271106888938821,
+        "lift_low_total_path": [
+          2.762565265614864e-16,
+          0.00271106888938821,
+          0.0017640138025343157,
+          0.00030489062349394114,
+          4.15520548716856e-05,
+          5.669022756095673e-06
+        ],
+        "shadow_h005_final_path": [
+          6.282140779944993e-08,
+          1.1171506411667292e-06,
+          6.575687607447007e-07,
+          2.4585099919408547e-06,
+          2.8608973686860393e-06,
+          2.9158909747836003e-06
+        ],
+        "shadow_h005_max_over_checkpoints": 2.9158909747836003e-06
+      },
+      "P5_Q35": {
+        "R_back_integral": 0.00432104174478661,
+        "R_back_max": 0.007404349440450345,
+        "R_back_total_path": [
+          2.91359964751888e-16,
+          0.007404349440450345,
+          0.004919353520079755,
+          0.0008791794665042337,
+          0.0002557028725115369,
+          0.00023102258054477683
+        ],
+        "R_out_lift_integral": 0.00022252905085317194,
+        "R_out_lift_max": 0.00032720783173364364,
+        "R_out_lift_path": [
+          5.762139182579e-16,
+          0.00020746353760918584,
+          0.00032720783173364364,
+          8.338620531498934e-05,
+          1.1736538559858403e-05,
+          1.5954304530528816e-06
+        ],
+        "back_observable_integral": 0.0006148417549803316,
+        "back_observable_max_over_time": 0.0004470132909423771,
+        "back_observable_max_path": [
+          0.0,
+          3.6462048482312326e-05,
+          0.00018951736956734257,
+          0.00040390772726065264,
+          0.0004419000858121588,
+          0.0004470132909423771
+        ],
+        "lift_low_total_max": 0.007408787834114543,
+        "lift_low_total_path": [
+          2.91359964751888e-16,
+          0.007408787834114543,
+          0.004923357261232217,
+          0.0008558241493089318,
+          0.00011999445085437706,
+          3.42173432962819e-05
+        ],
+        "shadow_h005_final_path": [
+          4.440757552471276e-07,
+          7.34247879620041e-06,
+          3.889757409777988e-06,
+          1.7121313281789068e-05,
+          1.9848514527163958e-05,
+          2.021815929965605e-05
+        ],
+        "shadow_h005_max_over_checkpoints": 2.021815929965605e-05
+      }
+    },
+    "successive_ratios": {
+      "R_back_integral": 2.6314379003062327,
+      "R_back_max": 2.544892636021603,
+      "R_out_lift_integral": 25.759683624658333,
+      "R_out_lift_max": 26.53319145306034,
+      "back_observable_integral": 5.975409422882312,
+      "back_observable_max_over_time": 5.956866456189877,
+      "lift_low_total_max": 2.5429604143623754,
+      "shadow_h005_max_over_checkpoints": 5.94463204944228
+    }
+  },
+  "late_time_tail": {
+    "PDE_P5_N16_M81_R128": {
+      "2_4": {
+        "G_drift": 0.0002947236232466092,
+        "endpoint_residual_norm": 3.1367868272076603e-07,
+        "f_drift": 0.0004833446623114559,
+        "loss_drift": 1.2451412724884167e-07,
+        "observable_drift": 0.0004833446623114559
+      },
+      "4_8": {
+        "G_drift": 1.5851315845889312e-07,
+        "endpoint_residual_norm": 5.399197433975831e-13,
+        "f_drift": 3.039551445939097e-07,
+        "loss_drift": 4.919715799657175e-14,
+        "observable_drift": 3.039551445939097e-07
+      },
+      "drift_ratio_4_8_over_2_4": 0.0006288579729841893
+    },
+    "dense_file": "exact_C1_c03177b2422b_n128_L32_S16_seed61000_dt0p02_T8p0_cfgcb95f9314f1c.npz",
+    "dense_n128_L32_ensemble16": {
+      "2_4": {
+        "G_drift": 0.00033457582882061656,
+        "endpoint_residual_norm": 7.141750383728635e-07,
+        "f_drift": 0.0005412507689889078,
+        "loss_drift": 1.5630274759536437e-07,
+        "observable_drift": 0.0005412507689889078
+      },
+      "4_8": {
+        "G_drift": 3.8716926677470986e-07,
+        "endpoint_residual_norm": 4.9918523387563546e-12,
+        "f_drift": 6.920331341204634e-07,
+        "loss_drift": 2.5502299270498126e-13,
+        "observable_drift": 6.920331341204634e-07
+      },
+      "drift_ratio_4_8_over_2_4": 0.0012785813411650704
+    },
+    "pde_file": "pde_C1_c03177b2422b_HYBRID_P5_N16_M81_R128_s20260723_dt0p02_T8_cfg16645296a091.npz"
+  },
+  "ordered_scaling": {
+    "concentration_rms_slopes": {
+      "16": {
+        "log_width_slope": -0.6124152522752021,
+        "rms": [
+          0.28231460608905734,
+          0.1535373190933325,
+          0.12078767626563669
+        ]
+      },
+      "32": {
+        "log_width_slope": -0.6127248991397399,
+        "rms": [
+          0.28051297029595257,
+          0.15231766829378063,
+          0.11996534281732385
+        ]
+      },
+      "8": {
+        "log_width_slope": -0.6209627952123463,
+        "rms": [
+          0.28600942463964807,
+          0.15543593144071954,
+          0.12092705857037951
+        ]
+      }
+    },
+    "config": {
+      "L": [
+        8,
+        16,
+        32
+      ],
+      "T": 0.5,
+      "n": [
+        64,
+        128,
+        256
+      ],
+      "roots": 4
+    },
+    "mean_curve_depth": {
+      "D16_32": 0.012780521118717709,
+      "D8_16": 0.022124658638085756,
+      "components": {
+        "first_G": 0.022124658638085756,
+        "first_f": 0.009181732359207844,
+        "second_G": 0.012780521118717709,
+        "second_f": 0.004936600619460329
+      },
+      "conditional_geometric_tail_after_L32": 0.01748066311389607,
+      "ratio": 0.5776595846191772
+    },
+    "mean_curve_width": {
+      "16": {
+        "D128_256": 0.04684882085188117,
+        "D64_128": 0.09608660719055716,
+        "components": {
+          "first_G": 0.09608660719055716,
+          "first_f": 0.08323756377166998,
+          "second_G": 0.04684882085188117,
+          "second_f": 0.03385973889971845
+        },
+        "conditional_geometric_tail_after_n256": 0.044575765452063876,
+        "ratio": 0.48756868643484796
+      },
+      "32": {
+        "D128_256": 0.04707113998079752,
+        "D64_128": 0.09079447322780973,
+        "components": {
+          "first_G": 0.09079447322780973,
+          "first_f": 0.07947211724490004,
+          "second_G": 0.04707113998079752,
+          "second_f": 0.03241850109066367
+        },
+        "conditional_geometric_tail_after_n256": 0.05067528146983719,
+        "ratio": 0.5184361812716586
+      },
+      "8": {
+        "D128_256": 0.048911761103342846,
+        "D64_128": 0.10595519931907325,
+        "components": {
+          "first_G": 0.10595519931907325,
+          "first_f": 0.09094952429220082,
+          "second_G": 0.048911761103342846,
+          "second_f": 0.033482393397684725
+        },
+        "conditional_geometric_tail_after_n256": 0.0419392738071451,
+        "ratio": 0.4616268141410416
+      }
+    },
+    "per_root_depth_ratios": [
+      0.6431050328773302,
+      0.408976085741797,
+      0.7765987522936767,
+      0.6026612712742443
+    ],
+    "per_root_width_ratios": {
+      "16": [
+        0.5174816129461182,
+        0.4985127101467363,
+        0.6782503525164412,
+        0.5483746064037684
+      ],
+      "32": [
+        0.5296692419741873,
+        0.47416583280251967,
+        0.644101471909951,
+        0.5613181757893236
+      ],
+      "8": [
+        0.49053304105458084,
+        0.5807030508739226,
+        0.6853461769622374,
+        0.5511298385391059
+      ]
+    }
+  },
+  "same_state_attack": {
+    "config": {
+      "L": 16,
+      "amplitudes": [
+        0.25,
+        0.5,
+        1.0
+      ],
+      "horizons": [
+        0.1,
+        0.5
+      ],
+      "n": 128
+    },
+    "gaps": {
+      "coherent": [
+        {
+          "amplitude": 0.25,
+          "readouts": [
+            {
+              "G_gap": 0.0002979508022483347,
+              "f_gap": 3.773502742928791e-06,
+              "horizon": 0.1,
+              "loss_gap": 3.2391550094587607e-07,
+              "observable_gap": 0.0002979508022483347
+            },
+            {
+              "G_gap": 0.0008149713660792361,
+              "f_gap": 1.3968126842070776e-05,
+              "horizon": 0.5,
+              "loss_gap": 2.2530629778993918e-07,
+              "observable_gap": 0.0008149713660792361
+            }
+          ]
+        },
+        {
+          "amplitude": 0.5,
+          "readouts": [
+            {
+              "G_gap": 0.0005975155207912741,
+              "f_gap": 7.5379492886449355e-06,
+              "horizon": 0.1,
+              "loss_gap": 6.453364314474436e-07,
+              "observable_gap": 0.0005975155207912741
+            },
+            {
+              "G_gap": 0.0016410702339788668,
+              "f_gap": 2.8007932765446586e-05,
+              "horizon": 0.5,
+              "loss_gap": 4.5144131193496605e-07,
+              "observable_gap": 0.0016410702339788668
+            }
+          ]
+        },
+        {
+          "amplitude": 1.0,
+          "readouts": [
+            {
+              "G_gap": 0.001201129361817063,
+              "f_gap": 1.5036212033482904e-05,
+              "horizon": 0.1,
+              "loss_gap": 1.2802575782427938e-06,
+              "observable_gap": 0.001201129361817063
+            },
+            {
+              "G_gap": 0.003324110960571947,
+              "f_gap": 5.625933393690774e-05,
+              "horizon": 0.5,
+              "loss_gap": 9.051509639873426e-07,
+              "observable_gap": 0.003324110960571947
+            }
+          ]
+        }
+      ],
+      "independent": [
+        {
+          "amplitude": 0.25,
+          "readouts": [
+            {
+              "G_gap": 2.945453964166195e-06,
+              "f_gap": 7.580079028673014e-08,
+              "horizon": 0.1,
+              "loss_gap": 1.127887397714411e-08,
+              "observable_gap": 2.945453964166195e-06
+            },
+            {
+              "G_gap": 8.287037209505507e-06,
+              "f_gap": 3.083734072872152e-07,
+              "horizon": 0.5,
+              "loss_gap": 1.0008846445868844e-08,
+              "observable_gap": 8.287037209505507e-06
+            }
+          ]
+        },
+        {
+          "amplitude": 0.5,
+          "readouts": [
+            {
+              "G_gap": 5.8980477532950106e-06,
+              "f_gap": 1.5138001207562523e-07,
+              "horizon": 0.1,
+              "loss_gap": 2.251616928496125e-08,
+              "observable_gap": 5.8980477532950106e-06
+            },
+            {
+              "G_gap": 1.664770728251623e-05,
+              "f_gap": 6.183352636216833e-07,
+              "horizon": 0.5,
+              "loss_gap": 2.0085609593839364e-08,
+              "observable_gap": 1.664770728251623e-05
+            }
+          ]
+        },
+        {
+          "amplitude": 1.0,
+          "readouts": [
+            {
+              "G_gap": 1.1824193541238334e-05,
+              "f_gap": 3.0186746886343184e-07,
+              "horizon": 0.1,
+              "loss_gap": 4.486474023714104e-08,
+              "observable_gap": 1.1824193541238334e-05
+            },
+            {
+              "G_gap": 3.358664785804227e-05,
+              "f_gap": 1.2428654253380725e-06,
+              "horizon": 0.5,
+              "loss_gap": 4.0437330832659817e-08,
+              "observable_gap": 3.358664785804227e-05
+            }
+          ]
+        }
+      ]
+    },
+    "max_present_state_relative_defect": 5.284050141990264e-16
+  },
+  "scope": "lean post-freeze diagnostics; no preregistered full-gate pass"
+}

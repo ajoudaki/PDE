@@ -1,0 +1,313 @@
+{
+  "analysis_source_sha256": "76d5c4ccf2c33320d8d6d1f5c8856f176d36479107eba08fdbd4784b1ebf7471",
+  "depth": {
+    "I1": {
+      "gram_error": 0.00763637394388355,
+      "gram_normalized": 0.006034954594229209,
+      "gram_scale": 1.2653573153948272,
+      "output_error": 0.005317133696560781,
+      "output_normalized": 0.0025761596935992494,
+      "output_scale": 2.0639767440550294
+    },
+    "I2": {
+      "gram_error": 0.01998452561621185,
+      "gram_normalized": 0.006151586895357909,
+      "gram_scale": 3.2486780982143824,
+      "output_error": 0.0030269738870960607,
+      "output_normalized": 0.0023114080008622053,
+      "output_scale": 1.3095800853708794
+    }
+  },
+  "dynamics_sha256": "421ae71793d558822da3ff8b16a40c4189fb118d30025cc9f08ca7d666a0fcab",
+  "identity": {
+    "A1": {
+      "finite": true,
+      "loss_energy_identity_defect": 4.440892098500626e-16,
+      "minimum_projected_energy": 0.9999947063939852,
+      "minimum_theta_eigenvalue": 2.652516177143095
+    },
+    "A2": {
+      "finite": true,
+      "loss_energy_identity_defect": 2.220446049250313e-16,
+      "minimum_projected_energy": 0.9999920333170733,
+      "minimum_theta_eigenvalue": 2.4902961001607826
+    },
+    "B0": {
+      "finite": true,
+      "loss_energy_identity_defect": 4.440892098500626e-16,
+      "minimum_projected_energy": 0.9999942611254277,
+      "minimum_theta_eigenvalue": 2.620888958800205
+    },
+    "I1": {
+      "finite": true,
+      "loss_energy_identity_defect": 1.3322676295501878e-15,
+      "minimum_projected_energy": 0.9987648145188034,
+      "minimum_theta_eigenvalue": 0.4083845639542664
+    },
+    "I2": {
+      "finite": true,
+      "loss_energy_identity_defect": 4.440892098500626e-16,
+      "minimum_projected_energy": 0.999208150167882,
+      "minimum_theta_eigenvalue": 0.023067376971181143
+    },
+    "M2": {
+      "finite": true,
+      "loss_energy_identity_defect": 4.440892098500626e-16,
+      "minimum_projected_energy": 0.9999949461528956,
+      "minimum_theta_eigenvalue": 2.6208889588041764
+    },
+    "M4": {
+      "finite": true,
+      "loss_energy_identity_defect": 4.440892098500626e-16,
+      "minimum_projected_energy": 0.999096430128528,
+      "minimum_theta_eigenvalue": 0.04109162088877172
+    },
+    "M5": {
+      "finite": true,
+      "loss_energy_identity_defect": 8.881784197001252e-16,
+      "minimum_projected_energy": 0.9990681681971301,
+      "minimum_theta_eigenvalue": 0.024463565177870673
+    },
+    "X1": {
+      "finite": true,
+      "loss_energy_identity_defect": 4.440892098500626e-16,
+      "minimum_projected_energy": 0.9999845066537295,
+      "minimum_theta_eigenvalue": 1.0580198729700676
+    },
+    "X2": {
+      "finite": true,
+      "loss_energy_identity_defect": 2.220446049250313e-16,
+      "minimum_projected_energy": 0.9999679576676042,
+      "minimum_theta_eigenvalue": 0.4083845639542664
+    },
+    "Y1": {
+      "finite": true,
+      "loss_energy_identity_defect": 4.440892098500626e-16,
+      "minimum_projected_energy": 0.9999933090193189,
+      "minimum_theta_eigenvalue": 2.620888958800205
+    },
+    "Y2": {
+      "finite": true,
+      "loss_energy_identity_defect": 4.440892098500626e-16,
+      "minimum_projected_energy": 0.9999983611794592,
+      "minimum_theta_eigenvalue": 2.620888958800205
+    },
+    "Y3": {
+      "finite": true,
+      "loss_energy_identity_defect": 4.440892098500626e-16,
+      "minimum_projected_energy": 0.9999831563110865,
+      "minimum_theta_eigenvalue": 2.620888958800205
+    },
+    "Y4": {
+      "finite": true,
+      "loss_energy_identity_defect": 8.881784197001252e-16,
+      "minimum_projected_energy": 0.9996821198589689,
+      "minimum_theta_eigenvalue": 2.620888958800205
+    }
+  },
+  "input_files": {
+    "results/generalization/pde_audits/pde_B0_002f860a427b_QMC_P5_N16_M256_R128_s20260723_dt0p02_T8_cfgfc4d60d23063.npz": "0a4b7ad73dcd9d5cc05e7c933e2f440cb3a97c432a32e3656fe8e0fa6d003a05",
+    "results/generalization/pde_audits/pde_I1_7cc5d6562d51_HYBRID_P5_N16_M81_R128_s20260723_dt0p01_T8_cfgf22f0ff5ed3e.npz": "c5105f89fa8e30763f87f75899a76035aca6d5cbb682a28aa3943eb24e3473fa",
+    "results/generalization/pde_audits/pde_I1_7cc5d6562d51_HYBRID_P5_N32_M81_R128_s20260723_dt0p02_T8_cfg0f99a38cf028.npz": "0689d216a588536fce1b11e7deefb2802017d01776a5c365a1048b76c801246e",
+    "results/generalization/pde_audits/pde_I1_7cc5d6562d51_QMC_P5_N16_M256_R128_s20260723_dt0p02_T8_cfg6d2ec7be6268.npz": "4048faaf469f4ccbee26eff9655250f4a46952504da494919893652951606381",
+    "results/generalization/pde_audits/pde_I2_cc6f05104554_HYBRID_P5_N16_M81_R128_s20260723_dt0p01_T8_cfgc4e5d9d64b62.npz": "85a95a25f2ef96f3ff61bfa3fd3755cd6a9b42aa86b5ffa653461b7199d72801",
+    "results/generalization/pde_audits/pde_I2_cc6f05104554_HYBRID_P5_N32_M81_R128_s20260723_dt0p02_T8_cfge56734d85165.npz": "b381a362a7c18e236c00d8368c206e1059f2213dcf8498f53776ae33c57d1c60",
+    "results/generalization/pde_audits/pde_I2_cc6f05104554_QMC_P5_N16_M256_R128_s20260723_dt0p02_T8_cfgf59500417afd.npz": "aa8a5ec0b156e84e506e1b2194070503b7249a994f993f099b5954fd8658a4f6",
+    "results/generalization/pde_primary/pde_A1_e53ed8edf661_HYBRID_P5_N16_M81_R128_s20260723_dt0p02_T8_cfgbf2291f2e59b.npz": "7104b4515ffd26eb6d0d1886fcbba623e79cf2c3d12b408a05c0c4eb4790e078",
+    "results/generalization/pde_primary/pde_A2_4b57ef63f336_HYBRID_P5_N16_M81_R128_s20260723_dt0p02_T8_cfgb3ace72ea753.npz": "3896914e698149e6775a192fb6f9ca65250e851307e5bc27d3e70306772c5343",
+    "results/generalization/pde_primary/pde_B0_002f860a427b_HYBRID_P5_N16_M81_R128_s20260723_dt0p02_T8_cfg4a32c158d3f7.npz": "1f582392d676aabcc22fcc678191c2a3cc922f5851d8068d76fae3e44a12a2fe",
+    "results/generalization/pde_primary/pde_I1_7cc5d6562d51_HYBRID_P5_N16_M81_R128_s20260723_dt0p02_T8_cfg03daffaa8930.npz": "51ad2425fd2e7971b030b486d0384e996bca2887bbf72d86604ca30c0c4ed397",
+    "results/generalization/pde_primary/pde_I2_cc6f05104554_HYBRID_P5_N16_M81_R128_s20260723_dt0p02_T8_cfg575b20c123a6.npz": "6aad7aae2c42b601a12e2a9bda934056502cef6f02e8dc0775c38aab62132808",
+    "results/generalization/pde_primary/pde_M2_45316c92bd36_HYBRID_P5_N16_M81_R128_s20260723_dt0p02_T8_cfg7e53c8b3fc70.npz": "5649b17fffa99356d7954306569e52dcbad87bbeeb9a10ce33c38d43c35d7014",
+    "results/generalization/pde_primary/pde_M4_da8476efc2bc_HYBRID_P5_N16_M81_R128_s20260723_dt0p02_T8_cfg85d44b1f38d5.npz": "1f2a6ddef8aac320ca6d8a93cb4da15367f3ad373a642b6876f171576f440466",
+    "results/generalization/pde_primary/pde_M5_deea2f9c730b_HYBRID_P5_N16_M81_R128_s20260723_dt0p02_T8_cfg82f91e36540d.npz": "89ed4db3108feef760b5ed2ba6d0eb36c86d81d03abdca28b764381a8701112e",
+    "results/generalization/pde_primary/pde_X1_c03f6103eb28_HYBRID_P5_N16_M81_R128_s20260723_dt0p02_T8_cfgc434439f77c8.npz": "8eb5138238ffc9308fe096e4a0f95c740ac374652a959f2f9039885db2a29269",
+    "results/generalization/pde_primary/pde_X2_ad1537b285fa_HYBRID_P5_N16_M81_R128_s20260723_dt0p02_T8_cfg8a85931a0a60.npz": "7c13ab8e434fa0d4a3c50ab32d5240440fe29d51e467c2ea647f92bdf6ad23ce",
+    "results/generalization/pde_primary/pde_Y1_b04de68f42f2_HYBRID_P5_N16_M81_R128_s20260723_dt0p02_T8_cfg7e672f265a4b.npz": "a0fadf2b9f2a03b5a991d29ccc64a36e18f2485201769d2c7abff6fd5bd3cf14",
+    "results/generalization/pde_primary/pde_Y2_760436f0adb0_HYBRID_P5_N16_M81_R128_s20260723_dt0p02_T8_cfgeca9fa46c665.npz": "1d2cc00d87a0ab33fb79f70faaaddbdc9ede13fbde7ef91d40b2c3d569f48719",
+    "results/generalization/pde_primary/pde_Y3_6a2fe06cae17_HYBRID_P5_N16_M81_R128_s20260723_dt0p02_T8_cfga9af5d545abf.npz": "bd63bdf3d2f0b71a9d0b0ced758852c33fd4ce13c65248a0e00c4c9d957f2e6f",
+    "results/generalization/pde_primary/pde_Y4_fa8ddfa1884a_HYBRID_P5_N16_M81_R128_s20260723_dt0p02_T8_cfg2a4428918430.npz": "34ad93147ac9ce8005623bae87ec815716f942877c214d3e97daac1638fff056",
+    "results/generalization/pde_scramble/pde_A1_e53ed8edf661_HYBRID_P5_N16_M81_R128_s20260724_dt0p02_T8_cfga4f46bc06379.npz": "ea5a31436834f2afde3495bce26f9ba65e9cdf5d8d3e6e0820d55414d966b60c",
+    "results/generalization/pde_scramble/pde_A2_4b57ef63f336_HYBRID_P5_N16_M81_R128_s20260724_dt0p02_T8_cfg82c767cf8571.npz": "1960349ca1f91d2e5f80a208ef0cda44b7dea42800ff3d663c2d861a1b780399",
+    "results/generalization/pde_scramble/pde_B0_002f860a427b_HYBRID_P5_N16_M81_R128_s20260724_dt0p02_T8_cfg8cc3dfdfefaf.npz": "e87bcd58d3a918c51893766ba52a72edb695b63a0ab6f05ca1146f40a7311229",
+    "results/generalization/pde_scramble/pde_I1_7cc5d6562d51_HYBRID_P5_N16_M81_R128_s20260724_dt0p02_T8_cfg17acbcacdac6.npz": "480ad7a7b1254ea3d6df45afd8c3c09fa78d90f224e289007f55466784e56aad",
+    "results/generalization/pde_scramble/pde_I2_cc6f05104554_HYBRID_P5_N16_M81_R128_s20260724_dt0p02_T8_cfg4afa83a7bca2.npz": "20637f87373dfc58879a5455e9c2672fff9aa64b61bdccdea001a9f430aa7813",
+    "results/generalization/pde_scramble/pde_M2_45316c92bd36_HYBRID_P5_N16_M81_R128_s20260724_dt0p02_T8_cfg98d043cf6bcb.npz": "b239497c481c1979d76ca8f30bc1fbd7d26a28e868357343b84626efe4fb0c5f",
+    "results/generalization/pde_scramble/pde_M4_da8476efc2bc_HYBRID_P5_N16_M81_R128_s20260724_dt0p02_T8_cfgc9a2afbb67fe.npz": "3c6441545925d513511882d1e9a237ccb52805a3aa7880893e94d6f4b921d7b0",
+    "results/generalization/pde_scramble/pde_M5_deea2f9c730b_HYBRID_P5_N16_M81_R128_s20260724_dt0p02_T8_cfg8e333822862d.npz": "49c50c5ca8814ecae49c0d67bd682620bdaba91a1e2f52723ed9296cf5d0a683",
+    "results/generalization/pde_scramble/pde_X1_c03f6103eb28_HYBRID_P5_N16_M81_R128_s20260724_dt0p02_T8_cfga12b32f3a374.npz": "eceb0d9e14822ca068bdb64638e4cf4af02026be26122e434cfdb0276938345d",
+    "results/generalization/pde_scramble/pde_X2_ad1537b285fa_HYBRID_P5_N16_M81_R128_s20260724_dt0p02_T8_cfgfbfe993579dc.npz": "1d54cf71b4b6ab8f7c3a2ac881432f866c99ef7a44855baa3fe0286e3a53aa6e",
+    "results/generalization/pde_scramble/pde_Y1_b04de68f42f2_HYBRID_P5_N16_M81_R128_s20260724_dt0p02_T8_cfgc1aaf4d0b6e1.npz": "00df7f327df088ac91265788148a12504ae5983c0ad6b9c95e9e546f483eb9e3",
+    "results/generalization/pde_scramble/pde_Y2_760436f0adb0_HYBRID_P5_N16_M81_R128_s20260724_dt0p02_T8_cfg195b52e0c6f5.npz": "d338bdc3777f898b4df567aa238706955525202044697489b5700f2ee728c1ce",
+    "results/generalization/pde_scramble/pde_Y3_6a2fe06cae17_HYBRID_P5_N16_M81_R128_s20260724_dt0p02_T8_cfg638b61e14656.npz": "bf69504de78a0e00c7f383396bdc32336ffeb336c89e6bb648cc746e7c233450",
+    "results/generalization/pde_scramble/pde_Y4_fa8ddfa1884a_HYBRID_P5_N16_M81_R128_s20260724_dt0p02_T8_cfgb1bdedbaf6e6.npz": "c4f76fb0d5c8e331ce39ef6e69bbd3f71cf22c2b4f19a8b2f0f3ecb4dd26b9c2"
+  },
+  "qmc": {
+    "B0": {
+      "gram_error": 0.00046294490342224567,
+      "gram_normalized": 0.000730426135210905,
+      "gram_scale": 0.6338011211613804,
+      "output_error": 0.00021241850885561276,
+      "output_normalized": 0.00020583420764546103,
+      "output_scale": 1.0319883720275147
+    },
+    "I1": {
+      "gram_error": 0.012861567297318043,
+      "gram_normalized": 0.010144335260430858,
+      "gram_scale": 1.267857081526678,
+      "output_error": 0.007480715928907196,
+      "output_normalized": 0.0036244187103630205,
+      "output_scale": 2.0639767440550294
+    },
+    "I2": {
+      "gram_error": 0.09723543257933172,
+      "gram_normalized": 0.029781717151620524,
+      "gram_scale": 3.2649370781510094,
+      "output_error": 0.011101770285460649,
+      "output_normalized": 0.008477351182624751,
+      "output_scale": 1.3095800853708794
+    }
+  },
+  "r256_required": [
+    "X1",
+    "X2",
+    "M4",
+    "M5",
+    "I1",
+    "I2"
+  ],
+  "scramble": {
+    "A1": {
+      "gram_error": 0.0012300794698450728,
+      "gram_normalized": 0.0019146796656124793,
+      "gram_scale": 0.6424466149284495,
+      "output_error": 0.0005127927405921881,
+      "output_normalized": 0.0004968977892500093,
+      "output_scale": 1.0319883720275147
+    },
+    "A2": {
+      "gram_error": 0.0021837753677722365,
+      "gram_normalized": 0.003681797838930649,
+      "gram_scale": 0.5931274511276529,
+      "output_error": 0.0006506715187193101,
+      "output_normalized": 0.0006305027618101515,
+      "output_scale": 1.0319883720275147
+    },
+    "B0": {
+      "gram_error": 0.0014228815886878118,
+      "gram_normalized": 0.002246181910268014,
+      "gram_scale": 0.6334667651730993,
+      "output_error": 0.000529512702939116,
+      "output_normalized": 0.000513099485703312,
+      "output_scale": 1.0319883720275147
+    },
+    "I1": {
+      "gram_error": 0.02622505286325032,
+      "gram_normalized": 0.02080635788151026,
+      "gram_scale": 1.2604345754600053,
+      "output_error": 0.003836559094413735,
+      "output_normalized": 0.0018588189549443126,
+      "output_scale": 2.0639767440550294
+    },
+    "I2": {
+      "gram_error": 0.12411474385456546,
+      "gram_normalized": 0.0383678887534906,
+      "gram_scale": 3.2348598759756846,
+      "output_error": 0.009824656162922735,
+      "output_normalized": 0.00750214230704367,
+      "output_scale": 1.3095800853708794
+    },
+    "M2": {
+      "gram_error": 0.0007940995615020186,
+      "gram_normalized": 0.0014044379674813402,
+      "gram_scale": 0.5654215991654821,
+      "output_error": 0.00042643143950479346,
+      "output_normalized": 0.00043924672993579525,
+      "output_scale": 0.97082439194738
+    },
+    "M4": {
+      "gram_error": 0.046105560769390985,
+      "gram_normalized": 0.02324803707106883,
+      "gram_scale": 1.9832023077237495,
+      "output_error": 0.0131594446157849,
+      "output_normalized": 0.01055291314973846,
+      "output_scale": 1.2469963913339928
+    },
+    "M5": {
+      "gram_error": 0.14031034193163022,
+      "gram_normalized": 0.04428618424398929,
+      "gram_scale": 3.1682644221188174,
+      "output_error": 0.009359786744230702,
+      "output_normalized": 0.007147166369424413,
+      "output_scale": 1.3095800853708794
+    },
+    "X1": {
+      "gram_error": 0.006378362475855322,
+      "gram_normalized": 0.01068153475685027,
+      "gram_scale": 0.5971391397443854,
+      "output_error": 0.0010014047622492136,
+      "output_normalized": 0.000970364385290297,
+      "output_scale": 1.0319883720275147
+    },
+    "X2": {
+      "gram_error": 0.013301582096580286,
+      "gram_normalized": 0.027561719800947758,
+      "gram_scale": 0.4826107439102145,
+      "output_error": 0.0017168338230506165,
+      "output_normalized": 0.0016636174104148168,
+      "output_scale": 1.0319883720275147
+    },
+    "Y1": {
+      "gram_error": 0.0013641573226443621,
+      "gram_normalized": 0.0021646740511703307,
+      "gram_scale": 0.6301906385891357,
+      "output_error": 0.0004833755294756676,
+      "output_normalized": 0.0004691139338301674,
+      "output_scale": 1.0304011341745039
+    },
+    "Y2": {
+      "gram_error": 0.0018863050141152383,
+      "gram_normalized": 0.0029552306775352884,
+      "gram_scale": 0.6382936629801258,
+      "output_error": 0.00037708725401075017,
+      "output_normalized": 0.00036539874307876054,
+      "output_scale": 1.0319883720275147
+    },
+    "Y3": {
+      "gram_error": 0.001010207720836261,
+      "gram_normalized": 0.0016507467467034938,
+      "gram_scale": 0.6119701419091841,
+      "output_error": 0.00036638913631387084,
+      "output_normalized": 0.00035503223315785796,
+      "output_scale": 1.0319883720275147
+    },
+    "Y4": {
+      "gram_error": 0.007220747877500871,
+      "gram_normalized": 0.0037737133511846458,
+      "gram_scale": 1.9134330579809753,
+      "output_error": 0.0027864726291432764,
+      "output_normalized": 0.0013500504001168066,
+      "output_scale": 2.0639767440550294
+    }
+  },
+  "scramble_tolerance": 0.01,
+  "status": "PDE-only decision made before dense-reference generation",
+  "time_step": {
+    "I1": {
+      "gram_error": 2.284281501344461e-06,
+      "gram_normalized": 1.8122967632102565e-06,
+      "gram_scale": 1.2604345754600053,
+      "output_error": 1.3540750922465191e-06,
+      "output_normalized": 6.560515258453014e-07,
+      "output_scale": 2.0639767440550294
+    },
+    "I2": {
+      "gram_error": 1.5415418009708168e-06,
+      "gram_normalized": 4.765403461091242e-07,
+      "gram_scale": 3.234861042841932,
+      "output_error": 6.690489407195069e-07,
+      "output_normalized": 5.10888145133964e-07,
+      "output_scale": 1.3095800853708794
+    }
+  }
+}

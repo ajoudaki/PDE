@@ -1,0 +1,73 @@
+{
+  "dataset": {
+    "X": [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
+    "y": [0.8, -0.55, 0.35]
+  },
+  "dense_model": {
+    "architecture": "H[l+1] = H[l] + gamma/L * tanh(W[l] H[l])",
+    "readout": "f = a^T H[L] / n",
+    "initialization": {
+      "B": "iid N(0,1)",
+      "W": "iid N(0,sigma_w^2/n)",
+      "a": "iid N(0,A^2)"
+    },
+    "gradient_flow_multipliers": {
+      "B": "n",
+      "W": "L",
+      "a": "n"
+    },
+    "sigma_w": 0.65,
+    "A": 1.0,
+    "gamma": 1.0
+  },
+  "primary_pde": {
+    "basis_size_P": 5,
+    "depth_nodes_N": 16,
+    "base_quadrature_M": 256,
+    "fast_quadrature_R": 128,
+    "quadrature": "scrambled Sobol with exact first/second moment correction",
+    "seed": 20260723,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "active_horizon": 8,
+    "plateau_horizon": 32
+  },
+  "primary_dense_reference": {
+    "width_n": 256,
+    "depth_L": 32,
+    "ensemble_members": 128,
+    "seed_blocks": [[6000, 32], [8000, 32], [10000, 64]],
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "horizon": 8
+  },
+  "ordered_limit_heldout_references": [
+    {
+      "width_n": 512,
+      "depth_L": 32,
+      "ensemble_members": 16,
+      "seed_start": 14000
+    },
+    {
+      "width_n": 256,
+      "depth_L": 64,
+      "ensemble_members": 48,
+      "seed_start": 12000,
+      "pooled_with_existing_members": 16
+    }
+  ],
+  "audit_axes": [
+    "RK4 step size",
+    "depth nodes",
+    "base cubature",
+    "fast cubature",
+    "QMC scramble",
+    "Hermite order",
+    "independent tensor Gauss-Hermite implementation",
+    "finite width",
+    "finite residual depth",
+    "positive-time restart",
+    "paired-W conditional variance",
+    "bootstrap reference uncertainty"
+  ]
+}

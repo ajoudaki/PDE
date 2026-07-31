@@ -1,0 +1,197 @@
+{
+  "analyses": {
+    "tanh": {
+      "adjacent": {
+        "11_13": {
+          "final_state": {
+            "outgoing_tail": 0.0016077101523670953,
+            "projective_total": 0.00935007149928894,
+            "shadow_B": 0.00846096870800439,
+            "shadow_a": 0.0027476035202636633,
+            "shadow_c": 0.002387841813310998,
+            "shadow_total": 0.009210814573521232
+          },
+          "observable": {
+            "gram": 6.078158520023916e-05,
+            "loss": 2.0119004250196415e-05,
+            "output": 2.2584381410784005e-05
+          }
+        },
+        "9_11": {
+          "final_state": {
+            "outgoing_tail": 0.0008494446884129334,
+            "projective_total": 0.004886881229713345,
+            "shadow_B": 0.004480866260450046,
+            "shadow_a": 0.001375871524281831,
+            "shadow_c": 0.0010903517685969418,
+            "shadow_total": 0.0048124891557957475
+          },
+          "observable": {
+            "gram": 1.5236083761943671e-05,
+            "loss": 4.592769473399372e-06,
+            "output": 7.001412432261489e-06
+          }
+        }
+      },
+      "errors_to_reference": {
+        "11": {
+          "gram": 6.078158520023916e-05,
+          "loss": 2.0119004250196415e-05,
+          "output": 2.2584381410784005e-05
+        },
+        "9": {
+          "gram": 5.805421167063804e-05,
+          "loss": 2.4711773723595787e-05,
+          "output": 2.1915347877321523e-05
+        }
+      },
+      "reference_degree": 13,
+      "reference_endpoint": {
+        "f": 3.9999999353644835,
+        "gram_motion": 4.121098077172003,
+        "loss": 2.08887499626214e-15
+      },
+      "reference_shells_final": {
+        "1": {
+          "c_norm": 0.6675347800630702,
+          "c_rms_per_mode": 0.4720183696604675,
+          "cdot_norm": 5.997919800490084e-08,
+          "cdot_rms_per_mode": 4.2411697639396024e-08,
+          "hcoef_norm": 1.9350208418555843,
+          "hcoef_rms_per_mode": 1.3682663590133857,
+          "mode_count": 2,
+          "pcoef_norm": 1.9014194106268023,
+          "pcoef_rms_per_mode": 1.3445065591339405
+        },
+        "11": {
+          "c_norm": 0.0008463840756044289,
+          "c_rms_per_mode": 0.0002443300369440148,
+          "cdot_norm": 2.6401345690982074e-10,
+          "cdot_rms_per_mode": 7.621412020828434e-11,
+          "hcoef_norm": 0.009123274249791265,
+          "hcoef_rms_per_mode": 0.002633662422003884,
+          "mode_count": 12,
+          "pcoef_norm": 0.006428452142581426,
+          "pcoef_rms_per_mode": 0.0018557342874960063
+        },
+        "13": {
+          "c_norm": 0.0016077101523670953,
+          "c_rms_per_mode": 0.00042967861195684296,
+          "cdot_norm": 3.464927116774759e-10,
+          "cdot_rms_per_mode": 9.26040724365258e-11,
+          "hcoef_norm": 0.01151306733863565,
+          "hcoef_rms_per_mode": 0.0030769966751451345,
+          "mode_count": 14,
+          "pcoef_norm": 0.009259977922283336,
+          "pcoef_rms_per_mode": 0.0024748331995910755
+        },
+        "3": {
+          "c_norm": 0.00868222421250179,
+          "c_rms_per_mode": 0.004341112106250895,
+          "cdot_norm": 2.1103878597107483e-09,
+          "cdot_rms_per_mode": 1.0551939298553742e-09,
+          "hcoef_norm": 0.07424951855731135,
+          "hcoef_rms_per_mode": 0.037124759278655675,
+          "mode_count": 4,
+          "pcoef_norm": 0.03372602572310574,
+          "pcoef_rms_per_mode": 0.01686301286155287
+        },
+        "5": {
+          "c_norm": 0.0036349116087194384,
+          "c_rms_per_mode": 0.001483946450246961,
+          "cdot_norm": 1.0926315064214009e-09,
+          "cdot_rms_per_mode": 4.460649446034923e-10,
+          "hcoef_norm": 0.038172807253280955,
+          "hcoef_rms_per_mode": 0.0155839833033585,
+          "mode_count": 6,
+          "pcoef_norm": 0.018592998894857368,
+          "pcoef_rms_per_mode": 0.007590560013422015
+        },
+        "7": {
+          "c_norm": 0.002081169934134953,
+          "c_rms_per_mode": 0.0007358046866141929,
+          "cdot_norm": 6.402034571587278e-10,
+          "cdot_rms_per_mode": 2.263461029480039e-10,
+          "hcoef_norm": 0.022112253011245052,
+          "hcoef_rms_per_mode": 0.007817862025782015,
+          "mode_count": 8,
+          "pcoef_norm": 0.014005132734123798,
+          "pcoef_rms_per_mode": 0.0049515621638583154
+        },
+        "9": {
+          "c_norm": 0.0011041196027811557,
+          "c_rms_per_mode": 0.0003491532754028834,
+          "cdot_norm": 3.938948361747925e-10,
+          "cdot_rms_per_mode": 1.24560484089123e-10,
+          "hcoef_norm": 0.01375746758085356,
+          "hcoef_rms_per_mode": 0.004350493239142394,
+          "mode_count": 10,
+          "pcoef_norm": 0.005845540868474997,
+          "pcoef_rms_per_mode": 0.001848522329997975
+        }
+      },
+      "scales": {
+        "gram": 4.121098077172003,
+        "loss": 8.0,
+        "output": 4.0
+      }
+    }
+  },
+  "metadata": {
+    "canonical_dense_sha256": "6a56b7a5e2f7d57aa1136aa4f02b5745bfb17530297619a0c76ecd5eaea15550",
+    "canonical_solver_sha256": "c9c034e338cf08783857cb9e0d05715f852dae339b39de84e6f2b1743fd91244",
+    "claim_scope": "minimal scalar diagnostic; not a proof of the full four-label dense-limit conjecture",
+    "model": {
+      "A": 1.0,
+      "X": [
+        [
+          1.0
+        ]
+      ],
+      "gamma": 1.0,
+      "sigma_w": 0.65,
+      "y": [
+        4.0
+      ]
+    },
+    "pde": {
+      "M": 196,
+      "N": 4,
+      "R": 512,
+      "activations": [
+        "tanh"
+      ],
+      "active_mode_counts": {
+        "11": 42,
+        "13": 56,
+        "9": 30
+      },
+      "base_order": 14,
+      "degrees": [
+        9,
+        11,
+        13
+      ],
+      "dt": 0.025,
+      "duration": 2.0,
+      "integrator": "explicit midpoint",
+      "master_active_modes": 56,
+      "master_degree": 13,
+      "parity_reduced": true,
+      "sample_dt": 0.05,
+      "seed": 20260726
+    },
+    "script_sha256": "9a56b4f76870e168f39bb7a1a0e482a53dcbfb9d45436caac883eb1ddb512ee8",
+    "stress_activation": {
+      "bounded": true,
+      "formula": "sin(2.5 z)/2.5",
+      "lipschitz_constant": 1.0,
+      "name": "sine_2p5",
+      "odd": true,
+      "smooth": true
+    },
+    "wall_seconds": {
+      "pde_tanh": 112.87054533799892
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "claim_scope": "single-high-reference parity-reduced degree-7 diagnostic; not a convergence proof",
+  "common_reference": {
+    "time": 0.25,
+    "C3": 0.003253168005819017,
+    "C5": 0.007258260248596341,
+    "C7": 0.00962238195039089,
+    "C5_over_C3": 2.231135999005684,
+    "C7_over_C5": 1.3257146507321422,
+    "q5_cardinality_adjusted": 1.3333587886637333,
+    "q7_cardinality_adjusted": 0.9056355170509057,
+    "observable_C7_over_C5": 1.6173851870067644
+  },
+  "degree7_over_degree5_shells": {
+    "c": {
+      "aggregate": 1.2662704539864285,
+      "rms_per_mode": 0.8650273998925494,
+      "effective_modes_before": 2.678828292885162,
+      "effective_modes_after": 21.119889242294025
+    },
+    "cdot": {
+      "aggregate": 1.2665479401629371,
+      "rms_per_mode": 0.8652169590384773,
+      "effective_modes_before": 2.7118027017267874,
+      "effective_modes_after": 21.645192191299735
+    },
+    "hcoef": {
+      "aggregate": 1.3217522238749844,
+      "rms_per_mode": 0.9029286641896381,
+      "effective_modes_before": 3.19117496147309,
+      "effective_modes_after": 23.408444883604158
+    },
+    "pcoef": {
+      "aggregate": 1.4120732374164766,
+      "rms_per_mode": 0.9646296627823876,
+      "effective_modes_before": 4.760706678663514,
+      "effective_modes_after": 25.157956147520323
+    }
+  },
+  "orthogonality": {
+    "B_degree5_energy_fraction_in_new_shell": 0.9999890251270039,
+    "B_degree7_energy_fraction_in_new_shell": 0.9999825094367097,
+    "B_adjacent_weighted_cosine": 0.00046208975021283684,
+    "full_adjacent_cosine_lower_bound": -0.0001828171993933105,
+    "full_adjacent_cosine_upper_bound": 0.0011263335778488432
+  },
+  "budget_seconds": {
+    "degree5_N1": 11.923270041999785,
+    "degree5_N2": 22.01175086800049,
+    "degree7": 166.25129307000043,
+    "positive_time_total": 200.18631308
+  },
+  "verdict": "bridgeable mechanism favored, but aggregate and observable convergence remain unproved"
+}

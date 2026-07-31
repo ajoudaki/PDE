@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "date": "2026-07-23",
+  "status": "declared after dense sealing but before any scientific curve metric was computed",
+  "frozen_dynamics_sha256": "421ae71793d558822da3ff8b16a40c4189fb118d30025cc9f08ca7d666a0fcab",
+  "frozen_analyzer_sha256": "d5df92ce1423e740f77a5928c1d4a58745d7fcbd37558aad23895c8053efbb1e",
+  "wrapper": "protocol/analyze_postfreeze_amendment.py",
+  "wrapper_sha256": "2df9e13b7ad2666027d073f9c5bc7f61f1304487332cac5c724b57f18fb1c0e3",
+  "scope": "PDE/dense metadata compatibility during analysis only",
+  "trigger": "frozen PDE archives determine m and d from X, y, and observable shapes but do not store redundant scalar m and d keys; the frozen analyzer required those keys before loading any curve values. Dense archives store and preregister the exact seed vector as an NPZ array and include it in the scientific-configuration hash, but omit the redundant seed_ids JSON field. Two analyzer expressions eagerly evaluate a legacy seed_start default even when authoritative seed_blocks exist. The wrapper also registers the dynamically loaded frozen module before execution, as required by Python 3.12 dataclass resolution.",
+  "in_memory_change": "register the frozen analyzer module in sys.modules before execution; remove only m and d from the expected case-metadata dictionary; reconstruct seed_ids as the consecutive range declared by seed_start and seeds before validating the scientific-configuration hash, stored seed array, and preregistered block schedule; and provide seed_start as an in-memory alias of the first authoritative seed block for the two affected tiers",
+  "preserved_checks": [
+    "case_id and case SHA-256",
+    "registry SHA-256",
+    "exact X and y",
+    "activation and physical parameters",
+    "observable shapes, which independently enforce m",
+    "fixed ambient d=3 registry validation",
+    "PDE and dense stage seals and every archive hash",
+    "all solver, seed, width, depth, horizon, tier, bootstrap, and decision rules",
+    "exact equality between reconstructed seed_ids, the stored integer seed array, and the preregistered block schedule"
+  ],
+  "scientific_effect": "none; no observable, normalization, metric, confidence bound, or decision is changed"
+}

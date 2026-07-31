@@ -1,0 +1,1099 @@
+[
+  {
+    "n": 64,
+    "depth": 16,
+    "seed": 1,
+    "X": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "y": [
+      0.8,
+      -0.55,
+      0.35
+    ],
+    "sigma_w": 0.65,
+    "A": 1.0,
+    "gamma": 1.0,
+    "restart_time": 0.0,
+    "duration": 32.0,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "control_order": false,
+    "group": "central",
+    "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+    "id": "central_n64_L16_s1_sw0p65_A1_g1_r0_dt0p02",
+    "requested_orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "config_sha256": "0215196437e28b99e7aebfc3c17f96f18155e8431c97d425121df65688930558",
+    "model": "dense unconstrained 1/L residual tanh ResNet",
+    "training": "ordinary Euclidean muP gradient flow",
+    "surrogate": "coupled q/r finite-matrix response projection",
+    "actual_compiled_liouville_pde_run": false,
+    "integrator": "fixed-step classical RK4",
+    "samples_recorded": 801,
+    "status": "completed"
+  },
+  {
+    "n": 64,
+    "depth": 16,
+    "seed": 2,
+    "X": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "y": [
+      0.8,
+      -0.55,
+      0.35
+    ],
+    "sigma_w": 0.65,
+    "A": 1.0,
+    "gamma": 1.0,
+    "restart_time": 0.0,
+    "duration": 32.0,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "control_order": false,
+    "group": "central",
+    "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+    "id": "central_n64_L16_s2_sw0p65_A1_g1_r0_dt0p02",
+    "requested_orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "config_sha256": "86d01384192830290f2956b0d45f8f2866dc213f9d5dbc7abb78266aeeed9c10",
+    "model": "dense unconstrained 1/L residual tanh ResNet",
+    "training": "ordinary Euclidean muP gradient flow",
+    "surrogate": "coupled q/r finite-matrix response projection",
+    "actual_compiled_liouville_pde_run": false,
+    "integrator": "fixed-step classical RK4",
+    "samples_recorded": 801,
+    "status": "completed"
+  },
+  {
+    "n": 64,
+    "depth": 16,
+    "seed": 3,
+    "X": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "y": [
+      0.8,
+      -0.55,
+      0.35
+    ],
+    "sigma_w": 0.65,
+    "A": 1.0,
+    "gamma": 1.0,
+    "restart_time": 0.0,
+    "duration": 32.0,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "control_order": false,
+    "group": "central",
+    "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+    "id": "central_n64_L16_s3_sw0p65_A1_g1_r0_dt0p02",
+    "requested_orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "config_sha256": "bb3614edc1904aec5edaaa8ca3b1b0e28f5ea017f29cbb079c5ebdfcd74bf439",
+    "model": "dense unconstrained 1/L residual tanh ResNet",
+    "training": "ordinary Euclidean muP gradient flow",
+    "surrogate": "coupled q/r finite-matrix response projection",
+    "actual_compiled_liouville_pde_run": false,
+    "integrator": "fixed-step classical RK4",
+    "samples_recorded": 801,
+    "status": "completed"
+  },
+  {
+    "n": 64,
+    "depth": 16,
+    "seed": 4,
+    "X": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "y": [
+      0.8,
+      -0.55,
+      0.35
+    ],
+    "sigma_w": 0.65,
+    "A": 1.0,
+    "gamma": 1.0,
+    "restart_time": 0.0,
+    "duration": 32.0,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "control_order": false,
+    "group": "central",
+    "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+    "id": "central_n64_L16_s4_sw0p65_A1_g1_r0_dt0p02",
+    "requested_orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "config_sha256": "e4d4fc49131cf3f54f329ba6b1540a75bdecbc874202d642ed7ec06b31d53442",
+    "model": "dense unconstrained 1/L residual tanh ResNet",
+    "training": "ordinary Euclidean muP gradient flow",
+    "surrogate": "coupled q/r finite-matrix response projection",
+    "actual_compiled_liouville_pde_run": false,
+    "integrator": "fixed-step classical RK4",
+    "samples_recorded": 801,
+    "status": "completed"
+  },
+  {
+    "n": 64,
+    "depth": 16,
+    "seed": 5,
+    "X": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "y": [
+      0.8,
+      -0.55,
+      0.35
+    ],
+    "sigma_w": 0.65,
+    "A": 1.0,
+    "gamma": 1.0,
+    "restart_time": 0.0,
+    "duration": 32.0,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "control_order": false,
+    "group": "central",
+    "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+    "id": "central_n64_L16_s5_sw0p65_A1_g1_r0_dt0p02",
+    "requested_orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "config_sha256": "6da0ada455039df8420e0e657fb3ff9f34c16118ea205960c798fbf6390bd4a4",
+    "model": "dense unconstrained 1/L residual tanh ResNet",
+    "training": "ordinary Euclidean muP gradient flow",
+    "surrogate": "coupled q/r finite-matrix response projection",
+    "actual_compiled_liouville_pde_run": false,
+    "integrator": "fixed-step classical RK4",
+    "samples_recorded": 801,
+    "status": "completed"
+  },
+  {
+    "n": 64,
+    "depth": 16,
+    "seed": 6,
+    "X": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "y": [
+      0.8,
+      -0.55,
+      0.35
+    ],
+    "sigma_w": 0.65,
+    "A": 1.0,
+    "gamma": 1.0,
+    "restart_time": 0.0,
+    "duration": 32.0,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "control_order": false,
+    "group": "central",
+    "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+    "id": "central_n64_L16_s6_sw0p65_A1_g1_r0_dt0p02",
+    "requested_orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "config_sha256": "958f3fb2131acf8fe89abd59e75d47c2c8d54150dc45bb4b7ec82676c05f31ed",
+    "model": "dense unconstrained 1/L residual tanh ResNet",
+    "training": "ordinary Euclidean muP gradient flow",
+    "surrogate": "coupled q/r finite-matrix response projection",
+    "actual_compiled_liouville_pde_run": false,
+    "integrator": "fixed-step classical RK4",
+    "samples_recorded": 801,
+    "status": "completed"
+  },
+  {
+    "n": 32,
+    "depth": 16,
+    "seed": 7,
+    "X": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "y": [
+      0.8,
+      -0.55,
+      0.35
+    ],
+    "sigma_w": 0.65,
+    "A": 1.0,
+    "gamma": 1.0,
+    "restart_time": 0.0,
+    "duration": 32.0,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "control_order": false,
+    "group": "width",
+    "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+    "id": "width_n32_L16_s7_sw0p65_A1_g1_r0_dt0p02",
+    "requested_orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "config_sha256": "680476162e362ca3b26231c9f2e8327dc5f43cdf8045e96d5482a6017542e538",
+    "model": "dense unconstrained 1/L residual tanh ResNet",
+    "training": "ordinary Euclidean muP gradient flow",
+    "surrogate": "coupled q/r finite-matrix response projection",
+    "actual_compiled_liouville_pde_run": false,
+    "integrator": "fixed-step classical RK4",
+    "samples_recorded": 801,
+    "status": "completed"
+  },
+  {
+    "n": 96,
+    "depth": 16,
+    "seed": 7,
+    "X": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "y": [
+      0.8,
+      -0.55,
+      0.35
+    ],
+    "sigma_w": 0.65,
+    "A": 1.0,
+    "gamma": 1.0,
+    "restart_time": 0.0,
+    "duration": 32.0,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "control_order": false,
+    "group": "width",
+    "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+    "id": "width_n96_L16_s7_sw0p65_A1_g1_r0_dt0p02",
+    "requested_orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "config_sha256": "69524ad4c187b20c5862a4da71a69a7bd1921691a7e4e6a4f9685dfb7ba4933f",
+    "model": "dense unconstrained 1/L residual tanh ResNet",
+    "training": "ordinary Euclidean muP gradient flow",
+    "surrogate": "coupled q/r finite-matrix response projection",
+    "actual_compiled_liouville_pde_run": false,
+    "integrator": "fixed-step classical RK4",
+    "samples_recorded": 801,
+    "status": "completed"
+  },
+  {
+    "n": 64,
+    "depth": 8,
+    "seed": 8,
+    "X": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "y": [
+      0.8,
+      -0.55,
+      0.35
+    ],
+    "sigma_w": 0.65,
+    "A": 1.0,
+    "gamma": 1.0,
+    "restart_time": 0.0,
+    "duration": 32.0,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "control_order": false,
+    "group": "depth",
+    "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+    "id": "depth_n64_L8_s8_sw0p65_A1_g1_r0_dt0p02",
+    "requested_orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "config_sha256": "5b93eaf9105aad99413121bf1072b58b2653e44970ae141bceaf5c1b417ab7c9",
+    "model": "dense unconstrained 1/L residual tanh ResNet",
+    "training": "ordinary Euclidean muP gradient flow",
+    "surrogate": "coupled q/r finite-matrix response projection",
+    "actual_compiled_liouville_pde_run": false,
+    "integrator": "fixed-step classical RK4",
+    "samples_recorded": 801,
+    "status": "completed"
+  },
+  {
+    "n": 64,
+    "depth": 32,
+    "seed": 8,
+    "X": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "y": [
+      0.8,
+      -0.55,
+      0.35
+    ],
+    "sigma_w": 0.65,
+    "A": 1.0,
+    "gamma": 1.0,
+    "restart_time": 0.0,
+    "duration": 32.0,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "control_order": false,
+    "group": "depth",
+    "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+    "id": "depth_n64_L32_s8_sw0p65_A1_g1_r0_dt0p02",
+    "requested_orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "config_sha256": "01c26138bcd55a05d19f22a487c4f3676a9ce0d22b0203710d72b7aff3f4fb5f",
+    "model": "dense unconstrained 1/L residual tanh ResNet",
+    "training": "ordinary Euclidean muP gradient flow",
+    "surrogate": "coupled q/r finite-matrix response projection",
+    "actual_compiled_liouville_pde_run": false,
+    "integrator": "fixed-step classical RK4",
+    "samples_recorded": 801,
+    "status": "completed"
+  },
+  {
+    "n": 64,
+    "depth": 16,
+    "seed": 9,
+    "X": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "y": [
+      0.8,
+      -0.55,
+      0.35
+    ],
+    "sigma_w": 1.2,
+    "A": 1.0,
+    "gamma": 1.0,
+    "restart_time": 0.0,
+    "duration": 32.0,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "control_order": false,
+    "group": "stress",
+    "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+    "id": "stress_n64_L16_s9_sw1p2_A1_g1_r0_dt0p02",
+    "requested_orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "config_sha256": "a669df921e4f3e0316079801f61944032c678fecb5cfe631ed231f0f5156fca4",
+    "model": "dense unconstrained 1/L residual tanh ResNet",
+    "training": "ordinary Euclidean muP gradient flow",
+    "surrogate": "coupled q/r finite-matrix response projection",
+    "actual_compiled_liouville_pde_run": false,
+    "integrator": "fixed-step classical RK4",
+    "samples_recorded": 801,
+    "status": "completed"
+  },
+  {
+    "n": 64,
+    "depth": 16,
+    "seed": 10,
+    "X": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "y": [
+      0.8,
+      -0.55,
+      0.35
+    ],
+    "sigma_w": 1.2,
+    "A": 1.0,
+    "gamma": 1.0,
+    "restart_time": 0.0,
+    "duration": 32.0,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "control_order": false,
+    "group": "stress",
+    "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+    "id": "stress_n64_L16_s10_sw1p2_A1_g1_r0_dt0p02",
+    "requested_orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "config_sha256": "a4137f966ddc2d85978db242a32b9ecbd77e70c2f27dbac524dfc2e8c0ec2ced",
+    "model": "dense unconstrained 1/L residual tanh ResNet",
+    "training": "ordinary Euclidean muP gradient flow",
+    "surrogate": "coupled q/r finite-matrix response projection",
+    "actual_compiled_liouville_pde_run": false,
+    "integrator": "fixed-step classical RK4",
+    "samples_recorded": 801,
+    "status": "completed"
+  },
+  {
+    "n": 64,
+    "depth": 16,
+    "seed": 11,
+    "X": [
+      [
+        1.0,
+        0.03,
+        0.0
+      ],
+      [
+        0.0,
+        0.9995498987,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "y": [
+      0.83,
+      -0.57,
+      0.36
+    ],
+    "sigma_w": 0.6,
+    "A": 0.95,
+    "gamma": 1.05,
+    "restart_time": 0.0,
+    "duration": 32.0,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "control_order": false,
+    "group": "neighborhood",
+    "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+    "id": "neighborhood_n64_L16_s11_sw0p6_A0p95_g1p05_r0_dt0p02",
+    "requested_orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "config_sha256": "954799321254672619e6d51fc1196d5bc227b7950a142515d8c5d0e5d8546423",
+    "model": "dense unconstrained 1/L residual tanh ResNet",
+    "training": "ordinary Euclidean muP gradient flow",
+    "surrogate": "coupled q/r finite-matrix response projection",
+    "actual_compiled_liouville_pde_run": false,
+    "integrator": "fixed-step classical RK4",
+    "samples_recorded": 801,
+    "status": "completed"
+  },
+  {
+    "n": 64,
+    "depth": 16,
+    "seed": 12,
+    "X": [
+      [
+        1.0,
+        -0.025,
+        0.0
+      ],
+      [
+        0.0,
+        0.9996874512,
+        0.02
+      ],
+      [
+        0.0,
+        0.0,
+        0.99979998
+      ]
+    ],
+    "y": [
+      0.77,
+      -0.53,
+      0.34
+    ],
+    "sigma_w": 0.7,
+    "A": 1.05,
+    "gamma": 0.95,
+    "restart_time": 0.0,
+    "duration": 32.0,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "control_order": false,
+    "group": "neighborhood",
+    "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+    "id": "neighborhood_n64_L16_s12_sw0p7_A1p05_g0p95_r0_dt0p02",
+    "requested_orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "config_sha256": "8c3aa0cbc24e9293fc557dcef281c3ce7afc0d96aa7a505721a187ebba6cb147",
+    "model": "dense unconstrained 1/L residual tanh ResNet",
+    "training": "ordinary Euclidean muP gradient flow",
+    "surrogate": "coupled q/r finite-matrix response projection",
+    "actual_compiled_liouville_pde_run": false,
+    "integrator": "fixed-step classical RK4",
+    "samples_recorded": 801,
+    "status": "completed"
+  },
+  {
+    "n": 64,
+    "depth": 16,
+    "seed": 13,
+    "X": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "y": [
+      0.8,
+      -0.55,
+      0.35
+    ],
+    "sigma_w": 0.65,
+    "A": 1.0,
+    "gamma": 1.0,
+    "restart_time": 1.0,
+    "duration": 32.0,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "control_order": false,
+    "group": "restart",
+    "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+    "id": "restart_n64_L16_s13_sw0p65_A1_g1_r1_dt0p02",
+    "requested_orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "config_sha256": "05ec07ee376af5fdefdec9bcd58bb5f5d8d0f79830993eb76114ea03cbbda72c",
+    "model": "dense unconstrained 1/L residual tanh ResNet",
+    "training": "ordinary Euclidean muP gradient flow",
+    "surrogate": "coupled q/r finite-matrix response projection",
+    "actual_compiled_liouville_pde_run": false,
+    "integrator": "fixed-step classical RK4",
+    "samples_recorded": 801,
+    "status": "completed"
+  },
+  {
+    "n": 64,
+    "depth": 16,
+    "seed": 14,
+    "X": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "y": [
+      0.8,
+      -0.55,
+      0.35
+    ],
+    "sigma_w": 0.65,
+    "A": 1.0,
+    "gamma": 1.0,
+    "restart_time": 1.0,
+    "duration": 32.0,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "control_order": false,
+    "group": "restart",
+    "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+    "id": "restart_n64_L16_s14_sw0p65_A1_g1_r1_dt0p02",
+    "requested_orders": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "config_sha256": "8cf81fb9655788d89b3efeb3dabb4688161e4431d67390f19a938297e02f497e",
+    "model": "dense unconstrained 1/L residual tanh ResNet",
+    "training": "ordinary Euclidean muP gradient flow",
+    "surrogate": "coupled q/r finite-matrix response projection",
+    "actual_compiled_liouville_pde_run": false,
+    "integrator": "fixed-step classical RK4",
+    "samples_recorded": 801,
+    "status": "completed"
+  },
+  {
+    "n": 64,
+    "depth": 16,
+    "seed": 4,
+    "X": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "y": [
+      0.8,
+      -0.55,
+      0.35
+    ],
+    "sigma_w": 0.65,
+    "A": 1.0,
+    "gamma": 1.0,
+    "restart_time": 0.0,
+    "duration": 8.0,
+    "dt": 0.01,
+    "sample_dt": 0.04,
+    "orders": [
+      1,
+      2,
+      3
+    ],
+    "control_order": false,
+    "group": "refinement",
+    "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+    "id": "refinement_n64_L16_s4_sw0p65_A1_g1_r0_dt0p01",
+    "requested_orders": [
+      1,
+      2,
+      3
+    ],
+    "config_sha256": "ff26e856757e5cc7d02c694878ace0a6f77dfb64b24bef2dfc76e78cbc482f24",
+    "model": "dense unconstrained 1/L residual tanh ResNet",
+    "training": "ordinary Euclidean muP gradient flow",
+    "surrogate": "coupled q/r finite-matrix response projection",
+    "actual_compiled_liouville_pde_run": false,
+    "integrator": "fixed-step classical RK4",
+    "samples_recorded": 201,
+    "status": "completed"
+  },
+  {
+    "n": 64,
+    "depth": 16,
+    "seed": 4,
+    "X": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "y": [
+      0.8,
+      -0.55,
+      0.35
+    ],
+    "sigma_w": 0.65,
+    "A": 1.0,
+    "gamma": 1.0,
+    "restart_time": 0.0,
+    "duration": 8.0,
+    "dt": 0.005,
+    "sample_dt": 0.04,
+    "orders": [
+      1,
+      2,
+      3
+    ],
+    "control_order": false,
+    "group": "refinement",
+    "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+    "id": "refinement_n64_L16_s4_sw0p65_A1_g1_r0_dt0p005",
+    "requested_orders": [
+      1,
+      2,
+      3
+    ],
+    "config_sha256": "2cd2c0a22c7eb3f70ecf36ae441265d764b18f17927730ed343f40ed76ddb65b",
+    "model": "dense unconstrained 1/L residual tanh ResNet",
+    "training": "ordinary Euclidean muP gradient flow",
+    "surrogate": "coupled q/r finite-matrix response projection",
+    "actual_compiled_liouville_pde_run": false,
+    "integrator": "fixed-step classical RK4",
+    "samples_recorded": 201,
+    "status": "completed"
+  },
+  {
+    "n": 32,
+    "depth": 8,
+    "seed": 15,
+    "X": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "y": [
+      0.8,
+      -0.55,
+      0.35
+    ],
+    "sigma_w": 0.65,
+    "A": 1.0,
+    "gamma": 1.0,
+    "restart_time": 0.0,
+    "duration": 4.0,
+    "dt": 0.01,
+    "sample_dt": 0.04,
+    "orders": [
+      0,
+      1,
+      2,
+      8
+    ],
+    "control_order": true,
+    "group": "control",
+    "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+    "id": "control_n32_L8_s15_sw0p65_A1_g1_r0_dt0p01",
+    "requested_orders": [
+      0,
+      1,
+      2
+    ],
+    "config_sha256": "13ce51e28b4add4cc049e4dca90ba74230bef6ad4fd8cf879527daafdc8fc381",
+    "model": "dense unconstrained 1/L residual tanh ResNet",
+    "training": "ordinary Euclidean muP gradient flow",
+    "surrogate": "coupled q/r finite-matrix response projection",
+    "actual_compiled_liouville_pde_run": false,
+    "integrator": "fixed-step classical RK4",
+    "samples_recorded": 101,
+    "status": "completed"
+  }
+]

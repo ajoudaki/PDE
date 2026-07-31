@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "status": "frozen before all dense-reference generation",
+  "primary_pde": {
+    "case_curve": "stitch the seed-20260723 hybrid segments 0-to-8 and 8-to-32, dropping the duplicate t=8 sample",
+    "reference_depth_alignment": "linearly interpolate the dense Gram field from s=l/L to the PDE nodes s=j/N; for L=32 or 64 and N=16 this reduces exactly to subsampling",
+    "reference_time_alignment": "require byte-equal time grids; interpolation in training time is forbidden"
+  },
+  "final_reference_selection": {
+    "heldout_cases": ["Y1", "Y3", "Y4", "X2", "M5", "A1", "I1", "I2"],
+    "rule": "use the preregistered n=256,L=32,S=24 held-out tier for heldout_cases and n=128,L=32,S=32 screening tier for every other case",
+    "depth_diagnostic_role": "n=256,L=64,S=16 for I1 and I2 is diagnostic only and never substituted into the primary result"
+  },
+  "normalizations": {
+    "gram_error": "sup_{t,s} Frobenius norm of DeltaG_PDE-DeltaG_dense divided by max(sup||DeltaG_PDE||F,sup||DeltaG_dense||F,0.05)",
+    "output_error": "sup_t Euclidean norm of Deltaf_PDE-Deltaf_dense divided by max(||y||2,sup||Deltaf_PDE||2,sup||Deltaf_dense||2,0.1)",
+    "loss_error": "sup_t absolute difference between PDE loss and 0.5*||mean_dense_output-y||2^2 divided by max(PDE initial loss,dense-mean initial loss,0.1)",
+    "active_gram_case": "dense Gram motion divided by max_s ||G_dense(s,0)||F is at least 0.05",
+    "rms": "root mean square over all time, depth, and matrix entries; output RMS is over time and samples"
+  },
+  "uncertainty": {
+    "bootstrap_replicates": 2000,
+    "rng_seed": 2026072301,
+    "trajectory_unit": "one dense-network seed",
+    "screening_resampling": "resample 16 trajectories with replacement independently inside each of the two fixed S=16 blocks; reuse the same resampled indices for every screening case",
+    "confirmation_resampling": "resample 12 trajectories with replacement independently inside each of the two fixed S=12 blocks; reuse the same resampled indices for every confirmation case",
+    "mixed_final_family": "screening and confirmation block draws are independent within each replicate; take the maximum centered statistic over all 14 final cases",
+    "simultaneous_ucb": "observed metric plus the empirical 0.95 quantile of max_case(bootstrap_metric-observed_metric)",
+    "simultaneous_lcb": "observed metric minus the empirical 0.95 quantile of max_case(observed_metric-bootstrap_metric)",
+    "metrics": ["gram_error", "output_error", "loss_error"],
+    "multiplicity": "use one additional maximum over the three normalized primary metrics, so the reported joint UCB/LCB is simultaneous over cases and metrics",
+    "quantile": "numpy quantile method=higher",
+    "outcome_rule": "wide intervals are unresolved; no seed or case may be deleted"
+  },
+  "plateau": {
+    "windows": [[8.0, 16.0], [16.0, 32.0]],
+    "endpoint_output_drift": "||f(b)-f(a)||2 divided by the output normalization scale",
+    "endpoint_gram_drift": "max_s ||G(s,b)-G(s,a)||F divided by the Gram normalization scale",
+    "output_tail_arclength": "sum over recorded steps of ||f(t_k)-f(t_{k-1})||2 divided by output scale",
+    "gram_tail_arclength": "sum over recorded steps of max_s ||G(s,t_k)-G(s,t_{k-1})||F divided by Gram scale",
+    "analytic_output_speed_pde": "max over window of ||-Theta(t)(f(t)-y)||2 divided by output scale",
+    "analytic_output_speed_dense": "max over window of ||mean_seed[-Theta_seed(t)(f_seed(t)-y)]||2 divided by output scale",
+    "loss_drift": "absolute endpoint loss change divided by max(initial loss,0.1)",
+    "memberwise_p95": "95th percentile over dense seeds of max(normalized endpoint output drift,normalized endpoint Gram drift)",
+    "thresholds": {
+      "endpoint_output_or_gram_drift": 0.0001,
+      "output_or_gram_tail_arclength": 0.0002,
+      "analytic_output_speed": 0.00001,
+      "loss_drift": 0.000001,
+      "memberwise_p95": 0.001
+    },
+    "pass_rule": "both PDE and dense reference must pass every threshold on both 8-to-16 and 16-to-32 windows",
+    "fixed_budget_rule": "a failure at t=32 is reported as unresolved or a failure in this frozen study; no post-result horizon extension may enter the primary evidence"
+  },
+  "numerical_gates": {
+    "scramble": "compare primary and seed-20260724 hybrid PDE increments on t<=8; normalized Gram and output differences must each be <=0.01",
+    "fallback_R256": "if either scramble metric exceeds 0.01, run the primary seed with R=256 as a directional diagnostic, retain the frozen R=128 result, and mark that case numerically unresolved; the one-seed diagnostic cannot convert the trigger into a pass",
+    "qmc": "for B0,I1,I2 compare hybrid M81,R128 against QMC M256,R128; descriptive method crosscheck with 0.01 tolerance",
+    "time": "for I1,I2 compare dt=0.02 against dt=0.01; normalized Gram and output discrepancies <=0.005",
+    "depth": "for I1,I2 compare N=16 against N=32 after depth alignment; normalized Gram and output discrepancies <=0.005",
+    "identity": "max absolute loss_dot + e^T Theta e <=1e-10, minimum Theta eigenvalue >=-1e-10, and all values finite"
+  },
+  "decisions": {
+    "strong_transfer": "joint simultaneous 95% UCB <=0.05 for Gram, output, and loss, plus numerical and plateau gates; inactive Gram cases are judged only on output/loss and cannot count as Gram evidence",
+    "near_original_accuracy": "Gram simultaneous 95% UCB <=0.025",
+    "material_counterexample": "joint simultaneous 95% LCB >0.10 in any judged primary metric, an active-Gram case with PDE/dense feature-motion ratio outside [0.5,2], or a plateau pass/fail mismatch",
+    "broad_non_ad_hoc": "all 14 preregistered cases strongly transfer; otherwise report the exact boundary and never average failures away"
+  },
+  "secondary_outputs": [
+    "unnormalized numerator and denominator for each metric",
+    "absolute and terminal Gram gaps",
+    "RMS-per-entry Gram and RMS-per-sample output errors",
+    "tangent-kernel gap",
+    "feature-motion ratio",
+    "time and depth of every supremum",
+    "blockwise and leave-one-block-out values",
+    "all numerical and plateau diagnostics"
+  ]
+}

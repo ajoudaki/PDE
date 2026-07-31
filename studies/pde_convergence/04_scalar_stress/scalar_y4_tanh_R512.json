@@ -1,0 +1,219 @@
+{
+  "analyses": {
+    "tanh": {
+      "adjacent": {
+        "11_13": {
+          "final_state": {
+            "outgoing_tail": 0.0012690287252998319,
+            "projective_total": 0.008996010543615325,
+            "shadow_B": 0.008416142783869818,
+            "shadow_a": 0.0021965666219017164,
+            "shadow_c": 0.0019134804708345566,
+            "shadow_total": 0.00890605253719076
+          },
+          "observable": {
+            "gram": 4.623584833766513e-05,
+            "loss": 1.643423532587951e-05,
+            "output": 2.136539553676542e-05
+          }
+        },
+        "7_9": {
+          "final_state": {
+            "outgoing_tail": 0.0011559009773939699,
+            "projective_total": 0.004043199241330087,
+            "shadow_B": 0.003473712899802701,
+            "shadow_a": 0.0010015098621852883,
+            "shadow_c": 0.0013934309172835837,
+            "shadow_total": 0.0038744487395695215
+          },
+          "observable": {
+            "gram": 7.018980327670415e-05,
+            "loss": 8.663646937592806e-06,
+            "output": 1.654891588631635e-05
+          }
+        },
+        "9_11": {
+          "final_state": {
+            "outgoing_tail": 0.0014201181006453859,
+            "projective_total": 0.009392102411537479,
+            "shadow_B": 0.008683669382243199,
+            "shadow_a": 0.00254904647322885,
+            "shadow_c": 0.002071497146085178,
+            "shadow_total": 0.009284118282800336
+          },
+          "observable": {
+            "gram": 4.061875719797901e-05,
+            "loss": 1.7482692126757904e-05,
+            "output": 1.6135269978456712e-05
+          }
+        }
+      },
+      "errors_to_reference": {
+        "11": {
+          "gram": 4.623584833766513e-05,
+          "loss": 1.643423532587951e-05,
+          "output": 2.136539553676542e-05
+        },
+        "7": {
+          "gram": 0.00012153843297546439,
+          "loss": 3.8442214378819894e-05,
+          "output": 4.436598211710052e-05
+        },
+        "9": {
+          "gram": 8.010963161062567e-05,
+          "loss": 3.0417037598318153e-05,
+          "output": 3.510010688567711e-05
+        }
+      },
+      "reference_degree": 13,
+      "reference_endpoint": {
+        "f": 3.999999937247283,
+        "gram_motion": 4.117228689846353,
+        "loss": 1.968951732932773e-15
+      },
+      "reference_shells_final": {
+        "1": {
+          "c_norm": 0.6676008994437428,
+          "c_rms_per_mode": 0.47206512312290894,
+          "cdot_norm": 5.8887052282546236e-08,
+          "cdot_rms_per_mode": 4.16394339930752e-08,
+          "hcoef_norm": 1.9344059361396941,
+          "hcoef_rms_per_mode": 1.3678315550118894,
+          "mode_count": 2,
+          "pcoef_norm": 1.9019879936063733,
+          "pcoef_rms_per_mode": 1.3449086080144623
+        },
+        "11": {
+          "c_norm": 0.0014238061157686712,
+          "c_rms_per_mode": 0.0004110174221064389,
+          "cdot_norm": 3.2206768080823746e-10,
+          "cdot_rms_per_mode": 9.297293110595719e-11,
+          "hcoef_norm": 0.010856642076216774,
+          "hcoef_rms_per_mode": 0.0031340426125995857,
+          "mode_count": 12,
+          "pcoef_norm": 0.009693427178928264,
+          "pcoef_rms_per_mode": 0.0027982513955621337
+        },
+        "13": {
+          "c_norm": 0.0012690287252998319,
+          "c_rms_per_mode": 0.0003391621931461739,
+          "cdot_norm": 3.0217740399893863e-10,
+          "cdot_rms_per_mode": 8.076030827062873e-11,
+          "hcoef_norm": 0.010096431113703399,
+          "hcoef_rms_per_mode": 0.0026983847183316124,
+          "mode_count": 14,
+          "pcoef_norm": 0.013710697630821446,
+          "pcoef_rms_per_mode": 0.0036643380762990743
+        },
+        "3": {
+          "c_norm": 0.009172475511472086,
+          "c_rms_per_mode": 0.004586237755736043,
+          "cdot_norm": 2.123417145532951e-09,
+          "cdot_rms_per_mode": 1.0617085727664755e-09,
+          "hcoef_norm": 0.07594189163951925,
+          "hcoef_rms_per_mode": 0.03797094581975963,
+          "mode_count": 4,
+          "pcoef_norm": 0.03703185976991337,
+          "pcoef_rms_per_mode": 0.018515929884956685
+        },
+        "5": {
+          "c_norm": 0.0030441364362206514,
+          "c_rms_per_mode": 0.0012427634960258374,
+          "cdot_norm": 9.56021797738507e-10,
+          "cdot_rms_per_mode": 3.902942645729345e-10,
+          "hcoef_norm": 0.034296322345179556,
+          "hcoef_rms_per_mode": 0.014001414966617137,
+          "mode_count": 6,
+          "pcoef_norm": 0.012885428880059205,
+          "pcoef_rms_per_mode": 0.00526045431217786
+        },
+        "7": {
+          "c_norm": 0.002336920010993501,
+          "c_rms_per_mode": 0.0008262259934320228,
+          "cdot_norm": 6.734387122922029e-10,
+          "cdot_rms_per_mode": 2.380965400876765e-10,
+          "hcoef_norm": 0.023829759875075688,
+          "hcoef_rms_per_mode": 0.008425092400856558,
+          "mode_count": 8,
+          "pcoef_norm": 0.011395212753467108,
+          "pcoef_rms_per_mode": 0.004028816105520011
+        },
+        "9": {
+          "c_norm": 0.001126870856822917,
+          "c_rms_per_mode": 0.00035634785364259104,
+          "cdot_norm": 3.989784371959421e-10,
+          "cdot_rms_per_mode": 1.2616805988336203e-10,
+          "hcoef_norm": 0.014182377936187048,
+          "hcoef_rms_per_mode": 0.004484861691566922,
+          "mode_count": 10,
+          "pcoef_norm": 0.006973232955114936,
+          "pcoef_rms_per_mode": 0.0022051298793109896
+        }
+      },
+      "scales": {
+        "gram": 4.117228689846353,
+        "loss": 8.0,
+        "output": 4.0
+      }
+    }
+  },
+  "metadata": {
+    "canonical_dense_sha256": "6a56b7a5e2f7d57aa1136aa4f02b5745bfb17530297619a0c76ecd5eaea15550",
+    "canonical_solver_sha256": "c9c034e338cf08783857cb9e0d05715f852dae339b39de84e6f2b1743fd91244",
+    "claim_scope": "minimal scalar diagnostic; not a proof of the full four-label dense-limit conjecture",
+    "model": {
+      "A": 1.0,
+      "X": [
+        [
+          1.0
+        ]
+      ],
+      "gamma": 1.0,
+      "sigma_w": 0.65,
+      "y": [
+        4.0
+      ]
+    },
+    "pde": {
+      "M": 196,
+      "N": 4,
+      "R": 512,
+      "activations": [
+        "tanh"
+      ],
+      "active_mode_counts": {
+        "11": 42,
+        "13": 56,
+        "7": 20,
+        "9": 30
+      },
+      "base_order": 14,
+      "degrees": [
+        7,
+        9,
+        11,
+        13
+      ],
+      "dt": 0.025,
+      "duration": 2.0,
+      "integrator": "explicit midpoint",
+      "master_active_modes": 56,
+      "master_degree": 13,
+      "parity_reduced": true,
+      "sample_dt": 0.05,
+      "seed": 20260725
+    },
+    "script_sha256": "9a56b4f76870e168f39bb7a1a0e482a53dcbfb9d45436caac883eb1ddb512ee8",
+    "stress_activation": {
+      "bounded": true,
+      "formula": "sin(2.5 z)/2.5",
+      "lipschitz_constant": 1.0,
+      "name": "sine_2p5",
+      "odd": true,
+      "smooth": true
+    },
+    "wall_seconds": {
+      "pde_tanh": 126.24977250200027
+    }
+  }
+}

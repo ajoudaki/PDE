@@ -1,0 +1,21 @@
+{
+  "analysis_source_sha256": "d5df92ce1423e740f77a5928c1d4a58745d7fcbd37558aad23895c8053efbb1e",
+  "bootstrap_replicates": 2000,
+  "bootstrap_test_override": false,
+  "dense_seal_sha256": "e5c5e3fd71f144b4b346a0cd8ea37185c4315bc514358a7fc0908ed367f9c390",
+  "dynamics_sha256": "421ae71793d558822da3ff8b16a40c4189fb118d30025cc9f08ca7d666a0fcab",
+  "file_count": 8,
+  "files": {
+    "REPORT.md": "f95bda5750529150e15c5fbce9d93e8ef4d3bafde968f822ea6cdcb78f5d4e72",
+    "results/generalization/figures/all_case_errors.png": "079cf6b72e69704de2185fbc7ab0acb593526540a63fd67a16f23b4389f63c24",
+    "results/generalization/figures/gram_motion_curves.png": "ccb1cdcf4b27f6e7c4007655bef82b1df89b4ef69c798dcd5f6c84ecca8c1051",
+    "results/generalization/figures/loss_curves.png": "8e06099fd7fa98d9b0cbfb86bbebb66dc53f68aacc663ddacfd7f18485e8315a",
+    "results/generalization/processed/case_metrics.csv": "5eec54f3169230cad31e2fe77df1ddfa2fa133447b438e2c3e44fe3d9a471bb1",
+    "results/generalization/processed/numerical_metrics.csv": "20ed218b6737d853ead700409b9ec2c9b933a5314d781f6f05bed5eedd6a0055",
+    "results/generalization/processed/plateau_metrics.csv": "963990be6c360934aa1d3fec264fb3da64c7c9f913b17cdec1e265a82d98a557",
+    "results/generalization/processed/summary.json": "1b2ef37f8c58f6c3639933bb7926a7ccd8c80df9a3daeea32ac3c304cce18951"
+  },
+  "pde_seal_sha256": "8389943369fc137cf5ff618c5a2b48273ac81db30176ba299737f5b6959e316a",
+  "postfreeze_analysis_amendment_sha256": "eddd15e770ea98b545c3d64fa61b4b56a9baef56a06aa690912cd4f878b8d530",
+  "postfreeze_analysis_wrapper_sha256": "2df9e13b7ad2666027d073f9c5bc7f61f1304487332cac5c724b57f18fb1c0e3"
+}

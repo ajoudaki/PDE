@@ -1,0 +1,146 @@
+{
+  "traces": 19,
+  "per_run_rows": 74,
+  "horizon_rows": 272,
+  "required_order_rows": 276,
+  "refinement_rows": 8,
+  "representative_id": "central_n64_L16_s4_sw0p65_A1_g1_r0_dt0p02",
+  "report": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/REPORT.md",
+  "actual_compiled_liouville_pde_runs": 0,
+  "protocol_sha256": "5417c8ed7a2afed739d01e83521dc63bbee6bc7dbb74c269421d285ba376d945",
+  "included_traces": [
+    {
+      "run_id": "central_n64_L16_s1_sw0p65_A1_g1_r0_dt0p02",
+      "path": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/results/raw/central_n64_L16_s1_sw0p65_A1_g1_r0_dt0p02.npz",
+      "config_sha256": "0215196437e28b99e7aebfc3c17f96f18155e8431c97d425121df65688930558",
+      "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+      "file_sha256": "65c2e93c3fb054a9e1d46151105427abf3bce1216df28aa710c31d2ff9c910f2"
+    },
+    {
+      "run_id": "central_n64_L16_s2_sw0p65_A1_g1_r0_dt0p02",
+      "path": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/results/raw/central_n64_L16_s2_sw0p65_A1_g1_r0_dt0p02.npz",
+      "config_sha256": "86d01384192830290f2956b0d45f8f2866dc213f9d5dbc7abb78266aeeed9c10",
+      "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+      "file_sha256": "62edbe4bb9b7f681a1d2d8ded59bcd8a98cef5fb25f36d224d18ff1a9a9dff46"
+    },
+    {
+      "run_id": "central_n64_L16_s3_sw0p65_A1_g1_r0_dt0p02",
+      "path": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/results/raw/central_n64_L16_s3_sw0p65_A1_g1_r0_dt0p02.npz",
+      "config_sha256": "bb3614edc1904aec5edaaa8ca3b1b0e28f5ea017f29cbb079c5ebdfcd74bf439",
+      "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+      "file_sha256": "b55277c834a38e45456a825938c9d1a356b829e6d7056982148a0e135fe30967"
+    },
+    {
+      "run_id": "central_n64_L16_s4_sw0p65_A1_g1_r0_dt0p02",
+      "path": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/results/raw/central_n64_L16_s4_sw0p65_A1_g1_r0_dt0p02.npz",
+      "config_sha256": "e4d4fc49131cf3f54f329ba6b1540a75bdecbc874202d642ed7ec06b31d53442",
+      "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+      "file_sha256": "369571650485ebec49bb5b02067e7135889f493812931ebd612dace002c86550"
+    },
+    {
+      "run_id": "central_n64_L16_s5_sw0p65_A1_g1_r0_dt0p02",
+      "path": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/results/raw/central_n64_L16_s5_sw0p65_A1_g1_r0_dt0p02.npz",
+      "config_sha256": "6da0ada455039df8420e0e657fb3ff9f34c16118ea205960c798fbf6390bd4a4",
+      "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+      "file_sha256": "be07f499384002e062cc7a3780ecc4e83df609bd3db6b9a0b2494ea9db7edb46"
+    },
+    {
+      "run_id": "central_n64_L16_s6_sw0p65_A1_g1_r0_dt0p02",
+      "path": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/results/raw/central_n64_L16_s6_sw0p65_A1_g1_r0_dt0p02.npz",
+      "config_sha256": "958f3fb2131acf8fe89abd59e75d47c2c8d54150dc45bb4b7ec82676c05f31ed",
+      "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+      "file_sha256": "b5ef97e556c2f4e6c10bdce9392d4552643c88fb3c043116736e28b27cf4ec71"
+    },
+    {
+      "run_id": "control_n32_L8_s15_sw0p65_A1_g1_r0_dt0p01",
+      "path": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/results/raw/control_n32_L8_s15_sw0p65_A1_g1_r0_dt0p01.npz",
+      "config_sha256": "13ce51e28b4add4cc049e4dca90ba74230bef6ad4fd8cf879527daafdc8fc381",
+      "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+      "file_sha256": "ea47ab25c4c6e859ee45e5516038b892b39b004d85d65d72e55a61f711006a8b"
+    },
+    {
+      "run_id": "depth_n64_L32_s8_sw0p65_A1_g1_r0_dt0p02",
+      "path": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/results/raw/depth_n64_L32_s8_sw0p65_A1_g1_r0_dt0p02.npz",
+      "config_sha256": "01c26138bcd55a05d19f22a487c4f3676a9ce0d22b0203710d72b7aff3f4fb5f",
+      "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+      "file_sha256": "bf5e6647cb4d571defdbaef9483ec280c29e4ab303ff7c90fd2a2e40597b0d46"
+    },
+    {
+      "run_id": "depth_n64_L8_s8_sw0p65_A1_g1_r0_dt0p02",
+      "path": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/results/raw/depth_n64_L8_s8_sw0p65_A1_g1_r0_dt0p02.npz",
+      "config_sha256": "5b93eaf9105aad99413121bf1072b58b2653e44970ae141bceaf5c1b417ab7c9",
+      "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+      "file_sha256": "cf83f4d1375205d802a578fd3077461c7af448b9ec3d9c05fd4b91db35b7941b"
+    },
+    {
+      "run_id": "neighborhood_n64_L16_s11_sw0p6_A0p95_g1p05_r0_dt0p02",
+      "path": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/results/raw/neighborhood_n64_L16_s11_sw0p6_A0p95_g1p05_r0_dt0p02.npz",
+      "config_sha256": "954799321254672619e6d51fc1196d5bc227b7950a142515d8c5d0e5d8546423",
+      "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+      "file_sha256": "15c671d61e7978ff936f031bdf942f1c56cc797101ac4ec86a4c1738983a4436"
+    },
+    {
+      "run_id": "neighborhood_n64_L16_s12_sw0p7_A1p05_g0p95_r0_dt0p02",
+      "path": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/results/raw/neighborhood_n64_L16_s12_sw0p7_A1p05_g0p95_r0_dt0p02.npz",
+      "config_sha256": "8c3aa0cbc24e9293fc557dcef281c3ce7afc0d96aa7a505721a187ebba6cb147",
+      "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+      "file_sha256": "88483ef1f5e386153129d5e15d9eb2454dfa42990b5900bf934af919e31fcf21"
+    },
+    {
+      "run_id": "refinement_n64_L16_s4_sw0p65_A1_g1_r0_dt0p005",
+      "path": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/results/raw/refinement_n64_L16_s4_sw0p65_A1_g1_r0_dt0p005.npz",
+      "config_sha256": "2cd2c0a22c7eb3f70ecf36ae441265d764b18f17927730ed343f40ed76ddb65b",
+      "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+      "file_sha256": "8016a1859e9df19467ed7921c517a56140f21b67274ab8b5b33d20ea84212a21"
+    },
+    {
+      "run_id": "refinement_n64_L16_s4_sw0p65_A1_g1_r0_dt0p01",
+      "path": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/results/raw/refinement_n64_L16_s4_sw0p65_A1_g1_r0_dt0p01.npz",
+      "config_sha256": "ff26e856757e5cc7d02c694878ace0a6f77dfb64b24bef2dfc76e78cbc482f24",
+      "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+      "file_sha256": "85dc83b4388ed36af12b21a66b284d3cf66c528d326740b35cbcbecaa64fb27a"
+    },
+    {
+      "run_id": "restart_n64_L16_s13_sw0p65_A1_g1_r1_dt0p02",
+      "path": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/results/raw/restart_n64_L16_s13_sw0p65_A1_g1_r1_dt0p02.npz",
+      "config_sha256": "05ec07ee376af5fdefdec9bcd58bb5f5d8d0f79830993eb76114ea03cbbda72c",
+      "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+      "file_sha256": "affb865645343ec637fada9f8a57bf3c3555be4a6fc0343da40426c9a18acf1d"
+    },
+    {
+      "run_id": "restart_n64_L16_s14_sw0p65_A1_g1_r1_dt0p02",
+      "path": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/results/raw/restart_n64_L16_s14_sw0p65_A1_g1_r1_dt0p02.npz",
+      "config_sha256": "8cf81fb9655788d89b3efeb3dabb4688161e4431d67390f19a938297e02f497e",
+      "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+      "file_sha256": "dbf1f447b394a8ee418f50f98e0d28ccc6cf3bd9937869be4f406bcd6c8ed6cf"
+    },
+    {
+      "run_id": "stress_n64_L16_s10_sw1p2_A1_g1_r0_dt0p02",
+      "path": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/results/raw/stress_n64_L16_s10_sw1p2_A1_g1_r0_dt0p02.npz",
+      "config_sha256": "a4137f966ddc2d85978db242a32b9ecbd77e70c2f27dbac524dfc2e8c0ec2ced",
+      "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+      "file_sha256": "9e34a69f2bd254c1dd6e4324159f6668adeee687390a2c2fc01af7f34d369202"
+    },
+    {
+      "run_id": "stress_n64_L16_s9_sw1p2_A1_g1_r0_dt0p02",
+      "path": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/results/raw/stress_n64_L16_s9_sw1p2_A1_g1_r0_dt0p02.npz",
+      "config_sha256": "a669df921e4f3e0316079801f61944032c678fecb5cfe631ed231f0f5156fca4",
+      "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+      "file_sha256": "0320635d2cf09b0bc2144871ff77f8e0f9fca1af3a3cda6ae44de3d03a200d95"
+    },
+    {
+      "run_id": "width_n32_L16_s7_sw0p65_A1_g1_r0_dt0p02",
+      "path": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/results/raw/width_n32_L16_s7_sw0p65_A1_g1_r0_dt0p02.npz",
+      "config_sha256": "680476162e362ca3b26231c9f2e8327dc5f43cdf8045e96d5482a6017542e538",
+      "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+      "file_sha256": "bc1c9044f50879014fbe5875258d18888e26ad9403c6170023adcb59abc5c75f"
+    },
+    {
+      "run_id": "width_n96_L16_s7_sw0p65_A1_g1_r0_dt0p02",
+      "path": "/workspace/scratch/2feb55e267ca/dense_mup_long_horizon_repro/results/raw/width_n96_L16_s7_sw0p65_A1_g1_r0_dt0p02.npz",
+      "config_sha256": "69524ad4c187b20c5862a4da71a69a7bd1921691a7e4e6a4f9685dfb7ba4933f",
+      "code_sha256": "91223842b0e681fe8f896e359909d9fcca08d34d2d3bf7cc88c734a4658a1fd6",
+      "file_sha256": "8441e0ff28b5dfcb2b7cae6948ffff15b07ca439cbc865205b16c637b827815c"
+    }
+  ]
+}

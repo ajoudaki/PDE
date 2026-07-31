@@ -1,0 +1,17 @@
+{
+  "captured_utc_date": "2026-07-23",
+  "python": "3.12.13",
+  "platform": "Linux 6.12.13 x86_64, glibc 2.39",
+  "cpu": "Intel Xeon Platinum 8573C",
+  "available_logical_cpus": 9,
+  "packages": {
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "matplotlib": "3.10.8"
+  },
+  "notes": [
+    "All stored production trajectories use float64.",
+    "Dense ensembles use process-level parallelism; changing worker count does not change per-seed RNG streams.",
+    "Set MPLCONFIGDIR to a writable temporary directory when regenerating figures."
+  ]
+}

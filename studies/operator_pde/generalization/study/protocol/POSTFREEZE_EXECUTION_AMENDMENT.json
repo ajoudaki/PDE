@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "date": "2026-07-23",
+  "status": "declared after all dense trajectories completed but before dense sealing or scientific-result analysis",
+  "frozen_dynamics_sha256": "421ae71793d558822da3ff8b16a40c4189fb118d30025cc9f08ca7d666a0fcab",
+  "frozen_run_grid_sha256": "656f8b4efb0d62998f40ea830ae66dca40b9e5b807a0c3f127f6a0fcb3ddf4c1",
+  "wrapper": "protocol/seal_dense_postfreeze_amendment.py",
+  "wrapper_sha256": "01917f880638a25977d782e2982f7887f2f01a7ca8dde530f54ec5410d620977",
+  "scope": "dense-stage sealing only",
+  "trigger": "dict.get eagerly evaluated the unused default expression containing tier['seed_start'] even though screening and confirmation tiers have authoritative seed_blocks",
+  "in_memory_change": {
+    "screening_reference.seed_start": 41000,
+    "heldout_confirmation.seed_start": 51000
+  },
+  "scientific_effect": "none; the added values are redundant first-block starts and are not used when seed_blocks is present",
+  "prohibited_changes": [
+    "no frozen source or protocol file is modified",
+    "no PDE or dense trajectory archive is modified",
+    "no case, seed, width, depth, horizon, threshold, tier, or decision is modified",
+    "no scientific result is inspected to choose the amendment"
+  ],
+  "expected_dense_archive_count": 46
+}

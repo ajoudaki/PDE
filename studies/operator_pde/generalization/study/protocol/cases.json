@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "description": "Preregistered sparse transfer matrix for the fixed P=5 operator-Liouville PDE",
+  "cases": {
+    "B0": {
+      "family": "anchor",
+      "scope": "original",
+      "description": "Original orthogonal-input, mixed-label tanh case",
+      "X": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+      "y": [0.8, -0.55, 0.35],
+      "activation": "tanh",
+      "sigma_w": 0.65,
+      "A": 1.0,
+      "gamma": 1.0
+    },
+    "Y1": {
+      "family": "labels",
+      "scope": "stated_neighborhood_boundary",
+      "description": "Label perturbation of Euclidean norm exactly 0.05",
+      "X": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+      "y": [0.8288675134594813, -0.5211324865405188, 0.3211324865405187],
+      "activation": "tanh",
+      "sigma_w": 0.65,
+      "A": 1.0,
+      "gamma": 1.0
+    },
+    "Y2": {
+      "family": "labels",
+      "scope": "extrapolation",
+      "description": "Flat all-positive label direction at the original label norm",
+      "X": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+      "y": [0.5958187643906493, 0.5958187643906493, 0.5958187643906493],
+      "activation": "tanh",
+      "sigma_w": 0.65,
+      "A": 1.0,
+      "gamma": 1.0
+    },
+    "Y3": {
+      "family": "labels",
+      "scope": "extrapolation",
+      "description": "Concentrated label direction at the original label norm",
+      "X": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+      "y": [1.0319883720275147, 0.0, 0.0],
+      "activation": "tanh",
+      "sigma_w": 0.65,
+      "A": 1.0,
+      "gamma": 1.0
+    },
+    "Y4": {
+      "family": "labels",
+      "scope": "extrapolation",
+      "description": "Twice the original label amplitude",
+      "X": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+      "y": [1.6, -1.1, 0.7],
+      "activation": "tanh",
+      "sigma_w": 0.65,
+      "A": 1.0,
+      "gamma": 1.0
+    },
+    "X1": {
+      "family": "input_geometry",
+      "scope": "extrapolation",
+      "description": "Generic asymmetric unit-vector geometry",
+      "X": [[1.0, 0.5, 0.2], [0.0, 0.8660254037844386, -0.3], [0.0, 0.0, 0.9327379053088816]],
+      "y": [0.8, -0.55, 0.35],
+      "activation": "tanh",
+      "sigma_w": 0.65,
+      "A": 1.0,
+      "gamma": 1.0
+    },
+    "X2": {
+      "family": "input_geometry",
+      "scope": "extrapolation",
+      "description": "Strongly correlated equicorrelation-0.85 geometry",
+      "X": [[0.8059214472523273, 0.4186231126315856, 0.4186231126315856], [0.4186231126315856, 0.8059214472523273, 0.4186231126315856], [0.4186231126315856, 0.4186231126315856, 0.8059214472523273]],
+      "y": [0.8, -0.55, 0.35],
+      "activation": "tanh",
+      "sigma_w": 0.65,
+      "A": 1.0,
+      "gamma": 1.0
+    },
+    "M2": {
+      "family": "sample_count",
+      "scope": "extrapolation",
+      "description": "Two-sample subset in fixed ambient dimension three",
+      "X": [[1.0, 0.0], [0.0, 1.0], [0.0, 0.0]],
+      "y": [0.8, -0.55],
+      "activation": "tanh",
+      "sigma_w": 0.65,
+      "A": 1.0,
+      "gamma": 1.0
+    },
+    "M4": {
+      "family": "sample_count",
+      "scope": "extrapolation",
+      "description": "Four samples in fixed ambient dimension three",
+      "X": [[1.0, 0.0, 0.0, 0.5773502691896258], [0.0, 1.0, 0.0, 0.5773502691896258], [0.0, 0.0, 1.0, 0.5773502691896258]],
+      "y": [0.8, -0.55, 0.35, -0.7],
+      "activation": "tanh",
+      "sigma_w": 0.65,
+      "A": 1.0,
+      "gamma": 1.0
+    },
+    "M5": {
+      "family": "sample_count",
+      "scope": "extrapolation",
+      "description": "Five samples in fixed ambient dimension three",
+      "X": [[1.0, 0.0, 0.0, 0.5773502691896258, 0.4082482904638631], [0.0, 1.0, 0.0, 0.5773502691896258, -0.8164965809277261], [0.0, 0.0, 1.0, 0.5773502691896258, 0.4082482904638631]],
+      "y": [0.8, -0.55, 0.35, -0.7, 0.4],
+      "activation": "tanh",
+      "sigma_w": 0.65,
+      "A": 1.0,
+      "gamma": 1.0
+    },
+    "A1": {
+      "family": "activation",
+      "scope": "activation_extension",
+      "description": "Normalized erf activation with original data",
+      "X": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+      "y": [0.8, -0.55, 0.35],
+      "activation": "erf",
+      "sigma_w": 0.65,
+      "A": 1.0,
+      "gamma": 1.0
+    },
+    "A2": {
+      "family": "activation",
+      "scope": "activation_extension",
+      "description": "Normalized arctangent activation with original data",
+      "X": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+      "y": [0.8, -0.55, 0.35],
+      "activation": "atan",
+      "sigma_w": 0.65,
+      "A": 1.0,
+      "gamma": 1.0
+    },
+    "I1": {
+      "family": "interaction",
+      "scope": "extrapolation",
+      "description": "Strong correlation crossed with doubled labels",
+      "X": [[0.8059214472523273, 0.4186231126315856, 0.4186231126315856], [0.4186231126315856, 0.8059214472523273, 0.4186231126315856], [0.4186231126315856, 0.4186231126315856, 0.8059214472523273]],
+      "y": [1.6, -1.1, 0.7],
+      "activation": "tanh",
+      "sigma_w": 0.65,
+      "A": 1.0,
+      "gamma": 1.0
+    },
+    "I2": {
+      "family": "interaction",
+      "scope": "activation_extension",
+      "description": "Five-sample case crossed with normalized erf",
+      "X": [[1.0, 0.0, 0.0, 0.5773502691896258, 0.4082482904638631], [0.0, 1.0, 0.0, 0.5773502691896258, -0.8164965809277261], [0.0, 0.0, 1.0, 0.5773502691896258, 0.4082482904638631]],
+      "y": [0.8, -0.55, 0.35, -0.7, 0.4],
+      "activation": "erf",
+      "sigma_w": 0.65,
+      "A": 1.0,
+      "gamma": 1.0
+    }
+  },
+  "controls": {
+    "duplicate_conflict": {
+      "description": "Irreducible nonzero-loss plateau control; not positive transfer evidence",
+      "X": [[1.0, 1.0, 0.0], [0.0, 0.0, 1.0], [0.0, 0.0, 0.0]],
+      "y": [0.8, -0.4, 0.35],
+      "activation": "tanh"
+    }
+  }
+}

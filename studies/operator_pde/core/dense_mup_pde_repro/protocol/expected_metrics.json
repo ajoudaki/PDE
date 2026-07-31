@@ -1,0 +1,20 @@
+{
+  "tolerances": {
+    "primary_gram_increment_gap": 2e-6,
+    "pde_feature_motion": 2e-6,
+    "loss_of_mean_gap": 2e-6,
+    "plateau_drift_upper_bound": 1e-10
+  },
+  "expected": {
+    "primary_gram_increment_gap": 0.007243343266500024,
+    "pde_feature_motion": 0.6338011211613804,
+    "loss_of_mean_gap": 0.0018456582720173254
+  },
+  "qualitative_checks": [
+    "primary metadata identifies a width-independent PDE with no dense weight matrix",
+    "P=15 Gram-increment gap is larger than P=5 on the audited primary reference",
+    "ordered-limit Cauchy and PDE decision tables are present",
+    "PDE output and all-depth Gram drift from t=8 to t=32 are below the plateau bound"
+  ],
+  "scope": "Canonical source-rerun metrics only; historical pilot archive counts and byte-identical NPZ hashes are excluded."
+}

@@ -1,0 +1,108 @@
+{
+  "dynamics_sha256": "3fec4bf5b33b88cd17ee91dbdfa8b935a15087a58a202244e05c1654d3cc1a00",
+  "execution_files": {
+    "analyze_activation.py": "a1eae863183de3ac0abd5ca1c49b5d54c56a5e8506cc30a1f851e3c277484b83",
+    "requirements-lock.txt": "815360a00e0e1d7a128cade3de11b66d3fe997cbd6e2c69f8081eb9bc8b88197",
+    "run_experiment.py": "ce0da1185a2fa32dfb28734be1cb967ef4065a8743bd7622642b5e53235cd4d1",
+    "tests/test_extension.py": "75060f60efe50a630a186ed48f45fb584f863f28e176de9051f3bcc2c8ba1b4f"
+  },
+  "execution_sha256": "b5ed0d0ad7253d00f5183ff045e322ab742470d0edd81ef17ee12168bb915eb8",
+  "inference_roles": {
+    "confirmatory_activation_case": "C2",
+    "descriptive_activation_cases": [
+      "C1",
+      "C4"
+    ],
+    "first_hermite_null_case": "L2",
+    "identity_null_case": "C0"
+  },
+  "orchestrator_sha256": "ce0da1185a2fa32dfb28734be1cb967ef4065a8743bd7622642b5e53235cd4d1",
+  "parent_source_lineage": {
+    "expected_parent_release_sha256": "8e66e442fb322380acce93a0b59da4851a319401a087bb4b3e3146ed0c1de003",
+    "files": {
+      "source/operator_galerkin_pde.md": {
+        "current_sha256": "2b4ff8b6ed5ce335dd5bd72d90fa431f22c79d9fcf8fea57a7e4ae1ca59059aa",
+        "parent_sha256": "2b4ff8b6ed5ce335dd5bd72d90fa431f22c79d9fcf8fea57a7e4ae1ca59059aa",
+        "parent_zip_member": "dense_mup_pde_generalization_repro/study/theory/operator_galerkin_pde.md",
+        "status": "unchanged"
+      },
+      "source/run_exact_reference.py": {
+        "current_sha256": "3eb1987229ade1994397249814917f489064ab76de8d2aeccc39bceb67e1b4d8",
+        "parent_sha256": "e9e9570af6ba2f42704d9cdd7d8c28eb195bf1ae364c8a80180f4d98e9593edc",
+        "parent_zip_member": "dense_mup_pde_generalization_repro/study/run_exact_reference.py",
+        "status": "modified"
+      },
+      "source/run_pde.py": {
+        "current_sha256": "4206d09dfecf2f1edd4c8d633c8bcd58fb3f3efab88b50f951efe04f0b27bd14",
+        "parent_sha256": "fd4e7febc8affad3c8713b869f79d35ba378a4fb49426c05073016110613782e",
+        "parent_zip_member": "dense_mup_pde_generalization_repro/study/run_pde.py",
+        "status": "modified"
+      },
+      "source/src/activations.py": {
+        "current_sha256": "bc60a2019ca479d5bdf5d9af2bf6992dddf9c07e22ee7abd67f5782d385f8d0b",
+        "parent_sha256": "463084340424c7ad83dec05cc57c962861fed4d137d89c8312c510f283e371cf",
+        "parent_zip_member": "dense_mup_pde_generalization_repro/study/src/activations.py",
+        "status": "modified"
+      },
+      "source/src/dense_pde/__init__.py": {
+        "current_sha256": "dc5c17fbb242b372f17617acc2587584d9eed7fb52bcce6f52d2acc8fbea8599",
+        "parent_sha256": "dc5c17fbb242b372f17617acc2587584d9eed7fb52bcce6f52d2acc8fbea8599",
+        "parent_zip_member": "dense_mup_pde_generalization_repro/study/src/dense_pde/__init__.py",
+        "status": "unchanged"
+      },
+      "source/src/dense_pde/operator_galerkin.py": {
+        "current_sha256": "c9c034e338cf08783857cb9e0d05715f852dae339b39de84e6f2b1743fd91244",
+        "parent_sha256": "c9c034e338cf08783857cb9e0d05715f852dae339b39de84e6f2b1743fd91244",
+        "parent_zip_member": "dense_mup_pde_generalization_repro/study/src/dense_pde/operator_galerkin.py",
+        "status": "unchanged"
+      },
+      "source/src/dense_reference/__init__.py": {
+        "current_sha256": "8a237e2c30d320586a5e8c2b1c9c7c153c325ed1c65a92b1eb73c00de5dd8a0e",
+        "parent_sha256": "8a237e2c30d320586a5e8c2b1c9c7c153c325ed1c65a92b1eb73c00de5dd8a0e",
+        "parent_zip_member": "dense_mup_pde_generalization_repro/study/src/dense_reference/__init__.py",
+        "status": "unchanged"
+      },
+      "source/src/dense_reference/core.py": {
+        "current_sha256": "6a56b7a5e2f7d57aa1136aa4f02b5745bfb17530297619a0c76ecd5eaea15550",
+        "parent_sha256": "6a56b7a5e2f7d57aa1136aa4f02b5745bfb17530297619a0c76ecd5eaea15550",
+        "parent_zip_member": "dense_mup_pde_generalization_repro/study/src/dense_reference/core.py",
+        "status": "unchanged"
+      },
+      "source/src/study_cases.py": {
+        "current_sha256": "0ea5553534520495824d98d9dfd5ec5d3b69dd65e300e1af44c44c156c513103",
+        "parent_sha256": "8ea981a2ad4461f3c75b91a2e48d04bd86a9b2f98749ac0ec361f67922eb80bd",
+        "parent_zip_member": "dense_mup_pde_generalization_repro/study/src/study_cases.py",
+        "status": "modified"
+      },
+      "source/src/study_metrics.py": {
+        "current_sha256": "834276556fe1b5732418f3f5de0e505ac2a8df2b34bf81e8daf9c42d7d47e78c",
+        "parent_sha256": "834276556fe1b5732418f3f5de0e505ac2a8df2b34bf81e8daf9c42d7d47e78c",
+        "parent_zip_member": "dense_mup_pde_generalization_repro/study/src/study_metrics.py",
+        "status": "unchanged"
+      }
+    },
+    "parent_release_path": "parent/dense_mup_pde_generalization_repro.zip",
+    "parent_release_sha256": "8e66e442fb322380acce93a0b59da4851a319401a087bb4b3e3146ed0c1de003",
+    "patch_set_sha256": "c3e15991297ef42a316216e3f92c05b218509e18f5b4a328c53a653df63ca68b"
+  },
+  "protocol_files": {
+    "protocol/cases.json": "f17745421d1cf4bab34f3332540482134ffe7a895beb16dea22e542281c05663",
+    "protocol/preregistered_protocol.json": "6f09bf7cd10f633fd441c7337df1499122c3d31ddad0fc65944970bcc0e9acd1"
+  },
+  "protocol_sha256": "3df0356c7d9fd4e48f5d91fdfa4cbb08265fbe27cb198e2b21a1d72225f13fd4",
+  "schema_version": 1,
+  "source_files": {
+    "source/operator_galerkin_pde.md": "2b4ff8b6ed5ce335dd5bd72d90fa431f22c79d9fcf8fea57a7e4ae1ca59059aa",
+    "source/run_exact_reference.py": "3eb1987229ade1994397249814917f489064ab76de8d2aeccc39bceb67e1b4d8",
+    "source/run_pde.py": "4206d09dfecf2f1edd4c8d633c8bcd58fb3f3efab88b50f951efe04f0b27bd14",
+    "source/src/activations.py": "bc60a2019ca479d5bdf5d9af2bf6992dddf9c07e22ee7abd67f5782d385f8d0b",
+    "source/src/dense_pde/__init__.py": "dc5c17fbb242b372f17617acc2587584d9eed7fb52bcce6f52d2acc8fbea8599",
+    "source/src/dense_pde/operator_galerkin.py": "c9c034e338cf08783857cb9e0d05715f852dae339b39de84e6f2b1743fd91244",
+    "source/src/dense_reference/__init__.py": "8a237e2c30d320586a5e8c2b1c9c7c153c325ed1c65a92b1eb73c00de5dd8a0e",
+    "source/src/dense_reference/core.py": "6a56b7a5e2f7d57aa1136aa4f02b5745bfb17530297619a0c76ecd5eaea15550",
+    "source/src/study_cases.py": "0ea5553534520495824d98d9dfd5ec5d3b69dd65e300e1af44c44c156c513103",
+    "source/src/study_metrics.py": "834276556fe1b5732418f3f5de0e505ac2a8df2b34bf81e8daf9c42d7d47e78c"
+  },
+  "source_sha256": "3fec4bf5b33b88cd17ee91dbdfa8b935a15087a58a202244e05c1654d3cc1a00",
+  "stage": "activation_linearity_frozen_inputs"
+}
