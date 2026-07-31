@@ -35,4 +35,4 @@ Raw trajectories and metadata are in [`results/raw`](results/raw/):
 - `d151a33940003c1d18bf1386499408e26cf6bf526cc632bbc28afbecee607136` — primary PDE through `t=8`.
 - `f88274bf9d3957801f6ba4c078efefc50a8b6f7290fd10c851e413b7c9e9eb6e` — authenticated continuation from `t=8` to `t=32`.
 
-This reruns the central PDE and its autonomous plateau, not the complete refinement grid or the 128-member canonical dense ensemble. The small matched dense/PDE execution is reported separately in [`../core_pde_smoke`](../core_pde_smoke/).
+This reruns the central PDE and its autonomous plateau, not the complete refinement grid or the 128-member canonical dense ensemble. The small matched dense/PDE execution is reported separately in [`../smoke`](../smoke/).

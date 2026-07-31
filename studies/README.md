@@ -1,15 +1,21 @@
 # Research programs
 
-These four directories are the four distinct scientific narratives in the
-project. They are not intended to be uniform software packages.
+The active research tree has four scientific programs. Each program is
+organized for reading, reproduction, and extension; the exact historical ZIP
+layouts are preserved separately in [`../archive/bundles`](../archive/bundles/).
 
-| Program | Contents | Current reading |
-|---|---|---|
-| [`quadratic_nonclosure`](quadratic_nonclosure/) | Analytical closure and normalization audits | A conditional obstruction to the prescribed compiler, not to every finite PDE |
-| [`dense_response`](dense_response/) | Early audit and corrected long-horizon q/r experiments | Useful causal-mechanism evidence, but the surrogate retains dense matrices |
-| [`operator_pde`](operator_pde/) | Core PDE, transfer grid, activation controls, and fresh reruns | Strong finite-cutoff geometry and empirical low-order agreement |
-| [`pde_convergence`](pde_convergence/) | Proof audit through the final Hermite compactness round | Arbitrary-accuracy convergence remains open |
+| Program | Current role |
+|---|---|
+| [`quadratic_nonclosure`](quadratic_nonclosure/) | Analytical negative laboratory for the prescribed Taylor/Wick compiler |
+| [`dense_response`](dense_response/) | Finite-matrix response precursor and long-horizon diagnostic |
+| [`operator_pde`](operator_pde/) | Direct finite-cutoff PDE, transfer study, activation controls, and reproductions |
+| [`pde_convergence`](pde_convergence/) | Chronological attempt to prove cutoff convergence and arbitrary accuracy |
+
+There is no mandatory internal template. A phase exposes its report, main
+runner, and results as directly as its scientific form allows. Phase-local
+source trees remain separate when their frozen protocols or model definitions
+genuinely differ.
 
 The [master monograph](../FINITE_CAUSAL_NEURAL_PDE_MASTER_MONOGRAPH_v2.1_2026-07-28.md)
-is the authoritative cross-program synthesis.
+is the authoritative synthesis.
 

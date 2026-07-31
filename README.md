@@ -19,9 +19,10 @@ type:
 | [`studies/operator_pde`](studies/operator_pde/) | Does the explicit low-order operator–Galerkin PDE reproduce dense dynamics and transfer across controls? |
 | [`studies/pde_convergence`](studies/pde_convergence/) | Can the finite-cutoff PDE hierarchy be connected to an arbitrary-accuracy theorem? |
 
-Each program keeps its reports, code, protocols, and evidence in the form in
-which the corresponding experiment was conducted. Sequential investigations
-are arranged as phases only when chronology is scientifically important.
+Each program keeps its reports, code, protocols, and evidence together.
+Sequential investigations are arranged as phases only when chronology is
+scientifically important. Release-only wrappers and exact historical layouts
+live in the archive rather than in the active research tree.
 
 ## Other material
 
@@ -35,4 +36,3 @@ are arranged as phases only when chronology is scientifically important.
 There is deliberately no repository-wide `src`, `tests`, `tools`, `releases`,
 or `runs` layer. Tests remain beside the experiment they validate, and new
 reproductions remain beside the study they reproduce.
-

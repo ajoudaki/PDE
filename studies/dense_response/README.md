@@ -1,22 +1,20 @@
 # Dense response hierarchy
 
-This program studies chronological q/r response truncations while retaining
-the finite dense weight matrices. It is a precursor and diagnostic for the
-width-free operator PDE, not itself such a PDE.
+This program studies finite-matrix chronological q/r response approximations.
+It is a precursor and mechanism diagnostic for the operator PDE, not itself a
+width-independent finite PDE.
 
 ## Phases
 
-1. [`early_audit`](early_audit/) contains the original audit layout: source
-   scripts, final arrays and figures, agent audits, and the deliverable report.
-   Start with
-   [`early_audit/deliverables/dense_euclidean_continuous_depth_npde_audit.md`](early_audit/deliverables/dense_euclidean_continuous_depth_npde_audit.md).
-2. [`long_horizon`](long_horizon/) contains the corrected and extended
-   long-horizon release. Start with [`long_horizon/REPORT.md`](long_horizon/REPORT.md)
-   and use [`long_horizon/REPRODUCE.md`](long_horizon/REPRODUCE.md) for its
-   original reproduction instructions.
+1. [`early_audit`](early_audit/) contains the original broad audit in a flat
+   working layout. Read [`early_audit/REPORT.md`](early_audit/REPORT.md), run
+   the two scripts at the phase root, and consult `results/` for the cited
+   arrays and figures. Independent audit notes are under `notes/`.
+2. [`long_horizon`](long_horizon/) is the corrected, self-contained extension.
+   Start with [`long_horizon/REPORT.md`](long_horizon/REPORT.md) and
+   [`long_horizon/REPRODUCE.md`](long_horizon/REPRODUCE.md).
 
-Current reading: the response hierarchy is a useful causal diagnostic and can
-become exact at sufficient grade for a fixed finite discretization. Because it
-retains every dense matrix, it does not establish width-independent finite
-causal compression.
+Current reading: low response order can reproduce the tested finite-network
+transients surprisingly well, but every surrogate in this program retains the
+dense matrices and therefore does not establish finite causal compression.
 

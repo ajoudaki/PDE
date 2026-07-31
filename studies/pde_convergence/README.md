@@ -1,29 +1,36 @@
 # PDE convergence and arbitrary-accuracy program
 
-These experiments form one chronological attempt to bridge the successful
-finite-cutoff operator PDE to a cutoff-uniform, arbitrary-accuracy result.
+This is one chronological investigation of whether the finite-cutoff operator
+PDE converges strongly enough to support an arbitrary-accuracy theorem.
 
 ## Chronology
 
-1. [`01_proof_audit`](01_proof_audit/) freezes the full proof-obligation and
-   software-audit framework.
-2. [`02_lean_salvage`](02_lean_salvage/) records the smaller completed
-   diagnostics. Its exact ad hoc mini-runner was not preserved; the report,
-   analysis, and seven raw archives were.
+1. [`01_proof_audit`](01_proof_audit/) contains the proof-obligation
+   framework, protocol, source, mathematical checks, and the two completed
+   frozen trajectories.
+2. [`02_lean_salvage`](02_lean_salvage/) contains the bounded follow-up
+   diagnostics. Its ad hoc runner was not preserved; the report and raw
+   results were.
 3. [`03_bridgeability`](03_bridgeability/) repairs the even-shell parity flaw
-   and tests the admissible odd Hermite ladder.
-4. [`04_scalar_stress`](04_scalar_stress/) isolates the source-Hermite issue in
-   a one-input model through degree 13.
-5. [`05_tail_and_compactness`](05_tail_and_compactness/) contains the
-   high-to-low commutator experiment and the final coupled Cauchy ledger.
+   and tests the correct odd Hermite ladder. Its report, runner, manifest, and
+   three results are all at the phase root.
+4. [`04_scalar_stress`](04_scalar_stress/) is the one-input Hermite ladder.
+5. [`05_tail_and_compactness`](05_tail_and_compactness/) combines the
+   high-to-low commutator experiment with the final coupled Cauchy ledger.
+   The two runners are at the phase root and their data are under `results/`.
 
-Current reading: parity-aware bookkeeping improves the hierarchy, and some
-per-mode tail diagnostics contract, but replicated aggregate Cauchy
-contraction was not demonstrated. A strong source-weighted Hermite compactness
-estimate remains the central analytic obstruction.
+Two explicit compatibility links remain at this program root:
 
-The compatibility links named `activation_linearity_smoking_gun` and
-`pde_proof_obligation_audit` preserve historical sibling paths expected by the
-unedited runners. The actual dependency copies are retained in phases 01 and
-05; the links are not additional implementations.
+- `pde_proof_obligation_audit` points to phase 01;
+- `activation_linearity_smoking_gun` points to the operator-PDE activation
+  source.
+
+They preserve the original runners and frozen source hashes without keeping
+five scattered links or another copied implementation. New convergence work
+should import phase 01 and the operator-PDE source explicitly rather than add
+another compatibility link.
+
+Current reading: parity-aware bookkeeping improves several local diagnostics,
+but replicated aggregate Cauchy contraction remains unproved. Strong
+source-weighted Hermite compactness is still the central analytic obstruction.
 
