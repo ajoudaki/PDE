@@ -1,0 +1,81 @@
+\documentclass[11pt,oneside,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{bookmark}
+
+\definecolor{PeelBlue}{HTML}{173B57}
+\definecolor{PeelTeal}{HTML}{0D6B69}
+\definecolor{PeelGold}{HTML}{9B6A00}
+\definecolor{PeelGray}{HTML}{4B5563}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=PeelBlue,
+  urlcolor=PeelTeal,
+  citecolor=PeelBlue,
+  pdftitle={Mean-Field Peeling for Wide Neural Networks},
+  pdfauthor={Working report prepared from the maintained research notes}
+}
+\titleformat{\section}{\Large\bfseries\color{PeelBlue}}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\large\bfseries\color{PeelTeal}}{\thesubsection}{0.7em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{PeelGray}}{\thesubsubsection}{0.7em}{}
+\allowdisplaybreaks
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Mean-Field Peeling}
+\fancyhead[R]{\small Working theory and audited case study}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\begin{document}
+\hypersetup{pageanchor=false}
+
+\begin{titlepage}
+\centering
+\vspace*{1.2cm}
+{\Huge\bfseries\color{PeelBlue} Mean-Field Peeling\\[0.25cm]
+for Wide Neural Networks\par}
+\vspace{0.7cm}
+{\Large A self-contained working theory, explicit Gaussian calculus,\\
+and audited \(\mu\)P feature-learning case study\par}
+\vspace{1.4cm}
+{\large Prepared from the maintained research notes and worked executions\par}
+\vspace{0.35cm}
+{\large 3 August 2026\par}
+\vfill
+\begin{minipage}{0.84\textwidth}
+\color{PeelGray}
+\textbf{Purpose.}
+This report is designed to be read without the preceding conversation.
+It explains the proposed peeling calculus, executes it on the backward
+kernel, carries it through one and two \(\mu\)P gradient steps, and separates
+proved identities, audited mean-field conclusions, formal closures, and open
+theorem obligations.
+\end{minipage}
+\vfill
+{\small Living research report. The general theorem remains a theorem program,
+not a completed theorem.}
+\end{titlepage}
+
+\hypersetup{pageanchor=true}
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\input{MEAN_FIELD_PEELING_SELF_CONTAINED_REPORT.body.tex}
+
+\end{document}

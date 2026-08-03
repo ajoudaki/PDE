@@ -9,3 +9,17 @@ __pycache__/
 .ipynb_checkpoints/
 build/
 dist/
+
+# LaTeX and Markdown-to-LaTeX build byproducts
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.toc
+*.markdown.lua
+*.markdown.out
+*.body.tex
+_markdown_*/
+
+# Stable report PDFs live with their sources under studies/.
+/MEAN_FIELD_PEELING_FULL_REPORT.pdf
