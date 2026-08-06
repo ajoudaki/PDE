@@ -15,6 +15,7 @@ type:
 | Program | Question |
 |---|---|
 | [`studies/quadratic_nonclosure`](studies/quadratic_nonclosure/) | What fails in the prescribed quadratic Taylor/Wick closure? |
+| [`studies/derivative_wick_calculus`](studies/derivative_wick_calculus/) | How are fixed-order μP training derivatives expanded, power-counted, Wick-contracted, and concentrated? |
 | [`studies/dense_response`](studies/dense_response/) | How far can a finite-matrix chronological response hierarchy go? |
 | [`studies/operator_pde`](studies/operator_pde/) | Does the explicit low-order operator–Galerkin PDE reproduce dense dynamics and transfer across controls? |
 | [`studies/pde_convergence`](studies/pde_convergence/) | Can the finite-cutoff PDE hierarchy be connected to an arbitrary-accuracy theorem? |
