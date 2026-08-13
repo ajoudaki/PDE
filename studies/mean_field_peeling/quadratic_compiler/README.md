@@ -3,9 +3,11 @@
 The root of this directory contains a computer-algebra implementation of the
 leading-width peeling calculation for the canonical one-sample,
 two-hidden-layer quadratic network at `gamma=1`.  It is an exact compiler for
-this model, not yet a generic MLP compiler.  The isolated campaign
-subdirectories extend the same grammar to a relative block metric, two
-symmetry-reduced inputs, and a shifted first-hidden activation.  The canonical
+this model, not yet a generic MLP compiler.  The bounded campaign
+subdirectories extend the same grammar to relative and independently weighted
+block metrics, two and three symmetry-reduced inputs, and a shifted
+first-hidden activation.  A separate threshold campaign audits a bounded D13
+probe without producing an accepted new coefficient or bound.  The canonical
 root compiler computes
 
 \[
@@ -31,9 +33,11 @@ integrity they audit.
 
 ## Exact parameter-extension campaigns
 
-Three bounded extensions of this compiler are maintained as separate,
-auditable campaigns.  They reuse the peeling/Wick grammar but do not alter the
-accepted canonical derivatives above.
+Five bounded parameter extensions of this compiler are maintained as
+separate, auditable campaigns.  They reuse the peeling/Wick grammar but do not
+alter the accepted canonical derivatives above.  Campaigns 1--4 reached exact
+finite Hankel endpoints; Campaign 5 reached exact lower jets and partial
+moment signs only.
 
 - [`campaign1/`](campaign1/) varies the relative feature-ascent metric
   ($D_\lambda=D_a+\lambda(D_u+D_W)$) and jointly computes the output and
@@ -50,12 +54,35 @@ accepted canonical derivatives above.
   $u^2-c=(u^2-1)+(1-c)$, exact Sturm certificates prove the available
   moment and ordinary $2\times2$ Hankel inequalities on both halves of the
   parameter interval.
+- [`campaign4/`](campaign4/) separates the first-hidden and middle-weight
+  block metrics:
+  $D_{\alpha,\beta}=D_a+\alpha D_u+\beta D_W$ on the full quadrant.  All 125
+  atomic sectors through order nine completed, and exact positive-coefficient
+  certificates prove $\mu_0,\ldots,\mu_3$ plus ordinary and shifted
+  $2\times2$ Hankel positivity, strictly away from the constant-kernel origin.
+- [`campaign5_b3/`](campaign5_b3/) treats three equicorrelated equal-label
+  inputs on $-1/2\leq\rho\leq1$, retaining the Gram matrix in both the
+  initialization covariance and first-layer gradient metric.  It gives an
+  exact faithful scalar loss channel, exact jets through order five, a genuine
+  signed triangle invariant, and exact $\mu_0,\mu_1>0$ on the full interval.
+  Its frozen order-seven W0 pilot exceeded 1800 seconds, so it has no
+  $F^{(7)}$, $\mu_2$, or Hankel determinant and is not counted as a Hankel
+  pass.
+
+[`campaign6_f13_threshold/`](campaign6_f13_threshold/) is not a parameter
+extension or successful certificate.  It records a bounded canonical D13
+threshold probe whose candidate bounds were nonseparating and whose mandatory
+fresh-regression/provenance gate was incomplete.  It is protocol-inconclusive
+and contributes no accepted new D13 interval or bound.
 
 These are continuum-valued, finite-order compatibility results.  They neither
 prove all-order Stieltjes positivity nor identify the formal jets with an
 independently established global mean-field trajectory.  The consolidated
 mathematical account is
 [`../../stieltjes_conjecture/EXACT_PARAMETRIC_CAMPAIGNS.md`](../../stieltjes_conjecture/EXACT_PARAMETRIC_CAMPAIGNS.md).
+The frozen latest-portfolio decisions, including why no B=4 or metric-ray
+order-eleven conditional branch was launched, are in
+[`../../stieltjes_conjecture/NEXT_CAMPAIGN_OUTCOMES.md`](../../stieltjes_conjecture/NEXT_CAMPAIGN_OUTCOMES.md).
 
 ## Scalarized state
 

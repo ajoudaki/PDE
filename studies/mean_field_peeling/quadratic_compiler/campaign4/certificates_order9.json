@@ -1,0 +1,2224 @@
+{
+  "domain": "alpha>=0, beta>=0",
+  "input_sha256": "530ef0818f4142eb162c28fa6b388d69a1e13eeb9de399d54a25008d591f6d5e",
+  "interpretation_limit": "Finite-order formal-jet result only; not an all-order theorem or a global mean-field trajectory-identification result.",
+  "metric": "D_a + alpha D_u + beta D_W",
+  "moment_certificates": [
+    {
+      "decision": {
+        "method": "coefficientwise_nonnegative",
+        "negative_witness": null,
+        "status": "nonnegative_on_quadrant",
+        "strictness_by_closed_quadrant_stratum": {
+          "origin": false,
+          "positive_alpha_axis": true,
+          "positive_beta_axis": true,
+          "strictly_positive_interior": true
+        },
+        "zero_set_on_closed_quadrant": "union_of_strata: origin"
+      },
+      "denominator_at_origin": "243",
+      "denominator_certificate": "the expanded denominator has only nonnegative coefficients and has a strictly positive constant term; hence it is strictly positive on the entire closed nonnegative quadrant",
+      "denominator_factorized": "3*(16*alpha + 12*beta + 9)**2",
+      "expression": "8*(4736*alpha**3 + 8736*alpha**2*beta + 6984*alpha**2 + 4176*alpha*beta**2 + 6696*alpha*beta + 2160*alpha + 324*beta**3 + 891*beta**2 + 405*beta)/(3*(16*alpha + 12*beta + 9)**2)",
+      "name": "mu_0",
+      "numerator_coefficients": [
+        {
+          "alpha_power": 0,
+          "beta_power": 1,
+          "coefficient": "3240"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 2,
+          "coefficient": "7128"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 3,
+          "coefficient": "2592"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 0,
+          "coefficient": "17280"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 1,
+          "coefficient": "53568"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 2,
+          "coefficient": "33408"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 0,
+          "coefficient": "55872"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 1,
+          "coefficient": "69888"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 0,
+          "coefficient": "37888"
+        }
+      ],
+      "numerator_term_count": 9,
+      "numerator_total_degree": 3
+    },
+    {
+      "decision": {
+        "method": "coefficientwise_nonnegative",
+        "negative_witness": null,
+        "status": "nonnegative_on_quadrant",
+        "strictness_by_closed_quadrant_stratum": {
+          "origin": false,
+          "positive_alpha_axis": true,
+          "positive_beta_axis": true,
+          "strictly_positive_interior": true
+        },
+        "zero_set_on_closed_quadrant": "union_of_strata: origin"
+      },
+      "denominator_at_origin": "4782969",
+      "denominator_certificate": "the expanded denominator has only nonnegative coefficients and has a strictly positive constant term; hence it is strictly positive on the entire closed nonnegative quadrant",
+      "denominator_factorized": "81*(16*alpha + 12*beta + 9)**5",
+      "expression": "4*(221052928*alpha**6 + 728678400*alpha**5*beta + 546852864*alpha**5 + 963182592*alpha**4*beta**2 + 1439318016*alpha**4*beta + 549863424*alpha**4 + 618430464*alpha**3*beta**3 + 1361995776*alpha**3*beta**2 + 1013948928*alpha**3*beta + 234503424*alpha**3 + 192513024*alpha**2*beta**4 + 543220992*alpha**2*beta**3 + 586668096*alpha**2*beta**2 + 251324208*alpha**2*beta + 35458560*alpha**2 + 26873856*alpha*beta**5 + 83980800*alpha*beta**4 + 114913728*alpha*beta**3 + 62635680*alpha*beta**2 + 11459880*alpha*beta + 1959552*beta**6 + 5458752*beta**5 + 9080424*beta**4 + 6079860*beta**3 + 1345005*beta**2)/(81*(16*alpha + 12*beta + 9)**5)",
+      "name": "mu_1",
+      "numerator_coefficients": [
+        {
+          "alpha_power": 0,
+          "beta_power": 2,
+          "coefficient": "5380020"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 3,
+          "coefficient": "24319440"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 4,
+          "coefficient": "36321696"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 5,
+          "coefficient": "21835008"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 6,
+          "coefficient": "7838208"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 1,
+          "coefficient": "45839520"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 2,
+          "coefficient": "250542720"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 3,
+          "coefficient": "459654912"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 4,
+          "coefficient": "335923200"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 5,
+          "coefficient": "107495424"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 0,
+          "coefficient": "141834240"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 1,
+          "coefficient": "1005296832"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 2,
+          "coefficient": "2346672384"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 3,
+          "coefficient": "2172883968"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 4,
+          "coefficient": "770052096"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 0,
+          "coefficient": "938013696"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 1,
+          "coefficient": "4055795712"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 2,
+          "coefficient": "5447983104"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 3,
+          "coefficient": "2473721856"
+        },
+        {
+          "alpha_power": 4,
+          "beta_power": 0,
+          "coefficient": "2199453696"
+        },
+        {
+          "alpha_power": 4,
+          "beta_power": 1,
+          "coefficient": "5757272064"
+        },
+        {
+          "alpha_power": 4,
+          "beta_power": 2,
+          "coefficient": "3852730368"
+        },
+        {
+          "alpha_power": 5,
+          "beta_power": 0,
+          "coefficient": "2187411456"
+        },
+        {
+          "alpha_power": 5,
+          "beta_power": 1,
+          "coefficient": "2914713600"
+        },
+        {
+          "alpha_power": 6,
+          "beta_power": 0,
+          "coefficient": "884211712"
+        }
+      ],
+      "numerator_term_count": 25,
+      "numerator_total_degree": 6
+    },
+    {
+      "decision": {
+        "method": "coefficientwise_nonnegative",
+        "negative_witness": null,
+        "status": "nonnegative_on_quadrant",
+        "strictness_by_closed_quadrant_stratum": {
+          "origin": false,
+          "positive_alpha_axis": true,
+          "positive_beta_axis": true,
+          "strictly_positive_interior": true
+        },
+        "zero_set_on_closed_quadrant": "union_of_strata: origin"
+      },
+      "denominator_at_origin": "156905298045",
+      "denominator_certificate": "the expanded denominator has only nonnegative coefficients and has a strictly positive constant term; hence it is strictly positive on the entire closed nonnegative quadrant",
+      "denominator_factorized": "3645*(16*alpha + 12*beta + 9)**8",
+      "expression": "64*(1871789948928*alpha**9 + 9594928627712*alpha**8*beta + 7321784680448*alpha**8 + 21014289186816*alpha**7*beta**2 + 31992081285120*alpha**7*beta + 12063346089984*alpha**7 + 25508350918656*alpha**6*beta**3 + 58005315846144*alpha**6*beta**2 + 43468912631808*alpha**6*beta + 10649589212160*alpha**6 + 18583321411584*alpha**5*beta**4 + 55929097728000*alpha**5*beta**3 + 62226364465152*alpha**5*beta**2 + 29952989118720*alpha**5*beta + 5181068831616*alpha**5 + 8254894104576*alpha**4*beta**5 + 30656194053120*alpha**4*beta**4 + 44790292873728*alpha**4*beta**3 + 31566726292032*alpha**4*beta**2 + 10493813095776*alpha**4*beta + 1301902041024*alpha**4 + 2198924402688*alpha**3*beta**6 + 9557708037120*alpha**3*beta**5 + 17048091389184*alpha**3*beta**4 + 15487827455808*alpha**3*beta**3 + 7275683291472*alpha**3*beta**2 + 1632522961584*alpha**3*beta + 131885547840*alpha**3 + 344124205056*alpha**2*beta**7 + 1656773968896*alpha**2*beta**6 + 3405662184960*alpha**2*beta**5 + 3694663492416*alpha**2*beta**4 + 2122047692136*alpha**2*beta**3 + 601820873244*alpha**2*beta**2 + 65713270140*alpha**2*beta + 32080665600*alpha*beta**8 + 162009040896*alpha*beta**7 + 363952211904*alpha*beta**6 + 455457901536*alpha*beta**5 + 306511549200*alpha*beta**4 + 102304360800*alpha*beta**3 + 13261224420*alpha*beta**2 + 1385683200*beta**9 + 7441118784*beta**8 + 17318835504*beta**7 + 24326692092*beta**6 + 18860250600*beta**5 + 7246788525*beta**4 + 1078825230*beta**3)/(3645*(16*alpha + 12*beta + 9)**8)",
+      "name": "mu_2",
+      "numerator_coefficients": [
+        {
+          "alpha_power": 0,
+          "beta_power": 3,
+          "coefficient": "69044814720"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 4,
+          "coefficient": "463794465600"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 5,
+          "coefficient": "1207056038400"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 6,
+          "coefficient": "1556908293888"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 7,
+          "coefficient": "1108405472256"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 8,
+          "coefficient": "476231602176"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 9,
+          "coefficient": "88683724800"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 2,
+          "coefficient": "848718362880"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 3,
+          "coefficient": "6547479091200"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 4,
+          "coefficient": "19616739148800"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 5,
+          "coefficient": "29149305698304"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 6,
+          "coefficient": "23292941561856"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 7,
+          "coefficient": "10368578617344"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 8,
+          "coefficient": "2053162598400"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 1,
+          "coefficient": "4205649288960"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 2,
+          "coefficient": "38516535887616"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 3,
+          "coefficient": "135811052296704"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 4,
+          "coefficient": "236458463514624"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 5,
+          "coefficient": "217962379837440"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 6,
+          "coefficient": "106033534009344"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 7,
+          "coefficient": "22023949123584"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 0,
+          "coefficient": "8440675061760"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 1,
+          "coefficient": "104481469541376"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 2,
+          "coefficient": "465643730654208"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 3,
+          "coefficient": "991220957171712"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 4,
+          "coefficient": "1091077848907776"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 5,
+          "coefficient": "611693314375680"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 6,
+          "coefficient": "140731161772032"
+        },
+        {
+          "alpha_power": 4,
+          "beta_power": 0,
+          "coefficient": "83321730625536"
+        },
+        {
+          "alpha_power": 4,
+          "beta_power": 1,
+          "coefficient": "671604038129664"
+        },
+        {
+          "alpha_power": 4,
+          "beta_power": 2,
+          "coefficient": "2020270482690048"
+        },
+        {
+          "alpha_power": 4,
+          "beta_power": 3,
+          "coefficient": "2866578743918592"
+        },
+        {
+          "alpha_power": 4,
+          "beta_power": 4,
+          "coefficient": "1961996419399680"
+        },
+        {
+          "alpha_power": 4,
+          "beta_power": 5,
+          "coefficient": "528313222692864"
+        },
+        {
+          "alpha_power": 5,
+          "beta_power": 0,
+          "coefficient": "331588405223424"
+        },
+        {
+          "alpha_power": 5,
+          "beta_power": 1,
+          "coefficient": "1916991303598080"
+        },
+        {
+          "alpha_power": 5,
+          "beta_power": 2,
+          "coefficient": "3982487325769728"
+        },
+        {
+          "alpha_power": 5,
+          "beta_power": 3,
+          "coefficient": "3579462254592000"
+        },
+        {
+          "alpha_power": 5,
+          "beta_power": 4,
+          "coefficient": "1189332570341376"
+        },
+        {
+          "alpha_power": 6,
+          "beta_power": 0,
+          "coefficient": "681573709578240"
+        },
+        {
+          "alpha_power": 6,
+          "beta_power": 1,
+          "coefficient": "2782010408435712"
+        },
+        {
+          "alpha_power": 6,
+          "beta_power": 2,
+          "coefficient": "3712340214153216"
+        },
+        {
+          "alpha_power": 6,
+          "beta_power": 3,
+          "coefficient": "1632534458793984"
+        },
+        {
+          "alpha_power": 7,
+          "beta_power": 0,
+          "coefficient": "772054149758976"
+        },
+        {
+          "alpha_power": 7,
+          "beta_power": 1,
+          "coefficient": "2047493202247680"
+        },
+        {
+          "alpha_power": 7,
+          "beta_power": 2,
+          "coefficient": "1344914507956224"
+        },
+        {
+          "alpha_power": 8,
+          "beta_power": 0,
+          "coefficient": "468594219548672"
+        },
+        {
+          "alpha_power": 8,
+          "beta_power": 1,
+          "coefficient": "614075432173568"
+        },
+        {
+          "alpha_power": 9,
+          "beta_power": 0,
+          "coefficient": "119794556731392"
+        }
+      ],
+      "numerator_term_count": 49,
+      "numerator_total_degree": 9
+    },
+    {
+      "decision": {
+        "method": "coefficientwise_nonnegative",
+        "negative_witness": null,
+        "status": "nonnegative_on_quadrant",
+        "strictness_by_closed_quadrant_stratum": {
+          "origin": false,
+          "positive_alpha_axis": true,
+          "positive_beta_axis": true,
+          "strictly_positive_interior": true
+        },
+        "zero_set_on_closed_quadrant": "union_of_strata: origin"
+      },
+      "denominator_at_origin": "7206189623312715",
+      "denominator_certificate": "the expanded denominator has only nonnegative coefficients and has a strictly positive constant term; hence it is strictly positive on the entire closed nonnegative quadrant",
+      "denominator_factorized": "229635*(16*alpha + 12*beta + 9)**11",
+      "expression": "32*(915358803958956032*alpha**12 + 6320707482507280384*alpha**11*beta + 4851295489162739712*alpha**11 + 19406078044501180416*alpha**10*beta**2 + 29746319735723655168*alpha**10*beta + 11278770965493841920*alpha**10 + 34819859747866411008*alpha**9*beta**3 + 79897953699203383296*alpha**9*beta**2 + 60379322587205861376*alpha**9*beta + 14983319638712254464*alpha**9 + 40356662512157982720*alpha**8*beta**4 + 123111889258382622720*alpha**8*beta**3 + 138913434511336931328*alpha**8*beta**2 + 68442316725215232000*alpha**8*beta + 12370447356598370304*alpha**8 + 31536118795909201920*alpha**7*beta**5 + 119739091784781791232*alpha**7*beta**4 + 179034942181881839616*alpha**7*beta**3 + 131071455186358542336*alpha**7*beta**2 + 46708555526097223680*alpha**7*beta + 6444819562241986560*alpha**7 + 16862060103540277248*alpha**6*beta**6 + 76321901499179139072*alpha**6*beta**5 + 141453597963575697408*alpha**6*beta**4 + 136409293655995760640*alpha**6*beta**3 + 71600273404969946112*alpha**6*beta**2 + 19242931104734911488*alpha**6*beta + 2056010185702976256*alpha**6 + 6157856351793217536*alpha**5*beta**7 + 32169079864951676928*alpha**5*beta**6 + 70699446215431059456*alpha**5*beta**5 + 83883628633635841536*alpha**5*beta**4 + 57346983051118530048*alpha**5*beta**3 + 22323224229356725632*alpha**5*beta**2 + 4533293600793123840*alpha**5*beta + 366167072563653312*alpha**5 + 1519915332500766720*alpha**4*beta**8 + 8908655693269082112*alpha**4*beta**7 + 22436308801614532608*alpha**4*beta**6 + 31278567923854622208*alpha**4*beta**5 + 25937787977217186624*alpha**4*beta**4 + 12852481575797788032*alpha**4*beta**3 + 3644072144342081712*alpha**4*beta**2 + 525758006879876304*alpha**4*beta + 27870672233836440*alpha**4 + 251027104628441088*alpha**3*beta**9 + 1604774911058694144*alpha**3*beta**8 + 4491360282119620608*alpha**3*beta**7 + 7103497790829491712*alpha**3*beta**6 + 6817466049863416704*alpha**3*beta**5 + 3990814579596114576*alpha**3*beta**4 + 1375028974455751656*alpha**3*beta**3 + 253070127537605460*alpha**3*beta**2 + 18904866836924610*alpha**3*beta + 27414629171564544*alpha**2*beta**10 + 186424442083399680*alpha**2*beta**9 + 563356525395442176*alpha**2*beta**8 + 983186426564110080*alpha**2*beta**7 + 1062103732348063824*alpha**2*beta**6 + 708776267779893816*alpha**2*beta**5 + 281193243139929888*alpha**2*beta**4 + 60354549502908030*alpha**2*beta**3 + 5365867351438485*alpha**2*beta**2 + 1819354676428800*alpha*beta**11 + 13044668544442368*alpha*beta**10 + 41638014950768640*alpha*beta**9 + 78183186140487168*alpha*beta**8 + 93218955106813056*alpha*beta**7 + 69640295295836160*alpha*beta**6 + 31095115993308240*alpha*beta**5 + 7535160469405800*alpha*beta**4 + 760043237189040*alpha*beta**3 + 55997725593600*beta**12 + 421677567000576*beta**11 + 1410263536992768*beta**10 + 2779793422303104*beta**9 + 3588102556264944*beta**8 + 2961708214765320*beta**7 + 1468954223999730*beta**6 + 395045115542280*beta**5 + 44154958832145*beta**4)/(229635*(16*alpha + 12*beta + 9)**11)",
+      "name": "mu_3",
+      "numerator_coefficients": [
+        {
+          "alpha_power": 0,
+          "beta_power": 4,
+          "coefficient": "1412958682628640"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 5,
+          "coefficient": "12641443697352960"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 6,
+          "coefficient": "47006535167991360"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 7,
+          "coefficient": "94774662872490240"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 8,
+          "coefficient": "114819281800478208"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 9,
+          "coefficient": "88953389513699328"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 10,
+          "coefficient": "45128433183768576"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 11,
+          "coefficient": "13493682144018432"
+        },
+        {
+          "alpha_power": 0,
+          "beta_power": 12,
+          "coefficient": "1791927218995200"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 3,
+          "coefficient": "24321383590049280"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 4,
+          "coefficient": "241125135020985600"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 5,
+          "coefficient": "995043711785863680"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 6,
+          "coefficient": "2228489449466757120"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 7,
+          "coefficient": "2983006563418017792"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 8,
+          "coefficient": "2501861956495589376"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 9,
+          "coefficient": "1332416478424596480"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 10,
+          "coefficient": "417429393422155776"
+        },
+        {
+          "alpha_power": 1,
+          "beta_power": 11,
+          "coefficient": "58219349645721600"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 2,
+          "coefficient": "171707755246031520"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 3,
+          "coefficient": "1931345584093056960"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 4,
+          "coefficient": "8998183780477756416"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 5,
+          "coefficient": "22680840568956602112"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 6,
+          "coefficient": "33987319435138042368"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 7,
+          "coefficient": "31461965650051522560"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 8,
+          "coefficient": "18027408812654149632"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 9,
+          "coefficient": "5965582146668789760"
+        },
+        {
+          "alpha_power": 2,
+          "beta_power": 10,
+          "coefficient": "877268133490065408"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 1,
+          "coefficient": "604955738781587520"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 2,
+          "coefficient": "8098244081203374720"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 3,
+          "coefficient": "44000927182584052992"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 4,
+          "coefficient": "127706066547075666432"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 5,
+          "coefficient": "218158913595629334528"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 6,
+          "coefficient": "227311929306543734784"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 7,
+          "coefficient": "143723529027827859456"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 8,
+          "coefficient": "51352797153878212608"
+        },
+        {
+          "alpha_power": 3,
+          "beta_power": 9,
+          "coefficient": "8032867348110114816"
+        },
+        {
+          "alpha_power": 4,
+          "beta_power": 0,
+          "coefficient": "891861511482766080"
+        },
+        {
+          "alpha_power": 4,
+          "beta_power": 1,
+          "coefficient": "16824256220156041728"
+        },
+        {
+          "alpha_power": 4,
+          "beta_power": 2,
+          "coefficient": "116610308618946614784"
+        },
+        {
+          "alpha_power": 4,
+          "beta_power": 3,
+          "coefficient": "411279410425529217024"
+        },
+        {
+          "alpha_power": 4,
+          "beta_power": 4,
+          "coefficient": "830009215270949971968"
+        },
+        {
+          "alpha_power": 4,
+          "beta_power": 5,
+          "coefficient": "1000914173563347910656"
+        },
+        {
+          "alpha_power": 4,
+          "beta_power": 6,
+          "coefficient": "717961881651665043456"
+        },
+        {
+          "alpha_power": 4,
+          "beta_power": 7,
+          "coefficient": "285076982184610627584"
+        },
+        {
+          "alpha_power": 4,
+          "beta_power": 8,
+          "coefficient": "48637290640024535040"
+        },
+        {
+          "alpha_power": 5,
+          "beta_power": 0,
+          "coefficient": "11717346322036905984"
+        },
+        {
+          "alpha_power": 5,
+          "beta_power": 1,
+          "coefficient": "145065395225379962880"
+        },
+        {
+          "alpha_power": 5,
+          "beta_power": 2,
+          "coefficient": "714343175339415220224"
+        },
+        {
+          "alpha_power": 5,
+          "beta_power": 3,
+          "coefficient": "1835103457635792961536"
+        },
+        {
+          "alpha_power": 5,
+          "beta_power": 4,
+          "coefficient": "2684276116276346929152"
+        },
+        {
+          "alpha_power": 5,
+          "beta_power": 5,
+          "coefficient": "2262382278893793902592"
+        },
+        {
+          "alpha_power": 5,
+          "beta_power": 6,
+          "coefficient": "1029410555678453661696"
+        },
+        {
+          "alpha_power": 5,
+          "beta_power": 7,
+          "coefficient": "197051403257382961152"
+        },
+        {
+          "alpha_power": 6,
+          "beta_power": 0,
+          "coefficient": "65792325942495240192"
+        },
+        {
+          "alpha_power": 6,
+          "beta_power": 1,
+          "coefficient": "615773795351517167616"
+        },
+        {
+          "alpha_power": 6,
+          "beta_power": 2,
+          "coefficient": "2291208748959038275584"
+        },
+        {
+          "alpha_power": 6,
+          "beta_power": 3,
+          "coefficient": "4365097396991864340480"
+        },
+        {
+          "alpha_power": 6,
+          "beta_power": 4,
+          "coefficient": "4526515134834422317056"
+        },
+        {
+          "alpha_power": 6,
+          "beta_power": 5,
+          "coefficient": "2442300847973732450304"
+        },
+        {
+          "alpha_power": 6,
+          "beta_power": 6,
+          "coefficient": "539585923313288871936"
+        },
+        {
+          "alpha_power": 7,
+          "beta_power": 0,
+          "coefficient": "206234225991743569920"
+        },
+        {
+          "alpha_power": 7,
+          "beta_power": 1,
+          "coefficient": "1494673776835111157760"
+        },
+        {
+          "alpha_power": 7,
+          "beta_power": 2,
+          "coefficient": "4194286565963473354752"
+        },
+        {
+          "alpha_power": 7,
+          "beta_power": 3,
+          "coefficient": "5729118149820218867712"
+        },
+        {
+          "alpha_power": 7,
+          "beta_power": 4,
+          "coefficient": "3831650937113017319424"
+        },
+        {
+          "alpha_power": 7,
+          "beta_power": 5,
+          "coefficient": "1009155801469094461440"
+        },
+        {
+          "alpha_power": 8,
+          "beta_power": 0,
+          "coefficient": "395854315411147849728"
+        },
+        {
+          "alpha_power": 8,
+          "beta_power": 1,
+          "coefficient": "2190154135206887424000"
+        },
+        {
+          "alpha_power": 8,
+          "beta_power": 2,
+          "coefficient": "4445229904362781802496"
+        },
+        {
+          "alpha_power": 8,
+          "beta_power": 3,
+          "coefficient": "3939580456268243927040"
+        },
+        {
+          "alpha_power": 8,
+          "beta_power": 4,
+          "coefficient": "1291413200389055447040"
+        },
+        {
+          "alpha_power": 9,
+          "beta_power": 0,
+          "coefficient": "479466228438792142848"
+        },
+        {
+          "alpha_power": 9,
+          "beta_power": 1,
+          "coefficient": "1932138322790587564032"
+        },
+        {
+          "alpha_power": 9,
+          "beta_power": 2,
+          "coefficient": "2556734518374508265472"
+        },
+        {
+          "alpha_power": 9,
+          "beta_power": 3,
+          "coefficient": "1114235511931725152256"
+        },
+        {
+          "alpha_power": 10,
+          "beta_power": 0,
+          "coefficient": "360920670895802941440"
+        },
+        {
+          "alpha_power": 10,
+          "beta_power": 1,
+          "coefficient": "951882231543156965376"
+        },
+        {
+          "alpha_power": 10,
+          "beta_power": 2,
+          "coefficient": "620994497424037773312"
+        },
+        {
+          "alpha_power": 11,
+          "beta_power": 0,
+          "coefficient": "155241455653207670784"
+        },
+        {
+          "alpha_power": 11,
+          "beta_power": 1,
+          "coefficient": "202262639440232972288"
+        },
+        {
+          "alpha_power": 12,
+          "beta_power": 0,
+          "coefficient": "29291481726686593024"
+        }
+      ],
+      "numerator_term_count": 81,
+      "numerator_total_degree": 12
+    }
+  ],
+  "moments_mu": [
+    "8*(4736*alpha**3 + 8736*alpha**2*beta + 6984*alpha**2 + 4176*alpha*beta**2 + 6696*alpha*beta + 2160*alpha + 324*beta**3 + 891*beta**2 + 405*beta)/(3*(16*alpha + 12*beta + 9)**2)",
+    "4*(221052928*alpha**6 + 728678400*alpha**5*beta + 546852864*alpha**5 + 963182592*alpha**4*beta**2 + 1439318016*alpha**4*beta + 549863424*alpha**4 + 618430464*alpha**3*beta**3 + 1361995776*alpha**3*beta**2 + 1013948928*alpha**3*beta + 234503424*alpha**3 + 192513024*alpha**2*beta**4 + 543220992*alpha**2*beta**3 + 586668096*alpha**2*beta**2 + 251324208*alpha**2*beta + 35458560*alpha**2 + 26873856*alpha*beta**5 + 83980800*alpha*beta**4 + 114913728*alpha*beta**3 + 62635680*alpha*beta**2 + 11459880*alpha*beta + 1959552*beta**6 + 5458752*beta**5 + 9080424*beta**4 + 6079860*beta**3 + 1345005*beta**2)/(81*(16*alpha + 12*beta + 9)**5)",
+    "64*(1871789948928*alpha**9 + 9594928627712*alpha**8*beta + 7321784680448*alpha**8 + 21014289186816*alpha**7*beta**2 + 31992081285120*alpha**7*beta + 12063346089984*alpha**7 + 25508350918656*alpha**6*beta**3 + 58005315846144*alpha**6*beta**2 + 43468912631808*alpha**6*beta + 10649589212160*alpha**6 + 18583321411584*alpha**5*beta**4 + 55929097728000*alpha**5*beta**3 + 62226364465152*alpha**5*beta**2 + 29952989118720*alpha**5*beta + 5181068831616*alpha**5 + 8254894104576*alpha**4*beta**5 + 30656194053120*alpha**4*beta**4 + 44790292873728*alpha**4*beta**3 + 31566726292032*alpha**4*beta**2 + 10493813095776*alpha**4*beta + 1301902041024*alpha**4 + 2198924402688*alpha**3*beta**6 + 9557708037120*alpha**3*beta**5 + 17048091389184*alpha**3*beta**4 + 15487827455808*alpha**3*beta**3 + 7275683291472*alpha**3*beta**2 + 1632522961584*alpha**3*beta + 131885547840*alpha**3 + 344124205056*alpha**2*beta**7 + 1656773968896*alpha**2*beta**6 + 3405662184960*alpha**2*beta**5 + 3694663492416*alpha**2*beta**4 + 2122047692136*alpha**2*beta**3 + 601820873244*alpha**2*beta**2 + 65713270140*alpha**2*beta + 32080665600*alpha*beta**8 + 162009040896*alpha*beta**7 + 363952211904*alpha*beta**6 + 455457901536*alpha*beta**5 + 306511549200*alpha*beta**4 + 102304360800*alpha*beta**3 + 13261224420*alpha*beta**2 + 1385683200*beta**9 + 7441118784*beta**8 + 17318835504*beta**7 + 24326692092*beta**6 + 18860250600*beta**5 + 7246788525*beta**4 + 1078825230*beta**3)/(3645*(16*alpha + 12*beta + 9)**8)",
+    "32*(915358803958956032*alpha**12 + 6320707482507280384*alpha**11*beta + 4851295489162739712*alpha**11 + 19406078044501180416*alpha**10*beta**2 + 29746319735723655168*alpha**10*beta + 11278770965493841920*alpha**10 + 34819859747866411008*alpha**9*beta**3 + 79897953699203383296*alpha**9*beta**2 + 60379322587205861376*alpha**9*beta + 14983319638712254464*alpha**9 + 40356662512157982720*alpha**8*beta**4 + 123111889258382622720*alpha**8*beta**3 + 138913434511336931328*alpha**8*beta**2 + 68442316725215232000*alpha**8*beta + 12370447356598370304*alpha**8 + 31536118795909201920*alpha**7*beta**5 + 119739091784781791232*alpha**7*beta**4 + 179034942181881839616*alpha**7*beta**3 + 131071455186358542336*alpha**7*beta**2 + 46708555526097223680*alpha**7*beta + 6444819562241986560*alpha**7 + 16862060103540277248*alpha**6*beta**6 + 76321901499179139072*alpha**6*beta**5 + 141453597963575697408*alpha**6*beta**4 + 136409293655995760640*alpha**6*beta**3 + 71600273404969946112*alpha**6*beta**2 + 19242931104734911488*alpha**6*beta + 2056010185702976256*alpha**6 + 6157856351793217536*alpha**5*beta**7 + 32169079864951676928*alpha**5*beta**6 + 70699446215431059456*alpha**5*beta**5 + 83883628633635841536*alpha**5*beta**4 + 57346983051118530048*alpha**5*beta**3 + 22323224229356725632*alpha**5*beta**2 + 4533293600793123840*alpha**5*beta + 366167072563653312*alpha**5 + 1519915332500766720*alpha**4*beta**8 + 8908655693269082112*alpha**4*beta**7 + 22436308801614532608*alpha**4*beta**6 + 31278567923854622208*alpha**4*beta**5 + 25937787977217186624*alpha**4*beta**4 + 12852481575797788032*alpha**4*beta**3 + 3644072144342081712*alpha**4*beta**2 + 525758006879876304*alpha**4*beta + 27870672233836440*alpha**4 + 251027104628441088*alpha**3*beta**9 + 1604774911058694144*alpha**3*beta**8 + 4491360282119620608*alpha**3*beta**7 + 7103497790829491712*alpha**3*beta**6 + 6817466049863416704*alpha**3*beta**5 + 3990814579596114576*alpha**3*beta**4 + 1375028974455751656*alpha**3*beta**3 + 253070127537605460*alpha**3*beta**2 + 18904866836924610*alpha**3*beta + 27414629171564544*alpha**2*beta**10 + 186424442083399680*alpha**2*beta**9 + 563356525395442176*alpha**2*beta**8 + 983186426564110080*alpha**2*beta**7 + 1062103732348063824*alpha**2*beta**6 + 708776267779893816*alpha**2*beta**5 + 281193243139929888*alpha**2*beta**4 + 60354549502908030*alpha**2*beta**3 + 5365867351438485*alpha**2*beta**2 + 1819354676428800*alpha*beta**11 + 13044668544442368*alpha*beta**10 + 41638014950768640*alpha*beta**9 + 78183186140487168*alpha*beta**8 + 93218955106813056*alpha*beta**7 + 69640295295836160*alpha*beta**6 + 31095115993308240*alpha*beta**5 + 7535160469405800*alpha*beta**4 + 760043237189040*alpha*beta**3 + 55997725593600*beta**12 + 421677567000576*beta**11 + 1410263536992768*beta**10 + 2779793422303104*beta**9 + 3588102556264944*beta**8 + 2961708214765320*beta**7 + 1468954223999730*beta**6 + 395045115542280*beta**5 + 44154958832145*beta**4)/(229635*(16*alpha + 12*beta + 9)**11)"
+  ],
+  "ordinary_H1": {
+    "decision": {
+      "method": "coefficientwise_nonnegative",
+      "negative_witness": null,
+      "status": "nonnegative_on_quadrant",
+      "strictness_by_closed_quadrant_stratum": {
+        "origin": false,
+        "positive_alpha_axis": true,
+        "positive_beta_axis": true,
+        "strictly_positive_interior": true
+      },
+      "zero_set_on_closed_quadrant": "union_of_strata: origin"
+    },
+    "denominator_at_origin": "114383962274805",
+    "denominator_certificate": "the expanded denominator has only nonnegative coefficients and has a strictly positive constant term; hence it is strictly positive on the entire closed nonnegative quadrant",
+    "denominator_factorized": "32805*(16*alpha + 12*beta + 9)**10",
+    "expression": "16*(606698546132942848*alpha**12 + 4321414802665635840*alpha**11*beta + 3375026844267970560*alpha**11 + 13567505856353796096*alpha**10*beta**2 + 21155667799644831744*alpha**10*beta + 8071070614611296256*alpha**10 + 24740511020457394176*alpha**9*beta**3 + 57789370824136851456*alpha**9*beta**2 + 43979826654798151680*alpha**9*beta + 10922863609811828736*alpha**9 + 28994206851435331584*alpha**8*beta**4 + 90189164140988203008*alpha**8*beta**3 + 102607792087108681728*alpha**8*beta**2 + 50643622597887000576*alpha**8*beta + 9124705856774209536*alpha**8 + 22799154595013591040*alpha**7*beta**5 + 88530152757607268352*alpha**7*beta**4 + 133710817913783451648*alpha**7*beta**3 + 98188590953210314752*alpha**7*beta**2 + 34918404183517888512*alpha**7*beta + 4790581819021099008*alpha**7 + 12199472851480215552*alpha**6*beta**6 + 56746508655730360320*alpha**6*beta**5 + 106535432568141250560*alpha**6*beta**4 + 103245631608001462272*alpha**6*beta**3 + 54160418612676575232*alpha**6*beta**2 + 14492675041969840128*alpha**6*beta + 1537254507140038656*alpha**6 + 4424286612033110016*alpha**5*beta**7 + 23941031617052540928*alpha**5*beta**6 + 53532091170051194880*alpha**5*beta**5 + 64014324849110679552*alpha**5*beta**4 + 43827917619837100032*alpha**5*beta**3 + 17018055148799066112*alpha**5*beta**2 + 3437442664930344960*alpha**5*beta + 275235381872640000*alpha**5 + 1071111221834416128*alpha**4*beta**8 + 6586679567864954880*alpha**4*beta**7 + 16994477338773848064*alpha**4*beta**6 + 23986600486381854720*alpha**4*beta**5 + 19980939860119627776*alpha**4*beta**4 + 9901850867869049856*alpha**4*beta**3 + 2800649073959080704*alpha**4*beta**2 + 401984678866037760*alpha**4*beta + 21061239813734400*alpha**4 + 170033874424823808*alpha**3*beta**9 + 1163428679809105920*alpha**3*beta**8 + 3371228432990797824*alpha**3*beta**7 + 5436285589033353216*alpha**3*beta**6 + 5263743161862623232*alpha**3*beta**5 + 3091794788770288128*alpha**3*beta**4 + 1066763808957570048*alpha**3*beta**3 + 196514500670219520*alpha**3*beta**2 + 14690505370521600*alpha**3*beta + 17343347826622464*alpha**2*beta**10 + 129985251124838400*alpha**2*beta**9 + 412462092226461696*alpha**2*beta**8 + 741475071331909632*alpha**2*beta**7 + 812684686833736704*alpha**2*beta**6 + 545756452848571392*alpha**2*beta**5 + 217251690584356224*alpha**2*beta**4 + 46767191062672800*alpha**2*beta**3 + 4171215785774400*alpha**2*beta**2 + 1026744692244480*alpha*beta**11 + 8544410510819328*alpha*beta**10 + 29162570633625600*alpha*beta**9 + 57264839298514944*alpha*beta**8 + 69886351696555008*alpha*beta**7 + 52752020686617600*alpha*beta**6 + 23687699123727360*alpha*beta**5 + 5768888139532800*alpha*beta**4 + 585165646148400*alpha*beta**3 + 23901070049280*beta**12 + 243007272861696*beta**11 + 902118461552640*beta**10 + 1912536197885952*beta**9 + 2570282442015552*beta**8 + 2158958740196160*beta**7 + 1079747981637120*beta**6 + 292259111732280*beta**5 + 32899532692275*beta**4)/(32805*(16*alpha + 12*beta + 9)**10)",
+    "name": "ordinary_H1",
+    "numerator_coefficients": [
+      {
+        "alpha_power": 0,
+        "beta_power": 4,
+        "coefficient": "526392523076400"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 5,
+        "coefficient": "4676145787716480"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 6,
+        "coefficient": "17275967706193920"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 7,
+        "coefficient": "34543339843138560"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 8,
+        "coefficient": "41124519072248832"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 9,
+        "coefficient": "30600579166175232"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 10,
+        "coefficient": "14433895384842240"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 11,
+        "coefficient": "3888116365787136"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 12,
+        "coefficient": "382417120788480"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 3,
+        "coefficient": "9362650338374400"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 4,
+        "coefficient": "92302210232524800"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 5,
+        "coefficient": "379003185979637760"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 6,
+        "coefficient": "844032330985881600"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 7,
+        "coefficient": "1118181627144880128"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 8,
+        "coefficient": "916237428776239104"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 9,
+        "coefficient": "466601130138009600"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 10,
+        "coefficient": "136710568173109248"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 11,
+        "coefficient": "16427915075911680"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 2,
+        "coefficient": "66739452572390400"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 3,
+        "coefficient": "748275057002764800"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 4,
+        "coefficient": "3476027049349699584"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 5,
+        "coefficient": "8732103245577142272"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 6,
+        "coefficient": "13002954989339787264"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 7,
+        "coefficient": "11863601141310554112"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 8,
+        "coefficient": "6599393475623387136"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 9,
+        "coefficient": "2079764017997414400"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 10,
+        "coefficient": "277493565225959424"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 1,
+        "coefficient": "235048085928345600"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 2,
+        "coefficient": "3144232010723512320"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 3,
+        "coefficient": "17068220943321120768"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 4,
+        "coefficient": "49468716620324610048"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 5,
+        "coefficient": "84219890589801971712"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 6,
+        "coefficient": "86980569424533651456"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 7,
+        "coefficient": "53939654927852765184"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 8,
+        "coefficient": "18614858876945694720"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 9,
+        "coefficient": "2720541990797180928"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 0,
+        "coefficient": "336979837019750400"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 1,
+        "coefficient": "6431754861856604160"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 2,
+        "coefficient": "44810385183345291264"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 3,
+        "coefficient": "158429613885904797696"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 4,
+        "coefficient": "319695037761914044416"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 5,
+        "coefficient": "383785607782109675520"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 6,
+        "coefficient": "271911637420381569024"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 7,
+        "coefficient": "105386873085839278080"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 8,
+        "coefficient": "17137779549350658048"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 0,
+        "coefficient": "4403766109962240000"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 1,
+        "coefficient": "54999082638885519360"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 2,
+        "coefficient": "272288882380785057792"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 3,
+        "coefficient": "701246681917393600512"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 4,
+        "coefficient": "1024229197585770872832"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 5,
+        "coefficient": "856513458720819118080"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 6,
+        "coefficient": "383056505872840654848"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 7,
+        "coefficient": "70788585792529760256"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 0,
+        "coefficient": "24596072114240618496"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 1,
+        "coefficient": "231882800671517442048"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 2,
+        "coefficient": "866566697802825203712"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 3,
+        "coefficient": "1651930105728023396352"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 4,
+        "coefficient": "1704566921090260008960"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 5,
+        "coefficient": "907944138491685765120"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 6,
+        "coefficient": "195191565623683448832"
+      },
+      {
+        "alpha_power": 7,
+        "beta_power": 0,
+        "coefficient": "76649309104337584128"
+      },
+      {
+        "alpha_power": 7,
+        "beta_power": 1,
+        "coefficient": "558694466936286216192"
+      },
+      {
+        "alpha_power": 7,
+        "beta_power": 2,
+        "coefficient": "1571017455251365036032"
+      },
+      {
+        "alpha_power": 7,
+        "beta_power": 3,
+        "coefficient": "2139373086620535226368"
+      },
+      {
+        "alpha_power": 7,
+        "beta_power": 4,
+        "coefficient": "1416482444121716293632"
+      },
+      {
+        "alpha_power": 7,
+        "beta_power": 5,
+        "coefficient": "364786473520217456640"
+      },
+      {
+        "alpha_power": 8,
+        "beta_power": 0,
+        "coefficient": "145995293708387352576"
+      },
+      {
+        "alpha_power": 8,
+        "beta_power": 1,
+        "coefficient": "810297961566192009216"
+      },
+      {
+        "alpha_power": 8,
+        "beta_power": 2,
+        "coefficient": "1641724673393738907648"
+      },
+      {
+        "alpha_power": 8,
+        "beta_power": 3,
+        "coefficient": "1443026626255811248128"
+      },
+      {
+        "alpha_power": 8,
+        "beta_power": 4,
+        "coefficient": "463907309622965305344"
+      },
+      {
+        "alpha_power": 9,
+        "beta_power": 0,
+        "coefficient": "174765817756989259776"
+      },
+      {
+        "alpha_power": 9,
+        "beta_power": 1,
+        "coefficient": "703677226476770426880"
+      },
+      {
+        "alpha_power": 9,
+        "beta_power": 2,
+        "coefficient": "924629933186189623296"
+      },
+      {
+        "alpha_power": 9,
+        "beta_power": 3,
+        "coefficient": "395848176327318306816"
+      },
+      {
+        "alpha_power": 10,
+        "beta_power": 0,
+        "coefficient": "129137129833780740096"
+      },
+      {
+        "alpha_power": 10,
+        "beta_power": 1,
+        "coefficient": "338490684794317307904"
+      },
+      {
+        "alpha_power": 10,
+        "beta_power": 2,
+        "coefficient": "217080093701660737536"
+      },
+      {
+        "alpha_power": 11,
+        "beta_power": 0,
+        "coefficient": "54000429508287528960"
+      },
+      {
+        "alpha_power": 11,
+        "beta_power": 1,
+        "coefficient": "69142636842650173440"
+      },
+      {
+        "alpha_power": 12,
+        "beta_power": 0,
+        "coefficient": "9707176738127085568"
+      }
+    ],
+    "numerator_term_count": 81,
+    "numerator_total_degree": 12
+  },
+  "postprocessor_sha256": "31d86d0a5e0159a1e9723bc9cbfc609a81589402eb30e0cf3875902b22c00d7a",
+  "schema_version": 2,
+  "shifted_H1": {
+    "decision": {
+      "method": "coefficientwise_nonnegative",
+      "negative_witness": null,
+      "status": "nonnegative_on_quadrant",
+      "strictness_by_closed_quadrant_stratum": {
+        "origin": false,
+        "positive_alpha_axis": true,
+        "positive_beta_axis": true,
+        "strictly_positive_interior": true
+      },
+      "zero_set_on_closed_quadrant": "union_of_strata: origin"
+    },
+    "denominator_at_origin": "172334907882131965754175",
+    "denominator_certificate": "the expanded denominator has only nonnegative coefficients and has a strictly positive constant term; hence it is strictly positive on the entire closed nonnegative quadrant",
+    "denominator_factorized": "93002175*(16*alpha + 12*beta + 9)**16",
+    "expression": "128*(226907853637159907454091264*alpha**18 + 2275123870889627663080620032*alpha**17*beta + 1725028628087174157312196608*alpha**17 + 10642138256612603210393190400*alpha**16*beta**2 + 16122436564914791642071826432*alpha**16*beta + 6123189217318845212092530688*alpha**16 + 30738673040212255850385899520*alpha**15*beta**3 + 69741638109624609892718346240*alpha**15*beta**2 + 52848328908985509317028347904*alpha**15*beta + 13310658565440603139671588864*alpha**15 + 61200751065314664428165136384*alpha**14*beta**4 + 184726552120731841760562511872*alpha**14*beta**3 + 209362172317956373789903159296*alpha**14*beta**2 + 105059695197792360759042244608*alpha**14*beta + 19625960019209209211825160192*alpha**14 + 88844923941906134648701845504*alpha**13*beta**5 + 334198045039612507107813752832*alpha**13*beta**4 + 503250858187994368249304186880*alpha**13*beta**3 + 377138427911829712674484125696*alpha**13*beta**2 + 140115190704010129805445955584*alpha**13*beta + 20584978414782532679337246720*alpha**13 + 97065762663559774362157449216*alpha**12*beta**6 + 436396837069203113800183578624*alpha**12*beta**5 + 817921942409603059363426074624*alpha**12*beta**4 + 813098098295659103220639203328*alpha**12*beta**3 + 450233353519915984808438661120*alpha**12*beta**2 + 131227842776276578806798483456*alpha**12*beta + 15686221391615866219561746432*alpha**12 + 81270215126824169002927915008*alpha**11*beta**7 + 424027345428625880167036747776*alpha**11*beta**6 + 948654832098040656321312718848*alpha**11*beta**5 + 1171734593161941183529821929472*alpha**11*beta**4 + 858737988610857101044368801792*alpha**11*beta**3 + 371987733803857263234618753024*alpha**11*beta**2 + 87906545879438923514750435328*alpha**11*beta + 8718695694458900246688694272*alpha**11 + 52652258192103030177512030208*alpha**10*beta**8 + 311746692894993405788515467264*alpha**10*beta**7 + 808302964391055674062688747520*alpha**10*beta**6 + 1189424052225206931638383017984*alpha**10*beta**5 + 1080301146024399599898023952384*alpha**10*beta**4 + 617331928251932151897246400512*alpha**10*beta**3 + 215915231951948038691917135872*alpha**10*beta**2 + 42117098818370993610371629056*alpha**10*beta + 3497385407695460766695817216*alpha**10 + 26498052458772468185627099136*alpha**9*beta**9 + 174827103245100156067139026944*alpha**9*beta**8 + 513645279241518211167701434368*alpha**9*beta**7 + 874045138665738894993191337984*alpha**9*beta**6 + 942989517769118978869923151872*alpha**9*beta**5 + 665252404082063266553627148288*alpha**9*beta**4 + 305421571232732596667290877952*alpha**9*beta**3 + 87616626869744991833825673216*alpha**9*beta**2 + 14193521712565008051454083072*alpha**9*beta + 985145028009350102395158528*alpha**9 + 10358021809772372668629123072*alpha**8*beta**10 + 74952758432561057671956922368*alpha**8*beta**9 + 244981942049445889089000701952*alpha**8*beta**8 + 471196291960409157063564853248*alpha**8*beta**7 + 585890448667513460628725956608*alpha**8*beta**6 + 488782010300476785393629528064*alpha**8*beta**5 + 275403144080295995342396719104*alpha**8*beta**4 + 102904173752963853355113037824*alpha**8*beta**3 + 24266149883430456188288434176*alpha**8*beta**2 + 3240919521164527746401857536*alpha**8*beta + 184687691898748888423120896*alpha**8 + 3136043790863962898404737024*alpha**7*beta**11 + 24524166079161271743412174848*alpha**7*beta**10 + 87748705124035839937933737984*alpha**7*beta**9 + 187223085756473691674914062336*alpha**7*beta**8 + 262123849934322931007958417408*alpha**7*beta**7 + 250740988495786466825886498816*alpha**7*beta**6 + 165926355319249996304123928576*alpha**7*beta**5 + 75386644019622927991863042048*alpha**7*beta**4 + 22863943447698737897113061376*alpha**7*beta**3 + 4367304754465599989781553152*alpha**7*beta**2 + 466669798788647138757553152*alpha**7*beta + 20675101269015094318110720*alpha**7 + 731930635972015476562722816*alpha**6*beta**12 + 6097052042672511758628814848*alpha**6*beta**11 + 23527471272096864022557622272*alpha**6*beta**10 + 54778533904665549117700964352*alpha**6*beta**9 + 84720786572186336967151583232*alpha**6*beta**8 + 90746370321481469929007923200*alpha**6*beta**7 + 68338170558460944519774990336*alpha**6*beta**6 + 36087502612247566558898789376*alpha**6*beta**5 + 13115337690114288753368500224*alpha**6*beta**4 + 3154380235665877451689235712*alpha**6*beta**3 + 466483814290395769218628608*alpha**6*beta**2 + 36598841166357714368384640*alpha**6*beta + 1045058826910365168537600*alpha**6 + 130749407115375365226233856*alpha**5*beta**13 + 1143778026155014055500185600*alpha**5*beta**12 + 4692347567904988191754027008*alpha**5*beta**11 + 11743575845162609415766671360*alpha**5*beta**10 + 19736202012639746755057827840*alpha**5*beta**9 + 23225362690703641760528216064*alpha**5*beta**8 + 19440277088478531448131624960*alpha**5*beta**7 + 11562472412651542889074152960*alpha**5*beta**6 + 4812712758698345266216161024*alpha**5*beta**5 + 1357225110800399490775017984*alpha**5*beta**4 + 244156188069040954383018432*alpha**5*beta**3 + 24878138394631762517133600*alpha**5*beta**2 + 1066019048259222759019200*alpha**5*beta + 17651687105357521046470656*alpha**4*beta**14 + 159941797175865203953238016*alpha**4*beta**13 + 688186706444642761822568448*alpha**4*beta**12 + 1825547949258965609513877504*alpha**4*beta**11 + 3285410779987422839533412352*alpha**4*beta**10 + 4181728269428760350632292352*alpha**4*beta**9 + 3822078068721823890067932672*alpha**4*beta**8 + 2505356496266196494500245504*alpha**4*beta**7 + 1160598190773022727460856128*alpha**4*beta**6 + 368564615506342704344914368*alpha**4*beta**5 + 75848708697319908265471056*alpha**4*beta**4 + 9048749308448881985334720*alpha**4*beta**3 + 471177950349723996508200*alpha**4*beta**2 + 1756725882179013417369600*alpha**3*beta**15 + 16267429650974926227111936*alpha**3*beta**14 + 72484440171702183326121984*alpha**3*beta**13 + 201137835294373239057383424*alpha**3*beta**12 + 382445419847287125996748800*alpha**3*beta**11 + 519398531969721369089550336*alpha**3*beta**10 + 511187031899048457813086208*alpha**3*beta**9 + 363653130281107249093820544*alpha**3*beta**8 + 184056146225013172937353344*alpha**3*beta**7 + 64271181242242994353468560*alpha**3*beta**6 + 14649433437304778024786760*alpha**3*beta**5 + 1953715296871778473781100*alpha**3*beta**4 + 115200369586318891430250*alpha**3*beta**3 + 122807398820712968355840*alpha**2*beta**16 + 1145436813850545129259008*alpha**2*beta**15 + 5219980217937189471485952*alpha**2*beta**14 + 14960880907391286865428480*alpha**2*beta**13 + 29664072371493244085299200*alpha**2*beta**12 + 42432829947947624344418304*alpha**2*beta**11 + 44419547431560844890184320*alpha**2*beta**10 + 33885478720730234111187456*alpha**2*beta**9 + 18500322057665555349017136*alpha**2*beta**8 + 6998051827780247818562760*alpha**2*beta**7 + 1733926997598051526738560*alpha**2*beta**6 + 252314910189536140204290*alpha**2*beta**5 + 16311189526758362639925*alpha**2*beta**4 + 5434744107878055936000*alpha*beta**17 + 50121997780542066524160*alpha*beta**16 + 230412681915775894683648*alpha*beta**15 + 672905651119222835773440*alpha*beta**14 + 1372284244598182558285824*alpha*beta**13 + 2038780565394218374754304*alpha*beta**12 + 2240636644579327493474304*alpha*beta**11 + 1811844973029057167416320*alpha*beta**10 + 1055525456724485040403200*alpha*beta**9 + 427556586565170683677440*alpha*beta**8 + 113618564493940759233600*alpha*beta**7 + 17744675461749675621000*alpha*beta**6 + 1232030938009156702200*alpha*beta**5 + 118545859421208576000*beta**18 + 1040541168642572943360*beta**17 + 4714777826877294084096*beta**16 + 13738381347925470707712*beta**15 + 28259445593374169536512*beta**14 + 42747739983106177913856*beta**13 + 48402005855780816751744*beta**12 + 40832840178717727703040*beta**11 + 25045103707545818276640*beta**10 + 10725399944614085991120*beta**9 + 3013588603461886630650*beta**8 + 496495921010217439500*beta**7 + 36237693598006079025*beta**6)/(93002175*(16*alpha + 12*beta + 9)**16)",
+    "name": "shifted_H1",
+    "numerator_coefficients": [
+      {
+        "alpha_power": 0,
+        "beta_power": 6,
+        "coefficient": "4638424780544778115200"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 7,
+        "coefficient": "63551477889307832256000"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 8,
+        "coefficient": "385739341243121488723200"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 9,
+        "coefficient": "1372851192910603006863360"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 10,
+        "coefficient": "3205773274565864739409920"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 11,
+        "coefficient": "5226603542875869145989120"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 12,
+        "coefficient": "6195456749539944544223232"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 13,
+        "coefficient": "5471710717837590772973568"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 14,
+        "coefficient": "3617209035951893700673536"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 15,
+        "coefficient": "1758512812534460250587136"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 16,
+        "coefficient": "603491561840293642764288"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 17,
+        "coefficient": "133189269586249336750080"
+      },
+      {
+        "alpha_power": 0,
+        "beta_power": 18,
+        "coefficient": "15173870005914697728000"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 5,
+        "coefficient": "157699960065172057881600"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 6,
+        "coefficient": "2271318459103958479488000"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 7,
+        "coefficient": "14543176255224417181900800"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 8,
+        "coefficient": "54727243080341847510712320"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 9,
+        "coefficient": "135107258460734085171609600"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 10,
+        "coefficient": "231916156547719317429288960"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 11,
+        "coefficient": "286801490506153919164710912"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 12,
+        "coefficient": "260963912370459951968550912"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 13,
+        "coefficient": "175652383308567367460585472"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 14,
+        "coefficient": "86131923343260522979000320"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 15,
+        "coefficient": "29492823285219314519506944"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 16,
+        "coefficient": "6415615715909384515092480"
+      },
+      {
+        "alpha_power": 1,
+        "beta_power": 17,
+        "coefficient": "695647245808391159808000"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 4,
+        "coefficient": "2087832259425070417910400"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 5,
+        "coefficient": "32296308504260625946149120"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 6,
+        "coefficient": "221942655692550595422535680"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 7,
+        "coefficient": "895750633955871720776033280"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 8,
+        "coefficient": "2368041223381191084674193408"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 9,
+        "coefficient": "4337341276253469966231994368"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 10,
+        "coefficient": "5685702071239788145943592960"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 11,
+        "coefficient": "5431402233337295916085542912"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 12,
+        "coefficient": "3797001263551135242918297600"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 13,
+        "coefficient": "1914992756146084718774845440"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 14,
+        "coefficient": "668157467895960252350201856"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 15,
+        "coefficient": "146615912172869776545153024"
+      },
+      {
+        "alpha_power": 2,
+        "beta_power": 16,
+        "coefficient": "15719347049051259949547520"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 3,
+        "coefficient": "14745647307048818103072000"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 4,
+        "coefficient": "250075557999587644643980800"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 5,
+        "coefficient": "1875127479975011587172705280"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 6,
+        "coefficient": "8226711199007103277243975680"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 7,
+        "coefficient": "23559186716801686135981228032"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 8,
+        "coefficient": "46547600675981727884009029632"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 9,
+        "coefficient": "65431940083078202600075034624"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 10,
+        "coefficient": "66483012092124335243462443008"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 11,
+        "coefficient": "48953013740452752127583846400"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 12,
+        "coefficient": "25745642917679774599345078272"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 13,
+        "coefficient": "9278008341977879465743613952"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 14,
+        "coefficient": "2082230995324790557070327808"
+      },
+      {
+        "alpha_power": 3,
+        "beta_power": 15,
+        "coefficient": "224860912918913717423308800"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 2,
+        "coefficient": "60310777644764671553049600"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 3,
+        "coefficient": "1158239911481456894122844160"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 4,
+        "coefficient": "9708634713256948257980295168"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 5,
+        "coefficient": "47176270784811866156149039104"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 6,
+        "coefficient": "148556568418946909114989584384"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 7,
+        "coefficient": "320685631522073151296031424512"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 8,
+        "coefficient": "489225992796393457928695382016"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 9,
+        "coefficient": "535261218486881324880933421056"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 10,
+        "coefficient": "420532579838390123460276781056"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 11,
+        "coefficient": "233670137505147598017776320512"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 12,
+        "coefficient": "88087898424914273513288761344"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 13,
+        "coefficient": "20472550038510746106014466048"
+      },
+      {
+        "alpha_power": 4,
+        "beta_power": 14,
+        "coefficient": "2259415949485762693948243968"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 1,
+        "coefficient": "136450438177180513154457600"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 2,
+        "coefficient": "3184401714512865602193100800"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 3,
+        "coefficient": "31251992072837242161026359296"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 4,
+        "coefficient": "173724814182451134819202301952"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 5,
+        "coefficient": "616027233113388194075668611072"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 6,
+        "coefficient": "1479996468819397489801491578880"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 7,
+        "coefficient": "2488355467325252025360847994880"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 8,
+        "coefficient": "2972846424410066145347611656192"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 9,
+        "coefficient": "2526233857617887584647401963520"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 10,
+        "coefficient": "1503177708180814005218133934080"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 11,
+        "coefficient": "600620488691838488544515457024"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 12,
+        "coefficient": "146403587347841799104023756800"
+      },
+      {
+        "alpha_power": 5,
+        "beta_power": 13,
+        "coefficient": "16735924110768046748957933568"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 0,
+        "coefficient": "133767529844526741572812800"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 1,
+        "coefficient": "4684651669293787439153233920"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 2,
+        "coefficient": "59709928229170658459984461824"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 3,
+        "coefficient": "403760670165232313816222171136"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 4,
+        "coefficient": "1678763224334628960431168028672"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 5,
+        "coefficient": "4619200334367688519539045040128"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 6,
+        "coefficient": "8747285831483000898531198763008"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 7,
+        "coefficient": "11615535401149628150913014169600"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 8,
+        "coefficient": "10844260681239851131795402653696"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 9,
+        "coefficient": "7011652339797190287065723437056"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 10,
+        "coefficient": "3011516322828398594887375650816"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 11,
+        "coefficient": "780422661462081505104488300544"
+      },
+      {
+        "alpha_power": 6,
+        "beta_power": 12,
+        "coefficient": "93687121404417981000028520448"
+      },
+      {
+        "alpha_power": 7,
+        "beta_power": 0,
+        "coefficient": "2646412962433932072718172160"
+      },
+      {
+        "alpha_power": 7,
+        "beta_power": 1,
+        "coefficient": "59733734244946833760966803456"
+      },
+      {
+        "alpha_power": 7,
+        "beta_power": 2,
+        "coefficient": "559015008571596798692038803456"
+      },
+      {
+        "alpha_power": 7,
+        "beta_power": 3,
+        "coefficient": "2926584761305438450830471856128"
+      },
+      {
+        "alpha_power": 7,
+        "beta_power": 4,
+        "coefficient": "9649490434511734782958469382144"
+      },
+      {
+        "alpha_power": 7,
+        "beta_power": 5,
+        "coefficient": "21238573480863999526927862857728"
+      },
+      {
+        "alpha_power": 7,
+        "beta_power": 6,
+        "coefficient": "32094846527460667753713471848448"
+      },
+      {
+        "alpha_power": 7,
+        "beta_power": 7,
+        "coefficient": "33551852791593335169018677428224"
+      },
+      {
+        "alpha_power": 7,
+        "beta_power": 8,
+        "coefficient": "23964554976828632534388999979008"
+      },
+      {
+        "alpha_power": 7,
+        "beta_power": 9,
+        "coefficient": "11231834255876587512055518461952"
+      },
+      {
+        "alpha_power": 7,
+        "beta_power": 10,
+        "coefficient": "3139093258132642783156758380544"
+      },
+      {
+        "alpha_power": 7,
+        "beta_power": 11,
+        "coefficient": "401413605230587250995806339072"
+      },
+      {
+        "alpha_power": 8,
+        "beta_power": 0,
+        "coefficient": "23640024563039857718159474688"
+      },
+      {
+        "alpha_power": 8,
+        "beta_power": 1,
+        "coefficient": "414837698709059551539437764608"
+      },
+      {
+        "alpha_power": 8,
+        "beta_power": 2,
+        "coefficient": "3106067185079098392100919574528"
+      },
+      {
+        "alpha_power": 8,
+        "beta_power": 3,
+        "coefficient": "13171734240379373229454468841472"
+      },
+      {
+        "alpha_power": 8,
+        "beta_power": 4,
+        "coefficient": "35251602442277887403826780045312"
+      },
+      {
+        "alpha_power": 8,
+        "beta_power": 5,
+        "coefficient": "62564097318461028530384579592192"
+      },
+      {
+        "alpha_power": 8,
+        "beta_power": 6,
+        "coefficient": "74993977429441722960476922445824"
+      },
+      {
+        "alpha_power": 8,
+        "beta_power": 7,
+        "coefficient": "60313125370932372104136301215744"
+      },
+      {
+        "alpha_power": 8,
+        "beta_power": 8,
+        "coefficient": "31357688582329073803392089849856"
+      },
+      {
+        "alpha_power": 8,
+        "beta_power": 9,
+        "coefficient": "9593953079367815382010486063104"
+      },
+      {
+        "alpha_power": 8,
+        "beta_power": 10,
+        "coefficient": "1325826791650863701584527753216"
+      },
+      {
+        "alpha_power": 9,
+        "beta_power": 0,
+        "coefficient": "126098563585196813106580291584"
+      },
+      {
+        "alpha_power": 9,
+        "beta_power": 1,
+        "coefficient": "1816770779208321030586122633216"
+      },
+      {
+        "alpha_power": 9,
+        "beta_power": 2,
+        "coefficient": "11214928239327358954729686171648"
+      },
+      {
+        "alpha_power": 9,
+        "beta_power": 3,
+        "coefficient": "39093961117789772373413232377856"
+      },
+      {
+        "alpha_power": 9,
+        "beta_power": 4,
+        "coefficient": "85152307722504098118864274980864"
+      },
+      {
+        "alpha_power": 9,
+        "beta_power": 5,
+        "coefficient": "120702658274447229295350163439616"
+      },
+      {
+        "alpha_power": 9,
+        "beta_power": 6,
+        "coefficient": "111877777749214578559128491261952"
+      },
+      {
+        "alpha_power": 9,
+        "beta_power": 7,
+        "coefficient": "65746595742914331029465783599104"
+      },
+      {
+        "alpha_power": 9,
+        "beta_power": 8,
+        "coefficient": "22377869215372819976593795448832"
+      },
+      {
+        "alpha_power": 9,
+        "beta_power": 9,
+        "coefficient": "3391750714722875927760268689408"
+      },
+      {
+        "alpha_power": 10,
+        "beta_power": 0,
+        "coefficient": "447665332185018978137064603648"
+      },
+      {
+        "alpha_power": 10,
+        "beta_power": 1,
+        "coefficient": "5390988648751487182127568519168"
+      },
+      {
+        "alpha_power": 10,
+        "beta_power": 2,
+        "coefficient": "27637149689849348952565393391616"
+      },
+      {
+        "alpha_power": 10,
+        "beta_power": 3,
+        "coefficient": "79018486816247315442847539265536"
+      },
+      {
+        "alpha_power": 10,
+        "beta_power": 4,
+        "coefficient": "138278546691123148786947065905152"
+      },
+      {
+        "alpha_power": 10,
+        "beta_power": 5,
+        "coefficient": "152246278684826487249713026301952"
+      },
+      {
+        "alpha_power": 10,
+        "beta_power": 6,
+        "coefficient": "103462779442055126280024159682560"
+      },
+      {
+        "alpha_power": 10,
+        "beta_power": 7,
+        "coefficient": "39903576690559155940929979809792"
+      },
+      {
+        "alpha_power": 10,
+        "beta_power": 8,
+        "coefficient": "6739489048589187862721539866624"
+      },
+      {
+        "alpha_power": 11,
+        "beta_power": 0,
+        "coefficient": "1115993048890739231576152866816"
+      },
+      {
+        "alpha_power": 11,
+        "beta_power": 1,
+        "coefficient": "11252037872568182209888055721984"
+      },
+      {
+        "alpha_power": 11,
+        "beta_power": 2,
+        "coefficient": "47614429926893729694031200387072"
+      },
+      {
+        "alpha_power": 11,
+        "beta_power": 3,
+        "coefficient": "109918462542189708933679206629376"
+      },
+      {
+        "alpha_power": 11,
+        "beta_power": 4,
+        "coefficient": "149982027924728471491817206972416"
+      },
+      {
+        "alpha_power": 11,
+        "beta_power": 5,
+        "coefficient": "121427818508549204009128028012544"
+      },
+      {
+        "alpha_power": 11,
+        "beta_power": 6,
+        "coefficient": "54275500214864112661380703715328"
+      },
+      {
+        "alpha_power": 11,
+        "beta_power": 7,
+        "coefficient": "10402587536233493632374773121024"
+      },
+      {
+        "alpha_power": 12,
+        "beta_power": 0,
+        "coefficient": "2007836338126830876103903543296"
+      },
+      {
+        "alpha_power": 12,
+        "beta_power": 1,
+        "coefficient": "16797163875363402087270205882368"
+      },
+      {
+        "alpha_power": 12,
+        "beta_power": 2,
+        "coefficient": "57629869250549246055480148623360"
+      },
+      {
+        "alpha_power": 12,
+        "beta_power": 3,
+        "coefficient": "104076556581844365212241818025984"
+      },
+      {
+        "alpha_power": 12,
+        "beta_power": 4,
+        "coefficient": "104694008628429191598518537551872"
+      },
+      {
+        "alpha_power": 12,
+        "beta_power": 5,
+        "coefficient": "55858795144857998566423498063872"
+      },
+      {
+        "alpha_power": 12,
+        "beta_power": 6,
+        "coefficient": "12424417620935651118356153499648"
+      },
+      {
+        "alpha_power": 13,
+        "beta_power": 0,
+        "coefficient": "2634877237092164182955167580160"
+      },
+      {
+        "alpha_power": 13,
+        "beta_power": 1,
+        "coefficient": "17934744410113296615097082314752"
+      },
+      {
+        "alpha_power": 13,
+        "beta_power": 2,
+        "coefficient": "48273718772714203222333968089088"
+      },
+      {
+        "alpha_power": 13,
+        "beta_power": 3,
+        "coefficient": "64416109848063279135910935920640"
+      },
+      {
+        "alpha_power": 13,
+        "beta_power": 4,
+        "coefficient": "42777349765070400909800160362496"
+      },
+      {
+        "alpha_power": 13,
+        "beta_power": 5,
+        "coefficient": "11372150264563985235033836224512"
+      },
+      {
+        "alpha_power": 14,
+        "beta_power": 0,
+        "coefficient": "2512122882458778779113620504576"
+      },
+      {
+        "alpha_power": 14,
+        "beta_power": 1,
+        "coefficient": "13447640985317422177157407309824"
+      },
+      {
+        "alpha_power": 14,
+        "beta_power": 2,
+        "coefficient": "26798358056698415845107604389888"
+      },
+      {
+        "alpha_power": 14,
+        "beta_power": 3,
+        "coefficient": "23644998671453675745352001519616"
+      },
+      {
+        "alpha_power": 14,
+        "beta_power": 4,
+        "coefficient": "7833696136360277046805137457152"
+      },
+      {
+        "alpha_power": 15,
+        "beta_power": 0,
+        "coefficient": "1703764296376397201877963374592"
+      },
+      {
+        "alpha_power": 15,
+        "beta_power": 1,
+        "coefficient": "6764586100350145192579628531712"
+      },
+      {
+        "alpha_power": 15,
+        "beta_power": 2,
+        "coefficient": "8926929678031950066267948318720"
+      },
+      {
+        "alpha_power": 15,
+        "beta_power": 3,
+        "coefficient": "3934550149147168748849395138560"
+      },
+      {
+        "alpha_power": 16,
+        "beta_power": 0,
+        "coefficient": "783768219816812187147843928064"
+      },
+      {
+        "alpha_power": 16,
+        "beta_power": 1,
+        "coefficient": "2063671880309093330185193783296"
+      },
+      {
+        "alpha_power": 16,
+        "beta_power": 2,
+        "coefficient": "1362193696846413210930328371200"
+      },
+      {
+        "alpha_power": 17,
+        "beta_power": 0,
+        "coefficient": "220803664395158292135961165824"
+      },
+      {
+        "alpha_power": 17,
+        "beta_power": 1,
+        "coefficient": "291215855473872340874319364096"
+      },
+      {
+        "alpha_power": 18,
+        "beta_power": 0,
+        "coefficient": "29044205265556468154123681792"
+      }
+    ],
+    "numerator_term_count": 169,
+    "numerator_total_degree": 18
+  }
+}

@@ -1,0 +1,16 @@
+# Reproducible build products.  Exact source hashes, compile commands, and
+# expected binary hashes are retained in provenance and executable tests.
+frozen/b3_connected_stage_ab
+frozen/stage_c_sector
+
+# Local test/runtime caches.
+__pycache__/
+.pytest_cache/
+*.pyc
+
+# Transient atomic-write files; completed exact JSON checkpoints are durable.
+checkpoints/*.tmp
+
+# Raw stderr logs are diagnostic only.  Hash-bound coefficients and scalar
+# resource records are preserved in JSON provenance.
+logs/*.log

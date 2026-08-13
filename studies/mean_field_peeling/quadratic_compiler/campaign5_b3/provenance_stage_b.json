@@ -1,0 +1,46 @@
+{
+  "campaign": "B=3 equicorrelated equal-label channel",
+  "stage": "B: exact order-five novelty and projection",
+  "parameter_domain": "rho in [-1/2,1]",
+  "protocol_sha256": "cc022e233a3de6bddeab7fc766769ab6e14cc98c2f95f6ff7c2b6971e9e5d606",
+  "connected": {
+    "source": "b3_connected.cpp",
+    "source_sha256": "5dd93cbc8fb97479e6c54dbc2202bfec42d0156014f5d34b4d40e77da9d6621f",
+    "compile_command": "g++ -std=c++20 -O3 -DNDEBUG -Wall -Wextra -Wpedantic b3_connected.cpp -o /tmp/campaign5_b3_connected",
+    "binary_sha256": "42851e9da7cd247ffcedcb2ee2d7bc6a06a1ed02d7069c42faac1da10ffcc447",
+    "command": "/usr/bin/time -v timeout 1800 bash -c 'ulimit -v 4194304; /tmp/campaign5_b3_connected 5 > frozen/stage_b_connected_order5.json'",
+    "raw_output_sha256": "46e99ee2a7c4a69f1428579e3110eed0310d28ca60a41fc70ebd5d7149f883db",
+    "order5_recursion_seconds": 7.61491,
+    "wall_seconds": 7.65,
+    "peak_rss_kib": 55824,
+    "value_states": 25416,
+    "terminal_states": 22957,
+    "exit_status": 0
+  },
+  "raw_J5_coefficients_ascending": [
+    "538604724384", "0", "2907336777600", "496895572992",
+    "9978629314560", "3295196805120", "13047259375104",
+    "5834165305344", "10864204947456", "3941595119616",
+    "3823364235264", "1130663903232", "567145463808"
+  ],
+  "normalization": "F^(5)(0;rho)=J5(rho)/3^6",
+  "validation": {
+    "even_jets_zero_through_order4": true,
+    "rho1_matches_canonical_orders1_3_5": true,
+    "scale_invariant_I_nonconstant": true,
+    "I_at_minus_half": "329279908/107729503",
+    "I_at_zero": "791075688939/261115847168",
+    "I_at_one": "29831494015/9860573312"
+  },
+  "growth_from_stage_a_connected": {
+    "order3_value_states": 294,
+    "order3_terminal_states": 255,
+    "order5_value_states": 25416,
+    "order5_terminal_states": 22957,
+    "value_state_factor": 86.44897959183673,
+    "terminal_state_factor": 90.02745098039216
+  },
+  "classification": "Stage B exact jet and nontriviality gate passed within cap; F5 alone is not Stieltjes success",
+  "stage_c_status": "unauthorized pending a separate sectorized implementation and a frozen projection within 4 GiB per sector and 6 cumulative CPU-hours"
+}
+

@@ -1,0 +1,54 @@
+{
+  "campaign": "B=3 equicorrelated equal-label channel",
+  "stage": "A: exact order-three feasibility",
+  "parameter_domain": "rho in [-1/2,1]",
+  "protocol_sha256": "cc022e233a3de6bddeab7fc766769ab6e14cc98c2f95f6ff7c2b6971e9e5d606",
+  "reference": {
+    "source": "b3_reference.py",
+    "source_sha256": "dda01ff669e63a9e601dfb98d32375a37f2c59c1eb1e8f887ba045495a8c5661",
+    "command": "/usr/bin/time -v timeout 600 bash -c 'ulimit -v 2097152; python b3_reference.py --colors 3 --order 3 > frozen/stage_a_reference_order3.json'",
+    "raw_output_sha256": "11fed6ba89511240db6dc86312dbdc1fbfd99455d8d92820bf057a727448020c",
+    "wall_seconds": 5.43,
+    "peak_rss_kib": 87528,
+    "exit_status": 0
+  },
+  "connected": {
+    "source": "b3_connected.cpp",
+    "source_sha256": "5dd93cbc8fb97479e6c54dbc2202bfec42d0156014f5d34b4d40e77da9d6621f",
+    "compile_command": "g++ -std=c++20 -O3 -DNDEBUG -Wall -Wextra -Wpedantic b3_connected.cpp -o /tmp/campaign5_b3_connected",
+    "binary_sha256": "42851e9da7cd247ffcedcb2ee2d7bc6a06a1ed02d7069c42faac1da10ffcc447",
+    "command": "/usr/bin/time -v timeout 600 bash -c 'ulimit -v 2097152; /tmp/campaign5_b3_connected 3 > frozen/stage_a_connected_order3.json'",
+    "raw_output_sha256": "bc81c144288492749e453bf1c1a5612d3f94628e4aa94cebd17161c54558bc0a",
+    "order3_recursion_seconds": 0.0122699,
+    "wall_seconds": 0.02,
+    "peak_rss_kib": 4504,
+    "value_states": 294,
+    "terminal_states": 255,
+    "exit_status": 0
+  },
+  "raw_jets": {
+    "J0": ["0"],
+    "J1": ["423", "0", "240", "0", "336"],
+    "J2": ["0"],
+    "J3": [
+      "8671872", "0", "24671424", "2582784", "52017024",
+      "10037760", "23721216", "7507968", "7289856"
+    ]
+  },
+  "normalization": "F^(k)(0;rho)=Jk(rho)/3^(k+1)",
+  "validation": {
+    "reference_vs_connected_all_coefficients_through_order3": true,
+    "even_jets_zero": true,
+    "F1_exact": "(141 + 80*rho^2 + 112*rho^4)/3",
+    "rho1_matches_canonical_orders1_and3": true,
+    "internal_B2_equal_label_matches_campaign2_orders1_and3": true,
+    "triangle_moment_1_plus_6rho2_plus_8rho3": true,
+    "explicit_nonzero_three_color_terminal_class": {
+      "exponents": [3, 1, 2],
+      "moment": ["0", "3", "6", "6"]
+    },
+    "all_stage_a_tests_pass": true
+  },
+  "classification": "Stage A passed exactly within the frozen cap; this is feasibility, not Stieltjes success",
+  "next_branch": "Stage B is authorized; Stage C remains unauthorized until the frozen F5 novelty and projection gates pass"
+}

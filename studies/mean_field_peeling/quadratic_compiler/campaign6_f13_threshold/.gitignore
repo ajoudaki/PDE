@@ -1,0 +1,7 @@
+build/
+checkpoints/
+__pycache__/
+*.pyc
+.pytest_cache/
+peeling_lower_bound_checked
+hybrid_component_interval_checked

@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "campaign": "B=3 equicorrelated equal-label channel",
+  "stage": "C projection gate",
+  "status": "failed_closed_unauthorized",
+  "projection_plan": "STAGE_C_PROJECTION_PLAN.md",
+  "projection_plan_sha256": "72115b19f2b9fb37c331436a3733ed86b83222e8a24d35a625acf12cdbd778f6",
+  "source": "stage_c_sector.cpp",
+  "source_sha256": "f1912e81b2f25bdef04bcef9c490a0975757a64deda4cb55f74c7c50abfe64ce",
+  "compile_command": "g++ -std=c++20 -O3 -DNDEBUG stage_c_sector.cpp -o stage_c_sector",
+  "binary_sha256": "59d949b0808d92b946ec55a856764f43ed4ccbcc922c5849561c9ba73e175fbf",
+  "pilot_command_template": "/usr/bin/time -v prlimit --as=4294967296 -- stage_c_sector 7 --w-hits S",
+  "pilot_cutoff_wall_seconds": 1800,
+  "cumulative_stage_c_cpu_cap_seconds": 21600,
+  "chronology_audit": {
+    "sector_zero_launch": "2026-08-13T19:44:48.949256+02:00",
+    "written_projection_rule_frozen_approximately": "2026-08-13T19:58:39+02:00",
+    "assessment": "the written rule was frozen after observing roughly thirteen minutes of noncompletion, but before any pilot completed, before any order-seven coefficient was available, and before the 1800-second failure boundary; this weakens prospective purity but cannot bias the fail-closed unauthorized conclusion favorably"
+  },
+  "lower_order_sector_gate": {
+    "artifact": "provenance_stage_c_lower_gate.json",
+    "sha256": "4846ddd5fe38556dd9d6044a7f3b75abbb89c82c26c7481a22a6730213c308ea",
+    "status": "passed"
+  },
+  "two_colour_common_order_gate": {
+    "artifact": "provenance_b2_order5_gate.json",
+    "sha256": "9e00475113f4014abd2a8d33051de609be8009f9c410f9b55274eea271de45a3",
+    "status": "passed"
+  },
+  "fresh_final_source_pilots": [
+    {
+      "w_hits": 0,
+      "start": "2026-08-13T19:44:48.949256+02:00",
+      "frozen_cutoff": "2026-08-13T20:14:48.949256+02:00",
+      "interruption_confirmed_no_later_than": "2026-08-13T20:15:15+02:00",
+      "exit_status": 130,
+      "completed_order_seven": false,
+      "accepted_order_seven_coefficients": null,
+      "classification": "failed: no order-seven result by the frozen 1800-second cutoff",
+      "measured_cpu_seconds": null,
+      "measured_peak_rss_kib": null,
+      "conservative_budget_debit_seconds": 1826.050744,
+      "address_space_cap_bytes": 4294967296
+    },
+    {
+      "w_hits": 3,
+      "start": "2026-08-13T19:50:44.918170+02:00",
+      "frozen_cutoff": "2026-08-13T20:20:44.918170+02:00",
+      "interruption_confirmed_no_later_than": "2026-08-13T20:15:15+02:00",
+      "exit_status": 130,
+      "completed_order_seven": false,
+      "accepted_order_seven_coefficients": null,
+      "classification": "stopped safely immediately after sector zero failed the common projection gate",
+      "measured_cpu_seconds": null,
+      "measured_peak_rss_kib": null,
+      "conservative_budget_debit_seconds": 1470.08183,
+      "address_space_cap_bytes": 4294967296
+    },
+    {
+      "w_hits": 7,
+      "start": "2026-08-13T19:50:44.962171+02:00",
+      "frozen_cutoff": "2026-08-13T20:20:44.962171+02:00",
+      "interruption_confirmed_no_later_than": "2026-08-13T20:15:15+02:00",
+      "exit_status": 130,
+      "completed_order_seven": false,
+      "accepted_order_seven_coefficients": null,
+      "classification": "stopped safely immediately after sector zero failed the common projection gate",
+      "measured_cpu_seconds": null,
+      "measured_peak_rss_kib": null,
+      "conservative_budget_debit_seconds": 1470.037829,
+      "address_space_cap_bytes": 4294967296
+    }
+  ],
+  "accounting": {
+    "why_exact_cpu_and_peak_rss_are_null": "interactive interruption terminated the timing wrappers before they emitted final resource records",
+    "fail_closed_rule": "debit the full conservative elapsed-wall upper bound for each CPU-bound pilot, including the post-cutoff polling tail",
+    "conservative_total_pilot_debit_seconds": 4766.170403,
+    "notional_remaining_cap_seconds": 16833.829597,
+    "note": "the remaining-cap number cannot authorize work because successful completion of all three projection pilots was mandatory"
+  },
+  "cutoff_audit": {
+    "sector_zero_polling_tail_seconds_at_most": 26.050744,
+    "classification": "late termination caused by polling granularity; no result after the cutoff was or could be accepted, and the entire tail is debited"
+  },
+  "excluded_obsolete_artifacts": [
+    {
+      "path": "logs/stage_c_projection_w0.log",
+      "reason": "predates final source/binary and invokes obsolete /tmp/campaign5_b3_connected_new; contains embedded NUL bytes"
+    },
+    {
+      "path": "logs/stage_c_projection_w3.log",
+      "reason": "predates final source/binary and is not a completed final-hash pilot record"
+    },
+    {
+      "path": "/tmp/c5_f7_pilot_w0.json",
+      "reason": "obsolete incomplete JSON prefix from the pre-final compiler"
+    },
+    {
+      "path": "/tmp/c5_f7_pilot_w3.json",
+      "reason": "incomplete JSON prefix, not a completed exact result"
+    }
+  ],
+  "authorization_conditions": {
+    "all_three_pilots_completed": false,
+    "all_three_below_4GiB_peak_rss_certified": false,
+    "pilot_plus_projection_within_21600_cpu_seconds_certified": false,
+    "stage_c_authorized": false
+  },
+  "terminal_decision": "Stage C is closed unauthorized. No order-seven production, relaunch, grace period, coefficient interpretation, postprocessing, order-nine run, B=4 run, or mixed-label run is permitted in this campaign."
+}

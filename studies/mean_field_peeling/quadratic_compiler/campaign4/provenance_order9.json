@@ -1,0 +1,71 @@
+{
+  "binary_policy": "The binary is ignored by Git. Its historical hash is retained; clean-checkout tests compile the frozen source independently.",
+  "campaign": "two-independent-block metric, exact output order nine",
+  "claim_limit": "Exact finite-order formal-jet family certificate only; not an all-order Stieltjes theorem or global mean-field trajectory identification theorem.",
+  "compile_command": "g++ -std=c++17 -O3 -DNDEBUG studies/mean_field_peeling/quadratic_compiler/campaign4/sector_wrapper.cpp -o studies/mean_field_peeling/quadratic_compiler/campaign4/bin/sector_wrapper",
+  "compiler": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+  "hashes": {
+    "binary_sha256_when_locally_present": "ade5c5e7b7c8ec10ee5dbe7afa50506bf75d11de1fc44d6601cda11753159045",
+    "budget_ledger_sha256": "797dfb7caef6df6de6fe33b1afa59bef233625a2c7787902992351a3b5cd4c49",
+    "campaign1_graded_source_sha256": "b6657defd7897e54a121b7f8523396d4f6fef666a7a044fe32d6b4d43926a061",
+    "certificate_sha256": "721811f924e73c3281e1b064532e2d55c430633e7345b042d302c569dd190394",
+    "frozen_campaign1_result_sha256": "02215aa7c18f3550a19f34b89734b6bf5b66a2825e8aa5bc103517767982ee1a",
+    "parent_sector_engine_sha256": "1931b628b25d2a7c018bc20a06d14aee6ee86ca702d8abcbec17e1ec719be260",
+    "postprocessor_sha256": "31d86d0a5e0159a1e9723bc9cbfc609a81589402eb30e0cf3875902b22c00d7a",
+    "protocol_sha256": "a1c0fedb179317c99275a325260edf84c6ea2abe8127b5a83039be16490977f5",
+    "provenance_builder_sha256": "ff0cd3a66f896421dd03deedbef0a2320acab0e57da4e814a5a17f96c47e4491",
+    "reference_source_sha256": "85fb2a6c295e3c1a36b81c2b9f60bdf690b1cd0fb5640ed04c73019ab0f1e221",
+    "result_sha256": "530ef0818f4142eb162c28fa6b388d69a1e13eeb9de399d54a25008d591f6d5e",
+    "results_report_sha256": "d5c94708b31458f5e1e385a6c79e4b11730120013cd91742d6e56e2925aa7cea",
+    "runner_sha256": "a3bb4c2d080bdd72b0c9a553b2509555962dcb2b193ebe5939f22038e8aa95dc",
+    "wrapper_source_sha256": "ed3ebfcc5b8dceb8e3e8bf0c98604c33446a00c5962472339b06f0810575739f"
+  },
+  "metric": "D_a + alpha D_u + beta D_W; alpha,beta >= 0",
+  "postprocess_command": "python3 studies/mean_field_peeling/quadratic_compiler/campaign4/postprocess.py",
+  "primary_decision": {
+    "shifted_numerator_term_count": 169,
+    "shifted_numerator_total_degree": 18,
+    "status": "strictly_positive_except_at_degenerate_origin",
+    "zero_set_on_closed_quadrant": [
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  "production_command": "python3 studies/mean_field_peeling/quadratic_compiler/campaign4/run_sectors.py --binary studies/mean_field_peeling/quadratic_compiler/campaign4/bin/sector_wrapper --sectors studies/mean_field_peeling/quadratic_compiler/campaign4/sectors --output studies/mean_field_peeling/quadratic_compiler/campaign4/results_order9.json --budget-ledger studies/mean_field_peeling/quadratic_compiler/campaign4/production_budget.json --max-seconds 1800 --memory-bytes 4294967296",
+  "production_measurement": {
+    "atomic_sector_files": 125,
+    "completed": true,
+    "cumulative_wall_seconds": 1131.0358560830355,
+    "measured_peak_rss": null,
+    "peak_rss_note": "RLIMIT_AS was enforced independently on every sector; peak resident memory was not separately measured.",
+    "per_sector_memory_cap_bytes": 4294967296,
+    "sector_count": 125
+  },
+  "resource_precommit": {
+    "cumulative_production_wall_seconds": 1800,
+    "forbidden": [
+      "F11",
+      "Q2",
+      "other observables"
+    ],
+    "per_sector_virtual_memory_bytes": 4294967296,
+    "target_order": 9
+  },
+  "schema_version": 1,
+  "validation": {
+    "all_125_atomic_sector_hashes_in_result_manifest": true,
+    "all_denominators_positive_including_origin": true,
+    "all_diagonal_coefficients_through_F9_match_campaign1": true,
+    "canonical_point_through_F9_matches_accepted_jets": true,
+    "checked_512_bit_arithmetic": true,
+    "feature_parity_through_order_8": true,
+    "independent_off_diagonal_points_through_F5": true,
+    "independent_whole_forest_all_coefficients_through_F5": true,
+    "mu0_through_mu3_coefficientwise_positive_off_origin": true,
+    "ordinary_H1_coefficientwise_positive_off_origin": true,
+    "shifted_H1_coefficientwise_positive_off_origin": true
+  },
+  "working_directory": "/home/amir/Codes/PDE"
+}

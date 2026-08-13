@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "classification": "post-hoc lower necessary Stieltjes signs only; not the preregistered order-seven Hankel success test",
+  "source_artifacts": {
+    "frozen/stage_a_connected_order3.json": "bc81c144288492749e453bf1c1a5612d3f94628e4aa94cebd17161c54558bc0a",
+    "frozen/stage_b_connected_order5.json": "46e99ee2a7c4a69f1428579e3110eed0310d28ca60a41fc70ebd5d7149f883db"
+  },
+  "definitions": {
+    "A": "J1",
+    "B": "J3",
+    "C": "J5",
+    "P": "4*B^2-A*C",
+    "mu0": "B/(2*A^2)",
+    "mu1": "3*P/(8*A^5)"
+  },
+  "coefficients_ascending": {
+    "A": ["423", "0", "240", "0", "336"],
+    "B": ["8671872", "0", "24671424", "2582784", "52017024", "10037760", "23721216", "7507968", "7289856"],
+    "C": ["538604724384", "0", "2907336777600", "496895572992", "9978629314560", "3295196805120", "13047259375104", "5834165305344", "10864204947456", "3941595119616", "3823364235264", "1130663903232", "567145463808"],
+    "P": ["72975657523104", "0", "352510857108864", "-31006249362432", "943704226266624", "-306986153674752", "3048287409593856", "151165592174592", "5138388685062144", "1974386999623680", "3259652293361664", "1795291983249408", "1079379907117056", "414440347926528", "188107029872640", "57952973094912", "22007126163456"]
+  },
+  "sturm_certificates": {
+    "A": [
+      {"interval": ["-1/2", "0"], "left_value": "504", "right_value": "423", "left_sign": 1, "right_sign": 1, "distinct_real_root_count": 0, "strictly_positive": true},
+      {"interval": ["0", "1"], "left_value": "423", "right_value": "999", "left_sign": 1, "right_sign": 1, "distinct_real_root_count": 0, "strictly_positive": true}
+    ],
+    "B": [
+      {"interval": ["-1/2", "0"], "left_value": "17794728", "right_value": "8671872", "left_sign": 1, "right_sign": 1, "distinct_real_root_count": 0, "strictly_positive": true},
+      {"interval": ["0", "1"], "left_value": "8671872", "right_value": "136499904", "left_sign": 1, "right_sign": 1, "distinct_real_root_count": 0, "strictly_positive": true}
+    ],
+    "P": [
+      {"interval": ["-1/2", "0"], "left_value": "298747724954112", "right_value": "72975657523104", "left_sign": 1, "right_sign": 1, "distinct_real_root_count": 0, "strictly_positive": true},
+      {"interval": ["0", "1"], "left_value": "72975657523104", "right_value": "18160258685101344", "left_sign": 1, "right_sign": 1, "distinct_real_root_count": 0, "strictly_positive": true}
+    ]
+  },
+  "conclusions": {
+    "A_positive_on_full_domain": true,
+    "B_positive_on_full_domain": true,
+    "P_positive_on_full_domain": true,
+    "mu0_positive_on_full_domain": true,
+    "mu1_positive_on_full_domain": true,
+    "mu2_available": false,
+    "ordinary_H1_available": false
+  }
+}

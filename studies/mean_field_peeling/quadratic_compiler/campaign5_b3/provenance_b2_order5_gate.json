@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "purpose": "mandatory internal two-colour equal-label regression through the common computed order five",
+  "accepted_b3_source_sha256": "5dd93cbc8fb97479e6c54dbc2202bfec42d0156014f5d34b4d40e77da9d6621f",
+  "specialization": "retain a zero third exponent slot; restrict all colour loops, roots, and the colour-permutation quotient to colours zero and one",
+  "executable_gate": "test_b2_order5_gate.py",
+  "executable_gate_sha256": "fef8eccdfb32e7a556f4a6448b35ec9f9135ec2d349251da43c7298f40cc09fa",
+  "command": "pytest -q test_b2_order5_gate.py",
+  "exit_status": 0,
+  "test_result": "1 passed in 6.18s",
+  "independent_campaign2_raw": "../campaign2/frozen/plus_order7_raw.json",
+  "independent_campaign2_raw_sha256": "e363e70cbf512f63025a77fa84d2bf5068a7e512933c08df3c0f149746da6b7a",
+  "normalization": "divide order k by 2^(k+1)",
+  "raw_even_theta_coefficients": {
+    "1": ["252", "80", "112"],
+    "3": ["4474880", "6772992", "12613376", "2291712", "809984"],
+    "5": ["240622630912", "682719557632", "1859920795648", "1268944584704", "793264209920", "91274510336", "16894230528"]
+  },
+  "normalized_even_theta_coefficients": {
+    "1": ["63", "20", "28"],
+    "3": ["279680", "423312", "788336", "143232", "50624"],
+    "5": ["3759728608", "10667493088", "29061262432", "19827259136", "12394753280", "1426164224", "263972352"]
+  },
+  "coefficientwise_equal_to_campaign2": true,
+  "note": "The independent canonical rho=1 endpoint is a different gate and was not used as a substitute."
+}

@@ -1,0 +1,115 @@
+{
+  "claim_level": "bounded calibration benchmarks; no D13 value or decision certificate",
+  "resource_policy": {
+    "memory_limit_bytes": 4294967296,
+    "cpu_limit_seconds_per_process": 900,
+    "individual_wall_limit_seconds": 900
+  },
+  "exact_reference": {
+    "D9": "1181161141825400561664",
+    "D11": "291982832387585872335470592"
+  },
+  "benchmarks": [
+    {
+      "order": 9,
+      "mode": "exact",
+      "exact_component_edge_cap": 1000,
+      "value": "1181161141825400561664",
+      "seconds_reported": 218.872,
+      "peak_rss_kib": 2040412,
+      "regression_passed": true
+    },
+    {
+      "order": 9,
+      "mode": "exact-through-cap, first-positive-Wick-branch lower subsum thereafter",
+      "exact_wick_through_edge_cap": 10,
+      "large_component_policy": "retain only the first positive Wick child at every pairing node",
+      "value": "505355642761948710912",
+      "seconds_reported": 3.80398,
+      "peak_rss_kib": 38844,
+      "fraction_of_exact": 0.4278464850113148
+    },
+    {
+      "order": 9,
+      "mode": "exact-through-cap, first-positive-Wick-branch lower subsum thereafter",
+      "exact_wick_through_edge_cap": 14,
+      "large_component_policy": "retain only the first positive Wick child at every pairing node",
+      "value": "831117547099898256384",
+      "seconds_reported": 22.3191,
+      "peak_rss_kib": 236664,
+      "fraction_of_exact": 0.7036445051142346
+    },
+    {
+      "order": 9,
+      "mode": "exact-through-cap, unrestricted-pairing upper thereafter",
+      "exact_wick_through_edge_cap": 10,
+      "large_component_policy": "unrestricted-pairing upper cap",
+      "value": "55017327064922725447981062673123396608",
+      "seconds_reported": 2.23358,
+      "peak_rss_kib": 38704,
+      "upper_over_exact": 46579018828791944.8
+    },
+    {
+      "order": 9,
+      "mode": "exact-through-cap, unrestricted-pairing upper thereafter",
+      "exact_wick_through_edge_cap": 14,
+      "large_component_policy": "unrestricted-pairing upper cap",
+      "value": "55017317353863817671487083804848937984",
+      "seconds_reported": 20.4233,
+      "peak_rss_kib": 236256,
+      "upper_over_exact": 46579010607171232.8
+    },
+    {
+      "order": 11,
+      "mode": "exact-through-cap, first-positive-Wick-branch lower subsum thereafter",
+      "exact_wick_through_edge_cap": 10,
+      "large_component_policy": "retain only the first positive Wick child at every pairing node",
+      "value": "92555810430422243404290048",
+      "seconds_reported": 88.0132,
+      "peak_rss_kib": 401548,
+      "fraction_of_exact": 0.3169905904178680
+    },
+    {
+      "order": 11,
+      "mode": "exact-through-cap, first-positive-Wick-branch lower subsum thereafter",
+      "exact_wick_through_edge_cap": 14,
+      "large_component_policy": "retain only the first positive Wick child at every pairing node",
+      "value": "171603357129414135968053248",
+      "seconds_reported": 207.314,
+      "peak_rss_kib": 1504928,
+      "fraction_of_exact": 0.5877172836710592
+    },
+    {
+      "order": 11,
+      "mode": "exact-through-cap, unrestricted-pairing upper thereafter",
+      "exact_wick_through_edge_cap": 10,
+      "large_component_policy": "unrestricted-pairing upper cap",
+      "value": "2604803614508263883758587562714057707035630026752",
+      "seconds_reported": 28.9948,
+      "peak_rss_kib": 397152,
+      "upper_over_exact": 8.921084822721966e+21
+    },
+    {
+      "order": 11,
+      "mode": "exact-through-cap, unrestricted-pairing upper thereafter",
+      "exact_wick_through_edge_cap": 14,
+      "large_component_policy": "unrestricted-pairing upper cap",
+      "value": "2604803614504539242178745973740349108382669692928",
+      "seconds_reported": 151.388,
+      "peak_rss_kib": 1500248,
+      "upper_over_exact": 8.921084822709209e+21
+    }
+  ],
+  "interpretation": {
+    "protocol_gates_completed": false,
+    "campaign6_certificate_accepted": false,
+    "missing_gate_evidence": [
+      "fresh reproduction of every D9 Wick-pair sector",
+      "fresh implementation-level reproduction of the accepted D11 total",
+      "durable per-run commands, hashes, CPU times, exit statuses, and output hashes"
+    ],
+    "lower": "At a fixed cap, exact Wick evaluation below the cap and one retained positive Wick branch above it gives an analytically motivated lower-subsum calibration, but Campaign 6 does not accept these endpoints as certificates; its recovered fraction also worsens from D9 to D11.",
+    "upper": "Exact evaluation of every component through 14 edges changes the candidate unrestricted-pairing envelope negligibly and leaves more than 21 orders of magnitude of relative slack at D11; Campaign 6 does not accept these endpoints as certificates.",
+    "D13_production_authorized": false
+  }
+}

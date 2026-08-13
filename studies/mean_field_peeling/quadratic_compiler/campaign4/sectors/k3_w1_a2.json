@@ -1,0 +1,18 @@
+{
+  "a_hits": 2,
+  "campaign4": {
+    "alpha_power": 0,
+    "atomic_sector_schema": 1,
+    "beta_power": 1
+  },
+  "lambda_degree": 1,
+  "order": 3,
+  "parent_source_sha256": "1931b628b25d2a7c018bc20a06d14aee6ee86ca702d8abcbec17e1ec719be260",
+  "root": "f",
+  "seconds": 0.000259574,
+  "value": "19440",
+  "value_cache": 25,
+  "w_hits": 1,
+  "wick_cache": 11,
+  "wick_subproblem_cache": 0
+}

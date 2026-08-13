@@ -3,8 +3,10 @@
 ## Authoritative research state, exact certificates, failed routes, and conditional ODE reconstruction
 
 **Status as of 13 August 2026:** compatible with every condition decidable
-from the first five exact canonical moments and with all finite-order tests in
-three exact parameter-continuum campaigns; neither proved nor falsified.
+from the first five exact canonical moments and with all finite-order Hankel
+tests in four exact parameter-continuum campaigns; a fifth three-input
+campaign established exact lower jets and $\mu_0,\mu_1>0$ but did not reach a
+Hankel determinant.  The conjecture is neither proved nor falsified.
 
 This is the single authoritative, self-contained account of the
 Stieltjes-conjecture investigation. It supersedes the historical report in
@@ -12,7 +14,8 @@ Stieltjes-conjecture investigation. It supersedes the historical report in
 report's obsolete provisional order-eleven status. It incorporates the exact
 order-eleven feature jet, inverse-variable reformulation, variance homotopy,
 all-minor sector audit, conditional quadrature reconstruction, numerical
-experiments, and adversarial audits of failed proof strategies.
+experiments, adversarial audits of failed proof strategies, and the completed
+bounded Campaigns 4--6 portfolio.
 
 All work from this investigation is contained below this directory:
 
@@ -35,7 +38,9 @@ The main claim levels are:
 |---|---|
 | Raw fixed-order derivatives through $F^{(11)}(0)$ | Accepted exact computational certificates |
 | Moments $\mu_0,\ldots,\mu_4$ and every accessible Hankel test | Exact; every test passes strictly |
-| Three nontrivial parameter families | Exact finite-order continuum certificates; every tested inequality passes |
+| Four nontrivial parameter families reaching Hankel tests | Exact finite-order continuum certificates; every tested inequality passes |
+| Three-input equicorrelation through order five | Exact lower jets and $\mu_0,\mu_1>0$; no $\mu_2$ or Hankel determinant |
+| Bounded Campaign-6 order-thirteen probe | Inconclusive; no accepted new bound or interval |
 | Full $F^{(13)}(0)$, $\mu_5$, and the next shifted determinant | Open |
 | All-order Stieltjes moment property | Open |
 | Existence of a representing measure | Conditional on all-order Hankel positivity |
@@ -48,7 +53,7 @@ The core verdict is
 
 $$
 \boxed{\begin{gathered}
-\text{canonical five-moment and parameter-continuum compatibility,}\\
+\text{canonical five-moment and four-family Hankel compatibility,}\\
 \text{but no all-order theorem and no counterexample.}
 \end{gathered}}
 $$
@@ -350,8 +355,10 @@ strictly.  This is finite-order compatibility, not an all-order proof.
 
 ### Exact parameter-family extension campaigns
 
-The one-point calculation has now been extended to three genuinely
-nontrivial continuous families.  The complete self-contained account,
+The one-point calculation has now been extended through five bounded,
+genuinely nontrivial continuous-family campaigns.  Four reached finite
+Hankel endpoints; the fifth reached exact lower jets and two necessary moment
+signs but not a determinant.  The complete self-contained account,
 including exact jets, failed routes, resource bounds, compiler audits, and
 durable links, is
 [`EXACT_PARAMETRIC_CAMPAIGNS.md`](EXACT_PARAMETRIC_CAMPAIGNS.md).  The common
@@ -396,16 +403,50 @@ conclusion is stronger finite-order compatibility, not an all-order theorem.
    \(t=1-c\in[-1,1]\) required genuine root isolation; coefficientwise
    positivity was not used there.
 
-All three campaigns passed independent low-order Wick routes, parity and
-endpoint gates, checked-arithmetic execution, exact postprocessing, and
-provenance audits.  The combined durable test suite has 59 passing tests.
+4. **Independent block-metric quadrant.**  With
+
+   $$
+   D_{\alpha,\beta}=D_a+\alpha D_u+\beta D_W,
+   \qquad \alpha,\beta\geq0,
+   $$
+
+   fixing the readout coefficient removes the common clock and leaves two
+   genuine relative learning-rate parameters.  All 125 atomic sectors through
+   order nine completed.  Exact positive-coefficient numerator certificates
+   prove $\mu_0,\ldots,\mu_3\geq0$ and both
+   $\mu_0\mu_2-\mu_1^2\geq0$ and
+   $\mu_1\mu_3-\mu_2^2\geq0$ throughout the closed quadrant, strictly away
+   from the constant-kernel origin.  This strictly extends the diagonal
+   metric ray to a genuine two-dimensional unbounded family.
+
+5. **Three equicorrelated inputs.**  For equal labels and
+
+   $$
+   G_3(\rho)=(1-\rho)I_3+\rho\mathbf1\mathbf1^\top,
+   \qquad -\frac12\leq\rho\leq1,
+   $$
+
+   the permutation-invariant output has an exact scalar squared-loss
+   reduction.  The compiler reached order five, witnessed the signed
+   three-color cycle invariant, and proved the family is not a removable
+   scaling.  Exact Sturm certificates prove $\mu_0,\mu_1>0$ on the full
+   interval.  The frozen order-seven W0 pilot exceeded 1800 seconds, so no
+   production run was launched: $F^{(7)}$, $\mu_2$, and the first ordinary
+   Hankel determinant remain unavailable.  This is an accepted
+   feasibility/partial-moment result, **not a fifth Hankel pass**.
+
+The completed claims passed their applicable independent low-order Wick,
+parity, endpoint, checked-arithmetic, exact-postprocessing, and provenance
+gates.  The first three campaign suites retain 59 tests; Campaign 4 adds 12
+and Campaign 5 adds 15, for 86 passing parameter-campaign tests in total.
 The original dense two-input order-seven route and the secondary graded
 hidden-norm route timed out; both remain explicitly inconclusive and support
-no accepted coefficient.  Higher parametric order-nine branches were
-postponed where measured state growth made their information-per-cost ratio
-poor.  None of these results supplies the missing all-order positive
-operator or the bridge from fixed-order formal jets to a global deterministic
-mean-field curve.
+no accepted coefficient.  Higher parametric branches were postponed where
+measured state growth made their information-per-cost ratio poor.  In
+particular, the failed three-input order-seven gate leaves the four-input
+prerequisite unmet.  None of these results supplies the missing all-order
+positive operator or the bridge from fixed-order formal jets to a global
+deterministic mean-field curve.
 
 The next exact test needs \(\mu_5=-g_6\), hence \(F^{(13)}(0)\).  Given the
 five moments already known, positivity of the next shifted determinant is
@@ -500,6 +541,28 @@ disprove the inequality specifically at order eleven, but it prevents using
 the low-order pattern as a theorem.  The exact bookkeeping and counterexamples
 are in
 [`../mean_field_peeling/quadratic_compiler/TWO_HIT_CHARGING_AUDIT.md`](../mean_field_peeling/quadratic_compiler/TWO_HIT_CHARGING_AUDIT.md).
+
+A later bounded, threshold-aware Campaign 6 deliberately targeted an inexact
+one-sided or interval certificate rather than the full $F^{(13)}(0)$ integer.
+It closed **protocol-inconclusive** before any D13 production run.  Its
+unrestricted-pairing upper envelope was about $5.10\times10^{29}$ times the
+threshold, and an exact-small-component hybrid still exceeded the known exact
+order-eleven value by more than $10^{21}$; neither mechanism projected useful
+threshold separation within the frozen extension budget.  More importantly,
+the campaign did not complete its mandatory fresh per-sector D9, total D11,
+and per-run provenance gate.  Its new endpoints are therefore diagnostics,
+not certificates.  The accepted D13 lower bound remains exactly the cap-14
+value above, only $38.76\%$ of the threshold.
+
+No old multi-day enumeration or eight-hour root-class run was resumed.  More
+D13 compute is not authorized by this non-result.  A future bounded attempt
+first needs a graph-sensitive omitted-mass lemma: either a calibrated bound on
+leading-width Wick partitions of large decorated trees, a disjoint positive
+family aggregation that avoids enumerating all P14 bases, or a nonlocal
+two-generation transport identity replacing the already false local charging
+rules.  The frozen protocol, downgrade, and conditional-stop decision are in
+[`NEXT_CAMPAIGN_OUTCOMES.md`](NEXT_CAMPAIGN_OUTCOMES.md) and the
+[`Campaign 6 report`](../mean_field_peeling/quadratic_compiler/campaign6_f13_threshold/CAMPAIGN_REPORT.md).
 
 ## 6. Exact inverse-variable reformulation
 
@@ -1317,25 +1380,30 @@ Proved or computationally certified:
    low-order regressions;
 2. $F^{(11)}(0)$ and $g_5=\mu_4$ exactly;
 3. strict positivity of every Hankel condition testable through $\mu_4$;
-4. exact continuum-valued finite-order compatibility over the relative-metric,
-   two-input label/correlation, and centered-activation families, including
+4. exact continuum-valued finite-order Hankel compatibility over four
+   campaigns: the relative-metric ray, two-input label/correlation channels,
+   centered activation, and independent two-block metric quadrant, including
    ordinary and shifted output/hidden two-by-two tests where computed;
-5. the inverse-variable coefficient formulas and Stieltjes equivalence;
-6. the exact Stieltjes variance boundary and the signed first variation;
-7. total nonnegativity of all 18,563 minors of the aggregated $6\times12$
+5. the faithful three-input equicorrelation MFP extension through order five,
+   its genuine triangle invariant, and exact $\mu_0,\mu_1>0$ on the full PSD
+   interval, but no Hankel determinant;
+6. the inverse-variable coefficient formulas and Stieltjes equivalence;
+7. the exact Stieltjes variance boundary and the signed first variation;
+8. total nonnegativity of all 18,563 minors of the aggregated $6\times12$
    sector matrix, plus simple negative roots of its six row polynomials;
-8. positive two-node Gaussian and three-node zero-Radau reconstructions;
-9. conditional Gauss/Radau bounds for every representing resolvent and its
+9. positive two-node Gaussian and three-node zero-Radau reconstructions;
+10. conditional Gauss/Radau bounds for every representing resolvent and its
    induced scalar \(K,F,L\) flows, but not yet for an independently
    established global mean-field curve;
-10. zero radius of the feature and loss formal jets;
-11. rigorous failure of the generic proof mechanisms collected in Section 13;
-12. local calibration, but not a decisive global Loewner result, for the
+11. zero radius of the feature and loss formal jets;
+12. rigorous failure of the generic proof mechanisms collected in Section 13;
+13. local calibration, but not a decisive global Loewner result, for the
    stopped finite-width median proxy.
 
 Open:
 
-1. the exact order-thirteen derivative, $\mu_5$, and the next shifted
+1. the three-input $F^{(7)}$ and first ordinary determinant, the canonical
+   exact order-thirteen derivative, $\mu_5$, and the next shifted
    three-by-three determinant;
 2. an all-order architecture-specific Hankel, Jacobi, or cone-preservation
    mechanism;
@@ -1404,6 +1472,26 @@ marginal-yield rule stops this computational route.  This outcome is
 **inconclusive** and is not evidence for the Stieltjes conjecture.  The paused
 inverse-variable positive-Jacobi and variance-homotopy routes are reactivated.
 
+### Later bounded Campaign-6 outcome and portfolio stop
+
+Campaign 6 was a separate, later attempt to avoid full D13 enumeration by
+certifying only which side of the exact threshold contains the answer.  It
+also closed inconclusively: its candidate envelopes were far too loose and it
+failed the frozen fresh-regression/provenance gate, so it supplies **no
+accepted new bound**.  Its detailed diagnostics do not supersede the cap-14
+lower certificate or repair the old budget-four timeouts.
+
+The containing portfolio permitted at most one conditional branch.  Neither
+was launched.  Four inputs required the three-input campaign to finish order
+seven and demonstrate affordable scaling; that prerequisite failed.  A
+metric-ray order-eleven pilot would provide another larger finite Hankel test,
+but after one strong quadrant pass and two inconclusive discriminating
+endpoints it was stopped on marginal-information grounds.  It can be
+reconsidered only in a newly frozen round with a materially cheaper compiler
+projection or a theory-driven reason that makes it more than cumulative
+coefficient evidence.  The authoritative decision record is
+[`NEXT_CAMPAIGN_OUTCOMES.md`](NEXT_CAMPAIGN_OUTCOMES.md).
+
 ## 16. Artifact index and durability policy
 
 The durable source-of-truth map is:
@@ -1416,8 +1504,15 @@ The durable source-of-truth map is:
 - [the exact parametric campaign synthesis](EXACT_PARAMETRIC_CAMPAIGNS.md)
   and its [metric/hidden](../mean_field_peeling/quadratic_compiler/campaign1/),
   [two-input](../mean_field_peeling/quadratic_compiler/campaign2/), and
-  [activation](../mean_field_peeling/quadratic_compiler/campaign3/)
-  compiler artifacts for the new continuum-valued certificates;
+  [activation](../mean_field_peeling/quadratic_compiler/campaign3/),
+  [independent block-metric](../mean_field_peeling/quadratic_compiler/campaign4/),
+  and [three-input](../mean_field_peeling/quadratic_compiler/campaign5_b3/)
+  compiler artifacts for the exact continuum-valued certificates and partial
+  moment results at their stated claim levels;
+- [the bounded follow-up outcome](NEXT_CAMPAIGN_OUTCOMES.md) and
+  [Campaign-6 report](../mean_field_peeling/quadratic_compiler/campaign6_f13_threshold/CAMPAIGN_REPORT.md)
+  for the stopped, protocol-inconclusive D13 probe and conditional-branch
+  decision; Campaign 6 supplies no accepted new coefficient or bound;
 - [exact order-eleven certificates](theory/certificates_order11.json) for
   exact \(K\)-coefficients, moments, and accessible Hankel determinants;
 - [the D13 threshold calculator](theory/exact_d13_threshold.py) for the exact

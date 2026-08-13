@@ -1,0 +1,5 @@
+1cdc9f40f8180e744275806f667a66e5c4194afe2884c4a57262c2fb7ec7ed43  PROTOCOL.md
+# Read-only dependencies at protocol freeze
+1931b628b25d2a7c018bc20a06d14aee6ee86ca702d8abcbec17e1ec719be260  ../sector_engine_checked.cpp
+ad53d2d786393cafc9d034685638348afa19f08dbb8d5aeb3110f8e24c7847ad  ../component_recursion.cpp
+773ca6b52d802b83ac8b5f609096eccffcdb3bc776177af677e57c0bad8ea1f2  ../../../stieltjes_conjecture/theory/exact_d13_threshold.py

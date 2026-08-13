@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+
+# Reproducible local build product; source and expected hash are frozen in
+# provenance rather than tracking the binary.
+bin/
+
+# Timing logs can be bulky. Scalar resource measurements and hashes are
+# retained in the manifest/provenance.
+logs/

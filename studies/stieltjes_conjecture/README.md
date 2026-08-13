@@ -4,11 +4,20 @@ The authoritative report is
 [CURRENT_RESEARCH_STATE.md](CURRENT_RESEARCH_STATE.md). The present verdict is
 finite-order compatibility without a proof or counterexample: the first five
 moments are exact and pass every decidable Hankel test, while the next moment
-and all-order positivity remain open. Three subsequent exact campaigns also
-found no finite-order violation over a relative-metric ray, the full
-two-input correlation interval in two label channels, and a shifted-activation
-interval. Their unified account is
+and all-order positivity remain open. Four subsequent exact campaigns also
+found no finite-order Hankel violation over a relative-metric ray, the full
+two-input correlation interval in two label channels, a shifted-activation
+interval, and the full independent two-block metric quadrant. A fifth
+three-input campaign established exact jets through order five and
+$\mu_0,\mu_1>0$ on the full equicorrelation interval, but did not reach a
+Hankel determinant. Their unified account is
 [EXACT_PARAMETRIC_CAMPAIGNS.md](EXACT_PARAMETRIC_CAMPAIGNS.md).
+
+The frozen plan and final decisions for the latest bounded portfolio are in
+[NEXT_CAMPAIGN_PORTFOLIO.md](NEXT_CAMPAIGN_PORTFOLIO.md) and
+[NEXT_CAMPAIGN_OUTCOMES.md](NEXT_CAMPAIGN_OUTCOMES.md). Campaign 6 is recorded
+there as a stopped, protocol-inconclusive order-thirteen probe: it contributes
+no accepted new bound and is not part of the four parametric Hankel passes.
 
 This study owns the transformation from the quadratic-network feature jet to
 the output-coordinate kernel, the Stieltjes moment problem, conditional
@@ -22,10 +31,11 @@ Directory map:
   quadratures, homotopy calculations, and total-nonnegativity audits;
 - [numerics](numerics/) contains frozen protocols, reports, compact summaries,
   and integrity metadata; raw arrays and bulk logs are intentionally ignored;
-- the three compiler-local campaign directories in
+- the five compiler-local parameter-campaign directories in
   [mean-field peeling](../mean_field_peeling/quadratic_compiler/) retain their
   exact jets, compact certificates, source, tests, and a few tiny execution
-  logs required by frozen provenance;
+  logs required by frozen provenance; the adjacent Campaign-6 directory
+  preserves the inconclusive D13 audit at its lower claim level;
 - [archive](archive/) contains superseded material retained for provenance.
 
 Historical paths embedded in frozen manifests are preserved verbatim. They

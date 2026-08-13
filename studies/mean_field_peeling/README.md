@@ -15,6 +15,9 @@ depth-linear finite-state closure remain open.
 | Fixed-network backward and training calculations | Audited under stated assumptions; some higher nonlinear closures remain formal |
 | Quadratic decorated-forest reduction | Exact special-case reduction |
 | Quadratic derivatives through order eleven | Accepted exact computational certificates |
+| Independent block-metric extension through order nine | Exact special-case continuum certificate |
+| Three-input equicorrelation extension through order five | Exact special-case jets and two lower moment signs; no Hankel determinant |
+| Bounded quadratic order-thirteen Campaign 6 | Protocol-inconclusive; no accepted new bound |
 | General Gaussian-normal-form theorem | Open |
 | Depth-independent finite-state closure and shared $O(L)$ DAG | Open |
 | Full quadratic order-thirteen coefficient | Open |
@@ -40,10 +43,22 @@ audits, and open theorem targets.
 [`quadratic_compiler/`](quadratic_compiler/) contains the exact canonical
 special-case graph rewrites, connected recurrence, Wick-sector engines,
 checked arithmetic, certificates, provenance, and rejected acceleration
-attempts. Its three isolated parameter campaigns additionally cover a
-relative metric and hidden observable, two symmetry-reduced inputs, and a
-shifted quadratic first activation. These remain model-specific extensions;
-they do not turn the implementation into a generic MLP compiler.
+attempts. Its completed bounded parameter portfolio covers a relative metric
+and hidden observable, two symmetry-reduced inputs, a shifted quadratic first
+activation, the full independent two-block metric quadrant, and three
+equicorrelated equal-label inputs.  The first four campaigns reached exact
+finite Hankel endpoints.  The three-input grammar is accepted through order
+five and proves $\mu_0,\mu_1>0$, but its order-seven resource gate failed, so
+it supplies no Hankel determinant.  The adjacent Campaign-6 D13 threshold
+probe is a stopped protocol-inconclusive diagnostic and supplies no accepted
+new bound.  These remain model-specific extensions; they do not turn the
+implementation into a generic MLP compiler or close full quadratic order
+thirteen.
+
+The exact claim levels and conditional-stop decision are synthesized in
+[`../stieltjes_conjecture/EXACT_PARAMETRIC_CAMPAIGNS.md`](../stieltjes_conjecture/EXACT_PARAMETRIC_CAMPAIGNS.md)
+and
+[`../stieltjes_conjecture/NEXT_CAMPAIGN_OUTCOMES.md`](../stieltjes_conjecture/NEXT_CAMPAIGN_OUTCOMES.md).
 
 The downstream
 [`../stieltjes_conjecture/`](../stieltjes_conjecture/) study consumes the
