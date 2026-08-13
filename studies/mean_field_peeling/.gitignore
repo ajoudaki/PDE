@@ -1,0 +1,16 @@
+# The typeset PDF is retained; all intermediate TeX/Markdown products are not.
+report/build/
+
+# Compiler caches, checkpoints, ordinary binaries, and object files.
+quadratic_compiler/build/
+quadratic_compiler/*.o
+quadratic_compiler/*.out
+quadratic_compiler/*.chk
+
+# Local interpreter caches.
+**/__pycache__/
+**/*.py[cod]
+
+# `quadratic_compiler/export_evaluator_checked512` is the one deliberate
+# executable exception: its hash identifies the accepted D11 calculation and
+# the exact executed source revision is not otherwise recoverable.

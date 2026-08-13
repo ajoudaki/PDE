@@ -1,0 +1,1 @@
+OPENBLAS_NUM_THREADS=4 OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 python empirical_redesign/run_fresh_order13_median.py

@@ -1,0 +1,60 @@
+{
+  "command": "run_clock_pilot.py",
+  "s_max": 0.003,
+  "seed_base": 2026081301,
+  "status": "validity_pilot_only_not_scientific_evidence",
+  "step": 5e-05,
+  "widths": {
+    "128": {
+      "direct_f_median_end": 0.2848583376630609,
+      "escape_count": 0,
+      "finite_pairs_at_end": 16,
+      "finite_pairs_min": 16,
+      "integrated_output_y_at_s": {
+        "0.0005": 0.04659482025883475,
+        "0.001": 0.09333840295840058,
+        "0.0015": 0.14038096827107382,
+        "0.002": 0.1878756820194481,
+        "0.003": 0.28485833766858254
+      },
+      "integrated_output_y_end": 0.28485833766858254,
+      "median_g0": 93.14014979011017,
+      "median_g_end": 98.6428445023856,
+      "pairs": 16
+    },
+    "256": {
+      "direct_f_median_end": 0.2535402583976749,
+      "escape_count": 0,
+      "finite_pairs_at_end": 8,
+      "finite_pairs_min": 8,
+      "integrated_output_y_at_s": {
+        "0.0005": 0.04142860408551541,
+        "0.001": 0.08299674417016957,
+        "0.0015": 0.12484544988236164,
+        "0.002": 0.16711877192411598,
+        "0.003": 0.25354025840340094
+      },
+      "integrated_output_y_end": 0.25354025840340094,
+      "median_g0": 82.81079526603395,
+      "median_g_end": 87.98524826604455,
+      "pairs": 8
+    },
+    "64": {
+      "direct_f_median_end": 0.20039738173195332,
+      "escape_count": 0,
+      "finite_pairs_at_end": 24,
+      "finite_pairs_min": 24,
+      "integrated_output_y_at_s": {
+        "0.0005": 0.03298062610197436,
+        "0.001": 0.06603233268896652,
+        "0.0015": 0.09922665721939553,
+        "0.002": 0.13263605710649906,
+        "0.003": 0.2003973817336194
+      },
+      "integrated_output_y_end": 0.2003973817336194,
+      "median_g0": 65.93758908792478,
+      "median_g_end": 68.54230708891764,
+      "pairs": 24
+    }
+  }
+}

@@ -1,9 +1,11 @@
-# GF(2)/matroid Wick evaluator audit
+# GF(2)/matroid Wick shortcut: restricted theorem and rejected generalization
 
-`matroid_wick_evaluator.cpp` is an exact alternative evaluator for a connected
-decorated bipartite tree. It enumerates parity-valid row partitions and uses
-the existing exact column DP except in the tight-nullity case, where binary
-matroid components determine the column partition directly.
+`matroid_wick_evaluator.cpp` was developed as an alternative evaluator for a
+connected decorated bipartite tree.  A later adversarial audit found that its
+rank gate is not exact on arbitrary decorated trees.  The source is retained
+as a failed acceleration experiment and must not be substituted for the
+accepted vertex-partition or multiplicity evaluators.  Only the restricted
+no-`W`-hit theorem below survives.
 
 ## Tight-nullity theorem
 
@@ -22,14 +24,31 @@ The evaluator obtains these components from fundamental circuits, checks that
 each component is a circuit, and then multiplies the ordinary Gaussian double
 factorial moments using the full integer cell decorations.
 
-The theorem is only used when `C - column_blocks == r`. All other cases use
-the pre-existing exact `ColumnDP`; the portfolio is exact, not approximate.
-Every enumerated row block is also required to have even `a` exponent and even
-raw-W degree.
+Within the no-`W`-hit sector, the theorem is used only when
+`C - column_blocks == r`.  Every enumerated row block must also have even `a`
+exponent and even raw-`W` degree.  These hypotheses are essential; the
+unrestricted portfolio claim made in an earlier version of this note was
+false.
+
+## Counterexample to unrestricted exactness
+
+Take rows `r0,r1,r2`, columns `c0,c1,c2,c3`, row decorations
+`a=(2,1,1)`, column decorations `h=(1,1,1,1)`, and edges
+
+```text
+r0-c0, r0-c1, r0-c2, r0-c3, r1-c0, r2-c0.
+```
+
+The exact vertex-partition evaluator returns `27`, whereas the matroid
+evaluator returns `0`.  In particular, the row partition
+`{r0},{r1,r2}` and column partition `{c0,c1},{c2,c3}` is a valid leading
+zero-or-two-cell configuration and contributes `9`, but the shortcut rejects
+it because the row-signature rank is one rather than two.  Therefore the rank
+gate is unsafe outside the proved no-`W`-hit/even-row setting.
 
 ## Regression gates
 
-The accepted implementation was checked base-by-base against the independent
+Before this counterexample was found, the implementation was checked base-by-base against the independent
 vertex-partition evaluator on all 317 D7/P8 bases. It also reproduced all ten
 accepted D9 sectors exactly:
 
@@ -46,11 +65,15 @@ P2  4546495309086720
 P1  14627977297920
 ```
 
+Those regressions remain useful evidence about the tested states, but they do
+not repair the general counterexample and do not authorize use on new state
+families.
+
 Build and run the full D9 gate with:
 
 ```sh
 g++ -std=c++17 -O3 -DNDEBUG -fopenmp \
-  studies/stieltjes_conjecture/peeling/matroid_sector_driver.cpp \
+  studies/mean_field_peeling/quadratic_compiler/archive/matroid_sector_driver.cpp \
   -o /tmp/matroid_sector_driver
 OMP_NUM_THREADS=4 /tmp/matroid_sector_driver 9 0 9
 ```

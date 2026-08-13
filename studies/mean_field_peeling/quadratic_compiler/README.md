@@ -1,8 +1,9 @@
-# Exact mean-field peeling engine
+# Exact quadratic-network mean-field peeling compiler
 
 This directory contains a computer-algebra implementation of the leading-width
 peeling calculation for the one-sample, two-hidden-layer quadratic network at
-`gamma=1`.  It computes
+`gamma=1`.  It is an exact compiler for this model, not yet a generic MLP
+compiler.  It computes
 
 \[
 F^{(k)}(0)=\lim_{n\to\infty}\mathbb E[D_n^k f_n],
@@ -12,10 +13,16 @@ D_n=n\nabla f_n\mathbin\cdot\nabla,
 
 directly in exact integer arithmetic.
 
-`source_hashes.txt` intentionally retains the pre-consolidation filenames that
+`HISTORICAL_SOURCE_HASHES.txt` intentionally retains the pre-consolidation filenames that
 were frozen with the certified runs.  The one preserved binary,
 `export_evaluator_checked512`, is part of the accepted order-eleven provenance;
 other exploratory build products have been removed from the live study.
+
+The general MFP theorem program is maintained in
+[`../CURRENT_RESEARCH_STATE.md`](../CURRENT_RESEARCH_STATE.md).  Stieltjes
+moments and Hankel certificates derived from these raw feature derivatives
+belong to the separate
+[`../../stieltjes_conjecture/`](../../stieltjes_conjecture/) study.
 
 ## Scalarized state
 

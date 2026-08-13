@@ -3,7 +3,7 @@
 **Status:** Frozen historical source record  
 **Conceptual source:** Amir Joudaki's original notes and supplied NTK sample  
 **Maintained interpretation:** See
-[`../MEAN_FIELD_PEELING_THEORY.md`](../MEAN_FIELD_PEELING_THEORY.md)  
+[`../CURRENT_RESEARCH_STATE.md`](../CURRENT_RESEARCH_STATE.md)
 **Checked worked calculations:** See
 [`../MUP_TRAINING_CASE_STUDY.md`](../MUP_TRAINING_CASE_STUDY.md)
 

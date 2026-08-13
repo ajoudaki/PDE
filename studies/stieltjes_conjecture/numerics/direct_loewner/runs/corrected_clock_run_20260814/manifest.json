@@ -1,0 +1,74 @@
+{
+  "bootstrap_scores_width_128.npz": {
+    "bytes": 70979,
+    "sha256": "adfd573c2fcc7d889c57470ce76a6a2d2e05199cc50740304138a02183032894"
+  },
+  "bootstrap_scores_width_256.npz": {
+    "bytes": 70892,
+    "sha256": "8978c8aaaf2a7b7c69563035f2b47a378afe869886107c2b91536e9a8d4d9354"
+  },
+  "bootstrap_scores_width_64.npz": {
+    "bytes": 68234,
+    "sha256": "7d3ae25f2e6bb922a2ff8a6682f3cf9f7fa20afd9167fad3227ec2421f85b5b3"
+  },
+  "half_step_width_128.npz": {
+    "bytes": 65560,
+    "sha256": "2e630e9c6c76acee25d6e3079c12a27c6f84b60629c5a8267c14b1a423e00df7"
+  },
+  "half_step_width_256.npz": {
+    "bytes": 65577,
+    "sha256": "37286cc7df892c478516b247b174701ef7fa173f2d7c84ee6824c1ee3d89baf0"
+  },
+  "half_step_width_64.npz": {
+    "bytes": 65499,
+    "sha256": "89896b19857fb26c3b52fdeae5a59d1a8ac578b92baac52107df177904800a21"
+  },
+  "primary_proxy_width_128.npz": {
+    "bytes": 6434,
+    "sha256": "01d0064526bbaacc9256e01ad85b8ed4d7f02190167a9a491b7ca595217e7d63"
+  },
+  "primary_proxy_width_256.npz": {
+    "bytes": 6444,
+    "sha256": "17e73ee628b1cd6b9ed7705620d9a987a97ad6a88fa5ae461ba327b5a0ea56ec"
+  },
+  "primary_proxy_width_64.npz": {
+    "bytes": 6427,
+    "sha256": "8914fc6d18da37f64173db0262d740575e222eb324e9d160628e6c7f23e501c8"
+  },
+  "raw_width_128.npz": {
+    "bytes": 66614,
+    "sha256": "fd5eeaa6655bfdcd3e12dc196df713cf0e1ef329e5202a32da3ecb5ec323cb4b"
+  },
+  "raw_width_256.npz": {
+    "bytes": 66527,
+    "sha256": "1e28fd75098932866403e77f643ba9ae296ba3e7eb7e4e44c44fda14a75505d8"
+  },
+  "raw_width_64.npz": {
+    "bytes": 131344,
+    "sha256": "d567ab61697808663d2d2bb0f42e03966f811bb45afca7eeb09606c3005dd5b5"
+  },
+  "run.log": {
+    "bytes": 4500,
+    "sha256": "aea17274582f3bda816bc3d65bdb16b2a9f905818ed62c0c5b3910a7135bd973"
+  },
+  "source/corrected_clock_core.py": {
+    "bytes": 5194,
+    "sha256": "bc6d901c2ab55a09498675866ec9de342793949ed3010e3d190c95cd37b02ecc"
+  },
+  "source/corrected_clock_protocol.md": {
+    "bytes": 5083,
+    "sha256": "0b332f21d8b17f3f804aba879d6aa80a6431d33614c0d79dc1f140888720e433"
+  },
+  "source/run_corrected_clock_test.py": {
+    "bytes": 19698,
+    "sha256": "f990b3c91256ba3b13c80ab63dc491f164c6751f60b27678ddb2c8a29203999d"
+  },
+  "source/simulate_loewner.py": {
+    "bytes": 18072,
+    "sha256": "84e3ffb8df31175caca4758fd3dd09602ef2a35bb77ba1cf12ee116b87d6602a"
+  },
+  "summary.json": {
+    "bytes": 95614,
+    "sha256": "f5a27e7326ad8e84e9ef4a70979a24fe38c5c299806b834ae023a70f9b71a86b"
+  }
+}

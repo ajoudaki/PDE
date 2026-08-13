@@ -64,7 +64,7 @@ which exactly equals `P=1`.
 ## Persistent raw artifacts
 
 The exhaustive generator source is
-`studies/stieltjes_conjecture/peeling/exhaustive_reference.cpp`.  It is
+`studies/mean_field_peeling/quadratic_compiler/exhaustive_reference.cpp`.  It is
 byte-identical to the source
 that generated the four exports:
 
@@ -82,13 +82,13 @@ The historical evaluator source before the checked-integer patch survives as
 ```
 
 This is also the evaluator hash frozen in
-`studies/stieltjes_conjecture/peeling/source_hashes.txt`.
+`studies/mean_field_peeling/quadratic_compiler/HISTORICAL_SOURCE_HASHES.txt`.
 The run binary was compiled from this source after replacing its signed
 128-bit accumulator by `boost::multiprecision::checked_uint512_t`.  Its hash
 is
 
 ```text
-studies/stieltjes_conjecture/peeling/export_evaluator_checked512
+studies/mean_field_peeling/quadratic_compiler/export_evaluator_checked512
 sha256 c57614ada453e818e9952abd70ced82f93dc3324d16b9f6a5dc394d7d2780d76
 ```
 
@@ -141,19 +141,19 @@ The D11 commands were:
 
 ```bash
 prlimit --as=20000000000 -- env OMP_NUM_THREADS=24 \
-  ./studies/stieltjes_conjecture/peeling/export_evaluator_checked512 \
+  ./studies/mean_field_peeling/quadratic_compiler/export_evaluator_checked512 \
   /tmp/mfp_terms11_p1_6.txt
 
 prlimit --as=20000000000 -- env OMP_NUM_THREADS=24 \
-  ./studies/stieltjes_conjecture/peeling/export_evaluator_checked512 \
+  ./studies/mean_field_peeling/quadratic_compiler/export_evaluator_checked512 \
   /tmp/mfp_terms11_p7.txt
 
 prlimit --as=20000000000 -- env OMP_NUM_THREADS=24 \
-  ./studies/stieltjes_conjecture/peeling/export_evaluator_checked512 \
+  ./studies/mean_field_peeling/quadratic_compiler/export_evaluator_checked512 \
   /tmp/mfp_terms11_p8.txt
 
 prlimit --as=20000000000 -- env OMP_NUM_THREADS=24 \
-  ./studies/stieltjes_conjecture/peeling/export_evaluator_checked512 \
+  ./studies/mean_field_peeling/quadratic_compiler/export_evaluator_checked512 \
   /tmp/mfp_terms11_p9.txt
 ```
 
@@ -198,11 +198,11 @@ That would strengthen redundancy but is not needed to recover its scalar.
 
 ## Supersession warning
 
-`studies/stieltjes_conjecture/theory/EARLIER_REPORT.md` predates these completed
+`studies/stieltjes_conjecture/archive/EARLIER_REPORT.md` predates these completed
 computations.  Its
 opening claim that order 11 is still provisional/incomplete is superseded by
 the checked runs above and must not be quoted as the current D11 status.  The
-newer `studies/stieltjes_conjecture/theory/derivatives_order11.json` contains
+newer `studies/mean_field_peeling/quadratic_compiler/derivatives_order11.json` contains
 the correct
 total, but this audit note is the provenance record explaining why that total
 is accepted.

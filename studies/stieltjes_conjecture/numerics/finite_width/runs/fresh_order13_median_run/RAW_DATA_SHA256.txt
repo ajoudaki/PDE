@@ -1,0 +1,4 @@
+# Raw arrays are intentionally excluded from Git.  These hashes and byte sizes
+# identify the local artifacts used by the compact results in this directory.
+17f7537f662ec8b83495ef42adc100d99e0bbed41fafafa777b381aa1c1a72e9  normalized_jets_width_128.npz  27773
+7dbe89ef554a040d423d0f63b1c09893bf1734fe350dd9fa4a260afa36138d1c  normalized_jets_width_256.npz  27723

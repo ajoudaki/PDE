@@ -17,8 +17,8 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 STUDY = HERE.parents[1]
-PEELING = STUDY / "peeling"
-sys.path.insert(0, str(PEELING))
+MFP_COMPILER = STUDY.parent / "mean_field_peeling" / "quadratic_compiler"
+sys.path.insert(0, str(MFP_COMPILER))
 from finite_width_jet_reference import feature_jet  # noqa: E402
 
 

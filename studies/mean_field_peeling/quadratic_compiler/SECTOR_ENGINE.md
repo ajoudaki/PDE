@@ -42,10 +42,10 @@ overflow; the order-13 analytic bound is 275 bits.
 
 ```sh
 g++ -std=c++17 -O3 -DNDEBUG -fopenmp \
-  studies/stieltjes_conjecture/peeling/sector_parallel.cpp \
+  studies/mean_field_peeling/quadratic_compiler/sector_parallel.cpp \
   -o /tmp/sector_parallel
 g++ -std=c++17 -O3 -DNDEBUG -fopenmp \
-  studies/stieltjes_conjecture/peeling/sector_parallel_reuse.cpp \
+  studies/mean_field_peeling/quadratic_compiler/sector_parallel_reuse.cpp \
   -o /tmp/sector_parallel_reuse
 
 # Strict D9 P10..P1 gate (must equal the vector in README.md).

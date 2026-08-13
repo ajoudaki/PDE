@@ -15,7 +15,8 @@ type:
 | Program | Question |
 |---|---|
 | [`studies/quadratic_nonclosure`](studies/quadratic_nonclosure/) | What fails in the prescribed quadratic Taylor/Wick closure? |
-| [`studies/derivative_wick_calculus`](studies/derivative_wick_calculus/) | How are fixed-order μP training derivatives expanded, power-counted, Wick-contracted, and concentrated? |
+| [`studies/mean_field_peeling`](studies/mean_field_peeling/) | How can fixed-order μP derivative observables be peeled layer by layer into explicit Gaussian calculations, and which parts are proved or compiled exactly? |
+| [`studies/stieltjes_conjecture`](studies/stieltjes_conjecture/) | Does the quadratic-network output kernel define a Stieltjes moment sequence and a convergent rational ODE hierarchy? |
 | [`studies/dense_response`](studies/dense_response/) | How far can a finite-matrix chronological response hierarchy go? |
 | [`studies/operator_pde`](studies/operator_pde/) | Does the explicit low-order operator–Galerkin PDE reproduce dense dynamics and transfer across controls? |
 | [`studies/pde_convergence`](studies/pde_convergence/) | Can the finite-cutoff PDE hierarchy be connected to an arbitrary-accuracy theorem? |

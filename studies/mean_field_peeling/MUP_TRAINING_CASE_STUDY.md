@@ -5,7 +5,7 @@
 **Consolidated:** 2026-08-05  
 **Role:** A self-contained, low-level execution of the mean-field peeling program on one fixed network and three increasingly difficult observables.
 **Canonical theory:**
-[`MEAN_FIELD_PEELING_THEORY.md`](MEAN_FIELD_PEELING_THEORY.md)
+[`CURRENT_RESEARCH_STATE.md`](CURRENT_RESEARCH_STATE.md)
 
 This case study performs three calculations in one notation:
 

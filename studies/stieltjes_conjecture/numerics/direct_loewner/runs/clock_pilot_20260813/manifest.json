@@ -1,0 +1,26 @@
+{
+  "pilot_summary.json": {
+    "bytes": 1802,
+    "sha256": "393aa6a8b5656a9432b657cbcd4394615406fc05d602fd0a0d16a01f64a12dca"
+  },
+  "pilot_width_128.npz": {
+    "bytes": 16407,
+    "sha256": "1004ceaa4a66f53ab33211bebc5d245048547b6727f8c21727c2742761099f05"
+  },
+  "pilot_width_256.npz": {
+    "bytes": 9019,
+    "sha256": "ae1809c93677273b8ee57bf38297be4653697b2823f27e2f83c8fdbf625beebc"
+  },
+  "pilot_width_64.npz": {
+    "bytes": 23773,
+    "sha256": "eed5e461d1dd5d7fb4f0eaaf8f61975ef36176401ee2cf34374eb6b6be504fbc"
+  },
+  "source/corrected_clock_core.py": {
+    "bytes": 5194,
+    "sha256": "bc6d901c2ab55a09498675866ec9de342793949ed3010e3d190c95cd37b02ecc"
+  },
+  "source/run_clock_pilot.py": {
+    "bytes": 2744,
+    "sha256": "a7b638893ae0bcc35989d2294b9f171117071381b654ec10cc4d750964d54e1a"
+  }
+}
