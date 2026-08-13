@@ -1,0 +1,15 @@
+{
+  "analysis_result.json": {
+    "bytes": 61083,
+    "sha256": "372901a8463151d57d98b3753855ff577bb3b9317dcbe0b1aa6d81c9fc9fdf36"
+  },
+  "producer_manifest.json": {
+    "bytes": 877,
+    "sha256": "7c6eecfefc9a7362ea6cdbececa05ed6442dd6dafd8401872d9e6c3c80c2c538"
+  },
+  "producer_summary.json": {
+    "bytes": 13086,
+    "sha256": "6bbbf3add3564ae56271e195d529c233585e0927fa6b7fd1c5c3ff727d16a191"
+  },
+  "production_unlock_sha256": "65de918440becf7f2a652523d01bf55488ccb9f7100c377d34bbdfffdbdc2084"
+}

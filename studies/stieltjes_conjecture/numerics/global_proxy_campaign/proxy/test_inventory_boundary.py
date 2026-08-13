@@ -1,5 +1,3 @@
-from fractions import Fraction
-
 import pytest
 
 from proxy.boundary_benchmark import benchmark_boundary

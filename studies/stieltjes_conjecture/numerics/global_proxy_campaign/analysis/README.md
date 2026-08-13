@@ -8,9 +8,10 @@ scientific result on import, or choose a parameter point.  An explicit
 The original Stage-2 campaign produced no analyzable scientific NPZ: its first
 neural point stopped fail-closed because the declared physical-time horizon
 could not reach the final output node.  That branch remains closed.  The
-separately named successor-02 protocol now has a machine-readable, pre-run
-analysis contract.  `pilot_runner.py` consumes that contract without changing
-or reinterpreting the original run.
+separately named successor-02 protocol froze a machine-readable analysis
+contract before its one scientific execution.  `pilot_runner.py` consumed
+that contract without changing or reinterpreting either predecessor.  The
+result was protocol-inconclusive; see [`../RESULTS.md`](../RESULTS.md).
 
 Before opening any NPZ, the runner checks the production config, successor
 protocol, analysis document, production unlock, current reference sources,
@@ -78,7 +79,7 @@ defaults.
 
 ## Frozen successor-02 entry point
 
-After a complete, hash-bound scientific run exists, invoke:
+The completed hash-bound run was analyzed with:
 
 ```bash
 python studies/stieltjes_conjecture/numerics/global_proxy_campaign/analysis/run_frozen_pilot.py \
@@ -94,7 +95,11 @@ step-halving, ordinary/output-clock overlap, projection and diagnostic trends,
 the Stage-2 resolution gate, per-prefix classifications, and the exact overall
 three-way result.  The writer refuses to overwrite an existing result.  Any
 provenance or numerical-analysis failure emits only an inconclusive failure
-certificate and a nonzero exit code.
+certificate and a nonzero exit code.  For successor 02, all 2,000 registered
+resamples were valid, but the conservative width-sensitivity band missed the
+resolution threshold by a factor of 82.67 and the exact paired-initial-array
+gate failed at floating-roundoff scale.  The resulting Stage-3 authorization
+is false.
 
 ## Synthetic verification
 

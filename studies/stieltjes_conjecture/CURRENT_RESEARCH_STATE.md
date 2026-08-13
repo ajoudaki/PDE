@@ -6,7 +6,9 @@
 from the first five exact canonical moments and with all finite-order Hankel
 tests in four exact parameter-continuum campaigns; a fifth three-input
 campaign established exact lower jets and $\mu_0,\mu_1>0$ but did not reach a
-Hankel determinant.  The conjecture is neither proved nor falsified.
+Hankel determinant.  An exact global-proxy calibration passed, while the
+canonical finite-width global-curve pilot was stopped inconclusive for lack
+of statistical resolution.  The conjecture is neither proved nor falsified.
 
 This is the single authoritative, self-contained account of the
 Stieltjes-conjecture investigation. It supersedes the historical report in
@@ -29,7 +31,10 @@ own sibling study:
 - [`numerics/direct_loewner/`](numerics/direct_loewner/) contains the first
   direct Loewner experiments and their preserved outputs;
 - [`numerics/finite_width/`](numerics/finite_width/) contains the later
-  preregistered finite-width calibration and positive-time experiments.
+  preregistered finite-width calibration and positive-time experiments;
+- [`numerics/global_proxy_campaign/`](numerics/global_proxy_campaign/)
+  contains the nested rational-proxy calibration and the closed canonical
+  global-curve pilot.
 
 Paths embedded inside frozen result manifests record where files lived when a
 run was executed.  They are historical provenance, not the current layout.
@@ -50,6 +55,8 @@ The main claim levels are:
 | Uniqueness of that measure | Open; requires determinacy |
 | Equality of a representing resolvent and the actual global mean-field curve | Open |
 | Gaussian/Radau rational ODE bounds | Exact for every representing resolvent; conditional for the intended curve |
+| Exact Lambert-$W$ global proxy calibration | Passed through all five moment additions; final sup log-kernel error $1.43\times10^{-7}$ |
+| Canonical finite-width global proxy pilot | Completed hash-bound trajectories, but protocol-inconclusive and statistically under-resolved; later neural branches stopped |
 | Order-thirteen numerical estimate | Inconclusive; useful only as a target |
 
 The core verdict is
@@ -1446,6 +1453,112 @@ earlier direct-clock attempts, including the failed experiment and the later
 bias downgrade, are indexed separately in
 [`numerics/direct_loewner/README.md`](numerics/direct_loewner/README.md).
 
+### 10.1 Nested global rational proxies and the canonical curve pilot
+
+The global approximation question was subsequently formulated without using
+the divergent raw Taylor series as the primary object. Starting with
+$K_0(y)=111$, each additional accepted moment determines the next Stieltjes
+continued-fraction convergent. Odd moment counts give zero-Radau upper
+kernels and even counts give Gaussian lower kernels. Conditional on the
+conjecture, their two fixed-parity subsequences tighten a nested pointwise
+envelope on $y\ge0$. The associated feature and physical-loss curves are
+computed from
+
+$$
+S(y)=\int_0^y\frac{du}{K(u)},
+\qquad
+T(y)=\int_0^y\frac{du}{2(1-u)K(u)},
+$$
+
+followed by monotone inversion; no proxy ODE discretization is needed.
+
+This hierarchy first passed a non-circular global calibration at the exactly
+solvable Lambert-$W$ variance boundary. On 501 points in $0\le y\le.99$,
+every rational level had the prescribed side and every bracket was nested.
+Beginning with NTK and then adding the five moments one at a time, the sup
+log-kernel errors were
+
+$$
+1.43433\times10^{-1},\quad
+7.87107\times10^{-3},\quad
+5.51285\times10^{-4},\quad
+3.39336\times10^{-5},\quad
+2.27548\times10^{-6},\quad
+1.43289\times10^{-7}.
+$$
+
+The deepest rational error was about sixty times smaller than the
+equal-information Taylor error. Thus the approximation mechanism works
+globally and rapidly in a model where the positive measure and exact curve
+are independently known. This does not establish the canonical neural
+bridge.
+
+The canonical reference experiment integrated actual squared-loss gradient
+flow, not the blow-up-prone unthrottled feature-ascent clock. For an
+antithetic finite ensemble it estimated the exact ensemble-level quantity
+
+$$
+K_{\mathrm{eff},n}(y)=
+\frac{\mathbb E[(1-f_n)K_n]}{1-\mathbb E f_n},
+$$
+
+using analytic $K_n=n\lVert\nabla f_n\rVert^2$. A separate rank-one-centered
+output-clock ensemble was retained only as a sensitivity check. CPU and both
+RTX-3090 validation runs passed before the hash-bound scientific attempt.
+
+The original pilot used a physical-time horizon $0.012$, even though the
+pre-existing one-moment proxy already implied
+$T(.99)\ge0.01493948\ldots$. It therefore stopped without a trajectory
+artifact and remains null evidence. A first successor was rejected before
+execution by a hostile preregistration audit. The executed second successor
+bound the protocol, five-point configuration, analysis choices, wrapper, and
+sources by hash. It used ordinary physical flow at
+$(n,R)=(256,32),(512,16)$, output-clock sensitivity at the same two widths,
+and a paired four-lineage half-step check. All five points completed in
+59.934 seconds; peak PyTorch allocation was $0.133$ GiB and peak host RSS was
+$0.951$ GiB. Exact antithetic cancellation, finite positive kernels,
+monotone mean output, nonincreasing mean loss, and output-clock identity all
+passed.
+
+The frozen 2,000-resample analysis was nevertheless inconclusive. At
+$y=.9$, the full 99% two-width sensitivity-union log-band had width
+$1.04499147$, versus the registered resolution ceiling
+$0.0126402630$—an $82.67$-fold miss. The paired step curves themselves agreed
+to $2.554\times10^{-6}$ through $y=.95$ and
+$3.80\times10^{-8}$ at $.99$, but their initial arrays differed at the last
+floating bits when evaluated in different batch sizes: at most
+$5.55\times10^{-17}$ in output and $5.68\times10^{-14}$ in kernel. The frozen
+gate required bitwise equality and therefore failed. All other registered
+clock-overlap and projection gates passed, and the Jensen-gap and
+self-averaging tests showed no statistically resolved worsening. The latter
+is a fail-closed statement, not evidence that their central trends improved.
+
+No rational prefix produced a valid contrary result. Conversely, none was
+resolved tightly enough to count as compatible. At width 512 and $y=.9$,
+for example, the ordinary central estimate was $147.688$ with simultaneous
+99% interval $[126.252,172.764]$, while the rational sequence was
+
+$$
+111, 166.393, 162.239, 163.060, 162.987, 163.000.
+$$
+
+The first feature-learning correction was visibly closer than NTK and every
+non-NTK value lay inside that interval, but the later corrections were far
+below the experiment's uncertainty and their central errors did not improve
+monotonically. The conservative two-width interval was wider still.
+
+There was also a frozen classifier defect: at $y=0$ every proxy bracket
+collapses to the single value 111, whereas a nondegenerate finite-width
+confidence band has positive width, making literal whole-band containment at
+that node impossible. It was not weakened after execution. Removing $y=0$
+post hoc would not change the observed classification: on positive nodes the
+band was contained in no prefix and had no replicated definite escape. In accordance
+with the hard stopping rule, the larger-width canonical stage and every
+one-input-deformation, two-input, and three-input neural branch were not run.
+The result is a clean cost-value stop, not evidence against the conjecture.
+The complete local record is
+[`numerics/global_proxy_campaign/RESULTS.md`](numerics/global_proxy_campaign/RESULTS.md).
+
 ## 11. Strong positive-operator route
 
 If all Hankel inequalities hold, the formal moment functional constructs a
@@ -1716,7 +1829,10 @@ Proved or computationally certified:
 11. zero radius of the feature and loss formal jets;
 12. rigorous failure of the generic proof mechanisms collected in Section 13;
 13. local calibration, but not a decisive global Loewner result, for the
-   stopped finite-width median proxy.
+   stopped finite-width median proxy; and
+14. rapid nested rational convergence at the exact Lambert-$W$ boundary, plus
+   a completed, provenance-valid but protocol-inconclusive canonical
+   global-curve pilot that authorized no larger-width or deformation branch.
 
 Open:
 
@@ -1731,7 +1847,8 @@ Open:
 5. an all-order companion-measure theorem for the second-hidden response,
    beyond its exact finite-order Campaign-1 tests; and
 6. uniform convergence of the conditional rational-ODE hierarchy to that
-   actual curve and its loss.
+   actual curve and its loss, together with a finite-width reference design
+   capable of resolving corrections beyond the first moment.
 
 ## 15. Completed order-thirteen searches and portfolio stop
 
@@ -1811,6 +1928,10 @@ The durable source-of-truth map is:
   zero-Radau reconstruction;
 - [the numerical index](numerics/README.md) for the hierarchy of protocols,
   failed gates, bias audits, and compact results;
+- [the global-proxy campaign result](numerics/global_proxy_campaign/RESULTS.md)
+  for the exact Lambert-$W$ convergence calibration, the hash-frozen
+  canonical GPU pilot, its 2,000-resample analysis, and the terminal
+  cost-value stop;
 - [the earlier report](archive/EARLIER_REPORT.md) only as a superseded
   historical record.
 

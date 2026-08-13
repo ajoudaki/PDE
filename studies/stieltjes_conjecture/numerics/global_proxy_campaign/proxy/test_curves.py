@@ -15,7 +15,10 @@ from proxy.hierarchy import build_kernel_hierarchy
 
 def test_constant_kernel_has_closed_form_hitting_times_and_output():
     a = 7.0
-    kernel = lambda y: a
+
+    def kernel(_y):
+        return a
+
     for y in (0.0, 0.2, 0.8):
         assert feature_hitting_time(kernel, y) == pytest.approx(y / a)
         assert physical_hitting_time(kernel, y) == pytest.approx(-math.log1p(-y) / (2 * a))

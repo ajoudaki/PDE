@@ -14,6 +14,10 @@ decidable Hankel test.  Four exact continuous-family campaigns also pass
 their available Hankel tests.  A fifth three-input family has exact jets
 through order five and $\mu_0,\mu_1>0$, but no Hankel determinant.  Campaign 6
 is protocol-inconclusive and contributes no accepted new order-thirteen bound.
+The global rational hierarchy converges rapidly at the exact Lambert-$W$
+boundary, but the canonical finite-width global-curve pilot was statistically
+under-resolved and stopped inconclusive before any parameter-family neural
+branch.
 
 This study owns the transformation from the quadratic-network feature jet to
 the output-coordinate kernel, the Stieltjes moment problem, conditional
