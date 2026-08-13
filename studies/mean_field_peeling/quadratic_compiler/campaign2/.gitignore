@@ -1,0 +1,4 @@
+# Reproducible local build product; source, command, compiler identity and hash
+# are preserved in provenance_order7.json.
+frozen/two_input_connected_vp
+

@@ -1,0 +1,36 @@
+Campaign 2 successful bivariate vertex-partition run: minus channel
+===================================================================
+
+Command:
+/usr/bin/time -v timeout 1200 bash -c 'ulimit -v 4194304; studies/mean_field_peeling/quadratic_compiler/campaign2/frozen/two_input_connected_vp minus 7 > studies/mean_field_peeling/quadratic_compiler/campaign2/frozen/minus_order7_raw.json'
+
+Output file opened at:
+2026-08-13T17:01:27.698706337+02:00
+
+Per-order stderr:
+minus order=0 seconds=1.18e-05 value_cache=0 wick_cache=0
+minus order=1 seconds=0.000163182 value_cache=14 wick_cache=12
+minus order=2 seconds=6.1e-07 value_cache=14 wick_cache=12
+minus order=3 seconds=0.00707547 value_cache=339 wick_cache=279
+minus order=4 seconds=4.8e-07 value_cache=339 wick_cache=279
+minus order=5 seconds=0.748545 value_cache=13204 wick_cache=11236
+minus order=6 seconds=4e-07 value_cache=13204 wick_cache=11236
+minus order=7 seconds=402.042 value_cache=711818 wick_cache=617838
+
+/usr/bin/time summary:
+        User time (seconds): 403.20
+        System time (seconds): 0.91
+        Percent of CPU this job got: 99%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 6:44.29
+        Maximum resident set size (kbytes): 1497504
+        Major (requiring I/O) page faults: 0
+        Minor (reclaiming a frame) page faults: 376589
+        Voluntary context switches: 5
+        Involuntary context switches: 38757
+        File system inputs: 0
+        File system outputs: 16
+        Exit status: 0
+
+Final raw-output mtime:
+2026-08-13T17:08:09.744400055+02:00
+

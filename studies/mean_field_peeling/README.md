@@ -37,11 +37,13 @@ The documents distinguish exact finite-width identities, mean-field results
 under named probabilistic assumptions, formal nonlinear closures, restricted
 audits, and open theorem targets.
 
-[`quadratic_compiler/`](quadratic_compiler/) contains the exact special-case
-graph rewrites, connected recurrence, Wick-sector engines, checked arithmetic,
-certificates, provenance, and rejected acceleration attempts. It is specific
-to the one-sample, two-hidden-layer quadratic model; it is not a generic MLP
-compiler.
+[`quadratic_compiler/`](quadratic_compiler/) contains the exact canonical
+special-case graph rewrites, connected recurrence, Wick-sector engines,
+checked arithmetic, certificates, provenance, and rejected acceleration
+attempts. Its three isolated parameter campaigns additionally cover a
+relative metric and hidden observable, two symmetry-reduced inputs, and a
+shifted quadratic first activation. These remain model-specific extensions;
+they do not turn the implementation into a generic MLP compiler.
 
 The downstream
 [`../stieltjes_conjecture/`](../stieltjes_conjecture/) study consumes the

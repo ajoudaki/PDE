@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "primary_dense_run": {
+    "classification": "accepted primary exact result",
+    "production_source": "connected_parametric_multiroot.cpp",
+    "production_source_sha256": "bd88f12c8ec1cd851dbd849848464f900f9a7f93aef0c524e8774649dcdd9b61",
+    "parent_source": "../component_recursion.cpp",
+    "parent_source_sha256": "ad53d2d786393cafc9d034685638348afa19f08dbb8d5aeb3110f8e24c7847ad",
+    "compile_command": "g++ -std=c++17 -O3 -DNDEBUG -DCAMPAIGN1_DENSE_PRIMARY_PARENT connected_parametric_multiroot.cpp -o connected_parametric_multiroot_dense",
+    "binary_sha256": "0c31e77f437e471a40d6c7a398d59d15d33c03612499f0a1e2a1137a9ccb5da0",
+    "run_command": "prlimit --as=4294967296 -- timeout 1200s connected_parametric_multiroot_dense --max-f 9 --max-q2 8 --max-q1 8 --output results_order9_q2_order8.json",
+    "address_space_cap_bytes": 4294967296,
+    "wall_cap_seconds": 1200,
+    "measured_observable_seconds": {
+      "f": 717.631,
+      "q2": 260.327,
+      "q1": 0.000214454
+    },
+    "result": "results_order9_q2_order8.json",
+    "result_sha256": "02215aa7c18f3550a19f34b89734b6bf5b66a2825e8aa5bc103517767982ee1a",
+    "original_run_result_sha256": "c42219f21833062853ced241a38ae3e40142e9e217c36471c8b142b462b3387a",
+    "reproduction_audit": "The rebuilt binary is byte-for-byte identical to the original run binary. Every exact jet coefficient, lambda=1 value, cache count, and recurrence-miss count in the fresh result matches the original; only measured timing fields differ."
+  },
+  "postprocessing": {
+    "source": "parametric_stieltjes_postprocess.py",
+    "source_sha256": "0ef9283b2ee1b4dd03b0be981c78c307ccf704a1667107bf70080d5f3ec661ba",
+    "compact_certificate": "hankel_certificates_order9_q2_order8.json",
+    "compact_certificate_sha256": "5d25d3febb64673d3ef88e43490d02886cf1d8b62a7b576ac7714cc1d6e1efa2",
+    "full_generated_certificate_sha256": "37852a1d610963427a5eb154e6c556dac945f3996f6946c81786a4d46f3cb881"
+  },
+  "independent_double_graded_route": {
+    "classification": "complete canonical F9 check; incomplete and inconclusive Q2-order-8 check",
+    "source": "graded_sector.cpp",
+    "source_sha256": "b6657defd7897e54a121b7f8523396d4f6fef666a7a044fe32d6b4d43926a061",
+    "runner": "run_graded_campaign.py",
+    "runner_sha256": "6c1df2f53085c1d31853b4cb06a9733e2bc86a26f276015fbf17eb37725240c8",
+    "parent_source": "../sector_engine_checked.cpp",
+    "parent_source_sha256": "1931b628b25d2a7c018bc20a06d14aee6ee86ca702d8abcbec17e1ec719be260",
+    "compile_command": "g++ -std=c++17 -O3 -DNDEBUG graded_sector.cpp -o graded_sector_portfolio",
+    "binary_sha256": "595fdaa4aa6b7a2dcc2286b8e3ad93356b468a7248c833e1723d2565c51afd5e",
+    "address_space_cap_bytes_per_sector": 4294967296,
+    "global_wall_cap_seconds": 1200,
+    "f9_sectors_completed": 55,
+    "f9_sectors_total": 55,
+    "f9_lambda_one": "1181161141825400561664",
+    "q2_order8_sectors_completed": 24,
+    "q2_order8_sectors_total": 45,
+    "checkpoint_status": "No sector checkpoint file was written before the global timeout. The 24 completed Q2 sector records existed only in process memory and terminal output, so they are not safely reusable.",
+    "acceptance_limit": "The complete F9 canonical sum is a secondary check. The incomplete Q2 calculation validates no order-8 Q2 claim. The dense exact result is primary."
+  },
+  "graded_lower_stage_regression": {
+    "test": "test_graded_sector.py",
+    "test_source_sha256": "33bdc273e16d306fbdc6f8eb174ffb8b78a3dbd8bbc5cf83ce07d0967cf4187b",
+    "scope": "Every lambda coefficient at every order through F^7 and Q2^6",
+    "status": "passed"
+  }
+}

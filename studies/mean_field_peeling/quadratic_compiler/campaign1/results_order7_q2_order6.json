@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "parent_source_sha256": "ad53d2d786393cafc9d034685638348afa19f08dbb8d5aeb3110f8e24c7847ad",
+  "metric_exponents": {"a":0,"u":1,"w":1},
+  "safety_caps": {"f":7,"q1":6,"q2":6},
+  "regression_gates_passed": true,
+  "observables": {
+    "f": {"max_order":7,"seconds":4.36897,"cache_before":0,"cache_after":3586,"jets":[{"order":0,"lambda_coefficients":["0"],"lambda_one":"0"},{"order":1,"lambda_coefficients":["27","84"],"lambda_one":"111"},{"order":2,"lambda_coefficients":["0"],"lambda_one":"0"},{"order":3,"lambda_coefficients":["0","123120","699408","862656"],"lambda_one":"1685184"},{"order":4,"lambda_coefficients":["0"],"lambda_one":"0"},{"order":5,"lambda_coefficients":["0","0","1730898720","14214258432","35456350464","25999125504"],"lambda_one":"77400633120"},{"order":6,"lambda_coefficients":["0"],"lambda_one":"0"},{"order":7,"lambda_coefficients":["0","0","0","50121723386880","538325496778752","2023550608343040","3103056989466624","1600813615104000"],"lambda_one":"7315868433079296"}]},
+    "q1": {"max_order":6,"seconds":7.2041e-05,"cache_before":5479,"cache_after":5483,"jets":[{"order":0,"lambda_coefficients":["1"],"lambda_one":"1"},{"order":1,"lambda_coefficients":["0"],"lambda_one":"0"},{"order":2,"lambda_coefficients":["0","216","672"],"lambda_one":"888"},{"order":3,"lambda_coefficients":["0"],"lambda_one":"0"},{"order":4,"lambda_coefficients":["0","0","984960","5595264","6901248"],"lambda_one":"13481472"},{"order":5,"lambda_coefficients":["0"],"lambda_one":"0"},{"order":6,"lambda_coefficients":["0","0","0","13847189760","113714067456","283650803712","207993004032"],"lambda_one":"619205064960"}]},
+    "q2": {"max_order":6,"seconds":1.3521,"cache_before":3586,"cache_after":5479,"jets":[{"order":0,"lambda_coefficients":["3"],"lambda_one":"3"},{"order":1,"lambda_coefficients":["0"],"lambda_one":"0"},{"order":2,"lambda_coefficients":["0","2916","9456"],"lambda_one":"12372"},{"order":3,"lambda_coefficients":["0"],"lambda_one":"0"},{"order":4,"lambda_coefficients":["0","0","20751552","123392448","167175936"],"lambda_one":"311319936"},{"order":5,"lambda_coefficients":["0"],"lambda_one":"0"},{"order":6,"lambda_coefficients":["0","0","0","390147331968","3343277514240","8933475492864","7317629343744"],"lambda_one":"19984529682816"}]}
+  },
+  "cache": {"value_entries":5483,"wick_entries":3983,"completed_base_evaluations":3983},
+  "misses_by_remaining_order": {"0":3983,"1":1049,"2":314,"3":87,"4":34,"5":9,"6":6,"7":1}
+}

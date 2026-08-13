@@ -1,0 +1,407 @@
+{
+  "construction": {
+    "A_coefficients_in_r": [
+      "3*(28*lambda + 9)",
+      "8*lambda*(17972*lambda**2 + 14571*lambda + 2565)",
+      "4*lambda**2*(270824224*lambda**3 + 369336984*lambda**2 + 148065192*lambda + 18030195)/5",
+      "192*lambda**3*(57899798000*lambda**4 + 112234410788*lambda**3 + 73189764480*lambda**2 + 19470684924*lambda + 1812851685)/35"
+    ],
+    "B_coefficients_in_r": [
+      "3",
+      "6*lambda*(788*lambda + 243)",
+      "24*lambda**2*(290236*lambda**2 + 214223*lambda + 36027)",
+      "8*lambda**3*(19056326416*lambda**3 + 23264259096*lambda**2 + 8706451860*lambda + 1016008677)/15"
+    ],
+    "K_coefficients_in_x": [
+      "3*(28*lambda + 9)",
+      "8*lambda*(17972*lambda**2 + 14571*lambda + 2565)/(3*(28*lambda + 9)**2)",
+      "-4*lambda**2*(2752690816*lambda**4 + 3980827200*lambda**3 + 2274474600*lambda**2 + 554543172*lambda + 48263445)/(81*(28*lambda + 9)**5)",
+      "64*lambda**3*(87404089154816*lambda**6 + 195288405758528*lambda**5 + 183383940682224*lambda**4 + 91831580164764*lambda**3 + 25397984710800*lambda**2 + 3645797025177*lambda + 211938867630)/(3645*(28*lambda + 9)**8)"
+    ],
+    "Q2_coefficients_in_x": [
+      "3",
+      "2*lambda*(788*lambda + 243)/(3*(28*lambda + 9)**2)",
+      "-8*lambda**2*(32267920*lambda**3 + 37565472*lambda**2 + 13437603*lambda + 1520451)/(81*(28*lambda + 9)**5)",
+      "8*lambda**3*(51512950055168*lambda**5 + 100321873037568*lambda**4 + 76229196662160*lambda**3 + 27975548283624*lambda**2 + 4962725525484*lambda + 341797440447)/(10935*(28*lambda + 9)**8)"
+    ],
+    "reverse_r_coefficients_in_x": [
+      "0",
+      "1/(9*(28*lambda + 9)**2)",
+      "-16*lambda*(17972*lambda**2 + 14571*lambda + 2565)/(243*(28*lambda + 9)**5)",
+      "8*lambda**2*(67688744704*lambda**4 + 108310646016*lambda**3 + 62853337584*lambda**2 + 15417487836*lambda + 1355367735)/(32805*(28*lambda + 9)**8)"
+    ]
+  },
+  "interpretation_limit": "Certificates establish only the displayed finite Hankel tests for the supplied formal mean-field jets; they do not prove either all-order Stieltjes conjecture or global trajectory identification.",
+  "output_kernel": {
+    "forced_scaling": {
+      "congruence_note": "If m_r=lambda^(r+1)*mbar_r, then H_d=lambda*D*Hbar_d*D and Hplus_d=lambda^2*D*Hbarplus_d*D, with D=diag(1,lambda,...,lambda^(d-1)).",
+      "exact_expected_valuation": true,
+      "expected_divisibility_holds": true,
+      "expected_powers": [
+        1,
+        2,
+        3
+      ],
+      "normalized_moments_mu_bar": [
+        "8*(17972*lambda**2 + 14571*lambda + 2565)/(3*(28*lambda + 9)**2)",
+        "4*(2752690816*lambda**4 + 3980827200*lambda**3 + 2274474600*lambda**2 + 554543172*lambda + 48263445)/(81*(28*lambda + 9)**5)",
+        "64*(87404089154816*lambda**6 + 195288405758528*lambda**5 + 183383940682224*lambda**4 + 91831580164764*lambda**3 + 25397984710800*lambda**2 + 3645797025177*lambda + 211938867630)/(3645*(28*lambda + 9)**8)"
+      ],
+      "ordinary_determinant_factor_for_size_d": "lambda^(d^2)",
+      "shifted_determinant_factor_for_size_d": "lambda^(d*(d+1))",
+      "valuations_at_zero": [
+        1,
+        2,
+        3
+      ]
+    },
+    "moments_mu": [
+      "8*lambda*(17972*lambda**2 + 14571*lambda + 2565)/(3*(28*lambda + 9)**2)",
+      "4*lambda**2*(2752690816*lambda**4 + 3980827200*lambda**3 + 2274474600*lambda**2 + 554543172*lambda + 48263445)/(81*(28*lambda + 9)**5)",
+      "64*lambda**3*(87404089154816*lambda**6 + 195288405758528*lambda**5 + 183383940682224*lambda**4 + 91831580164764*lambda**3 + 25397984710800*lambda**2 + 3645797025177*lambda + 211938867630)/(3645*(28*lambda + 9)**8)"
+    ],
+    "normalized_hankel_determinants": {
+      "ordinary": [
+        "8*(17972*lambda**2 + 14571*lambda + 2565)/(3*(28*lambda + 9)**2)",
+        "16*(112912790225420173312*lambda**8 + 349615803556010606592*lambda**7 + 469245263561580312576*lambda**6 + 357238572140264804352*lambda**5 + 168161270615760331584*lambda**4 + 49895625098704728384*lambda**3 + 9084129192676755072*lambda**2 + 926562899722835160*lambda + 40541026148871075)/(32805*(28*lambda + 9)**10)"
+      ],
+      "shifted": [
+        "4*(2752690816*lambda**4 + 3980827200*lambda**3 + 2274474600*lambda**2 + 554543172*lambda + 48263445)/(81*(28*lambda + 9)**5)"
+      ]
+    },
+    "normalized_sign_certificates": {
+      "ordinary": [
+        {
+          "denominator": "3*(28*lambda + 9)**2",
+          "denominator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive"
+            ],
+            "zero_on_domain": false
+          },
+          "expression": "8*(17972*lambda**2 + 14571*lambda + 2565)/(3*(28*lambda + 9)**2)",
+          "numerator": "8*(17972*lambda**2 + 14571*lambda + 2565)",
+          "numerator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive"
+            ],
+            "zero_on_domain": false
+          },
+          "status": "strictly_positive"
+        },
+        {
+          "denominator": "32805*(28*lambda + 9)**10",
+          "denominator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive"
+            ],
+            "zero_on_domain": false
+          },
+          "expression": "16*(112912790225420173312*lambda**8 + 349615803556010606592*lambda**7 + 469245263561580312576*lambda**6 + 357238572140264804352*lambda**5 + 168161270615760331584*lambda**4 + 49895625098704728384*lambda**3 + 9084129192676755072*lambda**2 + 926562899722835160*lambda + 40541026148871075)/(32805*(28*lambda + 9)**10)",
+          "numerator": "16*(112912790225420173312*lambda**8 + 349615803556010606592*lambda**7 + 469245263561580312576*lambda**6 + 357238572140264804352*lambda**5 + 168161270615760331584*lambda**4 + 49895625098704728384*lambda**3 + 9084129192676755072*lambda**2 + 926562899722835160*lambda + 40541026148871075)",
+          "numerator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive"
+            ],
+            "zero_on_domain": false
+          },
+          "status": "strictly_positive"
+        }
+      ],
+      "shifted": [
+        {
+          "denominator": "81*(28*lambda + 9)**5",
+          "denominator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive"
+            ],
+            "zero_on_domain": false
+          },
+          "expression": "4*(2752690816*lambda**4 + 3980827200*lambda**3 + 2274474600*lambda**2 + 554543172*lambda + 48263445)/(81*(28*lambda + 9)**5)",
+          "numerator": "4*(2752690816*lambda**4 + 3980827200*lambda**3 + 2274474600*lambda**2 + 554543172*lambda + 48263445)",
+          "numerator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive"
+            ],
+            "zero_on_domain": false
+          },
+          "status": "strictly_positive"
+        }
+      ]
+    },
+    "raw_hankel_determinants": {
+      "ordinary": [
+        "8*lambda*(17972*lambda**2 + 14571*lambda + 2565)/(3*(28*lambda + 9)**2)",
+        "16*lambda**4*(112912790225420173312*lambda**8 + 349615803556010606592*lambda**7 + 469245263561580312576*lambda**6 + 357238572140264804352*lambda**5 + 168161270615760331584*lambda**4 + 49895625098704728384*lambda**3 + 9084129192676755072*lambda**2 + 926562899722835160*lambda + 40541026148871075)/(32805*(28*lambda + 9)**10)"
+      ],
+      "shifted": [
+        "4*lambda**2*(2752690816*lambda**4 + 3980827200*lambda**3 + 2274474600*lambda**2 + 554543172*lambda + 48263445)/(81*(28*lambda + 9)**5)"
+      ]
+    },
+    "raw_sign_certificates": {
+      "ordinary": [
+        {
+          "denominator": "3*(28*lambda + 9)**2",
+          "denominator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive"
+            ],
+            "zero_on_domain": false
+          },
+          "expression": "8*lambda*(17972*lambda**2 + 14571*lambda + 2565)/(3*(28*lambda + 9)**2)",
+          "numerator": "8*lambda*(17972*lambda**2 + 14571*lambda + 2565)",
+          "numerator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive",
+              "zero"
+            ],
+            "zero_on_domain": true
+          },
+          "status": "nonnegative"
+        },
+        {
+          "denominator": "32805*(28*lambda + 9)**10",
+          "denominator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive"
+            ],
+            "zero_on_domain": false
+          },
+          "expression": "16*lambda**4*(112912790225420173312*lambda**8 + 349615803556010606592*lambda**7 + 469245263561580312576*lambda**6 + 357238572140264804352*lambda**5 + 168161270615760331584*lambda**4 + 49895625098704728384*lambda**3 + 9084129192676755072*lambda**2 + 926562899722835160*lambda + 40541026148871075)/(32805*(28*lambda + 9)**10)",
+          "numerator": "16*lambda**4*(112912790225420173312*lambda**8 + 349615803556010606592*lambda**7 + 469245263561580312576*lambda**6 + 357238572140264804352*lambda**5 + 168161270615760331584*lambda**4 + 49895625098704728384*lambda**3 + 9084129192676755072*lambda**2 + 926562899722835160*lambda + 40541026148871075)",
+          "numerator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive",
+              "zero"
+            ],
+            "zero_on_domain": true
+          },
+          "status": "nonnegative"
+        }
+      ],
+      "shifted": [
+        {
+          "denominator": "81*(28*lambda + 9)**5",
+          "denominator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive"
+            ],
+            "zero_on_domain": false
+          },
+          "expression": "4*lambda**2*(2752690816*lambda**4 + 3980827200*lambda**3 + 2274474600*lambda**2 + 554543172*lambda + 48263445)/(81*(28*lambda + 9)**5)",
+          "numerator": "4*lambda**2*(2752690816*lambda**4 + 3980827200*lambda**3 + 2274474600*lambda**2 + 554543172*lambda + 48263445)",
+          "numerator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive",
+              "zero"
+            ],
+            "zero_on_domain": true
+          },
+          "status": "nonnegative"
+        }
+      ]
+    }
+  },
+  "parameter": "lambda",
+  "provenance": {
+    "input": "studies/mean_field_peeling/quadratic_compiler/campaign1/results_order7_q2_order6.json",
+    "input_sha256": "9919b54fdddc496af5b4b439f525c0215ed0295d7130a0eb247e2416ce62ca18",
+    "postprocessor_sha256": "0ef9283b2ee1b4dd03b0be981c78c307ccf704a1667107bf70080d5f3ec661ba"
+  },
+  "schema_version": 1,
+  "second_hidden_norm": {
+    "definition": "T2(x)=(Q2(F^{-1}(sqrt(x)))-3)/x",
+    "forced_scaling": {
+      "congruence_note": "If m_r=lambda^(r+1)*mbar_r, then H_d=lambda*D*Hbar_d*D and Hplus_d=lambda^2*D*Hbarplus_d*D, with D=diag(1,lambda,...,lambda^(d-1)).",
+      "exact_expected_valuation": true,
+      "expected_divisibility_holds": true,
+      "expected_powers": [
+        1,
+        2,
+        3
+      ],
+      "normalized_moments_nu_bar": [
+        "2*(788*lambda + 243)/(3*(28*lambda + 9)**2)",
+        "8*(32267920*lambda**3 + 37565472*lambda**2 + 13437603*lambda + 1520451)/(81*(28*lambda + 9)**5)",
+        "8*(51512950055168*lambda**5 + 100321873037568*lambda**4 + 76229196662160*lambda**3 + 27975548283624*lambda**2 + 4962725525484*lambda + 341797440447)/(10935*(28*lambda + 9)**8)"
+      ],
+      "ordinary_determinant_factor_for_size_d": "lambda^(d^2)",
+      "shifted_determinant_factor_for_size_d": "lambda^(d*(d+1))",
+      "valuations_at_zero": [
+        1,
+        2,
+        3
+      ]
+    },
+    "moments_nu": [
+      "2*lambda*(788*lambda + 243)/(3*(28*lambda + 9)**2)",
+      "8*lambda**2*(32267920*lambda**3 + 37565472*lambda**2 + 13437603*lambda + 1520451)/(81*(28*lambda + 9)**5)",
+      "8*lambda**3*(51512950055168*lambda**5 + 100321873037568*lambda**4 + 76229196662160*lambda**3 + 27975548283624*lambda**2 + 4962725525484*lambda + 341797440447)/(10935*(28*lambda + 9)**8)"
+    ],
+    "normalized_hankel_determinants": {
+      "ordinary": [
+        "2*(788*lambda + 243)/(3*(28*lambda + 9)**2)",
+        "16*(19767831420944384*lambda**6 + 43084897006679808*lambda**5 + 38879388442425024*lambda**4 + 18414359217379152*lambda**3 + 4812644080574964*lambda**2 + 658030009006728*lambda + 36821353160601)/(32805*(28*lambda + 9)**10)"
+      ],
+      "shifted": [
+        "8*(32267920*lambda**3 + 37565472*lambda**2 + 13437603*lambda + 1520451)/(81*(28*lambda + 9)**5)"
+      ]
+    },
+    "normalized_sign_certificates": {
+      "ordinary": [
+        {
+          "denominator": "3*(28*lambda + 9)**2",
+          "denominator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive"
+            ],
+            "zero_on_domain": false
+          },
+          "expression": "2*(788*lambda + 243)/(3*(28*lambda + 9)**2)",
+          "numerator": "2*(788*lambda + 243)",
+          "numerator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive"
+            ],
+            "zero_on_domain": false
+          },
+          "status": "strictly_positive"
+        },
+        {
+          "denominator": "32805*(28*lambda + 9)**10",
+          "denominator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive"
+            ],
+            "zero_on_domain": false
+          },
+          "expression": "16*(19767831420944384*lambda**6 + 43084897006679808*lambda**5 + 38879388442425024*lambda**4 + 18414359217379152*lambda**3 + 4812644080574964*lambda**2 + 658030009006728*lambda + 36821353160601)/(32805*(28*lambda + 9)**10)",
+          "numerator": "16*(19767831420944384*lambda**6 + 43084897006679808*lambda**5 + 38879388442425024*lambda**4 + 18414359217379152*lambda**3 + 4812644080574964*lambda**2 + 658030009006728*lambda + 36821353160601)",
+          "numerator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive"
+            ],
+            "zero_on_domain": false
+          },
+          "status": "strictly_positive"
+        }
+      ],
+      "shifted": [
+        {
+          "denominator": "81*(28*lambda + 9)**5",
+          "denominator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive"
+            ],
+            "zero_on_domain": false
+          },
+          "expression": "8*(32267920*lambda**3 + 37565472*lambda**2 + 13437603*lambda + 1520451)/(81*(28*lambda + 9)**5)",
+          "numerator": "8*(32267920*lambda**3 + 37565472*lambda**2 + 13437603*lambda + 1520451)",
+          "numerator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive"
+            ],
+            "zero_on_domain": false
+          },
+          "status": "strictly_positive"
+        }
+      ]
+    },
+    "raw_hankel_determinants": {
+      "ordinary": [
+        "2*lambda*(788*lambda + 243)/(3*(28*lambda + 9)**2)",
+        "16*lambda**4*(19767831420944384*lambda**6 + 43084897006679808*lambda**5 + 38879388442425024*lambda**4 + 18414359217379152*lambda**3 + 4812644080574964*lambda**2 + 658030009006728*lambda + 36821353160601)/(32805*(28*lambda + 9)**10)"
+      ],
+      "shifted": [
+        "8*lambda**2*(32267920*lambda**3 + 37565472*lambda**2 + 13437603*lambda + 1520451)/(81*(28*lambda + 9)**5)"
+      ]
+    },
+    "raw_sign_certificates": {
+      "ordinary": [
+        {
+          "denominator": "3*(28*lambda + 9)**2",
+          "denominator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive"
+            ],
+            "zero_on_domain": false
+          },
+          "expression": "2*lambda*(788*lambda + 243)/(3*(28*lambda + 9)**2)",
+          "numerator": "2*lambda*(788*lambda + 243)",
+          "numerator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive",
+              "zero"
+            ],
+            "zero_on_domain": true
+          },
+          "status": "nonnegative"
+        },
+        {
+          "denominator": "32805*(28*lambda + 9)**10",
+          "denominator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive"
+            ],
+            "zero_on_domain": false
+          },
+          "expression": "16*lambda**4*(19767831420944384*lambda**6 + 43084897006679808*lambda**5 + 38879388442425024*lambda**4 + 18414359217379152*lambda**3 + 4812644080574964*lambda**2 + 658030009006728*lambda + 36821353160601)/(32805*(28*lambda + 9)**10)",
+          "numerator": "16*lambda**4*(19767831420944384*lambda**6 + 43084897006679808*lambda**5 + 38879388442425024*lambda**4 + 18414359217379152*lambda**3 + 4812644080574964*lambda**2 + 658030009006728*lambda + 36821353160601)",
+          "numerator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive",
+              "zero"
+            ],
+            "zero_on_domain": true
+          },
+          "status": "nonnegative"
+        }
+      ],
+      "shifted": [
+        {
+          "denominator": "81*(28*lambda + 9)**5",
+          "denominator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive"
+            ],
+            "zero_on_domain": false
+          },
+          "expression": "8*lambda**2*(32267920*lambda**3 + 37565472*lambda**2 + 13437603*lambda + 1520451)/(81*(28*lambda + 9)**5)",
+          "numerator": "8*lambda**2*(32267920*lambda**3 + 37565472*lambda**2 + 13437603*lambda + 1520451)",
+          "numerator_sign": {
+            "method": "coefficientwise_nonnegative",
+            "signs": [
+              "positive",
+              "zero"
+            ],
+            "zero_on_domain": true
+          },
+          "status": "nonnegative"
+        }
+      ]
+    }
+  }
+}

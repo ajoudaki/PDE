@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "raw_result_sha256": "9919b54fdddc496af5b4b439f525c0215ed0295d7130a0eb247e2416ce62ca18",
+  "production_source_sha256": "40bd92576fe917b54044f049b2c9f809a9f8cdb833f10a55d8e57f286ccdde55",
+  "parent_source_sha256": "ad53d2d786393cafc9d034685638348afa19f08dbb8d5aeb3110f8e24c7847ad",
+  "metric_line": "D_lambda = D_a + lambda(D_u + D_W)",
+  "domain": "lambda >= 0",
+  "canonical_hidden_moments": [
+    "2062/4107",
+    "678331568/5616860517",
+    "2090752728035608/38408962828626135"
+  ],
+  "output_moments": {
+    "mu_0": "8*lambda*(17972*lambda^2 + 14571*lambda + 2565)/(3*(28*lambda + 9)^2)",
+    "mu_1": "4*lambda^2*(2752690816*lambda^4 + 3980827200*lambda^3 + 2274474600*lambda^2 + 554543172*lambda + 48263445)/(81*(28*lambda + 9)^5)",
+    "mu_2": "64*lambda^3*(87404089154816*lambda^6 + 195288405758528*lambda^5 + 183383940682224*lambda^4 + 91831580164764*lambda^3 + 25397984710800*lambda^2 + 3645797025177*lambda + 211938867630)/(3645*(28*lambda + 9)^8)"
+  },
+  "output_det_H1": "16*lambda^4*(112912790225420173312*lambda^8 + 349615803556010606592*lambda^7 + 469245263561580312576*lambda^6 + 357238572140264804352*lambda^5 + 168161270615760331584*lambda^4 + 49895625098704728384*lambda^3 + 9084129192676755072*lambda^2 + 926562899722835160*lambda + 40541026148871075)/(32805*(28*lambda + 9)^10)",
+  "hidden_moments": {
+    "nu_0": "2*lambda*(788*lambda + 243)/(3*(28*lambda + 9)^2)",
+    "nu_1": "8*lambda^2*(32267920*lambda^3 + 37565472*lambda^2 + 13437603*lambda + 1520451)/(81*(28*lambda + 9)^5)",
+    "nu_2": "8*lambda^3*(51512950055168*lambda^5 + 100321873037568*lambda^4 + 76229196662160*lambda^3 + 27975548283624*lambda^2 + 4962725525484*lambda + 341797440447)/(10935*(28*lambda + 9)^8)"
+  },
+  "hidden_det_H1": "16*lambda^4*(19767831420944384*lambda^6 + 43084897006679808*lambda^5 + 38879388442425024*lambda^4 + 18414359217379152*lambda^3 + 4812644080574964*lambda^2 + 658030009006728*lambda + 36821353160601)/(32805*(28*lambda + 9)^10)",
+  "certificate": "Every displayed denominator is strictly positive and every displayed numerator has nonnegative coefficients for lambda >= 0; each quantity is strictly positive for lambda > 0 and vanishes at lambda = 0 only through its displayed lambda power.",
+  "result": "No falsification through mu_2, nu_2, or either ordinary 2x2 Hankel determinant; all are proved nonnegative over the full metric ray lambda >= 0."
+}

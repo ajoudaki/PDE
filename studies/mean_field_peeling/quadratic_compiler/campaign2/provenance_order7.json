@@ -1,0 +1,75 @@
+{
+  "campaign": "two-input natural-loss channels, exact order seven",
+  "coordinate_route": "raw bivariate u1,u2 columns with shared Q(theta) initialization and gradient metric",
+  "arithmetic": "boost::multiprecision::checked_int1024_t",
+  "compiler": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+  "working_directory": "/home/amir/Codes/PDE",
+  "accelerated_compile_command": "g++ -std=c++20 -O3 -DNDEBUG studies/mean_field_peeling/quadratic_compiler/campaign2/two_input_connected.cpp -o /tmp/campaign2_connected_vp; cp /tmp/campaign2_connected_vp studies/mean_field_peeling/quadratic_compiler/campaign2/frozen/two_input_connected_vp",
+  "source_sha256": "85c5c47c92bf926d4835120eac2be2f7d9ee70df12d3cd60359ea78ecacaed8e",
+  "frozen_binary_sha256": "0aee151481e6a6cf3634dfc222c420ae521d839a57d8bec521bd58439447137c",
+  "reference_source_sha256": "c1561c6db2df449c85182e772f5efc75574050e26c34feb8e00bf7c4a3b090c2",
+  "postprocess_source_sha256": "0910b68ffa9ff1d648da9600e8b19e81647a7a41b194f7dbfd02e73d917c5c4c",
+  "certificates_sha256": "8715b91af60c34b4f77b5b32da5b15b07fe9e97ac55c1d46c6385f79f4e09e64",
+  "original_dense_attempt": {
+    "channel": "plus",
+    "compile_command": "g++ -std=c++20 -O3 -DNDEBUG studies/mean_field_peeling/quadratic_compiler/campaign2/two_input_connected.cpp -o /tmp/campaign2_connected (executed before the vertex-partition evaluator was added)",
+    "command": "/usr/bin/time -v timeout 1200 bash -c 'ulimit -v 4194304; /tmp/campaign2_connected plus 7 > /tmp/c2_plus7.json'",
+    "status": "inconclusive_timeout",
+    "exit_status": 124,
+    "start_timestamp_from_empty_output_file": "2026-08-13T16:32:25.633504606+02:00",
+    "wall_seconds": 1200,
+    "temporary_binary_sha256": "5c352962ceb563520b395b35344ebfd32faa8a58b9953dce87ed61861af4ae76",
+    "source_sha256": null,
+    "log": "logs/dense_plus_order7_timeout.log",
+    "provenance_limitation": "the exact pre-acceleration dense source bytes and original stderr stream were not frozen; the temporary binary hash and terminal result were recovered, and this route is not used for any accepted coefficient",
+    "note": "stdout was buffered and remained empty; an independent completed F5 artifact was retained"
+  },
+  "amended_accelerated_route": {
+    "authorization": "explicit post-timeout amendment authorized after the frozen exact evaluator matched every F3/F5 coefficient; this was not the original combined-cap precommit",
+    "resource_cap_per_channel": {
+      "virtual_memory_kib": 4194304,
+      "wall_seconds": 1200
+    },
+    "plus": {
+      "command": "/usr/bin/time -v timeout 1200 bash -c 'ulimit -v 4194304; studies/mean_field_peeling/quadratic_compiler/campaign2/frozen/two_input_connected_vp plus 7 > studies/mean_field_peeling/quadratic_compiler/campaign2/frozen/plus_order7_raw.json'",
+      "exit_status": 0,
+      "output_open_timestamp": "2026-08-13T16:54:31.312760137+02:00",
+      "output_final_mtime": "2026-08-13T17:01:11.834325180+02:00",
+      "recursion_seconds_order7": 400.524,
+      "wall_seconds": 402.23,
+      "peak_rss_kib": 1497632,
+      "value_states": 711818,
+      "terminal_trees": 617838,
+      "raw_sha256": "e363e70cbf512f63025a77fa84d2bf5068a7e512933c08df3c0f149746da6b7a",
+      "log": "logs/accelerated_plus_order7.log"
+    },
+    "minus": {
+      "command": "/usr/bin/time -v timeout 1200 bash -c 'ulimit -v 4194304; studies/mean_field_peeling/quadratic_compiler/campaign2/frozen/two_input_connected_vp minus 7 > studies/mean_field_peeling/quadratic_compiler/campaign2/frozen/minus_order7_raw.json'",
+      "exit_status": 0,
+      "output_open_timestamp": "2026-08-13T17:01:27.698706337+02:00",
+      "output_final_mtime": "2026-08-13T17:08:09.744400055+02:00",
+      "recursion_seconds_order7": 402.042,
+      "wall_seconds": 404.29,
+      "peak_rss_kib": 1497504,
+      "value_states": 711818,
+      "terminal_trees": 617838,
+      "raw_sha256": "033cccdd6fb14c2cfba50efcd34b01cdd94bdb3dc17d6452e692da591a8677ac",
+      "log": "logs/accelerated_minus_order7.log"
+    }
+  },
+  "validation": {
+    "transparent_vs_connected_through_order3": true,
+    "vertex_partition_vs_quotient_wick_all_11236_order5_terminal_trees": true,
+    "plus_t1_matches_accepted_single_input_orders_1_3_5_7": true,
+    "minus_forced_endpoint_powers_orders_1_3_5_7": true,
+    "all_17_unit_tests_pass": true
+  },
+  "order9": {
+    "status": "postponed_cost_benefit",
+    "not_attempted": true,
+    "estimated_value_states": "38-53 million",
+    "estimated_terminal_trees": "34-46 million",
+    "estimated_monolithic_memory": "80-112 GB",
+    "note": "requires a new sectorized two-color compiler for a reasonable run"
+  }
+}

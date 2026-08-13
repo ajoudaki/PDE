@@ -1,0 +1,48 @@
+{
+  "campaign": "centered first-hidden quadratic family, exact order seven",
+  "parameter": "t=1-c in [-1,1], equivalently c in [0,2]",
+  "coordinate": "X=u^2-1 with every activation factor expanded as X+t",
+  "arithmetic": "boost::multiprecision::checked_uint1024_t",
+  "compiler": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+  "working_directory": "/home/amir/Codes/PDE",
+  "compile_command": "g++ -std=c++20 -O2 -Wall -Wextra -Wpedantic studies/mean_field_peeling/quadratic_compiler/campaign3/centered_connected.cpp -o /tmp/campaign3_centered",
+  "production_command": "/usr/bin/time -v timeout 1800 bash -c 'ulimit -v 4194304; /tmp/campaign3_centered 7 > /tmp/c3_order7.json 2> /tmp/c3_order7.err'",
+  "source_sha256": "9183e02f8ba0f32389c7a56b4c3cc52796126c70c254d76c0a3259a3accc7c5d",
+  "binary_sha256": "3061193d2f999cfbeaefe70897eb2729de9efd5d9e63bde8db889cd7fc51ea67",
+  "raw_results_sha256": "ad8d72181046f00d48edc55e4e9ce113417c9a8d3129ab0792e1cf764bc2803a",
+  "reference_source_sha256": "310b63193e191893bc61ec24b2220f3e8b59fd280a84d9b2144265f10306e2ef",
+  "postprocess_source_sha256": "aba703b6340cde0df707242d23dea4e24c6a487171f43fcfb84e9c7f569a776c",
+  "certificates_sha256": "92cfd80f5bd039dcb05cf01aa3b3242847d354f0802002721da76652956ecb22",
+  "resource_precommit": {
+    "virtual_memory_kib": 4194304,
+    "wall_seconds": 1800,
+    "target_order": 7,
+    "reference_max_order": 3,
+    "order9_forbidden_before_report": true
+  },
+  "production_measurement": {
+    "exit_status": 0,
+    "user_seconds": 198.06,
+    "system_seconds": 0.19,
+    "wall_seconds": 198.35,
+    "peak_rss_kib": 328048,
+    "recursion_seconds_order7": 197.394,
+    "value_states": 470968,
+    "terminal_trees": 400945
+  },
+  "validation": {
+    "centered_moment_recurrence_vs_direct_binomial_through_power14": true,
+    "transparent_labelled_Wick_vs_connected_all_coefficients_through_order3": true,
+    "even_feature_derivatives_zero_through_order6": true,
+    "degree_bound_all_odd_orders_through_order7": true,
+    "F1_exact_60_plus_44t2_plus_7t4": true,
+    "canonical_t1_matches_accepted_orders_1_3_5_7": true,
+    "centered_t0_independent_through_order3": true,
+    "all_output_moment_and_H1_signs_exactly_certified_on_both_half_intervals": true
+  },
+  "status": "valid exact finite-order evidence; no falsification; no all-order proof",
+  "order9": {
+    "attempted": false,
+    "reason": "precommitted stop after reporting order-seven cost and evidence"
+  }
+}

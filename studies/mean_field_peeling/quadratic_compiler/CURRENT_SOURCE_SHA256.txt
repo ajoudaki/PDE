@@ -1,7 +1,7 @@
 # Current post-refactor source and certificate hashes. Historical hashes tied
 # to accepted pre-refactor runs remain in HISTORICAL_SOURCE_HASHES.txt and the
 # individual audit notes.
-504bcb38bcfadca32f0b8b8b0929c60c1602961d2e5e92cb648b32e9596d4003  README.md
+e46dd24cb87b8b7777885974b429e0d4cf44b9310b6f2b4d161a327fe7760dc3  README.md
 3bb7f47b6796b952b4f4f61b2661ed76dcf6801c4033d97427ba1eb2716bdfbc  component_direct.cpp
 d51486aaff893ae603acae3d084a0132d3864be0e0869401e74d44fa96681d5a  component_parallel.cpp
 ad53d2d786393cafc9d034685638348afa19f08dbb8d5aeb3110f8e24c7847ad  component_recursion.cpp

@@ -1,0 +1,10 @@
+# Reproducible local build product. Source, build command, compiler identity,
+# and binary hash are retained in provenance_order7.json.
+frozen/centered_connected
+
+# Resource-accounting logs are local bulk diagnostics; scalar timings and
+# hashes are retained in provenance_order7.json.
+logs/
+
+__pycache__/
+*.pyc

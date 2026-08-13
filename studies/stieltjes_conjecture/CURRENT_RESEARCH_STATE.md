@@ -3,7 +3,8 @@
 ## Authoritative research state, exact certificates, failed routes, and conditional ODE reconstruction
 
 **Status as of 13 August 2026:** compatible with every condition decidable
-from the first five exact moments; neither proved nor falsified.
+from the first five exact canonical moments and with all finite-order tests in
+three exact parameter-continuum campaigns; neither proved nor falsified.
 
 This is the single authoritative, self-contained account of the
 Stieltjes-conjecture investigation. It supersedes the historical report in
@@ -34,6 +35,7 @@ The main claim levels are:
 |---|---|
 | Raw fixed-order derivatives through $F^{(11)}(0)$ | Accepted exact computational certificates |
 | Moments $\mu_0,\ldots,\mu_4$ and every accessible Hankel test | Exact; every test passes strictly |
+| Three nontrivial parameter families | Exact finite-order continuum certificates; every tested inequality passes |
 | Full $F^{(13)}(0)$, $\mu_5$, and the next shifted determinant | Open |
 | All-order Stieltjes moment property | Open |
 | Existence of a representing measure | Conditional on all-order Hankel positivity |
@@ -45,7 +47,10 @@ The main claim levels are:
 The core verdict is
 
 $$
-\boxed{\text{five-moment compatibility, but no all-order theorem and no counterexample.}}
+\boxed{\begin{gathered}
+\text{canonical five-moment and parameter-continuum compatibility,}\\
+\text{but no all-order theorem and no counterexample.}
+\end{gathered}}
 $$
 
 ## 1. Formal object being studied
@@ -342,6 +347,65 @@ $$
 
 Therefore every Hankel condition testable from \(\mu_0,\ldots,\mu_4\) passes
 strictly.  This is finite-order compatibility, not an all-order proof.
+
+### Exact parameter-family extension campaigns
+
+The one-point calculation has now been extended to three genuinely
+nontrivial continuous families.  The complete self-contained account,
+including exact jets, failed routes, resource bounds, compiler audits, and
+durable links, is
+[`EXACT_PARAMETRIC_CAMPAIGNS.md`](EXACT_PARAMETRIC_CAMPAIGNS.md).  The common
+conclusion is stronger finite-order compatibility, not an all-order theorem.
+
+1. **Relative metric and hidden geometry.**  For
+
+   $$
+   D_\lambda=D_a+\lambda(D_u+D_W),\qquad \lambda\ge0,
+   $$
+
+   the output jet was computed through order nine and the second-hidden
+   squared-RMS response through order eight.  The ordinary and shifted
+   two-by-two Hankel determinants for both the output moments and the new
+   hidden-response moments are nonnegative on the entire closed ray and are
+   strictly positive for \(\lambda>0\) after their forced boundary factors
+   are removed.  The first-hidden squared norm is not a new state: the exact
+   identity \(D_\lambda Q_1=8\lambda f\) reduces it to the output kernel.
+
+2. **Two inputs with natural squared-loss labels.**  For two unit-RMS inputs
+   with \(t=\theta^2\in[0,1]\), both the equal-label and opposite-label
+   symmetry channels preserve an exact scalar squared-loss reduction.  The
+   input Gram matrix is used in both the initialization covariance and the
+   first-layer gradient metric.  Exact jets through order seven prove
+   \(\mu_0(t),\mu_1(t),\mu_2(t)>0\) and
+   \(\mu_0(t)\mu_2(t)-\mu_1(t)^2>0\) throughout the full interval in both
+   channels.  The opposite-label statement is made for its exact
+   nondegenerate normalization on the closed interval; the raw channel is
+   equivalent for \(t<1\) and collapses at the contradictory endpoint
+   \(t=1\).
+
+3. **Centered activation.**  Replacing the first activation by
+
+   $$
+   \phi_c(u)=u^2-c,\qquad 0\le c\le2,
+   $$
+
+   changes activation shape rather than merely output scale.  Exact jets
+   through order seven and rational Sturm sequences prove the same three
+   moment signs and ordinary two-by-two Hankel sign over both
+   \(c\in[0,1]\) and \(c\in[1,2]\).  The negative half of
+   \(t=1-c\in[-1,1]\) required genuine root isolation; coefficientwise
+   positivity was not used there.
+
+All three campaigns passed independent low-order Wick routes, parity and
+endpoint gates, checked-arithmetic execution, exact postprocessing, and
+provenance audits.  The combined durable test suite has 59 passing tests.
+The original dense two-input order-seven route and the secondary graded
+hidden-norm route timed out; both remain explicitly inconclusive and support
+no accepted coefficient.  Higher parametric order-nine branches were
+postponed where measured state growth made their information-per-cost ratio
+poor.  None of these results supplies the missing all-order positive
+operator or the bridge from fixed-order formal jets to a global deterministic
+mean-field curve.
 
 The next exact test needs \(\mu_5=-g_6\), hence \(F^{(13)}(0)\).  Given the
 five moments already known, positivity of the next shifted determinant is
@@ -1253,17 +1317,20 @@ Proved or computationally certified:
    low-order regressions;
 2. $F^{(11)}(0)$ and $g_5=\mu_4$ exactly;
 3. strict positivity of every Hankel condition testable through $\mu_4$;
-4. the inverse-variable coefficient formulas and Stieltjes equivalence;
-5. the exact Stieltjes variance boundary and the signed first variation;
-6. total nonnegativity of all 18,563 minors of the aggregated $6\times12$
+4. exact continuum-valued finite-order compatibility over the relative-metric,
+   two-input label/correlation, and centered-activation families, including
+   ordinary and shifted output/hidden two-by-two tests where computed;
+5. the inverse-variable coefficient formulas and Stieltjes equivalence;
+6. the exact Stieltjes variance boundary and the signed first variation;
+7. total nonnegativity of all 18,563 minors of the aggregated $6\times12$
    sector matrix, plus simple negative roots of its six row polynomials;
-7. positive two-node Gaussian and three-node zero-Radau reconstructions;
-8. conditional Gauss/Radau bounds for every representing resolvent and its
+8. positive two-node Gaussian and three-node zero-Radau reconstructions;
+9. conditional Gauss/Radau bounds for every representing resolvent and its
    induced scalar \(K,F,L\) flows, but not yet for an independently
    established global mean-field curve;
-9. zero radius of the feature and loss formal jets;
-10. rigorous failure of the generic proof mechanisms collected in Section 13;
-11. local calibration, but not a decisive global Loewner result, for the
+10. zero radius of the feature and loss formal jets;
+11. rigorous failure of the generic proof mechanisms collected in Section 13;
+12. local calibration, but not a decisive global Loewner result, for the
    stopped finite-width median proxy.
 
 Open:
@@ -1346,6 +1413,11 @@ The durable source-of-truth map is:
 - [the exact quadratic compiler](../mean_field_peeling/quadratic_compiler/)
   for decorated-forest rewrites, checked sector engines, exact raw derivatives,
   and D11/D13 audits;
+- [the exact parametric campaign synthesis](EXACT_PARAMETRIC_CAMPAIGNS.md)
+  and its [metric/hidden](../mean_field_peeling/quadratic_compiler/campaign1/),
+  [two-input](../mean_field_peeling/quadratic_compiler/campaign2/), and
+  [activation](../mean_field_peeling/quadratic_compiler/campaign3/)
+  compiler artifacts for the new continuum-valued certificates;
 - [exact order-eleven certificates](theory/certificates_order11.json) for
   exact \(K\)-coefficients, moments, and accessible Hankel determinants;
 - [the D13 threshold calculator](theory/exact_d13_threshold.py) for the exact

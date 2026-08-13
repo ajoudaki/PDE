@@ -1244,11 +1244,16 @@ layerwise Gaussian elimination, Stein correction, Wick contraction,
 equality-pattern enumeration, and width power counting explicitly, with the
 goal of a finite Gaussian-integral DAG and a finite-state depth recursion.
 
-There are now two complementary laboratories. The fixed three-hidden-layer
-backward and training calculations expose conditional Stein corrections and
-lower-layer boundary transport. The one-sample quadratic compiler proves an
+There are two complementary core laboratories and three bounded
+parameter-extension campaigns. The fixed three-hidden-layer backward and
+training calculations expose conditional Stein corrections and lower-layer
+boundary transport. The canonical one-sample quadratic compiler proves an
 exact decorated-forest specialization and supplies accepted integer
-coefficients through derivative order eleven. The general nonlinear two-step
-closure remains formal, its deep-linear specialization is audited, and the
-finite-state theorem for the full proposed admissible grammar remains open.
-The exact specialization must not be mistaken for that general theorem.
+coefficients through derivative order eleven. Its isolated campaigns retain
+the same basic grammar while varying a relative block metric and hidden
+observable, a two-input symmetry channel, and a shifted first-hidden
+activation. They provide exact finite-order continuum tests, not a generic
+compiler theorem. The general nonlinear two-step closure remains formal, its
+deep-linear specialization is audited, and the finite-state theorem for the
+full proposed admissible grammar remains open. None of the exact
+specializations should be mistaken for that general theorem.

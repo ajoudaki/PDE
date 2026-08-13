@@ -1,9 +1,12 @@
 # Exact quadratic-network mean-field peeling compiler
 
-This directory contains a computer-algebra implementation of the leading-width
-peeling calculation for the one-sample, two-hidden-layer quadratic network at
-`gamma=1`.  It is an exact compiler for this model, not yet a generic MLP
-compiler.  It computes
+The root of this directory contains a computer-algebra implementation of the
+leading-width peeling calculation for the canonical one-sample,
+two-hidden-layer quadratic network at `gamma=1`.  It is an exact compiler for
+this model, not yet a generic MLP compiler.  The isolated campaign
+subdirectories extend the same grammar to a relative block metric, two
+symmetry-reduced inputs, and a shifted first-hidden activation.  The canonical
+root compiler computes
 
 \[
 F^{(k)}(0)=\lim_{n\to\infty}\mathbb E[D_n^k f_n],
@@ -21,8 +24,38 @@ other exploratory build products have been removed from the live study.
 The general MFP theorem program is maintained in
 [`../CURRENT_RESEARCH_STATE.md`](../CURRENT_RESEARCH_STATE.md).  Stieltjes
 moments and Hankel certificates derived from these raw feature derivatives
-belong to the separate
-[`../../stieltjes_conjecture/`](../../stieltjes_conjecture/) study.
+are conceptually owned by the separate
+[`../../stieltjes_conjecture/`](../../stieltjes_conjecture/) study.  Compact
+campaign-local certificates are colocated here with the exact jets whose
+integrity they audit.
+
+## Exact parameter-extension campaigns
+
+Three bounded extensions of this compiler are maintained as separate,
+auditable campaigns.  They reuse the peeling/Wick grammar but do not alter the
+accepted canonical derivatives above.
+
+- [`campaign1/`](campaign1/) varies the relative feature-ascent metric
+  ($D_\lambda=D_a+\lambda(D_u+D_W)$) and jointly computes the output and
+  hidden squared-RMS responses.  Exact ordinary and shifted $2\times2$
+  Hankel tests pass for both responses over the full ray $\lambda\ge0$.
+- [`campaign2/`](campaign2/) treats two equal-norm inputs in the same-label
+  and opposite-label symmetry channels.  It retains the input Gram matrix in
+  both the initialization covariance and first-layer gradient metric.  Exact
+  order-seven ordinary $2\times2$ Hankel tests pass throughout the full
+  correlation interval; the degenerate opposite-label endpoint is handled by
+  its exact normalization.
+- [`campaign3/`](campaign3/) replaces the first activation by
+  $u^2-c$, $0\le c\le2$.  In the centered coordinate
+  $u^2-c=(u^2-1)+(1-c)$, exact Sturm certificates prove the available
+  moment and ordinary $2\times2$ Hankel inequalities on both halves of the
+  parameter interval.
+
+These are continuum-valued, finite-order compatibility results.  They neither
+prove all-order Stieltjes positivity nor identify the formal jets with an
+independently established global mean-field trajectory.  The consolidated
+mathematical account is
+[`../../stieltjes_conjecture/EXACT_PARAMETRIC_CAMPAIGNS.md`](../../stieltjes_conjecture/EXACT_PARAMETRIC_CAMPAIGNS.md).
 
 ## Scalarized state
 
@@ -105,6 +138,7 @@ D^3 f = 1685184
 D^5 f = 77400633120
 D^7 f = 7315868433079296
 D^9 f = 1181161141825400561664
+D^11 f = 291982832387585872335470592
 ```
 
 The exhaustive `D^9` audit decomposes the last integer by the number `P` of
@@ -123,7 +157,11 @@ P=9   285610646257352368128
 P=10  87101527431460847616
 ```
 
-Their sum is the stated `D^9 f`.  Dividing by `9!`, reverting `F`, and
+Their sum is the stated `D^9 f`.  The independently audited twelve-sector
+decomposition of `D^11 f` is recorded in
+[`D11_LOWER_SECTOR_AUDIT.md`](D11_LOWER_SECTOR_AUDIT.md) and
+[`d11_high_sectors_exact.txt`](d11_high_sectors_exact.txt). Dividing `D^9 f`
+by `9!`, reverting `F`, and
 substituting into `K=F' o F^(-1)` reproduces the already-audited coefficient
 
 \[

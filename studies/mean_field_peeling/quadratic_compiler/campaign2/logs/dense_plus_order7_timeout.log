@@ -1,0 +1,32 @@
+Campaign 2 original dense quotient-Wick attempt
+================================================
+
+This small log was transcribed immediately after the run from the captured
+terminal result.  The failed dense source bytes and stderr stream were not
+frozen contemporaneously.  The temporary binary survived long enough for its
+SHA-256 to be recorded in provenance_order7.json.  Therefore the wall-time,
+exit status, command and binary identity are preserved, but this failed route
+does not have the same complete source provenance as the successful route.
+
+Command:
+/usr/bin/time -v timeout 1200 bash -c 'ulimit -v 4194304; /tmp/campaign2_connected plus 7 > /tmp/c2_plus7.json'
+
+Observed start from the empty output file timestamp:
+2026-08-13T16:32:25.633504606+02:00
+
+Terminal result:
+Command exited with non-zero status 124
+        Command being timed: "timeout 1200 bash -c ulimit -v 4194304; /tmp/campaign2_connected plus 7 > /tmp/c2_plus7.json"
+        User time (seconds): 0.00
+        System time (seconds): 0.00
+        Percent of CPU this job got: 0%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 20:00.00
+        Maximum resident set size (kbytes): 3332
+        Exit status: 124
+
+The failed-run resource counters above are internally uninformative (the
+wrapper reported zero child CPU and only its own small RSS); only the exact
+20-minute wall timeout and status 124 are treated as authoritative.  The raw
+output file remained empty because stdout was buffered.  Classification:
+inconclusive computational route.
+
