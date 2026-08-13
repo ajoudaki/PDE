@@ -1,0 +1,22 @@
+{
+  "claim": "Rigorous monotone lower bounds for the leading-width coefficient D^13 f(0)",
+  "method": "Keep exactly those terminal leading-Wick forests for which every connected raw-B component has at most C edges; all derivative and Wick coefficients are nonnegative.",
+  "source": "studies/formal_stieltjes/peeling_lower_bound.cpp",
+  "compile": "g++ -O3 -std=c++20 -march=native studies/formal_stieltjes/peeling_lower_bound.cpp -o /tmp/peeling_lb",
+  "run": "/tmp/peeling_lb 13 C",
+  "audit": {
+    "D7_C2": "24781736263680",
+    "D11_C2": "47549726635753458892800"
+  },
+  "bounds": {
+    "2": "3657473819100504794600570880",
+    "4": "488307951362172171444754710528",
+    "6": "3774060417785906666806784851968",
+    "8": "12252624627540173918790915809280",
+    "10": "23783614121601250463925091639296",
+    "12": "37637913524018077968293271343104",
+    "14": "50393647763255899049472742772736"
+  },
+  "global_f_independent_disproof_threshold": "155300800301414276000000000000000",
+  "status": "The C=12 lower bound is below the threshold; larger C computations are required."
+}

@@ -1,0 +1,13 @@
+# Numerical runs are reproducibility data, not source.  Their conclusions,
+# protocols, integrity hashes, and compact certificates live outside `runs/`.
+numerics/**/runs/
+
+# Local interpreter caches.
+**/__pycache__/
+**/*.py[cod]
+
+# Local compiler products.  One historically accepted checked binary under
+# `peeling/` is explicitly force-added because its exact source revision is no
+# longer available; see the D11 audit next to it.
+peeling/*.o
+peeling/*.out

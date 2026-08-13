@@ -1,0 +1,36 @@
+Checked D13 lower-bound executable provenance
+=============================================
+
+Certificate executable:
+
+  /tmp/peeling_budget_checked_safe
+  sha256 a1999865271ab199361b0f61d8bea3e7c8da301311e4826b027e26ce6d0ab80d
+  mtime  2026-08-12 23:33:12.014313431 +0200
+
+Exact source:
+
+  studies/formal_stieltjes/peeling_lower_bound.cpp
+  sha256 5b746c28b7e19eb8f4199cdee71c9ae16db4ef0fa187f79d85bd3750e480171c
+
+An independent pre-build snapshot remains at:
+
+  /tmp/peeling_noshare.cpp
+  sha256 5b746c28b7e19eb8f4199cdee71c9ae16db4ef0fa187f79d85bd3750e480171c
+  mtime  2026-08-12 23:31:42.492135001 +0200
+
+Reproduction command:
+
+  g++ -O3 -std=c++20 -march=native -DCHECKED_ARITHMETIC \
+    studies/formal_stieltjes/peeling_lower_bound.cpp \
+    -o /tmp/peeling_binary_repro
+
+The reproduced executable has SHA-256
+
+  a1999865271ab199361b0f61d8bea3e7c8da301311e4826b027e26ce6d0ab80d
+
+and `cmp` reports it byte-for-byte identical to
+`/tmp/peeling_budget_checked_safe`.  Thus the later mtime on the shared source
+does not represent any net source-content difference from the running binary.
+In particular, the running binary already contains the nonadjacent-budget
+byte in the memo-key prefix, exactly as in the recorded source.
+

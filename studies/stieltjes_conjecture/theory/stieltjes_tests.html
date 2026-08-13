@@ -1,0 +1,93 @@
+<div id="stieltjes-tests-root">
+  <h2>Stieltjes reconstruction versus direct finite-width dynamics</h2>
+  <div class="legend" aria-label="Series controls"></div>
+  <div class="plots">
+    <section><h3>Output kernel</h3><svg id="kernel-chart" role="img" aria-label="Output kernel K as a function of output y"></svg></section>
+    <section><h3>Feature-ascent output</h3><svg id="feature-chart" role="img" aria-label="Feature ascent output F as a function of feature time s"></svg></section>
+    <section><h3>Squared loss</h3><svg id="loss-chart" role="img" aria-label="Log squared loss as a function of gradient-flow time tau"></svg></section>
+  </div>
+  <div class="tooltip" role="tooltip"></div>
+</div>
+<style>
+#stieltjes-tests-root { width: 100%; color: var(--foreground); position: relative; }
+#stieltjes-tests-root h2 { margin: 0 0 8px; font-weight: 500; }
+#stieltjes-tests-root h3 { margin: 8px 0 4px; font-weight: 500; }
+#stieltjes-tests-root .plots { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
+#stieltjes-tests-root section { min-width: 0; }
+#stieltjes-tests-root svg { width: 100%; min-height: 290px; display: block; }
+#stieltjes-tests-root .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 4px; }
+#stieltjes-tests-root .legend button { border: 0; background: transparent; color: var(--foreground); padding: 2px 0; cursor: pointer; }
+#stieltjes-tests-root .legend button[aria-pressed="false"] { opacity: .42; }
+#stieltjes-tests-root .swatch { display:inline-block; width:16px; height:3px; margin-right:5px; vertical-align:middle; background:var(--swatch); }
+#stieltjes-tests-root .axis text, #stieltjes-tests-root .axis-title { fill: var(--foreground); font-size: 12px; }
+#stieltjes-tests-root .axis path, #stieltjes-tests-root .axis line, #stieltjes-tests-root [data-chart-frame] { stroke: var(--border); }
+#stieltjes-tests-root .grid line { stroke: var(--border); opacity:.45; }
+#stieltjes-tests-root .grid path { display:none; }
+#stieltjes-tests-root .tooltip { position:absolute; pointer-events:none; opacity:0; background:var(--popover); color:var(--popover-foreground); border:1px solid var(--border); padding:6px 8px; }
+@media(max-width:760px){#stieltjes-tests-root .plots{grid-template-columns:1fr;}#stieltjes-tests-root svg{min-height:260px;}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script>
+(() => {
+  const root=document.getElementById('stieltjes-tests-root');
+  const empirical=[
+    [0,114.1240,4.2336],[.05,114.2995,4.2333],[.10,114.8153,4.2320],[.15,115.6722,4.2299],
+    [.20,116.8684,4.2272],[.25,118.4008,4.2242],[.30,120.2644,4.2208],[.35,122.4545,4.2174],
+    [.40,124.9664,4.2144],[.45,127.7932,4.2118],[.50,130.9303,4.2099],[.55,134.3691,4.2091],
+    [.60,138.1062,4.2094],[.65,142.1343,4.2114],[.70,146.4474,4.2151],[.75,151.0393,4.2206],
+    [.80,155.9060,4.2283],[.85,161.0408,4.2383],[.90,166.4388,4.2508],[.95,172.0960,4.2660],[1,178.0077,4.2841]
+  ].map(d=>({x:d[0],y:d[1],se:d[2]}));
+  const offset=empirical[0].y-111;
+  const empiricalShape=empirical.map(d=>({x:d.x,y:d.y-offset}));
+  const interp=d3.scaleLinear().domain(empiricalShape.map(d=>d.x)).range(empiricalShape.map(d=>d.y)).clamp(true);
+  const m0=68.3866569272,m1=6.844249882,m2=2.935133601;
+  const node2=[.0272630,.5519349], weight2=[58.89535,9.49131];
+  const node3=[.00935361,.30359265,.70680327], weight3=[52.11148965,12.76385565,3.51131162];
+  const kAtomic=(y,nodes,weights)=>111+y*y*d3.sum(nodes,(l,i)=>weights[i]/(1+l*y*y));
+  const k2=y=>kAtomic(y,node2,weight2), k3=y=>kAtomic(y,node3,weight3), kDirect=y=>interp(y);
+  const kLow=y=>111+y*y*m0*m0/(m0+m1*y*y);
+  const kHigh=y=>111+y*y*(m0*m1+(m0*m2-m1*m1)*y*y)/(m1+m2*y*y);
+  const ygrid=d3.range(0,1.00001,.005);
+
+  function rk4(curve, deriv, dt, maxT){let y=0,out=[{x:0,y:0}];for(let t=dt;t<=maxT+1e-12;t+=dt){let a=deriv(y),b=deriv(y+dt*a/2),c=deriv(y+dt*b/2),d=deriv(y+dt*c);y+=dt*(a+2*b+2*c+d)/6;out.push({x:t,y});}return out;}
+  const feature=(K)=>rk4([],y=>K(Math.min(y,1)),1e-5,.009).map(d=>({x:d.x,y:Math.min(d.y,1)}));
+  const loss=(K)=>rk4([],y=>2*(1-y)*K(Math.min(y,1)),2e-5,.02).map(d=>({x:d.x,y:Math.max((1-d.y)*(1-d.y),1e-8)}));
+
+  const colors={direct:'var(--viz-series-1)',two:'var(--viz-series-2)',three:'var(--viz-series-3)',bounds:'var(--viz-series-4)'};
+  const visible={direct:true,two:true,three:true,bounds:true};
+  const labels=[['direct','finite-width reference'],['two','2-node reconstruction'],['three','3-node pilot'],['bounds','Padé bracket']];
+  const legend=d3.select(root).select('.legend');
+  labels.forEach(([key,label])=>{const b=legend.append('button').attr('type','button').attr('aria-pressed','true').on('click',()=>{visible[key]=!visible[key];b.attr('aria-pressed',String(visible[key]));drawAll();});b.append('span').attr('class','swatch').style('--swatch',colors[key]);b.append('span').text(label);});
+
+  function chart(svgId, series, xLabel, yLabel, logY=false){
+    const svg=d3.select(root).select(svgId), node=svg.node(), W=Math.max(320,node.getBoundingClientRect().width), H=290;
+    svg.attr('viewBox',`0 0 ${W} ${H}`).selectAll('*').remove();
+    const margin={top:10,right:12,bottom:48,left:64}, iw=W-margin.left-margin.right, ih=H-margin.top-margin.bottom;
+    const all=series.flatMap(s=>s.data.flatMap(d=>s.band?[{x:d.x,y:d.lo},{x:d.x,y:d.hi}]:[d]));
+    const xd=d3.extent(all,d=>d.x), yd=d3.extent(all,d=>d.y);
+    const x=d3.scaleLinear().domain([Math.min(0,xd[0]),xd[1]]).nice().range([0,iw]);
+    const y=logY?d3.scaleLog().domain([Math.max(1e-8,yd[0]),yd[1]]).nice().range([ih,0]):d3.scaleLinear().domain([yd[0]-(yd[1]-yd[0])*.06,yd[1]+(yd[1]-yd[0])*.06]).nice().range([ih,0]);
+    const g=svg.append('g').attr('transform',`translate(${margin.left},${margin.top})`);
+    g.append('rect').attr('data-chart-frame','').attr('width',iw).attr('height',ih).attr('fill','none');
+    g.append('g').attr('class','grid').call(d3.axisLeft(y).ticks(5).tickSize(-iw).tickFormat(''));
+    g.append('g').attr('class','axis').attr('transform',`translate(0,${ih})`).call(d3.axisBottom(x).ticks(W<400?4:5));
+    g.append('g').attr('class','axis').call(d3.axisLeft(y).ticks(5,logY?'.0e':undefined));
+    g.append('text').attr('class','axis-title').attr('data-axis','x').attr('x',iw/2).attr('y',ih+40).attr('text-anchor','middle').text(xLabel);
+    g.append('text').attr('class','axis-title').attr('data-axis','y').attr('transform','rotate(-90)').attr('x',-ih/2).attr('y',-50).attr('text-anchor','middle').text(yLabel);
+    series.forEach(s=>{
+      const show=visible[s.key];
+      if(s.band){g.append('path').datum(s.data).attr('data-key',s.key).attr('fill',colors[s.key]).attr('opacity',show?.13:0).attr('d',d3.area().x(d=>x(d.x)).y0(d=>y(d.lo)).y1(d=>y(d.hi)));}
+      else g.append('path').datum(s.data).attr('data-key',s.key).attr('fill','none').attr('stroke',colors[s.key]).attr('stroke-width',s.key==='direct'?2.2:1.8).attr('stroke-dasharray',s.key==='three'?'5 3':null).attr('opacity',show?1:0).attr('d',d3.line().x(d=>x(d.x)).y(d=>y(d.y)));
+    });
+  }
+
+  function drawAll(){
+    const kBand=empirical.map(d=>({x:d.x,lo:d.y-1.96*d.se,hi:d.y+1.96*d.se}));
+    chart('#kernel-chart',[{key:'direct',data:kBand,band:true},{key:'direct',data:empirical},{key:'bounds',data:ygrid.map(x=>({x,lo:kLow(x),hi:kHigh(x)})),band:true},{key:'two',data:ygrid.map(x=>({x,y:k2(x)}))},{key:'three',data:ygrid.map(x=>({x,y:k3(x)}))}],'output y','K(y)');
+    chart('#feature-chart',[{key:'direct',data:feature(kDirect)},{key:'two',data:feature(k2)},{key:'three',data:feature(k3)}],'feature time s','F(s)');
+    chart('#loss-chart',[{key:'direct',data:loss(kDirect)},{key:'two',data:loss(k2)},{key:'three',data:loss(k3)}],'gradient-flow time τ','loss L(τ)',true);
+  }
+  drawAll();
+  new ResizeObserver(drawAll).observe(root);
+})();
+</script>

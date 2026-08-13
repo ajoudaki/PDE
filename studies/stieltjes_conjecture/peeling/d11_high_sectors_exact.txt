@@ -1,0 +1,14 @@
+# Exact high Wick-pair sectors for D^11 f
+# Arithmetic: boost::multiprecision::checked_uint512_t
+# Strict acceptance gate: all D9 P10..P1 sectors matched README.md exactly.
+
+P=12  W_hits=0  12285503181066227920404480
+P=11  W_hits=1  49117046434067436406308864
+P=10  W_hits=2  83655641930747138444722176
+
+# P12 was obtained independently by exhaustive checked512 contraction.
+# P11: 104214 unique bases; adaptive resumed segment 12:06.54 wall;
+#      maximum RSS 1071856 KiB.
+# P10: 257533 unique target bases; reused 104214 P11 keys and an existing
+#      4768-value target prefix (105789 unique initially), computed 151744
+#      unknown bases; 9:01.06 wall; maximum RSS 613468 KiB.

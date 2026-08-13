@@ -1,0 +1,15 @@
+{
+  "base_component_edge_cap": 14,
+  "derivative_order": 11,
+  "exact_lower_bound": "171581079093364877390972928",
+  "root_hits": {
+    "a": "19160307824143920250503168",
+    "h": "106822079163305668396173312",
+    "W": "45598692105915288744296448"
+  },
+  "runtime_seconds_observed": 201.052,
+  "value_cache_entries": 730764,
+  "wick_cache_entries": 546751,
+  "wick_subproblems": 4098854,
+  "command": "/tmp/peeling_lower_bound 11 14"
+}
