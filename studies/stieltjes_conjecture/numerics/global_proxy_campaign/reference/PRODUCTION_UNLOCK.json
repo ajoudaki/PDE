@@ -1,8 +1,19 @@
 {
   "status": "protocol_frozen_and_execution_authorized",
-  "protocol_sha256": "8e52c717e7a1f3c80fd3549231556dd0127974f5460d32ca199cfb116893855c",
-  "config_name": "FROZEN_PRODUCTION.json",
-  "config_sha256": "ca211503f77bec5f0d54541dfac3c18b027ec92173636ae729c7b1d1817b8630",
-  "source_bundle_sha256": "695dcb484fd1823b3919c3e54c558a0aa3087b78f4ae5333323ac503476f1974",
-  "claim_scope": "Stage-2 canonical pilot only; no later stage is authorized by this unlock"
+  "authorized_utc": "2026-08-13T20:35:00+00:00",
+  "protocol_name": "SUCCESSOR_02_PROTOCOL.md",
+  "protocol_sha256": "1559f1d7f2f0a19ac10f61fc2d8871c8fefab600b3acc6f7e44193696f8cb7e6",
+  "config_name": "FROZEN_SUCCESSOR_02.json",
+  "config_sha256": "70f14567d7eb23388b51a6e2e6807572d7781c779a66f170edc16647108c8417",
+  "analysis_config_name": "FROZEN_SUCCESSOR_02_ANALYSIS.json",
+  "analysis_config_sha256": "7f9cc9863cc09eaa302d5c492d581a72c97470aaf055c7faef91c72475a8d709",
+  "source_bundle_sha256": "1c9a12a3b6a840305f1546a040b3c9ffb679e8f2462202546da00d5757c428d1",
+  "validation_summary_sha256": {
+    "cpu_v3": "754813be421cbc5f3b40380f5bebfff02f4aa71c7c392f1f6edf003801d4d99f",
+    "gpu0_v3": "c3ff9c0f7a71527f13f29c0844da059c81e5247a3794f514bf9baa2f56aa7c9d",
+    "gpu1_v3": "3382e73a4d3e6fc619ad80250f3b3c960852a630836dca38cd47dcb939388425"
+  },
+  "one_attempt_only": true,
+  "predecessor_failure_seconds_charged": 7.623125169426203,
+  "claim_scope": "Successor-02 canonical five-point pilot only; later stages require a separate post-analysis authorization"
 }
