@@ -7,7 +7,6 @@ from pathlib import Path
 import numpy as np
 
 from analysis.bootstrap import (
-    BootstrapBand,
     PointBootstrap,
     bootstrap_point,
     simultaneous_log_band,

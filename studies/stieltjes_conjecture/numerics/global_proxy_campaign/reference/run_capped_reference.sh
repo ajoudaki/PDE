@@ -12,17 +12,17 @@ case "${action}" in
   cpu-validation)
     exec /usr/bin/timeout --signal=TERM --kill-after=15s 150s \
       python "${reference_dir}/run_reference.py" \
-      "${reference_dir}/configs/validation_cpu.json"
+      "${reference_dir}/configs/validation_cpu_v3.json"
     ;;
   gpu0-validation)
     exec /usr/bin/timeout --signal=TERM --kill-after=15s 210s \
       python "${reference_dir}/run_reference.py" \
-      "${reference_dir}/configs/validation_gpu0.json"
+      "${reference_dir}/configs/validation_gpu0_v3.json"
     ;;
   gpu1-validation)
     exec /usr/bin/timeout --signal=TERM --kill-after=15s 210s \
       python "${reference_dir}/run_reference.py" \
-      "${reference_dir}/configs/validation_gpu1.json"
+      "${reference_dir}/configs/validation_gpu1_v3.json"
     ;;
   production)
     frozen_config="${reference_dir}/configs/FROZEN_PRODUCTION.json"
@@ -44,8 +44,18 @@ case "${action}" in
     exec /usr/bin/timeout --signal=TERM --kill-after=30s 2430s \
       python "${reference_dir}/run_reference.py" "${successor_config}"
     ;;
+  successor-02)
+    successor_config="${reference_dir}/configs/FROZEN_SUCCESSOR_02.json"
+    unlock="${reference_dir}/PRODUCTION_UNLOCK.json"
+    if [[ ! -f "${successor_config}" || ! -f "${unlock}" ]]; then
+      echo "Successor-02 remains locked: frozen config/unlock absent." >&2
+      exit 3
+    fi
+    exec /usr/bin/timeout --signal=TERM --kill-after=30s 2430s \
+      python "${reference_dir}/run_reference.py" "${successor_config}"
+    ;;
   *)
-    echo "usage: $0 {gpu-preflight|cpu-validation|gpu0-validation|gpu1-validation|production|successor-01}" >&2
+    echo "usage: $0 {gpu-preflight|cpu-validation|gpu0-validation|gpu1-validation|production|successor-01|successor-02}" >&2
     exit 64
     ;;
 esac

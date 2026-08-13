@@ -46,9 +46,16 @@ class PointCaps:
 
 
 class BudgetGuard:
-    def __init__(self, caps: PointCaps, device: torch.device) -> None:
+    def __init__(
+        self,
+        caps: PointCaps,
+        device: torch.device,
+        *,
+        absolute_wall_deadline: float | None = None,
+    ) -> None:
         self.caps = caps
         self.device = device
+        self.absolute_wall_deadline = absolute_wall_deadline
         self.start = time.monotonic()
         self.steps = 0
         self.max_host_rss_gib = 0.0
@@ -59,14 +66,34 @@ class BudgetGuard:
         # Linux reports ru_maxrss in KiB.
         return float(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) / 2**20
 
-    def check(self, *, count_step: bool = False) -> None:
-        if count_step:
-            self.steps += 1
-        elapsed = time.monotonic() - self.start
+    def record_integrator_step(self) -> None:
+        """Record one completed numerical-integrator step.
+
+        This is deliberately separate from :meth:`check`: if a subsequent
+        observable or validity check fails, the failure certificate must still
+        report that the state update was completed.
+        """
+
+        self.steps += 1
+
+    def observe_resources(self) -> None:
+        """Refresh peak-resource telemetry without imposing a new stop."""
+
         self.max_host_rss_gib = max(self.max_host_rss_gib, self._host_max_rss_gib())
         if self.device.type == "cuda":
             allocated = torch.cuda.max_memory_allocated(self.device) / 2**30
             self.max_gpu_allocated_gib = max(self.max_gpu_allocated_gib, allocated)
+
+    def check(self, *, count_step: bool = False) -> None:
+        if count_step:
+            self.record_integrator_step()
+        elapsed = time.monotonic() - self.start
+        self.observe_resources()
+        if (
+            self.absolute_wall_deadline is not None
+            and time.monotonic() > self.absolute_wall_deadline
+        ):
+            raise BudgetStop("global wall cap reached during point execution")
         if elapsed > self.caps.wall_seconds:
             raise BudgetStop(
                 f"point wall cap reached: {elapsed:.3f}s > {self.caps.wall_seconds:.3f}s"
@@ -91,6 +118,7 @@ class BudgetGuard:
             )
 
     def summary(self) -> dict[str, float | int]:
+        self.observe_resources()
         return {
             "elapsed_seconds": time.monotonic() - self.start,
             "integrator_steps_all_batches": self.steps,
@@ -168,6 +196,35 @@ def _record(obs: Observables, target: float) -> dict[str, np.ndarray]:
     }
 
 
+def _antithetic_cancellation_certificate(
+    initial_output: torch.Tensor,
+    pair_count: int,
+    declared_tolerance: float | None,
+) -> dict[str, float]:
+    """Validate and report readout-sign antithetic cancellation at time zero."""
+
+    paired = initial_output.reshape(pair_count, 2)
+    max_pair_sum = float(torch.max(torch.abs(torch.sum(paired, dim=1))).item())
+    max_abs_output = float(torch.max(torch.abs(initial_output)).item())
+    scale = max(1.0, max_abs_output)
+    if declared_tolerance is None:
+        tolerance = 64.0 * torch.finfo(initial_output.dtype).eps * scale
+    else:
+        tolerance = float(declared_tolerance)
+    if not math.isfinite(tolerance) or tolerance < 0.0:
+        raise ValueError("antithetic cancellation tolerance must be finite and nonnegative")
+    if max_pair_sum > tolerance:
+        raise NumericalInvalid(
+            "antithetic initial-output cancellation defect "
+            f"{max_pair_sum:.6g} exceeds {tolerance:.6g}"
+        )
+    return {
+        "max_abs_antithetic_initial_output_sum": max_pair_sum,
+        "max_abs_initial_output": max_abs_output,
+        "antithetic_initial_cancellation_tolerance": tolerance,
+    }
+
+
 def _validate_state_and_observables(
     state: State,
     obs: Observables,
@@ -239,6 +296,11 @@ def simulate_batch(
         pair_offset=pair_offset,
         microcanonical_readout=microcanonical,
     )
+    antithetic_certificate = _antithetic_cancellation_certificate(
+        init["initial_output"],
+        pair_count,
+        point.get("antithetic_initial_cancellation_tolerance"),
+    )
     target = float(point.get("target", 1.0))
     method = str(point.get("integrator", "midpoint"))
     coordinates = np.arange(steps + 1, dtype=np.float64) * step
@@ -276,6 +338,7 @@ def simulate_batch(
                 target=target,
                 kernel_floor=guard.caps.kernel_floor,
             )
+            guard.record_integrator_step()
             obs = observables(state)
             check_amplitude = (
                 index % guard.caps.diagnostic_stride == 0 or index == steps
@@ -291,18 +354,13 @@ def simulate_batch(
             values = _record(obs, target)
             for key in fields:
                 curves[key][index] = values[key]
-            guard.check(count_step=True)
+            guard.check()
 
-    initial_output = _to_numpy(init["initial_output"])
-    pair_initial_sum = initial_output.reshape(pair_count, 2).sum(axis=1)
     result: dict[str, Any] = {
         "coordinate": coordinates,
         **curves,
         "max_state_amplitude": max_state_amplitude,
-        "max_abs_antithetic_initial_output_sum": float(
-            np.max(np.abs(pair_initial_sum))
-        ),
-        "max_abs_initial_output": float(np.max(np.abs(initial_output))),
+        **antithetic_certificate,
         "projection_relative_norm": _to_numpy(init["projection_relative_norm"]),
     }
     return result
@@ -329,6 +387,7 @@ def aggregate_physical(
     *,
     target: float,
     monotonic_tolerance: float,
+    loss_nonincrease_tolerance: float,
 ) -> tuple[dict[str, np.ndarray], dict[str, Any]]:
     coordinate = batches[0]["coordinate"]
     raw = {
@@ -347,7 +406,8 @@ def aggregate_physical(
     }
     mean_output = raw["output"].mean(axis=1)
     increments = np.diff(mean_output)
-    if float(np.min(increments)) < -monotonic_tolerance:
+    minimum_output_increment = float(np.min(increments)) if increments.size else 0.0
+    if minimum_output_increment < -monotonic_tolerance:
         raise NumericalInvalid(
             "ensemble mean output is nonmonotone beyond declared tolerance"
         )
@@ -355,6 +415,19 @@ def aggregate_physical(
         raise NumericalInvalid("first requested mean-output node precedes the trajectory")
     if output_nodes[-1] > mean_output[-1] + monotonic_tolerance:
         raise NumericalInvalid("physical-time cap did not reach the final output node")
+    mean_loss = raw["loss"].mean(axis=1)
+    if not np.all(np.isfinite(mean_loss)):
+        raise NumericalInvalid("nonfinite ensemble mean physical loss")
+    loss_increments = np.diff(mean_loss)
+    if not math.isfinite(loss_nonincrease_tolerance) or loss_nonincrease_tolerance < 0.0:
+        raise ValueError("loss nonincrease tolerance must be finite and nonnegative")
+    maximum_loss_increment = (
+        float(np.max(loss_increments)) if loss_increments.size else 0.0
+    )
+    if maximum_loss_increment > loss_nonincrease_tolerance:
+        raise NumericalInvalid(
+            "ensemble mean physical loss increases beyond declared tolerance"
+        )
 
     # Remove only exact/repeated abscissas for interpolation; do not isotonic-fit
     # or otherwise alter a scientifically meaningful nonmonotone trajectory.
@@ -405,7 +478,9 @@ def aggregate_physical(
     diagnostics = {
         "initial_mean_output": float(mean_output[0]),
         "terminal_mean_output": float(mean_output[-1]),
-        "minimum_mean_output_increment": float(np.min(increments)),
+        "minimum_mean_output_increment": minimum_output_increment,
+        "maximum_mean_loss_increment": maximum_loss_increment,
+        "loss_nonincrease_tolerance": loss_nonincrease_tolerance,
         "maximum_output_variance_at_nodes": float(
             np.max(np.var(node_raw["output"], axis=1, ddof=1))
         ),
@@ -507,61 +582,83 @@ def run_point(
     device: torch.device,
     dtype: torch.dtype,
     caps: PointCaps,
+    absolute_wall_deadline: float | None = None,
 ) -> tuple[dict[str, np.ndarray], dict[str, Any]]:
     """Run one declared point, respecting its batch and resource caps."""
 
-    guard = BudgetGuard(caps, device)
-    pair_count = int(point["antithetic_pairs"])
-    pair_batch_size = int(point["pair_batch_size"])
-    if pair_batch_size < 1 or pair_batch_size > pair_count:
-        raise ValueError("pair_batch_size must lie in [1, antithetic_pairs]")
-    batches: list[dict[str, Any]] = []
-    for offset in range(0, pair_count, pair_batch_size):
-        current = min(pair_batch_size, pair_count - offset)
-        guard.check()
-        batches.append(
-            simulate_batch(
-                point,
-                pair_offset=offset,
-                pair_count=current,
-                device=device,
-                dtype=dtype,
-                guard=guard,
-            )
-        )
-
-    output_nodes = np.asarray(point["output_nodes"], dtype=np.float64)
-    if np.any(np.diff(output_nodes) < 0.0):
-        raise ValueError("output_nodes must be nondecreasing")
-    if point["mode"] == "physical":
-        arrays, diagnostics = aggregate_physical(
-            batches,
-            output_nodes,
-            target=float(point.get("target", 1.0)),
-            monotonic_tolerance=float(point["monotonic_tolerance"]),
-        )
-    else:
-        arrays, diagnostics = aggregate_output_clock(
-            batches,
-            output_nodes,
-            target=float(point.get("target", 1.0)),
-            output_defect_tolerance=float(point["output_defect_tolerance"]),
-        )
-    diagnostics.update(guard.summary())
-    diagnostics.update(
-        {
-            "max_state_amplitude": float(
-                max(batch["max_state_amplitude"] for batch in batches)
-            ),
-            "max_abs_antithetic_initial_output_sum": float(
-                max(
-                    batch["max_abs_antithetic_initial_output_sum"]
-                    for batch in batches
-                )
-            ),
-            "max_abs_initial_output": float(
-                max(batch["max_abs_initial_output"] for batch in batches)
-            ),
-        }
+    guard = BudgetGuard(
+        caps, device, absolute_wall_deadline=absolute_wall_deadline
     )
-    return arrays, diagnostics
+    try:
+        pair_count = int(point["antithetic_pairs"])
+        pair_batch_size = int(point["pair_batch_size"])
+        if pair_batch_size < 1 or pair_batch_size > pair_count:
+            raise ValueError("pair_batch_size must lie in [1, antithetic_pairs]")
+        batches: list[dict[str, Any]] = []
+        for offset in range(0, pair_count, pair_batch_size):
+            current = min(pair_batch_size, pair_count - offset)
+            guard.check()
+            batches.append(
+                simulate_batch(
+                    point,
+                    pair_offset=offset,
+                    pair_count=current,
+                    device=device,
+                    dtype=dtype,
+                    guard=guard,
+                )
+            )
+
+        output_nodes = np.asarray(point["output_nodes"], dtype=np.float64)
+        if np.any(np.diff(output_nodes) < 0.0):
+            raise ValueError("output_nodes must be nondecreasing")
+        if point["mode"] == "physical":
+            arrays, diagnostics = aggregate_physical(
+                batches,
+                output_nodes,
+                target=float(point.get("target", 1.0)),
+                monotonic_tolerance=float(point["monotonic_tolerance"]),
+                loss_nonincrease_tolerance=float(
+                    point.get(
+                        "loss_nonincrease_tolerance", point["monotonic_tolerance"]
+                    )
+                ),
+            )
+        else:
+            arrays, diagnostics = aggregate_output_clock(
+                batches,
+                output_nodes,
+                target=float(point.get("target", 1.0)),
+                output_defect_tolerance=float(point["output_defect_tolerance"]),
+            )
+        diagnostics.update(guard.summary())
+        diagnostics.update(
+            {
+                "max_state_amplitude": float(
+                    max(batch["max_state_amplitude"] for batch in batches)
+                ),
+                "max_abs_antithetic_initial_output_sum": float(
+                    max(
+                        batch["max_abs_antithetic_initial_output_sum"]
+                        for batch in batches
+                    )
+                ),
+                "max_abs_initial_output": float(
+                    max(batch["max_abs_initial_output"] for batch in batches)
+                ),
+                "antithetic_initial_cancellation_tolerance": float(
+                    max(
+                        batch["antithetic_initial_cancellation_tolerance"]
+                        for batch in batches
+                    )
+                ),
+            }
+        )
+        return arrays, diagnostics
+    except Exception as exc:
+        # Exceptions are allowed to carry structured attributes.  Keeping the
+        # snapshot on the original exception preserves its class and message,
+        # while ensuring the outer fail-closed runner can write a complete
+        # failure certificate even when aggregation never returned.
+        exc.point_diagnostics = guard.summary()
+        raise

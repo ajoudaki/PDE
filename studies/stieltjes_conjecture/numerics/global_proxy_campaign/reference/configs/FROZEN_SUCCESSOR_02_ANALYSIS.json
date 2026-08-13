@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_successor_02_execution",
+  "production_config": "FROZEN_SUCCESSOR_02.json",
+  "family_key": "canonical",
+  "family_parameters": {},
+  "common_output_nodes": [0.0, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99],
+  "bootstrap": {
+    "resampling_unit": "whole_antithetic_pair_lineage",
+    "confidence": 0.99,
+    "resamples": 2000,
+    "minimum_valid_fraction": 0.95,
+    "scale": "log_kernel",
+    "simultaneous_statistic": "studentized_max_absolute_deviation",
+    "quantile_method": "higher",
+    "seeds_by_point_id": {
+      "canonical_physical_n256_r32": 202608150201,
+      "canonical_physical_n512_r16": 202608150202,
+      "canonical_output_clock_n256_r32": 202608150203,
+      "canonical_output_clock_n512_r16": 202608150204,
+      "canonical_physical_n512_r4_halfstep": 202608150205
+    }
+  },
+  "width_analysis": {
+    "groups": {
+      "canonical_physical_width": [
+        "canonical_physical_n256_r32",
+        "canonical_physical_n512_r16"
+      ],
+      "canonical_output_clock_width": [
+        "canonical_output_clock_n256_r32",
+        "canonical_output_clock_n512_r16"
+      ]
+    },
+    "required_widths": [256, 512],
+    "primary_model": "inv_n_all",
+    "model_union": [
+      "inv_n_all",
+      "inv_sqrt_n_all",
+      "inv_n_leave_smallest",
+      "top_width_direct"
+    ],
+    "union_operation": "nodewise_outer_union_of_component_bands",
+    "minimum_positive_extrapolated_sample_fraction": 0.95,
+    "scientific_comparison_group": "canonical_physical_width",
+    "sensitivity_only_group": "canonical_output_clock_width"
+  },
+  "stage2_resolution_gate": {
+    "reference": "canonical_physical_width_sensitivity_union",
+    "node": 0.9,
+    "metric": "log(upper_99/lower_99)",
+    "comparison": "less_than_or_equal",
+    "maximum_full_log_band_width": 0.012640263046250199,
+    "source_bracket_information_moments": 2,
+    "source_full_log_bracket_width": 0.025280526092500397
+  },
+  "paired_step_halving": {
+    "coarse_point_id": "canonical_physical_n512_r16",
+    "fine_point_id": "canonical_physical_n512_r4_halfstep",
+    "coarse_lineage_indices": [0, 1, 2, 3],
+    "require_equal_seed_base": true,
+    "require_initial_output_and_kernel_bitwise_equal": true,
+    "coarse_estimator": "recompute_physical_effective_kernel_after_subset_mean_output_inversion",
+    "fine_estimator": "recompute_physical_effective_kernel_after_full_mean_output_inversion",
+    "relative_change_formula": "abs(K_coarse_first4-K_halfstep)/abs(K_halfstep)",
+    "maximum_relative_change_through_y_0_95": 0.002,
+    "maximum_relative_change_at_y_0_99": 0.005
+  },
+  "ordinary_output_clock_agreement": {
+    "ordinary_reference": "canonical_physical_width_sensitivity_union",
+    "output_clock_reference": "canonical_output_clock_width_sensitivity_union",
+    "gate": "closed_99_percent_intervals_overlap_at_every_common_output_node",
+    "overlap_formula": "max(lower_physical,lower_clock)<=min(upper_physical,upper_clock)",
+    "output_clock_is_sensitivity_only": true
+  },
+  "projection_trend": {
+    "point_256": "canonical_output_clock_n256_r32",
+    "point_512": "canonical_output_clock_n512_r16",
+    "statistic": "max_projection_relative_norm",
+    "require_finite_nonnegative": true,
+    "require_strict_decrease_256_to_512": true,
+    "scaled_rate_formula": "sqrt(512)*p512/(sqrt(256)*p256)",
+    "maximum_scaled_rate_ratio": 2.0
+  },
+  "two_width_trend_bootstrap": {
+    "resampling_unit": "whole_antithetic_pair_lineage",
+    "resamples": 2000,
+    "confidence": 0.99,
+    "interval": "equal_tail_percentile",
+    "lower_quantile": 0.005,
+    "upper_quantile": 0.995,
+    "quantile_method": "higher",
+    "seeds": {
+      "jensen_relative_gap_difference": 202608150301,
+      "self_averaging_relative_se_difference": 202608150302,
+      "ordinary_output_clock_log_gap_difference": 202608150303
+    },
+    "jensen_relative_gap": {
+      "formula": "max_y(abs(mean_loss-loss_of_mean_output)/mean_loss)",
+      "difference": "J512-J256",
+      "failure_rule": "lower_99_percent_interval_endpoint_strictly_greater_than_zero"
+    },
+    "self_averaging_relative_se": {
+      "formula": "max_y(sd(pair_kernel)/(abs(mean(pair_kernel))*sqrt(pair_count)))",
+      "difference": "S512-S256",
+      "failure_rule": "lower_99_percent_interval_endpoint_strictly_greater_than_zero"
+    },
+    "ordinary_output_clock_log_gap": {
+      "formula": "max_y(abs(log(K_physical_n/K_clock_n)))",
+      "difference": "G512-G256",
+      "failure_rule": "lower_99_percent_interval_endpoint_strictly_greater_than_zero"
+    }
+  },
+  "direct_validity_gates": {
+    "require_all_registered_points_complete": true,
+    "require_scientific_evidence_admissible": true,
+    "require_config_source_protocol_and_analysis_hashes": true,
+    "require_all_registered_pair_lineages_present": true,
+    "require_finite_positive_kernels": true,
+    "require_no_clipping_dropping_isotonic_repair_or_seed_substitution": true,
+    "physical_minimum_mean_output_increment": -1e-10,
+    "physical_maximum_mean_loss_increment": 1e-10,
+    "output_clock_maximum_absolute_defect": 1e-7,
+    "antithetic_cancellation_tolerance_formula": "64*float64_epsilon*max(1,max_abs_initial_output)",
+    "maximum_self_averaging_relative_se": 1.0,
+    "jensen_relative_gap_minimum": -1e-12,
+    "jensen_relative_gap_maximum": 1.000000000001
+  },
+  "classification": {
+    "compatible": "complete ordinary 99% sensitivity-union band is inside the rational bracket at every node",
+    "contrary": "definite signed ordinary-union escape repeated with the same sign at both ordinary finite widths after every validity gate passes",
+    "inconclusive": "overlap, insufficient resolution, incomplete point, or any failed validity gate",
+    "primary_reference": "canonical_physical_width_sensitivity_union",
+    "rational_subsequence_and_taylor_metrics_are_reported_but_do_not_override_classification": true
+  }
+}

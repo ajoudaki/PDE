@@ -1,0 +1,14 @@
+{
+  "output_clock_gpu1_smoke.npz": {
+    "bytes": 5490,
+    "sha256": "55f654deaf08c50c0460ac5e40e2be1a8ad1c28562a79b043f486d9438bf4b09"
+  },
+  "physical_gpu1_smoke.npz": {
+    "bytes": 8257,
+    "sha256": "e986899771db33e4f84ffa1ed6e117517e56f15ec66e574f3886670a88ce0dd2"
+  },
+  "summary.json": {
+    "bytes": 6095,
+    "sha256": "3382e73a4d3e6fc619ad80250f3b3c960852a630836dca38cd47dcb939388425"
+  }
+}

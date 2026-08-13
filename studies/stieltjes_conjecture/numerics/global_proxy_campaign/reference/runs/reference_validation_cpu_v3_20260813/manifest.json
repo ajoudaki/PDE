@@ -1,0 +1,14 @@
+{
+  "output_clock_cpu_smoke.npz": {
+    "bytes": 5653,
+    "sha256": "64058e4e112519b96831a8f71bca05ac0e5e928ba47d068f35a89d4d022246a7"
+  },
+  "physical_cpu_smoke.npz": {
+    "bytes": 8265,
+    "sha256": "575160cfdd861bc99d9e13b8f0d677dd44d3fae0a79f9f14468413caba103544"
+  },
+  "summary.json": {
+    "bytes": 5824,
+    "sha256": "754813be421cbc5f3b40380f5bebfff02f4aa71c7c392f1f6edf003801d4d99f"
+  }
+}

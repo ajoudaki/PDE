@@ -49,6 +49,9 @@ class PointBootstrap:
     band: BootstrapBand
     samples: np.ndarray
     diagnostics: Mapping[str, Any]
+    # Scalar bootstrap diagnostics are retained only in memory.  They permit
+    # a predeclared two-width trend test without writing resampled data.
+    diagnostic_samples: Mapping[str, np.ndarray] | None = None
 
     def compact_record(self) -> dict[str, Any]:
         return {
@@ -193,6 +196,9 @@ def bootstrap_point(
 
     rng = np.random.default_rng(int(seed))
     samples: list[np.ndarray] = []
+    relative_se_samples: list[float] = []
+    relative_jensen_samples: list[float] = []
+    node_pair_kernel = pair_level_node_kernel(point)
     invalid = 0
     for _ in range(int(replicates)):
         indices = rng.integers(0, point.antithetic_pairs, size=point.antithetic_pairs)
@@ -202,6 +208,23 @@ def bootstrap_point(
             if np.any(kernel <= 0.0) or not np.all(np.isfinite(kernel)):
                 raise FloatingPointError("nonpositive bootstrap kernel")
             samples.append(kernel)
+            selected_kernel = node_pair_kernel[:, indices]
+            finite = np.isfinite(selected_kernel)
+            finite_count = finite.sum(axis=1)
+            with np.errstate(invalid="ignore", divide="ignore"):
+                pair_mean = np.nanmean(selected_kernel, axis=1)
+                pair_sd = np.nanstd(selected_kernel, axis=1, ddof=1)
+                relative_se = pair_sd / (
+                    np.abs(pair_mean) * np.sqrt(finite_count)
+                )
+                relative_jensen = (
+                    np.asarray(curve["mean_loss"])
+                    - np.asarray(curve["loss_of_mean_output"])
+                ) / np.asarray(curve["mean_loss"])
+            relative_se_samples.append(float(np.nanmax(np.abs(relative_se))))
+            relative_jensen_samples.append(
+                float(np.nanmax(np.abs(relative_jensen)))
+            )
         except FloatingPointError:
             invalid += 1
     valid_fraction = len(samples) / replicates
@@ -237,4 +260,12 @@ def bootstrap_point(
         band=band,
         samples=sample_array,
         diagnostics=diagnostics,
+        diagnostic_samples={
+            "maximum_relative_standard_error": np.asarray(
+                relative_se_samples, dtype=np.float64
+            ),
+            "maximum_relative_jensen_gap": np.asarray(
+                relative_jensen_samples, dtype=np.float64
+            ),
+        },
     )

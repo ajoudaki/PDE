@@ -14,8 +14,11 @@ import hashlib
 import json
 import os
 import platform
+import resource
 import sys
 import time
+from dataclasses import replace
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -27,7 +30,12 @@ from reference_engine import BudgetStop, NumericalInvalid, PointCaps, run_point
 
 HERE = Path(__file__).resolve().parent
 RUNS = HERE / "runs"
-SOURCE_FILES = (HERE / "canonical_model.py", HERE / "reference_engine.py", Path(__file__))
+SOURCE_FILES = (
+    HERE / "canonical_model.py",
+    HERE / "reference_engine.py",
+    Path(__file__),
+    HERE / "run_capped_reference.sh",
+)
 HARD_CEILINGS = {
     "total_wall_seconds": 86_400.0,
     "point_wall_seconds": 21_600.0,
@@ -87,10 +95,10 @@ def _validate_config_path(path: Path) -> Path:
 
 def _production_gate(
     config: dict[str, Any], config_path: Path, hashes: dict[str, str]
-) -> None:
+) -> dict[str, Any]:
     purpose = config.get("purpose")
     if purpose == "validation_only":
-        return
+        return {"required": False}
     if purpose != "scientific_production":
         raise ValueError("purpose must be validation_only or scientific_production")
     unlock_path = HERE / "PRODUCTION_UNLOCK.json"
@@ -105,12 +113,96 @@ def _production_gate(
         "config_sha256": sha256(config_path),
         "source_bundle_sha256": source_bundle_sha256(hashes),
     }
+    expected.update(_analysis_lock_fields(config, config_path))
     for key, value in expected.items():
         if unlock.get(key) != value:
             raise PermissionError(
                 f"scientific production lock mismatch for {key}: "
                 f"expected {value!r}, found {unlock.get(key)!r}"
             )
+    protocol_path = _protocol_path_for_config(config_path)
+    protocol_expected = {
+        "protocol_name": protocol_path.name,
+        "protocol_sha256": sha256(protocol_path),
+    }
+    for key, value in protocol_expected.items():
+        if unlock.get(key) != value:
+            raise PermissionError(
+                f"scientific production lock mismatch for {key}: "
+                f"expected {value!r}, found {unlock.get(key)!r}"
+            )
+    return {
+        "required": True,
+        "unlock_name": unlock_path.name,
+        "unlock_sha256": sha256(unlock_path),
+        **expected,
+        **protocol_expected,
+    }
+
+
+def _analysis_lock_fields(
+    config: dict[str, Any], config_path: Path
+) -> dict[str, str]:
+    """Return mandatory unlock fields for a frozen offline-analysis contract.
+
+    Older frozen runs did not have a separate machine-readable analysis file,
+    so their historical locks remain valid.  Successor 02 does have one and
+    is fail-closed if its name, location, back-reference, or hash is missing.
+    """
+
+    metadata = config.get("analysis", {})
+    if metadata is None:
+        metadata = {}
+    if not isinstance(metadata, dict):
+        raise ValueError("configuration analysis metadata must be an object")
+    name = metadata.get("analysis_config")
+    analysis_required = config_path.name == "FROZEN_SUCCESSOR_02.json"
+    if name is None:
+        if analysis_required:
+            raise ValueError("successor-02 requires a frozen analysis configuration")
+        return {}
+    if not isinstance(name, str) or not name:
+        raise ValueError("analysis_config must be a nonempty filename")
+    path = (HERE / "configs" / name).resolve()
+    config_root = (HERE / "configs").resolve()
+    if path.parent != config_root or path.name != name or path.suffix != ".json":
+        raise ValueError("analysis_config must be a direct JSON child of reference/configs")
+    if not path.is_file():
+        raise FileNotFoundError(f"frozen analysis configuration is absent: {path}")
+    analysis = json.loads(path.read_text())
+    if analysis.get("production_config") != config_path.name:
+        raise ValueError(
+            "frozen analysis configuration does not point back to the production config"
+        )
+    return {
+        "analysis_config_name": path.name,
+        "analysis_config_sha256": sha256(path),
+    }
+
+
+def _protocol_path_for_config(config_path: Path) -> Path:
+    """Map a frozen production-config name to its required frozen protocol."""
+
+    if config_path.name == "FROZEN_PRODUCTION.json":
+        protocol_name = "PROTOCOL.md"
+    elif (
+        config_path.name.startswith("FROZEN_SUCCESSOR_")
+        and config_path.name.endswith(".json")
+    ):
+        identifier = config_path.name[
+            len("FROZEN_SUCCESSOR_") : -len(".json")
+        ]
+        if not identifier.isdigit():
+            raise ValueError("successor config identifier must contain only digits")
+        protocol_name = f"SUCCESSOR_{identifier}_PROTOCOL.md"
+    else:
+        raise ValueError(
+            f"no frozen protocol naming rule for production config {config_path.name!r}"
+        )
+    protocol_path = (HERE.parent / protocol_name).resolve()
+    if protocol_path.parent != HERE.parent.resolve() or not protocol_path.is_file():
+        raise FileNotFoundError(f"required frozen protocol is absent: {protocol_path}")
+    return protocol_path
 
 
 def _dtype(name: str) -> torch.dtype:
@@ -173,6 +265,16 @@ def _validate_point(
     step = float(point["step"])
     if step <= 0.0 or endpoint < 0.0:
         raise ValueError("step must be positive and endpoint nonnegative")
+    for tolerance_name in (
+        "antithetic_initial_cancellation_tolerance",
+        "loss_nonincrease_tolerance",
+    ):
+        if tolerance_name in point:
+            tolerance = float(point[tolerance_name])
+            if not np.isfinite(tolerance) or tolerance < 0.0:
+                raise ValueError(
+                    f"{tolerance_name} must be finite and nonnegative"
+                )
     steps_per_batch = int(round(endpoint / step))
     batches = math_ceil_div(pairs, batch_pairs)
     total_steps = steps_per_batch * batches
@@ -251,6 +353,51 @@ def _json_dump(path: Path, payload: dict[str, Any]) -> None:
     temporary.replace(path)
 
 
+def _utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _command_record() -> dict[str, Any]:
+    """Return a JSON-safe reproduction record for this Python invocation."""
+
+    return {
+        "python_executable": sys.executable,
+        "argv": [str(argument) for argument in sys.argv],
+    }
+
+
+def _resource_snapshot(device: torch.device) -> dict[str, float | int]:
+    """Best-effort fallback telemetry when the engine did not return normally."""
+
+    gpu_peak = 0.0
+    if device.type == "cuda":
+        gpu_peak = torch.cuda.max_memory_allocated(device) / 2**30
+    return {
+        "integrator_steps_all_batches": 0,
+        "max_host_rss_gib": (
+            float(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) / 2**20
+        ),
+        "max_gpu_allocated_gib": gpu_peak,
+    }
+
+
+def _exception_diagnostics(
+    exc: BaseException, device: torch.device
+) -> dict[str, Any]:
+    attached = getattr(exc, "point_diagnostics", None)
+    if isinstance(attached, dict):
+        return dict(attached)
+    return _resource_snapshot(device)
+
+
+def _caps_with_remaining_wall(caps: PointCaps, remaining: float) -> PointCaps:
+    """Intersect a point wall cap with the run's unused global wall budget."""
+
+    if remaining <= 0.0:
+        raise BudgetStop("global wall cap reached before point start")
+    return replace(caps, wall_seconds=min(caps.wall_seconds, remaining))
+
+
 def environment_record(device: torch.device) -> dict[str, Any]:
     result: dict[str, Any] = {
         "python": sys.version,
@@ -280,7 +427,7 @@ def main() -> int:
     if int(config.get("schema_version", -1)) != 1:
         raise ValueError("unsupported configuration schema")
     hashes = source_hashes()
-    _production_gate(config, config_path, hashes)
+    authorization = _production_gate(config, config_path, hashes)
     global_caps = dict(config["global_caps"])
     total_wall_cap = float(global_caps["total_wall_seconds"])
     _require_number_at_most(
@@ -305,14 +452,25 @@ def main() -> int:
     output.mkdir(parents=True, exist_ok=True)
     config_hash = sha256(config_path)
     run_start = time.monotonic()
+    global_wall_deadline = run_start + total_wall_cap
+    run_started_utc = _utc_now()
+    command = _command_record()
     summary: dict[str, Any] = {
         "status": "running",
-        "purpose": config["purpose"],
-        "scientific_evidence_admissible": config["purpose"] == "scientific_production",
+        "run_purpose": config["purpose"],
+        # Purpose records what was requested.  Acceptance remains false until
+        # every registered point has completed and the run closes normally.
+        "accepted_as_scientific_evidence": False,
+        "scientific_evidence_admissible": False,
+        "command": command,
+        "started_utc": run_started_utc,
+        "ended_utc": None,
         "config_name": config_path.name,
         "config_sha256": config_hash,
+        "registered_seed_bases": [int(point["seed_base"]) for point in points],
         "source_sha256": hashes,
         "source_bundle_sha256": source_bundle_sha256(hashes),
+        "authorization": authorization,
         "environment": environment_record(device),
         "points": [],
     }
@@ -320,39 +478,65 @@ def main() -> int:
 
     terminal_failure = False
     for point, caps in zip(points, validated_caps):
-        if time.monotonic() - run_start > total_wall_cap:
+        elapsed_before_point = time.monotonic() - run_start
+        if elapsed_before_point >= total_wall_cap:
             summary["status"] = "stopped_global_wall_cap"
             terminal_failure = True
             break
+        effective_caps = _caps_with_remaining_wall(
+            caps, total_wall_cap - elapsed_before_point
+        )
+        if device.type == "cuda":
+            # Point certificates report point-local CUDA peaks.  Run-level
+            # peaks are reconstructed as the maximum of these certificates.
+            torch.cuda.reset_peak_memory_stats(device)
         point_id = str(point["id"])
         point_start = time.monotonic()
+        point_started_utc = _utc_now()
         record: dict[str, Any] = {
             "id": point_id,
             "mode": point["mode"],
             "width": int(point["width"]),
             "antithetic_pairs": int(point["antithetic_pairs"]),
+            "seed_base": int(point["seed_base"]),
+            "run_purpose": config["purpose"],
+            "accepted_as_scientific_evidence": False,
+            "scientific_evidence_admissible": False,
+            "command": command,
+            "started_utc": point_started_utc,
+            "ended_utc": None,
+            "declared_point_wall_seconds": caps.wall_seconds,
+            "effective_point_wall_seconds": effective_caps.wall_seconds,
             "status": "running",
         }
         summary["points"].append(record)
         _json_dump(output / "summary.json", summary)
         try:
             arrays, diagnostics = run_point(
-                point, device=device, dtype=dtype, caps=caps
+                point,
+                device=device,
+                dtype=dtype,
+                caps=effective_caps,
+                absolute_wall_deadline=global_wall_deadline,
             )
+            record["diagnostics"] = diagnostics
             array_path = output / f"{point_id}.npz"
             np.savez_compressed(array_path, **arrays)
             elapsed = time.monotonic() - point_start
-            if elapsed > caps.wall_seconds:
+            if time.monotonic() > global_wall_deadline:
                 raise BudgetStop(
-                    f"point cap exceeded including serialization: "
-                    f"{elapsed:.3f}s > {caps.wall_seconds:.3f}s"
+                    "global wall cap exceeded including point serialization"
+                )
+            if elapsed > effective_caps.wall_seconds:
+                raise BudgetStop(
+                    "effective point/global wall cap exceeded including serialization: "
+                    f"{elapsed:.3f}s > {effective_caps.wall_seconds:.3f}s"
                 )
             record.update(
                 {
                     "status": "complete_validation_only"
                     if config["purpose"] == "validation_only"
                     else "complete_scientific_point",
-                    "diagnostics": diagnostics,
                     "arrays_file": array_path.name,
                     "arrays_sha256": sha256(array_path),
                     "arrays_bytes": array_path.stat().st_size,
@@ -360,19 +544,52 @@ def main() -> int:
                 }
             )
         except BudgetStop as exc:
-            record.update({"status": "stopped_budget", "reason": str(exc)})
+            record.update(
+                {
+                    "status": "stopped_budget",
+                    "reason": str(exc),
+                    "diagnostics": record.get(
+                        "diagnostics", _exception_diagnostics(exc, device)
+                    ),
+                }
+            )
             terminal_failure = True
         except NumericalInvalid as exc:
-            record.update({"status": "inconclusive_numerical_invalid", "reason": str(exc)})
+            record.update(
+                {
+                    "status": "inconclusive_numerical_invalid",
+                    "reason": str(exc),
+                    "diagnostics": record.get(
+                        "diagnostics", _exception_diagnostics(exc, device)
+                    ),
+                }
+            )
             terminal_failure = True
         except torch.cuda.OutOfMemoryError as exc:
-            record.update({"status": "stopped_cuda_oom", "reason": str(exc)})
+            record.update(
+                {
+                    "status": "stopped_cuda_oom",
+                    "reason": str(exc),
+                    "diagnostics": record.get(
+                        "diagnostics", _exception_diagnostics(exc, device)
+                    ),
+                }
+            )
             terminal_failure = True
         except Exception as exc:
             record.update(
-                {"status": "failed_implementation_or_environment", "reason": repr(exc)}
+                {
+                    "status": "failed_implementation_or_environment",
+                    "reason": repr(exc),
+                    "diagnostics": record.get(
+                        "diagnostics", _exception_diagnostics(exc, device)
+                    ),
+                }
             )
             terminal_failure = True
+        record["ended_utc"] = _utc_now()
+        record["elapsed_seconds"] = time.monotonic() - point_start
+        record.setdefault("diagnostics", _resource_snapshot(device))
         _json_dump(output / "summary.json", summary)
         if terminal_failure:
             break
@@ -384,6 +601,38 @@ def main() -> int:
             else "complete_scientific_run"
         )
     summary["total_elapsed_seconds"] = time.monotonic() - run_start
+    summary["ended_utc"] = _utc_now()
+    run_accepted = summary["status"] == "complete_scientific_run" and bool(points)
+    summary["accepted_as_scientific_evidence"] = run_accepted
+    summary["scientific_evidence_admissible"] = run_accepted
+    for record in summary["points"]:
+        point_accepted = run_accepted and record["status"] == "complete_scientific_point"
+        record["accepted_as_scientific_evidence"] = point_accepted
+        record["scientific_evidence_admissible"] = point_accepted
+    point_diagnostics = [
+        record.get("diagnostics", {}) for record in summary["points"]
+    ]
+    fallback_resources = _resource_snapshot(device)
+    summary["run_diagnostics"] = {
+        "integrator_steps_all_points": sum(
+            int(diagnostics.get("integrator_steps_all_batches", 0))
+            for diagnostics in point_diagnostics
+        ),
+        "max_host_rss_gib": max(
+            [float(fallback_resources["max_host_rss_gib"])]
+            + [
+                float(diagnostics.get("max_host_rss_gib", 0.0))
+                for diagnostics in point_diagnostics
+            ]
+        ),
+        "max_gpu_allocated_gib": max(
+            [float(fallback_resources["max_gpu_allocated_gib"])]
+            + [
+                float(diagnostics.get("max_gpu_allocated_gib", 0.0))
+                for diagnostics in point_diagnostics
+            ]
+        ),
+    }
     summary["terminal_stop_no_unregistered_branch"] = True
     _json_dump(output / "summary.json", summary)
     manifest = {
@@ -397,4 +646,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
