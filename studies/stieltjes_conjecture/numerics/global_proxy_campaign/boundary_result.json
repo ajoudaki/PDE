@@ -1,0 +1,170 @@
+{
+  "benchmark": {
+    "brackets": [
+      {
+        "information_moments": 1,
+        "lower_name": "ntk_0moments_lower",
+        "maximum_reference_escape": 0.0,
+        "sup_log_width": 0.15130377409116522,
+        "upper_name": "zero_radau_1node_1moments_upper"
+      },
+      {
+        "information_moments": 2,
+        "lower_name": "gauss_1node_2moments_lower",
+        "maximum_reference_escape": 0.0,
+        "sup_log_width": 0.008422350711698556,
+        "upper_name": "zero_radau_1node_1moments_upper"
+      },
+      {
+        "information_moments": 3,
+        "lower_name": "gauss_1node_2moments_lower",
+        "maximum_reference_escape": 0.0,
+        "sup_log_width": 0.0005852183089857667,
+        "upper_name": "zero_radau_2node_3moments_upper"
+      },
+      {
+        "information_moments": 4,
+        "lower_name": "gauss_2node_4moments_lower",
+        "maximum_reference_escape": 7.105427357601002e-15,
+        "sup_log_width": 3.620911496784783e-05,
+        "upper_name": "zero_radau_2node_3moments_upper"
+      },
+      {
+        "information_moments": 5,
+        "lower_name": "gauss_2node_4moments_lower",
+        "maximum_reference_escape": 1.4210854715202004e-14,
+        "sup_log_width": 2.4187662759337422e-06,
+        "upper_name": "zero_radau_3node_5moments_upper"
+      }
+    ],
+    "exact_baseline": 36.0,
+    "grid_points": 501,
+    "rational_levels": [
+      {
+        "information_moments": 0,
+        "maximum_side_violation": 0.0,
+        "name": "ntk_0moments_lower",
+        "ordering": "lower",
+        "sup_feature_hitting_time_error": 0.0013237648443917248,
+        "sup_log_kernel_error": 0.14343270805061112,
+        "sup_physical_hitting_time_error": 0.006105855796280597
+      },
+      {
+        "information_moments": 1,
+        "maximum_side_violation": 0.0,
+        "name": "zero_radau_1node_1moments_upper",
+        "ordering": "upper",
+        "sup_feature_hitting_time_error": 4.205592096891489e-05,
+        "sup_log_kernel_error": 0.007871066040554051,
+        "sup_physical_hitting_time_error": 0.000264041845123332
+      },
+      {
+        "information_moments": 2,
+        "maximum_side_violation": 0.0,
+        "name": "gauss_1node_2moments_lower",
+        "ordering": "lower",
+        "sup_feature_hitting_time_error": 2.108990804158134e-06,
+        "sup_log_kernel_error": 0.0005512846711445307,
+        "sup_physical_hitting_time_error": 1.638744890743865e-05
+      },
+      {
+        "information_moments": 3,
+        "maximum_side_violation": 0.0,
+        "name": "zero_radau_2node_3moments_upper",
+        "ordering": "upper",
+        "sup_feature_hitting_time_error": 1.0132855614644609e-07,
+        "sup_log_kernel_error": 3.393363784114397e-05,
+        "sup_physical_hitting_time_error": 9.162414602442714e-07
+      },
+      {
+        "information_moments": 4,
+        "maximum_side_violation": 7.105427357601002e-15,
+        "name": "gauss_2node_4moments_lower",
+        "ordering": "lower",
+        "sup_feature_hitting_time_error": 5.562950100568287e-09,
+        "sup_log_kernel_error": 2.275477126690089e-06,
+        "sup_physical_hitting_time_error": 5.666528485326339e-08
+      },
+      {
+        "information_moments": 5,
+        "maximum_side_violation": 1.4210854715202004e-14,
+        "name": "zero_radau_3node_5moments_upper",
+        "ordering": "upper",
+        "sup_feature_hitting_time_error": 2.968956781812526e-10,
+        "sup_log_kernel_error": 1.432891493827834e-07,
+        "sup_physical_hitting_time_error": 3.3291574219607156e-09
+      }
+    ],
+    "taylor_controls": [
+      {
+        "information_moments": 1,
+        "maximum_side_violation": null,
+        "name": "taylor_1moments_unordered",
+        "ordering": "unordered",
+        "sup_feature_hitting_time_error": 4.205592096891489e-05,
+        "sup_log_kernel_error": 0.007871066040554051,
+        "sup_physical_hitting_time_error": 0.000264041845123332
+      },
+      {
+        "information_moments": 2,
+        "maximum_side_violation": null,
+        "name": "taylor_2moments_unordered",
+        "ordering": "unordered",
+        "sup_feature_hitting_time_error": 4.078787583055438e-06,
+        "sup_log_kernel_error": 0.001088718334958742,
+        "sup_physical_hitting_time_error": 3.2083465391512245e-05
+      },
+      {
+        "information_moments": 3,
+        "maximum_side_violation": null,
+        "name": "taylor_3moments_unordered",
+        "ordering": "unordered",
+        "sup_feature_hitting_time_error": 5.568413495721236e-07,
+        "sup_log_kernel_error": 0.000193929194479226,
+        "sup_physical_hitting_time_error": 5.148332776004627e-06
+      },
+      {
+        "information_moments": 4,
+        "maximum_side_violation": null,
+        "name": "taylor_4moments_unordered",
+        "ordering": "unordered",
+        "sup_feature_hitting_time_error": 9.125664275980161e-08,
+        "sup_log_kernel_error": 3.927803904124494e-05,
+        "sup_physical_hitting_time_error": 9.563421843675202e-07
+      },
+      {
+        "information_moments": 5,
+        "maximum_side_violation": null,
+        "name": "taylor_5moments_unordered",
+        "ordering": "unordered",
+        "sup_feature_hitting_time_error": 1.673387476502919e-08,
+        "sup_log_kernel_error": 8.585403845463374e-06,
+        "sup_physical_hitting_time_error": 1.940177608017457e-07
+      }
+    ],
+    "y_max": 0.99
+  },
+  "claim_scope": "exact no-width Lambert-W boundary calibration; not evidence for the canonical finite-width/global bridge",
+  "elapsed_seconds": 0.8865226991474628,
+  "environment": {
+    "platform": "Linux-5.15.0-151-generic-x86_64-with-glibc2.35",
+    "python": "3.10.14 (main, May  6 2024, 19:42:50) [GCC 11.2.0]"
+  },
+  "gates": {
+    "all_rational_sides_valid": true,
+    "brackets_nested": true,
+    "final_sup_log_kernel_error_below_1e_minus_5": true,
+    "grid_is_frozen": true,
+    "reference_inside_every_bracket": true,
+    "wall_below_120_seconds": true
+  },
+  "protocol_sha256": "8e52c717e7a1f3c80fd3549231556dd0127974f5460d32ca199cfb116893855c",
+  "source_sha256": {
+    "boundary_benchmark.py": "3c114d236509315cb9f9194a74c19e818f7cdb3e84442448d803c5e99aacfe65",
+    "curves.py": "9301971502d119089c56fd63b3d72bda39d42e9395bbf9302c3b2f8c36b7bd2c",
+    "exact_series.py": "d003563deb87c6baea7f423f954979f3082b306035eeba35cc223dda25d0ed60",
+    "hierarchy.py": "6fbf48fcd4694d9e02f4bd8bdc7f993fefe50ce6c6e113b48b96c76b05226b60",
+    "variance_boundary.py": "43003b00946bef4264d398f473632138e1d5cb072eff17e05e0a23fd9d7edf7d"
+  },
+  "status": "pass"
+}

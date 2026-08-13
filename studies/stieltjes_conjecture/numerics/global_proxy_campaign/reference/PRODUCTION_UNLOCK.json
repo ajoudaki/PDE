@@ -1,0 +1,8 @@
+{
+  "status": "protocol_frozen_and_execution_authorized",
+  "protocol_sha256": "8e52c717e7a1f3c80fd3549231556dd0127974f5460d32ca199cfb116893855c",
+  "config_name": "FROZEN_PRODUCTION.json",
+  "config_sha256": "ca211503f77bec5f0d54541dfac3c18b027ec92173636ae729c7b1d1817b8630",
+  "source_bundle_sha256": "695dcb484fd1823b3919c3e54c558a0aa3087b78f4ae5333323ac503476f1974",
+  "claim_scope": "Stage-2 canonical pilot only; no later stage is authorized by this unlock"
+}

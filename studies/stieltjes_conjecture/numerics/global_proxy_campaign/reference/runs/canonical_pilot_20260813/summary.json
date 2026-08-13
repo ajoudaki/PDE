@@ -1,0 +1,43 @@
+{
+  "config_name": "FROZEN_PRODUCTION.json",
+  "config_sha256": "ca211503f77bec5f0d54541dfac3c18b027ec92173636ae729c7b1d1817b8630",
+  "environment": {
+    "cuda_device": {
+      "capability": [
+        8,
+        6
+      ],
+      "free_memory_gib_at_start": 23.0216064453125,
+      "name": "NVIDIA GeForce RTX 3090",
+      "total_memory_gib": 23.55877685546875
+    },
+    "device": "cuda:0",
+    "numpy": "1.26.4",
+    "pid": 1545754,
+    "platform": "Linux-5.15.0-151-generic-x86_64-with-glibc2.35",
+    "python": "3.10.14 (main, May  6 2024, 19:42:50) [GCC 11.2.0]",
+    "torch": "2.9.0+cu130",
+    "torch_cuda_build": "13.0"
+  },
+  "points": [
+    {
+      "antithetic_pairs": 32,
+      "id": "canonical_physical_n256_r32",
+      "mode": "physical",
+      "reason": "physical-time cap did not reach the final output node",
+      "status": "inconclusive_numerical_invalid",
+      "width": 256
+    }
+  ],
+  "purpose": "scientific_production",
+  "scientific_evidence_admissible": true,
+  "source_bundle_sha256": "695dcb484fd1823b3919c3e54c558a0aa3087b78f4ae5333323ac503476f1974",
+  "source_sha256": {
+    "canonical_model.py": "57c8f7732ff164582a02578a30c747c22c5f27a54ca3c3624e7f6aff62a8be7e",
+    "reference_engine.py": "843ee28e34e9161730dc0d9700b06f28b90a7f382571f2ec3a2b461ef2545f90",
+    "run_reference.py": "580ece8c4f8d2fe7a1ba49b960844922f8c50eb377ce169437cbd061e5b114be"
+  },
+  "status": "terminated_after_point_failure",
+  "terminal_stop_no_unregistered_branch": true,
+  "total_elapsed_seconds": 7.623125169426203
+}
