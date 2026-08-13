@@ -2,6 +2,13 @@
 
 ## Master research monograph
 
+> **Dated baseline.** This monograph records the project state on 31 July
+> 2026.  It predates the maintained mean-field-peeling and output-kernel
+> Stieltjes studies.  For later results, use the scoped current reports in
+> [`studies/mean_field_peeling/`](studies/mean_field_peeling/) and
+> [`studies/stieltjes_conjecture/`](studies/stieltjes_conjecture/).  Those
+> reports supersede this document within their respective scopes.
+
 **Document version:** 2.2  
 **Release date:** 31 July 2026  
 **Original release:** Version 1.0, 27 July 2026  
@@ -7403,7 +7410,7 @@ This verdict does not upgrade any open conjecture or conditional theorem.
 | 2.1 | 28 July 2026 | Recovers Q0's proved forest/width core and narrowly scoped continuation-capacity argument; narrows (FW) to its true missing bridge; directly audits and incorporates the TP IV, TP VI, and DMFT primary texts; does not upgrade the conditional quadratic no-go theorem |
 | 2.2 | 31 July 2026 | Adds the active repository crosswalk and post-Version-2.1 execution audit; records partial repair of empirical reproducibility; leaves all mathematical and empirical claim statuses unchanged |
 
-Version 2.2 is the sole current master. Version 2.1 remains the immutable
+Version 2.2 is the final master for the 31 July 2026 baseline. Version 2.1 remains the immutable
 28 July audit snapshot in `archive/earlier_documents/`. The exact status of
 the six nonlocal dependency categories is stated in D.6. The later repository
 and execution audit partially repairs the empirical-reproduction category,

@@ -3,9 +3,12 @@
 This repository studies whether dense nonlinear feature-learning dynamics can
 be represented by a finite, autonomous, causal PDE state.
 
-The authoritative synthesis is
+The dated project-wide baseline is
 [`FINITE_CAUSAL_NEURAL_PDE_MASTER_MONOGRAPH_v2.2_2026-07-31.md`](FINITE_CAUSAL_NEURAL_PDE_MASTER_MONOGRAPH_v2.2_2026-07-31.md).
-Its claim ledger takes precedence over the older reports preserved here.
+It records the state on 31 July 2026 and does not contain later MFP or
+Stieltjes work.  Within each active program, that program's maintained
+`CURRENT_RESEARCH_STATE.md` or README-designated current report takes
+precedence over the older monograph and historical reports.
 
 ## Research map
 

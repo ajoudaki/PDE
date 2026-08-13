@@ -65,7 +65,8 @@ moment signs only.
   initialization covariance and first-layer gradient metric.  It gives an
   exact faithful scalar loss channel, exact jets through order five, a genuine
   signed triangle invariant, and exact $\mu_0,\mu_1>0$ on the full interval.
-  Its frozen order-seven W0 pilot exceeded 1800 seconds, so it has no
+  Its final-source order-seven W0 pilot did not complete by the 1800-second
+  cutoff, so it has no
   $F^{(7)}$, $\mu_2$, or Hankel determinant and is not counted as a Hankel
   pass.
 
@@ -78,11 +79,9 @@ and contributes no accepted new D13 interval or bound.
 These are continuum-valued, finite-order compatibility results.  They neither
 prove all-order Stieltjes positivity nor identify the formal jets with an
 independently established global mean-field trajectory.  The consolidated
-mathematical account is
-[`../../stieltjes_conjecture/EXACT_PARAMETRIC_CAMPAIGNS.md`](../../stieltjes_conjecture/EXACT_PARAMETRIC_CAMPAIGNS.md).
-The frozen latest-portfolio decisions, including why no B=4 or metric-ray
-order-eleven conditional branch was launched, are in
-[`../../stieltjes_conjecture/NEXT_CAMPAIGN_OUTCOMES.md`](../../stieltjes_conjecture/NEXT_CAMPAIGN_OUTCOMES.md).
+mathematical account, including why no B=4 or metric-ray order-eleven
+conditional branch was launched, is the sole downstream master:
+[`../../stieltjes_conjecture/CURRENT_RESEARCH_STATE.md`](../../stieltjes_conjecture/CURRENT_RESEARCH_STATE.md).
 
 ## Scalarized state
 

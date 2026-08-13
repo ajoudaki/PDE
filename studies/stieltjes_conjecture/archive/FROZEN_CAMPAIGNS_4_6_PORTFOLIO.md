@@ -1,4 +1,12 @@
-# Bounded follow-up campaign portfolio
+# Frozen Campaigns 4--6 portfolio
+
+> **Historical preregistration, not a current research-state report.** This
+> file preserves the allocation, decision gates, and conditional branches as
+> written before the campaigns completed.  All terminal outcomes and current
+> claim levels are consolidated in
+> [`../CURRENT_RESEARCH_STATE.md`](../CURRENT_RESEARCH_STATE.md).  In
+> particular, Campaign 4 passed, Campaign 5 stopped before a Hankel test, and
+> Campaign 6 produced no accepted new D13 certificate.
 
 ## Frozen scope
 

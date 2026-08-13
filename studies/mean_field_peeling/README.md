@@ -55,10 +55,9 @@ new bound.  These remain model-specific extensions; they do not turn the
 implementation into a generic MLP compiler or close full quadratic order
 thirteen.
 
-The exact claim levels and conditional-stop decision are synthesized in
-[`../stieltjes_conjecture/EXACT_PARAMETRIC_CAMPAIGNS.md`](../stieltjes_conjecture/EXACT_PARAMETRIC_CAMPAIGNS.md)
-and
-[`../stieltjes_conjecture/NEXT_CAMPAIGN_OUTCOMES.md`](../stieltjes_conjecture/NEXT_CAMPAIGN_OUTCOMES.md).
+The exact Stieltjes claim levels, all five campaign outcomes, and the
+conditional-stop decision are consolidated in the sole downstream master,
+[`../stieltjes_conjecture/CURRENT_RESEARCH_STATE.md`](../stieltjes_conjecture/CURRENT_RESEARCH_STATE.md).
 
 The downstream
 [`../stieltjes_conjecture/`](../stieltjes_conjecture/) study consumes the
@@ -72,10 +71,11 @@ preserves the original proposal and supplied NTK derivation. It is intentionally
 not maintained as current mathematics; superseding corrections are stated in
 the canonical theory and case study.
 
-## Canonical report
+## Generated reading edition
 
 [`report/MEAN_FIELD_PEELING_REPORT.pdf`](report/MEAN_FIELD_PEELING_REPORT.pdf) is the
-current offline reading edition. It is generated from the general theory,
+offline reading edition.  The maintained Markdown sources above are
+authoritative when they differ from an older generated PDF.  The PDF is generated from the general theory,
 detailed training case, and frozen historical source using
 [`report/MEAN_FIELD_PEELING_REPORT.tex`](report/MEAN_FIELD_PEELING_REPORT.tex), which owns
 only typography, front matter, and inclusion order.

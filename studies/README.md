@@ -18,5 +18,8 @@ runner, and results as directly as its scientific form allows. Phase-local
 source trees remain separate when their frozen protocols or model definitions
 genuinely differ.
 
-The [master monograph](../FINITE_CAUSAL_NEURAL_PDE_MASTER_MONOGRAPH_v2.2_2026-07-31.md)
-is the authoritative synthesis.
+The [31 July 2026 master monograph](../FINITE_CAUSAL_NEURAL_PDE_MASTER_MONOGRAPH_v2.2_2026-07-31.md)
+is a dated project-wide baseline.  Later per-study maintained reports are
+authoritative within their scopes; in particular, the MFP and Stieltjes
+`CURRENT_RESEARCH_STATE.md` files supersede the monograph for results obtained
+after that date.

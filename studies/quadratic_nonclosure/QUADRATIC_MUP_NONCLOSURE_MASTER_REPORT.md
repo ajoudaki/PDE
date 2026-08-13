@@ -1,5 +1,15 @@
 # Non-closure for the quadratic mean-field \(\mu\)P MLP
 
+> **Historical synthesis with conditional claims.** This document preserves
+> the strongest formulation assembled in the quadratic-nonclosure phase.  Its
+> causal-DMFT and physical-time conclusions require the tagged-site/response
+> and fixed-order expectation/covariance bridges named below; those bridges
+> are not proved here.  For the current unconditional derivative calculus and
+> exact fixed-order results, use the
+> [mean-field-peeling report](../mean_field_peeling/CURRENT_RESEARCH_STATE.md).
+> For the current output-kernel moment conjecture, use the
+> [Stieltjes report](../stieltjes_conjecture/CURRENT_RESEARCH_STATE.md).
+
 ## Unified statements, proof chains, scope, and source provenance
 
 ### Executive conclusion

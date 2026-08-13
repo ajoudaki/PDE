@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the canonical mean-field peeling PDF from maintained Markdown.
+"""Build the mean-field peeling reading-edition PDF from maintained Markdown.
 
 The workspace's TeX Live 2022 ``markdown`` package predates native support for
 dollar-delimited mathematics. This script protects each Markdown math span as
@@ -64,13 +64,13 @@ def protect_markdown() -> int:
 
     for source_path in SOURCES:
         if not source_path.is_file():
-            raise FileNotFoundError(f"Missing canonical source: {source_path}")
+            raise FileNotFoundError(f"Missing report source: {source_path}")
 
         source = source_path.read_text(encoding="utf-8")
 
         # The legacy LaTeX Markdown renderer turns links into URL footnotes and
         # cannot safely pass GitHub-style ``#fragment`` targets to hyperref.
-        # Preserve canonical links in the source files, but render local file
+        # Preserve maintained links in the source files, but render local file
         # and section links as their visible text in the PDF-generated copies.
         # External HTTP(S) citations remain links and are handled by the TeX
         # wrapper's inline hyperlink renderer.

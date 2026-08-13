@@ -648,7 +648,37 @@ Several accelerations were audited:
 
 The restricted proofs, counterexamples, and retractions live next to the compiler. They illustrate a central MFP rule: a shortcut earns only the scope of its proof, even after passing extensive low-order regression gates.
 
-### 11.6 What this does and does not establish
+### 11.6 Model-specific parameter extensions
+
+Six bounded compiler campaigns tested how much of the same exact grammar
+survives beyond the canonical point.
+
+1. A relative block-metric ray jointly computed the output through order nine
+   and the second-hidden squared-RMS response through order eight.
+2. Two symmetry-reduced inputs with equal and opposite labels were computed
+   through order seven while retaining the input Gram matrix in both the
+   initialization law and the first-layer gradient metric.
+3. A centered-to-overcentered first-hidden quadratic activation was computed
+   through order seven using an exact centered-Gaussian moment grammar.
+4. Independent first-hidden and middle-weight metric parameters were graded
+   into 125 atomic sectors through order nine on the full nonnegative
+   quadrant.
+5. Three equicorrelated equal-label inputs were compiled through order five,
+   including a genuine signed three-color cycle invariant; the order-seven
+   resource gate failed closed.
+6. A bounded canonical order-thirteen threshold probe tested coarse and
+   hybrid envelopes but failed its fresh-regression/provenance gate and
+   produced no accepted new bound.
+
+Campaigns 1--4 reached exact finite Hankel endpoints in the downstream
+Stieltjes study.  Campaign 5 proves only exact lower jets and two necessary
+moment signs, not a Hankel determinant.  Campaign 6 is a stopped diagnostic,
+not a coefficient or bound.  These extensions enlarge the audited
+special-case compiler but do not establish the general MFP theorem.  Their
+consolidated claim levels are in the downstream
+[Stieltjes master](../stieltjes_conjecture/CURRENT_RESEARCH_STATE.md).
+
+### 11.7 What this does and does not establish
 
 The compiler establishes full scalarization, exact derivative rewrites, leading-width Wick selection, equality-identification bookkeeping, component factorization, canonical-state memoization, and exact integer evaluation for this special model.
 
@@ -1244,16 +1274,19 @@ layerwise Gaussian elimination, Stein correction, Wick contraction,
 equality-pattern enumeration, and width power counting explicitly, with the
 goal of a finite Gaussian-integral DAG and a finite-state depth recursion.
 
-There are two complementary core laboratories and three bounded
-parameter-extension campaigns. The fixed three-hidden-layer backward and
+There are two complementary core laboratories, five bounded parameter-
+extension campaigns, and one stopped threshold diagnostic. The fixed
+three-hidden-layer backward and
 training calculations expose conditional Stein corrections and lower-layer
 boundary transport. The canonical one-sample quadratic compiler proves an
 exact decorated-forest specialization and supplies accepted integer
-coefficients through derivative order eleven. Its isolated campaigns retain
-the same basic grammar while varying a relative block metric and hidden
-observable, a two-input symmetry channel, and a shifted first-hidden
-activation. They provide exact finite-order continuum tests, not a generic
-compiler theorem. The general nonlinear two-step closure remains formal, its
+coefficients through derivative order eleven. Its campaigns retain the same
+basic grammar while varying a relative block metric and hidden observable,
+two- and three-input symmetry channels, a shifted first-hidden activation,
+and two independent hidden-block metric weights.  Four reach exact finite
+Hankel endpoints downstream; the three-input route stops at lower moments,
+and the threshold diagnostic contributes no new D13 bound. They provide exact
+finite-order continuum tests, not a generic compiler theorem. The general nonlinear two-step closure remains formal, its
 deep-linear specialization is audited, and the finite-state theorem for the
 full proposed admissible grammar remains open. None of the exact
 specializations should be mistaken for that general theorem.
