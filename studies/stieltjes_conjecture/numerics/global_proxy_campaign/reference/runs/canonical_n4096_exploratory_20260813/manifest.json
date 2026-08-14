@@ -1,0 +1,10 @@
+{
+  "canonical_physical_n4096_r4.npz": {
+    "bytes": 311937,
+    "sha256": "8d17a87b28676354d72bc4990113794d020d678ad10e84dde572f5310e2f1bc0"
+  },
+  "summary.json": {
+    "bytes": 4177,
+    "sha256": "3b1a9c205fb991dca1850a807108aac3de6a32c012e91a38dcc186c26fbfeb2d"
+  }
+}

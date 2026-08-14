@@ -1,0 +1,10 @@
+{
+  "canonical_physical_n8192_r8_fp32_holdout.npz": {
+    "bytes": 308714,
+    "sha256": "67320120f7d4499ae2ee2bce84a95f6ee6a4589de85cf176dcaed8e6d1a1048f"
+  },
+  "summary.json": {
+    "bytes": 4336,
+    "sha256": "506a75cc7280d54ed9fe9b56dec6da88e60c9f8ec4b069d1c8f0a12e5bf5eea7"
+  }
+}

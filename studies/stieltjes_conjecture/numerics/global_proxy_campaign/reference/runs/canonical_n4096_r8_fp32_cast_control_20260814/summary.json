@@ -1,0 +1,103 @@
+{
+  "accepted_as_scientific_evidence": false,
+  "authorization": {
+    "required": false
+  },
+  "command": {
+    "argv": [
+      "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/run_reference_fp32_holdout.py",
+      "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n4096_r8_fp32_cast_control.json"
+    ],
+    "python_executable": "/home/amir/miniconda3/bin/python"
+  },
+  "config_name": "validation_n4096_r8_fp32_cast_control.json",
+  "config_sha256": "b178c0eb7e7af3ba159a4bb420c6aecbe590a817ba4fbe46bb3b279f899d46ec",
+  "ended_utc": "2026-08-14T07:31:07.749822+00:00",
+  "environment": {
+    "cuda_device": {
+      "capability": [
+        8,
+        6
+      ],
+      "free_memory_gib_at_start": 23.263916015625,
+      "name": "NVIDIA GeForce RTX 3090",
+      "total_memory_gib": 23.55828857421875
+    },
+    "device": "cuda:1",
+    "numpy": "1.26.4",
+    "pid": 3681343,
+    "platform": "Linux-5.15.0-151-generic-x86_64-with-glibc2.35",
+    "python": "3.10.14 (main, May  6 2024, 19:42:50) [GCC 11.2.0]",
+    "torch": "2.9.0+cu130",
+    "torch_cuda_build": "13.0"
+  },
+  "points": [
+    {
+      "accepted_as_scientific_evidence": false,
+      "antithetic_pairs": 8,
+      "arrays_bytes": 310840,
+      "arrays_file": "canonical_physical_n4096_r8_fp32_cast_control.npz",
+      "arrays_sha256": "0858bdf27e67629e94b7656677de32e24f34cf2bd3283722d4c1b06bce28af15",
+      "command": {
+        "argv": [
+          "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/run_reference_fp32_holdout.py",
+          "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n4096_r8_fp32_cast_control.json"
+        ],
+        "python_executable": "/home/amir/miniconda3/bin/python"
+      },
+      "declared_point_wall_seconds": 240.0,
+      "diagnostics": {
+        "antithetic_initial_cancellation_tolerance": 7.62939453125e-06,
+        "elapsed_seconds": 101.65764635428786,
+        "initial_mean_output": 0.0,
+        "integrator_steps_all_batches": 2400,
+        "loss_nonincrease_tolerance": 1e-07,
+        "max_abs_antithetic_initial_output_sum": 0.0,
+        "max_abs_initial_output": 0.10095974802970886,
+        "max_gpu_allocated_gib": 4.0094075202941895,
+        "max_host_rss_gib": 0.9517822265625,
+        "max_state_amplitude": 6.662478923797607,
+        "maximum_loss_jensen_gap_at_nodes": 0.003623928874731064,
+        "maximum_mean_loss_increment": -6.632079552204573e-09,
+        "maximum_output_variance_at_nodes": 0.0038654967303208888,
+        "minimum_mean_output_increment": 3.7141144275665283e-06,
+        "terminal_mean_output": 0.9992783032357693,
+        "trajectory_count": 16
+      },
+      "effective_point_wall_seconds": 239.99658110365272,
+      "elapsed_seconds": 101.69972579926252,
+      "elapsed_seconds_including_serialization": 101.69941418990493,
+      "ended_utc": "2026-08-14T07:31:07.749397+00:00",
+      "id": "canonical_physical_n4096_r8_fp32_cast_control",
+      "mode": "physical",
+      "run_purpose": "validation_only",
+      "scientific_evidence_admissible": false,
+      "seed_base": 202608140200,
+      "started_utc": "2026-08-14T07:29:26.049685+00:00",
+      "status": "complete_validation_only",
+      "width": 4096
+    }
+  ],
+  "registered_seed_bases": [
+    202608140200
+  ],
+  "run_diagnostics": {
+    "integrator_steps_all_points": 2400,
+    "max_gpu_allocated_gib": 4.0094075202941895,
+    "max_host_rss_gib": 0.9520378112792969
+  },
+  "run_purpose": "validation_only",
+  "scientific_evidence_admissible": false,
+  "source_bundle_sha256": "65beecc1a40ed4079acf9fdb2e4ea2194accc7ebef9dfac194a4b014eee043b7",
+  "source_sha256": {
+    "canonical_model.py": "57c8f7732ff164582a02578a30c747c22c5f27a54ca3c3624e7f6aff62a8be7e",
+    "reference_engine.py": "25cb4b4089f54e527013ae90af03f0d4df2eab1a83a9174fbbb410bed85bf112",
+    "run_capped_reference.sh": "66ef51819e89524f04f708b4a204bdddb5824caa5252a52f00a9d5d2486f1af9",
+    "run_reference.py": "dcee36ce3c5575bbb670ebf61e61b438ed897be93f09eb8d796241043935aa7f",
+    "run_reference_fp32_holdout.py": "7b974556eec14a2a13a348c42cb1cb94023efffa05b43e61a858f73b20175b54"
+  },
+  "started_utc": "2026-08-14T07:29:26.046225+00:00",
+  "status": "complete_validation_only",
+  "terminal_stop_no_unregistered_branch": true,
+  "total_elapsed_seconds": 101.70360196009278
+}

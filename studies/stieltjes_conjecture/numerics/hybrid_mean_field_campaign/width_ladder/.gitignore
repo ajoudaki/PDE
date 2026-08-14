@@ -1,0 +1,5 @@
+runs/
+preflight_outputs/
+*.npz
+*.pt
+*.log

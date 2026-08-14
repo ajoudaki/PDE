@@ -1,0 +1,102 @@
+{
+  "accepted_as_scientific_evidence": false,
+  "authorization": {
+    "required": false
+  },
+  "command": {
+    "argv": [
+      "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/run_reference.py",
+      "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n2048_exploratory.json"
+    ],
+    "python_executable": "/home/amir/miniconda3/bin/python"
+  },
+  "config_name": "validation_n2048_exploratory.json",
+  "config_sha256": "1140ef5c4842b498787d0405713056b27192d86a63a42333291c17b7630d97d3",
+  "ended_utc": "2026-08-13T21:18:55.043762+00:00",
+  "environment": {
+    "cuda_device": {
+      "capability": [
+        8,
+        6
+      ],
+      "free_memory_gib_at_start": 23.263916015625,
+      "name": "NVIDIA GeForce RTX 3090",
+      "total_memory_gib": 23.55828857421875
+    },
+    "device": "cuda:1",
+    "numpy": "1.26.4",
+    "pid": 1793766,
+    "platform": "Linux-5.15.0-151-generic-x86_64-with-glibc2.35",
+    "python": "3.10.14 (main, May  6 2024, 19:42:50) [GCC 11.2.0]",
+    "torch": "2.9.0+cu130",
+    "torch_cuda_build": "13.0"
+  },
+  "points": [
+    {
+      "accepted_as_scientific_evidence": false,
+      "antithetic_pairs": 8,
+      "arrays_bytes": 594813,
+      "arrays_file": "canonical_physical_n2048_r8.npz",
+      "arrays_sha256": "1fc8c87f624d8ab37b21c6bfab51ed81671f3ad8a0adaee306aeb57688c6052c",
+      "command": {
+        "argv": [
+          "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/run_reference.py",
+          "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n2048_exploratory.json"
+        ],
+        "python_executable": "/home/amir/miniconda3/bin/python"
+      },
+      "declared_point_wall_seconds": 180.0,
+      "diagnostics": {
+        "antithetic_initial_cancellation_tolerance": 1.4210854715202004e-14,
+        "elapsed_seconds": 52.81037148088217,
+        "initial_mean_output": 0.0,
+        "integrator_steps_all_batches": 2400,
+        "loss_nonincrease_tolerance": 1e-10,
+        "max_abs_antithetic_initial_output_sum": 0.0,
+        "max_abs_initial_output": 0.18701802268694245,
+        "max_gpu_allocated_gib": 2.0094075202941895,
+        "max_host_rss_gib": 0.8712692260742188,
+        "max_state_amplitude": 6.231148383422348,
+        "maximum_loss_jensen_gap_at_nodes": 0.008234889809374701,
+        "maximum_mean_loss_increment": -7.911120834872263e-09,
+        "maximum_output_variance_at_nodes": 0.008783882463332832,
+        "minimum_mean_output_increment": 4.336576983066109e-06,
+        "terminal_mean_output": 0.999336241672717,
+        "trajectory_count": 16
+      },
+      "effective_point_wall_seconds": 179.9975531846285,
+      "elapsed_seconds": 52.837177116423845,
+      "elapsed_seconds_including_serialization": 52.83653939887881,
+      "ended_utc": "2026-08-13T21:18:55.043203+00:00",
+      "id": "canonical_physical_n2048_r8",
+      "mode": "physical",
+      "run_purpose": "validation_only",
+      "scientific_evidence_admissible": false,
+      "seed_base": 202608140200,
+      "started_utc": "2026-08-13T21:18:02.206041+00:00",
+      "status": "complete_validation_only",
+      "width": 2048
+    }
+  ],
+  "registered_seed_bases": [
+    202608140200
+  ],
+  "run_diagnostics": {
+    "integrator_steps_all_points": 2400,
+    "max_gpu_allocated_gib": 2.0094075202941895,
+    "max_host_rss_gib": 0.8715171813964844
+  },
+  "run_purpose": "validation_only",
+  "scientific_evidence_admissible": false,
+  "source_bundle_sha256": "1c9a12a3b6a840305f1546a040b3c9ffb679e8f2462202546da00d5757c428d1",
+  "source_sha256": {
+    "canonical_model.py": "57c8f7732ff164582a02578a30c747c22c5f27a54ca3c3624e7f6aff62a8be7e",
+    "reference_engine.py": "25cb4b4089f54e527013ae90af03f0d4df2eab1a83a9174fbbb410bed85bf112",
+    "run_capped_reference.sh": "66ef51819e89524f04f708b4a204bdddb5824caa5252a52f00a9d5d2486f1af9",
+    "run_reference.py": "dcee36ce3c5575bbb670ebf61e61b438ed897be93f09eb8d796241043935aa7f"
+  },
+  "started_utc": "2026-08-13T21:18:02.203553+00:00",
+  "status": "complete_validation_only",
+  "terminal_stop_no_unregistered_branch": true,
+  "total_elapsed_seconds": 52.84021310508251
+}

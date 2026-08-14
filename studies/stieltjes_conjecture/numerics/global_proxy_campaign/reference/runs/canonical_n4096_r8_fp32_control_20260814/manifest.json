@@ -1,0 +1,10 @@
+{
+  "canonical_physical_n4096_r8_fp32_control.npz": {
+    "bytes": 315884,
+    "sha256": "f342176c43ff063d3ae07cff1bfa2627c8c8452270989bf13d2e527020d357e1"
+  },
+  "summary.json": {
+    "bytes": 4341,
+    "sha256": "b292c2e1079dea631cdabd19ef3a6d988de267e6196c88db5e97c72b76ac6000"
+  }
+}
