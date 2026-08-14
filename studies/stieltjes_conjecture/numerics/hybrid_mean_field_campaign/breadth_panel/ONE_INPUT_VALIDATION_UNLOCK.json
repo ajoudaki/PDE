@@ -1,0 +1,36 @@
+{
+  "allowed_gpu_names": [
+    "NVIDIA GeForce RTX 3090"
+  ],
+  "allowed_points": {
+    "A_validation_h1": "cuda:0",
+    "A_validation_h2": "cuda:0",
+    "M_validation_h1": "cuda:1",
+    "M_validation_h2": "cuda:1",
+    "V_validation_h1": "cuda:0",
+    "V_validation_h2": "cuda:0"
+  },
+  "config_sha256": "4d2de690f73a9242604e2a7c05b86700056c27db373b97185e3b9881f5c94f62",
+  "cumulative_wall_seconds": 180,
+  "external_timeout_seconds": {
+    "A_validation_h1": 35,
+    "A_validation_h2": 35,
+    "M_validation_h1": 35,
+    "M_validation_h2": 35,
+    "V_validation_h1": 35,
+    "V_validation_h2": 35
+  },
+  "lock_sha256": "61d249a62ea638252df46f8b6d315dc3f759fd64380fb287f45aee48376eb460",
+  "output_root": "runs/validation_one_input_v1",
+  "per_group_wall_seconds": 60,
+  "point_groups": {
+    "A_validation_h1": "A",
+    "A_validation_h2": "A",
+    "M_validation_h1": "M",
+    "M_validation_h2": "M",
+    "V_validation_h1": "V",
+    "V_validation_h2": "V"
+  },
+  "schema": "breadth-one-input-validation-unlock-v1",
+  "status": "execution-authorized-once"
+}
