@@ -1,0 +1,8 @@
+{
+  "status": "authorized_stage_v_only",
+  "frozen_manifest_sha256": "REPLACE_AFTER_HOSTILE_AUDIT",
+  "config_sha256": "REPLACE_AFTER_HOSTILE_AUDIT",
+  "run_root": "runs/stage_v",
+  "authorized_point_ids": ["v_n8192_h1e5", "v_n8192_h5e6"],
+  "note": "This template is not an execution unlock."
+}

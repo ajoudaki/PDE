@@ -1,0 +1,68 @@
+{
+  "all_contact_and_initialization_gates_passed": false,
+  "configuration": {
+    "cutoff": 3.0,
+    "dtype": "float64",
+    "first_seed": 2026081401,
+    "horizon": 0.005,
+    "intervals": 64,
+    "readout_variance_renormalized": false,
+    "sample_count": 4096,
+    "second_seed": 2026081402,
+    "step": 7.8125e-05
+  },
+  "exact": {
+    "A10_density": 4.0,
+    "B10_density_limit": 39.253433890551165,
+    "kernel": 108.76030167165348,
+    "kernel_W": 35.04012928785149,
+    "kernel_a": 27.0,
+    "kernel_u": 46.720172383801994,
+    "m2": 0.9733369246625415
+  },
+  "gates": {
+    "A_contact": true,
+    "B_contact": true,
+    "components_within_0p5_percent": false,
+    "kernel_within_0p25_percent": false,
+    "response_free_ablation_fails": true
+  },
+  "parent_protocol_sha256": "d1e75ad896a3572f77b9bc6ec68a7047219a075645b87d44c520d677fc3b153a",
+  "relative_errors": {
+    "B_contact_against_h_to_zero_limit": 0.00047974270354119163,
+    "components": [
+      0.0062630567173784955,
+      0.018429062591444872,
+      0.00500798959169453
+    ],
+    "kernel": 0.009643531583923174
+  },
+  "sampled": {
+    "A10_density": 3.99650392383384,
+    "B10_density": 39.234602342053236,
+    "kernel": 107.71146826740588,
+    "kernel_W": 34.39437255199336,
+    "kernel_a": 26.83089746863078,
+    "kernel_u": 46.48619824678174
+  },
+  "schema_version": 1,
+  "status": "stage0_contact_only_no_positive_time_dmft",
+  "tail_diagnostics": {
+    "b2": {
+      "largest_single_share": 0.007156832439254261,
+      "top_fraction_share": 0.03441933585210563
+    },
+    "u4": {
+      "largest_single_share": 0.011559778586891643,
+      "top_fraction_share": 0.052956804834999004
+    },
+    "uq2": {
+      "largest_single_share": 0.010564230220334366,
+      "top_fraction_share": 0.04475062010086175
+    },
+    "z4": {
+      "largest_single_share": 0.012790108369633433,
+      "top_fraction_share": 0.05925631369039394
+    }
+  }
+}

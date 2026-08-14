@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "status": "frozen_after_hostile_audit",
+  "frozen_utc_date": "2026-08-14",
+  "parent_protocol_sha256": "d1e75ad896a3572f77b9bc6ec68a7047219a075645b87d44c520d677fc3b153a",
+  "scope": "Numerical validation of FP32 Euler h=5e-6 against h=1e-5 on one fresh coupled n=8192 lineage; never scientific Stieltjes evidence.",
+  "hostile_audit_disposition": "PASS to hash-lock and execute Stage V only",
+  "files": {
+    "PROTOCOL.md": "61a96663e74a00e04b19561a68d877b9d61244b57ef44f028177e656ed0757f5",
+    "configs/FROZEN_STAGE_V.json": "3dfc8d12ef20d297adba9e8927387736a0e0b38a8e2ceefb9bd9b8c43e3dfcbc",
+    "AUDIT_EXISTING_FP32.md": "c3ac1591c9461025707e8427be18f61077874e802ac771cf1b04c52c9695bff5",
+    "nested_init.py": "244e309fa056a60e0ebc53c82c7dc4a20a29c33de96755cf115f996d35287c8f",
+    "euler_engine.py": "99796d522b0ac7a06fbe2c7540455bb6428c0b7e64dc3e1d78b2f54eabb193c2",
+    "run_stage_v_point.py": "9cd18ee5593b89a29f77d8e48a38c756fc57c2143bec211634e1902f2a87531b",
+    "run_capped_stage_v.sh": "cd5db213bb5183f5c0018fc552eb3c2818a05778bf5cff0e95d4413c49f60036",
+    "analyze_stage_v.py": "9f66bf5895591ef0ffab2e52733141ebc4b1b1d50f6f206e9f098920787c286e",
+    "tests/test_euler_fp32.py": "3a612c13134e63ee27781433afda58b04cf6dbd13081367b875ba1260eaacf9c"
+  },
+  "tests": {
+    "command": "python -m pytest -q tests/test_euler_fp32.py",
+    "passed": 10,
+    "failed": 0
+  },
+  "explicitly_not_authorized": [
+    "Stage W",
+    "n=16384",
+    "positive-time DMFT",
+    "interpretation as Stieltjes evidence"
+  ]
+}

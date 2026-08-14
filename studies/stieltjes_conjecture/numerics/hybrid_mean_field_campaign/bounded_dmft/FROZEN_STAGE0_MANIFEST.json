@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "campaign": "bounded_dmft_stage0",
+  "date": "2026-08-14",
+  "status": "locked_before_positive_time",
+  "parent_protocol": {
+    "path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/PROTOCOL.md",
+    "sha256": "d1e75ad896a3572f77b9bc6ec68a7047219a075645b87d44c520d677fc3b153a"
+  },
+  "child_protocol": {
+    "path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/bounded_dmft/PROTOCOL.md",
+    "sha256": "628fcc7a54f69b9e26b6c8b8624f7fa5245b2f301c0ebdf657619cd1453a6b5f"
+  },
+  "response_convention": {
+    "stored_A": "E[d U_k^2 / d Xi_m] / h",
+    "stored_B": "E[d (2 Ar_k Z_k) / d H_m] / h",
+    "A10": 4.0,
+    "B10_formula": "12 + 28 m2(A)",
+    "A": 3.0,
+    "B10_exact_A3": 39.253433890551165,
+    "supersession": "The pre-freeze raw-response draft and its 12(1+m2) B-contact value are retracted and superseded by this density-response record."
+  },
+  "files": {
+    "DERIVATION.md": "18cf13b8b54efdbbc6e8180932ffe4e3a924df6d9e27e0a3f9ea7ab577c2f89e",
+    "STAGE0_REPORT.md": "028ae12126fd5520590cb2cd078aab6df285ab9f36bcd60f7170f85d8e60bbba",
+    "dmft_contact_prototype.py": "fc5d1f426e21c0755042bf27e447295a23ef13fa380bbf96d95dc97bd8586dcd",
+    "test_bounded_dmft.py": "c060033ee08cdc2ca267e67b4669fffcef2bdb6b8bf9a1b53c47987bdb80f629",
+    "truncated_mfp_reference.py": "6cc62061b0070a44e8921a053edd74a6271d6c6044db41ee54f356bad7ec0035",
+    "truncated_mfp_A3_order5.json": "1490b83e4abf220a38e0337c0a25b73a655ecabba8f5e1c44d0991eec0a2e569",
+    "stage0_contact_audit.json": "cfba103f233794ad723aebeb6ab7fdfb05eb9dedb694e4a2273fe3a17cdaa3d0"
+  },
+  "verification": {
+    "command": "pytest -q studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/bounded_dmft/test_bounded_dmft.py",
+    "result": "4 passed",
+    "tests_assert_preserved_failure": true
+  },
+  "passed": [
+    "accepted Gaussian MFP derivatives recovered through order five",
+    "finite-A=3 MFP reference generated through order five",
+    "density-response A10 contact",
+    "density-response B10 contact",
+    "response-free ablation fails both exact contacts"
+  ],
+  "failed_or_missing": [
+    "frozen S=4096 Sobol initialization component and total tolerances failed",
+    "independent DMFT-side h=0 F3/F5 jet differentiation is not implemented"
+  ],
+  "not_run": [
+    "positive-time DMFT",
+    "GPU DMFT",
+    "conditional L128/S16384 refinement",
+    "unbounded Gaussian DMFT",
+    "matched finite-width/DMFT bridge"
+  ]
+}
