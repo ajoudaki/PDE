@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "authorized_stage_v_only",
+  "authorized_utc_date": "2026-08-14",
+  "frozen_manifest_sha256": "a683d8403f3120c5dfe79e88d93607658dc01304a2616f368311187d6a8c4361",
+  "config_sha256": "3dfc8d12ef20d297adba9e8927387736a0e0b38a8e2ceefb9bd9b8c43e3dfcbc",
+  "run_root": "runs/stage_v",
+  "authorized_point_ids": [
+    "v_n8192_h1e5",
+    "v_n8192_h5e6"
+  ],
+  "cumulative_internal_gpu_wall_seconds": 180,
+  "scientific_evidence_admissible": false,
+  "note": "User-authorized bounded numerical-method validation. Passing permits drafting a new breadth-first successor protocol only."
+}

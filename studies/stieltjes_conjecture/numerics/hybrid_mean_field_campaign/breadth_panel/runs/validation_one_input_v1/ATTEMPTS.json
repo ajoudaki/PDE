@@ -1,0 +1,53 @@
+{
+  "attempts": {
+    "A_validation_h1": {
+      "declared_wall_seconds": 30.0,
+      "device": "cuda:0",
+      "ended_utc": "2026-08-14T11:03:40.254442+00:00",
+      "group": "A",
+      "reserved_utc": "2026-08-14T11:03:34.863118+00:00",
+      "status": "complete"
+    },
+    "A_validation_h2": {
+      "declared_wall_seconds": 30.0,
+      "device": "cuda:0",
+      "ended_utc": "2026-08-14T11:03:16.781190+00:00",
+      "group": "A",
+      "reserved_utc": "2026-08-14T11:03:13.126951+00:00",
+      "status": "complete"
+    },
+    "M_validation_h1": {
+      "declared_wall_seconds": 30.0,
+      "device": "cuda:1",
+      "ended_utc": "2026-08-14T11:03:59.418642+00:00",
+      "group": "M",
+      "reserved_utc": "2026-08-14T11:03:56.149780+00:00",
+      "status": "complete"
+    },
+    "M_validation_h2": {
+      "declared_wall_seconds": 30.0,
+      "device": "cuda:1",
+      "ended_utc": "2026-08-14T11:03:19.136738+00:00",
+      "group": "M",
+      "reserved_utc": "2026-08-14T11:03:16.654726+00:00",
+      "status": "complete"
+    },
+    "V_validation_h1": {
+      "declared_wall_seconds": 30.0,
+      "device": "cuda:0",
+      "ended_utc": "2026-08-14T11:04:36.343311+00:00",
+      "group": "V",
+      "reserved_utc": "2026-08-14T11:04:29.375163+00:00",
+      "status": "complete"
+    },
+    "V_validation_h2": {
+      "declared_wall_seconds": 30.0,
+      "device": "cuda:0",
+      "ended_utc": "2026-08-14T11:04:16.154201+00:00",
+      "group": "V",
+      "reserved_utc": "2026-08-14T11:04:11.835426+00:00",
+      "status": "complete"
+    }
+  },
+  "schema": "breadth-attempt-ledger-v1"
+}

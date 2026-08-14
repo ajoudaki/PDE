@@ -2,13 +2,15 @@
 
 ## Authoritative research state, exact certificates, failed routes, and conditional ODE reconstruction
 
-**Status as of 13 August 2026:** compatible with every condition decidable
+**Status as of 14 August 2026:** compatible with every condition decidable
 from the first five exact canonical moments and with all finite-order Hankel
 tests in four exact parameter-continuum campaigns; a fifth three-input
 campaign established exact lower jets and $\mu_0,\mu_1>0$ but did not reach a
 Hankel determinant.  An exact global-proxy calibration passed, while the
 canonical finite-width global-curve pilot was stopped inconclusive for lack
-of statistical resolution.  The conjecture is neither proved nor falsified.
+of statistical resolution.  A subsequent breadth-first FP32 Euler panel was
+stopped at its local integrator-validation gate before any width extrapolation
+or proxy comparison.  The conjecture is neither proved nor falsified.
 
 This is the single authoritative, self-contained account of the
 Stieltjes-conjecture investigation. It supersedes the historical report in
@@ -35,6 +37,9 @@ own sibling study:
 - [`numerics/global_proxy_campaign/`](numerics/global_proxy_campaign/)
   contains the nested rational-proxy calibration and the closed canonical
   global-curve pilot.
+- [`numerics/hybrid_mean_field_campaign/`](numerics/hybrid_mean_field_campaign/)
+  contains the bounded-DMFT Stage-0 audit, canonical FP32 Euler qualification,
+  and the later stopped breadth-first proxy panel.
 
 Paths embedded inside frozen result manifests record where files lived when a
 run was executed.  They are historical provenance, not the current layout.
@@ -57,6 +62,9 @@ The main claim levels are:
 | Gaussian/Radau rational ODE bounds | Exact for every representing resolvent; conditional for the intended curve |
 | Exact Lambert-$W$ global proxy calibration | Passed through all five moment additions; final sup log-kernel error $1.43\times10^{-7}$ |
 | Canonical finite-width global proxy pilot | Completed hash-bound trajectories, but protocol-inconclusive and statistically under-resolved; later neural branches stopped |
+| Bounded-readout DMFT Stage 0 | Response contacts and truncated-law low jets pass; positive-time solver locked and unrun |
+| Canonical FP32 Euler Stage V | $h=5\times10^{-6}$ failed frozen rounding/driver gates; numerical-method inconclusive |
+| Breadth-first FP32 Euler proxy panel | Local validation stopped after two of three one-input configurations failed update-geometry gates; no width screen or proxy-accuracy inference |
 | Order-thirteen numerical estimate | Inconclusive; useful only as a target |
 
 The core verdict is
@@ -1559,6 +1567,116 @@ The result is a clean cost-value stop, not evidence against the conjecture.
 The complete local record is
 [`numerics/global_proxy_campaign/RESULTS.md`](numerics/global_proxy_campaign/RESULTS.md).
 
+### 10.2 Bounded DMFT and the canonical FP32 Euler qualification
+
+Two bounded reference routes were audited before the breadth panel.  The
+first derived a two-species dynamical mean-field system for the quadratic
+network with a deliberately bounded readout,
+$a(0)\sim N(0,1)\mid |a(0)|\le3$, without variance renormalization.  Its
+generalized MFP control recovers the accepted Gaussian derivatives through
+order five and gives, for the truncated law,
+
+$$
+F'(0)=108.7603016717,\qquad
+F^{(3)}(0)=1\,610\,470.7911,\qquad
+F^{(5)}(0)=72\,197\,074\,701.39.
+$$
+
+The reciprocal-response density contacts also passed:
+$A_{1,0}=4$ and
+$B_{1,0}=12+28m_2(3)=39.25343389\ldots$, with frozen estimates
+$3.99650$ and $39.23460$.  The response-free ablation fails these contacts.
+This validates important factors in the proposed DMFT equations, but no
+positive-time DMFT curve was run.  The $S=4096$ initialization sample missed
+its strict component tolerances, and an independent DMFT-side construction
+of the third and fifth output derivatives is still absent.  Stage 1 therefore
+remains locked and contributes no Stieltjes evidence.  The bounded law is
+also a separate limit contract, not the original unbounded-Gaussian model.
+See the [bounded-DMFT Stage-0 report](numerics/hybrid_mean_field_campaign/bounded_dmft/STAGE0_REPORT.md).
+
+The second audit tested deterministic FP32 explicit Euler on one canonical
+$n=8192$ antithetic lineage at $h=10^{-5}$ and $5\times10^{-6}$.  Through
+mean output $.9$, their effective-kernel curves differed by only
+$2.03\times10^{-4}$ relatively.  Nevertheless the finer step moved farther
+into the FP32 rounding floor: it failed the registered driver-improvement,
+readout-unchanged, sampled-middle-weight-unchanged, and sampled-middle-weight
+cosine gates; the last cosine fell from $.99510$ to $.98517$.  Stage V is
+therefore failed/inconclusive for $h=5\times10^{-6}$, not a successful
+gradient-flow approximation and not evidence about the conjecture.  Its
+$h=10^{-5}$ diagnostics motivated a new, independently frozen breadth
+experiment with a conservative $.20\%$ kernel allowance; they did not
+retroactively repair Stage V.  The compact terminal record is the
+[FP32 Euler Stage-V report](numerics/hybrid_mean_field_campaign/width_ladder/euler_fp32/STAGE_V_REPORT.md).
+
+### 10.3 Breadth-first moment proxies and the stopped FP32 Euler panel
+
+The next experiment changed the allocation of numerical effort.  Instead of
+trying to distinguish the already very close third, fourth, and fifth
+canonical moment proxies, it preregistered the coarser and more resolvable
+
+$$
+K_{\mathrm{NTK}}(y)=A,\qquad
+K_{\mathrm{M1}}(y)=A+\mu _0y^2,\qquad
+K_{\mathrm{M2}}(y)=A+\frac{\mu _0y^2}{1+(\mu _1/\mu _0)y^2}
+$$
+
+across configurations whose required MFP moments had already been computed.
+Conditional on the Stieltjes conjecture these obey
+$K_{\mathrm{NTK}}\le K_{\mathrm{M2}}\le K\le K_{\mathrm{M1}}$.  For the
+variance family, the physical comparison is made only after the exact chart
+$K_v(y)=v\,\kappa_v(y/v)$; normalized $\kappa_v$ moments are not inserted
+directly into the physical kernel.  The frozen panel contained
+the canonical model, a centered first activation, a relative hidden-block
+metric, a middle-weight variance deformation, the equal- and opposite-label
+two-input channels, and the second-hidden squared norm on the metric ray.  It
+introduced no new MFP calculation.  The exact M1--M2 gaps at output $.9$
+ranged from $2.36\%$ to $14.31\%$, deliberately much larger than the late
+canonical-proxy differences.
+
+For memory efficiency the neural reference used explicit Euler descent in
+IEEE FP32, treated as an audited approximation rather than exact gradient
+flow.  Every run recorded output, direct and effective kernel, mean physical
+loss, loss of the mean output, both hidden squared norms, the discrete driver
+defect, unchanged-coordinate fractions, and intended-versus-realized update
+norms and cosines.  Local qualification compared $h=2\times10^{-5}$ and
+$h=10^{-5}$ at width 4096 before authorizing any width ladder.  It required,
+through output $.95$, a symmetric coarse/fine kernel difference below
+$0.20\%$, small accumulated driver error, and update cosines at least $.999$
+for the readout and first-hidden blocks and $.995$ for the frozen
+4096-coordinate sampled-middle-weight monitor.
+
+All six one-input validation trajectories completed under their frozen caps.
+Their decisive results were
+
+| configuration | max coarse/fine effective-$K$ difference | fine middle-$W$ cosine | local decision |
+|---|---:|---:|---|
+| centered activation, $c=1$ | $0.0259\%$ | $.98113$ | fail |
+| relative metric, $\lambda=2$ | $0.0407\%$ | $.99596$ | pass |
+| variance, $v=1/2$ | $0.0192\%$ | $.99018$ | fail |
+
+The centered run also exceeded the registered pointwise driver-defect ceiling
+($0.2928\%$ versus $0.20\%$).  Thus visually small step-size changes in the
+kernel did not suffice to certify the realized FP32 parameter updates.  The
+metric point's separately registered Q2 comparison also passed locally, with
+a maximum coarse/fine difference of $0.02005\%$.  Two of the three one-input
+validation configurations failed, activating the global hard stop.  No width
+screen, two-input trajectory, confidence band, or empirical NTK--M1--M2
+containment test was authorized or recorded.  The exact two-input engine and
+proxy contract remain audited implementation artifacts, not experimental
+evidence.
+
+This result neither supports nor contradicts the Stieltjes conjecture.  The
+single metric validation lineage passed the preregistered local numerical
+gates; the centered and variance points were inconclusive.  Choosing the
+apparently better coarse step after observing the diagnostics, weakening the
+cosine gate, or proceeding to the attractive proxy plots would violate the
+frozen decision rule.  The bounded stop therefore saved the intended
+width-screen and two-input budgets.
+
+The frozen protocol and point files retain their prospective pre-execution
+headers by design.  The terminal [breadth-panel result](numerics/hybrid_mean_field_campaign/breadth_panel/RESULTS.md)
+and its compact JSON are the current decision artifacts.
+
 ## 11. Strong positive-operator route
 
 If all Hankel inequalities hold, the formal moment functional constructs a
@@ -1829,10 +1947,15 @@ Proved or computationally certified:
 11. zero radius of the feature and loss formal jets;
 12. rigorous failure of the generic proof mechanisms collected in Section 13;
 13. local calibration, but not a decisive global Loewner result, for the
-   stopped finite-width median proxy; and
+   stopped finite-width median proxy;
 14. rapid nested rational convergence at the exact Lambert-$W$ boundary, plus
    a completed, provenance-valid but protocol-inconclusive canonical
-   global-curve pilot that authorized no larger-width or deformation branch.
+   global-curve pilot that authorized no larger-width or deformation branch;
+   and
+15. the bounded-DMFT Stage-0 response/low-jet checks, failed canonical FP32
+   Euler Stage V, and breadth-panel two-failure stop, all at numerical-method
+   or calibration claim level only: no positive-time DMFT, width-proxy
+   inference, or new Stieltjes evidence.
 
 Open:
 
@@ -1932,6 +2055,14 @@ The durable source-of-truth map is:
   for the exact Lambert-$W$ convergence calibration, the hash-frozen
   canonical GPU pilot, its 2,000-resample analysis, and the terminal
   cost-value stop;
+- [the bounded-DMFT Stage-0 report](numerics/hybrid_mean_field_campaign/bounded_dmft/STAGE0_REPORT.md)
+  for the truncated-readout low jets, corrected reciprocal-response contacts,
+  and the locked positive-time branch;
+- [the FP32 Euler Stage-V report](numerics/hybrid_mean_field_campaign/width_ladder/euler_fp32/STAGE_V_REPORT.md)
+  for the canonical step-halving audit and its failed finer-step gates;
+- [the breadth-panel result](numerics/hybrid_mean_field_campaign/breadth_panel/RESULTS.md)
+  for the exact NTK--M1--M2 proxy contract, audited FP32 Euler engines, frozen
+  local-validation result, and stop before width or two-input inference;
 - [the earlier report](archive/EARLIER_REPORT.md) only as a superseded
   historical record.
 
