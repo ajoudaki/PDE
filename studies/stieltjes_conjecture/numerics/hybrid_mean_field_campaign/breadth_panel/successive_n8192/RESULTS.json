@@ -1,0 +1,2523 @@
+{
+  "analysis_source_sha256": "e9c1706e8e8aa8170621eeb45646e355784cdb351829aa48bd7eb5a5d27a5ded",
+  "configuration_sha256": "e16f6bb0adfbd4d000aad3f288ddf6890fdfb41485417b5629eec5e3a66df344",
+  "configurations": {
+    "A": {
+      "antithetic_lineages": 16,
+      "block_provenance": [
+        {
+          "arrays_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/runs/A_n8192_L0_8/arrays.npz",
+          "arrays_sha256": "21857c8b4c9f22f0cc2c8de4923bd364ad92420aa04343b208162de81c965737",
+          "elapsed_seconds": 207.54794546589255,
+          "lineage_start": 0,
+          "lineage_stop": 8,
+          "manifest_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/runs/A_n8192_L0_8/MANIFEST.json",
+          "manifest_sha256": "37baae8907f965b25736e9f9bfac23e9407d8797bbe494c4988f0d1453399b26",
+          "max_gpu_allocated_gib": 3.4083757400512695,
+          "max_host_rss_gib": 1.6675605773925781
+        },
+        {
+          "arrays_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/runs/A_n8192_L8_16/arrays.npz",
+          "arrays_sha256": "7eb4086170130802b2b0975c3adbc2efd5f353cfed09d8e9e8f7c0659b0a1099",
+          "elapsed_seconds": 211.550291582942,
+          "lineage_start": 8,
+          "lineage_stop": 16,
+          "manifest_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/runs/A_n8192_L8_16/MANIFEST.json",
+          "manifest_sha256": "d9674df703d01422d81268788a632233b5380bb54d4898b566a18d049e683842",
+          "max_gpu_allocated_gib": 3.4083757400512695,
+          "max_host_rss_gib": 1.6678237915039062
+        }
+      ],
+      "bootstrap": {
+        "clock_rule": "recompute primitive-first ensemble mean-output clock in every resample",
+        "confidence": 0.99,
+        "invalid_replicates": 0,
+        "quantile_method": "linear",
+        "requested_replicates": 20000,
+        "resampling_unit": "whole_antithetic_lineage",
+        "seed": 2026081721,
+        "valid_fraction": 1.0,
+        "valid_replicates": 20000
+      },
+      "configuration": "A",
+      "engine_key": "centered_c1",
+      "execution_environment": {
+        "cublas_workspace_config": ":4096:8",
+        "cuda_version": "13.0",
+        "deterministic_algorithms": true,
+        "device": "cuda:0",
+        "gpu_identity": {
+          "compute_capability": [
+            8,
+            6
+          ],
+          "multi_processor_count": 82,
+          "name": "NVIDIA GeForce RTX 3090",
+          "total_memory_bytes": 25296044032,
+          "uuid": "dca1675a-2081-5d8c-d5d6-8ec5dc75b44e"
+        },
+        "tf32_cudnn": false,
+        "tf32_matmul": false,
+        "torch_version": "2.9.0+cu130"
+      },
+      "levels": [
+        {
+          "absolute_log_error": [
+            0.28179389064108973,
+            0.542673200146797,
+            0.7012484163658533,
+            0.7532046684917171
+          ],
+          "information_moments": 0,
+          "level_index": 0,
+          "level_label": "M0",
+          "level_name": "ntk_0moments_lower",
+          "mean_absolute_log_error": 0.5697300439113643,
+          "mean_ci99": [
+            0.5468311682362383,
+            0.5949353014376287
+          ],
+          "proxy_kernel": [
+            60.0,
+            60.0,
+            60.0,
+            60.0
+          ],
+          "side": "lower",
+          "signed_log_error": [
+            -0.28179389064108973,
+            -0.542673200146797,
+            -0.7012484163658533,
+            -0.7532046684917171
+          ],
+          "sup_absolute_log_error": 0.7532046684917171,
+          "sup_ci99": [
+            0.7329181348428221,
+            0.7755536882301193
+          ]
+        },
+        {
+          "absolute_log_error": [
+            0.03415164708355065,
+            0.06491609205150156,
+            0.08895287700834313,
+            0.09750830612973474
+          ],
+          "information_moments": 1,
+          "level_index": 1,
+          "level_label": "M1",
+          "level_name": "zero_radau_1node_1moments_upper",
+          "mean_absolute_log_error": 0.07138223056828252,
+          "mean_ci99": [
+            0.046176973042018205,
+            0.09428110624340849
+          ],
+          "proxy_kernel": [
+            82.29333333333334,
+            110.16,
+            132.2304,
+            140.47893333333332
+          ],
+          "side": "upper",
+          "signed_log_error": [
+            0.03415164708355065,
+            0.06491609205150156,
+            0.08895287700834313,
+            0.09750830612973474
+          ],
+          "sup_absolute_log_error": 0.09750830612973474,
+          "sup_ci99": [
+            0.07515928639133261,
+            0.11779483977862976
+          ]
+        },
+        {
+          "absolute_log_error": [
+            0.018254064982562823,
+            0.007709832733530829,
+            0.006625350279894907,
+            0.012891559900857864
+          ],
+          "information_moments": 2,
+          "level_index": 2,
+          "level_label": "M2",
+          "level_name": "gauss_1node_2moments_lower",
+          "mean_absolute_log_error": 0.011370201974211605,
+          "mean_ci99": [
+            0.008171048622450655,
+            0.02633737780489073
+          ],
+          "proxy_kernel": [
+            80.9954125469491,
+            104.03502227554831,
+            120.17723702172705,
+            125.79551235961006
+          ],
+          "side": "lower",
+          "signed_log_error": [
+            0.018254064982562823,
+            0.007709832733530829,
+            -0.006625350279894907,
+            -0.012891559900857864
+          ],
+          "sup_absolute_log_error": 0.018254064982562823,
+          "sup_ci99": [
+            0.012570996212720821,
+            0.048477226294935845
+          ]
+        },
+        {
+          "absolute_log_error": [
+            0.020780392747225478,
+            0.024187150763290734,
+            0.027825836836383466,
+            0.029394302960228078
+          ],
+          "information_moments": 3,
+          "level_index": 3,
+          "level_label": "M3",
+          "level_name": "zero_radau_2node_3moments_upper",
+          "mean_absolute_log_error": 0.02554692082678194,
+          "mean_ci99": [
+            0.005727097668944356,
+            0.04844579650190796
+          ],
+          "proxy_kernel": [
+            81.20029219407976,
+            105.76344117214964,
+            124.38962984109529,
+            131.22895341419596
+          ],
+          "side": "upper",
+          "signed_log_error": [
+            0.020780392747225478,
+            0.024187150763290734,
+            0.027825836836383466,
+            0.029394302960228078
+          ],
+          "sup_absolute_log_error": 0.029394302960228078,
+          "sup_ci99": [
+            0.00938746204855081,
+            0.051802926015387434
+          ]
+        }
+      ],
+      "lineage_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "neural_reference": [
+        79.53032956458432,
+        103.23601372436885,
+        120.97609675326099,
+        127.42771093043348
+      ],
+      "neural_reference_ci99": {
+        "kind": "studentized max-absolute-t simultaneous log band",
+        "lower": [
+          77.00145080145182,
+          100.63241012508955,
+          118.24138007466071,
+          124.62079224563792
+        ],
+        "pointwise_log_standard_error": [
+          0.01197049560695479,
+          0.009462314286257387,
+          0.008470074155180236,
+          0.008251112752143668
+        ],
+        "simultaneous_critical_value": 2.6994863596905874,
+        "upper": [
+          82.14226166933649,
+          105.90697883962255,
+          123.77406265398206,
+          130.297851749843
+        ]
+      },
+      "node_time": [
+        0.005206967389648717,
+        0.008987995683731062,
+        0.013038014367610783,
+        0.01581785276933751
+      ],
+      "nodewise_transitions": [
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M0",
+          "node": 0.5,
+          "to_level": "M1",
+          "transition_margin": 0.24764224355753908,
+          "transition_margin_ci99_lower": 0.1871959209327933,
+          "transition_margin_ci99_upper": 0.30965785561138687
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M0",
+          "node": 0.75,
+          "to_level": "M1",
+          "transition_margin": 0.4777571080952954,
+          "transition_margin_ci99_lower": 0.43184152234157475,
+          "transition_margin_ci99_upper": 0.5284197509925992
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M0",
+          "node": 0.9,
+          "to_level": "M1",
+          "transition_margin": 0.6122955393575102,
+          "transition_margin_ci99_lower": 0.571047273285029,
+          "transition_margin_ci99_upper": 0.658358737520324
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M0",
+          "node": 0.95,
+          "to_level": "M1",
+          "transition_margin": 0.6556963623619824,
+          "transition_margin_ci99_lower": 0.6151232950641924,
+          "transition_margin_ci99_upper": 0.7003944018387868
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.98585,
+          "central_improves_vs_previous": true,
+          "from_level": "M1",
+          "node": 0.5,
+          "to_level": "M2",
+          "transition_margin": 0.01589758210098783,
+          "transition_margin_ci99_lower": -0.009609899987734089,
+          "transition_margin_ci99_upper": 0.015897582100987923
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.9999,
+          "central_improves_vs_previous": true,
+          "from_level": "M1",
+          "node": 0.75,
+          "to_level": "M2",
+          "transition_margin": 0.057206259317970735,
+          "transition_margin_ci99_lower": 0.021963281887728718,
+          "transition_margin_ci99_upper": 0.05720625931797105
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M1",
+          "node": 0.9,
+          "to_level": "M2",
+          "transition_margin": 0.08232752672844823,
+          "transition_margin_ci99_lower": 0.0362643285656344,
+          "transition_margin_ci99_upper": 0.0955782272882382
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M1",
+          "node": 0.95,
+          "to_level": "M2",
+          "transition_margin": 0.08461674622887688,
+          "transition_margin_ci99_lower": 0.03991870675207249,
+          "transition_margin_ci99_upper": 0.11039986603059279
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.0541,
+          "central_improves_vs_previous": false,
+          "from_level": "M2",
+          "node": 0.5,
+          "to_level": "M3",
+          "transition_margin": -0.0025263277646626545,
+          "transition_margin_ci99_lower": -0.002526327764662918,
+          "transition_margin_ci99_upper": 0.0025263277646627794
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.0519,
+          "central_improves_vs_previous": false,
+          "from_level": "M2",
+          "node": 0.75,
+          "to_level": "M3",
+          "transition_margin": -0.016477318029759904,
+          "transition_margin_ci99_lower": -0.016477318029760102,
+          "transition_margin_ci99_upper": 0.016477318029759873
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.11655,
+          "central_improves_vs_previous": false,
+          "from_level": "M2",
+          "node": 0.9,
+          "to_level": "M3",
+          "transition_margin": -0.021200486556488558,
+          "transition_margin_ci99_lower": -0.03445118711627863,
+          "transition_margin_ci99_upper": 0.024862711606325222
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.1725,
+          "central_improves_vs_previous": false,
+          "from_level": "M2",
+          "node": 0.95,
+          "to_level": "M3",
+          "transition_margin": -0.016502743059370214,
+          "transition_margin_ci99_lower": -0.04228586286108603,
+          "transition_margin_ci99_upper": 0.02819529641743431
+        }
+      ],
+      "physical_nodes": [
+        0.5,
+        0.75,
+        0.9,
+        0.95
+      ],
+      "proxy_provenance": {
+        "evaluation": "frozen accepted hierarchy in physical output coordinates",
+        "family": {
+          "baseline": "60",
+          "caveats": [],
+          "coordinate_scope": "physical output y",
+          "drives_training": true,
+          "key": "centered_activation",
+          "moments": [
+            "6688/75",
+            "5581537/253125",
+            "3930998464/170859375"
+          ],
+          "observable": "K_c",
+          "parameters": {
+            "c": "1"
+          },
+          "source_paths": [
+            "studies/mean_field_peeling/quadratic_compiler/campaign3/certificates_order7.json"
+          ],
+          "source_sha256": [
+            "92cfd80f5bd039dcb05cf01aa3b3242847d354f0802002721da76652956ecb22"
+          ],
+          "training_target": "1"
+        },
+        "physical_scale": "1"
+      },
+      "successive_improvement": {
+        "all_central_mean_margins_positive": false,
+        "all_central_sup_margins_positive": false,
+        "interpretation": "empirical fixed-width comparison only; bootstrap intervals quantify lineage uncertainty"
+      },
+      "transitions": [
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves": true,
+          "central_margin": 0.6556963623619824,
+          "configuration": "A",
+          "from_error": 0.7532046684917171,
+          "from_level": "M0",
+          "margin_ci99_lower": 0.6151232950641924,
+          "margin_ci99_upper": 0.7003944018387868,
+          "metric": "sup_absolute_log_error",
+          "to_error": 0.09750830612973474,
+          "to_level": "M1"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves": true,
+          "central_margin": 0.07925424114717192,
+          "configuration": "A",
+          "from_error": 0.09750830612973474,
+          "from_level": "M1",
+          "margin_ci99_lower": 0.03991870675207249,
+          "margin_ci99_upper": 0.0871865880555227,
+          "metric": "sup_absolute_log_error",
+          "to_error": 0.018254064982562823,
+          "to_level": "M2"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.1725,
+          "central_improves": false,
+          "central_margin": -0.011140237977665255,
+          "configuration": "A",
+          "from_error": 0.018254064982562823,
+          "from_level": "M2",
+          "margin_ci99_lower": -0.019072584886016014,
+          "margin_ci99_upper": 0.02488715181181964,
+          "metric": "sup_absolute_log_error",
+          "to_error": 0.029394302960228078,
+          "to_level": "M3"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves": true,
+          "central_margin": 0.49834781334308176,
+          "configuration": "A",
+          "from_error": 0.5697300439113643,
+          "from_level": "M0",
+          "margin_ci99_lower": 0.4525500619928298,
+          "margin_ci99_upper": 0.5487583283956105,
+          "metric": "mean_absolute_log_error",
+          "to_error": 0.07138223056828252,
+          "to_level": "M1"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves": true,
+          "central_margin": 0.06001202859407092,
+          "configuration": "A",
+          "from_error": 0.07138223056828252,
+          "from_level": "M1",
+          "margin_ci99_lower": 0.02258346239958904,
+          "margin_ci99_upper": 0.06977048368444738,
+          "metric": "mean_absolute_log_error",
+          "to_error": 0.011370201974211605,
+          "to_level": "M2"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.09425,
+          "central_improves": false,
+          "central_margin": -0.014176718852570333,
+          "configuration": "A",
+          "from_error": 0.011370201974211605,
+          "from_level": "M2",
+          "margin_ci99_lower": -0.023935173942946808,
+          "margin_ci99_upper": 0.018038492548203444,
+          "metric": "mean_absolute_log_error",
+          "to_error": 0.02554692082678194,
+          "to_level": "M3"
+        }
+      ],
+      "width": 8192
+    },
+    "C": {
+      "antithetic_lineages": 16,
+      "block_provenance": [
+        {
+          "arrays_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/runs/C_n8192_L0_8/arrays.npz",
+          "arrays_sha256": "e8391c1b1e6e40d0ffc2156cb4aae304e94c6b58294dd8f659037f77ae76d947",
+          "elapsed_seconds": 147.62321468815207,
+          "lineage_start": 0,
+          "lineage_stop": 8,
+          "manifest_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/runs/C_n8192_L0_8/MANIFEST.json",
+          "manifest_sha256": "a57228d5532066f092607b81e48c1f111b52a8a9b85340f7c8e2fa6b7dac069a",
+          "max_gpu_allocated_gib": 3.408216953277588,
+          "max_host_rss_gib": 1.6656875610351562
+        },
+        {
+          "arrays_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/runs/C_n8192_L8_16/arrays.npz",
+          "arrays_sha256": "b888fe5bc90d399d533c720650e3f6b02b4bb3b37c195c99d8aef7cf95cf4cc9",
+          "elapsed_seconds": 156.23382062464952,
+          "lineage_start": 8,
+          "lineage_stop": 16,
+          "manifest_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/runs/C_n8192_L8_16/MANIFEST.json",
+          "manifest_sha256": "5bfc6404dd8e42aa3805df8c1ef16d766867113d63a1356e16324b1fd120dcd9",
+          "max_gpu_allocated_gib": 3.408216953277588,
+          "max_host_rss_gib": 1.6661300659179688
+        }
+      ],
+      "bootstrap": {
+        "clock_rule": "recompute primitive-first ensemble mean-output clock in every resample",
+        "confidence": 0.99,
+        "invalid_replicates": 0,
+        "quantile_method": "linear",
+        "requested_replicates": 20000,
+        "resampling_unit": "whole_antithetic_lineage",
+        "seed": 2026081720,
+        "valid_fraction": 1.0,
+        "valid_replicates": 20000
+      },
+      "configuration": "C",
+      "engine_key": "canonical",
+      "execution_environment": {
+        "cublas_workspace_config": ":4096:8",
+        "cuda_version": "13.0",
+        "deterministic_algorithms": true,
+        "device": "cuda:0",
+        "gpu_identity": {
+          "compute_capability": [
+            8,
+            6
+          ],
+          "multi_processor_count": 82,
+          "name": "NVIDIA GeForce RTX 3090",
+          "total_memory_bytes": 25296044032,
+          "uuid": "dca1675a-2081-5d8c-d5d6-8ec5dc75b44e"
+        },
+        "tf32_cudnn": false,
+        "tf32_matmul": false,
+        "torch_version": "2.9.0+cu130"
+      },
+      "levels": [
+        {
+          "absolute_log_error": [
+            0.12302554720734521,
+            0.267268703519287,
+            0.36487751744467756,
+            0.39820935344682074
+          ],
+          "information_moments": 0,
+          "level_index": 0,
+          "level_label": "M0",
+          "level_name": "ntk_0moments_lower",
+          "mean_absolute_log_error": 0.2883452804045326,
+          "mean_ci99": [
+            0.26368806828801394,
+            0.31473778718979256
+          ],
+          "proxy_kernel": [
+            111.0,
+            111.0,
+            111.0,
+            111.0
+          ],
+          "side": "lower",
+          "signed_log_error": [
+            -0.12302554720734521,
+            -0.267268703519287,
+            -0.36487751744467756,
+            -0.39820935344682074
+          ],
+          "sup_absolute_log_error": 0.39820935344682074,
+          "sup_ci99": [
+            0.37721914759720404,
+            0.422022252641511
+          ]
+        },
+        {
+          "absolute_log_error": [
+            0.02022941969890561,
+            0.030280036408728707,
+            0.039945895998854224,
+            0.043926197830281594
+          ],
+          "information_moments": 1,
+          "level_index": 1,
+          "level_label": "M1",
+          "level_name": "zero_radau_1node_1moments_upper",
+          "mean_absolute_log_error": 0.03359538748419253,
+          "mean_ci99": [
+            0.012266859277948865,
+            0.058252599600711205
+          ],
+          "proxy_kernel": [
+            128.09666423179937,
+            149.4674945215486,
+            166.39319211102995,
+            172.7189578767957
+          ],
+          "side": "upper",
+          "signed_log_error": [
+            0.02022941969890561,
+            0.030280036408728707,
+            0.039945895998854224,
+            0.043926197830281594
+          ],
+          "sup_absolute_log_error": 0.043926197830281594,
+          "sup_ci99": [
+            0.020204431990198356,
+            0.0649164036798983
+          ]
+        },
+        {
+          "absolute_log_error": [
+            0.01696621782342949,
+            0.0164687484450772,
+            0.014665369906353778,
+            0.01387695102092007
+          ],
+          "information_moments": 2,
+          "level_index": 2,
+          "level_label": "M2",
+          "level_name": "gauss_1node_2moments_lower",
+          "mean_absolute_log_error": 0.015494321798945134,
+          "mean_ci99": [
+            0.0005727440264227345,
+            0.04015153391546384
+          ],
+          "proxy_kernel": [
+            127.67934023338542,
+            147.4173460976317,
+            162.2394107876611,
+            167.6060869624303
+          ],
+          "side": "lower",
+          "signed_log_error": [
+            0.01696621782342949,
+            0.0164687484450772,
+            0.014665369906353778,
+            0.01387695102092007
+          ],
+          "sup_absolute_log_error": 0.01696621782342949,
+          "sup_ci99": [
+            0.0010902992057240798,
+            0.04714877364039889
+          ]
+        },
+        {
+          "absolute_log_error": [
+            0.017208820153792784,
+            0.018538624361915505,
+            0.019712864073416637,
+            0.020381354865812263
+          ],
+          "information_moments": 3,
+          "level_index": 3,
+          "level_label": "M3",
+          "level_name": "zero_radau_2node_3moments_upper",
+          "mean_absolute_log_error": 0.018960415863734297,
+          "mean_ci99": [
+            0.0024520899435292493,
+            0.043617627980252933
+          ],
+          "proxy_kernel": [
+            127.7103192965098,
+            147.7227977264725,
+            163.06038345163975,
+            168.69981781642096
+          ],
+          "side": "upper",
+          "signed_log_error": [
+            0.017208820153792784,
+            0.018538624361915505,
+            0.019712864073416637,
+            0.020381354865812263
+          ],
+          "sup_absolute_log_error": 0.020381354865812263,
+          "sup_ci99": [
+            0.004162590057864,
+            0.04739137597076209
+          ]
+        },
+        {
+          "absolute_log_error": [
+            0.017200663021006996,
+            0.018399787186127423,
+            0.019264586548262585,
+            0.01975627160580362
+          ],
+          "information_moments": 4,
+          "level_index": 4,
+          "level_label": "M4",
+          "level_name": "gauss_2node_4moments_lower",
+          "mean_absolute_log_error": 0.018655327090300156,
+          "mean_ci99": [
+            0.0022278292466960683,
+            0.04331253920681883
+          ],
+          "proxy_kernel": [
+            127.709277550726,
+            147.70228973410545,
+            162.9873035277629,
+            168.59439933543382
+          ],
+          "side": "lower",
+          "signed_log_error": [
+            0.017200663021006996,
+            0.018399787186127423,
+            0.019264586548262585,
+            0.01975627160580362
+          ],
+          "sup_absolute_log_error": 0.01975627160580362,
+          "sup_ci99": [
+            0.0038127916961443694,
+            0.047383218837976304
+          ]
+        },
+        {
+          "absolute_log_error": [
+            0.017201201351606955,
+            0.01841826037036941,
+            0.01934417186242831,
+            0.01987667946689422
+          ],
+          "information_moments": 5,
+          "level_index": 5,
+          "level_label": "M5",
+          "level_name": "zero_radau_3node_5moments_upper",
+          "mean_absolute_log_error": 0.018710078262824725,
+          "mean_ci99": [
+            0.0022672261833288744,
+            0.043367290379343476
+          ],
+          "proxy_kernel": [
+            127.70934630055652,
+            147.70501829091916,
+            163.00027543969918,
+            168.61470064864398
+          ],
+          "side": "upper",
+          "signed_log_error": [
+            0.017201201351606955,
+            0.01841826037036941,
+            0.01934417186242831,
+            0.01987667946689422
+          ],
+          "sup_absolute_log_error": 0.01987667946689422,
+          "sup_ci99": [
+            0.003908674764656413,
+            0.04738375716857624
+          ]
+        }
+      ],
+      "lineage_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "neural_reference": [
+        125.53137766034044,
+        145.0094488574536,
+        159.8774715040268,
+        165.2962890454445
+      ],
+      "neural_reference_ci99": {
+        "kind": "studentized max-absolute-t simultaneous log band",
+        "lower": [
+          121.6086788523741,
+          141.1299686224525,
+          156.04714413637265,
+          161.49596470931436
+        ],
+        "pointwise_log_standard_error": [
+          0.011917769929558784,
+          0.010179798182878374,
+          0.009103122967975615,
+          0.008731426218568117
+        ],
+        "simultaneous_critical_value": 2.6638716455255254,
+        "upper": [
+          129.58060992038628,
+          148.99557098461023,
+          163.80181794408765,
+          169.1860426443167
+        ]
+      },
+      "node_time": [
+        0.0029968226316951212,
+        0.005549912044103944,
+        0.008534879430435113,
+        0.010659436655385922
+      ],
+      "nodewise_transitions": [
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M0",
+          "node": 0.5,
+          "to_level": "M1",
+          "transition_margin": 0.1027961275084396,
+          "transition_margin_ci99_lower": 0.04243101587450105,
+          "transition_margin_ci99_upper": 0.14325496690625095
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M0",
+          "node": 0.75,
+          "to_level": "M1",
+          "transition_margin": 0.2369886671105583,
+          "transition_margin_ci99_lower": 0.1864309315539737,
+          "transition_margin_ci99_upper": 0.29083421110351954
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M0",
+          "node": 0.9,
+          "to_level": "M1",
+          "transition_margin": 0.3249316214458233,
+          "transition_margin_ci99_lower": 0.28066971772374083,
+          "transition_margin_ci99_upper": 0.3742388721089906
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M0",
+          "node": 0.95,
+          "to_level": "M1",
+          "transition_margin": 0.3542831556165391,
+          "transition_margin_ci99_lower": 0.3123027439173058,
+          "transition_margin_ci99_upper": 0.4019089540059195
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.93935,
+          "central_improves_vs_previous": true,
+          "from_level": "M1",
+          "node": 0.5,
+          "to_level": "M2",
+          "transition_margin": 0.003263201875476119,
+          "transition_margin_ci99_lower": -0.0032632018754762274,
+          "transition_margin_ci99_upper": 0.003263201875476362
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.9874,
+          "central_improves_vs_previous": true,
+          "from_level": "M1",
+          "node": 0.75,
+          "to_level": "M2",
+          "transition_margin": 0.013811287963651508,
+          "transition_margin_ci99_lower": -0.007096759139155204,
+          "transition_margin_ci99_upper": 0.013811287963651647
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.9978,
+          "central_improves_vs_previous": true,
+          "from_level": "M1",
+          "node": 0.9,
+          "to_level": "M2",
+          "transition_margin": 0.025280526092500446,
+          "transition_margin_ci99_lower": 0.00530401524204076,
+          "transition_margin_ci99_upper": 0.025280526092500644
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.999,
+          "central_improves_vs_previous": true,
+          "from_level": "M1",
+          "node": 0.95,
+          "to_level": "M2",
+          "transition_margin": 0.030049246809361524,
+          "transition_margin_ci99_lower": 0.01017735046182128,
+          "transition_margin_ci99_upper": 0.030049246809361864
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.07705,
+          "central_improves_vs_previous": false,
+          "from_level": "M2",
+          "node": 0.5,
+          "to_level": "M3",
+          "transition_margin": -0.00024260233036329376,
+          "transition_margin_ci99_lower": -0.00024260233036347417,
+          "transition_margin_ci99_upper": 0.00024260233036335144
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.0482,
+          "central_improves_vs_previous": false,
+          "from_level": "M2",
+          "node": 0.75,
+          "to_level": "M3",
+          "transition_margin": -0.0020698759168383055,
+          "transition_margin_ci99_lower": -0.002069875916838427,
+          "transition_margin_ci99_upper": 0.002069875916838291
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.0365,
+          "central_improves_vs_previous": false,
+          "from_level": "M2",
+          "node": 0.9,
+          "to_level": "M3",
+          "transition_margin": -0.00504749416706286,
+          "transition_margin_ci99_lower": -0.005047494167063046,
+          "transition_margin_ci99_upper": 0.0050474941670628805
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.0316,
+          "central_improves_vs_previous": false,
+          "from_level": "M2",
+          "node": 0.95,
+          "to_level": "M3",
+          "transition_margin": -0.006504403844892193,
+          "transition_margin_ci99_lower": -0.006504403844892384,
+          "transition_margin_ci99_upper": 0.006504403844892202
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.9242,
+          "central_improves_vs_previous": true,
+          "from_level": "M3",
+          "node": 0.5,
+          "to_level": "M4",
+          "transition_margin": 8.15713278578753e-06,
+          "transition_margin_ci99_lower": -8.157132785957966e-06,
+          "transition_margin_ci99_upper": 8.157132786082433e-06
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.9599,
+          "central_improves_vs_previous": true,
+          "from_level": "M3",
+          "node": 0.75,
+          "to_level": "M4",
+          "transition_margin": 0.0001388371757880813,
+          "transition_margin_ci99_lower": -0.00013883717578813595,
+          "transition_margin_ci99_upper": 0.00013883717578827212
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.97985,
+          "central_improves_vs_previous": true,
+          "from_level": "M3",
+          "node": 0.9,
+          "to_level": "M4",
+          "transition_margin": 0.0004482775251540526,
+          "transition_margin_ci99_lower": -0.0004482775251540734,
+          "transition_margin_ci99_upper": 0.00044827752515422953
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.98505,
+          "central_improves_vs_previous": true,
+          "from_level": "M3",
+          "node": 0.95,
+          "to_level": "M4",
+          "transition_margin": 0.0006250832600086416,
+          "transition_margin_ci99_lower": -0.0006250832600084976,
+          "transition_margin_ci99_upper": 0.0006250832600086815
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.0758,
+          "central_improves_vs_previous": false,
+          "from_level": "M4",
+          "node": 0.5,
+          "to_level": "M5",
+          "transition_margin": -5.383305999584476e-07,
+          "transition_margin_ci99_lower": -5.38330600225595e-07,
+          "transition_margin_ci99_upper": 5.383306001028654e-07
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.04075,
+          "central_improves_vs_previous": false,
+          "from_level": "M4",
+          "node": 0.75,
+          "to_level": "M5",
+          "transition_margin": -1.847318424198774e-05,
+          "transition_margin_ci99_lower": -1.847318424216121e-05,
+          "transition_margin_ci99_upper": 1.8473184242022433e-05
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.02085,
+          "central_improves_vs_previous": false,
+          "from_level": "M4",
+          "node": 0.9,
+          "to_level": "M5",
+          "transition_margin": -7.958531416572476e-05,
+          "transition_margin_ci99_lower": -7.958531416599798e-05,
+          "transition_margin_ci99_upper": 7.958531416583925e-05
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.01605,
+          "central_improves_vs_previous": false,
+          "from_level": "M4",
+          "node": 0.95,
+          "to_level": "M5",
+          "transition_margin": -0.00012040786109059759,
+          "transition_margin_ci99_lower": -0.00012040786109078147,
+          "transition_margin_ci99_upper": 0.00012040786109060626
+        }
+      ],
+      "physical_nodes": [
+        0.5,
+        0.75,
+        0.9,
+        0.95
+      ],
+      "proxy_provenance": {
+        "evaluation": "frozen accepted hierarchy in physical output coordinates",
+        "family": {
+          "baseline": "111",
+          "caveats": [],
+          "coordinate_scope": "physical output y",
+          "drives_training": true,
+          "key": "canonical",
+          "moments": [
+            "280864/4107",
+            "38443196932/5616860517",
+            "37578479127292096/12802987609542045",
+            "21749547365571716077696/13618704359108797313085",
+            "2463577914969508668234788122624/2514423905282563683042386470725"
+          ],
+          "observable": "K",
+          "parameters": {},
+          "source_paths": [
+            "studies/stieltjes_conjecture/theory/certificates_order11.json"
+          ],
+          "source_sha256": [
+            "058fe66f2447b8979282ebc96cf99bb9455ff176f4fae3fc780e009087e2082e"
+          ],
+          "training_target": "1"
+        },
+        "physical_scale": "1"
+      },
+      "successive_improvement": {
+        "all_central_mean_margins_positive": false,
+        "all_central_sup_margins_positive": false,
+        "interpretation": "empirical fixed-width comparison only; bootstrap intervals quantify lineage uncertainty"
+      },
+      "transitions": [
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves": true,
+          "central_margin": 0.3542831556165391,
+          "configuration": "C",
+          "from_error": 0.39820935344682074,
+          "from_level": "M0",
+          "margin_ci99_lower": 0.3123027439173058,
+          "margin_ci99_upper": 0.4019089540059195,
+          "metric": "sup_absolute_log_error",
+          "to_error": 0.043926197830281594,
+          "to_level": "M1"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.99805,
+          "central_improves": true,
+          "central_margin": 0.026959980006852104,
+          "configuration": "C",
+          "from_error": 0.043926197830281594,
+          "from_level": "M1",
+          "margin_ci99_lower": 0.006415039697345103,
+          "margin_ci99_upper": 0.03004924680936168,
+          "metric": "sup_absolute_log_error",
+          "to_error": 0.01696621782342949,
+          "to_level": "M2"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.04005,
+          "central_improves": false,
+          "central_margin": -0.003415137042382773,
+          "configuration": "C",
+          "from_error": 0.01696621782342949,
+          "from_level": "M2",
+          "margin_ci99_lower": -0.006504403844892193,
+          "margin_ci99_upper": 0.00024260233036334147,
+          "metric": "sup_absolute_log_error",
+          "to_error": 0.020381354865812263,
+          "to_level": "M3"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.9611,
+          "central_improves": true,
+          "central_margin": 0.0006250832600086416,
+          "configuration": "C",
+          "from_error": 0.020381354865812263,
+          "from_level": "M3",
+          "margin_ci99_lower": -8.157132785939318e-06,
+          "margin_ci99_upper": 0.000625083260008678,
+          "metric": "sup_absolute_log_error",
+          "to_error": 0.01975627160580362,
+          "to_level": "M4"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.04085,
+          "central_improves": false,
+          "central_margin": -0.00012040786109059759,
+          "configuration": "C",
+          "from_error": 0.01975627160580362,
+          "from_level": "M4",
+          "margin_ci99_lower": -0.000120407861090778,
+          "margin_ci99_upper": 5.383306000876845e-07,
+          "metric": "sup_absolute_log_error",
+          "to_error": 0.01987667946689422,
+          "to_level": "M5"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves": true,
+          "central_margin": 0.25474989292034006,
+          "configuration": "C",
+          "from_error": 0.2883452804045326,
+          "from_level": "M0",
+          "margin_ci99_lower": 0.2054354686873028,
+          "margin_ci99_upper": 0.30250515909813214,
+          "metric": "mean_absolute_log_error",
+          "to_error": 0.03359538748419253,
+          "to_level": "M1"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.99635,
+          "central_improves": true,
+          "central_margin": 0.018101065685247397,
+          "configuration": "C",
+          "from_error": 0.03359538748419253,
+          "from_level": "M1",
+          "margin_ci99_lower": 0.0013344431053456348,
+          "margin_ci99_upper": 0.018101065685247546,
+          "metric": "mean_absolute_log_error",
+          "to_error": 0.015494321798945134,
+          "to_level": "M2"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.0385,
+          "central_improves": false,
+          "central_margin": -0.003466094064789163,
+          "configuration": "C",
+          "from_error": 0.015494321798945134,
+          "from_level": "M2",
+          "margin_ci99_lower": -0.0034660940647892498,
+          "margin_ci99_upper": 0.0034660940647891474,
+          "metric": "mean_absolute_log_error",
+          "to_error": 0.018960415863734297,
+          "to_level": "M3"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.9839,
+          "central_improves": true,
+          "central_margin": 0.0003050887734341416,
+          "configuration": "C",
+          "from_error": 0.018960415863734297,
+          "from_level": "M3",
+          "margin_ci99_lower": -0.0003050887734341312,
+          "margin_ci99_upper": 0.00030508877343423356,
+          "metric": "mean_absolute_log_error",
+          "to_error": 0.018655327090300156,
+          "to_level": "M4"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.0161,
+          "central_improves": false,
+          "central_margin": -5.4751172524569736e-05,
+          "configuration": "C",
+          "from_error": 0.018655327090300156,
+          "from_level": "M4",
+          "margin_ci99_lower": -5.4751172524708513e-05,
+          "margin_ci99_upper": 5.4751172524609634e-05,
+          "metric": "mean_absolute_log_error",
+          "to_error": 0.018710078262824725,
+          "to_level": "M5"
+        }
+      ],
+      "width": 8192
+    },
+    "M": {
+      "antithetic_lineages": 16,
+      "block_provenance": [
+        {
+          "arrays_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/runs/M_n8192_L0_8/arrays.npz",
+          "arrays_sha256": "2019ee33e1379f79a739f2e3b3a921b800b603aa74f1aee687a11a7ec3ff7e4c",
+          "elapsed_seconds": 100.21807126328349,
+          "lineage_start": 0,
+          "lineage_stop": 8,
+          "manifest_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/runs/M_n8192_L0_8/MANIFEST.json",
+          "manifest_sha256": "0f2d7339f40324bd11706c4487f928f1d8a3b90c2b457ca73c5aef3c770e61da",
+          "max_gpu_allocated_gib": 3.4080324172973633,
+          "max_host_rss_gib": 1.6637535095214844
+        },
+        {
+          "arrays_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/runs/M_n8192_L8_16/arrays.npz",
+          "arrays_sha256": "cc0a3b9e1c1e9b555c9b71bed41193deab4b3289eaf7a308ad9061cbd0d89104",
+          "elapsed_seconds": 101.0188737437129,
+          "lineage_start": 8,
+          "lineage_stop": 16,
+          "manifest_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/runs/M_n8192_L8_16/MANIFEST.json",
+          "manifest_sha256": "21867a14f9c48b13dd3f86ffb4588207faae73654b101601fd84558ccc7716b7",
+          "max_gpu_allocated_gib": 3.4080324172973633,
+          "max_host_rss_gib": 1.6634750366210938
+        }
+      ],
+      "bootstrap": {
+        "clock_rule": "recompute primitive-first ensemble mean-output clock in every resample",
+        "confidence": 0.99,
+        "invalid_replicates": 0,
+        "quantile_method": "linear",
+        "requested_replicates": 20000,
+        "resampling_unit": "whole_antithetic_lineage",
+        "seed": 2026081722,
+        "valid_fraction": 1.0,
+        "valid_replicates": 20000
+      },
+      "configuration": "M",
+      "engine_key": "relative_metric_l2",
+      "execution_environment": {
+        "cublas_workspace_config": ":4096:8",
+        "cuda_version": "13.0",
+        "deterministic_algorithms": true,
+        "device": "cuda:0",
+        "gpu_identity": {
+          "compute_capability": [
+            8,
+            6
+          ],
+          "multi_processor_count": 82,
+          "name": "NVIDIA GeForce RTX 3090",
+          "total_memory_bytes": 25296044032,
+          "uuid": "dca1675a-2081-5d8c-d5d6-8ec5dc75b44e"
+        },
+        "tf32_cudnn": false,
+        "tf32_matmul": false,
+        "torch_version": "2.9.0+cu130"
+      },
+      "levels": [
+        {
+          "absolute_log_error": [
+            0.1346216003940726,
+            0.2880123149714835,
+            0.39081035902238603,
+            0.42576669686314045
+          ],
+          "information_moments": 0,
+          "level_index": 0,
+          "level_label": "M0",
+          "level_name": "ntk_0moments_lower",
+          "mean_absolute_log_error": 0.30980274281277065,
+          "mean_ci99": [
+            0.28525501083479504,
+            0.3357695648705791
+          ],
+          "proxy_kernel": [
+            195.0,
+            195.0,
+            195.0,
+            195.0
+          ],
+          "side": "lower",
+          "signed_log_error": [
+            -0.1346216003940726,
+            -0.2880123149714835,
+            -0.39081035902238603,
+            -0.42576669686314045
+          ],
+          "sup_absolute_log_error": 0.42576669686314045,
+          "sup_ci99": [
+            0.4047919234765014,
+            0.44907723238752256
+          ]
+        },
+        {
+          "absolute_log_error": [
+            0.0203757633989817,
+            0.03205719122286899,
+            0.04304900338447448,
+            0.04750292281573304
+          ],
+          "information_moments": 1,
+          "level_index": 1,
+          "level_label": "M1",
+          "level_name": "zero_radau_1node_1moments_upper",
+          "mean_absolute_log_error": 0.03574622020551455,
+          "mean_ci99": [
+            0.014612568332421534,
+            0.06029395218349016
+          ],
+          "proxy_kernel": [
+            227.69270216962525,
+            268.5585798816568,
+            300.9243550295858,
+            313.02065483234713
+          ],
+          "side": "upper",
+          "signed_log_error": [
+            0.0203757633989817,
+            0.03205719122286899,
+            0.04304900338447448,
+            0.04750292281573304
+          ],
+          "sup_absolute_log_error": 0.04750292281573304,
+          "sup_ci99": [
+            0.024242429482007576,
+            0.06847769620237189
+          ]
+        },
+        {
+          "absolute_log_error": [
+            0.016452279949171075,
+            0.015670535937763665,
+            0.013298512608129752,
+            0.012234663262938279
+          ],
+          "information_moments": 2,
+          "level_index": 2,
+          "level_label": "M2",
+          "level_name": "gauss_1node_2moments_lower",
+          "mean_absolute_log_error": 0.014413997939500694,
+          "mean_ci99": [
+            0.000621574308653509,
+            0.03896172991747628
+          ],
+          "proxy_kernel": [
+            226.80110385039586,
+            264.19366386903476,
+            292.10356971765805,
+            302.1733679404027
+          ],
+          "side": "lower",
+          "signed_log_error": [
+            0.016452279949171075,
+            0.015670535937763665,
+            0.013298512608129752,
+            0.012234663262938279
+          ],
+          "sup_absolute_log_error": 0.016452279949171075,
+          "sup_ci99": [
+            0.0011765018887344829,
+            0.04678533633947771
+          ]
+        },
+        {
+          "absolute_log_error": [
+            0.01676657925254729,
+            0.01829456802713756,
+            0.019611741083914665,
+            0.020334292981349672
+          ],
+          "information_moments": 3,
+          "level_index": 3,
+          "level_label": "M3",
+          "level_name": "zero_radau_2node_3moments_upper",
+          "mean_absolute_log_error": 0.018751795336237297,
+          "mean_ci99": [
+            0.0025912342334255046,
+            0.04329952731421289
+          ],
+          "proxy_kernel": [
+            226.87239848268072,
+            264.88782687553106,
+            293.95351972598553,
+            304.6307990376971
+          ],
+          "side": "upper",
+          "signed_log_error": [
+            0.01676657925254729,
+            0.01829456802713756,
+            0.019611741083914665,
+            0.020334292981349672
+          ],
+          "sup_absolute_log_error": 0.020334292981349672,
+          "sup_ci99": [
+            0.004304356516354478,
+            0.0470996356428539
+          ]
+        },
+        {
+          "absolute_log_error": [
+            0.016755015900147316,
+            0.01810365398898571,
+            0.01900676523628532,
+            0.019495851105839016
+          ],
+          "information_moments": 4,
+          "level_index": 4,
+          "level_label": "M4",
+          "level_name": "gauss_2node_4moments_lower",
+          "mean_absolute_log_error": 0.01834032155781434,
+          "mean_ci99": [
+            0.0022685539759969096,
+            0.04288805353578991
+          ],
+          "proxy_kernel": [
+            226.8697750923549,
+            264.83726089787604,
+            293.7757387282528,
+            304.3754908647018
+          ],
+          "side": "lower",
+          "signed_log_error": [
+            0.016755015900147316,
+            0.01810365398898571,
+            0.01900676523628532,
+            0.019495851105839016
+          ],
+          "sup_absolute_log_error": 0.019495851105839016,
+          "sup_ci99": [
+            0.0038639396158499737,
+            0.047088072290454204
+          ]
+        }
+      ],
+      "lineage_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "neural_reference": [
+        223.10023593268784,
+        260.0858772344993,
+        288.24474191741297,
+        298.4989022963961
+      ],
+      "neural_reference_ci99": {
+        "kind": "studentized max-absolute-t simultaneous log band",
+        "lower": [
+          216.21465490991542,
+          253.25412162897086,
+          281.45476294582204,
+          291.7313189103042
+        ],
+        "pointwise_log_standard_error": [
+          0.011774560285954156,
+          0.009997636007100054,
+          0.008953392325217817,
+          0.008613420877585279
+        ],
+        "simultaneous_critical_value": 2.6624749669149175,
+        "upper": [
+          230.20509545922724,
+          267.10192553526014,
+          295.19852630466687,
+          305.4234800876781
+        ]
+      },
+      "node_time": [
+        0.001695755155802101,
+        0.0031238057728016273,
+        0.004781186363448978,
+        0.005957021060255955
+      ],
+      "nodewise_transitions": [
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M0",
+          "node": 0.5,
+          "to_level": "M1",
+          "transition_margin": 0.11424583699509089,
+          "transition_margin_ci99_lower": 0.05357972421447732,
+          "transition_margin_ci99_upper": 0.15499736379305432
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M0",
+          "node": 0.75,
+          "to_level": "M1",
+          "transition_margin": 0.2559551237486145,
+          "transition_margin_ci99_lower": 0.20600121529697837,
+          "transition_margin_ci99_upper": 0.3087309559477005
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M0",
+          "node": 0.9,
+          "to_level": "M1",
+          "transition_margin": 0.34776135563791155,
+          "transition_margin_ci99_lower": 0.3037011165854744,
+          "transition_margin_ci99_upper": 0.39585906430530443
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M0",
+          "node": 0.95,
+          "to_level": "M1",
+          "transition_margin": 0.3782637740474074,
+          "transition_margin_ci99_lower": 0.3363142272741295,
+          "transition_margin_ci99_upper": 0.42488484509617175
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.93895,
+          "central_improves_vs_previous": true,
+          "from_level": "M1",
+          "node": 0.5,
+          "to_level": "M2",
+          "transition_margin": 0.003923483449810625,
+          "transition_margin_ci99_lower": -0.003923483449810748,
+          "transition_margin_ci99_upper": 0.003923483449810885
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.9894,
+          "central_improves_vs_previous": true,
+          "from_level": "M1",
+          "node": 0.75,
+          "to_level": "M2",
+          "transition_margin": 0.016386655285105328,
+          "transition_margin_ci99_lower": -0.0050481050384534425,
+          "transition_margin_ci99_upper": 0.01638665528510556
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.9986,
+          "central_improves_vs_previous": true,
+          "from_level": "M1",
+          "node": 0.9,
+          "to_level": "M2",
+          "transition_margin": 0.02975049077634473,
+          "transition_margin_ci99_lower": 0.00824980732521144,
+          "transition_margin_ci99_upper": 0.029750490776345076
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.99955,
+          "central_improves_vs_previous": true,
+          "from_level": "M1",
+          "node": 0.95,
+          "to_level": "M2",
+          "transition_margin": 0.035268259552794765,
+          "transition_margin_ci99_lower": 0.013116515029907034,
+          "transition_margin_ci99_upper": 0.03526825955279493
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.083,
+          "central_improves_vs_previous": false,
+          "from_level": "M2",
+          "node": 0.5,
+          "to_level": "M3",
+          "transition_margin": -0.00031429930337621356,
+          "transition_margin_ci99_lower": -0.0003142993033763749,
+          "transition_margin_ci99_upper": 0.00031429930337625064
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.04925,
+          "central_improves_vs_previous": false,
+          "from_level": "M2",
+          "node": 0.75,
+          "to_level": "M3",
+          "transition_margin": -0.0026240320893738955,
+          "transition_margin_ci99_lower": -0.0026240320893741245,
+          "transition_margin_ci99_upper": 0.002624032089373984
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.03815,
+          "central_improves_vs_previous": false,
+          "from_level": "M2",
+          "node": 0.9,
+          "to_level": "M3",
+          "transition_margin": -0.006313228475784914,
+          "transition_margin_ci99_lower": -0.006313228475785219,
+          "transition_margin_ci99_upper": 0.006313228475785052
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.0346,
+          "central_improves_vs_previous": false,
+          "from_level": "M2",
+          "node": 0.95,
+          "to_level": "M3",
+          "transition_margin": -0.008099629718411393,
+          "transition_margin_ci99_lower": -0.008099629718411501,
+          "transition_margin_ci99_upper": 0.008099629718411315
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.9191,
+          "central_improves_vs_previous": true,
+          "from_level": "M3",
+          "node": 0.5,
+          "to_level": "M4",
+          "transition_margin": 1.1563352399972943e-05,
+          "transition_margin_ci99_lower": -1.1563352399884797e-05,
+          "transition_margin_ci99_upper": 1.1563352400007637e-05
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.9626,
+          "central_improves_vs_previous": true,
+          "from_level": "M3",
+          "node": 0.75,
+          "to_level": "M4",
+          "transition_margin": 0.0001909140381518501,
+          "transition_margin_ci99_lower": -0.00019091403815201544,
+          "transition_margin_ci99_upper": 0.00019091403815215888
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.98085,
+          "central_improves_vs_previous": true,
+          "from_level": "M3",
+          "node": 0.9,
+          "to_level": "M4",
+          "transition_margin": 0.0006049758476293458,
+          "transition_margin_ci99_lower": -0.0006049758476294508,
+          "transition_margin_ci99_upper": 0.0006049758476296199
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.98625,
+          "central_improves_vs_previous": true,
+          "from_level": "M3",
+          "node": 0.95,
+          "to_level": "M4",
+          "transition_margin": 0.0008384418755106558,
+          "transition_margin_ci99_lower": -0.0008384418755106311,
+          "transition_margin_ci99_upper": 0.000838441875510812
+        }
+      ],
+      "physical_nodes": [
+        0.5,
+        0.75,
+        0.9,
+        0.95
+      ],
+      "proxy_provenance": {
+        "evaluation": "frozen accepted hierarchy in physical output coordinates",
+        "family": {
+          "baseline": "195",
+          "caveats": [],
+          "coordinate_scope": "physical output y",
+          "drives_training": true,
+          "key": "relative_metric_output",
+          "moments": [
+            "331504/2535",
+            "275663740304/18796708125",
+            "2369760802766848/344136397921875",
+            "366519048951324867590144/89310493073933701171875"
+          ],
+          "observable": "K_lambda",
+          "parameters": {
+            "lambda": "2"
+          },
+          "source_paths": [
+            "studies/mean_field_peeling/quadratic_compiler/campaign1/results_order9_q2_order8.json",
+            "studies/mean_field_peeling/quadratic_compiler/campaign1/hankel_certificates_order9_q2_order8.json"
+          ],
+          "source_sha256": [
+            "02215aa7c18f3550a19f34b89734b6bf5b66a2825e8aa5bc103517767982ee1a",
+            "5d25d3febb64673d3ef88e43490d02886cf1d8b62a7b576ac7714cc1d6e1efa2"
+          ],
+          "training_target": "1"
+        },
+        "physical_scale": "1"
+      },
+      "successive_improvement": {
+        "all_central_mean_margins_positive": false,
+        "all_central_sup_margins_positive": false,
+        "interpretation": "empirical fixed-width comparison only; bootstrap intervals quantify lineage uncertainty"
+      },
+      "transitions": [
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves": true,
+          "central_margin": 0.3782637740474074,
+          "configuration": "M",
+          "from_error": 0.42576669686314045,
+          "from_level": "M0",
+          "margin_ci99_lower": 0.3363142272741295,
+          "margin_ci99_upper": 0.42488484509617175,
+          "metric": "sup_absolute_log_error",
+          "to_error": 0.04750292281573304,
+          "to_level": "M1"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.99895,
+          "central_improves": true,
+          "central_margin": 0.031050642866561964,
+          "configuration": "M",
+          "from_error": 0.04750292281573304,
+          "from_level": "M1",
+          "margin_ci99_lower": 0.010561646771767415,
+          "margin_ci99_upper": 0.03518353789249798,
+          "metric": "sup_absolute_log_error",
+          "to_error": 0.016452279949171075,
+          "to_level": "M2"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.03875,
+          "central_improves": false,
+          "central_margin": -0.0038820130321785967,
+          "configuration": "M",
+          "from_error": 0.016452279949171075,
+          "from_level": "M2",
+          "margin_ci99_lower": -0.008014908058114608,
+          "margin_ci99_upper": 0.00043994929520405345,
+          "metric": "sup_absolute_log_error",
+          "to_error": 0.020334292981349672,
+          "to_level": "M3"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.9636,
+          "central_improves": true,
+          "central_margin": 0.0008384418755106558,
+          "configuration": "M",
+          "from_error": 0.020334292981349672,
+          "from_level": "M3",
+          "margin_ci99_lower": -1.156335239986539e-05,
+          "margin_ci99_upper": 0.0008384418755108085,
+          "metric": "sup_absolute_log_error",
+          "to_error": 0.019495851105839016,
+          "to_level": "M4"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves": true,
+          "central_margin": 0.2740565226072561,
+          "configuration": "M",
+          "from_error": 0.30980274281277065,
+          "from_level": "M0",
+          "margin_ci99_lower": 0.2249610586513049,
+          "margin_ci99_upper": 0.3210886581908143,
+          "metric": "mean_absolute_log_error",
+          "to_error": 0.03574622020551455,
+          "to_level": "M1"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.997,
+          "central_improves": true,
+          "central_margin": 0.021332222266013858,
+          "configuration": "M",
+          "from_error": 0.03574622020551455,
+          "from_level": "M1",
+          "margin_ci99_lower": 0.003128082561456948,
+          "margin_ci99_upper": 0.021332222266014028,
+          "metric": "mean_absolute_log_error",
+          "to_error": 0.014413997939500694,
+          "to_level": "M2"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.0406,
+          "central_improves": false,
+          "central_margin": -0.004337797396736603,
+          "configuration": "M",
+          "from_error": 0.014413997939500694,
+          "from_level": "M2",
+          "margin_ci99_lower": -0.004337797396736718,
+          "margin_ci99_upper": 0.004337797396736617,
+          "metric": "mean_absolute_log_error",
+          "to_error": 0.018751795336237297,
+          "to_level": "M3"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.98455,
+          "central_improves": true,
+          "central_margin": 0.00041147377842295704,
+          "configuration": "M",
+          "from_error": 0.018751795336237297,
+          "from_level": "M3",
+          "margin_ci99_lower": -0.00041147377842295704,
+          "margin_ci99_upper": 0.0004114737784230646,
+          "metric": "mean_absolute_log_error",
+          "to_error": 0.01834032155781434,
+          "to_level": "M4"
+        }
+      ],
+      "width": 8192
+    },
+    "V": {
+      "antithetic_lineages": 16,
+      "block_provenance": [
+        {
+          "arrays_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/runs/V_n8192_L0_8/arrays.npz",
+          "arrays_sha256": "b24a4540bd806f5db815171f6da198925e2de1c0dc217313afd94bb6cc3d252d",
+          "elapsed_seconds": 286.87383483722806,
+          "lineage_start": 0,
+          "lineage_stop": 8,
+          "manifest_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/runs/V_n8192_L0_8/MANIFEST.json",
+          "manifest_sha256": "b20d4aaf1cb70d0b025a4eceda7a325f1f2a5f3165c1a667b1a0f995b14fa004",
+          "max_gpu_allocated_gib": 3.408590316772461,
+          "max_host_rss_gib": 1.6700668334960938
+        },
+        {
+          "arrays_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/runs/V_n8192_L8_16/arrays.npz",
+          "arrays_sha256": "41efccdfc43920efeb69e8d495210f156d3ef45ac2de822c3b3bb20762fcde27",
+          "elapsed_seconds": 282.37891625612974,
+          "lineage_start": 8,
+          "lineage_stop": 16,
+          "manifest_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/runs/V_n8192_L8_16/MANIFEST.json",
+          "manifest_sha256": "c7972f0630e820d2350ecc9c209ccac95ffeacf547e88d70632611cbe229f80c",
+          "max_gpu_allocated_gib": 3.408590316772461,
+          "max_host_rss_gib": 1.6701927185058594
+        }
+      ],
+      "bootstrap": {
+        "clock_rule": "recompute primitive-first ensemble mean-output clock in every resample",
+        "confidence": 0.99,
+        "invalid_replicates": 0,
+        "quantile_method": "linear",
+        "requested_replicates": 20000,
+        "resampling_unit": "whole_antithetic_lineage",
+        "seed": 2026081723,
+        "valid_fraction": 1.0,
+        "valid_replicates": 20000
+      },
+      "configuration": "V",
+      "engine_key": "variance_vhalf",
+      "execution_environment": {
+        "cublas_workspace_config": ":4096:8",
+        "cuda_version": "13.0",
+        "deterministic_algorithms": true,
+        "device": "cuda:0",
+        "gpu_identity": {
+          "compute_capability": [
+            8,
+            6
+          ],
+          "multi_processor_count": 82,
+          "name": "NVIDIA GeForce RTX 3090",
+          "total_memory_bytes": 25296044032,
+          "uuid": "dca1675a-2081-5d8c-d5d6-8ec5dc75b44e"
+        },
+        "tf32_cudnn": false,
+        "tf32_matmul": false,
+        "torch_version": "2.9.0+cu130"
+      },
+      "levels": [
+        {
+          "absolute_log_error": [
+            0.37781090582197707,
+            0.6915188720287776,
+            0.875108986934541,
+            0.9346489430022893
+          ],
+          "information_moments": 0,
+          "level_index": 0,
+          "level_label": "M0",
+          "level_name": "ntk_0moments_lower",
+          "mean_absolute_log_error": 0.7197719269468963,
+          "mean_ci99": [
+            0.7028774472302378,
+            0.7395383490320631
+          ],
+          "proxy_kernel": [
+            36.75,
+            36.75,
+            36.75,
+            36.75
+          ],
+          "side": "lower",
+          "signed_log_error": [
+            -0.37781090582197707,
+            -0.6915188720287776,
+            -0.875108986934541,
+            -0.9346489430022893
+          ],
+          "sup_absolute_log_error": 0.9346489430022893,
+          "sup_ci99": [
+            0.9204744086325815,
+            0.9510861505237581
+          ]
+        },
+        {
+          "absolute_log_error": [
+            0.038856059207036865,
+            0.07998597124720323,
+            0.10874584190547133,
+            0.11826806148847499
+          ],
+          "information_moments": 1,
+          "level_index": 1,
+          "level_label": "M1",
+          "level_name": "zero_radau_1node_1moments_upper",
+          "mean_absolute_log_error": 0.08646398346204662,
+          "mean_ci99": [
+            0.06669756137687972,
+            0.10335846317870506
+          ],
+          "proxy_kernel": [
+            55.74597389976399,
+            79.49094127446898,
+            98.29695543523533,
+            105.325465778148
+          ],
+          "side": "upper",
+          "signed_log_error": [
+            0.038856059207036865,
+            0.07998597124720323,
+            0.10874584190547133,
+            0.11826806148847499
+          ],
+          "sup_absolute_log_error": 0.11826806148847499,
+          "sup_ci99": [
+            0.10183085396700617,
+            0.13244259585818297
+          ]
+        },
+        {
+          "absolute_log_error": [
+            0.012190471598986806,
+            0.009058871806028252,
+            0.034607130934723146,
+            0.04549037143949205
+          ],
+          "information_moments": 2,
+          "level_index": 2,
+          "level_label": "M2",
+          "level_name": "gauss_1node_2moments_lower",
+          "mean_absolute_log_error": 0.025336711444807564,
+          "mean_ci99": [
+            0.020560507554283534,
+            0.03900789773048104
+          ],
+          "proxy_kernel": [
+            54.279118940331955,
+            72.71867476369525,
+            85.16921835639502,
+            89.4157460712897
+          ],
+          "side": "lower",
+          "signed_log_error": [
+            0.012190471598986806,
+            -0.009058871806028252,
+            -0.034607130934723146,
+            -0.04549037143949205
+          ],
+          "sup_absolute_log_error": 0.04549037143949205,
+          "sup_ci99": [
+            0.03254843005794803,
+            0.06192757896096083
+          ]
+        },
+        {
+          "absolute_log_error": [
+            0.017670214657905685,
+            0.02244836884443271,
+            0.02717712442712549,
+            0.028895731385467867
+          ],
+          "information_moments": 3,
+          "level_index": 3,
+          "level_label": "M3",
+          "level_name": "zero_radau_2node_3moments_upper",
+          "mean_absolute_log_error": 0.024047859828732934,
+          "mean_ci99": [
+            0.00797552573540311,
+            0.040942339545391414
+          ],
+          "proxy_kernel": [
+            54.57737099157795,
+            75.04631576979952,
+            90.59729327225836,
+            96.32066639088558
+          ],
+          "side": "upper",
+          "signed_log_error": [
+            0.017670214657905685,
+            0.02244836884443271,
+            0.02717712442712549,
+            0.028895731385467867
+          ],
+          "sup_absolute_log_error": 0.028895731385467867,
+          "sup_ci99": [
+            0.012774352379376552,
+            0.0437844989157329
+          ]
+        },
+        {
+          "absolute_log_error": [
+            0.017172165932233113,
+            0.01757629175818426,
+            0.015547426447548435,
+            0.014125353556045741
+          ],
+          "information_moments": 4,
+          "level_index": 4,
+          "level_label": "M4",
+          "level_name": "gauss_2node_4moments_lower",
+          "mean_absolute_log_error": 0.016105309423502887,
+          "mean_ci99": [
+            0.001554942958401848,
+            0.03299978914016133
+          ],
+          "proxy_kernel": [
+            54.55019556940897,
+            74.68157358185253,
+            89.54977706861638,
+            94.90842906977835
+          ],
+          "side": "lower",
+          "signed_log_error": [
+            0.017172165932233113,
+            0.01757629175818426,
+            0.015547426447548435,
+            0.014125353556045741
+          ],
+          "sup_absolute_log_error": 0.01757629175818426,
+          "sup_ci99": [
+            0.0028627106787049166,
+            0.041141546105177895
+          ]
+        },
+        {
+          "absolute_log_error": [
+            0.01726290757829123,
+            0.019125241763670336,
+            0.020105246842184066,
+            0.020252721819962353
+          ],
+          "information_moments": 5,
+          "level_index": 5,
+          "level_label": "M5",
+          "level_name": "zero_radau_3node_5moments_upper",
+          "mean_absolute_log_error": 0.019186529501026995,
+          "mean_ci99": [
+            0.0038497717106207403,
+            0.03608100921768542
+          ],
+          "proxy_kernel": [
+            54.55514576853894,
+            74.79734124167425,
+            89.95886042492512,
+            95.49175326205334
+          ],
+          "side": "upper",
+          "signed_log_error": [
+            0.01726290757829123,
+            0.019125241763670336,
+            0.020105246842184066,
+            0.020252721819962353
+          ],
+          "sup_absolute_log_error": 0.020252721819962353,
+          "sup_ci99": [
+            0.005846527947575447,
+            0.041232287751236135
+          ]
+        }
+      ],
+      "lineage_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "neural_reference": [
+        53.621447688389516,
+        73.38041670862775,
+        88.16827571976624,
+        93.57723786077932
+      ],
+      "neural_reference_ci99": {
+        "kind": "studentized max-absolute-t simultaneous log band",
+        "lower": [
+          52.19977875896546,
+          71.93934909148388,
+          86.67924450933306,
+          92.05541793078478
+        ],
+        "pointwise_log_standard_error": [
+          0.009788277491798052,
+          0.007224842219015707,
+          0.006204535642689215,
+          0.005972732710774406
+        ],
+        "simultaneous_critical_value": 2.7452097631807586,
+        "upper": [
+          55.08183598776001,
+          74.85035136312197,
+          89.68288645570398,
+          95.12421585263905
+        ]
+      },
+      "node_time": [
+        0.00815019652322216,
+        0.013597131768028204,
+        0.01921528255784404,
+        0.023014751972728727
+      ],
+      "nodewise_transitions": [
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M0",
+          "node": 0.5,
+          "to_level": "M1",
+          "transition_margin": 0.3389548466149402,
+          "transition_margin_ci99_lower": 0.2910160862690507,
+          "transition_margin_ci99_upper": 0.39089741391826854
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M0",
+          "node": 0.75,
+          "to_level": "M1",
+          "transition_margin": 0.6115329007815744,
+          "transition_margin_ci99_lower": 0.5777702240511146,
+          "transition_margin_ci99_upper": 0.6516755854034137
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M0",
+          "node": 0.9,
+          "to_level": "M1",
+          "transition_margin": 0.7663631450290697,
+          "transition_margin_ci99_lower": 0.7371768653305943,
+          "transition_margin_ci99_upper": 0.8011283977655181
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M0",
+          "node": 0.95,
+          "to_level": "M1",
+          "transition_margin": 0.8163808815138143,
+          "transition_margin_ci99_lower": 0.7880318127743985,
+          "transition_margin_ci99_upper": 0.849255296556752
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.99435,
+          "central_improves_vs_previous": true,
+          "from_level": "M1",
+          "node": 0.5,
+          "to_level": "M2",
+          "transition_margin": 0.02666558760805006,
+          "transition_margin_ci99_lower": -0.0008960364973045215,
+          "transition_margin_ci99_upper": 0.02666558760805028
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M1",
+          "node": 0.75,
+          "to_level": "M2",
+          "transition_margin": 0.07092709944117498,
+          "transition_margin_ci99_lower": 0.03078441481933566,
+          "transition_margin_ci99_upper": 0.08904484305323153
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M1",
+          "node": 0.9,
+          "to_level": "M2",
+          "transition_margin": 0.07413871097074819,
+          "transition_margin_ci99_lower": 0.039373458234299774,
+          "transition_margin_ci99_upper": 0.10332499066922346
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves_vs_previous": true,
+          "from_level": "M1",
+          "node": 0.95,
+          "to_level": "M2",
+          "transition_margin": 0.07277769004898293,
+          "transition_margin_ci99_lower": 0.039903275006045354,
+          "transition_margin_ci99_upper": 0.10112675878839883
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.06555,
+          "central_improves_vs_previous": false,
+          "from_level": "M2",
+          "node": 0.5,
+          "to_level": "M3",
+          "transition_margin": -0.005479743058918879,
+          "transition_margin_ci99_lower": -0.0054797430589191495,
+          "transition_margin_ci99_upper": 0.005479743058919007
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.1867,
+          "central_improves_vs_previous": false,
+          "from_level": "M2",
+          "node": 0.75,
+          "to_level": "M3",
+          "transition_margin": -0.013389497038404459,
+          "transition_margin_ci99_lower": -0.031507240650461,
+          "transition_margin_ci99_upper": 0.02675318758343486
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.7362,
+          "central_improves_vs_previous": true,
+          "from_level": "M2",
+          "node": 0.9,
+          "to_level": "M3",
+          "transition_margin": 0.007430006507597654,
+          "transition_margin_ci99_lower": -0.0217562731908776,
+          "transition_margin_ci99_upper": 0.04219525924404603
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.92895,
+          "central_improves_vs_previous": true,
+          "from_level": "M2",
+          "node": 0.95,
+          "to_level": "M3",
+          "transition_margin": 0.016594640054024182,
+          "transition_margin_ci99_lower": -0.0117544286853916,
+          "transition_margin_ci99_upper": 0.04946905509696186
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.9591,
+          "central_improves_vs_previous": true,
+          "from_level": "M3",
+          "node": 0.5,
+          "to_level": "M4",
+          "transition_margin": 0.0004980487256725716,
+          "transition_margin_ci99_lower": -0.0004980487256726358,
+          "transition_margin_ci99_upper": 0.0004980487256727797
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.99485,
+          "central_improves_vs_previous": true,
+          "from_level": "M3",
+          "node": 0.75,
+          "to_level": "M4",
+          "transition_margin": 0.004872077086248452,
+          "transition_margin_ci99_lower": -0.00011802401922227185,
+          "transition_margin_ci99_upper": 0.004872077086248497
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.99885,
+          "central_improves_vs_previous": true,
+          "from_level": "M3",
+          "node": 0.9,
+          "to_level": "M4",
+          "transition_margin": 0.011629697979577056,
+          "transition_margin_ci99_lower": 0.007959298138225586,
+          "transition_margin_ci99_upper": 0.01162969797957732
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.9993,
+          "central_improves_vs_previous": true,
+          "from_level": "M3",
+          "node": 0.95,
+          "to_level": "M4",
+          "transition_margin": 0.014770377829422126,
+          "transition_margin_ci99_lower": 0.010146669898575853,
+          "transition_margin_ci99_upper": 0.014770377829422341
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.0426,
+          "central_improves_vs_previous": false,
+          "from_level": "M4",
+          "node": 0.5,
+          "to_level": "M5",
+          "transition_margin": -9.074164605811508e-05,
+          "transition_margin_ci99_lower": -9.07416460583059e-05,
+          "transition_margin_ci99_upper": 9.074164605816538e-05
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.00905,
+          "central_improves_vs_previous": false,
+          "from_level": "M4",
+          "node": 0.75,
+          "to_level": "M5",
+          "transition_margin": -0.0015489500054860772,
+          "transition_margin_ci99_lower": -0.001548950005486202,
+          "transition_margin_ci99_upper": 0.0015489500054859761
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.0042,
+          "central_improves_vs_previous": false,
+          "from_level": "M4",
+          "node": 0.9,
+          "to_level": "M5",
+          "transition_margin": -0.00455782039463563,
+          "transition_margin_ci99_lower": -0.004557820394635742,
+          "transition_margin_ci99_upper": -0.0008874205532839995
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.00395,
+          "central_improves_vs_previous": false,
+          "from_level": "M4",
+          "node": 0.95,
+          "to_level": "M5",
+          "transition_margin": -0.006127368263916612,
+          "transition_margin_ci99_lower": -0.006127368263916806,
+          "transition_margin_ci99_upper": -0.0015036603330703777
+        }
+      ],
+      "physical_nodes": [
+        0.5,
+        0.75,
+        0.9,
+        0.95
+      ],
+      "proxy_provenance": {
+        "evaluation": "frozen accepted hierarchy in physical output coordinates",
+        "family": {
+          "baseline": "147/2",
+          "caveats": [
+            "This is the normalized kernel kappa_alpha(z)=K_alpha(alpha*z)/alpha.",
+            "For alpha>0, physical label one is the normalized target z*=1/alpha; at alpha=0 there is no finite physical target in this chart.",
+            "At alpha=0 it is the exact singular Lambert-W calibration boundary; at alpha=1 it is canonical."
+          ],
+          "coordinate_scope": "normalized output z=y/alpha",
+          "drives_training": true,
+          "key": "variance_homotopy",
+          "moments": [
+            "273656/7203",
+            "72741803528/22880495169",
+            "6606640287719168/5768287234580745",
+            "67114984662137162040832/128261679498764922947445",
+            "4939439015851987908113402842112/18334177872590486220110407518075"
+          ],
+          "observable": "kappa_alpha",
+          "parameters": {
+            "alpha": "1/2"
+          },
+          "source_paths": [
+            "studies/stieltjes_conjecture/theory/sector_total_nonnegativity.py",
+            "studies/stieltjes_conjecture/theory/finite_variance_hankel_audit.py",
+            "studies/stieltjes_conjecture/theory/variance_homotopy_boundary_audit.py"
+          ],
+          "source_sha256": [
+            "0b264ff82a516473967b9a8aab88251504db619cbb8148197e41229e4fb81bd0",
+            "63e53b6e474e4c334c1733e73f8d9ac4be252ed0b72ad2dda645bdf525563308",
+            "fb827121fc984807fd3de03f18a3b9e501d3fc896cd158f9a0e295c8e6e39783"
+          ],
+          "training_target": "2"
+        },
+        "physical_scale": "1/2"
+      },
+      "successive_improvement": {
+        "all_central_mean_margins_positive": false,
+        "all_central_sup_margins_positive": false,
+        "interpretation": "empirical fixed-width comparison only; bootstrap intervals quantify lineage uncertainty"
+      },
+      "transitions": [
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves": true,
+          "central_margin": 0.8163808815138143,
+          "configuration": "V",
+          "from_error": 0.9346489430022893,
+          "from_level": "M0",
+          "margin_ci99_lower": 0.7880318127743985,
+          "margin_ci99_upper": 0.849255296556752,
+          "metric": "sup_absolute_log_error",
+          "to_error": 0.11826806148847499,
+          "to_level": "M1"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves": true,
+          "central_margin": 0.07277769004898293,
+          "configuration": "V",
+          "from_error": 0.11826806148847499,
+          "from_level": "M1",
+          "margin_ci99_lower": 0.039903275006045354,
+          "margin_ci99_upper": 0.09941087038031156,
+          "metric": "sup_absolute_log_error",
+          "to_error": 0.04549037143949205,
+          "to_level": "M2"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.927,
+          "central_improves": true,
+          "central_margin": 0.016594640054024182,
+          "configuration": "V",
+          "from_error": 0.04549037143949205,
+          "from_level": "M2",
+          "margin_ci99_lower": -0.010038540277304378,
+          "margin_ci99_upper": 0.04928740374618901,
+          "metric": "sup_absolute_log_error",
+          "to_error": 0.028895731385467867,
+          "to_level": "M3"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.99745,
+          "central_improves": true,
+          "central_margin": 0.011319439627283608,
+          "configuration": "V",
+          "from_error": 0.028895731385467867,
+          "from_level": "M3",
+          "margin_ci99_lower": 0.0004980487256724675,
+          "margin_ci99_upper": 0.014592433586647448,
+          "metric": "sup_absolute_log_error",
+          "to_error": 0.01757629175818426,
+          "to_level": "M4"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.01115,
+          "central_improves": false,
+          "central_margin": -0.0026764300617780935,
+          "configuration": "V",
+          "from_error": 0.01757629175818426,
+          "from_level": "M4",
+          "margin_ci99_lower": -0.005949424021141905,
+          "margin_ci99_upper": 9.074164605811334e-05,
+          "metric": "sup_absolute_log_error",
+          "to_error": 0.020252721819962353,
+          "to_level": "M5"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves": true,
+          "central_margin": 0.6333079434848496,
+          "configuration": "V",
+          "from_error": 0.7197719269468963,
+          "from_level": "M0",
+          "margin_ci99_lower": 0.5995189840515328,
+          "margin_ci99_upper": 0.6728407876551834,
+          "metric": "mean_absolute_log_error",
+          "to_error": 0.08646398346204662,
+          "to_level": "M1"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 1.0,
+          "central_improves": true,
+          "central_margin": 0.061127272017239054,
+          "configuration": "V",
+          "from_error": 0.08646398346204662,
+          "from_level": "M1",
+          "margin_ci99_lower": 0.027689663646398688,
+          "margin_ci99_upper": 0.08003782086475357,
+          "metric": "mean_absolute_log_error",
+          "to_error": 0.025336711444807564,
+          "to_level": "M2"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.5577,
+          "central_improves": true,
+          "central_margin": 0.0012888516160746294,
+          "configuration": "V",
+          "from_error": 0.025336711444807564,
+          "from_level": "M2",
+          "margin_ci99_lower": -0.017621697231439908,
+          "margin_ci99_upper": 0.03092012905517008,
+          "metric": "mean_absolute_log_error",
+          "to_error": 0.024047859828732934,
+          "to_level": "M3"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.9987,
+          "central_improves": true,
+          "central_margin": 0.007942550405230047,
+          "configuration": "V",
+          "from_error": 0.024047859828732934,
+          "from_level": "M3",
+          "margin_ci99_lower": 0.004426656013647045,
+          "margin_ci99_upper": 0.00794255040523015,
+          "metric": "mean_absolute_log_error",
+          "to_error": 0.016105309423502887,
+          "to_level": "M4"
+        },
+        {
+          "bootstrap_probability_margin_gt_zero": 0.0045,
+          "central_improves": false,
+          "central_margin": -0.0030812200775241078,
+          "configuration": "V",
+          "from_error": 0.016105309423502887,
+          "from_level": "M4",
+          "margin_ci99_lower": -0.003081220077524177,
+          "margin_ci99_upper": -0.00028892011929115363,
+          "metric": "mean_absolute_log_error",
+          "to_error": 0.019186529501026995,
+          "to_level": "M5"
+        }
+      ],
+      "width": 8192
+    }
+  },
+  "error_metrics": {
+    "aggregate_mean": "mean over the four physical nodes of nodewise absolute log error",
+    "aggregate_sup": "max over the four physical nodes of nodewise absolute log error",
+    "nodewise": "abs(log(proxy_kernel/neural_reference))",
+    "transition_margin": "previous-level aggregate error minus next-level aggregate error; positive means improvement"
+  },
+  "generated_utc": "2026-08-17T22:32:45.771340+00:00",
+  "matplotlib_version": "3.8.4",
+  "numpy_version": "1.26.4",
+  "outputs": {
+    "aggregate_csv": "aggregate_errors.csv",
+    "aggregate_plot": "aggregate_errors.png",
+    "curves_plot": "proxy_curves.png",
+    "nodewise_csv": "nodewise_errors.csv",
+    "results_json": "RESULTS.json",
+    "transitions_csv": "transition_margins.csv",
+    "transitions_plot": "transition_margins.png"
+  },
+  "schema": "breadth-successive-n8192-analysis-result-v1",
+  "scope": "empirical successive proxy-error test against one common n=8192 FP64 neural reference per configuration; no coefficient derivation and no higher-width branch",
+  "status": "complete",
+  "uncertainty_scope": "neural reference: 99% studentized simultaneous log band; proxy errors and transition margins: 99% whole-lineage pair-bootstrap percentile intervals; numerical-step and width uncertainty are not included",
+  "validated_fp64_source_lock_sha256": "5f1bd2b4160eac4508e2fe34d39c7df6f44187100e1beaa650cbe9c208cd0ea6"
+}

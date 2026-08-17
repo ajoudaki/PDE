@@ -1,0 +1,50 @@
+{
+  "schema": "breadth-successive-n8192-fp64-v1",
+  "status": "authorized-execution",
+  "seed": 2026081407,
+  "width": 8192,
+  "step": 0.00001,
+  "nodes": [0.5, 0.75, 0.9, 0.95],
+  "lineage_blocks": [[0, 8], [8, 16]],
+  "configurations": {
+    "C": {
+      "engine_key": "canonical",
+      "max_time": 0.016,
+      "monitor_seed": 2026081410
+    },
+    "A": {
+      "engine_key": "centered_c1",
+      "max_time": 0.022,
+      "monitor_seed": 2026081411
+    },
+    "M": {
+      "engine_key": "relative_metric_l2",
+      "max_time": 0.009,
+      "monitor_seed": 2026081412
+    },
+    "V": {
+      "engine_key": "variance_vhalf",
+      "max_time": 0.03,
+      "monitor_seed": 2026081413
+    }
+  },
+  "point_caps": {
+    "wall_seconds_per_8_lineage_block": 300,
+    "gpu_memory_gib": 6,
+    "host_rss_gib": 8,
+    "kernel_ceiling": 1000000,
+    "state_ceiling": 10000
+  },
+  "bootstrap": {
+    "replicates": 20000,
+    "confidence": 0.99,
+    "minimum_valid_fraction": 0.95,
+    "seed_by_configuration": {
+      "C": 2026081720,
+      "A": 2026081721,
+      "M": 2026081722,
+      "V": 2026081723
+    }
+  },
+  "scope": "empirical successive proxy-error test against one common n=8192 FP64 neural reference per configuration; no coefficient derivation and no higher-width branch"
+}

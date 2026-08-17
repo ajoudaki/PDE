@@ -22,8 +22,14 @@ The numerical work is split into four branches:
   it qualifies that local numerical witness.  The subsequent
   [FP64 n=4096 successive-proxy experiment](hybrid_mean_field_campaign/breadth_panel/successive_n4096/RESULTS.md)
   ran 16 lineages for C/A/M/V and compared every already-accepted level: M2
-  was centrally best at every node, while strict adjacent-order improvement
-  failed.  That result remains one-width evidence and is not a width screen.
+  was centrally best at every node, while the central adjacent-order error
+  sequence failed strict improvement. The matched
+  [FP64 n=8192 successor](hybrid_mean_field_campaign/breadth_panel/successive_n8192/RESULTS.md)
+  retained M2 for C/A/M and shifted V's central aggregate optimum to M4.
+  The central all-order error sequences still failed strict improvement for
+  all four configurations, and every 99% paired width-change interval crossed
+  zero. These are two-width empirical results, not a width-limit
+  extrapolation.
 
 Each branch keeps code and protocols near the relevant campaign and stores
 generated outputs under branch- or campaign-local `runs/` directories.

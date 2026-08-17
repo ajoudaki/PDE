@@ -2,7 +2,7 @@
 
 ## Authoritative research state, exact certificates, failed routes, and conditional ODE reconstruction
 
-**Status as of 17 August 2026:** compatible with every condition decidable
+**Status as of 18 August 2026:** compatible with every condition decidable
 from the first five exact canonical moments and with all finite-order Hankel
 tests in four exact parameter-continuum campaigns; a fifth three-input
 campaign established exact lower jets and $\mu_0,\mu_1>0$ but did not reach a
@@ -12,8 +12,12 @@ of statistical resolution.  A subsequent breadth-first FP32 Euler panel was
 stopped at its local integrator-validation gate before any width extrapolation
 or proxy comparison.  A separately frozen FP64 explicit-Euler successor then
 passed the same local A/M/V gates from the exact FP32-rounded initial states;
-it qualifies the numerical method locally but still adds no width or
-Stieltjes evidence.  The conjecture is neither proved nor falsified.
+it qualifies the numerical method locally. Matched FP64 experiments at
+$n=4096$ and $n=8192$ then compared every accepted proxy level for C/A/M/V.
+The central all-order error sequences failed strict improvement at both
+widths; C/A/M selected M2 centrally at both widths, while V selected M2
+centrally at 4096 and M4 centrally at 8192. Every 99% paired width-change
+interval still crossed zero. The conjecture is neither proved nor falsified.
 
 This is the single authoritative, self-contained account of the
 Stieltjes-conjecture investigation. It supersedes the historical report in
@@ -42,7 +46,8 @@ own sibling study:
   global-curve pilot.
 - [`numerics/hybrid_mean_field_campaign/`](numerics/hybrid_mean_field_campaign/)
   contains the bounded-DMFT Stage-0 audit, canonical FP32 Euler qualification,
-  the stopped breadth-first proxy panel, and its passed FP64 local successor.
+  the stopped breadth-first proxy panel, its passed FP64 local successor, and
+  the matched $n=4096/8192$ successive-proxy experiments.
 
 Paths embedded inside frozen result manifests record where files lived when a
 run was executed.  They are historical provenance, not the current layout.
@@ -68,7 +73,8 @@ The main claim levels are:
 | Bounded-readout DMFT Stage 0 | Response contacts and truncated-law low jets pass; positive-time solver locked and unrun |
 | Canonical FP32 Euler Stage V | $h=5\times10^{-6}$ failed frozen rounding/driver gates; numerical-method inconclusive |
 | Breadth-first FP32 Euler proxy panel | Local validation stopped after two of three one-input configurations failed update-geometry gates; no width screen or proxy-accuracy inference |
-| FP64 explicit-Euler local successor | A/M/V all pass the unchanged local gates from exact FP32-rounded initial states; replicated width screen eligible for separate authorization but not launched |
+| FP64 explicit-Euler local successor | A/M/V all pass the unchanged local gates from exact FP32-rounded initial states; at that qualification cutoff, a replicated width screen was eligible for separate authorization but had not been launched |
+| FP64 $n=4096/8192$ successive-proxy comparison | C/A/M retain M2 centrally; V changes centrally from M2 to M4; the central all-order error sequences fail strict improvement at both widths and every 99% paired width-change interval crosses zero |
 | Order-thirteen numerical estimate | Inconclusive; useful only as a target |
 
 The core verdict is
@@ -1711,8 +1717,41 @@ Stieltjes moment proxies.
 
 The [FP64 successor result](numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/RESULTS.md)
 therefore makes a replicated FP64 width-4096/8192 breadth screen eligible for
-separate authorization.  No such screen, two-input trajectory, RK4 branch,
-or $n=16384$ run was launched.
+separate authorization. At the local-qualification cutoff no such screen,
+two-input trajectory, RK4 branch, or $n=16384$ run had been launched. The
+later separately named one-input comparisons are recorded next.
+
+### 10.5 FP64 n=4096 and n=8192 successive-proxy comparisons
+
+The authorized successor used the same seed, 16 nested antithetic lineages,
+FP64 Euler step $10^{-5}$, physical nodes $(.5,.75,.9,.95)$, horizons, and
+accepted proxy coefficients at both widths. Every bootstrap resample reused
+the same lineage multiplicities across widths but independently inverted the
+common output clock at each width. All 20,000 draws were jointly valid.
+
+Central sup absolute-log errors at $n=8192$ were
+
+| configuration | M0 | M1 | M2 | M3 | M4 | M5 | best |
+|---|---:|---:|---:|---:|---:|---:|---|
+| C | .39821 | .04393 | **.01697** | .02038 | .01976 | .01988 | M2 |
+| A | .75320 | .09751 | **.01825** | .02939 | -- | -- | M2 |
+| M | .42577 | .04750 | **.01645** | .02033 | .01950 | -- | M2 |
+| V | .93465 | .11827 | .04549 | .02890 | **.01758** | .02025 | M4 |
+
+C/A/M retained M2 as their central optimum and roughly halved its central error from
+$n=4096$. V changed centrally from M2 to M4: at $n=8192$, M2 remained best at
+the early nodes while M4 was best at $.9$ and $.95$ and under both aggregate
+metrics. The central successive-error sequences nevertheless failed strict
+improvement in every configuration: C/A/M worsened centrally at M2 to M3,
+and V worsened centrally at M4 to M5.
+
+The neural kernel rose centrally by about 1.07--2.24% across all 16
+configuration/node cells. Higher proxies generally moved closer while M0
+moved farther, but every 99% paired neural-shift and proxy-error-change
+interval crossed zero. The width-difference evidence is therefore coherent
+but statistically unresolved at the registered level. It does not establish
+a width limit, convergence of the proxy hierarchy to the neural curve, or a
+new Stieltjes result.
 
 ## 11. Strong positive-operator route
 
@@ -1996,11 +2035,12 @@ Proved or computationally certified:
 16. the separately frozen FP64 A/M/V explicit-Euler local qualification,
    which passed every unchanged local gate and supports an FP32 rounding-floor
    explanation only at numerical-method claim level; and
-17. the replicated FP64 (n=4096) C/A/M/V successive-proxy comparison, in
-   which M2 was the central best approximation at every registered node while
-   strict M0--M1--M2--... error improvement failed in every configuration;
-   this is fixed-width empirical evidence with lineage uncertainty, not a
-   width limit or new Stieltjes theorem.
+17. the replicated, nested FP64 $n=4096/8192$ C/A/M/V successive-proxy
+   comparisons: C/A/M retained M2 centrally, V changed centrally from M2 to
+   M4, and the central M0--M1--M2--... error sequences failed strict
+   improvement in every configuration at both widths; every 99% paired
+   width-change interval crossed zero, so this remains two-width empirical
+   evidence rather than a limit theorem.
 
 Open:
 
@@ -2017,9 +2057,9 @@ Open:
 6. uniform convergence of the conditional rational-ODE hierarchy to that
    actual curve and its loss, together with a finite-width reference design
    capable of resolving corrections beyond the first moment; and
-7. a multi-width FP64 follow-up capable of separating the observed (n=4096)
-   bias cancellation from the width limit; the completed one-width comparison
-   did not run (n=8192) or authorize width extrapolation.
+7. a wider or more highly replicated FP64 study capable of resolving the
+   observed $n=4096/8192$ paired shifts and separating finite-width bias from
+   the width limit; two widths do not authorize extrapolation.
 
 ## 15. Completed order-thirteen searches and portfolio stop
 
@@ -2116,6 +2156,9 @@ The durable source-of-truth map is:
 - [the FP64 n=4096 successive-proxy result](numerics/hybrid_mean_field_campaign/breadth_panel/successive_n4096/RESULTS.md)
   for the 16-lineage C/A/M/V neural references, M0-through-highest frozen
   comparisons, 20,000-resample uncertainty, and the observed M2 optimum;
+- [the FP64 n=8192 result and paired-width comparison](numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/RESULTS.md)
+  for the nested 16-lineage replication, the V optimum's central M2-to-M4
+  change, and the unresolved 99% paired width movements;
 - [the earlier report](archive/EARLIER_REPORT.md) only as a superseded
   historical record.
 
