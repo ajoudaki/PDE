@@ -1,0 +1,6 @@
+runs/**/*.npz
+runs/**/*.log
+runs/**/.attempts.lock
+runs/**/*.tmp
+__pycache__/
+tests/__pycache__/

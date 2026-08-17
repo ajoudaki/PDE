@@ -1,0 +1,142 @@
+{
+  "all_groups_pass": true,
+  "attempted_prefix": [
+    "A",
+    "M",
+    "V"
+  ],
+  "budget_accounting_complete": true,
+  "claim_scope": "local-fixed-step-fp64-euler-qualification-only",
+  "groups": [
+    {
+      "all_local_gates_pass": true,
+      "coarse_fine_keff": 0.00021970692810485213,
+      "coarse_fine_q2": 0.00011727489451643139,
+      "driver_max": 0.0002039760418129679,
+      "gates": {
+        "a_cosine": true,
+        "a_ratio": true,
+        "coarse_fine_keff": true,
+        "coarse_fine_q2": true,
+        "complete_finite_positive": true,
+        "deterministic_fp64_mode": true,
+        "driver_cumulative": true,
+        "driver_max": true,
+        "driver_rms": true,
+        "initialization_and_monitor": true,
+        "kernel_component_sum": true,
+        "mean_loss_monotone": true,
+        "mean_output_monotone": true,
+        "pair_gpu_second_cap": true,
+        "pair_wall_cap": true,
+        "point_resource_caps": true,
+        "u_cosine": true,
+        "u_ratio": true,
+        "w_cosine": true,
+        "w_ratio": true
+      },
+      "gpu_seconds": 10.898523353040218,
+      "group": "A",
+      "raw_sha256": {
+        "coarse": "30145b14359597313f5eebad6e7ffada594a72cd6292f743005987a07399c2d2",
+        "fine": "0b688ebcc347736142f064abd3ad0681cefb26819dc7952e12648754eae6e3fb"
+      },
+      "result_sha256": "f4c50e7bcfcf0ff8e207071564d3a8e4d771a44899422eafd8746a08cc6015d9",
+      "w_cosine": 0.9999999999999996,
+      "watchdog_sha256": "776b3fa3d613fa9a2299425a49af770edf5ff5c2a4aed81230905696ed1f7ffa"
+    },
+    {
+      "all_local_gates_pass": true,
+      "coarse_fine_keff": 0.0004099253613713664,
+      "coarse_fine_q2": 0.00020044890965024726,
+      "driver_max": 0.0003105654943718292,
+      "gates": {
+        "a_cosine": true,
+        "a_ratio": true,
+        "coarse_fine_keff": true,
+        "coarse_fine_q2": true,
+        "complete_finite_positive": true,
+        "deterministic_fp64_mode": true,
+        "driver_cumulative": true,
+        "driver_max": true,
+        "driver_rms": true,
+        "initialization_and_monitor": true,
+        "kernel_component_sum": true,
+        "mean_loss_monotone": true,
+        "mean_output_monotone": true,
+        "pair_gpu_second_cap": true,
+        "pair_wall_cap": true,
+        "point_resource_caps": true,
+        "u_cosine": true,
+        "u_ratio": true,
+        "w_cosine": true,
+        "w_ratio": true
+      },
+      "gpu_seconds": 6.296341918408871,
+      "group": "M",
+      "raw_sha256": {
+        "coarse": "dd7000e6396e6e3cb1964f459f8c6d9d7eb632f48fccca51b1e61e92be2f539a",
+        "fine": "b1ed6f63fcb02d9fa2bb7df26c02f524efe5cd40d09688aac6071d7384ce9792"
+      },
+      "result_sha256": "382d536eba4138d84f091e80d95ecfbbe0c0cce9b875521f2a09486c05ae3fec",
+      "w_cosine": 0.9999999999999996,
+      "watchdog_sha256": "f99323d9e11f53a9dcd6689b2aedc3aa32be8a42aaa6e5458ef4b5abf3da86a7"
+    },
+    {
+      "all_local_gates_pass": true,
+      "coarse_fine_keff": 0.0001759742646222734,
+      "coarse_fine_q2": 8.556267344801422e-05,
+      "driver_max": 0.00017440305976615546,
+      "gates": {
+        "a_cosine": true,
+        "a_ratio": true,
+        "coarse_fine_keff": true,
+        "coarse_fine_q2": true,
+        "complete_finite_positive": true,
+        "deterministic_fp64_mode": true,
+        "driver_cumulative": true,
+        "driver_max": true,
+        "driver_rms": true,
+        "initialization_and_monitor": true,
+        "kernel_component_sum": true,
+        "mean_loss_monotone": true,
+        "mean_output_monotone": true,
+        "pair_gpu_second_cap": true,
+        "pair_wall_cap": true,
+        "point_resource_caps": true,
+        "u_cosine": true,
+        "u_ratio": true,
+        "w_cosine": true,
+        "w_ratio": true
+      },
+      "gpu_seconds": 13.682432733476162,
+      "group": "V",
+      "raw_sha256": {
+        "coarse": "eac32fce4073841a0beabd1bb2ada18d5bcd51c8e83ee3f8a31433df30039f68",
+        "fine": "7ce5cc90f10c1c391a08468b972dfd66b8a6f1193e10a46bbd9055bcccc08a21"
+      },
+      "result_sha256": "f3d8e28a9eeb07211f926194df6382522500ad5ac52133581af08f315d2d2184",
+      "w_cosine": 0.9999999999999996,
+      "watchdog_sha256": "8228153832091e9476cf7745f3a62d7b0e773a27938b8ce146f73f617e4fe3d4"
+    }
+  ],
+  "next_branch_eligible_for_separate_authorization": true,
+  "next_branch_launched": false,
+  "provenance": {
+    "config_sha256": "aea83711e8956c43d55204f3dd0d5fd59b2b451d427e7441a7477519994cbdbc",
+    "ledger_sha256": "30cd75debe08f82f17f0e4421b6e1b27dcfe5f7918acac05c176f263784edeff",
+    "lock_sha256": "5f1bd2b4160eac4508e2fe34d39c7df6f44187100e1beaa650cbe9c208cd0ea6",
+    "preflight_attempt_sha256": "8b4c334ce37a8f6febb6dbafb5b09cbf576f98758d0418de985d43fecb2ae140",
+    "preflight_sha256": "8f1906598af66862deaddc5cf51a0e9715b541f75db0ed86448f146f371383df",
+    "preflight_watchdog_sha256": "ef0293704e13d518657ebf937a65250559b4d17abb4aea4d218ebaaabfd89373",
+    "source_bundle_sha256": "f370634a440210b13e6c3035840b7a24581223147b0f347a86c1daea891b3e9e",
+    "unlock_sha256": "d43531bdf50f908c7de924f57af36eac39182894b0a902eec0c4a7ad78e7b57a"
+  },
+  "reason": "all_A_M_V_original_local_gates_passed",
+  "recorded_gpu_seconds": 30.87729800492525,
+  "schema": "breadth-fp64-local-stage-result-v1",
+  "stage_budget_pass": true,
+  "stage_gpu_seconds_ceiling": 270,
+  "status": "pass",
+  "terminal_group": null
+}

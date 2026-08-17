@@ -2,7 +2,7 @@
 
 ## Authoritative research state, exact certificates, failed routes, and conditional ODE reconstruction
 
-**Status as of 14 August 2026:** compatible with every condition decidable
+**Status as of 17 August 2026:** compatible with every condition decidable
 from the first five exact canonical moments and with all finite-order Hankel
 tests in four exact parameter-continuum campaigns; a fifth three-input
 campaign established exact lower jets and $\mu_0,\mu_1>0$ but did not reach a
@@ -10,7 +10,10 @@ Hankel determinant.  An exact global-proxy calibration passed, while the
 canonical finite-width global-curve pilot was stopped inconclusive for lack
 of statistical resolution.  A subsequent breadth-first FP32 Euler panel was
 stopped at its local integrator-validation gate before any width extrapolation
-or proxy comparison.  The conjecture is neither proved nor falsified.
+or proxy comparison.  A separately frozen FP64 explicit-Euler successor then
+passed the same local A/M/V gates from the exact FP32-rounded initial states;
+it qualifies the numerical method locally but still adds no width or
+Stieltjes evidence.  The conjecture is neither proved nor falsified.
 
 This is the single authoritative, self-contained account of the
 Stieltjes-conjecture investigation. It supersedes the historical report in
@@ -39,7 +42,7 @@ own sibling study:
   global-curve pilot.
 - [`numerics/hybrid_mean_field_campaign/`](numerics/hybrid_mean_field_campaign/)
   contains the bounded-DMFT Stage-0 audit, canonical FP32 Euler qualification,
-  and the later stopped breadth-first proxy panel.
+  the stopped breadth-first proxy panel, and its passed FP64 local successor.
 
 Paths embedded inside frozen result manifests record where files lived when a
 run was executed.  They are historical provenance, not the current layout.
@@ -65,6 +68,7 @@ The main claim levels are:
 | Bounded-readout DMFT Stage 0 | Response contacts and truncated-law low jets pass; positive-time solver locked and unrun |
 | Canonical FP32 Euler Stage V | $h=5\times10^{-6}$ failed frozen rounding/driver gates; numerical-method inconclusive |
 | Breadth-first FP32 Euler proxy panel | Local validation stopped after two of three one-input configurations failed update-geometry gates; no width screen or proxy-accuracy inference |
+| FP64 explicit-Euler local successor | A/M/V all pass the unchanged local gates from exact FP32-rounded initial states; replicated width screen eligible for separate authorization but not launched |
 | Order-thirteen numerical estimate | Inconclusive; useful only as a target |
 
 The core verdict is
@@ -1677,6 +1681,39 @@ The frozen protocol and point files retain their prospective pre-execution
 headers by design.  The terminal [breadth-panel result](numerics/hybrid_mean_field_campaign/breadth_panel/RESULTS.md)
 and its compact JSON are the current decision artifacts.
 
+### 10.4 FP64 explicit-Euler local successor
+
+A separately named successor tested the specific numerical explanation left
+open by the stopped FP32 panel.  It regenerated the identical frozen FP32
+initial tensors and monitor coordinates, cast the state exactly to FP64, and
+then ran the same width-4096, seed-`2026081407`, explicit-Euler coarse/fine
+pairs at $h=2\times10^{-5}$ and $h=10^{-5}$.  The original tolerances were
+retained without relaxation.  A one-shot GPU preflight and all three serial
+A $\to$ M $\to$ V attempts passed under the frozen source, identity, resource,
+and watchdog contracts.
+
+Independent raw-array read-back gave
+
+| configuration | max coarse/fine effective-$K$ difference | fine middle-$W$ cosine | max driver defect | local decision |
+|---|---:|---:|---:|---|
+| centered activation, $c=1$ | $0.0219707\%$ | $.9999999999999996$ | $0.0203976\%$ | pass |
+| relative metric, $\lambda=2$ | $0.0409925\%$ | $.9999999999999996$ | $0.0310565\%$ | pass |
+| variance, $v=1/2$ | $0.0175974\%$ | $.9999999999999996$ | $0.0174403\%$ | pass |
+
+The metric point's gated $Q_2$ discrepancy was $0.0200449\%$, also below the
+$0.20\%$ ceiling.  Every one of the 20 gates per configuration passed, and
+the stage used 30.8773 of its 270 GPU-second allowance.  Since precision was
+the only intended numerical axis changed, this is strong local evidence that
+the earlier A/V update-geometry failures arose from the FP32 rounding floor.
+It does not repair the FP32 evidence retrospectively, establish a
+continuous-time or all-width limit, or compare a neural curve with the
+Stieltjes moment proxies.
+
+The [FP64 successor result](numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/RESULTS.md)
+therefore makes a replicated FP64 width-4096/8192 breadth screen eligible for
+separate authorization.  No such screen, two-input trajectory, RK4 branch,
+or $n=16384$ run was launched.
+
 ## 11. Strong positive-operator route
 
 If all Hankel inequalities hold, the formal moment functional constructs a
@@ -1955,7 +1992,15 @@ Proved or computationally certified:
 15. the bounded-DMFT Stage-0 response/low-jet checks, failed canonical FP32
    Euler Stage V, and breadth-panel two-failure stop, all at numerical-method
    or calibration claim level only: no positive-time DMFT, width-proxy
-   inference, or new Stieltjes evidence.
+   inference, or new Stieltjes evidence; and
+16. the separately frozen FP64 A/M/V explicit-Euler local qualification,
+   which passed every unchanged local gate and supports an FP32 rounding-floor
+   explanation only at numerical-method claim level; and
+17. the replicated FP64 (n=4096) C/A/M/V successive-proxy comparison, in
+   which M2 was the central best approximation at every registered node while
+   strict M0--M1--M2--... error improvement failed in every configuration;
+   this is fixed-width empirical evidence with lineage uncertainty, not a
+   width limit or new Stieltjes theorem.
 
 Open:
 
@@ -1971,7 +2016,10 @@ Open:
    beyond its exact finite-order Campaign-1 tests; and
 6. uniform convergence of the conditional rational-ODE hierarchy to that
    actual curve and its loss, together with a finite-width reference design
-   capable of resolving corrections beyond the first moment.
+   capable of resolving corrections beyond the first moment; and
+7. a multi-width FP64 follow-up capable of separating the observed (n=4096)
+   bias cancellation from the width limit; the completed one-width comparison
+   did not run (n=8192) or authorize width extrapolation.
 
 ## 15. Completed order-thirteen searches and portfolio stop
 
@@ -2063,6 +2111,11 @@ The durable source-of-truth map is:
 - [the breadth-panel result](numerics/hybrid_mean_field_campaign/breadth_panel/RESULTS.md)
   for the exact NTK--M1--M2 proxy contract, audited FP32 Euler engines, frozen
   local-validation result, and stop before width or two-input inference;
+- [the FP64 local-successor result](numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/RESULTS.md)
+  for the exact-init FP64 A/M/V qualification and its passed unchanged gates;
+- [the FP64 n=4096 successive-proxy result](numerics/hybrid_mean_field_campaign/breadth_panel/successive_n4096/RESULTS.md)
+  for the 16-lineage C/A/M/V neural references, M0-through-highest frozen
+  comparisons, 20,000-resample uncertainty, and the observed M2 optimum;
 - [the earlier report](archive/EARLIER_REPORT.md) only as a superseded
   historical record.
 

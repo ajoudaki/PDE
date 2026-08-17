@@ -1,0 +1,29 @@
+{
+  "attempt_sha256": "8b4c334ce37a8f6febb6dbafb5b09cbf576f98758d0418de985d43fecb2ae140",
+  "command": [
+    "/home/amir/miniconda3/bin/python",
+    "/home/amir/Codes/PDE/studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/gpu_preflight.py",
+    "--repo",
+    "/home/amir/Codes/PDE",
+    "--config",
+    "/home/amir/Codes/PDE/studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/FROZEN_LOCAL_QUALIFICATION.json",
+    "--lock",
+    "/home/amir/Codes/PDE/studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/FROZEN_LOCAL_QUALIFICATION_LOCK.json",
+    "--device",
+    "cuda:0"
+  ],
+  "device": "cuda:0",
+  "elapsed_seconds": 2.07039437815547,
+  "ended_utc": "2026-08-17T20:54:13.488020+00:00",
+  "group": null,
+  "launcher_pid": 2957314,
+  "mode": "preflight",
+  "result_sha256": "8f1906598af66862deaddc5cf51a0e9715b541f75db0ed86448f146f371383df",
+  "returncode": 0,
+  "schema": "breadth-fp64-external-watchdog-v1",
+  "started_utc": "2026-08-17T20:54:11.417254+00:00",
+  "status": "completed",
+  "stderr": "/home/amir/miniconda3/lib/python3.10/site-packages/torch/backends/__init__.py:46: UserWarning: Please use the new API settings to control TF32 behavior, such as torch.backends.cudnn.conv.fp32_precision = 'tf32' or torch.backends.cuda.matmul.fp32_precision = 'ieee'. Old settings, e.g, torch.backends.cuda.matmul.allow_tf32 = True, torch.backends.cudnn.allow_tf32 = True, allowTF32CuDNN() and allowTF32CuBLAS() will be deprecated after Pytorch 2.9. Please see https://pytorch.org/docs/main/notes/cuda.html#tensorfloat-32-tf32-on-ampere-and-later-devices (Triggered internally at /pytorch/aten/src/ATen/Context.cpp:80.)\n  self.setter(val)\n",
+  "stdout": "{\n  \"config_sha256\": \"aea83711e8956c43d55204f3dd0d5fd59b2b451d427e7441a7477519994cbdbc\",\n  \"cublas_workspace_config\": \":4096:8\",\n  \"cuda_version\": \"13.0\",\n  \"deterministic_algorithms\": true,\n  \"deterministic_replay\": true,\n  \"device\": \"cuda:0\",\n  \"dynamics_dtype\": \"float64\",\n  \"external_watchdog\": \"preflight:preflight:50\",\n  \"float64_arrays\": true,\n  \"gpu_identity\": {\n    \"compute_capability\": [\n      8,\n      6\n    ],\n    \"multi_processor_count\": 82,\n    \"name\": \"NVIDIA GeForce RTX 3090\",\n    \"total_memory_bytes\": 25296044032,\n    \"uuid\": \"dca1675a-2081-5d8c-d5d6-8ec5dc75b44e\"\n  },\n  \"gpu_name\": \"NVIDIA GeForce RTX 3090\",\n  \"initialization_contract\": \"frozen-fp32-cast-exactly-to-fp64\",\n  \"initialization_ok\": true,\n  \"lock_sha256\": \"5f1bd2b4160eac4508e2fe34d39c7df6f44187100e1beaa650cbe9c208cd0ea6\",\n  \"max_gpu_allocated_gib\": 0.031331539154052734,\n  \"max_host_rss_gib\": 0.9091720581054688,\n  \"resource_caps_pass\": true,\n  \"sample_output_digest\": \"1aa1a8171ca59717017b287b1c214fcc4916f2cf8e6f2eb63057c5206d0ee245\",\n  \"schema\": \"breadth-fp64-gpu-preflight-v1\",\n  \"status\": \"pass\",\n  \"tf32_cudnn\": false,\n  \"tf32_matmul\": false,\n  \"torch_version\": \"2.9.0+cu130\"\n}\n",
+  "timeout_seconds": 50.0
+}

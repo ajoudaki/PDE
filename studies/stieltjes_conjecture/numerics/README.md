@@ -16,7 +16,14 @@ The numerical work is split into four branches:
   the stopped [FP32 Euler qualification](hybrid_mean_field_campaign/width_ladder/euler_fp32/STAGE_V_REPORT.md), and a
   separately frozen [breadth-first panel](hybrid_mean_field_campaign/breadth_panel/RESULTS.md)
   that stopped at FP32 Euler qualification before width extrapolation or any
-  Stieltjes proxy-accuracy claim.
+  Stieltjes proxy-accuracy claim.  Its separately frozen
+  [FP64 local successor](hybrid_mean_field_campaign/breadth_panel/fp64_successor/RESULTS.md)
+  passed the unchanged A/M/V gates from the exact FP32-rounded initial states;
+  it qualifies that local numerical witness.  The subsequent
+  [FP64 n=4096 successive-proxy experiment](hybrid_mean_field_campaign/breadth_panel/successive_n4096/RESULTS.md)
+  ran 16 lineages for C/A/M/V and compared every already-accepted level: M2
+  was centrally best at every node, while strict adjacent-order improvement
+  failed.  That result remains one-width evidence and is not a width screen.
 
 Each branch keeps code and protocols near the relevant campaign and stores
 generated outputs under branch- or campaign-local `runs/` directories.

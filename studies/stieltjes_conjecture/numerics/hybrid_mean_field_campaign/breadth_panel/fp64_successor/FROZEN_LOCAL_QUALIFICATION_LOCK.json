@@ -1,0 +1,20 @@
+{
+  "schema": "breadth-fp64-local-lock-v1",
+  "status": "frozen",
+  "frozen_utc": "2026-08-17T20:53:47Z",
+  "bundle_sha256": "f370634a440210b13e6c3035840b7a24581223147b0f347a86c1daea891b3e9e",
+  "files": {
+    "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/FROZEN_ONE_INPUT_POINTS.json": "4d2de690f73a9242604e2a7c05b86700056c27db373b97185e3b9881f5c94f62",
+    "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/FROZEN_LOCAL_QUALIFICATION.json": "aea83711e8956c43d55204f3dd0d5fd59b2b451d427e7441a7477519994cbdbc",
+    "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/PROTOCOL.md": "efe9e6be08530b73c6f19a5d144e9222fa0a0d6484e7e966beb1caa8d04a3854",
+    "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/adjudicate_local_qualification.py": "651247a92dddc1b98634b4dcc294906e56ed495cf124aa05d69cb930d789f310",
+    "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/gpu_preflight.py": "3e0696533377373319fff78fbb9d8925495ef4213a823c40638783a81f7652b7",
+    "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/run_local_qualification.py": "a27dbf038ff583b2dafb7745bad7170ffacf4ea8a6d2ba4e84b17f1a6cc777ee",
+    "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/tests/test_fp64_local.py": "c323562775510cc651d2b653294fff14533281cbe45de0571598786d94fcfca5",
+    "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/watchdog_launcher.py": "9277a931acb784c1e97edc2ca528dfd0703cff8995ca92ed9a092b272bfcc022",
+    "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/one_input/one_input_engine.py": "5f1a8e76f293bcc84feb15377007bd9d9914ec0e31392e3ec381517e1213b7d9",
+    "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/one_input/one_input_runner.py": "067bf0ef5ee0e0122d21fa337b6b0d9f424783bef12c642774cd10fb456e8511",
+    "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/width_ladder/euler_fp32/euler_engine.py": "99796d522b0ac7a06fbe2c7540455bb6428c0b7e64dc3e1d78b2f54eabb193c2",
+    "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/width_ladder/euler_fp32/nested_init.py": "244e309fa056a60e0ebc53c82c7dc4a20a29c33de96755cf115f996d35287c8f"
+  }
+}

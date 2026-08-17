@@ -1,0 +1,19 @@
+{
+  "schema": "breadth-fp64-local-unlock-v1",
+  "status": "authorized",
+  "authorization_scope": "one serial A-M-V FP64 explicit-Euler local qualification only",
+  "authorized_groups": ["A", "M", "V"],
+  "authorized_devices": ["cuda:0"],
+  "max_attempts_per_group": 1,
+  "config_sha256": "aea83711e8956c43d55204f3dd0d5fd59b2b451d427e7441a7477519994cbdbc",
+  "lock_sha256": "5f1bd2b4160eac4508e2fe34d39c7df6f44187100e1beaa650cbe9c208cd0ea6",
+  "gpu_preflight": {
+    "path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/GPU_PREFLIGHT.json",
+    "sha256": "8f1906598af66862deaddc5cf51a0e9715b541f75db0ed86448f146f371383df",
+    "attempt_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/GPU_PREFLIGHT_ATTEMPT.json",
+    "attempt_sha256": "8b4c334ce37a8f6febb6dbafb5b09cbf576f98758d0418de985d43fecb2ae140",
+    "watchdog_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/watchdog_records/preflight.json",
+    "watchdog_sha256": "ef0293704e13d518657ebf937a65250559b4d17abb4aea4d218ebaaabfd89373"
+  },
+  "authorization_provenance": "User explicitly directed immediate execution of the current tested FP64 snapshot on 2026-08-17."
+}

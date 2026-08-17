@@ -1,0 +1,86 @@
+{
+  "schema": "breadth-fp64-local-qualification-v1",
+  "status": "frozen-authorized-local-only",
+  "run_root": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/runs/local_v1",
+  "seed": 2026081407,
+  "width": 4096,
+  "nodes": [0.5, 0.75, 0.9, 0.95],
+  "group_order": ["A", "M", "V"],
+  "initialization_contract": "regenerate frozen FP32 bytes, then cast a/W/u exactly to FP64 before first evaluation",
+  "source_transform": {
+    "runner_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/one_input/one_input_runner.py",
+    "runner_sha256": "067bf0ef5ee0e0122d21fa337b6b0d9f424783bef12c642774cd10fb456e8511",
+    "torch_float32_occurrences": 6,
+    "transformed_runner_sha256": "9fb3e69fafc33ee7d9d783ff30d5e5a1697a1d6e0ea4188b80e1d4d3c4ca5988"
+  },
+  "ephemeral_pilot": {
+    "path": "/tmp/fp64_breadth_surgical.py",
+    "sha256": "422d829ccdee146ffbad1070ced7284c5b44d18332b2e5eddebca635875659ec",
+    "status": "planning-only-not-evidence"
+  },
+  "groups": {
+    "A": {
+      "configuration": "centered_c1",
+      "coarse_point": "A_validation_h2",
+      "fine_point": "A_validation_h1",
+      "expected_physical_state_sha256": "d2e3e0ec5b2aa85a8717624101c67ae5d8aee2aee280dd6961d660ea49a2b676",
+      "expected_monitor_sha256": "4b56e7682ed23c29ba69935a374387f24aa27a487b61fd358363da127f3ee743",
+      "q2_gate": false
+    },
+    "M": {
+      "configuration": "relative_metric_l2",
+      "coarse_point": "M_validation_h2",
+      "fine_point": "M_validation_h1",
+      "expected_physical_state_sha256": "d0bede97c369517be56c8f8e4060910324196cd95a46833db18d250e49889625",
+      "expected_monitor_sha256": "229b8f630b0cd54db041594a3d6b59f570b90d1b399468cda9fb57de6587fe10",
+      "q2_gate": true
+    },
+    "V": {
+      "configuration": "variance_vhalf",
+      "coarse_point": "V_validation_h2",
+      "fine_point": "V_validation_h1",
+      "expected_physical_state_sha256": "95a8acc7b66f1d7d5e94a9a8613612588aa9f5ac5d82dfbbf5b87b654549f9a5",
+      "expected_monitor_sha256": "6b09355723af1791c3b58689d41d6e8a7228eb216cb43d8664f949fd47322c85",
+      "q2_gate": false
+    }
+  },
+  "expected_common_initialization": {
+    "base_state_sha256": "49e9b4f7815cb93793d12f1d52ed4bd9283ed708656b74149473916aeeeba7f4",
+    "base_prefix_sha256": {
+      "2048": "cbeba56ccc68aaef75cf00a8e6ef1cc096daa2db1625826b681922b4fdb64181",
+      "4096": "5941de7d9ddee1ab4a95ea25b366c2ba3e105275cc44563ec15879aca3d803be"
+    }
+  },
+  "point_caps": {
+    "wall_seconds": 45,
+    "gpu_memory_gib": 3,
+    "host_rss_gib": 4
+  },
+  "pair_wall_seconds": 90,
+  "stage_gpu_seconds": 270,
+  "external_watchdogs": {
+    "gpu_preflight_seconds": 50,
+    "group_pair_seconds": 89,
+    "remaining_stage_safety_seconds": 1,
+    "device": "cuda:0"
+  },
+  "max_attempts_per_group": 1,
+  "thresholds": {
+    "mean_output_increment_floor": -1e-6,
+    "mean_loss_increment_ceiling": 1e-6,
+    "a_cosine_floor": 0.999,
+    "u_cosine_floor": 0.999,
+    "w_cosine_floor": 0.995,
+    "a_ratio_interval": [0.95, 1.05],
+    "u_ratio_interval": [0.95, 1.05],
+    "w_ratio_interval": [0.8, 1.2],
+    "driver_max_ceiling": 0.002,
+    "driver_rms_ceiling": 0.0005,
+    "driver_cumulative_ceiling": 0.0005,
+    "coarse_fine_keff_ceiling": 0.002,
+    "coarse_fine_q2_ceiling": 0.002,
+    "kernel_component_sum_relative_ceiling": 1e-12
+  },
+  "branch": "all A/M/V pass => eligible for separately authorized replicated FP64 breadth screen",
+  "forbidden_automatic_branches": ["retry", "smaller_step", "RK4", "two_input", "n16384", "relaxed_tolerance"]
+}

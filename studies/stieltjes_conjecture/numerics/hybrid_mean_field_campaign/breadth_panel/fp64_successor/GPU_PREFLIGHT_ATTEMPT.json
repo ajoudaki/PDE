@@ -1,0 +1,11 @@
+{
+  "config_sha256": "aea83711e8956c43d55204f3dd0d5fd59b2b451d427e7441a7477519994cbdbc",
+  "device": "cuda:0",
+  "ended_utc": "2026-08-17T20:54:13.045219+00:00",
+  "lock_sha256": "5f1bd2b4160eac4508e2fe34d39c7df6f44187100e1beaa650cbe9c208cd0ea6",
+  "result_sha256": "8f1906598af66862deaddc5cf51a0e9715b541f75db0ed86448f146f371383df",
+  "schema": "breadth-fp64-gpu-preflight-attempt-v1",
+  "started_utc": "2026-08-17T20:54:12.476321+00:00",
+  "status": "pass",
+  "watchdog": "preflight:preflight:50"
+}
