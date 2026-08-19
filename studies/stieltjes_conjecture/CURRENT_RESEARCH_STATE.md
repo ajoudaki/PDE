@@ -2,9 +2,9 @@
 
 ## Authoritative research state, exact certificates, failed routes, and conditional ODE reconstruction
 
-**Status as of 18 August 2026:** compatible with every condition decidable
-from the first five exact canonical moments and with all finite-order Hankel
-tests in four exact parameter-continuum campaigns; a fifth three-input
+**Status as of 19 August 2026:** the canonical point is compatible with every
+condition decidable from its first eight exact moments.  The preregistered
+cutoffs in four exact parameter-continuum campaigns also passed; a fifth three-input
 campaign established exact lower jets and $\mu_0,\mu_1>0$ but did not reach a
 Hankel determinant.  An exact global-proxy calibration passed, while the
 canonical finite-width global-curve pilot was stopped inconclusive for lack
@@ -17,13 +17,50 @@ $n=4096$ and $n=8192$ then compared every accepted proxy level for C/A/M/V.
 The central all-order error sequences failed strict improvement at both
 widths; C/A/M selected M2 centrally at both widths, while V selected M2
 centrally at 4096 and M4 centrally at 8192. Every 99% paired width-change
-interval still crossed zero. The conjecture is neither proved nor falsified.
+interval still crossed zero. A subsequent proof-resolution program found an
+exact order-thirteen counterexample on the pre-existing block-metric family.
+For \(\beta=1\), the shifted \(3\times3\) Hankel determinant is negative for
+every \(0\leq\alpha\leq1/100\).  Thus all three blocks may train at strictly
+positive rates: the result is not an artifact of freezing one layer.  This
+**disproves the stronger uniform block-metric Stieltjes conjecture**.  The
+same exact determinant has one positive zero
+\(\alpha_*=0.017519225541486\ldots\): every other leading six-moment gate
+on the \(\beta=1\) ray is coefficientwise positive, so the available
+truncation fails below \(\alpha_*\), is singular at it, and passes above it.
+This is a finite-prefix boundary, not an all-order good-range theorem.  At
+\(\alpha=0\) the model reduces exactly, at fixed order in the width limit,
+to a rescaled ordinary one-hidden-layer raw-square network.  Its shifted
+\(3\times3\) determinant is negative as well.  Nevertheless its individual
+neurons have explicit Riccati characteristics, showing that integrable
+low-dimensional characteristic structure need not have Stieltjes
+positivity; this is not a closed scalar loss ODE or an established global
+Gaussian mean-field curve.  A separate generic-activation compiler supplies another decisive
+qualification: for a normalized smooth bounded sine activation in the same
+two-hidden-layer, one-sample, equal-metric setting, already
+\(\mu_0<0\) and \(\mu_1<0\).  Hence smoothness, boundedness, and equal
+learning rates do not make Stieltjes positivity universal over activations.
+This is again a fixed-order formal result and does not change the canonical
+raw-square status.  The block-metric calculation also determines the
+previously open canonical order-thirteen
+coefficient and its next shifted determinant, which is positive.  A bounded
+successor then computed canonical $F^{(15)}(0)$ and $F^{(17)}(0)$ by two
+isolated exact recurrences.  Exact inversion gives $\mu_6,\mu_7$ and
+$H_3\succ0$, $H_3^+\succ0$.  This extends finite-prefix compatibility, but
+the canonical \((1,1)\) all-order conjecture remains neither proved nor
+falsified.  The same exact recurrence states also extend the canonical hidden
+preactivation norms: the first hidden squared-RMS response has nine exact
+moments and positive-definite $H_4,H_3^+$, while the independent
+second-hidden companion has eight exact moments and positive-definite
+$H_3,H_3^+$.  Every accessible principal minor also passes for the normalized
+literal-RMS responses.  These are finite-order hidden-observable results, not
+all-order or positive-time theorems.
 
 This is the single authoritative, self-contained account of the
 Stieltjes-conjecture investigation. It supersedes the historical report in
 [`archive/EARLIER_REPORT.md`](archive/EARLIER_REPORT.md), including that
 report's obsolete provisional order-eleven status. It incorporates the exact
-order-eleven feature jet, inverse-variable reformulation, variance homotopy,
+canonical feature jet through order seventeen, inverse-variable
+reformulation, variance homotopy,
 all-minor sector audit, conditional quadrature reconstruction, numerical
 experiments, adversarial audits of failed proof strategies, and the completed
 bounded Campaigns 4--6 portfolio.
@@ -48,6 +85,12 @@ own sibling study:
   contains the bounded-DMFT Stage-0 audit, canonical FP32 Euler qualification,
   the stopped breadth-first proxy panel, its passed FP64 local successor, and
   the matched $n=4096/8192$ successive-proxy experiments.
+- [`resolution_program/`](resolution_program/) contains the proof contract,
+  independent-route ledger, exact block-metric counterexample, regenerating
+  checker, scope-separated resolution theorem, and canonical exact
+  order-fifteen/order-seventeen and hidden-norm successors, together with
+  the sharp six-moment metric transition and exact shallow-network
+  reduction.
 
 Paths embedded inside frozen result manifests record where files lived when a
 run was executed.  They are historical provenance, not the current layout.
@@ -56,14 +99,19 @@ The main claim levels are:
 
 | Statement | Current status |
 |---|---|
-| Raw fixed-order derivatives through $F^{(11)}(0)$ | Accepted exact computational certificates |
-| Moments $\mu_0,\ldots,\mu_4$ and every accessible Hankel test | Exact; every test passes strictly |
-| Four nontrivial parameter families reaching Hankel tests | Exact finite-order continuum certificates; every tested inequality passes |
-| Second-hidden companion response on the relative-metric ray | Separate finite-order Stieltjes-compatible extension; not implied by the output conjecture |
+| Raw canonical fixed-order derivatives through \(F^{(17)}(0)\) | Accepted exact computational certificates; two isolated routes agree at orders fifteen and seventeen |
+| Canonical moments \(\mu_0,\ldots,\mu_7\) and every accessible Hankel test | Exact; every test passes strictly, including $H_3\succ0$ and $H_3^+\succ0$ |
+| Four original parameter-family campaigns | Their preregistered finite-order endpoints pass exactly; the later order-thirteen block-metric axis test fails |
+| Uniform all-order block-metric Stieltjes extension | **Disproved exactly** on the strictly positive segment \(\beta=1,\ 0<\alpha\leq1/100\) by a negative shifted \(3\times3\) Hankel form |
+| Exact \(\beta=1\) six-moment sign transition | The sole sign-changing available gate has a unique positive root \(\alpha_*=0.017519225541486\ldots\); the truncated Hankel tests fail below it, are singular at it, and pass above it; no all-order phase boundary follows |
+| Standard one-hidden-layer raw-square model | Its formal width-first output-kernel moments have an exact negative shifted \(3\times3\) determinant; the Stieltjes claim is false for this shallow model |
+| Shallow dynamical compression | Each neuron has an exact two-dimensional Riccati characteristic and the population has a transport/integral representation; no closed finite-state aggregate loss ODE or ordinary positive-time Gaussian population curve is established |
+| Smooth-activation-universal extension | **Disproved at first moment order:** normalized sine is smooth and bounded, all blocks train at the equal metric, but \(\mu_0<0\) and \(\mu_1<0\) |
+| Hidden preactivation norms | $Q_1$ is inherited from the inverse output kernel and now has nine canonical moments with $H_4,H_3^+\succ0$; the separate $Q_2$ companion now has eight canonical moments with $H_3,H_3^+\succ0$; normalized literal-RMS tests also pass strictly |
 | Three-input equicorrelation through order five | Exact lower jets and $\mu_0,\mu_1>0$; no $\mu_2$ or Hankel determinant |
 | Bounded Campaign-6 order-thirteen probe | Inconclusive; no accepted new bound or interval |
-| Full $F^{(13)}(0)$, $\mu_5$, and the next shifted determinant | Open |
-| All-order Stieltjes moment property | Open |
+| Canonical $F^{(15)}(0),F^{(17)}(0)$, $\mu_6,\mu_7$, and new $4\times4$ determinants | Exact; both new matrices are positive definite, a finite-order pass rather than an all-order proof |
+| Canonical all-order Stieltjes moment property | Open |
 | Existence of a representing measure | Conditional on all-order Hankel positivity |
 | Uniqueness of that measure | Open; requires determinacy |
 | Equality of a representing resolvent and the actual global mean-field curve | Open |
@@ -73,16 +121,16 @@ The main claim levels are:
 | Bounded-readout DMFT Stage 0 | Response contacts and truncated-law low jets pass; positive-time solver locked and unrun |
 | Canonical FP32 Euler Stage V | $h=5\times10^{-6}$ failed frozen rounding/driver gates; numerical-method inconclusive |
 | Breadth-first FP32 Euler proxy panel | Local validation stopped after two of three one-input configurations failed update-geometry gates; no width screen or proxy-accuracy inference |
-| FP64 explicit-Euler local successor | A/M/V all pass the unchanged local gates from exact FP32-rounded initial states; at that qualification cutoff, a replicated width screen was eligible for separate authorization but had not been launched |
+| FP64 explicit-Euler local successor | A/M/V all pass the unchanged local gates from exact FP32-rounded initial states; that local qualification was later followed by the separately recorded 4096/8192 comparison |
 | FP64 $n=4096/8192$ successive-proxy comparison | C/A/M retain M2 centrally; V changes centrally from M2 to M4; the central all-order error sequences fail strict improvement at both widths and every 99% paired width-change interval crosses zero |
-| Order-thirteen numerical estimate | Inconclusive; useful only as a target |
+| Historical order-thirteen numerical estimate | Inconclusive and superseded for coefficient identification by the exact recurrence |
 
 The core verdict is
 
 $$
 \boxed{\begin{gathered}
-\text{canonical five-moment and four-family Hankel compatibility,}\\
-\text{but no all-order theorem and no counterexample.}
+\text{canonical output and hidden finite-moment compatibility, with no canonical all-order resolution,}\\
+\text{while uniform metric, shallow raw-square, and smooth-activation-universal extensions are false.}
 \end{gathered}}
 $$
 
@@ -153,7 +201,7 @@ F_\gamma(s)=\gamma^3F_1(\gamma^3s),
 K_\gamma(y)=\gamma^6K_1(y/\gamma^3).
 $$
 
-## 2. Exact derivatives through order eleven
+## 2. Exact derivatives through order seventeen
 
 The accepted checked-integer results are
 
@@ -164,7 +212,10 @@ F_1^{(3)}(0)&=1\,685\,184,\\
 F_1^{(5)}(0)&=77\,400\,633\,120,\\
 F_1^{(7)}(0)&=7\,315\,868\,433\,079\,296,\\
 F_1^{(9)}(0)&=1\,181\,161\,141\,825\,400\,561\,664,\\
-F_1^{(11)}(0)&=291\,982\,832\,387\,585\,872\,335\,470\,592.
+F_1^{(11)}(0)&=291\,982\,832\,387\,585\,872\,335\,470\,592,\\
+F_1^{(13)}(0)&=102\,853\,512\,279\,246\,664\,353\,620\,526\,022\,656,\\
+F_1^{(15)}(0)&=49\,079\,184\,579\,077\,107\,476\,764\,629\,402\,991\,788\,032,\\
+F_1^{(17)}(0)&=30\,555\,969\,894\,096\,099\,495\,444\,855\,650\,521\,777\,374\,167\,040.
 \end{aligned}
 $$
 
@@ -180,6 +231,23 @@ and
 $$
 F_\gamma^{(11)}(0)
 =291\,982\,832\,387\,585\,872\,335\,470\,592\,\gamma^{36}.
+$$
+
+Likewise,
+
+$$
+\frac{F_1^{(13)}(0)}{13!}
+=\frac{3\,720\,106\,780\,933\,400\,765\,104\,909\,072}{225225},
+\qquad
+F_\gamma^{(13)}(0)=F_1^{(13)}(0)\gamma^{42}.
+$$
+
+The same scaling gives
+
+$$
+F_\gamma^{(15)}(0)=F_1^{(15)}(0)\gamma^{48},
+\qquad
+F_\gamma^{(17)}(0)=F_1^{(17)}(0)\gamma^{54}.
 $$
 
 The order-eleven value is the accepted exact output of audited checked-integer
@@ -209,6 +277,35 @@ the independent regression gates are recorded in
 [`../mean_field_peeling/quadratic_compiler/D11_LOWER_SECTOR_AUDIT.md`](../mean_field_peeling/quadratic_compiler/D11_LOWER_SECTOR_AUDIT.md),
 [`../mean_field_peeling/quadratic_compiler/d11_high_sectors_exact.txt`](../mean_field_peeling/quadratic_compiler/d11_high_sectors_exact.txt), and
 [`../mean_field_peeling/quadratic_compiler/SECTOR_ENGINE.md`](../mean_field_peeling/quadratic_compiler/SECTOR_ENGINE.md).
+
+The order-thirteen value is the exact output of the separate finite
+Gaussian-program recurrence on the \(\beta=1\) block-metric family proved in
+the [resolution program](resolution_program/).  It is reproduced coefficient
+by coefficient by an independent direct \(\mathbb Q[\alpha]\) recurrence;
+substantial order-eleven and order-thirteen sectors also agree with the
+algebraically distinct connected-forest compiler.
+The computational advance is model-specific and exact: the rank-one
+middle-matrix update is integrated out, and repeated uses of the frozen
+Gaussian matrix and its transpose are handled by chronological
+detransposition/Stein response terms.  This converts each separately fixed
+Taylor order into a finite Gaussian polynomial recurrence and avoids the
+explicit forest enumeration that had made order thirteen prohibitive.  It
+does not replace MFP as a general architecture compiler; MFP supplies the
+general fixed-order framework and algebraically distinct overlap checks.
+
+The order-fifteen and order-seventeen values are the accepted outputs of a
+bounded scalar specialization of the same proved recurrence.  A production
+implementation and an isolated implementation with a separate sparse
+Gaussian-monomial representation and Wick engine independently reproduce the
+entire accepted prefix, all even zeros through order sixteen, and both new
+integers.  The retained production order-seventeen run used 230.318 seconds
+and 189.4375 MiB peak RSS.  The independent route used 43.59 seconds at
+standalone order fifteen and 163.08 seconds with 94,060 KiB peak RSS at order
+seventeen.  The frozen branch ended at order seventeen; no order-nineteen
+computation was attempted.  See the
+[canonical high-order result](resolution_program/canonical_high_order/RESULTS.md),
+[production record](resolution_program/canonical_high_order/PRODUCTION_RESULT.json),
+and [independent record](resolution_program/canonical_high_order/INDEPENDENT_RESULT.json).
 
 ## 3. What the programmed peeling calculation does
 
@@ -262,12 +359,13 @@ weight edges.  The code uses checked 512-bit arithmetic.  A conservative
 analytic bound needs only 275 bits through derivative order thirteen, so any
 overflow would throw rather than wrap.
 
-## 4. The exact new coefficient of \(K\)
+## 4. Exact coefficients of \(K\)
 
 Write
 
 $$
-K(y)=111+g_1y^2+g_2y^4+g_3y^6+g_4y^8+g_5y^{10}+\cdots.
+K(y)=111+g_1y^2+g_2y^4+g_3y^6+g_4y^8+g_5y^{10}+g_6y^{12}
++g_7y^{14}+g_8y^{16}+\cdots.
 $$
 
 Exact series reversion gives
@@ -279,16 +377,22 @@ g_2&=-\frac{38443196932}{5616860517},\\
 g_3&=\frac{37578479127292096}{12802987609542045},\\
 g_4&=-\frac{21749547365571716077696}{13618704359108797313085},\\
 g_5&=\frac{2463577914969508668234788122624}
-{2514423905282563683042386470725}.
+{2514423905282563683042386470725},\\
+g_6&=-\frac{43091400402899303445912484475500496}
+{66714012134145460981362191472284175},\\
+g_7&=\frac{233701098505506644778710348585571696126248608}
+{523079786422749003601451969851378666466523525},\\
+g_8&=-\frac{70048496819304110407804100699554764688052780719822}
+{218993917770958359962588987442799241938248378067125}.
 \end{aligned}
 $$
 
 Numerically,
 
 $$
-(g_1,g_2,g_3,g_4,g_5)
+(g_1,g_2,g_3,g_4,g_5,g_6,g_7,g_8)
 =(68.3866569272,-6.84424988223,2.93513360110,-1.59703498894,
-0.979778274377).
+0.979778274377,-0.645912290753,0.446779066161,-0.319865033387).
 $$
 
 ## 5. Precise Stieltjes conjecture and exact finite tests
@@ -341,9 +445,22 @@ $$
 The exact moments currently available are
 
 $$
-(\mu_0,\ldots,\mu_4)
+(\mu_0,\ldots,\mu_7)
 =(68.3866569272,6.84424988223,2.93513360110,
-1.59703498894,0.979778274377).
+1.59703498894,0.979778274377,0.645912290753,
+0.446779066161,0.319865033387).
+$$
+
+In particular, the two new moments are exactly
+
+$$
+\mu_6=
+\frac{233701098505506644778710348585571696126248608}
+{523079786422749003601451969851378666466523525},
+\qquad
+\mu_7=
+\frac{70048496819304110407804100699554764688052780719822}
+{218993917770958359962588987442799241938248378067125}.
 $$
 
 The newly available ordinary three-by-three determinant is
@@ -373,6 +490,19 @@ $$
 0.07345156,\quad 2.99403041,\quad 69.23408684.
 $$
 
+The order-fifteen coefficient supplies $\mu_6$ and completes the ordinary
+four-by-four matrix.  Exact arithmetic gives
+
+$$
+\det H_3
+=\frac{4581116513595315356583611738530988438162599733688069549013816754981347215833268704400090246049792}
+{65354315638055287686313547406928749888486398559119734829544762489701014494772697096643566490984375}
+=0.07009661823966477867\ldots>0.
+$$
+
+Every one of its fifteen nonempty principal minors is strictly positive, so
+$H_3\succ0$.
+
 The shifted two-by-two determinant remains exactly positive:
 
 $$
@@ -382,14 +512,38 @@ $$
 =2.31549727867\ldots>0.
 $$
 
-Therefore every Hankel condition testable from \(\mu_0,\ldots,\mu_4\) passes
-strictly.  This is finite-order compatibility, not an all-order proof.
+The newly decidable shifted three-by-three determinant is also exactly
+positive:
+
+$$
+\det H_2^+
+=
+\frac{821121994467978760780817399151273570663517173613881280168626780102656}
+{21875165394618842103069584785029512715749438929178771773425620184364845}
+>0.
+$$
+
+The order-seventeen coefficient supplies $\mu_7$ and completes the shifted
+four-by-four matrix.  Its exact determinant is
+
+$$
+\det H_3^+
+=\frac{137984062500683379206705700665534552146154930313101025462488622111967390693657363652277493269175099282762503439873283096576}
+{4841427533479109861977652240500543777398925508758255281888009610895813561244370117263221332603626422004447587045586035469140625}
+=2.8500697686065812\ldots\times10^{-5}>0.
+$$
+
+Every one of its fifteen nonempty principal minors is strictly positive, so
+$H_3^+\succ0$.  Therefore every Hankel condition testable from
+\(\mu_0,\ldots,\mu_7\) passes strictly.  This is finite-order compatibility,
+not an all-order proof.
 
 ### Exact parameter-family extension campaigns
 
 The isolated canonical calculation was followed by five bounded continuous-
 parameter campaigns.  Four reached a Hankel determinant and passed it over
-their whole parameter domains.  The fifth reached exact lower jets and the
+their whole parameter domains at their preregistered finite-order cutoffs.
+The fifth reached exact lower jets and the
 two available moment signs, but not a determinant.  The statements below are
 the consolidated scientific account; campaign-local reports retain the full
 coefficient arrays, source hashes, commands, resource logs, and exact
@@ -546,6 +700,29 @@ details are in the [Campaign-1 protocol and derivation](../mean_field_peeling/qu
 [exact jets](../mean_field_peeling/quadratic_compiler/campaign1/results_order9_q2_order8.json),
 and [shifted certificates](../mean_field_peeling/quadratic_compiler/campaign1/hankel_certificates_order9_q2_order8.json).
 
+A later canonical-only successor reused the proved fixed-order
+Gaussian-program recurrence through $F^{(17)}(0)$.  Two isolated exact
+implementations agree on $Q_2$ through order sixteen and reproduce the full
+Campaign-1 hidden prefix first.  Direct output-coordinate inversion gives
+
+$$
+(\nu_0,\ldots,\nu_7)
+=(0.5020696372,0.1207670310,0.05443398035,0.03030837123,
+0.01882835199,0.01251048885,0.008700364351,0.006253439819).
+$$
+
+The ordinary and shifted $4\times4$ matrices are positive definite, with
+determinants approximately $9.81661\times10^{-10}$ and
+$2.62925\times10^{-12}$; every principal minor is strictly positive.  The
+Ward identity supplies nine first-hidden moments without $F^{(19)}(0)$ and
+gives $H_4\succ0$, $H_3^+\succ0$.  Applying the exact square-root readout to
+both layers likewise leaves every accessible normalized literal-RMS Hankel
+matrix positive definite.  Exact values and all-minor certificates are in
+the [canonical hidden-norm result](resolution_program/canonical_hidden_high_order/RESULTS.md).
+This strengthens only the finite canonical companion evidence: $Q_1$ remains
+inherited from the output conjecture, while an all-order theorem for $Q_2$
+remains separate and open.
+
 #### Campaign 2: two inputs and natural label channels
 
 For two unit-RMS inputs with correlation $\theta$, set $t=\theta^2\in[0,1]$.
@@ -629,7 +806,7 @@ and [Sturm certificate](../mean_field_peeling/quadratic_compiler/campaign3/certi
 
 #### Campaign 4: independent block-metric quadrant
 
-The strongest new family separates both hidden-block learning rates:
+The original bivariate campaign separates both hidden-block learning rates:
 
 $$
 D_{\alpha,\beta}=D_a+\alpha D_u+\beta D_W,
@@ -665,6 +842,299 @@ sector routes agree through order five; the full diagonal, axes, off-diagonal
 checks, and canonical point all pass.  See the [Campaign-4 result](../mean_field_peeling/quadratic_compiler/campaign4/RESULTS.md),
 [exact certificate](../mean_field_peeling/quadratic_compiler/campaign4/certificates_order9.json),
 and [provenance](../mean_field_peeling/quadratic_compiler/campaign4/provenance_order9.json).
+This full-quadrant authority stops at \(F^{(9)}\), hence
+\(\mu_0,\ldots,\mu_3\) and the leading \(2\times2\) tests.  The later
+order-thirteen authority is only on the slice \(\beta=1\); there is no
+retained high-order joint \((\alpha,\beta)\) classification or high-order
+varying-\(\beta\) theorem at \(\alpha=1\).
+
+#### Campaign-4 all-order supersession: exact counterexample
+
+The positive order-nine conclusion above remains correct at its frozen
+finite-order claim level, but it does not extend to all orders.  The natural
+axis $(\alpha,\beta)=(0,1)$ freezes $u$ while training $a$ and $W$.  With
+
+$$
+m_n=\frac1n\sum_j u_j^4,
+$$
+
+the finite-width rows close exactly:
+
+$$
+\dot a_i=z_i^2,
+\qquad
+\dot z_i=2m_na_i z_i.
+$$
+
+Conditionally on $u$, $(a_i,z_i)$ are iid with
+$a_i\sim N(0,1)$ and $z_i\sim N(0,m_n)$.  Since $m_n\to3$ in every $L^p$,
+the fixed-order width-limit jet is generated by
+
+$$
+X=z^2\partial_a+6az\partial_z,
+\qquad
+F^{(k)}(0)=\mathbb E[X^k(az^2)],
+$$
+
+for independent $a\sim N(0,1)$ and $z\sim N(0,3)$.  The monomial recurrence
+
+$$
+X(a^pz^q)=p a^{p-1}z^{q+2}+6q a^{p+1}z^q
+$$
+
+is an exact all-order axis reduction.  Through order thirteen it gives
+
+$$
+\begin{aligned}
+F'(0)&=63,&F^{(3)}(0)&=77760,&F^{(5)}(0)&=274547232,\\
+F^{(7)}(0)&=2141006515200,&
+F^{(9)}(0)&=31149221916487680,\\
+F^{(11)}(0)&=759035131220036321280,&
+F^{(13)}(0)&=28719223368439752070594560.
+\end{aligned}
+$$
+
+The prefix through order nine agrees exactly with the independent Campaign-4
+sector compiler.  Subtracting this metric's baseline $63$ and reverting the
+series gives
+
+$$
+\begin{aligned}
+\mu_0&=\frac{480}{49},&
+\mu_1&=\frac{43756}{151263},&
+\mu_2&=\frac{7214528}{200120949},\\
+\mu_3&=\frac{12545175968}{2402451992745},&
+\mu_4&=\frac{171752915595136}{200241971143303005},&
+\mu_5&=\frac{2199776554157960896}{14570607030242443158825}.
+\end{aligned}
+$$
+
+The next shifted determinant is exactly
+
+$$
+\det(\mu_{i+j+1})_{i,j=0}^{2}
+=-
+\frac{86245462994269879146938487857152}
+{200150589172828762588730609071155193161975}<0.
+$$
+
+Equivalently, the explicit quadratic polynomial retained in the
+[resolution theorem](resolution_program/BLOCK_METRIC_RESOLUTION.md) has
+$L(\lambda p(\lambda)^2)<0$, which is impossible for any nonnegative measure
+on \([0,\infty)\).  The boundary point is only the simplest reduction.  A
+separate finite Gaussian detransposition recurrence computes the complete
+\(\beta=1\) width-limit jet through order thirteen as an exact polynomial in
+\(\alpha\).  After exact inversion,
+
+$$
+\Delta(\alpha)
+=\det(\mu_{i+j+1}(\alpha))_{i,j=0}^2
+=\frac{55296P(\alpha)}{2358125(63+48\alpha)^{33}},
+$$
+
+where \(P\) is primitive of degree 36, its constant and linear coefficients
+are negative, and every coefficient of degree at least two is positive.
+Exact arithmetic gives \(P(1/100)<0\).  Hence \(P''>0\), and convexity with
+two negative endpoint values proves
+
+$$
+\Delta(\alpha)<0\qquad(0\leq\alpha\leq1/100).
+$$
+
+All 37 exact Bernstein coefficients on the same interval are independently
+negative.  A direct \(\mathbb Q[\alpha]\) recurrence reproduces the complete
+jet and determinant, while the connected-forest compiler supplies
+algebraically distinct lower- and high-order overlaps.  Thus every
+\((\alpha,1)\) with \(0<\alpha\leq1/100\) is a strictly positive block-metric
+counterexample.
+
+The rational endpoint \(1/100\) is a simple certified subinterval, not the
+exact transition of the computed prefix.  A complete exact sign audit of
+\(\mu_0,\ldots,\mu_5\) shows that every moment, every leading ordinary
+determinant through \(H_2\), and the two preceding shifted determinants have
+coefficientwise-positive numerators for all \(\alpha\geq0\).  The sole
+sign-changing available gate is the displayed \(\Delta(\alpha)\).  Its
+numerator has exactly one positive zero \(\alpha_*\), with the exact
+isolation
+
+$$
+\frac{17519225541486}{10^{15}}
+<\alpha_*<
+\frac{17519225541487}{10^{15}},
+\qquad
+\alpha_*=0.017519225541486\ldots.
+$$
+
+Thus the complete six-moment truncation on \(\beta=1\) fails for
+\(0\leq\alpha<\alpha_*\), is positive semidefinite with singular
+\(H_2^+\) at \(\alpha_*\), and is strictly positive definite for
+\(\alpha>\alpha_*\).  In particular, a claim that small
+\(\alpha<0.017\) enforces positivity has the direction reversed.  This
+sharp classification is still finite-order only: it neither proves an
+all-order good region above \(\alpha_*\) nor says anything comparable at
+order thirteen away from \(\beta=1\).  The exact certificate is
+[ALPHA_TRANSITION_CERTIFICATE.json](resolution_program/ALPHA_TRANSITION_CERTIFICATE.json).
+
+#### Shallow raw-square corollary and characteristic compression
+
+The boundary \(\alpha=0\)—not \(\alpha=1\)—freezes the first-hidden
+variables \(u\).  For one input this boundary is more than an analogy with
+a shallow network.  Put
+
+$$
+v_i=\frac{z_i}{\sqrt{m_n}},
+\qquad
+g_n=\frac1n\sum_i a_i v_i^2.
+$$
+
+Conditionally on \(u\), the \(v_i\) are iid standard Gaussians independent
+of the \(a_i\), and their conditional law does not depend on \(m_n\).  The
+finite-width identities are exactly
+
+$$
+f_n=m_ng_n,
+\qquad
+\dot a_i=m_nv_i^2,
+\qquad
+\dot v_i=2m_na_iv_i.
+$$
+
+Thus, after the feature-time change \(\tau=m_ns\), this is Euclidean
+feature ascent for the ordinary one-hidden-layer raw-square model.  Since
+\(m_n\to3\) in every \(L^p\), every separately fixed width-limit derivative
+equals the multiplier-three shallow derivative.  If \(F_{\rm sh}\) and
+\(K_{\rm sh}\) denote the conventionally normalized multiplier-one shallow
+response and kernel, then
+
+$$
+F_{\rm red}(s)=3F_{\rm sh}(3s),
+\qquad
+K_{\rm red}(y)=9K_{\rm sh}(y/3),
+\qquad
+\mu_r^{\rm red}=9^{-r}\mu_r^{\rm sh}.
+$$
+
+Consequently the conventional shallow moments are
+
+$$
+\left(
+\frac{480}{49},
+\frac{43756}{16807},
+\frac{7214528}{2470629},
+\frac{37635527904}{9886633715},
+\frac{171752915595136}{30520038278205},
+\frac{2199776554157960896}{246754509479287425}
+\right),
+$$
+
+and positive diagonal Hankel congruence gives
+
+$$
+\det H_{2,{\rm sh}}^+
+=-\frac{86245462994269879146938487857152}
+{516623655319449980325461333747775}<0.
+$$
+
+Hence the formal output-kernel Stieltjes moment conjecture is exactly false
+for the standard one-input, iid-Gaussian, raw-square shallow network.  This
+is a fixed-order width-first theorem.  It does not cover centered or other
+activations, multiple inputs, or an independently constructed global
+positive-time Gaussian mean-field curve.  The strictly positive
+\(0<\alpha\leq1/100\) result above is separately important because those
+models are genuinely multilayer and all three parameter blocks train.
+
+The shallow feature flow is nevertheless exceptionally integrable.  For
+each neuron,
+
+$$
+\dot a=v^2,\qquad \dot v=2av,\qquad
+c=a^2-\frac12v^2
+$$
+
+has the conserved quantity \(c\).  If
+
+$$
+D''=4cD,\qquad D(0)=1,\qquad D'(0)=-2a(0),
+$$
+
+then, on the maximal interval on which \(D\ne0\),
+
+$$
+a(s)=-\frac{D'(s)}{2D(s)},
+\qquad
+v(s)=\frac{v(0)}{D(s)}.
+$$
+
+The function \(D\) is an elementary hyperbolic, linear, or trigonometric
+combination according as \(c>0\), \(c=0\), or \(c<0\).  Therefore
+
+$$
+F_n(s)=-\frac1{2n}\sum_i
+\frac{v_i(0)^2D_i'(s)}{D_i(s)^3},
+\qquad
+t(s)=\frac12\int_0^s\frac{du}{1-F_n(u)}
+$$
+
+where the characteristics, target clock, and denominators remain valid.
+This is an exact two-dimensional characteristic representation, and in the
+population language an exact transport/integral representation.  It is not
+a closed scalar autonomous ODE for the aggregate loss: finite width retains
+all \(n\) characteristics, while the population retains a continuum law.
+For unbounded Gaussian initialization, a positive-measure set of
+characteristics has already encountered a pole before every fixed
+\(s>0\), so the displayed formulas do not by themselves define an ordinary
+global Gaussian population expectation.  Compactly supported initial laws
+are rigorous before their first uniform pole time.
+
+The safe conceptual conclusion is therefore precise: **Stieltjes positivity
+is not necessary for low-dimensional integrable characteristic structure,
+and a negative Hankel witness is not a lower bound on all possible
+compression dimensions.**  It destroys the positive-resolvent/quadrature
+mechanism for this model, not every signed, memory-bearing, transport, or
+operator representation.  The full proof and exact scaling certificate are
+in
+[SHALLOW_QUADRATIC_REDUCTION.md](resolution_program/SHALLOW_QUADRATIC_REDUCTION.md).
+
+At the canonical endpoint \(\alpha=1\), the same exact jet gives
+
+$$
+F^{(13)}(0)=102853512279246664353620526022656,
+$$
+
+$$
+\mu_5=
+\frac{43091400402899303445912484475500496}
+{66714012134145460981362191472284175},
+$$
+
+and
+
+$$
+\det(\mu_{i+j+1})_{i,j=0}^2
+=
+\frac{821121994467978760780817399151273570663517173613881280168626780102656}
+{21875165394618842103069584785029512715749438929178771773425620184364845}
+>0.
+$$
+
+This settles the previously missing finite canonical gate positively, but
+does not determine the canonical all-order sequence.
+
+A later bounded canonical scalar successor extends this same fixed-order
+recurrence to
+
+$$
+F^{(15)}(0)=49079184579077107476764629402991788032,
+\qquad
+F^{(17)}(0)=30555969894096099495444855650521777374167040.
+$$
+
+Two isolated exact implementations agree.  The resulting $\mu_6,\mu_7$ are
+the exact fractions in Section 5, and every principal minor of both newly
+completed $H_3$ and $H_3^+$ is strictly positive.  This pushes the canonical
+finite prefix to eight moments without changing the all-order status.  The
+frozen branch ended at order seventeen, so no order-nineteen run was
+attempted.
 
 #### Campaign 5: three equicorrelated inputs
 
@@ -718,17 +1188,79 @@ and [failure provenance](../mean_field_peeling/quadratic_compiler/campaign5_b3/p
 
 | Campaign | Exact domain | Highest accepted data | Strongest exact sign result | Terminal status |
 |---|---|---|---|---|
-| Relative metric and hidden geometry | $\lambda\in[0,\infty)$ | $F^9$, $Q_2^8$ | Ordinary and shifted $2\times2$ output and companion-hidden Hankels | Passed; higher hidden order postponed |
+| Relative metric and hidden geometry | $\lambda\in[0,\infty)$ | Full ray: $F^9,Q_2^8$; canonical $\lambda=1$: $Q_2^{16}$ | Full-ray $2\times2$ output/hidden Hankels; canonical hidden $H_3,H_3^+\succ0$ | Full ray passed with higher order postponed; canonical point later extended |
 | Two inputs, equal/opposite labels | $t=\theta^2\in[0,1]$ | Both channels through $F^7$ | $\mu_0,\mu_1,\mu_2$ and ordinary $H_1$ in both channels | Passed; order nine postponed |
 | Centered activation | $c\in[0,2]$ | $F^7$ | $\mu_0,\mu_1,\mu_2$ and ordinary $H_1$ | Passed by exact Sturm isolation |
-| Independent block metric | $(\alpha,\beta)\in[0,\infty)^2$ | $F^9$, 125 sectors | $\mu_0,\ldots,\mu_3$, ordinary $H_1$, shifted $H_1^+$ | Passed on the whole quadrant |
+| Independent block metric | \((\alpha,\beta)\in[0,\infty)^2\) | \(F^9\) on the full quadrant; exact \(F^{13}\) on \(\beta=1\) | Frozen order-nine signs pass; on \(\beta=1\), the six-moment shifted \(H_2^+\) changes sign once at \(\alpha_*\) and is negative below | **Uniform all-order extension disproved in the strict interior; no joint high-order phase diagram** |
+| Shallow raw-square corollary | one input, iid Gaussian, square activation | Exact formal jet through \(F^{(13)}\) | Shifted \(H_2^+<0\); exact Riccati characteristics | **Formal Stieltjes claim disproved; characteristic compression survives** |
 | Three equicorrelated inputs | $\rho\in[-1/2,1]$ | $F^5$ | $\mu_0,\mu_1>0$ only | Order-seven gate failed; no Hankel test |
 
-The five campaign suites pass 86 exact unit, regression, and provenance tests
-in total.  Their conjunction is substantially harder to attribute to an
-accidental sign at one canonical point, but it is still finite-order evidence.
-It supplies neither the missing all-order positive operator nor the bridge
-from fixed-order formal jets to a global deterministic mean-field curve.
+#### Smooth-activation universality: normalized-sine counterexample
+
+A separate generic-activation compiler tests whether the Stieltjes structure
+could be universal over smooth activations even when the architecture and
+equal Euclidean learning metric are retained.  For one input it studies
+
+$$
+u_j=\frac{w_j^\top x}{\sqrt{d_0}},
+\qquad
+z_i=\frac1{\sqrt n}\sum_jW_{ij}\phi(u_j),
+\qquad
+f_n=\frac1n\sum_i a_i\phi(z_i),
+$$
+
+with every parameter block trained.  For
+
+$$
+\phi(x)=\frac{\sin x}{\sqrt{(1-e^{-2})/2}},
+$$
+
+two independently frozen Gaussian-normal-form compilers agree on the
+complete order-five coefficient maps.  Closed finite-Fourier evaluation,
+independently reproduced by Gaussian quadrature and high-precision direct
+evaluation, gives
+
+$$
+\begin{aligned}
+A=F'(0)&=4.03709694646564\ldots,\\
+B=F^{(3)}(0)&=-103.257331146774\ldots,\\
+C=F^{(5)}(0)&=29944.4323429373\ldots.
+\end{aligned}
+$$
+
+Since
+
+$$
+\mu_0=\frac{B}{2A^2},
+\qquad
+\mu_1=\frac{4B^2-AC}{24A^5},
+$$
+
+one obtains
+
+$$
+\mu_0=-3.16776198608130\ldots<0,
+\qquad
+\mu_1=-3.03999737837846\ldots<0.
+$$
+
+Thus a smooth, bounded, normalized activation with all blocks moving at equal
+learning rate violates even the first necessary Stieltjes moment sign.  This
+disproves any extension universal over smooth activations; it is an explicit
+counterexample, not a theorem that generic activations generically fail.  The
+result is an audited fixed-order annealed width-limit coefficient theorem
+under the stated tensor-program moment hypotheses, not a positive-time
+trajectory theorem.  The primary formula, independent map comparison,
+controls, and preregistered finite-width regression are in the
+[generic first-Stieltjes study](../mean_field_peeling/generic_first_stieltjes/README.md).
+
+The original five campaign suites pass 86 exact unit, regression, and
+provenance tests in total.  Those tests remain valid at their frozen orders,
+but the new exact axis reduction demonstrates why finite-prefix compatibility
+cannot be promoted: the block-metric family first fails at its next shifted
+$3\times3$ test.  The canonical point still lacks both an all-order positive
+operator and a bridge from fixed-order formal jets to a global deterministic
+mean-field curve.
 
 The higher-order stops were deliberate.  Campaign 2 order nine requires a new
 two-color sectorization after a monolithic projection of roughly 80--112 GiB;
@@ -736,9 +1268,9 @@ Campaign 3 order nine similarly projected to tens of GiB; and Campaign 4
 stopped at its preregistered first shifted endpoint, whose success did not
 authorize another cumulative finite-order run.
 
-The next **canonical shifted $3\times3$ test** needs
-\(\mu_5=-g_6\), hence \(F^{(13)}(0)\).  Given the
-five moments already known, positivity of the next shifted determinant is
+The next **canonical shifted \(3\times3\) test** was previously missing
+\(\mu_5=-g_6\), hence \(F^{(13)}(0)\).  Given the first
+five moments, positivity of that determinant is
 equivalent to
 
 $$
@@ -771,8 +1303,24 @@ F_1^{(13)}(0)
 \le 1.300194546159283\times10^{32}.
 $$
 
-Because the determinant decreases with $F^{(13)}(0)$, an exact value or
-certified lower bound above this threshold would disprove the conjecture. The
+Because the determinant decreases with \(F^{(13)}(0)\), an exact value above
+this threshold would disprove the conjecture.  The new exact value is
+
+$$
+F^{(13)}(0)=102853512279246664353620526022656,
+$$
+
+which is below the threshold and gives
+
+$$
+\mu_5=
+\frac{43091400402899303445912484475500496}
+{66714012134145460981362191472284175},
+\qquad
+\det H_2^+>0.
+$$
+
+Thus the gate passes exactly.  Before this value was available, the
 positive-subsum peeling calculation produced the following rigorous monotone
 lower bounds:
 
@@ -786,8 +1334,9 @@ lower bounds:
 | 12 | $37\,637\,913\,524\,018\,077\,968\,293\,271\,343\,104$ |
 | 14 | $50\,393\,647\,763\,255\,899\,049\,472\,742\,772\,736$ |
 
-The strongest is only about $38.76\%$ of the falsification threshold. Failure
-to cross a one-sided threshold is not evidence for positivity. The old JSON
+The strongest historical lower bound is only about \(38.76\%\) of the
+falsification threshold.  Its failure to cross a one-sided threshold was not
+evidence for positivity; the later exact value is what resolves the gate. The old JSON
 now stored as
 [`../mean_field_peeling/quadratic_compiler/archive/peeling_lower_bound_order13_historical.json`](../mean_field_peeling/quadratic_compiler/archive/peeling_lower_bound_order13_historical.json)
 contains an obsolete $1.553\times10^{32}$ threshold and obsolete prose; its
@@ -840,16 +1389,16 @@ order-eleven value by more than $10^{21}$; neither mechanism projected useful
 threshold separation within the frozen extension budget.  More importantly,
 the campaign did not complete its mandatory fresh per-sector D9, total D11,
 and per-run provenance gate.  Its new endpoints are therefore diagnostics,
-not certificates.  The accepted D13 lower bound remains exactly the cap-14
-value above, only $38.76\%$ of the threshold.
+not certificates.  The Campaign-6 lower-bound claim remains exactly the
+cap-14 value above, only \(38.76\%\) of the threshold, but it is now
+superseded for coefficient identification by the independently derived exact
+\(F^{(13)}(0)\).
 
-No old multi-day enumeration or eight-hour root-class run was resumed.  More
-D13 compute is not authorized by this non-result.  A future bounded attempt
-first needs a graph-sensitive omitted-mass lemma: either a calibrated bound on
-leading-width Wick partitions of large decorated trees, a disjoint positive
-family aggregation that avoids enumerating all P14 bases, or a nonlocal
-two-generation transport identity replacing the already false local charging
-rules.  The downgrade and terminal decision are preserved in the
+No old multi-day enumeration or eight-hour root-class run was resumed.  The
+new Gaussian-program recurrence makes another brute-force canonical D13
+attempt unnecessary.  The old routes and the graph-sensitive lemmas they
+would have required remain useful method-level history, not open obligations
+for this coefficient.  The downgrade and terminal decision are preserved in the
 [`Campaign 6 report`](../mean_field_peeling/quadratic_compiler/campaign6_f13_threshold/CAMPAIGN_REPORT.md),
 while the original allocation rule remains in the
 [frozen historical portfolio](archive/FROZEN_CAMPAIGNS_4_6_PORTFOLIO.md).
@@ -961,6 +1510,12 @@ negative minors, so any successful Gram basis must mix profiles nonlocally.
 Introduce a variance parameter $\alpha\ge0$ for the middle weights; the
 spectral integration variable remains $\lambda$. The exact Wick-sector
 decomposition is
+
+> **Notation warning.**  The \(\alpha\) in this section changes the
+> initialization variance and is unrelated to the learning-rate coefficient
+> \(\alpha\) in \(D_{\alpha,\beta}\).  In particular, the positive
+> Stieltjes variance boundary below does not contradict the non-Stieltjes
+> block-metric boundary at learning rate \((\alpha,\beta)=(0,1)\).
 
 $$
 F_\alpha^{(2r+1)}(0)
@@ -1160,11 +1715,13 @@ the formally stronger addition of simple roots without a perturbation
 argument. The neural matrix's simple roots remain interesting structure, not
 a proof.
 
-## 9. What can be reconstructed from five moments
+## 9. What was reconstructed from the first five moments
 
-These five moments do not by themselves select a unique full representing
-measure.  They do define canonical atomic representatives of the available
-truncations.
+The canonical moments through $\mu_7$ are now known, but the retained
+quadrature and proxy hierarchy in this section was frozen from the first five.
+Those five moments do not by themselves select a unique full representing
+measure.  They do define canonical atomic representatives of that
+truncation.
 
 The displayed nodes and weights below are rounded values of exact algebraic
 solutions.  For the Gaussian rule, the monic quadratic
@@ -1580,6 +2137,10 @@ The complete local record is
 ### 10.2 Bounded DMFT and the canonical FP32 Euler qualification
 
 Two bounded reference routes were audited before the breadth panel.  The
+bounded-readout Stage-0 route below is unrelated to the rejected
+tagged-site instantaneous-step/no-closure argument in the separate
+quadratic-nonclosure study; no conclusion from that argument is imported
+here.  The
 first derived a two-species dynamical mean-field system for the quadratic
 network with a deliberately bounded readout,
 $a(0)\sim N(0,1)\mid |a(0)|\le3$, without variance renormalization.  Its
@@ -1912,9 +2473,11 @@ representation; zero radius alone does not prove that representation.
 
 ## 13. Proof strategies eliminated by exact counterexamples
 
-The conjecture survived the study, but many attractive generic arguments did
-not. These are **proof-route falsifiers**, not counterexamples to the
-architecture-specific conjecture.
+Canonical V1 survived the study, while uniform block-metric U1 and the
+shallow raw-square instance did not.  Many attractive generic proof
+arguments failed as well.  The items below are **proof-route falsifiers**,
+not counterexamples to the still-open canonical architecture-specific
+conjecture.
 
 1. **Positive raw feature coefficients.** In the notation
    $\psi(z)=\psi_0+\psi_1z+\psi_2z^2+\cdots$, the exact identity
@@ -1992,7 +2555,7 @@ architecture-specific conjecture.
     dominant. Neither its growth nor the first
     704 order-thirteen base contractions determines $F^{(13)}(0)$.
 
-The common lesson is that any proof must use a genuinely
+The common lesson is that any proof of canonical V1 must use a genuinely
 architecture-specific, nonlocal relation among peeling sectors or transformed
 moments. Positivity of the ingredients before series inversion is not enough.
 
@@ -2002,12 +2565,15 @@ Proved or computationally certified:
 
 1. the exact special-case peeling/Wick recursion and its independent
    low-order regressions;
-2. $F^{(11)}(0)$ and $g_5=\mu_4$ exactly;
-3. strict positivity of every Hankel condition testable through $\mu_4$;
+2. canonical $F^{(k)}(0)$ through order seventeen and
+   $(\mu_0,\ldots,\mu_7)$ exactly;
+3. strict positivity of every canonical Hankel condition testable through
+   $\mu_7$, including every principal minor of $H_3$ and $H_3^+$;
 4. exact continuum-valued finite-order Hankel compatibility over four
    campaigns: the relative-metric ray, two-input label/correlation channels,
    centered activation, and independent two-block metric quadrant, including
-   ordinary and shifted output/hidden two-by-two tests where computed;
+   ordinary and shifted output/hidden two-by-two tests where computed; these
+   finite prefixes remain valid despite the later block-metric failure;
 5. the faithful three-input equicorrelation MFP extension through order five,
    its genuine triangle invariant, and exact $\mu_0,\mu_1>0$ on the full PSD
    interval, but no Hankel determinant;
@@ -2040,30 +2606,73 @@ Proved or computationally certified:
    M4, and the central M0--M1--M2--... error sequences failed strict
    improvement in every configuration at both widths; every 99% paired
    width-change interval crossed zero, so this remains two-width empirical
-   evidence rather than a limit theorem.
+   evidence rather than a limit theorem; and
+18. the complete exact \(\beta=1\) block-metric jet through order thirteen and
+   its negative shifted \(3\times3\) Hankel witness on every
+   \(0\leq\alpha\leq1/100\), which supplies strictly positive-metric
+   counterexamples and completely disproves U1 and its U2/U3 strengthenings;
+   and
+19. the two-route canonical order-fifteen/order-seventeen successor, exact
+   $\mu_6,\mu_7$, and positive-definite ordinary and shifted $4\times4$
+   matrices, a finite-order pass that leaves canonical V1--V3 open; its
+   frozen branch stopped at order seventeen and did not attempt order
+   nineteen; and
+20. the two-route canonical hidden-norm successor through $Q_2^{(16)}(0)$,
+   with nine first-hidden moments, eight second-hidden moments, and every
+   accessible squared- and literal-RMS Hankel principal minor strictly
+   positive; this is a finite-order pass, and the second-hidden all-order
+   companion remains open; and
+21. the sharp finite-prefix transition on the \(\beta=1\) metric ray: the
+   unique positive root \(\alpha_*=0.017519225541486\ldots\) of the exact
+   shifted determinant is the sole sign change among all leading gates
+   available from \(\mu_0,\ldots,\mu_5\); this is a six-moment theorem, not
+   an all-order learning-rate phase diagram; and
+22. the exact one-input shallow reduction at \((0,1)\), the conventional
+   raw-square shallow model's negative shifted \(H_2^+\), and its explicit
+   Riccati characteristic flow; together these prove formal non-Stieltjes
+   behavior coexists with low-dimensional characteristic integrability,
+   without proving a closed aggregate loss ODE or a global Gaussian
+   population curve; and
+23. the normalized-sine two-hidden-layer counterexample with every block
+   trained at the equal Euclidean metric: its audited fixed-order annealed
+   coefficients have \(\mu_0<0\) and \(\mu_1<0\), disproving any
+   smooth-activation-universal extension without affecting the canonical
+   quadratic claim.
 
 Open:
 
-1. the three-input $F^{(7)}$ and first ordinary determinant, the canonical
-   exact order-thirteen derivative, $\mu_5$, and the next shifted
-   three-by-three determinant;
+1. the three-input \(F^{(7)}\) and first ordinary determinant;
 2. an all-order architecture-specific Hankel, Jacobi, or cone-preservation
    mechanism;
 3. moment determinacy and therefore uniqueness of $\rho$;
 4. a bridge from the fixed-order formal jet to an actual global deterministic
    mean-field curve;
 5. an all-order companion-measure theorem for the second-hidden response,
-   beyond its exact finite-order Campaign-1 tests; and
+   beyond its exact eight-moment canonical tests and lower-order full
+   relative-metric-ray certificate; and
 6. uniform convergence of the conditional rational-ODE hierarchy to that
    actual curve and its loss, together with a finite-width reference design
    capable of resolving corrections beyond the first moment; and
 7. a wider or more highly replicated FP64 study capable of resolving the
    observed $n=4096/8192$ paired shifts and separating finite-width bias from
-   the width limit; two widths do not authorize extrapolation.
+   the width limit; two widths do not authorize extrapolation; and
+8. if another bounded finite-order falsification probe is authorized, the
+   next new leading gate is ordinary $H_4$, requiring $\mu_8$ and therefore
+   $F^{(19)}(0)$; the completed successor did not attempt it; and
+9. any all-order learning-rate phase diagram: the exact
+   \(\alpha_*\) threshold concerns only six moments on \(\beta=1\), while
+   the joint \((\alpha,\beta)\) authority stops at order nine; and
+10. a well-posed positive-time shallow population theory and a restartable,
+    non-oracular finite-complexity approximation theorem on compact horizons;
+    the exact characteristic formula alone does not close the aggregate
+    Gaussian loss.
 
 ## 15. Completed order-thirteen searches and portfolio stop
 
-Every canonical order-thirteen campaign was a one-sided falsification search:
+This section records the historical brute-force portfolio.  The canonical
+coefficient is no longer open: Section 5 gives its later exact value from the
+\(\beta=1\) Gaussian-program recurrence.  Every earlier canonical
+order-thirteen campaign was a one-sided falsification search:
 a certified lower bound above the exact shifted-Hankel threshold would refute
 the conjecture, while a lower bound below it is not positive evidence.
 
@@ -2090,12 +2699,11 @@ after the full two-dimensional metric quadrant passed its shifted test and
 the remaining endpoints had poor measured information per cost.  These are
 completed stopping decisions, not active authorizations.
 
-A future D13 attempt should not resume the old brute-force routes unchanged.
-It first needs a graph-sensitive omitted-mass lemma: a calibrated bound on
-leading-width Wick partitions of large decorated trees, a disjoint positive
-family aggregation avoiding enumeration of all maximal-sector bases, or a
-nonlocal two-generation transport identity replacing the false local charging
-rules.  The original Campaigns 4--6 allocation and terminal rules are retained
+A future use of those brute-force routes on a different coefficient should
+not resume them unchanged; it would first need a graph-sensitive omitted-mass
+lemma or a nonlocal transport identity.  No such continuation is needed for
+canonical D13 now that the independent exact recurrence has computed it.  The
+original Campaigns 4--6 allocation and terminal rules are retained
 only as [frozen historical provenance](archive/FROZEN_CAMPAIGNS_4_6_PORTFOLIO.md).
 
 ## 16. Artifact index and durability policy
@@ -2104,6 +2712,10 @@ The durable source-of-truth map is:
 
 - [the standalone MFP report](../mean_field_peeling/CURRENT_RESEARCH_STATE.md)
   for the reusable method and theorem program;
+- the [generic-activation Stieltjes study](../mean_field_peeling/generic_first_stieltjes/README.md)
+  for the independently compiled order-five Gaussian normal form,
+  normalized-sine negative moment signs, controls, and fixed-order
+  probability bridge;
 - [the exact quadratic compiler](../mean_field_peeling/quadratic_compiler/)
   for decorated-forest rewrites, checked sector engines, exact raw derivatives,
   and D11/D13 audits;
@@ -2125,6 +2737,34 @@ The durable source-of-truth map is:
   exact \(K\)-coefficients, moments, and accessible Hankel determinants;
 - [the D13 threshold calculator](theory/exact_d13_threshold.py) for the exact
   affine next-determinant calculation;
+- [the resolution program](resolution_program/), especially the
+  [block-metric theorem](resolution_program/BLOCK_METRIC_RESOLUTION.md),
+  [positive-alpha jet](resolution_program/BLOCK_METRIC_POSITIVE_ALPHA_JET.json),
+  [interval certificate](resolution_program/ALPHA_INTERVAL_CERTIFICATE.json),
+  [sharp finite-prefix transition](resolution_program/ALPHA_TRANSITION_CERTIFICATE.json),
+  [direct polynomial audit](resolution_program/INDEPENDENT_QALPHA_AUDIT.json),
+  and [scalar determinant audit](resolution_program/INDEPENDENT_SCALAR_DETERMINANT_AUDIT.json),
+  for the complete strict-interior negative resolution of the uniform
+  block-metric extension, the exact canonical D13 by-product, and explicit
+  separation from the open canonical all-order claim;
+- the [shallow reduction theorem](resolution_program/SHALLOW_QUADRATIC_REDUCTION.md)
+  and [exact shallow certificate](resolution_program/SHALLOW_QUADRATIC_CERTIFICATE.json)
+  for the one-input boundary's conventional raw-square counterexample,
+  positive-rescaling congruence, Riccati characteristics, and global-Gaussian
+  scope limitation;
+- the [canonical high-order result](resolution_program/canonical_high_order/RESULTS.md),
+  [production recurrence record](resolution_program/canonical_high_order/PRODUCTION_RESULT.json),
+  [independent recurrence record](resolution_program/canonical_high_order/INDEPENDENT_RESULT.json),
+  and [eight-moment Hankel certificate](resolution_program/canonical_high_order/F17_MOMENT_HANKEL_AUDIT.json)
+  for the exact canonical jet through order seventeen, $\mu_6,\mu_7$, both
+  positive-definite $4\times4$ matrices, two-route resource evidence, and the
+  explicit finite-order-only stop before order nineteen;
+- the [canonical hidden-norm result](resolution_program/canonical_hidden_high_order/RESULTS.md),
+  [primary all-minor certificate](resolution_program/canonical_hidden_high_order/HIDDEN_MOMENT_HANKEL_AUDIT.json),
+  and [independent scalar certificate](resolution_program/canonical_hidden_high_order/INDEPENDENT_HIDDEN_SCALAR_AUDIT.json)
+  for the exact first- and second-hidden squared-RMS jets, their
+  output-coordinate moment candidates, normalized literal-RMS readouts, and
+  every accessible principal minor through nine and eight moments;
 - [the inverse-variable calculator](theory/inverse_derivative_threshold.py)
   for inverse-variable Hankel checks;
 - [the variance-boundary audit](theory/variance_homotopy_boundary_audit.py)
@@ -2170,8 +2810,12 @@ evaluator binary in the MFP compiler is a documented exception because its
 hash identifies the accepted execution and the exact patched source revision
 is not otherwise recoverable.
 
-The final scientific status is unchanged by this organization:
+The final scientific status is scope-dependent:
 
 $$
-\boxed{\text{the output-kernel Stieltjes conjecture remains open.}}
+\boxed{\begin{gathered}
+\text{canonical V1 remains open;}\\
+\text{uniform block-metric U1 is disproved exactly;}\\
+\text{the standard shallow raw-square formal Stieltjes claim is disproved exactly.}
+\end{gathered}}
 $$

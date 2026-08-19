@@ -1,22 +1,33 @@
 # RMS-normalized and direction-only weight-normalized mean-field \(\mu\)P networks
 
+> **Corrected scope.**  The exact nonclosure statement in this report is
+> non-invariance of the displayed frozen top-block ordinary monomial
+> degree/rectangular cutoffs.  Full-system projector and matrix-word
+> proliferation is diagnostic; it is not a proved dimension lower bound
+> against every nonlinear, operator-valued, or approximate compressed state.
+> The low-order coefficients are formal annealed jets unless a separate
+> concentration/trajectory bridge is supplied.
+
 ## Audited order-four Taylor expansions and closure classification
 
 ### Executive conclusion
 
 For the canonical two-hidden-layer, one-sample, scalar-output \(\mu\)P network, the two normalizations behave very differently at low Taylor order.
 
-With quadratic activation \(\phi(u)=u^2/2\), middle-layer variance \(\gamma/n\), centered Gaussian initialization, and the same \(\gamma=4/3\) used in the unnormalized project notes, write the feature-time output as
+With quadratic activation \(\phi(u)=u^2/2\), middle-layer variance
+\(\gamma/n\), centered Gaussian initialization, and the same \(\gamma=4/3\)
+used in the unnormalized project notes, encode the formal annealed
+feature-time jet through cubic order by
 
 \[
-H(\tau)=A\tau+\frac{B}{3!}\tau^3+O(\tau^5).
+F(\tau)\equiv A\tau+\frac{B}{3!}\tau^3\pmod{\tau^5}.
 \]
 
 The audited coefficients are
 
 \[
 \begin{array}{c|cc}
-\text{model}&A=H'(0)&B=H'''(0)\\ \hline
+\text{model}&A=F'(0)&B=F'''(0)\\ \hline
 \text{unnormalized}&\dfrac{17}{6}&\dfrac{229957}{216}\\[2mm]
 \text{global readout direction-WN}&\dfrac{17}{6}&\dfrac{223939}{216}\\[2mm]
 \text{RMS after both hidden activations}&\dfrac{34}{9}&-\dfrac{273712}{729}
@@ -29,15 +40,16 @@ Thus RMSNorm causes a genuine sign reversal in the cubic feature-time coefficien
 \frac{229957-223939}{216}=\frac{1003}{36}.
 \]
 
-For label one and squared loss \(\mathcal L=(1-f)^2\), the complete physical-time Taylor series through order four is
+For label one and squared loss \(\mathcal L=(1-f)^2\), the formal
+physical-time loss jet through order four is
 
 \[
 \boxed{
 \mathcal L(t)
-=1-4At+8A^2t^2
+\equiv1-4At+8A^2t^2
 -\frac{32A^3+8B}{3}t^3
 +\frac{32A^4+44AB}{3}t^4
-+O(t^5).
+\pmod{t^5}.
 }
 \]
 
@@ -46,11 +58,11 @@ Consequently,
 \[
 \boxed{
 \mathcal L_{\rm RMS}(t)
-=1-\frac{136}{9}t
+\equiv1-\frac{136}{9}t
 +\frac{9248}{81}t^2
 +\frac{103552}{243}t^3
 -\frac{40745600}{2187}t^4
-+O(t^5),
+\pmod{t^5},
 }
 \]
 
@@ -59,22 +71,32 @@ whereas
 \[
 \boxed{
 \mathcal L_{\rm WN}(t)
-=1-\frac{34}{3}t
+\equiv1-\frac{34}{3}t
 +\frac{578}{9}t^2
 -\frac{81197}{27}t^3
 +\frac{14181587}{324}t^4
-+O(t^5).
+\pmod{t^5}.
 }
 \]
 
-These are Taylor coefficients, not derivatives. Multiplying the coefficient of \(t^m\) by \(m!\) gives \(\mathcal L^{(m)}(0)\).
+These are formal Taylor coefficients, not derivatives of an independently
+constructed curve. Multiplying the coefficient of \(t^m\) by \(m!\) gives
+the corresponding formal value denoted \(\mathcal L^{(m)}(0)\) below.
 
 The closure conclusion is more subtle:
 
-1. Neither normalization produces an exact finite invariant moment/message algebra. RMSNorm adds reciprocal-moment, projection, and Bell-partition vertices; WN removes radial modes but leaves the tangential noncommutative message hierarchy.
+1. In the displayed frozen reductions, neither normalization leaves any
+   finite ordinary degree/rectangular monomial cutoff invariant. RMSNorm adds
+   reciprocal-moment, projection, and Bell-partition vertices; WN leaves a
+   proliferating tangential word grammar in the full formal calculation.
 2. The old coefficientwise-positive Wick lower bound does **not** transfer to RMSNorm or to global readout direction-WN, because both introduce negative projection terms. Therefore the old zero-radius proof cannot simply be reused.
-3. If WN is applied only to hidden rows and not to the readout, its fixed-order mean-field corrections vanish under the large-fan-in convention, so the old unnormalized Taylor no-go does transfer.
-4. The broad impossibility of every non-Taylor, accuracy-dependent finite PDE was not proved even for the raw model. It remains unproved for the normalized variants. What is ruled out here is exact finite natural moment/message closure, not every conceivable certified real-axis approximation.
+3. If WN is applied only to hidden rows and not to the readout, the source's
+   fixed-order calculation makes its corrections vanish under the declared
+   large-fan-in convention; subject to that reduction, the raw formal-jet
+   Taylor no-go transfers.
+4. The broad impossibility of every non-Taylor, accuracy-dependent finite PDE
+   remains unproved.  Full-system word proliferation alone does not upgrade
+   the frozen-cutoff theorem to such a result.
 
 ---
 
@@ -99,7 +121,7 @@ W_j^{(3)}(0)\sim N(0,n^{-2}),
 and
 
 \[
-f=\sum_jW_j^{(3)}h_j^{(2)}
+f_n=\sum_jW_j^{(3)}h_j^{(2)}
 =\frac1n\sum_ja_jh_j^{(2)}.
 \]
 
@@ -111,7 +133,7 @@ For the unnormalized network,
 h^{(1)}=\phi(z^{(1)}),\qquad
 z^{(2)}=W^{(2)}h^{(1)},\qquad
 h^{(2)}=\phi(z^{(2)}),\qquad
-f=\langle a,h^{(2)}\rangle,
+f_n=\langle a,h^{(2)}\rangle,
 \]
 
 where
@@ -125,25 +147,27 @@ where
 The feature-ascent derivation is
 
 \[
-D_+z^{(1)}=n\nabla_{z^{(1)}}f,
+D_+z^{(1)}=n\nabla_{z^{(1)}}f_n,
 \qquad
-D_+W^{(2)}=\nabla_{W^{(2)}}f,
+D_+W^{(2)}=\nabla_{W^{(2)}}f_n,
 \qquad
-D_+a=n\nabla_af.
+D_+a=n\nabla_af_n.
 \]
 
 For label \(y\) and loss
 
 \[
-\mathcal L=(y-f)^2,
+\mathcal L_n=(y-f_n)^2,
 \]
 
-physical gradient flow follows exactly the same feature orbit with clock
+write \(F_n(\tau)\) for the value of \(f_n\) along the finite-width
+feature-ascent orbit. Physical gradient flow follows exactly the same orbit
+with clock
 
 \[
-\dot\tau=2\bigl(y-H(\tau)\bigr),
+\dot\tau_n=2\bigl(y-F_n(\tau_n)\bigr),
 \qquad
-f(t)=H(\tau(t)).
+f_n(t)=F_n(\tau_n(t)).
 \]
 
 All network-dependent Taylor calculations can therefore be done once in feature time and converted exactly to physical time.
@@ -152,18 +176,21 @@ All network-dependent Taylor calculations can therefore be done once in feature 
 
 ## 2. Universal loss jet through order five
 
+All equalities in this section are identities of formal annealed power
+series. They do not assert existence of a positive-time limiting trajectory.
+
 Let
 
 \[
-k_j=D_+^j\kappa(0)=H^{(j+1)}(0),
+k_j=D_+^j\kappa(0)=F^{(j+1)}(0),
 \qquad
-\kappa=H'.
+\kappa=F'.
 \]
 
-For centered mean-field initialization, \(H(0)=0\). For label one, direct series substitution into
+For centered mean-field initialization, \(F(0)=0\). For label one, direct series substitution into
 
 \[
-\dot\tau=2(1-H(\tau)),\qquad \mathcal L=(1-H(\tau))^2
+\dot\tau=2(1-F(\tau)),\qquad \mathcal L=(1-F(\tau))^2
 \]
 
 gives
@@ -197,10 +224,13 @@ and
 \end{aligned}
 \]
 
-The centered readout law is antipodally symmetric. If \(a(0)\) is replaced by \(-a(0)\), the feature-time trajectory is time-reversed in the hidden variables and sign-reversed in the readout. After averaging,
+The centered readout law is antipodally symmetric. At the finite-width formal
+level, replacing \(a(0)\) by \(-a(0)\) reverses feature time in the hidden
+variables and reverses the readout sign. After annealed averaging, the formal
+jet obeys
 
 \[
-H(-\tau)=-H(\tau).
+F(-\tau)=-F(\tau).
 \]
 
 This symmetry survives RMSNorm and global direction-only readout WN. Hence
@@ -212,15 +242,16 @@ k_1=k_3=0.
 Writing
 
 \[
-A=k_0=H'(0),\qquad
-B=k_2=H'''(0),\qquad
-C=k_4=H^{(5)}(0),
+A=k_0=F'(0),\qquad
+B=k_2=F'''(0),\qquad
+C=k_4=F^{(5)}(0),
 \]
 
 one obtains
 
 \[
-H(\tau)=A\tau+\frac{B}{3!}\tau^3+\frac{C}{5!}\tau^5+O(\tau^7),
+F(\tau)\equiv A\tau+\frac{B}{3!}\tau^3+\frac{C}{5!}\tau^5
+\pmod{\tau^7},
 \]
 
 and
@@ -228,11 +259,11 @@ and
 \[
 \begin{aligned}
 \mathcal L(t)
-={}&1-4At+8A^2t^2
+\equiv{}&1-4At+8A^2t^2
 -\frac{32A^3+8B}{3}t^3\\
 &+\frac{32A^4+44AB}{3}t^4\\
 &-\left(\frac{128}{15}A^5+\frac{616}{15}A^2B+\frac{8}{15}C\right)t^5
-+O(t^6).
+\pmod{t^6}.
 \end{aligned}
 \]
 
@@ -243,9 +274,10 @@ For a general label \(y\), the same formula holds after multiplying the pure-\(A
 \[
 \begin{aligned}
 \mathcal L_y(t)
-={}&y^2-4y^2At+8y^2A^2t^2\\
+\equiv{}&y^2-4y^2At+8y^2A^2t^2\\
 &-\left(\frac{32}{3}y^2A^3+\frac83y^4B\right)t^3\\
-&+\left(\frac{32}{3}y^2A^4+\frac{44}{3}y^4AB\right)t^4+O(t^5).
+&+\left(\frac{32}{3}y^2A^4+\frac{44}{3}y^4AB\right)t^4
+\pmod{t^5}.
 \end{aligned}
 \]
 
@@ -689,10 +721,11 @@ and
 
 \[
 \mathcal L_{\rm RMS,\gamma=1}(t)
-=1-\frac{148}{9}t
+\equiv1-\frac{148}{9}t
 +\frac{10952}{81}t^2
 +\frac{133216}{243}t^3
--\frac{57096032}{2187}t^4+O(t^5).
+-\frac{57096032}{2187}t^4
+\pmod{t^5}.
 \]
 
 ---
@@ -761,7 +794,12 @@ q_1-\frac{(z_j^{(2)})^2}{ng_j^2}
 \right).
 \]
 
-The radial correction is \(O(n^{-1})\). At every fixed derivative order it disappears from the width-mean-field coefficient. Thus large-fan-in hidden row WN is asymptotically invisible in the fixed-order Taylor hierarchy; the global readout projection is the surviving \(O(1)\) modification.
+The displayed first radial correction is \(O(n^{-1})\). The source reports
+that analogous corrections disappear at every separately fixed derivative
+order under the same large-fan-in convention.  That all-order transfer is an
+additional fixed-order reduction claim; it does not follow from the displayed
+first-order estimate alone.  The global readout projection is the surviving
+\(O(1)\) modification in the orders computed here.
 
 If the first-layer input dimension \(d\) is fixed, its projector does survive. For a row \(v_i\), fixed input \(x\), and \(z_i^{(1)}=v_i\cdot x\),
 
@@ -1047,7 +1085,10 @@ which gives
 
 for the sphere correction.
 
-If the readout is excluded from WN, then \(B=B_0\), and under the primary large-fan-in convention every fixed-order coefficient equals the raw one.
+If the readout is excluded from WN, then the computed coefficient satisfies
+\(B=B_0\). The extension saying that every separately fixed-order coefficient
+equals the raw one is the additional large-fan-in reduction claim just
+described.
 
 ---
 
@@ -1084,7 +1125,7 @@ For independent standard Gaussian \(a,z\),
 
 \[
 \boxed{
-H(\tau)
+F(\tau)
 =\frac73\tau
 -\frac{464}{81}\tau^3
 +\frac{174368}{3645}\tau^5
@@ -1127,7 +1168,7 @@ The exact feature-time series is
 
 \[
 \boxed{
-H(\tau)
+F(\tau)
 =\frac32\tau
 +\frac{75}{16}\tau^3
 +\frac{8181}{640}\tau^5
@@ -1138,7 +1179,7 @@ H(\tau)
 If hidden features are also frozen, direct readout-sphere ascent reduces further to
 
 \[
-H(\tau)
+F(\tau)
 =\sqrt{CQ}\,
 \tanh\!\left(\sqrt{\frac QC}\,\tau\right),
 \qquad
@@ -1170,7 +1211,11 @@ creates three new families in addition to the raw matrix-reuse words:
 2. derivatives of \(P_\ell=I-u^{(\ell)}\otimes u^{(\ell)}\), producing new outer-product attachments;
 3. disconnected products of population contractions such as \(\langle h^{(p)},h^{(q)}\rangle\).
 
-The number and grade of these decorated words grows with every derivative order. RMSNorm fixes one second moment per layer; it does not determine the higher mixed moments or the noncommutative messages.
+The number and grade of these decorated words grows with every derivative
+order. RMSNorm fixes one second moment per layer; it does not determine the
+higher mixed moments or the noncommutative messages.  This is a grammar-growth
+statement, not proof that those words are all independent, reachable, or
+immune to operator-valued compression.
 
 The frozen-block recurrence above makes this nonclosure explicit. The derivative of \(M_{p,r}\) contains \(M_{p-1,r+2}\), \(M_{p+1,r}\), and \(M_{p,r+2}\). No finite degree cutoff is invariant.
 
@@ -1185,9 +1230,17 @@ P_w^{(m)}
 w^{(p)}(w^{(m-p)})^\top.
 \]
 
-Thus projector words also proliferate at every order. In the large-fan-in middle layer, their radial contributions vanish at each fixed mean-field order, leaving the raw noncommutative hierarchy. The global readout projector adds the scalar attachment \(-fa/C\), but does not identify or eliminate the hidden message words.
+Thus projector words also proliferate at every order. Under the report's
+additional all-fixed-order large-fan-in reduction, their radial contributions
+vanish at each separately fixed formal order, leaving the raw noncommutative
+grammar. The displayed first-order estimate does not prove that reduction.
+The global readout projector adds the scalar attachment \(-fa/C\), but does not identify
+or eliminate the hidden message words.  Proliferation is not by itself a
+full-system no-compression theorem.
 
-Again, the exact frozen-block recurrence raises \(p\) or \(r\), proving that the natural polynomial moment algebra does not close finitely.
+Again, the exact frozen-block recurrence raises \(p\) or \(r\), proving that
+no finite degree or rectangular cutoff in this ordinary monomial hierarchy is
+invariant.
 
 ### 6.3 Why the old positivity proof no longer applies
 
@@ -1216,7 +1269,10 @@ u=\frac{G^2}{\sqrt3},
 =\frac{(2p-1)!!}{3^{p/2}}.
 \]
 
-Likewise, a coordinate of a radius-\(\sqrt n\) sphere converges to a standard Gaussian. Therefore factorial raw moments remain available, but a new signed asymptotic argument would be needed to prove zero radius after normalization.
+Likewise, at initialization a coordinate of a radius-\(\sqrt n\) sphere
+converges to a standard Gaussian. Therefore factorial raw moments remain
+available, but a new signed asymptotic argument would be needed to prove zero
+radius after normalization.
 
 ---
 
@@ -1227,9 +1283,10 @@ The results support the following classification.
 | Claim | RMSNorm | Direction-only WN |
 |---|---:|---:|
 | Low-order Taylor pattern changes substantially | Yes | Only mildly if readout is included |
-| Exact finite natural moment closure | No | No |
-| Exact finite message/graph closure | No | No |
-| Raw positive-Wick lower bound transfers verbatim | No | No if readout projected; yes for hidden-only WN in the large-fan-in fixed-order limit |
+| Invariant finite ordinary monomial cutoff in the displayed frozen top block | No | No |
+| Full trained-system finite nonlinear/operator compression ruled out | No | No |
+| Full message/graph independence and no-compression theorem | Not proved | Not proved |
+| Raw positive-Wick lower bound transfers verbatim | No | No if readout projected; conditional for hidden-only WN on the reported all-fixed-order large-fan-in reduction |
 | Zero radius of the normalized Taylor series proved here | No | No for global readout WN |
 | Ordinary Taylor-jet PDE proved convergent | No | No |
 | Every possible non-Taylor finite PDE ruled out | No | No |
@@ -1239,11 +1296,11 @@ The strongest defensible conclusion is therefore:
 
 \[
 \boxed{
-\text{Normalization changes the coefficients, but it does not produce absolute finite closure.}
+\text{Normalization changes the coefficients, while the displayed frozen monomial cutoffs remain non-invariant.}
 }
 \]
 
-RMSNorm does change the cancellation pattern dramatically enough that the previous no-go theorem must be reproved from scratch if one wants a normalized zero-radius result. Direction-only WN, by contrast, is almost invisible to the leading hidden mean-field Taylor hierarchy; its main \(O(1)\) effect is the global readout-sphere correction.
+RMSNorm does change the cancellation pattern dramatically enough that the previous no-go theorem must be reproved from scratch if one wants a normalized zero-radius result. Conditional on the reported all-fixed-order large-fan-in reduction, direction-only hidden-row WN is almost invisible to the leading hidden mean-field Taylor hierarchy; its main \(O(1)\) effect in the computed orders is the global readout-sphere correction.
 
 The broad non-Taylor approximation question remains logically separate. A finite ODE can always be packed syntactically into one source, and an exact curve can be encoded oracularly. A substantive positive theorem still needs a non-oracular compiler, a real-axis state space, a residual estimate, and a structure-preserving nonnegative kernel reconstruction. These low-order Taylor computations neither provide that theorem nor rule it out.
 
@@ -1254,7 +1311,7 @@ The broad non-Taylor approximation question remains logically separate. A finite
 The calculation was checked in four independent ways.
 
 1. The physical-time coefficients were derived both by direct formal series substitution and by differentiating \(\dot{\mathcal L}=-4\kappa\mathcal L\) together with the residual clock.
-2. Antipodal readout symmetry independently forces \(H''(0)=H^{(4)}(0)=0\); any nonzero deterministic value at those orders signals a missing pairing or projection term.
+2. Antipodal readout symmetry independently forces \(F''(0)=F^{(4)}(0)=0\); any nonzero deterministic value at those orders signals a missing pairing or projection term.
 3. The WN shift
    \[
    -\frac{2A(2A-R)}C

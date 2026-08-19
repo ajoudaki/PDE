@@ -1,0 +1,122 @@
+{
+  "D5_coefficients": [
+    2,
+    14,
+    16,
+    22,
+    30,
+    36
+  ],
+  "D7_families": [
+    {
+      "canonical_tree": "(((()()))((())))",
+      "growth_coefficient": 126
+    },
+    {
+      "canonical_tree": "(((())())((())))",
+      "growth_coefficient": 352
+    },
+    {
+      "canonical_tree": "(((()))((()))())",
+      "growth_coefficient": 196
+    },
+    {
+      "canonical_tree": "((()()()())(()))",
+      "growth_coefficient": 84
+    },
+    {
+      "canonical_tree": "((()()())(()()))",
+      "growth_coefficient": 112
+    },
+    {
+      "canonical_tree": "((()()())(())())",
+      "growth_coefficient": 310
+    },
+    {
+      "canonical_tree": "((()())(()())())",
+      "growth_coefficient": 188
+    },
+    {
+      "canonical_tree": "((()())(())(()))",
+      "growth_coefficient": 266
+    },
+    {
+      "canonical_tree": "((()())(())()())",
+      "growth_coefficient": 512
+    },
+    {
+      "canonical_tree": "((())(())(())())",
+      "growth_coefficient": 240
+    },
+    {
+      "canonical_tree": "((())(())()()())",
+      "growth_coefficient": 230
+    },
+    {
+      "canonical_tree": "(()()()()()()())",
+      "growth_coefficient": 2
+    },
+    {
+      "canonical_tree": "[(((())))(((())))]",
+      "growth_coefficient": 64
+    },
+    {
+      "canonical_tree": "[((()()()))((()))]",
+      "growth_coefficient": 114
+    },
+    {
+      "canonical_tree": "[((()())())((()))]",
+      "growth_coefficient": 384
+    },
+    {
+      "canonical_tree": "[((()()))((()()))]",
+      "growth_coefficient": 62
+    },
+    {
+      "canonical_tree": "[((()()))((())())]",
+      "growth_coefficient": 346
+    },
+    {
+      "canonical_tree": "[((())(()))((()))]",
+      "growth_coefficient": 272
+    },
+    {
+      "canonical_tree": "[((())()())((()))]",
+      "growth_coefficient": 524
+    },
+    {
+      "canonical_tree": "[((())())((())())]",
+      "growth_coefficient": 480
+    },
+    {
+      "canonical_tree": "[(()()()()())(())]",
+      "growth_coefficient": 44
+    },
+    {
+      "canonical_tree": "[(()()()())(()())]",
+      "growth_coefficient": 82
+    },
+    {
+      "canonical_tree": "[(()()())(()()())]",
+      "growth_coefficient": 50
+    }
+  ],
+  "D7_family_count_route_A": 23,
+  "family_counts_by_D_order": {
+    "0": 1,
+    "1": 1,
+    "2": 1,
+    "3": 2,
+    "4": 3,
+    "5": 6,
+    "6": 11,
+    "7": 23
+  },
+  "promotion_blockers": [
+    "no independent tree-family canonicalization",
+    "no explicit rank-labelled tensor contraction table",
+    "no equality-partition/transpose-response audit",
+    "no M-only F7 recurrence or fixed state count"
+  ],
+  "status": "roadmap-only; no F7 closure claim"
+}

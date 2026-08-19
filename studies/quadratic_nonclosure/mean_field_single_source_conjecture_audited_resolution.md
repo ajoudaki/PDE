@@ -1,28 +1,45 @@
-# Audited resolution of the pure mean-field finite single-source closure conjecture
+# Conditional tagged-site comparison for the pure mean-field closure conjecture
+
+> **Corrected status.**  The tagged-site Volterra equation used below is a
+> representation hypothesis; it is not derived or identified with the
+> finite-network mean-field limit in this source.  The monotone,
+> no-overshoot step trace is a further relaxed-selection hypothesis.  The
+> Riccati comparison and continuity lower bound are exact implications from
+> those assumptions, not an unconditional result about the canonical
+> network.
 
 ## Verdict
 
-For the two-hidden-layer, single-input, quadratic network with an unbounded Gaussian trainable readout, the meaningful uniform-in-time finite-closure conjecture is **false**.
-
-The obstruction occurs entirely inside the deterministic infinite-width dynamical mean-field theory (DMFT). It is not a finite-width effect.
-
-In the canonical causal DMFT, a tagged second-layer neuron has a continuous Gaussian cavity field and a causal self-response kernel. The self-response is strictly positive at initialization. A tagged neuron whose initial readout weight is \(A\gg1\) then reaches a Riccati-type singular regime in time
+Assume that the intended infinite-width dynamics admit the tagged-site
+Volterra representation in Section 2, including independence and continuity
+of the cavity field, a continuous response kernel with positive initial
+diagonal, and the stated output/tangent-kernel identity.  Under those
+assumptions, a tagged neuron whose initial readout weight is \(A\gg1\) reaches
+a Riccati-type comparison singularity in time
 
 \[
 O\!\left(\frac{\log A}{A}\right).
 \]
 
-Because the Gaussian readout law has positive mass above every finite \(A\), every output level below the label is reached at time zero. The natural monotone, no-overshoot loss trace is therefore
+Because the Gaussian readout law has positive mass above every finite \(A\),
+the asserted equations imply that no classical solution can remain below an
+output level on a positive interval (equivalently, its hitting time is zero
+if defined).  If one additionally selects the monotone, no-overshoot
+relaxed continuation, its stipulated loss trace is
 
 \[
-\mathcal L_{\mathrm{MF}}(0)=1,
+\mathcal L_{\mathrm{rel}}(0)=1,
 \qquad
-\mathcal L_{\mathrm{MF}}(t)=0\quad(t>0).
+\mathcal L_{\mathrm{rel}}(t)=0\quad(t>0).
 \]
 
 Every ordinary finite autonomous ODE, and every finite-dimensional invariant reduction of a locally well-posed one-source PDE, has a continuous loss curve. No continuous curve can approximate this step uniformly with error below \(1/2\). If the surrogate matches the initial loss exactly, its uniform error is at least \(1\).
 
-Thus there is no family of continuous finite-dimensional single-source closures with arbitrarily small uniform error on \([0,\infty)\).
+Thus no family of continuous finite-dimensional single-source closures can
+uniformly approximate **that selected trace** arbitrarily well.  This does
+not settle the network closure question: the tagged law, its self-consistency
+and positive-time solution, network-to-DMFT identification, and the relaxed
+selection are not proved here.
 
 ---
 
@@ -49,17 +66,18 @@ z_j^{(2)}=\sum_i W_{ji}^{(2)}h_i^{(1)},
 h_j^{(2)}=\frac12\left(z_j^{(2)}\right)^2.
 \]
 
-Writing \(a_j=W_j^{(3)}\), the output is
+Let \(a_j\) be the rescaled readout coordinate, so that the raw forward
+coefficient is \(a_j/n\). The output is
 
 \[
-f=\frac1n\sum_j a_jh_j^{(2)}
+f_n=\frac1n\sum_j a_jh_j^{(2)}
 =\frac1{2n}\sum_j a_j\left(z_j^{(2)}\right)^2,
 \]
 
 and the label-one squared loss is
 
 \[
-\mathcal L=(1-f)^2.
+\mathcal L_n=(1-f_n)^2.
 \]
 
 Initialization is
@@ -77,54 +95,57 @@ independently, with \(\gamma>0\).
 The \(\mu\)P physical-time gradient flow is
 
 \[
-\dot z^{(1)}=-n\nabla_{z^{(1)}}\mathcal L,
+\dot z^{(1)}=-n\nabla_{z^{(1)}}\mathcal L_n,
 \qquad
-\dot W^{(2)}=-\nabla_{W^{(2)}}\mathcal L,
+\dot W^{(2)}=-\nabla_{W^{(2)}}\mathcal L_n,
 \qquad
-\dot a=-n\nabla_a\mathcal L.
+\dot a=-n\nabla_a\mathcal L_n.
 \]
 
 Put
 
 \[
-r=1-f,
+r_n=1-f_n,
 \qquad
 z=z^{(2)},
 \qquad
-u=a\odot z,
+u_n=a\odot z,
 \qquad
-q=\frac1n\sum_i\left(h_i^{(1)}\right)^2,
+q_n=\frac1n\sum_i\left(h_i^{(1)}\right)^2,
 \]
 
 and
 
 \[
-K=W^{(2)}\operatorname{diag}\!\left(h^{(1)}\right)(W^{(2)})^\top.
+K_n=W^{(2)}\operatorname{diag}\!\left(h^{(1)}\right)(W^{(2)})^\top.
 \]
 
 Direct differentiation gives the exact physical-time equations
 
 \[
-\dot a_j=r z_j^2,
+\dot a_j=r_n z_j^2,
 \]
 
 \[
-\dot z_j=2r\bigl(q\,u_j+2(Ku)_j\bigr).
+\dot z_j=2r_n\bigl(q_n(u_n)_j+2(K_nu_n)_j\bigr).
 \]
 
-The output satisfies
+At finite width the output satisfies
 
 \[
-\dot f=2r\kappa,
+\dot f_n=2r_n\kappa_n,
 \]
 
-where \(\kappa\ge0\) is the mean-field tangent kernel. Its readout-gradient contribution gives the important lower bound
+where \(\kappa_n\ge0\) is the finite-width tangent kernel. Its
+readout-gradient contribution gives
+the exact empirical lower bound
 
 \[
-\kappa\ge\frac14\,\mathbb E[z^4].
+\kappa_n\ge\frac1{4n}\sum_{j=1}^n z_j^4.
 \]
 
 At initialization, \(a(0)\) is centered and independent of \(z(0)^2\), so
+\(\mathbb E[f_n(0)]=0\); the corresponding law-of-large-numbers candidate is
 
 \[
 f(0)=0,
@@ -134,9 +155,10 @@ f(0)=0,
 
 ---
 
-## 2. The canonical pure mean-field equation
+## 2. The postulated tagged-site mean-field equation
 
-The infinite-width object is the canonical causal tagged-site DMFT, not a finite network and not a subsequent width limit.
+The argument now **assumes** an infinite-width tagged-site object.  It is not
+constructed as a width limit in this document.
 
 For a tagged second-layer neuron, let
 
@@ -145,7 +167,7 @@ For a tagged second-layer neuron, let
 - \(\xi(t)\) be its cavity Gaussian field;
 - \(M(t,s)\) be the deterministic retarded self-response kernel.
 
-The tagged mean-field equation is
+The postulated tagged equation is
 
 \[
 z(t)
@@ -158,16 +180,34 @@ z(t)
 \dot a(t)=r(t)z(t)^2.
 \]
 
-The mean-field setup has the following standard causal properties.
+The conditional theorem assumes all of the following properties.
 
 1. \(\xi\) is a nondegenerate continuous Gaussian process.
 2. \(a(0)\sim N(0,1)\) is independent of the entire cavity process \(\xi\).
 3. \(M\) is deterministic, causal, and continuous on an initial triangle \(0\le s\le t\le\delta_0\).
-4. The output is the self-consistent mean-field expectation, and \(\dot f=2(1-f)\kappa\) wherever the classical flow exists.
+4. The output is a self-consistent mean-field expectation with \(f(0)=0\),
+   and, wherever the classical flow exists,
+   \[
+   \dot f=2(1-f)\kappa,
+   \qquad
+   \kappa\ge\frac14\mathbb E[z^4].
+   \]
 
-Independent Gaussian single-site fields plus retarded response kernels are the standard DMFT representation of feature learning in infinite-width \(\mu\)P networks. See Bordelon and Pehlevan, [Self-Consistent Dynamical Field Theory of Kernel Evolution in Wide Neural Networks](https://arxiv.org/abs/2205.09653), especially their closed stochastic Volterra equations and functional-response kernels.
+Gaussian single-site fields plus retarded response kernels occur in DMFT
+formulations of wide-network feature learning.  That general precedent does
+not derive these particular equations, their kernel, or their
+self-consistency for this architecture.  The cited comparison is Bordelon
+and Pehlevan, [Self-Consistent Dynamical Field Theory of Kernel Evolution in
+Wide Neural Networks](https://arxiv.org/abs/2205.09653).
 
-The response term is essential. Treating the reused initial middle-layer row as fresh independent Gaussian noise would omit the Onsager/self-response contribution. The proof below retains the full response through \(M\).
+The response term is essential within the assumed model. Treating the reused
+initial middle-layer row as fresh independent Gaussian noise would omit the
+Onsager/self-response contribution.  Writing a kernel \(M\), however, does
+not prove that it is the correct response of the network.
+
+No derivation, network-to-DMFT identification, self-consistency theorem,
+classical positive-time existence theorem, or uniqueness theorem for this
+system is supplied below.
 
 ---
 
@@ -190,18 +230,24 @@ An admissible accuracy-\(\varepsilon\) closure consists of:
 
 The finite ODE may be encoded as a one-field, one-source, finite-jet PDE; this changes only its syntax.
 
-The conjecture asserts that, for every \(\varepsilon>0\), such a closure can satisfy
+After the extra relaxed selection is made, the conditional surrogate
+question asks whether, for every \(\varepsilon>0\), such a closure can
+satisfy
 
 \[
 \sup_{t\ge0}
 \left|
 \widehat{\mathcal L}_\varepsilon(t)
--\mathcal L_{\mathrm{MF}}(t)
+-\mathcal L_{\mathrm{rel}}(t)
 \right|
 \le\varepsilon.
 \]
 
-The continuity/local-well-posedness requirement is indispensable. If impulses or a discontinuous source at \(t=0\) were allowed, one could encode the target step by fiat, which would not be a dynamical closure.
+The continuity/local-well-posedness requirement is indispensable for this
+conditional lower bound. If impulses or a discontinuous source at \(t=0\)
+were allowed, one could encode the selected step by fiat. Conversely,
+refuting continuous approximation of a stipulated step does not establish
+that the network itself has that target.
 
 ---
 
@@ -222,7 +268,8 @@ Then
 \mathbb E[h_0^2]=\frac34.
 \]
 
-The diagonal middle-layer Gram order parameter at initialization is determined directly by the mean-field initialization law:
+The finite-network diagonal middle-layer Gram coefficient has initialization
+limit
 
 \[
 K_{\mathrm{diag}}(0)
@@ -244,7 +291,10 @@ the coefficient multiplying the tagged \(u_j=a_jz_j\) at time zero is
 q_0=\mathbb E[h_0^2].
 \]
 
-Therefore, in the convention where \(r(s)\) is factored outside the memory kernel,
+This exact instantaneous coefficient is a consistency check for a candidate
+tagged-site limit; it does not derive the full memory kernel.  The argument
+below therefore additionally assumes that, in the convention where \(r(s)\)
+is factored outside the postulated kernel,
 
 \[
 \boxed{
@@ -254,7 +304,9 @@ M(0,0)
 }
 \]
 
-The off-diagonal field does not alter this tagged instantaneous coefficient: in the canonical DMFT it belongs to the cavity Gaussian and retarded response, while the displayed diagonal is fixed by the exact local drift.
+The assignment of all remaining effects to the cavity field and retarded
+response is part of the representation hypothesis, not a consequence of the
+instantaneous finite-network drift.
 
 Since \(M\) is continuous, there are \(m>0\) and \(\delta_0>0\) such that
 
@@ -264,7 +316,8 @@ M(t,s)\ge m,
 0\le s\le t\le\delta_0.
 \]
 
-This local positivity is all that the proof uses. No global sign assumption on the full matrix \(K\) or on off-diagonal messages is made.
+This assumed local positivity is all that the comparison uses. No global sign
+assumption on the full matrix \(K\) or on off-diagonal messages is made.
 
 ---
 
@@ -284,7 +337,7 @@ p_\xi
 A direct justification is to use the event
 
 \[
-\xi(0)\ge2z_*, ,
+\xi(0)\ge2z_*,
 \qquad
 \sup_{t\le\delta_0}|\xi(t)-\xi(0)|\le z_*.
 \]
@@ -318,7 +371,7 @@ r(t)=1-f(t)\ge c:=1-y>0
 
 on that interval.
 
-On the event defining \(p_A\), the tagged DMFT gives
+On the event defining \(p_A\), the postulated tagged equation gives
 
 \[
 a(t)
@@ -395,13 +448,14 @@ T_A
 \longrightarrow0.
 \]
 
-This is the mean-field extreme-readout condensation scale.
+This is the extreme-readout scale of the comparison system.
 
 ---
 
-## 7. The tangent kernel forces every subtarget hitting time to zero
+## 7. The comparison forbids positive subtarget delay for a classical solution
 
-Before the output reaches \(y\),
+Suppose a classical solution exists on a positive interval and remains below
+some \(y\in(0,1)\) there. Before the output reaches \(y\),
 
 \[
 \dot f=2r\kappa
@@ -435,7 +489,8 @@ For every \(\delta>0\), choose \(A\) so large that
 T_A<\min\{\delta,\delta_0\}.
 \]
 
-It follows that the first hitting time \(T_y\) satisfies \(T_y<\delta\). Since \(\delta\) was arbitrary,
+Thus no such solution can remain below \(y\) for any positive \(\delta\).
+Equivalently, if its first hitting time \(T_y\) is defined, then
 
 \[
 \boxed{
@@ -445,11 +500,16 @@ T_y=0
 }
 \]
 
-This conclusion uses the continuum Gaussian tail directly. There is no network width and no probabilistic width limit in the argument.
+This conclusion uses the continuum Gaussian tail directly.  It is an exact
+property of the asserted continuum equations; precisely for that reason it
+does not supply the missing width-limit or network-identification theorem.
+If the asserted system has no positive-time classical solution, the result is
+a nonexistence/continuity obstruction rather than a hitting-time statement
+for a constructed flow.
 
 ---
 
-## 8. The natural mean-field loss is a step
+## 8. Step trace under an additional relaxed-selection rule
 
 For an ordinary squared-loss trajectory starting below the label,
 
@@ -465,9 +525,13 @@ so the target-side branch has
 0\le f(t)\le1
 \]
 
-and is nondecreasing. The natural relaxed continuation keeps these two properties and interprets an infinite cumulative hazard as \(r=0\).
+and is nondecreasing. Now impose an additional relaxed-selection rule: keep
+these two properties and interpret an infinite cumulative hazard as \(r=0\).
+This rule is not derived from a classical positive-time solution or a
+uniqueness theorem.
 
-Since every \(y<1\) has hitting time zero, monotonicity and no overshoot imply
+Under the additional relaxed interpretation, the no-positive-delay result
+for every \(y<1\), together with monotonicity and no overshoot, implies
 
 \[
 f(t)=1
@@ -478,7 +542,7 @@ Together with \(f(0)=0\), this gives
 
 \[
 \boxed{
-\mathcal L_{\mathrm{MF}}(t)
+\mathcal L_{\mathrm{rel}}(t)
 =
 \begin{cases}
 1,&t=0,\\
@@ -487,11 +551,15 @@ Together with \(f(0)=0\), this gives
 }
 \]
 
-Equivalently: the unbounded-Gaussian canonical DMFT has no classical output continuous at initialization. The displayed step is the unique loss trace within the natural monotone, no-overshoot relaxed class. Without specifying such a relaxed selection, the rigorous conclusion is nonexistence of a classical continuous mean-field solution rather than a different regular loss curve.
+More precisely: no output continuous at initialization can satisfy all of the
+asserted tagged equations and response properties. The displayed step is the
+loss trace selected after adding the monotone, no-overshoot axiom. Without
+that axiom, the conditional conclusion is a continuity obstruction, not an
+independently constructed classical step-valued flow.
 
 ---
 
-## 9. Uniform finite closure is impossible
+## 9. Continuity lower bound for the selected trace
 
 Let \(\widehat{\mathcal L}\) be the loss curve of any admissible finite closure. It is continuous at zero.
 
@@ -502,7 +570,7 @@ E
 =
 \sup_{t\ge0}
 \left|
-\widehat{\mathcal L}(t)-\mathcal L_{\mathrm{MF}}(t)
+\widehat{\mathcal L}(t)-\mathcal L_{\mathrm{rel}}(t)
 \right|.
 \]
 
@@ -548,11 +616,13 @@ then continuity instead yields the sharper bound
 \boxed{E\ge1.}
 \]
 
-Hence the error cannot be made arbitrarily small. The conjecture is false.
+Hence the selected trace cannot be approximated arbitrarily well by a
+continuous surrogate. Relevance to the network closure conjecture remains
+conditional on the representation and selection hypotheses.
 
 ---
 
-## 10. Why a one-source PDE does not evade the theorem
+## 10. Why one-source syntax does not evade the conditional lower bound
 
 Any \(D\)-state ODE
 
@@ -586,15 +656,24 @@ V_j\!\left(\mathcal C_0[U],\ldots,\mathcal C_{D-1}[U]\right)e^{js}
 
 is exactly equivalent to the ODE.
 
-If its source and coefficients are locally regular, \(U(t,\cdot)\) and every continuous observable of it are continuous in \(t\). The \(1/2\) lower bound therefore applies unchanged. One-source syntax cannot remove the discontinuity obstruction.
+If its source and coefficients are locally regular, \(U(t,\cdot)\) and every
+continuous observable of it are continuous in \(t\). The \(1/2\) lower bound
+therefore applies unchanged to the stipulated trace. One-source syntax cannot
+remove that continuity obstruction, but operator-valued, singular, or
+integro-differential descriptions of a different actual target are not ruled
+out.
 
 ---
 
 ## 11. Audit of possible loopholes
 
-### This is not a finite-width result
+### The starting representation is an unproved hypothesis
 
-The proof starts from the tagged infinite-width DMFT. The width-normalized network formulas above only identify its local coefficients; no width-convergence estimate, concentration argument, finite-replica approximation, or interchange of width and time limits is used.
+The comparison starts from the asserted tagged infinite-width equations. The
+width-normalized network formulas above provide an instantaneous consistency
+check; they do not identify the full memory law. No width-convergence,
+self-consistency, classical-existence, uniqueness, finite-replica, or
+width/time-interchange theorem is supplied.
 
 ### Tiny Gaussian tail probability does not save the flow
 
@@ -602,15 +681,23 @@ For each finite \(A\), the favorable event has strictly positive probability. Al
 
 ### Off-diagonal signs are not assumed
 
-Earlier coordinate arguments could fail because \((Ku)_j\) has no fixed sign. Here the entire cavity/Onsager effect is represented by the canonical Gaussian field plus the total retarded response kernel. Only the exact positive response diagonal and its short-time continuity are used.
+Earlier coordinate arguments could fail because \((Ku)_j\) has no fixed sign.
+Here the entire cavity/Onsager effect is **assumed** to be represented by the
+Gaussian field plus the total retarded response kernel. Only its postulated
+positive response diagonal and short-time continuity are used.
 
 ### Wick–Taylor divergence is not the proof
 
-The previously proved zero radius of the ordinary Wick–Taylor series is consistent with this singularity, but zero Taylor radius alone would not prove it. The present proof is a real-time Volterra comparison argument.
+The proved zero radius of the formal annealed Wick–Taylor jet is compatible
+with this comparison singularity, but zero Taylor radius alone does not prove
+the postulated Volterra law, a step loss, or any positive-time behavior.
 
 ### Stability of squared loss does not help
 
-Squared-loss stability converts an already accurate regular approximation into an all-time accurate one. Here the exact target has a jump at initialization, so no continuous surrogate is even uniformly accurate on an arbitrarily short initial interval.
+Squared-loss stability converts an already accurate regular approximation
+into an all-time accurate one. Here the **selected trace** has a jump at
+initialization, so no continuous surrogate is uniformly accurate to that
+trace on an arbitrarily short initial interval.
 
 ### A discontinuous finite source would be oracular
 
@@ -622,26 +709,26 @@ Allowing an impulse that sets the surrogate loss to zero at \(t=0^+\) would repr
 
 | Statement | Status |
 |---|---|
-| Pure mean-field tagged Gaussian/response representation | Part of canonical causal DMFT |
-| Initial total self-response | \(M(0,0)=\frac32+2\gamma>0\) |
-| Extreme tagged-neuron time scale | \(O(\log A/A)\) |
-| Hitting time of every output level \(y<1\) | Zero |
-| Classical continuous Gaussian DMFT output at \(t=0\) | Impossible |
-| Natural monotone no-overshoot loss trace | \(1\) at \(0\), \(0\) for \(t>0\) |
-| Best possible uniform error of a continuous finite closure | At least \(1/2\) |
-| Best error when initialization is matched exactly | At least \(1\) |
-| Arbitrarily accurate uniform all-time finite closure | False |
+| Tagged Gaussian/response representation for this network | **Postulated; not derived or identified** |
+| Kernel continuity and initial response \(M(0,0)=\frac32+2\gamma>0\) | Representation hypothesis; finite drift supplies only a consistency check |
+| Extreme comparison time scale | \(O(\log A/A)\), exact under the hypotheses |
+| Positive delay below an output level \(y<1\) | Impossible for a classical solution under the asserted equations; hitting time is zero if defined |
+| Classical output continuous at \(t=0\) satisfying all asserted equations | Impossible, conditional on the asserted equations |
+| Monotone/no-overshoot step trace | Additional relaxed-selection axiom |
+| Uniform error of a continuous surrogate to that selected trace | At least \(1/2\), or \(1\) under matched initialization |
+| Arbitrarily accurate continuous closure of the actual network loss | **Not resolved by this argument** |
 
-The resolved theorem is therefore
+The exact logical statement is therefore
 
 \[
-\boxed{
-\text{unbounded Gaussian readout tail}
+\boxed{\begin{gathered}
+\text{asserted tagged-site Volterra/response law}
 +
-\text{positive causal self-response}
+\text{unbounded Gaussian readout tail}
 \Longrightarrow
-\text{instantaneous mean-field fitting}
+\text{no positive subtarget delay for a classical solution},\\
+\text{plus relaxed selection}
 \Longrightarrow
-\text{no uniform continuous finite closure}.
-}
+\text{continuity lower bound for the selected step trace}.
+\end{gathered}}
 \]

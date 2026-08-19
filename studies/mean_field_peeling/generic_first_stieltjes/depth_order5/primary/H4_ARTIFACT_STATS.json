@@ -1,0 +1,108 @@
+{
+  "artifact_sha256": {
+    "H4_LAYER_TAGGED_ABC.cse.txt": "9f2380ec15aa2b342c0dde025a03db9ad31b2c9b3fcb85f3bced1997994a0bb5",
+    "H4_LAYER_TAGGED_COEFFICIENTS.json": "02b6d94798ccc19204852fe8298d4ef38d86124326ee721ca83fdefa6fb00ceb",
+    "H4_UNIT_ABC.cse.txt": "5459dfef9d487dd75f81fd7147389973e3e8c63c646f5266df24041c949199c2",
+    "H4_UNIT_COEFFICIENTS.json": "b3b220b76c8d30037cf0bfc0a8a1dc05884b28601a1c28e45b0daf9ff64faa5d"
+  },
+  "compile_and_emit_seconds": 87.93259796872735,
+  "coordinate_term_counts": {
+    "h1_0": 1,
+    "h1_1": 1,
+    "h1_2": 3,
+    "h1_3": 6,
+    "h1_4": 16,
+    "h1_5": 31,
+    "h2_0": 1,
+    "h2_1": 2,
+    "h2_2": 6,
+    "h2_3": 18,
+    "h2_4": 51,
+    "h2_5": 133,
+    "h3_0": 1,
+    "h3_1": 2,
+    "h3_2": 6,
+    "h3_3": 18,
+    "h3_4": 51,
+    "h3_5": 133,
+    "h4_0": 1,
+    "h4_1": 2,
+    "h4_2": 5,
+    "h4_3": 15,
+    "h4_4": 37,
+    "h4_5": 91,
+    "out0": 0,
+    "out1": 2,
+    "out2": 0,
+    "out3": 12,
+    "out4": 0,
+    "out5": 67
+  },
+  "depth": 4,
+  "maximum_terminal_derivative": {
+    "A": 1,
+    "B": 3,
+    "C": 5
+  },
+  "order": 5,
+  "parity": {
+    "F0_is_zero": true,
+    "F2_is_zero": true,
+    "F4_is_zero": true
+  },
+  "polynomial_controls_Q0_1": {
+    "affine_1_plus_x": {
+      "A": "15",
+      "B": "1848",
+      "C": "591176"
+    },
+    "constant_2": {
+      "A": "4",
+      "B": "0",
+      "C": "0"
+    },
+    "linear": {
+      "A": "5",
+      "B": "400",
+      "C": "73240"
+    },
+    "quadratic_x2": {
+      "A": "138351807",
+      "B": "59385566223611232192",
+      "C": "81427352525619060193821492876576"
+    },
+    "zero": {
+      "A": "0",
+      "B": "0",
+      "C": "0"
+    }
+  },
+  "registry_counts": {
+    "B_symmetric_dictionary": 75,
+    "H_symmetric_dictionary": 108,
+    "alpha_stored": 45,
+    "beta_stored": 45,
+    "unique_states_formula": 198
+  },
+  "schema": "route-s-depth-stats-v1",
+  "tagged_dag_node_counts": {
+    "A": 17,
+    "B": 300,
+    "C": 3536
+  },
+  "tagged_term_counts": {
+    "A": 5,
+    "B": 1929,
+    "C": 462776
+  },
+  "unit_dag_node_counts": {
+    "A": 9,
+    "B": 252,
+    "C": 3326
+  },
+  "unit_term_counts": {
+    "A": 5,
+    "B": 350,
+    "C": 17641
+  }
+}

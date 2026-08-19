@@ -1,0 +1,83 @@
+{
+  "activation": "sin(x)/sqrt((1-exp(-2))/2)",
+  "allocations": {
+    "128": 150,
+    "16": 1200,
+    "32": 800,
+    "64": 400
+  },
+  "cells": [
+    {
+      "count": 1200,
+      "expected_count": 1200,
+      "finite": true,
+      "mean": 1903.4829276819182,
+      "sample_variance": 20470295.61336263,
+      "seed_first": 88000000,
+      "seed_last": 88001199,
+      "standard_error": 130.60849772431422,
+      "valid": true,
+      "width": 16
+    },
+    {
+      "count": 800,
+      "expected_count": 800,
+      "finite": true,
+      "mean": 1496.2534754753362,
+      "sample_variance": 3762594.813026577,
+      "seed_first": 88010000,
+      "seed_last": 88010799,
+      "standard_error": 68.58019769790126,
+      "valid": true,
+      "width": 32
+    },
+    {
+      "count": 400,
+      "expected_count": 400,
+      "finite": true,
+      "mean": 1519.2097959205757,
+      "sample_variance": 1572575.2667291597,
+      "seed_first": 88020000,
+      "seed_last": 88020399,
+      "standard_error": 62.70118154247892,
+      "valid": true,
+      "width": 64
+    },
+    {
+      "count": 150,
+      "expected_count": 150,
+      "finite": true,
+      "mean": 1478.2590003397477,
+      "sample_variance": 693079.1600284367,
+      "seed_first": 88030000,
+      "seed_last": 88030149,
+      "standard_error": 67.97446383402307,
+      "valid": true,
+      "width": 128
+    }
+  ],
+  "claim_level": "empirical finite-width regression only",
+  "contract": "NONPOLYNOMIAL_EXPERIMENT_CONTRACT.md",
+  "decision": "pass",
+  "fit": {
+    "chi_square": 3.1126016691519323,
+    "chi_square_p_value": 0.21091483879673203,
+    "degrees_of_freedom": 2,
+    "intercept": 1403.3464214269445,
+    "intercept_standard_error": 64.06771748414117,
+    "population_prediction": 1521.914807371915,
+    "residuals": [
+      129.377091251215,
+      -92.47265345348774,
+      23.173520742691608,
+      28.567652037333346
+    ],
+    "slope": 5932.150640060141,
+    "valid": true,
+    "z": -1.850672859920755
+  },
+  "hidden_depth": 2,
+  "observed_layer": 2,
+  "prediction_sha256": "18486522767f70596fa3f76058662fb4024e7c0c38fd0268005c1f77707aac27",
+  "total_networks": 2550
+}

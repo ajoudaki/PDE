@@ -1,0 +1,730 @@
+{
+  "claim_level": "Exact finite-width differentiation gates and algebraically audited fixed-depth population normal forms; not yet the annealed theorem.",
+  "constant_seedwise_gate": {
+    "maximum_nonzero_order_feature_derivative": 0.0,
+    "pass": true
+  },
+  "decision": "pass",
+  "exact_controls": {
+    "activations": {
+      "affine_3plus4x_over5": {
+        "1": {
+          "1": {
+            "Gamma02": "16/25",
+            "Gamma04": "256/625",
+            "Gamma11": "256/625",
+            "Gamma13": "4096/15625",
+            "Gamma22": "256/625",
+            "Q2": "1312/625",
+            "Q4": "83968/15625"
+          }
+        },
+        "2": {
+          "1": {
+            "Gamma02": "512/625",
+            "Gamma04": "1581824/390625",
+            "Gamma11": "4096/15625",
+            "Gamma13": "4784128/9765625",
+            "Gamma22": "364544/390625",
+            "Q2": "33792/15625",
+            "Q4": "172045824/9765625"
+          },
+          "2": {
+            "Gamma02": "24592/15625",
+            "Gamma04": "103905536/9765625",
+            "Gamma11": "495872/390625",
+            "Gamma13": "230838272/48828125",
+            "Gamma22": "27339008/9765625",
+            "Q2": "2221344/390625",
+            "Q4": "3705931776/48828125"
+          }
+        },
+        "3": {
+          "1": {
+            "Gamma02": "12288/15625",
+            "Gamma04": "459595776/48828125",
+            "Gamma11": "65536/390625",
+            "Gamma13": "3524263936/6103515625",
+            "Gamma22": "296812544/244140625",
+            "Q2": "745472/390625",
+            "Q4": "187614937088/6103515625"
+          },
+          "2": {
+            "Gamma02": "721408/390625",
+            "Gamma04": "135719119616/6103515625",
+            "Gamma11": "7933952/9765625",
+            "Gamma13": "636455288832/152587890625",
+            "Gamma22": "28323352576/6103515625",
+            "Q2": "51938304/9765625",
+            "Q4": "16126101177856/152587890625"
+          },
+          "3": {
+            "Gamma02": "24352528/9765625",
+            "Gamma04": "5623938367744/152587890625",
+            "Gamma11": "547029248/244140625",
+            "Gamma13": "65884851277824/3814697265625",
+            "Gamma22": "1188878708992/152587890625",
+            "Q2": "2311684896/244140625",
+            "Q4": "986607534958592/3814697265625"
+          }
+        },
+        "4": {
+          "1": {
+            "Gamma02": "262144/390625",
+            "Gamma04": "425757835264/30517578125",
+            "Gamma11": "1048576/9765625",
+            "Gamma13": "419380068352/762939453125",
+            "Gamma22": "187444494336/152587890625",
+            "Q2": "15204352/9765625",
+            "Q4": "30266267140096/762939453125"
+          },
+          "2": {
+            "Gamma02": "16789504/9765625",
+            "Gamma04": "125298713649152/3814697265625",
+            "Gamma11": "126943232/244140625",
+            "Gamma13": "323589086642176/95367431640625",
+            "Gamma22": "3939781378048/762939453125",
+            "Q2": "1093361664/244140625",
+            "Q4": "11808484409131008/95367431640625"
+          },
+          "3": {
+            "Gamma02": "678552064/244140625",
+            "Gamma04": "1057654353045248/19073486328125",
+            "Gamma11": "8752467968/6103515625",
+            "Gamma13": "30161130210525184/2384185791015625",
+            "Gamma22": "1041435562643456/95367431640625",
+            "Q2": "51432539136/6103515625",
+            "Q4": "661917964342031872/2384185791015625"
+          },
+          "4": {
+            "Gamma02": "19887083024/6103515625",
+            "Gamma04": "180214896306178304/2384185791015625",
+            "Gamma11": "474049507584/152587890625",
+            "Gamma13": "436837330264477696/11920928955078125",
+            "Gamma22": "34430984867412224/2384185791015625",
+            "Q2": "1942453166368/152587890625",
+            "Q4": "6329777151199971328/11920928955078125"
+          }
+        }
+      },
+      "constant_1": {
+        "1": {
+          "1": {
+            "Gamma02": "0",
+            "Gamma04": "0",
+            "Gamma11": "0",
+            "Gamma13": "0",
+            "Gamma22": "0",
+            "Q2": "0",
+            "Q4": "0"
+          }
+        },
+        "2": {
+          "1": {
+            "Gamma02": "0",
+            "Gamma04": "0",
+            "Gamma11": "0",
+            "Gamma13": "0",
+            "Gamma22": "0",
+            "Q2": "0",
+            "Q4": "0"
+          },
+          "2": {
+            "Gamma02": "0",
+            "Gamma04": "0",
+            "Gamma11": "0",
+            "Gamma13": "0",
+            "Gamma22": "0",
+            "Q2": "0",
+            "Q4": "0"
+          }
+        },
+        "3": {
+          "1": {
+            "Gamma02": "0",
+            "Gamma04": "0",
+            "Gamma11": "0",
+            "Gamma13": "0",
+            "Gamma22": "0",
+            "Q2": "0",
+            "Q4": "0"
+          },
+          "2": {
+            "Gamma02": "0",
+            "Gamma04": "0",
+            "Gamma11": "0",
+            "Gamma13": "0",
+            "Gamma22": "0",
+            "Q2": "0",
+            "Q4": "0"
+          },
+          "3": {
+            "Gamma02": "0",
+            "Gamma04": "0",
+            "Gamma11": "0",
+            "Gamma13": "0",
+            "Gamma22": "0",
+            "Q2": "0",
+            "Q4": "0"
+          }
+        },
+        "4": {
+          "1": {
+            "Gamma02": "0",
+            "Gamma04": "0",
+            "Gamma11": "0",
+            "Gamma13": "0",
+            "Gamma22": "0",
+            "Q2": "0",
+            "Q4": "0"
+          },
+          "2": {
+            "Gamma02": "0",
+            "Gamma04": "0",
+            "Gamma11": "0",
+            "Gamma13": "0",
+            "Gamma22": "0",
+            "Q2": "0",
+            "Q4": "0"
+          },
+          "3": {
+            "Gamma02": "0",
+            "Gamma04": "0",
+            "Gamma11": "0",
+            "Gamma13": "0",
+            "Gamma22": "0",
+            "Q2": "0",
+            "Q4": "0"
+          },
+          "4": {
+            "Gamma02": "0",
+            "Gamma04": "0",
+            "Gamma11": "0",
+            "Gamma13": "0",
+            "Gamma22": "0",
+            "Q2": "0",
+            "Q4": "0"
+          }
+        }
+      },
+      "linear_x": {
+        "1": {
+          "1": {
+            "Gamma02": "1",
+            "Gamma04": "1",
+            "Gamma11": "1",
+            "Gamma13": "1",
+            "Gamma22": "1",
+            "Q2": "4",
+            "Q4": "16"
+          }
+        },
+        "2": {
+          "1": {
+            "Gamma02": "2",
+            "Gamma04": "17",
+            "Gamma11": "1",
+            "Gamma13": "4",
+            "Gamma22": "5",
+            "Q2": "6",
+            "Q4": "96"
+          },
+          "2": {
+            "Gamma02": "4",
+            "Gamma04": "53",
+            "Gamma11": "5",
+            "Gamma13": "40",
+            "Gamma22": "17",
+            "Q2": "18",
+            "Q4": "528"
+          }
+        },
+        "3": {
+          "1": {
+            "Gamma02": "3",
+            "Gamma04": "78",
+            "Gamma11": "1",
+            "Gamma13": "10",
+            "Gamma22": "14",
+            "Q2": "8",
+            "Q4": "320"
+          },
+          "2": {
+            "Gamma02": "7",
+            "Gamma04": "218",
+            "Gamma11": "5",
+            "Gamma13": "78",
+            "Gamma22": "58",
+            "Q2": "24",
+            "Q4": "1408"
+          },
+          "3": {
+            "Gamma02": "10",
+            "Gamma04": "397",
+            "Gamma11": "14",
+            "Gamma13": "327",
+            "Gamma22": "109",
+            "Q2": "48",
+            "Q4": "4064"
+          }
+        },
+        "4": {
+          "1": {
+            "Gamma02": "4",
+            "Gamma04": "230",
+            "Gamma11": "1",
+            "Gamma13": "20",
+            "Gamma22": "30",
+            "Q2": "10",
+            "Q4": "800"
+          },
+          "2": {
+            "Gamma02": "10",
+            "Gamma04": "614",
+            "Gamma11": "5",
+            "Gamma13": "136",
+            "Gamma22": "134",
+            "Q2": "30",
+            "Q4": "3120"
+          },
+          "3": {
+            "Gamma02": "16",
+            "Gamma04": "1159",
+            "Gamma11": "14",
+            "Gamma13": "526",
+            "Gamma22": "299",
+            "Q2": "60",
+            "Q4": "8320"
+          },
+          "4": {
+            "Gamma02": "20",
+            "Gamma04": "1703",
+            "Gamma11": "30",
+            "Gamma13": "1502",
+            "Gamma22": "443",
+            "Q2": "100",
+            "Q4": "18080"
+          }
+        }
+      }
+    }
+  },
+  "finite_width_two_oracle_gate": {
+    "cases": 30,
+    "maximum_relative_or_absolute_scaled_error": 1.3764572445728707e-15,
+    "pass": true,
+    "tolerance": 5e-11
+  },
+  "local_contraction": {
+    "contracted_term_counts": {
+      "a41_next": 20,
+      "a43_next": 1,
+      "gamma04_next": 83
+    },
+    "equality_partition_coefficients": {
+      "phi1_z4": 1,
+      "phi2_z1_z3": 4,
+      "phi2_z2^2": 3,
+      "phi3_z1^2_z2": 6,
+      "phi4_z1^4": 1
+    },
+    "maximum_activation_derivative": 4,
+    "raw_h4_local_monomials": 51,
+    "residual_local_gaussian_monomials": {
+      "a41_next": 0,
+      "a43_next": 0,
+      "gamma04_next": 0
+    }
+  },
+  "population_atomwise_comparisons": {
+    "2": {
+      "depth": 2,
+      "layers": {
+        "1": {
+          "Gamma02": {
+            "candidate_terms": 7,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 7
+          },
+          "Gamma04": {
+            "candidate_terms": 203,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 203
+          },
+          "Gamma11": {
+            "candidate_terms": 1,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 1
+          },
+          "Gamma13": {
+            "candidate_terms": 37,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 37
+          },
+          "Gamma22": {
+            "candidate_terms": 34,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 34
+          }
+        },
+        "2": {
+          "Gamma02": {
+            "candidate_terms": 18,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 18
+          },
+          "Gamma04": {
+            "candidate_terms": 549,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 549
+          },
+          "Gamma11": {
+            "candidate_terms": 3,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 3
+          },
+          "Gamma13": {
+            "candidate_terms": 106,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 106
+          },
+          "Gamma22": {
+            "candidate_terms": 149,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 149
+          }
+        }
+      },
+      "total_discrepancies": 0
+    },
+    "3": {
+      "depth": 3,
+      "layers": {
+        "1": {
+          "Gamma02": {
+            "candidate_terms": 16,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 16
+          },
+          "Gamma04": {
+            "candidate_terms": 1198,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 1198
+          },
+          "Gamma11": {
+            "candidate_terms": 1,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 1
+          },
+          "Gamma13": {
+            "candidate_terms": 126,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 126
+          },
+          "Gamma22": {
+            "candidate_terms": 142,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 142
+          }
+        },
+        "2": {
+          "Gamma02": {
+            "candidate_terms": 35,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 35
+          },
+          "Gamma04": {
+            "candidate_terms": 2037,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 2037
+          },
+          "Gamma11": {
+            "candidate_terms": 3,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 3
+          },
+          "Gamma13": {
+            "candidate_terms": 284,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 284
+          },
+          "Gamma22": {
+            "candidate_terms": 484,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 484
+          }
+        },
+        "3": {
+          "Gamma02": {
+            "candidate_terms": 58,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 58
+          },
+          "Gamma04": {
+            "candidate_terms": 3165,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 3165
+          },
+          "Gamma11": {
+            "candidate_terms": 5,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 5
+          },
+          "Gamma13": {
+            "candidate_terms": 453,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 453
+          },
+          "Gamma22": {
+            "candidate_terms": 905,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 905
+          }
+        }
+      },
+      "total_discrepancies": 0
+    },
+    "4": {
+      "depth": 4,
+      "layers": {
+        "1": {
+          "Gamma02": {
+            "candidate_terms": 29,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 29
+          },
+          "Gamma04": {
+            "candidate_terms": 3116,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 3116
+          },
+          "Gamma11": {
+            "candidate_terms": 1,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 1
+          },
+          "Gamma13": {
+            "candidate_terms": 268,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 268
+          },
+          "Gamma22": {
+            "candidate_terms": 343,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 343
+          }
+        },
+        "2": {
+          "Gamma02": {
+            "candidate_terms": 56,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 56
+          },
+          "Gamma04": {
+            "candidate_terms": 4605,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 4605
+          },
+          "Gamma11": {
+            "candidate_terms": 3,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 3
+          },
+          "Gamma13": {
+            "candidate_terms": 522,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 522
+          },
+          "Gamma22": {
+            "candidate_terms": 1036,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 1036
+          }
+        },
+        "3": {
+          "Gamma02": {
+            "candidate_terms": 87,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 87
+          },
+          "Gamma04": {
+            "candidate_terms": 6117,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 6117
+          },
+          "Gamma11": {
+            "candidate_terms": 5,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 5
+          },
+          "Gamma13": {
+            "candidate_terms": 784,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 784
+          },
+          "Gamma22": {
+            "candidate_terms": 1644,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 1644
+          }
+        },
+        "4": {
+          "Gamma02": {
+            "candidate_terms": 122,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 122
+          },
+          "Gamma04": {
+            "candidate_terms": 8005,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 8005
+          },
+          "Gamma11": {
+            "candidate_terms": 7,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 7
+          },
+          "Gamma13": {
+            "candidate_terms": 1050,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 1050
+          },
+          "Gamma22": {
+            "candidate_terms": 2338,
+            "discrepancies": 0,
+            "first_discrepancies": [],
+            "reference_terms": 2338
+          }
+        }
+      },
+      "total_discrepancies": 0
+    }
+  },
+  "readout_reflection_gate": {
+    "maximum_scaled_error": 0.0,
+    "pass": true,
+    "readout_reflection_law": "X_l^(r)(R theta)=(-1)^r X_l^(r)(theta)",
+    "tolerance": 5e-11
+  },
+  "route_s_freeze_sha256": "09d0aee1128ab276387bfde435f9ca7a5eb47dfe34838f91275403961053e173",
+  "two_state_projection_comparisons": {
+    "1": {
+      "depth": 1,
+      "layers": {
+        "1": {
+          "discrepancies": 0,
+          "full_terms": 8,
+          "reduced_terms": 8
+        }
+      },
+      "total_discrepancies": 0
+    },
+    "2": {
+      "depth": 2,
+      "layers": {
+        "1": {
+          "discrepancies": 0,
+          "full_terms": 203,
+          "reduced_terms": 203
+        },
+        "2": {
+          "discrepancies": 0,
+          "full_terms": 549,
+          "reduced_terms": 549
+        }
+      },
+      "total_discrepancies": 0
+    },
+    "3": {
+      "depth": 3,
+      "layers": {
+        "1": {
+          "discrepancies": 0,
+          "full_terms": 1198,
+          "reduced_terms": 1198
+        },
+        "2": {
+          "discrepancies": 0,
+          "full_terms": 2037,
+          "reduced_terms": 2037
+        },
+        "3": {
+          "discrepancies": 0,
+          "full_terms": 3165,
+          "reduced_terms": 3165
+        }
+      },
+      "total_discrepancies": 0
+    },
+    "4": {
+      "depth": 4,
+      "layers": {
+        "1": {
+          "discrepancies": 0,
+          "full_terms": 3116,
+          "reduced_terms": 3116
+        },
+        "2": {
+          "discrepancies": 0,
+          "full_terms": 4605,
+          "reduced_terms": 4605
+        },
+        "3": {
+          "discrepancies": 0,
+          "full_terms": 6117,
+          "reduced_terms": 6117
+        },
+        "4": {
+          "discrepancies": 0,
+          "full_terms": 8005,
+          "reduced_terms": 8005
+        }
+      },
+      "total_discrepancies": 0
+    }
+  }
+}

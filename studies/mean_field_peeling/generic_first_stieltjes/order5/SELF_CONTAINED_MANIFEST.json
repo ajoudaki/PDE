@@ -1,0 +1,11 @@
+{
+  "embedded_byte_equality": {
+    "layer_separated": true,
+    "unit_gram": true
+  },
+  "sha256": {
+    "layer_separated": "5219b3558aec52a2065b93ba7d6ce0e350ee930c2048518fcd012ba61f605ec9",
+    "report": "3ee1f31b34768e47d9ec15011c2955a365c8d888fcd7663c2bba2cc1aa483390",
+    "unit_gram": "3be176963679c40127ac4f94305eeb7e4ef684a06910ae99a68a0f3528333214"
+  }
+}

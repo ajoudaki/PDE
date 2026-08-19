@@ -1,0 +1,36 @@
+{
+  "decision": "pass",
+  "producer_freeze": {
+    "FINAL_PRODUCER_FREEZE.json": "3a3fd13beeeea4a0947f459d829932f4feb2770ccaac7ea951155e785614f02e",
+    "FROZEN_GAMMA04_REDUCED_RECURRENCE.json": "e97a3f6afda6ae17d1be498ac79b308b64fc71e7fd94a1f343e0e28844762122",
+    "FROZEN_GAMMA04_REDUCED_TRANSITIONS.md": "3987dc1cdb253a1c722d7dd4b85728274694147d17d2e94a9f209bd97838f041"
+  },
+  "reports": {
+    "EVIDENCE_LEDGER.md": "98a4d05d2f70aee84472a114a8276952f2af05c8e9878028f4899b9e09b4d326",
+    "FINITE_WIDTH_AND_WIDTH_AUDIT.md": "c772fc66461f8650fb4fe5b8edcb5233f213cfbd10483d274448ea62e2b8eda7",
+    "INDEPENDENT_ROUTE_S_REPORT.md": "cbc952dd1dc0d7faa6b7a76375911d4299211d088276b1815945f754f59dd4b7"
+  },
+  "audit_artifacts": {
+    "POST_FREEZE_EXACT_AUDIT.json": "fe9ef25d6db56073c69b65d2cc98dd1e140a5d9eaec129db0f155e295ea7519b",
+    "POST_FREEZE_ROUTE_COMPARISON.json": "9a13169458b5a05027b40ec71573c082471a59375be94749a8d48c281efdfad6",
+    "NORMALIZED_SINE_PREDICTION.json": "18486522767f70596fa3f76058662fb4024e7c0c38fd0268005c1f77707aac27",
+    "NORMALIZED_SINE_EXPERIMENT.json": "adeeb4b8dca0176e50fdd549411b648d8c5ae36ab413a03c0e9a81e9861bcea7"
+  },
+  "raw_sine_cells": {
+    "sine_raw/gamma04_H2_n16.npy": "0dcaab19b56819bbd912fba97a8c6efd7cbac5a7aac2af3a5468d3ce2620e598",
+    "sine_raw/gamma04_H2_n32.npy": "59fc293bd6bdcb3f217f8cf35b8a748180665ee9d7336a72127b53cb576aea2e",
+    "sine_raw/gamma04_H2_n64.npy": "60517e8bcfe5ea63da1f1db86e006d9e47df9bb016992b16c6927472cc023ec6",
+    "sine_raw/gamma04_H2_n128.npy": "88bf35eacfd699fa28b2361e83aed8093cb1b9bc0e99b0199bcc8ed238540556"
+  },
+  "checkers": {
+    "assemble_gamma04.py": "903e095bf8e5bcd9d8a070dbca36b4c5fc947d04c8a902438eede62b0560cb37",
+    "compare_route_a.py": "c6c8ea8f61e36d02cfc617cf41fff9c2b82d6fd9c8204a71958329826fe7823a",
+    "finite_width_hidden_jet.py": "0d34f47a9ecbb726ad467ffd5118ea0b3c2be3a8b8109631e219f9d603bc46f1",
+    "reference_population_head.py": "bcd0ba7157a27aebe6d299369d230f2640d40481f48bf8f3a8bb1238a5ffb32f",
+    "run_checks.py": "1cbb8dc03535caac8208e81450acd051f5b3195bb176a5c6b3cb91a2aea00bce",
+    "run_exact_audit.py": "a7af7ad1d8ad9a482a7f9933ef7496a72ea344550d5607dfcbbd06953fb799e4",
+    "run_sine_experiment.py": "cc132a5590bbe8213cf49a38d81400fbe4dff3b3b7ccf68e7aa9be5cd86a726d",
+    "sine_prediction.py": "74d92ec2de77e145763ffa4a9e22fa0ae080eb36b85a28e7c1a08ab61ab7fe73"
+  },
+  "required_test": "python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_observables.independent.run_checks"
+}

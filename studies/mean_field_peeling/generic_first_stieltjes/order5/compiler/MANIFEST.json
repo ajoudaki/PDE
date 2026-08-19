@@ -1,0 +1,39 @@
+{
+  "controls": {
+    "affine_1_plus_x": {
+      "A": "6",
+      "B": "112",
+      "C": "4400"
+    },
+    "constant_2": {
+      "A": "4",
+      "B": "0",
+      "C": "0"
+    },
+    "linear": {
+      "A": "3",
+      "B": "48",
+      "C": "1464"
+    },
+    "quadratic": {
+      "A": "111",
+      "B": "1685184",
+      "C": "77400633120"
+    }
+  },
+  "derivative_order": 5,
+  "factored_node_counts": {
+    "A": 7,
+    "B": 110,
+    "C": 1135,
+    "unit_A": 5,
+    "unit_B": 97,
+    "unit_C": 1078
+  },
+  "formula_status": "algebraically_audited_zero_independent_atomwise_discrepancies",
+  "maximum_activation_derivative": 5,
+  "sha256": {
+    "layer_separated": "5219b3558aec52a2065b93ba7d6ce0e350ee930c2048518fcd012ba61f605ec9",
+    "unit_gram": "3be176963679c40127ac4f94305eeb7e4ef684a06910ae99a68a0f3528333214"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "conventional_shallow": {
+    "feature_derivatives": {
+      "0": "0",
+      "1": "7",
+      "10": "0",
+      "11": "1428258510766080",
+      "12": "0",
+      "13": "6004476167091978240",
+      "2": "0",
+      "3": "960",
+      "4": "0",
+      "5": "376608",
+      "6": "0",
+      "7": "326323200",
+      "8": "0",
+      "9": "527514808320"
+    },
+    "kernel_baseline": "7",
+    "negative_shifted_H2_determinant": "-86245462994269879146938487857152/516623655319449980325461333747775",
+    "network": "n^-1*sum_i(a_i*v_i^2)",
+    "output_kernel_moments_mu": [
+      "480/49",
+      "43756/16807",
+      "7214528/2470629",
+      "37635527904/9886633715",
+      "171752915595136/30520038278205",
+      "2199776554157960896/246754509479287425"
+    ]
+  },
+  "decision": "the conventional one-input iid-Gaussian raw-square shallow formal output-kernel moment sequence is not Stieltjes",
+  "finite_width_reduction": {
+    "conditional_initial_law": "a_i,v_i iid N(0,1); v is independent of m_n",
+    "feature_flow": [
+      "a_i'=m_n*v_i^2",
+      "v_i'=2*m_n*a_i*v_i"
+    ],
+    "fixed_order_limit": "m_n -> 3 in every finite L^p",
+    "m_n": "n^-1*sum_j(u_j^4)",
+    "output": "m_n*n^-1*sum_i(a_i*v_i^2)",
+    "v_i": "z_i/sqrt(m_n)"
+  },
+  "riccati": {
+    "D_equation": "D''=4*c*D, D(0)=1, D'(0)=-2*a0",
+    "D_first_integral": "D'^2-4*c*D^2-2*v0^2=0",
+    "D_first_integral_initial_value_zero": true,
+    "D_first_integral_lie_derivative_zero": true,
+    "a_prime_equals_v_squared_after_first_integral": true,
+    "neuron_invariant": "c=a0^2-v0^2/2",
+    "neuron_invariant_lie_derivative_zero": true,
+    "riccati_residual_zero_after_D_equation": true,
+    "solution": "a=-D'/(2*D), v=v0/D",
+    "v_equation_residual_zero": true
+  },
+  "scaling": {
+    "F_relation": "F_3(s)=3*F_1(3*s)",
+    "K_relation": "K_3(y)=9*K_1(y/3)",
+    "R_relation": "R_3(x)=R_1(x/9)",
+    "activation_multiplier": 3,
+    "determinant_scale": "387420489",
+    "moment_relation": "mu_r^(3)=9^(-r)*mu_r^(1)",
+    "shifted_H2_determinant_relation": "Delta_1=3^18*Delta_3"
+  },
+  "schema": "shallow_quadratic_stieltjes_counterexample_v1",
+  "scope": "fixed-order width-limit formal jet; no positive-time Gaussian population curve or closed scalar loss ODE is asserted",
+  "source": {
+    "metric": {
+      "alpha": 0,
+      "beta": 1
+    },
+    "path": "BLOCK_METRIC_COUNTEREXAMPLE.json",
+    "sha256": "30f01203422f989924ffe32e5c84f3e7f40129dc9aac2f9e23c980958f27a447"
+  }
+}

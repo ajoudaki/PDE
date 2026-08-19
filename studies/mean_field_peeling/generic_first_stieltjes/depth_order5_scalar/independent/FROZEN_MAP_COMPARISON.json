@@ -1,0 +1,23 @@
+{
+  "schema": "independent-route-a-exact-map-comparison-v1",
+  "formula_manifest_sha256": "0699148b5d5fcd77a821908f333e230e36e148afad710e2421c36ab89c7441f8",
+  "arithmetic": "exact rational sparse polynomials; canonical monomials are sorted multisets of M-atoms",
+  "depths": {
+    "2": {
+      "A": {"candidate_terms": 3, "accepted_terms": 3, "discrepancies": 0},
+      "B": {"candidate_terms": 46, "accepted_terms": 46, "discrepancies": 0},
+      "C": {"candidate_terms": 974, "accepted_terms": 974, "discrepancies": 0}
+    },
+    "3": {
+      "A": {"candidate_terms": 4, "accepted_terms": 4, "discrepancies": 0},
+      "B": {"candidate_terms": 160, "accepted_terms": 160, "discrepancies": 0},
+      "C": {"candidate_terms": 6519, "accepted_terms": 6519, "discrepancies": 0}
+    },
+    "4": {
+      "A": {"candidate_terms": 5, "accepted_terms": 5, "discrepancies": 0},
+      "B": {"candidate_terms": 350, "accepted_terms": 350, "discrepancies": 0},
+      "C": {"candidate_terms": 17641, "accepted_terms": 17641, "discrepancies": 0}
+    }
+  },
+  "decision": "PASS: all 25,134 requested C-map coefficients across H=2,3,4 agree exactly"
+}

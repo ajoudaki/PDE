@@ -1,0 +1,55 @@
+{
+  "comparison": "exact_rational_atomwise_after_Q0=1_and_M_200000=1",
+  "discrepancies": {
+    "A": [],
+    "B": [],
+    "C": []
+  },
+  "discrepancy_counts": {
+    "A": 0,
+    "B": 0,
+    "C": 0
+  },
+  "independent_frozen_sha256": "fa3b4a6f7dc665e63e2c02355a14122f89f56bdfd34f0fe7402be4cab0ff2878",
+  "independent_symbolic_q0_frozen_sha256": "e682c708fedadc577b7446a7b9c07b79262c945fbae5726918436153876f889a",
+  "independent_tagged_frozen_sha256": "52832afc4f9e1cf27f5b8465f2f5373bcb3e9f5c56b0686c9366162da2e17c11",
+  "pass": true,
+  "primary_sha256": "68dd13460fb5bfab187d0d7e61b90adeec43a2311c2cab2726fd68b73fbf37f2",
+  "primary_symbolic_q0_sha256": "56934bf6dd8639b8e6109bce6efcac30f23d1aeadc125dbd331f3d700ecbfb90",
+  "primary_tagged_sha256": "cfb2f2e032cac7b47e8d5a1e4e9d8d9365c0c931d1f7724775f7a9c517bb98d9",
+  "symbolic_q0_discrepancies": {
+    "A": [],
+    "B": [],
+    "C": []
+  },
+  "symbolic_q0_discrepancy_counts": {
+    "A": 0,
+    "B": 0,
+    "C": 0
+  },
+  "symbolic_q0_term_counts": {
+    "A": 3,
+    "B": 50,
+    "C": 1045
+  },
+  "tagged_discrepancies": {
+    "A": [],
+    "B": [],
+    "C": []
+  },
+  "tagged_discrepancy_counts": {
+    "A": 0,
+    "B": 0,
+    "C": 0
+  },
+  "tagged_term_counts": {
+    "A": 3,
+    "B": 50,
+    "C": 1045
+  },
+  "term_counts": {
+    "A": 3,
+    "B": 46,
+    "C": 974
+  }
+}

@@ -1,4 +1,12 @@
-# Definitive resolution and adversarial audit of the pure-mean-field approximate-closure claim
+# Adversarial audit of the pure-mean-field approximate-closure claim
+
+> **Corrected scope.**  The zero-radius and positive-compiler statements in
+> this report concern the exact **formal annealed** fixed-order jet.  They do
+> not supply concentration or identify an actual positive-time mean-field
+> trajectory.  The \(L^2\), Banach-algebra, frozen-tail, and analytic
+> obstructions apply only to their displayed topologies or realization
+> classes; the noncommutative continuation argument remains conditional on
+> freeness/faithfulness and branch separation.
 
 ## Verdict
 
@@ -12,8 +20,8 @@ existential reading it is a theorem for **every** continuous scalar curve and
 is therefore vacuous.  Under the natural non-oracle, local-compiler reading,
 none of the proposed Taylor, Galerkin, particle, or minimizing-movement
 arguments proves it for the fully trained quadratic Gaussian model.  The
-Taylor compiler is rigorously false; the other compilers require a
-model-specific real-axis well-posedness and tail estimate that has not been
+prescribed formal annealed Taylor compiler is rigorously false; the other
+compilers require a model-specific real-axis well-posedness and tail estimate that has not been
 proved and is not routine.
 
 The strongest determinate formulation is a proof-carrying Galerkin/local-
@@ -44,7 +52,7 @@ There is one fixed input, so it is suppressed.  Both hidden layers have width
 \]
 
 \[
- f_n=\frac1n\sum_jW_j^{(3)}h_j^{(2)},
+ f_n=\frac1n\sum_ja_jh_j^{(2)},
  \qquad
  \mathcal L_n=(1-f_n)^2.
 \]
@@ -54,8 +62,11 @@ Initialization is independent Gaussian:
 \[
  z_i^{(1)}\sim N(0,1),\qquad
  W_{ji}^{(2)}\sim N(0,\gamma/n),\qquad
- W_j^{(3)}\sim N(0,1).
+ a_j\sim N(0,1).
 \]
+
+Here (a_j) is the rescaled readout coordinate; the corresponding raw
+forward weight is (a_j/n).
 
 The `muP` squared-loss flow is
 
@@ -64,32 +75,33 @@ The `muP` squared-loss flow is
  \qquad
  \dot W^{(2)}=-\nabla_{W^{(2)}}\mathcal L_n,
  \qquad
- \dot W^{(3)}=-n\nabla_{W^{(3)}}\mathcal L_n.
+ \dot a=-n\nabla_a\mathcal L_n.
 \]
 
 The approximation question itself is asked **after** the mean-field limit.
-Write `H(tau)` for the deterministic readout along mean-field gradient ascent
-on `f`, and write `kappa=H'>=0` for its tangent kernel.  Squared-loss flow is
+If the intended deterministic target exists, write `F(tau)` for its readout
+along mean-field gradient ascent on `f`, and write `kappa=F'>=0` for its
+tangent kernel.  Squared-loss flow is
 the same feature orbit with a different clock:
 
 \[
- \dot\tau=2(1-H(\tau)),\qquad
- f(t)=H(\tau(t)),\qquad
+ \dot\tau=2(1-F(\tau)),\qquad
+ f(t)=F(\tau(t)),\qquad
  \mathcal L(t)=(1-f(t))^2.
 \]
 
 There is no width or probability in the desired conclusion.  The requested
-statement is that, for every `epsilon>0`, a finite source model derived from
-the mean-field law should produce `mathcal L_M` with
+statement is that, for every \(\varepsilon>0\), a finite source model derived
+from the mean-field law should produce \(\mathcal L_M\) with
 
 \[
- \sup_{t\ge0}|\mathcal L_M(t)-\mathcal L(t)|\le\epsilon.
+ \sup_{t\ge0}|\mathcal L_M(t)-\mathcal L(t)|\le\varepsilon.
 \]
 
 For the structural calculations only, abbreviate
 
 \[
- a=W^{(3)},\qquad z=z^{(2)},\qquad h=h^{(1)},
+ z=z^{(2)},\qquad h=h^{(1)},
 \]
 
 and define
@@ -114,16 +126,17 @@ form `(a odot z)^T K(a odot z)`; it has no componentwise sign.
 
 ### Established zero-radius input
 
-Let `D` denote the mean-field readout-ascent derivation at initialization and
-put
+Let \(D_{+,n}\) denote the finite-width readout-ascent derivation and define
+the formal annealed coefficients by
 
 \[
- c_k=\frac{D^k f(0)}{k!},
+ c_k=\lim_{n\to\infty}
+ \mathbb E\!\left[\frac{D_{+,n}^k f_n(0)}{k!}\right],
 \]
 
-where every fixed coefficient is defined by the already-established leading
-Wick rule.  For odd `k`, with `m=(k+3)/2`, the audited scalar-branch argument
-gives
+where the exact special quadratic forest compiler supplies the fixed-order
+annealed limit.  For odd `k`, with `m=(k+3)/2`, the audited scalar-branch
+argument gives
 
 \[
  c_k\ge
@@ -150,8 +163,10 @@ selected branch.  Stirling's formula therefore yields
  \limsup_{k\to\infty}c_k^{1/k}=+\infty.
 \]
 
-This is a statement about the deterministic fixed-order mean-field
-coefficients.  It is not a finite-width error estimate.
+This is a statement about the formal annealed fixed-order coefficient
+sequence. It is not concentration of the random derivatives, a finite-width
+error estimate, or identification with derivatives of a positive-time
+limiting curve.
 
 ## 1. Why unrestricted finite one-source existence is tautological
 
@@ -209,18 +224,18 @@ coefficients of `p_M`.  Those coefficients contain samples of the unknown
 future curve.  This is precisely the oracle loophole.
 
 A version closer to the proposed transport PDE is equally immediate.  If the
-exact feature-time profile `H` is known on its target interval, its Bernstein
+exact feature-time profile `F` is known on its target interval, its Bernstein
 polynomials are monotone finite source profiles, and the residual-clock
 transport equation globally shadows the exact loss.  Again, the coefficients
-are exact future samples of `H`.
+are exact future samples of `F`.
 
 Consequently, neither “finite-dimensional” nor “one source” prevents hiding.
-Indeed every finite ODE `x'=F(x)` can be packed into one source by
+Indeed every finite ODE `x'=G(x)` can be packed into one source by
 
 \[
  U(t,s)=\sum_{j=0}^{d-1}x_j(t)s^j,
  \qquad
- U_t=\sum_{j=0}^{d-1}F_j(J_dU(t,0))s^j.
+ U_t=\sum_{j=0}^{d-1}G_j(J_dU(t,0))s^j.
 \]
 
 Unless a uniform local source grammar is imposed, “one source” is only a
@@ -254,22 +269,22 @@ First one must exhibit a deterministic mean-field state space `X`, an exact
 feature-time equation
 
 \[
- Y'=F(Y),\qquad H'=K(Y)\ge0,
+ Y'=G(Y),\qquad F'=K(Y)\ge0,
 \]
 
 and a target buffer `[0,T]` on which:
 
 1. the Gaussian initial state belongs to `X`;
 2. the equation has a unique classical solution through `T`;
-3. `F` is continuously stable in the chosen topology on a tube around that
+3. `G` is continuously stable in the chosen topology on a tube around that
    solution;
 4. the readout/kernel functional `K` is continuous there;
-5. `H` reaches one and has the strict monotonicity needed by the residual
+5. `F` reaches one and has the strict monotonicity needed by the residual
    clock.
 
 An admissible order-`M` closure must then be produced by a **uniform finite
 compiler** from only the architecture, Gaussian law, and local mean-field
-attachment/contraction rules.  It may not query `H`, the exact target time, or
+attachment/contraction rules.  It may not query `F`, the exact target time, or
 any exact positive-time hierarchy state.  It must output a finite system and
 an a priori, independently checkable residual bound
 
@@ -296,20 +311,20 @@ Under a locally Lipschitz Banach-space realization with uniformly bounded
 finite-rank projections `P_M->I`, the standard Galerkin proof is complete:
 
 \[
- Y_M'=P_MF(Y_M),\qquad Y_M(0)=P_MY(0)
+ Y_M'=P_MG(Y_M),\qquad Y_M(0)=P_MY(0)
 \]
 
-converges uniformly on `[0,T]`.  Compactness of `F(Y([0,T]))` makes
-`(I-P_M)F(Y)` uniformly small.  A Lipschitz kernel then gives
-`\|H_M-H\|_infinity->0`, and the already-proved squared-loss clock comparison
+converges uniformly on `[0,T]`.  Compactness of `G(Y([0,T]))` makes
+`(I-P_M)G(Y)` uniformly small.  A Lipschitz kernel then gives
+\(\|F_M-F\|_\infty\to0\), and the already-proved squared-loss clock comparison
 upgrades this to
 
 \[
- \sup_{t\ge0}|L_M(t)-L(t)|\to0.
+ \sup_{t\ge0}|\mathcal L_M(t)-\mathcal L(t)|\to0.
 \]
 
 This is a correct abstract theorem.  It is not yet a theorem about the stated
-Gaussian network until `X,F,K,P_M` and their estimates are actually supplied.
+Gaussian network until `X,G,K,P_M` and their estimates are actually supplied.
 
 ### Strongest model-specific formulation that survives the known no-go results
 
@@ -320,31 +335,31 @@ non-oracular and falsifiable.
 
 > **Certified local real-axis closure conjecture.**  For the deterministic
 > full Gaussian quadratic mean-field hierarchy there are a real-axis state
-> evolution `Y'=F(Y)`, a nonnegative kernel observable `K`, and trajectory,
+> evolution `Y'=G(Y)`, a nonnegative kernel observable `K`, and trajectory,
 > initial-data, and forcing norms on a target buffer `[0,T]` such that:
 >
 > 1. the hierarchy has a unique target-reaching solution `Y` and its loss is
 >    the squared-loss residual-clock time change of
->    `H'=K(Y)`;
+>    `F'=K(Y)`;
 > 2. an a posteriori observable-stability estimate holds on a fixed tube:
 >    
 >    \[
 >    \|K(\widetilde Y)-K(Y)\|_{L^1(0,T)}
 >    \le C_T\left(
 >    \|\widetilde Y(0)-Y(0)\|_{\rm init}
->    +\|\widetilde Y'-F(\widetilde Y)\|_{\rm force}
+>    +\|\widetilde Y'-G(\widetilde Y)\|_{\rm force}
 >    \right);
 >    \]
 > 3. one uniform finite local compiler, given `M`, uses only the architecture,
 >    Gaussian Wick rules, and finitely many local generator operations to
->    produce a finite ODE `y_M'=F_M(y_M)`, a reconstruction `R_My_M`, and a
->    nonnegative finite kernel `K_M`; it never queries `Y`, `H`, or the exact
+>    produce a finite ODE `y_M'=G_M(y_M)`, a reconstruction `R_My_M`, and a
+>    nonnegative finite kernel `K_M`; it never queries `Y`, `F`, or the exact
 >    target time at positive feature time;
 > 4. the compiler also produces checkable bounds
 >    
 >    \[
 >    \eta_M\ge\|R_My_M(0)-Y(0)\|_{\rm init},\qquad
->    \rho_M\ge\|(R_My_M)'-F(R_My_M)\|_{\rm force},
+>    \rho_M\ge\|(R_My_M)'-G(R_My_M)\|_{\rm force},
 >    \]
 >    
 >    and a kernel-reconstruction bound `beta_M`, with
@@ -366,9 +381,11 @@ proved clock comparison.  This statement cannot be satisfied by exact-curve
 Bernstein samples, arbitrary real constants encoding the answer, or an
 uncertified finite ODE packing.
 
-The existing exact continuation no-go does not refute this conjecture: the
-finite dimension may grow, and the error is measured only in an observable
-trajectory norm rather than exact branchwise future semantics.  The zero-
+The conditional continuation-capacity argument does not refute this
+conjecture: besides its still-open freeness/faithfulness and branch-separation
+lemmas, the finite dimension may grow and the error here is measured only in
+an observable trajectory norm rather than exact branchwise future semantics.
+The zero-
 radius theorem refutes initialization Taylor truncation and the one-Banach
 analytic realization, but not an unbounded/scale-space real-axis method.  The
 frozen tail theorem refutes naive Gaussian cutoff convergence, but its
@@ -422,7 +439,9 @@ The tangent kernel contains still higher powers.  The exact quadratic balance
 laws therefore do not exclude an order-one loss change caused by a vanishing
 tail mass.
 
-This also defeats an unqualified physical-time minimizing-movement argument.
+This ambient rare-set witness is not shown to lie on the canonical network's
+reachable-state manifold.  It nevertheless defeats an unqualified
+physical-time minimizing-movement argument that relies on `L2` control alone.
 In the `L2` metric one can change the readout by order one with arbitrarily
 small metric cost, so squared loss is not continuous or weakly lower
 semicontinuous in the topology controlled by the balance law.  A proximal
@@ -457,35 +476,34 @@ theory therefore has to use a **scale** of spaces, a restricted nonlinear
 domain, or a nonstandard renormalized product.  It cannot simply assume one
 Banach algebra in which all local polynomial rules are Lipschitz.
 
-The already-proved zero Taylor radius yields an even sharper no-go theorem.
-Assume there were a Banach space `X`, an initial state `Y_0 in X`, and an exact
-mean-field realization
+The already-proved formal zero Taylor radius yields a sharper no-go for one
+specific realization class. Assume there were a Banach space `X`, an initial
+state `Y_0 in X`, and an exact realization of the formal annealed jet
 
 \[
- Y'=F(Y),\qquad H'=K(Y),
+ Y'=G(Y),\qquad F'=K(Y),
 \]
 
-on which `F` and `K` were analytic near `Y_0`.  This includes every
+on which `G` and `K` were analytic near `Y_0`.  This includes every
 realization in which the network's polynomial attachment/contraction rules
 are represented by bounded multilinear maps on one Banach space.  The
-analytic ODE theorem would make `Y(tau)` and `H(tau)` analytic for some
+analytic ODE theorem would make `Y(tau)` and `F(tau)` analytic for some
 positive radius.  Cauchy estimates would give
 
 \[
- \frac{|H^{(k)}(0)|}{k!}\le C R^{-k}.
+ \frac{|F^{(k)}(0)|}{k!}\le C R^{-k}.
 \]
 
 If the realization is exact, its derivatives at zero must equal the fixed-
 order Wick coefficients `c_k`.  This contradicts
 `limsup |c_k|^(1/k)=infinity`.
 
-Therefore a one-space bounded-polynomial Galerkin theory for the exact
-Gaussian hierarchy is **impossible**, not merely missing.  A viable theory
-would have to use an unbounded generator, a domain/scale with loss of
-regularity, or a nonanalytic real-axis resummation.  Such scale-space
-Galerkin approximations can in principle converge even when the initial state
-is not an analytic vector, so this theorem still does not rule out every
-real-axis compiler.
+Therefore no exact one-space bounded analytic realization can reproduce every
+coefficient of this formal annealed jet.  This does not exclude an
+accuracy-indexed sequence of analytic approximants, an unbounded generator, a
+domain/scale with loss of regularity, or a nonanalytic real-axis resummation.
+Such scale-space Galerkin approximations can in principle converge even when
+the initial state is not an analytic vector.
 
 Positivity gives a stronger result that also excludes many unbounded or
 scale-space proposals.  Let `A` be the reachable mean-field diagram algebra,
@@ -567,16 +585,12 @@ Therefore
  \ge {N\choose k}h^k\mathbb E[D^kf].
 \]
 
-Take `h=tau/N` and then the fixed-program mean-field Wick limit.  With
+Take `h=tau/N` and then the fixed-program mean-field Wick limit, reusing the
+formal annealed coefficients \(c_k\) defined above. The deterministic
+Euler/Wick profile obeys
 
 \[
- c_k=\frac{\mathbb E[D^kf]}{k!},
-\]
-
-the deterministic Euler/Wick profile obeys
-
-\[
- H_N(\tau)
+ F_N(\tau)
  \ge
  \tau^k\frac{(N)_k}{N^k}c_k,
 \]
@@ -593,7 +607,7 @@ given any `tau>0` and any `A>0`, one can first choose `k` with
 Consequently
 
 \[
- H_N(\tau)\longrightarrow+\infty
+ F_N(\tau)\longrightarrow+\infty
  \qquad(\tau>0).
 \]
 
@@ -624,8 +638,9 @@ includes explicit Euler and positive-stage Picard or SSP-type polynomial
 schemes.  Variable positive steps do not help: the binomial coefficient is
 replaced by an elementary symmetric sum with the same consistent limit.
 
-This is a full-model compiler no-go.  It does not cover a method that
-introduces genuine cancellation or resummation, an implicit/tamed
+This is a full-network formal-jet no-go for the stated Wick-positive compiler
+class. It does not cover a method that introduces genuine cancellation or
+resummation, an implicit/tamed
 nonpolynomial rule, or a scale-space Galerkin projection with a separately
 certified real-axis residual.
 
@@ -689,11 +704,11 @@ Conditional on a classical target-fitting mean-field solution with finite
 moments, the following parts of the earlier argument survive audit:
 
 * squared-loss flow is the readout-ascent orbit under the clock
-  `tau'=2(1-H(tau))`;
-* `H'=kappa>=0`;
-* with `C=E[(W^(3))^2]`, Cauchy--Schwarz gives `H^2<=C kappa` and
-  `C'=2H` in feature time (equivalently `Cdot=4f(1-f)` in physical time);
-* after any positive output level, `C/H^2` is nonincreasing and the kernel is
+  `tau'=2(1-F(tau))`;
+* `F'=kappa>=0`;
+* with `C=E[a^2]`, Cauchy--Schwarz gives `F^2<=C kappa` and
+  `C'=2F` in feature time (equivalently `Cdot=4f(1-f)` in physical time);
+* after any positive output level, `C/F^2` is nonincreasing and the kernel is
   bounded below, so the target is reached in finite feature time;
 * a known small monotone profile/kernel defect gives a uniform all-physical-
   time loss defect by scalar clock contraction.
@@ -716,7 +731,7 @@ weighted chaos or Fock space:
 3. quantitative maps between a scale of spaces, or a closable unbounded
    generator and a mild-solution theorem, through a certified target buffer;
 4. derivative estimates compatible with the lower growth
-   `H^(k)(0) >= k!(k/2)! times exponential factors`; any ordinary analytic
+   `F^(k)(0) >= k!(k/2)! times exponential factors`; any ordinary analytic
    Cauchy bound is impossible;
 5. continuity of the readout and tangent kernel in the same forcing/stability
    topology--weights cannot simply suppress the positive scalar branch while
@@ -745,13 +760,13 @@ residual.
 | Initialization Wick--Taylor jet | False: factorial coefficient lower bound and zero radius |
 | Any coefficientwise-positive, fixed-order-consistent polynomial compiler | False: zero-radius coefficients force divergence at every positive source value |
 | Explicit symbolic Euler or positive-stage polynomial Wick integrator | False by the pullback/binomial lower bound |
-| One-Banach bounded analytic hierarchy realization | Impossible: it would force a positive Taylor radius |
+| Exact one-Banach bounded analytic realization of the formal jet | Impossible: it would force a positive Taylor radius |
 | Implicit/tamed/Picard or scale-space time stepping | Not resolved; requires a real-axis stability and tail theorem |
 | Weighted message Galerkin | Correct conditional theorem; no state space or residual tail theorem supplied |
 | Deterministic particles/Gaussian quadrature | Correct for globally Lipschitz McKean--Vlasov equations; hypotheses fail/unproved here |
 | Gaussian compact truncation | Dynamically singular in the frozen subsystem |
 | Physical-time Galerkin | Still needs higher-moment continuity and compactness; L2 balances are insufficient |
-| L2 minimizing movements | Invalid without relaxation/stronger topology because readout is L2-discontinuous |
+| L2 minimizing movements | Ambient L2 control alone is insufficient because the readout is L2-discontinuous; higher-moment/reachable-set control may repair the route |
 | Padé/Borel resummation | No summability, positivity, or real-axis error theorem supplied |
 | One-source packing of an arbitrary finite ODE | Syntactically valid but makes the one-source condition vacuous |
 
@@ -762,7 +777,8 @@ There are three distinct statements.
 1. **Unrestricted scalar existence:** true for every continuous fitting loss,
    by the explicit two-state one-source construction above.  This says
    nothing about mean-field closure.
-2. **The concrete Wick--Taylor compiler:** false, already in pure mean field.
+2. **The prescribed formal Wick--Taylor compiler:** false at the formal
+   annealed mean-field level.
 3. **A non-oracular real-axis local compiler for the fully trained Gaussian
    hierarchy:** a well-posed conjecture only after the hierarchy space,
    admissible compiler, and residual norm are fixed.  No audited constructive

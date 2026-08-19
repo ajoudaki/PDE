@@ -1,0 +1,49 @@
+{
+  "schema": "canonical-arbitrary-depth-order5-scalar-freeze-v1",
+  "date": "2026-08-19",
+  "claim": {
+    "full_M_only_six_pass_recurrence": "PASS",
+    "strict_single_forward_single_backward_shape": "OPEN_NOT_SATISFIED",
+    "minimality_claimed": false
+  },
+  "state_dimensions": {
+    "F1": 7,
+    "R1": 8,
+    "F2": 4,
+    "R2": 4,
+    "F3": 3,
+    "R3": 3,
+    "total_dynamic_coordinate_types": 29
+  },
+  "canonical_report": {
+    "path": "ARBITRARY_DEPTH_B1_ORDER5_SCALAR_RECURRENCE.md",
+    "sha256": "24d9f63d79319b514969c0e1fe85608721f4c4033615810c93157631c3a30f12",
+    "embedded_transition_roots": 38
+  },
+  "frozen_formula_sources": {
+    "independent/FROZEN_FORWARD_RECURRENCE.json": "e5fab90f11849b4f709c572495742e88dd2f8448ef6d80b0089da56b093d4287",
+    "independent/FROZEN_REVERSE_RECURRENCE.json": "6d226a10472571c885513b0259d01e2bf59be48303c24578614e0831f46f1a68",
+    "independent/FROZEN_MOVING_RECURRENCE.json": "aa530c6a2ff323398412df9e52b864ca955acf9296e5f1303af83090a10a7865",
+    "independent/FROZEN_MANIFEST.json": "0699148b5d5fcd77a821908f333e230e36e148afad710e2421c36ab89c7441f8",
+    "primary/FULL_SCALAR_CANDIDATE_FREEZE.json": "d731ec66b067b8739df305426c6aa6d06bbc309d5fd624bd16d1c283ca649728"
+  },
+  "exact_audits": {
+    "primary/FULL_SCALAR_AUDIT.json": "432f8b66c6607bec84221e21281b7346dcb56e50cb64feae8ea5dd4ee00399dd",
+    "primary/FULL_INDEPENDENT_COMPARISON.json": "6fe8a825ea25727da79744c3cf556719a7a98c92e4754fffe6871cac1a106113",
+    "audit/FULL_RECURRENCE_LITERAL_SCAN.json": "268038e2d9b335a9987ffabe1d48e5358ea9203b6fe0f4aabf91057c934bbbeb"
+  },
+  "map_results": {
+    "H2": {"A_terms": 3, "B_terms": 46, "C_terms": 974, "discrepancies": 0},
+    "H3": {"A_terms": 4, "B_terms": 160, "C_terms": 6519, "discrepancies": 0},
+    "H4": {"A_terms": 5, "B_terms": 350, "C_terms": 17641, "discrepancies": 0},
+    "maximum_activation_derivative": 5
+  },
+  "deterministic_checkers": {
+    "verify_canonical_report.py": "9186cf7bb76769209bb758699b5d9ba97134fd77dff3e4cfae8aaf903d26f01b",
+    "run_checks.py": "58ca51054e64c5427c53b47bd6ccfe71a9ca98d50374f5e985808003c70767b5"
+  },
+  "integration": {
+    "../README.md": "76e88b6fd9093e89e9147afe5eb35794e870db24450de8e592f21894a7afe277",
+    "EVIDENCE_LEDGER.md": "7dc3dccb06869b612b74eea5bdf64b209a1eb09498c7b5e2db1f013e137499d1"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "activation": "sin(x)/sqrt((1-exp(-2))/2)",
+  "chi_square": 0.7734412611458006,
+  "decision": "pass",
+  "degrees_of_freedom": 3,
+  "diagnostics_valid": true,
+  "exact_route_worst_scaled_error": 2.919118108087087e-14,
+  "intercept": 26949.75169061648,
+  "intercept_standard_error": 2326.2945580581186,
+  "prediction": 29944.43234293731,
+  "summaries": [
+    {
+      "mean": 20711.962829030675,
+      "seeds": 256,
+      "standard_error": 12199.504932936377,
+      "width": 32
+    },
+    {
+      "mean": 25824.29471110188,
+      "seeds": 256,
+      "standard_error": 8142.5601924984485,
+      "width": 64
+    },
+    {
+      "mean": 29328.12584361343,
+      "seeds": 256,
+      "standard_error": 5256.896800141215,
+      "width": 128
+    },
+    {
+      "mean": 28933.504973160838,
+      "seeds": 256,
+      "standard_error": 4919.8354377959695,
+      "width": 256
+    },
+    {
+      "mean": 25979.257655101712,
+      "seeds": 256,
+      "standard_error": 2204.3930540472797,
+      "width": 512
+    }
+  ],
+  "target": "C=lim E[D_n^5 f_n]",
+  "z_score": 1.2873179116322446
+}

@@ -1,0 +1,107 @@
+{
+  "depths": {
+    "3": {
+      "affine_1_plus_x": {
+        "A": "10",
+        "B": "540",
+        "C": "71152"
+      },
+      "constant_1": {
+        "A": "1",
+        "B": "0",
+        "C": "0"
+      },
+      "linear": {
+        "actual": {
+          "A": "4",
+          "B": "160",
+          "C": "13888"
+        },
+        "formula": {
+          "A": "4",
+          "B": "160",
+          "C": "13888"
+        },
+        "pass": true
+      },
+      "normalized_sine_order64": {
+        "A": 6.300850741690989,
+        "B": -854.3718615768591,
+        "C": 1076854.4593623865
+      },
+      "normalized_sine_order96": {
+        "A": 6.300850741690993,
+        "B": -854.3718615768605,
+        "C": 1076854.459362389
+      },
+      "quadratic": {
+        "A": "14175",
+        "B": "139445032896",
+        "C": "4298284752832899360"
+      },
+      "quadratic_forward_gram_chain": [
+        "1",
+        "3",
+        "27",
+        "2187"
+      ],
+      "sine_max_abs_change": 2.561137080192566e-09
+    },
+    "4": {
+      "affine_1_plus_x": {
+        "A": "15",
+        "B": "1848",
+        "C": "591176"
+      },
+      "constant_1": {
+        "A": "1",
+        "B": "0",
+        "C": "0"
+      },
+      "linear": {
+        "actual": {
+          "A": "5",
+          "B": "400",
+          "C": "73240"
+        },
+        "formula": {
+          "A": "5",
+          "B": "400",
+          "C": "73240"
+        },
+        "pass": true
+      },
+      "normalized_sine_order64": {
+        "A": 9.2732393525049,
+        "B": -4566.130252113053,
+        "C": 19488618.52477603
+      },
+      "normalized_sine_order96": {
+        "A": 9.273239352504905,
+        "B": -4566.130252113061,
+        "C": 19488618.524776075
+      },
+      "quadratic": {
+        "A": "138351807",
+        "B": "59385566223611232192",
+        "C": "81427352525619060193821492876576"
+      },
+      "quadratic_forward_gram_chain": [
+        "1",
+        "3",
+        "27",
+        "2187",
+        "14348907"
+      ],
+      "sine_max_abs_change": 4.470348358154297e-08
+    }
+  },
+  "linear_arbitrary_depth_candidate": {
+    "A": "m",
+    "B": "2*m^2*(m^2-1)/3",
+    "C": "m^2*(m^2-1)*(17*m^3-4*m^2-38*m-4)/15",
+    "parameter_block_count": "m=H+1",
+    "status": "A is proved by gradient-energy counting; B and C are exact finite-difference candidates, not promoted without a symbolic depth-transfer induction"
+  },
+  "pass": true
+}

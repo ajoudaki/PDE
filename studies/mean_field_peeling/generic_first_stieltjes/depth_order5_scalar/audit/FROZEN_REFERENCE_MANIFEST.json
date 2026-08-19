@@ -1,0 +1,21 @@
+{
+  "schema": "scalar5-hostile-reference-v1",
+  "frozen_before_candidate_inspection": true,
+  "references": {
+    "H2": {
+      "path": "studies/mean_field_peeling/generic_first_stieltjes/order5/compiler/PRIMARY_UNIT_COEFFICIENT_MAP.json",
+      "sha256": "68dd13460fb5bfab187d0d7e61b90adeec43a2311c2cab2726fd68b73fbf37f2",
+      "counts": {"A": 3, "B": 46, "C": 974}
+    },
+    "H3": {
+      "path": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5/primary/H3_UNIT_COEFFICIENTS.json",
+      "sha256": "564c6a27d6071e8601d21fd167dfd8f21d7ac9fe2323695a626eeebf73b980c6",
+      "counts": {"A": 4, "B": 160, "C": 6519}
+    },
+    "H4": {
+      "path": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5/primary/H4_UNIT_COEFFICIENTS.json",
+      "sha256": "b3b220b76c8d30037cf0bfc0a8a1dc05884b28601a1c28e45b0daf9ff64faa5d",
+      "counts": {"A": 5, "B": 350, "C": 17641}
+    }
+  }
+}

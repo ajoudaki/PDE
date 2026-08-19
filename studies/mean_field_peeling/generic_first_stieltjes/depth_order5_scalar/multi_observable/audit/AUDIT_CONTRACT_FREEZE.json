@@ -1,0 +1,8 @@
+{
+  "artifact": "AUDIT_CONTRACT.md",
+  "sha256": "50d1118655a0caeaf682612197dcd5359901bbc7586de255955f5829647dd688",
+  "frozen_at": "2026-08-19",
+  "route": "independent_hostile_H",
+  "producer_gamma04_formulas_inspected_before_freeze": false,
+  "nonpolynomial_regression_preregistered": true
+}

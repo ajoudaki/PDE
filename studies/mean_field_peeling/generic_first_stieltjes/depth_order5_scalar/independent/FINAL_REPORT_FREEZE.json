@@ -1,0 +1,29 @@
+{
+  "schema": "independent-route-a-final-report-freeze-v1",
+  "date": "2026-08-19",
+  "formula_manifest": {
+    "path": "FROZEN_MANIFEST.json",
+    "sha256": "0699148b5d5fcd77a821908f333e230e36e148afad710e2421c36ab89c7441f8"
+  },
+  "report": {
+    "path": "FULL_SCALAR_RECURRENCE.md",
+    "sha256": "ed657dc149e9a1b1f5c9acb267e381b11e2556e42d7d7aad9f12fd099b6af8f1"
+  },
+  "exact_map_comparison": {
+    "path": "FROZEN_MAP_COMPARISON.json",
+    "sha256": "d187f82bf4e898f1c54f4909b4eab6514b8dff3a97a2c712e32001c1376134b5",
+    "H2_C_terms_discrepancies": [974, 0],
+    "H3_C_terms_discrepancies": [6519, 0],
+    "H4_C_terms_discrepancies": [17641, 0]
+  },
+  "evidence_ledger": {
+    "path": "EVIDENCE_LEDGER.md",
+    "sha256": "c0965f00a89a7c8c4675f720e26defe383fd65bde44a015ba9e4e73a1fe86d0c"
+  },
+  "unit_tests": {
+    "path": "test_analytic_route.py",
+    "sha256": "5cfd8c39eeb950d91c7cfbf43ec9846cc08c25572332884b31351db6a1433e21",
+    "result": "5 passed"
+  },
+  "claim_scope": "exact fixed-dimensional M-only six-pass recurrence at arbitrary separately fixed H; not a single-forward/single-backward realization; theorem-level annealed identification is conditional on the stated convergence and uniform-integrability hypotheses"
+}

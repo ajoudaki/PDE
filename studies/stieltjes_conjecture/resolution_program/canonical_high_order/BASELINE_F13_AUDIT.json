@@ -1,0 +1,38 @@
+{
+  "schema": "canonical_high_order_moment_hankel_baseline_v1",
+  "candidate_F15_supplied": false,
+  "candidate_F17_supplied": false,
+  "highest_feature_derivative_order": 13,
+  "method": "direct coefficientwise Fraction composition F(G(z))=z",
+  "baseline_cross_checks": {
+    "mu_0_through_mu_5_match": true,
+    "ordinary_H2_matches": true,
+    "shifted_H2_matches": true
+  },
+  "output_kernel_moments": {
+    "mu_0": "280864/4107",
+    "mu_1": "38443196932/5616860517",
+    "mu_2": "37578479127292096/12802987609542045",
+    "mu_3": "21749547365571716077696/13618704359108797313085",
+    "mu_4": "2463577914969508668234788122624/2514423905282563683042386470725",
+    "mu_5": "43091400402899303445912484475500496/66714012134145460981362191472284175"
+  },
+  "known_top_determinants": {
+    "ordinary_H2": "42273773754433588306428104138747323807188416493518848/2776475335096136409875341498138426752685624541508375",
+    "shifted_H2": "821121994467978760780817399151273570663517173613881280168626780102656/21875165394618842103069584785029512715749438929178771773425620184364845"
+  },
+  "F15_gate": {
+    "new_moment": "mu_6",
+    "new_matrix": "ordinary_H3",
+    "determinant_slope_is_positive": true,
+    "exact_derivative_threshold": "65743393265975731179732223336891159131752625282961983545652912901909389532771651702960445629216/2068766359898401991928790497752880265620760807729959214265",
+    "smallest_strictly_passing_integer_F15": "31779032441925639961712357466606778022"
+  },
+  "F17_gate": {
+    "requires_exact_F15_first": true,
+    "new_moment": "mu_7",
+    "new_matrix": "shifted_H3",
+    "determinant_slope_in_F17_is_negative": true
+  },
+  "decision": "baseline_passed; waiting_for_exact_F15_candidate"
+}

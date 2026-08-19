@@ -1,0 +1,16 @@
+{
+  "runner": "run_h3_sine_regression.py",
+  "runner_sha256": "b3734994f2d5583ba354438428ff45d2402f5aec02de334661be4c4b176e0481",
+  "raw_sha256_after_runner_serialization_failure": "d99931b2976f87f2c40988399555d08ab203893d9e77107a546f62b49b95faef",
+  "deterministic_postprocessor": "postprocess_h3_sine_regression.py",
+  "deterministic_postprocessor_sha256": "3d9efbb0aa4de12dcc789b2bfc29dec56a6f9e2887d24ce071549cdb027c59de",
+  "frozen_before_execution": true,
+  "activation": "sin(x)/sqrt((1-exp(-2))/2)",
+  "hidden_layers": 3,
+  "observed_layers": [2, 3],
+  "widths": [64, 128, 256],
+  "replicates_per_width": 1024,
+  "seed_formula": "19000000 + 100000*width + replicate",
+  "primary_quantities": ["layer2_gamma04", "layer2_q4", "layer3_gamma04", "layer3_q4"],
+  "pre_execution_validity_assessment": "inconclusive regardless of z-scores because three widths saturate the required intercept+1/n+1/n^2 curvature comparison"
+}

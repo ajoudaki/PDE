@@ -1,0 +1,52 @@
+{
+  "comparison_time": "post-freeze",
+  "independent_hashes": {
+    "tagged_exact_file": "52832afc4f9e1cf27f5b8465f2f5373bcb3e9f5c56b0686c9366162da2e17c11",
+    "unit_exact_file": "fa3b4a6f7dc665e63e2c02355a14122f89f56bdfd34f0fe7402be4cab0ff2878"
+  },
+  "normalizations": {
+    "tagged": "Q0=1; X at N(0,Q0), Y at N(0,Q1), Q1=X_200000",
+    "unit": "Q0=Q1=Q2=1 and M_200000=1"
+  },
+  "pass": true,
+  "tagged": {
+    "A": {
+      "discrepancies": [],
+      "discrepancy_count": 0,
+      "independent_terms": 3,
+      "primary_terms": 3
+    },
+    "B": {
+      "discrepancies": [],
+      "discrepancy_count": 0,
+      "independent_terms": 50,
+      "primary_terms": 50
+    },
+    "C": {
+      "discrepancies": [],
+      "discrepancy_count": 0,
+      "independent_terms": 1045,
+      "primary_terms": 1045
+    }
+  },
+  "unit": {
+    "A": {
+      "discrepancies": [],
+      "discrepancy_count": 0,
+      "independent_terms": 3,
+      "primary_terms": 3
+    },
+    "B": {
+      "discrepancies": [],
+      "discrepancy_count": 0,
+      "independent_terms": 46,
+      "primary_terms": 46
+    },
+    "C": {
+      "discrepancies": [],
+      "discrepancy_count": 0,
+      "independent_terms": 974,
+      "primary_terms": 974
+    }
+  }
+}

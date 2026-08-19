@@ -1,0 +1,22 @@
+{
+  "freeze_boundary": "all Route-S Gamma04 producer formulas frozen before any Route-A formula inspection",
+  "unreduced_head": {
+    "FROZEN_GAMMA04_RECURRENCE.json": "66449874726a3f424ec8cdcda27f90823c3317aa0b00fa7ebfbed9d1e88075b6",
+    "FROZEN_GAMMA04_TRANSITIONS.md": "fd7bf8043d76e0688ce323691d7b9f29d36b42e6c41ff559f03ba8849e27bb31",
+    "gamma04_contraction.py": "ab3500ef81a71c7fdace4910c22e064db746df296e023d06b64d24f5fcadfd2a"
+  },
+  "reduced_public_head": {
+    "FROZEN_GAMMA04_REDUCED_RECURRENCE.json": "e97a3f6afda6ae17d1be498ac79b308b64fc71e7fd94a1f343e0e28844762122",
+    "FROZEN_GAMMA04_REDUCED_TRANSITIONS.md": "3987dc1cdb253a1c722d7dd4b85728274694147d17d2e94a9f209bd97838f041",
+    "reduce_frozen_head.py": "e22db8c2b1cd68333257fb75a8bb21209e6f7b3d8e7ba002ce8644775edd3639",
+    "dynamic_state": ["gamma04", "a41"],
+    "term_counts": {"gamma04_next": 64, "a41_next": 17},
+    "no_minimality_claim": true
+  },
+  "derivation_contracts": {
+    "RESEARCH_CONTRACT.md": "72ec3a86d8546babbf0ed5ef60006623c7d4ca59989d91e79afad368ad8a47dc",
+    "NONPOLYNOMIAL_EXPERIMENT_CONTRACT.md": "4e4c5d9ec334f08188f2a458e8d8b1276feae0acefd44651d6f7c5908ad09997",
+    "FINITE_WIDTH_AND_WIDTH_AUDIT.md": "c772fc66461f8650fb4fe5b8edcb5233f213cfbd10483d274448ea62e2b8eda7"
+  },
+  "semantic_reduction": "a43_next=d*(1+a43), a43_0=0 implies 1+a43_(ell-1)=tau_(ell-1)=l1"
+}

@@ -1,0 +1,25 @@
+{
+  "freeze_status": "Route A three-state producer frozen before two-state reduction or Route-S inspection",
+  "files": {
+    "EQUALITY_PARTITION_LEDGER.json": "8949c9be0b501d9622c833a1ee1325b88ac80ccbb7ab8310c1d860bc01bae24b",
+    "EVIDENCE_LEDGER.md": "86fae5515f148fbd33b07e45198b028954e1a1c4bda259ba6d9522b39e7597fb",
+    "F7_TREE_ROADMAP_ROUTE_A.json": "be7832a762e6d13daea1b74724f4bf6ff4f728d4bb0cc7239cdedce0d532b7d3",
+    "FROZEN_GAMMA04_RECURRENCE.json": "724da08f11bc3ec71b90ad12305a5e1ebed4f00a2a7e116f99f7d6ce02a401b5",
+    "FROZEN_GAMMA04_TRANSITIONS.md": "ce658f1cfdebfeb090fb0fb12dd43801a3ebd0ed8123e8a90244c5a62be4d786",
+    "INDEPENDENT_DERIVATION.md": "5afdfcfcb8f1ebcbc69c0f81bbdf66583f86ec5b7e7172c6522bde60ebf40b0f",
+    "NORMALIZED_SINE_GAMMA04_RESULT.json": "dd63c8b62e4bda85018f10da3f68b21aed7c65f08bc5b3ff9c2f219a4fb364ff",
+    "finite_width_hidden.py": "87f690e201141e512299159cd2ba793d5e1785b7fd1421dd61cfa747c4e2a4c9",
+    "gamma04_contraction.py": "a0fc01d7dd480ef1cc47fcad363703baddfda37a4f36979c1b0381cf44e14aba",
+    "numeric_head.py": "9fe19fbad71c483c7f95a16637c45910c9b0006d8524b4343f12d2b58083b8e6",
+    "run_checks.py": "befda11c90c7140b2806f3dbc6f2e1fd9f9236ce00dd92d833a62d7160ceb78f"
+  },
+  "tests": [
+    "PASS test_independent_atom_canonicalization",
+    "PASS test_exact_finite_width_raw_ad",
+    "PASS test_gamma_dictionary_and_parity",
+    "PASS test_exact_controls",
+    "PASS test_frozen_artifacts_and_ceiling",
+    "PASS test_time_change_formulas",
+    "PASS test_nonpolynomial_regression_and_f7_roadmap"
+  ]
+}

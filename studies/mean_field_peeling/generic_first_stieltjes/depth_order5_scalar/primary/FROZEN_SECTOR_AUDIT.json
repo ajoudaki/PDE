@@ -1,0 +1,35 @@
+{
+  "schema": "scalar-order5-frozen-sector-audit-v1",
+  "status": "PASS for declared partial sector; FAIL as full C witness",
+  "projection_transition_discrepancies": {
+    "V_NEXT": 0,
+    "P_NEXT": 0,
+    "J3_NEXT": 0,
+    "B11_NEXT": 0,
+    "K10_NEXT": 0
+  },
+  "depths": {
+    "2": {
+      "A": {"terms": 3, "discrepancies": 0},
+      "B": {"terms": 46, "discrepancies": 0},
+      "partial_C": {"terms": 451, "full_reference_terms": 974, "discrepancies": 857},
+      "partial_C_linear": "56"
+    },
+    "3": {
+      "A": {"terms": 4, "discrepancies": 0},
+      "B": {"terms": 160, "discrepancies": 0},
+      "partial_C": {"terms": 3177, "full_reference_terms": 6519, "discrepancies": 5795},
+      "partial_C_linear": "560"
+    },
+    "4": {
+      "A": {"terms": 5, "discrepancies": 0},
+      "B": {"terms": 350, "discrepancies": 0},
+      "partial_C": {"terms": 8898, "full_reference_terms": 17641, "discrepancies": 15612},
+      "partial_C_linear": "2968"
+    }
+  },
+  "maximum_terminal_activation_derivative": 5,
+  "constant_partial_C": "0",
+  "full_linear_C_reference": {"H2": "1464", "H3": "13888", "H4": "73240"},
+  "unresolved_linear_remainder": {"H2": "1408", "H3": "13328", "H4": "70272"}
+}

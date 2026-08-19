@@ -1,0 +1,22 @@
+{
+  "freeze_boundary": "before competing Gamma_04 formula inspection or reference-map comparison",
+  "precommit_manifest_sha256": "21d625ad1f7b4a0d9f5f899b260e6b71891db7bc08f6f0cb64f8c50747be4427",
+  "producer": {
+    "gamma04_contraction.py": "ab3500ef81a71c7fdace4910c22e064db746df296e023d06b64d24f5fcadfd2a"
+  },
+  "artifacts": {
+    "FROZEN_GAMMA04_RECURRENCE.json": "66449874726a3f424ec8cdcda27f90823c3317aa0b00fa7ebfbed9d1e88075b6",
+    "FROZEN_GAMMA04_TRANSITIONS.md": "fd7bf8043d76e0688ce323691d7b9f29d36b42e6c41ff559f03ba8849e27bb31"
+  },
+  "candidate": {
+    "chronology": "one bottom-up pass after R3",
+    "dynamic_state": ["gamma04", "a41", "a43"],
+    "no_minimality_claim": true,
+    "term_counts": {
+      "gamma04_next": 83,
+      "a41_next": 20,
+      "a43_next": 1
+    },
+    "maximum_activation_derivative": 4
+  }
+}

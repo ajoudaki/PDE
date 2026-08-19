@@ -1,0 +1,147 @@
+{
+  "schema": "independent_canonical_recurrence_result_v1",
+  "date": "2026-08-18",
+  "metric": "D_a + D_u + D_W",
+  "alpha": "1",
+  "max_order": 17,
+  "arithmetic": "exact fractions and integers",
+  "source": {
+    "file": "independent_canonical_recurrence.py",
+    "sha256": "8c0aa4f49b7920c739b385664743a678db7a12f5160baee38a1b40acab2274ea",
+    "imports_production_generator": false,
+    "imports_production_result": false
+  },
+  "feature_derivatives": {
+    "0": "0",
+    "1": "111",
+    "2": "0",
+    "3": "1685184",
+    "4": "0",
+    "5": "77400633120",
+    "6": "0",
+    "7": "7315868433079296",
+    "8": "0",
+    "9": "1181161141825400561664",
+    "10": "0",
+    "11": "291982832387585872335470592",
+    "12": "0",
+    "13": "102853512279246664353620526022656",
+    "14": "0",
+    "15": "49079184579077107476764629402991788032",
+    "16": "0",
+    "17": "30555969894096099495444855650521777374167040"
+  },
+  "gates": {
+    "accepted_prefix_reproduced_through_order13": true,
+    "all_even_derivatives_zero_through_order16": true,
+    "F15_exact_cross_implementation_agreement": true,
+    "F17_exact_cross_implementation_agreement": true,
+    "order15_under_20_minute_4_GiB_independent_cap": true,
+    "order17_under_30_minute_8_GiB_independent_cap": true,
+    "order19_not_attempted_under_frozen_protocol": true
+  },
+  "standalone_order15_run": {
+    "command": "python independent_canonical_recurrence.py --max-order 15 --progress --wall-cap-seconds 1200 --memory-cap-mib 4096",
+    "wall_seconds": 43.59,
+    "peak_rss_kib": 49404,
+    "internal_elapsed_seconds": 43.546450547873974,
+    "terminal_internal_max_rss_mib": 48.24609375,
+    "terminal_terms": {
+      "A": 942,
+      "X": 599,
+      "Y": 962,
+      "Z": 962
+    },
+    "terminal_wick_caches": {
+      "row": 99708,
+      "column": 98862
+    }
+  },
+  "order17_run": {
+    "command": "python independent_canonical_recurrence.py --max-order 17 --progress --wall-cap-seconds 1800 --memory-cap-mib 8192",
+    "wall_seconds": 163.08,
+    "peak_rss_kib": 94060,
+    "internal_elapsed_seconds": 163.01002092286944,
+    "terminal_internal_max_rss_mib": 91.85546875,
+    "checkpoints": [
+      {
+        "degree": 13,
+        "elapsed_seconds": 17.740204114466906,
+        "max_rss_mib": 29.43359375,
+        "row_wick_cache": 62834,
+        "column_wick_cache": 38311,
+        "terms": {
+          "A": 491,
+          "X": 311,
+          "Y": 507,
+          "Z": 507,
+          "B": 663,
+          "Q": 316,
+          "R": 316
+        }
+      },
+      {
+        "degree": 14,
+        "elapsed_seconds": 35.81232263147831,
+        "max_rss_mib": 41.32421875,
+        "row_wick_cache": 99708,
+        "column_wick_cache": 62391,
+        "terms": {
+          "A": 678,
+          "X": 450,
+          "Y": 708,
+          "Z": 708,
+          "B": 909,
+          "Q": 424,
+          "R": 424
+        }
+      },
+      {
+        "degree": 15,
+        "elapsed_seconds": 70.63021535053849,
+        "max_rss_mib": 54.21484375,
+        "row_wick_cache": 156561,
+        "column_wick_cache": 98862,
+        "terms": {
+          "A": 942,
+          "X": 599,
+          "Y": 962,
+          "Z": 962,
+          "B": 1249,
+          "Q": 611,
+          "R": 611
+        }
+      },
+      {
+        "degree": 16,
+        "elapsed_seconds": 136.71024349331856,
+        "max_rss_mib": 76.19140625,
+        "row_wick_cache": 241906,
+        "column_wick_cache": 155796,
+        "terms": {
+          "A": 1275,
+          "X": 841,
+          "Y": 1314,
+          "Z": 1314,
+          "B": 1683,
+          "Q": 813,
+          "R": 813
+        }
+      },
+      {
+        "degree": 17,
+        "elapsed_seconds": 160.74564712494612,
+        "max_rss_mib": 91.85546875,
+        "row_wick_cache": 241906,
+        "column_wick_cache": 240016,
+        "terminal_after": "Z",
+        "terms": {
+          "A": 1733,
+          "X": 1109,
+          "Y": 1758,
+          "Z": 1758
+        }
+      }
+    ]
+  }
+}

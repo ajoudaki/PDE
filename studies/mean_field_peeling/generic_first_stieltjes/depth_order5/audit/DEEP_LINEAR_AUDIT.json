@@ -1,0 +1,30 @@
+{
+  "claim": "exact independent Gaussian path/Wick enumeration, not a specialization or fit of either generic coefficient map",
+  "normalization": "the displayed finite-width polynomials are E[D_n^k f_n] as polynomials in 1/n",
+  "source_sha256": {
+    "linear_diagrams.py": "85e7b0db699dcf029c5805c66fe0276aa6af3c86341f0a586952db95e1b08366",
+    "linear_wick.py": "708b6a8ae0c3e73b59ac6d47b20358ddf03684ee5a9a5e1f466b79f7411fa44b"
+  },
+  "depths": {
+    "3": {
+      "derivative_history_states_order5": 22012,
+      "A_finite_width": [4],
+      "B_finite_width_coefficients_by_inverse_n_power": [160, 400, 304],
+      "C_finite_width_coefficients_by_inverse_n_power": [13888, 98048, 280768, 368640, 185600],
+      "large_width_A_B_C": [4, 160, 13888],
+      "concrete_width_cross_checks": {
+        "n=1_B_C": [864, 946944],
+        "n=2_B_C": [436, 190784],
+        "n=3_B_C": ["2944/9", "7590656/81"]
+      }
+    },
+    "4": {
+      "derivative_history_states_order5": 102582,
+      "A_finite_width": [5],
+      "B_finite_width_coefficients_by_inverse_n_power": [400, 1500, 2280, 1220],
+      "C_finite_width_coefficients_by_inverse_n_power": [73240, 797680, 3928200, 10713920, 16836800, 14315520, 5120640],
+      "large_width_A_B_C": [5, 400, 73240]
+    }
+  },
+  "arbitrary_depth_closed_form_status": "not proved; any finite-difference formula inferred from finitely many depths remains conjectural"
+}

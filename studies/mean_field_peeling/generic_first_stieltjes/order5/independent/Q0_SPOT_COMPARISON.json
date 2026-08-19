@@ -1,0 +1,40 @@
+{
+  "pass": true,
+  "points": {
+    "1/2": {
+      "A": {
+        "discrepancy_count": 0,
+        "independent_terms": 3,
+        "primary_terms": 3
+      },
+      "B": {
+        "discrepancy_count": 0,
+        "independent_terms": 50,
+        "primary_terms": 50
+      },
+      "C": {
+        "discrepancy_count": 0,
+        "independent_terms": 1045,
+        "primary_terms": 1045
+      }
+    },
+    "2": {
+      "A": {
+        "discrepancy_count": 0,
+        "independent_terms": 3,
+        "primary_terms": 3
+      },
+      "B": {
+        "discrepancy_count": 0,
+        "independent_terms": 50,
+        "primary_terms": 50
+      },
+      "C": {
+        "discrepancy_count": 0,
+        "independent_terms": 1045,
+        "primary_terms": 1045
+      }
+    }
+  },
+  "status": "post-freeze bounded spot check; frozen coefficient artifacts unchanged"
+}

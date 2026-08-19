@@ -1,0 +1,222 @@
+{
+  "leading_partition_rule": "reverse legs are perfectly paired; forward legs are partially paired and every singleton is contracted to F0 by Stein",
+  "maximum_forward_innovation_degree": 4,
+  "maximum_reverse_innovation_degree": 4,
+  "negative_width_rule": "after forced transpose identifications are extracted, merging c distinct leading covariance/Stein index blocks loses c free sums and contributes O(n^(-c)); all c>=1 sectors vanish at fixed H under the stated uniform moment bound",
+  "scope": "one local post-R3 Gamma_04 transition",
+  "targets": {
+    "a41_next": {
+      "contracted_M_only_terms": 20,
+      "degree_classes": [
+        {
+          "forward_degree": 0,
+          "leading_forward_partial_matchings": 1,
+          "leading_reverse_pairings": 1,
+          "local_monomials": 3,
+          "reverse_degree": 0,
+          "vanishes_if_reverse_degree_odd": false
+        },
+        {
+          "forward_degree": 0,
+          "leading_forward_partial_matchings": 1,
+          "leading_reverse_pairings": 0,
+          "local_monomials": 1,
+          "reverse_degree": 1,
+          "vanishes_if_reverse_degree_odd": true
+        },
+        {
+          "forward_degree": 0,
+          "leading_forward_partial_matchings": 1,
+          "leading_reverse_pairings": 1,
+          "local_monomials": 2,
+          "reverse_degree": 2,
+          "vanishes_if_reverse_degree_odd": false
+        },
+        {
+          "forward_degree": 1,
+          "leading_forward_partial_matchings": 1,
+          "leading_reverse_pairings": 1,
+          "local_monomials": 1,
+          "reverse_degree": 0,
+          "vanishes_if_reverse_degree_odd": false
+        },
+        {
+          "forward_degree": 1,
+          "leading_forward_partial_matchings": 1,
+          "leading_reverse_pairings": 0,
+          "local_monomials": 2,
+          "reverse_degree": 1,
+          "vanishes_if_reverse_degree_odd": true
+        },
+        {
+          "forward_degree": 2,
+          "leading_forward_partial_matchings": 2,
+          "leading_reverse_pairings": 1,
+          "local_monomials": 2,
+          "reverse_degree": 0,
+          "vanishes_if_reverse_degree_odd": false
+        }
+      ],
+      "pre_wick_local_monomials": 11
+    },
+    "a43_next": {
+      "contracted_M_only_terms": 1,
+      "degree_classes": [
+        {
+          "forward_degree": 0,
+          "leading_forward_partial_matchings": 1,
+          "leading_reverse_pairings": 1,
+          "local_monomials": 1,
+          "reverse_degree": 0,
+          "vanishes_if_reverse_degree_odd": false
+        }
+      ],
+      "pre_wick_local_monomials": 1
+    },
+    "gamma04_next": {
+      "contracted_M_only_terms": 83,
+      "degree_classes": [
+        {
+          "forward_degree": 0,
+          "leading_forward_partial_matchings": 1,
+          "leading_reverse_pairings": 1,
+          "local_monomials": 3,
+          "reverse_degree": 0,
+          "vanishes_if_reverse_degree_odd": false
+        },
+        {
+          "forward_degree": 0,
+          "leading_forward_partial_matchings": 1,
+          "leading_reverse_pairings": 0,
+          "local_monomials": 4,
+          "reverse_degree": 1,
+          "vanishes_if_reverse_degree_odd": true
+        },
+        {
+          "forward_degree": 0,
+          "leading_forward_partial_matchings": 1,
+          "leading_reverse_pairings": 1,
+          "local_monomials": 6,
+          "reverse_degree": 2,
+          "vanishes_if_reverse_degree_odd": false
+        },
+        {
+          "forward_degree": 0,
+          "leading_forward_partial_matchings": 1,
+          "leading_reverse_pairings": 0,
+          "local_monomials": 2,
+          "reverse_degree": 3,
+          "vanishes_if_reverse_degree_odd": true
+        },
+        {
+          "forward_degree": 0,
+          "leading_forward_partial_matchings": 1,
+          "leading_reverse_pairings": 3,
+          "local_monomials": 3,
+          "reverse_degree": 4,
+          "vanishes_if_reverse_degree_odd": false
+        },
+        {
+          "forward_degree": 1,
+          "leading_forward_partial_matchings": 1,
+          "leading_reverse_pairings": 1,
+          "local_monomials": 3,
+          "reverse_degree": 0,
+          "vanishes_if_reverse_degree_odd": false
+        },
+        {
+          "forward_degree": 1,
+          "leading_forward_partial_matchings": 1,
+          "leading_reverse_pairings": 0,
+          "local_monomials": 7,
+          "reverse_degree": 1,
+          "vanishes_if_reverse_degree_odd": true
+        },
+        {
+          "forward_degree": 1,
+          "leading_forward_partial_matchings": 1,
+          "leading_reverse_pairings": 1,
+          "local_monomials": 4,
+          "reverse_degree": 2,
+          "vanishes_if_reverse_degree_odd": false
+        },
+        {
+          "forward_degree": 1,
+          "leading_forward_partial_matchings": 1,
+          "leading_reverse_pairings": 0,
+          "local_monomials": 3,
+          "reverse_degree": 3,
+          "vanishes_if_reverse_degree_odd": true
+        },
+        {
+          "forward_degree": 2,
+          "leading_forward_partial_matchings": 2,
+          "leading_reverse_pairings": 1,
+          "local_monomials": 5,
+          "reverse_degree": 0,
+          "vanishes_if_reverse_degree_odd": false
+        },
+        {
+          "forward_degree": 2,
+          "leading_forward_partial_matchings": 2,
+          "leading_reverse_pairings": 0,
+          "local_monomials": 4,
+          "reverse_degree": 1,
+          "vanishes_if_reverse_degree_odd": true
+        },
+        {
+          "forward_degree": 2,
+          "leading_forward_partial_matchings": 2,
+          "leading_reverse_pairings": 1,
+          "local_monomials": 3,
+          "reverse_degree": 2,
+          "vanishes_if_reverse_degree_odd": false
+        },
+        {
+          "forward_degree": 3,
+          "leading_forward_partial_matchings": 4,
+          "leading_reverse_pairings": 1,
+          "local_monomials": 1,
+          "reverse_degree": 0,
+          "vanishes_if_reverse_degree_odd": false
+        },
+        {
+          "forward_degree": 3,
+          "leading_forward_partial_matchings": 4,
+          "leading_reverse_pairings": 0,
+          "local_monomials": 2,
+          "reverse_degree": 1,
+          "vanishes_if_reverse_degree_odd": true
+        },
+        {
+          "forward_degree": 4,
+          "leading_forward_partial_matchings": 10,
+          "leading_reverse_pairings": 1,
+          "local_monomials": 1,
+          "reverse_degree": 0,
+          "vanishes_if_reverse_degree_odd": false
+        }
+      ],
+      "pre_wick_local_monomials": 51
+    }
+  },
+  "transpose_response_branches": {
+    "Delta0": {
+      "coefficient": "4*Gamma03+6*Gamma12+4*Gamma21+Gamma30",
+      "status": "zero by odd-total readout parity"
+    },
+    "Delta1": {
+      "coefficient": "6*Gamma02+8*Gamma11+3*Gamma20",
+      "inherited": "a41",
+      "reduced": "9*Gamma02+8*Gamma11"
+    },
+    "Delta2": {
+      "coefficient": "4*Gamma01+3*Gamma10",
+      "status": "zero by odd-total readout parity"
+    },
+    "Delta3": {
+      "coefficient": "Gamma00=1",
+      "inherited": "a43"
+    }
+  }
+}

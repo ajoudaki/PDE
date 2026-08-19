@@ -1,11 +1,17 @@
 # Non-closure for the quadratic mean-field \(\mu\)P MLP
 
-> **Historical synthesis with conditional claims.** This document preserves
-> the strongest formulation assembled in the quadratic-nonclosure phase.  Its
-> causal-DMFT and physical-time conclusions require the tagged-site/response
-> and fixed-order expectation/covariance bridges named below; those bridges
-> are not proved here.  For the current unconditional derivative calculus and
-> exact fixed-order results, use the
+> **Historical synthesis; corrected claim status.** This document preserves
+> the quadratic-nonclosure arguments, but its earlier headline classifications
+> have been superseded.  In particular, the tagged-site Volterra/DMFT equation
+> was postulated rather than derived from the finite network, and the step loss
+> additionally uses a monotone, no-overshoot relaxed selection.  The resulting
+> no-positive-delay argument is therefore an exact **conditional
+> implication**, not an unconditional result about the network's mean-field
+> dynamics.  Likewise, the special quadratic compiler now establishes an
+> exact formal annealed fixed-order jet, but concentration of the random
+> derivatives and identification with derivatives of an actual positive-time
+> infinite-width trajectory remain separate.  For the current derivative
+> calculus and exact fixed-order certificates, use the
 > [mean-field-peeling report](../mean_field_peeling/CURRENT_RESEARCH_STATE.md).
 > For the current output-kernel moment conjecture, use the
 > [Stieltjes report](../stieltjes_conjecture/CURRENT_RESEARCH_STATE.md).
@@ -14,40 +20,45 @@
 
 ### Executive conclusion
 
-The repository contains one strongest model-level non-closure theorem and
-several narrower but fully proved compiler, topology, and hierarchy
-obstructions.
+The repository does **not** currently contain an unconditional positive-time
+non-closure theorem for the actual infinite-width quadratic network.  It
+contains exact finite-width identities, an exact formal annealed derivative
+compiler for the special quadratic model, several topology and restricted
+hierarchy obstructions, and the following conditional DMFT implication:
 
-The strongest result is the causal mean-field result:
-
-> For the canonical two-hidden-layer quadratic network with an unbounded
-> Gaussian trainable readout, the natural monotone, no-overshoot causal-DMFT
-> loss trace is
+> **If** the fully trained infinite-width network is represented by the
+> asserted tagged-site Volterra equation with its independence, continuity,
+> positive-response, and output identities, **and if** the monotone,
+> no-overshoot relaxed selection is adopted, then its selected loss trace is
 > \[
-> \mathcal L_{\mathrm{MF}}(0)=1,
+> \mathcal L_{\mathrm{rel}}(0)=1,
 > \qquad
-> \mathcal L_{\mathrm{MF}}(t)=0\quad(t>0).
+> \mathcal L_{\mathrm{rel}}(t)=0\quad(t>0).
 > \]
 > Consequently, every continuous finite-dimensional autonomous closure has
 > uniform error at least \(1/2\); if it matches the correct initial loss, its
 > uniform error is at least \(1\).
 
-This is stronger than the earlier Wick--Taylor result because it is a
-real-time obstruction and applies to every continuous finite-dimensional
-closure of the stated pure-DMFT target, not only to a Taylor compiler. Its
-scope is nevertheless exact and limited: it is a theorem about the canonical
-tagged-site pure mean-field/DMFT model and its natural relaxed loss trace. It
-is not a separate theorem that finite-width trajectories converge uniformly
-to that discontinuous trace.
+The Volterra comparison and the elementary continuity lower bound are exact
+once those hypotheses are granted.  What is missing is not merely uniform
+finite-width convergence: the report does not derive the asserted tagged-site
+equation, prove its self-consistency for this network, construct a classical
+positive-time solution, or show that the relaxed selection is forced.  The
+conditional implication therefore cannot be used as evidence that the actual
+network loss is discontinuous or that the broad finite-PDE question is
+settled.
 
-The strongest completely unconditional compiler result is:
+The strongest unconditional statement about the ordinary Taylor compiler is
+instead a statement about its **formal annealed fixed-order jet**:
 
-> The formal fixed-order mean-field Wick--Taylor series has radius zero. Its
+> The exact quadratic peeling/Wick coefficients have radius zero. Their
 > positive degree-\(M\) source profiles diverge at every positive feature
 > time, and their residual-clock loss curves form an initial boundary layer.
 > Hence the precise iterated global-shadowing conjecture for that one-source
-> Taylor PDE is false, without needing to assume that the true finite-width
-> losses possess a regular large-width limit.
+> Taylor family is internally inconsistent.  This does not construct or
+> identify a positive-time mean-field loss curve; a claim about a typical
+> limiting network jet additionally needs concentration and interchange of
+> width limits with time differentiation.
 
 No result in the repository proves that **every** signed, nonanalytic,
 non-Taylor, accuracy-dependent real-axis finite compiler is impossible. The
@@ -62,26 +73,26 @@ combining them under the ambiguous phrase “no finite PDE.”
 
 | ID | Result | Exact force |
 |---|---|---|
-| N1 | **No finite natural polynomial-moment cutoff is invariant.** Even frozen-block moment equations send \(M_{p,r}\) to moments with larger \(p\) or \(r\). The full model additionally generates ordered matrix-reuse messages. | Exact non-closure of the natural moment/message hierarchy; not impossibility of every finite representation. |
-| N2 | **Exact continuation-faithful closure by current low-order moments/Grams is obstructed by noncommutative matrix reuse.** Future tagged continuations distinguish histories that an untagged scalar aggregate merges. | Reported as an earlier exact result, but the complete quadratic-model proof is not reproduced in the available source set. |
-| N3 | **Zero radius of the limiting Wick jet.** Along odd \(k\), the coefficient \(c_k\) has a factorial lower bound, so \(\limsup c_k^{1/k}=+\infty\). | Complete theorem, using the repository’s previously established fixed-order Wick/concentration limit. |
-| N4 | **Divergence of the ordinary positive Wick--Taylor source profiles.** For every \(s>0\), \(H_M(s)\to+\infty\). | Complete corollary of N3 and coefficient positivity. |
-| N5 | **Failure of the associated one-source PDE in physical time.** Its losses converge pointwise to a step and are not uniformly Cauchy on any interval containing \(0\). | Complete disproof of the precise Wick--Taylor global-shadowing conjecture. |
+| N1 | **No finite ordinary degree/rectangular monomial-moment cutoff is invariant in the displayed frozen reductions.** Their equations send \(M_{p,r}\) to moments with larger \(p\) or \(r\); the full model additionally generates ordered matrix-reuse messages. | Exact for the displayed cutoff grammars. Message proliferation alone does not exclude a nonlinear statistic, compressed operator state, or every finite representation. |
+| N2 | **Conditional noncommutative continuation-capacity obstruction.** All \(2^r\) ordered reuse words occur, while a bounded-filtration commuting-source finite-jet algebra has subexponential capacity. | Exact implication only after assuming fixed-degree freeness/faithfulness and branch-separating continuation; those two model-specific lemmas remain unproved. It does not exclude operator, noncommuting, or integro-differential states. |
+| N3 | **Zero radius of the formal annealed Wick jet.** Along odd \(k\), the exact fixed-order expectation coefficient \(c_k\) has a factorial lower bound, so \(\limsup c_k^{1/k}=+\infty\). | Exact theorem at the formal-annealed level. It does not prove concentration of the random derivatives or construct a positive-time limiting curve. |
+| N4 | **Divergence of the ordinary positive Wick--Taylor source profiles.** For every \(s>0\), \(F_M(s)\to+\infty\). | Complete corollary for the formal compiler, from N3 and coefficient positivity. |
+| N5 | **Failure of the associated formal one-source Taylor family in physical time.** Its residual-clock losses approach an initial step and are not uniformly Cauchy on any interval containing \(0\). | Complete disproof of the precise Wick--Taylor global-shadowing claim for this prescribed family; not a theorem about every finite compiler or the actual network loss. |
 | N6 | **Real target fitting does not imply that the target lies inside the initial Taylor disk.** An invariant finite-width symmetric orbit has a backward complex/real singularity closer than its forward target time. | Complete counterexample to that proof route; not a typical-Gaussian mean-field theorem. |
-| N7 | **No exact one-Banach-space bounded analytic hierarchy realization.** Such a realization would force positive Taylor radius, contradicting N3. | Complete no-go for this analytic realization class. |
-| N8 | **No positive classical semigroup completion preserving all local derivatives and a continuous Wick readout.** Positivity makes every Taylor partial sum a lower bound, which diverges. | Complete no-go under the displayed semigroup hypotheses. |
-| N9 | **No coefficientwise-positive, fixed-order-consistent polynomial compiler.** Recovering every \(c_k\) while keeping nonnegative coefficients forces divergence at every positive source value. | Complete class-level compiler no-go. |
-| N10 | **Explicit symbolic Euler/Wick and positive-stage polynomial compilers diverge under mesh refinement.** A binomial selection of \(k\) first-order generator hits recovers the divergent \(c_k\) lower bound. | Complete for the stated Wick-positive consistent polynomial one-step class. |
-| N11 | **Initialization derivatives alone do not identify a positive-time real-axis profile.** Once analyticity fails, flat functions can change the positive-time curve without changing any derivative at \(0\). | Complete semantic obstruction to an uncertified jet-only continuation rule; not a no-go for independently justified resummation. |
-| N12 | **Ordinary Gaussian \(L^2\) is not a closure topology for the cubic readout.** Vanishing \(L^2\) perturbations can change the readout by order one. | Complete topology counterexample; it invalidates unqualified \(L^2\) Galerkin/minimizing-movement arguments. |
-| N13 | **No single Banach function algebra with bounded multiplication, continuous embedding into \(L^1\), and nondegenerate Gaussian coordinates.** Such an algebra embeds into \(L^\infty\). | Complete functional-analytic obstruction to the most direct one-space polynomial theory. |
+| N7 | **No exact regular analytic realization of the formal jet on one Banach space.** Such a realization would force positive Taylor radius, contradicting N3. | Exact for a bounded analytic local generator and analytic readout reproducing every \(c_k\). Singular/nonanalytic equations, unbounded generators, scales of spaces, and approximation sequences remain outside the result. |
+| N8 | **No positive classical semigroup completion preserving the formal local derivatives and a continuous Wick readout.** Positivity makes every Taylor partial sum a lower bound, which diverges. | Exact only under the displayed cone, domain, semigroup, and continuity hypotheses. |
+| N9 | **No coefficientwise-positive, fixed-order-consistent polynomial compiler for the formal jet.** Recovering every \(c_k\) while keeping nonnegative coefficients forces divergence at every positive source value. | Exact for positive polynomial compilers; signed or independently validated real-axis schemes remain outside the result. |
+| N10 | **Explicit symbolic Euler/Wick and positive-stage polynomial compilers for the formal jet diverge under mesh refinement.** A binomial selection of \(k\) first-order generator hits recovers the divergent \(c_k\) lower bound. | Exact for the stated Wick-positive consistent polynomial one-step class; signed, implicit, tamed, and scale-space schemes remain open. |
+| N11 | **Initialization derivatives alone do not identify a positive-time real-axis function within unrestricted \(C^\infty\).** Flat functions can change positive-time values without changing any derivative at \(0\). | Exact non-identification of a function by its jet, not ambiguity of a fully specified well-posed dynamics. Summability or quasianalytic structure could restore uniqueness. |
+| N12 | **Ambient Gaussian \(L^2\) control alone does not control the cubic readout.** Vanishing product-\(L^2\) perturbations can change the readout by order one. | Exact functional counterexample on a nonatomic space. It is not a reachable-state counterexample for this network and does not defeat \(L^2\) methods supplemented by higher-moment control. |
+| N13 | **One Banach function space cannot simultaneously contain a Gaussian coordinate, embed continuously into \(L^1\), and have globally bounded ordinary multiplication.** Such a space embeds into \(L^\infty\). | Exact for that one-space algebra package; graded/scale spaces, restricted domains, and unbounded or renormalized products remain possible. |
 | N14 | **Gaussian compact truncation can be dynamically singular in the frozen-first-layer subsystem.** Extreme positive particles drive target times to \(0\) as the cutoff grows. | Complete for the frozen subsystem; it is not automatically a full-model theorem because the additional matrix message is not coordinatewise positive. |
-| N15 | **Instantaneous fitting in the canonical causal DMFT.** Positive initial self-response plus the unbounded Gaussian readout tail makes every subtarget hitting time zero. | Complete real-time comparison theorem within the tagged-site DMFT assumptions. |
-| N16 | **No uniformly accurate continuous finite closure of the natural relaxed DMFT loss.** Every continuous surrogate has error at least \(1/2\), or \(1\) with exact initialization. | Strongest model-level result; an elementary corollary of N15 and the natural monotone/no-overshoot selection. |
-| N17 | **RMSNorm and global direction-only WN do not create exact finite natural moment/message closure.** Their recurrences and differentiated projectors generate unbounded moment/message families. | Complete for natural finite-degree/message cutoffs; not a theorem against every non-Taylor finite PDE. |
-| N18 | **The raw positive-coefficient zero-radius proof does not transfer to RMSNorm or global readout WN.** Signed projection and reciprocal-normalization terms permit cancellations. | A proved limitation on transferring N3, not a positive closure theorem. Hidden-row-only WN is a separate large-fan-in case in which fixed-order corrections vanish. |
+| N15 | **Conditional no-positive-delay implication in the asserted tagged-site DMFT.** Positive initial self-response plus the unbounded Gaussian readout tail prevents any classical solution from remaining below a subtarget on a positive interval. | Exact implication from the postulated tagged-site Volterra law and response hypotheses. If a hitting time is defined it is zero; the law and a classical flow are not constructed or identified with the network here. |
+| N16 | **Conditional continuous-closure obstruction for the selected relaxed step loss.** Every continuous surrogate has error at least \(1/2\), or \(1\) with exact initialization. | Elementary corollary once N15 and the additional monotone/no-overshoot relaxed selection are assumed; not a model-level network theorem. |
+| N17 | **The displayed frozen RMSNorm and global direction-only WN moment hierarchies have no invariant finite rectangular cutoff.** | Complete for those natural frozen reductions. Full trained-system hierarchy nonclosure is diagnostic rather than proved, and no theorem covers every nonlinear statistic or non-Taylor PDE. |
+| N18 | **The raw positive-coefficient zero-radius proof does not transfer to RMSNorm or global readout WN.** Signed projection and reciprocal-normalization terms permit cancellations. | A proved limitation on transferring N3, not a positive closure theorem. Any hidden-row-only coefficient transfer requires its separately stated large-fan-in and fixed-order hypotheses. |
 
-Two nearby statements are important but are not themselves non-closure
+Three nearby statements are important but are not themselves non-closure
 theorems:
 
 1. An unrestricted “some finite one-source PDE exists” statement is vacuous:
@@ -90,57 +101,76 @@ theorems:
 2. Squared loss gives a genuine residual-clock stability theorem: an already
    small feature-profile or tangent-kernel error produces a uniform-in-physical-
    time loss error. It does not make an unproved hierarchy tail small.
+3. The formal output-coordinate identity
+   \(K(y)=F'(F^{-1}(y))\) is an orbit-specific reparameterization, not by
+   itself a closure.  At the canonical point, the exact moments
+   \(\mu_0,\ldots,\mu_7\) pass every currently accessible Hankel test, but the
+   canonical all-order Stieltjes property remains open.  The stronger uniform
+   block-metric extension is exactly false: for \(\beta=1\) and
+   \(0<\alpha\le1/100\), a shifted \(3\times3\) Hankel determinant is
+   negative.  Determinacy and equality with an actual positive-time network
+   kernel also remain open.
 
 ---
 
-## 2. Second list: the short list completely resolved in the repository
+## 2. Current headline classifications
 
-The later master reports preserve the following three headline conclusions as
-the authoritative quadratic-model results.
+The later audit separates one resolved formal-compiler question, one
+conditional DMFT implication, and one exact frozen-hierarchy result.
 
-### R1. Ordinary Wick--Taylor closure is disproved
+### R1. The prescribed ordinary Wick--Taylor closure family is disproved
 
-The limiting initial Wick series has radius zero; its positive partial sums
+The formal annealed initial Wick series has radius zero; its positive partial sums
 diverge at every \(s>0\); and the induced physical-time closures fail
-uniformly. This fully resolves the **concrete Wick--Taylor one-source
-conjecture**, but not every non-Taylor compiler.
+uniformly. This resolves the **concrete formal Wick--Taylor one-source
+compiler question**, but does not identify the actual positive-time
+mean-field loss and does not cover every non-Taylor compiler.
 
-Primary proof: `approximate_single_source_conjecture_resolution(1).md`.
+Primary proof: `approximate_single_source_conjecture_resolution.md`, with the
+current exact coefficient certificates in the mean-field-peeling report.
 
-### R2. Continuous uniform finite closure of the natural pure-DMFT loss is impossible
+### R2. Conditional DMFT step-loss implication
 
-The causal-DMFT comparison gives instantaneous fitting and hence a step loss.
-The \(1/2\) continuity lower bound, sharpened to \(1\) under exact
-initialization, completely resolves the **continuous, autonomous,
-uniform-in-time finite-closure conjecture for that natural relaxed pure-DMFT
-target**.
+Assuming the asserted tagged-site Volterra representation and response
+hypotheses, the comparison forbids positive subtarget delay for any classical
+solution.  Adding the monotone/no-overshoot relaxed selection gives a selected
+step loss.  The \(1/2\)
+continuity lower bound, sharpened to \(1\) under exact initialization, is then
+exact for that selected target.
 
 Primary proof:
-`mean_field_single_source_conjecture_audited_resolution(2).md`.
+`mean_field_single_source_conjecture_audited_resolution.md`.
 
-This theorem is already posed after the mean-field reduction. It does not
-claim a separate uniform finite-width-to-DMFT convergence theorem.
+This is not an unconditional resolution of the network closure conjecture.
+The tagged equation, its self-consistency, a classical positive-time flow,
+network-to-DMFT identification, and uniqueness of the relaxed selection are
+not proved in the source corpus.
 
-### R3. Exact natural moment/message closure remains impossible after the audited normalizations
+### R3. Exact frozen natural moment/message cutoffs remain non-invariant after the audited normalizations
 
-RMSNorm and direction-only WN do not make any finite polynomial-moment or
-natural message cutoff invariant. This completely resolves that narrower
-exact-hierarchy question. It does not resolve the broader existence of a
-signed, non-Taylor, accuracy-dependent real-axis PDE.
+The displayed frozen RMSNorm and direction-only WN recurrences do not make
+any finite rectangular polynomial-moment cutoff invariant. This resolves
+that narrower frozen-hierarchy question. It does not prove full trained-system
+nonclosure or resolve the broader existence of a signed, non-Taylor,
+accuracy-dependent real-axis PDE.
 
-Primary proof: `normalized_mean_field_taylor_closure_audit(1).md`.
+Primary proof: `normalized_mean_field_taylor_closure_audit.md`.
 
-### Supporting results that are also completely proved, but are not separate broad conjecture resolutions
+### Supporting results with individually stated scopes
 
-N6--N14 are rigorous counterexamples or class-level corollaries within their
-stated hypotheses. They strengthen the explanation of why several proposed
-proof routes fail, but they should not be promoted to a theorem against every
-admissible finite PDE.
+N6, N11--N14 are self-contained counterexamples within their stated scopes.
+N7--N10 are exact exclusions of constructions required to realize the same
+formal zero-radius jet under the displayed analytic or positivity hypotheses.
+They strengthen the explanation of why several proposed proof routes fail,
+but they must not be promoted to a theorem against every admissible finite
+PDE or against an unidentified actual loss curve.
 
-The earlier exact noncommutative continuation result N2 is repeatedly cited,
-but its complete quadratic-model theorem and proof are not present in the
-available files. It therefore should not be silently reconstructed as a new
-headline theorem here.
+For N2, the exponential word-generation lemma and the subexponential
+commuting-source capacity count are proved, but the link between them is
+conditional.  Fixed-degree freeness/faithfulness of the relevant operators
+and a branch-separating continuation lemma for the actual Wick hierarchy are
+still open.  Consequently N2 is not a theorem against the operator-valued or
+integro-differential `operator_pde` proposal.
 
 ---
 
@@ -150,26 +180,26 @@ headline theorem here.
 
 | Source | Role |
 |---|---|
-| `approximate_single_source_conjecture_resolution(1).md` | Exact model; embedded positive scalar branch; no-cancellation argument; factorial lower bound; zero radius; physical-time boundary layer; invariant-manifold Taylor-disk counterexample. |
-| `approximate_single_source_stability(1).md` | Surviving residual-clock, coercivity, clock-shadowing, and input-to-state stability theorems; exact finite source-PDE algebra; explicit statement of the missing tail lemma later disproved. |
-| `adversarial_audit_report(1).md` | Anti-oracle formulation; analytic, semigroup, positive-compiler, Euler/Wick, \(L^2\), Banach-algebra, and frozen-tail obstructions; exact boundary between proved no-gos and open signed real-axis compilers. |
-| `mean_field_single_source_conjecture_audited_resolution(2).md` | Tagged-site causal-DMFT setup; positive self-response; positive cavity event; cooperative Riccati comparison; zero hitting times; step loss; uniform-continuity lower bound. |
-| `normalized_mean_field_taylor_closure_audit(1).md` | RMSNorm and direction-only WN vector fields, moment recurrences, signed-cancellation analysis, and exact natural-hierarchy non-closure. |
+| `approximate_single_source_conjecture_resolution.md` | Embedded positive scalar history, factorial lower bound for the formal annealed coefficients, zero radius, boundary layer of the prescribed Taylor closures, and the invariant-manifold Taylor-disk counterexample.  It does not prove concentration or identify an actual positive-time mean-field curve. |
+| `approximate_single_source_stability.md` | Residual-clock, coercivity, clock-shadowing, and input-to-state stability implications; exact finite source-PDE algebra.  The stability results assume that a small profile defect has already been established. |
+| `adversarial_audit_report.md` | Anti-oracle formulation and scoped analytic, semigroup, positive-compiler, Euler/Wick, \(L^2\), Banach-algebra, and frozen-tail obstructions.  Each excludes only the hypotheses stated there. |
+| `mean_field_single_source_conjecture_audited_resolution.md` | Conditional tagged-site Volterra comparison.  The comparison is exact after assuming the representation and response properties; the step trace additionally assumes the relaxed selection. |
+| `normalized_mean_field_taylor_closure_audit.md` | RMSNorm and direction-only WN vector fields, exact frozen-block moment recurrences, signed-cancellation analysis, and diagnostic full-system message proliferation. |
 
 ### Later synthesis and scope sources
 
-`MASTER_NEURAL_PDE_REPORT_2026-07-26(1).md` and
-`MASTER_NEURAL_PDE_REPORT_WITH_FIGURES.md` preserve R1--R3 as established,
-model-specific results. They do not reproduce the complete proofs.
+The historical synthesis
+`archive/earlier_documents/master_syntheses/MASTER_NEURAL_PDE_REPORT_2026-07-26.md`
+promoted several of these claims to established model-level results.  That
+classification is superseded by
+`FINITE_CAUSAL_NEURAL_PDE_MASTER_MONOGRAPH_v2.2_2026-07-31.md` and by the
+current mean-field-peeling and Stieltjes ledgers linked at the top of this
+report.
 
 The continuous-depth reports use a bounded residual-\(\tanh\) model. Their
 Hermite phrase “complete quadratic” refers to basis degree, not quadratic
 activation. Their continuation, rank, compactness, and topology
 counterexamples are distinct results and are not additional proofs of R1--R3.
-
-The two files named `PDE_GENERALIZATION_FINAL_REPORT(2).md` and
-`PDE_GENERALIZATION_FINAL_REPORT(3).md` are byte-identical. Neither supplies a
-new non-closure theorem.
 
 ---
 
@@ -207,10 +237,10 @@ For a non-vacuous result, the finite system must satisfy all of the following.
 5. **Restartability:** the finite state at a positive time determines its own
    continuation.
 6. **Correct observable:** the predicted loss obeys the stated uniform norm,
-   usually
+   usually, for an independently constructed and identified target,
    \[
    \sup_{t\ge0}
-   |\widehat{\mathcal L}_\varepsilon(t)-\mathcal L_{\mathrm{MF}}(t)|
+   |\widehat{\mathcal L}_\varepsilon(t)-\mathcal L_{\mathrm{target}}(t)|
    \le\varepsilon.
    \]
 7. **Classical regularity:** in the continuous-closure conjecture the finite
@@ -230,9 +260,11 @@ The reports sometimes use “finite closure” for four different statements.
 4. **Broad accuracy-dependent finite approximation:** does some admissible
    non-oracular finite real-axis compiler achieve every requested accuracy?
 
-Failure of question 1, 2, or 3 does not by itself answer question 4. The
-causal-DMFT step theorem answers question 4 only for continuous closures of
-the specified natural relaxed pure-DMFT loss.
+Failure of question 1, 2, or 3 does not by itself answer question 4.  The
+tagged-site comparison would answer question 4 for continuous closures of
+the selected relaxed step trace only **if** the postulated Volterra
+representation and the extra selection rule describe the intended network
+target.
 
 ### 4.3 Why “one source” alone is not a mathematical restriction
 
@@ -315,19 +347,24 @@ non-oracular provenance is mathematically indispensable.
 
 ### 5.1 Finite-width network
 
-Suppress the single fixed input and write
+Suppress the single fixed input and write the hidden preactivations and
+activations canonically as
 
 \[
-x_i=z_i^{(1)},
-\qquad
-h_i=\frac{x_i^2}{2},
+h_i^{(1)}=\frac{(z_i^{(1)})^2}{2},
 \]
 
 \[
-z_j=\sum_{i=1}^n W_{ji}h_i,
+z_j^{(2)}=\sum_{i=1}^n W_{ji}h_i^{(1)},
 \qquad
-f_n=\frac1{2n}\sum_{j=1}^n a_jz_j^2.
+h_j^{(2)}=\frac{(z_j^{(2)})^2}{2},
+\qquad
+f_n=\frac1n\sum_{j=1}^n a_jh_j^{(2)}.
 \]
+
+For compactness in the derivations below only, write
+\(h=h^{(1)}\) and \(z=z^{(2)}\). The symbol \(x\) is reserved for the
+external input, which is fixed and therefore suppressed.
 
 Here \(a_j\) is the rescaled readout coordinate. In raw coordinates the
 readout weight is \(W_j^{(3)}=a_j/n\), so
@@ -336,13 +373,80 @@ readout weight is \(W_j^{(3)}=a_j/n\), so
 Initialization is independent:
 
 \[
-x_i\sim N(0,1),
+z_i^{(1)}\sim N(0,1),
 \qquad
 a_j\sim N(0,1),
 \qquad
 W_{ji}\sim N\!\left(0,\frac{\gamma}{n}\right),
 \quad \gamma>0.
 \]
+
+In this historical report, \(\gamma\) denotes the **middle-layer variance
+parameter** (with the earlier canonical choice \(\gamma=4/3\)).  The current
+Stieltjes and peeling reports use a rescaled presentation in which \(\gamma\)
+denotes an **activation coefficient** and the canonical point is written
+\(\gamma=1\).  Numerical constants such as \(17/6\) and \(111\) must not be
+mixed without the following rescaling dictionary.
+
+Temporarily write \(\lambda=\gamma\) for the historical middle-layer
+variance and set
+
+\[
+W^\circ=\sqrt{\frac n\lambda}\,W,
+\qquad
+z^\circ=\frac1{\sqrt n}W^\circ (z^{(1)})^{\odot2},
+\qquad
+f^\circ=\frac1n\sum_j a_j(z_j^\circ)^2.
+\]
+
+Then \(W^\circ_{ji}\sim N(0,1)\), and the historical variables satisfy
+
+\[
+z=\frac{\sqrt\lambda}{2}z^\circ,
+\qquad
+f_n=\frac\lambda8 f^\circ.
+\tag{5.0a}
+\]
+
+Let \(D_a^\circ,D_{z^{(1)}}^\circ,D_W^\circ\) denote the three block contributions
+to the unit-variance compiler derivation
+\(n\nabla f^\circ\mathbin\cdot\nabla\).  Direct change of variables gives
+
+\[
+D_{+,n}
+=\frac18\left(
+\lambda D_a^\circ+
+\lambda D_{z^{(1)}}^\circ+
+D_W^\circ
+\right).
+\tag{5.0b}
+\]
+
+Consequently,
+
+\[
+\mathbb E[D_{+,n}^k f_n]
+=\frac\lambda{8^{k+1}}
+\mathbb E\!\left[
+(\lambda D_a^\circ+\lambda D_{z^{(1)}}^\circ+D_W^\circ)^k f^\circ
+\right].
+\tag{5.0c}
+\]
+
+Thus the historical model is a block-weighted specialization of the same
+decorated-forest grammar, not the literal unit-block-metric point.  Constant
+block weights change coefficients but not the finite grammar or the
+leading-width forest selection.  As a normalization check, (5.0c) gives
+the unit-model first-order block contributions
+\((27,48,36)\) from \((a,z^{(1)},W)\), and hence
+
+\[
+F'(0)=\frac{\lambda}{64}(75\lambda+36)
+=\frac{17}{6}
+\quad\text{at }\lambda=\frac43.
+\]
+
+At the unit-variance, unit-block point the same contributions sum to \(111\).
 
 The label is \(1\) and
 
@@ -355,7 +459,7 @@ The label is \(1\) and
 Let \(D_{+,n}\) be the \(\mu\)P gradient-ascent derivation of the readout:
 
 \[
-D_{+,n}x_i=n\frac{\partial f_n}{\partial x_i},
+D_{+,n}z_i^{(1)}=n\frac{\partial f_n}{\partial z_i^{(1)}},
 \qquad
 D_{+,n}W_{ji}=\frac{\partial f_n}{\partial W_{ji}},
 \qquad
@@ -375,7 +479,7 @@ D_{+,n}W_{ji}=\frac1n a_jz_jh_i,
 \]
 
 \[
-D_{+,n}x_i=x_i\sum_jW_{ji}a_jz_j.
+D_{+,n}z_i^{(1)}=z_i^{(1)}\sum_jW_{ji}a_jz_j.
 \tag{5.3}
 \]
 
@@ -389,7 +493,8 @@ K_n=W\operatorname{diag}(h)W^\top,
 u=a\odot z.
 \]
 
-Differentiating \(z=Wh\), using \(D h_i=x_iD x_i\), gives
+Differentiating \(z=Wh\), using
+\(D h_i^{(1)}=z_i^{(1)}D z_i^{(1)}\), gives
 
 \[
 D_{+,n}z=q_nu+2K_nu.
@@ -406,13 +511,13 @@ nonnegative.
 Let \(\Theta_n(\tau)\) solve feature ascent and set
 
 \[
-H_n(\tau)=f_n(\Theta_n(\tau)).
+F_n(\tau)=f_n(\Theta_n(\tau)).
 \]
 
 Then
 
 \[
-H_n'(\tau)=\kappa_n(\Theta_n(\tau))\ge0,
+F_n'(\tau)=\kappa_n(\Theta_n(\tau))\ge0,
 \tag{5.5}
 \]
 
@@ -422,9 +527,9 @@ gradients.
 Physical squared-loss gradient flow follows the same parameter orbit with
 
 \[
-\dot\tau_n(t)=2\bigl(1-H_n(\tau_n(t))\bigr),
+\dot\tau_n(t)=2\bigl(1-F_n(\tau_n(t))\bigr),
 \qquad
-f_n(t)=H_n(\tau_n(t)).
+f_n(t)=F_n(\tau_n(t)).
 \tag{5.6}
 \]
 
@@ -442,24 +547,45 @@ These identities are exact. They are not scalar closure equations because
 
 ### 5.4 Fixed-order mean-field coefficients
 
-The repository’s fixed-order Wick/concentration calculus establishes, for
-every fixed \(k\), a deterministic limit
+For every fixed \(k\), distinguish the random initialization derivative
+
+\[
+C_{n,k}=\frac{D_{+,n}^kf_n(0)}{k!}
+\tag{5.8}
+\]
+
+from its annealed fixed-order coefficient
 
 \[
 c_k
 =
-\lim_{n\to\infty}
-\frac{D_{+,n}^kf_n(0)}{k!},
-\tag{5.8}
+\lim_{n\to\infty}\mathbb E[C_{n,k}].
+\tag{5.9}
 \]
 
-in probability and in \(L^1\). The proof uses a finite derivative-diagram
-expansion at fixed \(k\), Gaussian Wick contraction, second-moment power
-counting, and fixed-degree hypercontractivity for uniform integrability.
+The current exact quadratic decorated-forest compiler establishes (5.9) for
+this special one-sample, two-hidden-layer polynomial model: it gives the
+finite derivative grammar, leading-width Wick selection, factorization, and
+an exact all-order positive subfamily.  This supersedes the older audit's
+missing **expectation** bridge for this specialization.
 
-This fixed-order theorem is an input to the zero-radius result. It is crucial
-that it holds **for each fixed \(k\)**; it does not supply a bound uniform in
-\(k\).
+It does **not** prove
+
+\[
+C_{n,k}\longrightarrow c_k
+\quad\text{in probability or in }L^1,
+\tag{5.10}
+\]
+
+and it does not justify interchanging the width limit with time
+differentiation.  Thus \((c_k)\) is an exact formal annealed mean-field jet.
+Calling it the derivative jet of a typical deterministic positive-time
+trajectory requires the separate concentration and trajectory-identification
+bridges in (5.10).
+
+The order of limits remains crucial: \(k\) is held fixed before
+\(n\to\infty\).  No uniform-in-\(k\) convergence or positive-time trajectory
+follows from the compiler.
 
 At initialization,
 
@@ -467,7 +593,7 @@ At initialization,
 q_n\longrightarrow q_0
 =\mathbb E\!\left[\left(\frac{G^2}{2}\right)^2\right]
 =\frac34.
-\tag{5.9}
+\tag{5.11}
 \]
 
 ---
@@ -477,31 +603,31 @@ q_n\longrightarrow q_0
 This section is included because it identifies exactly what the negative
 results do and do not destroy.
 
-Let \(H\) and \(\widetilde H\) be increasing feature-time profiles with the
+Let \(F\) and \(\widetilde F\) be increasing feature-time profiles with the
 same initial output \(f_0<1\). Suppose both reach \(1\), and on a common
 target-reaching interval
 
 \[
-0<\mu\le H'(\tau)\le K,
+0<\mu\le F'(\tau)\le K,
 \qquad
-\|H-\widetilde H\|_\infty\le\varepsilon.
+\|F-\widetilde F\|_\infty\le\varepsilon.
 \tag{6.1}
 \]
 
 Let their residual clocks solve
 
 \[
-\dot\tau=2(1-H(\tau)),
+\dot\tau=2(1-F(\tau)),
 \qquad
 \dot{\widetilde\tau}
-=2(1-\widetilde H(\widetilde\tau)).
+=2(1-\widetilde F(\widetilde\tau)).
 \]
 
 Set \(e=\widetilde\tau-\tau\). If \(e>0\), monotonicity gives
 
 \[
 \dot e
-=2\bigl(H(\tau)-\widetilde H(\widetilde\tau)\bigr)
+=2\bigl(F(\tau)-\widetilde F(\widetilde\tau)\bigr)
 \le -2\mu e+2\varepsilon.
 \]
 
@@ -518,7 +644,7 @@ Therefore
 
 \[
 \sup_{t\ge0}
-|H(\tau(t))-\widetilde H(\widetilde\tau(t))|
+|F(\tau(t))-\widetilde F(\widetilde\tau(t))|
 \le
 \left(1+\frac K\mu\right)\varepsilon.
 \tag{6.3}
@@ -627,7 +753,11 @@ Using the residual clock,
 Thus a target-fitting physical trajectory uses only a finite amount of
 feature time. This is the mechanism behind the stability theorem, but it
 still requires the feature-profile defect to be small on that finite
-interval.
+interval.  The estimate is finite-width and trajectorywise after a time
+\(t_*\) at which \(f_n(t_*)=a_*\in(0,1)\).  Its rate
+\(\lambda_n=a_*^2/C_n(t_*)\) is random and width-dependent, so it does not by
+itself prove typical entry into this regime or uniform-in-width mean-field
+contraction.
 
 ---
 
@@ -742,7 +872,7 @@ f_n
 =
 \frac1{8n}
 \sum_{j,i,\ell}
-a_jW_{ji}W_{j\ell}x_i^2x_\ell^2.
+a_jW_{ji}W_{j\ell}(z_i^{(1)})^2(z_\ell^{(1)})^2.
 \tag{7.4}
 \]
 
@@ -848,8 +978,8 @@ m!b_\gamma^m q_0^{k+1}\binom{k+2}{2}.
 \end{aligned}
 \]
 
-The no-cancellation comparison and the fixed-order \(L^1\) limit (5.8)
-therefore prove:
+The no-cancellation comparison, followed by the exact annealed
+leading-width evaluation in (5.9), therefore proves:
 
 ### Theorem 7.1 — Zero radius
 
@@ -888,22 +1018,24 @@ Thus the formal series
 
 has radius of convergence zero.
 
-This conclusion concerns the deterministic iterated fixed-order
-mean-field series. If a macroscopic profile \(H\) exists and satisfies
-\(H^{(k)}(0)=k!c_k\), then \(H\) is not analytic at \(0\) and this Taylor
+This conclusion concerns the formal annealed fixed-order mean-field series.
+If a macroscopic profile \(F\) exists and satisfies
+\(F^{(k)}(0)=k!c_k\), then \(F\) is not analytic at \(0\) and this Taylor
 series cannot represent it. Without that extra identification, the exact
-statement is the zero radius of the **formal limiting Wick series**.
+statement is the zero radius of the **formal annealed Wick series**.  In
+particular, zero radius does not rule out a singular finite ODE/PDE or any
+other nonanalytic continuation of an actual curve.
 
 ---
 
 ## 8. Failure of the one-source Wick--Taylor PDE
 
-### 8.1 The exact conjecture
+### 8.1 The exact formal-compiler conjecture
 
 Define the degree-\(M\) source profile
 
 \[
-H_M(s)=\sum_{k=0}^M c_ks^k.
+F_M(s)=\sum_{k=0}^M c_ks^k.
 \tag{8.1}
 \]
 
@@ -914,7 +1046,7 @@ The proposed one-field, one-source closure is
 =
 2\bigl(1-U_M(t,0)\bigr)\partial_sU_M(t,s),
 \qquad
-U_M(0,s)=H_M(s).
+U_M(0,s)=F_M(s).
 \tag{8.2}
 \]
 
@@ -949,21 +1081,35 @@ with
 u_k(0)=k!c_k.
 \]
 
-The sharpened conjecture was
+The historical formula used an unqualified distance to the random curve
+\(\mathcal L_n\), so it did not specify an almost-sure, in-probability, or
+expected norm.  A precise weak version is enough for the no-go. For each
+\(T>0\), define the bounded path metric
+
+\[
+d_T(g,h)=\min\!\left\{1,
+\sup_{0\le t\le T}|g(t)-h(t)|\right\}.
+\]
+
+The audited shadowing conjecture is
 
 \[
 \boxed{
 \lim_{M\to\infty}
 \limsup_{n\to\infty}
-\sup_{t\ge0}
-|\mathcal L_M(t)-\mathcal L_n(t)|
-=0.
+\mathbb E\!\left[d_T(\mathcal L_M,\mathcal L_n)\right]
+=0
+\quad\text{for every }T>0.
 }
 \tag{8.5}
 \]
 
 The order of limits is part of the statement: first the fixed-order
-mean-field coefficients are taken, then the source order \(M\) is increased.
+annealed coefficients are taken, then the source order \(M\) is increased.
+An expected untruncated uniform norm is stronger and is ruled out as well.
+A deterministic mean-curve version is a different, generally weaker
+condition, but its common-target formulation is also ruled out by the same
+Cauchy triangle argument.
 
 ### 8.2 Divergence at every positive feature time
 
@@ -982,7 +1128,7 @@ monotone in \(M\),
 
 \[
 \boxed{
-H_M(s)\longrightarrow+\infty
+F_M(s)\longrightarrow+\infty
 \quad\text{for every }s>0.
 }
 \tag{8.6}
@@ -991,13 +1137,13 @@ H_M(s)\longrightarrow+\infty
 For \(y\in(0,1)\), let \(r_M(y)\) be the first positive solution of
 
 \[
-H_M(r_M(y))=y.
+F_M(r_M(y))=y.
 \]
 
 For every odd \(k\le M\),
 
 \[
-y=H_M(r_M(y))
+y=F_M(r_M(y))
 \ge c_kr_M(y)^k,
 \]
 
@@ -1025,7 +1171,7 @@ The characteristic through \(s=0\) has source clock \(s_M(t)\) satisfying
 
 \[
 \dot s_M(t)
-=2\bigl(1-H_M(s_M(t))\bigr),
+=2\bigl(1-F_M(s_M(t))\bigr),
 \qquad
 s_M(0)=0,
 \tag{8.8}
@@ -1034,7 +1180,7 @@ s_M(0)=0,
 and
 
 \[
-f_M(t)=H_M(s_M(t)).
+f_M(t)=F_M(s_M(t)).
 \]
 
 The physical time required to reach output \(y\in(0,1)\) is
@@ -1043,14 +1189,14 @@ The physical time required to reach output \(y\in(0,1)\) is
 t_M(y)
 =
 \int_0^{r_M(y)}
-\frac{ds}{2(1-H_M(s))}.
+\frac{ds}{2(1-F_M(s))}.
 \tag{8.9}
 \]
 
 For \(0\le s\le r_M(y)\),
 
 \[
-0\le H_M(s)\le y,
+0\le F_M(s)\le y,
 \]
 
 and therefore
@@ -1102,25 +1248,24 @@ Thus the pointwise limit is
 Every \(\mathcal L_M\) is continuous. Hence uniform convergence on any
 \([0,T]\), \(T>0\), is impossible.
 
-### 8.4 Direct contradiction to the global-shadowing conjecture
+### 8.4 Direct contradiction to probabilistic global shadowing
 
 The conclusion does not require a regular limiting true loss curve.
-Suppose (8.5) were true. Then, for any \(M,M'\),
+Suppose (8.5) were true. Since \(d_T\) is a metric, for any \(M,M'\),
 
 \[
-\begin{aligned}
-\|\mathcal L_M-\mathcal L_{M'}\|_\infty
-&\le
-\|\mathcal L_M-\mathcal L_n\|_\infty
-+\|\mathcal L_n-\mathcal L_{M'}\|_\infty.
-\end{aligned}
+d_T(\mathcal L_M,\mathcal L_{M'})
+\le
+d_T(\mathcal L_M,\mathcal L_n)
++d_T(\mathcal L_n,\mathcal L_{M'}).
 \]
 
-Taking \(\limsup_{n\to\infty}\) and then large \(M,M'\) would force
+Taking expectations, then \(\limsup_{n\to\infty}\), and finally large
+\(M,M'\), would force
 \((\mathcal L_M)\) to be uniformly Cauchy. But (8.11)--(8.12) show that it
 is not uniformly Cauchy on any interval containing zero. Therefore:
 
-### Theorem 8.1 — Failure of the Wick--Taylor closure conjecture
+### Theorem 8.1 — Failure of the prescribed formal Wick--Taylor closure family
 
 \[
 \boxed{\text{The conjecture \((8.5)\) is false.}}
@@ -1128,7 +1273,9 @@ is not uniformly Cauchy on any interval containing zero. Therefore:
 
 The theorem does not address a diagonal limit \(M=M(n)\), a fixed-\(n\)
 Taylor germ inside its random convergence disk, or a signed/non-Taylor
-real-axis compiler.
+real-axis compiler.  The step in (8.13) is the pointwise limit of the
+**constructed Taylor-closure losses** \(\mathcal L_M\); it is not the loss of
+an independently constructed network mean-field trajectory.
 
 ---
 
@@ -1141,7 +1288,7 @@ initial Taylor series reaches that far.”
 Consider the invariant symmetric manifold
 
 \[
-x_i=x,
+z_i^{(1)}=\zeta,
 \qquad
 a_j=a,
 \qquad
@@ -1151,15 +1298,15 @@ W_{ji}=\frac wn.
 Equations (5.1)--(5.3) reduce to
 
 \[
-f=\frac18aw^2x^4,
+f=\frac18aw^2\zeta^4,
 \]
 
 \[
-a'=\frac18w^2x^4,
+a'=\frac18w^2\zeta^4,
 \qquad
-w'=\frac14awx^4,
+w'=\frac14aw\zeta^4,
 \qquad
-x'=\frac12aw^2x^3.
+\zeta'=\frac12aw^2\zeta^3.
 \tag{9.1}
 \]
 
@@ -1170,7 +1317,7 @@ a(0)=-1,
 \qquad
 w(0)=2,
 \qquad
-x(0)=\sqrt8.
+\zeta(0)=\sqrt8.
 \tag{9.2}
 \]
 
@@ -1179,7 +1326,7 @@ Differentiate
 \[
 w^2-2a^2
 \quad\text{and}\quad
-x^2-4a^2
+\zeta^2-4a^2
 \]
 
 using (9.1). Both derivatives vanish. Their initial values are \(2\) and
@@ -1188,7 +1335,7 @@ using (9.1). Both derivatives vanish. Their initial values are \(2\) and
 \[
 w^2=2(1+a^2),
 \qquad
-x^2=4(1+a^2).
+\zeta^2=4(1+a^2).
 \]
 
 Substitution into (9.1) yields
@@ -1250,7 +1397,10 @@ not enlarge the analytic disk.
 ## 10. Structural corollaries of zero radius
 
 The next results enlarge the class of constructions excluded by Theorem 7.1,
-without claiming a no-go against every possible real-axis compiler.
+without claiming a no-go against every possible real-axis compiler.  They
+are exact exclusions of systems required to reproduce the **formal annealed
+jet** \((c_k)\).  Until that jet is identified with an actual positive-time
+network trajectory, they are not no-go theorems for the trajectory itself.
 
 ### 10.1 No one-space bounded analytic realization
 
@@ -1258,22 +1408,22 @@ Assume there is a Banach space \(X\), an initial state \(Y_0\in X\), and an
 exact realization
 
 \[
-Y'=F(Y),
+Y'=V(Y),
 \qquad
-H'=K(Y),
+F'=K(Y),
 \tag{10.1}
 \]
 
-where \(F\) and \(K\) are analytic near \(Y_0\). This includes a
+where \(V\) and \(K\) are analytic near \(Y_0\). This includes a
 representation in which all polynomial attachment and contraction rules are
 bounded multilinear maps on one Banach space.
 
 The analytic Banach-space ODE theorem makes \(Y(\tau)\) analytic for
 \(|\tau|<R\) for some \(R>0\). Then \(K(Y(\tau))\), and after integration
-\(H(\tau)\), are analytic on a possibly smaller disk. Cauchy estimates give
+\(F(\tau)\), are analytic on a possibly smaller disk. Cauchy estimates give
 
 \[
-\frac{|H^{(k)}(0)|}{k!}\le CR^{-k}.
+\frac{|F^{(k)}(0)|}{k!}\le CR^{-k}.
 \tag{10.2}
 \]
 
@@ -1509,9 +1659,11 @@ is nonzero for \(\tau>0\) but satisfies
 \quad\text{for every }k.
 \]
 
-Thus \(H\) and \(H+\psi\) have the same complete initialization jet and
+Thus \(F\) and \(F+\psi\) have the same complete initialization jet and
 different positive-time behavior. Once analyticity is unavailable, a jet
-does not select its own continuation.
+does not select its own continuation within unrestricted \(C^\infty\).  This
+does not make a fully specified, independently well-posed network dynamics
+ambiguous; it only shows that the jet alone is insufficient data.
 
 Padé, Borel, or another resummation may still be correct, but it requires a
 summability, quasianalyticity, or independent real-axis well-posedness theorem
@@ -1560,10 +1712,13 @@ is not continuous at \(0\) in the product \(L^2\) topology. Since the
 tangent kernel contains still higher powers, ordinary \(L^2\) control is
 even less sufficient for it.
 
-This invalidates any argument that uses only \(L^2\) energy bounds to infer
+This invalidates any argument that uses only ambient \(L^2\) energy bounds to infer
 continuity of the loss, weak lower semicontinuity of the loss, or a small
 observable Galerkin residual. It does not rule out a stronger higher-moment,
-Orlicz, scale-of-spaces, or reachable-set topology.
+Orlicz, scale-of-spaces, or reachable-set topology.  The constructed
+rare-event pair is a functional witness on a nonatomic probability space; it
+is not shown to lie on the reachable state manifold of the canonical
+network.
 
 ### 11.2 A single bounded-multiplication Banach algebra excludes Gaussians
 
@@ -1609,9 +1764,10 @@ On a probability space, \(\|x\|_m\uparrow\|x\|_\infty\) as
 
 Thus \(X\subset L^\infty\), and \(X\) cannot contain a nondegenerate
 Gaussian coordinate. A successful Gaussian theory cannot simply place all
-polynomial rules in one Banach function algebra with bounded multiplication;
-it must use a scale of spaces, a restricted nonlinear domain, an unbounded
-generator, or a renormalized product.
+polynomial rules in one Banach function algebra with **globally** bounded
+ordinary pointwise multiplication and a continuous embedding into \(L^1\);
+it may instead use a scale of spaces, a restricted nonlinear domain, an
+unbounded generator, or a renormalized product.
 
 ### 11.3 Frozen-first-layer Gaussian cutoff can be dynamically singular
 
@@ -1723,14 +1879,14 @@ Hence the feature-time readout tends to \(+\infty\) as
 \(\tau\uparrow\tau_R\), and every fixed subtarget \(y<1\) is reached at a
 feature time strictly less than \(1/(qR)\).
 
-Before the subtarget is reached, \(1-H_R(\tau)\ge1-y\). The physical-time
+Before the subtarget is reached, \(1-F_R(\tau)\ge1-y\). The physical-time
 change therefore gives
 
 \[
 t_R(y)
 =
 \int_0^{\tau_R(y)}
-\frac{d\tau}{2(1-H_R(\tau))}
+\frac{d\tau}{2(1-F_R(\tau))}
 \le
 \frac{1}{2qR(1-y)}
 \longrightarrow0.
@@ -1748,12 +1904,14 @@ this particular particle comparison does not transfer automatically.
 
 ---
 
-## 12. The causal-DMFT instantaneous-fitting theorem
+## 12. Conditional tagged-site comparison and no-positive-delay implication
 
-This is the repository’s strongest model-level result. It is logically
-independent of the Taylor-series proof.
+This argument is logically independent of the Taylor-series proof, but it is
+not an established model-level DMFT theorem.  It starts from a postulated
+tagged-site Volterra representation.  The calculation below is exact **if**
+that representation and its response/output properties hold.
 
-### 12.1 Canonical tagged-site equation
+### 12.1 Postulated tagged-site equations
 
 For a tagged second-layer neuron, let
 
@@ -1763,7 +1921,7 @@ For a tagged second-layer neuron, let
 - \(M(t,s)\) be the deterministic causal self-response kernel;
 - \(r(t)=1-f(t)\) be the residual.
 
-The canonical causal-DMFT representation used in the repository is
+Assume that the infinite-width network is represented by
 
 \[
 z(t)
@@ -1779,7 +1937,7 @@ z(t)
 \tag{12.2}
 \]
 
-The stated causal properties are:
+Also assume all of the following causal and self-consistency properties:
 
 1. \(\xi\) is a nondegenerate continuous Gaussian process;
 2. \(a(0)\sim N(0,1)\) is independent of the entire cavity process \(\xi\);
@@ -1793,10 +1951,12 @@ The stated causal properties are:
    \tag{12.3}
    \]
 
-The proof below is complete from these tagged-DMFT properties. The source
-poses the closure question directly at this pure mean-field level; it does
-not supply a separate theorem deriving (12.1) as a uniform positive-time
-limit of finite-width networks.
+The source corpus does not derive (12.1) from the finite network, prove
+self-consistency or network-to-DMFT identification, establish uniqueness, or
+construct a classical positive-time solution satisfying all four items.  The
+comparison below is therefore an exact implication from these assumptions,
+not evidence that this is the actual mean-field law of the canonical
+network.
 
 ### 12.2 Positive initial self-response
 
@@ -1826,14 +1986,14 @@ K_{\mathrm{diag}}(0)
 \tag{12.5}
 \]
 
-The exact physical-time composite equation is
+The exact finite-width physical-time composite equation is
 
 \[
 \dot z
 =2r\bigl(q(a\odot z)+2K(a\odot z)\bigr).
 \]
 
-Therefore the instantaneous tagged coefficient multiplying \(a_jz_j\) is
+Its instantaneous coefficient multiplying \(a_jz_j\) is
 
 \[
 2q_0+4K_{\mathrm{diag}}(0)
@@ -1841,8 +2001,10 @@ Therefore the instantaneous tagged coefficient multiplying \(a_jz_j\) is
 2\mathbb E[h_0^2]+4\gamma\mathbb E[h_0].
 \]
 
-In the convention in which the residual \(r(s)\) is outside the memory
-kernel,
+This finite-width coefficient is a necessary local consistency check for a
+correct tagged-site limit, but it does not derive the Volterra kernel.  In
+the conditional argument we therefore **assume** that the postulated kernel
+inherits, in the convention in which \(r(s)\) is outside it,
 
 \[
 \boxed{
@@ -1861,7 +2023,10 @@ M(t,s)\ge m
 \tag{12.7}
 \]
 
-No global coordinatewise sign of the finite matrix \(K\) is assumed.
+No global coordinatewise sign of the finite matrix \(K\) is assumed.  What
+is assumed instead is the representation claim that all remaining effects
+are captured by \(\xi\) and a continuous response kernel satisfying
+(12.6)--(12.7).
 
 ### 12.3 A positive-probability cavity event
 
@@ -2037,9 +2202,11 @@ T_A=O\!\left(\frac{\log A}{A}\right)
 \tag{12.18}
 \]
 
-### 12.5 Every subtarget has hitting time zero
+### 12.5 No classical solution can have positive subtarget delay
 
-Before \(f\) reaches \(y\), (12.3) and (12.10) imply
+Suppose a classical solution exists on a positive interval and remains below
+some \(y\in(0,1)\) there.  Before \(f\) reaches \(y\), (12.3) and (12.10)
+imply
 
 \[
 \dot f
@@ -2087,21 +2254,26 @@ T_A<\min\{\delta,\delta_0\}.
 
 Then \(T_y<\delta\). Since \(\delta\) is arbitrary:
 
-### Theorem 12.1 — Instantaneous subtarget hitting
+### Conditional Theorem 12.1 — No positive subtarget delay under the asserted representation
 
 \[
 \boxed{
-T_y=0
-\quad\text{for every }y\in(0,1).
+\text{No classical solution satisfying all assumptions can remain below}
+\ y\in(0,1)\ \text{on a positive interval.}
 }
 \tag{12.22}
 \]
+
+Equivalently, if such a classical solution exists far enough for its first
+hitting time \(T_y\) to be defined, then \(T_y=0\). If no positive-time
+classical solution exists, (12.22) is a nonexistence/continuity obstruction,
+not the assertion of a hitting time for a constructed flow.
 
 The Gaussian tail probability \(p_A\) tends to zero with \(A\), but for each
 fixed \(A\) it is strictly positive, while the comparison fourth-moment
 integral is infinite.
 
-### 12.6 The natural relaxed loss trace
+### 12.6 The selected relaxed loss trace
 
 For an ordinary squared-loss trajectory starting below the label,
 
@@ -2111,8 +2283,9 @@ r(t)
 \exp\!\left(-2\int_0^t\kappa(s)\,ds\right),
 \]
 
-so \(f\) is nondecreasing and does not overshoot \(1\). Within the natural
-relaxed class preserving these two properties, (12.22) forces
+so \(f\) is nondecreasing and does not overshoot \(1\). If one now imposes
+the additional relaxed-selection rule that preserves these two properties,
+(12.22) forces
 
 \[
 f(t)=1
@@ -2123,7 +2296,7 @@ Since \(f(0)=0\),
 
 \[
 \boxed{
-\mathcal L_{\mathrm{MF}}(t)
+\mathcal L_{\mathrm{rel}}(t)
 =
 \begin{cases}
 1,&t=0,\\
@@ -2133,12 +2306,13 @@ Since \(f(0)=0\),
 \tag{12.23}
 \]
 
-Equivalently, there is no classical tagged-DMFT output continuous at
-initialization. Without choosing the monotone, no-overshoot relaxed
-continuation, the conclusion is this nonexistence statement rather than an
-independently constructed classical step-valued flow.
+More precisely, no classical output continuous at initialization can satisfy
+all of the asserted equations and response hypotheses.  The displayed step
+is a **stipulated selected trace**, not a constructed self-consistent DMFT
+flow.  Monotonicity/no overshoot is an additional selection axiom; it is not
+forced by a positive-time existence or uniqueness theorem in the corpus.
 
-### 12.7 Uniform continuous closure is impossible
+### 12.7 Continuity lower bound for the stipulated trace
 
 Let \(\widehat{\mathcal L}\) be any continuous predicted loss and set
 
@@ -2146,7 +2320,7 @@ Let \(\widehat{\mathcal L}\) be any continuous predicted loss and set
 E
 =
 \sup_{t\ge0}
-|\widehat{\mathcal L}(t)-\mathcal L_{\mathrm{MF}}(t)|.
+|\widehat{\mathcal L}(t)-\mathcal L_{\mathrm{rel}}(t)|.
 \]
 
 At \(t=0\),
@@ -2200,16 +2374,17 @@ so
 \tag{12.27}
 \]
 
-### Theorem 12.2 — Continuous uniform finite-closure no-go
+### Conditional Theorem 12.2 — Continuity no-go for the selected relaxed step trace
 
 No family of continuous finite-dimensional autonomous closures can
-approximate the natural relaxed loss (12.23) with arbitrarily small
+approximate the selected relaxed loss (12.23) with arbitrarily small
 uniform error on \([0,\infty)\).
 
 The numerical dimension, autonomy, and one-source syntax are not used in the
 lower bound; continuity alone suffices. Those extra conditions specify the
 intended closure class and exclude an impulsive source that simply writes the
-step by fiat.
+step by fiat.  Its relevance to the network is conditional on every upstream
+representation, response, self-consistency, and selection assumption.
 
 ---
 
@@ -2300,7 +2475,10 @@ Differentiating \(J_\ell\) repeatedly creates:
 4. the raw ordered \(W/W^\top\) reuse words.
 
 Thus RMSNorm fixes one second moment per layer but does not determine all
-higher mixed moments or messages.
+higher mixed moments or messages.  This establishes proliferation in the
+displayed derivative grammar; by itself it is not a dimension lower bound
+against a nonlinear or operator-valued compression of the fully trained
+system.
 
 ### 13.2 Exact frozen-block recurrence for RMSNorm
 
@@ -2359,9 +2537,9 @@ For arbitrary large boundary indices, (13.7) creates
 zero. Therefore no finite cutoff by polynomial degree, or any finite
 rectangular cutoff in \((p,r)\), is invariant under this natural hierarchy.
 
-This proves exact non-closure of the ordinary monomial-moment hierarchy. It
-does not prove that no nonlinear finite statistic could approximate the
-observable.
+This proves exact non-invariance of every finite degree or rectangular cutoff
+in the displayed ordinary monomial-moment hierarchy. It does not prove that
+no nonlinear finite statistic could approximate the observable.
 
 ### 13.3 Direction-only weight normalization
 
@@ -2422,7 +2600,9 @@ w^{(p)}(w^{(m-p)})^\top.
 \]
 
 Thus direction-only WN removes radial modes but not the tangential
-noncommutative message hierarchy.
+noncommutative message hierarchy in this grammar.  As above, message
+generation is diagnostic and does not alone prove a full-system
+no-compression theorem.
 
 ### 13.4 Exact frozen-block recurrence for readout WN
 
@@ -2489,18 +2669,18 @@ Surviving Wick graphs can therefore cancel. The embedded raw scalar word is
 no longer automatically a lower bound on the complete normalized
 coefficient.
 
-The low-order calculation makes the change concrete. At \(\gamma=4/3\),
-writing
+The low-order formal annealed calculation makes the change concrete. At
+\(\gamma=4/3\), encode the jet by
 
 \[
-H(\tau)=A\tau+\frac{B}{3!}\tau^3+O(\tau^5),
+F(\tau)\equiv A\tau+\frac{B}{3!}\tau^3\pmod{\tau^5},
 \]
 
 the repository obtains
 
 \[
 \begin{array}{c|cc}
-\text{model}&A&H'''(0)=B\\ \hline
+\text{model}&A&F'''(0)=B\\ \hline
 \text{raw}&\dfrac{17}{6}&\dfrac{229957}{216}\\[2mm]
 \text{global readout direction-WN}
 &\dfrac{17}{6}&\dfrac{223939}{216}\\[2mm]
@@ -2520,45 +2700,44 @@ Accordingly:
 - every possible non-Taylor finite PDE remains unruled-out for these
   normalized variants;
 - if WN is applied only to large-fan-in hidden rows and not to the readout,
-  the source reports that its fixed-order corrections vanish, so the raw
-  fixed-order Taylor no-go transfers in that convention.
+  the source reports that its fixed-order corrections vanish under its
+  large-fan-in assumptions, so the raw **formal-jet** Taylor no-go transfers
+  in that convention if the stated fixed-order reduction is valid.
 
 The last item is a fixed-order reduction to Theorem 7.1, not a new
 all-compilers theorem.
 
 ---
 
-## 14. Exact status: full resolutions, reductions, and open statements
+## 14. Claim ledger: proved, conditional, and open
 
-### 14.1 Results that fully resolve their own stated conjectures
+### 14.1 Unconditional results at their stated scope
 
-1. **The precise ordinary Wick--Taylor global-shadowing conjecture (8.5) is
-   false.**  
-   The proof supplies the missing asymptotic estimate with the opposite sign:
-   the coefficients grow factorially and the proposed PDEs are not uniformly
-   Cauchy.
+1. **The formal annealed Wick--Taylor compiler fails.**  The exact quadratic
+   forest compiler and positive all-order subfamily give a zero-radius formal
+   coefficient sequence.  Its prescribed positive Taylor profiles diverge,
+   and the corresponding closure losses are not uniformly Cauchy.  This
+   refutes (8.5), but does not identify an actual positive-time loss.
 
-2. **Within the canonical tagged-site DMFT and its natural monotone,
-   no-overshoot relaxed selection, continuous uniform finite closure is
-   impossible.**  
-   The real-time comparison proves the step target, and continuity gives the
-   sharp elementary error lower bounds.
+2. **The displayed frozen monomial cutoffs are non-invariant.**  Equations
+   (13.7) and (13.13), and their raw counterparts, raise the boundary degree.
+   This is not a theorem against nonlinear, operator-valued, or approximate
+   compression of the fully trained hierarchy.
 
-3. **The natural finite-degree moment/message closure question for the
-   audited normalized variants has a negative answer.**  
-   Equations (13.7) and (13.13), together with the full differentiated
-   projector grammar, show that no finite natural cutoff is invariant.
+3. **Several realization classes cannot reproduce the formal jet.**  The
+   regular analytic one-space realization, positive classical semigroup,
+   coefficientwise-positive polynomial compiler, and positive-stage
+   Euler/Wick classes are excluded under the exact hypotheses in Sections
+   10.1--10.4.  Singular equations and signed real-axis constructions are not
+   covered.
 
-4. **The stated analytic, positive-semigroup, positive-polynomial, and
-   positive one-step compiler classes are impossible.**  
-   These are complete corollaries of the zero-radius theorem, with the
-   hypotheses stated explicitly in Sections 10.1--10.4.
+4. **Two ambient topology packages fail.**  Product \(L^2\) control alone
+   does not control the cubic observable, and one Banach space with continuous
+   \(X\to L^1\) embedding and globally bounded pointwise multiplication
+   cannot contain a nondegenerate Gaussian coordinate.  Neither statement is
+   a no-go for all stronger or structured Gaussian state spaces.
 
-5. **Ordinary \(L^2\) and a single bounded-multiplication Gaussian Banach
-   algebra cannot supply the required closure topology.**  
-   The counterexamples in Sections 11.1--11.2 are self-contained.
-
-### 14.2 Results that are reductions or conditional propagation theorems
+### 14.2 Exact implications under additional hypotheses
 
 1. The residual-clock stability theorem proves
    \[
@@ -2566,83 +2745,87 @@ all-compilers theorem.
    \Longrightarrow
    \text{small global loss defect}.
    \]
-   It does not prove the premise for a proposed hierarchy truncation.
+   It does not establish the small-defect premise.
 
-2. The tagged-DMFT comparison is a complete theorem from the causal
-   properties in Section 12.1. A separate derivation/identification of that
-   tagged equation as the finite-width limit is outside the pure-DMFT
-   theorem and is not supplied in these files.
+2. The conditional DMFT implication proved in Section 12 is
+   \[
+   \begin{gathered}
+   \text{asserted tagged-site Volterra representation and response laws}
+   \\
+   \Longrightarrow\ \text{no positive subtarget delay for a classical solution},
+   \\
+   \text{plus monotone/no-overshoot relaxed selection}
+   \\
+   \Longrightarrow\ \text{selected step trace and continuity lower bound}.
+   \end{gathered}
+   \]
+   The representation, self-consistency, positive-time solution,
+   network-to-DMFT identification, and selection are not established.
 
-3. The hidden-row-only WN statement reduces its fixed-order coefficients to
-   the raw model under the declared large-fan-in convention. It does not
-   prove an independent normalized real-axis theorem.
+3. The noncommutative continuation-capacity argument becomes a no-go only
+   under the freeness/faithfulness and branch-separation lemmas, as well as
+   its bounded-filtration commuting-source grammar.  It does not cover the
+   operator/integro-differential state class.
 
-4. A generic Banach/Hilbert Galerkin theorem is correct if one supplies a
-   well-posed exact hierarchy, stable projections, a continuous kernel
-   observable, and an outgoing residual tending to zero. Those
-   model-specific hypotheses are not established for every signed
-   nonanalytic full-model compiler.
+4. The hidden-row-only WN transfer additionally assumes the reported
+   fixed-order large-fan-in reduction.  It is not an independent normalized
+   positive-time theorem.
 
-5. The earlier exact noncommutative continuation theorem is cited as prior
-   work. Because its complete quadratic-model proof is absent from the
-   available source bundle, this report records its conclusion but does not
-   present an invented proof.
+5. A generic Banach/Hilbert Galerkin convergence theorem is valid if one
+   supplies a well-posed exact hierarchy, stable projections, continuity of
+   the observable, and a vanishing outgoing residual.  Those model-specific
+   premises remain open here.
 
 ### 14.3 Statements not proved
 
 The repository does **not** prove any of the following.
 
+- Concentration of every random initialization derivative \(C_{n,k}\), or
+  identification of the formal annealed jet with derivatives of an actual
+  width-first positive-time mean-field trajectory.
+- Derivation, self-consistency, existence, or uniqueness of the asserted
+  tagged-site DMFT for this network, or that the relaxed step selection is
+  the network loss.
+- The two missing continuation-capacity lemmas needed by N2.
 - Every signed, nonanalytic, non-Taylor, certified real-axis finite compiler
   is impossible.
-- A diagonal \(M=M(n)\) limit fails.
-- Every fixed-\(n\) Taylor germ fails inside its own random convergence
-  radius.
-- The fully trained finite-width Gaussian network has the same
-  coordinatewise rare-particle comparison as the frozen subsystem.
+- A diagonal \(M=M(n)\) limit fails, or every fixed-\(n\) Taylor germ fails
+  inside its own random convergence radius.
+- The fully trained Gaussian network has the frozen subsystem's
+  coordinatewise rare-particle comparison.
+- The full raw or normalized trained system admits no finite nonlinear or
+  operator-valued compressed state.
 - RMSNorm or global readout WN has a zero-radius feature-time series.
-- The quadratic no-go theorems transfer to the later bounded
-  residual-\(\tanh\), continuous-depth model.
+- The quadratic no-go theorems transfer to the bounded residual-\(\tanh\),
+  continuous-depth model.
 
 ---
 
-## 15. Why the three headline results are ordered by strength
+## 15. How the headline results compare without conflating claim levels
 
-“Stronger” is used here in the logical sense: a stronger theorem excludes a
-larger closure class under no stronger target assumptions.
+### 15.1 Broadest surrogate exclusion after stipulating a target
 
-### 15.1 Strongest model-level result
+Once the selected step trace \(\mathcal L_{\mathrm{rel}}\) is stipulated,
+continuity alone excludes every continuous predicted loss with error below
+\(1/2\), or below \(1\) under matched initialization.  This is broad in the
+**surrogate class**, but weak as evidence about the network because the
+target depends on the unproved DMFT representation and selection hypotheses.
 
-The causal-DMFT step/no-continuous-closure theorem is strongest because:
+### 15.2 Strongest unconditional formal-compiler result
 
-1. it is a real-time argument, not an initialization Taylor argument;
-2. it does not require coefficientwise positivity of a compiler;
-3. once the step target is fixed, it excludes **every continuous**
-   finite-dimensional predicted loss, regardless of its internal basis or
-   source syntax;
-4. its lower bound is quantitative: \(1/2\), or \(1\) with exact
-   initialization.
+The Wick--Taylor argument directly refutes the precise iterated shadowing
+claim (8.5), requires no positive-time mean-field target, and has an internal
+non-Cauchy contradiction.  Its subject is the formal annealed coefficient
+sequence and its prescribed positive Taylor family.  Signed, non-Taylor, or
+singular real-axis methods are not covered.
 
-Its price is that its target is the stated pure-DMFT model and natural
-relaxed selection.
+### 15.3 Exact restricted-hierarchy witnesses
 
-### 15.2 Strongest compiler theorem independent of a regular mean-field target
-
-The Wick--Taylor PDE failure is strongest in a different sense:
-
-1. it directly refutes a precise iterated finite-width shadowing conjecture;
-2. it does not assume existence of a continuous large-width target loss;
-3. its non-Cauchy contradiction is internal to the finite closure sequence.
-
-It is narrower in compiler class: a signed or non-Taylor real-axis method is
-not covered.
-
-### 15.3 Strongest exact-hierarchy result
-
-The normalized moment/message recurrences show exact non-invariance of the
-natural finite hierarchy even after architectural normalization. This is
-stronger than a low-order numerical mismatch, but weaker than an
-approximation no-go because a non-invariant hierarchy may still admit
-accurate finite projections.
+The frozen raw, RMSNorm, and readout-WN recurrences prove non-invariance of
+ordinary finite degree/rectangular monomial cutoffs.  This is stronger than a
+low-order mismatch but weaker than either an approximation no-go or a
+full-system dimension lower bound; a non-invariant hierarchy may still admit
+accurate projections or compressed operator states.
 
 ---
 
@@ -2668,17 +2851,22 @@ the ordinary Wick--Taylor source sequence behaves in the opposite way. Thus:
 }
 \]
 
-The later causal-DMFT report then supplied a stronger real-time obstruction
-for continuous closures of the natural relaxed pure-DMFT target.
+The later causal-DMFT report proposed a stronger-looking real-time
+**conditional implication** for continuous closures of a selected relaxed
+step target.  The v2.2 audit superseded its promotion to a network theorem
+because the tagged-site representation and relaxed selection were not
+derived.
 
 ### 16.2 What was not superseded
 
-The following remain valid:
+The following remain valid with the scopes used in this report:
 
-- fixed-order derivative/Wick coefficients are computable;
+- the special quadratic compiler computes the formal annealed fixed-order
+  coefficients, while concentration is separate;
 - the residual-clock identity is exact;
 - a known small profile/kernel error gives a global loss error bound;
-- the analytic and positive-compiler no-gos remain valid;
+- the analytic and positive-compiler no-gos remain valid for exact
+  realizations of that formal jet;
 - signed non-Taylor real-axis compilers lie outside the Wick-positive
   theorems.
 
@@ -2708,20 +2896,21 @@ quadratic-activation non-closure theorems.
 
 | Theorem | Target/model | Closure class excluded | Complete? | Main dependency |
 |---|---|---|---|---|
-| Factorial lower bound and zero radius | Raw quadratic/Gaussian, fixed-order mean-field jet | Ordinary analytic Wick series | Yes, at repository level | Previously established fixed-order \(L^1\) Wick limit |
-| Physical-time boundary layer | Same | Degree-\(M\) zero-flux source PDE | Yes | Zero radius and positivity |
-| Global-shadowing conjecture false | Same, iterated \(n\to\infty\), then \(M\to\infty\) | Prescribed Wick--Taylor closures | Yes | Non-uniform-Cauchy argument |
-| Analytic Banach realization no-go | Same | One-space bounded analytic exact hierarchy | Yes | Zero radius |
-| Positive semigroup no-go | Same | Positive classical semigroup with continuous Wick readout | Yes | Zero radius and positive remainder |
-| Positive polynomial compiler no-go | Same | Nonnegative fixed-order-consistent source polynomials | Yes | Zero radius |
-| Euler/positive-stage no-go | Same | Wick-positive consistent polynomial step methods | Yes | Binomial lower bound and zero radius |
-| \(L^2\) discontinuity | Cubic readout | Ordinary \(L^2\) closure topology | Yes | Explicit rare-set sequence |
-| Gaussian Banach-algebra obstruction | Gaussian coordinates | One bounded-multiplication Banach function algebra | Yes | \(L^m\to L^\infty\) argument |
-| Frozen Gaussian cutoff singularity | Frozen first layer | Naive Gaussian cutoff/particle proof | Yes in subsystem | Cooperative Riccati growth |
-| Instantaneous subtarget hitting | Canonical causal tagged DMFT | Regular positive-time pure-DMFT output | Yes from stated DMFT properties | Positive self-response and Gaussian tail |
-| Step-vs-continuous lower bound | Natural relaxed pure-DMFT loss | Every continuous finite loss predictor | Yes once target is accepted | Continuity |
-| RMS natural hierarchy nonclosure | True RMSNorm quadratic model | Finite ordinary moment/message cutoff | Yes | Recurrence (13.7) and projector grammar |
-| WN natural hierarchy nonclosure | Direction-only WN quadratic model | Finite ordinary moment/message cutoff | Yes | Recurrence (13.13) and projector grammar |
+| Factorial lower bound and zero radius | Raw quadratic/Gaussian formal annealed jet | Ordinary Taylor series for that jet | Yes at formal-jet level | Exact special-case forest compiler and positive all-order subfamily |
+| Physical-time boundary layer | Prescribed formal Taylor family | Degree-\(M\) zero-flux source PDE | Yes for that family | Zero radius and positivity; not an actual network loss |
+| Global-shadowing conjecture false | Iterated \(n\to\infty\), then \(M\to\infty\), as in (8.5) | Prescribed Wick--Taylor closures | Yes | Non-uniform-Cauchy argument |
+| Regular analytic realization no-go | Formal annealed jet | One-space bounded analytic exact realization | Yes for stated class | Exact reproduction of the jet and zero radius |
+| Positive semigroup no-go | Formal annealed jet | Positive classical semigroup with continuous Wick readout | Yes for stated class | Cone/domain/continuity hypotheses |
+| Positive polynomial compiler no-go | Formal annealed jet | Nonnegative fixed-order-consistent source polynomials | Yes for stated class | Zero radius and positivity |
+| Euler/positive-stage no-go | Formal annealed jet | Wick-positive consistent polynomial step methods | Yes for stated class | Binomial lower bound |
+| \(L^2\) discontinuity | Ambient cubic readout | Product-\(L^2\) control alone | Yes as a functional witness | Explicit rare-set sequence; no reachability claim |
+| Gaussian Banach-algebra obstruction | Gaussian coordinate | One space with \(X\to L^1\) and globally bounded multiplication | Yes for stated package | \(L^m\to L^\infty\) argument |
+| Frozen Gaussian cutoff singularity | Frozen first-layer reduction | Naive compact-cutoff/particle route | Scoped subsystem argument | Cooperative Riccati growth; no full-model transfer |
+| Noncommutative continuation capacity | Bounded-filtration commuting-source finite-jet encoder | Exact branchwise continuation | **Conditional** | Freeness/faithfulness and branch separation remain open |
+| No positive subtarget delay | Postulated tagged-site Volterra system | Classical subtarget-delayed output satisfying all assumptions | **Conditional** | Asserted representation, response, continuity, output inequality; hitting time is zero only if defined |
+| Step-vs-continuous lower bound | Selected relaxed step trace \(\mathcal L_{\mathrm{rel}}\) | Every continuous loss predictor | Yes for stipulated trace; network relevance conditional | Upstream DMFT assumptions plus extra selection rule |
+| RMS frozen-cutoff nonclosure | Frozen RMSNorm top block | Finite rectangular monomial cutoff | Yes | Recurrence (13.7) |
+| WN frozen-cutoff nonclosure | Frozen direction-WN top block | Finite rectangular monomial cutoff | Yes | Recurrence (13.13) |
 | Broad signed real-axis no-go | Full raw or normalized model | Every admissible finite compiler | **No** | Quantitative residual/noncompactness lower bound still absent outside the step-target class |
 
 ---
@@ -2730,59 +2919,64 @@ quadratic-activation non-closure theorems.
 
 For reproducibility, the source roles are:
 
-1. **`approximate_single_source_conjecture_resolution(1).md`**  
-   Sections 1--5 give the exact raw model, scalar branch, positivity, Gaussian
-   factorial bound, and zero radius. Section 6 proves physical-time failure.
-   Section 7 gives the invariant-manifold counterexample. Sections 8--9
-   preserve stability and delimit scope.
+1. **`approximate_single_source_conjecture_resolution.md`**
+   Sections 1--5 give the raw model, selected scalar history, positivity, and
+   factorial bound.  Read with the current exact quadratic compiler, these
+   prove zero radius for the formal annealed jet.  Section 6 proves failure of
+   the prescribed Taylor-closure family, not a step loss for the network.
 
-2. **`approximate_single_source_stability(1).md`**  
+2. **`approximate_single_source_stability.md`**
    Sections 1--4 give the residual clock and positive-entry coercivity.
    Sections 5--7 give the finite source PDE, clock-shadowing, and
    input-to-state stability. Section 9 explicitly isolates the tail lemma
    that the later zero-radius result disproves for this compiler.
 
-3. **`adversarial_audit_report(1).md`**  
+3. **`adversarial_audit_report.md`**
    Sections 1--3 distinguish oracle existence from closure. Section 4 gives
    the \(L^2\), Banach-algebra, analytic, semigroup, positive compiler,
-   Euler/Wick, and frozen-tail results. Sections 5--7 state the surviving
-   open signed real-axis problem.
+   Euler/Wick, and frozen-tail witnesses, each under its displayed scope.
+   Sections 5--7 state the surviving open signed real-axis problem.
 
-4. **`mean_field_single_source_conjecture_audited_resolution(2).md`**  
-   Sections 2--7 give the tagged-DMFT assumptions, initial response, cavity
-   event, comparison, and zero hitting times. Sections 8--10 give the natural
-   step trace and continuous-closure lower bound.
+4. **`mean_field_single_source_conjecture_audited_resolution.md`**
+   Sections 2--7 give a comparison conditional on an asserted tagged-site
+   representation and response law. Sections 8--10 add a relaxed-selection
+   axiom and derive the continuity lower bound for the resulting stipulated
+   step trace.  This source is not a network-to-DMFT derivation.
 
-5. **`normalized_mean_field_taylor_closure_audit(1).md`**  
+5. **`normalized_mean_field_taylor_closure_audit.md`**
    Sections 3--5 derive the normalized vector fields and frozen reductions.
-   Section 6 proves natural hierarchy proliferation and explains the loss of
-   positivity. Section 7 states the exact PDE classification.
+   The frozen recurrences prove non-invariance of ordinary monomial cutoffs;
+   the full-system message grammar is diagnostic.  The source also explains
+   why the raw positivity proof does not transfer.
 
-6. **`MASTER_NEURAL_PDE_REPORT_2026-07-26(1).md`** and
-   **`MASTER_NEURAL_PDE_REPORT_WITH_FIGURES.md`**  
-   These are the later supersession-aware summaries. They treat the
-   quadratic zero-radius, physical-time failure, causal-DMFT step, and
-   normalized natural-hierarchy results as established and expressly forbid
-   transferring them to the bounded residual-\(\tanh\) model.
+6. **Current authority.**
+   `studies/mean_field_peeling/CURRENT_RESEARCH_STATE.md` supplies the exact
+   special quadratic annealed compiler while explicitly leaving
+   concentration and positive-time identification open.
+   `studies/stieltjes_conjecture/CURRENT_RESEARCH_STATE.md` preserves the same
+   formal-jet distinction.  The v2.2 monograph classifies the tagged-site
+   DMFT chain as exact only under its asserted representation and selection
+   hypotheses.  Older master syntheses that promoted those claims are
+   superseded.
 
 ---
 
 ## 19. Final answer in one paragraph
 
-The repository’s strongest non-closure theorem is that the unbounded
-quadratic/Gaussian tagged mean-field dynamics fit instantaneously in the
-natural monotone, no-overshoot relaxed class, producing a step loss that no
-continuous finite-dimensional closure can uniformly approximate below
-\(1/2\) error, or below \(1\) when initialization is matched. Independently,
-the ordinary limiting Wick--Taylor compiler is rigorously disproved by a
-factorial positive scalar branch: the formal series has radius zero, its
-positive source profiles diverge at every positive feature time, and its
-physical-time closures are not uniformly Cauchy. Analytic one-space,
-positive-semigroup, positive-polynomial, and positive Euler/Wick
-constructions consequently fail, while ordinary \(L^2\) and a single
-Gaussian Banach algebra are invalid closure topologies. RMSNorm and
-direction-only WN still have no exact finite natural moment/message closure,
-but their signed terms prevent automatic transfer of the raw zero-radius
-proof. What remains unproved is a blanket impossibility theorem for every
-signed, nonanalytic, non-Taylor, certified real-axis finite compiler outside
-the continuous step-target class.
+The strongest DMFT-related statement is conditional: if the asserted
+tagged-site Volterra representation and response hypotheses hold, no
+classical solution can have positive subtarget delay (equivalently, its
+hitting time is zero if defined); if one additionally imposes the
+monotone/no-overshoot relaxed selection, the stipulated step trace has
+uniform distance at least \(1/2\) from every continuous surrogate, or \(1\)
+under matched initialization.  This is not established for the canonical
+network.  Independently, the exact quadratic compiler proves that the formal
+annealed Wick jet has zero radius and that its prescribed positive Taylor
+closures form an initial boundary layer and are not uniformly Cauchy.  This
+does not construct an actual positive-time mean-field loss; concentration
+and trajectory identification remain open.  The analytic, positive, \(L^2\),
+Banach-algebra, noncommutative, and normalized-hierarchy arguments exclude
+only their explicitly stated realization, topology, grammar, or frozen
+cutoff classes.  No result here rules out every singular, signed,
+nonanalytic, operator/integro-differential, or otherwise certified finite
+real-axis description of the true network dynamics.

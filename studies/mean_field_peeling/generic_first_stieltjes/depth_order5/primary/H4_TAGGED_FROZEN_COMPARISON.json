@@ -1,0 +1,39 @@
+{
+  "comparison_scope": "layer tags retained and primary Q0 specialized exactly to 1",
+  "counts": {
+    "A": {
+      "discrepancies": 0,
+      "independent_terms": 5,
+      "primary_terms_after_Q0_1": 5
+    },
+    "B": {
+      "discrepancies": 0,
+      "independent_terms": 1929,
+      "primary_terms_after_Q0_1": 1929
+    },
+    "C": {
+      "discrepancies": 0,
+      "independent_terms": 462776,
+      "primary_terms_after_Q0_1": 462776
+    }
+  },
+  "depth": 4,
+  "first_discrepancies": {
+    "A": [],
+    "B": [],
+    "C": []
+  },
+  "independent_artifact": {
+    "file": "H4_TAGGED_COEFFICIENT_MAP.json",
+    "sha256": "926a1d7c72ed9e0559cd76c690b70c4ce7ff199015c30215517a90a01df3240c"
+  },
+  "independent_freeze_manifest_sha256": "dee0198e119864a90195101466f29f3ab2f248495c6e6a3494f35cafd3f2502b",
+  "pass": true,
+  "primary_artifact": {
+    "file": "H4_LAYER_TAGGED_COEFFICIENTS.json",
+    "sha256": "02b6d94798ccc19204852fe8298d4ef38d86124326ee721ca83fdefa6fb00ceb"
+  },
+  "primary_freeze_manifest_sha256": "f4838437c1fb70b14713d39e8438d703434c49ffd72001beeb6fee8d53366b30",
+  "quotient": "tagged",
+  "schema": "route-s-frozen-cross-comparison-v1"
+}

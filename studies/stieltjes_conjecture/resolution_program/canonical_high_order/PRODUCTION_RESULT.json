@@ -1,0 +1,136 @@
+{
+  "schema": "production_canonical_recurrence_result_v1",
+  "date": "2026-08-18",
+  "metric": "D_a + D_u + D_W",
+  "alpha": "1",
+  "max_order": 17,
+  "arithmetic": "exact fractions.Fraction",
+  "recurrence": "equations (5)-(12), canonical specialization",
+  "observable_contraction": "F=E[A A']",
+  "source": {
+    "file": "production_canonical_recurrence.py",
+    "sha256": "bccec0577ffd205d5625d8e6e1d9c4dba7dab8a7a218edd5a58866ea8606d688",
+    "frozen_order13_source_sha256": "4918c797a0290da950d8cb7ef665ded79bac166fdedf1d11c9415421c65f5a92",
+    "frozen_order13_certificate_sha256": "39d617e6f97cf9b3fc67904e7741df2936e8c93781823199ba79f9dfaa911e9b"
+  },
+  "feature_derivatives": {
+    "0": "0",
+    "1": "111",
+    "2": "0",
+    "3": "1685184",
+    "4": "0",
+    "5": "77400633120",
+    "6": "0",
+    "7": "7315868433079296",
+    "8": "0",
+    "9": "1181161141825400561664",
+    "10": "0",
+    "11": "291982832387585872335470592",
+    "12": "0",
+    "13": "102853512279246664353620526022656",
+    "14": "0",
+    "15": "49079184579077107476764629402991788032",
+    "16": "0",
+    "17": "30555969894096099495444855650521777374167040"
+  },
+  "new_results": {
+    "F15": "49079184579077107476764629402991788032",
+    "F17": "30555969894096099495444855650521777374167040"
+  },
+  "gates": {
+    "accepted_prefix_reproduced_through_order13": true,
+    "all_even_derivatives_zero_through_order16": true,
+    "order15_continuation_rule_passed": true,
+    "order17_under_30_minute_8_GiB_cap": true,
+    "order19_not_attempted_under_frozen_protocol": true,
+    "no_floating_point_in_recurrence": true,
+    "terminal_dependency_cut_exact": true
+  },
+  "order17_run": {
+    "command": "python production_canonical_recurrence.py --max-order 17 --wall-cap-seconds 1800 --memory-cap-mib 8192",
+    "internal_elapsed_seconds": 230.31826722621918,
+    "internal_max_rss_mib": 189.4375,
+    "final_wick_caches": {
+      "row": 241932,
+      "column": 240016
+    },
+    "arithmetic_diagnostics": {
+      "additions": 1054,
+      "scalings": 1054,
+      "polynomial_products": 459,
+      "product_term_pairs": 414145,
+      "inner_products": 477,
+      "inner_term_pairs": 30751780,
+      "derivative_expectations": 306,
+      "triple_contractions": 171,
+      "triple_term_pairs": 299455,
+      "largest_polynomial_terms": 1758
+    },
+    "checkpoints": [
+      {
+        "degree": 13,
+        "elapsed_seconds": 24.766407545655966,
+        "max_rss_mib": 54.54296875,
+        "row_wick_cache": 62834,
+        "column_wick_cache": 38311,
+        "terms": {
+          "A": 491,
+          "X": 311,
+          "Y": 507,
+          "Z": 507,
+          "B": 663,
+          "Q": 316,
+          "R": 316
+        }
+      },
+      {
+        "degree": 15,
+        "elapsed_seconds": 99.000240188092,
+        "max_rss_mib": 108.71875,
+        "row_wick_cache": 156561,
+        "column_wick_cache": 98862,
+        "terms": {
+          "A": 942,
+          "X": 599,
+          "Y": 962,
+          "Z": 962,
+          "B": 1249,
+          "Q": 611,
+          "R": 611
+        }
+      },
+      {
+        "degree": 17,
+        "elapsed_seconds": 226.12584801763296,
+        "max_rss_mib": 189.4375,
+        "row_wick_cache": 241906,
+        "column_wick_cache": 240016,
+        "terminal_after": "Z",
+        "terms": {
+          "A": 1733,
+          "X": 1109,
+          "Y": 1758,
+          "Z": 1758,
+          "B": 0,
+          "Q": 0,
+          "R": 0
+        }
+      }
+    ]
+  },
+  "pilot_frozen_generator_runs": {
+    "order13": {
+      "wall_seconds": 26.59,
+      "peak_rss_kib": 49688
+    },
+    "order15": {
+      "wall_seconds": 104.75,
+      "peak_rss_kib": 105356
+    },
+    "order17": {
+      "wall_seconds": 397.46,
+      "peak_rss_kib": 273468
+    }
+  },
+  "interpretation": "finite fixed-order width-limit jet only; no all-order or positive-time trajectory claim"
+}

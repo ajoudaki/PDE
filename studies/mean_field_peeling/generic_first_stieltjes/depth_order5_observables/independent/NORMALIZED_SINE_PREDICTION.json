@@ -1,0 +1,27 @@
+{
+  "activation": "sin(x)/sqrt((1-exp(-2))/2)",
+  "head_freeze_sha256": "66449874726a3f424ec8cdcda27f90823c3317aa0b00fa7ebfbed9d1e88075b6",
+  "hidden_depth": 2,
+  "observed_layer": 2,
+  "orders": {
+    "128": {
+      "Gamma04_H2_layer2": 1521.914807371913,
+      "Gamma13_H2_layer2": -1042.1491063832011,
+      "Gamma22_H2_layer2": 473.2209727741591,
+      "Q4_H2_layer2": -2454.0373996768285
+    },
+    "64": {
+      "Gamma04_H2_layer2": 1521.9148073719161,
+      "Gamma13_H2_layer2": -1042.1491063832034,
+      "Gamma22_H2_layer2": 473.2209727741602,
+      "Q4_H2_layer2": -2454.0373996768335
+    },
+    "96": {
+      "Gamma04_H2_layer2": 1521.914807371915,
+      "Gamma13_H2_layer2": -1042.1491063832027,
+      "Gamma22_H2_layer2": 473.2209727741598,
+      "Q4_H2_layer2": -2454.037399676832
+    }
+  },
+  "quadrature_is_numerical_evaluation_not_an_activation_approximation": true
+}

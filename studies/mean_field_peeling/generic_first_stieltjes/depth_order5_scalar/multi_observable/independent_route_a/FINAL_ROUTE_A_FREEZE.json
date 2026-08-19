@@ -1,0 +1,39 @@
+{
+  "status": "final independent Route A report after exact post-freeze two-state reduction and Route-S comparison",
+  "files": {
+    "EQUALITY_PARTITION_LEDGER.json": "8949c9be0b501d9622c833a1ee1325b88ac80ccbb7ab8310c1d860bc01bae24b",
+    "EVIDENCE_LEDGER.md": "b3a35ca83f75ad64a4b6b0c7889604e6ec1be720f9b1e3953c83a3f4ee6631e2",
+    "F7_TREE_ROADMAP_ROUTE_A.json": "be7832a762e6d13daea1b74724f4bf6ff4f728d4bb0cc7239cdedce0d532b7d3",
+    "INDEPENDENT_DERIVATION.md": "c145f9d50f821ec14a20d31b59313d9764fc9036651b256095fa91804f73a9e7",
+    "NORMALIZED_SINE_GAMMA04_RESULT.json": "dd63c8b62e4bda85018f10da3f68b21aed7c65f08bc5b3ff9c2f219a4fb364ff",
+    "PRE_REDUCTION_ROUTE_A_FREEZE.json": "45bb7a66e4b428664a35ec034458c9893f5b96d2b96b4b86693041126d22f041",
+    "REDUCED_GAMMA04_FREEZE.json": "0f5f899d52fbab993d6f33e3c1965b2969040903d21c7db88c4fd1e0114fb90e",
+    "REDUCED_GAMMA04_RECURRENCE.json": "32b5ee0f87562b6f15e2139682d9437bd4f691f90ac9ffa495d3efd5ccfc033c",
+    "REDUCED_GAMMA04_TRANSITIONS.md": "47dc20651cb81f1cff453b07792467e4a7fce68b45de3d209909c069f4dcce3e",
+    "run_checks.py": "91907b7cb1a664244cce12797004e09d00bd4b146f5753b30093639f8768fc06"
+  },
+  "independent_route_s": {
+    "map_sha256": "e97a3f6afda6ae17d1be498ac79b308b64fc71e7fd94a1f343e0e28844762122",
+    "transition_markdown_sha256": "3987dc1cdb253a1c722d7dd4b85728274694147d17d2e94a9f209bd97838f041",
+    "producer_manifest_sha256": "3a3fd13beeeea4a0947f459d829932f4feb2770ccaac7ea951155e785614f02e",
+    "gamma04_discrepancies": 0,
+    "a41_discrepancies": 0
+  },
+  "state": {
+    "dynamic_dimension": 2,
+    "coordinates": ["gamma04", "a41"],
+    "derived_coordinate": "a43=tau-1",
+    "minimality_claim": false,
+    "term_counts": {"gamma04_next": 64, "a41_next": 17}
+  },
+  "tests": [
+    "PASS test_independent_atom_canonicalization",
+    "PASS test_exact_finite_width_raw_ad",
+    "PASS test_gamma_dictionary_and_parity",
+    "PASS test_exact_controls",
+    "PASS test_frozen_artifacts_and_ceiling",
+    "PASS test_postfreeze_reduction_and_route_s",
+    "PASS test_time_change_formulas",
+    "PASS test_nonpolynomial_regression_and_f7_roadmap"
+  ]
+}

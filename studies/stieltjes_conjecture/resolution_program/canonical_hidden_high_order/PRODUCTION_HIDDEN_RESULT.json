@@ -1,0 +1,187 @@
+{
+  "schema": "production_canonical_hidden_recurrence_v1",
+  "metric": "D_a + D_u + D_W",
+  "arithmetic": "exact fractions.Fraction",
+  "recurrence": "equations (5)-(12), canonical specialization",
+  "observable_definitions": {
+    "q1": "Q1(t)=E_C[X(t)]",
+    "q2": "Q2(t)=E_R[Z(t)^2]",
+    "q1_contraction": "Q1^(k)(0)=k! E_C[X_k]",
+    "q2_contraction": "Q2^(k)(0)=k! sum_{p+q=k} E_R[Z_p Z_q]"
+  },
+  "source": {
+    "path": "studies/stieltjes_conjecture/resolution_program/canonical_hidden_high_order/production_hidden_recurrence.py",
+    "sha256": "d49a8a19cbe2cd31699776d1359d947ec4f3f825eef06346c0e81331b5777530"
+  },
+  "max_recurrence_order": 17,
+  "max_hidden_order": 16,
+  "feature_derivatives": {
+    "0": "0",
+    "1": "111",
+    "2": "0",
+    "3": "1685184",
+    "4": "0",
+    "5": "77400633120",
+    "6": "0",
+    "7": "7315868433079296",
+    "8": "0",
+    "9": "1181161141825400561664",
+    "10": "0",
+    "11": "291982832387585872335470592",
+    "12": "0",
+    "13": "102853512279246664353620526022656",
+    "14": "0",
+    "15": "49079184579077107476764629402991788032",
+    "16": "0",
+    "17": "30555969894096099495444855650521777374167040"
+  },
+  "q1_derivatives": {
+    "0": "1",
+    "1": "0",
+    "2": "888",
+    "3": "0",
+    "4": "13481472",
+    "5": "0",
+    "6": "619205064960",
+    "7": "0",
+    "8": "58526947464634368",
+    "9": "0",
+    "10": "9449289134603204493312",
+    "11": "0",
+    "12": "2335862659100686978683764736",
+    "13": "0",
+    "14": "822828098233973314828964208181248",
+    "15": "0",
+    "16": "392633476632616859814117035223934304256"
+  },
+  "q2_derivatives": {
+    "0": "3",
+    "1": "0",
+    "2": "12372",
+    "3": "0",
+    "4": "311319936",
+    "5": "0",
+    "6": "19984529682816",
+    "7": "0",
+    "8": "2441783779120539648",
+    "9": "0",
+    "10": "487967758483103808178176",
+    "11": "0",
+    "12": "145387231337138218955012063232",
+    "13": "0",
+    "14": "60684843616663232253966043066638336",
+    "15": "0",
+    "16": "33941339036399103897550977212861900095488"
+  },
+  "gates": {
+    "frozen_feature_jet_through_order17": true,
+    "campaign1_q1_prefix_through_order8": true,
+    "campaign1_q2_prefix_through_order8": true,
+    "q1_ward_identity_through_hidden_order": true,
+    "q1_q2_odd_derivatives_zero": true,
+    "no_floating_point_in_recurrence": true,
+    "hidden_terminal_contractions_exact": true,
+    "f19_not_attempted": true
+  },
+  "frozen_inputs": {
+    "base_source": {
+      "path": "studies/stieltjes_conjecture/resolution_program/canonical_high_order/production_canonical_recurrence.py",
+      "sha256": "bccec0577ffd205d5625d8e6e1d9c4dba7dab8a7a218edd5a58866ea8606d688"
+    },
+    "base_result": {
+      "path": "studies/stieltjes_conjecture/resolution_program/canonical_high_order/PRODUCTION_RESULT.json",
+      "sha256": "eadea98387abb473a4eef7c7ea1300b9b65b4d28217db8201b92722840052f4c"
+    },
+    "campaign1_result": {
+      "path": "studies/mean_field_peeling/quadratic_compiler/campaign1/results_order9_q2_order8.json",
+      "sha256": "02215aa7c18f3550a19f34b89734b6bf5b66a2825e8aa5bc103517767982ee1a"
+    }
+  },
+  "resources": {
+    "elapsed_seconds": 228.13636749610305,
+    "max_rss_mib": 189.49609375,
+    "row_wick_cache_size": 241932,
+    "column_wick_cache_size": 240016,
+    "python": "3.10.12",
+    "platform": "Linux-5.15.0-151-generic-x86_64-with-glibc2.35"
+  },
+  "arithmetic_diagnostics": {
+    "additions": 1054,
+    "scalings": 1054,
+    "polynomial_products": 459,
+    "product_term_pairs": 414145,
+    "inner_products": 647,
+    "inner_term_pairs": 30942195,
+    "derivative_expectations": 306,
+    "triple_contractions": 171,
+    "triple_term_pairs": 299455,
+    "largest_polynomial_terms": 1758
+  },
+  "degree_checkpoints": [
+    {
+      "degree": 8,
+      "elapsed_seconds": 0.5202149078249931,
+      "max_rss_mib": 21.2890625,
+      "row_wick_cache": 4569,
+      "column_wick_cache": 2526,
+      "terms": {
+        "A": 72,
+        "X": 53,
+        "Y": 83,
+        "Z": 83,
+        "B": 107,
+        "Q": 43,
+        "R": 43
+      }
+    },
+    {
+      "degree": 13,
+      "elapsed_seconds": 24.63495410606265,
+      "max_rss_mib": 54.34375,
+      "row_wick_cache": 62834,
+      "column_wick_cache": 38311,
+      "terms": {
+        "A": 491,
+        "X": 311,
+        "Y": 507,
+        "Z": 507,
+        "B": 663,
+        "Q": 316,
+        "R": 316
+      }
+    },
+    {
+      "degree": 15,
+      "elapsed_seconds": 97.8166742734611,
+      "max_rss_mib": 108.7734375,
+      "row_wick_cache": 156561,
+      "column_wick_cache": 98862,
+      "terms": {
+        "A": 942,
+        "X": 599,
+        "Y": 962,
+        "Z": 962,
+        "B": 1249,
+        "Q": 611,
+        "R": 611
+      }
+    },
+    {
+      "degree": 17,
+      "elapsed_seconds": 222.6592583246529,
+      "max_rss_mib": 189.49609375,
+      "row_wick_cache": 241906,
+      "column_wick_cache": 240016,
+      "terms": {
+        "A": 1733,
+        "X": 1109,
+        "Y": 1758,
+        "Z": 1758,
+        "B": 0,
+        "Q": 0,
+        "R": 0
+      }
+    }
+  ],
+  "interpretation": "finite fixed-order width-limit hidden jets only; Hankel tests and all-order/positive-time claims are downstream obligations"
+}

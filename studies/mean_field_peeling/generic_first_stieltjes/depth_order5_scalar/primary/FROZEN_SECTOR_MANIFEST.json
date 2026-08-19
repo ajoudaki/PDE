@@ -1,0 +1,32 @@
+{
+  "schema": "scalar-order5-frozen-sector-v1",
+  "claim_status": "partial-sector-closure-not-full-C",
+  "frozen_before_independent_route_inspection": true,
+  "covered_tensor_families": [
+    "2 V[p,p,p,p,p]",
+    "22 U[Hp,p,p,p]",
+    "14 T[T[p,p],p,p]"
+  ],
+  "unresolved_tensor_families": [
+    "30 T[H^2p,p,p]",
+    "36 T[Hp,Hp,p]",
+    "16 ||H^2p||^2"
+  ],
+  "state_dimensions": {
+    "forward": 7,
+    "backward": 9
+  },
+  "files": {
+    "scalar_frozen_recurrence.py": "dabd303fae05ab1b04557636350de1be41ebda46b4f0cd30a5aafaf7dc3e5708",
+    "FROZEN_SECTOR_TRANSITIONS.cse.txt": "d5c6c081f6a953126d29b67ec953a32e26d038327f2b92bda6037098d47ce721",
+    "audit_frozen_sector.py": "d0045df90aff15eb57821f01fc1975d7e6ddb0c441bdb6a284df003d6c587e32"
+  },
+  "exact_audit": {
+    "order3_projection_transition_discrepancies": 0,
+    "A_discrepancies": {"H2": 0, "H3": 0, "H4": 0},
+    "B_discrepancies": {"H2": 0, "H3": 0, "H4": 0},
+    "partial_C_monomials": {"H2": 451, "H3": 3177, "H4": 8898},
+    "partial_C_vs_full_C_discrepancies": {"H2": 857, "H3": 5795, "H4": 15612},
+    "maximum_terminal_activation_derivative": 5
+  }
+}

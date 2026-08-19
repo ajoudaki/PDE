@@ -1,0 +1,25 @@
+{
+  "contract": "independent analytic unit-Gram scalar recurrence through order five",
+  "freeze_rule": "No Route S formula was inspected before these hashes were recorded.",
+  "files": {
+    "FROZEN_FORWARD_RECURRENCE.json": "e5fab90f11849b4f709c572495742e88dd2f8448ef6d80b0089da56b093d4287",
+    "FROZEN_MOVING_RECURRENCE.json": "aa530c6a2ff323398412df9e52b864ca955acf9296e5f1303af83090a10a7865",
+    "FROZEN_MOVING_TRANSITIONS.md": "e664b9d3dc00f5d69461bc4cc0c75944805787aeb4bb13fd72113fdb0c28e2ed",
+    "FROZEN_REVERSE_RECURRENCE.json": "6d226a10472571c885513b0259d01e2bf59be48303c24578614e0831f46f1a68",
+    "FROZEN_REVERSE_TRANSITIONS.md": "24586ceae834abcdeda858a9b062b143c3d9a36812d3d485626b0314e978f5d3",
+    "depth_assembler.py": "f4cc2244814f94a7bf817dedce4ee53410b706498f6cd334f8747aa2fac5b69b",
+    "forward_contraction.py": "8c92b8307d7aa68f2348f8ca008ac025292159e0afaa7a2c49e614a8641c5ae4",
+    "moving_contraction.py": "2b54529863f3ac325c5cd3acca4a967c7d6f15a7a2ad409158d2938b120697e0",
+    "reverse_contraction.py": "cf2437327973578e267484090e2a0c3ccb160e3b5451a709d6f7857f46c89b7a"
+  },
+  "state_dimensions": {
+    "frozen_forward": 7,
+    "frozen_reverse_local": 8,
+    "moving_feature_2": 4,
+    "moving_gradient_2": 4,
+    "moving_feature_3": 3,
+    "moving_gradient_3": 3,
+    "terminal_accumulators": 4
+  },
+  "terminal_identity": "C=2*S5+10*AC+10*Bm2+4*m2norm+12*Am3"
+}

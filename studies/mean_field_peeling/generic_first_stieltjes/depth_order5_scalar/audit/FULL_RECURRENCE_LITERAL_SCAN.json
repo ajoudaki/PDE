@@ -1,0 +1,69 @@
+{
+  "schema": "hostile-literal-scan-v1",
+  "frozen_route_A_manifest_sha256": "0699148b5d5fcd77a821908f333e230e36e148afad710e2421c36ab89c7441f8",
+  "frozen_transition_files": {
+    "FROZEN_FORWARD_RECURRENCE.json": "e5fab90f11849b4f709c572495742e88dd2f8448ef6d80b0089da56b093d4287",
+    "FROZEN_REVERSE_RECURRENCE.json": "6d226a10472571c885513b0259d01e2bf59be48303c24578614e0831f46f1a68",
+    "FROZEN_MOVING_RECURRENCE.json": "aa530c6a2ff323398412df9e52b864ca955acf9296e5f1303af83090a10a7865"
+  },
+  "formula_root_count": 38,
+  "formula_root_census": {
+    "frozen_forward_transitions": 7,
+    "frozen_reverse_transitions": 8,
+    "frozen_reverse_sources": 5,
+    "moving_feature_2": 4,
+    "moving_gradient_2_transitions": 4,
+    "moving_gradient_2_sources": 3,
+    "moving_feature_3": 3,
+    "moving_gradient_3_transitions": 3,
+    "moving_gradient_3_sources": 1
+  },
+  "moment_alphabet": {
+    "distinct_M_atom_types": 39,
+    "bad_atom_tokens": [],
+    "all_atom_indices_have_six_slots": true,
+    "maximum_nonzero_derivative_slot": 5
+  },
+  "residual_deterministic_identifiers": [
+    "b", "c10", "c21", "c30", "c32", "d21", "d30", "d32",
+    "e02", "e11", "e13", "e22", "l1", "l2", "l3", "l30",
+    "l32", "l5", "q02", "q13", "q22", "qfm", "r02", "r13",
+    "r22", "rfm", "u", "v", "w", "x", "y"
+  ],
+  "forbidden_token_hits": {
+    "Gaussian": false,
+    "innovation": false,
+    "covariance": false,
+    "response": false,
+    "pseudoinverse": false,
+    "Stein": false,
+    "Wick": false,
+    "expectation": false,
+    "integral": false,
+    "random": false,
+    "tangent": false,
+    "compiler": false,
+    "matrix": false
+  },
+  "chronological_passes": [
+    {"name": "F1", "direction": "forward", "dynamic_dimension": 7},
+    {"name": "R1", "direction": "reverse", "dynamic_dimension": 8},
+    {"name": "F2", "direction": "forward", "dynamic_dimension": 4},
+    {"name": "R2", "direction": "reverse", "dynamic_dimension": 4},
+    {"name": "F3", "direction": "forward", "dynamic_dimension": 3},
+    {"name": "R3", "direction": "reverse", "dynamic_dimension": 3}
+  ],
+  "state_census": {
+    "forward_oriented_dynamic_coordinate_types": 14,
+    "reverse_oriented_dynamic_coordinate_types": 15,
+    "total_dynamic_coordinate_types": 29,
+    "primary_named_coordinate_types_including_known_B00_equals_b": 30,
+    "cached_R1_source_types_per_layer": 5,
+    "cached_R2_source_types_per_layer": 3,
+    "cached_R3_source_types_per_layer": 1,
+    "order_five_terminal_accumulators": 4,
+    "minimality_claimed": false
+  },
+  "literal_M_only_verdict": "PASS",
+  "single_forward_single_reverse_shape_verdict": "NOT SATISFIED"
+}

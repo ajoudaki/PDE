@@ -1,0 +1,119 @@
+{
+  "classification": {
+    "0<=alpha<alpha_star": "shifted_H2_indefinite",
+    "alpha=alpha_star": "all_leading_gates_nonnegative_shifted_H2_singular",
+    "alpha>alpha_star": "all_available_ordinary_and_shifted_Hankel_matrices_positive_definite"
+  },
+  "leading_gate_records": {
+    "H_0_det": {
+      "all_primitive_coefficients_strictly_positive": true,
+      "coefficient_count": 4,
+      "degree": 3,
+      "denominator_power": 2,
+      "primitive_signs_ascending": [1, 1, 1, 1]
+    },
+    "H_1_det": {
+      "all_primitive_coefficients_strictly_positive": true,
+      "coefficient_count": 13,
+      "degree": 12,
+      "denominator_power": 10,
+      "primitive_signs_ascending": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    },
+    "H_2_det": {
+      "all_primitive_coefficients_strictly_positive": true,
+      "coefficient_count": 28,
+      "degree": 27,
+      "denominator_power": 24,
+      "primitive_signs_ascending": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    },
+    "H_plus_0_det": {
+      "all_primitive_coefficients_strictly_positive": true,
+      "coefficient_count": 7,
+      "degree": 6,
+      "denominator_power": 5,
+      "primitive_signs_ascending": [1, 1, 1, 1, 1, 1, 1]
+    },
+    "H_plus_1_det": {
+      "all_primitive_coefficients_strictly_positive": true,
+      "coefficient_count": 19,
+      "degree": 18,
+      "denominator_power": 16,
+      "primitive_signs_ascending": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    },
+    "H_plus_2_det": {
+      "all_primitive_coefficients_strictly_positive": false,
+      "coefficient_count": 37,
+      "coefficients_degree_2_through_36_positive": true,
+      "constant_and_linear_coefficients_negative": true,
+      "degree": 36,
+      "denominator_power": 33,
+      "positive_root_count": 1,
+      "primitive_signs_ascending": [-1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      "root_count_proof": "Descartes_one_sign_change_plus_rational_bracket"
+    },
+    "mu_0": {
+      "all_primitive_coefficients_strictly_positive": true,
+      "coefficient_count": 4,
+      "degree": 3,
+      "denominator_power": 2,
+      "primitive_signs_ascending": [1, 1, 1, 1]
+    },
+    "mu_1": {
+      "all_primitive_coefficients_strictly_positive": true,
+      "coefficient_count": 7,
+      "degree": 6,
+      "denominator_power": 5,
+      "primitive_signs_ascending": [1, 1, 1, 1, 1, 1, 1]
+    },
+    "mu_2": {
+      "all_primitive_coefficients_strictly_positive": true,
+      "coefficient_count": 10,
+      "degree": 9,
+      "denominator_power": 8,
+      "primitive_signs_ascending": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    },
+    "mu_3": {
+      "all_primitive_coefficients_strictly_positive": true,
+      "coefficient_count": 13,
+      "degree": 12,
+      "denominator_power": 11,
+      "primitive_signs_ascending": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    },
+    "mu_4": {
+      "all_primitive_coefficients_strictly_positive": true,
+      "coefficient_count": 16,
+      "degree": 15,
+      "denominator_power": 14,
+      "primitive_signs_ascending": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    },
+    "mu_5": {
+      "all_primitive_coefficients_strictly_positive": true,
+      "coefficient_count": 19,
+      "degree": 18,
+      "denominator_power": 17,
+      "primitive_signs_ascending": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    }
+  },
+  "provenance": {
+    "jet_source": "alpha_interval_certificate.py",
+    "jet_source_sha256": "4603feb334fb001571b9d021a4164fdc2cdcd924838e7549bb221c04ac50e4fd",
+    "retained_interval_source": "ALPHA_INTERVAL_CERTIFICATE.json",
+    "retained_interval_source_sha256": "ec8f441d79e5493718baa45fa773a011b18b6a1ff20bd87f866b94694e1237fd"
+  },
+  "schema": "beta1_six_moment_transition_v1",
+  "scope": {
+    "alpha_domain": "alpha>=0",
+    "beta": 1,
+    "claim": "finite_prefix_only_not_all_order",
+    "moments": "mu_0,...,mu_5"
+  },
+  "unique_positive_transition": {
+    "P_at_lower_sign": "negative",
+    "P_at_upper_sign": "positive",
+    "decimal_display": "0.017519225541486...",
+    "exact_definition": "unique positive root of retained primitive P",
+    "lower_bound": "8759612770743/500000000000000",
+    "symbol": "alpha_star",
+    "upper_bound": "17519225541487/1000000000000000"
+  }
+}

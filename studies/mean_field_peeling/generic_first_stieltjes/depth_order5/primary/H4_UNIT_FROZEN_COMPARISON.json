@@ -1,0 +1,39 @@
+{
+  "comparison_scope": "unit Gram with M_200000=1 in both maps",
+  "counts": {
+    "A": {
+      "discrepancies": 0,
+      "independent_terms": 5,
+      "primary_terms_after_Q0_1": 5
+    },
+    "B": {
+      "discrepancies": 0,
+      "independent_terms": 350,
+      "primary_terms_after_Q0_1": 350
+    },
+    "C": {
+      "discrepancies": 0,
+      "independent_terms": 17641,
+      "primary_terms_after_Q0_1": 17641
+    }
+  },
+  "depth": 4,
+  "first_discrepancies": {
+    "A": [],
+    "B": [],
+    "C": []
+  },
+  "independent_artifact": {
+    "file": "H4_UNIT_COEFFICIENT_MAP.json",
+    "sha256": "4cf33b8cdcaddfc6d0d4a69999d5fb623a6cdc7746807281c3c24cf0c18dedf2"
+  },
+  "independent_freeze_manifest_sha256": "dee0198e119864a90195101466f29f3ab2f248495c6e6a3494f35cafd3f2502b",
+  "pass": true,
+  "primary_artifact": {
+    "file": "H4_UNIT_COEFFICIENTS.json",
+    "sha256": "b3b220b76c8d30037cf0bfc0a8a1dc05884b28601a1c28e45b0daf9ff64faa5d"
+  },
+  "primary_freeze_manifest_sha256": "f4838437c1fb70b14713d39e8438d703434c49ffd72001beeb6fee8d53366b30",
+  "quotient": "unit",
+  "schema": "route-s-frozen-cross-comparison-v1"
+}

@@ -1,0 +1,380 @@
+{
+  "decision": "PASS: every requested root agrees atom by atom",
+  "depths": {
+    "1": {
+      "depth": 1,
+      "roots": {
+        "A": {
+          "candidate_count": 2,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 2,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "AC": {
+          "candidate_count": 5,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 5,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "Am3": {
+          "candidate_count": 14,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 14,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "B": {
+          "candidate_count": 5,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 5,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "Bm2": {
+          "candidate_count": 8,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 8,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "C": {
+          "candidate_count": 16,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 16,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "S5": {
+          "candidate_count": 2,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 2,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "m2norm": {
+          "candidate_count": 11,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 11,
+          "unequal_count": 0,
+          "unequal_sample": []
+        }
+      }
+    },
+    "2": {
+      "depth": 2,
+      "roots": {
+        "A": {
+          "candidate_count": 3,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 3,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "AC": {
+          "candidate_count": 357,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 357,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "Am3": {
+          "candidate_count": 925,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 925,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "B": {
+          "candidate_count": 46,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 46,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "Bm2": {
+          "candidate_count": 493,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 493,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "C": {
+          "candidate_count": 974,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 974,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "S5": {
+          "candidate_count": 72,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 72,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "m2norm": {
+          "candidate_count": 690,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 690,
+          "unequal_count": 0,
+          "unequal_sample": []
+        }
+      }
+    },
+    "3": {
+      "depth": 3,
+      "roots": {
+        "A": {
+          "candidate_count": 4,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 4,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "AC": {
+          "candidate_count": 2705,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 2705,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "Am3": {
+          "candidate_count": 6256,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 6256,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "B": {
+          "candidate_count": 160,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 160,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "Bm2": {
+          "candidate_count": 2873,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 2873,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "C": {
+          "candidate_count": 6519,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 6519,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "S5": {
+          "candidate_count": 530,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 530,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "m2norm": {
+          "candidate_count": 4194,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 4194,
+          "unequal_count": 0,
+          "unequal_sample": []
+        }
+      }
+    },
+    "4": {
+      "depth": 4,
+      "roots": {
+        "A": {
+          "candidate_count": 5,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 5,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "AC": {
+          "candidate_count": 7784,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 7784,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "Am3": {
+          "candidate_count": 17002,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 17002,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "B": {
+          "candidate_count": 350,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 350,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "Bm2": {
+          "candidate_count": 7382,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 7382,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "C": {
+          "candidate_count": 17641,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 17641,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "S5": {
+          "candidate_count": 1613,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 1613,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "m2norm": {
+          "candidate_count": 10859,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 10859,
+          "unequal_count": 0,
+          "unequal_sample": []
+        }
+      }
+    }
+  },
+  "route_A_freeze_sha256": "0699148b5d5fcd77a821908f333e230e36e148afad710e2421c36ab89c7441f8",
+  "route_S_freeze_sha256": "d731ec66b067b8739df305426c6aa6d06bbc309d5fd624bd16d1c283ca649728",
+  "schema": "post-freeze-two-route-atomwise-comparison-v1"
+}

@@ -1,0 +1,113 @@
+{
+  "activation": "sin(x)/sqrt((1-exp(-2))/2)",
+  "decision": "inconclusive",
+  "decision_reason": "three widths saturate the required intercept+1/n+1/n^2 curvature comparison",
+  "fits": {
+    "layer2_gamma04": {
+      "chi_square": 0.3949700542354575,
+      "degrees_of_freedom": 1,
+      "goodness_p": 0.5296984310201541,
+      "intercept": 8271.934409252479,
+      "intercept_se": 222.6986184754528,
+      "prediction": 8126.876969271377,
+      "slope": 43145.384790487224,
+      "z": 0.6513621008254761
+    },
+    "layer2_q4": {
+      "chi_square": 0.0034982183605991876,
+      "degrees_of_freedom": 1,
+      "goodness_p": 0.952836028476348,
+      "intercept": -10672.216327558823,
+      "intercept_se": 532.7143084581655,
+      "prediction": -9623.98465952871,
+      "slope": 37063.731400457924,
+      "z": -1.9677182523292978
+    },
+    "layer3_gamma04": {
+      "chi_square": 0.5550340711954859,
+      "degrees_of_freedom": 1,
+      "goodness_p": 0.4562680394976196,
+      "intercept": 34445.20140933417,
+      "intercept_se": 927.9512276150144,
+      "prediction": 33368.26869702187,
+      "slope": 206037.11567657697,
+      "z": 1.1605488308692609
+    },
+    "layer3_q4": {
+      "chi_square": 0.007444353836529939,
+      "degrees_of_freedom": 1,
+      "goodness_p": 0.9312433050974992,
+      "intercept": -37015.83830982365,
+      "intercept_se": 2745.3958943913563,
+      "prediction": -33492.39282553275,
+      "slope": -3955.0140347937763,
+      "z": -1.2834016002897963
+    }
+  },
+  "hidden_layers": 3,
+  "means": {
+    "layer2_gamma04": [
+      9037.108137892885,
+      8503.102156196317,
+      8475.726348347727
+    ],
+    "layer2_q4": [
+      -10072.768643035364,
+      -10408.90208594534,
+      -10520.070977367935
+    ],
+    "layer3_gamma04": [
+      38116.19586566404,
+      35508.836641920854,
+      35417.757636645925
+    ],
+    "layer3_q4": [
+      -37248.18405784403,
+      -36856.1662169537,
+      -37084.59793478727
+    ]
+  },
+  "nonfinite_count": 0,
+  "observed_layers": [
+    2,
+    3
+  ],
+  "prediction": {
+    "layer2_gamma04": 8126.876969271377,
+    "layer2_q4": -9623.98465952871,
+    "layer3_gamma04": 33368.26869702187,
+    "layer3_q4": -33492.39282553275
+  },
+  "raw_path": "H3_NORMALIZED_SINE_RAW.npz",
+  "raw_sha256": "d99931b2976f87f2c40988399555d08ab203893d9e77107a546f62b49b95faef",
+  "replicates_per_width": 1024,
+  "runner_serialization_failure": "the preregistered runner completed and wrote raw data, then failed because numpy.bool_ is not JSON serializable",
+  "seed_formula": "19000000 + 100000*width + replicate",
+  "standard_errors": {
+    "layer2_gamma04": [
+      332.3428094656347,
+      206.96634558509697,
+      146.2507288078503
+    ],
+    "layer2_q4": [
+      813.1576811123981,
+      533.4720253369705,
+      346.1108189845959
+    ],
+    "layer3_gamma04": [
+      1404.8244484554657,
+      891.7879208460237,
+      605.3357778680266
+    ],
+    "layer3_q4": [
+      4409.954629773035,
+      2691.394388271996,
+      1743.4148801048789
+    ]
+  },
+  "widths": [
+    64,
+    128,
+    256
+  ]
+}

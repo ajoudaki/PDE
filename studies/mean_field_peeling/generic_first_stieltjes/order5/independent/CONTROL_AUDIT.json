@@ -1,0 +1,67 @@
+{
+  "affine_1_plus_x_tagged": {
+    "actual": [
+      "6",
+      "112",
+      "4400"
+    ],
+    "expected": [
+      "6",
+      "112",
+      "4400"
+    ],
+    "pass": true
+  },
+  "constant_1_unit": {
+    "actual": [
+      "1",
+      "0",
+      "0"
+    ],
+    "expected": [
+      "1",
+      "0",
+      "0"
+    ],
+    "pass": true
+  },
+  "linear_unit": {
+    "actual": [
+      "3",
+      "48",
+      "1464"
+    ],
+    "expected": [
+      "3",
+      "48",
+      "1464"
+    ],
+    "pass": true
+  },
+  "parity_term_counts": {
+    "tagged": [
+      0,
+      0,
+      0
+    ],
+    "unit": [
+      0,
+      0,
+      0
+    ]
+  },
+  "pass": true,
+  "quadratic_tagged": {
+    "actual": [
+      "111",
+      "1685184",
+      "77400633120"
+    ],
+    "expected": [
+      "111",
+      "1685184",
+      "77400633120"
+    ],
+    "pass": true
+  }
+}

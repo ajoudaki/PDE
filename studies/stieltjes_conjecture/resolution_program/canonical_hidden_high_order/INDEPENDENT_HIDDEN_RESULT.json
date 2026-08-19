@@ -1,0 +1,383 @@
+{
+  "alpha": "1",
+  "arithmetic": "exact Fraction",
+  "campaign1_prefix_source": {
+    "path": "studies/mean_field_peeling/quadratic_compiler/campaign1/results_order9_q2_order8.json",
+    "sha256": "02215aa7c18f3550a19f34b89734b6bf5b66a2825e8aa5bc103517767982ee1a"
+  },
+  "diagnostics": [
+    {
+      "column_wick_cache": 3,
+      "degree": 0,
+      "elapsed_seconds": 0.0002070702612400055,
+      "max_rss_mib": 17.20703125,
+      "row_wick_cache": 4,
+      "terms": {
+        "A": 1,
+        "B": 1,
+        "Q": 1,
+        "R": 1,
+        "X": 1,
+        "Y": 1,
+        "Z": 1
+      }
+    },
+    {
+      "column_wick_cache": 7,
+      "degree": 1,
+      "elapsed_seconds": 0.0008875094354152679,
+      "max_rss_mib": 17.20703125,
+      "row_wick_cache": 17,
+      "terms": {
+        "A": 1,
+        "B": 3,
+        "Q": 2,
+        "R": 2,
+        "X": 1,
+        "Y": 2,
+        "Z": 2
+      }
+    },
+    {
+      "column_wick_cache": 25,
+      "degree": 2,
+      "elapsed_seconds": 0.0021696239709854126,
+      "max_rss_mib": 17.20703125,
+      "row_wick_cache": 51,
+      "terms": {
+        "A": 2,
+        "B": 5,
+        "Q": 2,
+        "R": 2,
+        "X": 3,
+        "Y": 4,
+        "Z": 4
+      }
+    },
+    {
+      "column_wick_cache": 61,
+      "degree": 3,
+      "elapsed_seconds": 0.0045236460864543915,
+      "max_rss_mib": 17.20703125,
+      "row_wick_cache": 135,
+      "terms": {
+        "A": 5,
+        "B": 10,
+        "Q": 5,
+        "R": 5,
+        "X": 4,
+        "Y": 7,
+        "Z": 7
+      }
+    },
+    {
+      "column_wick_cache": 153,
+      "degree": 4,
+      "elapsed_seconds": 0.010698165744543076,
+      "max_rss_mib": 17.20703125,
+      "row_wick_cache": 310,
+      "terms": {
+        "A": 9,
+        "B": 17,
+        "Q": 6,
+        "R": 6,
+        "X": 9,
+        "Y": 13,
+        "Z": 13
+      }
+    },
+    {
+      "column_wick_cache": 320,
+      "degree": 5,
+      "elapsed_seconds": 0.02871014177799225,
+      "max_rss_mib": 17.54296875,
+      "row_wick_cache": 663,
+      "terms": {
+        "A": 17,
+        "B": 29,
+        "Q": 13,
+        "R": 13,
+        "X": 12,
+        "Y": 21,
+        "Z": 21
+      }
+    },
+    {
+      "column_wick_cache": 688,
+      "degree": 6,
+      "elapsed_seconds": 0.06736959889531136,
+      "max_rss_mib": 17.54296875,
+      "row_wick_cache": 1302,
+      "terms": {
+        "A": 28,
+        "B": 45,
+        "Q": 17,
+        "R": 17,
+        "X": 23,
+        "Y": 35,
+        "Z": 35
+      }
+    },
+    {
+      "column_wick_cache": 1312,
+      "degree": 7,
+      "elapsed_seconds": 0.1601724550127983,
+      "max_rss_mib": 17.80078125,
+      "row_wick_cache": 2511,
+      "terms": {
+        "A": 47,
+        "B": 72,
+        "Q": 32,
+        "R": 32,
+        "X": 31,
+        "Y": 53,
+        "Z": 53
+      }
+    },
+    {
+      "column_wick_cache": 2526,
+      "degree": 8,
+      "elapsed_seconds": 0.36998872458934784,
+      "max_rss_mib": 18.57421875,
+      "row_wick_cache": 4569,
+      "terms": {
+        "A": 72,
+        "B": 107,
+        "Q": 43,
+        "R": 43,
+        "X": 53,
+        "Y": 83,
+        "Z": 83
+      }
+    },
+    {
+      "column_wick_cache": 4533,
+      "degree": 9,
+      "elapsed_seconds": 0.8365663401782513,
+      "max_rss_mib": 19.48046875,
+      "row_wick_cache": 8117,
+      "terms": {
+        "A": 112,
+        "B": 161,
+        "Q": 73,
+        "R": 73,
+        "X": 72,
+        "Y": 121,
+        "Z": 121
+      }
+    },
+    {
+      "column_wick_cache": 8109,
+      "degree": 10,
+      "elapsed_seconds": 1.8580161817371845,
+      "max_rss_mib": 21.0859375,
+      "row_wick_cache": 13940,
+      "terms": {
+        "A": 164,
+        "B": 232,
+        "Q": 99,
+        "R": 99,
+        "X": 114,
+        "Y": 180,
+        "Z": 180
+      }
+    },
+    {
+      "column_wick_cache": 13784,
+      "degree": 11,
+      "elapsed_seconds": 4.004034593701363,
+      "max_rss_mib": 24.1171875,
+      "row_wick_cache": 23543,
+      "terms": {
+        "A": 243,
+        "B": 336,
+        "Q": 156,
+        "R": 156,
+        "X": 154,
+        "Y": 255,
+        "Z": 255
+      }
+    },
+    {
+      "column_wick_cache": 23459,
+      "degree": 12,
+      "elapsed_seconds": 8.396933261305094,
+      "max_rss_mib": 27.39453125,
+      "row_wick_cache": 38703,
+      "terms": {
+        "A": 344,
+        "B": 471,
+        "Q": 211,
+        "R": 211,
+        "X": 232,
+        "Y": 366,
+        "Z": 366
+      }
+    },
+    {
+      "column_wick_cache": 38311,
+      "degree": 13,
+      "elapsed_seconds": 17.198555253446102,
+      "max_rss_mib": 33.41796875,
+      "row_wick_cache": 62834,
+      "terms": {
+        "A": 491,
+        "B": 663,
+        "Q": 316,
+        "R": 316,
+        "X": 311,
+        "Y": 507,
+        "Z": 507
+      }
+    },
+    {
+      "column_wick_cache": 62391,
+      "degree": 14,
+      "elapsed_seconds": 34.584779266268015,
+      "max_rss_mib": 45.30859375,
+      "row_wick_cache": 99708,
+      "terms": {
+        "A": 678,
+        "B": 909,
+        "Q": 424,
+        "R": 424,
+        "X": 450,
+        "Y": 708,
+        "Z": 708
+      }
+    },
+    {
+      "column_wick_cache": 98862,
+      "degree": 15,
+      "elapsed_seconds": 68.04465083032846,
+      "max_rss_mib": 58.1953125,
+      "row_wick_cache": 156561,
+      "terms": {
+        "A": 942,
+        "B": 1249,
+        "Q": 611,
+        "R": 611,
+        "X": 599,
+        "Y": 962,
+        "Z": 962
+      }
+    },
+    {
+      "column_wick_cache": 155796,
+      "degree": 16,
+      "elapsed_seconds": 132.020219091326,
+      "max_rss_mib": 80.18359375,
+      "row_wick_cache": 241906,
+      "terms": {
+        "A": 1275,
+        "B": 1683,
+        "Q": 813,
+        "R": 813,
+        "X": 841,
+        "Y": 1314,
+        "Z": 1314
+      }
+    },
+    {
+      "column_wick_cache": 240016,
+      "degree": 17,
+      "elapsed_seconds": 155.37439192831516,
+      "max_rss_mib": 95.8515625,
+      "row_wick_cache": 241906,
+      "terms": {
+        "A": 1733,
+        "B": 0,
+        "Q": 0,
+        "R": 0,
+        "X": 1109,
+        "Y": 1758,
+        "Z": 1758
+      }
+    }
+  ],
+  "elapsed_seconds": 158.10966288298368,
+  "feature_derivatives": {
+    "0": "0",
+    "1": "111",
+    "10": "0",
+    "11": "291982832387585872335470592",
+    "12": "0",
+    "13": "102853512279246664353620526022656",
+    "14": "0",
+    "15": "49079184579077107476764629402991788032",
+    "16": "0",
+    "17": "30555969894096099495444855650521777374167040",
+    "2": "0",
+    "3": "1685184",
+    "4": "0",
+    "5": "77400633120",
+    "6": "0",
+    "7": "7315868433079296",
+    "8": "0",
+    "9": "1181161141825400561664"
+  },
+  "gates": {
+    "accepted_campaign1_q1_prefix": true,
+    "accepted_campaign1_q2_prefix": true,
+    "accepted_feature_prefix": true,
+    "feature_parity": true,
+    "q1_parity": true,
+    "q1_ward_identity": true,
+    "q2_parity": true
+  },
+  "independent_base": {
+    "path": "studies/stieltjes_conjecture/resolution_program/canonical_high_order/independent_canonical_recurrence.py",
+    "sha256": "8c0aa4f49b7920c739b385664743a678db7a12f5160baee38a1b40acab2274ea"
+  },
+  "max_feature_order": 17,
+  "max_hidden_order": 16,
+  "max_rss_mib": 95.8515625,
+  "metric": "D_a + D_u + D_W",
+  "observable_definitions": {
+    "Q1": "E[X]=E[u^2]",
+    "Q2": "E[Z^2]"
+  },
+  "q1_derivatives": {
+    "0": "1",
+    "1": "0",
+    "10": "9449289134603204493312",
+    "11": "0",
+    "12": "2335862659100686978683764736",
+    "13": "0",
+    "14": "822828098233973314828964208181248",
+    "15": "0",
+    "16": "392633476632616859814117035223934304256",
+    "2": "888",
+    "3": "0",
+    "4": "13481472",
+    "5": "0",
+    "6": "619205064960",
+    "7": "0",
+    "8": "58526947464634368",
+    "9": "0"
+  },
+  "q2_derivatives": {
+    "0": "3",
+    "1": "0",
+    "10": "487967758483103808178176",
+    "11": "0",
+    "12": "145387231337138218955012063232",
+    "13": "0",
+    "14": "60684843616663232253966043066638336",
+    "15": "0",
+    "16": "33941339036399103897550977212861900095488",
+    "2": "12372",
+    "3": "0",
+    "4": "311319936",
+    "5": "0",
+    "6": "19984529682816",
+    "7": "0",
+    "8": "2441783779120539648",
+    "9": "0"
+  },
+  "schema": "independent_canonical_hidden_recurrence_v1",
+  "source": {
+    "path": "studies/stieltjes_conjecture/resolution_program/canonical_hidden_high_order/independent_hidden_recurrence.py",
+    "sha256": "fd923a6bff5e7f6d3f09a56f8a2ec208068615e7545c7e2d31178dd7c4817893"
+  }
+}

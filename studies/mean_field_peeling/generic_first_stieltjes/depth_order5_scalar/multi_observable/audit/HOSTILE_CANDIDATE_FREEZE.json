@@ -1,0 +1,19 @@
+{
+  "artifact": "hostile_gamma04_derivation.py",
+  "artifact_sha256": "c54ea0eb59725111c6823ae964c87074004d7afb5a903e184717ea78ac81b9f0",
+  "canonical_stdout_sha256": "06c9ec42b54400d18c0e621ed9ea52560445f2fff19408cdba950c182e17566c",
+  "preexisting_wick_engine": "../../independent/moving_contraction.py",
+  "preexisting_wick_engine_sha256": "2b54529863f3ac325c5cd3acca4a967c7d6f15a7a2ad409158d2938b120697e0",
+  "frozen_before_producer_formula_inspection": true,
+  "candidate_state": ["gamma04", "a41", "a43"],
+  "candidate_substitutions": {
+    "l41": "9*q02 + 8*w + a41",
+    "l43": "1 + a43"
+  },
+  "candidate_transition_term_counts": {
+    "gamma04_next": 82,
+    "a41_next": 20,
+    "a43_next": 1
+  },
+  "status": "hostile_candidate_only_pending_all_promotion_gates"
+}

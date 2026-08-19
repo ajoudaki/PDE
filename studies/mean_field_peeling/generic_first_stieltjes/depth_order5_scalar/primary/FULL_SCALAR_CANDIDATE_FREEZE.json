@@ -1,0 +1,35 @@
+{
+  "schema": "scalar-order5-full-candidate-v1",
+  "frozen_before_independent_assembler_inspection": true,
+  "claim_status_at_freeze": "full-M-only-candidate-awaiting-independent-and-hostile-audit",
+  "identity": "C=2*S5+10*<A,C3>+10*<B,m2>+4*||m2||^2+12*<A,m3>",
+  "passes": [
+    "frozen_feature_forward",
+    "frozen_gradient_reverse",
+    "moving_feature_order2_forward",
+    "moving_gradient_order2_reverse",
+    "moving_feature_order3_forward",
+    "moving_gradient_order3_reverse"
+  ],
+  "state_dimensions": {
+    "frozen_feature_forward": 7,
+    "frozen_gradient_reverse": 9,
+    "moving_feature_order2_forward": 4,
+    "moving_gradient_order2_reverse": 4,
+    "moving_feature_order3_forward": 3,
+    "moving_gradient_order3_reverse": 3,
+    "total_named_local_coordinates": 30
+  },
+  "files": {
+    "scalar_frozen_recurrence.py": "dabd303fae05ab1b04557636350de1be41ebda46b4f0cd30a5aafaf7dc3e5708",
+    "FROZEN_SECTOR_TRANSITIONS.cse.txt": "d5c6c081f6a953126d29b67ec953a32e26d038327f2b92bda6037098d47ce721",
+    "moving_scalar_extension.py": "c71b5e2bf8feea2066ec5e6f8038a808f5b2d0951f8cd44eac7ef3b7b06f2fdf",
+    "MOVING_SECTOR_TRANSITIONS.cse.txt": "d394fff8e50d0b6a357f5712ba00f2ba961a2c8a7997de3ff22631c561988fe8",
+    "independent_local_FROZEN_MOVING_RECURRENCE.json": "aa530c6a2ff323398412df9e52b864ca955acf9296e5f1303af83090a10a7865",
+    "independent_local_FROZEN_MOVING_TRANSITIONS.md": "e664b9d3dc00f5d69461bc4cc0c75944805787aeb4bb13fd72113fdb0c28e2ed"
+  },
+  "pre_freeze_self_check": {
+    "C_monomials": {"H2": 974, "H3": 6519, "H4": 17641},
+    "C_discrepancies": {"H2": 0, "H3": 0, "H4": 0}
+  }
+}

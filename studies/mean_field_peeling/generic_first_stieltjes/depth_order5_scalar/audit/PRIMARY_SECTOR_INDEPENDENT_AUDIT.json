@@ -1,0 +1,43 @@
+{
+  "schema": "independent-literal-primary-sector-audit-v1",
+  "candidate_sha256": "d5c6c081f6a953126d29b67ec953a32e26d038327f2b92bda6037098d47ce721",
+  "imports_producer_module": false,
+  "parser": "audit_primary_sector_independent.py",
+  "grammar": "addition, multiplication, rational constants, declared scalar states, M atoms",
+  "state_dimensions": {"forward": 7, "backward": 9},
+  "order3_projection_transition_discrepancies": {
+    "V_NEXT": 0,
+    "P_NEXT": 0,
+    "J3_NEXT": 0,
+    "B11_NEXT": 0,
+    "K10_NEXT": 0
+  },
+  "unique_transition_atoms": 33,
+  "maximum_transition_derivative": 5,
+  "full_C_atoms_absent_from_partial_transition": [
+    "M_004000",
+    "M_024000",
+    "M_032100",
+    "M_123000",
+    "M_240000",
+    "M_321000"
+  ],
+  "depths": {
+    "2": {
+      "A": {"terms": 3, "discrepancies": 0},
+      "B": {"terms": 46, "discrepancies": 0},
+      "partial_C": {"terms": 451, "reference_terms": 974, "missing": 523, "extra": 0, "unequal": 334, "discrepancies": 857}
+    },
+    "3": {
+      "A": {"terms": 4, "discrepancies": 0},
+      "B": {"terms": 160, "discrepancies": 0},
+      "partial_C": {"terms": 3177, "reference_terms": 6519, "missing": 3342, "extra": 0, "unequal": 2453, "discrepancies": 5795}
+    },
+    "4": {
+      "A": {"terms": 5, "discrepancies": 0},
+      "B": {"terms": 350, "discrepancies": 0},
+      "partial_C": {"terms": 8898, "reference_terms": 17641, "missing": 8743, "extra": 0, "unequal": 6869, "discrepancies": 15612}
+    }
+  },
+  "verdict": "PASS for the declared three-family sector and the complete A/B projection; FAIL as a full C_H witness"
+}

@@ -1,5 +1,16 @@
 # Resolution of the approximate one-source Wick--Taylor conjecture
 
+> **Corrected scope.**  Read \(c_k\) below as the fixed-order **annealed**
+> coefficient
+> \(
+> c_k=\lim_{n\to\infty}\mathbb E[D_{+,n}^k f_n(0)]/k!
+> \), now supplied by the exact special quadratic forest compiler.  This
+> source's earlier claims of convergence of the random derivatives in
+> probability and \(L^1\) are retracted: concentration and identification
+> with derivatives of an actual positive-time mean-field trajectory remain
+> open.  The step limit below belongs to the prescribed Taylor-closure
+> family, not to the network loss.
+
 ## Two-hidden-layer quadratic \(\mu\)P network, squared loss, label \(1\)
 
 ## Executive verdict
@@ -21,7 +32,8 @@ More precisely, two statements had been conflated.
 The failure is decisive. If
 
 \[
-c_k=\lim_{n\to\infty}\frac{D_{+,n}^k f_n(0)}{k!},
+c_k=\lim_{n\to\infty}\mathbb E\!\left[
+\frac{D_{+,n}^k f_n(0)}{k!}\right],
 \]
 
 then an odd subsequence obeys a factorial lower bound implying
@@ -48,17 +60,21 @@ that estimate.
 
 ## 1. Exact model and feature-time derivation
 
-For one fixed input, write
+For one fixed input, suppress the input and write
 
 \[
-h_i=\frac{x_i^2}{2},
+h_i^{(1)}=\frac{(z_i^{(1)})^2}{2},
 \qquad
-z_j=\sum_{i=1}^n W_{ji}h_i,
+z_j^{(2)}=\sum_{i=1}^n W_{ji}h_i^{(1)},
 \qquad
-f_n=\frac1{2n}\sum_{j=1}^n a_jz_j^2,
+h_j^{(2)}=\frac{(z_j^{(2)})^2}{2},
+\qquad
+f_n=\frac1n\sum_{j=1}^n a_jh_j^{(2)},
 \]
 
-where \(x=z^{(1)}\), \(W=W^{(2)}\), and \(a=W^{(3)}\). The squared loss is
+where \(a_j\) is the rescaled readout coordinate: the corresponding raw
+output weight is \(a_j/n\). For compactness below, write
+\(h=h^{(1)}\) and \(z=z^{(2)}\). The squared loss is
 
 \[
 \mathcal L_n=(1-f_n)^2.
@@ -67,7 +83,7 @@ where \(x=z^{(1)}\), \(W=W^{(2)}\), and \(a=W^{(3)}\). The squared loss is
 Initialization is independent:
 
 \[
-x_i\sim N(0,1),
+z_i^{(1)}\sim N(0,1),
 \qquad
 a_j\sim N(0,1),
 \qquad
@@ -75,11 +91,57 @@ W_{ji}\sim N\!\left(0,\frac\gamma n\right),
 \quad \gamma>0.
 \]
 
+The maintained exact compiler uses unit Gaussian middle weights and unit
+activation scale.  To map it to this historical convention, write
+\(\lambda=\gamma\) and set
+
+\[
+W^\circ=\sqrt{\frac n\lambda}\,W,
+\qquad
+z^\circ=\frac1{\sqrt n}W^\circ(z^{(1)})^{\odot2},
+\qquad
+f^\circ=\frac1n\sum_j a_j(z_j^\circ)^2.
+\]
+
+Then
+
+\[
+z=\frac{\sqrt\lambda}{2}z^\circ,
+\qquad
+f_n=\frac\lambda8f^\circ,
+\]
+
+and, if \(D_a^\circ,D_{z^{(1)}}^\circ,D_W^\circ\) are the three block
+contributions to \(n\nabla f^\circ\mathbin\cdot\nabla\),
+
+\[
+D_{+,n}
+=\frac18\left(
+\lambda D_a^\circ+\lambda D_{z^{(1)}}^\circ+D_W^\circ
+\right).
+\]
+
+Hence this is the same decorated-forest grammar with constant block weights,
+not literally the unit-block-metric point.  In particular,
+
+\[
+\mathbb E[D_{+,n}^k f_n]
+=\frac\lambda{8^{k+1}}
+\mathbb E\!\left[
+(\lambda D_a^\circ+\lambda D_{z^{(1)}}^\circ+D_W^\circ)^k f^\circ
+\right].
+\]
+
+This identity is the bridge by which the exact leading-forest selection
+applies here. At \(\lambda=4/3\) the block-weighted expression gives the
+historical first coefficient \(17/6\); the separate unit-block point gives
+\(111\).
+
 Let \(D_{+,n}\) denote differentiation along \(\mu\)P gradient ascent on the
 readout \(f_n\):
 
 \[
-D_{+,n}x_i=n\frac{\partial f_n}{\partial x_i},
+D_{+,n}z_i^{(1)}=n\frac{\partial f_n}{\partial z_i^{(1)}},
 \qquad
 D_{+,n}W_{ji}=\frac{\partial f_n}{\partial W_{ji}},
 \qquad
@@ -97,7 +159,7 @@ D_{+,n}W_{ji}=\frac1n a_jz_jh_i,
 \]
 
 \[
-D_{+,n}x_i=x_i\sum_jW_{ji}a_jz_j.
+D_{+,n}z_i^{(1)}=z_i^{(1)}\sum_jW_{ji}a_jz_j.
 \]
 
 Define
@@ -120,16 +182,16 @@ q_n(a\odot z)+2K_n(a\odot z).
 If \(\Theta_n(\tau)\) is this readout-ascent orbit and
 
 \[
-H_n(\tau)=f_n(\Theta_n(\tau)),
+F_n(\tau)=f_n(\Theta_n(\tau)),
 \]
 
-then \(H_n'=\kappa_n\ge0\), where \(\kappa_n\) is the full \(\mu\)P tangent
+then \(F_n'=\kappa_n\ge0\), where \(\kappa_n\) is the full \(\mu\)P tangent
 kernel. Squared-loss flow follows the same orbit with the residual clock
 
 \[
-\dot\tau_n(t)=2\bigl(1-H_n(\tau_n(t))\bigr),
+\dot\tau_n(t)=2\bigl(1-F_n(\tau_n(t))\bigr),
 \qquad
-f_n(t)=H_n(\tau_n(t)).
+f_n(t)=F_n(\tau_n(t)).
 \tag{2}
 \]
 
@@ -140,17 +202,18 @@ Equation (2) is the source of the valid loss-stability theorem.
 ## 2. The precise conjecture being resolved
 
 The concrete construction proposed previously takes the deterministic
-fixed-order Wick coefficients
+fixed-order annealed Wick coefficients
 
 \[
-c_k=\lim_{n\to\infty}\frac{D_{+,n}^kf_n(0)}{k!}
+c_k=\lim_{n\to\infty}\mathbb E\!\left[
+\frac{D_{+,n}^kf_n(0)}{k!}\right]
 \tag{3}
 \]
 
 and forms
 
 \[
-H_M(s)=\sum_{k=0}^M c_ks^k.
+F_M(s)=\sum_{k=0}^M c_ks^k.
 \tag{4}
 \]
 
@@ -161,7 +224,7 @@ It then solves the one-field, one-source PDE
 =
 2\bigl(1-U_M(t,0)\bigr)\partial_sU_M(t,s),
 \qquad
-U_M(0,s)=H_M(s),
+U_M(0,s)=F_M(s),
 \tag{5}
 \]
 
@@ -187,19 +250,30 @@ equivalent to the finite system
 
 with \(u_k(0)=k!c_k\).
 
-The sharpened Wick--Taylor approximate-closure conjecture was
+The historical conjecture wrote an unqualified distance to the random
+finite-width curve.  To make the probability mode explicit, for \(T>0\) set
+
+\[
+d_T(g,h)=\min\!\left\{1,
+\sup_{0\le t\le T}|g(t)-h(t)|\right\}.
+\]
+
+A precise weak Wick--Taylor shadowing conjecture is
 
 \[
 \lim_{M\to\infty}
 \limsup_{n\to\infty}
-\sup_{t\ge0}
-|\mathcal L_M(t)-\mathcal L_n(t)|=0.
+\mathbb E\!\left[d_T(\mathcal L_M,\mathcal L_n)\right]=0
+\qquad\text{for every }T>0.
 \tag{8}
 \]
 
-Equivalently, the missing lemma was that (4) approximates a finite
+The proposed proof route additionally required (4) to approximate a finite
 target-reaching feature profile uniformly on its feature-time interval. The
-theorem below refutes both formulations.
+theorem below refutes the precise probabilistic formulation. Expected
+untruncated uniform error is stronger and also fails. Deterministic mean-curve
+shadowing is a different, generally weaker condition, but its common-target
+version is likewise ruled out by the same Cauchy triangle argument.
 
 ---
 
@@ -295,7 +369,7 @@ f_n
 =
 \frac1{8n}
 \sum_{j,i,\ell}
-a_jW_{ji}W_{j\ell}x_i^2x_\ell^2.
+a_jW_{ji}W_{j\ell}(z_i^{(1)})^2(z_\ell^{(1)})^2.
 \tag{12}
 \]
 
@@ -329,10 +403,11 @@ q_n\longrightarrow q_0:=\mathbb E[h^2]=\frac34.
 \tag{13}
 \]
 
-The previously established fixed-order Wick/concentration theorem supplies
-the deterministic limit in (3), in probability and in \(L^1\). Fixed-degree
-Gaussian hypercontractivity together with the fixed-order second-moment bound
-supplies the uniform integrability needed for the latter statement.
+The current exact quadratic decorated-forest compiler supplies the annealed
+limit in (3) by an exact derivative grammar, leading-width Wick selection,
+and factorization.  It does not supply concentration of the random quantity
+\(D_{+,n}^kf_n(0)/k!\), convergence in probability or \(L^1\), or a
+width/time derivative interchange theorem.
 
 ---
 
@@ -425,8 +500,8 @@ Thus no estimate of the form
 |c_k|\le CR^{-k}
 \]
 
-holds for any \(R>0\). If a macroscopic profile \(H\) exists and its
-derivatives satisfy \(H^{(k)}(0)=k!c_k\), then \(H\) is not analytic at zero
+holds for any \(R>0\). If a macroscopic profile \(F\) exists and its
+derivatives satisfy \(F^{(k)}(0)=k!c_k\), then \(F\) is not analytic at zero
 and its Taylor series does not represent it. Without that identification, the
 unconditional statement is that the **formal limiting Wick series** has radius
 zero.
@@ -447,7 +522,7 @@ every fixed \(s>0\), the terms \(c_ks^k\) fail to tend to zero along the odd
 subsequence. Hence
 
 \[
-H_M(s)=\sum_{k=0}^M c_ks^k\longrightarrow+\infty
+F_M(s)=\sum_{k=0}^M c_ks^k\longrightarrow+\infty
 \qquad(s>0).
 \tag{19}
 \]
@@ -455,13 +530,13 @@ H_M(s)=\sum_{k=0}^M c_ks^k\longrightarrow+\infty
 For \(y\in(0,1)\), let \(r_M(y)\) be the first positive source point satisfying
 
 \[
-H_M(r_M(y))=y.
+F_M(r_M(y))=y.
 \]
 
 If \(k\le M\) is odd, then
 
 \[
-y=H_M(r_M(y))\ge c_kr_M(y)^k,
+y=F_M(r_M(y))\ge c_kr_M(y)^k,
 \]
 
 so
@@ -480,7 +555,7 @@ r_M(y)\longrightarrow0.
 The characteristic clock for (5) satisfies
 
 \[
-\dot s_M=2(1-H_M(s_M)),
+\dot s_M=2(1-F_M(s_M)),
 \qquad
 s_M(0)=0.
 \]
@@ -490,7 +565,7 @@ The physical time needed to reach output \(y\) is
 \[
 t_M(y)
 =
-\int_0^{r_M(y)}\frac{ds}{2(1-H_M(s))}
+\int_0^{r_M(y)}\frac{ds}{2(1-F_M(s))}
 \le
 \frac{r_M(y)}{2(1-y)}
 \longrightarrow0.
@@ -529,18 +604,16 @@ Since every \(\mathcal L_M\) is continuous, uniform convergence on any
 \([0,T]\), \(T>0\), is impossible. In fact the family is not uniformly Cauchy.
 
 This alone refutes (8), independently of whether the true finite-width loss
-curves possess a regular large-width limit. If the right side of (8) tended to
-zero, then for any \(M,M'\),
+curves possess a regular large-width limit. If (8) held, then the bounded
+metric triangle inequality gives, for any \(M,M'\),
 
 \[
-\|\mathcal L_M-\mathcal L_{M'}\|_\infty
+d_T(\mathcal L_M,\mathcal L_{M'})
 \le
-\limsup_{n\to\infty}
-\bigl(
-\|\mathcal L_M-\mathcal L_n\|_\infty
-+
-\|\mathcal L_n-\mathcal L_{M'}\|_\infty
-\bigr),
+\limsup_{n\to\infty}\mathbb E\!\left[
+d_T(\mathcal L_M,\mathcal L_n)
++d_T(\mathcal L_n,\mathcal L_{M'})
+\right],
 \]
 
 which would force \((\mathcal L_M)\) to be uniformly Cauchy, a contradiction.
@@ -558,7 +631,7 @@ There is also an exact deterministic illustration inside the full network. The
 symmetric manifold
 
 \[
-x_i=x,
+z_i^{(1)}=\zeta,
 \qquad
 a_j=a,
 \qquad
@@ -568,13 +641,13 @@ W_{ji}=\frac wn
 is invariant under feature ascent. On it,
 
 \[
-f=\frac18aw^2x^4,
+f=\frac18aw^2\zeta^4,
 \quad
-a'=\frac18w^2x^4,
+a'=\frac18w^2\zeta^4,
 \quad
-w'=\frac14awx^4,
+w'=\frac14aw\zeta^4,
 \quad
-x'=\frac12aw^2x^3.
+\zeta'=\frac12aw^2\zeta^3.
 \]
 
 Choose
@@ -584,7 +657,7 @@ a(0)=-1,
 \qquad
 w(0)=2,
 \qquad
-x(0)=\sqrt8.
+\zeta(0)=\sqrt8.
 \]
 
 The invariants
@@ -592,7 +665,7 @@ The invariants
 \[
 w^2-2a^2=2,
 \qquad
-x^2-4a^2=4
+\zeta^2-4a^2=4
 \]
 
 reduce the dynamics to
@@ -631,17 +704,17 @@ original argument.
 
 ## 8. What remains true: the observable stability theorem
 
-Suppose some independently constructed monotone profile \(\widetilde H\)
-approximates the true feature profile \(H\) on a common target-reaching interval
+Suppose some independently constructed monotone profile \(\widetilde F\)
+approximates the true feature profile \(F\) on a common target-reaching interval
 and
 
 \[
-0<\mu\le H'\le K,
+0<\mu\le F'\le K,
 \qquad
-\|H-\widetilde H\|_\infty\le\varepsilon.
+\|F-\widetilde F\|_\infty\le\varepsilon.
 \]
 
-Let the two squared-loss clocks be driven by \(H\) and \(\widetilde H\). The
+Let the two squared-loss clocks be driven by \(F\) and \(\widetilde F\). The
 previous clock-comparison proof remains valid:
 
 \[
@@ -669,22 +742,25 @@ and
 The derivative bounds can be replaced by a strict-monotonicity separation
 modulus if only qualitative convergence is needed. Thus the global loss
 observable is genuinely input-to-state stable. Equation (24) simply cannot be
-applied with \(\varepsilon=\|H-H_M\|_\infty\), because that quantity does not
+applied with \(\varepsilon=\|F-F_M\|_\infty\), because that quantity does not
 tend to zero for the Wick--Taylor sequence.
 
 ---
 
-## 9. Exact scope of the negative result
+## 9. Current classification
 
-The following statements are now completely resolved.
+The following table separates resolved formal/compiler statements from the
+remaining concentration and trajectory questions.
 
 | Claim | Verdict |
 |---|---|
 | Squared loss turns a known small residual-compatible defect into a bounded global loss error | True |
-| Fixed-order derivative/Wick coefficients exist and concentrate | True |
-| Their initial Taylor series has positive radius | False; its radius is zero |
-| The degree-\(M\) zero-flux source jet approximates the feature orbit | False |
-| The corresponding PDE losses converge uniformly in physical time | False |
+| Fixed-order annealed derivative/Wick coefficients exist | True for this exact special quadratic compiler |
+| The random derivatives concentrate at those coefficients | Open |
+| The formal annealed initial Taylor series has positive radius | False; its radius is zero |
+| The degree-\(M\) zero-flux source jet approximates an identified feature orbit | Not established; the prescribed family is internally non-Cauchy |
+| The prescribed PDE losses converge uniformly in physical time | False for that closure family |
+| The formal jet is the derivative jet of an actual positive-time mean-field curve | Open |
 | Real target fitting implies the target lies inside the initial Taylor disk | False |
 | Every possible non-Taylor finite-source approximation is impossible | Not proved and not implied |
 
@@ -741,10 +817,12 @@ justified resummation.
 
 ## Final conclusion
 
-The concrete approximate one-source PDE proposed from the initial Wick jet is
-not merely unproved; it is false for the Gaussian quadratic network. The
-factorial Gaussian-moment tail forces zero Taylor radius, collapse of the
-finite-PDE target times, and failure of uniform physical-time convergence.
+The prescribed approximate one-source PDE family built from the formal
+annealed Wick jet is not merely unproved; it is internally non-Cauchy. The
+factorial Gaussian-moment tail forces zero Taylor radius, collapse of that
+family's target times, and failure of uniform physical-time convergence. This
+is not a theorem that the actual Gaussian quadratic network loss is a step or
+that every finite PDE fails.
 
 The genuinely positive insight survives intact: squared loss makes the loss
 observable stable **once** a small residual-compatible feature-profile error
@@ -753,7 +831,8 @@ truncation small.
 
 Thus the exact resolution is:
 
-> **Global loss stability: proved. Wick--Taylor approximate closure: disproved.**
+> **Global loss stability under its hypotheses: proved. The prescribed formal
+> Wick--Taylor closure family: disproved.**
 > Any affirmative approximate-PDE theorem for the same Gaussian full model must
 > be nonperturbative and real-axis in nature; it cannot be obtained by summing
 > or truncating the fixed-order Wick/Taylor jet in the ordinary sense.

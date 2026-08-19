@@ -3,11 +3,13 @@
 **Status:** Canonical maintained theory document  
 **Detailed execution:**
 [`MUP_TRAINING_CASE_STUDY.md`](MUP_TRAINING_CASE_STUDY.md)  
+**Generic fixed-observable specializations:**
+[`generic_first_stieltjes/`](generic_first_stieltjes/)<br>
 **Exact quadratic specialization:**
 [`quadratic_compiler/`](quadratic_compiler/)
 **Historical source:**
 [`archive/ORIGINAL_NOTES_AND_NTK_SAMPLE.md`](archive/ORIGINAL_NOTES_AND_NTK_SAMPLE.md)  
-**Last consolidated:** 2026-08-13
+**Last consolidated:** 2026-08-19
 
 ## 1. Purpose and status
 
@@ -39,18 +41,55 @@ Four claim levels are used throughout.
 4. **Open theorem program.** The broad Gaussian-normal-form and
    depth-linear finite-state claims remain targets, not established theorems.
 
-There is now one important exact specialization. For the one-sample,
+There are now two important exact specializations. For the one-sample,
 two-hidden-layer quadratic model, derivative monomials close under a finite
-decorated-forest grammar. The resulting compiler and its exact order-eleven
-certificates are described in Section 11. This proves a substantial
-special-case peeling calculus; it does not upgrade the general theorem target.
+decorated-forest grammar; Section 11 records its certificates. For the single
+order-three directional observable \(D_c^3g_c\), the
+[`generic_first_stieltjes/`](generic_first_stieltjes/) study closes a
+response-aware Gaussian recursion for generic polynomially-smooth activations
+at every separately fixed hidden depth and batch size. These prove substantial
+special-case peeling calculi; neither upgrades the general theorem target.
 
 For a fixed batch of size $B$, a primitive preactivation row is a
 $B$-dimensional Gaussian vector. Higher-order states may require $q$ jointly
 generated base vectors and therefore a Gaussian integral of total dimension
 $qB$. The number $q$ is finite for each fixed finite construction and is
 independent of width. A bound on $q$ independent of depth is an additional
-open finite-state-closure problem.
+open finite-state-closure problem for the general grammar. The audited
+order-three specialization above is a narrower exception: its compact forward
+transition uses one \(4B\)-dimensional Gaussian block at every layer.
+
+At two hidden layers and one sample, the same specialization is now carried
+through \(F^{(5)}(0)\).  Complete Wick--Stein elimination gives a terminal
+formula containing only products of one-dimensional activation moments, with
+derivatives through order five.  Independent compilers agree on all 974
+unit-Gram monomials of the fifth derivative and on the full symbolic input-
+variance dependence.  This is an exact fixed-order exception, not a generic
+order-five observable compiler or a depth-uniform closure theorem.
+
+That one-sample order-five axis is now explicitly closed and independently
+audited at three and four hidden layers as well.  For \((A,B,C)=
+(F'(0),F^{(3)}(0),F^{(5)}(0))\), the layer-tagged distributed maps contain
+\((4,342,27\,421)\) and \((5,1\,929,462\,776)\) terms, while the unit-Gram maps
+contain \((4,160,6\,519)\) and \((5,350,17\,641)\).  Two frozen compilers agree
+on every coefficient, including the full symbolic \(Q^0\) dependence.  The
+underlying arbitrary-fixed-depth construction keeps 21 forward covariances,
+15 reverse covariances, and 30 response coefficients per reused hidden
+matrix: 66 states and one forward/reverse outer sweep per layer.  This is a
+finite-state construction for this particular order-five observable.  It is
+not a theorem that arbitrary observables admit the same registry, that fully
+distributed formulas stay small, or that a regime with \(H=H(n)\) converges.
+In the shared-activation unit-Gram quotient, the
+[`depth_order5_scalar` report](generic_first_stieltjes/depth_order5_scalar/ARBITRARY_DEPTH_B1_ORDER5_SCALAR_RECURRENCE.md)
+now replaces those 66 response-aware entries by six alternating deterministic
+scalar sweeps of dimensions \(7/8/4/4/3/3\), or 29 propagated coordinate
+types.  All 38 local maps use only one-dimensional \(M_\nu\) atoms and their
+exact H=2,3,4 expansions have zero coefficient discrepancies.  The dependency
+chain is F1/R1/F2/R2/F3/R3; no compression to a single forward and single
+backward sweep has been proved.
+The annealed identification is direct under an all-orders polynomially-smooth
+activation envelope; a finite \(C^5\) envelope alone still requires a separate
+probability and uniform-integrability bridge.
 
 ## 2. Network, raw parameters, and scaling ledger
 
@@ -540,6 +579,21 @@ requires a state-space bound independent of depth at fixed batch size,
 derivative order, step count, and observable schema. That finite-state
 strengthening remains open in general.
 
+There is now one audited narrower exception at derivative order five.  For
+the one-sample output jet \((F'(0),F^{(3)}(0),F^{(5)}(0))\), the response-aware
+compiler uses exactly 66 covariance/response entries per reused hidden
+matrix, so its outer chronological program has \(66(H-1)\) registry entries
+and one forward/reverse sweep at every separately fixed hidden depth.  The
+terminal H=3 and H=4 maps have been emitted and independently compared
+atom-by-atom.  In the unit-Gram quotient, a second representation eliminates
+the response objects completely and closes on 29 deterministic scalar types
+across six alternating sweeps.  Its local grammar is independent of depth and
+its H=2,3,4 expansions are exactly audited.  This does not close the general
+state family \(\mathcal S\) in (10.1): the result is for one observable, its
+strict two-sweep compression remains open, and assigning distinct layer tags
+and fully distributing the fifth-order formula grows from 1,045 terms at H=2
+to 462,776 at H=4.
+
 ## 11. Exact quadratic decorated-forest specialization
 
 ### 11.1 Model and scope
@@ -620,23 +674,79 @@ F^{(3)}(0)&=1\,685\,184,\\
 F^{(5)}(0)&=77\,400\,633\,120,\\
 F^{(7)}(0)&=7\,315\,868\,433\,079\,296,\\
 F^{(9)}(0)&=1\,181\,161\,141\,825\,400\,561\,664,\\
-F^{(11)}(0)&=291\,982\,832\,387\,585\,872\,335\,470\,592.
+F^{(11)}(0)&=291\,982\,832\,387\,585\,872\,335\,470\,592,\\
+F^{(13)}(0)&=102\,853\,512\,279\,246\,664\,353\,620\,526\,022\,656,\\
+F^{(15)}(0)&=49\,079\,184\,579\,077\,107\,476\,764\,629\,402\,991\,788\,032,\\
+F^{(17)}(0)&=30\,555\,969\,894\,096\,099\,495\,444\,855\,650\,521\,777\,374\,167\,040.
 \end{aligned}
 $$
 
 The order-eleven number is the exact sum of all twelve Wick-pair sectors. The audit combines a transparent Python prototype, direct pairings at low order, exhaustive differentiated-forest expansion, compressed connected recursion, and a second equality-partition evaluator. Every accepted higher-order route first reproduced all ten order-nine sectors exactly. Order-eleven sectors $P=1,\ldots,9$ were evaluated from exhaustive exports with checked 512-bit arithmetic; $P=10,11,12$ were separately certified by the high-sector machinery. A conservative bound needs only 275 bits through order thirteen, so overflow would throw rather than wrap.
 
-These are exact integer outputs of audited computer algebra under the proved special-case reduction, not hand enumerations or formally verified software. In particular, the order-eleven $P=9$ sector has one complete checked route but has not been redundantly recomputed by the newer connected-sector engine. Full provenance is in [the D11 audit](quadratic_compiler/D11_LOWER_SECTOR_AUDIT.md) and [sector-engine audit](quadratic_compiler/SECTOR_ENGINE.md).
+The order-thirteen value comes from a separate exact finite Gaussian-program
+recurrence on the \(\beta=1\) block-metric family.  It reproduces every
+Campaign-4 coefficient through order nine, the accepted canonical value
+through order eleven, and the complete solvable \(\alpha=0\) axis through
+order thirteen.  A direct \(\mathbb Q[\alpha]\) implementation independently
+recomputes every coefficient, while the connected-tree compiler reproduces
+substantial new order-eleven and order-thirteen sectors.
 
-### 11.5 Order-thirteen and acceleration audits
+The order-fifteen and order-seventeen values come from a bounded canonical
+scalar successor of that recurrence.  A production implementation and an
+isolated implementation with a separate sparse Gaussian-monomial and Wick
+engine each reproduced the entire accepted prefix through order thirteen,
+all parity zeros through order sixteen, and both new integers exactly.  The
+retained production order-seventeen run used 230.318 seconds and 189.4375 MiB
+peak RSS.  The independent route used 43.59 seconds at standalone order
+fifteen and 163.08 seconds with 94,060 KiB peak RSS at order seventeen.  Full
+results and retained route records are in the
+[canonical high-order successor](../stieltjes_conjecture/resolution_program/canonical_high_order/).
+Its frozen protocol ended at order seventeen; no order-nineteen computation
+was attempted.
 
-The complete $F^{(13)}(0)$ is unknown. Exact positive-subsum calculations give monotone lower bounds, culminating at
+The same two scalar recurrences were subsequently contracted against the
+hidden observables
+
+$$
+Q_1=\mathbb E[u^2],\qquad Q_2=\mathbb E[z^2].
+$$
+
+They agree exactly through $Q_1^{(16)}(0)$ and $Q_2^{(16)}(0)$ after
+reproducing the Campaign-1 jets through order eight.  The Ward identity
+$Q_1'=8F$ additionally fixes $Q_1^{(18)}(0)$ from the already accepted
+$F^{(17)}(0)$, with no order-nineteen feature computation.  Downstream exact
+inversion supplies nine first-hidden and eight second-hidden Stieltjes
+moment candidates; every accessible squared- and literal-RMS Hankel principal
+minor is strictly positive.  Sources, route records, and certificates are in
+the [canonical hidden-norm successor](../stieltjes_conjecture/resolution_program/canonical_hidden_high_order/).
+These are model-specific fixed-order contractions, not an all-order hidden
+measure or positive-time trajectory theorem.
+
+These are exact integer outputs of audited computer algebra under proved
+special-case reductions, not hand enumerations or formally verified software.
+In particular, the order-eleven \(P=9\) sector has one complete checked route
+but has not been redundantly recomputed by the newer connected-sector engine.
+Full forest provenance is in [the D11 audit](quadratic_compiler/D11_LOWER_SECTOR_AUDIT.md)
+and [sector-engine audit](quadratic_compiler/SECTOR_ENGINE.md); the
+order-thirteen through order-seventeen recurrences and independent checks are
+in the downstream
+[resolution program](../stieltjes_conjecture/resolution_program/).
+
+### 11.5 Historical order-thirteen and acceleration audits
+
+The complete \(F^{(13)}(0)\) is now the exact value in Section 11.4.  Before
+the Gaussian-program recurrence was found, exact positive-subsum calculations
+gave monotone lower bounds, culminating at
 
 $$
 50\,393\,647\,763\,255\,899\,049\,472\,742\,772\,736
 $$
 
-for component-edge cap fourteen. This is only a lower bound. In the maximal $P=14$ sector, discovery found 465,075 recurrence states and 325,190 base trees; only the first 704 base contractions completed, so no sector subtotal was certified. See [the D13 audit](quadratic_compiler/D13_ATTEMPT.md).
+for component-edge cap fourteen. This remains only a historical lower bound.
+In the maximal \(P=14\) sector, discovery found 465,075 recurrence states and
+325,190 base trees; only the first 704 base contractions completed, so no
+sector subtotal was certified by that route. See
+[the D13 audit](quadratic_compiler/D13_ATTEMPT.md).
 
 Several accelerations were audited:
 
@@ -654,7 +764,9 @@ Six bounded compiler campaigns tested how much of the same exact grammar
 survives beyond the canonical point.
 
 1. A relative block-metric ray jointly computed the output through order nine
-   and the second-hidden squared-RMS response through order eight.
+   and the second-hidden squared-RMS response through order eight.  The later
+   canonical-only Gaussian-program successor extends that hidden response
+   through order sixteen without extending the full parameter ray.
 2. Two symmetry-reduced inputs with equal and opposite labels were computed
    through order seven while retaining the input Gram matrix in both the
    initialization law and the first-layer gradient metric.
@@ -928,6 +1040,12 @@ The proposed contribution must be separated from established prior work.
 - Recursive first- and higher-derivative kernel analyses also have prior art.
 - A mechanical compiler from a specified contracted derivative grammar to a
   completely eliminated Gaussian normal form is an open target claim.
+- For the particular one-sample order-five output jet, such a compiler and a
+  66-state-per-hidden-matrix response registry are explicit.  In the unit-Gram
+  quotient, an explicit 29-coordinate-type, six-sweep scalar recurrence
+  eliminates that response registry into one-dimensional moments.  Frozen
+  terminal maps have been audited at hidden depths two, three, and four.  This
+  is evidence for, not a proof of, the preceding grammar-wide target.
 - Termination after maximal-layer eliminations, depth-independent finite-state
   closure, and a linear-size shared DAG are progressively stronger open
   targets.
@@ -1098,6 +1216,10 @@ The audited examples require the following maintained form of the program.
     covariance can be order one.
 20. ReLU requires weak derivatives, smoothing, or Gaussian boundary terms;
     pointwise $C^r$ formulas do not apply directly.
+21. A constant response-registry size and an \(O(L)\) outer sweep do not imply
+    a small fully distributed normal form.  The order-five one-sample depth
+    compiler provides an explicit counterexample to that inference even
+    though its compact factored DAG remains executable.
 
 ## 17. Required nonclaims
 
@@ -1107,6 +1229,8 @@ The current program does not prove:
 - complete positive-time training dynamics;
 - arbitrary or width-dependent training times;
 - a uniform-in-depth probability limit;
+- a depth-uniform bound on the size of a fully distributed order-five normal
+  form merely from the existence of a fixed per-layer response registry;
 - elementary closed forms for general activations;
 - polynomial complexity in derivative order or training-step count;
 - self-averaging of every admissible observable;
@@ -1280,13 +1404,64 @@ three-hidden-layer backward and
 training calculations expose conditional Stein corrections and lower-layer
 boundary transport. The canonical one-sample quadratic compiler proves an
 exact decorated-forest specialization and supplies accepted integer
-coefficients through derivative order eleven. Its campaigns retain the same
-basic grammar while varying a relative block metric and hidden observable,
-two- and three-input symmetry channels, a shifted first-hidden activation,
-and two independent hidden-block metric weights.  Four reach exact finite
-Hankel endpoints downstream; the three-input route stops at lower moments,
-and the threshold diagnostic contributes no new D13 bound. They provide exact
-finite-order continuum tests, not a generic compiler theorem. The general nonlinear two-step closure remains formal, its
+coefficients through derivative order eleven.  A separate finite
+Gaussian-program recurrence on the \(\beta=1\) block-metric family supplies
+the complete exact \(\alpha\)-polynomial jet through order thirteen,
+including the canonical coefficient at \((1,1)\).  Two bounded exact scalar
+implementations then extend the canonical jet through order seventeen,
+reproducing one another and the full accepted lower prefix.  Its campaigns retain the
+same basic grammar while varying a relative block metric and hidden
+observable, two- and three-input symmetry channels, a shifted first-hidden
+activation, and two independent hidden-block metric weights.  Four reached
+their frozen finite Hankel endpoints downstream; the three-input route stops
+at lower moments, and the threshold diagnostic contributes no new bound at
+its own claim level.  The order-thirteen \(\beta=1\) jet yields a negative
+shifted \(3\times3\) output-kernel Hankel determinant throughout
+\(0<\alpha\leq1/100\).  It therefore disproves the uniform block-metric
+Stieltjes extension without freezing a layer, while leaving the canonical
+\((1,1)\) all-order claim open.  Exact inversion of the canonical successor
+gives eight output moments and positive-definite ordinary and shifted
+$4\times4$ Hankel matrices.  Hidden contractions of the same recurrence give
+nine first-hidden and eight second-hidden moments, with every accessible
+squared- and literal-RMS Hankel principal minor strictly positive.  These are
+finite-order passes, not all-order theorems.  No
+order-nineteen run was attempted.  These results remain model-specific and
+do not prove a generic compiler theorem.
+
+For one specific order-three directional observable, the generic-activation
+program has now been closed beyond the earlier formal examples.  The
+[`generic_first_stieltjes/`](generic_first_stieltjes/) specialization gives an
+explicit response-aware Gaussian recursion for
+\(C_{H,c}=\lim_n\mathbb E[D_c^3g_c]\) at every separately fixed hidden depth
+\(H\), batch size \(B\), channel \(c\), and deterministic PSD input Gram,
+under an all-orders polynomially-smooth activation envelope.  Its compact DAG
+uses \(O(B^2)\) retained state per layer, and an independent hostile audit
+checks the transpose chronology, parity cancellations, tensor-program
+probability bridge, exact reductions, and arbitrary-label cubic MSE
+coefficient.  This proves closure for that fixed observable, not for the
+general admissible grammar, growing \(H\) or \(B\), or positive training time.
+
+For the narrower one-sample order-five route, the same study gives
+algebraically flattened and independently audited expressions for
+\(F^{(5)}(0)\) at two, three, and four hidden layers.  The respective unit-Gram
+fifth-derivative maps have 974, 6,519, and 17,641 moment monomials and no
+auxiliary Gaussian state.  At three and four layers, separately frozen
+compilers also agree on all 27,421 and 462,776 layer-tagged fifth-derivative
+terms, and an exact degree/interpolation/holdout audit certifies the complete
+symbolic-\(Q^0\) dependence.  The accompanying arbitrary-fixed-depth
+chronology has 66 covariance/response states per hidden matrix for general
+forward Grams.  Its unit-Gram contraction instead has 29 deterministic scalar
+coordinate types in six alternating sweeps, with every transition written in
+one-dimensional \(M_\nu\) moments and H=2,3,4 literal comparisons all exact.
+This is not yet the stronger one-forward/one-backward representation.  Under
+the all-orders polynomially-smooth fixed-program envelope these are annealed
+width-limit theorems; finite \(C^5\) regularity alone does not supply
+expectation convergence.  The formulas provide the first two local
+kernel/Padé coefficients, while normalized sine has both coefficients
+negative.  Thus neither positivity of a generic Stieltjes sequence nor a
+depth-uniform small flattened representation follows.
+
+The general nonlinear two-step closure remains formal, its
 deep-linear specialization is audited, and the finite-state theorem for the
 full proposed admissible grammar remains open. None of the exact
 specializations should be mistaken for that general theorem.

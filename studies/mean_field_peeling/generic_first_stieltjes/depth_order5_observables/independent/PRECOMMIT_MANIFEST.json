@@ -1,0 +1,8 @@
+{
+  "status": "frozen before prediction evaluation, competing-formula inspection, or regression",
+  "files": {
+    "EVIDENCE_LEDGER.md": "7c384355ed65bb7ccd5f51eecd86eb0f52bbb1ef92d12052506127000d282239",
+    "NONPOLYNOMIAL_EXPERIMENT_CONTRACT.md": "4e4c5d9ec334f08188f2a458e8d8b1276feae0acefd44651d6f7c5908ad09997",
+    "RESEARCH_CONTRACT.md": "72ec3a86d8546babbf0ed5ef60006623c7d4ca59989d91e79afad368ad8a47dc"
+  }
+}

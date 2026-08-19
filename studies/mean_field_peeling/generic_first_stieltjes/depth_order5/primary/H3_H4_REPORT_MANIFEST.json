@@ -1,0 +1,52 @@
+{
+  "audit_sources": {
+    "audit/FROZEN_MAP_COMPARISON.json": "3aac902de814ae7ce0fb8c6a4a0053c45b205301c35b5bffcefcfb487b874801",
+    "audit/NORMALIZED_SINE_EXPERIMENT.json": "2b9250cbad87ce388d268a0cbe4d378b2e4d0924cb65f4003e2344fa118adccc",
+    "audit/PROBABILITY_AUDIT.md": "80427072059ab6b24d1fe9dfd105f50d45f7946a340c3a51099ce83b02f3732e",
+    "audit/STRUCTURAL_AUDIT.md": "14cc8ba612deb8d80bc787752fe3464e10c286cfcb13c33994d72759b5c1c885",
+    "audit/SYMBOLIC_Q0_AUDIT.json": "fb7dbab7cea9b6e1a2e18275ee695f6be56e8640199640a2bb1758ea864ee6ef",
+    "audit/TWO_ORACLE_GATE.json": "0061d6d1eda31edd9b37f9d49da54bcd465cb7344c6862ff2cebe2f771aff741",
+    "independent/CONTROL_AUDIT.json": "46fd0f81ae38a58532ed52b1fc9ff884fbd042323929f64b420e5a453ac141eb",
+    "independent/FROZEN_MANIFEST.json": "dee0198e119864a90195101466f29f3ab2f248495c6e6a3494f35cafd3f2502b",
+    "primary/NORMALIZED_SINE_CONTROL.json": "26200c1818b4fccec36eeae5e71d766a7a2132c13e42fc6965a35ad87f458448",
+    "primary/PRIMARY_FREEZE_MANIFEST.json": "f4838437c1fb70b14713d39e8438d703434c49ffd72001beeb6fee8d53366b30"
+  },
+  "consistency_rule": "build_bytes() concatenates the preamble and each embedded source without transforming embedded payload bytes; --check reconstructs and requires byte equality with the report",
+  "embedded_sources": {
+    "ARBITRARY_DEPTH_RECURSION.md": {
+      "bytes": 7992,
+      "mode": "markdown",
+      "sha256": "4ae39e965fdee328149a5e147e33cb1fc646c6ed976d5f9eaa6c6bfd0517eb1c"
+    },
+    "H3_LAYER_TAGGED_ABC.cse.txt": {
+      "bytes": 91766,
+      "mode": "text",
+      "sha256": "d9429b70d3513b1c0a4193f73c867db05b33d7ef81093d1ab2b2070992c66b83"
+    },
+    "H3_UNIT_ABC.cse.txt": {
+      "bytes": 83129,
+      "mode": "text",
+      "sha256": "e84b07dd1d7befd5585163d0c11de3215323ba8659b421c0fcd2825ba9c90eaa"
+    },
+    "H4_LAYER_TAGGED_ABC.cse.txt": {
+      "bytes": 143367,
+      "mode": "text",
+      "sha256": "9f2380ec15aa2b342c0dde025a03db9ad31b2c9b3fcb85f3bced1997994a0bb5"
+    },
+    "H4_UNIT_ABC.cse.txt": {
+      "bytes": 131790,
+      "mode": "text",
+      "sha256": "5459dfef9d487dd75f81fd7147389973e3e8c63c646f5266df24041c949199c2"
+    }
+  },
+  "preamble": {
+    "file": "REPORT_PREAMBLE.md",
+    "sha256": "b719bfda38eff249d49992fdf4543ca33c7571a3e57f343815a1e97cc694e052"
+  },
+  "report": {
+    "bytes": 473129,
+    "file": "H3_H4_ORDER5_SELF_CONTAINED.md",
+    "sha256": "ea7730e5dc57c5cf96b9e60d289f1fb5f56797520604919818aa4bd958bd2414"
+  },
+  "schema": "route-s-self-contained-report-v1"
+}

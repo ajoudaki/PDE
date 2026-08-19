@@ -1,0 +1,18 @@
+{
+  "artifact": "hostile_gamma04_derivation_v2.py",
+  "artifact_sha256": "da2472615819c59b1149906d3d17152c068bed65cd2eebc399190bdf0ac42e8d",
+  "canonical_stdout_sha256": "d77aa4a01488a5dc9a275c897293a09d1225ebdf9d027bdd3135f0f6a1093520",
+  "frozen_before_producer_formula_inspection": true,
+  "candidate_state": ["gamma04", "a41", "a43"],
+  "candidate_substitutions": {
+    "l41": "9*q02 + 8*w + a41",
+    "l43": "1 + a43"
+  },
+  "candidate_transition_term_counts": {
+    "gamma04_next": 83,
+    "a41_next": 20,
+    "a43_next": 1
+  },
+  "forward_gaussian_slots": 5,
+  "status": "hostile_candidate_only_pending_all_promotion_gates"
+}

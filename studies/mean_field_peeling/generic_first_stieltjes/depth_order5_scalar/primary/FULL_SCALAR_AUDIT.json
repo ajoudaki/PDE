@@ -1,0 +1,335 @@
+{
+  "candidate_freeze_sha256": "d731ec66b067b8739df305426c6aa6d06bbc309d5fd624bd16d1c283ca649728",
+  "decision": "PASS: zero exact coefficient discrepancies at H=2,3,4",
+  "depths": {
+    "2": {
+      "comparisons": {
+        "A": {
+          "candidate_count": 3,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 3,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "B": {
+          "candidate_count": 46,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 46,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "C": {
+          "candidate_count": 974,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 974,
+          "unequal_count": 0,
+          "unequal_sample": []
+        }
+      },
+      "controls": {
+        "constant_1": {
+          "A": "1",
+          "B": "0",
+          "C": "0"
+        },
+        "formal_unit_quotient_x2": {
+          "A": "21",
+          "B": "321600",
+          "C": "9391605792"
+        },
+        "linear": {
+          "A": "3",
+          "B": "48",
+          "C": "1464"
+        },
+        "normalized_affine_(1+x)/sqrt2": {
+          "A": "7/4",
+          "B": "31/4",
+          "C": "615/8"
+        },
+        "normalized_quadratic_x2/sqrt3": {
+          "A": "37/9",
+          "B": "561728/243",
+          "C": "25800211040/6561"
+        },
+        "unit_affine_3_4": {
+          "A": "1281/625",
+          "B": "5524032/390625",
+          "C": "50875994112/244140625"
+        }
+      },
+      "expected_monomial_counts": {
+        "A": 3,
+        "B": 46,
+        "C": 974
+      },
+      "reference": {
+        "path": "order5/compiler/PRIMARY_UNIT_COEFFICIENT_MAP.json",
+        "sha256": "68dd13460fb5bfab187d0d7e61b90adeec43a2311c2cab2726fd68b73fbf37f2"
+      },
+      "sector_monomial_counts": {
+        "AC": 357,
+        "Am3": 925,
+        "Bm2": 493,
+        "S5": 72,
+        "m2norm": 690
+      },
+      "terminal_alphabet": {
+        "bad_atom_arities": [],
+        "derivative_ceiling": 5,
+        "distinct_DAG_atom_nodes": 49,
+        "residual_symbols": []
+      }
+    },
+    "3": {
+      "comparisons": {
+        "A": {
+          "candidate_count": 4,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 4,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "B": {
+          "candidate_count": 160,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 160,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "C": {
+          "candidate_count": 6519,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 6519,
+          "unequal_count": 0,
+          "unequal_sample": []
+        }
+      },
+      "controls": {
+        "constant_1": {
+          "A": "1",
+          "B": "0",
+          "C": "0"
+        },
+        "formal_unit_quotient_x2": {
+          "A": "85",
+          "B": "128455488",
+          "C": "313377512166432"
+        },
+        "linear": {
+          "A": "4",
+          "B": "160",
+          "C": "13888"
+        },
+        "normalized_affine_(1+x)/sqrt2": {
+          "A": "15/8",
+          "B": "12",
+          "C": "13447/64"
+        },
+        "normalized_quadratic_x2/sqrt3": {
+          "A": "175/27",
+          "B": "191282624/6561",
+          "C": "655126467433760/1594323"
+        },
+        "unit_affine_3_4": {
+          "A": "36121/15625",
+          "B": "6667077184/244140625",
+          "C": "3167910851940352/3814697265625"
+        }
+      },
+      "expected_monomial_counts": {
+        "A": 4,
+        "B": 160,
+        "C": 6519
+      },
+      "reference": {
+        "path": "depth_order5/primary/H3_UNIT_COEFFICIENTS.json",
+        "sha256": "564c6a27d6071e8601d21fd167dfd8f21d7ac9fe2323695a626eeebf73b980c6"
+      },
+      "sector_monomial_counts": {
+        "AC": 2705,
+        "Am3": 6256,
+        "Bm2": 2873,
+        "S5": 530,
+        "m2norm": 4194
+      },
+      "terminal_alphabet": {
+        "bad_atom_arities": [],
+        "derivative_ceiling": 5,
+        "distinct_DAG_atom_nodes": 49,
+        "residual_symbols": []
+      }
+    },
+    "4": {
+      "comparisons": {
+        "A": {
+          "candidate_count": 5,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 5,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "B": {
+          "candidate_count": 350,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 350,
+          "unequal_count": 0,
+          "unequal_sample": []
+        },
+        "C": {
+          "candidate_count": 17641,
+          "discrepancy_count": 0,
+          "extra_count": 0,
+          "extra_sample": [],
+          "missing_count": 0,
+          "missing_sample": [],
+          "reference_count": 17641,
+          "unequal_count": 0,
+          "unequal_sample": []
+        }
+      },
+      "controls": {
+        "constant_1": {
+          "A": "1",
+          "B": "0",
+          "C": "0"
+        },
+        "formal_unit_quotient_x2": {
+          "A": "341",
+          "B": "64111733568",
+          "C": "17305789745609614368"
+        },
+        "linear": {
+          "A": "5",
+          "B": "400",
+          "C": "73240"
+        },
+        "normalized_affine_(1+x)/sqrt2": {
+          "A": "31/16",
+          "B": "479/32",
+          "C": "179193/512"
+        },
+        "normalized_quadratic_x2/sqrt3": {
+          "A": "781/81",
+          "B": "51094842176/177147",
+          "C": "10678160325919415648/387420489"
+        },
+        "unit_affine_3_4": {
+          "A": "968561/390625",
+          "B": "1243020561728/30517578125",
+          "C": "4542332166067032064/2384185791015625"
+        }
+      },
+      "expected_monomial_counts": {
+        "A": 5,
+        "B": 350,
+        "C": 17641
+      },
+      "reference": {
+        "path": "depth_order5/primary/H4_UNIT_COEFFICIENTS.json",
+        "sha256": "b3b220b76c8d30037cf0bfc0a8a1dc05884b28601a1c28e45b0daf9ff64faa5d"
+      },
+      "sector_monomial_counts": {
+        "AC": 7784,
+        "Am3": 17002,
+        "Bm2": 7382,
+        "S5": 1613,
+        "m2norm": 10859
+      },
+      "terminal_alphabet": {
+        "bad_atom_arities": [],
+        "derivative_ceiling": 5,
+        "distinct_DAG_atom_nodes": 49,
+        "residual_symbols": []
+      }
+    }
+  },
+  "lower_order_projection_transition_discrepancies": {
+    "B11_NEXT": 0,
+    "J3_NEXT": 0,
+    "K10_NEXT": 0,
+    "P_NEXT": 0,
+    "V_NEXT": 0
+  },
+  "nonpolynomial_regression": {
+    "decision": "pass",
+    "fits": {
+      "3": {
+        "chi_square_p_value": 0.40264614231358925,
+        "intercept": 1276231.4159962696,
+        "intercept_standard_error": 166117.42782995058,
+        "population_prediction": 1076854.4593623898,
+        "valid": true,
+        "z": 1.2002169744524096
+      },
+      "4": {
+        "chi_square_p_value": 0.36470095865171764,
+        "intercept": 21151695.38525535,
+        "intercept_standard_error": 3501920.195078012,
+        "population_prediction": 19488618.524776105,
+        "valid": true,
+        "z": 0.474904271895379
+      }
+    },
+    "scope": "pre-registered normalized-sine finite-width regression inherited after exact map equality",
+    "sha256": "2b9250cbad87ce388d268a0cbe4d378b2e4d0924cb65f4003e2344fa118adccc",
+    "total_networks": 7700
+  },
+  "quadratic_controls": {
+    "files": {
+      "depth_order5/independent/CONTROL_AUDIT.json": "46fd0f81ae38a58532ed52b1fc9ff884fbd042323929f64b420e5a453ac141eb",
+      "order5/compiler/MANIFEST.json": "130f826a4c23b7dec04dbb6c47261ccdb68a7af397dea228ef2ca3b2b16c3877"
+    },
+    "scope": "companion layer-tagged/arbitrary-Gram maps; not a substitution into the unit-Gram recurrence",
+    "values": {
+      "2": {
+        "A": "111",
+        "B": "1685184",
+        "C": "77400633120"
+      },
+      "3": {
+        "A": "14175",
+        "B": "139445032896",
+        "C": "4298284752832899360"
+      },
+      "4": {
+        "A": "138351807",
+        "B": "59385566223611232192",
+        "C": "81427352525619060193821492876576"
+      }
+    }
+  },
+  "schema": "full-scalar-order5-exact-audit-v1"
+}

@@ -1,0 +1,39 @@
+{
+  "comparison_scope": "layer tags retained and primary Q0 specialized exactly to 1",
+  "counts": {
+    "A": {
+      "discrepancies": 0,
+      "independent_terms": 4,
+      "primary_terms_after_Q0_1": 4
+    },
+    "B": {
+      "discrepancies": 0,
+      "independent_terms": 342,
+      "primary_terms_after_Q0_1": 342
+    },
+    "C": {
+      "discrepancies": 0,
+      "independent_terms": 27421,
+      "primary_terms_after_Q0_1": 27421
+    }
+  },
+  "depth": 3,
+  "first_discrepancies": {
+    "A": [],
+    "B": [],
+    "C": []
+  },
+  "independent_artifact": {
+    "file": "H3_TAGGED_COEFFICIENT_MAP.json",
+    "sha256": "453a5be1960cf98403f30068efedaff0e17f3bfe90853b7c7b711c08da0ba253"
+  },
+  "independent_freeze_manifest_sha256": "dee0198e119864a90195101466f29f3ab2f248495c6e6a3494f35cafd3f2502b",
+  "pass": true,
+  "primary_artifact": {
+    "file": "H3_LAYER_TAGGED_COEFFICIENTS.json",
+    "sha256": "72d220fd8c855b07568ba513087a40dcbd9883bf96d26d04a919ff218b8cf5c4"
+  },
+  "primary_freeze_manifest_sha256": "f4838437c1fb70b14713d39e8438d703434c49ffd72001beeb6fee8d53366b30",
+  "quotient": "tagged",
+  "schema": "route-s-frozen-cross-comparison-v1"
+}

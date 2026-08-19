@@ -1,0 +1,139 @@
+{
+  "common_tagged_quotient": "Q0=1; layer tags retained; no other identities",
+  "comparisons": {
+    "H3_TAGGED": {
+      "A": {
+        "discrepancy_count": 0,
+        "first_discrepancies": [],
+        "independent_maximum_derivative": 1,
+        "independent_terms": 4,
+        "primary_maximum_derivative": 1,
+        "primary_terms": 4
+      },
+      "B": {
+        "discrepancy_count": 0,
+        "first_discrepancies": [],
+        "independent_maximum_derivative": 3,
+        "independent_terms": 342,
+        "primary_maximum_derivative": 3,
+        "primary_terms": 342
+      },
+      "C": {
+        "discrepancy_count": 0,
+        "first_discrepancies": [],
+        "independent_maximum_derivative": 5,
+        "independent_terms": 27421,
+        "primary_maximum_derivative": 5,
+        "primary_terms": 27421
+      }
+    },
+    "H3_UNIT": {
+      "A": {
+        "discrepancy_count": 0,
+        "first_discrepancies": [],
+        "independent_maximum_derivative": 1,
+        "independent_terms": 4,
+        "primary_maximum_derivative": 1,
+        "primary_terms": 4
+      },
+      "B": {
+        "discrepancy_count": 0,
+        "first_discrepancies": [],
+        "independent_maximum_derivative": 3,
+        "independent_terms": 160,
+        "primary_maximum_derivative": 3,
+        "primary_terms": 160
+      },
+      "C": {
+        "discrepancy_count": 0,
+        "first_discrepancies": [],
+        "independent_maximum_derivative": 5,
+        "independent_terms": 6519,
+        "primary_maximum_derivative": 5,
+        "primary_terms": 6519
+      }
+    },
+    "H4_TAGGED": {
+      "A": {
+        "discrepancy_count": 0,
+        "first_discrepancies": [],
+        "independent_maximum_derivative": 1,
+        "independent_terms": 5,
+        "primary_maximum_derivative": 1,
+        "primary_terms": 5
+      },
+      "B": {
+        "discrepancy_count": 0,
+        "first_discrepancies": [],
+        "independent_maximum_derivative": 3,
+        "independent_terms": 1929,
+        "primary_maximum_derivative": 3,
+        "primary_terms": 1929
+      },
+      "C": {
+        "discrepancy_count": 0,
+        "first_discrepancies": [],
+        "independent_maximum_derivative": 5,
+        "independent_terms": 462776,
+        "primary_maximum_derivative": 5,
+        "primary_terms": 462776
+      }
+    },
+    "H4_UNIT": {
+      "A": {
+        "discrepancy_count": 0,
+        "first_discrepancies": [],
+        "independent_maximum_derivative": 1,
+        "independent_terms": 5,
+        "primary_maximum_derivative": 1,
+        "primary_terms": 5
+      },
+      "B": {
+        "discrepancy_count": 0,
+        "first_discrepancies": [],
+        "independent_maximum_derivative": 3,
+        "independent_terms": 350,
+        "primary_maximum_derivative": 3,
+        "primary_terms": 350
+      },
+      "C": {
+        "discrepancy_count": 0,
+        "first_discrepancies": [],
+        "independent_maximum_derivative": 5,
+        "independent_terms": 17641,
+        "primary_maximum_derivative": 5,
+        "primary_terms": 17641
+      }
+    }
+  },
+  "independent_manifest_scope": "H=3,4; B=1; Q0=1; layer-tagged and unit-Gram",
+  "independent_manifest_sha256": "dee0198e119864a90195101466f29f3ab2f248495c6e6a3494f35cafd3f2502b",
+  "pass": true,
+  "primary_manifest_sha256": "f4838437c1fb70b14713d39e8438d703434c49ffd72001beeb6fee8d53366b30",
+  "primary_manifest_term_counts": {
+    "3": {
+      "tagged": {
+        "A": 4,
+        "B": 342,
+        "C": 27421
+      },
+      "unit": {
+        "A": 4,
+        "B": 160,
+        "C": 6519
+      }
+    },
+    "4": {
+      "tagged": {
+        "A": 5,
+        "B": 1929,
+        "C": 462776
+      },
+      "unit": {
+        "A": 5,
+        "B": 350,
+        "C": 17641
+      }
+    }
+  }
+}

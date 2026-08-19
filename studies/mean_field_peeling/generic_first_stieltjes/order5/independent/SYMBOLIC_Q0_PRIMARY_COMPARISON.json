@@ -1,0 +1,54 @@
+{
+  "coefficients": {
+    "A": {
+      "discrepancies": [],
+      "discrepancy_count": 0,
+      "independent_graded_terms": 3,
+      "primary_graded_terms": 3
+    },
+    "B": {
+      "discrepancies": [],
+      "discrepancy_count": 0,
+      "independent_graded_terms": 50,
+      "primary_graded_terms": 50
+    },
+    "C": {
+      "discrepancies": [],
+      "discrepancy_count": 0,
+      "independent_graded_terms": 1045,
+      "primary_graded_terms": 1045
+    }
+  },
+  "comparison_time": "after independent interpolation artifact freeze",
+  "degree_bounds": {
+    "A": 1,
+    "B": 3,
+    "C": 5
+  },
+  "holdout_discrepancy_counts": {
+    "A": 0,
+    "B": 0,
+    "C": 0
+  },
+  "holdout_point": "7/2",
+  "independent_exact_file_sha256": "e682c708fedadc577b7446a7b9c07b79262c945fbae5726918436153876f889a",
+  "independent_observed_degrees": {
+    "A": 1,
+    "B": 3,
+    "C": 5
+  },
+  "interpolation_points": [
+    "1/2",
+    "1",
+    "3/2",
+    "2",
+    "5/2",
+    "3"
+  ],
+  "pass": true,
+  "primary_observed_degrees": {
+    "A": 1,
+    "B": 3,
+    "C": 5
+  }
+}

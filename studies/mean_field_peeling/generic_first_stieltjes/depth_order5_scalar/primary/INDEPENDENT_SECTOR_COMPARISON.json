@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "scope": "post-freeze comparison of independently derived local scalar transitions",
+  "forward_discrepancies": {
+    "P_NEXT": 0,
+    "V_NEXT": 0,
+    "Q_NEXT": 0,
+    "W_NEXT": 0,
+    "S_NEXT": 0,
+    "J3_NEXT": 0,
+    "J5_NEXT": 0
+  },
+  "reverse_discrepancies": {
+    "B00_NEXT": 0,
+    "B02_NEXT": 0,
+    "B11_NEXT": 0,
+    "B13_NEXT": 0,
+    "B22_NEXT": 0,
+    "K10_NEXT": 0,
+    "K21_NEXT": 0,
+    "K30_NEXT": 0,
+    "K32_NEXT": 0
+  },
+  "total_compared_roots": 16,
+  "total_discrepancies": 0
+}

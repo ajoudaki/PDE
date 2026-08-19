@@ -1,0 +1,102 @@
+{
+  "artifact_sha256": {
+    "H3_LAYER_TAGGED_ABC.cse.txt": "d9429b70d3513b1c0a4193f73c867db05b33d7ef81093d1ab2b2070992c66b83",
+    "H3_LAYER_TAGGED_COEFFICIENTS.json": "72d220fd8c855b07568ba513087a40dcbd9883bf96d26d04a919ff218b8cf5c4",
+    "H3_UNIT_ABC.cse.txt": "e84b07dd1d7befd5585163d0c11de3215323ba8659b421c0fcd2825ba9c90eaa",
+    "H3_UNIT_COEFFICIENTS.json": "564c6a27d6071e8601d21fd167dfd8f21d7ac9fe2323695a626eeebf73b980c6"
+  },
+  "compile_and_emit_seconds": 12.697422415018082,
+  "coordinate_term_counts": {
+    "h1_0": 1,
+    "h1_1": 1,
+    "h1_2": 3,
+    "h1_3": 6,
+    "h1_4": 16,
+    "h1_5": 31,
+    "h2_0": 1,
+    "h2_1": 2,
+    "h2_2": 6,
+    "h2_3": 18,
+    "h2_4": 51,
+    "h2_5": 133,
+    "h3_0": 1,
+    "h3_1": 2,
+    "h3_2": 5,
+    "h3_3": 15,
+    "h3_4": 37,
+    "h3_5": 91,
+    "out0": 0,
+    "out1": 2,
+    "out2": 0,
+    "out3": 12,
+    "out4": 0,
+    "out5": 67
+  },
+  "depth": 3,
+  "maximum_terminal_derivative": {
+    "A": 1,
+    "B": 3,
+    "C": 5
+  },
+  "order": 5,
+  "parity": {
+    "F0_is_zero": true,
+    "F2_is_zero": true,
+    "F4_is_zero": true
+  },
+  "polynomial_controls_Q0_1": {
+    "affine_1_plus_x": {
+      "A": "10",
+      "B": "540",
+      "C": "71152"
+    },
+    "constant_2": {
+      "A": "4",
+      "B": "0",
+      "C": "0"
+    },
+    "linear": {
+      "A": "4",
+      "B": "160",
+      "C": "13888"
+    },
+    "quadratic_x2": {
+      "A": "14175",
+      "B": "139445032896",
+      "C": "4298284752832899360"
+    },
+    "zero": {
+      "A": "0",
+      "B": "0",
+      "C": "0"
+    }
+  },
+  "registry_counts": {
+    "B_symmetric_dictionary": 50,
+    "H_symmetric_dictionary": 72,
+    "alpha_stored": 30,
+    "beta_stored": 30,
+    "unique_states_formula": 132
+  },
+  "schema": "route-s-depth-stats-v1",
+  "tagged_dag_node_counts": {
+    "A": 13,
+    "B": 205,
+    "C": 2320
+  },
+  "tagged_term_counts": {
+    "A": 4,
+    "B": 342,
+    "C": 27421
+  },
+  "unit_dag_node_counts": {
+    "A": 7,
+    "B": 171,
+    "C": 2174
+  },
+  "unit_term_counts": {
+    "A": 4,
+    "B": 160,
+    "C": 6519
+  }
+}

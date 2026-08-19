@@ -1,0 +1,117 @@
+{
+  "activation": "sin(x)/sqrt((1-exp(-2))/2)",
+  "metric": "max_k |hostile_k-neutral_k|/max(1,|hostile_k|,|neutral_k|)",
+  "pass": true,
+  "records": [
+    {
+      "depth": 3,
+      "scaled_discrepancy": 0.0,
+      "seed": 20011,
+      "width": 1
+    },
+    {
+      "depth": 3,
+      "scaled_discrepancy": 1.5027086661371782e-16,
+      "seed": 20012,
+      "width": 1
+    },
+    {
+      "depth": 3,
+      "scaled_discrepancy": 0.0,
+      "seed": 20013,
+      "width": 1
+    },
+    {
+      "depth": 3,
+      "scaled_discrepancy": 3.763874916681681e-15,
+      "seed": 20021,
+      "width": 2
+    },
+    {
+      "depth": 3,
+      "scaled_discrepancy": 2.7440568250379693e-14,
+      "seed": 20022,
+      "width": 2
+    },
+    {
+      "depth": 3,
+      "scaled_discrepancy": 5.308116474244357e-16,
+      "seed": 20023,
+      "width": 2
+    },
+    {
+      "depth": 3,
+      "scaled_discrepancy": 8.965680754452416e-15,
+      "seed": 20051,
+      "width": 5
+    },
+    {
+      "depth": 3,
+      "scaled_discrepancy": 8.284887359626168e-16,
+      "seed": 20052,
+      "width": 5
+    },
+    {
+      "depth": 3,
+      "scaled_discrepancy": 6.664935370556671e-16,
+      "seed": 20053,
+      "width": 5
+    },
+    {
+      "depth": 4,
+      "scaled_discrepancy": 0.0,
+      "seed": 21011,
+      "width": 1
+    },
+    {
+      "depth": 4,
+      "scaled_discrepancy": 0.0,
+      "seed": 21012,
+      "width": 1
+    },
+    {
+      "depth": 4,
+      "scaled_discrepancy": 5.190055875184008e-15,
+      "seed": 21013,
+      "width": 1
+    },
+    {
+      "depth": 4,
+      "scaled_discrepancy": 1.4688228265667818e-15,
+      "seed": 21021,
+      "width": 2
+    },
+    {
+      "depth": 4,
+      "scaled_discrepancy": 1.0315706951461878e-14,
+      "seed": 21022,
+      "width": 2
+    },
+    {
+      "depth": 4,
+      "scaled_discrepancy": 4.0189426089384694e-15,
+      "seed": 21023,
+      "width": 2
+    },
+    {
+      "depth": 4,
+      "scaled_discrepancy": 6.381098449717374e-15,
+      "seed": 21051,
+      "width": 5
+    },
+    {
+      "depth": 4,
+      "scaled_discrepancy": 3.559835117266718e-15,
+      "seed": 21052,
+      "width": 5
+    },
+    {
+      "depth": 4,
+      "scaled_discrepancy": 4.8457494811222876e-15,
+      "seed": 21053,
+      "width": 5
+    }
+  ],
+  "threshold": 1e-10,
+  "worst_scaled_discrepancy": 2.7440568250379693e-14
+}
