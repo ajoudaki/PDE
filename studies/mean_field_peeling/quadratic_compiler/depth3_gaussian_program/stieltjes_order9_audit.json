@@ -1,0 +1,94 @@
+{
+  "campaign_date": "2026-08-19",
+  "model": "raw-quadratic-equal-width-three-hidden-layer",
+  "max_feature_derivative_order": 9,
+  "kernel_convention": "K(y)=F'(F^{-1}(y))=F'(0)+sum_r (-1)^r mu_r y^(2r+2)",
+  "kernel_baseline": "14175",
+  "moments": {
+    "mu_0": {
+      "exact": "95641312/275625",
+      "decimal": 346.99795736961454,
+      "sign": "positive"
+    },
+    "mu_1": {
+      "exact": "3963629647049188/3230587705078125",
+      "decimal": 1.2269066835173064,
+      "sign": "positive"
+    },
+    "mu_2": {
+      "exact": "12164741271894434633792/601040746943206787109375",
+      "decimal": 0.020239461856392072,
+      "sign": "positive"
+    },
+    "mu_3": {
+      "exact": "4206861574840394358968837051264/9862678589590839304447174072265625",
+      "decimal": 0.00042654351316693563,
+      "sign": "positive"
+    }
+  },
+  "hankel_matrices": {
+    "H_0": {
+      "matrix": [["95641312/275625"]],
+      "decision": "positive_definite"
+    },
+    "H_0_plus": {
+      "matrix": [["3963629647049188/3230587705078125"]],
+      "decision": "positive_definite"
+    },
+    "H_1": {
+      "matrix": [
+        [
+          "95641312/275625",
+          "3963629647049188/3230587705078125"
+        ],
+        [
+          "3963629647049188/3230587705078125",
+          "12164741271894434633792/601040746943206787109375"
+        ]
+      ],
+      "determinant": "57587104390258273954913012692208/10436696920201946353912353515625",
+      "determinant_decimal": 5.5177519123688406,
+      "relative_determinant": 0.7856629814664724,
+      "approximate_eigenvalues": [
+        0.015901197144216894,
+        347.00229563432674
+      ],
+      "decision": "positive_definite"
+    },
+    "H_1_plus": {
+      "matrix": [
+        [
+          "3963629647049188/3230587705078125",
+          "12164741271894434633792/601040746943206787109375"
+        ],
+        [
+          "12164741271894434633792/601040746943206787109375",
+          "4206861574840394358968837051264/9862678589590839304447174072265625"
+        ]
+      ],
+      "determinant": "18112616071796981590543696523289774449027892736/159311240953347141011947883502580225467681884765625",
+      "determinant_decimal": 0.00011369327087911579,
+      "relative_determinant": 0.21725005102579156,
+      "approximate_eigenvalues": [
+        0.00009264138768649843,
+        1.2272405856427868
+      ],
+      "decision": "positive_definite"
+    }
+  },
+  "all_accessible_principal_minors_strictly_positive": true,
+  "all_accessible_hankel_matrices_positive_definite": true,
+  "moment_routes_agree": true,
+  "validation": "passed",
+  "verdict": "no_stieltjes_hankel_violation_through_the_four_available_moments",
+  "next_unavailable_conditions": {
+    "mu_4_and_H_2": "require F^(11)(0)",
+    "mu_5_and_H_2_plus": "require F^(13)(0)"
+  },
+  "sha256": {
+    "input_depth3_jet": "e6205be08cf663e64c259328afb276e03188845ef51a7001deef1a92e8778b3d",
+    "prospective_protocol": "06e58ae90fbd6de9224489b4ad1f82e8d5e859bcbe9d5832de90109f6ab06f98",
+    "existing_exact_series_route": "d003563deb87c6baea7f423f954979f3082b306035eeba35cc223dda25d0ed60",
+    "depth3_audit_engine": "4c8207612cb3a807bb60884d179424fa02a6eb4fbea73ddea90881557cc74a46"
+  }
+}
