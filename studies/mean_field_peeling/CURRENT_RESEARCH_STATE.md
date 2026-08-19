@@ -5,6 +5,8 @@
 [`MUP_TRAINING_CASE_STUDY.md`](MUP_TRAINING_CASE_STUDY.md)  
 **Generic fixed-observable specializations:**
 [`generic_first_stieltjes/`](generic_first_stieltjes/)<br>
+**Amortized one-sample observable-head audit:**
+[`generic_first_stieltjes/depth_order5_scalar/multi_observable/`](generic_first_stieltjes/depth_order5_scalar/multi_observable/)<br>
 **Exact quadratic specialization:**
 [`quadratic_compiler/`](quadratic_compiler/)
 **Historical source:**
@@ -41,7 +43,7 @@ Four claim levels are used throughout.
 4. **Open theorem program.** The broad Gaussian-normal-form and
    depth-linear finite-state claims remain targets, not established theorems.
 
-There are now two important exact specializations. For the one-sample,
+Several important exact specializations are now maintained. For the one-sample,
 two-hidden-layer quadratic model, derivative monomials close under a finite
 decorated-forest grammar; Section 11 records its certificates. For the single
 order-three directional observable \(D_c^3g_c\), the
@@ -90,6 +92,20 @@ backward sweep has been proved.
 The annealed identification is direct under an all-orders polynomially-smooth
 activation envelope; a finite \(C^5\) envelope alone still requires a separate
 probability and uniform-integrability bridge.
+
+The same unit-Gram graph also exposes an amortized multi-observable
+architecture.  The parameter-flow jets are universal; observable derivative
+tensors attach as separate heads.  For the hidden-activation squared RMS, two
+independently frozen Wick--Stein producers reduce the missing moving
+\(\Gamma_{04}\) contraction to one additional \(H\)-cell forward sweep with
+two dynamic scalars and literal \(M_\nu\)-only transitions.  All algebraic,
+finite-width, parity, exact-control, and smooth-nonpolynomial gates pass, so
+this named head is promoted at arbitrary separately fixed \(H\), \(B=1\), and
+unit forward Gram.  The original three-hidden-layer, three-width panel remains
+permanently **inconclusive** because its frozen curvature fit was saturated;
+a separately frozen fourth-width extension resolved that design defect and
+passed without relabelling the original experiment.  Section 13 gives the
+complete derivation, exact outputs, architecture, and claim boundary.
 
 ## 2. Network, raw parameters, and scaling ledger
 
@@ -594,6 +610,14 @@ strict two-sweep compression remains open, and assigning distinct layer tags
 and fully distributing the fifth-order formula grows from 1,045 terms at H=2
 to 462,776 at H=4.
 
+For the hidden-activation squared-RMS observable, the same universal cache
+supports an algebraically audited two-scalar \(\Gamma_{04}\) head.  It adds
+one nearest-neighbour forward sweep: one target layer costs \(\ell\) cells,
+while the same \(H\)-cell sweep emits all layer heads, so it is not \(H\)
+separate computations.  Its independent algebraic, exact finite-width, and
+smooth-nonpolynomial promotion gates pass.  This named construction supplies
+no small-head theorem for a generic observable.
+
 ## 11. Exact quadratic decorated-forest specialization
 
 ### 11.1 Model and scope
@@ -916,7 +940,562 @@ $$
 \tag{13.2}
 $$
 
-### 13.2 Discrete gradient descent
+### 13.2 Audited one-sample order-five backbone
+
+There is now one fixed-observable construction in which the depth recursion
+has been completely Wick--Stein contracted. Its scope is one sample,
+arbitrary but separately fixed hidden depth \(H\), shared activation, equal
+hidden widths, and unit forward Grams. Define
+
+$$
+M_{\nu_0\ldots\nu_5}
+:=\mathbb E_{G\sim N(0,1)}
+\prod_{r=0}^{5}\phi^{(r)}(G)^{\nu_r},\qquad
+d=M_{020000},\qquad
+b_\ell=d^{H-\ell},\qquad
+\tau_\ell=\sum_{r=0}^{\ell}d^r.
+\tag{13.3}
+$$
+
+The exact factored graph is
+
+$$
+F1\longrightarrow R1\longrightarrow F2\longrightarrow R2
+\longrightarrow F3\longrightarrow R3.
+\tag{13.4}
+$$
+
+Every named sweep contains exactly \(H\) nearest-neighbour layer cells. The
+printed first-layer initialization of a forward sweep is its \(0\to1\)
+boundary cell with the fixed boundary substituted; a reverse top
+initialization is the output-to-\(H\) boundary cell. A single polynomial
+template is reused from layer to layer *within* each sweep, but the six
+templates are different jet-grade maps and alternate direction. Their
+propagated dimensions are \(7/8/4/4/3/3\), hence 29 scalar coordinate types.
+At \(d=1\),
+
+$$
+b_\ell=1,\qquad \tau_\ell=\ell+1,
+\tag{13.5}
+$$
+
+but the layer-\(\ell\) cell can still depend numerically on
+\(\tau_{\ell-1}=\ell\) and on the stored states.
+
+To distinguish the two jet geometries, put hats on derivatives along the
+frozen straight line through initialization and use unhatted symbols for
+derivatives along the moving feature-ascent flow. Normalized inner products
+and all response coefficients below mean their deterministic annealed
+large-width limits. The 29 coordinates have the following meanings.
+
+| sweep | coordinates | derivative/covariance meaning |
+|---|---|---|
+| \(F1\) | \(u,v,w,x,y\) | \(u=\langle\widehat X_0,\widehat X_2\rangle_n\), \(v=\langle\widehat X_0,\widehat X_4\rangle_n\), \(w=\langle X_1,X_1\rangle_n\), \(x=\langle\widehat X_1,\widehat X_3\rangle_n\), \(y=\langle\widehat X_2,\widehat X_2\rangle_n\) |
+| \(F1\) | \(j,k\) | Stein responses of \(\widehat X_3,\widehat X_5\) to the base reverse innovation |
+| \(R1\) | \(e02,e11,e13,e22\) | frozen reverse covariances \(\langle\widehat\Delta_0,\widehat\Delta_2\rangle_n\), \(\|\widehat\Delta_1\|_n^2\), \(\langle\widehat\Delta_1,\widehat\Delta_3\rangle_n\), \(\|\widehat\Delta_2\|_n^2\) |
+| \(R1\) | \(c10,c21,c30,c32\) | coefficients in \(\widehat\Delta_1=E_1+c10\,\widehat X_0\), \(\widehat\Delta_2=E_2+c21\,\widehat X_1\), and \(\widehat\Delta_3=E_3+c30\,\widehat X_0+c32\,\widehat X_2\) |
+| \(F2\) | \(q02,q22,qfm,a2\) | \(q02=\langle X_0,X_2\rangle_n\), \(q22=\|X_2\|_n^2\), \(qfm=\langle\widehat X_2,X_2\rangle_n\), and the reverse-grade-one response of \(X_2\) |
+| \(R2\) | \(r02,r22,rfm,d21\) | \(r02=\langle\widehat\Delta_0,\Delta_2\rangle_n\), \(r22=\|\Delta_2\|_n^2\), \(rfm=\langle\widehat\Delta_2,\Delta_2\rangle_n\), and the coefficient in \(\Delta_2=J_2+d21\,X_1\) |
+| \(F3\) | \(q13,a30,a32\) | \(q13=\langle X_1,X_3\rangle_n\), plus responses of \(X_3\) to reverse grades zero and two |
+| \(R3\) | \(r13,d30,d32\) | \(r13=\langle\widehat\Delta_1,\Delta_3\rangle_n\), plus responses in \(\Delta_3=J_3+d30\,X_0+d32\,X_2\) |
+
+In particular, \(v\) is the frozen-line \(G_{04}\); it is not the moving-flow
+\(\Gamma_{04}\) introduced below. The order-three graph is the autonomous
+projection
+
+$$
+(w,u,j;\ e11,c10)\subset(F1,R1),
+\tag{13.6}
+$$
+
+with no feedback from higher grades.
+
+For the exact finite-width tensor identities, let
+\(\widetilde\nabla=\sqrt n\nabla_\theta\),
+\(p=\widetilde\nabla f_n\), and
+\(D_n=p\mathbin\cdot\widetilde\nabla\). This rescaled \(p\) is not the raw
+parameter vector field \(P=n\nabla_\theta f_n\) used in Section 13.3. Write
+\(\mathsf H_f=\widetilde\nabla^2f_n\), \(T=\widetilde\nabla^3f_n\),
+\(U=\widetilde\nabla^4f_n\), \(V=\widetilde\nabla^5f_n\), and
+\(A_f=\mathsf H_fp\). Then
+
+$$
+D_n^3f_n=2T[p,p,p]+4\lVert A_f\rVert^2,
+\tag{13.7}
+$$
+
+and, with \(m_2=D_n^2p\), \(m_3=D_n^3p\),
+
+$$
+D_n^5f_n
+=2V[p^5]+10U[A_f,p^3]+10\langle T[p,p],m_2\rangle
++4\lVert m_2\rVert^2+12\langle A_f,m_3\rangle.
+\tag{13.8}
+$$
+
+The backbone endpoints are
+
+$$
+S_{3,H}=j_H+3u_H,\qquad S_{5,H}=k_H+5v_H.
+\tag{13.9}
+$$
+
+Let the five deterministic terminal folds be
+
+$$
+\mathcal H_2=\lVert A_f\rVert^2,\quad
+\mathcal U_1=U[A_f,p,p,p],\quad
+\mathcal T_2=\langle T[p,p],m_2\rangle,\quad
+\mathcal N_2=\lVert m_2\rVert^2,\quad
+\mathcal H_3=\langle A_f,m_3\rangle.
+\tag{13.10}
+$$
+
+Their layerwise definitions are the explicit folds in the
+[scalar recurrence](generic_first_stieltjes/depth_order5_scalar/ARBITRARY_DEPTH_B1_ORDER5_SCALAR_RECURRENCE.md).
+No Gaussian evaluation remains at the terminal. The output head is
+
+$$
+\boxed{
+A_H=\tau_H,\qquad
+B_H=2S_{3,H}+4\mathcal H_2,\qquad
+C_H=2S_{5,H}+10\mathcal U_1+10\mathcal T_2
++4\mathcal N_2+12\mathcal H_3.}
+\tag{13.11}
+$$
+
+Exact expansion of the 38 local scalar maps agrees coefficient by coefficient
+with frozen independent Gaussian normal forms at \(H=2,3,4\). The respective
+\(C_H\) maps contain \(974\), \(6\,519\), and \(17\,641\) unit-Gram monomials,
+with zero discrepancies. The combined graph uses activation derivatives
+only through \(\phi^{(5)}\).
+
+### 13.3 Universal parameter jets and observable heads
+
+Return now to raw parameter coordinates and put
+
+$$
+P(\theta)=n\nabla_\theta f(\theta),\qquad
+D=P\mathbin\cdot\nabla_\theta,\qquad
+\dot\theta=P(\theta).
+\tag{13.12}
+$$
+
+Ordinary flow differentiation gives the **universal parameter jets**
+
+$$
+\theta'=P,\qquad \theta''=DP,\qquad
+\theta'''=D^2P,\qquad \theta^{(4)}=D^3P.
+\tag{13.13}
+$$
+
+They depend on the feature flow but not on a subsequently chosen observable.
+For every \(C^4\) scalar observable \(O\), the exact finite-width readout head
+is
+
+$$
+\begin{aligned}
+O'={}&O_1[P],\\
+O''={}&O_2[P,P]+O_1[DP],\\
+O'''={}&O_3[P,P,P]+3O_2[P,DP]+O_1[D^2P],\\
+O^{(4)}={}&O_4[P,P,P,P]+6O_3[P,P,DP]+3O_2[DP,DP]\\
+&\quad+4O_2[P,D^2P]+O_1[D^3P].
+\end{aligned}
+\tag{13.14}
+$$
+
+This is the universal-observable principle: compile the parameter-flow jets
+once, then attach observable derivative tensors as small readout heads when
+their contractions close. It does **not** say that every observable admits
+a fixed small scalar head. Each new head still requires its own equality-
+partition, width, transpose-response, Wick--Stein, and probability audit.
+
+### 13.4 Hidden-activation squared-RMS head
+
+For the moving activation jet
+
+$$
+X_\ell^{(r)}
+=\left.\frac{d^r}{ds^r}x^\ell(\theta(s))\right|_{s=0},
+$$
+
+define the finite-width empirical contraction
+
+$$
+\Gamma_{rs,n}^\ell
+:=\frac1n\langle X_\ell^{(r)},X_\ell^{(s)}\rangle
+$$
+
+and its annealed limit \(\Gamma_{rs}^\ell\) when the limit and expectation
+interchange are justified. The exact finite-width product rule for
+
+$$
+Q_\ell(s)=\frac1n\lVert x^\ell(s)\rVert^2
+$$
+
+is
+
+$$
+Q_{\ell,n}^{(k)}(0)
+=\sum_{r=0}^{k}\binom{k}{r}\Gamma_{r,k-r,n}^\ell.
+\tag{13.15}
+$$
+
+After the probability bridge, the same identity holds for the deterministic
+limits. The audited backbone dictionary is
+
+$$
+\Gamma_{11}^\ell=w_\ell,\qquad
+\Gamma_{02}^\ell=q02_\ell,\qquad
+\Gamma_{22}^\ell=q22_\ell,\qquad
+\Gamma_{13}^\ell=q13_\ell.
+\tag{13.16}
+$$
+
+It follows that
+
+$$
+Q_\ell''(0)=2(w_\ell+q02_\ell),
+\tag{13.17}
+$$
+
+while order four additionally needs
+
+$$
+\gamma04_\ell:=\Gamma_{04}^\ell,\qquad
+Q_\ell^{(4)}(0)=2\gamma04_\ell+8q13_\ell+6q22_\ell.
+\tag{13.18}
+$$
+
+The missing contraction is not the frozen state \(v_\ell\). At every internal
+equal-width matrix layer, its local peel starts from the exact finite-width
+identities
+
+$$
+W^{\ell,(r+1)}
+=\frac1{\sqrt n}\sum_{a=0}^{r}\binom ra
+\Delta_{\ell,a}X_{\ell-1,r-a}^{\mathsf T},
+\tag{13.19}
+$$
+
+$$
+Z_{\ell,4}
+=\frac1{\sqrt n}\sum_{a=0}^{4}\binom4a
+W^{\ell,(a)}X_{\ell-1,4-a}.
+\tag{13.20}
+$$
+
+The first hidden layer is the corresponding fixed-input boundary cell: its
+input-Gram factors are substituted before applying the same contraction.  It
+is not represented by falsely treating the input as another random
+equal-width hidden vector.
+
+Regrouping all ten rank-one matrix-flow terms gives
+
+$$
+\begin{aligned}
+Z_{\ell,4}={}&F_{\ell,4}
++(5\Gamma^{\ell-1}_{03,n}+10\Gamma^{\ell-1}_{12,n})\Delta_{\ell,0}\\
+&+(9\Gamma^{\ell-1}_{02,n}+8\Gamma^{\ell-1}_{11,n})\Delta_{\ell,1}
++7\Gamma^{\ell-1}_{01,n}\Delta_{\ell,2}
++\Gamma^{\ell-1}_{00,n}\Delta_{\ell,3}.
+\end{aligned}
+\tag{13.21}
+$$
+
+The order-four activation Bell polynomial is exactly
+
+$$
+X_{\ell,4}
+=\phi^{(4)}Z_1^4+6\phi^{(3)}Z_1^2Z_2
++3\phi''Z_2^2+4\phi''Z_1Z_3+\phi'Z_4.
+\tag{13.22}
+$$
+
+Readout-reflection parity kills the deterministic grade-zero and grade-two
+branches after expectation, but not seedwise. The two surviving transpose
+responses give
+
+$$
+Z_{\ell,4}=F_{\ell,4}+l41\,\Delta_{\ell,1}
++l43\,\Delta_{\ell,3},
+\tag{13.23}
+$$
+
+$$
+l41=9q02_{\ell-1}+8w_{\ell-1}+a41_{\ell-1},\qquad
+l43=1+a43_{\ell-1}.
+\tag{13.24}
+$$
+
+The raw local state is
+\((\gamma04,a41,a43)\), initialized at zero. Complete Wick--Stein
+elimination gives
+
+$$
+a43_\ell=d(1+a43_{\ell-1}),
+\qquad 1+a43_\ell=\tau_\ell.
+\tag{13.25}
+$$
+
+Thus \(a43\) is deterministic depth data, \(l43=\tau_{\ell-1}\), and the
+smallest state found is the two-vector
+
+$$
+h_\ell=(\gamma04_\ell,a41_\ell),\qquad h_0=(0,0).
+\tag{13.26}
+$$
+
+No minimality theorem is claimed. With \(b=b_\ell\),
+\(l1=\tau_{\ell-1}\), \(l2=1+a2_{\ell-1}\),
+
+$$
+l30=4q02_{\ell-1}+3w_{\ell-1}+a30_{\ell-1},\qquad
+l32=1+a32_{\ell-1},\qquad
+l41=9q02_{\ell-1}+8w_{\ell-1}+a41_{\ell-1},
+\tag{13.27}
+$$
+
+the transition is
+
+$$
+(\gamma04_\ell,a41_\ell)
+=\bigl(\mathcal P_\gamma,\mathcal P_a\bigr)
+(h_{\ell-1};\text{stored backbone states},M).
+\tag{13.28}
+$$
+
+The literal, fully contracted polynomials
+\(\mathcal P_\gamma\) and \(\mathcal P_a\) contain 64 and 17 canonical
+monomials and are displayed in the
+[frozen two-state transition table](generic_first_stieltjes/depth_order5_observables/independent/FROZEN_GAMMA04_REDUCED_TRANSITIONS.md).
+They contain no Gaussian innovation, random covariance, response operation,
+matrix inverse, or multivariate integral. Every token on the right of that
+table is either an \(M_\nu\) atom, rational arithmetic, deterministic depth
+data, a previous head state, or a stored backbone state. The head itself
+uses derivatives only through \(\phi^{(4)}\), so it does not raise the full
+backbone ceiling \(\phi^{(5)}\). It is one post-\(R3\) bottom-up sweep of
+exactly \(H\) nearest-neighbour cells.
+
+The local audit includes all five set partitions of derivative grade four,
+all four transpose-response grades, and every equality partition of at most
+five neuron labels. After forced same-matrix transpose contractions are
+peeled, a partition \(\pi\) of \(m\) remaining labels has relative width
+degree
+
+$$
+n^{|\pi|-m}.
+\tag{13.29}
+$$
+
+Every accidental collision is therefore negative width; reverse innovations
+are Wick-paired and forward innovations are Wick-paired or Stein-attached to
+the base Gaussian. Two independently frozen producers agree on every raw
+\(83/20/1\) monomial and every reduced \(64/17\) monomial. A corrected third
+five-slot canonicalizer agrees as well. Its preserved predecessor, which
+emitted 82 terms, is falsified: it aliased the new fifth forward innovation
+with an existing slot. Exact population expansions at every layer through
+\(H=4\) have zero discrepancies, and two finite-width differentiators agree
+in 30 layer cases to maximum scaled error \(1.38\times10^{-15}\). Constant,
+linear, and nontrivial unit-affine controls pass exactly.
+
+### 13.5 RMS and readout-reflection parity
+
+Let \(T\) flip only the Gaussian readout. The initialization law is
+\(T\)-invariant and
+
+$$
+f(T\theta)=-f(\theta),\qquad P(T\theta)=-T P(\theta).
+\tag{13.30}
+$$
+
+Uniqueness of the finite-dimensional feature-flow ODE gives
+
+$$
+\theta(s;T\theta_0)=T\theta(-s;\theta_0),\qquad
+X_\ell^{(r)}(T\theta_0)=(-1)^rX_\ell^{(r)}(\theta_0).
+\tag{13.31}
+$$
+
+The output curve also obeys
+
+$$
+F(s;T\theta_0)=-F(-s;\theta_0).
+$$
+
+Consequently the annealed output curve is odd,
+\(F(-s)=-F(s)\), and
+\(F(0)=F''(0)=F^{(4)}(0)=0\).  Hidden-Gram and hidden-RMS
+observables are even after annealed expectation, so every odd derivative of
+those observables vanishes. These are not the false seedwise claims that one
+unpaired initialization has zero output at the origin or zero odd hidden
+derivative.
+
+Under unit Gram, \(Q_\ell(0)=1\). For
+\(R_\ell=\sqrt{Q_\ell}\), (13.17)--(13.18) give
+
+$$
+\boxed{R_\ell''(0)=w_\ell+q02_\ell,}
+\tag{13.32}
+$$
+
+$$
+\boxed{
+R_\ell^{(4)}(0)
+=\gamma04_\ell+4q13_\ell+3q22_\ell
+-3(w_\ell+q02_\ell)^2.}
+\tag{13.33}
+$$
+
+### 13.6 Label-one MSE coefficient head
+
+At finite width, one-sample label-one MSE is exactly a scalar time change of
+the corresponding feature-ascent curve.  After taking separately fixed-depth
+annealed limits coefficient by coefficient, the deterministic Taylor germs
+obey the formal time-change algebra
+
+$$
+\frac{ds}{dt}=c(1-F(s)),\qquad c=2\eta.
+\tag{13.34}
+$$
+
+Let \(q_2=Q_\ell''(0)\), \(q_4=Q_\ell^{(4)}(0)\). Exact formal series
+composition of these deterministic coefficient germs, using
+\(F'(0)=A_H\), \(F'''(0)=B_H\), yields
+
+$$
+\boxed{
+\begin{aligned}
+Q_t''(0)&=c^2q_2,\\
+Q_t'''(0)&=-3c^3A_Hq_2,\\
+Q_t^{(4)}(0)&=c^4(q_4+7A_H^2q_2),\\
+Q_t^{(5)}(0)&=-5c^5\bigl[(3A_H^3+B_H)q_2+2A_Hq_4\bigr].
+\end{aligned}}
+\tag{13.35}
+$$
+
+The fifth feature coefficient \(C_H\) first enters \(s^{(6)}(0)\); its
+absence from (13.35) is required.  Equation (13.35) is not a seedwise
+finite-width identity: before the limit, \(F_n(0)\) and the odd hidden-
+observable jets need not vanish, and expectations contain products such as
+\(\mathbb E[A_nq_{2,n}]\), not a priori \(A_Hq_2\).
+
+### 13.7 Amortized DAG architecture and cost
+
+The audited architecture should be read as
+
+$$
+\begin{array}{c}
+\text{universal feature-ascent backbone: }F1/R1/F2/R2/F3/R3\\[2mm]
+\swarrow\hspace{28mm}\searrow\\[-1mm]
+\text{output fold }(A_H,B_H,C_H)
+\hspace{10mm}
+\text{audited }\Gamma_{04}\text{ sweep}\\
+\downarrow\hspace{38mm}\downarrow\\
+\text{kernel/loss algebra}
+\hspace{15mm}
+\text{layerwise }Q_\ell,R_\ell\text{ and MSE-time head}.
+\end{array}
+\tag{13.36}
+$$
+
+In the factored representation the backbone costs \(6H\) nearest-neighbour
+cells. One chosen hidden layer adds \(\ell\) head cells; the same \(H\)-cell
+head sweep emits results for *all* hidden layers, rather than requiring \(H\)
+independent sweeps. The dynamic head state streams in \(O(1)\) memory once
+the backbone cache exists; retaining all layer outputs costs \(O(H)\). The
+output, kernel, and scalar loss algebra is terminal \(O(1)\) work. In
+particular, with the local output-clock kernel defined by the formal Taylor
+inverse
+\(K_H(y):=F_H'(F_H^{-1}(y))\).  This inverse exists locally as a formal series
+because \(A_H=\tau_H>0\):
+
+$$
+\mu_{0,H}=\frac{B_H}{2A_H^2},\qquad
+\mu_{1,H}=\frac{4B_H^2-A_HC_H}{24A_H^5},\qquad
+K_H(y)=A_H+\mu_{0,H}y^2-\mu_{1,H}y^4+O(y^6).
+\tag{13.37}
+$$
+
+When \(\mu_{0,H}\ne0\), the first one-pole Padé head is
+
+$$
+K_{H,[0/1]}(y)
+=A_H+\frac{\mu_{0,H}y^2}
+{1+(\mu_{1,H}/\mu_{0,H})y^2}.
+\tag{13.38}
+$$
+
+Its induced label-one MSE curve is defined by
+
+$$
+\dot y=2\eta(1-y)K_{H,[0/1]}(y),\qquad y(0)=0,\qquad
+L_{H,[0/1]}=(1-y)^2,\qquad L_{H,[0/1]}(0)=1.
+\tag{13.39}
+$$
+
+This is a rational approximation to \(K_H\) and the loss curve induced by
+that approximation, not a proof of Stieltjes positivity or of the exact
+positive-time neural trajectory.
+
+The analogous preactivation observables
+\(n^{-1}\|Z_\ell(s)\|^2\) reuse the universal parameter jets, but their
+moment-only observable head has not been constructed. Its state and cost
+remain open. More generally, this example does not prove a small-head
+theorem for arbitrary observables.
+
+### 13.8 Claim level, probability boundary, and order-seven roadmap
+
+The status is deliberately split.
+
+1. Equations (13.13)--(13.15), (13.19)--(13.22), and (13.30)--(13.31)
+   are exact finite-width identities.  The finite-width counterpart of
+   (13.34) is the exact scalar time-change law, while (13.34)--(13.35) display
+   its exact formal algebra after the deterministic annealed coefficient
+   limits and parity identities have been established.
+2. The \(M_\nu\)-only two-state transition is an algebraically audited
+   Gaussian normal form: independent producers, atom maps, finite-width
+   differentiators, and exact controls agree.
+3. Two separately preregistered normalized-sine panels at \(H=2\) pass. The
+   original hostile \(H=3\) panel is retained as **inconclusive**, because its
+   three widths saturate the preregistered quadratic-in-\(1/n\) curvature
+   diagnostic. It is not silently relabelled a pass.  A separately frozen
+   extension added \(n=512\), regenerated all old samples, and passed the
+   unchanged validity and curvature thresholds over 4,096 networks: the
+   largest absolute intercept z-score is \(0.493\), the largest exact identity
+   residual is \(6.01\times 10^{-14}\), and no nonfinite sample or resolved
+   material curvature occurs.  This follow-up discharges the empirical gate
+   while preserving the original outcome.  The frozen design, raw hashes,
+   exact atom comparisons, and claim-level decision are recorded in the
+   [hostile audit](generic_first_stieltjes/depth_order5_scalar/multi_observable/audit/HOSTILE_REPORT.md)
+   and its [evidence ledger](generic_first_stieltjes/depth_order5_scalar/multi_observable/audit/EVIDENCE_LEDGER.md).
+4. At every separately fixed \(H\), a sufficient annealed theorem envelope
+   is polynomial smoothness—\(\phi\in C^\infty\), with every derivative
+   polynomially bounded—together with the applicable finite tensor-program
+   convergence in every finite \(L^p\). A weaker route must prove convergence
+   in probability and a uniform \(L^{1+\epsilon}\) bound for every retained
+   transition monomial and Gram. \(C^4\) regularity suffices only for the
+   finite-width order-four hidden head; the combined output backbone uses
+   derivatives through order five.
+
+Accordingly, the two-state \(\Gamma_{04}\) head is promoted as a fixed-\(H\),
+\(B=1\), unit-Gram Gaussian normal form, with an annealed theorem under the
+stated probability hypotheses. Nothing here is uniform in \(H=H(n)\), covers
+\(B>1\), proves a positive-time expansion, or establishes a grammar-wide
+compiler theorem.
+
+There is a separately quarantined order-seven roadmap. Grade triangularity
+suggests that the order-five graph may embed unchanged, with possible new
+\(F4/R4\) and \(F5/R5\) passes. Two independent abstract free-tree
+enumerations find 23 unlabeled shapes on eight vertices, the proposed raw
+\(D^7f\) family count. But no rank-labelled 23-family tensor identity,
+complete coefficients, equality/transpose audit, fixed-dimensional
+\(M\)-only recurrence, or complexity proof has been constructed. Therefore
+the order-seven closure, state count, sweep count, derivative ceiling
+\(\phi^{(7)}\), family interpretation, and \(O(H)\) factored-DAG claim remain
+roadmap hypotheses, not results.
+
+### 13.9 Discrete gradient descent
 
 Fix a number $s$ of gradient-descent steps and a Taylor order $p$. For sample
 $a$, let $\mathcal L_a^{(s)}(\eta)$ be the loss after $s$ steps, and define
@@ -954,7 +1533,7 @@ differentiated as an identity: although the expected finite-width linear Gram
 coefficient tends to zero, its directional derivative contributes at the next
 order.
 
-### 13.3 What a jet does not prove
+### 13.10 What a jet does not prove
 
 Fixed-order initialization coefficients do not by themselves establish:
 
@@ -1046,6 +1625,18 @@ The proposed contribution must be separated from established prior work.
   eliminates that response registry into one-dimensional moments.  Frozen
   terminal maps have been audited at hidden depths two, three, and four.  This
   is evidence for, not a proof of, the preceding grammar-wide target.
+- The exact observable chain rule factors finite-order work into universal
+  parameter-flow jets and observable-specific readout tensors.  For the
+  hidden-activation squared RMS, the named extra head is fully
+  Wick--Stein contracted to two scalar states and independently equal
+  atom-by-atom across three implementations.  Its finite-width identities,
+  algebraic normal form, and smooth-nonpolynomial gate pass.  The original
+  three-width \(H=3\) panel remains inconclusive, while a separately frozen
+  fourth-width extension resolves its identifiability defect and passes.
+- Polynomial-smooth finite-\(L^p\) tensor-program convergence supplies a
+  sufficient annealed bridge at separately fixed \(H\).  It does not replace
+  the empirical claim level, prove a finite-\(C^5\) bridge, or make the result
+  uniform in depth.
 - Termination after maximal-layer eliminations, depth-independent finite-state
   closure, and a linear-size shared DAG are progressively stronger open
   targets.
@@ -1231,6 +1822,12 @@ The current program does not prove:
 - a uniform-in-depth probability limit;
 - a depth-uniform bound on the size of a fully distributed order-five normal
   form merely from the existence of a fixed per-layer response registry;
+- that every observable attaches through a fixed small scalar head;
+- a contracted preactivation-RMS head;
+- minimality of the promoted two-state hidden-activation \(\Gamma_{04}\)
+  head, or an analogous small-head result for every observable;
+- any order-seven scalar closure, state count, sweep count, derivative
+  ceiling, or \(O(H)\) factored-DAG theorem;
 - elementary closed forms for general activations;
 - polynomial complexity in derivative order or training-step count;
 - self-averaging of every admissible observable;
@@ -1278,6 +1875,21 @@ A complete theorem should be divided into the following modules.
 14. **Generalize the forest factorization.** Determine which parts of the
     quadratic quotient-forest theorem survive for the full conditional
     Wick--Stein boundary language, including nonlinear response attachments.
+15. **Replicate and broaden the observable-head empirical audit.** The
+    original three-width \(H=3\) design remains inconclusive and the separately
+    frozen fourth-width extension discharges the promotion gate.  Replicate
+    that extension and test further depths and activations without changing
+    either frozen decision.
+16. **Finite-regularity observable bridge.** Prove convergence and uniform
+    integrability for the order-five backbone plus hidden-RMS head under a
+    direct finite-\(C^5\) envelope, rather than all-orders polynomial
+    smoothness.
+17. **Additional observable heads.** Derive and audit the preactivation-RMS
+    head and identify which observable classes share the same cached
+    parameter-flow jets without new reverse sweeps.
+18. **Order-seven construction.** Write the rank-labelled raw tensor
+    identity, perform equality/transpose peeling, and independently audit any
+    proposed \(M_\nu\)-only recurrence before promoting the 23-tree roadmap.
 
 The decisive unresolved step is depth-uniform finite-state closure. Without
 it, peeling is an explicit layerwise elimination recipe but not yet the
@@ -1440,6 +2052,10 @@ checks the transpose chronology, parity cancellations, tensor-program
 probability bridge, exact reductions, and arbitrary-label cubic MSE
 coefficient.  This proves closure for that fixed observable, not for the
 general admissible grammar, growing \(H\) or \(B\), or positive training time.
+Here \(C_{H,c}\) is the historical notation of the order-three program; in
+the order-five convention of Section 13 it is the cubic coefficient \(B_H\)
+along the scalar feature-ascent channel, not the fifth-order coefficient
+\(C_H\).
 
 For the narrower one-sample order-five route, the same study gives
 algebraically flattened and independently audited expressions for
@@ -1460,6 +2076,19 @@ expectation convergence.  The formulas provide the first two local
 kernel/Padé coefficients, while normalized sine has both coefficients
 negative.  Thus neither positivity of a generic Stieltjes sequence nor a
 depth-uniform small flattened representation follows.
+
+The new amortized-observable audit makes the architecture of that unit-Gram
+graph explicit.  It separates universal parameter-flow jets from
+observable-specific heads, identifies every one of the 29 backbone
+coordinates, and derives a two-dynamic-scalar, one-forward-sweep
+\(\Gamma_{04}\) head for hidden-activation RMS derivatives.  The exact
+finite-width identities, all equality and transpose branches, independent
+Wick--Stein maps, H=2--4 population maps, parity, and exact controls pass.
+Two \(H=2\) sine panels pass.  The original mandatory three-width \(H=3\)
+curvature panel remains inconclusive, while a separately frozen \(n=512\)
+extension passes and discharges the gate.  The two-state head is therefore
+promoted in its fixed-depth unit-Gram scope.  Preactivation RMS, a universal
+small-head theorem, and every proposed order-seven closure remain open.
 
 The general nonlinear two-step closure remains formal, its
 deep-linear specialization is audited, and the finite-state theorem for the

@@ -16,8 +16,8 @@ Let
 Ordinary differentiation of the flow gives the universal parameter jets
 
 \[
- \theta^{(1)}=p,qquad \theta^{(2)}=Dp,qquad
- \theta^{(3)}=D^2p,qquad \theta^{(4)}=D^3p.
+ \theta^{(1)}=p,\qquad \theta^{(2)}=Dp,\qquad
+ \theta^{(3)}=D^2p,\qquad \theta^{(4)}=D^3p.
 \]
 
 They do not depend on the observable.  If `O` is a scalar observable, its first
@@ -72,14 +72,14 @@ and
 Thus the proposed dictionary
 
 \[
- \Gamma_{11}=w_\ell,quad \Gamma_{02}=q02_\ell,quad
- \Gamma_{22}=q22_\ell,quad \Gamma_{13}=q13_\ell
+ \Gamma_{11}=w_\ell,\quad \Gamma_{02}=q02_\ell,\quad
+ \Gamma_{22}=q22_\ell,\quad \Gamma_{13}=q13_\ell
 \]
 
 implies
 
 \[
- Q_\ell''=2(w_\ell+q02_\ell),qquad
+ Q_\ell''=2(w_\ell+q02_\ell),\qquad
  Q_\ell^{(4)}=2\gamma04_\ell+8q13_\ell+6q22_\ell,
 \]
 
@@ -141,9 +141,11 @@ Substitution of (2.3)--(2.4) yields
               -3(w_\ell+q02_\ell)^2.                \tag{4.2}
 \]
 
-## 5. Exact label-one MSE time composition
+## 5. Exact composition of the deterministic annealed coefficient germs
 
-Let `s(0)=0` and
+After the separately fixed-depth coefficient limit and readout parity have
+produced deterministic coefficient germs with `F(0)=0` and even `Q`, let
+`s(0)=0` and
 
 \[
  \dot s=c(1-F(s)),\qquad c=2\eta.
@@ -175,7 +177,10 @@ then give
 \]
 
 The coefficient `C=F^(5)(0)` first enters `s_6`, so its absence from (5.2) is
-required, not accidental.
+required, not accidental.  These are exact formal-series identities for the
+deterministic coefficient germs, not seedwise finite-width identities: before
+the limit the initial output and odd hidden-observable jets need not vanish,
+and annealed products have not yet factorized.
 
 ## 6. Order-seven free-tree family count: roadmap evidence only
 
@@ -202,4 +207,3 @@ Thus the abstract raw `D^7 f` shape count is 23.  This does **not** construct th
 23 tensor formulas with coefficients, perform their width/Wick audit, or establish
 an order-seven MFP recurrence.  In the authoritative report it belongs only in the
 order-seven roadmap until those additional obligations are completed.
-

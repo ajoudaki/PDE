@@ -14,7 +14,8 @@ Each sweep has exactly \(H\) nearest-neighbour layer transitions.  The
 transition template is shared between layers inside a sweep, but the six
 sweeps are different jet-grade maps.
 
-The first completed extra head is the hidden-activation squared-RMS jet
+The first promoted extra head is the hidden-activation
+squared-RMS jet
 
 \[
 Q_\ell(s)=n^{-1}\lVert x^\ell(s)\rVert^2.
@@ -48,30 +49,42 @@ The independently frozen second producer, exact layerwise maps, and full
 finite-width/partition/transpose ledger are in
 [`../../depth_order5_observables/independent/INDEPENDENT_ROUTE_S_REPORT.md`](../../depth_order5_observables/independent/INDEPENDENT_ROUTE_S_REPORT.md).
 The hostile contract and audit live in [`audit/`](audit/).
+The final decision and claim-level evidence are recorded explicitly in
+[`audit/HOSTILE_REPORT.md`](audit/HOSTILE_REPORT.md) and
+[`audit/EVIDENCE_LEDGER.md`](audit/EVIDENCE_LEDGER.md).
+Any “pending promotion” labels inside the earlier hash-frozen Route-A report
+are point-in-time historical text and are superseded by that final hostile
+decision; the frozen files are retained unchanged for provenance.
 
 ## Observable outputs
 
-With moving activation jets \(X_\ell^{(r)}\), define
+With moving activation jets \(X_\ell^{(r)}\), define first the finite-width
+empirical contraction
 
 \[
-\Gamma_{rs}^\ell
-=\lim_{n\to\infty}\mathbb E\,n^{-1}
+\Gamma_{rs,n}^\ell
+=n^{-1}
   \langle X_\ell^{(r)},X_\ell^{(s)}\rangle.
 \]
 
-The exact product rule gives
+The exact finite-width product rule gives
 
 \[
-Q_\ell^{(k)}(0)
-=\sum_{r=0}^{k}\binom{k}{r}\Gamma_{r,k-r}^\ell.
+Q_{\ell,n}^{(k)}(0)
+=\sum_{r=0}^{k}\binom{k}{r}\Gamma_{r,k-r,n}^\ell.
 \]
+
+Only after the separately fixed-depth convergence and uniform-integrability
+bridge do we set
+\(\Gamma_{rs}^\ell=\lim_n\mathbb E\Gamma_{rs,n}^\ell\) and use the same
+identity for deterministic annealed coefficients.
 
 The backbone dictionary is
 
 \[
-\Gamma_{11}=w_\ell,qquad
-\Gamma_{02}=q02_\ell,qquad
-\Gamma_{22}=q22_\ell,qquad
+\Gamma_{11}=w_\ell,\qquad
+\Gamma_{02}=q02_\ell,\qquad
+\Gamma_{22}=q22_\ell,\qquad
 \Gamma_{13}=q13_\ell,
 \]
 
@@ -98,8 +111,10 @@ R_\ell^{(4)}(0)
 -3(w_\ell+q02_\ell)^2.
 \]
 
-For label-one MSE, \(ds/dt=c(1-F(s))\), \(c=2\eta\).  If
-\(q_2=Q_\ell''(0)\) and \(q_4=Q_\ell^{(4)}(0)\), exact composition yields
+For the deterministic annealed coefficient germs under label-one MSE,
+\(ds/dt=c(1-F(s))\), \(c=2\eta\).  If
+\(q_2=Q_\ell''(0)\) and \(q_4=Q_\ell^{(4)}(0)\), exact formal-series
+composition yields
 
 \[
 \begin{aligned}
@@ -113,12 +128,20 @@ Q_t^{(5)}(0)&=-5c^5\bigl[(3A_H^3+B_H)q_2+2A_Hq_4\bigr].
 ## Claim boundary
 
 The finite-width differentiation identities are exact.  The displayed
-moment-only head is algebraically audited at separately fixed depths.  Its
-annealed large-width interpretation is a theorem for polynomially smooth
+moment-only head is algebraically audited at separately fixed depths, and
+the annealed probability bridge is available for polynomially smooth
 activations—\(C^\infty\), with every derivative polynomially bounded—via
 the fixed tensor-program \(L^p\) limit.  Under weaker smoothness, convergence
 in probability plus a uniform \(L^{1+\epsilon}\) bound for every retained
 Gram is required separately.
+
+**The scoped head is promoted.**  The separately frozen hostile
+three-hidden-layer, three-width nonpolynomial panel remains inconclusive
+because its curvature diagnostic is saturated.  A separately frozen
+fourth-width extension regenerated the old samples, added \(n=512\), and
+passed the unchanged validity and curvature thresholds.  Thus the extension
+discharges the empirical gate without erasing or relabelling the original
+decision.
 
 No result here is uniform in growing depth, covers positive feature-ascent
 time, proves that every observable has a small head, or closes the analogous
@@ -131,4 +154,5 @@ claim is promoted.
 ```bash
 python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.multi_observable.independent_route_a.run_checks
 python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_observables.independent.run_checks
+python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.multi_observable.audit.run_hostile_checks
 ```

@@ -45,17 +45,23 @@
 - **Level:** exact controls plus empirical regression.
 - **Status:** exact controls passed through \(H=4\).  Two separately
   preregistered normalized-sine \(H=2\) panels passed.  The stricter hostile
-  \(H=3\) panel is retained at its actual decision level in the hostile
-  report rather than being used to upgrade the algebra.
+  \(H=3\) panel is **inconclusive**: all four z-scores pass, but three widths
+  cannot identify its preregistered quadratic-curvature diagnostic.  A
+  separately frozen fourth-width extension adds \(n=512\), reproduces the old
+  samples exactly, and passes the unchanged validity and curvature gates.
+  The follow-up discharges the promotion gate while the original outcome is
+  retained.
 
 ## MO-6: annealed theorem
 
 - **Statement:** at every separately fixed \(H\), the deterministic head is
   the annealed width limit.
 - **Level:** theorem.
-- **Status:** proved under the all-orders polynomially-smooth tensor-program
-  hypothesis.  With only finite-order differentiability, a separate
-  convergence and uniform-integrability bridge is required.
+- **Status:** the probability bridge is proved under the all-orders
+  polynomially-smooth tensor-program hypothesis.  With only finite-order
+  differentiability, a separate convergence and uniform-integrability bridge
+  is required.  The scoped head is promoted because MO-5 now passes via its
+  separately frozen extension.
 
 ## MO-7: amortized architecture
 
@@ -63,9 +69,10 @@
   hidden-activation RMS heads; the latter costs one additional forward sweep
   and emits all layers in \(O(H)\) time.
 - **Level:** exact construction for the named heads.
-- **Status:** passed for the output and hidden-activation RMS heads.  The
-  analogous preactivation-RMS contraction and a grammar-wide small-head
-  theorem remain open.
+- **Status:** passed for the output head and the promoted hidden-activation
+  RMS head.  The analogous
+  preactivation-RMS contraction and a grammar-wide small-head theorem remain
+  open.
 
 ## MO-8: order-seven extension
 

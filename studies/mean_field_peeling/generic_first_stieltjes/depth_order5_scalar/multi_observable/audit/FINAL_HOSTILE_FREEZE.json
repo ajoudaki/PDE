@@ -1,0 +1,33 @@
+{
+  "decision": "promote_gamma04_head",
+  "generated_after_all_hostile_gates_passed": true,
+  "files": {
+    "AUDIT_CONTRACT.md": "50d1118655a0caeaf682612197dcd5359901bbc7586de255955f5829647dd688",
+    "AUDIT_CONTRACT_FREEZE.json": "9cd557bb8bc86562a211a1dda64c727a704cd2d0d3ccec39e15fec0659e814fb",
+    "INDEPENDENT_IDENTITY_DERIVATION.md": "803ed0c73cd76710fb0cbc535dae3885a5838c11f43836cb307000f24240cbd1",
+    "BACKBONE_SEMANTIC_AUDIT.md": "1e64d4a7095d0731246682cecf64878cd37c22f45bcc59e891d74dc6e3d4a31c",
+    "HOSTILE_CANDIDATE_DERIVATION.md": "fd4f036b7a44b0c4d6e521f9174051ae3d2775fb52dd6e43e23d7456c2d6a652",
+    "HOSTILE_CANDIDATE_FREEZE.json": "a124deac7ecd46895de641614204ed0de925141870cb211d4309bff7ef38e223",
+    "HOSTILE_CANDIDATE_V2_DERIVATION.md": "fee34a9c4d2816ded14fb12ad176b937cc57ad2ab5c3b40c13d7d3f7b0dc454f",
+    "HOSTILE_CANDIDATE_V2_FREEZE.json": "1a58b306da196811b509ecd21e75b5dd1d522e45013015649ac5dd65db8628b0",
+    "H3_NORMALIZED_SINE_RESULT.json": "711da231ee0193ffeb94ca6a2e2907d6aedd9f76b56fa24c5fc7f56b0f34ac17",
+    "H3_REGRESSION_FREEZE.json": "3794698a0cb9407d74509953949bc35d197362c3c5ae24164b4eab377d1abe3c",
+    "H3_CURVATURE_EXTENSION_CONTRACT.md": "756d985373b2e88cfacffd2509f42f67a30ef6fcba579771bd85015e49793678",
+    "H3_CURVATURE_EXTENSION_FREEZE.json": "e9f4c56a19bdd04433dc1036b60be743d6a3e57eeea6ab23db514bccd63d8d82",
+    "H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RESULT.json": "70f7b7e5b656f09d9dddb3fa72d36a8280865993493a1303671a0cc395e16b84",
+    "H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RAW.npz": "2d2329246d15f1884458c39cae2897e06776fd3aad24d3875c21468175797ad0",
+    "run_h3_curvature_extension.py": "e6a5e8f79c7b0f23b578c13630119b74437fc65426f74e177d947b00f6842b95",
+    "postprocess_h3_curvature_extension.py": "4b1df8088855475a632cf0f31ec93d754f5359e22495e03f4b56e6aaad606af8",
+    "count_free_trees.py": "aabd5c068de3c179402f94a5e709f69c7708fe311568e2b67eb2358b62a46f78",
+    "run_hostile_checks.py": "88aca0b7e9e6d1c2bc30d5fb16026c141e2139a6052fec3b5c20982d5bc70e1d",
+    "HOSTILE_REPORT.md": "b3d9cfeba3ef1afe9c2449d66e658ff02743f4c24d2e3ef6ad48ef7d94e6715e",
+    "EVIDENCE_LEDGER.md": "bfb2e2e4f207320b748dc6e76d64ff693f9a9b7c5f2f5f48e9d07471dacdd646",
+    "HOSTILE_STATUS.json": "a27850f0a28f27a61cf192652471f19ff0d689548423f2af50d15d171f0791c0"
+  },
+  "producer_freezes": {
+    "route_a": "5880677b1ea2567c8d44498fb634c4fc4ab771d43d7e5d37959b0df8d9deaab6",
+    "route_s": "3a3fd13beeeea4a0947f459d829932f4feb2770ccaac7ea951155e785614f02e"
+  },
+  "runner_command": "python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.multi_observable.audit.run_hostile_checks",
+  "runner_exit_code": 0
+}

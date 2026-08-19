@@ -1,0 +1,20 @@
+{
+  "status": "frozen before generating any width-512 value",
+  "reason": "repair the saturated three-width curvature gate without changing its thresholds",
+  "contract": "H3_CURVATURE_EXTENSION_CONTRACT.md",
+  "contract_sha256": "756d985373b2e88cfacffd2509f42f67a30ef6fcba579771bd85015e49793678",
+  "runner": "run_h3_curvature_extension.py",
+  "runner_sha256": "e6a5e8f79c7b0f23b578c13630119b74437fc65426f74e177d947b00f6842b95",
+  "old_raw_sha256": "d99931b2976f87f2c40988399555d08ab203893d9e77107a546f62b49b95faef",
+  "added_width": 512,
+  "added_replicates": 1024,
+  "added_seed_formula": "23000000 + replicate",
+  "new_results_seen_before_freeze": false,
+  "first_raw_sha256": "2d2329246d15f1884458c39cae2897e06776fd3aad24d3875c21468175797ad0",
+  "first_run_incident": "calculation and raw write completed; JSON serialization then failed on numpy.bool_",
+  "serialization_wrapper": "postprocess_h3_curvature_extension.py",
+  "serialization_wrapper_v1_sha256": "0071631d368274ff0b630a5636f65ae8296890129d1f75f5f469cc4eab0b452f",
+  "wrapper_v1_incident": "rerun preserved the raw hash; the wrapper's own final write still omitted its registered scalar encoder",
+  "serialization_wrapper_sha256": "4b1df8088855475a632cf0f31ec93d754f5359e22495e03f4b56e6aaad606af8",
+  "wrapper_frozen_before_raw_values_inspected": true
+}

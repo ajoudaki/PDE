@@ -17,6 +17,7 @@ observable-grammar theorem and depth-linear finite-state closure remain open.
 | Generic order-three feature correction at separately fixed depth and batch | Explicit audited Gaussian recursion under polynomial smoothness |
 | Generic order-five route at two hidden layers and one sample | Fully flattened one-dimensional moment formula; independent symbolic-\(Q^0\) atom audit under polynomial smoothness |
 | Generic order-five route at arbitrary fixed depth, one sample, unit Gram | Explicit 29-coordinate-type, six-sweep, one-dimensional-moment recursion; exact H=2,3,4 coefficient audits; strict one-forward/one-backward compression remains open |
+| Amortized hidden-activation RMS head | Promoted two-scalar, one-sweep \(\Gamma_{04}\) map at separately fixed depth, one sample, and unit Gram; exact finite-width, algebraic, and nonpolynomial gates pass |
 | Quadratic decorated-forest reduction | Exact special-case reduction |
 | Canonical quadratic derivatives through order seventeen | Accepted exact certificates; connected forest through eleven, polynomial Gaussian-program recurrence through thirteen, two scalar exact recurrences through seventeen |
 | Canonical hidden preactivation norms | Two exact contractions through $Q_2^{(16)}$; nine first-hidden and eight second-hidden moment candidates; every accessible squared/literal-RMS Hankel principal minor passes strictly |
@@ -72,6 +73,21 @@ generic observable grammar, or positive-time dynamics.  The annealed
 identification uses an all-orders polynomially-smooth activation theorem;
 finite \(C^5\) regularity alone supplies only the exact finite-width Taylor
 algebra unless a separate probability/UI bridge is proved.
+
+The adjacent
+[multi-observable study](generic_first_stieltjes/depth_order5_scalar/multi_observable/)
+reorganizes that graph as a reusable parameter-flow backbone with
+observable-specific heads. It gives the exact observable chain rule, the
+semantic meaning of all backbone states, hidden squared-RMS and RMS
+coefficients, the label-one MSE time conversion, and a fully contracted
+two-dynamic-scalar normal form for the missing moving \(\Gamma_{04}\)
+contraction. Two frozen producers and a corrected hostile canonicalizer
+agree atom by atom. Two separately preregistered two-layer panels pass.  The
+original three-hidden-layer, three-width curvature check remains permanently
+inconclusive; a separately frozen fourth-width extension resolves its
+identifiability defect and passes, so the scoped head is promoted.  The
+directory preserves both experimental outcomes and the falsified four-slot
+canonicalizer rather than hiding them.
 
 The documents distinguish exact finite-width identities, mean-field results
 under named probabilistic assumptions, formal nonlinear closures, restricted

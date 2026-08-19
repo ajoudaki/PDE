@@ -1,0 +1,259 @@
+{
+  "activation": "sin(x)/sqrt((1-exp(-2))/2)",
+  "contract": "H3_CURVATURE_EXTENSION_CONTRACT.md",
+  "decision": "pass",
+  "decision_reason": "all validity, curvature, standard-error, and z gates passed",
+  "fits": {
+    "layer2_gamma04": {
+      "affine": {
+        "chi_square": 0.7949091496775921,
+        "coefficient_se": [
+          111.28034437443657,
+          22235.742499344633
+        ],
+        "coefficients": [
+          8149.94146884482,
+          55923.5011241866
+        ],
+        "degrees_of_freedom": 2,
+        "goodness_p": 0.6720284689557885,
+        "intercept": 8149.94146884482,
+        "intercept_se": 111.28034437443657,
+        "prediction": 8126.876969271377,
+        "z": 0.20726481125755075
+      },
+      "curvature_z": -0.12709307354286398,
+      "intercept_shift": -21.313338061617287,
+      "intercept_shift_threshold": 402.522821383367,
+      "quadratic": {
+        "chi_square": 0.7787565003350371,
+        "coefficient_se": [
+          201.2614106916835,
+          80311.8873028527,
+          5010856.621529525
+        ],
+        "coefficients": [
+          8128.628130783202,
+          65731.57177848504,
+          -636845.1691127989
+        ],
+        "degrees_of_freedom": 1,
+        "goodness_p": 0.3775217161577422,
+        "intercept": 8128.628130783202,
+        "intercept_se": 201.2614106916835
+      },
+      "resolved_material_curvature": false,
+      "se_gate": true
+    },
+    "layer2_q4": {
+      "affine": {
+        "chi_square": 6.46408585744568,
+        "coefficient_se": [
+          262.84140648874666,
+          54448.29856385891
+        ],
+        "coefficients": [
+          -9494.472191565936,
+          -86751.09166740207
+        ],
+        "degrees_of_freedom": 2,
+        "goodness_p": 0.039476768129489005,
+        "intercept": -9494.472191565936,
+        "intercept_se": 262.84140648874666,
+        "prediction": -9623.98465952871,
+        "z": 0.49273997462161717
+      },
+      "curvature_z": 2.0910692828997046,
+      "intercept_shift": 855.9773261400805,
+      "intercept_shift_threshold": 972.9384143283755,
+      "quadratic": {
+        "chi_square": 2.091515111558762,
+        "coefficient_se": [
+          486.46920716418776,
+          198477.4996180473,
+          12352699.761927746
+        ],
+        "coefficients": [
+          -8638.494865425855,
+          -485858.9351395269,
+          25830351.033049602
+        ],
+        "degrees_of_freedom": 1,
+        "goodness_p": 0.1481191097685117,
+        "intercept": -8638.494865425855,
+        "intercept_se": 486.46920716418776
+      },
+      "resolved_material_curvature": false,
+      "se_gate": true
+    },
+    "layer3_gamma04": {
+      "affine": {
+        "chi_square": 2.6816796016482987,
+        "coefficient_se": [
+          456.59450339714465,
+          93618.26678726485
+        ],
+        "coefficients": [
+          33267.117946291284,
+          329924.0383980393
+        ],
+        "degrees_of_freedom": 2,
+        "goodness_p": 0.2616258626815582,
+        "intercept": 33267.117946291284,
+        "intercept_se": 456.59450339714465,
+        "prediction": 33368.26869702187,
+        "z": -0.2215330013348983
+      },
+      "curvature_z": -0.7295142817548105,
+      "intercept_shift": -510.0824548369601,
+      "intercept_shift_threshold": 1670.1746187556032,
+      "quadratic": {
+        "chi_square": 2.1494885143641556,
+        "coefficient_se": [
+          835.0873093778016,
+          338491.85887401336,
+          21142008.18553636
+        ],
+        "coefficients": [
+          32757.035491454324,
+          567226.3649707902,
+          -15423396.91632588
+        ],
+        "degrees_of_freedom": 1,
+        "goodness_p": 0.14261739455407887,
+        "intercept": 32757.035491454324,
+        "intercept_se": 835.0873093778016
+      },
+      "resolved_material_curvature": false,
+      "se_gate": true
+    },
+    "layer3_q4": {
+      "affine": {
+        "chi_square": 1.986062317808882,
+        "coefficient_se": [
+          1339.3543786874413,
+          287048.477035188
+        ],
+        "coefficients": [
+          -33644.806883939076,
+          -370504.616434786
+        ],
+        "degrees_of_freedom": 2,
+        "goodness_p": 0.37045208831219395,
+        "intercept": -33644.806883939076,
+        "intercept_se": 1339.3543786874413,
+        "prediction": -33492.39282553275,
+        "z": -0.1137966626545043
+      },
+      "curvature_z": 1.0823232637673226,
+      "intercept_shift": 2219.9710875420715,
+      "intercept_shift_threshold": 4899.36689111963,
+      "quadratic": {
+        "chi_square": 0.8146386705169216,
+        "coefficient_se": [
+          2449.683445559815,
+          1006204.5443952462,
+          63643315.80606376
+        ],
+        "coefficients": [
+          -31424.835796397005,
+          -1414287.8553900407,
+          68882641.28019336
+        ],
+        "degrees_of_freedom": 1,
+        "goodness_p": 0.36675237046120757,
+        "intercept": -31424.835796397005,
+        "intercept_se": 2449.683445559815
+      },
+      "resolved_material_curvature": false,
+      "se_gate": true
+    }
+  },
+  "hidden_layers": 3,
+  "maximum_finite_width_identity_relative_residual": 6.008524388973696e-14,
+  "maximum_old_reproduction_scaled_error": 0.0,
+  "means": {
+    "layer2_gamma04": [
+      9037.108137892885,
+      8503.102156196317,
+      8475.726348347727,
+      8230.597860799078
+    ],
+    "layer2_q4": [
+      -10072.768643035364,
+      -10408.90208594534,
+      -10520.070977367935,
+      -9400.962044667755
+    ],
+    "layer3_gamma04": [
+      38116.19586566404,
+      35508.836641920854,
+      35417.757636645925,
+      33649.35596692491
+    ],
+    "layer3_q4": [
+      -37248.18405784403,
+      -36856.1662169537,
+      -37084.59793478727,
+      -33652.152314357125
+    ]
+  },
+  "new_width_seed_formula": "23000000 + replicate",
+  "nonfinite_count": 0,
+  "observed_layers": [
+    2,
+    3
+  ],
+  "old_raw_sha256": "d99931b2976f87f2c40988399555d08ab203893d9e77107a546f62b49b95faef",
+  "prediction": {
+    "layer2_gamma04": 8126.876969271377,
+    "layer2_q4": -9623.98465952871,
+    "layer3_gamma04": 33368.26869702187,
+    "layer3_q4": -33492.39282553275
+  },
+  "raw_path": "H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RAW.npz",
+  "raw_sha256": "2d2329246d15f1884458c39cae2897e06776fd3aad24d3875c21468175797ad0",
+  "replicates_per_width": 1024,
+  "replication_required": false,
+  "runner_serialization_failure": "the frozen extension completed and wrote raw data, then failed because numpy.bool_ is not JSON serializable",
+  "serialization_wrapper": "postprocess_h3_curvature_extension.py",
+  "standard_errors": {
+    "layer2_gamma04": [
+      332.3428094656347,
+      206.96634558509697,
+      146.2507288078503,
+      94.72297591831638
+    ],
+    "layer2_q4": [
+      813.1576811123981,
+      533.4720253369705,
+      346.1108189845959,
+      220.89310547035586
+    ],
+    "layer3_gamma04": [
+      1404.8244484554657,
+      891.7879208460237,
+      605.3357778680266,
+      384.32528808654996
+    ],
+    "layer3_q4": [
+      4409.954629773035,
+      2691.394388271996,
+      1743.4148801048789,
+      1104.7683808436095
+    ]
+  },
+  "validity_gates": {
+    "curvature": true,
+    "finite": true,
+    "identity": true,
+    "old_reproduction": true,
+    "standard_errors": true
+  },
+  "widths": [
+    64,
+    128,
+    256,
+    512
+  ]
+}

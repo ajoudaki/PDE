@@ -1,0 +1,62 @@
+{
+  "decision": "promote_gamma04_head",
+  "scope": "two-state M-only hidden-activation Gamma04 head at arbitrary separately fixed H, B=1, unit Gram",
+  "promotion_gates": {
+    "frozen_artifacts": true,
+    "three_route_raw_atom_comparison": true,
+    "falsified_alias_preserved": true,
+    "two_state_reduction": true,
+    "partition_width_transpose_and_ceiling": true,
+    "H2_H3_H4_all_layer_population_maps": true,
+    "finite_width_and_parity": true,
+    "constant_linear_affine_controls": true,
+    "smooth_nonpolynomial": true
+  },
+  "exact_discrepancies": {
+    "raw_route_H_vs_A": 0,
+    "raw_route_H_vs_S": 0,
+    "raw_route_A_vs_S": 0,
+    "reduced_route_H_vs_A": 0,
+    "reduced_route_H_vs_S": 0,
+    "reduced_route_A_vs_S": 0,
+    "H2_population": 0,
+    "H3_population": 0,
+    "H4_population": 0
+  },
+  "state": {
+    "raw_coordinates": ["gamma04", "a41", "a43"],
+    "raw_term_counts": [83, 20, 1],
+    "public_coordinates": ["gamma04", "a41"],
+    "derived_coordinate": "a43_l=tau_l-1",
+    "public_term_counts": [64, 17],
+    "minimality_claim": false,
+    "cost_all_layers": "one O(H) post-R3 sweep"
+  },
+  "nonpolynomial": {
+    "original_hostile_H3_three_width_decision": "inconclusive",
+    "original_reason": "quadratic curvature fit saturated by three widths",
+    "separately_frozen_four_width_extension_decision": "pass",
+    "extension_affine_max_abs_z": 0.49273997462161717,
+    "extension_maximum_identity_residual": 6.008524388973696e-14,
+    "extension_replication_required": false
+  },
+  "not_promoted": [
+    "minimality of the two-state head",
+    "growing-depth uniformity",
+    "positive-time Taylor convergence",
+    "preactivation-RMS head",
+    "F7 closure, state count, sweep count, phi7 ceiling, audited family count, or O(H) complexity"
+  ],
+  "files": {
+    "run_hostile_checks.py": "88aca0b7e9e6d1c2bc30d5fb16026c141e2139a6052fec3b5c20982d5bc70e1d",
+    "HOSTILE_REPORT.md": "b3d9cfeba3ef1afe9c2449d66e658ff02743f4c24d2e3ef6ad48ef7d94e6715e",
+    "EVIDENCE_LEDGER.md": "bfb2e2e4f207320b748dc6e76d64ff693f9a9b7c5f2f5f48e9d07471dacdd646",
+    "INDEPENDENT_IDENTITY_DERIVATION.md": "803ed0c73cd76710fb0cbc535dae3885a5838c11f43836cb307000f24240cbd1",
+    "BACKBONE_SEMANTIC_AUDIT.md": "1e64d4a7095d0731246682cecf64878cd37c22f45bcc59e891d74dc6e3d4a31c",
+    "H3_CURVATURE_EXTENSION_FREEZE.json": "e9f4c56a19bdd04433dc1036b60be743d6a3e57eeea6ab23db514bccd63d8d82",
+    "H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RESULT.json": "70f7b7e5b656f09d9dddb3fa72d36a8280865993493a1303671a0cc395e16b84",
+    "H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RAW.npz": "2d2329246d15f1884458c39cae2897e06776fd3aad24d3875c21468175797ad0"
+  },
+  "runner_command": "python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.multi_observable.audit.run_hostile_checks",
+  "runner_exit_code": 0
+}

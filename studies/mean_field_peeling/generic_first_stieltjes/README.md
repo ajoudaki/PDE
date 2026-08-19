@@ -6,10 +6,10 @@ a Hermite or polynomial approximation of the activation.
 
 ## Current result
 
-For the frozen \(L=2,B=1\) model, the coefficient
+For the frozen \(L=2,B=1\) model, the cubic feature coefficient
 
 \[
-C=\lim_{n\to\infty}\mathbb E[D_n^3f_n]
+B=\lim_{n\to\infty}\mathbb E[D_n^3f_n]
 \]
 
 has been reduced to an executable Gaussian normal form containing exactly 17
@@ -34,11 +34,16 @@ An important outcome is that the generic coefficient need not be positive.
 For \(q_0=1\) and \(\phi(x)=\sin x\), the normal form gives
 
 \[
-A=1,\qquad C=-1.88699982730593\ldots.
+A=1,\qquad B=-1.88699982730593\ldots.
 \]
 
-Thus \(C/(2A^2)\) is generically a first nonlinear feature coefficient, not
+Thus \(B/(2A^2)\) is generically a first nonlinear feature coefficient, not
 automatically a Stieltjes moment.
+
+Earlier order-three artifacts in this directory call this same cubic
+quantity \(C_c\) or \(C_{H,c}\).  In the order-five convention used below it
+is \(B_H=F_H^{(3)}(0)\), not the fifth-order
+\(C_H=F_H^{(5)}(0)\).
 
 The same two-hidden-layer, one-sample model is now closed through route order
 five.  The [`order5/`](order5/) calculation gives fully flattened formulas
@@ -110,10 +115,26 @@ two-sweep compression remains open.  The tagged fifth-derivative map still
 grows from 1,045 terms at \(H=2\) to 462,776 at \(H=4\), so no depth-uniform
 flat-polynomial-size claim is made.
 
-The direct annealed theorem tier assumes a (C^\infty) activation whose every
+The
+[multi-observable extension](depth_order5_scalar/multi_observable/)
+separates that six-sweep graph into a universal parameter-flow backbone and
+observable-specific readout heads. For hidden-activation squared RMS, the
+missing moving \(\Gamma_{04}\) contraction is algebraically reduced to one
+additional forward sweep with the two dynamic scalars
+\((\gamma04,a41)\); the apparent third scalar is exactly
+\(1+a43_\ell=\tau_\ell\). Independent frozen producers agree on every raw
+and reduced moment monomial, and exact finite-width, parity, width,
+transpose-response, constant, linear, and affine gates pass. Two independent
+\(H=2\) sine panels pass.  The original three-width \(H=3\) panel remains
+inconclusive, but a separately frozen fourth-width extension resolves the
+curvature-identifiability defect and passes.  The two-state head is therefore
+promoted in its separately fixed-depth, one-sample, unit-Gram scope without
+overwriting the original decision.
+
+The direct annealed theorem tier assumes a \(C^\infty\) activation whose every
 derivative has polynomial growth, so that the fixed program falls under
 Golikov--Yang, *Non-Gaussian Tensor Programs*, Theorem 3.7.  With only the
-finite (C^5) envelope the Taylor identities remain exact, but expectation
+finite \(C^5\) envelope the Taylor identities remain exact, but expectation
 convergence needs a separate probability limit and uniform-integrability
 bound.  Exact constant, affine, deep-linear, and unnormalised quadratic
 controls pass, and a preregistered 7,700-network normalized-sine regression
@@ -210,6 +231,12 @@ and arbitrary-label loss map.
   through order five.  It embeds every one-dimensional-\(M_\nu\) transition,
   records the 7/8/4/4/3/3 sweep chronology, exact map and control audits,
   probability boundary, and the still-open two-sweep compression obligation.
+- **depth_order5_scalar/multi_observable/**: the amortized-DAG semantics,
+  independently derived two-state hidden-RMS head, exact branch and
+  population comparisons, finite-width programs, empirical panels, hostile
+  audit, and order-seven roadmap.  The original three-width \(H=3\) panel is
+  retained as inconclusive; its separately frozen four-width extension passes
+  and discharges the promotion gate.
 
 The maintained project-wide MFP theory remains
 `../CURRENT_RESEARCH_STATE.md`; this directory is a new fixed-observable
@@ -228,6 +255,9 @@ python -m studies.mean_field_peeling.generic_first_stieltjes.depth.run_fixed_bat
 python -m studies.mean_field_peeling.generic_first_stieltjes.order5.run_checks
 python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5.primary.run_lightweight_checks
 python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.run_checks
+python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.multi_observable.independent_route_a.run_checks
+python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_observables.independent.run_checks
+python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.multi_observable.audit.run_hostile_checks
 ```
 
 For the independent accepted quadratic pairing gate, run

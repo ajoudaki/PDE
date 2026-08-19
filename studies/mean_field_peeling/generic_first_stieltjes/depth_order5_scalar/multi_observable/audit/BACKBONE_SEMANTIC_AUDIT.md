@@ -73,7 +73,7 @@ of `X_3^f` and `X_5^f` to the fresh reverse Gaussian that enters the frozen
 first preactivation jet.  Their combinations
 
 \[
- S_{3,\ell}=j_\ell+3u_\ell,qquad
+ S_{3,\ell}=j_\ell+3u_\ell,\qquad
  S_{5,\ell}=k_\ell+5v_\ell
 \]
 
@@ -96,9 +96,9 @@ The four `c` coordinates are the transpose-response channels retained by
 liveness pruning:
 
 \[
- c10:\Delta_1^f\leftrightarrow F_0,quad
- c21:\Delta_2^f\leftrightarrow F_1,quad
- c30:\Delta_3^f\leftrightarrow F_0,quad
+ c10:\Delta_1^f\leftrightarrow F_0,\quad
+ c21:\Delta_2^f\leftrightarrow F_1,\quad
+ c30:\Delta_3^f\leftrightarrow F_0,\quad
  c32:\Delta_3^f\leftrightarrow F_2.
 \]
 
@@ -142,15 +142,15 @@ the transpose-response rule.
 \[
 \begin{array}{c|c}
 q13&\langle X_1^f,X_3^m\rangle/n=\Gamma_{13}\\
-a30&\text{response of }X_3^m\text{ to reverse channel }0\\
-a32&\text{response of }X_3^m\text{ to reverse channel }3.
+a30&\text{response of }X_3^m\text{ to the frozen reverse innovation }E_0\\
+a32&\text{response of }X_3^m\text{ to the moving reverse-grade-2 innovation }J_2.
 \end{array}
 \]
 
 The combinations passed to the local Bell polynomial are
 
 \[
- l30=4q02+3w+a30,qquad l32=1+a32.
+ l30=4q02+3w+a30,\qquad l32=1+a32.
 \]
 
 ### R3: moving reverse jet of order three
@@ -158,8 +158,8 @@ The combinations passed to the local Bell polynomial are
 \[
 \begin{array}{c|c}
 r13&\langle\Delta_1^f,\Delta_3^m\rangle/n\\
-d30&\text{response of }\Delta_3^m\text{ to forward channel }0\\
-d32&\text{response of }\Delta_3^m\text{ to forward channel }3.
+d30&\text{coefficient of }X_0\text{ in }\Delta_3^m=J_3+d30X_0+d32X_2\\
+d32&\text{coefficient of the moving feature-grade-2 }X_2\text{ above}.
 \end{array}
 \]
 
@@ -178,7 +178,7 @@ It is precisely the accepted order-three state `(V,M,J;E,C)`.  Its terminal
 readout is
 
 \[
- S_{3,H}=j_H+3u_H,qquad
+ S_{3,H}=j_H+3u_H,\qquad
  B_H=2S_{3,H}+4\mathcal H,
 \]
 
@@ -227,4 +227,3 @@ number of new deterministic states.  In particular:
 - a preactivation-RMS head cannot be inferred from an activation-RMS head:
   it has a different observable derivative tensor and must be derived and
   audited separately.
-
