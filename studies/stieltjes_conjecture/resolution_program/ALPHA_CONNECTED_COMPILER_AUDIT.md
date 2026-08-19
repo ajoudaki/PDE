@@ -7,10 +7,8 @@ compiler directly by the number of first-hidden hits.
 For a connected decorated tree \(T\), let
 
 \[
-\[
 V_{k,r}(T)=\operatorname{coeff}_{\alpha^r}
   (D_a+D_W+\alpha D_u)^kT.
-\]
 \]
 
 The readout rewrite contributes \(V_{k-1,r}\), the first-hidden rewrite

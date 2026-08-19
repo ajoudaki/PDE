@@ -304,7 +304,7 @@ Apply the lemma to the finite program needed through order \(k\).  Equations
 equals
 
 \[
-\lim_{n\to\infty}\mathbb E[D_{\alpha,1,n}^{,k}f_n]
+\lim_{n\to\infty}\mathbb E[D_{\alpha,1,n}^{k}f_n]
 \]
 
 for every fixed \(k\le13\) (indeed, for every fixed \(k\) for which the

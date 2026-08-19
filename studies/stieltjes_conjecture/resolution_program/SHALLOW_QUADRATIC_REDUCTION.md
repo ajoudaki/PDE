@@ -7,7 +7,7 @@ counterexample.  It distinguishes three statements that must not be
 conflated:
 
 1. an exact finite-width reduction at the boundary
-   ((\alpha,\beta)=(0,1));
+   \((\alpha,\beta)=(0,1)\);
 2. an exact counterexample to the **formal output-kernel moment** Stieltjes
    conjecture for a conventional one-hidden-layer raw-square network; and
 3. an explicit low-dimensional characteristic flow, which is not by itself
