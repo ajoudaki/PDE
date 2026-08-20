@@ -11,6 +11,12 @@ The same audit recovered one already-computed, previously omitted
 same-dimension basis comparison; it is reported in Section 4.1. No additional
 trajectory was run.
 
+> **Supersession note (phase 03).** The adverse \(P=5,15,35\)
+> noncontraction ratios in this report compare parity-inert even shells and
+> must not be used as evidence against Hermite convergence. Phase 03
+> establishes \(P5=P15\) and \(P35=P70\) under exact parity. Other
+> measurements retain their stated local scopes.
+
 ## Executive conclusion
 
 Six research questions now have actual numerical evidence.

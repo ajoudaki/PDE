@@ -8,10 +8,21 @@
 > included refer to the original full release. Running the bundled canonical
 > protocol regenerates them locally.
 
+> **Later cutoff-audit note.** Section 4's \(P=5\to15\) comparison is not a
+> physical hierarchy step for this odd-activation, symmetric-initialization
+> model. Exact parity makes the added even-degree shell inert; the observed
+> difference was cubature symmetry leakage. The parity-correct ladder and the
+> later aggregate noncontraction diagnostics are maintained under
+> [`pde_convergence/03_bridgeability`](../../pde_convergence/03_bridgeability/)
+> and
+> [`pde_convergence/05_tail_and_compactness`](../../pde_convergence/05_tail_and_compactness/).
+
 ## Bottom line
 
-An actual width-independent PDE has now been integrated for the canonical
-continuous-depth, fully dense, unconstrained Euclidean \(\mu\)P ResNet.
+An explicit finite-\(P\) candidate PDE whose mathematical state contains no
+network-width coordinate has now been integrated for comparison with the
+canonical continuous-depth, fully dense, unconstrained Euclidean \(\mu\)P
+ResNet.
 
 This is the first experiment in this project that passes the literal PDE
 test:
@@ -70,8 +81,8 @@ cannot honestly be simulated without adding new closure choices.
 
 The successful equation is a new, explicit **Hermite/isonormal
 operator-Galerkin Liouville PDE** for the same canonical dense model.
-After the width limit, an iid dense row is projected onto \(P\) fixed
-Hermite functions of the immutable neuron type
+In the candidate post-width-limit construction, an iid dense row is projected
+onto \(P\) fixed Hermite functions of the immutable neuron type
 \(\theta=(B_i(0),a_i(0))\). The conditional law of its \(P\) total row
 coefficients \(w\) obeys
 
@@ -87,8 +98,10 @@ V_j
 \]
 
 The slow hidden field and adjoint solve coupled forward/backward depth
-equations. The same \(w_j\)'s define both \(W_P\) and \(W_P^\ast\), so
-transpose reuse and the projected Onsager term are exact.
+equations. The same \(w_j\)'s define both \(W_P\) and \(W_P^\ast\), so the
+shared-transpose pairing and associated projected Onsager term are exact
+identities of the finite-\(P\) PDE. Identifying that term with the trained
+dense-limit conditional mean remains open.
 
 The full derivation is in `theory/operator_galerkin_pde.md`.
 
@@ -234,7 +247,8 @@ four-dimensional immutable neuron label and Sobol characteristics in the
 | hybrid \(P=15,R=256\) vs refined-QMC \(P=15\) | \(5.654\times10^{-4}\) | \(7.573\times10^{-4}\) | \(1.250\times10^{-2}\) |
 
 The two \(P=15\) methods therefore agree well in the Gram observable.
-However, \(P=15\) does **not** improve the finite-reference match:
+In these parity-leaking numerical runs, \(P=15\) does **not** improve the
+finite-reference match:
 
 | PDE | Gram-increment gap to \(n=256,L=32,S=128\) | Fraction of PDE feature motion |
 |---|---:|---:|
@@ -244,11 +258,10 @@ However, \(P=15\) does **not** improve the finite-reference match:
 | hybrid \(P=15,R=256\) | \(9.223\times10^{-3}\) | \(1.460\%\) |
 | hybrid \(P=35,R=128\), cubic stress | \(1.373\times10^{-2}\) | \(2.192\%\) |
 
-Thus the finite PDE remains close at both compiler levels, and the
-quadratic correction is small and reproducible, but the first clean
-operator-order refinement moves in the wrong direction for this finite
-dense reference. This is an explicit negative result: the current data do
-not establish \(P\to\infty\) convergence toward the dense curves.
+These numerical differences are reproducible, but the later exact parity
+audit shows that they measure symmetry leakage rather than a physical
+quadratic correction. They must not be used as evidence for or against
+\(P\to\infty\) convergence.
 
 The complete-cubic \(P=35\) execution uses order-four Gauss--Hermite in the
 base label, giving basis Gram condition \(1+8\times10^{-15}\), and passes
@@ -308,11 +321,12 @@ above its \(9.216\times10^{-3}\) threshold (\(p\approx0.028\)).
 
 These apparently different finite-grid decisions are compatible with the
 same conclusion: the PDE is close, but finite-network sampling and
-width/depth bias have not been separated. Moreover, \(P=15\) is
-statistically farther than \(P=5\) against all three pooled/held-out
-references under the preregistered signed-improvement test. The frozen
-protocol, compact summaries of the 2,000-replicate bootstrap distributions,
-and every decision table are in `audits/statistical_audit/`. The full
+width/depth bias have not been separated. The preregistered signed-improvement
+test did find the numerically realized \(P=15\) curves farther than \(P=5\),
+but the later parity result makes that a cubature diagnostic rather than an
+operator-order result. The frozen protocol, compact summaries of the
+2,000-replicate bootstrap distributions, and every decision table are in
+`audits/statistical_audit/`. The full
 bootstrap arrays are regenerated locally by the canonical protocol.
 
 ## 6. Evidence for the depth-homogenization step
@@ -341,8 +355,9 @@ The direct simulation question now has a positive answer:
 
 \[
 \boxed{
-\text{a genuine finite, autonomous, width-independent neural PDE was
-simulated and it tracks the dense Euclidean \(\mu\)P curves through plateau.}
+\text{a finite, autonomous candidate PDE with no network-width coordinate at
+fixed \(P\) was simulated and closely tracks the tested finite-network curves
+through plateau.}
 }
 \]
 
@@ -352,10 +367,10 @@ Time and depth error are well below this scale, while QMC scramble spread is
 about \(2.1\times10^{-3}\) and basis/cubature-method systematics require
 further refinement. The held-out width/depth Cauchy gaps are not
 statistically resolved, so the experiment cannot yet decide whether the
-small PDE discrepancy vanishes in the ordered dense limit. The first
-complete quadratic compiler refinement is statistically farther from each
-audited finite reference, so the current evidence does not establish a
-convergent finite-\(P\) hierarchy.
+small PDE discrepancy vanishes in the ordered dense limit. Later
+parity-correct odd-shell experiments also fail to show replicated aggregate
+contraction, so the current evidence does not establish a convergent
+finite-\(P\) hierarchy.
 
 What remains open is mathematical identification:
 

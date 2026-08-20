@@ -4,10 +4,14 @@
 
 > **Dated baseline.** This monograph records the project state on 31 July
 > 2026.  It predates the maintained mean-field-peeling and output-kernel
-> Stieltjes studies.  For later results, use the scoped current reports in
+> Stieltjes studies. For later cross-study orientation, use
+> [`UNIFIED_FINITE_CAUSAL_NEURAL_PDE_SYNTHESIS_2026-08-19.md`](UNIFIED_FINITE_CAUSAL_NEURAL_PDE_SYNTHESIS_2026-08-19.md).
+> For later results, use the scoped current reports in
 > [`studies/mean_field_peeling/`](studies/mean_field_peeling/) and
-> [`studies/stieltjes_conjecture/`](studies/stieltjes_conjecture/).  Those
-> reports supersede this document within their respective scopes.
+> [`studies/stieltjes_conjecture/`](studies/stieltjes_conjecture/), and the
+> residual-program evidence guide at
+> [`studies/resnet_pde/`](studies/resnet_pde/). Those reports supersede this
+> document within their respective scopes.
 
 **Document version:** 2.2  
 **Release date:** 31 July 2026  
@@ -24,7 +28,7 @@
 
 The project asks whether the deterministic limits furnished by modern infinite-width theories can be compressed further into a finite causal macroscopic state.
 
-The broad thesis is:
+The broad thesis being tested is the following open conjecture:
 
 > In a standard deep, dense, fully trained, nonlinear $\mu$P feature-learning regime, the ordered wide/deep training dynamics of outputs and representations admit an architecture-derived, autonomous PDE description with finitely many field species over a fixed finite-dimensional source space, to arbitrary prescribed accuracy, without retaining microscopic matrices or a training-history object whose dimension grows with the time horizon. The compiled PDE is internally restartable from its declared state. The stronger restart-robust form also supplies a correspondence from physically consistent positive-time dense states to PDE states and controls the future continuation error.
 
@@ -4922,7 +4926,7 @@ not $5\to15\to35$. The earlier interpretation of $P=5\to15$ as a physical refine
 
 ### 6.11 Exact chronological response and the surviving role of the $K/J/N$ program
 
-The operator–Hermite PDE is the only fully explicit width-independent PDE construction in the supplied residual-program corpus. A separate causal response calculus remains important, but its status is different.
+The operator–Hermite PDE is the only fully explicit finite-cutoff PDE construction in the supplied residual-program corpus whose declared state has no network-width coordinate. This uniqueness concerns PDE construction, not numerical activity: the dense-response and convergence-audit programs also contain executed experiments. A separate causal response calculus remains important, but its status is different.
 
 Let
 
@@ -7246,17 +7250,17 @@ The full arXiv texts of references 1–3 were checked for Version 2.1. Chapter 1
 
 ### C.4 Active repository crosswalk and evidence state
 
-Sections C.1–C.2 preserve the filenames under which the sources were audited. The cleaned repository is organized by scientific program, so those historical names should not be interpreted as current root-level paths. The active correspondence on 31 July 2026 is:
+Sections C.1–C.2 preserve the filenames under which the sources were audited. The cleaned repository is organized by scientific program, so those historical names should not be interpreted as current root-level paths. The current active correspondence is:
 
 | Historical corpus | Active location | Current reproduction/evidence state |
 |---|---|---|
 | P01–P05 | [`studies/quadratic_nonclosure`](studies/quadratic_nonclosure/) | Analytical reports only; there is no numerical pipeline to reproduce. |
-| P06–P07 | [`studies/dense_response/early_audit`](studies/dense_response/early_audit/) and [`studies/dense_response/long_horizon`](studies/dense_response/long_horizon/) | Both phases retain executable code and results. The long-horizon phase includes its full declared raw NPZ set, processed summaries, figures, tests, and protocol. These finite-matrix response runs are not compiled Liouville-PDE runs. |
-| P08–P10 | [`studies/operator_pde/core`](studies/operator_pde/core/) | The direct report is `REPORT.md`, the synthesis is `CONJECTURE_REPORT.md`, and the hostile audit is under `audits/`. Source, tests, protocol, processed evidence, and central figures are active. The original compact release omits its large canonical raw arrays; later locally generated raw trajectories are under [`studies/operator_pde/rerun_2026-07-31`](studies/operator_pde/rerun_2026-07-31/). |
-| P11–P12 | [`studies/operator_pde/generalization`](studies/operator_pde/generalization/) | The nonduplicated active report is `FINAL_REPORT.md`. Source, frozen protocols, stage seals, processed evidence, figures, and tests are present. The compact release omits the large full-run raw trajectory set, which the frozen orchestrator can regenerate. |
-| P13 | [`studies/operator_pde/activation_controls`](studies/operator_pde/activation_controls/) | Source lineage, protocol, tests, parent release, completed processed evidence, and immutable seals are present. The clean active `results/` tree is intentionally omitted; the runner can regenerate it. |
+| P06–P07 | [`studies/resnet_pde/dense_response/early_audit`](studies/resnet_pde/dense_response/early_audit/) and [`studies/resnet_pde/dense_response/long_horizon`](studies/resnet_pde/dense_response/long_horizon/) | Both phases retain executable code and results. The long-horizon phase includes its full declared raw NPZ set, processed summaries, figures, tests, and protocol. These finite-matrix response runs are not compiled Liouville-PDE runs. |
+| P08–P10 | [`studies/resnet_pde/operator_pde/core`](studies/resnet_pde/operator_pde/core/) | The direct report is `REPORT.md`, the synthesis is `CONJECTURE_REPORT.md`, and the hostile audit is under `audits/`. Source, tests, protocol, processed evidence, and central figures are active. The original compact release omits its large canonical raw arrays; later locally generated raw trajectories are under [`studies/resnet_pde/operator_pde/rerun_2026-07-31`](studies/resnet_pde/operator_pde/rerun_2026-07-31/). |
+| P11–P12 | [`studies/resnet_pde/operator_pde/generalization`](studies/resnet_pde/operator_pde/generalization/) | The nonduplicated active report is `FINAL_REPORT.md`. Source, frozen protocols, stage seals, processed evidence, figures, and tests are present. The compact release omits the large full-run raw trajectory set, which the frozen orchestrator can regenerate. |
+| P13 | [`studies/resnet_pde/operator_pde/activation_controls`](studies/resnet_pde/operator_pde/activation_controls/) | Source lineage, protocol, tests, parent release, completed processed evidence, and immutable seals are present. The clean active `results/` tree is intentionally omitted; the runner can regenerate it. |
 | P14–P16 | [`archive/earlier_documents/master_syntheses`](archive/earlier_documents/master_syntheses/) | Superseded syntheses retained for research history; they carry no additional evidentiary weight. |
-| P17–P22 | [`studies/pde_convergence`](studies/pde_convergence/) | Reports and retained numerical arrays are organized chronologically as phases 01–05. Runners survive for phases 01 and 03–05. The bounded phase-02 ad hoc runner was not preserved, although its report and raw arrays remain. |
+| P17–P22 | [`studies/resnet_pde/pde_convergence`](studies/resnet_pde/pde_convergence/) | Reports and retained numerical arrays are organized chronologically as phases 01–05. Runners survive for phases 01 and 03–05. The bounded phase-02 ad hoc runner was not preserved, although its report and raw arrays remain. |
 | P23–P24 | Historical nonlocal sources described in C.2 | No standalone active copy is present in the current working tree. Their role is restricted to the source-status statements already incorporated and audited in Versions 2.0–2.1; Version 2.2 makes no new claim from them. |
 | Original release packages | [`archive/bundles`](archive/bundles/) | Eleven immutable ZIP packages are retained and covered by the archive SHA-256 manifest. |
 

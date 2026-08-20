@@ -2,7 +2,7 @@
 
 ## A unified mathematical synthesis of the repository as of 19 August 2026
 
-This document is a reconstruction of the scientific program, not a directory-by-directory paraphrase. It reads the dated master monograph together with the maintained reports under studies/, uses one notation wherever the models genuinely agree, and keeps different model classes visibly separate when transferring a conclusion would be invalid.
+This document is a reconstruction of the scientific program, not a directory-by-directory paraphrase. It reads the dated master monograph together with the maintained reports under studies/, uses one notation wherever the models genuinely agree, and keeps different model classes visibly separate when transferring a conclusion would be invalid. The three residual-network workstreams are now indexed together under [`studies/resnet_pde/`](studies/resnet_pde/).
 
 The short verdict is:
 
@@ -22,11 +22,11 @@ Every substantive claim is classified as one of the following.
 - **Open:** a conjecture or proof obligation.
 - **Disproved in scope:** an exact counterexample defeats the stated generalization, not necessarily the central canonical conjecture.
 
-This language matters. In this project, an exact formula for every fixed Taylor coefficient, a convergent finite-dimensional PDE, and a correct finite-time limit of the original network are three different accomplishments.
+This language matters. In this project, an exact formula for every fixed Taylor coefficient, a convergent finite-source PDE hierarchy, and a correct finite-time limit of the original network are three different accomplishments.
 
 ---
 
-## 1. The single research question behind the six studies
+## 1. The single research question behind the four top-level programs
 
 Take a fully dense neural network trained in a feature-learning scaling. Width is large, depth may also be large, and every parameter block is trained. Tensor-program and mean-field methods can often describe any fixed computation or fixed collection of derivatives. Dynamical mean-field theory can often describe training using histories and two-time kernels. The project asks for something stronger and more operational:
 
@@ -46,7 +46,7 @@ There are three logically distinct reductions in the repository:
 2. **Finite network derivatives to Gaussian normal forms.** At fixed depth, batch size, derivative order, and number of optimization steps, eliminate random matrices by exact Wick--Stein “peeling” and retain a finite computation graph of Gaussian expectations.
 3. **A divergent formal jet to a rational non-Taylor dynamics.** In a special quadratic model, transform the exact output jet into a candidate Stieltjes moment sequence. If all Hankel inequalities and the global identification bridge hold, Gaussian/Radau quadrature yields nested rational kernels and scalar flows.
 
-The remaining studies are stress tests of these reductions. dense_response exposes the chronology and transpose-response structure but retains dense matrices. pde_convergence tests whether the Hermite hierarchy actually converges and identifies the missing compactness estimates. quadratic_nonclosure proves that one prescribed positive Taylor/Wick closure fails and warns against confusing all-order formal coefficients with a positive-time dynamics.
+The other programs and substudies are stress tests of these reductions. Within `resnet_pde`, `dense_response` exposes the chronology and transpose-response structure but retains dense matrices, while `pde_convergence` tests whether the Hermite hierarchy actually converges and identifies the missing compactness estimates. `quadratic_nonclosure` proves that one prescribed positive Taylor/Wick closure fails and warns against confusing all-order formal coefficients with a positive-time dynamics.
 
 The conceptual flow is therefore
 
@@ -2805,7 +2805,7 @@ The Stieltjes program does not currently prove a finite causal neural dynamics. 
 
 ## 11. One cohesive interpretation of the whole project
 
-The six studies are not six proposed answers of equal status. They form a chain of scientific roles.
+The repository's scientific workstreams are not proposed answers of equal status. They form a chain of scientific roles; the first three below are substudies of the joint `resnet_pde` program.
 
 ### 11.1 The causal anatomy
 
@@ -2813,7 +2813,7 @@ dense_response establishes the anatomy of the problem. Dense training creates ch
 
 ### 11.2 The candidate state
 
-operator_pde makes the bold constructive move: encode the immutable initialization by a Gaussian source label and the trained dense operator by a conditional coefficient law. It is the only thrust that presently produces a literal width-independent autonomous PDE with exact internal projected-gradient geometry. Its degree-one version is empirically good enough to be scientifically interesting.
+operator_pde makes the bold constructive move: encode the immutable initialization by a Gaussian source label and the trained dense operator by a conditional coefficient law. It is the only thrust that presently produces a literal autonomous PDE with no network-width coordinate at fixed cutoff and with exact internal projected-gradient geometry. This uniqueness concerns PDE construction, not the existence of experiments: `dense_response` and `pde_convergence` also contain executed numerical campaigns. The degree-one PDE is empirically good enough to be scientifically interesting.
 
 ### 11.3 The approximation audit
 
@@ -3038,11 +3038,11 @@ Another one-seed adjacent-cutoff comparison would add little.
 
 ## 14. Supersession and excluded shortcuts
 
-The dated top-level monograph is the correct baseline for the residual-network and operator-PDE state as of 31 July 2026. The following later results change its ledger:
+The dated top-level monograph is the correct baseline for the residual-network and operator-PDE state as of 31 July 2026. It already incorporates the parity correction and the degree-seven common-reference aggregate noncontraction. Later maintained work changes its ledger chiefly in the mean-field-peeling and Stieltjes scopes. The current supersession ledger is:
 
 - The quadratic fixed-order annealed coefficients are no longer merely a recovered/conditional “FW” premise; the combined forest, Gaussian-program, and bounded-recurrence engines establish the audited prefix exactly through order 17.
 - The quadratic conclusion remains formal-jet level. Concentration and positive-time trajectory identification are still absent.
-- The early \(P=5\to15\to35\) adverse Hermite trend is superseded by the exact parity correction. The later common-reference aggregate noncontraction is the authoritative negative evidence.
+- For continuity with earlier residual-PDE reports, the early \(P=5\to15\to35\) adverse Hermite trend remains superseded by the exact parity correction. The common-reference aggregate noncontraction already recorded in the monograph remains the authoritative negative evidence.
 - Canonical Stieltjes evidence now extends from the first few moments through \(\mu_7\), while the uniform block-metric and smooth-activation extensions are exactly false.
 - The shallow raw-square model is non-Stieltjes even though its neuron characteristics are explicitly integrable.
 
@@ -3063,24 +3063,25 @@ The unified positive story intentionally excludes:
 ### Top-level baseline
 
 - **FINITE_CAUSAL_NEURAL_PDE_MASTER_MONOGRAPH_v2.2_2026-07-31.md:** the dated integrated baseline; authoritative for the central architecture and proof lattice, superseded by later maintained study reports where noted.
+- **studies/resnet_pde/README.md:** current evidence hierarchy and supersession guide for the three residual-network substudies.
 
-### studies/dense_response
+### studies/resnet_pde/dense_response
 
 - **early_audit:** older \(h^0=\tanh(Ux)\) model; truncated depth-adjoint expansion, factorial ordered-propagator bound, finite-matrix experiments, continuation witnesses, and no-go arguments against current-Gram/low-rank shortcuts.
 - **long_horizon:** canonical linear input lift; coupled \(q/r\) training-response hierarchy through \(T=32\); strong low-order empirical accuracy; formal but non-executable \(K/J/N\) compiler proposal.
 
-### studies/operator_pde
+### studies/resnet_pde/operator_pde
 
 - **core:** explicit Hermite/isonormal conditional Liouville PDE, projected adjoint/PSD kernel, canonical benchmark, statistical and restart audits.
 - **generalization:** fourteen fixed transfer cases under one degree-one PDE without retuning.
 - **activation_controls:** identity, gain-matched linear, and nonlinear activation discrimination.
 - **rerun_2026-07-31:** canonical reproduction and small execution smoke test; no new claim.
 
-### studies/pde_convergence
+### studies/resnet_pde/pde_convergence
 
 - **01_proof_audit:** ambitious seven-gate protocol; only two low-order numerical jobs completed, so no scientific gate passed.
 - **02_lean_salvage:** small-grid width/depth, homogenization, same-state, generator, basis, and plateau diagnostics; contains the superseded even-shell comparison.
-- **03_bridgeability:** exact parity repair and the correct odd cutoff ladder; outgoing tail contraction but aggregate feedback noncontraction.
+- **03_bridgeability:** exact parity repair and the correct odd cutoff ladder; contraction of a lifted boundary-source diagnostic but aggregate feedback noncontraction. Phase 05 shows that the lifted quantity is not the trained high-shell velocity.
 - **04_scalar_stress:** high-degree bounded sine/tanh source tests; activation nonlinearity is real, while pure source-Hermite cutoff effects are small and not monotonically resolved.
 - **05_tail_and_compactness:** common-reference commutators and final functional analysis; isolates collective source compactness, uniqueness, and cutoff-uniform forced stability as the gap.
 
@@ -3126,7 +3127,7 @@ The mathematical conclusions above use maintained reports and compact certificat
 
 - The current operator-core local suite passes. Some other exact-equality tests are brittle under the workspace’s NumPy/SciPy versions, which differ from the pinned bundles: discrepancies are at \(10^{-15}\) scale or arise because an older NumPy lacks a newer integration helper.
 - The Stieltjes exact-resolution suite passes its 56 tests. A broader numerical run produced 76 passes and four verifier errors because the breadth-panel checker recursively finds both the old FP32 and the newly nested FP64 ATTEMPTS ledgers while requiring exactly one. This is a current path-scoping bug, not evidence against the recorded scientific result.
-- Many raw numerical arrays, bootstrap payloads, logs, and checkpoints are intentionally ignored; hashes and compact summaries remain. A clean clone can inspect the claims and rerun code, but cannot independently reanalyze every historical raw trajectory without regenerating it.
+- Raw long-horizon dense-response arrays, PDE-convergence phase arrays, and the 31 July operator rerun are retained. The original compact operator-core, generalization, and activation-control releases retain processed or sealed evidence but omit their complete raw campaigns. A clean clone can inspect every scoped claim and rerun code, but cannot independently reanalyze each omitted historical raw trajectory without regenerating it.
 - Several reports use exact floating-point equality for cross-platform reproducibility gates. The resulting last-bit failures should be separated from failed numerical-resolution or statistical-science gates; both are recorded above where relevant.
 - Exact rational/integer computer algebra is far stronger than floating-point agreement, but it is not formal proof verification. Independent implementations sometimes share the same mathematical recurrence.
 - The new **depth3_gaussian_program** directory was untracked Git work when first audited. Its protocol hashes match the recorded results but were not externally timestamped, so prospectivity is not independently certified. Both three-test suites pass. The feature-jet fast tests hard-code controls only through order five; I reran both order-nine routes successfully, where the new-order gate is agreement between assemblers sharing the core response identities. I also reran the exact Stieltjes transformation and Hankel audit successfully. The commit containing this synthesis is its first durable in-repository archive.

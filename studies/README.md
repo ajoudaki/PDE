@@ -1,6 +1,6 @@
 # Research programs
 
-The active research tree has six scientific programs. Each program is
+The active research tree has four top-level scientific programs. Each program is
 organized for reading, reproduction, and extension; the exact historical ZIP
 layouts are preserved separately in [`../archive/bundles`](../archive/bundles/).
 
@@ -9,9 +9,7 @@ layouts are preserved separately in [`../archive/bundles`](../archive/bundles/).
 | [`quadratic_nonclosure`](quadratic_nonclosure/) | Analytical negative laboratory for the prescribed Taylor/Wick compiler |
 | [`mean_field_peeling`](mean_field_peeling/) | Canonical conditional-Gaussian peeling program, audited μP case studies, and the exact quadratic decorated-forest compiler |
 | [`stieltjes_conjecture`](stieltjes_conjecture/) | Formal output-kernel moment conjecture, exact finite-order certificates, conditional ODE reconstruction, and falsification audits |
-| [`dense_response`](dense_response/) | Finite-matrix response precursor and long-horizon diagnostic |
-| [`operator_pde`](operator_pde/) | Direct finite-cutoff PDE, transfer study, activation controls, and reproductions |
-| [`pde_convergence`](pde_convergence/) | Chronological attempt to prove cutoff convergence and arbitrary accuracy |
+| [`resnet_pde`](resnet_pde/) | Umbrella for the finite-matrix response precursor, direct finite-cutoff PDE, and corrective convergence audit |
 
 There is no mandatory internal template. A phase exposes its report, main
 runner, and results as directly as its scientific form allows. Phase-local
@@ -22,4 +20,9 @@ The [31 July 2026 master monograph](../FINITE_CAUSAL_NEURAL_PDE_MASTER_MONOGRAPH
 is a dated project-wide baseline.  Later per-study maintained reports are
 authoritative within their scopes; in particular, the MFP and Stieltjes
 `CURRENT_RESEARCH_STATE.md` files supersede the monograph for results obtained
-after that date.
+after that date, while [`resnet_pde/README.md`](resnet_pde/README.md) controls
+the residual-program evidence hierarchy and supersession order.
+
+The former top-level paths `dense_response`, `operator_pde`, and
+`pde_convergence` are compatibility links. New references should use their
+canonical locations under [`resnet_pde`](resnet_pde/).

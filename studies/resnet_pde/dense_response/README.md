@@ -1,8 +1,9 @@
 # Dense response hierarchy
 
-This program studies finite-matrix chronological q/r response approximations.
-It is a precursor and mechanism diagnostic for the operator PDE, not itself a
-width-independent finite PDE.
+This phase studies finite-matrix chronological q/r response approximations.
+Every executed surrogate retains the dense \(W\) matrices. It is a mechanism
+diagnostic for the operator-PDE conjecture, not a finite PDE and not evidence
+identifying a dense limit.
 
 ## Phases
 
@@ -17,4 +18,3 @@ width-independent finite PDE.
 Current reading: low response order can reproduce the tested finite-network
 transients surprisingly well, but every surrogate in this program retains the
 dense matrices and therefore does not establish finite causal compression.
-

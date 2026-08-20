@@ -2,6 +2,11 @@
 
 ## Audited causal state, response compression evidence, and the sharp finite-neural-PDE conjecture
 
+> **Program-scope note.** This is the finite-matrix precursor phase. Sections
+> 8--11 formulate a conjectural future width-independent compiler and its
+> proof obligations; they are not results established by the executed
+> simulations.
+
 ### Executive verdict
 
 The audit resolves the normalization and identifies a real compression

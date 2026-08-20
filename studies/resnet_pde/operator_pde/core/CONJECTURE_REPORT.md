@@ -7,6 +7,15 @@
 \(\mu\)P gradient flow, fixed finite training set, width first and residual
 depth second.
 
+> **Later cutoff-audit note.** The \(P=5\to15\) interpretation in this dated
+> report is superseded. Exact parity makes the added even-degree shell inert,
+> so the recorded difference is cubature symmetry leakage rather than a
+> physical hierarchy step. The correct ladder and current convergence status
+> are in
+> [`pde_convergence/03_bridgeability`](../../pde_convergence/03_bridgeability/)
+> and
+> [`pde_convergence/05_tail_and_compactness`](../../pde_convergence/05_tail_and_compactness/).
+
 ---
 
 ## Executive answer
@@ -42,11 +51,11 @@ At the first complete nonconstant level, \(P=5\), this literal PDE predicts
 evolution to about \(1.14\%\) of that motion through the fitting transient.
 The same fixed PDE then remains at its plateau through \(t=32\).
 
-This is the strongest direct evidence obtained so far for the central
-neural-PDE thesis. But the first clean higher Hermite level, \(P=15\), is
-slightly farther from every audited finite-network reference, and the
-\(P=35\) stress result is farther again while not fully resolved in its fast
-cubature. Consequently:
+This is strong direct evidence for the central neural-PDE thesis. Later exact
+parity analysis proved that \(P=5\) and \(P=15\) are the same physical PDE in
+this model, so their recorded numerical difference is not cutoff evidence.
+On the correct odd-degree ladder, later common-reference tests still did not
+show aggregate contraction. Consequently:
 
 \[
 \boxed{\text{The experiment strongly supports a useful low-order finite PDE.}}
@@ -311,7 +320,8 @@ G_{n,L}^{h,\vartheta}(\cdot,t)
 
 where the finite-depth Gram is interpolated in \(s=\ell/L\).
 
-The exact ordered target is a deterministic pair
+The ordered target sought—whose existence is itself conjectural—is a
+deterministic pair
 
 \[
 \mathcal O_\vartheta(t)
@@ -522,9 +532,10 @@ For any two queried slow fields,
 \tag{22}
 \]
 
-This is a cylindrical projection **after** the width limit. It is not a
-rank-\(P_r\) finite network. Completeness is on finite query families; the
-infinite iid Gaussian coefficient sequence is cylindrical and is not
+This is the cylindrical projection used in the candidate post-width-limit
+model; it has not been identified with the actual trained width limit. It is
+not a rank-\(P_r\) finite network. Completeness is on finite query families;
+the infinite iid Gaussian coefficient sequence is cylindrical and is not
 claimed to be an \(\ell^2\)-valued operator.
 
 ### 4.3 Shared forward and transpose operator
@@ -1226,10 +1237,10 @@ through \(t=32\), and no new prefix error maximum appeared after \(t=16\).
 This strongly supports bounded chronological response, while leaving the
 width-independent closure theorem open.
 
-### 7.8 The important negative operator-order result
+### 7.8 Superseded even-shell comparison and current interpretation
 
-The finite PDE remains close at higher Hermite levels, but closeness does
-not improve on the audited finite references:
+The following historical measurements are reproducible numerical outputs, but
+they do not compare successive physical cutoffs:
 
 | PDE level | Gram-increment gap to \(n=256,L=32,S=128\) | Fraction of PDE feature motion |
 |---|---:|---:|
@@ -1238,25 +1249,15 @@ not improve on the audited finite references:
 | hybrid \(P=15,R=256\) | \(9.223\times10^{-3}\) | \(1.460\%\) |
 | hybrid \(P=35,R=128\) stress | \(1.373\times10^{-2}\) | \(2.192\%\) |
 
-For the fixed Sobol/QMC \(P=5\) and \(P=15\) pair, \(P=15\) is
-statistically farther against all three audited finite references. The
-separate hybrid calculation reproduces the unfavorable \(P=5\to15\)
-direction at the primary reference and checks that it is not a Sobol-basis
-artifact. The complete cubic \(P=35\) point moves in the same direction,
-but its fast-row cubature has condition number \(6.20\), was not refined,
-and has no comparable converged statistical status; its magnitude is only
-directional stress evidence.
-
-This does **not** disprove (45) or (46):
-
-- convergence need not be monotone at low order;
-- the comparison objects are finite \((n,L)\) ensembles, not the ordered
-  limit; and
-- cubature error grows harder with \(P\).
-
-It does remove favorable numerical evidence for arbitrary-accuracy
-\(P\to\infty\) convergence. The evidence is strong for one useful
-low-order PDE and mixed for the full hierarchy.
+Exact sign equivariance makes every even Hermite shell dynamically inert, so
+\(P=5\) and \(P=15\) are the same exact PDE. Their nonzero numerical
+difference came from unpaired cubature symmetry leakage. The \(P=35\) stress
+point also lacked the resolution needed for a clean hierarchy conclusion.
+The later parity-correct common-reference study replaces this comparison: it
+finds small observables but no contraction of the aggregate state or
+observable Cauchy gaps at the last tested rung. Thus arbitrary-accuracy
+\(P\to\infty\) convergence remains open; neither this table nor the corrected
+finite experiment proves convergence or divergence.
 
 ---
 
@@ -1270,7 +1271,7 @@ low-order PDE and mixed for the full hierarchy.
 | Role of response words | Claimed finite-PDE state | Auxiliary causal bound and possible enrichment |
 | Numerical evidence | Finite matrices retained | Literal width-independent PDE integrated |
 | Global-time evidence | Fixed-\(K\) matrix surrogate through plateau | Same fixed PDE itself through plateau |
-| Arbitrary-accuracy evidence | Rapid \(K\)-decay suggested it | Still open; \(P=15\) does not improve the finite-reference match |
+| Arbitrary-accuracy evidence | Rapid \(K\)-decay suggested it | Still open; the old \(P=5\to15\) comparison is parity-confounded, and corrected aggregate tests do not contract |
 | Main theorem gap | Full outgoing response residual | Trained depth homogenization plus Hermite/high-to-low control |
 
 The earlier claim that the \(K/J/N\) note already defined an executable
@@ -1385,7 +1386,8 @@ The following statements are now exact or directly verified:
   internal identities;
 - their shared transpose and projected Euclidean-gradient structure;
 - their autonomy at the level of the displayed current state;
-- successful numerical integration of a literal width-independent PDE;
+- successful numerical integration of a literal finite-cutoff PDE with no
+  network-width coordinate;
 - \(O(1)\) nonlazy feature motion and close dense-curve agreement at
   \(P=5\);
 - operational plateau behavior of the simulated PDE through \(t=32\); and
@@ -1407,7 +1409,7 @@ The most defensible final conclusion is therefore:
 \boxed{
 \begin{array}{l}
 \textbf{Direct evidence: }
-\text{a genuine finite neural PDE closely matches the tested dense}\\
+\text{a finite-cutoff candidate neural PDE closely matches the tested dense}\\
 \text{feature-learning transient and operational plateau through }t=8,\\
 \text{and the same PDE independently remains flat through }t=32;\\[1mm]
 \textbf{Best concrete conjecture: }
@@ -1421,9 +1423,9 @@ The most defensible final conclusion is therefore:
 
 This is a meaningful strengthening of the project’s evidentiary position,
 but not a resolution of the conjecture. The direct PDE experiment makes the
-central thesis substantially more credible; the unfavorable first
-operator-order refinement makes the remaining mathematical question
-sharper and prevents overstatement.
+central thesis substantially more credible; the parity-correct aggregate
+noncontraction makes the remaining mathematical question sharper and
+prevents overstatement.
 
 ---
 

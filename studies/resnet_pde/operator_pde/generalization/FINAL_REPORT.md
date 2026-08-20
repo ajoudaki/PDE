@@ -140,8 +140,9 @@ Let the immutable neuron label be
 \theta=(B_i(0),a_i(0)/A)\sim N(0,I_4).
 \]
 
-After the width limit, a dense Gaussian row operator is projected onto the
-five Hermite functions. If \(v(\theta)\) is a slow neuron field,
+In the candidate post-width-limit construction, a dense Gaussian row operator
+is projected onto the five Hermite functions. If \(v(\theta)\) is a slow
+neuron field,
 
 \[
 (W_P^0v)(\theta,\varepsilon)
@@ -153,7 +154,8 @@ five Hermite functions. If \(v(\theta)\) is a slow neuron field,
 The same row coefficients are reused in the adjoint action. Thus forward and
 transpose propagation satisfy an exact finite-\(P\) pairing; the solver does
 not introduce an independent backward Gaussian and contains no hidden
-\(n\times n\) matrix.
+\(n\times n\) matrix. This exact pairing is internal to the finite-\(P\) PDE;
+it does not identify that PDE with the trained dense limit.
 
 ### 3.3 Conditional Liouville equation
 

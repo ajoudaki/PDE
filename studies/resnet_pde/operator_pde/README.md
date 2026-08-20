@@ -1,7 +1,8 @@
 # Operator–Galerkin PDE program
 
-This program contains the explicit width-independent finite-cutoff PDE and its
-empirical validation sequence.
+This phase contains an explicit finite-cutoff operator–Liouville PDE, whose
+mathematical state contains no network-width coordinate at each fixed \(P\),
+and a sequence of empirical consistency tests against finite networks.
 
 ## Phases
 
@@ -26,7 +27,8 @@ the activation-control phase extends that registry with identity and gain
 controls. Their frozen protocols bind these differences by hash, so merging
 them would be a scientific refactor rather than a cleanup.
 
-Current reading: the finite-cutoff PDE has exact internal geometry and strong
-low-order empirical performance. Identification with the ordered dense limit
-and arbitrary-accuracy convergence remain open.
-
+Current reading: at fixed \(P\), the candidate PDE has exact internal
+shared-transpose and projected-gradient identities and strong low-order
+empirical performance against finite-network ensembles. Neither identification
+with the ordered \(n\to\infty\), then \(L\to\infty\) limit nor
+arbitrary-accuracy \(P\to\infty\) convergence is established.

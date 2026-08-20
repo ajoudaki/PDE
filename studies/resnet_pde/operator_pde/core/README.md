@@ -21,13 +21,13 @@ evidence, and audits are now visible together.
 From this directory, using the repository environment:
 
 ```bash
-PYTHONPATH=src ../../../.venv/bin/python -m unittest discover -s tests -v
+PYTHONPATH=src ../../../../.venv/bin/python -m unittest discover -s tests -v
 ```
 
 Run a small PDE:
 
 ```bash
-PYTHONPATH=src ../../../.venv/bin/python run_pde.py \
+PYTHONPATH=src ../../../../.venv/bin/python run_pde.py \
   --quadrature sobol --P 5 --N 8 --M 64 --R 32 \
   --duration 2 --dt 0.02 --sample-dt 0.04
 ```
@@ -35,7 +35,7 @@ PYTHONPATH=src ../../../.venv/bin/python run_pde.py \
 The complete, expensive regeneration is:
 
 ```bash
-WORKERS=8 PYTHON_BIN=../../../.venv/bin/python bash protocol/reproduce_full.sh
+WORKERS=8 PYTHON_BIN=../../../../.venv/bin/python bash protocol/reproduce_full.sh
 ```
 
 Raw canonical trajectories are intentionally not part of the original compact
