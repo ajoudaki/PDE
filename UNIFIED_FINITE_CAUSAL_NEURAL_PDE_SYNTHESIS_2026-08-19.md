@@ -32,7 +32,13 @@ Take a fully dense neural network trained in a feature-learning scaling. Width i
 
 > Can the trained network, on a fixed data set and compact training horizon, be approximated arbitrarily well by an autonomous causal PDE with only finitely many fields over a fixed finite-dimensional source space, with coefficients derived from the architecture and initialization rather than fitted to the realized trajectory?
 
-“Finite” does not mean finitely many spatial grid points. It means that after choosing an accuracy, the continuum state has a fixed number of field types and a fixed finite-dimensional source coordinate; no width-sized matrices, ever-growing response trees, or full two-time histories survive. “Causal” means that the state at time \(t\) determines its future. “Autonomous” rules out an oracle that encodes the already-computed target trajectory in a forcing term. The strongest restart condition would require a map from a dense-network snapshot into the PDE state; the project usually works with the weaker but still meaningful requirement that the PDE is restartable from its own state.
+"Finite" does not mean finitely many spatial grid points. It means that after choosing an accuracy, the continuum state has a fixed number of field types and a fixed finite-dimensional source coordinate; no width-sized matrices, ever-growing response trees, or full two-time histories survive. "Causal" means that the state at time \(t\) determines its future. "Autonomous" rules out an oracle that encodes the already-computed target trajectory in a forcing term. Three restart notions must not be conflated:
+
+1. **Internal mathematical restart:** the *full declared PDE state* determines its own continuation, with no hidden clock or saved history. For a well-posed autonomous equation this is largely definitional; its substantive role here is only to enforce the anti-oracle contract.
+2. **Numerical serialization restart:** saving that full discretized state, starting a fresh solver process, and reproducing the uninterrupted run. This checks the implementation for undeclared history, but not the dense-to-PDE identification.
+3. **Dense-state restart:** map a physically reachable dense snapshot, or a declared quotient of it, into the finite PDE state and approximate every subsequent continuation. This is the scientifically strong restart theorem, and it is open.
+
+The weak restart statements in this report refer to items 1--2, not to restart from output/Gram readouts alone and not to item 3.
 
 There are three logically distinct reductions in the repository:
 
@@ -189,6 +195,8 @@ Uniformity is sought over the explicit compact neighborhood
 \right\}.
 \]
 
+The radius (0.05) is a declared first theorem laboratory, not a natural constant of the dynamics. It makes "one compiler works without fine-tuning" quantitatively falsifiable, keeps the input Gram uniformly near a nondegenerate point, and forces every existence, regularity, and stability constant to be controlled on more than one trajectory. No PDE derivation uses the numerical value (0.05), and the fourteen transfer experiments are not a uniform sampling or cover of this continuum set. A theorem could use another explicitly bounded nondegenerate compact class; it would then have to restate all uniform constants for that class.
+
 Existence and uniqueness of the ordered trained target, well-posedness of each finite PDE, and regularity/uniqueness of an infinite-source operator flow are theorem obligations, not background assumptions. Broader smooth bounded activations are a proposed extension and have empirical examples, but are not part of this precise canonical claim.
 
 Odd activation and symmetric initialization are additional assumptions for the parity reduction, not for the abstract finite-PDE construction. ReLU is outside the classical differentiable derivations unless a weak-derivative or Gaussian-boundary theory is supplied. Smooth-depth matrix fields, tied weights, RMS normalization, frozen layers, and shallow square networks are informative boundary models but cannot be used as proofs of the standard-regime claim.
@@ -270,7 +278,56 @@ This is the core nonclosure mechanism. It explains why:
 
 dense_response develops a chronological response expansion for the exact dense residual mechanics. Its scientific role is diagnostic: it shows which forward, reverse, and shared-transpose responses a successful closure must retain.
 
-Repeated differentiation of the network state with respect to past forcing creates forward responses \(q^{(k)}\) and reverse responses \(r^{(k)}\). If the layer-local response operators and source terms are bounded over a compact training horizon \([0,T]\), depth chronology—not repeated integration in training time—gives a factorial remainder. For example,
+To see what the grades mean, differentiate one residual step in training time. With
+
+\[
+v_r^\ell=\partial_t h_r^\ell,\qquad
+D_r^\ell=\operatorname{diag}\phi'(z_r^\ell),\qquad
+A_r^\ell=\gamma D_r^\ell W_\ell,
+\]
+
+the exact forward velocity obeys
+
+\[
+v_r^{\ell+1}
+=\left(I+\frac1L A_r^\ell\right)v_r^\ell
++\frac1L F_r^\ell,
+\]
+
+where \(F_r^\ell\) collects the direct parameter-training source. The transpose transport uses
+
+\[
+(A_r^\ell)^\top=\gamma W_\ell^\top D_r^\ell.
+\]
+
+Expanding the ordered product in variation of constants produces words
+
+\[
+A_r^{j_k}\cdots A_r^{j_1},
+\qquad 0\le j_1<\cdots<j_k<\ell.
+\]
+
+Their word length \(k\), equivalently the number of chronologically ordered layer responses, is the **response grade**. One implementation writes
+
+\[
+q_{r\leftarrow q}^{0,\ell+1}
+=q_{r\leftarrow q}^{0,\ell}+L^{-1}F_{r\leftarrow q}^\ell,
+\qquad
+q_{r\leftarrow q}^{k,\ell+1}
+=q_{r\leftarrow q}^{k,\ell}+L^{-1}A_r^\ell q_{r\leftarrow q}^{k-1,\ell},
+\]
+
+with the reverse-depth analogue
+
+\[
+r_{r\leftarrow q}^{k,\ell}
+=r_{r\leftarrow q}^{k,\ell+1}
++L^{-1}(A_r^\ell)^\top r_{r\leftarrow q}^{k-1,\ell+1}.
+\]
+
+Thus this is a Duhamel/ordered-word expansion in **depth**, not a Taylor expansion in training time. At finite \(L\), grades through \(L\) recover the derivative algebra because an increasing word cannot visit more than \(L\) layer sites.
+
+If the local operators and sources are bounded over a compact training horizon \([0,T]\), depth chronology gives a factorial remainder. For example,
 
 \[
 \left\|v-
@@ -286,18 +343,20 @@ with an analogous reverse-field bound and
 
 \[
 \Lambda_T
-=\sup_{0\le t\le T}
+=\sup_{\substack{r\\0\le t\le T}}
 \frac1L\sum_{\ell=0}^{L-1}
-\|A^\ell(t)\|_{\rm op}.
+\|A_r^\ell(t)\|_{\rm op}.
 \]
 
-Thus truncating the response order can be accurate even over a relatively long training horizon when \(B_{v,T}\), its reverse analogue, and \(\Lambda_T\) remain controlled. This is a useful mechanism: ordered depth chronology, rather than an arbitrary polynomial fit, supplies the small tail. The bound itself is not uniform in training horizon; long-time accuracy in the reports is empirical.
+Thus truncating the response order can be accurate even over a relatively long training horizon when \(B_{v,T}\), its reverse analogue, and \(\Lambda_T\) remain controlled. This is a useful mechanism: ordered depth chronology, rather than an arbitrary polynomial fit, supplies the small tail. But \(\Lambda_T\) is a **pathwise trained-network quantity**, not currently an a priori constant. The early value near \(1.981\) was measured after the trajectory was generated. A width/depth-uniform theorem would have to prove the required bounds uniformly in \((n,L)\), with the declared probability and parameter uniformity. The bound itself is not uniform in training horizon; long-time accuracy in the reports is empirical.
 
 But the construction retains every dense \(W_\ell\). The response order may be finite while the state dimension still scales like \(n^2L\). Moreover, the factorial tail for a forced linearized hierarchy does not control the error made when truncated responses are substituted back through the nonlinear trained source. The missing estimate is a coupled stability bound, not merely a tail bound.
 
+Nor is the implemented long-horizon hierarchy an orthogonal Galerkin projection in neuron space. It keeps the full \(n\)-vectors and every \(W_\ell\), and deletes chronological words above \(k_{\rm resp}\). The forward and reverse families are stored separately but share the same matrices, fields, adjoints, and residuals; they are not probabilistically independent. Two genuine basis projections appear elsewhere and should not be conflated with this truncation: the early audit fits a scalar response surface on the triangle \(0\le u\le s\le1\) to total-degree Legendre products as a snapshot diagnostic, while the proposed but unimplemented width-free response compiler uses shifted-Legendre depth coefficients with forward/backward boundary lifts.
+
 There are two historical variants and they should not be plotted on one convergence ladder.
 
-- The **early audit** uses \(h^0=\tanh(Ux)\), different initialization variances, and a truncated depth-adjoint product inside parameter flow. It is an exploratory response-Galerkin model, not the later canonical dense network.
+- The **early audit** uses \(h^0=\tanh(Ux)\), different initialization variances, and a truncated depth-adjoint product inside parameter flow. It is an exploratory truncated-adjoint model with a separate response-surface diagnostic, not the later canonical dense network.
 - The **long-horizon program** switches to the canonical linear input lift \(h^0=Ux\), \(\sigma_w=0.65\), and a coupled forward/reverse training-response hierarchy. It is closer to Family R but still a finite-matrix surrogate.
 
 ### 4.1 Early depth-adjoint audit
@@ -342,11 +401,51 @@ in the iid generic case to
 
 in the nonnormal case. Across twelve order-four sweep runs, worst output/Gram errors were \(3.38\times10^{-4}\) and \(8.70\times10^{-4}\), despite order-one Gram motion. Positive-time restart also remained near \(10^{-5}\).
 
-The proved nonnormal-safe factorial bound was much looser than the observations. More importantly, the truncated flow is driven by a cross-kernel \(SS_M^\top\), not by the separately reconstructed PSD matrix \(S_MS_M^\top\). Its approximate trajectory is therefore not proved to be gradient flow. No width limit, iid-depth homogenization, law compression, or all-time stability theorem was tested.
+The proved nonnormal-safe factorial bound was much looser than the observations. More importantly, the truncated flow is driven by a cross-kernel \(SS_M^\top\), not by the separately reconstructed PSD matrix \(S_MS_M^\top\). Here is the exact distinction. Let \(J=D_\theta f\) be the output Jacobian of the unchanged dense forward network and
+
+\[
+\mathsf M=\operatorname{diag}
+\bigl(nI_a,nI_U,LI_{W_0},\ldots,LI_{W_{L-1}}\bigr)
+\]
+
+be the µP parameter metric. Define
+
+\[
+S=J\mathsf M^{1/2},\qquad
+S_M=J_M\mathsf M^{1/2},
+\]
+
+where \(J_M\) is the sensitivity assembled with the grade-\(M\) adjoint. For the early nonlinear input lift put \(\chi_r=\phi_g'(Ux_r)\odot p_r^0\). Its exact sample rows have the metric-weighted parameter blocks
+
+\[
+S_r^{(a)}=\frac{h_r^L}{\sqrt n},\qquad
+S_r^{(U)}=\frac{\chi_rx_r^\top}{\sqrt n},\qquad
+S_r^{(W_\ell)}=\frac{\beta_r^\ell(h_r^\ell)^\top}{n\sqrt L},
+\]
+
+and \(S_M\) replaces the exact adjoint-dependent factors by their grade-\(M\) versions. The diagnostic evolves parameters with the approximate cotangent,
+
+\[
+\dot\theta_M=-\mathsf M J_M^\top e,
+\]
+
+but evaluates them through the exact forward map \(J\). Therefore
+
+\[
+\dot f=J\dot\theta_M=-J\mathsf M J_M^\top e=-SS_M^\top e.
+\]
+
+By contrast,
+
+\[
+S_MS_M^\top=J_M\mathsf M J_M^\top\succeq0
+\]
+
+would govern a reduced dynamics only if \(J_M\) were the exact Jacobian of the same reduced forward map being evolved. The cross-kernel need be neither symmetric nor positive semidefinite, so this approximate trajectory is not proved to be gradient flow. No width limit, iid-depth homogenization, law compression, or all-time stability theorem was tested.
 
 ### 4.2 Coupled long-horizon response
 
-The later hierarchy evolves independent projected forward and adjoint fields while retaining the exact dense \(W_\ell\). Grade zero contains the direct training source; grades \(k\ge1\) propagate it chronologically through \(W_\ell D_\ell\) or \(W_\ell^\top D_\ell\). The backward source recomputes \(\dot D\) from the projected forward velocity. At \(k_{\rm resp}=L\), the hierarchy reproduces the exact finite-network time derivative algebraically.
+The later hierarchy evolves separately stored, grade-truncated forward and adjoint response fields while retaining the exact dense \(W_\ell\). Grade zero contains the direct training source; grades \(k\ge1\) propagate it chronologically through \(D_\ell W_\ell\) or \(W_\ell^\top D_\ell\). The backward source recomputes \(\dot D\) from the truncated forward velocity. At \(k_{\rm resp}=L\), the hierarchy reproduces the exact finite-network time derivative algebraically.
 
 The main protocol used
 
@@ -374,9 +473,82 @@ k_{\rm resp}&\text{output}&\text{all-depth Gram}\\ \hline
 \end{array}
 \]
 
-Median exact feature motion was \(0.6299\). Every exact and projected trajectory passed the operational plateau gate through \(T=32\), and time-step refinement was below the response-truncation error. At a \(10^{-5}\) tolerance, however, only thirteen of sixteen runs were resolved by \(k_{\rm resp}\le3\).
+Median exact feature motion was \(0.6299\). Every exact and grade-truncated trajectory passed the operational plateau gate through \(T=32\), and time-step refinement was below the response-truncation error. Here “plateau” has a specific audit definition. For each candidate horizon \(H\in\{4,8,16,32\}\), set
 
-The theory controls the pure ordered-propagator tail. For the coupled adjoint it leaves an additional source-replacement error \(E_{A,k_{\rm resp}}\) and does not prove \(E_{A,k_{\rm resp}}\to0\). Also, a plateau pass merely says a surrogate settles; even \(k_{\rm resp}=0\) settled. It is not an accuracy or \(\sup_{t\ge0}\) certificate.
+\[
+S_f^{\rm plat}=\max\{1,\|y\|_2,\|f(0)\|_2\},
+\qquad
+S_G^{\rm plat}=\max\{1,\max_\ell\|G^\ell(0)\|_F\},
+\]
+
+and set
+
+\[
+M_f^{\rm plat}=\max_{t\le H}\|f(t)-f(0)\|_2,
+\qquad
+M_G^{\rm plat}=\max_{\substack{t\le H\\\ell}}
+\|G^\ell(t)-G^\ell(0)\|_F.
+\]
+
+All stored samples on \([H/2,H]\) must have residual below \(10^{-5}S_f^{\rm plat}\); output and every depth Gram must stay within
+
+\[
+\delta_f=10^{-6}S_f^{\rm plat}+10^{-4}M_f^{\rm plat},
+\qquad
+\delta_G=10^{-6}S_G^{\rm plat}+10^{-4}M_G^{\rm plat}
+\]
+
+of their terminal values; sampled output/Gram speeds must be below the same \(\delta\)'s; and trapezoidal tail arclengths must be below \(2\delta\). A candidate is validated only if every later available doubling through 32 also passes and its inter-doubling drift stays inside the earlier tolerance. This is substantially more informative than checking one endpoint, but it remains an operational finite-window certificate. At a \(10^{-5}\) prediction tolerance, only thirteen of sixteen runs were resolved by \(k_{\rm resp}\le3\).
+
+The theory controls the pure ordered-propagator tail. For the coupled adjoint it leaves an additional source-replacement defect. Let \(w_r^\ell=\partial_t p_r^\ell\) denote the exact adjoint velocity. Its exact reverse source is
+
+\[
+S_r^\ell=(\dot A_r^\ell)^\top p_r^{\ell+1},
+\]
+
+whereas the coupled truncation computes \(\dot A_{r,k_{\rm resp}}^\ell\) using \(v_{r,k_{\rm resp}}\). Formally,
+
+\[
+E_{A,k_{\rm resp},T}
+=\sup_{\substack{t\le T\\r}}
+\frac1L\sum_\ell
+\left\|
+(\dot A_r^\ell-\dot A_{r,k_{\rm resp}}^\ell)^\top
+p_r^{\ell+1}
+\right\|_n,
+\]
+
+and variation of constants gives the conditional bound
+
+\[
+\sup_{t,r,\ell}
+\|w_r^\ell-w_{r,k_{\rm resp},{\rm coup}}^\ell\|_n
+\le B_{w,T}\mathfrak R_{k_{\rm resp}}(\Lambda_T)
++e^{\Lambda_T}E_{A,k_{\rm resp},T}.
+\]
+
+Expanding
+
+\[
+\dot A_r^\ell
+=\gamma\bigl(\dot D_r^\ell W_\ell+D_r^\ell\dot W_\ell\bigr),
+\qquad
+\dot D_r^\ell
+=\operatorname{diag}\!\left(
+\phi''(z_r^\ell)\odot
+[\dot W_\ell h_r^\ell+W_\ell v_r^\ell]
+\right)
+\]
+
+shows why the factorial word tail is insufficient: replacing \(v_r^\ell\) creates nonlinear multiplier terms such as
+
+\[
+\gamma W_\ell^\top
+\left[p_r^{\ell+1}\odot\phi''(z_r^\ell)
+\odot W_\ell(v_r^\ell-v_{r,k_{\rm resp}}^\ell)\right].
+\]
+
+Controlling those terms needs operator and coordinate bounds plus a coupled stability argument; the reports do not prove \(E_{A,k_{\rm resp},T}\to0\), nor do they bound two fully evolved nonlinear trajectories merely from the forced linear tail. Also, a plateau pass merely says a surrogate settles; even \(k_{\rm resp}=0\) settled. It is not an accuracy or \(\sup_{t\ge0}\) certificate.
 
 The later operator-PDE work explicitly retires an even more compressed \(K/J/N\) description as non-executable: several tags, history variables, Gaussian kernels, and drift maps needed to run it were never emitted. What survives is its causal accounting and response-tail intuition, not a width-independent solver.
 
@@ -473,9 +645,166 @@ G^{(r_H)}_{rq}(s,t)
 =\int h_r(s,t,\xi)h_q(s,t,\xi)\,d\mu(\xi).
 \]
 
-The exact placement of \(\xi\) and the conditional law is important: it keeps the initialization coupling that a simple unconditional weight distribution would erase. The same coefficient vector is used in forward and transpose actions, so the construction retains the shared-adjoint geometry rather than drawing an independent reverse operator.
+The exact placement of \(\xi\) and the conditional law is important: it keeps the initialization coupling that a simple unconditional weight distribution would erase. The same coefficient vector is used in forward and transpose actions, so the construction retains the shared-adjoint geometry rather than drawing an independent reverse operator. The next derivation says precisely what finite-network objects motivate these choices—and exactly where motivation stops short of identification.
 
-### What is exact inside this PDE
+### 5.1 The finite-row dictionary and the conjectural law
+
+At finite width, attach to neuron \(i\) its immutable initialization label
+
+\[
+\xi_i=\bigl(U_{i\cdot}(0),a_i(0)/A\bigr),
+\qquad \xi_i\overset{\rm iid}\sim\mu.
+\]
+
+For the source-design matrix \(\Phi_{i\nu}=\psi_\nu(\xi_i)\), define the row coefficients of one middle layer by
+
+\[
+C_{i\nu}^\ell=\sum_{j=1}^n(W_\ell)_{ij}\psi_\nu(\xi_j),
+\qquad
+H_{\nu r}^{n,\ell}=\frac1n\sum_{j=1}^n
+\psi_\nu(\xi_j)h_{r,j}^\ell.
+\]
+
+The maintained projected operator is
+
+\[
+W_{\ell,r_H}=\frac1n(W_\ell\Phi)\Phi^\top,
+\qquad
+(W_{\ell,r_H}h_r)_i
+=\sum_{|\nu|\le r_H}C_{i\nu}^\ell H_{\nu r}^{n,\ell}.
+\]
+
+There is a finite-sample qualification. With raw randomly evaluated Hermites,
+
+\[
+Q_n=\frac1n\Phi^\top\Phi
+\]
+
+is only asymptotically the identity. The exact empirical orthogonal projector is
+
+\[
+W_\ell\Phi(\Phi^\top\Phi)^{-1}\Phi^\top
+=\frac1nW_\ell\Phi Q_n^{-1}\Phi^\top.
+\]
+
+Therefore the simpler displayed projector is exact after empirical basis whitening \(Q_n=I\), as in the PDE quadrature, and otherwise is an asymptotic projection under \(Q_n\to I\). Calling it an exact raw-sample finite-\(n\) projection would be too strong.
+
+Multiplying the exact middle-weight update by \(\Phi\) gives, in the whitened/projected system,
+
+\[
+\dot C_{i\nu}^\ell
+=-\gamma\sum_qe_q\,\beta_{q,i}^\ell
+H_{\nu q}^{n,\ell}.
+\]
+
+This formula answers why a law that is initially independent of \(\xi_i\) becomes conditional on it. At \(t=0\), \(W_\ell\) is independent of \((U,a)\), but the row velocity contains \(\beta_{q,i}^\ell\). The latter inherits \(i\)'s label through the forward input row and, most directly, through the terminal condition \(p_{q,i}^L=a_i\). Training therefore correlates the projected middle-weight row with its row label immediately.
+
+The proposed continuum object is the weak limit, at \(\ell/L\to s\), of the empirical joint measure
+
+\[
+\nu_{s,t}^{n,L}
+=\frac1n\sum_{i=1}^n
+\delta_{(\xi_i,C_i^\ell(t))}
+\Longrightarrow
+\mu(d\xi)\rho_{s,t}^\xi(dw).
+\]
+
+This disintegration is the intended answer to “what does \(\rho^\xi\) represent?” It is **not** a proved limit theorem. Replacing the exact dense actions by the projected ones, proving joint empirical convergence in the presence of shared transposes, and then homogenizing trained layers are precisely parts of the dense-identification bridge.
+
+### 5.2 Why one-index parameters are fields and a two-index matrix is an operator law
+
+The distinction is one of index arity, not a theorem that some randomness is “fresh” and other randomness “reused.” Both \(U_i\) and \(a_i\) carry one neuron index. Once that neuron's immutable label is \(\xi_i\), their trained values naturally become source functions \(b(t,\xi)\) and \(a(t,\xi)\). By contrast, \(W_{ij}\) couples a row label \(\xi_i\) to a whole column-indexed query. At finite cutoff the latter query is compressed to the coefficients of the map
+
+\[
+u(\cdot)\longmapsto
+\sum_{|\nu|\le r_H}w_\nu\langle\psi_\nu,u\rangle_{L^2(\mu)}.
+\]
+
+The row label remains explicit, while its action on the column/source variable is represented by \(w\). This is the minimal finite-rank operator analogue of a two-index matrix.
+
+That construction also contains a substantive homogenization assumption. The PDE keeps a depth-local marginal law \(\rho_{s,t}^\xi\); it does not attach one persistent Gaussian identity to a row through all independently initialized layers. It assumes that, after ordered width and depth limits, the slow fields are functions of \(\xi\) and every surviving local operator fluctuation is captured by the conditional row law. A persistent cross-depth latent variable or two-time response not determined by this state would invalidate the closure. The current evidence does not prove its absence.
+
+### 5.3 The transpose formula is the exact projected adjoint
+
+Let
+
+\[
+\mathcal H=L^2(\mu),\qquad
+\mathcal R=L^2\bigl(\mu(d\xi)\rho_s^\xi(dw)\bigr),
+\]
+
+and define the finite-rank row operator
+
+\[
+(\mathcal W_{r_H}v)(\xi,w)
+=\sum_{|\nu|\le r_H}w_\nu
+\int\psi_\nu(\eta)v(\eta)\,\mu(d\eta).
+\]
+
+For \(q\in\mathcal R\), Fubini's theorem gives
+
+\[
+\begin{aligned}
+\langle q,\mathcal W_{r_H}v\rangle_{\mathcal R}
+&=\int\mu(d\eta)\,v(\eta)
+\sum_\nu\psi_\nu(\eta)
+\int\mu(d\xi)\int w_\nu q(\xi,w)\rho_s^\xi(dw).
+\end{aligned}
+\]
+
+Hence
+
+\[
+(\mathcal W_{r_H}^*q)(\eta)
+=\sum_\nu\psi_\nu(\eta)
+\int\mu(d\xi)\int w_\nu q(\xi,w)\rho_s^\xi(dw),
+\]
+
+which is exactly the term in the reverse-depth equation with \(q=\beta_r\). The two source letters are not two independent physical draws: \(\xi\) is the integrated **row** index, corresponding to \(i\) in \((W^\top\beta)_j=\sum_iW_{ij}\beta_i\), and \(\eta\) is the free **column** source corresponding to \(j\). This is the projected row/column asymmetry of the shared transpose.
+
+### 5.4 Initialization, row-noise quadrature, and characteristics
+
+Conditioned on the source cloud,
+
+\[
+\operatorname{Cov}(C_{i\nu}^\ell,C_{i\kappa}^\ell\mid\xi_1,\ldots,\xi_n)
+=\sigma_w^2(Q_n)_{\nu\kappa}.
+\]
+
+Hermite orthonormality gives \(Q_n\to I\), and empirical whitening makes the covariance exactly \(\sigma_w^2I\) in the numerical coordinates. Independence of \(W_\ell(0)\) from \((U,a)\) makes this initial law independent of \(\xi\); the exceptional self-column correlation is lower order in \(n\). Thus
+
+\[
+\rho_{s,0}^\xi=N(0,\sigma_w^2I)
+\]
+
+is the compiled initialization. Whitening is a finite-cubature correction, not an extra probabilistic assumption required in the ideal Gaussian integral.
+
+The symbol \(R_\omega\) in the solver is often misread. It is the number of quadrature particles \(\varepsilon_r\in\mathbb R^{P_{r_H}}\) for the **retained cylindrical Gaussian law**
+
+\[
+\mathcal W_{r_H}^0u
+=\sigma_w\sum_{|\nu|\le r_H}
+\varepsilon_\nu\langle\psi_\nu,u\rangle.
+\]
+
+It does not sample a frozen residual \((I-\Pi_{r_H})\) tail. The infinite isonormal map is useful in the functional analysis of the proposed \(r_H\to\infty\) limit, but the finite solver contains only \(\Pi_{r_H}\); all unretained coordinates are omitted. The same \(\varepsilon_r\) is used across the data queries of one characteristic so that their covariance is correct. Reusing the quadrature table at different depth cells is numerical integration, not a claim that one physical noise path persists across iid layers.
+
+Nor does \(w=\sigma_w\varepsilon+c\) mean that \(\rho\) remains one common Gaussian translate. For each depth cell \(s_\ell\), source point \(\xi_i\), and row-noise particle \(\varepsilon_r\), the code stores
+
+\[
+c_{\ell i r\nu}(t),
+\]
+
+an array of shape \(N_s\times M_\xi\times R_\omega\times P_{r_H}\), together with the source fields \(b_i(t),a_i(t)\). Each particle follows
+
+\[
+\dot c_{\ell i r\nu}
+=V_\nu(\sigma_w\varepsilon_r+c_{\ell i r};s_\ell,t,\xi_i).
+\]
+
+Because \(V\) contains \(\phi'(z(w))\), it is nonlinear in \(w\); different particles acquire different shifts and the pushforward law is generally non-Gaussian. RK4 evolves these individual characteristics. The Liouville equation is the continuum statement of that particle pushforward, not a Gaussian closure ansatz.
+
+### 5.5 What is exact inside this PDE
 
 For every finite \(r_H\), assuming a regular solution exists, define
 
@@ -505,7 +834,30 @@ The exact same-system tangent kernel is
 G^{h,r_H}_{qk}(s)G^\beta_{qk}(s)\,ds.
 \]
 
-The first two terms are the readout and input-map blocks; the integral is the trained depth-operator block. Crucially, it contains the **projected** hidden Gram \(G^{h,r_H}\), not the full hidden Gram. Each displayed matrix is a Gram matrix, and the input and operator products are positive semidefinite by the Schur product theorem. Hence \(\Theta_{r_H}\succeq0\). Consequently:
+The first two terms are the readout and input-map blocks; the integral is the trained depth-operator block. Crucially, it contains the **projected** hidden Gram \(G^{h,r_H}\), not the full hidden Gram. Each displayed matrix is a Gram matrix, and the input and operator products are positive semidefinite by the Schur product theorem. Hence \(\Theta_{r_H}\succeq0\).
+
+The asymmetry between \(G^{h,r_H}\) and \(G^\beta\) follows directly from the chosen trainable coordinates. For a coefficient characteristic,
+
+\[
+\frac{\delta f_r}{\delta c_\nu(s,\xi,w)}
+=\gamma\,\beta_r(s,\xi,w)H_{\nu r}(s).
+\]
+
+Taking the parameter-gradient inner product between samples \(r,q\) and summing over the retained coordinate label \(\nu\) gives
+
+\[
+\begin{aligned}
+\Theta_{rq}^{W,r_H}
+&=\gamma^2\int_0^1
+\sum_{|\nu|\le r_H}H_{\nu r}(s)H_{\nu q}(s)\\
+&\hspace{3.5em}\times
+\int\mu(d\xi)\int
+\beta_r(s,\xi,w)\beta_q(s,\xi,w)\rho_s^\xi(dw)\,ds\\
+&=\gamma^2\int_0^1G_{rq}^{h,r_H}(s)G_{rq}^\beta(s)\,ds.
+\end{aligned}
+\]
+
+The hidden factor is projected because \(\nu\) indexes the finite set of **trainable coefficient directions**. The row factor is integrated over every characteristic already present in the finite law, so its Gram is unprojected within that system. Projecting \(\beta\) again would change the parameter metric and define a different model; using the full hidden Gram would add directions that the cutoff does not train. “Full” here means full over the finite characteristic law, not full dense-network or infinite-Hermite information. Consequently:
 
 1. the Liouville velocity is the projected gradient velocity;
 2. the depth forward and adjoint equations are exact adjoints within the projected Hilbert space;
@@ -515,7 +867,7 @@ The first two terms are the readout and input-map blocks; the integral is the tr
 
 These are **exact finite-PDE** statements. They do not prove that the PDE equals the dense-network limit. They also presume enough regularity and well-posedness to justify the integrations by parts and differentiations; global well-posedness of the nonlinear coupled PDE has not been established.
 
-### Parity and the real cutoff ladder
+### 5.6 Parity and the real cutoff ladder
 
 For odd \(\phi\) and the symmetric Gaussian source law, the forward/adjoint source fields are odd. Hence their even-degree query coefficients and the corresponding learned coefficient velocities vanish. The frozen isonormal row-noise coordinates at even degree are still nonzero random variables, but they multiply zero query coefficients and remain dynamically inert. In the canonical \(d_0=3\) source dimension \(d_0+1=4\), the meaningful total-degree ladder is
 
@@ -548,7 +900,7 @@ P=5,\quad N_s=16,\quad M_\xi=256,\quad R_\omega=128,\quad
 \Delta t=0.02,\quad T=8,
 \]
 
-with scrambled Sobol sampling, moment correction, RK4, and an authenticated restart to \(T=32\). Here \(N_s\) is the depth grid, \(M_\xi\) the immutable-source quadrature size, and \(R_\omega\) the Gaussian row-process sample count. None is a hidden width. The primary dense reference used
+with scrambled Sobol sampling, moment correction, RK4, and an authenticated restart to \(T=32\). Here \(N_s\) is the depth grid, \(M_\xi\) the immutable-source quadrature size, and \(R_\omega\) the retained Gaussian coefficient-law quadrature count. None is a hidden width, and \(R_\omega\) is not an unretained-tail sample count. The primary dense reference used
 
 \[
 n=256,\qquad L=32,\qquad 128\ \text{network seeds}
@@ -564,7 +916,28 @@ Against that finite reference:
 - The loss-of-mean-predictor gap was \(1.8457\times10^{-3}\).
 - The Gram-increment mismatch was statistically resolved against the finite ensemble; most other gaps were not.
 
-The PDE discretization itself was substantially more accurate than the model-to-reference gap. RK4 step halving changed output/Gram by roughly \(7\times10^{-8}\) and \(1.1\times10^{-7}\); depth-grid \(16\to32\) changes were \(2.1\times10^{-4}\) and \(8.5\times10^{-4}\); QMC scramble spreads were \(1.3\times10^{-3}\) and \(2.1\times10^{-3}\). Coordinate-gradient, transpose, energy, kernel, and restart checks were near floating-point precision. The PDE reached a numerical plateau by \(T=8\), and its restart to \(T=32\) drifted by less than \(5\times10^{-13}\).
+“Resolved” has a narrow bootstrap meaning here. With \(\bar G_{\rm dense}\) the mean of 128 network runs, the diagnostic was
+
+\[
+D_G^{\rm inc}
+=\max_{t\le8,\,s}
+\left\|
+[G_{\rm PDE}(s,t)-G_{\rm PDE}(s,0)]
+-[\bar G_{\rm dense}(s,t)-\bar G_{\rm dense}(s,0)]
+\right\|_F.
+\]
+
+The dense seeds were retained in blocks of \(32,32,64\), and both pooled and block-stratified whole-trajectory bootstraps were used. The observed \(D_G^{\rm inc}=0.00724334\) exceeded their 95% dense-sampling thresholds \(0.00501674\) and \(0.00494006\). By contrast, the output gap \(0.010753\) lay below its corresponding thresholds \(0.015347\) and \(0.015683\). Initialization cancellation makes the Gram-increment comparison unusually sensitive. The PDE curve was treated as fixed: QMC scramble error, finite cutoff, depth discretization, and cubature bias were not included in these thresholds. This is therefore a statistically detected mismatch relative to dense Monte Carlo noise, not a total-error confidence statement for the limiting PDE.
+
+The PDE discretization itself was substantially more accurate than the model-to-reference gap. RK4 step halving changed output/Gram by roughly \(7\times10^{-8}\) and \(1.1\times10^{-7}\); depth-grid \(16\to32\) changes were \(2.1\times10^{-4}\) and \(8.5\times10^{-4}\); QMC scramble spreads were \(1.3\times10^{-3}\) and \(2.1\times10^{-3}\). Coordinate-gradient, transpose, energy, kernel, and restart checks were near floating-point precision. The canonical hard plateau gate was
+
+\[
+\max_{8\le t\le32}\|f(t)-f(8)\|_2<10^{-10},
+\qquad
+\max_{8\le t\le32,s}\|G(s,t)-G(s,8)\|_F<10^{-10};
+\]
+
+the observed drifts were about \(5.0\times10^{-13}\) and \(4.24\times10^{-13}\). This is a finite-grid settling test for the PDE, not a \(\sup_{t\ge0}\) theorem, and the dense comparison itself stopped at \(T=8\).
 
 These facts support **a useful finite-\(P\) surrogate**. They do not identify the dense ordered limit: the available dense grid is essentially L-shaped, and the observed \(n=256\to512\) and \(L=32\to64\) Cauchy gaps are not statistically resolved.
 
@@ -589,7 +962,16 @@ Across all cases, median/max normalized full-curve errors were
 \end{array}
 \]
 
-The PDE/dense feature-motion ratio stayed between \(0.977\) and \(1.023\). This is meaningful anti-fine-tuning evidence. Formally, however, the frozen outcome was “boundary or unresolved”: the simultaneous upper critical value was \(5.94\%\), already above the desired \(5\%\) equivalence margin; six configurations failed a numerical-resolution gate; and four did not satisfy both strict plateau windows. The cases are fourteen fixed synthetic tasks, not a statistical population of learning problems.
+The PDE/dense feature-motion ratio stayed between \(0.977\) and \(1.023\). This is meaningful anti-fine-tuning evidence. Formally, however, the frozen outcome was “boundary or unresolved.” The preregistered equivalence statistic was not a collection of independent TOST tests. For case \(c\) and channel \(k\in\{G,f,\mathcal L\}\), let \(\widehat E_{ck}\) be the normalized full-curve discrepancy. Each whole-trajectory bootstrap formed
+
+\[
+Z_b^+=\max_{c,k}
+\bigl(\widehat E_{ck}^{*(b)}-\widehat E_{ck}\bigr),
+\]
+
+using the same resampled indices within a tier to retain cross-channel dependence. Its 95th percentile was \(0.0594006\), so a simultaneous familywise upper bound is \(\widehat E_{ck}+0.0594006\). The **5.94% is an uncertainty increment, not an observed model error**; since it alone exceeds the desired 5% margin, the strong equivalence gate could not pass.
+
+The transfer plateau protocol also differed from the canonical hard gate. It tested both windows \([8,16]\) and \([16,32]\), for PDE and dense summaries, using endpoint output and Gram drifts below \(10^{-4}\), output and Gram path lengths below \(2\times10^{-4}\), \(\sup\|-\Theta e\|<10^{-5}\), normalized loss drift below \(10^{-6}\), and a memberwise dense 95th-percentile endpoint drift below \(10^{-3}\). Only ten of fourteen cases passed both windows; one passed only the later window, and three remained active at \(T=32\). Six configurations also failed a numerical-resolution gate. Thus “all transfer trajectories plateaued” would be false. The cases are fourteen fixed synthetic tasks, not a statistical population of learning problems.
 
 ### 6.3 Is the success merely linear?
 
@@ -627,7 +1009,34 @@ P=5,\quad N_s=8,\quad M_\xi=64,\quad R_\omega=32,\quad T=2
 
 against \(n=64,L=16,16\) dense seeds gave \(1.05\%\) output and \(3.36\%\) Gram-increment errors. It is an execution check, not independent scientific evidence.
 
-### 6.5 The correct empirical conclusion
+### 6.5 What moment correction, whitening, and parity pairing do
+
+Scrambled Sobol points are low-discrepancy points, not exact Gaussian cubature. The numerical pipeline first maps them to Gaussian coordinates and applies an affine moment correction:
+
+\[
+\xi_i^{\rm mc}
+=\widehat\Sigma^{-1/2}(\xi_i^{\rm raw}-\widehat m),
+\]
+
+so the weighted empirical mean and covariance are exactly \(0\) and \(I\). With \(D_b=\operatorname{diag}(w_1^{\rm b},\ldots,w_{M_\xi}^{\rm b})\) the source-quadrature weights, it then evaluates the raw retained Hermite design \(\Psi\), forms
+
+\[
+Q_\Psi=\Psi^\top D_b\Psi,
+\qquad
+\widetilde\Psi=\Psi Q_\Psi^{-1/2},
+\]
+
+and uses \(\widetilde\Psi^\top D_b\widetilde\Psi=I\). The fast row-noise points receive the analogous mean/covariance correction. These steps make the first two Gaussian moments and the retained empirical basis Gram exact. They do not make higher Gaussian moments exact, and independently rewhitening at each cutoff can destroy literal nesting between cutoff spaces.
+
+Parity pairing is complementary, not a replacement. For every source point one includes \(-\xi\), and for each retained row-noise point one includes the parity-transformed coordinate
+
+\[
+\varepsilon_\nu\longmapsto(-1)^{|\nu|}\varepsilon_\nu.
+\]
+
+A centered, whitened point cloud need not be closed under this full symmetry, which is why the older cubature leaked into theoretically inert even shells. The corrected convergence experiments used symmetry-paired tensor Gauss--Hermite source rules and paired fast points, followed by block orthonormalization compatible with the odd/even split.
+
+### 6.6 The correct empirical conclusion
 
 The data justify all of the following:
 
@@ -674,7 +1083,33 @@ successive width discrepancies contracted with ratios \(0.46\)–\(0.52\), the d
 
 For trained layers at \(n=128,L=8,16,32,64\), the variance of centered depth averages scaled almost exactly like \(L^{-1}\), both forward and backward and at \(t=0.5\). This supports the desired \(L^{-1/2}\) cancellation of iid depth innovations. It does not identify the conditional shared-transpose/Onsager mean about which the cancellation should occur.
 
-A same-state attack preserved the retained \(P\le35\) coordinates, current fields, output, Grams, and tangent kernel to \(5.3\times10^{-16}\), yet produced only a \(0.332\%\) continuation gap over horizon \(0.5\). This is a useful failed counterexample search, not a sufficiency proof: it was one off-manifold construction, one root, and a reduced cell.
+A same-state attack perturbed every finite-network middle matrix by
+
+\[
+W_\ell\longmapsto W_\ell+\alpha u_\ell v_\ell^\top,
+\]
+
+choosing
+
+\[
+v_\ell\perp\operatorname{span}\{\Phi_{35},H^\ell\},
+\qquad
+u_\ell\perp\operatorname{span}\{\beta^\ell\}.
+\]
+
+It follows immediately that
+
+\[
+\delta W_\ell\Phi_{35}=0,
+\qquad
+\delta W_\ell H^\ell=0,
+\qquad
+\delta W_\ell^\top\beta^\ell=0.
+\]
+
+Thus the retained row coordinates, current forward and adjoint fields, output, Grams, and tangent kernel were preserved to \(5.3\times10^{-16}\), while a component of the dense matrices invisible to those summaries changed. This was not literally a perturbation of a sampled PDE “isonormal tail”: the finite PDE has no such retained tail. The rank-one direction was selected from a projected local linearized terminal dot-Gram objective, not by globally optimizing future separation.
+
+The altered network produced a \(0.332\%\) continuation gap over horizon \(0.5\). That nonzero number establishes finite-\((n,L)\) strict nonidentity of the summaries for this off-manifold perturbation; it was not attributed to roundoff. But the preregistered asymptotic-falsification target was \(1.5\%\), and the test used only \(n=128,L=16\), one root, and one reduced depth cell, with no width/depth scaling. The result is therefore simultaneously a small finite-network separation and a failed search for a large surviving state-sufficiency counterexample. It is not positive evidence that the PDE state is asymptotically sufficient.
 
 ### 7.2 The parity repair
 
@@ -698,23 +1133,101 @@ After enforcing parity, \(P=5\) and \(P=15\) agree at \(10^{-17}\). The correct 
 
 On the corrected ladder \(P=5,35,126\), the newly opened outgoing shell residual contracted by a factor of roughly \(31\)–\(34\) at \(t=0.25\). That sounds decisive, but it measures only how strongly a zero high shell is initially forced.
 
-Once the high-order system is trained, its populated high modes can feed back collectively into the low modes. On a common high-order reference \(Y\), the relevant commutator is
+Once the high-order system is trained, its populated high modes can feed back collectively into the low modes. The dynamic state used in the comparison is
 
 \[
-\Delta_{r_H\to r_H+2}(Y)
-=\Pi_{r_H}F_{r_H+2}(\Pi_{r_H+2}Y)-F_{r_H}(\Pi_{r_H}Y).
+Y_{r_H}=(b_{r_H},a_{r_H},c_{r_H});
 \]
 
-At active mode counts \(24\to80\to200\), with
+the fields \(h,p,z,\beta\) are recomputed from it and are not separately counted in the state norm. With base-source weights \(w_i^{\rm b}\), fast row-noise weights \(w_j^{\rm f}\), and \(N_s\) depth cells, the norm is
+
+\[
+\|Y\|_{\rm st}^2
+=\sum_iw_i^{\rm b}\|b_i\|_2^2
++\sum_iw_i^{\rm b}|a_i|^2
++\frac1{N_s}\sum_{\ell,i,j}
+w_i^{\rm b}w_j^{\rm f}\|c_{\ell ij}\|_2^2.
+\]
+
+For separately evolved adjacent cutoffs \(r_H<r_H'\), define the new-shell and shared-low-mode pieces
+
+\[
+H_{r_H,r_H'}=\|(I-\Pi_{r_H})Y_{r_H'}\|_{\rm st},
+\qquad
+S_{r_H,r_H'}=\|\Pi_{r_H}Y_{r_H'}-Y_{r_H}\|_{\rm st},
+\]
+
+and
+
+\[
+E_{r_H,r_H'}=(H_{r_H,r_H'}^2+S_{r_H,r_H'}^2)^{1/2}.
+\]
+
+The corresponding observable distance is
+
+\[
+O_{r_H,r_H'}
+=\max\left\{
+\frac{\|f_{r_H'}-f_{r_H}\|_2}{S_f},
+\frac{\max_\ell\|G_{r_H'}^\ell-G_{r_H}^\ell\|_F}{S_G}
+\right\},
+\]
+
+with \(S_f=\|y\|_2=1.0319883720\ldots\) and \(S_G=\|X^\top X\|_F=\sqrt3\). At \(t=0.25\), the **coupled Cauchy** ratios were
+
+\[
+\frac{E_{5,7}}{E_{3,5}}=1.32193,
+\qquad
+\frac{O_{5,7}}{O_{3,5}}=1.63581.
+\]
+
+A different test trained one common degree-seven reference \(Y_7(t)\), with 200 active odd modes, and obtained each lower comparison by literal projection of this same state. Its vector-field commutator is
+
+\[
+\Delta_{d\to d+2}(Y_7)
+=\Pi_dF_{d+2}(\Pi_{d+2}Y_7)-F_d(\Pi_dY_7).
+\]
+
+Using the same state norm, it gave
+
+\[
+\frac{\|\Delta_{5\to7}(Y_7)\|_{\rm st}}
+{\|\Delta_{3\to5}(Y_7)\|_{\rm st}}
+=1.3257147.
+\]
+
+The output- and depth-Gram directional-derivative defects were normalized by \(S_f,S_G\) and evaluated by centered finite differences with relative step \(2\times10^{-6}\); the largest, from the Gram channel, had ratio \(1.6173852\). Thus the two pairs \(1.3219/1.6358\) and \(1.3257/1.6174\) come from different experiments: separately evolved Cauchy errors versus one-state generator commutators.
+
+These tests used
 
 \[
 N_s=1,\quad M_\xi=4096,\quad R_\omega=512,\quad
 \Delta t=0.025,\quad T=0.25,
 \]
 
-the state Cauchy-error ratio was \(1.3219\) and the observable ratio \(1.6358\). A separate common-reference commutator test gave a state ratio \(1.3257\) and observable-generator ratio \(1.6174\). Aggregate contraction had not begun through degree seven.
+so aggregate contraction had not begun through degree seven in this depth-collapsed discretization. Specifically, \(N_s=1\) means one coefficient-law cell \(c_0\), endpoint fields \(h_0,h_1\), one forward and one reverse depth update with \(\Delta s=1\), and a one-cell quadrature for the tangent-kernel depth integral. It is algebraically similar to one residual block and is not a certified continuous-depth approximation. A degree-five control gave ratios \(1.3732,1.3835,\approx1.39\) at \(N_s=1,2,4\), making a gross one-cell artifact unlikely at that order. The degree-seven calculation was not repeated at \(N_s>1\), so its headline ratios cannot be promoted to continuous-depth evidence.
 
-There is a more hopeful structural fact: after dividing out shell cardinality, per-mode RMS amplitudes generally contracted, and consecutive \(B\)-commutators were nearly orthogonal. This suggests a square-summable broad tail rather than a coherent unstable resonance. It is evidence for the *kind* of estimate one might seek, not the estimate itself.
+There is a more hopeful structural fact. In four source coordinates, homogeneous shells of degrees five and seven contain
+
+\[
+N_5=\binom83=56,
+\qquad
+N_7=\binom{10}3=120
+\]
+
+modes. If \(A_d\) is an aggregate shell norm, its RMS amplitude per mode is \(A_d/\sqrt{N_d}\). The measured aggregate ratio \(A_7/A_5\) and multiplicity-adjusted ratio were
+
+\[
+\begin{array}{c|cc}
+\text{channel}&A_7/A_5&(A_7/A_5)\sqrt{56/120}\\ \hline
+c&1.26627&0.86503\\
+\dot c&1.26655&0.86522\\
+h&1.32175&0.90293\\
+p&1.41207&0.96463.
+\end{array}
+\]
+
+The total-state commutator similarly changed from \(1.32571\) to \(0.90564\) after cardinality adjustment. But the readout channel and the two observable-generator channels remained above one even after that adjustment: \(1.11875,1.05832,1.10488\). Consecutive input-field commutators were nearly orthogonal and participation counts increased, arguing against one coherent resonant mode. This is finite-level evidence for a broad possibly square-summable tail, not a proof: there is only one degree-five-to-seven shell ratio, and no asymptotic decay exponent was fitted.
 
 ### 7.4 The functional-analytic obstruction
 
@@ -838,7 +1351,17 @@ For each separately fixed computation, the reports distinguish:
 - a probability theorem establishing convergence of the finite-width program;
 - a depth-uniform finite-state grammar.
 
-The generic order-three program is the cleanest complete case. Under a \(C^\infty\) activation whose derivatives have polynomial growth, the entire retained expression can be encoded as a fixed Tensor Program. Existing tensor-program results supply the joint Gaussian/Onsager limit and non-Gaussian Tensor Program \(L^p\) convergence for every finite \(p\). This discharges covariance replacement, uniform integrability, and annealed expectation convergence at fixed depth and batch. With only finitely many controlled derivatives, the finite-width identities remain exact but the annealed limit needs an additional tail/uniform-integrability proof.
+The generic order-three program is the cleanest complete case. The imported result is specifically Setup 3.6 and Theorem 3.7, the **Non-Gaussian Master Theorem**, of Golikov--Yang, *[Non-Gaussian Tensor Programs](https://papers.nips.cc/paper_files/paper/2022/file/8707924df5e207fa496f729f49069446-Paper-Conference.pdf)*. For a fixed finite tensor program, it assumes independent matrix entries of mean zero and variance \(n^{-1}\), uniform normalized bounds on every higher entry moment, polynomially smooth coordinate nonlinearities—\(C^\infty\) with every partial derivative polynomially bounded—and finite moments of the initial scalar variables. It then gives almost-sure and \(L^p\) convergence, for every finite \(p\), of each scalar program variable to the Gaussian-master-theorem value. Gaussian matrices are a special case, and the program language used here admits the required matrix/transpose reuse and empirical scalar moments.
+
+For each separately fixed depth, batch, and derivative order, the audited derivative computation is first compiled into such a finite program. The theorem then supplies the joint Gaussian/Onsager semantics and, because it gives \(L^{1+\epsilon}\) convergence, uniform integrability and convergence of the annealed coefficient. This is not a theorem about a depth or derivative order growing with width.
+
+The distinction concerning smoothness is precise. Assuming only \(\phi\in C^5\) with polynomial growth through derivative five is sufficient to *write and bound the displayed finite-width order-five algebra*. It does not satisfy the cited theorem's all-derivatives hypothesis. A weaker probability-limit route would therefore still need, for every retained monomial \(Z_n\), a tail estimate such as
+
+\[
+\sup_n\mathbb E|Z_n|^{1+\epsilon}<\infty
+\]
+
+and convergence in probability. Those two facts imply uniform integrability and hence convergence of expectations. Thus the missing "tail proof" is not the claim that one more derivative exists; it is a width-uniform moment bound for the entire compiled collection. The reports do not supply that weaker bridge under merely finite \(C^5\) control.
 
 The open global theorem is stronger: termination of the peeling grammar for every admissible observable, plus a bound on the number of retained state types independent of depth at fixed derivative order. Existing Tensor Program semantics may leave recursively named nonlinear variables; the proposed compiler wants a fully eliminated, auditable Gaussian DAG. That distinction is real, but the general finite-state theorem has not been proved.
 
@@ -913,6 +1436,35 @@ This does not mean the random coefficient is zero, nor may it be set to zero bef
 \]
 
 The surviving \(C^\ell\) contains a fresh off-diagonal Gaussian field. Its one-copy mean is zero, but its square contributes at leading order. This is a concrete demonstration that “replace the random matrix by its mean before squaring” is wrong.
+
+Here is the missing mechanism. At layer two, one propagated part of the first feature velocity contains
+
+\[
+\frac1n\sum_{i,p'}W^2_{pi}W^2_{p'i}\,\phi'(z_i^1(a))
+\sum_c\lambda_cG^0_{ac}\phi'(z_i^1(c))\delta^2_{p'}(c).
+\]
+
+Split the equality pattern \(p'=p\) from \(p'\ne p\). The diagonal pattern gives the deterministic Stein response which, together with the direct matrix-update term, produces the chronological response
+
+\[
+\sum_c\lambda_cT^1_{ac}\delta_p^2(c).
+\]
+
+Every off-diagonal summand is conditionally centered. But there are order \(n^2\) choices of \((i,p')\) against the square of the \(n^{-1}\) normalization. When two copies are formed, the row-distinct Wick pairing matches the two explicit weight pairs and leaves an order-one covariance. The conditional CLT therefore leaves a centered Gaussian innovation \(\Gamma^\ell\), not zero:
+
+\[
+u^\ell(a)=\Gamma^\ell(a)+\sum_c\lambda_cT^{\ell-1}_{ac}\delta^\ell(c),
+\qquad
+\mathbb E[\Gamma^\ell(a)\Gamma^\ell(b)]=V^{\ell-1}_{ab},
+\]
+
+where \(V^\ell_{ab}=\mathbb E[g^\ell(a)g^\ell(b)]\). Squaring the velocity gives the surviving term
+
+\[
+V^\ell_{ab}\supset D^\ell_{ab}V^{\ell-1}_{ab}.
+\]
+
+Finally \(C^\ell_{ab}=V^\ell_{ab}+S^\ell_{ab}+S^\ell_{ba}\), where \(S^\ell_{ab}=\mathbb E[s^\ell(a)h^\ell(b)]\) is the second-displacement cross moment. Thus the fresh field survives in \(C^\ell\) through a variance-order Wick contraction: it is not an Onsager mean, and its survival occurs in the fixed-depth \(n\to\infty\) coefficient limit. This calculation is exact at the contraction level subject to the stated conditional-CLT and moment hypotheses; it is not a positive-time dynamics theorem.
 
 For the deep-linear control, if \(\kappa=2/m\) and \(\sigma=G^0y\),
 
@@ -1069,6 +1621,19 @@ Independent frozen compilers agree coefficientwise. The general tagged intermedi
 
 and 38 local transition maps.
 
+The six sweeps are not six repetitions of one map. They are alternating nearest-neighbor traversals of six different frozen/moving covariance-and-response registries; an individual sweep can carry several derivative grades. A hat denotes a derivative along the frozen straight parameter line through initialization; no hat denotes the moving feature-ascent flow. Here \(\langle v,w\rangle_n=n^{-1}v^\top w\), and \(E_j,J_j\) name centered frozen- and moving-reverse Gaussian innovations used only to explain the recurrence semantics; they do not remain as random variables in the compiled scalar graph.
+
+| sweep | dimension and propagated coordinates | what is being transported |
+|---|---|---|
+| F1 | \(7: u,v,w,x,y,j,k\) | Frozen forward covariances \(u=\mathbb E\langle\widehat X_0,\widehat X_2\rangle_n\), \(v=\mathbb E\langle\widehat X_0,\widehat X_4\rangle_n\), \(w=\mathbb E\langle\widehat X_1,\widehat X_1\rangle_n\), \(x=\mathbb E\langle\widehat X_1,\widehat X_3\rangle_n\), \(y=\mathbb E\langle\widehat X_2,\widehat X_2\rangle_n\), plus the mean Stein responses \(j=\mathbb E[\partial_{E_0}\widehat X_3]\), \(k=\mathbb E[\partial_{E_0}\widehat X_5]\). |
+| R1 | \(8: e_{02},e_{11},e_{13},e_{22},c_{10},c_{21},c_{30},c_{32}\) | Frozen reverse covariances and the four live transpose-response coefficients in \(\widehat\Delta_1,\widehat\Delta_2,\widehat\Delta_3\). |
+| F2 | \(4: q_{02},q_{22},q_{\rm fm},a_2\) | Moving grade-two feature covariances \(\langle X_0,X_2\rangle,\|X_2\|^2,\langle\widehat X_2,X_2\rangle\) and its reverse-innovation response. |
+| R2 | \(4: r_{02},r_{22},r_{\rm fm},d_{21}\) | Moving grade-two reverse covariances and the coefficient in \(\Delta_2=J_2+d_{21}X_1\). |
+| F3 | \(3: q_{13},a_{30},a_{32}\) | The mixed covariance \(\mathbb E\langle\widehat X_1,X_3\rangle_n\) and responses of \(X_3\) to reverse innovations of grades zero and two. |
+| R3 | \(3: r_{13},d_{30},d_{32}\) | The moving reverse covariance \(\langle\widehat\Delta_1,\Delta_3\rangle\) and the two coefficients in \(\Delta_3=J_3+d_{30}X_0+d_{32}X_2\). |
+
+Each sweep visits the \(H\) hidden layers once; the displayed first/top initialization is the corresponding boundary cell, so the factored graph has \(6H\) local transitions and 29 *coordinate types*, not 29 numbers total independent of depth. The order-three recurrence is the closed projection \((w,u,j;e_{11},c_{10})\). The remaining coordinates are needed by the order-five moving-flow and terminal contractions. This is what distinguishes the \(O(H)\) factored DAG from the much larger fully expanded polynomial.
+
 This establishes a literal finite-state recurrence for that observable at each separately fixed \(H\). It does not establish the hoped-for one-forward/one-backward compression, and the fully distributed formula grows from 1,045 terms at \(H=2\) to 462,776 at \(H=4\). A depth-uniform small flattened representation therefore remains open.
 
 #### Multiple observables
@@ -1170,7 +1735,31 @@ with an analogous pair for \(V\). The proposed width-first, fixed-derivative-ord
 \sum_{j\le k}\mathbb E[\partial_{\eta_j^W}B_{2,k}]X_j.
 \]
 
-The strict/weak index distinction is the causal forward/transpose distinction; treating the two multiplications as fresh independent Gaussians would omit it. Each derivative grade closes in the acyclic order
+These are Gaussian *polynomial* laws: the base innovations are jointly Gaussian, while \(X_k,Z_k,\ldots\) are generally nonlinear polynomials of them. Through grade \(k\), the three laws and their carried variables are:
+
+- \(\mathcal L_1\), bottom: the Gaussian coordinates \((u,\xi^W_0,\ldots,\xi^W_k)\), carrying \(X_j,R_{1,j}\);
+- \(\mathcal L_2\), middle: \((\eta^W_0,\ldots,\eta^W_k,\xi^V_0,\ldots,\xi^V_k)\), carrying \(Z_j,Y_j,R_{2,j},B_{2,j}\);
+- \(\mathcal L_3\), top: \((A,\eta^V_0,\ldots,\eta^V_k)\), carrying \(T_j,B_{3,j},A_j\).
+
+The two middle innovation families have zero cross-covariance because \(W_0\) and \(V_0\) are independent. Their nonzero covariances are determined self-consistently by adjacent-law moments, for example
+
+\[
+\mathbb E_2[\eta^W_k\eta^W_j]=\mathbb E_1[X_kX_j],
+\qquad
+\mathbb E_1[\xi^W_k\xi^W_j]=\mathbb E_2[B_{2,k}B_{2,j}],
+\]
+
+with the analogous \(V\)-pair. Thus at every fixed grade the state is a finite covariance table plus explicit multivariate polynomials; it is not an assumption that the activations themselves remain Gaussian.
+
+The response sums follow by chronological Gaussian integration by parts for the same frozen matrix. Schematically, if a forward multiplication by \(W_0\) acts on a polynomial \(X_k\) that also depends on earlier transpose innovations \(\xi_j^W\), detransposition gives a fresh forward innovation plus
+
+\[
+\sum_j \mathbb E[\partial_{\xi_j^W}X_k]\,B_{2,j}.
+\]
+
+The integrated equation for \(X\) makes \(X_k\) depend only on \(R_{1,0},\ldots,R_{1,k-1}\), so \(j=k\) has not yet entered and the forward sum is strict: \(j<k\). Conversely, \(B_{2,k}=\sum_{p+q=k}Z_pR_{2,q}\) already contains the current forward innovation \(\eta_k^W\). The transpose multiplication \(W_0^\top B_{2,k}\) therefore has a current-grade response and the sum is weak: \(j\le k\). The same argument applies to \(V_0/V_0^\top\). This strict/weak boundary is forced by the dependency DAG, not chosen as a convention; treating the two actions as independent Gaussians deletes all these response terms.
+
+Each derivative grade then closes in the acyclic order
 
 \[
 (A_k,X_k)\to Z_k\to Y_k\to T_k\to B_{3,k}
@@ -1310,6 +1899,97 @@ D_{+,n}=\frac18\bigl(\lambda D_a^\circ+\lambda D_u^\circ+D_W^\circ\bigr).
 
 Thus it is the same finite decorated-forest grammar specialized to a different block metric, not the equal-metric Family-Q generator \(D_n\).
 
+The constants follow directly from the half-square normalization. Write the historical first hidden feature as \(h^{(1)}=u^{\odot2}/2\), set
+
+\[
+W^\circ=\sqrt{\frac n\lambda}\,W,
+\qquad
+z^\circ=\frac1{\sqrt n}W^\circ u^{\odot2},
+\qquad
+f^\circ=\frac1n\sum_i a_i(z_i^\circ)^2.
+\]
+
+Then \(W^\circ\) has unit-variance raw entries and
+
+\[
+z=Wh^{(1)}=\frac{\sqrt\lambda}{2}z^\circ,
+\qquad
+h^{(2)}=\frac12z^{\odot2}
+=\frac\lambda8(z^\circ)^{\odot2},
+\qquad
+f=\frac\lambda8f^\circ.
+\]
+
+Here is the blockwise chain rule. Define the raw-square block derivations
+
+\[
+D_b^\circ=n\nabla_bf^\circ\cdot\nabla_b,
+\qquad b\in\{a,u,W^\circ\}.
+\]
+
+The \(a,u\) coordinates are unchanged, so
+
+\[
+\nabla_af=\frac\lambda8\nabla_af^\circ,
+\qquad
+\nabla_uf=\frac\lambda8\nabla_uf^\circ.
+\]
+
+Their historical metric multipliers are both \(n\), giving \((\lambda/8)D_a^\circ\) and \((\lambda/8)D_u^\circ\). For the middle matrix,
+
+\[
+\nabla_Wf
+=\frac\lambda8\sqrt{\frac n\lambda}\,\nabla_{W^\circ}f^\circ
+=\frac{\sqrt{\lambda n}}8\nabla_{W^\circ}f^\circ,
+\qquad
+\nabla_W=\sqrt{\frac n\lambda}\nabla_{W^\circ}.
+\]
+
+Because the historical middle-matrix multiplier is one, its derivation on a raw-coordinate observable is \((1/8)D_W^\circ\). Equivalently, under feature ascent
+
+\[
+\dot W^\circ=\sqrt{\frac n\lambda}\dot W
+=\frac n8\nabla_{W^\circ}f^\circ.
+\]
+
+Collecting the blocks gives
+
+\[
+D_{+,n}=\frac18
+\bigl(\lambda D_a^\circ+\lambda D_u^\circ+D_W^\circ\bigr).
+\]
+
+Consequently, at every fixed order,
+
+\[
+\mathbb E[D_{+,n}^k f]
+=\frac{\lambda}{8^{k+1}}
+\mathbb E\!\left[
+(\lambda D_a^\circ+\lambda D_u^\circ+D_W^\circ)^k f^\circ
+\right].
+\]
+
+The unweighted raw-square first-derivative contributions of the three blocks are
+
+\[
+\mathbb E[D_a^\circ f^\circ]=27,
+\qquad
+\mathbb E[D_u^\circ f^\circ]=48,
+\qquad
+\mathbb E[D_W^\circ f^\circ]=36.
+\]
+
+Therefore the historical first jet is
+
+\[
+J_1^{\rm half}
+=\frac\lambda{64}(75\lambda+36),
+\qquad
+J_1^{\rm half}\big|_{\lambda=4/3}=\frac{17}{6},
+\]
+
+whereas the equal-metric raw-square value is \(27+48+36=111\). This gives a direct check of the dictionary and also explains why one cannot convert all quoted jets by multiplying by a single positive constant: the output normalization and the relative parameter metric both change.
+
 A positive subgrammar selects the scalar vector field
 
 \[
@@ -1331,6 +2011,54 @@ Consequently, for odd \(k\),
 \frac1{k!}\mathscr D_0^kg(1,\sqrt{2q};q)
 =q^{k+1}\binom{k+2}{2}.
 \]
+
+The factorial in the lower bound comes from the Gaussian expectation, not from this invariant-ray coefficient by itself. Put
+
+\[
+P_k(a,z;q)=\frac1{k!}\mathscr D_0^kg(a,z).
+\]
+
+Every application of \(\mathscr D_0\) raises total polynomial degree by one and flips the parity of the \(a\)-power. Since \(g\) has degree three, an odd \(k\) leaves only even monomials of total degree \(k+3\):
+
+\[
+P_k(a,z;q)=\sum_{u+v=m}p_{uv}(q)a^{2u}z^{2v},
+\qquad
+m=\frac{k+3}{2},
+\qquad p_{uv}(q)\ge0.
+\]
+
+Let \(A\sim N(0,1)\), \(Z\sim N(0,\lambda q_0)\) be independent. For \(u+v=m\),
+
+\[
+\begin{aligned}
+\mathbb E[A^{2u}Z^{2v}]
+&=(2u-1)!!(2v-1)!!(\lambda q_0)^v\\
+&\ge u!\,v!\,(\lambda q_0)^v\\
+&\ge \frac{m!}{2^m}(\lambda q_0)^v.
+\end{aligned}
+\]
+
+To make one bound cover both \(u\)- and \(v\)-heavy endpoints, define
+
+\[
+b_\lambda=\frac12\min\{1,\lambda/2\}.
+\]
+
+Then
+
+\[
+\mathbb E[A^{2u}Z^{2v}]
+\ge m!b_\lambda^m(2q_0)^v.
+\]
+
+Multiplying by the nonnegative \(p_{uv}(q_0)\), summing, and using the invariant-ray identity
+
+\[
+\sum_{u+v=m}p_{uv}(q_0)(2q_0)^v
+=q_0^{k+1}\binom{k+2}{2}
+\]
+
+produces the claimed factorial bound. The role of each factor is now visible: \(m=(k+3)/2\) is degree/parity counting, \(m!\) is Gaussian even-moment growth, and \(b_\lambda^m\) is the uniform loss incurred in comparing all \((u,v)\) allocations.
 
 In primitive Gaussian coordinates, the full readout and feature-ascent vector field have nonnegative polynomial coefficients. Differentiation preserves this cone, and Gaussian Wick expectation is nonnegative on the surviving even monomials. The selected branch therefore cannot be canceled by the omitted histories. With \(m=(k+3)/2\),
 
@@ -1399,13 +2127,36 @@ The same formal jet rules out several tempting architectures.
 
 Three further witnesses sharpen the scope.
 
-6. On an exact finite-width invariant orbit with \(z_i^{(1)}=\zeta\), \(a_j=a\), and \(W_{ji}=w/n\), a specified initialization reduces the dynamics to
+6. On the exact finite-width symmetric manifold
+   \[
+   z_i^{(1)}=\zeta,\qquad a_j=a,\qquad W_{ji}=w/n,
+   \]
+   feature ascent reduces to
+   \[
+   f=\frac18aw^2\zeta^4,\quad
+   a'=\frac18w^2\zeta^4,\quad
+   w'=\frac14aw\zeta^4,\quad
+   \zeta'=\frac12aw^2\zeta^3.
+   \]
+   At
+   \[
+   a(0)=-1,\qquad w(0)=2,\qquad\zeta(0)=\sqrt8,
+   \]
+   the invariants \(w^2-2a^2=2\) and \(\zeta^2-4a^2=4\) reduce the dynamics to
    \[
    a'=4(1+a^2)^3,
    \qquad
    f=4a(1+a^2)^3.
    \]
-   Its backward complex/real blow-up distance is at most \(1/64\), whereas reaching the forward fitting target takes more than \(1/32\). Thus a real trajectory can fit stably beyond its initialization Taylor disk. This is a deterministic invariant-orbit refutation of a proof strategy, not a typical-Gaussian mean-field result.
+   Backward from \(a=-1\), the real solution blows up after feature-time distance
+   \[
+   B=\int_1^\infty\frac{ds}{4(1+s^2)^3}\le\frac1{64}.
+   \]
+   A real singularity is also a singularity of the analytic continuation, so the Taylor radius at initialization is at most \(B\). Forward, even reaching \(a=0\)—before the point where \(f=1\)—takes
+   \[
+   \int_0^1\frac{ds}{4(1+s^2)^3}\ge\frac1{32}.
+   \]
+   Thus the forward fitting time exceeds the initialization Taylor disk even though residual-gated real-time fitting is regular. This refutes the proof strategy “real target fitting supplies a large enough analytic disk,” not typical-Gaussian mean-field behavior and not real-axis approximation by non-Taylor methods.
 7. In the frozen-first-layer subsystem \(u'=qv^2,\ v'=quv\), particles near a Gaussian cutoff \(R_c\) become singular before feature time \(1/(qR_c)\). Convergence of truncated initial laws in Wasserstein distance or finitely many moments therefore does not imply convergence of the evolved laws. This exact warning does not transfer automatically to the fully trained model, whose positive-semidefinite matrix term \(\mathsf K_n(a\odot z)\) has no coordinatewise sign.
 8. At formal reuse depth \(r\), the noncommutative compiler can generate \(2^r\) ordered words, suggesting more continuation information than a bounded-filtration commuting-source jet can encode. This becomes a capacity obstruction only if fixed-degree freeness/faithfulness and a branch-separating positive-time continuation theorem are proved. Neither is available, so it is a conditional research direction, not a no-go theorem.
 
@@ -1431,7 +2182,68 @@ On a positive-probability extreme-readout event, comparison with
 b'=cv^2,\qquad v'=cm\,bv
 \]
 
-forces the putative classical solution to reach any subtarget with zero delay. This most naturally indicates that the collection of postulated equations cannot support an output continuous at initialization.
+forces the putative classical solution to reach any subtarget with zero delay. The comparison is as follows. Continuity and the assumed positive initial response \(M(0,0)>0\) give numbers \(m,\delta_0>0\) such that
+
+\[
+M(t,s)\ge m
+\qquad(0\le s\le t\le\delta_0).
+\]
+
+The needed persistence event follows from a more precise assumption than generic process nondegeneracy. Since \(\xi(0)\) is a nondegenerate Gaussian, \(\mathbb P\{\xi(0)\ge2z_*\}>0\). Almost-sure path continuity gives
+
+\[
+\sup_{0\le t\le\delta}|\xi(t)-\xi(0)|\longrightarrow0
+\quad\text{a.s. as }\delta\downarrow0.
+\]
+
+After shrinking \(\delta_0\) if necessary, the event
+
+\[
+\left\{\xi(0)\ge2z_*,\qquad
+\sup_{0\le t\le\delta_0}|\xi(t)-\xi(0)|\le z_*\right\}
+\subseteq
+\left\{\inf_{0\le t\le\delta_0}\xi(t)\ge z_*\right\}
+\]
+
+has positive probability.
+
+Call the probability of this cavity-persistence event \(p_\xi>0\). Intersect it with the independent extreme-readout event \(a(0)\ge A\), and define the **joint** probability
+
+\[
+p_A:=p_\xi\,\mathbb P\{a(0)\ge A\}>0.
+\]
+
+If the macroscopic output has not yet reached a chosen subtarget \(y<1\), then its residual satisfies \(r(t)=1-f(t)\ge c:=1-y\). Positivity of \(M,r,a,z\) on this joint event turns the Volterra equations into the lower integral inequalities
+
+\[
+a(t)\ge A+c\int_0^t z(s)^2\,ds,
+\qquad
+z(t)\ge z_*+cm\int_0^t a(s)z(s)\,ds.
+\]
+
+The cooperative comparison system with \(b(0)=A,v(0)=z_*\),
+
+\[
+b'=cv^2,\qquad v'=cm\,bv,
+\]
+
+therefore gives a componentwise lower solution. It has the invariant
+
+\[
+v^2-z_*^2=m(b^2-A^2).
+\]
+
+For \(A>z_*/\sqrt m\), writing \(\alpha=(A^2-z_*^2/m)^{1/2}\), one obtains
+
+\[
+b'=cm(b^2-\alpha^2),
+\qquad
+T_A=\frac1{2cm\alpha}
+\log\frac{A+\alpha}{A-\alpha}
+=O\!\left(\frac{\log A}{A}\right).
+\]
+
+Thus the lower solution blows up at a time tending to zero as \(A\to\infty\). The postulated output kernel also satisfies \(\kappa(t)\ge\tfrac14\mathbb E[z(t)^4]\); on the event above, \(\dot f=2r\kappa\ge(c/2)p_Av^4\), whose integral diverges at \(T_A\). The assumption that \(f<y\) until then is impossible. Since arbitrarily large \(A\) still has positive Gaussian probability, no positive delay before reaching \(y\) is compatible with all the postulates. This most naturally indicates that the collection of postulated equations cannot support an output continuous at initialization.
 
 The finite-network calculation checks only an instantaneous response coefficient. It does not derive the Volterra law, prove self-consistency, construct a positive-time solution, or identify a network limit. A discontinuous zero-loss-for-\(t>0\) trace is selected only after adding a separate relaxed monotone/no-overshoot axiom. That step trace is therefore doubly conditional.
 
@@ -1531,6 +2343,19 @@ and define
 =\sum_{r\ge0}(-1)^r\mu_rx^r.
 \]
 
+Why target this alternating form? The historical record is empirical first and structural second. Exact series reversion of the all-positive raw jet produced
+
+\[
+g_1=68.3866569\ldots,
+\quad g_2=-6.84424988\ldots,
+\quad g_3=2.93513360\ldots,
+\quad g_4=-1.59703499\ldots,
+\]
+
+and the same alternation continued through every available coefficient. The repository contains no pre-computation derivation of a positive neural operator whose spectral measure had to generate these signs. Thus the Stieltjes ansatz began as an exact finite-prefix pattern discovered **after** the output-coordinate inversion; the later positive-operator representation is an equivalent consequence if all moment gates hold, not an independent neural proof of them.
+
+There are nevertheless principled reasons to test this particular pattern rather than an arbitrary rational fit. The zero-radius obstruction applies to \(F(s)\) in feature time, whereas one-sample squared-loss dynamics depends only on the output-coordinate speed \(\kappa_Q(y)\). Inverting the monotone output can regularize a singular time parametrization. Stieltjes transforms are completely monotone on the positive axis, possess sign-controlled Gaussian/Radau rational approximants, and turn finite moments into certified real-axis bounds. These properties are exactly what the failed positive Taylor closure lacked. They make the conjecture mathematically natural **conditional on the observed signs**, but still post hoc and model-specific until V1 and V3 are proved.
+
 The canonical Stieltjes conjecture is
 
 \[
@@ -1581,7 +2406,31 @@ H_Q(x)=G'(\sqrt x)=\frac1{\kappa_Q(\sqrt x)}
 =\sum_{r\ge0}(-1)^rh_rx^r.
 \]
 
-The Stieltjes condition for the \(\mu_r\) sequence is equivalent, through the associated continued-fraction transform, to the corresponding moment condition for \(h_r\). If
+The Stieltjes condition for the \(\mu_r\) sequence is equivalent, through the associated continued-fraction transform, to the corresponding moment condition for \(h_r\).
+
+The correspondence is the classical **formal Stieltjes S-fraction**. In the nondegenerate case, a Stieltjes moment series has a unique formal continued fraction with nonnegative coefficients. Write
+
+\[
+H_Q(x)
+=\frac{h_0}{\displaystyle
+1+\frac{\beta_1x}{\displaystyle
+1+\frac{\beta_2x}{\displaystyle
+1+\frac{\beta_3x}{\ddots}}}},
+\qquad h_0=\frac1{J_1}.
+\]
+
+Since \(H_Q^{-1}=J_1+x\mathscr R_Q\), elementary inversion gives
+
+\[
+\mathscr R_Q(x)
+=\frac{\beta_1/h_0}{\displaystyle
+1+\frac{\beta_2x}{\displaystyle
+1+\frac{\beta_3x}{\ddots}}}.
+\]
+
+Thus passing between \(H_Q\) and \(\mathscr R_Q\) prepends or deletes the first positive S-fraction coefficient. Nonnegativity of the \(\beta_j\) is equivalent to positivity of the ordinary and shifted Hankel forms; terminating fractions handle degenerate finite-support cases. This is a statement about **formal moment sequences** and requires no uniqueness of a representing measure. Determinacy enters only when one asks whether the infinite moments select one global resolvent.
+
+If
 
 \[
 H_Q(x)=\int_0^\infty\frac{\sigma(d\lambda)}{1+\lambda x},
@@ -1607,13 +2456,32 @@ The Hankel conditions also have an exact positive-operator interpretation. Let \
 \mu_r=\langle v,A_{\mathrm{op}}^rv\rangle.
 \]
 
-Conversely, such a positive operator and cyclic vector give both Hankel families. This is an equivalence at the formal-moment level. The obvious neural transport generator does not supply this operator: on Gaussian \(L^2\),
+Conversely, such a positive operator and cyclic vector give both Hankel families. This is an equivalence at the formal-moment level. The obvious neural transport generator does not supply this operator. Let \(\theta\in\mathbb R^D\) collect the finite network parameters, let \(\gamma_D\) be standard Gaussian measure, and put
+
+\[
+X=n\nabla f\cdot\nabla
+\]
+
+on the polynomial core of \(L^2(\gamma_D)\). Here \(n\) is the network-width/µP multiplier; \(D\), not \(n\), is the ambient parameter dimension. Gaussian integration by parts gives, for a vector field \(v\),
+
+\[
+(v\cdot\nabla)^*
+=-v\cdot\nabla-\operatorname{div}v+\theta\cdot v.
+\]
+
+Taking \(v=n\nabla f\), and using that the raw-square output is homogeneous of total degree seven, so \(\theta\cdot\nabla f=7f\), yields
 
 \[
 X^\ast=-X+n(7f-\Delta f),
 \]
 
-whose symmetric multiplication part changes sign, and the neural Hessian is likewise sign-indefinite under readout reflection.
+with the last term acting by multiplication. Therefore
+
+\[
+\frac{X+X^*}{2}=\frac n2(7f-\Delta f)
+\]
+
+is not positive: readout reflection \(a\mapsto-a\) changes its sign. The neural Hessian is likewise sign-indefinite. The positive Friedrichs operator above, if it exists, is consequently a reconstructed moment operator, not this obvious feature-ascent generator in disguise.
 
 Finally, zero radius forces any canonical representing measure to have unbounded support. Compact support would make \(\mathscr R_Q\) and \(\kappa_Q\) analytic near zero, and the scalar ODE \(F'=\kappa_Q(F)\) would then have an analytic local solution, contradicting the proved formal jet growth. This implication remains conditional on V1; zero radius alone does not construct a measure.
 
@@ -1678,7 +2546,13 @@ The table illustrates why finite prefixes cannot be extrapolated casually: the i
 
 ### 10.4 Exact counterexamples to the uniform extensions
 
-On the ray \(\beta=1\), let \(\alpha\) be the first-hidden learning-rate multiplier. The complete order-13 jet gives
+For this deformation the feature generator is
+
+\[
+D_{\alpha,\beta}=D_a+\alpha D_u+\beta D_W.
+\]
+
+Thus \(\alpha\) multiplies the learning metric of the first hidden coordinate \(u\), \(\beta\) multiplies the middle-weight metric, and the readout coefficient is fixed to one. The canonical raw-square equal-metric model is literally \((\alpha,\beta)=(1,1)\). On the ray \(\beta=1\), the complete order-13 jet gives
 
 \[
 \Delta(\alpha)
@@ -1695,7 +2569,7 @@ where \(P_{36}\) has negative constant and linear coefficients and positive high
 \qquad(0\le\alpha\le0.01).
 \]
 
-Therefore \(0<\alpha\le0.01\) supplies strictly positive three-block-training counterexamples. The failure is not an artifact of freezing a layer.
+Therefore \(0<\alpha\le0.01\) supplies strictly positive three-block-training counterexamples: the architecture, initialization, and output are unchanged, and all three blocks still train, but the first-hidden block moves much more slowly. The failure is not an artifact of freezing a layer; \(\alpha=0\) is merely the analytically useful boundary.
 
 There is one positive root
 
@@ -1759,11 +2633,45 @@ where \(\kappa_{Q,\upsilon}(y)=F_\upsilon'(F_\upsilon^{-1}(y))\) is the unscaled
 f_0(s)=36s\,e^{72s^2},
 \]
 
-and the inverse kernel can be written with Lambert \(W\). The resulting normalized transform \(\mathscr R_{Q,0}\) is genuinely Stieltjes with compact support \([0,e/9]\).
+and the inverse kernel can be written with Lambert \(W\). This formula comes from an exact variance-sector expansion, not from simply setting the middle matrix to zero in the unscaled network. For \(r\ge0\),
+
+\[
+F_\upsilon^{(2r+1)}(0)
+=\sum_{P=1}^{2r+2}C_{r,P}\upsilon^P.
+\]
+
+Dividing by \(\upsilon\) and taking \(\upsilon\downarrow0\) retains only the one-pair sector \(P=1\), whose exact coefficient is
+
+\[
+C_{r,1}=36\frac{(2r+1)!}{r!}72^r.
+\]
+
+Therefore
+
+\[
+f_0(s)
+=\sum_{r\ge0}\frac{C_{r,1}}{(2r+1)!}s^{2r+1}
+=36s\sum_{r\ge0}\frac{(72s^2)^r}{r!}
+=36s e^{72s^2}.
+\]
+
+It is a singular, variance-rescaled boundary flow. The resulting normalized transform \(\mathscr R_{Q,0}\) is genuinely Stieltjes with compact support \([0,e/9]\).
 
 However, the first variation of the measure/moment structure is signed, and a Jacobi continued-fraction coordinate decreases. Thus neither “increase variance by adding a positive measure” nor coordinatewise monotonicity of the Jacobi coefficients can prove the canonical case.
 
-There is intriguing exact combinatorics: all 18,563 square minors of the aggregated \(6\times12\) variance-sector coefficient matrix are nonnegative, and its six normalized row polynomials have simple negative roots. A scaled-Pascal witness with a negative inverse moment has total nonnegativity and real negative roots but a repeated root; it therefore refutes that weaker package under nonlinear series inversion, not the stronger package that includes simple roots. The neural simple-root pattern remains suggestive and unproved. Local decorated transition matrices also have negative minors. Any canonical positivity proof must use a nonlocal architecture-specific relation among sectors, not positivity of raw ingredients.
+There is intriguing exact combinatorics. The aggregated matrix
+
+\[
+\mathsf C=(C_{r,P})_{0\le r\le5,\,1\le P\le12}
+\]
+
+has six rows for derivative orders \(1,3,5,7,9,11\) and twelve columns for the powers of \(\upsilon\), equivalently the number of selected middle-covariance/Wick-pair sectors; entries beyond the allowable sector count are zero. All
+
+\[
+\sum_{k=1}^6\binom6k\binom{12}k=18,563
+\]
+
+square minors are nonnegative, and its six normalized row polynomials have simple negative roots. This is a finite-order statement about the **pre-inversion sector coefficients**, not a Hankel theorem for the nonlinearly transformed \(\mu_r\). A scaled-Pascal witness with a negative inverse moment has total nonnegativity and real negative roots but a repeated root; it therefore refutes that weaker package under nonlinear series inversion, not the stronger package that includes simple roots. The neural simple-root pattern remains suggestive and unproved. Local decorated transition matrices also have negative minors. Any canonical positivity proof must use a nonlocal architecture-specific relation among sectors, not positivity of raw ingredients.
 
 ### 10.7 Conditional quadrature and rational dynamics
 
@@ -1806,6 +2714,51 @@ The kernel ordering transfers to feature and physical-loss flows through their h
 \frac{M}{ae}
 \left[-\log\left(1-\frac{\epsilon_N}{a}\right)\right].
 \]
+
+The factor \(1/e\) and the logarithm are not fitted constants. Put \(\delta=\epsilon_N/a<1\). Since \(\kappa_Q\ge a\), uniform additive error implies the relative comparison
+
+\[
+(1-\delta)\kappa_Q
+\le\kappa_{Q,N}
+\le\frac1{1-\delta}\kappa_Q.
+\]
+
+Comparison of the scalar hitting-time equations then sandwiches the approximate loss between time-rescaled exact losses:
+
+\[
+\mathcal L\!\left(\frac{t}{1-\delta}\right)
+\le\mathcal L_N(t)
+\le\mathcal L((1-\delta)t).
+\]
+
+The exact loss satisfies
+
+\[
+\mathcal L'(t)=-4\kappa_Q(y(t))\mathcal L(t),
+\qquad
+\mathcal L(t)\le e^{-4at}.
+\]
+
+Consequently its derivative with respect to log-time obeys
+
+\[
+\left|\frac{d\mathcal L}{d\log t}\right|
+=4t\kappa_Q(y(t))\mathcal L(t)
+\le4Mt e^{-4at}
+\le\frac{M}{ae},
+\]
+
+where the last step is \(xe^{-x}\le1/e\). The log-distance from \(t\) to either comparison time is at most \(-\log(1-\delta)\), which proves the displayed all-time bound.
+
+Under the canonical Stieltjes representation the positivity assumption is concrete rather than mysterious:
+
+\[
+\kappa_Q(y)=111+y^2\mathscr R_Q(y^2),
+\qquad
+\mathscr R_Q(x)=\int\frac{\rho(d\lambda)}{1+\lambda x}\ge0.
+\]
+
+Hence one may take \(a=111\), while \(M\le111+\mu_0\) on \([0,1]\). The quadrature bounds give \(\mathscr R_Q(1)\approx63.45\), so \(\kappa_Q(1)\approx174.45\). The measure's necessarily unbounded support does not make this value infinite: \((1+\lambda)^{-1}\le1\) and \(\rho([0,\infty))=\mu_0<\infty\). All of this remains conditional on V1--V3.
 
 This is the most concrete candidate in the repository for turning initialization-computable finite data into an all-time finite-dimensional closure. It is conditional on all-order positivity, determinacy, and neural identification.
 
@@ -1884,6 +2837,10 @@ Together, the repository supports a nuanced thesis:
 
 ### 11.7 The precise central conjecture
 
+There is a plausible route to an ordered deterministic target, but no imported theorem currently supplies it. At each fixed \(L\), one would first need a causal width theorem jointly for the forward fields, trained adjoints, and repeated row/column actions of every reused \(W_\ell\); a concentration theorem would then make the observable quotient deterministic. Only after that could one prove trained iid-depth homogenization, identify the conditional Onsager mean while showing centered layer innovations cancel at order \(L^{-1/2}\), and pass to the continuous-depth forward/backward system. Standard fixed-computation tensor-program results do not control a whole continuum of training times or this subsequent depth limit.
+
+The evidence for this architecture is finite-grid only: successive width Cauchy ratios \(0.462,0.488,0.518\), a depth ratio \(0.578\), across-root RMS width slopes near \(-0.61\), and trained centered depth variances near \(L^{-1}\). Geometric extrapolation still leaves estimated width tails around \(4.2\%\)–\(5.1\%\) and a depth tail near \(1.75\%\); moreover the conditional shared-transpose mean was not directly tested. Existence and determinism of the target below are therefore genuinely conjectural, not consequences of a familiar fixed-\(L\) theorem that the report merely omitted.
+
 For each static parameter \(\vartheta\in\mathcal U\), first define the deterministic ordered target
 
 \[
@@ -1933,6 +2890,8 @@ d_T(\mathcal O_\vartheta,\mathcal O_{r_H,\vartheta}),
 
 with \(E_{r_H}(T)=\infty\) if the ordered target is not uniquely defined, the compiled degree-\(r_H\) PDE is not uniquely well posed on \([0,T]\), or a readout is undefined.
 
+For \(T=\infty\), the same definition uses \(\sup_{t\ge0}\) and assigns \(E_{r_H}(\infty)=\infty\) unless both paths are uniquely and globally defined. It is not shorthand for “the largest tested finite horizon.”
+
 The natural **cofinal compact-time** claim is
 
 \[
@@ -1949,11 +2908,25 @@ The current operator-specific report instead states the sharp **accuracy-depende
 \boxed{\inf_{r_H\ge1}E_{r_H}(\infty)=0.}
 \]
 
-These statements trade strength on two independent axes. A limit as \(r_H\to\infty\) is stronger than an infimum over \(r_H\), because the latter permits a good noncofinal subsequence; uniformity over \(t\ge0\) is stronger than compact-time accuracy. Neither claim is proved, and neither should be called simply “the weaker version” of the other.
+These statements trade strength on two independent axes. A full-sequence limit as \(r_H\to\infty\) is stronger than an infimum over \(r_H\), because the latter permits only selected sparse successful degrees. For example,
+
+\[
+E_{r_H}(\infty)=
+\begin{cases}
+r_H^{-1},&r_H\in\mathcal S,\\
+1,&r_H\notin\mathcal S,
+\end{cases}
+\]
+
+with \(\mathcal S\) any unbounded sparse subset of the admissible odd degrees, has zero infimum but no full-sequence convergence. Although the Hermite spaces are nested, the nonlinear projected vector fields need not restrict consistently: a new shell can destabilize or alias low-mode feedback before a later shell repairs it. No such permanent degree-resonance pattern has been demonstrated. Strictly speaking every unbounded subsequence of \(\mathbb N\) is cofinal in the order-theoretic sense, so “good noncofinal subsequence” is the wrong phrase.
+
+The other axis is time: uniformity over \(t\ge0\) is stronger than compact-time accuracy. The infimum form expresses the irreducible accuracy-dependent existence claim “for each tolerance, some predeclared finite PDE works for all time”; the full limit is the cleaner Galerkin strengthening. The aggregate noncontraction through degree seven weakens empirical support for the latter but is not the sole logical reason for stating the former. Neither claim is proved, and neither is simply “the weaker version” of the other.
 
 ### 11.8 Why this would go beyond existing limit descriptions
 
 A fixed-computation tensor program can characterize any finite list of observables, but it does not automatically provide an autonomous state that can be restarted and evolved for arbitrary time. A conventional DMFT can be causal yet store two-time kernels whose complexity grows with the horizon. A successful theorem here would show that, on the reachable manifold of a standard dense nonlinear µP network, those histories admit finite local compression to any desired accuracy.
+
+The weak restart condition adds only that the **full** compiled state—\((b,a,c)\) for the operator PDE, or the complete law plus response/covariance-kernel state declared by a response compiler—contains every variable needed by the autonomous vector field, including any reconstructed fast Gaussian kernel. It excludes a hidden replay table, undeclared two-time history, or positive-time oracle. It does not demand restart from \((f,G,\Theta)\) alone. A split-run serialization check tests this structural/numerical condition; robust correspondence of compressed positive-time dense snapshots is the stronger open theorem described in Section 1.
 
 That is the potential landmark. The present results clear two preliminary thresholds:
 
@@ -1971,7 +2944,7 @@ They have not cleared the decisive threshold: a quantitative theorem that the fi
 | Finite dense residual mechanics | Exact adjoints, µP gradients, PSD tangent kernel, and loss dissipation | Exact finite system | Does not close the large-width/depth dynamics |
 | Chronological response | Factorial tail for bounded ordered propagators; very accurate finite-matrix truncations | Exact/conditional plus empirical | Dense matrices remain; coupled source substitution is not controlled |
 | Finite-\(r_H\) operator PDE | Explicit autonomous Liouville/forward/adjoint system with exact projected-gradient geometry | Exact inside the PDE | Well-posedness assumed; equality to dense target unproved |
-| Canonical \(r_H=1\) / \(P=5\) PDE | Roughly 1% learned-Gram error on the main benchmark; under 5% across fourteen tested cases | Empirical | Finite dense references, finite task panel, no arbitrary-accuracy implication |
+| Canonical \(r_H=1\) / \(P=5\) PDE | Roughly 1% learned-Gram error on the main benchmark; all fourteen observed point discrepancies under 5% | Empirical | Simultaneous 5% equivalence unresolved; finite references/panel; no arbitrary-accuracy implication |
 | Hermite hierarchy | Exact odd-parity reduction; per-mode tails often shrink | Exact parity plus empirical | Aggregate state/observable errors grow through degree seven |
 | Infinite-source PDE | Bounded frozen transpose and energy bounds | Exact functional analysis | Transpose is noncompact; plain \(L^2\) stability fails; uniqueness open |
 | Generic order-three peeling | Explicit response-aware Gaussian normal form and annealed fixed-order limit under polynomial-smooth assumptions | Proved limit in fixed scope | Fixed depth/batch/order only |
