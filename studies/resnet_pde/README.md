@@ -90,6 +90,4 @@ would not by itself rule out a response-enriched finite causal PDE.
   operator rerun; some original compact operator campaigns retain sealed
   processed evidence but omit their complete raw trajectories.
 
-The old paths `studies/dense_response`, `studies/operator_pde`, and
-`studies/pde_convergence` remain as compatibility links. New documentation
-should use the canonical paths under `studies/resnet_pde/`.
+These three substudies live only under `studies/resnet_pde/`.

@@ -23,6 +23,5 @@ authoritative within their scopes; in particular, the MFP and Stieltjes
 after that date, while [`resnet_pde/README.md`](resnet_pde/README.md) controls
 the residual-program evidence hierarchy and supersession order.
 
-The former top-level paths `dense_response`, `operator_pde`, and
-`pde_convergence` are compatibility links. New references should use their
-canonical locations under [`resnet_pde`](resnet_pde/).
+The `dense_response`, `operator_pde`, and `pde_convergence` substudies live
+only under [`resnet_pde`](resnet_pde/).

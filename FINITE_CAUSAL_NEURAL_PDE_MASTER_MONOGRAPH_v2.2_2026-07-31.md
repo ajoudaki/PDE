@@ -7430,10 +7430,10 @@ This bounded audit was performed after the source archives were decompressed and
 | Program | Check performed | Result and scope |
 |---|---|---|
 | Immutable releases | Verified `archive/SHA256SUMS.txt` | All eleven ZIP bundles match their recorded SHA-256 values. This proves byte integrity of the retained packages, not correctness of their scientific conclusions. |
-| Core operator PDE | Ran the active source tests in `studies/operator_pde/core/tests/` | 12/12 passed, covering the scaled dense gradient, tangent-kernel identity, absence of a dense weight state, shared transpose, cubature moments, restartable positive-time state, PSD/output identity, and zero-residual freeze. |
-| Independent operator audit | Ran `studies/operator_pde/core/audits/numerics/test_operator_hermite_pde.py` | 4/4 passed: weighted parameter gradients, shared-operator adjoint identity, tangent-kernel/output identity, and numerical restart semigroup. |
-| Dense response | Ran `studies/dense_response/long_horizon/tests/` | 8/8 passed. The retained long-horizon phase also includes its declared raw NPZ traces and processed summaries. These tests concern the finite-matrix response hierarchy, not the width-independent PDE. |
-| Proof-obligation framework | Ran `studies/pde_convergence/01_proof_audit/tests/` | 128/128 passed. As its report emphasizes, these are implementation and protocol checks; only two frozen scientific trajectories exist for that phase. |
+| Core operator PDE | Ran the active source tests now under `studies/resnet_pde/operator_pde/core/tests/` | 12/12 passed, covering the scaled dense gradient, tangent-kernel identity, absence of a dense weight state, shared transpose, cubature moments, restartable positive-time state, PSD/output identity, and zero-residual freeze. |
+| Independent operator audit | Ran the audit now at `studies/resnet_pde/operator_pde/core/audits/numerics/test_operator_hermite_pde.py` | 4/4 passed: weighted parameter gradients, shared-operator adjoint identity, tangent-kernel/output identity, and numerical restart semigroup. |
+| Dense response | Ran the suite now under `studies/resnet_pde/dense_response/long_horizon/tests/` | 8/8 passed. The retained long-horizon phase also includes its declared raw NPZ traces and processed summaries. These tests concern the finite-matrix response hierarchy, not the width-independent PDE. |
+| Proof-obligation framework | Ran the suite now under `studies/resnet_pde/pde_convergence/01_proof_audit/tests/` | 128/128 passed. As its report emphasizes, these are implementation and protocol checks; only two frozen scientific trajectories exist for that phase. |
 | Generalization | Verified the frozen source digest and ran its source suite | The aggregate source digest passes as `421ae71793d558822da3ff8b16a40c4189fb118d30025cc9f08ca7d666a0fcab`. Four `m=2,3,4,5` subcases of one strict determinism test differ in one array entry by at most \(2.22044605\times10^{-16}\) when bootstrap batches are regrouped. The assertion requires exact array equality, so the current platform run is recorded as four test failures rather than relabeled a pass. No scientific metric or frozen processed result changes. |
 | Activation controls | Verified `SHA256SUMS.txt` and ran the source suite | Every retained report, source, protocol, seal, processed-evidence, figure, and parent-release hash passes. Fourteen of fifteen source tests pass; the remaining strict scalar equality computes \(0.510118559971626\) instead of the frozen \(0.5101185599716273\), a difference of about \(1.3\times10^{-15}\). The frozen source is not modified to hide this platform-level distinction. |
 
@@ -7441,7 +7441,7 @@ The two exact-equality outcomes above are reproducibility facts, not evidence ag
 
 #### D.9.2 Fresh central-PDE execution
 
-The frozen core runner was executed without changing its scientific source; only the output root was redirected to `studies/operator_pde/rerun_2026-07-31/`. The primary run used
+The frozen core runner was executed without changing its scientific source; only the output root was redirected to what is now `studies/resnet_pde/operator_pde/rerun_2026-07-31/`. The primary run used
 
 $$
 P=5,\qquad N=16,\qquad M=256,\qquad R=128,\qquad
