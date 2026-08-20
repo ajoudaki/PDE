@@ -20,8 +20,9 @@ The [31 July 2026 master monograph](../FINITE_CAUSAL_NEURAL_PDE_MASTER_MONOGRAPH
 is a dated project-wide baseline.  Later per-study maintained reports are
 authoritative within their scopes; in particular, the MFP and Stieltjes
 `CURRENT_RESEARCH_STATE.md` files supersede the monograph for results obtained
-after that date, while [`resnet_pde/README.md`](resnet_pde/README.md) controls
-the residual-program evidence hierarchy and supersession order.
+after that date, while
+[`resnet_pde/CURRENT_RESEARCH_STATE.md`](resnet_pde/CURRENT_RESEARCH_STATE.md)
+controls the residual-program evidence hierarchy and supersession order.
 
 The `dense_response`, `operator_pde`, and `pde_convergence` substudies live
 only under [`resnet_pde`](resnet_pde/).

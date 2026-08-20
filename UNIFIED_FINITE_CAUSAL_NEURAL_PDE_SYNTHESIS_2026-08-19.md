@@ -3063,7 +3063,7 @@ The unified positive story intentionally excludes:
 ### Top-level baseline
 
 - **FINITE_CAUSAL_NEURAL_PDE_MASTER_MONOGRAPH_v2.2_2026-07-31.md:** the dated integrated baseline; authoritative for the central architecture and proof lattice, superseded by later maintained study reports where noted.
-- **studies/resnet_pde/README.md:** current evidence hierarchy and supersession guide for the three residual-network substudies.
+- **studies/resnet_pde/CURRENT_RESEARCH_STATE.md:** maintained claim/evidence ledger and supersession guide for the three residual-network substudies.
 
 ### studies/resnet_pde/dense_response
 

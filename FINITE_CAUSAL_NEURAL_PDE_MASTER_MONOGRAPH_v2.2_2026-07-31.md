@@ -10,7 +10,8 @@
 > [`studies/mean_field_peeling/`](studies/mean_field_peeling/) and
 > [`studies/stieltjes_conjecture/`](studies/stieltjes_conjecture/), and the
 > residual-program evidence guide at
-> [`studies/resnet_pde/`](studies/resnet_pde/). Those reports supersede this
+> [`studies/resnet_pde/CURRENT_RESEARCH_STATE.md`](studies/resnet_pde/CURRENT_RESEARCH_STATE.md).
+> Those reports supersede this
 > document within their respective scopes.
 
 **Document version:** 2.2  
