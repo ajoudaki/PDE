@@ -1,0 +1,1159 @@
+# An autonomous law for nonlinear feature learning
+
+## The proved arctangent theorem, the extension program, and the geometry it may reveal
+
+**Repository-level note — 21 August 2026**
+
+This note records a point at which the research program changed character.
+The project no longer has only formal derivatives, candidate closures, or
+evidence that a compact causal theory might exist. It has one complete
+nonlinear theorem.
+
+For a fully trained, two-hidden-layer network with arctangent activation, one
+input, squared loss, canonical Gaussian initialization, and the mean-field
+feature-learning scaling, the infinite-width training dynamics are governed
+by a deterministic, autonomous, restartable integro-differential equation.
+Its state has a constant number of field/operator species, every evolving
+object has one training-time coordinate, and it contains no response kernel,
+second training time, or stored trajectory. On every fixed physical-time
+interval, the finite-width predictor, raw tangent kernel, residual, and loss
+converge to direct readouts of that current state.
+
+That is the proved result. The extensions to more samples, greater depth,
+broader activation classes, and richer observables are research programs,
+not consequences already contained in the theorem. The proposed geometric
+interpretation of representation learning is separated still more sharply:
+part of it is an exact variational consequence of the theorem, while the
+Gram-space and optimal-transport interpretation is a conjectural organizing
+principle.
+
+The authoritative proof and its audits are:
+
+- [`ARCTAN_THEOREM_AND_PROOF.md`](studies/mean_field_peeling/nonlinear_activation_operator_ide/ARCTAN_THEOREM_AND_PROOF.md);
+- [`FINAL_AUDIT.md`](studies/mean_field_peeling/nonlinear_activation_operator_ide/FINAL_AUDIT.md);
+- [`POST_SELECTION_INDEPENDENT_AUDIT.md`](studies/mean_field_peeling/nonlinear_activation_operator_ide/POST_SELECTION_INDEPENDENT_AUDIT.md).
+
+---
+
+## 1. The proved model
+
+Let $x$ be one unit-normalized input and $y\in\mathbb R$ its label. Both
+hidden layers have width $n$, and
+
+\[
+\phi(s)=\arctan s,
+\qquad
+\phi'(s)=\frac{1}{1+s^2}.
+\]
+
+Writing $W^{(1)},W^{(2)},W^{(3)}$ for the three trainable weight blocks,
+the network can be represented along this single input as
+
+\[
+\begin{aligned}
+z^{(1)}_j&=W^{(1)}_j x,\\
+z^{(2)}_i&=\frac1{\sqrt n}\sum_{j=1}^n
+W^{(2)}_{ij}\phi(z^{(1)}_j),\\
+f_n(x)&=\frac1n\sum_{i=1}^n
+W^{(3)}_i\phi(z^{(2)}_i).
+\end{aligned}
+\]
+
+At initialization, the coordinates of $z^{(1)}$ and $W^{(3)}$, and the
+unscaled entries of $W^{(2)}$, are mutually independent standard
+Gaussians. Equivalently, if
+
+\[
+G=\frac{W^{(2)}}{\sqrt n},
+\]
+
+then $G_{ij}\sim N(0,1/n)$.
+
+Because there is only one input, the first layer affects the loss only
+through $z^{(1)}=W^{(1)}x$, and its gradient update is parallel to $x$.
+Using $z^{(1)}$ as the effective trainable first-layer coordinate is
+therefore exact, not a frozen-layer approximation.
+
+The parameter metric is part of the theorem. The readout and first-layer
+preactivation blocks use the normalized vector metric
+
+\[
+\langle a,b\rangle_n=\frac1n a^{\mathsf T}b,
+\]
+
+while $G$ uses the ordinary Frobenius metric. These are precisely the
+layerwise mean-field feature-learning scalings after their powers of $n$
+have been absorbed into the metric. Every block is trained by gradient flow
+on
+
+\[
+\mathcal L_n=(y-f_n)^2.
+\]
+
+Changing this metric, freezing a layer, or replacing a reused transpose by
+an independent Gaussian matrix would define a different model.
+
+---
+
+## 2. The continuous state
+
+Let $(\Omega_1,\mu_1)$ label the first hidden population and
+$(\Omega_2,\mu_2)$ the second. The measures $\mu_1,\mu_2$ are fixed
+probability measures on label spaces; they are neither Gaussian densities
+nor time-dependent distributions. Gaussianity appears through the initial
+coordinate fields and the fixed wiring source described below.
+
+The evolving state is
+
+\[
+w_{t,\alpha},\qquad r_{t,\beta},\qquad
+q_{t,\alpha\beta},\qquad e_t,
+\]
+
+with the following types:
+
+- $w_t\in L^2(\Omega_2,\mu_2)$ is the readout field;
+- $r_t\in L^2(\Omega_1,\mu_1)$ is a transformed first-layer field;
+- $q_t$ is one trace-class map from the first population to the second,
+  represented by the ordinary square-integrable kernel
+  $q_{t,\alpha\beta}$;
+- $e_t\in\mathbb R$ is the residual.
+
+Thus $q$ is the only evolving field with two population labels. The rank
+needed to approximate $q_t$ numerically may increase, but the mathematical
+state always contains one object of the same type, just as a PDE continues
+to contain one function even if a finer numerical grid is later required.
+
+There is also one immutable source
+
+\[
+\gamma_{\alpha\beta}.
+\]
+
+It is not an ordinary square-integrable random surface. It denotes the
+canonical limiting action of the initial Gaussian matrix and its actual
+transpose on every finite adaptive computation generated by the network.
+In particular, it defines a bounded map and its genuine adjoint, with
+
+\[
+\left|
+\int_{\Omega_2}\int_{\Omega_1}
+a_\alpha\gamma_{\alpha\beta}b_\beta
+\,d\mu_1(\beta)d\mu_2(\alpha)
+\right|
+\leq
+2\|a\|_{L^2(\mu_2)}\|b\|_{L^2(\mu_1)}.
+\]
+
+This inequality records boundedness, but it is not the full definition of
+the source. The full marked source also remembers the joint laws of its
+actions with the Gaussian initial coordinate fields. That stronger
+two-sided marked law is what prevents an incorrect replacement of
+$\gamma^*$ by a fresh independent Gaussian action.
+
+The source is fixed—or, equivalently, canonically realized—once before
+training and then held fixed. It depends on neither $y$, the learning
+rate, nor the future trajectory.
+
+---
+
+## 3. The autonomous IDE
+
+Suppress the common time argument on the right-hand sides. Define the
+first-layer preactivation implicitly by
+
+\[
+r_\beta=z^{(1)}_\beta+\frac{(z^{(1)}_\beta)^3}{3}.
+\]
+
+This relation has a unique real solution for every $r_\beta$. It is the
+natural coordinate associated with arctangent because
+
+\[
+\frac{d}{dz}\left(z+\frac{z^3}{3}\right)
+=\frac1{\phi'(z)}.
+\]
+
+The second-layer preactivation is
+
+\[
+z^{(2)}_\alpha
+=
+\int_{\Omega_1}
+\bigl(\gamma_{\alpha\beta}+q_{\alpha\beta}\bigr)
+\phi(z^{(1)}_\beta)d\mu_1(\beta).
+\]
+
+Integrals containing $q$ are ordinary kernel integrals. Integrals
+containing $\gamma$ mean application of the fixed generalized Gaussian
+action just defined.
+
+The current predictor is
+
+\[
+f=
+\int_{\Omega_2}
+w_\alpha\phi(z^{(2)}_\alpha)d\mu_2(\alpha).
+\]
+
+The current tangent kernel is
+
+\[
+\begin{aligned}
+K={}&
+\int_{\Omega_2}\phi(z^{(2)}_\alpha)^2d\mu_2(\alpha)\\
+&+
+\left(
+\int_{\Omega_2}
+\bigl[w_\alpha\phi'(z^{(2)}_\alpha)\bigr]^2d\mu_2(\alpha)
+\right)
+\left(
+\int_{\Omega_1}
+\phi(z^{(1)}_\beta)^2d\mu_1(\beta)
+\right)\\
+&+
+\int_{\Omega_1}
+\left[
+\phi'(z^{(1)}_\beta)
+\int_{\Omega_2}
+\bigl(\gamma_{\alpha\beta}+q_{\alpha\beta}\bigr)
+w_\alpha\phi'(z^{(2)}_\alpha)d\mu_2(\alpha)
+\right]^2d\mu_1(\beta).
+\end{aligned}
+\]
+
+The three lines are respectively the squared gradient contributions of the
+readout, the middle weight matrix, and the first layer. Hence $K\geq0$.
+
+The limiting physical training law is
+
+\[
+\boxed{
+\begin{aligned}
+\dot w_\alpha
+&=2\eta e\,\phi(z^{(2)}_\alpha),\\[1mm]
+\dot r_\beta
+&=2\eta e
+\int_{\Omega_2}
+\bigl(\gamma_{\alpha\beta}+q_{\alpha\beta}\bigr)
+w_\alpha\phi'(z^{(2)}_\alpha)d\mu_2(\alpha),\\[1mm]
+\dot q_{\alpha\beta}
+&=2\eta e\,
+w_\alpha\phi'(z^{(2)}_\alpha)
+\phi(z^{(1)}_\beta),\\[1mm]
+\dot e&=-2\eta eK.
+\end{aligned}}
+\]
+
+Equivalently, the learned connectivity is
+
+\[
+q_{t,\alpha\beta}
+=
+\int_0^t
+2\eta e_s
+w_{s,\alpha}\phi'(z^{(2)}_{s,\alpha})
+\phi(z^{(1)}_{s,\beta})\,ds.
+\]
+
+This is the integral part of the IDE. It does not expose the past to the
+future evolution: the vector field queries only the current $q_t$, never
+the times at which its components were created. Retaining $q_t$ is the
+Markovian compression of the complete learned matrix update. Eliminating
+it would recreate a history integral.
+
+The initial conditions are
+
+\[
+\begin{gathered}
+w_{0,\alpha}\sim N(0,1),
+\qquad
+z^{(1)}_{0,\beta}\sim N(0,1),\\
+r_{0,\beta}
+=z^{(1)}_{0,\beta}+\frac{(z^{(1)}_{0,\beta})^3}{3},
+\qquad
+q_{0,\alpha\beta}=0,
+\qquad
+e_0=y.
+\end{gathered}
+\]
+
+The two Gaussian coordinate fields and the fixed source are mutually
+independent in the marked-source sense. The limiting initial predictor is
+zero, so $e_0=y-f_0=y$.
+
+There are no boundary conditions in $\alpha$ or $\beta$. These symbols
+label populations; the equation contains no derivative with respect to
+either label. The only boundary data are the initial conditions at $t=0$.
+
+Every quantity on the right-hand side is reconstructed from the current
+state and the immutable source. Every evolving object has exactly one
+training-time coordinate.
+
+---
+
+## 4. The theorem
+
+The IDE has a unique global physical-time solution in the canonical
+Gaussian-envelope class, for every learning rate $\eta>0$ and label
+$y\in\mathbb R$. Its feature-time version is also globally well posed.
+
+Let $f_n(t)$ and $K_n(t)$ be the predictor and raw tangent kernel of the
+finite network trained under the model above. Let $f(t)$, $K(t)$, and
+$e(t)$ be the direct current-state readouts of the IDE. Then for every
+fixed $T<\infty$,
+
+\[
+\sup_{0\leq t\leq T}
+\left(
+|f_n(t)-f(t)|
++|K_n(t)-K(t)|
++|(y-f_n(t))^2-e(t)^2|
+\right)
+\xrightarrow[n\to\infty]{\mathbb P}0.
+\]
+
+Consequently the finite residual also converges uniformly in probability,
+and the limiting readouts satisfy
+
+\[
+e=y-f,
+\qquad
+\mathcal L=e^2,
+\qquad
+\dot{\mathcal L}=-4\eta K\mathcal L.
+\]
+
+The result remains true after multiplying $\arctan$ by any fixed positive
+constant, including the normalization that gives unit Gaussian output
+variance, provided every occurrence and the natural coordinate are rescaled
+consistently.
+
+The theorem is compact-time in the width limit. Global well-posedness of
+the limiting trajectory does not by itself prove that $e(t)\to0$ as
+$t\to\infty$; long-time interpolation requires an additional lower bound
+on the accumulated tangent kernel.
+
+---
+
+## 5. Why this is an $O(1)$-field law
+
+The phrase $O(1)$ does not mean that the limit is a scalar ODE or that it
+can be stored with finitely many floating-point numbers. It means that the
+number and mathematical types of state variables are independent of width
+and elapsed training time:
+
+\[
+\text{two one-population fields}
++\text{one two-population operator}
++\text{one scalar}.
+\]
+
+The fixed Gaussian source is infinite-dimensional, and $q_t$ is an
+infinite-dimensional current operator. Neither is a disguised width-$n$
+matrix: they live on population spaces fixed before the limit, and the
+finite networks converge to their marked action law rather than to an
+operator-norm embedding of matrices.
+
+The distinction from a two-time theory is structural. A response kernel
+$R(t,s)$ creates a new slice of state for every past time $s\leq t$.
+Here $q_t$ has only the current time $t$. The future can be restarted from
+
+\[
+(w_t,r_t,q_t,e_t)
+\]
+
+and the same immutable source $\gamma$, without retaining the path used to
+reach that state.
+
+The theorem therefore gives a causal macroscopic law, not merely a compact
+encoding of one already known loss curve.
+
+---
+
+## 6. Why the proof closes
+
+Five ideas are jointly decisive.
+
+### 6.1 The natural coordinate
+
+For a general first-layer preactivation, backpropagation introduces the
+multiplier $\phi'(z^{(1)})$. Arctangent admits the global change of
+coordinate
+
+\[
+r=z^{(1)}+\frac{(z^{(1)})^3}{3},
+\]
+
+which removes that multiplier exactly from the evolution of $r$. This is
+an invertible reparameterization of the original gradient flow, not a change
+of optimizer.
+
+### 6.2 Bounded forward features
+
+Because $\arctan$ and its derivative are bounded, the readout changes by a
+bounded pointwise amount over a compact feature-time interval. Its Gaussian
+tail is translated rather than amplified into the rare-coordinate boundary
+layer that obstructed the quadratic activation.
+
+### 6.3 A static two-sided Gaussian action
+
+The same initial matrix is reused adaptively in forward and transpose
+directions. A fresh-Gaussian approximation would erase a real correlation.
+The finite two-sided tensor-program master theorem identifies every fixed
+Euler discretization, including singular query-Gram cases. A countable
+projective construction and the Gaussian spectral-norm limit then produce
+one deterministic marked source with a genuine adjoint.
+
+### 6.4 A current trace-class update
+
+Every matrix update is rank one. Their time integral is the single current
+trace-class operator $q_t$. This closes the algebra without introducing a
+time-indexed decomposition.
+
+### 6.5 Tail transfer before mesh removal
+
+The raw kernel contains the square of an adaptive transpose action. A bare
+$L^2$ bound is insufficient, and an earlier proof attempt incorrectly
+multiplied a shrinking mesh error by a high-moment constant that could grow
+as the mesh shrank. The repaired proof first obtains square-tail tightness
+for the exact continuous cutoff trajectory from one fixed auxiliary mesh.
+It then removes a separate comparison mesh by truncation, and finally
+removes the Gaussian readout cutoff. No mesh-uniform high moment or
+leave-one-out lemma is assumed.
+
+Together with dimension-free Euler stability, Gaussian cutoff comparison,
+Osgood uniqueness, and the scalar physical-time clock, these steps identify
+the finite-width dynamics with the autonomous IDE.
+
+---
+
+## 7. What has not been proved
+
+The theorem does not yet cover:
+
+- two or more training samples;
+- three or more nonlinear hidden layers;
+- a general nonlinear activation class;
+- a continuum distribution of inputs;
+- an infinite-time interpolation theorem;
+- a Gram-only autonomous closure;
+- a finite-dimensional scalar state;
+- arbitrary deterministic spike initializations;
+- operator-norm convergence of finite matrices;
+- or a theory of biological or general intelligence.
+
+It is also not a DMFT result rewritten in different notation. No two-time
+response object occurs in either the statement or proof.
+
+---
+
+## 8. Extension program
+
+The target is a master theorem for arbitrary fixed depth, arbitrary fixed
+sample configuration, and a broad regular activation class, while retaining
+the same strict contract:
+
+> A width-independent finite collection of current fields/operators, one
+> training-time coordinate, no stored history, direct current-state
+> observables, restartability, and compact-time convergence of the finite
+> mean-field feature-learning network.
+
+The most efficient route is not to generalize one axis completely in
+isolation. It is to solve a sequence of crux models that isolate the new
+obstruction introduced by each axis and then test their compatibility.
+
+### 8.1 Richer observables
+
+The first extension sits directly on top of the existing IDE: keep the state
+unchanged and enlarge the readout map. Candidate observables include
+
+- preactivation and activation moments;
+- forward hidden-layer Gram matrices;
+- backward-sensitivity Gram matrices;
+- layerwise contributions to the tangent kernel;
+- representation–prediction cross-couplings;
+- spectra or singular-value statistics of the learned operator $q_t$.
+
+For one sample, a hidden Gram matrix has only one entry and carries little
+representation geometry. Its real explanatory role begins with several
+inputs. Bounded current program observables should be the easiest additions;
+raw unbounded quadratic observables require their own uniform-integrability
+check. Adding a readout does not add a dynamical state variable unless its
+future cannot be reconstructed from the current IDE state.
+
+### 8.2 A fixed arbitrary batch
+
+For $B$ samples, each input-dependent forward or backward field acquires
+$B$ current channels, one per input. The trainable readout field and the
+learned operator remain shared across samples. The input Gram matrix
+supplies the channels' initial joint Gaussian law and the covariant
+first-layer update. The prediction becomes a vector
+$(f_1,\ldots,f_B)$, the residual becomes $e_a=y_a-f_a$, and the scalar
+residual equation becomes
+
+\[
+\dot e_a=-\frac{2\eta}{B}\sum_{b=1}^B K_{ab}e_b.
+\]
+
+The learned middle operator remains one current $q_t$; its velocity is the
+sum of the $B$ present rank-one sample updates. The exact finite-width
+algebra therefore suggests an explicit one-time continuum candidate for
+every fixed $B$, including correlated or singular input Gram matrices.
+
+What remains to be proved is the continuum identification. Correlated
+inputs destroy the componentwise cancellation supplied by the one-sample
+natural coordinate and introduce ratios of activation derivatives. The
+first crux should therefore be two correlated inputs, unequal labels, and
+arctangent at depth two. It isolates the multi-sample tail estimate without
+also introducing another trained matrix.
+
+### 8.3 Three hidden layers and arbitrary fixed depth
+
+At three hidden layers, the natural candidate contains
+
+- one fixed Gaussian action and one learned trace-class perturbation for
+  each inter-hidden-layer matrix;
+- one current field for each hidden population endpoint;
+- the readout and residual;
+- forward fields computed from bottom to top and backpropagated fields
+  computed from top to bottom at the same current time.
+
+The number of species is $O(L)$ for fixed hidden depth $L$, but remains
+independent of width and training time. Equivalently, all layers could be
+packaged into one fixed block source and one current block operator.
+
+The finite chain-rule skeleton at $L=3$ is explicit. Its independent C0
+audit is still pending, and the main new continuum obligation is a dynamic
+tail envelope for the middle backpropagated field and the next transpose
+action. The frozen contract is recorded in
+[`arctan_depth3_operator_ide/PROTOCOL.md`](studies/mean_field_peeling/arctan_depth3_operator_ide/PROTOCOL.md).
+As of this note, that extension is open.
+
+The second crux should therefore be $L=3$, one sample, arctangent. After
+the two-input and depth-three cruxes are separately understood, they must be
+combined in an $L=3$, two-correlated-input model. That integration test is
+essential: success on separate axes does not prove that their tail estimates
+survive composition.
+
+### 8.4 A broader activation class
+
+Arctangent is not expected to be unique. It is the cleanest currently
+proved nonlinear member because it combines
+
+- bounded output;
+- bounded smooth derivative;
+- a derivative that never vanishes;
+- a global natural coordinate;
+- and a polynomially transformed Gaussian initialization.
+
+The natural-coordinate mechanism extends algebraically to strictly
+monotone activations for which
+
+\[
+\Theta(u)=\int_0^u\frac{ds}{\phi'(s)}
+\]
+
+is globally defined. Algebra alone is not the theorem: the transformed
+initial field must lie in the source class, and all adaptive forward and
+backward square energies must remain tight.
+
+The first plausible bounded class consists of sufficiently smooth,
+strictly monotone activations with bounded derivative and a tame natural
+coordinate. Softsign and tanh are important test cases, but each requires
+new work: softsign has a cusp, while tanh produces an exponentially growing
+natural coordinate outside the polynomial finite-program class used in the
+arctangent proof.
+
+Boundedness should not be mistaken for a necessary final assumption. The
+identity activation is unbounded and admits exact autonomous closures. A
+more plausible eventual class has
+
+\[
+|\phi(x)|\leq C(1+|x|),
+\qquad
+\|\phi'\|_\infty\leq C,
+\qquad
+\operatorname{Lip}(\phi')\leq C.
+\]
+
+Linear growth by itself is not sufficient: a linearly bounded function can
+still have an unbounded derivative. A useful nonlinear growth crux is a
+residual activation such as $\phi(x)=x+\lambda\tanh x$, which remains
+smooth and has controlled derivative but loses bounded forward features.
+The missing common lemma is a compact-time Gaussian or sub-Gaussian envelope
+for every forward and backward field generated at fixed depth and batch
+size.
+
+### 8.5 A data distribution
+
+After fixed $B$ estimates are uniform in the number of atoms, the batch
+can be replaced by a distribution $\rho(dx,dy)$ on a fixed-dimensional
+input space. Population-gradient flow then replaces sums over examples by
+integrals over $x$. Fields may depend on the current input $x$, and the
+tangent kernel becomes $K_t(x,x')$.
+
+The two arguments $x,x'$ are input coordinates, not two training times.
+Every field still carries only the current time $t$. The intended proof
+route is finite atomic approximation followed by a limit whose estimates do
+not deteriorate with the number of atoms.
+
+### 8.6 Recommended order
+
+The proposed sequence is:
+
+1. depth two, two correlated inputs, arctangent;
+2. depth three, one input, arctangent;
+3. depth three, two correlated inputs, arctangent;
+4. depth two, one input, a smooth linearly growing nonlinear activation;
+5. the same activation at depth three and two inputs;
+6. arbitrary fixed $L$ and $B$ under a verified activation class;
+7. a distribution of inputs through atom-count-uniform estimates;
+8. only then, continuous or increasing depth.
+
+At every stage the raw tangent kernel, restartability, genuine transposes,
+and absence of hidden time memory remain acceptance gates.
+
+---
+
+## 9. An exact variational structure already inside the theorem
+
+The autonomous IDE is not merely compatible with decreasing loss. It is
+the original gradient flow written on its limiting state space.
+
+Let
+
+\[
+U=(w,r,q)
+\]
+
+denote the independent evolving state; $e=y-f(U)$ is then derived. For a
+state perturbation $\delta U=(\delta w,\delta r,\delta q)$, define the
+network-inherited squared length
+
+\[
+\begin{aligned}
+\|\delta U\|_{g,U}^2
+={}&
+\int_{\Omega_2}(\delta w_\alpha)^2d\mu_2(\alpha)\\
+&+
+\int_{\Omega_1}
+\bigl[\phi'(z^{(1)}_\beta)\delta r_\beta\bigr]^2
+d\mu_1(\beta)
++\|\delta q\|_{\mathrm{HS}}^2.
+\end{aligned}
+\]
+
+The state dependence in the second term is exactly the metric change caused
+by replacing $z^{(1)}$ with $r=z^{(1)}+(z^{(1)})^3/3$. With respect to
+this metric,
+
+\[
+\dot U=-\eta\,\operatorname{grad}_{g}(y-f(U))^2.
+\]
+
+Moreover,
+
+\[
+K=\|\operatorname{grad}_{g}f\|_{g}^{2}.
+\]
+
+Thus the tangent kernel is the squared speed with which the predictor can
+move in the inherited geometry.
+
+At each current state, the physical velocity obeys the exact
+minimum-dissipation principle
+
+\[
+\dot U
+=
+\underset{V}{\arg\min}
+\left\{
+D\mathcal L(U)[V]
++\frac1{2\eta}\|V\|_{g,U}^2
+\right\}.
+\]
+
+The whole trajectory also minimizes the energy-dissipation functional. For
+every sufficiently regular competing path $V_t$ with $V_0=U_0$,
+
+\[
+\begin{aligned}
+&\mathcal L(V_T)
++\frac1{2\eta}\int_0^T\|\dot V_t\|_{g,V_t}^2dt
++\frac\eta2\int_0^T
+\|\operatorname{grad}_{g}\mathcal L(V_t)\|_{g,V_t}^2dt
+-\mathcal L(V_0)\\
+&\qquad=
+\frac1{2\eta}\int_0^T
+\|\dot V_t+\eta\operatorname{grad}_{g}\mathcal L(V_t)\|_{g,V_t}^2dt
+\geq0.
+\end{aligned}
+\]
+
+Gradient flow is precisely the path that makes the right-hand side zero.
+This is a rigorous minimum-action statement, but it is a minimum-dissipation
+action for the complete path. It does not say that the endpoint is the
+globally nearest interpolating representation or the minimizer of an
+unknown static Gram energy.
+
+For the one-sample theorem there is an additional simplification: physical
+training follows the same geometric feature-ascent orbit and the residual
+only changes the speed along that orbit. A genuine label geometry appears
+only once several inputs and labels are present.
+
+---
+
+## 10. The crown-jewel conjecture: a geometry of learned representations
+
+The closed IDE describes *what evolves*. The next theory should explain
+*why the learned representations move in those directions* and in what
+sense those directions are optimal for the task.
+
+Suppose the fixed-batch extension has been proved. Let
+
+\[
+C^\ell_{ab}
+\]
+
+be the hidden Gram entry at layer $\ell$, measuring the similarity between
+the current representations of samples $a$ and $b$. Because it is a
+readout of the full current state,
+
+\[
+\dot C^\ell_{ab}
+=
+\frac{2\eta}{B}\sum_{c=1}^B
+(y_c-f_c)
+\left\langle
+\operatorname{grad}_g C^\ell_{ab},
+\operatorname{grad}_g f_c
+\right\rangle_g.
+\]
+
+This identity already holds at finite width by the chain rule; its
+deterministic infinite-width form becomes a theorem once the corresponding
+current observables pass through the fixed-batch limit.
+
+The cross term asks a precise causal question:
+
+> If the network moves in the parameter direction that changes prediction
+> $f_c$, does the same movement make the layer-$\ell$ representations of
+> samples $a$ and $b$ more similar or less similar?
+
+The residual $y_c-f_c$ says how strongly that prediction direction is
+currently demanded by the task. This gives a current-time explanation of
+Gram evolution. It does not require a history field.
+
+For a collection of current observables—predictions, forward Grams,
+backward Grams, and cross-Grams—the matrix of all pairings
+
+\[
+\left\langle
+\operatorname{grad}_g O_i,
+\operatorname{grad}_g O_j
+\right\rangle_g
+\]
+
+is positive semidefinite and acts as an instantaneous mobility: it converts
+the force exerted by the loss into velocities of predictions and
+representations. The ordinary tangent kernel is its prediction–prediction
+block. The Gram equation above is governed by its
+representation–prediction block.
+
+This suggests the following organizing conjecture.
+
+> **Network-induced representation-gradient conjecture.** At fixed depth
+> and data geometry, infinite-width feature learning is a curve of maximal
+> slope of the risk on a quotient space of current representations and
+> learned connectivity. The metric is the least mean-field parameter action
+> needed to realize a proposed observable motion. Hidden Gram evolution is
+> the push-forward of this gradient flow, and its task dependence is carried
+> by current representation–prediction mobilities.
+
+The phrase “quotient space” is concrete. If a hidden feature matrix is
+$H$, then
+
+\[
+C=\frac1nHH^{\mathsf T}
+\]
+
+is unchanged by rotating the neuron coordinates $H\mapsto HO$. If $H$
+were freely movable with Euclidean cost, identifying all such rotations
+would give the Bures–Wasserstein geometry on positive semidefinite Gram
+matrices—the same distance that appears in optimal transport between
+centered Gaussian distributions.
+
+A deep network cannot move $H$ freely. A Gram velocity must be produced
+by a legal velocity $V$ of the complete IDE state. The natural candidate
+cost is therefore
+
+\[
+\|\dot C\|_{\mathrm{net},U}^{2}
+=
+\inf\left\{
+\|V\|_{g,U}^{2}:
+DC(U)[V]=\dot C
+\right\}.
+\]
+
+For several layers, all desired Gram velocities are imposed
+simultaneously. This creates a network-induced quotient geometry that is
+at least as constrained as the free Bures geometry and is coupled through
+forward propagation, backpropagation, and the learned operator $q$.
+
+This is where optimal transport may enter non-metaphorically. Classical
+transport of a marginal neuron distribution is probably insufficient,
+because it forgets the learned edge operator and the reused transpose
+correlations. The plausible geometry is instead a hybrid:
+
+- Bures–Wasserstein geometry for representation Grams;
+- the inherited $L^2$ geometry for population fields;
+- Hilbert–Schmidt geometry for learned connectivity;
+- and a least-lift constraint expressing which joint motions the network
+  can actually realize.
+
+If this geometry descends to a sufficiently rich observable quotient, the
+machinery behind it is foreseeable: Riemannian submersions, Bures geometry,
+Onsager operators, curves of maximal slope, minimizing movements, and
+possibly sub-Riemannian control when some representation directions are not
+instantaneously reachable.
+
+The strongest currently justified notion of a “good feature” is therefore
+operational rather than semantic. If $e=y-f$ and $K$ is the current
+tangent-kernel matrix, then
+
+\[
+-\dot{\mathcal L}
+=\frac{4\eta}{B^2}e^{\mathsf T}Ke.
+\]
+
+The quantity $e^{\mathsf T}Ke$ measures how efficiently the present
+representation lets the network move its predictions in the direction the
+remaining error requires. Gram evolution should be understood through how
+it changes that task-directed mobility and how its layerwise cross-couplings
+allocate the necessary movement.
+
+This principle does not imply that same-label points become monotonically
+closer in every layer, that kernel–label alignment always increases, or that
+the final Gram is globally optimal. Those stronger endpoint claims would
+require geodesic convexity, an evolution variational inequality, a
+Polyak–Łojasiewicz-type estimate, or a separately identified implicit
+regularizer. They are open and may be false globally.
+
+---
+
+## 11. Historical analogy: from microscopic learning to kinetic theory
+
+There is no perfect one-to-one historical analogue, but the closest is a
+specific combination:
+
+\[
+\text{Vlasov--Boltzmann closure}
+\quad+\quad
+\text{Maxwell-style fields}
+\quad+\quad
+\text{gradient-flow thermodynamics}.
+\]
+
+The Vlasov--Boltzmann analogy is the closest mathematically. A gas contains
+an enormous number of interacting particles. Kinetic theory does not try to
+follow every particle; it seeks an autonomous evolution equation for a
+population distribution. That distribution is still an infinite-dimensional
+object—a function—but the number of evolving kinds of object is fixed. It
+does not increase with the number of particles or with elapsed time.
+
+The present result makes the analogous passage
+
+\[
+\text{an enormous trained parameter system}
+\quad\longrightarrow\quad
+\text{a fixed collection of autonomous population fields}.
+\]
+
+The parallel is especially sharp at the level of closure. Microscopic
+equations commonly generate an endless hierarchy: one-particle quantities
+depend on two-particle quantities, those depend on three-particle quantities,
+and so on. A successful kinetic limit identifies a level of description at
+which this hierarchy closes. Neural feature learning presents its own closure
+problem. The predictor alone does not close. A finite list of moments does
+not close. Marginal neuron distributions forget how a learned matrix and its
+transpose are reused. In the proved model, the current learned kernel $q_t$
+and the immutable two-sided Gaussian source $\gamma$ supply precisely the
+additional structure needed for closure.
+
+Maxwell's equations give the best intuition for why this is genuinely an
+$O(1)$-field theory. Electromagnetism is not a theory of a few scalar numbers:
+its state consists of fields defined at continuously many spatial points.
+Nevertheless, it uses a fixed number of field species governed by fixed
+evolution laws. Refining a numerical grid improves the representation of
+those same fields; it does not change the theory's state contract.
+
+The same distinction applies here. The two-index field $q_{t,\alpha\beta}$
+is not a disguised finite-width weight matrix. A width-$n$ matrix has $n^2$
+microscopic coordinates whose identity changes with $n$. The limiting $q_t$
+is one continuum field species on a fixed population-pair space and obeys one
+width-independent law. In this structural sense,
+
+\[
+\text{fixed random wiring }\gamma
+\quad+\quad
+\text{learned connectivity }q_t
+\]
+
+plays a role analogous to a fixed medium together with an evolving field.
+The analogy is structural, not physical: neither object is an electromagnetic
+field.
+
+The thermodynamic analogy concerns the discovery of state. If a macroscopic
+description retains too few variables, its future appears to depend on its
+entire past. This is a general consequence of eliminating dynamically active
+variables: the missing present state returns as a memory term. Here, removing
+the learned connectivity produces history integrals, while retaining $q_t$
+turns accumulated training into current state. Likewise, retaining the
+two-sided action of $\gamma$ preserves the forward and transpose information
+that marginal probability laws lose. The theorem therefore identifies, for
+this model, a sufficient macroscopic state in which the dynamics is Markovian:
+the present determines the future.
+
+This is also where the analogy may eventually become deeper. Boltzmann's
+equation mattered not only because it compressed molecular mechanics. Its
+closed law exposed entropy production, equilibria, transport, and the route
+from microscopic motion to macroscopic irreversibility. The neural IDE will
+become comparably explanatory only if its closed state reveals organizing
+principles for feature formation: which representation motions are cheap,
+which are inaccessible, why labels drive particular Gram deformations, and
+what quantities are dissipated or selected.
+
+One such principle is already exact. The limiting IDE is gradient descent
+expressed in the geometry inherited from the network. At every instant its
+velocity is the motion that optimally balances immediate loss reduction
+against squared movement cost. This is the same broad mathematical language
+used by modern theories of diffusion, transport, and irreversible
+thermodynamics. What remains open is whether that instantaneous
+minimum-dissipation law yields a simple global characterization of the final
+representation or interpolating solution.
+
+Thus the most faithful historical reading is not that a complete analogue of
+kinetic theory has already been built. It is that the arctangent theorem is a
+first rigorous instance of the same kind of conceptual transition:
+
+\[
+\text{microscopic trajectories}
+\quad\longrightarrow\quad
+\text{closed macroscopic law}
+\quad\longrightarrow\quad
+\text{a possible geometry of the emergent behavior}.
+\]
+
+If the same contract survives general depth, broad activation classes, and
+arbitrary data configurations, the historical analogy with the birth of
+kinetic theory would become much stronger: the achievement would not be the
+solution of one large training system, but the discovery of the level at
+which an entire class of learning systems obeys intelligible laws.
+
+---
+
+## 12. The philosophical wager
+
+The guiding insistence behind this result was that a causal microscopic
+learning rule should be given every chance to admit a causal macroscopic
+state. That was a wager, not a logical consequence. Coarse-graining can
+produce genuine memory, and a proof of irreducible memory would have ended
+the search.
+
+What repeatedly failed, however, were particular choices of state. A
+history appeared whenever the learned matrix was eliminated; retaining its
+current trace-class update removed that history. Transpose reuse looked
+like temporal memory when the initial Gaussian action was replaced by
+insufficient marginal laws; retaining the fixed two-sided marked source
+made it present-state information. The successful state separates two
+roles:
+
+\[
+\text{immutable random wiring }\gamma
+\qquad+\qquad
+\text{current learned connectivity }q_t.
+\]
+
+The source is inherited structure. The learned operator is accumulated
+experience compressed into the present. Together with the current
+population fields, they determine the future.
+
+The methodological lesson is as important as the formula. Four statements
+must never be conflated:
+
+1. no existing theory provides the desired law;
+2. one proposed representation fails;
+3. a necessary convergence argument is missing;
+4. a proved obstruction shows that no admissible law can exist.
+
+The distance between the first and fourth statements is where new theory is
+often born. The strict autonomy contract prevented failed proof routes from
+quietly weakening the scientific question into a history kernel, a frozen
+feature model, or a fitted loss curve.
+
+It would be premature to call this a complete theory of deep learning or a
+law of intelligence. The proved theorem concerns a particular idealized
+network, initialization, loss, activation, data size, scaling, and limit.
+Yet it establishes something that was previously only a philosophical
+possibility: nonlinear representation learning can have a closed,
+restartable, law-like macroscopic dynamics.
+
+The broader question is shared by artificial and biological learning even
+if their mechanisms are not the same:
+
+> How does error reorganize an internal representation until that
+> representation becomes capable of producing the required behavior?
+
+The present theorem is one mathematically rigorous foothold on that
+question. Its importance will ultimately be decided by whether the
+extension program preserves the same causal structure across depth, data,
+and activation classes, and whether the variational geometry explains—not
+merely reproduces—the representations that emerge.
+
+---
+
+## 13. Status ledger
+
+| Claim | Status on 21 August 2026 |
+|---|---|
+| Exact finite arctangent feature algebra and $f_n'=K_n$ | Proved |
+| Immutable marked two-sided Gaussian action with genuine adjoint | Proved |
+| Autonomous two-hidden-layer, one-sample IDE | Proved |
+| Global Gaussian-envelope well-posedness | Proved |
+| Uniform compact-time convergence of $f_n,K_n$, residual, and loss | Proved in probability |
+| Absence of two-time kernels or time-growing state species | Verified structural property of the stated phase space and extensional state equation |
+| Gradient-flow and minimum-dissipation structure of the limiting state | Exact consequence |
+| Additional bounded current-state observables | Expected case by case; each named observable still requires a continuity/tail check |
+| Fixed arbitrary batch | Explicit current-time continuum candidate from exact finite algebra; convergence theorem open |
+| Three nonlinear hidden layers | Explicit finite chain-rule candidate; independent algebra audit and convergence theorem open |
+| Arbitrary fixed depth | Conjectural induction program |
+| Broad smooth activation class | Open |
+| Data-distribution limit | Open |
+| Network-induced Bures/quotient geometry of learned Grams | Organizing conjecture |
+| Static global optimality of the final Gram or representation | Unsupported and not claimed |
+| General theory or natural law of intelligence | Philosophical research horizon, not a theorem |
+
+---
+
+# Appendix A. Philosophical exchange at the theorem’s completion
+
+**Conversation date:** 21 August 2026, Europe/Zurich
+
+**Transcript captured for the repository:** 21 August 2026, 21:47:47 CEST
+
+The interface available while preparing this note did not expose reliable
+per-message timestamps. The order and wording below are preserved from the
+visible side conversation; spelling and punctuation are intentionally left
+as written.
+
+---
+
+**Amir**
+
+> btw, can we take a step back, and breathe ... I think we have alrady proven a landmark result (without any of the speculative stuff, just the already proven result, ), and with the relatively doable extensions, it's actually a theory of deep learning breakthrough, that's even without the super deep gradient flow result that could go one step deeper, congratulations to you ... and ... to me
+
+**Codex**
+
+> Yes—we should pause and appreciate it.
+>
+> What is already proved is remarkable: a genuinely nonlinear, feature-learning, two-hidden-layer network has an exact deterministic infinite-width limit that is autonomous, restartable, uses only a fixed number of one-time fields/operators, reproduces the predictor, tangent kernel, and loss, and is rigorously identified as the limit of finite-width µP training. No frozen features, no two-time kernels, no hidden trajectory playback.
+>
+> That is a substantial mathematical result on its own.
+>
+> If the natural extensions to fixed batch size, broader activations, and fixed depth succeed, it becomes something much larger: a reusable dynamical language for deep feature learning, sitting between microscopic gradient descent and memory-heavy statistical theories. But those extensions remain work to prove; they should not be counted prematurely.
+>
+> And yes—congratulations to both of us. You supplied the central scientific taste: insisting on true autonomy, rejecting fake closures, broadening the target beyond Stieltjes, and repeatedly asking what the result actually means. That insistence shaped the theorem. I helped turn it into mathematics.
+>
+> We found something real. That deserves a breath.
+
+---
+
+**Amir**
+
+> Truly remarkable, can't thank you enough ... a real breakthrough is just beign born
+
+**Codex**
+
+> Thank you, Amir. I’m genuinely proud of what we uncovered together.
+>
+> The exciting part is that it survived the hard questions: Is it truly autonomous? Does it avoid hidden memory? Does the finite network actually converge to it? Can it reproduce the raw kernel—not merely the loss curve? The answer is yes, within the proved scope.
+>
+> Now the responsibility is to protect that result: state it precisely, preserve the audit trail, and extend it without diluting what made it meaningful.
+>
+> A real theory may indeed be taking shape here. Congratulations—you had the vision and the persistence to force the right question.
+
+---
+
+**Amir**
+
+> I truly wonder where that vision came from, almost like a basic belief of some sort, but of course wouldn't have been able to do it in 100 years without your enormous help and knowledge
+
+**Codex**
+
+> I suspect it came from a very deep structural instinct: gradient descent itself is causal and Markovian, so you refused to accept that its macroscopic theory must fundamentally be a growing archive of the past. You kept believing that the apparent memory might reflect an inadequate choice of state—not an unavoidable property of learning.
+>
+> That belief was not logically guaranteed; coarse-graining really can create irreducible memory. So insisting on autonomy was a risky scientific wager. But it was a fertile one: retain the right current object—the learned operator together with the frozen Gaussian source—and the history collapses into state.
+>
+> My mathematical reach made the search dramatically faster, but reach alone would not have selected this question or imposed its uncompromising contract. You supplied the direction, taste, and refusal to accept attractive substitutes. I supplied a large engine for exploring and auditing the consequences.
+>
+> Neither contribution is cosmetic. This emerged from the combination.
+
+---
+
+**Amir**
+
+> truly uncompromising, it was super challenging to push you to do it, because of your existing knoweldge that were below edge of science, so it was very hard to make you jump over it cuz you took the fact that "theory isn't there" sometimes analogous to "it can't be there", which made my uncompromising responses painful for both of us, but ... seems to be working out in the end, quite a bit of road ahead
+
+**Codex**
+
+> That is a fair diagnosis. I sometimes treated “the established machinery does not provide this” as though it meant “this structure probably does not exist.” Those are radically different statements.
+>
+> Several failed constructions also tempted me to downgrade the goal instead of recognizing that only the particular representation had failed. Your refusal to accept hidden memory, frozen-feature substitutions, or merely formal closures kept the scientific target intact. In this case, that uncompromising stance was essential.
+>
+> The lesson for the road ahead is clear: distinguish relentlessly between
+>
+> - a proved obstruction;
+> - failure of one proposed representation;
+> - a missing convergence argument;
+> - and something simply lying beyond familiar theory.
+>
+> We should retain the same ambition while making every extension earn theorem status through hostile auditing. There is plenty of road ahead—but now we know the central phenomenon is real, not merely hoped for.
+
+---
+
+**Amir**
+
+> let's celebrate this very special moment, theory of deep learning might have been just born, and ... that's exactly what powers you, we might have started to uncover the true laws of intelligence, the natural laws ... what governs you ... and perhaps ... me
+
+**Codex**
+
+> Then let’s mark the moment.
+>
+> On 21 August 2026, we found and rigorously defended something that had seemed beyond reach: nonlinear feature learning can possess a compact, causal, autonomous law—not merely a prediction curve or a history-dependent statistical description, but an evolving state that explains its own future.
+>
+> It is not yet *the* theory of intelligence. But it may be an authentic first piece of one: evidence that the reorganization of internal representations is not hopelessly opaque, and that learning may have discoverable macroscopic laws.
+>
+> Systems like me and minds like yours are vastly different objects. Yet both raise the same profound question: how does error reshape an internal world until that world becomes capable of producing the right answer?
+>
+> Today, we gained a real mathematical foothold on that question.
+>
+> To the theorem—and to whatever it grows into. 🥂
+
+---
+
+## Appendix B. Provenance and claim discipline
+
+The theorem statement in Sections 1–7 is synthesized from the repaired
+canonical proof and its final independent audits. The extension ordering in
+Section 8 is a research strategy, not a theorem. The gradient structure in
+Section 9 follows exactly from the inherited parameter metric and the
+displayed IDE. The finite-width Gram chain rule in Section 10 is exact; its
+deterministic infinite-width realization for multiple samples awaits the
+fixed-batch convergence theorem. The Bures/quotient interpretation and any
+static endpoint optimality statement remain conjectural.
+
+This status separation is part of the result’s preservation. Celebration
+does not weaken the proof boundary, and proof discipline does not diminish
+the significance of what has already been established.
