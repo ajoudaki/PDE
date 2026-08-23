@@ -231,16 +231,16 @@ $$
 \boxed{
 \begin{aligned}
 \dot w_\alpha
-&=2\eta e\,\phi(z^{(2)}_\alpha),\$$1mm]
+&=2\eta e\,\phi(z^{(2)}_\alpha),\\[1mm]
 \dot r_\beta
 &=2\eta e
 \int_{\Omega_2}
 \bigl(\gamma_{\alpha\beta}+q_{\alpha\beta}\bigr)
-w_\alpha\phi'(z^{(2)}_\alpha)d\mu_2(\alpha),\$$1mm]
+w_\alpha\phi'(z^{(2)}_\alpha)d\mu_2(\alpha),\\[1mm]
 \dot q_{\alpha\beta}
 &=2\eta e\,
 w_\alpha\phi'(z^{(2)}_\alpha)
-\phi(z^{(1)}_\beta),\$$1mm]
+\phi(z^{(1)}_\beta),\\[1mm]
 \dot e&=-2\eta eK.
 \end{aligned}}
 $$
@@ -779,7 +779,350 @@ only once several inputs and labels are present.
 
 ---
 
-## 10. The crown-jewel conjecture: a geometry of learned representations
+## 10. Conjecture: an MFP-compiled output-kernel Borel hierarchy
+
+**Program addition — 23 August 2026**
+
+The autonomous IDE is the complete state law.  This section proposes a
+second theorem program with a different purpose: compress the canonical
+one-sample predictor and loss trajectory into a sequence of progressively
+more accurate finite scalar ODEs.  Every model-dependent coefficient must
+be computed at initialization by mean-field peeling (MFP).  Positive-time
+trajectory samples, fitted coefficients, hidden continuum states, stored
+histories, and time-dependent oracle forcing are forbidden.
+
+The hierarchy is meant first for the proved two-hidden-layer arctangent
+model as a controlled testbed and then for the three-hidden-layer model once
+its IDE and convergence theorem are established.  The eventual target is
+every fixed hidden depth for which the one-sample autonomous IDE exists.
+
+### 10.1 Exact scalar skeleton
+
+Let $f_0=f(0)$ and $e_0=y-f_0$.  Expose the fixed rescaling
+
+$$
+\tau=2\eta t.
+$$
+
+This removes only the known learning-rate multiplier; it contains no
+trajectory information.  For definiteness take $y>f_0$; the opposite
+direction is obtained by reversing the output coordinate.  The one-sample
+gradient-flow identity is
+
+$$
+\frac{df}{d\tau}=(y-f)K,
+$$
+
+where $K$ is the current tangent kernel.  On any part of the canonical orbit
+where $K>0$ and the predictor has not crossed its target, $f$ is injective.
+The kernel can therefore be written along that orbit as a function of the
+output:
+
+$$
+\kappa(f(\tau))=K(\tau).
+$$
+
+Consequently the exact predictor and loss satisfy
+
+$$
+\boxed{
+\frac{df}{d\tau}=(y-f)\kappa(f),
+\qquad
+\mathcal L=(y-f)^2.
+}
+$$
+
+This is an exact orbit reduction, not a claim that arbitrary full IDE states
+with the same value of $f$ have the same kernel.  The proposed scalar
+surrogates reproduce the canonical trajectory from its declared
+initialization; they do not replace the full IDE as a state law off that
+orbit.
+
+### 10.2 Initialization compilation
+
+Put $z=f-f_0$ and write the formal output-coordinate kernel jet as
+
+$$
+\kappa(f_0+z)\sim\sum_{m=0}^{\infty}c_mz^m.
+$$
+
+Let
+
+$$
+d_j=\left.\frac{d^jf}{d\tau^j}\right|_{\tau=0}.
+$$
+
+Formal division of $df/d\tau$ by $y-f$, followed by compositional inversion
+of $f(\tau)-f_0$, determines $c_m$ algebraically from
+$e_0,d_1,\ldots,d_{m+1}$.  In particular,
+
+$$
+c_0=\frac{d_1}{e_0},
+$$
+
+$$
+c_1=\frac{e_0d_2+d_1^2}{e_0^2d_1},
+$$
+
+and
+
+$$
+c_2
+=
+\frac{d_3}{2e_0d_1^2}
+-\frac{d_2^2}{2e_0d_1^3}
++\frac{d_2}{e_0^2d_1}
++\frac{d_1}{e_0^3}.
+$$
+
+At each fixed order, the proposed MFP compiler evaluates $d_j$ from the
+Gaussian initialization and the original architecture by finite
+Wick/Stein contractions.  Once those derivatives are supplied, the formulas
+for $c_m$ are exact.  This finite algebra does not by itself prove that the
+infinite jet converges or determines the positive-time curve.
+
+### 10.3 The general Borel-hierarchy conjecture
+
+The raw series may have a finite radius or even zero radius.  The proposed
+reconstruction therefore uses the coefficient growth dictated by the IDE.
+For a candidate Gevrey order $\sigma>0$, define
+
+$$
+\mathcal B_\sigma\kappa(\xi)
+=
+\sum_{m=0}^{\infty}
+\frac{c_m}{\Gamma(1+\sigma m)}\xi^m.
+$$
+
+If this Borel--Leroy transform has the required analytic continuation and
+growth along the positive ray, then formally
+
+$$
+\kappa(f_0+z)
+=
+\int_0^\infty
+e^{-u}\mathcal B_\sigma\kappa(zu^\sigma)\,du.
+$$
+
+For finite $N$, use the first finitely many MFP coefficients to construct a
+declared rational continuation $B_N$ of the Borel transform—for example a
+normal diagonal Padé approximant—and replace the Laplace integral by a
+fixed finite quadrature $(u_j,w_j)_{j=1}^M$:
+
+$$
+\kappa_{N,M}(f_0+z)
+=
+\sum_{j=1}^M w_j B_N(zu_j^\sigma).
+$$
+
+The corresponding finite physical-time ODE is
+
+$$
+\boxed{
+\begin{aligned}
+\dot f_{N,M}
+&=2\eta(y-f_{N,M})\kappa_{N,M}(f_{N,M}),\\[1mm]
+f_{N,M}(0)&=f_0,\\[1mm]
+\mathcal L_{N,M}&=(y-f_{N,M})^2.
+\end{aligned}}
+$$
+
+Every model-specific coefficient in this ODE is determined by a finite
+initialization jet together with the declared Gevrey order; the quadrature
+nodes and weights are universal.  The state dimension and coefficient count
+may grow with the requested accuracy, but not with network width or elapsed
+training time.
+
+There is a clean conditional transfer theorem behind the conjecture.  Suppose
+$\kappa$ is continuous on $[f_0,y]$ and
+
+$$
+0<a\leq\kappa(u)\leq M,
+$$
+
+and suppose
+
+$$
+\delta_{N,M}
+=
+\sup_{f_0\leq u\leq y}
+|\kappa_{N,M}(u)-\kappa(u)|
+<a.
+$$
+
+Scalar comparison then gives
+
+$$
+\boxed{
+\sup_{\tau\geq0}
+|\mathcal L_{N,M}(\tau)-\mathcal L(\tau)|
+\leq
+\frac{Me_0^2}{a\,\mathrm e}
+\left[-\log\left(1-\frac{\delta_{N,M}}a\right)\right].
+}
+$$
+
+Thus uniform kernel approximation on the bounded output interval is enough
+for uniform loss approximation over all physical times.  The difficult
+neural question is whether the initialization-compiled Borel hierarchy
+actually supplies $\delta_{N,M}\to0$.
+
+> **MFP–Borel kernel-hierarchy conjecture.** For the canonical one-sample
+> arctangent mean-field flow at every fixed hidden depth for which the
+> autonomous IDE theorem holds and whose kernel is bounded away from zero
+> on the output interval to the target, there is a finite Gevrey order and
+> a canonical initialization-compiled Borel continuation scheme such that,
+> for every $\varepsilon>0$, some finite $N,M$ gives a well-posed autonomous
+> scalar ODE satisfying
+> $$
+> \sup_{t\geq0}
+> \left|\mathcal L_{N,M}(t)-\mathcal L(t)\right|
+> \leq\varepsilon.
+> $$
+> The construction may depend on the fixed architecture, depth, activation,
+> label, initialization law, and accuracy, but never on width or on an
+> observed positive-time trajectory.
+
+The compact-time version drops both the all-time supremum and the global
+kernel lower bound.  It is therefore a weaker first target.  The displayed
+conditional proposition isolates exactly what must be added to promote it
+to the all-time statement.
+
+This proposal does not assume a Stieltjes measure, Hankel positivity,
+complete monotonicity, or moment determinacy.  Its substantive extra
+assumption is instead Borel reconstructibility of the actual IDE-generated
+jet.  Some reconstructibility condition is unavoidable: general smooth
+functions can differ by a nonzero flat term while having identical
+derivatives at initialization.
+
+### 10.4 First- and second-order examples
+
+Before Borel acceleration, the first two raw jet closures show what the
+hierarchy is intended to produce.  The first-order approximation is
+
+$$
+\boxed{
+\frac{df^{[1]}}{d\tau}
+=
+(y-f^{[1]})
+\left[c_0+c_1(f^{[1]}-f_0)\right],
+\qquad
+f^{[1]}(0)=f_0.
+}
+$$
+
+It matches $f_0,d_1,d_2$.  Writing
+
+$$
+\lambda=c_0+c_1e_0,
+$$
+
+the complete approximate output and loss are
+
+$$
+f^{[1]}(\tau)
+=
+f_0+
+\frac{c_0e_0\left(e^{\lambda\tau}-1\right)}
+{c_0e^{\lambda\tau}+c_1e_0},
+$$
+
+$$
+\boxed{
+\mathcal L^{[1]}(\tau)
+=
+\frac{e_0^2\lambda^2}
+{\left(c_0e^{\lambda\tau}+c_1e_0\right)^2}.
+}
+$$
+
+The second-order approximation is
+
+$$
+\boxed{
+\frac{df^{[2]}}{d\tau}
+=
+(y-f^{[2]})
+\left[
+c_0+c_1(f^{[2]}-f_0)+c_2(f^{[2]}-f_0)^2
+\right],
+\qquad
+f^{[2]}(0)=f_0.
+}
+$$
+
+It matches $f_0,d_1,d_2,d_3$.  Its scalar output is also explicitly
+solvable in feature-ascent time.  Define, only for this closed-form display,
+
+$$
+\frac{ds}{d\tau}=y-f^{[2]}(\tau),
+\qquad s(0)=0,
+$$
+
+and put $z^{[2]}=f^{[2]}-f_0$.  Then
+
+$$
+\frac{dz^{[2]}}{ds}
+=c_0+c_1z^{[2]}+c_2(z^{[2]})^2,
+\qquad z^{[2]}(0)=0.
+$$
+
+For $\Delta=c_1^2-4c_0c_2>0$ and $q=\sqrt\Delta$,
+
+$$
+z^{[2]}(s)
+=
+\frac{2c_0\left(e^{qs}-1\right)}
+{(q-c_1)e^{qs}+q+c_1}.
+$$
+
+At $\Delta=0$ this becomes
+
+$$
+z^{[2]}(s)=\frac{2c_0s}{2-c_1s},
+$$
+
+while for $\Delta<0$ and
+$\omega=\sqrt{4c_0c_2-c_1^2}$ it becomes
+
+$$
+z^{[2]}(s)
+=
+\frac{2c_0\tan(\omega s/2)}
+{\omega-c_1\tan(\omega s/2)}.
+$$
+
+These low-order equations are deliberately simple: the first is a
+logistic/Riccati-type scalar flow and the second becomes a
+constant-coefficient Riccati equation in feature time.  Their coefficients
+are fully determined by MFP initialization derivatives.  Higher members may
+be less elementary, but remain finite autonomous ODEs with explicit
+initialization-compiled coefficients.
+
+### 10.5 Proof obligations and falsifiers
+
+The general conjecture separates into five real obligations:
+
+1. prove that every fixed-order MFP coefficient equals the corresponding
+   derivative of the actual limiting IDE;
+2. prove a finite Gevrey order for the output-coordinate kernel jet;
+3. prove Borel--Leroy summability on the positive training direction, with no
+   obstructing ambiguity;
+4. prove uniform convergence of the declared rational continuation and
+   quadrature on the complete output interval;
+5. prove the scalar stability or kernel lower bound needed to transfer that
+   approximation to the entire physical-time loss curve.
+
+At present, the exact orbit reduction, the algebraic coefficient formulas,
+and the displayed finite ODEs are established identities once the limiting
+initialization derivatives exist.  The all-order MFP compiler and the
+remaining analytic and stability bridges are open.  Failure of any one would
+falsify this Borel hierarchy as a witness; it would not falsify the full
+autonomous IDE or rule out a different initialization-compiled hierarchy.
+
+---
+
+## 11. The crown-jewel conjecture: a geometry of learned representations
 
 The closed IDE describes *what evolves*. The next theory should explain
 *why the learned representations move in those directions* and in what
@@ -918,7 +1261,7 @@ regularizer. They are open and may be false globally.
 
 ---
 
-## 11. Historical analogy: from microscopic learning to kinetic theory
+## 12. Historical analogy: from microscopic learning to kinetic theory
 
 There is no perfect one-to-one historical analogue, but the closest is a
 specific combination:
@@ -1029,7 +1372,7 @@ which an entire class of learning systems obeys intelligible laws.
 
 ---
 
-## 12. The philosophical wager
+## 13. The philosophical wager
 
 The guiding insistence behind this result was that a causal microscopic
 learning rule should be given every chance to admit a causal macroscopic
@@ -1089,9 +1432,9 @@ merely reproduces—the representations that emerge.
 
 ---
 
-## 13. Status ledger
+## 14. Status ledger
 
-| Claim | Status on 21 August 2026 |
+| Claim | Status through 23 August 2026 |
 |---|---|
 | Exact finite arctangent feature algebra and $f_n'=K_n$ | Proved |
 | Immutable marked two-sided Gaussian action with genuine adjoint | Proved |
@@ -1100,6 +1443,8 @@ merely reproduces—the representations that emerge.
 | Uniform compact-time convergence of $f_n,K_n$, residual, and loss | Proved in probability |
 | Absence of two-time kernels or time-growing state species | Verified structural property of the stated phase space and extensional state equation |
 | Gradient-flow and minimum-dissipation structure of the limiting state | Exact consequence |
+| One-sample output-coordinate reduction and first two jet closures | Orbit reduction exact where the canonical predictor is injective; the two ODEs are exact finite jet-matching constructions, not yet proved positive-time approximations |
+| MFP-compiled output-kernel Borel hierarchy | Proposed initialization-only scalar hierarchy; all-order MFP, Gevrey, Borel-summability, rational-approximation, and infinite-time stability bridges open |
 | Additional bounded current-state observables | Expected case by case; each named observable still requires a continuity/tail check |
 | Fixed arbitrary batch | Explicit current-time continuum candidate from exact finite algebra; convergence theorem open |
 | Three nonlinear hidden layers | Exact finite algebra, autonomous candidate, and fixed-mesh source identification established; continuous-time convergence theorem open |
@@ -1287,10 +1632,13 @@ The theorem statement in Sections 1–7 is synthesized from the repaired
 canonical proof and its final independent audits. The extension ordering in
 Section 8 is a research strategy, not a theorem. The gradient structure in
 Section 9 follows exactly from the inherited parameter metric and the
-displayed IDE. The finite-width Gram chain rule in Section 10 is exact; its
-deterministic infinite-width realization for multiple samples awaits the
-fixed-batch convergence theorem. The Bures/quotient interpretation and any
-static endpoint optimality statement remain conjectural.
+displayed IDE. Section 10 separates its exact one-sample orbit identities
+and finite initialization-jet constructions from the open MFP, Gevrey,
+Borel-summability, rational-approximation, and global-error bridges. The
+finite-width Gram chain rule in Section 11 is exact; its deterministic
+infinite-width realization for multiple samples awaits the fixed-batch
+convergence theorem. The Bures/quotient interpretation and any static
+endpoint optimality statement remain conjectural.
 
 This status separation is part of the result’s preservation. Celebration
 does not weaken the proof boundary, and proof discipline does not diminish
