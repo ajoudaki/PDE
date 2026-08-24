@@ -1,0 +1,84 @@
+{
+  "model": "two-input-equal-label-raw-cubic-depth2-plus-channel",
+  "validation": "passed",
+  "sha256": {
+    "input": "6d5178f1d044974712ad6be705c9231d1ec4a3c6454c0ad8aa5ea932b27f093b",
+    "protocol": "6742675cb0c40dcfb2652edab05ce078b00506bfdef4bfd25157a22b0dbea956",
+    "engine": "ec3c195f500fc09c22a7cfcbe72a9f2a3c2312fcb7835ab885fa21746b157426",
+    "gnf_reference": "c9d12ddbe1101d14a61af85f2d350dea41c30ad5a8b918171085121daec548eb",
+    "normal_form": "b81febfb840d3cc7a0e7c36c83e0a3187223994d29a50cdc4d63dbf30315f8c9"
+  },
+  "gaussian_program_routes_agree_exactly": true,
+  "independent_contracted_gnf_holdouts": [
+    {
+      "rho": "-3/4",
+      "F_1": "3239298945/32768",
+      "F_3": "163887107240203130079/16777216",
+      "exact_match": true
+    },
+    {
+      "rho": "-1/3",
+      "F_1": "34483135/243",
+      "F_3": "340811277174278992/19683",
+      "exact_match": true
+    },
+    {
+      "rho": "0",
+      "F_1": "305775/2",
+      "F_3": "19310071119750",
+      "exact_match": true
+    },
+    {
+      "rho": "2/5",
+      "F_1": "653141193201/3906250",
+      "F_3": "92628446590810586819840778/3814697265625",
+      "exact_match": true
+    },
+    {
+      "rho": "3/4",
+      "F_1": "6780336255/32768",
+      "F_3": "854348110960652443359/16777216",
+      "exact_match": true
+    }
+  ],
+  "factorization": {
+    "F_1": "81*(rho+1)*A(rho)/2",
+    "F_3": "39366*(rho+1)^2*P(rho)",
+    "K_double_prime_0": "24*P(rho)/A(rho)^2"
+  },
+  "interval_certificate": {
+    "A_real_roots_on_closed_interval": 0,
+    "P_real_roots_on_closed_interval": 0,
+    "A_minus_1": "16335",
+    "A_plus_1": "3775",
+    "P_minus_1": "12432625200",
+    "P_plus_1": "978750750",
+    "conclusion": "K_+(0;rho)>0 for -1<rho<=1 and K_+''(0;rho)>0 throughout the nondegenerate interval"
+  },
+  "representative_values": {
+    "rho_0": {
+      "K_0": "305775/2",
+      "F_3": "19310071119750",
+      "K_double_prime_0": "94181112/114005"
+    },
+    "rho_1": {
+      "K_0": "305775",
+      "F_3": "154118008098000",
+      "K_double_prime_0": "187920144/114005"
+    }
+  },
+  "full_initial_kernel": {
+    "Theta_11_equals_Theta_22": "305775",
+    "Theta_12_equals_Theta_21": "54675*rho + 91368*rho^3 + 78732*rho^5 + 64152*rho^7 + 16848*rho^9",
+    "plus_eigenvalue": "2*K_+(0;rho)"
+  },
+  "loss_mapping": {
+    "loss": "L=((f_1-1)^2+(f_2-1)^2)/2=(1-g)^2",
+    "symmetric_flow": "g_dot=2*eta*(1-g)*K_+(g;rho)",
+    "loss_flow": "L_dot=-4*eta*K_+(g;rho)*L",
+    "initial_loss_slope": "L_dot(0)=-4*eta*K_+(0;rho)",
+    "initial_loss_curvature": "L_ddot(0)=16*eta^2*K_+(0;rho)^2",
+    "initial_loss_third_derivative": "L'''(0)=-16*eta^3*(4*K_+(0;rho)^3+F_+'''(0;rho))"
+  },
+  "claim_boundary": "The scalar loss equation is exact for the exchange-symmetric width-first/formal trajectory, not for a generic finite-width realization or an asymmetric two-output state."
+}

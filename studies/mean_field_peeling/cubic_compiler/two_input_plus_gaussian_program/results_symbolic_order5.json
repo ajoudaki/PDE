@@ -1,0 +1,179 @@
+{
+  "model": "two-input-equal-label-raw-cubic-depth2-plus-channel",
+  "input_gram": "[[1,rho],[rho,1]], -1 <= rho <= 1",
+  "labels": [1, 1],
+  "feature_output": "g=(f_1+f_2)/2",
+  "feature_generator": "D_+=n grad(g) dot grad",
+  "loss": "L=((f_1-1)^2+(f_2-1)^2)/2",
+  "accepted_max_order": 5,
+  "derivatives": {
+    "F_0": ["0"],
+    "F_1": [
+      "305775/2",
+      "54675/2",
+      "0",
+      "45684",
+      "0",
+      "39366",
+      "0",
+      "32076",
+      "0",
+      "8424"
+    ],
+    "F_2": ["0"],
+    "F_3": [
+      "19310071119750",
+      "6082858923750",
+      "4950930928050",
+      "16553736233190",
+      "14601768753564",
+      "21566517052140",
+      "10179565523964",
+      "24773966615700",
+      "10747229306328",
+      "8081925224220",
+      "9565735816224",
+      "0",
+      "5163082687008",
+      "0",
+      "1993411099008",
+      "0",
+      "502141358592",
+      "0",
+      "45067456512"
+    ],
+    "F_4": ["0"],
+    "F_5": [
+      "18976299600145783044375/2",
+      "8566479134898122570625/2",
+      "4182723155910015096750",
+      "13791857325918829217100",
+      "35067920445973906393365/2",
+      "48109754419245214167015/2",
+      "21522171320710240139550",
+      "38209489253942064977484",
+      "27542359021746518299620",
+      "27219829067609211611802",
+      "30802228745709036733470",
+      "16786702086870711026070",
+      "22798964025459977630040",
+      "12091511501326180976400",
+      "12510519670022170908240",
+      "7692735692047997089440",
+      "4276358838817463285280",
+      "4436101670195976842880",
+      "576486682116898855680",
+      "1925735466780118487808",
+      "0",
+      "593508487276783607040",
+      "0",
+      "130087074546316120320",
+      "0",
+      "17363028725221294080",
+      "0",
+      "884051241086048256"
+    ]
+  },
+  "exact_specializations": {
+    "rho_0": {
+      "rho": "0",
+      "angle_degrees": "90",
+      "F_0": "0",
+      "F_1": "305775/2",
+      "F_2": "0",
+      "F_3": "19310071119750",
+      "F_4": "0",
+      "F_5": "18976299600145783044375/2"
+    },
+    "rho_1_over_2": {
+      "rho": "1/2",
+      "angle_degrees": "60",
+      "F_0": "0",
+      "F_1": "11120895/64",
+      "F_2": "0",
+      "F_3": "1770631347661101/64",
+      "F_4": "0",
+      "F_5": "1119944003422467481309157877/65536"
+    },
+    "rho_1": {
+      "rho": "1",
+      "angle_degrees": "0",
+      "F_0": "0",
+      "F_1": "305775",
+      "F_2": "0",
+      "F_3": "154118008098000",
+      "F_4": "0",
+      "F_5": "302467842967104331335000"
+    }
+  },
+  "output_coordinate_kernel": {
+    "a": "F_1(rho)",
+    "b": "F_3(rho)",
+    "c": "F_5(rho)",
+    "K_0": "a",
+    "K_prime_0": "0",
+    "K_double_prime_0": "b/a^2",
+    "K_triple_prime_0": "0",
+    "K_fourth_derivative_0": "(a*c-4*b^2)/a^5"
+  },
+  "source_sha256": {
+    "base_protocol": "6742675cb0c40dcfb2652edab05ce078b00506bfdef4bfd25157a22b0dbea956",
+    "order3_result": "6d5178f1d044974712ad6be705c9231d1ec4a3c6454c0ad8aa5ea932b27f093b",
+    "gaussian_program": "ec3c195f500fc09c22a7cfcbe72a9f2a3c2312fcb7835ab885fa21746b157426",
+    "fixed_rho_order9_protocol": "8c4e7e51c19fdffaaf3d0afdbf73ba2bc2081c14c205a0271617e63a50a02320",
+    "symbolic_order9_protocol": "85889d28417f7b04b4e69d578a843c554de450e30715fc239da0262c6bdca8bf",
+    "connected_protocol": "8dff6184c215df1e4b6b8c4d7ed958c012e2f88054c1ab70becee666bb0e4534",
+    "color_quotient_amendment": "1100031dcdcb768faa524efedc83ba61343d5c67795adc24b407e193751e3205",
+    "fixed_connected_amendment": "ff8cb6c856daede0e8f78444792f756f4326abdacd001f43a68935a93a715895",
+    "connected_polynomial_program": "5ba7709c9a7066ea475b7ebe2e26a5e18d575eb5ba8f81f92a59772b2ceb80f4",
+    "connected_fixed_program": "56a9cbe297c8ab39ae3ce4d1167c3c69b73395ed46a35666791ed104a64c42ee",
+    "fixed_gaussian_program": "198ed57cef8bcd1b1f8c970237a793f234d190dfc82d80c9101e7b3a690df922",
+    "connected_quadratic_parent": "85c5c47c92bf926d4835120eac2be2f7d9ee70df12d3cd60359ea78ecacaed8e",
+    "one_input_order9_result": "6ef10c12960929bc95437eb44407b8e84c6b4e4f3b10b4e8416ad8666bd56979",
+    "one_input_cubic_program": "edb16223deb34586019a936809eec8cd7553c9eeea10e1cc957a6984a122af72"
+  },
+  "validation": {
+    "status": "passed through order five",
+    "ordinary_taylor_vs_derivative_normalized": "exact coefficient agreement",
+    "ordinary_taylor_elapsed_seconds_approx": 463.29,
+    "ordinary_taylor_peak_rss_kib": 375880,
+    "derivative_normalized_elapsed_seconds_approx": 441.06,
+    "derivative_normalized_peak_rss_kib": 378528,
+    "connected_tree_vs_gaussian_program": "exact coefficient agreement",
+    "connected_order5_production_elapsed_seconds_approx": 6.0,
+    "connected_order5_audit_elapsed_seconds_approx": 29.5,
+    "connected_quotient_terminal_keys": 10217,
+    "connected_unquotiented_terminal_trees": 20298,
+    "two_terminal_evaluators": "exact agreement on every reached terminal type through order five",
+    "fixed_rho_connected_checks": "exact agreement at rho=0,1/2,1 through order five",
+    "rho_1_one_input_reduction": "exact agreement through order five",
+    "even_order_parity": "exact zeros through order four"
+  },
+  "higher_order_attempts": [
+    {
+      "route": "fixed-rho explicit Gaussian program",
+      "target": "orders through nine at rho=0,1/2,1",
+      "outcome": "inconclusive",
+      "detail": "each Taylor job exceeded the frozen 20-minute cap; no order-nine value was accepted"
+    },
+    {
+      "route": "unquotiented connected polynomial compiler",
+      "target": "order seven",
+      "outcome": "inconclusive",
+      "detail": "reached the frozen 20-minute cap"
+    },
+    {
+      "route": "global-color-quotiented connected polynomial compiler",
+      "target": "order seven",
+      "outcome": "inconclusive",
+      "detail": "reached the amended frozen 12-minute cap"
+    },
+    {
+      "route": "fixed-correlation connected scalar compiler at rho=1",
+      "target": "order seven",
+      "outcome": "stopped after scope relaxation",
+      "detail": "no order-seven value was emitted or accepted"
+    }
+  ],
+  "claim_boundary": "Exact fixed-order formal coefficients through F_+^(5)(0;rho), conditional on the accepted width-first Gaussian-program/connected-tree formalism. No F_+^(7) or F_+^(9) value is claimed, and no positive-time or generic finite-width scalar closure follows."
+}

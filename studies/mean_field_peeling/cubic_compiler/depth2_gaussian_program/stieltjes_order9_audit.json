@@ -1,0 +1,110 @@
+{
+  "model": "raw-cubic-equal-width-two-hidden-layer",
+  "max_feature_derivative_order": 9,
+  "kernel_convention": "K(y)=F'(F^{-1}(y))=F'(0)+sum_r (-1)^r mu_r y^(2r+2)",
+  "kernel_baseline": "305775",
+  "moments": {
+    "mu_0": {
+      "exact": "93960072/114005",
+      "decimal": 824.1750098679883,
+      "sign": "positive"
+    },
+    "mu_1": {
+      "exact": "5787193487251/147192610783125",
+      "decimal": 0.039317146808258645,
+      "sign": "positive"
+    },
+    "mu_2": {
+      "exact": "8262390512438071457518/25655582915973781969921875",
+      "decimal": 0.00032205039111754926,
+      "sign": "positive"
+    },
+    "mu_3": {
+      "exact": "2636622646388500249440493088029/5564847635936495462248842835546875000",
+      "decimal": 4.737996112169905e-7,
+      "sign": "positive"
+    }
+  },
+  "hankel_audit": {
+    "ordinary": {
+      "H_0": {
+        "matrix": [["93960072/114005"]],
+        "principal_minors": {"0": "93960072/114005"},
+        "leading_principal_determinants": ["93960072/114005"],
+        "approximate_eigenvalues": [824.1750098679883],
+        "positive_semidefinite": true,
+        "positive_definite": true
+      },
+      "H_1": {
+        "matrix": [
+          ["93960072/114005", "5787193487251/147192610783125"],
+          ["5787193487251/147192610783125", "8262390512438071457518/25655582915973781969921875"]
+        ],
+        "principal_minors": {
+          "0": "93960072/114005",
+          "1": "8262390512438071457518/25655582915973781969921875",
+          "0,1": "85757048922094359666566525129/324984970037287890386771484375"
+        },
+        "leading_principal_determinants": [
+          "93960072/114005",
+          "85757048922094359666566525129/324984970037287890386771484375"
+        ],
+        "approximate_eigenvalues": [0.0003201747717298531, 824.1750117436077],
+        "positive_semidefinite": true,
+        "positive_definite": true
+      }
+    },
+    "shifted": {
+      "H_0_plus": {
+        "matrix": [["5787193487251/147192610783125"]],
+        "principal_minors": {"0": "5787193487251/147192610783125"},
+        "leading_principal_determinants": ["5787193487251/147192610783125"],
+        "approximate_eigenvalues": [0.039317146808258645],
+        "positive_semidefinite": true,
+        "positive_definite": true
+      },
+      "H_1_plus": {
+        "matrix": [
+          ["5787193487251/147192610783125", "8262390512438071457518/25655582915973781969921875"],
+          ["8262390512438071457518/25655582915973781969921875", "2636622646388500249440493088029/5564847635936495462248842835546875000"]
+        ],
+        "principal_minors": {
+          "0": "5787193487251/147192610783125",
+          "1": "2636622646388500249440493088029/5564847635936495462248842835546875000",
+          "0,1": "-3136318387543181669964663532850762952758515589/36859700346470723980544924489290665938162841796875000"
+        },
+        "leading_principal_determinants": [
+          "5787193487251/147192610783125",
+          "-3136318387543181669964663532850762952758515589/36859700346470723980544924489290665938162841796875000"
+        ],
+        "approximate_eigenvalues": [-2.1639997877902217e-6, 0.03931978460765766],
+        "positive_semidefinite": false,
+        "positive_definite": false
+      }
+    },
+    "accessible_matrix_count": 4,
+    "all_accessible_matrices_positive_semidefinite": false,
+    "all_accessible_matrices_positive_definite": false
+  },
+  "accessible_cross_hankel_minor": {
+    "formula": "mu_0*mu_3-mu_1*mu_2",
+    "exact": "9987673202539975224521403702065077961/26434185613955840215569971977771728515625",
+    "decimal": 0.00037783169674298635,
+    "nonnegative": true
+  },
+  "enumerated_principal_minor_checks": 8,
+  "unique_scalar_psd_inequalities": 6,
+  "moment_routes_agree": true,
+  "validation": "passed",
+  "verdict": "at_least_one_accessible_stieltjes_hankel_condition_fails",
+  "next_unavailable_conditions": {
+    "mu_4_and_H_2": "require F^(11)(0)",
+    "mu_5_and_H_2_plus": "require F^(13)(0)"
+  },
+  "sha256": {
+    "input": "6ef10c12960929bc95437eb44407b8e84c6b4e4f3b10b4e8416ad8666bd56979",
+    "protocol": "64e78a60fb86ff6d048127e4623ae43f1e8c8a7541ff2d03c217509e39eb40b6",
+    "derivative_engine": "edb16223deb34586019a936809eec8cd7553c9eeea10e1cc957a6984a122af72",
+    "exact_series_route": "d003563deb87c6baea7f423f954979f3082b306035eeba35cc223dda25d0ed60"
+  }
+}

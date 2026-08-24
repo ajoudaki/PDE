@@ -1,0 +1,117 @@
+{
+  "model": "two-input-equal-label-raw-cubic-depth2-plus-channel",
+  "input_gram": "[[1,rho],[rho,1]], -1 <= rho <= 1",
+  "labels": [1, 1],
+  "feature_output": "g=(f_1+f_2)/2",
+  "feature_generator": "D_+=n grad(g) dot grad",
+  "loss": "L=((f_1-1)^2+(f_2-1)^2)/2",
+  "max_order": 3,
+  "protocol_sha256": "6742675cb0c40dcfb2652edab05ce078b00506bfdef4bfd25157a22b0dbea956",
+  "engine_sha256": "ec3c195f500fc09c22a7cfcbe72a9f2a3c2312fcb7835ab885fa21746b157426",
+  "derivatives": {
+    "F_0": ["0"],
+    "F_1": [
+      "305775/2",
+      "54675/2",
+      "0",
+      "45684",
+      "0",
+      "39366",
+      "0",
+      "32076",
+      "0",
+      "8424"
+    ],
+    "F_2": ["0"],
+    "F_3": [
+      "19310071119750",
+      "6082858923750",
+      "4950930928050",
+      "16553736233190",
+      "14601768753564",
+      "21566517052140",
+      "10179565523964",
+      "24773966615700",
+      "10747229306328",
+      "8081925224220",
+      "9565735816224",
+      "0",
+      "5163082687008",
+      "0",
+      "1993411099008",
+      "0",
+      "502141358592",
+      "0",
+      "45067456512"
+    ]
+  },
+  "factored_derivatives": {
+    "F_1": "81*(rho+1)*A(rho)/2",
+    "F_3": "39366*(rho+1)^2*P(rho)",
+    "A_coefficients": [
+      "3775", "-3100", "3100", "-1972", "1972",
+      "-1000", "1000", "-208", "208"
+    ],
+    "P_coefficients": [
+      "490526625",
+      "-826532625",
+      "1288305300",
+      "-1329569510",
+      "1741757074",
+      "-1606098348",
+      "1729027376",
+      "-1222632454",
+      "989245440",
+      "-550556256",
+      "354861936",
+      "-159167616",
+      "94629184",
+      "-30090752",
+      "16190208",
+      "-2289664",
+      "1144832"
+    ]
+  },
+  "kernel_at_output_zero": {
+    "K_0": "F_1=81*(rho+1)*A(rho)/2",
+    "K_prime_0": "0",
+    "K_double_prime_0": "F_3/F_1^2=24*P(rho)/A(rho)^2",
+    "kernel_series": "K_+(y;rho)=F_1(rho)+12*P(rho)/A(rho)^2*y^2+O(y^4)"
+  },
+  "initial_tangent_kernel_matrix": {
+    "Theta_11": "305775",
+    "Theta_22": "305775",
+    "Theta_12": "54675*rho+91368*rho^3+78732*rho^5+64152*rho^7+16848*rho^9",
+    "Theta_21": "Theta_12",
+    "plus_relation": "K_+(0;rho)=(Theta_11+Theta_12)/2"
+  },
+  "endpoint_values": {
+    "rho_0": {
+      "F_1": "305775/2",
+      "F_3": "19310071119750",
+      "K_double_prime_0": "94181112/114005"
+    },
+    "rho_1": {
+      "F_1": "305775",
+      "F_3": "154118008098000",
+      "K_double_prime_0": "187920144/114005"
+    },
+    "rho_minus_1": {
+      "F_1": "0",
+      "F_3": "0",
+      "note": "the plus feature direction is degenerate and the output-coordinate inverse is undefined"
+    }
+  },
+  "validation": {
+    "taylor_vs_derivative_normalized": "exact agreement",
+    "even_feature_derivatives": "exact zeros",
+    "sample_exchange_symmetry": "exact agreement",
+    "direct_initial_gradient_block_formula": "exact agreement",
+    "rho_1_one_input_reduction": "exact agreement",
+    "rho_minus_1_degeneracy": "exact agreement",
+    "taylor_elapsed_seconds": 4.7130580097436905,
+    "derivative_elapsed_seconds": 4.701393622905016,
+    "peak_rss_kib_combined_process": 29748,
+    "status": "passed, including five independent contracted-GNF holdouts"
+  }
+}

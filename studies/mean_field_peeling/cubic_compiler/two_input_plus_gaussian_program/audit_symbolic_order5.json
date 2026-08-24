@@ -1,0 +1,72 @@
+{
+  "model": "two-input-equal-label-raw-cubic-depth2-plus-channel",
+  "accepted_max_order": 5,
+  "validation": "passed",
+  "sha256": {
+    "result": "ac948d64b979f226424e1ff745512f0f97e78e164708f4313c41a48d41591023",
+    "base_protocol": "6742675cb0c40dcfb2652edab05ce078b00506bfdef4bfd25157a22b0dbea956",
+    "order3_result": "6d5178f1d044974712ad6be705c9231d1ec4a3c6454c0ad8aa5ea932b27f093b",
+    "gaussian_program": "ec3c195f500fc09c22a7cfcbe72a9f2a3c2312fcb7835ab885fa21746b157426",
+    "fixed_rho_order9_protocol": "8c4e7e51c19fdffaaf3d0afdbf73ba2bc2081c14c205a0271617e63a50a02320",
+    "symbolic_order9_protocol": "85889d28417f7b04b4e69d578a843c554de450e30715fc239da0262c6bdca8bf",
+    "connected_protocol": "8dff6184c215df1e4b6b8c4d7ed958c012e2f88054c1ab70becee666bb0e4534",
+    "color_quotient_amendment": "1100031dcdcb768faa524efedc83ba61343d5c67795adc24b407e193751e3205",
+    "fixed_connected_amendment": "ff8cb6c856daede0e8f78444792f756f4326abdacd001f43a68935a93a715895",
+    "connected_polynomial_program": "5ba7709c9a7066ea475b7ebe2e26a5e18d575eb5ba8f81f92a59772b2ceb80f4",
+    "connected_fixed_program": "56a9cbe297c8ab39ae3ce4d1167c3c69b73395ed46a35666791ed104a64c42ee",
+    "fixed_gaussian_program": "198ed57cef8bcd1b1f8c970237a793f234d190dfc82d80c9101e7b3a690df922",
+    "connected_quadratic_parent": "85c5c47c92bf926d4835120eac2be2f7d9ee70df12d3cd60359ea78ecacaed8e",
+    "one_input_order9_result": "6ef10c12960929bc95437eb44407b8e84c6b4e4f3b10b4e8416ad8666bd56979",
+    "one_input_cubic_program": "edb16223deb34586019a936809eec8cd7553c9eeea10e1cc957a6984a122af72"
+  },
+  "static_exact_gates": true,
+  "connected_tree_reproduction": {
+    "polynomial_terminal_audit": true,
+    "value_cache": 11637,
+    "wick_cache": 10217,
+    "base_evaluations": 10217,
+    "fixed_correlations": {
+      "0": {
+        "derivatives": [
+          "0",
+          "305775/2",
+          "0",
+          "19310071119750",
+          "0",
+          "18976299600145783044375/2"
+        ],
+        "value_cache": 11637,
+        "wick_cache": 10217,
+        "base_evaluations": 10217
+      },
+      "1/2": {
+        "derivatives": [
+          "0",
+          "11120895/64",
+          "0",
+          "1770631347661101/64",
+          "0",
+          "1119944003422467481309157877/65536"
+        ],
+        "value_cache": 11637,
+        "wick_cache": 10217,
+        "base_evaluations": 10217
+      },
+      "1": {
+        "derivatives": [
+          "0",
+          "305775",
+          "0",
+          "154118008098000",
+          "0",
+          "302467842967104331335000"
+        ],
+        "value_cache": 11637,
+        "wick_cache": 10217,
+        "base_evaluations": 10217
+      }
+    }
+  },
+  "gaussian_program_reproduction": "not rerun in this audit invocation; both exact order-five routes were completed and matched during production, and can be rerun with --full-gaussian",
+  "claim_boundary": "Exact fixed-order formal coefficients through F_+^(5)(0;rho), conditional on the accepted width-first Gaussian-program/connected-tree formalism. No F_+^(7) or F_+^(9) value is claimed, and no positive-time or generic finite-width scalar closure follows."
+}

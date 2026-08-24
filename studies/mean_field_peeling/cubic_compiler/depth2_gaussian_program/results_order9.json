@@ -1,0 +1,60 @@
+{
+  "model": "raw-cubic-equal-width-two-hidden-layer",
+  "max_order": 9,
+  "protocol_sha256": "a50e6414bf17176a3f30b6f3735aec69ae712afad28a05f01d2ba2c03ed0f2a2",
+  "program_sha256": "edb16223deb34586019a936809eec8cd7553c9eeea10e1cc957a6984a122af72",
+  "derivatives": [
+    0,
+    305775,
+    0,
+    154118008098000,
+    0,
+    302467842967104331335000,
+    0,
+    1412600607141756021360853290900000,
+    0,
+    12844661809234735951068178383554688801750000
+  ],
+  "routes": [
+    {
+      "route": "taylor",
+      "elapsed_seconds": 2.491714470088482,
+      "order9_monomial_counts": {
+        "U": 72,
+        "X": 72,
+        "A": 147,
+        "Z": 188,
+        "B": 256,
+        "R": 73
+      },
+      "wick_cache_sizes": {
+        "column": 13030,
+        "row": 24131
+      }
+    },
+    {
+      "route": "derivative",
+      "elapsed_seconds": 2.450188420712948,
+      "order9_monomial_counts": {
+        "U": 72,
+        "X": 72,
+        "A": 147,
+        "Z": 188,
+        "B": 256,
+        "R": 73
+      },
+      "wick_cache_sizes": {
+        "column": 13030,
+        "row": 24131
+      }
+    }
+  ],
+  "validation": {
+    "status": "passed",
+    "exact_route_agreement": true,
+    "independent_lower_gates_through_order5": true,
+    "even_order_parity": true,
+    "integer_outputs": true,
+    "resource_bound": "10 minutes and 4 GiB per route"
+  }
+}
