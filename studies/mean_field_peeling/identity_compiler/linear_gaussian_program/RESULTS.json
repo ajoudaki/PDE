@@ -1,0 +1,44 @@
+{
+  "format": "identity-linear-gaussian-jet-v1",
+  "model": "identity-equal-width-one-input-feature-ascent",
+  "max_order": 11,
+  "derivatives": {
+    "2": [
+      0,
+      3,
+      0,
+      48,
+      0,
+      1464,
+      0,
+      76800,
+      0,
+      6193152,
+      0,
+      708341760
+    ],
+    "3": [
+      0,
+      4,
+      0,
+      160,
+      0,
+      13888,
+      0,
+      2222592,
+      0,
+      571082752,
+      0,
+      214935699456
+    ]
+  },
+  "validation": {
+    "ordinary_taylor_vs_derivative_normalized": "exact agreement",
+    "independent_path_wick_controls": "passed through order 5 at both depths",
+    "retrospective_depth2_order7": "passed",
+    "even_parity": "passed",
+    "integer_output": "passed"
+  },
+  "claim_boundary": "exact fixed-order width-first jet; no positive-time, convergence-radius, arbitrary-depth-efficiency, all-order-sign, or Stieltjes claim"
+}
+

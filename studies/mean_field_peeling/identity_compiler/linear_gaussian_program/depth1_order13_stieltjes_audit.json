@@ -1,0 +1,63 @@
+{
+  "format": "depth1-identity-order13-all-order-stieltjes-v1",
+  "model": "one-hidden-layer identity feature-ascent",
+  "width_limit_feature": "F(t)=sinh(2t)",
+  "derivatives": [
+    0,
+    2,
+    0,
+    8,
+    0,
+    32,
+    0,
+    128,
+    0,
+    512,
+    0,
+    2048,
+    0,
+    8192
+  ],
+  "output_kernel": "K(y)=2*sqrt(1+y^2)",
+  "moments": [
+    "1",
+    "1/4",
+    "1/8",
+    "5/64",
+    "7/128",
+    "21/512"
+  ],
+  "all_order_moment_formula": "mu_r=Catalan(r)/4^r",
+  "representing_measure": "dnu(x)=(2/pi)*sqrt((1-x)/x)*1_(0,1)(x) dx",
+  "two_by_two_minors": {
+    "mu_0*mu_2-mu_1^2": "1/16",
+    "mu_0*mu_3-mu_1*mu_2": "3/64",
+    "mu_0*mu_4-mu_1*mu_3": "9/256",
+    "mu_0*mu_5-mu_1*mu_4": "7/256",
+    "mu_0*mu_4-mu_2^2": "5/128",
+    "mu_0*mu_5-mu_2*mu_3": "1/32",
+    "mu_1*mu_3-mu_2^2": "1/256",
+    "mu_1*mu_4-mu_2*mu_3": "1/256",
+    "mu_1*mu_5-mu_2*mu_4": "7/2048",
+    "mu_1*mu_5-mu_3^2": "17/4096",
+    "mu_2*mu_4-mu_3^2": "3/4096",
+    "mu_2*mu_5-mu_3*mu_4": "7/8192",
+    "mu_3*mu_5-mu_4^2": "7/32768"
+  },
+  "three_by_three_minors": {
+    "det_H_2": "1/4096",
+    "cross_012_123_345": "5/16384",
+    "cross_012_234_345": "3/32768",
+    "det_H_2_plus": "1/262144"
+  },
+  "unique_accessible_minor_counts": {
+    "size_1": 6,
+    "size_2": 13,
+    "size_3": 4,
+    "total": 23
+  },
+  "finite_order_verdict": "all 23 accessible minors pass strictly",
+  "all_order_verdict": "all ordinary and shifted Hankel matrices are positive definite",
+  "claim_boundary": "all-order conclusion applies only to the frozen one-hidden-layer identity architecture"
+}
+

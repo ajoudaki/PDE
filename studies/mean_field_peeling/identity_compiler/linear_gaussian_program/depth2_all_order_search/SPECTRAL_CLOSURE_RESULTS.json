@@ -1,0 +1,63 @@
+{
+  "format": "identity-depth2-spectral-closure-v1",
+  "finite_width_invariant": "C=B*B^T-x*x^T",
+  "vector_equation": "x''=(C+||x||^2+||y||^2)*x",
+  "width_limit_balance": "||x||^2=||y||^2=r",
+  "spectral_measures": {
+    "MP_density": "sqrt((4-lambda)/lambda)/(2*pi) on (0,4)",
+    "rho_x_resolvent": "g_x=m_MP/(1+m_MP)",
+    "rho_x_explicit": "(3/4)*delta_(-1/2) + sqrt(lambda*(4-lambda))/(2*pi*(1+2*lambda)) on (0,4)",
+    "rho_v_explicit": "sqrt(lambda*(4-lambda))/(2*pi) on (0,4)",
+    "rho_x_moments_0_through_12": [
+      "1",
+      "0",
+      "1",
+      "2",
+      "6",
+      "18",
+      "57",
+      "186",
+      "622",
+      "2120",
+      "7338",
+      "25724",
+      "91144"
+    ],
+    "rho_v_moments_0_through_12": [
+      "1",
+      "2",
+      "5",
+      "14",
+      "42",
+      "132",
+      "429",
+      "1430",
+      "4862",
+      "16796",
+      "58786",
+      "208012",
+      "742900"
+    ]
+  },
+  "closed_fixed_point": {
+    "mode_equations": [
+      "a_lambda''=(lambda+2*r)*a_lambda, a_lambda(0)=1, a_lambda'(0)=0",
+      "b_lambda''=(lambda+2*r)*b_lambda, b_lambda(0)=0, b_lambda'(0)=1"
+    ],
+    "self_consistency": "r=int a_lambda^2 d rho_x + int b_lambda^2 d rho_v",
+    "feature": "F=r'/2"
+  },
+  "validation": {
+    "derivatives_match_independent_gaussian_program_through_81": true,
+    "moments_mu_0_through_39_match": true,
+    "kernel_baseline": "3",
+    "max_a_polynomial_support": 42,
+    "max_b_polynomial_support": 41
+  },
+  "classification": "exact all-fixed-order formal spectral closure, but not an elementary closed form for F or K and not an all-order Stieltjes proof",
+  "sha256": {
+    "accepted_comparison_input": "56134b83ed656a22ca68325818a828eeaf4cfedc9141e69ea106ab9a6489a395",
+    "protocol": "e38b47fd6b46d8c974678477220a18fc2435e7c42cc87777836d6b33eae98362",
+    "source": "08ee21044c04f8dea58e18db9836a1c532b6a2d45f09fa602f7813818ddefd1f"
+  }
+}

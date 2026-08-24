@@ -1,0 +1,15 @@
+{
+  "format": "depth3-autonomous-closure-search-freeze-v1",
+  "date": "2026-08-20",
+  "independence_firewall": {
+    "depth3_project_studies_opened_during_search": false,
+    "accepted_depth3_derivative_artifact_opened_or_compared_during_search": false,
+    "preexisting_conversation_values_used_for_candidate_construction": false,
+    "external_closure_theories_opened_during_search": false
+  },
+  "protocol_sha256": "9d6ddad09d0359ae314ae66c856e2c77a7b098fdd7f197c464f3f02fa3e29e53",
+  "candidate": null,
+  "candidate_sha256": null,
+  "derivative_comparison_activated": false,
+  "reason": "No construction satisfied the frozen admissibility contract."
+}

@@ -1,0 +1,75 @@
+{
+  "format": "identity-order11-stieltjes-audit-v1",
+  "kernel_convention": "K(y)=F'(F^{-1}(y))=F'(0)+sum_r (-1)^r mu_r y^(2r+2)",
+  "max_feature_derivative_order": 11,
+  "depths": {
+    "2": {
+      "moments": [
+        "8/3",
+        "67/81",
+        "6832/10935",
+        "414716/688905",
+        "182387864/279006525"
+      ],
+      "principal_2x2": {
+        "mu_0*mu_2-mu_1^2": "1193/1215",
+        "mu_1*mu_3-mu_2^2": "90056012/837019575",
+        "mu_0*mu_4-mu_2^2": "125818816/93002175",
+        "mu_2*mu_4-mu_3^2": "982995978416/21356554456125"
+      },
+      "cross_2x2": {
+        "mu_0*mu_3-mu_1*mu_2": "6748976/6200145",
+        "mu_0*mu_4-mu_1*mu_3": "1042313332/837019575",
+        "mu_1*mu_4-mu_2*mu_3": "3719967752/22599528525"
+      },
+      "det_H_2": "3447482166776/64069663368375",
+      "accessible_matrices": {
+        "H_0": "positive definite",
+        "H_1": "positive definite",
+        "H_2": "positive definite",
+        "H_0_plus": "positive definite",
+        "H_1_plus": "positive definite"
+      },
+      "verdict": "all accessible conditions pass strictly"
+    },
+    "3": {
+      "moments": [
+        "5",
+        "61/32",
+        "11131/5760",
+        "3235483/1290240",
+        "852431627/232243200"
+      ],
+      "principal_2x2": {
+        "mu_0*mu_2-mu_1^2": "55559/9216",
+        "mu_1*mu_3-mu_2^2": "1943047819/1857945600",
+        "mu_0*mu_4-mu_2^2": "15716963/1075200",
+        "mu_2*mu_4-mu_3^2": "60275559699667/74912366592000"
+      },
+      "cross_2x2": {
+        "mu_0*mu_3-mu_1*mu_2": "5712239/645120",
+        "mu_0*mu_4-mu_1*mu_3": "5043172849/371589120",
+        "mu_1*mu_4-mu_2*mu_3": "7992083987/3715891200"
+      },
+      "det_H_2": "4045512994193/2080899072000",
+      "accessible_matrices": {
+        "H_0": "positive definite",
+        "H_1": "positive definite",
+        "H_2": "positive definite",
+        "H_0_plus": "positive definite",
+        "H_1_plus": "positive definite"
+      },
+      "verdict": "all accessible conditions pass strictly"
+    }
+  },
+  "unique_accessible_conditions": {
+    "moment_signs": 5,
+    "distinct_2x2_hankel_minors": 7,
+    "distinct_3x3_hankel_minors": 1,
+    "all_strictly_positive_at_both_depths": true
+  },
+  "next_unavailable": "mu_5 and H_2_plus require F^(13)(0)",
+  "claim_boundary": "finite order-11 compatibility only; no infinite Stieltjes sequence or representing-measure claim",
+  "input_sha256": "6acac5edc920a02b68ea0d0f53f9fac675cacdca5a750309b51654b8fc1d19c3"
+}
+

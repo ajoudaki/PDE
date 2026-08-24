@@ -1,0 +1,67 @@
+{
+  "format": "identity-order13-stieltjes-audit-v1",
+  "max_feature_derivative_order": 13,
+  "depths": {
+    "2": {
+      "F_13": 109038689280,
+      "mu_5": "63196828537/82864937925",
+      "new_H_2_plus_principal_minors": {
+        "mu_1*mu_5-mu_3^2": "12612365878909/46984419803475",
+        "mu_3*mu_5-mu_4^2": "27212376873949924/856291050918331875",
+        "det_H_2_plus": "4662092676191348/2157853448314196325"
+      },
+      "new_cross_2x2": {
+        "mu_0*mu_5-mu_1*mu_4": "371154772528/248594813775",
+        "mu_0*mu_5-mu_2*mu_3": "16482976712/9943792551",
+        "mu_1*mu_5-mu_2*mu_4": "7464124804567/33560299859625",
+        "mu_2*mu_5-mu_3*mu_4": "526232669534896/6342896673469125"
+      },
+      "new_cross_3x3": {
+        "indices_012_123_345": "1941659902332781/19028690020407375",
+        "indices_012_234_345": "115285184467328464/2568873152754995625"
+      },
+      "all_23_accessible_hankel_minors": "strictly positive",
+      "verdict": "all accessible order-13 conditions pass strictly"
+    },
+    "3": {
+      "F_13": 111466749771776,
+      "mu_5": "314669435827/54499737600",
+      "new_H_2_plus_principal_minors": {
+        "mu_1*mu_5-mu_3^2": "172787841942029/36623823667200",
+        "mu_3*mu_5-mu_4^2": "1365134847024722833/1356127870648320000",
+        "det_H_2_plus": "114573182642874004393/708802833725521920000"
+      },
+      "new_cross_2x2": {
+        "mu_0*mu_5-mu_1*mu_4": "3576078293971/163499212800",
+        "mu_0*mu_5-mu_2*mu_3": "3927729989399/163499212800",
+        "mu_1*mu_5-mu_2*mu_4": "921341510571233/235438866432000",
+        "mu_2*mu_5-mu_3*mu_4": "515107138477543/263691530403840"
+      },
+      "new_cross_3x3": {
+        "indices_012_123_345": "86667224522660401/17579435360256000",
+        "indices_012_234_345": "1510605104345431393/527383060807680000"
+      },
+      "all_23_accessible_hankel_minors": "strictly positive",
+      "verdict": "all accessible order-13 conditions pass strictly"
+    }
+  },
+  "unique_accessible_minor_counts": {
+    "size_1": 6,
+    "size_2": 13,
+    "size_3": 4,
+    "total": 23
+  },
+  "validation": {
+    "two_exact_jet_assemblers": "agree through order 13",
+    "two_exact_moment_transformations": "agree through mu_5",
+    "all_even_derivatives": "zero",
+    "all_accessible_hankel_minors": "strictly positive"
+  },
+  "next_unavailable": {
+    "mu_6_and_H_3": "require F^(15)(0)",
+    "mu_7_and_H_3_plus": "require F^(17)(0)"
+  },
+  "claim_boundary": "finite order-13 compatibility only; no infinite Stieltjes-sequence claim",
+  "derivative_input_sha256": "4b4f8d2922f7c547ef9a0472025fc0c780c676454f36d366698bec1130814165"
+}
+
