@@ -6,7 +6,10 @@
 > **Positive-time/depth update:** the fixed-order values also remain valid,
 > but the identity model now has a rooted-path autonomous mean-field closure
 > at every fixed hidden depth.  See
-> `arbitrary_depth_autonomous_mse_closure/THEOREM_AND_PROOF.md`.
+> `arbitrary_depth_autonomous_mse_closure/CANONICAL_NOTE.md` for its corrected
+> claim boundary.  At exactly three hidden layers, a separate cyclic
+> construction proves compact-time finite-width identification; see
+> `depth3_unfrozen_readout_closure/THEOREM_AND_PROOF.md`.
 
 For the frozen one-input, equal-width feature-ascent models in `PROTOCOL.md`,
 the exact width-first derivatives are
@@ -47,3 +50,5 @@ exact autonomous deterministic equation at every fixed depth.  Its
 positive-time finite-width identification is proved at hidden depths one and
 two and remains conditional at depth three and beyond; see the corrected
 claim boundary in `arbitrary_depth_autonomous_mse_closure/CANONICAL_NOTE.md`.
+The separate cyclic construction closes that bridge at exactly depth three;
+it does not prove the rooted-path bridge at every greater depth.

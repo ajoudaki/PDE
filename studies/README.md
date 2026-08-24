@@ -1,6 +1,6 @@
 # Research programs
 
-The active research tree has four top-level scientific programs. Each program is
+The active research tree has five top-level scientific programs. Each program is
 organized for reading, reproduction, and extension; the exact historical ZIP
 layouts are preserved separately in [`../archive/bundles`](../archive/bundles/).
 
@@ -8,6 +8,7 @@ layouts are preserved separately in [`../archive/bundles`](../archive/bundles/).
 |---|---|
 | [`quadratic_nonclosure`](quadratic_nonclosure/) | Analytical negative laboratory for the prescribed Taylor/Wick compiler |
 | [`mean_field_peeling`](mean_field_peeling/) | Canonical conditional-Gaussian peeling program, audited μP case studies, and the exact quadratic decorated-forest compiler |
+| [D3 Arctan Closure Program](d3_arctan_closure_program/) | Paused strict three-hidden-layer arctan IDE/convergence program, with its complete evidence ledger and reproducibility artifacts |
 | [`stieltjes_conjecture`](stieltjes_conjecture/) | Formal output-kernel moment conjecture, exact finite-order certificates, conditional ODE reconstruction, and falsification audits |
 | [`resnet_pde`](resnet_pde/) | Umbrella for the finite-matrix response precursor, direct finite-cutoff PDE, and corrective convergence audit |
 

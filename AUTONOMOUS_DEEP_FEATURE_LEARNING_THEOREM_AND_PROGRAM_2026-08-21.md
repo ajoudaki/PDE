@@ -490,15 +490,63 @@ Jacobian lifts, ordinary layerwise cutoff, first-response Gaussian
 integration by parts, absolute Fock/response norms, fixed-(p) restart, and
 uniformly equivalent moving-coordinate repairs as sufficient black-box
 arguments.  None of those route failures is a reachable iid-Gaussian
-counterexample.  The surviving theorem-strength obligation is a
-same-trajectory adaptive delocalization estimate for the middle static
-adjoint (and the induced lower raw square).  The frozen contract, conditional
+counterexample.  The surviving theorem-strength obligation is a joint
+paired-block dynamic low-influence estimate for the middle static adjoint
+(and the induced lower raw square); it need not imply row delocalization.
+The frozen contract, conditional
 theorem, and reconciled audit are recorded in
-[`arctan_depth3_operator_ide/`](studies/mean_field_peeling/arctan_depth3_operator_ide/),
+[D3 Arctan Closure Program](studies/d3_arctan_closure_program/),
 especially
-[`FINAL_CONVERGENCE_AUDIT.md`](studies/mean_field_peeling/arctan_depth3_operator_ide/FINAL_CONVERGENCE_AUDIT.md).
+[`FINAL_CONVERGENCE_AUDIT.md`](studies/d3_arctan_closure_program/FINAL_CONVERGENCE_AUDIT.md).
 
-Once the $L=3$ theorem is closed, its proof should first be decomposed into
+#### Findings and pause state — 23 August 2026
+
+The strict depth-three contract is the one-sample, three-hidden-layer,
+vanilla arctan MLP in natural bottom coordinate, with no architectural
+substitution: construct the finite-species autonomous single-time
+operator IDE, prove its well-posedness, and prove uniform compact-time
+finite-width convergence of the predictor and the four raw tangent-kernel
+blocks.
+
+- **Established:** the exact finite-width feature flow and raw kernel; the
+  two-static-action/two-current-trace-class IDE; fixed-mesh joint source
+  identification by an applicable unrestricted Tensor Program theorem;
+  compact-time Hilbert/trace energy and the sharper full-action identity;
+  exact learned-query, gauge, balance, divided-gate, Abel, and characteristic
+  cancellations; and a conditional Osgood/mesh-removal/raw-kernel theorem
+  once the middle-query tail is supplied.
+- **Falsified at route level:** weak or bare \(L^2\) closure, deterministic
+  PSD/global-action stability, bounded-cotangent transforms, positive local
+  tangent symmetrization, ordinary quadratic BMO, marginal Gaussian IBP,
+  response delocalization, full-history projection-BV control, naïve
+  zero-pair cavity, and direct DMFT/GFOM/AMP/sequential-mean-field theorem
+  invocations.  These are not canonical iid-training counterexamples.
+- **Empirical evidence:** preregistered high-moment and raw-kernel diagnostics
+  are width-stable on the tested horizons; paired-cavity and weighted
+  off-column responses have the predicted scaling; sampled large queries are
+  strongly gated.  The final first-passage run found cooperative drift in
+  every sampled \(L=2\) open-and-misaligned crossing, but the decisive cell
+  had only four such events versus the frozen minimum of 25, so its formal
+  verdict is inconclusive.
+- **Exact open bottleneck:** C-13, a cutoff- and width-uniform
+  \(\psi_1\)/moderate-moment bound for
+  \(\Gamma_{2,:i}^{\mathsf T}B_3(t)\).  In the sharpest audited form this is
+  joint dynamic low influence for paired Gaussian blocks after all order-one
+  same-block returns are resummed as causal Volterra kernels, equivalently a
+  joint multi-row column-Jacobian moment estimate.  Nuclear compactness,
+  continuous state/raw-kernel identification, and physical-time convergence
+  remain downstream.
+
+The contract is therefore neither proved nor falsified and the proof program
+is paused at this frontier.  The complete frozen contract, evidence ledger,
+derivations, counterexamples, theorem audit, scripts, preregistrations, and
+raw experimental outputs are consolidated in the
+[D3 Arctan Closure Program](studies/d3_arctan_closure_program/); see especially
+the [authoritative ledger](studies/d3_arctan_closure_program/CORE_EVIDENCE_LEDGER_2026-08-23.md)
+and [paused proof frontier](studies/d3_arctan_closure_program/APPROACH_REGISTRY_2026-08-23.md).
+
+If the program is resumed and the $L=3$ theorem is closed, its proof should
+first be decomposed into
 reusable lemmas: a joint multi-layer Gaussian source theorem, trace-class
 update bounds, damped-cotangent creation and response estimates, quantitative
 mesh removal, raw-kernel tail transfer, and physical-clock stability. The

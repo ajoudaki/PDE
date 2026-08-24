@@ -28,6 +28,9 @@ observable-grammar theorem and depth-linear finite-state closure remain open.
 | General Gaussian-normal-form theorem | Open |
 | Depth-independent finite-state closure and shared $O(L)$ DAG | Open |
 | Full canonical quadratic coefficients through order seventeen | Exact finite-order certificates |
+| One-sample identity activation, arbitrary fixed hidden depth | Exact autonomous rooted-path ODE / counting-measure IDE with global zero-loss convergence internally; for this construction, compact-time finite-width identification is proved for hidden depths 1--2 and conditional for depth 3 and beyond |
+| One-sample identity activation, exactly three hidden layers | A separate cyclic trace-class/free-Wishart construction proves the fully trained compact-time width limit and zero-loss convergence |
+| One-sample raw-square activation, two hidden layers | [Resolved negatively for the canonical iid-Gaussian sequence](quadratic_compiler/operator_ide_resolution/CANONICAL_CONCENTRATION_NO_GO_COVARIANT_SCHUR.md): a fixed predictor increase occurs in vanishing physical time, ruling out the frozen compact-time continuous-readout limit and hence every admissible autonomous IDE under that contract |
 
 ## Maintained sources
 
@@ -93,6 +96,19 @@ The documents distinguish exact finite-width identities, mean-field results
 under named probabilistic assumptions, formal nonlinear closures, restricted
 audits, and open theorem targets.
 
+The identity-only successor
+[`identity_compiler/linear_gaussian_program/arbitrary_depth_autonomous_mse_closure/`](identity_compiler/linear_gaussian_program/arbitrary_depth_autonomous_mse_closure/)
+gives a different kind of result: a positive-physical-time, autonomous
+single-source closure for one sample at every separately fixed linear hidden
+depth.  Its source is a noncommutative rooted-path operator, its loss is one
+scalar state, and it is independent of width and requested derivative order.
+The formula retains `L-1` depth grades, so it is not a growing-depth
+constant-cost theorem and it does not prove the all-order Stieltjes
+specialization.  Its network-identification proof is conditional at hidden
+depth three and beyond.  For exactly three hidden layers, the separate
+[`depth3_unfrozen_readout_closure/`](identity_compiler/linear_gaussian_program/depth3_unfrozen_readout_closure/)
+cyclic construction supplies the missing compact-time identification theorem.
+
 [`quadratic_compiler/`](quadratic_compiler/) contains the exact canonical
 special-case graph rewrites, connected recurrence, Wick-sector engines,
 checked arithmetic, certificates, provenance, and rejected acceleration
@@ -111,6 +127,25 @@ implemented along two isolated exact routes through orders fifteen and
 seventeen.  These remain model-specific fixed-order extensions; they do not
 turn the implementation into a generic MLP compiler or establish a
 positive-time trajectory.
+
+Its
+[operator_ide_closure/](quadratic_compiler/operator_ide_closure/)
+successor addresses that positive-time question directly for the
+two-hidden-layer raw-square network.  It constructs the exact present-state
+system and a fixed pointed-Gaussian traffic source, and equivalently packages
+the full graph hierarchy as one Liouville probability mass.  Both are formal
+at positive time: unbounded root multiplication, all-grade concentration,
+characteristic uniqueness, and compact-time iid width identification remain
+open.  The adjacent hostile audit proves narrower boundaries for the natural
+\(L^2\oplus L^2\oplus\mathfrak S_1\) parameter topology, finitely many
+normalized additive gauges, marginal Orlicz/operator-norm estimates, and the
+canonical unweighted copy map.  A canonical concentration layer is reduced
+to one explicit dynamic leave-one-row estimate (LOO), not asserted.
+This is the historical positive-construction route.  The later
+[`operator_ide_resolution/`](quadratic_compiler/operator_ide_resolution/)
+program resolves the frozen continuous-readout conjecture negatively for the
+canonical iid-Gaussian sequence through a vanishing-physical-time predictor
+increase.
 
 The exact Stieltjes claim levels, all five campaign outcomes, and the
 conditional-stop decision are consolidated in the sole downstream master,
@@ -135,6 +170,39 @@ available orders.  The resulting nine- and eight-moment prefixes, including
 their normalized literal-RMS readouts, pass every accessible Hankel principal
 minor exactly.  This remains fixed-order evidence, not an all-order hidden
 measure or positive-time theorem.
+
+## Nonlinear autonomous operator-IDE successor
+
+[`nonlinear_activation_operator_ide/`](nonlinear_activation_operator_ide/)
+resolves the broader nonlinear-existence target by selecting
+\(\phi(x)=\arctan x\), rather than the canonical raw-square sequence.  The
+latter has since been
+[resolved negatively](quadratic_compiler/operator_ide_resolution/CANONICAL_CONCENTRATION_NO_GO_COVARIANT_SCHUR.md):
+its predictor develops a fixed initial-layer increase in vanishing physical
+time, precluding the frozen compact-time continuous-readout limit.  For the
+arctangent model, the natural coordinate
+\(r=u+u^3/3\) removes the inner derivative multiplier, bounded outputs
+preserve the Gaussian readout envelope, and a countably generated two-sided
+Ginibre action retains every \(G/G^*\) correlation.  The resulting state has
+two current \(L^2\) fields, one trace-class operator perturbation, one
+residual, and one immutable source.  Its theorem proves global
+Gaussian-envelope well-posedness and compact-time convergence of the finite
+predictor, raw tangent kernel, residual, and loss.  The final audit records
+the exact boundary: this resolves the existence of a genuinely nonlinear
+autonomous IDE, while the separate canonical quadratic conjecture is false
+under its frozen contract.
+
+Its three-hidden-layer successor, the
+[D3 Arctan Closure Program](../d3_arctan_closure_program/), freezes the
+strict one-time Markov contract at the next depth.  It proves the exact
+four-block feature flow and raw-kernel identity, constructs the joint
+two-Gaussian-action/two-current-operator IDE, establishes compact-time
+energy bounds, and identifies every fixed Euler mesh.  After multiple
+isolated proof and hostile-audit rounds, unconditional continuous-time
+width identification remains open at one sharply stated adaptive
+middle-adjoint delocalization lemma.  The directory records both the exact
+conditional closure theorem and the falsified shortcut classes; it does not
+promote the formal IDE to a positive-time theorem.
 
 ## Historical source
 
