@@ -1,0 +1,70 @@
+{
+  "cross_backend": [
+    {
+      "device_index": 0,
+      "field_errors": {
+        "dx_max": 1.56472057533108e-15,
+        "energies_max": 3.885780586188048e-16,
+        "f": 2.7755575615628914e-17,
+        "h_max": 0.0,
+        "nu_max": 5.551115123125783e-16,
+        "z_max": 1.3322676295501878e-15
+      },
+      "maximum_error": 1.56472057533108e-15,
+      "passed": true,
+      "update_errors": {
+        "a_max": 0.0,
+        "w_max": 0.0,
+        "x_max": 0.0
+      }
+    },
+    {
+      "device_index": 1,
+      "field_errors": {
+        "dx_max": 1.56472057533108e-15,
+        "energies_max": 3.885780586188048e-16,
+        "f": 2.7755575615628914e-17,
+        "h_max": 0.0,
+        "nu_max": 5.551115123125783e-16,
+        "z_max": 1.3322676295501878e-15
+      },
+      "maximum_error": 1.56472057533108e-15,
+      "passed": true,
+      "update_errors": {
+        "a_max": 0.0,
+        "w_max": 0.0,
+        "x_max": 0.0
+      }
+    }
+  ],
+  "deterministic_replay": [
+    {
+      "device_index": 0,
+      "digest1": "04ee03e5aa8aeb44d12fe777469a730ba8817257c7cdaf32e32304f2d2f54c5c",
+      "digest2": "04ee03e5aa8aeb44d12fe777469a730ba8817257c7cdaf32e32304f2d2f54c5c",
+      "passed": true
+    },
+    {
+      "device_index": 1,
+      "digest1": "04ee03e5aa8aeb44d12fe777469a730ba8817257c7cdaf32e32304f2d2f54c5c",
+      "digest2": "04ee03e5aa8aeb44d12fe777469a730ba8817257c7cdaf32e32304f2d2f54c5c",
+      "passed": true
+    }
+  ],
+  "kind": "qualification",
+  "large_width_three_step": {
+    "finite": true,
+    "memory_cap_pass": true,
+    "n": 32768,
+    "peak_allocated_gib": 8.034671783447266,
+    "record_count": 4,
+    "wall_seconds": 0.32784509286284447
+  },
+  "passed": true,
+  "python": "3.10.14 (main, May  6 2024, 19:42:50) [GCC 11.2.0]",
+  "script_sha256": "bc91e8f553bca6e880afad553f650ac2a58f50a4183e8ea6a4c821034f4eeec6",
+  "status": "non_scientific_qualification_only",
+  "torch": "2.9.0+cu130",
+  "torch_cuda": "13.0",
+  "wall_seconds": 1.1636391840875149
+}
