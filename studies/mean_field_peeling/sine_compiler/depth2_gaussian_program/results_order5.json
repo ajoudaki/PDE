@@ -1,0 +1,47 @@
+{
+  "architecture": "equal-width-two-hidden-layer-all-blocks-trained",
+  "max_order": 5,
+  "derivative_convention": "F^(k)(0)=lim_{n->infinity}(n grad(f_n).grad)^k f_n",
+  "raw_sine": {
+    "activation": "sin(x)",
+    "forward_variance_q1": "0.4323323583816936540530002525137577982961842270452120592659205636729633",
+    "derivatives": [
+      "0",
+      "1.0",
+      "0",
+      "-1.886999827305931100883737327378247266466322061040333546307940021536186",
+      "0",
+      "79.41498981614465305749487667598359722832666710865177953401263030229069"
+    ],
+    "mu0": "-0.9434999136529655504418686636891236332332",
+    "mu1": "-2.71549651763059157773284359379259565503"
+  },
+  "unit_variance_sine": {
+    "activation": "sin(x)/sqrt((1-exp(-2))/2)",
+    "normalization_denominator": "0.6575198539828996327559622480645860763595502972395401653588924528731687",
+    "derivatives": [
+      "0",
+      "4.037096946465641770044150036061438410171402282463690230320786544802301",
+      "0",
+      "-103.2573311467741889140412475573025922826622454848942874837843393529655",
+      "0",
+      "29944.43234293728236390344108299615290639013823097744233193199439481046"
+    ],
+    "mu0": "-3.167761986081301856339603192211488286866",
+    "mu1": "-3.039997378378462353769286037927400822816"
+  },
+  "validation": {
+    "status": "passed",
+    "closed_finite_fourier_evaluation": true,
+    "independent_coefficient_maps_agree_beyond_100_digits": true,
+    "80dps_and_120dps_agree_beyond_60_digits": true,
+    "gauss_hermite_orders_64_and_96_pass": true,
+    "even_order_parity": true
+  },
+  "sha256": {
+    "raw_protocol": "27843d8916167fabfbf59f8412f904a11282ebee2ea23424e4aa0512c7d78f4e",
+    "normalized_protocol": "2e26e1ab6caeea06b304e05cb9c805bdf8dd55b150f3a11780930a3056ac4971",
+    "raw_evaluator": "27ebe0883bd97f66b816eaf32c35672af30f02a52f16ceaff798aa52e84047b6",
+    "normalized_evaluator": "3bf44dd48f25d68434641f0411dfef37fe02a16253355681c28cb184cf3ffdcb"
+  }
+}
