@@ -1,0 +1,966 @@
+{
+  "format": "shallow-normalized-hermite2-order13-v1",
+  "model": {
+    "network": "n^-1 sum_i A_i*phi(u_i)",
+    "activation": "phi(u)=(u^2-1)/sqrt(2)=He_2(u)/sqrt(2!)",
+    "initialization": "A_i,u_i independent N(0,1)",
+    "feature_flow": [
+      "A'=phi(u)",
+      "u'=A*phi'(u)"
+    ],
+    "rational_coordinates": [
+      "b=sqrt(2)A",
+      "v=u^2"
+    ],
+    "rational_flow": [
+      "b'=v-1",
+      "v'=2*b*v"
+    ],
+    "observable": "F=E[b*(v-1)]/2"
+  },
+  "exact_coordinate_structure": {
+    "invariant": "I=b^2-v+log(v)",
+    "log_coordinate_equation": "q=log(v): q''=2*(exp(q)-1)",
+    "first_integral": "q'^2=4*(I+exp(q)-q)",
+    "quadrature": "dt=dq/(sign(b)*2*sqrt(I+exp(q)-q)) between turning points",
+    "output_identity": "F(t)=(1/4)*d E[b(t)^2]/dt",
+    "scope": "per-neuron implicit solution; not a closed scalar formula for the Gaussian average F"
+  },
+  "derivatives_through_13": [
+    "0",
+    "3",
+    "0",
+    "192",
+    "0",
+    "38592",
+    "0",
+    "16882272",
+    "0",
+    "13710887424",
+    "0",
+    "18618267830400",
+    "0",
+    "39219558574625280"
+  ],
+  "kernel_baseline": {
+    "exact": "3",
+    "decimal": 3.0,
+    "sign": "positive",
+    "nonnegative": true
+  },
+  "moments_mu_0_through_5": [
+    {
+      "exact": "32/3",
+      "decimal": 10.666666666666666,
+      "sign": "positive",
+      "nonnegative": true
+    },
+    {
+      "exact": "440/81",
+      "decimal": 5.432098765432099,
+      "sign": "positive",
+      "nonnegative": true
+    },
+    {
+      "exact": "160738/10935",
+      "decimal": 14.699405578417924,
+      "sign": "positive",
+      "nonnegative": true
+    },
+    {
+      "exact": "30517412/688905",
+      "decimal": 44.29843302051807,
+      "sign": "positive",
+      "nonnegative": true
+    },
+    {
+      "exact": "85823505179/558013050",
+      "decimal": 153.80196785541128,
+      "sign": "positive",
+      "nonnegative": true
+    },
+    {
+      "exact": "13556868117611/23675696550",
+      "decimal": 572.606938468765,
+      "sign": "positive",
+      "nonnegative": true
+    }
+  ],
+  "hankel_audit": {
+    "ordinary": {
+      "H_0": {
+        "matrix": [
+          [
+            "32/3"
+          ]
+        ],
+        "principal_minors": {
+          "0": {
+            "exact": "32/3",
+            "decimal": 10.666666666666666,
+            "sign": "positive",
+            "nonnegative": true
+          }
+        },
+        "leading_principal_determinants": [
+          {
+            "exact": "32/3",
+            "decimal": 10.666666666666666,
+            "sign": "positive",
+            "nonnegative": true
+          }
+        ],
+        "positive_semidefinite": true,
+        "positive_definite": true
+      },
+      "H_1": {
+        "matrix": [
+          [
+            "32/3",
+            "440/81"
+          ],
+          [
+            "440/81",
+            "160738/10935"
+          ]
+        ],
+        "principal_minors": {
+          "0": {
+            "exact": "32/3",
+            "decimal": 10.666666666666666,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          "1": {
+            "exact": "160738/10935",
+            "decimal": 14.699405578417924,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          "0,1": {
+            "exact": "1391872/10935",
+            "decimal": 127.28596250571559,
+            "sign": "positive",
+            "nonnegative": true
+          }
+        },
+        "leading_principal_determinants": [
+          {
+            "exact": "32/3",
+            "decimal": 10.666666666666666,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          {
+            "exact": "1391872/10935",
+            "decimal": 127.28596250571559,
+            "sign": "positive",
+            "nonnegative": true
+          }
+        ],
+        "positive_semidefinite": true,
+        "positive_definite": true
+      },
+      "H_2": {
+        "matrix": [
+          [
+            "32/3",
+            "440/81",
+            "160738/10935"
+          ],
+          [
+            "440/81",
+            "160738/10935",
+            "30517412/688905"
+          ],
+          [
+            "160738/10935",
+            "30517412/688905",
+            "85823505179/558013050"
+          ]
+        ],
+        "principal_minors": {
+          "0": {
+            "exact": "32/3",
+            "decimal": 10.666666666666666,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          "1": {
+            "exact": "160738/10935",
+            "decimal": 14.699405578417924,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          "2": {
+            "exact": "85823505179/558013050",
+            "decimal": 153.80196785541128,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          "0,1": {
+            "exact": "1391872/10935",
+            "decimal": 127.28596250571559,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          "0,2": {
+            "exact": "1192319150356/837019575",
+            "decimal": 1424.4817994322295,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          "1,2": {
+            "exact": "6373785431118877/21356554456125",
+            "decimal": 298.446336192161,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          "0,1,2": {
+            "exact": "162947464880230136/64069663368375",
+            "decimal": 2543.28579726332,
+            "sign": "positive",
+            "nonnegative": true
+          }
+        },
+        "leading_principal_determinants": [
+          {
+            "exact": "32/3",
+            "decimal": 10.666666666666666,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          {
+            "exact": "1391872/10935",
+            "decimal": 127.28596250571559,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          {
+            "exact": "162947464880230136/64069663368375",
+            "decimal": 2543.28579726332,
+            "sign": "positive",
+            "nonnegative": true
+          }
+        ],
+        "positive_semidefinite": true,
+        "positive_definite": true
+      }
+    },
+    "shifted": {
+      "H_0_plus": {
+        "matrix": [
+          [
+            "440/81"
+          ]
+        ],
+        "principal_minors": {
+          "0": {
+            "exact": "440/81",
+            "decimal": 5.432098765432099,
+            "sign": "positive",
+            "nonnegative": true
+          }
+        },
+        "leading_principal_determinants": [
+          {
+            "exact": "440/81",
+            "decimal": 5.432098765432099,
+            "sign": "positive",
+            "nonnegative": true
+          }
+        ],
+        "positive_semidefinite": true,
+        "positive_definite": true
+      },
+      "H_1_plus": {
+        "matrix": [
+          [
+            "440/81",
+            "160738/10935"
+          ],
+          [
+            "160738/10935",
+            "30517412/688905"
+          ]
+        ],
+        "principal_minors": {
+          "0": {
+            "exact": "440/81",
+            "decimal": 5.432098765432099,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          "1": {
+            "exact": "30517412/688905",
+            "decimal": 44.29843302051807,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          "0,1": {
+            "exact": "20557986692/837019575",
+            "decimal": 24.560938962508732,
+            "sign": "positive",
+            "nonnegative": true
+          }
+        },
+        "leading_principal_determinants": [
+          {
+            "exact": "440/81",
+            "decimal": 5.432098765432099,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          {
+            "exact": "20557986692/837019575",
+            "decimal": 24.560938962508732,
+            "sign": "positive",
+            "nonnegative": true
+          }
+        ],
+        "positive_semidefinite": true,
+        "positive_definite": true
+      },
+      "H_2_plus": {
+        "matrix": [
+          [
+            "440/81",
+            "160738/10935",
+            "30517412/688905"
+          ],
+          [
+            "160738/10935",
+            "30517412/688905",
+            "85823505179/558013050"
+          ],
+          [
+            "30517412/688905",
+            "85823505179/558013050",
+            "13556868117611/23675696550"
+          ]
+        ],
+        "principal_minors": {
+          "0": {
+            "exact": "440/81",
+            "decimal": 5.432098765432099,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          "1": {
+            "exact": "30517412/688905",
+            "decimal": 44.29843302051807,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          "2": {
+            "exact": "13556868117611/23675696550",
+            "decimal": 572.606938468765,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          "0,1": {
+            "exact": "20557986692/837019575",
+            "decimal": 24.560938962508732,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          "0,2": {
+            "exact": "4903918838659084/4271310891225",
+            "decimal": 1148.1062754607062,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          "1,2": {
+            "exact": "5858896799399623931269/3425164203673327500",
+            "decimal": 1710.5447946455333,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          "0,1,2": {
+            "exact": "-515758203187135106171912/485517025870694173125",
+            "decimal": -1062.286543426996,
+            "sign": "negative",
+            "nonnegative": false
+          }
+        },
+        "leading_principal_determinants": [
+          {
+            "exact": "440/81",
+            "decimal": 5.432098765432099,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          {
+            "exact": "20557986692/837019575",
+            "decimal": 24.560938962508732,
+            "sign": "positive",
+            "nonnegative": true
+          },
+          {
+            "exact": "-515758203187135106171912/485517025870694173125",
+            "decimal": -1062.286543426996,
+            "sign": "negative",
+            "nonnegative": false
+          }
+        ],
+        "positive_semidefinite": false,
+        "positive_definite": false
+      }
+    },
+    "accessible_matrix_count": 6,
+    "enumerated_principal_minor_count_with_duplicates": 22,
+    "all_accessible_matrices_positive_semidefinite": false,
+    "all_accessible_matrices_positive_definite": false
+  },
+  "all_23_accessible_hankel_minors": {
+    "counts": {
+      "1": 6,
+      "2": 13,
+      "3": 4
+    },
+    "families": {
+      "size_1": {
+        "mu_0": {
+          "exact": "32/3",
+          "decimal": 10.666666666666666,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              0
+            ]
+          ]
+        },
+        "mu_1": {
+          "exact": "440/81",
+          "decimal": 5.432098765432099,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              1
+            ]
+          ]
+        },
+        "mu_2": {
+          "exact": "160738/10935",
+          "decimal": 14.699405578417924,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              2
+            ]
+          ]
+        },
+        "mu_3": {
+          "exact": "30517412/688905",
+          "decimal": 44.29843302051807,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              3
+            ]
+          ]
+        },
+        "mu_4": {
+          "exact": "85823505179/558013050",
+          "decimal": 153.80196785541128,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              4
+            ]
+          ]
+        },
+        "mu_5": {
+          "exact": "13556868117611/23675696550",
+          "decimal": 572.606938468765,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              5
+            ]
+          ]
+        }
+      },
+      "size_2": {
+        "mu_0*mu_2-mu_1*mu_1": {
+          "exact": "1391872/10935",
+          "decimal": 127.28596250571559,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ]
+        },
+        "mu_0*mu_3-mu_1*mu_2": {
+          "exact": "2434598512/6200145",
+          "decimal": 392.66799599041633,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        },
+        "mu_0*mu_4-mu_1*mu_3": {
+          "exact": "167394451952/119574225",
+          "decimal": 1399.9208604697208,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              0,
+              1
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        },
+        "mu_0*mu_5-mu_1*mu_4": {
+          "exact": "1310676346639252/248594813775",
+          "decimal": 5272.339863958419,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              0,
+              1
+            ],
+            [
+              4,
+              5
+            ]
+          ]
+        },
+        "mu_0*mu_4-mu_2*mu_2": {
+          "exact": "1192319150356/837019575",
+          "decimal": 1424.4817994322295,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              0,
+              2
+            ],
+            [
+              2,
+              4
+            ]
+          ]
+        },
+        "mu_0*mu_5-mu_2*mu_3": {
+          "exact": "1356494072760584/248594813775",
+          "decimal": 5456.6467102098495,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              0,
+              2
+            ],
+            [
+              3,
+              5
+            ]
+          ]
+        },
+        "mu_1*mu_3-mu_2*mu_2": {
+          "exact": "20557986692/837019575",
+          "decimal": 24.560938962508732,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ]
+        },
+        "mu_1*mu_4-mu_2*mu_3": {
+          "exact": "4165247829212/22599528525",
+          "decimal": 184.3068462514308,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        },
+        "mu_1*mu_5-mu_2*mu_4": {
+          "exact": "2592258394596649/3050936350875",
+          "decimal": 849.659939268545,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              1,
+              2
+            ],
+            [
+              4,
+              5
+            ]
+          ]
+        },
+        "mu_1*mu_5-mu_3*mu_3": {
+          "exact": "4903918838659084/4271310891225",
+          "decimal": 1148.1062754607062,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              1,
+              3
+            ],
+            [
+              3,
+              5
+            ]
+          ]
+        },
+        "mu_2*mu_4-mu_3*mu_3": {
+          "exact": "6373785431118877/21356554456125",
+          "decimal": 298.446336192161,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        },
+        "mu_2*mu_5-mu_3*mu_4": {
+          "exact": "10172708850746978149/6342896673469125",
+          "decimal": 1603.7954541017632,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              2,
+              3
+            ],
+            [
+              4,
+              5
+            ]
+          ]
+        },
+        "mu_3*mu_5-mu_4*mu_4": {
+          "exact": "5858896799399623931269/3425164203673327500",
+          "decimal": 1710.5447946455333,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              3,
+              4
+            ],
+            [
+              4,
+              5
+            ]
+          ]
+        }
+      },
+      "size_3": {
+        "det[[mu_0,mu_1,mu_2;mu_1,mu_2,mu_3;mu_2,mu_3,mu_4]]": {
+          "exact": "162947464880230136/64069663368375",
+          "decimal": 2543.28579726332,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              3,
+              4
+            ]
+          ]
+        },
+        "det[[mu_0,mu_1,mu_2;mu_1,mu_2,mu_3;mu_3,mu_4,mu_5]]": {
+          "exact": "7382982713068231688/543676857725925",
+          "decimal": 13579.725912832757,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              3,
+              4,
+              5
+            ]
+          ]
+        },
+        "det[[mu_0,mu_1,mu_2;mu_2,mu_3,mu_4;mu_3,mu_4,mu_5]]": {
+          "exact": "147163866964825868666/10571494455781875",
+          "decimal": 13920.819575735333,
+          "sign": "positive",
+          "nonnegative": true,
+          "moment_index_matrix": [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              3,
+              4,
+              5
+            ]
+          ]
+        },
+        "det[[mu_1,mu_2,mu_3;mu_2,mu_3,mu_4;mu_3,mu_4,mu_5]]": {
+          "exact": "-515758203187135106171912/485517025870694173125",
+          "decimal": -1062.286543426996,
+          "sign": "negative",
+          "nonnegative": false,
+          "moment_index_matrix": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              2,
+              3,
+              4
+            ],
+            [
+              3,
+              4,
+              5
+            ]
+          ]
+        }
+      }
+    },
+    "all_nonnegative": false,
+    "all_positive": false,
+    "negative_labels": [
+      "det[[mu_1,mu_2,mu_3;mu_2,mu_3,mu_4;mu_3,mu_4,mu_5]]"
+    ]
+  },
+  "long_jet_search": {
+    "status": "completed",
+    "max_feature_derivative_order": 81,
+    "moment_count": 40,
+    "discovery_moments": [
+      0,
+      24
+    ],
+    "held_out_moments": [
+      25,
+      39
+    ],
+    "algebraic_ogf_candidates": [],
+    "p_recursive_candidates": [],
+    "claim_level": "held-out coefficient search; not an all-order proof"
+  },
+  "validation": {
+    "lie_and_taylor_routes_agree_through": 13,
+    "lie_route_extended_through": 81,
+    "all_even_derivatives_zero_through": 80,
+    "two_exact_moment_routes_agree": true,
+    "unit_gaussian_activation_variance": true
+  },
+  "support_counts": {
+    "lie": [
+      2,
+      4,
+      3,
+      6,
+      6,
+      10,
+      10,
+      15,
+      15,
+      21,
+      21,
+      28,
+      28,
+      36,
+      36,
+      45,
+      45,
+      55,
+      55,
+      66,
+      66,
+      78,
+      78,
+      91,
+      91,
+      105,
+      105,
+      120,
+      120,
+      136,
+      136,
+      153,
+      153,
+      171,
+      171,
+      190,
+      190,
+      210,
+      210,
+      231,
+      231,
+      253,
+      253,
+      276,
+      276,
+      300,
+      300,
+      325,
+      325,
+      351,
+      351,
+      378,
+      378,
+      406,
+      406,
+      435,
+      435,
+      465,
+      465,
+      496,
+      496,
+      528,
+      528,
+      561,
+      561,
+      595,
+      595,
+      630,
+      630,
+      666,
+      666,
+      703,
+      703,
+      741,
+      741,
+      780,
+      780,
+      820,
+      820,
+      861,
+      861,
+      903
+    ],
+    "taylor": {
+      "b": [
+        1,
+        2,
+        1,
+        3,
+        3,
+        6,
+        6,
+        10,
+        10,
+        15,
+        15,
+        21,
+        21,
+        28
+      ],
+      "v": [
+        1,
+        1,
+        3,
+        3,
+        6,
+        6,
+        10,
+        10,
+        15,
+        15,
+        21,
+        21,
+        28,
+        28
+      ],
+      "output": [
+        2,
+        4,
+        3,
+        6,
+        6,
+        10,
+        10,
+        15,
+        15,
+        21,
+        21,
+        28,
+        28,
+        36
+      ]
+    }
+  },
+  "elapsed_seconds": 30.526692874729633,
+  "sha256": {
+    "protocol": "716b34a63629aafea775672e6dfd8581435652783e9273dc34a380bbc55e3d72",
+    "source": "cf8bc4517a76de2b57b99c1d22c76f593fdf1ae9fd3bd1122cceec20acf2cf43"
+  },
+  "claim_boundary": "The order-13 jet, six moments, and finite Hankel signs are exact. The coordinate quadrature is exact but is not a closed population F or K."
+}

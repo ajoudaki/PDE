@@ -1,0 +1,91 @@
+{
+  "campaign_date": "2026-08-19",
+  "model": "raw-quadratic-equal-width-three-hidden-layer",
+  "operator": "D_n = n grad(f_n) dot grad",
+  "limit_order": "width-first-at-fixed-derivative-order",
+  "max_order": 13,
+  "derivatives": {
+    "0": 0,
+    "1": 14175,
+    "2": 0,
+    "3": 139445032896,
+    "4": 0,
+    "5": 4298284752832899360,
+    "6": 0,
+    "7": 272967464957028310013451264,
+    "8": 0,
+    "9": 29466555372596241677766026853605376,
+    "10": 0,
+    "11": 4838138568305355772330223426228537958334464,
+    "12": 0,
+    "13": 1123706942060914791445507530161609246735618530394112
+  },
+  "routes": {
+    "ordinary_taylor": {
+      "elapsed_seconds_inside_engine": 795.4809372536838,
+      "wall_seconds": 795.62,
+      "maximum_resident_kib": 244648,
+      "order13_monomial_counts": {
+        "X": 311,
+        "Z": 2265,
+        "Y": 3058,
+        "T": 507,
+        "B3": 663,
+        "R2": 2022,
+        "B2": 3418,
+        "R1": 316
+      },
+      "wick_cache_sizes": {
+        "bottom": 24385,
+        "middle": 531330,
+        "top": 34748
+      }
+    },
+    "derivative_normalized": {
+      "elapsed_seconds_inside_engine": 784.2029807977378,
+      "wall_seconds": 784.34,
+      "maximum_resident_kib": 243616,
+      "order13_monomial_counts": {
+        "X": 311,
+        "Z": 2265,
+        "Y": 3058,
+        "T": 507,
+        "B3": 663,
+        "R2": 2022,
+        "B2": 3418,
+        "R1": 316
+      },
+      "wick_cache_sizes": {
+        "bottom": 24385,
+        "middle": 531330,
+        "top": 34748
+      }
+    }
+  },
+  "order11_pilot": {
+    "wall_seconds": 123.14,
+    "maximum_resident_kib": 75420,
+    "passed": true
+  },
+  "validation": {
+    "status": "passed",
+    "order9_prefix_reproduced": true,
+    "parity_zero_orders": [0, 2, 4, 6, 8, 10, 12],
+    "independent_coefficient_normalizations_agree": true,
+    "all_outputs_integral": true,
+    "resource_protocol_passed": true
+  },
+  "sha256": {
+    "prospective_order13_protocol": "52562a4ffb2e61c5d153a9a1d50a0197a4a2490660839cf69f88836f3f046956",
+    "frozen_baseline_engine": "2f053874429f02c4c2830fceadc13d688e5962d85503741f76c40a98ef380f0e",
+    "executed_order13_engine": "f7f40919f6a286ad82facfc6451ab9809ed8ed7999110f0aadd58bafb96e2a5c",
+    "parent_order9_result": "e6205be08cf663e64c259328afb276e03188845ef51a7001deef1a92e8778b3d"
+  },
+  "source_hash_audit": {
+    "change": "one source byte between the frozen baseline and both order-13 production runs",
+    "comparison_basis": "pre-change timestamp pyc versus a fresh compile of the executed source",
+    "recursive_code_objects_checked": true,
+    "bytecode_constants_names_variables_flags_and_line_tables_identical": true,
+    "classification": "semantically_inert_whitespace_change"
+  }
+}
