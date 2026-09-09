@@ -19,7 +19,7 @@ from scipy.integrate import quad
 
 
 HERE = Path(__file__).resolve().parent
-PROXY_CAMPAIGN = HERE.parents[1] / "global_proxy_campaign"
+PROXY_CAMPAIGN = HERE.parents[1] / "stieltjes_proxy_campaign"
 if str(PROXY_CAMPAIGN) not in sys.path:
     sys.path.insert(0, str(PROXY_CAMPAIGN))
 

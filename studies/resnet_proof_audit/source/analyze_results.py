@@ -36,13 +36,18 @@ import scipy
 HERE = Path(__file__).resolve().parent
 AUDIT_ROOT = HERE.parent
 WORKSPACE_ROOT = AUDIT_ROOT.parent
+REPO_ROOT = WORKSPACE_ROOT.parent
+HISTORICAL_ROOT = REPO_ROOT / "data/historical/studies/resnet_proof_audit"
+GENERATED_ROOT = REPO_ROOT / "data/generated/resnet_proof_audit"
 PROTOCOL_PATH = AUDIT_ROOT / "protocol" / "preregistered_protocol.json"
-FROZEN_INPUTS_PATH = AUDIT_ROOT / "results" / "seals" / "FROZEN_INPUTS.json"
-RESULTS_ROOT = AUDIT_ROOT / "results"
+FROZEN_INPUTS_PATH = GENERATED_ROOT / "results" / "seals" / "FROZEN_INPUTS.json"
+RESULTS_ROOT = GENERATED_ROOT / "results"
 PROCESSED_ROOT = RESULTS_ROOT / "processed"
 
 if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
+
+from migration_paths import resolve_frozen_source  # noqa: E402
 
 from analyze_study import (  # noqa: E402
     _familywise_band_from_explicit_draws,
@@ -110,6 +115,7 @@ class AnalysisContext:
     frozen_inputs_sha256: str
     frozen_hashes: frozenset[str]
     evidence: tuple[LoadedEvidence, ...]
+    historical: bool = False
 
 
 _CANONICAL_STAGES = {
@@ -187,13 +193,10 @@ def _sha256_file(path: Path) -> str:
 def _resolve_frozen_path(
     audit_root: Path, workspace_root: Path, label: str
 ) -> Path:
-    local = audit_root / label
-    if local.is_file():
-        return local
-    external = workspace_root / label
-    if external.is_file():
-        return external
-    raise AnalysisError(f"frozen source is missing: {label}")
+    try:
+        return resolve_frozen_source(audit_root, workspace_root, label)
+    except (FileNotFoundError, ValueError) as exc:
+        raise AnalysisError(str(exc)) from exc
 
 
 def _load_json(path: Path) -> Mapping[str, Any]:
@@ -244,6 +247,7 @@ def discover_evidence(
     *,
     audit_root: Path = AUDIT_ROOT,
     verify_current_frozen_sources: bool = True,
+    historical: bool = False,
 ) -> AnalysisContext:
     """Discover and validate every scientific archive below ``results``."""
 
@@ -253,6 +257,16 @@ def discover_evidence(
     frozen_path = audit_root / "results" / "seals" / "FROZEN_INPUTS.json"
     results_root = audit_root / "results"
     processed_root = results_root / "processed"
+    if audit_root == AUDIT_ROOT:
+        results_root = (HISTORICAL_ROOT if historical else GENERATED_ROOT) / "results"
+        frozen_path = results_root / "seals" / "FROZEN_INPUTS.json"
+        processed_root = GENERATED_ROOT / ("historical_review" if historical else "results") / "processed"
+        if historical and not protocol_path.is_file():
+            protocol_path = HISTORICAL_ROOT / "protocol" / "preregistered_protocol.json"
+    if historical:
+        # Archive hashes still bind the recorded freeze; this explicit mode
+        # does not claim that relocated live source matches its original bytes.
+        verify_current_frozen_sources = False
     if not protocol_path.is_file():
         raise AnalysisError(f"missing protocol: {protocol_path}")
     if not frozen_path.is_file():
@@ -307,7 +321,7 @@ def discover_evidence(
 
     partials = sorted(results_root.rglob("*.partial")) if results_root.exists() else []
     if partials:
-        labels = ", ".join(str(path.relative_to(audit_root)) for path in partials)
+        labels = ", ".join(str(path.relative_to(results_root.parent)) for path in partials)
         raise AnalysisError(f"partial scientific/processed files present: {labels}")
 
     loaded: list[LoadedEvidence] = []
@@ -383,6 +397,7 @@ def discover_evidence(
         frozen_inputs_sha256=freeze_hash,
         frozen_hashes=frozenset(frozen_hashes),
         evidence=tuple(loaded),
+        historical=historical,
     )
 
 
@@ -6171,7 +6186,7 @@ def analyze_triangle_validation(
 def _archive_inventory(context: AnalysisContext) -> list[Mapping[str, Any]]:
     return [
         {
-            "path": str(item.path.relative_to(context.audit_root)),
+            "path": str(item.path.relative_to(context.results_root.parent)),
             "stage": item.stage,
             "config_sha256": item.archive.metadata["config_sha256"],
             "stage_seal_sha256": item.archive.metadata["seal_sha256"],
@@ -6823,6 +6838,9 @@ def analyze_all(
             "UNRESOLVED, never PASS.",
         ],
     }
+    if context.historical:
+        summary["migration_status"] = "historical_review"
+        summary["current_execution_authorized"] = False
     payloads = dict(csv_payloads)
     payloads["summary.json"] = _canonical_json_bytes(summary) + b"\n"
     return summary, payloads
@@ -6832,6 +6850,8 @@ def write_processed(
     context: AnalysisContext,
     payloads: Mapping[str, bytes],
 ) -> Mapping[str, str]:
+    if context.processed_root.resolve().is_relative_to((REPO_ROOT / "data/historical").resolve()):
+        raise AnalysisError("refusing to write processed outputs into immutable historical data")
     hashes: dict[str, str] = {}
     for name in ("gates.csv", "metrics.csv", "archive_inventory.csv", "summary.json"):
         if name not in payloads:
@@ -6856,12 +6876,16 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="validate and analyze without writing processed outputs",
     )
+    parser.add_argument(
+        "--historical", action="store_true",
+        help="read retained original evidence; write any review only under data/generated",
+    )
     return parser
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
-    context = discover_evidence(audit_root=args.audit_root)
+    context = discover_evidence(audit_root=args.audit_root, historical=args.historical)
     summary, payloads = analyze_all(context)
     output_hashes: Mapping[str, str] = {}
     if not args.no_write:
@@ -6869,7 +6893,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     print(
         json.dumps(
             {
-                "status": "analyzed",
+                "status": "historical_review" if context.historical else "analyzed",
+                "current_execution_authorized": False if context.historical else None,
                 "overall_gate": summary["overall_gate"],
                 "archive_count": summary["archive_count"],
                 "processed_sha256": output_hashes,

@@ -17,7 +17,7 @@ import corrected_clock_core as core
 
 
 HERE = Path(__file__).resolve().parent
-OUTPUT = HERE / "runs/corrected_clock_run_20260814"
+OUTPUT = HERE.parents[1] / "data/generated/stieltjes_direct_loewner/runs/corrected_clock_run_20260814"
 SCIENCE_SEED_BASE = 2026081401
 WIDTHS = (64, 128, 256)
 PAIR_COUNTS = {64: 140, 128: 70, 256: 70}
@@ -302,7 +302,7 @@ def hash_file(path: Path) -> str:
 
 
 def main() -> None:
-    OUTPUT.mkdir(exist_ok=True)
+    OUTPUT.mkdir(parents=True, exist_ok=True)
     log, log_handle = log_factory(OUTPUT / "run.log")
     log("command: " + " ".join(sys.argv))
     log(f"python={sys.version.split()[0]} numpy={np.__version__}")

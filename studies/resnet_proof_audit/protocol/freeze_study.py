@@ -18,7 +18,11 @@ import scipy
 ROOT = Path(__file__).resolve().parents[1]
 WORKSPACE = ROOT.parent
 PROTOCOL = ROOT / "protocol" / "preregistered_protocol.json"
-SEAL = ROOT / "results" / "seals" / "FROZEN_INPUTS.json"
+RESULTS = ROOT.parents[1] / "data/generated/resnet_proof_audit/results"
+SEAL = RESULTS / "seals" / "FROZEN_INPUTS.json"
+HISTORICAL_SEAL = (
+    ROOT.parents[1] / "data/historical/studies/resnet_proof_audit/results/seals/FROZEN_INPUTS.json"
+)
 SCIENTIFIC_SUFFIXES = {".npz", ".npy", ".csv", ".parquet"}
 
 
@@ -51,19 +55,19 @@ def reject_duplicate_pairs(pairs: list[tuple[str, object]]) -> dict[str, object]
 def source_inventory() -> list[Path]:
     canonical = [
         WORKSPACE
-        / "activation_linearity_smoking_gun"
+        / "resnet_activation_controls"
         / "source"
         / "src"
         / "dense_reference"
         / "core.py",
         WORKSPACE
-        / "activation_linearity_smoking_gun"
+        / "resnet_activation_controls"
         / "source"
         / "src"
         / "dense_pde"
         / "operator_galerkin.py",
         WORKSPACE
-        / "activation_linearity_smoking_gun"
+        / "resnet_activation_controls"
         / "source"
         / "src"
         / "activations.py",
@@ -87,7 +91,7 @@ def relative_label(path: Path) -> str:
 
 
 def assert_no_evidence() -> None:
-    results = ROOT / "results"
+    results = RESULTS
     if not results.exists():
         return
     offenders = [
@@ -127,6 +131,11 @@ def atomic_write_json(path: Path, value: object) -> None:
 
 
 def main() -> None:
+    if HISTORICAL_SEAL.is_file():
+        raise RuntimeError(
+            f"historical freeze already exists: {HISTORICAL_SEAL}; "
+            "migration does not authorize regenerating its seal"
+        )
     if SEAL.exists():
         raise RuntimeError(f"freeze already exists: {SEAL}")
     assert_no_evidence()

@@ -15,17 +15,22 @@ from pathlib import Path
 
 import numpy as np
 
+if __package__:
+    from .run_paths import GENERATED_ROOT, parse_paths
+else:
+    from run_paths import GENERATED_ROOT, parse_paths
+
 
 HERE = Path(__file__).resolve().parent
-STUDY = HERE.parents[1]
-MFP_COMPILER = STUDY.parent / "mean_field_peeling" / "quadratic_compiler"
+REPO = HERE.parents[1]
+MFP_COMPILER = HERE.parent / "mfp_quadratic_compiler"
 sys.path.insert(0, str(MFP_COMPILER))
 from finite_width_jet_reference import feature_jet  # noqa: E402
 
 
 PROTOCOL = HERE / "FRESH_ORDER13_MEDIAN_PROTOCOL.md"
-CERTIFICATE = STUDY / "theory/certificates_order11.json"
-OUT = HERE / "runs/fresh_order13_median_run"
+CERTIFICATE = REPO / "studies/stieltjes_theory_history/certificates_order11.json"
+OUT = GENERATED_ROOT / "runs/fresh_order13_median_run"
 WIDTHS = (128, 256)
 COUNT = 512
 SEED_BASE = 2026081601
@@ -98,8 +103,10 @@ def exact_targets() -> tuple[list[float], float]:
 
 
 def main() -> None:
+    args = parse_paths(OUT)
+    output = args.output_dir
     resource.setrlimit(resource.RLIMIT_AS, (ADDRESS_CAP, ADDRESS_CAP))
-    OUT.mkdir(parents=True, exist_ok=True)
+    output.mkdir(parents=True, exist_ok=True)
     targets, threshold = exact_targets()
     results: dict = {
         "design": {
@@ -147,7 +154,7 @@ def main() -> None:
             if (index + 1) % 64 == 0:
                 print(f"width={width} completed={index + 1}/{COUNT}", flush=True)
         raw_by_width[width] = values
-        np.savez_compressed(OUT / f"normalized_jets_width_{width}.npz",
+        np.savez_compressed(output / f"normalized_jets_width_{width}.npz",
                             normalized=values, linear=linear)
         summaries = []
         for r in range(1, 7):
@@ -209,10 +216,10 @@ def main() -> None:
     results["status"] = status
     results["peak_rss_kib"] = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     encoded = json.dumps(results, indent=2) + "\n"
-    (OUT / "results.json").write_text(encoded)
-    (OUT / "run_command.txt").write_text(
+    (output / "results.json").write_text(encoded)
+    (output / "run_command.txt").write_text(
         "OPENBLAS_NUM_THREADS=4 OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 "
-        "python studies/stieltjes_conjecture/numerics/finite_width/"
+        "python studies/stieltjes_finite_width/"
         "run_fresh_order13_median.py\n"
     )
     print(encoded)

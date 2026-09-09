@@ -29,12 +29,17 @@ import scipy
 HERE = Path(__file__).resolve().parent
 AUDIT_ROOT = HERE.parent
 WORKSPACE_ROOT = AUDIT_ROOT.parent
+REPO_ROOT = WORKSPACE_ROOT.parent
+RESULTS_ROOT = REPO_ROOT / "data/generated/resnet_proof_audit/results"
+HISTORICAL_FROZEN_INPUTS_PATH = (
+    REPO_ROOT / "data/historical/studies/resnet_proof_audit/results/seals/FROZEN_INPUTS.json"
+)
 PROTOCOL_PATH = AUDIT_ROOT / "protocol" / "preregistered_protocol.json"
 FROZEN_INPUTS_PATH = (
-    AUDIT_ROOT / "results" / "seals" / "FROZEN_INPUTS.json"
+    RESULTS_ROOT / "seals" / "FROZEN_INPUTS.json"
 )
 CANONICAL_ROOT = (
-    WORKSPACE_ROOT / "activation_linearity_smoking_gun" / "source" / "src"
+    WORKSPACE_ROOT / "resnet_activation_controls" / "source" / "src"
 )
 CANONICAL_PDE_PATH = CANONICAL_ROOT / "dense_pde" / "operator_galerkin.py"
 CANONICAL_DENSE_PATH = CANONICAL_ROOT / "dense_reference" / "core.py"
@@ -47,6 +52,7 @@ if str(CANONICAL_ROOT) not in sys.path:
     sys.path.insert(0, str(CANONICAL_ROOT))
 
 from cross_p import build_nested_quadratures  # noqa: E402
+from migration_paths import resolve_frozen_source  # noqa: E402
 from analyze_study import (  # noqa: E402
     build_sealed_archive,
     derive_homogenization_outer_seed,
@@ -177,22 +183,7 @@ def _live_environment() -> dict[str, str]:
 
 
 def _resolve_frozen_label(label: str) -> Path:
-    relative = Path(label)
-    if (
-        not label
-        or relative.is_absolute()
-        or ".." in relative.parts
-        or "." in relative.parts
-    ):
-        raise ValueError(f"unsafe frozen source label: {label!r}")
-    local = AUDIT_ROOT / relative
-    workspace = WORKSPACE_ROOT / relative
-    candidates = [path for path in (local, workspace) if path.is_file()]
-    if len(candidates) != 1:
-        if not candidates:
-            raise FileNotFoundError(f"missing frozen source: {label}")
-        raise ValueError(f"ambiguous frozen source label: {label}")
-    return candidates[0]
+    return resolve_frozen_source(AUDIT_ROOT, WORKSPACE_ROOT, label)
 
 
 def _verify_frozen_source_tree(
@@ -538,7 +529,8 @@ def _provenance(
     if not FROZEN_INPUTS_PATH.is_file():
         raise FileNotFoundError(
             "scientific execution is forbidden before freezing inputs: "
-            f"{FROZEN_INPUTS_PATH}"
+            f"{FROZEN_INPUTS_PATH}; the original seal at "
+            f"{HISTORICAL_FROZEN_INPUTS_PATH} is historical only"
         )
     frozen_inputs = _load_json_strict(FROZEN_INPUTS_PATH)
     if not isinstance(frozen_inputs, dict):
@@ -2876,7 +2868,7 @@ def _add_output_arguments(parser: argparse.ArgumentParser) -> None:
     group.add_argument(
         "--output-dir",
         type=Path,
-        default=AUDIT_ROOT / "results",
+        default=RESULTS_ROOT,
     )
 
 

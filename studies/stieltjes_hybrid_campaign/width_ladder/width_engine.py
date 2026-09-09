@@ -20,10 +20,10 @@ import torch
 
 
 HERE = Path(__file__).resolve().parent
-REPO_ROOT = HERE.parents[4]
+REPO_ROOT = HERE.parents[2]
 CANONICAL_MODEL_PATH = (
     REPO_ROOT
-    / "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference"
+    / "studies/stieltjes_proxy_campaign/reference"
     / "canonical_model.py"
 )
 

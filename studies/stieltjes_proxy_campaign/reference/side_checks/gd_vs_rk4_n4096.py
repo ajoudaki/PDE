@@ -21,6 +21,8 @@ import torch
 
 HERE = Path(__file__).resolve().parent
 REFERENCE = HERE.parent
+REPO_ROOT = HERE.parents[3]
+HISTORICAL_REFERENCE = REPO_ROOT / "data/historical/studies/stieltjes_proxy_campaign/reference"
 sys.path.insert(0, str(REFERENCE))
 
 import canonical_model  # noqa: E402
@@ -38,14 +40,13 @@ STEPS = (2.0e-5, 1.0e-5, 5.0e-6)
 TOTAL_WALL_CAP_SECONDS = 300.0
 POINT_WALL_CAP_SECONDS = 180.0
 
-REFERENCE_NPZ = REFERENCE / (
+REFERENCE_NPZ = HISTORICAL_REFERENCE / (
     "runs/canonical_n4096_r8_fp32_cast_control_20260814/"
     "canonical_physical_n4096_r8_fp32_cast_control.npz"
 )
-OUTPUT_JSON = Path(
-    "/home/amir/.codex/visualizations/2026/08/14/"
-    "019fff0b-20b5-7c23-8d3e-178d14b24fdd/"
-    "gd-vs-rk4-n4096-result.json"
+OUTPUT_JSON = (
+    REPO_ROOT / "data/generated/stieltjes_proxy_campaign/reference/side_checks"
+    / "gd-vs-rk4-n4096-result.json"
 )
 
 

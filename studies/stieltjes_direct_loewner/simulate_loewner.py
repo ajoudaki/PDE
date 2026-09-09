@@ -20,6 +20,10 @@ from scipy import stats
 
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[1]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 X_NODES = np.array([0.0004, 0.0016, 0.0036, 0.0064], dtype=np.float64)
 Y_NODES = np.sqrt(X_NODES)
 WIDTHS = (64, 128, 256)
@@ -370,12 +374,13 @@ def sha256(path: Path) -> str:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path,
-                        default=HERE / "runs/run_output")
+                        default=HERE.parents[1] / "data/generated/stieltjes_direct_loewner/runs/run_output")
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
+    args.output = PATHS.require_output(args.output)
     args.output.mkdir(parents=True, exist_ok=True)
     log_path = args.output / "run.log"
     log_handle = log_path.open("w")

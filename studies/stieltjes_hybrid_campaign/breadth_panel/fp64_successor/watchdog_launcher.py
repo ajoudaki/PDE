@@ -3,6 +3,17 @@
 
 from __future__ import annotations
 
+if __package__:
+    from .legacy_runtime import require_current_authorization
+else:
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from legacy_runtime import require_current_authorization
+
+if __name__ == "__main__":
+    require_current_authorization()
+
 import argparse
 from datetime import datetime, timezone
 import fcntl
@@ -16,7 +27,7 @@ from typing import Any
 
 
 SUCCESSOR_RELATIVE = Path(
-    "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/"
+    "studies/stieltjes_hybrid_campaign/"
     "breadth_panel/fp64_successor"
 )
 
@@ -63,6 +74,7 @@ def finalize_external_group_failure(
     error_type: str,
     error: str,
 ) -> None:
+    require_current_authorization()
     stage_lock = ledger_path.parent / ".attempts.lock"
     with stage_lock.open("a+", encoding="utf-8") as lock_handle:
         fcntl.flock(lock_handle.fileno(), fcntl.LOCK_EX)
@@ -102,6 +114,7 @@ def finalize_external_group_failure(
 
 
 def main() -> int:
+    require_current_authorization()
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo", type=Path, required=True)
     parser.add_argument("--mode", choices=("preflight", "group"), required=True)

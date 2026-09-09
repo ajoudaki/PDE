@@ -1,7 +1,7 @@
 """Dense-network gates for the neural-PDE proof-obligation audit.
 
 This module deliberately reuses the canonical dense residual-network dynamics
-from ``activation_linearity_smoking_gun/source/src``.  It adds only diagnostic
+from ``resnet_activation_controls/source/src``.  It adds only diagnostic
 infrastructure:
 
 * coupled Gaussian initializations for honest width/depth Cauchy studies;
@@ -25,7 +25,7 @@ import numpy as np
 # Import the frozen canonical implementation rather than copying its dynamics.
 _CANONICAL_SRC = (
     Path(__file__).resolve().parents[2]
-    / "activation_linearity_smoking_gun"
+    / "resnet_activation_controls"
     / "source"
     / "src"
 )

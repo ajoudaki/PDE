@@ -21,10 +21,13 @@ from typing import Any, Mapping, Sequence
 
 import numpy as np
 
+# NumPy 2 renamed the same composite trapezoidal rule; keep NumPy 1.x usable.
+_trapezoid = np.trapezoid if hasattr(np, "trapezoid") else np.trapz
+
 
 _CANONICAL_SOURCE = (
     Path(__file__).resolve().parents[2]
-    / "activation_linearity_smoking_gun"
+    / "resnet_activation_controls"
     / "source"
     / "src"
 )
@@ -1741,7 +1744,7 @@ def stage5_serializable_result(
         )
     residual_l2_norm = np.linalg.norm(residual_coefficients, axis=1)
     residual_l2_integral = float(
-        np.trapezoid(residual_l2_norm, checkpoint_times)
+        _trapezoid(residual_l2_norm, checkpoint_times)
     )
     sources = np.asarray(impulse_times, dtype=float)
     if sources.ndim != 1 or sources.size < 1:

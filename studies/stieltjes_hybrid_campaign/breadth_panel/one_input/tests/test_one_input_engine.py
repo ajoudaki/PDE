@@ -11,7 +11,7 @@ import torch
 
 HERE = Path(__file__).resolve().parents[1]
 EULER = HERE.parents[1] / "width_ladder" / "euler_fp32"
-PROXY_PARENT = HERE.parents[2] / "global_proxy_campaign"
+PROXY_PARENT = HERE.parents[2] / "stieltjes_proxy_campaign"
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(EULER))
 sys.path.insert(0, str(PROXY_PARENT))

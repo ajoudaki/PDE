@@ -32,7 +32,7 @@ import numpy as np
 # module directly importable in isolation without copying scientific source.
 _CANONICAL_SOURCE = (
     Path(__file__).resolve().parents[2]
-    / "activation_linearity_smoking_gun"
+    / "resnet_activation_controls"
     / "source"
     / "src"
 )

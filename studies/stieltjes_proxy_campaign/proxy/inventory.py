@@ -23,9 +23,10 @@ from .exact_series import (
 )
 
 
-REPO_ROOT = Path(__file__).resolve().parents[5]
-COMPILER = REPO_ROOT / "studies/mean_field_peeling/quadratic_compiler"
-THEORY = REPO_ROOT / "studies/stieltjes_conjecture/theory"
+REPO_ROOT = Path(__file__).resolve().parents[3]
+COMPILER = REPO_ROOT / "studies/mfp_quadratic_compiler"
+COMPILER_DATA = REPO_ROOT / "data/historical/studies/mfp_quadratic_compiler"
+THEORY = REPO_ROOT / "studies/stieltjes_theory_history"
 
 
 @dataclass(frozen=True)
@@ -160,7 +161,7 @@ def _variance(parameters: Mapping[str, Fraction]) -> tuple[Fraction, tuple[Fract
 
 
 def _campaign1_jets(observable: str, lam: Fraction) -> dict[int, Fraction]:
-    path = COMPILER / "campaign1/results_order9_q2_order8.json"
+    path = COMPILER_DATA / "campaign1/results_order9_q2_order8.json"
     records = _json(path)["observables"][observable]["jets"]
     return {
         int(record["order"]): _poly(record["lambda_coefficients"], lam)
@@ -231,7 +232,7 @@ def _block_metric(parameters: Mapping[str, Fraction]):
     alpha, beta = _require(parameters, ("alpha", "beta"))
     if alpha < 0 or beta < 0:
         raise ValueError("block metrics alpha,beta must be nonnegative")
-    document = _json(COMPILER / "campaign4/results_order9.json")
+    document = _json(COMPILER_DATA / "campaign4/results_order9.json")
     derivatives: dict[int, Fraction] = {}
     for record in document["jets"]:
         order = int(record["order"])
@@ -251,7 +252,7 @@ def _three_input(parameters: Mapping[str, Fraction]):
     if not Fraction(-1, 2) <= rho <= 1:
         raise ValueError("three-input equicorrelation rho must lie in [-1/2,1]")
     document = _json(
-        COMPILER / "campaign5_b3/frozen/stage_b_connected_order5.json"
+        COMPILER_DATA / "campaign5_b3/frozen/stage_b_connected_order5.json"
     )
     derivatives = {
         order: _poly(coefficients, rho) / (3 ** (order + 1))
@@ -269,13 +270,13 @@ def _specs() -> tuple[FamilySpec, ...]:
     sector_source = THEORY / "sector_total_nonnegativity.py"
     variance_audit = THEORY / "finite_variance_hankel_audit.py"
     boundary_audit = THEORY / "variance_homotopy_boundary_audit.py"
-    c1_results = COMPILER / "campaign1/results_order9_q2_order8.json"
+    c1_results = COMPILER_DATA / "campaign1/results_order9_q2_order8.json"
     c1_certificate = COMPILER / "campaign1/hankel_certificates_order9_q2_order8.json"
     c2_certificate = COMPILER / "campaign2/certificates_order7.json"
     c3_certificate = COMPILER / "campaign3/certificates_order7.json"
-    c4_results = COMPILER / "campaign4/results_order9.json"
+    c4_results = COMPILER_DATA / "campaign4/results_order9.json"
     c4_certificate = COMPILER / "campaign4/certificates_order9.json"
-    c5_results = COMPILER / "campaign5_b3/frozen/stage_b_connected_order5.json"
+    c5_results = COMPILER_DATA / "campaign5_b3/frozen/stage_b_connected_order5.json"
     c5_certificate = COMPILER / "campaign5_b3/certificates_lower_moments.json"
     return (
         FamilySpec(

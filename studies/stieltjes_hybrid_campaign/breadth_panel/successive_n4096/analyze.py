@@ -26,9 +26,11 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 PANEL = HERE.parent
-REPO = HERE.parents[5]
+REPO = HERE.parents[3]
+HISTORICAL_HERE = REPO / "data/historical/studies/stieltjes_hybrid_campaign/breadth_panel" / HERE.name
+OUTPUT_ROOT = REPO / "data/generated/stieltjes_hybrid_campaign/breadth_panel" / HERE.name
 GLOBAL_PROXY_CAMPAIGN = (
-    REPO / "studies/stieltjes_conjecture/numerics/global_proxy_campaign"
+    REPO / "studies/stieltjes_proxy_campaign"
 )
 CONFIG_PATH = HERE / "CONFIG.json"
 RUNNER_PATH = HERE / "run_block.py"
@@ -42,6 +44,7 @@ if str(GLOBAL_PROXY_CAMPAIGN) not in sys.path:
     sys.path.insert(0, str(GLOBAL_PROXY_CAMPAIGN))
 
 from proxy_contract import frozen_proxy_points  # noqa: E402
+from successive_paths import parse_analysis_paths, path_label  # noqa: E402
 from analysis.bootstrap import simultaneous_log_band  # noqa: E402
 
 
@@ -196,7 +199,8 @@ def validate_campaign_config(config: dict[str, Any]) -> None:
 
 
 def validate_block_manifest(
-    config: dict[str, Any], configuration: str, start: int, stop: int, block_dir: Path
+    config: dict[str, Any], configuration: str, start: int, stop: int, block_dir: Path,
+    *, arrays_dir: Path | None = None,
 ) -> tuple[dict[str, Any], Path]:
     manifest_path = block_dir / "MANIFEST.json"
     manifest = read_json(manifest_path)
@@ -271,7 +275,7 @@ def validate_block_manifest(
         f"FP64 source-bundle provenance mismatch: {manifest_path}",
     )
     require(manifest.get("arrays_file") == "arrays.npz", f"wrong NPZ name: {manifest_path}")
-    arrays_path = block_dir / "arrays.npz"
+    arrays_path = (block_dir if arrays_dir is None else arrays_dir) / "arrays.npz"
     require(
         manifest.get("arrays_sha256") == sha256_file(arrays_path),
         f"NPZ digest mismatch: {arrays_path}",
@@ -280,12 +284,14 @@ def validate_block_manifest(
 
 
 def load_block(
-    config: dict[str, Any], configuration: str, start: int, stop: int
+    config: dict[str, Any], configuration: str, start: int, stop: int,
+    *, input_dir: Path = OUTPUT_ROOT, manifest_dir: Path | None = None,
 ) -> BlockData:
     point = expected_point(config, configuration, start, stop)
-    block_dir = HERE / "runs" / point["key"]
+    block_dir = (input_dir if manifest_dir is None else manifest_dir) / "runs" / point["key"]
+    arrays_dir = input_dir / "runs" / point["key"]
     manifest, arrays_path = validate_block_manifest(
-        config, configuration, start, stop, block_dir
+        config, configuration, start, stop, block_dir, arrays_dir=arrays_dir
     )
     steps = int(round(float(point["max_time"]) / float(point["step"])))
     expected_shape = (steps + 1, 2 * (stop - start))
@@ -369,9 +375,9 @@ def load_block(
         + raw["raw_weighted_kernel"][:, 1::2]
     )
     manifest_record = {
-        "manifest_path": str((block_dir / "MANIFEST.json").relative_to(REPO)),
+        "manifest_path": path_label(block_dir / "MANIFEST.json"),
         "manifest_sha256": sha256_file(block_dir / "MANIFEST.json"),
-        "arrays_path": str(arrays_path.relative_to(REPO)),
+        "arrays_path": path_label(arrays_path),
         "arrays_sha256": manifest["arrays_sha256"],
         "lineage_start": start,
         "lineage_stop": stop,
@@ -549,10 +555,11 @@ def quantile_interval(values: np.ndarray, confidence: float) -> tuple[np.ndarray
 
 
 def analyze_configuration(
-    config: dict[str, Any], configuration: str
+    config: dict[str, Any], configuration: str,
+    *, input_dir: Path = OUTPUT_ROOT, manifest_dir: Path | None = None,
 ) -> tuple[dict[str, Any], list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
     blocks = [
-        load_block(config, configuration, int(start), int(stop))
+        load_block(config, configuration, int(start), int(stop), input_dir=input_dir, manifest_dir=manifest_dir)
         for start, stop in config["lineage_blocks"]
     ]
     data = merge_blocks(blocks, configuration)
@@ -933,11 +940,8 @@ def plot_transitions(results: dict[str, dict[str, Any]], path: Path) -> None:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", type=Path, default=HERE)
-    args = parser.parse_args()
-    output_dir = args.output_dir.resolve()
-    output_dir.mkdir(parents=True, exist_ok=True)
+    args = parse_analysis_paths(HERE.name)
+    output_dir = args.output_dir
 
     config = read_json(CONFIG_PATH)
     validate_campaign_config(config)
@@ -947,13 +951,14 @@ def main() -> int:
     transition_rows: list[dict[str, Any]] = []
     for configuration in CONFIGURATION_ORDER:
         result, nodewise, aggregate, transitions = analyze_configuration(
-            config, configuration
+            config, configuration, input_dir=args.input_dir, manifest_dir=args.manifest_dir
         )
         results_by_configuration[configuration] = result
         nodewise_rows.extend(nodewise)
         aggregate_rows.extend(aggregate)
         transition_rows.extend(transitions)
 
+    output_dir.mkdir(parents=True, exist_ok=True)
     write_csv_atomic(output_dir / OUTPUT_FILES["nodewise_csv"], nodewise_rows)
     write_csv_atomic(output_dir / OUTPUT_FILES["aggregate_csv"], aggregate_rows)
     write_csv_atomic(output_dir / OUTPUT_FILES["transitions_csv"], transition_rows)
@@ -966,6 +971,9 @@ def main() -> int:
     payload = {
         "schema": "breadth-successive-n4096-analysis-result-v1",
         "status": "complete",
+        "input_directory": path_label(args.input_dir),
+        "manifest_directory": path_label(args.manifest_dir),
+        "historical_replay": args.historical,
         "scope": config["scope"],
         "generated_utc": datetime.now(timezone.utc).isoformat(),
         "configuration_sha256": sha256_file(CONFIG_PATH),

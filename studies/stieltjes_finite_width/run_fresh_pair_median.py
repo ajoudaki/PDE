@@ -30,6 +30,10 @@ import numpy as np
 
 
 HERE = Path(__file__).resolve().parent
+if __package__:
+    from .run_paths import GENERATED_ROOT, parse_paths
+else:
+    from run_paths import GENERATED_ROOT, parse_paths
 sys.path.insert(0, str(HERE))
 from jet_control_variate import taylor_jet  # noqa: E402
 
@@ -47,7 +51,7 @@ G2 = 842592.0
 EXACT_Q_NUMERATOR = -38443196932
 EXACT_Q_DENOMINATOR = 5616860517
 EXACT_Q = EXACT_Q_NUMERATOR / EXACT_Q_DENOMINATOR
-OUTPUT = HERE / "runs/fresh_pair_median_run"
+OUTPUT = GENERATED_ROOT / "runs/fresh_pair_median_run"
 PROTOCOL = HERE / "FRESH_PAIR_MEDIAN_PROTOCOL.md"
 
 
@@ -211,8 +215,10 @@ def classify(summaries: dict[str, dict]) -> tuple[str, dict]:
 
 
 def main() -> None:
+    global OUTPUT
+    OUTPUT = parse_paths(OUTPUT).output_dir
     install_memory_limit()
-    OUTPUT.mkdir(exist_ok=False)
+    OUTPUT.mkdir(parents=True, exist_ok=False)
     script = Path(__file__).resolve()
     results: dict[str, object] = {
         "status": "running",

@@ -23,11 +23,12 @@ HERE = Path(__file__).resolve().parent
 if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 import run_study as common_runner  # noqa: E402
+from migration_paths import historical_seal_status  # noqa: E402
 
 AUDIT_ROOT = HERE.parent
 PROTOCOL_PATH = AUDIT_ROOT / "protocol" / "preregistered_protocol.json"
-FREEZE_PATH = AUDIT_ROOT / "results" / "seals" / "FROZEN_INPUTS.json"
-RESULTS_ROOT = AUDIT_ROOT / "results"
+FREEZE_PATH = common_runner.FROZEN_INPUTS_PATH
+RESULTS_ROOT = common_runner.RESULTS_ROOT
 PROCESSED_SUMMARY = RESULTS_ROOT / "processed" / "summary.json"
 RUN_STUDY = HERE / "run_study.py"
 STRUCTURAL_RUNNER = HERE / "structural_runner.py"
@@ -903,6 +904,7 @@ def _status_payload(protocol: Mapping[str, Any]) -> dict[str, Any]:
         "protocol_ready": protocol_ready,
         "execution_ready": protocol_ready and freeze_present,
         "freeze_present": freeze_present,
+        "historical_freeze": historical_seal_status(),
         "processed_summary_present": PROCESSED_SUMMARY.is_file(),
         "batch_counts": {
             key: value["job_count"]

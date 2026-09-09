@@ -11,15 +11,21 @@ from pathlib import Path
 import numpy as np
 from numpy.polynomial import Polynomial
 
+if __package__:
+    from .run_paths import GENERATED_ROOT, parse_paths
+else:
+    from run_paths import GENERATED_ROOT, parse_paths
+
 
 HERE = Path(__file__).resolve().parent
-DIRECT = HERE.parent / "direct_loewner"
+DIRECT = HERE.parent / "stieltjes_direct_loewner"
 sys.path.insert(0, str(DIRECT))
 import corrected_clock_core as core  # noqa: E402
 
 
-RUN = DIRECT / "runs/corrected_clock_run_20260814"
-OUT = HERE / "runs/run_jet_cv_20260814"
+RUN = HERE.parents[1] / "data/generated/stieltjes_direct_loewner/runs/corrected_clock_run_20260814"
+HISTORICAL_RUN = HERE.parents[1] / "data/historical/studies/stieltjes_direct_loewner/runs/corrected_clock_run_20260814"
+OUT = GENERATED_ROOT / "runs/run_jet_cv_20260814"
 WIDTHS = (64, 128, 256)
 PAIR_COUNTS = {64: 140, 128: 70, 256: 70}
 BATCH_PAIRS = 35
@@ -175,17 +181,22 @@ def bootstrap(curves, times, width, kind, degree, seed):
 
 
 def main() -> None:
-    OUT.mkdir(parents=True, exist_ok=True)
+    args = parse_paths(OUT, input_dir=RUN, historical_input=HISTORICAL_RUN)
+    output = args.output_dir
+    for width in WIDTHS:
+        if not (args.input_dir / f"raw_width_{width}.npz").is_file():
+            raise FileNotFoundError(args.input_dir / f"raw_width_{width}.npz")
+    output.mkdir(parents=True, exist_ok=True)
     results = {"constants": {"R0": R0, "held_out_R1": R1, "G0": G0, "G2": G2}, "widths": {}}
     for width in WIDTHS:
         print(f"jets width={width}", flush=True)
-        raw = np.load(RUN / f"raw_width_{width}.npz")
+        raw = np.load(args.input_dir / f"raw_width_{width}.npz")
         jets = regenerate_pair_jets(width)
         # Pair f jet is odd. G=f' has c0=f1 and c2=3f3.
         pair_c0 = jets[:, 1]
         pair_c2 = 3.0 * jets[:, 3]
         corrected = raw["pair_g"] + (G0 - pair_c0)[:, None] + (G2 - pair_c2)[:, None] * raw["times"][None, :] ** 2
-        np.savez_compressed(OUT / f"jets_and_cv_width_{width}.npz", jets=jets, corrected=corrected)
+        np.savez_compressed(output / f"jets_and_cv_width_{width}.npz", jets=jets, corrected=corrected)
 
         # Jet reconstruction is checked at the first two positive time points.
         predicted = pair_c0[:, None] + pair_c2[:, None] * raw["times"][None, 1:3] ** 2
@@ -216,7 +227,9 @@ def main() -> None:
                 wout["specs"][key] = entry
         results["widths"][str(width)] = wout
         print(width, wout["specs"]["mom7_degree3"]["q0"], flush=True)
-    (OUT / "results.json").write_text(json.dumps(results, indent=2))
+    results["input_directory"] = str(args.input_dir)
+    results["historical_replay"] = args.historical
+    (output / "results.json").write_text(json.dumps(results, indent=2))
 
 
 if __name__ == "__main__":

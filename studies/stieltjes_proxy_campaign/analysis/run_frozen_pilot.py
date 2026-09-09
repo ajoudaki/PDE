@@ -12,11 +12,12 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 
-from analysis.pilot_runner import (  # noqa: E402
-    PilotAnalysisInvalid,
-    analyze_pilot,
-    write_json_atomic,
-)
+if __package__:
+    from .output_paths import require_new_output
+    from .pilot_runner import PilotAnalysisInvalid, analyze_pilot, write_json_atomic
+else:
+    from output_paths import require_new_output
+    from analysis.pilot_runner import PilotAnalysisInvalid, analyze_pilot, write_json_atomic
 
 
 def parse_args() -> argparse.Namespace:
@@ -30,6 +31,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    args.output, _ = require_new_output(args.output)
     try:
         result = analyze_pilot(args.summary, args.config, args.analysis_config)
         write_json_atomic(args.output, result)
@@ -55,4 +57,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

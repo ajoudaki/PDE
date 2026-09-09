@@ -18,6 +18,8 @@ import torch
 
 HERE = Path(__file__).resolve().parent
 REFERENCE = HERE.parent
+REPO_ROOT = HERE.parents[3]
+HISTORICAL_REFERENCE = REPO_ROOT / "data/historical/studies/stieltjes_proxy_campaign/reference"
 sys.path.insert(0, str(REFERENCE))
 
 import canonical_model  # noqa: E402
@@ -30,14 +32,11 @@ PAIR_BATCH_SIZE = 2
 SEED_BASE = 202608140200
 MAX_TIME = 0.024
 OUTPUT_NODES = np.asarray([0.0, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99])
-REFERENCE_NPZ = REFERENCE / (
+REFERENCE_NPZ = HISTORICAL_REFERENCE / (
     "runs/canonical_n8192_r8_fp32_holdout_20260814/"
     "canonical_physical_n8192_r8_fp32_holdout.npz"
 )
-OUTPUT_ROOT = Path(
-    "/home/amir/.codex/visualizations/2026/08/14/"
-    "019fff0b-20b5-7c23-8d3e-178d14b24fdd"
-)
+OUTPUT_ROOT = REPO_ROOT / "data/generated/stieltjes_proxy_campaign/reference/side_checks"
 
 
 def file_sha256(path: Path) -> str:
@@ -217,6 +216,7 @@ def main() -> int:
     }
     suffix = "5e-6" if step == 5.0e-6 else "2p5e-6"
     output_path = OUTPUT_ROOT / f"gd-vs-rk4-n8192-h{suffix}.json"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(payload, indent=2) + "\n")
     print(json.dumps(payload, indent=2))
     return 0

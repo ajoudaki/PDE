@@ -11,9 +11,13 @@ from pathlib import Path
 import subprocess
 import sys
 
+if __package__:
+    from .generalization_paths import RESULTS, evidence_label, evidence_path
+else:
+    from generalization_paths import RESULTS, evidence_label, evidence_path
+
 
 ROOT = Path(__file__).resolve().parent
-RESULTS = ROOT / "results" / "generalization"
 
 
 def sha256(path: Path) -> str:
@@ -58,10 +62,10 @@ def verify_source(run_tests: bool) -> str:
     return aggregate
 
 
-def verify_seal(path: Path) -> dict:
+def verify_seal(path: Path, results: Path = RESULTS) -> dict:
     record = json.loads(path.read_text())
     for relative, expected in record["files"].items():
-        target = ROOT / relative
+        target = evidence_path(relative, results)
         if not target.exists() or sha256(target) != expected:
             raise RuntimeError(f"sealed evidence mismatch: {relative}")
     if len(record["files"]) != record["file_count"]:
@@ -78,7 +82,7 @@ def verify_evidence(run_tests: bool) -> None:
     dense = verify_seal(dense_path)
     processed = verify_seal(processed_path)
     sealed_pde_archives = {
-        (ROOT / relative).resolve()
+        evidence_path(relative, RESULTS)
         for relative in pde["files"]
         if relative.endswith(".npz")
     }
@@ -95,7 +99,7 @@ def verify_evidence(run_tests: bool) -> None:
     if sealed_pde_archives != actual_pde_archives:
         raise RuntimeError("current PDE archive inventory differs from its seal")
     sealed_dense_archives = {
-        (ROOT / relative).resolve()
+        evidence_path(relative, RESULTS)
         for relative in dense["files"]
         if relative.endswith(".npz")
     }
@@ -151,14 +155,14 @@ def verify_evidence(run_tests: bool) -> None:
             "processed seal inventory differs from required deliverables"
         )
     for relative in required:
-        if not (ROOT / relative).is_file():
+        if not evidence_path(relative, RESULTS).is_file():
             raise RuntimeError(f"missing processed deliverable: {relative}")
         if relative not in processed["files"]:
             raise RuntimeError(
                 f"processed seal omits required deliverable: {relative}"
             )
     actual_processed = {
-        os.fspath(path.relative_to(ROOT))
+        evidence_label(path, RESULTS)
         for directory in (
             RESULTS / "processed",
             RESULTS / "figures",

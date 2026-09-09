@@ -33,6 +33,8 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parent
+REPO_ROOT = ROOT.parents[1]
+RESULTS = REPO_ROOT / "data/generated/resnet_activation_controls/results"
 sys.path.insert(0, os.fspath(ROOT / "source" / "src"))
 
 from study_cases import StudyCase, load_case  # noqa: E402
@@ -2513,6 +2515,8 @@ def run_analysis(args: argparse.Namespace) -> dict[str, Any]:
     pde_dir = Path(args.pde_dir).resolve()
     dense_dir = Path(args.dense_dir).resolve()
     output_dir = Path(args.output_dir).resolve()
+    if output_dir.is_relative_to((REPO_ROOT / "data/historical").resolve()):
+        raise AnalysisIntegrityError("refusing to write analysis into immutable historical data")
     protocol = _json(protocol_path)
     if tuple(protocol.get("primary_cases", ())) != ("C0", "C1", "C2", "C4"):
         raise AnalysisIntegrityError("unexpected primary-case registry")
@@ -2552,19 +2556,20 @@ def run_analysis(args: argparse.Namespace) -> dict[str, Any]:
         for archive in source.values()
     ]
     results_dir = pde_dir.parent
+    evidence_root = results_dir.parent
     pde_seal_path = results_dir / "PDE_STAGE_SEAL.json"
     dense_seal_path = results_dir / "DENSE_STAGE_SEAL.json"
     pde_seal = _verify_seal(
         pde_seal_path,
         expected_stage="activation_linearity_pde",
         expected_paths=pde_paths,
-        root=root,
+        root=evidence_root,
     )
     dense_seal = _verify_seal(
         dense_seal_path,
         expected_stage="activation_linearity_dense",
         expected_paths=dense_paths,
-        root=root,
+        root=evidence_root,
     )
     _verify_frozen_maps(pde_seal, root, "PDE seal")
     _verify_frozen_maps(dense_seal, root, "dense seal")
@@ -2748,11 +2753,11 @@ def run_analysis(args: argparse.Namespace) -> dict[str, Any]:
         "dense_seal_sha256": _sha256(dense_seal_path),
         "dynamics_sha256": pde_seal["dynamics_sha256"],
         "pde_archives": {
-            os.fspath(path.relative_to(root)): _sha256(path)
+            os.fspath(path.relative_to(evidence_root)): _sha256(path)
             for path in sorted(pde_paths)
         },
         "dense_archives": {
-            os.fspath(path.relative_to(root)): _sha256(path)
+            os.fspath(path.relative_to(evidence_root)): _sha256(path)
             for path in sorted(dense_paths)
         },
     }
@@ -2836,15 +2841,15 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument(
         "--pde-dir",
-        default=os.fspath(ROOT / "results" / "pde"),
+        default=os.fspath(RESULTS / "pde"),
     )
     parser.add_argument(
         "--dense-dir",
-        default=os.fspath(ROOT / "results" / "dense"),
+        default=os.fspath(RESULTS / "dense"),
     )
     parser.add_argument(
         "--output-dir",
-        default=os.fspath(ROOT / "results" / "processed"),
+        default=os.fspath(RESULTS / "processed"),
     )
     return parser.parse_args(argv)
 

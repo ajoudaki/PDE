@@ -2207,7 +2207,7 @@ def _add_output_arguments(parser: argparse.ArgumentParser) -> None:
     group.add_argument(
         "--output-dir",
         type=Path,
-        default=AUDIT_ROOT / "results",
+        default=common.RESULTS_ROOT,
     )
 
 

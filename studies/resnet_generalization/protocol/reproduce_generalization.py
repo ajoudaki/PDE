@@ -13,6 +13,8 @@ import tempfile
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from generalization_paths import RESULTS, precheck_command  # noqa: E402
 PYTHON = sys.executable
 
 
@@ -56,12 +58,10 @@ def main() -> None:
             ],
             env,
         )
-    run([PYTHON, "pde_precheck.py"], env)
+    run(precheck_command(PYTHON, RESULTS, RESULTS / "pde_numerical_decision.json"), env)
     decision = json.loads(
         (
-            ROOT
-            / "results"
-            / "generalization"
+            RESULTS
             / "pde_numerical_decision.json"
         ).read_text()
     )

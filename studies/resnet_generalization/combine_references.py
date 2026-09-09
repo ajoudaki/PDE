@@ -11,6 +11,27 @@ from pathlib import Path
 
 import numpy as np
 
+if __package__:
+    from .generalization_paths import require_output
+else:
+    from generalization_paths import require_output
+
+
+def require_new_output(output: Path, inputs: list[Path]) -> tuple[Path, Path]:
+    selected = Path(output)
+    output = require_output(selected)
+    for source in inputs:
+        source = Path(source)
+        if source.resolve() == output or (
+            source.exists() and output.exists() and source.samefile(output)
+        ):
+            raise ValueError(f"output aliases an input archive: {source}")
+    partial = output.with_suffix(output.suffix + ".partial")
+    for path in (selected, output, partial):
+        if path.exists() or path.is_symlink():
+            raise FileExistsError(f"refusing to overwrite existing output or partial: {path}")
+    return output, partial
+
 
 def load_raw(path: Path) -> dict[str, np.ndarray]:
     with np.load(path, allow_pickle=False) as archive:
@@ -40,6 +61,7 @@ def main() -> None:
     parser.add_argument("inputs", type=Path, nargs="+")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
+    args.output, _ = require_new_output(args.output, args.inputs)
 
     archives = [load_raw(path) for path in args.inputs]
     times = archives[0]["times"]
@@ -108,9 +130,9 @@ def main() -> None:
         },
     }
 
+    args.output, partial = require_new_output(args.output, args.inputs)
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    partial = args.output.with_suffix(args.output.suffix + ".partial")
-    with partial.open("wb") as handle:
+    with partial.open("xb") as handle:
         np.savez_compressed(
             handle,
             times=times,
@@ -129,6 +151,9 @@ def main() -> None:
         )
         handle.flush()
         os.fsync(handle.fileno())
+    require_output(args.output)
+    if args.output.exists() or args.output.is_symlink():
+        raise FileExistsError(f"refusing to overwrite existing output: {args.output}")
     os.replace(partial, args.output)
     print(
         json.dumps(

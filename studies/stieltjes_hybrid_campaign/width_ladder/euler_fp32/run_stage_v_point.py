@@ -29,12 +29,16 @@ from euler_engine import BudgetStop, NumericalInvalid, run_point
 
 
 HERE = Path(__file__).resolve().parent
+REPO_ROOT = HERE.parents[3]
+HISTORICAL_ROOT = REPO_ROOT / "data/historical/studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32"
+OUTPUT_ROOT = REPO_ROOT / "data/generated/stieltjes_hybrid_campaign/width_ladder/euler_fp32"
 CONFIG = HERE / "configs" / "FROZEN_STAGE_V.json"
 LOCK = HERE / "FROZEN_STAGE_V_MANIFEST.json"
 UNLOCK = HERE / "STAGE_V_UNLOCK.json"
-RUN_ROOT = HERE / "runs" / "stage_v"
-LEDGER = HERE / ".runtime" / "stage_v_attempts.json"
-LEDGER_LOCK = HERE / ".runtime" / "stage_v_attempts.lock"
+RUN_ROOT = OUTPUT_ROOT / "runs" / "stage_v"
+LEDGER = OUTPUT_ROOT / ".runtime" / "stage_v_attempts.json"
+LEDGER_LOCK = OUTPUT_ROOT / ".runtime" / "stage_v_attempts.lock"
+HISTORICAL_LEDGER = HISTORICAL_ROOT / ".runtime" / "stage_v_attempts.json"
 
 
 class ExternalTermination(RuntimeError):
@@ -112,7 +116,10 @@ def validate_unlock(lock_sha: str) -> dict[str, Any]:
     if unlock.get("config_sha256") != sha256(CONFIG):
         raise RuntimeError("unlock does not bind the frozen config")
     if (HERE / unlock.get("run_root", "")).resolve() != RUN_ROOT.resolve():
-        raise RuntimeError("unlock does not bind the fixed run root")
+        raise RuntimeError(
+            "unlock does not bind the fresh generated run root; "
+            "historical authorization cannot be reused after migration"
+        )
     return unlock
 
 
@@ -146,6 +153,10 @@ def environment(device: torch.device, numerical: dict[str, Any]) -> dict[str, An
 
 
 def reserve_attempt(point_id: str) -> None:
+    if HISTORICAL_LEDGER.is_file():
+        historical = load_json(HISTORICAL_LEDGER)
+        if point_id in historical["attempts"]:
+            raise RuntimeError(f"point {point_id} already consumed its only attempt in history")
     LEDGER.parent.mkdir(parents=True, exist_ok=True)
     with LEDGER_LOCK.open("a+") as handle:
         fcntl.flock(handle.fileno(), fcntl.LOCK_EX)

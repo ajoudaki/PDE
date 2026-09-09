@@ -3,6 +3,17 @@
 
 from __future__ import annotations
 
+if __package__:
+    from .legacy_runtime import require_current_authorization
+else:
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from legacy_runtime import require_current_authorization
+
+if __name__ == "__main__":
+    require_current_authorization()
+
 import argparse
 from datetime import datetime, timezone
 import hashlib
@@ -21,6 +32,7 @@ import run_local_qualification as local
 
 
 def main() -> int:
+    require_current_authorization()
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo", type=Path, required=True)
     parser.add_argument("--config", type=Path, required=True)

@@ -31,12 +31,10 @@ MAX_TIME = 0.024
 WALL_CAP_SECONDS = 600.0
 GPU_CAP_GIB = 12.0
 OUTPUT_NODES = np.asarray([0.0, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99])
-OUTPUT_ROOT = Path(
-    "/home/amir/.codex/visualizations/2026/08/14/"
-    "019fff0b-20b5-7c23-8d3e-178d14b24fdd"
-)
-OUTPUT_NPZ = OUTPUT_ROOT / "gd-n16384-single-pair-h5e-6.npz"
-OUTPUT_JSON = OUTPUT_ROOT / "gd-n16384-single-pair-h5e-6.json"
+sys.path.insert(0, str(HERE.parents[3]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 
 
 def sha256(path: Path) -> str:
@@ -100,6 +98,11 @@ def euler_step(
 
 
 def main() -> int:
+    OUTPUT_ROOT = PATHS.parse().output_dir
+    OUTPUT_NPZ = OUTPUT_ROOT / "gd-n16384-single-pair-h5e-6.npz"
+    OUTPUT_JSON = OUTPUT_ROOT / "gd-n16384-single-pair-h5e-6.json"
+    if OUTPUT_NPZ.exists() or OUTPUT_JSON.exists():
+        raise FileExistsError("no-overwrite gate: single-pair output already exists")
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA unavailable")
     device = torch.device("cuda:1")

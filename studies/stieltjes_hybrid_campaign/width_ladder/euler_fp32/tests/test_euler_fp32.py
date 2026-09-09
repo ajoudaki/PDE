@@ -10,7 +10,7 @@ import torch
 
 
 HERE = Path(__file__).resolve().parents[1]
-REFERENCE = HERE.parents[2] / "global_proxy_campaign" / "reference"
+REFERENCE = HERE.parents[2] / "stieltjes_proxy_campaign" / "reference"
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(REFERENCE))
 

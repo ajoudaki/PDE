@@ -28,7 +28,12 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 PANEL = HERE.parent
-REPO = HERE.parents[5]
+if str(PANEL) not in sys.path:
+    sys.path.insert(0, str(PANEL))
+from successive_paths import GENERATED_PANEL, parse_analysis_paths, path_label
+REPO = HERE.parents[3]
+HISTORICAL_PANEL = REPO / "data/historical/studies/stieltjes_hybrid_campaign/breadth_panel"
+OUTPUT_ROOT = REPO / "data/generated/stieltjes_hybrid_campaign/breadth_panel/successive_n8192"
 N4096_DIR = PANEL / "successive_n4096"
 N8192_DIR = HERE
 CONFIGURATION_ORDER = ("C", "A", "M", "V")
@@ -57,6 +62,8 @@ class Campaign:
     retained_result: dict[str, Any]
     data: dict[str, Any]
     neural_reference: dict[str, np.ndarray]
+    input_directory: Path
+    manifest_directory: Path
 
 
 def require(condition: bool, message: str) -> None:
@@ -95,13 +102,13 @@ def load_module(path: Path, name: str) -> types.ModuleType:
 
 
 def load_analyzers() -> tuple[types.ModuleType, types.ModuleType]:
-    analyzer_4096 = load_module(
-        N4096_DIR / "analyze.py", "breadth_successive_n4096_for_width_comparison"
-    )
     wrapper_8192 = load_module(
         N8192_DIR / "analyze.py", "breadth_successive_n8192_wrapper_for_comparison"
     )
     analyzer_8192 = wrapper_8192.load_analyzer()
+    analyzer_4096 = load_module(
+        N4096_DIR / "analyze.py", "breadth_successive_n4096_numerical_analysis"
+    )
     return analyzer_4096, analyzer_8192
 
 
@@ -124,8 +131,9 @@ def validate_retained_result(
     config: dict[str, Any],
     data: dict[str, Any],
     neural: dict[str, np.ndarray],
+    *, input_dir: Path | None = None,
 ) -> dict[str, Any]:
-    path = directory / "RESULTS.json"
+    path = (GENERATED_PANEL / directory.name if input_dir is None else input_dir) / "RESULTS.json"
     result = read_json(path)
     require(
         result.get("schema") == f"breadth-successive-n{width}-analysis-result-v1",
@@ -171,8 +179,11 @@ def validate_retained_result(
 
 
 def load_campaign(
-    width: int, directory: Path, analyzer: types.ModuleType
+    width: int, directory: Path, analyzer: types.ModuleType,
+    *, input_dir: Path | None = None, manifest_dir: Path | None = None,
 ) -> Campaign:
+    input_dir = GENERATED_PANEL / directory.name if input_dir is None else input_dir
+    manifest_dir = input_dir if manifest_dir is None else manifest_dir
     config = analyzer.read_json(analyzer.CONFIG_PATH)
     analyzer.validate_campaign_config(config)
     require(int(config.get("width", 0)) == width, f"wrong campaign width at {directory}")
@@ -180,7 +191,7 @@ def load_campaign(
     neural: dict[str, np.ndarray] = {}
     for key in CONFIGURATION_ORDER:
         blocks = [
-            analyzer.load_block(config, key, int(start), int(stop))
+            analyzer.load_block(config, key, int(start), int(stop), input_dir=input_dir, manifest_dir=manifest_dir)
             for start, stop in config["lineage_blocks"]
         ]
         merged = analyzer.merge_blocks(blocks, key)
@@ -190,9 +201,9 @@ def load_campaign(
         )
         neural[key] = reference
     retained = validate_retained_result(
-        width, directory, analyzer, config, data, neural
+        width, directory, analyzer, config, data, neural, input_dir=input_dir
     )
-    return Campaign(width, directory, analyzer, config, retained, data, neural)
+    return Campaign(width, directory, analyzer, config, retained, data, neural, input_dir, manifest_dir)
 
 
 def validate_matched_contract(c4096: Campaign, c8192: Campaign) -> None:
@@ -224,7 +235,7 @@ def lineage_diagnostics(campaign: Campaign, key: str) -> dict[int, dict[str, Any
     records: dict[int, dict[str, Any]] = {}
     for start, stop in campaign.config["lineage_blocks"]:
         manifest_path = (
-            campaign.directory
+            campaign.manifest_directory
             / "runs"
             / f"{key}_n{campaign.width}_L{start}_{stop}"
             / "MANIFEST.json"
@@ -809,8 +820,8 @@ def campaign_provenance(campaign: Campaign) -> dict[str, Any]:
         "config_sha256": sha256_file(campaign.directory / "CONFIG.json"),
         "analysis_path": str((campaign.directory / "analyze.py").relative_to(REPO)),
         "analysis_sha256": sha256_file(campaign.directory / "analyze.py"),
-        "retained_result_path": str((campaign.directory / "RESULTS.json").relative_to(REPO)),
-        "retained_result_sha256": sha256_file(campaign.directory / "RESULTS.json"),
+        "retained_result_path": path_label(campaign.input_directory / "RESULTS.json"),
+        "retained_result_sha256": sha256_file(campaign.input_directory / "RESULTS.json"),
         "blocks": {
             key: list(campaign.data[key].manifests) for key in CONFIGURATION_ORDER
         },
@@ -818,15 +829,12 @@ def campaign_provenance(campaign: Campaign) -> dict[str, Any]:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", type=Path, default=HERE)
-    args = parser.parse_args()
-    output_dir = args.output_dir.resolve()
-    output_dir.mkdir(parents=True, exist_ok=True)
+    args = parse_analysis_paths(HERE.name, panel_inputs=True)
+    output_dir = args.output_dir
 
     analyzer_4096, analyzer_8192 = load_analyzers()
-    campaign_4096 = load_campaign(4096, N4096_DIR, analyzer_4096)
-    campaign_8192 = load_campaign(8192, N8192_DIR, analyzer_8192)
+    campaign_4096 = load_campaign(4096, N4096_DIR, analyzer_4096, input_dir=args.input_dir/N4096_DIR.name, manifest_dir=args.manifest_dir/N4096_DIR.name)
+    campaign_8192 = load_campaign(8192, N8192_DIR, analyzer_8192, input_dir=args.input_dir/N8192_DIR.name, manifest_dir=args.manifest_dir/N8192_DIR.name)
     validate_matched_contract(campaign_4096, campaign_8192)
     pairing_audit = audit_nested_pairing(campaign_4096, campaign_8192)
 
@@ -845,6 +853,7 @@ def main() -> int:
         transition_rows.extend(transitions)
         best_rows.extend(best)
 
+    output_dir.mkdir(parents=True, exist_ok=True)
     write_csv_atomic(output_dir / OUTPUT_FILES["nodewise_csv"], nodewise_rows)
     write_csv_atomic(output_dir / OUTPUT_FILES["aggregate_csv"], aggregate_rows)
     write_csv_atomic(output_dir / OUTPUT_FILES["transitions_csv"], transition_rows)
@@ -856,6 +865,7 @@ def main() -> int:
     payload = {
         "schema": "breadth-successive-width-comparison-n4096-n8192-v1",
         "status": "complete",
+        "historical_replay": args.historical,
         "generated_utc": datetime.now(timezone.utc).isoformat(),
         "scope": "paired fixed-width movement from n=4096 to n=8192; no width-limit extrapolation",
         "comparison_source_sha256": sha256_file(Path(__file__)),

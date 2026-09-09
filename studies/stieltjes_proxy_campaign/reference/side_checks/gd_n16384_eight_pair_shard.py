@@ -32,10 +32,10 @@ MAX_TIME = 0.024
 WALL_CAP_SECONDS = 1200.0
 GPU_CAP_GIB = 22.0
 OUTPUT_NODES = np.asarray([0.0, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99])
-OUTPUT_ROOT = Path(
-    "/home/amir/.codex/visualizations/2026/08/14/"
-    "019fff0b-20b5-7c23-8d3e-178d14b24fdd"
-)
+sys.path.insert(0, str(HERE.parents[3]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 
 
 def sha256(path: Path) -> str:
@@ -128,13 +128,15 @@ def euler_step(
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
+    PATHS.add_arguments(parser)
     parser.add_argument("--shard", type=int, choices=(0, 1), required=True)
     parser.add_argument("--device", choices=("cuda:0", "cuda:1"), required=True)
-    return parser.parse_args()
+    return PATHS.resolve_arguments(parser.parse_args())
 
 
 def main() -> int:
     args = parse_args()
+    OUTPUT_ROOT = args.output_dir
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA unavailable")
     pair_start = 4 * args.shard

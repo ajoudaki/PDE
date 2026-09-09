@@ -15,7 +15,10 @@ import tempfile
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, os.fspath(ROOT))
 sys.path.insert(0, os.fspath(ROOT / "src"))
+
+from generalization_paths import RESULTS, evidence_label, evidence_path, precheck_command  # noqa: E402
 
 import numpy as np  # noqa: E402
 from study_cases import load_case  # noqa: E402
@@ -24,7 +27,6 @@ PROTOCOL = json.loads(
     (ROOT / "protocol" / "generalization_protocol.json").read_text()
 )
 REGISTRY = ROOT / "protocol" / "cases.json"
-RESULTS = ROOT / "results" / "generalization"
 PYTHON = sys.executable
 
 
@@ -355,7 +357,7 @@ def _require_pde_seal() -> None:
     if record["run_grid_sha256"] != _sha256(Path(__file__)):
         raise RuntimeError("PDE seal belongs to a different execution runner")
     for relative, expected in record["files"].items():
-        path = ROOT / relative
+        path = evidence_path(relative, RESULTS)
         if not path.exists() or _sha256(path) != expected:
             raise RuntimeError(f"sealed PDE file mismatch: {relative}")
 
@@ -574,7 +576,7 @@ def seal_dense() -> None:
         "run_grid_sha256": _sha256(Path(__file__)),
         "pde_seal_sha256": pde_seal_sha256,
         "files": {
-            os.fspath(path.relative_to(ROOT)): _sha256(path)
+            evidence_label(path, RESULTS): _sha256(path)
             for path in sorted(expected)
         },
         "file_count": len(expected),
@@ -814,7 +816,7 @@ def seal_pde() -> None:
     if not isinstance(recorded_inputs, dict):
         raise RuntimeError("PDE numerical decision lacks input-file hashes")
     for relative, expected_sha in recorded_inputs.items():
-        input_path = ROOT / relative
+        input_path = evidence_path(relative, RESULTS)
         if not input_path.is_file() or _sha256(input_path) != expected_sha:
             raise RuntimeError(
                 f"PDE numerical decision input mismatch: {relative}"
@@ -826,12 +828,7 @@ def seal_pde() -> None:
         environment = os.environ.copy()
         environment["PYTHONPATH"] = os.fspath(ROOT / "src")
         completed = subprocess.run(
-            [
-                PYTHON,
-                "pde_precheck.py",
-                "--output",
-                os.fspath(recomputed_path),
-            ],
+            precheck_command(PYTHON, RESULTS, recomputed_path),
             cwd=ROOT,
             env=environment,
             text=True,
@@ -984,7 +981,7 @@ def seal_pde() -> None:
             raise RuntimeError(f"duplicate expected PDE configuration: {key}")
         seen.add(key)
         _validate_pde_archive(path, expected)
-        files[os.fspath(path.relative_to(ROOT))] = _sha256(path)
+        files[evidence_label(path, RESULTS)] = _sha256(path)
     actual_directories = [
         "pde_primary",
         "pde_scramble",
@@ -1002,7 +999,7 @@ def seal_pde() -> None:
         missing = sorted(os.fspath(p) for p in expected_paths - actual)
         raise RuntimeError(f"PDE archive set mismatch extras={extras} missing={missing}")
     files[
-        os.fspath(numerical_decision_path.relative_to(ROOT))
+        evidence_label(numerical_decision_path, RESULTS)
     ] = _sha256(numerical_decision_path)
     record = {
         "dynamics_sha256": dynamics,

@@ -14,7 +14,7 @@ import torch
 
 HERE = Path(__file__).resolve().parent
 SUCCESSOR = HERE.parent
-REPO = SUCCESSOR.parents[5]
+REPO = SUCCESSOR.parents[3]
 SCRIPT = SUCCESSOR / "run_local_qualification.py"
 SPEC = importlib.util.spec_from_file_location("fp64_local_qualification", SCRIPT)
 assert SPEC is not None and SPEC.loader is not None
@@ -128,7 +128,7 @@ class FP64LocalTests(unittest.TestCase):
             repo = Path(directory)
             frozen = dict(self.frozen)
             frozen["run_root"] = (
-                "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/"
+                "studies/stieltjes_hybrid_campaign/"
                 "breadth_panel/fp64_successor/runs/local_v1"
             )
             output, ledger, attempt = MODULE.reserve_canonical_attempt(

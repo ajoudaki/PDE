@@ -25,9 +25,8 @@ import mpmath as mp
 
 
 COMPILER = (
-    Path(__file__).resolve().parents[4]
-    / "mean_field_peeling"
-    / "quadratic_compiler"
+    Path(__file__).resolve().parents[2]
+    / "mfp_quadratic_compiler"
 )
 if str(COMPILER) not in sys.path:
     sys.path.insert(0, str(COMPILER))

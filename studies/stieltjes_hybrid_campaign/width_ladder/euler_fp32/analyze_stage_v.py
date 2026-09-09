@@ -13,6 +13,10 @@ import numpy as np
 
 
 HERE = Path(__file__).resolve().parent
+REPO_ROOT = HERE.parents[3]
+HISTORICAL_ROOT = REPO_ROOT / "data/historical/studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32"
+OUTPUT_ROOT = REPO_ROOT / "data/generated/stieltjes_hybrid_campaign/width_ladder/euler_fp32"
+MANIFEST_ROOT = HERE / "runs/stage_v"
 CONFIG = HERE / "configs" / "FROZEN_STAGE_V.json"
 PROTOCOL = HERE / "PROTOCOL.md"
 LOCK = HERE / "FROZEN_STAGE_V_MANIFEST.json"
@@ -43,7 +47,7 @@ def validate_authority(run_root: Path) -> dict[str, str]:
         raise RuntimeError("unlock does not bind the source lock")
     if unlock.get("config_sha256") != sha256(CONFIG):
         raise RuntimeError("unlock does not bind the config")
-    if (HERE / unlock.get("run_root", "")).resolve() != run_root.resolve():
+    if (HISTORICAL_ROOT / unlock.get("run_root", "")).resolve() != run_root.resolve():
         raise RuntimeError("unlock does not bind this run root")
     return {
         "config_sha256": sha256(CONFIG),
@@ -57,10 +61,11 @@ def load_point(
     run_root: Path,
     point: dict[str, Any],
     authority: dict[str, str],
+    *, manifest_root: Path = MANIFEST_ROOT,
 ) -> tuple[dict, dict[str, np.ndarray], str]:
     point_id = str(point["id"])
     point_dir = run_root / point_id
-    manifest_path = point_dir / "manifest.json"
+    manifest_path = manifest_root / point_id / "manifest.json"
     manifest = load_json(manifest_path)
     if manifest.get("status") != "complete_validation_valid":
         raise RuntimeError(f"{point_id} is not a completed validation point")
@@ -106,17 +111,17 @@ def max_relative(a: np.ndarray, b: np.ndarray) -> float:
     return float(np.max(np.abs(a - b) / scale))
 
 
-def evaluate(run_root: Path) -> dict[str, Any]:
+def evaluate(run_root: Path, *, manifest_root: Path = MANIFEST_ROOT) -> dict[str, Any]:
     config = load_json(CONFIG)
     authority = validate_authority(run_root)
     gates = config["decision_gates"]
     coarse_point, fine_point = config["points"]
     coarse_id, fine_id = coarse_point["id"], fine_point["id"]
     coarse_manifest, coarse, coarse_arrays_sha = load_point(
-        run_root, coarse_point, authority
+        run_root, coarse_point, authority, manifest_root=manifest_root
     )
     fine_manifest, fine, fine_arrays_sha = load_point(
-        run_root, fine_point, authority
+        run_root, fine_point, authority, manifest_root=manifest_root
     )
     dc, df = coarse_manifest["diagnostics"], fine_manifest["diagnostics"]
 
@@ -218,8 +223,8 @@ def evaluate(run_root: Path) -> dict[str, Any]:
         "scientific_evidence_admissible": False,
         **authority,
         "point_manifests": {
-            coarse_id: sha256(run_root / coarse_id / "manifest.json"),
-            fine_id: sha256(run_root / fine_id / "manifest.json"),
+            coarse_id: sha256(manifest_root / coarse_id / "manifest.json"),
+            fine_id: sha256(manifest_root / fine_id / "manifest.json"),
         },
         "point_arrays": {
             coarse_id: coarse_arrays_sha,
@@ -253,12 +258,17 @@ def evaluate(run_root: Path) -> dict[str, Any]:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--run-root", type=Path, required=True)
-    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--run-root", type=Path, default=HISTORICAL_ROOT / "runs/stage_v")
+    parser.add_argument("--output", type=Path, default=OUTPUT_ROOT / "historical_review/STAGE_V_RESULT.json")
     args = parser.parse_args()
+    if args.output.resolve().is_relative_to((REPO_ROOT / "data/historical").resolve()):
+        raise RuntimeError("refusing to write analysis into immutable historical data")
     if args.output.exists():
         raise RuntimeError(f"refusing to overwrite {args.output}")
     result = evaluate(args.run_root)
+    result["migration_status"] = "historical_review"
+    result["current_execution_authorized"] = False
+    args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     print(json.dumps({"status": result["status"],
                       "stage_v_passed": result["stage_v_passed"]}, sort_keys=True))

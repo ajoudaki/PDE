@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 from pathlib import Path
 import tempfile
 
@@ -18,10 +19,10 @@ import pandas as pd
 
 
 ROOT = Path(__file__).resolve().parent
-PROCESSED = ROOT / "results" / "processed"
-if not PROCESSED.is_dir():
-    PROCESSED = ROOT / "evidence" / "processed"
-FIGURES = ROOT / "figures"
+sys.path.insert(0, str(ROOT.parents[1]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 
 
 def pct(value: float) -> float:
@@ -29,7 +30,12 @@ def pct(value: float) -> float:
 
 
 def main() -> None:
-    FIGURES.mkdir(exist_ok=True)
+    args = PATHS.parse(inputs=True, output_relative="figures", input_relative="results/processed")
+    PROCESSED, FIGURES = args.input_dir, args.output_dir
+    if args.historical_inputs:
+        # The retained compact evidence is a read-only historical input.
+        PROCESSED = PATHS.historical / "evidence/processed"
+    FIGURES.mkdir(parents=True, exist_ok=True)
     summary = json.loads((PROCESSED / "summary.json").read_text())
     curves = pd.read_csv(PROCESSED / "figure_time_curves.csv")
     bounds = summary["bootstrap"]["bounds"]

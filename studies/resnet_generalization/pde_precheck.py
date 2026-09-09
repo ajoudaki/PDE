@@ -11,9 +11,13 @@ from pathlib import Path
 
 import numpy as np
 
+if __package__:
+    from .generalization_paths import GENERATED_ROOT, HISTORICAL_RESULTS, RESULTS, evidence_label, require_output
+else:
+    from generalization_paths import GENERATED_ROOT, HISTORICAL_RESULTS, RESULTS, evidence_label, require_output
+
 
 ROOT = Path(__file__).resolve().parent
-RESULTS = ROOT / "results" / "generalization"
 PROTOCOL = json.loads(
     (ROOT / "protocol" / "generalization_protocol.json").read_text()
 )
@@ -32,9 +36,9 @@ def file_sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def find_one(directory: str, case_id: str, **conditions) -> Path:
+def find_one(directory: str, case_id: str, *, results_dir: Path = RESULTS, **conditions) -> Path:
     matches = []
-    for path in sorted((RESULTS / directory).glob(f"pde_{case_id}_*.npz")):
+    for path in sorted((results_dir / directory).glob(f"pde_{case_id}_*.npz")):
         meta = metadata(path)
         if all(meta.get(key) == value for key, value in conditions.items()):
             matches.append(path)
@@ -135,10 +139,24 @@ def identity_checks(primary: dict) -> dict:
     }
 
 
-def main() -> None:
+def parse_args(argv=None):
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output", type=Path, default=RESULTS / "pde_numerical_decision.json")
-    args = parser.parse_args()
+    inputs = parser.add_mutually_exclusive_group()
+    inputs.add_argument("--results-dir", type=Path, default=RESULTS)
+    inputs.add_argument("--historical", action="store_true", help="Explicit historical replay; never execution authorization")
+    parser.add_argument("--output", type=Path)
+    args = parser.parse_args(argv)
+    if args.historical:
+        args.results_dir = HISTORICAL_RESULTS
+    if args.output is None:
+        base = GENERATED_ROOT / "historical_review" if args.historical else args.results_dir
+        args.output = base / "pde_numerical_decision.json"
+    args.output = require_output(args.output)
+    return args
+
+
+def main() -> None:
+    args = parse_args()
     fixed = PROTOCOL["fixed_pde"]
     primary: dict[str, dict] = {}
     scramble: dict[str, dict] = {}
@@ -146,12 +164,13 @@ def main() -> None:
     input_files: dict[str, str] = {}
 
     def record_input(path: Path) -> None:
-        input_files[os.fspath(path.relative_to(ROOT))] = file_sha256(path)
+        input_files[evidence_label(path, args.results_dir)] = file_sha256(path)
 
     for case_id in PROTOCOL["active_case_ids"]:
         primary_path = find_one(
             "pde_primary",
             case_id,
+            results_dir=args.results_dir,
             start_time=0.0,
             end_time=8.0,
             quadrature_seed=fixed["primary_seed"],
@@ -163,6 +182,7 @@ def main() -> None:
         scramble_path = find_one(
             "pde_scramble",
             case_id,
+            results_dir=args.results_dir,
             start_time=0.0,
             end_time=8.0,
             quadrature_seed=fixed["second_scramble_seed"],
@@ -184,6 +204,7 @@ def main() -> None:
         path = find_one(
             "pde_audits",
             case_id,
+            results_dir=args.results_dir,
             start_time=0.0,
             end_time=8.0,
             quadrature_seed=fixed["primary_seed"],
@@ -200,6 +221,7 @@ def main() -> None:
         path = find_one(
             "pde_audits",
             case_id,
+            results_dir=args.results_dir,
             start_time=0.0,
             end_time=8.0,
             quadrature_seed=fixed["primary_seed"],
@@ -215,6 +237,7 @@ def main() -> None:
         path = find_one(
             "pde_audits",
             case_id,
+            results_dir=args.results_dir,
             start_time=0.0,
             end_time=8.0,
             quadrature_seed=fixed["primary_seed"],
@@ -256,6 +279,8 @@ def main() -> None:
         "time_step": time_step,
         "identity": identity,
     }
+    if args.historical:
+        result["status"] = "historical replay; not current execution authorization"
     encoded = json.dumps(result, indent=2, sort_keys=True) + "\n"
     args.output.parent.mkdir(parents=True, exist_ok=True)
     if args.output.exists() and args.output.read_text() != encoded:

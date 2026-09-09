@@ -19,6 +19,11 @@ from pathlib import Path
 import sys
 from typing import Any, Iterable, Mapping, Sequence
 
+if __package__:
+    from .generalization_paths import GENERATED_ROOT, RESULTS, evidence_label, evidence_path, evidence_root, require_output
+else:
+    from generalization_paths import GENERATED_ROOT, RESULTS, evidence_label, evidence_path, evidence_root, require_output
+
 import matplotlib
 
 os.environ.setdefault("MPLCONFIGDIR", "/tmp/matplotlib-analyze-generalization")
@@ -258,9 +263,9 @@ def verify_pde_seal(
     if not isinstance(files, dict) or seal.get("file_count") != len(files):
         raise AnalysisIntegrityError("invalid sealed file table")
     sealed_archives: set[Path] = set()
-    root_resolved = root.resolve()
+    root_resolved = evidence_root(results)
     for relative, digest in files.items():
-        path = (root / relative).resolve()
+        path = evidence_path(relative, results)
         if root_resolved not in path.parents:
             raise AnalysisIntegrityError("sealed path escapes project root")
         if not path.is_file() or sha256_file(path) != digest:
@@ -315,9 +320,9 @@ def verify_dense_seal(
     if not isinstance(files, dict) or seal.get("file_count") != len(files):
         raise AnalysisIntegrityError("invalid dense sealed file table")
     sealed: set[Path] = set()
-    root_resolved = root.resolve()
+    root_resolved = evidence_root(results)
     for relative, expected in files.items():
-        target = (root / relative).resolve()
+        target = evidence_path(relative, results)
         if root_resolved not in target.parents:
             raise AnalysisIntegrityError("dense sealed path escapes project root")
         if target.suffix != ".npz" or target.parent.name not in {
@@ -610,7 +615,7 @@ def load_fallback_diagnostics(
             "r256_vs_r128": _normalized_observed(
                 comparison_metrics(primary_prefix, refined)
             ),
-            "source": os.fspath(matches[0].path.resolve().relative_to(ROOT)),
+            "source": evidence_label(matches[0].path, results),
         }
     if used != {item.path for item in descriptors}:
         raise AnalysisIntegrityError("unexpected R=256 fallback archive")
@@ -1365,7 +1370,7 @@ def _write_processed_seal(
     deliverables: Sequence[Path],
     bootstrap_replicates: int,
 ) -> None:
-    root_resolved = root.resolve()
+    root_resolved = evidence_root(results)
     files: dict[str, str] = {}
     for path in deliverables:
         resolved = path.resolve()
@@ -1373,7 +1378,7 @@ def _write_processed_seal(
             raise AnalysisIntegrityError(
                 f"processed deliverable is absent/outside project: {path}"
             )
-        relative = os.fspath(resolved.relative_to(root_resolved))
+        relative = evidence_label(resolved, results)
         if relative in files:
             raise AnalysisIntegrityError("duplicate processed deliverable")
         files[relative] = sha256_file(resolved)
@@ -1399,6 +1404,8 @@ def run_analysis(args: argparse.Namespace) -> dict[str, Any]:
     output = Path(args.output_dir).resolve()
     figures_dir = Path(args.figures_dir).resolve()
     report_path = Path(args.report).resolve()
+    for destination in (results, output, figures_dir, report_path):
+        require_output(destination)
     protocol = _json(root / "protocol" / "generalization_protocol.json")
     plan = _json(root / "protocol" / "analysis_plan.json")
     registry = root / "protocol" / "cases.json"
@@ -1547,7 +1554,7 @@ def run_analysis(args: argparse.Namespace) -> dict[str, Any]:
             "numerical_gate": numerical["cases"][case_id],
             "tier_diagnostics": tier_metrics,
             "pde_sources": [
-                os.fspath(path.resolve().relative_to(root))
+                evidence_label(path, results)
                 for path in pde_paths[case_id]
             ],
         }
@@ -1771,7 +1778,7 @@ def run_analysis(args: argparse.Namespace) -> dict[str, Any]:
         )
     figure_paths = _figures(records, curves, figures_dir)
     summary["figures"] = [
-        os.fspath(Path(path).resolve().relative_to(root))
+        evidence_label(Path(path), results)
         for path in figure_paths
     ]
     encoded = json.dumps(summary, indent=2, sort_keys=True, allow_nan=False) + "\n"
@@ -1803,20 +1810,20 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument(
-        "--results-dir", type=Path, default=ROOT / "results" / "generalization"
+        "--results-dir", type=Path, default=RESULTS
     )
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=ROOT / "results" / "generalization" / "processed",
+        default=RESULTS / "processed",
     )
     parser.add_argument(
         "--figures-dir",
         type=Path,
-        default=ROOT / "results" / "generalization" / "figures",
+        default=RESULTS / "figures",
     )
     parser.add_argument(
-        "--report", type=Path, default=ROOT / "REPORT.md"
+        "--report", type=Path, default=GENERATED_ROOT / "REPORT.md"
     )
     parser.add_argument(
         "--bootstrap-replicates",

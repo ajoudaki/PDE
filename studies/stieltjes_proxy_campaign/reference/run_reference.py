@@ -29,7 +29,11 @@ from reference_engine import BudgetStop, NumericalInvalid, PointCaps, run_point
 
 
 HERE = Path(__file__).resolve().parent
-RUNS = HERE / "runs"
+sys.path.insert(0, str(HERE.parents[2]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
+RUNS = PATHS.generated / "reference/runs"
 SOURCE_FILES = (
     HERE / "canonical_model.py",
     HERE / "reference_engine.py",
@@ -74,6 +78,8 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         help="a fixed JSON configuration under reference/configs/",
     )
+    parser.add_argument("--output-root", type=Path, default=RUNS,
+                        help="fresh run parent; run_id remains a direct child")
     return parser.parse_args()
 
 
@@ -422,6 +428,7 @@ def environment_record(device: torch.device) -> dict[str, Any]:
 
 def main() -> int:
     args = parse_args()
+    output_root = PATHS.require_output(args.output_root)
     config_path = _validate_config_path(args.config)
     config = json.loads(config_path.read_text())
     if int(config.get("schema_version", -1)) != 1:
@@ -444,9 +451,9 @@ def main() -> int:
         _validate_point(point, global_caps, dtype) for point in points
     ]
 
-    output = (RUNS / str(config["run_id"])).resolve()
-    if output.parent != RUNS.resolve():
-        raise ValueError("run_id must resolve to a direct child of reference/runs")
+    output = PATHS.require_output(output_root / str(config["run_id"]))
+    if output.parent != output_root:
+        raise ValueError("run_id must resolve to a direct child of the fresh output root")
     if output.exists() and any(output.iterdir()):
         raise FileExistsError(f"refusing to overwrite nonempty run directory: {output}")
     output.mkdir(parents=True, exist_ok=True)

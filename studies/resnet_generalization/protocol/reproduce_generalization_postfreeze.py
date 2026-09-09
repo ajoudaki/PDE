@@ -21,6 +21,8 @@ import tempfile
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from generalization_paths import RESULTS, precheck_command  # noqa: E402
 PYTHON = sys.executable
 
 
@@ -65,9 +67,9 @@ def main() -> None:
             env,
         )
 
-    run([PYTHON, "pde_precheck.py"], env)
+    run(precheck_command(PYTHON, RESULTS, RESULTS / "pde_numerical_decision.json"), env)
     decision_path = (
-        ROOT / "results" / "generalization" / "pde_numerical_decision.json"
+        RESULTS / "pde_numerical_decision.json"
     )
     fallback = json.loads(decision_path.read_text())["r256_required"]
     if fallback:

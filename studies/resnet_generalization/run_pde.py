@@ -13,6 +13,11 @@ from pathlib import Path
 
 import numpy as np
 
+if __package__:
+    from .generalization_paths import GENERATED_ROOT, require_output
+else:
+    from generalization_paths import GENERATED_ROOT, require_output
+
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "src"))
 
@@ -52,6 +57,7 @@ def _file_sha256(path: str | Path) -> str:
 
 
 def run(args: argparse.Namespace) -> Path:
+    require_output(Path(args.output_dir) if args.output_dir is not None else GENERATED_ROOT / "results/raw")
     if args.case_id is not None:
         if args.case_registry is None:
             raise ValueError("--case-id requires --case-registry")
@@ -350,8 +356,9 @@ def run(args: argparse.Namespace) -> Path:
     output_dir = (
         Path(args.output_dir)
         if args.output_dir is not None
-        else ROOT / "results" / "raw"
+        else GENERATED_ROOT / "results" / "raw"
     )
+    output_dir = require_output(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     case_tag = case_info["case_id"]
     hash_tag = case_info["case_sha256"][:12]

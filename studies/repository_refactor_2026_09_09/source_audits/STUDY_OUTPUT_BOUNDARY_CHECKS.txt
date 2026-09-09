@@ -1,0 +1,110 @@
+Bounded F1-F3 implementation verification
+No campaign, scientific reanalysis, GPU, installs, Git operations, or real seal generation.
+All synthetic fixture writes were under /tmp/pde-study-routing-final.IVwibJSr.
+
+New generalization/finite-width/hybrid tests:
+TMPDIR=/tmp/pde-study-routing-final.IVwibJSr PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 python -B -m unittest -v studies.resnet_generalization.tests.test_output_boundaries studies.stieltjes_finite_width.test_output_boundaries studies.stieltjes_hybrid_campaign.breadth_panel.test_output_boundaries
+test_conflict_after_loading_is_rechecked_before_publication (studies.resnet_generalization.tests.test_output_boundaries.OutputBoundaryTests) ... ok
+test_exclusive_partial_creation_does_not_truncate_a_late_file (studies.resnet_generalization.tests.test_output_boundaries.OutputBoundaryTests) ... ok
+test_existing_final_partial_and_dangling_links_are_preserved (studies.resnet_generalization.tests.test_output_boundaries.OutputBoundaryTests) ... ok
+test_input_aliases_are_rejected_before_inputs (studies.resnet_generalization.tests.test_output_boundaries.OutputBoundaryTests) ... ok
+test_own_generated_and_external_scratch_are_valid_without_writes (studies.resnet_generalization.tests.test_output_boundaries.OutputBoundaryTests) ... ok
+test_protected_outputs_rejected_before_inputs (studies.resnet_generalization.tests.test_output_boundaries.OutputBoundaryTests) ... ok
+test_tiny_scratch_merge_preserves_output_and_provenance_format (studies.resnet_generalization.tests.test_output_boundaries.OutputBoundaryTests) ... ok
+test_own_generated_and_scratch_remain_valid_without_writes (studies.stieltjes_finite_width.test_output_boundaries.OutputBoundaryTests) ... ok
+test_source_history_and_foreign_generated_are_rejected_without_writes (studies.stieltjes_finite_width.test_output_boundaries.OutputBoundaryTests) ... ok
+test_own_study_and_scratch_remain_valid_without_writes (studies.stieltjes_hybrid_campaign.breadth_panel.test_output_boundaries.OutputBoundaryTests) ... ok
+test_source_history_and_foreign_generated_are_rejected_without_writes (studies.stieltjes_hybrid_campaign.breadth_panel.test_output_boundaries.OutputBoundaryTests) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.086s
+
+OK
+
+Selected original safe20:
+TMPDIR=/tmp/pde-study-routing-final.IVwibJSr PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 python -B -m unittest -v studies.resnet_generalization.tests.test_migration_paths.EvidencePathTests.test_writer_precheck_verifier_defaults_agree studies.resnet_generalization.tests.test_migration_paths.EvidencePathTests.test_label_round_trip_and_escapes studies.resnet_generalization.tests.test_migration_paths.EvidencePathTests.test_precheck_child_command_passes_its_input_root studies.resnet_generalization.tests.test_migration_paths.EvidencePathTests.test_precheck_reads_selected_tiny_archive studies.resnet_generalization.tests.test_migration_paths.EvidencePathTests.test_historical_precheck_requires_explicit_selection_and_fresh_output studies.stieltjes_finite_width.test_migration_paths studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths studies.resnet_proof_audit.tests.test_trapezoid_compat
+test_writer_precheck_verifier_defaults_agree (studies.resnet_generalization.tests.test_migration_paths.EvidencePathTests) ... ok
+test_label_round_trip_and_escapes (studies.resnet_generalization.tests.test_migration_paths.EvidencePathTests) ... ok
+test_precheck_child_command_passes_its_input_root (studies.resnet_generalization.tests.test_migration_paths.EvidencePathTests) ... ok
+test_precheck_reads_selected_tiny_archive (studies.resnet_generalization.tests.test_migration_paths.EvidencePathTests) ... ok
+test_historical_precheck_requires_explicit_selection_and_fresh_output (studies.resnet_generalization.tests.test_migration_paths.EvidencePathTests) ... ok
+test_all_five_campaign_outputs_are_generated (studies.stieltjes_finite_width.test_migration_paths.FiniteWidthPathTests) ... ok
+test_both_fresh_producer_consumer_roots_agree (studies.stieltjes_finite_width.test_migration_paths.FiniteWidthPathTests) ... ok
+test_historical_input_selection_is_explicit (studies.stieltjes_finite_width.test_migration_paths.FiniteWidthPathTests) ... ok
+test_jet_reader_uses_selected_fixture_before_any_jet_work (studies.stieltjes_finite_width.test_migration_paths.FiniteWidthPathTests) ... jets width=64
+ok
+test_source_and_historical_outputs_are_rejected (studies.stieltjes_finite_width.test_migration_paths.FiniteWidthPathTests) ... usage: python -m unittest [-h] [--output-dir OUTPUT_DIR]
+python -m unittest: error: fresh outputs must be under /home/amir/Codes/PDE/data/generated/stieltjes_finite_width or external scratch
+usage: python -m unittest [-h] [--output-dir OUTPUT_DIR]
+python -m unittest: error: fresh outputs must be under /home/amir/Codes/PDE/data/generated/stieltjes_finite_width or external scratch
+ok
+test_all_six_legacy_main_guards_precede_work (studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths.SuccessivePathTests) ... ok
+test_attempt_reservation_and_failure_finalization_refuse_before_writes (studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths.SuccessivePathTests) ... ok
+test_comparison_forwards_selected_roots_to_both_widths (studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths.SuccessivePathTests) ... ok
+test_comparison_transform_refusal_creates_no_output (studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths.SuccessivePathTests) ... ok
+test_explicit_inputs_and_outputs_are_not_inferred_from_cwd (studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths.SuccessivePathTests) ... ok
+test_fresh_and_historical_roots_are_explicit (studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths.SuccessivePathTests) ... ok
+test_n8192_frozen_transform_still_refuses_before_work (studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths.SuccessivePathTests) ... ok
+test_selected_block_manifest_and_array_roots (studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths.SuccessivePathTests) ... ok
+test_source_and_history_outputs_are_rejected (studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths.SuccessivePathTests) ... ok
+test_affine_integral_on_irregular_grid_and_reversed_axis (studies.resnet_proof_audit.tests.test_trapezoid_compat.TrapezoidCompatibilityTests) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.142s
+
+OK
+
+Initial proxy package-qualified invocation (dependency limitation, not omitted):
+TMPDIR=/tmp/pde-study-routing-final.IVwibJSr PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 python -B -m unittest -v studies.stieltjes_proxy_campaign.analysis.tests.test_output_boundaries
+analysis (unittest.loader._FailedTest) ... ERROR
+
+======================================================================
+ERROR: analysis (unittest.loader._FailedTest)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: analysis
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/stieltjes_proxy_campaign/analysis/comparison.py", line 11, in <module>
+    from ..proxy.hierarchy import (
+  File "/home/amir/Codes/PDE/studies/stieltjes_proxy_campaign/proxy/__init__.py", line 9, in <module>
+    from .hierarchy import (
+  File "/home/amir/Codes/PDE/studies/stieltjes_proxy_campaign/proxy/hierarchy.py", line 11, in <module>
+    import sympy as sp
+ModuleNotFoundError: No module named 'sympy'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/unittest/loader.py", line 154, in loadTestsFromName
+    module = __import__(module_name)
+  File "/home/amir/Codes/PDE/studies/stieltjes_proxy_campaign/analysis/__init__.py", line 9, in <module>
+    from .comparison import ProxyComparison, compare_proxy_hierarchy
+  File "/home/amir/Codes/PDE/studies/stieltjes_proxy_campaign/analysis/comparison.py", line 18, in <module>
+    from proxy.hierarchy import (
+ModuleNotFoundError: No module named 'proxy'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+
+Final isolated proxy test command:
+TMPDIR=/tmp/pde-study-routing-final.IVwibJSr PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 python -B studies/stieltjes_proxy_campaign/analysis/tests/test_output_boundaries.py -v
+PASS callable writer rejects source/history/foreign outputs without writes
+PASS CLI rejects protected outputs before analysis in direct/module import branches
+PASS dangling final/tmp links preserved
+PASS existing final/tmp conflicts stop CLI before analysis and preserve bytes
+PASS late final is not replaced
+PASS late temporary is not truncated
+PASS own-generated and external scratch accepted without writes
+PASS scratch success and both failure-record return-code/JSON formats
+Ran 8 tests; OK.
+Proxy tests load the real helper and CLI, AST-compile the actual atomic writer,
+and substitute the analysis package initializer and analyze_pilot dependency.
+They do not establish full SymPy-dependent imports or successful frozen scientific analysis.
+
+Total successful tests: 20 original + 11 other new + 8 proxy new = 39.
+Syntax: all 11 changed Python files passed ast.parse.
+Actual combiner --help succeeded both as a script from scratch cwd and as a repository module.
+Original REVIEW.md SHA-256 remains 57d5eec66149e87409d2de478f873812a5393711b333f1081e3ccf942c5fb37b.
+Changed-file hashes frozen in implementation-final.sha256; no further source/test edits.

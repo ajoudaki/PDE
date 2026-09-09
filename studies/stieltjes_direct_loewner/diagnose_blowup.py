@@ -18,6 +18,10 @@ import simulate_loewner as base
 
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[1]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 THRESHOLDS = np.array([10.0, 1.0e2, 1.0e4, 1.0e8, 1.0e12])
 ESCAPE_CEILING = float(THRESHOLDS[-1])
 
@@ -157,8 +161,9 @@ def file_sha256(path: Path) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path,
-                        default=HERE / "runs/failure_diagnostic")
+                        default=HERE.parents[1] / "data/generated/stieltjes_direct_loewner/runs/failure_diagnostic")
     args = parser.parse_args()
+    args.output = PATHS.require_output(args.output)
     args.output.mkdir(parents=True, exist_ok=True)
     command = " ".join(sys.argv)
     summary: dict[str, object] = {

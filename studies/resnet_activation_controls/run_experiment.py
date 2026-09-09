@@ -33,15 +33,18 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parent
+REPO_ROOT = ROOT.parents[1]
+HISTORICAL_ROOT = REPO_ROOT / "data/historical/studies/resnet_activation_controls"
 SOURCE = ROOT / "source"
 PROTOCOL_DIR = ROOT / "protocol"
 PROTOCOL_PATH = PROTOCOL_DIR / "preregistered_protocol.json"
 CASES_PATH = PROTOCOL_DIR / "cases.json"
-RESULTS = ROOT / "results"
+RESULTS = REPO_ROOT / "data/generated/resnet_activation_controls/results"
 PDE_DIR = RESULTS / "pde"
 DENSE_DIR = RESULTS / "dense"
 PROCESSED_DIR = RESULTS / "processed"
 INPUT_MANIFEST_PATH = RESULTS / "FROZEN_INPUTS.json"
+HISTORICAL_INPUT_MANIFEST_PATH = HISTORICAL_ROOT / "evidence/seals/FROZEN_INPUTS.json"
 PDE_SEAL_PATH = RESULTS / "PDE_STAGE_SEAL.json"
 DENSE_SEAL_PATH = RESULTS / "DENSE_STAGE_SEAL.json"
 PYTHON = sys.executable
@@ -50,7 +53,7 @@ PRIMARY_CASES = ("C0", "C1", "C2", "C4", "L2")
 SCRAMBLE_CASES = ("C0", "C2", "C4", "L2")
 DEPTH_CASES = ("C0", "C2")
 PARENT_RELEASE = (
-    ROOT
+    HISTORICAL_ROOT
     / "parent"
     / "dense_mup_pde_generalization_repro.zip"
 )
@@ -95,6 +98,10 @@ def _map_sha256(files: Mapping[str, str]) -> str:
 
 def _relative(path: Path) -> str:
     return os.fspath(path.resolve().relative_to(ROOT.resolve()))
+
+
+def _evidence_relative(path: Path) -> str:
+    return os.fspath(path.resolve().relative_to(RESULTS.parent.resolve()))
 
 
 def _source_files() -> dict[str, str]:
@@ -197,7 +204,7 @@ def _parent_source_lineage(
         )
     return {
         "parent_release_path": os.fspath(
-            PARENT_RELEASE.relative_to(ROOT)
+            os.path.relpath(PARENT_RELEASE, ROOT)
         ),
         "parent_release_sha256": observed_release_hash,
         "expected_parent_release_sha256": PARENT_RELEASE_SHA256,
@@ -256,6 +263,11 @@ def _write_once(path: Path, record: Mapping[str, Any]) -> None:
 
 
 def _create_input_manifest() -> dict[str, Any]:
+    if HISTORICAL_INPUT_MANIFEST_PATH.is_file() and not INPUT_MANIFEST_PATH.exists():
+        raise IntegrityError(
+            "the retained seal is historical; migration does not authorize "
+            "regenerating FROZEN_INPUTS.json"
+        )
     record = _input_record()
     if not INPUT_MANIFEST_PATH.exists() and RESULTS.exists():
         preexisting = sorted(
@@ -275,7 +287,8 @@ def _create_input_manifest() -> dict[str, Any]:
 def _require_input_manifest() -> dict[str, Any]:
     if not INPUT_MANIFEST_PATH.is_file():
         raise IntegrityError(
-            "missing FROZEN_INPUTS.json; run the validate stage first"
+            "missing live FROZEN_INPUTS.json; the historical seal at "
+            f"{HISTORICAL_INPUT_MANIFEST_PATH} is not current execution authorization"
         )
     stored = json.loads(INPUT_MANIFEST_PATH.read_text())
     current = _input_record()
@@ -844,14 +857,14 @@ def _require_seal_common(record: Mapping[str, Any], stage: str) -> None:
 def seal_pde() -> dict[str, Any]:
     inputs = _require_input_manifest()
     records = _exact_inventory(_all_pde_jobs(), PDE_DIR)
-    files = {_relative(path): _sha256(path) for _, path in records}
+    files = {_evidence_relative(path): _sha256(path) for _, path in records}
     inventory = [
         {
             "role": job.role,
             "case_id": job.case_id,
             "N": int(job.expected["depth_nodes_N"]),
             "seed": int(job.expected["quadrature_seed"]),
-            "path": _relative(path),
+            "path": _evidence_relative(path),
             "sha256": _sha256(path),
         }
         for job, path in records
@@ -887,7 +900,7 @@ def _require_pde_seal() -> dict[str, Any]:
     if record.get("file_count") != 11 or len(record.get("inventory", [])) != 11:
         raise IntegrityError("PDE seal has the wrong archive count")
     records = _exact_inventory(_all_pde_jobs(), PDE_DIR)
-    observed = {_relative(path): _sha256(path) for _, path in records}
+    observed = {_evidence_relative(path): _sha256(path) for _, path in records}
     if record["files"] != observed:
         raise IntegrityError("PDE seal inventory differs from current PDE evidence")
     return record
@@ -897,7 +910,7 @@ def seal_dense() -> dict[str, Any]:
     pde_seal = _require_pde_seal()
     inputs = _require_input_manifest()
     records = _exact_inventory(_all_dense_jobs(), DENSE_DIR)
-    files = {_relative(path): _sha256(path) for _, path in records}
+    files = {_evidence_relative(path): _sha256(path) for _, path in records}
     inventory = [
         {
             "role": job.role,
@@ -906,7 +919,7 @@ def seal_dense() -> dict[str, Any]:
             "depth": int(job.expected["depth"]),
             "seeds": int(job.expected["seeds"]),
             "seed_start": int(job.expected["seed_start"]),
-            "path": _relative(path),
+            "path": _evidence_relative(path),
             "sha256": _sha256(path),
         }
         for job, path in records
@@ -948,7 +961,7 @@ def _require_dense_seal() -> dict[str, Any]:
     if record.get("file_count") != 9 or len(record.get("inventory", [])) != 9:
         raise IntegrityError("dense seal has the wrong archive count")
     records = _exact_inventory(_all_dense_jobs(), DENSE_DIR)
-    observed = {_relative(path): _sha256(path) for _, path in records}
+    observed = {_evidence_relative(path): _sha256(path) for _, path in records}
     if record["files"] != observed:
         raise IntegrityError("dense seal differs from current dense evidence")
     return record
@@ -1014,6 +1027,16 @@ def analyze_stage() -> None:
 
 
 def run_stage(args: argparse.Namespace) -> None:
+    if getattr(args, "historical_status", False):
+        print(json.dumps({
+            "status": "historical_only",
+            "current_execution_authorized": False,
+            "seal_path": str(HISTORICAL_INPUT_MANIFEST_PATH),
+            "seal_exists": HISTORICAL_INPUT_MANIFEST_PATH.is_file(),
+            "seal_sha256": _sha256(HISTORICAL_INPUT_MANIFEST_PATH)
+            if HISTORICAL_INPUT_MANIFEST_PATH.is_file() else None,
+        }, sort_keys=True))
+        return
     if args.stage == "validate":
         validate_stage()
     elif args.stage == "pde-primary":
@@ -1105,6 +1128,8 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--parallel-pde", type=int, default=3)
     parser.add_argument("--parallel-dense", type=int, default=1)
     parser.add_argument("--dense-workers", type=int, default=4)
+    parser.add_argument("--historical-status", action="store_true",
+                        help="Locate the unchanged historical seal without authorizing execution")
     return parser.parse_args(argv)
 
 

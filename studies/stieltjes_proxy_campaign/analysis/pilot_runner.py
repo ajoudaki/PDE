@@ -16,6 +16,8 @@ from typing import Any, Mapping, Sequence
 
 import numpy as np
 
+from .output_paths import require_new_output, require_output
+
 try:
     from ..proxy.inventory import evaluate_family
 except ImportError:  # campaign root on PYTHONPATH
@@ -859,10 +861,11 @@ def analyze_pilot(
 
 
 def write_json_atomic(path: str | Path, payload: Mapping[str, Any]) -> None:
-    path = Path(path).resolve()
-    if path.exists():
-        raise FileExistsError(f"refusing to overwrite analysis result: {path}")
+    path, temporary = require_new_output(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_suffix(path.suffix + ".tmp")
-    temporary.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+    with temporary.open("x", encoding="utf-8") as handle:
+        handle.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+    require_output(path)
+    if path.exists() or path.is_symlink():
+        raise FileExistsError(f"refusing to overwrite analysis result: {path}")
     temporary.replace(path)

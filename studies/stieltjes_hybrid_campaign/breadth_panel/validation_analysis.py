@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Fail-closed analysis of the frozen one-input Euler validation pairs.
 
-This module performs no simulation.  It verifies the frozen authority chain,
+This module performs no simulation.  It verifies the historical authority chain,
 the exactly-once attempt ledger, all six manifests and raw archive hashes, and
 then evaluates the preregistered local-method gates on the common physical
 output clock.  The raw ``runs/`` directory remains ignored; the compact JSON
 and Markdown outputs preserve the scientific result and its provenance.
+Fresh review outputs are separate from retained evidence and source reports.
 """
 
 from __future__ import annotations
@@ -23,12 +24,16 @@ import numpy as np
 
 
 PANEL_ROOT = Path(__file__).resolve().parent
-RUN_ROOT = PANEL_ROOT / "runs" / "validation_one_input_v1"
+REPO_ROOT = PANEL_ROOT.parents[2]
+HISTORICAL_PANEL = REPO_ROOT / "data/historical/studies/stieltjes_hybrid_campaign/breadth_panel"
+OUTPUT_ROOT = REPO_ROOT / "data/generated/stieltjes_hybrid_campaign/breadth_panel/validation_analysis"
+RUN_ROOT = HISTORICAL_PANEL / "runs" / "validation_one_input_v1"
+MANIFEST_ROOT = PANEL_ROOT / "runs" / "validation_one_input_v1"
 CONFIG_PATH = PANEL_ROOT / "FROZEN_ONE_INPUT_POINTS.json"
 LOCK_PATH = PANEL_ROOT / "FROZEN_ONE_INPUT_LOCK.json"
 UNLOCK_PATH = PANEL_ROOT / "ONE_INPUT_VALIDATION_UNLOCK.json"
 ATTEMPTS_PATH = RUN_ROOT / "ATTEMPTS.json"
-RESULT_PATH = PANEL_ROOT / "VALIDATION_RESULT.json"
+RESULT_PATH = HISTORICAL_PANEL / "VALIDATION_RESULT.json"
 REPORT_PATH = PANEL_ROOT / "RESULTS.md"
 
 PHYSICAL_NODES = np.asarray((0.5, 0.75, 0.9, 0.95), dtype=np.float64)
@@ -116,8 +121,23 @@ def _ends_with_path(value: str, expected: str) -> bool:
     return Path(value).as_posix().endswith(expected)
 
 
+def locked_source_path(relative: str) -> Path:
+    """Locate an old lock label without changing its recorded hash."""
+    for prefix, study in (
+        ("../../global_proxy_campaign/", "stieltjes_proxy_campaign"),
+        ("../../../theory/", "stieltjes_theory_history"),
+        ("../../../../mean_field_peeling/quadratic_compiler/", "mfp_quadratic_compiler"),
+    ):
+        if relative.startswith(prefix):
+            suffix = relative[len(prefix):]
+            if study == "mfp_quadratic_compiler" and suffix == "campaign1/results_order9_q2_order8.json":
+                return REPO_ROOT / "data/historical/studies" / study / suffix
+            return REPO_ROOT / "studies" / study / suffix
+    return PANEL_ROOT / relative
+
+
 def verify_authority() -> dict[str, Any]:
-    """Verify the live lock, unlock, point file, and exactly-once ledger."""
+    """Verify the historical lock and ledger; never authorize fresh execution."""
 
     config = load_json(CONFIG_PATH)
     lock = load_json(LOCK_PATH)
@@ -130,7 +150,7 @@ def verify_authority() -> dict[str, Any]:
     _require(isinstance(entries, dict) and entries, "source lock has no hash table")
     for relative, expected in entries.items():
         _require(isinstance(expected, str) and len(expected) == 64, f"bad digest for {relative}")
-        target = PANEL_ROOT / relative
+        target = locked_source_path(relative)
         _require(target.is_file(), f"locked source is missing: {relative}")
         _require(sha256(target) == expected, f"locked source hash mismatch: {relative}")
     _require(_bundle_digest(entries) == lock.get("bundle_sha256"), "source bundle mismatch")
@@ -151,7 +171,7 @@ def verify_authority() -> dict[str, Any]:
     _require(unlock.get("lock_sha256") == lock_digest, "unlock does not bind lock")
     _require(unlock.get("config_sha256") == config_digest, "unlock does not bind config")
     _require(
-        (PANEL_ROOT / str(unlock.get("output_root"))).resolve() == RUN_ROOT.resolve(),
+        (HISTORICAL_PANEL / str(unlock.get("output_root"))).resolve() == RUN_ROOT.resolve(),
         "unlock output root differs from frozen run root",
     )
 
@@ -201,7 +221,8 @@ def verify_authority() -> dict[str, Any]:
         "ledger exceeds a per-group reservation budget",
     )
     recorded_ledgers = sorted(
-        path.relative_to(PANEL_ROOT).as_posix() for path in PANEL_ROOT.rglob("ATTEMPTS.json")
+        path.relative_to(HISTORICAL_PANEL).as_posix()
+        for path in HISTORICAL_PANEL.rglob("ATTEMPTS.json")
     )
     _require(
         recorded_ledgers == ["runs/validation_one_input_v1/ATTEMPTS.json"],
@@ -499,7 +520,7 @@ def analyze() -> dict[str, Any]:
             point = authority["point_map"][key]
             _require(point["configuration"] == EXPECTED_CONFIGURATIONS[group], f"{key} configuration mismatch")
             point_root = RUN_ROOT / key
-            manifest_path = point_root / "manifest.json"
+            manifest_path = MANIFEST_ROOT / key / "manifest.json"
             arrays_path = point_root / "arrays.npz"
             _require(manifest_path.is_file() and arrays_path.is_file(), f"{key} output is incomplete")
             manifest = load_json(manifest_path)
@@ -711,8 +732,8 @@ def render_report(result: dict[str, Any], result_sha256: str) -> str:
             "",
             "## Reproduction",
             "",
-            "From the repository root, run `python studies/stieltjes_conjecture/numerics/"
-            "hybrid_mean_field_campaign/breadth_panel/validation_analysis.py --check` to reverify "
+            "From the repository root, run `python studies/stieltjes_hybrid_campaign/"
+            "breadth_panel/validation_analysis.py --check` to reverify "
             "the locally preserved, Git-ignored NPZ arrays against the tracked manifests and result.  "
             "Use `--write` instead of `--check` to regenerate both compact outputs.",
             "",
@@ -730,8 +751,12 @@ def _json_bytes(result: dict[str, Any]) -> bytes:
 def write_outputs(result: dict[str, Any]) -> None:
     result_bytes = _json_bytes(result)
     result_digest = hashlib.sha256(result_bytes).hexdigest()
-    RESULT_PATH.write_bytes(result_bytes)
-    REPORT_PATH.write_text(render_report(result, result_digest), encoding="utf-8")
+    OUTPUT_ROOT.mkdir(parents=True, exist_ok=True)
+    (OUTPUT_ROOT / "VALIDATION_RESULT.json").write_bytes(result_bytes)
+    (OUTPUT_ROOT / "RESULTS.md").write_text(
+        "Historical review only; not current execution authorization.\n\n"
+        + render_report(result, result_digest), encoding="utf-8"
+    )
 
 
 def check_outputs(result: dict[str, Any]) -> None:

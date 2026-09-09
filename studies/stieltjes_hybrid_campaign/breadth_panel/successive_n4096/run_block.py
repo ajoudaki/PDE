@@ -12,6 +12,14 @@ from pathlib import Path
 import sys
 from typing import Any
 
+FP64_DIR = Path(__file__).resolve().parent.parent / "fp64_successor"
+if str(FP64_DIR) not in sys.path:
+    sys.path.insert(0, str(FP64_DIR))
+from legacy_runtime import require_current_authorization
+
+if __name__ == "__main__":
+    require_current_authorization()
+
 os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
 
 import numpy as np
@@ -19,7 +27,7 @@ import torch
 
 
 HERE = Path(__file__).resolve().parent
-REPO = HERE.parents[5]
+REPO = HERE.parents[3]
 FP64_DIR = HERE.parent / "fp64_successor"
 if str(FP64_DIR) not in sys.path:
     sys.path.insert(0, str(FP64_DIR))
@@ -43,6 +51,7 @@ def sha256_file(path: Path) -> str:
 
 
 def main() -> int:
+    require_current_authorization()
     parser = argparse.ArgumentParser()
     parser.add_argument("--configuration", choices=("C", "A", "M", "V"), required=True)
     parser.add_argument("--lineage-start", type=int, required=True)
@@ -99,7 +108,7 @@ def main() -> int:
             "state_ceiling": float(config["point_caps"]["state_ceiling"]),
         },
     }
-    output = HERE / "runs" / point["key"]
+    output = REPO / "data/generated/stieltjes_hybrid_campaign/breadth_panel" / HERE.name / "runs" / point["key"]
     output.mkdir(parents=True, exist_ok=False)
     started = datetime.now(timezone.utc).isoformat()
     arrays, diagnostics = runner.run_point(

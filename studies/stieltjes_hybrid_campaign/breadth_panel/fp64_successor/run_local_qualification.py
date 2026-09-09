@@ -8,6 +8,17 @@ compiled in memory, and its transformed digest is itself frozen.
 
 from __future__ import annotations
 
+if __package__:
+    from .legacy_runtime import require_current_authorization
+else:
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from legacy_runtime import require_current_authorization
+
+if __name__ == "__main__":
+    require_current_authorization()
+
 import argparse
 import copy
 from datetime import datetime, timezone
@@ -31,7 +42,7 @@ import torch
 
 
 SUCCESSOR_RELATIVE = Path(
-    "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/"
+    "studies/stieltjes_hybrid_campaign/"
     "breadth_panel/fp64_successor"
 )
 CONFIG_RELATIVE = SUCCESSOR_RELATIVE / "FROZEN_LOCAL_QUALIFICATION.json"
@@ -47,15 +58,15 @@ REQUIRED_LOCKED_FILES = frozenset(
         str(SUCCESSOR_RELATIVE / "gpu_preflight.py"),
         str(SUCCESSOR_RELATIVE / "watchdog_launcher.py"),
         str(SUCCESSOR_RELATIVE / "tests/test_fp64_local.py"),
-        "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/"
+        "studies/stieltjes_hybrid_campaign/"
         "breadth_panel/FROZEN_ONE_INPUT_POINTS.json",
-        "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/"
+        "studies/stieltjes_hybrid_campaign/"
         "breadth_panel/one_input/one_input_engine.py",
-        "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/"
+        "studies/stieltjes_hybrid_campaign/"
         "breadth_panel/one_input/one_input_runner.py",
-        "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/"
+        "studies/stieltjes_hybrid_campaign/"
         "width_ladder/euler_fp32/euler_engine.py",
-        "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/"
+        "studies/stieltjes_hybrid_campaign/"
         "width_ladder/euler_fp32/nested_init.py",
     }
 )
@@ -247,7 +258,7 @@ def verify_lock(
 
 
 def load_fp64_runner(repo: Path, frozen: dict[str, Any]):
-    panel = repo / "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel"
+    panel = repo / "studies/stieltjes_hybrid_campaign/breadth_panel"
     one_input = panel / "one_input"
     if str(one_input) not in sys.path:
         sys.path.insert(0, str(one_input))
@@ -256,7 +267,7 @@ def load_fp64_runner(repo: Path, frozen: dict[str, Any]):
         raise RuntimeError("one_input_engine was imported from an unexpected path")
     expected_euler = (
         repo
-        / "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign"
+        / "studies/stieltjes_hybrid_campaign"
         / "width_ladder/euler_fp32/euler_engine.py"
     ).resolve()
     expected_init = expected_euler.with_name("nested_init.py")
@@ -424,10 +435,11 @@ def reserve_canonical_attempt(
     device: str,
     provenance: dict[str, str],
 ) -> tuple[Path, Path, dict[str, Any]]:
+    require_current_authorization()
     run_root = (repo / frozen["run_root"]).resolve()
     expected_root = (
         repo
-        / "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign"
+        / "studies/stieltjes_hybrid_campaign"
         / "breadth_panel/fp64_successor/runs/local_v1"
     ).resolve()
     if run_root != expected_root:
@@ -611,7 +623,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         if device.type != "cuda" or not torch.cuda.is_available():
             raise RuntimeError("a CUDA device is required")
 
-        panel = repo / "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel"
+        panel = repo / "studies/stieltjes_hybrid_campaign/breadth_panel"
         parent_points_path = panel / "FROZEN_ONE_INPUT_POINTS.json"
         parent = read_json(parent_points_path)
         points = {point["key"]: point for point in parent["points"]}
@@ -821,6 +833,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def main() -> int:
+    require_current_authorization()
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo", type=Path, required=True)
     parser.add_argument("--config", type=Path, required=True)

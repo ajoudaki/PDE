@@ -3,6 +3,17 @@
 
 from __future__ import annotations
 
+if __package__:
+    from .legacy_runtime import require_current_authorization
+else:
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from legacy_runtime import require_current_authorization
+
+if __name__ == "__main__":
+    require_current_authorization()
+
 import argparse
 import fcntl
 import hashlib
@@ -16,7 +27,7 @@ import numpy as np
 
 
 SUCCESSOR_RELATIVE = Path(
-    "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/"
+    "studies/stieltjes_hybrid_campaign/"
     "breadth_panel/fp64_successor"
 )
 CONFIG_RELATIVE = SUCCESSOR_RELATIVE / "FROZEN_LOCAL_QUALIFICATION.json"
@@ -25,7 +36,7 @@ UNLOCK_RELATIVE = SUCCESSOR_RELATIVE / "LOCAL_QUALIFICATION_UNLOCK.json"
 PREFLIGHT_RELATIVE = SUCCESSOR_RELATIVE / "GPU_PREFLIGHT.json"
 RESULT_RELATIVE = SUCCESSOR_RELATIVE / "LOCAL_QUALIFICATION_RESULT.json"
 PARENT_POINTS_RELATIVE = Path(
-    "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/"
+    "studies/stieltjes_hybrid_campaign/"
     "breadth_panel/FROZEN_ONE_INPUT_POINTS.json"
 )
 REQUIRED_LOCKED_FILES = frozenset(
@@ -38,13 +49,13 @@ REQUIRED_LOCKED_FILES = frozenset(
         str(SUCCESSOR_RELATIVE / "watchdog_launcher.py"),
         str(SUCCESSOR_RELATIVE / "tests/test_fp64_local.py"),
         str(PARENT_POINTS_RELATIVE),
-        "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/"
+        "studies/stieltjes_hybrid_campaign/"
         "breadth_panel/one_input/one_input_engine.py",
-        "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/"
+        "studies/stieltjes_hybrid_campaign/"
         "breadth_panel/one_input/one_input_runner.py",
-        "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/"
+        "studies/stieltjes_hybrid_campaign/"
         "width_ladder/euler_fp32/euler_engine.py",
-        "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/"
+        "studies/stieltjes_hybrid_campaign/"
         "width_ladder/euler_fp32/nested_init.py",
     }
 )
@@ -976,6 +987,7 @@ def adjudicate_locked_stage(
 
 
 def main() -> int:
+    require_current_authorization()
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo", type=Path, required=True)
     parser.add_argument("--config", type=Path, required=True)

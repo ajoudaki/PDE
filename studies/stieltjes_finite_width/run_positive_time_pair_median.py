@@ -20,7 +20,11 @@ import numpy as np
 from numpy.polynomial import Polynomial
 
 HERE = Path(__file__).resolve().parent
-DIRECT = HERE.parent / "direct_loewner"
+if __package__:
+    from .run_paths import GENERATED_ROOT, HISTORICAL_ROOT, parse_paths
+else:
+    from run_paths import GENERATED_ROOT, HISTORICAL_ROOT, parse_paths
+DIRECT = HERE.parent / "stieltjes_direct_loewner"
 sys.path.insert(0, str(DIRECT))
 sys.path.insert(0, str(HERE))
 import simulate_loewner as model  # noqa: E402
@@ -45,9 +49,10 @@ R2 = 37578479127292096 / 12802987609542045
 G0 = 111.0
 G2 = 842592.0
 AS_CAP = 8 * 1024**3
-OUTPUT = HERE / "runs/positive_time_pair_median_run"
+OUTPUT = GENERATED_ROOT / "runs/positive_time_pair_median_run"
 PROTOCOL = HERE / "POSITIVE_TIME_PROTOCOL.md"
-LOCAL_ARCHIVE = HERE / "runs/fresh_pair_median_run"
+LOCAL_ARCHIVE = GENERATED_ROOT / "runs/fresh_pair_median_run"
+HISTORICAL_ARCHIVE = HISTORICAL_ROOT / "runs/fresh_pair_median_run"
 
 
 def digest(path: Path) -> str:
@@ -213,8 +218,14 @@ def atomic(lambdas, weights):
 
 
 def main():
+    global OUTPUT
+    args = parse_paths(OUTPUT, input_dir=LOCAL_ARCHIVE, historical_input=HISTORICAL_ARCHIVE)
+    OUTPUT = args.output_dir
+    for width in WIDTHS:
+        if not (args.input_dir / f"pair_values_width_{width}.npz").is_file():
+            raise FileNotFoundError(args.input_dir / f"pair_values_width_{width}.npz")
     set_memory_cap()
-    OUTPUT.mkdir(exist_ok=False)
+    OUTPUT.mkdir(parents=True, exist_ok=False)
     log, handle = log_factory(OUTPUT / "console.log")
     sources = [PROTOCOL, Path(__file__).resolve(), DIRECT / "simulate_loewner.py",
                DIRECT / "corrected_clock_core.py", HERE / "jet_control_variate.py"]
@@ -229,7 +240,7 @@ def main():
     for width in WIDTHS:
         data = simulate_width(width, STEP, PAIR_COUNT, log)
         half = simulate_width(width, HALF_STEP, HALF_PAIRS, log)
-        archived = np.load(LOCAL_ARCHIVE / f"pair_values_width_{width}.npz")["f5"]
+        archived = np.load(args.input_dir / f"pair_values_width_{width}.npz")["f5"]
         f5 = data["jet"][:, 5]
         jet_rel = float(np.max(np.abs(f5 - archived) / np.maximum(1, np.abs(archived))))
         np.savez_compressed(OUTPUT / f"raw_width_{width}.npz", **data)

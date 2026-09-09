@@ -14,6 +14,10 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT.parents[2]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 sys.path.insert(0, str(ROOT / "src"))
 
 from dense_pde.operator_galerkin import (  # noqa: E402
@@ -53,6 +57,7 @@ def _file_sha256(path: str | Path) -> str:
 
 
 def run(args: argparse.Namespace) -> Path:
+    output_dir = PATHS.require_output(args.output_dir or PATHS.generated / "results/raw")
     if args.case_id is not None:
         if args.case_registry is None:
             raise ValueError("--case-id requires --case-registry")
@@ -348,11 +353,6 @@ def run(args: argparse.Namespace) -> Path:
     }
     config["config_sha256"] = scientific_config_sha256
 
-    output_dir = (
-        Path(args.output_dir)
-        if args.output_dir is not None
-        else ROOT / "results" / "raw"
-    )
     output_dir.mkdir(parents=True, exist_ok=True)
     case_tag = case_info["case_id"]
     hash_tag = case_info["case_sha256"][:12]
@@ -434,7 +434,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--activation", choices=ACTIVATION_NAMES)
     parser.add_argument("--case-registry")
     parser.add_argument("--case-id")
-    parser.add_argument("--output-dir")
+    parser.add_argument("--output-dir", type=Path, default=PATHS.generated / "results/raw")
     parser.add_argument(
         "--integrator",
         choices=("rk4", "heun"),

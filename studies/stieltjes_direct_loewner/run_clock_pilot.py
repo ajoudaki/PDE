@@ -14,6 +14,10 @@ import corrected_clock_core as core
 
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[1]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 SEED_BASE = 2026081301
 WIDTHS = (64, 128, 256)
 PAIR_COUNTS = {64: 24, 128: 16, 256: 8}
@@ -26,8 +30,8 @@ def sha256(path: Path) -> str:
 
 
 def main() -> None:
-    output = HERE / "runs/clock_pilot_20260813"
-    output.mkdir(exist_ok=True)
+    output = PATHS.parse(output_relative="runs/clock_pilot_20260813").output_dir
+    output.mkdir(parents=True, exist_ok=True)
     summary: dict[str, object] = {
         "status": "validity_pilot_only_not_scientific_evidence",
         "command": " ".join(sys.argv),

@@ -14,17 +14,22 @@ from pathlib import Path
 
 import numpy as np
 
+if __package__:
+    from .run_paths import GENERATED_ROOT, parse_paths
+else:
+    from run_paths import GENERATED_ROOT, parse_paths
+
 
 HERE = Path(__file__).resolve().parent
-STUDY = HERE.parents[1]
-MFP_COMPILER = STUDY.parent / "mean_field_peeling" / "quadratic_compiler"
+REPO = HERE.parents[1]
+MFP_COMPILER = HERE.parent / "mfp_quadratic_compiler"
 sys.path.insert(0, str(MFP_COMPILER))
 from finite_width_jet_reference import feature_jet  # noqa: E402
 
 
 PROTOCOL = HERE / "FRESH_CALIBRATED_RATIO_PROTOCOL.md"
-CERTIFICATE = STUDY / "theory/certificates_order11.json"
-OUT = HERE / "runs/fresh_calibrated_ratio_run"
+CERTIFICATE = REPO / "studies/stieltjes_theory_history/certificates_order11.json"
+OUT = GENERATED_ROOT / "runs/fresh_calibrated_ratio_run"
 WIDTHS = (128, 256)
 COUNT = 512
 BOOTSTRAPS = 20_000
@@ -109,8 +114,10 @@ def bootstrap(ratios: np.ndarray, exact: np.ndarray, width: int) -> np.ndarray:
 
 
 def main() -> None:
+    args = parse_paths(OUT)
+    output = args.output_dir
     resource.setrlimit(resource.RLIMIT_AS, (ADDRESS_CAP, ADDRESS_CAP))
-    OUT.mkdir(parents=True, exist_ok=True)
+    output.mkdir(parents=True, exist_ok=True)
     exact, threshold = exact_values()
     result: dict = {
         "design": {
@@ -143,9 +150,9 @@ def main() -> None:
         interval = np.quantile(boots, [0.025, 0.975], axis=0).T
         points[width] = point
         intervals[width] = interval
-        np.savez_compressed(OUT / f"ratios_width_{width}.npz",
+        np.savez_compressed(output / f"ratios_width_{width}.npz",
                             ratios=ratios, linear=linear)
-        np.savez_compressed(OUT / f"bootstrap_width_{width}.npz", estimates=boots)
+        np.savez_compressed(output / f"bootstrap_width_{width}.npz", estimates=boots)
         result["widths"][str(width)] = {
             "linear_median": float(np.median(linear)),
             "ratio_medians": np.median(ratios, axis=0).tolist(),
@@ -184,10 +191,10 @@ def main() -> None:
     result["status"] = status
     result["peak_rss_kib"] = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     encoded = json.dumps(result, indent=2) + "\n"
-    (OUT / "results.json").write_text(encoded)
-    (OUT / "run_command.txt").write_text(
+    (output / "results.json").write_text(encoded)
+    (output / "run_command.txt").write_text(
         "OPENBLAS_NUM_THREADS=4 OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 "
-        "python studies/stieltjes_conjecture/numerics/finite_width/"
+        "python studies/stieltjes_finite_width/"
         "run_fresh_calibrated_ratio.py\n")
     print(encoded)
 

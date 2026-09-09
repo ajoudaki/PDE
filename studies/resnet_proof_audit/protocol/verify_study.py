@@ -17,13 +17,15 @@ import scipy
 
 ROOT = Path(__file__).resolve().parents[1]
 WORKSPACE = ROOT.parent
-SEAL = ROOT / "results" / "seals" / "FROZEN_INPUTS.json"
+RESULTS = ROOT.parents[1] / "data/generated/resnet_proof_audit/results"
+SEAL = RESULTS / "seals" / "FROZEN_INPUTS.json"
 PROTOCOL_LABEL = "protocol/preregistered_protocol.json"
 SOURCE = ROOT / "source"
 if str(SOURCE) not in sys.path:
     sys.path.insert(0, str(SOURCE))
 
 from analyze_study import load_sealed_stage_archive  # noqa: E402
+from migration_paths import historical_seal_status, resolve_frozen_source  # noqa: E402
 
 
 MANIFEST_KEYS = {
@@ -101,24 +103,7 @@ def live_environment() -> dict[str, str]:
 
 
 def resolve(label: str) -> Path:
-    relative = Path(label)
-    if (
-        not label
-        or relative.is_absolute()
-        or ".." in relative.parts
-        or "." in relative.parts
-    ):
-        raise ValueError(f"unsafe frozen source label: {label!r}")
-    candidates = [
-        path
-        for path in (ROOT / relative, WORKSPACE / relative)
-        if path.is_file()
-    ]
-    if len(candidates) != 1:
-        if not candidates:
-            raise FileNotFoundError(f"missing frozen file: {label}")
-        raise ValueError(f"ambiguous frozen source label: {label}")
-    return candidates[0]
+    return resolve_frozen_source(ROOT, WORKSPACE, label)
 
 
 def validate_manifest(seal: Mapping[str, Any]) -> dict[str, str]:
@@ -288,13 +273,23 @@ def verify_archive(
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
+        "--historical-status", action="store_true",
+        help="inspect the retained original seal without authorizing current execution",
+    )
+    parser.add_argument(
         "--check-evidence",
         action="store_true",
         help="also validate every NPZ archive beneath results",
     )
     args = parser.parse_args()
+    if args.historical_status:
+        print(json.dumps(historical_seal_status(), indent=2, sort_keys=True))
+        return
     if not SEAL.is_file():
-        raise FileNotFoundError(f"missing freeze seal: {SEAL}")
+        raise FileNotFoundError(
+            f"missing live freeze seal: {SEAL}; use --historical-status "
+            "to inspect the retained original (not current execution authorization)"
+        )
     seal = strict_json_text(SEAL.read_text(encoding="utf-8"))
     if not isinstance(seal, dict):
         raise ValueError("freeze manifest is not an object")
@@ -303,13 +298,13 @@ def main() -> None:
         frozen_hashes = validate_manifest(seal)
     except Exception as exc:
         raise SystemExit(f"invalid freeze manifest: {exc}") from exc
-    partials = sorted((ROOT / "results").rglob("*.partial"))
+    partials = sorted(RESULTS.rglob("*.partial"))
     if partials:
         errors.extend(f"partial archive: {path}" for path in partials)
     evidence_count = 0
     seal_digest = sha256(SEAL)
     if args.check_evidence:
-        for path in sorted((ROOT / "results").rglob("*.npz")):
+        for path in sorted(RESULTS.rglob("*.npz")):
             evidence_count += 1
             try:
                 verify_archive(

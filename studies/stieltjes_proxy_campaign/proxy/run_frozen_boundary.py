@@ -15,7 +15,7 @@ from proxy.boundary_benchmark import benchmark_boundary
 
 HERE = Path(__file__).resolve().parent
 CAMPAIGN = HERE.parent
-OUTPUT = CAMPAIGN / "boundary_result.json"
+OUTPUT = CAMPAIGN.parents[1] / "data/generated/stieltjes_proxy_campaign/boundary_result.json"
 EXPECTED_PROTOCOL_SHA256 = (
     "8e52c717e7a1f3c80fd3549231556dd0127974f5460d32ca199cfb116893855c"
 )
@@ -82,6 +82,7 @@ def main() -> int:
         "gates": gates,
         "benchmark": result,
     }
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     print(json.dumps({
         "status": payload["status"],

@@ -6,24 +6,15 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+import sys
 
 import numpy as np
 
 
-OUTPUT_ROOT = Path(
-    "/home/amir/.codex/visualizations/2026/08/14/"
-    "019fff0b-20b5-7c23-8d3e-178d14b24fdd"
-)
-INPUT_NPZ = [
-    OUTPUT_ROOT / "gd-n16384-eight-pair-shard0.npz",
-    OUTPUT_ROOT / "gd-n16384-eight-pair-shard1.npz",
-]
-INPUT_JSON = [
-    OUTPUT_ROOT / "gd-n16384-eight-pair-shard0.json",
-    OUTPUT_ROOT / "gd-n16384-eight-pair-shard1.json",
-]
-OUTPUT_NPZ = OUTPUT_ROOT / "gd-n16384-eight-pair-h5e-6.npz"
-OUTPUT_JSON = OUTPUT_ROOT / "gd-n16384-eight-pair-h5e-6.json"
+sys.path.insert(0, str(Path(__file__).resolve().parents[4]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 OUTPUT_NODES = np.asarray([0.0, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99])
 
 
@@ -42,6 +33,11 @@ def interpolate_rows(x: np.ndarray, rows: np.ndarray) -> np.ndarray:
 
 
 def main() -> int:
+    args = PATHS.parse(inputs=True)
+    INPUT_NPZ = [args.input_dir / f"gd-n16384-eight-pair-shard{i}.npz" for i in (0, 1)]
+    INPUT_JSON = [args.input_dir / f"gd-n16384-eight-pair-shard{i}.json" for i in (0, 1)]
+    OUTPUT_NPZ = args.output_dir / "gd-n16384-eight-pair-h5e-6.npz"
+    OUTPUT_JSON = args.output_dir / "gd-n16384-eight-pair-h5e-6.json"
     if OUTPUT_NPZ.exists() or OUTPUT_JSON.exists():
         raise FileExistsError("no-overwrite gate: merged output already exists")
     metadata = [json.loads(path.read_text()) for path in INPUT_JSON]
@@ -106,6 +102,7 @@ def main() -> int:
         "node_raw_weighted_kernel": node_weighted,
         "node_raw_loss": node_loss,
     }
+    args.output_dir.mkdir(parents=True, exist_ok=True)
     np.savez_compressed(OUTPUT_NPZ, **arrays)
     payload = {
         "schema_version": 1,
