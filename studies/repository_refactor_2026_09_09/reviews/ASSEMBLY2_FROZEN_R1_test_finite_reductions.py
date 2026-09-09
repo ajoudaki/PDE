@@ -311,13 +311,6 @@ class FrozenQuadraticTests(unittest.TestCase):
             self.assertFalse(np.shares_memory(arr, z))
 
     def test_input_and_range_contract(self):
-        for mixed in ([True, 0.5], (1, np.bool_(False))):
-            for a, z in ((mixed, [0.2, 0.4]), ([0.2, 0.4], mixed)):
-                with self.subTest(a=a, z=z):
-                    with self.assertRaises(ValueError):
-                        frozen_quadratic(a, z, 1)
-                    with self.assertRaises(ValueError):
-                        frozen_quadratic_step(a, z, 1, 0.1)
         for a, z, q in (([], [], 1), ([1], [1, 2], 1), ([[1]], [1], 1),
                         ([True], [1], 1), ([1j], [1], 1), (["1"], [1], 1),
                         ([np.nan], [1], 1), ([1], [np.inf], 1),

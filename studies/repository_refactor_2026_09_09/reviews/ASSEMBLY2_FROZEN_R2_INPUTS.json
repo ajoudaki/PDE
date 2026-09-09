@@ -1,0 +1,47 @@
+{
+  "docs/NOTATION.md": {
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "bytes": 5110,
+    "lines": 98
+  },
+  "code/pde/__init__.py": {
+    "sha256": "65eb96a5dd455041d2ad1f32652e3e26e8c15192eb41bdffba27980f0f69e8c3",
+    "bytes": 611,
+    "lines": 26
+  },
+  "code/pde/finite_network.py": {
+    "sha256": "efe694b200b8af2603cbf1bb9d0249f49636e874088c2bafd98f402b5bfbe551",
+    "bytes": 15525,
+    "lines": 363
+  },
+  "code/pde/gaussian_moments.py": {
+    "sha256": "6c2a21a9f3d101c433b5f06cb3f6e1dcdeca23a814891ea7bd81e73960e854ae",
+    "bytes": 4464,
+    "lines": 114
+  },
+  "code/pde/finite_reductions.py": {
+    "sha256": "391dc35773a35d86f889cebda9f95820d793a656f2fb05f9b01bb7453be20a4c",
+    "bytes": 15571,
+    "lines": 346
+  },
+  "code/tests/test_finite_reductions.py": {
+    "sha256": "7b1a4023334956a25afd4217de7a311145b64c240fc78b87f84b16d2af7dedb0",
+    "bytes": 18563,
+    "lines": 340
+  },
+  "requirements.txt": {
+    "sha256": "c907c176d0ef35a2a05a8650accb80616d99d55f620dc0fd55d8bfe994bc7ae2",
+    "bytes": 111,
+    "lines": 2
+  },
+  "docs/finite_dynamics.md": {
+    "sha256": "a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca5545bc0012a",
+    "bytes": 48489,
+    "lines": 1275
+  },
+  "code/README.md": {
+    "sha256": "9480d7300646f1fff81501954b767f86bca606dcadc7cdb2fe27ba0d08baad77",
+    "bytes": 2363,
+    "lines": 42
+  }
+}

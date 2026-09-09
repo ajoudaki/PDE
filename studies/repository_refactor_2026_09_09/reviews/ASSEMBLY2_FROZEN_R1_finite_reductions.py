@@ -280,10 +280,6 @@ def _frozen_state(readout, preactivation, feature_second_moment):
         raw = np.asarray(value)
         if raw.ndim != 1 or raw.size == 0 or raw.dtype.kind not in "iuf":
             raise ValueError(f"{name} must be a nonempty real numeric vector")
-        # Inspect the supplied elements before mixed numeric lists erase bools.
-        if any(isinstance(item, (bool, np.bool_))
-               for item in np.asarray(value, dtype=object).flat):
-            raise ValueError(f"{name} must not contain booleans")
         values.append(np.array(_finite(raw, name), dtype=np.float64, copy=True))
         _finite(values[-1], name)
     a, z = values

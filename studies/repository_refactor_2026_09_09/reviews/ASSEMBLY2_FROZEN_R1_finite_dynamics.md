@@ -1,22 +1,15 @@
 # Exact finite dynamics and the energy estimate
 
 The conventions are those of [the shared notation](NOTATION.md). This chapter
-proves finite identities for arbitrary depth and a fixed dataset. Sections 1–4
-prove global finite-width gradient-flow existence and width-independent
-finite-horizon norm bounds under their smoothness assumptions. These statements
-do not by themselves identify an infinite-width
+proves finite identities for arbitrary depth and a fixed dataset. It also proves
+global finite-width gradient-flow existence and width-independent finite-horizon
+norm bounds. These statements do not by themselves identify an infinite-width
 trajectory. No empirical assertion or population approximation is used here.
 
 Sections 5–7 give separate one-sample, two-hidden-layer quadratic/identity
 and differentiated RMS models: exact gradients, kernels, Lax identities,
 balance laws and finite physical-flow continuation. Their state matrices
 retain width; no population or spectrum-only closure is asserted.
-
-Sections 8–9 use separate order-one-readout, half-square-loss models. They
-prove a frozen-bottom quadratic joint initial layer, a reached finite ReLU
-classical-flow obstruction, and positive local compactness of actual ReLU
-Euler outputs. Frozen, fully trained, classical and subsequential statements
-retain their distinct scopes.
 
 ## 1. Model and learning metric
 

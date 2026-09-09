@@ -388,3 +388,9 @@ scope and all remaining gaps recorded in
 ## Resumed assembly: shallow theorem
 
 Gaussian-calculus Section 11 has two complete CLEAN isolated reviews, A1 and B2, at the same unchanged candidate hash. The incomplete B1 final artifact is retained but not counted. Both full audits verify the quantitative proof and its exact expectation/clock/initialization scope. The accepted 27-file edition passes the standalone boundary/local-link check on all 25 docs/code files; see `reviews/ASSEMBLY2_SHALLOW_STANDALONE.md`. This proof-only addition preserves the preceding implementation and all older proof bodies. Its edition hash record is `reviews/ASSEMBLY2_SHALLOW_LIBRARY_INPUTS.json`.
+
+## Resumed assembly: frozen quadratic/ReLU proof and API
+
+Two full first-round reports independently found one mixed-boolean API defect. The original reports and candidate code/tests/chapter are retained. The correction and regression cases have two fresh complete CLEAN reviews at the identical R2 hashes; each read every one of the nine inputs and all 2,606 lines, ran 13 finite-reduction tests and the guide example, and checked independent raw derivatives and exact finite algebra.
+
+The 27-file accepted edition passes the standalone dependency/local-link check. Its implementation is byte-identical to that which passed all 90 scientific tests in the standalone final-assembly packet. The proof acceptance is limited to the exact frozen/ReLU models and modes recorded in `INCORPORATION_ACCEPTANCE.md`; tests do not prove joint limits or identify ReLU population dynamics. No exporter test, training experiment or historical campaign was run.

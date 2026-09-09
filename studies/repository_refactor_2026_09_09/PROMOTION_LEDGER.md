@@ -138,3 +138,5 @@ have an explicit [current disposition](CONTINUATION_DISPOSITION.md), with
 actual exact versions, corrections and paired reviews in the acceptance record.
 
 The resumed assembly after `caf975a` has now accepted sharp shallow discretization, with complete paired isolated reviews and contained Gaussian integrability and constant proofs. Its accepted edition and exact scope are recorded in `INCORPORATION_ACCEPTANCE.md`; no source deferral is counted as incorporation.
+
+Frozen quadratic and ReLU source-specific assembly is now accepted in finite-dynamics Sections 8–9, alongside an exact finite frozen evaluator/step. Both first reviews found the same validation defect; the corrected version has two fresh complete CLEAN reviews. The positive ReLU output compactness theorem is retained beside the prescribed-field obstruction, and the frozen initial-layer result is not transferred to full training. No additional canonical adaptive or generalized-flow theorem is claimed.
