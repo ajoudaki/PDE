@@ -1,8 +1,8 @@
 # Refactor validation record
 
-Status: standalone-library integration is accepted; final study-routing
-acceptance is still in progress. The three special-data proof scopes have clean
-independent reviews. This record
+Status: the proof/code library, final bounded study-routing repairs and expanded
+reading guide are independently accepted at the scopes recorded below. The
+three special-data proof scopes have clean independent reviews. This record
 is not a blanket release certificate. Completed
 checks below apply to their exact snapshots and scopes.
 
@@ -85,10 +85,16 @@ It read all 21 supplied files (18,853 lines), checked chapter interfaces and
 the supporting proof obligations, and independently passed all 52 tests.
 This integration verdict does not replace the earlier chapter-specific proof
 reviews or claim that every inequality was independently rederived again.
-The exact current edition is [LIBRARY_INPUTS.json](LIBRARY_INPUTS.json).
-Its hashes match both the review input and the separately copied library tested
-without studies or data. The optional local regression-remainder rename was
-not required for correctness and has not changed the accepted bytes.
+Its exact input edition is frozen separately in
+[INTEGRATION_ROUND2_LIBRARY_INPUTS.json](reviews/INTEGRATION_ROUND2_LIBRARY_INPUTS.json).
+The current edition is [LIBRARY_INPUTS.json](LIBRARY_INPUTS.json). Following the
+coverage advisory, only `docs/README.md` changes: the other twenty input hashes,
+including all mathematical chapters and implementation files, are unchanged.
+The expanded guide has a separate CLEAN
+[editorial/integration review](reviews/GUIDE_ADVISORY_INTEGRATION.md), not a
+retroactive extension of the old verdict. Its 21-file private copy has been
+checked byte-for-byte without supplying studies or data. The optional local
+regression-remainder rename was not required and has not changed proof bytes.
 
 The proof library does not use a figure, coefficient table, empirical claim or
 specialized external theorem in place of an included proof. Its index separates
@@ -116,7 +122,7 @@ The coordinator has repeated these current, explicitly selected suites:
 |---|---:|---|
 | ResNet/operator/quadratic and metadata routing | 56 | Two Python interfaces clean in the first patch review; wrapper clean in a fresh repair review |
 | Gaussian/MFP/identity/causal analyzer routing | 60 | CLEAN for eleven latest repaired interfaces plus bounded regression compatibility |
-| Seven-study raw/analysis/archival routing | 111 | Activation interfaces clean within the three-interface review; final generalization path-planning repair under fresh review |
+| Seven-study raw/analysis/archival routing | 111 | Activation interfaces clean within the three-interface review; final generalization named-file planning repair CLEAN in a fresh isolated review |
 
 The first slice's seven broad reviews found and motivated CLI forwarding,
 source/input/output separation, checkpoint/export distinction, consumed trace
@@ -186,8 +192,15 @@ rejects equal or nested final/partial file destinations and incompatible
 existing file/directory roles, while allowing ordinary distinct products to
 share directories. Three added regression methods bring the coordinator's
 complete seven-study allowlist to 111 passing tests. All scientific bodies and
-original test methods still pass the exact preservation check. Fresh acceptance
-of this last local helper and its callsites is pending.
+original test methods still pass the exact preservation check. Fresh isolated
+[named-file planning acceptance](reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_REPORT.md)
+is CLEAN at `c089b5e`: 248 independent cases, 744 boundary invocations and all
+11 admitted analysis-routing tests pass. All four pinned files were unchanged.
+The check covers the eighteen final/partial file destinations, type and parent
+conflicts, input aliases and ordinary compatible layouts. These counts are not
+additional scientific tests. This final verdict composes with the earlier
+activation-interface acceptance; it does not relabel either earlier NOT CLEAN
+report or promise atomic publication against concurrent filesystem mutation.
 
 These are bounded interface checks using AST extraction, mocked scientific
 work, inert metadata and small transport fixtures. They do not scientifically
@@ -208,3 +221,26 @@ and additional proved scoped sources awaiting editorial assembly. Qualified
 imports and unresolved premises remain distinguishable. The refactor does not
 resolve the general uncut nonlinear population problem, assert fitting for every
 model, or establish generalization.
+
+The later [advisory disposition](ADVISORY_COVERAGE_DISPOSITION.md) compares all
+ten suggested coverage families with the current book, rather than repeating
+the earlier candidate's missing-results list. Its two read-only isolated
+sidecars cover [MFP/Stieltjes/curvature](source_audits/ADVISORY_MFP_STIELTJES_COMPILER.md)
+and [initialization/correlated data](source_audits/ADVISORY_GEOMETRY_CORRELATED_DATA.md).
+Their full/selective read scopes are explicit. They recommend bounded future
+assemblies; they did not freshly certify every proof, generator or historical
+experiment. No code, coefficient artifact or empirical result is promoted by
+the advisory disposition alone.
+
+The actual book change restores the scientific narrative and includes the
+elementary finite-accuracy transfer argument. Four primary papers are cited for
+non-exhaustive context only, not invoked as mathematical proof dependencies.
+The coordinator checked all 21 new edition hashes against the isolated copy,
+and repeated `make check` in the repository and that copy: 52 tests pass in
+each. The fresh isolated guide review is CLEAN at SHA-256
+`4c11fe4d4f12e7ccb348a0c480f1496c617ca7be04997cfa115811e91b1841b3`.
+It fully read the guide and notation, checked actual chapter statements and
+decisive scope passages, checked the four primary-source context claims, and
+independently passed all 52 tests with all 21 hashes unchanged. Its detailed
+read ledger expressly does not claim a new line-by-line proof/code audit of
+the unchanged chapters or external papers. Required corrections: none.

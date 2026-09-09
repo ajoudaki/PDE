@@ -1,8 +1,11 @@
 # Repository refactor: preservation and acceptance contract
 
-Status: source snapshots, byte-verified layout and independently accepted
-standalone library committed. Final legacy-interface acceptance and preservation
-receipts are in progress. This plan itself promotes no scientific result.
+Status: source preservation, flat layout, selected standalone proof/code
+library, bounded legacy-interface repairs and advisory-driven guide expansion
+are completed and independently accepted at their recorded scopes. The final
+coverage disposition deliberately retains additional promotion work; this is
+not complete incorporation of every historical research result. This plan
+itself promotes no scientific result.
 
 ## Scope
 
@@ -28,7 +31,7 @@ research task is resumed and no history is rewritten.
 
 ## Intended layout
 
-- `docs/`: a short reading index, shared notation and a modest collection of
+- `docs/`: a substantive scientific introduction/reading index, shared notation and a modest collection of
   substantive, complete chapters. The index distinguishes scientific aims from
   proved statements. It is not a second historical research ledger.
 - `code/`: reusable, tested implementations and their tests and reproduction

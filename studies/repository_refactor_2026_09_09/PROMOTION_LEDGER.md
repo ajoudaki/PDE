@@ -6,6 +6,9 @@ remains in the [research map](../project_wide_audit_2026_09_08/MASTER_RESEARCH_R
 and the [source-completeness audit](source_audits/PROMOTION_COMPLETENESS.md).
 The latter describes an earlier, smaller candidate: its “missing” rows must be
 read together with the additions below, not as the final library inventory.
+The later [ten-family advisory disposition](ADVISORY_COVERAGE_DISPOSITION.md)
+records what is actually incorporated, what is worth assembling next, and the
+precise qualifications of remaining computational and theoretical omissions.
 
 ## What belongs in the maintained library
 
@@ -27,6 +30,13 @@ Historical PASS labels do not override these distinctions. Proof-containment is
 checked on the current library, not inferred from a filename or review title.
 During final acceptance, current revisions and exact clean-review hashes are
 recorded separately; a chapter still under review is not accepted by this table.
+
+The scientific introduction is substantially expanded following the coverage
+advisory, with a separate fresh review. The eight mathematical chapters and
+established code are unchanged. This restores the narrative, not the missing
+MFP compilers, Stieltjes certificates, initialization comparisons or correlated-
+data partials. Those require actual contained presentation and acceptance;
+their listing here does not count as incorporation.
 
 ## Maintained assembly and exact scope
 
