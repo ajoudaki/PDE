@@ -10,3 +10,22 @@ __pycache__/
 build/
 dist/
 .backups/
+
+# Generated artifacts are physically separate from source.
+/data/*
+!/data/README.md
+*.npz
+*.npy
+*.pt
+*.csv
+*.tsv
+*.log
+*.aux
+*.fls
+*.fdb_latexmk
+*.toc
+*.out
+
+# Do not reintroduce transient runtime products into a study.
+**/outputs/
+**/runs/
