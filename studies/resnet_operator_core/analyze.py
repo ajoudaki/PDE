@@ -9,7 +9,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
-from runtime_paths import INPUT_ROOT, OUTPUT_ROOT
+from runtime_paths import INPUT_ROOT, OUTPUT_ROOT, reject_output_links
 
 from dense_pde import (
     PDESpec,
@@ -188,6 +188,8 @@ def final_projected_p_energy(run: np.lib.npyio.NpzFile) -> float:
 
 
 def main() -> None:
+    reject_output_links(PROCESSED)
+    reject_output_links(FIGURES)
     PROCESSED.mkdir(parents=True, exist_ok=True)
     FIGURES.mkdir(parents=True, exist_ok=True)
     primary = load(

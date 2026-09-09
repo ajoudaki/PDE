@@ -27,6 +27,7 @@ from run_dense_resnet_audit import (
     forward_and_adjoint,
     initialize,
     make_data,
+    reject_output_links,
     train,
 )
 
@@ -73,6 +74,8 @@ def triangular_legendre_projection(
 
 
 def write_rows(path: Path, rows: Sequence[Dict[str, object]]) -> None:
+    path = path.expanduser().absolute()
+    reject_output_links(path)
     keys = list(rows[0])
     with path.open("w", newline="", encoding="utf-8") as fh:
         writer = csv.DictWriter(fh, fieldnames=keys)
@@ -87,7 +90,9 @@ def main() -> None:
     )
     parser.parse_args()
     default_out = Path(__file__).resolve().parents[2] / "data" / "generated" / "resnet_dense_early_audit" / "results"
-    out = Path(os.environ.get("GALERKIN_OUT", default_out)).resolve()
+    out = Path(os.environ.get("GALERKIN_OUT", default_out)).expanduser().absolute()
+    reject_output_links(out)
+    out = out.resolve()
     out.mkdir(parents=True, exist_ok=True)
     cases = [
         ("iid_generic", "iid", 0.0),

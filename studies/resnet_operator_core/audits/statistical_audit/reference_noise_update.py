@@ -20,7 +20,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
-from runtime_paths import INPUT_ROOT, OUTPUT_ROOT
+from runtime_paths import INPUT_ROOT, OUTPUT_ROOT, reject_output_links
 
 RAW = INPUT_ROOT / "results" / "raw"
 OUT = OUTPUT_ROOT / "audits" / "statistical_audit"
@@ -54,6 +54,8 @@ class Block:
 
 
 def write_csv(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
+    path = path.expanduser().absolute()
+    reject_output_links(path)
     fields: list[str] = []
     seen: set[str] = set()
     for row in rows:
@@ -434,6 +436,7 @@ def bootstrap_rows(
 
 
 def main() -> None:
+    reject_output_links(OUT)
     OUT.mkdir(parents=True, exist_ok=True)
     blocks = [load_block(filename) for filename in BLOCK_FILES]
     all_seeds = np.concatenate([block.seeds for block in blocks])

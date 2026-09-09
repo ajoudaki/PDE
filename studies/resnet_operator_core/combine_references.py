@@ -6,9 +6,13 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import sys
 from pathlib import Path
 
 import numpy as np
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from studies._output_paths import reject_output_links
 
 
 def require_new_output(output: Path, inputs: list[Path]) -> tuple[Path, Path]:
@@ -16,6 +20,7 @@ def require_new_output(output: Path, inputs: list[Path]) -> tuple[Path, Path]:
     output = output.expanduser().absolute()
     partial = output.with_suffix(output.suffix + ".partial")
     for destination in (output, partial):
+        reject_output_links(destination)
         for source in inputs:
             if destination.resolve() == source.resolve() or (
                 destination.exists() and source.exists() and destination.samefile(source)

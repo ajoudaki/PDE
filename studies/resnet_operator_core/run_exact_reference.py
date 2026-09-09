@@ -18,7 +18,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parent
-from runtime_paths import OUTPUT_ROOT
+from runtime_paths import OUTPUT_ROOT, reject_output_links
 
 sys.path.insert(0, str(ROOT / "src"))
 
@@ -78,6 +78,7 @@ def _one_seed(payload: tuple[int, int, int, float, float, float, float]) -> dict
 
 
 def run(args: argparse.Namespace) -> Path:
+    reject_output_links(OUTPUT_ROOT / "results" / "raw")
     payloads = [
         (
             args.n,

@@ -14,7 +14,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parent
-from runtime_paths import OUTPUT_ROOT, require_new_archive
+from runtime_paths import OUTPUT_ROOT, require_new_archive, reject_output_links
 
 sys.path.insert(0, str(ROOT / "src"))
 
@@ -63,6 +63,7 @@ def archive_paths(args: argparse.Namespace, base_points: int, fast_points: int,
 
 
 def run(args: argparse.Namespace) -> Path:
+    reject_output_links(OUTPUT_ROOT / "results" / "raw")
     X = np.eye(3)
     y = np.array([0.8, -0.55, 0.35])
     if args.quadrature in ("gauss-hermite", "hybrid"):

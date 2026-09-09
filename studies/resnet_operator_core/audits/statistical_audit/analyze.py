@@ -32,7 +32,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
-from runtime_paths import INPUT_ROOT, OUTPUT_ROOT
+from runtime_paths import INPUT_ROOT, OUTPUT_ROOT, reject_output_links
 
 RAW = INPUT_ROOT / "results" / "raw"
 NUM = INPUT_ROOT / "audits" / "numerics"
@@ -144,6 +144,8 @@ def sha256(path: Path) -> str:
 
 
 def write_csv(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
+    path = path.expanduser().absolute()
+    reject_output_links(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     if not rows:
         path.write_text("", encoding="utf-8")
@@ -1216,6 +1218,7 @@ def fit_loglog_slope(
 
 
 def main() -> None:
+    reject_output_links(OUT)
     OUT.mkdir(parents=True, exist_ok=True)
     all_paths = sorted(RAW.glob("*.npz")) + sorted(NUM.glob("*.npz"))
     archives = {path.name: load_archive(path) for path in all_paths}

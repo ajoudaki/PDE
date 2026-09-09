@@ -118,6 +118,10 @@ readers. The repaired combined slice now passes 38 checks (15 ResNet, 23
 quadratic). Round 6 independently passed those 38 checks but found four further
 metadata/CSV/plot publication-alias groups. The long-horizon metadata repair
 adds five passing tests; the disjoint operator/early-audit fixes are in progress.
+Those fixes are now complete: the coordinator repeated 51 combined checks
+(23 ResNet, 23 quadratic, 5 metadata), all passing. The separate worker's 191
+normalized function/class AST comparisons show no non-routing changes.
+Fresh isolated round 7 is running against the frozen current slice.
 Native checkpoint guards were inspected
 as source, not compiled. The legacy native export power-filter limitation is
 recorded in the quadratic README and remains outside the repaired routing

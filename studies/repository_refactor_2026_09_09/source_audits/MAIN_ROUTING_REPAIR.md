@@ -249,3 +249,18 @@ additional bounded tests cover every implicated metadata name, both link
 types, source/run inputs, same-file configuration refusal, and normal refresh.
 No scientific routine is called. Operator/early-audit publication repairs are
 a separate disjoint slice, still in progress at this checkpoint.
+
+The operator/early-audit slice is now complete; its exact worker record is
+`MAIN_ROUTING_ROUND6_REPAIRS_worker-report.md`. All eight public early-audit
+output-directory callables, its table writers, operator analyzer directories,
+raw-runner roots and standalone CSV destinations use the same frozen shared
+guard. Unresolved path selections reach the guard before resolution can hide
+an alias. Valid ordinary refresh remains available; existing exclusive archive
+rules remain exclusive. The worker's normalized AST check accounts for all
+191 function/class bodies, with no non-routing difference. Its 12-file change
+list and before/after hashes are preserved unchanged.
+
+The coordinator repeated the full three-file bounded suite: 51 tests pass
+(23 ResNet, 23 quadratic, 5 metadata). This is not a native build, a research
+run or scientific acceptance of the old studies. A fresh isolated seventh
+interface review is running against the frozen slice and shared helper.

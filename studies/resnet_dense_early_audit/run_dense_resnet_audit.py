@@ -23,9 +23,13 @@ import csv
 import json
 import math
 import os
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence, Tuple
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from studies._output_paths import reject_output_links
 
 import matplotlib
 
@@ -349,6 +353,8 @@ def interpolate_depth_grams(grams: Array, target_L: int) -> Array:
 
 
 def finite_difference_scaling_audit(out_dir: Path) -> Dict[str, float]:
+    out_dir = out_dir.expanduser().absolute()
+    reject_output_links(out_dir)
     n, L, d, m = 7, 5, 4, 3
     X, y = make_data(m, d, seed=11)
     state = initialize(n, L, d, seed=13, depth_mode="smooth")
@@ -399,6 +405,8 @@ def finite_difference_scaling_audit(out_dir: Path) -> Dict[str, float]:
 
 
 def iid_depth_self_averaging(out_dir: Path) -> List[Dict[str, float]]:
+    out_dir = out_dir.expanduser().absolute()
+    reject_output_links(out_dir)
     rows: List[Dict[str, float]] = []
     n, d, m = 40, 6, 3
     X, y = make_data(m, d, seed=19)
@@ -445,6 +453,8 @@ def iid_depth_self_averaging(out_dir: Path) -> List[Dict[str, float]]:
 
 
 def depth_resolution_experiment(out_dir: Path) -> List[Dict[str, float]]:
+    out_dir = out_dir.expanduser().absolute()
+    reject_output_links(out_dir)
     n, d, m = 24, 6, 3
     X, y = make_data(m, d, seed=23)
     T, dt = 1.2, 0.02
@@ -503,6 +513,8 @@ def response_snapshot_audit(
     out_dir: Path,
     tag: str,
 ) -> Tuple[List[Dict[str, float]], Array]:
+    out_dir = out_dir.expanduser().absolute()
+    reject_output_links(out_dir)
     cache = forward_and_adjoint(state, X, y)
     L, n, _ = state.W.shape
     delta = 1.0 / L
@@ -607,6 +619,8 @@ def compare_histories(ref: Dict[str, Array], approx: Dict[str, Array]) -> Dict[s
 
 
 def truncated_training_experiment(out_dir: Path) -> List[Dict[str, float]]:
+    out_dir = out_dir.expanduser().absolute()
+    reject_output_links(out_dir)
     configs = [
         ("smooth_generic", "smooth", "generic", 0.0),
         ("iid_generic", "iid", "generic", 0.0),
@@ -722,6 +736,8 @@ def truncated_training_experiment(out_dir: Path) -> List[Dict[str, float]]:
 
 
 def restart_and_horizon_experiment(out_dir: Path) -> Tuple[List[Dict[str, float]], List[Dict[str, float]]]:
+    out_dir = out_dir.expanduser().absolute()
+    reject_output_links(out_dir)
     n, L, d, m = 22, 36, 6, 3
     X, y = make_data(m, d, seed=71)
     initial = initialize(n, L, d, seed=73, depth_mode="smooth")
@@ -797,6 +813,8 @@ def restart_and_horizon_experiment(out_dir: Path) -> Tuple[List[Dict[str, float]
 
 def parameter_grid_experiment(out_dir: Path) -> List[Dict[str, float]]:
     """Small Latin-hypercube sweep over n, L, m, seeds, labels, and activation gain."""
+    out_dir = out_dir.expanduser().absolute()
+    reject_output_links(out_dir)
     designs = [
         # n, L, m, gain, label scale, depth mode
         (16, 16, 2, 0.70, 0.65, "iid"),
@@ -854,6 +872,8 @@ def parameter_grid_experiment(out_dir: Path) -> List[Dict[str, float]]:
 
 
 def write_csv(path: Path, rows: Sequence[Dict[str, object]]) -> None:
+    path = path.expanduser().absolute()
+    reject_output_links(path)
     if not rows:
         return
     keys: List[str] = []
@@ -870,6 +890,8 @@ def write_csv(path: Path, rows: Sequence[Dict[str, object]]) -> None:
 
 
 def summarize(out_dir: Path, payload: Dict[str, object]) -> None:
+    out_dir = out_dir.expanduser().absolute()
+    reject_output_links(out_dir)
     (out_dir / "summary.json").write_text(
         json.dumps(payload, indent=2), encoding="utf-8"
     )
@@ -885,7 +907,9 @@ def main() -> None:
         help="Run only normalization and initialization-depth audits.",
     )
     args = parser.parse_args()
-    out_dir = Path(args.out).resolve()
+    out_dir = Path(args.out).expanduser().absolute()
+    reject_output_links(out_dir)
+    out_dir = out_dir.resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
     payload: Dict[str, object] = {}
     payload["scaling"] = finite_difference_scaling_audit(out_dir)

@@ -37,6 +37,8 @@ only the maintained, self-contained mathematical library.
   instructions; 62 bounded tests repeated independently by the coordinator.
 - `e46b921`: restart/trace publication guards and unchanged fifth-review evidence.
 - `33c371d`: checkpoint/export distinction and exact third Gaussian-review evidence.
+- `2130732`: metadata input protection and exact sixth-main/third-study reviews.
+- `706ee9c`: complete analyzer-input and source-role preflights, 44 bounded tests.
 
 [INVENTORY_BEFORE.json](INVENTORY_BEFORE.json) records the original paths,
 sizes and hashes. [MOVE_MANIFEST.json](MOVE_MANIFEST.json) records relocation.

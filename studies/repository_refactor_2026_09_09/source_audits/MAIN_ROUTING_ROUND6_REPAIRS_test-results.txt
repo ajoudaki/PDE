@@ -1,0 +1,30 @@
+test_early_boundaries_allow_distinct_refresh_and_fresh_cli_roots (studies.repository_refactor_2026_09_09.test_resnet_routing.OutputBoundaryTests) ... ok
+test_early_cli_preserves_unresolved_aliases_until_guard (studies.repository_refactor_2026_09_09.test_resnet_routing.OutputBoundaryTests) ... ok
+test_early_public_directory_callables_guard_plots_tables_and_intermediates (studies.repository_refactor_2026_09_09.test_resnet_routing.OutputBoundaryTests) ... ok
+test_operator_analysis_allows_distinct_existing_outputs (studies.repository_refactor_2026_09_09.test_resnet_routing.OutputBoundaryTests) ... ok
+test_operator_directory_boundaries_refuse_all_child_kinds_before_work (studies.repository_refactor_2026_09_09.test_resnet_routing.OutputBoundaryTests) ... ok
+test_operator_root_and_explicit_variance_destination_reject_links (studies.repository_refactor_2026_09_09.test_resnet_routing.OutputBoundaryTests) ... ok
+test_reference_refresh_and_pde_preflight_accept_unlinked_output_tree (studies.repository_refactor_2026_09_09.test_resnet_routing.OutputBoundaryTests) ... ok
+test_standalone_writers_reject_aliases_and_refresh_distinct_outputs (studies.repository_refactor_2026_09_09.test_resnet_routing.OutputBoundaryTests) ... ok
+test_galerkin_help_and_unknown_flags_stop_before_work (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_long_analysis_explicit_report (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_long_analysis_guards_every_deliverable_before_reading_traces (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_long_manifest_roundtrip (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_operator_consumers_and_imports (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_operator_default (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_operator_merge_refuses_aliases_before_load_and_pools_tiny_fixture (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_operator_protected_destinations (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_operator_selected_evidence_does_not_write_on_import (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_operator_shell_missing_evidence_uses_selected_root (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_operator_verifier_uses_selected_evidence (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_operator_wrapper_normalizes_before_any_work (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_reproduction_guides_select_fresh_artifacts (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_reproduction_paths_and_syntax (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_restart_output_aliases_refuse_before_quadrature_or_training (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 6.182s
+
+OK
+wrote checksums for 2 files
+verified 2 source/run checksums (read-only)

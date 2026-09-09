@@ -1,0 +1,228 @@
+{
+  "files": 21,
+  "functions_and_classes": 191,
+  "normalized_routing_boundaries": [
+    {
+      "file": "studies/resnet_dense_early_audit/run_dense_resnet_audit.py",
+      "function": "finite_difference_scaling_audit",
+      "routing_edits": [
+        "out_dir = out_dir.expanduser().absolute()",
+        "reject_output_links(out_dir)"
+      ],
+      "preserved_body_sha256": "2c4f193e2b62781b16fa03a820ea04c6d7c5b87d587ef40dcf5e531f77d5cab1"
+    },
+    {
+      "file": "studies/resnet_dense_early_audit/run_dense_resnet_audit.py",
+      "function": "iid_depth_self_averaging",
+      "routing_edits": [
+        "out_dir = out_dir.expanduser().absolute()",
+        "reject_output_links(out_dir)"
+      ],
+      "preserved_body_sha256": "b7097ef73de00ac10cab6795d99e1ff11ec2565d680a32b6e185c7fef5a35f92"
+    },
+    {
+      "file": "studies/resnet_dense_early_audit/run_dense_resnet_audit.py",
+      "function": "depth_resolution_experiment",
+      "routing_edits": [
+        "out_dir = out_dir.expanduser().absolute()",
+        "reject_output_links(out_dir)"
+      ],
+      "preserved_body_sha256": "de22489f2a547a445ee0dd45083e2c7defbf52c0470bac44a726f8d82d33712b"
+    },
+    {
+      "file": "studies/resnet_dense_early_audit/run_dense_resnet_audit.py",
+      "function": "response_snapshot_audit",
+      "routing_edits": [
+        "out_dir = out_dir.expanduser().absolute()",
+        "reject_output_links(out_dir)"
+      ],
+      "preserved_body_sha256": "e61c54a82c98cfed7e845680c9bcfdbd9182ad320edfc217822fa76769576254"
+    },
+    {
+      "file": "studies/resnet_dense_early_audit/run_dense_resnet_audit.py",
+      "function": "truncated_training_experiment",
+      "routing_edits": [
+        "out_dir = out_dir.expanduser().absolute()",
+        "reject_output_links(out_dir)"
+      ],
+      "preserved_body_sha256": "5f999221f4ba86e0ef54ff1e3121f09fc0e82a7e6f1d6dedb99dd902f7b0dbec"
+    },
+    {
+      "file": "studies/resnet_dense_early_audit/run_dense_resnet_audit.py",
+      "function": "restart_and_horizon_experiment",
+      "routing_edits": [
+        "out_dir = out_dir.expanduser().absolute()",
+        "reject_output_links(out_dir)"
+      ],
+      "preserved_body_sha256": "b170f033f6398483aa562a06831cf49c13524eb2c064c694a31a797b261f9811"
+    },
+    {
+      "file": "studies/resnet_dense_early_audit/run_dense_resnet_audit.py",
+      "function": "parameter_grid_experiment",
+      "routing_edits": [
+        "out_dir = out_dir.expanduser().absolute()",
+        "reject_output_links(out_dir)"
+      ],
+      "preserved_body_sha256": "9c38eaf560b7f6ea1eb6b0fb5f9e281ba1287cd21de2d1c362e4b390eeb74880"
+    },
+    {
+      "file": "studies/resnet_dense_early_audit/run_dense_resnet_audit.py",
+      "function": "write_csv",
+      "routing_edits": [
+        "path = path.expanduser().absolute()",
+        "reject_output_links(path)"
+      ],
+      "preserved_body_sha256": "085b44856be597fe99739e4341295a6070bbba7f097763cab548ea967c361dff"
+    },
+    {
+      "file": "studies/resnet_dense_early_audit/run_dense_resnet_audit.py",
+      "function": "summarize",
+      "routing_edits": [
+        "out_dir = out_dir.expanduser().absolute()",
+        "reject_output_links(out_dir)"
+      ],
+      "preserved_body_sha256": "b797e4fa000678bf05b07c8b29737ca37f2ade0d7df852a05c05bf720eed0c12"
+    },
+    {
+      "file": "studies/resnet_dense_early_audit/run_dense_resnet_audit.py",
+      "function": "main",
+      "routing_edits": [
+        "out_dir = Path(args.out).expanduser().absolute()",
+        "reject_output_links(out_dir)",
+        "out_dir = out_dir.resolve()"
+      ],
+      "preserved_body_sha256": "e43007cd0f85c6125f7c3029cacde5d3a2783e44ad999f17c180655240b592e1"
+    },
+    {
+      "file": "studies/resnet_dense_early_audit/run_response_galerkin_projection.py",
+      "function": "write_rows",
+      "routing_edits": [
+        "path = path.expanduser().absolute()",
+        "reject_output_links(path)"
+      ],
+      "preserved_body_sha256": "d02dd1976328a2d8b25f879d0a921fde48440dd5512547a1f03d1dbcfef89cb6"
+    },
+    {
+      "file": "studies/resnet_dense_early_audit/run_response_galerkin_projection.py",
+      "function": "main",
+      "routing_edits": [
+        "out = Path(os.environ.get('GALERKIN_OUT', default_out)).expanduser().absolute()",
+        "reject_output_links(out)",
+        "out = out.resolve()"
+      ],
+      "preserved_body_sha256": "ddce8f7c0ca571ff491c5c479626bff60485baa204b0207f7f57830955ea4ec8"
+    },
+    {
+      "file": "studies/resnet_operator_core/analyze.py",
+      "function": "main",
+      "routing_edits": [
+        "reject_output_links(PROCESSED)",
+        "reject_output_links(FIGURES)"
+      ],
+      "preserved_body_sha256": "55815d1764a8a7e8edbedbd6a748ec6d7a2a652e960f4c7b65eb2519b24e78a2"
+    },
+    {
+      "file": "studies/resnet_operator_core/audits/numerics/paired_w_variance.py",
+      "function": "main",
+      "routing_edits": [
+        "args.output = args.output.expanduser().absolute()",
+        "reject_output_links(args.output)"
+      ],
+      "preserved_body_sha256": "ee3804e8dabc78c47a309040b07ee90ad2c7c7de386d90c269643f8620618c4a"
+    },
+    {
+      "file": "studies/resnet_operator_core/audits/statistical_audit/analyze.py",
+      "function": "write_csv",
+      "routing_edits": [
+        "path = path.expanduser().absolute()",
+        "reject_output_links(path)"
+      ],
+      "preserved_body_sha256": "fb21cb8bcf82884b5e3b56bccc7e7b51ee1f91b5d217ae1486071305af6dc24a"
+    },
+    {
+      "file": "studies/resnet_operator_core/audits/statistical_audit/analyze.py",
+      "function": "main",
+      "routing_edits": [
+        "reject_output_links(OUT)"
+      ],
+      "preserved_body_sha256": "9959e81b8fdf44dc08dea72e5baf919834c33a04eefcdde45043296ab3a52e3d"
+    },
+    {
+      "file": "studies/resnet_operator_core/audits/statistical_audit/ordered_limit_update.py",
+      "function": "write_csv",
+      "routing_edits": [
+        "path = path.expanduser().absolute()",
+        "reject_output_links(path)"
+      ],
+      "preserved_body_sha256": "61226ce73ba14f36ab707020a6f4c1bd1134bc908ae5083b13f78094b9791569"
+    },
+    {
+      "file": "studies/resnet_operator_core/audits/statistical_audit/ordered_limit_update.py",
+      "function": "main",
+      "routing_edits": [
+        "reject_output_links(OUT)"
+      ],
+      "preserved_body_sha256": "5074e48885085475866136deb098236fa63bd2f4a827e7622622bdd15ce54ae2"
+    },
+    {
+      "file": "studies/resnet_operator_core/audits/statistical_audit/reference_noise_update.py",
+      "function": "write_csv",
+      "routing_edits": [
+        "path = path.expanduser().absolute()",
+        "reject_output_links(path)"
+      ],
+      "preserved_body_sha256": "61226ce73ba14f36ab707020a6f4c1bd1134bc908ae5083b13f78094b9791569"
+    },
+    {
+      "file": "studies/resnet_operator_core/audits/statistical_audit/reference_noise_update.py",
+      "function": "main",
+      "routing_edits": [
+        "reject_output_links(OUT)"
+      ],
+      "preserved_body_sha256": "0b757b8dfe69e922633bbe52005dfc5e7a9eaf86121bdbf8b495f1c35e8ee5da"
+    },
+    {
+      "file": "studies/resnet_operator_core/combine_references.py",
+      "function": "require_new_output",
+      "routing_edits": [
+        "reject_output_links(destination)"
+      ],
+      "preserved_body_sha256": "576c5b9d648444cfcc16fb6e5527029cfa7c7f960cc124bc4dc832ff873175a6"
+    },
+    {
+      "file": "studies/resnet_operator_core/run_exact_reference.py",
+      "function": "run",
+      "routing_edits": [
+        "reject_output_links(OUTPUT_ROOT / 'results' / 'raw')"
+      ],
+      "preserved_body_sha256": "a5c5e9c74fa94d27f5a57b5f7f4c2d664ec4bfae014105825d39e4befec4be04"
+    },
+    {
+      "file": "studies/resnet_operator_core/run_pde.py",
+      "function": "run",
+      "routing_edits": [
+        "reject_output_links(OUTPUT_ROOT / 'results' / 'raw')"
+      ],
+      "preserved_body_sha256": "b47f06ccb15f53fda527b69422abc93b0da677145149740a363d82c5bddd99fc"
+    },
+    {
+      "file": "studies/resnet_operator_core/runtime_paths.py",
+      "function": "output_root",
+      "routing_edits": [
+        "selected = Path(os.environ.get('PDE_OPERATOR_OUTPUT_ROOT', str(REPOSITORY_ROOT / 'data' / 'generated' / STUDY_ROOT.name))).expanduser().absolute()",
+        "path = selected.resolve()",
+        "reject_output_links(selected)"
+      ],
+      "preserved_body_sha256": "938bbd68cfca00db98192a77edd6bca9c32a6fb836b15d0d97806a7c7bc291c8"
+    },
+    {
+      "file": "studies/resnet_operator_core/runtime_paths.py",
+      "function": "require_new_archive",
+      "routing_edits": [
+        "reject_output_links(target)"
+      ],
+      "preserved_body_sha256": "34a9234312a0ae6f2497c9350f64b962f781f4c2607e1df140cd30a4a8cce0a6"
+    }
+  ],
+  "failures": []
+}

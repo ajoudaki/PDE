@@ -26,7 +26,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
-from runtime_paths import OUTPUT_ROOT
+from runtime_paths import OUTPUT_ROOT, reject_output_links
 
 sys.path.insert(0, os.fspath(ROOT / "src"))
 
@@ -101,6 +101,8 @@ def main() -> None:
         default=OUTPUT_ROOT / "audits" / "numerics" / "paired_W_conditional_variance_hp.csv",
     )
     args = parser.parse_args()
+    args.output = args.output.expanduser().absolute()
+    reject_output_links(args.output)
 
     tasks = [
         (
