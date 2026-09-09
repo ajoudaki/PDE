@@ -1,0 +1,19 @@
+[
+  {
+    "from": "/home/codex-b/.codex/sessions/2026/08/27/rollout-2026-08-27T21-35-19-01a044b8-39b5-7240-8406-c08a614deaa8.jsonl",
+    "to": "studies/recovered_sources_2026_09_09/checkpoint_editions/ROUTE_CAUSAL_COMPOSITE.md",
+    "records": [
+      12827,
+      12828,
+      12912,
+      12914,
+      12919,
+      12921
+    ],
+    "bytes": 12258,
+    "sha256": "ed696eb66fa24259a68cb7df49e72c0bc08b143daef6b805bad2efa89ca8f613",
+    "status": "reconstructed_exact_historical_amended_text_not_promoted",
+    "base_sha256": "db8bca5ae609210a628c213c9482094cdd9dada0bb10f3936f5edd5513d5ede7",
+    "method": "Extract complete 404-line recorded output; decode two literal patches as data; require every old hunk to match exactly once; verify independently recorded 416-line final byte count and digest. No historical code executed."
+  }
+]

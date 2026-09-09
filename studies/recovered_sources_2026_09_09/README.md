@@ -17,12 +17,19 @@ Payload lives under `recovered/`. Exact source → destination mappings and hash
 
 The Stieltjes archive's 187 members were safely listed. Of 60 source candidates, 37 match repository sources, 22 distinct campaign implementations/protocols/audits were recovered, and one unreferenced scratch script was excluded. Full classification is in [TAR_INVENTORY.jsonl](manifests/TAR_INVENTORY.jsonl).
 
-Coverage remains bounded to the documented temporary-source patterns, 21 selected temporary directories, accessible codex-b checkout and seven report-listed proof attachments, plus the inspected repository ZIPs and Stieltjes tar. Raw sessions were not copied; old tasks and other agents were not contacted. The historically reconstructible `ROUTE_CAUSAL_COMPOSITE.md` is still not a materialized file; its locator is retained in [KEY_CHECKS.json](manifests/KEY_CHECKS.json).
+Coverage remains bounded to the documented temporary-source patterns, 21 selected temporary directories, accessible codex-b checkout and seven report-listed proof attachments, plus the inspected repository ZIPs and Stieltjes tar. Raw sessions were not copied; old tasks and other agents were not contacted. The later targeted session supplement below resolves the causal-note gap recorded in the unchanged historical [KEY_CHECKS.json](manifests/KEY_CHECKS.json).
 
 Original files, Git and the main repository layout were not changed. Existing-repository duplicates were not recopied; source paths/import names and references to excluded data remain untouched. This is a recovery component for the non-data rollback snapshot, not a runnable reconstruction of every historical package.
 
 The coordinator subsequently preserved three additional Markdown checkpoint
 editions (102,143 bytes) before relocating cache directories. These are explicitly
 separate from the initial 269-file record: [checkpoint supplement](manifests/CHECKPOINT_SUPPLEMENT.json).
-The complete recovery payload is now 272 files, 6,180,850 bytes. No checkpoint
-edition is promoted as current theory.
+That checkpoint brought the payload to 272 files, 6,180,850 bytes.
+
+The coordinator then materialized the missing `ROUTE_CAUSAL_COMPOSITE.md` from
+its complete recorded body and two recorded successful amendments. The final
+416-line text exactly matches the previously recorded SHA-256 and 12,258-byte
+length. Its rejection banner is preserved. The [session supplement](manifests/SESSION_SUPPLEMENT.json)
+records all six source locations and the non-executing reconstruction method.
+The complete recovery payload is now **273 files, 6,193,108 bytes**. No recovered
+edition is promoted as current theory; raw session containers are not tracked.
