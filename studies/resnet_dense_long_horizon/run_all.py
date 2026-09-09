@@ -16,6 +16,7 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parent
+OUTPUT_ROOT = ROOT.parents[1] / "data" / "generated" / ROOT.name
 sys.path.insert(0, str(ROOT / "src"))
 
 import matplotlib
@@ -146,6 +147,8 @@ def main() -> None:
         help="Run only this group; may be supplied more than once.",
     )
     parser.add_argument("--skip-analysis", action="store_true")
+    parser.add_argument("--output-root", type=Path, default=OUTPUT_ROOT,
+                        help="Fresh run products; source/configuration stay in the study.")
     args = parser.parse_args()
 
     config = json.loads(args.config.read_text(encoding="utf-8"))
@@ -154,7 +157,9 @@ def main() -> None:
     if args.only:
         selected = set(args.only)
         runs = [run for run in runs if run["group"] in selected]
-    raw_dir = ROOT / "results" / "raw"
+    from make_manifest import validate_output_root
+    output_root = validate_output_root(args.output_root)
+    raw_dir = output_root / "results" / "raw"
     raw_dir.mkdir(parents=True, exist_ok=True)
     manifest: list[dict[str, Any]] = []
     for index, run in enumerate(runs, start=1):
@@ -170,7 +175,7 @@ def main() -> None:
         metadata = run_trace(run, path, progress=print)
         manifest.append(metadata)
 
-    metadata_dir = ROOT / "metadata"
+    metadata_dir = output_root / "metadata"
     metadata_dir.mkdir(parents=True, exist_ok=True)
     (metadata_dir / "environment.json").write_text(
         json.dumps(environment_record(), indent=2), encoding="utf-8"
@@ -194,11 +199,12 @@ def main() -> None:
         )
         result = analyze_directory(
             raw_dir=raw_dir,
-            processed_dir=ROOT / "results" / "processed",
-            figures_dir=ROOT / "figures",
+            processed_dir=output_root / "results" / "processed",
+            figures_dir=output_root / "figures",
             protocol=config["plateau_protocol"],
             representative_id=representative,
             expected_manifest=manifest,
+            report_path=output_root / "REPORT.md",
         )
         print(json.dumps(result, indent=2))
 

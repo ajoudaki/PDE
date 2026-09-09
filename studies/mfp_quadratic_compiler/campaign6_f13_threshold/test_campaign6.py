@@ -16,6 +16,10 @@ import coarse_sector_bounds as bounds
 
 HERE = Path(__file__).resolve().parent
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from campaign_paths import INPUT_ROOT, certificate_path, recorded_sector_path
+
+
 
 class Campaign6Tests(unittest.TestCase):
     def test_frozen_protocol_hash(self) -> None:
@@ -43,7 +47,7 @@ class Campaign6Tests(unittest.TestCase):
             )
 
     def test_wick_pair_sector_nomenclature(self) -> None:
-        artifact = json.loads((HERE / "coarse_sector_bounds.json").read_text())
+        artifact = json.loads((INPUT_ROOT / "campaign6_f13_threshold/coarse_sector_bounds.json").read_text())
         for order in (9, 11, 13):
             row = artifact["orders"][str(order)]
             self.assertIn("upper_by_wick_pair_sector_P", row)
@@ -59,7 +63,7 @@ class Campaign6Tests(unittest.TestCase):
                 self.assertNotIn("components", state)
 
     def test_protocol_downgrade_is_explicit(self) -> None:
-        artifact = json.loads((HERE / "coarse_sector_bounds.json").read_text())
+        artifact = json.loads((INPUT_ROOT / "campaign6_f13_threshold/coarse_sector_bounds.json").read_text())
         acceptance = artifact["protocol_acceptance"]
         self.assertFalse(acceptance["campaign6_certificate_accepted"])
         self.assertFalse(acceptance["independent_D9_sector_reproduction_completed"])
@@ -72,7 +76,7 @@ class Campaign6Tests(unittest.TestCase):
         self.assertIn("not protocol-accepted certificates", report)
 
     def test_decision_artifact_is_inconclusive(self) -> None:
-        artifact = json.loads((HERE / "coarse_sector_bounds.json").read_text())
+        artifact = json.loads((INPUT_ROOT / "campaign6_f13_threshold/coarse_sector_bounds.json").read_text())
         decision = artifact["d13_decision"]
         threshold = bounds.THRESHOLD
         self.assertLess(Fraction(decision["known_certified_lower"], 1), threshold)
@@ -82,7 +86,7 @@ class Campaign6Tests(unittest.TestCase):
         self.assertFalse(decision["campaign6_interval_certificate_accepted"])
 
     def test_factor_nine_target_is_explicitly_uncertified(self) -> None:
-        artifact = json.loads((HERE / "coarse_sector_bounds.json").read_text())
+        artifact = json.loads((INPUT_ROOT / "campaign6_f13_threshold/coarse_sector_bounds.json").read_text())
         target = artifact["unsupported_sharpness_target"]
         self.assertFalse(target["certified"])
         self.assertEqual(
@@ -92,7 +96,7 @@ class Campaign6Tests(unittest.TestCase):
         self.assertNotEqual(target["S11_weighted_two_hit"], bounds.EXACT_TOTALS[11])
 
     def test_benchmarks_do_not_authorize_d13(self) -> None:
-        artifact = json.loads((HERE / "benchmark_results.json").read_text())
+        artifact = json.loads((INPUT_ROOT / "campaign6_f13_threshold/benchmark_results.json").read_text())
         interpretation = artifact["interpretation"]
         self.assertFalse(interpretation["protocol_gates_completed"])
         self.assertFalse(interpretation["campaign6_certificate_accepted"])

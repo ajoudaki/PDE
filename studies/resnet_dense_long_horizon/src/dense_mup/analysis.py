@@ -1169,6 +1169,7 @@ def analyze_directory(
     protocol: dict[str, Any],
     representative_id: str,
     expected_manifest: list[dict[str, Any]],
+    report_path: Path | None = None,
 ) -> dict[str, Any]:
     expected = {item["id"]: item for item in expected_manifest}
     paths = [raw_dir / f"{run_id}.npz" for run_id in sorted(expected)]
@@ -1229,7 +1230,9 @@ def analyze_directory(
         refinement_rows,
         representative["run_id"],
     )
-    report_path = processed_dir.parent.parent / "REPORT.md"
+    if report_path is None:
+        report_path = processed_dir.parent.parent / "REPORT.md"
+    report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(report, encoding="utf-8")
     result = {
         "traces": len(paths),

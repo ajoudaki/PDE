@@ -16,9 +16,9 @@ HERE = Path(__file__).resolve().parent
 class PostprocessTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.plus = postprocess.load_jets(HERE / "frozen/plus_order7_raw.json")
+        cls.plus = postprocess.load_jets(postprocess.INPUT_ROOT / "campaign2/frozen/plus_order7_raw.json")
         cls.minus_raw = postprocess.load_jets(
-            HERE / "frozen/minus_order7_raw.json"
+            postprocess.INPUT_ROOT / "campaign2/frozen/minus_order7_raw.json"
         )
         cls.minus = postprocess.divide_minus_endpoint(cls.minus_raw)
 
@@ -62,4 +62,3 @@ class PostprocessTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

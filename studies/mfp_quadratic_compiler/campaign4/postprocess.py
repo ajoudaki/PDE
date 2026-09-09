@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import sys
 from pathlib import Path
 import tempfile
 import os
@@ -15,6 +16,10 @@ import sympy as sp
 
 
 HERE = Path(__file__).resolve().parent
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from campaign_paths import INPUT_ROOT, OUTPUT_ROOT, recorded_sector_path
+
 alpha, beta = sp.symbols("alpha beta", nonnegative=True, real=True)
 
 
@@ -205,9 +210,9 @@ def compute(path: Path) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", type=Path,
-                        default=HERE/"results_order9.json")
+                        default=INPUT_ROOT / "campaign4/results_order9.json")
     parser.add_argument("--output", type=Path,
-                        default=HERE/"certificates_order9.json")
+                        default=OUTPUT_ROOT / "campaign4/certificates_order9.json")
     args = parser.parse_args()
     result = compute(args.input)
     atomic_json(args.output, result)

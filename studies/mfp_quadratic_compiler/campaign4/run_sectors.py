@@ -178,6 +178,13 @@ def compile_result(sector_directory: Path, diagonal_path: Path,
 
 
 def main() -> None:
+    raise SystemExit(
+        "Archive-only Campaign 4: the cumulative production budget and its "
+        "source seal remain historical. A separately authorized new campaign "
+        "is required; migration does not reset that budget."
+    )
+
+    # Original bounded campaign implementation is retained for inspection.
     parser = argparse.ArgumentParser()
     parser.add_argument("--binary", type=Path, required=True)
     parser.add_argument("--sectors", type=Path,

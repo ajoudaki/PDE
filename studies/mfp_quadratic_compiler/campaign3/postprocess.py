@@ -6,12 +6,17 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import sys
 from pathlib import Path
 
 import sympy as sp
 
 
 HERE = Path(__file__).resolve().parent
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from campaign_paths import INPUT_ROOT, OUTPUT_ROOT, recorded_sector_path
+
 t = sp.symbols("t")
 
 
@@ -131,9 +136,9 @@ def rational_certificate(expression: sp.Expr) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", type=Path,
-                        default=HERE/"frozen/results_order7.json")
+                        default=INPUT_ROOT / "campaign3/frozen/results_order7.json")
     parser.add_argument("--output", type=Path,
-                        default=HERE/"certificates_order7.json")
+                        default=OUTPUT_ROOT / "campaign3/certificates_order7.json")
     args = parser.parse_args()
     jets = load_jets(args.input)
     accepted = {1: 111, 3: 1_685_184, 5: 77_400_633_120,
@@ -175,6 +180,7 @@ def main() -> None:
             "and ordinary H1 is not an all-order Stieltjes proof."
         ),
     }
+    args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(output, indent=2)+"\n")
     print(args.output)
 

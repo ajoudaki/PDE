@@ -7,11 +7,16 @@ import argparse
 from fractions import Fraction
 import hashlib
 import json
+import sys
 from pathlib import Path
 import sympy as sp
 
 
 HERE = Path(__file__).resolve().parent
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from campaign_paths import INPUT_ROOT, OUTPUT_ROOT, recorded_sector_path
+
 t = sp.symbols("t")
 
 
@@ -106,11 +111,11 @@ def polynomial_json(poly: sp.Poly) -> list[str]:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--plus", type=Path,
-                        default=HERE / "frozen/plus_order7_raw.json")
+                        default=INPUT_ROOT / "campaign2/frozen/plus_order7_raw.json")
     parser.add_argument("--minus", type=Path,
-                        default=HERE / "frozen/minus_order7_raw.json")
+                        default=INPUT_ROOT / "campaign2/frozen/minus_order7_raw.json")
     parser.add_argument("--output", type=Path,
-                        default=HERE / "certificates_order7.json")
+                        default=OUTPUT_ROOT / "campaign2/certificates_order7.json")
     args = parser.parse_args()
 
     plus = load_jets(args.plus)
@@ -129,7 +134,7 @@ def main() -> None:
         "plus_raw_sha256": sha256(args.plus),
         "minus_raw_sha256": sha256(args.minus),
         "source_sha256": sha256(HERE / "two_input_connected.cpp"),
-        "frozen_binary_sha256": sha256(HERE / "frozen/two_input_connected_vp"),
+        "frozen_binary_sha256": sha256(INPUT_ROOT / "campaign2/frozen/two_input_connected_vp"),
         "jets": {
             "plus": {str(k): polynomial_json(v) for k, v in plus.items()},
             "minus_raw": {str(k): polynomial_json(v)
@@ -156,10 +161,10 @@ def main() -> None:
             }
             for key, value in values.items()
         }
+    args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(output, indent=2) + "\n")
     print(args.output)
 
 
 if __name__ == "__main__":
     main()
-

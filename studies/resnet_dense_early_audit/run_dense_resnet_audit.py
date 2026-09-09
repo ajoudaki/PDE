@@ -877,7 +877,8 @@ def summarize(out_dir: Path, payload: Dict[str, object]) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--out", default="results")
+    parser.add_argument("--out", default=str(Path(__file__).resolve().parents[2]
+                        / "data" / "generated" / "resnet_dense_early_audit" / "results"))
     parser.add_argument(
         "--quick",
         action="store_true",

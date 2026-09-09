@@ -25,6 +25,9 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT))
+from runtime_paths import OUTPUT_ROOT
+
 sys.path.insert(0, os.fspath(ROOT / "src"))
 
 from dense_reference import (  # noqa: E402
@@ -95,9 +98,7 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=Path(__file__).with_name(
-            "paired_W_conditional_variance_hp.csv"
-        ),
+        default=OUTPUT_ROOT / "audits" / "numerics" / "paired_W_conditional_variance_hp.csv",
     )
     args = parser.parse_args()
 

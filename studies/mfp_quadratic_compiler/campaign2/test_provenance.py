@@ -2,11 +2,16 @@
 
 import hashlib
 import json
+import sys
 from pathlib import Path
 import unittest
 
 
 HERE = Path(__file__).resolve().parent
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from campaign_paths import INPUT_ROOT, certificate_path, recorded_sector_path
+
 
 
 def sha256(path: Path) -> str:
@@ -16,29 +21,29 @@ def sha256(path: Path) -> str:
 class ProvenanceTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.data = json.loads((HERE / "provenance_order7.json").read_text())
+        cls.data = json.loads((INPUT_ROOT / "campaign2/provenance_order7.json").read_text())
 
     def test_durable_hashes(self):
         mapping = {
             "source_sha256": HERE / "two_input_connected.cpp",
             "reference_source_sha256": HERE / "two_input_reference.py",
             "postprocess_source_sha256": HERE / "postprocess.py",
-            "certificates_sha256": HERE / "certificates_order7.json",
+            "certificates_sha256": certificate_path("campaign2/certificates_order7.json"),
         }
         for field, path in mapping.items():
             self.assertEqual(self.data[field], sha256(path), field)
         route = self.data["amended_accelerated_route"]
         self.assertEqual(
             route["plus"]["raw_sha256"],
-            sha256(HERE / "frozen/plus_order7_raw.json"),
+            sha256(INPUT_ROOT / "campaign2/frozen/plus_order7_raw.json"),
         )
         self.assertEqual(
             route["minus"]["raw_sha256"],
-            sha256(HERE / "frozen/minus_order7_raw.json"),
+            sha256(INPUT_ROOT / "campaign2/frozen/minus_order7_raw.json"),
         )
 
     def test_local_binary_when_present(self):
-        binary = HERE / "frozen/two_input_connected_vp"
+        binary = INPUT_ROOT / "campaign2/frozen/two_input_connected_vp"
         if binary.exists():
             self.assertEqual(self.data["frozen_binary_sha256"], sha256(binary))
 
@@ -66,7 +71,7 @@ class ProvenanceTests(unittest.TestCase):
         route = self.data["amended_accelerated_route"]
         paths.extend((route["plus"]["log"], route["minus"]["log"]))
         for path in paths:
-            self.assertTrue((HERE / path).is_file(), path)
+            self.assertTrue((INPUT_ROOT / "campaign2" / path).is_file(), path)
 
 
 if __name__ == "__main__":

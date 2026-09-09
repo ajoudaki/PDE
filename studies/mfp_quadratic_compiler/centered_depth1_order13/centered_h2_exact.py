@@ -14,7 +14,11 @@ from pathlib import Path
 
 
 HERE = Path(__file__).resolve().parent
-LINEAR_PROGRAM = HERE.parent.parent / "identity_compiler" / "linear_gaussian_program"
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from campaign_paths import INPUT_ROOT, OUTPUT_ROOT, recorded_sector_path
+
+LINEAR_PROGRAM = HERE.parent.parent / "mfp_identity_compiler" / "linear_gaussian_program"
 SEARCH_PROGRAM = LINEAR_PROGRAM / "depth2_all_order_search"
 sys.path.insert(0, str(LINEAR_PROGRAM))
 sys.path.insert(0, str(SEARCH_PROGRAM))
@@ -294,7 +298,8 @@ def main() -> int:
             "The coordinate quadrature is exact but is not a closed population F or K."
         ),
     }
-    output = HERE / "RESULTS.json"
+    output = OUTPUT_ROOT / "centered_depth1_order13/RESULTS.json"
+    output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(payload, indent=2) + "\n")
     print(json.dumps({
         "output": str(output),

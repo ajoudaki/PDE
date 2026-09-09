@@ -10,6 +10,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -18,8 +19,11 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parents[2]
-RAW = ROOT / "results" / "raw"
-OUT = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT))
+from runtime_paths import INPUT_ROOT, OUTPUT_ROOT
+
+RAW = INPUT_ROOT / "results" / "raw"
+OUT = OUTPUT_ROOT / "audits" / "statistical_audit"
 Y = np.asarray([0.8, -0.55, 0.35], dtype=float)
 BOOTSTRAP_REPLICATES = 2000
 BOOTSTRAP_SEED = 2026072310000
@@ -430,6 +434,7 @@ def bootstrap_rows(
 
 
 def main() -> None:
+    OUT.mkdir(parents=True, exist_ok=True)
     blocks = [load_block(filename) for filename in BLOCK_FILES]
     all_seeds = np.concatenate([block.seeds for block in blocks])
     if np.unique(all_seeds).size != 128:

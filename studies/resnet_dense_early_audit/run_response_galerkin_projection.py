@@ -80,7 +80,8 @@ def write_rows(path: Path, rows: Sequence[Dict[str, object]]) -> None:
 
 
 def main() -> None:
-    out = Path(os.environ.get("GALERKIN_OUT", "results")).resolve()
+    default_out = Path(__file__).resolve().parents[2] / "data" / "generated" / "resnet_dense_early_audit" / "results"
+    out = Path(os.environ.get("GALERKIN_OUT", default_out)).resolve()
     out.mkdir(parents=True, exist_ok=True)
     cases = [
         ("iid_generic", "iid", 0.0),

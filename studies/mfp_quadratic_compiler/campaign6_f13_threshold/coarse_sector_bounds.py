@@ -19,7 +19,12 @@ from __future__ import annotations
 from collections import defaultdict
 from fractions import Fraction
 import json
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from campaign_paths import INPUT_ROOT, OUTPUT_ROOT, recorded_sector_path
+
 
 
 # Exact sector values P_1,...,P_{k+1} from the audited MFP compiler.
@@ -222,7 +227,8 @@ def main() -> None:
         "warning": "Known local charging variants of this inequality are false.",
     }
 
-    out = Path(__file__).with_name("coarse_sector_bounds.json")
+    out = OUTPUT_ROOT / "campaign6_f13_threshold/coarse_sector_bounds.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(result, indent=2) + "\n")
     print(f"wrote {out}")
     print(json.dumps({

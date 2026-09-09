@@ -18,6 +18,8 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parent
+from runtime_paths import OUTPUT_ROOT
+
 sys.path.insert(0, str(ROOT / "src"))
 
 from dense_reference import (  # noqa: E402
@@ -116,7 +118,7 @@ def run(args: argparse.Namespace) -> Path:
         "gamma": 1.0,
         "elapsed_seconds": elapsed,
     }
-    output_dir = ROOT / "results" / "raw"
+    output_dir = OUTPUT_ROOT / "results" / "raw"
     output_dir.mkdir(parents=True, exist_ok=True)
     path = output_dir / (
         f"exact_ensemble_n{args.n}_L{args.depth}"

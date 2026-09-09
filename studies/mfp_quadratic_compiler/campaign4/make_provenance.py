@@ -38,6 +38,12 @@ def atomic_json(path: Path, value: dict) -> None:
 
 
 def main() -> None:
+    raise SystemExit(
+        "Archive-only provenance builder: do not re-seal migrated source as "
+        "historical Campaign 4 evidence. Inspect the retained provenance instead."
+    )
+
+    # The original historical builder is retained below, never executed.
     result_path = HERE/"results_order9.json"
     certificate_path = HERE/"certificates_order9.json"
     budget_path = HERE/"production_budget.json"
@@ -55,23 +61,23 @@ def main() -> None:
         ).stdout.splitlines()[0],
         "compile_command": (
             "g++ -std=c++17 -O3 -DNDEBUG "
-            "studies/mean_field_peeling/quadratic_compiler/campaign4/"
-            "sector_wrapper.cpp -o studies/mean_field_peeling/"
-            "quadratic_compiler/campaign4/bin/sector_wrapper"
+            "studies/mfp_quadratic_compiler/campaign4/"
+            "sector_wrapper.cpp -o studies/mfp_quadratic_compiler/"
+            "campaign4/bin/sector_wrapper"
         ),
         "production_command": (
-            "python3 studies/mean_field_peeling/quadratic_compiler/campaign4/"
-            "run_sectors.py --binary studies/mean_field_peeling/"
-            "quadratic_compiler/campaign4/bin/sector_wrapper --sectors "
-            "studies/mean_field_peeling/quadratic_compiler/campaign4/sectors "
-            "--output studies/mean_field_peeling/quadratic_compiler/"
+            "python3 studies/mfp_quadratic_compiler/campaign4/"
+            "run_sectors.py --binary studies/mfp_quadratic_compiler/"
+            "campaign4/bin/sector_wrapper --sectors "
+            "studies/mfp_quadratic_compiler/campaign4/sectors "
+            "--output studies/mfp_quadratic_compiler/"
             "campaign4/results_order9.json --budget-ledger studies/"
-            "mean_field_peeling/quadratic_compiler/campaign4/"
+            "mfp_quadratic_compiler/campaign4/"
             "production_budget.json --max-seconds 1800 "
             "--memory-bytes 4294967296"
         ),
         "postprocess_command": (
-            "python3 studies/mean_field_peeling/quadratic_compiler/"
+            "python3 studies/mfp_quadratic_compiler/"
             "campaign4/postprocess.py"
         ),
         "hashes": {

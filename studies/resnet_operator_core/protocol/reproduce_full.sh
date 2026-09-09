@@ -4,6 +4,9 @@ set -euo pipefail
 project_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 python_bin="${PYTHON_BIN:-python}"
 workers="${WORKERS:-8}"
+run_dir="${PDE_OPERATOR_OUTPUT_ROOT:-$project_dir/../../data/generated/resnet_operator_core}"
+export PDE_OPERATOR_OUTPUT_ROOT="$run_dir"
+export PDE_OPERATOR_INPUT_ROOT="$run_dir"
 
 cd "$project_dir"
 export PYTHONPATH=src
@@ -16,7 +19,7 @@ export PYTHONPATH=src
   --seed 20260723 --duration 8 --dt 0.02 --sample-dt 0.04
 "$python_bin" run_pde.py --quadrature sobol --P 5 --N 16 --M 256 --R 128 \
   --seed 20260723 --duration 24 --dt 0.1 --sample-dt 0.1 \
-  --restart-from results/raw/pde_QMC_P5_N16_M256_R128_s20260723_dt0p02_T8.npz
+  --restart-from "$run_dir/results/raw/pde_QMC_P5_N16_M256_R128_s20260723_dt0p02_T8.npz"
 
 # Time-step refinement.
 "$python_bin" run_pde.py --quadrature sobol --P 5 --N 16 --M 64 --R 32 \
@@ -89,22 +92,22 @@ done
   --seed-start 12000 --workers "$workers" --duration 8 --dt 0.02 --sample-dt 0.04
 
 "$python_bin" combine_references.py \
-  results/raw/exact_ensemble_n128_L32_S32_seed3000_dt0p02_T8p0.npz \
-  results/raw/exact_ensemble_n128_L32_S64_seed5000_dt0p02_T8p0.npz \
-  --output results/processed/exact_combined_n128_L32_S96.npz
+  "$run_dir/results/raw/exact_ensemble_n128_L32_S32_seed3000_dt0p02_T8p0.npz" \
+  "$run_dir/results/raw/exact_ensemble_n128_L32_S64_seed5000_dt0p02_T8p0.npz" \
+  --output "$run_dir/results/processed/exact_combined_n128_L32_S96.npz"
 "$python_bin" combine_references.py \
-  results/raw/exact_ensemble_n256_L32_S32_seed6000_dt0p02_T8p0.npz \
-  results/raw/exact_ensemble_n256_L32_S32_seed8000_dt0p02_T8p0.npz \
-  --output results/processed/exact_combined_n256_L32_S64.npz
+  "$run_dir/results/raw/exact_ensemble_n256_L32_S32_seed6000_dt0p02_T8p0.npz" \
+  "$run_dir/results/raw/exact_ensemble_n256_L32_S32_seed8000_dt0p02_T8p0.npz" \
+  --output "$run_dir/results/processed/exact_combined_n256_L32_S64.npz"
 "$python_bin" combine_references.py \
-  results/raw/exact_ensemble_n256_L32_S32_seed6000_dt0p02_T8p0.npz \
-  results/raw/exact_ensemble_n256_L32_S32_seed8000_dt0p02_T8p0.npz \
-  results/raw/exact_ensemble_n256_L32_S64_seed10000_dt0p02_T8p0.npz \
-  --output results/processed/exact_combined_n256_L32_S128.npz
+  "$run_dir/results/raw/exact_ensemble_n256_L32_S32_seed6000_dt0p02_T8p0.npz" \
+  "$run_dir/results/raw/exact_ensemble_n256_L32_S32_seed8000_dt0p02_T8p0.npz" \
+  "$run_dir/results/raw/exact_ensemble_n256_L32_S64_seed10000_dt0p02_T8p0.npz" \
+  --output "$run_dir/results/processed/exact_combined_n256_L32_S128.npz"
 "$python_bin" combine_references.py \
-  results/raw/exact_ensemble_n256_L64_S16_seed7000_dt0p02_T8p0.npz \
-  results/raw/exact_ensemble_n256_L64_S48_seed12000_dt0p02_T8p0.npz \
-  --output results/processed/exact_combined_n256_L64_S64.npz
+  "$run_dir/results/raw/exact_ensemble_n256_L64_S16_seed7000_dt0p02_T8p0.npz" \
+  "$run_dir/results/raw/exact_ensemble_n256_L64_S48_seed12000_dt0p02_T8p0.npz" \
+  --output "$run_dir/results/processed/exact_combined_n256_L64_S64.npz"
 
 # Required iid-depth homogenization diagnostic.
 cd "$project_dir"

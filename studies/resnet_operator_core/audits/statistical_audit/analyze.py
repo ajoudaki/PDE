@@ -21,6 +21,7 @@ import json
 import math
 import re
 import subprocess
+import sys
 import tempfile
 from dataclasses import dataclass
 from pathlib import Path
@@ -30,9 +31,12 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parents[2]
-RAW = ROOT / "results" / "raw"
-NUM = ROOT / "audits" / "numerics"
-OUT = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT))
+from runtime_paths import INPUT_ROOT, OUTPUT_ROOT
+
+RAW = INPUT_ROOT / "results" / "raw"
+NUM = INPUT_ROOT / "audits" / "numerics"
+OUT = OUTPUT_ROOT / "audits" / "statistical_audit"
 Y3 = np.asarray([0.8, -0.55, 0.35], dtype=float)
 Y2 = np.asarray([0.8, -0.55], dtype=float)
 RNG_SEED = 24681357
@@ -217,7 +221,7 @@ def inventory_row(archive: Archive) -> dict[str, Any]:
     if arrays and ("times" in arrays or "time" in arrays):
         time = get_time(archive)
     return {
-        "path": str(archive.path.relative_to(ROOT)),
+        "path": str(archive.path.relative_to(INPUT_ROOT)),
         "filename": archive.name,
         "bytes": archive.path.stat().st_size,
         "sha256": sha256(archive.path),

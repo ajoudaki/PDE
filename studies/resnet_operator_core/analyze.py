@@ -9,6 +9,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
+from runtime_paths import INPUT_ROOT, OUTPUT_ROOT
 
 from dense_pde import (
     PDESpec,
@@ -19,11 +20,10 @@ from dense_pde import (
 )
 
 ROOT = Path(__file__).resolve().parent
-RAW = ROOT / "results" / "raw"
-PROCESSED = ROOT / "results" / "processed"
-FIGURES = ROOT / "figures"
-PROCESSED.mkdir(parents=True, exist_ok=True)
-FIGURES.mkdir(parents=True, exist_ok=True)
+RAW = INPUT_ROOT / "results" / "raw"
+INPUT_PROCESSED = INPUT_ROOT / "results" / "processed"
+PROCESSED = OUTPUT_ROOT / "results" / "processed"
+FIGURES = OUTPUT_ROOT / "figures"
 
 
 def load(name: str) -> np.lib.npyio.NpzFile:
@@ -188,6 +188,8 @@ def final_projected_p_energy(run: np.lib.npyio.NpzFile) -> float:
 
 
 def main() -> None:
+    PROCESSED.mkdir(parents=True, exist_ok=True)
+    FIGURES.mkdir(parents=True, exist_ok=True)
     primary = load(
         "pde_QMC_P5_N16_M256_R128_s20260723_dt0p02_T8.npz"
     )
@@ -196,16 +198,16 @@ def main() -> None:
         "_from8_to32.npz"
     )
     reference_256_32_s64 = np.load(
-        PROCESSED / "exact_combined_n256_L32_S64.npz"
+        INPUT_PROCESSED / "exact_combined_n256_L32_S64.npz"
     )
     reference_256_32 = np.load(
-        PROCESSED / "exact_combined_n256_L32_S128.npz"
+        INPUT_PROCESSED / "exact_combined_n256_L32_S128.npz"
     )
     reference_256_64_s16 = load(
         "exact_ensemble_n256_L64_S16_seed7000_dt0p02_T8p0.npz"
     )
     reference_256_64 = np.load(
-        PROCESSED / "exact_combined_n256_L64_S64.npz"
+        INPUT_PROCESSED / "exact_combined_n256_L64_S64.npz"
     )
     reference_512_32 = load(
         "exact_ensemble_n512_L32_S16_seed14000_dt0p02_T8p0.npz"
@@ -214,7 +216,7 @@ def main() -> None:
         "exact_ensemble_n64_L32_S64_seed4000_dt0p02_T8p0.npz"
     )
     reference_128_32 = np.load(
-        PROCESSED / "exact_combined_n128_L32_S96.npz"
+        INPUT_PROCESSED / "exact_combined_n128_L32_S96.npz"
     )
 
     summary: dict[str, object] = {

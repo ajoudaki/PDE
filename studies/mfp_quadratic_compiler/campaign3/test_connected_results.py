@@ -7,6 +7,10 @@ import sys
 
 
 HERE = Path(__file__).resolve().parent
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from campaign_paths import INPUT_ROOT, certificate_path, recorded_sector_path
+
 if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 import centered_reference
@@ -19,7 +23,7 @@ postprocess_spec.loader.exec_module(postprocess)
 
 
 def production() -> dict:
-    return json.loads((HERE/"frozen/results_order7.json").read_text())
+    return json.loads((INPUT_ROOT / "campaign3/frozen/results_order7.json").read_text())
 
 
 def test_production_matches_transparent_oracle_through_order_three():
@@ -32,7 +36,7 @@ def test_production_matches_transparent_oracle_through_order_three():
 
 
 def test_mandatory_parity_degree_and_endpoint_gates():
-    jets = postprocess.load_jets(HERE/"frozen/results_order7.json")
+    jets = postprocess.load_jets(INPUT_ROOT / "campaign3/frozen/results_order7.json")
     accepted = {1: 111, 3: 1_685_184, 5: 77_400_633_120,
                 7: 7_315_868_433_079_296}
     for order, expected in accepted.items():
@@ -45,7 +49,7 @@ def test_mandatory_parity_degree_and_endpoint_gates():
 
 
 def test_centered_endpoint_exact_values():
-    jets = postprocess.load_jets(HERE/"frozen/results_order7.json")
+    jets = postprocess.load_jets(INPUT_ROOT / "campaign3/frozen/results_order7.json")
     assert jets[1].eval(0) == 60
     assert jets[3].eval(0) == 642_048
     assert jets[5].eval(0) == 20_623_116_288
@@ -53,7 +57,7 @@ def test_centered_endpoint_exact_values():
 
 
 def test_every_stored_interval_certificate_is_strict():
-    data = json.loads((HERE/"certificates_order7.json").read_text())
+    data = json.loads((certificate_path("campaign3/certificates_order7.json")).read_text())
     for certificate in data["certificates"].values():
         assert certificate["strictly_positive_for_c_in_0_2"]
         for half in certificate["halves"].values():

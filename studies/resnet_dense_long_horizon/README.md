@@ -1,5 +1,11 @@
 # Dense Euclidean continuous-depth-scaled μP ResNet: long-horizon bundle
 
+This is a study record, not an established-library entry. Historical claims and
+review labels below retain their original scope; consult the
+[reconciled research map](../project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md)
+for current qualifications and the [maintained library](../../docs/README.md)
+for accepted self-contained presentations.
+
 This bundle reproduces the corrected long-horizon experiment for finite-depth
 residual approximants to the continuous-depth-scaled, fully dense network
 
@@ -52,6 +58,16 @@ python -m pip install -r requirements.txt
 `reproduce.sh` fixes BLAS thread counts, runs the algebraic and detector
 tests, executes the audit-fixed extension grid, produces tables/plots, and writes
 checksums.
+
+Fresh products now live under repository `data/generated/resnet_dense_long_horizon/`.
+Set `PDE_LONG_HORIZON_OUTPUT_ROOT` for the reproduction script, or pass the same
+`--output-root` to both `run_all.py` and `make_manifest.py`, to choose another
+fresh run. This includes the generated report, figures, metadata and traces;
+the retained source report and historical archive are not overwritten.
+The schema-2 manifest records two physical roots, `source` and `run`.
+`SHA256SUMS` uses those root labels as virtual prefixes: resolve them through
+`manifest.json`, not relative to an arbitrary current directory. No historical
+seal is regenerated. This is an expensive optional study workflow, not a core test.
 
 For a quick algebra-only check:
 
@@ -130,12 +146,13 @@ All depth nodes and all Gram entries are stored.
 - `tests/test_core.py`: finite differences, \(K=L\) derivative identity,
   exact kernel identity, zero-residual freeze, integrated RK4 floor, and
   hostile synthetic plateau tests.
-- `results/raw/*.npz`: non-pickle raw traces.
-- `results/processed/`: run-level and aggregate summaries.
-- `figures/`: representative curves, every selected Gram entry,
+- Selected output `results/raw/*.npz`: non-pickle raw traces.
+- Selected output `results/processed/`: run-level and aggregate summaries.
+- Selected output `figures/`: representative curves, every selected Gram entry,
   time-depth errors, and order convergence.
-- `REPORT.md`: concise scientific interpretation.
-- `metadata/`: environment, source hash, run manifest, and checksums.
+- Selected output `REPORT.md`: regenerated scientific summary; the source
+  `REPORT.md` remains the historical interpretation.
+- Selected output `metadata/`: environment, source hash, run manifest, and checksums.
 
 ## Scientific scope
 

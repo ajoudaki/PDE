@@ -2,10 +2,13 @@ from __future__ import annotations
 
 import hashlib
 import json
+import sys
 from pathlib import Path
 
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent))
+from campaign_paths import INPUT_ROOT, certificate_path
 
 
 def sha256(path: Path) -> str:
@@ -13,7 +16,7 @@ def sha256(path: Path) -> str:
 
 
 def test_frozen_hashes_match_provenance():
-    provenance = json.loads((HERE/"provenance_order9.json").read_text())
+    provenance = json.loads((INPUT_ROOT / "campaign4/provenance_order9.json").read_text())
     hashes = provenance["hashes"]
     mapping = {
         "protocol_sha256": HERE/"PROTOCOL.md",
@@ -27,22 +30,22 @@ def test_frozen_hashes_match_provenance():
         "postprocessor_sha256": HERE/"postprocess.py",
         "provenance_builder_sha256": HERE/"make_provenance.py",
         "frozen_campaign1_result_sha256": (
-            HERE.parent/"campaign1/results_order9_q2_order8.json"
+            INPUT_ROOT / "campaign1/results_order9_q2_order8.json"
         ),
-        "result_sha256": HERE/"results_order9.json",
-        "certificate_sha256": HERE/"certificates_order9.json",
-        "budget_ledger_sha256": HERE/"production_budget.json",
+        "result_sha256": INPUT_ROOT / "campaign4/results_order9.json",
+        "certificate_sha256": certificate_path("campaign4/certificates_order9.json"),
+        "budget_ledger_sha256": INPUT_ROOT / "campaign4/production_budget.json",
     }
     for key, path in mapping.items():
         assert hashes[key] == sha256(path)
 
-    binary = HERE/"bin/sector_wrapper"
+    binary = INPUT_ROOT / "campaign4/bin/sector_wrapper"
     if binary.exists():
         assert hashes["binary_sha256_when_locally_present"] == sha256(binary)
 
 
 def test_denominator_origin_and_resource_limits_are_explicit():
-    provenance = json.loads((HERE/"provenance_order9.json").read_text())
+    provenance = json.loads((INPUT_ROOT / "campaign4/provenance_order9.json").read_text())
     assert provenance["validation"][
         "all_denominators_positive_including_origin"
     ] is True
@@ -52,4 +55,3 @@ def test_denominator_origin_and_resource_limits_are_explicit():
         "cumulative_production_wall_seconds"
     ]
     assert provenance["production_measurement"]["sector_count"] == 125
-

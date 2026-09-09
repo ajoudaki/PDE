@@ -1,5 +1,11 @@
 # Exact quadratic-network mean-field peeling compiler
 
+This is a study record, not an established-library entry. Historical claims and
+review labels below retain their original scope; consult the
+[reconciled research map](../project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md)
+for current qualifications and the [maintained library](../../docs/README.md)
+for accepted self-contained presentations.
+
 The root of this directory contains a computer-algebra implementation of the
 leading-width peeling calculation for the canonical one-sample,
 two-hidden-layer quadratic network at `gamma=1`.  It is an exact compiler for
@@ -32,6 +38,19 @@ campaign-local certificates are colocated here with the exact jets whose
 integrity they audit.
 
 ## Exact parameter-extension campaigns
+
+Migration note (9 September 2026): retained arrays, timing records, binaries and
+provenance are read from `data/historical/studies/mfp_quadratic_compiler/`.
+New campaign diagnostics and regenerated certificates go to
+`data/generated/mfp_quadratic_compiler/`; the exact certificate originals remain
+source artifacts beside these proofs. `PDE_QUADRATIC_INPUT_ROOT` explicitly
+selects another complete input tree, including certificates; the corresponding
+output override is `PDE_QUADRATIC_OUTPUT_ROOT`. Neither defaults to overwriting
+history. Source-hash provenance tests intentionally still report changed live
+source against old seals; no digest was renewed to hide that change.
+Campaign 4's budgeted production and provenance-building entrypoints are now
+archive-only and refuse before execution. Their old implementations and consumed
+budget remain inspectable; a new campaign requires separate authorization.
 
 Five bounded parameter extensions of this compiler are maintained as
 separate, auditable campaigns.  They reuse the peeling/Wick grammar but do not

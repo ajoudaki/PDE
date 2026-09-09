@@ -14,6 +14,8 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parent
+from runtime_paths import OUTPUT_ROOT
+
 sys.path.insert(0, str(ROOT / "src"))
 
 from dense_pde.operator_galerkin import (  # noqa: E402
@@ -267,7 +269,7 @@ def run(args: argparse.Namespace) -> Path:
     config_blob = json.dumps(config, sort_keys=True, separators=(",", ":"))
     config["config_sha256"] = hashlib.sha256(config_blob.encode()).hexdigest()
 
-    output_dir = ROOT / "results" / "raw"
+    output_dir = OUTPUT_ROOT / "results" / "raw"
     output_dir.mkdir(parents=True, exist_ok=True)
     name = (
         f"pde_{'GH' if args.quadrature == 'gauss-hermite' else ('HYBRID' if args.quadrature == 'hybrid' else 'QMC')}"

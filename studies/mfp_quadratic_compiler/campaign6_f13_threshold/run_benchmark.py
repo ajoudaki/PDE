@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import sys
 from pathlib import Path
 import resource
 import subprocess
@@ -13,6 +14,10 @@ import time
 
 
 HERE = Path(__file__).resolve().parent
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from campaign_paths import INPUT_ROOT, OUTPUT_ROOT, recorded_sector_path
+
 MEMORY_BYTES = 4 * 1024**3
 CPU_SECONDS = 900
 WALL_SECONDS = 900
@@ -29,6 +34,10 @@ def main() -> None:
     parser.add_argument("args", nargs="*")
     ns = parser.parse_args()
 
+    if Path(ns.name).name != ns.name or ns.name in ("", ".", ".."):
+        raise ValueError("Benchmark name must be a simple filename component.")
+    output_dir = OUTPUT_ROOT / "campaign6_f13_threshold"
+    output_dir.mkdir(parents=True, exist_ok=True)
     executable = ns.executable.resolve()
     command = [
         "prlimit",
@@ -44,7 +53,7 @@ def main() -> None:
     try:
         proc = subprocess.run(
             command,
-            cwd=HERE,
+            cwd=output_dir,
             text=True,
             capture_output=True,
             timeout=WALL_SECONDS,
@@ -84,7 +93,7 @@ def main() -> None:
             "wall_seconds": WALL_SECONDS,
         },
     }
-    output = HERE / f"{ns.name}.benchmark.json"
+    output = output_dir / f"{ns.name}.benchmark.json"
     output.write_text(json.dumps(record, indent=2) + "\n")
     print(output)
     if timed_out or returncode != 0:

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import sys
 import unittest
 from fractions import Fraction
 from pathlib import Path
@@ -18,6 +19,10 @@ from centered_h2_exact import (
 
 Q = Fraction
 HERE = Path(__file__).resolve().parent
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from campaign_paths import INPUT_ROOT, certificate_path, recorded_sector_path
+
 
 
 class CenteredHermite2Tests(unittest.TestCase):
@@ -39,7 +44,7 @@ class CenteredHermite2Tests(unittest.TestCase):
         self.assertEqual(gaussian_expectation({(0, 0): Q(1)}), Q(1))
 
     def test_exact_violation_artifact(self) -> None:
-        result = json.loads((HERE / "RESULTS.json").read_text())
+        result = json.loads((INPUT_ROOT / "centered_depth1_order13/RESULTS.json").read_text())
         moments = [record["exact"] for record in result["moments_mu_0_through_5"]]
         self.assertEqual(
             moments,
@@ -60,4 +65,3 @@ class CenteredHermite2Tests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

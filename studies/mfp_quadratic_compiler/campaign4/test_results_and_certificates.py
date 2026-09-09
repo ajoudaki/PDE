@@ -9,7 +9,11 @@ import sympy as sp
 
 
 HERE = Path(__file__).resolve().parent
-REPOSITORY_ROOT = HERE.parents[3]
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from campaign_paths import INPUT_ROOT, certificate_path, recorded_sector_path
+
+REPOSITORY_ROOT = HERE.parents[2]
 if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 import postprocess
@@ -20,7 +24,7 @@ def sha256(path: Path) -> str:
 
 
 def test_atomic_result_manifest_and_frozen_gates():
-    result_path = HERE/"results_order9.json"
+    result_path = INPUT_ROOT / "campaign4/results_order9.json"
     result = json.loads(result_path.read_text())
     assert result["all_diagonal_and_canonical_gates_passed"] is True
     assert result["metric"] == "D_a + alpha D_u + beta D_W"
@@ -40,9 +44,7 @@ def test_atomic_result_manifest_and_frozen_gates():
     }
     assert keys == expected_keys
     for item in manifest:
-        path = Path(item["path"])
-        if not path.is_absolute():
-            path = REPOSITORY_ROOT/path
+        path = recorded_sector_path(item["path"])
         assert path.is_file()
         assert sha256(path) == item["sha256"]
 
@@ -62,13 +64,13 @@ def test_atomic_result_manifest_and_frozen_gates():
 
 
 def test_exact_certificate_replays_from_raw_jets():
-    expected = json.loads((HERE/"certificates_order9.json").read_text())
-    obtained = postprocess.compute(HERE/"results_order9.json")
+    expected = json.loads((certificate_path("campaign4/certificates_order9.json")).read_text())
+    obtained = postprocess.compute(INPUT_ROOT / "campaign4/results_order9.json")
     assert obtained == expected
 
 
 def test_every_accessible_numerator_is_strictly_positive_off_origin():
-    certificate = json.loads((HERE/"certificates_order9.json").read_text())
+    certificate = json.loads((certificate_path("campaign4/certificates_order9.json")).read_text())
     objects = list(certificate["moment_certificates"])
     objects.extend([certificate["ordinary_H1"], certificate["shifted_H1"]])
     expected = {
@@ -99,9 +101,9 @@ def test_every_accessible_numerator_is_strictly_positive_off_origin():
 
 
 def test_shifted_determinant_restricts_to_frozen_campaign1_ray():
-    certificate = json.loads((HERE/"certificates_order9.json").read_text())
+    certificate = json.loads((certificate_path("campaign4/certificates_order9.json")).read_text())
     frozen = json.loads((
-        HERE.parent/"campaign1/hankel_certificates_order9_q2_order8.json"
+        certificate_path("campaign1/hankel_certificates_order9_q2_order8.json")
     ).read_text())
     alpha, beta, lam = sp.symbols("alpha beta lambda")
     bivariate = sp.sympify(certificate["shifted_H1"]["expression"],
