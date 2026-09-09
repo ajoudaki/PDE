@@ -179,5 +179,49 @@ theorems are not imported. Agreement on overlaps is proved at matching
 observables. The existing L3 raw-GD theorem remains separate: none of the
 new GF statements acquires a raw-GD, growing-depth or arbitrary-data extension.
 
-Initialization still awaits the final corrected-version pair. The final
-assembled-edition integration audit and inventory remain pending.
+## Fifth accepted package: initialization geometry and activation comparisons
+
+The complete Part V is identical to `INITIALIZATION_ADDITION.md`, SHA-256
+`411fbe15d0701451a0e4fad0b87bfc5a11d283e200b278d3b75872fb05fa8a27`.
+Its 1,343 lines contain the finite-width initialization and raw-kernel bridge,
+Hermite/Fourier foundations, cubic tensor floor, all three activation families,
+the explicit limiting-depth ODE and error bound, and the closing comparisons.
+The source read/provenance record is `source_audits/INITIALIZATION_ASSEMBLY.md`.
+The donor's conditional trained-continuation portion is not incorporated.
+
+The original draft and three unsuccessful paired review rounds are preserved
+without relabeling in the source record and `reviews/INITIALIZATION_ROUND1_*`,
+`INITIALIZATION_ROUND2_*`, and `INITIALIZATION_ROUND3_*`. Their findings led to
+explicit signed negative-endpoint derivative sums, centered Gaussian and
+off-diagonal hypotheses, valid derivative-index ranges, gain-comparison
+assumptions, and the identity-scaling exception. The main bounds, witnesses,
+numerical constants and conclusions did not change. The coordinator read the
+complete assembly and the corrections, rather than accepting historical labels.
+
+Two fresh isolated reviewers then read all 1,343 proof lines and all 98 notation
+lines at the exact accepted hash, with no studies, earlier verdicts, external
+source or other agent. Both returned CLEAN with no required corrections:
+`reviews/INITIALIZATION_ROUND4_A.md` and
+`reviews/INITIALIZATION_ROUND4_B.md`. Their complete argument, constant and
+endpoint checks are retained. No numerical experiment was used.
+
+The results distinguish three different observables: absolute initialized
+sample conditioning, conditioning normalized by feature second moment, and
+scalar affine-regression residual. Odd mixtures have the sharp joint
+depth/mixture/separation orders and matching strict planar examples; normalized
+conditioning can persist while absolute scale and newly introduced scalar
+nonaffinity decay. Literal convex offsets can lose sample distinctions despite
+positive absolute and relative scalar nonaffinity. The calibrated family has
+an explicit sequential width-first/depth-second geometric limit, with a
+depth-dependent activation and declining per-layer nonlinear amplitude.
+
+Every finite-width assertion fixes the entire activation and depth first.
+The calibrated outer depth limit is not a joint trained width/depth theorem.
+No initialization result supplies trained Gaussian laws, incoming-tail control,
+cap removal, persistent trained feature motion, or eventual fitting. The
+chapter introduction and final scope, and the book's chapter table, retain
+these distinctions. Their assembled hashes are recorded in the final inventory.
+
+All five mathematical/implementation packages now have their own paired clean
+complete reviews. The final assembled-edition integration review and inventory
+remain separate acceptance steps.
