@@ -1,6 +1,6 @@
 {
-  "scope": "Final retained-byte verification at implementation checkpoint c089b5e. This is a preservation receipt, not a mathematical or whole-study acceptance verdict.",
-  "sourceCheckpoint": "c089b5e",
+  "scope": "Final retained-byte verification at refactor source checkpoint 0fceee9, including the accepted advisory guide and final plan. This is a preservation receipt, not a mathematical or whole-study acceptance verdict.",
+  "sourceCheckpoint": "0fceee9",
   "unchanged": {
     "backup": {
       "files": 41,
@@ -1370,7 +1370,7 @@
       "original": "studies/repository_refactor_2026_09_09/PLAN.md",
       "target": "studies/repository_refactor_2026_09_09/PLAN.md",
       "before": "8158b9c3028829e15b902cd40c5206aeb5de516c8b02d93ddb4be59d2a76d4f3",
-      "after": "0b6d6fe90f878ec29de7708369bd51cd1ea2f9c5c763e1bfab6f668d60a24a46"
+      "after": "475c847f8bc91abb72e44fb4b7442f24c266eb3bad3b759e63c736d1278c7bc8"
     },
     {
       "original": "studies/resnet_pde/CURRENT_RESEARCH_STATE.md",

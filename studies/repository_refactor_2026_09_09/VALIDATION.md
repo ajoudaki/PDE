@@ -38,6 +38,14 @@ node studies/repository_refactor_2026_09_09/verify_preservation.mjs --filesystem
 
 The second command needs the retained local data. A fresh source-only clone
 can check the established library but is not a backup of excluded data.
+The closing filesystem check matches the final receipt at `0fceee9`: 354 live
+source rows differ from their original snapshot, while all inventoried data,
+backups, recovered payloads and 39 restored files pass. The source snapshot
+check again verifies all 2,575 pre-existing source blobs with no failures.
+The navigation check covers 105 immediate study folders, 107 landing pages
+and four additional refactor pages: 977 local links resolve. It is not an audit
+of every link in immutable historical manuscripts; library links are checked
+separately by `make check`.
 
 ## Established code
 
