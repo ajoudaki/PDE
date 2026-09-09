@@ -132,5 +132,52 @@ The full source and dependency read record is in
 `source_audits/QUANTITATIVE_ASSEMBLY.md`; its historical audits are locators,
 not mathematical premises. No compiler campaign or data generation was needed.
 
-Initialization and exact-capture drafts still await their corrected-version
-reviews; the final integrated-edition audit and inventory remain pending.
+## Fourth accepted package: shallow, spectral and fixed-depth exact capture
+
+The complete Sections 8–12 addition, `EXACT_CAPTURE_ADDITION.md`, has SHA-256
+`b1b0de36b4e5ac66f51310e10af98aae4029e574c05202bf7826e36e17535f3d`.
+Its source read/provenance record is `source_audits/EXACT_CAPTURE_ASSEMBLY.md`.
+The coordinator read the complete assembly and canonicalized only editorial
+framing before review. The first pair's reports are retained as
+`reviews/EXACT_CAPTURE_A.md` and `reviews/EXACT_CAPTURE_ROUND1_B.md`.
+The first was CLEAN; the second required explicit trace-class foundations
+under the strict self-containment standard, rather than relying on their
+classical status. That qualification was not waived or relabeled.
+
+The added `TRACE_IDEAL_FOUNDATIONS.md`, SHA-256
+`c056507eabe88fefa8cbe56f452f0e50a5f233423c3500de53d043abcfb902bb`,
+is inserted completely as Section 2.A. It derives compact singular expansion,
+approximation numbers, trace-norm completeness, finite-rank density, ideal
+and trace operations, singular-Gram continuity and full nuclear-tail bounds.
+Two fresh isolated reviewers read the complete amended 2,634-line chapter,
+including every earlier internal dependency, and the complete notation
+contract. Both returned CLEAN with no required correction:
+`reviews/EXACT_CAPTURE_ROUND2_A.md` and
+`reviews/EXACT_CAPTURE_ROUND2_B.md`. The common proof hash is
+`c17c6adeb1c728e614b0b1e5d67706d9462223559182057134d56462e707d6ae`.
+No study, earlier review, outside paper or other agent was supplied to them.
+
+The whole proof bodies are inserted without mathematical alteration. Only
+the chapter title and its introductory scope now describe the added material;
+that editorial assembly has SHA-256
+`c1920b78c8788c6025776943944da4f4756717cb8250189e7e91ea81ee830090`.
+
+The three additions are one-input, order-one-stored-readout physical-GF
+theorems. The shallow theorem has marked nonlinear characteristics, all
+finite-moment restarts, and uniform scalar/block-energy limits, not general
+fitting or an empirical path-law theorem. The every-fixed-linear-depth theorem
+has full endpoint/operator-increment state, fixed rooted readouts, trace-norm
+increment limits and uniform nuclear tails, not arbitrary data or all-depth
+fitting. The L2 spectral theorem has its explicit two-channel source, negative
+atom and mass-two scalar representation, global canonical physical flow,
+fitting and the stated scalar/block-energy limits. Its global restart scope
+is along that initialized solution, not every ambient spectral state.
+
+The Gaussian word/net, fixed-Picard-to-flow and spectral-measure proofs are
+contained; sharp spectral-edge, asymptotic-freeness and spectral-inversion
+theorems are not imported. Agreement on overlaps is proved at matching
+observables. The existing L3 raw-GD theorem remains separate: none of the
+new GF statements acquires a raw-GD, growing-depth or arbitrary-data extension.
+
+Initialization still awaits the final corrected-version pair. The final
+assembled-edition integration audit and inventory remain pending.
