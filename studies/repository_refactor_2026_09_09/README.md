@@ -35,6 +35,8 @@ only the maintained, self-contained mathematical library.
   and the shared existing-link protection, with calculation-preservation evidence.
 - `bd15262`: seven-study failure/publication guards and current reproduction
   instructions; 62 bounded tests repeated independently by the coordinator.
+- `e46b921`: restart/trace publication guards and unchanged fifth-review evidence.
+- `33c371d`: checkpoint/export distinction and exact third Gaussian-review evidence.
 
 [INVENTORY_BEFORE.json](INVENTORY_BEFORE.json) records the original paths,
 sizes and hashes. [MOVE_MANIFEST.json](MOVE_MANIFEST.json) records relocation.

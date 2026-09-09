@@ -159,6 +159,8 @@ def main() -> None:
         runs = [run for run in runs if run["group"] in selected]
     from make_manifest import validate_output_root
     output_root = validate_output_root(args.output_root)
+    if args.config.resolve().is_relative_to(output_root):
+        raise ValueError("Keep the input configuration outside the mutable run-output directory.")
     raw_dir = output_root / "results" / "raw"
     raw_dir.mkdir(parents=True, exist_ok=True)
     manifest: list[dict[str, Any]] = []
@@ -176,6 +178,7 @@ def main() -> None:
         manifest.append(metadata)
 
     metadata_dir = output_root / "metadata"
+    validate_output_root(output_root)
     metadata_dir.mkdir(parents=True, exist_ok=True)
     (metadata_dir / "environment.json").write_text(
         json.dumps(environment_record(), indent=2), encoding="utf-8"

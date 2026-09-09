@@ -1,0 +1,42 @@
+[
+  {
+    "file": "studies/resnet_generalization/run_exact_reference.py",
+    "overlap": "final",
+    "outcome": "returned",
+    "before": "10f235463813311e952152361146171ad0f997357c674fa840db7698564998eb",
+    "after": "3539a50597f72fa2bbc3a00d24c02f18535ec4ada4e37e2fc9c6bc5ec78d6a90",
+    "original_input_exists": true,
+    "scientific_calls": 0,
+    "diagnostic": "full actual run function; mocked numeric operations and seed worker"
+  },
+  {
+    "file": "studies/resnet_generalization/run_exact_reference.py",
+    "overlap": "partial",
+    "outcome": "FileExistsError",
+    "before": "10f235463813311e952152361146171ad0f997357c674fa840db7698564998eb",
+    "after": "10f235463813311e952152361146171ad0f997357c674fa840db7698564998eb",
+    "original_input_exists": true,
+    "scientific_calls": 0,
+    "diagnostic": "full actual run function; mocked numeric operations and seed worker"
+  },
+  {
+    "file": "studies/resnet_activation_controls/source/run_exact_reference.py",
+    "overlap": "final",
+    "outcome": "returned",
+    "before": "10f235463813311e952152361146171ad0f997357c674fa840db7698564998eb",
+    "after": "3539a50597f72fa2bbc3a00d24c02f18535ec4ada4e37e2fc9c6bc5ec78d6a90",
+    "original_input_exists": true,
+    "scientific_calls": 0,
+    "diagnostic": "full actual run function; mocked numeric operations and seed worker"
+  },
+  {
+    "file": "studies/resnet_activation_controls/source/run_exact_reference.py",
+    "overlap": "partial",
+    "outcome": "returned",
+    "before": "10f235463813311e952152361146171ad0f997357c674fa840db7698564998eb",
+    "after": "3539a50597f72fa2bbc3a00d24c02f18535ec4ada4e37e2fc9c6bc5ec78d6a90",
+    "original_input_exists": false,
+    "scientific_calls": 0,
+    "diagnostic": "full actual run function; mocked numeric operations and seed worker"
+  }
+]

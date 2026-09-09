@@ -231,3 +231,21 @@ retained alongside its report, including the original TSV bytes renamed to
 `QUADRATIC_ROUTING_ROUND5_REPAIRS_INPUTS.txt`. The unchanged power-filter
 limitation is now visible in the quadratic README. Fresh isolated round 6
 is running against the frozen current four-study slice.
+
+## Independent round 6: metadata and analyzer publication
+
+The sixth verdict is retained unchanged as
+`../reviews/MAIN_ROUTING_ROUND6_acceptance.md`, with its exact input inventories
+and private diagnostic harness. All 38 supplied checks passed, but the reviewer
+demonstrated four additional groups of pre-existing metadata/CSV/plot aliases.
+Its NOT CLEAN verdict is not replaced by the regression count.
+
+Long-horizon run and checksum metadata now use the existing shared link guard
+at output-root validation and again before publication. An input configuration
+must be outside the mutable run-output tree. This prevents metadata from
+overwriting a reused trace, hashed source, or selected configuration. Ordinary
+metadata refresh and read-only manifest verification remain supported. Five
+additional bounded tests cover every implicated metadata name, both link
+types, source/run inputs, same-file configuration refusal, and normal refresh.
+No scientific routine is called. Operator/early-audit publication repairs are
+a separate disjoint slice, still in progress at this checkpoint.

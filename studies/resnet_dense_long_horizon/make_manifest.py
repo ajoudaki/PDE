@@ -7,6 +7,10 @@ import hashlib
 import argparse
 import json
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from studies._output_paths import reject_output_links
 
 ROOT = Path(__file__).resolve().parent
 OUTPUT_ROOT = ROOT.parents[1] / "data" / "generated" / ROOT.name
@@ -23,6 +27,7 @@ def validate_output_root(path: Path) -> Path:
     )):
         if output == protected or protected in output.parents or output in protected.parents:
             raise ValueError("Select fresh output, not source or retained evidence.")
+    reject_output_links(path)
     return output
 
 
@@ -55,6 +60,7 @@ def main() -> None:
                 "sha256": hashlib.sha256(data).hexdigest(),
             })
     metadata = output_root / "metadata"
+    validate_output_root(output_root)
     metadata.mkdir(parents=True, exist_ok=True)
     (metadata / "manifest.json").write_text(
         json.dumps({"schema": 2, "roots": {"source": str(ROOT), "run": str(output_root)},

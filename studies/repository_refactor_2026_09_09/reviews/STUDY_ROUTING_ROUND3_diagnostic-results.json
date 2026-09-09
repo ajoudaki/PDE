@@ -1,0 +1,131 @@
+[
+  {
+    "name": "undefined_migrated_path",
+    "file": "run_fresh_order13_median.py",
+    "exception": "name 'PEELING' is not defined",
+    "output_directory_created": true,
+    "memory_limit_attempted": true,
+    "scientific_calls": 0
+  },
+  {
+    "name": "undefined_migrated_path",
+    "file": "run_fresh_calibrated_ratio.py",
+    "exception": "name 'PEELING' is not defined",
+    "output_directory_created": true,
+    "memory_limit_attempted": true,
+    "scientific_calls": 0
+  },
+  {
+    "name": "corrected_clock_log_alias",
+    "kind": "hardlink",
+    "before": "fb246ba184019723c5d63b66e4d5d92b105897294d8b6042702d42b0dbcd856c",
+    "after": "e041439e83cc5dee69cacd092aa6a09d84068beb8decd09a2756ff19564ba26c",
+    "resulting_text": "command: private-output-boundary\npython=3.10.12 numpy=mock\n",
+    "scientific_calls": 0
+  },
+  {
+    "name": "corrected_clock_log_alias",
+    "kind": "symlink",
+    "before": "fb246ba184019723c5d63b66e4d5d92b105897294d8b6042702d42b0dbcd856c",
+    "after": "e041439e83cc5dee69cacd092aa6a09d84068beb8decd09a2756ff19564ba26c",
+    "resulting_text": "command: private-output-boundary\npython=3.10.12 numpy=mock\n",
+    "scientific_calls": 0
+  },
+  {
+    "name": "corrected_clock_log_alias",
+    "kind": "directory",
+    "before": "fb246ba184019723c5d63b66e4d5d92b105897294d8b6042702d42b0dbcd856c",
+    "after": "e041439e83cc5dee69cacd092aa6a09d84068beb8decd09a2756ff19564ba26c",
+    "resulting_text": "command: private-output-boundary\npython=3.10.12 numpy=mock\n",
+    "scientific_calls": 0
+  },
+  {
+    "name": "activation_analysis_intermediate",
+    "kind": "ordinary",
+    "before": "e7bb6e77869f246e253ac111488e53bbae06ef0c8a92c2b84bf125d473dfa249",
+    "after": "ec42553bc18052f9495b7cbd82b4e8829d57049c2192d30eacfc547fd16ed5f6"
+  },
+  {
+    "name": "activation_analysis_intermediate",
+    "kind": "hardlink",
+    "before": "e7bb6e77869f246e253ac111488e53bbae06ef0c8a92c2b84bf125d473dfa249",
+    "after": "ec42553bc18052f9495b7cbd82b4e8829d57049c2192d30eacfc547fd16ed5f6"
+  },
+  {
+    "name": "activation_analysis_intermediate",
+    "kind": "symlink",
+    "before": "e7bb6e77869f246e253ac111488e53bbae06ef0c8a92c2b84bf125d473dfa249",
+    "after": "ec42553bc18052f9495b7cbd82b4e8829d57049c2192d30eacfc547fd16ed5f6"
+  },
+  {
+    "name": "activation_raw_restart_overlap",
+    "overlap": "final_restart",
+    "before": "4f600936f40fb10618333668c0aef093c744483fd5064c471cd2e8f46e0e2164",
+    "after": "e8de6957b0a855af5a5f8965d378f93fe6ca8365ca393fa0ba7a83b09fe521e5",
+    "input_still_exists": true,
+    "output": "pde_fixture_legacy_QMC_P1_N1_M1_R1_s1_dt1_T1_cfgaaaaaaaaaaaa.npz",
+    "scientific_calls": 0
+  },
+  {
+    "name": "activation_raw_restart_overlap",
+    "overlap": "partial_restart",
+    "before": "4f600936f40fb10618333668c0aef093c744483fd5064c471cd2e8f46e0e2164",
+    "after": "e8de6957b0a855af5a5f8965d378f93fe6ca8365ca393fa0ba7a83b09fe521e5",
+    "input_still_exists": false,
+    "output": "pde_fixture_legacy_QMC_P1_N1_M1_R1_s1_dt1_T1_cfgaaaaaaaaaaaa.npz",
+    "scientific_calls": 0
+  },
+  {
+    "name": "activation_seal_routing",
+    "label": "results/pde/input.npz",
+    "producer": "generated/results/pde/input.npz",
+    "consumer": "source/results/pde/input.npz",
+    "exception": "sealed file mismatch: results/pde/input.npz",
+    "before": "cf0f4fab8996d6bdb776d237c4155e0171d2c10248420219001c7aff4f48549b",
+    "after": "cf0f4fab8996d6bdb776d237c4155e0171d2c10248420219001c7aff4f48549b",
+    "authorization": "not tested or renewed"
+  },
+  {
+    "name": "width_analysis_own_input_alias",
+    "kind": "same",
+    "before": "a5e2b880266306e21faf00171f5531282d44c2f465787081a58754963d6ce589",
+    "after": "6fe57179185dde850df089e0cbfa813f317ff51f96b91ea49da8cfdc9930940c",
+    "exit_code": 0,
+    "inputs_read": 5,
+    "scientific_calls": 0
+  },
+  {
+    "name": "width_analysis_own_input_alias",
+    "kind": "lexical",
+    "before": "a5e2b880266306e21faf00171f5531282d44c2f465787081a58754963d6ce589",
+    "after": "6fe57179185dde850df089e0cbfa813f317ff51f96b91ea49da8cfdc9930940c",
+    "exit_code": 0,
+    "inputs_read": 5,
+    "scientific_calls": 0
+  },
+  {
+    "name": "width_analysis_own_input_alias",
+    "kind": "symlink",
+    "before": "a5e2b880266306e21faf00171f5531282d44c2f465787081a58754963d6ce589",
+    "after": "6fe57179185dde850df089e0cbfa813f317ff51f96b91ea49da8cfdc9930940c",
+    "exit_code": 0,
+    "inputs_read": 5,
+    "scientific_calls": 0
+  },
+  {
+    "name": "width_analysis_own_input_alias",
+    "kind": "hardlink",
+    "before": "a5e2b880266306e21faf00171f5531282d44c2f465787081a58754963d6ce589",
+    "after": "6fe57179185dde850df089e0cbfa813f317ff51f96b91ea49da8cfdc9930940c",
+    "exit_code": 0,
+    "inputs_read": 5,
+    "scientific_calls": 0
+  },
+  {
+    "name": "proxy_missing_reference_late_check",
+    "engine_reached": true,
+    "reference_exists": false,
+    "reference_loaded": false,
+    "scientific_calls": 0
+  }
+]

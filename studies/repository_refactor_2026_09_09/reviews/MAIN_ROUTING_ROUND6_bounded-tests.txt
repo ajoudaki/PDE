@@ -1,0 +1,45 @@
+test_galerkin_help_and_unknown_flags_stop_before_work (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_long_analysis_explicit_report (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_long_analysis_guards_every_deliverable_before_reading_traces (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_long_manifest_roundtrip (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_operator_consumers_and_imports (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_operator_default (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_operator_merge_refuses_aliases_before_load_and_pools_tiny_fixture (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_operator_protected_destinations (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_operator_selected_evidence_does_not_write_on_import (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_operator_shell_missing_evidence_uses_selected_root (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_operator_verifier_uses_selected_evidence (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_operator_wrapper_normalizes_before_any_work (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_reproduction_guides_select_fresh_artifacts (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_reproduction_paths_and_syntax (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_restart_output_aliases_refuse_before_quadrature_or_training (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) ... ok
+test_all_historical_sector_labels_resolve (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_all_selected_evidence_bindings (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_benchmark_distinct_output_with_mocked_child (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_benchmark_output_must_not_alias_selected_executable (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_campaign5_evidence_and_live_source_roles_with_mocked_documents (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_campaign6_documented_build_routes (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_default_roles (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_distinct_output_preserves_legitimate_updates (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_explicit_roles_no_import_write (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_graded_aliases_and_frozen_hash_fail_before_sectors (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_graded_distinct_export_with_mocked_sectors (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_graded_parent_hash_gate_is_unchanged (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_graph_checkpoint_updates_and_modes_remain_available (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_graph_export_rejects_checkpoint_alias_before_run (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_native_checkpoint_identity_guards_source_only (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_postprocessors_refuse_input_aliases_before_computation (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_producer_default_bindings (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_protected_output (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_repaired_cli_imports_and_help_do_not_create_products (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_retired_campaign_refuses_before_work (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_sector_guide_uses_current_sources_and_generated_products (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_stage_c_remains_closed_before_hashes_or_launch (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+test_stdout_only_boundary_diagnostic_rejects_output_before_solves (studies.repository_refactor_2026_09_09.test_quadratic_routing.RoutingTests) ... ok
+
+----------------------------------------------------------------------
+Ran 38 tests in 2.695s
+
+OK
+wrote checksums for 2 files
+verified 2 source/run checksums (read-only)

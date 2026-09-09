@@ -112,10 +112,13 @@ A repair and broader output-routing scan are in progress. The main-agent
 ResNet/quadratic slice began at `3abe93d` and now has 24 bounded checks at
 `0cd94a0`, including all 125 retained sector hashes, early archival refusal,
 actual mocked wrapper propagation, selected input roots, and input/output alias
-protection. Its five unsuccessful independent reviews are retained; round 5
+protection. Its six unsuccessful independent reviews are retained; round 5
 identified further consumed-checkpoint/trace aliases and two omitted evidence
 readers. The repaired combined slice now passes 38 checks (15 ResNet, 23
-quadratic); fresh round 6 is pending. Native checkpoint guards were inspected
+quadratic). Round 6 independently passed those 38 checks but found four further
+metadata/CSV/plot publication-alias groups. The long-horizon metadata repair
+adds five passing tests; the disjoint operator/early-audit fixes are in progress.
+Native checkpoint guards were inspected
 as source, not compiled. The legacy native export power-filter limitation is
 recorded in the quadratic README and remains outside the repaired routing
 scope. No earlier test count is presented as final acceptance.
@@ -131,7 +134,11 @@ acceptance reviews follow those exact implementations. The Gaussian third round
 found additional same-file analyzer-input collisions, report-source aliases,
 an uncovered archival writer and a production/independent role check; those
 findings are retained and repairs are in progress. The seven-study third round
-is pending. Supplied passing regressions alone are not being treated as clean
+also remains NOT CLEAN: it found two stale source paths, further named-output
+and consumed-input collisions, a late missing-reference check, and two omitted
+archive-only callable guards. Its 62 passing tests and exact unchanged input
+manifests are retained alongside the independent counterexamples; bounded
+repairs are in progress. Supplied passing regressions alone are not being treated as clean
 independent verdicts.
 
 Unchanged expected limitations are explicit: optional PyTorch, Matplotlib,

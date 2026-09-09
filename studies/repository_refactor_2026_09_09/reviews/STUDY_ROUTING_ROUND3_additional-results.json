@@ -1,0 +1,50 @@
+[
+  {
+    "name": "proxy_optional_config_route",
+    "attempted": "generated/stieltjes_proxy_campaign/reference/configs/validation_cpu.json",
+    "correct_source_config": "studies/stieltjes_proxy_campaign/reference/configs/validation_cpu.json",
+    "explicit_config_succeeded": true,
+    "before": "2e98508c58b5fb39b0595adc29631f9afa409023262f72d3d1901a1f71c9c1f2",
+    "after": "2e98508c58b5fb39b0595adc29631f9afa409023262f72d3d1901a1f71c9c1f2"
+  },
+  {
+    "name": "proof_named_output_directory_alias",
+    "before": "2d7321c6cffed99da7c52f4232551765e00a743c13b9d952db41e14629fe1d8b",
+    "after": "dd94b5a2f5a525b362ba1b9631e723b2c384e2e6ea125b5245ea33d9ad1454bf",
+    "target": "private replica of protected studies tree",
+    "scientific_calls": 0
+  },
+  {
+    "name": "hybrid_named_validation_output_hardlink",
+    "before": "a4f19ac33358d471ea9afed51f900eba18bc768214696d0125f9cbf429099b48",
+    "after": "c47aadae547ad3e7b6f2165bfeee9fbda1828a8d6c2710f3ff4a0be3e79a2930",
+    "scientific_calls": 0
+  },
+  {
+    "name": "proxy_named_sidecheck_output_hardlink",
+    "file": "gd_vs_rk4_n4096.py",
+    "before": "4f452fed00f30fa8d0cefd072ac33d11a25eab8c2dc2255c4d4140fd7e59d9bb",
+    "after": "c47aadae547ad3e7b6f2165bfeee9fbda1828a8d6c2710f3ff4a0be3e79a2930",
+    "limitation": "actual publication statements; scientific body not executed"
+  },
+  {
+    "name": "proxy_named_sidecheck_output_hardlink",
+    "file": "gd_vs_rk4_n8192_point.py",
+    "before": "4f452fed00f30fa8d0cefd072ac33d11a25eab8c2dc2255c4d4140fd7e59d9bb",
+    "after": "c47aadae547ad3e7b6f2165bfeee9fbda1828a8d6c2710f3ff4a0be3e79a2930",
+    "limitation": "actual publication statements; scientific body not executed"
+  },
+  {
+    "name": "archive_only_callable_ledger_mutators",
+    "before": "35787162fdb033eb75e31aa1d96b8a5ad3a9900e0b29b1d8c3562caa60a39fca",
+    "after_claim": "1f443787c45cd85f6e86effb657fe130f0f928f33689bf014610dddb15c33bae",
+    "after_finish": "6c09734ad9d93e8661da71cd7683764d0fe96e35dde595d65ab03b1e99dbb5c6",
+    "archive_guard_calls": 0,
+    "fixture_states": [
+      "reserved",
+      "running",
+      "failed"
+    ],
+    "limitation": "only private synthetic ledger; no actual historical state inspected or modified"
+  }
+]
