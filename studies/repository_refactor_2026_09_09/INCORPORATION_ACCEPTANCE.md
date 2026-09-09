@@ -473,3 +473,13 @@ accepted additions. No empirical figure, generated array, historical campaign
 or training result was promoted. Coverage and the promotion ledger now point
 to the explicit remaining-family disposition; none of the listed unresolved
 premises is silently treated as a theorem.
+
+## Resumed assembly: sharp shallow discretization
+
+The resumed work starts at `caf975a`; `ASSEMBLY2_START_STATE.json` records the inherited changes. The first further accepted addition is the complete 551-line `SHALLOW_DISCRETIZATION_ADDITION.md`, SHA-256 `4321fc6bf9fdddedccb752072f3326134d514edbdd576c328923432e4345efd9`, inserted exactly once as Gaussian-calculus Section 11. The previous proof body is unchanged. `source_audits/SHALLOW_DISCRETIZATION_ASSEMBLY.md` records complete source and correction reads.
+
+Two fresh isolated complete reviews are CLEAN: `reviews/ASSEMBLY2_SHALLOW_A1.md` and `reviews/ASSEMBLY2_SHALLOW_B2.md`. Each received only the 551-line candidate, 98-line notation contract and hash manifest, with no studies, history or prior verdict. Both read every line, substantiated all derivative envelopes, expectation interchanges, constants, parity, cubic coefficient, sharp fifth-order scaling and restricted dyadic conclusion, and verified unchanged hashes. The initial B1 output is preserved unchanged as `reviews/ASSEMBLY2_SHALLOW_B1.md` but is **not accepted or counted**: its final artifact lacked a complete mathematical audit. B2 is a fresh full replacement, not a continuation of B1. No mathematical correction was required.
+
+The theorem concerns one hidden layer, one input/sample, independent order-one Gaussian stored readouts, a normalized activation with bounded derivatives through order twelve and at most linear growth, and simultaneous feature-ascent Euler steps. It gives exact equality of finite-width expectations, the cubic discrepancy with a uniform `k^4 |h|^5` remainder on `k |h| <= 1/(16 M)`, and a short-interval uniform dyadic limit of terminal expected outputs. It does not supply physical loss GD, growing-program hidden-state convergence, arbitrary partitions, a restart state or an ODE identification.
+
+`reviews/ASSEMBLY2_SHALLOW_R1_INPUTS.json` seals the complete proof inputs. `reviews/ASSEMBLY2_SHALLOW_LIBRARY_INPUTS.json` and the current `LIBRARY_INPUTS.json` identify the accepted scientific edition, assembled from the preceding baseline with only the Gaussian chapter replaced. The standalone dependency check passes on all 25 docs/code inputs; `Makefile` and `requirements.txt` complete the inventory. Other live additions remain under assembly until their own acceptance. No implementation or empirical result was added in this commit.

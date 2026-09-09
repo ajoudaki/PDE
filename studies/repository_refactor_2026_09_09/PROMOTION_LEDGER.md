@@ -83,8 +83,9 @@ action space is constructed by the finite projection or fixed-query theorem.
 ## Proved sources awaiting further editorial assembly
 
 The completeness audit identifies additional narrow positives, not failed
-research: sharper shallow discretization estimates and separately qualified
-endpoint/activation refinements. Integrated-query representations and finite
+research: separately qualified endpoint/activation refinements. Sharp shallow discretization
+is now incorporated in Gaussian-calculus Section 11 with its feature-clock,
+order-one-readout and dyadic terminal-expectation restrictions. Integrated-query representations and finite
 QI/IQ/QQ/RMS reductions are now incorporated.
 Given-space capped flows are now incorporated, with their conditional
 continuation premise preserved.
@@ -135,3 +136,5 @@ proof method into a canonical counterexample.
 The continuation's selected six packages and every remaining handoff family
 have an explicit [current disposition](CONTINUATION_DISPOSITION.md), with
 actual exact versions, corrections and paired reviews in the acceptance record.
+
+The resumed assembly after `caf975a` has now accepted sharp shallow discretization, with complete paired isolated reviews and contained Gaussian integrability and constant proofs. Its accepted edition and exact scope are recorded in `INCORPORATION_ACCEPTANCE.md`; no source deferral is counted as incorporation.

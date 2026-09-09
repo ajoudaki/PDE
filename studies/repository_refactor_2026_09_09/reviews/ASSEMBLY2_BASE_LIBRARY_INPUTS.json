@@ -1,6 +1,6 @@
 {
   "date": "2026-09-09",
-  "scope": "Accepted scientific edition after shallow Section 11; all other bytes remain the caf975a baseline. Other live candidate edits are not part of this edition. Excludes the concurrent exporter.",
+  "scope": "Current 27-file scientific edition after all six continuation packages. Previous scoped editions and full review inputs are retained under reviews/. Excludes the PDF exporter, historical sources, data and unaccepted candidates. See INCORPORATION_ACCEPTANCE.md.",
   "excluded_concurrent_commit": "eb6e628",
   "files": [
     {
@@ -137,9 +137,9 @@
     },
     {
       "path": "docs/gaussian_calculus.md",
-      "sha256": "73b19ef2212596d25ce3caaa96eb772427fbc4d35d304bc754dc0459c3e61b8d",
-      "bytes": 193338,
-      "lines": 4719
+      "sha256": "1f68acab1d9ce92db2e79f3339e52d8a1000b9d6288467f64ae2aa8ea7ae833d",
+      "bytes": 175802,
+      "lines": 4164
     },
     {
       "path": "docs/global_nonlinear.md",

@@ -1,0 +1,12 @@
+{
+  "shallow.md": {
+    "sha256": "4321fc6bf9fdddedccb752072f3326134d514edbdd576c328923432e4345efd9",
+    "bytes": 17318,
+    "lines": 551
+  },
+  "NOTATION.md": {
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "bytes": 5110,
+    "lines": 98
+  }
+}

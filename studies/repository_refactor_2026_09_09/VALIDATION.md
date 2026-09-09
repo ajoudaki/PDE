@@ -384,3 +384,7 @@ The concurrent task index is left untouched. The accepted objective remains
 nonlinear correlated-data feature learning, with diagnostic/conditional/formal
 scope and all remaining gaps recorded in
 [CONTINUATION_DISPOSITION.md](CONTINUATION_DISPOSITION.md).
+
+## Resumed assembly: shallow theorem
+
+Gaussian-calculus Section 11 has two complete CLEAN isolated reviews, A1 and B2, at the same unchanged candidate hash. The incomplete B1 final artifact is retained but not counted. Both full audits verify the quantitative proof and its exact expectation/clock/initialization scope. The accepted 27-file edition passes the standalone boundary/local-link check on all 25 docs/code files; see `reviews/ASSEMBLY2_SHALLOW_STANDALONE.md`. This proof-only addition preserves the preceding implementation and all older proof bodies. Its edition hash record is `reviews/ASSEMBLY2_SHALLOW_LIBRARY_INPUTS.json`.

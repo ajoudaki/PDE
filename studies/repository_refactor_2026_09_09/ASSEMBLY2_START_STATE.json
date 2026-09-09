@@ -1,0 +1,101 @@
+{
+  "checkpoint": "caf975a",
+  "scope": "Further user-authorized assembly, implementation and independent review; deferral is not incorporation. No training or historical campaigns.",
+  "sole_git_writer": "coordinator",
+  "inherited_modified": [
+    {
+      "status": " M",
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_REPORT.md",
+      "size": 6526,
+      "mtime_ns": 1788963216993681790,
+      "mode": "0o100600",
+      "uid": 65534,
+      "gid": 65534,
+      "sha256": null,
+      "read_status": "credential permission denied; preserved untouched"
+    },
+    {
+      "status": " M",
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_acceptance.py",
+      "size": 20501,
+      "mtime_ns": 1788963216993681790,
+      "mode": "0o100600",
+      "uid": 65534,
+      "gid": 65534,
+      "sha256": null,
+      "read_status": "credential permission denied; preserved untouched"
+    },
+    {
+      "status": " M",
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_evidence.json",
+      "size": 164582,
+      "mtime_ns": 1788963216997681887,
+      "mode": "0o100600",
+      "uid": 65534,
+      "gid": 65534,
+      "sha256": null,
+      "read_status": "credential permission denied; preserved untouched"
+    },
+    {
+      "status": " M",
+      "path": "studies/repository_refactor_2026_09_09/reviews/EXACT_CAPTURE_ROUND2_B.md",
+      "size": 47745,
+      "mtime_ns": 1788968431757160353,
+      "mode": "0o100600",
+      "uid": 65534,
+      "gid": 65534,
+      "sha256": null,
+      "read_status": "credential permission denied; preserved untouched"
+    },
+    {
+      "status": " M",
+      "path": "studies/repository_refactor_2026_09_09/reviews/GUIDE_ADVISORY_INTEGRATION.md",
+      "size": 21557,
+      "mtime_ns": 1788964143848130813,
+      "mode": "0o100600",
+      "uid": 65534,
+      "gid": 65534,
+      "sha256": null,
+      "read_status": "credential permission denied; preserved untouched"
+    },
+    {
+      "status": " M",
+      "path": "studies/repository_refactor_2026_09_09/reviews/INCORPORATION_FINAL_INTEGRATION.md",
+      "size": 40877,
+      "mtime_ns": 1788968767713405392,
+      "mode": "0o100600",
+      "uid": 65534,
+      "gid": 65534,
+      "sha256": null,
+      "read_status": "credential permission denied; preserved untouched"
+    },
+    {
+      "status": " M",
+      "path": "studies/repository_refactor_2026_09_09/reviews/MAIN_ROUTING_PATCH_ROUND1_record-python",
+      "size": 1137,
+      "mtime_ns": 1788961638254522868,
+      "mode": "0o100700",
+      "uid": 65534,
+      "gid": 65534,
+      "sha256": null,
+      "read_status": "credential permission denied; preserved untouched"
+    },
+    {
+      "status": " M",
+      "path": "studies/repository_refactor_2026_09_09/reviews/MAIN_ROUTING_WRAPPER_ACCEPTANCE_record-python",
+      "size": 1608,
+      "mtime_ns": 1788962221941085963,
+      "mode": "0o100700",
+      "uid": 65534,
+      "gid": 65534,
+      "sha256": null,
+      "read_status": "credential permission denied; preserved untouched"
+    }
+  ],
+  "concurrent_untracked": {
+    "path": "studies/repository_refactor_2026_09_09/TASK_NAME_INDEX.md",
+    "size": 8961,
+    "mtime_ns": 1788971690237912280,
+    "sha256": "48dc99c5f858eb3f67496b447a7b7cd76baabc4422e714d38656631aff871695"
+  }
+}
