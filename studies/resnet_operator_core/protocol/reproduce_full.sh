@@ -4,11 +4,14 @@ set -euo pipefail
 project_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 python_bin="${PYTHON_BIN:-python}"
 workers="${WORKERS:-8}"
-run_dir="${PDE_OPERATOR_OUTPUT_ROOT:-$project_dir/../../data/generated/resnet_operator_core}"
+
+cd "$project_dir"
+# Normalize once, using the same validation and home expansion as producers.
+# A rejected root stops here, before algebraic checks or scientific work.
+run_dir="$("$python_bin" -B -c 'from runtime_paths import OUTPUT_ROOT; print(OUTPUT_ROOT)')"
 export PDE_OPERATOR_OUTPUT_ROOT="$run_dir"
 export PDE_OPERATOR_INPUT_ROOT="$run_dir"
 
-cd "$project_dir"
 export PYTHONPATH=src
 
 # Algebraic gates.

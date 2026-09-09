@@ -111,3 +111,34 @@ byte-for-byte as `main_routing_round2_checks.py` and
 their original private layout, copy them as `checks.py` and `python` beside
 one another. They record commands without dispatching scientific runners and
 are historical review evidence, not maintained repository entrypoints.
+
+## Independent round 3 and normalized wrapper inputs
+
+Round 3 remains NOT CLEAN in `../reviews/MAIN_ROUTING_ROUND3.md`. It found
+three additional live interfaces: a literal-tilde output override diverged
+between operator producers and the wrapper's restart/merge paths; a second
+quadratic build guide named the retired study umbrella; and a stdout-only
+diagnostic accepted an unsupported output option until after its solves.
+
+The wrapper now resolves its root through the real stdlib-only path helper
+before any tests or producers, and exports that single absolute root to every
+consumer. The sector guide uses the current source files and one selected
+generated output directory, while retaining explicit separate-authorization
+language. The diagnostic rejects its unsupported option at argument validation;
+its solve formulas, tolerances and stdout payload are unchanged.
+
+All 20 current routing tests pass: 11 ResNet and 9 quadratic. Added checks run
+the actual operator wrapper with a recorder that delegates only the exact
+stdlib root query and never dispatches the 42 scientific/test commands. Literal
+tilde and scratch-with-spaces cases agree at every downstream path; a protected
+root refuses before any recorded command. The sector commands receive syntax
+and source-path checks only. The diagnostic's actual main body is tested with
+mock solves: an output request causes zero solves; stdout mode retains its
+three expected mock calls. No numerical or compiler work ran.
+
+All 248 round-3 input hashes were compared after repair. Exactly the three
+implicated interfaces and two regression files changed. The report, input
+manifest and private diagnostic/mock scripts are retained in `../reviews/`;
+their original private basenames were `diagnostics.py` and `mock_python`.
+Fresh isolated round 4 is pending. No historical identity failure has been
+waived or counted as a scientific pass.

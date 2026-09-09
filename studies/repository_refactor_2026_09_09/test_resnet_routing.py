@@ -104,6 +104,49 @@ class RoutingTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "Checksum mismatch"):
                 module.verify_manifest(output / "metadata/manifest.json")
 
+    def test_operator_wrapper_normalizes_before_any_work(self):
+        # Delegate only the exact stdlib path query; record, never dispatch,
+        # all 42 test/scientific/analysis invocations.
+        with tempfile.TemporaryDirectory() as temp:
+            base = Path(temp)
+            recorder = base / "record-python"
+            recorder.write_text("#!" + sys.executable + "\n" + """
+import json, os, sys
+from pathlib import Path
+args = sys.argv[1:]
+if args == ['-B', '-c', 'from runtime_paths import OUTPUT_ROOT; print(OUTPUT_ROOT)']:
+    os.execv(sys.executable, [sys.executable, *args])
+with Path(os.environ['ROUTING_RECORD']).open('a') as stream:
+    stream.write(json.dumps({'args': args, 'output': os.environ.get('PDE_OPERATOR_OUTPUT_ROOT'),
+                            'input': os.environ.get('PDE_OPERATOR_INPUT_ROOT')}) + '\\n')
+""")
+            recorder.chmod(0o700)
+            selections = ("~/pde-routing-never-created", str(base / "out with spaces"),
+                          str(REPO / "studies"))
+            for index, selection in enumerate(selections):
+                log = base / f"calls-{index}.jsonl"
+                env = dict(os.environ, PYTHON_BIN=str(recorder), ROUTING_RECORD=str(log),
+                           PDE_OPERATOR_OUTPUT_ROOT=selection, PYTHONDONTWRITEBYTECODE="1")
+                result = subprocess.run(["bash", str(OPERATOR / "protocol/reproduce_full.sh")],
+                                        env=env, cwd=base, capture_output=True, text=True)
+                if index == 2:
+                    self.assertNotEqual(result.returncode, 0)
+                    self.assertFalse(log.exists())
+                    continue
+                self.assertEqual(result.returncode, 0, result.stderr)
+                expected = str(Path(selection).expanduser().resolve())
+                calls = [json.loads(line) for line in log.read_text().splitlines()]
+                self.assertEqual(len(calls), 42)
+                for call in calls:
+                    self.assertEqual(call["output"], expected)
+                    self.assertEqual(call["input"], expected)
+                    args = call["args"]
+                    if "--restart-from" in args:
+                        self.assertTrue(args[args.index("--restart-from") + 1].startswith(expected + "/"))
+                    if args[0] == "combine_references.py":
+                        paths = args[1:args.index("--output")] + [args[args.index("--output") + 1]]
+                        self.assertTrue(all(path.startswith(expected + "/") for path in paths))
+
     def test_operator_verifier_uses_selected_evidence(self):
         with tempfile.TemporaryDirectory() as temp:
             with patch.dict(os.environ, {"PDE_OPERATOR_INPUT_ROOT": temp}, clear=True):

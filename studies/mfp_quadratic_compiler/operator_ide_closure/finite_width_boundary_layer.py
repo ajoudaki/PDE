@@ -127,8 +127,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--widths", nargs="+", type=int, default=[32, 64, 128, 256])
     parser.add_argument("--seeds", type=int, default=6)
-    parser.add_argument("--output")
+    parser.add_argument("--output", help="unsupported: this frozen diagnostic writes JSON to stdout")
     args = parser.parse_args()
+    if args.output is not None:
+        parser.error("This frozen script is stdout-only; --output is unsupported.")
 
     results = []
     for width in args.widths:
@@ -156,10 +158,6 @@ def main():
         },
     }
     rendered = json.dumps(payload, indent=2)
-    if args.output:
-        raise RuntimeError(
-            "This frozen script prints JSON; redirecting output is intentionally external."
-        )
     print(rendered)
 
 

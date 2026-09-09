@@ -1,7 +1,10 @@
 """Bounded routing/provenance checks, not a compiler or campaign rerun."""
 
 import ast
+import argparse
+from contextlib import redirect_stderr, redirect_stdout
 import importlib.util
+import io
 import json
 import os
 from pathlib import Path
@@ -11,6 +14,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from types import SimpleNamespace
 from unittest.mock import patch
 
 REPO = Path(__file__).resolve().parents[2]
@@ -103,6 +107,47 @@ class RoutingTests(unittest.TestCase):
             self.assertEqual(len(sources), 1)
             self.assertTrue((REPO / sources[0]).is_file())
         # Syntax/path inspection only: neither mkdir nor the compiler is run.
+
+    def test_sector_guide_uses_current_sources_and_generated_products(self):
+        text = (STUDY / "SECTOR_ENGINE.md").read_text()
+        fence = chr(96) * 3
+        block = next(block for block in re.findall(fence + r"sh\n(.*?)" + fence, text, re.S)
+                     if "g++" in block)
+        result = subprocess.run(["bash", "-n"], input=block, text=True, capture_output=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertNotIn("studies/mean_field_peeling/", block)
+        self.assertIn('OUTPUT_ROOT / "sector_engine"', block)
+        commands = [shlex.split(line) for line in block.replace("\\\n", " ").splitlines()
+                    if line.startswith("g++ ")]
+        self.assertEqual(len(commands), 2)
+        for command in commands:
+            self.assertTrue(command[command.index("-o") + 1].startswith("$PDE_QUADRATIC_SECTOR_DIR/"))
+            for source in (arg for arg in command if arg.endswith(".cpp")):
+                self.assertTrue((REPO / source).is_file())
+        self.assertIn("authorization to repeat", text)
+
+    def test_stdout_only_boundary_diagnostic_rejects_output_before_solves(self):
+        path = STUDY / "operator_ide_closure/finite_width_boundary_layer.py"
+        tree = ast.parse(path.read_text())
+        main = next(node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == "main")
+        seen = []
+        def solve(*args, **kwargs):
+            seen.append((args, kwargs))
+            return SimpleNamespace(event_time=0)
+        namespace = dict(argparse=argparse, solve_one=solve, asdict=lambda _: {"fixture": True}, json=json)
+        exec(compile(ast.Module(body=[main], type_ignores=[]), str(path), "exec"), namespace)
+        with patch.object(sys, "argv", ["diagnostic", "--widths", "32", "--seeds", "1",
+                                       "--output", "never-created.json"]):
+            with redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as error:
+                namespace["main"]()
+            self.assertEqual(error.exception.code, 2)
+        self.assertEqual(seen, [])
+        with patch.object(sys, "argv", ["diagnostic", "--widths", "32", "--seeds", "1"]):
+            output = io.StringIO()
+            with redirect_stdout(output):
+                namespace["main"]()
+        self.assertEqual(len(seen), 3)
+        self.assertEqual(json.loads(output.getvalue())["results"], [{"fixture": True}])
 
 
 if __name__ == "__main__":
