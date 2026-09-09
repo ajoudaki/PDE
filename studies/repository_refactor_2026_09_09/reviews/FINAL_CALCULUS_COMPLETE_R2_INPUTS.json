@@ -1,0 +1,42 @@
+{
+  "studies/repository_refactor_2026_09_09/FINAL_CALCULUS_ADDITION.md": {
+    "sha256": "c1a6b9597132c3851484d11f18e8cdb99d040f5a7013674b3672f19b5dd2e8ef",
+    "lines": 1025
+  },
+  "studies/repository_refactor_2026_09_09/FINAL_CALCULUS_CODE_GUIDE.md": {
+    "sha256": "fdefd7d9f4468ba6f0eca3cd046e0b72503c8585567f8d70240f6911504b9fe0",
+    "lines": 153
+  },
+  "docs/NOTATION.md": {
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "lines": 98
+  },
+  "code/pde/exact_calculus.py": {
+    "sha256": "7fd7fd515028a924bb4c28dcd374d652a3a3af15c9339c1ce2361390faa48e1a",
+    "lines": 774
+  },
+  "code/pde/finite_jets.py": {
+    "sha256": "a8e22e14c7ce387636a7981a5e80556b975f83f8cf6a2b85ab22af877f5cca4c",
+    "lines": 437
+  },
+  "code/pde/finite_network.py": {
+    "sha256": "efe694b200b8af2603cbf1bb9d0249f49636e874088c2bafd98f402b5bfbe551",
+    "lines": 363
+  },
+  "code/pde/gaussian_moments.py": {
+    "sha256": "6c2a21a9f3d101c433b5f06cb3f6e1dcdeca23a814891ea7bd81e73960e854ae",
+    "lines": 114
+  },
+  "code/pde/__init__.py": {
+    "sha256": "65eb96a5dd455041d2ad1f32652e3e26e8c15192eb41bdffba27980f0f69e8c3",
+    "lines": 26
+  },
+  "code/tests/test_exact_calculus.py": {
+    "sha256": "dcb5f213cc5f4598c40f67598e405fef3c1507104e29b507a32e3bcbc8b78028",
+    "lines": 551
+  },
+  "code/tests/test_finite_jets.py": {
+    "sha256": "566b4a6bf93e4a0efca0b7cdbc8ca29ba91c03ffb85f2dec366940eabc8cf555",
+    "lines": 445
+  }
+}

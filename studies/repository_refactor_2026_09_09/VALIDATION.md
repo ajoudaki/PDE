@@ -435,3 +435,15 @@ inserted byte-exactly into existing chapters. The source audit, exact accepted
 FINAL_GAUSSIAN_GALERKIN in reviews/. No implementation changes or new test-run
 claim belongs to this proof-only package; pending finite calculus work is
 excluded from this accepted edition. No training or empirical promotion occurs.
+
+## Completion pass: complete finite calculus implementation
+
+Both fresh isolated full proof/code reviews of the ten-file calculus packet
+are clean at identical hashes. Each read all 3,986 lines and passed the 41
+relevant deterministic tests and both guide examples, with additional independent
+algebra checks. The coordinator's combined scientific run and accepted standalone
+edition both pass all 106 tests; the boundary/local-link checker covers 25 files.
+FINAL_CALCULUS_CHECKS.json records exact insertion, earlier definition/proof
+preservation and all inherited-work checks; FINAL_CALCULUS_STANDALONE.md records
+the standalone test/example outputs. No training, numerical trajectory or
+historical coefficient campaign was run.

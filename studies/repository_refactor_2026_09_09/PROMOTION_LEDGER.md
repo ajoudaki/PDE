@@ -161,3 +161,13 @@ at identical bytes. Their precise premises and excluded training/source-limit
 claims are recorded in the corresponding acceptance entry; source arguments
 and corrections are fully imported. The remaining complete packets continue
 through review and implementation.
+
+The complete finite calculus package now imports the weighted Gaussian-forest
+and constant-metric contraction proofs, fixed-program loss-GD concentration,
+qualified width-first initial layer, general finite moving jets/RMS/clock and
+held-fixed curvature, supplied polynomial Gaussian head, exact shallow identity
+and finite certificate algebra. Existing modules implement these finite methods;
+all 106 selected deterministic tests pass. Two fresh complete isolated proof/code
+reviews are clean at the exact manifest bytes. High-order numerical tables,
+formal-symbolic/nonpolynomial head modes and unproved neural/time bridges remain
+separate from this acceptance.

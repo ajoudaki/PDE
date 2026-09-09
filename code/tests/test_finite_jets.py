@@ -292,5 +292,154 @@ class ContractTests(unittest.TestCase):
         self.assertEqual(result.output_coefficients[0, 0], 2.0**-52)
 
 
+class GeneralDepthJetTests(unittest.TestCase):
+    @staticmethod
+    def polynomial_oracle(coefficients):
+        from math import factorial
+        def evaluate(order, z):
+            result = np.zeros_like(z)
+            for degree in range(order, len(coefficients)):
+                result += coefficients[degree]*factorial(degree)/factorial(degree-order)*z**(degree-order)
+            return result
+        return evaluate
+
+    def test_every_block_matches_existing_raw_field_at_multiple_depths_and_batch(self):
+        from pde.finite_network import Parameters, Activation, flow_velocity, forward
+        from pde.finite_jets import finite_flow_jets
+        x, y = np.array([[1., -.4], [.3, .8]]), np.array([.7, -.2])
+        for depth in (1, 2, 4):
+            weights = tuple(np.array([[.3, -.2], [.1, .25]])/(i+1) for i in range(depth))
+            p = Parameters(weights, np.array([.2, -.3]))
+            oracles = tuple(self.polynomial_oracle([.1, .7, .2] if i%2 else [.2, .8]) for i in range(depth))
+            activations = tuple(Activation(str(i), lambda z,o=o:o(0,z), lambda z,o=o:o(1,z)) for i,o in enumerate(oracles))
+            rates = np.arange(1, depth+2)/3
+            jet = finite_flow_jets(p, x, y, oracles, order=3, kappas=rates)
+            expected = flow_velocity(p, x, y, activations, kappas=rates)
+            self.assertEqual(jet.clock, 'physical_full_mean_loss')
+            np.testing.assert_allclose(jet.output_coefficients[0], forward(p, x, activations).output, rtol=1e-14, atol=1e-15)
+            for got, want in zip(jet.parameter_coefficients[1].weights, expected.weights):
+                np.testing.assert_allclose(got, want, rtol=1e-14, atol=1e-15)
+            np.testing.assert_allclose(jet.parameter_coefficients[1].readout, expected.readout, rtol=1e-14, atol=1e-15)
+            eps = 2e-5
+            v = jet.parameter_coefficients[1]
+            plus = Parameters(tuple(w+eps*d for w,d in zip(p.weights,v.weights)),p.readout+eps*v.readout)
+            minus = Parameters(tuple(w-eps*d for w,d in zip(p.weights,v.weights)),p.readout-eps*v.readout)
+            vp, vm = flow_velocity(plus,x,y,activations,kappas=rates), flow_velocity(minus,x,y,activations,kappas=rates)
+            for got, ap, am in zip(jet.parameter_coefficients[2].weights, vp.weights, vm.weights):
+                np.testing.assert_allclose(2*got, (ap-am)/(2*eps), rtol=2e-7, atol=2e-10)
+
+    def test_fifth_order_shallow_identity_closed_solution(self):
+        from pde.finite_network import Parameters
+        from pde.finite_jets import finite_flow_jets, hidden_gram_jet
+        from fractions import Fraction
+        p = Parameters((np.array([[.5]]),), np.array([.5]))
+        jet = finite_flow_jets(p, [[1.]], [0.], (self.polynomial_oracle([0,1]),), order=5)
+        # a=u=b, b'=-2b^3; b(t)=0.5*(1+t)^(-1/2).
+        coefficient = Fraction(1,2)
+        for k in range(6):
+            self.assertAlmostEqual(jet.parameter_coefficients[k].readout[0], float(coefficient), places=14)
+            self.assertAlmostEqual(jet.parameter_coefficients[k].weights[0][0,0], float(coefficient), places=14)
+            self.assertAlmostEqual(jet.output_coefficients[k,0], .25*(-1)**k, places=14)
+            coefficient *= Fraction(-1,2)-k
+            coefficient /= k+1
+        grams = hidden_gram_jet(jet, 1, kind='preactivation')
+        np.testing.assert_allclose(grams[:,0,0], [.25*(-1)**k for k in range(6)], rtol=1e-14)
+        self.assertEqual(jet.backward_coefficients[0].shape, (5,1,1))
+
+    def test_new_generalization_agrees_with_preexisting_exact_scope(self):
+        from pde.finite_network import Parameters
+        from pde.finite_jets import finite_flow_jets, flow_jet, hidden_gram_jet
+        p=Parameters((np.array([[.3,-.2],[.2,.4]]),np.array([[.1,.3],[-.2,.2]])),np.array([.4,-.3]))
+        oracle=self.polynomial_oracle([.1,.7,.2,-.03])
+        old=flow_jet(p,[[.5],[.7]],[.2],oracle,order=3)
+        new=finite_flow_jets(p,[[.5],[.7]],[.2],(oracle,oracle),order=3)
+        np.testing.assert_allclose(new.output_coefficients,old.output_coefficients,rtol=2e-14,atol=1e-15)
+        for a,b in zip(new.parameter_coefficients,old.parameter_coefficients):
+            for w,v in zip(a.weights,b.weights):np.testing.assert_allclose(w,v,rtol=2e-14,atol=1e-15)
+            np.testing.assert_allclose(a.readout,b.readout,rtol=2e-14,atol=1e-15)
+        for kind in ('activation','preactivation'):
+            np.testing.assert_allclose(hidden_gram_jet(new,2,kind=kind),hidden_gram_jet(old,2,kind=kind))
+
+    def test_general_contract_callback_ownership_and_degree_zero(self):
+        from pde.finite_network import Parameters
+        from pde.finite_jets import finite_flow_jets, hidden_gram_jet
+        p=Parameters((np.array([[.5]]),),np.array([.2]))
+        x=np.array([[1.,2.]])
+        original=p.weights[0].copy(); calls=[]; buffer=np.zeros((1,2))
+        def oracle(j,z):
+            calls.append(j)
+            buffer[:]=z if j==0 else 1 if j==1 else 0
+            z[:]=99
+            return buffer
+        z0=finite_flow_jets(p,x,[0,1],(oracle,),order=0)
+        self.assertEqual(calls,[0]);self.assertEqual(z0.backward_coefficients[0].shape,(0,1,2))
+        result=finite_flow_jets(p,x,[0,1],(oracle,),order=4)
+        buffer[:]=999
+        np.testing.assert_array_equal(p.weights[0],original)
+        np.testing.assert_array_equal(x,[[1.,2.]])
+        self.assertFalse(np.any(result.hidden_coefficients[0]==999))
+        result.parameter_coefficients[0].weights[0][:]=20
+        np.testing.assert_array_equal(p.weights[0],original)
+        for order in (True,np.bool_(False),2.5,-1,6):
+            with self.assertRaises(ValueError):finite_flow_jets(p,x,[0,1],(oracle,),order=order)
+        for bad in ((),(oracle,oracle),oracle):
+            with self.assertRaises(ValueError):finite_flow_jets(p,x,[0,1],bad)
+        for callback in (lambda j,z: 1., lambda j,z: np.full_like(z,np.nan)):
+            with self.assertRaises(ValueError):finite_flow_jets(p,x,[0,1],(callback,),order=1)
+        with self.assertRaises(ValueError):hidden_gram_jet(z0,True,kind='activation')
+        with self.assertRaises(ValueError):hidden_gram_jet(z0,1,kind='RMS')
+
+
+class PreactivationCurvatureTests(unittest.TestCase):
+    def test_full_hessians_against_forward_polynomial_second_variations(self):
+        from pde.finite_network import Parameters
+        from pde.finite_jets import preactivation_hessians, preactivation_hessian_words
+        weights=(np.array([[.2,-.1],[.3,.4]]),np.array([[.5,-.2],[.1,.3]]),np.array([[.2,.1],[-.4,.3]]))
+        p=Parameters(weights,np.array([.3,-.2]));x=np.array([[.5,-.4],[.2,.7]])
+        polys=([.1,.8,.2],[.2,.7],[.0,.4,.3])
+        oracles=tuple(GeneralDepthJetTests.polynomial_oracle(v) for v in polys)
+        result=preactivation_hessians(p,x,oracles)
+        for layer in range(3):
+            for sample in range(2):
+                for direction in (np.array([1.,0.]),np.array([0.,1.]),np.array([1.,1.])):
+                    series=np.zeros((3,2));series[0]=result.preactivations[layer][:,sample];series[1]=direction
+                    for ell in range(layer,3):
+                        coeff=polys[ell];out=np.zeros_like(series);power=np.zeros_like(series);power[0]=1
+                        for value in coeff:
+                            out += value*power
+                            power=np.stack([sum((power[i]*series[k-i] for i in range(k+1)),np.zeros(2)) for k in range(3)])
+                        if ell<2:series=out @ weights[ell+1].T
+                        else: expected=2*(out[2] @ p.readout)
+                    actual=direction @ result.hessians[layer][sample] @ direction
+                    self.assertAlmostEqual(actual,expected,places=13)
+        for sample in range(2):
+            total=np.zeros((2,2))
+            for term in preactivation_hessian_words([2,2,2],affine_flags=[False,True,False]):
+                value=np.eye(2)
+                for role,layer,shape in term.factors:
+                    matrix=(np.diag(result.slopes[layer-1][:,sample]) if role=='D' else
+                            result.local_sources[layer-1][sample] if role=='E' else
+                            weights[layer-1].T if role=='WT' else weights[layer-1])
+                    self.assertEqual(matrix.shape,shape);value=value @ matrix
+                total += value
+            np.testing.assert_allclose(total,result.hessians[0][sample],rtol=1e-13,atol=1e-15)
+        np.testing.assert_array_equal(result.local_sources[1],np.zeros((2,2,2)))
+
+    def test_word_shapes_affine_elimination_and_validation(self):
+        from pde.finite_jets import preactivation_hessian_words, preactivation_hessians
+        from pde.finite_network import Parameters
+        terms=preactivation_hessian_words([2,3,4])
+        self.assertEqual(len(terms),3)
+        for term in terms:
+            self.assertEqual(term.factors[0][2][0],2);self.assertEqual(term.factors[-1][2][1],2)
+            for a,b in zip(term.factors,term.factors[1:]):self.assertEqual(a[2][1],b[2][0])
+        self.assertEqual(preactivation_hessian_words([2,3],affine_flags=[True,True]),())
+        for widths in ([],[True],[1.5],[0]):
+            with self.assertRaises(ValueError):preactivation_hessian_words(widths)
+        with self.assertRaises(ValueError):preactivation_hessian_words([2],affine_flags=[1])
+        p=Parameters((np.array([[.4]]),),np.array([.3]))
+        with self.assertRaises(ValueError):preactivation_hessians(p,[[1]],(lambda j,z: np.zeros(2),))
+
+
 if __name__ == "__main__":
     unittest.main()

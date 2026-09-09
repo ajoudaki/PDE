@@ -361,3 +361,13 @@ conditional uniqueness and lack of a dense-network/source-cutoff limit.
 These replace editorial assembly deferrals for those precise results. Broader
 calculus, nonlinear-family, compression and scoped-obstruction packets remain
 active and are not disposed of by this entry.
+
+The complete calculus package now supersedes the editorial gates for the small
+general weighted-forest engine, all-moment fixed quadratic loss-program law,
+weighted contraction compiler and typed preactivation-Hessian semantics. Their
+full proofs and finite APIs are maintained, with paired complete clean reviews
+and 106 passing selected tests. The supplied polynomial Gaussian fourth head,
+shallow identity raw-GD/positive measure and exact finite threshold algebra are
+also included. This does not import high-order numerical tables, arbitrary
+symbolic covariance as a Gaussian law, or the canonical quadratic GF/adaptive
+bridge. The exact scopes and unimplemented optional modes are in acceptance.

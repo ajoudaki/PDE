@@ -631,3 +631,55 @@ new run here. Exact checks, input inventories and inherited-work preservation
 are in reviews/FINAL_GAUSSIAN_GALERKIN_CHECKS.json and the matching library
 inventory. Further calculus, nonlinear, controls and scoped-obstruction packets
 remain under complete review; this entry does not end incorporation.
+
+## Completion pass: exact forests, physical-loss calculus and finite APIs
+
+The Gaussian/source-transport package is committed at `479b83b`. The corrected
+1,025-line FINAL_CALCULUS_ADDITION.md now extends Gaussian calculus, and the
+153-line FINAL_CALCULUS_CODE_GUIDE.md extends the existing implementation guide.
+Both occur byte-exactly once. The existing exact_calculus and finite_jets
+modules now implement their stated finite contracts.
+
+The new proof scope includes constant-metric weighted derivative trees;
+normalized Gaussian forests with exact finite expectations, leading factorization
+and all-finite-Lp scalar concentration; weighted quadratic derivative grammar;
+simultaneous full-loss fixed-program forest closure and a separately ordered
+width-first quadratic initial layer; full moving finite-depth/batch GF jets,
+RMS/clock identities and a supplied-Gaussian fourth head; typed held-fixed
+preactivation Hessians; exact shallow identity GD/global scalar comparison and
+positive Stieltjes density; shallow square characteristics/pole and rescaled
+finite certificate; and triangular inverse/companion, Schur and Bernstein
+identities. Initialization, activation constants, mobilities, loss and order of
+limits are fixed in each statement. Formal/local or fixed-program results do
+not become trajectories or growing-program limits.
+
+The first full proof review identified integer-decoration, random-step moment
+and Euler activation-scale qualifications. Those are corrected, with the original
+input and review preserved. Two fresh complete isolated proof/code reviews,
+FINAL_CALCULUS_COMPLETE_A2.md and FINAL_CALCULUS_COMPLETE_B2.md, are CLEAN with
+no required corrections. Both received the same ten-file packet, read all
+3,986 lines, checked unchanged hashes, ran all 41 relevant tests and both guide
+examples, and performed independent bounded algebra checks. Their full reports
+were read by the coordinator. Optional clarity suggestions caused no edit.
+FINAL_CALCULUS_COMPLETE_R2_INPUTS.json seals exactly those bytes.
+
+The finite implementation includes canonical GaussianForest objects and
+finite/leading evaluators, ordered weighted derivatives, simultaneous rational
+loss pullbacks, contraction trees, arbitrary fixed-depth/batch moving jets
+through ordinary order five, same-layer Gram coefficients, typed and numeric
+preactivation Hessians, an exact polynomial actual-Gaussian head with complete
+PSD covariance, shallow identity scalar updates, singular Hankel thresholds
+and Bernstein certificates. It does not provide a formal-symbolic head,
+nonpolynomial integration, an efficient general high-order campaign, or neural
+interpretation of supplied covariance constants. Sixteen new meaningful tests
+bring the selected scientific total to 106; all pass, including in the standalone
+27-file edition. Old production definitions and previous proof bodies are
+preserved. No training or empirical result is promoted.
+
+Exact source/correction/implementation scopes are in
+source_audits/FINAL_CALCULUS_ASSEMBLY.md and FINAL_CALCULUS_IMPLEMENTATION.md.
+The complete accepted inventory and boundary/test/example/preservation receipts
+are recorded under reviews/FINAL_CALCULUS. The exporter, .gitignore, task index
+and inherited unreadable artifacts remain outside this commit; the latter have
+metadata-only preservation checks. Remaining nonlinear, controls and scope
+packets continue through full reviews and final coverage reconciliation.

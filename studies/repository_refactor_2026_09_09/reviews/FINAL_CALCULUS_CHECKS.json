@@ -1,0 +1,164 @@
+{
+  "head_before": "479b83b95b423975f341abb0ac6140164065eb3e",
+  "standalone_path": "/tmp/pde_final_calculus_book_idij_tio",
+  "structural_check": "Library boundary and local links checked: 25 files.",
+  "test_result": "..........................................................................................................\n----------------------------------------------------------------------\nRan 106 tests in 0.898s\n\nOK",
+  "guide_result": "Both calculus guide examples passed.",
+  "previous_definitions_preserved": {
+    "code/pde/exact_calculus.py": [
+      "_integer",
+      "_rationals",
+      "_multiply",
+      "_compose",
+      "euler_pullback_words",
+      "paired_euler_weights",
+      "revert_series",
+      "determinant",
+      "forest_key",
+      "quadratic_axis_certificate"
+    ],
+    "code/pde/finite_jets.py": [
+      "FlowJet",
+      "_compose",
+      "_convolve",
+      "flow_jet"
+    ]
+  },
+  "earlier_proof_body_preserved": true,
+  "fragments_exact_once": true,
+  "accepted_files": 27,
+  "inherited_preservation": [
+    {
+      "path": ".gitignore",
+      "mode": "0o660",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 461,
+      "mtime_ns": 1788982243339943279,
+      "sha256": "bf9e25889d63c4d97a614457f0af687027e0e0b0afcdf3e8062600a9d10fcc1e"
+    },
+    {
+      "path": "code/tests/test_book_exporter.py",
+      "mode": "0o664",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 6283,
+      "mtime_ns": 1788982243059936433,
+      "sha256": "8ecde48a39b08cf336b2e87884107392e694785773dc973c0808d96f6bf0725c"
+    },
+    {
+      "path": "code/tools/book_pdf/README.md",
+      "mode": "0o664",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 4971,
+      "mtime_ns": 1788982242775929488,
+      "sha256": "74dd2c7a2f3deb7a8f6d5ececbf442974659570b198c618c6e1046851c085f5e"
+    },
+    {
+      "path": "code/tools/book_pdf/build-pdf.sh",
+      "mode": "0o764",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 553,
+      "mtime_ns": 1788982262476411126,
+      "sha256": "f826d05662cb7e8c340ef0dba7e1b70af7b9e94530f515f3dbf2b49d3ffef141"
+    },
+    {
+      "path": "code/tools/book_pdf/export_book.py",
+      "mode": "0o664",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 13810,
+      "mtime_ns": 1788982242491922544,
+      "sha256": "e2da7f3887a457ee2d2a4885a1c8ba31b9ca4cde49308da00075f78346d33a13"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_REPORT.md",
+      "mode": "0o600",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 6526,
+      "mtime_ns": 1788963216993681790,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_acceptance.py",
+      "mode": "0o600",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 20501,
+      "mtime_ns": 1788963216993681790,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_evidence.json",
+      "mode": "0o600",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 164582,
+      "mtime_ns": 1788963216997681887,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/EXACT_CAPTURE_ROUND2_B.md",
+      "mode": "0o600",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 47745,
+      "mtime_ns": 1788968431757160353,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/GUIDE_ADVISORY_INTEGRATION.md",
+      "mode": "0o600",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 21557,
+      "mtime_ns": 1788964143848130813,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/INCORPORATION_FINAL_INTEGRATION.md",
+      "mode": "0o600",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 40877,
+      "mtime_ns": 1788968767713405392,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/MAIN_ROUTING_PATCH_ROUND1_record-python",
+      "mode": "0o700",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 1137,
+      "mtime_ns": 1788961638254522868,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/MAIN_ROUTING_WRAPPER_ACCEPTANCE_record-python",
+      "mode": "0o700",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 1608,
+      "mtime_ns": 1788962221941085963,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/TASK_NAME_INDEX.md",
+      "mode": "0o664",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 8961,
+      "mtime_ns": 1788971690237912280,
+      "sha256": "48dc99c5f858eb3f67496b447a7b7cd76baabc4422e714d38656631aff871695"
+    }
+  ],
+  "review_input_hashes_unchanged": true,
+  "report_hashes": {
+    "FINAL_CALCULUS_COMPLETE_A2.md": "a84a4d63994d8ef68efad08000ce03bc3b268a16acdbd882420bc5912fbc38f8",
+    "FINAL_CALCULUS_COMPLETE_B2.md": "91d1e8a3ba1a3427925018f6f5647b8403400bfa59439d7b850df571b61e7d34",
+    "FINAL_CALCULUS_A1.md": "0d86a57b2e371be01603dd8e650f6082379140702a0dfca8f6cd393de1a63ad8"
+  }
+}
