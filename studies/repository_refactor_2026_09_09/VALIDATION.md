@@ -164,6 +164,14 @@ manifests are retained alongside the independent counterexamples; bounded
 repairs are in progress. Supplied passing regressions alone are not being treated as clean
 independent verdicts.
 
+The seven-study third-round repair is now complete. The coordinator repeated
+all 92 explicitly selected tests (the prior 62 plus 30 new boundary cases),
+with all passing and 72 private protected-input hash records unchanged.
+The 335 unchanged definition ASTs and 24 explicitly normalized boundary
+comparisons, exact 33-file change inventory, and original frozen configuration
+hashes are in `source_audits/STUDY_ROUTING_ROUND3_REPAIRS_handoff.md` and its
+companion records. Fresh isolated round 4 is running on that frozen slice.
+
 Unchanged expected limitations are explicit: optional PyTorch, Matplotlib,
 pytest, SymPy and mpmath are absent; historical source/environment seals do not
 match all migrated live bytes; consumed attempts remain consumed; the historical

@@ -123,7 +123,7 @@ def main() -> None:
             "protocol_sha256": sha256(PROTOCOL),
             "script_sha256": sha256(Path(__file__)),
             "finite_width_recurrence_sha256": sha256(
-                PEELING / "finite_width_jet_reference.py"
+                MFP_COMPILER / "finite_width_jet_reference.py"
             ),
             "certificate_sha256": sha256(CERTIFICATE),
             "python": platform.python_version(),

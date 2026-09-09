@@ -19,6 +19,10 @@ import torch
 HERE = Path(__file__).resolve().parent
 REFERENCE = HERE.parent
 REPO_ROOT = HERE.parents[3]
+sys.path.insert(0, str(REPO_ROOT))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 HISTORICAL_REFERENCE = REPO_ROOT / "data/historical/studies/stieltjes_proxy_campaign/reference"
 sys.path.insert(0, str(REFERENCE))
 
@@ -107,6 +111,12 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     step = float(args.step)
+    suffix = "5e-6" if step == 5.0e-6 else "2p5e-6"
+    output_path = OUTPUT_ROOT / f"gd-vs-rk4-n8192-h{suffix}.json"
+    PATHS.require_output(output_path)
+    if not REFERENCE_NPZ.is_file():
+        raise FileNotFoundError(REFERENCE_NPZ)
+    reference = np.load(REFERENCE_NPZ)
     wall_cap = 600.0 if step == 5.0e-6 else 1200.0
     device = torch.device(args.device)
     if not torch.cuda.is_available():
@@ -153,7 +163,6 @@ def main() -> int:
         caps=caps,
         absolute_wall_deadline=started + wall_cap,
     )
-    reference = np.load(REFERENCE_NPZ)
     kernel = arrays["effective_kernel"]
     kernel_ref = reference["effective_kernel"]
     direct = arrays["mean_direct_kernel"]
@@ -214,8 +223,7 @@ def main() -> int:
         "script": str(Path(__file__).resolve()),
         "script_sha256": file_sha256(Path(__file__).resolve()),
     }
-    suffix = "5e-6" if step == 5.0e-6 else "2p5e-6"
-    output_path = OUTPUT_ROOT / f"gd-vs-rk4-n8192-h{suffix}.json"
+    PATHS.require_output(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(payload, indent=2) + "\n")
     print(json.dumps(payload, indent=2))

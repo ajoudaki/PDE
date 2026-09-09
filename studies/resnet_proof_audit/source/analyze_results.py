@@ -37,6 +37,10 @@ HERE = Path(__file__).resolve().parent
 AUDIT_ROOT = HERE.parent
 WORKSPACE_ROOT = AUDIT_ROOT.parent
 REPO_ROOT = WORKSPACE_ROOT.parent
+sys.path.insert(0, str(REPO_ROOT))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 HISTORICAL_ROOT = REPO_ROOT / "data/historical/studies/resnet_proof_audit"
 GENERATED_ROOT = REPO_ROOT / "data/generated/resnet_proof_audit"
 PROTOCOL_PATH = AUDIT_ROOT / "protocol" / "preregistered_protocol.json"
@@ -243,6 +247,13 @@ def _expected_source_hashes(
     }
 
 
+def _processed_output_root(audit_root: Path, historical: bool) -> Path:
+    audit_root = Path(audit_root).resolve()
+    if audit_root == AUDIT_ROOT:
+        return GENERATED_ROOT / ("historical_review" if historical else "results") / "processed"
+    return audit_root / "results" / "processed"
+
+
 def discover_evidence(
     *,
     audit_root: Path = AUDIT_ROOT,
@@ -256,11 +267,10 @@ def discover_evidence(
     protocol_path = audit_root / "protocol" / "preregistered_protocol.json"
     frozen_path = audit_root / "results" / "seals" / "FROZEN_INPUTS.json"
     results_root = audit_root / "results"
-    processed_root = results_root / "processed"
+    processed_root = _processed_output_root(audit_root, historical)
     if audit_root == AUDIT_ROOT:
         results_root = (HISTORICAL_ROOT if historical else GENERATED_ROOT) / "results"
         frozen_path = results_root / "seals" / "FROZEN_INPUTS.json"
-        processed_root = GENERATED_ROOT / ("historical_review" if historical else "results") / "processed"
         if historical and not protocol_path.is_file():
             protocol_path = HISTORICAL_ROOT / "protocol" / "preregistered_protocol.json"
     if historical:
@@ -6278,6 +6288,8 @@ def _csv_bytes(rows: Sequence[Mapping[str, Any]], fields: Sequence[str]) -> byte
 
 
 def _atomic_write(path: Path, payload: bytes) -> None:
+    PATHS.require_output(path)
+    PATHS.require_output(path.with_name(path.name + ".partial"))
     path.parent.mkdir(parents=True, exist_ok=True)
     partial = path.with_name(path.name + ".partial")
     if partial.exists():
@@ -6850,8 +6862,7 @@ def write_processed(
     context: AnalysisContext,
     payloads: Mapping[str, bytes],
 ) -> Mapping[str, str]:
-    if context.processed_root.resolve().is_relative_to((REPO_ROOT / "data/historical").resolve()):
-        raise AnalysisError("refusing to write processed outputs into immutable historical data")
+    PATHS.require_output(context.processed_root)
     hashes: dict[str, str] = {}
     for name in ("gates.csv", "metrics.csv", "archive_inventory.csv", "summary.json"):
         if name not in payloads:
@@ -6885,6 +6896,8 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if not args.no_write:
+        PATHS.require_output(_processed_output_root(args.audit_root, args.historical))
     context = discover_evidence(audit_root=args.audit_root, historical=args.historical)
     summary, payloads = analyze_all(context)
     output_hashes: Mapping[str, str] = {}

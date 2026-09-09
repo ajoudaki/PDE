@@ -22,6 +22,10 @@ import torch
 HERE = Path(__file__).resolve().parent
 REFERENCE = HERE.parent
 REPO_ROOT = HERE.parents[3]
+sys.path.insert(0, str(REPO_ROOT))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 HISTORICAL_REFERENCE = REPO_ROOT / "data/historical/studies/stieltjes_proxy_campaign/reference"
 sys.path.insert(0, str(REFERENCE))
 
@@ -184,8 +188,10 @@ def node_metrics(
 
 
 def main() -> int:
-    if not REFERENCE_NPZ.exists():
+    PATHS.require_output(OUTPUT_JSON)
+    if not REFERENCE_NPZ.is_file():
         raise FileNotFoundError(REFERENCE_NPZ)
+    ref = np.load(REFERENCE_NPZ)
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA is unavailable")
     device = torch.device("cuda:1")
@@ -197,7 +203,6 @@ def main() -> int:
 
     started = time.monotonic()
     deadline = started + TOTAL_WALL_CAP_SECONDS
-    ref = np.load(REFERENCE_NPZ)
     results: list[dict[str, object]] = []
     for step in STEPS:
         if time.monotonic() >= deadline:
@@ -273,6 +278,7 @@ def main() -> int:
             "for these matched n=4096 trajectories at the finest tested step."
         ),
     }
+    PATHS.require_output(OUTPUT_JSON)
     OUTPUT_JSON.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_JSON.write_text(json.dumps(payload, indent=2) + "\n")
     print(json.dumps(payload, indent=2))

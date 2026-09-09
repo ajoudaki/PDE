@@ -38,3 +38,7 @@ to select retained inputs and a separate generated `historical_review/` output.
 They do not fall back to history when fresh input is missing. These interfaces
 preserve the scientific calculations and resource requirements; migration alone
 does not establish full campaign reproducibility.
+
+The order-13 and calibrated-ratio entry points hash their recurrence source at
+the declared `mfp_quadratic_compiler` location. This is a provenance-path repair;
+it changes no coefficient calculation, configuration, or resource limit.

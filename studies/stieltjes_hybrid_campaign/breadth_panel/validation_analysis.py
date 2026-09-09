@@ -25,6 +25,10 @@ import numpy as np
 
 PANEL_ROOT = Path(__file__).resolve().parent
 REPO_ROOT = PANEL_ROOT.parents[2]
+sys.path.insert(0, str(REPO_ROOT))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 HISTORICAL_PANEL = REPO_ROOT / "data/historical/studies/stieltjes_hybrid_campaign/breadth_panel"
 OUTPUT_ROOT = REPO_ROOT / "data/generated/stieltjes_hybrid_campaign/breadth_panel/validation_analysis"
 RUN_ROOT = HISTORICAL_PANEL / "runs" / "validation_one_input_v1"
@@ -749,6 +753,7 @@ def _json_bytes(result: dict[str, Any]) -> bytes:
 
 
 def write_outputs(result: dict[str, Any]) -> None:
+    PATHS.require_output(OUTPUT_ROOT)
     result_bytes = _json_bytes(result)
     result_digest = hashlib.sha256(result_bytes).hexdigest()
     OUTPUT_ROOT.mkdir(parents=True, exist_ok=True)
@@ -777,6 +782,8 @@ def main() -> int:
     action.add_argument("--write", action="store_true")
     action.add_argument("--check", action="store_true")
     args = parser.parse_args()
+    if args.write:
+        PATHS.require_output(OUTPUT_ROOT)
     result = analyze()
     if args.write:
         write_outputs(result)

@@ -529,6 +529,7 @@ def claim_canonical_attempt(
     device: str,
     provenance: dict[str, str],
 ) -> tuple[Path, Path, dict[str, Any]]:
+    require_current_authorization()
     run_root = (repo / frozen["run_root"]).resolve()
     ledger_path = run_root / "ATTEMPTS.json"
     lock_path = run_root / ".attempts.lock"
@@ -570,6 +571,7 @@ def claim_canonical_attempt(
 def finish_canonical_attempt(
     ledger_path: Path, group: str, updates: dict[str, Any]
 ) -> None:
+    require_current_authorization()
     lock_path = ledger_path.parent / ".attempts.lock"
     with lock_path.open("a+", encoding="utf-8") as lock_handle:
         fcntl.flock(lock_handle.fileno(), fcntl.LOCK_EX)

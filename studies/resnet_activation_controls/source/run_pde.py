@@ -16,6 +16,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT.parents[2]))
 from studies._output_paths import StudyPaths
+from studies.resnet_activation_controls.output_paths import require_raw_output
 
 PATHS = StudyPaths(__file__)
 sys.path.insert(0, str(ROOT / "src"))
@@ -230,6 +231,39 @@ def run(args: argparse.Namespace) -> Path:
         if state.a.shape != (spec.base_points,):
             raise ValueError("restart a shape mismatch")
         start_time = float(restart["times"][-1])
+    scientific_config = {
+        "static_compiler_sha256": static_compiler_sha256,
+        "integrator": args.integrator,
+        "duration": args.duration,
+        "start_time": start_time,
+        "end_time": start_time + args.duration,
+        "dt": args.dt,
+        "sample_dt": args.sample_dt,
+        "restart_source_sha256": restart_source_sha256,
+    }
+    scientific_config_sha256 = hashlib.sha256(
+        json.dumps(
+            scientific_config, sort_keys=True, separators=(",", ":")
+        ).encode()
+    ).hexdigest()
+    case_tag = case_info["case_id"]
+    hash_tag = case_info["case_sha256"][:12]
+    name = (
+        f"pde_{case_tag}_{hash_tag}_"
+        f"{'GH' if args.quadrature == 'gauss-hermite' else ('HYBRID' if args.quadrature == 'hybrid' else 'QMC')}"
+        f"_P{args.P}_N{args.N}_M{spec.base_points}_R{spec.fast_points}"
+        f"_s{args.seed}_dt{_tag(args.dt)}_T{_tag(args.duration)}"
+        f"_cfg{scientific_config_sha256[:12]}.npz"
+    )
+    if args.integrator != "rk4":
+        name = name.replace(".npz", f"_{args.integrator.upper()}.npz")
+    if start_time:
+        name = name.replace(
+            ".npz",
+            f"_from{_tag(start_time)}_to{_tag(start_time + args.duration)}.npz",
+        )
+    path = output_dir / name
+    path = require_raw_output(path, (args.restart_from, args.case_registry))
     steps = int(round(args.duration / args.dt))
     sample_stride = int(round(args.sample_dt / args.dt))
     if abs(steps * args.dt - args.duration) > 1e-12:
@@ -270,21 +304,6 @@ def run(args: argparse.Namespace) -> Path:
             state = stepper(state, args.dt, spec, quadrature)
 
     elapsed = time.perf_counter() - started
-    scientific_config = {
-        "static_compiler_sha256": static_compiler_sha256,
-        "integrator": args.integrator,
-        "duration": args.duration,
-        "start_time": start_time,
-        "end_time": start_time + args.duration,
-        "dt": args.dt,
-        "sample_dt": args.sample_dt,
-        "restart_source_sha256": restart_source_sha256,
-    }
-    scientific_config_sha256 = hashlib.sha256(
-        json.dumps(
-            scientific_config, sort_keys=True, separators=(",", ":")
-        ).encode()
-    ).hexdigest()
     config = {
         "model": "continuous-depth dense Euclidean-muP operator-Galerkin PDE",
         "solver": (
@@ -354,25 +373,10 @@ def run(args: argparse.Namespace) -> Path:
     config["config_sha256"] = scientific_config_sha256
 
     output_dir.mkdir(parents=True, exist_ok=True)
-    case_tag = case_info["case_id"]
-    hash_tag = case_info["case_sha256"][:12]
-    name = (
-        f"pde_{case_tag}_{hash_tag}_"
-        f"{'GH' if args.quadrature == 'gauss-hermite' else ('HYBRID' if args.quadrature == 'hybrid' else 'QMC')}"
-        f"_P{args.P}_N{args.N}_M{spec.base_points}_R{spec.fast_points}"
-        f"_s{args.seed}_dt{_tag(args.dt)}_T{_tag(args.duration)}"
-        f"_cfg{scientific_config_sha256[:12]}.npz"
-    )
-    if args.integrator != "rk4":
-        name = name.replace(".npz", f"_{args.integrator.upper()}.npz")
-    if start_time:
-        name = name.replace(
-            ".npz",
-            f"_from{_tag(start_time)}_to{_tag(start_time + args.duration)}.npz",
-        )
-    path = output_dir / name
     partial = path.with_suffix(path.suffix + ".partial")
-    with partial.open("wb") as handle:
+    PATHS.require_output(path)
+    PATHS.require_output(partial)
+    with partial.open("xb") as handle:
         np.savez_compressed(
             handle,
             times=times,
@@ -393,6 +397,7 @@ def run(args: argparse.Namespace) -> Path:
         )
         handle.flush()
         os.fsync(handle.fileno())
+    PATHS.require_output(path)
     os.replace(partial, path)
     print(
         json.dumps(

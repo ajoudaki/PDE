@@ -128,14 +128,13 @@ def load_reference_run(
     ``require_scientific=True`` rejects them before any analysis is performed.
     """
 
+    if config_path is None:
+        raise ValueError("config_path is required: explicitly select the source configuration; no config is inferred from a generated or historical run")
     summary_path = Path(summary_path).resolve()
     summary = json.loads(summary_path.read_text(encoding="utf-8"))
     admissible = bool(summary.get("scientific_evidence_admissible", False))
     if require_scientific and not admissible:
         raise PermissionError("the supplied run is not admissible scientific evidence")
-    if config_path is None:
-        reference_root = summary_path.parent.parent.parent
-        config_path = reference_root / "configs" / str(summary["config_name"])
     config_path = Path(config_path).resolve()
     config = json.loads(config_path.read_text(encoding="utf-8"))
     config_by_id = {str(point["id"]): point for point in config["points"]}

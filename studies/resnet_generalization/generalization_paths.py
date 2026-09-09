@@ -45,3 +45,20 @@ def require_output(path: Path) -> Path:
 
 def precheck_command(python: str, results: Path, output: Path) -> list[str]:
     return [python, str(STUDY_ROOT / "pde_precheck.py"), "--results-dir", str(results), "--output", str(output)]
+
+
+def require_raw_output(path: Path, inputs=()) -> Path:
+    """Guard the final and deterministic partial before any raw run starts."""
+    output = require_output(path)
+    partial = output.with_suffix(output.suffix + ".partial")
+    require_output(partial)
+    for selected in inputs:
+        if selected is None:
+            continue
+        source = Path(selected).resolve()
+        for target in (output, partial):
+            if target == source or (target.exists() and source.exists() and target.samefile(source)):
+                raise ValueError(f"raw output aliases an input: {selected}")
+    if partial.exists():
+        raise FileExistsError(f"stale partial blocks raw output: {partial}")
+    return output

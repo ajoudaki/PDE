@@ -34,6 +34,8 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parent
 REPO_ROOT = ROOT.parents[1]
+sys.path.insert(0, str(REPO_ROOT))
+from studies.resnet_activation_controls.output_paths import require_output
 HISTORICAL_ROOT = REPO_ROOT / "data/historical/studies/resnet_activation_controls"
 SOURCE = ROOT / "source"
 PROTOCOL_DIR = ROOT / "protocol"
@@ -246,6 +248,8 @@ def _encoded(record: Mapping[str, Any]) -> str:
 
 
 def _write_once(path: Path, record: Mapping[str, Any]) -> None:
+    require_output(path)
+    require_output(path.with_suffix(path.suffix + ".partial"))
     encoded = _encoded(record)
     path.parent.mkdir(parents=True, exist_ok=True)
     if path.exists():
@@ -255,7 +259,7 @@ def _write_once(path: Path, record: Mapping[str, Any]) -> None:
     partial = path.with_suffix(path.suffix + ".partial")
     if partial.exists():
         raise IntegrityError(f"stale partial record blocks write: {partial}")
-    with partial.open("w") as handle:
+    with partial.open("x") as handle:
         handle.write(encoded)
         handle.flush()
         os.fsync(handle.fileno())
@@ -849,7 +853,7 @@ def _require_seal_common(record: Mapping[str, Any], stage: str) -> None:
     if not isinstance(files, dict):
         raise IntegrityError(f"{stage} seal has no file map")
     for relative, expected_sha256 in files.items():
-        path = ROOT / relative
+        path = RESULTS.parent / relative
         if not path.is_file() or _sha256(path) != expected_sha256:
             raise IntegrityError(f"sealed file mismatch: {relative}")
 

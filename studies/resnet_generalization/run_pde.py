@@ -14,9 +14,9 @@ from pathlib import Path
 import numpy as np
 
 if __package__:
-    from .generalization_paths import GENERATED_ROOT, require_output
+    from .generalization_paths import GENERATED_ROOT, require_output, require_raw_output
 else:
-    from generalization_paths import GENERATED_ROOT, require_output
+    from generalization_paths import GENERATED_ROOT, require_output, require_raw_output
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "src"))
@@ -57,7 +57,7 @@ def _file_sha256(path: str | Path) -> str:
 
 
 def run(args: argparse.Namespace) -> Path:
-    require_output(Path(args.output_dir) if args.output_dir is not None else GENERATED_ROOT / "results/raw")
+    output_dir = require_output(Path(args.output_dir) if args.output_dir is not None else GENERATED_ROOT / "results/raw")
     if args.case_id is not None:
         if args.case_registry is None:
             raise ValueError("--case-id requires --case-registry")
@@ -230,6 +230,39 @@ def run(args: argparse.Namespace) -> Path:
         if state.a.shape != (spec.base_points,):
             raise ValueError("restart a shape mismatch")
         start_time = float(restart["times"][-1])
+    scientific_config = {
+        "static_compiler_sha256": static_compiler_sha256,
+        "integrator": args.integrator,
+        "duration": args.duration,
+        "start_time": start_time,
+        "end_time": start_time + args.duration,
+        "dt": args.dt,
+        "sample_dt": args.sample_dt,
+        "restart_source_sha256": restart_source_sha256,
+    }
+    scientific_config_sha256 = hashlib.sha256(
+        json.dumps(
+            scientific_config, sort_keys=True, separators=(",", ":")
+        ).encode()
+    ).hexdigest()
+    case_tag = case_info["case_id"]
+    hash_tag = case_info["case_sha256"][:12]
+    name = (
+        f"pde_{case_tag}_{hash_tag}_"
+        f"{'GH' if args.quadrature == 'gauss-hermite' else ('HYBRID' if args.quadrature == 'hybrid' else 'QMC')}"
+        f"_P{args.P}_N{args.N}_M{spec.base_points}_R{spec.fast_points}"
+        f"_s{args.seed}_dt{_tag(args.dt)}_T{_tag(args.duration)}"
+        f"_cfg{scientific_config_sha256[:12]}.npz"
+    )
+    if args.integrator != "rk4":
+        name = name.replace(".npz", f"_{args.integrator.upper()}.npz")
+    if start_time:
+        name = name.replace(
+            ".npz",
+            f"_from{_tag(start_time)}_to{_tag(start_time + args.duration)}.npz",
+        )
+    path = require_output(output_dir / name)
+    path = require_raw_output(path, (args.restart_from, args.case_registry))
     steps = int(round(args.duration / args.dt))
     sample_stride = int(round(args.sample_dt / args.dt))
     if abs(steps * args.dt - args.duration) > 1e-12:
@@ -270,21 +303,6 @@ def run(args: argparse.Namespace) -> Path:
             state = stepper(state, args.dt, spec, quadrature)
 
     elapsed = time.perf_counter() - started
-    scientific_config = {
-        "static_compiler_sha256": static_compiler_sha256,
-        "integrator": args.integrator,
-        "duration": args.duration,
-        "start_time": start_time,
-        "end_time": start_time + args.duration,
-        "dt": args.dt,
-        "sample_dt": args.sample_dt,
-        "restart_source_sha256": restart_source_sha256,
-    }
-    scientific_config_sha256 = hashlib.sha256(
-        json.dumps(
-            scientific_config, sort_keys=True, separators=(",", ":")
-        ).encode()
-    ).hexdigest()
     config = {
         "model": "continuous-depth dense Euclidean-muP operator-Galerkin PDE",
         "solver": (
@@ -353,32 +371,7 @@ def run(args: argparse.Namespace) -> Path:
     }
     config["config_sha256"] = scientific_config_sha256
 
-    output_dir = (
-        Path(args.output_dir)
-        if args.output_dir is not None
-        else GENERATED_ROOT / "results" / "raw"
-    )
-    output_dir = require_output(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-    case_tag = case_info["case_id"]
-    hash_tag = case_info["case_sha256"][:12]
-    name = (
-        f"pde_{case_tag}_{hash_tag}_"
-        f"{'GH' if args.quadrature == 'gauss-hermite' else ('HYBRID' if args.quadrature == 'hybrid' else 'QMC')}"
-        f"_P{args.P}_N{args.N}_M{spec.base_points}_R{spec.fast_points}"
-        f"_s{args.seed}_dt{_tag(args.dt)}_T{_tag(args.duration)}"
-        f"_cfg{scientific_config_sha256[:12]}.npz"
-    )
-    if args.integrator != "rk4":
-        name = name.replace(".npz", f"_{args.integrator.upper()}.npz")
-    if start_time:
-        name = name.replace(
-            ".npz",
-            f"_from{_tag(start_time)}_to{_tag(start_time + args.duration)}.npz",
-        )
-    path = require_output(output_dir / name)
-    if args.restart_from is not None and path == Path(args.restart_from).resolve():
-        raise ValueError("output aliases the restart input")
     partial = path.with_suffix(path.suffix + ".partial")
     with partial.open("xb") as handle:
         np.savez_compressed(

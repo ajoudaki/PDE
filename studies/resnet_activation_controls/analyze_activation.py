@@ -34,6 +34,8 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parent
 REPO_ROOT = ROOT.parents[1]
+sys.path.insert(0, str(REPO_ROOT))
+from studies.resnet_activation_controls.output_paths import require_output
 RESULTS = REPO_ROOT / "data/generated/resnet_activation_controls/results"
 sys.path.insert(0, os.fspath(ROOT / "source" / "src"))
 
@@ -1101,9 +1103,11 @@ def _basic_interval(
 
 
 def _atomic_text(path: Path, text: str) -> None:
+    require_output(path)
+    require_output(path.with_suffix(path.suffix + ".partial"))
     path.parent.mkdir(parents=True, exist_ok=True)
     partial = path.with_name(path.name + ".partial")
-    with partial.open("w") as handle:
+    with partial.open("x") as handle:
         handle.write(text)
         handle.flush()
         os.fsync(handle.fileno())
@@ -2514,9 +2518,7 @@ def run_analysis(args: argparse.Namespace) -> dict[str, Any]:
     cases_path = Path(args.cases).resolve()
     pde_dir = Path(args.pde_dir).resolve()
     dense_dir = Path(args.dense_dir).resolve()
-    output_dir = Path(args.output_dir).resolve()
-    if output_dir.is_relative_to((REPO_ROOT / "data/historical").resolve()):
-        raise AnalysisIntegrityError("refusing to write analysis into immutable historical data")
+    output_dir = require_output(Path(args.output_dir))
     protocol = _json(protocol_path)
     if tuple(protocol.get("primary_cases", ())) != ("C0", "C1", "C2", "C4"):
         raise AnalysisIntegrityError("unexpected primary-case registry")

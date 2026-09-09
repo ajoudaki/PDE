@@ -30,3 +30,9 @@ the old unlock does not bind the migrated generated root. Its timeout finalizer
 can only mark a matching, reserved generated attempt failed, not authorize a
 launch or rewrite a historical attempt. Do not refresh hashes or reset budgets
 to bypass these restrictions; routing repair is not campaign reauthorization.
+
+The archive-only refusal also covers direct attempt-claim and attempt-finish
+callables, before locks, ledger writes, or budget accounting. Breadth validation
+writers guard their named generated outputs before analysis/publication. Width
+analysis rejects final-output aliases of any of its five selected inputs before
+loading them; distinct outputs and the existing live workflows remain available.

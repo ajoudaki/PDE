@@ -76,8 +76,9 @@ class WriterBoundaryTests(unittest.TestCase):
             retained = Path(tmp)/'restart.npz'
             retained.write_bytes(b'restart input')
             env = dict(Path=Path, output_dir=Path(tmp), name=retained.name,
-                       require_output=paths.require_output, args=SimpleNamespace(restart_from=retained))
-            with self.assertRaisesRegex(ValueError, 'restart input'):
+                       require_output=paths.require_output, require_raw_output=paths.require_raw_output,
+                       args=SimpleNamespace(restart_from=retained, case_registry=None))
+            with self.assertRaisesRegex(ValueError, 'aliases an input'):
                 exec(compile(ast.Module(body=run.body[start:start+2], type_ignores=[]), 'publication', 'exec'), env)
             self.assertEqual(retained.read_bytes(), b'restart input')
 
@@ -89,6 +90,7 @@ class WriterBoundaryTests(unittest.TestCase):
             env = functions('run_exact_reference.py', ['parse_args', 'run'], dict(
                 argparse=argparse, Path=Path, np=np, hashlib=hashlib, json=json, os=os,
                 GENERATED_ROOT=generated, require_output=paths.require_output,
+                require_raw_output=paths.require_raw_output,
                 time=SimpleNamespace(perf_counter=lambda: 0.), _one_seed=seed))
             with mock.patch.object(sys, 'argv', ['raw', '--n', '1', '--depth', '1', '--seeds', '2',
                                                 '--workers', '1', '--duration', '0']), \

@@ -17,6 +17,10 @@ import corrected_clock_core as core
 
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[1]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 OUTPUT = HERE.parents[1] / "data/generated/stieltjes_direct_loewner/runs/corrected_clock_run_20260814"
 SCIENCE_SEED_BASE = 2026081401
 WIDTHS = (64, 128, 256)
@@ -47,6 +51,7 @@ SPECS = (
 
 
 def log_factory(path: Path):
+    PATHS.require_output(path)
     handle = path.open("w")
 
     def log(message: str) -> None:
@@ -302,6 +307,7 @@ def hash_file(path: Path) -> str:
 
 
 def main() -> None:
+    PATHS.require_output(OUTPUT)
     OUTPUT.mkdir(parents=True, exist_ok=True)
     log, log_handle = log_factory(OUTPUT / "run.log")
     log("command: " + " ".join(sys.argv))

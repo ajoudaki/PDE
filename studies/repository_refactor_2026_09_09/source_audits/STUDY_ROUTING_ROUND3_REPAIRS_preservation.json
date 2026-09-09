@@ -1,0 +1,725 @@
+{
+  "status": "PASS",
+  "normalization_scope": "enumerated path/guard/partial-open changes only; exact moved assignment AST checks",
+  "unchanged_configuration_hash_shell_files": [
+    "studies/resnet_activation_controls/SHA256SUMS.txt",
+    "studies/resnet_activation_controls/historical_seals/FROZEN_INPUTS.json",
+    "studies/resnet_activation_controls/protocol/cases.json",
+    "studies/resnet_activation_controls/protocol/preregistered_protocol.json",
+    "studies/resnet_generalization/environment.json",
+    "studies/resnet_generalization/protocol/FROZEN_DYNAMICS_MANIFEST.json",
+    "studies/resnet_generalization/protocol/POSTFREEZE_ANALYSIS_AMENDMENT.json",
+    "studies/resnet_generalization/protocol/POSTFREEZE_EXECUTION_AMENDMENT.json",
+    "studies/resnet_generalization/protocol/analysis_plan.json",
+    "studies/resnet_generalization/protocol/cases.json",
+    "studies/resnet_generalization/protocol/generalization_protocol.json",
+    "studies/resnet_proof_audit/historical_seals/FROZEN_INPUTS.json",
+    "studies/resnet_proof_audit/protocol/preregistered_protocol.json",
+    "studies/stieltjes_hybrid_campaign/bounded_dmft/FROZEN_STAGE0_MANIFEST.json",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/FROZEN_ONE_INPUT_LOCK.json",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/FROZEN_ONE_INPUT_POINTS.json",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/FROZEN_TWO_INPUT_POINTS.json",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/ONE_INPUT_VALIDATION_UNLOCK.json",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/FROZEN_LOCAL_QUALIFICATION.json",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/FROZEN_LOCAL_QUALIFICATION_LOCK.json",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/LOCAL_QUALIFICATION_UNLOCK.json",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/one_input/run_capped_one_input.sh",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/successive_n4096/CONFIG.json",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/successive_n8192/CONFIG.json",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/two_input/run_capped_two_input.sh",
+    "studies/stieltjes_hybrid_campaign/historical_seals/FROZEN_PROTOCOL.json",
+    "studies/stieltjes_hybrid_campaign/width_ladder/EXACT_PROXY_GATE.json",
+    "studies/stieltjes_hybrid_campaign/width_ladder/configs/FROZEN_WIDTH_LADDER.json",
+    "studies/stieltjes_hybrid_campaign/width_ladder/configs/VALIDATION_CPU.json",
+    "studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32/FROZEN_STAGE_V_MANIFEST.json",
+    "studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32/STAGE_V_UNLOCK.json",
+    "studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32/STAGE_V_UNLOCK.template.json",
+    "studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32/configs/FROZEN_STAGE_V.json",
+    "studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32/run_capped_stage_v.sh",
+    "studies/stieltjes_hybrid_campaign/width_ladder/run_capped_width.sh",
+    "studies/stieltjes_proxy_campaign/reference/PRODUCTION_UNLOCK.json",
+    "studies/stieltjes_proxy_campaign/reference/PRODUCTION_UNLOCK_FAILED_STAGE2.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/FROZEN_PRODUCTION.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_01.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_02.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_02_ANALYSIS.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_cpu.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_cpu_v3.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_gpu0.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_gpu0_v3.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_gpu1.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_gpu1_v3.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n1024_exploratory.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n2048_exploratory.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n2048_r16_exploratory.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n4096_exploratory.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n4096_r16_exploratory.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n4096_r8_fp32_cast_control.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n4096_r8_fp32_control.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n8192_r16_exploratory.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n8192_r8_fp32_holdout.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n8192_r8_holdout.json",
+    "studies/stieltjes_proxy_campaign/reference/run_capped_reference.sh"
+  ],
+  "functions": [
+    {
+      "file": "studies/resnet_activation_controls/analyze_activation.py",
+      "unchanged_functions": [
+        "AnalysisIntegrityError",
+        "Curve",
+        "DenseArchive",
+        "DenseArchive.mean_curve",
+        "Descriptor",
+        "PDEArchive",
+        "_aligned_curve",
+        "_array_sha256",
+        "_atomic_csv",
+        "_basic_interval",
+        "_batch_contrast_error_raw",
+        "_batch_metric_raw",
+        "_bootstrap_counts",
+        "_case_metadata",
+        "_common_scales",
+        "_common_scales_batch",
+        "_contrast_arrays",
+        "_contrast_metric",
+        "_control_bootstrap",
+        "_control_bootstrap.point_control",
+        "_curve_components",
+        "_decision_summary",
+        "_discover",
+        "_equal",
+        "_evaluate_primary_batch",
+        "_expected_times",
+        "_figure_rows",
+        "_finite",
+        "_gram_motion",
+        "_json",
+        "_linear_null_evidence",
+        "_load_dense",
+        "_load_inventory",
+        "_load_pde",
+        "_loss",
+        "_metadata",
+        "_metric_rows",
+        "_output_motion",
+        "_pde_numerical_controls",
+        "_plateau_record",
+        "_point_activation_evidence",
+        "_point_cross_metrics",
+        "_point_metric",
+        "_point_progress_evidence",
+        "_primary_bootstrap",
+        "_progress_batch",
+        "_progress_metric",
+        "_progress_path",
+        "_progress_scale_point",
+        "_repeat_curve",
+        "_require_metadata",
+        "_select_one",
+        "_sha256",
+        "_to_builtin",
+        "_validate_dense_hash",
+        "_validate_scientific_hash",
+        "_verify_frozen_maps",
+        "_verify_seal",
+        "main",
+        "parse_args"
+      ],
+      "changed_boundary_functions": [
+        {
+          "function": "_atomic_text",
+          "normalized_before_sha256": "1634a9c06ad179d2bff75e2347eb13368583da4a5ad64ef2c26605b5cd13ba31",
+          "normalized_after_sha256": "1634a9c06ad179d2bff75e2347eb13368583da4a5ad64ef2c26605b5cd13ba31",
+          "exact_moved_assignments": {}
+        },
+        {
+          "function": "run_analysis",
+          "normalized_before_sha256": "f49b8f1d526b597273ba69057e71cec4cc8a0d6a2e30cc02e12f15023f0324e6",
+          "normalized_after_sha256": "f49b8f1d526b597273ba69057e71cec4cc8a0d6a2e30cc02e12f15023f0324e6",
+          "exact_moved_assignments": {}
+        }
+      ],
+      "added_boundary_functions": [],
+      "existing_module_assignments_preserved": true
+    },
+    {
+      "file": "studies/resnet_activation_controls/output_paths.py",
+      "new_boundary_module": true
+    },
+    {
+      "file": "studies/resnet_activation_controls/run_experiment.py",
+      "unchanged_functions": [
+        "IntegrityError",
+        "Job",
+        "_all_dense_jobs",
+        "_all_pde_jobs",
+        "_canonical_json",
+        "_case_hash",
+        "_case_metadata",
+        "_create_input_manifest",
+        "_dense_collision",
+        "_dense_collision.collides",
+        "_dense_jobs",
+        "_encoded",
+        "_equal",
+        "_evidence_relative",
+        "_exact_inventory",
+        "_execution_files",
+        "_expected_times",
+        "_find_completed",
+        "_input_record",
+        "_load_protocol",
+        "_map_sha256",
+        "_metadata",
+        "_parent_source_lineage",
+        "_partials",
+        "_pde_collision",
+        "_pde_collision.collides",
+        "_pde_jobs",
+        "_protocol_files",
+        "_relative",
+        "_require_dense_seal",
+        "_require_finite",
+        "_require_input_manifest",
+        "_require_metadata",
+        "_require_pde_seal",
+        "_run_command",
+        "_run_jobs",
+        "_run_one",
+        "_sha256",
+        "_source_files",
+        "_subprocess_env",
+        "_validate_dense_archive",
+        "_validate_pde_archive",
+        "analyze_stage",
+        "parse_args",
+        "run_stage",
+        "seal_dense",
+        "seal_pde",
+        "validate_stage"
+      ],
+      "changed_boundary_functions": [
+        {
+          "function": "_require_seal_common",
+          "normalized_before_sha256": "65d0eb68aea42f73756b277c0243b551014e0e932180e1e8566f2ab2cc64b898",
+          "normalized_after_sha256": "65d0eb68aea42f73756b277c0243b551014e0e932180e1e8566f2ab2cc64b898",
+          "exact_moved_assignments": {}
+        },
+        {
+          "function": "_write_once",
+          "normalized_before_sha256": "2d68de07676310c6d3a41f1f10d6b5be10583b342be1d4f717f624d6adf8777b",
+          "normalized_after_sha256": "2d68de07676310c6d3a41f1f10d6b5be10583b342be1d4f717f624d6adf8777b",
+          "exact_moved_assignments": {}
+        }
+      ],
+      "added_boundary_functions": [],
+      "existing_module_assignments_preserved": true
+    },
+    {
+      "file": "studies/resnet_activation_controls/source/run_exact_reference.py",
+      "unchanged_functions": [
+        "_file_sha256",
+        "_one_seed",
+        "parse_args"
+      ],
+      "changed_boundary_functions": [
+        {
+          "function": "run",
+          "normalized_before_sha256": "47ea2e84987848490e7543088da45b4acf59197eea2452fbdd8736c4f354a324",
+          "normalized_after_sha256": "47ea2e84987848490e7543088da45b4acf59197eea2452fbdd8736c4f354a324",
+          "exact_moved_assignments": {
+            "scientific_config": "1bec4fe57fd9f99f1445275367246c53197d7b6c85cc1030dd29671aec103b4e",
+            "scientific_config_sha256": "8f7fb466456fec132947850f417aa991418c0ddf8e327844ee354aca6374fa22"
+          }
+        }
+      ],
+      "added_boundary_functions": [],
+      "existing_module_assignments_preserved": true
+    },
+    {
+      "file": "studies/resnet_activation_controls/source/run_pde.py",
+      "unchanged_functions": [
+        "_array_sha256",
+        "_file_sha256",
+        "_tag",
+        "parse_args"
+      ],
+      "changed_boundary_functions": [
+        {
+          "function": "run",
+          "normalized_before_sha256": "6eb01f68de1e51d7f7c0de123176c28f743272022479ec83ae351114ee74e4ef",
+          "normalized_after_sha256": "6eb01f68de1e51d7f7c0de123176c28f743272022479ec83ae351114ee74e4ef",
+          "exact_moved_assignments": {
+            "scientific_config": "e85db55ad4be3a39ec6e780b09c93f743b02134e952eee1db2e66e7bb678d8bd",
+            "scientific_config_sha256": "8f7fb466456fec132947850f417aa991418c0ddf8e327844ee354aca6374fa22"
+          }
+        }
+      ],
+      "added_boundary_functions": [],
+      "existing_module_assignments_preserved": true
+    },
+    {
+      "file": "studies/resnet_generalization/generalization_paths.py",
+      "unchanged_functions": [
+        "evidence_label",
+        "evidence_path",
+        "evidence_root",
+        "precheck_command",
+        "require_output"
+      ],
+      "changed_boundary_functions": [],
+      "added_boundary_functions": [
+        "require_raw_output"
+      ],
+      "existing_module_assignments_preserved": true
+    },
+    {
+      "file": "studies/resnet_generalization/run_exact_reference.py",
+      "unchanged_functions": [
+        "_file_sha256",
+        "_one_seed",
+        "parse_args"
+      ],
+      "changed_boundary_functions": [
+        {
+          "function": "run",
+          "normalized_before_sha256": "47ea2e84987848490e7543088da45b4acf59197eea2452fbdd8736c4f354a324",
+          "normalized_after_sha256": "47ea2e84987848490e7543088da45b4acf59197eea2452fbdd8736c4f354a324",
+          "exact_moved_assignments": {
+            "scientific_config": "1bec4fe57fd9f99f1445275367246c53197d7b6c85cc1030dd29671aec103b4e",
+            "scientific_config_sha256": "8f7fb466456fec132947850f417aa991418c0ddf8e327844ee354aca6374fa22"
+          }
+        }
+      ],
+      "added_boundary_functions": [],
+      "existing_module_assignments_preserved": true
+    },
+    {
+      "file": "studies/resnet_generalization/run_pde.py",
+      "unchanged_functions": [
+        "_array_sha256",
+        "_file_sha256",
+        "_tag",
+        "parse_args"
+      ],
+      "changed_boundary_functions": [
+        {
+          "function": "run",
+          "normalized_before_sha256": "6eb01f68de1e51d7f7c0de123176c28f743272022479ec83ae351114ee74e4ef",
+          "normalized_after_sha256": "6eb01f68de1e51d7f7c0de123176c28f743272022479ec83ae351114ee74e4ef",
+          "exact_moved_assignments": {
+            "scientific_config": "e85db55ad4be3a39ec6e780b09c93f743b02134e952eee1db2e66e7bb678d8bd",
+            "scientific_config_sha256": "8f7fb466456fec132947850f417aa991418c0ddf8e327844ee354aca6374fa22"
+          }
+        }
+      ],
+      "added_boundary_functions": [],
+      "existing_module_assignments_preserved": true
+    },
+    {
+      "file": "studies/resnet_proof_audit/source/analyze_results.py",
+      "unchanged_functions": [
+        "AnalysisContext",
+        "AnalysisError",
+        "LoadedEvidence",
+        "ScalarBand",
+        "_analysis_constants",
+        "_archive_inventory",
+        "_as_float",
+        "_attack_constraint_defect",
+        "_attack_sequential_decision",
+        "_bootstrap_calibration_metadata",
+        "_canonical_json_bytes",
+        "_canonical_model_config",
+        "_combine_overall_with_ledger",
+        "_combine_stage1_sequential_results",
+        "_combine_structural_nuisance_upper_bound",
+        "_conditional_geometric_amplification",
+        "_csv_bytes",
+        "_curve_distance_from_arrays",
+        "_curve_from_numerics",
+        "_curve_to_grid",
+        "_decode_ascii_names",
+        "_decode_ascii_scalar",
+        "_derive_stage_seed",
+        "_empirical_axis_sum_upper_bound",
+        "_expected_attack_config",
+        "_expected_resolution_config",
+        "_expected_scaling_config",
+        "_expected_source_hashes",
+        "_expected_stage2_config",
+        "_expected_tail_dense_config",
+        "_expected_tail_pde_config",
+        "_finalize_stage2_gate",
+        "_finite_identification_gate",
+        "_gate",
+        "_generator_shared_arrays_identical",
+        "_generator_total_residual_path",
+        "_geometric_tail_bound",
+        "_grouped_familywise_bootstrap",
+        "_grouped_familywise_bootstrap.draw_stream",
+        "_has_cofinal_joint_corner_certificate",
+        "_homogenization_prefix",
+        "_jsonable",
+        "_live_environment",
+        "_load_json",
+        "_log_slope",
+        "_loo_curve_dispersion",
+        "_metric_distance",
+        "_motion_distance",
+        "_overall_gate",
+        "_p70_state_machine",
+        "_pair_tag",
+        "_post_active_tail_accounting",
+        "_propagated_depth_bounds",
+        "_require_exact_config",
+        "_resampled_mean_curve_shift",
+        "_resolution_coordinates",
+        "_resolve_frozen_path",
+        "_restart_gap",
+        "_scalarize_band",
+        "_scalarize_band.scalars",
+        "_scaling_memory_estimate",
+        "_scaling_root_archive",
+        "_sha256_bytes",
+        "_sha256_file",
+        "_sparse_refinement_upper_bound",
+        "_stage0_numerical_radius",
+        "_stage1_sequential_action",
+        "_stage_evidence",
+        "_structural_expected_keys",
+        "_structural_resolution_key",
+        "_tail_boundaries",
+        "_unresolved_missing",
+        "_validate_stage2_archive",
+        "_validate_tail_pde_archive",
+        "analyze_all",
+        "analyze_stage0_numerics",
+        "analyze_stage0_numerics.coordinate",
+        "analyze_stage0_numerics.phase_a_statistic",
+        "analyze_stage0_numerics.phase_b_statistic",
+        "analyze_stage1_scaling",
+        "analyze_stage1_scaling.statistic",
+        "analyze_stage2_homogenization",
+        "analyze_stage2_homogenization.fixed_half_bias_squared",
+        "analyze_stage2_homogenization.prefix",
+        "analyze_stage2_homogenization.replica_variance",
+        "analyze_stage3_attack",
+        "analyze_stage3_attack.make_statistic",
+        "analyze_stage3_attack.make_statistic.statistic",
+        "analyze_stage4_generator",
+        "analyze_stage4_generator.path_cauchy",
+        "analyze_stage4_generator.paths_from_item",
+        "analyze_stage4_generator.scalar_value",
+        "analyze_stage4_generator.statistic",
+        "analyze_stage5_gain",
+        "analyze_stage5_gain.closure_value",
+        "analyze_stage5_gain.gain_values",
+        "analyze_stage5_gain.is_conditional",
+        "analyze_stage5_gain.statistic",
+        "analyze_stage6_tail",
+        "analyze_stage6_tail.statistic",
+        "analyze_triangle_validation",
+        "build_parser"
+      ],
+      "changed_boundary_functions": [
+        {
+          "function": "_atomic_write",
+          "normalized_before_sha256": "98e81c2c020549fadb3532bde1052e69a24bb98c27ab3d4981c2e8d2af775848",
+          "normalized_after_sha256": "98e81c2c020549fadb3532bde1052e69a24bb98c27ab3d4981c2e8d2af775848",
+          "exact_moved_assignments": {}
+        },
+        {
+          "function": "discover_evidence",
+          "normalized_before_sha256": "270c697cc6b3b0c6a6b77b12b0b00c0ed45303bc90a0080cfc55eaf2702b23c6",
+          "normalized_after_sha256": "270c697cc6b3b0c6a6b77b12b0b00c0ed45303bc90a0080cfc55eaf2702b23c6",
+          "exact_moved_assignments": {}
+        },
+        {
+          "function": "main",
+          "normalized_before_sha256": "c2fe1f846e46b76205eec871d6c19b5113cd202869e8b8005a775709f32c4403",
+          "normalized_after_sha256": "c2fe1f846e46b76205eec871d6c19b5113cd202869e8b8005a775709f32c4403",
+          "exact_moved_assignments": {}
+        },
+        {
+          "function": "write_processed",
+          "normalized_before_sha256": "1b9c1a4235ba48508e446ac3549d95c7d3309dbc56846e12191d9ffb383fa3f0",
+          "normalized_after_sha256": "1b9c1a4235ba48508e446ac3549d95c7d3309dbc56846e12191d9ffb383fa3f0",
+          "exact_moved_assignments": {}
+        }
+      ],
+      "added_boundary_functions": [
+        "_processed_output_root"
+      ],
+      "existing_module_assignments_preserved": true
+    },
+    {
+      "file": "studies/stieltjes_direct_loewner/run_corrected_clock_test.py",
+      "unchanged_functions": [
+        "bootstrap_confirmation",
+        "build_proxy",
+        "concat_batches",
+        "cutoff",
+        "discovery_angle_bootstrap",
+        "exact_control",
+        "hash_file",
+        "loewner",
+        "log_factory.log",
+        "matrix_condition",
+        "proxy_json",
+        "score"
+      ],
+      "changed_boundary_functions": [
+        {
+          "function": "log_factory",
+          "normalized_before_sha256": "0aac393f89693fccd536088025de467bd274d0aa4a0a8da5dc2e8b8c3ad64ee9",
+          "normalized_after_sha256": "0aac393f89693fccd536088025de467bd274d0aa4a0a8da5dc2e8b8c3ad64ee9",
+          "exact_moved_assignments": {}
+        },
+        {
+          "function": "main",
+          "normalized_before_sha256": "128de6d426ac1c82cab54a5a27d32c7a81bf8dcd9dca2f09959e0b6d848a8d92",
+          "normalized_after_sha256": "128de6d426ac1c82cab54a5a27d32c7a81bf8dcd9dca2f09959e0b6d848a8d92",
+          "exact_moved_assignments": {}
+        }
+      ],
+      "added_boundary_functions": [],
+      "existing_module_assignments_preserved": true
+    },
+    {
+      "file": "studies/stieltjes_finite_width/run_fresh_calibrated_ratio.py",
+      "unchanged_functions": [
+        "adjacent_ratios",
+        "bootstrap",
+        "estimates",
+        "exact_values",
+        "sha256"
+      ],
+      "changed_boundary_functions": [
+        {
+          "function": "main",
+          "normalized_before_sha256": "d1518c79b3f64fbfae62156d44f72e42023090a0dd0a3dcce420e462c838a4f7",
+          "normalized_after_sha256": "d1518c79b3f64fbfae62156d44f72e42023090a0dd0a3dcce420e462c838a4f7",
+          "exact_moved_assignments": {}
+        }
+      ],
+      "added_boundary_functions": [],
+      "existing_module_assignments_preserved": true
+    },
+    {
+      "file": "studies/stieltjes_finite_width/run_fresh_order13_median.py",
+      "unchanged_functions": [
+        "exact_median_interval",
+        "exact_targets",
+        "main.interval_contains",
+        "sha256"
+      ],
+      "changed_boundary_functions": [
+        {
+          "function": "main",
+          "normalized_before_sha256": "2c44ec027588f85986f90588f1537ff6068b656174e36026ffc475f8a53093f8",
+          "normalized_after_sha256": "2c44ec027588f85986f90588f1537ff6068b656174e36026ffc475f8a53093f8",
+          "exact_moved_assignments": {}
+        }
+      ],
+      "added_boundary_functions": [],
+      "existing_module_assignments_preserved": true
+    },
+    {
+      "file": "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/run_local_qualification.py",
+      "unchanged_functions": [
+        "cuda_identity",
+        "decide",
+        "format_seconds",
+        "initialization_gate",
+        "load_fp64_runner",
+        "load_fp64_runner.build_fp64",
+        "main",
+        "primitive_clock",
+        "primitive_clock.mean_at",
+        "read_json",
+        "reserve_canonical_attempt",
+        "run",
+        "sha256_bytes",
+        "sha256_file",
+        "source_bundle_sha256",
+        "symmetric_relative",
+        "utc_now",
+        "verify_lock",
+        "write_json",
+        "write_json_atomic"
+      ],
+      "changed_boundary_functions": [
+        {
+          "function": "claim_canonical_attempt",
+          "normalized_before_sha256": "197a4c36d910ecbe83641a1994a396d0989a1af0c2a1f0d79718f1a5ce9a3f8e",
+          "normalized_after_sha256": "197a4c36d910ecbe83641a1994a396d0989a1af0c2a1f0d79718f1a5ce9a3f8e",
+          "exact_moved_assignments": {}
+        },
+        {
+          "function": "finish_canonical_attempt",
+          "normalized_before_sha256": "5e96200eda65f3bb4d142b24775d9f631ae74e60f68f56543ba04ef1ef43d857",
+          "normalized_after_sha256": "5e96200eda65f3bb4d142b24775d9f631ae74e60f68f56543ba04ef1ef43d857",
+          "exact_moved_assignments": {}
+        }
+      ],
+      "added_boundary_functions": [],
+      "existing_module_assignments_preserved": true
+    },
+    {
+      "file": "studies/stieltjes_hybrid_campaign/breadth_panel/validation_analysis.py",
+      "unchanged_functions": [
+        "ValidationError",
+        "_as_floats",
+        "_bundle_digest",
+        "_command_value",
+        "_ends_with_path",
+        "_frozen_gaps",
+        "_gate_record",
+        "_interpolate_observables",
+        "_json_bytes",
+        "_load_arrays",
+        "_parse_utc",
+        "_percent",
+        "_recompute_diagnostics",
+        "_require",
+        "_symmetric_relative",
+        "_verify_manifest",
+        "_verify_proxy_coordinates",
+        "analyze",
+        "check_outputs",
+        "load_json",
+        "locked_source_path",
+        "render_report",
+        "sha256",
+        "verify_authority"
+      ],
+      "changed_boundary_functions": [
+        {
+          "function": "main",
+          "normalized_before_sha256": "5a328be19eaa069d1eba6bc52fdc9f1346b35dcf91cdac34975cb12134e363da",
+          "normalized_after_sha256": "5a328be19eaa069d1eba6bc52fdc9f1346b35dcf91cdac34975cb12134e363da",
+          "exact_moved_assignments": {}
+        },
+        {
+          "function": "write_outputs",
+          "normalized_before_sha256": "5e2f17ef7da03d0541f795fbfda52453da5fef14ea48d847539563d344ed29f6",
+          "normalized_after_sha256": "5e2f17ef7da03d0541f795fbfda52453da5fef14ea48d847539563d344ed29f6",
+          "exact_moved_assignments": {}
+        }
+      ],
+      "added_boundary_functions": [],
+      "existing_module_assignments_preserved": true
+    },
+    {
+      "file": "studies/stieltjes_hybrid_campaign/width_ladder/width_analysis.py",
+      "unchanged_functions": [
+        "AnalysisInvalid",
+        "Estimate",
+        "_crossfit_adjust",
+        "_json_ready",
+        "_pair_columns",
+        "_strict_interp_x",
+        "_validate_dataset",
+        "analyze_width_models",
+        "authorization_diagnostics",
+        "bootstrap_campaign",
+        "estimate",
+        "fit_intercept",
+        "initialization_calibration",
+        "jackknife_clock_bias",
+        "lineage_outcomes",
+        "load_npz",
+        "merge_shards",
+        "simultaneous_log_band",
+        "step_halving_gate",
+        "stratified_bootstrap_indices"
+      ],
+      "changed_boundary_functions": [
+        {
+          "function": "main",
+          "normalized_before_sha256": "2766214006fe58cf5e3a950403db2f6594f28ff161e0173a1ef0166c383e71bc",
+          "normalized_after_sha256": "2766214006fe58cf5e3a950403db2f6594f28ff161e0173a1ef0166c383e71bc",
+          "exact_moved_assignments": {}
+        }
+      ],
+      "added_boundary_functions": [
+        "require_analysis_output"
+      ],
+      "existing_module_assignments_preserved": true
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/analysis/reference_data.py",
+      "unchanged_functions": [
+        "ReferencePoint",
+        "ReferencePoint.output_nodes",
+        "ReferenceRun",
+        "_analysis_metadata",
+        "_load_npz",
+        "_strict_interpolation_grid",
+        "_validate_raw_arrays",
+        "estimate_curve",
+        "pair_average",
+        "pair_level_node_kernel",
+        "sha256"
+      ],
+      "changed_boundary_functions": [
+        {
+          "function": "load_reference_run",
+          "normalized_before_sha256": "0eba3928a9ad32659e82446b37b5a3f15de3054d0901aeebe96ed4c0b9fa23f9",
+          "normalized_after_sha256": "0eba3928a9ad32659e82446b37b5a3f15de3054d0901aeebe96ed4c0b9fa23f9",
+          "exact_moved_assignments": {}
+        }
+      ],
+      "added_boundary_functions": [],
+      "existing_module_assignments_preserved": true
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/side_checks/gd_vs_rk4_n4096.py",
+      "unchanged_functions": [
+        "caps",
+        "euler_integrator_step",
+        "float64_draw_then_cast",
+        "node_metrics",
+        "point",
+        "sha256"
+      ],
+      "changed_boundary_functions": [
+        {
+          "function": "main",
+          "normalized_before_sha256": "d7e5d362de8d8cf67f5f2e786bcb27ebd91b8342a02dd05a91e3fd5630ba3293",
+          "normalized_after_sha256": "d7e5d362de8d8cf67f5f2e786bcb27ebd91b8342a02dd05a91e3fd5630ba3293",
+          "exact_moved_assignments": {
+            "ref": "ea61b01d33b8b8333a24e0f0d137a106064eda9ef43fa8a40d81fede8277f3ae"
+          }
+        }
+      ],
+      "added_boundary_functions": [],
+      "existing_module_assignments_preserved": true
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/side_checks/gd_vs_rk4_n8192_point.py",
+      "unchanged_functions": [
+        "euler_step",
+        "file_sha256",
+        "float64_draw_then_cast",
+        "parse_args"
+      ],
+      "changed_boundary_functions": [
+        {
+          "function": "main",
+          "normalized_before_sha256": "b3fa2ee8cd0bcc8f60c3b7c16dc792cec4282cd8a8c773b7c082c54345e8b1f7",
+          "normalized_after_sha256": "b3fa2ee8cd0bcc8f60c3b7c16dc792cec4282cd8a8c773b7c082c54345e8b1f7",
+          "exact_moved_assignments": {
+            "reference": "e4087bee87c4cd6bd0207e45847db93c60fe1c95d20fd77ce250c2c608d838c6",
+            "suffix": "3f22075b6dc3734c060ad3fd1e79f8e25886ce0d3588b10dbc4142c36fec88f4",
+            "output_path": "b473e1f8938c4f1af4949a976c9388b7eaba8eb29d681b2d8df38f73bcffc486"
+          }
+        }
+      ],
+      "added_boundary_functions": [],
+      "existing_module_assignments_preserved": true
+    }
+  ]
+}

@@ -92,6 +92,15 @@ current execution authorization. `make_figures.py` consumes fresh processed
 results by default; `--historical-inputs` explicitly selects retained evidence
 while still writing fresh figures. Old source hashes and seals are not renewed.
 
+The seal producer and consumer interpret `results/...` labels relative to the
+generated study root, not the source tree. This path repair does not authorize
+creating a new seal. Raw outputs and their exclusive `.partial` files cannot
+alias selected seal/restart/case-registry inputs; distinct same-directory
+restarts remain supported. Raw collision checks precede workers/time stepping
+(after unchanged PDE quadrature/restart setup). Analysis/record intermediate
+writers also guard their destinations and refuse occupied partials. Failed
+publication never authorizes deleting a partial or refreshing a frozen hash.
+
 The sole confirmatory nonlinear case is `C2`. `C4` is descriptive
 dose-response evidence. The horizon is fixed at \(T=8\); if the preregistered
 plateau check fails, plateau and loss-clock claims are reported unresolved

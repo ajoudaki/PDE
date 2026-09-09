@@ -22,3 +22,8 @@ study directory, `python protocol/verify_study.py --historical-status` reports
 the old seal and changed/missing source bindings without renewing them.
 Ordinary verification/execution still requires its live freeze; migration does
 not authorize recreating a historical seal or promise full reproduction.
+
+Processed-output CLI preflight and callable writers enforce the study's output
+boundary before writing, including directory aliases and intermediate paths.
+`--no-write` remains a read-only analysis selection. Ordinary processed-result
+replacement is still supported; frozen input/source checks are unchanged.

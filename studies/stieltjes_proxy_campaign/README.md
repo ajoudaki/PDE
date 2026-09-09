@@ -32,3 +32,13 @@ this study's generated tree or external scratch and refuse final/temporary
 collisions before analysis. See [analysis/README.md](analysis/README.md) for
 current paths. Old source-binding failures are real limitations, not permission
 to waive checks or regenerate expected seals.
+
+The callable `load_reference_run` likewise requires an explicit `config_path`;
+it never guesses a config from generated or historical run directories.
+
+`reference/side_checks/gd_vs_rk4_n4096.py` and `gd_vs_rk4_n8192_point.py` remain
+historical-only comparisons against their explicitly fixed retained references.
+They do not consume fresh reference runs or silently select a replacement.
+Both guard named outputs and open the required reference before CUDA work;
+missing/unreadable references refuse without producing a result. Their original
+numerical routines, fixed settings and wall/resource caps are unchanged.

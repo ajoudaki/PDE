@@ -19,9 +19,9 @@ from pathlib import Path
 import numpy as np
 
 if __package__:
-    from .generalization_paths import GENERATED_ROOT, require_output
+    from .generalization_paths import GENERATED_ROOT, require_output, require_raw_output
 else:
-    from generalization_paths import GENERATED_ROOT, require_output
+    from generalization_paths import GENERATED_ROOT, require_output, require_raw_output
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "src"))
@@ -98,7 +98,7 @@ def _one_seed(payload: dict) -> dict:
 
 
 def run(args: argparse.Namespace) -> Path:
-    require_output(Path(args.output_dir) if args.output_dir is not None else GENERATED_ROOT / "results/raw")
+    output_dir = require_output(Path(args.output_dir) if args.output_dir is not None else GENERATED_ROOT / "results/raw")
     if args.pde_seal is None:
         pde_seal_sha256 = None
         dynamics_sha256 = None
@@ -145,6 +145,41 @@ def run(args: argparse.Namespace) -> Path:
             "case_scope": "original",
             "case_description": "Legacy hard-coded baseline",
         }
+    scientific_config = {
+        "case_sha256": case_info["case_sha256"],
+        "registry_sha256": case_info["registry_sha256"],
+        "n": args.n,
+        "depth": args.depth,
+        "seed_start": args.seed_start,
+        "seeds": args.seeds,
+        "seed_ids": [args.seed_start + k for k in range(args.seeds)],
+        "duration": args.duration,
+        "dt": args.dt,
+        "sample_dt": args.sample_dt,
+        "sigma_w": sigma_w,
+        "A": A,
+        "gamma": gamma,
+        "activation": activation,
+        "X": X.tolist(),
+        "y": y.tolist(),
+        "pde_seal_sha256": pde_seal_sha256,
+        "dynamics_sha256": dynamics_sha256,
+    }
+    scientific_config_sha256 = hashlib.sha256(
+        json.dumps(
+            scientific_config, sort_keys=True, separators=(",", ":")
+        ).encode()
+    ).hexdigest()
+    case_tag = case_info["case_id"]
+    hash_tag = case_info["case_sha256"][:12]
+    path = output_dir / (
+        f"exact_{case_tag}_{hash_tag}_n{args.n}_L{args.depth}"
+        f"_S{args.seeds}_seed{args.seed_start}"
+        f"_dt{str(args.dt).replace('.', 'p')}"
+        f"_T{str(args.duration).replace('.', 'p')}"
+        f"_cfg{scientific_config_sha256[:12]}.npz"
+    )
+    path = require_raw_output(path, (args.pde_seal, args.case_registry))
     payloads = [
         {
             "n": args.n,
@@ -174,31 +209,6 @@ def run(args: argparse.Namespace) -> Path:
     grams = np.stack([r["grams"] for r in results])
     theta = np.stack([r["theta"] for r in results])
     times = results[0]["times"]
-    scientific_config = {
-        "case_sha256": case_info["case_sha256"],
-        "registry_sha256": case_info["registry_sha256"],
-        "n": args.n,
-        "depth": args.depth,
-        "seed_start": args.seed_start,
-        "seeds": args.seeds,
-        "seed_ids": [args.seed_start + k for k in range(args.seeds)],
-        "duration": args.duration,
-        "dt": args.dt,
-        "sample_dt": args.sample_dt,
-        "sigma_w": sigma_w,
-        "A": A,
-        "gamma": gamma,
-        "activation": activation,
-        "X": X.tolist(),
-        "y": y.tolist(),
-        "pde_seal_sha256": pde_seal_sha256,
-        "dynamics_sha256": dynamics_sha256,
-    }
-    scientific_config_sha256 = hashlib.sha256(
-        json.dumps(
-            scientific_config, sort_keys=True, separators=(",", ":")
-        ).encode()
-    ).hexdigest()
     metadata = {
         "role": "finite-network ensemble reference; never read by PDE drift",
         "model": "canonical fully dense residual network",
@@ -235,22 +245,7 @@ def run(args: argparse.Namespace) -> Path:
         "config_sha256": scientific_config_sha256,
         "elapsed_seconds": elapsed,
     }
-    output_dir = (
-        Path(args.output_dir)
-        if args.output_dir is not None
-        else GENERATED_ROOT / "results" / "raw"
-    )
-    output_dir = require_output(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-    case_tag = case_info["case_id"]
-    hash_tag = case_info["case_sha256"][:12]
-    path = output_dir / (
-        f"exact_{case_tag}_{hash_tag}_n{args.n}_L{args.depth}"
-        f"_S{args.seeds}_seed{args.seed_start}"
-        f"_dt{str(args.dt).replace('.', 'p')}"
-        f"_T{str(args.duration).replace('.', 'p')}"
-        f"_cfg{scientific_config_sha256[:12]}.npz"
-    )
     partial = path.with_suffix(path.suffix + ".partial")
     require_output(path)
     with partial.open("xb") as handle:

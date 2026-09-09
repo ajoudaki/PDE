@@ -101,6 +101,13 @@ Standalone raw writers default to the generated study's `results/raw/`.
 These are routing interfaces, not a claim that a fresh checkout can reproduce
 the frozen experiment. See [REPRODUCTION.md](REPRODUCTION.md).
 
+Raw writers guard both final and `.partial` destinations against their selected
+seal, restart, and case-registry inputs. Distinct inputs may remain in the same
+output directory. Collision checks precede seed workers or time stepping;
+the PDE filename still requires its unchanged quadrature/restart setup first.
+Partials are created exclusively and retained on publication failure, not reset.
+These boundary repairs do not renew any frozen source hashes or authorization.
+
 Useful checks:
 
 ```bash

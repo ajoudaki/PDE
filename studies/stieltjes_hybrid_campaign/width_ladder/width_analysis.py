@@ -13,11 +13,26 @@ import json
 import math
 from dataclasses import dataclass
 from pathlib import Path
+import sys
 from typing import Any, Iterable
 
 import numpy as np
 
 from nested_rng import exact_initial_component_means, exact_initial_total_mean
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
+
+
+def require_analysis_output(output: Path, inputs: Iterable[Path]) -> Path:
+    selected = PATHS.require_output(output)
+    for path in inputs:
+        source = Path(path).resolve()
+        if selected == source or (selected.exists() and source.exists() and selected.samefile(source)):
+            raise ValueError(f"output aliases an analysis input: {path}")
+    return selected
 
 
 class AnalysisInvalid(RuntimeError):
@@ -877,6 +892,9 @@ def main() -> int:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--resamples", type=int, default=20_000)
     args = parser.parse_args()
+    input_paths = (args.n2048, args.n4096, args.n8192_shard0,
+                   args.n8192_shard1, args.n4096_halfstep)
+    args.output = require_analysis_output(args.output, input_paths)
 
     datasets = {
         2048: load_npz(args.n2048),
@@ -916,6 +934,7 @@ def main() -> int:
     result["width_16384_eligibility"] = authorization_diagnostics(
         result, result["step_halving"]
     )
+    require_analysis_output(args.output, input_paths)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(_json_ready(result), indent=2, sort_keys=True) + "\n")
     return 0
