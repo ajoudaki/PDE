@@ -7,17 +7,16 @@ and the byte-reconstructed final report.  ``compare_frozen.py`` is the full
 literal replay when a coefficient artifact changes.
 """
 
-raise RuntimeError(
+ARCHIVE_ONLY_REASON = (
     "archive-only frozen-promotion replay: its report/freeze pipeline is retired; "
     "migration does not authorize rebuilding historical evidence or seals"
 )
+if __name__ == "__main__":
+    raise RuntimeError(ARCHIVE_ONLY_REASON)
 
 import hashlib
 import json
 from pathlib import Path
-
-from ..primary.build_self_contained_report import check as check_report
-
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
@@ -33,6 +32,7 @@ def require(value: bool, message: str) -> None:
 
 
 def verify_primary_freeze() -> None:
+    raise RuntimeError(ARCHIVE_ONLY_REASON)
     path = ROOT / "primary" / "PRIMARY_FREEZE_MANIFEST.json"
     require(
         digest(path) == "f4838437c1fb70b14713d39e8438d703434c49ffd72001beeb6fee8d53366b30",
@@ -46,6 +46,7 @@ def verify_primary_freeze() -> None:
 
 
 def verify_independent_freeze() -> None:
+    raise RuntimeError(ARCHIVE_ONLY_REASON)
     path = ROOT / "independent" / "FROZEN_MANIFEST.json"
     require(
         digest(path) == "dee0198e119864a90195101466f29f3ab2f248495c6e6a3494f35cafd3f2502b",
@@ -60,6 +61,7 @@ def verify_independent_freeze() -> None:
 
 
 def verify_exact_certificates() -> None:
+    raise RuntimeError(ARCHIVE_ONLY_REASON)
     comparison = json.loads((HERE / "FROZEN_MAP_COMPARISON.json").read_text())
     require(comparison["pass"], "literal map certificate")
     for formula in comparison["comparisons"].values():
@@ -84,6 +86,7 @@ def verify_exact_certificates() -> None:
 
 
 def verify_numerical_certificates() -> None:
+    raise RuntimeError(ARCHIVE_ONLY_REASON)
     gate = json.loads((HERE / "TWO_ORACLE_GATE.json").read_text())
     require(gate["pass"] and gate["worst_scaled_discrepancy"] <= gate["threshold"], "two-oracle gate")
 
@@ -98,6 +101,9 @@ def verify_numerical_certificates() -> None:
 
 
 def main() -> None:
+    raise RuntimeError(ARCHIVE_ONLY_REASON)
+    from ..primary.build_self_contained_report import check as check_report
+
     verify_primary_freeze()
     verify_independent_freeze()
     print("PASS both producer freezes and every frozen artifact hash")

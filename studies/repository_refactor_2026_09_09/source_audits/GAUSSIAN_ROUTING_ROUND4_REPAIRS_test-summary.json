@@ -1,0 +1,10 @@
+{
+  "tests": 12,
+  "successful_subtests": 191,
+  "failures": 0,
+  "errors": 0,
+  "unchanged_private_fixture_hash_snapshots": 162,
+  "writes_restricted_to": "/tmp/pde-gaussian-interfaces-sytnOwt6",
+  "checked_private_write_operations": 5895,
+  "bytecode_disabled": true
+}

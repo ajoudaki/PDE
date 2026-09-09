@@ -103,78 +103,58 @@ library is tested without providing `studies/` or `data/`.
 
 ## Study migration: bounded validation, not scientific reruns
 
-Two repair passes reported 130 selected checks (83 baseline plus 47 targeted),
-559 Python syntax checks and nine shell syntax checks. A fresh independent
-review repeated 25 focused tests and verified preservation, but found remaining
-reader/writer inconsistencies. Those findings are retained in
-[MIGRATION_ROUND1.md](reviews/MIGRATION_ROUND1.md), not relabeled as successes.
-A repair and broader output-routing scan are in progress. The main-agent
-ResNet/quadratic slice began at `3abe93d` and now has 24 bounded checks at
-`0cd94a0`, including all 125 retained sector hashes, early archival refusal,
-actual mocked wrapper propagation, selected input roots, and input/output alias
-protection. Its six unsuccessful independent reviews are retained; round 5
-identified further consumed-checkpoint/trace aliases and two omitted evidence
-readers. The repaired combined slice now passes 38 checks (15 ResNet, 23
-quadratic). Round 6 independently passed those 38 checks but found four further
-metadata/CSV/plot publication-alias groups. The long-horizon metadata repair
-adds five passing tests; the disjoint operator/early-audit fixes are in progress.
-Those fixes are now complete: the coordinator repeated 51 combined checks
-(23 ResNet, 23 quadratic, 5 metadata), all passing. The separate worker's 191
-normalized function/class AST comparisons show no non-routing changes.
-Fresh isolated round 7 is running against the frozen current slice.
-Round 7 subsequently returned NOT CLEAN on two additional consumed-provenance
-source collisions and a wrapper that dispatched tests before validating its
-output root. It passed 49 of the 51 supplied checks and deliberately skipped
-two documentation-reading checks outside its input boundary. Those path guides
-are now explicitly in scope for the repair verification. The three concrete
-findings are being repaired; the report and unchanged 260-input inventory remain
-exactly retained.
-The three repairs now pass 56 tests, repeated by the coordinator, including
-the two explicitly admitted path-guide checks. A fresh isolated follow-up
-reviews those repaired interfaces and regression compatibility; it is not a
-blanket scientific review or an expanded search across unrelated old writers.
-Native checkpoint guards were inspected
-as source, not compiled. The legacy native export power-filter limitation is
-recorded in the quadratic README and remains outside the repaired routing
-scope. No earlier test count is presented as final acceptance.
-Source metadata has the additional byte-verified checkpoint `6922cc5`.
+The initial migration checks and unsuccessful independent reviews remain in
+`reviews/`, with exact input hashes and diagnostic evidence. Their PASS test
+counts are not relabeled as clean acceptance. The chronological repair records
+are in `source_audits/`; a clean follow-up applies only to its stated version
+and scope. Historical report/log whitespace and private path references are
+retained byte-for-byte rather than edited.
 
-The seven-study and remaining Gaussian/MFP slices are checkpointed at `e3cab42`
-and `c499fd9`. Their second isolated reviews found additional timeout-path,
-linked-output, retained-reader and callable archival-guard defects. Those
-NOT CLEAN reports and exact input hashes are retained unchanged. Concrete
-repairs are checkpointed at `4e173b7` and `bd15262`; the coordinator repeated
-21 Gaussian and 62 seven-study bounded checks, all passing. Fresh third-round
-acceptance reviews follow those exact implementations. The Gaussian third round
-found additional same-file analyzer-input collisions, report-source aliases,
-an uncovered archival writer and a production/independent role check; those
-findings are retained. Its repair now passes 44 explicitly selected bounded
-checks, repeated by the coordinator; 1,978 original function bodies retain all
-their prior statements in order, and all 287 corresponding retained files
-are byte-identical. Only guards/imports and eight new helper/test files were
-added. Fresh isolated Gaussian round 4 is running. The seven-study third round
-returned NOT CLEAN separately as described below. Gaussian round 4 then confirmed
-the new preflights but found sibling comparison input-side aliases and three
-blanket import refusals hiding safe helpers. Its 44 supplied tests passed;
-independent probes found the omitted cases. The Gaussian compiler comparison
-and two identity consumers now reject their actual input aliases before work,
-with four additional bounded tests preserving distinct same-directory refresh.
-The remaining identified siblings and safe-helper exposure are being repaired.
-The seven-study third round
-also remains NOT CLEAN: it found two stale source paths, further named-output
-and consumed-input collisions, a late missing-reference check, and two omitted
-archive-only callable guards. Its 62 passing tests and exact unchanged input
-manifests are retained alongside the independent counterexamples; bounded
-repairs are in progress. Supplied passing regressions alone are not being treated as clean
-independent verdicts.
+The coordinator has repeated these current, explicitly selected suites:
 
-The seven-study third-round repair is now complete. The coordinator repeated
-all 92 explicitly selected tests (the prior 62 plus 30 new boundary cases),
-with all passing and 72 private protected-input hash records unchanged.
-The 335 unchanged definition ASTs and 24 explicitly normalized boundary
-comparisons, exact 33-file change inventory, and original frozen configuration
-hashes are in `source_audits/STUDY_ROUTING_ROUND3_REPAIRS_handoff.md` and its
-companion records. Fresh isolated round 4 is running on that frozen slice.
+| Slice | Passing tests | Independent follow-up currently pending |
+|---|---:|---|
+| ResNet/operator/quadratic and metadata routing | 56 | Three latest repaired interfaces plus regression compatibility |
+| Gaussian/MFP/identity/causal analyzer routing | 60 | Eleven latest repaired interfaces plus regression compatibility |
+| Seven-study raw/analysis/archival routing | 92 | Current seven-study migration interfaces |
+
+The first slice's seven broad reviews found and motivated CLI forwarding,
+source/input/output separation, checkpoint/export distinction, consumed trace
+and provenance-source protection, metadata/plot publication guards, and early
+wrapper refusal. Its latest repair is checkpointed at `5262acc`.
+The seventh reviewer passed 49 tests and skipped two source-guide checks outside
+its supplied boundary; the coordinator subsequently repeated all 56 current
+tests including those explicitly admitted guide checks. Native checkpoint
+guards received source-only checks, not compilation. The documented native
+export power-filter limitation remains an inherited limitation, not a waived
+migration regression.
+
+The Gaussian slice's fourth broad review confirmed the ten analyzer preflights,
+H3 raw-input protection, report-source preservation, and Stieltjes role/digest
+checks, but found sibling input-side aliases and blanket import refusals.
+All eleven implicated interfaces are now repaired. Safe helpers import without
+replay work; retired CLI/replay entrypoints still refuse. All named comparison
+and checkpoint outputs are checked against actual selected inputs, including
+manifest-declared artifacts. Ordinary distinct-file same-directory refresh
+remains available. The coordinator passed the prior 44 tests and 16 new
+targeted tests. The last eight-file worker preserved 53 checked AST bodies or
+blocks, including all 72 statements of the hostile replay block behind its
+refusal. No source seal or mathematical calculation was regenerated.
+
+The seven-study third-round repair is checkpointed at `62a34ea`. It addresses
+stale source paths, raw final/partial identity collisions, processed output
+aliases, the activation seal-root mismatch, required-reference preflight,
+explicit reference configuration selection, and archive-only mutation guards.
+The coordinator repeated 92 tests with 72 protected-fixture hashes unchanged.
+Its exact 33-file change inventory, 335 unchanged definition ASTs, 24 normalized
+boundary comparisons, and frozen-contract checks are retained in
+[source_audits/STUDY_ROUTING_ROUND3_REPAIRS_handoff.md](source_audits/STUDY_ROUTING_ROUND3_REPAIRS_handoff.md)
+and its companion records.
+
+These are bounded interface checks using AST extraction, mocked scientific
+work, inert metadata and small transport fixtures. They do not scientifically
+certify all exploratory programs or promise resistance to malicious concurrent
+filesystem changes. The established library's acceptance is separate.
 
 Unchanged expected limitations are explicit: optional PyTorch, Matplotlib,
 pytest, SymPy and mpmath are absent; historical source/environment seals do not

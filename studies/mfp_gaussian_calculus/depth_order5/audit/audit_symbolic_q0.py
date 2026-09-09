@@ -15,6 +15,7 @@ from pathlib import Path
 
 from ..independent.depth_factored import compile_depth_factored, expand_expression
 from studies._output_paths import StudyPaths
+from studies.mfp_gaussian_calculus.study_paths import guard_output_inputs
 
 PATHS = StudyPaths(__file__)
 
@@ -107,6 +108,10 @@ def compare(left, right):
 
 def main() -> None:
     args = PATHS.parse(inputs=True, input_relative="depth_order5")
+    guard_output_inputs((args.output_dir / "SYMBOLIC_Q0_AUDIT.json",), (
+        *(args.input_dir / "primary" / f"H{depth}_LAYER_TAGGED_COEFFICIENTS.json" for depth in (3, 4)),
+        *(args.input_dir / "independent" / f"H{depth}_TAGGED_COEFFICIENT_MAP.json" for depth in (3, 4)),
+    ))
     full_report = {
         "method": (
             "exact rational specialization at six distinct points; explicit "

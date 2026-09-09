@@ -11,6 +11,7 @@ import time
 import numpy as np
 
 from studies._output_paths import StudyPaths
+from studies.mfp_gaussian_calculus.study_paths import guard_output_inputs
 
 PATHS = StudyPaths(__file__)
 
@@ -142,10 +143,14 @@ def main() -> None:
     exact_path = args.input_dir / "POST_FREEZE_EXACT_AUDIT.json"
     if args.historical_inputs and not exact_path.exists():
         exact_path = HERE / "POST_FREEZE_EXACT_AUDIT.json"
+    prediction_path = args.input_dir / "NORMALIZED_SINE_PREDICTION.json"
+    guard_output_inputs((
+        args.output_dir / "NORMALIZED_SINE_EXPERIMENT.json",
+        *(args.output_dir / "sine_raw" / f"gamma04_H2_n{width}.npy" for width in ALLOCATIONS),
+    ), (exact_path, prediction_path))
     exact = json.loads(exact_path.read_text())
     if exact["decision"] != "pass":
         raise RuntimeError("exact audit gate did not pass")
-    prediction_path = args.input_dir / "NORMALIZED_SINE_PREDICTION.json"
     digest = hashlib.sha256(prediction_path.read_bytes()).hexdigest()
     if digest != PREDICTION_SHA256:
         raise RuntimeError(f"prediction changed: {digest}")

@@ -1,16 +1,15 @@
 """Unified low-cost integrity/status checks for the depth-order-five result."""
 
-raise RuntimeError(
+ARCHIVE_ONLY_REASON = (
     "archive-only frozen-result replay: its report/freeze pipeline is retired; "
     "migration does not authorize rebuilding historical evidence or seals"
 )
+if __name__ == "__main__":
+    raise RuntimeError(ARCHIVE_ONLY_REASON)
 
 import hashlib
 import json
 from pathlib import Path
-
-from .build_self_contained_report import check as check_report
-
 
 HERE = Path(__file__).resolve().parent
 DEPTH_ROOT = HERE.parent
@@ -26,6 +25,9 @@ def require(condition: bool, message: str) -> None:
 
 
 def main() -> None:
+    raise RuntimeError(ARCHIVE_ONLY_REASON)
+    from .build_self_contained_report import check as check_report
+
     freeze = json.loads((HERE / "PRIMARY_FREEZE_MANIFEST.json").read_text())
     recorded = (HERE / "PRIMARY_FREEZE_SHA256.txt").read_text().split()[0]
     require(recorded == sha256(HERE / "PRIMARY_FREEZE_MANIFEST.json"), "primary freeze manifest drift")

@@ -11,6 +11,7 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[4]))
 from studies._output_paths import StudyPaths
+from studies.mfp_gaussian_calculus.study_paths import guard_output_inputs
 
 PATHS = StudyPaths(__file__)
 
@@ -32,6 +33,23 @@ def _artifact_path(directory: Path, data_directory: Path, name: str) -> Path:
     # with source. Prefer an explicit input copy when one was supplied.
     candidate = data_directory / name
     return candidate if candidate.is_file() else directory / name
+
+
+def _manifest_inputs(directory: Path, manifest_path: Path, data_directory: Path) -> list[Path]:
+    """Select the same declared artifact paths as verification, without hashing them."""
+    manifest = json.loads(manifest_path.read_text())
+    paths = []
+    for record in manifest["artifacts"].values():
+        records = ([record] if "sha256" in record else [
+            value for value in record.values()
+            if isinstance(value, dict) and "file" in value and "sha256" in value
+        ])
+        for artifact in records:
+            if artifact.get("file"):
+                paths.append(_artifact_path(directory, data_directory, artifact["file"]))
+    if directory == PRIMARY:
+        paths.extend(_artifact_path(directory, data_directory, name) for name in manifest["artifacts"])
+    return paths
 
 
 def _verify_manifest(directory: Path, manifest_path: Path, hash_path: Path, *, data_directory: Path) -> dict:
@@ -128,6 +146,20 @@ def _independent_map(path: Path, depth: int, unit: bool):
 
 def main() -> None:
     args = PATHS.parse(inputs=True, input_relative="depth_order5")
+    output = args.output_dir / "FROZEN_MAP_COMPARISON.json"
+    guard_output_inputs((output,), (
+        PRIMARY_MANIFEST, INDEPENDENT_MANIFEST,
+        PRIMARY / "PRIMARY_FREEZE_SHA256.txt", INDEPENDENT / "FROZEN_MANIFEST_SHA256.txt",
+        *(args.input_dir / "primary" / f"H{depth}_{scope}_COEFFICIENTS.json"
+          for depth in (3, 4) for scope in ("UNIT", "LAYER_TAGGED")),
+        *(args.input_dir / "independent" / f"H{depth}_{scope}_COEFFICIENT_MAP.json"
+          for depth in (3, 4) for scope in ("UNIT", "TAGGED")),
+    ))
+    declared_inputs = [
+        *_manifest_inputs(PRIMARY, PRIMARY_MANIFEST, args.input_dir / "primary"),
+        *_manifest_inputs(INDEPENDENT, INDEPENDENT_MANIFEST, args.input_dir / "independent"),
+    ]
+    guard_output_inputs((output,), declared_inputs)
     primary_manifest = _verify_manifest(
         PRIMARY,
         PRIMARY_MANIFEST,

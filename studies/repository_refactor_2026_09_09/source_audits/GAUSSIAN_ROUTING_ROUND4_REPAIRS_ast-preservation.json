@@ -1,0 +1,267 @@
+[
+  {
+    "file": "depth_order5/independent/compare_symbolic_q0.py",
+    "function": "main",
+    "check": "original body preserved except preflight and path/timer placement"
+  },
+  {
+    "file": "depth_order5/independent/compare_symbolic_q0.py",
+    "function": "sha256",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/independent/compare_symbolic_q0.py",
+    "function": "primary_specialization",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/independent/compare_symbolic_q0.py",
+    "function": "compare_root",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/independent/compare_symbolic_q0.py",
+    "function": "compare_depth_point",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/audit/compare_frozen.py",
+    "function": "main",
+    "check": "original body preserved except preflight and path/timer placement"
+  },
+  {
+    "file": "depth_order5/audit/compare_frozen.py",
+    "function": "_artifact_path",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/audit/compare_frozen.py",
+    "function": "_verify_manifest",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/audit/compare_frozen.py",
+    "function": "_atom_derivative",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/audit/compare_frozen.py",
+    "function": "_primary_map",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/audit/compare_frozen.py",
+    "function": "_independent_map",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/audit/audit_symbolic_q0.py",
+    "function": "main",
+    "check": "original body preserved except preflight and path/timer placement"
+  },
+  {
+    "file": "depth_order5/audit/audit_symbolic_q0.py",
+    "function": "primary_graded",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/audit/audit_symbolic_q0.py",
+    "function": "specialize",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/audit/audit_symbolic_q0.py",
+    "function": "independent_map",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/audit/audit_symbolic_q0.py",
+    "function": "compare",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/audit/run_normalized_sine_experiment.py",
+    "function": "main",
+    "check": "original body preserved except preflight and path/timer placement"
+  },
+  {
+    "file": "depth_order5/audit/run_normalized_sine_experiment.py",
+    "function": "activation_derivative",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/audit/run_normalized_sine_experiment.py",
+    "function": "seed_for",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/audit/run_normalized_sine_experiment.py",
+    "function": "one_jet",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/audit/run_normalized_sine_experiment.py",
+    "function": "collect_cell",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/audit/run_normalized_sine_experiment.py",
+    "function": "cell_summary",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/audit/run_normalized_sine_experiment.py",
+    "function": "fit_depth",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5_observables/independent/run_sine_experiment.py",
+    "function": "main",
+    "check": "original body preserved except preflight and path/timer placement"
+  },
+  {
+    "file": "depth_order5_observables/independent/run_sine_experiment.py",
+    "function": "sine_derivative",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5_observables/independent/run_sine_experiment.py",
+    "function": "seed_for",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5_observables/independent/run_sine_experiment.py",
+    "function": "one_observation",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5_observables/independent/run_sine_experiment.py",
+    "function": "collect",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5_observables/independent/run_sine_experiment.py",
+    "function": "summarize",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5_observables/independent/run_sine_experiment.py",
+    "function": "fit",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+    "check": "hostile executable block preserved",
+    "statements": 72
+  },
+  {
+    "file": "depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+    "function": "sha256",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+    "function": "load",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+    "function": "run_json",
+    "check": "body preserved behind immediate refusal"
+  },
+  {
+    "file": "depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+    "function": "parse_term",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+    "function": "parse_expression",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+    "function": "serialized_map",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+    "function": "producer_map",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+    "function": "discrepancy_count",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+    "function": "transition_discrepancies",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+    "function": "eliminate_l43",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+    "function": "maximum_atom_derivative",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+    "function": "all_zero",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/primary/run_lightweight_checks.py",
+    "function": "sha256",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/primary/run_lightweight_checks.py",
+    "function": "require",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/primary/run_lightweight_checks.py",
+    "function": "main",
+    "check": "body preserved behind immediate refusal"
+  },
+  {
+    "file": "depth_order5/audit/run_checks.py",
+    "function": "digest",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/audit/run_checks.py",
+    "function": "require",
+    "check": "body unchanged"
+  },
+  {
+    "file": "depth_order5/audit/run_checks.py",
+    "function": "verify_primary_freeze",
+    "check": "body preserved behind immediate refusal"
+  },
+  {
+    "file": "depth_order5/audit/run_checks.py",
+    "function": "verify_independent_freeze",
+    "check": "body preserved behind immediate refusal"
+  },
+  {
+    "file": "depth_order5/audit/run_checks.py",
+    "function": "verify_exact_certificates",
+    "check": "body preserved behind immediate refusal"
+  },
+  {
+    "file": "depth_order5/audit/run_checks.py",
+    "function": "verify_numerical_certificates",
+    "check": "body preserved behind immediate refusal"
+  },
+  {
+    "file": "depth_order5/audit/run_checks.py",
+    "function": "main",
+    "check": "body preserved behind immediate refusal"
+  }
+]

@@ -15,6 +15,7 @@ from pathlib import Path
 from time import monotonic
 
 from studies._output_paths import StudyPaths
+from studies.mfp_gaussian_calculus.study_paths import guard_output_inputs
 
 PATHS = StudyPaths(__file__)
 
@@ -130,9 +131,13 @@ def compare_depth_point(depth: int, q0: Fraction, *, input_dir=None) -> dict[str
 
 def main() -> None:
     args = PATHS.parse(inputs=True, input_relative="depth_order5/primary")
-    started = monotonic()
     independent_manifest = HERE / "FROZEN_MANIFEST.json"
     primary_manifest = PRIMARY / "PRIMARY_FREEZE_MANIFEST.json"
+    guard_output_inputs((args.output_dir / "SYMBOLIC_Q0_COMPARISON.json",), (
+        independent_manifest, primary_manifest,
+        *(args.input_dir / f"H{depth}_LAYER_TAGGED_COEFFICIENTS.json" for depth in (3, 4)),
+    ))
+    started = monotonic()
     report: dict[str, object] = {
         "format": "independent-symbolic-Q0-rational-certificate-v1",
         "contract": "SYMBOLIC_Q0_AUDIT_CONTRACT.md",

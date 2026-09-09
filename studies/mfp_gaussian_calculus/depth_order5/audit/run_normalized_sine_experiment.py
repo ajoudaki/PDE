@@ -15,6 +15,7 @@ import time
 import numpy as np
 
 from studies._output_paths import StudyPaths
+from studies.mfp_gaussian_calculus.study_paths import guard_output_inputs
 
 PATHS = StudyPaths(__file__)
 
@@ -191,12 +192,16 @@ def main() -> None:
     if args.historical_inputs and not gate_path.exists():
         # This fixed exact certificate remains proof source, not run data.
         gate_path = HERE / "TWO_ORACLE_GATE.json"
+    prediction_path = args.input_dir / "common/NORMALIZED_SINE_FROZEN_PREDICTION.json"
+    guard_output_inputs((
+        args.output_dir / "NORMALIZED_SINE_EXPERIMENT.json",
+        *(args.output_dir / f"normalized_sine_H{depth}_n{width}.npy"
+          for depth in DEPTHS for width in ALLOCATIONS),
+    ), (gate_path, prediction_path))
     gate = json.loads(gate_path.read_text())
     if not gate["pass"]:
         raise RuntimeError("two-oracle gate did not pass")
-    prediction_payload = json.loads(
-        (args.input_dir / "common/NORMALIZED_SINE_FROZEN_PREDICTION.json").read_text()
-    )
+    prediction_payload = json.loads(prediction_path.read_text())
     predictions = {
         depth: float(prediction_payload["96"]["depths"][str(depth)]["C"])
         for depth in DEPTHS
