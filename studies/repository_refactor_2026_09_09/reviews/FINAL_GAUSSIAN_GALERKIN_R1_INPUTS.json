@@ -1,0 +1,14 @@
+{
+  "studies/repository_refactor_2026_09_09/FINAL_GAUSSIAN_ACTION_ADDITION.md": {
+    "sha256": "f0c01e6ecc33433a454d1e00ff36f8221dc418ccee146b497bf5d8c02a4209dd",
+    "lines": 196
+  },
+  "studies/repository_refactor_2026_09_09/FINAL_GALERKIN_ADDITION.md": {
+    "sha256": "1d22cf0feea55f62b148761bfb40136bec26191ae8d331e1f335ccc12f2bcae4",
+    "lines": 350
+  },
+  "docs/NOTATION.md": {
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "lines": 98
+  }
+}

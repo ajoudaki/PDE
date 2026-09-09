@@ -591,3 +591,43 @@ The coordinator alone stages this scoped scientific package. Exporter changes,
 .gitignore, the task index, and the eight unreadable inherited review artifacts
 are preserved. For the latter only unchanged metadata is verified. No new
 training, historical campaign or empirical result is part of this package.
+
+## Completion pass: Gaussian higher moments and conditional source transport
+
+The plateau/fitting package is committed at `a4a7841`. Two further complete
+proofs now extend the Gaussian-calculus and continuous-depth chapters:
+
+| Fragment | Lines | SHA256 |
+|---|---:|---|
+| FINAL_GAUSSIAN_ACTION_ADDITION.md | 196 | f0c01e6ecc33433a454d1e00ff36f8221dc418ccee146b497bf5d8c02a4209dd |
+| FINAL_GALERKIN_ADDITION.md | 350 | 1d22cf0feea55f62b148761bfb40136bec26191ae8d331e1f335ccc12f2bcae4 |
+
+Both fresh full isolated reviews are clean: FINAL_GAUSSIAN_GALERKIN_A1.md and
+FINAL_GAUSSIAN_GALERKIN_B1.md in reviews/. Each personally read all 644 lines
+of candidate/dependency material and recorded unchanged input hashes. Their
+optional precision suggestions cause no mathematical qualification or edit.
+The coordinator read both reports fully. FINAL_GAUSSIAN_GALERKIN_R1_INPUTS.json
+seals the same inputs, under the explicit isolation protocol already recorded.
+
+The first result proves a complete three-query reused-Gaussian law and uniform
+higher-moment obstruction, at fixed localization scale before width tends to
+infinity. A shared bounded action realizing the needed laws is a premise only
+of its operator corollary. The second defines a separate finite-source tanh
+transport model and proves its depth solvability, exact adjoint, weak transport,
+complete directional variation, projected kernel and dissipation, full-mean-loss
+clock conversion, and parity/count identities conditional on compatible
+uniqueness. Full polynomial domination of supplied fields/variations is retained.
+Its isonormal comparison and ambient non-Lipschitz obstruction are separate
+from any dense-network identification. No training well-posedness, source
+convergence, common action construction or cap removal is inferred.
+
+All necessary proofs are in maintained chapters. Each complete reviewed fragment
+occurs once; removing it recovers the previous chapter. Source/correction reads
+are recorded in source_audits/FINAL_GAUSSIAN_GALERKIN_ASSEMBLY.md. The accepted
+27-file standalone edition passes all 25 boundary/local-link inputs, with
+unaccepted live API changes excluded by taking their committed versions.
+The previous unchanged implementation's testing is retained without claiming a
+new run here. Exact checks, input inventories and inherited-work preservation
+are in reviews/FINAL_GAUSSIAN_GALERKIN_CHECKS.json and the matching library
+inventory. Further calculus, nonlinear, controls and scoped-obstruction packets
+remain under complete review; this entry does not end incorporation.

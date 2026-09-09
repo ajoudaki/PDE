@@ -352,3 +352,12 @@ This supersedes any older missing-coverage description for those particular
 partials. Other FINAL source assemblies are candidates, not accepted proofs,
 until their corresponding reviews complete. Final coverage disposition will
 reconcile the whole important-material queue, not stop at this package.
+
+The completion pass has now incorporated the Gaussian-action Lp obstruction
+and finite-source conditional transport identities, with complete contained
+proofs and paired clean isolated reviews. The operator obstruction retains its
+common-realization premise; the source model retains its supplied regularity,
+conditional uniqueness and lack of a dense-network/source-cutoff limit.
+These replace editorial assembly deferrals for those precise results. Broader
+calculus, nonlinear-family, compression and scoped-obstruction packets remain
+active and are not disposed of by this entry.

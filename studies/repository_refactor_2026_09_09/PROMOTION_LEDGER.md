@@ -153,3 +153,11 @@ family. Both complete final isolated reviews are clean at the hashes in the
 acceptance record. This is actual proof incorporation in the existing
 special-data chapter; other FINAL candidates remain unaccepted until their
 own complete reviews and checks. No training or global proof campaign is reopened.
+
+The completion pass additionally incorporates the exact Gaussian three-query
+higher-moment obstruction and the distinct conditional finite-source transport
+calculus into existing chapters. Both have two complete clean isolated reviews
+at identical bytes. Their precise premises and excluded training/source-limit
+claims are recorded in the corresponding acceptance entry; source arguments
+and corrections are fully imported. The remaining complete packets continue
+through review and implementation.

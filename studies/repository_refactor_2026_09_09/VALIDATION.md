@@ -424,3 +424,14 @@ previous test acceptance is not represented as a new run. The combined
 completion pass will test new finite APIs independently and again standalone.
 All inherited readable hashes and unreadable-file metadata match
 `FINAL_COMPLETION_START.json`; no concurrent file was staged.
+
+## Completion pass: Gaussian/source-transport proof package
+
+Two complete clean isolated reviews check the 196-line Gaussian and 350-line
+transport fragments plus the 98-line notation contract. The same hashes are
+inserted byte-exactly into existing chapters. The source audit, exact accepted
+27-file inventory, prior-body/concurrent-work preservation and standalone
+25-file boundary/local-link result are recorded under
+FINAL_GAUSSIAN_GALERKIN in reviews/. No implementation changes or new test-run
+claim belongs to this proof-only package; pending finite calculus work is
+excluded from this accepted edition. No training or empirical promotion occurs.
