@@ -1,0 +1,609 @@
+Yes. For a carefully chosen residual mean-field architecture, the continuous-training-time program can be proved completely, including a joint width-and-depth limit uniform on every compact training interval.
+
+This is a genuine positive theorem, but it is not a theorem for the earlier dense Gaussian-matrix \(\mu\)P network. The residual particle architecture removes the adaptive reused-transpose mechanism that blocked the dense \(H=3\) proof.
+
+## 1. Frozen architecture
+
+Fix a batch \((\xi_b,y_b)_{b=1}^B\subset\mathbb R^2\), with \(B=O(1)\). Let
+
+\[
+\sigma(x)=\tanh x
+\]
+
+and use raw trainable parameters
+
+\[
+\theta=(\alpha,\omega,\beta)\in\mathbb R^3.
+\]
+
+Define one residual neuron by
+
+\[
+\Phi(\theta,x)
+=
+\tanh(\alpha)\,
+\tanh\!\left(\tanh(\omega)x+\tanh(\beta)\right).
+\]
+
+Thus the activation is strictly nonlinear, while the effective amplitude, slope, and bias are smoothly bounded. The raw parameters themselves remain unconstrained and are trained by ordinary Euclidean gradient flow.
+
+For depth \(L\), width \(n\), and \(h=L^{-1}\), define
+
+\[
+X^{n,L}_{b,0}=\xi_b,
+\]
+
+\[
+X^{n,L}_{b,\ell+1}
+=
+X^{n,L}_{b,\ell}
++
+\frac1{nL}
+\sum_{i=1}^n
+\Phi\!\left(\theta_{\ell i},X^{n,L}_{b,\ell}\right),
+\qquad 0\le \ell<L.
+\]
+
+This is a post-nonlinearity residual block: the nonlinear branch is evaluated first and then added to the identity skip. Every residual block is trained.
+
+The output and MSE are
+
+\[
+F_b^{n,L}=X^{n,L}_{b,L},
+\qquad
+\mathcal E^{n,L}
+=
+\frac1{2B}\sum_{b=1}^B(F_b^{n,L}-y_b)^2.
+\]
+
+Initialization is independent across \((\ell,i)\):
+
+\[
+\theta_{\ell i}(0)\overset{\mathrm{iid}}{\sim}\rho_0,
+\qquad
+\rho_0=N(m,I_3),
+\]
+
+with a nonzero shift \(m\) chosen below to avoid symmetry-induced triviality.
+
+The correct joint mean-field/depth gradient scaling is
+
+\[
+\dot\theta_{\ell i}
+=
+-\eta nL\,\nabla_{\theta_{\ell i}}\mathcal E^{n,L}.
+\]
+
+The factor \(n\) is the usual mean-field width scaling. The additional factor \(L\) compensates for the residual factor \(1/L\). With only the \(n\)-scaling, training freezes as \(L\to\infty\).
+
+## 2. Exact finite-width identities
+
+Set
+
+\[
+A^{n,L}_{b,\ell}
+=
+\frac1n\sum_{i=1}^n
+\partial_x\Phi\!\left(
+\theta_{\ell i},X^{n,L}_{b,\ell}
+\right).
+\]
+
+Define the output sensitivity
+
+\[
+R^{n,L}_{b,L}=1,
+\]
+
+\[
+R^{n,L}_{b,\ell}
+=
+R^{n,L}_{b,\ell+1}
+\left(1+\frac1L A^{n,L}_{b,\ell}\right).
+\]
+
+An exact chain-rule calculation gives
+
+\[
+\nabla_{\theta_{\ell i}}F_b^{n,L}
+=
+\frac1{nL}
+R^{n,L}_{b,\ell+1}
+\nabla_\theta\Phi\!\left(
+\theta_{\ell i},X^{n,L}_{b,\ell}
+\right).
+\]
+
+Therefore the exact particle flow is
+
+\[
+\dot\theta_{\ell i}
+=
+-\frac{\eta}{B}
+\sum_{b=1}^B
+(F_b^{n,L}-y_b)
+R^{n,L}_{b,\ell+1}
+\nabla_\theta\Phi\!\left(
+\theta_{\ell i},X^{n,L}_{b,\ell}
+\right).
+\]
+
+The occurrence of \(R_{\ell+1}\), rather than \(R_\ell\), is essential: layer \(\ell\) first perturbs \(X_{\ell+1}\).
+
+The properly scaled kernel is
+
+\[
+K^{n,L}_{bc}
+=
+nL\sum_{\ell,i}
+\nabla_{\theta_{\ell i}}F_b^{n,L}
+\cdot
+\nabla_{\theta_{\ell i}}F_c^{n,L}.
+\]
+
+Equivalently,
+
+\[
+\begin{aligned}
+K^{n,L}_{bc}
+=
+\frac1L\sum_{\ell=0}^{L-1}
+R^{n,L}_{b,\ell+1}R^{n,L}_{c,\ell+1}
+\frac1n\sum_{i=1}^n
+&\nabla_\theta\Phi(\theta_{\ell i},X^{n,L}_{b,\ell})\\
+&\cdot
+\nabla_\theta\Phi(\theta_{\ell i},X^{n,L}_{c,\ell}).
+\end{aligned}
+\]
+
+Thus
+
+\[
+\dot F_b^{n,L}
+=
+-\frac{\eta}{B}
+\sum_{c=1}^B
+K^{n,L}_{bc}(F_c^{n,L}-y_c).
+\]
+
+This kernel is positive semidefinite, and
+
+\[
+\dot{\mathcal E}^{n,L}
+=
+-\frac{\eta}{L}
+\sum_{\ell=0}^{L-1}
+\frac1n\sum_{i=1}^n
+\left|
+\frac1B\sum_b
+(F_b^{n,L}-y_b)
+R^{n,L}_{b,\ell+1}
+\nabla_\theta\Phi(\theta_{\ell i},X^{n,L}_{b,\ell})
+\right|^2.
+\]
+
+All these identities are exact at finite \(n,L\).
+
+## 3. The continuous-depth mean-field program
+
+Let \(\rho_t(s)\in\mathcal P_1(\mathbb R^3)\) denote the parameter law at depth \(s\in[0,1]\) and training time \(t\).
+
+At each \(t\), first perform the forward depth sweep
+
+\[
+\partial_s x_b(s,t)
+=
+\int
+\Phi(\theta,x_b(s,t))\,\rho_t(s,d\theta),
+\qquad
+x_b(0,t)=\xi_b.
+\]
+
+Then perform the backward sweep
+
+\[
+-\partial_s r_b(s,t)
+=
+r_b(s,t)
+\int
+\partial_x\Phi(\theta,x_b(s,t))
+\,\rho_t(s,d\theta),
+\qquad
+r_b(1,t)=1.
+\]
+
+Set
+
+\[
+f_b(t)=x_b(1,t),
+\qquad
+p_b(s,t)
+=
+\frac1B r_b(s,t)(f_b(t)-y_b).
+\]
+
+The training velocity is
+
+\[
+v_t(s,\theta)
+=
+-\eta\sum_{b=1}^B
+p_b(s,t)\,
+\nabla_\theta\Phi(\theta,x_b(s,t)).
+\]
+
+Finally, evolve the parameter law by
+
+\[
+\partial_t\rho_t(s)
++
+\nabla_\theta\cdot\bigl(\rho_t(s)v_t(s,\cdot)\bigr)
+=0,
+\qquad
+\rho_0(s)=\rho_0.
+\]
+
+This is the gradient-flow master program:
+
+1. forward depth ODE;
+2. backward depth adjoint;
+3. current-time parameter transport.
+
+It is autonomous and restartable. It retains the entire current depth-indexed law but no training history. The law becomes non-Gaussian immediately; no Gaussian or finite-moment closure is being claimed.
+
+Its kernel is
+
+\[
+\begin{aligned}
+K_{bc}(t)
+=
+\int_0^1
+r_b(s,t)r_c(s,t)
+\int
+&\nabla_\theta\Phi(\theta,x_b(s,t))\\
+&\cdot
+\nabla_\theta\Phi(\theta,x_c(s,t))
+\,\rho_t(s,d\theta)\,ds .
+\end{aligned}
+\]
+
+Consequently,
+
+\[
+\dot f_b(t)
+=
+-\frac{\eta}{B}
+\sum_{c=1}^B K_{bc}(t)(f_c(t)-y_c).
+\]
+
+## 4. Global well-posedness
+
+Since \(|\Phi|\le1\),
+
+\[
+|x_b(s,t)|\le |\xi_b|+1.
+\]
+
+On this automatically bounded feature range,
+
+\[
+|\Phi|+|\partial_x\Phi|
++\|\nabla_\theta\Phi\|
++\|\nabla_\theta^2\Phi\|
++\|\partial_x\nabla_\theta\Phi\|
++\|\nabla_\theta\partial_x\Phi\|
+\le C_\Phi.
+\]
+
+The constant is global in the raw parameters because every raw parameter appears through a \(\tanh\).
+
+Moreover,
+
+\[
+|r_b(s,t)|
+=
+\exp\!\left(
+\int_s^1
+\int\partial_x\Phi(\theta,x_b(u,t))
+\,\rho_t(u,d\theta)\,du
+\right)
+\le e.
+\]
+
+Hence \(p_b\), \(v_t\), and the spatial Lipschitz constant of \(v_t\) are bounded on every compact training horizon.
+
+For two depth profiles \(\rho,\widetilde\rho\), define
+
+\[
+D(\rho,\widetilde\rho)
+=
+\int_0^1W_1(\rho(s),\widetilde\rho(s))\,ds.
+\]
+
+Forward and backward Gronwall estimates give
+
+\[
+\max_b\|x_b-\widetilde x_b\|_{L^\infty_s}
++
+\max_b\|r_b-\widetilde r_b\|_{L^\infty_s}
+\le C\,D(\rho,\widetilde\rho).
+\]
+
+Therefore
+
+\[
+|v[\rho](s,\theta)-v[\widetilde\rho](s,\widetilde\theta)|
+\le
+C\left(
+|\theta-\widetilde\theta|
++
+D(\rho,\widetilde\rho)
+\right).
+\]
+
+Solving the characteristic ODE
+
+\[
+\dot\Theta_s(t,a)
+=
+v_t(s,\Theta_s(t,a))
+\]
+
+and setting
+
+\[
+\rho_t(s)=\Theta_s(t,\cdot)_\#\rho_0
+\]
+
+gives a contraction on a sufficiently short training interval. The same interval length works after every restart because the constants above are uniform. Iteration proves:
+
+> For every \(T<\infty\), the continuous-depth program has a unique characteristic solution
+> \[
+> \rho\in C\!\left([0,T];
+> L^1([0,1];\mathcal P_1(\mathbb R^3))\right).
+> \]
+> It is global, autonomous, and restartable.
+
+No compact-support assumption is required.
+
+## 5. Width convergence, uniformly in depth
+
+For a depth-\(L\) measure profile write
+
+\[
+d_L(\boldsymbol\mu,\boldsymbol\nu)
+=
+\frac1L
+\sum_{\ell=0}^{L-1}
+W_1(\mu_\ell,\nu_\ell).
+\]
+
+The residual factors \(1/L\) imply the uniform estimates
+
+\[
+\max_{\ell,b}|X_b^\ell-\widetilde X_b^\ell|
+\le C\,d_L(\boldsymbol\mu,\boldsymbol\nu),
+\]
+
+\[
+\max_{\ell,b}|R_b^\ell-\widetilde R_b^\ell|
+\le C\,d_L(\boldsymbol\mu,\boldsymbol\nu).
+\]
+
+Hence the layer velocities satisfy
+
+\[
+|v_\ell[\boldsymbol\mu](\theta)
+-v_\ell[\boldsymbol\nu](\widetilde\theta)|
+\le
+C\left(
+|\theta-\widetilde\theta|
++d_L(\boldsymbol\mu,\boldsymbol\nu)
+\right),
+\]
+
+with \(C\) independent of \(L\).
+
+Transport an optimal coupling of two initial profiles by their respective characteristic flows. Gronwall gives
+
+\[
+d_L(\boldsymbol\mu_t,\boldsymbol\nu_t)
+\le
+e^{C_Tt}
+d_L(\boldsymbol\mu_0,\boldsymbol\nu_0),
+\qquad 0\le t\le T,
+\]
+
+again with no \(L\)-dependence.
+
+Let
+
+\[
+\widehat\rho^{\,n,L}_{\ell,0}
+=
+\frac1n\sum_{i=1}^n\delta_{\theta_{\ell i}(0)}.
+\]
+
+Then, pathwise,
+
+\[
+\sup_{t\le T}
+d_L(\widehat{\boldsymbol\rho}^{\,n,L}_t,
+\boldsymbol\rho^L_t)
+\le
+e^{C_TT}
+\frac1L\sum_{\ell=0}^{L-1}
+W_1(\widehat\rho^{\,n,L}_{\ell,0},\rho_0).
+\]
+
+Because Gaussian empirical measures converge in \(W_1\),
+
+\[
+q_n
+:=
+\mathbb E W_1\!\left(
+\frac1n\sum_{i=1}^n\delta_{Z_i},\rho_0
+\right)
+\longrightarrow0.
+\]
+
+Therefore, for every deterministic sequence \(L=L_n\),
+
+\[
+\sup_{t\le T}
+d_{L_n}(
+\widehat{\boldsymbol\rho}^{\,n,L_n}_t,
+\boldsymbol\rho^{L_n}_t)
+\xrightarrow{\mathbb P}0.
+\]
+
+There is no required relation between \(L_n\) and \(n\).
+
+## 6. Depth convergence
+
+The continuous solution has a canonical depth-Lipschitz representative:
+
+\[
+W_1(\rho_t(s),\rho_t(u))
+\le C_T|s-u|.
+\]
+
+This follows because \(x_b,r_b,p_b\), and therefore \(v_t(s,\theta)\), are Lipschitz in \(s\).
+
+The finite-depth population program is the forward/backward Euler discretization of the continuous-depth program. Its one-step forward and backward defects are \(O(L^{-2})\). A coupled characteristic comparison gives
+
+\[
+\sup_{t\le T}
+\frac1L
+\sum_{\ell=0}^{L-1}
+W_1(\rho^L_{\ell,t},\rho_t(\ell/L))
+\le\frac{C_T}{L},
+\]
+
+together with
+
+\[
+\sup_{t\le T}
+\max_{\ell,b}
+\left(
+|X^L_{b,\ell}(t)-x_b(\ell/L,t)|
++
+|R^L_{b,\ell}(t)-r_b(\ell/L,t)|
+\right)
+\le\frac{C_T}{L},
+\]
+
+and
+
+\[
+\sup_{t\le T}\max_{b,c}
+|K^L_{bc}(t)-K_{bc}(t)|
+\le\frac{C_T}{L}.
+\]
+
+## 7. Joint theorem
+
+Define the random initialization discrepancy
+
+\[
+\delta_{n,L}
+=
+\frac1L\sum_{\ell=0}^{L-1}
+W_1(\widehat\rho^{\,n,L}_{\ell,0},\rho_0).
+\]
+
+For every \(T<\infty\), there is \(C_T<\infty\), independent of \(n,L\), such that
+
+\[
+\begin{aligned}
+\sup_{t\le T}\Bigg[
+&
+\frac1L\sum_{\ell=0}^{L-1}
+W_1\!\left(
+\widehat\rho^{\,n,L}_{\ell,t},
+\rho_t(\ell/L)
+\right)\\
+&+
+\max_{\ell,b}
+|X^{n,L}_{b,\ell}(t)-x_b(\ell/L,t)|\\
+&+
+\max_b|F_b^{n,L}(t)-f_b(t)|
++
+\max_{b,c}|K^{n,L}_{bc}(t)-K_{bc}(t)|
+\Bigg]
+\le
+C_T\left(\delta_{n,L}+\frac1L\right).
+\end{aligned}
+\]
+
+Since \(\mathbb E\delta_{n,L}=q_n\to0\), for every pair of sequences
+
+\[
+n_k\to\infty,\qquad L_k\to\infty,
+\]
+
+with no relation between their rates,
+
+\[
+\sup_{t\le T}
+\left(
+\max_b|F_b^{n_k,L_k}(t)-f_b(t)|
++
+|\mathcal E^{n_k,L_k}(t)-\mathcal E(t)|
++
+\max_{b,c}|K^{n_k,L_k}_{bc}(t)-K_{bc}(t)|
+\right)
+\xrightarrow{\mathbb P}0.
+\]
+
+This is exact continuous-training-time convergence; no Euler discretization in training time is used.
+
+## 8. Nontriviality
+
+The scaling permits, but does not automatically guarantee, nonlazy motion. Symmetric initialization or already-fitted labels can make the velocity zero.
+
+An explicit nontrivial choice is
+
+\[
+B=1,\qquad \xi_1=1,\qquad y_1=0,
+\qquad
+\rho_0=N((2,2,0),I_3).
+\]
+
+For this distribution,
+
+\[
+\int\Phi(\theta,1)\,\rho_0(d\theta)>0,
+\]
+
+so the continuous-depth forward flow is not the identity. Moreover, the initial residual is nonzero and
+
+\[
+\int_0^1\int
+\left|
+p_1(s,0)\nabla_\theta\Phi(\theta,x_1(s,0))
+\right|^2
+\rho_0(d\theta)\,ds>0.
+\]
+
+Consequently,
+
+\[
+\dot{\mathcal E}(0)<0,
+\]
+
+and the parameter law moves by \(O(t)\) in training time. This is genuinely feature-learning, not a lazy or linearized limit. The map \(x\mapsto\Phi(\theta,x)\) also has nonzero second derivative on a positive-\(\rho_0\) set.
+
+## Scope
+
+This proves the requested gradient-flow mean-field-program theorem for a particular strictly nonlinear residual architecture:
+
+- arbitrary fixed batch size;
+- every residual block trained;
+- Gaussian raw initialization;
+- nontrivial continuous-depth limit;
+- exact continuous gradient flow;
+- uniform convergence on every compact training interval;
+- joint \(n,L\to\infty\) with no rate relation.
+
+It does not prove the corresponding theorem for dense CLT-scaled Gaussian matrices. The decisive simplification is structural: each residual block is an empirical mean-field vector field, so its dependence on a layer law is Lipschitz in Wasserstein distance. There is no adaptively reused dense transpose and hence no weighted-Wishart co-localization obstruction.

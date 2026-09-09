@@ -1,0 +1,410 @@
+\documentclass{article}
+
+\usepackage{silence}
+\WarningFilter{latex}{Font shape}
+
+\usepackage[table,dvipsnames]{xcolor}
+\definecolor{mydarkblue}{rgb}{0,0.08,0.45}
+\definecolor{note_fontcolor}{rgb}{0.800781, 0.800781, 0.800781}
+\newenvironment{lyxgreyedout}
+  {\textcolor{note_fontcolor}\bgroup\ignorespaces}
+  {\ignorespacesafterend\egroup}
+
+    \PassOptionsToPackage{numbers, compress, sort}{natbib}
+
+     \usepackage[final]{neuripsx}
+
+\usepackage[utf8]{inputenc} %
+\usepackage[T1]{fontenc}    %
+\usepackage[hyphens]{url}            %
+\usepackage[
+    colorlinks,
+    bookmarks=true,
+    breaklinks=true,
+    linkcolor=mydarkblue,
+    citecolor=mydarkblue,
+    filecolor=mydarkblue,
+    urlcolor=mydarkblue,]{hyperref}       %
+\usepackage{booktabs}       %
+\usepackage{amsfonts}       %
+\usepackage{nicefrac}       %
+\usepackage{microtype}      %
+\usepackage{multicol}
+\usepackage{subcaption}
+\usepackage{amssymb, amsmath, amsthm}
+\usepackage{thmtools}
+\usepackage{mathtools}
+\usepackage{tcolorbox}
+\usepackage{wrapfig}
+
+\usepackage{subfiles}
+
+\usepackage[inline]{enumitem}
+\usepackage{breakurl}
+\usepackage[capitalize,nameinlink]{cleveref}
+\usepackage{mymacros}
+
+\newcommand{\greg}[1]{{\color{red} #1}}
+
+\newcommand{\Zz}{Z}
+\newcommand{\Zhat}{\hat Z}
+\newcommand{\Zdot}{\dot Z}
+\newcommand{\Gg}{\mathcal G}
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{fact}[thm]{Fact}
+\newtheorem{qst}[thm]{Question}
+\newtheorem{axm}[thm]{Axiom}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{claim}{Claim}[section]
+\newtheorem{assm}[thm]{Assumption}
+\newtheorem{heur}[thm]{Heuristic}
+\newtheorem{setup}[thm]{Setup}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{exmp}[thm]{Example}
+
+\newtheorem{cond}{Condition}
+
+\newtcolorbox[auto counter,crefname={Box}{Boxes}]{pabox}[2][]{%
+title=Box~\thetcbcounter $\quad$ #2, label={#1}}
+
+\newcommand{\TODO}[1]{{\color{red} TODO: #1}}
+
+\usepackage{bbm}
+\crefname{thm}{\text{Theorem}}{\text{Theorems}}
+\crefname{assm}{\text{Assumption}}{\text{Assumptions}}
+\crefname{defn}{\text{Definition}}{\text{Definitions}}
+\crefname{prop}{\text{Proposition}}{\text{Propositions}}
+\crefname{cor}{\text{Corollary}}{\text{Corollaries}}
+\crefname{lemma}{\text{Lemma}}{\text{Lemmas}}
+\crefname{algorithm}{\text{Program}}{\text{Programs}}
+
+\newcommand{\bigtheta}{\Theta}
+\newcommand{\bigvtheta}{\Theta}
+\newcommand{\vtheta}{\theta}
+
+\newcommand{\onev}{\mathbf{1}}
+\newcommand{\trsp}{\top}
+\newcommand{\distto}{\xrar{\mathrm{d}}}
+\newcommand{\asto}{\xrar{\mathrm{a.s.}}}
+\newcommand{\probto}{\xrar{\mathrm{p}}}
+\newcommand{\disteq}{\overset{\mathrm{d}}{=}}
+\newcommand{\aseq}{\overset{\mathrm{a.s.}}{=}}
+\newcommand{\meanto}{\xrar{L^1}}
+
+\newcommand{\cdc}{\mathfrak{c}}
+\newcommand{\Cdc}{\mathfrak{C}}
+\newcommand{\Ss}{\mathcal{S}}
+\newcommand{\Gvars}{\mathcal{G}}
+
+\newcommand{\odefeq}{\mathbin{\overset{\text{\tiny{def}}}{=}}}
+
+\newcommand{\defeq}{\mathrel{\raisebox{-0.3ex}{$\odefeq$}}}
+
+\newcommand{\Atype}{\mathsf{A}}
+\newcommand{\Gtype}{\mathsf{G}}
+\newcommand{\Htype}{\mathsf{H}}
+
+\newcommand{\nicepdf}[2]{\nicefrac{\pd #1}{\pd #2}}
+
+\newcommand{\Jac}[2]{\f{\dd #1}{\dd #2}}
+\newcommand{\flatJac}[2]{\intd #1/\intd #2}
+
+\renewcommand{\cite}{\citep}
+
+\newcommand{\Vt}[1]{\mathrm{V}_{#1}}
+
+\newcommand{\ug}{\underline{g}}
+\newcommand{\uG}{\underline{G}}
+\newcommand{\umu}{\underline{\mu}}
+\newcommand{\uSigma}{\underline{\Sigma}}
+
+\renewcommand{\cite}{\citep}
+
+\newcommand{\netsorot}{{$\textsc{Netsor}\circ\trsp$} }
+\newcommand{\netsoro}{{$\textsc{Netsor}\circ$} }
+\newcommand{\netsoroplus}{{$\textsc{Netsor}\circ^+$} }
+
+\newcommand{\netsor}{\texorpdfstring{{$\textsc{Netsor}$}}{Netsor}}
+\newcommand{\netsort}{\texorpdfstring{{$\textsc{Netsor}\trsp$}}{NetsorT}}
+\newcommand{\netsorplus}{\texorpdfstring{{$\textsc{Netsor}^+$}}{Netsor+}}
+\newcommand{\netsortplus}{\texorpdfstring{{$\textsc{Netsor}\trsp^+$}}{NetsorT+}}
+\newcommand{\netsormin}{\texorpdfstring{{$\textsc{Netsor}^-$}}{Netsor-}}
+
+\global\long\def\musc{\mu_{\mathrm{sc}}}%
+
+\newcommand{\xme}{x}
+\newcommand{\yme}{y}
+\newcommand{\ume}{u}
+\newcommand{\vme}{v}
+\newcommand{\Xme}{\mathbf{X}}
+\newcommand{\Yme}{\mathbf{Y}}
+\newcommand{\Ume}{\mathbf{U}}
+\newcommand{\Vme}{\mathbf{V}}
+\newcommand{\gammame}{\gamma}
+\newcommand{\Upsilonme}{\Upsilon}
+\newcommand{\deltame}{\delta}
+\newcommand{\Lambdame}{\Lambda}
+\newcommand{\dme}{d}
+\newcommand{\eme}{e}
+\newcommand{\varepsilonhat}{\hat\varepsilon}
+\newcommand{\varepsiloncheck}{\check\varepsilon}
+\newcommand{\PP}{\boldsymbol{\Pi}}
+
+\newcommand{\Layernorm}{\mathrm{Layernorm}}
+
+\newcommand{\refZInput}{\textbf{\ref{Z:Initial}}}
+\newcommand{\refZMatMul}{\textbf{\ref{Z:MatMul}}}
+\newcommand{\refZNonlin}{\textbf{\ref{Z:Nonlin}}}
+\newcommand{\refZhat}{\textbf{\ref{Z:Zhat}}}
+\newcommand{\refZdot}{\textbf{\ref{Z:Zdot}}}
+\newcommand{\refMatMul}{\textbf{\ref{instr:matmul}}}
+\newcommand{\refNonlin}{\textbf{\ref{instr:nonlin}}}
+\newcommand{\refMatMulPlus}{\textbf{\ref{instr:matmul+}}}
+\newcommand{\refNonlinPlus}{\textbf{\ref{instr:nonlin+}}}
+\newcommand{\refMoment}{\textbf{\ref{instr:moment}}}
+
+\newcommand{\refMatMulVarDim}{\textbf{\ref{instr:matmulVarDim}}}
+\newcommand{\refNonlinVarDim}{\textbf{\ref{instr:nonlinVarDim}}}
+\newcommand{\refMatMulPlusVarDim}{\textbf{\ref{instr:matmul+VarDim}}}
+\newcommand{\refNonlinPlusVarDim}{\textbf{\ref{instr:nonlin+VarDim}}}
+\newcommand{\refMomentVarDim}{\textbf{\ref{instr:momentVarDim}}}
+
+\makeatletter
+\let\orgdescriptionlabel\descriptionlabel
+\newcommand*{\@restrictlabeltext}[1]{#1\protected@edef\@currentlabel{#1}}
+\newcommand*{\nolabel}[1]{#1}%
+\renewcommand*{\descriptionlabel}[1]{%
+  \let\orglabel\label
+  \let\label\@gobble
+  \let\orig@hfil\hfil
+  \def\hfil{}%
+  \let\nolabel\@gobble
+  \let\restrictlabeltext\@firstofone
+  \phantomsection
+  \protected@edef\@currentlabel{#1}%
+  \let\hfil\orig@hfil
+  \let\label\orglabel
+  \let\restrictlabeltext\@restrictlabeltext
+  \orgdescriptionlabel{#1}%
+}
+\makeatother
+
+\title{Tensor Programs III:
+Neural Matrix Laws}
+
+\author{%
+  Greg Yang\\
+  Microsoft Research AI\\
+  \texttt{gregyang@microsoft.com} \\
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+In a neural network (NN), \emph{weight matrices} linearly transform inputs into \emph{preactivations} that are then transformed nonlinearly into \emph{activations}.
+A typical NN interleaves multitudes of such linear and nonlinear transforms to express complex functions.
+Thus, the (pre-)activations depend on the weights in an intricate manner.
+We show that, surprisingly, (pre-)activations of a randomly initialized NN become \emph{independent} from the weights as the NN's widths tend to infinity, in the sense of \emph{asymptotic freeness} in random matrix theory.
+We call this the \emph{Free Independence Principle (FIP)}, which has these consequences:
+1) It rigorously justifies the calculation of asymptotic Jacobian singular value distribution of an NN in \citet{pennington_resurrecting_2017,pennington_emergence_2018}, essential for training ultra-deep NNs \citep{xiao_dynamical_2018}.
+2) It gives a new justification of \emph{gradient independence assumption} used for calculating the \emph{Neural Tangent Kernel} of a neural network.
+FIP and these results hold for any neural architecture.
+We show FIP by proving a Master Theorem for any Tensor Program, as introduced in \citet{yangTP1,yangTP2}, generalizing the Master Theorems proved in those works.
+As warmup demonstrations of this new Master Theorem, we give new proofs of the semicircle and Marchenko-Pastur laws, which benchmarks our framework against these fundamental mathematical results.
+\end{abstract}
+
+\section{Introduction}
+
+A neural network (NN), at a high level, is an interleaved composition of linear and nonlinear transformations. Its \emph{weights} are the matrices involved in the linear transformations. The image (resp.\ input) of nonlinear transformations are called \emph{activations} (resp.\ \emph{preactivations}). Thus, \emph{a priori}, (pre-)activations depend in complicated ways on the weights. We show that, surprisingly, the (pre-)activations become roughly \emph{independent} from the weights in the sense of random matrix theory, when the NN is randomly initialized and as its width tends to infinity. More formally, we prove that the weights are \emph{asymptotically free} from the diagonal matrices whose diagonals are the images of preactivation vectors under any bounded coordinatewise function.\footnote{Note, however, that we make no claim about trained weights, just random weights.} This result holds for any neural architecture (i.e. architectural universality)\footnote{In this work, \emph{architecture} refers to the network topology along with the random initialization of parameters, as specified by a \netsort{} program (\cref{defn:netsort}).} . We call this result the \emph{Free Independence Principle} (FIP). A major application of FIP is in rigorously justifying a prevalent free independence assumption in the calculation of NN Jacobian singular value distribution \citep{pennington_resurrecting_2017,pennington_emergence_2018,tarnowski_dynamical_2018,ling_spectrum_2019,xiao_dynamical_2018}, as we overview below. 
+
+Besides FIP, we also prove several other interesting results. In the next few subsections, we discuss the context required to state them. A summary of all of our contributions appears at the end of this introduction, and the reader in a hurry may feel free to skip directly to it.
+
+\subsection{Random Matrix Theory in Deep Learning}
+
+Random matrix theory (RMT) has a successful history of being applied in deep learning \citep{pennington_resurrecting_2017,pennington_emergence_2018,tarnowski_dynamical_2018,ling_spectrum_2019,xiao_dynamical_2018}. For example, RMT has been used to calculate the Jacobian%
+\footnote{Here we are concerned with the input-output Jacobian of a neural network on a fix input. Some works consider the Jacobian with respect to the parameters, where the Jacobian has dimension \#parameters $\times$ \#data points (e.g. \citep{pennington_spectrum_2018}). This is a related but distinct case from the input-output Jacobian, which is what we focus on in this work.}
+singular value distribution of a wide neural network, which is an important indicator of its architectural soundness: If this distribution becomes very diffuse as the network gets deeper (i.e.\ more layers), then an error signal (i.e.\ the gradient) will be badly distorted as it is backpropagated. On the other hand, if the distribution concentrates around 1 even when the network gets deeper, then the error signal is largely preserved, and all layers of the networks receive adequate signal to improve. This idea is known as \emph{dynamical isometry} \citep{pennington_resurrecting_2017} and has been successfully applied in practice to train ultra-deep networks (as deep as 10,000 layers! \citep{xiao_dynamical_2018}).
+
+This calculation of the NN Jacobian singular values distribution can be seen as a vast nonlinear generalization of the classical problem of calculating the singular value distribution for an iid random matrix. The solution of this latter problem is famously given by (the square root of) the Marchenko-Pastur distribution. A related classical random matrix law is the semicircle law, which says that the eigenvalue distribution of the sum $A+A^{\trsp}$ of a random real iid matrix $A$ and its transpose $A^{\trsp}$ is asympotically shaped like a semicircle. Like the utility of NN Jacobian singular values, Marchenko-Pastur and the semicircle law have both been impactful in science and engineering and are considered two fundamental laws of random matrix theory. In fact, the semicircle law was first motivated by a study of the distribution of energy levels of an atom \citep{lane_giant_1955}.
+
+Up until recently, the study of the NN Jacobian singular value distribution lacked a rigorous foundation. The first calculation of it assumed (free) independence (between the weights and the preactivations) that was only empirically checked but not proved. It was unknown how widespread this phenomenon actually was. One purpose of this work is filling in that hole: FIP reveals the architectural universality of this free independence (i.e. the neural network can be as complex as any modern manifestations and the principle still holds).
+
+\subsection{New Approach to Random Matrix Theory}
+\label{sec:newRMT}
+Another purpose of this work is to illustrate a new way to go about random matrix theory, one that allows us to methodically attack the nonlinear problems of deep neural networks. In contrast, classical methods of random matrix theory typically heavily rely on the linearity of classical random matrix ensembles.
+The \emph{expansion technique} is one such method.
+We review how it's used in linear problems and show it is ineffective for (nonlinear) neural networks problems.
+
+\paragraph{The expansion technique of classical RMT}
+For example, a typical quantity to calculate is the expectation of the trace of some matrix power $\tr(A^{\trsp}A)^{k}$ for some iid random matrix $A$. One common way to proceed is expanding this expression in terms of monomials of the entries of $A$, and then counting the different kinds of monomials that arise: such as monomials multilinear in the entries of $A$, or monomials where every entry appears quadratically, etc. 
+Given this expansion, the trace expectation then follows easily.
+
+\paragraph{The expansion technique is ineffective in neural network problems}
+Now, in the (nonlinear) case of neural networks, the matrix $A$ is usually something more complicated.
+Take, for example, $A=D_{2}BD_{1}B$ for some iid matrix $B$ and diagonal matrices $D_{i}$ that depend nonlinearly on $B$.
+This dependence can, for example, take the following form: for some iid vector $v$ and $\phi=\tanh$ (to be applied coordinatewise), we define $u_{1}=\phi(Bv),u_{2}=\phi(Bu_{1})$ and set $D_{i}$ to have diagonal $u_{i}$.
+Such ensemble $A$ commonly appears as the Jacobian of a neural network.
+Inspired by the classical expansion technique described above, one may attack this problem by expanding $\tr(A^{\trsp}A)^{k}$ in terms of entries of $A$ or in terms of entries of $B$. Because the entries of $A$ are correlated in complicated ways, it will be hard to use the expansion in $A$. On the other hand, we cannot even expand $\tr(A^{\trsp}A)^{k}$ cleanly in $B$ because of the nonlinear dependence of $D_{i}$ on $B$ (particularly because of $\phi$)%
+\footnote{We can Taylor expand $D_{i}$ in terms of entries of $B$ but that gets ugly really fast.}.
+
+Thus the usual expansion technique runs into a wall very quickly.
+
+\paragraph*{Our proposed method}
+We express the trace $\tr(A^{\trsp}A)^{k}$ as an expectation $\EV_{v}v^{\trsp}(A^{\trsp}A)^{k}v$ where $v$ is a standard Gaussian vector%
+\footnote{but this identity holds for any $v$ with iid, zero-mean, unit-variance entries}. Then we inductively \emph{analyze} the vectors $Av,A^{\trsp}Av,AA^{\trsp}Av,(A^{\trsp}A)^{2}v,\ldots,(A^{\trsp}A)^{k}v$, in a way we will soon describe below. Finally, this analysis of $(A^{\trsp}A)^{k}v$ will allow us to calculate $\EV_{v}v^{\trsp}(A^{\trsp}A)^{k}v$.
+
+It turns out that the vectors $v,Av,A^{\trsp}Av,AA^{\trsp}Av,(A^{\trsp}A)^{2}v,\ldots,(A^{\trsp}A)^{k}v$ will 
+\begin{enumerate}
+  \item all have \emph{approximately iid} coordinates in the large dimension limit, in a suitable sense, i.e. $\{(Av)_{\alpha}\}_{\alpha}$ are approximately iid, and similarly for $\{(A^{\trsp}Av)_{\alpha}\}_{\alpha}$, $\{((A^{\trsp}A)^{2}v)_{\alpha}\}_{\alpha}$, etc, where $\alpha$ denotes coordinate index; \label{item:_approxiid}
+  \item but the sequence of coordinates $v_{\alpha},(Av)_{\alpha},(A^{\trsp}Av)_{\alpha},\ldots,((A^{\trsp}A)^{k}v)_{\alpha}$ are correlated for each fixed index $\alpha$, in the same way across all $\alpha$. \label{item:_cor}
+\end{enumerate}
+By \emph{analyze}, we mean to calculate such correlations.
+Then $\EV_{v}v^{\trsp}(A^{\trsp}A)^{k}v$ is given by the correlation between $v_\alpha$ and $((A^{\trsp}A)^{k}v)_{\alpha}$.
+
+\paragraph*{Example}
+Let us use the classical example of iid $A$ to make these two points more concrete.
+
+If $v\in\R^{n}$ is a standard Gaussian vector, and $A\in\R^{n\times n},A_{\alpha\beta}\sim\Gaus(0,1/n)$ is iid and independent from $v$, then it's not hard to see $Av$ has coordinates which tend to iid Gaussians via some kind of central limit argument (illustraing point (1)). Next, we will soon see intuitively that $A^{\trsp}Av$ is asymptotically the sum of $v$ and a random Gaussian vector with iid coordinates, independent from $v$ (illustrating point (1)). Thus $A^{\trsp}Av$ is \emph{coordinatewise }correlated with $v$, illustrating point (2). 
+
+To get this intuition, write each coordinate 
+\begin{equation}(A^{\trsp}Av)_{\alpha}=\sum_{\beta,\gamma}A_{\beta\alpha}A_{\beta\gamma}v_{\gamma}=\sum_{\beta}A_{\beta\alpha}^{2}v_{\alpha}+\sum_{\beta;\gamma\ne\alpha}A_{\beta\alpha}A_{\beta\gamma}v_{\gamma},\quad \beta,\gamma\in[n].
+\label{eqn:ATAv}
+\end{equation}
+Because each $A_{\beta\alpha}$ has variance $1/n$, the first sum will converge via law of large numbers to $v_{\alpha}$. In the second sum, one can note that each summand is uncorrelated with others (and higher order correlations drop off rapidly with $n$), so one may expect the second sum to converge to a Gaussian through some central limit behavior. We can calculate that the second sum $\sum_{\beta;\gamma\ne\alpha}A_{\beta\alpha}A_{\beta\gamma}v_{\gamma}$ for different $\alpha$s will be uncorrelated, so their limits for different $\alpha$ should be independent Gaussians. Likewise, it should be asymptotically independent from $v$ for the same reason.
+
+This finishes our example and illustrates the overarching philosophy of our proposed method. But it is still tedious if we have to manually derive the correlation between $v_{\alpha},(Av)_{\alpha},(A^{\trsp}Av)_{\alpha},\ldots,((A^{\trsp}A)^{k}v)_{\alpha}$. In addition, it's not entirely clear at this point that this method can handle the nonlinear ensemble example $A=D_{2}BD_{1}B$ given above. This is where the Tensor Programs framework is crucial, which we overview now.
+
+\subsection{The Tensor Programs Framework}
+
+The Tensor Programs framework can be thought of as a clean, scalable, and rigorous packaging of the intuition explained in the last section.
+We first demonstrate how one can apply this framework to compute the correlations between $v_{\alpha},(Av)_{\alpha},(A^{\trsp}Av)_{\alpha},\ldots,((A^{\trsp}A)^{k}v)_{\alpha}$.
+Then we describe in more general terms what the framework is about.
+
+\paragraph{Calculating $\EV_v v^\trsp (A^\trsp A)^k v$ with Tensor Programs}
+The framework associates a random variable $Z^u \in \R$ to each $u \in \{v,Av,A^{\trsp}Av,\ldots,(A^{\trsp}A)^{k}v\}$, representing the distribution of coordinates of $u$ in the large $n$ limit.
+It also comes with a set of symbolic rules to derive $Z^{Av}$ given $Z^v$, $Z^{A^\trsp Av}$ given $Z^{Av}$ and $Z^v$, and so on.
+For example, consistent with the intuition laid out in \cref{sec:newRMT}, $Z^v$ and $Z^{Av}$ are defined as independent standard Gaussians (since $v$ and $Av$ are asymptotically standard Gaussian vectors, independent from each other), and $Z^{A^\trsp Av} = Z^v + S$ for a standard Gaussian $S \in \R$ independent from $Z^v$ (and $Z^{Av}$).
+Finally, we can calculate $\lim_{n\to\infty}\EV_v v^\trsp (A^\trsp A)^k v = \EV Z^v Z^{(A^{\trsp}A)^{k}v}$.
+
+This set of $Z$-rules handle nonlinearities.
+For example, we have $Z^{\phi(v)} \defeq \phi(Z^{v})$ for any $\phi: \R \to \R$ (where $\phi$ on the LHS is applied coordinatewise to the vector $v$, but is applied in the usual sense to the scalar random variable $Z^v$ on the RHS.)
+This reflects the intuition that $Z^{\phi(v)}$ is the distribution of $\phi(v)$'s coordinates.
+As such, it is not hard to see our proposed method in \cref{sec:newRMT} can deal with nonlinear random matrix ensembles like the example $A=D_{2}BD_{1}B$ given there.
+The full description of these rules can be found in \cref{defn:Z}, but we will not dive into more details here.
+
+\paragraph{Tensor Programs in general}
+While a major focus of this paper is on RMT, the original motivation of Tensor Programs is in understanding wide neural networks.
+There were 3 lines of research that molded the framework, which we briefly overview so we can later state some other contributions of this paper:
+\emph{(Research Line 1)} In 1994, Radford Neal \citep{neal_bayesian_1995} discovered that shallow neural networks with random weights converge to Gaussian processes as their widths tend to infinity. This Neural Network-Gaussian Process correspondence has become a fascinating topic ever since, with a flurry of activities in recent years extending it \citep{{williams_computing_1997,le_roux_continuous_2007,hazan_steps_2015,daniely_toward_2016},lee_deep_2018,matthews_gaussian_2018_arxiv,novak_bayesian_2018}. \emph{(Research Line 2)} Relatedly, a line of work, closely connected to the study of Jacobian singular values mentioned above, researched how signal propagates inside a neural network with random weights \citep{poole_exponential_2016,schoenholz_deep_2017,yang_mean_2017,yangVarianceVariation,hanin_which_2018,hanin_how_2018,chen_dynamical_2018,yang_mean_2019,pennington_resurrecting_2017,hayou_selection_2018,philipp_nonlinearity_2018}, and use such insights to improve the initialization scheme or architecture of neural networks. \emph{(Research Line 3)} Recently, Jacot et al.\ and others \citep{jacot_neural_2018,allen-zhu_convergence_2018,allen-zhu_convergence_2018-1,allen-zhu_learning_2018,du_gradient_2018,zou_stochastic_2018,lee_wide_2019,arora_exact_2019} found that, when trained with gradient descent, wide, fully connected neural networks evolve like linear models. This resolved many open questions regarding the training and generalization of neural networks, and was followed by intense activity generalizing these results to more modern neural architectures \citep{{yangScalingLimitsWide2019arXiv.org},arora_exact_2019,du2019graph,littwin2020optimization,alemohammad2020recurrent,hron2020infinite}.
+
+In all three lines of research, each new architecture required a new paper. For example, going from fully connected networks to convolutional neural networks required careful thinking about how the newly added dimension of pixel position in the latter changes the argument for the former. It was the expectation that every architecture is special in some way, and extending the theory to catch up with modern practice would require a paper covering every major architectural advancement starting from convolutional neural networks (e.g. normalization layers, attention, etc). Considering the breakneck pace of empirical deep learning, this ``catch-up'' might never happen.
+
+It was against this backdrop that the Tensor Programs framework \citep{yangScalingLimitsWide2019arXiv.org,yangTP1,yangTP2} surprisingly showed all three lines of research can be unified into one and simultaneously be generalized to all practically relevant neural architectures, now or in the future. There are two major insights that make this possible: 
+\begin{description}
+  \item[Insight 1] Every computation done in deep learning can be written as a program (i.e. a composition) of matrix multiplication and coordinatewise nonlinearities%
+  \footnote{A coordinatewise nonlinearity is, in the simplest case, a function that is applied to each coordinate of an input vector independently. More generally, see \refNonlin{}.} (for example, a simple neural network can be written this way as $h=Wx,y=\phi(h)$ for some activation function $\phi$, like $\tanh$, applied coordinatewise; the example of $A=D_{2}BD_{1}B$ given above can be written likewise).
+  \item[Insight 2] In every such computation, if the matrices are randomized, then every vector computed over the course of such a program has roughly iid coordinates when the matrices' sizes are large. However, for each $\alpha$, the $\alpha$th coordinates of different vectors will in general be correlated, in the same way across $\alpha$, and in a way that can be inductively calculated from the program structure. The machinery of Tensor Programs allows one to mechanically perform this calculation.
+\end{description}
+Note that insight 2 is a generalization of (\ref{item:_approxiid}) and (\ref{item:_cor}) in \cref{sec:newRMT}, and is reflected in the $\EV_v v^\trsp (A^\trsp A)^k v$ example above.
+Given these two insights, it then becomes rather straightforward to generalize the three lines of research to any relevant architecture.
+
+\subsection{Tensor Programs Master Theorems}
+\label{sec:IntroTPMasterThm}
+The Tensor Programs framework was first laid out in (the unpublished manuscript) \citet{yangScalingLimitsWide2019arXiv.org} but was written densely. Subsequently, \citep{yangTP1} and \citep{yangTP2} rewrote, in an accessible, pedagogical way, the parts of \citet{yangScalingLimitsWide2019arXiv.org} that deal with research lines 1 and 3 above (resp.\ generalizing Neal and Jacot et al.) (and research line 2 is essentially covered by the combination of \citep{yangTP1} and \citep{yangTP2}). The main technical result of each of \citep{yangTP1} and \citep{yangTP2} is a \emph{Master Theorem} that tells one how to mechanically track the correlation between vectors computed in a program. The difference between their versions of the Master Theorems is in the generality of programs considered: In \citep{yangTP1}, the Master Theorem applies to programs that allow one to re-use matrices, but one cannot use both a matrix and its transpose at the same time. For example, it applies to the computation $AAv$ but not to $A^{\trsp}Av$ (both computations reuse the matrix $A$ but the latter do so through its transpose $A^{\trsp}$). The Master Theorem of \citep{yangTP2} allows $A^{\trsp}$, but only under some restrictive condition. For example, it 
+1) allows $DA^{\trsp}u$ where $D$ is a diagonal matrix with diagonal given by $Av$, and $u$ and $v$ are independent standard Gaussian vectors, but
+2) disallows $A^{\trsp}Av$.
+
+Nevertheless, the restrictions of \citep{yangTP1} and \citep{yangTP2}'s Master Theorems are natural for their respective settings. Thus, \citep{yangTP1} and \citep{yangTP2} are able to generalize research lines 1 and 3 to their most practically relevant scenarios (which is more than enough for the purpose of deep learning), but not all practically \emph{conceivable} scenarios (for example, when a weight matrix and its transpose are both used in the forward pass of a neural network). Furthermore, their Master Theorems are \emph{not enough} for proving the random matrix results of this paper, which requires machinery that handles programs like $A^{\trsp}Av$.
+A major contribution of this paper is \emph{to prove a Master Theorem for any Tensor Program}, without the restrictions above%
+\footnote{A version of this general Master Theorem was already presented in \citet{yangScalingLimitsWide2019arXiv.org}. Here we focus on giving a more organized, pedagogical proof of it as well as a succinct outline.}.
+From this would naturally follow the aforementioned generalizations of \citep{yangTP1,yangTP2} as well as all of the RMT results in this paper.
+
+\paragraph*{The \emph{Tensor Programs} Series}
+
+This paper will complete the rewriting of \citet{yangScalingLimitsWide2019arXiv.org}. Between \citep{yangTP1}, \citep{yangTP2}, and this paper, most results of \citet{yangScalingLimitsWide2019arXiv.org} are now re-presented in an accessible way. This paper also finishes the foundation for the current version of the Tensor Programs machinery, which we will rely on crucially for several future papers. We intend this paper to be an authoritative reference for the technical details and the formulation of this foundation, going forward.
+
+\paragraph*{Summary of Our Contributions}
+\begin{enumerate*}
+\item We prove the unrestricted Master Theorem, as explained above (\cref{sec:netsort}).
+\item Give new proofs of the semicircle and Marchenko-Pastur laws, benchmarking our theoretical framework against these fundamental mathematical results (\cref{sec:semicircle,sec:MP}).
+\item Prove the Free Independence Principle (FIP) (\cref{sec:FIPMain}).
+\item Apply FIP to rigorously compute the Jacobian singular value distribution of a randomly initialized NN (\cref{sec:jac}).
+\end{enumerate*}
+
+For readers familiar with \citep{yangTP1,yangTP2}, we also: 5.\ Generalize the GP (research line 1) and NTK (research line 3) results of \citep{yangTP1,yangTP2} by allowing the transpose of any weight matrix in the NN forward computation (\cref{sec:generalizedNTK4A,sec:NNGP}).
+6.\ Use FIP to give a new proof of how \emph{Simple GIA Check} allows one to assume GIA when computing NTK rigorously (\cref{{sec:GIAFIP}}).
+
+Taken together with \citep{yangTP1,yangTP2}, this paper shows the versatility and power of the \emph{Tensor Programs technique}: To calculate (or show the existence of) some limit, one can just express the quantity of concern in a Tensor Program and apply the Master Theorem mechanically.
+
+\subfile{NetsorT2.tex}
+
+\subfile{semicircleLaw.tex}
+
+\subfile{FreeIndependence.tex}
+
+\subfile{NNjacobian.tex}
+
+\subfile{proofsketch.tex}
+
+\section{Related Works}
+
+\paragraph{Jacobian Singular Value Distribution of a Neural Network}
+\citet{pennington_resurrecting_2017,pennington_emergence_2018} originally studied the multilayer-perceptron (MLP)'s Jacobian singular value distribution, in the limit of large width.
+\citet{tarnowski_dynamical_2018,ling_spectrum_2019} generalized this analysis to residual MLPs and \citet{xiao_dynamical_2018} to convolutional networks.
+These works assumed certain asymptotic freeness as in \cref{{stmt:AsymptoticFreenessAssumption}}, which was first proven rigorously by \citet{yangScalingLimitsWide2019arXiv.org} and presented in a more accessible way here.
+Recently, \citet{pastur2020random} gave a new, direct proof of this asymptotic distribution for MLP by induction in its depth and standard random matrix machinery.
+In comparison, our technique here is more general, both in the type of architectures allowed (any that is expressible in \netsort{}, which by \citet{yangTP1,yangTP2} includes practically all architectures) and in the nonlinearities involved (\citet{pastur2020random} assumes $\phi, \phi'$ are both bounded but we only require $\phi'$ is bounded).
+
+In this paper, we are concerned with the input-output Jacobian of a neural network on a fix input. 
+Other works have considered the Jacobian with respect to the parameters, where the Jacobian has dimension \#parameters $\times$ \#data points (e.g. \citep{pennington_spectrum_2018}). This is a related but distinct case from the input-output Jacobian.
+
+\paragraph*{$\Zdot^{Wx}$ as the \emph{Onsager Correction Term}}
+
+This $\Zdot^{Wx}$ has appeared before, in a limited setting, in the literature of asymmetric message passing as the \emph{Onsager correction term}. Asymmetric message passing \citep{donoho_message_2009} is an algorithm that tries to recover a ground truth signal $v$ from a noisy measurement $Wv$ of it obtained by a matrix $W$. This algorithm repeatedly multiplies the measurement by $W$ and its transpose $W^{\trsp}$, interleaving with coordinatewise nonlinearities. In between matrix multiplications, this Onsager correction term is subtracted explicitly. \citet{bayati_dynamics_2011} famously proved the recovery properties of this algorithm as the matrix size tends to infinity. This algorithm can be written down in a \netsort{} program, and (a version of) \citet{bayati_dynamics_2011}'s results can be realized as a corollary of the \netsort{} Master Theorem (see \citet{yangScalingLimitsWide2019arXiv.org}). In contrast, the Master Theorem keeps track of the Onsager correction term throughout arbitrary computation. This allows us to prove powerful theorems like the Semicircle Law and the Free Independence Principle, as shown in this paper.
+
+\paragraph*{The \emph{Tensor Programs} Series}
+
+This paper is the third in the \emph{Tensor Programs} series, following \citet{yangTP1,yangTP2}. The unrestricted Master Theorem, the new proofs of semicircle and Marchenko-Pastur laws, and the singular value distribution result for multilayer-perceptron originally appeared in \citet{yangScalingLimitsWide2019arXiv.org}, but here we present a clear, pedagogical presentation of them, with some technical improvements as well.
+The Free Independence Principle is new and unique to this paper. Compared to the Master Theorem of \citet{yangTP2}, our Master Theorem here does not assume the BP-like condition (which implies that $W^\trsp$ can be assumed independent from $W$, i.e. GIA), but rather works for \emph{any} \netsort{} program.
+
+\section{Conclusion}
+
+In this work, we proved a Master Theorem for any \netsort{} program and applied this new theorem to give new proofs of the semicircle and Marchenko-Pastur laws, as well as to propose and prove the \emph{Free Independence Principle (FIP)}.
+FIP then allows us to calculate the asymptotic Jacobian singular value distribution of a neural network.
+These results suggest a new way to approach nonlinear random matrix theory pertaining to deep learning.
+More generally, in combination with \citet{yangTP1,yangTP2}, they demonstrate the versatility of the \emph{Tensor Programs} technique.
+
+\section*{Acknowledgements}
+
+We thank Boris Hanin, Sam Schoenholz, Zhiyuan Li, Jeffrey Pennington, Etai Littwin, Ilya Razenshteyn, Bobby He, Ryan O'Donnell, Edward Hu, Michael Santacroce, Jason Lee, Judy Shen, Jascha Sohl-Dickstein for feedback on working copies of this manuscript.
+
+\bibliography{references}
+\bibliographystyle{plainnat}
+\newpage
+
+\appendix
+
+\subfile{extraTheorems.tex}
+
+\subfile{Generalized_GP4A_NTK4A.tex}
+
+\subfile{advancedNetsorT.tex}
+
+\subfile{RMTBackground.tex}
+
+\subfile{MarchenkoPastur.tex}
+
+\subfile{FIPProof.tex}
+
+\subfile{proofs.tex}
+
+\end{document}

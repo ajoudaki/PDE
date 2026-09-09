@@ -1,0 +1,74 @@
+\usepackage{amssymb, amsmath, amsthm}
+% \usepackage{stmaryrd}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\makeatletter
+\newcommand{\pushright}[1]{\ifmeasuring@#1\else\omit\hfill$\displaystyle#1$\fi\ignorespaces}
+\newcommand{\pushleft}[1]{\ifmeasuring@#1\else\omit$\displaystyle#1$\hfill\fi\ignorespaces}
+\makeatother
+
+
+\newcommand{\ind}{\mathbb{I}} % indicator function
+\newcommand{\Gaus}{\mathcal{N}}
+\newcommand{\phantomeq}{\phantom{{}={}}}
+
+% \usepackage[thmmarks]{ntheorem}
+
+
+
+% bracketing symbols
+\newcommand{\la}[0]{\langle} 
+\newcommand{\ra}[0]{\rangle}
+\newcommand{\lp}{\left(}
+\newcommand{\rp}{\right)}
+
+% common macros
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\dom}{\operatorname{dom}}
+\newcommand{\range}{\operatorname{range}}
+\newcommand{\sbe}{\subseteq}
+\newcommand{\spe}{\supseteq}
+\newcommand{\xrar}{\xrightarrow}
+\newcommand{\xlar}{\xleftarrow}
+\newcommand{\inv}[1]{{#1}^{-1}}
+\newcommand{\pdf}[2]{\frac{\pd #1}{\pd #2}}
+\newcommand{\pd}{\partial}
+\newcommand{\f}[2]{\frac{#1}{#2}}
+\newcommand{\Diag}{\mathrm{Diag}}
+\newcommand{\tr}{\operatorname{tr}}
+
+
+\newcommand{\Aa}{\mathcal{A}}
+\newcommand{\Bb}{\mathcal{B}}
+
+\newcommand{\intd}{\mathrm{d}}
+\newcommand{\dd}{\mathop{}\!\intd} % integration d
+\newcommand{\p}[2]{#1^{(#2)}}
+
+% common structures
+%\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+%\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+
+
+% probability theory
+\DeclareMathOperator*{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\EV}{\operatorname*{\mathbb{E}}}
+
+% algebra
+\DeclareMathOperator*{\argmin}{argmin}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\sgn}{\operatorname{sgn}}
+
+% logic
+\newcommand{\meet}{\wedge}
+\newcommand{\join}{\vee}
+\newcommand{\bigmeet}{\bigwedge}
+\newcommand{\bigjoin}{\bigvee}
+

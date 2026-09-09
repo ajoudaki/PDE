@@ -1,0 +1,431 @@
+Yes. I’ll keep the same structure, but make it read like one proof rather than a sequence of emphasized slogans.
+
+We work at width \(n\), but keep the \(n\)-dependence implicit. Every normalization by width is written explicitly.
+
+At Euler step \(k\),
+
+\[
+z_k=W_kx_k,\qquad D_k=\tanh(z_k),
+\]
+
+\[
+x_{k+1}=x_k-hW_k^\top D_k,
+\]
+
+\[
+W_{k+1}=W_k-\frac hn D_kx_k^\top.
+\]
+
+The initialization is
+
+\[
+x_{i,0}\overset{\mathrm{iid}}{\sim}N(0,1),
+\qquad
+(W_0)_{ij}\overset{\mathrm{iid}}{\sim}N\!\left(0,\frac1n\right).
+\]
+
+Fix \(h>0\) and a time horizon \(T\). Then there are only finitely many Euler steps.
+
+First, iterate the matrix update:
+
+\[
+W_k
+=
+W_0-\frac hn\sum_{r<k}D_rx_r^\top.
+\]
+
+Therefore every forward call can be rewritten as
+
+\[
+W_kv
+=
+W_0v
+-h\sum_{r<k}
+D_r\left(\frac1n x_r^\top v\right),
+\]
+
+and every backward call as
+
+\[
+W_k^\top u
+=
+W_0^\top u
+-h\sum_{r<k}
+x_r\left(\frac1nD_r^\top u\right).
+\]
+
+Thus the only genuinely random matrix object that needs analysis is the initial Gaussian matrix \(W_0\). Everything training adds is a finite sum of previously constructed vectors multiplied by normalized scalar products.
+
+The first obligation is therefore proved by induction over the finite sequence of matrix calls. Assume all vectors constructed so far have a joint population limit and that all required quantities such as
+
+\[
+\frac1n a^\top b
+\]
+
+converge. For the next use of \(W_0\) or \(W_0^\top\), Gaussian conditioning decomposes the new output into a part forced by previous matrix calls plus a fresh Gaussian part in unexplored directions. The coefficients of the forced part are functions of finite Gram matrices such as
+
+\[
+\frac1nV^\top V,
+\qquad
+\frac1nV^\top v,
+\]
+
+and the variance of the fresh part is likewise determined by quantities such as
+
+\[
+\frac1n\|P_{V^\perp}v\|_2^2.
+\]
+
+All of those converge by the induction hypothesis. Hence the next matrix output has a joint limit with everything already constructed. Applying \(\tanh\) then produces the next nonlinear vector, and the required normalized inner products also converge. Since there are only finitely many steps, the induction proves joint convergence of every quantity needed up to time \(T\).
+
+The second obligation is to turn these limiting matrix responses into one actual population operator. Define an equivalence relation on finite-width probe sequences by
+
+\[
+v\sim\widetilde v
+\quad\Longleftrightarrow\quad
+\frac1n\|v-\widetilde v\|_2^2\to0.
+\]
+
+The population vector represented by \(v\) is its equivalence class \([v]\).
+
+We then define the limiting initial operator by
+
+\[
+\mathsf W_0[v]:=[W_0v].
+\]
+
+This must be independent of the chosen representative. If \(v\sim\widetilde v\), then
+
+\[
+\frac1n\|v-\widetilde v\|_2^2\to0.
+\]
+
+For the Gaussian initialization, the operator norm is bounded by a constant independent of width with probability tending to one:
+
+\[
+\|W_0\|_{\mathrm{op}}\le C.
+\]
+
+Hence
+
+\[
+\frac1n
+\|W_0v-W_0\widetilde v\|_2^2
+\le
+C^2
+\frac1n
+\|v-\widetilde v\|_2^2
+\to0.
+\]
+
+So \([W_0v]=[W_0\widetilde v]\), and the operator is well-defined.
+
+Linearity is then purely algebraic:
+
+\[
+\begin{aligned}
+\mathsf W_0(a[v]+b[q])
+&=\mathsf W_0[av+bq]\\
+&=[W_0(av+bq)]\\
+&=[aW_0v+bW_0q]\\
+&=a\mathsf W_0[v]+b\mathsf W_0[q].
+\end{aligned}
+\]
+
+The same operator-norm estimate also gives
+
+\[
+\frac1n\|W_0v\|_2^2
+\le
+C^2\frac1n\|v\|_2^2,
+\]
+
+which becomes at population level
+
+\[
+\mathbb E[(\mathsf W_0V)^2]
+\le
+C^2\mathbb E[V^2].
+\]
+
+So \(\mathsf W_0\) is bounded and therefore extends uniquely to the \(L^2\)-closure of the generated population vectors.
+
+The third obligation is to prove that the limiting backward action is the adjoint of this same operator. Define temporarily
+
+\[
+B[u]:=[W_0^\top u].
+\]
+
+The same norm argument makes \(B\) well-defined. At finite width,
+
+\[
+\frac1n u^\top W_0v
+=
+\frac1n(W_0^\top u)^\top v
+\]
+
+exactly. Obligation 1 gives the corresponding population limits:
+
+\[
+\frac1n u^\top W_0v
+\to
+\mathbb E[U\,\mathsf W_0V],
+\]
+
+and
+
+\[
+\frac1n(W_0^\top u)^\top v
+\to
+\mathbb E[(BU)V].
+\]
+
+Therefore
+
+\[
+\mathbb E[U\,\mathsf W_0V]
+=
+\mathbb E[(BU)V]
+\]
+
+for all relevant \(U,V\). But the adjoint \(\mathsf W_0^*\) is the unique map satisfying
+
+\[
+\mathbb E[U\,\mathsf W_0V]
+=
+\mathbb E[(\mathsf W_0^*U)V].
+\]
+
+Hence \(B=\mathsf W_0^*\).
+
+At this point the fixed-\(h\) width limit is essentially complete. The trained population operator is
+
+\[
+\mathsf W_k
+=
+\mathsf W_0
+-
+h\sum_{r<k}D_r\otimes X_r,
+\]
+
+where
+
+\[
+(D\otimes X)V
+=
+D\,\mathbb E[XV].
+\]
+
+The corresponding population Euler recursion is
+
+\[
+Z_k=\mathsf W_kX_k,
+\qquad
+D_k=\tanh(Z_k),
+\]
+
+\[
+X_{k+1}
+=
+X_k-h\mathsf W_k^*D_k,
+\]
+
+\[
+\mathsf W_{k+1}
+=
+\mathsf W_k-hD_k\otimes X_k.
+\]
+
+Obligation 1 already proves that the finite-width Euler trajectory converges to this population recursion for fixed \(h\).
+
+The final step is \(h\to0\). Write the state as
+
+\[
+Y=(X,\mathsf W)
+\]
+
+and the population dynamics as
+
+\[
+\dot Y=F(Y),
+\]
+
+with
+
+\[
+F(X,\mathsf W)
+=
+\left(
+-\mathsf W^*\tanh(\mathsf WX),
+\;
+-\tanh(\mathsf WX)\otimes X
+\right).
+\]
+
+First, both the Euler scheme and the continuous flow remain bounded on every finite time interval. Since \(|\tanh|\le1\),
+
+\[
+\|D\|_{L^2}\le1.
+\]
+
+For the flow,
+
+\[
+\frac{d}{dt}\|X\|_{L^2}
+\le
+\|\mathsf W\|_{\mathrm{op}},
+\]
+
+and
+
+\[
+\frac{d}{dt}\|\mathsf W\|_{\mathrm{op}}
+\le
+\|X\|_{L^2}.
+\]
+
+Thus
+
+\[
+S(t):=\|X(t)\|_{L^2}+\|\mathsf W(t)\|_{\mathrm{op}}
+\]
+
+satisfies
+
+\[
+S'(t)\le S(t),
+\]
+
+so
+
+\[
+S(t)\le S(0)e^t.
+\]
+
+For Euler, similarly,
+
+\[
+S_{k+1}\le(1+h)S_k,
+\]
+
+and hence
+
+\[
+S_k\le e^{kh}S_0.
+\]
+
+On this bounded region, \(F\) is Lipschitz. The key estimate is
+
+\[
+\|\tanh(\mathsf WX)-\tanh(\widetilde{\mathsf W}\widetilde X)\|_{L^2}
+\le
+\|\mathsf WX-\widetilde{\mathsf W}\widetilde X\|_{L^2},
+\]
+
+together with
+
+\[
+\mathsf WX-\widetilde{\mathsf W}\widetilde X
+=
+\mathsf W(X-\widetilde X)
++
+(\mathsf W-\widetilde{\mathsf W})\widetilde X.
+\]
+
+The uniform bounds then give
+
+\[
+\|F(Y)-F(\widetilde Y)\|
+\le
+L_T\|Y-\widetilde Y\|.
+\]
+
+Now compare one exact flow step with one Euler step. The exact solution satisfies
+
+\[
+Y(t+h)
+=
+Y(t)+\int_t^{t+h}F(Y(s))\,ds.
+\]
+
+Write this as
+
+\[
+Y(t+h)
+=
+Y(t)+hF(Y(t))+\rho.
+\]
+
+Then
+
+\[
+\rho
+=
+\int_t^{t+h}
+\bigl(F(Y(s))-F(Y(t))\bigr)\,ds.
+\]
+
+Since \(F\) is bounded by some \(M_T\),
+
+\[
+\|Y(s)-Y(t)\|
+\le
+M_T(s-t),
+\]
+
+and Lipschitz continuity gives
+
+\[
+\|F(Y(s))-F(Y(t))\|
+\le
+L_TM_T(s-t).
+\]
+
+Therefore
+
+\[
+\|\rho\|
+\le
+\frac{L_TM_T}{2}h^2.
+\]
+
+So the local Euler error is \(O(h^2)\).
+
+Finally, let
+
+\[
+e_k=\|Y_k-Y(kh)\|.
+\]
+
+Comparing the exact and Euler updates gives
+
+\[
+e_{k+1}
+\le
+(1+L_Th)e_k+C_Th^2.
+\]
+
+Since \(e_0=0\),
+
+\[
+e_k
+\le
+C_Th^2
+\sum_{j=0}^{k-1}(1+L_Th)^j.
+\]
+
+For \(kh\le T\),
+
+\[
+(1+L_Th)^k\le e^{L_TT},
+\]
+
+so
+
+\[
+e_k\le C_T' h.
+\]
+
+Thus the population Euler recursion converges uniformly on finite time intervals to the continuous population flow as \(h\to0\).
+
+The whole argument is therefore: Gaussian conditioning proves the fixed-mesh joint width limit; equivalence classes plus the uniform operator-norm bound produce one genuine bounded population operator; the finite transpose identity identifies its adjoint; the trained matrix becomes a finite sum of rank-one population updates; and standard Euler stability then sends the mesh size to zero.

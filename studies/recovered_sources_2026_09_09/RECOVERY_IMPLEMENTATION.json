@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-09",
+  "status": "copied_and_byte_verified",
+  "destination": "/home/amir/Codes/PDE/studies/recovered_sources_2026_09_09",
+  "payload": {
+    "original_plan_files": 247,
+    "original_plan_bytes": 5904672,
+    "tar_supplement_files": 22,
+    "tar_supplement_bytes": 174035,
+    "total_files": 269,
+    "total_bytes": 6078707,
+    "unique_sha256_count": 269
+  },
+  "integrity": {
+    "every_source_verified_before_destination_creation": true,
+    "every_destination_reopened_and_hashed": true,
+    "all_sizes_and_sha256_match": true,
+    "no_preexisting_destination_overwritten": true,
+    "exact_allowlisted_archive_members_only": true,
+    "preserved_inventory_manifests_byte_exact": true
+  },
+  "archives": {
+    "zip_extractions": 49,
+    "tar_extractions": 22,
+    "binary_archive_containers_copied": 0,
+    "historical_backup_pdf_documents": 3
+  },
+  "tar_supplement": {
+    "source": "/tmp/stieltjes_round_pre_cleanup_20260813.tar.gz",
+    "bytes": 4483211,
+    "sha256": "d1b46af2388b1a523861142b00e59936a647d3d709ad228356a5b7652edc87be",
+    "listing_members": 187,
+    "source_members_inspected": 60,
+    "existing_repository_duplicate_sources": 37,
+    "selected_new_sources": 22,
+    "excluded_scratch_sources": 1,
+    "excluded_other_records": 127,
+    "no_unsafe_members_found": true
+  },
+  "verification_records": [
+    "manifests/VERIFIED_ORIGINAL.jsonl",
+    "manifests/VERIFIED_TAR_SUPPLEMENT.jsonl"
+  ],
+  "selection_records": [
+    "manifests/COPY_PLAN.jsonl",
+    "manifests/TAR_SUPPLEMENT.jsonl"
+  ],
+  "preserved_manifests": [
+    {
+      "path": "manifests/COPY_PLAN.jsonl",
+      "bytes": 176179,
+      "sha256": "5d14046e52ab4bea1f1dbc5178587c0c4b22d5fde1dd272e95ef3d0449ae49d6"
+    },
+    {
+      "path": "manifests/RECOVERY_FILES.jsonl",
+      "bytes": 117499,
+      "sha256": "56b0a1795fa070a45b20a5b196405dfd47e9f8740bb6b53f3d64eb86f2ce27db"
+    },
+    {
+      "path": "manifests/ARCHIVE_MEMBERS.jsonl",
+      "bytes": 190588,
+      "sha256": "f8b5f3d8a52253337ff65d4235ea9ad46cc3508e0ca0acea2ab6aa0fa1433b7c"
+    },
+    {
+      "path": "manifests/BACKUP_FILES.jsonl",
+      "bytes": 28746,
+      "sha256": "0b632975b4c5b5fc213988bdf11cf883bb8ff0b960424a8653e0dc00ddf3fd11"
+    },
+    {
+      "path": "manifests/EXCLUSIONS.jsonl",
+      "bytes": 23340,
+      "sha256": "4d62f472b70d3767c2b1d73ae2e2b8f2f4a80e8821a17d359ff835f1f57b70f8"
+    },
+    {
+      "path": "manifests/ARCHIVE_EXCLUSIONS.jsonl",
+      "bytes": 60951,
+      "sha256": "72f558baff2aa304aace09a8e4f8fc740670c3535db952ef468c72ff0a930b2b"
+    },
+    {
+      "path": "manifests/MANIFEST_INDEX.json",
+      "bytes": 6261,
+      "sha256": "afae7f5c67ef28da3b8ee0d96e17e9c7599079a8a7e7d6f22c1d155e5806706d"
+    },
+    {
+      "path": "manifests/KEY_CHECKS.json",
+      "bytes": 9161,
+      "sha256": "936e8b7904aef3a4179a5598462fee732df377599b69d8305479daca2afdbb62"
+    },
+    {
+      "path": "manifests/REPORT.md",
+      "bytes": 11613,
+      "sha256": "c1c80bcab84152aa5b72ed9a0bd9fa89c6022a13bf6be8753b0b30414ac64b66"
+    },
+    {
+      "path": "manifests/TAR_SUPPLEMENT.jsonl",
+      "bytes": 18844,
+      "sha256": "5180c12bb2679decad37c7bdd8bd85c16a3e91c260637a5d70a510e72822f641"
+    },
+    {
+      "path": "manifests/TAR_INVENTORY.jsonl",
+      "bytes": 40573,
+      "sha256": "7f10869b3700b43aa6079326f4a7c06904e8145b00453253f40713d3ad0db261"
+    }
+  ],
+  "preservation_method": "Read-only original-source preflight with full SHA256/size checks; all selected bytes buffered; exclusive-create binary writes; exact indexed ZIP/tar member reads; reopen and hash every destination. No archive extractall, code import from payload, or recovered-program execution.",
+  "authored_preservation_script": "/tmp/refactor-recovery-TPoHZF/preserve_recovery.py",
+  "not_performed": [
+    "Git commands or changes",
+    "changes to original sources",
+    "main repository layout edits",
+    "experiments or execution of recovered code",
+    "new mathematical certification"
+  ],
+  "classification": "ARCHIVAL — acceptance/status unknown; source claims, corrections and old review verdicts preserved verbatim.",
+  "limitations": [
+    "The older inventory REPORT.md and MANIFEST_INDEX.json in manifests/ are frozen pre-copy records; this implementation record supersedes their no-copy and uninspected-Stieltjes-tar statements.",
+    "The bounded /tmp and other-user coverage limits remain; the Stieltjes tar supplement closes only the explicitly requested omitted archive.",
+    "Historical ROUTE_CAUSAL_COMPOSITE.md remains unmaterialized; the existing source-reconstruction locator is preserved in KEY_CHECKS.json.",
+    "Duplicate files already in the main repository were not recopied. Source code and TeX may retain original paths/import names and references to deliberately excluded data or graphics.",
+    "This directory is the recovery component of a non-data rollback snapshot, not a complete repository or self-contained executable reproduction."
+  ]
+}

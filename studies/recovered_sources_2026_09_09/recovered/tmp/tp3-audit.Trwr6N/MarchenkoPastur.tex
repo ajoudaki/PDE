@@ -1,0 +1,156 @@
+%auto-ignore
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\global\long\def\mump{\mu_{\mathrm{mp}}}%
+
+\global\long\def\musc{\mu_{\mathrm{sc}}}%
+\global\long\def\relu{\mathrm{relu}}%
+
+\section{Proving the Marchenko-Pastur Law by Tensor Programs}
+\label{sec:MP}
+
+Marchenko-Pastur law \citep{marcenko_distribution_1967} is another cornerstone random matrix result on the level of semicircle law. It says that the spectrum $\mu_{AA^\trsp}$ of (what's known as Wishart) matrices $AA^{\trsp}$, where $A\in\R^{m\times n},A_{\alpha\beta}\sim\Gaus(0,1/n)$, converges in distribution if the shape ratio $m/n\to\rho$ for a finite but nonzero $\rho\in(0,\infty)$:
+(see \cref{defn:ASConvergenceESD} for meaning of $\asto$)
+\begin{equation}
+    \mu_{AA^\trsp} \asto
+\mump(x)\defeq\relu(1-\rho^{-1})\delta(x)+\frac{1}{\rho2\pi x}\sqrt{(b-x)(x-a)}\ind_{[a,b]}(x)\dd x
+\label{eqn:MPdefn}
+\end{equation}
+where $\delta(x)$ is the Dirac Delta, $\relu(x) = x \ind(x > 0)$, $a=(1-\sqrt{\rho})^{2}$, and $b=(1+\sqrt{\rho})^{2}$. This distribution also yields the (square of) of the singular value distributions of $A$.
+
+In this section, we use \netsort{} with variable dimensions (\cref{appendix:VarDim}) to prove this law. Like for the semicircle law, our purpose is to 1) demonstrate concrete examples of computing with \netsort{} with variable dimensions, and 2) ``benchmark'' and show our framework powerful enough to prove this nontrivial result.
+
+Like in \cref{sec:semicircle}, we adopt the Moment Method (\cref{fact:MomentMethod}). This means that we need to show that the moments of $AA^{\trsp}$ converge to the corresponding moments of $\mu$:
+\begin{equation}
+\frac{1}{n}\tr\left(AA^{\trsp}\right)^{k}\to\EV_{\lambda\sim\mump}\lambda^{k},\quad \text{for all $k=1,2, \ldots$}\label{eq:MPMomentConverge}
+\end{equation}
+To calculate this moment $\tr\left(AA^{\trsp}\right)^{k}$, we use the trace trick to rewrite it as
+\[
+\frac{1}{n}\tr\left(AA^{\trsp}\right)^{k}=\frac{1}{n}\EV_{v\sim\Gaus(0,I)}v^{\trsp}\left(AA^{\trsp}\right)^{k}v.
+\]
+We can then express the RHS in a \netsort{} program with variable dimensions: Let $\mathcal{V}=\{v\},\mathcal{W}=\{A\}$, and introduce new vectors via \refMatMul{} like so
+\[
+u^{i}=A^{\trsp}v^{i-1},\quad v^{i}=Au^{i},\quad i=1,\ldots,k,
+\]
+where we have set $v^{0}=v$ for convenience. Then mathematically, $v^{i}=(AA^{\trsp})^{i}v$. By \cref{thm:MasterTheoremmeanConvergenceMainText},
+\[
+    \frac{1}{n}\tr\left(AA^{\trsp}\right)^{k}
+    = \EV_v \frac{v^{\trsp}v^{k}}{n}\asto\EV Z^{v}Z^{v^{k}}.
+\]
+Thus, we are done if can demonstrate
+\[
+\EV Z^{v}Z^{v^{k}}=\EV_{\lambda\sim\mump}\lambda^{k}
+\]
+Now, all that is left is to \emph{compute} $Z^{v^{i}}$.
+
+\subsection{Explicit Calculations of the First Few Moments}
+
+To give a concrete feel for the proof, we first calculate the first few moments as examples.
+Before we begin, note that $\mathring{\sigma}_{A}^{2}=1$ and $\mathring{\sigma}_{A^{\trsp}}^{2}=\rho$ (where $\mathring{\sigma}_{A^{\trsp}}^{2}$ is as defined in \cref{setup:netsortVarDim}).
+
+\paragraph*{First Moment}
+
+First we have $Z^{v}=\Gaus(0,1)$, $Z^{u^{1}}=\Gaus(0,\mathring{\sigma}_{A^{\trsp}}^{2})=\Gaus(0,\rho),$ independent of each other. Then
+\[
+Z^{v^{1}}=\hat{Z}^{v^{1}}+\Zdot^{v^{1}},
+\]
+where $\Zdot^{v^{1}}=\mathring{\sigma}_{A}^{2}Z^{v}\EV\frac{\partial Z^{u^{1}}}{\partial\hat{Z}^{u^{1}}}=Z^{v}$ and $\hat{Z}^{v^{1}}=\Gaus(0,\rho)$ independent of everything else. Thus, the first moment of $AA^{\trsp}$ has limit
+\[
+\frac{1}{n}\tr AA^{\trsp}\asto\EV Z^{v}Z^{v^{1}}=\EV Z^{v}\Zdot^{v^{1}}=\EV(Z^{v})^{2}=1=\EV_{\lambda\sim\mump}\lambda
+\]
+
+\paragraph*{Second Moment}
+
+Next, we have $Z^{u^{2}}=Z^{A^{\trsp}v^{1}}=\hat{Z}^{u^{2}}+\Zdot^{u^{2}}$ where 
+\[
+\Zdot^{u^{2}}=\mathring{\sigma}_{A^{\trsp}}^{2}\left(Z^{u^{1}}\EV\frac{\partial Z^{v^{1}}}{\partial\hat{Z}^{v^{1}}}\right)=\rho Z^{u^{1}},
+\]
+and $\hat{Z}^{u^{2}}$ is zero-mean and jointly Gaussian with $\hat{Z}^{u^{1}}$, with
+\begin{align*}
+\Var\left(\hat{Z}^{u^{2}}\right) & =\mathring{\sigma}_{A^{\trsp}}^{2}\EV\left(Z^{v^{1}}\right)^{2}=\rho\left(\EV\left(\hat{Z}^{v^{1}}\right)^{2}+\EV\left(\Zdot^{v^{1}}\right)^{2}\right)=\rho(\rho+1)=\rho^{2}+\rho\\
+\Cov\left(\hat{Z}^{u^{2}},\hat{Z}^{u^{1}}\right) & =\mathring{\sigma}_{A^{\trsp}}^{2}\EV Z^{v^{1}}Z^{v}=\rho\EV\Zdot^{v^{1}}Z^{v}=\rho.
+\end{align*}
+Then $Z^{v^{2}}=Z^{Au^{2}}=\hat{Z}^{v^{2}}+\Zdot^{v^{2}}$, where
+\[
+\Zdot^{v^{2}}=\mathring{\sigma}_{A}^{2}\left(Z^{v^{1}}\EV\frac{\partial Z^{u^{2}}}{\partial\hat{Z}^{u^{2}}}+Z^{v}\EV\frac{\partial Z^{u^{2}}}{\partial\hat{Z}^{u^{1}}}\right)=Z^{v^{1}}+\rho Z^{v}.
+\]
+Thus, the second moment of $AA^{\trsp}$ has limit
+\[
+\frac{1}{n}\tr\left(AA^{\trsp}\right)^{2}\asto\EV Z^{v}Z^{v^{2}}=\EV Z^{v}\left(Z^{v^{1}}+\rho Z^{v}\right)=1+\rho=\EV_{\lambda\sim\mump}\lambda^{2}.
+\]
+
+\subsection{Proof for General Moments}
+
+In general, we have
+\begin{itemize}
+\item $\{\hat{Z}^{v^{i}}\}_{i}$ is jointly Gaussian with covariance
+\[
+\Cov\left(\hat{Z}^{v^{i}},\hat{Z}^{v^{j}}\right)=\EV Z^{u^{i}}Z^{u^{j}},
+\]
+\item $\{\hat{Z}^{u^{i}}\}_{i}$ is jointly Gaussian with covariance
+\[
+\Cov\left(\hat{Z}^{u^{i}},\hat{Z}^{u^{j}}\right)=\rho\EV Z^{v^{i-1}}Z^{v^{j-1}},
+\]
+\item and
+\begin{equation}
+\Zdot^{v^{i}}=\sum_{j=0}^{i-1}Z^{v^{j}}\EV\frac{\partial Z^{u^{i}}}{\partial\hat{Z}^{u^{j+1}}},\quad\Zdot^{u^{i}}=\rho\sum_{j=1}^{i-1}Z^{u^{j}}\EV\frac{\partial Z^{v^{i-1}}}{\partial\hat{Z}^{v^{j}}}.\label{eq:MPcheckZRecursion}
+\end{equation}
+\end{itemize}
+Expanding all $Z^{\bullet}$ into $\hat{Z}^{\bullet}+\Zdot^{\bullet}$ recursively, it is easy to see that there are coefficients $\{a_{j}^{i}\}_{i,j},\{b_{j}^{i}\}_{i,j}$ such that
+\begin{equation}
+Z^{v^{i}}=\sum_{j=0}^{i}a_{j}^{i}\hat{Z}^{v^{j}},\quad Z^{u^{i}}=\sum_{j=1}^{i}b_{j}^{i}\hat{Z}^{u^{j}}.\label{eq:MPZvExpansion}
+\end{equation}
+Since $\hat{Z}^{v}=\hat{Z}^{v^{0}}$ is independent from all other $\hat{Z}^{\bullet}$, we thus seek to prove
+\[
+a_{0}^{k}=\EV Z^{v^{k}}Z^{v}=\EV_{\lambda\sim\mump}\lambda^{k}.
+\]
+Given \cref{eq:MPZvExpansion}, we see
+\[
+a_{j}^{i}=\EV\frac{\partial Z^{v^{i}}}{\partial\hat{Z}^{v^{j}}},\quad b_{j}^{i}=\EV\frac{\partial Z^{u^{i}}}{\partial\hat{Z}^{u^{j}}}.
+\]
+Plugging \cref{eq:MPZvExpansion} into \cref{eq:MPcheckZRecursion}, we see
+\begin{align*}
+\Zdot^{v^{i}} & =\sum_{j=0}^{i-1}Z^{v^{j}}\EV\frac{\partial Z^{u^{i}}}{\partial\hat{Z}^{u^{j+1}}}=\sum_{j=0}^{i-1}Z^{v^{j}}b_{j+1}^{i}\\
+ & =\sum_{j=0}^{i-1}\left(\sum_{l=0}^{j}a_{l}^{j}\hat{Z}^{v^{l}}\right)b_{j+1}^{i}=\sum_{l=0}^{i-1}\hat{Z}^{v^{l}}\sum_{j=l}^{i-1}a_{l}^{j}b_{j+1}^{i}.
+\end{align*}
+Then 
+\[
+\sum_{l=0}^{i}a_{l}^{i}\hat{Z}^{v^{l}}=Z^{v^{i}}=\hat{Z}^{v^{i}}+\Zdot^{v^{i}}=\hat{Z}^{v^{i}}+\sum_{l=0}^{i-1}\hat{Z}^{v^{l}}\sum_{j=l}^{i-1}a_{l}^{j}b_{j+1}^{i}.
+\]
+Matching coefficients, we obtain the recurrence relation
+\begin{equation}
+a_{i}^{i}=1,\quad\text{and for all \ensuremath{l=0,\ldots,i-1,}}\quad a_{l}^{i}=\sum_{j=l}^{i-1}a_{l}^{j}b_{j+1}^{i}.\label{eq:MParec}
+\end{equation}
+Similarly
+\begin{align*}
+\Zdot^{u^{i}} & =\rho\sum_{j=1}^{i-1}Z^{u^{j}}\EV\frac{\partial Z^{v^{i-1}}}{\partial\hat{Z}^{v^{j}}}=\rho\sum_{j=1}^{i-1}Z^{u^{j}}a_{j}^{i-1}\\
+ & =\rho\sum_{j=1}^{i-1}\left(\sum_{l=1}^{j}b_{l}^{j}\hat{Z}^{u^{l}}\right)a_{j}^{i-1}=\rho\sum_{l=1}^{i-1}\hat{Z}^{u^{l}}\sum_{j=l}^{i-1}b_{l}^{j}a_{j}^{i-1}.
+\end{align*}
+Then
+\[
+\sum_{l=1}^{i}b_{l}^{i}\hat{Z}^{u^{l}}=Z^{u^{i}}=\hat{Z}^{u^{i}}+\Zdot^{u^{i}}=\hat{Z}^{u^{i}}+\rho\sum_{l=1}^{i-1}\hat{Z}^{u^{l}}\sum_{j=l}^{i-1}b_{l}^{j}a_{j}^{i-1}.
+\]
+Matching coefficients, we get
+\begin{equation}
+b_{i}^{i}=1,\quad\text{and for all \ensuremath{l=1,\ldots,i-1},}\quad b_{l}^{i}=\rho\sum_{j=l}^{i-1}b_{l}^{j}a_{j}^{i-1}.\label{eq:MPbrec}
+\end{equation}
+Let $M_{r}\defeq\EV_{\lambda\sim\mump}\lambda^{r}$. Then we claim that the solution to the recurrence \cref{eq:MParec} and \cref{eq:MPbrec} is given by
+\[
+a_{j}^{i}=M_{i-j},\quad b_{i}^{i}=1,\quad\text{and}\quad b_{j}^{i}=\rho M_{i-j}\quad\text{for all \ensuremath{i-j\ge1}}.
+\]
+Plugging into \cref{eq:MParec} and \cref{eq:MPbrec}, we see it remains to show the following Catalan-like identity
+\begin{equation}
+M_{s}=\rho\sum_{r=1}^{s-2}M_{r}M_{s-1-r}+(1+\rho)M_{s-1}.\label{eq:MPCatalanLikeIdentity}
+\end{equation}
+This can be done by a change of variables to express $\EV_{\lambda\sim\mump}\lambda^{r}$ as an expectation over the semicircle law $\musc$:
+\[
+M_{r}=\EV_{\lambda\sim\mump}\lambda^{r}=\EV_{\lambda\sim\musc}(1+\rho+\lambda\sqrt{\rho})^{r-1}.
+\]
+Expanding the power and using the Catalan identity \cref{eqn:Catalan} for the moments of the semicircle law, we have
+\begin{equation}
+M_{r}=\sum_{k=0}^{\lfloor(r-1)/2\rfloor}\alpha^{k}(1+\alpha)^{r-1-2k}\binom{r-1}{2k}C_{k}\label{eq:MPMomentCatalan}
+\end{equation}
+where $C_{k}$ is the $k$th Catalan number. Then one can verify \cref{eq:MPCatalanLikeIdentity} by expanding $M_{r}$ into Catalan numbers using \cref{eq:MPMomentCatalan}, and repeatedly applying the Catalan identity $C_{k}=\sum_{i=0}^{k-1}C_{i}C_{k-1-i}$. This finishes the proof of the Marchenko-Pastur law.
+\end{document}

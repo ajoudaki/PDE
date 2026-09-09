@@ -1,0 +1,106 @@
+%auto-ignore
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\newcommand{\mump}{\mu_{\mathrm{mp}}}
+
+\newcommand{\Spec}[1]{\mu_{#1}}
+
+\section{Jacobian Singular Values of a Randomly Initialized Neural Network}
+\label{sec:jac}
+
+\paragraph{Notation}
+We denote the empirical spectral distribution of a random matrix $W$ by $\Spec{W}$.%
+\footnote{i.e.\ $\Spec{W} = \f 1 n \sum_{\alpha=1}^n \delta_{\lambda_\alpha}$, where $\delta_{\lambda_\alpha}$ is the Dirac Delta distribution centered on the $\alpha$th eigenvalue $\lambda_\alpha$.}
+We write $\mu_W \boxtimes \mu_V$ to denote the free multiplicative convolution of $\mu_W$ and $\mu_V$.%
+\footnote{
+  If $W$ and $V$ are asymptotically free random matrices, then $\mu_W \boxtimes \mu_V$ converges to the asymptotic spectral distribution of $WV$.
+  See \citet{speicher_free_2009} for more details on free probability.
+}
+
+\paragraph*{Review of semirigorous computation of Jacobian singular value distribution in prior works.}
+
+Analyses in previous works \citep{pennington_resurrecting_2017} are mostly semirigorous and proceed, for example, as follows:
+
+If $f(\xi)$ is an MLP as in \cref{eqn:MLP} with width $n$, then the Jacobian $J=\partial h^L/\partial {h^1} \in \R^{n\times n}$, on a fixed input $\xi$, can be written as%
+\footnote{
+    Note we study the Jacobian of the \emph{body} of the network, whose dimensions $n$ tend to infinity.
+    The perhaps more natural input-output Jacobian has finite dimensions, so there's no asymptotic distribution to speak of.
+}
+\[
+J=W^{L}D^{L-1}W^{L-1}D^{L-2}\cdots W^{2}D^{1},
+\]
+where $W^{l}$ are its weight matrices and $D^{l}=\Diag(\phi'(h^{l}))$ are the diagonal matrices with activation derivatives on the diagonals. Then the singular values of $J$ are the square roots of the spectrum of 
+\[
+J^{\trsp}J=D^{1}W^{2\trsp}\cdots D^{L-1}W^{L\trsp}W^{L}D^{L-1}\cdots W^{2}D^{1}.
+\]
+Now here's the non-rigorous part: 
+With the random initialization $W_{\alpha\beta}^1\sim\Gaus(0,1/d)$ and $W_{\alpha\beta}^2, \ldots, W_{\alpha\beta}^L \sim\Gaus(0,1/n),$
+prior works assume that the random matrix collections 
+\begin{equation}
+\text{$\{\ensuremath{W^{2}},\ensuremath{W^{2\trsp}}\},\ensuremath{\ldots},\{\ensuremath{W^{L}},\ensuremath{W^{L\trsp}}\},\{\ensuremath{D^{1}}\},\ensuremath{\ldots},\{\ensuremath{D^{L-1}}\}$ are asymptotically free.}\label{stmt:AsymptoticFreenessAssumption}
+\end{equation}
+Then, with this assumption, noting that the spectrum of $AB$ and $BA$ agree for any two matrices $A,B$ of appropriate sizes%
+\footnote{This can be seen by applying Sylvester's Determinant Theorem $\det(zI-AB)=\det(zI-BA)$ on the characteristic polynomials of $AB$ and $BA$.}, we have
+\begin{align*}
+\Spec{J^{\trsp}J} & =\Spec{D^{1}W^{2\trsp}\cdots D^{L-1}W^{L\trsp}W^{L}D^{L-1}\cdots W^{2}D^{1}}
+  =\Spec{(D^{1})^{2}W^{2\trsp}\cdots D^{L-1}W^{L\trsp}W^{L}D^{L-1}\cdots W^{2}}
+\end{align*}
+so that, by the freeness asumption of $D^{1}$ from the other matrices, we have
+\[
+\lim_{n\to\infty}\Spec{J^{\trsp}J}=\lim_{n\to\infty}\Spec{(D^{1})^{2}}\boxtimes\lim_{n\to\infty}\Spec{W^{2}\cdots D^{L-1}W^{L\trsp}W^{L}D^{L-1}\cdots W^{2}}
+\]
+where $\boxtimes$ denotes multiplicative free convolution. Repeating this logic yields
+\[
+\lim_{n\to\infty}\Spec{J^{\trsp}J}=\lim_{n\to\infty}\Spec{(D^{1})^{2}}\boxtimes\lim_{n\to\infty}\Spec{W^{2}W^{2\trsp}}\boxtimes\cdots\boxtimes\lim_{n\to\infty}\Spec{W^{L}W^{L\trsp}}.
+\]
+Since $\lim_{n\to\infty}\Spec{W^{i}W^{i\trsp}}$ is just the Marchenko-Pastur distribution (\cref{eqn:MPdefn}) and $\lim_{n\to\infty}\Spec{(D^{l})^{2}}$ is (at least, at the time, heuristically) distributed like $\phi'(Z^{h^{l}})$, the standard S-transform technique (see \citet{speicher_free_2009}) allows one to explicitly compute $\lim_{n\to\infty}\Spec{J^{\trsp}J}$.
+
+\paragraph*{Our contribution}
+
+Of course, by \cref{thm:FreeIndependencePrinciple} and the \netsort{} program \cref{eqn:MLP}, \cref{stmt:AsymptoticFreenessAssumption} is now completely rigorous.
+In fact, \cref{thm:FreeIndependencePrinciple} implies a much more general result.
+\begin{cor}[Free Independence Principle]
+\label{cor:NNFreeIndependence}
+In any randomly initialized neural network expressible in \netsort{} program $\pi$ with polynomially bounded \refNonlin{}, the weight matrices are asymptotically free from (the diagonal matrices formed from) bounded images of all preactivations:
+the random weight matrix collections $\{W,W^{\trsp}\}$ for matrices $W \in \mathcal W$, along with $\mathcal D(\pi)$ (defined in \cref{defn:DMatrices}), are asymptotically free. Furthermore, for any mutually independent partition $\mathcal{X}_{1},\ldots,\mathcal{X}_{k}$ of $\{Z^{x}:x\in\pi\}$, the random diagonal matrix collections
+$\mathcal D(\{x: Z^{x}\in\mathcal{X}_{1}\}),\ldots,\mathcal D(\{x:Z^{x}\in\mathcal{X}_{k}\})$
+are asymptotically free.
+\end{cor}
+Since almost all neural networks can be written in \netsort{}, as shown in \citet{yangTP1,yangTP2}, \cref{cor:NNFreeIndependence} is a very universal result.
+By this corollary, the entire computation above in fact (after easily checking $Z^{h^{1}},\ldots,Z^{h^{L-1}}$ are mutually independent) yields a proof of the following almost sure convergence:
+\begin{thm}\label{thm:JacSVMLP}
+    Consider an MLP $f(\xi)$ as in \cref{eqn:MLP} with $L$ hidden layers, width $n$, and nonlinearity $\phi$ with bounded weak derivative%
+    \footnote{i.e.\ $\phi$ is almost everywhere differentiable and $\phi'$ is a function that agrees with this derivative almost everywhere. ReLU is a typical example of $\phi$, whose weak derivative is the step function and is bounded.}
+     $\phi'$.
+Then its Jacobian $J=\partial h^L/\partial {h^1} \in \R^{n\times n}$ on a fixed input $\xi \in \R^d$ has the $n\to\infty$ limit
+\[
+\Spec{J^{\trsp}J}\asto\mu_{\phi'(Z^{h^{1}})}\boxtimes\cdots\boxtimes\mu_{\phi'(Z^{h^{L-1}})}\boxtimes\mump^{\boxtimes(L-1)}
+\]
+where $\mump$ is the Marchenko-Pastur distribution with shape ratio 1 (see \cref{eqn:MPdefn}), $\mu_{\phi'(Z^{h^{l}})}$ is the distribution of the random variable $\phi'(Z^{h^{l}})$, and $\asto$ denotes almost sure convergence of random measures (\cref{defn:ASConvergenceESD}).
+
+\end{thm}
+Most nonlinearities $\phi$ in deep learning practice have bounded weak derivatives (such as tanh or ReLU), and thus is covered by \cref{thm:JacSVMLP}.
+When $\phi$ is identity, \cref{thm:JacSVMLP} just recovers the Marchenko-Pastur Law.
+Note here the dependence of $\mu_{J^\trsp J}$ on input $\xi$ comes purely through $\mu_{\phi'(Z^{h^1})}, \ldots, \mu_{\phi'(Z^{h^L-1})}$.
+
+\paragraph{Generalizations}
+\cref{thm:JacSVMLP} generalizes straightforwardly to the case when the MLP has non-unit width ratios, in which case the $\mump^{\boxtimes(L-1)}$ should be replaced by free multiplicative convolution of Marchenko-Pastur distributions of different shape ratios (see \cref{eqn:MPdefn}).
+Also, like the remark below \cref{thm:FreeIndependencePrinciple}, we expect \cref{thm:JacSVMLP} holds if $\phi'$ is just polynomially bounded and \cref{cor:NNFreeIndependence} holds if $\mathcal D$ is defined using polynomially bounded (instead of bounded) $\psi$. We leave this to future work.
+
+\paragraph{Computing the Jacobian Singular Value Distribution of Any Neural Architecture}
+More generally, \cref{cor:NNFreeIndependence} allows us to compute the Jacobian singular value of neural networks of any architecture (such as residual networks, recurrent networks, convolutional networks, etc).
+
+Indeed, the Jacobian can always be expressed as a polynomial in the matrices and (the diagonal matrices formed from) vectors of an appropriate \netsort{} program.
+By \cref{cor:NNFreeIndependence}, these random matrix collections are asymptotically free.
+The asymptotic spectral distribution of such a polynomial in asymptotically free matrices can be computed via operator-valued free probability \citep[Chapter 10]{mingo_free_2017}.
+Thus our result here yields a general algorithm for computing the asymptotic singular value distribution of the Jacobian of a randomly initialized neural network of any architecture.
+Alternatively, one can always resort to explicit moment computations via Tensor Programs, as in \cref{sec:semicircle}.
+
+\paragraph{Simple GIA Check Implies GIA}
+It turns out that the Neural Tangent Kernel depends on the computation of backpropagation only through quantities that can be expressed as 2nd moment of Jacobian singular values, if Simple GIA Check (\cref{assm:simpleGIACheck}) holds.
+By the results of this section, we thus can replace the matrices $W^\trsp$ in backpropagation with copies that are independent from $W$ the forward pass.
+See \cref{sec:GIAFIP} for more details.
+
+\end{document}

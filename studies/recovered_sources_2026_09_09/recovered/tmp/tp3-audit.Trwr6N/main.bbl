@@ -1,0 +1,435 @@
+\begin{thebibliography}{55}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Alemohammad et~al.(2020)Alemohammad, Wang, Balestriero, and
+  Baraniuk]{alemohammad2020recurrent}
+Sina Alemohammad, Zichao Wang, Randall Balestriero, and Richard Baraniuk.
+\newblock The recurrent neural tangent kernel, 2020.
+
+\bibitem[Allen-Zhu et~al.(2018{\natexlab{a}})Allen-Zhu, Li, and
+  Liang]{allen-zhu_learning_2018}
+Zeyuan Allen-Zhu, Yuanzhi Li, and Yingyu Liang.
+\newblock Learning and {Generalization} in {Overparameterized} {Neural}
+  {Networks}, {Going} {Beyond} {Two} {Layers}.
+\newblock \emph{arXiv:1811.04918 [cs, math, stat]}, November
+  2018{\natexlab{a}}.
+\newblock URL \url{http://arxiv.org/abs/1811.04918}.
+
+\bibitem[Allen-Zhu et~al.(2018{\natexlab{b}})Allen-Zhu, Li, and
+  Song]{allen-zhu_convergence_2018}
+Zeyuan Allen-Zhu, Yuanzhi Li, and Zhao Song.
+\newblock A {Convergence} {Theory} for {Deep} {Learning} via
+  {Over}-{Parameterization}.
+\newblock \emph{arXiv:1811.03962 [cs, math, stat]}, November
+  2018{\natexlab{b}}.
+\newblock URL \url{http://arxiv.org/abs/1811.03962}.
+
+\bibitem[Allen-Zhu et~al.(2018{\natexlab{c}})Allen-Zhu, Li, and
+  Song]{allen-zhu_convergence_2018-1}
+Zeyuan Allen-Zhu, Yuanzhi Li, and Zhao Song.
+\newblock On the {Convergence} {Rate} of {Training} {Recurrent} {Neural}
+  {Networks}.
+\newblock \emph{arXiv:1810.12065 [cs, math, stat]}, October 2018{\natexlab{c}}.
+\newblock URL \url{http://arxiv.org/abs/1810.12065}.
+
+\bibitem[Arora et~al.(2019)Arora, Du, Hu, Li, Salakhutdinov, and
+  Wang]{arora_exact_2019}
+Sanjeev Arora, Simon~S. Du, Wei Hu, Zhiyuan Li, Ruslan Salakhutdinov, and
+  Ruosong Wang.
+\newblock On {Exact} {Computation} with an {Infinitely} {Wide} {Neural} {Net}.
+\newblock \emph{arXiv:1904.11955 [cs, stat]}, April 2019.
+\newblock URL \url{http://arxiv.org/abs/1904.11955}.
+
+\bibitem[Bayati and Montanari(2011)]{bayati_dynamics_2011}
+Mohsen Bayati and Andrea Montanari.
+\newblock The dynamics of message passing on dense graphs, with applications to
+  compressed sensing.
+\newblock \emph{IEEE Transactions on Information Theory}, 57\penalty0
+  (2):\penalty0 764--785, February 2011.
+\newblock ISSN 0018-9448, 1557-9654.
+\newblock \doi{10.1109/TIT.2010.2094817}.
+\newblock URL \url{http://arxiv.org/abs/1001.3448}.
+
+\bibitem[Chen et~al.(2018)Chen, Pennington, and
+  Schoenholz]{chen_dynamical_2018}
+Minmin Chen, Jeffrey Pennington, and Samuel Schoenholz.
+\newblock Dynamical {Isometry} and a {Mean} {Field} {Theory} of {RNNs}:
+  {Gating} {Enables} {Signal} {Propagation} in {Recurrent} {Neural} {Networks}.
+\newblock In \emph{Proceedings of the 35th {International} {Conference} on
+  {Machine} {Learning}}, volume~80 of \emph{Proceedings of {Machine} {Learning}
+  {Research}}, pages 873--882, Stockholmsmässan, Stockholm Sweden, July 2018.
+  PMLR.
+\newblock URL \url{http://proceedings.mlr.press/v80/chen18i.html}.
+
+\bibitem[Couillet and Debbah(2011)]{couillet_random_2011}
+Romain Couillet and Merouane Debbah.
+\newblock \emph{Random {Matrix} {Methods} for {Wireless} {Communications}}.
+\newblock Cambridge University Press, Cambridge, 2011.
+\newblock ISBN 978-0-511-99474-6.
+\newblock \doi{10.1017/CBO9780511994746}.
+\newblock URL \url{http://ebooks.cambridge.org/ref/id/CBO9780511994746}.
+
+\bibitem[Daniely et~al.(2016)Daniely, Frostig, and Singer]{daniely_toward_2016}
+Amit Daniely, Roy Frostig, and Yoram Singer.
+\newblock Toward {Deeper} {Understanding} of {Neural} {Networks}: {The} {Power}
+  of {Initialization} and a {Dual} {View} on {Expressivity}.
+\newblock In D.~D. Lee, M.~Sugiyama, U.~V. Luxburg, I.~Guyon, and R.~Garnett,
+  editors, \emph{Advances in {Neural} {Information} {Processing} {Systems} 29},
+  pages 2253--2261. Curran Associates, Inc., 2016.
+\newblock URL
+  \url{http://papers.nips.cc/paper/6427-toward-deeper-understanding-of-neural-networks-the-power-of-initialization-and-a-dual-view-on-expressivity.pdf}.
+
+\bibitem[Donoho et~al.(2009)Donoho, Maleki, and Montanari]{donoho_message_2009}
+David~L. Donoho, Arian Maleki, and Andrea Montanari.
+\newblock Message {Passing} {Algorithms} for {Compressed} {Sensing}.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 106\penalty0
+  (45):\penalty0 18914--18919, November 2009.
+\newblock ISSN 0027-8424, 1091-6490.
+\newblock \doi{10.1073/pnas.0909892106}.
+\newblock URL \url{http://arxiv.org/abs/0907.3574}.
+
+\bibitem[Du et~al.(2018)Du, Zhai, Poczos, and Singh]{du_gradient_2018}
+Simon~S. Du, Xiyu Zhai, Barnabas Poczos, and Aarti Singh.
+\newblock Gradient {Descent} {Provably} {Optimizes} {Over}-parameterized
+  {Neural} {Networks}.
+\newblock \emph{arXiv:1810.02054 [cs, math, stat]}, October 2018.
+\newblock URL \url{http://arxiv.org/abs/1810.02054}.
+
+\bibitem[Du et~al.(2019)Du, Hou, Póczos, Salakhutdinov, Wang, and
+  Xu]{du2019graph}
+Simon~S. Du, Kangcheng Hou, Barnabás Póczos, Ruslan Salakhutdinov, Ruosong
+  Wang, and Keyulu Xu.
+\newblock Graph neural tangent kernel: Fusing graph neural networks with graph
+  kernels, 2019.
+
+\bibitem[Garriga-Alonso et~al.(2018)Garriga-Alonso, Aitchison, and
+  Rasmussen]{garriga-alonso_deep_2018}
+Adrià Garriga-Alonso, Laurence Aitchison, and Carl~Edward Rasmussen.
+\newblock Deep {Convolutional} {Networks} as shallow {Gaussian} {Processes}.
+\newblock \emph{arXiv:1808.05587 [cs, stat]}, August 2018.
+\newblock URL \url{http://arxiv.org/abs/1808.05587}.
+
+\bibitem[Hanin(2018)]{hanin_which_2018}
+Boris Hanin.
+\newblock Which {Neural} {Net} {Architectures} {Give} {Rise} {To} {Exploding}
+  and {Vanishing} {Gradients}?
+\newblock January 2018.
+\newblock URL \url{https://arxiv.org/abs/1801.03744}.
+
+\bibitem[Hanin and Rolnick(2018)]{hanin_how_2018}
+Boris Hanin and David Rolnick.
+\newblock How to {Start} {Training}: {The} {Effect} of {Initialization} and
+  {Architecture}.
+\newblock \emph{arXiv:1803.01719 [cs, stat]}, March 2018.
+\newblock URL \url{http://arxiv.org/abs/1803.01719}.
+
+\bibitem[Hayou et~al.(2018)Hayou, Doucet, and Rousseau]{hayou_selection_2018}
+Soufiane Hayou, Arnaud Doucet, and Judith Rousseau.
+\newblock On the {Selection} of {Initialization} and {Activation} {Function}
+  for {Deep} {Neural} {Networks}.
+\newblock \emph{arXiv:1805.08266 [cs, stat]}, May 2018.
+\newblock URL \url{http://arxiv.org/abs/1805.08266}.
+
+\bibitem[Hazan and Jaakkola(2015)]{hazan_steps_2015}
+Tamir Hazan and Tommi Jaakkola.
+\newblock Steps {Toward} {Deep} {Kernel} {Methods} from {Infinite} {Neural}
+  {Networks}.
+\newblock \emph{arXiv:1508.05133 [cs]}, August 2015.
+\newblock URL \url{http://arxiv.org/abs/1508.05133}.
+
+\bibitem[Hron et~al.(2020)Hron, Bahri, Sohl-Dickstein, and
+  Novak]{hron2020infinite}
+Jiri Hron, Yasaman Bahri, Jascha Sohl-Dickstein, and Roman Novak.
+\newblock Infinite attention: Nngp and ntk for deep attention networks, 2020.
+
+\bibitem[Jacot et~al.(2018)Jacot, Gabriel, and Hongler]{jacot_neural_2018}
+Arthur Jacot, Franck Gabriel, and Clément Hongler.
+\newblock Neural {Tangent} {Kernel}: {Convergence} and {Generalization} in
+  {Neural} {Networks}.
+\newblock \emph{arXiv:1806.07572 [cs, math, stat]}, June 2018.
+\newblock URL \url{http://arxiv.org/abs/1806.07572}.
+
+\bibitem[Kivelson et~al.(1992)Kivelson, Lee, and Zhang]{kivelson_global_1992}
+Steven Kivelson, Dung-Hai Lee, and Shou-Cheng Zhang.
+\newblock Global phase diagram in the quantum {Hall} effect.
+\newblock \emph{Physical Review B}, 46\penalty0 (4):\penalty0 2223--2238, July
+  1992.
+\newblock ISSN 0163-1829, 1095-3795.
+\newblock \doi{10.1103/PhysRevB.46.2223}.
+\newblock URL \url{https://link.aps.org/doi/10.1103/PhysRevB.46.2223}.
+
+\bibitem[Lane et~al.(1955)Lane, Thomas, and Wigner]{lane_giant_1955}
+A.~M. Lane, R.~G. Thomas, and E.~P. Wigner.
+\newblock Giant {Resonance} {Interpretation} of the {Nucleon}-{Nucleus}
+  {Interaction}.
+\newblock \emph{Physical Review}, 98\penalty0 (3):\penalty0 693--701, May 1955.
+\newblock ISSN 0031-899X.
+\newblock \doi{10.1103/PhysRev.98.693}.
+\newblock URL \url{https://link.aps.org/doi/10.1103/PhysRev.98.693}.
+
+\bibitem[Le~Roux and Bengio(2007)]{le_roux_continuous_2007}
+Nicolas Le~Roux and Yoshua Bengio.
+\newblock Continuous neural networks.
+\newblock In \emph{Artificial {Intelligence} and {Statistics}}, pages 404--411,
+  2007.
+
+\bibitem[Lee et~al.(2018)Lee, Bahri, Novak, Schoenholz, Pennington, and
+  Sohl-dickstein]{lee_deep_2018}
+Jaehoon Lee, Yasaman Bahri, Roman Novak, Sam Schoenholz, Jeffrey Pennington,
+  and Jascha Sohl-dickstein.
+\newblock Deep {Neural} {Networks} as {Gaussian} {Processes}.
+\newblock In \emph{International {Conference} on {Learning} {Representations}},
+  2018.
+\newblock URL \url{https://openreview.net/forum?id=B1EA-M-0Z}.
+
+\bibitem[Lee et~al.(2019)Lee, Xiao, Schoenholz, Bahri, Sohl-Dickstein, and
+  Pennington]{lee_wide_2019}
+Jaehoon Lee, Lechao Xiao, Samuel~S. Schoenholz, Yasaman Bahri, Jascha
+  Sohl-Dickstein, and Jeffrey Pennington.
+\newblock Wide {Neural} {Networks} of {Any} {Depth} {Evolve} as {Linear}
+  {Models} {Under} {Gradient} {Descent}.
+\newblock \emph{arXiv:1902.06720 [cs, stat]}, February 2019.
+\newblock URL \url{http://arxiv.org/abs/1902.06720}.
+
+\bibitem[Ling et~al.(2019)Ling, He, and Qiu]{ling_spectrum_2019}
+Zenan Ling, Xing He, and Robert~C. Qiu.
+\newblock Spectrum concentration in deep residual learning: a free probability
+  approach.
+\newblock \emph{arXiv:1807.11694 [cs, stat]}, February 2019.
+\newblock URL \url{http://arxiv.org/abs/1807.11694}.
+\newblock arXiv: 1807.11694.
+
+\bibitem[Littwin et~al.(2020)Littwin, Galanti, and
+  Wolf]{littwin2020optimization}
+Etai Littwin, Tomer Galanti, and Lior Wolf.
+\newblock On the optimization dynamics of wide hypernetworks, 2020.
+
+\bibitem[Marčenko and Pastur(1967)]{marcenko_distribution_1967}
+V~A Marčenko and L~A Pastur.
+\newblock {DISTRIBUTION} {OF} {EIGENVALUES} {FOR} {SOME} {SETS} {OF} {RANDOM}
+  {MATRICES}.
+\newblock \emph{Mathematics of the USSR-Sbornik}, 1\penalty0 (4):\penalty0
+  457--483, April 1967.
+\newblock ISSN 0025-5734.
+\newblock \doi{10.1070/SM1967v001n04ABEH001994}.
+\newblock URL
+  \url{http://stacks.iop.org/0025-5734/1/i=4/a=A01?key=crossref.1d0b803ddab02373cb6b0690a61e734a}.
+
+\bibitem[Matthews et~al.(2018)Matthews, Rowland, Hron, Turner, and
+  Ghahramani]{matthews_gaussian_2018_arxiv}
+Alexander G. de~G. Matthews, Mark Rowland, Jiri Hron, Richard~E. Turner, and
+  Zoubin Ghahramani.
+\newblock Gaussian {Process} {Behaviour} in {Wide} {Deep} {Neural} {Networks}.
+\newblock \emph{arXiv:1804.11271 [cs, stat]}, April 2018.
+\newblock URL \url{http://arxiv.org/abs/1804.11271}.
+
+\bibitem[Mezzadri and Snaith(2005)]{mezzadri_recent_2005}
+F.~Mezzadri and N.~C. Snaith, editors.
+\newblock \emph{Recent {Perspectives} in {Random} {Matrix} {Theory} and
+  {Number} {Theory}}.
+\newblock Cambridge University Press, 1 edition, June 2005.
+\newblock ISBN 978-0-521-62058-1 978-0-511-55049-2.
+\newblock \doi{10.1017/CBO9780511550492}.
+\newblock URL
+  \url{https://www.cambridge.org/core/product/identifier/9780511550492/type/book}.
+
+\bibitem[Mingo and Speicher(2017)]{mingo_free_2017}
+J.A. Mingo and R.~Speicher.
+\newblock \emph{Free {Probability} and {Random} {Matrices}}.
+\newblock Fields {Institute} {Monographs}. Springer New York, 2017.
+\newblock ISBN 978-1-4939-6942-5.
+\newblock URL \url{https://books.google.com/books?id=d7wpDwAAQBAJ}.
+
+\bibitem[Neal(1995)]{neal_bayesian_1995}
+Radford~M Neal.
+\newblock \emph{{BAYESIAN} {LEARNING} {FOR} {NEURAL} {NETWORKS}}.
+\newblock {PhD} {Thesis}, University of Toronto, 1995.
+
+\bibitem[Novak et~al.(2018)Novak, Xiao, Lee, Bahri, Abolafia, Pennington, and
+  Sohl-Dickstein]{novak_bayesian_2018}
+Roman Novak, Lechao Xiao, Jaehoon Lee, Yasaman Bahri, Daniel~A Abolafia,
+  Jeffrey Pennington, and Jascha Sohl-Dickstein.
+\newblock Bayesian {Deep} {Convolutional} {Networks} with {Many} {Channels} are
+  {Gaussian} {Processes}.
+\newblock \emph{arXiv preprint arXiv:1810.05148}, 2018.
+
+\bibitem[O'Donnell(2014)]{odonnell_analysis_2014}
+Ryan O'Donnell.
+\newblock \emph{Analysis of boolean functions}.
+\newblock Cambridge University Press, New York, NY, 2014.
+\newblock ISBN 978-1-107-03832-5.
+
+\bibitem[Pastur(2020)]{pastur2020random}
+Leonid Pastur.
+\newblock On random matrices arising in deep neural networks. gaussian case,
+  2020.
+
+\bibitem[Pennington and Worah(2018)]{pennington_spectrum_2018}
+Jeffrey Pennington and Pratik Worah.
+\newblock The {Spectrum} of the {Fisher} {Information} {Matrix} of a
+  {Single}-{Hidden}-{Layer} {Neural} {Network}.
+\newblock In \emph{Advances in {Neural} {Information} {Processing} {Systems}
+  31}, page~10, 2018.
+
+\bibitem[Pennington et~al.(2017)Pennington, Schoenholz, and
+  Ganguli]{pennington_resurrecting_2017}
+Jeffrey Pennington, Samuel Schoenholz, and Surya Ganguli.
+\newblock Resurrecting the sigmoid in deep learning through dynamical isometry:
+  theory and practice.
+\newblock In I.~Guyon, U.~V. Luxburg, S.~Bengio, H.~Wallach, R.~Fergus,
+  S.~Vishwanathan, and R.~Garnett, editors, \emph{Advances in {Neural}
+  {Information} {Processing} {Systems} 30}, pages 4788--4798. Curran
+  Associates, Inc., 2017.
+\newblock URL
+  \url{http://papers.nips.cc/paper/7064-resurrecting-the-sigmoid-in-deep-learning-through-dynamical-isometry-theory-and-practice.pdf}.
+
+\bibitem[Pennington et~al.(2018)Pennington, Schoenholz, and
+  Ganguli]{pennington_emergence_2018}
+Jeffrey Pennington, Samuel~S. Schoenholz, and Surya Ganguli.
+\newblock The {Emergence} of {Spectral} {Universality} in {Deep} {Networks}.
+\newblock \emph{arXiv:1802.09979 [cs, stat]}, February 2018.
+\newblock URL \url{http://arxiv.org/abs/1802.09979}.
+\newblock arXiv: 1802.09979.
+
+\bibitem[Philipp and Carbonell(2018)]{philipp_nonlinearity_2018}
+George Philipp and Jaime~G. Carbonell.
+\newblock The {Nonlinearity} {Coefficient} - {Predicting} {Overfitting} in
+  {Deep} {Neural} {Networks}.
+\newblock \emph{arXiv:1806.00179 [cs, stat]}, May 2018.
+\newblock URL \url{http://arxiv.org/abs/1806.00179}.
+
+\bibitem[Poole et~al.(2016)Poole, Lahiri, Raghu, Sohl-Dickstein, and
+  Ganguli]{poole_exponential_2016}
+Ben Poole, Subhaneil Lahiri, Maithreyi Raghu, Jascha Sohl-Dickstein, and Surya
+  Ganguli.
+\newblock Exponential expressivity in deep neural networks through transient
+  chaos.
+\newblock In \emph{Advances {In} {Neural} {Information} {Processing}
+  {Systems}}, pages 3360--3368, 2016.
+
+\bibitem[Schoenholz et~al.(2017)Schoenholz, Gilmer, Ganguli, and
+  Sohl-Dickstein]{schoenholz_deep_2017}
+Samuel~S. Schoenholz, Justin Gilmer, Surya Ganguli, and Jascha Sohl-Dickstein.
+\newblock Deep {Information} {Propagation}.
+\newblock 2017.
+\newblock URL \url{https://openreview.net/pdf?id=H1W1UN9gg}.
+
+\bibitem[Speicher(2009)]{speicher_free_2009}
+Roland Speicher.
+\newblock Free {Probability} {Theory}.
+\newblock \emph{arXiv:0911.0087 [math]}, October 2009.
+\newblock URL \url{http://arxiv.org/abs/0911.0087}.
+
+\bibitem[Tao(2012)]{tao_topics_2012}
+Terence Tao.
+\newblock Topics in random matrix theory.
+\newblock \emph{Graduate studies in Mathematics}, 132, 2012.
+
+\bibitem[Tarnowski et~al.(2018)Tarnowski, Warchoł, Jastrzębski, Tabor, and
+  Nowak]{tarnowski_dynamical_2018}
+Wojciech Tarnowski, Piotr Warchoł, Stanisław Jastrzębski, Jacek Tabor, and
+  Maciej~A. Nowak.
+\newblock Dynamical {Isometry} is {Achieved} in {Residual} {Networks} in a
+  {Universal} {Way} for any {Activation} {Function}.
+\newblock \emph{arXiv:1809.08848 [cs, stat]}, September 2018.
+\newblock URL \url{http://arxiv.org/abs/1809.08848}.
+
+\bibitem[von Oppen et~al.(2000)von Oppen, Halperin, and
+  Stern]{von_oppen_conductivity_2000}
+Felix von Oppen, Bertrand~I. Halperin, and Ady Stern.
+\newblock Conductivity tensor of striped quantum {Hall} phases.
+\newblock \emph{Physical Review Letters}, 84\penalty0 (13):\penalty0
+  2937--2940, March 2000.
+\newblock ISSN 0031-9007, 1079-7114.
+\newblock \doi{10.1103/PhysRevLett.84.2937}.
+\newblock URL \url{http://arxiv.org/abs/cond-mat/9910132}.
+\newblock arXiv: cond-mat/9910132.
+
+\bibitem[Wigner(1955)]{wigner_characteristic_1955}
+Eugene~P. Wigner.
+\newblock Characteristic {Vectors} of {Bordered} {Matrices} {With} {Infinite}
+  {Dimensions}.
+\newblock \emph{The Annals of Mathematics}, 62\penalty0 (3):\penalty0 548,
+  November 1955.
+\newblock ISSN 0003486X.
+\newblock \doi{10.2307/1970079}.
+\newblock URL \url{https://www.jstor.org/stable/1970079?origin=crossref}.
+
+\bibitem[Wigner(1958)]{wigner_distribution_1958}
+Eugene~P. Wigner.
+\newblock On the {Distribution} of the {Roots} of {Certain} {Symmetric}
+  {Matrices}.
+\newblock \emph{The Annals of Mathematics}, 67\penalty0 (2):\penalty0 325,
+  March 1958.
+\newblock ISSN 0003486X.
+\newblock \doi{10.2307/1970008}.
+\newblock URL \url{https://www.jstor.org/stable/1970008?origin=crossref}.
+
+\bibitem[Williams(1997)]{williams_computing_1997}
+Christopher K~I Williams.
+\newblock Computing with {Infinite} {Networks}.
+\newblock In \emph{Advances in neural information processing systems}, page~7,
+  1997.
+
+\bibitem[Xiao et~al.(2018)Xiao, Bahri, Sohl-Dickstein, Schoenholz, and
+  Pennington]{xiao_dynamical_2018}
+Lechao Xiao, Yasaman Bahri, Jascha Sohl-Dickstein, Samuel Schoenholz, and
+  Jeffrey Pennington.
+\newblock Dynamical {Isometry} and a {Mean} {Field} {Theory} of {CNNs}: {How}
+  to {Train} 10,000-{Layer} {Vanilla} {Convolutional} {Neural} {Networks}.
+\newblock In \emph{Proceedings of the 35th {International} {Conference} on
+  {Machine} {Learning}}, volume~80 of \emph{Proceedings of {Machine} {Learning}
+  {Research}}, pages 5393--5402, Stockholmsmässan, Stockholm Sweden, July
+  2018. PMLR.
+\newblock URL \url{http://proceedings.mlr.press/v80/xiao18a.html}.
+
+\bibitem[Yang(2019{\natexlab{a}})]{yangScalingLimitsWide2019arXiv.org}
+Greg Yang.
+\newblock Scaling {{Limits}} of {{Wide Neural Networks}} with {{Weight
+  Sharing}}: {{Gaussian Process Behavior}}, {{Gradient Independence}}, and
+  {{Neural Tangent Kernel Derivation}}.
+\newblock \emph{arXiv:1902.04760 [cond-mat, physics:math-ph, stat]}, February
+  2019{\natexlab{a}}.
+
+\bibitem[Yang(2019{\natexlab{b}})]{yangTP1}
+Greg Yang.
+\newblock Tensor programs i: Wide feedforward or recurrent neural networks of
+  any architecture are gaussian processes.
+\newblock In \emph{Advances in Neural Information Processing Systems}, pages
+  9947--9960, 2019{\natexlab{b}}.
+
+\bibitem[Yang(2020)]{yangTP2}
+Greg Yang.
+\newblock Tensor programs ii: Neural tangent kernel for any architecture, 2020.
+
+\bibitem[Yang and Schoenholz(2018)]{yangVarianceVariation}
+Greg Yang and Sam~S. Schoenholz.
+\newblock Deep mean field theory: Layerwise variance and width variation as
+  methods to control gradient explosion, 2018.
+\newblock URL \url{https://openreview.net/forum?id=rJGY8GbR-}.
+
+\bibitem[Yang and Schoenholz(2017)]{yang_mean_2017}
+Greg Yang and Samuel~S. Schoenholz.
+\newblock Mean {Field} {Residual} {Network}: {On} the {Edge} of {Chaos}.
+\newblock In \emph{Advances in neural information processing systems}, 2017.
+
+\bibitem[Yang et~al.(2019)Yang, Pennington, Rao, Sohl-Dickstein, and
+  Schoenholz]{yang_mean_2019}
+Greg Yang, Jeffrey Pennington, Vinay Rao, Jascha Sohl-Dickstein, and Samuel~S.
+  Schoenholz.
+\newblock A {Mean} {Field} {Theory} of {Batch} {Normalization}.
+\newblock \emph{arXiv:1902.08129 [cond-mat]}, February 2019.
+\newblock URL \url{http://arxiv.org/abs/1902.08129}.
+
+\bibitem[Zou et~al.(2018)Zou, Cao, Zhou, and Gu]{zou_stochastic_2018}
+Difan Zou, Yuan Cao, Dongruo Zhou, and Quanquan Gu.
+\newblock Stochastic {Gradient} {Descent} {Optimizes} {Over}-parameterized
+  {Deep} {ReLU} {Networks}.
+\newblock \emph{arXiv:1811.08888 [cs, math, stat]}, November 2018.
+\newblock URL \url{http://arxiv.org/abs/1811.08888}.
+
+\end{thebibliography}

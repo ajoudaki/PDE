@@ -1,0 +1,1329 @@
+Yes. We should define \(W^{(3)}\) from the beginning to mean the rescaled output weight used by the proof. There is then no raw output-weight symbol and no bar notation anywhere.
+
+The factor \(1/n\) in the output and the initialization and update of \(W^{(3)}\) are adjusted accordingly.
+
+## Complete finite-width setup
+
+For width \(n\), the evolving parameters are
+
+\[
+z_k^{(1)}\in\mathbb R^n,
+\qquad
+W_k^{(2)}\in\mathbb R^{n\times n},
+\qquad
+W_k^{(3)}\in\mathbb R^n.
+\]
+
+Here \(W_k^{(3)}\) always denotes the rescaled output weight. It is the only output-weight variable used anywhere below.
+
+The forward pass is
+
+\[
+h_k^{(1)}
+=
+\phi\!\left(z_k^{(1)}\right),
+\]
+
+\[
+z_k^{(2)}
+=
+W_k^{(2)}h_k^{(1)},
+\]
+
+\[
+h_k^{(2)}
+=
+\phi\!\left(z_k^{(2)}\right),
+\]
+
+\[
+f_{n,k}
+=
+\frac1n
+\bigl(W_k^{(3)}\bigr)^\top h_k^{(2)},
+\]
+
+where
+
+\[
+\phi(s)=\arctan s
+\]
+
+acts coordinatewise.
+
+The target is \(1\), so
+
+\[
+r_{n,k}=f_{n,k}-1,
+\qquad
+L_{n,k}=r_{n,k}^2.
+\]
+
+The initialization is
+
+\[
+z_{0,i}^{(1)}
+\overset{\mathrm{iid}}{\sim}N(0,1),
+\]
+
+\[
+W_{0,ji}^{(2)}
+\overset{\mathrm{iid}}{\sim}
+N\left(0,\frac1n\right),
+\]
+
+\[
+W_{0,j}^{(3)}
+\overset{\mathrm{iid}}{\sim}
+N\left(0,\frac1{n^2}\right),
+\]
+
+with all initial quantities independent.
+
+Thus \(W_0^{(3)}\) is already written in its rescaled coordinates. Its coordinates vanish as \(n\to\infty\), so the population oracle sets
+
+\[
+W_0^{(3)}=0.
+\]
+
+The difference between the small random finite initialization and zero is handled later by the stability comparison.
+
+Define the residual-free backpropagation derivatives by
+
+\[
+\delta_k^{(\ell)}
+:=
+n\frac{\partial f_{n,k}}
+        {\partial z_k^{(\ell)}}.
+\]
+
+For the second hidden layer,
+
+\[
+\delta_k^{(2)}
+=
+W_k^{(3)}
+\odot
+\phi'\!\left(z_k^{(2)}\right).
+\]
+
+Backpropagating through \(W_k^{(2)}\) and then through the first activation gives
+
+\[
+\delta_k^{(1)}
+=
+\phi'\!\left(z_k^{(1)}\right)
+\odot
+\bigl(W_k^{(2)}\bigr)^\top\delta_k^{(2)}.
+\]
+
+The corresponding loss derivatives are
+
+\[
+\frac{\partial L_{n,k}}
+     {\partial z_k^{(\ell)}}
+=
+\frac{2r_{n,k}}{n}\delta_k^{(\ell)}.
+\]
+
+For \(\phi(s)=\arctan s\), define
+
+\[
+F(s)=s+\frac{s^3}{3},
+\qquad
+x_k^{(1)}
+=
+F\!\left(z_k^{(1)}\right).
+\]
+
+Since
+
+\[
+F'(s)=1+s^2=\frac1{\phi'(s)},
+\]
+
+the first-layer activation derivative cancels in the evolution of \(x_k^{(1)}\).
+
+With Euler step \(\Delta\), the exact induced updates in the rescaled coordinates are
+
+\[
+x_{k+1}^{(1)}
+=
+x_k^{(1)}
+-
+2\Delta r_{n,k}
+\bigl(W_k^{(2)}\bigr)^\top
+\delta_k^{(2)},
+\]
+
+\[
+W_{k+1}^{(2)}
+=
+W_k^{(2)}
+-
+\frac{2\Delta r_{n,k}}{n}
+\delta_k^{(2)}
+\bigl(h_k^{(1)}\bigr)^\top,
+\]
+
+\[
+W_{k+1}^{(3)}
+=
+W_k^{(3)}
+-
+2\Delta r_{n,k}h_k^{(2)}.
+\]
+
+The last equation is already the update for the rescaled output weights \(W_k^{(3)}\). No conversion to or from another output-weight variable is needed.
+
+The population oracle is analyzed for fixed \(\Delta\). For a fixed time horizon \(T\),
+
+\[
+N=\left\lceil\frac T\Delta\right\rceil
+\]
+
+is fixed while \(n\to\infty\). Therefore only finitely many forward and transpose calls must be controlled.
+
+## The first forward call
+
+At initialization,
+
+\[
+h_0^{(1)}
+=
+\phi\!\left(z_0^{(1)}\right),
+\]
+
+and
+
+\[
+z_0^{(2)}
+=
+W_0^{(2)}h_0^{(1)}.
+\]
+
+Conditional on \(h_0^{(1)}\),
+
+\[
+z_{0,j}^{(2)}
+=
+\sum_{i=1}^n
+W_{0,ji}^{(2)}h_{0,i}^{(1)}
+\]
+
+is Gaussian with variance
+
+\[
+\operatorname{Var}
+\left(
+z_{0,j}^{(2)}
+\mid h_0^{(1)}
+\right)
+=
+\frac1n
+\sum_{i=1}^n
+\left(h_{0,i}^{(1)}\right)^2
+=
+\frac{\|h_0^{(1)}\|_2^2}{n}.
+\]
+
+Different second-layer coordinates \(j\) use different rows of \(W_0^{(2)}\), so they are conditionally independent.
+
+The initial empirical law gives
+
+\[
+\frac{\|h_0^{(1)}\|_2^2}{n}
+\longrightarrow
+\mathbb E\left[
+\left(H_0^{(1)}\right)^2
+\right].
+\]
+
+Therefore the coordinates of \(z_0^{(2)}\) behave empirically like
+
+\[
+Z_0^{(2)}
+\sim
+N\left(
+0,
+\mathbb E\left[
+\left(H_0^{(1)}\right)^2
+\right]
+\right).
+\]
+
+The second-layer activation is
+
+\[
+h_0^{(2)}
+=
+\phi\!\left(z_0^{(2)}\right).
+\]
+
+This is a coordinatewise function and introduces no new matrix randomness.
+
+In the oracle,
+
+\[
+W_0^{(3)}=0.
+\]
+
+Consequently,
+
+\[
+f_0=0,
+\qquad
+r_0=-1,
+\qquad
+\delta_0^{(2)}=0.
+\]
+
+The first update gives
+
+\[
+x_1^{(1)}=x_0^{(1)},
+\]
+
+\[
+W_1^{(2)}=W_0^{(2)},
+\]
+
+and
+
+\[
+W_1^{(3)}
+=
+2\Delta h_0^{(2)}
+=
+2\Delta\phi\!\left(z_0^{(2)}\right).
+\]
+
+It follows that
+
+\[
+h_1^{(1)}=h_0^{(1)},
+\qquad
+z_1^{(2)}=z_0^{(2)},
+\qquad
+h_1^{(2)}=h_0^{(2)}.
+\]
+
+The next second-layer backpropagation derivative is
+
+\[
+\begin{aligned}
+\delta_1^{(2)}
+&=
+W_1^{(3)}
+\odot
+\phi'\!\left(z_1^{(2)}\right)\\
+&=
+2\Delta\,
+\phi\!\left(z_0^{(2)}\right)
+\odot
+\phi'\!\left(z_0^{(2)}\right).
+\end{aligned}
+\]
+
+Equivalently,
+
+\[
+\delta_1^{(2)}
+=
+2\Delta\,
+\frac{\partial}{\partial z_0^{(2)}}
+\frac12
+\left\|
+\phi\!\left(z_0^{(2)}\right)
+\right\|_2^2.
+\]
+
+The population residual used by the oracle at this step is
+
+\[
+r_1
+=
+2\Delta\,
+\mathbb E\left[
+\phi\!\left(Z_0^{(2)}\right)^2
+\right]
+-1.
+\]
+
+## The first transpose call
+
+The first nontrivial transpose operation is
+
+\[
+\bigl(W_0^{(2)}\bigr)^\top
+\delta_1^{(2)}.
+\]
+
+This is not multiplication by an independent Gaussian matrix because
+
+\[
+\delta_1^{(2)}
+\]
+
+depends on
+
+\[
+z_0^{(2)}
+=
+W_0^{(2)}h_0^{(1)}.
+\]
+
+For any nonzero vector \(b\), define the ordinary orthogonal projection
+
+\[
+P_{b^\perp}
+=
+I-\frac{bb^\top}{b^\top b}.
+\]
+
+For row \(j\) of \(W_0^{(2)}\), the previous forward call supplies the constraint
+
+\[
+W_{0,j:}^{(2)}h_0^{(1)}
+=
+z_{0,j}^{(2)}.
+\]
+
+Conditioning the Gaussian row on this equation gives
+
+\[
+\left(W_{0,j:}^{(2)}\right)^\top
+\overset d=
+\frac{
+z_{0,j}^{(2)}
+}{
+\bigl(h_0^{(1)}\bigr)^\top h_0^{(1)}
+}
+h_0^{(1)}
++
+\widetilde W_{0,j:}^{(2)\top},
+\]
+
+where, conditionally,
+
+\[
+\widetilde W_{0,j:}^{(2)\top}
+\sim
+N\left(
+0,
+\frac1nP_{(h_0^{(1)})^\perp}
+\right).
+\]
+
+Multiplying row \(j\) by \(\delta_{1,j}^{(2)}\) and summing gives
+
+\[
+\begin{aligned}
+\bigl(W_0^{(2)}\bigr)^\top\delta_1^{(2)}
+\overset d={}&
+\frac{
+\bigl(z_0^{(2)}\bigr)^\top\delta_1^{(2)}
+}{
+\bigl(h_0^{(1)}\bigr)^\top h_0^{(1)}
+}
+h_0^{(1)}
+\\
+&+
+\frac{\|\delta_1^{(2)}\|_2}{\sqrt n}
+P_{(h_0^{(1)})^\perp}
+\gamma^{(1)},
+\end{aligned}
+\]
+
+where
+
+\[
+\gamma^{(1)}\sim N(0,I_n)
+\]
+
+is independent of the previously constructed vectors.
+
+The first term is the response forced by the old forward call:
+
+\[
+\frac{
+\bigl(z_0^{(2)}\bigr)^\top\delta_1^{(2)}
+}{
+\bigl(h_0^{(1)}\bigr)^\top h_0^{(1)}
+}
+h_0^{(1)}.
+\]
+
+The second term is the genuinely new Gaussian part:
+
+\[
+\frac{\|\delta_1^{(2)}\|_2}{\sqrt n}
+P_{(h_0^{(1)})^\perp}
+\gamma^{(1)}.
+\]
+
+The response is necessary because of the exact transpose identity
+
+\[
+\bigl(h_0^{(1)}\bigr)^\top
+\bigl(W_0^{(2)}\bigr)^\top
+\delta_1^{(2)}
+=
+\bigl(z_0^{(2)}\bigr)^\top
+\delta_1^{(2)}.
+\]
+
+The new Gaussian term is perpendicular to \(h_0^{(1)}\), so it contributes zero to the left-hand side. The response term supplies the required overlap exactly.
+
+The induction already knows
+
+\[
+\frac{
+\bigl(h_0^{(1)}\bigr)^\top h_0^{(1)}
+}{n}
+\longrightarrow
+\mathbb E\left[
+\left(H_0^{(1)}\right)^2
+\right],
+\]
+
+\[
+\frac{
+\bigl(z_0^{(2)}\bigr)^\top\delta_1^{(2)}
+}{n}
+\longrightarrow
+\mathbb E\left[
+Z_0^{(2)}\delta_1^{(2)}
+\right],
+\]
+
+and
+
+\[
+\frac{
+\bigl(\delta_1^{(2)}\bigr)^\top\delta_1^{(2)}
+}{n}
+\longrightarrow
+\mathbb E\left[
+\left(\delta_1^{(2)}\right)^2
+\right].
+\]
+
+Therefore the corresponding population adjoint action is
+
+\[
+\begin{aligned}
+\bigl(W_0^{(2)}\bigr)^*
+\delta_1^{(2)}
+={}&
+\frac{
+\mathbb E\left[
+Z_0^{(2)}\delta_1^{(2)}
+\right]
+}{
+\mathbb E\left[
+\left(H_0^{(1)}\right)^2
+\right]
+}
+H_0^{(1)}
+\\
+&+
+\sqrt{
+\mathbb E\left[
+\left(\delta_1^{(2)}\right)^2
+\right]
+}
+\,\Gamma^{(1)},
+\end{aligned}
+\]
+
+where
+
+\[
+\Gamma^{(1)}\sim N(0,1)
+\]
+
+is independent of the previous first-layer population coordinates.
+
+The finite coordinates of
+
+\[
+\bigl(W_0^{(2)}\bigr)^\top\delta_1^{(2)}
+\]
+
+are not claimed to be iid. The conclusion is that their joint empirical averages with all previous first-layer coordinates approach the corresponding population expectations.
+
+## The next forward call
+
+The first-layer transformed coordinate now moves according to
+
+\[
+x_2^{(1)}
+=
+x_1^{(1)}
+-
+2\Delta r_1
+\bigl(W_0^{(2)}\bigr)^\top
+\delta_1^{(2)}.
+\]
+
+Then
+
+\[
+z_2^{(1)}
+=
+F^{-1}\!\left(x_2^{(1)}\right),
+\]
+
+and
+
+\[
+h_2^{(1)}
+=
+\phi\!\left(z_2^{(1)}\right).
+\]
+
+Each coordinate of \(h_2^{(1)}\) is a deterministic scalar function of previously controlled first-layer coordinates. Therefore its joint empirical behavior follows from the existing induction hypothesis.
+
+The next difficult operation is
+
+\[
+W_0^{(2)}h_2^{(1)}.
+\]
+
+It is not an independent Gaussian multiplication because \(h_2^{(1)}\) depends on
+
+\[
+\bigl(W_0^{(2)}\bigr)^\top\delta_1^{(2)}.
+\]
+
+At this point the matrix history contains both
+
+\[
+W_0^{(2)}h_0^{(1)}
+=
+z_0^{(2)}
+\]
+
+and
+
+\[
+\bigl(W_0^{(2)}\bigr)^\top\delta_1^{(2)}.
+\]
+
+Conditioning \(W_0^{(2)}\) simultaneously on both observations gives
+
+\[
+\begin{aligned}
+W_0^{(2)}
+\overset d={}&
+\frac{
+z_0^{(2)}
+\bigl(h_0^{(1)}\bigr)^\top
+}{
+\bigl(h_0^{(1)}\bigr)^\top h_0^{(1)}
+}
+\\
+&+
+\frac{
+\delta_1^{(2)}
+\left[
+P_{(h_0^{(1)})^\perp}
+\bigl(W_0^{(2)}\bigr)^\top
+\delta_1^{(2)}
+\right]^\top
+}{
+\bigl(\delta_1^{(2)}\bigr)^\top
+\delta_1^{(2)}
+}
+\\
+&+
+P_{(\delta_1^{(2)})^\perp}
+\widetilde W_0^{(2)}
+P_{(h_0^{(1)})^\perp},
+\end{aligned}
+\]
+
+where \(\widetilde W_0^{(2)}\) is a fresh independent Gaussian matrix with entries \(N(0,1/n)\).
+
+The first term retains
+
+\[
+W_0^{(2)}h_0^{(1)}
+=
+z_0^{(2)}.
+\]
+
+The second retains
+
+\[
+\bigl(W_0^{(2)}\bigr)^\top
+\delta_1^{(2)}.
+\]
+
+The final term is invisible to both previously inspected matrix directions.
+
+Multiplying by \(h_2^{(1)}\) gives
+
+\[
+\begin{aligned}
+W_0^{(2)}h_2^{(1)}
+\overset d={}&
+\frac{
+\bigl(h_0^{(1)}\bigr)^\top h_2^{(1)}
+}{
+\bigl(h_0^{(1)}\bigr)^\top h_0^{(1)}
+}
+z_0^{(2)}
+\\
+&+
+\frac{
+\left[
+P_{(h_0^{(1)})^\perp}
+\bigl(W_0^{(2)}\bigr)^\top
+\delta_1^{(2)}
+\right]^\top
+h_2^{(1)}
+}{
+\bigl(\delta_1^{(2)}\bigr)^\top
+\delta_1^{(2)}
+}
+\delta_1^{(2)}
+\\
+&+
+\frac{
+\left\|
+P_{(h_0^{(1)})^\perp}
+h_2^{(1)}
+\right\|_2
+}{
+\sqrt n
+}
+P_{(\delta_1^{(2)})^\perp}
+\gamma^{(2)},
+\end{aligned}
+\]
+
+where
+
+\[
+\gamma^{(2)}\sim N(0,I_n)
+\]
+
+is fresh and independent of the previous history.
+
+The first response term comes from the component of \(h_2^{(1)}\) parallel to \(h_0^{(1)}\). Since
+
+\[
+W_0^{(2)}h_0^{(1)}
+=
+z_0^{(2)},
+\]
+
+that component must be mapped to the corresponding multiple of \(z_0^{(2)}\).
+
+The second response term is forced by
+
+\[
+\bigl(\delta_1^{(2)}\bigr)^\top
+W_0^{(2)}h_2^{(1)}
+=
+\left[
+\bigl(W_0^{(2)}\bigr)^\top
+\delta_1^{(2)}
+\right]^\top
+h_2^{(1)}.
+\]
+
+The first response term supplies part of the required overlap. The second response term supplies the remainder.
+
+The fresh Gaussian term is perpendicular to \(\delta_1^{(2)}\), so it does not disturb this exact constraint.
+
+Every coefficient in this formula is an empirical contraction of previously controlled vectors. For example,
+
+\[
+\frac{
+\bigl(h_0^{(1)}\bigr)^\top h_2^{(1)}
+}{n}
+\longrightarrow
+\mathbb E\left[
+H_0^{(1)}H_2^{(1)}
+\right],
+\]
+
+and
+
+\[
+\frac{
+\bigl(\delta_1^{(2)}\bigr)^\top\delta_1^{(2)}
+}{n}
+\longrightarrow
+\mathbb E\left[
+\left(\delta_1^{(2)}\right)^2
+\right].
+\]
+
+Therefore all response coefficients and Gaussian variances converge to their population values.
+
+## The exact induction hypothesis
+
+The first-layer collection now contains quantities such as
+
+\[
+z_0^{(1)},
+\qquad
+h_0^{(1)},
+\qquad
+\bigl(W_0^{(2)}\bigr)^\top\delta_1^{(2)},
+\qquad
+x_2^{(1)},
+\qquad
+h_2^{(1)}.
+\]
+
+For every fixed polynomially bounded function \(\psi\), the induction asserts
+
+\[
+\begin{aligned}
+\frac1n\sum_{i=1}^n
+\psi\Bigl(
+&z_{0,i}^{(1)},
+h_{0,i}^{(1)},
+\left[
+(W_0^{(2)})^\top\delta_1^{(2)}
+\right]_i,
+x_{2,i}^{(1)},
+h_{2,i}^{(1)},
+\ldots
+\Bigr)
+\\
+\longrightarrow\;
+\mathbb E\,\psi\Bigl(
+&Z_0^{(1)},
+H_0^{(1)},
+(W_0^{(2)})^*\delta_1^{(2)},
+X_2^{(1)},
+H_2^{(1)},
+\ldots
+\Bigr).
+\end{aligned}
+\]
+
+The second-layer collection contains quantities such as
+
+\[
+z_0^{(2)},
+\qquad
+h_0^{(2)},
+\qquad
+W_1^{(3)},
+\qquad
+\delta_1^{(2)},
+\qquad
+W_0^{(2)}h_2^{(1)}.
+\]
+
+Its empirical statement is
+
+\[
+\begin{aligned}
+\frac1n\sum_{j=1}^n
+\psi\Bigl(
+&z_{0,j}^{(2)},
+h_{0,j}^{(2)},
+W_{1,j}^{(3)},
+\delta_{1,j}^{(2)},
+\left[
+W_0^{(2)}h_2^{(1)}
+\right]_j,
+\ldots
+\Bigr)
+\\
+\longrightarrow\;
+\mathbb E\,\psi\Bigl(
+&Z_0^{(2)},
+H_0^{(2)},
+W_1^{(3)},
+\delta_1^{(2)},
+W_0^{(2)}H_2^{(1)},
+\ldots
+\Bigr).
+\end{aligned}
+\]
+
+The first-layer index \(i\) and second-layer index \(j\) label different neuron populations. There is no artificial coordinatewise pairing between them.
+
+Polynomially bounded means that, for some fixed constants \(C\) and \(q\),
+
+\[
+|\psi(s)|
+\le
+C\left(1+\|s\|_2^q\right).
+\]
+
+Taking
+
+\[
+\psi(s)=s^2
+\]
+
+gives empirical second-moment convergence.
+
+Taking
+
+\[
+\psi(s,t)=st
+\]
+
+gives contractions such as
+
+\[
+\frac{
+\bigl(h_r^{(1)}\bigr)^\top h_k^{(1)}
+}{n}
+\longrightarrow
+\mathbb E\left[
+H_r^{(1)}H_k^{(1)}
+\right],
+\]
+
+\[
+\frac{
+\bigl(\delta_r^{(2)}\bigr)^\top
+\delta_k^{(2)}
+}{n}
+\longrightarrow
+\mathbb E\left[
+\delta_r^{(2)}\delta_k^{(2)}
+\right],
+\]
+
+and
+
+\[
+\frac{
+\bigl(W_k^{(3)}\bigr)^\top h_k^{(2)}
+}{n}
+\longrightarrow
+\mathbb E\left[
+W_k^{(3)}H_k^{(2)}
+\right].
+\]
+
+The last convergence is exactly the convergence of the oracle prediction.
+
+Higher powers provide the moment control needed to prevent a small number of unusually large coordinates from dominating these averages.
+
+The induction also maintains stable linear relations among the vectors previously supplied to \(W_0^{(2)}\) and \((W_0^{(2)})^\top\).
+
+This is necessary because simultaneous Gaussian conditioning produces finite Gram matrices with entries such as
+
+\[
+\frac{
+\bigl(h_r^{(1)}\bigr)^\top h_s^{(1)}
+}{n}
+\]
+
+and
+
+\[
+\frac{
+\bigl(\delta_r^{(2)}\bigr)^\top
+\delta_s^{(2)}
+}{n}.
+\]
+
+If a limiting Gram matrix is singular, entrywise convergence alone does not guarantee convergence of its inverse or pseudoinverse. The proof must distinguish a genuinely new direction from a direction that is already represented by previous ones.
+
+For example,
+
+\[
+h_1^{(1)}=h_0^{(1)},
+\]
+
+so
+
+\[
+W_0^{(2)}h_1^{(1)}
+=
+W_0^{(2)}h_0^{(1)}
+=
+z_0^{(2)}
+\]
+
+exactly. This repeated source direction creates no fresh Gaussian component.
+
+More generally, the induction proves:
+
+- a genuinely new source direction has a positive limiting distance from the old source span and therefore a positive Gaussian innovation variance;
+- a direction with zero limiting distance is eventually an exact combination of the retained core directions;
+- the relevant Gram ranks and pseudoinverses therefore stabilize.
+
+Thus the induction maintains both joint empirical-moment convergence and stable linear relations.
+
+Coordinatewise operations are easy to add. For example,
+
+\[
+h_k^{(\ell)}
+=
+\phi\!\left(z_k^{(\ell)}\right),
+\]
+
+\[
+W_{k+1}^{(3)}
+=
+W_k^{(3)}
+-
+2\Delta r_kh_k^{(2)},
+\]
+
+and
+
+\[
+\delta_k^{(2)}
+=
+W_k^{(3)}
+\odot
+\phi'\!\left(z_k^{(2)}\right)
+\]
+
+are coordinatewise functions of already controlled second-layer vectors, with deterministic oracle coefficient \(r_k\). They introduce no new matrix randomness.
+
+The difficult operation is a new call to
+
+\[
+W_0^{(2)}
+\quad\text{or}\quad
+\bigl(W_0^{(2)}\bigr)^\top.
+\]
+
+Conditioning on every previous forward and transpose call gives a finite response made from old network vectors plus Gaussian randomness projected away from all previously inspected directions.
+
+To prove the enlarged empirical-average property, the new error is divided into:
+
+\[
+\text{fresh Gaussian empirical average}
+-
+\text{its conditional expectation},
+\]
+
+\[
+\text{conditional expectation using finite-width contractions}
+-
+\text{the same expression using population contractions},
+\]
+
+and
+
+\[
+\text{empirical average of the resulting function of old coordinates}
+-
+\text{its population expectation}.
+\]
+
+The first difference vanishes by a sufficiently high-moment law for the fresh Gaussian vector.
+
+The projected Gaussian coordinates are dependent, but only finitely many directions are removed. For example,
+
+\[
+\frac1n
+\left\|
+\left(
+I-P_{(\delta_1^{(2)})^\perp}
+\right)\gamma^{(2)}
+\right\|_2^2
+\longrightarrow0.
+\]
+
+Thus the projection is negligible at the level of empirical averages while remaining essential for preserving the exact previous matrix constraints.
+
+The second difference vanishes because every finite-width contraction, response coefficient, and Gaussian variance converges.
+
+The third difference vanishes by the previous induction hypothesis because it involves only previously controlled coordinates.
+
+No central limit theorem is used. The proof establishes that the unscaled empirical errors tend to zero; it does not identify their \(\sqrt n\)-scaled fluctuations.
+
+What is needed is:
+
+- convergence of all required polynomial moments;
+- sufficiently high moments for the conditional Gaussian sampling argument;
+- stable ranks when a limiting Gram matrix is singular.
+
+It is not necessary for every constructed vector to remain sub-Gaussian.
+
+## The oracle and the trained matrix
+
+Iterating the second-layer matrix update gives
+
+\[
+W_k^{(2)}
+=
+W_0^{(2)}
+-
+\frac{2\Delta}{n}
+\sum_{r<k}
+r_r\,
+\delta_r^{(2)}
+\bigl(h_r^{(1)}\bigr)^\top.
+\]
+
+Therefore
+
+\[
+W_k^{(2)}h_k^{(1)}
+=
+W_0^{(2)}h_k^{(1)}
+-
+2\Delta
+\sum_{r<k}
+r_r\,
+\delta_r^{(2)}
+\frac{
+\bigl(h_r^{(1)}\bigr)^\top h_k^{(1)}
+}{n},
+\]
+
+and
+
+\[
+\bigl(W_k^{(2)}\bigr)^\top
+\delta_k^{(2)}
+=
+\bigl(W_0^{(2)}\bigr)^\top
+\delta_k^{(2)}
+-
+2\Delta
+\sum_{r<k}
+r_r\,
+h_r^{(1)}
+\frac{
+\bigl(\delta_r^{(2)}\bigr)^\top
+\delta_k^{(2)}
+}{n}.
+\]
+
+The rescaled output weights satisfy
+
+\[
+W_k^{(3)}
+=
+W_0^{(3)}
+-
+2\Delta
+\sum_{r<k}
+r_rh_r^{(2)}.
+\]
+
+In the oracle,
+
+\[
+W_0^{(3)}=0,
+\]
+
+so
+
+\[
+W_k^{(3)}
+=
+-2\Delta
+\sum_{r<k}
+r_rh_r^{(2)}.
+\]
+
+The population oracle supplies the deterministic values
+
+\[
+\mathbb E\left[
+H_r^{(1)}H_k^{(1)}
+\right],
+\]
+
+\[
+\mathbb E\left[
+\delta_r^{(2)}\delta_k^{(2)}
+\right],
+\]
+
+and
+
+\[
+r_k
+=
+\mathbb E\left[
+W_k^{(3)}H_k^{(2)}
+\right]-1.
+\]
+
+The finite oracle uses those deterministic population values in its instructions. Its only matrix-random operations are finitely many calls to
+
+\[
+W_0^{(2)}
+\quad\text{and}\quad
+\bigl(W_0^{(2)}\bigr)^\top.
+\]
+
+The reused-Gaussian induction proves that
+
+\[
+\frac{
+\bigl(h_r^{(1)}\bigr)^\top h_k^{(1)}
+}{n}
+-
+\mathbb E\left[
+H_r^{(1)}H_k^{(1)}
+\right]
+\longrightarrow0,
+\]
+
+\[
+\frac{
+\bigl(\delta_r^{(2)}\bigr)^\top
+\delta_k^{(2)}
+}{n}
+-
+\mathbb E\left[
+\delta_r^{(2)}\delta_k^{(2)}
+\right]
+\longrightarrow0,
+\]
+
+and
+
+\[
+\frac{
+\bigl(W_k^{(3)}\bigr)^\top h_k^{(2)}
+}{n}
+-
+\mathbb E\left[
+W_k^{(3)}H_k^{(2)}
+\right]
+\longrightarrow0.
+\]
+
+The actual finite Euler network uses its own empirical residuals and contractions. It is compared with the oracle afterward by a deterministic stability estimate.
+
+Thus the proof separates the reused-Gaussian empirical-law argument from the stability argument for empirical feedback.
+
+## The population evolution in the same notation
+
+The same rescaled \(W^{(3)}\) is used in the limiting autonomous system. There is no change of output-weight variables when passing to the population limit.
+
+The population state consists of
+
+\[
+X^{(1)}(t),
+\qquad
+W^{(2)}(t),
+\qquad
+W^{(3)}(t).
+\]
+
+The derived population quantities are
+
+\[
+Z^{(1)}
+=
+F^{-1}\!\left(X^{(1)}\right),
+\]
+
+\[
+H^{(1)}
+=
+\phi\!\left(Z^{(1)}\right),
+\]
+
+\[
+Z^{(2)}
+=
+W^{(2)}H^{(1)},
+\]
+
+\[
+H^{(2)}
+=
+\phi\!\left(Z^{(2)}\right),
+\]
+
+\[
+f
+=
+\mathbb E\left[
+W^{(3)}H^{(2)}
+\right],
+\]
+
+\[
+r=f-1,
+\]
+
+and
+
+\[
+\delta^{(2)}
+=
+W^{(3)}
+\phi'\!\left(Z^{(2)}\right).
+\]
+
+Here \(W^{(2)}\) is the limiting action from first-layer population coordinates to second-layer population coordinates, and \((W^{(2)})^*\) is its adjoint action in the reverse direction.
+
+The autonomous population gradient flow is
+
+\[
+\frac{dX^{(1)}}{dt}
+=
+-2r\,
+\bigl(W^{(2)}\bigr)^*
+\delta^{(2)},
+\]
+
+\[
+\frac{dW^{(2)}}{dt}
+=
+-2r\,
+\delta^{(2)}\otimes H^{(1)},
+\]
+
+\[
+\frac{dW^{(3)}}{dt}
+=
+-2rH^{(2)}.
+\]
+
+The rank-one operator is defined explicitly by
+
+\[
+\left(
+\delta^{(2)}\otimes H^{(1)}
+\right)q
+=
+\delta^{(2)}
+\,
+\mathbb E\left[
+H^{(1)}q
+\right].
+\]
+
+The initial population state is
+
+\[
+Z^{(1)}(0)\sim N(0,1),
+\]
+
+\[
+W^{(2)}(0)=W_0^{(2)},
+\]
+
+\[
+W^{(3)}(0)=0.
+\]
+
+Thus \(W^{(3)}\) means the rescaled output weight at every level:
+
+- in the finite network;
+- in the Euler scheme;
+- in the oracle;
+- in the empirical convergence statements;
+- and in the limiting autonomous population flow.
+
+No raw output-weight variable and no barred notation are needed.

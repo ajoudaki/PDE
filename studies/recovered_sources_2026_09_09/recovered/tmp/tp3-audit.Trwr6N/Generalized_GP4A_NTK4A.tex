@@ -1,0 +1,89 @@
+%auto-ignore
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\section{Generalized Architectural Universality of Neural Network-Gaussian Process}
+\label{sec:NNGP}
+
+Wide, randomly initialized neural networks are distributed like Gaussian processes (GP) \citep{neal_bayesian_1995,lee_deep_2018,matthews_gaussian_2018_arxiv,novak_bayesian_2018,garriga-alonso_deep_2018,yangTP1}.
+\citet{yangTP1} systematically generalized this result from toy neural networks to all modern neural networks.
+This result was proved by 1) showing that the kernel of input embeddings converge almost surely to a deterministic kernel $K$, and 2) because the readout layer(s) are independently initialized from the rest of the network, the distribution of random neural network function converges to a GP with this kernel $K$. Part 1 assumed that no weight matrix is the transpose of another weight matrix, and with this assumption, it follows from the \netsor{} Master Theorem \citep{yangTP1}. However, with the \netsort{} Master Theorem, we can straightforwardly get rid of this assumption, and the logic above still holds. We thus conclude
+\begin{thm}
+Consider any neural network whose forward propagation is expressible in a \netsort{} program, and whose output layer(s) are independently sampled from other parameters and not used in the interior of the network. Then we have the convergence in distribution of the neural network function to a Gaussian Process, as the network widths tend to infinity.%
+\footnote{Of course, to compute the GP kernel requires going through the \netsort{} Master Theorem (in particular, computing $\Zdot$ and $\hat{Z}$), and it would be incorrect to just assume all instances of $W^{\trsp}$ to be independent from $W$.
+}
+\end{thm}
+
+We can also consider what happens when the output layer(s) are not independent from other parameters. For example, we can consider the case where the output can be expressed as the first coordinate $y_{1}$ of a vector $y=Wu\in\R^{n}$ for some embedding $u$ of the input. Here $W$ could have been used in the interior of the network. Then in general, $\Zdot^{y}$ is nonzero, and $y_{1}\distto Z^{y}$ converges to a non-Gaussian distribution, which can still nevertheless be calculated using \cref{defn:Z} and \cref{thm:NetsorTMasterTheorem}.
+
+\section{Generalized Architectural Universality of Neural Tangent Kernel}
+\label{sec:generalizedNTK4A}
+
+\newcommand{\NTK}{\Theta}
+
+\citet{jacot_neural_2018} showed that, in the limit of large width, a neural network undergoing training by gradient descent evolves like a linear model with a kernel, called the \emph{Neural Tangent Kernel (NTK)}.
+\citet{yangTP2} showed how to calculate this the infinite-width limit of this NTK for any architecture, when a commonly satisfied condition, called \emph{Simple GIA Check}, is satisfied.
+This condition allows us to assume $W^{\trsp}$ to be independent from $W$ in the computation of NTK (this heuristic is called the \emph{Gradient Independence Assumption}, or \emph{GIA}).
+\begin{cond}[Simple GIA Check]\label{assm:simpleGIACheck}
+    \label{text:simpleGIACheck}
+    No weight matrix is the transpose of another weight matrix;
+    the output layer is sampled independently and with zero mean from all other parameters and is not used anywhere else in the interior of the network%
+    \footnote{i.e.\ if the output weight is $v$ and the output is $v^\trsp x$, then $x$ does not depend on $v$.}.
+\end{cond}
+Using \cref{thm:NetsorTMasterTheorem}, we may now generalize the result of \citet{yangTP2} to when Simple GIA Check is not satisfied (\cref{thm:NTK4A}). 
+Before that, let's gather some concrete intuition for this generalization.
+
+\paragraph{Example}
+\citet{yangTP2} demonstrated a simple neural network not satisfying Simple GIA Check, and, if we assume $W^{\trsp}$ to be independent from $W$, then the resulting NTK computation would be wrong. Now, with the help of \netsort{} Master Theorem, we may finally perform the correct computation.
+
+The neural network in question computes
+\begin{equation}
+x^{1}=W^{1}\xi+1,\quad h^{2}=W^{2}x^{1},\quad x^{2}=\phi(h^{2}),\quad y=1^{\trsp}x^{2}/n
+\label{eqn:forwardGIABreak}
+\end{equation}
+with $\phi(z)=z^{2}$ being the square function, $\xi=0\in\R^{d},y\in\R,x^{1},h^{2},x^{2}\in\R^{n},W^{1}\in\R^{n\times d},W^{2}\in\R^{n\times n},W_{\alpha\beta}^{1}\sim\Gaus(0,1/d),W_{\alpha\beta}^{2}\sim\Gaus(0,1/n)$. If we set $dx^{2}=n\frac{\partial y}{\partial x^{2}}$, then backprop yields 
+\begin{equation}
+dx^{2}=1,\quad dh^{2}=2h^{2}\odot1=2h^{2},\quad dx^{1}=W^{2\trsp}dh^{2}=2W^{2\trsp}h^{2}=2W^{2\trsp}W^{2}x^{1}.
+\label{eqn:backwardGIABreak}
+\end{equation}
+\citet{yangTP2} showed that $\EV dx_{\alpha}^{1}=2\EV x_{\alpha}^{1}=1$ but if we were to assume $W^{2\trsp}$ be independent from $W^{2}$, then we would get the erroneous answer $\EV dx_{\alpha}^{1}=0$. Here, let us compute $Z^\bullet$ for each vector above using \cref{defn:Z}, and see we get a consistent result with $\EV Z^{dx_{\alpha}^{1}}=2$.
+
+In the forward pass, we have $Z^{h^{2}}=\Gaus(0,1)$ and likewise in the backward pass, $Z^{dh^{2}}=2Z^{h^{2}}=\Gaus(0,4)$. Next, we need to compute $\hat{Z}^{dx^{1}}$ and $\Zdot^{dx^{1}}$. Just like in the Master Theorem of \citet{yangTP2}, $\hat{Z}^{dx^{1}}$ is the random variable that we would get if we assume $W^{\trsp}$ be independent from $W$: $\hat{Z}^{dx^{1}}=\Gaus(0,\EV(Z^{dh^{2}})^{2})=\Gaus(0,4)$ and is independent from $Z^{dh^{2}}$ and $Z^{h^{2}}$. On the other hand, $\Zdot^{dx^{1}}$ is a scalar multiple $\Zdot^{dx^{1}}=x^{1}\EV\frac{\partial Z^{dh^{2}}}{\partial h^{2}}$ of $x^{1}.$ The multiple is $\EV\frac{\partial Z^{dh^{2}}}{\partial h^{2}}=\EV2=2$. Putting them all together, we get
+\[
+Z^{dx^{1}}=\hat{Z}^{dx^{1}}+\Zdot^{dx^{1}}=\Gaus(0,4)+2x^{1}
+\]
+which has mean $\EV Z^{dx^{1}}=2\EV Z^{x^{1}}=2$.
+
+More generally, by \cref{thm:NetsorTMasterTheorem}, we trivially have the following result:
+\begin{thm}\label{thm:NTK4A}
+Consider any neural network whose forward and backpropagation are expressible in a \netsort{} program%
+\footnote{as shown in \citet{yangTP2}, this includes practically all architectures used in modern deep learning}, and which does \emph{not} need to satisfy Simple GIA Check.
+Suppose the network is parametrized in the \emph{NTK parametrization}.
+If all of the network's nonlinearities have polynomially bounded weak derivatives, then its NTK, on standard Gaussian initialization of the network parameters, converges to a deterministic kernel as its widths tend to infinity, over any finite set of inputs.
+
+\end{thm}
+As with the NNGP in \cref{sec:NNGP}, this infinite-width NTK can be computed in a straightforward way using \cref{thm:NetsorTMasterTheorem}, following the examples of \citet{yangTP2}.
+
+\section{Simple GIA Check Implies Gradient Independence Assumption}
+\label{sec:GIAFIP}
+
+We give a new proof of the following in this section through FIP.
+\begin{thm}\label{thm:GIA}
+    If a neural network expressible%
+    \footnote{i.e. its forward and backward propagations at initialization can be written in a \netsort{} program. As shown in \citet{yangTP1,yangTP2}, this covers almost all classic and modern neural networks.}
+    in a \netsort{} program satisfies Simple GIA Check (\cref{assm:simpleGIACheck}), then its NTK can be computed assuming that $W^\trsp$ used in backpropagation is independent from $W$ used in forward propagation.
+\end{thm}
+
+\citet{yangTP2} showed that, for any pair of inputs $\xi, \bar \xi \in \R^d$, the Neural Tangent Kernel of a NN $f$ depends on backpropagation only through the quantities $\langle {\nabla_{ y(\xi)} f(\xi)}, {\nabla_{ y(\bar \xi)} f(\bar \xi)} \rangle$.
+If the network satisfied Simple GIA Check (\cref{assm:simpleGIACheck}), i.e.\ the network output is computed like $f(\xi) = n^{-1/2} v^\trsp e(\xi)$ for some embedding $e(\xi)$ of $\xi$ and $v_\alpha \sim\Gaus(0, 1)$ independent of $e$, then we can rewrite ${\nabla_{ y(\xi)} f(\xi)} = n^{-1/2} v^\trsp J(\xi)$ where $J(\xi) = \partial e(\xi)/\partial y(\xi)$.
+Therefore,
+\begin{align*}
+  \langle {\nabla_{ y(\xi)} f(\xi)}, {\nabla_{ y(\bar \xi)} f(\bar \xi)} \rangle
+  = \inv n v^\trsp J(\xi) J(\bar\xi)^\trsp v.
+\end{align*}
+By reversing the trace trick (\cref{{eqn:zdef}}), this quantity has the same limit as $\inv n \tr J(\xi) J(\bar\xi)^\trsp$.
+If $\pi$ is the program expressing the forward and backward propagations of $f(\xi)$ and $f(\bar \xi)$, then this is a moment in $\mathcal D(\pi)$ and $\{W, W^\trsp\}, W \in \mathcal W$.
+By FIP (\cref{thm:FreeIndependencePrinciple}), this moment stays the same if all $W \in \mathcal W$ are assumed independent from $\mathcal D(\pi)$, i.e.\ if transposed weight matrices $W^\trsp$ in the backward pass are independent from $W$ used in the forward pass (which produced the diagonals of $\mathcal D(\pi)$).
+
+\end{document}

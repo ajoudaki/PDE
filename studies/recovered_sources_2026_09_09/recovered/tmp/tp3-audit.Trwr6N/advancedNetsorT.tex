@@ -1,0 +1,401 @@
+%auto-ignore
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\section{\netsortplus{}: Adding Scalars to \netsort{}}
+\label{sec:netsortplus}
+
+In this section, we discuss the extension of \netsort{} with scalars that can be computed from (essentially) averaging some vector in the program.
+This is not used substantially until \cref{sec:subprogramIndependence}, so the reader should feel free to skip ahead and come back only as needed.
+\begin{defn}\label{defn:netsortplus}
+A \netsortplus{} program\footnote{What we refer to as \netsortplus{} program is the same as ``simplified \netsortplus{}'' in \citet{yangTP2}} is just a sequence of $\R^{n}$ vectors and scalars in $\R$ inductively generated via one of the following ways from an initial set $\mathcal{C}$ of random scalars, an initial set $\mathcal{V}$ of random $\R^{n}$ vectors, and a set $\mathcal{W}$ of random $\R^{n\times n}$ matrices
+
+\begin{description}
+\item [\texttt{Nonlin$^+$\label{instr:nonlin+}}] Given $\phi:\R^{k}\times\R^{l}\to\R$, previous scalars $\theta_{1},\ldots,\theta_{l}\in\R$ and vectors $x^{1},\ldots,x^{k}\in\R^{n}$, we can generate a new vector 
+\[
+\phi(x^{1},\ldots,x^{k};\theta_{1},\ldots,\theta_{l})\in\R^{n}
+\]
+where $\phi(-;\theta_{1},\ldots,\theta_{l})$ applies coordinatewise to each ``$\alpha$-slice'' $(x_{\alpha}^{1},\ldots,x_{\alpha}^{k})$. 
+\item [\texttt{Moment\label{instr:moment}}] Given same setup as above, we can also generate a new scalar 
+\[
+\f 1n\sum_{\alpha=1}^{n}\phi(x_{\alpha}^{1},\ldots,x_{\alpha}^{k};\theta_{1},\ldots,\theta_{l})\in\R.
+\]
+\item [\texttt{MatMul\label{instr:matmul+}}] Given $W\in\R^{n\times n}$ and $x\in\R^{n}$, we can generate $Wx\in\R^{n}$ or $W^{\trsp}x\in\R^{n}$ 
+\end{description}
+We say a vector is a \emph{G-var} if it is in $\mathcal{V}$ or it is introduced by \refMatMulPlus{}.
+\end{defn}
+We will typically discuss \netsortplus{} programs when $\mathcal{C}$, $\mathcal{V}$, and $\mathcal{W}$ are sampled as follows.
+Note $\mathcal{V}$ and $\mathcal{W}$ are sampled the same way here as in \cref{setup:netsort}.
+
+\begin{setup}[\netsortplus{}]\label{setup:netsortplus}
+    1) each random scalar $c$ in $\mathcal{C}$ converges to a deterministic limit $\mathring{c}\in\R$ as $n\to\infty$; 2) for each initial $W\in\mathcal{W}$, $W_{\alpha\beta}\sim\Gaus(0,\sigma_{W}^{2}/n)$ for an associated variance $\sigma_{W}^{2}$; 3) there is a multivariate Gaussian $Z^{\mathcal{V}}=\left\{ Z^{g}:g\in\mathcal{V}\right\} \in\R^{|\mathcal{V}|}$ such that the initial set of vectors $\mathcal{V}$ are sampled like $\left\{ g_{\alpha}:g\in\mathcal{V}\right\} \sim Z^{\mathcal{V}}$ iid for each $\alpha\in[n]$.
+\end{setup}
+
+\begin{defn}[Key Intuition for \netsortplus{}]
+    \label{defn:netsortplusKeyIntuit}
+ Just like in the \netsort{} case, each vector $h$ in the program has roughly iid coordinates when $n\gg1$, each of which is distributed like a random variable $Z^{h}$. In addition, each scalar $\theta$ in the program will converge to a deterministic limit $\mathring{\theta}$. We'll recursively define $Z^{h}$ and $\mathring{\theta}$ as follows.
+\begin{description}
+\item [\texttt{ZInit}]
+If $h\in\mathcal{V}$, then $Z^{h}$ is defined as the distribution of each coordinate of $h$ given in \cref{setup:netsortplus}. We also set $\hat{Z}^{h}\defeq Z^{h}$ and $\Zdot^{h}\defeq 0$.
+  Likewise, if $\theta\in\mathcal{C}$, then $\mathring{\theta}$ is defined as the limit of $\theta$ specified in \cref{setup:netsortplus}.
+\item [\texttt{ZMatMul}] Same as in \refZMatMul{} in \netsort{}
+\item [\texttt{ZNonlin$^+$}] Given $\phi:\R^{k}\times\R^{l}\to\R$, previous scalars $\theta_{1},\ldots,\theta_{l}\in\R$ and vectors $x^{1},\ldots,x^{k}\in\R^{n}$, we have
+\[
+Z^{\phi(x^{1},\ldots,x^{k};\theta_{1},\ldots,\theta_{l})}\defeq\phi(Z^{x^{1}},\ldots,Z^{x^{k}};\mathring{\theta}_{1},\ldots,\mathring{\theta}_{l}).
+\]
+\item [\texttt{ZMoment}] Given same setup as above and scalar $\theta = \f 1n\sum_{\alpha=1}^{n}\phi(x_{\alpha}^{1},\ldots,x_{\alpha}^{k};\theta_{1},\ldots,\theta_{l})$, then
+\[
+\mathring{\theta}\defeq\EV\phi(Z^{x^{1}},\ldots,Z^{x^{k}};\mathring{\theta}_{1},\ldots,\mathring{\theta}_{l}).
+\]
+Here $\mathring{\theta}_{1},\ldots,\mathring{\theta}_{l}$ are deterministic, so the expectation is taken over $Z^{x^{1}},\ldots,Z^{x^{k}}$.
+\end{description}
+\end{defn}
+
+\subsection{\netsortplus{} Master Theorem for Pseudo-Lipschitz Nonlinearities}
+\paragraph{Pseudo-Lipschitz functions}
+
+are, roughly speaking, functions whose weak derivatives are polynomially bounded.
+\begin{defn}\label{defn:pseudoLipschitz}
+    A function $f: \R^k \to \R$ is called \emph{pseudo-Lipschitz} of degree $d$ if $|f(x) - f(y)| \le C\|x-y\|(1 + \sum_{i=1}^k |x_i|^d + |y_i|^d)$ for some $C$.
+\end{defn}
+Here are some basic properties of pseudo-Lipschitz functions:
+\begin{itemize}
+    \item The norm $\|\cdot\|$ in \cref{defn:pseudoLipschitz} can be any norm equivalent to the $\ell_2$ norm, e.g. $\ell_p, p\ge1,$ norms. Similarly, $\sum_{i=1}^k |x_i|^d + |y_i|^d$ can be replaced by $\|x\|^d_p + \|y\|^d_p$, for any $p \ge 1$.
+    \item A pseudo-Lipschitz function is polynomially bounded.
+    \item A composition of pseudo-Lipschitz functions of degrees $d_1$ and $d_2$ is pseudo-Lipschitz of degree $d_1 + d_2$.
+    \item A pseudo-Lipschitz function is Lipschitz on any compact set.
+\end{itemize}
+
+\paragraph{Master Theorem}
+We state the Master Theorem below assuming a generic regularity condition called \emph{rank stability} (\cref{assm:asRankStab}), which we shall describe shortly.
+The proof will follow from a more general, but more wordy Master Theorem in the next section (\cref{thm:PCNetsorT+MasterTheorem}).
+\begin{thm}[Pseudo-Lipschitz \netsortplus{} Master Theorem]
+\label{thm:PLNetsorT+MasterTheorem} Fix a \netsortplus{} program. Suppose the initial matrices $\mathcal{W}$, vectors $\mathcal{V}$, and scalars $\mathcal{C}$ are sampled in the fashion of \cref{setup:netsortplus}.
+Suppose the program satisfies the \emph{rank stability assumption} below (\cref{assm:asRankStab}).
+Assume all $\phi$ used in \refNonlinPlus{} are pseudo-Lipschitz (or, we can assume the slightly weaker \cref{assm:MasterTheoremSmoothness}).
+Then 
+\begin{itemize}
+\item For any fixed $k$ and any polynomially-bounded $\psi:\R^{k}\to\R$, as $n\to\infty$,
+\[
+\f 1n\sum_{\alpha=1}^{n}\psi(h_{\alpha}^{1},\ldots,h_{\alpha}^{k})\asto\EV\psi(Z^{h^{1}},\ldots,Z^{h^{k}}),
+\]
+for any vectors $h^{1},\ldots,h^{k}$ in the program, where $Z^{h^{i}}$ are as defined in \cref{{defn:netsortplusKeyIntuit}}.
+\item Any scalar $\theta$ in the program tends to $\mathring{\theta}$ almost surely, where $\mathring{\theta}$ is as defined in \cref{{defn:netsortplusKeyIntuit}}.
+\end{itemize}
+\end{thm}
+
+\begin{assm}
+    \label{assm:MasterTheoremSmoothness}
+    Suppose
+    \begin{enumerate}
+        \item If a function $\phi(;-): \R^{0 + l} \to \R$ with only parameter arguments is used in \refMoment{}, then $\phi$ is continuous in those arguments.
+        \item Any other function $\phi(-;-): \R^{k + l} \to \R$ with parameters (where $k>0$) used in \refNonlinPlus{} or \refMoment{} is pseudo-Lipschitz in all of its arguments (both inputs and parameters).
+    \end{enumerate}
+\end{assm}
+Statement 1 in \cref{assm:MasterTheoremSmoothness} essentially says that if we have scalars $\theta_1, \ldots, \theta_l$ in the program, then we can produce a new scalar by applying a continuous function (a weaker restriction than a pseudo-Lipschitz function) to them.
+Indeed, if $\theta_1, \ldots, \theta_l$ converge almost surely, then this new scalar does too.
+
+\paragraph*{Rank Stability}
+
+The following assumption says that the vectors in a program should not change any linear dependence relations abruptly in the infinite $n$ limit.
+
+\begin{assm}[Rank Stability]\label{assm:asRankStab}
+    Fix a \netsortplus{} program that is setup by \cref{setup:netsortplus}.
+    We say this program satisfies \emph{rank stability} if for any matrix $W\in\R^{n\times n}$ in the program%
+    \footnote{i.e.\ either $W\in\mathcal{W}$ or $W^{\trsp}\in\mathcal{W}$}
+    and any collection $\mathcal{H}$ of vectors $h$ such that $Wh$ appears in the program, we have $\rank \mathcal{H} = \rank \{Z^{h}:h\in\mathcal{H}\}$, almost surely, for sufficiently large $n$.%
+    \footnote{In the case of variable dimension \netsortplus{} programs, this is the same except $W\in \R^{n\times m}$ can have unequal dimensions and the limit is taken in the manner of \cref{setup:netsortVarDim}.}
+\end{assm}
+
+Most commonly, $\{Z^{h}:h\in\mathcal{H}\}$ will be linearly independent for all such $\mathcal H$, and therefore, by the lower semicontinuity of rank, \cref{assm:asRankStab} is automatically satisfied.
+We shall discuss the necessity of \cref{assm:asRankStab} below (\cref{{remk:necessityRankStab}}).
+
+\subsection{\netsortplus{} Master Theorem for Parameter-Controlled Nonlinearities}
+
+\paragraph{Parameter-Control}
+\cref{thm:PLNetsorT+MasterTheorem} will follow from the more general Master Theorem we state in this section, which allows for more general nonlinearities which only needs to be \emph{mildly} smooth in the scalar parameters $\theta_1,\ldots, \theta_l$, but not necessarily in $x^1_\alpha, \ldots, x^k_\alpha$:
+
+\begin{defn}[Parameter-Control]\label{defn:parameterControlled} 
+    We say a parametrized function $\phi(-;-):\R^{k}\times\R^{l}\to\R$ is \emph{polynomially parameter-controlled} or just \emph{parameter-controlled} for short\footnote{This overloads the meaning of \emph{parameter-controlled} from \citet{yangTP1}, where the definition replaces the ``polynomially bounded'' in the definition here with ``bounded by $e^{C\|\cdot\|^{2-\epsilon}+c}$ for some $C,c,\epsilon>0$.'' In this paper, we shall never be concerned with the latter (more generous) notion of boundedness, so there should be no risk of confusion.} , at $\mathring{\bigtheta}\in\R^{l}$ if 
+\begin{enumerate}
+\item $\phi(-;\mathring{\bigtheta})$ is polynomially bounded, and\label{item:parameterControlled1} 
+\item there are some polynomially bounded $\bar{\phi}:\R^{k}\to\R$ and some function $f:\R^{l}\to\R^{\ge0}\cup\{\infty\}$ that has $f(\mathring{\bigtheta})=0$ and that is continuous at $\mathring{\bigtheta}$, such that, for all $x^{1},\ldots,x^{k}\in\R$ and $\bigtheta\in\R^{l}$, 
+\[
+|\phi(x^{1},\ldots,x^{k};\bigtheta)-\phi(x^{1},\ldots,x^{k};\mathring{\bigtheta})|\le f(\bigtheta)\bar{\phi}(x^{1},\ldots,x^{k}).
+\]
+\label{item:parameterControlled2} 
+\end{enumerate}
+ \end{defn} 
+
+Note that $f$ and $\bar{\phi}$ here can depend on $\mathring{\bigtheta}$. The following examples come from \citet{yangTP1}. \begin{exmp}\label{exmp:parameterControl} 
+    Any function that is (pseudo-)Lipschitz in $x^{1},\ldots,x^{k}$ and $\bigtheta$ is polynomially parameter-controlled.
+    An example of a discontinuous function that is polynomially parameter-controlled is $\phi(x;\theta)=\mathrm{step}(\theta x)$: For $\mathring{\theta}\ne0$, we have
+\[
+|\phi(x;\theta)-\phi(x;\mathring{\theta})|\le\f{|\mathring{\theta}-\theta|}{|\mathring{\theta}|},
+\]
+so we can set $f(\theta)=\f{|\mathring{\theta}-\theta|}{|\mathring{\theta}|}$ and $\bar{\phi}=1$ in \cref{defn:parameterControlled}. \end{exmp}
+
+Next, note that we can always express a vector in a \netsortplus{} program as a nonlinear image of previous G-vars.
+For example, if $z = \phi(x^1, x^2; \theta_1), x^1 = W v, x^2 = \psi(y; \theta_2), y = W u$, then $z$ can be directly expressed in terms of G-vars: $z = \hat \phi(W v, W u; \theta_1, \theta_2) \defeq \phi(Wv, \psi(W u; \theta_2); \theta_1)$.
+Therefore, we can make the following definition
+\begin{defn}[$\varphi^{\bullet},\bigtheta^{\bullet}$ Notation] For any $\R^n$ vector $x$ in a \netsortplus{} program (\cref{defn:netsortplus}), let $\varphi^{x}$ and $\bigtheta^{x}$ be the parametrized nonlinearity and the scalars such that $x=\varphi^{x}(z^{1},\ldots,z^{k};\bigtheta^{x})$ for some G-vars $z^{1},\ldots,z^{k}$. Likewise, for any scalar $c$ in a \netsortplus{} program, let $\varphi^{c}$ and $\bigtheta^{c}$ be the parametrized nonlinearity and the scalars such that $c=\f 1n\sum_{\alpha=1}^{n}\varphi^{x}(z_{\alpha}^{1},\ldots,z_{\alpha}^{k};\bigtheta^{c})$ for some G-vars $z^{1},\ldots,z^{k}$. \end{defn}
+
+\begin{thm}[Parameter-Controlled \netsortplus{} Master Theorem]
+    \label{thm:PCNetsorT+MasterTheorem} Fix a \netsort{} program. Suppose the initial matrices $\mathcal{W}$, vectors $\mathcal{V}$, and scalars $\mathcal{C}$ are sampled in the fashion of \cref{setup:netsortplus}.
+    Suppose the program satisfies the \emph{rank stability assumption} (\cref{assm:asRankStab}).
+    Assume $\varphi^u(-;-)$ is parameter-controlled at $\mathring \bigtheta^u$ for all vectors and scalars $u$.
+    Then 
+    \begin{itemize}
+        \item 
+        For any random vector $\bigtheta \in \R^l$ that converges almost surely to a deterministic vector $\mathring{\bigtheta}$ as $n \to \infty$, and for any $\psi(-; -): \R^k \times \R^l \to \R$ parameter-controlled at $\mathring{\bigtheta}$,
+        \begin{align*}
+            \f 1 n \sum_{\alpha=1}^n \psi(g^1_\alpha, \ldots, g^k_\alpha; \bigtheta) \asto \EV\psi(Z^{g^1}, \ldots, Z^{g^k}; \mathring{\bigtheta}).
+        \end{align*}
+        for any G-vars $g^1, \ldots, g^k$, 
+        where $Z^{g^{i}}$ are as defined in \cref{{defn:netsortplusKeyIntuit}}.
+        \item Any scalar $\theta$ in the program tends to $\mathring{\theta}$ almost surely, where $\mathring{\theta}$ is as defined in \cref{{defn:netsortplusKeyIntuit}}.
+    \end{itemize}
+\end{thm}
+
+Since pseudo-Lipschitz parametrized functions and parameterless polynomially bounded functions are both parameter-controlled, \cref{thm:PCNetsorT+MasterTheorem} implies \cref{thm:PLNetsorT+MasterTheorem} trivially.
+Proof of \cref{thm:PCNetsorT+MasterTheorem} can be found in \cref{sec:netsortplusMasterTheoremProof}
+
+\paragraph{Necessity of the Master Theorems' Assumptions}
+
+The following remarks from \citep{yangTP1} show the necessity of parameter control and of rank stability in \cref{thm:PCNetsorT+MasterTheorem}.
+\begin{rem}
+[Necessity of parameter-control] Suppose $\psi(x;\theta)=\ind(\theta x\ne0)$. For $\theta\ne0$, $\psi$ is 1 everywhere except $\psi(0;\theta)=0$. For $\theta=0$, $\psi$ is identically 0. Thus it's easily seen that $\psi$ is not parameter-controlled at $\theta=0$.
+
+Now, if $g\in\R^{n}$ is sampled like $g_{\alpha}\sim\Gaus(0,1)$ and if $\theta=1/n$ so that $\theta\to\mathring{\theta}=0$, then 
+\[
+\f 1n\sum_{\alpha=1}^{n}\psi(g_{\alpha};\theta)\asto1
+\]
+but 
+\[
+\EV\psi(Z^{g};\mathring{\theta})=\EV0=0.
+\]
+So our Master Theorem can't hold in this case. 
+\end{rem}
+
+\begin{rem}
+[Necessity of Rank Stability \cref{assm:asRankStab}]
+\label{remk:necessityRankStab} Suppose we have two Initial G-vars $g^{1},g^{2}\in\R^{n}$ which are sampled independently as $g_{\alpha}^{1},g_{\alpha}^{2}\sim\Gaus(0,1)$. Let $W\in\R^{n\times n}$ be sampled as $W_{\alpha\beta}\sim\Gaus(0,1/n)$. Then we can define $h^{2}=\theta g^{2}$ where $\theta=\exp(-n)$ as a function of $n$, using \refNonlinPlus{}, so that $h_{\alpha}^{2}\asto0$. Additionally, let $\bar{g}^{1}=Wg^{1}$ and $\bar{g}^{2}=Wh^{2}$. Again, $\bar{g}_{\alpha}^{2}\asto0$ but for any finite $n$, $\bar{g}^{2}$ is linearly independent from $\bar{g}^{1}$. Thus rank stability does not hold here, since the rank of $\{\bar{g}^{1},\bar{g}^{2}\}$ is 2 for all finite $n$, yet $\{Z^{\bar{g}^{1}},Z^{\bar{g}^{2}}\}=\{\Gaus(0,1),0\}$ has rank 1.
+
+Now consider the (parameterless) nonlinearity $\psi(x,y)$ that is 1 except on the line $y=0$, where it is 0. Then 
+\[
+\f 1n\sum_{\alpha=1}^{n}\psi(\bar{g}_{\alpha}^{1},\bar{g}_{\alpha}^{2})\asto1
+\]
+since $\bar{g}_{\alpha}^{2}$ is almost surely nonzero, but 
+\[
+\EV\psi(Z^{\bar{g}^{1}},Z^{\bar{g}^{2}})=\EV\psi(Z^{\bar{g}^{1}},0)=\EV0=0.
+\]
+\end{rem}
+
+Note this example uses the non-smoothness of $\psi$ in an essential way.
+Therefore, we conjecture that rank stability assumption can be removed in \cref{thm:PLNetsorT+MasterTheorem}.
+
+\begin{rem}
+[Rank stability already holds for \netsort{} programs] \label{remk:rankStabilityNetsor} It turns out that, as long as we only have parameterless nonlinearities, we get rank stability \cref{assm:asRankStab} for free. This is formulated explicitly in \cref{lemma:rankStability}. It is as a result of our proof of \cref{thm:NetsorTMasterTheorem} that interleaves an inductive proof of this rank stability (more generally, the inductive hypothesis \ref{IH:coreSet}) with an inductive proof of the ``empirical moment'' convergence (the inductive hypothesis \ref{IH:MomConv}). 
+\end{rem}
+
+\paragraph{Relative Utilities of \cref{thm:PLNetsorT+MasterTheorem} and \cref{thm:PCNetsorT+MasterTheorem}}
+    While pseudo-Lipschitz functions are closed under composition (at the expense of increasing degree), this is in general not true for parameter-control.
+    Thus, the assumptions of \cref{thm:PCNetsorT+MasterTheorem} are relatively more cumbersome to check: one has to manually unwind the nonlinearities into $\varphi^x$ and then check this nested function is parameter-controlled.
+    However, this increased flexibility of the parameter-control condition allows us to prove useful theorems that is not possible with the just \cref{thm:PLNetsorT+MasterTheorem}.
+    For example, if $\varphi^x(z; \theta) = z / \theta$, then $\varphi^x$ is not pseudo-Lipschitz, but it is parameter-controlled if $\mathring \theta > 0$.
+    This fact is used in \citet{yangTP1,yangTP2} to compute the Gaussian Process kernel and the Neural Tangent Kernel of a randomly initialized neural network with layernorm.
+
+\subsection{Getting Rid of Rank Stability Assumption through More Test Function Smoothness}
+
+Sometimes, the rank stability assumption \cref{assm:asRankStab} can be difficult to check, so it is convenient to have a version of the Master Theorem without it.
+As shown in \cref{remk:necessityRankStab}, to do so, it's not enough to only have parameter-control; we need to have some smoothness in the nonlinearities and the test functions.
+It turns out we can obtain a version of \cref{thm:PLNetsorT+MasterTheorem} without assuming rank stability.
+
+\begin{thm}[Pseudo-Lipschitz \netsortplus{} Master Theorem without Rank Stability]
+    \label{thm:PLNetsorT+MasterTheoremNoRS} Fix a Tensor Program initialized accordingly to \cref{setup:netsortplus}.
+    Assume all nonlinearities are pseudo-Lipschitz (or, we can assume the slightly weaker \cref{assm:MasterTheoremSmoothness}).
+    Then 
+    \begin{enumerate}
+    \item For any fixed $k$ and any pseudo-Lipschitz $\psi:\R^{k}\to\R$, as $n\to\infty$,
+    \begin{equation*}
+    \f 1n\sum_{\alpha=1}^{n}\psi(h_{\alpha}^{1},\ldots,h_{\alpha}^{k})\asto\EV\psi(Z^{h^{1}},\ldots,Z^{h^{k}}),
+    \end{equation*}
+    for any vectors $h^{1},\ldots,h^{k}$ in the program, where $Z^{h^{i}}$ are as defined in \cref{{defn:netsortplusKeyIntuit}}.
+    \item Any scalar $\theta$ in the program tends to $\mathring{\theta}$ almost surely, where $\mathring{\theta}$ is as defined in \cref{{defn:netsortplusKeyIntuit}}.
+    \end{enumerate}
+\end{thm}
+
+\paragraph{Difference between \cref{thm:PLNetsorT+MasterTheorem} and \cref{thm:PLNetsorT+MasterTheoremNoRS}}
+is 1) \cref{thm:PLNetsorT+MasterTheorem} needs rank stability \cref{assm:asRankStab} and 2) the test function $\psi$ in \cref{thm:PLNetsorT+MasterTheoremNoRS}(1) is pseudo-Lipschitz.
+
+\paragraph{Proving \cref{thm:PLNetsorT+MasterTheoremNoRS}}
+The main difficulty with proving \cref{thm:PLNetsorT+MasterTheorem} without rank stability is that even if the covariance matrix of the $Z$ random variables converges, its pseudo-inverse may not.
+This is a crucial step in the Gaussian conditioning trick, so we need to more carefully modify the proof skeleton of \cref{thm:NetsorTMasterTheorem} (in contrast to the proof of \cref{thm:PCNetsorT+MasterTheorem}, which just needed to modify some minor bounds in the proof skeleton).
+The main idea is to carefully extend the core-set argument of \cref{sec:proofMainTheorem}.
+See \cref{sec:proofNetsorTPlusNoRS} for the proof.
+
+\section{Programs with Variable Dimension}
+\label{appendix:VarDim}
+
+\newcommand{\highlight}[1]{{\color{red}#1}}
+
+We can also allow the matrices and vectors to have variable dimensions (not all equal to $n$). 
+This is useful in reasoning about neural networks of varying widths in each layer, and in proving the Marchenko-Pastur law for arbitrary rectangular shape ratio (see \cref{{sec:MP}}).
+The reader should feel free to skip ahead and read this section only when approaching these topics.
+
+Here we need to spend a few words on the right analogue of ``large-$n$'' limit we should take. The basic idea is that, every time we apply one of the \refMatMul{}, \refNonlinPlus{}, or \refMoment{} rules, we implicitly set equal some dimensions of the matrices and/or vectors involved. These equalities partitions the vectors into classes sharing common dimensions. The limit we shall take is one in which the dimension of each class tends to infinity, such that the dimension ratio of each pair of distinct classes tends to a fixed number strictly in $(0,\infty)$.
+
+\paragraph*{Notation}
+
+In this section, we let $\dim(x)$ denote the dimension of a vector $x$.
+We present a relatively self-contained exposition, but inevitably this will be highly similar to the nonvariable-dimension case, so we highlight important differences in \highlight{red}.
+\begin{defn}\label{defn:netsortVarDim}
+A \netsort{} program (with variable dimensions) is just a sequence of vectors inductively generated via one of the following ways from an initial set $\mathcal{V}$ of random vectors and a set $\mathcal{W}$ of random matrices 
+\end{defn}
+
+\begin{description}
+\item [\texttt{Nonlin}\label{instr:nonlinVarDim}] (Same as in \cref{defn:netsort}) Given $\phi:\R^{k}\to\R$ and $x^{1},\ldots,x^{k}\in\R^{n}$ in the same CDC, we can generate $\phi(x^{1},\ldots,x^{k})\in\R^{n}$ 
+\item [\highlight{\texttt{MatMul}}\label{instr:matmulVarDim}] Given $W\in\R^{n\times m}$ (resp. $W\in\R^{m\times n}$) and $x\in\R^{m}$, we can generate $Wx\in\R^{n}$ (resp. $W^{\trsp}x\in\R^{n}$)
+\end{description}
+\begin{defn}
+A \netsortplus{} program (with variable dimension) is just a sequence of vectors inductively generated via one of the following ways from an initial set $\mathcal{C}$ of random scalars, an initial set $\mathcal{V}$ of random vectors, and a set $\mathcal{W}$ of random matrices 
+\begin{description}
+\item [\texttt{Nonlin$^+$}\label{instr:nonlin+VarDim}] (Same as in \cref{defn:netsortplus}) Given $\phi:\R^{k}\times\R^{l}\to\R$, previous scalars $\theta_{1},\ldots,\theta_{l}\in\R$ and vectors $x^{1},\ldots,x^{k}\in\R^{n}$ in the same CDC, we can generate a new vector 
+\[
+\phi(x^{1},\ldots,x^{k};\theta_{1},\ldots,\theta_{l})\in\R^{n}
+\]
+where $\phi(-;\theta_{1},\ldots,\theta_{l})$ applies coordinatewise to each $\alpha$-slice $(x_{\alpha}^{1},\ldots,x_{\alpha}^{k})$. 
+\item [\texttt{Moment}\label{instr:momentVarDim}] (Same as in \cref{defn:netsortplus}) Given same setup as above, we can also generate a new scalar 
+\[
+\f 1n\sum_{\alpha=1}^{n}\phi(x_{\alpha}^{1},\ldots,x_{\alpha}^{k};\theta_{1},\ldots,\theta_{l})\in\R
+\]
+\item [\highlight{\texttt{MatMul}}\label{instr:matmul+VarDim}] Same as in \cref{defn:netsortVarDim} above.
+\end{description}
+\end{defn}
+Note that in both definitions above, the essential change is that the matrix in \refMatMulVarDim{} is now allowed to have different dimensions on two sides.
+
+The initial vectors in $\mathcal{V}$ can have varying dimensions. When we take the ``large dimension'' limit, we may seek to hold certain pairs of such dimensions to be equal. We formalize this as an equivalence relation between vectors in $\mathcal{V}$: $x\simeq y$ if we hold $\dim(x)=\dim(y)$ as this dimension tends to infinity.
+In addition, we have the following natural constraints on the dimensions of vectors involved in each rule.
+\begin{equation}
+\begin{cases}
+\text{If \ensuremath{y=\phi(x^{1},\ldots,x^{k})}, then \ensuremath{\dim(y)=\dim(x^{i}),\forall i}.}\\
+\text{If \ensuremath{y=Wx} and \ensuremath{\bar{y}=W\bar{x}}, then \ensuremath{\dim(x)=\dim(\bar{x})} and \ensuremath{\dim(y)=\dim(\bar{y})}.}
+\end{cases}\label{eqn:dimconstraint}
+\end{equation}
+This allows us to extend the equivalence relation $\simeq$ on $\mathcal{V}$ as discussed above to all vectors in the program.
+\begin{defn}
+\label{def:CDC}
+Given an equivalence relation $\simeq$ on the vectors of a program, we extend this to an equivalence relation on all vectors of the program as the smallest equivalence relation containing the relation
+\begin{equation}
+h\equiv h'\iff h\simeq h'\text{ OR \ensuremath{h} and \ensuremath{h'} are constrained to have the same dimension by (\ref{eqn:dimconstraint})}.
+\end{equation}
+We call any such equivalence class a \emph{Common Dimension Class}, or CDC. We denote this common dimension of vectors in a CDC $\cdc$ by $\dim(\cdc)$.
+\end{defn}
+
+Intuitively, the dimensions of vectors in each CDC are all the same but can be different in different CDCs. The CDCs form a partition of all the vectors in a program. Each matrix in $\mathcal{W}$ ``straddles'' between two (possible the same) CDCs.
+
+\begin{exmp}
+    Consider the MLP in \cref{eqn:MLP} but with variable widths:
+     $f(\xi; \theta) = W^{L+1} x^L(\xi)$ with input $\xi \in \R^{n^0}$ and output dimension $n^{L+1} = 1$, where we recursively define, for $l = 2, \ldots , L$,
+\begin{align*}
+    h^{l}(\xi)=W^{l}x^{l-1}(\xi)\in\R^{n^{l}},\quad x^{l}(\xi)=\phi(h^{l}(\xi)),\quad h^{1}(\xi)=W^{1}\xi\in\R^{n^{1}}
+\end{align*}
+where each $W^l \in \R^{n^l \times n^{l-1}}$.
+Suppose we sample $W^l_{\alpha\beta} \sim \Gaus(0,1/n^{l-1})$.
+The vectors in the program are $h^1(\xi), x^1(\xi), \ldots, h^l(\xi), x^l(\xi)$.
+In \cref{def:CDC}, if $\simeq$ is empty, then the CDCs will just be $\{h^1(\xi), x^1(\xi)\}, \ldots, \{h^l(\xi), x^l(\xi)\}$ (each with common dimension $n^l$).
+If instead we set $h^1(\xi) \simeq \cdots \simeq h^l(\xi)$, then there is only one CDC with common dimension $n^1 = \cdots = n^L$.
+\end{exmp}
+
+\begin{setup}[Variable Dimension \netsort{} or \netsortplus{}]\label{setup:netsortVarDim}
+    We will consider \netsort{} or \netsortplus{} programs initialized as follows.
+    \begin{description}
+        \item[Matrix sampling] For each initial $W\in\R^{n\times m}$ in $\mathcal{W}$, we sample $W_{\alpha\beta}\sim\Gaus(0,\sigma_{W}^{2}/m)$ for an associated variance $\sigma_{W}^{2}$. In this setting, we also set $\sigma_{W^{\trsp}}^{2}\defeq\frac{n}{m}\sigma_{W}^{2}$ so that $(W^{\trsp})_{\alpha\beta}\disteq\Gaus(0,\sigma_{W^{\trsp}}^{2}/n)$.
+        \item[Vector sampling] For every CDC $\cdc$, there is a multivariate Gaussian $Z^{\cdc\cap\mathcal{V}}=\left\{ Z^{g}:g\in\cdc\cap\mathcal{V}\right\} \in\R^{\cdc\cap\mathcal{V}}$ such that the vectors in $\cdc\cap\mathcal{V}$ are sampled like $\left\{ g_{\alpha}:g\in\cdc\cap\mathcal{V}\right\} \sim Z^{\cdc\cap\mathcal{V}}$ iid for each $\alpha\in[\dim(\cdc)]$. 
+        \item[Scalar sampling] For a \netsortplus{} program, the scalars in $\mathcal{C}$ are sampled the same way as in \cref{setup:netsortplus}.
+        \item[How the limit is taken] We shall consider a limit where for every matrix $W\in\R^{n\times m}$ in $\mathcal W$, the dimensions $n,m$ (which are dimensions of corresponding CDCs) tend to $\infty$ such that their ratio $n/m\to\rho\in(0,\infty)$ for some finite but nonzero $\rho$. Note this implies $\sigma_{W^{\trsp}}^{2}=\frac{n}{m}\sigma_{W}^{2}\to\mathring{\sigma}_{W^{\trsp}}^{2}\defeq\rho\sigma_{W}^{2}$. We also define $\mathring{\sigma}_{W}^{2}\defeq\sigma_{W}^{2}$ for convenience.
+    \end{description}
+\end{setup}
+
+\begin{defn}\label{defn:ZVarDim}
+    Given this setup, each vector $h$ again has roughly iid coordinates distributed like $Z^{h}$, which is defined as follows.
+    Likewise, for \netsortplus{} programs, each scalar $\theta$ will tend to a deterministic limit $\mathring \theta$, as defined below.
+This is exactly the same as in \cref{defn:Z} or \cref{defn:netsortplusKeyIntuit} except that $\sigma_W$ should be replaced by $\mathring \sigma_W$.
+We highlight the places where this occurs in \highlight{red} below.
+\begin{description}
+\item [\texttt{ZInit}] Same as in \cref{defn:Z} or \cref{defn:netsortplusKeyIntuit}.
+\item [\texttt{ZMatMul}] For every $W_{\alpha\beta}\sim\Gaus(0,\sigma_{W}^{2}/n)$ and vector $x$ in the program, we set $Z^{Wx}\defeq \hat{Z}^{Wx}+\Zdot^{Wx}$ where
+    \begin{description}
+    \item [\texttt{ZHat}] {$\hat{Z}^{Wx}$} is a Gaussian variable with zero mean. Let $\mathcal V_W$ denote the set of all vectors in the program of the form $W y$ for some $y$.
+    Then $\{\hat Z^{W y}: W y \in \mathcal V_W\}$ is defined to be jointly Gaussian with zero mean and covariance
+    \[
+    \Cov\left(\hat{Z}^{Wx},\hat{Z}^{W y}\right)\defeq \highlight{\mathring\sigma_{W}^{2}}\EV Z^{x}Z^{y},\quad\text{for any \ensuremath{Wx,W y\in\mathcal{V}_W}.}
+    \]
+    Furthermore, $\{\hat Z^{W y}: W y \in \mathcal V_W\}$ is mutually independent from $\{\hat Z^{v }: v \in \mathcal V \cup \bigcup_{\bar W \ne W} \mathcal V_{\bar W}\}$, where $\bar{W}$ ranges over $\mathcal{W}\cup\{A^{\trsp}:A\in\mathcal{W}\}$.
+    \item [\texttt{ZDot}]
+    With partial derivative interpreted naively (but see \cref{rem:PartialDer} and \ref{rem:ExpectationPartialDerVarDim}),
+    \[\Zdot^{Wx}\defeq \highlight{\mathring\sigma_{W}^{2}}\sum Z^{y}\EV\frac{\partial Z^{x}}{\partial\hat{Z}^{W^{\trsp}y}},\]
+    summing over $W^\trsp y \in \mathcal V_{W^\trsp}$ introduced before $x$.
+    \end{description}
+\item [\texttt{ZNonlin}] Same as in \cref{defn:Z} or \cref{defn:netsortplusKeyIntuit}.
+\item [\texttt{ZMoment}] Same as in \cref{defn:netsortplusKeyIntuit}.
+\end{description}
+\end{defn}
+
+\begin{rem}[Partial derivative expectation]\label{rem:ExpectationPartialDerVarDim}
+    The partial derivative expectation $\EV\frac{\partial Z^{x}}{\partial\hat{Z}^{W^{\trsp}x^{i}}}$ can be defined without derivatives as in \cref{rem:ExpectationPartialDer}, with the only change being the dependence on the dimension ratio, which we highlight in \highlight{red} below:
+    In \texttt{ZDot} above, suppose $\{W^{\trsp}y^{i}\}_{i=1}^{k}$ are all elements of $\mathcal V_{W^\trsp}$ introduced before $x$.
+    Define the matrix $C\in\R^{k\times k}$ by $C_{ij}\defeq \EV Z^{y^{i}}Z^{y^{j}}$ and define the vector $b\in\R^{k}$ by $b_{i}\defeq \EV\hat{Z}^{W^{\trsp}y^{i}}Z^{x}$. If $a=\highlight{\rho^{-1}}C^{+}b$ (where $C^{+}$ denotes the pseudoinverse of $C$ and $\rho=\lim m/n$ is the limit ratio of dimensions of $W\in\R^{m\times n}$), then in \refZdot{} we may set
+    \begin{equation}
+    \sigma_{W}^{2}\EV\frac{\partial Z^{x}}{\partial\hat{Z}^{W^{\trsp}y^{i}}}=a_{i}.\label{eq:ExpectationPartialDerNetsorT+}
+    \end{equation}
+\end{rem}
+
+Then by straightforward modifications of the proofs of the nonvariable-dimension cases, we can prove the following Master Theorems.
+\begin{thm}[Variable Dimension \netsort{} Master Theorem]
+\label{thm:NetsorTMasterTheoremVarDim} Fix a \netsort{} program (with variable dimensions). Suppose the initial matrices $\mathcal{W}$ and vectors $\mathcal{V}$ are sampled in the fashion of \cref{setup:netsortVarDim}.
+Assume all $\phi$ used in \refNonlinVarDim{} are polynomially bounded. Then for any fixed $k$ and any \emph{polynomially bounded} $\psi:\R^{k}\to\R$, as the dimensions of the vectors tend to $\infty$ as specified in \cref{setup:netsortVarDim}, we have
+
+\[
+\f 1n\sum_{\alpha=1}^{n}\psi(h_{\alpha}^{1},\ldots,h_{\alpha}^{k})\asto\EV\psi(Z^{h^{1}},\ldots,Z^{h^{k}}),
+\]
+for any collection of vectors $h^{1},\ldots,h^{k} \in \R^n$ in the program, where $Z^{h^{i}}$ are defined in \cref{defn:ZVarDim}.
+\end{thm}
+
+\begin{thm}[Variable Dimension Pseudo-Lipschitz \netsortplus{} Master Theorem]
+    \label{thm:PLNetsorT+MasterTheoremVarDim} Fix a \netsort{} program (with variable dimensions). Suppose the initial matrices $\mathcal{W}$, vectors $\mathcal{V}$, and scalars $\mathcal{C}$ are sampled in the fashion of \cref{setup:netsortVarDim}.
+    Suppose the program satisfies the \emph{rank stability assumption} (\cref{assm:asRankStab}).
+    Assume each nonlinearity of \refNonlinPlusVarDim{} is pseudo-lipschitz.
+    Then 
+    \begin{itemize}
+        \item For any fixed $k$ and any polynomially-bounded $\psi:\R^{k}\to\R$, in the limit described in \cref{setup:netsortVarDim},
+        \[
+        \f 1n\sum_{\alpha=1}^{n}\psi(h_{\alpha}^{1},\ldots,h_{\alpha}^{k})\asto\EV\psi(Z^{h^{1}},\ldots,Z^{h^{k}}),
+        \]
+        for any vectors $h^{1},\ldots,h^{k} \in \R^n$ in the same CDC, where $Z^{h^{i}}$ are as defined in \cref{defn:ZVarDim}.
+        \item Any scalar $\theta$ in the program tends to $\mathring{\theta}$ almost surely, where $\mathring{\theta}$ is as defined in \cref{defn:ZVarDim}.
+    \end{itemize}
+\end{thm}
+
+Again, \cref{thm:PLNetsorT+MasterTheoremVarDim} strictly generalized by the following Master Theorem for Parameter-Controlled nonlinearities.
+
+\begin{thm}[Variable Dimension Parameter-Controlled \netsortplus{} Master Theorem]
+    \label{thm:PCNetsorT+MasterTheoremVarDim} Fix a \netsort{} program (with variable dimensions). Suppose the initial matrices $\mathcal{W}$, vectors $\mathcal{V}$, and scalars $\mathcal{C}$ are sampled in the fashion of \cref{setup:netsortVarDim}.
+    Suppose the program satisfies the \emph{rank stability assumption} (\cref{assm:asRankStab}).
+    Assume $\varphi^u(-;-)$ is parameter-controlled at $\mathring \bigtheta^u$ for all vectors and scalars $u$.
+    Then 
+    \begin{itemize}
+        \item 
+        For any random vector $\bigtheta \in \R^l$ that converges almost surely to a deterministic vector $\mathring{\bigtheta}$, and for any $\psi(-; -): \R^k \times \R^l \to \R$ parameter-controlled at $\mathring{\bigtheta}$, we have
+        \begin{align*}
+            \f 1 n \sum_{\alpha=1}^n \psi(g^1_\alpha, \ldots, g^k_\alpha; \bigtheta) \asto \EV\psi(Z^{g^1}, \ldots, Z^{g^k}; \mathring{\bigtheta}).
+        \end{align*}
+        in the limit described in \cref{setup:netsortVarDim},
+        for any G-vars $g^1, \ldots, g^k \in \R^n$ in the same CDC,
+        where $Z^{g^{i}}$ are as defined in \cref{defn:ZVarDim}.
+        \item Any scalar $\theta$ in the program tends to $\mathring{\theta}$ almost surely, where $\mathring{\theta}$ is as defined in \cref{defn:ZVarDim}.
+    \end{itemize}
+\end{thm}
+
+\end{document}

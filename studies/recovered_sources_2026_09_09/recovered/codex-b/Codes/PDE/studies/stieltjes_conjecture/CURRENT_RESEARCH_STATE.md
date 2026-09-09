@@ -1,0 +1,2081 @@
+# The Output-Kernel Stieltjes Conjecture
+
+## Authoritative research state, exact certificates, failed routes, and conditional ODE reconstruction
+
+**Status as of 14 August 2026:** compatible with every condition decidable
+from the first five exact canonical moments and with all finite-order Hankel
+tests in four exact parameter-continuum campaigns; a fifth three-input
+campaign established exact lower jets and $\mu_0,\mu_1>0$ but did not reach a
+Hankel determinant.  An exact global-proxy calibration passed, while the
+canonical finite-width global-curve pilot was stopped inconclusive for lack
+of statistical resolution.  A subsequent breadth-first FP32 Euler panel was
+stopped at its local integrator-validation gate before any width extrapolation
+or proxy comparison.  The conjecture is neither proved nor falsified.
+
+This is the single authoritative, self-contained account of the
+Stieltjes-conjecture investigation. It supersedes the historical report in
+[`archive/EARLIER_REPORT.md`](archive/EARLIER_REPORT.md), including that
+report's obsolete provisional order-eleven status. It incorporates the exact
+order-eleven feature jet, inverse-variable reformulation, variance homotopy,
+all-minor sector audit, conditional quadrature reconstruction, numerical
+experiments, adversarial audits of failed proof strategies, and the completed
+bounded Campaigns 4--6 portfolio.
+
+The conjecture-specific theory, certificates, and numerics are contained
+below this directory.  The reusable derivative engine is maintained in its
+own sibling study:
+
+- [`theory/`](theory/) contains exact moment certificates, reconstruction
+  scripts, and analytic derivations;
+- [`../mean_field_peeling/`](../mean_field_peeling/) contains the reusable MFP
+  theory, detailed training case study, and exact quadratic compiler that
+  supplies the raw feature derivatives used here;
+- [`numerics/direct_loewner/`](numerics/direct_loewner/) contains the first
+  direct Loewner experiments and their preserved outputs;
+- [`numerics/finite_width/`](numerics/finite_width/) contains the later
+  preregistered finite-width calibration and positive-time experiments;
+- [`numerics/global_proxy_campaign/`](numerics/global_proxy_campaign/)
+  contains the nested rational-proxy calibration and the closed canonical
+  global-curve pilot.
+- [`numerics/hybrid_mean_field_campaign/`](numerics/hybrid_mean_field_campaign/)
+  contains the bounded-DMFT Stage-0 audit, canonical FP32 Euler qualification,
+  and the later stopped breadth-first proxy panel.
+
+Paths embedded inside frozen result manifests record where files lived when a
+run was executed.  They are historical provenance, not the current layout.
+
+The main claim levels are:
+
+| Statement | Current status |
+|---|---|
+| Raw fixed-order derivatives through $F^{(11)}(0)$ | Accepted exact computational certificates |
+| Moments $\mu_0,\ldots,\mu_4$ and every accessible Hankel test | Exact; every test passes strictly |
+| Four nontrivial parameter families reaching Hankel tests | Exact finite-order continuum certificates; every tested inequality passes |
+| Second-hidden companion response on the relative-metric ray | Separate finite-order Stieltjes-compatible extension; not implied by the output conjecture |
+| Three-input equicorrelation through order five | Exact lower jets and $\mu_0,\mu_1>0$; no $\mu_2$ or Hankel determinant |
+| Bounded Campaign-6 order-thirteen probe | Inconclusive; no accepted new bound or interval |
+| Full $F^{(13)}(0)$, $\mu_5$, and the next shifted determinant | Open |
+| All-order Stieltjes moment property | Open |
+| Existence of a representing measure | Conditional on all-order Hankel positivity |
+| Uniqueness of that measure | Open; requires determinacy |
+| Equality of a representing resolvent and the actual global mean-field curve | Open |
+| Gaussian/Radau rational ODE bounds | Exact for every representing resolvent; conditional for the intended curve |
+| Exact Lambert-$W$ global proxy calibration | Passed through all five moment additions; final sup log-kernel error $1.43\times10^{-7}$ |
+| Canonical finite-width global proxy pilot | Completed hash-bound trajectories, but protocol-inconclusive and statistically under-resolved; later neural branches stopped |
+| Bounded-readout DMFT Stage 0 | Response contacts and truncated-law low jets pass; positive-time solver locked and unrun |
+| Canonical FP32 Euler Stage V | $h=5\times10^{-6}$ failed frozen rounding/driver gates; numerical-method inconclusive |
+| Breadth-first FP32 Euler proxy panel | Local validation stopped after two of three one-input configurations failed update-geometry gates; no width screen or proxy-accuracy inference |
+| Order-thirteen numerical estimate | Inconclusive; useful only as a target |
+
+The core verdict is
+
+$$
+\boxed{\begin{gathered}
+\text{canonical five-moment and four-family Hankel compatibility,}\\
+\text{but no all-order theorem and no counterexample.}
+\end{gathered}}
+$$
+
+## 1. Formal object being studied
+
+At \(\gamma=1\), the one-sample, two-hidden-layer quadratic model can be
+written
+
+$$
+z_i=\frac1{\sqrt n}\sum_j W_{ij}u_j^2,
+\qquad
+f_n=\frac1n\sum_i a_i z_i^2,
+$$
+
+with all initialization variables \(a_i,W_{ij},u_j\) independent standard
+Gaussians.  Feature-ascent time \(s\) is generated by
+
+$$
+D_n=n\nabla f_n\mathbin\cdot\nabla .
+$$
+
+The formal deterministic mean-field jet is
+
+$$
+F^{(k)}(0)=\lim_{n\to\infty}\mathbb E[D_n^k f_n].
+$$
+
+This definition is fixed-order: $k$ is held constant while $n\to\infty$.
+It must be kept distinct from the resulting formal series, a possible
+width-first positive-time deterministic curve, stopped finite-width typical
+estimators, and ordinary finite-width expectations.
+
+The parameter flip \(a\mapsto-a\), together with time reversal, implies that
+\(F\) is formally odd.  Since \(F'(0)=111\ne0\), it has a unique odd formal
+compositional inverse.  Define the even formal series
+
+$$
+K(y)=F'\!\left(F^{-1}(y)\right).
+$$
+
+Equivalently, \(F'(s)=K(F(s))\).  This equation is an exact identity of formal
+jets; it does not by itself prove that either series defines a global function.
+
+When an actual differentiable feature-ascent curve exists and $F'(0)>0$, the
+inverse-function theorem makes the same relation an exact local scalar ODE.
+For one sample with label $1$ and squared loss, physical gradient flow moves
+along the same parameter-space route with a scalar throttle. If $y(t)$ is the
+network output, then
+
+$$
+\frac{dy}{dt}=2\eta(1-y)K(y),
+\qquad
+L(t)=(1-y(t))^2,
+\qquad
+\frac{dL}{dt}=-4\eta K(y)L.
+$$
+
+This route reparameterization is special to one sample. It is local unless
+the actual feature curve remains invertible, and it is not justified merely
+by possessing a formal jet.
+
+For general activation scale \(\phi(x)=\gamma x^2\), the already established
+scaling is
+
+$$
+F_\gamma(s)=\gamma^3F_1(\gamma^3s),
+\qquad
+K_\gamma(y)=\gamma^6K_1(y/\gamma^3).
+$$
+
+## 2. Exact derivatives through order eleven
+
+The accepted checked-integer results are
+
+$$
+\begin{aligned}
+F_1'(0)&=111,\\
+F_1^{(3)}(0)&=1\,685\,184,\\
+F_1^{(5)}(0)&=77\,400\,633\,120,\\
+F_1^{(7)}(0)&=7\,315\,868\,433\,079\,296,\\
+F_1^{(9)}(0)&=1\,181\,161\,141\,825\,400\,561\,664,\\
+F_1^{(11)}(0)&=291\,982\,832\,387\,585\,872\,335\,470\,592.
+\end{aligned}
+$$
+
+Thus
+
+$$
+\frac{F_1^{(11)}(0)}{11!}
+=\frac{42\,242\,886\,630\,148\,419\,030\,016}{5775},
+$$
+
+and
+
+$$
+F_\gamma^{(11)}(0)
+=291\,982\,832\,387\,585\,872\,335\,470\,592\,\gamma^{36}.
+$$
+
+The order-eleven value is the accepted exact output of audited checked-integer
+computer algebra, not formally verified software.  It is the sum of all
+twelve Wick-pair sectors.  Sector $P=9$ has one complete checked evaluator
+route but has not been redundantly recomputed by the newer connected-sector
+engine; the other provenance and regression gates are recorded below.  In
+ascending order of the number \(P\) of covariance pairs, they are
+
+```text
+P=1   23170716039905280
+P=2   17433397654868459520
+P=3   1428455842962100715520
+P=4   40114976109177824870400
+P=5   530996753942041626279936
+P=6   3868170903724215843717120
+P=7   16894189549156196962566144
+P=8   46146109609021522448793600
+P=9   79443613137340581848727552
+P=10  83655641930747138444722176
+P=11  49117046434067436406308864
+P=12  12285503181066227920404480
+```
+
+The low-sector and high-sector runs, their hashes, their exact commands, and
+the independent regression gates are recorded in
+[`../mean_field_peeling/quadratic_compiler/D11_LOWER_SECTOR_AUDIT.md`](../mean_field_peeling/quadratic_compiler/D11_LOWER_SECTOR_AUDIT.md),
+[`../mean_field_peeling/quadratic_compiler/d11_high_sectors_exact.txt`](../mean_field_peeling/quadratic_compiler/d11_high_sectors_exact.txt), and
+[`../mean_field_peeling/quadratic_compiler/SECTOR_ENGINE.md`](../mean_field_peeling/quadratic_compiler/SECTOR_ENGINE.md).
+
+## 3. What the programmed peeling calculation does
+
+Every scalarized derivative monomial is encoded as a decorated bipartite
+forest:
+
+- a row vertex records an index \(i\) and the exponent of \(a_i\);
+- a column vertex records an index \(j\) and half the exponent of \(u_j\);
+- an edge from \(i\) to \(j\) is one factor \(W_{ij}\).
+
+Applying \(D_n\) gives exactly three local rewrites: differentiate an \(a\)
+factor, a \(u\) factor, or a \(W\) factor.  A \(W\)-hit deletes a bridge and
+splits a tree into two components.  The remaining derivatives are assigned to
+those components by the exact binomial Leibniz convolution.
+
+Suppose a raw forest has \(r\) components and \(2P\) weight edges.  After a
+Wick pairing, let the covariance quotient have \(V\) vertices, \(c\)
+components, and cycle rank \(\beta\).  It has \(P\) covariance edges, so
+
+$$
+V=P+c-\beta.
+$$
+
+The width normalization requires \(V=P+r\) at leading order.  Since
+\(c\le r\) and \(\beta\ge0\), this is possible exactly when \(c=r\) and
+\(\beta=0\).  Hence no leading contraction connects two original components,
+and every component quotient is a tree.  This proves the factorization used by
+the connected recursion.
+
+The implementation further grades the recursion by the number \(w\) of
+\(W\)-hits.  At derivative order \(k\), this sector has
+
+$$
+P=k+1-w.
+$$
+
+For a connected tree \(T\), let \(A_{k,w}(T)\) be its leading expectation after
+\(k\) further derivatives with exactly \(w\) weight hits.  If a weight hit
+splits \(T\) into \(T_1,T_2\), its contribution is
+
+$$
+2\sum_{q=0}^{k-1}\binom{k-1}{q}
+ \sum_{r=0}^{w-1}
+A_{q,r}(T_1)A_{k-1-q,w-1-r}(T_2).
+$$
+
+The base Wick calculation is exact.  It uses the fact that a connected
+leading quotient with \(P\) covariance edges has \(P+1\) vertices; every
+occupied row-block/column-block cell therefore contains exactly two raw
+weight edges.  The code uses checked 512-bit arithmetic.  A conservative
+analytic bound needs only 275 bits through derivative order thirteen, so any
+overflow would throw rather than wrap.
+
+## 4. The exact new coefficient of \(K\)
+
+Write
+
+$$
+K(y)=111+g_1y^2+g_2y^4+g_3y^6+g_4y^8+g_5y^{10}+\cdots.
+$$
+
+Exact series reversion gives
+
+$$
+\begin{aligned}
+g_1&=\frac{280864}{4107},\\
+g_2&=-\frac{38443196932}{5616860517},\\
+g_3&=\frac{37578479127292096}{12802987609542045},\\
+g_4&=-\frac{21749547365571716077696}{13618704359108797313085},\\
+g_5&=\frac{2463577914969508668234788122624}
+{2514423905282563683042386470725}.
+\end{aligned}
+$$
+
+Numerically,
+
+$$
+(g_1,g_2,g_3,g_4,g_5)
+=(68.3866569272,-6.84424988223,2.93513360110,-1.59703498894,
+0.979778274377).
+$$
+
+## 5. Precise Stieltjes conjecture and exact finite tests
+
+Define
+
+$$
+R(x)=\frac{K(\sqrt{x})-111}{x}
+=\sum_{r\ge0}(-1)^r\mu_r x^r,
+\qquad
+\mu_r=(-1)^r g_{r+1}.
+$$
+
+The formal Stieltjes conjecture is that a finite nonnegative measure \(\rho\)
+on \([0,\infty)\), with moments of every order, exists such that
+
+$$
+\mu_r=\int_0^\infty \lambda^r\,\rho(d\lambda),
+\qquad r=0,1,2,\ldots.
+$$
+
+Such a measure defines its resolvent realization
+
+$$
+\widehat R_\rho(x)=\int_0^\infty\frac{\rho(d\lambda)}{1+\lambda x},
+\qquad x\ge0,
+$$
+
+whose full right jet at zero is the formal series above:
+
+$$
+\widehat R_\rho^{(r)}(0+)=(-1)^r r!\mu_r.
+$$
+
+Without a separate analyticity or mean-field identification theorem, this
+does not turn the formal series \(R\) into an already established global
+function.  If the moment problem is indeterminate, different representing
+measures can also give different resolvent realizations with the same full
+jet.
+
+At the level of a full formal jet, this is equivalent to both Hankel families
+being positive semidefinite at every order:
+
+$$
+H_d=(\mu_{i+j})_{i,j=0}^d\succeq0,
+\qquad
+H_d^+=(\mu_{i+j+1})_{i,j=0}^d\succeq0.
+$$
+
+The exact moments currently available are
+
+$$
+(\mu_0,\ldots,\mu_4)
+=(68.3866569272,6.84424988223,2.93513360110,
+1.59703498894,0.979778274377).
+$$
+
+The newly available ordinary three-by-three determinant is
+
+$$
+\det H_2
+=\frac{42273773754433588306428104138747323807188416493518848}
+{2776475335096136409875341498138426752685624541508375}
+=15.2256975670\ldots>0.
+$$
+
+The preceding ordinary determinant is also exactly positive:
+
+$$
+\det H_1
+=\frac{24273928933060630689712}
+{157745610337167536445}>0.
+$$
+
+Together with \(\mu_0>0\), these exact leading-principal-minor signs prove
+\(H_2\succ0\) by Sylvester's criterion.  The numerical eigenvalues below are
+therefore a conditioning diagnostic, not the positivity certificate.
+
+The eigenvalues of \(H_2\) are approximately
+
+$$
+0.07345156,\quad 2.99403041,\quad 69.23408684.
+$$
+
+The shifted two-by-two determinant remains exactly positive:
+
+$$
+\det H_1^+
+=\frac{379548190529390723730021311988224}
+{163916491730087127718334622782025}
+=2.31549727867\ldots>0.
+$$
+
+Therefore every Hankel condition testable from \(\mu_0,\ldots,\mu_4\) passes
+strictly.  This is finite-order compatibility, not an all-order proof.
+
+### Exact parameter-family extension campaigns
+
+The isolated canonical calculation was followed by five bounded continuous-
+parameter campaigns.  Four reached a Hankel determinant and passed it over
+their whole parameter domains.  The fifth reached exact lower jets and the
+two available moment signs, but not a determinant.  The statements below are
+the consolidated scientific account; campaign-local reports retain the full
+coefficient arrays, source hashes, commands, resource logs, and exact
+certificates.
+
+For comparing campaigns, put
+
+$$
+A=F'(0),\qquad B=F^{(3)}(0),\qquad
+C=F^{(5)}(0),\qquad D=F^{(7)}(0).
+$$
+
+Universal formal reversion gives
+
+$$
+\mu_0=\frac{B}{2A^2},\qquad
+\mu_1=\frac{4B^2-AC}{24A^5},\qquad
+\mu_2=\frac{A^2D-26ABC+70B^3}{720A^8},
+$$
+
+and
+
+$$
+\det H_1
+=\frac{2A^2BD-5A^2C^2-12AB^2C+60B^4}{2880A^{10}}.
+$$
+
+Thus order seven is the first common derivative gate that tests a genuine
+Hankel determinant; order nine additionally gives $\mu_3$ and the first
+shifted determinant $\mu_1\mu_3-\mu_2^2$.
+
+A parameter that only rescales the scalar output cannot add sign evidence.
+If $f$ is replaced by $rf$ in the same coordinates, then
+
+$$
+K_r(y)=r^2K(y/r),\qquad \mu_j(r)=r^{-2j}\mu_j,
+$$
+
+so every ordinary or shifted Hankel matrix changes by a positive diagonal
+congruence.  In particular, separate multiplicative scales on the two pure
+quadratic activations collapse to the single factor $r=\gamma_1^2\gamma_2$.
+Every axis retained below was checked against scale-free jet ratios or an
+equivalent exact obstruction and is genuinely shape-changing.
+
+For a positive block metric $M$, the same metric is used in feature ascent and
+natural squared-loss training:
+
+$$
+D_M\mathcal O=n\nabla f^TM\nabla\mathcal O,
+\qquad
+\dot\theta=2n(1-f)M\nabla f,
+$$
+
+after absorbing the common master learning rate into time.  Consequently
+$\dot f=2(1-f)K_M(f)$ on the corresponding formal/deterministic
+mean-field channel.  Thus the metric campaigns below remain faithful natural-
+loss experiments, not auxiliary ascent objectives.
+
+#### Campaign 1: relative metric and hidden geometry
+
+The first family keeps the canonical initialization but changes the relative
+parameter-block metric:
+
+$$
+D_\lambda=D_a+\lambda(D_u+D_W),\qquad \lambda\geq0.
+$$
+
+It is not the middle-weight initialization-variance homotopy.  At
+$\lambda=0$, only the readout moves and $F_0(s)=27s$; the invariant ratio
+$F'F^{(5)}/(F^{(3)})^2$ has unequal limits at $0$ and $\infty$, so the ray is
+not a clock or output rescaling.  The checked shared-DAG calculation reached
+$F_\lambda$ through order nine and the second-hidden squared-RMS observable
+through order eight.
+
+For the squared preactivation norms
+
+$$
+Q_1=\frac1n\sum_j u_j^2,\qquad
+Q_2=\frac1n\sum_i z_i^2,
+$$
+
+one has $Q_1(0)=1$, $Q_2(0)=3$, and the exact Ward identity
+
+$$
+D_\lambda Q_1=8\lambda f,
+\qquad
+Q_1(y)=1+8\lambda\int_0^y\frac{r}{K_\lambda(r)}\,dr.
+$$
+
+Thus $Q_1$ is completely determined by $K_\lambda$.  If the inverse-kernel
+Stieltjes representation
+
+$$
+\frac1{K_\lambda(\sqrt x)}
+=\int_0^\infty\frac{\sigma_\lambda(dt)}{1+tx}
+$$
+
+exists, then its normalized response is itself Stieltjes:
+
+$$
+\frac{Q_1(\sqrt x)-1}{x}
+=4\lambda\int_0^\infty\int_0^1
+\frac{du\,\sigma_\lambda(dt)}{1+utx}.
+$$
+
+This inheritance supplies no independent evidence beyond the output kernel.
+The second norm is different.  Define
+
+$$
+N_{2,\lambda}(y)=Q_{2,\lambda}(F_\lambda^{-1}(y)),\qquad
+T_{2,\lambda}(x)=\frac{N_{2,\lambda}(\sqrt x)-3}{x}
+=\sum_{r\ge0}(-1)^r\nu_r(\lambda)x^r.
+$$
+
+Stieltjes positivity of $(\nu_r)$ is a **separate companion conjecture**, not
+a consequence of the output-kernel conjecture.  It is nevertheless natural:
+for the mean readout $\bar a=n^{-1}\sum_i a_i$,
+
+$$
+n\langle\nabla f,\nabla \bar a\rangle=Q_2,
+\qquad n\|\nabla \bar a\|^2=1,
+$$
+
+so $Q_2$ is an actual cross-kernel.  In output coordinates its Gram matrix is
+
+$$
+\begin{pmatrix}
+K_\lambda(y)&N_{2,\lambda}(y)\\
+N_{2,\lambda}(y)&1
+\end{pmatrix}\succeq0,
+$$
+
+implying $K_\lambda(y)\ge N_{2,\lambda}(y)^2$.  This same identity shows why a naive matrix-valued Stieltjes
+increment is impossible: its lower-right increment would vanish while its
+off-diagonal increment would not.  A positive-semidefinite $2\times2$ matrix
+measure with zero lower-right mass must have zero off-diagonal mass by
+Cauchy--Schwarz.
+
+The polynomial observables are the squared RMS norms.  Literal RMS values are
+recovered by square root.  Conditionally, if $T_{2,\lambda}$ is Stieltjes,
+then $N_{2,\lambda}(\sqrt x)=3+xT_{2,\lambda}(x)$ is a complete Bernstein
+function of $x$; positive square roots preserve that class, so the normalized
+increment of the literal RMS is again Stieltjes.  No extra dynamical state is
+needed for that final algebraic readout.
+
+Exact coefficientwise certificates prove the ordinary and shifted
+$2\times2$ Hankel inequalities for both $(\mu_r)$ and $(\nu_r)$ on the whole
+closed ray, with strict positivity for $\lambda>0$ after the forced boundary
+powers are removed.  The accepted dense run took $717.631$ seconds for the
+output root and $260.327$ seconds for the hidden root under a 4 GiB/20-minute
+cap; a fresh rebuild reproduced every coefficient.  A secondary graded
+hidden-root route timed out after 24 of 45 sectors and is not used.  Full
+details are in the [Campaign-1 protocol and derivation](../mean_field_peeling/quadratic_compiler/campaign1/PROTOCOL.md),
+[exact jets](../mean_field_peeling/quadratic_compiler/campaign1/results_order9_q2_order8.json),
+and [shifted certificates](../mean_field_peeling/quadratic_compiler/campaign1/hankel_certificates_order9_q2_order8.json).
+
+#### Campaign 2: two inputs and natural label channels
+
+For two unit-RMS inputs with correlation $\theta$, set $t=\theta^2\in[0,1]$.
+For labels $(1,\sigma)$, $\sigma\in\{+1,-1\}$, the exchange-symmetry channel
+
+$$
+g_\sigma=\frac{f_1+\sigma f_2}{2}
+$$
+
+is preserved by the permutation-invariant deterministic/formal mean-field
+reduction of the natural average squared-loss flow and satisfies
+
+$$
+L_\sigma=(1-g_\sigma)^2,
+\qquad
+\dot g_\sigma=2(1-g_\sigma)K_\sigma(g_\sigma;t).
+$$
+
+The same Gram matrix is used in both the initialization covariance and the
+first-layer gradient metric; omitting the latter would change the training
+problem.  The initialization kernels already distinguish the two channels:
+
+$$
+K_+(0;t)=63+20t+28t^2,\qquad
+K_-(0;t)=4(1-t)(7t+12).
+$$
+
+Exact jets through order seven prove
+
+$$
+\mu_0(t),\mu_1(t),\mu_2(t)>0,
+\qquad \mu_0(t)\mu_2(t)-\mu_1(t)^2>0
+$$
+
+throughout $0\le t\le1$ in both channels.  For opposite labels the exact
+factorization
+
+$$
+F_-^{(2r+1)}(0;t)=(1-t)^{r+1}F_{h_-}^{(2r+1)}(0;t)
+$$
+
+defines the nondegenerate normalized family on the closed interval; the raw
+channel collapses at the contradictory identical-input endpoint $t=1$.
+An independent whitened-coordinate oracle checked order three, and the
+accepted vertex-partition evaluator matched the dense quotient-Wick route on
+all 11,236 order-five terminal trees before completing both order-seven
+channels.  The first dense order-seven attempt timed out and contributes
+nothing.  See the [Campaign-2 result](../mean_field_peeling/quadratic_compiler/campaign2/RESULTS.md)
+and [exact certificate](../mean_field_peeling/quadratic_compiler/campaign2/certificates_order7.json).
+
+#### Campaign 3: centered quadratic activation
+
+The third family changes only the first-hidden activation:
+
+$$
+\phi_c(u)=u^2-c=(u^2-1)+(1-c),\qquad 0\le c\le2.
+$$
+
+Writing $t=1-c\in[-1,1]$, the first two nonzero jets begin
+
+$$
+F'(0;t)=60+44t^2+7t^4,
+$$
+
+$$
+\begin{aligned}
+F^{(3)}(0;t)={}&642048+163328t+566784t^2+111104t^3\\
+&+163840t^4+18816t^5+18304t^6+960t^8.
+\end{aligned}
+$$
+
+The endpoints $t=\pm1$ have the same initial speed $111$ but different third
+derivatives, $1\,098\,688$ and $1\,685\,184$, so centering is not a removable
+scale.  Checked jets through order seven give $\mu_0,\mu_1,\mu_2$ and
+$\det H_1$.  Exact rational Sturm sequences find no zero of any reduced
+numerator or denominator on either $[-1,0]$ or $[0,1]$, with positive endpoint
+values.  Hence all four quantities are strictly positive for every
+$c\in[0,2]$.  The run completed in $198.35$ seconds with 328,048 KiB peak
+RSS.  See the [Campaign-3 result](../mean_field_peeling/quadratic_compiler/campaign3/RESULTS.md)
+and [Sturm certificate](../mean_field_peeling/quadratic_compiler/campaign3/certificates_order7.json).
+
+#### Campaign 4: independent block-metric quadrant
+
+The strongest new family separates both hidden-block learning rates:
+
+$$
+D_{\alpha,\beta}=D_a+\alpha D_u+\beta D_W,
+\qquad \alpha,\beta\ge0.
+$$
+
+Campaign 1 is the diagonal $\alpha=\beta$.  All 125 atomic sectors needed for
+orders $1,3,5,7,9$ completed, and exact reversion proves
+
+$$
+\mu_0,\mu_1,\mu_2,\mu_3\ge0,
+\qquad
+\Delta_1=\mu_0\mu_2-\mu_1^2\ge0,
+\qquad
+\Delta_1^+=\mu_1\mu_3-\mu_2^2\ge0
+$$
+
+on the whole closed quadrant.  Every quantity is strictly positive away from
+$(0,0)$, where only the readout moves and the kernel is constant.  In
+particular,
+
+$$
+\Delta_1^+
+=\frac{P_{18}(\alpha,\beta)}
+{93002175(16\alpha+12\beta+9)^{16}},
+$$
+
+where $P_{18}$ has total degree 18 and all 169 of its coefficients are
+strictly positive.  This is an algebraic continuum certificate, not a sampled
+grid.  Production consumed 1131.036 cumulative wall seconds under the frozen
+1800-second portfolio cap and 4 GiB per atomic sector.  Whole-forest and
+sector routes agree through order five; the full diagonal, axes, off-diagonal
+checks, and canonical point all pass.  See the [Campaign-4 result](../mean_field_peeling/quadratic_compiler/campaign4/RESULTS.md),
+[exact certificate](../mean_field_peeling/quadratic_compiler/campaign4/certificates_order9.json),
+and [provenance](../mean_field_peeling/quadratic_compiler/campaign4/provenance_order9.json).
+
+#### Campaign 5: three equicorrelated inputs
+
+For equal labels and
+
+$$
+G_3(\rho)=(1-\rho)I_3+\rho\mathbf1\mathbf1^\top,
+\qquad -\frac12\le\rho\le1,
+$$
+
+permutation symmetry preserves $g_3=(f_1+f_2+f_3)/3$ in the deterministic/
+formal mean-field reduction and gives the exact natural-loss reduction
+
+$$
+L=(1-g_3)^2,
+\qquad \dot g_3=2(1-g_3)K_3(g_3;\rho).
+$$
+
+This family contains information absent from every two-input test, for
+example
+
+$$
+\mathbb E[(u^1)^2(u^2)^2(u^3)^2]
+=1+6\rho^2+8\rho^3.
+$$
+
+The exact first derivative is
+
+$$
+F_3'(0;\rho)=\frac{141+80\rho^2+112\rho^4}{3},
+$$
+
+and checked $F^{(3)}$, $F^{(5)}$, a signed triangle-cycle contraction, and a
+nonconstant scale-free jet ratio establish a genuine three-color extension.
+Post-hoc exact Sturm certificates from these accepted jets prove
+$\mu_0(\rho),\mu_1(\rho)>0$ throughout the full Gram-PSD interval.
+
+The intended order-seven gate did not pass.  The final-source zero-$W$-hit
+pilot produced no completed result by the 1,800-second cutoff; the other
+pilots were stopped and no partial coefficient was accepted.  The written
+projection rule was frozen about 13 minutes after that pilot started, but
+before any order-seven output or the cutoff.  This weakens prospective purity
+but cannot favor the fail-closed conclusion.  Exact CPU and RSS were not
+retained.  Consequently there is **no** $F^{(7)}$, $\mu_2$, $H_1$ test, or
+fifth Hankel pass, and the conditional four-input campaign was not
+authorized.  See the [Campaign-5 result](../mean_field_peeling/quadratic_compiler/campaign5_b3/RESULTS.md),
+[lower-moment certificate](../mean_field_peeling/quadratic_compiler/campaign5_b3/certificates_lower_moments.json),
+and [failure provenance](../mean_field_peeling/quadratic_compiler/campaign5_b3/provenance_stage_c_projection.json).
+
+#### Consolidated campaign ledger
+
+| Campaign | Exact domain | Highest accepted data | Strongest exact sign result | Terminal status |
+|---|---|---|---|---|
+| Relative metric and hidden geometry | $\lambda\in[0,\infty)$ | $F^9$, $Q_2^8$ | Ordinary and shifted $2\times2$ output and companion-hidden Hankels | Passed; higher hidden order postponed |
+| Two inputs, equal/opposite labels | $t=\theta^2\in[0,1]$ | Both channels through $F^7$ | $\mu_0,\mu_1,\mu_2$ and ordinary $H_1$ in both channels | Passed; order nine postponed |
+| Centered activation | $c\in[0,2]$ | $F^7$ | $\mu_0,\mu_1,\mu_2$ and ordinary $H_1$ | Passed by exact Sturm isolation |
+| Independent block metric | $(\alpha,\beta)\in[0,\infty)^2$ | $F^9$, 125 sectors | $\mu_0,\ldots,\mu_3$, ordinary $H_1$, shifted $H_1^+$ | Passed on the whole quadrant |
+| Three equicorrelated inputs | $\rho\in[-1/2,1]$ | $F^5$ | $\mu_0,\mu_1>0$ only | Order-seven gate failed; no Hankel test |
+
+The five campaign suites pass 86 exact unit, regression, and provenance tests
+in total.  Their conjunction is substantially harder to attribute to an
+accidental sign at one canonical point, but it is still finite-order evidence.
+It supplies neither the missing all-order positive operator nor the bridge
+from fixed-order formal jets to a global deterministic mean-field curve.
+
+The higher-order stops were deliberate.  Campaign 2 order nine requires a new
+two-color sectorization after a monolithic projection of roughly 80--112 GiB;
+Campaign 3 order nine similarly projected to tens of GiB; and Campaign 4
+stopped at its preregistered first shifted endpoint, whose success did not
+authorize another cumulative finite-order run.
+
+The next **canonical shifted $3\times3$ test** needs
+\(\mu_5=-g_6\), hence \(F^{(13)}(0)\).  Given the
+five moments already known, positivity of the next shifted determinant is
+equivalent to
+
+$$
+\mu_5\ge0.6297012064232433\ldots.
+$$
+
+Indeed, the known upper-left block \(H_1^+\) is positive definite, so the
+Schur-complement condition for \(H_2^+\succeq0\) is
+
+$$
+\mu_5\ge
+\begin{pmatrix}\mu_3&\mu_4\end{pmatrix}
+(H_1^+)^{-1}
+\begin{pmatrix}\mu_3\\\mu_4\end{pmatrix},
+$$
+
+whose exact rational value has the displayed decimal expansion.
+
+In terms of the next feature coefficient, this condition is equivalent to
+
+$$
+\frac{F_1^{(13)}(0)}{13!\,111^{13}}
+\le 5.376867065701546\times10^{-5},
+$$
+
+or, without normalization,
+
+$$
+F_1^{(13)}(0)
+\le 1.300194546159283\times10^{32}.
+$$
+
+Because the determinant decreases with $F^{(13)}(0)$, an exact value or
+certified lower bound above this threshold would disprove the conjecture. The
+positive-subsum peeling calculation produced the following rigorous monotone
+lower bounds:
+
+| component-edge cap | certified lower bound for $F^{(13)}(0)$ |
+|---:|---:|
+| 2 | $3\,657\,473\,819\,100\,504\,794\,600\,570\,880$ |
+| 4 | $488\,307\,951\,362\,172\,171\,444\,754\,710\,528$ |
+| 6 | $3\,774\,060\,417\,785\,906\,666\,806\,784\,851\,968$ |
+| 8 | $12\,252\,624\,627\,540\,173\,918\,790\,915\,809\,280$ |
+| 10 | $23\,783\,614\,121\,601\,250\,463\,925\,091\,639\,296$ |
+| 12 | $37\,637\,913\,524\,018\,077\,968\,293\,271\,343\,104$ |
+| 14 | $50\,393\,647\,763\,255\,899\,049\,472\,742\,772\,736$ |
+
+The strongest is only about $38.76\%$ of the falsification threshold. Failure
+to cross a one-sided threshold is not evidence for positivity. The old JSON
+now stored as
+[`../mean_field_peeling/quadratic_compiler/archive/peeling_lower_bound_order13_historical.json`](../mean_field_peeling/quadratic_compiler/archive/peeling_lower_bound_order13_historical.json)
+contains an obsolete $1.553\times10^{32}$ threshold and obsolete prose; its
+integer lower bounds remain historical raw provenance, but its conclusion is
+not current.
+
+An exact order-thirteen run was attempted with the checked sector engine.  In
+the maximal $P=14$ sector alone, derivative-graph discovery produced
+465,075 recurrence states and 325,190 distinct base Wick trees.  The first
+704 base contractions were evaluated exactly, but measured throughput implied
+more than ten days for that sector under the then-current evaluator, before
+the other thirteen sectors.  The run was therefore stopped at an atomic
+checkpoint; it does **not** certify a sector subtotal or the derivative.
+[`../mean_field_peeling/quadratic_compiler/D13_ATTEMPT.md`](../mean_field_peeling/quadratic_compiler/D13_ATTEMPT.md) records the checkpoint hash, strict order-nine
+regression gate, rejected approximate checkpoints, and stopping calculation.
+
+A proposed GF(2)/binary-matroid accelerator reproduced every order-nine sector
+and all 317 checked order-seven base values, but a later adversarial audit
+found an explicit decorated tree on which its unrestricted rank gate returns
+zero while the exact evaluator returns $27$.  Only the restricted theorem for
+the no-$W$-hit, even-row/even-$a$-admissible, tight-nullity sector survives.  The accepted
+order-eleven certificate used the exact partition machinery, not this invalid
+generalization, so its value is unaffected.  An initially reported
+order-thirteen millisecond benchmark also omitted even-$a$ parity and is
+retracted.  The restricted proof, exact counterexample, regression vector, and
+retraction are in
+[`../mean_field_peeling/quadratic_compiler/archive/MATROID_WICK_AUDIT.md`](../mean_field_peeling/quadratic_compiler/archive/MATROID_WICK_AUDIT.md).
+
+A cheaper proposed upper bound was also audited and rejected as a certificate.
+Its exact two-hit bookkeeping gives a positive quantity $S_{11}$ for which
+$9S_{11}=1.23735\ldots\times10^{32}$ would lie below the required threshold,
+and the analogous inequality happens to hold for every exactly known
+transition through order eleven.  But the needed contraction inequality is
+unproved; fixed-prefix versions are exactly false, with ratios above 13 and
+24 and with zero-valued prefixes having positive descendants.  Moreover no
+factor-nine inequality of that form can hold uniformly in derivative order:
+it would give an exponential upper bound on the Taylor coefficients, contrary
+to the already proved factorial lower bound and zero radius.  This does not
+disprove the inequality specifically at order eleven, but it prevents using
+the low-order pattern as a theorem.  The exact bookkeeping and counterexamples
+are in
+[`../mean_field_peeling/quadratic_compiler/TWO_HIT_CHARGING_AUDIT.md`](../mean_field_peeling/quadratic_compiler/TWO_HIT_CHARGING_AUDIT.md).
+
+A later bounded, threshold-aware Campaign 6 deliberately targeted an inexact
+one-sided or interval certificate rather than the full $F^{(13)}(0)$ integer.
+It closed **protocol-inconclusive** before any D13 production run.  Its
+unrestricted-pairing upper envelope was about $5.10\times10^{29}$ times the
+threshold, and an exact-small-component hybrid still exceeded the known exact
+order-eleven value by more than $10^{21}$; neither mechanism projected useful
+threshold separation within the frozen extension budget.  More importantly,
+the campaign did not complete its mandatory fresh per-sector D9, total D11,
+and per-run provenance gate.  Its new endpoints are therefore diagnostics,
+not certificates.  The accepted D13 lower bound remains exactly the cap-14
+value above, only $38.76\%$ of the threshold.
+
+No old multi-day enumeration or eight-hour root-class run was resumed.  More
+D13 compute is not authorized by this non-result.  A future bounded attempt
+first needs a graph-sensitive omitted-mass lemma: either a calibrated bound on
+leading-width Wick partitions of large decorated trees, a disjoint positive
+family aggregation that avoids enumerating all P14 bases, or a nonlocal
+two-generation transport identity replacing the already false local charging
+rules.  The downgrade and terminal decision are preserved in the
+[`Campaign 6 report`](../mean_field_peeling/quadratic_compiler/campaign6_f13_threshold/CAMPAIGN_REPORT.md),
+while the original allocation rule remains in the
+[frozen historical portfolio](archive/FROZEN_CAMPAIGNS_4_6_PORTFOLIO.md).
+
+## 6. Exact inverse-variable reformulation
+
+The transformation $F\mapsto K$ hides a simpler equivalent moment problem.
+Write the odd feature jet as
+
+$$
+F(t)=t\,\psi(t^2),
+\qquad
+G=F^{-1}.
+$$
+
+Lagrange inversion gives an explicit formula for the derivative of the
+inverse:
+
+$$
+H(x):=G'(\sqrt{x})=\frac{1}{K(\sqrt{x})}
+=\sum_{n\ge0}(-1)^n h_nx^n,
+$$
+
+$$
+h_n=(-1)^n[z^n]\,\psi(z)^{-(2n+1)}.
+$$
+
+Indeed,
+
+$$
+[y^{2n+1}]G(y)
+=\frac{1}{2n+1}[z^n]\psi(z)^{-(2n+1)},
+$$
+
+and differentiating cancels the prefactor. There is also a direct extraction
+formula for the original moments:
+
+$$
+\mu_m=(-1)^m[z^{m+1}]\,
+\psi(z)^{-(2m+1)}
+\left(1+\frac{2z\psi'(z)}{\psi(z)}\right)^2.
+$$
+
+For example, if $\psi(z)=\psi_0+\psi_1z+\psi_2z^2+\cdots$, then
+
+$$
+\mu_0=\frac{3\psi_1}{\psi_0^2},
+\qquad
+\mu_1=\frac{6\psi_1^2-5\psi_0\psi_2}{\psi_0^5}.
+$$
+
+The latter formula makes one failed proof idea immediate: positivity of the
+raw feature coefficients $\psi_0,\psi_1,\psi_2$ does not imply
+$\mu_1\ge0$.
+
+The two moment problems are equivalent at the level of Stieltjes continued
+fractions. If
+
+$$
+H(x)=
+\frac{h_0}{1+\dfrac{\beta_1x}{1+\dfrac{\beta_2x}{1+\cdots}}},
+$$
+
+then
+
+$$
+R(x)=
+\frac{\beta_1/h_0}{1+\dfrac{\beta_2x}{1+\dfrac{\beta_3x}{1+\cdots}}}.
+$$
+
+Conversely, the fraction for $H=1/(111+xR)$ is obtained by prepending its
+positive first coefficient. Thus $(\mu_n)$ is a Stieltjes moment sequence if
+and only if $(h_n)$ is one, with the usual terminating interpretation in
+degenerate finite-support cases. Every accessible ordinary and shifted Hankel
+test for $(h_n)$ also passes strictly. In particular,
+
+$$
+h_5=
+\frac{59559282674657852414720275753984}
+{30980216936986467138765243705802725},
+$$
+
+and the newly accessible shifted determinant is
+
+$$
+\det(h_{i+j+1})_{i,j=0}^{2}
+=\frac{42273773754433588306428104138747323807188416493518848}
+{5193159870479902388958353206077524289809583930827978181055848375}>0.
+$$
+
+Both are reproduced by
+[`theory/inverse_derivative_threshold.py`](theory/inverse_derivative_threshold.py).
+
+If $\sigma$ represents the $h$-moments, then the inverse feature coordinate
+has the conditional integral representation
+
+$$
+G(y)=\int_0^\infty
+\frac{\arctan(y\sqrt{\lambda})}{\sqrt{\lambda}}\,\sigma(d\lambda),
+$$
+
+where the integrand is interpreted as $y$ at $\lambda=0$. This is an exact
+reduction of the formal conjecture. It does not construct the all-order
+positive Jacobi operator: local decorated-tree profile matrices already have
+negative minors, so any successful Gram basis must mix profiles nonlocally.
+
+## 7. Variance homotopy and its exactly solvable boundary
+
+Introduce a variance parameter $\alpha\ge0$ for the middle weights; the
+spectral integration variable remains $\lambda$. The exact Wick-sector
+decomposition is
+
+$$
+F_\alpha^{(2r+1)}(0)
+=\sum_{P=1}^{2r+2} C_{r,P}\alpha^P.
+$$
+
+Normalize
+
+$$
+f_\alpha(s)=\frac{F_\alpha(s)}{\alpha},
+\qquad
+\kappa_\alpha(z)=\frac{K_\alpha(\alpha z)}{\alpha}.
+$$
+
+At the boundary $\alpha\downarrow0$, the $P=1$ sectors sum exactly and give
+
+$$
+f_0(s)=36s\,e^{72s^2}.
+$$
+
+If
+
+$$
+q=W(z^2/9)=144s^2,
+\qquad s=f_0^{-1}(z),
+$$
+
+then the boundary kernel is
+
+$$
+\kappa_0(z)=36e^{q/2}(1+q).
+$$
+
+The associated function
+
+$$
+R_0(x)=\frac{\kappa_0(\sqrt{x})-36}{x}
+$$
+
+is genuinely Stieltjes. Its representing measure has compact support
+$[0,e/9]$. A positive density parametrization is
+
+$$
+t(v)=\frac{e^{v\cot v}\sin v}{9v},
+\qquad 0<v<\pi,
+$$
+
+$$
+\rho_0'(t(v))=
+\frac{36}{\pi}e^{-v\cot v/2}
+\left(\sin\frac v2+\frac{v}{2\cos(v/2)}\right)>0.
+$$
+
+Its first moments are
+
+$$
+6,\quad \frac7{18},\quad \frac{55}{972},\quad
+\frac{245}{23328},\quad \frac{19}{8640}.
+$$
+
+The first perturbation can also be written explicitly. Put
+
+$$
+I(s)=\int_0^s e^{72u^2}\,du.
+$$
+
+Then
+
+$$
+\begin{aligned}
+f_1(s)={}&54\bigl(I(2s)-I(s)\bigr)+240s e^{144s^2}\\
+&-(459+27648s^2)s e^{72s^2}\\
+&+240(1+144s^2)e^{72s^2}I(s),
+\end{aligned}
+$$
+
+and, with $q=144s^2$ and $s=f_0^{-1}(z)$,
+
+$$
+\kappa_1(z)=f_1'(s)-\frac{144s(q+3)}{q+1}f_1(s).
+$$
+
+The constant term is $75$. After subtracting the changing kernel baseline,
+the moment variation is
+
+$$
+\dot\mu=
+\left(
+\frac{413}{6},\frac{511}{216},\frac{39121}{58320},
+\frac{1759939}{9797760},\frac{3699973}{75582720}
+\right).
+$$
+
+It is not itself a positive moment functional:
+
+$$
+\det\begin{pmatrix}
+\dot\mu_1&\dot\mu_2\\
+\dot\mu_2&\dot\mu_3
+\end{pmatrix}
+=-\frac{340410949}{13604889600}<0.
+$$
+
+For the concrete polynomial $p(t)=1-4t$,
+
+$$
+\dot L\bigl(tp(t)^2\bigr)=-\frac{3877}{30618}<0,
+\qquad
+L_0\bigl(tp(t)^2\bigr)=\frac{76}{729}>0.
+$$
+
+Therefore a proof by adding a nonnegative spectral measure, or by making every
+Jacobi coefficient increase coordinatewise, is impossible.  For the first
+S-fraction/Jacobi coordinate
+
+$$
+\beta_1=\frac{\mu_1}{\mu_0}=\frac7{108},
+$$
+
+the exact boundary derivative is
+
+$$
+\left.\frac{d\beta_1}{d\alpha}\right|_{\alpha=0}
+=\frac{\dot\mu_1\mu_0-\mu_1\dot\mu_0}{\mu_0^2}
+=-\frac{679}{1944}<0.
+$$
+
+Thus the additive-measure and coordinatewise-monotone-Jacobi routes each fail
+by a direct exact witness.  This does **not**
+show that the full path leaves the Stieltjes cone: the positive boundary
+density can absorb a signed first variation. At every $\alpha\ge0$, all Hankel
+conditions computable through $\mu_4(\alpha)$ have positive denominators and
+coefficientwise-positive numerators. That is exact finite-order evidence, not
+an all-order homotopy theorem. The exact coefficientwise certificate and its
+boundary, first-variation, and $\alpha=1$ regression gates are in
+[`theory/finite_variance_hankel_audit.py`](theory/finite_variance_hankel_audit.py).
+
+## 8. Aggregated sector total nonnegativity
+
+The same variance decomposition defines a $6\times12$ lower-staircase matrix
+
+$$
+C_{r,P}=[\alpha^P]F_\alpha^{(2r+1)}(0),
+\qquad r=0,\ldots,5,\qquad P=1,\ldots,12.
+$$
+
+Every one of its
+
+$$
+\sum_{k=1}^6\binom6k\binom{12}{k}=18\,563
+$$
+
+square minors was evaluated in exact integer arithmetic. None is negative:
+
+| minor order | total | positive | zero | negative |
+|---:|---:|---:|---:|---:|
+| 1 | 72 | 42 | 30 | 0 |
+| 2 | 990 | 455 | 535 | 0 |
+| 3 | 4,400 | 1,820 | 2,580 | 0 |
+| 4 | 7,425 | 3,003 | 4,422 | 0 |
+| 5 | 4,752 | 2,002 | 2,750 | 0 |
+| 6 | 924 | 429 | 495 | 0 |
+
+The durable exact audit is
+[`theory/sector_total_nonnegativity.py`](theory/sector_total_nonnegativity.py).
+In addition, exact Sturm isolation verifies that each of the six polynomials
+$F_\alpha^{(2r+1)}(0)/\alpha$ has only real, simple, negative roots; see
+[`theory/sector_real_rootedness.py`](theory/sector_real_rootedness.py).
+
+This global finite-order total nonnegativity is compatible with a separate
+negative minor in a **local decorated-tree transition matrix**. The two
+matrices are different, so there is no contradiction: cancellations and
+aggregation can restore positivity that is absent locally.
+
+Even all-order sector total nonnegativity and row real-rootedness would not by
+themselves prove the inverse-Hankel conjecture. For example, define
+
+$$
+a_r(\alpha)=c_r\alpha(1+\alpha)^{2r+1},
+\qquad
+c_0=\frac12,\quad c_1=\frac18,\quad c_2=\frac1{16},
+$$
+
+and choose any $c_r>0$ for $r\ge3$, for example $c_r=1$.  Its full
+coefficient array is obtained from the odd-row Pascal matrix by positive row
+scalings and is therefore totally nonnegative; every normalized row has only
+the repeated root $-1$.  At $\alpha=1$ the first three rows give
+
+$$
+F(t)=t+t^3+2t^5+\cdots,
+\qquad \mu_1=-4.
+$$
+
+This witness has repeated roots at $-1$, so it directly refutes sector total
+nonnegativity plus real-negative rootedness as a sufficient mechanism, but not
+the formally stronger addition of simple roots without a perturbation
+argument. The neural matrix's simple roots remain interesting structure, not
+a proof.
+
+## 9. What can be reconstructed from five moments
+
+These five moments do not by themselves select a unique full representing
+measure.  They do define canonical atomic representatives of the available
+truncations.
+
+The displayed nodes and weights below are rounded values of exact algebraic
+solutions.  For the Gaussian rule, the monic quadratic
+\(p_{\rm G}(\lambda)=\lambda^2+c_1\lambda+c_0\) is fixed by
+
+$$
+\begin{pmatrix}\mu_0&\mu_1\\\mu_1&\mu_2\end{pmatrix}
+\begin{pmatrix}c_0\\c_1\end{pmatrix}
+=-\begin{pmatrix}\mu_2\\\mu_3\end{pmatrix};
+$$
+
+its roots are the two nodes and the weights are fixed by moments zero and
+one.  For the zero-Radau rule, the positive nodes are the roots of the monic
+quadratic orthogonal for the shifted functional, obtained by replacing
+\((\mu_0,\ldots,\mu_3)\) in this system with
+\((\mu_1,\ldots,\mu_4)\); the third node is zero.  The exact positive moment
+and shifted-moment matrices established above give distinct positive nodes
+and positive quadrature weights.  Polynomial division by these orthogonal
+quadratics proves exactness through degrees three and four, respectively.
+
+The two-node Gaussian quadrature matching \(\mu_0,\ldots,\mu_3\) is
+
+$$
+\begin{array}{c|cc}
+\lambda&0.0272629998479&0.551934879837\\
+\hline
+\text{weight}&58.8953450144&9.49131191276.
+\end{array}
+$$
+
+The three-node Gauss--Radau quadrature with its fixed node at zero, matching
+all five known moments, is
+
+$$
+\begin{array}{c|ccc}
+\lambda&0&0.213393344094&0.658270941339\\
+\hline
+\text{weight}&46.8109409205&16.5403181665&5.03539784022.
+\end{array}
+$$
+
+After normalization by total mass \(\mu_0\), the Radau probabilities are
+
+$$
+0.684504010341,\qquad0.241864698608,\qquad0.0736312910511.
+$$
+
+Sampling these three atoms is a cheap Monte Carlo sampler for this canonical
+five-moment surrogate.  It is not an exact sampler from an unknown true
+\(\rho\).
+
+There is also a rigorous conditional interpretation.  For every representing
+measure \(\rho\) allowed by the Stieltjes conjecture and every \(x\ge0\),
+
+$$
+R_{\mathrm{Gauss},2}(x)\le \widehat R_\rho(x)
+\le R_{\mathrm{Radau},3}(x).
+$$
+
+To see the lower bound, Hermite-interpolate
+\(h_x(\lambda)=(1+x\lambda)^{-1}\) at the two Gaussian nodes.  Its error is a
+multiple of
+
+$$
+\frac{h_x^{(4)}(\xi)}{4!}
+(\lambda-\lambda_1)^2(\lambda-\lambda_2)^2,
+$$
+
+and \(h_x^{(4)}\ge0\).  Gaussian quadrature integrates the cubic interpolant
+exactly because it matches \(\mu_0,\ldots,\mu_3\).  For the upper bound,
+interpolate at zero and to first order at the two positive Radau nodes.  The
+error is
+
+$$
+\frac{h_x^{(5)}(\xi)}{5!}\lambda
+(\lambda-\eta_1)^2(\lambda-\eta_2)^2,
+$$
+
+which is nonpositive because \(h_x^{(5)}\le0\) and \(\lambda\ge0\).  The
+Radau rule integrates the quartic interpolant exactly because it matches
+\(\mu_0,\ldots,\mu_4\).  Explicitly,
+
+$$
+h_x^{(m)}(\lambda)
+=\frac{(-1)^m m!x^m}{(1+x\lambda)^{m+1}};
+$$
+
+for \(x>0\) the two derivative signs are strict, while at \(x=0\) both
+quadrature bounds are equalities.  The interpolation argument is pointwise
+on \([0,\infty)\); its polynomial terms are integrable because the assumed
+measure has the required moments.
+
+At the training-relevant output \(y=1\), where \(x=y^2=1\), these bounds are
+
+$$
+63.4480873115\le \widehat R_\rho(1)\le63.4789321263.
+$$
+
+Thus, conditional on the conjecture, only five exact moments already confine
+every representing resolvent at \(x=1\) to a relative interval of width about
+\(4.9\times10^{-4}\).  Define
+
+$$
+\widehat K_\rho(y)=111+y^2\widehat R_\rho(y^2),
+$$
+
+and define \(K_{\rm G}\) and \(K_{\rm R}\) analogously from the Gaussian and
+Radau bounds.  Then
+
+$$
+K_{\rm G}(y)\le \widehat K_\rho(y)\le K_{\rm R}(y),
+\qquad y\ge0.
+$$
+
+For the three scalar feature flows \(F'=K(F)\), all with \(F(0)=0\), the
+positive vector fields give
+
+$$
+F_{\rm G}(s)\le \widehat F_\rho(s)\le F_{\rm R}(s)
+$$
+
+on every common existence interval on which their values remain in the
+comparison range.  Indeed, their hitting-time maps are
+
+$$
+T_K(y)=\int_0^y\frac{du}{K(u)}.
+$$
+
+The pointwise kernel inequalities reverse the order of the \(T_K\), and
+inverting these increasing maps gives the displayed flow order.  The same
+argument, now with hitting-time integrand
+
+$$
+\frac{1}{2(1-u)K(u)},
+$$
+
+applies to one-sample squared-loss gradient flow
+
+$$
+y'=2(1-y)K(y),\qquad L=(1-y)^2,
+$$
+
+with common initial value \(y(0)=0\), as long as \(0\le y<1\).  Thus the lower
+kernel produces the lower output and upper loss; the upper kernel produces
+the upper output and lower loss.  These are bounds for the resolvent
+realizations and the scalar flows they induce.  Applying them to an actual
+mean-field trajectory still requires the open bridge from the formal jet to
+that global trajectory.
+
+Under an additional moment-determinacy condition, increasing-order Jacobi
+quadratures converge weakly to the unique \(\rho\), and their resolvents
+converge locally uniformly on the positive \(x\)-axis.  Without determinacy,
+the finite quadratures remain moment-matching representatives rather than a
+unique recovery.
+
+This yields the desired non-Taylor approximation scheme if three open bridges
+are assumed: all-order Stieltjes positivity, determinacy, and identification
+of the representing resolvent with the actual neural kernel on \(0\le y\le1\).
+Let \(K_N\) be the \(N\)-node initialization-computable Jacobi approximation
+and suppose
+
+$$
+\epsilon_N=\sup_{0\le y\le1}|K_N(y)-K(y)|<a,
+\qquad
+a=\inf_{0\le y\le1}K(y)>0,
+\qquad
+M=\sup_{0\le y\le1}K(y).
+$$
+
+Then \((1-\delta)K\le K_N\le K/(1-\delta)\), where
+\(\delta=\epsilon_N/a\). Scalar comparison gives
+
+$$
+L\!\left(\frac{\tau}{1-\delta}\right)
+\le L_N(\tau)
+\le L\bigl((1-\delta)\tau\bigr).
+$$
+
+Moreover \(L(\tau)\le e^{-4a\tau}\), so
+
+$$
+\sup_{\tau\ge0}\left|\frac{dL}{d\log\tau}\right|
+\le\sup_{\tau\ge0}4M\tau e^{-4a\tau}
+=\frac{M}{ae}.
+$$
+
+Consequently
+
+$$
+\boxed{
+\sup_{\tau\ge0}|L_N(\tau)-L(\tau)|
+\le
+\frac{M}{ae}
+\left[-\log\left(1-\frac{\epsilon_N}{a}\right)\right].
+}
+$$
+
+For the normalized \(\gamma=1\) representation, \(a=111\) and
+\(M\le111+\mu_0\). Thus uniform convergence of the rational kernels on the
+training output interval implies uniform convergence of the entire loss curve
+for all physical times. This is the concrete candidate for the uniformly
+convergent initialization-computable expansion sought in the motivating
+question. It remains conditional on the three bridges just listed.
+
+The conditional resolvent, kernel, feature-flow, and loss-flow reconstructions
+can be inspected together in the
+[`theory/stieltjes_reconstruction_audit.html`](theory/stieltjes_reconstruction_audit.html)
+interactive audit.
+
+## 10. Finite-width numerical tests
+
+Ordinary finite-width expectation is not a safe numerical target here.  The
+finite-width feature-ascent vector field is homogeneous of degree six and
+\(f\) is homogeneous of degree seven.  If \(q=\|\theta\|^2\) and \(f(0)>0\),
+
+$$
+q'=14nf,
+\qquad
+q''=14n^2\|\nabla f\|^2
+\ge\frac72\frac{(q')^2}{q},
+$$
+
+where Euler homogeneity and Cauchy--Schwarz give the inequality.  Since
+\(q'(0)=14nf(0)>0\), put \(v=q'\) and use \(q\) as the independent variable:
+
+$$
+\frac{dv}{dq}=\frac{q''}{q'}
+\ge\frac72\frac{v}{q},
+\qquad
+v(q)\ge v(q_0)\left(\frac q{q_0}\right)^{7/2}.
+$$
+
+Consequently the remaining time before \(q\) reaches infinity is at most
+
+$$
+T_{\mathrm{blow}}
+\le\int_{q_0}^{\infty}\frac{dq}{v(q)}
+=\frac{2q_0}{5v(q_0)}
+=\frac{q(0)}{35nf(0)}.
+$$
+
+Gaussian full support assigns positive probability to arbitrarily early
+blow-up at every finite width.  Indeed, choose any configuration
+\(\theta_*\) with \(f(\theta_*)>0\).  Under \(\theta=c\theta_*\), the displayed
+upper bound scales as \(c^{-5}\), and every sufficiently small neighborhood
+of \(c\theta_*\) has positive Gaussian probability.  Therefore the numerical
+experiment targets a stopped, antithetic-pair-median typical proxy, not an
+ordinary expectation.
+
+The fresh initialization-only calibration used 224 independent antithetic
+pairs at each of widths 128 and 256.  For the held-out coefficient
+\(-6.84424988223\ldots\), the exact distribution-free median intervals were
+
+$$
+\begin{array}{c|c|c}
+n&\text{median estimate}&\text{median interval}\\
+\hline
+128&-9.20583260&[-13.7665521,-4.19697840]\\
+256&-7.55338844&[-11.5635193,-4.72329093].
+\end{array}
+$$
+
+All frozen calibration conditions passed; in particular, both intervals
+contain the exact coefficient and the width-256 interval has width below the
+preregistered threshold.
+
+The separately preregistered positive-time test passed every numerical and
+local calibration gate.  Its held-out next coefficient was positive and its
+confidence intervals contained the exact value
+\(2.93513360110\ldots\).  However, the Loewner conclusion was inconclusive.
+The primary cubic fit gave negative confirmation scores near \(10^{-7}\), but
+the preregistered quadratic and quartic fit sensitivities reversed their
+signs.  This is the sensitivity expected when the tested Loewner matrix is
+nearly rank-deficient: the experiment did not robustly falsify positivity and
+did not certify it.
+
+Two additional fresh initialization-only order-thirteen pilots were then run
+under protocols frozen before their respective seed sets were evaluated.
+The raw median of \(a_{r,n}/a_{0,n}^{2r+1}\) failed its lower-order
+calibration gate.  A calibrated adjacent-ratio estimator was much more stable:
+for \(c_3,c_4,c_5\), all six width-by-order point estimates were within
+\(1.22\%\) of their exact targets, and their bootstrap intervals contained the
+targets.  It predicted
+
+$$
+\widehat c_6=
+4.2071\times10^{-5}\quad(n=128),
+\qquad
+4.2352\times10^{-5}\quad(n=256),
+$$
+
+corresponding to \(\widehat\mu_5\approx0.6466\) and \(0.6462\).  Both are on
+the positive side of the next-Hankel threshold.  However, the protocol's
+deliberately stronger calibration gate also required the \(c_2\) bootstrap
+interval to contain its target; it missed by a small but definite amount at
+both widths.  The frozen classification is therefore
+**uncalibrated/inconclusive**, not an empirical certificate.  The numerical
+agreement at orders three through five makes the order-thirteen estimate a
+useful target for exact computation, but no more.
+
+The full preregistered contracts and frozen outputs are indexed in
+[`numerics/finite_width/README.md`](numerics/finite_width/README.md).  The
+earlier direct-clock attempts, including the failed experiment and the later
+bias downgrade, are indexed separately in
+[`numerics/direct_loewner/README.md`](numerics/direct_loewner/README.md).
+
+### 10.1 Nested global rational proxies and the canonical curve pilot
+
+The global approximation question was subsequently formulated without using
+the divergent raw Taylor series as the primary object. Starting with
+$K_0(y)=111$, each additional accepted moment determines the next Stieltjes
+continued-fraction convergent. Odd moment counts give zero-Radau upper
+kernels and even counts give Gaussian lower kernels. Conditional on the
+conjecture, their two fixed-parity subsequences tighten a nested pointwise
+envelope on $y\ge0$. The associated feature and physical-loss curves are
+computed from
+
+$$
+S(y)=\int_0^y\frac{du}{K(u)},
+\qquad
+T(y)=\int_0^y\frac{du}{2(1-u)K(u)},
+$$
+
+followed by monotone inversion; no proxy ODE discretization is needed.
+
+This hierarchy first passed a non-circular global calibration at the exactly
+solvable Lambert-$W$ variance boundary. On 501 points in $0\le y\le.99$,
+every rational level had the prescribed side and every bracket was nested.
+Beginning with NTK and then adding the five moments one at a time, the sup
+log-kernel errors were
+
+$$
+1.43433\times10^{-1},\quad
+7.87107\times10^{-3},\quad
+5.51285\times10^{-4},\quad
+3.39336\times10^{-5},\quad
+2.27548\times10^{-6},\quad
+1.43289\times10^{-7}.
+$$
+
+The deepest rational error was about sixty times smaller than the
+equal-information Taylor error. Thus the approximation mechanism works
+globally and rapidly in a model where the positive measure and exact curve
+are independently known. This does not establish the canonical neural
+bridge.
+
+The canonical reference experiment integrated actual squared-loss gradient
+flow, not the blow-up-prone unthrottled feature-ascent clock. For an
+antithetic finite ensemble it estimated the exact ensemble-level quantity
+
+$$
+K_{\mathrm{eff},n}(y)=
+\frac{\mathbb E[(1-f_n)K_n]}{1-\mathbb E f_n},
+$$
+
+using analytic $K_n=n\lVert\nabla f_n\rVert^2$. A separate rank-one-centered
+output-clock ensemble was retained only as a sensitivity check. CPU and both
+RTX-3090 validation runs passed before the hash-bound scientific attempt.
+
+The original pilot used a physical-time horizon $0.012$, even though the
+pre-existing one-moment proxy already implied
+$T(.99)\ge0.01493948\ldots$. It therefore stopped without a trajectory
+artifact and remains null evidence. A first successor was rejected before
+execution by a hostile preregistration audit. The executed second successor
+bound the protocol, five-point configuration, analysis choices, wrapper, and
+sources by hash. It used ordinary physical flow at
+$(n,R)=(256,32),(512,16)$, output-clock sensitivity at the same two widths,
+and a paired four-lineage half-step check. All five points completed in
+59.934 seconds; peak PyTorch allocation was $0.133$ GiB and peak host RSS was
+$0.951$ GiB. Exact antithetic cancellation, finite positive kernels,
+monotone mean output, nonincreasing mean loss, and output-clock identity all
+passed.
+
+The frozen 2,000-resample analysis was nevertheless inconclusive. At
+$y=.9$, the full 99% two-width sensitivity-union log-band had width
+$1.04499147$, versus the registered resolution ceiling
+$0.0126402630$—an $82.67$-fold miss. The paired step curves themselves agreed
+to $2.554\times10^{-6}$ through $y=.95$ and
+$3.80\times10^{-8}$ at $.99$, but their initial arrays differed at the last
+floating bits when evaluated in different batch sizes: at most
+$5.55\times10^{-17}$ in output and $5.68\times10^{-14}$ in kernel. The frozen
+gate required bitwise equality and therefore failed. All other registered
+clock-overlap and projection gates passed, and the Jensen-gap and
+self-averaging tests showed no statistically resolved worsening. The latter
+is a fail-closed statement, not evidence that their central trends improved.
+
+No rational prefix produced a valid contrary result. Conversely, none was
+resolved tightly enough to count as compatible. At width 512 and $y=.9$,
+for example, the ordinary central estimate was $147.688$ with simultaneous
+99% interval $[126.252,172.764]$, while the rational sequence was
+
+$$
+111, 166.393, 162.239, 163.060, 162.987, 163.000.
+$$
+
+The first feature-learning correction was visibly closer than NTK and every
+non-NTK value lay inside that interval, but the later corrections were far
+below the experiment's uncertainty and their central errors did not improve
+monotonically. The conservative two-width interval was wider still.
+
+There was also a frozen classifier defect: at $y=0$ every proxy bracket
+collapses to the single value 111, whereas a nondegenerate finite-width
+confidence band has positive width, making literal whole-band containment at
+that node impossible. It was not weakened after execution. Removing $y=0$
+post hoc would not change the observed classification: on positive nodes the
+band was contained in no prefix and had no replicated definite escape. In accordance
+with the hard stopping rule, the larger-width canonical stage and every
+one-input-deformation, two-input, and three-input neural branch were not run.
+The result is a clean cost-value stop, not evidence against the conjecture.
+The complete local record is
+[`numerics/global_proxy_campaign/RESULTS.md`](numerics/global_proxy_campaign/RESULTS.md).
+
+### 10.2 Bounded DMFT and the canonical FP32 Euler qualification
+
+Two bounded reference routes were audited before the breadth panel.  The
+first derived a two-species dynamical mean-field system for the quadratic
+network with a deliberately bounded readout,
+$a(0)\sim N(0,1)\mid |a(0)|\le3$, without variance renormalization.  Its
+generalized MFP control recovers the accepted Gaussian derivatives through
+order five and gives, for the truncated law,
+
+$$
+F'(0)=108.7603016717,\qquad
+F^{(3)}(0)=1\,610\,470.7911,\qquad
+F^{(5)}(0)=72\,197\,074\,701.39.
+$$
+
+The reciprocal-response density contacts also passed:
+$A_{1,0}=4$ and
+$B_{1,0}=12+28m_2(3)=39.25343389\ldots$, with frozen estimates
+$3.99650$ and $39.23460$.  The response-free ablation fails these contacts.
+This validates important factors in the proposed DMFT equations, but no
+positive-time DMFT curve was run.  The $S=4096$ initialization sample missed
+its strict component tolerances, and an independent DMFT-side construction
+of the third and fifth output derivatives is still absent.  Stage 1 therefore
+remains locked and contributes no Stieltjes evidence.  The bounded law is
+also a separate limit contract, not the original unbounded-Gaussian model.
+See the [bounded-DMFT Stage-0 report](numerics/hybrid_mean_field_campaign/bounded_dmft/STAGE0_REPORT.md).
+
+The second audit tested deterministic FP32 explicit Euler on one canonical
+$n=8192$ antithetic lineage at $h=10^{-5}$ and $5\times10^{-6}$.  Through
+mean output $.9$, their effective-kernel curves differed by only
+$2.03\times10^{-4}$ relatively.  Nevertheless the finer step moved farther
+into the FP32 rounding floor: it failed the registered driver-improvement,
+readout-unchanged, sampled-middle-weight-unchanged, and sampled-middle-weight
+cosine gates; the last cosine fell from $.99510$ to $.98517$.  Stage V is
+therefore failed/inconclusive for $h=5\times10^{-6}$, not a successful
+gradient-flow approximation and not evidence about the conjecture.  Its
+$h=10^{-5}$ diagnostics motivated a new, independently frozen breadth
+experiment with a conservative $.20\%$ kernel allowance; they did not
+retroactively repair Stage V.  The compact terminal record is the
+[FP32 Euler Stage-V report](numerics/hybrid_mean_field_campaign/width_ladder/euler_fp32/STAGE_V_REPORT.md).
+
+### 10.3 Breadth-first moment proxies and the stopped FP32 Euler panel
+
+The next experiment changed the allocation of numerical effort.  Instead of
+trying to distinguish the already very close third, fourth, and fifth
+canonical moment proxies, it preregistered the coarser and more resolvable
+
+$$
+K_{\mathrm{NTK}}(y)=A,\qquad
+K_{\mathrm{M1}}(y)=A+\mu _0y^2,\qquad
+K_{\mathrm{M2}}(y)=A+\frac{\mu _0y^2}{1+(\mu _1/\mu _0)y^2}
+$$
+
+across configurations whose required MFP moments had already been computed.
+Conditional on the Stieltjes conjecture these obey
+$K_{\mathrm{NTK}}\le K_{\mathrm{M2}}\le K\le K_{\mathrm{M1}}$.  For the
+variance family, the physical comparison is made only after the exact chart
+$K_v(y)=v\,\kappa_v(y/v)$; normalized $\kappa_v$ moments are not inserted
+directly into the physical kernel.  The frozen panel contained
+the canonical model, a centered first activation, a relative hidden-block
+metric, a middle-weight variance deformation, the equal- and opposite-label
+two-input channels, and the second-hidden squared norm on the metric ray.  It
+introduced no new MFP calculation.  The exact M1--M2 gaps at output $.9$
+ranged from $2.36\%$ to $14.31\%$, deliberately much larger than the late
+canonical-proxy differences.
+
+For memory efficiency the neural reference used explicit Euler descent in
+IEEE FP32, treated as an audited approximation rather than exact gradient
+flow.  Every run recorded output, direct and effective kernel, mean physical
+loss, loss of the mean output, both hidden squared norms, the discrete driver
+defect, unchanged-coordinate fractions, and intended-versus-realized update
+norms and cosines.  Local qualification compared $h=2\times10^{-5}$ and
+$h=10^{-5}$ at width 4096 before authorizing any width ladder.  It required,
+through output $.95$, a symmetric coarse/fine kernel difference below
+$0.20\%$, small accumulated driver error, and update cosines at least $.999$
+for the readout and first-hidden blocks and $.995$ for the frozen
+4096-coordinate sampled-middle-weight monitor.
+
+All six one-input validation trajectories completed under their frozen caps.
+Their decisive results were
+
+| configuration | max coarse/fine effective-$K$ difference | fine middle-$W$ cosine | local decision |
+|---|---:|---:|---|
+| centered activation, $c=1$ | $0.0259\%$ | $.98113$ | fail |
+| relative metric, $\lambda=2$ | $0.0407\%$ | $.99596$ | pass |
+| variance, $v=1/2$ | $0.0192\%$ | $.99018$ | fail |
+
+The centered run also exceeded the registered pointwise driver-defect ceiling
+($0.2928\%$ versus $0.20\%$).  Thus visually small step-size changes in the
+kernel did not suffice to certify the realized FP32 parameter updates.  The
+metric point's separately registered Q2 comparison also passed locally, with
+a maximum coarse/fine difference of $0.02005\%$.  Two of the three one-input
+validation configurations failed, activating the global hard stop.  No width
+screen, two-input trajectory, confidence band, or empirical NTK--M1--M2
+containment test was authorized or recorded.  The exact two-input engine and
+proxy contract remain audited implementation artifacts, not experimental
+evidence.
+
+This result neither supports nor contradicts the Stieltjes conjecture.  The
+single metric validation lineage passed the preregistered local numerical
+gates; the centered and variance points were inconclusive.  Choosing the
+apparently better coarse step after observing the diagnostics, weakening the
+cosine gate, or proceeding to the attractive proxy plots would violate the
+frozen decision rule.  The bounded stop therefore saved the intended
+width-screen and two-input budgets.
+
+The frozen protocol and point files retain their prospective pre-execution
+headers by design.  The terminal [breadth-panel result](numerics/hybrid_mean_field_campaign/breadth_panel/RESULTS.md)
+and its compact JSON are the current decision artifacts.
+
+## 11. Strong positive-operator route
+
+If all Hankel inequalities hold, the formal moment functional constructs a
+Hilbert space of polynomials, multiplication by \(\lambda\) is a nonnegative
+symmetric operator, and its Friedrichs extension yields a canonical
+resolvent
+
+$$
+\widehat R_A(x)=\langle v,(I+xA)^{-1}v\rangle,
+\qquad A\ge0,
+$$
+
+whose full right jet is the formal series \(R\).  Thus the formal moment and
+positive-operator versions of the conjecture are equivalent once the
+all-order inequalities are proved; identifying \(\widehat R_A\) with an
+independently defined global mean-field function is a separate obligation.
+
+More explicitly, let \(L(\lambda^r)=\mu_r\).  The two Hankel families say
+
+$$
+L(p^2)\ge0,\qquad L(\lambda p^2)\ge0
+$$
+
+for every real polynomial \(p\).  Quotienting polynomials by the null space
+of \(\langle p,q\rangle=L(pq)\) and completing gives the Hilbert space.  If
+\([p]=0\), apply Cauchy--Schwarz with \(q=\lambda^2p\):
+
+$$
+|L(\lambda^2p^2)|^2
+\le L(p^2)L(\lambda^4p^2)=0.
+$$
+
+Thus \(L(\lambda^2p^2)=0\), so multiplication
+\(M[p]=[\lambda p]\) is well-defined.  It is densely defined, symmetric, and
+nonnegative, hence has a nonnegative Friedrichs extension \(A\).  For
+\(v=[1]\), one has \(A^rv=[\lambda^r]\) and therefore
+
+$$
+\langle v,A^rv\rangle=\mu_r.
+$$
+
+The spectral theorem gives the displayed resolvent and its right derivatives
+at zero.  Conversely, any \(A\ge0\) and vector in the domain of all powers
+give both Hankel inequalities by squared norms, so this is an equivalence at
+the formal-jet level.
+
+The most obvious candidate operators do not prove those inequalities.  On
+Gaussian \(L^2\), the transport generator
+
+$$
+X=n\nabla f\mathbin\cdot\nabla
+$$
+
+has adjoint
+
+$$
+X^*=-X+n(7f-\Delta f).
+$$
+
+This identity holds on the polynomial core.  The multiplication term is
+nonzero because its degree-seven part is \(7nf\), and it changes sign under
+\(a\mapsto-a\).  Hence the symmetric part is indefinite.  The generator is
+not skew-symmetric because \(X+X^*\ne0\).  It is not symmetric either: if
+\(X=X^*\), then \(2X=M_{n(7f-\Delta f)}\), and applying both sides to the
+constant polynomial would force \(7f-\Delta f=0\), contrary to its nonzero
+degree-seven part.  Thus it cannot furnish the desired positive self-adjoint
+operator directly.  If \(S\) flips all readout coordinates, then
+\(f(S\theta)=-f(\theta)\) and
+
+$$
+S^T\nabla^2f(S\theta)S=-\nabla^2f(\theta),
+$$
+
+so the Hessian also has no almost-sure positivity under the symmetric
+Gaussian law unless it vanishes.  Gaussian integration by parts, parity, and
+the alternating signs of the first few coefficients are therefore
+insufficient by themselves.  A successful proof needs additional
+architecture-specific structure; the full peeling/Jacobi recursion is one
+possible place to seek it.
+
+## 12. Zero radius: what is proved and what it means
+
+Write
+
+$$
+F_\gamma(s)=\sum_{r\ge0}a_r(\gamma)s^{2r+1},
+\qquad
+a_r(\gamma)=\frac{F_\gamma^{(2r+1)}(0)}{(2r+1)!}.
+$$
+
+A retained positive family of peeling diagrams gives the rigorous all-order
+lower bound
+
+$$
+a_r(\gamma)
+\ge
+\frac{9^{r+1}}{4}(r+2)!\binom{2r+3}{2}\gamma^{6(r+1)}.
+$$
+
+For every $\gamma\ne0$, the $(2r+1)$-st root of the right side diverges.
+Therefore the formal feature Taylor series has radius zero. This is a theorem
+about the fixed-order mean-field derivative sequence; it does not by itself
+construct a positive-time limiting curve or locate a singularity of such a
+curve. If a $C^\infty$ curve with this jet exists, it is nonanalytic at the
+origin.
+
+In the feature-ascent clock, the loss is
+
+$$
+L_{\rm feat}(s)=(1-F(s))^2.
+$$
+
+Because $F$ is odd, $F^2$ is even, so its odd Taylor coefficients are exactly
+$-2a_r$. Hence the feature-clock loss also has radius zero. Physical
+gradient-flow time is a different composition. After absorbing the master
+rate into $\tau$, let
+
+$$
+L_{\rm phys}(\tau)=\sum_{n\ge0}(-1)^n b_n\tau^n.
+$$
+
+This sign and growth statement has a direct coefficientwise proof.  Let
+$p(t)=-s(-t)$, where $s$ is the feature clock as a function of physical time.
+Since $ds/d\tau=2(1-F(s))$ and the odd series $F$ has nonnegative
+coefficients,
+
+$$
+p'(t)=2(1+F(p(t))),\qquad p(0)=0.
+$$
+
+Therefore $p$ has nonnegative coefficients and $p\succeq_{\mathrm{coef}}2t$.
+Moreover
+
+$$
+L_{\rm phys}(-t)=(1+F(p(t)))^2
+$$
+
+has nonnegative coefficients.  Its coefficient of $t^{2r+1}$ contains the
+positive contribution $2a_r(2t)^{2r+1}$, so $b_n>0$ and
+
+$$
+b_{2r+1}\ge 2^{2r+2}a_r.
+$$
+
+Thus the physical-time loss jet also has radius zero. This remains a formal
+mean-field-jet statement, not a proof that an actual global loss curve ceases
+to exist.
+
+There is a useful conditional spectral interpretation. If the Stieltjes
+representation exists and has compact support, then $R$ and $K$ are analytic
+near zero, and the scalar ODE $F'=K(F)$ has an analytic local solution. That
+contradicts the proven zero radius. Therefore any representing measure for the
+intended jet must have unbounded support. Conversely, an unbounded nonnegative
+measure has moments whose root growth is unbounded, so its formal Stieltjes
+series has radius zero. This equivalence is conditional on the Stieltjes
+representation; zero radius alone does not prove that representation.
+
+## 13. Proof strategies eliminated by exact counterexamples
+
+The conjecture survived the study, but many attractive generic arguments did
+not. These are **proof-route falsifiers**, not counterexamples to the
+architecture-specific conjecture.
+
+1. **Positive raw feature coefficients.** In the notation
+   $\psi(z)=\psi_0+\psi_1z+\psi_2z^2+\cdots$, the exact identity
+   $\mu_1=(6\psi_1^2-5\psi_0\psi_2)/\psi_0^5$ shows that positive
+   $\psi_0,\psi_1,\psi_2$ are insufficient.
+2. **Positive raw spectral or Fock moments.** The explicit positive spectral
+   sum
+
+   $$
+   F(t)=10\sinh t+\frac{\sinh(\sqrt2\,t)}{\sqrt2}
+   +\frac{\sinh(10t)}{10}
+   $$
+
+   has positive raw odd derivatives but its inverse-output transform gives
+
+   $$
+   \mu_1=-\frac{8749}{746496}<0.
+   $$
+3. **Cooperative bridge dynamics.** The positive acyclic system
+
+   $$
+   C'=0,\quad U'=C,\quad Q'=2UC,\quad F'=C+2QC+4Q^2
+   $$
+
+   yields $F=t+\frac23t^3+\frac45t^5$ but $\mu_1=-\frac43$.
+4. **Generic Gaussian gradient-flow structure.** Gaussian initialization,
+   homogeneity, parity, and gradient ascent do not force the transformed
+   moments to be Stieltjes.  For example, with $X\sim N(0,1)$,
+   $f(X)=X^5$, and $D=f'(X)d/dX$, the raw derivatives are
+
+   $$
+   A=2625,\qquad B=7\,432\,425\,000,\qquad
+   C=214\,260\,089\,793\,750\,000,
+   $$
+
+   but universal reversion gives
+
+   $$
+   \mu_1=\frac{4B^2-AC}{24A^5}
+   =-\frac{367078426}{3215625}<0.
+   $$
+5. **The raw transport generator or Hessian.** Section 11 proves both are
+   sign-indefinite under the natural Gaussian symmetry.
+6. **Local Wick-profile total positivity.** A local transition submatrix has
+   the exact negative minor
+
+   $$
+   \det\begin{pmatrix}768&32\\64&2\end{pmatrix}=-512.
+   $$
+
+   A successful Gram representation must therefore mix local profiles.
+7. **Unrestricted GF(2)/matroid acceleration.** The explicit decorated-tree
+   counterexample in the MFP compiler audit invalidates the general rank gate.
+   Only the no-$W$-hit, even-row/even-$a$-admissible, tight-nullity theorem
+   survives.
+8. **A universal factor-nine two-hit inequality.** Prefixwise versions are
+   exactly false, including zero-valued prefixes with positive descendants.
+   An all-order version would also contradict the factorial lower bound. A
+   special order-eleven inequality was never proved.
+9. **Positive additive variance homotopy or coordinatewise Jacobi
+   monotonicity.** The signed first variation in Section 7 rules both out,
+   while leaving nonlinear cone preservation open.
+10. **Sector total nonnegativity and real-rootedness alone.** The scaled-Pascal
+    witness in Section 8 has a negative inverse moment. The neural simple-root
+    refinement remains evidence, not a known implication.
+11. **Unrestricted congruence evolution.** For any finite $H\succ0$ and
+    symmetric $S$, choosing $A=\frac12H^{-1}S$ makes
+    $S=A^TH+HA$. Without architecture-derived locality or uniform bounds,
+    such a representation is tautological.
+12. **Maximal-sector dominance and retained-subsum extrapolation.** Exact
+    positive sub-sums give lower bounds only. The maximal no-weight-hit sector
+    accounts for approximately
+    $0.676,0.395,0.227,0.129,0.0737,0.0421$ of the complete derivatives at
+    orders $1,3,5,7,9,11$, so its share is decreasing rather than becoming
+    dominant. Neither its growth nor the first
+    704 order-thirteen base contractions determines $F^{(13)}(0)$.
+
+The common lesson is that any proof must use a genuinely
+architecture-specific, nonlocal relation among peeling sectors or transformed
+moments. Positivity of the ingredients before series inversion is not enough.
+
+## 14. Present claim level and highest-leverage obligations
+
+Proved or computationally certified:
+
+1. the exact special-case peeling/Wick recursion and its independent
+   low-order regressions;
+2. $F^{(11)}(0)$ and $g_5=\mu_4$ exactly;
+3. strict positivity of every Hankel condition testable through $\mu_4$;
+4. exact continuum-valued finite-order Hankel compatibility over four
+   campaigns: the relative-metric ray, two-input label/correlation channels,
+   centered activation, and independent two-block metric quadrant, including
+   ordinary and shifted output/hidden two-by-two tests where computed;
+5. the faithful three-input equicorrelation MFP extension through order five,
+   its genuine triangle invariant, and exact $\mu_0,\mu_1>0$ on the full PSD
+   interval, but no Hankel determinant;
+6. the inverse-variable coefficient formulas and Stieltjes equivalence;
+7. the exact Stieltjes variance boundary and the signed first variation;
+8. total nonnegativity of all 18,563 minors of the aggregated $6\times12$
+   sector matrix, plus simple negative roots of its six normalized row
+   polynomials $F_\alpha^{(2r+1)}(0)/\alpha$;
+9. positive two-node Gaussian and three-node zero-Radau reconstructions;
+10. conditional Gauss/Radau bounds for every representing resolvent and its
+   induced scalar \(K,F,L\) flows, but not yet for an independently
+   established global mean-field curve;
+11. zero radius of the feature and loss formal jets;
+12. rigorous failure of the generic proof mechanisms collected in Section 13;
+13. local calibration, but not a decisive global Loewner result, for the
+   stopped finite-width median proxy;
+14. rapid nested rational convergence at the exact Lambert-$W$ boundary, plus
+   a completed, provenance-valid but protocol-inconclusive canonical
+   global-curve pilot that authorized no larger-width or deformation branch;
+   and
+15. the bounded-DMFT Stage-0 response/low-jet checks, failed canonical FP32
+   Euler Stage V, and breadth-panel two-failure stop, all at numerical-method
+   or calibration claim level only: no positive-time DMFT, width-proxy
+   inference, or new Stieltjes evidence.
+
+Open:
+
+1. the three-input $F^{(7)}$ and first ordinary determinant, the canonical
+   exact order-thirteen derivative, $\mu_5$, and the next shifted
+   three-by-three determinant;
+2. an all-order architecture-specific Hankel, Jacobi, or cone-preservation
+   mechanism;
+3. moment determinacy and therefore uniqueness of $\rho$;
+4. a bridge from the fixed-order formal jet to an actual global deterministic
+   mean-field curve;
+5. an all-order companion-measure theorem for the second-hidden response,
+   beyond its exact finite-order Campaign-1 tests; and
+6. uniform convergence of the conditional rational-ODE hierarchy to that
+   actual curve and its loss, together with a finite-width reference design
+   capable of resolving corrections beyond the first moment.
+
+## 15. Completed order-thirteen searches and portfolio stop
+
+Every canonical order-thirteen campaign was a one-sided falsification search:
+a certified lower bound above the exact shifted-Hankel threshold would refute
+the conjecture, while a lower bound below it is not positive evidence.
+
+The first preregistered retained-branch campaign used checked arithmetic and a
+monotone budget envelope.  Its three budget-four root classes each reached an
+eight-hour hard timeout without emitting a completed subtotal.  No budget-six
+or budget-eight escalation was authorized.  This route is closed
+**inconclusive** and contributes no bound beyond the separately completed
+component-cap certificates in Section 5.
+
+The later Campaign 6 deliberately sought an inexact interval or one-sided
+certificate instead of the complete integer.  Its unrestricted-pairing upper
+envelope was about $5.10\times10^{29}$ times the threshold, and its hybrid
+exact-small/capped-large calibration remained more than $10^{21}$ above the
+known exact order-eleven total on the upper side.  It also did not complete
+the frozen fresh D9-sector, D11-total, and per-run provenance gate.  Therefore
+its numerical endpoints are diagnostics only: Campaign 6 supplies **no
+accepted new D13 bound or interval**, and no D13 production run was launched.
+
+The same bounded portfolio allowed at most one conditional continuation.
+Neither was taken.  Four inputs required an affordable completed three-input
+order-seven gate, which failed.  A metric-ray order-eleven run was declined
+after the full two-dimensional metric quadrant passed its shifted test and
+the remaining endpoints had poor measured information per cost.  These are
+completed stopping decisions, not active authorizations.
+
+A future D13 attempt should not resume the old brute-force routes unchanged.
+It first needs a graph-sensitive omitted-mass lemma: a calibrated bound on
+leading-width Wick partitions of large decorated trees, a disjoint positive
+family aggregation avoiding enumeration of all maximal-sector bases, or a
+nonlocal two-generation transport identity replacing the false local charging
+rules.  The original Campaigns 4--6 allocation and terminal rules are retained
+only as [frozen historical provenance](archive/FROZEN_CAMPAIGNS_4_6_PORTFOLIO.md).
+
+## 16. Artifact index and durability policy
+
+The durable source-of-truth map is:
+
+- [the standalone MFP report](../mean_field_peeling/CURRENT_RESEARCH_STATE.md)
+  for the reusable method and theorem program;
+- [the exact quadratic compiler](../mean_field_peeling/quadratic_compiler/)
+  for decorated-forest rewrites, checked sector engines, exact raw derivatives,
+  and D11/D13 audits;
+- the campaign-local [metric/hidden protocol and derivation](../mean_field_peeling/quadratic_compiler/campaign1/PROTOCOL.md),
+  [two-input](../mean_field_peeling/quadratic_compiler/campaign2/RESULTS.md),
+  [centered-activation](../mean_field_peeling/quadratic_compiler/campaign3/RESULTS.md),
+  [independent block-metric](../mean_field_peeling/quadratic_compiler/campaign4/RESULTS.md),
+  and [three-input](../mean_field_peeling/quadratic_compiler/campaign5_b3/RESULTS.md)
+  reports for full coefficient tables, exact certificates, resource records,
+  and provenance at their stated claim levels;
+- the [Campaign-1 order-nine/order-eight provenance](../mean_field_peeling/quadratic_compiler/campaign1/order9_q2_order8_provenance.json)
+  for its primary dense rerun, independent graded audit, hashes, and caps;
+- the [Campaign-6 report](../mean_field_peeling/quadratic_compiler/campaign6_f13_threshold/CAMPAIGN_REPORT.md)
+  for the stopped, protocol-inconclusive D13 diagnostic, and the
+  [frozen portfolio](archive/FROZEN_CAMPAIGNS_4_6_PORTFOLIO.md) only for its
+  historical precommitment record; neither supplies a new coefficient or
+  bound;
+- [exact order-eleven certificates](theory/certificates_order11.json) for
+  exact \(K\)-coefficients, moments, and accessible Hankel determinants;
+- [the D13 threshold calculator](theory/exact_d13_threshold.py) for the exact
+  affine next-determinant calculation;
+- [the inverse-variable calculator](theory/inverse_derivative_threshold.py)
+  for inverse-variable Hankel checks;
+- [the variance-boundary audit](theory/variance_homotopy_boundary_audit.py)
+  for exact boundary and first-variation series checks;
+- [the finite-variance Hankel audit](theory/finite_variance_hankel_audit.py)
+  for coefficientwise-positive certificates through $\mu_4(\alpha)$;
+- [the all-minor audit](theory/sector_total_nonnegativity.py) and
+  [root-isolation audit](theory/sector_real_rootedness.py) for the 18,563-minor
+  and Sturm certificates;
+- [the reconstruction certificate](theory/reconstruction_order11.json) and
+  [reconstruction program](theory/moment_reconstruction.py) for Gaussian and
+  zero-Radau reconstruction;
+- [the numerical index](numerics/README.md) for the hierarchy of protocols,
+  failed gates, bias audits, and compact results;
+- [the global-proxy campaign result](numerics/global_proxy_campaign/RESULTS.md)
+  for the exact Lambert-$W$ convergence calibration, the hash-frozen
+  canonical GPU pilot, its 2,000-resample analysis, and the terminal
+  cost-value stop;
+- [the bounded-DMFT Stage-0 report](numerics/hybrid_mean_field_campaign/bounded_dmft/STAGE0_REPORT.md)
+  for the truncated-readout low jets, corrected reciprocal-response contacts,
+  and the locked positive-time branch;
+- [the FP32 Euler Stage-V report](numerics/hybrid_mean_field_campaign/width_ladder/euler_fp32/STAGE_V_REPORT.md)
+  for the canonical step-halving audit and its failed finer-step gates;
+- [the breadth-panel result](numerics/hybrid_mean_field_campaign/breadth_panel/RESULTS.md)
+  for the exact NTK--M1--M2 proxy contract, audited FP32 Euler engines, frozen
+  local-validation result, and stop before width or two-input inference;
+- [the earlier report](archive/EARLIER_REPORT.md) only as a superseded
+  historical record.
+
+Git retains source, protocols, reports, exact small certificates, compact run
+summaries, integrity manifests, and hashes. Raw numerical arrays, bootstrap
+payloads, logs, checkpoints, and ordinary compiler products are intentionally
+ignored. Their local hashes are retained where needed. The single checked D11
+evaluator binary in the MFP compiler is a documented exception because its
+hash identifies the accepted execution and the exact patched source revision
+is not otherwise recoverable.
+
+The final scientific status is unchanged by this organization:
+
+$$
+\boxed{\text{the output-kernel Stieltjes conjecture remains open.}}
+$$

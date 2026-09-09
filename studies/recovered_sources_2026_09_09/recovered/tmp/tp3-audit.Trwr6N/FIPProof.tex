@@ -1,0 +1,294 @@
+%auto-ignore
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\section{Subprogram and Subprogram Independence}
+
+\label{sec:subprogramIndependence}
+
+To prove \cref{thm:FreeIndependencePrinciple}, we need to introduce a notion of \emph{subprograms} and then the \emph{independence} of subprograms.
+Our key lemma in this section is \cref{lem:uncorrelationIndependence}, which shows that, if a subprogram is sufficiently uncorrelated from the previous subprogram, then it is also independent from it.
+\begin{defn}
+A program can be written down formally as a sequence of lines, each assigning a new vector generated from \refNonlin{} or \refMatMul{} to a new variable, like the examples above. A \emph{subprogram} of a program is a span of such lines. Given a program $\pi$ and subprograms $\pi_{1},\ldots,\pi_{k}$, we write $\pi=\pi_{1}|\cdots|\pi_{k}$ if $\pi$ consists of $\pi_{1}$ followed by $\pi_{2}$ followed by $\pi_{3}$, and so on, ending with $\pi_{k}$. Each vector in $\pi$ is introduced in a unique subprogram $\pi_{i}$, for which we write $v\in\pi_{i}$. By convention, all initial vectors in $\mathcal V$ are included in the first subprogram $\pi_1$.
+
+For example, the simple \netsort{} program represented by \cref{eqn:MLP} can be split into two subprograms, one which introduces $x^l, h^l$ for $l=1,\ldots, R$, and another with $l=R+1,\ldots, L$.
+As another example, \cref{eqn:forwardGIABreak} and \cref{eqn:backwardGIABreak} are two subprograms that comprise the program expressing the forward and backward propagations of the network.
+In general, forward propagation and backward propagation form natural subprograms, where the latter depends on (the preactivations computed in) the former.
+
+Next, we introduce the notion of subprogram independence, which generalizes the main property of Simple GIA Check (\cref{assm:simpleGIACheck}).
+Before that, we first recall the notation for distributional equality.
+\paragraph{Notations}
+Given two random variables $X, \Zz$, and a $\sigma$-algebra $\Aa$, the notation $X \disteq_\Aa \Zz$ means that for any integrable function $\phi$ and for any random varible $Z$ measurable on $\Aa$, $\EV \phi(X) Z = \EV \phi(\Zz)Z$.
+We say that $X$ is distributed as (or is equal in distribution to) $\Zz$ conditional on $\Aa$.
+In case $\Aa$ is the trivial $\sigma$-algebra, we just write $X \disteq \Zz$.
+If $X$ and $Z$ agrees almost surely, then we write $X \aseq Z$.
+\end{defn}
+
+\begin{defn}
+\label{def:subprogramIndep}Consider a program divided into two subprograms: $\pi=\pi_{1}|\pi_{2}$. For each $W\in\mathcal{W}$, we create an iid copy $\bar{W}$. Let $\bar{\pi}_{2}$ be the same as $\pi_{2}$ except that each matrix $W$ used in $\pi_{2}$ is replaced with $\bar{W}$ in $\bar{\pi}_{2}$. Let $x^{1},\ldots,x^{k}$ denote the vectors of $\pi_{1}$, $y^{1},\ldots,y^{p}$ denote the vectors of $\pi_{2}$, and $\bar{y}^{1},\ldots,\bar{y}^{p}$ denote the vectors of $\bar{\pi}_{2}$. We say \emph{$\pi_{2}$ is independent from $\pi_{1}$} if we have the distributional equality
+\[
+(Z^{x^{1}},\ldots,Z^{x^{k}},Z^{y^{1}},\ldots,Z^{y^{p}})\disteq(Z^{x^{1}},\ldots,Z^{x^{k}},Z^{\bar{y}^{1}},\ldots,Z^{\bar{y}^{p}})
+\]
+or equivalently, the conditional distributional equality
+\[
+(Z^{y^{1}},\ldots,Z^{y^{p}})\disteq_{Z^{x^{1}},\ldots,Z^{x^{k}}}(Z^{\bar{y}^{1}},\ldots,Z^{\bar{y}^{p}}).
+\]
+\end{defn}
+
+For example, if $\pi_{1}$ expresses the forward computation of a network satisfying Simple GIA Check (\cref{assm:simpleGIACheck}), and $\pi_{2}$ expresses the backward computation, then we can assume $W^\trsp$ used in $\pi_2$ (backpropagation) is independent from $W$ used in $\pi_1$ (forward propagation).
+This then implies $\pi_{2}$ is independent from $\pi_{1}$.
+On the other hand, the subprogram given by \cref{eqn:backwardGIABreak} is \emph{not} independent from the subprogram given by \cref{eqn:forwardGIABreak}, as we calculated.
+
+Note \cref{def:subprogramIndep} is purely about the structure of the subprograms (which is the only thing the random variables $Z^\bullet$ depend on), not the values of the vectors or matrices in the program.
+
+We will talk about polynomials of matrices below, e.g.\ $WW^\trsp W^2 (W^\trsp)^2$ if $W$ is a square matrix.
+\begin{defn}[Noncommutative Polynomial]
+    Given a matrix $W \in \R^{m\times n}$, a \emph{(noncommutative) monomial} in $\{W, W^\trsp\}$ is a product $a X_1 X_2 \cdots X_k$ for some $a\in \R$, $k \ge 0$, where each $X_i \in \{W, W^\trsp\}$ (with appropriate matching shapes).
+    Its degree is $k$.
+    A \emph{(noncommutative) polynomial} in  $\{W, W^\trsp\}$ is a linear combination of such monomials.
+    Its degree is the maximum degree of all of its nonzero monomials.
+\end{defn}
+\begin{rem}\label{rem:calculatingPolynomial}
+    If $W$ and $v$ are a matrix and a vector of a program, and $A$ is a polynomial in $\{W,W^\trsp\}$, then one can naturally express the product $Av$ in \netsort{}.
+    For example, if $A = W (W^\trsp)^2 W$, then $Av = u$ where
+    \[
+        v^1 = Wv,\quad
+        v^2 = W^\trsp v^1,\quad
+        v^3 = W^\trsp v^2,\quad
+        u = W v^3.\]
+    Below, when we say a program \emph{calculates $Av$}, we mean a program of this form.
+\end{rem}
+
+The following is the key workhorse of this section. It says that, in a program $\pi_{1}|\pi_{2}$, if $\pi_{2}$ 1) consists of only \refMatMul{} and 2) only depends on $\pi_{1}$ through a single vector $v$ \emph{uncorrelated} with most vectors of $\pi_{1}$, then $\pi_{2}$ is independent from $\pi_{1}$. As we will comment shortly, this gives another proof of the Gradient Independence Assumption when Simple GIA Check (\cref{assm:simpleGIACheck}) is satisfied.
+
+\begin{lemma}[Independence from Uncorrelation]
+\label{lem:uncorrelationIndependence}Consider a \netsort{} program $\pi=\pi_{1}|\pi_{2}$, and $\pi_{2}$ calculates $Av$ (in the sense of \cref{rem:calculatingPolynomial}) where $v$ is a vector of $\pi_{1}$ and $A$ is a polynomial in $\{W,W^{\trsp}\}$ for some $W\in\mathcal{W}$. If $\EV Z^{v}Z^{x}=\EV Z^{v}\hat{Z}^{y}=0$ for every $x,y\in\pi_{1}$ with $y=Wx$ or $y=W^{\trsp}x$, then $\pi_{2}$ is independent from $\pi_1$.
+\end{lemma}
+
+Note if $Wv$ or $W^{\trsp}v$ appears in $\pi_{1}$, then the premise implies $Z^{v}=0$ and the theorem becomes vacuously true. So to get nontrivial implications, $Wv$ and $W^{\trsp}v$ should not appear in $\pi_{1}$.
+Given \cref{lem:uncorrelationIndependence}, we can obtain a more explicit form of $Z^{Av}$ by some straightforward calculation.
+\begin{lemma}
+\label{lem:uncorrelatedDecomp}In the setting of \cref{lem:uncorrelationIndependence}, we have
+\[
+Z^{Av}=\tau Z^{v}+S
+\]
+where $S$ is zero-mean and independent from $\{Z^{u}:u\in\pi_{1}\}$, and $\tau=\lim_{n\to\infty}\frac{1}{n}\tr A$.
+\end{lemma}
+
+\begin{proof}
+By \cref{lem:uncorrelationIndependence}, we can assume that $W$ (where $A$ is a polynomial in $\{W,W^{\trsp}\}$) is independent from everything in $\pi_{1}$. Then a simple induction on the degree of $A$ in $W$ shows that 
+\begin{equation}
+Z^{Av}=\tau Z^{v}+S\label{eq:dontknowtau}
+\end{equation}
+ where $S$ is zero-mean and independent from $\{Z^{u}:u\in\pi_{1}\}$.
+
+However, at this point, we don't know what $\tau$ would be. To understand $\tau$, we proceed as follows. Let $\bar{v}$ be sampled iid according to $\bar{v}_{\alpha}\sim Z^{v}$ (which can be constructed with a \netsort{} program\footnote{The vector $v$ can always be expressed as $\phi(g^{1},\ldots,g^{k})$ for some G-vars $g^{1},\ldots,g^{k}$ and some function $\phi:\R^{k}\to\R$. Then $\bar{v}$ can be constructed as $\phi(\bar{g}^{1},\ldots,\bar{g}^{k})$ where $\{\bar{g}_{\alpha}^{1},\ldots,\bar{g}_{\alpha}^{k}\}\sim\Gaus(\mu,\Sigma)$ with $\mu_{i}=\EV Z^{g^{i}}$ and $\Sigma_{ij}=\EV Z^{g^{i}}Z^{g^{k}}$.}), so that $Z^{\bar{v}}\disteq Z^{v}$. Then we can easily see from the definition of $Z$ that $Z^{A\bar{v}}=\tau Z^{\bar{v}}+\bar{S}$ where $\tau$ here is the same as $\tau$ in \cref{eq:dontknowtau} and $(Z^{\bar{v}},\bar{S})\disteq(Z^{v},S)$. Then by the Master Theorem,
+\[
+\tau\EV(Z^{\bar{v}})^{2}=\EV Z^{A\bar{v}}Z^{\bar{v}}=\lim_{n\to\infty}\frac{1}{n}\bar{v}^{\trsp}A\bar{v}=\lim_{n\to\infty}\frac{1}{n}\tr A\EV(Z^{\bar{v}})^{2}
+\]
+we get $\tau=\lim_{n\to\infty}\frac{1}{n}\tr A$ as desired.
+\end{proof}
+
+\paragraph{Extension to \netsortplus{} and Variable Dimensions}
+Both \cref{lem:uncorrelatedDecomp,lem:uncorrelationIndependence} hold as stated for \netsortplus{} programs (see \cref{sec:netsortplus}) and programs with variable dimensions (see \cref{appendix:VarDim}).
+Note that, in programs with variable dimensions, the $\tau$ in \cref{lem:uncorrelatedDecomp} vanishes if $v$ and $Av$ are in different CDCs.
+
+\paragraph{Another Look at How Simple GIA Check Implies GIA}
+
+The lemmas above give us another proof that the gradient independence assumption leads to correct calculations given Simple GIA Check (\cref{thm:GIA}).
+To demonstrate \cref{lem:uncorrelationIndependence,lem:uncorrelatedDecomp} in action, before proving FIP, we give a proof of \cref{thm:GIA} for MLP.
+\begin{proof}[Proof sketch for an MLP]
+Consider the MLP $f(\xi)=W^{L+1}x^{L}(\xi)$ with input $\xi\in\R^{d}$ and output dimension $1$, where we recursively define, for $l=1,\ldots,L$, 
+\begin{align*}
+g^{l}(\xi) & =W^{l}x^{l-1}(\xi) & dx^{l-1}(\xi) & =W^{l\trsp}dg^{l}(\xi) \\
+x^{l}(\xi) & =\phi(g^{l}(\xi)) & dg^{l}(\xi) & =\phi'(g^{l}(\xi))\odot dx^{l}(\xi).
+\end{align*}
+Here, the dimensionalities are $W^1 \in \R^{n \times d}; W^2, \ldots, W^L \in \R^{n \times n}; W^{L+1} \in \R^{1 \times n}$, and for all $l\in[L]$, $g^l, x^l, dx^l, dg^l \in \R^n$.
+
+Let $\pi_{F}$ be the program that computes $g^l, x^l, l=1,\ldots, L$, on an input $\xi$.
+Below, we abbreviate $g^l = g^l(\xi)$ and so on.
+In this program, $\mathcal V = \{g^1, dx^L = \sqrt n W^{L+1}\}$,
+\footnote{
+    Here $dx^l$ should be interpreted as $\sqrt n \partial f/\partial x^l$, and likewise for $dg^l$.
+}%
+and $\mathcal W = \{W^2, \ldots, W^L\}$.%
+\footnote{
+    For concreteness (which will not matter much below): we sample $W^l_{\alpha\beta} \sim \Gaus(0, 1/n)$ for $l = 2, \ldots, L+1$, and suppose $g^1_\alpha \disteq \Gaus(0, 1)$, induced by appropriate sampling of $W^1$.
+}
+
+Now let's see how to apply \cref{lem:uncorrelatedDecomp,lem:uncorrelationIndependence} to show \cref{thm:GIA}.
+The first step of the backward pass is $dg^{L}=\phi'(g^{L})\odot dx^{L}$. Let $\pi_{1}$ denote $\pi_{F}$ plus this line. Let $\pi_{2}$ be the next line $dx^{L-1}=W^{L\trsp}dg^{L}$. Then $\pi_{1},\pi_{2}$ along with $v=dg^{L}$ satisfies the condition of \cref{lem:uncorrelationIndependence}.
+Indeed, $Z^{dg^L}$ is uncorrelated from $Z^{g^L}$ and $Z^{x^{L-1}} = \hat Z^{x^{L-1}}$ because $Z^{dg^L}$ is linear in $Z^{dx^L}$, which is by definition sampled independently from all $W^1, \ldots, W^L$.
+Thus, by \cref{lem:uncorrelationIndependence}, we may \emph{rigorously} treat $W^{L\trsp}$ as independent from $W^{L}$ for the purpose of computing any quantity of the form of the \cref{thm:NetsorTMasterTheorem} for the program $\pi_{1}|\pi_{2}$.
+In particular, by \cref{lem:uncorrelatedDecomp}, $Z^{dx^{L-1}} = \tau Z^{dg^L} + S$, where $S$ is zero-mean and independent from $\{Z^{u}:u\in\pi_{1}\}$, and $\tau=\lim_{n\to\infty}\frac{1}{n}\tr W^{L\trsp} = 0$, i.e.\ $Z^{dx^{L-1}} = S$.
+
+Then we can repeat this reasoning inductively: $Z^{dg^{L-1}} = \phi'(Z^{g^{L-1}}) \cdot Z^{dx^{L-1}} = \phi'(Z^{g^{L-1}}) \cdot S$ is uncorrelated from $Z^{g^{L-1}}$ and $Z^{x^{L-2}} = \hat Z^{x^{L-2}}$ because $Z^{dg^{L-1}}$ is linear in $S$.
+This lets us apply \cref{lem:uncorrelationIndependence,lem:uncorrelatedDecomp} to $\pi_2$ being the line $dx^{L-2}=W^{L-1\trsp}dg^{L-1}$, $\pi_1$ being all previous lines, and $v$ being $dg^{L-1}$.
+So on and so forth.
+\end{proof}
+
+\subsection{Proving \texorpdfstring{\cref{lem:uncorrelationIndependence}}{Key Lemma}}
+
+Here we prove \cref{lem:uncorrelationIndependence}.
+It will use the following trivial but useful facts.
+\begin{prop}
+    \label{prop:hatZRandomSource}For any $x\in\pi$, $Z^{x}$ is measurable against the $\sigma$-algebra generated by $\{\hat{Z}^{y}:\text{G-var }y\in\pi\}$.
+    .
+\end{prop}
+    
+\begin{lemma}
+    \label{lemma:uncorImpliesPartialMeanZero}Fix a matrix $W$. If $\EV Z^{v}\hat{Z}^{Wh}=0$ for all G-var $Wh$ introduced before $v$, then $\EV\partial Z^{v}/\partial\hat{Z}^{Wh}=0$ for all such $Wh$ as well.
+    
+\end{lemma}
+\cref{prop:hatZRandomSource} follows from a simple inductive argument, and \cref{lemma:uncorImpliesPartialMeanZero} follows from \cref{eq:ExpectationPartialDer}.
+
+\begin{proof}[Proof of \cref{lem:uncorrelationIndependence}]
+    It suffices to prove the case when we assume $A=\prod_{i=1}^{p}W^{t_{i}},t_{i}\in\{1,\trsp\}$, can be expressed as a monomial of degree $p$ in $\{W,W^{\trsp}\}$. Let $\bar{W}$ be an iid copy of $W$ as in \cref{def:subprogramIndep} and likewise let $\bar{\pi}_{2}$, $y^{1},\ldots,y^{p}$, $\bar{y}^{1},\ldots,\bar{y}^{p}$ be as in \cref{def:subprogramIndep}. By our assumption, $\pi_{2}$ computes $y^{1}=W^{t_{1}}v$ and $y^{i}=W^{t_{i}}y^{i-1}$ for $i=2,\ldots,p$, and likewise $\bar{\pi}_{2}$ computes $\bar{y}^{1}=\bar{W}^{t_{1}}v$ and $\bar{y}^{i}=\bar{W}^{t_{i}}\bar{y}^{i-1}$ for $i=2,\ldots,p$.
+    
+    Define $\mathcal{X}$ to be the $\sigma$-algebra generated by $\{Z^{x}:x\in\pi_{1}\}$. Note that by \cref{prop:hatZRandomSource}, $\mathcal{X}$ is also the $\sigma$-algebra generated by $\{\hat{Z}^{x}:\text{G-var }x\in\pi_{1}\}$. Then we need to show
+    \[
+    (Z^{y^{1}},\ldots,Z^{y^{p}})\disteq_{\mathcal{X}}(Z^{\bar{y}^{1}},\ldots,Z^{\bar{y}^{p}}).
+    \]
+    We proceed by induction on $p$. The base case of $p=0$ is vacuously true.
+    
+    Suppose the induction hypothesis holds for $p=q-1$ 
+    \[
+    (Z^{y^{1}},\ldots,Z^{y^{q-1}})\disteq_{\mathcal{X}}(Z^{\bar{y}^{1}},\ldots,Z^{\bar{y}^{q-1}}).
+    \]
+    and we shall prove it for $p=q$. A simple inductive argument (as in our proof of the semicircle law; see \cref{sec:semicircleProofGeneralK}) shows that for each $i\in[q-1]$, we have 
+    \begin{equation}
+    Z^{\bar{y}^{i}}=\tau_{i}Z^{v}+\bar{S}_{i}\label{eq:barYDecomp}
+    \end{equation}
+    for some $\tau_{i}\in\R$ and some zero-mean $\bar{S_{i}}$ independent from $\mathcal{X}$ (and thus also independent from $Z^{v}$). %
+    
+    Since we have assumed $A$ to be a monomial in $\{W,W^{\trsp}\}$, we can suppose WLOG that $t_{q}=1$ so that $y^{q}=Wy^{q-1}$. By definition, $Z^{y^{q}}=\hat{Z}^{y^{q}}+\Zdot^{y^{q}}$ and $Z^{\bar{y}^{q}}=\hat{Z}^{\bar{y}^{q}}+\Zdot^{\bar{y}^{q}}$. We shall show
+    \[
+    (Z^{y^{1}},\ldots,Z^{y^{q-1}},\hat{Z}^{y^{q}},\Zdot^{y^{q}})\disteq_{\mathcal{X}}(Z^{\bar{y}^{1}},\ldots,Z^{\bar{y}^{q-1}},\hat{Z}^{\bar{y}^{q}},\Zdot^{\bar{y}^{q}})
+    \]
+    which would imply the IH for $p=q$.
+    
+    \textbf{Case $\hat{Z}^{y^{q}}$: }By definition, $\hat{Z}^{y^{q}}$ (resp. $\hat{Z}^{\bar{y}^{q}}$) is zero-mean, jointly Gaussian with $\{\hat{Z}^{Wx}:x,Wx\in\pi\}$ (resp. $\{\hat{Z}^{\bar{W}x}:x,\bar{W}x\in\bar{\pi}_{2}\}$), and independent from $\{\hat{Z}^{Qx}:x,Qx\in\pi\}$ for any $Q\ne W$ (resp. for any $Q\ne\bar{W}$). By \cref{prop:hatZRandomSource}, these facts fully determine the distributions of $Z^{y^{1}},\ldots,Z^{y^{q-1}},\hat{Z}^{y^{q}}$ and of $Z^{\bar{y}^{1}},\ldots,Z^{\bar{y}^{q-1}},\hat{Z}^{\bar{y}^{q}}$ conditioned on $\mathcal{X}$. \emph{We thus need to show that A) $\Cov(\hat{Z}^{y^{q}},\hat{Z}^{y^{i}})=\Cov(\hat{Z}^{\bar{y}^{q}},\hat{Z}^{\bar{y}^{i}})$ for all $i=1,\ldots,q-1$, and B) $\Cov(\hat{Z}^{y^{q}},\hat{Z}^{g})=\Cov(\hat{Z}^{\bar{y}^{q}},\hat{Z}^{g})$ for all G-var $g\in\pi_{1}$.}
+    
+    \textbf{A) }For any $i=2,\ldots,q-1$, we either have $y^{i}=Wy^{i-1}$ or $y^{i}=W^{\trsp}y^{i-1}$. 1) In the latter case, $\hat{Z}^{y^{i}}$ is independent from $\hat{Z}^{y^{q}}$, and likewise $\hat{Z}^{\bar{y}^{i}}$ is independent from $\hat{Z}^{\bar{y}^{q}}$, so trivially \emph{$\Cov(\hat{Z}^{y^{q}},\hat{Z}^{y^{i}})=\Cov(\hat{Z}^{\bar{y}^{q}},\hat{Z}^{\bar{y}^{i}})=0$. }2) In the former case,
+    \begin{align*}
+    \Cov(\hat{Z}^{y^{q}},\hat{Z}^{y^{i}}) & =\Cov(\hat{Z}^{Wy^{q-1}},\hat{Z}^{Wy^{i-1}})\\
+     & =\sigma_{W}^{2}\EV Z^{y^{q-1}}Z^{y^{i-1}}=\sigma_{W}^{2}\EV Z^{\bar{y}^{q-1}}Z^{\bar{y}^{i-1}}\quad\text{by IH}\\
+     & =\Cov(\hat{Z}^{\bar{y}^{q}},\hat{Z}^{\bar{y}^{i}})
+    \end{align*}
+    as desired. For $i=1$, we either have $y^{1}=Wv$ or $y^{1}=W^{\trsp}v$, and a similar logic shows $\Cov(\hat{Z}^{y^{q}},\hat{Z}^{y^{1}})=\Cov(\hat{Z}^{\bar{y}^{q}},\hat{Z}^{\bar{y}^{1}})$ as well.
+    
+    \textbf{B) }If $g\in\pi_{1}$ is a G-var with $g=Qx$ for some $Q\ne W$ and $x\in\pi_{1}$, then by definition, $\hat{Z}^{g}$ is independent from both $\hat{Z}^{y^{q}}$ and $\hat{Z}^{\bar{y}^{q}}$. Now suppose instead $g=Wx$ for some $x\in\pi_{1}$. Then
+    \begin{align*}
+    \Cov(\hat{Z}^{y^{q}},\hat{Z}^{g}) & =\sigma_{W}^{2}\EV Z^{y^{q-1}}Z^{x}=\sigma_{W}^{2}\EV Z^{\bar{y}^{q-1}}Z^{x}\quad\text{by IH}\\
+     & =\sigma_{W}^{2}(\tau_{q-1}\EV Z^{v}Z^{x}+\EV\bar{S}_{q-1}Z^{x})=0\quad\text{by \cref{eq:barYDecomp}}\\
+     & =\Cov(\hat{Z}^{\bar{W}\bar{y}^{q-1}},\hat{Z}^{Wx})=\Cov(\hat{Z}^{\bar{y}^{q}},\hat{Z}^{g}).
+    \end{align*}
+    Here $\EV\bar{S}_{q-1}Z^{x}=0$ because $\bar{S}_{q-1}$ is zero-mean and independent from $Z^{x}$ as $x\in\pi_{1}$, and $\EV Z^{v}Z^{x}=0$ by the premise of this theorem. 
+    
+    \textbf{Case $\Zdot^{y^{q}}$: }By definition, $\Zdot^{y^{q}}$ is a linear combination $\Zdot^{y^{q}}=\sigma_{W}^{2}\sum_{(y,x)\in\mathcal{P}}Z^{x}\EV\frac{\partial Z^{y^{q-1}}}{\partial\hat{Z}^{y}}$, where $\mathcal{P}$ is the set of all $y=W^{\trsp}x$ introduced before $y^{q}$ in $\pi$. Likewise, $\Zdot^{\bar{y}^{q}}$ is a linear combination $\Zdot^{\bar{y}^{q}}=\sigma_{W}^{2}\sum_{i\in\mathcal{I}}Z^{\bar{y}^{i-1}}\EV\frac{\partial Z^{\bar{y}^{q-1}}}{\partial\hat{Z}^{\bar{y}^{i}}}$ where $\mathcal{I}$ is the set of all $i\in[q-1]$ such that $\bar{y}^{i}=\bar{W}^{\trsp}\bar{y}^{i-1}$, and for convenience here we have set $y^{0}=\bar{y}^{0}=v$. Clearly, by IH, 
+    \[
+    (Z^{\bar{y}^{1}},\ldots,Z^{\bar{y}^{q-1}},\hat{Z}^{\bar{y}^{q}},\Zdot^{\bar{y}^{q}})\disteq_{\mathcal{X}}\left(Z^{y^{1}},\ldots,Z^{y^{q-1}},\hat{Z}^{y^{q}},\sigma_{W}^{2}\sum_{i\in\mathcal{I}}Z^{y^{i-1}}\EV\frac{\partial Z^{y^{q-1}}}{\partial\hat{Z}^{y^{i}}}\right).
+    \]
+    Note that $\{(y^{i},y^{i-1}):i\in\mathcal{I}\}\subseteq\mathcal{P}$. So it suffices to show that $\EV\frac{\partial Z^{y^{q-1}}}{\partial\hat{Z}^{y}}=0$ for all $(y,x)\in\mathcal{P}\setminus\{(y^{i},y^{i-1}):i\in\mathcal{I}\}$. Fix one such $y$, which must have been introduced in $\pi_{1}$.
+    
+    Now by \cref{eq:barYDecomp}, $\EV\frac{\partial Z^{y^{q-1}}}{\partial\hat{Z}^{y}}=\EV\frac{\partial Z^{\bar{y}^{q-1}}}{\partial\hat{Z}^{y}}=\EV\tau_{q-1}\frac{\partial Z^{v}}{\partial\hat{Z}^{y}}+\frac{\partial\bar{S}_{q-1}}{\partial\hat{Z}^{y}}$. Since $\bar{S}_{q-1}$ is zero-mean and independent from $\mathcal{X}\ni\hat{Z}^{y}$, we have $\EV\frac{\partial\bar{S}_{q-1}}{\partial\hat{Z}^{y}}=0$. At the same time, by \cref{lemma:uncorImpliesPartialMeanZero}, $\EV\frac{\partial Z^{v}}{\partial\hat{Z}^{y}}=0$ because $\EV Z^{v}\hat{Z}^{W^{\trsp}h}=0$ for all G-var $W^{\trsp}h\in\pi_{1}$ by the premise of this theorem. Combining these results together, we get $\EV\frac{\partial Z^{y^{q-1}}}{\partial\hat{Z}^{y}}=0$ as desired. %
+\end{proof}
+
+    
+\section{Proving \texorpdfstring{Free Independence Principle}{Free Independence Principle}}
+\label{sec:FIP}
+
+\begin{proof}[Proof of \cref{thm:FreeIndependencePrinciple}]
+
+For each $i=1,\ldots,t$, let $A^{i}$ be a polynomial in $\{W,W^{\trsp}\}$ for some $W\in\mathcal{W}$ or in $\{\Diag(x):x\in\pi\}$, such that consecutive $A^{i}$ and $A^{i+1}$ are always polynomials in different collections. (Here superscripts always denote indices).
+Then we need to show
+\[
+\frac{1}{n}\tr(A^{t}-I\frac{1}{n}\tr A^{t})\cdots(A^{1}-I\frac{1}{n}\tr A^{1})\asto0.
+\]
+We apply the trace trick to re-express this as
+\begin{equation}
+\frac{1}{n}\EV v^{\trsp}(A^{t}-I\frac{1}{n}\EV u^{t\trsp}A^{t}u^{t})\cdots(A^{1}-I\frac{1}{n}\EV u^{1\trsp}A^{1}u^{1})v \asto 0
+\label{eq:MixedMomentConverges}
+\end{equation}
+where expectation is taken over $v,u^{1},\ldots,u^{t}\sim\Gaus(0,I)$.
+We will express this as a \netsortplus{} program and apply \cref{thm:NetsorT+MeanConvergenceLinearlyBounded} to show this convergence.
+This \netsortplus{} program takes the form of $\pi|\pi'$ where $\pi$ is the program in the theorem statement defining $W\in\mathcal{W}$ and $x\in\pi$, and $\pi'$ computes $\frac{1}{n}v^{\trsp}(A^{t}-\frac{1}{n}u^{t\trsp}A^{t}u^{t})\cdots(A^{1}-\frac{1}{n}u^{1\trsp}A^{1}u^{1})v$, as we describe in more detail below%
+\footnote{For concreteness (which won't matter in the proof below): The initial set of vectors $\mathcal{V}_{\pi|\pi'}$ is then the initial vectors of $\pi$ along with $\{v,u^{1},\ldots,u^{t}\}$, $\mathcal{V}_{\pi|\pi'}=\mathcal{V}_{\pi}\cup\{v,u^{1},\ldots,u^{t}\}$.
+Likewise, the initial matrices $\mathcal W_{\pi |\pi'}$ are the same as those of $\pi$, $\mathcal W_{\pi}$.}.
+.
+
+Inside $\pi'$ , we let $v^{0}=v$ and compute $v^{i}$ as follows in subprograms of $\pi'$:
+\begin{align*}
+v^{i} & =(A^{i}-\frac{1}{n}u^{i\trsp}A^{i}u^{i})v^{i-1},\quad\forall i\in[t].
+\end{align*}
+Then the quantity in \cref{eq:MixedMomentConverges} is just $\frac{1}{n}v^{\trsp}v^{t}$. %
+
+\textbf{Example} If $A^{i}=(W^{\trsp})^{2}W$ for some $W\in\mathcal{W}$ then we can unpack $v^{i}=(A^{i}-\frac{1}{n}u^{i\trsp}A^{i}u^{i})v^{i-1}$ into the subprogram
+
+\begin{align*}
+g^{1} & =Wv^{i-1}&
+g^{2} & =W^{\trsp}g^{2}&
+g^{3} & =W^{\trsp}g^{3}=A^{i}v^{i-1}&
+h^{1} & =Wu^{i}\\
+h^{2} & =W^{\trsp}h^{1}&
+h^{3} & =W^{\trsp}h^{2}&
+c & =\frac{1}{n}u^{i\trsp}h^{3}&
+v^{i} & =g^{3}-c\cdot v^{i-1}.
+\end{align*}
+Here $c$ is computed using \refMoment{} and $v^i$ is computed using \refNonlinPlus{}, and everything else uses \refMatMul{}.
+Similarly, if $A^{i}=\Diag(x)$ for some $x\in\pi$ with bounded coordinates, then we can unpack $v^{i}=(A^{i}-\frac{1}{n}u^{i\trsp}A^{i}u^{i})v^{i-1}$ into
+\begin{align*}
+g & =x\odot v^{i-1}&
+h & =x\odot u^{i}&
+c & =\frac{1}{n}u^{i\trsp}h&
+v^{i} & =g-c\cdot v.
+\end{align*}
+Here $c$ is computed using \refMoment{} and everything else is computed using \refNonlinPlus{}.
+Note that, in both examples, the nonlinearities involved satisfy the nonlinearity conditions of \cref{thm:NetsorT+MeanConvergenceLinearlyBounded}.
+One can easily see this is true in general for the entire subprogram $\pi'$.
+By induction on $t$, we prove the following claim, which would imply \cref{eq:MixedMomentConverges}.
+\begin{claim}
+\emph{For each $v^{i},i\ge1$, the associated random variable $Z^{v^{i}}$ is zero-mean and 1) independent from $\mathcal{X}^{i-1}\defeq\{Z^{x}:\text{\ensuremath{x} introduced before or is \ensuremath{v^{i-1}}\}}$ if $A^{i}$ is not diagonal or 2) uncorrelated from $\mathcal{\mathcal{X}}^{i-1}$ and $\hat{\mathcal{X}}^{i-1}\defeq\{\hat{Z}^{x}:\text{G-var \ensuremath{x} introduced before or is \ensuremath{v^{i-1}}\}}$ if $A^{i}$ is diagonal.}
+\end{claim}
+
+Here, ``uncorrelated'' means $\EV Z^{v^{i}}R=0$ for all $R\in\mathcal{X}^{i-1}\cup\hat{\mathcal{X}}^{i-1}$. Applying this claim to $v^{t}$, we get
+\[
+\EV_{v, u^1, \ldots, u^t} v^{\trsp}(A^{t}-u^{t\trsp}A^{t}u^{t})\cdots(A^{1}-u^{1\trsp}A^{1}u^{1})v=v^{\trsp}v^{t}\asto\EV Z^{v}Z^{v^{t}}=0
+\]
+by \cref{thm:NetsorT+MeanConvergenceLinearlyBounded}%
+\footnote{
+    While \cref{thm:NetsorT+MeanConvergenceLinearlyBounded} is stated for a program (and not a subprogram), its proof can be readily adapted to the subprogram case.
+}
+, as desired, assuming rank stability (\cref{assm:asRankStab}). We shall check rank stability after proving this claim.
+\begin{proof}
+We proceed by induction on $t$, starting with $t=1$. Our key tool is \cref{lem:uncorrelatedDecomp}.
+\begin{description}
+\item [{BaseCase:}] By the cyclic property of trace, we can WLOG suppose $A^{1}$ is a polynomial in $\{W,W^{\trsp}\}$ for some $W\in\mathcal{W}$. Furthermore, we can assume WLOG that $A^{1}$ is a monomial in $W$ and $W^{\trsp}$. Then $\frac{1}{n}u^{1\trsp}A^{1}u^{1}\asto\tau^{1}\defeq\lim_{n\to\infty}\frac{1}{n}\tr A^{1}$. by something? By \cref{lem:uncorrelatedDecomp}, $Z^{v^{1}}=Z^{A^{1}v}=\tau^{1}Z^{v}+S$ where $S$ is zero-mean and independent from $\mathcal{X}^{0}$. Then $Z^{v^{1}}=Z^{A^{1}v-\left(\frac{1}{n}u^{1\trsp}A^{1}u^{1}\right)v}=S$ satisfies the required zero-mean and independence property.
+\item [{Induction:}]~
+\begin{description}
+\item [{NondiagonalCase}] By IH, $Z^{v^{i-1}}$ is uncorrelated from $\mathcal{X}^{i-2}\cup\hat{\mathcal{X}}^{i-2}$. So we can apply \cref{lem:uncorrelatedDecomp} in the same fashion as in the base case to obtain the desired result.
+\item [{DiagonalCase:}] Suppose $A^{i}=\Diag(x)$ for some $x\in\pi$. By the non-consecutive assumption, $A^{i-1}$ is not diagonal. So IH tells us $Z^{v^{i-1}}$ is independent from $\mathcal{X}^{i-2}$. One can see easily that $Z^{v^{i}}=Z^{v^{i-1}}(Z^{x}-\EV Z^{x}).$ We need to prove $\EV Z^{v^{i}}R=0$ for all $R\in\mathcal{X}^{i-1}\cup\mathcal{\hat{X}}^{i-1}$. We divide into cases:
+\begin{enumerate}
+\item Suppose $R\in\mathcal{X}^{i-2}\cup\hat{\mathcal{X}}^{i-2}$. Then $\EV Z^{v^{i}}R=\EV Z^{v^{i-1}}(Z^{x}-\EV Z^{x})R=\EV Z^{v^{i-1}}\EV(Z^{x}-\EV Z^{x})R=0$ because $Z^{v^{i-1}}$ is independent from $Z^{x}$ and $R$ and is zero-mean.
+\item Suppose $R\in\mathcal{\hat{X}}^{i-1}\setminus\mathcal{\hat{X}}^{i-2}$. Then $R$ is possibly correlated with $Z^{v^{i-1}}$ but $\{R,Z^{v^{i-1}}\}$ is independent from $\mathcal{\mathcal{X}}^{i-2}\ni x$ by \cref{lem:uncorrelationIndependence}. Therefore, $\EV Z^{v^{i}}R=\EV Z^{v^{i-1}}(Z^{x}-\EV Z^{x})R=\EV Z^{v^{i-1}}R\EV(Z^{x}-\EV Z^{x})=0$.
+\item Suppose $R\in\mathcal{X}^{i-1}\setminus\mathcal{X}^{i-2}$. Then $R$ decomposes into $R=\tau Z^{v^{i-2}}+S$ by \cref{lem:uncorrelatedDecomp} for some $\tau\in\R$ and $S$ zero-mean and independent from $\mathcal{X}^{i-2}$. Then 
+\begin{align*}
+\EV Z^{v^{i}}R & =\EV Z^{v^{i-1}}=\EV Z^{v^{i-1}}(Z^{x}-\EV Z^{x})R\\
+ & =\EV Z^{v^{i-1}}(Z^{x}-\EV Z^{x})(\tau Z^{v^{i-2}}+S)\\
+ & =\tau\EV Z^{v^{i-1}}(Z^{x}-\EV Z^{x})Z^{v^{i-2}}+\EV Z^{v^{i-1}}(Z^{x}-\EV Z^{x})S\\
+ & =0.
+\end{align*}
+Here $\EV Z^{v^{i-1}}(Z^{x}-\EV Z^{x})S=\EV Z^{v^{i-1}}S\EV(Z^{x}-\EV Z^{x})=0$ because $\{Z^{v^{i-1}},S\}$ is independent from $Z^{x}$. Similarly, $\EV Z^{v^{i-1}}(Z^{x}-\EV Z^{x})Z^{v^{i-2}}=\EV Z^{v^{i-1}}\EV(Z^{x}-\EV Z^{x})Z^{v^{i-2}}=0$ because by IH $Z^{v^{i-1}}$ is zero-mean and independent from $\mathcal{X}^{i-2}\ni Z^{x},Z^{v^{i-2}}$.
+\end{enumerate}
+\end{description}
+\end{description}
+\end{proof}
+
+Finally, to see rank stability (\cref{assm:asRankStab}), we simply note two points: 1) The subprogram $\pi$ is a \netsort{} program and thus it has rank stability automatically (\cref{remk:rankStabilityNetsor}). 2) $\hat Z^x$ has nonzero variance for every G-var $x$ computed in $\pi'$.
+Since each vector used in \refMatMulPlus{} in $\pi'$ depends linearly on some unique $\hat Z^x$, this shows that the rank in \cref{assm:asRankStab} is always full, and thus rank stability holds.
+
+\end{proof}
+
+    
+\end{document}

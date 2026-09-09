@@ -1,0 +1,165 @@
+%auto-ignore
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\section{Proof Sketch of the Master Theorem}
+\label{sec:proofsketch}
+
+Here we explain the main ideas of the proof of \cref{thm:NetsorTMasterTheorem}.
+The Master Theorems of \citet{yangTP1,yangTP2} all use some subset of these ideas for their proofs, so this section also summarizes the core insights there.
+We start by proving an easier version of \cref{thm:NetsorTMasterTheorem} that assumes all nonlinearities in \refNonlin{} are sufficiently smooth (\cref{sec:First-Attempt}).
+Then we show how to remove the smoothness assumption (\cref{sec:First-Order-Correction,{sec:rankStability}}).
+Finally, we give an outline in \cref{sec:Zdot} for proving the form of $\Zdot$ in \cref{defn:Z}.
+
+\subsection{Master Theorem Proof Sketch with Sufficient Regularity Assumptions\label{sec:First-Attempt}}
+
+A natural intuition for proving the Master Theorem is to perform induction on the number of vectors. Suppose further for simplicity that all matrices $W\in\mathcal{W},W\in\R^{n\times n}$ are sampled like $W_{\alpha\beta}\sim\Gaus(0,1/n)$ . Here we sketch the proof of the simpler statement that \cref{{eqn:NetsorTMasterTheorem}} converges to \emph{some} limit, when all nonlinearities $\phi$ used in \refNonlin{} are smooth enough. We will discuss the form of the limit itself in another section (\cref{sec:Zdot}). Under these assumptions, the core idea is similar to the proof of \citet{bayati_dynamics_2011} for Approximate Mesage Passing (but we will not require knowledge of this proof below).
+\begin{defn}   
+We say a vector is a \emph{G-var} if it is in $\mathcal{V}$ or it is introduced by \refMatMul{}.%
+\footnote{
+    The letter \emph{G} elicits the intuition that the vector is roughly \emph{Gaussian} plus a correction term.
+    We will not use the terms \emph{A-var} and \emph{H-var} from \citet{yangScalingLimitsWide2019arXiv.org,yangTP1,yangTP2}, in favor of more intuitive terms \emph{matrix} and \emph{vector} in the program.
+}
+\end{defn}
+Suppose the program has G-vars $g^{1},\ldots,g^{m}$ introduced in that order. Since all other vectors can be expressed as a \refNonlin{} image of them, it suffices to prove \cref{eqn:NetsorTMasterTheorem} for $g^{1},\ldots,g^{m}$, i.e. for any \emph{sufficiently smooth $\psi:\R^{m}\to\R$, }we have
+\begin{equation}
+\f 1n\sum_{\alpha=1}^{n}\psi(g_{\alpha}^{1},\ldots,g_{\alpha}^{m})\asto\EV\psi(Z^{g^{1}},\ldots,Z^{g^{m}}).\label{eq:MomentGvars}
+\end{equation}
+
+The base case is when $g^{1},\ldots,g^{m}\in\mathcal{V}$ are the initial vectors. Then \cref{eq:MomentGvars} converges by law of large numbers.
+
+For the inductive case, suppose $g^{m+1}=Ah$, where $h=\phi(g^{1},\ldots,g^{m})$, for some \emph{sufficiently smooth} $\phi:\R^{m}\to\R$, and WLOG for $A \in \mathcal W$.
+We want to show \cref{eq:MomentGvars} for $m\gets m+1$. The \emph{key idea is to condition} $A$ on $g^{1},\ldots,g^{m}$, and then try to reduce \cref{eq:MomentGvars} for $m+1$ to \cref{eq:MomentGvars} for $m$ through a law of large numbers on the remaining randomness in $g^{m+1}$.
+This conditioning puts a linear constraint on $A$ in the form of
+\[
+\Xme=A\Yme,\quad\Ume=A^{\trsp}\Vme
+\]
+for matrices $\Xme,\Yme,\Ume,\Vme$ with previous vectors as columns.
+For example, if the program is $\{g^2 = A g^1, g^3 = A^\trsp g^2\}$, then conditioning on $g^1, g^2, g^3$, we have $\Xme = g^2, \Yme = g^1, \Ume=g^3, \Vme=g^2$.
+By standard formulas for Gaussian conditioning (see \cref{lemma:condTrick}), we can derive the following conditional distribution%
+\footnote{see \cref{sec:probfacts} for definition of $\disteq$}
+
+\[
+A\disteq_{g^{1},\ldots,g^{m}}E+\Pi_{1}\tilde{A}\Pi_{2},\quad g^{m+1}\disteq_{g^{1},\ldots,g^{m}}\left(E+\Pi_{1}\tilde{A}\Pi_{2}\right)h,
+\]
+where $\tilde{A}$ is an iid copy of $A$, $E\in\R^{n\times n}$ is the ``conditional mean'', and $\Pi_{1},\Pi_{2}\in\R^{n\times n}$ are two orthogonal projection matrices into subspaces of dimension $n-O(1)$. Then we can see each coordinate $g_{\alpha}^{m+1}$ is conditionally distributed like $(Eh)_{\alpha}+\sigma\Pi_{1}\zeta$ where $\sigma^{2}=\|\Pi_{2}h\|^{2}/n$ and $\zeta\sim\Gaus(0,I)$. Now we make several approximations that can be made rigorous using the smoothness of $\psi$:
+\begin{enumerate}
+    \item Since $\Pi_{1}$ has small corank, we approximate $\Pi_{1}\approx I$.\footnote{this is roughly because $\Pi_1$ is multiplied to $\tilde A$, which generically sends a vanishing amount of its image to the subspace represented by $\Pi_1$.} \label{item:projI}
+    \item It turns out $\sigma^{2}$ can be rewritten as a continuous function of quantities in the form of \cref{eq:MomentGvars}, so by induction hypothesis, $\sigma\asto\mathring{\sigma}$ for some deterministic limit $\mathring{\sigma}\ge0$ (see \cref{lemma:sigmaConverges}). We make the approximation $\sigma\approx\mathring{\sigma}$. \label{item:sigmaApprox}
+    \item Similarly, it turns out $Eh=\sum_{i=1}^{r}a_{i}h^{i}$ where $h^{i}$ are some previous vectors (which are necessarily \refNonlin{} images of $g^{1},\ldots,g^{m}$), and each $a_{i}$ is a (continuous function of) average of \cref{eq:MomentGvars}'s form (see \cref{lemma:omegaExpansion}). They converge $a_{i}\asto\mathring{a}_{i}$ by induction hypothesis, so we approximate $a_{i}\approx\mathring{a}_{i}$.
+    Noet that the specific forms of $a_i$ and $h^i$ here will dictate the form of $\Zdot^{g^{m+1}}$; see \cref{sec:Zdot}.
+    \label{item:coefApprox}
+\end{enumerate}
+In summary, we have now approximated, for each $\alpha\in[n]$,
+\begin{equation}
+g_{\alpha}^{m+1}\overset{d}{\approx}_{g^{1},\ldots,g^{m}}\sum_{i=1}^{r}\mathring{a}_{i}h_{\alpha}^{i}+\mathring{\sigma}\zeta_{\alpha},\quad\zeta_{\alpha}\sim\Gaus(0,1).
+\label{eqn:gexpansionSketch}
+\end{equation}
+Thus, as $g_{\alpha}^{m+1}$ is iid in $\alpha\in[n]$ with this approximation, by law of large numbers, we should expect \cref{eq:MomentGvars} for $m\gets m+1$ to concentrate around its conditional expectation for large $n$:
+\begin{align*}
+\left|\f 1n\sum_{\alpha=1}^{n}\psi(g_{\alpha}^{1},\ldots,g_{\alpha}^{m},g_{\alpha}^{m+1})-S\right|&\asto0,\\
+\text{where}\quad &S\defeq\frac{1}{n}\sum_{\alpha=1}^{n}\EV_{z\sim\Gaus(0,1)}\psi\left(g_{\alpha}^{1},\ldots,g_{\alpha}^{m},\mathring{\sigma}z+\sum_{i=1}^{r}\mathring{a}_{i}h_{\alpha}^{i}\right).
+\end{align*}
+
+Now $S$ is in the form of \cref{eq:MomentGvars} so we can apply induction hypothesis. This finishes the proof sketch.
+
+In this proof sketch, we have substituted many quantities for their limits (that are inductively proven to exist). This is only possibly because we assume all nonlinearities are sufficiently smooth. What if we don't have this assumption? (This is important, for example, for expressing the backpropagation of a ReLU neural network, since ReLU's (weak) derivative is not continuous).
+
+\subsection{Getting Rid of Smoothness Assumption}
+\label{sec:First-Order-Correction}
+
+The key insight into the removal of smoothness assumption on \refNonlin{} is that, \emph{we get smoothness for free from averaging}.
+Here's the main strategy: If we can show the conditional concentration
+\begin{align*}
+\left|\f 1n\sum_{\alpha=1}^{n}\psi(g_{\alpha}^{1},\ldots,g_{\alpha}^{m},g_{\alpha}^{m+1})-\bar{S}\right|&\asto0,\\
+\text{where}\quad&\bar{S}\defeq\EV\left[\left.\f 1n\sum_{\alpha=1}^{n}\psi(g_{\alpha}^{1},\ldots,g_{\alpha}^{m},g_{\alpha}^{m+1})\right| g^{1},\ldots,g^{m}\right],\numberthis\label{eq:conditionalConcentration}
+\end{align*}
+then $\bar{S}$ can be expressed as an average of \emph{smooth }functions of $g_{\alpha}^{1},\ldots,g_{\alpha}^{m}$ and some scalars $a_{1},\ldots a_{r},\sigma$ (as in \cref{item:sigmaApprox,item:coefApprox} above) that converge to deterministic limits. 
+The smoothness of these functions come from the Gaussian averaging inside the conditional expectation, even if $\psi$ itself is not smooth.
+This works as long as $\sigma > 0$; we shall discuss this assumption more thoroughly in \cref{sec:rankStability}.
+With this smoothness, we can again replace $a_{1},\ldots,a_{r},\sigma$ with their limits $\mathring a_{1},\ldots,\mathring a_{r},\mathring{\sigma}$, and then the proof is finished by the induction hypothesis, as in \cref{sec:First-Attempt}.
+
+Thus, if we can prove \cref{eq:conditionalConcentration} without using smoothness of $\psi$, then we would be done. Revisiting the approximations we made in our first-attempt proof, we see that we need to remake our law of large number argument (\cref{item:projI}) without substituting $\Pi_{1}\approx I$. This substitution has been quite convenient, as it made $g_{\alpha}^{m+1}$ conditionally iid in $\alpha$, so that the usual law of large numbers can apply. Now, we have to manually wrestle with the correlations between $g_{\alpha}^{m+1}$ and $g_{\beta}^{m+1}$ for pairs $\alpha,\beta\in[n]$.
+
+\subsubsection{Law of Large Numbers for Images of Weakly Correlated Gaussians}
+We thus prove a new law of large numbers for this case. It says that the average of images of weakly correlated Gaussians will converge deterministically.
+\begin{thm}[LLN for Images of Weakly Correlated Gaussians (Simplified)]
+ \label{thm:LLNGaussianImage} Consider a triangular array $\{\zeta_{1}^{n},\ldots,\zeta_{n}^{n}\}_{n\ge1}$ of Gaussian variables, where each row is given by $\zeta^{n}\sim\Gaus(0,\Sigma^{n})$ and the covariance matrix $\Sigma^{n}$ satisfies $\sum_{\alpha\ne\beta}(\Sigma_{\alpha\beta}^{n})^{2}/(\Sigma_{\alpha\alpha}^n \Sigma_{\beta\beta}^n)=O(1)$. Consider any polynomially-bounded $\phi:\R\to\R$. Then the triangular array $\{\phi(\zeta_{1}^{n}),\ldots,\phi(\zeta_{n}^{n})\}_{n\ge1}$ satisfies a strong law of large numbers.\footnote{The full theorem (\cref{thm:StrongLLNGaussianImage}) allows each $\zeta_{\alpha}^{n}$ to have its own $\phi_{\alpha}:\R\to\R$ and this is in fact what's needed to finish the proof of \cref{thm:NetsorTMasterTheorem}. However, for conveying the main insights, we will be content with the simplified statement here.}
+\end{thm}
+
+This theorem will be applicable to $\Sigma^{n}=\Pi_{1}$ as $\Pi_{1}$ is a projection matrix with low corank and can therefore be seen to have small off-diagonal entries (see \cref{lemma:projectionCorrelation}).
+This would then finish the proof of \cref{eq:conditionalConcentration} without assuming smoothness of \refNonlin{}.
+
+Let us then sketch a proof of \cref{thm:LLNGaussianImage}. It is instructive to first show a \emph{weak} law of large numbers (\cref{thm:WeakLLNGaussianImage}) by bounding the variance of the fluctuation around the mean (\cref{thm:projectVariance}). Suppose, for simplicity, $\phi$ is even, so that $\EV\phi(\zeta_{\alpha}^{n})=0$. Then we need to bound $\EV\left(\frac{1}{n}\sum_{\alpha=1}^{n}\phi(\zeta_{\alpha}^{n})\right)^{2}$. Expanding the square, we have $n$ diagonal terms $\frac{1}{n^{2}}\EV\phi(\zeta_{\alpha}^{n})^{2},\alpha\in[n],$ and $n(n-1)$ cross terms $\frac{1}{n^{2}}\EV\phi(\zeta_{\alpha}^{n})\phi(\zeta_{\beta}^{n}),\alpha\ne\beta$. The former contributes $O(1/n)$. We shall show the latter is, too.
+
+Let $\phi(x)=b_{1}H_{1}(x)+b_{2}H_{2}(x)+\cdots$ be the Hermite expansion of $\phi$, with $H_{i}$ denoting the $i$th Hermite polynomial. Note that there's no $b_{0}$ term because $\phi$ has mean 0. Then a neat identity \cref{fact:hermiteInnerproduct} says, for any jointly Gaussian $(z_{1},z_{2})$ with zero-mean, unit variance, and covariance $c$, we have
+\begin{equation}
+\EV\phi(z_{1})\phi(z_{2})=b_{1}^{2}c+b_{2}^{2}c^{2}+\cdots.\label{eq:hermiteGaussianInnerProduct}
+\end{equation}
+If we assume $\Sigma^{n}$ has unit diagonal, then by this identity, we have
+\begin{align*}
+\frac{1}{n^{2}}\sum_{\alpha\ne\beta}\EV\phi(\zeta_{\alpha}^{n})\phi(\zeta_{\beta}^{n})
+&=\frac{1}{n^{2}}\sum_{i\ge1}b_{i}^{2}\sum_{\alpha\ne\beta}\left(\Sigma_{\alpha\beta}^{n}\right)^{i}
+\overset{1}{\le}\frac{1}{n^{2}}\sum_{i\ge1}b_{i}^{2}n\sqrt{\sum_{\alpha\ne\beta}\left(\Sigma_{\alpha\beta}^{n}\right)^{2i}}\\
+&\overset{2}{\le}\frac{1}{n}\left(\sum_{i\ge1}b_{i}^{2}\right)\sqrt{\sum_{\alpha\ne\beta}\left(\Sigma_{\alpha\beta}^{n}\right)^{2}}
+\overset{3,4}{=} O(1/n).
+\end{align*}
+Here we used 1) power mean inequality, 2) $\Sigma_{\alpha\beta}^{n}\le1\implies(\Sigma_{\alpha\beta}^{n})^{2i}\le(\Sigma_{\alpha\beta}^{n})^{2}$ for $i\ge1$, 3) $\sum_{i\ge1}b_{i}^{2}=\EV_{z\sim\Gaus(0,1)}\phi(z)^2=O(1)$, and 4) $\sum_{\alpha\ne\beta}\left(\Sigma_{\alpha\beta}^{n}\right)^{2}=O(1)$ by assumption. This finishes the proof sketch of the weak version of \cref{thm:LLNGaussianImage} under the simplifying assumptions of even $\phi$ and $\Sigma^{n}$ having unit diagonal (which can be removed easily by complicating the proof a bit).
+
+To prove the strong version of \cref{thm:LLNGaussianImage}, we need to bound the higher moments $\EV\left(\frac{1}{n}\sum_{\alpha=1}^{n}\phi(\zeta_{\alpha}^{n})\right)^{p},p\ge4$. This requires a similar analysis as the above, but much more technically involved. For example, \cref{eq:hermiteGaussianInnerProduct} generalizes to higher-order cross terms $\EV\phi(z_{1})\cdots\phi(z_{k})$ for jointly Gaussian $(z_{1},\ldots,z_{k})$, but the resulting expression \cref{thm:multivariateHermiteExpectation} is difficult to use directy. Instead, we need to divide into cases and bound it: either all pairs $(z_{i},z_{j})$ have uniformly weak correlations (\cref{lemma:smallRhoMomentBound}), or some pair has really large correlation comparatively (\cref{lemma:largeRhoMomentBound}). For full details, check \cref{thm:controlHighMoments}.
+
+\subsubsection{Rank Stability}
+\label{sec:rankStability}
+
+We have glossed over two important points in the above sketches:
+A) The scalars $\sigma$ and $a_i$ in \cref{eqn:gexpansionSketch} depend on the pseudo-inverse of some Gram matrix of vectors in the program.
+Even though this Gram matrix will converge almost surely, its rank could drop suddenly in the limit, causing its pseudo-inverse to diverge, so that $\sigma$ and $a_i$ also diverge (see \cref{prop:pseudoinverseLambda}).
+B) if $\sigma=0$ (the ``conditional standard deviation of $g^{m+1}$ given $g^1, \ldots, g^m$''), then the conditional expectation involves no ``averaging'' so the argument of ``getting smoothness for free'' does not work (see \cref{sec:inductiveCoreSet}). More precisely, there are several scenarios for $\sigma$ and its limit $\mathring \sigma$:
+\begin{enumerate}
+    \item $\mathring{\sigma}>0$ so, since $\sigma\asto\mathring{\sigma}$, $\sigma>0$ almost surely as well. 
+    \item $\mathring{\sigma}=0$ and $\sigma=0$ a.s. for large $n$.
+    \item $\mathring{\sigma}=0$ and $\sigma>0$ a.s., only converging to 0 at $n=\infty$.
+\end{enumerate}
+In the case of 1), the arguments of \cref{sec:First-Order-Correction} go through, but this most likely won't work in the cases of 2) and 3). Intuitively, case 2) can perhaps allow us to reduce $g^{m+1}$ to a deterministic function of $g^1, \ldots, g^m$, and
+show $\f 1n\sum_{\alpha=1}^{n}\psi(g_{\alpha}^{1},\ldots,g_{\alpha}^{m},g_{\alpha}^{m+1})$ is a.s. equal to $\f 1n\sum_{\alpha=1}^{n}\bar{\psi}(g_{\alpha}^{1},\ldots,g_{\alpha}^{m})$ for an appropriate $\bar{\psi}$, so we can apply the induction hypothesis. But this argument cannot apply to case 3), because of the randomness in $g^{m+1}$ even after conditioning.
+
+It turns out the intuition for case 2) is correct and case 3) doesn't happen! This will follow from the property of rank stability, which will simultaneously solve both problem A) and B):
+\begin{thm}[Rank Stability]
+\label{thm:rankstabilitymain} Let $y,y^{1},\ldots,y^{k}$ be any collection of vectors in a \netsort{} program. If $Z^{y}=b_{1}Z^{y^{1}}+\ldots+b_{k}Z^{y^{k}}$, then almost surely, for large enough $n$, $y=b_{1}y^{1}+\cdots+b_{k}y^{k}$.
+\end{thm}
+
+Indeed, if $\mathring{\sigma}=0$, then it turns out we can show $Z^{g^{m+1}}$ is a linear combination of $Z^{g^{1}},\ldots,Z^{g^{m}}$, so rank stability tells us $g^{m+1}$ is the \emph{same} linear combination of $g^{1},\ldots,g^{m}$ (almost surely, for large $n$), i.e. we are in case 2). Thereafter, we can straightforwardly reduce to induction hypothesis. On the other hand, this also shows case 3) can never occur. Now it just suffices to show \cref{thm:rankstabilitymain}, which can be done essentially by a simultaneous induction with the main induction hypothesis. See \cref{sec:proofMainTheorem} for more details.
+
+\subsection{The Calculation of \texorpdfstring{$\Zdot$}{Zdot}}
+\label{sec:Zdot}
+
+As remarked in \cref{{rem:ZIntuition}}, the adjunction relation $\langle y,Wx\rangle=\langle W^{\trsp}y,x\rangle$ is importantly related to the existence and form of $\Zdot^{Wx}$. If we assume the Master Theorem, then this adjunction implies the identity $\EV Z^{y}Z^{Wx}=\EV Z^{W^{\trsp}y}Z^{x}$ for any $x,y$ in the program. In fact, a very similar identity exists as well for $\Zdot$:
+\[
+\EV Z^{y}\Zdot^{Wx}=\EV\hat{Z}^{W^{\trsp}y}Z^{x}.
+\]
+This is proved in \cref{lemma:DtrxAdjunction}.
+With this identity, we can verify (\cref{lemma:hpartReExpression}) that, in the notation of \cref{eqn:gexpansionSketch} (using the precise form of $\mathring a_i$ omitted here),
+\[
+\sum_{i=1}^{r}\mathring{a}_{i}\Zdot^{h^{i}}=\Zdot^{g^{m+1}}.
+\]
+Additionally, straightforward computation (\cref{lemma:YgConditionalDistribution}) shows
+\[
+\sum_{i=1}^{r}\mathring{a}_{i}\hat{Z}^{h^{i}}+\mathring{\sigma}z\disteq_{g^1, \ldots, g^m}\hat{Z}^{g^{m+1}},z\sim\Gaus(0,1).
+\]
+Then we can rewrite \cref{eqn:gexpansionSketch} heuristically as
+\begin{align*}
+    g_{\alpha}^{m+1}
+    &\overset{d}{\approx}_{g^{1},\ldots,g^{m}}
+        \sum_{i=1}^{r}\mathring{a}_{i}h_{\alpha}^{i}+\mathring{\sigma}\zeta_{\alpha},\quad\zeta_{\alpha}\sim\Gaus(0,1).
+        \\
+    &\overset{d}{\approx}_{g^{1},\ldots,g^{m}}
+        \sum_{i=1}^{r}\mathring{a}_{i}Z^{h^i}+\mathring{\sigma}\zeta_{\alpha}
+    =
+        \lp \sum_{i=1}^{r}\mathring{a}_{i}\Zdot^{h^i}\rp + \lp \sum_{i=1}^{r}\mathring{a}_{i}\Zhat^{h^i}+\mathring{\sigma}\zeta_{\alpha}\rp
+    =
+        \Zdot^{g^{m+1}} + \Zhat^{g^{m+1}},
+\end{align*}
+as desired.
+
+\end{document}

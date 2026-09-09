@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-09",
+  "status": "complete_at_bounded_inventory_scope",
+  "snapshot_created": false,
+  "existing_files_modified": false,
+  "git_commands_run": false,
+  "experiments_run": false,
+  "raw_sessions_opened_or_copied": false,
+  "old_tasks_contacted": false,
+  "purpose": "Byte-preserving non-data recovery inventory; mathematical acceptance and complete rollback snapshot creation are separate tasks.",
+  "baseline_inventory": {
+    "path": "/home/amir/Codes/PDE/studies/repository_refactor_2026_09_09/INVENTORY_BEFORE.json",
+    "sha256": "ff472d3d5fb014f0c90312664a1d0e7fc4e3d408af50b11fa465445a552bdc38",
+    "bytes": 1229188,
+    "regular_files": 3453
+  },
+  "proposed_path_base": "All destination_relative_path values are relative to a NEW snapshot or recovered-study root selected by the caller; do not overlay the active repository.",
+  "manifests": {
+    "selected_unique_copy_plan": "COPY_PLAN.jsonl",
+    "external": "RECOVERY_FILES.jsonl",
+    "archives": "ARCHIVE_MEMBERS.jsonl",
+    "backups": "BACKUP_FILES.jsonl",
+    "excluded_external_candidates": "EXCLUSIONS.jsonl",
+    "excluded_archive_members": "ARCHIVE_EXCLUSIONS.jsonl",
+    "known_duplicates_and_exact_missing_checks": "KEY_CHECKS.json"
+  },
+  "totals": {
+    "external_files": 176,
+    "external_bytes": 3942676,
+    "archive_files": 49,
+    "archive_bytes": 557946,
+    "backup_files": 22,
+    "backup_bytes": 1404050,
+    "selected_files": 247,
+    "selected_bytes": 5904672
+  },
+  "coverage": {
+    "repository_metadata_files_initial": 3505,
+    "other_checkout_regular_files": 881,
+    "actual_other_project": "/home/codex-b/Codes/PDE",
+    "nonexistent_other_project_alias": "/home/codex-b/Codes/PDE-2",
+    "top_level_tmp_name_matches": 265,
+    "tmp_directories_recursed": [
+      "/tmp/general-depth-proof-QpSvt6",
+      "/tmp/l2-proof-review-wBzgFS",
+      "/tmp/l2-two-sample-proof-0ywjpp",
+      "/tmp/l3-activation-design-oaGjWO",
+      "/tmp/l3-arctan-audit-sZue2v",
+      "/tmp/l3-extension-check-mj4s9q",
+      "/tmp/l3-full-resolution-9nbD4z",
+      "/tmp/l3-selfcontained-prep",
+      "/tmp/l3-standalone-proof-D6AW4s",
+      "/tmp/l3-supervisor-handoff-nTFDQy",
+      "/tmp/l3-supervisor-recovery-59x8oL",
+      "/tmp/l3-two-sample-Un7kw9",
+      "/tmp/l3-two-sample-proof-DLuelg",
+      "/tmp/mfp-cert-uJb1TL",
+      "/tmp/mfp-clean-audit.RNAgg4",
+      "/tmp/pde-gf-supervisor-worktree",
+      "/tmp/tp3-audit.Trwr6N",
+      "/tmp/tp3-audit.YtyHqu",
+      "/tmp/tp3-l2-audit.dswr4P",
+      "/tmp/tp3src",
+      "/tmp/tp3src_new"
+    ],
+    "external_candidates_hashed": 3077,
+    "external_candidates_matching_existing_repository": 2780,
+    "unmatched_candidates_before_relevance_and_cross_source_dedup": 297,
+    "attachments": 7,
+    "attachment_bytes": 371073,
+    "repository_zips": 14,
+    "zip_bytes": 99781167,
+    "zip_member_records": 462,
+    "source_member_records": 233,
+    "nested_zip_exact_duplicates": 9,
+    "backup_files_checked": 41,
+    "backup_bytes_checked": 2106818,
+    "access_denials": [],
+    "read_errors": [
+      {
+        "path": "/home/amir/Codes/PDE/.ruff_cache/0.9.7/17483413629484626523",
+        "error": "EACCES"
+      },
+      {
+        "path": "/home/amir/Codes/PDE/.ruff_cache/0.9.7/8419750947115943066",
+        "error": "EACCES"
+      }
+    ]
+  },
+  "copy_contract": [
+    "Perform only actions copy_file and extract_member to obtain the unique-byte payload.",
+    "Use binary reads/writes; preserve every source byte, including absence of a final newline. Do not rewrite links, names inside text, line endings, or encoding.",
+    "Verify source/archive SHA-256 and byte size immediately before copying; verify destination SHA-256 and size afterwards. Abort on drift.",
+    "For ZIP entries locate the exact member_index and member_path; verify archive hash and member hash. Stream only listed members; never extractall or recurse automatically.",
+    "Reject absolute paths, '..' components, backslashes/drive prefixes, symlinks, special files, encrypted entries, duplicate member names, and pre-existing destination paths or symlink parents.",
+    "Enforce 16 MiB per selected archive source member and no unlisted extraction. No directory, nested ZIP, raw array, coefficient table or cache entry is selected.",
+    "Existing-repository duplicate entries identify required source bytes already present in the main snapshot; check that the main non-data snapshot actually retains at least one listed path.",
+    "Reuse entries retain alias provenance. A complete path-layout restoration can materialize byte copies from the referenced selected file; unique storage alone is not a runnable reconstructed package.",
+    "Do not run recovered scripts, archived verifiers, document builders, or experiments during copying."
+  ],
+  "scope_limits": [
+    "One name-filtered listing of /tmp and recursive inspection of the 21 listed relevant directories; no exhaustive recursive search of unrelated /tmp trees.",
+    "Repository and other-checkout traversal omitted .git, node_modules, __pycache__, .venv, venv and .cache; symlinks were not followed.",
+    "Only seven report-listed codex-b attachments were inspected; the 620,486,061-byte session corpus was neither opened nor reproduced.",
+    "Source-pattern scan, hashes, document openings/headings/endings and selected dependency/provenance inspection; not independent mathematical reading of every temporary note.",
+    "Excluded generated tables, raw arrays, executables, public-paper text/PDF downloads, rendered/layout caches, data-embedded visualizations, unrelated Lean probes, and operational metadata. Preserved three unique original .backups PDF document editions.",
+    "The /tmp stieltjes pre-cleanup tarball and other unrelated or binary temporary archives were not unpacked. Archive-member coverage is the 14 repository ZIPs plus their nine verified duplicate nested ZIPs.",
+    "Some sources refer to intentionally excluded data or to duplicate files stored elsewhere; this is a preservation inventory, not a self-contained executable reproduction.",
+    "Complete non-data rollback requires the main repository snapshot plus these selected bytes and alias/provenance manifests; no such snapshot was created here."
+  ]
+}

@@ -1,0 +1,683 @@
+Saturday 11:31 PM
+
+
+
+
+
+
+Worked for 11m 41s
+
+
+
+Yes. Under a coherent \(1/n\) mean-field normalization, one can prove a complete compact-training-time theorem for a genuine full-width ResNet: \(h_\ell\in\mathbb R^n\), every residual block contains an independently trainable dense \(n\times n\) matrix, and every matrix entry moves by \(O(1)\).
+This is deliberately not a proof for the Xavier/\(1/\sqrt n\) random-bulk regime in your displayed architecture. I make that boundary precise below.
+1. Frozen architecture
+Fix a batch \((x_a,y_a)_{a=1}^B\), with \(B=O(1)\). Regard \(x_a\) and a readout \(c\) as bounded functions on \([0,1]\), sampled or cell-averaged on
+\[
+u_i=\frac{i-\tfrac12}{n}.
+\]Choose the strictly nonlinear activation
+\[
+\phi(z)=\tanh z.
+\]For \(1\le \ell\le L\), define
+\[
+z_{\ell}^{a}
+=
+\frac1nW_\ell h_{\ell-1}^{a},
+\qquad
+h_{\ell}^{a}
+=
+h_{\ell-1}^{a}
++
+\frac{\alpha}{L}\tanh(z_{\ell}^{a}),
+\qquad
+h_0^a=x_a^n.
+\]Every \(W_\ell\in\mathbb R^{n\times n}\) is untied and all \(n^2L\) entries are independently trainable. This is a standard identity-skip residual block with one dense layer followed by activation—the one-dense-layer option you explicitly allowed.
+The predictor and MSE are
+\[
+f_a^{n,L}
+=
+\frac1n(c^n)^\top h_L^a,
+\qquad
+\mathcal E_{n,L}
+=
+\frac1{2B}\sum_{a=1}^B(f_a^{n,L}-y_a)^2.
+\]Initialize
+\[
+W_{\ell,ij}(0)
+=
+w_0\!\left(\frac{\ell-\tfrac12}{L},u_i,u_j\right)
++
+G_{\ell,ij},
+\qquad
+G_{\ell,ij}\stackrel{\mathrm{iid}}{\sim}N(0,1).
+\]A canonical genuinely dense choice is
+\[
+w_0(s,u,v)=\gamma e^{uv},\qquad \gamma\ne0.
+\]The integral operator associated with \(e^{uv}\) has infinite rank, so this does not collapse to finitely many aggregate modes.
+Train by the mean-field-scaled gradient flow
+\[
+\boxed{\quad
+\dot W_\ell=-Ln^2\nabla_{W_\ell}\mathcal E_{n,L}.
+\quad}
+\]The \(Ln^2\) is forced by the scaling: each entrywise gradient is \(O((Ln^2)^{-1})\). Using only \(n^2\) would freeze each untied layer as \(L\to\infty\).
+The \(1/L\) residual scaling is the Euler scaling behind the ResNet–neural-ODE correspondence; this is the same basic continuous-depth mechanism used in [Neural ODEs](https://arxiv.org/abs/1806.07366) and rigorously studied for weight-shared ResNets by [Avelin and Nyström](https://arxiv.org/abs/1906.12183). The convergence proof below is direct and does not invoke either paper’s theorem.
+2. Exact finite-width gradient and transpose
+Let
+\[
+q_a=\frac{f_a^{n,L}-y_a}{B},
+\qquad
+P_L^a=q_ac^n,
+\]and propagate the exact loss adjoint backward. Put
+\[
+R_\ell^a
+=
+P_\ell^a\odot\operatorname{sech}^2(z_\ell^a).
+\]Differentiating the residual block gives
+\[
+\boxed{
+P_{\ell-1}^a
+=
+P_\ell^a
++
+\frac{\alpha}{L}
+\frac{W_\ell^\top}{n}R_\ell^a.
+}
+\]Thus the actual reused transpose is retained.
+For every entry,
+\[
+\frac{\partial\mathcal E_{n,L}}
+     {\partial W_{\ell,ij}}
+=
+\frac{\alpha}{Ln^2}
+\sum_{a=1}^B
+R_{\ell,i}^a h_{\ell-1,j}^a.
+\]Consequently the exact training equation is
+\[
+\boxed{
+\dot W_{\ell,ij}
+=
+-\alpha\sum_{a=1}^B
+R_{\ell,i}^ah_{\ell-1,j}^a.
+}
+\]Every entry therefore has an \(O(1)\) velocity.
+The exact dissipation identity is
+\[
+\boxed{
+\frac{d}{dt}\mathcal E_{n,L}
+=
+-\frac1{Ln^2}
+\sum_{\ell=1}^L\|\dot W_\ell\|_F^2.
+}
+\]In particular, with the normalized kernel norm
+\[
+\|V\|_{\mathcal H_{n,L}}^2
+=
+\frac1{Ln^2}
+\sum_{\ell=1}^L\|V_\ell\|_F^2,
+\]Cauchy–Schwarz gives
+\[
+\|W(t)-W(0)\|_{\mathcal H_{n,L}}
+\le
+\sqrt{t\,\mathcal E_{n,L}(0)}.
+\]This is the central width-uniform compact-time estimate.
+3. Deterministic mean-field program
+For a kernel \(w(s,t,u,v)\), write
+\[
+(T_{w(s,t)}g)(u)
+=
+\int_0^1w(s,t,u,v)g(v)\,dv.
+\]For each input \(a\), the continuous-depth forward state solves
+\[
+\partial_sX_a(s,t)
+=
+\alpha\tanh Z_a(s,t),
+\qquad
+Z_a(s,t)=T_{w(s,t)}X_a(s,t),
+\qquad
+X_a(0,t)=x_a.
+\]The output and residual coefficient are
+\[
+f_a(t)=\int_0^1c(u)X_a(1,t,u)\,du,
+\qquad
+q_a(t)=\frac{f_a(t)-y_a}{B}.
+\]The exact depth adjoint is
+\[
+-\partial_sP_a(s,t)
+=
+\alpha T_{w(s,t)}^*R_a(s,t),
+\qquad
+P_a(1,t)=q_a(t)c,
+\]where
+\[
+R_a=P_a\operatorname{sech}^2(Z_a).
+\]Finally, the graphon gradient flow is
+\[
+\boxed{
+\partial_tw(s,t,u,v)
+=
+-\alpha\sum_{a=1}^B
+R_a(s,t,u)X_a(s,t,v).
+}
+\]This is deterministic, autonomous in training time, and restartable: the present kernel \(w(t)\) determines the forward states, adjoints, kernel velocity, and all future evolution. There are no two-time responses or trajectory playback.
+The \(T_w^*\) in the adjoint is mandatory. Replacing it by a fresh action—or by \(T_w\) without imposing symmetry—is wrong.
+4. Well-posedness
+The natural kernel state space is
+\[
+L^2\!\left(
+[0,1]_s\times[0,1]_u\times[0,1]_v
+\right),
+\]supplemented on reachable states by finite row- and column-\(L^2\) carrier bounds.
+First, because \(|\tanh|\le1\),
+\[
+\sup_{s\le1}\|X_a(s,t)\|_2
+\le
+\|x_a\|_2+\alpha.
+\]Since \(T_w\) is Hilbert–Schmidt,
+\[
+\|T_w\|_{\mathrm{op}}\le\|w\|_{L^2_{u,v}},
+\]and therefore
+\[
+\|P_a(s,t)\|_2
+\le
+\|q_ac\|_2
+\exp\!\left(
+\alpha\int_s^1\|w(r,t)\|_{L^2_{u,v}}\,dr
+\right).
+\]The first variation of the limiting risk is
+\[
+\nabla_w\mathcal E
+=
+\alpha\sum_aR_a\otimes X_a.
+\]Hence
+\[
+\frac{d}{dt}\mathcal E(w(t))
+=
+-\|\partial_tw(t)\|_2^2
+\]and
+\[
+\|w(t)-w_0\|_2
+\le
+\sqrt{t\,\mathcal E(w_0)}.
+\]Thus the Hilbert–Schmidt norm cannot escape in finite training time.
+There is one subtle multiplier issue: bare Hilbert–Schmidt bounds alone do not immediately make
+\[
+P\operatorname{sech}^2(T_wX)
+\]locally Lipschitz in \(L^2\). The gradient structure supplies the missing regularity.
+Indeed,
+\[
+w(t)-w_0
+=
+-\alpha\int_0^t
+\sum_aR_a(\tau)\otimes X_a(\tau)\,d\tau.
+\]Because \(X_a\) is uniformly bounded pointwise and \(R_a\) is bounded in \(L^2\),
+\[
+\sup_v
+\|(w(t)-w_0)(\cdot,v)\|_2
+\le C_T.
+\]Thus \(T_w^*:L^2\to L^\infty\) is bounded on every compact training horizon. The backward integral equation then yields
+\[
+\sup_{s\le1}\|P_a(s,t)\|_\infty\le C_T.
+\]Therefore \(R_a\in L^\infty\), and the other orientation satisfies
+\[
+\sup_u
+\|(w(t)-w_0)(u,\cdot)\|_2
+\le C_T.
+\]On this invariant two-sided carrier class,
+\[
+\|R[w]-R[\widetilde w]\|_2
+\le
+C_T\|w-\widetilde w\|_2,
+\]and consequently
+\[
+\|\nabla\mathcal E(w)-\nabla\mathcal E(\widetilde w)\|_2
+\le
+C_T\|w-\widetilde w\|_2.
+\]Picard iteration gives local existence and uniqueness; the preceding compact-time estimates prevent continuation failure. Thus the graphon program is globally well posed for every finite training horizon.
+5. Width and depth convergence
+Embed vectors as step functions on the \(n\)-partition of \([0,1]\), and matrices as step kernels. Then
+\[
+\frac1nWh
+\]is exactly the integral action of the embedded kernel on the embedded vector. The noise-free finite-width equations are therefore a genuine Galerkin approximation of the graphon equations.
+The Gaussian part requires a different topology. Define
+\[
+\rho_{n,L}^2
+=
+\frac1L\sum_{\ell=1}^L
+\left\|\frac{G_\ell}{n}\right\|_{\mathrm{op}}^2.
+\]A direct \(1/4\)-net argument gives
+\[
+\mathbb E\|G_\ell\|_{\mathrm{op}}^2\le Cn,
+\]hence
+\[
+\mathbb E\rho_{n,L}^2\le\frac Cn.
+\]Thus
+\[
+\rho_{n,L}=O_{\mathbb P}(n^{-1/2}),
+\]uniformly in \(L\). The same bound controls \(G_\ell^\top/n\), so adaptive transpose inputs cause no problem here.
+Let the clean system omit \(G_\ell\), and compare learned increments rather than the raw matrices. Forward stability, exact backward-adjoint stability, and the outer-product gradient equation give
+\[
+E(t)
+\le
+C_T\left[
+\rho_{n,L}
++
+\int_0^tE(\tau)\,d\tau
+\right],
+\]where \(E(t)\) contains:
+- forward-state error;
+- exact-adjoint error;
+- output error;
+- normalized \(L^2\) error between the learned matrix increments.
+Gronwall gives
+\[
+\sup_{t\le T}E(t)\le C_T\rho_{n,L}.
+\]For the clean system, cell-average Galerkin projection and the forward Euler/discrete-adjoint pair give a deterministic consistency error
+\[
+\varepsilon_{n,L}\longrightarrow0.
+\]For \(C^1\) graphon data and propagated depth regularity,
+\[
+\varepsilon_{n,L}
+\le
+C_T\left(\frac1n+\frac1L\right).
+\]Therefore, if \((W^{n,L}-G)^\sharp\) denotes the step-kernel embedding after subtracting the fixed initialization noise,
+\[
+\boxed{
+\begin{aligned}
+\sup_{t\le T}\Bigg[
+&
+\|(W^{n,L}(t)-G)^\sharp-w(t)\|_{L^2}
+\\
+&+
+\max_a\sup_{s\le1}
+\bigl(
+\|H_a^{n,L}(s,t)-X_a(s,t)\|_2
++
+\|P_a^{n,L}(s,t)-P_a(s,t)\|_2
+\bigr)
+\\
+&+
+\max_a|f_a^{n,L}(t)-f_a(t)|
++
+|\mathcal E_{n,L}(t)-\mathcal E(t)|
+\Bigg]
+=
+O_{\mathbb P}\!\left(
+n^{-1/2}+L^{-1}
+\right).
+\end{aligned}
+}
+\]An additional \(O(n^{-1})\) deterministic quadrature term is absorbed by \(n^{-1/2}\). Hence every joint sequence \(n,L\to\infty\) converges uniformly on \([0,T]\).
+This is the requested gradient-flow analogue of a master-program theorem for this dense ResNet.
+6. Why it is nontrivial and nonlazy
+The depth dynamics are already nontrivial at initialization when
+\[
+w_0(s,u,v)=\gamma e^{uv}.
+\]The corresponding integral operator is infinite rank, and
+\[
+D^2_H\!\left[\tanh(T_{w_0}H)\right][r,r]
+=
+\tanh''(T_{w_0}H)(T_{w_0}r)^2
+\]is nonzero for suitable positive \(H,r\). Thus the limiting depth vector field is genuinely nonlinear, not an affine realization in disguise.
+Every dense entry moves by \(O(1)\):
+\[
+\dot W_{\ell,ij}
+=
+-\alpha\sum_aR_{\ell,i}^ah_{\ell-1,j}^a.
+\]The normalized total motion and loss decay have nonzero limits whenever \(\nabla_w\mathcal E(w_0)\ne0\).
+Even in the centered coherent case \(w_0=0\), let
+\[
+Q_{ab}=\langle x_a,x_b\rangle,
+\qquad
+C_c=\|c\|_2^2.
+\]At \(t=0\),
+\[
+\dot f_b(0)
+=
+-\alpha^2C_c\sum_aQ_{ab}q_a(0),
+\]and
+\[
+\dot{\mathcal E}(0)
+=
+-\alpha^2C_c\,q(0)^\top Qq(0).
+\]If \(Q\) is positive definite and \(q(0)\ne0\), both are strictly order one. Thus the \(Ln^2\) training scaling is not lazy even when the centered random initialization has vanishing forward action.
+7. Precise boundary
+The theorem genuinely has:
+- an \(n\)-dimensional residual stream;
+- an identity skip;
+- a strictly nonlinear activation;
+- one independently trainable dense \(n\times n\) layer per block;
+- \(n^2L\) free parameters;
+- the actual dense transpose in backpropagation;
+- \(O(1)\) feature, output, loss, and matrix-entry motion;
+- uniform compact-training-time convergence.
+But it belongs to the coherent \(1/n\) mean-field class.
+The raw Gaussian matrices do not converge as graphons:
+\[
+\frac1{Ln^2}\sum_{\ell,i,j}G_{\ell,ij}^2
+\longrightarrow1.
+\]Only their effective operator action disappears:
+\[
+\left\|\frac{G_\ell}{n}\right\|_{\mathrm{op}}
+=
+O_{\mathbb P}(n^{-1/2}).
+\]Therefore one must not claim raw-\(W\) graphon convergence; the correct result is convergence of \(W-G\), states, adjoints, outputs, loss, and effective dense operators.
+If “not too weak” additionally means that the centered Xavier/Wigner spectral bulk itself must survive—as in your original \(1/\sqrt n\)-scaled two-matrix block—then this theorem does not resolve that model. In that regime \(W/\sqrt n\) has order-one operator norm, adaptive uses of \(W^\top\) create order-one response/Onsager terms, and a deterministic graphon no longer closes the training dynamics. That stronger CLT-scale problem remains open.
+
+
+Saturday 11:42 PM
+
+
+
+
+
+
+
+
+can you once again very rigorously audit your proof Solve Math Rigorously 
+
+
+
+
+
+
+
+Saturday 11:53 PM
+
+
+
+
+
+
+Worked for 8m 46s
+
+
+
+The rigorous verdict is: the previous proof does not pass unchanged. The finite-network calculus and proposed limiting equations are correct, but two theorem-level claims were too strong:
+1. Well-posedness is not valid in bare graphon \(L^2\).
+2. The unrestricted joint \(O_{\mathbb P}(n^{-1/2}+L^{-1})\) convergence claim was missing a uniform nonlinear stability argument and used too strong a topology.
+Three independent audits found the same boundary.
+1. Exact finite-width identities: pass
+For
+\[
+z_\ell^a=\frac{W_\ell h_{\ell-1}^a}{n},
+\qquad
+h_\ell^a=h_{\ell-1}^a+\frac{\alpha}{L}\tanh z_\ell^a,
+\qquad
+f_a=\frac{c^\top h_L^a}{n},
+\]and
+\[
+\mathcal E=\frac1{2B}\sum_{a=1}^B(f_a-y_a)^2,
+\qquad
+q_a=\frac{f_a-y_a}{B},
+\]define
+\[
+P_L^a=q_ac,
+\qquad
+R_\ell^a=P_\ell^a\odot\sech^2(z_\ell^a).
+\]Then exact differentiation gives
+\[
+\boxed{
+P_{\ell-1}^a
+=
+P_\ell^a+
+\frac{\alpha}{L}\frac{W_\ell^\top}{n}R_\ell^a
+}
+\]and
+\[
+\boxed{
+\nabla_{W_\ell}\mathcal E
+=
+\frac{\alpha}{Ln^2}
+\sum_{a=1}^B R_\ell^a(h_{\ell-1}^a)^\top.
+}
+\]Thus, under
+\[
+\dot W_\ell=-Ln^2\nabla_{W_\ell}\mathcal E,
+\]we obtain
+\[
+\boxed{
+\dot W_\ell
+=
+-\alpha\sum_{a=1}^B R_\ell^a(h_{\ell-1}^a)^\top.
+}
+\]The exact dissipation identity is
+\[
+\boxed{
+\dot{\mathcal E}
+=
+-\frac1{Ln^2}
+\sum_{\ell=1}^L\|\dot W_\ell\|_F^2.
+}
+\]For full-batch training, the norm is the norm of the sum of the sample gradients—not the sum of their squared norms. All normalization and transpose factors pass.
+2. The continuum equations: formally correct
+With
+\[
+(T_wg)(u)=\int_0^1w(s,u,v)g(v)\,dv,
+\]the proposed program is
+\[
+\partial_sX_a=\alpha\tanh Z_a,
+\qquad
+Z_a=T_wX_a,
+\qquad
+X_a(0)=x_a,
+\]\[
+f_a=\int_0^1c(u)X_a(1,u)\,du,
+\qquad
+q_a=\frac{f_a-y_a}{B},
+\]\[
+-\partial_sP_a=\alpha T_w^*R_a,
+\qquad
+P_a(1)=q_ac,
+\qquad
+R_a=P_a\sech^2(Z_a),
+\]and
+\[
+\boxed{
+\partial_tw(s,u,v)
+=
+-\alpha\sum_{a=1}^BR_a(s,u)X_a(s,v).
+}
+\]This is indeed the \(L^2(ds\,du\,dv)\)-gradient of the continuum MSE, provided the forward and adjoint systems are well defined.
+3. Bare \(L^2\) well-posedness: fail
+The earlier \(L^2\)-Picard argument was invalid. The obstruction is
+\[
+P\bigl[\sech^2(Z)-\sech^2(\widetilde Z)\bigr].
+\]Multiplication does not give a locally Lipschitz map \(L^2\times L^2\to L^2\).
+For example, take
+\[
+P(u)=u^{-1/4}\in L^2(0,1),
+\qquad
+Z_\varepsilon=\mathbf 1_{(0,\varepsilon)},
+\qquad
+\widetilde Z=0.
+\]Then
+\[
+\|Z_\varepsilon\|_2=\varepsilon^{1/2},
+\]but
+\[
+\left\|
+P\bigl[\sech^2(Z_\varepsilon)-1\bigr]
+\right\|_2
+=
+\sqrt2\,|1-\sech^2(1)|\,\varepsilon^{1/4}.
+\]The quotient grows like \(\varepsilon^{-1/4}\). Therefore the claimed local Lipschitz estimate in bare \(L^2\) is false.
+The energy identity does not repair this: energy controls an \(L^2\) norm after a solution exists, but does not itself prove existence or uniqueness.
+4. Corrected global well-posedness theorem: pass
+For a kernel \(k(u,v)\), define
+\[
+r(k)=\operatorname*{ess\,sup}_{u}
+\|k(u,\cdot)\|_{L^2_v},
+\qquad
+c(k)=\operatorname*{ess\,sup}_{v}
+\|k(\cdot,v)\|_{L^2_u},
+\]and
+\[
+\mathcal K
+=
+L^\infty_uL^2_v\cap L^\infty_vL^2_u.
+\]Across depth, use
+\[
+\mathbb K
+=
+L^2_s(\mathcal K).
+\]The key estimates are
+\[
+\|T_kx\|_\infty\le r(k)\|x\|_2,
+\qquad
+\|T_k^*x\|_\infty\le c(k)\|x\|_2.
+\]Consequently, if \(w\in\mathbb K\), then \(X,P\in L^\infty\), and
+\[
+\|P[\sech^2(Z)-\sech^2(\widetilde Z)]\|_2
+\le
+\|P\|_\infty
+\|(\sech^2)'\|_\infty
+\|Z-\widetilde Z\|_2.
+\]This restores local Lipschitzness.
+For \(x_a,c\in L^\infty\), \(w_0\in\mathbb K\), fixed \(B\), and \(\phi=\tanh\), the system has a unique global solution
+\[
+w\in C^1([0,\infty);\mathbb K).
+\]The non-blowup argument is ordered as follows:
+\[
+\|X_a\|_\infty
+\le
+\|x_a\|_\infty+\alpha.
+\]Hence outputs and \(q_a\) are bounded. The energy identity gives
+\[
+\|w(t)-w_0\|_{L^2}
+\le
+\sqrt{t\,\mathcal E(w_0)}.
+\]This gives an \(L^2\) adjoint bound
+\[
+\sup_s\|P_a(s,t)\|_2
+\le
+C_T.
+\]Next,
+\[
+c(\partial_tw(s,t))
+\le
+\alpha\sum_a
+\|X_a(s,t)\|_\infty\|R_a(s,t)\|_2
+\le C_T,
+\]so the column-carrier norm of \(w\) remains finite. That gives \(P_a\in L^\infty\). Finally,
+\[
+r(\partial_tw(s,t))
+\le
+\alpha\sum_a
+\|R_a(s,t)\|_\infty\|X_a(s,t)\|_2
+\le C_T.
+\]Thus neither carrier norm can blow up in finite training time. This is a genuine theorem-level repair, but it relies materially on bounded \(\tanh\). It does not automatically cover ReLU.
+The exact energy identity is then
+\[
+\boxed{
+\frac d{dt}\mathcal E(w(t))
+=
+-\|\partial_tw(t)\|_{L^2(ds\,du\,dv)}^2.
+}
+\]5. Gaussian initialization: what is and is not small
+Suppose
+\[
+W_\ell(0)_{ij}
+=
+w_0(s_\ell,u_i,u_j)+G_{\ell ij},
+\qquad
+G_{\ell ij}\overset{\mathrm{iid}}{\sim}N(0,1).
+\]The Gaussian matrix is small as an operator after the network normalization:
+\[
+\gamma_{\ell,n}
+=
+\left\|\frac{G_\ell}{n}\right\|_{\mathrm{op}},
+\qquad
+\mathbb E\gamma_{\ell,n}^2\le\frac Cn.
+\]Therefore
+\[
+\Gamma_{n,L}
+=
+\left(
+\frac1L\sum_{\ell=1}^L\gamma_{\ell,n}^2
+\right)^{1/2}
+=
+O_{\mathbb P}(n^{-1/2})
+\]uniformly for arbitrary deterministic triangular sequences \(L=L(n)\).
+This bound remains valid for fully adapted states because
+\[
+\left\|\frac{G_\ell x}{n}\right\|_n
+\le\gamma_{\ell,n}\|x\|_n,
+\qquad
+\left\|\frac{G_\ell^\top x}{n}\right\|_n
+\le\gamma_{\ell,n}\|x\|_n.
+\]No false independence assumption is required; the transpose branch is controlled by the same spectral norm.
+However, the raw Gaussian graphon is not small:
+\[
+\frac1{Ln^2}\sum_{\ell,i,j}G_{\ell ij}^2
+\longrightarrow1.
+\]Thus raw \(W_\ell\) cannot converge in graphon \(L^2\). One must subtract the frozen microscopic initialization \(G_\ell\), or work only with effective operator actions.
+6. The convergence rate: narrower than previously claimed
+A defensible discrepancy must use:
+- maximum over depth for accumulated forward states \(h_\ell\);
+- maximum over depth for accumulated adjoints \(P_\ell\);
+- depth-averaged \(L^2\) errors for local preactivations \(z_\ell\) and gates \(R_\ell\);
+- depth-averaged learned-kernel or bidirectional action errors;
+- both forward and transpose actions.
+Let \(K_\ell(t)=W_\ell(t)-G_\ell\), and define
+\[
+U(t)^2
+=
+\frac1L\sum_{\ell=1}^L
+\left[
+\frac1n
+\left\|
+K_\ell(t)
+-
+\bigl(w(t,s_\ell,u_i,u_j)\bigr)_{ij}
+\right\|_F
+\right]^2.
+\]Under smooth deterministic spatial data, propagated \(C^1\) depth/spatial regularity, and midpoint or cell-average discretization, the required stability chain is
+\[
+H+Z
+\le
+C_T\left(U+\Gamma_{n,L}+\frac1n+\frac1L\right),
+\]\[
+P+R
+\le
+C_T\left(U+\Gamma_{n,L}+\frac1n+\frac1L\right),
+\]followed by
+\[
+D^+U(t)
+\le
+C_T\left(
+U(t)+\Gamma_{n,L}+\frac1n+\frac1L
+\right).
+\]Here \(H,P\) denote maximum-depth normalized state errors, while \(Z,R\) are depth-RMS local-field errors. Grönwall would yield
+\[
+\sup_{t\le T}(H+P+Z+R+U)
+\le
+C_T\left(
+\Gamma_{n,L}+\frac1n+\frac1L
+\right).
+\]The earlier answer did not fully establish this entire chain—including the uniform carrier event, the depth-regularity estimate, spatial quadrature, and bidirectional learned-operator comparison. Therefore I do not regard its advertised joint rate as already proved.
+The correct current status is:
+\[
+\boxed{
+O_{\mathbb P}(n^{-1/2}+L^{-1})
+\text{ is a well-supported candidate theorem in the mixed topology above,}
+}
+\]but the full direct discrete-to-continuum stability lemma still needs to be written and checked term by term before promotion.
+7. Claims that must be withdrawn
+The following do not survive the audit:
+- Well-posedness on bare graphon \(L^2\).
+- Raw \(W_\ell\) convergence in graphon/Frobenius topology.
+- An unrestricted maximum over layers for \(z_\ell\), \(R_\ell\), or local weight actions.
+- Neuronwise \(\ell^\infty\) convergence without logarithmic restrictions.
+- Obtaining the joint limit merely by composing a fixed-\(L\) width limit with a fixed-\(n\) depth limit.
+Indeed,
+\[
+\max_{\ell\le L}
+\left\|\frac{G_\ell}{n}\right\|_{\mathrm{op}}
+=
+O_{\mathbb P}\left(
+\frac1{\sqrt n}+
+\frac{\sqrt{\log L}}n
+\right).
+\]So arbitrary-\(L\) max-layer convergence cannot have the claimed \(n^{-1/2}\) rate.
+Finally, this is a coherent \(1/n\)-scaled graphon ResNet theorem. It is not yet a gradient-flow theorem for a standard centered Xavier \(1/\sqrt n\) TP/DMFT ResNet. The Gaussian bulk here becomes negligible in operator action; extending the result to a genuinely surviving random bulk remains open.
+In short: exact calculus passes, the limiting program passes, global well-posedness can be rigorously repaired, but the previous full joint convergence theorem was overstated and should be downgraded until the mixed-topology master stability inequality is completed.

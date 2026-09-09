@@ -1,0 +1,645 @@
+# Headline result
+
+Let the initial particle pairs
+
+\[
+(p_i,z_{i,0}),\qquad i=1,\ldots,n,
+\]
+
+be independent copies of a random pair \((P,Z_0)\), where \(P\in\{-1,1\}\). The label \(p_i\) never changes; only \(z_{i,k}\) is trained.
+
+Define
+
+\[
+\phi(z)=\arctan z,
+\qquad
+f_{n,k}=\frac1n\sum_{i=1}^n p_i\phi(z_{i,k}),
+\qquad
+r_{n,k}=f_{n,k}-y.
+\]
+
+Exact finite-width GD is
+
+\[
+z_{i,k+1}
+=
+z_{i,k}
+-
+\eta_n p_i r_{n,k}\phi'(z_{i,k}).
+\]
+
+Represent it in continuous training time \(t=k\eta_n\), holding each iterate constant until the next update. Linear interpolation gives the same limit.
+
+Assume only
+
+\[
+\eta_n\longrightarrow0.
+\]
+
+The limiting population state is the distribution
+
+\[
+\mu_t=\operatorname{Law}(P,X(t)),
+\]
+
+where
+
+\[
+F(z)=z+\frac{z^3}{3},
+\qquad
+X(0)=F(Z_0),
+\qquad
+Z(t)=F^{-1}(X(t)).
+\]
+
+Given the current population law \(\mu_t\), compute its residual
+
+\[
+r(t)=\mathbb E[P\phi(Z(t))]-y,
+\]
+
+and evolve each population particle by
+
+\[
+\frac{dX(t)}{dt}=-P\,r(t).
+\]
+
+This is autonomous: the current law determines the current residual, and the residual determines the next movement. No externally supplied trajectory or past history is needed once the current law is known.
+
+For every fixed \(T\) and every fixed bounded function \(\psi(p,z)\) that is Lipschitz in \(z\),
+
+\[
+\boxed{
+\sup_{0\le t\le T}
+\left|
+\frac1n\sum_{i=1}^n
+\psi(p_i,z_i^{\mathrm{GD}}(t))
+-
+\mathbb E[\psi(P,Z(t))]
+\right|
+\longrightarrow0
+\quad\text{in probability}.
+}
+\]
+
+This is uniform in time for each fixed \(\psi\). Choosing
+
+\[
+\psi(p,z)=p\phi(z)
+\]
+
+gives convergence of the prediction, and therefore of the residual and normalized loss.
+
+---
+
+## 1. Raw finite GD versus transformed finite flow
+
+Let
+
+\[
+q(z)=\phi'(z)=\frac1{1+z^2},
+\qquad
+X=F(z)=z+\frac{z^3}{3}.
+\]
+
+Since
+
+\[
+F'(z)=1+z^2=\frac1{q(z)},
+\]
+
+the raw continuous gradient flow
+
+\[
+\dot z_i=-p_i r_nq(z_i)
+\]
+
+becomes exactly
+
+\[
+\dot X_i=-p_i r_n.
+\]
+
+Thus the nonlinear coordinate change is exact in continuous time.
+
+It is not exact for discrete GD. Let
+
+\[
+v_i=-p_i r_n.
+\]
+
+One GD step is
+
+\[
+z_i^+=z_i+\eta_nq(z_i)v_i.
+\]
+
+Because \(F\) is cubic,
+
+\[
+\begin{aligned}
+F(z_i^+)
+={}&F(z_i)+\eta_n v_i
+\\
+&+\eta_n^2z_iq(z_i)^2v_i^2
++\frac{\eta_n^3}{3}q(z_i)^3v_i^3.
+\end{aligned}
+\]
+
+The first two terms are transformed Euler. The remaining terms are the nonlinear-coordinate defect.
+
+Set
+
+\[
+R=\frac{\pi}{2}+|y|.
+\]
+
+Since \(|r_n|\le R\), the one-step coordinate defect is at most
+
+\[
+\eta_n^2
+\left(R^2+\frac{R^3}{3}\right).
+\]
+
+The exact continuous flow also differs from one ideal Euler step by at most
+
+\[
+\frac R2\eta_n^2.
+\]
+
+If \(E_k\) is the largest transformed-coordinate difference between GD and the finite flow at time \(k\eta_n\), then
+
+\[
+E_{k+1}
+\le
+(1+\eta_n)E_k
++
+\eta_n^2
+\left(
+R^2+\frac{R^3}{3}+\frac R2
+\right).
+\]
+
+Because \(E_0=0\), discrete Gronwall gives
+
+\[
+\max_{k\eta_n\le T}E_k
+\le
+C_1(T,y)\eta_n,
+\]
+
+where \(C_1(T,y)\) does not depend on \(n\).
+
+Therefore
+
+\[
+\text{raw finite GD}
+\approx
+\text{finite transformed flow}
+\]
+
+whenever \(\eta_n\to0\).
+
+---
+
+## 2. Replace the finite flow by coarse Euler
+
+Choose an auxiliary proof mesh \(\delta>0\), unrelated to \(\eta_n\).
+
+Finite transformed Euler is
+
+\[
+X^n_{i,m+1}
+=
+X^n_{i,m}-\delta p_i r^n_m,
+\]
+
+where
+
+\[
+r^n_m
+=
+\frac1n\sum_j
+p_j\phi\!\left(F^{-1}(X^n_{j,m})\right)-y.
+\]
+
+The transformed vector field is bounded by \(R\) and is 1-Lipschitz in the largest coordinate difference. Ordinary Euler analysis therefore gives
+
+\[
+\sup_{t\le T}
+\max_i
+|X_i^{n,\mathrm{flow}}(t)-X_i^{n,\mathrm{Euler}}(t)|
+\le
+C_2(T,y)\delta,
+\]
+
+uniformly in \(n\).
+
+Thus the actual GD trajectory is within
+
+\[
+C_1(T,y)\eta_n+C_2(T,y)\delta
+\]
+
+of coarse finite Euler.
+
+The purpose of \(\delta\) is that the number of coarse updates
+
+\[
+M=\left\lceil\frac T\delta\right\rceil
+\]
+
+is fixed while \(n\to\infty\).
+
+---
+
+## 3. Pop Euler and the finite oracle
+
+Pop Euler evolves one representative random particle:
+
+\[
+r_m
+=
+\mathbb E\!\left[
+P\phi(F^{-1}(X_m))
+\right]-y,
+\]
+
+\[
+X_{m+1}=X_m-\delta P r_m.
+\]
+
+The finite oracle starts from the same finite initialization as finite Euler but uses the pop residual:
+
+\[
+\bar X_{i,m+1}
+=
+\bar X_{i,m}-\delta p_i r_m.
+\]
+
+The oracle also has an empirical residual,
+
+\[
+\bar r^n_m
+=
+\frac1n\sum_i
+p_i\phi(F^{-1}(\bar X_{i,m}))-y,
+\]
+
+but it does not use this number in its update.
+
+Let
+
+\[
+E_m
+=
+\max_i|X^n_{i,m}-\bar X_{i,m}|.
+\]
+
+Subtracting the finite-Euler and oracle updates gives
+
+\[
+E_{m+1}
+\le
+E_m+\delta|r^n_m-r_m|.
+\]
+
+Insert \(\bar r^n_m\):
+
+\[
+|r^n_m-r_m|
+\le
+|r^n_m-\bar r^n_m|
++
+|\bar r^n_m-r_m|.
+\]
+
+Because \(\phi\circ F^{-1}\) is 1-Lipschitz,
+
+\[
+|r^n_m-\bar r^n_m|\le E_m.
+\]
+
+Hence
+
+\[
+E_{m+1}
+\le
+(1+\delta)E_m
++
+\delta|\bar r^n_m-r_m|.
+\]
+
+Since \(E_0=0\),
+
+\[
+\max_{m\le M}E_m
+\le
+(e^T-1)
+\max_{m\le M}|\bar r^n_m-r_m|.
+\]
+
+The finite/oracle difference is therefore controlled entirely by the oracle’s residual sampling error.
+
+---
+
+## 4. Oracle sampling versus pop Euler
+
+The pop residuals \(r_0,\ldots,r_{M-1}\) are deterministic once the initial population law is fixed.
+
+Each complete oracle trajectory is therefore a deterministic function of its own initialization:
+
+\[
+(p_i,\bar X_{i,0})
+\longmapsto
+(p_i,\bar X_{i,0},\ldots,\bar X_{i,M}).
+\]
+
+Because the initial pairs are independent copies, the complete oracle trajectories are independent copies of the pop Euler trajectory.
+
+At every step \(m\),
+
+\[
+p_i\phi(F^{-1}(\bar X_{i,m}))
+\]
+
+are therefore independent copies of
+
+\[
+P\phi(F^{-1}(X_m)).
+\]
+
+Hoeffding’s inequality and a union bound give, with probability at least \(1-\alpha/2\),
+
+\[
+\max_{m\le M}|\bar r^n_m-r_m|
+\le
+\pi
+\sqrt{
+\frac{\log(4(M+1)/\alpha)}{2n}
+}.
+\]
+
+Consequently,
+
+\[
+\max_{m\le M}E_m
+\le
+(e^T-1)\pi
+\sqrt{
+\frac{\log(4(M+1)/\alpha)}{2n}
+}.
+\]
+
+There is a second, distinct sampling error. Let \(\psi\) be the observable in the headline result, and define the length of its range by
+
+\[
+B_\psi=\sup\psi-\inf\psi.
+\]
+
+The same argument gives, with probability at least \(1-\alpha/2\),
+
+\[
+\max_{m\le M}
+\left|
+\frac1n\sum_i
+\psi(p_i,\bar Z_{i,m})
+-
+\mathbb E[\psi(P,Z_m)]
+\right|
+\le
+B_\psi
+\sqrt{
+\frac{\log(4(M+1)/\alpha)}{2n}
+},
+\]
+
+where
+
+\[
+\bar Z_{i,m}=F^{-1}(\bar X_{i,m}),
+\qquad
+Z_m=F^{-1}(X_m).
+\]
+
+The first sampling error controls how residual error changes the finite dynamics. The second directly controls the empirical \(\psi\)-avg.
+
+For the whole trajectory, define
+
+\[
+\Gamma_i
+=
+(p_i,\bar Z_{i,0},\ldots,\bar Z_{i,M}).
+\]
+
+These are independent copies of
+
+\[
+\Gamma=(P,Z_0,\ldots,Z_M).
+\]
+
+Thus, for every integrable trajectory observable \(\Psi\),
+
+\[
+\frac1n\sum_i\Psi(\Gamma_i)
+\longrightarrow
+\mathbb E[\Psi(\Gamma)].
+\]
+
+No independence across time is asserted or needed; independence is across complete particle trajectories.
+
+---
+
+## 5. Remove the pop Euler mesh
+
+The pop flow is
+
+\[
+\dot X(t)=-P r(t),
+\qquad
+r(t)=\mathbb E[P\phi(F^{-1}(X(t)))]-y.
+\]
+
+To prove existence and uniqueness concretely, write
+
+\[
+X(t)=X_0-Ps(t).
+\]
+
+Then the scalar accumulated residual satisfies
+
+\[
+\frac{ds(t)}{dt}
+=
+\mathbb E\!\left[
+P\phi(F^{-1}(X_0-Ps(t)))
+\right]-y.
+\]
+
+The right-hand side is bounded by \(R\) and is 1-Lipschitz in \(s\). Therefore this scalar ODE has a unique global solution. This proves that the pop flow is well-defined.
+
+Pop Euler is ordinary Euler for the same scalar equation. If \(s_m\) is its discrete accumulated residual, then
+
+\[
+\max_{m\delta\le T}|s_m-s(m\delta)|
+\le
+\frac R2(e^T-1)\delta.
+\]
+
+Because
+
+\[
+X_m=X_0-Ps_m,
+\qquad
+X(t)=X_0-Ps(t),
+\]
+
+the same estimate holds for \(X_m-X(m\delta)\). Holding Euler constant between grid points adds at most \(R\delta\). Therefore
+
+\[
+\sup_{t\le T}
+|X^{\mathrm{pop\ Euler}}(t)-X^{\mathrm{pop\ flow}}(t)|
+\le
+C_2(T,y)\delta.
+\]
+
+No oracle is needed here: pop Euler and pop flow already live on the same population state and use the same vector field.
+
+---
+
+## 6. Add the five errors
+
+At any time \(t\), the triangle inequality gives
+
+\[
+\begin{aligned}
+&
+\left|
+\frac1n\sum_i\psi(p_i,z_i^{\mathrm{GD}}(t))
+-
+\mathbb E[\psi(P,Z(t))]
+\right|
+\\
+&\le
+|\text{finite GD avg}-\text{finite flow avg}|
+&&\text{(actual step)}
+\\
+&\quad+
+|\text{finite flow avg}-\text{finite Euler avg}|
+&&\text{(finite mesh)}
+\\
+&\quad+
+|\text{finite Euler avg}-\text{oracle avg}|
+&&\text{(feedback)}
+\\
+&\quad+
+|\text{oracle avg}-\text{pop Euler avg}|
+&&\text{(sampling of }\psi\text{)}
+\\
+&\quad+
+|\text{pop Euler avg}-\text{pop flow avg}|
+&&\text{(pop mesh)}.
+\end{aligned}
+\]
+
+Suppose \(\psi\) is \(L_\psi\)-Lipschitz in \(z\). Since \(F^{-1}\) is 1-Lipschitz, the five terms are bounded respectively by
+
+\[
+L_\psi C_1(T,y)\eta_n,
+\]
+
+\[
+L_\psi C_2(T,y)\delta,
+\]
+
+\[
+L_\psi(e^T-1)\pi
+\sqrt{
+\frac{\log(4(M+1)/\alpha)}{2n}
+},
+\]
+
+\[
+B_\psi
+\sqrt{
+\frac{\log(4(M+1)/\alpha)}{2n}
+},
+\]
+
+and
+
+\[
+L_\psi C_2(T,y)\delta.
+\]
+
+These estimates hold simultaneously for all \(t\le T\), with probability at least \(1-\alpha\). Therefore
+
+\[
+\begin{aligned}
+\sup_{t\le T}
+\left|
+\frac1n\sum_i\psi(p_i,z_i^{\mathrm{GD}}(t))
+-
+\mathbb E[\psi(P,Z(t))]
+\right|
+\le{}&
+L_\psi C_1(T,y)\eta_n
+\\
+&+2L_\psi C_2(T,y)\delta
+\\
+&+
+\left[L_\psi(e^T-1)\pi+B_\psi\right]
+\sqrt{
+\frac{\log(4(M+1)/\alpha)}{2n}
+}.
+\end{aligned}
+\]
+
+This proves the headline result as follows.
+
+Given an error tolerance \(\varepsilon>0\) and failure probability \(\alpha>0\):
+
+1. Choose \(\delta\) small enough that the two mesh errors are below \(\varepsilon/3\).
+2. Keep \(\delta\) fixed, so \(M=\lceil T/\delta\rceil\) is fixed.
+3. Choose \(n\) large enough that \(\eta_n\) and both sampling terms are below the remaining error.
+
+Then
+
+\[
+\Pr\left(
+\sup_{t\le T}
+\left|
+\frac1n\sum_i\psi(p_i,z_i^{\mathrm{GD}}(t))
+-
+\mathbb E[\psi(P,Z(t))]
+\right|
+>\varepsilon
+\right)
+\le\alpha.
+\]
+
+Since \(\alpha\) is arbitrary, this is uniform compact-time convergence in probability.
+
+“For every bounded Lipschitz \(\psi\)” means that the argument applies to each fixed \(\psi\). A finite collection of observables can be handled simultaneously by another finite union bound.
+
+For the toy model, the step-size requirement is simply
+
+\[
+\eta_n\to0.
+\]
+
+The full neural-network proof has the raw-GD estimate
+
+\[
+C_T\left(
+\eta_n+\eta_n\sqrt n+\eta_n^2n
+\right),
+\]
+
+so its sufficient criterion is
+
+\[
+\eta_n\sqrt n\to0.
+\]
+
+The audited theorem’s choice \(\eta_n=n^{-2}\) is one convenient instance of this criterion, not the only possible one.

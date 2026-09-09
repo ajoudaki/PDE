@@ -1,0 +1,459 @@
+\section{Uniform Pad\'e approximation, Stieltjes structure, and Borel reconstruction}
+\label{app:pade-borel}
+
+This appendix collects the approximation guarantees discussed after the
+population-flow theorem. They answer a separate question: when can finite
+initialization data approximate an observable uniformly on a fixed interval,
+even if its Taylor partial sums fail? These are sufficient theorems, not
+properties already established for the neural kernel.
+
+In the general examples, $F$ denotes a scalar target and $a_p$ its formal
+coefficient of order $p$. Thus $a_p=F^{(p)}(0)/p!$ when actual derivatives
+exist. The unindexed $\sigma>0$ is the Borel exponent, not the layer
+initialization scales $\sigma_\ell$. The letter $R$ below bounds the
+support of a measure; it is not the backward-field cutoff of Appendix A.
+All approximation symbols are local to this appendix.
+
+\subsection{Which rational approximation is being requested?}
+
+Write
+\[
+ F(t)\sim\sum_{p=0}^{\infty}a_p t^p.
+\]
+A normalized Pad\'e approximant of type $[N/M]$ is $P_N/Q_M$, with
+polynomial degrees at most $N,M$, $Q_M(0)=1$, and
+\[
+ Q_M(t)\sum_{p=0}^{\infty}a_p t^p-P_N(t)=O(t^{N+M+1}).
+\]
+This is formal coefficient agreement through the specified order, not an
+assumption of series convergence. Only $a_0,\ldots,a_{N+M}$ enter.
+Some Pad\'e-table entries are defective: the normalized matching problem
+need not be solvable for every pair of degrees. The positive-measure
+constructions below provide well-defined entries, with finite-support
+cases terminating in an exact rational function.
+
+An arbitrary continuous function on $[0,T]$ admits uniform polynomial
+approximation, hence rational approximation. Those polynomials generally
+use global function information. Direct Pad\'e uses only initialization
+coefficients and the displayed matching equations. Borel--Pad\'e instead
+applies Pad\'e to a transformed series and then uses a reconstruction
+integral. It generally does not produce the direct Pad\'e approximant of $F$.
+
+Failure of Taylor approximation here means failure of the function's own
+Taylor partial sums, not failure of every polynomial approximation.
+A nonzero smooth function flat at zero explains why initialization data
+require additional structure: all coefficients vanish, so every normalized
+Pad\'e approximant of that jet is zero. Appendix
+\ref{app:borel-population} gives the identification obstruction even for a
+unique smooth evolution.
+
+\subsection{A genuine Pad\'e theorem with an explicit uniform error}
+\label{app:compact-stieltjes}
+
+\begin{proposition}[Compactly supported positive Stieltjes integral]
+Suppose the actual function is
+\[
+ F(t)=\int_{[0,R]}\frac{d\mu(x)}{1+tx},
+ \qquad \mu\ge0,\quad R>0,\quad m_0=\mu([0,R])<\infty.
+\]
+Its coefficients are $a_p=(-1)^pm_p$, where $m_p=\int x^p\,d\mu(x)$.
+If the support is infinite, its $[M-1/M]$ Pad\'e approximant exists
+for every $M\ge1$ and has the form
+\[
+ R_M(t)=\sum_{j=1}^M\frac{w_j}{1+tx_j},
+ \qquad w_j>0,\quad 0<x_j<R,\quad \sum_jw_j=m_0.
+\]
+It uses only the first $2M$ coefficients, has no nonnegative real pole,
+and for every finite $T>0$ satisfies
+\begin{equation}
+ \sup_{0\le t\le T}|F(t)-R_M(t)|
+ \le 2m_0\left(\frac{RT}{2+RT}\right)^{2M}.
+ \label{eq:stieltjes-uniform}
+\end{equation}
+For finite support, the atomic formula is already rational and is
+exactly recovered once the degrees are sufficient.
+\end{proposition}
+
+\begin{proof}
+Use $M$-node Gaussian quadrature for $\mu$. Its nodes are the roots of
+the monic orthogonal polynomial of degree $M$. Its orthogonality
+equations use precisely moments through degree $2M-1$; infinite support
+makes the moment matrix positive definite. All $M$ roots lie in the
+interior of the convex hull of the support. Otherwise multiplication
+by the product of the interior sign-changing factors would contradict
+orthogonality by producing a nonzero integrand of one sign.
+
+Define quadrature weights by integrating the Lagrange interpolation
+polynomials at those nodes. Division by the orthogonal polynomial
+proves exactness through degree $2M-1$. Applying exactness to the square
+of a Lagrange polynomial proves positivity of its weight; applying it
+to the constant gives total mass $m_0$. Expanding $(1+tx_j)^{-1}$
+formally matches the first $2M$ coefficients. The combined numerator
+and denominator have degrees at most $M-1$ and $M$, proving the Pad\'e
+claim. This is the classical quadrature correspondence \cite{AllenChui}.
+
+For the error, write
+\[
+ \frac1{1+tx}=\frac1{1+tR/2}
+ \frac1{1+\dfrac{t(x-R/2)}{1+tR/2}}.
+\]
+The inner ratio has magnitude at most $tR/(2+tR)<1$. Its geometric
+polynomial of degree $2M-1$ therefore approximates the integrand
+uniformly in $x$ with error at most
+\[
+ \left(\frac{tR}{2+tR}\right)^{2M}.
+\]
+The geometric-remainder denominator cancels the leading factor since
+$(1+tR/2)(1-tR/(2+tR))=1$. Integration and quadrature agree on the
+polynomial and are both positive functionals of mass $m_0$. Their
+remaining errors prove \eqref{eq:stieltjes-uniform}. Finite support
+uses the exact atomic formula; zero mass is trivial.
+\end{proof}
+
+For $0<\varepsilon<2m_0$, a sufficient integer order is
+\[
+ M\ge\frac{\log(2m_0/\varepsilon)}
+ {2\log\bigl((2+RT)/(RT)\bigr)}.
+\]
+There is no restriction $RT<1$. For example,
+\[
+ F(t)=\int_0^1\frac{dx}{1+tx}
+ =\frac{\log(1+t)}{t},\qquad F(0)=1,
+\]
+has a Taylor series failing for $t>1$, while the error bound holds on
+every finite $[0,T]$. For $1/(1+t)$ the $[0/1]$ Pad\'e approximant
+is already exact, although its Taylor series also fails for $t>1$.
+
+\subsection{Unbounded support, determinacy, and zero Taylor radius}
+\label{app:determinate-stieltjes}
+
+Suppose instead that $\mu$ is a finite positive measure on $[0,\infty)$
+with every moment finite and no other positive measure on this half-line
+having those moments. This is \emph{determinacy of the Stieltjes moment
+problem}. The same $[M-1/M]$ Pad\'e approximants converge uniformly
+to its actual Stieltjes integral on each $[0,T]$. The underlying theorem
+appears in Simon \cite[Theorem 6]{SimonMoments}.
+
+Here is a proof including $t=0$. The positive Gaussian quadrature
+measure $\mu_M$ has mass $m_0$ and first moment $m_1$, so
+\[
+ \mu_M([A,\infty))\le m_1/A.
+\]
+Subsequences thus have weakly convergent further subsequences. For each
+fixed $p\ge1$, quadrature eventually matches moments $p$ and $p+1$, and
+\[
+ \int_{x>A}x^p\,d\mu_M(x)\le m_{p+1}/A.
+\]
+Every moment passes to the weak limit. Determinacy identifies that
+limit with $\mu$, so the whole sequence converges weakly. Integrating
+the bounded continuous function $(1+tx)^{-1}$ gives pointwise convergence
+for $t>0$; at zero, mass is exact. Finally, for $s,t\ge0$,
+\[
+ |R_M(t)-R_M(s)|\le m_1|t-s|,
+ \qquad |F(t)-F(s)|\le m_1|t-s|.
+\]
+A finite time mesh upgrades convergence to uniform convergence on $[0,T]$.
+
+A sufficient determinacy condition is the Stieltjes Carleman criterion
+\[
+ \sum_{p=1}^{\infty}m_p^{-1/(2p)}=\infty.
+\]
+For example $m_p\le C A^p(2p)!$ suffices, as does the stronger bound
+$m_p\le C A^p p!$ \cite{SimonMoments,BorghiWeniger}.
+These conditions are sufficient, not necessary.
+
+The Euler example is
+\[
+ F(t)=\int_0^\infty\frac{e^{-x}}{1+tx}\,dx,
+ \qquad F(t)\sim\sum_{p=0}^{\infty}(-1)^p p!\,t^p.
+\]
+Dominated differentiation gives right derivatives
+$F^{(p)}(0)=(-1)^p(p!)^2$. Its Taylor series has zero convergence radius.
+But $m_p=p!$ satisfies determinacy, so genuine direct Pad\'e converges
+uniformly on every finite positive interval \cite{BorghiWeniger}.
+Its ordinary Borel transform is particularly simple:
+\[
+ B(\xi)=\sum_{p\ge0}(-1)^p\xi^p=\frac1{1+\xi}
+ \quad\hbox{near zero},\qquad
+ F(t)=\int_0^\infty e^{-u}B(tu)\,du.
+\]
+The $[0/1]$ Pad\'e approximation of $B$ is exact. Its Laplace integral
+is the nonrational function $F$. Thus direct Pad\'e and Borel--Pad\'e
+both work here, but they are different constructions.
+
+\subsection{Transferring uniform Borel-plane approximation to time}
+\label{app:borel-transfer}
+
+Fix $\sigma>0$ and suppose the \emph{actual} target satisfies
+\begin{equation}
+ F(t)=\int_0^\infty e^{-u}B(tu^\sigma)\,du,\qquad 0\le t\le T,
+ \label{eq:borel-actual-F}
+\end{equation}
+where near zero
+\[
+ B(\xi)=\sum_{p\ge0}\frac{a_p}{\Gamma(1+\sigma p)}\xi^p.
+\]
+Identity \eqref{eq:borel-actual-F} is an assumption about the actual
+function, not merely about its coefficients. Suppose rational
+approximants $B_M$ from finite coefficients converge uniformly to $B$
+on every finite positive-ray segment. A valid Pad\'e theorem for $B$
+can supply this assumption.
+
+Assume, for $C>0$ and $b\ge0$,
+\[
+ |B(\xi)|\le C e^{b\xi^{1/\sigma}},\qquad \xi\ge0.
+\]
+Fix $T$ with $\lambda=1-bT^{1/\sigma}>0$. For a cutoff $U$, define
+\[
+ F_{M,U}(t)=\int_0^U e^{-u}B_M(tu^\sigma)\,du.
+\]
+Splitting the exact integral at $U$ gives
+\begin{equation}
+ \sup_{0\le t\le T}|F_{M,U}(t)-F(t)|
+ \le \sup_{0\le\xi\le TU^\sigma}|B_M(\xi)-B(\xi)|
+       +\frac C\lambda e^{-\lambda U}.
+ \label{eq:borel-cutoff}
+\end{equation}
+On the finite part all arguments stay in $[0,TU^\sigma]$ and the
+weight has integral at most one. On the tail,
+$e^{-u}|B(tu^\sigma)|\le Ce^{-\lambda u}$. Choose $U$ first, then $M$.
+This supplies finite order for each requested accuracy on the fixed interval.
+
+More generally it suffices that the true tail obey
+\[
+ \sup_{t\le T}\int_U^\infty e^{-u}|B(tu^\sigma)|\,du\longrightarrow0.
+\]
+No common growth bound on all $B_M$ is needed for the cutoff method.
+If full Laplace integrals of $B_M$ are used instead, a sufficient
+additional hypothesis is
+\[
+ |B_M(\xi)|+|B(\xi)|\le C e^{b\xi^{1/\sigma}}
+\]
+uniformly in $M$. The same split proves uniform convergence of the full
+reconstructions. Compact convergence alone does not control these tails,
+or justify an arbitrary growing cutoff $U=U_M$.
+
+For a finite expression, partition $[0,U]$, choose a node $u_j$ in
+each cell, and set $w_j=\int_{\text{cell }j}e^{-u}du$. Then
+\[
+ \widetilde F_{M,U,J}(t)=\sum_{j=1}^{J}w_jB_M(tu_j^\sigma).
+\]
+Continuity on the compact rectangle gives uniform quadrature convergence.
+If $h$ is the largest cell length, its error is at most
+\[
+ T\sup_{0\le\xi\le TU^\sigma}|B_M'(\xi)|
+ \begin{cases}
+ h^\sigma,&0<\sigma\le1,\\
+ \sigma U^{\sigma-1}h,&\sigma\ge1.
+ \end{cases}
+\]
+For fixed $U,M$ this is finite. Choose tail, rational approximation and
+quadrature errors each below $\varepsilon/3$. The result is a finite
+rational function of $t$ with error below $\varepsilon$, computed from
+initialization data and a declared quadrature rule. It need not be the
+classical Pad\'e approximant of $F$: cutoff and quadrature can change the
+exact coefficient matching. Qualitative convergence gives existence of
+a sufficient order; a certified stopping rule additionally needs
+quantitative bounds or a known convergence modulus.
+
+\subsection{Stieltjes structure of the Borel transform}
+\label{app:borel-stieltjes}
+
+Suppose
+\[
+ B(\xi)=\int_{[0,R]}\frac{d\nu(x)}{1+\xi x},
+ \qquad \nu\ge0,\qquad \nu_0=\nu([0,R])<\infty.
+\]
+Let $B_M=[M-1/M]_B$ and assume \eqref{eq:borel-actual-F}.
+Positivity gives $0\le B,B_M\le\nu_0$ along the nonnegative ray.
+Their full reconstructions
+\[
+ F_M(t)=\int_0^\infty e^{-u}B_M(tu^\sigma)\,du
+\]
+therefore satisfy, for every $U>0$ and finite $T$,
+\begin{equation}
+ \sup_{0\le t\le T}|F(t)-F_M(t)|
+ \le 2\nu_0\left[
+ \left(\frac{RTU^\sigma}{2+RTU^\sigma}\right)^{2M}+e^{-U}
+ \right].
+ \label{eq:borel-stieltjes-error}
+\end{equation}
+On $[0,U]$ apply \eqref{eq:stieltjes-uniform} to $B$; on the tail
+use $|B-B_M|\le2\nu_0$. First choose $U$, then $M$. For example,
+when $0<\varepsilon<4\nu_0$, take $U=\log(4\nu_0/\varepsilon)$ and
+\[
+ M\ge
+ \frac{\log(4\nu_0/\varepsilon)}
+ {2\log\bigl((2+RTU^\sigma)/(RTU^\sigma)\bigr)}.
+\]
+This gives error at most $\varepsilon$. Finite quadrature can supply
+a rational expression. The original coefficients may grow like
+$\Gamma(1+\sigma p)$, allowing zero Taylor radius.
+
+There is also a direct Pad\'e conclusion when $0<\sigma\le2$.
+Tonelli's theorem rewrites the actual function as
+\[
+ F(t)=\int_{[0,R]}\int_0^\infty
+ \frac{e^{-u}}{1+tu^\sigma x}\,du\,d\nu(x)
+ =\int_{[0,\infty)}\frac{d\rho(v)}{1+tv},
+\]
+where $\rho$ is the image of $d\nu(x)e^{-u}du$ under $v=u^\sigma x$.
+Its moments satisfy
+\[
+ \int v^p\,d\rho(v)
+ =\Gamma(1+\sigma p)\int x^p\,d\nu(x)
+ \le\nu_0R^p\Gamma(1+\sigma p).
+\]
+Stirling's estimate bounds the Carleman terms below by a constant times
+$p^{-\sigma/2}$. Their sum diverges for $0<\sigma\le2$, so $\rho$
+is determinate. Appendix \ref{app:determinate-stieltjes} then gives
+uniform convergence of the genuine $[M-1/M]$ Pad\'e approximants
+of the original formal series on every $[0,T]$.
+For $\sigma>2$ this particular determinacy argument stops; the
+Borel--Pad\'e bound \eqref{eq:borel-stieltjes-error} remains valid.
+
+\subsection{Conditions directly on the initialization coefficients}
+\label{app:coefficient-tests}
+
+For a proposed support bound $R>0$, put
+\[
+ s_p=\frac{(-1)^pa_p}{\Gamma(1+\sigma p)R^p}.
+\]
+The Hausdorff criterion says these are moments of a finite positive
+measure on $[0,1]$ exactly when
+\[
+ \sum_{j=0}^{k}(-1)^j\binom{k}{j}s_{p+j}\ge0
+ \qquad\hbox{for every }p,k\ge0.
+\]
+In one direction this expression is the integral of $x^p(1-x)^k$;
+the converse is Hausdorff's theorem \cite{LiuPego}.
+Rescaling by $x\mapsto Rx$ gives precisely the required compact
+Stieltjes representation of $B$, including finite support and zero mass.
+
+Another sufficient test from the earlier discussion is to put
+$m_p=(-1)^pa_p/\Gamma(1+\sigma p)$ and require
+\[
+ (m_{i+j})_{i,j=0}^{q}
+ \quad\hbox{and}\quad
+ (m_{i+j+1})_{i,j=0}^{q}
+\]
+to be positive definite for every $q$, together with $m_p\le C R^p$.
+The Stieltjes existence theorem gives a positive measure on
+$[0,\infty)$ \cite{SimonMoments}. Any mass above $R$ would violate
+the growth bound at high order, so its support lies in $[0,R]$.
+The strict matrix criterion handles infinite support; finite support
+can instead use its atomic formula or the Hausdorff criterion.
+
+These are all-order conditions. Finitely many successful sign or
+matrix tests are evidence, not a proof. Neither criterion identifies a
+separately specified smooth observable with its Borel sum; that remains
+the distinct identity \eqref{eq:borel-actual-F}.
+
+\subsection{Other genuine Pad\'e guarantees and the limits of a general claim}
+\label{app:pade-other}
+
+Positivity is sufficient, not necessary. The de Montessus theorem
+assumes $F$ is analytic near zero and meromorphic in $|t|<r$ with
+exactly $q$ poles, counted with multiplicity. The fixed-denominator
+row $[N/q]_F$ then converges uniformly on compact subsets avoiding
+the poles as $N\to\infty$ \cite{Cacoq}. It gives the finite-order
+guarantee on $[0,T]$ when $T<r$ and the interval avoids those poles.
+Nearby complex poles can limit the Taylor radius while being captured
+by the denominator. This is a row theorem, not an arbitrary-diagonal theorem.
+
+For much wider classes with branch points, Stahl's theorem gives
+convergence in logarithmic capacity in an appropriate continuation
+domain \cite{Stahl}. That is weaker than maximum-error convergence.
+Small exceptional sets may contain spurious poles, and one pole on
+the target interval destroys a uniform bound. Analyticity or Borel
+summability alone should not be presented as ensuring uniform
+convergence of an arbitrary diagonal Pad\'e sequence.
+
+The universal conjecture that a suitable diagonal subsequence always
+converges locally uniformly throughout a meromorphy disk is false;
+Lubinsky and Buslaev gave counterexamples \cite{Lubinsky,Buslaev}.
+This does not say that every selectable approximant fails on each
+particular real interval. It limits the blanket compact-uniform claim.
+
+A transparent sufficient condition avoids positive measures. Suppose
+$B$ is analytic on a connected complex neighborhood of zero and the
+target interval. If the rational approximants are holomorphic there,
+locally uniformly bounded, and match the coefficients at zero to
+orders tending to infinity, then they converge locally uniformly to $B$.
+Montel's theorem gives a convergent further subsequence from any
+subsequence; Cauchy's formula passes derivatives to its limit; the
+identity theorem identifies that limit with $B$. All subsequential
+limits agree. The local boundedness is a substantive assumption,
+not a consequence of coefficient matching. Related results upgrade
+capacity convergence when poles are excluded from an open complex
+neighborhood \cite{BeckermannMatos}; excluding poles only on the
+real line is not the same condition.
+
+\subsection{A constructive rational method from a known analytic domain}
+\label{app:conformal-rational}
+
+If a broader finite-jet rational method is acceptable, the continuation
+can be proved without a generic diagonal Pad\'e theorem. Suppose $B$
+is analytic in $\operatorname{Re}\xi>-a$, with $a>0$. The maps
+\[
+ w=\frac{\xi}{\xi+2a},\qquad \xi=\frac{2aw}{1-w}
+\]
+send the half-plane to the unit disk and back. Therefore
+\[
+ G(w)=B\!\left(\frac{2aw}{1-w}\right)=\sum_{p\ge0}g_pw^p
+\]
+is analytic for $|w|<1$. With $b_p=a_p/\Gamma(1+\sigma p)$,
+\[
+ g_0=b_0,\qquad
+ g_p=\sum_{j=1}^{p}b_j(2a)^j\binom{p-1}{j-1}\quad(p\ge1).
+\]
+Thus the first $M+1$ coefficients use only the first $M+1$ Borel
+coefficients. Define
+\[
+ R_M(\xi)=\sum_{p=0}^M g_p\left(\frac{\xi}{\xi+2a}\right)^p.
+\]
+Its only possible pole is $-2a$. On a fixed segment $[0,A]$, choose
+$q=A/(A+2a)<\rho<1$. Cauchy's estimate gives
+\[
+ \sup_{0\le\xi\le A}|B(\xi)-R_M(\xi)|
+ \le\max_{|w|=\rho}|G(w)|
+ \frac{(q/\rho)^{M+1}}{1-q/\rho}.
+\]
+This tends to zero geometrically. A known bound on the maximum makes
+the finite-order estimate effective. For example, for $C>0$ and $b\ge0$,
+the stronger bound $|B(\xi)|\le C e^{b|\xi|}$ on the half-plane gives
+\[
+ \max_{|w|=\rho}|G(w)|
+ \le C\exp\!\left(\frac{2ab\rho}{1-\rho}\right).
+\]
+For ordinary Borel summation ($\sigma=1$), that bound also controls
+the true Laplace tail when $bT<1$.
+
+These are Taylor truncations in a conformal coordinate. They match
+$M+1$ coefficients, rather than the $2M+1$ conditions for conventional
+$[M/M]$ Pad\'e, so that distinction must be preserved. The wider
+conformal reconstruction framework is developed by Costin--Dunne
+\cite[Theorem 8]{CostinDunne}. Combined with cutoff and quadrature,
+this gives uniform approximation from finite initialization data under
+the stated analytic-domain, tail, and identification assumptions.
+
+\subsection{What these results would add to population gradient flow}
+
+The main theorem supplies the actual population trajectory on a fixed
+positive interval. Appendix \ref{app:borel-population} specifies the
+additional reconstruction problem. For one input, the function to
+reconstruct is $\kappa(f(0)+s)$: its independent argument is the
+output increment $s$, not time. Uniform approximation transfers to
+the scalar prediction equation. With several inputs, a separate
+reconstruction of $K_{ab}(t)$ can be used with the weighted
+prediction comparison in that appendix.
+
+The approximation argument would be completed by proving the
+observable's actual Borel identity and, for example, a Stieltjes
+representation, an applicable meromorphic Pad\'e theorem, or a suitable
+analytic domain with a declared rational construction. None of those
+conditions is established here for the general nonlinear population
+kernel. Stieltjes positivity is one sufficient route, not an assumption
+of the original broader Borel conjecture. Once the reconstruction
+premises hold on a fixed interval, the required finite order depends
+on accuracy and that interval, not on width or the vanishing GD step.

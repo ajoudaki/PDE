@@ -1,0 +1,163 @@
+%auto-ignore
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\section{\netsort{} Master Theorem for Convergence in Mean and in Distribution}
+\label{sec:OtherModesConvergence}
+
+\subsection{Convergence in Mean}
+
+\begin{thm}
+\label{thm:NetsorTMeanConvergence}
+For the same premise as in \cref{thm:NetsorTMasterTheorem}, if $\psi$ is bounded, then we have the convergence in mean
+\begin{equation}
+\f 1n\sum_{\alpha=1}^{n}\psi(h_{\alpha}^{1},\ldots,h_{\alpha}^{k})\meanto\EV\psi(Z^{h^{1}},\ldots,Z^{h^{k}}).
+\label{eqn:meanconvergence}
+\end{equation}
+This in particular means the convergence of expectations
+\begin{equation}
+\f 1n\EV\sum_{\alpha=1}^{n}\psi(h_{\alpha}^{1},\ldots,h_{\alpha}^{k})=\EV\psi(h_{\beta}^{1},\ldots,h_{\beta}^{k})\to\EV\psi(Z^{h^{1}},\ldots,Z^{h^{k}}),\quad\text{for any \ensuremath{\beta\ge1}}.
+\label{eqn:expectationsConverge}
+\end{equation}
+In fact, we have almost sure convergence and convergence in mean of \emph{conditional} expectations as well:
+For each $n$, let $\Bb$ be a sub-$\sigma$-algebra of the $\sigma$-algebra induced by random sampling in \cref{setup:netsort}.
+Then
+\begin{equation}
+\left|\f 1n \EV \left[\sum_{\alpha=1}^{n}\psi(h_{\alpha}^{1},\ldots,h_{\alpha}^{k}) \mid \Bb \right] - \EV\psi(Z^{h^{1}},\ldots,Z^{h^{k}}) \right|
+\asto
+0, \meanto 0.
+\label{eqn:condmeanconvergence}
+\end{equation}
+\end{thm}
+
+\begin{proof}
+    \cref{{eqn:condmeanconvergence},eqn:meanconvergence} follow from \cref{thm:NetsorTMasterTheorem}, the boundedness of $\psi$, and (conditional) dominated convergence.
+    The first equality of \cref{eqn:expectationsConverge} follows from the symmetry in $\alpha$, and the convergence of expectations follows from convergence in mean.
+\end{proof}
+
+In \cref{thm:NetsorTMeanConvergenceLinearlyBounded} below, we also show convergence in mean when $\psi$ is quadratically bounded and all nonlinearities are linearly bounded.
+We say a function $\phi: \R^k \to \R$ is \emph{linearly bounded} (resp.\ \emph{quadratically bounded}) if for all $x_1, \ldots, x_k \in \R$, $\phi(x_1, \ldots, x_k) \le C(1 + |x_1| + \cdots + |x_k|)$ (resp.\ $C(1 + |x_1|^2 + \cdots + |x_k|^2)$) for some constant $C > 0$.
+Note that such a linearly bounded $\phi$, applied coordinatewise to vectors $h^1, \ldots, h^k \in \R^n$, preserves $\ell_2$ norm:
+\begin{align*}
+    \f 1 n \|\phi(h^1, \ldots, h^k)\|^2 
+    &\le \f {C^2}n \sum_{\alpha=1}^n (1 + |h^1_\alpha| + \cdots + |h^k_\alpha|)^2 
+    \le \f {(k+1) C^2}n \sum_{\alpha=1}^n 1 + |h^1_\alpha|^2 + \cdots + |h^k_\alpha|^2\\
+    &\le (k+1) C^2 \lp 1 + \f{\|h^1\|^2}{n} + \cdots + \f{\|h^k\|^2}{n}\rp.
+    \numberthis\label{eqn:linearlyboundedPreservesL2}
+\end{align*}
+
+\begin{thm}
+    \label{thm:NetsorTMeanConvergenceLinearlyBounded}
+    \cref{thm:NetsorTMeanConvergence} also holds if $\psi$ is quadratically bounded and all nonlinearities $\phi$ used in \refNonlin{} are linearly bounded.
+\end{thm}
+\begin{proof}
+    As in the proof of \cref{thm:NetsorTMeanConvergence}, it suffices to prove the convergence in mean.
+    Below, we say ``random variable $R$ is bounded with high probability'' if there exist absolute constants $C, c>0$ such that, for all $r \ge C$, we have $R \le r$ with probability at least $1 - C\exp(-cn)$.
+
+    Because each Gaussian matrix $W \in \mathcal W$ has bounded operator norm with high probability (\cref{fact:opnormTailBound}), each application of \refMatMul{} preserves $\ell_2$ norm with high probability.
+    Likewise, each application of \refNonlin{} preserves $\ell_2$ norm by \cref{eqn:linearlyboundedPreservesL2}.
+    Finally, by classic concentration of measure, each $v \in \mathcal V$ has bounded $\ell_2$ norm with high probability.
+    Thus, by induction, all vectors in the program have bounded $\ell_2$ norm with high probability.
+    Because $\psi$ is quadratically bounded, this implies
+    \[
+        Q \defeq \f 1n\sum_{\alpha=1}^{n}\psi(h_{\alpha}^{1},\ldots,h_{\alpha}^{k})\]
+    is bounded with high probability.
+    In particular, this quantity has a subexponential tail
+    \[
+        \Pr(Q > r) \le C e^{-crn}, \forall r > C \implies \EV [Q \ind(Q > C)] \le \f C {cn} e^{-cCn} \to 0.\]
+    Thus we may apply standard truncation technique to $Q$, decomposing it as $Q = Q\ind(Q \le C) + Q\ind(Q >C)$.
+    The latter converges in mean to 0, as shown above, while the former converges in mean by dominated convergence.
+\end{proof}
+
+\begin{fact}[Upper tail estimate for iid random matrix, Corollary 2.3.5 of \citet{tao_topics_2012}]\label{fact:opnormTailBound}
+    For $W \in \R^{n \times n}$ with $W_{\alpha\beta}\sim\Gaus(0, 1/n)$, there exist absolute constants $C, c > 0$ such that
+    \[\Pr(\|W\|_{op} > r) \le C e^{-crn}\]
+    for all $r \ge C$.
+\end{fact}
+
+We believe
+\begin{conj}\label{conj:NetsorTMeanConvergence}
+\cref{thm:NetsorTMeanConvergence} holds for any polynomially bounded $\psi$.
+\end{conj}
+As in the proof of \cref{thm:NetsorTMeanConvergenceLinearlyBounded}, this amounts to proving a tail bound on the LHS of \cref{eqn:meanconvergence}.
+Intuitively, because the source of the randomness is from Gaussian sampling and the nonlinearities are all polynomially bounded, this quantity should have a sub-Weibull tail beyond some constant upper bound.
+But making this rigorous is subtle, and we leave this for future work.
+
+\subsection{Convergence in Distribution of Coordinates}
+
+\begin{thm}[Convergence in Distribution of Coordinates]
+\label{thm:NetsorTConvergenceInDistribution}
+Assume the same premise as in \cref{thm:NetsorTMasterTheorem}. 
+For any $\alpha\ge1$, we have the convergence in distribution of
+\[
+(h_{\alpha}^{1},\ldots,h_{\alpha}^{k})\distto(Z^{h^{1}},\ldots,Z^{h^{k}}).
+\]
+\end{thm}
+
+\begin{proof}
+For any bounded continuous function $\psi$, $\EV\psi(h_{\alpha}^{1},\ldots,h_{\alpha}^{k})\to\EV\psi(Z^{h^{1}},\ldots,Z^{h^{k}})$ by \cref{thm:NetsorTMeanConvergence}.
+\end{proof}
+A slightly more involved version of this symmetry argument also shows that different coordinate slices are independent from one another in the large $n$ limit.
+
+\begin{thm}\label{thm:NetsorTMultiConvergenceInDistribution}
+Assume the same premise as in \cref{thm:NetsorTMasterTheorem}. 
+For any $\alpha_{1},\ldots,\alpha_{r}\ge1$, all different for each other, we have the convergence in distribution of
+\[
+\begin{pmatrix}h_{\alpha_{1}}^{1} & \cdots & h_{\alpha_{1}}^{k}\\
+\vdots & \ddots & \vdots\\
+h_{\alpha_{r}}^{1} & \cdots & h_{\alpha_{r}}^{k}
+\end{pmatrix}\distto\begin{pmatrix}Z_{1}^{h^{1}} & \cdots & Z_{1}^{h^{k}}\\
+\vdots & \ddots & \vdots\\
+Z_{r}^{h^{1}} & \cdots & Z_{r}^{h^{k}}
+\end{pmatrix},
+\]
+where $(Z_{1}^{h^{1}},\ldots,Z_{1}^{h^{k}}),\ldots,(Z_{r}^{h^{1}},\ldots,Z_{r}^{h^{k}})$ are iid copies of $(Z^{h^{1}},\ldots,Z^{h^{k}})$.
+\end{thm}
+
+\begin{proof}
+We proceed by induction on $r$. The base case of $r=1$ has already been proven in \cref{thm:NetsorTConvergenceInDistribution}. Now assume the inductive hypothesis is proven for $r-1$ and we seek to show it is also true for $r$. It suffices to prove, for all bounded continuous functions $f_{1},\ldots,f_{r}:\R^{k}\to\R$, \footnote{or we can just consider the families $f_{i}(x)=e^{it_{i}x}$ (or their real and imaginary parts), where $\{t_{i}\}_{i=1}^{r}$ varies over $\R^{r}$.}
+\[
+\EV\prod_{i=1}^{r}f_{i}(h_{\alpha_{i}}^{1},\ldots,h_{\alpha_{i}}^{k})\to\prod_{i=1}^{r}\EV f_{i}(Z^{h^{1}},\ldots,Z^{h^{k}}).
+\]
+By \cref{thm:NetsorTMasterTheorem}, we have, for all $i\in[r]$,
+\[
+\frac{1}{n}\sum_{\beta=1}^{n}f_{i}(h_{\beta}^{1},\ldots,h_{\beta}^{k})\asto\EV f_{i}(Z^{h^{1}},\ldots,Z^{h^{k}}).
+\]
+Thus, taking the product over all $i\in[r]$ and then taking expectation, we have
+\[
+\frac{1}{n^{r}}\sum_{\beta_{1},\ldots,\beta_{r}}\EV\prod_{i=1}^{r}f_{i}(h_{\beta_{i}}^{1},\ldots,h_{\beta_{i}}^{k})\to\prod_{i=1}^{r}\EV f_{i}(Z^{h^{1}},\ldots,Z^{h^{k}}),
+\]
+by dominated convergence and the boundedness of $f_{i}$. Now in the LHS, only $o(n^{r})$ of the summands have some pair from $\beta_{1},\ldots,\beta_{r}$ equal to each other. Each such $o(n^{r})$ summands, by induction hypothesis, converges to some finite quantity. Thus their total contribution to the LHS is vanishing with $n$. Hence, we have
+\[
+\EV_{\substack{\beta_{1},\ldots,\beta_{r}\\
+\text{all distinct}
+}
+}\EV\prod_{i=1}^{r}f_{i}(h_{\beta_{i}}^{1},\ldots,h_{\beta_{i}}^{k})\asto\prod_{i=1}^{r}\EV f_{i}(Z^{h^{1}},\ldots,Z^{h^{k}}).
+\]
+Finally, we note that the inner expectation in the LHS here is symmetric in all such distinct $\beta_{1},\ldots,\beta_{r}$, so 
+\[
+\EV\prod_{i=1}^{r}f_{i}(h_{\beta_{i}}^{1},\ldots,h_{\beta_{i}}^{k})\asto\prod_{i=1}^{r}\EV f_{i}(Z^{h^{1}},\ldots,Z^{h^{k}})
+\]
+for any distinct $\beta_{1},\ldots,\beta_{r}$, and in particular, for $\beta_{1},\ldots,\beta_{r}=\alpha_{1},\ldots,\alpha_{r}$, as desired.
+\end{proof}
+
+\subsection{Extensions to \netsortplus{} and Programs with Variable Dimensions}
+
+All of the theorems above hold as stated for programs with variable dimensions (\cref{appendix:VarDim}), if these programs are setup as in \cref{setup:netsortVarDim}.
+Likewise, \cref{thm:NetsorTMeanConvergence,{thm:NetsorTConvergenceInDistribution},{thm:NetsorTMultiConvergenceInDistribution}} hold for \netsortplus{} programs (\cref{sec:netsortplus}) as well, if rank stability (\cref{assm:asRankStab}) is satisfied and all nonlinearities $\varphi^u(-;-)$ are parameter-controlled at $\mathring\bigtheta^u$ (see \cref{thm:PCNetsorT+MasterTheorem,thm:PCNetsorT+MasterTheoremVarDim}).
+Similarly, 
+\begin{thm}\label{thm:NetsorT+MeanConvergenceLinearlyBounded}
+    \cref{thm:NetsorTMeanConvergenceLinearlyBounded} holds for \netsortplus{} programs if rank stability is satisfied and the following conditions on nonlinearities hold:
+    \begin{itemize}
+        \item for every vector $h$ with defining nonlinearity $\varphi^h(-;-)$ and limit parameters $\mathring\bigtheta^h$, $\varphi^h(\vec x; \mathring \bigtheta^h)$ is linearly bounded in $\vec x$, and for any $\bigtheta$,
+        \begin{align}
+            |\varphi^h(\vec x; \bigtheta) - \varphi^h(\vec x; \mathring \bigtheta^h)| \le f(\bigtheta - \mathring \bigtheta^h) \phi(\vec x)
+            \label{eqn:linearParameterControl}
+        \end{align}
+        for some linearly bounded $\phi$ and some continuous function $f$, taking values in $\R$, with $f(0) = 0$.
+        \item for every scalar $c$ with defining nonlinearity $\varphi^c(-;-)$ and limit parameters $\mathring\bigtheta^c$, $\varphi^c(\vec x; \mathring \bigtheta^c)$ is quadratically bounded in $\vec x$ and \cref{eqn:linearParameterControl} is satisfied for some quadratically bounded $\phi$ and some continuous function $f$, taking values in $\R$, with $f(0) = 0$.
+    \end{itemize}
+\end{thm}
+
+\end{document}

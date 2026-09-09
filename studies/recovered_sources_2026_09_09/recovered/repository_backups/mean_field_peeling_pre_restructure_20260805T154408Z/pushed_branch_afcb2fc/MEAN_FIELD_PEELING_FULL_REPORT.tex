@@ -1,0 +1,466 @@
+\documentclass[11pt,oneside]{report}
+
+\usepackage[a4paper,margin=25mm,headheight=15pt]{geometry}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\setmainfont{FreeSerif}
+\setsansfont{FreeSans}
+\setmonofont{FreeMono}[Scale=0.86]
+\setmathfont{Asana Math}
+\usepackage{amsmath,mathtools}
+\usepackage{booktabs,longtable,tabularx,array}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage[most]{tcolorbox}
+\usepackage[
+  colorlinks=true,
+  linkcolor=blue!55!black,
+  urlcolor=blue!60!black,
+  citecolor=green!35!black
+]{hyperref}
+\usepackage{bookmark}
+\usepackage[
+  hybrid,
+  pipeTables,
+  tableCaptions,
+  fencedCode,
+  smartEllipses
+]{markdown}
+
+\definecolor{ink}{HTML}{18212B}
+\definecolor{accent}{HTML}{315D8A}
+\definecolor{softblue}{HTML}{EEF5FB}
+\definecolor{softgold}{HTML}{FFF7E8}
+\definecolor{deepgreen}{HTML}{245A45}
+\color{ink}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{2}
+\emergencystretch=3em
+\raggedbottom
+
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{accent}}
+  {\filleft\Large\chaptername\ \thechapter}
+  {0.8ex}
+  {\titlerule\vspace{1ex}\filright}
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{accent}}
+  {\thesection}{0.6em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{deepgreen}}
+  {\thesubsection}{0.6em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Mean-Field Peeling}
+\fancyhead[R]{\small Self-Contained Research Report}
+\fancyfoot[C]{\thepage}
+
+% Preserve Markdown equation labels that occur inside $$...$$.
+\renewcommand{\tag}[1]{\qquad\text{\normalfont (#1)}}
+
+\newtcolorbox{statusbox}{
+  colback=softblue,colframe=accent,boxrule=0.7pt,arc=2mm,
+  left=2mm,right=2mm,top=1.5mm,bottom=1.5mm
+}
+\newtcolorbox{warningbox}{
+  colback=softgold,colframe=orange!65!black,boxrule=0.7pt,arc=2mm,
+  left=2mm,right=2mm,top=1.5mm,bottom=1.5mm
+}
+\newcommand{\odotprod}{\mathbin{\odot}}
+
+\begin{document}
+
+\begin{titlepage}
+\centering
+\vspace*{2.2cm}
+{\Huge\bfseries\color{accent} Mean-Field Peeling\par}
+\vspace{0.45cm}
+{\LARGE A Self-Contained Research Report\par}
+\vspace{0.65cm}
+{\Large Explicit Gaussian Normal Forms, Backward Kernels,\\
+and Local Feature-Learning Jets\par}
+\vfill
+\begin{tcolorbox}[width=0.86\textwidth,colback=softblue,colframe=accent]
+\centering
+\textbf{Purpose.}
+This report consolidates the original proposal, the maintained mathematical
+interpretation, the audited backward-kernel execution, the one-step and
+two-step $\mu$P calculations, and the current theorem and literature
+positioning.  It is designed for uninterrupted offline reading.
+\end{tcolorbox}
+\vfill
+{\large Amir Joudaki's mean-field peeling research program\par}
+\vspace{0.25cm}
+{\large Consolidated and audited 3 August 2026\par}
+\vspace{1.2cm}
+\end{titlepage}
+
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+
+\chapter*{Preface: what is established and what remains open}
+\addcontentsline{toc}{chapter}{Preface: status of the theory}
+
+Mean-field derivative peeling is a proposed layerwise elimination calculus
+for fixed-order scalar derivative observables of wide neural networks.  Its
+desired output is a \emph{Gaussian normal form}: a finite directed acyclic
+graph whose leaves are fully specified Gaussian expectations and whose
+remaining operations are deterministic algebra.
+
+\begin{statusbox}
+\textbf{Current status.}
+The conditional Gaussian identities, finite-width chain-rule expansions,
+backward-kernel expectation calculation, $\mu$P scaling, one-step tangent
+factorization, exact two-Euler-step Taylor factors, and deep-linear audits are
+explicitly derived.  The general normal-form theorem, a complete concentration
+theorem, depth-uniform finite-state closure, and a fully enumerated nonlinear
+two-step channel registry remain proof obligations.
+\end{statusbox}
+
+The report therefore separates exact finite-width identities, mean-field
+results under explicit assumptions, formal recursions, audited restricted
+calculations, target theorems, and open implications.
+
+\clearpage
+\pagenumbering{arabic}
+
+\part{A Guided Synthesis}
+
+\chapter{The central problem}
+
+Fix a batch of $B$ input--label pairs and a fully connected network of fixed
+depth $L$ and width $n$:
+\[
+h^0(a)=x_a,\qquad
+z^\ell(a)=W^\ell h^{\ell-1}(a),\qquad
+h^\ell(a)=\phi(z^\ell(a)).
+\]
+The objects of interest are scalar contractions built from outputs, losses,
+hidden Grams, and a fixed number of parameter or training derivatives.  A
+representative family is
+\[
+[\eta^r]\,
+\mathbb E\!\left[
+\frac1n\langle h^{\ell,(s)}_a(\eta),
+h^{\ell,(s)}_b(\eta)\rangle
+\right],
+\]
+where derivative order $r$, step count $s$, batch size, depth, and observable
+syntax are fixed before $n\to\infty$.
+
+The proposed calculation is:
+\begin{enumerate}
+\item expand every derivative into products of explicit weights,
+preactivations, and scalar activation derivatives;
+\item expose every neuron and batch index;
+\item select the highest active layer;
+\item condition on lower layers and integrate the current Gaussian matrix;
+\item execute every Stein/Onsager correction;
+\item enumerate index-equality patterns and count their global width powers;
+\item replace surviving row averages by deterministic Gaussian moments only
+after every index using them is exposed; and
+\item pass the resulting boundary state to the next lower layer.
+\end{enumerate}
+After the last peel, no random weight or width index should remain.
+
+\chapter{The exact local calculus}
+
+\section{Conditional Gaussianity}
+
+Global joint Gaussianity of all deep variables is false.  The reusable exact
+fact is layerwise conditional Gaussianity.  Let
+\[
+w\sim N(0,I_n),\qquad
+Z_a=\frac1{\sqrt n}\sum_jw_jh_j(a).
+\]
+Conditional on the lower-layer values $h_j(a)$, $(w,Z)$ is jointly Gaussian
+and
+\[
+\operatorname{Cov}(w_p,Z_a\mid h)
+=\frac{h_p(a)}{\sqrt n}.
+\]
+
+\section{One- and two-weight identities}
+
+For smooth $F:\mathbb R^B\to\mathbb R$,
+\[
+\mathbb E[w_pF(Z)\mid h]
+=
+\frac1{\sqrt n}\sum_a h_p(a)
+\mathbb E[\partial_aF(Z)\mid h],
+\]
+and
+\[
+\mathbb E[w_pw_qF(Z)\mid h]
+=
+\delta_{pq}\mathbb E[F(Z)\mid h]
++
+\frac1n\sum_{a,b}h_p(a)h_q(b)
+\mathbb E[\partial_a\partial_bF(Z)\mid h].
+\]
+The first branch is Wick pairing.  The second is the complete Stein/Onsager
+correction.  It cannot be deleted before global width counting.
+
+\section{Index ownership and mean-field replacement}
+
+An index may be summed during group $m$ only when it appears in no lower
+group.  A factor created by Stein differentiation belongs to the group of its
+preactivation source and becomes boundary data for the next peel.
+
+The exact conditional law initially uses empirical covariances such as
+\[
+G_{n,ab}^{\ell-1}
+=\frac1n\sum_jh_j^{\ell-1}(a)h_j^{\ell-1}(b).
+\]
+One first performs conditional integration by parts, retains all lower-group
+factors, exposes equality patterns, and only then replaces $G_n^{\ell-1}$ by
+its deterministic limit.  Distinguished rows require leave-one-out or
+leave-two-out covariances and uniform integrability.
+
+\chapter{The theorem program}
+
+\section{Conservative target}
+
+An admissible observable must be defined syntactically from outputs, losses,
+preactivations, activations, hidden Grams, fixed-order parameter derivatives,
+finite products, sums, and complete tensor contractions, with every
+normalization declared.
+
+\begin{statusbox}
+\textbf{Target Mean-Field Derivative Peeling Theorem.}
+For every admissible scalar derivative observable $O_n$, a deterministic
+transformation recursively eliminates the maximal active layer.  Each peel
+emits explicit Gaussian-integral coefficients multiplying admissible
+lower-group states.  Under smoothness, moment, leave-one-out,
+conditional-CLT, concentration, and uniform-integrability hypotheses,
+\[
+\lim_{n\to\infty}\mathbb E[O_n]
+=\operatorname{Eval}(\operatorname{Peel}(O_n)).
+\]
+Every covariance, integrand, activation derivative, equality pattern, and
+coefficient in the output is mechanically specified.
+\end{statusbox}
+
+This is a target theorem, not a result proved by the current examples.
+
+\section{Finite-state strengthening}
+
+The strongest useful extension would prove that, at fixed batch size,
+derivative order, step count, and observable schema, the boundary signatures
+close on finitely many depth-independent state types.  After sharing common
+states, the normal-form DAG would then have at most
+\[
+C_{B,r,O}L
+\]
+nodes.  The present nonlinear registry is not fully enumerated and its channel
+count may depend on depth.  Thus $O(L)$ complexity remains an open target.
+
+\section{Feature-learning jets}
+
+For $s$ training steps and Taylor order $p$, the coefficients
+\[
+[\eta^k]\mathbb E[\mathcal L_a^{(s)}(\eta)],
+\qquad
+[\eta^k]\mathbb E[G_{ab}^{\ell,(s)}(\eta)],
+\qquad k\le p,
+\]
+form an order-$p$ \emph{feature-learning jet}.  A peeling theorem would give
+each admissible coefficient an explicit Gaussian normal form.
+
+\begin{warningbox}
+A fixed jet does not imply convergence of the Taylor series, control at a
+fixed nonzero learning rate, or a complete positive-time training trajectory.
+\end{warningbox}
+
+\chapter{The audited μP laboratory}
+
+\section{Network and kernels}
+
+The worked model has three hidden layers:
+\[
+z_i^1(a)=\frac1{\sqrt{d_0}}\sum_jW^1_{ij}x_{aj},\quad
+z_p^2(a)=\frac1{\sqrt n}\sum_iW^2_{pi}h_i^1(a),
+\]
+\[
+z_r^3(a)=\frac1{\sqrt n}\sum_pW^3_{rp}h_p^2(a),\quad
+f_a=\frac1n\sum_rv_rh_r^3(a),
+\]
+with iid standard-Gaussian raw parameters and
+\[
+\mathcal J=\frac1B\sum_c(f_c-y_c)^2,\qquad
+\theta^+=\theta-n\eta\nabla_\theta\mathcal J.
+\]
+Let
+\[
+G^0_{ab}=\frac{x_a^\top x_b}{d_0},\qquad
+G^\ell_{ab}=\mathbb E[\phi(Z^\ell_a)\phi(Z^\ell_b)],
+\]
+\[
+D^\ell_{ab}=\mathbb E[\phi'(Z^\ell_a)\phi'(Z^\ell_b)],
+\qquad Z^\ell\sim N(0,G^{\ell-1}).
+\]
+
+\section{Backward sensitivity}
+
+Define
+\[
+\delta_i^\ell(a)=n\frac{\partial f_a}{\partial z_i^\ell(a)},\qquad
+\Pi^\ell_{n,ab}=\frac1n\sum_i\delta_i^\ell(a)\delta_i^\ell(b).
+\]
+The top-down Wick--Stein calculation gives the expectation limits
+\[
+\Pi^3=D^3,\qquad
+\Pi^2=D^2\odotprod D^3,\qquad
+\Pi^1=D^1\odotprod D^2\odotprod D^3.
+\]
+Random-kernel convergence requires a separate four-path concentration peel.
+
+\section{One training step}
+
+The optimizer-metric tangent kernel is exactly
+\[
+K_{n,ab}
+=G^3_{n,ab}
++G^2_{n,ab}\Pi^3_{n,ab}
++G^1_{n,ab}\Pi^2_{n,ab}
++G^0_{ab}\Pi^1_{n,ab}.
+\]
+Under the joint concentration assumptions,
+\[
+\begin{aligned}
+K_{ab}
+={}&G^3_{ab}+G^2_{ab}D^3_{ab}
++G^1_{ab}D^2_{ab}D^3_{ab}\\
+&+G^0_{ab}D^1_{ab}D^2_{ab}D^3_{ab}.
+\end{aligned}
+\]
+Consequently,
+\[
+\lim_{n\to\infty}[\eta]\,
+\mathbb E[(f_a^+-y_a)^2]
+=-\frac4B y_a\sum_cK_{ac}y_c.
+\]
+The annealed hidden-Gram linear coefficient vanishes,
+\[
+\lim_{n\to\infty}[\eta]\,
+\mathbb E[G_{n,ab}^{\ell,+}]=0,
+\]
+while the first generic deterministic coefficient is quadratic:
+\[
+\lim_{n\to\infty}[\eta^2]\,
+\mathbb E[G_{n,ab}^{\ell,+}]=C^\ell_{ab}.
+\]
+The detailed recursion contains a fresh off-diagonal Gaussian field; replacing
+the empirical random operator by its mean before squaring gives a wrong
+coefficient.
+
+\section{Two Euler steps}
+
+For $F(\theta)=-n\nabla\mathcal J(\theta)$,
+\[
+\theta^{(2)}
+=\theta+2\eta F+\eta^2DF[F]+O(\eta^3).
+\]
+For a hidden-Gram observable $O$, put
+\[
+L=DO[F],\qquad
+C=\frac12D^2O[F,F],\qquad
+R=DO[DF[F]].
+\]
+Then the cumulative and second-update expansions are
+\[
+O(\theta^{(2)})
+=O(\theta)+2\eta L+\eta^2(4C+R)+O(\eta^3),
+\]
+\[
+O(\theta^{(2)})-O(\theta^{(1)})
+=\eta L+\eta^2(3C+R)+O(\eta^3).
+\]
+The factors $4$ and $3$ are exact.  The general nonlinear reduction of $R$
+is a formal multichannel schema pending a complete registry and convergence
+theorem.
+
+\section{Deep-linear audit}
+
+For $\phi(z)=z$, with $\kappa=2/B$ and $\sigma=G^0y$,
+\[
+(C^1,C^2,C^3)_{ab}
+=(1,5,14)\kappa^2\sigma_a\sigma_b,
+\]
+\[
+(R^1,R^2,R^3)_{ab}
+=(6,14,20)\kappa^2\sigma_a\sigma_b.
+\]
+Thus the cumulative two-step coefficients are $(10,34,76)$ and the
+second-update coefficients are $(9,29,62)$, each multiplying
+$\kappa^2\sigma_a\sigma_b$.
+
+\chapter{Lessons, positioning, and reading route}
+
+\section{Corrections forced by execution}
+
+\begin{enumerate}
+\item Fix raw versus effective parameter conventions before counting width.
+\item Peel from the highest group downward.
+\item Perform exact conditional Stein integration before covariance
+replacement.
+\item Retain Stein-created lower-group factors as boundary data.
+\item Do not discard a zero-mean family before checking a second copy.
+\item Separate expectation limits from concentration.
+\item Do not differentiate a limiting zero as though it were identically zero.
+\item At later steps, track differentiated states and every cross-covariance.
+\item Treat network states as nonlinear functions of Gaussian base channels,
+not as one jointly Gaussian state.
+\item Use a safe fixed multiple $qB$ for Gaussian dimension; exactly $B$ is
+not established generally.
+\end{enumerate}
+
+\section{Position relative to Tensor Programs}
+
+Tensor Programs already gives constructive recursive limiting semantics for
+broad finite neural computations, including $\mu$P feature-learning limits
+and matrix-reuse Onsager corrections.  The defensible proposed contribution of
+peeling is narrower: a source-to-source normal-form compiler for contracted
+derivative observables that explicitly executes every derivative expansion,
+Stein correction, Wick contraction, equality partition, and width count.
+
+\section{How to use the detailed parts}
+
+Part II preserves both the original notes and the maintained mathematical
+program.  Part III is the audited calculation-level case study.  Part IV
+states the sharp theorem target, the Tensor Programs contrast, required
+nonclaims, and the decisive remaining proof obligations.  Repetition across
+these parts is intentional: each preserves a distinct layer of the research
+state.
+
+% The embedded Markdown sources contain mathematics in headings. Starred
+% headings preserve hierarchy without forcing the PDF bookmark machinery to
+% serialize arbitrary TeX mathematics.
+\markdownSetup{rendererPrototypes={
+  headingOne={\section*{#1}},
+  headingTwo={\subsection*{#1}},
+  headingThree={\subsubsection*{#1}},
+  headingFour={\paragraph*{#1}\leavevmode},
+  headingFive={\subparagraph*{#1}\leavevmode}
+}}
+\input{studies/derivative_wick_calculus/build/markdown/markdown_math_defs.tex}
+
+\part{The Maintained Peeling Program}
+\chapter{Original notes, current interpretation, and proof program}
+\markdownInput{studies/derivative_wick_calculus/build/markdown/MEAN_FIELD_PEELING_PROGRAM.pdf.md}
+
+\part{Audited Worked Case Study}
+\chapter{Backward kernels and one-step/two-step μP feature learning}
+\markdownInput{studies/derivative_wick_calculus/build/markdown/MUP_TRAINING_PEELING_CASE_STUDY.pdf.md}
+
+\part{Theorem and Literature Positioning}
+\chapter{Tensor Programs contrast and the sharp theorem claim}
+\markdownInput{studies/derivative_wick_calculus/build/markdown/TENSOR_PROGRAMS_CONTRAST_AND_THEOREM_FRAMING_REPORT.pdf.md}
+
+\end{document}

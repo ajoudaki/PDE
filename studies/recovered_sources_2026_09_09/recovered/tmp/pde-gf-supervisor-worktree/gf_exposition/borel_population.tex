@@ -1,0 +1,409 @@
+\section{Initialization jets and the Borel reconstruction conjecture}
+\label{app:borel-population}
+
+The population theorem above constructs the training trajectory on a fixed
+positive interval.  A different question is whether a finite collection of
+derivatives at initialization can approximate its predictions and loss
+throughout that interval.  The Borel proposal addresses this second question.
+It is an additional reconstruction conjecture; it is not a consequence of
+population gradient-flow existence or uniqueness.
+
+The precise source is Section~10 of the project's August theorem and program
+note, added on 23 August 2026~\cite{ProjectBorel}.  Its original setting is
+one training input and arctangent activations.  Its strongest version asks
+for arbitrarily accurate finite scalar ODEs uniformly over all time, under
+a positive lower bound for the kernel along the entire output interval to
+the target.  The same source explicitly proposes a weaker compact-time
+version.  That version is the natural companion to the positive-time theorem
+in this paper.  The source's earlier uncertainty about fixed-depth flow
+existence is superseded within our theorem's assumptions; its Borel
+reconstruction obligations remain open.
+
+\subsection{The observable and its initialization coefficients}
+
+For one training input, suppress only the input index.  The physical kernel
+$K(t)$ includes the fixed layer learning multipliers from the main theorem.
+With physical time $t=k\eta_n$, the exact prediction equation is
+\[
+ \dot f(t)=2(y-f(t))K(t),\qquad \mathcal L(t)=(y-f(t))^2.
+\]
+There is no vanishing $\eta_n$ in this population equation.  The source uses
+an older time convention with a fixed learning multiplier.  In the present
+convention its normalized time is simply $\tau=2t$.
+
+Write $f_0=f(0)$ and $e_0=y-f_0$.  Assume $e_0>0$ and $K(0)>0$; reversing
+the output direction handles $e_0<0$.  If $e_0=0$, the one-input squared-loss
+flow is stationary.  By continuity, $K$ remains positive on some fixed
+interval $[0,T_1]$.  Direct integration of the residual equation gives
+\[
+ y-f(t)=e_0\exp\!\left(-2\int_0^t K(u)\,du\right)>0.
+\]
+Thus $f$ increases strictly there, and the initialized trajectory defines
+an output-dependent kernel by
+\[
+ \kappa(f(t))=K(t).
+\]
+The scalar function $\kappa$ is different from the fixed layer learning
+multipliers $\kappa_\ell$.
+This is a function along the one initialized trajectory.  It does not say
+that arbitrary population states with the same prediction have the same
+kernel.  In particular, this scalar description does not replace the full
+population state law for arbitrary restarts.
+
+Suppose the required actual derivatives at initialization exist.  Define
+\[
+ d_p=\left.\frac{d^p f}{d\tau^p}\right|_{\tau=0}
+     =2^{-p}f^{(p)}(0),
+ \qquad
+ \kappa(f_0+s)\sim\sum_{p=0}^{\infty}c_p s^p.
+\]
+Here $s$ is only the scalar output increment, not a hidden preactivation.
+Dividing $df/d\tau$ by $y-f$ and formally inverting $f(\tau)-f_0$ determines
+$c_p$ from the finite initialization jet $e_0,d_1,\ldots,d_{p+1}$.  The first
+coefficients are
+\begin{align*}
+ c_0&=\frac{d_1}{e_0},\\
+ c_1&=\frac{e_0d_2+d_1^2}{e_0^2d_1},\\
+ c_2&=\frac{d_3}{2e_0d_1^2}
+       -\frac{d_2^2}{2e_0d_1^3}
+       +\frac{d_2}{e_0^2d_1}
+       +\frac{d_1}{e_0^3}.
+\end{align*}
+For example, $d_1=e_0c_0$ and
+$d_2=(-c_0+e_0c_1)d_1$, which gives the first two formulas.  Differentiating
+once more gives the third.  The denominators are nonzero because
+$d_1=e_0K(0)>0$.  A zero limiting readout does not obstruct this condition:
+the readout contribution to $K(0)$ can already be positive while all hidden
+initial velocities vanish.
+
+The source proposes computing each fixed-order $d_p$ from initialization,
+the architecture, and the update rule by mean-field peeling.  This involves
+two obligations: computing the finite-order coefficient and showing that it
+is the derivative of the actual population flow.  Uniform convergence of
+network paths alone does not permit differentiating the width limit.
+
+For orientation, a degree-$q$ raw truncation would produce the scalar ODE
+\[
+ \dot f_{[q]}=2(y-f_{[q]})
+       \sum_{p=0}^{q}c_p(f_{[q]}-f_0)^p,
+ \qquad f_{[q]}(0)=f_0.
+\]
+It formally matches the first $q+1$ prediction derivatives.  This is a
+useful finite example, but matching more derivatives does not establish
+convergence on a positive interval.  The purpose of Borel reconstruction is
+to handle cases where these raw truncations fail.
+
+\subsection{What Borel reconstruction adds to a formal jet}
+\label{app:borel-conditions}
+
+For a candidate exponent $\sigma>0$, define the transformed series
+\[
+ \mathcal B_\sigma\kappa(\xi)
+ =\sum_{p=0}^{\infty}
+   \frac{c_p}{\Gamma(1+\sigma p)}\xi^p.
+\]
+A coefficient bound
+\[
+ |c_p|\le C A^p\Gamma(1+\sigma p)
+\]
+makes this series converge near $\xi=0$.  Such a bound is called a Gevrey
+coefficient bound.  The constants here are numerical bounds, not additional
+population fields.  Growth of derivatives and growth of power-series
+coefficients differ by a factor $p!$: a derivative bound of the form
+$C A^p(p!)^r$ corresponds, after dividing by $p!$, to coefficient growth
+of order $(p!)^{r-1}$.  In the convention of the summability literature
+cited below, the summability order associated with our denominator is
+$1/\sigma$.  No exponent $\sigma$ for the present neural kernel is supplied
+by the population existence theorem.
+
+The intended identity is
+\begin{equation}
+ \kappa(f_0+s)=\int_0^\infty e^{-u}
+               \mathcal B_\sigma\kappa(su^\sigma)\,du.
+ \label{eq:borel-actual-kernel}
+\end{equation}
+This is an identity with the actual kernel, not merely a definition of a
+function having its formal coefficients.  For every $s>0$, the integral
+samples arbitrarily far along the positive $\xi$-ray.  Local convergence of
+the transformed series therefore leaves a continuation problem.  One also
+needs growth control to make the integral exist and be uniformly controlled.
+For instance, for constants $C>0$ and $b\ge0$, the sufficient bound
+\[
+ |\mathcal B_\sigma\kappa(\xi)|
+ \le C\exp(b\xi^{1/\sigma}),\qquad \xi\ge0,
+\]
+gives a common integrable envelope for $0\le s\le S$ whenever
+$bS^{1/\sigma}<1$.  Indeed the integrand is then bounded by
+$C\exp[-(1-bS^{1/\sigma})u]$.
+
+Finally, finitely many initialization coefficients must produce a declared
+approximation to this continued transform.  Write $B_N$ for such a rational
+approximation, and let $(u_j,w_j)_{j=1}^M$ be a finite quadrature rule for the
+Laplace integral.  The resulting kernel and prediction equation are
+\begin{align*}
+ \kappa_{N,M}(f_0+s)&=\sum_{j=1}^M w_jB_N(su_j^\sigma),\\
+ \dot f_{N,M}&=2(y-f_{N,M})\kappa_{N,M}(f_{N,M}),
+ \qquad f_{N,M}(0)=f_0.
+\end{align*}
+All model-dependent coefficients must come from initialization and the
+declared reconstruction rule.  Positive-time samples or fitted unknown
+trajectory data cannot be inserted into $B_N$.  The desired sufficient
+hypothesis is uniform convergence to the actual kernel on the output
+interval being used:
+\[
+ \sup_{v\in I}|\kappa_{N,M}(v)-\kappa(v)|\longrightarrow0.
+\]
+Here $I$ is a fixed interval of reached outputs.  The finite orders may grow
+with the requested accuracy, but are chosen independently of width and of
+the vanishing GD step.  Pad\'e continuation is one possible choice; its
+convergence and control of poles must be proved.  Appendix~\ref{app:pade-borel}
+gives sufficient conditions and alternatives.
+
+The mechanism for transferring transform convergence through the integral
+is elementary.  Cut the integral at a large finite $U$.  Up to $U$, only
+the compact transform interval $[0,SU^\sigma]$ is needed.  Uniform
+approximation there controls this part.  A common integrable envelope
+controls the remaining tail, and finite quadrature controls the compact
+integral.  A cutoff construction can also be used when only the true
+transform has a tail bound; this is explained in Appendix~\ref{app:pade-borel}.
+
+It is essential that this is a reconstruction procedure beyond raw
+truncation.  Exact integration of a truncated Borel power series gives
+\[
+ \int_0^\infty e^{-u}
+   \sum_{p=0}^N\frac{c_p(su^\sigma)^p}{\Gamma(1+\sigma p)}\,du
+ =\sum_{p=0}^N c_p s^p.
+\]
+The equality follows from the defining Gamma integral.  Thus dividing by
+Gamma factors and then integrating the polynomial simply returns the
+possibly divergent Taylor truncation.
+
+\subsection{Why existence and uniqueness do not identify the sum}
+
+The July monograph records the surviving obstruction: smooth functions can
+have the same complete initialization jet and differ at every positive
+time~\cite[Section~5.7.6]{ProjectMonograph}.  Consider the smooth function
+\[
+ g(x)=
+ \begin{cases}
+  \exp(-1/x^2),&x>0,\\
+  0,&x\le0.
+ \end{cases}
+\]
+Every derivative of $g$ at zero vanishes, and $g'$ is bounded.  Hence the ODE
+\[
+ \dot x=1+g(x),\qquad x(0)=0
+\]
+has a unique global solution.  Differentiating its equation at zero gives
+$x'(0)=1$ and $x^{(p)}(0)=0$ for $p\ge2$.  Its formal Taylor series is
+therefore just $t$, which is convergent and Borel summable.  Yet
+\[
+ x(t)=t+\int_0^t g(x(u))\,du>t\qquad(t>0).
+\]
+The candidate sum $t$ fails the ODE by $g(t)$.  This is a logical example,
+not a counterexample within the neural model.  It explains why one cannot
+invoke uniqueness merely because a proposed reconstruction has matching
+initial derivatives: uniqueness applies to solutions of the equation.
+
+There are two direct ways to complete identification.  One can prove
+\eqref{eq:borel-actual-kernel} for the actual observable, using suitable
+analytic or quasianalytic assumptions.  Alternatively, one can reconstruct
+the full population state, verify that its sum solves the same integral
+GF equations in the strong solution class, and then apply uniqueness.
+Matching only the prediction or kernel jet does not verify those full
+state equations.  Sectorial quasianalytic classes provide relevant analytic
+criteria, but their hypotheses are additional to real-time GF
+existence~\cite{LastraMalekSanz}.
+
+The theorem in the main text permits $C^{1,1}$ activations.  It does not
+assume all-order differentiability, and its moment and stability estimates
+do not establish all-order jets, Gevrey growth, or quasianalyticity.  Even
+$C^\infty$ smoothness alone would not remove the flat-function obstruction.
+Arctangent remains a natural smoother test case for this separate program.
+
+The old reconstruction audit considered proving the width limit through
+Borel summation, which would require common finite-width continuation and
+identification estimates.  That route is unnecessary here.  The population
+flow and width/GD limit have already been obtained independently.  It is
+enough to identify a reconstruction of the population observable and then
+use the triangle inequality at the end of this appendix.
+
+\subsection{Uniform kernel error gives uniform scalar training error}
+\label{app:borel-scalar-error}
+
+Here is the precise local implication, including the time margin.  Choose
+$0<T<T_1\le T_*$ such that $K>0$ on $[0,T_1]$, and set
+$I=[f_0,f(T_1)]$.  Suppose a continuous approximate kernel $\kappa_N$ satisfies
+\[
+ \sup_I|\kappa_N-\kappa|\le\varepsilon<\min_I\kappa.
+\]
+The single index $N$ now denotes any chosen finite reconstruction, including
+its quadrature.  Define $f_N$ by
+\[
+ \dot f_N=2(y-f_N)\kappa_N(f_N),\qquad f_N(0)=f_0.
+\]
+At each output in $I$, its velocity is between
+$1-\varepsilon/\min_I\kappa$ and $1+\varepsilon/\min_I\kappa$ times the
+true velocity.  This comparison can be proved without a derivative bound
+for $\kappa$: the time to reach output $v$ is exactly
+\[
+ \int_{f_0}^{v}\frac{dw}{2(y-w)\kappa(w)},
+\]
+and the approximate clock has $\kappa_N$ in its denominator.  Both clocks
+are strictly increasing, so inversion gives
+\[
+ f\!\left(\left(1-\frac{\varepsilon}{\min_I\kappa}\right)t\right)
+ \le f_N(t)\le
+ f\!\left(\left(1+\frac{\varepsilon}{\min_I\kappa}\right)t\right).
+\]
+The comparison is valid on $[0,T]$ provided
+$(1+\varepsilon/\min_I\kappa)T\le T_1$.  This margin avoids evaluating the
+exact trajectory beyond its proved interval.  Positive velocity also gives
+existence and uniqueness by the same clock inversion on the range used.
+Since $|\dot f|\le2e_0\max_I\kappa$ and
+$|\dot{\mathcal L}|\le4e_0^2\max_I\kappa$, we obtain
+\begin{align*}
+ \sup_{t\le T}|f_N(t)-f(t)|
+ &\le 2e_0T\frac{\max_I\kappa}{\min_I\kappa}\,\varepsilon,\\
+ \sup_{t\le T}|\mathcal L_N(t)-\mathcal L(t)|
+ &\le 4e_0^2T\frac{\max_I\kappa}{\min_I\kappa}\,\varepsilon.
+\end{align*}
+The positive lower bound here follows locally from $K(0)>0$ and continuity.
+It is not a lower bound all the way to the target.
+
+For completeness, the source's stronger all-time implication also has a
+short proof.  Suppose instead that $\kappa$ and $\kappa_N$ are continuous
+on the full output interval $I=[f_0,y]$, with the same positive minimum and
+error condition.  The bounded positive kernels give global scalar flows
+approaching $y$.  The clock comparison now holds for all time.  Moreover,
+\[
+ \mathcal L(t)\le e_0^2e^{-4t\min_I\kappa},
+ \qquad
+ \sup_{t>0}t|\dot{\mathcal L}(t)|
+ \le\frac{e_0^2\max_I\kappa}{\mathrm e\min_I\kappa}.
+\]
+The second inequality maximizes
+$4t e_0^2\max_I\kappa\,e^{-4t\min_I\kappa}$.  Integrating the derivative
+with respect to $\log t$ between the compared clocks yields
+\[
+ \sup_{t\ge0}|\mathcal L_N(t)-\mathcal L(t)|
+ \le
+ \frac{e_0^2\max_I\kappa}{\mathrm e\min_I\kappa}
+ \left[-\log\!\left(1-\frac{\varepsilon}{\min_I\kappa}\right)\right].
+\]
+Here $\mathrm e$ is Euler's number.  This verifies the source's conditional
+all-time bound.  Our local GF theorem does not supply its full-interval
+hypotheses or prove that the neural kernel has such a global extension.
+
+\subsection{The additional reconstruction needed for several inputs}
+\label{app:borel-matrix-error}
+
+For the fixed dataset in the main theorem,
+\[
+ \dot f_a(t)=-2\sum_b\omega_bK_{ab}(t)(f_b(t)-y_b).
+\]
+An individual prediction can turn, or remain still while other predictions
+and hidden fields evolve.  The one-input output coordinate therefore does
+not automatically extend to this system.
+
+A precise additional conjecture would reconstruct the matrix $K(t)$ from
+its physical-time initialization derivatives.  Suppose this produces a
+continuous, initialization-only matrix $K_N(t)$ on $[0,T]$.  Let
+$\Omega=\operatorname{diag}(\omega_1,\ldots,\omega_m)$ and assume
+\[
+ \varepsilon_N=
+ \sup_{t\le T}
+ \left\|\Omega^{1/2}(K_N(t)-K(t))\Omega^{1/2}\right\|_{\operatorname{op}}
+ \longrightarrow0.
+\]
+Define the finite prediction approximation by
+\[
+ \dot f_{N,a}(t)=-2\sum_b\omega_b(K_N(t))_{ab}(f_{N,b}(t)-y_b),
+ \qquad f_{N,a}(0)=f_a(0),
+\]
+and put $\mathcal L_N(t)=\sum_a\omega_a(f_{N,a}(t)-y_a)^2$.
+Vectors $f_N,f,y$ below collect these $m$ scalar entries.  This finite
+known-coefficient equation is different from the source's output-only
+scalar ODE.  It can be made autonomous by adding one clock coordinate; this
+introduces no unknown trajectory data if $K_N$ is actually computed from
+initialization.
+
+The true weighted kernel $\Omega^{1/2}K(t)\Omega^{1/2}$ is positive
+semidefinite.  The symmetric part of its approximation is therefore bounded
+below by $-\varepsilon_N$ times the identity.  Differentiating the weighted
+residual energy gives
+\[
+ \mathcal L(t)\le\mathcal L(0),\qquad
+ \mathcal L_N(t)\le e^{4\varepsilon_Nt}\mathcal L(0).
+\]
+To estimate the prediction difference, subtract the two vector equations:
+\begin{align*}
+ \frac{d}{dt}\bigl[\Omega^{1/2}(f_N-f)\bigr]
+ ={}&-2\Omega^{1/2}K\Omega^{1/2}
+                  \bigl[\Omega^{1/2}(f_N-f)\bigr]\\
+    &-2\Omega^{1/2}(K_N-K)\Omega^{1/2}
+                  \bigl[\Omega^{1/2}(f_N-y)\bigr].
+\end{align*}
+The first term cannot increase the Euclidean norm.  The second has norm at
+most $2\varepsilon_Ne^{2\varepsilon_Nt}\sqrt{\mathcal L(0)}$.
+Integration from the zero initial difference proves
+\begin{align*}
+ \sup_{t\le T}\|\Omega^{1/2}(f_N(t)-f(t))\|_2
+ &\le (e^{2\varepsilon_NT}-1)\sqrt{\mathcal L(0)},\\
+ \sup_{t\le T}|\mathcal L_N(t)-\mathcal L(t)|
+ &\le (e^{4\varepsilon_NT}-1)\mathcal L(0).
+\end{align*}
+For the loss bound use the difference of squared norms and the two residual
+norm bounds.  This argument does not require kernels at different times to
+commute or a positive minimum kernel eigenvalue.  If $K_N$ is also positive
+semidefinite, both residual norms are at most $\sqrt{\mathcal L(0)}$, and
+the respective bounds improve to
+$2\varepsilon_NT\sqrt{\mathcal L(0)}$ and
+$4\varepsilon_NT\mathcal L(0)$.
+
+Uniform entrywise error at most $\varepsilon$ suffices for
+$\varepsilon_N\le\varepsilon$: the squared Frobenius norm of the weighted
+matrix difference is at most
+$\varepsilon^2\sum_{a,b}\omega_a\omega_b=\varepsilon^2$.
+Thus an entrywise Borel reconstruction, with identification and uniform
+error control, would be enough.  Neither the source's one-input conjecture
+nor the present GF theorem establishes that extra matrix reconstruction.
+
+\subsection{Consequences for networks and the exact time quantifier}
+
+Fix a desired accuracy and a finite initialization-based approximation with
+population prediction error at most $\varepsilon$ on $[0,T]$.  In the
+multiple-input case, the main theorem and the triangle inequality give
+\begin{align*}
+ &\sup_{t\le T}\|\Omega^{1/2}(f_n^{\mathrm{GD}}(t)-f_N(t))\|_2\\
+ &\qquad\le
+ \sup_{t\le T}\|\Omega^{1/2}(f_n^{\mathrm{GD}}(t)-f(t))\|_2
+ +\varepsilon
+ =o_{\mathbb P}(1)+\varepsilon.
+\end{align*}
+For one input, replace the weighted norm by absolute value.  Loss follows
+from the same bounded-residual estimates.  A finite amount of initialization
+information would therefore suffice for a prescribed prediction and loss
+accuracy throughout a fixed positive interval, independently of width and
+the vanishing step size.  The approximation order is chosen for accuracy
+before taking the width limit.  Arbitrary joint growth of that order with
+width would require an additional quantitative estimate.  Existence of a
+sufficient order also does not give a certified stopping rule unless a
+computable error bound is available.
+
+To cover every $t<T_*$, identified reconstruction must hold on every compact
+$[0,T]$ with $T<T_*$, or on all of $[0,T_*]$.  Reconstruction on one smaller
+fixed interval $[0,T_B]$, with $T_B>0$, gives a conclusion only there.  If
+that interval shrinks to zero with width, step size, or approximation order,
+it establishes nothing at any fixed positive time.  GF existence alone
+does not extend the reconstruction range of an initialization expansion.
+
+Finally, this conjecture concerns specified prediction and kernel
+observables.  It does not automatically reconstruct hidden field laws,
+hidden Gram matrices, or population operators; each needs its own identified
+reconstruction or a theorem for the full state.  It does not remove nonlinear
+feature learning, give a finite-dimensional law for every possible
+population restart, or establish an all-time result for the broad
+$C^{1,1}$ class.  The Stieltjes conditions in the next appendix are useful
+sufficient analytic assumptions, not assumptions of the original Borel
+conjecture and not consequences of the GF proof.

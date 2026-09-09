@@ -1,0 +1,45 @@
+%auto-ignore
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\section{Random Matrix Theory Background}
+
+In random matrix theory, we often are concerned with \emph{what the spectrum of a random matrix looks like} when the matrix is large.
+The answer to this question is typically phrased in a convergence theorem which says \emph{the spectrum as a histogram converges to some distribution}.
+We single out the notion of convergence we are concerned with in this paper.
+\begin{defn}\label{defn:ASConvergenceESD}
+    Let $\mu_n$ be a \emph{random} measure (such as the spectral distribution of a random matrix) on $\R$ for each $n=1,2,\ldots$.
+    Let $\mu$ be a \emph{deterministic} measure on $\R$.
+    We say $\mu_n$ converges almost surely to $\mu$, written $\mu_n \asto \mu$, if for every compactly supported continuous function $\varphi$, we have $\int_\R \varphi(x)\dd \mu_n(x) \asto \int_\R \varphi(x) \dd \mu(x)$ (where the almost sure convergence is over the randomness of $\mu_n$).
+\end{defn}
+
+The \emph{Moment Method} is a standard technique in probability theory to establish convergence in distribution.
+In the context of random matrix theory, this method goes like the following:
+\begin{itemize}
+\item Under general conditions (see Carleman's condition \cref{fact:carleman}), a distribution is ``pinned down'' by its moments: if all moments of a distribution $\mu$ converges to the moment of a target distribution $\mu^{*}$, then we can in general say that $\mu\to\mu^{*}$ for some notion of convergence $\to$.
+\item For a Hermitian matrix $A$ with eigenvalues $\lambda_1, \ldots, \lambda_n$, the empirical distribution $\mu$ of its eigenvalues has moments given by $\EV_{\lambda\sim\mu}\lambda^{r} = \f 1 n \sum_{\alpha=1}^n (\lambda_\alpha)^r =\f 1 n \tr A^{r}$.
+\item Thus, to prove that the spectral distribution $\mu$ of a random matrix converges to some distribution $\mu^*$, we need to show, for all $r\ge0$, we have $\tr A^{r}\to\EV_{\lambda\sim\mu^*}\lambda^{r}$, for some notion of convergence $\to$.
+\end{itemize}
+This method implies that, to check the convergence in \cref{defn:ASConvergenceESD}, it suffices to check the convergence of moments:
+\begin{fact}[Moment Method]\label{fact:MomentMethod}
+    In the context of \cref{defn:ASConvergenceESD} where $\mu_n$ and $\mu$ are probability measures, $\mu_n \asto \mu$ if 1) $\mu$ satisfies Carleman's Condition (\cref{fact:carleman}) and so does $\mu_n$ almost surely for large enough $n$, and 2) for every $k = 1, 2, \ldots$,
+    \[
+        \EV_{x\sim \mu_n} x^k \asto \EV_{x \sim \mu} x^k
+        \]
+    where the convergence $\asto$ is over the randomness of the measure $\mu_n$.
+\end{fact}
+For more background on the Moment Method, see \cite{tao_topics_2012}.
+
+\begin{fact}[Carleman's Condition]\label{fact:carleman}
+    Let $\mu$ be a measure on $\R$ such that all moments
+    \[M_k = \int_{-\infty}^\infty x^n \dd \mu(x),\quad k=0,1,2,\ldots\]
+    are finite.
+    If
+    \[\sum_{k=1}^\infty M_{2k}^{-\f{1}{2k}} = \infty,\]
+    then $\mu$ is the only measure on $\R$ with $\{M_k\}_k$ as its moments.
+\end{fact}
+
+    
+
+\end{document}

@@ -1,0 +1,230 @@
+%auto-ignore
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\section{Semicircle Law}
+\label{sec:semicircle}
+
+The \emph{Semicircle Law} \citep{wigner_characteristic_1955,wigner_distribution_1958} is a classical result, of central importance in statistics, physics, and engineering \citep{kivelson_global_1992,von_oppen_conductivity_2000,couillet_random_2011,mezzadri_recent_2005}, on the spectrum of a random Hermitian matrix with independent, zero-mean entries.
+It says that, as the size of the matrix tends to infinity, the distribution of its eigenvalues tends to a \emph{semicircle distribution.}
+\begin{defn}
+    The semicircle distribution $\musc$ is the distribution with density $\propto \sqrt{4-x^2}$.
+\end{defn}
+\begin{thm}[Semicircle Law for GOE]\label{thm:semicircleLawGOE}
+    For each $n \ge 1$, define the random symmetric matrix%
+    \footnote{This is known as the Gaussian Orthogonal Ensemble (GOE). While we will only talk about the GOE case here, the semicircle law holds for generic random matrices with iid entries.
+    We hope to show universality of \netsort{} Master Theorem in the future, which would automatically generalize our proof here to such cases.}
+    $ A = A(n) = W+W^{\trsp}$ for iid Gaussian matrix $W\in\R^{n\times n}$, $W_{\alpha\beta}\sim\Gaus(0,1/{2n})$.
+    Let $\lambda_1, \ldots, \lambda_n \in \R$ be the eigenvalues of $A$; these are random variables.
+    Then for every compactly supported, continuous $\varphi: \R \to \R$, as $n\to\infty$, we have
+    \[\f 1 n \sum_{\alpha=1}^n \varphi(\lambda_\alpha) \asto \EV_{\lambda\sim \musc}\varphi(\lambda).\]
+\end{thm}
+In this section, we give a new proof of this beautiful result using the \netsort{} Master Theorem. Our purpose is two-fold: we 1) give concrete examples of how to compute with the Master Theorem, especially the new $\Zdot^{Wx}$ rule, and 2) demonstrate our framework is at least powerful enough to prove this cornerstone result.
+In \cref{sec:MP}, we also prove the \emph{Marchenko-Pastur Law} with this technique.
+
+By the well-known \emph{Moment Method} (see \cref{{fact:MomentMethod}}), it suffices to prove
+\[\inv n \tr A^r \asto \EV_{\lambda \sim \musc} \lambda^r,\quad r=1,2,\ldots\]
+It is well known that the semicircle distribution has moments given by the Catalan numbers $C_{k}$
+\[
+\EV_{\lambda\sim\musc}\lambda^{r}=\begin{cases}
+C_{k} & \text{if \ensuremath{r=2k}}\\
+0 & \text{otherwise}
+\end{cases}
+\]
+where the Catalan numbers $C_{k}$ are the unique numbers satisfying
+\begin{equation}
+C_{0}=1,\quad C_{k+1}=\sum_{i=0}^{k}C_{i}C_{k-i}.
+\label{eqn:Catalan}
+\end{equation}
+The first few Catalan numbers are $C_{0}=1,C_{1}=1,C_{2}=2,C_{3}=5,C_{4}=14$. For more background, see \citet{tao_topics_2012}. 
+
+\subsection{The Main Proof Idea}
+
+\newcommand{\semicirc}{\put(2.5,2){\oval(4,4)[t]}\put(0.5, 1.9){\line(1,0){4}}\phantom{\circ}}
+
+We need to show for all integers $k$,
+\[
+\inv n \tr A^{2k}\asto C_{k},\quad\text{and}\quad\inv n \tr A^{2k+1}\asto0.
+\]
+To do so, we use a trivial but useful equality: for any $M\in\R^{n\times n}$
+\begin{equation}
+\tr M=\EV_z z^{\trsp}Mz,\quad\text{for}\quad z\sim\Gaus(0,I).
+\label{eqn:zdef}
+\end{equation}
+Then
+\[
+\tr A^{2k}=\EV_z z^{\trsp}A^{2k}z,
+\]
+which we can express as a \netsort{} program: Let $\mathcal V=\{z\}$, and $\mathcal W = \{W\}$ (with sampling data $Z^{z}=\Gaus(0,1), \sigma_W^2 = 1/2$).
+With $z^{0}=z$, we define recursively
+\begin{equation}
+\boxed{x^{t}=Wz^{t-1},\quad y^{t}=W^{\trsp}z^{t-1},\quad z^t=x^{t}+y^{t}.}
+\label{eqn:semicircleTP}
+\end{equation}
+
+Then, mathematically, we have computed
+\[
+z^{t}=A^{t}z,\quad\text{and thus}\quad\tr A^{t}=\EV_z z^{\trsp}z^{t}.
+\]
+Note $A^t$ is the $t$th power of $A$ but the $t$ in $x^t, y^t, z^t$ appear as indices.
+By the Master Theorem (and some additional arguments below), it then suffices to show
+\begin{align*}
+    \EV Z^z Z^{z^{2k}} = C_k,\ \EV Z^z Z^{z^{2k+1}}=0
+    \quad \text{so that}\quad
+    \inv{n}\EV_z z^{\trsp}z^{2k}\asto C_{k},\ 
+    \inv{n}\EV_z z^{\trsp}z^{2k+1}\asto0
+\end{align*}
+
+\subsection{Examples of First Few Moments}
+
+We first construct the random variables $Z^{z^{t}},Z^{x^{t}},Z^{y^{t}}$, for $z^t, x^t, y^t$ defined in \cref{eqn:semicircleTP}. While we can do the proof much more succinctly, in the pedagogical spirit, let's do the first few manually to get a feel for it. 
+
+\paragraph*{First Moment}
+
+First we have $Z^{z^{0}} =\Gaus(0,1)$ by definition.
+Then $Z^{x^{1}} = \hat Z^{x^{1}} + \Zdot^{x^{1}} = \hat Z^{x^{1}}$ because we have not used $W^\trsp$ yet, so $\Zdot^{x^1} = 0$.
+Now, by \refZhat{}, $\EV (\hat Z^{x^1})^2 = \sigma_W^2 \EV (Z^{z^0})^2 = 1/2 \cdot 1 = 1/2.$
+Therefore, $Z^{x^1} = \hat Z^{x^{1}}$ is a Gaussian with zero mean and variance $1/2$, independent from $Z^{z^0}$.
+
+A similar reasoning shows $\hat Z^{y^1} = \Gaus(0, 1/2)$ as well, independent from $Z^{z^0}$ and $Z^{x^1}$.
+Next we apply \refZdot{} to calculate $\Zdot^{y^1}$.
+But $y^1$ does not depend on any vector of the form $W^\trsp \bullet$, so $\Zdot^{y^1} = 0$.
+Thus, $Z^{y^1} = \hat Z^{y^1}$,  as a summary,
+\begin{align*}
+Z^{z^{0}} & =\Gaus(0,1),\quad
+Z^{x^{1}} =\Gaus(0,1/2),\quad
+Z^{y^{1}} =\Gaus(0,1/2),
+\end{align*}
+all independent from each other.
+In general, $Z^{y^i}$ and $Z^{x^i}$ are symmetric, as illustrated here.
+Then
+\[
+Z^{z^{1}}=Z^{x^{1}}+Z^{y^{1}}
+\implies
+\EV\left(Z^{z^{1}}\right)^{2}=1\quad\text{and}\quad
+\inv n \tr A \asto \EV Z^{z^{1}}Z^{z^{0}}=0.
+\]
+
+\paragraph*{Second Moment}
+
+Next,
+\[
+Z^{x^{2}}=\hat{Z}^{x^{2}}+\Zdot^{x^{2}}
+\]
+with $\hat{Z}^{x^{2}}$ independent from $Z^{y^1}, Z^z$, but jointly Gaussian with $\hat{Z}^{x^{1}}=Z^{x^{1}}$ with (co-)variance
+\[
+\EV(\hat{Z}^{x^{2}})^{2}=\frac{1}{2}\EV(Z^{z^{1}})^{2}=\frac{1}{2},\quad
+\Cov(\hat{Z}^{x^{2}},\hat{Z}^{x^{1}})=\frac{1}{2}\EV Z^{z^{1}}Z^{z^{0}}=0
+\quad\text{(i.e. independent).}
+\]
+On the other hand, since $y^1 = W^\trsp z^0$ is the only usage of $W^\trsp$ in defining $x^2$,
+\[
+\Zdot^{x^{2}}=\frac{1}{2}Z^{z^{0}}\EV\frac{\partial Z^{z^{1}}}{\partial \hat Z^{y^{1}}}=\frac{1}{2}Z^{z^{0}}\EV1=\frac{1}{2}Z^{z^{0}}.
+\]
+Altogether, we have
+\[
+Z^{x^{2}}=\hat{Z}^{x^{2}}+\Zdot^{x^{2}}=\hat{Z}^{x^{2}}+\frac{1}{2}Z^{z^{0}},\quad
+\text{
+and symmetrically,}
+\quad
+Z^{y^{2}}=\hat{Z}^{y^{2}}+\Zdot^{y^{2}}=\hat{Z}^{y^{2}}+\frac{1}{2}Z^{z^{0}}.
+\]
+Since $\hat Z^{x^2}$ and $\hat Z^{y^2}$ are zero-mean and independent from $Z^{z^0}$, we have
+\[
+Z^{z^{2}}=Z^{x^{2}}+Z^{y^{2}}=\hat{Z}^{x^{2}}+\hat{Z}^{y^{2}}+Z^{z^{0}}
+\implies
+\inv n \tr A^{2} \asto \EV Z^{z^{2}}Z^{z^{0}} = \EV (Z^{z^{0}})^2 = 1 =C_{1}.
+\]
+
+\subsection{Proof for General Moments}
+\label{sec:semicircleProofGeneralK}
+
+\paragraph{Overview}
+Notice how $Z^{z^t}, t=1,2,$ above are of the form $Z^{Z^t} = \tau_t Z^{z^0} + S$ for some $\tau_t\in\R$ and some zero-mean $S$ independent from $Z^{z^0}$.
+We will show this is the case for all $Z^{z^t}$, so that $\EV Z^{z^t} Z^{z^0} = \EV (\tau_t Z^{z^0} + S) Z^{z^0} = \tau_t$.
+By \cref{{thm:MasterTheoremmeanConvergenceMainText}} below (which is just the Master Theorem plus a standard truncation argument to turn the almost sure convergence into almost sure convergence of conditional expectations), this means $\inv n \tr A^t = \inv n \EV_z z^\trsp z^t \asto \tau_t$.
+Finally, we will show $\tau_{2k+1}=0$ and $\tau_{2k}$ satisfies the same recurrence as $C_{k}$, which then yields the desired result.
+
+The following theorem is a direct consequence of the more general \cref{thm:NetsorTMeanConvergenceLinearlyBounded}.
+\begin{thm}\label{thm:MasterTheoremmeanConvergenceMainText}
+    With the same premise as in \cref{thm:NetsorTMasterTheorem}, suppose further $\psi$ is quadratically bounded and all nonlinearities used in \refNonlin{} are linearly bounded.
+    Let $\mathcal S \sbe \mathcal V$ be a subcollection of initial vectors.
+    Then
+    \begin{equation}
+    \f 1n \EV_{\mathcal S} \sum_{\alpha=1}^{n}\psi(h_{\alpha}^{1},\ldots,h_{\alpha}^{k})
+    \asto
+    \EV\psi(Z^{h^{1}},\ldots,Z^{h^{k}}).
+    \label{eqn:condmeanconvergenceMainText}
+    \end{equation}
+    where $\EV_{\mathcal S}$ denotes conditional expectation given the values of vectors in $\mathcal V \setminus \mathcal S$ and of matrices in $\mathcal W$.
+\end{thm}
+
+\paragraph{Calculations}
+In general, $\{\hat{Z}^{x^{s}}\}_{s}$, $\{\hat{Z}^{y^{s}}\}_{s}$, $Z^{z^0}$ are zero-mean and independent from one another.
+We have $\{\hat{Z}^{x^{s}}\}_{s}$ is jointly Gaussian with covariance
+\[
+\Cov(\hat{Z}^{x^{s}},\hat{Z}^{x^{r}})=\frac{1}{2}\EV Z^{z^{s-1}}Z^{z^{r-1}}
+\]
+and $\{\hat{Z}^{y^{s}}\}_{s}$ satisfies symmetric covariance identities.
+In addition, by \refZdot{},
+\begin{align*}
+\Zdot^{x^{t+1}} & =\frac{1}{2}\sum_{s=0}^{t-1}Z^{z^{s}}\EV\frac{\partial Z^{z^{t}}}{\partial\hat{Z}^{y^{s+1}}},\quad
+\Zdot^{y^{t+1}} =\frac{1}{2}\sum_{s=0}^{t-1}Z^{z^{s}}\EV\frac{\partial Z^{z^{t}}}{\partial\hat{Z}^{x^{s+1}}}
+\end{align*}
+It's easy to see that there are deterministic coefficients $b_{s}^{t} \in \R$ (independent of $n$) so that 
+\begin{equation}
+Z^{z^{t}}=\sum_{s=1}^{t}b_{s}^{t}(\hat{Z}^{x^{s}}+\hat{Z}^{y^{s}})+b_{0}^{t}Z^{z^{0}}.
+\label{eqn:Zzt}
+\end{equation}
+Then
+\[\inv n \tr A^t \asto \EV Z^{z^t} Z^{z^0} = b^t_0.\]
+Note
+\[
+\frac{\partial Z^{z^{t}}}{\partial\hat{Z}^{x^{s}}}=\frac{\partial Z^{z^{t}}}{\partial\hat{Z}^{y^{s}}}=b_{s}^{t}.
+\]
+Consequently,
+\[
+\Zdot^{x^{t+1}}=\Zdot^{y^{t+1}}=\frac{1}{2}\sum_{s=0}^{t-1}Z^{z^{s}}b_{s+1}^{t}
+\]
+and
+\begin{align*}
+Z^{z^{t+1}} & =\hat{Z}^{x^{t+1}}+\hat{Z}^{y^{t+1}}+\Zdot^{x^{t+1}}+\Zdot^{y^{t+1}}
+  =\hat{Z}^{x^{t+1}}+\hat{Z}^{y^{t+1}}+\sum_{s=0}^{t-1}Z^{z^{s}}b_{s+1}^{t}\\
+ & =\hat{Z}^{x^{t+1}}+\hat{Z}^{y^{t+1}}+\sum_{s=0}^{t-1}b_{s+1}^{t}\left(\sum_{r=1}^{s}b_{r}^{s}(\hat{Z}^{x^{r}}+\hat{Z}^{y^{r}})+b_{0}^{s}Z^{z^{0}}\right)\\
+ & =\hat{Z}^{x^{t+1}}+\hat{Z}^{y^{t+1}}+\sum_{r=1}^{t-1}(\hat{Z}^{x^{r}}+\hat{Z}^{y^{r}})\sum_{s=r}^{t-1}b_{r}^{s}b_{s+1}^{t}+\sum_{s=0}^{t-1}b_{0}^{s}b_{s+1}^{t}Z^{z^{0}}
+\end{align*}
+Matching coefficients with \cref{eqn:Zzt}, this implies
+\begin{align*}
+b_{t+1}^{t+1} & =1,\quad
+b_{r}^{t+1} =\sum_{s=r}^{t-1}b_{r}^{s}b_{s+1}^{t},\forall r\le t-1.
+\end{align*}
+Using the Catalan identity \cref{eqn:Catalan}, we can check that the solution is
+\[
+b_{r}^{t}=\begin{cases}
+C_{(t-r)/2} & \text{if \ensuremath{t-r} is even}\\
+0 & \text{otherwise.}
+\end{cases}
+\]
+Then
+\begin{align*}
+\inv n \tr A^{2k} & \asto b_{0}^{2k}=C_{k},\quad
+\inv n \tr A^{2k+1} \asto b_{0}^{2k+1}=0
+\end{align*}
+as desired.
+
+\subsection{Comparison with the Classical Proof}
+
+The classical way of calculating the expected moments $\EV\tr A^{k}$ is to expand this trace as a sum of products $A_{\alpha_{1}\alpha_{2}}\cdots A_{\alpha_{k}\alpha_{1}}$ of entries of $A$, and then notice that all summands contribute vanishingly other than those that have each unique term $A_{\alpha_{i}\alpha_{i+1}}$ appear with power 2. Then the computation of $\EV\tr A^{k}$ to top order can be seen to boil down to a counting problem of \emph{non-crossing partitions}. Since the solution of such counting problem is exactly the Catalan numbers, we have the desired result.
+
+In contrast to this classical proof, our proof by Tensor Programs is purely symbolic (i.e. does not require manually identifying leading and subleading terms and doing the combinatorics).
+The role of the mathematician here has been mostly to express the moment computation as a \netsort{} program, and the rest follows from the Master Theorem (and can be done by a computer).
+While perhaps after unwinding, this technique may be implicitly doing a sort of combinatorics similar to the classical proof, we believe this particular way of \emph{repackaging} is useful.
+Indeed, when the matrix ensemble in question involves nonlinear dependencies, such as in a neural network Jacobian, our techique applies readily (see \cref{sec:jac}), while the classical proof is hard to transfer as we can no longer expand the matrix power in terms of the matrix entries because of the nonlinear dependencies\footnote{One can still naively expand through the nonlinearities by Taylor expansion, but 1) this requires the nonlinearities to be smooth, and 2) this asks for significant effort for the mathematician to count and bound the lower order terms. In contrast, the proof by Tensor Programs will be, for the most part, mechanical, following the Master Theorem, and allows nonsmooth nonlinearities.}.
+
+\paragraph{Universality}
+On the other hand, a current drawback of this Tensor Programs proof is the limitation of the Master Theorem to Gaussian matrices.
+However, we expect universality will hold in our case, and the Master Theorem can be proven for general, iid matrices, for example through some version of the Lindeberg Replacement Trick.
+We leave this to future work.
+
+\end{document}

@@ -1,0 +1,239 @@
+%auto-ignore
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{graphics/NetsorT_mastertheorem_illustration_large_cropped.pdf}
+    \caption{Graphical summary of \netsort{} and its Master Theorem.
+    Vectors $v^i$ are initial vectors of the program, but $x^i$ and $h^i$ can be any vector in the program.}
+    \label{fig:summary}
+\end{figure}
+
+\section{\texorpdfstring{\netsort{}}{NetsorT}: Language for Neural Computation}
+\label{sec:netsort}
+
+There are many versions of languages for Tensor Programs, but we shall focus on one version called \netsort{} here.
+This entire section is summarized in \cref{fig:summary}, which we encourage the reader to regularly consult over the course of this section.
+Originally, \netsort{}%
+\footnote{pronounced \emph{netsert} or \emph{netser-T}. The \emph{ts} is pronounced like in \emph{tsar}. The \emph{or} is pronounced as in tens\emph{or}. Another way of thinking is \netsor{} is just \emph{tensor} with \emph{ten} reversed.}
+was motivated by a desire to understand the behavior of large (wide) neural networks.
+For example, a simple $L$-hidden-layer perceptron can be described by alternating applications of nonlinearities and matrix multiplication: For weight matrices $W^1 \in \R^{n\times d}$ and
+$W^2, \ldots, W^L \in \R^{n\times n}$, and nonlinearity $\phi:\R \to \R$, such a neural network on input $\xi\in \R^d$ is given by $h^{1}(\xi)=W^{1}\xi\in\R^{n}$, and%
+\footnote{
+    Following neural network convention, $\phi(x) = (\phi(x_1), \ldots, \phi(x_n))$.
+}
+\begin{align}
+    x^{l}(\xi)=\phi(h^{l}(\xi)) \in \R^n,
+    \quad
+    h^{l+1}(\xi)=W^{l+1}x^{l}(\xi)\in\R^{n},
+    \quad\text{for $l=1,\ldots, L-1$,}
+    \label{eqn:MLP}
+\end{align}
+and the network output is $f(\xi) = v^\trsp x^L(\xi)$ for some weight vector $v \in \R^n$.%
+\footnote{
+    For simplicity, we omit biases and set equal the widths of all layers, but these two simplifications can easily be removed; see \cref{appendix:VarDim}.
+}
+Thus, intuitively, a language of solely \emph{nonlinearity application} and \emph{matrix multiplication} seems to strike a good balance between 1) simplicity (and ease of analysis), and 2) generality.
+Indeed, as shown in \citet{yangTP1,yangTP2}, such a language can express \emph{practically all} of modern deep learning, beyond the toy example here.
+\citet{yangTP2} formalized a version of this language, called \netsort{}, which we recall here.   
+\begin{defn}\label{defn:netsort}
+A \netsort{} program is a sequence of $\R^{n}$ vectors (which we will refer to as \emph{vectors in the program}) inductively generated via one of the following ways from an initial set $\mathcal{V}$ of random $\R^{n}$ vectors and a set $\mathcal{W}$ of random $n\times n$ matrices 
+\begin{description}
+\item [\texttt{Nonlin\label{instr:nonlin}}] Given $\phi:\R^{k}\to\R$ and $x^{1},\ldots,x^{k}\in\R^{n}$, we can generate%
+\footnote{Again, $\phi$ is applied coordinatewise.
+Here $\phi$ and $k$ should be thought of as fixed while $n \to \infty$.}
+$\phi(x^{1},\ldots,x^{k})\in\R^{n}$, where
+\[\phi(x^{1},\ldots,x^{k})_\alpha \defeq\phi(x^{1}_\alpha,\ldots,x^{k}_\alpha),\quad\text{for each $\alpha \in [n]$.}\] 
+\item [\texttt{MatMul\label{instr:matmul}}] Given $W\in\R^{n\times n}$ and $x\in\R^{n}$, we can generate $Wx\in\R^{n}$ or $W^{\trsp}x\in\R^{n}$.
+\end{description}
+\end{defn}
+For example, in \cref{eqn:MLP}, $h^{l}(\xi)=W^{l}x^{l-1}(\xi)$ is an instance of \refMatMul{}, while $x^{l}(\xi)=\phi(h^{l}(\xi))$ is an instance of \refNonlin{}.
+We are interested in understanding the behavior of \netsort{} programs when $n$ is large, and when $\mathcal{V}$ and $\mathcal{W}$ are sampled as follows:
+\begin{setup}[\netsort{}]\label{setup:netsort}
+1) For each initial $W\in\mathcal{W}$, we sample iid $W_{\alpha\beta}\sim\Gaus(0,\sigma_{W}^{2}/n)$ for some variance $\sigma_{W}^{2}$ associated to $W$, independent of other $W' \in \mathcal {W}$; 2) for some multivariate Gaussian $Z^{\mathcal{V}}=\left\{ Z^{h}:h\in\mathcal{V}\right\} \in\R^{\mathcal{V}}$, we sample the initial set of vectors $\mathcal{V}$ like $\left\{ h_{\alpha}:h\in\mathcal{V}\right\} \sim Z^{\mathcal{V}}$ iid for each $\alpha\in[n]$.
+\end{setup}
+\begin{exmp}\label{exmp:MLPsetup}
+For example, we will often be interested in understanding the behavior of \cref{eqn:MLP} when $W^1,\ldots, W^L$ are sampled randomly.
+In this case, $\mathcal W$ consists of $W^2, \ldots, W^L \in \R^{n\times n}$, each of which is sampled like $W^l_{\alpha\beta}\sim\Gaus(0, 1/n)$.
+On the other hand, $\mathcal V$ consists of $h^1(\xi)=W^1 \xi$, which is distributed like $h^1(\xi)_\alpha \disteq \Gaus(0, \|\xi\|^2/d)$ if $W^1 \in \R^{n\times d}$ is sampled like $W^1_{\alpha\beta} \sim \Gaus(0,1/d)$.%
+\footnote{In neural network settings, we are interested in the limit where the intermediate dimensions $n\to\infty$ but the input dimension $d$ stays fixed.
+Thus, we treat the input-to-hidden matrix $W^1$ differently from other $W^l$.}
+If we compute the MLP in \cref{eqn:MLP} on other inputs $\xi_1, \ldots, \xi_k$ as well, then $\mathcal V = \{W^1 \xi, W^1 \xi_1, \ldots, W^1 \xi_k\}$ with $Z^{\mathcal V}$ being the multivariate Gaussian with covariance $\Cov(Z^{W^1 \xi_i}, Z^{W^1 \xi_j}) = \xi_i^\trsp \xi_j / m$.
+\end{exmp}
+
+As discussed in \cref{sec:newRMT}, to understand a random matrix, it suffices to understand random vectors calculated from it.
+How should we understand the random vectors in a \netsort{} program as $n\to\infty$? As hinted in \citet{yangTP1,yangTP2}, it turns out that every vector will have roughly iid coordinates in this limit, even though matrix multiplication by $W$ or $W^{\trsp}$ will introduce correlation between coordinates for any finite $n$.
+Following \citet{yangTP2}, we shall define in \cref{defn:Z} a random variable $Z^h$ that describes this asymptotic coordinate distribution of each vector $h$; but first, let's use a few examples to motivate the rules governing $Z^h$.
+
+\begin{exmp}\label{exmp:MLPZs}
+In \cref{exmp:MLPsetup}, by \cref{setup:netsort}, we already have $Z^{h^1(\xi)} = \Gaus(0, \|\xi\|^2/n)$, reflecting the fact that each coordinate $h^1(\xi)_\alpha$ is an iid sample of $\Gaus(0, \|\xi\|^2/n)$.
+For brevity, we drop the explicit dependence of $h$ and $x$ on $\xi$ below.
+Next, since ${x^1} = {\phi(h^1)}$, we intuitively have $Z^{x^1} = \phi(Z^{h^1})$, as $\phi$ is applied to each coordinate separately.
+
+Now, ${h^2} = W^2 x^1$ has approximately iid Gaussian coordinates, due to $W^2$ being sampled independent of $x^1$ and a central limit argument.
+By some simple back-of-the-envelope calculation, the Gaussian coordinates should asymptotically have zero mean and variance $\EV(Z^{x^1})^2$, and they are uncorrelated with $x^1$.
+Thus, it makes sense to set $Z^{h^2} = \Gaus(0, \EV(Z^{x^1})^2)$, independent from $Z^{x^1}$ and $Z^{h^1}$.
+
+Our reasoning above can be repeated, and we derive, recursively, that $Z^{h^l} =  \Gaus(0, \EV (Z^{x^{l-1}})^2), Z^{x^l} = \phi(Z^{h^l})$, with $Z^{h^l}, Z^{x^l}$ independent from $Z^{h^r}, Z^{x^r}$ for all $r < l$.
+\end{exmp}
+
+In this example, the derivation of the $Z$s seems like a fairly simple repackaging of the central limit theorem.
+However, when both a matrix $A$ and its transpose get involved, the derivation can become complex and subtle quickly, as we show below.
+
+\begin{exmp}\label{exmp:ATAvZ}
+This is already apparent in the $A^\trsp A v$ example in the introduction, where $v\in\R^{n}$ is a standard Gaussian vector, and $A\in\R^{n\times n},A_{\alpha\beta}\sim\Gaus(0,1/n)$ is iid and independent from $v$.
+By \cref{eqn:ATAv}, $A^\trsp A v$ is roughly $v + g$ for some standard Gaussian vector $g$ independent from $v$.
+Therefore, we should set $Z^{A^\trsp A v} = Z^v + G$ for a standard Gaussian $G\in \R$ independent from $Z^v$.
+
+Compare this with $\tilde A A v$ for some independent copy $\tilde A$ of $A^\trsp$.
+Then the calculation of \cref{exmp:MLPZs} would have $Z^{\tilde A A v}$ be a standard Gaussian independent from $Z^v$.
+This shows the derivation of the $Z$s can require nuance, depending on the interaction between a matrix and its transpose.
+
+It will turn out that, for any vector $u$ that may depend on $A$ and $A^\trsp$, $A^\trsp u$ is always a sum of an asymptotically Gaussian part and a correction term.
+The Gaussian part comes from assuming $A$ to be independent from $A^\trsp$ and applying a central limit argument as in \cref{exmp:MLPZs}.
+The correction term captures the interaction between $A$ and $A^\trsp$.
+For instance, if we take $u = Av$ in the $A^\trsp A v$ example above, then the Gaussian part is $g$ and the correction term is $v$.
+In contrast, $\tilde A A v$ doesn't have the correction term because $\tilde A$ and $A$ are independent.
+
+In the formal definition (\cref{defn:Z}) of $Z$s, this decomposition of $A^\trsp u$ is reflected in the definition of $Z^{A^\trsp u}$ as a sum $\Zdot^{A^\trsp u} + \Zhat^{A^\trsp u}$.
+Here $\Zhat^{A^\trsp u}$ represents the Gaussian part and $\Zdot^{A^\trsp u}$ represents the correction.
+\end{exmp}
+
+Finally, we state the formal definition of $Z$.
+Here, the \refZNonlin{} and \refZhat{} rules are probably intuitive given the examples above, but the \refZdot{} rule may appear cryptic at first.
+We digest the \refZdot{} rule more slowly in \cref{rem:ZIntuition} after \cref{defn:Z}.
+
+\begin{pabox}[defn:Z]{Key Takeaways for Understanding a \netsort{} Program}
+    Each vector $h$ will have coordinates roughly distributed as some random variable $Z^{h} \in \R$ (in a sense to be formalized in \cref{thm:NetsorTMasterTheorem}), which are \emph{symbolically defined} recursively as:
+    \begin{description}
+    \item [\texttt{ZInit}\label{Z:Initial}] If $h\in\mathcal{V}$, then $Z^{h}$ is defined as the random variable given in \cref{setup:netsort}. We also set $\hat{Z}^{h}\defeq Z^{h}$ and $\Zdot^{h}\defeq 0$.
+    \item [\texttt{ZNonlin}\label{Z:Nonlin}] For any fixed (i.e. constant as $n\to\infty$) $k$ and $\phi:\R^{k}\to\R$, we have
+    \[
+    Z^{\phi(x^{1},\ldots,x^{k})}\defeq \phi(Z^{x^{1}},\ldots,Z^{x^{k}}).
+    \]
+    \item [\texttt{ZMatMul}\label{Z:MatMul}] $Z^{Wx}\defeq \hat{Z}^{Wx}+\Zdot^{Wx}$
+    for every $W_{\alpha\beta}\sim\Gaus(0,\sigma_{W}^{2}/n)$ and vector $x$, where
+    \begin{description}
+    \item [\texttt{ZHat}\label{Z:Zhat}] {$\hat{Z}^{Wx}$} is a Gaussian variable with zero mean. Let $\mathcal V_W$ denote the set of all vectors in the program of the form $W y$ for some $y$.
+    Then $\{\hat Z^{W y}: W y \in \mathcal V_W\}$ is defined to be jointly Gaussian with zero mean and covariance
+    \[
+    \Cov\left(\hat{Z}^{Wx},\hat{Z}^{W y}\right)\defeq \sigma_{W}^{2}\EV Z^{x}Z^{y},\quad\text{for any \ensuremath{Wx,W y\in\mathcal{V}_W}.}
+    \]
+    Furthermore, $\{\hat Z^{W y}: W y \in \mathcal V_W\}$ is mutually independent from $\{\hat Z^{v }: v \in \mathcal V \cup \bigcup_{\bar W \ne W} \mathcal V_{\bar W}\}$, where $\bar{W}$ ranges over $\mathcal{W}\cup\{A^{\trsp}:A\in\mathcal{W}\}$.
+    \item [\texttt{ZDot}\label{Z:Zdot}]
+    By the definition in this box, $Z^x$ is always a deterministic function of a set of $\Zhat^{\bullet}$ random variables.
+    Then the partial derivative $\partial Z^x / \partial \Zhat^\bullet$ can be defined symbolically and is another random variable.
+    Then we set
+    \[\Zdot^{Wx}\defeq \sigma_{W}^{2}\sum Z^{y}\EV\frac{\partial Z^{x}}{\partial\hat{Z}^{W^{\trsp}y}},\]
+    summing over $\hat Z^{W^\trsp y}, W^\trsp y \in \mathcal V_{W^\trsp},$ that $Z^x$ is a function of (where $\mathcal V_{W^\trsp}$ is defined in \refZhat{}).
+    There is some nuiance in this definition, so see \cref{rem:PartialDer} and \ref{rem:ExpectationPartialDer}.
+    \end{description}
+    \end{description}
+\end{pabox}
+
+The rules above are largely the same as in \cite{yangTP2}, except the definition of $\hat{Z}^{Wx}$ and $\Zdot^{Wx}$. In the restricted \netsort{} programs of \citep{yangTP2}, $\Zdot^{Wx}$ turns out to be 0 (see \cref{thm:GIA}), so $\hat{Z}^{Wx}$ was implicitly identified with $Z^{Wx}$. However, a general \netsort{} program will have $\Zdot^{Wx}\ne0$. 
+
+\begin{rem}
+Note that $Z^{x},\hat{Z}^{x},\Zdot^{x}$ only depend on how $x$ is computed in the \netsort{} program (i.e. the program structure), not the specific (random) value of $x$.
+\end{rem}
+
+\begin{exmp}
+In \cref{exmp:MLPZs}, $\Zdot^{h^l}$ as defined in \refZdot{} is always zero (because we never use $W^{l\trsp}$ in \cref{eqn:MLP}), and by \refZMatMul{}, we simply have $Z^{h^1} = \hat Z^{h^1} = \Gaus(0, \|\xi\|^2/d)$, and recursively, $Z^{h^l} = \hat Z^{h^l} = \Gaus(0, \EV (Z^{x^{l-1}})^2), Z^{x^l} = \phi(Z^{h^l})$, exactly as derived in \cref{exmp:MLPZs}.
+\end{exmp}
+
+\begin{exmp}\label{exmp:ATAvZdot}
+    Write $x = A^\trsp A v$ in \cref{exmp:ATAvZ} as an explicit \netsort{} program $y = A v, x = A^\trsp y$.
+    Then by \refZhat{}, $\Zhat^x = \Gaus(0, 1)$, independent from $Z^y$ and $Z^v$.
+    By \refZdot{}, $\Zdot^x = Z^v \EV \f{\partial Z^y}{\partial \Zhat^{A v}} = Z^v \EV \f{\partial (\Zhat^{Av} + \Zdot^{Av})}{\partial \Zhat^{A v}} = Z^v \EV 1 = Z^v$.
+    This verifies the decomposition $A^\trsp A v \approx v + g$ in \cref{exmp:ATAvZ}.
+\end{exmp}
+
+\begin{rem}[{Intuition for definition of $Z^h$}]\label{rem:ZIntuition}
+
+    The rules \refZInput{} and \refZNonlin{} aptly follow the stated intuition of ``$Z^h$ as coordinate distribution of $h$.''
+    The \refZMatMul{} rule is more complex, so let's digest it a bit.
+    
+    First suppose $W^\trsp$ is never used in the program.
+    Then $\Zdot^{Wx}$ vanishes, and $Z^{Wx} = \hat Z^{Wx}$.
+    The definition of $\hat Z^{Wx}$ then roughly says $Wx$ is an isotropic Gaussian vector, which is correlated with other vectors of the form $W\bar x$ in a natural way:
+    $\la Wx, W\bar x \ra \approx \sigma_W^2 \la x, \bar x \ra$, where $\la,\ra$ denotes dot product.
+    
+    However, if $W^\trsp$ is used previously, then this ``Gaussian description'' of $Wx$ needs a correction.
+    The definition of $\Zdot^{Wx}$ says this correction is a linear combination of previous vectors $y^i$ such that $W^\trsp y^i$ has been used to compute $x$.
+    
+    
+    
+    Let us illustrate the meaning of the coefficients of this linear combination through some simple calculations.
+    If $W\in\R^{n\times n}$, $W_{\alpha\beta}\sim\Gaus(0,1/n)$, and $x\in\R^{n}$, then $Wx$ should be correlated with $W$.
+    If $x$ depends on $W^\trsp y^i$ for a collection of vectors $\{y^i\}_i$, then we can detect this correlation as follows:
+    with $\la,\ra$ denoting dot product, for each $i$,
+    \[
+    \langle y^{i},Wx\rangle=\langle W^{\trsp}y^{i},x\rangle.
+    \]
+    Thus, if $x$ is correlated with $W^{\trsp}y^{i}$, then $Wx$ should also be correlated with $y^{i}$. The \refZdot{} rule, remarkably, says that such correlations are the \emph{only} correction needed to the ``Gaussian description'' of $Wx$: ${Wx}$ splits into the sum of 1) a component with coordinates $\approx \Zdot^{Wx}$ that resides in the linear span of $\{y^{i}\}_{i}$, which is entirely determined by the inner products $\langle y^{i},Wx\rangle=\langle W^{\trsp}y^{i},x\rangle$ for all $i$,%
+    \footnote{
+        The set of coefficients $\{\f 1 n \langle W^{\trsp}y^{i},x\rangle \approx \EV Z^{W^{\trsp}y^{i}} Z^x\}_i$ is linearly related to the coefficients $\{\EV \hat Z^{W^{\trsp}y^{i}} Z^x\}_i$, as can be seen from an easy inductive argument.
+        The latter is then linearly related to the partial derivative expectations of \refZdot{} by \cref{rem:ExpectationPartialDer}.
+    } and 2) another orthogonal component with coordinates $\approx\hat{Z}^{Wx}$ that comes from naively assuming $W^{\trsp}$ to be independent of $W$.
+
+\end{rem}
+
+The following \emph{Master Theorem} rigorously relates the \emph{symbolically constructed} random variables $Z^h$ to the vectors $h$ in the program and their \emph{analytic limits}.
+It is one of our main results and will also be our main workhorse in this paper.
+
+\begin{thm}[\netsort{} Master Theorem]
+\label{thm:NetsorTMasterTheorem} Fix a \netsort{} program. Suppose the initial matrices $\mathcal{W}$ and vectors $\mathcal{V}$ are sampled in the fashion of \cref{setup:netsort}.
+Assume all nonlinearities $\phi$ used in \refNonlin{} are polynomially bounded. Then for any fixed $k$ and any \emph{polynomially bounded}%
+\footnote{
+    $\phi: \R^k \to \R$ is \emph{polynomially-bounded} if $|\phi(x)| \le C\|x\|^p + c$ for some $p, C, c > 0$, for all $x \in \R^k$.
+}
+$\psi:\R^{k}\to\R$, as $n\to\infty$,
+\begin{equation}
+\f 1n\sum_{\alpha=1}^{n}\psi(h_{\alpha}^{1},\ldots,h_{\alpha}^{k})\asto\EV\psi(Z^{h^{1}},\ldots,Z^{h^{k}}),
+\label{eqn:NetsorTMasterTheorem}
+\end{equation}
+for any collection of vectors $h^{1},\ldots,h^{k}$ in the program, where $Z^{h^{i}}$ are defined in \cref{defn:Z}.%
+\footnote{Difference with \cite[Thm 6.3]{yangScalingLimitsWide2019arXiv.org}: We have gotten rid of the ``rank convergence'' assumption (which we call ``rank stability'' in this paper) by showing that it comes for free.
+See \cref{thm:rankstabilitymain} and see \ref{IH:coreSet} and \cref{lemma:rankStability} in \cref{sec:proofMainTheorem}.}
+\end{thm}
+\cref{thm:NetsorTMasterTheorem} says that each ``coordinate slice'' $(h^1_\alpha, \ldots, h^k_\alpha)$ can be thought of as an iid copy of $(Z^{h^1},\ldots, Z^{h^k})$. Indeed, as consequences of the Master Theorem, \cref{thm:NetsorTConvergenceInDistribution,{thm:NetsorTMultiConvergenceInDistribution}} formalize this intuition into a convergence in distribution.
+Versions of \cref{thm:NetsorTMasterTheorem} with convergence in mean (instead of almost sure) are also available (\cref{thm:NetsorTMeanConvergence,thm:NetsorTMeanConvergenceLinearlyBounded}).
+\cref{thm:NetsorTMasterTheorem} strictly generalizes the Master Theorem in \citet{yangTP2}.
+The \netsor{} Master Theorem in \citet{yangTP1} allows nonlinearities growing faster than polynomially, but otherwise is also a special case of \cref{thm:NetsorTMasterTheorem}.
+We outline the proof of \cref{thm:NetsorTMasterTheorem} in \cref{sec:proofsketch} and give a full proof in \cref{sec:proofMainTheorem}.
+
+\begin{rem}[Partial derivative]\label{rem:PartialDer}
+    The partial derivative in \refZdot{} should be interpreted as follows.
+    By a simple inductive argument, $Z^x$ for every vector $x$ in the program is defined \emph{uniquely} as a deterministic function $\varphi(\Zhat^{x^1}, \ldots, \Zhat^{x^k})$ of some $x^1, \ldots, x^k$ in $\mathcal V$ or introduced by \refMatMul{}.%
+    \footnote{In the context of \netsortplus{} introduced later in \cref{sec:netsortplus}, this is still true, but $\varphi$ here will take the form of a parametrized nonlinearity $\varphi(-;\mathring \theta_1, \ldots, \mathring \theta_l)$ with some deterministic parameters $\mathring \theta_1, \ldots, \mathring \theta_l$.}
+    For instance, in \cref{exmp:ATAvZdot}, $Z^x = \Zhat^x + \Zhat^v$ if $v \in \mathcal V$, so $\varphi$ is given by $\varphi(a, b) = a + b$.
+    Then
+    \begin{equation*}
+        \partial Z^x / \partial \Zhat^{x^i} \defeq \partial_i \varphi(\Zhat^{x^1}, \ldots, \Zhat^{x^k}), \quad \text{and} \quad \partial Z^x / \partial \Zhat^z \defeq 0 \text{ for any } z \not\in\{x^1, \ldots, x^k\}.
+    \end{equation*}
+    Note this definition depends on the precise way the program is written, not just on the underlying mathematics.
+    For example, if $y,z \in \mathcal V$ and $x = \phi(W(y+z))$, then $Z^x = \phi(\Zhat^{W(y+z)})$ so that $\partial Z^x/\partial \Zhat^{Wy} = \partial Z^x/\partial \Zhat^{Wz} = 0$.
+    If instead, we have $x = \phi(Wy+Wz)$, then $Z^x = \phi(\Zhat^{Wy} + \Zhat^{Wz})$ so that $\partial Z^x/\partial \Zhat^{W(x+y)} = 0$.
+    However, in both cases, $\Zdot^{W^\trsp x} = (Z^y + Z^z)\EV \phi'(\Zhat^{W(y+z)})$.
+\end{rem}
+
+\begin{rem}[Partial derivative expectation]\label{rem:ExpectationPartialDer}
+    The quantity $\EV\frac{\partial Z^{x}}{\partial\hat{Z}^{W^{\trsp}y}}$ is well defined if $Z^{x}$ is differentiable in $\hat{Z}^{W^{\trsp}y}$. However, even if this is not the case, e.g. if $x=\theta(W^\trsp y)$ where $\theta$ is the Heavyside step function, we can still define this expectation by leveraging Stein's lemma (\cref{lemma:stein}):
+    
+    In \refZdot{}, suppose $\{W^{\trsp}y^{i}\}_{i=1}^{k}$ are all elements of $\mathcal V_{W^\trsp}$ introduced before $x$.
+    Define the matrix $C\in\R^{k\times k}$ by $C_{ij}\defeq \EV Z^{y^{i}}Z^{y^{j}}$ and define the vector $b\in\R^{k}$ by $b_{i}\defeq \EV\hat{Z}^{W^{\trsp}y^{i}}Z^{x}$. If $a=C^{+}b$ (where $C^{+}$ denotes the pseudoinverse of $C$), then in \refZdot{} we may set
+    \begin{equation}
+    \sigma_{W}^{2}\EV\frac{\partial Z^{x}}{\partial\hat{Z}^{W^{\trsp}y^{i}}}=a_{i}.\label{eq:ExpectationPartialDer}
+    \end{equation}
+    This definition agrees with the partial derivative expectation by Stein's lemma (\cref{lemma:stein}) when the latter is well defined.
+    \cref{thm:NetsorTMasterTheorem} holds with this broader definition of partial derivative expectation.
+\end{rem}
+    
+
+\paragraph{Extensions}
+In \cref{sec:netsortplus}, we describe \netsortplus{}, an extension to \netsort{} by allowing programs to compute the average coordinate of a vector, and use such scalars in \refNonlin{}.
+In \cref{appendix:VarDim}, we also describe modification to the Master Theorems if, instead of requiring all matrices in $\mathcal W$ to be square, we allow rectangular matrices.
+
+\end{document}
