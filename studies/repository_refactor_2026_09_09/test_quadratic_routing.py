@@ -5,6 +5,8 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import re
+import shlex
 import subprocess
 import sys
 import tempfile
@@ -81,6 +83,26 @@ class RoutingTests(unittest.TestCase):
         text = (STUDY / "campaign6_f13_threshold/run_benchmark.py").read_text()
         self.assertIn("cwd=output_dir", text)
         self.assertIn('output = output_dir / f"{ns.name}.benchmark.json"', text)
+
+    def test_campaign6_documented_build_routes(self):
+        text = (STUDY / "campaign6_f13_threshold/CAMPAIGN_REPORT.md").read_text()
+        block = next(block for block in re.findall(r"```bash\n(.*?)```", text, re.S)
+                     if "g++" in block)
+        result = subprocess.run(["bash", "-n"], input=block, text=True, capture_output=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("from studies.mfp_quadratic_compiler.campaign_paths import OUTPUT_ROOT", block)
+        self.assertIn('OUTPUT_ROOT / "campaign6_f13_threshold/build"', block)
+        commands = [shlex.split(line) for line in block.replace("\\\n", " ").splitlines()
+                    if line.startswith("g++ ")]
+        self.assertEqual(len(commands), 2)
+        for command, name in zip(commands, ("peeling_lower_bound_checked",
+                                            "hybrid_component_interval_checked")):
+            self.assertEqual(command[command.index("-o") + 1],
+                             "$PDE_QUADRATIC_BUILD_DIR/" + name)
+            sources = [arg for arg in command if arg.endswith(".cpp")]
+            self.assertEqual(len(sources), 1)
+            self.assertTrue((REPO / sources[0]).is_file())
+        # Syntax/path inspection only: neither mkdir nor the compiler is run.
 
 
 if __name__ == "__main__":

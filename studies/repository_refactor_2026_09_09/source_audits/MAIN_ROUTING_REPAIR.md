@@ -82,3 +82,32 @@ New checks cover the actual missing-evidence shell branch, imported verifier
 roots, read-only manifest verification/tamper detection and the reproduction
 guides. A fresh isolated round 2 is in progress; these are implementation
 checks, not its verdict.
+
+## Independent round 2 and the remaining advertised build route
+
+Round 2 is retained in `../reviews/MAIN_ROUTING_ROUND2.md`, with its
+NOTCLEAN verdict. Its only required finding was the Campaign-6 report's two
+compiler commands: they still placed executables in the source study. The
+review separately checked the live Python routes, manifest verifier, wrappers,
+historical hashes and unchanged budgets; its 16 supplied and 6 independent
+bounded checks were not scientific reproductions. One independent test
+confirmed the defective command, so its passing was not a routing acceptance.
+
+The current Campaign-6 instructions now start at the repository root, derive a
+build directory from the same validated `OUTPUT_ROOT` used by the benchmark
+wrapper, stop on root-selection/directory errors and put both binaries there.
+The text distinguishes retained original evidence from newly generated
+diagnostics and does not authorize a new production campaign. No compiler was
+run and no historical seal, protocol, expected digest or binary was changed.
+
+The current supplied suite has 10 ResNet and 7 quadratic checks, all passing.
+The new test parses the actual documented compiler destinations and checks
+shell syntax and source existence without executing the build commands. All
+342 rows of the round-2 input ledger were rehashed: the only subsequent changes
+were this report's Campaign-6 document and the added routing regression test.
+Fresh isolated round 3 is pending. The two round-2 helper scripts are retained
+byte-for-byte as `main_routing_round2_checks.py` and
+`main_routing_round2_record_interpreter.py` in `../reviews/`; to reconstruct
+their original private layout, copy them as `checks.py` and `python` beside
+one another. They record commands without dispatching scientific runners and
+are historical review evidence, not maintained repository entrypoints.

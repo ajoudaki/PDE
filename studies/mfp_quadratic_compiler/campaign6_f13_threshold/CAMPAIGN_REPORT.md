@@ -307,31 +307,48 @@ fraction of an interval whose uncertified remainder remains too broad.
 
 ## Reproduction
 
-Run the compact artifact audit:
+The commands below use the repository root as their working directory. They
+describe fresh diagnostics, not authorization to repeat the frozen campaign
+or to issue new historical certificates. Existing protocol downgrades remain.
+
+Run the compact artifact audit against the retained inputs:
 
 ```bash
-python3 -m unittest -v test_campaign6.py
+python3 -B -m unittest -v studies.mfp_quadratic_compiler.campaign6_f13_threshold.test_campaign6
 ```
 
 Regenerate the candidate coarse envelope:
 
 ```bash
-python3 coarse_sector_bounds.py
+python3 -B studies/mfp_quadratic_compiler/campaign6_f13_threshold/coarse_sector_bounds.py
 ```
 
-Compile the lower and hybrid interval evaluators:
+For a separately authorized new computation, compile the lower and hybrid
+interval evaluators into generated data. The directory uses the same validated
+`PDE_QUADRATIC_OUTPUT_ROOT` override as the benchmark wrapper; without that
+override it is under `data/generated/mfp_quadratic_compiler/`.
 
 ```bash
+PDE_QUADRATIC_BUILD_DIR=$(python3 -B -c 'from studies.mfp_quadratic_compiler.campaign_paths import OUTPUT_ROOT; print(OUTPUT_ROOT / "campaign6_f13_threshold/build")') || exit 1
+mkdir -p "$PDE_QUADRATIC_BUILD_DIR" || exit 1
 g++ -O3 -std=c++20 -march=native -DCHECKED_ARITHMETIC \
-  ../peeling_lower_bound.cpp -o peeling_lower_bound_checked
+  studies/mfp_quadratic_compiler/peeling_lower_bound.cpp \
+  -o "$PDE_QUADRATIC_BUILD_DIR/peeling_lower_bound_checked"
 
 g++ -O3 -std=c++20 -march=native -DCHECKED_ARITHMETIC \
-  hybrid_component_interval.cpp -o hybrid_component_interval_checked
+  studies/mfp_quadratic_compiler/campaign6_f13_threshold/hybrid_component_interval.cpp \
+  -o "$PDE_QUADRATIC_BUILD_DIR/hybrid_component_interval_checked"
 ```
 
-The binaries are intentionally ignored.  Compact source, candidate JSON
-output, the frozen protocol, tests, and dependency hashes are durable.  The
-missing raw benchmark provenance is not reconstructed by these commands.
+Pass the chosen full executable path from this build directory to
+`run_benchmark.py`; it does not assume a source-side executable. Retain the same
+output-root setting for that invocation. Build products and newly generated
+candidate/benchmark JSON are ignored data. Original candidate JSON and
+benchmark summaries remain under `data/historical/studies/mfp_quadratic_compiler/`,
+separate from tracked source, tests and frozen protocol/dependency records.
+The missing original raw benchmark provenance is not reconstructed by these
+commands, and the old source-side binary names in the local ignore file are
+historical exclusions, not current output instructions.
 
 ## Artifact map
 
