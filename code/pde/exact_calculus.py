@@ -7,7 +7,7 @@ All functions are deterministic, draw no samples, and write no files.
 """
 
 from fractions import Fraction
-from math import factorial
+from math import comb, factorial
 
 
 def _integer(value, name, minimum=0):
@@ -39,6 +39,64 @@ def _compose(a, b, length):
         if length:
             result[0] += value
     return result
+
+
+def euler_pullback_words(order, steps):
+    """Return the exact order-h**order operator words for ``steps`` Euler steps.
+
+    A tuple (k1,...,kq) denotes T_k1 ... T_kq acting right to left, where
+    T_k u = D**k u[v,...,v]/k! freezes v inside this derivative. Each word
+    has weight binom(steps,q). The empty word has weight one at order zero;
+    positive orders with zero steps return an empty dict. Zero weights are
+    omitted. Inputs must be Python nonnegative ints, excluding bool.
+
+    This compiles finite noncommuting word coefficients, not derivatives,
+    trajectories, or Gaussian expectations. The result is freshly owned and
+    uses Fractions. At order m>=1 there are at most 2**(m-1) words; tuple
+    construction takes O(m*2**m) operations/storage in the unrestricted case.
+    Integer bit sizes and the user's requested order are not bounded here.
+    """
+    order = _integer(order, "order")
+    steps = _integer(steps, "steps")
+    if order == 0:
+        return {(): Fraction(1)}
+    if steps == 0:
+        return {}
+    result = {}
+    stack = [(order, ())]
+    while stack:
+        remaining, prefix = stack.pop()
+        if remaining == 0:
+            result[prefix] = Fraction(comb(steps, len(prefix)))
+        elif len(prefix) < steps:
+            for k in range(remaining, 0, -1):
+                stack.append((remaining-k, prefix+(k,)))
+    return result
+
+
+def paired_euler_weights(order):
+    """Return rational coefficient rows for fine-minus-coarse Euler doubling.
+
+    Row q-1 contains ordinary coefficients in N, in increasing degree, of
+    binom(2*N,q) - 2**order * binom(N,q), for q=1,...,order. Every row has
+    length order; the potential degree-order term cancels. At order zero
+    the result is (). Thus order one returns ((Fraction(0),),).
+
+    The weights multiply sums of all T-words with total order ``order``
+    and length q. They do not evaluate those operators or their observable.
+    The input is a nonnegative Python int, excluding bool. The immutable
+    result uses exact Fractions, with O(order**2) rational operations and
+    storage; rational bit sizes can grow. No cache or files are retained.
+    """
+    order = _integer(order, "order")
+    binomial = [Fraction(1)]
+    rows = []
+    for q in range(1, order+1):
+        # binom(N,q) = binom(N,q-1) * (N-q+1)/q.
+        binomial = _multiply(binomial, [Fraction(1-q, q), Fraction(1, q)], q+1)
+        rows.append(tuple((2**k-2**order)*binomial[k] if k <= q else Fraction(0)
+                          for k in range(order)))
+    return tuple(rows)
 
 
 def revert_series(coefficients):

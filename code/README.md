@@ -269,3 +269,46 @@ problem, extend to strictly positive first mobility, or establish failure of
 a positive-time population limit. Its initialization-jet probability proof is
 separate from verification of its exact arithmetic. No training experiment,
 historical campaign output, or empirical figure is incorporated by these tests.
+
+## Exact Euler pullback words
+
+`pde.exact_calculus` also supplies the finite operator weights proved in
+Section 9 of the Gaussian/flow-calculus chapter:
+
+```python
+from fractions import Fraction
+from pde.exact_calculus import euler_pullback_words, paired_euler_weights
+
+assert euler_pullback_words(2, 2) == {(2,): Fraction(2), (1, 1): Fraction(1)}
+assert paired_euler_weights(2) == ((Fraction(0), Fraction(-2)),
+                                   (Fraction(0), Fraction(1)))
+```
+
+`euler_pullback_words(order, steps)` maps each positive composition
+`(k1,...,kq)` of the requested degree to `Fraction(binomial(steps,q))`,
+omitting zero weights. The tuple denotes `T_k1 ... T_kq` acting from right
+to left, where `T_k u = D^k u[v,...,v]/k!`. An outer operator differentiates
+the state-dependent vector field in each inner expression. Degree zero
+returns the identity word `{(): Fraction(1)}`; positive degree with zero
+steps returns `{}`.
+
+`paired_euler_weights(order)` returns `order` immutable rational rows.
+Row `q-1` gives the coefficients in increasing powers of the update count
+`N` of `binomial(2*N,q)-2**order*binomial(N,q)`. Every row has length
+`order`, since its possible highest-degree term cancels. Degree zero
+returns `()` and degree one returns `((Fraction(0),),)`.
+
+Inputs must be nonnegative Python integers; booleans, floats and `Fraction`
+inputs are rejected. The operations evaluate neither derivatives nor neural
+moments. Their output is combinatorial, with no state, data or history input.
+Word enumeration uses at most `O(j*2**j)` work and storage at degree `j`;
+paired weights use `O(j²)` rational operations and storage. Integer bit
+lengths can grow. These are finite exact primitives, with no cache, files
+or random sampling. The tests independently enumerate update slots and
+compare the assembled differential words with direct nonlinear scalar
+Euler composition through degree six.
+
+Fixed-order coefficients alone supply no bound uniform in update count,
+no positive-time Taylor convergence and no neural width limit. The chapter
+separately proves a finite-dimensional comparison bound under explicit
+convex-region hypotheses containing every required intermediate state.

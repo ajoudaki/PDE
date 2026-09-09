@@ -316,3 +316,19 @@ data/source receipts rather than pretending they were retaken on a later
 source state. The accepted scientific edition has no studies/data dependency
 and introduces no empirical data or figure. The unrelated concurrent exporter
 remains outside this acceptance.
+
+## Continuation: finite loss calculus and prescribed-space caps
+
+The next scoped acceptance after `ae43aa4` is recorded in
+[INCORPORATION_ACCEPTANCE.md](INCORPORATION_ACCEPTANCE.md). The corrected
+783-line proof addition has two fresh complete CLEAN reviews, with no required
+corrections. The first unsuccessful regularity finding remains recorded.
+
+The unchanged prior inventory is now
+`reviews/CONTINUATION_BASE_LIBRARY_INPUTS.json`; the current inventory is
+`LIBRARY_INPUTS.json`. A standalone 25-file scientific copy passes the library
+boundary/local-link checker and 77 tests: see
+`reviews/CONTINUATION_CAPS_STANDALONE.md`. All input bytes match the live
+scientific files. The same six-module command in the preceding section passes
+77 tests in the live checkout. This scope excludes unaccepted candidate files
+and the PDF exporter. It is not a fresh audit of older chapter proofs.

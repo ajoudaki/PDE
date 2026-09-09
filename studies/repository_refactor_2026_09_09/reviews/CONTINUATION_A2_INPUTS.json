@@ -1,0 +1,57 @@
+{
+  "code/NUMERICAL_CONTRACT.md": {
+    "sha256": "3791adea2ec3a4713a265ab1aa2b00e9993b51a957415060bebc88fe2399de22",
+    "bytes": 4890,
+    "lines": 91
+  },
+  "code/pde/__init__.py": {
+    "sha256": "65eb96a5dd455041d2ad1f32652e3e26e8c15192eb41bdffba27980f0f69e8c3",
+    "bytes": 611,
+    "lines": 26
+  },
+  "code/pde/exact_calculus.py": {
+    "sha256": "d7cd27b3bffed6152bb9fad40514a8e2848561fa6d44e0cb1aa0fd652d7e5aa3",
+    "bytes": 10108,
+    "lines": 249
+  },
+  "code/pde/finite_network.py": {
+    "sha256": "efe694b200b8af2603cbf1bb9d0249f49636e874088c2bafd98f402b5bfbe551",
+    "bytes": 15525,
+    "lines": 363
+  },
+  "code/pde/gaussian_moments.py": {
+    "sha256": "6c2a21a9f3d101c433b5f06cb3f6e1dcdeca23a814891ea7bd81e73960e854ae",
+    "bytes": 4464,
+    "lines": 114
+  },
+  "code/tests/test_exact_calculus.py": {
+    "sha256": "58881bee416ba4b5db9e7688003bfcbef985c4fc82e006c29dbe8a25c32ce242",
+    "bytes": 10214,
+    "lines": 217
+  },
+  "docs/NOTATION.md": {
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "bytes": 5110,
+    "lines": 98
+  },
+  "docs/finite_dynamics.md": {
+    "sha256": "486a2864738d23c21e14e3830ee4cd9555ef2e909d2054366890a958a3dc626c",
+    "bytes": 8355,
+    "lines": 214
+  },
+  "docs/gaussian_dependencies.md": {
+    "sha256": "e52365e7ed2afaf3d48272b913caf60e1aa59f55d846019527f84ae15592cf84",
+    "bytes": 17119,
+    "lines": 346
+  },
+  "docs/given_space_caps.md": {
+    "sha256": "cdda914e481b46d51366a5d80661cd192b0f319d6507bc8b29eba69d87f9f95d",
+    "bytes": 18663,
+    "lines": 417
+  },
+  "docs/loss_pullback.md": {
+    "sha256": "dccefe204d607ad778a09e9a2c98ced0fbcb50a75cba869c44df9d9f652108ea",
+    "bytes": 16049,
+    "lines": 366
+  }
+}

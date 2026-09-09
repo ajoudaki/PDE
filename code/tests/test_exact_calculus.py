@@ -1,10 +1,14 @@
 """Small deterministic exact checks; no historical artifacts or campaigns."""
 
 from fractions import Fraction as Q
-from itertools import permutations
+from itertools import permutations, product
+from math import factorial
 import unittest
 
-from pde.exact_calculus import determinant, forest_key, quadratic_axis_certificate, revert_series
+from pde.exact_calculus import (
+    determinant, euler_pullback_words, forest_key, paired_euler_weights,
+    quadratic_axis_certificate, revert_series,
+)
 
 
 def polynomial_composition(a, b, length):
@@ -27,6 +31,97 @@ def permutation_determinant(matrix):
             term *= matrix[i][j]
         result += term
     return result
+
+
+class EulerPullbackTests(unittest.TestCase):
+    def test_words_against_independent_step_slot_enumeration(self):
+        for order in range(6):
+            for steps in range(5):
+                expected = {}
+                for slots in product(range(order+1), repeat=steps):
+                    if sum(slots) == order:
+                        word = tuple(k for k in slots if k)
+                        expected[word] = expected.get(word, Q(0))+1
+                result = euler_pullback_words(order, steps)
+                self.assertEqual(result, expected)
+                self.assertTrue(all(type(value) is Q for value in result.values()))
+
+    def test_every_displayed_temporal_polynomial(self):
+        expected = {
+            1: ((0,),),
+            2: ((0, -2), (0, 1)),
+            3: ((0, -6, 0), (0, 3, -2), (0, -2, 2)),
+            4: ((0, -14, 0, 0), (0, 7, -6, 0),
+                (0, -Q(14, 3), 6, -Q(4, 3)), (0, Q(7, 2), -Q(11, 2), 2)),
+            5: ((0, -30, 0, 0, 0), (0, 15, -14, 0, 0),
+                (0, -10, 14, -4, 0), (0, Q(15, 2), -Q(77, 6), 6, -Q(2, 3)),
+                (0, -6, Q(35, 3), -7, Q(4, 3))),
+        }
+        self.assertEqual(paired_euler_weights(0), ())
+        for order, rows in expected.items():
+            result = paired_euler_weights(order)
+            self.assertEqual(result, rows)
+            self.assertTrue(all(type(value) is Q for row in result for value in row))
+
+    def test_nonlinear_scalar_euler_against_differential_words(self):
+        # Direct polynomial Euler for v(x)=1+x^2, u(x)=2x+x^3 at x=1/3.
+        # This tests operator order and moving v, independently of word counts.
+        def multiply(a, b, length=None):
+            full = len(a)+len(b)-1
+            return [sum((a[i]*b[k-i] for i in range(len(a))
+                         if 0 <= k-i < len(b)), Q(0))
+                    for k in range(full if length is None else length)]
+
+        def value(poly, x):
+            return sum((c*x**k for k, c in enumerate(poly)), Q(0))
+
+        def word_value(word):
+            poly = [Q(0), Q(2), Q(0), Q(1)]
+            for k in reversed(word):
+                derivative = [poly[j]*Q(factorial(j), factorial(j-k))
+                              for j in range(k, len(poly))]
+                if not derivative:
+                    return Q(0)
+                power = [Q(1)]
+                for _ in range(k):
+                    power = multiply(power, [Q(1), Q(0), Q(1)])
+                poly = [c/factorial(k) for c in multiply(derivative, power)]
+            return value(poly, Q(1, 3))
+
+        order = 6
+        def direct(steps, scale):
+            x = [Q(1, 3)]+[Q(0)]*order
+            for _ in range(steps):
+                velocity = multiply(x, x, order+1)
+                velocity[0] += 1
+                x = [x[0]]+[x[j]+scale*velocity[j-1] for j in range(1, order+1)]
+            cube = multiply(multiply(x, x, order+1), x, order+1)
+            return [2*a+b for a, b in zip(x, cube)]
+
+        for steps in (0, 1, 2, 3):
+            direct_single = direct(steps, 1)
+            fine, coarse = direct(2*steps, 1), direct(steps, 2)
+            for degree in range(order+1):
+                words = euler_pullback_words(degree, steps)
+                self.assertEqual(sum((weight*word_value(word) for word, weight in words.items()), Q(0)),
+                                 direct_single[degree])
+                rows = paired_euler_weights(degree)
+                all_words = euler_pullback_words(degree, degree)
+                assembled = sum((value(rows[len(word)-1], steps)*word_value(word)
+                                 for word in all_words if word), Q(0))
+                self.assertEqual(assembled, fine[degree]-coarse[degree])
+
+    def test_domains_and_return_ownership(self):
+        for invalid in (-1, True, 1.0, Q(1), "2", None):
+            with self.assertRaises(ValueError):
+                paired_euler_weights(invalid)
+            with self.assertRaises(ValueError):
+                euler_pullback_words(invalid, 0)
+            with self.assertRaises(ValueError):
+                euler_pullback_words(0, invalid)
+        result = euler_pullback_words(3, 2)
+        result[(3,)] = 0
+        self.assertEqual(euler_pullback_words(3, 2)[(3,)], 2)
 
 
 class FormalArithmeticTests(unittest.TestCase):

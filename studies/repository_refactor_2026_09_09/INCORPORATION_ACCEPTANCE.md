@@ -259,3 +259,56 @@ empirical dataset or figure was promoted. This acceptance neither resolves
 the general uncut nonlinear population theorem nor asserts generalization.
 The six concurrent PDF-exporter files from `eb6e628` are preserved but excluded
 from this task's scientific-library inventory and acceptance.
+
+## Continuation from ae43aa4: capped spaces and finite loss calculus
+
+The checkpoint was verified in the same shared checkout. Eight inherited
+modified review artifacts were left untouched; their credential-limited
+metadata receipt is `CONTINUATION_START_STATE.json`. The previous 25-file
+scientific edition is preserved byte-for-byte as
+`reviews/CONTINUATION_BASE_LIBRARY_INPUTS.json`. The six PDF-exporter files
+from `eb6e628` remain excluded and unchanged. Only the coordinator writes Git.
+
+Finite-controls Section 12 contains the complete 417-line
+`GIVEN_SPACE_CAPS_ADDITION.md`, SHA-256
+`cdda914e481b46d51366a5d80661cd192b0f319d6507bc8b29eba69d87f9f95d`.
+It proves global dissipative capped dynamics on specified separable L2/HS
+spaces, then strong uncapped convergence, raw kernels and reached-state
+restart conditional on uniform exponential square tails. The prescribed
+bounded initial operator, three-input activation/clock, zero readout and
+tail premise are explicit. It constructs no canonical Gaussian action and
+identifies no finite-network GF/GD population limit.
+
+Gaussian Section 9 contains the complete 366-line
+`CALCULUS_PULLBACK_ADDITION.md`, SHA-256
+`dccefe204d607ad778a09e9a2c98ced0fbcb50a75cba869c44df9d9f652108ea`.
+It derives exact Euler pullback words, rational paired temporal weights, the
+fixed-N integral remainder, an arbitrary-residual cubic full-loss identity,
+and a separate convex-region comparison bound. New exact APIs are
+`euler_pullback_words` and `paired_euler_weights`; they evaluate combinatorial
+weights, not predictor derivatives or neural moments. Code/test hashes are
+`d7cd27b3bffed6152bb9fad40514a8e2848561fa6d44e0cb1aa0fd652d7e5aa3`
+and `58881bee416ba4b5db9e7688003bfcbef985c4fc82e006c29dbe8a25c32ce242`.
+
+The first paired complete reviews are retained unchanged as
+`reviews/CONTINUATION_CAPS_PULLBACK_A1.md` (CLEAN) and
+`reviews/CONTINUATION_CAPS_PULLBACK_B1.md` (CORRECTIONS REQUIRED). The latter
+found that a smooth squared loss need not have a C3 predictor. The tensor
+specialization now states that additional condition; it is not inferred from
+loss regularity. Both fresh complete corrected-version reviews are CLEAN:
+`reviews/CONTINUATION_CAPS_PULLBACK_A2.md` and
+`reviews/CONTINUATION_CAPS_PULLBACK_B2.md`. Each read all eleven files and
+2,501 lines, verified every input hash, passed all eleven supplied tests and
+independent bounded algebra/metric checks. They received only complete
+candidate material and explicit dependencies, never project histories or
+prior verdicts. The unsuccessful version was not promoted.
+
+Source proofs and correction reads are in
+`source_audits/GIVEN_SPACE_CAPS_ASSEMBLY.md` and
+`source_audits/CALCULUS_PULLBACK_ASSEMBLY.md`. No specialized external theorem
+is used without a contained proof. Both reviewed proof fragments are inserted
+byte-exactly; chapter introductions and guides describe their different scopes.
+A standalone copy of the 25 scientific inputs, without studies/data/exporter,
+passes `make check` and all 77 tests. The live six-module scientific allowlist
+also passes 77 tests. The four added methods are finite deterministic checks;
+no training, population simulation or historical campaign was run.
