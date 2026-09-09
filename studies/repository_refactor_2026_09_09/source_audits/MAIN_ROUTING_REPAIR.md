@@ -142,3 +142,33 @@ manifest and private diagnostic/mock scripts are retained in `../reviews/`;
 their original private basenames were `diagnostics.py` and `mock_python`.
 Fresh isolated round 4 is pending. No historical identity failure has been
 waived or counted as a scientific pass.
+
+## Independent round 4 and complete evidence selection
+
+Round 4 is preserved as NOT CLEAN in `../reviews/MAIN_ROUTING_ROUND4.md`.
+It found an early runner ignoring CLI requests, destructive input/output aliases,
+and incomplete propagation of the quadratic evidence-root override. The current
+Galerkin main parses arguments before creating a directory or dispatching work;
+its existing environment-variable interface is unchanged. The operator merger
+refuses occupied final/partial paths and input aliases before loading, creates
+its partial exclusively, and checks the final destination again before publishing.
+This protects pre-existing aliases, not a malicious concurrent filesystem race.
+
+Quadratic Campaigns 1–4 now reject occupied/aliased outputs before computing;
+direct writers use exclusive creation and Campaign 4 uses its unique temporary
+writer with a second destination check. This includes the sibling interfaces
+sharing the defect, not just the single reproduced case. Missing evidence is
+not silently replaced with history: all remaining hard-coded historical data
+bindings use the selected input root, while fixed source certificates use the
+existing explicit-override-aware selector. No expected hash was updated, and
+the modified live sources may therefore fail old source-identity seals as before.
+
+All 24 bounded routing tests pass (13 ResNet, 11 quadratic). New tests exercise
+help/unknown-flag refusal before work, same-path/symlink/hardlink aliases before
+loading or computation, a tiny four-member pooled-array fixture with unchanged
+input hashes, and the selected path assignments of eight additional evidence
+consumers. Scientific functions, coefficient generation, compiler-dependent
+regression suites and research runs were not dispatched. The round-4 reports,
+501-row unchanged input manifests and diagnostic scripts remain byte-exact;
+their old private paths are archival provenance, not portable entrypoints.
+Fresh isolated round 5 is pending.

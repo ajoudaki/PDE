@@ -1,0 +1,74 @@
+[
+  {
+    "check": "Actual Gaussian writer accepts retained-file alias",
+    "chosen_output": "/tmp/pde-gaussian-routing-round2.9aqvL6FK/tmptf8lbtu3/fresh",
+    "attempted_child": "/tmp/pde-gaussian-routing-round2.9aqvL6FK/tmptf8lbtu3/fresh/H3_NORMALIZED_SINE_RESULT.json",
+    "resolves_to": "/home/amir/Codes/PDE/data/historical/studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/H3_NORMALIZED_SINE_RESULT.json",
+    "retained_sha256": "711da231ee0193ffeb94ca6a2e2907d6aedd9f76b56fa24c5fc7f56b0f34ac17",
+    "retained_unchanged": true,
+    "limit": "Tiny 3x3x4 fixture and existing affine fit only; prediction and fixture hash patched; write_text tripwire prevents all target writes; no real frozen hash reset"
+  },
+  {
+    "check": "Gaussian common consumer selection",
+    "consumer": "mfp_gaussian_calculus/order5/independent/compare_primary.py",
+    "flags": [],
+    "selected_arguments": [
+      "/home/amir/Codes/PDE/data/generated/mfp_gaussian_calculus/order5/independent/independent_coefficient_map.json",
+      "unit_gram"
+    ],
+    "limit": "Actual parser and main; stopped at first map reader/evaluator, no quadrature or compilation"
+  },
+  {
+    "check": "Gaussian common consumer selection",
+    "consumer": "mfp_gaussian_calculus/order5/independent/compare_primary.py",
+    "flags": [
+      "--historical"
+    ],
+    "selected_arguments": [
+      "/home/amir/Codes/PDE/data/historical/studies/mfp_gaussian_calculus/order5/independent/independent_coefficient_map.json",
+      "unit_gram"
+    ],
+    "limit": "Actual parser and main; stopped at first map reader/evaluator, no quadrature or compilation"
+  },
+  {
+    "check": "Gaussian common consumer selection",
+    "consumer": "mfp_gaussian_calculus/order5/independent/nonpolynomial_prediction.py",
+    "flags": [],
+    "selected_arguments": [
+      32,
+      "/home/amir/Codes/PDE/data/generated/mfp_gaussian_calculus/order5/independent"
+    ],
+    "limit": "Actual parser and main; stopped at first map reader/evaluator, no quadrature or compilation"
+  },
+  {
+    "check": "Gaussian common consumer selection",
+    "consumer": "mfp_gaussian_calculus/order5/independent/nonpolynomial_prediction.py",
+    "flags": [
+      "--historical"
+    ],
+    "selected_arguments": [
+      32,
+      "/home/amir/Codes/PDE/data/historical/studies/mfp_gaussian_calculus/order5/independent"
+    ],
+    "limit": "Actual parser and main; stopped at first map reader/evaluator, no quadrature or compilation"
+  },
+  {
+    "check": "Unguarded report callable current preconditions",
+    "missing_source_local_inputs": [
+      "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5/audit/FROZEN_MAP_COMPARISON.json",
+      "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5/audit/NORMALIZED_SINE_EXPERIMENT.json",
+      "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5/primary/NORMALIZED_SINE_CONTROL.json"
+    ],
+    "limit": "Existence checks only; current build is obstructed by missing run inputs, but lacks its callable archive guard"
+  },
+  {
+    "check": "Gaussian fixed source control role",
+    "first_payload": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/order5/compiler/MANIFEST.json",
+    "limit": "Stopped before JSON read; source path binding only"
+  },
+  {
+    "check": "Quadratic shared source import",
+    "target": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5_scalar/primary/moving_scalar_extension.py",
+    "limit": "Import and code-object inspection only; no recurrence calls"
+  }
+]

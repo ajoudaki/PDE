@@ -11,12 +11,15 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+import sys
 
 import sympy as sp
 
 
 HERE = Path(__file__).resolve().parent
-DATA = HERE.parents[2] / "data/historical/studies/mfp_quadratic_compiler/campaign5_b3"
+sys.path.insert(0, str(HERE.parent))
+from campaign_paths import INPUT_ROOT
+DATA = INPUT_ROOT / "campaign5_b3"
 STAGE_A = DATA / "frozen" / "stage_a_connected_order3.json"
 STAGE_B = DATA / "frozen" / "stage_b_connected_order5.json"
 RHO = sp.Symbol("rho")

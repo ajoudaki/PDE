@@ -15,7 +15,7 @@ import sympy as sp
 HERE = Path(__file__).resolve().parent
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from campaign_paths import INPUT_ROOT, OUTPUT_ROOT, recorded_sector_path
+from campaign_paths import INPUT_ROOT, OUTPUT_ROOT, recorded_sector_path, require_new_output
 
 t = sp.symbols("t")
 
@@ -140,6 +140,7 @@ def main() -> None:
     parser.add_argument("--output", type=Path,
                         default=OUTPUT_ROOT / "campaign3/certificates_order7.json")
     args = parser.parse_args()
+    args.output = require_new_output(args.output, [args.input])
     jets = load_jets(args.input)
     accepted = {1: 111, 3: 1_685_184, 5: 77_400_633_120,
                 7: 7_315_868_433_079_296}
@@ -181,7 +182,8 @@ def main() -> None:
         ),
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(output, indent=2)+"\n")
+    with args.output.open("x", encoding="utf-8") as stream:
+        stream.write(json.dumps(output, indent=2)+"\n")
     print(args.output)
 
 

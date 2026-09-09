@@ -1,0 +1,24 @@
+test_archival_curvature_wrapper_refuses_before_global_patch_or_campaign (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_comparison_uses_selected_inputs_and_fresh_outputs (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_freeze_is_archive_only_even_when_seal_is_missing (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_freeze_refuses_existing_seal_without_any_writes (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_h3_fresh_producers_and_consumers_agree (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_historical_selection_is_explicit (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_other_archive_guards_precede_function_work (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_reject_unsafe_outputs_before_any_compiler_or_input_work (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_selected_sine_fixture_to_separate_fresh_result (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_historical_paths_and_both_retained_map_schemas (studies.mfp_gaussian_calculus.test_migration_retired_interfaces.FrozenComparisonInputTests) ... ok
+test_missing_or_malformed_retained_inputs_do_not_fall_back (studies.mfp_gaussian_calculus.test_migration_retired_interfaces.FrozenComparisonInputTests) ... ok
+test_clis_refuse_from_external_cwd_without_site_dependencies (studies.mfp_gaussian_calculus.test_migration_retired_interfaces.RetiredInterfaceTests) ... ok
+test_imported_writers_and_runners_refuse_before_work_or_io (studies.mfp_gaussian_calculus.test_migration_retired_interfaces.RetiredInterfaceTests) ... ok
+test_pure_modules_and_individual_tests_remain_importable (studies.mfp_gaussian_calculus.test_migration_retired_interfaces.RetiredInterfaceTests) ... ok
+test_actual_help_from_external_cwd (studies.mfp_linear_growth_uniform_counterexample.test_migration_paths.ProducerPathTests) ... ok
+test_default_output_is_study_generated_data (studies.mfp_linear_growth_uniform_counterexample.test_migration_paths.ProducerPathTests) ... ok
+test_help_exits_before_either_compiler (studies.mfp_linear_growth_uniform_counterexample.test_migration_paths.ProducerPathTests) ... ok
+test_load_document_does_not_require_compilation (studies.mfp_cubic_compiler.two_input_plus_gaussian_program.test_migration_paths.CubicInputPathsTests) ... ok
+test_three_retained_input_hashes_are_exact (studies.mfp_cubic_compiler.two_input_plus_gaussian_program.test_migration_paths.CubicInputPathsTests) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.243s
+
+OK

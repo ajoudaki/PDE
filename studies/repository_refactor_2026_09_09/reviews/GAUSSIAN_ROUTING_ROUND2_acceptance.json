@@ -1,0 +1,386 @@
+[
+  {
+    "check": "StudyPaths",
+    "source": "causal_flow_peeling_calculus/experiments/adaptive_query_probe.py",
+    "fresh_input": "/home/amir/Codes/PDE/data/generated/causal_flow_peeling_calculus/experiments",
+    "fresh_output": "/home/amir/Codes/PDE/data/generated/causal_flow_peeling_calculus/experiments",
+    "historical_input": "/home/amir/Codes/PDE/data/historical/studies/causal_flow_peeling_calculus/experiments",
+    "rejected": [
+      "/home/amir/Codes/PDE/studies/causal_flow_peeling_calculus/experiments/adaptive_query_probe.py",
+      "/home/amir/Codes/PDE/data/historical/studies/causal_flow_peeling_calculus/no-write",
+      "/home/amir/Codes/PDE/data/generated/another_study/no-write"
+    ]
+  },
+  {
+    "check": "StudyPaths",
+    "source": "d3_arctan_closure_program/analyze_gpu_high_moment_tail.py",
+    "fresh_input": "/home/amir/Codes/PDE/data/generated/d3_arctan_closure_program",
+    "fresh_output": "/home/amir/Codes/PDE/data/generated/d3_arctan_closure_program",
+    "historical_input": "/home/amir/Codes/PDE/data/historical/studies/d3_arctan_closure_program",
+    "rejected": [
+      "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_gpu_high_moment_tail.py",
+      "/home/amir/Codes/PDE/data/historical/studies/d3_arctan_closure_program/no-write",
+      "/home/amir/Codes/PDE/data/generated/another_study/no-write"
+    ]
+  },
+  {
+    "check": "StudyPaths",
+    "source": "mfp_gaussian_calculus/depth_order5/audit/compare_frozen.py",
+    "fresh_input": "/home/amir/Codes/PDE/data/generated/mfp_gaussian_calculus/depth_order5/audit",
+    "fresh_output": "/home/amir/Codes/PDE/data/generated/mfp_gaussian_calculus/depth_order5/audit",
+    "historical_input": "/home/amir/Codes/PDE/data/historical/studies/mfp_gaussian_calculus/depth_order5/audit",
+    "rejected": [
+      "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5/audit/compare_frozen.py",
+      "/home/amir/Codes/PDE/data/historical/studies/mfp_gaussian_calculus/no-write",
+      "/home/amir/Codes/PDE/data/generated/another_study/no-write"
+    ]
+  },
+  {
+    "check": "StudyPaths",
+    "source": "mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/audit_hankel40.py",
+    "fresh_input": "/home/amir/Codes/PDE/data/generated/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search",
+    "fresh_output": "/home/amir/Codes/PDE/data/generated/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search",
+    "historical_input": "/home/amir/Codes/PDE/data/historical/studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search",
+    "rejected": [
+      "/home/amir/Codes/PDE/studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/audit_hankel40.py",
+      "/home/amir/Codes/PDE/data/historical/studies/mfp_identity_compiler/no-write",
+      "/home/amir/Codes/PDE/data/generated/another_study/no-write"
+    ]
+  },
+  {
+    "check": "StudyPaths",
+    "source": "mfp_linear_growth_uniform_counterexample/full_l2_paired_transition.py",
+    "fresh_input": "/home/amir/Codes/PDE/data/generated/mfp_linear_growth_uniform_counterexample",
+    "fresh_output": "/home/amir/Codes/PDE/data/generated/mfp_linear_growth_uniform_counterexample",
+    "historical_input": "/home/amir/Codes/PDE/data/historical/studies/mfp_linear_growth_uniform_counterexample",
+    "rejected": [
+      "/home/amir/Codes/PDE/studies/mfp_linear_growth_uniform_counterexample/full_l2_paired_transition.py",
+      "/home/amir/Codes/PDE/data/historical/studies/mfp_linear_growth_uniform_counterexample/no-write",
+      "/home/amir/Codes/PDE/data/generated/another_study/no-write"
+    ]
+  },
+  {
+    "check": "Gaussian guard retained-child alias",
+    "accepted_directory": "/tmp/pde-gaussian-routing-round2.9aqvL6FK/tmp5rm63xl2",
+    "child": "H3_NORMALIZED_SINE_RESULT.json",
+    "resolved_write_target": "/home/amir/Codes/PDE/data/historical/studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/H3_NORMALIZED_SINE_RESULT.json",
+    "shared_guard_refusal": "output directory contains symlinks: /tmp/pde-gaussian-routing-round2.9aqvL6FK/tmp5rm63xl2",
+    "limit": "Only guard and path resolution executed; no target write or postprocessing"
+  },
+  {
+    "check": "D3 actual main input selection",
+    "source": "d3_arctan_closure_program/analyze_gpu_high_moment_tail.py",
+    "flags": [],
+    "selected": "/home/amir/Codes/PDE/data/generated/d3_arctan_closure_program/gpu_tail_results/tail_main_n256_h0.01.npz",
+    "output_directory": [
+      [],
+      {
+        "parents": true,
+        "exist_ok": true
+      }
+    ],
+    "retained_exists": "not inspected",
+    "limit": "mkdir and RNG stubbed; first load raises before reading data or analysis"
+  },
+  {
+    "check": "D3 actual main input selection",
+    "source": "d3_arctan_closure_program/analyze_gpu_high_moment_tail.py",
+    "flags": [
+      "--historical-inputs"
+    ],
+    "selected": "/home/amir/Codes/PDE/data/historical/studies/d3_arctan_closure_program/gpu_tail_results/tail_main_n256_h0.01.npz",
+    "output_directory": [
+      [],
+      {
+        "parents": true,
+        "exist_ok": true
+      }
+    ],
+    "retained_exists": true,
+    "limit": "mkdir and RNG stubbed; first load raises before reading data or analysis"
+  },
+  {
+    "check": "D3 actual main input selection",
+    "source": "d3_arctan_closure_program/analyze_gpu_high_moment_tail.py",
+    "flags": [
+      "--input-dir",
+      "/tmp/pde-gaussian-routing-round2.9aqvL6FK/selected"
+    ],
+    "selected": "/tmp/pde-gaussian-routing-round2.9aqvL6FK/selected/tail_main_n256_h0.01.npz",
+    "output_directory": [
+      [],
+      {
+        "parents": true,
+        "exist_ok": true
+      }
+    ],
+    "retained_exists": "not inspected",
+    "limit": "mkdir and RNG stubbed; first load raises before reading data or analysis"
+  },
+  {
+    "check": "D3 actual main input selection",
+    "source": "d3_arctan_closure_program/analyze_gpu_gauge_block_gradient.py",
+    "flags": [],
+    "selected": "/home/amir/Codes/PDE/data/generated/d3_arctan_closure_program/gpu_gauge_gradient_results/gauge_main_h001_eps002_fp32_n256.npz",
+    "output_directory": [
+      [],
+      {
+        "parents": true,
+        "exist_ok": true
+      }
+    ],
+    "retained_exists": "not inspected",
+    "limit": "mkdir and RNG stubbed; first load raises before reading data or analysis"
+  },
+  {
+    "check": "D3 actual main input selection",
+    "source": "d3_arctan_closure_program/analyze_gpu_gauge_block_gradient.py",
+    "flags": [
+      "--historical-inputs"
+    ],
+    "selected": "/home/amir/Codes/PDE/data/historical/studies/d3_arctan_closure_program/gpu_gauge_gradient_results/gauge_main_h001_eps002_fp32_n256.npz",
+    "output_directory": [
+      [],
+      {
+        "parents": true,
+        "exist_ok": true
+      }
+    ],
+    "retained_exists": true,
+    "limit": "mkdir and RNG stubbed; first load raises before reading data or analysis"
+  },
+  {
+    "check": "D3 actual main input selection",
+    "source": "d3_arctan_closure_program/analyze_gpu_gauge_block_gradient.py",
+    "flags": [
+      "--input-dir",
+      "/tmp/pde-gaussian-routing-round2.9aqvL6FK/selected"
+    ],
+    "selected": "/tmp/pde-gaussian-routing-round2.9aqvL6FK/selected/gauge_main_h001_eps002_fp32_n256.npz",
+    "output_directory": [
+      [],
+      {
+        "parents": true,
+        "exist_ok": true
+      }
+    ],
+    "retained_exists": "not inspected",
+    "limit": "mkdir and RNG stubbed; first load raises before reading data or analysis"
+  },
+  {
+    "check": "D3 actual main input selection",
+    "source": "d3_arctan_closure_program/analyze_gpu_weighted_offcolumn_response.py",
+    "flags": [],
+    "selected": "/home/amir/Codes/PDE/data/generated/d3_arctan_closure_program/gpu_weighted_response_results/weighted_main_h001_eps002_fp32_n256.npz",
+    "output_directory": [
+      [],
+      {
+        "parents": true,
+        "exist_ok": true
+      }
+    ],
+    "retained_exists": "not inspected",
+    "limit": "mkdir and RNG stubbed; first load raises before reading data or analysis"
+  },
+  {
+    "check": "D3 actual main input selection",
+    "source": "d3_arctan_closure_program/analyze_gpu_weighted_offcolumn_response.py",
+    "flags": [
+      "--historical-inputs"
+    ],
+    "selected": "/home/amir/Codes/PDE/data/historical/studies/d3_arctan_closure_program/gpu_weighted_response_results/weighted_main_h001_eps002_fp32_n256.npz",
+    "output_directory": [
+      [],
+      {
+        "parents": true,
+        "exist_ok": true
+      }
+    ],
+    "retained_exists": true,
+    "limit": "mkdir and RNG stubbed; first load raises before reading data or analysis"
+  },
+  {
+    "check": "D3 actual main input selection",
+    "source": "d3_arctan_closure_program/analyze_gpu_weighted_offcolumn_response.py",
+    "flags": [
+      "--input-dir",
+      "/tmp/pde-gaussian-routing-round2.9aqvL6FK/selected"
+    ],
+    "selected": "/tmp/pde-gaussian-routing-round2.9aqvL6FK/selected/weighted_main_h001_eps002_fp32_n256.npz",
+    "output_directory": [
+      [],
+      {
+        "parents": true,
+        "exist_ok": true
+      }
+    ],
+    "retained_exists": "not inspected",
+    "limit": "mkdir and RNG stubbed; first load raises before reading data or analysis"
+  },
+  {
+    "check": "Actual help",
+    "source": "causal_flow_peeling_calculus/experiments/adaptive_query_probe.py",
+    "output_option": true,
+    "limit": "argument parser exits before main work"
+  },
+  {
+    "check": "Actual help",
+    "source": "causal_flow_peeling_calculus/experiments/hermite_tail_probe.py",
+    "output_option": true,
+    "limit": "argument parser exits before main work"
+  },
+  {
+    "check": "Actual help",
+    "source": "causal_flow_peeling_calculus/experiments/koopman_taylor_probe.py",
+    "output_option": true,
+    "limit": "argument parser exits before main work"
+  },
+  {
+    "check": "Actual help",
+    "source": "causal_flow_peeling_calculus/experiments/l1_koopman_obstruction.py",
+    "output_option": true,
+    "limit": "argument parser exits before main work"
+  },
+  {
+    "check": "Actual help",
+    "source": "mfp_linear_growth_uniform_counterexample/full_l2_paired_transition.py",
+    "output_option": true,
+    "limit": "argument parser exits before main work"
+  },
+  {
+    "check": "Linear map loader",
+    "fresh": "/home/amir/Codes/PDE/data/generated/mfp_linear_growth_uniform_counterexample/FULL_L2_PAIRED_ORDER5_MAP.json",
+    "historical": "/home/amir/Codes/PDE/data/historical/studies/mfp_linear_growth_uniform_counterexample/FULL_L2_PAIRED_ORDER5_MAP.json",
+    "historical_sha256": "b1f59588ed55a6bde348bd1ea55837ad64d537315a21eec8f827ec33cfe87ed6",
+    "limit": "JSON fixture for loader dispatch; actual historical file hashed only"
+  },
+  {
+    "check": "Identity actual main selection",
+    "source": "mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/run_search.py",
+    "flags": [],
+    "selected": "producer argument parser reached",
+    "generated_default": "/home/amir/Codes/PDE/data/generated/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search",
+    "limit": "Blank sympy import placeholder; stopped at first data read or depth2_taylor call"
+  },
+  {
+    "check": "Identity actual main selection",
+    "source": "mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/spectral_closure.py",
+    "flags": [],
+    "selected": "/home/amir/Codes/PDE/data/generated/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/RESULTS.json",
+    "generated_default": "/home/amir/Codes/PDE/data/generated/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search",
+    "limit": "Blank sympy import placeholder; stopped at first data read or depth2_taylor call"
+  },
+  {
+    "check": "Identity actual main selection",
+    "source": "mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/spectral_closure.py",
+    "flags": [
+      "--historical-inputs"
+    ],
+    "selected": "/home/amir/Codes/PDE/data/historical/studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/RESULTS.json",
+    "generated_default": "/home/amir/Codes/PDE/data/generated/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search",
+    "limit": "Blank sympy import placeholder; stopped at first data read or depth2_taylor call"
+  },
+  {
+    "check": "Identity actual main selection",
+    "source": "mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/audit_hankel40.py",
+    "flags": [],
+    "selected": "/home/amir/Codes/PDE/data/generated/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/RESULTS.json",
+    "generated_default": "/home/amir/Codes/PDE/data/generated/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search",
+    "limit": "Blank sympy import placeholder; stopped at first data read or depth2_taylor call"
+  },
+  {
+    "check": "Identity actual main selection",
+    "source": "mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/audit_hankel40.py",
+    "flags": [
+      "--historical-inputs"
+    ],
+    "selected": "/home/amir/Codes/PDE/data/historical/studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/RESULTS.json",
+    "generated_default": "/home/amir/Codes/PDE/data/generated/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search",
+    "limit": "Blank sympy import placeholder; stopped at first data read or depth2_taylor call"
+  },
+  {
+    "check": "Actual frozen coefficient readers",
+    "depth": 2,
+    "historical": "/home/amir/Codes/PDE/data/historical/studies/mfp_gaussian_calculus/order5/compiler/PRIMARY_UNIT_COEFFICIENT_MAP.json",
+    "counts": {
+      "A": 3,
+      "B": 46,
+      "C": 974
+    },
+    "expected_hash": "68dd13460fb5bfab187d0d7e61b90adeec43a2311c2cab2726fd68b73fbf37f2",
+    "generated_selection": "/home/amir/Codes/PDE/data/generated/mfp_gaussian_calculus/order5/compiler/PRIMARY_UNIT_COEFFICIENT_MAP.json",
+    "limit": "Retained JSON digest/schema/count reading and canonicalization only; no candidate compilation"
+  },
+  {
+    "check": "Actual frozen coefficient readers",
+    "depth": 3,
+    "historical": "/home/amir/Codes/PDE/data/historical/studies/mfp_gaussian_calculus/depth_order5/primary/H3_UNIT_COEFFICIENTS.json",
+    "counts": {
+      "A": 4,
+      "B": 160,
+      "C": 6519
+    },
+    "expected_hash": "564c6a27d6071e8601d21fd167dfd8f21d7ac9fe2323695a626eeebf73b980c6",
+    "generated_selection": "/home/amir/Codes/PDE/data/generated/mfp_gaussian_calculus/depth_order5/primary/H3_UNIT_COEFFICIENTS.json",
+    "limit": "Retained JSON digest/schema/count reading and canonicalization only; no candidate compilation"
+  },
+  {
+    "check": "Actual frozen coefficient readers",
+    "depth": 4,
+    "historical": "/home/amir/Codes/PDE/data/historical/studies/mfp_gaussian_calculus/depth_order5/primary/H4_UNIT_COEFFICIENTS.json",
+    "counts": {
+      "A": 5,
+      "B": 350,
+      "C": 17641
+    },
+    "expected_hash": "b3b220b76c8d30037cf0bfc0a8a1dc05884b28601a1c28e45b0daf9ff64faa5d",
+    "generated_selection": "/home/amir/Codes/PDE/data/generated/mfp_gaussian_calculus/depth_order5/primary/H4_UNIT_COEFFICIENTS.json",
+    "limit": "Retained JSON digest/schema/count reading and canonicalization only; no candidate compilation"
+  },
+  {
+    "check": "Gaussian conflicting input modes",
+    "rejected": true,
+    "shared_reference_table_unchanged": true
+  },
+  {
+    "check": "Unguarded report callable",
+    "entry": "build",
+    "scientific_or_report_work_calls": 1,
+    "code_file": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5/primary/build_self_contained_report.py",
+    "first_line": 86,
+    "limit": "build_bytes tripwire stops before report source reads or writes"
+  },
+  {
+    "check": "Report CLI main refusal",
+    "message": "archive-only report/freeze interface; migration does not authorize rebuilding its historical seals"
+  },
+  {
+    "check": "Unguarded frozen-head CLI",
+    "message": "CLI reached reduce() before any refusal",
+    "frozen_source_digest_matches": true,
+    "recurrence_output": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5_observables/independent/FROZEN_GAMMA04_REDUCED_RECURRENCE.json",
+    "formula_output": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5_observables/independent/FROZEN_GAMMA04_REDUCED_TRANSITIONS.md",
+    "limit": "Trace abort at reduce function call, before first body line; no reduction or artifact generation"
+  },
+  {
+    "check": "Broken compiler package first gate",
+    "dispatched": [
+      "test_all_frozen_coefficient_comparisons_report_zero_discrepancies"
+    ],
+    "missing": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/order5/independent/SYMBOLIC_Q0_PRIMARY_COMPARISON.json",
+    "retained_counterpart": "/home/amir/Codes/PDE/data/historical/studies/mfp_gaussian_calculus/order5/independent/SYMBOLIC_Q0_PRIMARY_COMPARISON.json",
+    "limit": "Actual selected check only, two JSON reads; package loop stopped before all scientific tests"
+  },
+  {
+    "check": "History report build routing",
+    "output": "/home/amir/Codes/PDE/data/generated/mfp_program_history/report/MEAN_FIELD_PEELING_REPORT.pdf",
+    "build": "/home/amir/Codes/PDE/data/generated/mfp_program_history/report/build",
+    "source_payloads": [
+      "/home/amir/Codes/PDE/studies/mfp_program_history/CURRENT_RESEARCH_STATE.md",
+      "/home/amir/Codes/PDE/studies/mfp_program_history/MUP_TRAINING_CASE_STUDY.md",
+      "/home/amir/Codes/PDE/studies/mfp_program_history/archive/ORIGINAL_NOTES_AND_NTK_SAMPLE.md"
+    ],
+    "wrapper": "/home/amir/Codes/PDE/studies/mfp_program_history/report/MEAN_FIELD_PEELING_REPORT.tex",
+    "limit": "Checked current paths and main dispatch; mkdir mocked and stopped before payload reads, TeX execution or PDF writes"
+  }
+]

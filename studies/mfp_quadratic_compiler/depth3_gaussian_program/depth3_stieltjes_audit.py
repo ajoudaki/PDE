@@ -7,6 +7,7 @@ import hashlib
 import importlib.util
 import json
 import math
+import sys
 from fractions import Fraction
 from itertools import combinations
 from pathlib import Path
@@ -14,9 +15,11 @@ from typing import Sequence
 
 Q = Fraction
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent))
+from campaign_paths import INPUT_ROOT
 REPO = HERE.parents[2]
 INPUT = (
-    HERE.parents[2] / "data/historical/studies/mfp_quadratic_compiler/depth3_gaussian_program/results_order9.json"
+    INPUT_ROOT / "depth3_gaussian_program/results_order9.json"
 )
 PROTOCOL = HERE / "STIELTJES_PROTOCOL.md"
 EXACT_SERIES = (

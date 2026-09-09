@@ -47,3 +47,21 @@ def certificate_path(relative: str) -> Path:
     """Fixed certificates are source artifacts; an explicit replay selects new ones."""
     base = INPUT_ROOT if "PDE_QUADRATIC_INPUT_ROOT" in os.environ else STUDY_ROOT
     return base / relative
+
+
+def require_new_output(output: Path, inputs=()) -> Path:
+    """Refuse input aliases and occupied destinations before postprocessing.
+
+    Callers create direct outputs exclusively or publish a unique temporary
+    file. This is a pre-existing-alias guard, not a concurrent-adversary claim.
+    """
+    output = Path(output).expanduser().absolute()
+    for source in inputs:
+        source = Path(source)
+        if output.resolve() == source.resolve() or (
+            output.exists() and source.exists() and output.samefile(source)
+        ):
+            raise ValueError(f"output aliases an input: {source}")
+    if output.exists() or output.is_symlink():
+        raise FileExistsError(f"refusing to overwrite existing output: {output}")
+    return output

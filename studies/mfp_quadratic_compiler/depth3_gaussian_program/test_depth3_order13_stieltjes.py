@@ -9,6 +9,7 @@ from fractions import Fraction
 from pathlib import Path
 
 from depth3_stieltjes_audit import (
+    INPUT_ROOT,
     audit_hankels,
     load_existing_moment_transform,
     moments_from_triangular_identity,
@@ -17,7 +18,7 @@ from depth3_stieltjes_audit import (
 
 HERE = Path(__file__).resolve().parent
 RESULT = (
-    HERE.parents[2] / "data/historical/studies/mfp_quadratic_compiler/depth3_gaussian_program/results_order13.json"
+    INPUT_ROOT / "depth3_gaussian_program/results_order13.json"
 )
 
 EXPECTED_MU4 = Fraction(

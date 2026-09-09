@@ -14,13 +14,16 @@ import json
 from pathlib import Path
 import subprocess
 import tempfile
+import sys
 
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent))
+from campaign_paths import INPUT_ROOT
 CAMPAIGN2 = HERE.parent / "campaign2"
 SOURCE = HERE / "b3_connected.cpp"
 ACCEPTED_RAW = (
-    HERE.parents[2] / "data/historical/studies/mfp_quadratic_compiler/campaign2/frozen/plus_order7_raw.json"
+    INPUT_ROOT / "campaign2/frozen/plus_order7_raw.json"
 )
 ACCEPTED_SOURCE_SHA256 = (
     "5dd93cbc8fb97479e6c54dbc2202bfec42d0156014f5d34b4d40e77da9d6621f"

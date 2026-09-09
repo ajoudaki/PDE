@@ -5,9 +5,12 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import subprocess
+import sys
 
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent))
+from campaign_paths import certificate_path
 
 
 def test_lower_moment_certificate_recomputes_exactly() -> None:
@@ -18,7 +21,7 @@ def test_lower_moment_certificate_recomputes_exactly() -> None:
         capture_output=True,
     )
     computed = json.loads(completed.stdout)
-    frozen = json.loads((HERE / "certificates_lower_moments.json").read_text())
+    frozen = json.loads(certificate_path("campaign5_b3/certificates_lower_moments.json").read_text())
     assert computed == frozen
     assert all(
         piece["distinct_real_root_count"] == 0
@@ -32,4 +35,3 @@ def test_lower_moment_certificate_recomputes_exactly() -> None:
     assert conclusions["mu1_positive_on_full_domain"]
     assert not conclusions["mu2_available"]
     assert not conclusions["ordinary_H1_available"]
-

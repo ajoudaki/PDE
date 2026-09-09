@@ -18,7 +18,7 @@ import sympy as sp
 HERE = Path(__file__).resolve().parent
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from campaign_paths import INPUT_ROOT, OUTPUT_ROOT, recorded_sector_path
+from campaign_paths import INPUT_ROOT, OUTPUT_ROOT, recorded_sector_path, require_new_output
 
 alpha, beta = sp.symbols("alpha beta", nonnegative=True, real=True)
 
@@ -28,6 +28,7 @@ def sha256(path: Path) -> str:
 
 
 def atomic_json(path: Path, value: dict) -> None:
+    path = require_new_output(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     descriptor, temporary = tempfile.mkstemp(
         prefix=path.name+".", suffix=".tmp", dir=path.parent
@@ -38,6 +39,7 @@ def atomic_json(path: Path, value: dict) -> None:
             stream.write("\n")
             stream.flush()
             os.fsync(stream.fileno())
+        require_new_output(path)
         os.replace(temporary, path)
     except BaseException:
         try:
@@ -214,6 +216,7 @@ def main() -> None:
     parser.add_argument("--output", type=Path,
                         default=OUTPUT_ROOT / "campaign4/certificates_order9.json")
     args = parser.parse_args()
+    args.output = require_new_output(args.output, [args.input])
     result = compute(args.input)
     atomic_json(args.output, result)
     print(json.dumps({

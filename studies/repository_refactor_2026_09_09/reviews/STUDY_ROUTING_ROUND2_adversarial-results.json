@@ -1,0 +1,108 @@
+{
+  "current_hash_gate_refusals": {
+    "analysis_wrapper": "frozen analyzer hash mismatch",
+    "dense_wrapper": "frozen run_grid.py hash mismatch",
+    "generalization_source": "frozen source mismatch: README.md"
+  },
+  "finite_width_retained_input_overwrite": [
+    {
+      "after_sha256": "7af7861fa8527d49dcb47368fa1a0e09ec525a36007113174788762bff119747",
+      "before_sha256": "a20099271ae7a73d97641f1b2663163f3f36b823fa6c6c35c8b4f8a83e4881db",
+      "default_output_accepted": true,
+      "direct_historical_output_rejected": true,
+      "link": "symlink",
+      "new_keys": [
+        "jets",
+        "corrected"
+      ],
+      "output": "/tmp/pde-study-routing-round2.Rz1tF1e3/adversarial-kw6oia30/jet-symlink/toy-repo/data/generated/stieltjes_finite_width/run/jets_and_cv_width_64.npz",
+      "retained_input": "/tmp/pde-study-routing-round2.Rz1tF1e3/adversarial-kw6oia30/jet-symlink/toy-repo/data/historical/studies/stieltjes_direct_loewner/run/raw_width_64.npz",
+      "scientific_kernels_executed": false
+    },
+    {
+      "after_sha256": "7af7861fa8527d49dcb47368fa1a0e09ec525a36007113174788762bff119747",
+      "before_sha256": "a20099271ae7a73d97641f1b2663163f3f36b823fa6c6c35c8b4f8a83e4881db",
+      "default_output_accepted": true,
+      "direct_historical_output_rejected": true,
+      "link": "hardlink",
+      "new_keys": [
+        "jets",
+        "corrected"
+      ],
+      "output": "/tmp/pde-study-routing-round2.Rz1tF1e3/adversarial-kw6oia30/jet-hardlink/toy-repo/data/generated/stieltjes_finite_width/run/jets_and_cv_width_64.npz",
+      "retained_input": "/tmp/pde-study-routing-round2.Rz1tF1e3/adversarial-kw6oia30/jet-hardlink/toy-repo/data/historical/studies/stieltjes_direct_loewner/run/raw_width_64.npz",
+      "scientific_kernels_executed": false
+    }
+  ],
+  "generalization_partial_redirection": [
+    {
+      "accepted_output": "/tmp/pde-study-routing-round2.Rz1tF1e3/adversarial-kw6oia30/generalization-symlink/toy-repo/data/generated/resnet_generalization/results/generalization/processed/summary.json",
+      "after_sha256": "0fe4774180e545063d503cae72f53694ec95d61c79392dd267be85682078d650",
+      "before_sha256": "f80b5128736743973807d806474bb9e1a0f487a83d5dc43612dc14234b4c77b4",
+      "compiled_function": "_atomic_bytes only; caller require_output checks invoked separately",
+      "link": "symlink",
+      "retained_input": "/tmp/pde-study-routing-round2.Rz1tF1e3/adversarial-kw6oia30/generalization-symlink/toy-repo/data/historical/studies/resnet_generalization/input.bin",
+      "scientific_analysis_executed": false
+    },
+    {
+      "accepted_output": "/tmp/pde-study-routing-round2.Rz1tF1e3/adversarial-kw6oia30/generalization-hardlink/toy-repo/data/generated/resnet_generalization/results/generalization/processed/summary.json",
+      "after_sha256": "0fe4774180e545063d503cae72f53694ec95d61c79392dd267be85682078d650",
+      "before_sha256": "f80b5128736743973807d806474bb9e1a0f487a83d5dc43612dc14234b4c77b4",
+      "compiled_function": "_atomic_bytes only; caller require_output checks invoked separately",
+      "link": "hardlink",
+      "retained_input": "/tmp/pde-study-routing-round2.Rz1tF1e3/adversarial-kw6oia30/generalization-hardlink/toy-repo/data/historical/studies/resnet_generalization/input.bin",
+      "scientific_analysis_executed": false
+    }
+  ],
+  "generalization_raw_default_writer_redirection": {
+    "after_sha256": "16010e1d3c019da3b69e110f4b5172ffd9028cb924bdac059f74deee185a414c",
+    "before_sha256": "f80b5128736743973807d806474bb9e1a0f487a83d5dc43612dc14234b4c77b4",
+    "default_output": "/tmp/pde-study-routing-round2.Rz1tF1e3/adversarial-kw6oia30/generalization-raw/toy-repo/data/generated/resnet_generalization/results/raw/exact_legacy_B0_legacy_n1_L1_S2_seed1000_dt0p02_T0p0_cfgd8c9fbeeee38.npz",
+    "retained_input": "/tmp/pde-study-routing-round2.Rz1tF1e3/adversarial-kw6oia30/generalization-raw/toy-repo/data/historical/studies/resnet_generalization/retained.bin",
+    "run_function_executed_in_full": true,
+    "source_seal_or_pde_authorization_generated": false,
+    "trajectory_function": "fixed arrays substituted for _one_seed"
+  },
+  "real_archive_entry_refusals": {
+    "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/adjudicate_local_qualification.py": "archive-only FP64 runtime: the frozen config, source lock, unlock, preflight and attempt ledger authorize historical paths only. No new runtime is authorized by relocating source. Refusing before GPU imports, watchdog records, attempts or results; do not refresh seals or reset historical attempts. A fresh generated-data runtime requires a separately reviewed authorization contract.",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/gpu_preflight.py": "archive-only FP64 runtime: the frozen config, source lock, unlock, preflight and attempt ledger authorize historical paths only. No new runtime is authorized by relocating source. Refusing before GPU imports, watchdog records, attempts or results; do not refresh seals or reset historical attempts. A fresh generated-data runtime requires a separately reviewed authorization contract.",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/run_local_qualification.py": "archive-only FP64 runtime: the frozen config, source lock, unlock, preflight and attempt ledger authorize historical paths only. No new runtime is authorized by relocating source. Refusing before GPU imports, watchdog records, attempts or results; do not refresh seals or reset historical attempts. A fresh generated-data runtime requires a separately reviewed authorization contract.",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/watchdog_launcher.py": "archive-only FP64 runtime: the frozen config, source lock, unlock, preflight and attempt ledger authorize historical paths only. No new runtime is authorized by relocating source. Refusing before GPU imports, watchdog records, attempts or results; do not refresh seals or reset historical attempts. A fresh generated-data runtime requires a separately reviewed authorization contract.",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/successive_n4096/run_block.py": "archive-only FP64 runtime: the frozen config, source lock, unlock, preflight and attempt ledger authorize historical paths only. No new runtime is authorized by relocating source. Refusing before GPU imports, watchdog records, attempts or results; do not refresh seals or reset historical attempts. A fresh generated-data runtime requires a separately reviewed authorization contract.",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/successive_n8192/run_block.py": "archive-only FP64 runtime: the frozen config, source lock, unlock, preflight and attempt ledger authorize historical paths only. No new runtime is authorized by relocating source. Refusing before GPU imports, watchdog records, attempts or results; do not refresh seals or reset historical attempts. A fresh generated-data runtime requires a separately reviewed authorization contract."
+  },
+  "runtime": {
+    "numpy": "1.26.4",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]"
+  },
+  "shared_helper_hardlink_redirection": {
+    "actual_shared_directory_guard_used": true,
+    "after_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "before_sha256": "4cf45a1ae49e5672d53678c3e61883737ca8a82d054f6edfa1bb384935ebbad7",
+    "campaign_executed": false,
+    "compiled_prefix": "simulate_loewner.main lines 382-386 only",
+    "retained_input": "/tmp/pde-study-routing-round2.Rz1tF1e3/adversarial-kw6oia30/shared-hardlink/toy-repo/data/historical/studies/stieltjes_direct_loewner/retained.log"
+  },
+  "stage_v_timeout_path_escape": [
+    {
+      "after_sha256": "a4a1f50e43538f59b58fa6810cfc70d0690042b20a78e7b5a85e3ec0e45d1b30",
+      "before_sha256": "74b0ac9eba54f3f782a4bd718f44e5f8e002eb011aaae4b392c7f0b8793090f6",
+      "new_status": "failed_inconclusive_external_timeout",
+      "point_argument": "/tmp/pde-study-routing-round2.Rz1tF1e3/adversarial-kw6oia30/timeout-absolute/toy-repo/data/historical/studies/stieltjes_hybrid_campaign/retained-point",
+      "rc": 0,
+      "retained_manifest": "/tmp/pde-study-routing-round2.Rz1tF1e3/adversarial-kw6oia30/timeout-absolute/toy-repo/data/historical/studies/stieltjes_hybrid_campaign/retained-point/manifest.json",
+      "source_or_unlock_checks_called": false,
+      "torch_imported": false
+    },
+    {
+      "after_sha256": "aa110bca7b2ef00aad33462368042509c5ec07a474d47ec395ea82dd1df80ddd",
+      "before_sha256": "74b0ac9eba54f3f782a4bd718f44e5f8e002eb011aaae4b392c7f0b8793090f6",
+      "new_status": "failed_inconclusive_external_timeout",
+      "point_argument": "../../../../../../historical/studies/stieltjes_hybrid_campaign/retained-point",
+      "rc": 0,
+      "retained_manifest": "/tmp/pde-study-routing-round2.Rz1tF1e3/adversarial-kw6oia30/timeout-relative/toy-repo/data/historical/studies/stieltjes_hybrid_campaign/retained-point/manifest.json",
+      "source_or_unlock_checks_called": false,
+      "torch_imported": false
+    }
+  ]
+}

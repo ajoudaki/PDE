@@ -1,0 +1,30 @@
+{
+  "source": "Observed stdout from probe_interfaces.py, exit 0",
+  "python_sources_parsed": 91,
+  "campaign4_alias": {
+    "status": "completed with mocked compute",
+    "before_sha256": "a366c93132fbcbac7e013d3191d8a5cf678fae09280ab7780056957cabf72495",
+    "after_sha256": "884c52379d1fc1acd8b02edd87759ab07c2d68f146e82d66e3cce706d4777450",
+    "input_replaced": true
+  },
+  "early_projection": {
+    "arguments_probed": ["--help", "--out <private path>", "--not-a-supported-flag"],
+    "each_reached": "one mocked mkdir and make_data(3, 6, seed=41)",
+    "stopped_at": "first mocked scientific call",
+    "scientific_work_dispatched": false
+  },
+  "protected_roots": "Both operator and quadratic helpers reject source symlink, dot-dot source alias, repository root, and data ancestor",
+  "schema2_valid": "accepted",
+  "schema2_rejected": ["schema1", "duplicate", "unknown_root", "traversal", "absolute_entry", "wrong_run_root", "symlink_escape", "companion_mismatch", "tampered_result"],
+  "schema2_verifications_read_only": true,
+  "campaign6": {
+    "subprocess": "mock only",
+    "working_directory": "<private output>/campaign6_f13_threshold",
+    "record": "<private output>/campaign6_f13_threshold/tiny.benchmark.json",
+    "limits_recorded": {"address_space_bytes": 4294967296, "cpu_seconds": 900, "wall_seconds": 900},
+    "invalid_name": "../bad rejected",
+    "mock_binary_unchanged": true
+  },
+  "supplied_tests": {"run": 20, "failures": 0, "errors": 0, "elapsed_seconds": 2.400},
+  "optional_package_discovery": {"numpy": true, "scipy": true, "matplotlib": false, "sympy": false, "pytest": false}
+}

@@ -1,0 +1,311 @@
+[
+  {
+    "check": "Sine artifact path/hash",
+    "source": "mfp_sine_compiler/depth2_gaussian_program/raw_sine_order5.py",
+    "role": "protocol",
+    "path": "/home/amir/Codes/PDE/studies/mfp_sine_compiler/depth2_gaussian_program/PROTOCOL.md",
+    "expected": "27843d8916167fabfbf59f8412f904a11282ebee2ea23424e4aa0512c7d78f4e",
+    "actual": "27843d8916167fabfbf59f8412f904a11282ebee2ea23424e4aa0512c7d78f4e",
+    "match": true,
+    "limit": "Only named literal/path assignments evaluated; no dependency import or mathematical evaluation"
+  },
+  {
+    "check": "Sine artifact path/hash",
+    "source": "mfp_sine_compiler/depth2_gaussian_program/raw_sine_order5.py",
+    "role": "primary",
+    "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/order5/compiler/LAYER_SEPARATED_ABC_NORMAL_FORM.txt",
+    "expected": "5219b3558aec52a2065b93ba7d6ce0e350ee930c2048518fcd012ba61f605ec9",
+    "actual": "5219b3558aec52a2065b93ba7d6ce0e350ee930c2048518fcd012ba61f605ec9",
+    "match": true,
+    "limit": "Only named literal/path assignments evaluated; no dependency import or mathematical evaluation"
+  },
+  {
+    "check": "Sine artifact path/hash",
+    "source": "mfp_sine_compiler/depth2_gaussian_program/raw_sine_order5.py",
+    "role": "independent",
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_gaussian_calculus/order5/independent/independent_layer_tagged_coefficient_map.json",
+    "expected": "52832afc4f9e1cf27f5b8465f2f5373bcb3e9f5c56b0686c9366162da2e17c11",
+    "actual": "52832afc4f9e1cf27f5b8465f2f5373bcb3e9f5c56b0686c9366162da2e17c11",
+    "match": true,
+    "limit": "Only named literal/path assignments evaluated; no dependency import or mathematical evaluation"
+  },
+  {
+    "check": "Sine artifact path/hash",
+    "source": "mfp_sine_compiler/depth2_gaussian_program/normalized_sine_order5.py",
+    "role": "protocol",
+    "path": "/home/amir/Codes/PDE/studies/mfp_sine_compiler/depth2_gaussian_program/NORMALIZED_PROTOCOL.md",
+    "expected": "2e26e1ab6caeea06b304e05cb9c805bdf8dd55b150f3a11780930a3056ac4971",
+    "actual": "2e26e1ab6caeea06b304e05cb9c805bdf8dd55b150f3a11780930a3056ac4971",
+    "match": true,
+    "limit": "Only named literal/path assignments evaluated; no dependency import or mathematical evaluation"
+  },
+  {
+    "check": "Sine artifact path/hash",
+    "source": "mfp_sine_compiler/depth2_gaussian_program/normalized_sine_order5.py",
+    "role": "primary",
+    "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/order5/compiler/UNIT_GRAM_ABC_NORMAL_FORM.txt",
+    "expected": "3be176963679c40127ac4f94305eeb7e4ef684a06910ae99a68a0f3528333214",
+    "actual": "3be176963679c40127ac4f94305eeb7e4ef684a06910ae99a68a0f3528333214",
+    "match": true,
+    "limit": "Only named literal/path assignments evaluated; no dependency import or mathematical evaluation"
+  },
+  {
+    "check": "Sine artifact path/hash",
+    "source": "mfp_sine_compiler/depth2_gaussian_program/normalized_sine_order5.py",
+    "role": "independent",
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_gaussian_calculus/order5/independent/independent_coefficient_map.json",
+    "expected": "fa3b4a6f7dc665e63e2c02355a14122f89f56bdfd34f0fe7402be4cab0ff2878",
+    "actual": "fa3b4a6f7dc665e63e2c02355a14122f89f56bdfd34f0fe7402be4cab0ff2878",
+    "match": true,
+    "limit": "Only named literal/path assignments evaluated; no dependency import or mathematical evaluation"
+  },
+  {
+    "check": "Sine artifact path/hash",
+    "source": "mfp_sine_compiler/depth2_gaussian_program/sine_order9_stieltjes_audit.py",
+    "role": "input",
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_sine_compiler/depth2_gaussian_program/results_order9.json",
+    "expected": "46b19909db25be639bfca3458c62da0784f7596566823725c80e7c4741152658",
+    "actual": "46b19909db25be639bfca3458c62da0784f7596566823725c80e7c4741152658",
+    "match": true,
+    "limit": "Only named literal/path assignments evaluated; no dependency import or mathematical evaluation"
+  },
+  {
+    "check": "Sine artifact path/hash",
+    "source": "mfp_sine_compiler/depth2_gaussian_program/sine_order9_stieltjes_audit.py",
+    "role": "protocol",
+    "path": "/home/amir/Codes/PDE/studies/mfp_sine_compiler/depth2_gaussian_program/ORDER9_PROTOCOL.md",
+    "expected": "366ae94d52a4b4aa7d741f807f4afe4e05a4a014e2f408837c4301ff0402bb37",
+    "actual": "366ae94d52a4b4aa7d741f807f4afe4e05a4a014e2f408837c4301ff0402bb37",
+    "match": true,
+    "limit": "Only named literal/path assignments evaluated; no dependency import or mathematical evaluation"
+  },
+  {
+    "check": "Sine artifact path/hash",
+    "source": "mfp_sine_compiler/depth2_gaussian_program/sine_order9_stieltjes_audit.py",
+    "role": "engine",
+    "path": "/home/amir/Codes/PDE/studies/mfp_sine_compiler/depth2_gaussian_program/sine_order9_fourier_jet.py",
+    "expected": "4f71512d8f8990a8db0faf9d2f3e0b8db879ecb51c9d83afc78488c5eb602221",
+    "actual": "4f71512d8f8990a8db0faf9d2f3e0b8db879ecb51c9d83afc78488c5eb602221",
+    "match": true,
+    "limit": "Only named literal/path assignments evaluated; no dependency import or mathematical evaluation"
+  },
+  {
+    "check": "Cubic artifact path/hash",
+    "role": "result",
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_cubic_compiler/two_input_plus_gaussian_program/results_symbolic_order5.json",
+    "expected": "ac948d64b979f226424e1ff745512f0f97e78e164708f4313c41a48d41591023",
+    "actual": "ac948d64b979f226424e1ff745512f0f97e78e164708f4313c41a48d41591023",
+    "match": true
+  },
+  {
+    "check": "Cubic artifact path/hash",
+    "role": "base_protocol",
+    "path": "/home/amir/Codes/PDE/studies/mfp_cubic_compiler/two_input_plus_gaussian_program/PROTOCOL.md",
+    "expected": "6742675cb0c40dcfb2652edab05ce078b00506bfdef4bfd25157a22b0dbea956",
+    "actual": "6742675cb0c40dcfb2652edab05ce078b00506bfdef4bfd25157a22b0dbea956",
+    "match": true
+  },
+  {
+    "check": "Cubic artifact path/hash",
+    "role": "order3_result",
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_cubic_compiler/two_input_plus_gaussian_program/results_order3.json",
+    "expected": "6d5178f1d044974712ad6be705c9231d1ec4a3c6454c0ad8aa5ea932b27f093b",
+    "actual": "6d5178f1d044974712ad6be705c9231d1ec4a3c6454c0ad8aa5ea932b27f093b",
+    "match": true
+  },
+  {
+    "check": "Cubic artifact path/hash",
+    "role": "gaussian_program",
+    "path": "/home/amir/Codes/PDE/studies/mfp_cubic_compiler/two_input_plus_gaussian_program/two_input_cubic_plus_jet.py",
+    "expected": "ec3c195f500fc09c22a7cfcbe72a9f2a3c2312fcb7835ab885fa21746b157426",
+    "actual": "ec3c195f500fc09c22a7cfcbe72a9f2a3c2312fcb7835ab885fa21746b157426",
+    "match": true
+  },
+  {
+    "check": "Cubic artifact path/hash",
+    "role": "fixed_rho_order9_protocol",
+    "path": "/home/amir/Codes/PDE/studies/mfp_cubic_compiler/two_input_plus_gaussian_program/ORDER9_FIXED_RHO_PROTOCOL.md",
+    "expected": "8c4e7e51c19fdffaaf3d0afdbf73ba2bc2081c14c205a0271617e63a50a02320",
+    "actual": "8c4e7e51c19fdffaaf3d0afdbf73ba2bc2081c14c205a0271617e63a50a02320",
+    "match": true
+  },
+  {
+    "check": "Cubic artifact path/hash",
+    "role": "symbolic_order9_protocol",
+    "path": "/home/amir/Codes/PDE/studies/mfp_cubic_compiler/two_input_plus_gaussian_program/ORDER9_SYMBOLIC_RHO_PROTOCOL.md",
+    "expected": "85889d28417f7b04b4e69d578a843c554de450e30715fc239da0262c6bdca8bf",
+    "actual": "85889d28417f7b04b4e69d578a843c554de450e30715fc239da0262c6bdca8bf",
+    "match": true
+  },
+  {
+    "check": "Cubic artifact path/hash",
+    "role": "connected_protocol",
+    "path": "/home/amir/Codes/PDE/studies/mfp_cubic_compiler/two_input_plus_gaussian_program/ORDER9_CONNECTED_PROTOCOL.md",
+    "expected": "8dff6184c215df1e4b6b8c4d7ed958c012e2f88054c1ab70becee666bb0e4534",
+    "actual": "8dff6184c215df1e4b6b8c4d7ed958c012e2f88054c1ab70becee666bb0e4534",
+    "match": true
+  },
+  {
+    "check": "Cubic artifact path/hash",
+    "role": "color_quotient_amendment",
+    "path": "/home/amir/Codes/PDE/studies/mfp_cubic_compiler/two_input_plus_gaussian_program/ORDER9_CONNECTED_COLOR_QUOTIENT_AMENDMENT.md",
+    "expected": "1100031dcdcb768faa524efedc83ba61343d5c67795adc24b407e193751e3205",
+    "actual": "1100031dcdcb768faa524efedc83ba61343d5c67795adc24b407e193751e3205",
+    "match": true
+  },
+  {
+    "check": "Cubic artifact path/hash",
+    "role": "fixed_connected_amendment",
+    "path": "/home/amir/Codes/PDE/studies/mfp_cubic_compiler/two_input_plus_gaussian_program/ORDER9_FIXED_RHO_CONNECTED_AMENDMENT.md",
+    "expected": "ff8cb6c856daede0e8f78444792f756f4326abdacd001f43a68935a93a715895",
+    "actual": "ff8cb6c856daede0e8f78444792f756f4326abdacd001f43a68935a93a715895",
+    "match": true
+  },
+  {
+    "check": "Cubic artifact path/hash",
+    "role": "connected_polynomial_program",
+    "path": "/home/amir/Codes/PDE/studies/mfp_cubic_compiler/two_input_plus_gaussian_program/two_input_cubic_connected.cpp",
+    "expected": "5ba7709c9a7066ea475b7ebe2e26a5e18d575eb5ba8f81f92a59772b2ceb80f4",
+    "actual": "5ba7709c9a7066ea475b7ebe2e26a5e18d575eb5ba8f81f92a59772b2ceb80f4",
+    "match": true
+  },
+  {
+    "check": "Cubic artifact path/hash",
+    "role": "connected_fixed_program",
+    "path": "/home/amir/Codes/PDE/studies/mfp_cubic_compiler/two_input_plus_gaussian_program/two_input_cubic_connected_fixed.cpp",
+    "expected": "56a9cbe297c8ab39ae3ce4d1167c3c69b73395ed46a35666791ed104a64c42ee",
+    "actual": "56a9cbe297c8ab39ae3ce4d1167c3c69b73395ed46a35666791ed104a64c42ee",
+    "match": true
+  },
+  {
+    "check": "Cubic artifact path/hash",
+    "role": "fixed_gaussian_program",
+    "path": "/home/amir/Codes/PDE/studies/mfp_cubic_compiler/two_input_plus_gaussian_program/two_input_cubic_plus_fixed_rho_jet.py",
+    "expected": "198ed57cef8bcd1b1f8c970237a793f234d190dfc82d80c9101e7b3a690df922",
+    "actual": "8bb8022276417954dd3f33ef92a8b04fa12e23c4dd922b09737ad8fb172ec331",
+    "match": false
+  },
+  {
+    "check": "Cubic artifact path/hash",
+    "role": "connected_quadratic_parent",
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/two_input_connected.cpp",
+    "expected": "85c5c47c92bf926d4835120eac2be2f7d9ee70df12d3cd60359ea78ecacaed8e",
+    "actual": null,
+    "match": "outside allowed scope; not read"
+  },
+  {
+    "check": "Cubic artifact path/hash",
+    "role": "one_input_order9_result",
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_cubic_compiler/depth2_gaussian_program/results_order9.json",
+    "expected": "6ef10c12960929bc95437eb44407b8e84c6b4e4f3b10b4e8416ad8666bd56979",
+    "actual": "6ef10c12960929bc95437eb44407b8e84c6b4e4f3b10b4e8416ad8666bd56979",
+    "match": true
+  },
+  {
+    "check": "Cubic artifact path/hash",
+    "role": "one_input_cubic_program",
+    "path": "/home/amir/Codes/PDE/studies/mfp_cubic_compiler/depth2_gaussian_program/depth2_cubic_exact_jet.py",
+    "expected": "edb16223deb34586019a936809eec8cd7553c9eeea10e1cc957a6984a122af72",
+    "actual": "edb16223deb34586019a936809eec8cd7553c9eeea10e1cc957a6984a122af72",
+    "match": true
+  },
+  {
+    "check": "Actual cubic fixed-rho input gate",
+    "passed": true,
+    "limit": "Only source_hashes/assert_source_hashes; no coefficient work"
+  },
+  {
+    "check": "Stieltjes selected retained result",
+    "consumer": "stieltjes_resolution/canonical_hidden_high_order/hidden_moment_hankel_audit.py",
+    "path": "/home/amir/Codes/PDE/data/historical/studies/stieltjes_resolution/canonical_hidden_high_order/PRODUCTION_HIDDEN_RESULT.json",
+    "sha256": "4ee8022d59e3ff19eff89ff654518acd182cf19c48c1d3557f2099ab88f91c97",
+    "source_record": {
+      "path": "studies/stieltjes_conjecture/resolution_program/canonical_hidden_high_order/production_hidden_recurrence.py",
+      "sha256": "d49a8a19cbe2cd31699776d1359d947ec4f3f825eef06346c0e81331b5777530"
+    }
+  },
+  {
+    "check": "Stieltjes actual source validator refuses",
+    "retained": "/home/amir/Codes/PDE/data/historical/studies/stieltjes_resolution/canonical_hidden_high_order/PRODUCTION_HIDDEN_RESULT.json",
+    "error": "PermissionError('PRIVATE DIAGNOSTIC denied out-of-scope repository read: /home/amir/Codes/PDE/studies/stieltjes_conjecture/resolution_program/canonical_hidden_high_order/production_hidden_recurrence.py')",
+    "missing": null,
+    "limit": "validate_source only; out-of-scope former-layout read denied before access; no determinant or result audit"
+  },
+  {
+    "check": "Stieltjes selected retained result",
+    "consumer": "stieltjes_resolution/canonical_hidden_high_order/hidden_moment_hankel_audit.py",
+    "path": "/home/amir/Codes/PDE/data/historical/studies/stieltjes_resolution/canonical_hidden_high_order/INDEPENDENT_HIDDEN_RESULT.json",
+    "sha256": "b1d092dffa9f8b9bd670a0ef02fa67cce58ff95a53eafeec0ba269604b940440",
+    "source_record": {
+      "path": "studies/stieltjes_conjecture/resolution_program/canonical_hidden_high_order/independent_hidden_recurrence.py",
+      "sha256": "fd923a6bff5e7f6d3f09a56f8a2ec208068615e7545c7e2d31178dd7c4817893"
+    }
+  },
+  {
+    "check": "Stieltjes actual source validator refuses",
+    "retained": "/home/amir/Codes/PDE/data/historical/studies/stieltjes_resolution/canonical_hidden_high_order/INDEPENDENT_HIDDEN_RESULT.json",
+    "error": "PermissionError('PRIVATE DIAGNOSTIC denied out-of-scope repository read: /home/amir/Codes/PDE/studies/stieltjes_conjecture/resolution_program/canonical_hidden_high_order/independent_hidden_recurrence.py')",
+    "missing": null,
+    "limit": "validate_source only; out-of-scope former-layout read denied before access; no determinant or result audit"
+  },
+  {
+    "check": "Stieltjes selected retained result",
+    "consumer": "stieltjes_resolution/canonical_hidden_high_order/independent_hidden_scalar_audit.py",
+    "path": "/home/amir/Codes/PDE/data/historical/studies/stieltjes_resolution/canonical_hidden_high_order/PRODUCTION_HIDDEN_RESULT.json",
+    "sha256": "4ee8022d59e3ff19eff89ff654518acd182cf19c48c1d3557f2099ab88f91c97",
+    "source_record": {
+      "path": "studies/stieltjes_conjecture/resolution_program/canonical_hidden_high_order/production_hidden_recurrence.py",
+      "sha256": "d49a8a19cbe2cd31699776d1359d947ec4f3f825eef06346c0e81331b5777530"
+    }
+  },
+  {
+    "check": "Stieltjes fixed-source boolean gate",
+    "source": "/home/amir/Codes/PDE/studies/stieltjes_resolution/canonical_hidden_high_order/production_hidden_recurrence.py",
+    "expected": "d49a8a19cbe2cd31699776d1359d947ec4f3f825eef06346c0e81331b5777530",
+    "actual": "0597f9f291f9b39d5e39b6fe7d7f0d27e63c23f363b052cd1b20ab707d86625b",
+    "result": false
+  },
+  {
+    "check": "Stieltjes selected retained result",
+    "consumer": "stieltjes_resolution/canonical_hidden_high_order/independent_hidden_scalar_audit.py",
+    "path": "/home/amir/Codes/PDE/data/historical/studies/stieltjes_resolution/canonical_hidden_high_order/INDEPENDENT_HIDDEN_RESULT.json",
+    "sha256": "b1d092dffa9f8b9bd670a0ef02fa67cce58ff95a53eafeec0ba269604b940440",
+    "source_record": {
+      "path": "studies/stieltjes_conjecture/resolution_program/canonical_hidden_high_order/independent_hidden_recurrence.py",
+      "sha256": "fd923a6bff5e7f6d3f09a56f8a2ec208068615e7545c7e2d31178dd7c4817893"
+    }
+  },
+  {
+    "check": "Stieltjes fixed-source boolean gate",
+    "source": "/home/amir/Codes/PDE/studies/stieltjes_resolution/canonical_hidden_high_order/independent_hidden_recurrence.py",
+    "expected": "fd923a6bff5e7f6d3f09a56f8a2ec208068615e7545c7e2d31178dd7c4817893",
+    "actual": "a18dea37e4bb0f346012e9ce33d2de1124efadf872585917ee76879e2462c161",
+    "result": false
+  },
+  {
+    "check": "Actual Stieltjes frozen hash gate refuses",
+    "expected_source": "4918c797a0290da950d8cb7ef665ded79bac166fdedf1d11c9415421c65f5a92",
+    "actual": {
+      "source": "26d275318bcbde6dc21748a62993799a17d6b4b9a8143ce028b0a6218a1b716d",
+      "certificate": "39d617e6f97cf9b3fc67904e7741df2936e8c93781823199ba79f9dfaa911e9b"
+    },
+    "error": "frozen source hash mismatch: 26d275318bcbde6dc21748a62993799a17d6b4b9a8143ce028b0a6218a1b716d",
+    "limit": "hash guard stops before certificate arithmetic or recurrence"
+  },
+  {
+    "check": "Canonical retained source hash",
+    "retained": "/home/amir/Codes/PDE/data/historical/studies/stieltjes_resolution/canonical_high_order/PRODUCTION_RESULT.json",
+    "source": "/home/amir/Codes/PDE/studies/stieltjes_resolution/canonical_high_order/production_canonical_recurrence.py",
+    "expected": "bccec0577ffd205d5625d8e6e1d9c4dba7dab8a7a218edd5a58866ea8606d688",
+    "actual": "bccec0577ffd205d5625d8e6e1d9c4dba7dab8a7a218edd5a58866ea8606d688",
+    "match": true
+  },
+  {
+    "check": "Canonical retained source hash",
+    "retained": "/home/amir/Codes/PDE/data/historical/studies/stieltjes_resolution/canonical_high_order/INDEPENDENT_RESULT.json",
+    "source": "/home/amir/Codes/PDE/studies/stieltjes_resolution/canonical_high_order/independent_canonical_recurrence.py",
+    "expected": "8c0aa4f49b7920c739b385664743a678db7a12f5160baee38a1b40acab2274ea",
+    "actual": "8c0aa4f49b7920c739b385664743a678db7a12f5160baee38a1b40acab2274ea",
+    "match": true
+  }
+]

@@ -11,6 +11,21 @@ from pathlib import Path
 import numpy as np
 
 
+def require_new_output(output: Path, inputs: list[Path]) -> tuple[Path, Path]:
+    """Refuse occupied output/partial paths and all aliases of consumed inputs."""
+    output = output.expanduser().absolute()
+    partial = output.with_suffix(output.suffix + ".partial")
+    for destination in (output, partial):
+        for source in inputs:
+            if destination.resolve() == source.resolve() or (
+                destination.exists() and source.exists() and destination.samefile(source)
+            ):
+                raise ValueError(f"output aliases an input archive: {source}")
+        if destination.exists() or destination.is_symlink():
+            raise FileExistsError(f"refusing to overwrite output or partial: {destination}")
+    return output, partial
+
+
 def load_raw(path: Path) -> dict[str, np.ndarray]:
     with np.load(path, allow_pickle=False) as archive:
         required = {"times", "seeds", "f", "grams", "theta", "metadata_json"}
@@ -31,6 +46,7 @@ def main() -> None:
     parser.add_argument("inputs", type=Path, nargs="+")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
+    args.output, _ = require_new_output(args.output, args.inputs)
 
     archives = [load_raw(path) for path in args.inputs]
     times = archives[0]["times"]
@@ -56,9 +72,9 @@ def main() -> None:
         "seeds": int(seeds.size),
     }
 
+    args.output, partial = require_new_output(args.output, args.inputs)
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    partial = args.output.with_suffix(args.output.suffix + ".partial")
-    with partial.open("wb") as handle:
+    with partial.open("xb") as handle:
         np.savez_compressed(
             handle,
             times=times,
@@ -77,6 +93,8 @@ def main() -> None:
         )
         handle.flush()
         os.fsync(handle.fileno())
+    if args.output.exists() or args.output.is_symlink():
+        raise FileExistsError(f"output appeared during pooling: {args.output}")
     os.replace(partial, args.output)
     print(
         json.dumps(

@@ -15,7 +15,7 @@ import sys
 import tempfile
 import unittest
 from types import SimpleNamespace
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 REPO = Path(__file__).resolve().parents[2]
 STUDY = REPO / "studies/mfp_quadratic_compiler"
@@ -29,6 +29,71 @@ def paths():
 
 
 class RoutingTests(unittest.TestCase):
+    def test_postprocessors_refuse_input_aliases_before_computation(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "input.json"
+            source.write_text("retained sentinel")
+            linked = root / "linked.json"
+            linked.symlink_to(source)
+            hardlinked = root / "hardlinked.json"
+            os.link(source, hardlinked)
+            with patch.dict(os.environ, {}, clear=True):
+                helper = paths()
+            for relative, arguments in (
+                ("campaign1/analyze_hankel.py", [str(source)]),
+                ("campaign1/parametric_stieltjes_postprocess.py", [str(source)]),
+                ("campaign2/postprocess.py", ["--plus", str(source), "--minus", str(source)]),
+                ("campaign3/postprocess.py", ["--input", str(source)]),
+                ("campaign4/postprocess.py", ["--input", str(source)]),
+            ):
+                path = STUDY / relative
+                tree = ast.parse(path.read_text())
+                main = next(node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == "main")
+                compute = Mock(side_effect=AssertionError("computed before guard"))
+                namespace = dict(argparse=argparse, Path=Path, INPUT_ROOT=helper.INPUT_ROOT,
+                                 OUTPUT_ROOT=helper.OUTPUT_ROOT, require_new_output=helper.require_new_output,
+                                 compute=compute, analyze=compute, load_jets=compute)
+                exec(compile(ast.Module(body=[main], type_ignores=[]), str(path), "exec"), namespace)
+                for output in (source, linked, hardlinked):
+                    with patch.object(sys, "argv", [relative, *arguments, "--output", str(output)]):
+                        with self.assertRaises(ValueError):
+                            namespace["main"]()
+                compute.assert_not_called()
+            self.assertEqual(source.read_text(), "retained sentinel")
+
+    def test_all_selected_evidence_bindings(self):
+        selected = {
+            "campaign1/test_order9_q2_order8.py": {"RAW", "COMPACT", "PROVENANCE"},
+            "campaign1/test_hankel_analysis.py": {"RAW_PATH", "CERTIFICATE_PATH"},
+            "campaign5_b3/postprocess_lower_moments.py": {"DATA", "STAGE_A", "STAGE_B"},
+            "campaign5_b3/test_b2_order5_gate.py": {"ACCEPTED_RAW"},
+            "campaign5_b3/test_stage_c_sector.py": {"DENSE"},
+            "depth3_gaussian_program/depth3_stieltjes_audit.py": {"INPUT"},
+            "depth3_gaussian_program/depth3_order13_stieltjes_audit.py": {"INPUT"},
+            "depth3_gaussian_program/test_depth3_order13_stieltjes.py": {"RESULT"},
+        }
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / "missing selected evidence"
+            with patch.dict(os.environ, {"PDE_QUADRATIC_INPUT_ROOT": str(root)}, clear=True):
+                helper = paths()
+                for relative, names in selected.items():
+                    path = STUDY / relative
+                    tree = ast.parse(path.read_text())
+                    bindings = [node for node in tree.body if isinstance(node, ast.Assign)
+                                and any(isinstance(target, ast.Name) and target.id in names
+                                        for target in node.targets)]
+                    namespace = dict(INPUT_ROOT=helper.INPUT_ROOT, certificate_path=helper.certificate_path)
+                    exec(compile(ast.Module(body=bindings, type_ignores=[]), str(path), "exec"), namespace)
+                    for name in names:
+                        self.assertTrue(namespace[name].is_relative_to(root), (relative, name, namespace[name]))
+                lower = (STUDY / "campaign5_b3/test_lower_moment_certificate.py").read_text()
+                self.assertIn('certificate_path("campaign5_b3/certificates_lower_moments.json")', lower)
+            self.assertFalse(root.exists())
+        for path in STUDY.rglob("*.py"):
+            if path.name != "campaign_paths.py":
+                self.assertNotIn("data/historical/studies/mfp_quadratic_compiler/", path.read_text(), str(path))
+
     def test_default_roles(self):
         with patch.dict(os.environ, {}, clear=True):
             module = paths()

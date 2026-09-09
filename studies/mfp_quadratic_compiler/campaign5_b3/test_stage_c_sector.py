@@ -7,12 +7,15 @@ import json
 from pathlib import Path
 import subprocess
 import tempfile
+import sys
 
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent))
+from campaign_paths import INPUT_ROOT
 SOURCE = HERE / "stage_c_sector.cpp"
 DENSE = (
-    HERE.parents[2] / "data/historical/studies/mfp_quadratic_compiler/campaign5_b3/frozen/stage_b_connected_order5.json"
+    INPUT_ROOT / "campaign5_b3/frozen/stage_b_connected_order5.json"
 )
 EXPECTED_SOURCE_SHA256 = (
     "f1912e81b2f25bdef04bcef9c490a0975757a64deda4cb55f74c7c50abfe64ce"

@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 
 from depth3_stieltjes_audit import (
+    INPUT_ROOT,
     audit_hankels,
     fraction_string,
     load_existing_moment_transform,
@@ -17,7 +18,7 @@ from depth3_stieltjes_audit import (
 
 HERE = Path(__file__).resolve().parent
 INPUT = (
-    HERE.parents[2] / "data/historical/studies/mfp_quadratic_compiler/depth3_gaussian_program/results_order13.json"
+    INPUT_ROOT / "depth3_gaussian_program/results_order13.json"
 )
 PROTOCOL = HERE / "ORDER13_STIELTJES_PROTOCOL.md"
 DERIVATIVE_ENGINE = HERE / "depth3_exact_jet.py"

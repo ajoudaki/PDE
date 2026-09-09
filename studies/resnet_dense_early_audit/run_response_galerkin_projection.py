@@ -9,6 +9,7 @@ non-oracular autonomous compiler sought in the conjecture.
 from __future__ import annotations
 
 import csv
+import argparse
 import math
 import os
 from pathlib import Path
@@ -80,6 +81,11 @@ def write_rows(path: Path, rows: Sequence[Dict[str, object]]) -> None:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(
+        description=__doc__,
+        epilog="Select the output directory with GALERKIN_OUT; no CLI output option is supported.",
+    )
+    parser.parse_args()
     default_out = Path(__file__).resolve().parents[2] / "data" / "generated" / "resnet_dense_early_audit" / "results"
     out = Path(os.environ.get("GALERKIN_OUT", default_out)).resolve()
     out.mkdir(parents=True, exist_ok=True)

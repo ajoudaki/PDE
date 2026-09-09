@@ -1,16 +1,21 @@
 """Bounded path/metadata checks; never run a training experiment."""
 
 import ast
+import argparse
+from contextlib import redirect_stderr, redirect_stdout
 import hashlib
 import importlib.util
 import json
+import io
 import os
 from pathlib import Path
 import subprocess
 import sys
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
+
+import numpy as np
 
 REPO = Path(__file__).resolve().parents[2]
 OPERATOR = REPO / "studies/resnet_operator_core"
@@ -25,6 +30,65 @@ def load(path):
 
 
 class RoutingTests(unittest.TestCase):
+    def test_galerkin_help_and_unknown_flags_stop_before_work(self):
+        path = REPO / "studies/resnet_dense_early_audit/run_response_galerkin_projection.py"
+        tree = ast.parse(path.read_text())
+        main = next(node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == "main")
+        scientific = Mock(side_effect=AssertionError("scientific work dispatched"))
+        namespace = dict(argparse=argparse, __doc__="routing fixture", Path=Path, os=os,
+                         __file__=str(path), make_data=scientific)
+        exec(compile(ast.Module(body=[main], type_ignores=[]), str(path), "exec"), namespace)
+        for arguments, code in ((["--help"], 0), (["--out", "not-created"], 2),
+                                (["--unknown"], 2)):
+            with patch.object(sys, "argv", ["galerkin", *arguments]):
+                with redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
+                    with self.assertRaises(SystemExit) as failure:
+                        namespace["main"]()
+                self.assertEqual(failure.exception.code, code)
+        scientific.assert_not_called()
+
+    def test_operator_merge_refuses_aliases_before_load_and_pools_tiny_fixture(self):
+        module = load(OPERATOR / "combine_references.py")
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "raw.npz"
+            source.write_bytes(b"retained sentinel")
+            linked = root / "linked.npz"
+            hardlinked = root / "hardlinked.npz"
+            linked.symlink_to(source)
+            os.link(source, hardlinked)
+            dangling = root / "dangling.npz"
+            dangling.symlink_to(root / "absent")
+            output = root / "summary.npz"
+            partial = output.with_suffix(".npz.partial")
+            partial.write_bytes(b"partial input sentinel")
+            with patch.object(module, "load_raw", side_effect=AssertionError("loaded before guard")):
+                for inputs, target in (([source], source), ([source], linked),
+                                       ([source], hardlinked), ([source], dangling),
+                                       ([partial], output)):
+                    with patch.object(sys, "argv", ["combine", *map(str, inputs), "--output", str(target)]):
+                        with self.assertRaises((ValueError, FileExistsError)):
+                            module.main()
+            self.assertEqual(source.read_bytes(), b"retained sentinel")
+            self.assertEqual(partial.read_bytes(), b"partial input sentinel")
+            archives = []
+            for index in range(2):
+                archive = root / f"tiny-{index}.npz"
+                np.savez(archive, times=np.array([0., 1.]), seeds=np.array([2*index, 2*index+1]),
+                         f=np.ones((2, 2))*index, grams=np.ones((2, 2, 1, 1))*index,
+                         theta=np.ones((2, 2, 1, 1))*index,
+                         metadata_json=np.array(json.dumps({"n": 1, "depth": 1})))
+                archives.append(archive)
+            hashes = [hashlib.sha256(path.read_bytes()).hexdigest() for path in archives]
+            pooled = root / "tiny-pooled.npz"
+            with patch.object(sys, "argv", ["combine", *map(str, archives), "--output", str(pooled)]):
+                with redirect_stdout(io.StringIO()):
+                    module.main()
+            with np.load(pooled) as data:
+                np.testing.assert_array_equal(data["f_mean"], [.5, .5])
+                self.assertEqual(data["seeds"].size, 4)
+            self.assertEqual(hashes, [hashlib.sha256(path.read_bytes()).hexdigest() for path in archives])
+
     def test_operator_default(self):
         with patch.dict(os.environ, {}, clear=True):
             module = load(OPERATOR / "runtime_paths.py")

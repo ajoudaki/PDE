@@ -12,6 +12,10 @@ from fractions import Fraction
 from math import factorial
 import json
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from campaign_paths import require_new_output
 
 import sympy as sp
 
@@ -190,11 +194,14 @@ def main() -> None:
     parser.add_argument("input", type=Path)
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
+    if args.output:
+        args.output = require_new_output(args.output, [args.input])
     result = analyze(json.loads(args.input.read_text(encoding="utf-8")))
     encoded = json.dumps(result, indent=2, sort_keys=True) + "\n"
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
-        args.output.write_text(encoded, encoding="utf-8")
+        with args.output.open("x", encoding="utf-8") as stream:
+            stream.write(encoded)
         print(f"wrote={args.output}")
     else:
         print(encoded, end="")
