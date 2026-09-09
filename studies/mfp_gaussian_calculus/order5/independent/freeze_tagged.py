@@ -15,6 +15,7 @@ from .independent_compiler import compile_layer_tagged, mpoly_to_terms
 
 
 def main() -> None:
+    raise RuntimeError("archive-only coefficient freeze; migration does not authorize regenerating retained seals")
     here = Path(__file__).resolve().parent
     result = compile_layer_tagged(q0=1, progress=True)
     payload = {

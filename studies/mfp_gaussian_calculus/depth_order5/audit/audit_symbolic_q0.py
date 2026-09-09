@@ -14,6 +14,9 @@ import json
 from pathlib import Path
 
 from ..independent.depth_factored import compile_depth_factored, expand_expression
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 
 
 HERE = Path(__file__).resolve().parent
@@ -24,8 +27,8 @@ HOLDOUT = Fraction(7, 2)
 DEGREE_BOUNDS = {"A": 1, "B": 3, "C": 5}
 
 
-def primary_graded(depth: int):
-    path = PRIMARY / f"H{depth}_LAYER_TAGGED_COEFFICIENTS.json"
+def primary_graded(depth: int, input_dir=None):
+    path = (input_dir or PATHS.generated / "depth_order5/primary") / f"H{depth}_LAYER_TAGGED_COEFFICIENTS.json"
     payload = json.loads(path.read_text())
     answer = {}
     observed = {}
@@ -56,11 +59,11 @@ def specialize(graded, point: Fraction):
     return answer
 
 
-def independent_map(depth: int, point: Fraction):
+def independent_map(depth: int, point: Fraction, input_dir=None):
     # Reuse the separately frozen Q0=1 map; compile every other point afresh.
     if point == 1:
         payload = json.loads(
-            (INDEPENDENT / f"H{depth}_TAGGED_COEFFICIENT_MAP.json").read_text()
+            ((input_dir or PATHS.generated / "depth_order5/independent") / f"H{depth}_TAGGED_COEFFICIENT_MAP.json").read_text()
         )
         return {
             root: {
@@ -103,6 +106,7 @@ def compare(left, right):
 
 
 def main() -> None:
+    args = PATHS.parse(inputs=True, input_relative="depth_order5")
     full_report = {
         "method": (
             "exact rational specialization at six distinct points; explicit "
@@ -121,11 +125,11 @@ def main() -> None:
     }
     passed = True
     for depth in (3, 4):
-        graded, observed = primary_graded(depth)
+        graded, observed = primary_graded(depth, args.input_dir / "primary")
         depth_report = {"primary_observed_degrees": observed, "points": {}}
         for point in POINTS + (HOLDOUT,):
             primary = specialize(graded, point)
-            independent = independent_map(depth, point)
+            independent = independent_map(depth, point, args.input_dir / "independent")
             point_report = compare(primary, independent)
             depth_report["points"][str(point)] = point_report
             discrepancies = {root: point_report[root]["discrepancy_count"] for root in "ABC"}
@@ -138,7 +142,8 @@ def main() -> None:
         del graded
         gc.collect()
     full_report["pass"] = passed
-    output = HERE / "SYMBOLIC_Q0_AUDIT.json"
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    output = args.output_dir / "SYMBOLIC_Q0_AUDIT.json"
     output.write_text(json.dumps(full_report, indent=2, sort_keys=True) + "\n")
     print(output)
     if not passed:
@@ -147,4 +152,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -13,6 +13,10 @@ for the complete coefficient before the mixed Hessian sectors are closed.
 
 from __future__ import annotations
 
+ARCHIVE_ONLY_REASON = "archive-only forward recurrence/seal writer; retained source and hashes must not be regenerated"
+if __name__ == "__main__":
+    raise RuntimeError(ARCHIVE_ONLY_REASON)
+
 from collections import defaultdict
 from dataclasses import dataclass
 from fractions import Fraction
@@ -401,6 +405,7 @@ def serialise(value: Mapping[SMonomial, Fraction]) -> dict[str, str]:
 
 
 def emit(directory: Path | None = None) -> dict[str, object]:
+    raise RuntimeError(ARCHIVE_ONLY_REASON)
     directory = Path(__file__).resolve().parent if directory is None else directory
     result = transition()
     payload: dict[str, object] = {

@@ -7,6 +7,9 @@ import hashlib
 import json
 from pathlib import Path
 
+from studies.mfp_gaussian_calculus.order5.compiler.compare_independent import comparison_paths
+from studies.mfp_gaussian_calculus.study_paths import GENERATED_ROOT
+
 from ..compiler.coefficient_map import expand_coefficient_map
 from ..compiler.factored_expression import compile_factored
 
@@ -50,8 +53,9 @@ def _diff(left, right):
 
 
 def main() -> None:
-    unit_path = HERE / "independent_coefficient_map.json"
-    tagged_path = HERE / "independent_layer_tagged_coefficient_map.json"
+    inputs_root, output = comparison_paths(output_default=GENERATED_ROOT / "order5/independent")
+    unit_path = inputs_root / "independent_coefficient_map.json"
+    tagged_path = inputs_root / "independent_layer_tagged_coefficient_map.json"
     unit = _read_map(unit_path, "unit_gram")
     tagged = _read_map(tagged_path)
 
@@ -88,7 +92,8 @@ def main() -> None:
         for scope in ("unit", "tagged")
         for name in "ABC"
     )
-    path = HERE / "PRIMARY_COMPARISON.json"
+    output.mkdir(parents=True, exist_ok=True)
+    path = output / "PRIMARY_COMPARISON.json"
     path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
     print(path.read_text())
     if not report["pass"]:

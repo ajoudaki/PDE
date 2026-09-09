@@ -1,0 +1,787 @@
+{
+  "root": "/home/amir/Codes/PDE",
+  "frozen_utc": "2026-09-09T12:01:11.200755+00:00",
+  "change_counts": {
+    "modified": 42,
+    "removed_by_move": 1,
+    "added_by_move": 1
+  },
+  "changes": [
+    {
+      "file": "studies/_output_paths.py",
+      "action": "added_by_move",
+      "moved_from": "studies/repository_refactor_2026_09_09/output_paths.py",
+      "before_sha256": null,
+      "frozen_sha256": "71ad7cbc47336b662d2a33fd8be817ff1ea9881d8be51236d791d1ad3cbbf3b6"
+    },
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/adaptive_query_probe.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "5ded5de9674640af6f5fb1b311a0242f0827a4ce19ef1fd91d5c7a06ce602056",
+      "frozen_sha256": "3341a20d90356e7d3d8301bf08466382791ecc555d7579c59dbddae9afbd4acc"
+    },
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/hermite_tail_probe.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "97ef1f74173b7b0c649706d1a106abf1743d925d4715ac2a3758d90651f49277",
+      "frozen_sha256": "ff510a6a1e99ec5d419e0d60a51594fac2e30f466bce26558071c727d3f89a38"
+    },
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/koopman_taylor_probe.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "a1fbec1fb358ffe884326197665048e283d0178dd90359b8c7c1e07bd9259755",
+      "frozen_sha256": "70fc2462657912d8a8b02e842bed216cabd4dc822e427125958331deb1fe6794"
+    },
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/l1_koopman_obstruction.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "ac46cd11213e9d1e7383a74bcd8653b53b5602808e93d0b0e405a1f50491252a",
+      "frozen_sha256": "d1130dc2cd93b8547c19c36edc9a54800a44d6f52d8887f69f2807752da9ccbb"
+    },
+    {
+      "file": "studies/d3_arctan_closure_program/analyze_gpu_gauge_block_gradient.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "7cc0d02a8a9053054d16b88fb6a9af410b59c1c6f8e5959ee2c793354221a54b",
+      "frozen_sha256": "f0f5c1170a4570d8a03ff56a79352840328bc7ec97feca5a9675e2f97b6dc90c"
+    },
+    {
+      "file": "studies/d3_arctan_closure_program/analyze_gpu_high_moment_tail.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "b242eff496e2401d208ed9357b9bf803ecd5960a9f5fc2fa26d4748a990bf84a",
+      "frozen_sha256": "6c43ab352f69df0f3f8c5a8683caa34443e0c63edd73477841a1082239125bcf"
+    },
+    {
+      "file": "studies/d3_arctan_closure_program/analyze_gpu_weighted_offcolumn_response.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "7e600051b38fae0e8ee2ee325083198bc45d1732df4c39a084f4215596782570",
+      "frozen_sha256": "f4f7cc32de36b991f41acc9531e5b517febd31375ef4df4c7e761811b12be0ca"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/audit_symbolic_q0.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "36624a6c637bb77f4184aecbb8da84d694d014f7ff530d7925ee6495f94f57a5",
+      "frozen_sha256": "1827e9a2ae339511e8e8e4aa89346d1fe9ba81821a16393050a82d5fc84a3b41"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/compare_frozen.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "b9fa0ed586cf8c307a9ec7bb5e27d90a3401c6f716b037ec92de4a9536edbf31",
+      "frozen_sha256": "6d196d7422d4dacdab59b3b366afea307d7015e6b9c5c4abe868b2492c833837"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/run_checks.py",
+      "action": "modified",
+      "scope": "authorized_consumer",
+      "before_sha256": "97efd9f1af9c7a504744bf00d5dd6f2ccd70bb45d9bc2ba4c0a20b6dc85e1d73",
+      "frozen_sha256": "14b6ce66c468d3d24ca2deb2557d8aad1c0b5d7ea4513867ebf7d9c9a27b59c7"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/run_normalized_sine_experiment.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "cd384271b8d4541b802588ee1a482c1f8f3497c636486498cb7ac1c9ae0a96fb",
+      "frozen_sha256": "af198d67ad415b611dc5301b7a61b03d5529641d3eb2c68eb037014e9f3a7ead"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/two_oracle_gate.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "9138af63bc62a07d26bfd72f6475a61895ce409acf4c8cd6d3ec540473519527",
+      "frozen_sha256": "bf8dbbb7b0c0158a044d655ff121bf9b53bec7d280862332e3bc1fdcdf4231b2"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/common/sine_prediction.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "1dcabe8a2cc11e05f606770674734f675e754f02136bb451a4c75aa1a8bd62f3",
+      "frozen_sha256": "bc0cdd0b30c5dcd244ec0cfc00435029e3d38eddf534650bea4fbda4a90b6143"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/compare_symbolic_q0.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "f3088c876135434bad14dd5ec8307a9726eca57a778e52f237cfe96cc376a222",
+      "frozen_sha256": "bbc4dfec3184fba19dbc26946e8b91ae9ad4e212702026f109ed3a81051ab7d6"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/controls.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "82ec1665ecee6f5b11c957b6f3e3ff05da79e65ea584f49818e33c6a90a777bd",
+      "frozen_sha256": "dd209b77828e5985fe3f73f83a9ef7041e6af88dc1810639aaebfd029425950c"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/deep_linear_sequence.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "7044655a4c89db3e687829a8c1b6b6f18d2bcf1227740d97c2422fcd9f135e31",
+      "frozen_sha256": "a00e55ca14811a3b0acf25b1cb14c49b23975fbe031d61e483c06678c2e793e6"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/primary/run_lightweight_checks.py",
+      "action": "modified",
+      "scope": "authorized_consumer",
+      "before_sha256": "38e7564e08768340be7c2a357c01c9eac28bea3c223ed093fca1fc4a16af44cf",
+      "frozen_sha256": "ab01488e83f12e4ed3b9ec68bf0f72038b19b46172be5250b1058ee417d77055"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/compare_route_a.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "f9f6f314b961ce011353160d5e7ce59db1eace4fe40f69f63a68ffa9e95b8129",
+      "frozen_sha256": "d8396d25d5555c1e6a3ffbdc3b54e13a0473717f77ab22d2af80a139ed0c8cc7"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/run_checks.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "bb611b246778edaa34b9f7947584d1d57ac9f5938b4b12237c2f1cb4a5002a0e",
+      "frozen_sha256": "9e526ffc864a6dbfa4245d6f3369af454819be35ec90dd27d1876dd59306f5d9"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/run_exact_audit.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "30c1c9dcd06be864e5e961ee60319a6f9113cf27aafc8b882b4da91cc43eeaea",
+      "frozen_sha256": "807a1e66d078a1a7bacca0ad6e05dca167ffc46e508a42e2dcea6eebc54d83fb"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/run_sine_experiment.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "f715fc5670c4e8375d9345e9fd94f5b0af5e0bd539cff44d315743ea9ec19069",
+      "frozen_sha256": "90767427e4b7a390b53210d802dece7eebd72b17db5bb10db2658f7ea9340b2d"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/sine_prediction.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "cea691b29a86d9239039911fac3213959af7f8ed10cf8000df43a96c7ef103db",
+      "frozen_sha256": "df3f61b5db5de2436584f4632b5d28b296826f17b1b498de68e6a9a6fc4c522a"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/f7_tree_roadmap.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "0c1f921a7e7496fb6f59eb95cf34647a7eb0e0b9a2bd8812d5093ae40fcbbdff",
+      "frozen_sha256": "73c90d6c0a120b2bce76a74d7e0a237fe3033579889226f85974d529e11f9492"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/partition_ledger.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "f7fc3fb1a2607fccdc8dba6606785038e45e44f6a2d5e10dd2c42fa81d302444",
+      "frozen_sha256": "0455b59155f0a3d272c5c15ae3313fa83815312dea9b24566cd8e9dd3346f3bf"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/run_checks.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "89f04a64ace75d07faa2d441fe2f2e31bd4a2d3f26a08d70b645f499024e714a",
+      "frozen_sha256": "0522e98cc1f4409cdc425d7a5e2b39fe407e1f869febc31774a356bee13a1c5f"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/run_sine_regression.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "1c837288a9fdba021d4a70c2c902053e6b34e03638f70a35e2c3b4befca9e614",
+      "frozen_sha256": "1041be5bb25454016fe92152b5ec69b6208123913c23fb75af34a1d9d424243a"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/primary/audit_full_scalar_recurrence.py",
+      "action": "modified",
+      "scope": "authorized_consumer",
+      "before_sha256": "cabcad9ad90a6b90ffc5a535dd43154178e1e62a357908c221f4c1f815715f29",
+      "frozen_sha256": "ea70f84bfce1db8c3d60928f6e8874699981537794a881fa94efe5112d40a5c3"
+    },
+    {
+      "file": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/audit_hankel40.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "554c047b2a34e93fa1f4a7516ef126846a8e4487989fb5d066c847efa0c93c0a",
+      "frozen_sha256": "54dc9ab0286bc9dc997d2a68dfe8b4ef6f49faeeb97fe551e16a495c76ba3568"
+    },
+    {
+      "file": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/run_search.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "d6821368d96d92eb5dce27db198bd119ab9ceb52bb1699fd760673dffe5d28df",
+      "frozen_sha256": "b7622f596d790d1fa966561a6890303f25efb6d2f9df952c58dfc447c8386ce9"
+    },
+    {
+      "file": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/spectral_closure.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "6ad906025ba5775eebcf3a534eaaab945e0aea8b381bcee68a427305a3e246e4",
+      "frozen_sha256": "65da8aaa462d008684c258a4e12dd53e9d177e9773b91b71ef888d13b9081c66"
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/full_l2_paired_transition.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "f32e46e78847adbfa203545791deba981a0921b965543c09ea9c05ed24d4cd7f",
+      "frozen_sha256": "c1ef6b08a77c7a4090b8dfb28b7132915ea788d499f4537d3ba3cc1852de1578"
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/map_inputs.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "9334eabfaa9f23e48ffe5a17d2664e855933eabf0b5108c491dfb6684032fc23",
+      "frozen_sha256": "ca0c847f920e29ec970c9949179a2b3c9ba3bd94329e8b018fcc9e493367a48b"
+    },
+    {
+      "file": "studies/repository_refactor_2026_09_09/output_paths.py",
+      "action": "removed_by_move",
+      "moved_to": "studies/_output_paths.py",
+      "before_sha256": "64c780f1f9933bb22a6c0910f4282e341fc7e267b28ffc51f6432d7ed5c41b66",
+      "frozen_sha256": null
+    },
+    {
+      "file": "studies/resnet_activation_controls/make_figures.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "a5249423ffca1aae97296981d9f79312820e897e834d53c1e0632077fd2c0cd3",
+      "frozen_sha256": "41b7aa5386825d0190970b4c11ff5859ac4e2c0435b0cdf438b470f4b30d536d"
+    },
+    {
+      "file": "studies/resnet_activation_controls/source/run_exact_reference.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "ff24f430c5ced9a2e769bbefebac2d1cd496973c07e841b4c6d5d077f4266852",
+      "frozen_sha256": "b113385a3a9f807397cc5731402c9f1a14b51c3dc0dd5e3da1366747818e142d"
+    },
+    {
+      "file": "studies/resnet_activation_controls/source/run_pde.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "cb446feff721c803ea01d66637b52bb2452f13e9d9e2e0e46cd69cf24b894435",
+      "frozen_sha256": "2227b31a528837e260a9c4ce2c6ecc275b329b85968158054e931900669a6802"
+    },
+    {
+      "file": "studies/stieltjes_direct_loewner/diagnose_blowup.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "d944c7582ef19949ee147e85aaf712513a59a3281b4415750e53bb1635324948",
+      "frozen_sha256": "c7657ebf949408e32b6bd02c16e6314d7cd0ad71d3fc188ad3ff6f0f8d4999e6"
+    },
+    {
+      "file": "studies/stieltjes_direct_loewner/run_clock_pilot.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "65b2ede8ae3fdb76d508ece6a8cc69cb776f98d4c1581cf26d8a1751cfaccf22",
+      "frozen_sha256": "4fe3c8db6e435f08df5888b3e78256a9028bf4abaef1cc2d90966a284d863f30"
+    },
+    {
+      "file": "studies/stieltjes_direct_loewner/simulate_loewner.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "2a69f0ae894b4844e77630337f526abadcefa8ee540d8334ca4528f82ce3814b",
+      "frozen_sha256": "c965f8247b41e1ca4fc5af34bc25a80b4660cb3d2bca625418ba03c0eeca6f25"
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/run_reference.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "f749244335b60eb0272d1323e34fff44dcd0e4d45b01bab1487f508a8cf340ea",
+      "frozen_sha256": "c8006088e06cd1dcb8db9e3ddea7e823b2726e3e2c0a7b18eac1605e45140302"
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/side_checks/gd_n16384_eight_pair_shard.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "b96cdb5ec07ee8dc366ae598ceb693bd87e343eb3eae913e9c13315768cb7713",
+      "frozen_sha256": "7dc719f53b816faf7c04ad492b503aa8355746d5d68c5b54a6bf6155e5f6d7ef"
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/side_checks/gd_n16384_single_pair.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "5c64976fb981a8130a38449907237a86a0d6dc2d852d2638e3bb746c707b9563",
+      "frozen_sha256": "1033c03bc7537c5a70b3bf9217d7cdf9431ff146b9ea4a3a33bb82690c43ddd7"
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/side_checks/merge_gd_n16384_eight_pair.py",
+      "action": "modified",
+      "scope": "mechanical_import_only",
+      "before_sha256": "071c98deed548ecc40a1eb262de86eac8be8540c26af644da67115aa4e8dbc59",
+      "frozen_sha256": "b04afa2824b6e7098606756488ba46cdf42dffc672c6ccc9448293c71b383eb4"
+    }
+  ],
+  "importer_count": 40,
+  "importers_by_study": {
+    "causal_flow_peeling_calculus": 4,
+    "d3_arctan_closure_program": 3,
+    "mfp_gaussian_calculus": 18,
+    "mfp_identity_compiler": 3,
+    "mfp_linear_growth_uniform_counterexample": 2,
+    "resnet_activation_controls": 3,
+    "stieltjes_direct_loewner": 3,
+    "stieltjes_proxy_campaign": 4
+  },
+  "live_importers": [
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/adaptive_query_probe.py",
+      "line": 15
+    },
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/hermite_tail_probe.py",
+      "line": 17
+    },
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/koopman_taylor_probe.py",
+      "line": 18
+    },
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/l1_koopman_obstruction.py",
+      "line": 17
+    },
+    {
+      "file": "studies/d3_arctan_closure_program/analyze_gpu_gauge_block_gradient.py",
+      "line": 13
+    },
+    {
+      "file": "studies/d3_arctan_closure_program/analyze_gpu_high_moment_tail.py",
+      "line": 13
+    },
+    {
+      "file": "studies/d3_arctan_closure_program/analyze_gpu_weighted_offcolumn_response.py",
+      "line": 13
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/audit_symbolic_q0.py",
+      "line": 17
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/compare_frozen.py",
+      "line": 13
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/run_normalized_sine_experiment.py",
+      "line": 17
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/two_oracle_gate.py",
+      "line": 10
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/common/sine_prediction.py",
+      "line": 16
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/compare_symbolic_q0.py",
+      "line": 17
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/controls.py",
+      "line": 10
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/deep_linear_sequence.py",
+      "line": 13
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/compare_route_a.py",
+      "line": 10
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/run_checks.py",
+      "line": 9
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/run_exact_audit.py",
+      "line": 9
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/run_sine_experiment.py",
+      "line": 13
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/sine_prediction.py",
+      "line": 9
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/f7_tree_roadmap.py",
+      "line": 16
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/partition_ledger.py",
+      "line": 9
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/run_checks.py",
+      "line": 11
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/run_sine_regression.py",
+      "line": 13
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/primary/audit_full_scalar_recurrence.py",
+      "line": 19
+    },
+    {
+      "file": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/audit_hankel40.py",
+      "line": 17
+    },
+    {
+      "file": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/run_search.py",
+      "line": 20
+    },
+    {
+      "file": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/spectral_closure.py",
+      "line": 17
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/full_l2_paired_transition.py",
+      "line": 30
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/map_inputs.py",
+      "line": 9
+    },
+    {
+      "file": "studies/resnet_activation_controls/make_figures.py",
+      "line": 23
+    },
+    {
+      "file": "studies/resnet_activation_controls/source/run_exact_reference.py",
+      "line": 23
+    },
+    {
+      "file": "studies/resnet_activation_controls/source/run_pde.py",
+      "line": 18
+    },
+    {
+      "file": "studies/stieltjes_direct_loewner/diagnose_blowup.py",
+      "line": 22
+    },
+    {
+      "file": "studies/stieltjes_direct_loewner/run_clock_pilot.py",
+      "line": 18
+    },
+    {
+      "file": "studies/stieltjes_direct_loewner/simulate_loewner.py",
+      "line": 24
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/run_reference.py",
+      "line": 33
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/side_checks/gd_n16384_eight_pair_shard.py",
+      "line": 36
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/side_checks/gd_n16384_single_pair.py",
+      "line": 35
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/side_checks/merge_gd_n16384_eight_pair.py",
+      "line": 15
+    }
+  ],
+  "protected": [
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+      "sha256": "87ddded3c800f3f9b8807fcc551f554ca138fbaf2b20c76d2d53ab88762d5fe2",
+      "unchanged": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/audit/reference_maps.py",
+      "sha256": "cbd4da6cf1495f3e4e03ea28710c9b174be68845b48a46b5bc22555734ff7c84",
+      "unchanged": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/primary/FULL_SCALAR_CANDIDATE_FREEZE.json",
+      "sha256": "d731ec66b067b8739df305426c6aa6d06bbc309d5fd624bd16d1c283ca649728",
+      "unchanged": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/CONTROL_AUDIT.json",
+      "sha256": "46fd0f81ae38a58532ed52b1fc9ff884fbd042323929f64b420e5a453ac141eb",
+      "unchanged": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/order5/compiler/MANIFEST.json",
+      "sha256": "130f826a4c23b7dec04dbb6c47261ccdb68a7af397dea228ef2ca3b2b16c3877",
+      "unchanged": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/primary/PRIMARY_FREEZE_MANIFEST.json",
+      "sha256": "f4838437c1fb70b14713d39e8438d703434c49ffd72001beeb6fee8d53366b30",
+      "unchanged": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/FROZEN_MANIFEST.json",
+      "sha256": "dee0198e119864a90195101466f29f3ab2f248495c6e6a3494f35cafd3f2502b",
+      "unchanged": true
+    },
+    {
+      "file": "data/historical/studies/mfp_gaussian_calculus/order5/compiler/PRIMARY_UNIT_COEFFICIENT_MAP.json",
+      "sha256": "68dd13460fb5bfab187d0d7e61b90adeec43a2311c2cab2726fd68b73fbf37f2",
+      "unchanged": true
+    },
+    {
+      "file": "data/historical/studies/mfp_gaussian_calculus/depth_order5/primary/H3_UNIT_COEFFICIENTS.json",
+      "sha256": "564c6a27d6071e8601d21fd167dfd8f21d7ac9fe2323695a626eeebf73b980c6",
+      "unchanged": true
+    },
+    {
+      "file": "data/historical/studies/mfp_gaussian_calculus/depth_order5/primary/H4_UNIT_COEFFICIENTS.json",
+      "sha256": "b3b220b76c8d30037cf0bfc0a8a1dc05884b28601a1c28e45b0daf9ff64faa5d",
+      "unchanged": true
+    },
+    {
+      "file": "data/historical/studies/mfp_gaussian_calculus/depth_order5/audit/NORMALIZED_SINE_EXPERIMENT.json",
+      "sha256": "2b9250cbad87ce388d268a0cbe4d378b2e4d0924cb65f4003e2344fa118adccc",
+      "unchanged": true
+    }
+  ],
+  "tests_passed": 28,
+  "combined_routing_slice_count": 52,
+  "combined_routing_slice": [
+    {
+      "file": "studies/_output_paths.py",
+      "sha256": "71ad7cbc47336b662d2a33fd8be817ff1ea9881d8be51236d791d1ad3cbbf3b6"
+    },
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/adaptive_query_probe.py",
+      "sha256": "3341a20d90356e7d3d8301bf08466382791ecc555d7579c59dbddae9afbd4acc"
+    },
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/hermite_tail_probe.py",
+      "sha256": "ff510a6a1e99ec5d419e0d60a51594fac2e30f466bce26558071c727d3f89a38"
+    },
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/koopman_taylor_probe.py",
+      "sha256": "70fc2462657912d8a8b02e842bed216cabd4dc822e427125958331deb1fe6794"
+    },
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/l1_koopman_obstruction.py",
+      "sha256": "d1130dc2cd93b8547c19c36edc9a54800a44d6f52d8887f69f2807752da9ccbb"
+    },
+    {
+      "file": "studies/d3_arctan_closure_program/analyze_gpu_gauge_block_gradient.py",
+      "sha256": "f0f5c1170a4570d8a03ff56a79352840328bc7ec97feca5a9675e2f97b6dc90c"
+    },
+    {
+      "file": "studies/d3_arctan_closure_program/analyze_gpu_high_moment_tail.py",
+      "sha256": "6c43ab352f69df0f3f8c5a8683caa34443e0c63edd73477841a1082239125bcf"
+    },
+    {
+      "file": "studies/d3_arctan_closure_program/analyze_gpu_weighted_offcolumn_response.py",
+      "sha256": "f4f7cc32de36b991f41acc9531e5b517febd31375ef4df4c7e761811b12be0ca"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/audit_symbolic_q0.py",
+      "sha256": "1827e9a2ae339511e8e8e4aa89346d1fe9ba81821a16393050a82d5fc84a3b41"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/compare_frozen.py",
+      "sha256": "6d196d7422d4dacdab59b3b366afea307d7015e6b9c5c4abe868b2492c833837"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/run_checks.py",
+      "sha256": "14b6ce66c468d3d24ca2deb2557d8aad1c0b5d7ea4513867ebf7d9c9a27b59c7"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/run_normalized_sine_experiment.py",
+      "sha256": "af198d67ad415b611dc5301b7a61b03d5529641d3eb2c68eb037014e9f3a7ead"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/two_oracle_gate.py",
+      "sha256": "bf8dbbb7b0c0158a044d655ff121bf9b53bec7d280862332e3bc1fdcdf4231b2"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/common/sine_prediction.py",
+      "sha256": "bc0cdd0b30c5dcd244ec0cfc00435029e3d38eddf534650bea4fbda4a90b6143"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/compare_symbolic_q0.py",
+      "sha256": "bbc4dfec3184fba19dbc26946e8b91ae9ad4e212702026f109ed3a81051ab7d6"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/controls.py",
+      "sha256": "dd209b77828e5985fe3f73f83a9ef7041e6af88dc1810639aaebfd029425950c"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/deep_linear_sequence.py",
+      "sha256": "a00e55ca14811a3b0acf25b1cb14c49b23975fbe031d61e483c06678c2e793e6"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/freeze_depth_maps.py",
+      "sha256": "c88cf8abf44fc4bfd24bc184da1b689e54649cc8cc32dfeb2ae3b2532060fec6"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/primary/run_lightweight_checks.py",
+      "sha256": "ab01488e83f12e4ed3b9ec68bf0f72038b19b46172be5250b1058ee417d77055"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/compare_route_a.py",
+      "sha256": "d8396d25d5555c1e6a3ffbdc3b54e13a0473717f77ab22d2af80a139ed0c8cc7"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/run_checks.py",
+      "sha256": "9e526ffc864a6dbfa4245d6f3369af454819be35ec90dd27d1876dd59306f5d9"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/run_exact_audit.py",
+      "sha256": "807a1e66d078a1a7bacca0ad6e05dca167ffc46e508a42e2dcea6eebc54d83fb"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/run_sine_experiment.py",
+      "sha256": "90767427e4b7a390b53210d802dece7eebd72b17db5bb10db2658f7ea9340b2d"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/sine_prediction.py",
+      "sha256": "df3f61b5db5de2436584f4632b5d28b296826f17b1b498de68e6a9a6fc4c522a"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/f7_tree_roadmap.py",
+      "sha256": "73c90d6c0a120b2bce76a74d7e0a237fe3033579889226f85974d529e11f9492"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/partition_ledger.py",
+      "sha256": "0455b59155f0a3d272c5c15ae3313fa83815312dea9b24566cd8e9dd3346f3bf"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/reduce_gamma04.py",
+      "sha256": "9ec67c71251ae457d56e84310737319f957cc14e0e5aafe09557d273461637a8"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/run_checks.py",
+      "sha256": "0522e98cc1f4409cdc425d7a5e2b39fe407e1f869febc31774a356bee13a1c5f"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/run_sine_regression.py",
+      "sha256": "1041be5bb25454016fe92152b5ec69b6208123913c23fb75af34a1d9d424243a"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/primary/audit_full_scalar_recurrence.py",
+      "sha256": "ea70f84bfce1db8c3d60928f6e8874699981537794a881fa94efe5112d40a5c3"
+    },
+    {
+      "file": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/audit_hankel40.py",
+      "sha256": "54dc9ab0286bc9dc997d2a68dfe8b4ef6f49faeeb97fe551e16a495c76ba3568"
+    },
+    {
+      "file": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/run_search.py",
+      "sha256": "b7622f596d790d1fa966561a6890303f25efb6d2f9df952c58dfc447c8386ce9"
+    },
+    {
+      "file": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/spectral_closure.py",
+      "sha256": "65da8aaa462d008684c258a4e12dd53e9d177e9773b91b71ef888d13b9081c66"
+    },
+    {
+      "file": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/test_spectral_closure.py",
+      "sha256": "564652bfeb33ec0bf15ef4419a3be8705c2b99df97e5bb642f855133bd027edb"
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/audit_full_l2_paired_transition.py",
+      "sha256": "9dd9bebee15a2d2c994277af0661f9c2adc948bae036031e46cf6f0534fa518b"
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/audit_old_new_transition_subsets.py",
+      "sha256": "326d11b5d0fd5e6eb0d272661a4151281b45545a0c89dbf75e8761e278869f66"
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/audit_paired_excess.py",
+      "sha256": "2f5d564c54251a784d02dcd2614fd7bfd525faf9969caaa9e1bb27adc36bc24a"
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/bump_full_newton_certificate.py",
+      "sha256": "40380d05b335bbad42a5b2c79d420ac6b50c95275cc3c364d6b4b69f42445153"
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/bump_laurent_certificate.py",
+      "sha256": "25aec1e25cca187be17606cb50d34eaefa66d5ec4473b8f755b9d97ac74dfbb6"
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/evaluate_full_l2_transition.py",
+      "sha256": "c740c5d7d0cd8abca324fcc896c80dd1bca119cd1da065c04c8e44ba36766fc1"
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/full_l2_paired_transition.py",
+      "sha256": "c1ef6b08a77c7a4090b8dfb28b7132915ea788d499f4537d3ba3cc1852de1578"
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/map_inputs.py",
+      "sha256": "ca0c847f920e29ec970c9949179a2b3c9ba3bd94329e8b018fcc9e493367a48b"
+    },
+    {
+      "file": "studies/resnet_activation_controls/make_figures.py",
+      "sha256": "41b7aa5386825d0190970b4c11ff5859ac4e2c0435b0cdf438b470f4b30d536d"
+    },
+    {
+      "file": "studies/resnet_activation_controls/source/run_exact_reference.py",
+      "sha256": "b113385a3a9f807397cc5731402c9f1a14b51c3dc0dd5e3da1366747818e142d"
+    },
+    {
+      "file": "studies/resnet_activation_controls/source/run_pde.py",
+      "sha256": "2227b31a528837e260a9c4ce2c6ecc275b329b85968158054e931900669a6802"
+    },
+    {
+      "file": "studies/stieltjes_direct_loewner/diagnose_blowup.py",
+      "sha256": "c7657ebf949408e32b6bd02c16e6314d7cd0ad71d3fc188ad3ff6f0f8d4999e6"
+    },
+    {
+      "file": "studies/stieltjes_direct_loewner/run_clock_pilot.py",
+      "sha256": "4fe3c8db6e435f08df5888b3e78256a9028bf4abaef1cc2d90966a284d863f30"
+    },
+    {
+      "file": "studies/stieltjes_direct_loewner/simulate_loewner.py",
+      "sha256": "c965f8247b41e1ca4fc5af34bc25a80b4660cb3d2bca625418ba03c0eeca6f25"
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/run_reference.py",
+      "sha256": "c8006088e06cd1dcb8db9e3ddea7e823b2726e3e2c0a7b18eac1605e45140302"
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/side_checks/gd_n16384_eight_pair_shard.py",
+      "sha256": "7dc719f53b816faf7c04ad492b503aa8355746d5d68c5b54a6bf6155e5f6d7ef"
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/side_checks/gd_n16384_single_pair.py",
+      "sha256": "1033c03bc7537c5a70b3bf9217d7cdf9431ff146b9ea4a3a33bb82690c43ddd7"
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/side_checks/merge_gd_n16384_eight_pair.py",
+      "sha256": "b04afa2824b6e7098606756488ba46cdf42dffc672c6ccc9448293c71b383eb4"
+    }
+  ],
+  "private_artifacts": [
+    {
+      "file": "/tmp/pde-shared-consumers-ulZD7W/REPORT.md",
+      "sha256": "f9c7a6cb92b2737c45ad60f4bafdc6f42982f2c3409835ba8d003d6228d30080"
+    },
+    {
+      "file": "/tmp/pde-shared-consumers-ulZD7W/test_shared_consumers.py",
+      "sha256": "24e86327a93566bfc194029b0a04e7f1ef43658f1cf555ae9c7d892876461371"
+    },
+    {
+      "file": "/tmp/pde-shared-consumers-ulZD7W/run_tests.py",
+      "sha256": "31902e96fe082433b66e7b6bcd16a3cba7fbe39def71fa909d6c898bdd8c549e"
+    },
+    {
+      "file": "/tmp/pde-shared-consumers-ulZD7W/original-routing-tests-3.txt",
+      "sha256": "2c797c79d6a3a79c2418a0ca7ba2f627d7363c9516998f821c3bcd9696be4ebd"
+    },
+    {
+      "file": "/tmp/pde-shared-consumers-ulZD7W/shared-consumers-tests-3.txt",
+      "sha256": "10a6cc64abee7a39401db4f3b45e14728c19b9cbd13731696a66b6036493f5dc"
+    }
+  ],
+  "updated_private_harness": {
+    "file": "/tmp/pde-routing-completeness-acofeOTG/test_routing.py",
+    "sha256": "1c5a8ee33a4a557a559c8dfc9d1297d9a6ca867b1b9927cc570ac9be762f1504"
+  }
+}

@@ -1,6 +1,9 @@
 """Unified low-cost integrity/status checks for the depth-order-five result."""
 
-from __future__ import annotations
+raise RuntimeError(
+    "archive-only frozen-result replay: its report/freeze pipeline is retired; "
+    "migration does not authorize rebuilding historical evidence or seals"
+)
 
 import hashlib
 import json
@@ -76,4 +79,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

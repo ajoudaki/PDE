@@ -22,16 +22,16 @@ from raw_sine_order5 import (
 
 
 HERE = Path(__file__).resolve().parent
-REPO = HERE.parents[3]
+REPO = HERE.parents[2]
 PROTOCOL = HERE / "NORMALIZED_PROTOCOL.md"
 PRIMARY = (
     REPO
-    / "studies/mean_field_peeling/generic_first_stieltjes/order5/compiler"
+    / "studies/mfp_gaussian_calculus/order5/compiler"
     / "UNIT_GRAM_ABC_NORMAL_FORM.txt"
 )
 INDEPENDENT = (
     REPO
-    / "studies/mean_field_peeling/generic_first_stieltjes/order5/independent"
+    / "data/historical/studies/mfp_gaussian_calculus/order5/independent"
     / "independent_coefficient_map.json"
 )
 

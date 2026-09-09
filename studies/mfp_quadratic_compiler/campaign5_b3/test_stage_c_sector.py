@@ -11,7 +11,9 @@ import tempfile
 
 HERE = Path(__file__).resolve().parent
 SOURCE = HERE / "stage_c_sector.cpp"
-DENSE = HERE / "frozen" / "stage_b_connected_order5.json"
+DENSE = (
+    HERE.parents[2] / "data/historical/studies/mfp_quadratic_compiler/campaign5_b3/frozen/stage_b_connected_order5.json"
+)
 EXPECTED_SOURCE_SHA256 = (
     "f1912e81b2f25bdef04bcef9c490a0975757a64deda4cb55f74c7c50abfe64ce"
 )
@@ -50,4 +52,3 @@ def test_order_five_w_hit_sectors_sum_to_independent_dense_result() -> None:
         int(value) for value in json.loads(DENSE.read_text())["raw_rho"][5]
     ]
     assert sector_sum == independent_dense
-

@@ -16,8 +16,9 @@ import sympy as sp
 
 
 HERE = Path(__file__).resolve().parent
-STAGE_A = HERE / "frozen" / "stage_a_connected_order3.json"
-STAGE_B = HERE / "frozen" / "stage_b_connected_order5.json"
+DATA = HERE.parents[2] / "data/historical/studies/mfp_quadratic_compiler/campaign5_b3"
+STAGE_A = DATA / "frozen" / "stage_a_connected_order3.json"
+STAGE_B = DATA / "frozen" / "stage_b_connected_order5.json"
 RHO = sp.Symbol("rho")
 
 
@@ -84,8 +85,8 @@ def main() -> None:
             "preregistered order-seven Hankel success test"
         ),
         "source_artifacts": {
-            str(STAGE_A.relative_to(HERE)): sha256(STAGE_A),
-            str(STAGE_B.relative_to(HERE)): sha256(STAGE_B),
+            str(STAGE_A.relative_to(DATA)): sha256(STAGE_A),
+            str(STAGE_B.relative_to(DATA)): sha256(STAGE_B),
         },
         "definitions": {
             "A": "J1",
@@ -117,4 +118,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

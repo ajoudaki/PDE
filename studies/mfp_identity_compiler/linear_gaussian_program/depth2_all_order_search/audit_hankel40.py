@@ -7,12 +7,16 @@ import hashlib
 import json
 from fractions import Fraction
 from pathlib import Path
+import sys
 
 import sympy as sp
 
 
 HERE = Path(__file__).resolve().parent
-INPUT = HERE / "RESULTS.json"
+sys.path.insert(0, str(HERE.parents[3]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 Q = Fraction
 
 
@@ -92,6 +96,8 @@ def audit_family(moments: list[Fraction], shift: int) -> dict[str, object]:
 
 
 def main() -> int:
+    args = PATHS.parse(inputs=True)
+    INPUT = args.input_dir / "RESULTS.json"
     document = json.loads(INPUT.read_text())
     moments = [Q(value) for value in document["moments"]]
     if len(moments) != 40:
@@ -119,7 +125,8 @@ def main() -> int:
             "source": sha256(Path(__file__)),
         },
     }
-    output = HERE / "HANKEL40_RESULTS.json"
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    output = args.output_dir / "HANKEL40_RESULTS.json"
     output.write_text(json.dumps(payload, indent=2) + "\n")
     print(json.dumps({
         "output": str(output),
@@ -134,4 +141,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

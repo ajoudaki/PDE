@@ -1,0 +1,356 @@
+{
+  "root": "/home/amir/Codes/PDE",
+  "frozen_utc": "2026-09-09T12:11:05.777645+00:00",
+  "status": "completed bounded connected-reader fix; ready for independent acceptance",
+  "repository_files_changed_this_increment": [
+    "studies/mfp_gaussian_calculus/depth_order5_scalar/audit/reference_maps.py"
+  ],
+  "extension_files": [
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/run_checks.py",
+      "sha256": "14b6ce66c468d3d24ca2deb2557d8aad1c0b5d7ea4513867ebf7d9c9a27b59c7",
+      "unchanged_in_this_increment": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/primary/run_lightweight_checks.py",
+      "sha256": "ab01488e83f12e4ed3b9ec68bf0f72038b19b46172be5250b1058ee417d77055",
+      "unchanged_in_this_increment": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/primary/audit_full_scalar_recurrence.py",
+      "sha256": "ea70f84bfce1db8c3d60928f6e8874699981537794a881fa94efe5112d40a5c3",
+      "unchanged_in_this_increment": true
+    },
+    {
+      "file": "studies/_output_paths.py",
+      "sha256": "71ad7cbc47336b662d2a33fd8be817ff1ea9881d8be51236d791d1ad3cbbf3b6",
+      "unchanged_in_this_increment": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/audit/reference_maps.py",
+      "before_sha256": "cbd4da6cf1495f3e4e03ea28710c9b174be68845b48a46b5bc22555734ff7c84",
+      "sha256": "1c14f9c540ece4afe0cc921e99e292c96d83e581fd0b2d514e1ea5ae74d9f3f3",
+      "unchanged_in_this_increment": false
+    }
+  ],
+  "protected": [
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+      "sha256": "87ddded3c800f3f9b8807fcc551f554ca138fbaf2b20c76d2d53ab88762d5fe2",
+      "unchanged": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/primary/FULL_SCALAR_CANDIDATE_FREEZE.json",
+      "sha256": "d731ec66b067b8739df305426c6aa6d06bbc309d5fd624bd16d1c283ca649728",
+      "unchanged": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/CONTROL_AUDIT.json",
+      "sha256": "46fd0f81ae38a58532ed52b1fc9ff884fbd042323929f64b420e5a453ac141eb",
+      "unchanged": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/order5/compiler/MANIFEST.json",
+      "sha256": "130f826a4c23b7dec04dbb6c47261ccdb68a7af397dea228ef2ca3b2b16c3877",
+      "unchanged": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/primary/PRIMARY_FREEZE_MANIFEST.json",
+      "sha256": "f4838437c1fb70b14713d39e8438d703434c49ffd72001beeb6fee8d53366b30",
+      "unchanged": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/FROZEN_MANIFEST.json",
+      "sha256": "dee0198e119864a90195101466f29f3ab2f248495c6e6a3494f35cafd3f2502b",
+      "unchanged": true
+    },
+    {
+      "file": "data/historical/studies/mfp_gaussian_calculus/order5/compiler/PRIMARY_UNIT_COEFFICIENT_MAP.json",
+      "sha256": "68dd13460fb5bfab187d0d7e61b90adeec43a2311c2cab2726fd68b73fbf37f2",
+      "unchanged": true
+    },
+    {
+      "file": "data/historical/studies/mfp_gaussian_calculus/depth_order5/primary/H3_UNIT_COEFFICIENTS.json",
+      "sha256": "564c6a27d6071e8601d21fd167dfd8f21d7ac9fe2323695a626eeebf73b980c6",
+      "unchanged": true
+    },
+    {
+      "file": "data/historical/studies/mfp_gaussian_calculus/depth_order5/primary/H4_UNIT_COEFFICIENTS.json",
+      "sha256": "b3b220b76c8d30037cf0bfc0a8a1dc05884b28601a1c28e45b0daf9ff64faa5d",
+      "unchanged": true
+    },
+    {
+      "file": "data/historical/studies/mfp_gaussian_calculus/depth_order5/audit/NORMALIZED_SINE_EXPERIMENT.json",
+      "sha256": "2b9250cbad87ce388d268a0cbe4d378b2e4d0924cb65f4003e2344fa118adccc",
+      "unchanged": true
+    }
+  ],
+  "slice1_receipts": [
+    {
+      "file": "/tmp/pde-routing-completeness-acofeOTG/REPORT.md",
+      "sha256": "dd7ddd1c45cd6ee693bb8bb1886b809a4ba03650951904d35ff01bc25fe22bed",
+      "unchanged_during_refresh": true
+    },
+    {
+      "file": "/tmp/pde-routing-completeness-acofeOTG/REPAIR_STATUS.md",
+      "sha256": "32ddc643121d68ad9673cb840794aeeefcc54e41597edca9d6c4816152a84dfe",
+      "unchanged_during_refresh": true
+    },
+    {
+      "file": "/tmp/pde-routing-completeness-acofeOTG/FROZEN_INVENTORY.json",
+      "sha256": "bdfaa07b036a462684733694600cb0c20c64e38735cd83e0565e0aedb358fca0",
+      "unchanged_during_refresh": true
+    },
+    {
+      "file": "/tmp/pde-routing-completeness-acofeOTG/PATCH_INVENTORY.json",
+      "sha256": "5708fb80683359e60fbdf19b2b9d210dc80a72cd34bae98a99e45526780165ff",
+      "unchanged_during_refresh": true
+    },
+    {
+      "file": "/tmp/pde-routing-completeness-acofeOTG/static_inventory.json",
+      "sha256": "599a16c171070802dcafaecb62e891edf2d782b4b14db45798f2d316fc325e72",
+      "unchanged_during_refresh": true
+    },
+    {
+      "file": "/tmp/pde-routing-completeness-acofeOTG/TEST_RESULTS.txt",
+      "sha256": "49ceee1c297648fd5876fcb2af49247836dc4cf07062d848597768341092543b",
+      "unchanged_during_refresh": true
+    }
+  ],
+  "tests": [
+    {
+      "file": "/tmp/pde-frozen-reference-fix-slZtav/original-15.txt",
+      "sha256": "0f14901dbc066285487d485c1afea13a6f8c8401ecff5f867b7121d7e548b33b",
+      "passed": 15
+    },
+    {
+      "file": "/tmp/pde-frozen-reference-fix-slZtav/extension-and-loader-17.txt",
+      "sha256": "f677fcae339ccc77965e7ed4b4abed55cb3cf0bf4a16f2e8337d2cf893c16af5",
+      "passed": 17
+    }
+  ],
+  "total_tests_passed": 32,
+  "combined_routing_slice_count": 53,
+  "combined_routing_slice": [
+    {
+      "file": "studies/_output_paths.py",
+      "sha256": "71ad7cbc47336b662d2a33fd8be817ff1ea9881d8be51236d791d1ad3cbbf3b6"
+    },
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/adaptive_query_probe.py",
+      "sha256": "3341a20d90356e7d3d8301bf08466382791ecc555d7579c59dbddae9afbd4acc"
+    },
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/hermite_tail_probe.py",
+      "sha256": "ff510a6a1e99ec5d419e0d60a51594fac2e30f466bce26558071c727d3f89a38"
+    },
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/koopman_taylor_probe.py",
+      "sha256": "70fc2462657912d8a8b02e842bed216cabd4dc822e427125958331deb1fe6794"
+    },
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/l1_koopman_obstruction.py",
+      "sha256": "d1130dc2cd93b8547c19c36edc9a54800a44d6f52d8887f69f2807752da9ccbb"
+    },
+    {
+      "file": "studies/d3_arctan_closure_program/analyze_gpu_gauge_block_gradient.py",
+      "sha256": "f0f5c1170a4570d8a03ff56a79352840328bc7ec97feca5a9675e2f97b6dc90c"
+    },
+    {
+      "file": "studies/d3_arctan_closure_program/analyze_gpu_high_moment_tail.py",
+      "sha256": "6c43ab352f69df0f3f8c5a8683caa34443e0c63edd73477841a1082239125bcf"
+    },
+    {
+      "file": "studies/d3_arctan_closure_program/analyze_gpu_weighted_offcolumn_response.py",
+      "sha256": "f4f7cc32de36b991f41acc9531e5b517febd31375ef4df4c7e761811b12be0ca"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/audit_symbolic_q0.py",
+      "sha256": "1827e9a2ae339511e8e8e4aa89346d1fe9ba81821a16393050a82d5fc84a3b41"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/compare_frozen.py",
+      "sha256": "6d196d7422d4dacdab59b3b366afea307d7015e6b9c5c4abe868b2492c833837"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/run_checks.py",
+      "sha256": "14b6ce66c468d3d24ca2deb2557d8aad1c0b5d7ea4513867ebf7d9c9a27b59c7"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/run_normalized_sine_experiment.py",
+      "sha256": "af198d67ad415b611dc5301b7a61b03d5529641d3eb2c68eb037014e9f3a7ead"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/two_oracle_gate.py",
+      "sha256": "bf8dbbb7b0c0158a044d655ff121bf9b53bec7d280862332e3bc1fdcdf4231b2"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/common/sine_prediction.py",
+      "sha256": "bc0cdd0b30c5dcd244ec0cfc00435029e3d38eddf534650bea4fbda4a90b6143"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/compare_symbolic_q0.py",
+      "sha256": "bbc4dfec3184fba19dbc26946e8b91ae9ad4e212702026f109ed3a81051ab7d6"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/controls.py",
+      "sha256": "dd209b77828e5985fe3f73f83a9ef7041e6af88dc1810639aaebfd029425950c"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/deep_linear_sequence.py",
+      "sha256": "a00e55ca14811a3b0acf25b1cb14c49b23975fbe031d61e483c06678c2e793e6"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/freeze_depth_maps.py",
+      "sha256": "c88cf8abf44fc4bfd24bc184da1b689e54649cc8cc32dfeb2ae3b2532060fec6"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/primary/run_lightweight_checks.py",
+      "sha256": "ab01488e83f12e4ed3b9ec68bf0f72038b19b46172be5250b1058ee417d77055"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/compare_route_a.py",
+      "sha256": "d8396d25d5555c1e6a3ffbdc3b54e13a0473717f77ab22d2af80a139ed0c8cc7"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/run_checks.py",
+      "sha256": "9e526ffc864a6dbfa4245d6f3369af454819be35ec90dd27d1876dd59306f5d9"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/run_exact_audit.py",
+      "sha256": "807a1e66d078a1a7bacca0ad6e05dca167ffc46e508a42e2dcea6eebc54d83fb"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/run_sine_experiment.py",
+      "sha256": "90767427e4b7a390b53210d802dece7eebd72b17db5bb10db2658f7ea9340b2d"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/sine_prediction.py",
+      "sha256": "df3f61b5db5de2436584f4632b5d28b296826f17b1b498de68e6a9a6fc4c522a"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/audit/reference_maps.py",
+      "sha256": "1c14f9c540ece4afe0cc921e99e292c96d83e581fd0b2d514e1ea5ae74d9f3f3"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/f7_tree_roadmap.py",
+      "sha256": "73c90d6c0a120b2bce76a74d7e0a237fe3033579889226f85974d529e11f9492"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/partition_ledger.py",
+      "sha256": "0455b59155f0a3d272c5c15ae3313fa83815312dea9b24566cd8e9dd3346f3bf"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/reduce_gamma04.py",
+      "sha256": "9ec67c71251ae457d56e84310737319f957cc14e0e5aafe09557d273461637a8"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/run_checks.py",
+      "sha256": "0522e98cc1f4409cdc425d7a5e2b39fe407e1f869febc31774a356bee13a1c5f"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/run_sine_regression.py",
+      "sha256": "1041be5bb25454016fe92152b5ec69b6208123913c23fb75af34a1d9d424243a"
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/primary/audit_full_scalar_recurrence.py",
+      "sha256": "ea70f84bfce1db8c3d60928f6e8874699981537794a881fa94efe5112d40a5c3"
+    },
+    {
+      "file": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/audit_hankel40.py",
+      "sha256": "54dc9ab0286bc9dc997d2a68dfe8b4ef6f49faeeb97fe551e16a495c76ba3568"
+    },
+    {
+      "file": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/run_search.py",
+      "sha256": "b7622f596d790d1fa966561a6890303f25efb6d2f9df952c58dfc447c8386ce9"
+    },
+    {
+      "file": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/spectral_closure.py",
+      "sha256": "65da8aaa462d008684c258a4e12dd53e9d177e9773b91b71ef888d13b9081c66"
+    },
+    {
+      "file": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/test_spectral_closure.py",
+      "sha256": "564652bfeb33ec0bf15ef4419a3be8705c2b99df97e5bb642f855133bd027edb"
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/audit_full_l2_paired_transition.py",
+      "sha256": "9dd9bebee15a2d2c994277af0661f9c2adc948bae036031e46cf6f0534fa518b"
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/audit_old_new_transition_subsets.py",
+      "sha256": "326d11b5d0fd5e6eb0d272661a4151281b45545a0c89dbf75e8761e278869f66"
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/audit_paired_excess.py",
+      "sha256": "2f5d564c54251a784d02dcd2614fd7bfd525faf9969caaa9e1bb27adc36bc24a"
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/bump_full_newton_certificate.py",
+      "sha256": "40380d05b335bbad42a5b2c79d420ac6b50c95275cc3c364d6b4b69f42445153"
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/bump_laurent_certificate.py",
+      "sha256": "25aec1e25cca187be17606cb50d34eaefa66d5ec4473b8f755b9d97ac74dfbb6"
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/evaluate_full_l2_transition.py",
+      "sha256": "c740c5d7d0cd8abca324fcc896c80dd1bca119cd1da065c04c8e44ba36766fc1"
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/full_l2_paired_transition.py",
+      "sha256": "c1ef6b08a77c7a4090b8dfb28b7132915ea788d499f4537d3ba3cc1852de1578"
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/map_inputs.py",
+      "sha256": "ca0c847f920e29ec970c9949179a2b3c9ba3bd94329e8b018fcc9e493367a48b"
+    },
+    {
+      "file": "studies/resnet_activation_controls/make_figures.py",
+      "sha256": "41b7aa5386825d0190970b4c11ff5859ac4e2c0435b0cdf438b470f4b30d536d"
+    },
+    {
+      "file": "studies/resnet_activation_controls/source/run_exact_reference.py",
+      "sha256": "b113385a3a9f807397cc5731402c9f1a14b51c3dc0dd5e3da1366747818e142d"
+    },
+    {
+      "file": "studies/resnet_activation_controls/source/run_pde.py",
+      "sha256": "2227b31a528837e260a9c4ce2c6ecc275b329b85968158054e931900669a6802"
+    },
+    {
+      "file": "studies/stieltjes_direct_loewner/diagnose_blowup.py",
+      "sha256": "c7657ebf949408e32b6bd02c16e6314d7cd0ad71d3fc188ad3ff6f0f8d4999e6"
+    },
+    {
+      "file": "studies/stieltjes_direct_loewner/run_clock_pilot.py",
+      "sha256": "4fe3c8db6e435f08df5888b3e78256a9028bf4abaef1cc2d90966a284d863f30"
+    },
+    {
+      "file": "studies/stieltjes_direct_loewner/simulate_loewner.py",
+      "sha256": "c965f8247b41e1ca4fc5af34bc25a80b4660cb3d2bca625418ba03c0eeca6f25"
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/run_reference.py",
+      "sha256": "c8006088e06cd1dcb8db9e3ddea7e823b2726e3e2c0a7b18eac1605e45140302"
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/side_checks/gd_n16384_eight_pair_shard.py",
+      "sha256": "7dc719f53b816faf7c04ad492b503aa8355746d5d68c5b54a6bf6155e5f6d7ef"
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/side_checks/gd_n16384_single_pair.py",
+      "sha256": "1033c03bc7537c5a70b3bf9217d7cdf9431ff146b9ea4a3a33bb82690c43ddd7"
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/side_checks/merge_gd_n16384_eight_pair.py",
+      "sha256": "b04afa2824b6e7098606756488ba46cdf42dffc672c6ccc9448293c71b383eb4"
+    }
+  ],
+  "receipt": {
+    "file": "/tmp/pde-frozen-reference-fix-slZtav/FINAL_REPORT.md",
+    "sha256": "a83fa5a0505b26a5c9f3bf6b52a777f81786e72426ec78be4e3b298a965a8014"
+  },
+  "new_test_harness": {
+    "file": "/tmp/pde-frozen-reference-fix-slZtav/test_connected_reference.py",
+    "sha256": "f200ebe32e518e6489c133ae37c35614d5a7b5a75036cfe00e78646a11b01a18"
+  }
+}

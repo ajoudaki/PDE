@@ -309,7 +309,8 @@ def compile_depth(hidden_layers: int) -> dict[str, SPoly]:
 
 
 def _read_accepted(depth: int) -> dict[str, SPoly]:
-    root = Path(__file__).resolve().parents[2]
+    """Read the explicitly frozen comparison maps from retained historical data."""
+    root = Path(__file__).resolve().parents[4] / "data/historical/studies/mfp_gaussian_calculus"
     if depth == 2:
         path = root / "order5/compiler/PRIMARY_UNIT_COEFFICIENT_MAP.json"
         data = json.loads(path.read_text())["unit_gram"]

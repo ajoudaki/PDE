@@ -13,8 +13,12 @@ import pytest
 
 HERE = Path(__file__).resolve().parent
 SOURCE = HERE / "production_canonical_recurrence.py"
-RESULT = HERE / "PRODUCTION_RESULT.json"
-INDEPENDENT_RESULT = HERE / "INDEPENDENT_RESULT.json"
+RESULT = (
+    HERE.parents[2] / "data/historical/studies/stieltjes_resolution/canonical_high_order/PRODUCTION_RESULT.json"
+)
+INDEPENDENT_RESULT = (
+    HERE.parents[2] / "data/historical/studies/stieltjes_resolution/canonical_high_order/INDEPENDENT_RESULT.json"
+)
 
 
 def load_source():

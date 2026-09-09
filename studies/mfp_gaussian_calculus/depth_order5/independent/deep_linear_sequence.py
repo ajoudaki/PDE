@@ -10,6 +10,10 @@ from fractions import Fraction
 import json
 from pathlib import Path
 
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
+
 from .controls import evaluate_polynomial
 from .depth_factored import compile_depth_factored
 
@@ -46,6 +50,7 @@ def serial(values: dict[str, Fraction]) -> dict[str, str]:
 
 
 def main() -> None:
+    args = PATHS.parse()
     # H=1 is the exact two-factor calculation.
     values: dict[int, dict[str, Fraction]] = {
         1: {"A": Fraction(2), "B": Fraction(8), "C": Fraction(32)}
@@ -105,7 +110,8 @@ def main() -> None:
         "all_finite_value_checks_pass": all_value_checks,
         "all_finite_increment_checks_pass": all_increment_checks,
     }
-    output = HERE / "DEEP_LINEAR_SEQUENCE_AUDIT.json"
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    output = args.output_dir / "DEEP_LINEAR_SEQUENCE_AUDIT.json"
     output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
     if not (all_value_checks and all_increment_checks):
         raise SystemExit("finite deep-linear candidate check failed")

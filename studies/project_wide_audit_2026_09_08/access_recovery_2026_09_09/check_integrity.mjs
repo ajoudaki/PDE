@@ -36,7 +36,7 @@ for(const p of ['/tmp/tp3-audit.Trwr6N/proofs.tex','/tmp/tensor-programs-iii.txt
 for(const f of JSON.parse(fs.readFileSync(path.join(recovery,'ATTACHMENT_MANIFEST.json'),'utf8'))){
   const b=fs.readFileSync(f.file);result.attachments.push({file:f.file,ok:hash(b)===f.sha256});
 }
-const base=path.join(repo,'studies/mean_field_peeling/four_thread_consolidation');
+const base=path.join(repo,'studies/four_thread_consolidation');
 for(const [source,archive] of [
   ['/tmp/l2-proof-review-wBzgFS/TWO_HIDDEN_LAYER_PROOF.md',path.join(base,'inherited_baselines/L2_ONE_SAMPLE_ARCTAN_GLOBAL_PROOF.md')],
   ['/tmp/l3-arctan-audit-sZue2v/EXACT_RESULTS_AND_GAP.md',path.join(base,'expanded_sources/EXPLAIN_PRIMARY/l3-arctan-audit-sZue2v/EXACT_RESULTS_AND_GAP.md')],

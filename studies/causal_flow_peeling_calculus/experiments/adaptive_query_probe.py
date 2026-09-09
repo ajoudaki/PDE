@@ -5,12 +5,16 @@ from __future__ import annotations
 
 import csv
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
 
 
-OUT = Path(__file__).resolve().parent / "outputs" / "adaptive_query"
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 WIDTHS = (64, 128, 256, 512, 1024, 2048)
 REPLICATES = {64: 40, 128: 40, 256: 30, 512: 20, 1024: 12, 2048: 6}
 HUTCHINSON_PROBES = 8
@@ -84,6 +88,7 @@ def summarize(records: list[dict[str, float]]) -> dict[str, object]:
 
 
 def main() -> None:
+    OUT = PATHS.parse(output_relative="experiments/outputs/adaptive_query").output_dir
     OUT.mkdir(parents=True, exist_ok=True)
     seed_sequence = np.random.SeedSequence(BASE_SEED)
     child_seeds = seed_sequence.spawn(sum(REPLICATES.values()))

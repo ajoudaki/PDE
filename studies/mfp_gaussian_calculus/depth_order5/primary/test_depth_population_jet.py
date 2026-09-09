@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from studies.mean_field_peeling.generic_first_stieltjes.order5.compiler.coefficient_map import (
+from studies.mfp_gaussian_calculus.order5.compiler.coefficient_map import (
     expand_coefficient_map,
 )
-from studies.mean_field_peeling.generic_first_stieltjes.order5.compiler.factored_expression import (
+from studies.mfp_gaussian_calculus.order5.compiler.factored_expression import (
     compile_factored,
 )
 

@@ -30,7 +30,9 @@ except ImportError:  # Allow direct execution from this directory.
 
 Q = Fraction
 HERE = Path(__file__).resolve().parent
-INPUT = HERE / "RESULTS_ORDER13.json"
+INPUT = (
+    HERE.parents[2] / "data/historical/studies/mfp_identity_compiler/linear_gaussian_program/RESULTS_ORDER13.json"
+)
 PROTOCOL = HERE / "ORDER13_PROTOCOL.md"
 EXPECTED_INPUT_SHA256 = "4b4f8d2922f7c547ef9a0472025fc0c780c676454f36d366698bec1130814165"
 

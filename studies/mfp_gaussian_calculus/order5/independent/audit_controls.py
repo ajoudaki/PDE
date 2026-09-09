@@ -86,7 +86,8 @@ def main() -> None:
     }
     report["parity_term_counts"] = parity
     report["pass"] = all(item.get("pass", True) for item in report.values() if isinstance(item, dict)) and parity == {"unit": [0, 0, 0], "tagged": [0, 0, 0]}
-    path = Path(__file__).resolve().parent / "CONTROL_AUDIT.json"
+    path = Path(__file__).resolve().parents[4] / "data/generated/mfp_gaussian_calculus/order5/independent/CONTROL_AUDIT.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
     print(path.read_text())
     if not report["pass"]:

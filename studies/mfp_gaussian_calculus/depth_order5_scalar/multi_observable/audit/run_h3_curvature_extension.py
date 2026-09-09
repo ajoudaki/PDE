@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 from math import exp, sqrt
@@ -10,18 +11,22 @@ from pathlib import Path
 import numpy as np
 from scipy.stats import chi2
 
-from studies.mean_field_peeling.generic_first_stieltjes.depth.model import sample_state
-from studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.multi_observable.independent_route_a.finite_width_hidden import (
+from studies.mfp_gaussian_calculus.study_paths import GENERATED_ROOT, input_directory, require_output
+
+from studies.mfp_gaussian_calculus.depth.model import sample_state
+from studies.mfp_gaussian_calculus.depth_order5_scalar.multi_observable.independent_route_a.finite_width_hidden import (
     feature_ascent_hidden_jet,
 )
-from studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.multi_observable.independent_route_a.numeric_head import (
+from studies.mfp_gaussian_calculus.depth_order5_scalar.multi_observable.independent_route_a.numeric_head import (
     compile_numeric,
     normalized_sine_moment,
 )
 
 
 HERE = Path(__file__).resolve().parent
-OLD_RAW = HERE / "H3_NORMALIZED_SINE_RAW.npz"
+PANEL = "depth_order5_scalar/multi_observable/audit"
+OUTPUT = GENERATED_ROOT / PANEL
+OLD_RAW = OUTPUT / "H3_NORMALIZED_SINE_RAW.npz"
 OLD_SHA256 = "d99931b2976f87f2c40988399555d08ab203893d9e77107a546f62b49b95faef"
 WIDTHS = (64, 128, 256, 512)
 REPLICATES = 1024
@@ -92,10 +97,11 @@ def one_network(width: int, replicate: int):
     return values, maximum_residual
 
 
-def run():
-    if digest(OLD_RAW) != OLD_SHA256:
+def run(old_raw: Path = OLD_RAW, output_dir: Path = OUTPUT):
+    output_dir = require_output(output_dir)
+    if digest(old_raw) != OLD_SHA256:
         raise RuntimeError("the frozen three-width raw panel changed")
-    old = np.load(OLD_RAW, allow_pickle=False)
+    old = np.load(old_raw, allow_pickle=False)
     if tuple(old["widths"].tolist()) != WIDTHS[:3] or tuple(old["names"].tolist()) != NAMES:
         raise RuntimeError("unexpected old-panel schema")
     old_values = old["values"]
@@ -116,7 +122,8 @@ def run():
             else:
                 combined[width_index, replicate] = values
 
-    raw_path = HERE / "H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RAW.npz"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    raw_path = output_dir / "H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RAW.npz"
     np.savez_compressed(
         raw_path,
         widths=np.asarray(WIDTHS),
@@ -198,10 +205,18 @@ def run():
         "raw_sha256": digest(raw_path),
         "old_raw_sha256": OLD_SHA256,
     }
-    result_path = HERE / "H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RESULT.json"
+    result_path = output_dir / "H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RESULT.json"
     result_path.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     return result
 
 
 if __name__ == "__main__":
-    print(json.dumps(run(), indent=2, sort_keys=True))
+    parser = argparse.ArgumentParser()
+    inputs = parser.add_mutually_exclusive_group()
+    inputs.add_argument("--input", type=Path)
+    inputs.add_argument("--historical", action="store_true")
+    parser.add_argument("--output-dir", type=Path)
+    args = parser.parse_args()
+    old_raw = args.input or input_directory(PANEL, historical=args.historical) / OLD_RAW.name
+    output_dir = args.output_dir or (OUTPUT / "historical_review" if args.historical else OUTPUT)
+    print(json.dumps(run(old_raw, output_dir), indent=2, sort_keys=True))

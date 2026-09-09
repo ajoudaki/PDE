@@ -17,6 +17,10 @@ No claim of dimension minimality is made.
 
 from __future__ import annotations
 
+ARCHIVE_ONLY_REASON = "archive-only Gamma04 recurrence/formula writer; retained source and hashes must not be regenerated"
+if __name__ == "__main__":
+    raise RuntimeError(ARCHIVE_ONLY_REASON)
+
 from collections import defaultdict
 from dataclasses import dataclass
 from fractions import Fraction
@@ -422,6 +426,7 @@ def local_audit() -> dict[str, object]:
 
 
 def emit(directory: Path | None = None) -> dict[str, object]:
+    raise RuntimeError(ARCHIVE_ONLY_REASON)
     directory = Path(__file__).resolve().parent if directory is None else directory
     result = transitions()
     payload: dict[str, object] = {

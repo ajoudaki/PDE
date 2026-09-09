@@ -79,7 +79,7 @@ def test_quadratic_width_one_exact_wick_control() -> None:
 
 
 def test_generic_quadratic_matches_accepted_finite_width_compiler() -> None:
-    path = Path(__file__).resolve().parents[3] / "quadratic_compiler" / "finite_width_jet_reference.py"
+    path = Path(__file__).resolve().parents[3] / "mfp_quadratic_compiler" / "finite_width_jet_reference.py"
     spec = importlib.util.spec_from_file_location("quadratic_order5_reference", path)
     module = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
@@ -94,8 +94,8 @@ def test_generic_quadratic_matches_accepted_finite_width_compiler() -> None:
 
 def test_quadratic_exact_frozen_large_width_endpoint() -> None:
     path = (
-        Path(__file__).resolve().parents[3]
-        / "quadratic_compiler"
+        Path(__file__).resolve().parents[4]
+        / "data/historical/studies/mfp_quadratic_compiler"
         / "campaign2"
         / "frozen"
         / "plus_order7_raw.json"

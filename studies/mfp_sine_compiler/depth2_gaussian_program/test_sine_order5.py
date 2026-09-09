@@ -83,8 +83,8 @@ class SineOrderFiveTests(unittest.TestCase):
     def test_frozen_maps_have_exact_even_parity(self) -> None:
         raw_map = json.loads(
             (
-                HERE.parents[1]
-                / "generic_first_stieltjes"
+                HERE.parents[2]
+                / "data/historical/studies/mfp_gaussian_calculus"
                 / "order5"
                 / "independent"
                 / "independent_layer_tagged_coefficient_map.json"
@@ -92,8 +92,8 @@ class SineOrderFiveTests(unittest.TestCase):
         )
         unit_map = json.loads(
             (
-                HERE.parents[1]
-                / "generic_first_stieltjes"
+                HERE.parents[2]
+                / "data/historical/studies/mfp_gaussian_calculus"
                 / "order5"
                 / "independent"
                 / "independent_coefficient_map.json"

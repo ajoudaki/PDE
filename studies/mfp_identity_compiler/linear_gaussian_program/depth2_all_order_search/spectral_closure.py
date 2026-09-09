@@ -9,9 +9,14 @@ import math
 import sys
 from fractions import Fraction
 from pathlib import Path
+import sys
 
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[3]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 PARENT = HERE.parent
 sys.path.insert(0, str(PARENT))
 
@@ -153,12 +158,14 @@ def spectral_fixed_point(max_r_order: int) -> tuple[list[Fraction], list[Polynom
 
 
 def main() -> int:
+    args = PATHS.parse(inputs=True)
+    accepted_path = args.input_dir / "RESULTS.json"
+    accepted = json.loads(accepted_path.read_text())
     r, a, b = spectral_fixed_point(MAX_R_ORDER)
     derivatives = [
         Q(math.factorial(order + 1), 2) * r[order + 1]
         for order in range(MAX_FEATURE_ORDER + 1)
     ]
-    accepted = json.loads((HERE / "RESULTS.json").read_text())
     accepted_derivatives = [Q(value) for value in accepted["derivatives"]]
     if derivatives != accepted_derivatives:
         mismatch = next(
@@ -209,12 +216,13 @@ def main() -> int:
             "closed form for F or K and not an all-order Stieltjes proof"
         ),
         "sha256": {
-            "accepted_comparison_input": sha256(HERE / "RESULTS.json"),
+            "accepted_comparison_input": sha256(accepted_path),
             "protocol": sha256(HERE / "SPECTRAL_CLOSURE_PROTOCOL.md"),
             "source": sha256(Path(__file__)),
         },
     }
-    output = HERE / "SPECTRAL_CLOSURE_RESULTS.json"
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    output = args.output_dir / "SPECTRAL_CLOSURE_RESULTS.json"
     output.write_text(json.dumps(payload, indent=2) + "\n")
     print(json.dumps({
         "output": str(output),
@@ -227,4 +235,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

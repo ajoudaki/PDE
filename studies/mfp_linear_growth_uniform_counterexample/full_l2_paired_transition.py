@@ -26,9 +26,13 @@ import sys
 
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[1]))
+from studies._output_paths import StudyPaths
+
+STUDY_PATHS = StudyPaths(__file__)
 PJ_PATH = (
     HERE.parent
-    / "generic_first_stieltjes"
+    / "mfp_gaussian_calculus"
     / "order5"
     / "compiler"
     / "population_jet.py"
@@ -229,6 +233,7 @@ def expression_record(expression):
 
 
 def main() -> None:
+    args = STUDY_PATHS.parse()
     maps, paired = compile_paired_map(verbose=True)
     cubic = compile_paired_cubic_map(verbose=True)
     out = {
@@ -241,7 +246,8 @@ def main() -> None:
         "paired_cubic_term_count": len(cubic.terms),
         "paired_cubic_map": expression_record(cubic),
     }
-    destination = HERE / "FULL_L2_PAIRED_ORDER5_MAP.json"
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    destination = args.output_dir / "FULL_L2_PAIRED_ORDER5_MAP.json"
     destination.write_text(json.dumps(out, indent=2, sort_keys=True) + "\n")
     print(destination)
     print(out["path_term_counts"], out["paired_term_count"], out["maximum_derivative"])

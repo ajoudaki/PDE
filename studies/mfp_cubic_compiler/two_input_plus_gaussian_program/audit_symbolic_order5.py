@@ -21,11 +21,13 @@ Polynomial = tuple[Fraction, ...]
 HERE = Path(__file__).resolve().parent
 CUBIC = HERE.parent
 MEAN_FIELD = CUBIC.parent
+HISTORICAL_CUBIC = MEAN_FIELD.parent / "data/historical/studies/mfp_cubic_compiler"
+HISTORICAL_HERE = HISTORICAL_CUBIC / HERE.name
 
 FILES = {
-    "result": HERE / "results_symbolic_order5.json",
+    "result": HISTORICAL_HERE / "results_symbolic_order5.json",
     "base_protocol": HERE / "PROTOCOL.md",
-    "order3_result": HERE / "results_order3.json",
+    "order3_result": HISTORICAL_HERE / "results_order3.json",
     "gaussian_program": HERE / "two_input_cubic_plus_jet.py",
     "fixed_rho_order9_protocol": HERE / "ORDER9_FIXED_RHO_PROTOCOL.md",
     "symbolic_order9_protocol": HERE / "ORDER9_SYMBOLIC_RHO_PROTOCOL.md",
@@ -40,10 +42,10 @@ FILES = {
     "connected_fixed_program": HERE / "two_input_cubic_connected_fixed.cpp",
     "fixed_gaussian_program": HERE / "two_input_cubic_plus_fixed_rho_jet.py",
     "connected_quadratic_parent": (
-        MEAN_FIELD / "quadratic_compiler/campaign2/two_input_connected.cpp"
+        MEAN_FIELD / "mfp_quadratic_compiler/campaign2/two_input_connected.cpp"
     ),
     "one_input_order9_result": (
-        CUBIC / "depth2_gaussian_program/results_order9.json"
+        HISTORICAL_CUBIC / "depth2_gaussian_program/results_order9.json"
     ),
     "one_input_cubic_program": (
         CUBIC / "depth2_gaussian_program/depth2_cubic_exact_jet.py"

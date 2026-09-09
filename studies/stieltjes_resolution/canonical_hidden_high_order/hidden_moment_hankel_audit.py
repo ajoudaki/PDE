@@ -22,9 +22,13 @@ from typing import Sequence
 
 Q = Fraction
 HERE = Path(__file__).resolve().parent
-REPO = HERE.parents[3]
-PRODUCTION_RESULT = HERE / "PRODUCTION_HIDDEN_RESULT.json"
-INDEPENDENT_RESULT = HERE / "INDEPENDENT_HIDDEN_RESULT.json"
+REPO = HERE.parents[2]
+PRODUCTION_RESULT = (
+    HERE.parents[2] / "data/historical/studies/stieltjes_resolution/canonical_hidden_high_order/PRODUCTION_HIDDEN_RESULT.json"
+)
+INDEPENDENT_RESULT = (
+    HERE.parents[2] / "data/historical/studies/stieltjes_resolution/canonical_hidden_high_order/INDEPENDENT_HIDDEN_RESULT.json"
+)
 PROTOCOL = HERE / "PROTOCOL.md"
 
 CAMPAIGN1_Q1 = {

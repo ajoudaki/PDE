@@ -1,7 +1,9 @@
 """Read-only comparison to the relocated independent finite-jet reference."""
 import sys
+from pathlib import Path
 import numpy as np
-sys.path[:0] = ['/home/amir/Codes/PDE/code', '/home/amir/Codes/PDE']
+ROOT = Path(__file__).resolve().parents[3]
+sys.path[:0] = [str(ROOT / 'code'), str(ROOT)]
 from pde import Parameters, TANH, forward, kernel
 from studies.mfp_gaussian_calculus.depth.model import DepthState
 from studies.mfp_gaussian_calculus.depth.finite_width_jet import feature_ascent_jet

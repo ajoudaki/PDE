@@ -14,6 +14,10 @@ from fractions import Fraction
 from pathlib import Path
 from time import monotonic
 
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
+
 from .depth_factored import compile_depth_factored, expand_expression
 
 
@@ -82,12 +86,12 @@ def compare_root(independent_root, primary_map: dict[str, Fraction]):
     return len(independent_map), mismatch_count, discrepancy_examples
 
 
-def compare_depth_point(depth: int, q0: Fraction) -> dict[str, object]:
+def compare_depth_point(depth: int, q0: Fraction, *, input_dir=None) -> dict[str, object]:
     started = monotonic()
     independent = compile_depth_factored(depth, q0=q0, unit_gram=False)
     compiled = monotonic()
 
-    primary_path = PRIMARY / f"H{depth}_LAYER_TAGGED_COEFFICIENTS.json"
+    primary_path = (input_dir or PATHS.generated / "depth_order5/primary") / f"H{depth}_LAYER_TAGGED_COEFFICIENTS.json"
     payload = json.loads(primary_path.read_text())
     if payload.get("depth") != depth or payload.get("quotient") != "layer-tagged-arbitrary-Q0":
         raise RuntimeError(f"unexpected primary schema in {primary_path}")
@@ -125,6 +129,7 @@ def compare_depth_point(depth: int, q0: Fraction) -> dict[str, object]:
 
 
 def main() -> None:
+    args = PATHS.parse(inputs=True, input_relative="depth_order5/primary")
     started = monotonic()
     independent_manifest = HERE / "FROZEN_MANIFEST.json"
     primary_manifest = PRIMARY / "PRIMARY_FREEZE_MANIFEST.json"
@@ -145,7 +150,7 @@ def main() -> None:
     for depth in (3, 4):
         point_reports = []
         for q0 in RECONSTRUCTION_POINTS + (HOLDOUT,):
-            point_reports.append(compare_depth_point(depth, q0))
+            point_reports.append(compare_depth_point(depth, q0, input_dir=args.input_dir))
         report["depths"][str(depth)] = {
             "points": point_reports,
             "reconstruction_pass": all(item["pass"] for item in point_reports[:-1]),
@@ -156,7 +161,8 @@ def main() -> None:
         item["reconstruction_pass"] and item["holdout_pass"]
         for item in report["depths"].values()
     )
-    output = HERE / "SYMBOLIC_Q0_COMPARISON.json"
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    output = args.output_dir / "SYMBOLIC_Q0_COMPARISON.json"
     output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
     print(f"wrote {output}; pass={report['pass']}", flush=True)
     if not report["pass"]:

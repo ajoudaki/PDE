@@ -1,0 +1,699 @@
+{
+  "root": "/home/amir/Codes/PDE",
+  "frozen_utc": "2026-09-09T11:52:12.507508+00:00",
+  "scope": "A1,A2,A6,A7,A9,A10,A11,A13,B,C,D-mixed; no other-owner edits",
+  "file_count": 49,
+  "test_results_sha256": "49ceee1c297648fd5876fcb2af49247836dc4cf07062d848597768341092543b",
+  "audit_report_unchanged": true,
+  "files": [
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/adaptive_query_probe.py",
+      "pre_implementation_sha256": "a0aa0a1e689b92e1186bb8cf1e62b6ef1acd97ea74cc83b38bbbb5615c897462",
+      "frozen_sha256": "5ded5de9674640af6f5fb1b311a0242f0827a4ce19ef1fd91d5c7a06ce602056",
+      "routing_lines": [
+        17,
+        91
+      ],
+      "entrypoints": {
+        "main": 90
+      }
+    },
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/hermite_tail_probe.py",
+      "pre_implementation_sha256": "667323e605e5df855b7533b28496a4e502c67ba7272827d9a47c7e2569d7afcf",
+      "frozen_sha256": "97ef1f74173b7b0c649706d1a106abf1743d925d4715ac2a3758d90651f49277",
+      "routing_lines": [
+        19,
+        107
+      ],
+      "entrypoints": {
+        "main": 106
+      }
+    },
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/koopman_taylor_probe.py",
+      "pre_implementation_sha256": "e3f1be317592964b39e9ddb474ee8ff16b8b9b511f9a92d84ac75a257b8ab293",
+      "frozen_sha256": "a1fbec1fb358ffe884326197665048e283d0178dd90359b8c7c1e07bd9259755",
+      "routing_lines": [
+        20,
+        286
+      ],
+      "entrypoints": {
+        "main": 285
+      }
+    },
+    {
+      "file": "studies/causal_flow_peeling_calculus/experiments/l1_koopman_obstruction.py",
+      "pre_implementation_sha256": "b6159183998389a501cbd7a046f6063423de207d4db9bd2c3605ecea46c225f2",
+      "frozen_sha256": "ac46cd11213e9d1e7383a74bcd8653b53b5602808e93d0b0e405a1f50491252a",
+      "routing_lines": [
+        19,
+        149
+      ],
+      "entrypoints": {
+        "main": 148
+      }
+    },
+    {
+      "file": "studies/d3_arctan_closure_program/analyze_gpu_gauge_block_gradient.py",
+      "pre_implementation_sha256": "9ed4ffefe718c63fe9dfdc6aa6d05dc46b7d78ce8eac4eea9a3c7f35a3b57a8d",
+      "frozen_sha256": "7cc0d02a8a9053054d16b88fb6a9af410b59c1c6f8e5959ee2c793354221a54b",
+      "routing_lines": [
+        15,
+        71,
+        72
+      ],
+      "entrypoints": {
+        "main": 70
+      }
+    },
+    {
+      "file": "studies/d3_arctan_closure_program/analyze_gpu_high_moment_tail.py",
+      "pre_implementation_sha256": "511e76d910d29f90077b80eb33ed408923ba2b9cd7a1fbba0ec620a10241c825",
+      "frozen_sha256": "b242eff496e2401d208ed9357b9bf803ecd5960a9f5fc2fa26d4748a990bf84a",
+      "routing_lines": [
+        15,
+        61,
+        62
+      ],
+      "entrypoints": {
+        "main": 60
+      }
+    },
+    {
+      "file": "studies/d3_arctan_closure_program/analyze_gpu_weighted_offcolumn_response.py",
+      "pre_implementation_sha256": "4091a2bb4a9ada108b23fc8a5d2d58f7ae07b9bf83abb652de14717de8f23d1d",
+      "frozen_sha256": "7e600051b38fae0e8ee2ee325083198bc45d1732df4c39a084f4215596782570",
+      "routing_lines": [
+        15,
+        56,
+        57
+      ],
+      "entrypoints": {
+        "main": 55
+      }
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/audit_symbolic_q0.py",
+      "pre_implementation_sha256": "8b1d80b8e06b50cefdeb45f56c56d119bf9bbac818fa343825e78a0cb615ded6",
+      "frozen_sha256": "36624a6c637bb77f4184aecbb8da84d694d014f7ff530d7925ee6495f94f57a5",
+      "routing_lines": [
+        19,
+        30,
+        31,
+        62,
+        66,
+        109,
+        128,
+        132,
+        145,
+        146
+      ],
+      "entrypoints": {
+        "main": 108
+      }
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/compare_frozen.py",
+      "pre_implementation_sha256": "c750032da9c4796a1e0bd3988abde3d49c5c4e2e1a60ac25fc28fd776a1fb829",
+      "frozen_sha256": "b9fa0ed586cf8c307a9ec7bb5e27d90a3401c6f716b037ec92de4a9536edbf31",
+      "routing_lines": [
+        15,
+        130,
+        135,
+        141,
+        154,
+        159,
+        190,
+        191
+      ],
+      "entrypoints": {
+        "main": 129
+      }
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/run_normalized_sine_experiment.py",
+      "pre_implementation_sha256": "4660042ba3b5a5c92bc7df85a73c3f54b9a9c8587b9c6d5bf1fcda9648214e50",
+      "frozen_sha256": "cd384271b8d4541b802588ee1a482c1f8f3497c636486498cb7ac1c9ae0a96fb",
+      "routing_lines": [
+        19,
+        66,
+        67,
+        189,
+        190,
+        198,
+        208,
+        235,
+        236
+      ],
+      "entrypoints": {
+        "collect_cell": 66,
+        "main": 188
+      }
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/two_oracle_gate.py",
+      "pre_implementation_sha256": "42e9de575c4dfe9402e9108fd5b3f1e8a2c34aa0d851a1f864c1aa51370bd935",
+      "frozen_sha256": "9138af63bc62a07d26bfd72f6475a61895ce409acf4c8cd6d3ec540473519527",
+      "routing_lines": [
+        12,
+        32,
+        76,
+        77
+      ],
+      "entrypoints": {
+        "main": 31
+      }
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/common/sine_prediction.py",
+      "pre_implementation_sha256": "5b6396571d3b523281626001953b7eff678efbbdce3149c4d184a6b7d7b413cf",
+      "frozen_sha256": "1dcabe8a2cc11e05f606770674734f675e754f02136bb451a4c75aa1a8bd62f3",
+      "routing_lines": [
+        18,
+        96,
+        101,
+        102
+      ],
+      "entrypoints": {
+        "main": 95
+      }
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/compare_symbolic_q0.py",
+      "pre_implementation_sha256": "502ead1639cc6891a63b223f2176665511b623bf1b3e411f018729614ee0264c",
+      "frozen_sha256": "f3088c876135434bad14dd5ec8307a9726eca57a778e52f237cfe96cc376a222",
+      "routing_lines": [
+        19,
+        89,
+        94,
+        132,
+        153,
+        164,
+        165
+      ],
+      "entrypoints": {
+        "main": 131
+      }
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/controls.py",
+      "pre_implementation_sha256": "983e021664179dcf915801709b0f7fb7e0845de4426d87b7727c4d91d4b9a04a",
+      "frozen_sha256": "82ec1665ecee6f5b11c957b6f3e3ff05da79e65ea584f49818e33c6a90a777bd",
+      "routing_lines": [
+        12,
+        142,
+        181,
+        182
+      ],
+      "entrypoints": {
+        "main": 141
+      }
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/deep_linear_sequence.py",
+      "pre_implementation_sha256": "ce348220f8cdfa91b5e44cbbf44ed2315990076541260963b1a0e7e21732deaf",
+      "frozen_sha256": "7044655a4c89db3e687829a8c1b6b6f18d2bcf1227740d97c2422fcd9f135e31",
+      "routing_lines": [
+        15,
+        53,
+        113,
+        114
+      ],
+      "entrypoints": {
+        "main": 52
+      }
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/freeze_depth_maps.py",
+      "pre_implementation_sha256": "96d9c77626d0a7b44c43e8001f322f4f5e9cb75361393d36ace2564e76d1d890",
+      "frozen_sha256": "c88cf8abf44fc4bfd24bc184da1b689e54649cc8cc32dfeb2ae3b2532060fec6",
+      "routing_lines": [
+        22,
+        36
+      ],
+      "entrypoints": {
+        "main": 35
+      }
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/compare_route_a.py",
+      "pre_implementation_sha256": "c6c8ea8f61e36d02cfc617cf41fff9c2b82d6fd9c8204a71958329826fe7823a",
+      "frozen_sha256": "f9f6f314b961ce011353160d5e7ce59db1eace4fe40f69f63a68ffa9e95b8129",
+      "routing_lines": [
+        12,
+        106,
+        108,
+        109
+      ],
+      "entrypoints": {}
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/run_checks.py",
+      "pre_implementation_sha256": "1cbb8dc03535caac8208e81450acd051f5b3195bb176a5c6b3cb91a2aea00bce",
+      "frozen_sha256": "bb611b246778edaa34b9f7947584d1d57ac9f5938b4b12237c2f1cb4a5002a0e",
+      "routing_lines": [
+        11,
+        21,
+        24
+      ],
+      "entrypoints": {
+        "main": 20
+      }
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/run_exact_audit.py",
+      "pre_implementation_sha256": "a7af7ad1d8ad9a482a7f9933ef7496a72ea344550d5607dfcbbd06953fb799e4",
+      "frozen_sha256": "30c1c9dcd06be864e5e961ee60319a6f9113cf27aafc8b882b4da91cc43eeaea",
+      "routing_lines": [
+        11,
+        145,
+        147,
+        148
+      ],
+      "entrypoints": {
+        "run": 108
+      }
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/run_sine_experiment.py",
+      "pre_implementation_sha256": "cc132a5590bbe8213cf49a38d81400fbe4dff3b3b7ccf68e7aa9be5cd86a726d",
+      "frozen_sha256": "f715fc5670c4e8375d9345e9fd94f5b0af5e0bd539cff44d315743ea9ec19069",
+      "routing_lines": [
+        15,
+        62,
+        63,
+        141,
+        142,
+        148,
+        159,
+        180,
+        181
+      ],
+      "entrypoints": {
+        "collect": 62,
+        "main": 140
+      }
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/sine_prediction.py",
+      "pre_implementation_sha256": "74d92ec2de77e145763ffa4a9e22fa0ae080eb36b85a28e7c1a08ab61ab7fe73",
+      "frozen_sha256": "cea691b29a86d9239039911fac3213959af7f8ed10cf8000df43a96c7ef103db",
+      "routing_lines": [
+        11,
+        94,
+        96,
+        97
+      ],
+      "entrypoints": {}
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/f7_tree_roadmap.py",
+      "pre_implementation_sha256": "5be88d9ff1aa64d1b56493b5007561d3d22bfcda5d193af621daf8f01a98d46e",
+      "frozen_sha256": "0c1f921a7e7496fb6f59eb95cf34647a7eb0e0b9a2bd8812d5093ae40fcbbdff",
+      "routing_lines": [
+        18,
+        116,
+        118,
+        119
+      ],
+      "entrypoints": {}
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/partition_ledger.py",
+      "pre_implementation_sha256": "a4fbfe740db19e9df1423008540ea5483633cab1bc50ada2c3c94f3fbb8928cf",
+      "frozen_sha256": "f7fc3fb1a2607fccdc8dba6606785038e45e44f6a2d5e10dd2c42fa81d302444",
+      "routing_lines": [
+        11,
+        100,
+        102,
+        103
+      ],
+      "entrypoints": {}
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/reduce_gamma04.py",
+      "pre_implementation_sha256": "b92e448af27ecbeabfd1677ef61d94f7af087ee34add1e235b5c222ef5e78320",
+      "frozen_sha256": "9ec67c71251ae457d56e84310737319f957cc14e0e5aafe09557d273461637a8",
+      "routing_lines": [
+        40
+      ],
+      "entrypoints": {
+        "emit": 39
+      }
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/run_checks.py",
+      "pre_implementation_sha256": "91907b7cb1a664244cce12797004e09d00bd4b146f5753b30093639f8768fc06",
+      "frozen_sha256": "89f04a64ace75d07faa2d441fe2f2e31bd4a2d3f26a08d70b645f499024e714a",
+      "routing_lines": [
+        13,
+        284,
+        285,
+        295,
+        308,
+        315,
+        316
+      ],
+      "entrypoints": {}
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/run_sine_regression.py",
+      "pre_implementation_sha256": "f761dbb79760176c933f8cd1b5de9d5c5898851c85888d0e69d50e7557bf5d06",
+      "frozen_sha256": "1c837288a9fdba021d4a70c2c902053e6b34e03638f70a35e2c3b4befca9e614",
+      "routing_lines": [
+        15,
+        55,
+        56,
+        89,
+        90,
+        138,
+        144,
+        145
+      ],
+      "entrypoints": {
+        "run": 55
+      }
+    },
+    {
+      "file": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/audit_hankel40.py",
+      "pre_implementation_sha256": "6c2d90831885f08842f88201f47b8f6272ec694abf0ac7290212a64222b62b8c",
+      "frozen_sha256": "554c047b2a34e93fa1f4a7516ef126846a8e4487989fb5d066c847efa0c93c0a",
+      "routing_lines": [
+        19,
+        99,
+        100,
+        128,
+        129
+      ],
+      "entrypoints": {
+        "main": 98
+      }
+    },
+    {
+      "file": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/run_search.py",
+      "pre_implementation_sha256": "9f74939cb5e694658500cbfe19fc4aced33a57ef2479606c59ce3e1c7ef08c0e",
+      "frozen_sha256": "d6821368d96d92eb5dce27db198bd119ab9ceb52bb1699fd760673dffe5d28df",
+      "routing_lines": [
+        22,
+        251,
+        305,
+        306
+      ],
+      "entrypoints": {
+        "main": 250
+      }
+    },
+    {
+      "file": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/spectral_closure.py",
+      "pre_implementation_sha256": "08ee21044c04f8dea58e18db9836a1c532b6a2d45f09fa602f7813818ddefd1f",
+      "frozen_sha256": "6ad906025ba5775eebcf3a534eaaab945e0aea8b381bcee68a427305a3e246e4",
+      "routing_lines": [
+        19,
+        161,
+        162,
+        224,
+        225
+      ],
+      "entrypoints": {
+        "main": 160
+      }
+    },
+    {
+      "file": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/test_spectral_closure.py",
+      "pre_implementation_sha256": "8584229781df92b6e309100f7d20b35dbb3861d7c33224e684caeb27bee0c51b",
+      "frozen_sha256": "564652bfeb33ec0bf15ef4419a3be8705c2b99df97e5bb642f855133bd027edb",
+      "routing_lines": [
+        13,
+        40
+      ],
+      "entrypoints": {}
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/audit_full_l2_paired_transition.py",
+      "pre_implementation_sha256": "ed91a39288ec6c4093cb727b924302296625c2697353de4ecdde0dbb0ea15a6c",
+      "frozen_sha256": "9dd9bebee15a2d2c994277af0661f9c2adc948bae036031e46cf6f0534fa518b",
+      "routing_lines": [
+        15,
+        17,
+        315
+      ],
+      "entrypoints": {
+        "main": 313
+      }
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/audit_old_new_transition_subsets.py",
+      "pre_implementation_sha256": "00d1539b11c6486b6691b87cad8148f1d170c7d3b11310a28dff859c7eb9b373",
+      "frozen_sha256": "326d11b5d0fd5e6eb0d272661a4151281b45545a0c89dbf75e8761e278869f66",
+      "routing_lines": [
+        12,
+        14,
+        30
+      ],
+      "entrypoints": {
+        "main": 29
+      }
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/audit_paired_excess.py",
+      "pre_implementation_sha256": "1989e34855616ec0ca4cfc1e42f152f48b03d00dc5abc77d7c32b938ddc4b1f0",
+      "frozen_sha256": "2f5d564c54251a784d02dcd2614fd7bfd525faf9969caaa9e1bb27adc36bc24a",
+      "routing_lines": [
+        13,
+        15,
+        27
+      ],
+      "entrypoints": {
+        "main": 26
+      }
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/bump_full_newton_certificate.py",
+      "pre_implementation_sha256": "c86368f7fec7520637a520bff39872999e2a8f850fc1093f12e010560c2148d8",
+      "frozen_sha256": "40380d05b335bbad42a5b2c79d420ac6b50c95275cc3c364d6b4b69f42445153",
+      "routing_lines": [
+        26,
+        28,
+        260
+      ],
+      "entrypoints": {
+        "main": 259
+      }
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/bump_laurent_certificate.py",
+      "pre_implementation_sha256": "02f980af5695141a14effd777eb039dc54defd549dc9de4e8e401e55fd0934f7",
+      "frozen_sha256": "25aec1e25cca187be17606cb50d34eaefa66d5ec4473b8f755b9d97ac74dfbb6",
+      "routing_lines": [
+        28,
+        30,
+        206
+      ],
+      "entrypoints": {
+        "main": 205
+      }
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/evaluate_full_l2_transition.py",
+      "pre_implementation_sha256": "1ada7d70a097f70dd76e682435f3098693352f0c409506d20a3f0b895bf7fdb1",
+      "frozen_sha256": "c740c5d7d0cd8abca324fcc896c80dd1bca119cd1da065c04c8e44ba36766fc1",
+      "routing_lines": [
+        24,
+        26,
+        190
+      ],
+      "entrypoints": {
+        "main": 189
+      }
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/full_l2_paired_transition.py",
+      "pre_implementation_sha256": "cddfbda0ea7c536e30027188cee9e95eaf0de0e062239e034ad76c409d2c0897",
+      "frozen_sha256": "f32e46e78847adbfa203545791deba981a0921b965543c09ea9c05ed24d4cd7f",
+      "routing_lines": [
+        32,
+        157,
+        170,
+        181,
+        198,
+        236,
+        240,
+        249,
+        250
+      ],
+      "entrypoints": {
+        "main": 235
+      }
+    },
+    {
+      "file": "studies/mfp_linear_growth_uniform_counterexample/map_inputs.py",
+      "pre_implementation_sha256": null,
+      "frozen_sha256": "9334eabfaa9f23e48ffe5a17d2664e855933eabf0b5108c491dfb6684032fc23",
+      "routing_lines": [
+        11,
+        15,
+        21,
+        25
+      ],
+      "entrypoints": {
+        "parse_map_path": 15
+      }
+    },
+    {
+      "file": "studies/repository_refactor_2026_09_09/output_paths.py",
+      "pre_implementation_sha256": null,
+      "frozen_sha256": "64c780f1f9933bb22a6c0910f4282e341fc7e267b28ffc51f6432d7ed5c41b66",
+      "routing_lines": [
+        25,
+        56,
+        58,
+        60
+      ],
+      "entrypoints": {}
+    },
+    {
+      "file": "studies/resnet_activation_controls/make_figures.py",
+      "pre_implementation_sha256": "87b979106e6a6b5b80f38296033eab20d06506756222d848289adf6141319aa7",
+      "frozen_sha256": "a5249423ffca1aae97296981d9f79312820e897e834d53c1e0632077fd2c0cd3",
+      "routing_lines": [
+        25,
+        33,
+        34,
+        37
+      ],
+      "entrypoints": {
+        "main": 32
+      }
+    },
+    {
+      "file": "studies/resnet_activation_controls/source/run_exact_reference.py",
+      "pre_implementation_sha256": "3eb1987229ade1994397249814917f489064ab76de8d2aeccc39bceb67e1b4d8",
+      "frozen_sha256": "ff24f430c5ced9a2e769bbefebac2d1cd496973c07e841b4c6d5d077f4266852",
+      "routing_lines": [
+        25,
+        101,
+        238,
+        241,
+        310
+      ],
+      "entrypoints": {
+        "run": 100,
+        "parse_args": 294
+      }
+    },
+    {
+      "file": "studies/resnet_activation_controls/source/run_pde.py",
+      "pre_implementation_sha256": "4206d09dfecf2f1edd4c8d633c8bcd58fb3f3efab88b50f951efe04f0b27bd14",
+      "frozen_sha256": "cb446feff721c803ea01d66637b52bb2452f13e9d9e2e0e46cd69cf24b894435",
+      "routing_lines": [
+        20,
+        60,
+        356,
+        373,
+        437
+      ],
+      "entrypoints": {
+        "run": 59,
+        "parse_args": 414
+      }
+    },
+    {
+      "file": "studies/stieltjes_direct_loewner/diagnose_blowup.py",
+      "pre_implementation_sha256": "904e958af97a1bbbc92b3cb05aa0e34b9ccfd4da8c09fe588533424101638160",
+      "frozen_sha256": "d944c7582ef19949ee147e85aaf712513a59a3281b4415750e53bb1635324948",
+      "routing_lines": [
+        24,
+        166
+      ],
+      "entrypoints": {
+        "main": 161
+      }
+    },
+    {
+      "file": "studies/stieltjes_direct_loewner/run_clock_pilot.py",
+      "pre_implementation_sha256": "560eafcd8f3969386d9e940ba70e03cca69b3a7b4afcb4de8632f83ae8d1c4e7",
+      "frozen_sha256": "65b2ede8ae3fdb76d508ece6a8cc69cb776f98d4c1581cf26d8a1751cfaccf22",
+      "routing_lines": [
+        20,
+        33
+      ],
+      "entrypoints": {
+        "main": 32
+      }
+    },
+    {
+      "file": "studies/stieltjes_direct_loewner/simulate_loewner.py",
+      "pre_implementation_sha256": "0d6e35918a04f1dce5bcede5709de18a4d2d710142d249dbce4222e3017c3c96",
+      "frozen_sha256": "2a69f0ae894b4844e77630337f526abadcefa8ee540d8334ca4528f82ce3814b",
+      "routing_lines": [
+        26,
+        383
+      ],
+      "entrypoints": {
+        "parse_args": 374,
+        "main": 381
+      }
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/run_reference.py",
+      "pre_implementation_sha256": "dcee36ce3c5575bbb670ebf61e61b438ed897be93f09eb8d796241043935aa7f",
+      "frozen_sha256": "f749244335b60eb0272d1323e34fff44dcd0e4d45b01bab1487f508a8cf340ea",
+      "routing_lines": [
+        35,
+        36,
+        431,
+        454,
+        455
+      ],
+      "entrypoints": {
+        "parse_args": 74,
+        "main": 429
+      }
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/side_checks/gd_n16384_eight_pair_shard.py",
+      "pre_implementation_sha256": "6d9f31b6268af566426fdd8f01fe1dd84408f28c3f9a9610d05a36b41f025672",
+      "frozen_sha256": "b96cdb5ec07ee8dc366ae598ceb693bd87e343eb3eae913e9c13315768cb7713",
+      "routing_lines": [
+        38,
+        131,
+        134,
+        139
+      ],
+      "entrypoints": {
+        "parse_args": 129,
+        "main": 137
+      }
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/side_checks/gd_n16384_single_pair.py",
+      "pre_implementation_sha256": "a44c77dc480e849f29b1960c8285537b4b9262e696b1f05046cbd5f34f71c6fe",
+      "frozen_sha256": "5c64976fb981a8130a38449907237a86a0d6dc2d852d2638e3bb746c707b9563",
+      "routing_lines": [
+        37,
+        101
+      ],
+      "entrypoints": {
+        "main": 100
+      }
+    },
+    {
+      "file": "studies/stieltjes_proxy_campaign/reference/side_checks/merge_gd_n16384_eight_pair.py",
+      "pre_implementation_sha256": "8ae0dfcaf2a6c542af7b13765e27b09619d9994e70ec1515a81ba13f043f8ea8",
+      "frozen_sha256": "071c98deed548ecc40a1eb262de86eac8be8540c26af644da67115aa4e8dbc59",
+      "routing_lines": [
+        17,
+        36,
+        37,
+        38,
+        39,
+        40,
+        105
+      ],
+      "entrypoints": {
+        "main": 35
+      }
+    }
+  ]
+}

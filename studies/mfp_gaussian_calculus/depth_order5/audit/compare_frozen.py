@@ -7,6 +7,12 @@ from hashlib import sha256
 import json
 from pathlib import Path
 import re
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[4]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 
 
 HERE = Path(__file__).resolve().parent
@@ -17,7 +23,18 @@ PRIMARY_MANIFEST = PRIMARY / "PRIMARY_FREEZE_MANIFEST.json"
 INDEPENDENT_MANIFEST = INDEPENDENT / "FROZEN_MANIFEST.json"
 
 
-def _verify_manifest(directory: Path, manifest_path: Path, hash_path: Path) -> dict:
+def _artifact_path(directory: Path, data_directory: Path, name: str) -> Path:
+    if Path(name).name != name:
+        raise ValueError(f"expected a local artifact name: {name}")
+    if name.endswith(("_COEFFICIENTS.json", "_COEFFICIENT_MAP.json")):
+        return data_directory / name
+    # Exact formula source and fixed freeze evidence were intentionally retained
+    # with source. Prefer an explicit input copy when one was supplied.
+    candidate = data_directory / name
+    return candidate if candidate.is_file() else directory / name
+
+
+def _verify_manifest(directory: Path, manifest_path: Path, hash_path: Path, *, data_directory: Path) -> dict:
     manifest_bytes = manifest_path.read_bytes()
     declared = hash_path.read_text().split()[0]
     actual = sha256(manifest_bytes).hexdigest()
@@ -35,16 +52,16 @@ def _verify_manifest(directory: Path, manifest_path: Path, hash_path: Path) -> d
                 if isinstance(value, dict) and "file" in value and "sha256" in value
             ]
         for artifact in records:
-            path = directory / artifact.get("file", "")
             if not artifact.get("file"):
                 # Primary key itself is the filename.
                 continue
+            path = _artifact_path(directory, data_directory, artifact["file"])
             digest = sha256(path.read_bytes()).hexdigest()
             if digest != artifact["sha256"]:
                 raise AssertionError((path, artifact["sha256"], digest))
     if directory == PRIMARY:
         for filename, record in manifest["artifacts"].items():
-            path = directory / filename
+            path = _artifact_path(directory, data_directory, filename)
             digest = sha256(path.read_bytes()).hexdigest()
             if digest != record["sha256"]:
                 raise AssertionError((path, record["sha256"], digest))
@@ -110,15 +127,18 @@ def _independent_map(path: Path, depth: int, unit: bool):
 
 
 def main() -> None:
+    args = PATHS.parse(inputs=True, input_relative="depth_order5")
     primary_manifest = _verify_manifest(
         PRIMARY,
         PRIMARY_MANIFEST,
         PRIMARY / "PRIMARY_FREEZE_SHA256.txt",
+        data_directory=args.input_dir / "primary",
     )
     independent_manifest = _verify_manifest(
         INDEPENDENT,
         INDEPENDENT_MANIFEST,
         INDEPENDENT / "FROZEN_MANIFEST_SHA256.txt",
+        data_directory=args.input_dir / "independent",
     )
     report = {
         "primary_manifest_sha256": sha256(PRIMARY_MANIFEST.read_bytes()).hexdigest(),
@@ -131,12 +151,12 @@ def main() -> None:
     for depth in (3, 4):
         for unit in (False, True):
             scope = "UNIT" if unit else "TAGGED"
-            primary_path = PRIMARY / (
+            primary_path = args.input_dir / "primary" / (
                 f"H{depth}_UNIT_COEFFICIENTS.json"
                 if unit
                 else f"H{depth}_LAYER_TAGGED_COEFFICIENTS.json"
             )
-            independent_path = INDEPENDENT / f"H{depth}_{scope}_COEFFICIENT_MAP.json"
+            independent_path = args.input_dir / "independent" / f"H{depth}_{scope}_COEFFICIENT_MAP.json"
             primary, primary_maxima = _primary_map(primary_path, depth, unit)
             independent, independent_maxima = _independent_map(independent_path, depth, unit)
             comparison = {}
@@ -167,7 +187,8 @@ def main() -> None:
     report["primary_manifest_term_counts"] = primary_manifest["term_counts"]
     report["independent_manifest_scope"] = independent_manifest["scope"]
     report["pass"] = passed
-    output = HERE / "FROZEN_MAP_COMPARISON.json"
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    output = args.output_dir / "FROZEN_MAP_COMPARISON.json"
     output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
     print(output.read_text())
     if not passed:

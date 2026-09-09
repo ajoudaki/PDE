@@ -14,6 +14,10 @@ import time
 
 import numpy as np
 
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
+
 from ...depth.model import DepthState
 from ..common.finite_width_jet import feature_ascent_jet
 
@@ -59,8 +63,10 @@ def one_jet(depth: int, width: int, seed: int) -> np.ndarray:
     ).derivatives[[1, 3, 5]]
 
 
-def collect_cell(depth: int, width: int, count: int, cell: int) -> np.ndarray:
-    path = HERE / f"normalized_sine_H{depth}_n{width}.npy"
+def collect_cell(depth: int, width: int, count: int, cell: int, *, output_dir=None) -> np.ndarray:
+    directory = PATHS.require_output(output_dir or PATHS.input_dir())
+    directory.mkdir(parents=True, exist_ok=True)
+    path = directory / f"normalized_sine_H{depth}_n{width}.npy"
     if path.exists():
         old = np.load(path)
         if old.ndim != 2 or old.shape[1] != 3 or len(old) > count:
@@ -180,11 +186,16 @@ def fit_depth(cells: list[dict], prediction: float) -> dict:
 
 
 def main() -> None:
-    gate = json.loads((HERE / "TWO_ORACLE_GATE.json").read_text())
+    args = PATHS.parse(inputs=True, input_relative="depth_order5")
+    gate_path = args.input_dir / "audit/TWO_ORACLE_GATE.json"
+    if args.historical_inputs and not gate_path.exists():
+        # This fixed exact certificate remains proof source, not run data.
+        gate_path = HERE / "TWO_ORACLE_GATE.json"
+    gate = json.loads(gate_path.read_text())
     if not gate["pass"]:
         raise RuntimeError("two-oracle gate did not pass")
     prediction_payload = json.loads(
-        (COMMON / "NORMALIZED_SINE_FROZEN_PREDICTION.json").read_text()
+        (args.input_dir / "common/NORMALIZED_SINE_FROZEN_PREDICTION.json").read_text()
     )
     predictions = {
         depth: float(prediction_payload["96"]["depths"][str(depth)]["C"])
@@ -194,7 +205,7 @@ def main() -> None:
     cell = 0
     for depth in DEPTHS:
         for width, count in ALLOCATIONS.items():
-            values = collect_cell(depth, width, count, cell)
+            values = collect_cell(depth, width, count, cell, output_dir=args.output_dir)
             summaries[depth].append(cell_summary(values, depth, width, cell))
             cell += 1
     fits = {depth: fit_depth(summaries[depth], predictions[depth]) for depth in DEPTHS}
@@ -206,9 +217,9 @@ def main() -> None:
     else:
         decision = "inconclusive"
     output = {
-        "contract": "../common/NONPOLYNOMIAL_EXPERIMENT_CONTRACT.md",
-        "validity_addendum": "NONPOLYNOMIAL_VALIDITY_ADDENDUM.md",
-        "two_oracle_gate": "TWO_ORACLE_GATE.json",
+        "contract": str(COMMON / "NONPOLYNOMIAL_EXPERIMENT_CONTRACT.md"),
+        "validity_addendum": str(HERE / "NONPOLYNOMIAL_VALIDITY_ADDENDUM.md"),
+        "two_oracle_gate": str(gate_path),
         "activation": "sin(x)/sqrt((1-exp(-2))/2)",
         "Q0": 1,
         "allocations_per_depth": {str(k): v for k, v in ALLOCATIONS.items()},
@@ -221,7 +232,8 @@ def main() -> None:
             "algebra nor the annealed large-width theorem."
         ),
     }
-    path = HERE / "NORMALIZED_SINE_EXPERIMENT.json"
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    path = args.output_dir / "NORMALIZED_SINE_EXPERIMENT.json"
     path.write_text(json.dumps(output, indent=2, sort_keys=True) + "\n")
     print(json.dumps({"decision": decision, "fits": output["fits"]}, indent=2))
 

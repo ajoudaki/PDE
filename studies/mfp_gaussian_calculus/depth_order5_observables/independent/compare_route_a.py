@@ -7,6 +7,10 @@ import hashlib
 import json
 from pathlib import Path
 
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
+
 from ...depth_order5_scalar.multi_observable.audit.hostile_gamma04_derivation import (
     transitions as hostile_transitions,
 )
@@ -99,7 +103,9 @@ def compare() -> dict[str, object]:
 
 
 if __name__ == "__main__":
+    args = PATHS.parse()
     payload = compare()
-    path = HERE / "POST_FREEZE_ROUTE_COMPARISON.json"
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    path = args.output_dir / "POST_FREEZE_ROUTE_COMPARISON.json"
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     print(json.dumps(payload, indent=2, sort_keys=True))

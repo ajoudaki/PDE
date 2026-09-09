@@ -1,0 +1,157 @@
+[
+  {
+    "name": "compiler",
+    "expected_checks": 12,
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "studies.mfp_gaussian_calculus.compiler.run_checks"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "RUN studies.mfp_gaussian_calculus.compiler.test_normal_form.test_all_correction_atoms_are_literal_univariate_expectations\nRUN studies.mfp_gaussian_calculus.compiler.test_normal_form.test_first_correction_constant_linear_affine_quadratic_cubic\nRUN studies.mfp_gaussian_calculus.compiler.test_normal_form.test_independent_canonical_formula_map_is_structurally_identical\nRUN studies.mfp_gaussian_calculus.compiler.test_normal_form.test_initial_ntk_constant_linear_quadratic\nRUN studies.mfp_gaussian_calculus.compiler.test_normal_form.test_inventory_is_dependency_first\nRUN studies.mfp_gaussian_calculus.compiler.test_normal_form.test_multivariate_wick_atom\nRUN studies.mfp_gaussian_calculus.compiler.test_normal_form.test_quadrature_sine_and_tanh_regressions\nRUN studies.mfp_gaussian_calculus.compiler.test_finite_width_jet.test_constant_activation_is_exactly_linear_in_feature_time\nRUN studies.mfp_gaussian_calculus.compiler.test_finite_width_jet.test_generic_oracle_matches_quadratic_reference_seedwise\nRUN studies.mfp_gaussian_calculus.compiler.test_finite_width_jet.test_linear_exact_expectation_target_is_48\nRUN studies.mfp_gaussian_calculus.compiler.test_finite_width_contraction.test_direct_contraction_matches_feature_jet_seedwise\nRUN studies.mfp_gaussian_calculus.compiler.test_finite_width_contraction.test_direct_contraction_respects_nonunit_input_metric\nPASS 12 checks\n",
+    "stderr": "",
+    "seconds": 1.1128167547285557
+  },
+  {
+    "name": "b2",
+    "expected_checks": 12,
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "studies.mfp_gaussian_calculus.b2.run_checks"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "RUN studies.mfp_gaussian_calculus.b2.test_finite_width_directional.test_channel_homogeneity_and_named_specializations\nRUN studies.mfp_gaussian_calculus.b2.test_finite_width_directional.test_direct_tensor_program_matches_independent_taylor_jet\nRUN studies.mfp_gaussian_calculus.b2.test_finite_width_directional.test_frozen_mse_response_scalars_and_readout_parity\nRUN studies.mfp_gaussian_calculus.b2.test_finite_width_directional.test_linear_channel_is_exact_effective_single_input\nRUN studies.mfp_gaussian_calculus.b2.test_finite_width_directional.test_single_active_sample_reduces_exactly_to_b1_program\nRUN studies.mfp_gaussian_calculus.b2.test_finite_width_directional.test_three_sample_program_matches_independent_taylor_jet\nRUN studies.mfp_gaussian_calculus.b2.test_finite_width_directional.test_zero_channel_has_zero_directional_jet\nRUN studies.mfp_gaussian_calculus.b2.test_contracted_gnf.test_arbitrary_fixed_batch_linear_control\nRUN studies.mfp_gaussian_calculus.b2.test_contracted_gnf.test_constant_and_linear_controls_for_arbitrary_geometry\nRUN studies.mfp_gaussian_calculus.b2.test_contracted_gnf.test_exact_channel_homogeneity\nRUN studies.mfp_gaussian_calculus.b2.test_contracted_gnf.test_quadratic_matches_accepted_two_input_campaign\nRUN studies.mfp_gaussian_calculus.b2.test_contracted_gnf.test_single_active_channel_reduces_to_b1_gnf_exactly\nPASS 12 fixed-batch checks\n",
+    "stderr": "",
+    "seconds": 1.1962273716926575
+  },
+  {
+    "name": "operator_core",
+    "expected_checks": 12,
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "studies/resnet_operator_core/tests",
+      "-v"
+    ],
+    "pythonpath": "/home/amir/Codes/PDE/studies/resnet_operator_core/src",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_tangent_kernel_matches_output_velocity (test_dense_reference.DenseReferenceTests) ... ok\ntest_vector_field_is_scaled_euclidean_gradient (test_dense_reference.DenseReferenceTests) ... ok\ntest_hybrid_complete_quadratic_basis_is_exact_and_nested (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_no_finite_network_weight_state (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_orientation_mutation_is_detected (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_output_kernel_identity_by_directional_difference (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_parseval_covariance (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_positive_time_state_accepts_new_labels (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_shared_transpose_pairing (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_static_cubature_moments (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_tensor_gauss_hermite_realization (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_zero_residual_freezes_every_characteristic (test_operator_galerkin.OperatorGalerkinTests) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 0.062s\n\nOK\n",
+    "seconds": 0.4463104382157326
+  },
+  {
+    "name": "generalization_core",
+    "expected_checks": 7,
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "studies/resnet_generalization/tests",
+      "-p",
+      "test_generalization_core.py",
+      "-v"
+    ],
+    "pythonpath": "/home/amir/Codes/PDE/studies/resnet_generalization/src",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_default_remains_tanh (test_generalization_core.ActivationRegistryTests) ... ok\ntest_exact_derivatives_match_centered_differences (test_generalization_core.ActivationRegistryTests) ... ok\ntest_registry_is_closed_and_formulas_are_normalized (test_generalization_core.ActivationRegistryTests) ... ok\ntest_unknown_or_aliased_activation_is_rejected (test_generalization_core.ActivationRegistryTests) ... ok\ntest_dense_scaled_gradient_and_kernel_identities (test_generalization_core.CrossConfigurationIdentityTests) ... ok\ntest_p_equals_d_plus_two_is_complete_linear_basis (test_generalization_core.CrossConfigurationIdentityTests) ... ok\ntest_pde_output_kernel_identity_and_psd (test_generalization_core.CrossConfigurationIdentityTests) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.171s\n\nOK\n",
+    "seconds": 0.5434328056871891
+  },
+  {
+    "name": "generalization_controls",
+    "expected_checks": 15,
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "test_dense_reference",
+      "test_operator_galerkin",
+      "test_structural_controls",
+      "-v"
+    ],
+    "pythonpath": "/home/amir/Codes/PDE/studies/resnet_generalization/src:/home/amir/Codes/PDE/studies/resnet_generalization/tests",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_tangent_kernel_matches_output_velocity (test_dense_reference.DenseReferenceTests) ... ok\ntest_vector_field_is_scaled_euclidean_gradient (test_dense_reference.DenseReferenceTests) ... ok\ntest_hybrid_complete_quadratic_basis_is_exact_and_nested (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_no_finite_network_weight_state (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_orientation_mutation_is_detected (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_output_kernel_identity_by_directional_difference (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_parseval_covariance (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_positive_time_state_accepts_new_labels (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_shared_transpose_pairing (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_static_cubature_moments (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_tensor_gauss_hermite_realization (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_zero_residual_freezes_every_characteristic (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_duplicate_conflicting_inputs_have_irreducible_loss (test_structural_controls.StructuralControlTests) ... ok\ntest_pde_sample_permutation_equivariance (test_structural_controls.StructuralControlTests) ... ok\ntest_zero_label_pde_null_is_explicitly_trivial (test_structural_controls.StructuralControlTests) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 2.631s\n\nOK\n",
+    "seconds": 2.9967247135937214
+  },
+  {
+    "name": "finite_step",
+    "expected_checks": 10,
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "studies/mfp_finite_step_single_hidden_mlp",
+      "-v"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_constant_control (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_identity_control (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_k_step_identity_closed_form (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_k_step_raw_and_stein_dags_agree (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_one_step_iterator_matches_direct_formula (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_quadratic_control (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_raw_and_stein_dags_agree_for_tanh (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_separate_block_rates (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_two_step_identity_control (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_two_step_quadratic_control (test_finite_step_dag.FiniteStepDagTests) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 0.030s\n\nOK\n",
+    "seconds": 0.12999111413955688
+  },
+  {
+    "name": "rcgc",
+    "expected_checks": 6,
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "studies.rcgc_compiler.test_rcgc_compiler",
+      "-v"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_generic_depth_one_is_local_only (studies.rcgc_compiler.test_rcgc_compiler.CompilerRegressionTest) ... ok\ntest_generic_depth_three_emits_nested_two_colour_word (studies.rcgc_compiler.test_rcgc_compiler.CompilerRegressionTest) ... ok\ntest_generic_depth_two_emits_one_colour (studies.rcgc_compiler.test_rcgc_compiler.CompilerRegressionTest) ... ok\ntest_identity_kills_every_curvature_word (studies.rcgc_compiler.test_rcgc_compiler.CompilerRegressionTest) ... ok\ntest_invalid_depth_rejected (studies.rcgc_compiler.test_rcgc_compiler.CompilerRegressionTest) ... ok\ntest_kernel_has_one_term_per_parameter_block (studies.rcgc_compiler.test_rcgc_compiler.CompilerRegressionTest) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.000s\n\nOK\n",
+    "seconds": 0.04371408373117447
+  },
+  {
+    "name": "interval",
+    "expected_checks": 4,
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "/tmp/flat-study-path-repair-OE9KpPVL/baseline.py",
+      "interval"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "PASS test_axis_moments_and_negative_determinant\nPASS test_elementary_and_bernstein_certificates_are_exact\nPASS test_nonconstant_baseline_has_structural_power_33\nPASS test_primitive_integer_polynomial_clears_rational_content\nPASS 4 checks\n",
+    "stderr": "",
+    "seconds": 0.2642914839088917
+  },
+  {
+    "name": "depth",
+    "expected_checks": 5,
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "/tmp/flat-study-path-repair-OE9KpPVL/baseline.py",
+      "depth"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "PASS test_arbitrary_batch_depth_singular_gram_and_layerwise_activations\nPASS test_depth_state_can_be_constructed_from_existing_h2_state\nPASS test_h2_is_seedwise_identical_to_existing_fixed_batch_compiler\nPASS test_independent_raw_coordinate_jets_at_depths_one_two_three\nPASS test_one_hidden_layer_accepts_arbitrary_batch\nPASS 5 checks\n",
+    "stderr": "",
+    "seconds": 0.24949049204587936
+  }
+]

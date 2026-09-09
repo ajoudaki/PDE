@@ -28,10 +28,10 @@ Monomial = tuple[int, ...]
 Polynomial = dict[Monomial, Fraction]
 
 HERE = Path(__file__).resolve().parent
-REPO = HERE.parents[2]
+REPO = HERE.parents[1]
 CAMPAIGN4_RESULTS = (
     REPO
-    / "studies/mean_field_peeling/quadratic_compiler/campaign4/results_order9.json"
+    / "data/historical/studies/mfp_quadratic_compiler/campaign4/results_order9.json"
 )
 CAMPAIGN4_RESULTS_SHA256 = (
     "530ef0818f4142eb162c28fa6b388d69a1e13eeb9de399d54a25008d591f6d5e"

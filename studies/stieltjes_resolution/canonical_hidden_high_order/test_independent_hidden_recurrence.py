@@ -9,7 +9,9 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 SOURCE = HERE / "independent_hidden_recurrence.py"
-RESULT = HERE / "INDEPENDENT_HIDDEN_RESULT.json"
+RESULT = (
+    HERE.parents[2] / "data/historical/studies/stieltjes_resolution/canonical_hidden_high_order/INDEPENDENT_HIDDEN_RESULT.json"
+)
 
 
 def load_module():

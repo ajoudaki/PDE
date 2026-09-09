@@ -19,6 +19,7 @@ HERE = Path(__file__).resolve().parent
 
 
 def exact_write(path: Path, payload: object) -> str:
+    raise RuntimeError("archive-only artifact/seal writer; retained depth maps must not be re-frozen")
     data = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode() + b"\n"
     path.write_bytes(data)
     return hashlib.sha256(data).hexdigest()
@@ -32,6 +33,7 @@ def serial_map(mapping):
 
 
 def main() -> None:
+    raise RuntimeError("archive-only depth-map freeze; no compilation or historical seal writes authorized")
     manifest = {
         "format": "independent-depth-order5-freeze-manifest-v1",
         "scope": "H=3,4; B=1; Q0=1; layer-tagged and unit-Gram",

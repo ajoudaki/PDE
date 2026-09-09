@@ -28,6 +28,7 @@ def _header(alphabet: str) -> str:
 
 
 def main() -> None:
+    raise RuntimeError("archive-only artifact/manifest generator; do not regenerate the retained audited normal forms")
     result = compile_factored(5)
     arbitrary = compile_factored(5, arbitrary_q0=True)
     separated_roots = {"A": arbitrary.A, "B": arbitrary.B3, "C": arbitrary.C}

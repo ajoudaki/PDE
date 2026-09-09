@@ -15,13 +15,15 @@ from typing import Sequence
 
 Q = Fraction
 HERE = Path(__file__).resolve().parent
-REPO = HERE.parents[3]
-INPUT = HERE / "results_order9.json"
+REPO = HERE.parents[2]
+INPUT = (
+    HERE.parents[2] / "data/historical/studies/mfp_cubic_compiler/depth2_gaussian_program/results_order9.json"
+)
 PROTOCOL = HERE / "STIELTJES_PROTOCOL.md"
 DERIVATIVE_ENGINE = HERE / "depth2_cubic_exact_jet.py"
 EXACT_SERIES = (
     REPO
-    / "studies/stieltjes_conjecture/numerics/global_proxy_campaign/proxy/exact_series.py"
+    / "studies/stieltjes_proxy_campaign/proxy/exact_series.py"
 )
 
 EXPECTED_SHA256 = {

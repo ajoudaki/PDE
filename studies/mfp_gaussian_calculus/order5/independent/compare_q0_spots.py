@@ -64,7 +64,8 @@ def main() -> None:
         for values in report["points"].values()
         for name in "ABC"
     )
-    path = HERE / "Q0_SPOT_COMPARISON.json"
+    path = HERE.parents[3] / "data/generated/mfp_gaussian_calculus/order5/independent/Q0_SPOT_COMPARISON.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
     print(path.read_text())
     if not report["pass"]:

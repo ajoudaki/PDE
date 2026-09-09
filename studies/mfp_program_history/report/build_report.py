@@ -5,7 +5,7 @@ The workspace's TeX Live 2022 ``markdown`` package predates native support for
 dollar-delimited mathematics. This script protects each Markdown math span as
 raw TeX, verifies that every delimiter was consumed exactly once, compiles the
 single report wrapper from an ignored build directory, and copies the checked
-PDF to the study directory.
+PDF to the study's generated-data report directory.
 """
 
 from __future__ import annotations
@@ -18,10 +18,11 @@ from pathlib import Path
 
 REPORT_DIR = Path(__file__).resolve().parent
 STUDY_DIR = REPORT_DIR.parent
-BUILD_DIR = REPORT_DIR / "build"
+OUTPUT_DIR = STUDY_DIR.parents[1] / "data/generated/mfp_program_history/report"
+BUILD_DIR = OUTPUT_DIR / "build"
 MARKDOWN_DIR = BUILD_DIR / "markdown"
 REPORT_TEX = REPORT_DIR / "MEAN_FIELD_PEELING_REPORT.tex"
-REPORT_PDF = REPORT_DIR / "MEAN_FIELD_PEELING_REPORT.pdf"
+REPORT_PDF = OUTPUT_DIR / "MEAN_FIELD_PEELING_REPORT.pdf"
 
 SOURCES = (
     STUDY_DIR / "CURRENT_RESEARCH_STATE.md",
@@ -154,7 +155,7 @@ def compile_report() -> Path:
             "-interaction=nonstopmode",
             "-halt-on-error",
             "-file-line-error",
-            f"../{REPORT_TEX.name}",
+            str(REPORT_TEX),
         ],
         cwd=BUILD_DIR,
     )

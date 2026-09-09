@@ -8,6 +8,10 @@ import json
 from math import factorial
 from pathlib import Path
 
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
+
 import numpy as np
 
 from ....depth.model import sample_state
@@ -277,8 +281,9 @@ def test_time_change_formulas() -> None:
     assert observed == expected
 
 
-def test_nonpolynomial_regression_and_f7_roadmap() -> None:
-    regression = json.loads((HERE / "NORMALIZED_SINE_GAMMA04_RESULT.json").read_text())
+def test_nonpolynomial_regression_and_f7_roadmap(input_dir=None) -> None:
+    directory = input_dir or PATHS.input_dir()
+    regression = json.loads((directory / "NORMALIZED_SINE_GAMMA04_RESULT.json").read_text())
     assert regression["decision"] == "pass"
     assert regression["nonfinite_count"] == 0
     trees = tree_report()
@@ -287,7 +292,7 @@ def test_nonpolynomial_regression_and_f7_roadmap() -> None:
     assert trees["status"].startswith("roadmap-only")
 
 
-def run_checks() -> None:
+def run_checks(*, input_dir=None) -> None:
     tests = (
         test_independent_atom_canonicalization,
         test_exact_finite_width_raw_ad,
@@ -299,9 +304,13 @@ def run_checks() -> None:
         test_nonpolynomial_regression_and_f7_roadmap,
     )
     for test in tests:
-        test()
+        if test is test_nonpolynomial_regression_and_f7_roadmap:
+            test(input_dir=input_dir)
+        else:
+            test()
         print("PASS", test.__name__)
 
 
 if __name__ == "__main__":
-    run_checks()
+    args = PATHS.parse(inputs=True)
+    run_checks(input_dir=args.input_dir)

@@ -8,7 +8,10 @@ from pathlib import Path
 
 
 HERE = Path(__file__).resolve().parent
-DATA = json.loads((HERE / "FULL_L2_PAIRED_ORDER5_MAP.json").read_text())
+try:
+    from .map_inputs import load_map, parse_map_path
+except ImportError:
+    from map_inputs import load_map, parse_map_path
 
 
 def block(atom: dict[str, object]) -> tuple[int, int, str, tuple[int, ...]]:
@@ -24,6 +27,7 @@ def block(atom: dict[str, object]) -> tuple[int, int, str, tuple[int, ...]]:
 
 
 def main() -> None:
+    DATA = load_map(parse_map_path())
     negative = []
     zero = []
     margins: Counter[tuple[int, int]] = Counter()

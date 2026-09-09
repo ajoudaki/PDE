@@ -5,8 +5,14 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import sys
 
 import numpy as np
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 
 
 WIDTHS = (256, 512, 1024, 2048)
@@ -62,8 +68,9 @@ def moment_exponent(moments: np.ndarray) -> float:
 
 
 def main() -> None:
-    root = Path(__file__).resolve().parent
-    data_dir = root / "gpu_gauge_gradient_results"
+    args = PATHS.parse(inputs=True, input_relative="gpu_gauge_gradient_results")
+    root, data_dir = args.output_dir, args.input_dir
+    root.mkdir(parents=True, exist_ok=True)
     rng = np.random.default_rng(BOOTSTRAP_SEED)
     data = {
         width: load(data_dir / f"gauge_main_h001_eps002_fp32_n{width}.npz")

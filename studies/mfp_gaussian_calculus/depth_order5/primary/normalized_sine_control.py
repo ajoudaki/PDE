@@ -104,7 +104,8 @@ def main() -> None:
         "forward_grams": "Q^ell=1 for every ell",
         "records_by_hidden_depth": records,
     }
-    output = HERE / "NORMALIZED_SINE_CONTROL.json"
+    output = HERE.parents[3] / "data/generated/mfp_gaussian_calculus/depth_order5/primary/NORMALIZED_SINE_CONTROL.json"
+    output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     digest = hashlib.sha256(output.read_bytes()).hexdigest()
     print(json.dumps(payload, indent=2, sort_keys=True))
@@ -113,4 +114,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

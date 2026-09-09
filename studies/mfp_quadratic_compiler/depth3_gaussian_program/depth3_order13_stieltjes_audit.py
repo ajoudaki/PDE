@@ -16,14 +16,16 @@ from depth3_stieltjes_audit import (
 
 
 HERE = Path(__file__).resolve().parent
-INPUT = HERE / "results_order13.json"
+INPUT = (
+    HERE.parents[2] / "data/historical/studies/mfp_quadratic_compiler/depth3_gaussian_program/results_order13.json"
+)
 PROTOCOL = HERE / "ORDER13_STIELTJES_PROTOCOL.md"
 DERIVATIVE_ENGINE = HERE / "depth3_exact_jet.py"
 MOMENT_AUDIT_PRIMITIVES = HERE / "depth3_stieltjes_audit.py"
-REPO = HERE.parents[3]
+REPO = HERE.parents[2]
 EXACT_SERIES = (
     REPO
-    / "studies/stieltjes_conjecture/numerics/global_proxy_campaign/proxy/exact_series.py"
+    / "studies/stieltjes_proxy_campaign/proxy/exact_series.py"
 )
 
 EXPECTED_SHA256 = {

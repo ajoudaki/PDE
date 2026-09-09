@@ -20,7 +20,9 @@ if str(HERE) not in sys.path:
 import analyze_hankel as analysis
 
 
-RAW_PATH = HERE / "results_order7_q2_order6.json"
+RAW_PATH = (
+    HERE.parents[2] / "data/historical/studies/mfp_quadratic_compiler/campaign1/results_order7_q2_order6.json"
+)
 CERTIFICATE_PATH = HERE / "hankel_certificates_order7_q2_order6.json"
 
 

@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from functools import lru_cache
 import json
 
-from studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.independent import (
+from studies.mfp_gaussian_calculus.depth_order5_scalar.independent import (
     moving_contraction as base,
 )
 
@@ -259,4 +259,3 @@ def schedule():
 
 if __name__ == "__main__":
     print(json.dumps(schedule(), indent=2, sort_keys=True))
-

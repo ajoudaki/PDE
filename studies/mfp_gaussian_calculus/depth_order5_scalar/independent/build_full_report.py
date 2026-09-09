@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 
+ARCHIVE_ONLY_REASON = "archive-only full scalar report/seal writer; retained source and hashes must not be regenerated"
+if __name__ == "__main__":
+    raise RuntimeError(ARCHIVE_ONLY_REASON)
+
 import hashlib
 import json
 from pathlib import Path
@@ -27,6 +31,7 @@ def equation_appendix(title: str, payload_path: Path, groups: list[str] | None =
 
 
 def build() -> tuple[Path, str]:
+    raise RuntimeError(ARCHIVE_ONLY_REASON)
     pieces = [
         (ROOT / "FULL_SCALAR_RECURRENCE_PREAMBLE.md").read_text().rstrip(),
         equation_appendix(

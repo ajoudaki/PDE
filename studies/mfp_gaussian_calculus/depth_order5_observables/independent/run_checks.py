@@ -6,6 +6,10 @@ import hashlib
 import json
 from pathlib import Path
 
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
+
 from .compare_route_a import compare as compare_route_a
 from .run_exact_audit import run as run_exact
 
@@ -14,9 +18,10 @@ HERE = Path(__file__).resolve().parent
 
 
 def main() -> None:
+    args = PATHS.parse(inputs=True)
     exact = run_exact()
     routes = compare_route_a()
-    sine = json.loads((HERE / "NORMALIZED_SINE_EXPERIMENT.json").read_text())
+    sine = json.loads((args.input_dir / "NORMALIZED_SINE_EXPERIMENT.json").read_text())
     final_freeze = HERE / "FINAL_PRODUCER_FREEZE.json"
     results = {
         "exact_audit": exact["decision"],

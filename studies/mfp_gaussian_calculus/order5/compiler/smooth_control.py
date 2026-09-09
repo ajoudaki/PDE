@@ -10,6 +10,7 @@ import numpy as np
 from numpy.polynomial.hermite import hermgauss
 
 from .factored_expression import FactoredMomentExpression, compile_factored
+from studies.mfp_gaussian_calculus.study_paths import GENERATED_ROOT
 
 
 def normalized_sine_values(order: int = 64) -> dict[str, float]:
@@ -61,7 +62,8 @@ def normalized_sine_values(order: int = 64) -> dict[str, float]:
 
 def main() -> None:
     values = normalized_sine_values()
-    target = Path(__file__).with_name("NORMALIZED_SINE_CONTROL.json")
+    target = GENERATED_ROOT / "order5/compiler/NORMALIZED_SINE_CONTROL.json"
+    target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(values, indent=2, sort_keys=True) + "\n")
 
 

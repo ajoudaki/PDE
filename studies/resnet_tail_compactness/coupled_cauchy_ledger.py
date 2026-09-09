@@ -28,8 +28,8 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parents[1]
-AUDIT_SOURCE = ROOT / "pde_proof_obligation_audit" / "source"
-CANONICAL_SOURCE = ROOT / "activation_linearity_smoking_gun" / "source" / "src"
+AUDIT_SOURCE = ROOT / "resnet_proof_audit" / "source"
+CANONICAL_SOURCE = ROOT / "resnet_activation_controls" / "source" / "src"
 for source in (ROOT, AUDIT_SOURCE, CANONICAL_SOURCE):
     if str(source) not in sys.path:
         sys.path.insert(0, str(source))

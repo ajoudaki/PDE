@@ -15,12 +15,14 @@ from typing import Sequence
 
 Q = Fraction
 HERE = Path(__file__).resolve().parent
-REPO = HERE.parents[3]
-INPUT = HERE / "RESULTS.json"
+REPO = HERE.parents[2]
+INPUT = (
+    HERE.parents[2] / "data/historical/studies/mfp_identity_compiler/linear_gaussian_program/RESULTS.json"
+)
 PROTOCOL = HERE / "STIELTJES_PROTOCOL.md"
 EXACT_SERIES = (
     REPO
-    / "studies/stieltjes_conjecture/numerics/global_proxy_campaign/proxy/exact_series.py"
+    / "studies/stieltjes_proxy_campaign/proxy/exact_series.py"
 )
 EXPECTED_INPUT_SHA256 = "6acac5edc920a02b68ea0d0f53f9fac675cacdca5a750309b51654b8fc1d19c3"
 

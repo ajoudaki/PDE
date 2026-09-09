@@ -33,8 +33,12 @@ from typing import Sequence
 
 Rat = Fraction
 HERE = Path(__file__).resolve().parent
-PRODUCTION_DEFAULT = HERE / "PRODUCTION_HIDDEN_RESULT.json"
-INDEPENDENT_DEFAULT = HERE / "INDEPENDENT_HIDDEN_RESULT.json"
+PRODUCTION_DEFAULT = (
+    HERE.parents[2] / "data/historical/studies/stieltjes_resolution/canonical_hidden_high_order/PRODUCTION_HIDDEN_RESULT.json"
+)
+INDEPENDENT_DEFAULT = (
+    HERE.parents[2] / "data/historical/studies/stieltjes_resolution/canonical_hidden_high_order/INDEPENDENT_HIDDEN_RESULT.json"
+)
 
 
 ACCEPTED_FEATURE: tuple[int, ...] = (

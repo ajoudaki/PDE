@@ -16,6 +16,10 @@ import sympy as sp
 
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[3]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 PARENT = HERE.parent
 sys.path.insert(0, str(PARENT))
 
@@ -244,6 +248,7 @@ def recurrence_candidates(moments: list[Fraction]) -> list[dict[str, object]]:
 
 
 def main() -> int:
+    args = PATHS.parse()
     started = time.perf_counter()
     taylor = depth2_taylor(MAX_ORDER)
     derivative = depth2_derivative(MAX_ORDER)
@@ -297,7 +302,8 @@ def main() -> int:
             "failure finds no formula only in the frozen bounded classes."
         ),
     }
-    output = HERE / "RESULTS.json"
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    output = args.output_dir / "RESULTS.json"
     output.write_text(json.dumps(payload, indent=2) + "\n")
     print(json.dumps({
         "output": str(output),
@@ -312,4 +318,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

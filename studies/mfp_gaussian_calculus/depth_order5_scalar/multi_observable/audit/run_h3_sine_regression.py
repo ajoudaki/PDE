@@ -8,6 +8,7 @@ its z-scores are retained as non-confirmatory evidence.
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 from math import exp, sqrt
@@ -16,17 +17,20 @@ from pathlib import Path
 import numpy as np
 from scipy.stats import chi2
 
-from studies.mean_field_peeling.generic_first_stieltjes.depth.model import sample_state
-from studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.multi_observable.independent_route_a.finite_width_hidden import (
+from studies.mfp_gaussian_calculus.study_paths import GENERATED_ROOT, require_output
+
+from studies.mfp_gaussian_calculus.depth.model import sample_state
+from studies.mfp_gaussian_calculus.depth_order5_scalar.multi_observable.independent_route_a.finite_width_hidden import (
     feature_ascent_hidden_jet,
 )
-from studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.multi_observable.independent_route_a.numeric_head import (
+from studies.mfp_gaussian_calculus.depth_order5_scalar.multi_observable.independent_route_a.numeric_head import (
     compile_numeric,
     normalized_sine_moment,
 )
 
 
 HERE = Path(__file__).resolve().parent
+OUTPUT = GENERATED_ROOT / "depth_order5_scalar/multi_observable/audit"
 WIDTHS = (64, 128, 256)
 REPLICATES = 1024
 SEED_FORMULA = "19000000 + 100000*width + replicate"
@@ -59,7 +63,9 @@ def affine_fit(widths, means, sems):
     }
 
 
-def run():
+def run(output_dir: Path = OUTPUT):
+    output_dir = require_output(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
     prediction = compile_numeric(3, normalized_sine_moment(96))
     names = ("layer2_gamma04", "layer2_q4", "layer3_gamma04", "layer3_q4")
     expected = {
@@ -99,7 +105,7 @@ def run():
                 jet.q_derivatives[2, 4],
             )
 
-    raw_path = HERE / "H3_NORMALIZED_SINE_RAW.npz"
+    raw_path = output_dir / "H3_NORMALIZED_SINE_RAW.npz"
     np.savez_compressed(
         raw_path,
         widths=np.asarray(WIDTHS),
@@ -138,11 +144,12 @@ def run():
         "raw_path": raw_path.name,
         "raw_sha256": digest(raw_path),
     }
-    result_path = HERE / "H3_NORMALIZED_SINE_RESULT.json"
+    result_path = output_dir / "H3_NORMALIZED_SINE_RESULT.json"
     result_path.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     return result
 
 
 if __name__ == "__main__":
-    print(json.dumps(run(), indent=2, sort_keys=True))
-
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output-dir", type=Path, default=OUTPUT)
+    print(json.dumps(run(parser.parse_args().output_dir), indent=2, sort_keys=True))

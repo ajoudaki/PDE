@@ -5,11 +5,12 @@ from __future__ import annotations
 
 import json
 import math
+import os
 import unittest
 from fractions import Fraction
 from pathlib import Path
 
-from spectral_closure import initial_spectral_moments, spectral_fixed_point
+from spectral_closure import PATHS, initial_spectral_moments, spectral_fixed_point
 
 
 Q = Fraction
@@ -35,20 +36,21 @@ class SpectralClosureTests(unittest.TestCase):
         self.assertEqual(derivatives, [Q(value) for value in expected])
 
     def test_production_artifacts(self) -> None:
-        search = json.loads((HERE / "RESULTS.json").read_text())
+        # Fixed historical regression unless an explicit fresh fixture is supplied.
+        inputs = Path(os.environ.get("IDENTITY_SEARCH_INPUT_DIR", PATHS.input_dir(historical=True)))
+        search = json.loads((inputs / "RESULTS.json").read_text())
         self.assertEqual(len(search["moments"]), 40)
         self.assertEqual(search["algebraic_ogf_candidates"], [])
         self.assertEqual(search["p_recursive_candidates"], [])
-        closure = json.loads((HERE / "SPECTRAL_CLOSURE_RESULTS.json").read_text())
+        closure = json.loads((inputs / "SPECTRAL_CLOSURE_RESULTS.json").read_text())
         self.assertTrue(
             closure["validation"]["derivatives_match_independent_gaussian_program_through_81"]
         )
         self.assertTrue(closure["validation"]["moments_mu_0_through_39_match"])
-        hankel = json.loads((HERE / "HANKEL40_RESULTS.json").read_text())
+        hankel = json.loads((inputs / "HANKEL40_RESULTS.json").read_text())
         self.assertTrue(hankel["ordinary"]["all_positive_definite"])
         self.assertTrue(hankel["shifted"]["all_positive_definite"])
 
 
 if __name__ == "__main__":
     unittest.main()
-

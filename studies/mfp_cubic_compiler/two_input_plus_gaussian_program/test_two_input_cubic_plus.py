@@ -11,17 +11,17 @@ from pathlib import Path
 
 Q = Fraction
 HERE = Path(__file__).resolve().parent
-REPO = HERE.parents[3]
+REPO = HERE.parents[2]
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(REPO))
 
 engine = importlib.import_module("two_input_cubic_plus_jet")
 gnf_module = importlib.import_module(
-    "studies.mean_field_peeling.generic_first_stieltjes.b2."
+    "studies.mfp_gaussian_calculus.b2."
     "contracted_gnf_polynomial_reference"
 )
 normal_form_module = importlib.import_module(
-    "studies.mean_field_peeling.generic_first_stieltjes.compiler.normal_form"
+    "studies.mfp_gaussian_calculus.compiler.normal_form"
 )
 
 

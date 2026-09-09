@@ -35,15 +35,16 @@ Rat = Fraction
 
 HERE = Path(__file__).resolve().parent
 RESOLUTION = HERE.parent
-REPO_ROOT = RESOLUTION.parents[2]
+REPO_ROOT = RESOLUTION.parents[1]
 CANONICAL_DIR = RESOLUTION / "canonical_high_order"
 BASE_SOURCE = CANONICAL_DIR / "production_canonical_recurrence.py"
-BASE_RESULT = CANONICAL_DIR / "PRODUCTION_RESULT.json"
+BASE_RESULT = (
+    HERE.parents[2] / "data/historical/studies/stieltjes_resolution/canonical_high_order/PRODUCTION_RESULT.json"
+)
 OWN_SOURCE = HERE / "production_hidden_recurrence.py"
 CAMPAIGN1_RESULT = (
-    RESOLUTION.parent.parent
-    / "mean_field_peeling"
-    / "quadratic_compiler"
+    REPO_ROOT
+    / "data/historical/studies/mfp_quadratic_compiler"
     / "campaign1"
     / "results_order9_q2_order8.json"
 )

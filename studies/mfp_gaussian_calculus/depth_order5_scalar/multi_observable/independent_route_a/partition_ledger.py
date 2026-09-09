@@ -6,6 +6,10 @@ from collections import Counter
 import json
 from pathlib import Path
 
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
+
 from . import gamma04_contraction as g4
 
 
@@ -93,7 +97,9 @@ def report() -> dict[str, object]:
 
 
 if __name__ == "__main__":
+    args = PATHS.parse()
     result = report()
-    path = Path(__file__).resolve().parent / "EQUALITY_PARTITION_LEDGER.json"
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    path = args.output_dir / "EQUALITY_PARTITION_LEDGER.json"
     path.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     print(json.dumps(result, indent=2, sort_keys=True))

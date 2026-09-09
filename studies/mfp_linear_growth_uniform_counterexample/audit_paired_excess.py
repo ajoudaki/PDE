@@ -9,7 +9,10 @@ from fractions import Fraction
 
 
 HERE = Path(__file__).resolve().parent
-DATA = json.loads((HERE / "FULL_L2_PAIRED_ORDER5_MAP.json").read_text())
+try:
+    from .map_inputs import load_map, parse_map_path
+except ImportError:
+    from map_inputs import load_map, parse_map_path
 
 
 def block(atom: dict[str, object]) -> tuple[int, int]:
@@ -21,6 +24,7 @@ def block(atom: dict[str, object]) -> tuple[int, int]:
 
 
 def main() -> None:
+    DATA = load_map(parse_map_path())
     census: Counter[int] = Counter()
     max_atom_excess = 0
     two_principal_blocks = []

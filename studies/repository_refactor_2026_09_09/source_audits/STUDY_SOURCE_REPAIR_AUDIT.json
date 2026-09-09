@@ -1,0 +1,177 @@
+{
+  "changed": [
+    "studies/mfp_program_history/report/build_report.py",
+    "studies/resnet_activation_controls/analyze_activation.py",
+    "studies/resnet_activation_controls/run_experiment.py",
+    "studies/resnet_generalization/protocol/run_grid.py",
+    "studies/resnet_proof_audit/protocol/freeze_study.py",
+    "studies/resnet_proof_audit/protocol/verify_study.py",
+    "studies/resnet_proof_audit/source/analyze_results.py",
+    "studies/resnet_proof_audit/source/migration_paths.py",
+    "studies/resnet_proof_audit/source/pde_tangent.py",
+    "studies/resnet_proof_audit/source/run_protocol.py",
+    "studies/resnet_proof_audit/source/run_study.py",
+    "studies/resnet_proof_audit/source/structural_runner.py",
+    "studies/resnet_proof_audit/tests/test_trapezoid_compat.py",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/successive_n4096/analyze.py",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/successive_n8192/compare_with_n4096.py",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/validation_analysis.py",
+    "studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32/analyze_stage_v.py",
+    "studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32/run_stage_v_point.py",
+    "studies/stieltjes_proxy_campaign/proxy/run_frozen_boundary.py",
+    "studies/stieltjes_proxy_campaign/reference/side_checks/gd_vs_rk4_n4096.py",
+    "studies/stieltjes_proxy_campaign/reference/side_checks/gd_vs_rk4_n8192_point.py"
+  ],
+  "added": [
+    "studies/resnet_proof_audit/source/migration_paths.py",
+    "studies/resnet_proof_audit/tests/test_trapezoid_compat.py"
+  ],
+  "syntax": {
+    "python": 559,
+    "shell": 9
+  },
+  "frozen_hash_literal_differences": [],
+  "numeric_literal_differences": [
+    {
+      "path": "studies/mfp_program_history/report/build_report.py",
+      "removed": {},
+      "added": {
+        "1": 1
+      }
+    },
+    {
+      "path": "studies/resnet_activation_controls/analyze_activation.py",
+      "removed": {},
+      "added": {
+        "1": 1
+      }
+    },
+    {
+      "path": "studies/resnet_activation_controls/run_experiment.py",
+      "removed": {},
+      "added": {
+        "1": 1
+      }
+    },
+    {
+      "path": "studies/resnet_generalization/protocol/run_grid.py",
+      "removed": {},
+      "added": {
+        "1": 1
+      }
+    },
+    {
+      "path": "studies/resnet_proof_audit/protocol/freeze_study.py",
+      "removed": {},
+      "added": {
+        "1": 2
+      }
+    },
+    {
+      "path": "studies/resnet_proof_audit/protocol/verify_study.py",
+      "removed": {
+        "0": 1
+      },
+      "added": {
+        "2": 1
+      }
+    },
+    {
+      "path": "studies/resnet_proof_audit/source/run_study.py",
+      "removed": {
+        "1": 1,
+        "0": 1
+      },
+      "added": {}
+    },
+    {
+      "path": "studies/stieltjes_hybrid_campaign/breadth_panel/validation_analysis.py",
+      "removed": {},
+      "added": {
+        "2": 1
+      }
+    },
+    {
+      "path": "studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32/analyze_stage_v.py",
+      "removed": {},
+      "added": {
+        "3": 1
+      }
+    },
+    {
+      "path": "studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32/run_stage_v_point.py",
+      "removed": {},
+      "added": {
+        "3": 1
+      }
+    },
+    {
+      "path": "studies/stieltjes_proxy_campaign/proxy/run_frozen_boundary.py",
+      "removed": {},
+      "added": {
+        "1": 1
+      }
+    },
+    {
+      "path": "studies/stieltjes_proxy_campaign/reference/side_checks/gd_vs_rk4_n4096.py",
+      "removed": {},
+      "added": {
+        "3": 1
+      }
+    },
+    {
+      "path": "studies/stieltjes_proxy_campaign/reference/side_checks/gd_vs_rk4_n8192_point.py",
+      "removed": {},
+      "added": {
+        "3": 1
+      }
+    }
+  ],
+  "retained_record_changes": [],
+  "missing_source_configurations": [
+    "studies/resnet_dense_long_horizon/config/protocol.json",
+    "studies/resnet_activation_controls/protocol/cases.json",
+    "studies/resnet_activation_controls/protocol/preregistered_protocol.json",
+    "studies/resnet_operator_core/protocol/expected_metrics.json",
+    "studies/resnet_operator_core/protocol/protocol.json",
+    "studies/resnet_generalization/protocol/analysis_plan.json",
+    "studies/resnet_generalization/protocol/cases.json",
+    "studies/resnet_generalization/protocol/generalization_protocol.json",
+    "studies/resnet_proof_audit/protocol/preregistered_protocol.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/FROZEN_PRODUCTION.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_01.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_02_ANALYSIS.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_02.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_cpu_v3.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_cpu.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_gpu0_v3.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_gpu0.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_gpu1_v3.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_gpu1.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n1024_exploratory.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n2048_exploratory.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n2048_r16_exploratory.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n4096_exploratory.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n4096_r16_exploratory.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n4096_r8_fp32_cast_control.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n4096_r8_fp32_control.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n8192_r16_exploratory.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n8192_r8_fp32_holdout.json",
+    "studies/stieltjes_proxy_campaign/reference/configs/validation_n8192_r8_holdout.json",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/FROZEN_LOCAL_QUALIFICATION.json",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/FROZEN_ONE_INPUT_POINTS.json",
+    "studies/stieltjes_hybrid_campaign/breadth_panel/FROZEN_TWO_INPUT_POINTS.json",
+    "studies/stieltjes_hybrid_campaign/width_ladder/configs/FROZEN_WIDTH_LADDER.json",
+    "studies/stieltjes_hybrid_campaign/width_ladder/configs/VALIDATION_CPU.json",
+    "studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32/configs/FROZEN_STAGE_V.json"
+  ],
+  "proof_seal_source_status": {
+    "matches_recorded_bytes": 14,
+    "changed_since_freeze": 9
+  },
+  "breadth_lock_source_status": {
+    "match": 19,
+    "changed_since_freeze": 3,
+    "missing": 1
+  }
+}

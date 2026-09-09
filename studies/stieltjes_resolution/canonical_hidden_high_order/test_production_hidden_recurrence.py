@@ -13,7 +13,9 @@ import pytest
 
 HERE = Path(__file__).resolve().parent
 SOURCE = HERE / "production_hidden_recurrence.py"
-RESULT = HERE / "PRODUCTION_HIDDEN_RESULT.json"
+RESULT = (
+    HERE.parents[2] / "data/historical/studies/stieltjes_resolution/canonical_hidden_high_order/PRODUCTION_HIDDEN_RESULT.json"
+)
 
 
 def load_source():
@@ -44,15 +46,15 @@ def test_result_is_source_bound_and_frozen_inputs_are_intact() -> None:
     module.verify_frozen_inputs()
     assert document["frozen_inputs"] == {
         "base_source": {
-            "path": "studies/stieltjes_conjecture/resolution_program/canonical_high_order/production_canonical_recurrence.py",
+            "path": "studies/stieltjes_resolution/canonical_high_order/production_canonical_recurrence.py",
             "sha256": module.BASE_SOURCE_SHA256,
         },
         "base_result": {
-            "path": "studies/stieltjes_conjecture/resolution_program/canonical_high_order/PRODUCTION_RESULT.json",
+            "path": "studies/stieltjes_resolution/canonical_high_order/PRODUCTION_RESULT.json",
             "sha256": module.BASE_RESULT_SHA256,
         },
         "campaign1_result": {
-            "path": "studies/mean_field_peeling/quadratic_compiler/campaign1/results_order9_q2_order8.json",
+            "path": "studies/mfp_quadratic_compiler/campaign1/results_order9_q2_order8.json",
             "sha256": module.CAMPAIGN1_RESULT_SHA256,
         },
     }

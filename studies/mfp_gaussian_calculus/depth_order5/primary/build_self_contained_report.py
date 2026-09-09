@@ -141,6 +141,7 @@ def check() -> None:
 
 
 def main() -> None:
+    raise RuntimeError("archive-only report/freeze interface; migration does not authorize rebuilding its historical seals")
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()

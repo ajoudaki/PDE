@@ -16,6 +16,7 @@ from typing import Iterable, Mapping
 
 
 ROOT = Path(__file__).resolve().parents[2]
+HISTORICAL_ROOT = ROOT.parents[1] / "data/historical/studies/mfp_gaussian_calculus"
 
 REFERENCE = {
     2: (
@@ -61,8 +62,16 @@ def canonical_polynomial(entries: Iterable[object]) -> Polynomial:
     return {key: value for key, value in sorted(answer.items()) if value}
 
 
+def historical_reference_path(depth: int) -> Path:
+    """Resolve retained bytes without changing REFERENCE's logical labels."""
+    logical_path, _ = REFERENCE[depth]
+    return HISTORICAL_ROOT / logical_path.relative_to(ROOT)
+
+
 def load_reference(depth: int) -> dict[str, Polynomial]:
-    path, expected_hash = REFERENCE[depth]
+    """Audit immutable historical maps, never a fresh producer's output."""
+    _, expected_hash = REFERENCE[depth]
+    path = historical_reference_path(depth)
     payload = path.read_bytes()
     actual_hash = hashlib.sha256(payload).hexdigest()
     if actual_hash != expected_hash:

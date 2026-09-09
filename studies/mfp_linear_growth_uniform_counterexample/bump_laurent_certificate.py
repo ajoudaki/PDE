@@ -24,7 +24,10 @@ from pathlib import Path
 
 
 HERE = Path(__file__).resolve().parent
-MAP = HERE / "FULL_L2_PAIRED_ORDER5_MAP.json"
+try:
+    from .map_inputs import load_map, parse_map_path
+except ImportError:
+    from map_inputs import load_map, parse_map_path
 
 
 def poly_add(a, b):
@@ -180,8 +183,8 @@ def series_mul(a, b, min_w=-12, max_w=4):
     return {k: v for k, v in out.items() if v}
 
 
-def compile_census():
-    data = json.loads(MAP.read_text())
+def compile_census(map_path=None):
+    data = load_map(map_path)
     atoms = {
         tuple(atom["exponent"])
         for term in data["paired_map"]
@@ -200,7 +203,7 @@ def compile_census():
 
 
 def main():
-    result = compile_census()
+    result = compile_census(parse_map_path())
     print("nonzero delta^2 Laurent powers")
     for (degree, wpow), expression in sorted(result.items()):
         if degree == 2 and wpow <= 0:

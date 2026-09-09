@@ -1,0 +1,112 @@
+{
+  "root": "/home/amir/Codes/PDE",
+  "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/audit/reference_maps.py",
+  "source": "\"\"\"Independent canonical loader for the three frozen unit-Gram references.\n\nThis module was written before the candidate scalar recurrence was inspected.\nIt intentionally knows only the public coefficient-map schemas, not any\nproducer transition implementation.\n\"\"\"\n\nfrom __future__ import annotations\n\nfrom collections import defaultdict\nfrom fractions import Fraction\nimport hashlib\nimport json\nfrom pathlib import Path\nfrom typing import Iterable, Mapping\n\n\nROOT = Path(__file__).resolve().parents[2]\n\nREFERENCE = {\n    2: (\n        ROOT / \"order5/compiler/PRIMARY_UNIT_COEFFICIENT_MAP.json\",\n        \"68dd13460fb5bfab187d0d7e61b90adeec43a2311c2cab2726fd68b73fbf37f2\",\n    ),\n    3: (\n        ROOT / \"depth_order5/primary/H3_UNIT_COEFFICIENTS.json\",\n        \"564c6a27d6071e8601d21fd167dfd8f21d7ac9fe2323695a626eeebf73b980c6\",\n    ),\n    4: (\n        ROOT / \"depth_order5/primary/H4_UNIT_COEFFICIENTS.json\",\n        \"b3b220b76c8d30037cf0bfc0a8a1dc05884b28601a1c28e45b0daf9ff64faa5d\",\n    ),\n}\n\nEXPECTED_COUNTS = {\n    2: {\"A\": 3, \"B\": 46, \"C\": 974},\n    3: {\"A\": 4, \"B\": 160, \"C\": 6519},\n    4: {\"A\": 5, \"B\": 350, \"C\": 17641},\n}\n\nMonomial = tuple[str, ...]\nPolynomial = dict[Monomial, Fraction]\n\n\ndef _fraction(text: str | int) -> Fraction:\n    return Fraction(text)\n\n\ndef canonical_polynomial(entries: Iterable[object]) -> Polynomial:\n    \"\"\"Canonicalize either historical frozen-map entry schema.\"\"\"\n\n    answer: defaultdict[Monomial, Fraction] = defaultdict(Fraction)\n    for entry in entries:\n        if isinstance(entry, dict):\n            atoms = entry[\"atoms\"]\n            coefficient = entry[\"coefficient\"]\n        else:\n            atoms, coefficient = entry\n        key = tuple(sorted(str(atom) for atom in atoms))\n        answer[key] += _fraction(coefficient)\n    return {key: value for key, value in sorted(answer.items()) if value}\n\n\ndef load_reference(depth: int) -> dict[str, Polynomial]:\n    path, expected_hash = REFERENCE[depth]\n    payload = path.read_bytes()\n    actual_hash = hashlib.sha256(payload).hexdigest()\n    if actual_hash != expected_hash:\n        raise RuntimeError(\n            f\"reference hash drift at H={depth}: {actual_hash} != {expected_hash}\"\n        )\n    raw = json.loads(payload)\n    roots = raw.get(\"unit_gram\", raw.get(\"roots\"))\n    if roots is None:\n        raise ValueError(f\"unrecognized reference schema at {path}\")\n    result = {name: canonical_polynomial(entries) for name, entries in roots.items()}\n    counts = {name: len(poly) for name, poly in result.items()}\n    if counts != EXPECTED_COUNTS[depth]:\n        raise RuntimeError(f\"reference count drift at H={depth}: {counts}\")\n    return result\n\n\ndef difference(\n    candidate: Mapping[Monomial, Fraction],\n    reference: Mapping[Monomial, Fraction],\n) -> dict[str, object]:\n    candidate_keys = set(candidate)\n    reference_keys = set(reference)\n    unequal = {\n        key: (candidate[key], reference[key])\n        for key in sorted(candidate_keys & reference_keys)\n        if candidate[key] != reference[key]\n    }\n    return {\n        \"candidate_count\": len(candidate),\n        \"reference_count\": len(reference),\n        \"missing_count\": len(reference_keys - candidate_keys),\n        \"extra_count\": len(candidate_keys - reference_keys),\n        \"unequal_count\": len(unequal),\n        \"discrepancy_count\": (\n            len(reference_keys - candidate_keys)\n            + len(candidate_keys - reference_keys)\n            + len(unequal)\n        ),\n        \"missing_sample\": [list(key) for key in sorted(reference_keys - candidate_keys)[:10]],\n        \"extra_sample\": [list(key) for key in sorted(candidate_keys - reference_keys)[:10]],\n        \"unequal_sample\": [\n            {\n                \"atoms\": list(key),\n                \"candidate\": str(values[0]),\n                \"reference\": str(values[1]),\n            }\n            for key, values in list(unequal.items())[:10]\n        ],\n    }\n\n\nif __name__ == \"__main__\":\n    for h in sorted(REFERENCE):\n        maps = load_reference(h)\n        print(h, {name: len(poly) for name, poly in maps.items()})\n",
+  "sha256": "cbd4da6cf1495f3e4e03ea28710c9b174be68845b48a46b5bc22555734ff7c84",
+  "unchanged_extension": [
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/audit/run_checks.py",
+      "sha256": "14b6ce66c468d3d24ca2deb2557d8aad1c0b5d7ea4513867ebf7d9c9a27b59c7",
+      "matches_previous_extension_freeze": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/primary/run_lightweight_checks.py",
+      "sha256": "ab01488e83f12e4ed3b9ec68bf0f72038b19b46172be5250b1058ee417d77055",
+      "matches_previous_extension_freeze": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/primary/audit_full_scalar_recurrence.py",
+      "sha256": "ea70f84bfce1db8c3d60928f6e8874699981537794a881fa94efe5112d40a5c3",
+      "matches_previous_extension_freeze": true
+    },
+    {
+      "file": "studies/_output_paths.py",
+      "sha256": "71ad7cbc47336b662d2a33fd8be817ff1ea9881d8be51236d791d1ad3cbbf3b6",
+      "matches_previous_extension_freeze": true
+    }
+  ],
+  "protected": [
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+      "sha256": "87ddded3c800f3f9b8807fcc551f554ca138fbaf2b20c76d2d53ab88762d5fe2",
+      "unchanged": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5_scalar/primary/FULL_SCALAR_CANDIDATE_FREEZE.json",
+      "sha256": "d731ec66b067b8739df305426c6aa6d06bbc309d5fd624bd16d1c283ca649728",
+      "unchanged": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/CONTROL_AUDIT.json",
+      "sha256": "46fd0f81ae38a58532ed52b1fc9ff884fbd042323929f64b420e5a453ac141eb",
+      "unchanged": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/order5/compiler/MANIFEST.json",
+      "sha256": "130f826a4c23b7dec04dbb6c47261ccdb68a7af397dea228ef2ca3b2b16c3877",
+      "unchanged": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/primary/PRIMARY_FREEZE_MANIFEST.json",
+      "sha256": "f4838437c1fb70b14713d39e8438d703434c49ffd72001beeb6fee8d53366b30",
+      "unchanged": true
+    },
+    {
+      "file": "studies/mfp_gaussian_calculus/depth_order5/independent/FROZEN_MANIFEST.json",
+      "sha256": "dee0198e119864a90195101466f29f3ab2f248495c6e6a3494f35cafd3f2502b",
+      "unchanged": true
+    },
+    {
+      "file": "data/historical/studies/mfp_gaussian_calculus/order5/compiler/PRIMARY_UNIT_COEFFICIENT_MAP.json",
+      "sha256": "68dd13460fb5bfab187d0d7e61b90adeec43a2311c2cab2726fd68b73fbf37f2",
+      "unchanged": true
+    },
+    {
+      "file": "data/historical/studies/mfp_gaussian_calculus/depth_order5/primary/H3_UNIT_COEFFICIENTS.json",
+      "sha256": "564c6a27d6071e8601d21fd167dfd8f21d7ac9fe2323695a626eeebf73b980c6",
+      "unchanged": true
+    },
+    {
+      "file": "data/historical/studies/mfp_gaussian_calculus/depth_order5/primary/H4_UNIT_COEFFICIENTS.json",
+      "sha256": "b3b220b76c8d30037cf0bfc0a8a1dc05884b28601a1c28e45b0daf9ff64faa5d",
+      "unchanged": true
+    },
+    {
+      "file": "data/historical/studies/mfp_gaussian_calculus/depth_order5/audit/NORMALIZED_SINE_EXPERIMENT.json",
+      "sha256": "2b9250cbad87ce388d268a0cbe4d378b2e4d0924cb65f4003e2344fa118adccc",
+      "unchanged": true
+    }
+  ],
+  "slice1_receipts": [
+    {
+      "file": "/tmp/pde-routing-completeness-acofeOTG/REPORT.md",
+      "sha256": "dd7ddd1c45cd6ee693bb8bb1886b809a4ba03650951904d35ff01bc25fe22bed",
+      "unchanged_during_refresh": true
+    },
+    {
+      "file": "/tmp/pde-routing-completeness-acofeOTG/REPAIR_STATUS.md",
+      "sha256": "32ddc643121d68ad9673cb840794aeeefcc54e41597edca9d6c4816152a84dfe",
+      "unchanged_during_refresh": true
+    },
+    {
+      "file": "/tmp/pde-routing-completeness-acofeOTG/FROZEN_INVENTORY.json",
+      "sha256": "bdfaa07b036a462684733694600cb0c20c64e38735cd83e0565e0aedb358fca0",
+      "unchanged_during_refresh": true
+    },
+    {
+      "file": "/tmp/pde-routing-completeness-acofeOTG/PATCH_INVENTORY.json",
+      "sha256": "5708fb80683359e60fbdf19b2b9d210dc80a72cd34bae98a99e45526780165ff",
+      "unchanged_during_refresh": true
+    },
+    {
+      "file": "/tmp/pde-routing-completeness-acofeOTG/static_inventory.json",
+      "sha256": "599a16c171070802dcafaecb62e891edf2d782b4b14db45798f2d316fc325e72",
+      "unchanged_during_refresh": true
+    },
+    {
+      "file": "/tmp/pde-routing-completeness-acofeOTG/TEST_RESULTS.txt",
+      "sha256": "49ceee1c297648fd5876fcb2af49247836dc4cf07062d848597768341092543b",
+      "unchanged_during_refresh": true
+    }
+  ]
+}

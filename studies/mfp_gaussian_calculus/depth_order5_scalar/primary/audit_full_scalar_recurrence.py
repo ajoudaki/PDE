@@ -8,13 +8,15 @@ and records exact controls and terminal-alphabet checks.
 
 from __future__ import annotations
 
+import argparse
 from fractions import Fraction
 import hashlib
 import json
 from pathlib import Path
 
 from ..audit.exact_controls import activation_atom, evaluate
-from ..audit.reference_maps import EXPECTED_COUNTS, REFERENCE, difference, load_reference
+from ..audit.reference_maps import EXPECTED_COUNTS, REFERENCE, canonical_polynomial, difference
+from studies._output_paths import StudyPaths
 from ...order5.compiler.coefficient_map import expand_coefficient_map
 from ...order5.compiler.factored_expression import walk
 from .audit_frozen_sector import projection_audit
@@ -24,12 +26,55 @@ from .scalar_frozen_recurrence import derivative_ceiling
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
+PATHS = StudyPaths(__file__)
 CANDIDATE_FREEZE = HERE / "FULL_SCALAR_CANDIDATE_FREEZE.json"
 EXPECTED_FREEZE_HASH = "d731ec66b067b8739df305426c6aa6d06bbc309d5fd624bd16d1c283ca649728"
 
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def selected_input_root(input_dir: Path | None = None, *, historical_inputs: bool = False) -> Path:
+    if input_dir is not None and historical_inputs:
+        raise ValueError("select either an explicit input directory or historical inputs")
+    return (Path(input_dir) if input_dir is not None else PATHS.input_dir(
+        historical=historical_inputs, relative="")).resolve()
+
+
+def input_label(path: Path, input_root: Path) -> str:
+    """Labels resolve against the explicit source/inputs roots in the result."""
+    path = path.resolve()
+    if path.is_relative_to(ROOT):
+        return "source/" + path.relative_to(ROOT).as_posix()
+    return "inputs/" + path.relative_to(input_root.resolve()).as_posix()
+
+
+def selected_reference(depth: int, input_root: Path) -> tuple[Path, str]:
+    source_path, expected_hash = REFERENCE[depth]
+    return input_root / source_path.relative_to(ROOT), expected_hash
+
+
+def load_selected_reference(depth: int, input_root: Path):
+    """Apply the unchanged independent loader's digest/schema/count contract.
+
+    Resolve only this audit's data path; do not mutate the shared REFERENCE
+    table or rebind the independent loader used by other audit entrypoints.
+    """
+    path, expected_hash = selected_reference(depth, input_root)
+    payload = path.read_bytes()
+    actual_hash = hashlib.sha256(payload).hexdigest()
+    if actual_hash != expected_hash:
+        raise RuntimeError(f"reference hash drift at H={depth}: {actual_hash} != {expected_hash}")
+    raw = json.loads(payload)
+    roots = raw.get("unit_gram", raw.get("roots"))
+    if roots is None:
+        raise ValueError(f"unrecognized reference schema at {path}")
+    result = {name: canonical_polynomial(entries) for name, entries in roots.items()}
+    counts = {name: len(poly) for name, poly in result.items()}
+    if counts != EXPECTED_COUNTS[depth]:
+        raise RuntimeError(f"reference count drift at H={depth}: {counts}")
+    return result
 
 
 def candidate_maps(depth: int):
@@ -103,9 +148,13 @@ def scaled_activation_value(poly, base, denominator: int) -> str:
     return str(rational)
 
 
-def companion_controls() -> dict[str, object]:
+def companion_controls(input_root: Path | None = None, *, historical_inputs: bool = False) -> dict[str, object]:
+    input_root = input_root or selected_input_root(historical_inputs=historical_inputs)
     h2_path = ROOT / "order5/compiler/MANIFEST.json"
-    deep_path = ROOT / "depth_order5/independent/CONTROL_AUDIT.json"
+    deep_path = input_root / "depth_order5/independent/CONTROL_AUDIT.json"
+    if historical_inputs and not deep_path.exists():
+        # This fixed exact control certificate was retained as proof source.
+        deep_path = ROOT / "depth_order5/independent/CONTROL_AUDIT.json"
     h2 = json.loads(h2_path.read_text())
     deep = json.loads(deep_path.read_text())
     expected = {
@@ -128,19 +177,21 @@ def companion_controls() -> dict[str, object]:
         "scope": "companion layer-tagged/arbitrary-Gram maps; not a substitution into the unit-Gram recurrence",
         "values": actual,
         "files": {
-            str(h2_path.relative_to(ROOT)): sha256(h2_path),
-            str(deep_path.relative_to(ROOT)): sha256(deep_path),
+            input_label(h2_path, input_root): sha256(h2_path),
+            input_label(deep_path, input_root): sha256(deep_path),
         },
     }
 
 
-def nonpolynomial_regression() -> dict[str, object]:
-    path = ROOT / "depth_order5/audit/NORMALIZED_SINE_EXPERIMENT.json"
+def nonpolynomial_regression(input_root: Path | None = None) -> dict[str, object]:
+    input_root = input_root or selected_input_root()
+    path = input_root / "depth_order5/audit/NORMALIZED_SINE_EXPERIMENT.json"
     data = json.loads(path.read_text())
     if data["decision"] != "pass" or data["total_networks"] != 7700:
         raise AssertionError((data["decision"], data["total_networks"]))
     return {
         "scope": "pre-registered normalized-sine finite-width regression inherited after exact map equality",
+        "path": input_label(path, input_root),
         "sha256": sha256(path),
         "decision": data["decision"],
         "total_networks": data["total_networks"],
@@ -161,7 +212,8 @@ def nonpolynomial_regression() -> dict[str, object]:
     }
 
 
-def run_audit() -> dict[str, object]:
+def run_audit(*, input_dir: Path | None = None, historical_inputs: bool = False) -> dict[str, object]:
+    input_root = selected_input_root(input_dir, historical_inputs=historical_inputs)
     if sha256(CANDIDATE_FREEZE) != EXPECTED_FREEZE_HASH:
         raise RuntimeError("candidate freeze hash drift")
     projection = projection_audit()
@@ -171,10 +223,12 @@ def run_audit() -> dict[str, object]:
     result: dict[str, object] = {
         "schema": "full-scalar-order5-exact-audit-v1",
         "candidate_freeze_sha256": EXPECTED_FREEZE_HASH,
+        "input_roots": {"source": str(ROOT), "inputs": str(input_root)},
+        "input_mode": "historical" if historical_inputs else "explicit" if input_dir is not None else "generated",
         "lower_order_projection_transition_discrepancies": projection,
         "depths": {},
-        "quadratic_controls": companion_controls(),
-        "nonpolynomial_regression": nonpolynomial_regression(),
+        "quadratic_controls": companion_controls(input_root, historical_inputs=historical_inputs),
+        "nonpolynomial_regression": nonpolynomial_regression(input_root),
     }
     expected_linear = {
         2: {"A": "3", "B": "48", "C": "1464"},
@@ -183,16 +237,16 @@ def run_audit() -> dict[str, object]:
     }
     for depth in (2, 3, 4):
         recurrence, roots, maps = candidate_maps(depth)
-        reference = load_reference(depth)
+        reference = load_selected_reference(depth, input_root)
         comparisons = {
             name: difference(maps[name], reference[name]) for name in ("A", "B", "C")
         }
         alphabet = terminal_alphabet(roots)
         controls = exact_controls(maps)
-        reference_path, reference_hash = REFERENCE[depth]
+        reference_path, reference_hash = selected_reference(depth, input_root)
         depth_result = {
             "reference": {
-                "path": str(reference_path.relative_to(ROOT)),
+                "path": input_label(reference_path, input_root),
                 "sha256": reference_hash,
             },
             "expected_monomial_counts": EXPECTED_COUNTS[depth],
@@ -223,5 +277,16 @@ def run_audit() -> dict[str, object]:
     return result
 
 
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    inputs = parser.add_mutually_exclusive_group()
+    inputs.add_argument("--input-dir", type=Path, help="read-only Gaussian study-data root")
+    inputs.add_argument("--historical-inputs", action="store_true",
+                        help="read retained maps/results and the fixed source control certificate")
+    args = parser.parse_args()
+    print(json.dumps(run_audit(input_dir=args.input_dir, historical_inputs=args.historical_inputs),
+                     indent=2, sort_keys=True))
+
+
 if __name__ == "__main__":
-    print(json.dumps(run_audit(), indent=2, sort_keys=True))
+    main()

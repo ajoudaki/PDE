@@ -1,0 +1,125 @@
+[
+  {
+    "name": "test_pde_tangent",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_all_field_arrays_match_centered_finite_differences (test_pde_tangent.FieldAndGeneratorJVPTests) ... ok\ntest_observable_jvp_includes_all_depth_grams_and_theta (test_pde_tangent.FieldAndGeneratorJVPTests) ... ok\ntest_vector_field_jvp_converges_quadratically_in_fd_step (test_pde_tangent.FieldAndGeneratorJVPTests) ... ok\ntest_block_arclength_is_zero_for_a_frozen_state (test_pde_tangent.StabilityInfrastructureTests) ... ok\ntest_compact_responses_are_numerically_identical (test_pde_tangent.StabilityInfrastructureTests) ... ok\ntest_group_l1_l2_gain_matches_blockwise_spectral_norm (test_pde_tangent.StabilityInfrastructureTests) ... ok\ntest_single_direction_groups_reduce_to_exact_max_column (test_pde_tangent.StabilityInfrastructureTests) ... ok\ntest_stage5_helper_returns_archive_ready_finite_arrays (test_pde_tangent.StabilityInfrastructureTests) ... ok\ntest_symmetric_nonlinear_impulses_converge_to_tangent (test_pde_tangent.StabilityInfrastructureTests) ... ok\ntest_coupled_rk4_is_primal_rk4_and_derivative_of_its_map (test_pde_tangent.WeightedCoordinatesAndRK4Tests) ... ok\ntest_weighted_pack_realizes_cross_p_inner_product (test_pde_tangent.WeightedCoordinatesAndRK4Tests) ... ok\n\n----------------------------------------------------------------------\nRan 11 tests in 0.664s\n\nOK\n",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "studies/resnet_proof_audit/tests",
+      "-p",
+      "test_pde_tangent.py",
+      "-v"
+    ],
+    "seconds": 1.0378283113241196
+  },
+  {
+    "name": "test_trapezoid_compat",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_affine_integral_on_irregular_grid_and_reversed_axis (test_trapezoid_compat.TrapezoidCompatibilityTests) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.038s\n\nOK\n",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "studies/resnet_proof_audit/tests",
+      "-p",
+      "test_trapezoid_compat.py",
+      "-v"
+    ],
+    "seconds": 0.4169324040412903
+  },
+  {
+    "name": "test_verify_study",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_archive_environment_must_equal_freeze (test_verify_study.VerifierTests) ... ok\ntest_archive_rejects_valid_hash_injected_under_extra_source_key (test_verify_study.VerifierTests) ... ok\ntest_manifest_and_stage_maps_are_derived_from_frozen_paths (test_verify_study.VerifierTests) ... ok\ntest_tree_digest_and_duplicate_labels_fail_closed (test_verify_study.VerifierTests) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.069s\n\nOK\n",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "studies/resnet_proof_audit/tests",
+      "-p",
+      "test_verify_study.py",
+      "-v"
+    ],
+    "seconds": 0.5016832612454891
+  },
+  {
+    "name": "protocol_readonly_fixture",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_phase_b_authorization_uses_measured_unlock (test_run_protocol.AuthorizationTests) ... ok\ntest_positive_and_confirmation_require_measured_triggers (test_run_protocol.AuthorizationTests) ... ok\ntest_stage5_and_p70_require_measured_generator_and_gain_gates (test_run_protocol.AuthorizationTests) ... ok\ntest_stage6_requires_fresh_finite_horizon_pass (test_run_protocol.AuthorizationTests) ... ok\ntest_all_requested_subcommands_parse (test_run_protocol.CommandSafetyTests) ... ok\ntest_batch_verifies_before_and_after_and_runs_serially (test_run_protocol.CommandSafetyTests) ... ok\ntest_child_environment_fixes_all_thread_counts (test_run_protocol.CommandSafetyTests) ... ok\ntest_draft_status_blocks_before_verifier_or_execution (test_run_protocol.CommandSafetyTests) ... ok\ntest_list_mode_does_not_create_output_tree (test_run_protocol.CommandSafetyTests) ... ok\ntest_every_output_is_absolute_unique_and_protocol_derived (test_run_protocol.InventoryTests) ... ok\ntest_exact_batch_counts_and_conditional_breakdown (test_run_protocol.InventoryTests) ... ok\ntest_generated_jobs_are_admitted_by_scientific_validators (test_run_protocol.InventoryTests) ... ok\ntest_stage6_restart_paths_form_four_exact_chains (test_run_protocol.InventoryTests) ... ok\n\n----------------------------------------------------------------------\nRan 13 tests in 0.516s\n\nOK\n",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "/tmp/flat-study-repair-v2-vUfeYhuk/verify.py",
+      "protocol-fixture"
+    ],
+    "seconds": 0.9636367410421371
+  },
+  {
+    "name": "analysis_discovery_synthetic",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_direct_discovery_requires_exact_source_map_and_environment (studies.resnet_proof_audit.tests.test_analyze_results.DiscoveryAndMissingStageTests) ... ok\ntest_duplicate_configuration_fails_closed (studies.resnet_proof_audit.tests.test_analyze_results.DiscoveryAndMissingStageTests) ... ok\ntest_empty_sealed_study_is_explicitly_unresolved_and_deterministic (studies.resnet_proof_audit.tests.test_analyze_results.DiscoveryAndMissingStageTests) ... ok\ntest_partial_file_and_unknown_stage_fail_closed (studies.resnet_proof_audit.tests.test_analyze_results.DiscoveryAndMissingStageTests) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.030s\n\nOK\n",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "studies.resnet_proof_audit.tests.test_analyze_results.DiscoveryAndMissingStageTests",
+      "-v"
+    ],
+    "seconds": 0.43872198462486267
+  },
+  {
+    "name": "migration_checks",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_activation_analysis_defaults_match_writer (__main__.MigrationChecks) ... ok\ntest_activation_source_and_evidence_roots_are_separate (__main__.MigrationChecks) ... ok\ntest_breadth_reader_input_bindings_and_locked_labels (__main__.MigrationChecks) ... ok\ntest_breadth_writer_only_writes_private_fresh_directory (__main__.MigrationChecks) ... ok\ntest_configuration_recommendation_retains_exact_original_bytes (__main__.MigrationChecks) ... ok\ntest_frozen_label_mapping_and_ambiguity (__main__.MigrationChecks) ... ok\ntest_historical_seal_status_never_authorizes_execution (__main__.MigrationChecks) ... ok\ntest_proof_runner_uses_own_activation_model_and_fresh_results (__main__.MigrationChecks) ... ok\ntest_report_build_uses_generated_directory_and_source_tex (__main__.MigrationChecks) ... ok\ntest_sidecheck_reference_inputs_and_output_paths (__main__.MigrationChecks) ... ok\ntest_stage_v_analysis_defaults_and_immutable_output_rejection (__main__.MigrationChecks) ... ok\ntest_stage_v_history_cannot_reset_consumed_attempt (__main__.MigrationChecks) ... ok\ntest_stage_v_stale_unlock_stays_rejected (__main__.MigrationChecks) ... ok\ntest_successive_paths_preserve_source_and_historical_inputs (__main__.MigrationChecks) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 0.407s\n\nOK\n",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "/tmp/flat-study-repair-v2-vUfeYhuk/checks.py"
+    ],
+    "seconds": 0.5221600010991096
+  },
+  {
+    "name": "proof_historical_status_cli",
+    "returncode": 0,
+    "stdout": "{\n  \"current_execution_authorized\": false,\n  \"note\": \"Original seal retained unchanged; relocated live source is not a refreshed scientific freeze.\",\n  \"path\": \"/home/amir/Codes/PDE/data/historical/studies/resnet_proof_audit/results/seals/FROZEN_INPUTS.json\",\n  \"recorded_environment\": {\n    \"numpy\": \"2.3.5\",\n    \"platform\": \"Linux-6.12.13-x86_64-with-glibc2.39\",\n    \"python\": \"3.12.13 (main, Mar  3 2026, 14:59:34) [Clang 21.1.4 ]\",\n    \"scipy\": \"1.17.0\"\n  },\n  \"recorded_status\": \"frozen_before_new_scientific_trajectories\",\n  \"seal_sha256\": \"c3c5a4779d4546d3704401929aa97bca79daf81876063a83fc84df075f485244\",\n  \"source_locations\": [\n    {\n      \"label\": \"activation_linearity_smoking_gun/source/src/dense_reference/core.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_activation_controls/source/src/dense_reference/core.py\",\n      \"status\": \"matches_recorded_bytes\"\n    },\n    {\n      \"label\": \"activation_linearity_smoking_gun/source/src/dense_pde/operator_galerkin.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_activation_controls/source/src/dense_pde/operator_galerkin.py\",\n      \"status\": \"matches_recorded_bytes\"\n    },\n    {\n      \"label\": \"activation_linearity_smoking_gun/source/src/activations.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_activation_controls/source/src/activations.py\",\n      \"status\": \"matches_recorded_bytes\"\n    },\n    {\n      \"label\": \"protocol/preregistered_protocol.json\",\n      \"path\": \"/home/amir/Codes/PDE/data/historical/studies/resnet_proof_audit/protocol/preregistered_protocol.json\",\n      \"status\": \"matches_recorded_bytes\"\n    },\n    {\n      \"label\": \"protocol/freeze_study.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_proof_audit/protocol/freeze_study.py\",\n      \"status\": \"changed_since_freeze\"\n    },\n    {\n      \"label\": \"protocol/verify_study.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_proof_audit/protocol/verify_study.py\",\n      \"status\": \"changed_since_freeze\"\n    },\n    {\n      \"label\": \"source/analyze_results.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_proof_audit/source/analyze_results.py\",\n      \"status\": \"changed_since_freeze\"\n    },\n    {\n      \"label\": \"source/analyze_study.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_proof_audit/source/analyze_study.py\",\n      \"status\": \"matches_recorded_bytes\"\n    },\n    {\n      \"label\": \"source/cross_p.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_proof_audit/source/cross_p.py\",\n      \"status\": \"changed_since_freeze\"\n    },\n    {\n      \"label\": \"source/dense_gates.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_proof_audit/source/dense_gates.py\",\n      \"status\": \"changed_since_freeze\"\n    },\n    {\n      \"label\": \"source/pde_tangent.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_proof_audit/source/pde_tangent.py\",\n      \"status\": \"changed_since_freeze\"\n    },\n    {\n      \"label\": \"source/run_protocol.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_proof_audit/source/run_protocol.py\",\n      \"status\": \"changed_since_freeze\"\n    },\n    {\n      \"label\": \"source/run_study.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_proof_audit/source/run_study.py\",\n      \"status\": \"changed_since_freeze\"\n    },\n    {\n      \"label\": \"source/structural_runner.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_proof_audit/source/structural_runner.py\",\n      \"status\": \"changed_since_freeze\"\n    },\n    {\n      \"label\": \"tests/test_analyze_results.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_proof_audit/tests/test_analyze_results.py\",\n      \"status\": \"matches_recorded_bytes\"\n    },\n    {\n      \"label\": \"tests/test_analyze_study.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_proof_audit/tests/test_analyze_study.py\",\n      \"status\": \"matches_recorded_bytes\"\n    },\n    {\n      \"label\": \"tests/test_cross_p.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_proof_audit/tests/test_cross_p.py\",\n      \"status\": \"matches_recorded_bytes\"\n    },\n    {\n      \"label\": \"tests/test_dense_gates.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_proof_audit/tests/test_dense_gates.py\",\n      \"status\": \"matches_recorded_bytes\"\n    },\n    {\n      \"label\": \"tests/test_pde_tangent.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_proof_audit/tests/test_pde_tangent.py\",\n      \"status\": \"matches_recorded_bytes\"\n    },\n    {\n      \"label\": \"tests/test_run_protocol.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_proof_audit/tests/test_run_protocol.py\",\n      \"status\": \"matches_recorded_bytes\"\n    },\n    {\n      \"label\": \"tests/test_run_study.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_proof_audit/tests/test_run_study.py\",\n      \"status\": \"matches_recorded_bytes\"\n    },\n    {\n      \"label\": \"tests/test_structural_runner.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_proof_audit/tests/test_structural_runner.py\",\n      \"status\": \"matches_recorded_bytes\"\n    },\n    {\n      \"label\": \"tests/test_verify_study.py\",\n      \"path\": \"/home/amir/Codes/PDE/studies/resnet_proof_audit/tests/test_verify_study.py\",\n      \"status\": \"matches_recorded_bytes\"\n    }\n  ],\n  \"status\": \"historical_only\"\n}\n",
+    "stderr": "",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "studies/resnet_proof_audit/protocol/verify_study.py",
+      "--historical-status"
+    ],
+    "seconds": 0.3689494617283344
+  },
+  {
+    "name": "activation_historical_status_cli",
+    "returncode": 0,
+    "stdout": "{\"current_execution_authorized\": false, \"seal_exists\": true, \"seal_path\": \"/home/amir/Codes/PDE/data/historical/studies/resnet_activation_controls/evidence/seals/FROZEN_INPUTS.json\", \"seal_sha256\": \"76887fc5f8774360c56080986c6bba57208992c34b3639941ffb6e6fe8e05ed2\", \"status\": \"historical_only\"}\n",
+    "stderr": "",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "studies/resnet_activation_controls/run_experiment.py",
+      "--historical-status"
+    ],
+    "seconds": 0.11723173409700394
+  }
+]

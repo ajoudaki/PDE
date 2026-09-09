@@ -20,6 +20,7 @@ def embedded_payload(text: str, begin: str, end: str) -> str:
 
 
 def main() -> None:
+    raise RuntimeError("archive-only report/manifest builder; migration does not authorize overwriting the retained report")
     body = (ORDER5 / "PRIMARY_GAUSSIAN_NORMAL_FORM.md").read_text().rstrip()
     unit_path = HERE / "UNIT_GRAM_ABC_NORMAL_FORM.txt"
     separated_path = HERE / "LAYER_SEPARATED_ABC_NORMAL_FORM.txt"

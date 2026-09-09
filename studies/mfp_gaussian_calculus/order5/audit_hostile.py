@@ -8,6 +8,10 @@ are appended here only after both producers have frozen their outputs.
 
 from __future__ import annotations
 
+ARCHIVE_ONLY_REASON = "archive-only frozen audit command; its mixed historical report/manifest interface is not a fresh-output consumer"
+if __name__ == "__main__":
+    raise RuntimeError(ARCHIVE_ONLY_REASON)
+
 from fractions import Fraction
 from hashlib import sha256
 from itertools import product
@@ -29,14 +33,24 @@ HERE = Path(__file__).resolve().parent
 PRIMARY_UNIT = HERE / "compiler" / "UNIT_GRAM_ABC_NORMAL_FORM.txt"
 PRIMARY_TAGGED = HERE / "compiler" / "LAYER_SEPARATED_ABC_NORMAL_FORM.txt"
 PRIMARY_MANIFEST = HERE / "compiler" / "MANIFEST.json"
-INDEPENDENT_JSON = HERE / "independent" / "independent_coefficient_map.json"
+INDEPENDENT_JSON = (
+    HERE.parents[2] / "data/historical/studies/mfp_gaussian_calculus/order5/independent/independent_coefficient_map.json"
+)
 INDEPENDENT_HASH = HERE / "independent" / "FROZEN_SHA256.txt"
-INDEPENDENT_TAGGED_JSON = HERE / "independent" / "independent_layer_tagged_coefficient_map.json"
+INDEPENDENT_TAGGED_JSON = (
+    HERE.parents[2] / "data/historical/studies/mfp_gaussian_calculus/order5/independent/independent_layer_tagged_coefficient_map.json"
+)
 INDEPENDENT_TAGGED_HASH = HERE / "independent" / "LAYER_TAGGED_FROZEN_SHA256.txt"
-PRIMARY_SYMBOLIC_Q0_JSON = HERE / "compiler" / "PRIMARY_SYMBOLIC_Q0_COEFFICIENT_MAP.json"
-INDEPENDENT_SYMBOLIC_Q0_JSON = HERE / "independent" / "independent_symbolic_q0_coefficient_map.json"
+PRIMARY_SYMBOLIC_Q0_JSON = (
+    HERE.parents[2] / "data/historical/studies/mfp_gaussian_calculus/order5/compiler/PRIMARY_SYMBOLIC_Q0_COEFFICIENT_MAP.json"
+)
+INDEPENDENT_SYMBOLIC_Q0_JSON = (
+    HERE.parents[2] / "data/historical/studies/mfp_gaussian_calculus/order5/independent/independent_symbolic_q0_coefficient_map.json"
+)
 INDEPENDENT_SYMBOLIC_Q0_HASH = HERE / "independent" / "SYMBOLIC_Q0_FROZEN_SHA256.txt"
-SYMBOLIC_Q0_COMPARISON = HERE / "independent" / "SYMBOLIC_Q0_PRIMARY_COMPARISON.json"
+SYMBOLIC_Q0_COMPARISON = (
+    HERE.parents[2] / "data/historical/studies/mfp_gaussian_calculus/order5/independent/SYMBOLIC_Q0_PRIMARY_COMPARISON.json"
+)
 SELF_CONTAINED = HERE / "H2_B1_ORDER5_SELF_CONTAINED.md"
 SELF_CONTAINED_MANIFEST = HERE / "SELF_CONTAINED_MANIFEST.json"
 UNIT_ATOM = re.compile(r"M_\{([0-9]{6})\}")
@@ -737,6 +751,7 @@ def test_documented_compact_B_expands_to_frozen_map() -> None:
 
 
 def run() -> None:
+    raise RuntimeError(ARCHIVE_ONLY_REASON)
     tests = (
         test_universal_six_family_identity,
         test_raw_width_scaling_exponents,
@@ -757,4 +772,4 @@ def run() -> None:
 
 
 if __name__ == "__main__":
-    run()
+    raise RuntimeError("archive-only frozen audit command; its mixed historical report/manifest interface is not a fresh-output consumer")

@@ -42,6 +42,7 @@ def normalize_independent(entries):
 
 
 def main() -> None:
+    raise RuntimeError("archive-only frozen-route comparison interface; retained metadata and artifacts need a separately reviewed replay interface")
     parser = argparse.ArgumentParser()
     parser.add_argument("--depth", type=int, choices=(3, 4), required=True)
     parser.add_argument("--quotient", choices=("tagged", "unit"), required=True)
@@ -132,4 +133,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

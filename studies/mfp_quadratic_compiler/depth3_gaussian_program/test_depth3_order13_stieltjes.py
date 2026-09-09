@@ -16,7 +16,9 @@ from depth3_stieltjes_audit import (
 
 
 HERE = Path(__file__).resolve().parent
-RESULT = HERE / "results_order13.json"
+RESULT = (
+    HERE.parents[2] / "data/historical/studies/mfp_quadratic_compiler/depth3_gaussian_program/results_order13.json"
+)
 
 EXPECTED_MU4 = Fraction(
     52_706_019_439_078_857_802_390_858_812_108_565_605_376,
@@ -80,4 +82,3 @@ class Depth3Order13StieltjesTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

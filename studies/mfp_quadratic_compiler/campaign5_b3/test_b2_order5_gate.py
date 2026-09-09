@@ -19,7 +19,9 @@ import tempfile
 HERE = Path(__file__).resolve().parent
 CAMPAIGN2 = HERE.parent / "campaign2"
 SOURCE = HERE / "b3_connected.cpp"
-ACCEPTED_RAW = CAMPAIGN2 / "frozen" / "plus_order7_raw.json"
+ACCEPTED_RAW = (
+    HERE.parents[2] / "data/historical/studies/mfp_quadratic_compiler/campaign2/frozen/plus_order7_raw.json"
+)
 ACCEPTED_SOURCE_SHA256 = (
     "5dd93cbc8fb97479e6c54dbc2202bfec42d0156014f5d34b4d40e77da9d6621f"
 )

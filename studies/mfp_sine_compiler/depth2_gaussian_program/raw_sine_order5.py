@@ -16,16 +16,16 @@ from numpy.polynomial.hermite import hermgauss
 
 
 HERE = Path(__file__).resolve().parent
-REPO = HERE.parents[3]
+REPO = HERE.parents[2]
 PROTOCOL = HERE / "PROTOCOL.md"
 PRIMARY = (
     REPO
-    / "studies/mean_field_peeling/generic_first_stieltjes/order5/compiler"
+    / "studies/mfp_gaussian_calculus/order5/compiler"
     / "LAYER_SEPARATED_ABC_NORMAL_FORM.txt"
 )
 INDEPENDENT = (
     REPO
-    / "studies/mean_field_peeling/generic_first_stieltjes/order5/independent"
+    / "data/historical/studies/mfp_gaussian_calculus/order5/independent"
     / "independent_layer_tagged_coefficient_map.json"
 )
 

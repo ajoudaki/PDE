@@ -7,12 +7,16 @@ import csv
 import json
 import math
 from pathlib import Path
+import sys
 
 import numpy as np
 from scipy.special import roots_hermitenorm
 
 
-OUT = Path(__file__).resolve().parent / "outputs" / "hermite_tail"
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 ORDERS = (512, 1024, 2048)
 K_MAX = 240
 ABS_AGREE = 1e-13
@@ -100,6 +104,7 @@ def fit_with_holdout(k: np.ndarray, c: np.ndarray) -> dict[str, object]:
 
 
 def main() -> None:
+    OUT = PATHS.parse(output_relative="experiments/outputs/hermite_tail").output_dir
     OUT.mkdir(parents=True, exist_ok=True)
     all_values = {order: coefficients(order, K_MAX) for order in ORDERS}
 

@@ -9,19 +9,28 @@ types.  It also verifies that the regenerated raw hash is identical.
 
 from __future__ import annotations
 
+ARCHIVE_ONLY_REASON = (
+    "archive-only serialization wrapper: it reruns the entire frozen campaign "
+    "and patches global JSON state; migration does not authorize this entry point"
+)
+if __name__ == "__main__":
+    raise RuntimeError(ARCHIVE_ONLY_REASON)
+
 import hashlib
 import json
 from pathlib import Path
 
 import numpy as np
 
-from studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.multi_observable.audit import (
+from studies.mfp_gaussian_calculus.depth_order5_scalar.multi_observable.audit import (
     run_h3_curvature_extension as frozen,
 )
 
 
 HERE = Path(__file__).resolve().parent
-RAW = HERE / "H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RAW.npz"
+RAW = (
+    HERE.parents[4] / "data/historical/studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RAW.npz"
+)
 EXPECTED_RAW_SHA256 = "2d2329246d15f1884458c39cae2897e06776fd3aad24d3875c21468175797ad0"
 ORIGINAL_DUMPS = json.dumps
 
@@ -46,6 +55,7 @@ def digest(path: Path) -> str:
 
 
 def run():
+    raise RuntimeError(ARCHIVE_ONLY_REASON)
     frozen.json.dumps = safe_dumps
     result = frozen.run()
     if digest(RAW) != EXPECTED_RAW_SHA256:

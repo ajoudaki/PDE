@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 from math import sqrt
@@ -10,14 +11,18 @@ from pathlib import Path
 import numpy as np
 from scipy.stats import chi2
 
-from studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.multi_observable.independent_route_a.numeric_head import (
+from studies.mfp_gaussian_calculus.study_paths import GENERATED_ROOT, input_directory, require_output
+
+from studies.mfp_gaussian_calculus.depth_order5_scalar.multi_observable.independent_route_a.numeric_head import (
     compile_numeric,
     normalized_sine_moment,
 )
 
 
 HERE = Path(__file__).resolve().parent
-RAW = HERE / "H3_NORMALIZED_SINE_RAW.npz"
+PANEL = "depth_order5_scalar/multi_observable/audit"
+OUTPUT = GENERATED_ROOT / PANEL
+RAW = OUTPUT / "H3_NORMALIZED_SINE_RAW.npz"
 EXPECTED_RAW_SHA256 = "d99931b2976f87f2c40988399555d08ab203893d9e77107a546f62b49b95faef"
 
 
@@ -43,10 +48,11 @@ def affine_fit(widths, means, sems):
     }
 
 
-def run():
-    if digest(RAW) != EXPECTED_RAW_SHA256:
+def run(raw_path: Path = RAW, output_dir: Path = OUTPUT):
+    output_dir = require_output(output_dir)
+    if digest(raw_path) != EXPECTED_RAW_SHA256:
         raise RuntimeError("raw H3 panel hash changed")
-    payload = np.load(RAW, allow_pickle=False)
+    payload = np.load(raw_path, allow_pickle=False)
     widths = payload["widths"].astype(float)
     names = tuple(str(value) for value in payload["names"])
     raw = payload["values"]
@@ -82,18 +88,26 @@ def run():
         "standard_errors": {name: sems[:, i].tolist() for i, name in enumerate(names)},
         "fits": fits,
         "nonfinite_count": int((~np.isfinite(raw)).sum()),
-        "raw_path": RAW.name,
+        "raw_path": raw_path.name,
         "raw_sha256": EXPECTED_RAW_SHA256,
         "runner_serialization_failure": (
             "the preregistered runner completed and wrote raw data, then failed "
             "because numpy.bool_ is not JSON serializable"
         ),
     }
-    result_path = HERE / "H3_NORMALIZED_SINE_RESULT.json"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    result_path = output_dir / "H3_NORMALIZED_SINE_RESULT.json"
     result_path.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     return result
 
 
 if __name__ == "__main__":
-    print(json.dumps(run(), indent=2, sort_keys=True))
-
+    parser = argparse.ArgumentParser()
+    inputs = parser.add_mutually_exclusive_group()
+    inputs.add_argument("--input", type=Path)
+    inputs.add_argument("--historical", action="store_true")
+    parser.add_argument("--output-dir", type=Path)
+    args = parser.parse_args()
+    raw_path = args.input or input_directory(PANEL, historical=args.historical) / RAW.name
+    output_dir = args.output_dir or (OUTPUT / "historical_review" if args.historical else OUTPUT)
+    print(json.dumps(run(raw_path, output_dir), indent=2, sort_keys=True))

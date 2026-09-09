@@ -12,7 +12,9 @@ import sympy as sp
 
 
 HERE = Path(__file__).resolve().parent
-INPUT = HERE / "results_symbolic_order5.json"
+INPUT = (
+    HERE.parents[2] / "data/historical/studies/mfp_cubic_compiler/two_input_plus_gaussian_program/results_symbolic_order5.json"
+)
 PROTOCOL = HERE / "STIELTJES_ORDER5_PROTOCOL.md"
 EXPECTED_SHA256 = {
     "input": "ac948d64b979f226424e1ff745512f0f97e78e164708f4313c41a48d41591023",

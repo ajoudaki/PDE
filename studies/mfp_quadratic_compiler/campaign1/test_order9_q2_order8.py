@@ -19,9 +19,13 @@ if str(HERE) not in sys.path:
 import parametric_stieltjes_postprocess as postprocess
 
 
-RAW = HERE / "results_order9_q2_order8.json"
+RAW = (
+    HERE.parents[2] / "data/historical/studies/mfp_quadratic_compiler/campaign1/results_order9_q2_order8.json"
+)
 COMPACT = HERE / "hankel_certificates_order9_q2_order8.json"
-PROVENANCE = HERE / "order9_q2_order8_provenance.json"
+PROVENANCE = (
+    HERE.parents[2] / "data/historical/studies/mfp_quadratic_compiler/campaign1/order9_q2_order8_provenance.json"
+)
 SOURCE = HERE / "connected_parametric_multiroot.cpp"
 PARENT = HERE.parent / "component_recursion.cpp"
 POSTPROCESSOR = HERE / "parametric_stieltjes_postprocess.py"

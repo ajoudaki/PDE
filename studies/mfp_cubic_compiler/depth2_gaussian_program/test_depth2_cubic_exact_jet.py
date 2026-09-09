@@ -10,11 +10,11 @@ import sys
 from depth2_cubic_exact_jet import derivative_jet, taylor_jet
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[4]
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from studies.mean_field_peeling.generic_first_stieltjes.order5.compiler.artifact_evaluator import (  # noqa: E402
+from studies.mfp_gaussian_calculus.order5.compiler.artifact_evaluator import (  # noqa: E402
     evaluate_artifact_polynomial,
 )
 
@@ -47,7 +47,7 @@ class Depth2CubicExactJetTests(unittest.TestCase):
     def test_fifth_order_gate_replays_frozen_general_activation_artifact(self) -> None:
         artifact = (
             Path(__file__).resolve().parents[2]
-            / "generic_first_stieltjes"
+            / "mfp_gaussian_calculus"
             / "order5"
             / "compiler"
             / "LAYER_SEPARATED_ABC_NORMAL_FORM.txt"

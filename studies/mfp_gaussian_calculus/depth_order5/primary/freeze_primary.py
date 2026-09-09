@@ -9,7 +9,19 @@ from pathlib import Path
 
 
 HERE = Path(__file__).resolve().parent
-PROJECT = HERE.parents[4]
+PROJECT = HERE.parents[3]
+HISTORICAL = PROJECT / "data/historical/studies/mfp_gaussian_calculus/depth_order5/primary"
+
+
+def require_new_freeze() -> None:
+    for root in (HERE, HISTORICAL):
+        for name in ("PRIMARY_FREEZE_MANIFEST.json", "PRIMARY_FREEZE_SHA256.txt"):
+            if (root / name).exists():
+                raise RuntimeError(f"existing seal is immutable: {root / name}; archive-only freeze entry point")
+    raise RuntimeError(
+        "archive-only freeze entry point: a pre-comparison freeze cannot be recreated "
+        "after the comparisons; no fresh freeze interface is authorized"
+    )
 
 
 def sha256(path: Path) -> str:
@@ -21,6 +33,7 @@ def sha256(path: Path) -> str:
 
 
 def main() -> None:
+    require_new_freeze()
     artifact_names = [
         f"H{depth}_{suffix}"
         for depth in (3, 4)
@@ -40,9 +53,9 @@ def main() -> None:
         "test_depth_population_jet.py",
     ]
     dependency_paths = [
-        PROJECT / "studies/mean_field_peeling/generic_first_stieltjes/order5/compiler/factored_expression.py",
-        PROJECT / "studies/mean_field_peeling/generic_first_stieltjes/order5/compiler/population_jet.py",
-        PROJECT / "studies/mean_field_peeling/generic_first_stieltjes/order5/compiler/coefficient_map.py",
+        PROJECT / "studies/mfp_gaussian_calculus/order5/compiler/factored_expression.py",
+        PROJECT / "studies/mfp_gaussian_calculus/order5/compiler/population_jet.py",
+        PROJECT / "studies/mfp_gaussian_calculus/order5/compiler/coefficient_map.py",
     ]
     stats = {
         str(depth): json.loads((HERE / f"H{depth}_ARTIFACT_STATS.json").read_text())

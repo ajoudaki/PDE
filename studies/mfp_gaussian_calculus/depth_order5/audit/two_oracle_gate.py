@@ -7,6 +7,10 @@ from pathlib import Path
 
 import numpy as np
 
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
+
 from ...depth.model import DepthState
 from ..common.finite_width_jet import feature_ascent_jet
 from .finite_jets import moving_flow_jet, normalized_sine_activation, random_parameters
@@ -25,6 +29,7 @@ def common_derivative(activation):
 
 
 def main() -> None:
+    args = PATHS.parse()
     activation = normalized_sine_activation()
     oracle = common_derivative(activation)
     records = []
@@ -68,7 +73,8 @@ def main() -> None:
         "pass": worst <= 1e-10,
         "records": records,
     }
-    path = HERE / "TWO_ORACLE_GATE.json"
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    path = args.output_dir / "TWO_ORACLE_GATE.json"
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     print(json.dumps({key: payload[key] for key in ("worst_scaled_discrepancy", "pass")}))
     if not payload["pass"]:

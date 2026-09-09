@@ -20,10 +20,10 @@ from quadratic_exact import (  # noqa: E402
 from quadratic_euler_jet import (  # noqa: E402
     horizon_output, newton_coefficients, time_polynomial_from_newton,
 )
-from generic_first_stieltjes.depth_order5_scalar.primary.moving_scalar_extension import (  # noqa: E402
+from mfp_gaussian_calculus.depth_order5_scalar.primary.moving_scalar_extension import (  # noqa: E402
     assemble_moving_recurrence,
 )
-from generic_first_stieltjes.order5.compiler.factored_expression import (  # noqa: E402
+from mfp_gaussian_calculus.order5.compiler.factored_expression import (  # noqa: E402
     evaluate_polynomial_activation,
 )
 

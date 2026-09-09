@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 from fractions import Fraction
 import hashlib
 import json
@@ -10,18 +11,37 @@ from pathlib import Path
 from .coefficient_map import expand_coefficient_map, serializable_map
 from .factored_expression import compile_factored
 
+from studies.mfp_gaussian_calculus.study_paths import GENERATED_ROOT, input_directory, require_output
+
 
 HERE = Path(__file__).resolve().parent
-INDEPENDENT = HERE.parent / "independent" / "independent_coefficient_map.json"
-INDEPENDENT_TAGGED = (
-    HERE.parent / "independent" / "independent_layer_tagged_coefficient_map.json"
-)
-INDEPENDENT_SYMBOLIC_Q0 = (
-    HERE.parent / "independent" / "independent_symbolic_q0_coefficient_map.json"
-)
+OUTPUT = GENERATED_ROOT / "order5/compiler"
+INDEPENDENT = input_directory("order5/independent") / "independent_coefficient_map.json"
+INDEPENDENT_TAGGED = INDEPENDENT.with_name("independent_layer_tagged_coefficient_map.json")
+INDEPENDENT_SYMBOLIC_Q0 = INDEPENDENT.with_name("independent_symbolic_q0_coefficient_map.json")
+
+
+def comparison_paths(argv=None, *, output_default: Path = OUTPUT):
+    parser = argparse.ArgumentParser()
+    inputs = parser.add_mutually_exclusive_group()
+    inputs.add_argument("--independent-dir", type=Path)
+    inputs.add_argument("--historical", action="store_true")
+    parser.add_argument("--output-dir", type=Path)
+    args = parser.parse_args(argv)
+    inputs_root = args.independent_dir or input_directory("order5/independent", historical=args.historical)
+    output = require_output(args.output_dir or (output_default / "historical_review" if args.historical else output_default))
+    return inputs_root, output
 
 
 def main() -> None:
+    inputs_root, output = comparison_paths()
+    independent_path = inputs_root / INDEPENDENT.name
+    independent_tagged_path = inputs_root / INDEPENDENT_TAGGED.name
+    independent_symbolic_path = inputs_root / INDEPENDENT_SYMBOLIC_Q0.name
+    for path in (independent_path, independent_tagged_path, independent_symbolic_path):
+        if not path.is_file():
+            raise FileNotFoundError(path)
+    output.mkdir(parents=True, exist_ok=True)
     result = compile_factored(5)
     roots = {
         "A": result.A.specialize_unit_gram(),
@@ -38,7 +58,7 @@ def main() -> None:
         separators=(",", ":"),
         sort_keys=True,
     ) + "\n"
-    primary_path = HERE / "PRIMARY_UNIT_COEFFICIENT_MAP.json"
+    primary_path = output / "PRIMARY_UNIT_COEFFICIENT_MAP.json"
     primary_path.write_text(primary_text)
 
     tagged = {
@@ -54,7 +74,7 @@ def main() -> None:
         separators=(",", ":"),
         sort_keys=True,
     ) + "\n"
-    tagged_path = HERE / "PRIMARY_LAYER_TAGGED_COEFFICIENT_MAP.json"
+    tagged_path = output / "PRIMARY_LAYER_TAGGED_COEFFICIENT_MAP.json"
     tagged_path.write_text(tagged_text)
 
     arbitrary = compile_factored(5, arbitrary_q0=True)
@@ -91,12 +111,12 @@ def main() -> None:
         separators=(",", ":"),
         sort_keys=True,
     ) + "\n"
-    symbolic_path = HERE / "PRIMARY_SYMBOLIC_Q0_COEFFICIENT_MAP.json"
+    symbolic_path = output / "PRIMARY_SYMBOLIC_Q0_COEFFICIENT_MAP.json"
     symbolic_path.write_text(symbolic_text)
 
-    independent_document = json.loads(INDEPENDENT.read_text())
-    independent_tagged = json.loads(INDEPENDENT_TAGGED.read_text())
-    independent_symbolic_q0 = json.loads(INDEPENDENT_SYMBOLIC_Q0.read_text())
+    independent_document = json.loads(independent_path.read_text())
+    independent_tagged = json.loads(independent_tagged_path.read_text())
+    independent_symbolic_q0 = json.loads(independent_symbolic_path.read_text())
     discrepancies: dict[str, list[dict[str, object]]] = {}
     for name in ("A", "B", "C"):
         left = {
@@ -166,14 +186,14 @@ def main() -> None:
 
     report = {
         "comparison": "exact_rational_atomwise_after_Q0=1_and_M_200000=1",
-        "independent_frozen_sha256": hashlib.sha256(INDEPENDENT.read_bytes()).hexdigest(),
+        "independent_frozen_sha256": hashlib.sha256(independent_path.read_bytes()).hexdigest(),
         "independent_tagged_frozen_sha256": hashlib.sha256(
-            INDEPENDENT_TAGGED.read_bytes()
+            independent_tagged_path.read_bytes()
         ).hexdigest(),
         "primary_sha256": hashlib.sha256(primary_path.read_bytes()).hexdigest(),
         "primary_tagged_sha256": hashlib.sha256(tagged_path.read_bytes()).hexdigest(),
         "independent_symbolic_q0_frozen_sha256": hashlib.sha256(
-            INDEPENDENT_SYMBOLIC_Q0.read_bytes()
+            independent_symbolic_path.read_bytes()
         ).hexdigest(),
         "primary_symbolic_q0_sha256": hashlib.sha256(
             symbolic_path.read_bytes()
@@ -201,7 +221,7 @@ def main() -> None:
             and not any(symbolic_discrepancies.values())
         ),
     }
-    (HERE / "INDEPENDENT_COMPARISON.json").write_text(
+    (output / "INDEPENDENT_COMPARISON.json").write_text(
         json.dumps(report, indent=2, sort_keys=True) + "\n"
     )
     if not report["pass"]:

@@ -1,0 +1,1037 @@
+{
+  "unchanged": {
+    "backup": {
+      "files": 41,
+      "bytes": 2106818
+    },
+    "data": {
+      "files": 836,
+      "bytes": 678208098
+    },
+    "source": {
+      "files": 2409,
+      "bytes": 68993276
+    }
+  },
+  "changedSources": [
+    {
+      "original": ".gitignore",
+      "target": ".gitignore",
+      "before": "5fde0a775af567069275145cc89771c03adcc446760754bb134b1c33225c3e8a",
+      "after": "1a7257c30a0585da6cc688a9e0afd74aeddd1abc97f2228ddc795dd81f49c0ff"
+    },
+    {
+      "original": "README.md",
+      "target": "README.md",
+      "before": "d5dee05204b4f5161cffae4a412d1f238a885e32c748e30010437ba9f81101fb",
+      "after": "412a9aafe3c3d1347ffb0cb282c41936fb998e4a0b0f1c3504f678e82364f5ae"
+    },
+    {
+      "original": "studies/causal_flow_peeling_calculus/MACHINERY_VERDICT_AND_PROOF_FRONTIER.md",
+      "target": "studies/causal_flow_peeling_calculus/MACHINERY_VERDICT_AND_PROOF_FRONTIER.md",
+      "before": "d9485dc1a0bebb358c36868f5d92cfe47655f78dfe03f95aba21f37f9dc1c20c",
+      "after": "37135b2ebae330a267417cd6437ad3f65b90f1f1e1e7368cbe5838f2015b25b3"
+    },
+    {
+      "original": "studies/mean_field_peeling/ARCHITECTURE_DERIVATIVE_MOMENT_LEDGER_2026-08-20.md",
+      "target": "studies/mfp_program_history/ARCHITECTURE_DERIVATIVE_MOMENT_LEDGER_2026-08-20.md",
+      "before": "33d2ae7dc7b5c3181f2ac6413692b56ac4cc0fccb05d5313f998d99323c9fe9b",
+      "after": "f5172fdb63604927ae38580eb62b1ba3763ab70dbce0a8affb247e31f85008e8"
+    },
+    {
+      "original": "studies/mean_field_peeling/cubic_compiler/depth2_gaussian_program/depth2_cubic_stieltjes_audit.py",
+      "target": "studies/mfp_cubic_compiler/depth2_gaussian_program/depth2_cubic_stieltjes_audit.py",
+      "before": "a63e6925ff148b4587c7b8823827bcdb0a71a331ea6252d368f25e55d0e5866d",
+      "after": "b6f3b2807dabec67bcd4463d56c63102556a649a44e87d85378522d349ca5a27"
+    },
+    {
+      "original": "studies/mean_field_peeling/cubic_compiler/depth2_gaussian_program/test_depth2_cubic_exact_jet.py",
+      "target": "studies/mfp_cubic_compiler/depth2_gaussian_program/test_depth2_cubic_exact_jet.py",
+      "before": "65283bbc89eea0c0d79305a6fd387d249f73d2492b37b828db45c8f12ee79410",
+      "after": "5a5361e4eec824ac144cdc4088df6d6b70d5f3115b55a40da6695d24e46174e3"
+    },
+    {
+      "original": "studies/mean_field_peeling/cubic_compiler/two_input_plus_gaussian_program/audit_symbolic_order5.py",
+      "target": "studies/mfp_cubic_compiler/two_input_plus_gaussian_program/audit_symbolic_order5.py",
+      "before": "5888729a975772163b2e3593975108579572fb33a10c1a4805ebcd4c407aafcf",
+      "after": "3207eedeb20958c66a9525980cb6db88a9d615d98920431ca5aa2da74f582299"
+    },
+    {
+      "original": "studies/mean_field_peeling/cubic_compiler/two_input_plus_gaussian_program/audit_two_input_cubic_plus.py",
+      "target": "studies/mfp_cubic_compiler/two_input_plus_gaussian_program/audit_two_input_cubic_plus.py",
+      "before": "4208be41b41b5dc0d4e40fa6877d33cdb3a24cfb153892f277417815f1540a85",
+      "after": "83673417c5faf938ee1c4cf394ce98f79b05d6505f3b945ed55e65d1344bbb84"
+    },
+    {
+      "original": "studies/mean_field_peeling/cubic_compiler/two_input_plus_gaussian_program/test_two_input_cubic_plus.py",
+      "target": "studies/mfp_cubic_compiler/two_input_plus_gaussian_program/test_two_input_cubic_plus.py",
+      "before": "06d9e1bfc10b794f1bd2e880b30bcf7a7b54a07a51bfe156afdad9affcfd737c",
+      "after": "945fcf2c067639c23ac7fc2df5fe6a4d7e2699c279e9070a715a4fa0d3fe9f3c"
+    },
+    {
+      "original": "studies/mean_field_peeling/cubic_compiler/two_input_plus_gaussian_program/two_input_cubic_plus_fixed_rho_jet.py",
+      "target": "studies/mfp_cubic_compiler/two_input_plus_gaussian_program/two_input_cubic_plus_fixed_rho_jet.py",
+      "before": "198ed57cef8bcd1b1f8c970237a793f234d190dfc82d80c9101e7b3a690df922",
+      "after": "8bb8022276417954dd3f33ef92a8b04fa12e23c4dd922b09737ad8fb172ec331"
+    },
+    {
+      "original": "studies/mean_field_peeling/cubic_compiler/two_input_plus_gaussian_program/two_input_cubic_stieltjes_order5.py",
+      "target": "studies/mfp_cubic_compiler/two_input_plus_gaussian_program/two_input_cubic_stieltjes_order5.py",
+      "before": "420f81bfabf865f6731213ae19c6cdc70fd29ad5b7dd9dc7fb89d46935057014",
+      "after": "4fd7f456fe261f43f58ecb60f1c8cb1d1411310d805b850bb2b37c3095aa8f05"
+    },
+    {
+      "original": "studies/mean_field_peeling/CURRENT_RESEARCH_STATE.md",
+      "target": "studies/mfp_program_history/CURRENT_RESEARCH_STATE.md",
+      "before": "6b3d993c085127a77212549da673a92ddb771e14cf711d865c4d61e7dda35465",
+      "after": "9cb4794c4cda01a012a17892d2e8df0c2a6c9cc98f3a6eb4257b0b86f3076b15"
+    },
+    {
+      "original": "studies/mean_field_peeling/four_thread_consolidation/CONSOLIDATED_RESULTS_v1_INCOMPLETE.md",
+      "target": "studies/four_thread_consolidation/CONSOLIDATED_RESULTS_v1_INCOMPLETE.md",
+      "before": "d54cade6fdc0ad6a638a03c3147f564a036b1353ff6544f97f707011f4e0c6d5",
+      "after": "54f2c029972687c7a64a8d82ec6eba9bc8b9badd7b3d03b79c7fee8c38e1baf3"
+    },
+    {
+      "original": "studies/mean_field_peeling/four_thread_consolidation/CONSOLIDATED_RESULTS.md",
+      "target": "studies/four_thread_consolidation/CONSOLIDATED_RESULTS.md",
+      "before": "23eab73dc752bf784ec78d93df92f9056fd747e94660f3bde3e937a5ad5edbae",
+      "after": "00bcd0c8fa6b93904f4d73f63826f3624391c36714a0ba459f3f3ed082e1266f"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/b2/FINITE_WIDTH_DIRECTIONAL_PROGRAM.md",
+      "target": "studies/mfp_gaussian_calculus/b2/FINITE_WIDTH_DIRECTIONAL_PROGRAM.md",
+      "before": "eceb3334435e02ca48f4d9b3780dc7bf37bb8529cc0bae42cb9b84c44fb5d62d",
+      "after": "0b6f95838f660df013a28a0780e29f9edacb41c040f384a7919203e36b94ee50"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/b2/FIXED_BATCH_EXTENSION.md",
+      "target": "studies/mfp_gaussian_calculus/b2/FIXED_BATCH_EXTENSION.md",
+      "before": "76b4ab2030aa7553e099698f78394b98a8d75551239999866b73cc2b17f9c57f",
+      "after": "efe4497f0e4efb42b33fee862d40b3abb98e40dd4ba04f4906132586409acc5a"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/b2/README.md",
+      "target": "studies/mfp_gaussian_calculus/b2/README.md",
+      "before": "a22690cc26df5a49ea59ccab7d02bf55ff38acf812c802bacf3bd2ff7724d2fe",
+      "after": "f8c2c9fd2be828fe76355ef4190b611ef25d917929a40cdb82977b785dbbf645"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/compiler/test_finite_width_jet.py",
+      "target": "studies/mfp_gaussian_calculus/compiler/test_finite_width_jet.py",
+      "before": "db4228b445dce3d7327c5df4ec46008da8a64b48564761c19ec8cae006803ec0",
+      "after": "02dabe39a44b2af62a4f86394c01f30abf4bdad113d01db332a4a21a24d2b666"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth/DEPTH_FIXED_BATCH_GAUSSIAN_RECURSION.md",
+      "target": "studies/mfp_gaussian_calculus/depth/DEPTH_FIXED_BATCH_GAUSSIAN_RECURSION.md",
+      "before": "073ca6b4ad786b50a4a31f292afbb019e2e2ec98b00fe7feb00b7a4e9c8c1fc2",
+      "after": "f59042e67136b02ab5d8c601270c4ab28a2a086147e9eed5be30da5da22b666a"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth/EXACT_FIXED_DEPTH_PROGRAM.md",
+      "target": "studies/mfp_gaussian_calculus/depth/EXACT_FIXED_DEPTH_PROGRAM.md",
+      "before": "bc906ed8356d64f7cd5a54bb6042b78899e640b0379bffa8bb433e70f580e1c7",
+      "after": "4d5e9e721b37f1cbed0fa25c3cc4bd7f656cc26727242889e19becb70c229400"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth/README.md",
+      "target": "studies/mfp_gaussian_calculus/depth/README.md",
+      "before": "493638374c7048654217eab4721e289c75500d5607f37da76986da95afea6805",
+      "after": "e8af942d0ea54cca1fe6f85ee341b0efc878a6e52060252e43db546eb455d17e"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5/primary/freeze_primary.py",
+      "target": "studies/mfp_gaussian_calculus/depth_order5/primary/freeze_primary.py",
+      "before": "36eacebccad0c84f68988796ceff8a73f53fde9eec1c871ba441bde5e243d6c4",
+      "after": "811ca45003b4869d05c21384e1b7bdda82f3a1ac23df654fa9c6361047ab4dfb"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5/primary/generate_frozen_artifacts.py",
+      "target": "studies/mfp_gaussian_calculus/depth_order5/primary/generate_frozen_artifacts.py",
+      "before": "a1279bca93ccc9d3f2005f2c450441a6a61054419f3d2a8c192d1168ba426ab0",
+      "after": "b307f2b6cc543f2f08817798bdc22b229483384a2efaab27d8aae0c03c5db850"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5/primary/test_depth_population_jet.py",
+      "target": "studies/mfp_gaussian_calculus/depth_order5/primary/test_depth_population_jet.py",
+      "before": "78e5916e2f8c00198acedef2a1cda4964c6e1652bf9ddcd674da73f42af96243",
+      "after": "d9be6f33d95f7dd804a90c2b313b8be5dd2f0ca085159768cb8ae072cca15dd0"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5/README.md",
+      "target": "studies/mfp_gaussian_calculus/depth_order5/README.md",
+      "before": "4fdb13a48164c9a3f985a91f91970a9c4dea0f0609f501953d104c30f92d82bb",
+      "after": "be2ea05313a157a01b8016a255c06453bfb13d29c0747c69a8a280f42842b3a3"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5_observables/independent/INDEPENDENT_ROUTE_S_REPORT.md",
+      "target": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/INDEPENDENT_ROUTE_S_REPORT.md",
+      "before": "cbc952dd1dc0d7faa6b7a76375911d4299211d088276b1815945f754f59dd4b7",
+      "after": "3be9ff040f5d6012bc89268576470b2230c19d4c68c031ba189d0ce716cea438"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5_observables/README.md",
+      "target": "studies/mfp_gaussian_calculus/depth_order5_observables/README.md",
+      "before": "921ab38846ffc446ffbd69462fc9340298a7213c97eab97977072b1def6f012e",
+      "after": "ba2edaf84f53a54422185b36782ae41b0be313206bbb7cbaf858edb98cf8b29b"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5_scalar/ARBITRARY_DEPTH_B1_ORDER5_SCALAR_RECURRENCE.md",
+      "target": "studies/mfp_gaussian_calculus/depth_order5_scalar/ARBITRARY_DEPTH_B1_ORDER5_SCALAR_RECURRENCE.md",
+      "before": "24d9f63d79319b514969c0e1fe85608721f4c4033615810c93157631c3a30f12",
+      "after": "db8bd7b2fa5ab7cd696299d83addcc6466e36de944ff9eaf6ea33f06e47ea31c"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5_scalar/multi_observable/audit/hostile_gamma04_derivation_v2.py",
+      "target": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/hostile_gamma04_derivation_v2.py",
+      "before": "da2472615819c59b1149906d3d17152c068bed65cd2eebc399190bdf0ac42e8d",
+      "after": "a26492c73dfe691e2aa8382ce42b2df3d48493424a2ec27e38da4d804c09bec5"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5_scalar/multi_observable/audit/hostile_gamma04_derivation.py",
+      "target": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/hostile_gamma04_derivation.py",
+      "before": "c54ea0eb59725111c6823ae964c87074004d7afb5a903e184717ea78ac81b9f0",
+      "after": "2b80399c610f5788a19eb28e59f3e86ad1fb7d19e8fc8d74ae9174da14712f5f"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5_scalar/multi_observable/audit/postprocess_h3_curvature_extension.py",
+      "target": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/postprocess_h3_curvature_extension.py",
+      "before": "4b1df8088855475a632cf0f31ec93d754f5359e22495e03f4b56e6aaad606af8",
+      "after": "55fefe72f48249394dd77238643385bc4bd833598d889b920e1b640798d9c835"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5_scalar/multi_observable/audit/postprocess_h3_sine_regression.py",
+      "target": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/postprocess_h3_sine_regression.py",
+      "before": "3d9efbb0aa4de12dcc789b2bfc29dec56a6f9e2887d24ce071549cdb027c59de",
+      "after": "3872c191563c0a28c23601890efd5c89229951b658c1816433543ed579939f1b"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5_scalar/multi_observable/audit/run_h3_curvature_extension.py",
+      "target": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_h3_curvature_extension.py",
+      "before": "e6a5e8f79c7b0f23b578c13630119b74437fc65426f74e177d947b00f6842b95",
+      "after": "bf680df1936d9c78d5e1c04edda9b7400c59c429bc8fdade32b67573f3f31c95"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5_scalar/multi_observable/audit/run_h3_sine_regression.py",
+      "target": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_h3_sine_regression.py",
+      "before": "b3734994f2d5583ba354438428ff45d2402f5aec02de334661be4c4b176e0481",
+      "after": "737728239f599b18fb978570741a8464531507ebaa17dd52336fadcae8537c58"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+      "target": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+      "before": "88aca0b7e9e6d1c2bc30d5fb16026c141e2139a6052fec3b5c20982d5bc70e1d",
+      "after": "3b850d791d6ea6618292a9a23cb0153bca2bf8a9dd31c5ff25d84355a68680a9"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5_scalar/multi_observable/independent_route_a/EVIDENCE_LEDGER.md",
+      "target": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/EVIDENCE_LEDGER.md",
+      "before": "b3a35ca83f75ad64a4b6b0c7889604e6ec1be720f9b1e3953c83a3f4ee6631e2",
+      "after": "d598ea7c3846524bfa281d3e1518bb163687ac952856827b530576dd15c2d31d"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5_scalar/multi_observable/independent_route_a/INDEPENDENT_DERIVATION.md",
+      "target": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/INDEPENDENT_DERIVATION.md",
+      "before": "c145f9d50f821ec14a20d31b59313d9764fc9036651b256095fa91804f73a9e7",
+      "after": "b8deb61c2c356032876433aee46e8c5aeee87e925549b4e0514a6935280e1f1f"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5_scalar/multi_observable/independent_route_a/run_sine_regression.py",
+      "target": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/run_sine_regression.py",
+      "before": "cbc3bc7b74351a0c139dbf5d81eca5a00f65afe33edc177d500f35326f132d48",
+      "after": "f761dbb79760176c933f8cd1b5de9d5c5898851c85888d0e69d50e7557bf5d06"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/depth_order5_scalar/multi_observable/README.md",
+      "target": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/README.md",
+      "before": "836fa4006f3889db3e31a6ce54a0caed05f7d788ded4b271028f702b12946c62",
+      "after": "9110384a797c597c81200cb053108251e20505fe8751d7b990cc266ed90dc05e"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/order5/audit_hostile.py",
+      "target": "studies/mfp_gaussian_calculus/order5/audit_hostile.py",
+      "before": "cb928f2dfe30b757d4fc747facc3c460419516c23786a0c72f89f70b853f3eb7",
+      "after": "6a325dec294d5926bdff9248a1ff55bb5b92b277bc67b26c2b5732c1094242e1"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/order5/compiler/compare_independent.py",
+      "target": "studies/mfp_gaussian_calculus/order5/compiler/compare_independent.py",
+      "before": "2cec9dde10e283242748a7fee86da9ed0a0a02355e060fea5abd67319f3ab697",
+      "after": "beb9a076764dd6191a8a934de73c52b4620bc646ac21dfeaebae70875d2e9895"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/order5/finite_width/test_order5.py",
+      "target": "studies/mfp_gaussian_calculus/order5/finite_width/test_order5.py",
+      "before": "7a32dac327e689220930cc6a03a5b5e2ae91b52a6c375c7ac28e514c5dda4cd7",
+      "after": "e5eb95d9af4e61bfb2964eb29903b612eb5a1d8f7abf472865b54de096255267"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/order5/H2_B1_ORDER5_SELF_CONTAINED.md",
+      "target": "studies/mfp_gaussian_calculus/order5/H2_B1_ORDER5_SELF_CONTAINED.md",
+      "before": "3ee1f31b34768e47d9ec15011c2955a365c8d888fcd7663c2bba2cc1aa483390",
+      "after": "a30f652f84e8ec8de868ed441868f3b54fabf7e19ead997fae118d5cabe622cd"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/order5/PRIMARY_GAUSSIAN_NORMAL_FORM.md",
+      "target": "studies/mfp_gaussian_calculus/order5/PRIMARY_GAUSSIAN_NORMAL_FORM.md",
+      "before": "c40536fd5e496dbce2df199e8c318e084f141b9881322412d7ba6fb5b0f8d318",
+      "after": "6c53a23de7e692d09d04535f3c9f3aff16202f29051bae5933f75eeaf56153ef"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/order5/PRIMARY_PEELING_LEDGER.md",
+      "target": "studies/mfp_gaussian_calculus/order5/PRIMARY_PEELING_LEDGER.md",
+      "before": "3375eb7e7a6006aebd414672cca041ab0c7999b30b15c90f30e8cb29ff13aaea",
+      "after": "af482351f27d5a23ad6eaf4ad457adc5f005c68263c31d52a98763aa8436f19d"
+    },
+    {
+      "original": "studies/mean_field_peeling/generic_first_stieltjes/README.md",
+      "target": "studies/mfp_gaussian_calculus/README.md",
+      "before": "82d760c52c37c61dd5ff5c3336565e44aac5fcb583c3ce08ec68f32779f341eb",
+      "after": "69ba86afb0023c89968d9370001886c3bb325732cd539b7c2074754ec851eaf3"
+    },
+    {
+      "original": "studies/mean_field_peeling/identity_compiler/linear_gaussian_program/depth2_all_order_search/audit_hankel40.py",
+      "target": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/audit_hankel40.py",
+      "before": "b4a4d44d55d46ef3d3aed55531593e180775c9d0fb598eb3221c6d57276c9752",
+      "after": "6c2d90831885f08842f88201f47b8f6272ec694abf0ac7290212a64222b62b8c"
+    },
+    {
+      "original": "studies/mean_field_peeling/identity_compiler/linear_gaussian_program/depth2_all_order_search/RESULTS.md",
+      "target": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/RESULTS.md",
+      "before": "3961b1aeaca0b9989034d5a950fc7d7e0f311c3d2accde5a8db15eba0670a4eb",
+      "after": "a6da2cf48f09e384742f0de4cffed0111944a6381adc2951888b51e797e4c7aa"
+    },
+    {
+      "original": "studies/mean_field_peeling/identity_compiler/linear_gaussian_program/identity_order13_stieltjes_audit.py",
+      "target": "studies/mfp_identity_compiler/linear_gaussian_program/identity_order13_stieltjes_audit.py",
+      "before": "9e09af2641eeb25ae833b890c36de6ea2ee587a6f96f45a4f6b2cdd45679d3b6",
+      "after": "237b466f9092ea6315f4ea4eeb1af29cb054a33073af6751e2bfa880cf5bc117"
+    },
+    {
+      "original": "studies/mean_field_peeling/identity_compiler/linear_gaussian_program/identity_stieltjes_audit.py",
+      "target": "studies/mfp_identity_compiler/linear_gaussian_program/identity_stieltjes_audit.py",
+      "before": "30228203e87af8a9d2a9facc8e97ed5fbeae1cc5dd8a85f49ad34ddbd05b0471",
+      "after": "7c95d2359ce051c9a0c25bb62732c3a37a91fb21b7208e2f392cd7f2018b048f"
+    },
+    {
+      "original": "studies/mean_field_peeling/quadratic_compiler/campaign1/test_hankel_analysis.py",
+      "target": "studies/mfp_quadratic_compiler/campaign1/test_hankel_analysis.py",
+      "before": "160e12fcd67b5bc23350c7864d8ec4f5f8a6960a83d919d04c75c714007cb7b9",
+      "after": "8633d3446a9fc10210edcf70ca207531d11bb588ef64d51e2a3656d2a6e34190"
+    },
+    {
+      "original": "studies/mean_field_peeling/quadratic_compiler/campaign1/test_order9_q2_order8.py",
+      "target": "studies/mfp_quadratic_compiler/campaign1/test_order9_q2_order8.py",
+      "before": "a62bc537546b14d7054a01704003a6b19ef54a35ecd427d84233d2d266e0e7db",
+      "after": "edb5325b1434609917b5aef501e2153aa5b5def2ad808435d364fb42fafcaaa6"
+    },
+    {
+      "original": "studies/mean_field_peeling/quadratic_compiler/campaign4/make_provenance.py",
+      "target": "studies/mfp_quadratic_compiler/campaign4/make_provenance.py",
+      "before": "ff0cd3a66f896421dd03deedbef0a2320acab0e57da4e814a5a17f96c47e4491",
+      "after": "5486ed10e55018cd60ca38f3812996327f9e034b50fcfb525314f39ef3179731"
+    },
+    {
+      "original": "studies/mean_field_peeling/quadratic_compiler/campaign4/test_results_and_certificates.py",
+      "target": "studies/mfp_quadratic_compiler/campaign4/test_results_and_certificates.py",
+      "before": "3a64d63cd2497af2c45c05ff48891b1451c8ae60c3fc41e2d6b061ab5ee4e9ca",
+      "after": "ef401d5edade0967520f25eed2ce2846f4e0b953ee0238bbc2c8abe4d2a319cb"
+    },
+    {
+      "original": "studies/mean_field_peeling/quadratic_compiler/campaign5_b3/postprocess_lower_moments.py",
+      "target": "studies/mfp_quadratic_compiler/campaign5_b3/postprocess_lower_moments.py",
+      "before": "fac48a2262a3ceded036220d708b43ccc422bf0fe00cde3de25bbe42a392fa8b",
+      "after": "33c2d0c1c6c6fa4a612ae691ebdf2c614624bb76641cadb2dfc81a9d4b492dd4"
+    },
+    {
+      "original": "studies/mean_field_peeling/quadratic_compiler/campaign5_b3/RESULTS.md",
+      "target": "studies/mfp_quadratic_compiler/campaign5_b3/RESULTS.md",
+      "before": "8c7d64aa259d947cb3c70e5429186ed5f388105c2d009ef8ff0dc3a80e463268",
+      "after": "ac3556676009c62f351030d7dd85f9927ff111304b904d7c80e882da1419c2ba"
+    },
+    {
+      "original": "studies/mean_field_peeling/quadratic_compiler/campaign5_b3/test_b2_order5_gate.py",
+      "target": "studies/mfp_quadratic_compiler/campaign5_b3/test_b2_order5_gate.py",
+      "before": "fef8eccdfb32e7a556f4a6448b35ec9f9135ec2d349251da43c7298f40cc09fa",
+      "after": "36df0bba9a82ea05000b0906aec1ddc35917afb14c25248865fa6fdb4cbf18c0"
+    },
+    {
+      "original": "studies/mean_field_peeling/quadratic_compiler/campaign5_b3/test_stage_c_sector.py",
+      "target": "studies/mfp_quadratic_compiler/campaign5_b3/test_stage_c_sector.py",
+      "before": "720de3b93dda78ec0e992c8cde02e64ec7d3a49b37750846c1d1677eacb04f8f",
+      "after": "47bc10e1c9b978b708198be79b7abd0855846966a162e3a767c45d5cf4a89fb6"
+    },
+    {
+      "original": "studies/mean_field_peeling/quadratic_compiler/centered_depth1_order13/centered_h2_exact.py",
+      "target": "studies/mfp_quadratic_compiler/centered_depth1_order13/centered_h2_exact.py",
+      "before": "cf8bc4517a76de2b57b99c1d22c76f593fdf1ae9fd3bd1122cceec20acf2cf43",
+      "after": "4c1f2e8ae792428b180c38d8a18d6debc0c77d4e90891ac04a6340323c4ab0ec"
+    },
+    {
+      "original": "studies/mean_field_peeling/quadratic_compiler/centered_depth1_order13/RESULTS.md",
+      "target": "studies/mfp_quadratic_compiler/centered_depth1_order13/RESULTS.md",
+      "before": "8515101e7c9151490b2d2679400ca6f19e0260d45a8c3b2929f24989547575ce",
+      "after": "98b0c1a6220112a543bc1b8ed49afa5336e7f0e866964f13f7b9005bf982db08"
+    },
+    {
+      "original": "studies/mean_field_peeling/quadratic_compiler/depth3_gaussian_program/depth3_order13_stieltjes_audit.py",
+      "target": "studies/mfp_quadratic_compiler/depth3_gaussian_program/depth3_order13_stieltjes_audit.py",
+      "before": "60ddf14f19cc008f45811610e94f95055e600d811a98c33d6d9a6ecb869bdca1",
+      "after": "18ab549aa04c9611833fe038fa85109577becce615d7af6a299840d75082ecbd"
+    },
+    {
+      "original": "studies/mean_field_peeling/quadratic_compiler/depth3_gaussian_program/depth3_stieltjes_audit.py",
+      "target": "studies/mfp_quadratic_compiler/depth3_gaussian_program/depth3_stieltjes_audit.py",
+      "before": "4c8207612cb3a807bb60884d179424fa02a6eb4fbea73ddea90881557cc74a46",
+      "after": "83d2026737f57d46adf4f7386d6b2f2a942689e664ad0f4e1b8998ac310e6c03"
+    },
+    {
+      "original": "studies/mean_field_peeling/quadratic_compiler/depth3_gaussian_program/test_depth3_order13_stieltjes.py",
+      "target": "studies/mfp_quadratic_compiler/depth3_gaussian_program/test_depth3_order13_stieltjes.py",
+      "before": "2e987a24323032d434494545743a33aa80257901e756bc3da2442c0649c649ca",
+      "after": "96938250a552967ed76f869b6f5b1e21149bdfe188effab17bc1c71adfb0705e"
+    },
+    {
+      "original": "studies/mean_field_peeling/quadratic_compiler/README.md",
+      "target": "studies/mfp_quadratic_compiler/README.md",
+      "before": "7cfb6689d09339c39d70ae1aec17a9ac550e5a026bbb50f20526dc63d2733aab",
+      "after": "49f29cbc30813c8032215508b963a90bea1ca1ef99a3a42b2f8072839e47aa28"
+    },
+    {
+      "original": "studies/mean_field_peeling/README.md",
+      "target": "studies/mfp_program_history/README.md",
+      "before": "4af6b52240b733b6a4b9b1885f0445e644e2087f1c21d459cc01302a7fffde5d",
+      "after": "e3e4aae563776c597ddd292466a92e77d8107e4131c0942a20f5268fcc3a5dd3"
+    },
+    {
+      "original": "studies/mean_field_peeling/sine_compiler/depth2_gaussian_program/normalized_sine_order5.py",
+      "target": "studies/mfp_sine_compiler/depth2_gaussian_program/normalized_sine_order5.py",
+      "before": "3bf44dd48f25d68434641f0411dfef37fe02a16253355681c28cb184cf3ffdcb",
+      "after": "8fbf34b313e7fd7c70005dbd9a0a2416bf7b5f56058d50711c4e0d8ba0d22936"
+    },
+    {
+      "original": "studies/mean_field_peeling/sine_compiler/depth2_gaussian_program/raw_sine_order5.py",
+      "target": "studies/mfp_sine_compiler/depth2_gaussian_program/raw_sine_order5.py",
+      "before": "27ebe0883bd97f66b816eaf32c35672af30f02a52f16ceaff798aa52e84047b6",
+      "after": "124a418026c0ac1002e855753105e610166510401df651382923032dc6d8f9f6"
+    },
+    {
+      "original": "studies/mean_field_peeling/sine_compiler/depth2_gaussian_program/sine_order9_stieltjes_audit.py",
+      "target": "studies/mfp_sine_compiler/depth2_gaussian_program/sine_order9_stieltjes_audit.py",
+      "before": "16f8d2cc0ac4964fd53c2ca745570ae20db7677641a9d2f86280ac0305a32690",
+      "after": "9b2aa974316dc565d69b2d34bda1283bdb08f7896ca5afb2cff5f17f90769e9f"
+    },
+    {
+      "original": "studies/mean_field_peeling/sine_compiler/depth2_gaussian_program/test_sine_order5.py",
+      "target": "studies/mfp_sine_compiler/depth2_gaussian_program/test_sine_order5.py",
+      "before": "b5b51028768a253f2151004b9b5182c6639e0e477bf0aa066f1b82f298096596",
+      "after": "2455e109e639368528be82c5e1216c56e01c6bde051712539479ea9f5db6d3f6"
+    },
+    {
+      "original": "studies/mean_field_peeling/temporary_general_time_doubling/PROOF.md",
+      "target": "studies/mfp_general_time_doubling/PROOF.md",
+      "before": "6bd48bc8bda4222dccf2b182c4bc49701f155cb22f5116a8ca6cf8e80bf656c6",
+      "after": "a35ead5b41209d097edf82517aef92474f5963ba08ae267e0e0f0a66cae8234e"
+    },
+    {
+      "original": "studies/mean_field_peeling/temporary_linear_growth_uniform_counterexample/bump_laurent_certificate.py",
+      "target": "studies/mfp_linear_growth_uniform_counterexample/bump_laurent_certificate.py",
+      "before": "07114be7e1c64faddd9feb380da7e32206e6d2f0dca71ab4cff926c4650bfadc",
+      "after": "02f980af5695141a14effd777eb039dc54defd549dc9de4e8e401e55fd0934f7"
+    },
+    {
+      "original": "studies/mean_field_peeling/temporary_linear_growth_uniform_counterexample/evaluate_full_l2_transition.py",
+      "target": "studies/mfp_linear_growth_uniform_counterexample/evaluate_full_l2_transition.py",
+      "before": "ed3d017476673034540bd1f4c52f7d6a41b43499ce2367a55c6c9d6c7609f3cd",
+      "after": "1ada7d70a097f70dd76e682435f3098693352f0c409506d20a3f0b895bf7fdb1"
+    },
+    {
+      "original": "studies/mean_field_peeling/temporary_linear_growth_uniform_counterexample/full_l2_paired_transition.py",
+      "target": "studies/mfp_linear_growth_uniform_counterexample/full_l2_paired_transition.py",
+      "before": "6bfe0f6d60e6c0ab3f5f2f330f4f8c3d77ae79a82d06a09f89c71e7278acc3a2",
+      "after": "cddfbda0ea7c536e30027188cee9e95eaf0de0e062239e034ad76c409d2c0897"
+    },
+    {
+      "original": "studies/mean_field_peeling/temporary_quadratic_l2_order5/audit_direct.py",
+      "target": "studies/mfp_quadratic_l2_order5/audit_direct.py",
+      "before": "b92f51a2fb6662c42b872bcf7b56c91be91638c2f65f8fc649fdbd2d9b40c54d",
+      "after": "f2c6a628dc90dd48077554800ab585cb4780e85d01115702a733b009c3d9fe88"
+    },
+    {
+      "original": "studies/mean_field_peeling/temporary_quadratic_l2_order5/audit_quadratic_euler_jet.py",
+      "target": "studies/mfp_quadratic_l2_order5/audit_quadratic_euler_jet.py",
+      "before": "ccd6d8d1e3c73b29eb94d927f3ede9597be876c99b6087050a0ca30d2a9084da",
+      "after": "e5a8f2cebef7e5ed26f8499af0597a64708ad334aaa6497f922e0c3366dba884"
+    },
+    {
+      "original": "studies/mean_field_peeling/temporary_quadratic_l2_order5/quadratic_exact.py",
+      "target": "studies/mfp_quadratic_l2_order5/quadratic_exact.py",
+      "before": "7bfbf3eac2d6fbfcbb890ba24bb3870ff6215b588fb36b119ddb8f530e5dfa32",
+      "after": "1a6c2f44c86235d6ae0612da5d1d05474b0300e2f68ea85eab53894d4c329f27"
+    },
+    {
+      "original": "studies/mean_field_peeling/temporary_quantitative_width_first_bound_rung3/PROOF.md",
+      "target": "studies/mfp_quantitative_width_first_bound_rung3/PROOF.md",
+      "before": "f1e1dc290b83c8e64965139f7bb8e91e7f698d4f195bf97357d8aa3e5976051b",
+      "after": "b7605d0024df2237a78c59642f4db7817d8dc89801ee411e982f11459b6e2d57"
+    },
+    {
+      "original": "studies/mean_field_peeling/three_sample_activation_class/preparation/activation_properties.md",
+      "target": "studies/three_sample_activation_class/preparation/activation_properties.md",
+      "before": "97b4a9c74519ca9d5b06dba493b396060393a31c980a7d02a6d03a2c89e66941",
+      "after": "d8dfcf31716151f5091b0c97bfd10bebe83ad2b82916e060f85a79467298478c"
+    },
+    {
+      "original": "studies/mean_field_peeling/three_sample_activation_class/preparation/activation_source_estimates.md",
+      "target": "studies/three_sample_activation_class/preparation/activation_source_estimates.md",
+      "before": "92bfdc456bb82b9dcb56be7fda6e4922db3c848b1f2c5fa5ac98eb4182fd0708",
+      "after": "85dfc619aa5ade622fb3dcc729b619e6215bc34137fe83dfbd4b277dd4e3dece"
+    },
+    {
+      "original": "studies/mean_field_peeling/three_sample_odd_activation_threshold/README.md",
+      "target": "studies/three_sample_odd_activation_threshold/README.md",
+      "before": "5016df6f6de603e69187ed8448175436184fd57c5bb1aae85544189c65bd81a0",
+      "after": "75c6d9ea359b9d56e6b65ecf4d885c4e9a928872f46463e3280325a5ce8330c2"
+    },
+    {
+      "original": "studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/check_integrity.mjs",
+      "target": "studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/check_integrity.mjs",
+      "before": "f0505e050b036aa1e7e0ee8f96de41c7dfb86252a230a8c6b29fa0add5971fd4",
+      "after": "a83905a545de46b50031c2d85f8995d820a191e6634fa6296f1b5727a380aeb5"
+    },
+    {
+      "original": "studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/MFP_HISTORY.md",
+      "target": "studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/MFP_HISTORY.md",
+      "before": "b25d35e8f96a0b9a80ed30b5fd9b3d9b019f6cef4f05b9637c95de7d772a78ac",
+      "after": "80daef017ab8644ebfc8c75a643c21087e064896595e417ab6975652663e2684"
+    },
+    {
+      "original": "studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/MODERN.md",
+      "target": "studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/MODERN.md",
+      "before": "dfbcec1112cee9288335ac360f76b56197e530db80ee12c73690811bd80875fd",
+      "after": "ab778ab2bfc8bbc8587e106e042495f9f0948ed05973e1002ff868e79b26dcd2"
+    },
+    {
+      "original": "studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/OPERATOR1.md",
+      "target": "studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/OPERATOR1.md",
+      "before": "e5dd8fc58ab530e7a477871485056d394edfa3ed76e0901111eddc023036012f",
+      "after": "1e449bcb8af1d444d83fe6488e5a6ef43ffa6ac0eac6aa0c533f8e6dca30d9f1"
+    },
+    {
+      "original": "studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/OPERATOR2.md",
+      "target": "studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/OPERATOR2.md",
+      "before": "606ca911cb4a16d0ae961871005f6278136b2baed72fed08d76f98b7e9d7dab0",
+      "after": "108df284fa20842c0d7e4a78b2c427ffafe5424ca58191899ade5538b1986fca"
+    },
+    {
+      "original": "studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/README.md",
+      "target": "studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/README.md",
+      "before": "7bd3b4cf7e3c496fc44b459183072ae4284780cd8fbe68edfbe99f380ae9f1dd",
+      "after": "a92dce1f95917fded6d7e5eddd780f414dbaf3cee640442d09537632035a942e"
+    },
+    {
+      "original": "studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/TANH_RESNET.md",
+      "target": "studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/TANH_RESNET.md",
+      "before": "e143a7cbff678c02d5da2380e6c0e75d612532448e1021d327d22ce16889d3b3",
+      "after": "ce968cdc122f8adfd653e89d06b60cc97eb133684b81fe5de741d51ac270d484"
+    },
+    {
+      "original": "studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/TASK7.md",
+      "target": "studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/TASK7.md",
+      "before": "dcacb25dacf1c1e90ae9edeb1dfe75a1b553efcba5ba79c5e371e54425d75ad9",
+      "after": "29cf60f38a4eba1ebf0c99df89ad76a1d343c547a1c41e0d270e0abc6616bd04"
+    },
+    {
+      "original": "studies/project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md",
+      "target": "studies/project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md",
+      "before": "97a06919d51b0405512344ad8b3c2a5ec9e726341ebe10816e757379aed8ddb8",
+      "after": "1480fc25adaef74753a28f19d023216d959f1ac93baa15d1674567e79dd8f515"
+    },
+    {
+      "original": "studies/project_wide_audit_2026_09_08/NON_TEMP_ACCESS_INVENTORY.md",
+      "target": "studies/project_wide_audit_2026_09_08/NON_TEMP_ACCESS_INVENTORY.md",
+      "before": "c89756a3fd11dac4349f73039fc7e3f99bd5798e874601c59a20ff8b4072d89f",
+      "after": "4d78cd507dce71b9edfa5a048b65f29fcd4515c5bae42a4a8ecbb33a16301fa9"
+    },
+    {
+      "original": "studies/project_wide_audit_2026_09_08/README.md",
+      "target": "studies/project_wide_audit_2026_09_08/README.md",
+      "before": "0a001639b277d9611cbc581d9ba14613d6e8b5a3c5c71884ebbcc06c4cd15b8c",
+      "after": "f472b5eb594dd32dc2a0f8bfe600dbba1954643db275547f25a262031ed1b69d"
+    },
+    {
+      "original": "studies/quadratic_nonclosure/QUADRATIC_MUP_NONCLOSURE_MASTER_REPORT.md",
+      "target": "studies/quadratic_nonclosure/QUADRATIC_MUP_NONCLOSURE_MASTER_REPORT.md",
+      "before": "445eb14f26e0011cab632f9e595b243e0af2f61a2c2f4119d61a0237f338a328",
+      "after": "6e829d494150f773221edb1b51861c47c1b904709d9ee32eb33253e05169d6a3"
+    },
+    {
+      "original": "studies/quadratic_nonclosure/README.md",
+      "target": "studies/quadratic_nonclosure/README.md",
+      "before": "054bb37a93b38a7c5cbd149c97c50e1c7094f4a97f1504b779ea99798f9cf4f3",
+      "after": "9d046f75777be97a81995207855eaea9296f88406d47ffbae1b7fddf25470403"
+    },
+    {
+      "original": "studies/README.md",
+      "target": "studies/README.md",
+      "before": "73e0388534c79543e1a4eb746d60594656500938bef4e10547734a916ced232a",
+      "after": "3c692a06f75feb361bc0e1c5fdfd51be78aec8bed6b8bb5bc3d77682c1db774b"
+    },
+    {
+      "original": "studies/renormalized_causal_gaussian_calculus/arctan_l2/TAME_NATURAL_GATE_H2_THEOREM.md",
+      "target": "studies/rcgc_arctan_l2/TAME_NATURAL_GATE_H2_THEOREM.md",
+      "before": "f1a18fbf21467d17dd8b16e2f593f1154f6803b693ffbf3091a76379a450a83e",
+      "after": "9d8a867d7162303cce6ff146bda52c84b41953028eca2ccc79cb777e8c643838"
+    },
+    {
+      "original": "studies/renormalized_causal_gaussian_calculus/compiler/README.md",
+      "target": "studies/rcgc_compiler/README.md",
+      "before": "5cd40566e8ef21b9e0597e122e7684db448a05e6bddcd19cfdb1735586a05a50",
+      "after": "fcda871a86f9d0bc6f484b79941c7b795b23b7b337cc6675bc62523eb44db0ab"
+    },
+    {
+      "original": "studies/renormalized_causal_gaussian_calculus/compiler/VALIDATION_REPORT.md",
+      "target": "studies/rcgc_compiler/VALIDATION_REPORT.md",
+      "before": "2b135709add27cee2a40658648a118af4038d8daec462b7db9232756d6d06ba6",
+      "after": "0722572d327217d8ed5108e3dd5527eaa1c8f45d47a7b97af21c25a84e7b1cd0"
+    },
+    {
+      "original": "studies/renormalized_causal_gaussian_calculus/PROBE_REPORT.md",
+      "target": "studies/rcgc_program_history/PROBE_REPORT.md",
+      "before": "5af99b517f9daf62d1fcee1931d4197ebbd03a774365fed73c4dfd5df98fb382",
+      "after": "0b6f0b704edf6e7cab02737fb4628a09098f1947b4b728c8a422a6cfa5603a55"
+    },
+    {
+      "original": "studies/renormalized_causal_gaussian_calculus/README.md",
+      "target": "studies/rcgc_program_history/README.md",
+      "before": "4091c6871fa657a0f5e752c05f171d0c26fcc6ee3599451febadc0144f475c4d",
+      "after": "8547a0298b2a82fa1e6b4a4df831c5d6aeb2fae8ea5eda12204f4bb225d7c5d4"
+    },
+    {
+      "original": "studies/renormalized_causal_gaussian_calculus/SOURCE_MAP.md",
+      "target": "studies/rcgc_program_history/SOURCE_MAP.md",
+      "before": "456af688fb8dd7e3e5c1e8cbddd75daea7256961af037608446a65194aa88f47",
+      "after": "2140bfe87d1424287ecd241f0350f198c269b83fa290308dabe966bd5b9bc2bd"
+    },
+    {
+      "original": "studies/repository_refactor_2026_09_09/inventory.mjs",
+      "target": "studies/repository_refactor_2026_09_09/inventory.mjs",
+      "before": "eeab5cc95c0dd7a927d7b15015c4ceb6c3ed0b3a7bfaf0a853dce7e30aa8ea31",
+      "after": "9e04bf4247e2cfcc1816b30577033fa90528e74184c568dcdcb393c482fd3cbe"
+    },
+    {
+      "original": "studies/repository_refactor_2026_09_09/PLAN.md",
+      "target": "studies/repository_refactor_2026_09_09/PLAN.md",
+      "before": "8158b9c3028829e15b902cd40c5206aeb5de516c8b02d93ddb4be59d2a76d4f3",
+      "after": "5706d25f9e75055a8aca44e4cf83ec7ae82e98aaa88f89a1a745f0b71adad3d9"
+    },
+    {
+      "original": "studies/resnet_pde/CURRENT_RESEARCH_STATE.md",
+      "target": "studies/resnet_program_history/CURRENT_RESEARCH_STATE.md",
+      "before": "b37045667f4ea11385dbc703177d2ef0c4c77ce5a0b820f29422b5dedb588797",
+      "after": "275417754f9ca537abb9544684e4dddd2eb0a12757f657a74208d81ca10a1b16"
+    },
+    {
+      "original": "studies/resnet_pde/dense_response/early_audit/REPORT.md",
+      "target": "studies/resnet_dense_early_audit/REPORT.md",
+      "before": "3e2d057a02e0518d5d129e138b7e6e9196490f529f8723a1d355a025fd7ec166",
+      "after": "abe3ea3d8793347104af440da3d6e6d27dbead11908bb2f9c842e0292e0f7647"
+    },
+    {
+      "original": "studies/resnet_pde/dense_response/README.md",
+      "target": "studies/resnet_program_history/dense_response/README.md",
+      "before": "83e1b5a9ad55e27434113bfe341bd3e20b2305c7e26c95f2378096dd7a7da767",
+      "after": "56765026691d0392c11ddf01071a1519bb080b0796071d9c8c308368a5a688b0"
+    },
+    {
+      "original": "studies/resnet_pde/operator_pde/activation_controls/ACTIVATION_LINEARITY_SMOKING_GUN_REPORT.md",
+      "target": "studies/resnet_activation_controls/ACTIVATION_LINEARITY_SMOKING_GUN_REPORT.md",
+      "before": "c047c6e4d0c2b3bd5eb8b47423b0277e61bdbb26891c47dd1a46fa11d560769a",
+      "after": "2d147779cc93c8ddd73ab7e8e02ce1ac64db40d789038c49ddf9932f6397f2e1"
+    },
+    {
+      "original": "studies/resnet_pde/operator_pde/core/CONJECTURE_REPORT.md",
+      "target": "studies/resnet_operator_core/CONJECTURE_REPORT.md",
+      "before": "009b49234f2d6d7056d67933b346cbe7105bbf13daeab800092814e7f7d84a79",
+      "after": "e8c0263efb26b33f7bd8eef62dc7355f5f5ce85da3e29cae5809344941ce262e"
+    },
+    {
+      "original": "studies/resnet_pde/operator_pde/core/README.md",
+      "target": "studies/resnet_operator_core/README.md",
+      "before": "8739afe4f501605c7f16c976680d0c4d76876d96b90089932de40eabda2818ca",
+      "after": "35911f9e981926d0c649bd61a1917d58f675bd2583d656f26e26865f7819f12d"
+    },
+    {
+      "original": "studies/resnet_pde/operator_pde/core/REPORT.md",
+      "target": "studies/resnet_operator_core/REPORT.md",
+      "before": "a5bca0a7b9af3f45aea38a099e8603b9b570f8479694c0a1c75e2e5be5923984",
+      "after": "55be782220e0b9659746e5450a17e008cb4342fa5ab6cf2aa83bc54ffb03882c"
+    },
+    {
+      "original": "studies/resnet_pde/operator_pde/README.md",
+      "target": "studies/resnet_program_history/operator_pde/README.md",
+      "before": "9ecdabd99d5ffb8865f9dde8a2df5a9ac7b8e0e168f278db2f09c322f3fc8244",
+      "after": "ca3346f2ea05aac2c2fd0b885e034038782b47d7817f15cfafca9fc2d08ce43c"
+    },
+    {
+      "original": "studies/resnet_pde/operator_pde/rerun_2026-07-31/canonical/README.md",
+      "target": "studies/resnet_reproduction_2026_07_31/canonical/README.md",
+      "before": "ae01c378960127be6a5d76d68c561519dd0e6908b2e0462e0e23fe6072b06eec",
+      "after": "fc80b8902e87329698b80bc17c5df3c76cbfe407a0965b468257fc3e6b57919e"
+    },
+    {
+      "original": "studies/resnet_pde/operator_pde/rerun_2026-07-31/README.md",
+      "target": "studies/resnet_reproduction_2026_07_31/README.md",
+      "before": "2105f3fd406327ed25ff69771099b86479566fd86d4d738e4c85561e26a1d99e",
+      "after": "e965d193f1630febf56c2ae07506e36aa070d03fbeb0357ff4027d586a311286"
+    },
+    {
+      "original": "studies/resnet_pde/pde_convergence/01_proof_audit/protocol/freeze_study.py",
+      "target": "studies/resnet_proof_audit/protocol/freeze_study.py",
+      "before": "a11f42ff59a4839b1eaa4886b934d390ed1fe95d3f22b504ae05033a7c0bed74",
+      "after": "498aa9335d7da894b4f53f225867448f202fd5ebd2ca64d4eef5239b8184e0ea"
+    },
+    {
+      "original": "studies/resnet_pde/pde_convergence/01_proof_audit/source/cross_p.py",
+      "target": "studies/resnet_proof_audit/source/cross_p.py",
+      "before": "1bebd88a06c5a4539199eaaf97012a92d1fef8cb8f633a8cd8a32ec3e564f674",
+      "after": "9f2ff2f0fccc01671e7ad8103cec89660908a02a9a190627e6c0a2537acf8aee"
+    },
+    {
+      "original": "studies/resnet_pde/pde_convergence/01_proof_audit/source/dense_gates.py",
+      "target": "studies/resnet_proof_audit/source/dense_gates.py",
+      "before": "0a4f821e2e0dcc39545950d2c38382b5e7a7e4b2fd8b386aca60d1fb873b045a",
+      "after": "7c4d9a26bed8c69692eacd87bfe7d85b5f580654257096b4044ac816f420f48b"
+    },
+    {
+      "original": "studies/resnet_pde/pde_convergence/01_proof_audit/source/pde_tangent.py",
+      "target": "studies/resnet_proof_audit/source/pde_tangent.py",
+      "before": "c8b2a66c2803b22898ae0a1ce35c2c7728477d0fbcc7b855151ff5bf5b321def",
+      "after": "ddda39d760251d9fdc2edb65448568fabd3c115c99862381098d9d4e8a430900"
+    },
+    {
+      "original": "studies/resnet_pde/pde_convergence/01_proof_audit/source/run_study.py",
+      "target": "studies/resnet_proof_audit/source/run_study.py",
+      "before": "70889cecbf63caf4792cef74084701906927957e71eadcdc80f0490bc58676fc",
+      "after": "da5ebb830d1d57ca24bd8b185b35cce736acaeb8b21e21a3d8651abb49c81dbe"
+    },
+    {
+      "original": "studies/resnet_pde/pde_convergence/03_bridgeability/targeted_bridge_test.py",
+      "target": "studies/resnet_bridgeability/targeted_bridge_test.py",
+      "before": "d5b897ad33619290369272cb900037045967f091f440de80819ac26ab57b6de7",
+      "after": "004bf08a5e655dd73e0143ab8327d770910b0a3e50806a5d9a9a6823ef5d896c"
+    },
+    {
+      "original": "studies/resnet_pde/pde_convergence/04_scalar_stress/one_input_hermite_ladder.py",
+      "target": "studies/resnet_scalar_stress/one_input_hermite_ladder.py",
+      "before": "9a56b4f76870e168f39bb7a1a0e482a53dcbfb9d45436caac883eb1ddb512ee8",
+      "after": "eebc46db77fc141e33f6c082c4f0c348c388add7e18baaceaae33ec4f97ec9bf"
+    },
+    {
+      "original": "studies/resnet_pde/pde_convergence/05_tail_and_compactness/coupled_cauchy_ledger.py",
+      "target": "studies/resnet_tail_compactness/coupled_cauchy_ledger.py",
+      "before": "c62f48335e2309bbdf5056a41ca92bbb94e023e2049b35719662c33d1146c819",
+      "after": "af6b210ad7fb76fc06cf251d7581a6a4966be692959fdf54094efd839d9997e4"
+    },
+    {
+      "original": "studies/resnet_pde/pde_convergence/05_tail_and_compactness/targeted_tail_commutator.py",
+      "target": "studies/resnet_tail_compactness/targeted_tail_commutator.py",
+      "before": "ffac4dba8a9f7c26811d8ee2a58aa82639b06eb8148a4e0c7e3cd7b904578780",
+      "after": "b4d6e15612f10926553f546f701641132a76a11afcda94074a14fc6668825548"
+    },
+    {
+      "original": "studies/resnet_pde/pde_convergence/README.md",
+      "target": "studies/resnet_program_history/pde_convergence/README.md",
+      "before": "26e7c0cf17458361348a03e943df4f8705b0ef0168806b9ff647c3215caea56e",
+      "after": "b61822b777d5d1f49120af5cc0ffe1b085cc61b491d6854c1e7dfbdae3aecc80"
+    },
+    {
+      "original": "studies/resnet_pde/README.md",
+      "target": "studies/resnet_program_history/README.md",
+      "before": "854997d893148215c4cc78d7aace41a29a403477cc73e11364841097b6cff283",
+      "after": "9087e5de59d39a43beb1fddaac58ef37c48a0f039052a50a562710510e1cfe3b"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/CURRENT_RESEARCH_STATE.md",
+      "target": "studies/stieltjes_program_history/CURRENT_RESEARCH_STATE.md",
+      "before": "909732206d7cc0ffbda455a1aec4219efea64925400293fbccbabfe64d2a7882",
+      "after": "35c5a48c68fbbebe29036f0363fa852c98d47a816a49aa8a15b87b80a39a3783"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/direct_loewner/README.md",
+      "target": "studies/stieltjes_direct_loewner/README.md",
+      "before": "e2fae9b17f2c5671d909e7667727d471f638a14ac52be97eba6865de9cb31e89",
+      "after": "1c9752ab84746b9ef113470ebfca2413a7a3474612a12f868aad4de6480b86c1"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/finite_width/jet_control_variate.py",
+      "target": "studies/stieltjes_finite_width/jet_control_variate.py",
+      "before": "e11ee611f681740d8f2adf99d9188cf17ee22914aabb5a343e2e300038454330",
+      "after": "5ddfbd005fff6c83b4453b2d6c760adc68f661de586f39c5d0fdd48024a7a633"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/finite_width/README.md",
+      "target": "studies/stieltjes_finite_width/README.md",
+      "before": "39f91950f3f628d1a0931fb4cb0b39a8a15290f891959dac9365b63725c018ef",
+      "after": "e34ca3b8e6c99518b76aa91ada546c3cdb80dd2dbc49989500982783a5cde0f1"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/finite_width/run_fresh_calibrated_ratio.py",
+      "target": "studies/stieltjes_finite_width/run_fresh_calibrated_ratio.py",
+      "before": "c4db1ae369364c23b9967378fc44b28c7cbc1f7747807e3bd42c694263d6983b",
+      "after": "c6887f1cf9cc128d0b8d38841bde13bc9e97704eab977636b0e6ce077ea4f47f"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/finite_width/run_fresh_order13_median.py",
+      "target": "studies/stieltjes_finite_width/run_fresh_order13_median.py",
+      "before": "6b5f97484e2099b3e71320dfa30e47629a69e766aaddf63fde0fe60eafe65899",
+      "after": "2f916c1472a902118da6593f6dd8d231ec7ff71015e9b5021c5e78b6f8f53887"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/finite_width/run_positive_time_pair_median.py",
+      "target": "studies/stieltjes_finite_width/run_positive_time_pair_median.py",
+      "before": "815b9b694df5e1e8285222052755891c3b9f83c03c728e46b51f8c39451eeedb",
+      "after": "2358a200b63a99f19e822f80fd76dc69b7df97815184c0b96414e835258ded5e"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/proxy/inventory.py",
+      "target": "studies/stieltjes_proxy_campaign/proxy/inventory.py",
+      "before": "0364bf2cec924a1443e1a5ce5e50287b9254ffda916e56e92c3b749d2dc3441e",
+      "after": "76ca69a8ce72128b9a24357c59eb2fba847f546267f1a26ed5457d6429892be9"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/README.md",
+      "target": "studies/stieltjes_proxy_campaign/reference/README.md",
+      "before": "bb4a6f8bc9925d7e44ac650d42d693bab7478be48df06597e957f4b60da3171c",
+      "after": "eb6f47342eaadc0c84e743804f91123ab4f6a42cd169d13329cfa27bec585119"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/RESULTS.md",
+      "target": "studies/stieltjes_proxy_campaign/RESULTS.md",
+      "before": "5c618be332980deac524f09ed2302c8252e2d02c0744f15ce8fad02a8ff5b1c1",
+      "after": "907cd9ea07eda87186c7ba983c2fdc4b50d20574e2a36be16735cc876d571061"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/bounded_dmft/STAGE0_REPORT.md",
+      "target": "studies/stieltjes_hybrid_campaign/bounded_dmft/STAGE0_REPORT.md",
+      "before": "028ae12126fd5520590cb2cd078aab6df285ab9f36bcd60f7170f85d8e60bbba",
+      "after": "540396e516ff4da6c5e1becd87c5dcabd17c1f1e03855b7fc52e2392e457da40"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/bounded_dmft/truncated_mfp_reference.py",
+      "target": "studies/stieltjes_hybrid_campaign/bounded_dmft/truncated_mfp_reference.py",
+      "before": "ae1c6dce9d5d5ac0759ea7cf6deeafe1a3487b4421f94252f9f6f964c704d662",
+      "after": "24f847238a1fea5d14011e9e6917b045c33059dcbc4a6d262087fc7b60b8be1e"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/adjudicate_local_qualification.py",
+      "target": "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/adjudicate_local_qualification.py",
+      "before": "651247a92dddc1b98634b4dcc294906e56ed495cf124aa05d69cb930d789f310",
+      "after": "6897aa76796cf7ca6100271f3cd4e08bf1315c9e5f6a8d8ccb4387cecefd03ac"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/RESULTS.md",
+      "target": "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/RESULTS.md",
+      "before": "c72eb0c963cfc7335843ec45ded2cf52db20db745582742464c9914edf6ed9e1",
+      "after": "5b98742a7015a9718a500eda567af7a042514d1852b0ca0d5518e51664177b22"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/run_local_qualification.py",
+      "target": "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/run_local_qualification.py",
+      "before": "a27dbf038ff583b2dafb7745bad7170ffacf4ea8a6d2ba4e84b17f1a6cc777ee",
+      "after": "40673fcd326ce59bfd3a4a20b9e7df1dd9ed8b5ad66568e0967db4fedc92bd0a"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/tests/test_fp64_local.py",
+      "target": "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/tests/test_fp64_local.py",
+      "before": "c323562775510cc651d2b653294fff14533281cbe45de0571598786d94fcfca5",
+      "after": "d580bdf2d7766cb3f1fd873b713efe440bd96472a7416a85c87882c1b18ec552"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/watchdog_launcher.py",
+      "target": "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/watchdog_launcher.py",
+      "before": "9277a931acb784c1e97edc2ca528dfd0703cff8995ca92ed9a092b272bfcc022",
+      "after": "30f9302f92f180ea98709061c98f6c9d2d2d6e00f9fc4675ea2880a73a8325c1"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/one_input/tests/test_one_input_engine.py",
+      "target": "studies/stieltjes_hybrid_campaign/breadth_panel/one_input/tests/test_one_input_engine.py",
+      "before": "8501cab187a5a3600abf16ab0909eda38710c3c615ee09fb6916ea8afb1efca3",
+      "after": "8eeb55bff5fcba50e10019f631d417da2dad18dceb8096fb43f7703e5d191f43"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/proxy_contract.py",
+      "target": "studies/stieltjes_hybrid_campaign/breadth_panel/proxy_contract.py",
+      "before": "c55c5eac64e82ecde7dfe06689c36f00d0ccf303da0177be1e37ee2d34e6a5e1",
+      "after": "aa2cea993a8563c53c8f65f8383ad306492c61060c2a4cef59f344db14ccfd12"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n4096/analyze.py",
+      "target": "studies/stieltjes_hybrid_campaign/breadth_panel/successive_n4096/analyze.py",
+      "before": "731eeddbf362aebd89991a9dd83f8fe5db324ffc6764d9c44326d1df8fc34dd8",
+      "after": "b2539f75abb07e160c099ef8a089cb243f83dd5548286f58be75b5c00ab35e2e"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n4096/run_block.py",
+      "target": "studies/stieltjes_hybrid_campaign/breadth_panel/successive_n4096/run_block.py",
+      "before": "8f36760647079c26519971fe77f5211cb63c06672852841a2ffbdf75f07de391",
+      "after": "45f5550f090e66582550b2b5c3f12a10a33bace4cdbc0adf1f5e91fbb42085c0"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/compare_with_n4096.py",
+      "target": "studies/stieltjes_hybrid_campaign/breadth_panel/successive_n8192/compare_with_n4096.py",
+      "before": "5ff37d1fa824d647c941f7eb8cb4dd75804a82a7d7b139829eb0dae07e55d9d5",
+      "after": "b367f69071a263951107e8d4907a50ede94c70554d3e293ec1b357d37c5edc7a"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/run_block.py",
+      "target": "studies/stieltjes_hybrid_campaign/breadth_panel/successive_n8192/run_block.py",
+      "before": "aa1c2477f3e7eee6f27af70b4dda4c08791cabcafa1a5ab22ae5b298ce2d96ec",
+      "after": "83170f6c141840519ce023d2ae870c2c208e7f8c24778f8aa900c1e6fc855060"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/validation_analysis.py",
+      "target": "studies/stieltjes_hybrid_campaign/breadth_panel/validation_analysis.py",
+      "before": "762ccbcb57a777bf063f2ef9559d6cb512b25e97602a50638c515af75819f749",
+      "after": "ec6e678d40b85b8ce20e83d0c73facdfe957c22b91d507340b4d3e5dd257cf10"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/width_ladder/euler_fp32/tests/test_euler_fp32.py",
+      "target": "studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32/tests/test_euler_fp32.py",
+      "before": "3a612c13134e63ee27781433afda58b04cf6dbd13081367b875ba1260eaacf9c",
+      "after": "56107da07add003c768b5d07811bf19ffe71d1f50f12134ab451d18e5d4ccf07"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/width_ladder/width_engine.py",
+      "target": "studies/stieltjes_hybrid_campaign/width_ladder/width_engine.py",
+      "before": "ed3f602b80da2a0884fd6e7ce67248c9f01a14987168b63dbc6620f9b7cee66f",
+      "after": "bef3a2ca1adf487eed55b20e9c5d2a56a68de5ef211ed5305a832292a7d2a2ac"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/numerics/README.md",
+      "target": "studies/stieltjes_program_history/numerics/README.md",
+      "before": "090a4f3ff55ba29ac9b6bfbae128c98ea6ed56bfccbeb121a41ba68164e80867",
+      "after": "772fdd2f2e28b148ad6bd643ce9a34693025763b5c633855808980ecfe058119"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/README.md",
+      "target": "studies/stieltjes_program_history/README.md",
+      "before": "1f86bb214bf52a99c3e732538652735320812d6722e2dba53bc74833de2b99b7",
+      "after": "ca4353b3989ed697ebe0a862ce7f7ec289ea7dc67f5125f2a6a84ee1d75e7b48"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/resolution_program/block_metric_counterexample.py",
+      "target": "studies/stieltjes_resolution/block_metric_counterexample.py",
+      "before": "942c8ab1dd70d3f241035b4b5af53f8178831025fb3125af630e47c854dda461",
+      "after": "8781af48f5a7982e45a5557be22641c150fa6ae65287dc9db4e965f9cacc5847"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/resolution_program/block_metric_positive_alpha_jet.py",
+      "target": "studies/stieltjes_resolution/block_metric_positive_alpha_jet.py",
+      "before": "4918c797a0290da950d8cb7ef665ded79bac166fdedf1d11c9415421c65f5a92",
+      "after": "26d275318bcbde6dc21748a62993799a17d6b4b9a8143ce028b0a6218a1b716d"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/resolution_program/BLOCK_METRIC_RESOLUTION.md",
+      "target": "studies/stieltjes_resolution/BLOCK_METRIC_RESOLUTION.md",
+      "before": "f806171d43764351dbb4e11d7e68289777ea5c54c6541895402e926e80f7e459",
+      "after": "4b441a69d643e30adebddc143b204b6363e2b2a6a71d186c7b679fe03efc6289"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/resolution_program/canonical_hidden_high_order/hidden_moment_hankel_audit.py",
+      "target": "studies/stieltjes_resolution/canonical_hidden_high_order/hidden_moment_hankel_audit.py",
+      "before": "edf92701077481eb10af4d334145cd6c92d580ff6b5f784271f8281d26be1ad9",
+      "after": "9dc36c844d7d884530c45d4d253fbcec3947a6889c501650c0a836d3e4eb3eef"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/resolution_program/canonical_hidden_high_order/independent_hidden_recurrence.py",
+      "target": "studies/stieltjes_resolution/canonical_hidden_high_order/independent_hidden_recurrence.py",
+      "before": "fd923a6bff5e7f6d3f09a56f8a2ec208068615e7545c7e2d31178dd7c4817893",
+      "after": "a18dea37e4bb0f346012e9ce33d2de1124efadf872585917ee76879e2462c161"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/resolution_program/canonical_hidden_high_order/independent_hidden_scalar_audit.py",
+      "target": "studies/stieltjes_resolution/canonical_hidden_high_order/independent_hidden_scalar_audit.py",
+      "before": "e0b41200c832fa8f24334f30b67df5a6a78520540af72437fd82ccf014feb2af",
+      "after": "9646a738a3485ee3775ef2779d8a713485a7d799caa9b5ccfccdd72c9b354f1e"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/resolution_program/canonical_hidden_high_order/production_hidden_recurrence.py",
+      "target": "studies/stieltjes_resolution/canonical_hidden_high_order/production_hidden_recurrence.py",
+      "before": "d49a8a19cbe2cd31699776d1359d947ec4f3f825eef06346c0e81331b5777530",
+      "after": "0597f9f291f9b39d5e39b6fe7d7f0d27e63c23f363b052cd1b20ab707d86625b"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/resolution_program/canonical_hidden_high_order/README.md",
+      "target": "studies/stieltjes_resolution/canonical_hidden_high_order/README.md",
+      "before": "be9741af9d3d14bcfe4186bd48ec6087ef442642f7651c2aed438cfd73a2be3e",
+      "after": "ae267bc3de99fa517aa5c82ca800989b110c6ede13821c4c1753e4428015b79d"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/resolution_program/canonical_hidden_high_order/test_independent_hidden_recurrence.py",
+      "target": "studies/stieltjes_resolution/canonical_hidden_high_order/test_independent_hidden_recurrence.py",
+      "before": "1b03285ce05f74b7954a4d1785d67071c04a0c1b98d259d602a7fad16f7eddef",
+      "after": "e5e54332a6daef0ea0449ab3de3794ccd6c96c6ca8455f57c740f0ffed0e54a1"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/resolution_program/canonical_hidden_high_order/test_production_hidden_recurrence.py",
+      "target": "studies/stieltjes_resolution/canonical_hidden_high_order/test_production_hidden_recurrence.py",
+      "before": "494dbfa0f88a706633efbc66fc509bd62e1d7a8e2d62fe186732964fa4aa7fc1",
+      "after": "ea2312fa51915353f4de9b19c5e682f0745a75743d05afd2d86cb541085d458f"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/resolution_program/canonical_high_order/README.md",
+      "target": "studies/stieltjes_resolution/canonical_high_order/README.md",
+      "before": "c5d2f1acaada9766d8fcd52d4dda484c4f529fa70378358343dd6484df46481a",
+      "after": "6e46bc288867a082cb3e9cbd8ae53acdba0abe40821fc997abaf59eb651acc25"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/resolution_program/canonical_high_order/RESULTS.md",
+      "target": "studies/stieltjes_resolution/canonical_high_order/RESULTS.md",
+      "before": "710acc329da6dd543c56c8fb17e3519ac25fd9e81b6b163f3371a650469800f9",
+      "after": "a74f2f089063e02d26eca0b67b09f7e77042de3e243859b089b20b207f4d1ec4"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/resolution_program/canonical_high_order/test_independent_canonical_recurrence.py",
+      "target": "studies/stieltjes_resolution/canonical_high_order/test_independent_canonical_recurrence.py",
+      "before": "2803f907d114fb3fde717a9b3244547316387cb938ed50f179fa639c919583f2",
+      "after": "832c7ba65673afbebaa2d20b410dc8adf52d69fc6f0546701eacbabb9aaff5a7"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/resolution_program/canonical_high_order/test_production_canonical_recurrence.py",
+      "target": "studies/stieltjes_resolution/canonical_high_order/test_production_canonical_recurrence.py",
+      "before": "482be94c9a2d447ae3561773e24babff24f0789f8b4f13481feeccc86f46e73b",
+      "after": "f0333ed61c75c9b6cac1e86b94f1742ad3a011ae121c13c91c81f6dd648be30b"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/resolution_program/README.md",
+      "target": "studies/stieltjes_resolution/README.md",
+      "before": "f83533ed6d6b392190eb8210707444f4bb325fd0d857d2a7f4d241816aec473e",
+      "after": "69f76449db4a16ee7bfb6c55020d4a7aeb1c93e73eb77f55c57adacbc6bf9b94"
+    },
+    {
+      "original": "studies/stieltjes_conjecture/theory/README.md",
+      "target": "studies/stieltjes_theory_history/README.md",
+      "before": "2c1c209adacc747b83697dcff98ad345176b2c2a3eee2f2421f5c37c85eb71ba",
+      "after": "a252f0106a8663c901e69352b57a5063401396216a3de637cffbc00f5ca59539"
+    }
+  ],
+  "recovered": {
+    "files": 272,
+    "bytes": 6180850
+  },
+  "failures": [],
+  "status": "interim during live-source repairs; not final validation",
+  "snapshot_check": {
+    "commit": "25dfbf2",
+    "verified_preexisting_sources": 2575,
+    "bytes": 71717649,
+    "exceptions": [
+      {
+        "path": "studies/repository_refactor_2026_09_09/inventory.mjs",
+        "reason": "New migration tool inventoried its earlier edition before pagination/ELF-detection edits; later edition is in snapshot."
+      }
+    ]
+  }
+}

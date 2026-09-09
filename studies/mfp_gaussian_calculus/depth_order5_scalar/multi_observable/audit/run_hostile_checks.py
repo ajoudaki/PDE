@@ -19,11 +19,15 @@ from pathlib import Path
 
 
 HERE = Path(__file__).resolve().parent
+raise RuntimeError(
+    "archive-only hostile audit entry point: import-time subprocess work and "
+    "historical source/artifact seals require a separately reviewed replay interface"
+)
 REPO = next(p for p in HERE.parents if (p / "studies").is_dir())
 ROUTE_A = HERE.parent / "independent_route_a"
 ROUTE_S = (
     REPO
-    / "studies/mean_field_peeling/generic_first_stieltjes"
+    / "studies/mfp_gaussian_calculus"
     / "depth_order5_observables/independent"
 )
 
@@ -127,14 +131,14 @@ checks["contract_hash"] = sha256(HERE / contract_freeze["artifact"]) == contract
 v2_freeze = load(HERE / "HOSTILE_CANDIDATE_V2_FREEZE.json")
 checks["hostile_v2_source_hash"] = sha256(HERE / v2_freeze["artifact"]) == v2_freeze["artifact_sha256"]
 v2, v2_stdout_sha = run_json(
-    "studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.multi_observable.audit.hostile_gamma04_derivation_v2"
+    "studies.mfp_gaussian_calculus.depth_order5_scalar.multi_observable.audit.hostile_gamma04_derivation_v2"
 )
 checks["hostile_v2_stdout_hash"] = v2_stdout_sha == v2_freeze["canonical_stdout_sha256"]
 
 v1_freeze = load(HERE / "HOSTILE_CANDIDATE_FREEZE.json")
 checks["hostile_v1_source_hash"] = sha256(HERE / v1_freeze["artifact"]) == v1_freeze["artifact_sha256"]
 v1, v1_stdout_sha = run_json(
-    "studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.multi_observable.audit.hostile_gamma04_derivation"
+    "studies.mfp_gaussian_calculus.depth_order5_scalar.multi_observable.audit.hostile_gamma04_derivation"
 )
 checks["hostile_v1_stdout_hash"] = v1_stdout_sha == v1_freeze["canonical_stdout_sha256"]
 

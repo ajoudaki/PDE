@@ -1,0 +1,405 @@
+[
+  {
+    "name": "studies.resnet_generalization.tests.test_migration_paths",
+    "kind": "new regression",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "studies.resnet_generalization.tests.test_migration_paths",
+      "-v"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_analyzer_evidence_interface_without_optional_plot_import (studies.resnet_generalization.tests.test_migration_paths.EvidencePathTests) ... ok\ntest_grid_and_verifier_read_the_same_synthetic_seal (studies.resnet_generalization.tests.test_migration_paths.EvidencePathTests) ... ok\ntest_historical_precheck_requires_explicit_selection_and_fresh_output (studies.resnet_generalization.tests.test_migration_paths.EvidencePathTests) ... ok\ntest_label_round_trip_and_escapes (studies.resnet_generalization.tests.test_migration_paths.EvidencePathTests) ... ok\ntest_precheck_child_command_passes_its_input_root (studies.resnet_generalization.tests.test_migration_paths.EvidencePathTests) ... ok\ntest_precheck_reads_selected_tiny_archive (studies.resnet_generalization.tests.test_migration_paths.EvidencePathTests) ... ok\ntest_writer_precheck_verifier_defaults_agree (studies.resnet_generalization.tests.test_migration_paths.EvidencePathTests) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.033s\n\nOK\n",
+    "expected_checks": 7,
+    "seconds": 0.1716647483408451,
+    "observed_checks": 7
+  },
+  {
+    "name": "studies.mfp_cubic_compiler.two_input_plus_gaussian_program.test_migration_paths",
+    "kind": "new regression",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "studies.mfp_cubic_compiler.two_input_plus_gaussian_program.test_migration_paths",
+      "-v"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_load_document_does_not_require_compilation (studies.mfp_cubic_compiler.two_input_plus_gaussian_program.test_migration_paths.CubicInputPathsTests) ... ok\ntest_three_retained_input_hashes_are_exact (studies.mfp_cubic_compiler.two_input_plus_gaussian_program.test_migration_paths.CubicInputPathsTests) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+    "expected_checks": 2,
+    "seconds": 0.055580854415893555,
+    "observed_checks": 2
+  },
+  {
+    "name": "studies.stieltjes_finite_width.test_migration_paths",
+    "kind": "new regression",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "studies.stieltjes_finite_width.test_migration_paths",
+      "-v"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "jets width=64\n",
+    "stderr": "test_all_five_campaign_outputs_are_generated (studies.stieltjes_finite_width.test_migration_paths.FiniteWidthPathTests) ... ok\ntest_both_fresh_producer_consumer_roots_agree (studies.stieltjes_finite_width.test_migration_paths.FiniteWidthPathTests) ... ok\ntest_historical_input_selection_is_explicit (studies.stieltjes_finite_width.test_migration_paths.FiniteWidthPathTests) ... ok\ntest_jet_reader_uses_selected_fixture_before_any_jet_work (studies.stieltjes_finite_width.test_migration_paths.FiniteWidthPathTests) ... ok\ntest_source_and_historical_outputs_are_rejected (studies.stieltjes_finite_width.test_migration_paths.FiniteWidthPathTests) ... usage: python -m unittest [-h] [--output-dir OUTPUT_DIR]\npython -m unittest: error: fresh outputs cannot target source or historical data\nusage: python -m unittest [-h] [--output-dir OUTPUT_DIR]\npython -m unittest: error: fresh outputs cannot target source or historical data\nok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.033s\n\nOK\n",
+    "expected_checks": 5,
+    "seconds": 0.0791507214307785,
+    "observed_checks": 5
+  },
+  {
+    "name": "studies.mfp_gaussian_calculus.test_migration_paths",
+    "kind": "new regression",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "studies.mfp_gaussian_calculus.test_migration_paths",
+      "-v"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_archival_curvature_wrapper_refuses_before_global_patch_or_campaign (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok\ntest_comparison_uses_selected_inputs_and_fresh_outputs (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok\ntest_freeze_is_archive_only_even_when_seal_is_missing (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok\ntest_freeze_refuses_existing_seal_without_any_writes (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok\ntest_h3_fresh_producers_and_consumers_agree (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok\ntest_historical_selection_is_explicit (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok\ntest_other_archive_guards_precede_function_work (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok\ntest_reject_unsafe_outputs_before_any_compiler_or_input_work (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok\ntest_selected_sine_fixture_to_separate_fresh_result (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 0.019s\n\nOK\n",
+    "expected_checks": 9,
+    "seconds": 0.4318367578089237,
+    "observed_checks": 9
+  },
+  {
+    "name": "studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths",
+    "kind": "new regression",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths",
+      "-v"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_all_six_legacy_main_guards_precede_work (studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths.SuccessivePathTests) ... ok\ntest_attempt_reservation_and_failure_finalization_refuse_before_writes (studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths.SuccessivePathTests) ... ok\ntest_comparison_forwards_selected_roots_to_both_widths (studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths.SuccessivePathTests) ... ok\ntest_comparison_transform_refusal_creates_no_output (studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths.SuccessivePathTests) ... ok\ntest_explicit_inputs_and_outputs_are_not_inferred_from_cwd (studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths.SuccessivePathTests) ... ok\ntest_fresh_and_historical_roots_are_explicit (studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths.SuccessivePathTests) ... ok\ntest_n8192_frozen_transform_still_refuses_before_work (studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths.SuccessivePathTests) ... ok\ntest_selected_block_manifest_and_array_roots (studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths.SuccessivePathTests) ... ok\ntest_source_and_history_outputs_are_rejected (studies.stieltjes_hybrid_campaign.breadth_panel.test_migration_paths.SuccessivePathTests) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 0.104s\n\nOK\n",
+    "expected_checks": 9,
+    "seconds": 0.1848086416721344,
+    "observed_checks": 9
+  },
+  {
+    "name": "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/watchdog_launcher.py",
+    "kind": "guarded CLI",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "/tmp/pde-migration-repair-v3-UlioAeUa/guard_entrypoint.py",
+      "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/watchdog_launcher.py"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "PASS: refusal before writes/subprocesses: /home/amir/Codes/PDE/studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/watchdog_launcher.py archive-only FP64 runtime: the frozen config, source lock, unlock, preflight and attempt ledger authorize historical paths only. No new runtime is authorized by relocating source. Refusing before GPU imports, watchdog records, attempts or results; do not refresh seals or reset historical attempts. A fresh generated-data runtime requires a separately reviewed authorization contract.\n",
+    "stderr": "",
+    "expected_checks": 1,
+    "seconds": 0.03182414174079895,
+    "observed_checks": 1
+  },
+  {
+    "name": "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/gpu_preflight.py",
+    "kind": "guarded CLI",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "/tmp/pde-migration-repair-v3-UlioAeUa/guard_entrypoint.py",
+      "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/gpu_preflight.py"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "PASS: refusal before writes/subprocesses: /home/amir/Codes/PDE/studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/gpu_preflight.py archive-only FP64 runtime: the frozen config, source lock, unlock, preflight and attempt ledger authorize historical paths only. No new runtime is authorized by relocating source. Refusing before GPU imports, watchdog records, attempts or results; do not refresh seals or reset historical attempts. A fresh generated-data runtime requires a separately reviewed authorization contract.\n",
+    "stderr": "",
+    "expected_checks": 1,
+    "seconds": 0.02363213151693344,
+    "observed_checks": 1
+  },
+  {
+    "name": "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/run_local_qualification.py",
+    "kind": "guarded CLI",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "/tmp/pde-migration-repair-v3-UlioAeUa/guard_entrypoint.py",
+      "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/run_local_qualification.py"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "PASS: refusal before writes/subprocesses: /home/amir/Codes/PDE/studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/run_local_qualification.py archive-only FP64 runtime: the frozen config, source lock, unlock, preflight and attempt ledger authorize historical paths only. No new runtime is authorized by relocating source. Refusing before GPU imports, watchdog records, attempts or results; do not refresh seals or reset historical attempts. A fresh generated-data runtime requires a separately reviewed authorization contract.\n",
+    "stderr": "",
+    "expected_checks": 1,
+    "seconds": 0.027367372065782547,
+    "observed_checks": 1
+  },
+  {
+    "name": "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/adjudicate_local_qualification.py",
+    "kind": "guarded CLI",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "/tmp/pde-migration-repair-v3-UlioAeUa/guard_entrypoint.py",
+      "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/adjudicate_local_qualification.py"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "PASS: refusal before writes/subprocesses: /home/amir/Codes/PDE/studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/adjudicate_local_qualification.py archive-only FP64 runtime: the frozen config, source lock, unlock, preflight and attempt ledger authorize historical paths only. No new runtime is authorized by relocating source. Refusing before GPU imports, watchdog records, attempts or results; do not refresh seals or reset historical attempts. A fresh generated-data runtime requires a separately reviewed authorization contract.\n",
+    "stderr": "",
+    "expected_checks": 1,
+    "seconds": 0.030232157558202744,
+    "observed_checks": 1
+  },
+  {
+    "name": "studies/stieltjes_hybrid_campaign/breadth_panel/successive_n4096/run_block.py",
+    "kind": "guarded CLI",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "/tmp/pde-migration-repair-v3-UlioAeUa/guard_entrypoint.py",
+      "studies/stieltjes_hybrid_campaign/breadth_panel/successive_n4096/run_block.py"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "PASS: refusal before writes/subprocesses: /home/amir/Codes/PDE/studies/stieltjes_hybrid_campaign/breadth_panel/successive_n4096/run_block.py archive-only FP64 runtime: the frozen config, source lock, unlock, preflight and attempt ledger authorize historical paths only. No new runtime is authorized by relocating source. Refusing before GPU imports, watchdog records, attempts or results; do not refresh seals or reset historical attempts. A fresh generated-data runtime requires a separately reviewed authorization contract.\n",
+    "stderr": "",
+    "expected_checks": 1,
+    "seconds": 0.036380186676979065,
+    "observed_checks": 1
+  },
+  {
+    "name": "studies/stieltjes_hybrid_campaign/breadth_panel/successive_n8192/run_block.py",
+    "kind": "guarded CLI",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "/tmp/pde-migration-repair-v3-UlioAeUa/guard_entrypoint.py",
+      "studies/stieltjes_hybrid_campaign/breadth_panel/successive_n8192/run_block.py"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "PASS: refusal before writes/subprocesses: /home/amir/Codes/PDE/studies/stieltjes_hybrid_campaign/breadth_panel/successive_n8192/run_block.py archive-only FP64 runtime: the frozen config, source lock, unlock, preflight and attempt ledger authorize historical paths only. No new runtime is authorized by relocating source. Refusing before GPU imports, watchdog records, attempts or results; do not refresh seals or reset historical attempts. A fresh generated-data runtime requires a separately reviewed authorization contract.\n",
+    "stderr": "",
+    "expected_checks": 1,
+    "seconds": 0.03654764965176582,
+    "observed_checks": 1
+  },
+  {
+    "name": "studies/mfp_gaussian_calculus/depth_order5/primary/freeze_primary.py",
+    "kind": "guarded CLI",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "/tmp/pde-migration-repair-v3-UlioAeUa/guard_entrypoint.py",
+      "studies/mfp_gaussian_calculus/depth_order5/primary/freeze_primary.py"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "PASS: refusal before writes/subprocesses: /home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5/primary/freeze_primary.py existing seal is immutable: /home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5/primary/PRIMARY_FREEZE_MANIFEST.json; archive-only freeze entry point\n",
+    "stderr": "",
+    "expected_checks": 1,
+    "seconds": 0.027499482035636902,
+    "observed_checks": 1
+  },
+  {
+    "name": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/postprocess_h3_curvature_extension.py",
+    "kind": "guarded CLI",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "/tmp/pde-migration-repair-v3-UlioAeUa/guard_entrypoint.py",
+      "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/postprocess_h3_curvature_extension.py"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "PASS: refusal before writes/subprocesses: /home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/postprocess_h3_curvature_extension.py archive-only serialization wrapper: it reruns the entire frozen campaign and patches global JSON state; migration does not authorize this entry point\n",
+    "stderr": "",
+    "expected_checks": 1,
+    "seconds": 0.03230557590723038,
+    "observed_checks": 1
+  },
+  {
+    "name": "compiler",
+    "kind": "bounded baseline",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "studies.mfp_gaussian_calculus.compiler.run_checks"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "RUN studies.mfp_gaussian_calculus.compiler.test_normal_form.test_all_correction_atoms_are_literal_univariate_expectations\nRUN studies.mfp_gaussian_calculus.compiler.test_normal_form.test_first_correction_constant_linear_affine_quadratic_cubic\nRUN studies.mfp_gaussian_calculus.compiler.test_normal_form.test_independent_canonical_formula_map_is_structurally_identical\nRUN studies.mfp_gaussian_calculus.compiler.test_normal_form.test_initial_ntk_constant_linear_quadratic\nRUN studies.mfp_gaussian_calculus.compiler.test_normal_form.test_inventory_is_dependency_first\nRUN studies.mfp_gaussian_calculus.compiler.test_normal_form.test_multivariate_wick_atom\nRUN studies.mfp_gaussian_calculus.compiler.test_normal_form.test_quadrature_sine_and_tanh_regressions\nRUN studies.mfp_gaussian_calculus.compiler.test_finite_width_jet.test_constant_activation_is_exactly_linear_in_feature_time\nRUN studies.mfp_gaussian_calculus.compiler.test_finite_width_jet.test_generic_oracle_matches_quadratic_reference_seedwise\nRUN studies.mfp_gaussian_calculus.compiler.test_finite_width_jet.test_linear_exact_expectation_target_is_48\nRUN studies.mfp_gaussian_calculus.compiler.test_finite_width_contraction.test_direct_contraction_matches_feature_jet_seedwise\nRUN studies.mfp_gaussian_calculus.compiler.test_finite_width_contraction.test_direct_contraction_respects_nonunit_input_metric\nPASS 12 checks\n",
+    "stderr": "",
+    "expected_checks": 12,
+    "seconds": 1.057726375758648,
+    "observed_checks": 12
+  },
+  {
+    "name": "b2",
+    "kind": "bounded baseline",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "studies.mfp_gaussian_calculus.b2.run_checks"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "RUN studies.mfp_gaussian_calculus.b2.test_finite_width_directional.test_channel_homogeneity_and_named_specializations\nRUN studies.mfp_gaussian_calculus.b2.test_finite_width_directional.test_direct_tensor_program_matches_independent_taylor_jet\nRUN studies.mfp_gaussian_calculus.b2.test_finite_width_directional.test_frozen_mse_response_scalars_and_readout_parity\nRUN studies.mfp_gaussian_calculus.b2.test_finite_width_directional.test_linear_channel_is_exact_effective_single_input\nRUN studies.mfp_gaussian_calculus.b2.test_finite_width_directional.test_single_active_sample_reduces_exactly_to_b1_program\nRUN studies.mfp_gaussian_calculus.b2.test_finite_width_directional.test_three_sample_program_matches_independent_taylor_jet\nRUN studies.mfp_gaussian_calculus.b2.test_finite_width_directional.test_zero_channel_has_zero_directional_jet\nRUN studies.mfp_gaussian_calculus.b2.test_contracted_gnf.test_arbitrary_fixed_batch_linear_control\nRUN studies.mfp_gaussian_calculus.b2.test_contracted_gnf.test_constant_and_linear_controls_for_arbitrary_geometry\nRUN studies.mfp_gaussian_calculus.b2.test_contracted_gnf.test_exact_channel_homogeneity\nRUN studies.mfp_gaussian_calculus.b2.test_contracted_gnf.test_quadratic_matches_accepted_two_input_campaign\nRUN studies.mfp_gaussian_calculus.b2.test_contracted_gnf.test_single_active_channel_reduces_to_b1_gnf_exactly\nPASS 12 fixed-batch checks\n",
+    "stderr": "",
+    "expected_checks": 12,
+    "seconds": 1.1884124539792538,
+    "observed_checks": 12
+  },
+  {
+    "name": "operator_core",
+    "kind": "bounded baseline",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "test_dense_reference",
+      "test_operator_galerkin",
+      "-v"
+    ],
+    "pythonpath": "/home/amir/Codes/PDE/studies/resnet_operator_core/src:/home/amir/Codes/PDE/studies/resnet_operator_core/tests",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_tangent_kernel_matches_output_velocity (test_dense_reference.DenseReferenceTests) ... ok\ntest_vector_field_is_scaled_euclidean_gradient (test_dense_reference.DenseReferenceTests) ... ok\ntest_hybrid_complete_quadratic_basis_is_exact_and_nested (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_no_finite_network_weight_state (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_orientation_mutation_is_detected (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_output_kernel_identity_by_directional_difference (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_parseval_covariance (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_positive_time_state_accepts_new_labels (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_shared_transpose_pairing (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_static_cubature_moments (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_tensor_gauss_hermite_realization (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_zero_residual_freezes_every_characteristic (test_operator_galerkin.OperatorGalerkinTests) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 0.061s\n\nOK\n",
+    "expected_checks": 12,
+    "seconds": 0.4117272086441517,
+    "observed_checks": 12
+  },
+  {
+    "name": "generalization_core",
+    "kind": "bounded baseline",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "studies/resnet_generalization/tests",
+      "-p",
+      "test_generalization_core.py",
+      "-v"
+    ],
+    "pythonpath": "/home/amir/Codes/PDE/studies/resnet_generalization/src",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_default_remains_tanh (test_generalization_core.ActivationRegistryTests) ... ok\ntest_exact_derivatives_match_centered_differences (test_generalization_core.ActivationRegistryTests) ... ok\ntest_registry_is_closed_and_formulas_are_normalized (test_generalization_core.ActivationRegistryTests) ... ok\ntest_unknown_or_aliased_activation_is_rejected (test_generalization_core.ActivationRegistryTests) ... ok\ntest_dense_scaled_gradient_and_kernel_identities (test_generalization_core.CrossConfigurationIdentityTests) ... ok\ntest_p_equals_d_plus_two_is_complete_linear_basis (test_generalization_core.CrossConfigurationIdentityTests) ... ok\ntest_pde_output_kernel_identity_and_psd (test_generalization_core.CrossConfigurationIdentityTests) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.162s\n\nOK\n",
+    "expected_checks": 7,
+    "seconds": 0.521680448204279,
+    "observed_checks": 7
+  },
+  {
+    "name": "generalization_controls",
+    "kind": "bounded baseline",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "test_dense_reference",
+      "test_operator_galerkin",
+      "test_structural_controls",
+      "-v"
+    ],
+    "pythonpath": "/home/amir/Codes/PDE/studies/resnet_generalization/src:/home/amir/Codes/PDE/studies/resnet_generalization/tests",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_tangent_kernel_matches_output_velocity (test_dense_reference.DenseReferenceTests) ... ok\ntest_vector_field_is_scaled_euclidean_gradient (test_dense_reference.DenseReferenceTests) ... ok\ntest_hybrid_complete_quadratic_basis_is_exact_and_nested (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_no_finite_network_weight_state (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_orientation_mutation_is_detected (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_output_kernel_identity_by_directional_difference (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_parseval_covariance (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_positive_time_state_accepts_new_labels (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_shared_transpose_pairing (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_static_cubature_moments (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_tensor_gauss_hermite_realization (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_zero_residual_freezes_every_characteristic (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_duplicate_conflicting_inputs_have_irreducible_loss (test_structural_controls.StructuralControlTests) ... ok\ntest_pde_sample_permutation_equivariance (test_structural_controls.StructuralControlTests) ... ok\ntest_zero_label_pde_null_is_explicitly_trivial (test_structural_controls.StructuralControlTests) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 2.688s\n\nOK\n",
+    "expected_checks": 15,
+    "seconds": 3.048560317605734,
+    "observed_checks": 15
+  },
+  {
+    "name": "finite_step",
+    "kind": "bounded baseline",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "studies/mfp_finite_step_single_hidden_mlp",
+      "-v"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_constant_control (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_identity_control (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_k_step_identity_closed_form (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_k_step_raw_and_stein_dags_agree (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_one_step_iterator_matches_direct_formula (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_quadratic_control (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_raw_and_stein_dags_agree_for_tanh (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_separate_block_rates (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_two_step_identity_control (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_two_step_quadratic_control (test_finite_step_dag.FiniteStepDagTests) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 0.028s\n\nOK\n",
+    "expected_checks": 10,
+    "seconds": 0.13384674116969109,
+    "observed_checks": 10
+  },
+  {
+    "name": "rcgc",
+    "kind": "bounded baseline",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "studies.rcgc_compiler.test_rcgc_compiler",
+      "-v"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_generic_depth_one_is_local_only (studies.rcgc_compiler.test_rcgc_compiler.CompilerRegressionTest) ... ok\ntest_generic_depth_three_emits_nested_two_colour_word (studies.rcgc_compiler.test_rcgc_compiler.CompilerRegressionTest) ... ok\ntest_generic_depth_two_emits_one_colour (studies.rcgc_compiler.test_rcgc_compiler.CompilerRegressionTest) ... ok\ntest_identity_kills_every_curvature_word (studies.rcgc_compiler.test_rcgc_compiler.CompilerRegressionTest) ... ok\ntest_invalid_depth_rejected (studies.rcgc_compiler.test_rcgc_compiler.CompilerRegressionTest) ... ok\ntest_kernel_has_one_term_per_parameter_block (studies.rcgc_compiler.test_rcgc_compiler.CompilerRegressionTest) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.000s\n\nOK\n",
+    "expected_checks": 6,
+    "seconds": 0.04451338201761246,
+    "observed_checks": 6
+  },
+  {
+    "name": "interval",
+    "kind": "bounded baseline",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "/tmp/flat-study-path-repair-OE9KpPVL/baseline.py",
+      "interval"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "PASS test_axis_moments_and_negative_determinant\nPASS test_elementary_and_bernstein_certificates_are_exact\nPASS test_nonconstant_baseline_has_structural_power_33\nPASS test_primitive_integer_polynomial_clears_rational_content\nPASS 4 checks\n",
+    "stderr": "",
+    "expected_checks": 4,
+    "seconds": 0.26507482677698135,
+    "observed_checks": 4
+  },
+  {
+    "name": "depth",
+    "kind": "bounded baseline",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "/tmp/flat-study-path-repair-OE9KpPVL/baseline.py",
+      "depth"
+    ],
+    "pythonpath": "",
+    "returncode": 0,
+    "stdout": "PASS test_arbitrary_batch_depth_singular_gram_and_layerwise_activations\nPASS test_depth_state_can_be_constructed_from_existing_h2_state\nPASS test_h2_is_seedwise_identical_to_existing_fixed_batch_compiler\nPASS test_independent_raw_coordinate_jets_at_depths_one_two_three\nPASS test_one_hidden_layer_accepts_arbitrary_batch\nPASS 5 checks\n",
+    "stderr": "",
+    "expected_checks": 5,
+    "seconds": 0.2253650426864624,
+    "observed_checks": 5
+  }
+]

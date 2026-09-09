@@ -13,7 +13,9 @@ import mpmath as mp
 
 
 HERE = Path(__file__).resolve().parent
-INPUT = HERE / "results_order9.json"
+INPUT = (
+    HERE.parents[2] / "data/historical/studies/mfp_sine_compiler/depth2_gaussian_program/results_order9.json"
+)
 PROTOCOL = HERE / "ORDER9_PROTOCOL.md"
 ENGINE = HERE / "sine_order9_fourier_jet.py"
 EXPECTED_SHA256 = {

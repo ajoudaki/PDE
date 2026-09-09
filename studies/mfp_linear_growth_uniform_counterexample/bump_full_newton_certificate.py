@@ -22,7 +22,10 @@ from pathlib import Path
 
 
 HERE = Path(__file__).resolve().parent
-DATA = json.loads((HERE / "FULL_L2_PAIRED_ORDER5_MAP.json").read_text())
+try:
+    from .map_inputs import load_map, parse_map_path
+except ImportError:
+    from map_inputs import load_map, parse_map_path
 MAX_DELTA = 20
 MIN_W = -12
 MAX_W = 6
@@ -203,13 +206,6 @@ def generalized_binomial(alpha, n):
     return out / factorial(n)
 
 
-ATOM_CACHE = {
-    tuple(atom["exponent"]): atom_series(atom["exponent"])
-    for term in DATA["paired_map"]
-    for atom in term["atoms"]
-}
-
-
 def normalization_series(total_factors):
     q = atom_series((2, 0, 0, 0, 0, 0))
     u = dict(q)
@@ -234,7 +230,13 @@ def _sadd(a, b):
     return {k: v for k, v in out.items() if v}
 
 
-def compile_map():
+def compile_map(map_path=None):
+    DATA = load_map(map_path)
+    ATOM_CACHE = {
+        tuple(atom["exponent"]): atom_series(atom["exponent"])
+        for term in DATA["paired_map"]
+        for atom in term["atoms"]
+    }
     total = defaultdict(dict)
     for term in DATA["paired_map"]:
         series = {(0, 0): {(0, 1, 0): Fraction(1)}}
@@ -255,7 +257,7 @@ def compile_map():
 
 
 def main():
-    result = compile_map()
+    result = compile_map(parse_map_path())
     print("nonzero negative Laurent powers after all 979 terms")
     for (degree, wpow), expression in sorted(result.items()):
         if wpow < 0:

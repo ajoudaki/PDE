@@ -7,12 +7,16 @@ import csv
 import json
 import math
 from pathlib import Path
+import sys
 
 import numpy as np
 from scipy.special import gammaln, roots_hermitenorm
 
 
-OUT = Path(__file__).resolve().parent / "outputs" / "l1_koopman_obstruction_v2"
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 K_MAX = 80
 QUADRATURE_ORDERS = (256, 384)
 
@@ -142,6 +146,7 @@ def positive_root(value: float, k: int) -> float:
 
 
 def main() -> None:
+    OUT = PATHS.parse(output_relative="experiments/outputs/l1_koopman_obstruction_v2").output_dir
     OUT.mkdir(parents=True, exist_ok=True)
     leading = inverse_leading_series(K_MAX)
     results = {order: run_quadrature(order, leading) for order in QUADRATURE_ORDERS}

@@ -37,6 +37,7 @@ def transitions() -> dict[str, fw.SPoly]:
 
 
 def emit() -> dict[str, object]:
+    raise RuntimeError("archive-only reduced-recurrence freeze; use pure transitions() without rewriting source or seals")
     result = transitions()
     payload = {
         "status": "post-freeze exact deterministic reduction of Route A",

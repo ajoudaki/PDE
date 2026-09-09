@@ -13,10 +13,10 @@ from __future__ import annotations
 from fractions import Fraction
 from pathlib import Path
 
-from studies.mean_field_peeling.generic_first_stieltjes.order5.compiler.artifact_evaluator import (
+from studies.mfp_gaussian_calculus.order5.compiler.artifact_evaluator import (
     evaluate_artifact_polynomial,
 )
-from studies.mean_field_peeling.temporary_quadratic_l2_order5.quadratic_euler_jet import (
+from studies.mfp_quadratic_l2_order5.quadratic_euler_jet import (
     evaluate_ab,
     horizon_output,
     newton_coefficients,
@@ -30,7 +30,7 @@ Q = Fraction
 ROOT = Path(__file__).parents[1]
 ARTIFACT = (
     ROOT
-    / "generic_first_stieltjes"
+    / "mfp_gaussian_calculus"
     / "order5"
     / "compiler"
     / "LAYER_SEPARATED_ABC_NORMAL_FORM.txt"

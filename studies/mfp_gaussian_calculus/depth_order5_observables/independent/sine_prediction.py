@@ -6,6 +6,10 @@ import json
 from math import exp, pi, sqrt
 from pathlib import Path
 
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
+
 import numpy as np
 from numpy.polynomial.hermite import hermgauss
 
@@ -87,7 +91,9 @@ def prediction() -> dict[str, object]:
 
 
 if __name__ == "__main__":
+    args = PATHS.parse()
     payload = prediction()
-    path = HERE / "NORMALIZED_SINE_PREDICTION.json"
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    path = args.output_dir / "NORMALIZED_SINE_PREDICTION.json"
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     print(json.dumps(payload, indent=2, sort_keys=True))

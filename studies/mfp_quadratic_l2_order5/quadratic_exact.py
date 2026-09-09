@@ -21,7 +21,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from generic_first_stieltjes.depth_order5_scalar.primary.moving_scalar_extension import (  # noqa: E402
+from mfp_gaussian_calculus.depth_order5_scalar.primary.moving_scalar_extension import (  # noqa: E402
     assemble_moving_recurrence,
 )
 

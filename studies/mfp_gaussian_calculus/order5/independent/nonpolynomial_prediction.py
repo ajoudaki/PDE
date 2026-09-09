@@ -13,12 +13,15 @@ from pathlib import Path
 import numpy as np
 from scipy.special import roots_hermitenorm
 
+from studies.mfp_gaussian_calculus.order5.compiler.compare_independent import comparison_paths
+from studies.mfp_gaussian_calculus.study_paths import GENERATED_ROOT, input_directory
+
 
 HERE = Path(__file__).resolve().parent
 
 
-def evaluate(order: int) -> dict[str, float]:
-    document = json.loads((HERE / "independent_coefficient_map.json").read_text())["unit_gram"]
+def evaluate(order: int, input_dir: Path = input_directory("order5/independent")) -> dict[str, float]:
+    document = json.loads((input_dir / "independent_coefficient_map.json").read_text())["unit_gram"]
     nodes, weights = roots_hermitenorm(order)
     weights = weights / sqrt(2 * pi)
     scale = sqrt(2 / (1 - exp(-2)))
@@ -54,8 +57,9 @@ def evaluate(order: int) -> dict[str, float]:
 
 
 def main() -> None:
+    inputs_root, output = comparison_paths(output_default=GENERATED_ROOT / "order5/independent")
     orders = (32, 48, 64, 96, 128)
-    convergence = {str(order): evaluate(order) for order in orders}
+    convergence = {str(order): evaluate(order, inputs_root) for order in orders}
     final = convergence[str(orders[-1])]
     A, B, C = (final[key] for key in "ABC")
     report = {
@@ -67,7 +71,8 @@ def main() -> None:
         "mu0": B / (2 * A * A),
         "mu1": (4 * B * B - A * C) / (24 * A**5),
     }
-    path = HERE / "NORMALIZED_SINE_PREDICTION.json"
+    output.mkdir(parents=True, exist_ok=True)
+    path = output / "NORMALIZED_SINE_PREDICTION.json"
     path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
     print(path.read_text())
 

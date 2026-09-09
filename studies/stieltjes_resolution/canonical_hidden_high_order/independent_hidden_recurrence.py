@@ -429,11 +429,10 @@ def as_document(
     max_hidden_order: int,
 ) -> dict[str, object]:
     source_path = Path(__file__).resolve()
-    repository = HERE.parents[3]
+    repository = HERE.parents[2]
     campaign1 = (
-        HERE.parents[2]
-        / "mean_field_peeling"
-        / "quadratic_compiler"
+        repository
+        / "data/historical/studies/mfp_quadratic_compiler"
         / "campaign1"
         / "results_order9_q2_order8.json"
     )

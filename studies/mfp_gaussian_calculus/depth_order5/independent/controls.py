@@ -7,6 +7,10 @@ from math import exp, factorial, pi, sqrt
 import json
 from pathlib import Path
 
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
+
 import numpy as np
 from scipy.special import roots_hermitenorm
 
@@ -135,6 +139,7 @@ def linear_formula(hidden_layers: int) -> dict[str, Fraction]:
 
 
 def main() -> None:
+    args = PATHS.parse()
     report = {
         "linear_arbitrary_depth_candidate": {
             "parameter_block_count": "m=H+1",
@@ -173,7 +178,8 @@ def main() -> None:
             "sine_max_abs_change": max(abs(sine96[k] - sine64[k]) for k in "ABC"),
         }
     report["pass"] = all(item["linear"]["pass"] for item in report["depths"].values())
-    path = HERE / "CONTROL_AUDIT.json"
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    path = args.output_dir / "CONTROL_AUDIT.json"
     path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
     print(path.read_text())
     if not report["pass"]:

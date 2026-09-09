@@ -24,7 +24,7 @@ def polynomial_oracle(coefficients):
 def _load_quadratic_reference():
     path = (
         Path(__file__).resolve().parents[2]
-        / "quadratic_compiler"
+        / "mfp_quadratic_compiler"
         / "finite_width_jet_reference.py"
     )
     spec = importlib.util.spec_from_file_location("quadratic_jet_reference", path)

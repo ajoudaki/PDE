@@ -20,7 +20,10 @@ from pathlib import Path
 
 
 HERE = Path(__file__).resolve().parent
-MAP_PATH = HERE / "FULL_L2_PAIRED_ORDER5_MAP.json"
+try:
+    from .map_inputs import load_map, parse_map_path
+except ImportError:
+    from map_inputs import load_map, parse_map_path
 
 
 def poly_mul(left: dict[int, Fraction], right: dict[int, Fraction]):
@@ -152,8 +155,8 @@ def raw_atom(exponent, w: Decimal, center: Decimal, delta: Decimal) -> Decimal:
     return answer
 
 
-def load_collapsed_map():
-    data = json.loads(MAP_PATH.read_text())
+def load_collapsed_map(map_path=None):
+    data = load_map(map_path)
     combined: dict[tuple[tuple[int, ...], ...], Fraction] = defaultdict(Fraction)
     for term in data["paired_map"]:
         key = tuple(sorted(tuple(atom["exponent"]) for atom in term["atoms"]))
@@ -161,12 +164,12 @@ def load_collapsed_map():
     return {key: value for key, value in combined.items() if value}
 
 
-def evaluate(w_text: str, center_text: str = "2", delta_text: str = "0.1"):
+def evaluate(w_text: str, center_text: str = "2", delta_text: str = "0.1", *, map_path=None):
     getcontext().prec = 100
     w = Decimal(w_text)
     center = Decimal(center_text)
     delta = Decimal(delta_text)
-    expression = load_collapsed_map()
+    expression = load_collapsed_map(map_path)
     atoms = {atom for monomial in expression for atom in monomial}
     raw_q = raw_atom((2, 0, 0, 0, 0, 0), w, center, delta)
     scale = raw_q.sqrt()
@@ -184,8 +187,9 @@ def evaluate(w_text: str, center_text: str = "2", delta_text: str = "0.1"):
 
 
 def main():
+    map_path = parse_map_path()
     for w in ("0.2", "0.1", "0.05", "0.025", "0.0125", "0.00625"):
-        value, q, atoms, terms = evaluate(w)
+        value, q, atoms, terms = evaluate(w, map_path=map_path)
         print(w, value, "w3", value * Decimal(w) ** 3, "w1", value * Decimal(w), "q", q)
     print("atoms", atoms, "terms", terms)
 

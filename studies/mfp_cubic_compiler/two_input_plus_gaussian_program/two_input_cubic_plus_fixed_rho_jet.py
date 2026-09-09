@@ -19,9 +19,11 @@ Progress = Callable[[str], None]
 HERE = Path(__file__).resolve().parent
 ORDER9_PROTOCOL = HERE / "ORDER9_FIXED_RHO_PROTOCOL.md"
 BASE_ENGINE = HERE / "two_input_cubic_plus_jet.py"
-ORDER3_RESULTS = HERE / "results_order3.json"
+ORDER3_RESULTS = (
+    HERE.parents[2] / "data/historical/studies/mfp_cubic_compiler/two_input_plus_gaussian_program/results_order3.json"
+)
 ONE_INPUT_RESULTS = (
-    HERE.parent / "depth2_gaussian_program" / "results_order9.json"
+    HERE.parents[2] / "data/historical/studies/mfp_cubic_compiler/depth2_gaussian_program/results_order9.json"
 )
 
 EXPECTED_SHA256 = {

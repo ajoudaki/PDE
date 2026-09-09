@@ -7,7 +7,10 @@ and the byte-reconstructed final report.  ``compare_frozen.py`` is the full
 literal replay when a coefficient artifact changes.
 """
 
-from __future__ import annotations
+raise RuntimeError(
+    "archive-only frozen-promotion replay: its report/freeze pipeline is retired; "
+    "migration does not authorize rebuilding historical evidence or seals"
+)
 
 import hashlib
 import json

@@ -10,6 +10,12 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[5]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 
 
 Adjacency = tuple[tuple[int, ...], ...]
@@ -107,7 +113,9 @@ def report() -> dict[str, object]:
 
 
 if __name__ == "__main__":
+    args = PATHS.parse()
     result = report()
-    path = Path(__file__).resolve().parent / "F7_TREE_ROADMAP_ROUTE_A.json"
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    path = args.output_dir / "F7_TREE_ROADMAP_ROUTE_A.json"
     path.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     print(json.dumps(result, indent=2, sort_keys=True))

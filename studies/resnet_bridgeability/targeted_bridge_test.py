@@ -29,9 +29,9 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parents[1]
-AUDIT_SOURCE = ROOT / "pde_proof_obligation_audit" / "source"
+AUDIT_SOURCE = ROOT / "resnet_proof_audit" / "source"
 CANONICAL_SOURCE = (
-    ROOT / "activation_linearity_smoking_gun" / "source" / "src"
+    ROOT / "resnet_activation_controls" / "source" / "src"
 )
 for source in (AUDIT_SOURCE, CANONICAL_SOURCE):
     if str(source) not in sys.path:
@@ -65,7 +65,7 @@ from dense_pde.operator_galerkin import (  # noqa: E402
 
 PROTOCOL_PATH = (
     ROOT
-    / "pde_proof_obligation_audit"
+    / "resnet_proof_audit"
     / "protocol"
     / "preregistered_protocol.json"
 )

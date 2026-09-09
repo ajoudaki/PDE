@@ -7,9 +7,15 @@ from fractions import Fraction
 from math import exp, pi, sqrt
 from pathlib import Path
 import re
+import sys
 
 import numpy as np
 from numpy.polynomial.hermite import hermgauss
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[4]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 
 
 ATOM = re.compile(r"M_\{([0-9]{6})\}")
@@ -87,11 +93,13 @@ def prediction(quadrature_order: int = 96) -> dict[str, object]:
 
 
 def main() -> None:
+    args = PATHS.parse()
     outputs = {
         str(order): prediction(order)
         for order in (64, 96, 128)
     }
-    target = HERE / "NORMALIZED_SINE_FROZEN_PREDICTION.json"
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    target = args.output_dir / "NORMALIZED_SINE_FROZEN_PREDICTION.json"
     target.write_text(json.dumps(outputs, indent=2, sort_keys=True) + "\n")
     print(json.dumps(outputs, indent=2, sort_keys=True))
 

@@ -10,12 +10,15 @@ import time
 
 import numpy as np
 
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
+
 from ...depth.model import DepthState
 from .finite_width_hidden_jet import derivative_hidden_jet
 
 
 HERE = Path(__file__).resolve().parent
-RAW = HERE / "sine_raw"
 ALLOCATIONS = {16: 1200, 32: 800, 64: 400, 128: 150}
 SEED_ORIGIN = 88_000_000
 PREDICTION_SHA256 = "18486522767f70596fa3f76058662fb4024e7c0c38fd0268005c1f77707aac27"
@@ -56,8 +59,9 @@ def one_observation(width: int, seed: int) -> float:
     return jet.gamma(2, 0, 4)
 
 
-def collect(width: int, count: int, cell: int) -> np.ndarray:
-    RAW.mkdir(exist_ok=True)
+def collect(width: int, count: int, cell: int, *, output_dir=None) -> np.ndarray:
+    RAW = PATHS.require_output(output_dir or PATHS.input_dir() / "sine_raw")
+    RAW.mkdir(parents=True, exist_ok=True)
     path = RAW / f"gamma04_H2_n{width}.npy"
     if path.exists():
         values = list(np.asarray(np.load(path), dtype=np.float64))
@@ -134,10 +138,14 @@ def fit(cells: list[dict[str, object]], prediction: float) -> dict[str, object]:
 
 
 def main() -> None:
-    exact = json.loads((HERE / "POST_FREEZE_EXACT_AUDIT.json").read_text())
+    args = PATHS.parse(inputs=True)
+    exact_path = args.input_dir / "POST_FREEZE_EXACT_AUDIT.json"
+    if args.historical_inputs and not exact_path.exists():
+        exact_path = HERE / "POST_FREEZE_EXACT_AUDIT.json"
+    exact = json.loads(exact_path.read_text())
     if exact["decision"] != "pass":
         raise RuntimeError("exact audit gate did not pass")
-    prediction_path = HERE / "NORMALIZED_SINE_PREDICTION.json"
+    prediction_path = args.input_dir / "NORMALIZED_SINE_PREDICTION.json"
     digest = hashlib.sha256(prediction_path.read_bytes()).hexdigest()
     if digest != PREDICTION_SHA256:
         raise RuntimeError(f"prediction changed: {digest}")
@@ -148,7 +156,7 @@ def main() -> None:
 
     cells: list[dict[str, object]] = []
     for cell, (width, count) in enumerate(ALLOCATIONS.items()):
-        cells.append(summarize(collect(width, count, cell), width, cell))
+        cells.append(summarize(collect(width, count, cell, output_dir=args.output_dir / "sine_raw"), width, cell))
     fitted = fit(cells, prediction)
     if fitted.get("valid") and abs(float(fitted["z"])) <= 3:
         decision = "pass"
@@ -157,7 +165,7 @@ def main() -> None:
     else:
         decision = "inconclusive"
     payload = {
-        "contract": "NONPOLYNOMIAL_EXPERIMENT_CONTRACT.md",
+        "contract": str(HERE / "NONPOLYNOMIAL_EXPERIMENT_CONTRACT.md"),
         "prediction_sha256": digest,
         "activation": "sin(x)/sqrt((1-exp(-2))/2)",
         "hidden_depth": 2,
@@ -169,7 +177,8 @@ def main() -> None:
         "decision": decision,
         "claim_level": "empirical finite-width regression only",
     }
-    path = HERE / "NORMALIZED_SINE_EXPERIMENT.json"
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    path = args.output_dir / "NORMALIZED_SINE_EXPERIMENT.json"
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     print(json.dumps({"decision": decision, "fit": fitted}, indent=2, sort_keys=True))
 

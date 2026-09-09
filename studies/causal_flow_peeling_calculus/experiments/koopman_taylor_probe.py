@@ -8,12 +8,16 @@ import json
 import math
 from dataclasses import dataclass
 from pathlib import Path
+import sys
 
 import numpy as np
 from scipy.integrate import solve_ivp
 
 
-OUT = Path(__file__).resolve().parent / "outputs" / "koopman_taylor_v3"
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 WIDTHS = (128, 256, 512)
 REPLICATES = {128: 4, 256: 3, 512: 2}
 K_MAX = 80
@@ -279,6 +283,7 @@ def summarize(records: list[dict[str, float]]) -> dict[str, object]:
 
 
 def main() -> None:
+    OUT = PATHS.parse(output_relative="experiments/outputs/koopman_taylor_v3").output_dir
     OUT.mkdir(parents=True, exist_ok=True)
     validation_report = validation()
     print("validation", json.dumps(validation_report), flush=True)

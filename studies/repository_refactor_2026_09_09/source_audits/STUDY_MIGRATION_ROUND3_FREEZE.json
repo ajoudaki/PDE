@@ -1,0 +1,601 @@
+{
+  "status": "frozen",
+  "owned_files": 56,
+  "delegated_prior_contributions": 3,
+  "new_regression_tests": 32,
+  "bounded_baseline_checks": 83,
+  "no_write_cli_checks": 8,
+  "source_edits_pending": false,
+  "files": [
+    {
+      "path": "/home/amir/Codes/PDE/studies/resnet_generalization/generalization_paths.py",
+      "relative_path": "studies/resnet_generalization/generalization_paths.py",
+      "group": "F1",
+      "added": true,
+      "sha256": "46576a4e2f2af3e81f733442d96226e47598a88de771aed1cbe97c2e8616df35",
+      "current_sha256": "46576a4e2f2af3e81f733442d96226e47598a88de771aed1cbe97c2e8616df35",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_migration_paths.py",
+      "relative_path": "studies/resnet_generalization/tests/test_migration_paths.py",
+      "group": "F1",
+      "added": true,
+      "sha256": "571360e93ca31586e8fe51bdc92cfd9b60b4304f79fc3dbd212cfb731d0b0fa3",
+      "current_sha256": "571360e93ca31586e8fe51bdc92cfd9b60b4304f79fc3dbd212cfb731d0b0fa3",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/resnet_generalization/protocol/run_grid.py",
+      "relative_path": "studies/resnet_generalization/protocol/run_grid.py",
+      "group": "F1",
+      "added": false,
+      "sha256": "b835a8bba29060da38c18624112dbe16999c62e34758c33cdd5447d2354e424e",
+      "current_sha256": "b835a8bba29060da38c18624112dbe16999c62e34758c33cdd5447d2354e424e",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/resnet_generalization/protocol/reproduce_generalization.py",
+      "relative_path": "studies/resnet_generalization/protocol/reproduce_generalization.py",
+      "group": "F1",
+      "added": false,
+      "sha256": "156b9b565ec7111df26d18403888b38e175114a3aca1747a5b1406025c7fd157",
+      "current_sha256": "156b9b565ec7111df26d18403888b38e175114a3aca1747a5b1406025c7fd157",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/resnet_generalization/protocol/reproduce_generalization_postfreeze.py",
+      "relative_path": "studies/resnet_generalization/protocol/reproduce_generalization_postfreeze.py",
+      "group": "F1",
+      "added": false,
+      "sha256": "b171c3fcfceb29b1bff1e5985ef186da2728673170a2aeb2212cf0aad6a16c44",
+      "current_sha256": "b171c3fcfceb29b1bff1e5985ef186da2728673170a2aeb2212cf0aad6a16c44",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/resnet_generalization/pde_precheck.py",
+      "relative_path": "studies/resnet_generalization/pde_precheck.py",
+      "group": "F1",
+      "added": false,
+      "sha256": "96af16286d7f54f742b7809f1916c8bae72fc1353b03589d8a988b358399691a",
+      "current_sha256": "96af16286d7f54f742b7809f1916c8bae72fc1353b03589d8a988b358399691a",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py",
+      "relative_path": "studies/resnet_generalization/analyze_generalization.py",
+      "group": "F1",
+      "added": false,
+      "sha256": "82e52c13d86fc096d02a6e6bc71105f1b5c0c8231092d1d22f8c936b401174e8",
+      "current_sha256": "82e52c13d86fc096d02a6e6bc71105f1b5c0c8231092d1d22f8c936b401174e8",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/resnet_generalization/verify_study.py",
+      "relative_path": "studies/resnet_generalization/verify_study.py",
+      "group": "F1",
+      "added": false,
+      "sha256": "1a1bc9fd4c98ee7f9d2e7af3e6a0eabbade7e6745850fc718d398e5000bbc6bd",
+      "current_sha256": "1a1bc9fd4c98ee7f9d2e7af3e6a0eabbade7e6745850fc718d398e5000bbc6bd",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/resnet_generalization/run_pde.py",
+      "relative_path": "studies/resnet_generalization/run_pde.py",
+      "group": "F1",
+      "added": false,
+      "sha256": "66d21333aa8073ef13a55e1d2caeac98bd9a5fc4f20d9846e3ab028a7f993b67",
+      "current_sha256": "66d21333aa8073ef13a55e1d2caeac98bd9a5fc4f20d9846e3ab028a7f993b67",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/resnet_generalization/run_exact_reference.py",
+      "relative_path": "studies/resnet_generalization/run_exact_reference.py",
+      "group": "F1",
+      "added": false,
+      "sha256": "ad6c5c05ea7e8b9d590e0b7de1e6f5e774dadd3c1d72c909b90a9bdaaf7c2668",
+      "current_sha256": "ad6c5c05ea7e8b9d590e0b7de1e6f5e774dadd3c1d72c909b90a9bdaaf7c2668",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_cubic_compiler/two_input_plus_gaussian_program/audit_symbolic_order5.py",
+      "relative_path": "studies/mfp_cubic_compiler/two_input_plus_gaussian_program/audit_symbolic_order5.py",
+      "group": "F2",
+      "added": false,
+      "sha256": "83e673c69ad8a96b7f2e0f724d2af8069e4fec0b708afe24e0c80b7649d27056",
+      "current_sha256": "83e673c69ad8a96b7f2e0f724d2af8069e4fec0b708afe24e0c80b7649d27056",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_cubic_compiler/two_input_plus_gaussian_program/test_migration_paths.py",
+      "relative_path": "studies/mfp_cubic_compiler/two_input_plus_gaussian_program/test_migration_paths.py",
+      "group": "F2",
+      "added": true,
+      "sha256": "f3bc1c9917dddc5d7587e7f0e5a58f6c72e22e0be526ab388cefdfdb50f4ecaa",
+      "current_sha256": "f3bc1c9917dddc5d7587e7f0e5a58f6c72e22e0be526ab388cefdfdb50f4ecaa",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_finite_width/run_paths.py",
+      "relative_path": "studies/stieltjes_finite_width/run_paths.py",
+      "group": "F3 finite-width",
+      "added": true,
+      "sha256": "6e3f1a9be0970799a1849b3d7c50a4219568ca26df63db66a0bba119ec912ac0",
+      "current_sha256": "6e3f1a9be0970799a1849b3d7c50a4219568ca26df63db66a0bba119ec912ac0",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_finite_width/test_migration_paths.py",
+      "relative_path": "studies/stieltjes_finite_width/test_migration_paths.py",
+      "group": "F3 finite-width",
+      "added": true,
+      "sha256": "6cc4ae45cdd32c945c9a0caa0b94415af6d85564175c4c5ff5ac0cab4ad0569a",
+      "current_sha256": "6cc4ae45cdd32c945c9a0caa0b94415af6d85564175c4c5ff5ac0cab4ad0569a",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_finite_width/run_fresh_calibrated_ratio.py",
+      "relative_path": "studies/stieltjes_finite_width/run_fresh_calibrated_ratio.py",
+      "group": "F3 finite-width",
+      "added": false,
+      "sha256": "ab0a3d7eb2d1fc45b547a641dc7b9c6c94d7f6bcc0f5a6caa5329b489163aef0",
+      "current_sha256": "ab0a3d7eb2d1fc45b547a641dc7b9c6c94d7f6bcc0f5a6caa5329b489163aef0",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_finite_width/run_fresh_order13_median.py",
+      "relative_path": "studies/stieltjes_finite_width/run_fresh_order13_median.py",
+      "group": "F3 finite-width",
+      "added": false,
+      "sha256": "b495220391fa068094f8517196a70fe61e029cdf0f7be9a1e163390c8427958d",
+      "current_sha256": "b495220391fa068094f8517196a70fe61e029cdf0f7be9a1e163390c8427958d",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_finite_width/run_fresh_pair_median.py",
+      "relative_path": "studies/stieltjes_finite_width/run_fresh_pair_median.py",
+      "group": "F3 finite-width",
+      "added": false,
+      "sha256": "5a43416a053d9af8b78694b881f65401235b1b02d8e7f8d1ed33cb2856099c72",
+      "current_sha256": "5a43416a053d9af8b78694b881f65401235b1b02d8e7f8d1ed33cb2856099c72",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_finite_width/run_positive_time_pair_median.py",
+      "relative_path": "studies/stieltjes_finite_width/run_positive_time_pair_median.py",
+      "group": "F3 finite-width",
+      "added": false,
+      "sha256": "d1c5507929ec207237d8d048ecfbc60b10590373a678142111ce44f8a118fd17",
+      "current_sha256": "d1c5507929ec207237d8d048ecfbc60b10590373a678142111ce44f8a118fd17",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_finite_width/jet_control_variate.py",
+      "relative_path": "studies/stieltjes_finite_width/jet_control_variate.py",
+      "group": "F3 finite-width",
+      "added": false,
+      "sha256": "4165ded6394122305f329245ccd45710731a48e5c5b53899d64ce8ccdc333d6e",
+      "current_sha256": "4165ded6394122305f329245ccd45710731a48e5c5b53899d64ce8ccdc333d6e",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_direct_loewner/run_corrected_clock_test.py",
+      "relative_path": "studies/stieltjes_direct_loewner/run_corrected_clock_test.py",
+      "group": "F3 connected direct-Loewner",
+      "added": false,
+      "sha256": "be8c5c27b72ef32f48539a74ccd8ceec418d314f8843ae7d633b933d31c73326",
+      "current_sha256": "be8c5c27b72ef32f48539a74ccd8ceec418d314f8843ae7d633b933d31c73326",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_direct_loewner/simulate_loewner.py",
+      "relative_path": "studies/stieltjes_direct_loewner/simulate_loewner.py",
+      "group": "F3 connected direct-Loewner",
+      "added": false,
+      "sha256": "0d6e35918a04f1dce5bcede5709de18a4d2d710142d249dbce4222e3017c3c96",
+      "current_sha256": "2a69f0ae894b4844e77630337f526abadcefa8ee540d8334ca4528f82ce3814b",
+      "owner": "Boole A10; earlier default contribution only",
+      "matches_passing_snapshot": false
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_direct_loewner/diagnose_blowup.py",
+      "relative_path": "studies/stieltjes_direct_loewner/diagnose_blowup.py",
+      "group": "F3 connected direct-Loewner",
+      "added": false,
+      "sha256": "904e958af97a1bbbc92b3cb05aa0e34b9ccfd4da8c09fe588533424101638160",
+      "current_sha256": "d944c7582ef19949ee147e85aaf712513a59a3281b4415750e53bb1635324948",
+      "owner": "Boole A10; earlier default contribution only",
+      "matches_passing_snapshot": false
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_direct_loewner/run_clock_pilot.py",
+      "relative_path": "studies/stieltjes_direct_loewner/run_clock_pilot.py",
+      "group": "F3 connected direct-Loewner",
+      "added": false,
+      "sha256": "560eafcd8f3969386d9e940ba70e03cca69b3a7b4afcb4de8632f83ae8d1c4e7",
+      "current_sha256": "65b2ede8ae3fdb76d508ece6a8cc69cb776f98d4c1581cf26d8a1751cfaccf22",
+      "owner": "Boole A10; earlier default contribution only",
+      "matches_passing_snapshot": false
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/study_paths.py",
+      "relative_path": "studies/mfp_gaussian_calculus/study_paths.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": true,
+      "sha256": "09de1ab508c56c2c62ad9f696dee81ccbc22b9ab5b8e1e0a834420e288f1cfc2",
+      "current_sha256": "09de1ab508c56c2c62ad9f696dee81ccbc22b9ab5b8e1e0a834420e288f1cfc2",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/test_migration_paths.py",
+      "relative_path": "studies/mfp_gaussian_calculus/test_migration_paths.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": true,
+      "sha256": "b3fa05135b44250908ee018e2168216634e60c0620006068e4512820499561bf",
+      "current_sha256": "b3fa05135b44250908ee018e2168216634e60c0620006068e4512820499561bf",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_h3_sine_regression.py",
+      "relative_path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_h3_sine_regression.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "1ea3788530c851c12f74719a3133f5cb20179d78129fd3844db6fbb3a69cf38f",
+      "current_sha256": "1ea3788530c851c12f74719a3133f5cb20179d78129fd3844db6fbb3a69cf38f",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_h3_curvature_extension.py",
+      "relative_path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_h3_curvature_extension.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "21d81b0edb263d9db9a7fd6be8acd9ee2a1cf357ff8cc194e1cf30f0cab753f2",
+      "current_sha256": "21d81b0edb263d9db9a7fd6be8acd9ee2a1cf357ff8cc194e1cf30f0cab753f2",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/postprocess_h3_sine_regression.py",
+      "relative_path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/postprocess_h3_sine_regression.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "f378649268ba9da6003a13f600a7cd1e5c3af7be46d76eb2fdc6b78cbb5085ca",
+      "current_sha256": "f378649268ba9da6003a13f600a7cd1e5c3af7be46d76eb2fdc6b78cbb5085ca",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/postprocess_h3_curvature_extension.py",
+      "relative_path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/postprocess_h3_curvature_extension.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "fd883f8805c2e764274428aa8f3e888b985c0a70e75de5e72ad0a7d7de954ea3",
+      "current_sha256": "fd883f8805c2e764274428aa8f3e888b985c0a70e75de5e72ad0a7d7de954ea3",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+      "relative_path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "87ddded3c800f3f9b8807fcc551f554ca138fbaf2b20c76d2d53ab88762d5fe2",
+      "current_sha256": "87ddded3c800f3f9b8807fcc551f554ca138fbaf2b20c76d2d53ab88762d5fe2",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/order5/compiler/compare_independent.py",
+      "relative_path": "studies/mfp_gaussian_calculus/order5/compiler/compare_independent.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "c58a697a73842ad9a16501ea03fd0504b60c2e08e6204dbb722dc7fa24105bad",
+      "current_sha256": "c58a697a73842ad9a16501ea03fd0504b60c2e08e6204dbb722dc7fa24105bad",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/order5/compiler/smooth_control.py",
+      "relative_path": "studies/mfp_gaussian_calculus/order5/compiler/smooth_control.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "c9cb68f0ee3b628fbf49132a8407ac29669e8e503e3f5c653d84c6de5cab9476",
+      "current_sha256": "c9cb68f0ee3b628fbf49132a8407ac29669e8e503e3f5c653d84c6de5cab9476",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/order5/compiler/test_population_jet.py",
+      "relative_path": "studies/mfp_gaussian_calculus/order5/compiler/test_population_jet.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "4128cdf9efa2b4e116fd78265af71d349761ca6913af78a2b674ca9773738411",
+      "current_sha256": "4128cdf9efa2b4e116fd78265af71d349761ca6913af78a2b674ca9773738411",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/order5/compiler/generate_artifacts.py",
+      "relative_path": "studies/mfp_gaussian_calculus/order5/compiler/generate_artifacts.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "c86f3f889e41a979102832b3ab6f885680c8bef9714d0505012a08052223cc32",
+      "current_sha256": "c86f3f889e41a979102832b3ab6f885680c8bef9714d0505012a08052223cc32",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/order5/compiler/build_self_contained_report.py",
+      "relative_path": "studies/mfp_gaussian_calculus/order5/compiler/build_self_contained_report.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "7f288e0f87ffebacebf5a076e035e67992c9c043830778460590a20a97047980",
+      "current_sha256": "7f288e0f87ffebacebf5a076e035e67992c9c043830778460590a20a97047980",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/order5/independent/compare_primary.py",
+      "relative_path": "studies/mfp_gaussian_calculus/order5/independent/compare_primary.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "4a6ce2d30a8727f025dd183127fd42e7ccd9af784b2d18394cd411cabc6518e0",
+      "current_sha256": "4a6ce2d30a8727f025dd183127fd42e7ccd9af784b2d18394cd411cabc6518e0",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/order5/independent/nonpolynomial_prediction.py",
+      "relative_path": "studies/mfp_gaussian_calculus/order5/independent/nonpolynomial_prediction.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "ac7d1a8a217877820d27354450bf4e9070a1760b8a937f5215f437fb62342fb5",
+      "current_sha256": "ac7d1a8a217877820d27354450bf4e9070a1760b8a937f5215f437fb62342fb5",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/order5/independent/compare_q0_spots.py",
+      "relative_path": "studies/mfp_gaussian_calculus/order5/independent/compare_q0_spots.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "16f77209b34798b69a72ff49e665af546b65a84ba9d27636945f2952d0ea5208",
+      "current_sha256": "16f77209b34798b69a72ff49e665af546b65a84ba9d27636945f2952d0ea5208",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/order5/independent/audit_controls.py",
+      "relative_path": "studies/mfp_gaussian_calculus/order5/independent/audit_controls.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "b8c66d3276f573c9afdab2263830becac9686516f04bb7ab973a0d2542ec5137",
+      "current_sha256": "b8c66d3276f573c9afdab2263830becac9686516f04bb7ab973a0d2542ec5137",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/order5/independent/freeze_tagged.py",
+      "relative_path": "studies/mfp_gaussian_calculus/order5/independent/freeze_tagged.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "193dcbf5d3d947922fdbdbb67bc504951bd78892a4e9a828aedfbed2efab2d13",
+      "current_sha256": "193dcbf5d3d947922fdbdbb67bc504951bd78892a4e9a828aedfbed2efab2d13",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/order5/independent/interpolate_symbolic_q0.py",
+      "relative_path": "studies/mfp_gaussian_calculus/order5/independent/interpolate_symbolic_q0.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "f14e92abc591a41b9fa7862927e0426c662edb64758950e42226ec379bc26d94",
+      "current_sha256": "f14e92abc591a41b9fa7862927e0426c662edb64758950e42226ec379bc26d94",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/order5/independent/independent_compiler.py",
+      "relative_path": "studies/mfp_gaussian_calculus/order5/independent/independent_compiler.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "140970dc94a1824e1d7349f75ded9ac51821da1ca6fec8ebe53b5adcaf40a6a8",
+      "current_sha256": "140970dc94a1824e1d7349f75ded9ac51821da1ca6fec8ebe53b5adcaf40a6a8",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/order5/audit_hostile.py",
+      "relative_path": "studies/mfp_gaussian_calculus/order5/audit_hostile.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "4aa0a50da7f99de3d25fef391fc5d8309432c42773463530fac1495ed820077a",
+      "current_sha256": "4aa0a50da7f99de3d25fef391fc5d8309432c42773463530fac1495ed820077a",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5/primary/freeze_primary.py",
+      "relative_path": "studies/mfp_gaussian_calculus/depth_order5/primary/freeze_primary.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "9d344788c012f4510bbae6b3b45bd90a6c8acf8dae05cac2c014bd1939d91ddc",
+      "current_sha256": "9d344788c012f4510bbae6b3b45bd90a6c8acf8dae05cac2c014bd1939d91ddc",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5/primary/generate_frozen_artifacts.py",
+      "relative_path": "studies/mfp_gaussian_calculus/depth_order5/primary/generate_frozen_artifacts.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "1b9898146fa9f780c8d470abdcd11cf4bf4b5f96466095fd21cb9e53c48e55ce",
+      "current_sha256": "1b9898146fa9f780c8d470abdcd11cf4bf4b5f96466095fd21cb9e53c48e55ce",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5/primary/build_self_contained_report.py",
+      "relative_path": "studies/mfp_gaussian_calculus/depth_order5/primary/build_self_contained_report.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "dad74e50640ae3dfa2b5923bbb2da8cb48848086969fdd60b2dc868c4750d0d5",
+      "current_sha256": "dad74e50640ae3dfa2b5923bbb2da8cb48848086969fdd60b2dc868c4750d0d5",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5/primary/compare_frozen_routes.py",
+      "relative_path": "studies/mfp_gaussian_calculus/depth_order5/primary/compare_frozen_routes.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "8dad16c6f42c51a6d9a69340242c0d337d669a45b258079cd11bbcf1c0c43f4d",
+      "current_sha256": "8dad16c6f42c51a6d9a69340242c0d337d669a45b258079cd11bbcf1c0c43f4d",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5/primary/normalized_sine_control.py",
+      "relative_path": "studies/mfp_gaussian_calculus/depth_order5/primary/normalized_sine_control.py",
+      "group": "F3 Gaussian and archive guards",
+      "added": false,
+      "sha256": "0044db47c28b7045a8db640c16f5f89831771fca57b6e271b384de95ca5c8ff9",
+      "current_sha256": "0044db47c28b7045a8db640c16f5f89831771fca57b6e271b384de95ca5c8ff9",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_hybrid_campaign/breadth_panel/successive_paths.py",
+      "relative_path": "studies/stieltjes_hybrid_campaign/breadth_panel/successive_paths.py",
+      "group": "A12",
+      "added": true,
+      "sha256": "9b4551fc1eb5cfdc84f264e98457408186d456105ed6a9d55d02677d32d145d0",
+      "current_sha256": "9b4551fc1eb5cfdc84f264e98457408186d456105ed6a9d55d02677d32d145d0",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_hybrid_campaign/breadth_panel/test_migration_paths.py",
+      "relative_path": "studies/stieltjes_hybrid_campaign/breadth_panel/test_migration_paths.py",
+      "group": "A12",
+      "added": true,
+      "sha256": "642e67f9479a79485e6cd996b8b7c4e5af518fa08894548302cf0a8b6f64dd88",
+      "current_sha256": "642e67f9479a79485e6cd996b8b7c4e5af518fa08894548302cf0a8b6f64dd88",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/legacy_runtime.py",
+      "relative_path": "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/legacy_runtime.py",
+      "group": "A12",
+      "added": true,
+      "sha256": "9de259a0d6ae2d6e58fd8ba4857980b3912cf0aa511d1e82e59d25ca1db7a5f9",
+      "current_sha256": "9de259a0d6ae2d6e58fd8ba4857980b3912cf0aa511d1e82e59d25ca1db7a5f9",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/watchdog_launcher.py",
+      "relative_path": "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/watchdog_launcher.py",
+      "group": "A12",
+      "added": false,
+      "sha256": "fee917504a92d3e9222658807baaed10b8a62e31b26b1036209c4215093ac32d",
+      "current_sha256": "fee917504a92d3e9222658807baaed10b8a62e31b26b1036209c4215093ac32d",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/gpu_preflight.py",
+      "relative_path": "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/gpu_preflight.py",
+      "group": "A12",
+      "added": false,
+      "sha256": "db92b02c0e3e6b091830e91ecce37d3c90abe35174db648a37c334a9eac5612e",
+      "current_sha256": "db92b02c0e3e6b091830e91ecce37d3c90abe35174db648a37c334a9eac5612e",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/run_local_qualification.py",
+      "relative_path": "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/run_local_qualification.py",
+      "group": "A12",
+      "added": false,
+      "sha256": "17c97b63e336ca3610796e7f6744511a92489775cef8aac37b7680e690895a4d",
+      "current_sha256": "17c97b63e336ca3610796e7f6744511a92489775cef8aac37b7680e690895a4d",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/adjudicate_local_qualification.py",
+      "relative_path": "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/adjudicate_local_qualification.py",
+      "group": "A12",
+      "added": false,
+      "sha256": "c7e2d4faa94a0b25b93c7d1a31e323e5b93cfa6b362664c59199334f0d613d8b",
+      "current_sha256": "c7e2d4faa94a0b25b93c7d1a31e323e5b93cfa6b362664c59199334f0d613d8b",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_hybrid_campaign/breadth_panel/successive_n4096/run_block.py",
+      "relative_path": "studies/stieltjes_hybrid_campaign/breadth_panel/successive_n4096/run_block.py",
+      "group": "A12",
+      "added": false,
+      "sha256": "80142ca3aede641955e2ef8b1a551f5a25dbee9d0797aace1c6deeb4babce25e",
+      "current_sha256": "80142ca3aede641955e2ef8b1a551f5a25dbee9d0797aace1c6deeb4babce25e",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_hybrid_campaign/breadth_panel/successive_n4096/analyze.py",
+      "relative_path": "studies/stieltjes_hybrid_campaign/breadth_panel/successive_n4096/analyze.py",
+      "group": "A12",
+      "added": false,
+      "sha256": "97faa0efc279930b75397f6c2cd45a12740feca3fc1e4bb93be7a23d434cfa00",
+      "current_sha256": "97faa0efc279930b75397f6c2cd45a12740feca3fc1e4bb93be7a23d434cfa00",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_hybrid_campaign/breadth_panel/successive_n8192/run_block.py",
+      "relative_path": "studies/stieltjes_hybrid_campaign/breadth_panel/successive_n8192/run_block.py",
+      "group": "A12",
+      "added": false,
+      "sha256": "87cbb1344458e85721635f43ea6173987fb8ec3f3e91b45815492f8a10fe7f84",
+      "current_sha256": "87cbb1344458e85721635f43ea6173987fb8ec3f3e91b45815492f8a10fe7f84",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_hybrid_campaign/breadth_panel/successive_n8192/compare_with_n4096.py",
+      "relative_path": "studies/stieltjes_hybrid_campaign/breadth_panel/successive_n8192/compare_with_n4096.py",
+      "group": "A12",
+      "added": false,
+      "sha256": "bc720ed940d2802663f02e4ddb467fc5f2c904ae9f975365d4af2c934e63fadf",
+      "current_sha256": "bc720ed940d2802663f02e4ddb467fc5f2c904ae9f975365d4af2c934e63fadf",
+      "owner": "frozen F1-F3/A12 worker slice",
+      "matches_passing_snapshot": true
+    }
+  ]
+}

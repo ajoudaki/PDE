@@ -83,7 +83,7 @@ def test_serialized_unit_formula_is_in_the_exact_unit_gram_quotient() -> None:
 
 def test_frozen_independent_map_agrees_atom_by_atom() -> None:
     result = compile_factored(5)
-    independent_path = Path(__file__).parents[1] / "independent" / "independent_coefficient_map.json"
+    independent_path = Path(__file__).resolve().parents[4] / "data/historical/studies/mfp_gaussian_calculus/order5/independent/independent_coefficient_map.json"
     document = json.loads(independent_path.read_text())
     for name, root in {
         "A": result.A,
@@ -132,7 +132,7 @@ def test_self_contained_report_embeds_frozen_artifacts_byte_for_byte() -> None:
 
 def test_all_frozen_coefficient_comparisons_report_zero_discrepancies() -> None:
     order5 = Path(__file__).parents[1]
-    combined = json.loads(Path(__file__).with_name("INDEPENDENT_COMPARISON.json").read_text())
+    combined = json.loads((Path(__file__).resolve().parents[4] / "data/historical/studies/mfp_gaussian_calculus/order5/compiler/INDEPENDENT_COMPARISON.json").read_text())
     symbolic = json.loads(
         (order5 / "independent" / "SYMBOLIC_Q0_PRIMARY_COMPARISON.json").read_text()
     )

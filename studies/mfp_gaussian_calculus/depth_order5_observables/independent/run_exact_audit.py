@@ -6,6 +6,10 @@ import hashlib
 import json
 from pathlib import Path
 
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
+
 import numpy as np
 
 from ...depth.model import DepthState, sample_state
@@ -138,8 +142,10 @@ def run() -> dict[str, object]:
 
 
 if __name__ == "__main__":
+    args = PATHS.parse()
     payload = run()
-    path = HERE / "POST_FREEZE_EXACT_AUDIT.json"
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    path = args.output_dir / "POST_FREEZE_EXACT_AUDIT.json"
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     print(
         json.dumps(

@@ -1,0 +1,85 @@
+{
+  "passed": true,
+  "files": [
+    {
+      "path": "studies/mfp_linear_growth_uniform_counterexample/full_l2_paired_transition.py",
+      "change": "routing object only; mathematical PATHS tuple unchanged",
+      "sha256_before": "c1ef6b08a77c7a4090b8dfb28b7132915ea788d499f4537d3ba3cc1852de1578",
+      "sha256_after": "b84959e2afecc6e1933ebf59a62a2baf9e3275d9d8239328cefa2827b5cd8327",
+      "only_permitted_text_edits": true,
+      "normalized_ast_identical": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/independent/forward_contraction.py",
+      "change": "early CLI refusal and first-step callable refusal only; original bodies retained",
+      "sha256_before": "8c92b8307d7aa68f2348f8ca008ac025292159e0afaa7a2c49e614a8641c5ae4",
+      "sha256_after": "f7eb735516f04ef0bc8db8e545640e7982d54241553c6cce0d3718bd681be3ce",
+      "only_permitted_text_edits": true,
+      "normalized_ast_identical": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/independent/reverse_contraction.py",
+      "change": "early CLI refusal and first-step callable refusal only; original bodies retained",
+      "sha256_before": "cf2437327973578e267484090e2a0c3ccb160e3b5451a709d6f7857f46c89b7a",
+      "sha256_after": "1c50b62ba68d976fc28fe228c5143ba9923ad6e7718541aabf638467503e3036",
+      "only_permitted_text_edits": true,
+      "normalized_ast_identical": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/independent/moving_contraction.py",
+      "change": "early CLI refusal and first-step callable refusal only; original bodies retained",
+      "sha256_before": "2b54529863f3ac325c5cd3acca4a967c7d6f15a7a2ad409158d2938b120697e0",
+      "sha256_after": "54bf55c3dfea5334ef06673e539d47a0cef6ddb6508dd2467d54b001baecc47d",
+      "only_permitted_text_edits": true,
+      "normalized_ast_identical": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/gamma04_contraction.py",
+      "change": "early CLI refusal and first-step callable refusal only; original bodies retained",
+      "sha256_before": "a0fc01d7dd480ef1cc47fcad363703baddfda37a4f36979c1b0381cf44e14aba",
+      "sha256_after": "c4883c8fa6513d15b241a548cac220b780413d64b7249afafeef96820af4153a",
+      "only_permitted_text_edits": true,
+      "normalized_ast_identical": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/gamma04_contraction.py",
+      "change": "early CLI refusal and first-step callable refusal only; original bodies retained",
+      "sha256_before": "ab3500ef81a71c7fdace4910c22e064db746df296e023d06b64d24f5fcadfd2a",
+      "sha256_after": "8c4f636b688184fdeefd289150aa2d90b8c11af0cec4b2bb1748c167561d0d86",
+      "only_permitted_text_edits": true,
+      "normalized_ast_identical": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/independent/build_full_report.py",
+      "change": "early CLI refusal and first-step callable refusal only; original bodies retained",
+      "sha256_before": "b976572d2285cd4b8c9daa1388f5ccad2adc7be1a618fd934560d341dcacd939",
+      "sha256_after": "236bcceb8375018b71001e98d2df395244dc53a7d72ad3e239563565dc29c44d",
+      "only_permitted_text_edits": true,
+      "normalized_ast_identical": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/run_checks.py",
+      "change": "early CLI refusal and first-step callable refusal only; original bodies retained",
+      "sha256_before": "3132d59fde5aa5aca3d8d6512775c3fea0b3e07a78374ca3c845975163ae20e1",
+      "sha256_after": "841b7480b51f272a923202ae2c6a73780d41981b319f7d777433d0acacdc2f86",
+      "only_permitted_text_edits": true,
+      "normalized_ast_identical": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/audit_hostile.py",
+      "change": "early CLI refusal and first-step callable refusal only; original bodies retained",
+      "sha256_before": "4aa0a50da7f99de3d25fef391fc5d8309432c42773463530fac1495ed820077a",
+      "sha256_after": "1b75a9ffb4fd899c0e19b545ac9ad52743af74ed76df2b3d82a79884f85dd1b5",
+      "only_permitted_text_edits": true,
+      "normalized_ast_identical": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/independent/depth_assembler.py",
+      "change": "historical path and loader docstring only; parsing/comparison unchanged",
+      "sha256_before": "f4cc2244814f94a7bf817dedce4ee53410b706498f6cd334f8747aa2fac5b69b",
+      "sha256_after": "2d87ca91cebf873a23def3c42c36994a04b9ef08008986468211f84ea1881bc8",
+      "only_permitted_text_edits": true,
+      "normalized_ast_identical": true
+    }
+  ]
+}

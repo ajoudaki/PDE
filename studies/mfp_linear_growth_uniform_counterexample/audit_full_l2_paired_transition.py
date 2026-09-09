@@ -11,7 +11,17 @@ import sys
 
 
 HERE = Path(__file__).resolve().parent
-DATA = json.loads((HERE / "FULL_L2_PAIRED_ORDER5_MAP.json").read_text())
+try:
+    from .map_inputs import load_map, parse_map_path
+except ImportError:
+    from map_inputs import load_map, parse_map_path
+
+DATA = None
+
+
+def data():
+    # No file access at import. Standalone execution selects its input below.
+    return DATA if DATA is not None else load_map()
 
 
 def gaussian_moment(power: int) -> int:
@@ -25,7 +35,7 @@ def gaussian_moment(power: int) -> int:
 
 def collapsed_map():
     answer: dict[tuple[tuple[int, ...], ...], Fraction] = defaultdict(Fraction)
-    for term in DATA["paired_map"]:
+    for term in data()["paired_map"]:
         key = tuple(sorted(tuple(atom["exponent"]) for atom in term["atoms"]))
         answer[key] += Fraction(term["coefficient"])
     return {key: value for key, value in answer.items() if value}
@@ -88,7 +98,7 @@ def principal_weights(expression):
 def layer_principal_weights(layer: str):
     # Perform the same extraction before identifying the two layer alphabets.
     result = [Fraction(0), Fraction(0), Fraction(0)]
-    for term in DATA["paired_map"]:
+    for term in data()["paired_map"]:
         high = [atom for atom in term["atoms"] if any(atom["exponent"][2:])]
         if len(high) != 1 or high[0]["layer"] != layer:
             continue
@@ -123,7 +133,7 @@ def lower_general_principal_certificate():
     """Return the three X-principal terms without evaluating Y slope moments."""
 
     selected = []
-    for index, term in enumerate(DATA["paired_map"]):
+    for index, term in enumerate(data()["paired_map"]):
         high = [atom for atom in term["atoms"] if any(atom["exponent"][2:])]
         if len(high) != 1 or high[0]["layer"] != "X":
             continue
@@ -153,7 +163,7 @@ def maximum_naive_sector_factorization():
     # A moment atom with excess e>0 contributes naively w^(1-e).  Extract
     # the complete w^-5 sector and compare it with the displayed product.
     actual: dict[tuple[tuple[str, tuple[int, ...]], ...], Fraction] = defaultdict(Fraction)
-    for term in DATA["paired_map"]:
+    for term in data()["paired_map"]:
         degree = 0
         key = []
         for atom in term["atoms"]:
@@ -202,7 +212,7 @@ def margin_census():
     census = Counter()
     bad = []
     principal_only = 0
-    for index, term in enumerate(DATA["paired_map"]):
+    for index, term in enumerate(data()["paired_map"]):
         blocks = []
         for atom in term["atoms"]:
             excess, factors = atom_excess(tuple(atom["exponent"]))
@@ -301,8 +311,10 @@ def cubic_principal_weights():
 
 
 def main() -> None:
+    global DATA
+    DATA = load_map(parse_map_path())
     expression = collapsed_map()
-    assert len(DATA["paired_map"]) == 979
+    assert len(data()["paired_map"]) == 979
     assert len(expression) == 954
     assert identity_value(expression) == 20
 
@@ -325,7 +337,7 @@ def main() -> None:
     assert worst_terms == 36
     assert principal_terms == 267
 
-    print("layer-separated terms", len(DATA["paired_map"]))
+    print("layer-separated terms", len(data()["paired_map"]))
     print("unit-layer terms", len(expression))
     print("identity control", identity_value(expression))
     print("quadratic principal raw weights", total)

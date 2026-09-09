@@ -16,27 +16,29 @@ import sympy as sp
 
 Q = Fraction
 HERE = Path(__file__).resolve().parent
-REPO = HERE.parents[3]
+REPO = HERE.parents[2]
 sys.path.insert(0, str(REPO))
 gnf_module = importlib.import_module(
-    "studies.mean_field_peeling.generic_first_stieltjes.b2."
+    "studies.mfp_gaussian_calculus.b2."
     "contracted_gnf_polynomial_reference"
 )
 normal_form_module = importlib.import_module(
-    "studies.mean_field_peeling.generic_first_stieltjes.compiler.normal_form"
+    "studies.mfp_gaussian_calculus.compiler.normal_form"
 )
 evaluate_contracted_directional_gnf = (
     gnf_module.evaluate_contracted_directional_gnf
 )
 PolynomialActivation = normal_form_module.PolynomialActivation
-INPUT = HERE / "results_order3.json"
+INPUT = (
+    HERE.parents[2] / "data/historical/studies/mfp_cubic_compiler/two_input_plus_gaussian_program/results_order3.json"
+)
 PROTOCOL = HERE / "PROTOCOL.md"
 ENGINE = HERE / "two_input_cubic_plus_jet.py"
 GNF_REFERENCE = (
     HERE.parents[1]
-    / "generic_first_stieltjes/b2/contracted_gnf_polynomial_reference.py"
+    / "mfp_gaussian_calculus/b2/contracted_gnf_polynomial_reference.py"
 )
-NORMAL_FORM = HERE.parents[1] / "generic_first_stieltjes/compiler/normal_form.py"
+NORMAL_FORM = HERE.parents[1] / "mfp_gaussian_calculus/compiler/normal_form.py"
 
 EXPECTED_SHA256 = {
     "input": "6d5178f1d044974712ad6be705c9231d1ec4a3c6454c0ad8aa5ea932b27f093b",

@@ -13,10 +13,10 @@ import json
 from pathlib import Path
 from time import perf_counter
 
-from studies.mean_field_peeling.generic_first_stieltjes.order5.compiler.coefficient_map import (
+from studies.mfp_gaussian_calculus.order5.compiler.coefficient_map import (
     expand_coefficient_map,
 )
-from studies.mean_field_peeling.generic_first_stieltjes.order5.compiler.factored_expression import (
+from studies.mfp_gaussian_calculus.order5.compiler.factored_expression import (
     emit_cse,
     walk,
 )
@@ -80,6 +80,7 @@ def write_coefficient_json(path: Path, depth: int, quotient: str, roots) -> dict
 
 
 def main() -> None:
+    raise RuntimeError("archive-only frozen-artifact generator; do not overwrite the already compared primary artifacts")
     parser = argparse.ArgumentParser()
     parser.add_argument("--depth", type=int, choices=(3, 4), required=True)
     args = parser.parse_args()
@@ -154,4 +155,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

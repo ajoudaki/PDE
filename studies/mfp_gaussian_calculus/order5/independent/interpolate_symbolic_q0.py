@@ -118,6 +118,7 @@ def compare(left: Mapping[str, GradedMap], right: Mapping[str, GradedMap]):
 
 
 def main() -> None:
+    raise RuntimeError("archive-only pre-comparison interpolation freeze; migration does not authorize regenerating its seal")
     samples: dict[Fraction, dict[str, NumericMap]] = {}
     for point in POINTS:
         result = compile_layer_tagged(q0=point)

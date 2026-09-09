@@ -10,6 +10,10 @@ from pathlib import Path
 import numpy as np
 from scipy.stats import chi2
 
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
+
 from ....depth.model import sample_state
 from .finite_width_hidden import feature_ascent_hidden_jet
 from .numeric_head import compile_numeric, normalized_sine_moment
@@ -48,7 +52,8 @@ def weighted_affine(widths: np.ndarray, means: np.ndarray, sems: np.ndarray):
     }
 
 
-def run() -> dict[str, object]:
+def run(*, output_dir=None) -> dict[str, object]:
+    output_dir = PATHS.require_output(output_dir or PATHS.input_dir())
     prediction = compile_numeric(2, normalized_sine_moment(96))
     expected = {
         "layer1_q2": float(prediction["layers"][1]["Q2"]),
@@ -81,7 +86,8 @@ def run() -> dict[str, object]:
             }
             raw[width_index, replicate] = [values[name] for name in names]
 
-    raw_path = HERE / "NORMALIZED_SINE_GAMMA04_RAW.npz"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    raw_path = output_dir / "NORMALIZED_SINE_GAMMA04_RAW.npz"
     np.savez_compressed(raw_path, widths=np.asarray(WIDTHS), names=names, values=raw)
     means = raw.mean(axis=1)
     sems = raw.std(axis=1, ddof=1) / sqrt(REPLICATES)
@@ -124,15 +130,16 @@ def run() -> dict[str, object]:
             )
         },
         "command": (
-            "python -m studies.mean_field_peeling.generic_first_stieltjes."
+            "python -m studies.mfp_gaussian_calculus."
             "depth_order5_scalar.multi_observable.independent_route_a."
             "run_sine_regression"
         ),
     }
-    path = HERE / "NORMALIZED_SINE_GAMMA04_RESULT.json"
+    path = output_dir / "NORMALIZED_SINE_GAMMA04_RESULT.json"
     path.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     return result
 
 
 if __name__ == "__main__":
-    print(json.dumps(run(), indent=2, sort_keys=True))
+    args = PATHS.parse()
+    print(json.dumps(run(output_dir=args.output_dir), indent=2, sort_keys=True))
