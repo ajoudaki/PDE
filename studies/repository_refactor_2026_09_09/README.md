@@ -46,6 +46,10 @@ only the maintained, self-contained mathematical library.
   with 56 bounded regression tests.
 - `e93ce49`: remaining comparison-input protection and safe archived helper
   imports, with 60 coordinator checks across the Gaussian/identity slice.
+- `8f523e1`: complete backup-source coverage and unchanged final broad-study
+  and main-patch NOT CLEAN reports, before their subsequent repairs.
+- `5b6515a`: lossless validated replay-root forwarding and the CLEAN isolated
+  eleven-interface Gaussian/identity patch acceptance.
 
 [INVENTORY_BEFORE.json](INVENTORY_BEFORE.json) records the original paths,
 sizes and hashes. [MOVE_MANIFEST.json](MOVE_MANIFEST.json) records relocation.

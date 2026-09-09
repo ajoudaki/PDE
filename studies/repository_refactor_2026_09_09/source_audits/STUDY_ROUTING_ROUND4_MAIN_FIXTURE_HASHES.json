@@ -1,0 +1,434 @@
+[
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_generalization/seal/final",
+    "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271",
+    "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_generalization/restart/final",
+    "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271",
+    "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_generalization/registry/final",
+    "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271",
+    "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_generalization/seal/partial",
+    "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271",
+    "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_generalization/restart/partial",
+    "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271",
+    "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_generalization/registry/partial",
+    "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271",
+    "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_activation_controls/source/seal/final",
+    "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271",
+    "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_activation_controls/source/restart/final",
+    "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271",
+    "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_activation_controls/source/registry/final",
+    "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271",
+    "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_activation_controls/source/seal/partial",
+    "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271",
+    "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_activation_controls/source/restart/partial",
+    "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271",
+    "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_activation_controls/source/registry/partial",
+    "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271",
+    "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_generalization/exact/final",
+    "before": "55006cd634986c15edcc202437e533339ac76025da8b52085871c13c8956fec5",
+    "after": "55006cd634986c15edcc202437e533339ac76025da8b52085871c13c8956fec5"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_generalization/exact/partial",
+    "before": "55006cd634986c15edcc202437e533339ac76025da8b52085871c13c8956fec5",
+    "after": "55006cd634986c15edcc202437e533339ac76025da8b52085871c13c8956fec5"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_activation_controls/source/exact/final",
+    "before": "55006cd634986c15edcc202437e533339ac76025da8b52085871c13c8956fec5",
+    "after": "55006cd634986c15edcc202437e533339ac76025da8b52085871c13c8956fec5"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_activation_controls/source/exact/partial",
+    "before": "55006cd634986c15edcc202437e533339ac76025da8b52085871c13c8956fec5",
+    "after": "55006cd634986c15edcc202437e533339ac76025da8b52085871c13c8956fec5"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_generalization/publication-failure/input",
+    "before": "9ce7e2e8439bc3e6c0648086a4ec21b475364c62824a05c3196711e435d8dffd",
+    "after": "9ce7e2e8439bc3e6c0648086a4ec21b475364c62824a05c3196711e435d8dffd"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_generalization/publication-failure/final",
+    "before": "a110123aec7515dcf9fe51062726fa2798e4b1f2460712f4f828fbd1b2d7c91d",
+    "after": "a110123aec7515dcf9fe51062726fa2798e4b1f2460712f4f828fbd1b2d7c91d"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_activation_controls/source/publication-failure/input",
+    "before": "9ce7e2e8439bc3e6c0648086a4ec21b475364c62824a05c3196711e435d8dffd",
+    "after": "9ce7e2e8439bc3e6c0648086a4ec21b475364c62824a05c3196711e435d8dffd"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_activation_controls/source/publication-failure/final",
+    "before": "a110123aec7515dcf9fe51062726fa2798e4b1f2460712f4f828fbd1b2d7c91d",
+    "after": "a110123aec7515dcf9fe51062726fa2798e4b1f2460712f4f828fbd1b2d7c91d"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_generalization/pde/restart_from/final",
+    "before": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae",
+    "after": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_generalization/pde/case_registry/final",
+    "before": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae",
+    "after": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_generalization/pde/restart_from/partial",
+    "before": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae",
+    "after": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_generalization/pde/case_registry/partial",
+    "before": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae",
+    "after": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_activation_controls/source/pde/restart_from/final",
+    "before": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae",
+    "after": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_activation_controls/source/pde/case_registry/final",
+    "before": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae",
+    "after": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_activation_controls/source/pde/restart_from/partial",
+    "before": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae",
+    "after": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "case": "resnet_activation_controls/source/pde/case_registry/partial",
+    "before": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae",
+    "after": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae"
+  },
+  {
+    "suite": "studies/resnet_activation_controls/tests/test_migration_boundaries.py",
+    "case": "_atomic_text/ordinary",
+    "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e",
+    "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"
+  },
+  {
+    "suite": "studies/resnet_activation_controls/tests/test_migration_boundaries.py",
+    "case": "_atomic_text/hardlink",
+    "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e",
+    "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"
+  },
+  {
+    "suite": "studies/resnet_activation_controls/tests/test_migration_boundaries.py",
+    "case": "_atomic_text/symlink",
+    "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e",
+    "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"
+  },
+  {
+    "suite": "studies/resnet_activation_controls/tests/test_migration_boundaries.py",
+    "case": "_atomic_text/dangling",
+    "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e",
+    "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"
+  },
+  {
+    "suite": "studies/resnet_activation_controls/tests/test_migration_boundaries.py",
+    "case": "_write_once/ordinary",
+    "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e",
+    "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"
+  },
+  {
+    "suite": "studies/resnet_activation_controls/tests/test_migration_boundaries.py",
+    "case": "_write_once/hardlink",
+    "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e",
+    "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"
+  },
+  {
+    "suite": "studies/resnet_activation_controls/tests/test_migration_boundaries.py",
+    "case": "_write_once/symlink",
+    "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e",
+    "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"
+  },
+  {
+    "suite": "studies/resnet_activation_controls/tests/test_migration_boundaries.py",
+    "case": "_write_once/dangling",
+    "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e",
+    "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"
+  },
+  {
+    "suite": "studies/resnet_activation_controls/tests/test_migration_boundaries.py",
+    "case": "seal-root",
+    "before": "eb2af666e2f1d9cadf9f594614a32fbceed99e662f1edebbb1b60a21d417dcc5",
+    "after": "eb2af666e2f1d9cadf9f594614a32fbceed99e662f1edebbb1b60a21d417dcc5"
+  },
+  {
+    "suite": "studies/resnet_proof_audit/tests/test_migration_boundaries.py",
+    "case": "proof-directory",
+    "before": "c53c41f96aa43869ba7239063d584ca131fefa2bf3f70c00abd065512a8a2268",
+    "after": "c53c41f96aa43869ba7239063d584ca131fefa2bf3f70c00abd065512a8a2268"
+  },
+  {
+    "suite": "studies/stieltjes_direct_loewner/test_writer_boundaries.py",
+    "case": "corrected-clock/hardlink",
+    "before": "1452bc8b340806c479ca732632433be4d9e81fb09884be869c66386099c19c93",
+    "after": "1452bc8b340806c479ca732632433be4d9e81fb09884be869c66386099c19c93"
+  },
+  {
+    "suite": "studies/stieltjes_direct_loewner/test_writer_boundaries.py",
+    "case": "corrected-clock/symlink",
+    "before": "1452bc8b340806c479ca732632433be4d9e81fb09884be869c66386099c19c93",
+    "after": "1452bc8b340806c479ca732632433be4d9e81fb09884be869c66386099c19c93"
+  },
+  {
+    "suite": "studies/stieltjes_direct_loewner/test_writer_boundaries.py",
+    "case": "corrected-clock/directory",
+    "before": "1452bc8b340806c479ca732632433be4d9e81fb09884be869c66386099c19c93",
+    "after": "1452bc8b340806c479ca732632433be4d9e81fb09884be869c66386099c19c93"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/breadth_panel/test_acceptance_boundaries.py",
+    "case": "claim_canonical_attempt",
+    "before": "d5a7bcc6aeccf94ae89cd3e62e7e98c83319638aad0ccdd91a5fe81c663bc343",
+    "after": "d5a7bcc6aeccf94ae89cd3e62e7e98c83319638aad0ccdd91a5fe81c663bc343"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/breadth_panel/test_acceptance_boundaries.py",
+    "case": "finish_canonical_attempt",
+    "before": "d5a7bcc6aeccf94ae89cd3e62e7e98c83319638aad0ccdd91a5fe81c663bc343",
+    "after": "d5a7bcc6aeccf94ae89cd3e62e7e98c83319638aad0ccdd91a5fe81c663bc343"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/breadth_panel/test_acceptance_boundaries.py",
+    "case": "validation-named-output",
+    "before": "d9977d40036e7a42a5f7264afc0b9a5ce8d76f81ec169f630e751a07de43553a",
+    "after": "d9977d40036e7a42a5f7264afc0b9a5ce8d76f81ec169f630e751a07de43553a"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n2048/same",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n2048/lexical",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n2048/hardlink",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n2048/symlink",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n4096/same",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n4096/lexical",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n4096/hardlink",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n4096/symlink",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n8192-shard0/same",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n8192-shard0/lexical",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n8192-shard0/hardlink",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n8192-shard0/symlink",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n8192-shard1/same",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n8192-shard1/lexical",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n8192-shard1/hardlink",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n8192-shard1/symlink",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n4096-halfstep/same",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n4096-halfstep/lexical",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n4096-halfstep/hardlink",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "case": "width/--n4096-halfstep/symlink",
+    "before": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e",
+    "after": "83c824a9ea5b7283e5fb011019adccd9e5944cb20c10181901b480d6938ac86e"
+  },
+  {
+    "suite": "studies/stieltjes_proxy_campaign/analysis/tests/test_reference_migration_boundaries.py",
+    "case": "explicit-config/generated",
+    "before": "11553101a9ed4ab1d61daaeeb9a2fd70fa5f16d2b1f19460fcc4ab9d802e98db",
+    "after": "11553101a9ed4ab1d61daaeeb9a2fd70fa5f16d2b1f19460fcc4ab9d802e98db"
+  },
+  {
+    "suite": "studies/stieltjes_proxy_campaign/analysis/tests/test_reference_migration_boundaries.py",
+    "case": "explicit-config/historical",
+    "before": "11553101a9ed4ab1d61daaeeb9a2fd70fa5f16d2b1f19460fcc4ab9d802e98db",
+    "after": "11553101a9ed4ab1d61daaeeb9a2fd70fa5f16d2b1f19460fcc4ab9d802e98db"
+  },
+  {
+    "suite": "studies/stieltjes_proxy_campaign/analysis/tests/test_reference_migration_boundaries.py",
+    "case": "gd_vs_rk4_n4096.py/hardlink",
+    "before": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885",
+    "after": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885"
+  },
+  {
+    "suite": "studies/stieltjes_proxy_campaign/analysis/tests/test_reference_migration_boundaries.py",
+    "case": "gd_vs_rk4_n4096.py/symlink",
+    "before": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885",
+    "after": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885"
+  },
+  {
+    "suite": "studies/stieltjes_proxy_campaign/analysis/tests/test_reference_migration_boundaries.py",
+    "case": "gd_vs_rk4_n4096.py/directory",
+    "before": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885",
+    "after": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885"
+  },
+  {
+    "suite": "studies/stieltjes_proxy_campaign/analysis/tests/test_reference_migration_boundaries.py",
+    "case": "gd_vs_rk4_n8192_point.py/hardlink",
+    "before": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885",
+    "after": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885"
+  },
+  {
+    "suite": "studies/stieltjes_proxy_campaign/analysis/tests/test_reference_migration_boundaries.py",
+    "case": "gd_vs_rk4_n8192_point.py/symlink",
+    "before": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885",
+    "after": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885"
+  },
+  {
+    "suite": "studies/stieltjes_proxy_campaign/analysis/tests/test_reference_migration_boundaries.py",
+    "case": "gd_vs_rk4_n8192_point.py/directory",
+    "before": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885",
+    "after": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885"
+  }
+]

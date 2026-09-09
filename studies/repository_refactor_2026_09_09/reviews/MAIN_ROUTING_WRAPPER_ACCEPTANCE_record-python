@@ -1,0 +1,34 @@
+#!/usr/bin/python3 -IB
+import os
+from pathlib import Path
+import subprocess
+import sys
+sys.path.insert(0, '/tmp/resnet-patch-acceptance.7tppNkr4')
+from runtime import BASE, LONG, QUERY, event, install_audit
+install_audit()
+
+args = sys.argv[1:]
+if len(args) == 4 and args[:3] == ['-B', '-c', QUERY]:
+    event('validation_command', argv=args, cwd=os.getcwd())
+    forced = os.environ.get('PATCH_FORCED_STATUS')
+    if forced is not None:
+        payload = os.environ.get('PATCH_FORCED_STDOUT', '').encode()
+        event('validation_injected_exit', status=int(forced), stdout_hex=payload.hex())
+        sys.stdout.buffer.write(payload)
+        sys.exit(int(forced))
+    env = dict(os.environ, PYTHONPATH=str(BASE / 'bootstrap'), PYTHONDONTWRITEBYTECODE='1')
+    result = subprocess.run([sys.executable, *args], env=env, capture_output=True)
+    event('validation_exit', status=result.returncode, stdout_hex=result.stdout.hex(), stderr=result.stderr.decode(errors='backslashreplace'))
+    sys.stdout.buffer.write(result.stdout)
+    sys.stderr.buffer.write(result.stderr)
+    sys.exit(result.returncode)
+
+allowed = (args == ['-m', 'unittest', 'discover', '-s', 'tests', '-v'] or
+           (len(args) == 5 and args[:4] == ['run_all.py', '--config', 'config/protocol.json', '--output-root']) or
+           (len(args) == 3 and args[:2] == ['make_manifest.py', '--output-root']))
+if not allowed:
+    event('unexpected_command', argv=args)
+    sys.exit(99)
+event('dispatch_recorded', argv=args, argv_hex=[os.fsencode(a).hex() for a in args], cwd=os.getcwd())
+# Inert: never import or execute any recorded command.
+

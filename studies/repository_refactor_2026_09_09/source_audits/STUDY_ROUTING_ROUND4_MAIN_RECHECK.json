@@ -1,0 +1,116 @@
+[
+  {
+    "suite": "studies/resnet_generalization/tests/test_migration_paths.py",
+    "tests": 7,
+    "exit_code": 0,
+    "log": "suite-00.log"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_output_boundaries.py",
+    "tests": 7,
+    "exit_code": 0,
+    "log": "suite-01.log"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_writer_boundaries.py",
+    "tests": 14,
+    "exit_code": 0,
+    "log": "suite-02.log"
+  },
+  {
+    "suite": "studies/resnet_proof_audit/tests/test_trapezoid_compat.py",
+    "tests": 1,
+    "exit_code": 0,
+    "log": "suite-03.log"
+  },
+  {
+    "suite": "studies/stieltjes_finite_width/test_migration_paths.py",
+    "tests": 5,
+    "exit_code": 0,
+    "log": "suite-04.log"
+  },
+  {
+    "suite": "studies/stieltjes_finite_width/test_output_boundaries.py",
+    "tests": 3,
+    "exit_code": 0,
+    "log": "suite-05.log"
+  },
+  {
+    "suite": "studies/stieltjes_finite_width/test_shared_output_paths.py",
+    "tests": 6,
+    "exit_code": 0,
+    "log": "suite-06.log"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/breadth_panel/test_migration_paths.py",
+    "tests": 9,
+    "exit_code": 0,
+    "log": "suite-07.log"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/breadth_panel/test_output_boundaries.py",
+    "tests": 4,
+    "exit_code": 0,
+    "log": "suite-08.log"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32/test_output_boundaries.py",
+    "tests": 6,
+    "exit_code": 0,
+    "log": "suite-09.log"
+  },
+  {
+    "suite": "studies/stieltjes_proxy_campaign/analysis/tests/test_output_boundaries.py",
+    "tests": 8,
+    "exit_code": 0,
+    "log": "suite-10.log"
+  },
+  {
+    "suite": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "tests": 7,
+    "exit_code": 0,
+    "log": "suite-11.log"
+  },
+  {
+    "suite": "studies/resnet_activation_controls/tests/test_migration_boundaries.py",
+    "tests": 13,
+    "exit_code": 0,
+    "log": "suite-12.log"
+  },
+  {
+    "suite": "studies/resnet_proof_audit/tests/test_migration_boundaries.py",
+    "tests": 4,
+    "exit_code": 0,
+    "log": "suite-13.log"
+  },
+  {
+    "suite": "studies/stieltjes_finite_width/test_migration_preflight.py",
+    "tests": 1,
+    "exit_code": 0,
+    "log": "suite-14.log"
+  },
+  {
+    "suite": "studies/stieltjes_direct_loewner/test_writer_boundaries.py",
+    "tests": 3,
+    "exit_code": 0,
+    "log": "suite-15.log"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/breadth_panel/test_acceptance_boundaries.py",
+    "tests": 3,
+    "exit_code": 0,
+    "log": "suite-16.log"
+  },
+  {
+    "suite": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "tests": 2,
+    "exit_code": 0,
+    "log": "suite-17.log"
+  },
+  {
+    "suite": "studies/stieltjes_proxy_campaign/analysis/tests/test_reference_migration_boundaries.py",
+    "tests": 5,
+    "exit_code": 0,
+    "log": "suite-18.log"
+  }
+]

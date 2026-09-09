@@ -1,0 +1,12 @@
+test_existing_child_hardlink_is_rejected_before_truncating_consumer (_inspected_acceptance_suite.SharedOutputPathsTests) ... ok
+test_hardlinked_leaf_is_rejected_too (_inspected_acceptance_suite.SharedOutputPathsTests) ... ok
+test_ordinary_existing_products_remain_usable (_inspected_acceptance_suite.SharedOutputPathsTests) ... ok
+test_symlink_children_roots_and_components_are_rejected (_inspected_acceptance_suite.SharedOutputPathsTests) ... ok
+test_validation_accepts_own_tree_and_scratch_without_creating_them (_inspected_acceptance_suite.SharedOutputPathsTests) ... ok
+test_validation_refuses_source_history_and_other_generated_trees (_inspected_acceptance_suite.SharedOutputPathsTests) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.010s
+
+OK
+ACCEPTANCE_RESULT {"module": "studies/stieltjes_finite_width/test_shared_output_paths.py", "tests": 6, "failures": 0, "errors": 0, "skipped": 0}

@@ -114,9 +114,9 @@ The coordinator has repeated these current, explicitly selected suites:
 
 | Slice | Passing coordinator tests | Independent follow-up |
 |---|---:|---|
-| ResNet/operator/quadratic and metadata routing | 56 | Three latest repaired interfaces plus regression compatibility |
+| ResNet/operator/quadratic and metadata routing | 56 | Two Python interfaces clean in the first patch review; wrapper clean in a fresh repair review |
 | Gaussian/MFP/identity/causal analyzer routing | 60 | CLEAN for eleven latest repaired interfaces plus bounded regression compatibility |
-| Seven-study raw/analysis/archival routing | 92 | Current seven-study migration interfaces |
+| Seven-study raw/analysis/archival routing | 108 | Latest two analyzers and record writer under fresh patch review |
 
 The first slice's seven broad reviews found and motivated CLI forwarding,
 source/input/output separation, checkpoint/export distinction, consumed trace
@@ -128,6 +128,15 @@ tests including those explicitly admitted guide checks. Native checkpoint
 guards received source-only checks, not compilation. The documented native
 export power-filter limitation remains an inherited limitation, not a waived
 migration regression.
+
+The subsequent [three-interface patch review](reviews/MAIN_ROUTING_PATCH_ROUND1_REPORT.md)
+accepted both repaired Python interfaces but found one remaining wrapper
+newline-forwarding defect. Its NOT CLEAN verdict is retained unchanged. The
+lossless wrapper repair is committed at `5b6515a`; all 56 coordinator regression
+tests pass afterward. A fresh isolated [wrapper acceptance](reviews/MAIN_ROUTING_WRAPPER_ACCEPTANCE_report.md)
+is CLEAN at the repaired bytes, with 117 inert invocations and 578 assertions.
+These are process/assertion counts, not 578 additional test methods. Both
+guards and all four pinned files remained unchanged during that review.
 
 The Gaussian slice's fourth broad review confirmed the ten analyzer preflights,
 H3 raw-input protection, report-source preservation, and Stieltjes role/digest
@@ -158,6 +167,17 @@ Its exact 33-file change inventory, 335 unchanged definition ASTs, 24 normalized
 boundary comparisons, and frozen-contract checks are retained in
 [source_audits/STUDY_ROUTING_ROUND3_REPAIRS_handoff.md](source_audits/STUDY_ROUTING_ROUND3_REPAIRS_handoff.md)
 and its companion records.
+
+The [fourth broad review](reviews/STUDY_ROUTING_ROUND4_ACCEPTANCE.md) passed all
+92 existing tests but found two analyzer input/output collisions and a matching
+record's premature return before its stale-partial check. The subsequent
+[five-file repair](source_audits/STUDY_ROUTING_ROUND4_REPAIRS_PATCH_REVIEW.md)
+preserves 148 of 151 original source callables byte-for-byte; exactly reversing
+the specified boundary insertions and block move restores all three complete
+original modules. All original test callables are unchanged. It adds 16 tests,
+and the coordinator passes the complete 108-test allowlist. A fresh isolated
+review of these three repaired interfaces is pending; the broad NOT CLEAN
+report is not relabeled by this repair record.
 
 These are bounded interface checks using AST extraction, mocked scientific
 work, inert metadata and small transport fixtures. They do not scientifically

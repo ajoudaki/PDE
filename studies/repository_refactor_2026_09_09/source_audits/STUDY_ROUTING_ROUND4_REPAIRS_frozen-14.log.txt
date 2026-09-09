@@ -1,0 +1,10 @@
+test_both_analysis_json_csv_writers_use_exclusive_temporaries (_inspected_acceptance_suite.OutputBoundaryTests) ... ok
+test_linked_children_are_rejected_without_writes (_inspected_acceptance_suite.OutputBoundaryTests) ... ok
+test_own_study_and_scratch_remain_valid_without_writes (_inspected_acceptance_suite.OutputBoundaryTests) ... ok
+test_source_history_and_foreign_generated_are_rejected_without_writes (_inspected_acceptance_suite.OutputBoundaryTests) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.046s
+
+OK
+ACCEPTANCE_RESULT {"module": "studies/stieltjes_hybrid_campaign/breadth_panel/test_output_boundaries.py", "tests": 4, "failures": 0, "errors": 0, "skipped": 0}

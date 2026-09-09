@@ -1,0 +1,173 @@
+[
+  {
+    "module": "studies/resnet_activation_controls/tests/test_migration_boundaries.py",
+    "tests": 13,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-00/test.log"
+  },
+  {
+    "module": "studies/resnet_generalization/tests/test_migration_paths.py",
+    "tests": 7,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-01/test.log"
+  },
+  {
+    "module": "studies/resnet_generalization/tests/test_output_boundaries.py",
+    "tests": 7,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-02/test.log"
+  },
+  {
+    "module": "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+    "tests": 7,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-03/test.log"
+  },
+  {
+    "module": "studies/resnet_generalization/tests/test_writer_boundaries.py",
+    "tests": 14,
+    "failures": 0,
+    "errors": 3,
+    "skipped": 0,
+    "exit_code": 1,
+    "log": "/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-04/test.log"
+  },
+  {
+    "module": "studies/resnet_proof_audit/tests/test_migration_boundaries.py",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-05/test.log"
+  },
+  {
+    "module": "studies/resnet_proof_audit/tests/test_trapezoid_compat.py",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-06/test.log"
+  },
+  {
+    "module": "studies/stieltjes_direct_loewner/test_writer_boundaries.py",
+    "tests": 3,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-07/test.log"
+  },
+  {
+    "module": "studies/stieltjes_finite_width/test_migration_paths.py",
+    "tests": 5,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-08/test.log"
+  },
+  {
+    "module": "studies/stieltjes_finite_width/test_migration_preflight.py",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-09/test.log"
+  },
+  {
+    "module": "studies/stieltjes_finite_width/test_output_boundaries.py",
+    "tests": 3,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-10/test.log"
+  },
+  {
+    "module": "studies/stieltjes_finite_width/test_shared_output_paths.py",
+    "tests": 6,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-11/test.log"
+  },
+  {
+    "module": "studies/stieltjes_hybrid_campaign/breadth_panel/test_acceptance_boundaries.py",
+    "tests": 3,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-12/test.log"
+  },
+  {
+    "module": "studies/stieltjes_hybrid_campaign/breadth_panel/test_migration_paths.py",
+    "tests": 9,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-13/test.log"
+  },
+  {
+    "module": "studies/stieltjes_hybrid_campaign/breadth_panel/test_output_boundaries.py",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-14/test.log"
+  },
+  {
+    "module": "studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32/test_output_boundaries.py",
+    "tests": 6,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-15/test.log"
+  },
+  {
+    "module": "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+    "tests": 2,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-16/test.log"
+  },
+  {
+    "module": "studies/stieltjes_proxy_campaign/analysis/tests/test_output_boundaries.py",
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-17/test.log"
+  },
+  {
+    "module": "studies/stieltjes_proxy_campaign/analysis/tests/test_reference_migration_boundaries.py",
+    "tests": 5,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "log": "/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-18/test.log"
+  }
+]

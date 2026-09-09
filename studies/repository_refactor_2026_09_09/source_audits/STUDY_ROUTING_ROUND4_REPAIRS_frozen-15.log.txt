@@ -1,0 +1,12 @@
+test_absolute_traversal_and_unknown_points_refuse_before_writes (_inspected_acceptance_suite.StageVOutputBoundaryTests) ... ok
+test_linked_manifest_or_point_directory_cannot_redirect_finalization (_inspected_acceptance_suite.StageVOutputBoundaryTests) ... ok
+test_manifest_binding_and_reservation_mismatches_preserve_attempt (_inspected_acceptance_suite.StageVOutputBoundaryTests) ... ok
+test_missing_named_attempt_is_a_no_write_no_op (_inspected_acceptance_suite.StageVOutputBoundaryTests) ... ok
+test_reserved_matching_running_attempt_can_be_finalized (_inspected_acceptance_suite.StageVOutputBoundaryTests) ... ok
+test_timeout_writer_preserves_existing_temporary (_inspected_acceptance_suite.StageVOutputBoundaryTests) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.094s
+
+OK
+ACCEPTANCE_RESULT {"module": "studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32/test_output_boundaries.py", "tests": 6, "failures": 0, "errors": 0, "skipped": 0}

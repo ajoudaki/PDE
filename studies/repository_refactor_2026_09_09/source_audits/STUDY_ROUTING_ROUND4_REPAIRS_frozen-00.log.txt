@@ -1,0 +1,28 @@
+test_all_named_finals_and_partials_protect_explicit_protocol_and_cases (_inspected_acceptance_suite.AnalysisRoutingTests) ... ok
+test_distinct_regular_products_and_sibling_inputs_remain_usable (_inspected_acceptance_suite.AnalysisRoutingTests) ... ok
+test_each_frozen_map_role_protects_finals_and_partials_in_both_seals (_inspected_acceptance_suite.AnalysisRoutingTests) ... ok
+test_each_stale_partial_refuses_before_loading_or_publication (_inspected_acceptance_suite.AnalysisRoutingTests) ... ok
+test_original_output_links_and_named_aliases_refuse_before_ingestion (_inspected_acceptance_suite.AnalysisRoutingTests) ... ok
+test_preflight_names_and_guard_order_match_actual_publication_ast (_inspected_acceptance_suite.AnalysisRoutingTests) ... ok
+test_selected_seal_and_archive_paths_protect_all_named_outputs (_inspected_acceptance_suite.AnalysisRoutingTests) ... ok
+test_analysis_refuses_output_alias_before_loading_inputs (_inspected_acceptance_suite.MigrationBoundaryTests) ... ok
+test_intermediate_aliases_and_stale_files_preserve_inputs (_inspected_acceptance_suite.MigrationBoundaryTests) ... ok
+test_matching_final_does_not_hide_an_occupied_partial (_inspected_acceptance_suite.MigrationBoundaryTests) ... ok
+test_named_directory_and_final_aliases_refuse_before_mkdir (_inspected_acceptance_suite.MigrationBoundaryTests) ... ok
+test_regular_writes_and_write_once_idempotence_remain_available (_inspected_acceptance_suite.MigrationBoundaryTests) ... ok
+test_seal_label_consumer_uses_producers_generated_evidence_root (_inspected_acceptance_suite.MigrationBoundaryTests) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 5.690s
+
+OK
+FIXTURE_SHA256 {"case": "_atomic_text/ordinary", "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e", "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"}
+FIXTURE_SHA256 {"case": "_atomic_text/hardlink", "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e", "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"}
+FIXTURE_SHA256 {"case": "_atomic_text/symlink", "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e", "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"}
+FIXTURE_SHA256 {"case": "_atomic_text/dangling", "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e", "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"}
+FIXTURE_SHA256 {"case": "_write_once/ordinary", "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e", "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"}
+FIXTURE_SHA256 {"case": "_write_once/hardlink", "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e", "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"}
+FIXTURE_SHA256 {"case": "_write_once/symlink", "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e", "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"}
+FIXTURE_SHA256 {"case": "_write_once/dangling", "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e", "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"}
+FIXTURE_SHA256 {"case": "seal-root", "before": "eb2af666e2f1d9cadf9f594614a32fbceed99e662f1edebbb1b60a21d417dcc5", "after": "eb2af666e2f1d9cadf9f594614a32fbceed99e662f1edebbb1b60a21d417dcc5"}
+ACCEPTANCE_RESULT {"module": "studies/resnet_activation_controls/tests/test_migration_boundaries.py", "tests": 13, "failures": 0, "errors": 0, "skipped": 0}

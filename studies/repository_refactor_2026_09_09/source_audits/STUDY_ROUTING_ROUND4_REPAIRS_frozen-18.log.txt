@@ -1,0 +1,19 @@
+test_both_sidechecks_load_reference_before_cuda_and_fail_read_only (_inspected_acceptance_suite.ReferenceMigrationTests) ... ok
+test_both_sidechecks_refuse_missing_reference_before_cuda_or_output_creation (_inspected_acceptance_suite.ReferenceMigrationTests) ... ok
+test_explicit_config_accepts_generated_and_historical_named_summary (_inspected_acceptance_suite.ReferenceMigrationTests) ... ok
+test_named_outputs_reject_own_reference_aliases_before_loading_or_cuda (_inspected_acceptance_suite.ReferenceMigrationTests) ... ok
+test_omitted_config_refuses_before_summary_read (_inspected_acceptance_suite.ReferenceMigrationTests) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.042s
+
+OK
+FIXTURE_SHA256 {"case": "explicit-config/generated", "before": "11553101a9ed4ab1d61daaeeb9a2fd70fa5f16d2b1f19460fcc4ab9d802e98db", "after": "11553101a9ed4ab1d61daaeeb9a2fd70fa5f16d2b1f19460fcc4ab9d802e98db"}
+FIXTURE_SHA256 {"case": "explicit-config/historical", "before": "11553101a9ed4ab1d61daaeeb9a2fd70fa5f16d2b1f19460fcc4ab9d802e98db", "after": "11553101a9ed4ab1d61daaeeb9a2fd70fa5f16d2b1f19460fcc4ab9d802e98db"}
+FIXTURE_SHA256 {"case": "gd_vs_rk4_n4096.py/hardlink", "before": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885", "after": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885"}
+FIXTURE_SHA256 {"case": "gd_vs_rk4_n4096.py/symlink", "before": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885", "after": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885"}
+FIXTURE_SHA256 {"case": "gd_vs_rk4_n4096.py/directory", "before": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885", "after": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885"}
+FIXTURE_SHA256 {"case": "gd_vs_rk4_n8192_point.py/hardlink", "before": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885", "after": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885"}
+FIXTURE_SHA256 {"case": "gd_vs_rk4_n8192_point.py/symlink", "before": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885", "after": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885"}
+FIXTURE_SHA256 {"case": "gd_vs_rk4_n8192_point.py/directory", "before": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885", "after": "786953e7772f6ca2ebfd0fadb7b932411c0c1a3aa26907a03058b316885fe885"}
+ACCEPTANCE_RESULT {"module": "studies/stieltjes_proxy_campaign/analysis/tests/test_reference_migration_boundaries.py", "tests": 5, "failures": 0, "errors": 0, "skipped": 0}

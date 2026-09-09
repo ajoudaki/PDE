@@ -1,0 +1,15 @@
+test_all_six_legacy_main_guards_precede_work (_inspected_acceptance_suite.SuccessivePathTests) ... ok
+test_attempt_reservation_and_failure_finalization_refuse_before_writes (_inspected_acceptance_suite.SuccessivePathTests) ... ok
+test_comparison_forwards_selected_roots_to_both_widths (_inspected_acceptance_suite.SuccessivePathTests) ... ok
+test_comparison_transform_refusal_creates_no_output (_inspected_acceptance_suite.SuccessivePathTests) ... ok
+test_explicit_inputs_and_outputs_are_not_inferred_from_cwd (_inspected_acceptance_suite.SuccessivePathTests) ... ok
+test_fresh_and_historical_roots_are_explicit (_inspected_acceptance_suite.SuccessivePathTests) ... ok
+test_n8192_frozen_transform_still_refuses_before_work (_inspected_acceptance_suite.SuccessivePathTests) ... ok
+test_selected_block_manifest_and_array_roots (_inspected_acceptance_suite.SuccessivePathTests) ... ok
+test_source_and_history_outputs_are_rejected (_inspected_acceptance_suite.SuccessivePathTests) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.069s
+
+OK
+ACCEPTANCE_RESULT {"module": "studies/stieltjes_hybrid_campaign/breadth_panel/test_migration_paths.py", "tests": 9, "failures": 0, "errors": 0, "skipped": 0}

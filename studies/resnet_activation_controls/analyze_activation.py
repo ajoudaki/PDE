@@ -2512,6 +2512,50 @@ def _array_sha256(array: np.ndarray) -> str:
     return digest.hexdigest()
 
 
+def _preflight_analysis_outputs(
+    args: argparse.Namespace, seals: Sequence[Mapping[str, Any]] = (),
+) -> None:
+    """Guard all named products, including inputs named by verified seals."""
+    root = Path(args.root).resolve()
+    pde_dir = Path(args.pde_dir).resolve()
+    dense_dir = Path(args.dense_dir).resolve()
+    output = Path(args.output_dir)
+    inputs = [
+        Path(args.protocol), Path(args.cases), Path(__file__),
+        pde_dir.parent / "PDE_STAGE_SEAL.json",
+        pde_dir.parent / "DENSE_STAGE_SEAL.json",
+        *pde_dir.glob("*.npz"), *dense_dir.glob("*.npz"),
+    ]
+    for seal in seals:
+        for map_name in ("source_files", "protocol_files", "execution_files"):
+            files = seal.get(map_name)
+            if isinstance(files, dict):
+                inputs.extend(root / relative for relative in files)
+    sources = {path.resolve() for path in inputs}
+    destinations = (
+        output / "summary.json",
+        output / "metrics.csv",
+        output / "figure_time_curves.csv",
+        output / "figure_gram_depth_curves.csv",
+        output / "figure_activation_evidence.csv",
+        output / "figure_progress_gram_paths.csv",
+        output / "figure_depth_width_controls.csv",
+        output / "figure_bootstrap_intervals.csv",
+        output / "figure_cross_prediction.csv",
+    )
+    for selected in destinations:
+        # Keep the original output selection available to the link guard.
+        final = require_output(selected)
+        partial = require_output(selected.with_name(selected.name + ".partial"))
+        for target in (final, partial):
+            if any(target == source or (
+                target.exists() and source.exists() and target.samefile(source)
+            ) for source in sources):
+                raise ValueError(f"analysis output aliases an input: {target}")
+        if partial.exists():
+            raise FileExistsError(f"stale partial blocks analysis output: {partial}")
+
+
 def run_analysis(args: argparse.Namespace) -> dict[str, Any]:
     root = Path(args.root).resolve()
     protocol_path = Path(args.protocol).resolve()
@@ -2519,6 +2563,7 @@ def run_analysis(args: argparse.Namespace) -> dict[str, Any]:
     pde_dir = Path(args.pde_dir).resolve()
     dense_dir = Path(args.dense_dir).resolve()
     output_dir = require_output(Path(args.output_dir))
+    _preflight_analysis_outputs(args)
     protocol = _json(protocol_path)
     if tuple(protocol.get("primary_cases", ())) != ("C0", "C1", "C2", "C4"):
         raise AnalysisIntegrityError("unexpected primary-case registry")
@@ -2573,6 +2618,7 @@ def run_analysis(args: argparse.Namespace) -> dict[str, Any]:
         expected_paths=dense_paths,
         root=evidence_root,
     )
+    _preflight_analysis_outputs(args, (pde_seal, dense_seal))
     _verify_frozen_maps(pde_seal, root, "PDE seal")
     _verify_frozen_maps(dense_seal, root, "dense seal")
     if dense_seal.get("pde_seal_sha256") != _sha256(pde_seal_path):
@@ -2802,6 +2848,7 @@ def run_analysis(args: argparse.Namespace) -> dict[str, Any]:
         "decision": decision,
         "provenance": provenance,
     }
+    _preflight_analysis_outputs(args, (pde_seal, dense_seal))
     output_dir.mkdir(parents=True, exist_ok=True)
     metrics_path = output_dir / "metrics.csv"
     summary_path = output_dir / "summary.json"

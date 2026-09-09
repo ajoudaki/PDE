@@ -1,0 +1,9 @@
+test_jet_child_aliases_refuse_before_reading_or_regenerating (_inspected_acceptance_suite.OutputBoundaryTests) ... ok
+test_own_generated_and_scratch_remain_valid_without_writes (_inspected_acceptance_suite.OutputBoundaryTests) ... ok
+test_source_history_and_foreign_generated_are_rejected_without_writes (_inspected_acceptance_suite.OutputBoundaryTests) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.017s
+
+OK
+ACCEPTANCE_RESULT {"module": "studies/stieltjes_finite_width/test_output_boundaries.py", "tests": 3, "failures": 0, "errors": 0, "skipped": 0}

@@ -1403,14 +1403,66 @@ def _write_processed_seal(
     )
 
 
+def _preflight_analysis_outputs(args: argparse.Namespace) -> None:
+    """Check named publications without reading evidence or creating outputs."""
+    root = Path(args.root).resolve()
+    results = Path(args.results_dir)
+    output = Path(args.output_dir)
+    figures = Path(args.figures_dir)
+    inputs = [
+        root / "protocol" / "generalization_protocol.json",
+        root / "protocol" / "analysis_plan.json",
+        root / "protocol" / "cases.json",
+        root / "protocol" / "FROZEN_DYNAMICS_MANIFEST.json",
+        root / "protocol" / "run_grid.py",
+        root / "pde_precheck.py",
+        Path(__file__),
+        results / "PDE_STAGE_SEAL.json",
+        results / "DENSE_STAGE_SEAL.json",
+        results / "pde_numerical_decision.json",
+        *results.resolve().rglob("*.npz"),
+    ]
+    sources = {path.resolve() for path in inputs}
+    destinations = (
+        output / "summary.json",
+        output / "case_metrics.csv",
+        output / "numerical_metrics.csv",
+        output / "plateau_metrics.csv",
+        figures / "all_case_errors.png",
+        figures / "loss_curves.png",
+        figures / "gram_motion_curves.png",
+        Path(args.report),
+        results / "PROCESSED_STAGE_SEAL.json",
+    )
+    seen: set[Path] = set()
+    for selected in destinations:
+        # Validate the selected spelling, not only its resolved destination.
+        final = require_output(selected)
+        partial = require_output(selected.with_name(selected.name + ".partial"))
+        for target in (final, partial):
+            if any(target == source or (
+                target.exists() and source.exists() and target.samefile(source)
+            ) for source in sources):
+                raise ValueError(f"analysis output aliases an input: {target}")
+            if target in seen:
+                raise ValueError(f"analysis outputs overlap: {target}")
+            seen.add(target)
+        if partial.exists():
+            raise FileExistsError(f"stale partial blocks analysis output: {partial}")
+
+
 def run_analysis(args: argparse.Namespace) -> dict[str, Any]:
     root = Path(args.root).resolve()
     results = Path(args.results_dir).resolve()
     output = Path(args.output_dir).resolve()
     figures_dir = Path(args.figures_dir).resolve()
     report_path = Path(args.report).resolve()
-    for destination in (results, output, figures_dir, report_path):
+    for destination in (
+        Path(args.results_dir), Path(args.output_dir),
+        Path(args.figures_dir), Path(args.report),
+    ):
         require_output(destination)
+    _preflight_analysis_outputs(args)
     protocol = _json(root / "protocol" / "generalization_protocol.json")
     plan = _json(root / "protocol" / "analysis_plan.json")
     registry = root / "protocol" / "cases.json"
@@ -1781,6 +1833,7 @@ def run_analysis(args: argparse.Namespace) -> dict[str, Any]:
                 ),
             }
         )
+    _preflight_analysis_outputs(args)
     figure_paths = _figures(records, curves, figures_dir)
     summary["figures"] = [
         evidence_label(Path(path), results)

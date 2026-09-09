@@ -1,0 +1,48 @@
+test_distinct_regular_products_reach_original_first_loader_unchanged (_inspected_acceptance_suite.AnalysisRoutingTests) ... ok
+test_every_named_final_and_partial_protects_selected_input_identity (_inspected_acceptance_suite.AnalysisRoutingTests) ... test_every_occupied_partial_refuses_before_input_or_output_work (_inspected_acceptance_suite.AnalysisRoutingTests) ... test_original_selected_directory_links_are_not_resolved_away (_inspected_acceptance_suite.AnalysisRoutingTests) ... ok
+test_preflight_names_and_publication_order_match_actual_writer_ast (_inspected_acceptance_suite.AnalysisRoutingTests) ... ok
+test_protected_namespace_destinations_refuse_without_creation (_inspected_acceptance_suite.AnalysisRoutingTests) ... ok
+test_report_cannot_overlap_another_named_final_or_partial (_inspected_acceptance_suite.AnalysisRoutingTests) ... ok
+test_report_refuses_each_consumed_input_and_link_alias (_inspected_acceptance_suite.AnalysisRoutingTests) ... ok
+test_analysis_writers_preserve_colliding_intermediates_and_targets (_inspected_acceptance_suite.WriterBoundaryTests) ... ok
+test_analysis_writers_validate_before_mkdir_and_accept_regular_replacement (_inspected_acceptance_suite.WriterBoundaryTests) ... ok
+test_both_raw_entry_guards_refuse_links_before_any_calculation (_inspected_acceptance_suite.WriterBoundaryTests) ... ok
+test_exact_default_writer_with_fixed_arrays_then_alias_refusal (_inspected_acceptance_suite.WriterBoundaryTests) ... ok
+test_pde_publication_refuses_identical_restart_input (_inspected_acceptance_suite.WriterBoundaryTests) ... ok
+test_raw_intermediates_are_exclusive_even_after_precheck (_inspected_acceptance_suite.WriterBoundaryTests) ... ok
+
+======================================================================
+ERROR: test_every_named_final_and_partial_protects_selected_input_identity (_inspected_acceptance_suite.AnalysisRoutingTests) (output=7, suffix='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 221, in test_every_named_final_and_partial_protects_selected_input_identity
+    target.parent.mkdir(parents=True)
+  File "/usr/lib/python3.10/pathlib.py", line 1175, in mkdir
+    self._accessor.mkdir(self, mode)
+FileExistsError: [Errno 17] File exists: '/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-04/tmpr59difvz'
+
+======================================================================
+ERROR: test_every_named_final_and_partial_protects_selected_input_identity (_inspected_acceptance_suite.AnalysisRoutingTests) (output=7, suffix='.partial')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 221, in test_every_named_final_and_partial_protects_selected_input_identity
+    target.parent.mkdir(parents=True)
+  File "/usr/lib/python3.10/pathlib.py", line 1175, in mkdir
+    self._accessor.mkdir(self, mode)
+FileExistsError: [Errno 17] File exists: '/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-04/tmptc3v9spo'
+
+======================================================================
+ERROR: test_every_occupied_partial_refuses_before_input_or_output_work (_inspected_acceptance_suite.AnalysisRoutingTests) (output=7)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 245, in test_every_occupied_partial_refuses_before_input_or_output_work
+    partial.parent.mkdir(parents=True)
+  File "/usr/lib/python3.10/pathlib.py", line 1175, in mkdir
+    self._accessor.mkdir(self, mode)
+FileExistsError: [Errno 17] File exists: '/tmp/seven-study-boundary-patch.gsYiKkhJ/suite-04/tmpjrydzwbk'
+
+----------------------------------------------------------------------
+Ran 14 tests in 2.148s
+
+FAILED (errors=3)
+ACCEPTANCE_RESULT {"module": "studies/resnet_generalization/tests/test_writer_boundaries.py", "tests": 14, "failures": 0, "errors": 3, "skipped": 0}

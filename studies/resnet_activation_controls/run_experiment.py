@@ -252,13 +252,13 @@ def _write_once(path: Path, record: Mapping[str, Any]) -> None:
     require_output(path.with_suffix(path.suffix + ".partial"))
     encoded = _encoded(record)
     path.parent.mkdir(parents=True, exist_ok=True)
+    partial = path.with_suffix(path.suffix + ".partial")
+    if partial.exists():
+        raise IntegrityError(f"stale partial record blocks write: {partial}")
     if path.exists():
         if path.read_text() != encoded:
             raise IntegrityError(f"refusing to overwrite changed record: {path}")
         return
-    partial = path.with_suffix(path.suffix + ".partial")
-    if partial.exists():
-        raise IntegrityError(f"stale partial record blocks write: {partial}")
     with partial.open("x") as handle:
         handle.write(encoded)
         handle.flush()

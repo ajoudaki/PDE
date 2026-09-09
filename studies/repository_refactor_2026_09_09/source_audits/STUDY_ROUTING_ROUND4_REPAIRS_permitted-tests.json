@@ -1,0 +1,21 @@
+[
+  "studies/resnet_activation_controls/tests/test_migration_boundaries.py",
+  "studies/resnet_generalization/tests/test_migration_paths.py",
+  "studies/resnet_generalization/tests/test_output_boundaries.py",
+  "studies/resnet_generalization/tests/test_raw_output_preflight.py",
+  "studies/resnet_generalization/tests/test_writer_boundaries.py",
+  "studies/resnet_proof_audit/tests/test_migration_boundaries.py",
+  "studies/resnet_proof_audit/tests/test_trapezoid_compat.py",
+  "studies/stieltjes_direct_loewner/test_writer_boundaries.py",
+  "studies/stieltjes_finite_width/test_migration_paths.py",
+  "studies/stieltjes_finite_width/test_migration_preflight.py",
+  "studies/stieltjes_finite_width/test_output_boundaries.py",
+  "studies/stieltjes_finite_width/test_shared_output_paths.py",
+  "studies/stieltjes_hybrid_campaign/breadth_panel/test_acceptance_boundaries.py",
+  "studies/stieltjes_hybrid_campaign/breadth_panel/test_migration_paths.py",
+  "studies/stieltjes_hybrid_campaign/breadth_panel/test_output_boundaries.py",
+  "studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32/test_output_boundaries.py",
+  "studies/stieltjes_hybrid_campaign/width_ladder/test_analysis_boundaries.py",
+  "studies/stieltjes_proxy_campaign/analysis/tests/test_output_boundaries.py",
+  "studies/stieltjes_proxy_campaign/analysis/tests/test_reference_migration_boundaries.py"
+]

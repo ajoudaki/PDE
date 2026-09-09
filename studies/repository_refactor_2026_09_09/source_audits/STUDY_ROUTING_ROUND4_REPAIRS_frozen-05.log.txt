@@ -1,0 +1,11 @@
+test_atomic_callable_guards_targets_and_intermediates (_inspected_acceptance_suite.ProcessedBoundaryTests) ... ok
+test_cli_output_refusal_precedes_discovery_and_no_write_stays_read_only (_inspected_acceptance_suite.ProcessedBoundaryTests) ... ok
+test_processed_directory_alias_refuses_before_any_payload_write (_inspected_acceptance_suite.ProcessedBoundaryTests) ... ok
+test_regular_publication_and_failed_replace_preserve_old_target (_inspected_acceptance_suite.ProcessedBoundaryTests) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.274s
+
+OK
+FIXTURE_SHA256 {"case": "proof-directory", "before": "c53c41f96aa43869ba7239063d584ca131fefa2bf3f70c00abd065512a8a2268", "after": "c53c41f96aa43869ba7239063d584ca131fefa2bf3f70c00abd065512a8a2268"}
+ACCEPTANCE_RESULT {"module": "studies/resnet_proof_audit/tests/test_migration_boundaries.py", "tests": 4, "failures": 0, "errors": 0, "skipped": 0}
