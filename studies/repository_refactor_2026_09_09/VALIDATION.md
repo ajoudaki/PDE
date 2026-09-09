@@ -256,3 +256,63 @@ decisive scope passages, checked the four primary-source context claims, and
 independently passed all 52 tests with all 21 hashes unchanged. Its detailed
 read ledger expressly does not claim a new line-by-line proof/code audit of
 the unchanged chapters or external papers. Required corrections: none.
+
+## Later three-priority incorporation
+
+The accepted additions are now actual maintained proofs and code, not just
+source links. [INCORPORATION_ACCEPTANCE.md](INCORPORATION_ACCEPTANCE.md) records
+their exact hashes, source provenance, unsuccessful review rounds, repairs,
+and fresh paired complete reviews. Seven separately scoped proof/code groups
+have two clean complete reviews each: first-layer compactness, mixed fitting
+and gates, moving jets, forest/certificate calculus, quantitative discretization,
+exact capture with trace-class foundations, and initialization geometry.
+
+The current [LIBRARY_INPUTS.json](LIBRARY_INPUTS.json) lists 25 scientific
+inputs totaling 1,201,798 bytes. The unchanged prior 21-file edition is preserved
+in `reviews/INCORPORATION_BASE_LIBRARY_INPUTS.json`. This is an explicit
+scientific-library subset, not an inventory of all current repository code:
+the six concurrently added PDF-exporter files from `eb6e628` are preserved
+but outside this task's review and test scope.
+
+The coordinator assembled a new standalone copy with only those 25 files,
+and no studies, data or old review reports. All 25 whole-file hashes match
+the repository. In that copy, `make check` passes the structural/link check
+on 23 docs/code files and all 73 unit tests. In the live repository the same
+six scientific test modules pass under the explicit allowlist, without
+implicitly importing the concurrent exporter tests:
+
+```sh
+PYTHONPATH=code:code/tests PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -B -m unittest test_finite_network test_numerical_contract test_gaussian_moments test_library_boundary test_finite_jets test_exact_calculus
+```
+
+The 21 additional methods test the moving jet API and exact primitives. They
+do not constitute a training experiment, a population solver test, certified
+float64 error analysis, or a replay of the historical high-order campaigns.
+The code guide includes the full direct certificate reproduction command;
+no retained coefficient data is loaded. Its separate fresh
+[code/API integration review](reviews/CODE_INCORPORATION_INTEGRATION.md) is
+CLEAN at its recorded code/guide and Gaussian Sections 4/7 scope. It also
+ran all 73 tests and the four small guide examples.
+
+[The mechanical assembly record](source_audits/INCORPORATION_ASSEMBLY.md)
+explicitly rejects the first truncated private integration copy. No altered
+proof from that copy was promoted. The new copy preserves the old special-data
+proof body and contains every new accepted fragment in full; these byte checks
+are additional to, and not replaced by, a passing structural checker.
+
+The fresh [final assembled-book integration review](reviews/INCORPORATION_FINAL_INTEGRATION.md)
+is CLEAN, with no required corrections. It independently passed all 73 tests
+and verified all 25 input hashes unchanged. It read 11,989 of the edition's
+26,350 lines: eighteen complete files and seven selectively read chapters.
+All requested new sections, the guide, notation and code were read fully;
+older proof ranges not independently re-audited are enumerated explicitly.
+This scope is separate from the paired complete-proof reviews and is not
+retroactively inferred from the earlier 21-file verdict. The current review
+did not reopen external contextual bibliography links.
+
+`INCORPORATION_FINAL_CHECKS.json` records the coordinator's final byte,
+proof-fragment and navigation checks. Those preserve the earlier refactor's
+data/source receipts rather than pretending they were retaken on a later
+source state. The accepted scientific edition has no studies/data dependency
+and introduces no empirical data or figure. The unrelated concurrent exporter
+remains outside this acceptance.

@@ -1,6 +1,7 @@
 {
   "date": "2026-09-09",
-  "scope": "Exact standalone library input edition. This is a byte inventory, not a blanket theorem-review verdict. Review scope and subsequent amendments are recorded in VALIDATION.md and the original review reports.",
+  "scope": "Exact standalone scientific-library input edition after incorporation. This 25-file inventory excludes the concurrent six-file PDF exporter from eb6e628; it is not an inventory or audit of every live code file. Review scope and exact versions are in VALIDATION.md and INCORPORATION_ACCEPTANCE.md. The prior 21-file edition is preserved in reviews/INCORPORATION_BASE_LIBRARY_INPUTS.json.",
+  "excluded_concurrent_commit": "eb6e628",
   "files": [
     {
       "path": "Makefile",
@@ -9,13 +10,23 @@
     },
     {
       "path": "code/README.md",
-      "bytes": 8203,
-      "sha256": "0b855079acbe28a96b6bde2a0c5727a6ab02b663ca765d3145409864e8216a93"
+      "bytes": 14311,
+      "sha256": "b563a8a4fcebbb5fb634057f6cf09d32475462670002c8fbad0502f5c06482e0"
     },
     {
       "path": "code/pde/__init__.py",
       "bytes": 611,
       "sha256": "65eb96a5dd455041d2ad1f32652e3e26e8c15192eb41bdffba27980f0f69e8c3"
+    },
+    {
+      "path": "code/pde/exact_calculus.py",
+      "bytes": 7542,
+      "sha256": "482a45deb3e5fb721acdd0ae97654f9f5db57da145e0902d9ff1b24f01c8fc41"
+    },
+    {
+      "path": "code/pde/finite_jets.py",
+      "bytes": 8466,
+      "sha256": "1d8e5bdf4ca056645c720fce69a4df9e82dbbdf840da7f9f4599efe5c401aca2"
     },
     {
       "path": "code/pde/finite_network.py",
@@ -26,6 +37,16 @@
       "path": "code/pde/gaussian_moments.py",
       "bytes": 4464,
       "sha256": "6c2a21a9f3d101c433b5f06cb3f6e1dcdeca23a814891ea7bd81e73960e854ae"
+    },
+    {
+      "path": "code/tests/test_exact_calculus.py",
+      "bytes": 5875,
+      "sha256": "b4a7f5795def064e53b2e7a849637d29dcaa0bad403e8e8ff893863b8468a439"
+    },
+    {
+      "path": "code/tests/test_finite_jets.py",
+      "bytes": 15562,
+      "sha256": "991ae49dc65f1e0970c02ab57596560fabd79a1e71416879b43c52aa5e75c88a"
     },
     {
       "path": "code/tests/test_finite_network.py",
@@ -59,8 +80,8 @@
     },
     {
       "path": "docs/README.md",
-      "bytes": 17833,
-      "sha256": "4c11fe4d4f12e7ccb348a0c480f1496c617ca7be04997cfa115811e91b1841b3"
+      "bytes": 18785,
+      "sha256": "3d045c2a61847d0f78ae08137da7e0d0ad6252eb2734bf0bef75fcf7641fd592"
     },
     {
       "path": "docs/arctan_limits.md",
@@ -79,13 +100,13 @@
     },
     {
       "path": "docs/finite_optimization_and_controls.md",
-      "bytes": 48237,
-      "sha256": "a12a4f2541dd989a01920541f07ce8f80058b88d3e19db65c4b376c1fcf6653e"
+      "bytes": 67948,
+      "sha256": "cca2df017ad2dffc6c5c6919da720bac34451b8aecca2415b3bb788d18744230"
     },
     {
       "path": "docs/gaussian_calculus.md",
-      "bytes": 69476,
-      "sha256": "cda68e7decce4d35ddadb74ae0dffc4a78f5558f369eb21c7b312f516165a25e"
+      "bytes": 138706,
+      "sha256": "9676106aa203f8f3939b794429a945ac1c55a127fa230c94fde0672268eee56d"
     },
     {
       "path": "docs/global_nonlinear.md",
@@ -94,13 +115,13 @@
     },
     {
       "path": "docs/linear_dynamics.md",
-      "bytes": 45287,
-      "sha256": "36988f8175a433264671e1d980df752c8c52b34e1802de1c3d560d3ed3d8f41b"
+      "bytes": 104904,
+      "sha256": "c1920b78c8788c6025776943944da4f4756717cb8250189e7e91ea81ee830090"
     },
     {
       "path": "docs/special_data_limits.md",
-      "bytes": 349303,
-      "sha256": "e491ea163cf325ced50a3f1d19ab79cf9f84df85977ad644b68f4c96775e36ea"
+      "bytes": 466384,
+      "sha256": "be4573af77f32d53913b1a50f0eb6e003f54bbf7571db95951d47ebc6c65719a"
     },
     {
       "path": "requirements.txt",

@@ -45,7 +45,8 @@ acceptance gates are in [INCORPORATION_ACCEPTANCE.md](INCORPORATION_ACCEPTANCE.m
 | Arctangent limits | Small-readout one-input L2 global joint theorem; complete L3 local joint theorem; global fixed-query-cap auxiliary population theorem | Uncut L3 global population continuation |
 | Global nonlinear learning | One fixed shifted-arctangent activation, each separately fixed L≥3, one input/label one; global joint theorem, fitting and persistent learning | Arbitrary datasets or a joint increasing-depth limit |
 | Special-data limits | Opposite-label L2 arctangent at orthogonal/antipodal inputs; equal-label shifted L3; three-sample bounded-shape/gain family; actual generic-correlation first-layer GF/raw-GD compactness, no kinetic defect and residual-weighted kernel convergence along strong subsequences | Unique generic-angle opposite-label population, arbitrary sample count, unweighted first-kernel convergence from compactness, or fitting in the special-angle L2 theorem |
-| Linear dynamics | L3 one-input operator evolution with order-one readout, joint limit and fitting; restricted bounded-contraction scalar/PDE nonclosure | All-depth/all-data joint theorem or unrestricted impossibility of any scalar encoding |
+| Initialization comparison within special-data chapter | Sharp odd-mixture depth/nonlinearity/separation conditioning and planar examples; convex-offset contraction/nonaffinity contrast; calibrated sequential width-first/depth-second geometry; absolute versus relative gain effects | Trained Gaussian recursions, joint growing-depth/width control, cap removal, trained nonaffinity, feature velocity or fitting |
+| Linear dynamics and exact-capture comparisons | Existing L3 one-input operator/GF/GD theorem, fitting and restricted nonclosure; shallow nonlinear marked GF; L2 spectral GF/fitting; every-fixed-depth linear operator GF and trace-norm increment/tail control; contained trace-class foundations | Added all-depth GD, arbitrary data, all-depth fitting, unrestricted scalar nonclosure, or global spectral continuation from arbitrary ambient states |
 | Continuous depth | Scalar-particle residual architecture, characteristic GF and joint width/depth limit | Dense Gaussian-matrix theorem, raw-GD step limit, fitting or generalization |
 | Finite optimization and controls | Canonical L3 arctangent finite GF/exact-GD fitting and endpoints; finite metric projection; mixed-activation opposite-label L2 finite-GF fitting/endpoints at all interior correlations; permanent first-gate mass on an augmented event | Projection or mixed-model population/GD limit; feature velocity from gate mass; identification of all training endpoints as width grows |
 | Reference implementation | Finite equal-width APIs; rational Gaussian moments/PSD validation; L2 one-sample moving physical jets through degree three; canonical forest keys, exact finite reversion/determinants and direct certificate regeneration | Population simulator, full MFP compiler, arbitrary-precision floating network arithmetic or an empirical proof |
@@ -76,17 +77,18 @@ varying capped models. Combining the three statements does not fill that gap.
 ## Proved sources awaiting further editorial assembly
 
 The completeness audit identifies additional narrow positives, not failed
-research: initialization comparisons, given-space capped flows, sharper
+research: given-space capped flows, sharper
 shallow discretization estimates, and finite QI/IQ reductions.
 The exact-compiler fixed-program time-doubling, first-layer compactness and
-mixed finite-GF/gate sources are no longer pending: their complete proofs are
-now incorporated. Each remaining item
+mixed finite-GF/gate sources and initialization comparisons are no longer
+pending: their complete proofs are now incorporated. Each remaining item
 retains its original source and exact claim scope.
 Promotion of these is future editorial work, not a new conjecture by default.
 
-The all-depth linear, shallow direct GF and coherent graphon statements need
-their actual detailed source chains assembled at the correct normalization.
-The existing L3 linear and scalar-particle chapters do not stand in for them.
+The shallow, spectral and every-fixed-depth linear GF statements are now
+incorporated with complete dependencies and matching normalization. Other
+coherent graphon statements still require their actual source chains; the
+scalar-particle chapter does not stand in for a different dense architecture.
 
 Broad L2 activation classes, affine-first arbitrary-data extensions and general
 C1,1 local population statements retain their precise Tensor Program import

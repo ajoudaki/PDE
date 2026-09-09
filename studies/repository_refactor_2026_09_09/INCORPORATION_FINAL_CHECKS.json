@@ -1,0 +1,80 @@
+{
+  "date": "2026-09-09",
+  "scope": "Read-only final checks of the explicitly selected scientific library and bounded study navigation; not a new complete review of all studies or a re-execution of historical research.",
+  "accepted_source_checkpoint": "35f3066",
+  "byte_checks": {
+    "scientific_files": 25,
+    "bytes": 1201798,
+    "lines": 26350,
+    "repository_matches_private_and_manifest_and_review": true,
+    "fragments": {
+      "FIRST_LAYER_COMPACTNESS_ADDITION.md": {
+        "sha256": "02500ea3eee80f9dadd36790a5ccaea6258c06d0c6901564b54417624452ef93",
+        "present_in": "docs/special_data_limits.md",
+        "complete": true
+      },
+      "INITIALIZATION_ADDITION.md": {
+        "sha256": "411fbe15d0701451a0e4fad0b87bfc5a11d283e200b278d3b75872fb05fa8a27",
+        "present_in": "docs/special_data_limits.md",
+        "complete": true
+      },
+      "MIXED_FITTING_ADDITION.md": {
+        "sha256": "36a50c2aa599302db2b2942d0ddb21d5561488ac0eff5e4b34dd7e43e3717a78",
+        "present_in": "docs/finite_optimization_and_controls.md",
+        "complete": true
+      },
+      "QUANTITATIVE_ADDITION.md": {
+        "sha256": "bc41e23b07917257ce5810018d3d6ab2937551ce079a44d6e936965061f0d46d",
+        "present_in": "docs/gaussian_calculus.md",
+        "complete": true
+      },
+      "EXACT_CAPTURE_ADDITION.md": {
+        "sha256": "b1b0de36b4e5ac66f51310e10af98aae4029e574c05202bf7826e36e17535f3d",
+        "present_in": "docs/linear_dynamics.md",
+        "complete": true
+      },
+      "TRACE_IDEAL_FOUNDATIONS.md": {
+        "sha256": "c056507eabe88fefa8cbe56f452f0e50a5f233423c3500de53d043abcfb902bb",
+        "present_in": "docs/linear_dynamics.md",
+        "complete": true
+      }
+    },
+    "report_sha256": "3a50d663d153a7b3141900a8c01cc51ee9af00363d6d429d06b64da52db74125",
+    "failures": []
+  },
+  "calculus_fragment_checks": {
+    "checks": {
+      "finiteJetHeadingOnly": true,
+      "exactCalculusTypoOnly": true
+    },
+    "originalHashes": {
+      "finiteJets": "bb927e3f7a2dc75a222664a871b7caf247ebccd0fc1f31815434f6f2e3c26fb6",
+      "exactCalculus": "1babf900769e75b6951d1579108e4e3159d1fd297589f5d580f7382d5f95b799"
+    }
+  },
+  "earlier_special_data_proof_body_preserved": true,
+  "tests": {
+    "scientific_unit_test_methods": 73,
+    "standalone_structural_files": 23,
+    "result": "PASS",
+    "live_allowlist": "test_finite_network test_numerical_contract test_gaussian_moments test_library_boundary test_finite_jets test_exact_calculus",
+    "no_empirical_data_generated": true
+  },
+  "navigation": {
+    "immediateStudyFolders": 105,
+    "landingPages": 107,
+    "additionalRefactorPages": 6,
+    "localLinks": 991,
+    "failures": []
+  },
+  "excluded_concurrent_commit": "eb6e628",
+  "preservation_receipt": "PRESERVATION_CHECK_FINAL.json remains the unchanged receipt for checkpoint 0fceee9; this check neither modifies its counts nor claims a new full preservation sweep.",
+  "final_integration_review": {
+    "file": "reviews/INCORPORATION_FINAL_INTEGRATION.md",
+    "verdict": "CLEAN for explicit assembly/integration scope",
+    "full_files": 18,
+    "selectively_read_chapters": 7,
+    "lines_read": 11989,
+    "source_lines": 26350
+  }
+}

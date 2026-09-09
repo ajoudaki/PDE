@@ -67,6 +67,12 @@ only the maintained, self-contained mathematical library.
   and paired full proof/code reviews.
 - `ae587f2`: complete exact-compiler quantitative fixed-program remainder proof,
   two full isolated reviews, and the clean code/API integration review.
+- `04162df`: corrected initialization/exact-capture candidates and retained
+  unsuccessful review rounds, without promoting pending proofs.
+- `a8f820a`: complete shallow, spectral and every-fixed-depth linear GF proofs,
+  explicit trace-class foundations and two clean amended-chapter reviews.
+- `35f3066`: complete initialization geometry comparison, two clean final
+  full-proof reviews after all repairs, and updated book chapter summaries.
 
 [INVENTORY_BEFORE.json](INVENTORY_BEFORE.json) records the original paths,
 sizes and hashes. [MOVE_MANIFEST.json](MOVE_MANIFEST.json) records relocation.
@@ -155,6 +161,15 @@ The concurrent six-file PDF-exporter addition in `eb6e628` is outside this
 incorporation's proof/code review scope. Its files are preserved, not edited or
 included in this task's acceptance verdict. Scientific source inventory and
 test counts must not silently include unrelated concurrent implementation.
+
+The three incorporation priorities are now complete at their recorded scopes.
+Seven proof/code groups have paired clean complete reviews, and a further
+fresh [standalone integration audit](reviews/INCORPORATION_FINAL_INTEGRATION.md)
+is CLEAN. [The current scientific manifest](LIBRARY_INPUTS.json) identifies
+the exact 25-file edition; `INCORPORATION_FINAL_CHECKS.json` records final
+byte and navigation checks. All 73 small deterministic tests pass. Remaining
+coverage items are deliberate, qualified backlog, not implicitly rejected
+mathematics or unannounced extensions of the accepted theorem scopes.
 
 ## Rollback without losing work
 

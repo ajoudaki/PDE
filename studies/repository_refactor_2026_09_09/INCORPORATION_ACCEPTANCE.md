@@ -3,7 +3,8 @@
 This is a progressive record after checkpoint `a257e59`, not a blanket audit
 of every historical source. The starting library inventory is preserved in
 `reviews/INCORPORATION_BASE_LIBRARY_INPUTS.json`. The final integrated edition
-and navigation will be checked after the remaining assemblies are reviewed.
+is listed in `LIBRARY_INPUTS.json`; its separate final integration check and
+navigation receipt follow the scoped package records below.
 
 ## First accepted package: correlated-data partial results
 
@@ -222,6 +223,39 @@ cap removal, persistent trained feature motion, or eventual fitting. The
 chapter introduction and final scope, and the book's chapter table, retain
 these distinctions. Their assembled hashes are recorded in the final inventory.
 
-All five mathematical/implementation packages now have their own paired clean
-complete reviews. The final assembled-edition integration review and inventory
-remain separate acceptance steps.
+## Final assembled-edition acceptance
+
+All five packages, comprising seven separately reviewed proof/code groups,
+have their own paired clean complete reviews. A further fresh isolated
+[assembled-book integration review](reviews/INCORPORATION_FINAL_INTEGRATION.md)
+is CLEAN, with no required corrections. It received only the 25-file standalone
+scientific library, never the studies, source histories, prior reviews, data,
+or concurrent exporter. All 25 inputs remained unchanged during its audit.
+
+That reviewer read 11,989 of the edition's 26,350 lines: eighteen files in full
+and seven chapters at explicitly listed ranges. It read every requested new
+addition, the guide, notation and implementation in full, and checked the
+remaining chapter contracts at their actual model and observable scopes.
+Its exact read and unread ranges, whole-file hashes and selected-passage hashes
+are retained. It is not a second line-by-line certification of unread older
+proofs; their earlier complete reviews remain separately identified.
+
+The independent structural/link check passes on all 23 docs/code files, and
+all 73 unit tests pass. `Makefile` and `requirements.txt` are the other two
+inputs. The test suite directly regenerates the displayed rational certificate;
+it does not implement or certify the general population compiler. The guide's
+external contextual bibliography was not rechecked in this no-network review.
+
+The coordinator checked all 25 repository files against the isolated edition
+and its `LIBRARY_INPUTS.json`, including full proof-fragment preservation and
+absence of truncation artifacts. The mechanical checks and scope are recorded
+in `source_audits/INCORPORATION_ASSEMBLY.md`; final fingerprints and navigation
+results are in `INCORPORATION_FINAL_CHECKS.json`.
+
+The three agreed incorporation priorities are completed. The broader backlog
+in `ADVISORY_COVERAGE_DISPOSITION.md` remains deliberate and separately scoped.
+No new training experiment or historical high-order campaign was run; no
+empirical dataset or figure was promoted. This acceptance neither resolves
+the general uncut nonlinear population theorem nor asserts generalization.
+The six concurrent PDF-exporter files from `eb6e628` are preserved but excluded
+from this task's scientific-library inventory and acceptance.

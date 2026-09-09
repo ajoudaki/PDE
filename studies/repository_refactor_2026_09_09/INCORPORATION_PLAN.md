@@ -36,13 +36,15 @@ build, installation, source-seal reset, budget reuse or old research-task
 resumption is authorized. Generated empirical claims require a separate full
 reproduction chain before inclusion.
 
-## In-progress incorporation state
+## Incorporation state
 
 The additions below are not accepted by the prior library's reviews. The
-correlated-data partials, finite calculus/code and quantitative discretization
-have their own clean isolated reviews and are incorporated. Initialization and
-exact-capture additions await final corrected-version reviews. A standalone
-assembled candidate is under a separate integration review.
+correlated-data partials, finite calculus/code, quantitative discretization and
+exact-capture additions have their own clean isolated reviews and are
+incorporated. Initialization has also passed its final corrected-version pair
+and is incorporated. The standalone assembled edition has a further fresh
+CLEAN integration review; that verdict does not replace the paired full-proof
+reviews. All three agreed priorities are completed at their stated scopes.
 
 - First-layer compactness: source read completely and translated to the
   shared first-weight normalization. Two isolated complete reviews of hash
@@ -66,9 +68,10 @@ assembled candidate is under a separate integration review.
   explicit signed endpoint sums, centered-Gaussian and off-diagonal hypotheses,
   derivative index ranges, a self-contained gain comparison, and its identity-
   scaling exception. No theorem constant or conclusion changed. Two fresh full
-  reviewers are examining hash
+  reviewers returned CLEAN at hash
   `411fbe15d0701451a0e4fad0b87bfc5a11d283e200b278d3b75872fb05fa8a27`.
-  Initialization-only and sequential-limit scope remain explicit.
+  The complete Part V is incorporated at `35f3066`. Initialization-only and
+  sequential-limit scope remain explicit.
 - Moving physical-GF jets: the bounded L2/one-sample/order-three implementation,
   tests and complete recurrence proof have been read by the coordinator.
   Two fresh isolated full proof/code reviews are CLEAN. The complete recurrence
@@ -93,10 +96,12 @@ assembled candidate is under a separate integration review.
   source-history phrase, one full review was CLEAN and another required more
   explicit trace-class foundations for strict self-containment. A contained
   compact-operator/singular-value/trace-ideal proof is now added as Section 2.A;
-  two fresh reviewers have the complete amended chapter and notation only.
+  two fresh reviewers read the complete amended chapter and notation only;
+  both returned CLEAN. The full addition and foundations are incorporated at
+  `a8f820a` without mathematical alteration.
   No raw-GD extension is attached to a GF source.
 
-The only implementation runs so far are bounded deterministic unit tests.
-They create no data and do not restart a training or coefficient campaign.
-Accepted promotions and exact review reports will be recorded before any
-library-level completion claim.
+Implementation runs are bounded deterministic unit tests, small guide examples
+and direct algebraic certificate checks. They create no empirical dataset and
+do not restart a training or high-order coefficient campaign. Accepted promotions
+and exact review reports are recorded in `INCORPORATION_ACCEPTANCE.md`.

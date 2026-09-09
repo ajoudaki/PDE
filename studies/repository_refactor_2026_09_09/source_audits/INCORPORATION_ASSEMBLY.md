@@ -53,7 +53,10 @@ The initial rebuilt candidate has these three amended chapter/guide hashes:
 | `docs/linear_dynamics.md` | `c1920b78c8788c6025776943944da4f4756717cb8250189e7e91ea81ee830090` |
 | `docs/README.md` | `3d045c2a61847d0f78ae08137da7e0d0ad6252eb2734bf0bef75fcf7641fd592` |
 
-The standalone integration reviewer receives this input root only, with no
-prior reports. Its full versus selected chapter read scope must be retained
-in the final report. The complete isolated proof reviews remain separate;
-an assembly verdict cannot replace them.
+The standalone integration reviewer received this input root only, with no
+prior reports, and returned CLEAN with no required corrections. Its complete
+report is `../reviews/INCORPORATION_FINAL_INTEGRATION.md`. All 25 input hashes
+were unchanged, all 73 tests passed, and the full/selected/unread source ranges
+are explicit. The coordinator subsequently verified exact agreement with the
+repository's 25 scientific inputs. The complete isolated proof reviews remain
+separate; this assembly verdict does not replace them.
