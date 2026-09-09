@@ -332,3 +332,15 @@ boundary/local-link checker and 77 tests: see
 scientific files. The same six-module command in the preceding section passes
 77 tests in the live checkout. This scope excludes unaccepted candidate files
 and the PDF exporter. It is not a fresh audit of older chapter proofs.
+
+## Continuation: finite reductions and formal initialization jets
+
+The second continuation package has two complete CLEAN isolated reviews of
+15 files and 3,622 lines each, with exact scope and hashes in the acceptance
+record. The code guide's 118-line API addition was included in both reviews.
+The 27-file standalone scientific edition passes `make check`, all 86 tests
+and both new guide examples; its receipt and manifest are
+`reviews/CONTINUATION_FINITE_TAYLOR_STANDALONE.md` and
+`reviews/CONTINUATION_FINITE_TAYLOR_LIBRARY_INPUTS.json`. The live scientific
+command adds `test_finite_reductions` to the previous six-module allowlist.
+No empirical, population-simulation or whole-book proof claim is inferred.

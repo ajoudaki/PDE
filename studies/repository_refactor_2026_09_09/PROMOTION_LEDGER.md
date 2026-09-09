@@ -40,8 +40,8 @@ acceptance gates are in [INCORPORATION_ACCEPTANCE.md](INCORPORATION_ACCEPTANCE.m
 
 | Library component | Included scope | What is deliberately not inferred |
 |---|---|---|
-| Shared notation and finite dynamics | All finite hidden depths and finite batches; raw gradients, all kernel blocks, energy identity and global finite GF | Fitting, unique population evolution, or a global width-uniform stability theorem |
-| Gaussian/flow calculus | Earlier conditioning, fixed-program width and norm results; moving L2 one-sample physical jets through order three; Gaussian forest expectation factorization, canonical keys and exact frozen-first-block Stieltjes certificate; exact-compiler step-doubling coefficients with explicit fifth-order remainders at fixed depth/update count; finite loss-GD pullback words and cubic identity, with a separate conditional convex-region comparison | Growing-program or population loss-GF convergence; complete high-order compiler tables; positive-time or unit-metric nonexistence from formal coefficients |
+| Shared notation and finite dynamics | All finite hidden depths and finite batches; raw gradients, all kernel blocks, energy identity and global finite GF; finite QI/IQ/QQ/RMS identities, oriented Lax states and signed balances | Fitting, unique population evolution, or a global width-uniform stability theorem |
+| Gaussian/flow calculus | Earlier conditioning, fixed-program width and norm results; moving L2 one-sample physical jets through order three; Gaussian forest expectation factorization, canonical keys and exact frozen-first-block Stieltjes certificate; exact-compiler step-doubling coefficients with explicit fifth-order remainders at fixed depth/update count; finite loss-GD pullback words and cubic identity, with a separate conditional convex-region comparison; exact derivative forests, existential positive-metric Stieltjes obstruction and canonical prescribed-Taylor non-Cauchy result | Growing-program or population loss-GF convergence; complete high-order compiler tables; positive-time or unit-metric nonexistence from formal coefficients |
 | Arctangent limits | Small-readout one-input L2 global joint theorem; complete L3 local joint theorem; global fixed-query-cap auxiliary population theorem | Uncut L3 global population continuation |
 | Global nonlinear learning | One fixed shifted-arctangent activation, each separately fixed L≥3, one input/label one; global joint theorem, fitting and persistent learning | Arbitrary datasets or a joint increasing-depth limit |
 | Special-data limits | Opposite-label L2 arctangent at orthogonal/antipodal inputs; equal-label shifted L3; three-sample bounded-shape/gain family; actual generic-correlation first-layer GF/raw-GD compactness, no kinetic defect and residual-weighted kernel convergence along strong subsequences | Unique generic-angle opposite-label population, arbitrary sample count, unweighted first-kernel convergence from compactness, or fitting in the special-angle L2 theorem |
@@ -49,7 +49,7 @@ acceptance gates are in [INCORPORATION_ACCEPTANCE.md](INCORPORATION_ACCEPTANCE.m
 | Linear dynamics and exact-capture comparisons | Existing L3 one-input operator/GF/GD theorem, fitting and restricted nonclosure; shallow nonlinear marked GF; L2 spectral GF/fitting; every-fixed-depth linear operator GF and trace-norm increment/tail control; contained trace-class foundations | Added all-depth GD, arbitrary data, all-depth fitting, unrestricted scalar nonclosure, or global spectral continuation from arbitrary ambient states |
 | Continuous depth | Scalar-particle residual architecture, characteristic GF and joint width/depth limit | Dense Gaussian-matrix theorem, raw-GD step limit, fitting or generalization |
 | Finite optimization and controls | Canonical L3 arctangent finite GF/exact-GD fitting and endpoints; finite metric projection; mixed-activation opposite-label L2 finite-GF fitting/endpoints at all interior correlations; permanent first-gate mass on an augmented event; global dissipative caps on prescribed Hilbert spaces and conditional exponential-tail continuation | Gaussian action construction from prescribed spaces; projection or mixed-model population/GD limit; feature velocity from gate mass; identification of all training endpoints as width grows |
-| Reference implementation | Finite equal-width APIs; rational Gaussian moments/PSD validation; L2 one-sample moving physical jets through degree three; canonical forest keys, exact finite reversion/determinants and direct certificate regeneration | Population simulator, full MFP compiler, arbitrary-precision floating network arithmetic or an empirical proof |
+| Reference implementation | Finite equal-width APIs; rational Gaussian moments/PSD validation; L2 one-sample moving physical jets through degree three; canonical forest keys, exact finite reversion/determinants and direct certificate regeneration; finite quadratic/RMS state evaluators and exact Euler-word weights | Population simulator, full MFP compiler, arbitrary-precision floating network arithmetic or an empirical proof |
 
 The three-sample gain construction's nonaffinity is absolute regression error;
 it is not a depth-uniform bound on nonlinear amplitude relative to affine gain.
@@ -83,7 +83,8 @@ action space is constructed by the finite projection or fixed-query theorem.
 ## Proved sources awaiting further editorial assembly
 
 The completeness audit identifies additional narrow positives, not failed
-research: sharper shallow discretization estimates and finite QI/IQ reductions.
+research: sharper shallow discretization estimates and integrated-query
+representations. Finite QI/IQ/QQ and RMS reductions are now incorporated.
 Given-space capped flows are now incorporated, with their conditional
 continuation premise preserved.
 The exact-compiler fixed-program time-doubling, first-layer compactness and
@@ -109,7 +110,8 @@ the small quadratic-axis certificate is now independently rederived and
 incorporated. Exact checks of a table are not proof that the
 upstream coefficient generator or limiting identification is correct. The
 canonical all-order Stieltjes problem is not declared resolved from a positive
-prefix; scoped counterexamples are not a universal impossibility theorem.
+prefix. Section 10 proves only an existential positive-metric interval near
+the frozen boundary, and a distinct canonical positive-Taylor obstruction; scoped counterexamples are not a universal impossibility theorem.
 
 ## Code, data and preservation
 

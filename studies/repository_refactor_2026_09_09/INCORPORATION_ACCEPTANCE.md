@@ -312,3 +312,67 @@ A standalone copy of the 25 scientific inputs, without studies/data/exporter,
 passes `make check` and all 77 tests. The live six-module scientific allowlist
 also passes 77 tests. The four added methods are finite deterministic checks;
 no training, population simulation or historical campaign was run.
+
+## Continuation: finite quadratic/RMS identities and formal-jet obstructions
+
+The preceding caps/pullback package is committed at `f7801db`. This next
+package adds finite-dynamics Sections 5–7 and Gaussian Section 10. Their
+complete byte-exact proof fragments are:
+
+| Fragment | Lines | SHA-256 |
+|---|---:|---|
+| `FINITE_IDENTITIES_ADDITION.md` | 434 | `5c422cb6bed3ce0816853cccd78d49a85f1fd3c8ca9718528584e15dc725427f` |
+| `POSITIVE_METRIC_TAYLOR_ADDITION.md` | 496 | `bfe815697f0a7a6e090d3e48bcf72cdf357e2cc9fbeb837007ce636010b667b8` |
+
+The finite section covers QI/IQ/QQ raw gradients and kernels, isometric Lax
+identities and similarity, an orientation-sensitive spectrum insufficiency
+witness, QQ balance laws, differentiated RMS gradients/features/normalizers,
+signed balance drifts, a raw-image reduced-state lift, and global finite
+physical GF. It is one input, one sample, two hidden layers, arbitrary finite
+state/readout and label, canonical unit block mobilities, and full square loss.
+No width or Gaussian population claim is attached. Both RMS normalizers are
+differentiated; the source's epsilon-zero row-balance remark is corrected.
+
+The formal section proves the complete normalized derivative-forest grammar
+and fixed-order annealed Gaussian expectation limit. It derives continuity
+of a finite negative Stieltjes witness, hence failure on some existential
+interval of strictly positive first mobilities with beta=1. It supplies no
+numerical endpoint, high-order positive-alpha table or unit-metric Stieltjes
+verdict. At the canonical metric it separately derives factorial growth from
+a nonnegative primitive-polynomial comparison and an explicit raw-square
+frozen branch, then proves that the prescribed residual-clock Taylor losses
+are not uniformly Cauchy on any interval containing initialization. No
+concentration or actual positive-time network identification is inferred.
+
+The complete source/correction read records are
+`source_audits/FINITE_IDENTITIES_ASSEMBLY.md` and
+`source_audits/POSITIVE_METRIC_TAYLOR_ASSEMBLY.md`. The questionable generic
+detransposition import, matroid shortcut, two-hit charging upper bound and
+historical high-order tables are not used. Every needed proof is contained.
+
+Both isolated complete corrected-input reviews are CLEAN with no required
+correction: `reviews/CONTINUATION_FINITE_TAYLOR_A2.md` and
+`reviews/CONTINUATION_FINITE_TAYLOR_B2.md`. Each read all 15 supplied files
+and 3,622 lines, passed all 20 supplied tests plus independent bounded
+derivative/rational checks, and verified unchanged input hashes. The packet
+includes the corrected complete loss-pullback dependency. Two earlier review
+tasks were interrupted when that dependency changed; they supplied no accepted
+verdict and are not counted as completed reviews. Their draft and final packet
+manifests remain `CONTINUATION_B1_INPUTS.json` and `CONTINUATION_B2_INPUTS.json`.
+
+The new `code/pde/finite_reductions.py` hash is
+`b74b7da576e75749417dce2662e04c110f6028f09b724cfa1d295f1055c99225`;
+its nine-test file hash is
+`bd0063b5d7865cdb9f9b13e7bbea9118379a9baf2cb28845989ffbdd77935a9e`.
+The entire 118-line API fragment has hash
+`eb0a736a1419ff9c1e8011d6a2fd0c5d63a9b8be7d09f321010106ec6b9cf0de`
+and is present unchanged in the code guide. The state evaluators use ordinary
+float64 arithmetic and retain explicit intermediate overflow/underflow limits.
+No time integrator or population solver is added.
+
+A new 27-file standalone scientific library passes its boundary/link checks
+and all 86 tests; both new guide examples run there. See
+`reviews/CONTINUATION_FINITE_TAYLOR_STANDALONE.md` and its edition manifest.
+No studies, data, prior verdicts or PDF exporter were supplied. The thirteen
+new methods since the 73-test baseline check finite identities/combinatorics.
+No new training experiment or historical coefficient campaign was run.

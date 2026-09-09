@@ -1,0 +1,77 @@
+{
+  "code/API_ADDITIONS.md": {
+    "sha256": "eb0a736a1419ff9c1e8011d6a2fd0c5d63a9b8be7d09f321010106ec6b9cf0de",
+    "bytes": 6586,
+    "lines": 118
+  },
+  "code/NUMERICAL_CONTRACT.md": {
+    "sha256": "3791adea2ec3a4713a265ab1aa2b00e9993b51a957415060bebc88fe2399de22",
+    "bytes": 4890,
+    "lines": 91
+  },
+  "code/pde/__init__.py": {
+    "sha256": "65eb96a5dd455041d2ad1f32652e3e26e8c15192eb41bdffba27980f0f69e8c3",
+    "bytes": 611,
+    "lines": 26
+  },
+  "code/pde/exact_calculus.py": {
+    "sha256": "d7cd27b3bffed6152bb9fad40514a8e2848561fa6d44e0cb1aa0fd652d7e5aa3",
+    "bytes": 10108,
+    "lines": 249
+  },
+  "code/pde/finite_network.py": {
+    "sha256": "efe694b200b8af2603cbf1bb9d0249f49636e874088c2bafd98f402b5bfbe551",
+    "bytes": 15525,
+    "lines": 363
+  },
+  "code/pde/finite_reductions.py": {
+    "sha256": "b74b7da576e75749417dce2662e04c110f6028f09b724cfa1d295f1055c99225",
+    "bytes": 10881,
+    "lines": 251
+  },
+  "code/pde/gaussian_moments.py": {
+    "sha256": "6c2a21a9f3d101c433b5f06cb3f6e1dcdeca23a814891ea7bd81e73960e854ae",
+    "bytes": 4464,
+    "lines": 114
+  },
+  "code/tests/test_exact_calculus.py": {
+    "sha256": "58881bee416ba4b5db9e7688003bfcbef985c4fc82e006c29dbe8a25c32ce242",
+    "bytes": 10214,
+    "lines": 217
+  },
+  "code/tests/test_finite_reductions.py": {
+    "sha256": "bd0063b5d7865cdb9f9b13e7bbea9118379a9baf2cb28845989ffbdd77935a9e",
+    "bytes": 13080,
+    "lines": 239
+  },
+  "docs/NOTATION.md": {
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "bytes": 5110,
+    "lines": 98
+  },
+  "docs/finite_dynamics.md": {
+    "sha256": "486a2864738d23c21e14e3830ee4cd9555ef2e909d2054366890a958a3dc626c",
+    "bytes": 8355,
+    "lines": 214
+  },
+  "docs/finite_reductions.md": {
+    "sha256": "5c422cb6bed3ce0816853cccd78d49a85f1fd3c8ca9718528584e15dc725427f",
+    "bytes": 16001,
+    "lines": 434
+  },
+  "docs/gaussian_dependencies.md": {
+    "sha256": "e52365e7ed2afaf3d48272b913caf60e1aa59f55d846019527f84ae15592cf84",
+    "bytes": 17119,
+    "lines": 346
+  },
+  "docs/loss_pullback.md": {
+    "sha256": "dccefe204d607ad778a09e9a2c98ced0fbcb50a75cba869c44df9d9f652108ea",
+    "bytes": 16049,
+    "lines": 366
+  },
+  "docs/positive_metric_taylor.md": {
+    "sha256": "bfe815697f0a7a6e090d3e48bcf72cdf357e2cc9fbeb837007ce636010b667b8",
+    "bytes": 20752,
+    "lines": 496
+  }
+}
