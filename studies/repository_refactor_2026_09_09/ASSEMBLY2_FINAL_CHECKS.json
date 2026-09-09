@@ -1,0 +1,439 @@
+{
+  "base_scientific_head": "caf975a",
+  "scientific_head": "8d48185262587e429cf43e1e05451f8fa3af8c17",
+  "checked_utc": "2026-09-09T19:56:58.566253+00:00",
+  "scope": "Final exact-byte, integration and preservation record. Paired complete mathematical reviews and the fresh integration review retain their explicitly bounded scopes; no whole-book re-audit is inferred.",
+  "files": [
+    {
+      "path": "Makefile",
+      "sha256": "740d59f44f085975520f375a5d96c8871ecf3a07afdf767c3090bfde61e7db65",
+      "bytes": 257,
+      "lines": 9,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "code/README.md",
+      "sha256": "1bd1a68b9357c054dfc4a7e1b708ef302bcc357e776229e33247b5c00a3316d7",
+      "bytes": 23528,
+      "lines": 437,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "code/pde/__init__.py",
+      "sha256": "65eb96a5dd455041d2ad1f32652e3e26e8c15192eb41bdffba27980f0f69e8c3",
+      "bytes": 611,
+      "lines": 26,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "code/pde/exact_calculus.py",
+      "sha256": "d7cd27b3bffed6152bb9fad40514a8e2848561fa6d44e0cb1aa0fd652d7e5aa3",
+      "bytes": 10108,
+      "lines": 249,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "code/pde/finite_jets.py",
+      "sha256": "1d8e5bdf4ca056645c720fce69a4df9e82dbbdf840da7f9f4599efe5c401aca2",
+      "bytes": 8466,
+      "lines": 176,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "code/pde/finite_network.py",
+      "sha256": "efe694b200b8af2603cbf1bb9d0249f49636e874088c2bafd98f402b5bfbe551",
+      "bytes": 15525,
+      "lines": 363,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "code/pde/finite_reductions.py",
+      "sha256": "391dc35773a35d86f889cebda9f95820d793a656f2fb05f9b01bb7453be20a4c",
+      "bytes": 15571,
+      "lines": 346,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "code/pde/gaussian_moments.py",
+      "sha256": "6c2a21a9f3d101c433b5f06cb3f6e1dcdeca23a814891ea7bd81e73960e854ae",
+      "bytes": 4464,
+      "lines": 114,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "code/tests/test_exact_calculus.py",
+      "sha256": "58881bee416ba4b5db9e7688003bfcbef985c4fc82e006c29dbe8a25c32ce242",
+      "bytes": 10214,
+      "lines": 217,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "code/tests/test_finite_jets.py",
+      "sha256": "991ae49dc65f1e0970c02ab57596560fabd79a1e71416879b43c52aa5e75c88a",
+      "bytes": 15562,
+      "lines": 296,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "code/tests/test_finite_network.py",
+      "sha256": "a45ddc72c943b85aff63b6c4d49c88d8784100dbed8878cd9bb710b8256b9931",
+      "bytes": 15154,
+      "lines": 297,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "code/tests/test_finite_reductions.py",
+      "sha256": "7b1a4023334956a25afd4217de7a311145b64c240fc78b87f84b16d2af7dedb0",
+      "bytes": 18563,
+      "lines": 340,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "code/tests/test_gaussian_moments.py",
+      "sha256": "9aeb8a09137edf50fd30db36b08a337a3b1b3cebe9ac85b95ec4c6787f1188ea",
+      "bytes": 5179,
+      "lines": 110,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "code/tests/test_library_boundary.py",
+      "sha256": "375a033e737923ea5f10df687adb0556baee5bcd1a44dff184b88d76b381966a",
+      "bytes": 2352,
+      "lines": 58,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "code/tests/test_numerical_contract.py",
+      "sha256": "c925d71d60aa1965d44900122fa04e5fdfff18f00bdf8a41ddc9a2b91e5e1d92",
+      "bytes": 10601,
+      "lines": 202,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "code/tools/check_library.py",
+      "sha256": "7ae3148f2418ec60744435e0685cde63d2de5a8448816b98d1ed4b700dfb48f6",
+      "bytes": 4910,
+      "lines": 100,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "docs/NOTATION.md",
+      "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+      "bytes": 5110,
+      "lines": 98,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "d87109e73ec792779d1e495538b74488950c08865e21e4f29aa32f1a1937ff5a",
+      "bytes": 20440,
+      "lines": 265,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "docs/arctan_limits.md",
+      "sha256": "19f01b6112949f4d186ef17ff94415804830ed51a519b155ed45343c26cbbead",
+      "bytes": 143086,
+      "lines": 3117,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "docs/continuous_depth.md",
+      "sha256": "1ce60f0ff159851b0087c143c49eeb59d227f7b2cf675d53dda07f24989f515d",
+      "bytes": 88920,
+      "lines": 2474,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "docs/finite_dynamics.md",
+      "sha256": "a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca5545bc0012a",
+      "bytes": 48489,
+      "lines": 1275,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "docs/finite_optimization_and_controls.md",
+      "sha256": "6c598905b1ba51b69d9bae9f336baaca26534ff8ce3e9e93ea5faa146e00c7e3",
+      "bytes": 135529,
+      "lines": 3394,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "docs/gaussian_calculus.md",
+      "sha256": "73b19ef2212596d25ce3caaa96eb772427fbc4d35d304bc754dc0459c3e61b8d",
+      "bytes": 193338,
+      "lines": 4719,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "docs/global_nonlinear.md",
+      "sha256": "becfba469f81bc4573275bc679aa3ee102f2e553c03c00357c3268792a556c95",
+      "bytes": 83472,
+      "lines": 1796,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "docs/linear_dynamics.md",
+      "sha256": "c1920b78c8788c6025776943944da4f4756717cb8250189e7e91ea81ee830090",
+      "bytes": 104904,
+      "lines": 2641,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "docs/special_data_limits.md",
+      "sha256": "be4573af77f32d53913b1a50f0eb6e003f54bbf7571db95951d47ebc6c65719a",
+      "bytes": 466384,
+      "lines": 9362,
+      "live_equals_review_packet_and_scientific_commit": true
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "c907c176d0ef35a2a05a8650accb80616d99d55f620dc0fd55d8bfe994bc7ae2",
+      "bytes": 111,
+      "lines": 2,
+      "live_equals_review_packet_and_scientific_commit": true
+    }
+  ],
+  "proof_fragments": [
+    {
+      "path": "SHALLOW_DISCRETIZATION_ADDITION.md",
+      "destination": "docs/gaussian_calculus.md",
+      "sha256": "4321fc6bf9fdddedccb752072f3326134d514edbdd576c328923432e4345efd9",
+      "exact_occurrences": 1,
+      "prior_proof_body_unchanged": true
+    },
+    {
+      "path": "SCOPED_OBSTRUCTIONS_ADDITION.md",
+      "destination": "docs/finite_dynamics.md",
+      "sha256": "45169438edc521dfe84e80c703a71233f810f3acb8aee314fcdebb44a96ecda1",
+      "exact_occurrences": 1,
+      "prior_proof_body_unchanged": true
+    },
+    {
+      "path": "COHERENT_KERNEL_ADDITION.md",
+      "destination": "docs/continuous_depth.md",
+      "sha256": "19c267a56658d6980ed5bd4957d2db9fda5f7178c4eb7024dde961c285a8fd53",
+      "exact_occurrences": 1,
+      "prior_proof_body_unchanged": true
+    },
+    {
+      "path": "REACHABLE_HESSIAN_ADDITION.md",
+      "destination": "docs/finite_optimization_and_controls.md",
+      "sha256": "1dbf61698ef88e716a9bf1ef11b6d5ded2d21b321f5f50b9d1a4fba89fa9bbf1",
+      "exact_occurrences": 1,
+      "prior_proof_body_unchanged": true
+    }
+  ],
+  "prior_definition_preservation": {
+    "code/pde/finite_reductions.py": [
+      "ReductionEvaluation",
+      "LaxEvaluation",
+      "_scalar",
+      "_state",
+      "_finite",
+      "_field_copies",
+      "_evaluation",
+      "mixed_quadratic",
+      "mixed_lax",
+      "rms_quadratic"
+    ],
+    "code/tests/test_finite_reductions.py": [
+      "arrays",
+      "shifted",
+      "coordinate_shift",
+      "finite_state",
+      "normalized_output",
+      "MixedReductionTests",
+      "RMSReductionTests",
+      "ReductionContractTests"
+    ]
+  },
+  "unreadable_inherited_artifacts": [
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_REPORT.md",
+      "metadata_unchanged": true,
+      "content_hash_not_claimed": true,
+      "coordinator_modified": false
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_acceptance.py",
+      "metadata_unchanged": true,
+      "content_hash_not_claimed": true,
+      "coordinator_modified": false
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_evidence.json",
+      "metadata_unchanged": true,
+      "content_hash_not_claimed": true,
+      "coordinator_modified": false
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/EXACT_CAPTURE_ROUND2_B.md",
+      "metadata_unchanged": true,
+      "content_hash_not_claimed": true,
+      "coordinator_modified": false
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/GUIDE_ADVISORY_INTEGRATION.md",
+      "metadata_unchanged": true,
+      "content_hash_not_claimed": true,
+      "coordinator_modified": false
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/INCORPORATION_FINAL_INTEGRATION.md",
+      "metadata_unchanged": true,
+      "content_hash_not_claimed": true,
+      "coordinator_modified": false
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/MAIN_ROUTING_PATCH_ROUND1_record-python",
+      "metadata_unchanged": true,
+      "content_hash_not_claimed": true,
+      "coordinator_modified": false
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/MAIN_ROUTING_WRAPPER_ACCEPTANCE_record-python",
+      "metadata_unchanged": true,
+      "content_hash_not_claimed": true,
+      "coordinator_modified": false
+    }
+  ],
+  "concurrent_task_index": {
+    "path": "studies/repository_refactor_2026_09_09/TASK_NAME_INDEX.md",
+    "sha256": "48dc99c5f858eb3f67496b447a7b7cd76baabc4422e714d38656631aff871695",
+    "unchanged_since_start": true,
+    "coordinator_modified": false
+  },
+  "concurrent_exporter_and_ignore": [
+    {
+      "path": ".gitignore",
+      "sha256": "bf9e25889d63c4d97a614457f0af687027e0e0b0afcdf3e8062600a9d10fcc1e",
+      "unchanged_since_observation": true,
+      "coordinator_modified_or_staged": false,
+      "excluded_from_scientific_acceptance": true
+    },
+    {
+      "path": "code/tests/test_book_exporter.py",
+      "sha256": "8ecde48a39b08cf336b2e87884107392e694785773dc973c0808d96f6bf0725c",
+      "unchanged_since_observation": true,
+      "coordinator_modified_or_staged": false,
+      "excluded_from_scientific_acceptance": true
+    },
+    {
+      "path": "code/tools/book_pdf/README.md",
+      "sha256": "74dd2c7a2f3deb7a8f6d5ececbf442974659570b198c618c6e1046851c085f5e",
+      "unchanged_since_observation": true,
+      "coordinator_modified_or_staged": false,
+      "excluded_from_scientific_acceptance": true
+    },
+    {
+      "path": "code/tools/book_pdf/build-pdf.sh",
+      "sha256": "f826d05662cb7e8c340ef0dba7e1b70af7b9e94530f515f3dbf2b49d3ffef141",
+      "unchanged_since_observation": true,
+      "coordinator_modified_or_staged": false,
+      "excluded_from_scientific_acceptance": true
+    },
+    {
+      "path": "code/tools/book_pdf/export_book.py",
+      "sha256": "e2da7f3887a457ee2d2a4885a1c8ba31b9ca4cde49308da00075f78346d33a13",
+      "unchanged_since_observation": true,
+      "coordinator_modified_or_staged": false,
+      "excluded_from_scientific_acceptance": true
+    }
+  ],
+  "unchanged_other_exporter_files": [
+    {
+      "path": "code/tools/book_pdf/layout.tex",
+      "sha256": "8660194207cc2a7126f5133881f81fa141fcc33479150863365fb6e368d7c074"
+    },
+    {
+      "path": "code/tools/book_pdf/render_book.py",
+      "sha256": "018ca1da5b292093ca6917e522976800d278e641092694e1b343634f8b8493ae"
+    }
+  ],
+  "review_reports": [
+    {
+      "path": "reviews/ASSEMBLY2_SHALLOW_A1.md",
+      "sha256": "886379cb6c430c003e8ff17c7439018917f3ec1da2aa18c3ebe7839a8ff5a429",
+      "bytes": 18579,
+      "lines": 418
+    },
+    {
+      "path": "reviews/ASSEMBLY2_SHALLOW_B1.md",
+      "sha256": "ad7df95e5eabffd14fa618db41f4915b880192a5bc2e574c92ac22bed89e1a0d",
+      "bytes": 2364,
+      "lines": 30
+    },
+    {
+      "path": "reviews/ASSEMBLY2_SHALLOW_B2.md",
+      "sha256": "1751d2d04d903f275d7092d0586b8ceab8e162c8c86261f552632812d02ccdbd",
+      "bytes": 20744,
+      "lines": 468
+    },
+    {
+      "path": "reviews/ASSEMBLY2_FROZEN_A1.md",
+      "sha256": "7e2597212884810aa53958ac28f455443e721df02d2f96aba7b824d625e53619",
+      "bytes": 32891,
+      "lines": 290
+    },
+    {
+      "path": "reviews/ASSEMBLY2_FROZEN_B1.md",
+      "sha256": "fdd02177251d09ccdf573f3eebfd6a6f06bbeb4986fc5d8408f7957c6f69ef6a",
+      "bytes": 29180,
+      "lines": 285
+    },
+    {
+      "path": "reviews/ASSEMBLY2_FROZEN_A2.md",
+      "sha256": "87efa51a1b4a55b731e0ed30fda9e220b10bc0ab14cc8141b9f5a230846fdd2e",
+      "bytes": 22651,
+      "lines": 273
+    },
+    {
+      "path": "reviews/ASSEMBLY2_FROZEN_B2.md",
+      "sha256": "d16f9cbf3270e311281c008b06774e98dca15890ccf417056b810397a3947d3b",
+      "bytes": 20194,
+      "lines": 252
+    },
+    {
+      "path": "reviews/ASSEMBLY2_KERNEL_HESSIAN_A1.md",
+      "sha256": "e3aee5b7bda701bf4cc9f13bae51928b8396907f99c2815fc7dd9f692f8fe95d",
+      "bytes": 35054,
+      "lines": 804
+    },
+    {
+      "path": "reviews/ASSEMBLY2_KERNEL_HESSIAN_B1.md",
+      "sha256": "983c484725e60babb44091649941b003c4e66a64c07ba8babc84e96f6bf377e4",
+      "bytes": 37607,
+      "lines": 914
+    },
+    {
+      "path": "reviews/ASSEMBLY2_FINAL_INTEGRATION_R1.md",
+      "sha256": "1bd2fb819d893e50b8d30fd137b13918cde4418be065251e9297c3d689300a75",
+      "bytes": 43121,
+      "lines": 646
+    },
+    {
+      "path": "reviews/ASSEMBLY2_FINAL_INTEGRATION_R2.md",
+      "sha256": "432a010ff3302d39dfbefb9fe85ab5e39ff4989011defcccff22f0a8d8ee5ea3",
+      "bytes": 38275,
+      "lines": 563
+    }
+  ],
+  "integration": {
+    "status": "CLEAN at the explicitly reviewed scope",
+    "inputs": 27,
+    "total_lines": 32483,
+    "substantive_and_navigation_lines_read": 8983,
+    "unread_lines": 23500,
+    "complete_technical_content_lines": 8351,
+    "scope_navigation_lines": 632,
+    "tests_passed": 90,
+    "guide_example_passed": true,
+    "boundary_files_checked": 25,
+    "input_permissions": "0444 files; 0555 containing directories",
+    "test_scratch": "Separate TMPDIR permitted for fixture tests; no input writes or permission changes authorized",
+    "first_integration_result": "85 passed; five fixture tests errored in read-only sandbox. Full report retained; not counted as unconditional acceptance. Fresh complete review with byte-identical input resolved the execution limitation."
+  },
+  "scientific_test_command": "PYTHONPATH=code:code/tests PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -B -m unittest test_finite_network test_numerical_contract test_gaussian_moments test_library_boundary test_finite_jets test_exact_calculus test_finite_reductions",
+  "no_training_or_historical_campaign": true
+}

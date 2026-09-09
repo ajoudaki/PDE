@@ -1,0 +1,169 @@
+{
+  "date": "2026-09-09",
+  "scope": "Candidate final scientific edition for independent integration review. Only maintained scientific inputs; no studies, data, exporter, history or prior verdicts supplied. Acceptance is separately recorded after all complete reviews.",
+  "excluded_concurrent_commit": "eb6e628",
+  "files": [
+    {
+      "path": "Makefile",
+      "sha256": "740d59f44f085975520f375a5d96c8871ecf3a07afdf767c3090bfde61e7db65",
+      "bytes": 257,
+      "lines": 9
+    },
+    {
+      "path": "code/README.md",
+      "sha256": "1bd1a68b9357c054dfc4a7e1b708ef302bcc357e776229e33247b5c00a3316d7",
+      "bytes": 23528,
+      "lines": 437
+    },
+    {
+      "path": "code/pde/__init__.py",
+      "sha256": "65eb96a5dd455041d2ad1f32652e3e26e8c15192eb41bdffba27980f0f69e8c3",
+      "bytes": 611,
+      "lines": 26
+    },
+    {
+      "path": "code/pde/exact_calculus.py",
+      "sha256": "d7cd27b3bffed6152bb9fad40514a8e2848561fa6d44e0cb1aa0fd652d7e5aa3",
+      "bytes": 10108,
+      "lines": 249
+    },
+    {
+      "path": "code/pde/finite_jets.py",
+      "sha256": "1d8e5bdf4ca056645c720fce69a4df9e82dbbdf840da7f9f4599efe5c401aca2",
+      "bytes": 8466,
+      "lines": 176
+    },
+    {
+      "path": "code/pde/finite_network.py",
+      "sha256": "efe694b200b8af2603cbf1bb9d0249f49636e874088c2bafd98f402b5bfbe551",
+      "bytes": 15525,
+      "lines": 363
+    },
+    {
+      "path": "code/pde/finite_reductions.py",
+      "sha256": "391dc35773a35d86f889cebda9f95820d793a656f2fb05f9b01bb7453be20a4c",
+      "bytes": 15571,
+      "lines": 346
+    },
+    {
+      "path": "code/pde/gaussian_moments.py",
+      "sha256": "6c2a21a9f3d101c433b5f06cb3f6e1dcdeca23a814891ea7bd81e73960e854ae",
+      "bytes": 4464,
+      "lines": 114
+    },
+    {
+      "path": "code/tests/test_exact_calculus.py",
+      "sha256": "58881bee416ba4b5db9e7688003bfcbef985c4fc82e006c29dbe8a25c32ce242",
+      "bytes": 10214,
+      "lines": 217
+    },
+    {
+      "path": "code/tests/test_finite_jets.py",
+      "sha256": "991ae49dc65f1e0970c02ab57596560fabd79a1e71416879b43c52aa5e75c88a",
+      "bytes": 15562,
+      "lines": 296
+    },
+    {
+      "path": "code/tests/test_finite_network.py",
+      "sha256": "a45ddc72c943b85aff63b6c4d49c88d8784100dbed8878cd9bb710b8256b9931",
+      "bytes": 15154,
+      "lines": 297
+    },
+    {
+      "path": "code/tests/test_finite_reductions.py",
+      "sha256": "7b1a4023334956a25afd4217de7a311145b64c240fc78b87f84b16d2af7dedb0",
+      "bytes": 18563,
+      "lines": 340
+    },
+    {
+      "path": "code/tests/test_gaussian_moments.py",
+      "sha256": "9aeb8a09137edf50fd30db36b08a337a3b1b3cebe9ac85b95ec4c6787f1188ea",
+      "bytes": 5179,
+      "lines": 110
+    },
+    {
+      "path": "code/tests/test_library_boundary.py",
+      "sha256": "375a033e737923ea5f10df687adb0556baee5bcd1a44dff184b88d76b381966a",
+      "bytes": 2352,
+      "lines": 58
+    },
+    {
+      "path": "code/tests/test_numerical_contract.py",
+      "sha256": "c925d71d60aa1965d44900122fa04e5fdfff18f00bdf8a41ddc9a2b91e5e1d92",
+      "bytes": 10601,
+      "lines": 202
+    },
+    {
+      "path": "code/tools/check_library.py",
+      "sha256": "7ae3148f2418ec60744435e0685cde63d2de5a8448816b98d1ed4b700dfb48f6",
+      "bytes": 4910,
+      "lines": 100
+    },
+    {
+      "path": "docs/NOTATION.md",
+      "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+      "bytes": 5110,
+      "lines": 98
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "d87109e73ec792779d1e495538b74488950c08865e21e4f29aa32f1a1937ff5a",
+      "bytes": 20440,
+      "lines": 265
+    },
+    {
+      "path": "docs/arctan_limits.md",
+      "sha256": "19f01b6112949f4d186ef17ff94415804830ed51a519b155ed45343c26cbbead",
+      "bytes": 143086,
+      "lines": 3117
+    },
+    {
+      "path": "docs/continuous_depth.md",
+      "sha256": "1ce60f0ff159851b0087c143c49eeb59d227f7b2cf675d53dda07f24989f515d",
+      "bytes": 88920,
+      "lines": 2474
+    },
+    {
+      "path": "docs/finite_dynamics.md",
+      "sha256": "a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca5545bc0012a",
+      "bytes": 48489,
+      "lines": 1275
+    },
+    {
+      "path": "docs/finite_optimization_and_controls.md",
+      "sha256": "6c598905b1ba51b69d9bae9f336baaca26534ff8ce3e9e93ea5faa146e00c7e3",
+      "bytes": 135529,
+      "lines": 3394
+    },
+    {
+      "path": "docs/gaussian_calculus.md",
+      "sha256": "73b19ef2212596d25ce3caaa96eb772427fbc4d35d304bc754dc0459c3e61b8d",
+      "bytes": 193338,
+      "lines": 4719
+    },
+    {
+      "path": "docs/global_nonlinear.md",
+      "sha256": "becfba469f81bc4573275bc679aa3ee102f2e553c03c00357c3268792a556c95",
+      "bytes": 83472,
+      "lines": 1796
+    },
+    {
+      "path": "docs/linear_dynamics.md",
+      "sha256": "c1920b78c8788c6025776943944da4f4756717cb8250189e7e91ea81ee830090",
+      "bytes": 104904,
+      "lines": 2641
+    },
+    {
+      "path": "docs/special_data_limits.md",
+      "sha256": "be4573af77f32d53913b1a50f0eb6e003f54bbf7571db95951d47ebc6c65719a",
+      "bytes": 466384,
+      "lines": 9362
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "c907c176d0ef35a2a05a8650accb80616d99d55f620dc0fd55d8bfe994bc7ae2",
+      "bytes": 111,
+      "lines": 2
+    }
+  ]
+}

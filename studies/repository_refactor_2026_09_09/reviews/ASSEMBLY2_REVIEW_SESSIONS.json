@@ -1,0 +1,176 @@
+{
+  "scope": "Fresh independent ephemeral processes with only complete frozen scientific inputs and requested methodology. No history, studies, prior verdicts or delegation. Input bytes were unchanged in all rounds. The final integration allowed temporary fixture writes in separate scratch; scientific inputs were mode 0444 with directories mode 0555. Complete records artifact presence, not acceptance; consult acceptance ledger.",
+  "reviews": [
+    {
+      "review": "shallow_A1",
+      "configuration": {
+        "workdir": "/tmp/pde_assembly2_shallow_r1",
+        "model": "gpt-6-astra",
+        "provider": "openai",
+        "approval": "never",
+        "sandbox": "read-only",
+        "reasoning effort": "none",
+        "reasoning summaries": "none",
+        "session id": "01a0879e-4ce9-7bf3-9e8b-7252d0102f8e"
+      },
+      "report_status": "complete",
+      "report_sha256": "886379cb6c430c003e8ff17c7439018917f3ec1da2aa18c3ebe7839a8ff5a429"
+    },
+    {
+      "review": "shallow_B1",
+      "configuration": {
+        "workdir": "/tmp/pde_assembly2_shallow_r1",
+        "model": "gpt-6-astra",
+        "provider": "openai",
+        "approval": "never",
+        "sandbox": "read-only",
+        "reasoning effort": "none",
+        "reasoning summaries": "none",
+        "session id": "01a0879e-4d91-7633-9ca4-16835f0133ba"
+      },
+      "report_status": "complete",
+      "report_sha256": "ad7df95e5eabffd14fa618db41f4915b880192a5bc2e574c92ac22bed89e1a0d"
+    },
+    {
+      "review": "shallow_B2",
+      "configuration": {
+        "workdir": "/tmp/pde_assembly2_shallow_r1",
+        "model": "gpt-6-astra",
+        "provider": "openai",
+        "approval": "never",
+        "sandbox": "read-only",
+        "reasoning effort": "ultra",
+        "reasoning summaries": "none",
+        "session id": "01a087a1-23c6-74d3-8777-751636dfe112"
+      },
+      "report_status": "complete",
+      "report_sha256": "1751d2d04d903f275d7092d0586b8ceab8e162c8c86261f552632812d02ccdbd"
+    },
+    {
+      "review": "frozen_A1",
+      "configuration": {
+        "workdir": "/tmp/pde_assembly2_frozen_r1",
+        "model": "gpt-6-astra",
+        "provider": "openai",
+        "approval": "never",
+        "sandbox": "read-only",
+        "reasoning effort": "ultra",
+        "reasoning summaries": "none",
+        "session id": "01a087a2-fdfa-7f80-9cf0-b7a7f72bfb5f",
+        "Conduct a fresh independent complete mathematical and implementation review of every input listed in INPUTS.json in this working directory. Only these files are permitted as mathematical/code inputs. Read every line including all of docs/finite_dynamics.md, notation, supplied Python, tests, guide and requirements. Do not read any checkout, studies, other /tmp packets, previous verdict, task history or external source; no delegation. Read /etc/codex/skills/solve-math-rigorously/SKILL.md and /etc/codex/skills/investigate-conjectures/SKILL.md and its research-contract/evidence-ledger/adversarial-audit references yourself. Leave all packet inputs unchanged; verify hashes before and after. Full review focus": "finite-dynamics Sections8\u20139 (frozen quadratic joint initial layer, exact reduction, no pathwise deletion order, reached ReLU classical obstruction, positive local Euler output compactness and gate occupation identities), and new FrozenQuadraticEvaluation, _frozen_state, frozen_quadratic and frozen_quadratic_step APIs plus their tests and guide. Earlier finite identities/core code are complete explicit dependencies and must be checked at the interfaces actually used. Preserve all init/activation/metric/half-loss clock/interpolation/order and convergence scopes. Check for missing proof steps or unstated external imports, and for invalid leaps from frozen/classical/compactness claims. Run PYTHONPATH=code:code/tests PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -B -m unittest test_finite_reductions and the guide example. Small independent deterministic algebra/derivative checks are authorized; no training, trajectory simulations or historical campaigns. Keep diagnostics outside the input directory or run inline. Return a complete report with CLEAN or CORRECTIONS REQUIRED, exact read/hashes before and after, all independent checks, numbered required corrections if any, and precise scope. Final response must contain the entire report, not a link or summary."
+      },
+      "report_status": "complete",
+      "report_sha256": "7e2597212884810aa53958ac28f455443e721df02d2f96aba7b824d625e53619"
+    },
+    {
+      "review": "frozen_B1",
+      "configuration": {
+        "workdir": "/tmp/pde_assembly2_frozen_r1",
+        "model": "gpt-6-astra",
+        "provider": "openai",
+        "approval": "never",
+        "sandbox": "read-only",
+        "reasoning effort": "ultra",
+        "reasoning summaries": "none",
+        "session id": "01a087a4-172e-70d1-862d-e207785b9d8e",
+        "Conduct a fresh independent complete mathematical and implementation review of every input listed in INPUTS.json in this working directory. Only these files are permitted as mathematical/code inputs. Read every line including all of docs/finite_dynamics.md, notation, supplied Python, tests, guide and requirements. Do not read any checkout, studies, other /tmp packets, previous verdict, task history or external source; no delegation. Read /etc/codex/skills/solve-math-rigorously/SKILL.md and /etc/codex/skills/investigate-conjectures/SKILL.md and its research-contract/evidence-ledger/adversarial-audit references yourself. Leave all packet inputs unchanged; verify hashes before and after. Full review focus": "finite-dynamics Sections8\u20139 (frozen quadratic joint initial layer, exact reduction, no pathwise deletion order, reached ReLU classical obstruction, positive local Euler output compactness and gate occupation identities), and new FrozenQuadraticEvaluation, _frozen_state, frozen_quadratic and frozen_quadratic_step APIs plus their tests and guide. Earlier finite identities/core code are complete explicit dependencies and must be checked at the interfaces actually used. Preserve all init/activation/metric/half-loss clock/interpolation/order and convergence scopes. Check for missing proof steps or unstated external imports, and for invalid leaps from frozen/classical/compactness claims. Run PYTHONPATH=code:code/tests PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -B -m unittest test_finite_reductions and the guide example. Small independent deterministic algebra/derivative checks are authorized; no training, trajectory simulations or historical campaigns. Keep diagnostics outside the input directory or run inline. Return a complete report with CLEAN or CORRECTIONS REQUIRED, exact read/hashes before and after, all independent checks, numbered required corrections if any, and precise scope. Final response must contain the entire report, not a link or summary."
+      },
+      "report_status": "complete",
+      "report_sha256": "fdd02177251d09ccdf573f3eebfd6a6f06bbeb4986fc5d8408f7957c6f69ef6a"
+    },
+    {
+      "review": "frozen_A2",
+      "configuration": {
+        "workdir": "/tmp/pde_assembly2_frozen_r2",
+        "model": "gpt-6-astra",
+        "provider": "openai",
+        "approval": "never",
+        "sandbox": "read-only",
+        "reasoning effort": "ultra",
+        "reasoning summaries": "none",
+        "session id": "01a087a9-fc1b-78f1-a715-5e33ebf0620b",
+        "Conduct a fresh independent complete mathematical and implementation review of every input listed in INPUTS.json in this working directory. Only these files are permitted as mathematical/code inputs. Read every line including all of docs/finite_dynamics.md, notation, supplied Python, tests, guide and requirements. Do not read any checkout, studies, other /tmp packets, previous verdict, task history or external source; no delegation. Read /etc/codex/skills/solve-math-rigorously/SKILL.md and /etc/codex/skills/investigate-conjectures/SKILL.md and its research-contract/evidence-ledger/adversarial-audit references yourself. Leave all packet inputs unchanged; verify hashes before and after. Full review focus": "finite-dynamics Sections8\u20139 (frozen quadratic joint initial layer, exact reduction, no pathwise deletion order, reached ReLU classical obstruction, positive local Euler output compactness and gate occupation identities), and new FrozenQuadraticEvaluation, _frozen_state, frozen_quadratic and frozen_quadratic_step APIs plus their tests and guide. Earlier finite identities/core code are complete explicit dependencies and must be checked at the interfaces actually used. Preserve all init/activation/metric/half-loss clock/interpolation/order and convergence scopes. Check for missing proof steps or unstated external imports, and for invalid leaps from frozen/classical/compactness claims. Run PYTHONPATH=code:code/tests PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -B -m unittest test_finite_reductions and the guide example. Small independent deterministic algebra/derivative checks are authorized; no training, trajectory simulations or historical campaigns. Keep diagnostics outside the input directory or run inline. Return a complete report with CLEAN or CORRECTIONS REQUIRED, exact read/hashes before and after, all independent checks, numbered required corrections if any, and precise scope. Final response must contain the entire report, not a link or summary."
+      },
+      "report_status": "complete",
+      "report_sha256": "87efa51a1b4a55b731e0ed30fda9e220b10bc0ab14cc8141b9f5a230846fdd2e"
+    },
+    {
+      "review": "frozen_B2",
+      "configuration": {
+        "workdir": "/tmp/pde_assembly2_frozen_r2",
+        "model": "gpt-6-astra",
+        "provider": "openai",
+        "approval": "never",
+        "sandbox": "read-only",
+        "reasoning effort": "ultra",
+        "reasoning summaries": "none",
+        "session id": "01a087ab-1486-7a92-9f3a-d935135898bc",
+        "Conduct a fresh independent complete mathematical and implementation review of every input listed in INPUTS.json in this working directory. Only these files are permitted as mathematical/code inputs. Read every line including all of docs/finite_dynamics.md, notation, supplied Python, tests, guide and requirements. Do not read any checkout, studies, other /tmp packets, previous verdict, task history or external source; no delegation. Read /etc/codex/skills/solve-math-rigorously/SKILL.md and /etc/codex/skills/investigate-conjectures/SKILL.md and its research-contract/evidence-ledger/adversarial-audit references yourself. Leave all packet inputs unchanged; verify hashes before and after. Full review focus": "finite-dynamics Sections8\u20139 (frozen quadratic joint initial layer, exact reduction, no pathwise deletion order, reached ReLU classical obstruction, positive local Euler output compactness and gate occupation identities), and new FrozenQuadraticEvaluation, _frozen_state, frozen_quadratic and frozen_quadratic_step APIs plus their tests and guide. Earlier finite identities/core code are complete explicit dependencies and must be checked at the interfaces actually used. Preserve all init/activation/metric/half-loss clock/interpolation/order and convergence scopes. Check for missing proof steps or unstated external imports, and for invalid leaps from frozen/classical/compactness claims. Run PYTHONPATH=code:code/tests PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -B -m unittest test_finite_reductions and the guide example. Small independent deterministic algebra/derivative checks are authorized; no training, trajectory simulations or historical campaigns. Keep diagnostics outside the input directory or run inline. Return a complete report with CLEAN or CORRECTIONS REQUIRED, exact read/hashes before and after, all independent checks, numbered required corrections if any, and precise scope. Final response must contain the entire report, not a link or summary."
+      },
+      "report_status": "complete",
+      "report_sha256": "d16f9cbf3270e311281c008b06774e98dca15890ccf417056b810397a3947d3b"
+    },
+    {
+      "review": "kernel_hessian_A1",
+      "configuration": {
+        "workdir": "/tmp/pde_assembly2_kernel_hessian_r2",
+        "model": "gpt-6-astra",
+        "provider": "openai",
+        "approval": "never",
+        "sandbox": "read-only",
+        "reasoning effort": "ultra",
+        "reasoning summaries": "none",
+        "session id": "01a087ad-0012-7fa1-8e0e-3ccd164faf29",
+        "Conduct a fresh independent complete mathematical review of coherent.md, hessian.md and NOTATION.md plus INPUTS.json, all in this working directory. Read every line. These are the only permitted mathematical inputs": "do not inspect any checkout, studies, other temporary packet, prior verdict, history, other task or external source. No delegation. Read /etc/codex/skills/solve-math-rigorously/SKILL.md and /etc/codex/skills/investigate-conjectures/SKILL.md plus its research-contract/evidence-ledger/adversarial-audit references yourself. Verify all input hashes before and after; leave inputs unchanged. Audit every finite metric/gradient factor, exact strong/Bochner carrier, measurability/completeness, local depth existence, Lipschitz training field, Frechet derivative and gradient representation, energy, ordered column-to-row global continuation, uniqueness and restart. Check that the actual full proof is contained, with no unproved external heavy dependency or unjustified bare-L2/depth-maximum/width-limit inference. The benchmark model must retain its explicit coherent W/n scaling, bounded fixed endpoints, bounded C2 activation, finite arbitrary data, lower-bounded C2 loss and exact physical clock. No training or research experiments. Small bounded deterministic finite-algebra checks are allowed inline or outside this input directory. Return the entire full audit report in your final response, with CLEAN or CORRECTIONS REQUIRED, detailed mathematical substantiation for each proof subsection, exact read/hash ledger, any required corrections, and exact scope. Do not stop after the ledger; instruction-file hashes are unnecessary."
+      },
+      "report_status": "complete",
+      "report_sha256": "e3aee5b7bda701bf4cc9f13bae51928b8396907f99c2815fc7dd9f692f8fe95d"
+    },
+    {
+      "review": "kernel_hessian_B1",
+      "configuration": {
+        "workdir": "/tmp/pde_assembly2_kernel_hessian_r2",
+        "model": "gpt-6-astra",
+        "provider": "openai",
+        "approval": "never",
+        "sandbox": "read-only",
+        "reasoning effort": "ultra",
+        "reasoning summaries": "none",
+        "session id": "01a087b0-24ca-7901-9813-1426aba65f61",
+        "Conduct a fresh independent complete mathematical review of coherent.md, hessian.md and NOTATION.md plus INPUTS.json, all in this working directory. Read every line. These are the only permitted mathematical inputs": "do not inspect any checkout, studies, other temporary packet, prior verdict, history, other task or external source. No delegation. Read /etc/codex/skills/solve-math-rigorously/SKILL.md and /etc/codex/skills/investigate-conjectures/SKILL.md plus its research-contract/evidence-ledger/adversarial-audit references yourself. Verify all input hashes before and after; leave inputs unchanged. Audit every finite metric/gradient factor, exact strong/Bochner carrier, measurability/completeness, local depth existence, Lipschitz training field, Frechet derivative and gradient representation, energy, ordered column-to-row global continuation, uniqueness and restart. Check that the actual full proof is contained, with no unproved external heavy dependency or unjustified bare-L2/depth-maximum/width-limit inference. The benchmark model must retain its explicit coherent W/n scaling, bounded fixed endpoints, bounded C2 activation, finite arbitrary data, lower-bounded C2 loss and exact physical clock. No training or research experiments. Small bounded deterministic finite-algebra checks are allowed inline or outside this input directory. Return the entire full audit report in your final response, with CLEAN or CORRECTIONS REQUIRED, detailed mathematical substantiation for each proof subsection, exact read/hash ledger, any required corrections, and exact scope. Do not stop after the ledger; instruction-file hashes are unnecessary."
+      },
+      "report_status": "complete",
+      "report_sha256": "983c484725e60babb44091649941b003c4e66a64c07ba8babc84e96f6bf377e4"
+    },
+    {
+      "review": "final_integration",
+      "configuration": {
+        "workdir": "/tmp/pde_assembly2_final_library",
+        "model": "gpt-6-astra",
+        "provider": "openai",
+        "approval": "never",
+        "sandbox": "read-only",
+        "reasoning effort": "ultra",
+        "reasoning summaries": "none",
+        "session id": "01a087b1-1356-75f2-9363-5ab86ef72bbd"
+      },
+      "report_status": "complete",
+      "report_sha256": "1bd2fb819d893e50b8d30fd137b13918cde4418be065251e9297c3d689300a75"
+    },
+    {
+      "review": "final_integration_r2",
+      "configuration": {
+        "workdir": "/tmp/pde_assembly2_final_library_r2",
+        "model": "gpt-6-astra",
+        "provider": "openai",
+        "approval": "never",
+        "sandbox": "workspace-write [workdir, /tmp, $TMPDIR, /tmp/pde_assembly2_integration_scratch]",
+        "reasoning effort": "ultra",
+        "reasoning summaries": "none",
+        "session id": "01a087b6-1548-76f2-a197-89d4ee25479a"
+      },
+      "report_status": "complete",
+      "report_sha256": "432a010ff3302d39dfbefb9fe85ab5e39ff4989011defcccff22f0a8d8ee5ea3"
+    }
+  ]
+}
