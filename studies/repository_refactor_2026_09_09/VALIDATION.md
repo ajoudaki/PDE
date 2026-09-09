@@ -1,10 +1,11 @@
 # Refactor validation record
 
-Status: the proof/code library, final bounded study-routing repairs and expanded
-reading guide are independently accepted at the scopes recorded below. The
-three special-data proof scopes have clean independent reviews. This record
-is not a blanket release certificate. Completed
-checks below apply to their exact snapshots and scopes.
+This is a chronological validation record, not a blanket release certificate.
+The original refactor, study-routing repairs and narrative-only advisory
+revision have the exact historical scopes below. Later incorporation of the
+three agreed priorities has its separate version and acceptance record in
+[INCORPORATION_ACCEPTANCE.md](INCORPORATION_ACCEPTANCE.md). Counts and verdicts
+from earlier editions are not retroactively relabeled as checks of new proofs.
 
 ## Preservation
 
@@ -47,9 +48,10 @@ and four additional refactor pages: 977 local links resolve. It is not an audit
 of every link in immutable historical manuscripts; library links are checked
 separately by `make check`.
 
-## Established code
+## Original established code acceptance
 
-The tested environment is Python 3.10.12 and NumPy 1.26.4. `make check` checks
+At the original acceptance, the tested environment was Python 3.10.12 and
+NumPy 1.26.4. `make check` checked
 the source-library structure and local file links, then runs 52 deterministic
 unit tests with one BLAS/OpenMP thread and bytecode disabled. No test needs
 historical study data. The checker is not a security sandbox or proof verifier.
@@ -70,7 +72,7 @@ To reproduce a harness, put it beside a copy of `code/` and `docs/` in a private
 temporary directory, as in its original report, and run with `PYTHONPATH=code`.
 They are audit artifacts, not dependencies of the implementation or proofs.
 
-## Theory and self-containment
+## Original theory and self-containment acceptance
 
 Each proof review records exact input hashes and full-read coverage; no review
 is inferred from an old source PASS. Completed isolated reviews cover finite
@@ -95,9 +97,11 @@ This integration verdict does not replace the earlier chapter-specific proof
 reviews or claim that every inequality was independently rederived again.
 Its exact input edition is frozen separately in
 [INTEGRATION_ROUND2_LIBRARY_INPUTS.json](reviews/INTEGRATION_ROUND2_LIBRARY_INPUTS.json).
-The current edition is [LIBRARY_INPUTS.json](LIBRARY_INPUTS.json). Following the
-coverage advisory, only `docs/README.md` changes: the other twenty input hashes,
-including all mathematical chapters and implementation files, are unchanged.
+That narrative-only edition is preserved in
+[INCORPORATION_BASE_LIBRARY_INPUTS.json](reviews/INCORPORATION_BASE_LIBRARY_INPUTS.json).
+At that coverage-advisory stage only `docs/README.md` changed: the other twenty
+input hashes, including all mathematical chapters and implementation files,
+were unchanged. Later proof/code additions have their own acceptance below.
 The expanded guide has a separate CLEAN
 [editorial/integration review](reviews/GUIDE_ADVISORY_INTEGRATION.md), not a
 retroactive extension of the old verdict. Its 21-file private copy has been
@@ -240,7 +244,7 @@ assemblies; they did not freshly certify every proof, generator or historical
 experiment. No code, coefficient artifact or empirical result is promoted by
 the advisory disposition alone.
 
-The actual book change restores the scientific narrative and includes the
+The narrative-only book change restored the scientific narrative and included the
 elementary finite-accuracy transfer argument. Four primary papers are cited for
 non-exhaustive context only, not invoked as mathematical proof dependencies.
 The coordinator checked all 21 new edition hashes against the isolated copy,

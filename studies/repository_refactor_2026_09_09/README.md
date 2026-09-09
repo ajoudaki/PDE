@@ -59,6 +59,14 @@ only the maintained, self-contained mathematical library.
   byte receipt at the completed implementation checkpoint.
 - `0fceee9`: restored scientific narrative, CLEAN fresh guide review, frozen
   prior library edition and explicit ten-family advisory coverage disposition.
+- `a257e59`: completed refactor preservation/navigation receipts.
+- `44001fb`: complete generic-correlation first-layer compactness and mixed
+  finite-GF fitting/gate proofs, with two independent accepted reviews each.
+- `5c1de35`: complete moving physical-flow jet and exact forest/certificate
+  calculus, maintained implementations, 21 additional deterministic tests,
+  and paired full proof/code reviews.
+- `ae587f2`: complete exact-compiler quantitative fixed-program remainder proof,
+  two full isolated reviews, and the clean code/API integration review.
 
 [INVENTORY_BEFORE.json](INVENTORY_BEFORE.json) records the original paths,
 sizes and hashes. [MOVE_MANIFEST.json](MOVE_MANIFEST.json) records relocation.
@@ -137,9 +145,16 @@ coverage list: it records added complete chapters and preserves the distinction
 between an open theorem, a qualified import and an editorial promotion backlog.
 The [advisory disposition](ADVISORY_COVERAGE_DISPOSITION.md) revisits ten wider
 coverage families against the actual maintained book. The scientific narrative
-is expanded; computational machinery and narrower proved results remain
-explicitly distinguished from unclosed imports, rather than being called
-speculative merely because they are not full global-limit theorems.
+is expanded; the subsequent [incorporation plan](INCORPORATION_PLAN.md) and
+[acceptance record](INCORPORATION_ACCEPTANCE.md) track the three agreed
+priorities and their actual proof/code additions. Computational machinery and
+narrower proved results remain distinguished from unclosed imports, rather
+than being called speculative merely because they are not global-limit theorems.
+
+The concurrent six-file PDF-exporter addition in `eb6e628` is outside this
+incorporation's proof/code review scope. Its files are preserved, not edited or
+included in this task's acceptance verdict. Scientific source inventory and
+test counts must not silently include unrelated concurrent implementation.
 
 ## Rollback without losing work
 
