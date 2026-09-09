@@ -1,0 +1,15 @@
+jets width=64
+test_all_five_campaign_outputs_are_generated (isolated_boundary_suite.FiniteWidthPathTests) ... ok
+test_both_fresh_producer_consumer_roots_agree (isolated_boundary_suite.FiniteWidthPathTests) ... ok
+test_historical_input_selection_is_explicit (isolated_boundary_suite.FiniteWidthPathTests) ... ok
+test_jet_reader_uses_selected_fixture_before_any_jet_work (isolated_boundary_suite.FiniteWidthPathTests) ... ok
+test_source_and_historical_outputs_are_rejected (isolated_boundary_suite.FiniteWidthPathTests) ... usage: run_tests.py [-h] [--output-dir OUTPUT_DIR]
+run_tests.py: error: fresh outputs must be under /home/amir/Codes/PDE/data/generated/stieltjes_finite_width or external scratch
+usage: run_tests.py [-h] [--output-dir OUTPUT_DIR]
+run_tests.py: error: fresh outputs must be under /home/amir/Codes/PDE/data/generated/stieltjes_finite_width or external scratch
+ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.033s
+
+OK

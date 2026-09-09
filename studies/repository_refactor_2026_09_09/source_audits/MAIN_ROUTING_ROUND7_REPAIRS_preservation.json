@@ -1,0 +1,72 @@
+{
+  "changed_files": [
+    "studies/mfp_quadratic_compiler/campaign1/run_graded_campaign.py",
+    "studies/mfp_quadratic_compiler/centered_depth1_order13/centered_h2_exact.py",
+    "studies/resnet_dense_long_horizon/reproduce.sh",
+    "studies/repository_refactor_2026_09_09/test_resnet_routing.py",
+    "studies/repository_refactor_2026_09_09/test_quadratic_routing.py"
+  ],
+  "exact_allowed_source_replacements_only": true,
+  "unchanged_calculation_functions": {
+    "studies/mfp_quadratic_compiler/campaign1/run_graded_campaign.py": {
+      "sha256": "d019fd27285a602578689ac7d4dcdea60b85181c7a1eec2166f110436c894f03",
+      "memory_limiter": "73b4934a87a986c8408c78e8603e9524d2eabd9fd8fc38f6a2f4a2ac8bc2b1c0",
+      "run_order": "a723dc27b8758fa0d56f9214c57e5355004e70275cdfed2de7af1b0131c80095",
+      "jet_record": "a32bda080dd575f87f930acbda9ef4789abeecdafbaec82b875b5b42e11df021"
+    },
+    "studies/mfp_quadratic_compiler/centered_depth1_order13/centered_h2_exact.py": {
+      "sha256": "d019fd27285a602578689ac7d4dcdea60b85181c7a1eec2166f110436c894f03",
+      "add": "8ef572f0dccc6e551d4a52fd46ee5a471e9c49f8ead150f0fb6260a7650391a2",
+      "scale": "08104116866d2dc3b26eb4b227d88dfb366a700a188bb6d57701483b358c57b9",
+      "multiply": "6a812a1a66647bc7906321ca0fe3d7f99a9c11a9f77fa963df789cdbc035faf0",
+      "lie_derivative": "0c632ff748ee73e4b807dc55d3dba31a8aaaf2a08e025c7cb347a800cbe1c32a",
+      "odd_double_factorial": "78ce762ebcd9f1b733769bbfeb6a53ef72ff7dbd70828cb2b017abacacb47604",
+      "gaussian_expectation": "8babf724620ddc284e0d17dd9c8b7c505e52c59d9369c8ac6b556f16463cb7b7",
+      "lie_jet": "08457221f0281b518351f5e1d30f368e2d26d9913f830eb33631f35c1a89c97b",
+      "taylor_jet": "035a5176d95c37afc9099c3518a6b80aaafe17ab383f51a60cba1098c26d6c3f",
+      "serialize_minors": "0059b826fe24397f243dfeefb282ac7469223e6274e57f6c6baca21be59bd3c7"
+    }
+  },
+  "file_hashes": {
+    "studies/mfp_quadratic_compiler/campaign1/run_graded_campaign.py": {
+      "before": "23b2c550a86f32d0e15860852ea85de9c0ebd83182b9ef0b63ad70e3b1ce26d8",
+      "after": "a65c887c6d5f7fe233152e0721fc3f5425f62458bac447205fdb23b600a91d4b"
+    },
+    "studies/mfp_quadratic_compiler/centered_depth1_order13/centered_h2_exact.py": {
+      "before": "e4a687a99fec98d08c9a78d49e3ecd269ca9159c229b8e40fe8095a7e9db687d",
+      "after": "0a8f378f35716a568a48b1b9cef86040030439a2dfadc9e112294f21762de769"
+    },
+    "studies/resnet_dense_long_horizon/reproduce.sh": {
+      "before": "6ce727c93d285b39f190558ce6af24dbcb8e4411278a61a6af41d927d9ea5b20",
+      "after": "f292fd618fba8984905124289eb20b7f12e60f225fd5107f77c4780830ba983f"
+    },
+    "studies/repository_refactor_2026_09_09/test_resnet_routing.py": {
+      "before": "cf639dd2a476319a3d1b8cda1bbecf603fa2795076340c212812ac77be0da558",
+      "after": "730652e8e193b31cffb3a1cc48c4ff3e65c19bcb163d07c00eaedcbe9fe69767"
+    },
+    "studies/repository_refactor_2026_09_09/test_quadratic_routing.py": {
+      "before": "3ac19e66207fbb89909b46f35e2c7eb523ebf2746196a43363b542148dcec412",
+      "after": "c3373a2720e10c6f481c61f938d7e1b40f2384cb20056e059079bfded21e9b1c"
+    },
+    "studies/repository_refactor_2026_09_09/test_metadata_routing.py": {
+      "before": "2dc20edb91bcc87252d45daba637ef3bb38d6bf498979427d70856065c5a6392",
+      "after": "2dc20edb91bcc87252d45daba637ef3bb38d6bf498979427d70856065c5a6392"
+    },
+    "studies/_output_paths.py": {
+      "before": "8e67059e7083fcb5d230de92f1daa4387dba4da1c081e3f111180cef1e2cd02e",
+      "after": "8e67059e7083fcb5d230de92f1daa4387dba4da1c081e3f111180cef1e2cd02e"
+    },
+    "studies/mfp_quadratic_compiler/campaign_paths.py": {
+      "before": "bbb7aecb3400bb695cd166fe761e8275eb0462775c37d77904809540a3e40289",
+      "after": "bbb7aecb3400bb695cd166fe761e8275eb0462775c37d77904809540a3e40289"
+    },
+    "studies/resnet_dense_long_horizon/make_manifest.py": {
+      "before": "e59f6e8b1c10a4be98efa40fa286004ce40fe7cdf6ed5200d0cea36f362c6f41",
+      "after": "e59f6e8b1c10a4be98efa40fa286004ce40fe7cdf6ed5200d0cea36f362c6f41"
+    },
+    "studies/mfp_quadratic_compiler/campaign1/graded_sector.cpp": {
+      "before": "b6657defd7897e54a121b7f8523396d4f6fef666a7a044fe32d6b4d43926a061",
+      "after": "b6657defd7897e54a121b7f8523396d4f6fef666a7a044fe32d6b4d43926a061"
+    }
+  }
+}

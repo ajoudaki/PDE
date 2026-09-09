@@ -1,0 +1,40 @@
+FIXTURE_SHA256 {"case": "resnet_generalization/seal/final", "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271", "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"}
+FIXTURE_SHA256 {"case": "resnet_generalization/restart/final", "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271", "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"}
+FIXTURE_SHA256 {"case": "resnet_generalization/registry/final", "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271", "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"}
+FIXTURE_SHA256 {"case": "resnet_generalization/seal/partial", "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271", "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"}
+FIXTURE_SHA256 {"case": "resnet_generalization/restart/partial", "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271", "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"}
+FIXTURE_SHA256 {"case": "resnet_generalization/registry/partial", "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271", "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"}
+FIXTURE_SHA256 {"case": "resnet_activation_controls/source/seal/final", "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271", "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"}
+FIXTURE_SHA256 {"case": "resnet_activation_controls/source/restart/final", "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271", "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"}
+FIXTURE_SHA256 {"case": "resnet_activation_controls/source/registry/final", "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271", "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"}
+FIXTURE_SHA256 {"case": "resnet_activation_controls/source/seal/partial", "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271", "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"}
+FIXTURE_SHA256 {"case": "resnet_activation_controls/source/restart/partial", "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271", "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"}
+FIXTURE_SHA256 {"case": "resnet_activation_controls/source/registry/partial", "before": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271", "after": "2572548c329e7bcbc7b133d4a0a94e9f6336bcc828031892a9e696eb9e278271"}
+FIXTURE_SHA256 {"case": "resnet_generalization/exact/final", "before": "55006cd634986c15edcc202437e533339ac76025da8b52085871c13c8956fec5", "after": "55006cd634986c15edcc202437e533339ac76025da8b52085871c13c8956fec5"}
+FIXTURE_SHA256 {"case": "resnet_generalization/exact/partial", "before": "55006cd634986c15edcc202437e533339ac76025da8b52085871c13c8956fec5", "after": "55006cd634986c15edcc202437e533339ac76025da8b52085871c13c8956fec5"}
+FIXTURE_SHA256 {"case": "resnet_activation_controls/source/exact/final", "before": "55006cd634986c15edcc202437e533339ac76025da8b52085871c13c8956fec5", "after": "55006cd634986c15edcc202437e533339ac76025da8b52085871c13c8956fec5"}
+FIXTURE_SHA256 {"case": "resnet_activation_controls/source/exact/partial", "before": "55006cd634986c15edcc202437e533339ac76025da8b52085871c13c8956fec5", "after": "55006cd634986c15edcc202437e533339ac76025da8b52085871c13c8956fec5"}
+FIXTURE_SHA256 {"case": "resnet_generalization/publication-failure/input", "before": "9ce7e2e8439bc3e6c0648086a4ec21b475364c62824a05c3196711e435d8dffd", "after": "9ce7e2e8439bc3e6c0648086a4ec21b475364c62824a05c3196711e435d8dffd"}
+FIXTURE_SHA256 {"case": "resnet_generalization/publication-failure/final", "before": "a110123aec7515dcf9fe51062726fa2798e4b1f2460712f4f828fbd1b2d7c91d", "after": "a110123aec7515dcf9fe51062726fa2798e4b1f2460712f4f828fbd1b2d7c91d"}
+FIXTURE_SHA256 {"case": "resnet_activation_controls/source/publication-failure/input", "before": "9ce7e2e8439bc3e6c0648086a4ec21b475364c62824a05c3196711e435d8dffd", "after": "9ce7e2e8439bc3e6c0648086a4ec21b475364c62824a05c3196711e435d8dffd"}
+FIXTURE_SHA256 {"case": "resnet_activation_controls/source/publication-failure/final", "before": "a110123aec7515dcf9fe51062726fa2798e4b1f2460712f4f828fbd1b2d7c91d", "after": "a110123aec7515dcf9fe51062726fa2798e4b1f2460712f4f828fbd1b2d7c91d"}
+FIXTURE_SHA256 {"case": "resnet_generalization/pde/restart_from/final", "before": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae", "after": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae"}
+FIXTURE_SHA256 {"case": "resnet_generalization/pde/case_registry/final", "before": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae", "after": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae"}
+FIXTURE_SHA256 {"case": "resnet_generalization/pde/restart_from/partial", "before": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae", "after": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae"}
+FIXTURE_SHA256 {"case": "resnet_generalization/pde/case_registry/partial", "before": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae", "after": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae"}
+FIXTURE_SHA256 {"case": "resnet_activation_controls/source/pde/restart_from/final", "before": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae", "after": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae"}
+FIXTURE_SHA256 {"case": "resnet_activation_controls/source/pde/case_registry/final", "before": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae", "after": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae"}
+FIXTURE_SHA256 {"case": "resnet_activation_controls/source/pde/restart_from/partial", "before": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae", "after": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae"}
+FIXTURE_SHA256 {"case": "resnet_activation_controls/source/pde/case_registry/partial", "before": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae", "after": "a443b46ca1e1ca8dc792bcd4e35bf1d7aecc9fce8cc731f22c1672c6ff3eb1ae"}
+test_all_four_entrypoints_refuse_output_aliases_before_setup (isolated_boundary_suite.RawPreflightTests) ... ok
+test_all_raw_intermediate_opens_are_exclusive (isolated_boundary_suite.RawPreflightTests) ... ok
+test_both_families_refuse_final_partial_and_registry_inputs (isolated_boundary_suite.RawPreflightTests) ... ok
+test_exact_full_callable_refuses_own_content_derived_name_before_worker (isolated_boundary_suite.RawPreflightTests) ... ok
+test_failed_exact_publication_keeps_old_final_and_blocks_retry_before_worker (isolated_boundary_suite.RawPreflightTests) ... ok
+test_pde_identity_preflight_precedes_samples_and_preserves_both_inputs (isolated_boundary_suite.RawPreflightTests) ... ok
+test_raw_guard_allows_distinct_restart_in_output_directory (isolated_boundary_suite.RawPreflightTests) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.305s
+
+OK

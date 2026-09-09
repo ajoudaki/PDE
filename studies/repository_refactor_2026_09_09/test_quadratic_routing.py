@@ -19,7 +19,7 @@ import sys
 import tempfile
 import time
 import unittest
-from types import SimpleNamespace
+from types import ModuleType, SimpleNamespace
 from unittest.mock import Mock, patch
 
 REPO = Path(__file__).resolve().parents[2]
@@ -181,6 +181,130 @@ class RoutingTests(unittest.TestCase):
             self.assertEqual(ns["run_order"].call_count, 2)
             self.assertEqual(lower.read_bytes(), before)
             self.assertTrue(json.loads(output.read_text())["regression_gates_passed"])
+
+    def test_graded_provenance_source_aliases_refuse_before_hashes_or_sectors(self):
+        with tempfile.TemporaryDirectory() as temporary, patch.dict(os.environ, {}, clear=True):
+            root = Path(temporary)
+            source = root / "graded_sector.cpp"
+            source.write_bytes(b"retained provenance source")
+            stop = Mock(side_effect=AssertionError("work before source alias refusal"))
+            ns = interface("campaign1/run_graded_campaign.py", {"main"},
+                           sha256=stop, run_order=stop,
+                           require_distinct_output=paths().require_distinct_output)
+            ns["__file__"] = str(root / "run_graded_campaign.py")
+            for output in aliases(source):
+                with self.subTest(output=output), patch.object(sys, "argv", [
+                    "graded", "--binary", str(root / "unused-binary"),
+                    "--lower-result", str(root / "unused-lower"), "--output", str(output),
+                ]), self.assertRaisesRegex(ValueError, "aliases an input"):
+                    ns["main"]()
+            stop.assert_not_called()
+            self.assertEqual(source.read_bytes(), b"retained provenance source")
+
+    def test_centered_provenance_aliases_refuse_before_science(self):
+        for consumed in ("source", "protocol"):
+            for kind in ("symlink", "hardlink", "dangling"):
+                with self.subTest(consumed=consumed, kind=kind), tempfile.TemporaryDirectory() as tmp:
+                    root = Path(tmp)
+                    here = root / "source"
+                    here.mkdir()
+                    source = here / "centered_h2_exact.py"
+                    protocol = here / "PROTOCOL.md"
+                    selected = source if consumed == "source" else protocol
+                    for path in (source, protocol):
+                        if path != selected or kind != "dangling":
+                            path.write_bytes(b"retained provenance input")
+                    output = root / "generated/centered_depth1_order13/RESULTS.json"
+                    output.parent.mkdir(parents=True)
+                    if kind == "hardlink":
+                        os.link(selected, output)
+                    else:
+                        output.symlink_to(selected)
+                    stop = Mock(side_effect=AssertionError("science before alias refusal"))
+                    ns = interface("centered_depth1_order13/centered_h2_exact.py", {"main"},
+                                   HERE=here, OUTPUT_ROOT=root / "generated",
+                                   require_distinct_output=paths().require_distinct_output,
+                                   lie_jet=stop, sha256=stop)
+                    ns["__file__"] = str(source)
+                    for flags in ([], ["--long-search"]):
+                        with patch.object(sys, "argv", ["centered", *flags]), \
+                             self.assertRaisesRegex(ValueError, "aliases an input"):
+                            ns["main"]()
+                    stop.assert_not_called()
+                    if kind == "dangling":
+                        self.assertFalse(selected.exists())
+                    else:
+                        self.assertEqual(selected.read_bytes(), b"retained provenance input")
+
+    def test_centered_distinct_refresh_preserves_provenance_inputs(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            here = root / "source"
+            here.mkdir()
+            source, protocol = here / "centered_h2_exact.py", here / "PROTOCOL.md"
+            source.write_bytes(b"inert source fixture")
+            protocol.write_bytes(b"inert protocol fixture")
+            before = {path: path.read_bytes() for path in (source, protocol)}
+            output = root / "generated/centered_depth1_order13/RESULTS.json"
+            output.parent.mkdir(parents=True)
+            output.write_text("previous distinct output")
+            ns = interface("centered_depth1_order13/centered_h2_exact.py", {"main"},
+                HERE=here, OUTPUT_ROOT=root / "generated", SEARCH_ORDER=81, DECISION_ORDER=13,
+                require_distinct_output=paths().require_distinct_output, time=time,
+                lie_jet=Mock(return_value=([0] * 14, [])),
+                taylor_jet=Mock(return_value=([0] * 14, [])),
+                load_reversion_route=Mock(return_value=Mock(return_value=(0, (0,) * 6))),
+                moments_from_triangular_identity=Mock(return_value=(0, (0,) * 6)),
+                serialize_minors=Mock(return_value={"all_positive": False, "negative_labels": []}),
+                audit_hankels=Mock(return_value={}), fraction_string=str,
+                signed_record=lambda value: {"exact": str(value)},
+                sha256=lambda path: hashlib.sha256(path.read_bytes()).hexdigest())
+            ns["__file__"] = str(source)
+            # Only inert transport values: every scientific routine is mocked.
+            for _ in range(2):
+                with patch.object(sys, "argv", ["centered"]), redirect_stdout(io.StringIO()):
+                    self.assertEqual(ns["main"](), 0)
+                result = json.loads(output.read_text())
+                self.assertEqual(result["sha256"], {
+                    "source": hashlib.sha256(before[source]).hexdigest(),
+                    "protocol": hashlib.sha256(before[protocol]).hexdigest(),
+                })
+            self.assertEqual(before, {path: path.read_bytes() for path in before})
+            self.assertEqual(ns["lie_jet"].call_count, 2)
+
+    def test_centered_guard_bootstrap_with_external_science_imports_mocked(self):
+        modules = {}
+        for name, exports in {
+            "identity_order13_stieltjes_audit": ("enumerate_accessible_hankel_minors", "matrix_label"),
+            "identity_stieltjes_audit": ("audit_hankels", "fraction_string", "load_reversion_route",
+                                        "moments_from_triangular_identity", "signed_record"),
+            "run_search": ("algebraic_candidates", "recurrence_candidates"),
+        }.items():
+            module = ModuleType(name)
+            for export in exports:
+                setattr(module, export, Mock(side_effect=AssertionError("external science called")))
+            modules[name] = module
+        path = STUDY / "centered_depth1_order13/centered_h2_exact.py"
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(sys.modules, modules), \
+             patch.object(sys, "path", list(sys.path)), patch.dict(os.environ, {
+                 "PDE_QUADRATIC_INPUT_ROOT": str(Path(tmp) / "input"),
+                 "PDE_QUADRATIC_OUTPUT_ROOT": str(Path(tmp) / "output"),
+             }):
+            spec = importlib.util.spec_from_file_location("centered_bootstrap_fixture", path)
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            self.assertTrue(callable(module.require_distinct_output))
+            stop = Mock(side_effect=AssertionError("science before bootstrap guard"))
+            source = Path(tmp) / "source.py"
+            source.write_bytes(b"retained source")
+            output = Path(tmp) / "output/centered_depth1_order13/RESULTS.json"
+            output.parent.mkdir(parents=True)
+            output.symlink_to(source)
+            with patch.object(module, "__file__", str(source)), patch.object(module, "lie_jet", stop), \
+                 patch.object(sys, "argv", [str(path)]), self.assertRaisesRegex(ValueError, "aliases an input"):
+                module.main()
+            stop.assert_not_called()
+            self.assertEqual(source.read_bytes(), b"retained source")
 
     def test_graded_parent_hash_gate_is_unchanged(self):
         child = SimpleNamespace(stdout=json.dumps({"parent_source_sha256": "wrong-parent"}))

@@ -16,7 +16,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from campaign_paths import INPUT_ROOT, OUTPUT_ROOT, recorded_sector_path
+from campaign_paths import INPUT_ROOT, OUTPUT_ROOT, recorded_sector_path, require_distinct_output
 
 LINEAR_PROGRAM = HERE.parent.parent / "mfp_identity_compiler" / "linear_gaussian_program"
 SEARCH_PROGRAM = LINEAR_PROGRAM / "depth2_all_order_search"
@@ -194,6 +194,10 @@ def main() -> int:
         help="extend the cheap exact Lie route through order 81 and run the frozen closure search",
     )
     args = parser.parse_args()
+    output = require_distinct_output(
+        OUTPUT_ROOT / "centered_depth1_order13/RESULTS.json",
+        (Path(__file__), HERE / "PROTOCOL.md"),
+    )
     lie_order = SEARCH_ORDER if args.long_search else DECISION_ORDER
     taylor_order = DECISION_ORDER
     started = time.perf_counter()
@@ -298,7 +302,6 @@ def main() -> int:
             "The coordinate quadrature is exact but is not a closed population F or K."
         ),
     }
-    output = OUTPUT_ROOT / "centered_depth1_order13/RESULTS.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(payload, indent=2) + "\n")
     print(json.dumps({

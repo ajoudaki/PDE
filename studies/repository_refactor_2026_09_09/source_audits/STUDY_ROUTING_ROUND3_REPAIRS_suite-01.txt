@@ -1,0 +1,12 @@
+test_conflict_after_loading_is_rechecked_before_publication (isolated_boundary_suite.OutputBoundaryTests) ... ok
+test_exclusive_partial_creation_does_not_truncate_a_late_file (isolated_boundary_suite.OutputBoundaryTests) ... ok
+test_existing_final_partial_and_dangling_links_are_preserved (isolated_boundary_suite.OutputBoundaryTests) ... ok
+test_input_aliases_are_rejected_before_inputs (isolated_boundary_suite.OutputBoundaryTests) ... ok
+test_own_generated_and_external_scratch_are_valid_without_writes (isolated_boundary_suite.OutputBoundaryTests) ... ok
+test_protected_outputs_rejected_before_inputs (isolated_boundary_suite.OutputBoundaryTests) ... ok
+test_tiny_scratch_merge_preserves_output_and_provenance_format (isolated_boundary_suite.OutputBoundaryTests) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.078s
+
+OK

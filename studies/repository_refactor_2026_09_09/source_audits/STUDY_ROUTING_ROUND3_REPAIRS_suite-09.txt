@@ -1,0 +1,11 @@
+test_absolute_traversal_and_unknown_points_refuse_before_writes (isolated_boundary_suite.StageVOutputBoundaryTests) ... ok
+test_linked_manifest_or_point_directory_cannot_redirect_finalization (isolated_boundary_suite.StageVOutputBoundaryTests) ... ok
+test_manifest_binding_and_reservation_mismatches_preserve_attempt (isolated_boundary_suite.StageVOutputBoundaryTests) ... ok
+test_missing_named_attempt_is_a_no_write_no_op (isolated_boundary_suite.StageVOutputBoundaryTests) ... ok
+test_reserved_matching_running_attempt_can_be_finalized (isolated_boundary_suite.StageVOutputBoundaryTests) ... ok
+test_timeout_writer_preserves_existing_temporary (isolated_boundary_suite.StageVOutputBoundaryTests) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.073s
+
+OK

@@ -1,0 +1,13 @@
+test_callable_writer_rejects_protected_outputs_without_writes (isolated_boundary_suite.OutputBoundaryTests) ... ok
+test_cli_rejects_protected_outputs_before_analysis_in_both_import_modes (isolated_boundary_suite.OutputBoundaryTests) ... ok
+test_dangling_final_and_temp_links_are_not_replaced (isolated_boundary_suite.OutputBoundaryTests) ... ok
+test_final_and_temp_conflicts_stop_cli_before_analysis_and_preserve_bytes (isolated_boundary_suite.OutputBoundaryTests) ... ok
+test_late_final_is_not_replaced (isolated_boundary_suite.OutputBoundaryTests) ... ok
+test_late_temp_file_is_not_truncated (isolated_boundary_suite.OutputBoundaryTests) ... ok
+test_own_generated_and_external_scratch_are_valid_without_writes (isolated_boundary_suite.OutputBoundaryTests) ... ok
+test_scratch_success_and_failure_records_keep_existing_formats (isolated_boundary_suite.OutputBoundaryTests) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.082s
+
+OK

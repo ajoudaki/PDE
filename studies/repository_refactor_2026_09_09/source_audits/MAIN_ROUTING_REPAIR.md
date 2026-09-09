@@ -264,3 +264,21 @@ The coordinator repeated the full three-file bounded suite: 51 tests pass
 (23 ResNet, 23 quadratic, 5 metadata). This is not a native build, a research
 run or scientific acceptance of the old studies. A fresh isolated seventh
 interface review is running against the frozen slice and shared helper.
+
+## Seventh review and focused repair acceptance
+
+The unchanged seventh report is `../reviews/MAIN_ROUTING_ROUND7_acceptance_report.md`.
+Its three findings concern two consumed provenance sources and a wrapper
+dispatching tests before validating its output. The repairs are now complete:
+Campaign 1 protects its `graded_sector.cpp`; centered-depth publication protects
+its source and protocol before work; the long wrapper validates and normalizes
+once before dispatching anything else. All original calculation text and frozen
+constants remain unchanged. Exact implementation evidence is in
+`MAIN_ROUTING_ROUND7_REPAIRS_implementation_report.md` and companion records.
+
+The coordinator repeated 56 tests, all passing, including the two path-guide
+tests outside the seventh review's input boundary. A fresh isolated review is
+now specifically assessing these three repaired interfaces plus the regression
+suite. Its scope is patch acceptance, not a new claim to certify every legacy
+scientific algorithm. The earlier broad review and its named limitations remain
+part of the acceptance lineage rather than being silently replaced.

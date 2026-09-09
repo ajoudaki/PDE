@@ -1,0 +1,12 @@
+test_analyzer_evidence_interface_without_optional_plot_import (isolated_boundary_suite.EvidencePathTests) ... ok
+test_grid_and_verifier_read_the_same_synthetic_seal (isolated_boundary_suite.EvidencePathTests) ... ok
+test_historical_precheck_requires_explicit_selection_and_fresh_output (isolated_boundary_suite.EvidencePathTests) ... ok
+test_label_round_trip_and_escapes (isolated_boundary_suite.EvidencePathTests) ... ok
+test_precheck_child_command_passes_its_input_root (isolated_boundary_suite.EvidencePathTests) ... ok
+test_precheck_reads_selected_tiny_archive (isolated_boundary_suite.EvidencePathTests) ... ok
+test_writer_precheck_verifier_defaults_agree (isolated_boundary_suite.EvidencePathTests) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.035s
+
+OK

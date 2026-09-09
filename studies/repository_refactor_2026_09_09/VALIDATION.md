@@ -129,6 +129,10 @@ two documentation-reading checks outside its input boundary. Those path guides
 are now explicitly in scope for the repair verification. The three concrete
 findings are being repaired; the report and unchanged 260-input inventory remain
 exactly retained.
+The three repairs now pass 56 tests, repeated by the coordinator, including
+the two explicitly admitted path-guide checks. A fresh isolated follow-up
+reviews those repaired interfaces and regression compatibility; it is not a
+blanket scientific review or an expanded search across unrelated old writers.
 Native checkpoint guards were inspected
 as source, not compiled. The legacy native export power-filter limitation is
 recorded in the quadratic README and remains outside the repaired routing

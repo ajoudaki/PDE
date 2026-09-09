@@ -103,7 +103,10 @@ def main() -> None:
     parser.add_argument("--memory-bytes", type=int, default=4 * 1024**3)
     args = parser.parse_args()
 
-    args.output = require_distinct_output(args.output, (args.lower_result, args.binary))
+    args.output = require_distinct_output(
+        args.output,
+        (args.lower_result, args.binary, Path(__file__).with_name("graded_sector.cpp")),
+    )
     if sha256(args.lower_result) != EXPECTED_LOWER_SHA:
         raise AssertionError("lower-order input hash differs from frozen result")
     lower = json.loads(args.lower_result.read_text(encoding="utf-8"))

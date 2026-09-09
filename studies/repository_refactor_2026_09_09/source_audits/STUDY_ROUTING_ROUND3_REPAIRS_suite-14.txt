@@ -1,0 +1,6 @@
+test_both_mains_hash_the_current_declared_compiler_path (isolated_boundary_suite.MigratedRecurrenceTests) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.009s
+
+OK

@@ -1,0 +1,14 @@
+test_all_six_legacy_main_guards_precede_work (isolated_boundary_suite.SuccessivePathTests) ... ok
+test_attempt_reservation_and_failure_finalization_refuse_before_writes (isolated_boundary_suite.SuccessivePathTests) ... ok
+test_comparison_forwards_selected_roots_to_both_widths (isolated_boundary_suite.SuccessivePathTests) ... ok
+test_comparison_transform_refusal_creates_no_output (isolated_boundary_suite.SuccessivePathTests) ... ok
+test_explicit_inputs_and_outputs_are_not_inferred_from_cwd (isolated_boundary_suite.SuccessivePathTests) ... ok
+test_fresh_and_historical_roots_are_explicit (isolated_boundary_suite.SuccessivePathTests) ... ok
+test_n8192_frozen_transform_still_refuses_before_work (isolated_boundary_suite.SuccessivePathTests) ... ok
+test_selected_block_manifest_and_array_roots (isolated_boundary_suite.SuccessivePathTests) ... ok
+test_source_and_history_outputs_are_rejected (isolated_boundary_suite.SuccessivePathTests) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.103s
+
+OK

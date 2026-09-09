@@ -39,6 +39,9 @@ only the maintained, self-contained mathematical library.
 - `33c371d`: checkpoint/export distinction and exact third Gaussian-review evidence.
 - `2130732`: metadata input protection and exact sixth-main/third-study reviews.
 - `706ee9c`: complete analyzer-input and source-role preflights, 44 bounded tests.
+- `845effd`: operator/early publication guards and 51 combined routing checks.
+- `5b9ef6e`: comparison input-side alias repair and exact fresh review evidence.
+- `62a34ea`: seven-study repair with 92 bounded tests and frozen-contract records.
 
 [INVENTORY_BEFORE.json](INVENTORY_BEFORE.json) records the original paths,
 sizes and hashes. [MOVE_MANIFEST.json](MOVE_MANIFEST.json) records relocation.

@@ -1,0 +1,11 @@
+test_existing_child_hardlink_is_rejected_before_truncating_consumer (isolated_boundary_suite.SharedOutputPathsTests) ... ok
+test_hardlinked_leaf_is_rejected_too (isolated_boundary_suite.SharedOutputPathsTests) ... ok
+test_ordinary_existing_products_remain_usable (isolated_boundary_suite.SharedOutputPathsTests) ... ok
+test_symlink_children_roots_and_components_are_rejected (isolated_boundary_suite.SharedOutputPathsTests) ... ok
+test_validation_accepts_own_tree_and_scratch_without_creating_them (isolated_boundary_suite.SharedOutputPathsTests) ... ok
+test_validation_refuses_source_history_and_other_generated_trees (isolated_boundary_suite.SharedOutputPathsTests) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.008s
+
+OK

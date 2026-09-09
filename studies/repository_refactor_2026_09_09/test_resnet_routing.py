@@ -493,6 +493,68 @@ class RoutingTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "Checksum mismatch"):
                 module.verify_manifest(output / "metadata/manifest.json")
 
+    def test_long_wrapper_validates_once_before_dispatch_and_forwards_normalized_root(self):
+        # Delegate only the stdlib validator; all tests/science/manifest commands
+        # are recorded rather than executed.
+        query = ("import sys; from pathlib import Path; from make_manifest import "
+                 "validate_output_root; print(validate_output_root(Path(sys.argv[1])))")
+        with tempfile.TemporaryDirectory() as temp:
+            base = Path(temp)
+            recorder_dir = base / "bin"
+            recorder_dir.mkdir()
+            recorder = recorder_dir / "python"
+            recorder.write_text("#!" + sys.executable + "\n" + """
+import json, os, sys
+from pathlib import Path
+args = sys.argv[1:]
+if args[:3] == ['-B', '-c', os.environ['ROUTING_QUERY']]:
+    with Path(os.environ['ROUTING_VALIDATIONS']).open('a') as stream:
+        stream.write(json.dumps(args[3:]) + '\\n')
+    os.execv(sys.executable, [sys.executable, *args])
+with Path(os.environ['ROUTING_RECORD']).open('a') as stream:
+    stream.write(json.dumps(args) + '\\n')
+""")
+            recorder.chmod(0o700)
+            linked = base / "linked-output"
+            linked.symlink_to(base / "absent-output", target_is_directory=True)
+            linked_child = base / "linked-child"
+            linked_child.mkdir()
+            (linked_child / "metadata.json").symlink_to(base / "absent-input")
+            selections = (
+                (None, True), ("~/pde-long-routing-never-created", True),
+                (str(base / "out with spaces/../normalized output"), True),
+                (os.path.relpath(base / "relative output", LONG), True),
+                (str(REPO / "studies"), False), (str(linked), False),
+                (str(linked_child), False),
+            )
+            for index, (selection, accepted) in enumerate(selections):
+                with self.subTest(selection=selection):
+                    log, validations = base / f"calls-{index}.jsonl", base / f"validation-{index}.jsonl"
+                    env = dict(os.environ, ROUTING_RECORD=str(log), ROUTING_VALIDATIONS=str(validations),
+                               ROUTING_QUERY=query, PYTHONDONTWRITEBYTECODE="1",
+                               PATH=str(recorder_dir) + os.pathsep + os.environ.get("PATH", ""))
+                    env.pop("PDE_LONG_HORIZON_OUTPUT_ROOT", None)
+                    if selection is not None:
+                        env["PDE_LONG_HORIZON_OUTPUT_ROOT"] = selection
+                    result = subprocess.run(["bash", str(LONG / "reproduce.sh")],
+                                            env=env, cwd=base, capture_output=True, text=True)
+                    self.assertEqual(len(validations.read_text().splitlines()), 1)
+                    if not accepted:
+                        self.assertNotEqual(result.returncode, 0)
+                        self.assertFalse(log.exists(), "dispatch occurred before output validation")
+                        continue
+                    self.assertEqual(result.returncode, 0, result.stderr)
+                    expected = (REPO / "data/generated/resnet_dense_long_horizon" if selection is None
+                                else (LONG / Path(selection).expanduser()).resolve())
+                    calls = [json.loads(line) for line in log.read_text().splitlines()]
+                    self.assertEqual(len(calls), 3)
+                    self.assertEqual(calls[0], ["-m", "unittest", "discover", "-s", "tests", "-v"])
+                    for arguments, name in zip(calls[1:], ("run_all.py", "make_manifest.py")):
+                        self.assertEqual(arguments[0], name)
+                        self.assertEqual(arguments[arguments.index("--output-root") + 1], str(expected))
+                    if selection is not None:
+                        self.assertFalse(expected.exists())
+
     def test_operator_wrapper_normalizes_before_any_work(self):
         # Delegate only the exact stdlib path query; record, never dispatch,
         # all 42 test/scientific/analysis invocations.

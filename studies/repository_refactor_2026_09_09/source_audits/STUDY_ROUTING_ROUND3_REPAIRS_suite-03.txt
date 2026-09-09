@@ -1,0 +1,6 @@
+test_affine_integral_on_irregular_grid_and_reversed_axis (isolated_boundary_suite.TrapezoidCompatibilityTests) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.016s
+
+OK
