@@ -1,5 +1,11 @@
 # Literal convex activation at all finite depths
 
+This is a study record, not an established-library entry. Historical claims and
+review labels below retain their original scope; consult the
+[reconciled research map](../project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md)
+for current qualifications and the [maintained library](../../docs/README.md)
+for accepted self-contained presentations.
+
 The full global trained-limit theorem for one fixed literal convex
 activation has not been proved in this investigation.
 

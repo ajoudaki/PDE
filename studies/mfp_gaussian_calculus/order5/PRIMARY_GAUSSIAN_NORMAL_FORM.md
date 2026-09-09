@@ -172,7 +172,7 @@ dependency first, in
 Equation (3.1) plus those displayed assignments is an actual finite formula,
 not a request to run the response recursion.  The independently distributive
 974-term representation is
-[`compiler/PRIMARY_UNIT_COEFFICIENT_MAP.json`](compiler/PRIMARY_UNIT_COEFFICIENT_MAP.json).
+[`compiler/PRIMARY_UNIT_COEFFICIENT_MAP.json`](../../../data/historical/studies/mfp_gaussian_calculus/order5/compiler/PRIMARY_UNIT_COEFFICIENT_MAP.json).
 
 The terminal census is
 
@@ -398,7 +398,7 @@ common quotient (1.4), exact rational comparison gave
 | `C` | 974 | 974 | 0 |
 
 The machine-readable ledger is
-[`compiler/INDEPENDENT_COMPARISON.json`](compiler/INDEPENDENT_COMPARISON.json).
+[`compiler/INDEPENDENT_COMPARISON.json`](../../../data/historical/studies/mfp_gaussian_calculus/order5/compiler/INDEPENDENT_COMPARISON.json).
 Before the unit quotient, the independently frozen layer-tagged
 \(Q^0=1\) maps also agree exactly: 3, 50, and 1,045 monomials for
 \(A,B,C\) with zero discrepancies.  The explicit symbolic \(Q^0\) powers
@@ -409,9 +409,9 @@ bounds \(1,3,5\) for \(A,B,C\).  Its unused \(Q^0=7/2\) holdout had zero
 discrepancies; the resulting graded map was then frozen and compared with the
 primary map.  All 3, 50, and 1,045 graded terms agreed exactly, with zero
 discrepancies.  The frozen map and comparison are
-[`independent_symbolic_q0_coefficient_map.json`](independent/independent_symbolic_q0_coefficient_map.json)
+[`independent_symbolic_q0_coefficient_map.json`](../../../data/historical/studies/mfp_gaussian_calculus/order5/independent/independent_symbolic_q0_coefficient_map.json)
 and
-[`SYMBOLIC_Q0_PRIMARY_COMPARISON.json`](independent/SYMBOLIC_Q0_PRIMARY_COMPARISON.json).
+[`SYMBOLIC_Q0_PRIMARY_COMPARISON.json`](../../../data/historical/studies/mfp_gaussian_calculus/order5/independent/SYMBOLIC_Q0_PRIMARY_COMPARISON.json).
 Thus the arbitrary-variance DAG and the unit-Gram quotient have both received
 full independent coefficient audits.  In particular the linear activation
 gives exactly

@@ -16,6 +16,6 @@ Start with [RESULTS.md](RESULTS.md).  Exact machine-readable certificates are
 algebraically separate
 [INDEPENDENT_HIDDEN_SCALAR_AUDIT.json](INDEPENDENT_HIDDEN_SCALAR_AUDIT.json).
 The two recurrence outputs are
-[PRODUCTION_HIDDEN_RESULT.json](PRODUCTION_HIDDEN_RESULT.json) and
-[INDEPENDENT_HIDDEN_RESULT.json](INDEPENDENT_HIDDEN_RESULT.json).  The frozen
+[PRODUCTION_HIDDEN_RESULT.json](../../../data/historical/studies/stieltjes_resolution/canonical_hidden_high_order/PRODUCTION_HIDDEN_RESULT.json) and
+[INDEPENDENT_HIDDEN_RESULT.json](../../../data/historical/studies/stieltjes_resolution/canonical_hidden_high_order/INDEPENDENT_HIDDEN_RESULT.json).  The frozen
 scope and stop rule are in [PROTOCOL.md](PROTOCOL.md).

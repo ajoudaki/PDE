@@ -12,9 +12,9 @@ depth second.
 > so the recorded difference is cubature symmetry leakage rather than a
 > physical hierarchy step. The correct ladder and current convergence status
 > are in
-> [`pde_convergence/03_bridgeability`](../../pde_convergence/03_bridgeability/)
+> [`pde_convergence/03_bridgeability`](../resnet_bridgeability)
 > and
-> [`pde_convergence/05_tail_and_compactness`](../../pde_convergence/05_tail_and_compactness/).
+> [`pde_convergence/05_tail_and_compactness`](../resnet_tail_compactness).
 
 ---
 

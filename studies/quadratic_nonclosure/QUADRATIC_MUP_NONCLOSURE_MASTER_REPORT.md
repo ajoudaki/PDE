@@ -12,9 +12,9 @@
 > derivatives and identification with derivatives of an actual positive-time
 > infinite-width trajectory remain separate.  For the current derivative
 > calculus and exact fixed-order certificates, use the
-> [mean-field-peeling report](../mean_field_peeling/CURRENT_RESEARCH_STATE.md).
+> [mean-field-peeling report](../mfp_program_history/CURRENT_RESEARCH_STATE.md).
 > For the current output-kernel moment conjecture, use the
-> [Stieltjes report](../stieltjes_conjecture/CURRENT_RESEARCH_STATE.md).
+> [Stieltjes report](../stieltjes_program_history/CURRENT_RESEARCH_STATE.md).
 
 ## Unified statements, proof chains, scope, and source provenance
 

@@ -1,5 +1,11 @@
 # Explicit bounds at depths five, six, and every fixed finite depth
 
+This is a study record, not an established-library entry. Historical claims and
+review labels below retain their original scope; consult the
+[reconciled research map](../project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md)
+for current qualifications and the [maintained library](../../docs/README.md)
+for accepted self-contained presentations.
+
 The complete proof is [PROOF.md](PROOF.md), with three mathematical
 companions. [REVIEW_STATUS.md](REVIEW_STATUS.md) records three independent complete-proof PASS reviews.
 

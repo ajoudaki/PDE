@@ -6,19 +6,19 @@ and a sequence of empirical consistency tests against finite networks.
 
 ## Phases
 
-1. [`core`](core/) contains the direct PDE construction, dense comparison,
+1. [`core`](../../resnet_operator_core) contains the direct PDE construction, dense comparison,
    mathematical checks, processed evidence, and independent audits. Start
-   with [`core/CONJECTURE_REPORT.md`](core/CONJECTURE_REPORT.md) and
-   [`core/REPORT.md`](core/REPORT.md).
-2. [`generalization`](generalization/) contains the fixed-\(P=5\) transfer
+   with [`core/CONJECTURE_REPORT.md`](../../resnet_operator_core/CONJECTURE_REPORT.md) and
+   [`core/REPORT.md`](../../resnet_operator_core/REPORT.md).
+2. [`generalization`](../../resnet_generalization) contains the fixed-\(P=5\) transfer
    study. The authoritative interpretation is
-   [`generalization/FINAL_REPORT.md`](generalization/FINAL_REPORT.md); its
+   [`generalization/FINAL_REPORT.md`](../../resnet_generalization/FINAL_REPORT.md); its
    source, protocol, results, and checks now sit directly in the phase root.
-3. [`activation_controls`](activation_controls/) is the self-contained
+3. [`activation_controls`](../../resnet_activation_controls) is the self-contained
    activation-linearity falsification experiment. Its original source lineage
    and evidence seals are intentionally retained because the protocol checks
    them during reproduction.
-4. [`rerun_2026-07-31`](rerun_2026-07-31/) contains the later smoke and
+4. [`rerun_2026-07-31`](../../resnet_reproduction_2026_07_31) contains the later smoke and
    canonical reproductions.
 
 The three scientific source trees are deliberately phase-local. The core is

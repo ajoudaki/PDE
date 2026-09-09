@@ -1,6 +1,6 @@
 # Transfer audit for Parts F, R, and V
 
-Source read: `/home/amir/Codes/PDE/studies/mean_field_peeling/three_sample_self_contained/MANUSCRIPT.md`, Parts F, R, and V, including V.I. No other study material was read; no experiment was run; the manuscript was not modified.
+Source read: `/home/amir/Codes/PDE/studies/three_sample_self_contained/MANUSCRIPT.md`, Parts F, R, and V, including V.I. No other study material was read; no experiment was run; the manuscript was not modified.
 
 ## Verdict and precise transfer statement
 

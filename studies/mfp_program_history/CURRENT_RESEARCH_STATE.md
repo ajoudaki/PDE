@@ -4,11 +4,11 @@
 **Detailed execution:**
 [`MUP_TRAINING_CASE_STUDY.md`](MUP_TRAINING_CASE_STUDY.md)  
 **Generic fixed-observable specializations:**
-[`generic_first_stieltjes/`](generic_first_stieltjes/)<br>
+[`generic_first_stieltjes/`](../mfp_gaussian_calculus)<br>
 **Amortized one-sample observable-head audit:**
-[`generic_first_stieltjes/depth_order5_scalar/multi_observable/`](generic_first_stieltjes/depth_order5_scalar/multi_observable/)<br>
+[`generic_first_stieltjes/depth_order5_scalar/multi_observable/`](../mfp_gaussian_calculus/depth_order5_scalar/multi_observable)<br>
 **Exact quadratic specialization:**
-[`quadratic_compiler/`](quadratic_compiler/)
+[`quadratic_compiler/`](../mfp_quadratic_compiler)
 **Historical source:**
 [`archive/ORIGINAL_NOTES_AND_NTK_SAMPLE.md`](archive/ORIGINAL_NOTES_AND_NTK_SAMPLE.md)  
 **Last consolidated:** 2026-08-19
@@ -47,7 +47,7 @@ Several important exact specializations are now maintained. For the one-sample,
 two-hidden-layer quadratic model, derivative monomials close under a finite
 decorated-forest grammar; Section 11 records its certificates. For the single
 order-three directional observable \(D_c^3g_c\), the
-[`generic_first_stieltjes/`](generic_first_stieltjes/) study closes a
+[`generic_first_stieltjes/`](../mfp_gaussian_calculus) study closes a
 response-aware Gaussian recursion for generic polynomially-smooth activations
 at every separately fixed hidden depth and batch size. These prove substantial
 special-case peeling calculi; neither upgrades the general theorem target.
@@ -82,7 +82,7 @@ finite-state construction for this particular order-five observable.  It is
 not a theorem that arbitrary observables admit the same registry, that fully
 distributed formulas stay small, or that a regime with \(H=H(n)\) converges.
 In the shared-activation unit-Gram quotient, the
-[`depth_order5_scalar` report](generic_first_stieltjes/depth_order5_scalar/ARBITRARY_DEPTH_B1_ORDER5_SCALAR_RECURRENCE.md)
+[`depth_order5_scalar` report](../mfp_gaussian_calculus/depth_order5_scalar/ARBITRARY_DEPTH_B1_ORDER5_SCALAR_RECURRENCE.md)
 now replaces those 66 response-aware entries by six alternating deterministic
 scalar sweeps of dimensions \(7/8/4/4/3/3\), or 29 propagated coordinate
 types.  All 38 local maps use only one-dimensional \(M_\nu\) atoms and their
@@ -724,7 +724,7 @@ retained production order-seventeen run used 230.318 seconds and 189.4375 MiB
 peak RSS.  The independent route used 43.59 seconds at standalone order
 fifteen and 163.08 seconds with 94,060 KiB peak RSS at order seventeen.  Full
 results and retained route records are in the
-[canonical high-order successor](../stieltjes_conjecture/resolution_program/canonical_high_order/).
+[canonical high-order successor](../stieltjes_resolution/canonical_high_order).
 Its frozen protocol ended at order seventeen; no order-nineteen computation
 was attempted.
 
@@ -742,7 +742,7 @@ $F^{(17)}(0)$, with no order-nineteen feature computation.  Downstream exact
 inversion supplies nine first-hidden and eight second-hidden Stieltjes
 moment candidates; every accessible squared- and literal-RMS Hankel principal
 minor is strictly positive.  Sources, route records, and certificates are in
-the [canonical hidden-norm successor](../stieltjes_conjecture/resolution_program/canonical_hidden_high_order/).
+the [canonical hidden-norm successor](../stieltjes_resolution/canonical_hidden_high_order).
 These are model-specific fixed-order contractions, not an all-order hidden
 measure or positive-time trajectory theorem.
 
@@ -750,11 +750,11 @@ These are exact integer outputs of audited computer algebra under proved
 special-case reductions, not hand enumerations or formally verified software.
 In particular, the order-eleven \(P=9\) sector has one complete checked route
 but has not been redundantly recomputed by the newer connected-sector engine.
-Full forest provenance is in [the D11 audit](quadratic_compiler/D11_LOWER_SECTOR_AUDIT.md)
-and [sector-engine audit](quadratic_compiler/SECTOR_ENGINE.md); the
+Full forest provenance is in [the D11 audit](../mfp_quadratic_compiler/D11_LOWER_SECTOR_AUDIT.md)
+and [sector-engine audit](../mfp_quadratic_compiler/SECTOR_ENGINE.md); the
 order-thirteen through order-seventeen recurrences and independent checks are
 in the downstream
-[resolution program](../stieltjes_conjecture/resolution_program/).
+[resolution program](../stieltjes_resolution).
 
 ### 11.5 Historical order-thirteen and acceleration audits
 
@@ -770,7 +770,7 @@ for component-edge cap fourteen. This remains only a historical lower bound.
 In the maximal \(P=14\) sector, discovery found 465,075 recurrence states and
 325,190 base trees; only the first 704 base contractions completed, so no
 sector subtotal was certified by that route. See
-[the D13 audit](quadratic_compiler/D13_ATTEMPT.md).
+[the D13 audit](../mfp_quadratic_compiler/D13_ATTEMPT.md).
 
 Several accelerations were audited:
 
@@ -812,7 +812,7 @@ moment signs, not a Hankel determinant.  Campaign 6 is a stopped diagnostic,
 not a coefficient or bound.  These extensions enlarge the audited
 special-case compiler but do not establish the general MFP theorem.  Their
 consolidated claim levels are in the downstream
-[Stieltjes master](../stieltjes_conjecture/CURRENT_RESEARCH_STATE.md).
+[Stieltjes master](../stieltjes_program_history/CURRENT_RESEARCH_STATE.md).
 
 ### 11.7 What this does and does not establish
 
@@ -1052,7 +1052,7 @@ $$
 $$
 
 Their layerwise definitions are the explicit folds in the
-[scalar recurrence](generic_first_stieltjes/depth_order5_scalar/ARBITRARY_DEPTH_B1_ORDER5_SCALAR_RECURRENCE.md).
+[scalar recurrence](../mfp_gaussian_calculus/depth_order5_scalar/ARBITRARY_DEPTH_B1_ORDER5_SCALAR_RECURRENCE.md).
 No Gaussian evaluation remains at the terminal. The output head is
 
 $$
@@ -1268,7 +1268,7 @@ $$
 The literal, fully contracted polynomials
 \(\mathcal P_\gamma\) and \(\mathcal P_a\) contain 64 and 17 canonical
 monomials and are displayed in the
-[frozen two-state transition table](generic_first_stieltjes/depth_order5_observables/independent/FROZEN_GAMMA04_REDUCED_TRANSITIONS.md).
+[frozen two-state transition table](../mfp_gaussian_calculus/depth_order5_observables/independent/FROZEN_GAMMA04_REDUCED_TRANSITIONS.md).
 They contain no Gaussian innovation, random covariance, response operation,
 matrix inverse, or multivariate integral. Every token on the right of that
 table is either an \(M_\nu\) atom, rational arithmetic, deterministic depth
@@ -1467,8 +1467,8 @@ The status is deliberately split.
    material curvature occurs.  This follow-up discharges the empirical gate
    while preserving the original outcome.  The frozen design, raw hashes,
    exact atom comparisons, and claim-level decision are recorded in the
-   [hostile audit](generic_first_stieltjes/depth_order5_scalar/multi_observable/audit/HOSTILE_REPORT.md)
-   and its [evidence ledger](generic_first_stieltjes/depth_order5_scalar/multi_observable/audit/EVIDENCE_LEDGER.md).
+   [hostile audit](../mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/HOSTILE_REPORT.md)
+   and its [evidence ledger](../mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/EVIDENCE_LEDGER.md).
 4. At every separately fixed \(H\), a sufficient annealed theorem envelope
    is polynomial smoothness—\(\phi\in C^\infty\), with every derivative
    polynomially bounded—together with the applicable finite tensor-program
@@ -2042,7 +2042,7 @@ do not prove a generic compiler theorem.
 
 For one specific order-three directional observable, the generic-activation
 program has now been closed beyond the earlier formal examples.  The
-[`generic_first_stieltjes/`](generic_first_stieltjes/) specialization gives an
+[`generic_first_stieltjes/`](../mfp_gaussian_calculus) specialization gives an
 explicit response-aware Gaussian recursion for
 \(C_{H,c}=\lim_n\mathbb E[D_c^3g_c]\) at every separately fixed hidden depth
 \(H\), batch size \(B\), channel \(c\), and deterministic PSD input Gram,

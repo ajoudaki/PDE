@@ -5,11 +5,11 @@ derivations of the hidden-activation \(\Gamma_{04}\) observable head.
 Its formulas were frozen before Route S inspected Route A.
 
 The maintained conceptual entry point is the
-[amortized multi-observable study](../depth_order5_scalar/multi_observable/).
+[amortized multi-observable study](../depth_order5_scalar/multi_observable).
 The project-wide authority remains
-[Mean-Field Peeling: Theory, Algorithm, and Theorem Program](../../CURRENT_RESEARCH_STATE.md).
+[Mean-Field Peeling: Theory, Algorithm, and Theorem Program](../../mfp_program_history/CURRENT_RESEARCH_STATE.md).
 
-The [independent subdirectory](independent/) contains:
+The [independent subdirectory](independent) contains:
 
 - the unreduced \(83/20/1\) three-state transition;
 - the public \(64/17\) two-state projection;
@@ -28,4 +28,4 @@ the original three-width experiment remains recorded as inconclusive.
 
 Reproduce Route S from the repository root with
 
-    python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_observables.independent.run_checks
+    python -m studies.mfp_gaussian_calculus.depth_order5_observables.independent.run_checks

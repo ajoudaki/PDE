@@ -1,5 +1,11 @@
 # Separated-angle two-sample L3 theorem
 
+This is a study record, not an established-library entry. Historical claims and
+review labels below retain their original scope; consult the
+[reconciled research map](../project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md)
+for current qualifications and the [maintained library](../../docs/README.md)
+for accepted self-contained presentations.
+
 Current result (2026-09-07): **proved extension, with three independent
 complete-proof adversarial agent reviews returning PASS and no required
 repairs.** See [the proof](PROOF.md) and [the review record](REVIEW_STATUS.md).

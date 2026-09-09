@@ -1,5 +1,11 @@
 # Exact odd mixture at general depth
 
+This is a study record, not an established-library entry. Historical claims and
+review labels below retain their original scope; consult the
+[reconciled research map](../project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md)
+for current qualifications and the [maintained library](../../docs/README.md)
+for accepted self-contained presentations.
+
 [REPORT.md](REPORT.md) contains the complete mathematical statements and proofs. The activation is exactly \((1-\theta)z+\theta\arctan z\), with three inputs and arbitrary separately fixed hidden depth.
 
 The requested global trained theorem and a sufficient cutoff \(\theta_*(\delta,L)\), including a depth-uniform positive cutoff, remain **unproved**. The report does not assert otherwise.

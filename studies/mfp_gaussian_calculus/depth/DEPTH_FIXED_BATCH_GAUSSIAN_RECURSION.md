@@ -770,7 +770,7 @@ directly from Sections 1--7 using sparse multivariate polynomials and exact
 rational Isserlis contraction. It does not call either accepted one-axis
 evaluator. Run:
 
-    python -m studies.mean_field_peeling.generic_first_stieltjes.depth.run_fixed_batch_gates
+    python -m studies.mfp_gaussian_calculus.depth.run_fixed_batch_gates
 
 The four gate families are:
 

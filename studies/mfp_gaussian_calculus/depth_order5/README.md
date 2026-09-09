@@ -11,12 +11,12 @@ embedded terminal formulas.
 
 Authoritative supporting artifacts:
 
-- primary frozen maps and hashes: [`primary/`](primary/);
-- independent frozen derivation: [`independent/`](independent/);
+- primary frozen maps and hashes: [`primary/`](primary);
+- independent frozen derivation: [`independent/`](independent);
 - hostile equality/transpose/probability/numerical audits:
-  [`audit/`](audit/);
+  [`audit/`](audit);
 - neutral exact finite-width jet and preregistered nonpolynomial contract:
-  [`common/`](common/).
+  [`common/`](common).
 
 Current claim discipline:
 

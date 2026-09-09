@@ -249,31 +249,31 @@ The following manifests distinguish full document reads, exact rollout identity,
 
 | Full path | Lines | SHA256 |
 |---|---:|---|
-| /home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/CAPS_MANUSCRIPT.md | 316 | c83bdce94e4655befbc35c88cafb19012c39a9fb2a3a08ced3ef216433acbaed |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/development/PLATEAU_CONFINEMENT.md | 221 | e66b09fd0b115113da658cff6a0e7f3da3ddbc5401360b275546cdacb027b5d3 |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/development/PLATEAU_PATH_COMPACTNESS.md | 166 | 0bbdc1bd61754f3a8aa2df7d06da987f7ac7670ddd52dbe76903e1ac97c74436 |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/development/FEATURE_MOBILITY_HOSTILE.md | 171 | b63be6b3a04ef5ad61bc18d9d9a2aa29e57b555494c0a69aeb35cbd0a76064c2 |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/development/PLATEAU_GEOMETRY.md | 337 | 64b2f0400baf93bfe3ac1c8d85c0da16149c354fb602e7ed2d547fb11af6dcbc |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/development/PLATEAU_HOSTILE.md | 393 | 1ef04b00771dc0b5d2d51ddab459f0d468c5bb51a7b1c360b899a319334bf10e |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/development/INTERRUPTED_AVERAGING_NOTES.md | 80 | 448ea85cbc3fc3e90ea424cd39478fec0c20c4f6fa53acf5323034714c6095fa |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/CONTRACT.md | 59 | d121fbd08111d4470ec34aae8ffc0e399d31150326023c374cdda984ab098d83 |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/RESULT.md | 71 | 3271893092e76877bdca4547195e2670d9802f5060f6a7741c1c3838c38d30ed |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/PERSISTENT_HANDOFF.md | 289 | fdd2eaeaab1ceb98dfd1664552250c77efcd0d0169a41f50d3fdefba6c71792f |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/three_sample_odd_activation_full_resolution/CONTRACT.md | 59 | 9554eaa6f614f2ae25302a9b66b9952443660d9848c9214bce3ad3ccbbe435f4 |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/three_sample_odd_activation_full_resolution/LOCAL_THEOREM.md | 228 | ce9ea78d87c2f3c7508743e80628aa2be61fa88e38cebb40b6330e7d618ca943 |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/moderate_sine_global/PHYSICAL_CONTINUATION.md | 316 | 801901a3dc777fc64fcc568ac75c979ce8d7ffd85d7d70e2e3652d05a29a8c14 |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/moderate_sine_global/CONDITIONAL_GLOBAL_AND_OBSTRUCTIONS.md | 282 | 2a81c1e4810a4646da097cbac29b29dce982c9136bdb691863869b69834bf094 |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/moderate_sine_global/DEPENDENCIES.json | 18 | f71a70b3c62b7846e78ba4c37c646727a7c7f283c5471531fd03c07614725cc3 |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/calibrated_near_identity_reviews/manuscript.md | 171 | f55df0156da98d67a655b27280a005d148df0bb206b783a454dfed379bc99211 |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/calibrated_near_identity_reviews/REVIEW_SUMMARY.md | 10 | 9d5fd6f19968a45c78ea9c588874a696fa8526d16eeb782a8c911d2a12bd4914 |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/reviews/CAPS_ANALYSIS_R1.md | 101 | 34c789387ec18850eaf7f15da132a326179a1e2a5cb46d4415feeb72033c8813 |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/reviews/CAPS_FINAL_ONE.md | 9 | 7023f3e4d1376feafe375d38b5ad25fc9d580d381d325251159aec1ba4bae10e |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/reviews/CAPS_FINAL_TWO.md | 28 | a75f21b7b91bb9b060ad7c291f886886d58c26b18d51e85789bfa505bf74d8a2 |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/reviews/CAPS_PROBABILITY_R1.md | 35 | 5718fc5bee518c065850e498e2c79e3d5a9ddeaff9358a2c0175886f02ba133d |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/reviews/PLATEAU_CONFINEMENT_FINAL_THREE.md | 19 | 6cc755db7bf947485240a3ff3db422147d1730bf9ab30e94c06920932170e853 |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/reviews/PLATEAU_CONFINEMENT_FINAL_TWO.md | 35 | 17eff52c91a85cfcdb08e556abf188409e85f91dec4692f8a339aa83c896d8e1 |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/reviews/PLATEAU_CONFINEMENT_R1_ONE.md | 47 | 919de628f2306a0961424ce33f48e6bb800cfffd4b375bef41ccc43689c5893b |
-| /home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/reviews/REVIEW_SUMMARY.md | 35 | a25af3b564a75787ed71725832cff87ae1c94f3f28fa15aedad78e38f52384ed |
+| /home/amir/Codes/PDE/studies/practical_fixed_depth2/CAPS_MANUSCRIPT.md | 316 | c83bdce94e4655befbc35c88cafb19012c39a9fb2a3a08ced3ef216433acbaed |
+| /home/amir/Codes/PDE/studies/practical_fixed_depth2/development/PLATEAU_CONFINEMENT.md | 221 | e66b09fd0b115113da658cff6a0e7f3da3ddbc5401360b275546cdacb027b5d3 |
+| /home/amir/Codes/PDE/studies/practical_fixed_depth2/development/PLATEAU_PATH_COMPACTNESS.md | 166 | 0bbdc1bd61754f3a8aa2df7d06da987f7ac7670ddd52dbe76903e1ac97c74436 |
+| /home/amir/Codes/PDE/studies/practical_fixed_depth2/development/FEATURE_MOBILITY_HOSTILE.md | 171 | b63be6b3a04ef5ad61bc18d9d9a2aa29e57b555494c0a69aeb35cbd0a76064c2 |
+| /home/amir/Codes/PDE/studies/practical_fixed_depth2/development/PLATEAU_GEOMETRY.md | 337 | 64b2f0400baf93bfe3ac1c8d85c0da16149c354fb602e7ed2d547fb11af6dcbc |
+| /home/amir/Codes/PDE/studies/practical_fixed_depth2/development/PLATEAU_HOSTILE.md | 393 | 1ef04b00771dc0b5d2d51ddab459f0d468c5bb51a7b1c360b899a319334bf10e |
+| /home/amir/Codes/PDE/studies/practical_fixed_depth2/development/INTERRUPTED_AVERAGING_NOTES.md | 80 | 448ea85cbc3fc3e90ea424cd39478fec0c20c4f6fa53acf5323034714c6095fa |
+| /home/amir/Codes/PDE/studies/practical_fixed_depth2/CONTRACT.md | 59 | d121fbd08111d4470ec34aae8ffc0e399d31150326023c374cdda984ab098d83 |
+| /home/amir/Codes/PDE/studies/practical_fixed_depth2/RESULT.md | 71 | 3271893092e76877bdca4547195e2670d9802f5060f6a7741c1c3838c38d30ed |
+| /home/amir/Codes/PDE/studies/practical_fixed_depth2/PERSISTENT_HANDOFF.md | 289 | fdd2eaeaab1ceb98dfd1664552250c77efcd0d0169a41f50d3fdefba6c71792f |
+| /home/amir/Codes/PDE/studies/three_sample_odd_activation_full_resolution/CONTRACT.md | 59 | 9554eaa6f614f2ae25302a9b66b9952443660d9848c9214bce3ad3ccbbe435f4 |
+| /home/amir/Codes/PDE/studies/three_sample_odd_activation_full_resolution/LOCAL_THEOREM.md | 228 | ce9ea78d87c2f3c7508743e80628aa2be61fa88e38cebb40b6330e7d618ca943 |
+| /home/amir/Codes/PDE/studies/moderate_sine_global/PHYSICAL_CONTINUATION.md | 316 | 801901a3dc777fc64fcc568ac75c979ce8d7ffd85d7d70e2e3652d05a29a8c14 |
+| /home/amir/Codes/PDE/studies/moderate_sine_global/CONDITIONAL_GLOBAL_AND_OBSTRUCTIONS.md | 282 | 2a81c1e4810a4646da097cbac29b29dce982c9136bdb691863869b69834bf094 |
+| /home/amir/Codes/PDE/studies/moderate_sine_global/DEPENDENCIES.json | 18 | f71a70b3c62b7846e78ba4c37c646727a7c7f283c5471531fd03c07614725cc3 |
+| /home/amir/Codes/PDE/studies/calibrated_near_identity_reviews/manuscript.md | 171 | f55df0156da98d67a655b27280a005d148df0bb206b783a454dfed379bc99211 |
+| /home/amir/Codes/PDE/studies/calibrated_near_identity_reviews/REVIEW_SUMMARY.md | 10 | 9d5fd6f19968a45c78ea9c588874a696fa8526d16eeb782a8c911d2a12bd4914 |
+| /home/amir/Codes/PDE/studies/practical_fixed_depth2/reviews/CAPS_ANALYSIS_R1.md | 101 | 34c789387ec18850eaf7f15da132a326179a1e2a5cb46d4415feeb72033c8813 |
+| /home/amir/Codes/PDE/studies/practical_fixed_depth2/reviews/CAPS_FINAL_ONE.md | 9 | 7023f3e4d1376feafe375d38b5ad25fc9d580d381d325251159aec1ba4bae10e |
+| /home/amir/Codes/PDE/studies/practical_fixed_depth2/reviews/CAPS_FINAL_TWO.md | 28 | a75f21b7b91bb9b060ad7c291f886886d58c26b18d51e85789bfa505bf74d8a2 |
+| /home/amir/Codes/PDE/studies/practical_fixed_depth2/reviews/CAPS_PROBABILITY_R1.md | 35 | 5718fc5bee518c065850e498e2c79e3d5a9ddeaff9358a2c0175886f02ba133d |
+| /home/amir/Codes/PDE/studies/practical_fixed_depth2/reviews/PLATEAU_CONFINEMENT_FINAL_THREE.md | 19 | 6cc755db7bf947485240a3ff3db422147d1730bf9ab30e94c06920932170e853 |
+| /home/amir/Codes/PDE/studies/practical_fixed_depth2/reviews/PLATEAU_CONFINEMENT_FINAL_TWO.md | 35 | 17eff52c91a85cfcdb08e556abf188409e85f91dec4692f8a339aa83c896d8e1 |
+| /home/amir/Codes/PDE/studies/practical_fixed_depth2/reviews/PLATEAU_CONFINEMENT_R1_ONE.md | 47 | 919de628f2306a0961424ce33f48e6bb800cfffd4b375bef41ccc43689c5893b |
+| /home/amir/Codes/PDE/studies/practical_fixed_depth2/reviews/REVIEW_SUMMARY.md | 35 | a25af3b564a75787ed71725832cff87ae1c94f3f28fa15aedad78e38f52384ed |
 | /tmp/three_hard_nonlinear_20260908.md | 283 | 529fdb98cde71d1c6f23462ace24fa1648a46a825ad6ff24900dbba43d7fbce2 |
 | /tmp/three_hard_energy_20260908.md | 401 | 6d1197b5d7a292b4a5495e54768bcdc3b86037a2293cfa805beb8ea80cc694dc |
 | /tmp/three_hard_direct_20260908.md | 144 | 1e3b7c609a352cc236d1e2687317117870ac1fc6d07c20e75f2b1de632d034d0 |
@@ -309,7 +309,7 @@ The following manifests distinguish full document reads, exact rollout identity,
 
 ### Unchanged old source comparisons (not fresh full proof rereads)
 
-For each filename below, /tmp/NAME and /home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/arctan_two_primary/NAME were compared in full as byte buffers; both hashes agree:
+For each filename below, /tmp/NAME and /home/amir/Codes/PDE/studies/four_thread_consolidation/expanded_sources/arctan_two_primary/NAME were compared in full as byte buffers; both hashes agree:
 
 | Filename | Shared SHA256 |
 |---|---|

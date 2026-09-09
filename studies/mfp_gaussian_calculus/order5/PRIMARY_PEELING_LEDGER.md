@@ -124,6 +124,6 @@ After the unit-Gram quotient:
 - exact comparison with the independent compiler has zero atomwise
   discrepancies.
 
-See [`compiler/INDEPENDENT_COMPARISON.json`](compiler/INDEPENDENT_COMPARISON.json)
+See [`compiler/INDEPENDENT_COMPARISON.json`](../../../data/historical/studies/mfp_gaussian_calculus/order5/compiler/INDEPENDENT_COMPARISON.json)
 for the literal coefficient comparison.
 

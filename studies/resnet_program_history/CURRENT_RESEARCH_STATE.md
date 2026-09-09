@@ -19,17 +19,17 @@ ResNets. It refers to the fully connected residual laboratory defined below.
 The program has accomplished three different things, and they should not be
 collapsed into one claim:
 
-1. [`dense_response`](dense_response/) exposes the exact chronological memory
+1. [`dense_response`](dense_response) exposes the exact chronological memory
    structure of a finite dense network and shows numerically that very low
    response order can be extremely accurate. Every tested surrogate there
    still retains the microscopic dense matrices, so it is mechanism evidence,
    not a PDE construction.
-2. [`operator_pde`](operator_pde/) gives the only literal width-coordinate-free
+2. [`operator_pde`](operator_pde) gives the only literal width-coordinate-free
    PDE in this three-study chain. Its finite-cutoff equations are explicit and
    autonomous, their projected-gradient geometry is exact internally, and the
    degree-one \(P=5\) cutoff tracks the tested dense networks closely.
    It is the constructive and empirical centerpiece.
-3. [`pde_convergence`](pde_convergence/) asks whether that useful low-order PDE
+3. [`pde_convergence`](pde_convergence) asks whether that useful low-order PDE
    belongs to an arbitrary-accuracy hierarchy. It establishes exact parity
    equivariance and, assuming uniqueness, the symmetric-flow reduction; it
    also isolates the functional-analytic obstruction. Its last aggregate
@@ -75,11 +75,11 @@ depth-indexed hidden-Gram field. Some protocols also treat loss as co-primary,
 while tangent-kernel quantities are primarily diagnostics; the stronger
 `dense_response` formulation also targets the tangent kernel.
 
-[`dense_response/early_audit`](dense_response/early_audit/) used the different
+[`dense_response/early_audit`](../resnet_dense_early_audit) used the different
 input convention \(H^0=\tanh(BX)\), along with both iid- and smooth-depth
 designs. It is a historical exploratory precursor. Its numerical values must
 not be silently pooled with the canonical linear-input evidence in
-[`dense_response/long_horizon`](dense_response/long_horizon/).
+[`dense_response/long_horizon`](../resnet_dense_long_horizon).
 
 ### 1.2 What would count as a finite causal PDE
 
@@ -153,9 +153,9 @@ strictly stronger conjectures than the compact-time statement.
 
 | Substudy | Scientific role | Durable contribution | Main limitation |
 |---|---|---|---|
-| [`dense_response`](dense_response/) | Finite-matrix mechanism precursor | Exact response/memory anatomy and strong audited low-order response accuracy | Every executed surrogate retains all dense \(W_\ell\); zero compiled Liouville-PDE runs |
-| [`operator_pde`](operator_pde/) | Construction and empirical centerpiece | Explicit finite-\(P\) PDE, exact internal geometry, direct dense comparisons, transfer and activation controls | No dense-limit identification, cutoff convergence, general well-posedness, or all-time theorem |
-| [`pde_convergence`](pde_convergence/) | Corrective hierarchy/proof audit | Exact parity equivariance and conditional symmetric-flow reduction, real bounded cutoff experiments, and precise compactness/stability reductions and obstructions | No arbitrary-accuracy result; final aggregate trend is noncontracting and narrow |
+| [`dense_response`](dense_response) | Finite-matrix mechanism precursor | Exact response/memory anatomy and strong audited low-order response accuracy | Every executed surrogate retains all dense \(W_\ell\); zero compiled Liouville-PDE runs |
+| [`operator_pde`](operator_pde) | Construction and empirical centerpiece | Explicit finite-\(P\) PDE, exact internal geometry, direct dense comparisons, transfer and activation controls | No dense-limit identification, cutoff convergence, general well-posedness, or all-time theorem |
+| [`pde_convergence`](pde_convergence) | Corrective hierarchy/proof audit | Exact parity equivariance and conditional symmetric-flow reduction, real bounded cutoff experiments, and precise compactness/stability reductions and obstructions | No arbitrary-accuracy result; final aggregate trend is noncontracting and narrow |
 
 These are successive parts of one evidence chain, not three independent
 replications of the same theorem.
@@ -195,7 +195,7 @@ or all time. The words in this construction still carry the dense matrices.
 
 ### 4.2 Finite-cutoff operator PDE
 
-[`operator_pde/core/theory/operator_galerkin_pde.md`](operator_pde/core/theory/operator_galerkin_pde.md)
+[`operator_pde/core/theory/operator_galerkin_pde.md`](../resnet_operator_core/theory/operator_galerkin_pde.md)
 specifies a Hermite/isonormal conditional Liouville candidate. At fixed
 cutoff \(P\), it contains no network-width coordinate, original layer count,
 or \(n\times n\) matrix. The same projected random operator defines the
@@ -277,7 +277,7 @@ completed convergence theorems.
 
 ### 5.1 Dense chronological response
 
-[`dense_response/long_horizon/REPORT.md`](dense_response/long_horizon/REPORT.md)
+[`dense_response/long_horizon/REPORT.md`](../resnet_dense_long_horizon/REPORT.md)
 is the canonical numerical record. It contains 16 primary finite-network
 trajectories through \(T=32\), each paired with the exact finite system and
 response orders \(K=0,1,2,3\), plus refinement and algebraic controls. All 16
@@ -308,7 +308,7 @@ gradient flow.
 
 ### 5.2 Direct operator-PDE benchmark
 
-[`operator_pde/core/REPORT.md`](operator_pde/core/REPORT.md) directly
+[`operator_pde/core/REPORT.md`](../resnet_operator_core/REPORT.md) directly
 integrated the \(P=5,N=16,M=256,R=128\) candidate. Against the canonical
 \(n=256,L=32\), 128-network ensemble through \(t=8\), the maximal
 Gram-increment gap was
@@ -335,7 +335,7 @@ all-time theorem.
 
 ### 5.3 Fixed transfer panel
 
-[`operator_pde/generalization/FINAL_REPORT.md`](operator_pde/generalization/FINAL_REPORT.md)
+[`operator_pde/generalization/FINAL_REPORT.md`](../resnet_generalization/FINAL_REPORT.md)
 ran a preregistered panel of 14 fixed synthetic cases without retuning the
 degree-one PDE. Every **observed** normalized curve error was below \(5\%\):
 
@@ -353,7 +353,7 @@ extension evidence, not population-level dataset generalization.
 
 ### 5.4 Activation and clock controls
 
-[`operator_pde/activation_controls/ACTIVATION_LINEARITY_SMOKING_GUN_REPORT.md`](operator_pde/activation_controls/ACTIVATION_LINEARITY_SMOKING_GUN_REPORT.md)
+[`operator_pde/activation_controls/ACTIVATION_LINEARITY_SMOKING_GUN_REPORT.md`](../resnet_activation_controls/ACTIVATION_LINEARITY_SMOKING_GUN_REPORT.md)
 shows that the successful nonlinear PDE is not merely the exact identity
 dynamics or a scalar change of training clock:
 
@@ -371,7 +371,7 @@ deliberately stronger loss-only \(S>2E\) rule did not pass; an all-observable
 rejection claim would therefore be too strong.
 
 The independent scalar sine stress in
-[`pde_convergence/04_scalar_stress`](pde_convergence/04_scalar_stress/) further
+[`pde_convergence/04_scalar_stress`](../resnet_scalar_stress) further
 shows that activation nonlinearity can matter while source-label complexity
 stays low. Fixed-gain and RMS-matched linear controls missed the PDE Gram curve
 by \(17.70\%\) and \(8.68\%\), while degree-one and degree-11/13 PDE curves
@@ -381,15 +381,15 @@ differed by only \(0.339\%\) and \(0.247\%\). The high-order PDE/dense joint
 ### 5.5 The convergence campaign, phase by phase
 
 The endpoint is
-[`pde_convergence/05_tail_and_compactness/COMPACTNESS_REPORT.md`](pde_convergence/05_tail_and_compactness/COMPACTNESS_REPORT.md).
+[`pde_convergence/05_tail_and_compactness/COMPACTNESS_REPORT.md`](../resnet_tail_compactness/COMPACTNESS_REPORT.md).
 
 | Phase | What ran | Durable reading |
 |---|---|---|
-| [`01_proof_audit`](pde_convergence/01_proof_audit/) | Only 2 of 12 initial Phase-A jobs completed, both at \(P=5\); no \(P=15\)/\(P=35\) job and no simultaneous decision | A substantial seven-gate implementation/protocol framework, but no scientific gate passed. Its 128 tests are software/provenance tests, not 128 scientific experiments |
-| [`02_lean_salvage`](pde_convergence/02_lean_salvage/) | Four fresh bounded diagnostics—ordered scaling, depth homogenization, same-state attack, and generator/shadow—plus reanalysis of earlier late-time and \(P=5\) cubature trajectories | Real but narrow favorable mechanism evidence. The ad hoc runner is absent; archived arrays/report remain. Its old \(5\to15\to35\) hierarchy ratios are invalidated by parity |
-| [`03_bridgeability`](pde_convergence/03_bridgeability/) | Parity-clean bounded odd-shell diagnostics with retained runner and arrays | Parity equivariance and the conditional symmetric-flow reduction are durable. Lifted outgoing residuals contracted strongly, but aggregate feedback and observable ratios grew; the lifted residual is only the velocity of a newly opened shell at a low-order state, not the trained high-shell tail |
-| [`04_scalar_stress`](pde_convergence/04_scalar_stress/) | Completed sine and two tanh high-degree stress runs | Strong activation effects need not mean high source-Hermite dependence. The two tanh top-tail ratios, \(0.958\) and \(1.913\), did not replicate a turnover; observable effects were tiny |
-| [`05_tail_and_compactness`](pde_convergence/05_tail_and_compactness/) | Common-reference degree-seven audit and one final coupled compactness run | Removed separately trained-reference and parity confounds, established the analytic obstruction, and found no aggregate Cauchy contraction |
+| [`01_proof_audit`](../resnet_proof_audit) | Only 2 of 12 initial Phase-A jobs completed, both at \(P=5\); no \(P=15\)/\(P=35\) job and no simultaneous decision | A substantial seven-gate implementation/protocol framework, but no scientific gate passed. Its 128 tests are software/provenance tests, not 128 scientific experiments |
+| [`02_lean_salvage`](../resnet_lean_salvage) | Four fresh bounded diagnostics—ordered scaling, depth homogenization, same-state attack, and generator/shadow—plus reanalysis of earlier late-time and \(P=5\) cubature trajectories | Real but narrow favorable mechanism evidence. The ad hoc runner is absent; archived arrays/report remain. Its old \(5\to15\to35\) hierarchy ratios are invalidated by parity |
+| [`03_bridgeability`](../resnet_bridgeability) | Parity-clean bounded odd-shell diagnostics with retained runner and arrays | Parity equivariance and the conditional symmetric-flow reduction are durable. Lifted outgoing residuals contracted strongly, but aggregate feedback and observable ratios grew; the lifted residual is only the velocity of a newly opened shell at a low-order state, not the trained high-shell tail |
+| [`04_scalar_stress`](../resnet_scalar_stress) | Completed sine and two tanh high-degree stress runs | Strong activation effects need not mean high source-Hermite dependence. The two tanh top-tail ratios, \(0.958\) and \(1.913\), did not replicate a turnover; observable effects were tiny |
+| [`05_tail_and_compactness`](../resnet_tail_compactness) | Common-reference degree-seven audit and one final coupled compactness run | Removed separately trained-reference and parity confounds, established the analytic obstruction, and found no aggregate Cauchy contraction |
 
 In the final run, at \(t=0.25\),
 
@@ -550,7 +550,7 @@ low-degree curve match would add little to the present ledger.
   compact releases retain code, protocols, processed evidence, stage seals,
   and raw-file hashes while omitting the raw NPZ collections; generalization
   alone omits 101 NPZ files (about 1.35 GB).
-- [`operator_pde/rerun_2026-07-31`](operator_pde/rerun_2026-07-31/) retains a
+- [`operator_pde/rerun_2026-07-31`](../resnet_reproduction_2026_07_31) retains a
   later five-file raw NPZ subset. It reproduces central scalar diagnostics but
   is a reproduction/smoke bundle, not new frozen scientific evidence or a
   repeat of the complete campaign.
@@ -563,24 +563,24 @@ low-degree curve match would add little to the present ledger.
 ## 11. Authoritative reading order
 
 1. This file for the cross-study claim and supersession ledger.
-2. [`dense_response/long_horizon/REPORT.md`](dense_response/long_horizon/REPORT.md)
+2. [`dense_response/long_horizon/REPORT.md`](../resnet_dense_long_horizon/REPORT.md)
    for the canonical response experiment, and
-   [`dense_response/long_horizon/theory/dense_euclidean_continuous_depth_pde_conjecture.md`](dense_response/long_horizon/theory/dense_euclidean_continuous_depth_pde_conjecture.md)
+   [`dense_response/long_horizon/theory/dense_euclidean_continuous_depth_pde_conjecture.md`](../resnet_dense_long_horizon/theory/dense_euclidean_continuous_depth_pde_conjecture.md)
    for the exact/conjectural response split.
-3. [`operator_pde/core/theory/operator_galerkin_pde.md`](operator_pde/core/theory/operator_galerkin_pde.md)
+3. [`operator_pde/core/theory/operator_galerkin_pde.md`](../resnet_operator_core/theory/operator_galerkin_pde.md)
    for the candidate PDE, followed by
-   [`operator_pde/core/REPORT.md`](operator_pde/core/REPORT.md),
-   the [`core hostile audit`](operator_pde/core/audits/final_adversarial_pde_audit.md),
-   the [`core statistical audit`](operator_pde/core/audits/statistical_audit/REPORT.md),
-   [`operator_pde/generalization/FINAL_REPORT.md`](operator_pde/generalization/FINAL_REPORT.md),
-   the [`activation-control report`](operator_pde/activation_controls/ACTIVATION_LINEARITY_SMOKING_GUN_REPORT.md),
+   [`operator_pde/core/REPORT.md`](../resnet_operator_core/REPORT.md),
+   the [`core hostile audit`](../resnet_operator_core/audits/final_adversarial_pde_audit.md),
+   the [`core statistical audit`](../resnet_operator_core/audits/statistical_audit/REPORT.md),
+   [`operator_pde/generalization/FINAL_REPORT.md`](../resnet_generalization/FINAL_REPORT.md),
+   the [`activation-control report`](../resnet_activation_controls/ACTIVATION_LINEARITY_SMOKING_GUN_REPORT.md),
    and
-   [`operator_pde/activation_controls/RELEASE_PROVENANCE.md`](operator_pde/activation_controls/RELEASE_PROVENANCE.md)
+   [`operator_pde/activation_controls/RELEASE_PROVENANCE.md`](../resnet_activation_controls/RELEASE_PROVENANCE.md)
    for numerical claims and evidence custody. Any old physical
    \(P=5\to15\) interpretation in an audit is superseded by the parity result.
-4. [`pde_convergence/03_bridgeability/REPORT.md`](pde_convergence/03_bridgeability/REPORT.md)
+4. [`pde_convergence/03_bridgeability/REPORT.md`](../resnet_bridgeability/REPORT.md)
    for parity and
-   [`pde_convergence/05_tail_and_compactness/COMPACTNESS_REPORT.md`](pde_convergence/05_tail_and_compactness/COMPACTNESS_REPORT.md)
+   [`pde_convergence/05_tail_and_compactness/COMPACTNESS_REPORT.md`](../resnet_tail_compactness/COMPACTNESS_REPORT.md)
    for the current convergence endpoint.
 
 The dated top-level monograph remains valuable as a historical integrated

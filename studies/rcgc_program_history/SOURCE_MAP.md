@@ -5,11 +5,11 @@ are the technical sources used to freeze the probe.
 
 ## Mean-field peeling machinery
 
-- [`../mean_field_peeling/CURRENT_RESEARCH_STATE.md`](../mean_field_peeling/CURRENT_RESEARCH_STATE.md):
+- [`../mean_field_peeling/CURRENT_RESEARCH_STATE.md`](../mfp_program_history/CURRENT_RESEARCH_STATE.md):
   conditional Gaussian law, Wick--Stein elimination, equality partitions,
   width grading, source replacement, and the exact boundary of the local-jet
   program.
-- [`../mean_field_peeling/MUP_TRAINING_CASE_STUDY.md`](../mean_field_peeling/MUP_TRAINING_CASE_STUDY.md):
+- [`../mean_field_peeling/MUP_TRAINING_CASE_STUDY.md`](../mfp_program_history/MUP_TRAINING_CASE_STUDY.md):
   explicit multi-step and multi-channel execution.
 
 ## Rigorous fixed-program backend
@@ -26,13 +26,13 @@ uniformity.
 ## Resolved validation models
 
 - Linear (H=1):
-  [`../mean_field_peeling/identity_compiler/linear_gaussian_program/DEPTH1_IDENTITY_DERIVATION.md`](../mean_field_peeling/identity_compiler/linear_gaussian_program/DEPTH1_IDENTITY_DERIVATION.md).
+  [`../mean_field_peeling/identity_compiler/linear_gaussian_program/DEPTH1_IDENTITY_DERIVATION.md`](../mfp_identity_compiler/linear_gaussian_program/DEPTH1_IDENTITY_DERIVATION.md).
 - Linear (H=2):
-  [`../mean_field_peeling/identity_compiler/linear_gaussian_program/depth2_autonomous_mse_closure/THEOREM_AND_PROOF.md`](../mean_field_peeling/identity_compiler/linear_gaussian_program/depth2_autonomous_mse_closure/THEOREM_AND_PROOF.md).
+  [`../mean_field_peeling/identity_compiler/linear_gaussian_program/depth2_autonomous_mse_closure/THEOREM_AND_PROOF.md`](../mfp_identity_compiler/linear_gaussian_program/depth2_autonomous_mse_closure/THEOREM_AND_PROOF.md).
 - Linear (H=3):
-  [`../mean_field_peeling/identity_compiler/linear_gaussian_program/depth3_unfrozen_readout_closure/THEOREM_AND_PROOF.md`](../mean_field_peeling/identity_compiler/linear_gaussian_program/depth3_unfrozen_readout_closure/THEOREM_AND_PROOF.md).
+  [`../mean_field_peeling/identity_compiler/linear_gaussian_program/depth3_unfrozen_readout_closure/THEOREM_AND_PROOF.md`](../mfp_identity_compiler/linear_gaussian_program/depth3_unfrozen_readout_closure/THEOREM_AND_PROOF.md).
 - Arctangent (H=2):
-  [`../mean_field_peeling/nonlinear_activation_operator_ide/ARCTAN_THEOREM_AND_PROOF.md`](../mean_field_peeling/nonlinear_activation_operator_ide/ARCTAN_THEOREM_AND_PROOF.md).
+  [`../mean_field_peeling/nonlinear_activation_operator_ide/ARCTAN_THEOREM_AND_PROOF.md`](../arctan_l2_order_one_readout/ARCTAN_THEOREM_AND_PROOF.md).
 
 The old proofs are used to freeze models and regression readouts. Their
 model-specific solution devices are not premises of the new calculus.

@@ -479,4 +479,4 @@ theorem has already been reduced away.
 - [Gevrey/Borel audit](GEVREY_BOREL_COMPLETION_AUDIT.md)
 - [Gradient-geometry audit](GRADIENT_GEOMETRY_MACHINERY_AUDIT.md)
 - [Rigorous DMFT and quantitative TP audit](RIGOROUS_DMFT_AND_QUANTITATIVE_TP_AUDIT.md)
-- [Experimental preregistration and outputs](experiments/)
+- [Experimental preregistration and outputs](experiments)

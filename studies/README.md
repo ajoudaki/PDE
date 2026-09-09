@@ -18,6 +18,12 @@ copies are intentionally byte-preserved: an old path or hash in such a document
 is provenance, not a promise that the former working directory still exists.
 Historical runtime outputs are under `data/historical/` at the repository root.
 
+The single shared support module [_output_paths.py](_output_paths.py) handles
+fresh-output and explicit historical-input selection for several working
+studies. It is exploration infrastructure, not another study or an established
+mathematical API. Keeping it beside the catalogue avoids a permanent dependency
+on a dated migration study. Study-specific rules remain inside their studies.
+
 ## Flat catalogue
 
 - [activation_class_all_depths](activation_class_all_depths/README.md)

@@ -1,0 +1,237 @@
+[
+  {
+    "path": "studies/activation_class_all_depths/README.md",
+    "before": "506d60c148eee6c2b724ed7f53b95d04a993fb8913dfdf048a64d46efcbf8f08",
+    "after": "0b3cce835451f029c1fb7d4b3c03c8c2ffcd21bb29334f59ae9d409c7cf54b3e"
+  },
+  {
+    "path": "studies/arctan_l2_order_one_readout/README.md",
+    "before": "6f2c5f3928210e649850e0d7db2055f4f3b1e814737757ddca509da636dc41f6",
+    "after": "81506c02744de931c3a73626545e7983367261e1e37170332adc0764cc348da1"
+  },
+  {
+    "path": "studies/causal_flow_peeling_calculus/README.md",
+    "before": "cf0e3a2456cda5b21d540f97653b2bae4a760bfcbe6cebcb301d9ec4ad9bea2e",
+    "after": "c7cf487cb42f0d95a4b89b0b23bbc70673e8da7d0c8bc435c62b54761a9a72cb"
+  },
+  {
+    "path": "studies/convex_offset_all_depths/README.md",
+    "before": "8725c02a277605d60b0794d2ba06eaa6542f9ae007ac5f997b63b2dce05da2b1",
+    "after": "cd78cd03d081dd3003a0148587e579755671697a6504533de0122e1a8c0d680a"
+  },
+  {
+    "path": "studies/d3_arctan_closure_program/README.md",
+    "before": "5113bd9482221ebd177ab4f8015f2ba960969616e5725f30abf63b53bd11787a",
+    "after": "fe99baa883ea87f8bc5244aa2c727fea815644afc0816bc40c62720a2e094857"
+  },
+  {
+    "path": "studies/mfp_finite_step_single_hidden_mlp/README.md",
+    "before": "61654d6f4caa10ae99fc4cd3f23587791875fcf0aca0f4abe3739c0cb4533cf7",
+    "after": "d1dfc02fabf2edf972c719e2f815221b629585dcdc2524df19b8f8c0c59de445"
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/README.md",
+    "before": "69ba86afb0023c89968d9370001886c3bb325732cd539b7c2074754ec851eaf3",
+    "after": "6c6b81a3f7657eb7a7a01e61681d534799ec0ddbc7124466e14f2fdb9da22e25"
+  },
+  {
+    "path": "studies/mfp_program_history/README.md",
+    "before": "e3e4aae563776c597ddd292466a92e77d8107e4131c0942a20f5268fcc3a5dd3",
+    "after": "74e519b4831bf0dca2ea4d3965348f1480190be55f480144f8c7b88e318b150b"
+  },
+  {
+    "path": "studies/mfp_quadratic_compiler/README.md",
+    "before": "49f29cbc30813c8032215508b963a90bea1ca1ef99a3a42b2f8072839e47aa28",
+    "after": "e822ec43afc2a9e2f6fafec9a94d3d084885d76398d954365567ec3662d505a0"
+  },
+  {
+    "path": "studies/moderate_sine_global/README.md",
+    "before": "b74b27ef555dae963f4325481b875bc26914774bd831521cb139d090bbefd4f4",
+    "after": "09e37defe7077205a6c94f1407ef96b4e50b261d062e00184efaf4c2549fc07b"
+  },
+  {
+    "path": "studies/odd_activation_lower_powers_three_inputs/README.md",
+    "before": "a221600e7d1b24cf1973c87ca12a8e82dbe4facaa874a6976b5a8c5e2e97bcd6",
+    "after": "a827fef3b88ab70e470259650ed3e4043cd6b912d24a88a28191e96bb75d21cb"
+  },
+  {
+    "path": "studies/odd_mixture_general_depth/README.md",
+    "before": "3aed8fbfe2805cce0dff77093b70a07a8aa67aaeeae2b4de24a89c76206b5e51",
+    "after": "8546bd6e5859beeaecaeca803ffd5abd7d5b4925e321b5eb9b76fd58af3bb121"
+  },
+  {
+    "path": "studies/odd_mixture_separation_quantitative/README.md",
+    "before": "be5f7ca9bc1a65e084e926b86183730af7ec38e5c1ac545ee072cb7d38958c72",
+    "after": "61d9f60b7978d1d12d9c5d2b324532e73318697a7e4be770dafd6dcb450bed92"
+  },
+  {
+    "path": "studies/project_wide_audit_2026_09_08/README.md",
+    "before": "f472b5eb594dd32dc2a0f8bfe600dbba1954643db275547f25a262031ed1b69d",
+    "after": "97303cdfe3bf678b8853e6afb418917981bb41e235c2be5837e57830045d0099"
+  },
+  {
+    "path": "studies/quadratic_nonclosure/README.md",
+    "before": "9d046f75777be97a81995207855eaea9296f88406d47ffbae1b7fddf25470403",
+    "after": "5fe16e9ba2f6198b3e4a47e0032591fdd167f2123e6f895fcbed4d82aeda6020"
+  },
+  {
+    "path": "studies/rcgc_arctan_l2/README.md",
+    "before": "8da7a4f5f3ec2dfd7db297b6be9b2ab2e13a7c33627796d1e8cab6440de3cfdf",
+    "after": "5a95a96098c819f1ce61bb602e049a4f098c932c634a8c220cba24d5009d98a8"
+  },
+  {
+    "path": "studies/rcgc_arctan_l3/README.md",
+    "before": "b88e52a8ee1c7fea1483a348d32f4ff5b4930916d126a01a87c676a92da0f7e7",
+    "after": "36336923cf850a956aa34b054b4ad27d53c8f200736082f5e39823d0d1d0dea6"
+  },
+  {
+    "path": "studies/rcgc_compiler/README.md",
+    "before": "fcda871a86f9d0bc6f484b79941c7b795b23b7b337cc6675bc62523eb44db0ab",
+    "after": "43295ecde3800f6fb2f4da56eb98aac7d43be829c52954e4f14bdee811836994"
+  },
+  {
+    "path": "studies/rcgc_linear_depth/README.md",
+    "before": "7cc0c93977a4af3b17244b6a26ead2ea8cee3cbc88e2fda9023423b328d8db97",
+    "after": "1b3e3e4efaafca8d807e5b6e752539336a947a0811a2f4ca24a486dfa6ae0df2"
+  },
+  {
+    "path": "studies/rcgc_program_history/README.md",
+    "before": "8547a0298b2a82fa1e6b4a4df831c5d6aeb2fae8ea5eda12204f4bb225d7c5d4",
+    "after": "77f9b3bf04c673801a4ac748e559d66a25e8e69cb5ce7b2e008228a2639fc195"
+  },
+  {
+    "path": "studies/rcgc_shallow/README.md",
+    "before": "b0367b4e871d9f780995cb6fbadcaae23b27373e6d8a5818368da0fe8a17a567",
+    "after": "5e45bc316ea801be85a04b4934b52e692d1df19fa026c160cc62ac94a72bff27"
+  },
+  {
+    "path": "studies/resnet_activation_controls/README.md",
+    "before": "3d6175231230eff2feccac9af82fc1b2f2b24bea6e236103a89c305792d82b9a",
+    "after": "099126da901cce099f4497cc757b26b3a99e0dcf6c08308558e1a52816226762"
+  },
+  {
+    "path": "studies/resnet_dense_long_horizon/README.md",
+    "before": "e46a483e612af18483d599a89b162ffebb633a8be5e64125cfcdf1657a8ed501",
+    "after": "691d76e18de93de1b1f17073a29b29874023416c95a5a58ebf20fd6267f810c4"
+  },
+  {
+    "path": "studies/resnet_generalization/README.md",
+    "before": "581ee35e292d7646ada4b0b91f7594479c3fe823f787e54093ccfb9e20bf34ca",
+    "after": "15c57111ec16f0fc8881ebd424ac20f88767fbbcc51d9b1450bcdd2e158f440f"
+  },
+  {
+    "path": "studies/resnet_operator_core/README.md",
+    "before": "35911f9e981926d0c649bd61a1917d58f675bd2583d656f26e26865f7819f12d",
+    "after": "c104a3162a47f9bb20c723c4944625bf58a59f091ef002807a1f241a2afa4d10"
+  },
+  {
+    "path": "studies/resnet_program_history/README.md",
+    "before": "9087e5de59d39a43beb1fddaac58ef37c48a0f039052a50a562710510e1cfe3b",
+    "after": "4b5f6fa829ab05ad31c8b9d37d40d45a172b6bc93628355e3b16c0b37dd0cb08"
+  },
+  {
+    "path": "studies/resnet_reproduction_2026_07_31/README.md",
+    "before": "e965d193f1630febf56c2ae07506e36aa070d03fbeb0357ff4027d586a311286",
+    "after": "f863d04dcb73751602ff9bf153b0788c3f01301e5ad20e6a2ff57e1e1ee94aa3"
+  },
+  {
+    "path": "studies/stieltjes_direct_loewner/README.md",
+    "before": "1c9752ab84746b9ef113470ebfca2413a7a3474612a12f868aad4de6480b86c1",
+    "after": "f5d06e10af2b0593368c6eaa4cc2e42282b24091d4dc05bab0b8e5a925d31163"
+  },
+  {
+    "path": "studies/stieltjes_finite_width/README.md",
+    "before": "e34ca3b8e6c99518b76aa91ada546c3cdb80dd2dbc49989500982783a5cde0f1",
+    "after": "ae6006714e123a2c8984da58cdd6f0e00ba3f40309b062616bc19bd59e56a977"
+  },
+  {
+    "path": "studies/stieltjes_program_history/README.md",
+    "before": "ca4353b3989ed697ebe0a862ce7f7ec289ea7dc67f5125f2a6a84ee1d75e7b48",
+    "after": "b3136c449c348fb7613be841af0d1edf632f1bf4f488e657230305f7b74d5b1d"
+  },
+  {
+    "path": "studies/stieltjes_resolution/README.md",
+    "before": "69f76449db4a16ee7bfb6c55020d4a7aeb1c93e73eb77f55c57adacbc6bf9b94",
+    "after": "7c49921d68d08d4ca223e3850bc7dff4c65b08cd12dc0fffcbe4c2bcb8fbf390"
+  },
+  {
+    "path": "studies/stieltjes_theory_history/README.md",
+    "before": "a252f0106a8663c901e69352b57a5063401396216a3de637cffbc00f5ca59539",
+    "after": "41be1d60013395be042fe1844682706c5c65ff444b8e9e71a8ee3d47f65c20b0"
+  },
+  {
+    "path": "studies/three_sample_activation_class/README.md",
+    "before": "eb240b1fd96095db90357d3d7e8a40032cb3123c6acdc4ba3f92bdf01246031f",
+    "after": "4e88d0880a8a6823aeac096d04ddda251e3be999b555381140ffb0e10427ffba"
+  },
+  {
+    "path": "studies/three_sample_near_identity_all_depths/README.md",
+    "before": "6cfb03dd4471ddfec1bdfc1d7c251ec6c822115b4b0a61689f322f432f87aca1",
+    "after": "0d9f3caf1cfbbf6fc2c20df31be20211a075cb69eab597684e9e366b6d43efec"
+  },
+  {
+    "path": "studies/three_sample_odd_activation_depth2/README.md",
+    "before": "8c2baadac9f78d22d8451b146bf3ed4edf3cc57a06336dfe2784c706826e2bb4",
+    "after": "bba074f569ffefb46a42cdca4c5197f336a2fe0d2838f12144a8557e5f6c16b1"
+  },
+  {
+    "path": "studies/three_sample_odd_activation_threshold/README.md",
+    "before": "75c6d9ea359b9d56e6b65ecf4d885c4e9a928872f46463e3280325a5ce8330c2",
+    "after": "07070c403f4c1f4c8bab92bc43153af899b0214fe7c51dd1ac1f021cb078df10"
+  },
+  {
+    "path": "studies/three_sample_odd_gain_all_depths/README.md",
+    "before": "1966997ee222e5b0e4e09876fc078af06ecb9f51ea01b652d7c461260fe50ea2",
+    "after": "39b82169c17b5a9d96798cc07a3619c0afe7fa9c2f46a09c021d66fa9c60be48"
+  },
+  {
+    "path": "studies/three_sample_self_contained/README.md",
+    "before": "efb3daa53c1670e4e7f61677f53e4df98d1e413d348a16bfcd4668206a8b5bf0",
+    "after": "7c12ed6be4c5a3b6022352f10dd6058faee13f4e847379af56e87f2d36f31c37"
+  },
+  {
+    "path": "studies/three_sample_separated_angle_theorem/README.md",
+    "before": "2a15b114c092b6d549cde12f9776a4c605185b20bc017c8b0d3f91cc7646fbf9",
+    "after": "85f1f082618e25c8f4110f91deb5648bee5bfcd80c49e41325fab80f30d1bf27"
+  },
+  {
+    "path": "studies/two_sample_activation_design/README.md",
+    "before": "64a966190df96dc41990e695c73c2a3517067860276800ff04236ed71f813b78",
+    "after": "d66e21e622b25c8830ed74ed2e0d9aa6fbd239ca3d7ba4bda873462e1cce92ba"
+  },
+  {
+    "path": "studies/two_sample_odd_activation_depth4/README.md",
+    "before": "c24494dd4d561168e10d3c7ec8ce6da0471461fa67691763a833b338ebe1ed20",
+    "after": "bd112f4b0edb1de69d46fb3b3d8de09c1b69f323034690a2ffcf9d1eaa964191"
+  },
+  {
+    "path": "studies/two_sample_odd_activation_depth56/README.md",
+    "before": "c9ef890308a18cc3ba7dafde29efdb6a6653d2200d2db537c803ab4649ac288c",
+    "after": "6191cc52bc54963c2b4702960c6b6a9fc1681f7ec666e952198ab8f7c2692e51"
+  },
+  {
+    "path": "studies/two_sample_odd_activation_power10/README.md",
+    "before": "1ab409a516ce5c55740b6d40b91bae6f54282177bbadded00b82148be333abaa",
+    "after": "dd0ed9dd07c1aee26717811c26471e69f562779ae880e92771e89bd8570257f4"
+  },
+  {
+    "path": "studies/two_sample_odd_activation_power4/README.md",
+    "before": "8b02b258736e4c203a184f4a7b2cb402fe9569711504fbff3e139d585e48d14d",
+    "after": "a4deff561963e4d94907138b641e676abbaed9436152759adf894d2bd1288447"
+  },
+  {
+    "path": "studies/two_sample_odd_activation_quantitative/README.md",
+    "before": "406dfaa9858b12e0c62549f31b0a65cfc661d401c6669a2f4f4a86076e61f63f",
+    "after": "38d96f59f4aa7ea070472c8f60686b64f5b7e01100fa729d17469f7d69c890ba"
+  },
+  {
+    "path": "studies/two_sample_odd_activation_theorem/README.md",
+    "before": "fd93868149aefbfdf8be9a988e7204dd3b89097b0b414108f8752c97fb73fb59",
+    "after": "7b2e12c20b497255f7ba58139d00352230c8f8ce683b16ccef0716570b30caf2"
+  },
+  {
+    "path": "studies/two_sample_separated_angle_theorem/README.md",
+    "before": "2df5708ab311fa25a44994ec71a335e78ed1175fc2d94411ce07bb98d9d65d4d",
+    "after": "d6ab40685ec1966391bc9269060652550055ea10fbe9876e467c1f92fec32e9d"
+  }
+]

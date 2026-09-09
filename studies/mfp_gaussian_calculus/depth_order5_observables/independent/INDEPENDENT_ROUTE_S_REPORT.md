@@ -355,7 +355,7 @@ monomial expansions.  The `O(H)` statement concerns the factored local DAG.
 From the repository root run
 
 ```bash
-python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_observables.independent.run_checks
+python -m studies.mfp_gaussian_calculus.depth_order5_observables.independent.run_checks
 ```
 
 The required outcome is zero `H=2,3,4` population discrepancies, zero

@@ -60,7 +60,7 @@ No task-9 user-message attachment/PDF/image reference was found by a read-only a
 
 ### 2.4 Full-read operative proof/dependency corpus
 
-The following **12 distinct contents, 7,996 lines**, were freshly read in full. Here `M` means `/home/amir/Codes/PDE/studies/mean_field_peeling/`; it is only a path abbreviation, not a cross-host identity assumption.
+The following **12 distinct contents, 7,996 lines**, were freshly read in full. Here `M` means `/home/amir/Codes/PDE/studies/mfp_program_history/`; it is only a path abbreviation, not a cross-host identity assumption.
 
 | Full local path relative to M | Lines | SHA256 |
 |---|---:|---|
@@ -237,7 +237,7 @@ Suggested insertion:
 > \]
 > with the source's explicit finite constants (`K_2=27`, `K_3=108`). The fixed Gaussian operator plus trace-class learned state is polynomial, so its width-first Euler states converge to a unique local operator flow. This is not a nonlinear uniform-remainder theorem or an all-depth joint finite-GD/global physical-time theorem.
 
-Link the [assembled theorem](/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_omfp_continuous_time/THEOREM_AND_AUDIT.md), [independent route](/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_omfp_continuous_time/route_d.md), and this audit. Keep the generic nonlinear generated-response condition open.
+Link the [assembled theorem](../../mfp_omfp_continuous_time/THEOREM_AND_AUDIT.md), [independent route](../../mfp_omfp_continuous_time/route_d.md), and this audit. Keep the generic nonlinear generated-response condition open.
 
 ### 7.2 Refine, not delete, §6's depth qualification
 
@@ -249,7 +249,7 @@ Retain the exact-GD residual-recomputation warning and the distinction between n
 
 ### 7.3 Make the PDE encoder/transport boundary explicit
 
-The existing negative paragraph is substantially correct. Add, if space permits, that analytic functions are expanded at the realized zero-state jets; the physical proof covers zero labels at positive mobility; and the transport positive is a local feature-time germ versus a global forward physical-time output realization. A compact citation to the [final proof](/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_deep_linear_pde_no_go/PDE_CLOSURE_BOUNDARY.md) can carry the detailed quantifiers. Do not describe it as an injective all-observable encoder or useful finite-information compression.
+The existing negative paragraph is substantially correct. Add, if space permits, that analytic functions are expanded at the realized zero-state jets; the physical proof covers zero labels at positive mobility; and the transport positive is a local feature-time germ versus a global forward physical-time output realization. A compact citation to the [final proof](../../deep_linear_closure_boundary/PDE_CLOSURE_BOUNDARY.md) can carry the detailed quantifiers. Do not describe it as an injective all-observable encoder or useful finite-information compression.
 
 ### 7.4 Replace PDE-2 task-9 row in §13
 

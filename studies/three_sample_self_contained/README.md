@@ -1,5 +1,11 @@
 # Three separated inputs: self-contained theorem and proof
 
+This is a study record, not an established-library entry. Historical claims and
+review labels below retain their original scope; consult the
+[reconciled research map](../project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md)
+for current qualifications and the [maintained library](../../docs/README.md)
+for accepted self-contained presentations.
+
 The full statement and proof are in [MANUSCRIPT.md](MANUSCRIPT.md). Theorem M.1 gives the result; (M.21) and (R.90) give the activation selection and complete finite constant chain.
 
 The setting is three fixed inputs normalized by ||x_i||²=d, pairwise inner products x_iᵀx_j/d ≤ 1−δ, and labels in {−1,1}. One activation φ(z)=a_δ(1+z)+e arctan(z), with a_δ and a positive admissible upper bound on e selected from δ alone, works for every such fixed configuration. Singular input Gram matrices are included.

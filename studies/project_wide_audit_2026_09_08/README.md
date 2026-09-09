@@ -1,5 +1,11 @@
 # Project-wide research consolidation
 
+This is a study record, not an established-library entry. Historical claims and
+review labels below retain their original scope; consult the
+[reconciled research map](../project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md)
+for current qualifications and the [maintained library](../../docs/README.md)
+for accepted self-contained presentations.
+
 The main reading document is [MASTER_RESEARCH_REPORT.md](MASTER_RESEARCH_REPORT.md).
 
 The 9 September permission-recovery edition has passed three fresh isolated final document-only reviews, after an earlier clean round and the additional temporary-file source audit. The 8 September edition and its reviews remain preserved separately. [Exact review status and version provenance](REVIEW_STATUS.md).

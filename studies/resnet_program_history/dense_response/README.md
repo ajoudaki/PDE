@@ -7,13 +7,13 @@ identifying a dense limit.
 
 ## Phases
 
-1. [`early_audit`](early_audit/) contains the original broad audit in a flat
-   working layout. Read [`early_audit/REPORT.md`](early_audit/REPORT.md), run
+1. [`early_audit`](../../resnet_dense_early_audit) contains the original broad audit in a flat
+   working layout. Read [`early_audit/REPORT.md`](../../resnet_dense_early_audit/REPORT.md), run
    the two scripts at the phase root, and consult `results/` for the cited
    arrays and figures. Independent audit notes are under `notes/`.
-2. [`long_horizon`](long_horizon/) is the corrected, self-contained extension.
-   Start with [`long_horizon/REPORT.md`](long_horizon/REPORT.md) and
-   [`long_horizon/REPRODUCE.md`](long_horizon/REPRODUCE.md).
+2. [`long_horizon`](../../resnet_dense_long_horizon) is the corrected, self-contained extension.
+   Start with [`long_horizon/REPORT.md`](../../resnet_dense_long_horizon/REPORT.md) and
+   [`long_horizon/REPRODUCE.md`](../../resnet_dense_long_horizon/REPRODUCE.md).
 
 Current reading: low response order can reproduce the tested finite-network
 transients surprisingly well, but every surrogate in this program retains the

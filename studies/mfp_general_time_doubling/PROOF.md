@@ -1424,7 +1424,7 @@ In particular, (\alpha=2) in (9.1) is false.  This can already be seen
 inside the same network with the admissible activation (\phi(x)=x).
 For that activation the Gaussian DAG is linear.  A direct truncated
 covariance recursion, stated and proved in
-[the linear-activation audit](./LINEAR_ACTIVATION_AUDIT.md), gives
+[the linear-activation audit](LINEAR_ACTIVATION_AUDIT.md), gives
 
 \[
 [\eta^5]F_N(\eta)

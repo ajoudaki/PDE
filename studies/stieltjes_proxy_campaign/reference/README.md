@@ -118,9 +118,9 @@ The successor-02 scientific run then completed all five points in 59.934
 seconds, using 18,360 batch-integrator steps.  Peak recorded PyTorch GPU
 allocation was 0.133 GiB and peak host RSS was 0.951 GiB.  Its producer record
 is
-[`runs/canonical_pilot_successor02_20260813/summary.json`](runs/canonical_pilot_successor02_20260813/summary.json),
+[`runs/canonical_pilot_successor02_20260813/summary.json`](../../../data/historical/studies/stieltjes_proxy_campaign/reference/runs/canonical_pilot_successor02_20260813/summary.json),
 and its frozen 2,000-resample interpretation is
-[`analysis_result.json`](runs/canonical_pilot_successor02_20260813/analysis_result.json).
+[`analysis_result.json`](../../../data/historical/studies/stieltjes_proxy_campaign/reference/runs/canonical_pilot_successor02_20260813/analysis_result.json).
 All trajectory-validity gates except the deliberately exact paired-initial-
 array gate passed, but the conservative width-sensitivity interval was 82.67
 times wider than the registered resolution ceiling.  The result is therefore
@@ -136,5 +136,5 @@ The earlier bounded CPU smoke also recorded:
   cap.
 
 Its compact machine-readable record is
-[`runs/reference_validation_cpu_20260813/summary.json`](runs/reference_validation_cpu_20260813/summary.json).
+[`runs/reference_validation_cpu_20260813/summary.json`](../../../data/historical/studies/stieltjes_proxy_campaign/reference/runs/reference_validation_cpu_20260813/summary.json).
 It explicitly marks `scientific_evidence_admissible: false`.

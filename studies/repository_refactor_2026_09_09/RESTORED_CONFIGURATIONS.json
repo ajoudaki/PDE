@@ -1,6 +1,14 @@
 {
   "status": "restored_and_byte_verified",
+  "supplement_note": "The original 38-file restoration is preserved in commit 6922cc5; one historical environment-provenance file was subsequently restored without changing its bytes.",
   "files": [
+    {
+      "from": "data/historical/studies/resnet_generalization/environment.json",
+      "to": "studies/resnet_generalization/environment.json",
+      "bytes": 546,
+      "sha256": "b39633993c0091a288759b756e2eda31bbbf131ea5ed5709dc109882c688d140",
+      "kind": "historical_environment_provenance"
+    },
     {
       "from": "data/historical/studies/resnet_dense_long_horizon/config/protocol.json",
       "to": "studies/resnet_dense_long_horizon/config/protocol.json",
@@ -268,7 +276,7 @@
       "kind": "historical_provenance_not_current_authorization"
     }
   ],
-  "bytes": 143813,
+  "bytes": 144359,
   "original_data_copies_retained": true,
   "old_seals_refreshed": false
 }

@@ -1,5 +1,11 @@
 # Linear fixed-depth validation
 
+This is a study record, not an established-library entry. Historical claims and
+review labels below retain their original scope; consult the
+[reconciled research map](../project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md)
+for current qualifications and the [maintained library](../../docs/README.md)
+for accepted self-contained presentations.
+
 This stage attempts to prove identity activation for every separately fixed
 hidden depth by one common pointed-action theorem. It deliberately does not
 invoke the depth-two spectral oscillator or the depth-three cyclic lift.

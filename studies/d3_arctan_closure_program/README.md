@@ -1,5 +1,11 @@
 # D3 Arctan Closure Program
 
+This is a study record, not an established-library entry. Historical claims and
+review labels below retain their original scope; consult the
+[reconciled research map](../project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md)
+for current qualifications and the [maintained library](../../docs/README.md)
+for accepted self-contained presentations.
+
 **Status:** paused on 23 August 2026 without a proof or a canonical-flow
 counterexample.
 
@@ -53,4 +59,3 @@ No empirical result is assigned theorem status.
 
 See [consolidation provenance](CONSOLIDATION_PROVENANCE_2026-08-23.md) for
 the relocation record.
-

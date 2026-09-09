@@ -1,5 +1,11 @@
 # Causal Flow Peeling Calculus
 
+This is a study record, not an established-library entry. Historical claims and
+review labels below retain their original scope; consult the
+[reconciled research map](../project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md)
+for current qualifications and the [maintained library](../../docs/README.md)
+for accepted self-contained presentations.
+
 ## Program identity
 
 This study develops a proof-carrying, recursive calculus for finite-step-to-continuous-time mean-field feature-learning limits.  Its working name is **Causal Flow Peeling Calculus (CFPC)**.  The name is provisional: it describes the intended mechanism, not an established theorem.

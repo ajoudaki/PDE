@@ -63,7 +63,7 @@ There are 891 raw agent-message wrappers, of which 290 expose actual plaintext p
 
 The following full texts were read in this audit. They were not merely located or hashed. The nine principal near-identity proof/audit files were read as a 112,090-character concatenation in three contiguous ranges through EOF; the three short contract/registry/ledger files were subsequently read fully. The two superseded L3 drafts were read as a 62,728-character concatenation through EOF. The corrected report was read in line ranges 1–310, 311–620 and 621–885.
 
-For compactness in the table, `N/` expands exactly to `/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_uniform_near_identity_l2/`. It is a local path abbreviation, not an assertion of identity with a same-named file on another host.
+For compactness in the table, `N/` expands exactly to `/home/amir/Codes/PDE/studies/mfp_uniform_near_identity_l2/`. It is a local path abbreviation, not an assertion of identity with a same-named file on another host.
 
 | Full-read source | Bytes | SHA256 |
 |---|---:|---|
@@ -83,7 +83,7 @@ For compactness in the table, `N/` expands exactly to `/home/amir/Codes/PDE/stud
 | `N/APPROACH_REGISTRY.md` | 1,344 | `6b17634c9ed31033f3321058e8c39b4ed707abd14ba4308e65416328e1e4dc31` |
 | `N/RESEARCH_CONTRACT.md` | 2,189 | `8fa78ea34a3e01271ef4240c76937db43fae7864b4d4bb0d577e3080237966ef` |
 
-The archive `/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OPERATOR2_L3_AUDITED_REPORT.md` has the same 34,237 bytes and SHA256 `5fc3b4470a7863bcb8c0f350f329e20cc9a68a1a770005f9a1c683c2e404cfb3` as the full-read `/tmp` corrected source. This establishes exact content identity; it does not manufacture independent mathematical corroboration.
+The archive `/home/amir/Codes/PDE/studies/four_thread_consolidation/expanded_sources/OPERATOR2_L3_AUDITED_REPORT.md` has the same 34,237 bytes and SHA256 `5fc3b4470a7863bcb8c0f350f329e20cc9a68a1a770005f9a1c683c2e404cfb3` as the full-read `/tmp` corrected source. This establishes exact content identity; it does not manufacture independent mathematical corroboration.
 
 Additional provenance snapshots:
 

@@ -36,6 +36,8 @@ research task is resumed and no history is rewritten.
 - `studies/`: a flat set of named investigations, including historical source
   and audit collections. Ordinary internal code/test/source directories are
   permitted; nested scientific-program umbrellas are not the navigation model.
+  A single flat shared exploration-routing module may sit beside the catalogue;
+  it is not promoted into the independent mathematical/code library.
 - `data/`: ignored generated artifacts and figures, physically separate from
   source. Established outputs have explicit deterministic reproduction commands.
 

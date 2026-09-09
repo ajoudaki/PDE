@@ -5,7 +5,7 @@
 ## 1. Theorem
 
 Let \(\phi\) be any tame natural gate in
-[the frozen activation interface](../TAME_NATURAL_GATE_CLASS.md). On
+[the frozen activation interface](../rcgc_program_history/TAME_NATURAL_GATE_CLASS.md). On
 \(\mathbb R^n\), use
 
 \[
@@ -125,7 +125,7 @@ finite degree, and the initial matrix has variance \(1/n\). The theorem
 gives the joint almost-sure limit of all program empirical moments without a
 rank-stability hypothesis and with genuine forward/transpose reuse. The
 exact invocation boundary is audited in
-[the fixed-mesh source audit](../audits/TENSOR_PROGRAM_FIXED_MESH_AUDIT.md).
+[the fixed-mesh source audit](../rcgc_program_history/audits/TENSOR_PROGRAM_FIXED_MESH_AUDIT.md).
 
 Take the simultaneous probability-one event over \(\mathscr P\) (and,
 later, rational meshes). Any finite family of program fields occurs in one

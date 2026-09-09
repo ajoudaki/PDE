@@ -516,22 +516,22 @@ resource gate failed.**
   compiler.
 - [`STAGE_C_PROJECTION_PLAN.md`](STAGE_C_PROJECTION_PLAN.md): final-source
   pilot sample and preregistered authorization formula.
-- [`provenance_stage_a.json`](provenance_stage_a.json) and
-  [`provenance_stage_b.json`](provenance_stage_b.json): exact low-order
+- [`provenance_stage_a.json`](../../../data/historical/studies/mfp_quadratic_compiler/campaign5_b3/provenance_stage_a.json) and
+  [`provenance_stage_b.json`](../../../data/historical/studies/mfp_quadratic_compiler/campaign5_b3/provenance_stage_b.json): exact low-order
   coefficients, gates, hashes, and resources.
 - [`provenance_b2_order5_gate.json`](provenance_b2_order5_gate.json): exact
   common-order two-color regression.
 - [`provenance_stage_c_lower_gate.json`](provenance_stage_c_lower_gate.json):
   exact order-five W-hit sector-sum regression.
-- [`provenance_stage_c_projection.json`](provenance_stage_c_projection.json):
+- [`provenance_stage_c_projection.json`](../../../data/historical/studies/mfp_quadratic_compiler/campaign5_b3/provenance_stage_c_projection.json):
   final-hash failed-pilot record, conservative resource debit, exclusions,
   and terminal decision.
 - [`postprocess_lower_moments.py`](postprocess_lower_moments.py) and
   [`certificates_lower_moments.json`](certificates_lower_moments.json): exact
   post-hoc Sturm certificate for $\mu_0>0$ and $\mu_1>0$ only.
-- [`frozen/stage_a_reference_order3.json`](frozen/stage_a_reference_order3.json),
-  [`frozen/stage_a_connected_order3.json`](frozen/stage_a_connected_order3.json),
-  and [`frozen/stage_b_connected_order5.json`](frozen/stage_b_connected_order5.json):
+- [`frozen/stage_a_reference_order3.json`](../../../data/historical/studies/mfp_quadratic_compiler/campaign5_b3/frozen/stage_a_reference_order3.json),
+  [`frozen/stage_a_connected_order3.json`](../../../data/historical/studies/mfp_quadratic_compiler/campaign5_b3/frozen/stage_a_connected_order3.json),
+  and [`frozen/stage_b_connected_order5.json`](../../../data/historical/studies/mfp_quadratic_compiler/campaign5_b3/frozen/stage_b_connected_order5.json):
   accepted exact raw outputs.
 - [`test_b2_order5_gate.py`](test_b2_order5_gate.py),
   [`test_stage_c_sector.py`](test_stage_c_sector.py), and

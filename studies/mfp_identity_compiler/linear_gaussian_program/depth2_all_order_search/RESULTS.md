@@ -185,9 +185,9 @@ After exact inversion/composition, all forty moments
 \right).
 \]
 
-The complete coefficient lists are in [RESULTS.json](RESULTS.json), and the
+The complete coefficient lists are in [RESULTS.json](../../../../data/historical/studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/RESULTS.json), and the
 independent comparison is in
-[SPECTRAL_CLOSURE_RESULTS.json](SPECTRAL_CLOSURE_RESULTS.json).
+[SPECTRAL_CLOSURE_RESULTS.json](../../../../data/historical/studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/SPECTRAL_CLOSURE_RESULTS.json).
 
 ## 5. Closed-form search result
 
@@ -219,7 +219,7 @@ H_d\succ0,\qquad H_d^+\succ0,
 
 All forty moment signs are positive.  This extends the earlier order-13
 finite pass from `H_2,H_2^+` to `H_19,H_19^+`.  The exact determinants are
-stored in [HANKEL40_RESULTS.json](HANKEL40_RESULTS.json).
+stored in [HANKEL40_RESULTS.json](../../../../data/historical/studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/HANKEL40_RESULTS.json).
 
 The conclusion is deliberately finite: the spectral closure computes every
 formal coefficient, but no representing measure for the output-kernel

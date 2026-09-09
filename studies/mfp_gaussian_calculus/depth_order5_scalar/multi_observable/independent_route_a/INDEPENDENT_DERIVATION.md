@@ -609,5 +609,5 @@ closure, and O(H) complexity are all roadmap hypotheses, not results.
 Run the independent checks with
 
 ```bash
-python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.multi_observable.independent_route_a.run_checks
+python -m studies.mfp_gaussian_calculus.depth_order5_scalar.multi_observable.independent_route_a.run_checks
 ```

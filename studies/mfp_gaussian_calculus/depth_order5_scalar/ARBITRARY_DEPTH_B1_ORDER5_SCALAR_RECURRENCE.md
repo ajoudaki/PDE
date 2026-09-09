@@ -578,7 +578,7 @@ The claims separate as follows:
 Run the deterministic exact checker from the repository root:
 
 ```bash
-python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.run_checks
+python -m studies.mfp_gaussian_calculus.depth_order5_scalar.run_checks
 ```
 
 Its required summary is `C_counts = 974, 6519, 17641`, all discrepancy counts

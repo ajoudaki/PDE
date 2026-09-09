@@ -1,5 +1,11 @@
 # Lower activation powers and the three-input question
 
+This is a study record, not an established-library entry. Historical claims and
+review labels below retain their original scope; consult the
+[reconciled research map](../project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md)
+for current qualifications and the [maintained library](../../docs/README.md)
+for accepted self-contained presentations.
+
 The [complete two-input proof](TWO_INPUT_PROOF.md) establishes the
 original global population/GF/raw-GD theorem for every
 0 < theta <= c_poly delta^2, retaining the previous explicit prefactor.

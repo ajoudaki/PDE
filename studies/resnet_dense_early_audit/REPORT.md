@@ -1277,7 +1277,7 @@ matched to \(1.0\times10^{-8}\).
 The fitted iid exponent was \(-0.519\), consistent with \(L^{-1/2}\); the
 smooth-field exponent was \(0.004\).
 
-![Depth initialization scaling](results/depth_initialization_scaling.png)
+![Depth initialization scaling](../../data/historical/studies/resnet_dense_early_audit/results/depth_initialization_scaling.png)
 
 ### 7.4 Smooth-depth reference convergence
 
@@ -1330,7 +1330,7 @@ larger than the observed \(2.97\times10^{-5}\) output error. Thus the
 experiment demonstrates successful low word order, not a quantitatively
 sharp a priori Dyson certificate.
 
-![Truncated response training errors](results/truncated_training_errors.png)
+![Truncated response training errors](../../data/historical/studies/resnet_dense_early_audit/results/truncated_training_errors.png)
 
 ### 7.6 Parameter sweep
 
@@ -1381,9 +1381,9 @@ trajectory, not an a priori certificate.
 
 ### 7.9 Response singular values and raw Galerkin
 
-![Response singular values](results/response_singular_value_decay.png)
+![Response singular values](../../data/historical/studies/resnet_dense_early_audit/results/response_singular_value_decay.png)
 
-![Triangular Galerkin diagnostic](results/triangular_galerkin_projection.png)
+![Triangular Galerkin diagnostic](../../data/historical/studies/resnet_dense_early_audit/results/triangular_galerkin_projection.png)
 
 The raw contraction is full rank with slow decay. The raw polynomial
 projection improves the smooth cases but largely stalls for iid depth. These

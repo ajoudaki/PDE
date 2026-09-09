@@ -1,5 +1,11 @@
 # Quadratic nonclosure laboratory
 
+This is a study record, not an established-library entry. Historical claims and
+review labels below retain their original scope; consult the
+[reconciled research map](../project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md)
+for current qualifications and the [maintained library](../../docs/README.md)
+for accepted self-contained presentations.
+
 This is the analytical negative laboratory for the prescribed quadratic
 Taylor/Wick closure. It is intentionally a flat collection of reports; there
 was historically no coherent numerical pipeline to force into code and

@@ -69,23 +69,23 @@ The conjecture-specific theory, certificates, and numerics are contained
 below this directory.  The reusable derivative engine is maintained in its
 own sibling study:
 
-- [`theory/`](theory/) contains exact moment certificates, reconstruction
+- [`theory/`](../stieltjes_theory_history) contains exact moment certificates, reconstruction
   scripts, and analytic derivations;
-- [`../mean_field_peeling/`](../mean_field_peeling/) contains the reusable MFP
+- [`../mean_field_peeling/`](../mfp_program_history) contains the reusable MFP
   theory, detailed training case study, and exact quadratic compiler that
   supplies the raw feature derivatives used here;
-- [`numerics/direct_loewner/`](numerics/direct_loewner/) contains the first
+- [`numerics/direct_loewner/`](../stieltjes_direct_loewner) contains the first
   direct Loewner experiments and their preserved outputs;
-- [`numerics/finite_width/`](numerics/finite_width/) contains the later
+- [`numerics/finite_width/`](../stieltjes_finite_width) contains the later
   preregistered finite-width calibration and positive-time experiments;
-- [`numerics/global_proxy_campaign/`](numerics/global_proxy_campaign/)
+- [`numerics/global_proxy_campaign/`](../stieltjes_proxy_campaign)
   contains the nested rational-proxy calibration and the closed canonical
   global-curve pilot.
-- [`numerics/hybrid_mean_field_campaign/`](numerics/hybrid_mean_field_campaign/)
+- [`numerics/hybrid_mean_field_campaign/`](../stieltjes_hybrid_campaign)
   contains the bounded-DMFT Stage-0 audit, canonical FP32 Euler qualification,
   the stopped breadth-first proxy panel, its passed FP64 local successor, and
   the matched $n=4096/8192$ successive-proxy experiments.
-- [`resolution_program/`](resolution_program/) contains the proof contract,
+- [`resolution_program/`](../stieltjes_resolution) contains the proof contract,
   independent-route ledger, exact block-metric counterexample, regenerating
   checker, scope-separated resolution theorem, and canonical exact
   order-fifteen/order-seventeen and hidden-norm successors, together with
@@ -274,13 +274,13 @@ P=12  12285503181066227920404480
 
 The low-sector and high-sector runs, their hashes, their exact commands, and
 the independent regression gates are recorded in
-[`../mean_field_peeling/quadratic_compiler/D11_LOWER_SECTOR_AUDIT.md`](../mean_field_peeling/quadratic_compiler/D11_LOWER_SECTOR_AUDIT.md),
-[`../mean_field_peeling/quadratic_compiler/d11_high_sectors_exact.txt`](../mean_field_peeling/quadratic_compiler/d11_high_sectors_exact.txt), and
-[`../mean_field_peeling/quadratic_compiler/SECTOR_ENGINE.md`](../mean_field_peeling/quadratic_compiler/SECTOR_ENGINE.md).
+[`../mean_field_peeling/quadratic_compiler/D11_LOWER_SECTOR_AUDIT.md`](../mfp_quadratic_compiler/D11_LOWER_SECTOR_AUDIT.md),
+[`../mean_field_peeling/quadratic_compiler/d11_high_sectors_exact.txt`](../mfp_quadratic_compiler/d11_high_sectors_exact.txt), and
+[`../mean_field_peeling/quadratic_compiler/SECTOR_ENGINE.md`](../mfp_quadratic_compiler/SECTOR_ENGINE.md).
 
 The order-thirteen value is the exact output of the separate finite
 Gaussian-program recurrence on the \(\beta=1\) block-metric family proved in
-the [resolution program](resolution_program/).  It is reproduced coefficient
+the [resolution program](../stieltjes_resolution).  It is reproduced coefficient
 by coefficient by an independent direct \(\mathbb Q[\alpha]\) recurrence;
 substantial order-eleven and order-thirteen sectors also agree with the
 algebraically distinct connected-forest compiler.
@@ -303,9 +303,9 @@ and 189.4375 MiB peak RSS.  The independent route used 43.59 seconds at
 standalone order fifteen and 163.08 seconds with 94,060 KiB peak RSS at order
 seventeen.  The frozen branch ended at order seventeen; no order-nineteen
 computation was attempted.  See the
-[canonical high-order result](resolution_program/canonical_high_order/RESULTS.md),
-[production record](resolution_program/canonical_high_order/PRODUCTION_RESULT.json),
-and [independent record](resolution_program/canonical_high_order/INDEPENDENT_RESULT.json).
+[canonical high-order result](../stieltjes_resolution/canonical_high_order/RESULTS.md),
+[production record](../../data/historical/studies/stieltjes_resolution/canonical_high_order/PRODUCTION_RESULT.json),
+and [independent record](../../data/historical/studies/stieltjes_resolution/canonical_high_order/INDEPENDENT_RESULT.json).
 
 ## 3. What the programmed peeling calculation does
 
@@ -696,9 +696,9 @@ powers are removed.  The accepted dense run took $717.631$ seconds for the
 output root and $260.327$ seconds for the hidden root under a 4 GiB/20-minute
 cap; a fresh rebuild reproduced every coefficient.  A secondary graded
 hidden-root route timed out after 24 of 45 sectors and is not used.  Full
-details are in the [Campaign-1 protocol and derivation](../mean_field_peeling/quadratic_compiler/campaign1/PROTOCOL.md),
-[exact jets](../mean_field_peeling/quadratic_compiler/campaign1/results_order9_q2_order8.json),
-and [shifted certificates](../mean_field_peeling/quadratic_compiler/campaign1/hankel_certificates_order9_q2_order8.json).
+details are in the [Campaign-1 protocol and derivation](../mfp_quadratic_compiler/campaign1/PROTOCOL.md),
+[exact jets](../../data/historical/studies/mfp_quadratic_compiler/campaign1/results_order9_q2_order8.json),
+and [shifted certificates](../mfp_quadratic_compiler/campaign1/hankel_certificates_order9_q2_order8.json).
 
 A later canonical-only successor reused the proved fixed-order
 Gaussian-program recurrence through $F^{(17)}(0)$.  Two isolated exact
@@ -718,7 +718,7 @@ Ward identity supplies nine first-hidden moments without $F^{(19)}(0)$ and
 gives $H_4\succ0$, $H_3^+\succ0$.  Applying the exact square-root readout to
 both layers likewise leaves every accessible normalized literal-RMS Hankel
 matrix positive definite.  Exact values and all-minor certificates are in
-the [canonical hidden-norm result](resolution_program/canonical_hidden_high_order/RESULTS.md).
+the [canonical hidden-norm result](../stieltjes_resolution/canonical_hidden_high_order/RESULTS.md).
 This strengthens only the finite canonical companion evidence: $Q_1$ remains
 inherited from the output conjecture, while an all-order theorem for $Q_2$
 remains separate and open.
@@ -770,8 +770,8 @@ An independent whitened-coordinate oracle checked order three, and the
 accepted vertex-partition evaluator matched the dense quotient-Wick route on
 all 11,236 order-five terminal trees before completing both order-seven
 channels.  The first dense order-seven attempt timed out and contributes
-nothing.  See the [Campaign-2 result](../mean_field_peeling/quadratic_compiler/campaign2/RESULTS.md)
-and [exact certificate](../mean_field_peeling/quadratic_compiler/campaign2/certificates_order7.json).
+nothing.  See the [Campaign-2 result](../mfp_quadratic_compiler/campaign2/RESULTS.md)
+and [exact certificate](../mfp_quadratic_compiler/campaign2/certificates_order7.json).
 
 #### Campaign 3: centered quadratic activation
 
@@ -801,8 +801,8 @@ $\det H_1$.  Exact rational Sturm sequences find no zero of any reduced
 numerator or denominator on either $[-1,0]$ or $[0,1]$, with positive endpoint
 values.  Hence all four quantities are strictly positive for every
 $c\in[0,2]$.  The run completed in $198.35$ seconds with 328,048 KiB peak
-RSS.  See the [Campaign-3 result](../mean_field_peeling/quadratic_compiler/campaign3/RESULTS.md)
-and [Sturm certificate](../mean_field_peeling/quadratic_compiler/campaign3/certificates_order7.json).
+RSS.  See the [Campaign-3 result](../mfp_quadratic_compiler/campaign3/RESULTS.md)
+and [Sturm certificate](../mfp_quadratic_compiler/campaign3/certificates_order7.json).
 
 #### Campaign 4: independent block-metric quadrant
 
@@ -839,9 +839,9 @@ strictly positive.  This is an algebraic continuum certificate, not a sampled
 grid.  Production consumed 1131.036 cumulative wall seconds under the frozen
 1800-second portfolio cap and 4 GiB per atomic sector.  Whole-forest and
 sector routes agree through order five; the full diagonal, axes, off-diagonal
-checks, and canonical point all pass.  See the [Campaign-4 result](../mean_field_peeling/quadratic_compiler/campaign4/RESULTS.md),
-[exact certificate](../mean_field_peeling/quadratic_compiler/campaign4/certificates_order9.json),
-and [provenance](../mean_field_peeling/quadratic_compiler/campaign4/provenance_order9.json).
+checks, and canonical point all pass.  See the [Campaign-4 result](../mfp_quadratic_compiler/campaign4/RESULTS.md),
+[exact certificate](../mfp_quadratic_compiler/campaign4/certificates_order9.json),
+and [provenance](../../data/historical/studies/mfp_quadratic_compiler/campaign4/provenance_order9.json).
 This full-quadrant authority stops at \(F^{(9)}\), hence
 \(\mu_0,\ldots,\mu_3\) and the leading \(2\times2\) tests.  The later
 order-thirteen authority is only on the slice \(\beta=1\); there is no
@@ -919,7 +919,7 @@ $$
 $$
 
 Equivalently, the explicit quadratic polynomial retained in the
-[resolution theorem](resolution_program/BLOCK_METRIC_RESOLUTION.md) has
+[resolution theorem](../stieltjes_resolution/BLOCK_METRIC_RESOLUTION.md) has
 $L(\lambda p(\lambda)^2)<0$, which is impossible for any nonnegative measure
 on \([0,\infty)\).  The boundary point is only the simplest reduction.  A
 separate finite Gaussian detransposition recurrence computes the complete
@@ -973,7 +973,7 @@ Thus the complete six-moment truncation on \(\beta=1\) fails for
 sharp classification is still finite-order only: it neither proves an
 all-order good region above \(\alpha_*\) nor says anything comparable at
 order thirteen away from \(\beta=1\).  The exact certificate is
-[ALPHA_TRANSITION_CERTIFICATE.json](resolution_program/ALPHA_TRANSITION_CERTIFICATE.json).
+[ALPHA_TRANSITION_CERTIFICATE.json](../stieltjes_resolution/ALPHA_TRANSITION_CERTIFICATE.json).
 
 #### Shallow raw-square corollary and characteristic compression
 
@@ -1093,7 +1093,7 @@ compression dimensions.**  It destroys the positive-resolvent/quadrature
 mechanism for this model, not every signed, memory-bearing, transport, or
 operator representation.  The full proof and exact scaling certificate are
 in
-[SHALLOW_QUADRATIC_REDUCTION.md](resolution_program/SHALLOW_QUADRATIC_REDUCTION.md).
+[SHALLOW_QUADRATIC_REDUCTION.md](../stieltjes_resolution/SHALLOW_QUADRATIC_REDUCTION.md).
 
 At the canonical endpoint \(\alpha=1\), the same exact jet gives
 
@@ -1180,9 +1180,9 @@ before any order-seven output or the cutoff.  This weakens prospective purity
 but cannot favor the fail-closed conclusion.  Exact CPU and RSS were not
 retained.  Consequently there is **no** $F^{(7)}$, $\mu_2$, $H_1$ test, or
 fifth Hankel pass, and the conditional four-input campaign was not
-authorized.  See the [Campaign-5 result](../mean_field_peeling/quadratic_compiler/campaign5_b3/RESULTS.md),
-[lower-moment certificate](../mean_field_peeling/quadratic_compiler/campaign5_b3/certificates_lower_moments.json),
-and [failure provenance](../mean_field_peeling/quadratic_compiler/campaign5_b3/provenance_stage_c_projection.json).
+authorized.  See the [Campaign-5 result](../mfp_quadratic_compiler/campaign5_b3/RESULTS.md),
+[lower-moment certificate](../mfp_quadratic_compiler/campaign5_b3/certificates_lower_moments.json),
+and [failure provenance](../../data/historical/studies/mfp_quadratic_compiler/campaign5_b3/provenance_stage_c_projection.json).
 
 #### Consolidated campaign ledger
 
@@ -1252,7 +1252,7 @@ result is an audited fixed-order annealed width-limit coefficient theorem
 under the stated tensor-program moment hypotheses, not a positive-time
 trajectory theorem.  The primary formula, independent map comparison,
 controls, and preregistered finite-width regression are in the
-[generic first-Stieltjes study](../mean_field_peeling/generic_first_stieltjes/README.md).
+[generic first-Stieltjes study](../mfp_gaussian_calculus/README.md).
 
 The original five campaign suites pass 86 exact unit, regression, and
 provenance tests in total.  Those tests remain valid at their frozen orders,
@@ -1338,7 +1338,7 @@ The strongest historical lower bound is only about \(38.76\%\) of the
 falsification threshold.  Its failure to cross a one-sided threshold was not
 evidence for positivity; the later exact value is what resolves the gate. The old JSON
 now stored as
-[`../mean_field_peeling/quadratic_compiler/archive/peeling_lower_bound_order13_historical.json`](../mean_field_peeling/quadratic_compiler/archive/peeling_lower_bound_order13_historical.json)
+[`../mean_field_peeling/quadratic_compiler/archive/peeling_lower_bound_order13_historical.json`](../../data/historical/studies/mfp_quadratic_compiler/archive/peeling_lower_bound_order13_historical.json)
 contains an obsolete $1.553\times10^{32}$ threshold and obsolete prose; its
 integer lower bounds remain historical raw provenance, but its conclusion is
 not current.
@@ -1350,7 +1350,7 @@ the maximal $P=14$ sector alone, derivative-graph discovery produced
 more than ten days for that sector under the then-current evaluator, before
 the other thirteen sectors.  The run was therefore stopped at an atomic
 checkpoint; it does **not** certify a sector subtotal or the derivative.
-[`../mean_field_peeling/quadratic_compiler/D13_ATTEMPT.md`](../mean_field_peeling/quadratic_compiler/D13_ATTEMPT.md) records the checkpoint hash, strict order-nine
+[`../mean_field_peeling/quadratic_compiler/D13_ATTEMPT.md`](../mfp_quadratic_compiler/D13_ATTEMPT.md) records the checkpoint hash, strict order-nine
 regression gate, rejected approximate checkpoints, and stopping calculation.
 
 A proposed GF(2)/binary-matroid accelerator reproduced every order-nine sector
@@ -1363,7 +1363,7 @@ generalization, so its value is unaffected.  An initially reported
 order-thirteen millisecond benchmark also omitted even-$a$ parity and is
 retracted.  The restricted proof, exact counterexample, regression vector, and
 retraction are in
-[`../mean_field_peeling/quadratic_compiler/archive/MATROID_WICK_AUDIT.md`](../mean_field_peeling/quadratic_compiler/archive/MATROID_WICK_AUDIT.md).
+[`../mean_field_peeling/quadratic_compiler/archive/MATROID_WICK_AUDIT.md`](../mfp_quadratic_compiler/archive/MATROID_WICK_AUDIT.md).
 
 A cheaper proposed upper bound was also audited and rejected as a certificate.
 Its exact two-hit bookkeeping gives a positive quantity $S_{11}$ for which
@@ -1378,7 +1378,7 @@ to the already proved factorial lower bound and zero radius.  This does not
 disprove the inequality specifically at order eleven, but it prevents using
 the low-order pattern as a theorem.  The exact bookkeeping and counterexamples
 are in
-[`../mean_field_peeling/quadratic_compiler/TWO_HIT_CHARGING_AUDIT.md`](../mean_field_peeling/quadratic_compiler/TWO_HIT_CHARGING_AUDIT.md).
+[`../mean_field_peeling/quadratic_compiler/TWO_HIT_CHARGING_AUDIT.md`](../mfp_quadratic_compiler/TWO_HIT_CHARGING_AUDIT.md).
 
 A later bounded, threshold-aware Campaign 6 deliberately targeted an inexact
 one-sided or interval certificate rather than the full $F^{(13)}(0)$ integer.
@@ -1399,7 +1399,7 @@ new Gaussian-program recurrence makes another brute-force canonical D13
 attempt unnecessary.  The old routes and the graph-sensitive lemmas they
 would have required remain useful method-level history, not open obligations
 for this coefficient.  The downgrade and terminal decision are preserved in the
-[`Campaign 6 report`](../mean_field_peeling/quadratic_compiler/campaign6_f13_threshold/CAMPAIGN_REPORT.md),
+[`Campaign 6 report`](../mfp_quadratic_compiler/campaign6_f13_threshold/CAMPAIGN_REPORT.md),
 while the original allocation rule remains in the
 [frozen historical portfolio](archive/FROZEN_CAMPAIGNS_4_6_PORTFOLIO.md).
 
@@ -1490,7 +1490,7 @@ $$
 $$
 
 Both are reproduced by
-[`theory/inverse_derivative_threshold.py`](theory/inverse_derivative_threshold.py).
+[`theory/inverse_derivative_threshold.py`](../stieltjes_theory_history/inverse_derivative_threshold.py).
 
 If $\sigma$ represents the $h$-moments, then the inverse feature coordinate
 has the conditional integral representation
@@ -1651,7 +1651,7 @@ conditions computable through $\mu_4(\alpha)$ have positive denominators and
 coefficientwise-positive numerators. That is exact finite-order evidence, not
 an all-order homotopy theorem. The exact coefficientwise certificate and its
 boundary, first-variation, and $\alpha=1$ regression gates are in
-[`theory/finite_variance_hankel_audit.py`](theory/finite_variance_hankel_audit.py).
+[`theory/finite_variance_hankel_audit.py`](../stieltjes_theory_history/finite_variance_hankel_audit.py).
 
 ## 8. Aggregated sector total nonnegativity
 
@@ -1680,10 +1680,10 @@ square minors was evaluated in exact integer arithmetic. None is negative:
 | 6 | 924 | 429 | 495 | 0 |
 
 The durable exact audit is
-[`theory/sector_total_nonnegativity.py`](theory/sector_total_nonnegativity.py).
+[`theory/sector_total_nonnegativity.py`](../stieltjes_theory_history/sector_total_nonnegativity.py).
 In addition, exact Sturm isolation verifies that each of the six polynomials
 $F_\alpha^{(2r+1)}(0)/\alpha$ has only real, simple, negative roots; see
-[`theory/sector_real_rootedness.py`](theory/sector_real_rootedness.py).
+[`theory/sector_real_rootedness.py`](../stieltjes_theory_history/sector_real_rootedness.py).
 
 This global finite-order total nonnegativity is compatible with a separate
 negative minor in a **local decorated-tree transition matrix**. The two
@@ -1928,7 +1928,7 @@ question. It remains conditional on the three bridges just listed.
 
 The conditional resolvent, kernel, feature-flow, and loss-flow reconstructions
 can be inspected together in the
-[`theory/stieltjes_reconstruction_audit.html`](theory/stieltjes_reconstruction_audit.html)
+[`theory/stieltjes_reconstruction_audit.html`](../stieltjes_theory_history/stieltjes_reconstruction_audit.html)
 interactive audit.
 
 ## 10. Finite-width numerical tests
@@ -2023,10 +2023,10 @@ agreement at orders three through five makes the order-thirteen estimate a
 useful target for exact computation, but no more.
 
 The full preregistered contracts and frozen outputs are indexed in
-[`numerics/finite_width/README.md`](numerics/finite_width/README.md).  The
+[`numerics/finite_width/README.md`](../stieltjes_finite_width/README.md).  The
 earlier direct-clock attempts, including the failed experiment and the later
 bias downgrade, are indexed separately in
-[`numerics/direct_loewner/README.md`](numerics/direct_loewner/README.md).
+[`numerics/direct_loewner/README.md`](../stieltjes_direct_loewner/README.md).
 
 ### 10.1 Nested global rational proxies and the canonical curve pilot
 
@@ -2132,7 +2132,7 @@ with the hard stopping rule, the larger-width canonical stage and every
 one-input-deformation, two-input, and three-input neural branch were not run.
 The result is a clean cost-value stop, not evidence against the conjecture.
 The complete local record is
-[`numerics/global_proxy_campaign/RESULTS.md`](numerics/global_proxy_campaign/RESULTS.md).
+[`numerics/global_proxy_campaign/RESULTS.md`](../stieltjes_proxy_campaign/RESULTS.md).
 
 ### 10.2 Bounded DMFT and the canonical FP32 Euler qualification
 
@@ -2163,7 +2163,7 @@ its strict component tolerances, and an independent DMFT-side construction
 of the third and fifth output derivatives is still absent.  Stage 1 therefore
 remains locked and contributes no Stieltjes evidence.  The bounded law is
 also a separate limit contract, not the original unbounded-Gaussian model.
-See the [bounded-DMFT Stage-0 report](numerics/hybrid_mean_field_campaign/bounded_dmft/STAGE0_REPORT.md).
+See the [bounded-DMFT Stage-0 report](../stieltjes_hybrid_campaign/bounded_dmft/STAGE0_REPORT.md).
 
 The second audit tested deterministic FP32 explicit Euler on one canonical
 $n=8192$ antithetic lineage at $h=10^{-5}$ and $5\times10^{-6}$.  Through
@@ -2177,7 +2177,7 @@ gradient-flow approximation and not evidence about the conjecture.  Its
 $h=10^{-5}$ diagnostics motivated a new, independently frozen breadth
 experiment with a conservative $.20\%$ kernel allowance; they did not
 retroactively repair Stage V.  The compact terminal record is the
-[FP32 Euler Stage-V report](numerics/hybrid_mean_field_campaign/width_ladder/euler_fp32/STAGE_V_REPORT.md).
+[FP32 Euler Stage-V report](../stieltjes_hybrid_campaign/width_ladder/euler_fp32/STAGE_V_REPORT.md).
 
 ### 10.3 Breadth-first moment proxies and the stopped FP32 Euler panel
 
@@ -2245,7 +2245,7 @@ frozen decision rule.  The bounded stop therefore saved the intended
 width-screen and two-input budgets.
 
 The frozen protocol and point files retain their prospective pre-execution
-headers by design.  The terminal [breadth-panel result](numerics/hybrid_mean_field_campaign/breadth_panel/RESULTS.md)
+headers by design.  The terminal [breadth-panel result](../stieltjes_hybrid_campaign/breadth_panel/RESULTS.md)
 and its compact JSON are the current decision artifacts.
 
 ### 10.4 FP64 explicit-Euler local successor
@@ -2276,7 +2276,7 @@ It does not repair the FP32 evidence retrospectively, establish a
 continuous-time or all-width limit, or compare a neural curve with the
 Stieltjes moment proxies.
 
-The [FP64 successor result](numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/RESULTS.md)
+The [FP64 successor result](../stieltjes_hybrid_campaign/breadth_panel/fp64_successor/RESULTS.md)
 therefore makes a replicated FP64 width-4096/8192 breadth screen eligible for
 separate authorization. At the local-qualification cutoff no such screen,
 two-input trajectory, RK4 branch, or $n=16384$ run had been launched. The
@@ -2710,93 +2710,93 @@ only as [frozen historical provenance](archive/FROZEN_CAMPAIGNS_4_6_PORTFOLIO.md
 
 The durable source-of-truth map is:
 
-- [the standalone MFP report](../mean_field_peeling/CURRENT_RESEARCH_STATE.md)
+- [the standalone MFP report](../mfp_program_history/CURRENT_RESEARCH_STATE.md)
   for the reusable method and theorem program;
-- the [generic-activation Stieltjes study](../mean_field_peeling/generic_first_stieltjes/README.md)
+- the [generic-activation Stieltjes study](../mfp_gaussian_calculus/README.md)
   for the independently compiled order-five Gaussian normal form,
   normalized-sine negative moment signs, controls, and fixed-order
   probability bridge;
-- [the exact quadratic compiler](../mean_field_peeling/quadratic_compiler/)
+- [the exact quadratic compiler](../mfp_quadratic_compiler)
   for decorated-forest rewrites, checked sector engines, exact raw derivatives,
   and D11/D13 audits;
-- the campaign-local [metric/hidden protocol and derivation](../mean_field_peeling/quadratic_compiler/campaign1/PROTOCOL.md),
-  [two-input](../mean_field_peeling/quadratic_compiler/campaign2/RESULTS.md),
-  [centered-activation](../mean_field_peeling/quadratic_compiler/campaign3/RESULTS.md),
-  [independent block-metric](../mean_field_peeling/quadratic_compiler/campaign4/RESULTS.md),
-  and [three-input](../mean_field_peeling/quadratic_compiler/campaign5_b3/RESULTS.md)
+- the campaign-local [metric/hidden protocol and derivation](../mfp_quadratic_compiler/campaign1/PROTOCOL.md),
+  [two-input](../mfp_quadratic_compiler/campaign2/RESULTS.md),
+  [centered-activation](../mfp_quadratic_compiler/campaign3/RESULTS.md),
+  [independent block-metric](../mfp_quadratic_compiler/campaign4/RESULTS.md),
+  and [three-input](../mfp_quadratic_compiler/campaign5_b3/RESULTS.md)
   reports for full coefficient tables, exact certificates, resource records,
   and provenance at their stated claim levels;
-- the [Campaign-1 order-nine/order-eight provenance](../mean_field_peeling/quadratic_compiler/campaign1/order9_q2_order8_provenance.json)
+- the [Campaign-1 order-nine/order-eight provenance](../../data/historical/studies/mfp_quadratic_compiler/campaign1/order9_q2_order8_provenance.json)
   for its primary dense rerun, independent graded audit, hashes, and caps;
-- the [Campaign-6 report](../mean_field_peeling/quadratic_compiler/campaign6_f13_threshold/CAMPAIGN_REPORT.md)
+- the [Campaign-6 report](../mfp_quadratic_compiler/campaign6_f13_threshold/CAMPAIGN_REPORT.md)
   for the stopped, protocol-inconclusive D13 diagnostic, and the
   [frozen portfolio](archive/FROZEN_CAMPAIGNS_4_6_PORTFOLIO.md) only for its
   historical precommitment record; neither supplies a new coefficient or
   bound;
-- [exact order-eleven certificates](theory/certificates_order11.json) for
+- [exact order-eleven certificates](../stieltjes_theory_history/certificates_order11.json) for
   exact \(K\)-coefficients, moments, and accessible Hankel determinants;
-- [the D13 threshold calculator](theory/exact_d13_threshold.py) for the exact
+- [the D13 threshold calculator](../stieltjes_theory_history/exact_d13_threshold.py) for the exact
   affine next-determinant calculation;
-- [the resolution program](resolution_program/), especially the
-  [block-metric theorem](resolution_program/BLOCK_METRIC_RESOLUTION.md),
-  [positive-alpha jet](resolution_program/BLOCK_METRIC_POSITIVE_ALPHA_JET.json),
-  [interval certificate](resolution_program/ALPHA_INTERVAL_CERTIFICATE.json),
-  [sharp finite-prefix transition](resolution_program/ALPHA_TRANSITION_CERTIFICATE.json),
-  [direct polynomial audit](resolution_program/INDEPENDENT_QALPHA_AUDIT.json),
-  and [scalar determinant audit](resolution_program/INDEPENDENT_SCALAR_DETERMINANT_AUDIT.json),
+- [the resolution program](../stieltjes_resolution), especially the
+  [block-metric theorem](../stieltjes_resolution/BLOCK_METRIC_RESOLUTION.md),
+  [positive-alpha jet](../stieltjes_resolution/BLOCK_METRIC_POSITIVE_ALPHA_JET.json),
+  [interval certificate](../stieltjes_resolution/ALPHA_INTERVAL_CERTIFICATE.json),
+  [sharp finite-prefix transition](../stieltjes_resolution/ALPHA_TRANSITION_CERTIFICATE.json),
+  [direct polynomial audit](../stieltjes_resolution/INDEPENDENT_QALPHA_AUDIT.json),
+  and [scalar determinant audit](../stieltjes_resolution/INDEPENDENT_SCALAR_DETERMINANT_AUDIT.json),
   for the complete strict-interior negative resolution of the uniform
   block-metric extension, the exact canonical D13 by-product, and explicit
   separation from the open canonical all-order claim;
-- the [shallow reduction theorem](resolution_program/SHALLOW_QUADRATIC_REDUCTION.md)
-  and [exact shallow certificate](resolution_program/SHALLOW_QUADRATIC_CERTIFICATE.json)
+- the [shallow reduction theorem](../stieltjes_resolution/SHALLOW_QUADRATIC_REDUCTION.md)
+  and [exact shallow certificate](../stieltjes_resolution/SHALLOW_QUADRATIC_CERTIFICATE.json)
   for the one-input boundary's conventional raw-square counterexample,
   positive-rescaling congruence, Riccati characteristics, and global-Gaussian
   scope limitation;
-- the [canonical high-order result](resolution_program/canonical_high_order/RESULTS.md),
-  [production recurrence record](resolution_program/canonical_high_order/PRODUCTION_RESULT.json),
-  [independent recurrence record](resolution_program/canonical_high_order/INDEPENDENT_RESULT.json),
-  and [eight-moment Hankel certificate](resolution_program/canonical_high_order/F17_MOMENT_HANKEL_AUDIT.json)
+- the [canonical high-order result](../stieltjes_resolution/canonical_high_order/RESULTS.md),
+  [production recurrence record](../../data/historical/studies/stieltjes_resolution/canonical_high_order/PRODUCTION_RESULT.json),
+  [independent recurrence record](../../data/historical/studies/stieltjes_resolution/canonical_high_order/INDEPENDENT_RESULT.json),
+  and [eight-moment Hankel certificate](../stieltjes_resolution/canonical_high_order/F17_MOMENT_HANKEL_AUDIT.json)
   for the exact canonical jet through order seventeen, $\mu_6,\mu_7$, both
   positive-definite $4\times4$ matrices, two-route resource evidence, and the
   explicit finite-order-only stop before order nineteen;
-- the [canonical hidden-norm result](resolution_program/canonical_hidden_high_order/RESULTS.md),
-  [primary all-minor certificate](resolution_program/canonical_hidden_high_order/HIDDEN_MOMENT_HANKEL_AUDIT.json),
-  and [independent scalar certificate](resolution_program/canonical_hidden_high_order/INDEPENDENT_HIDDEN_SCALAR_AUDIT.json)
+- the [canonical hidden-norm result](../stieltjes_resolution/canonical_hidden_high_order/RESULTS.md),
+  [primary all-minor certificate](../stieltjes_resolution/canonical_hidden_high_order/HIDDEN_MOMENT_HANKEL_AUDIT.json),
+  and [independent scalar certificate](../stieltjes_resolution/canonical_hidden_high_order/INDEPENDENT_HIDDEN_SCALAR_AUDIT.json)
   for the exact first- and second-hidden squared-RMS jets, their
   output-coordinate moment candidates, normalized literal-RMS readouts, and
   every accessible principal minor through nine and eight moments;
-- [the inverse-variable calculator](theory/inverse_derivative_threshold.py)
+- [the inverse-variable calculator](../stieltjes_theory_history/inverse_derivative_threshold.py)
   for inverse-variable Hankel checks;
-- [the variance-boundary audit](theory/variance_homotopy_boundary_audit.py)
+- [the variance-boundary audit](../stieltjes_theory_history/variance_homotopy_boundary_audit.py)
   for exact boundary and first-variation series checks;
-- [the finite-variance Hankel audit](theory/finite_variance_hankel_audit.py)
+- [the finite-variance Hankel audit](../stieltjes_theory_history/finite_variance_hankel_audit.py)
   for coefficientwise-positive certificates through $\mu_4(\alpha)$;
-- [the all-minor audit](theory/sector_total_nonnegativity.py) and
-  [root-isolation audit](theory/sector_real_rootedness.py) for the 18,563-minor
+- [the all-minor audit](../stieltjes_theory_history/sector_total_nonnegativity.py) and
+  [root-isolation audit](../stieltjes_theory_history/sector_real_rootedness.py) for the 18,563-minor
   and Sturm certificates;
-- [the reconstruction certificate](theory/reconstruction_order11.json) and
-  [reconstruction program](theory/moment_reconstruction.py) for Gaussian and
+- [the reconstruction certificate](../../data/historical/studies/stieltjes_theory_history/reconstruction_order11.json) and
+  [reconstruction program](../stieltjes_theory_history/moment_reconstruction.py) for Gaussian and
   zero-Radau reconstruction;
 - [the numerical index](numerics/README.md) for the hierarchy of protocols,
   failed gates, bias audits, and compact results;
-- [the global-proxy campaign result](numerics/global_proxy_campaign/RESULTS.md)
+- [the global-proxy campaign result](../stieltjes_proxy_campaign/RESULTS.md)
   for the exact Lambert-$W$ convergence calibration, the hash-frozen
   canonical GPU pilot, its 2,000-resample analysis, and the terminal
   cost-value stop;
-- [the bounded-DMFT Stage-0 report](numerics/hybrid_mean_field_campaign/bounded_dmft/STAGE0_REPORT.md)
+- [the bounded-DMFT Stage-0 report](../stieltjes_hybrid_campaign/bounded_dmft/STAGE0_REPORT.md)
   for the truncated-readout low jets, corrected reciprocal-response contacts,
   and the locked positive-time branch;
-- [the FP32 Euler Stage-V report](numerics/hybrid_mean_field_campaign/width_ladder/euler_fp32/STAGE_V_REPORT.md)
+- [the FP32 Euler Stage-V report](../stieltjes_hybrid_campaign/width_ladder/euler_fp32/STAGE_V_REPORT.md)
   for the canonical step-halving audit and its failed finer-step gates;
-- [the breadth-panel result](numerics/hybrid_mean_field_campaign/breadth_panel/RESULTS.md)
+- [the breadth-panel result](../stieltjes_hybrid_campaign/breadth_panel/RESULTS.md)
   for the exact NTK--M1--M2 proxy contract, audited FP32 Euler engines, frozen
   local-validation result, and stop before width or two-input inference;
-- [the FP64 local-successor result](numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/RESULTS.md)
+- [the FP64 local-successor result](../stieltjes_hybrid_campaign/breadth_panel/fp64_successor/RESULTS.md)
   for the exact-init FP64 A/M/V qualification and its passed unchanged gates;
-- [the FP64 n=4096 successive-proxy result](numerics/hybrid_mean_field_campaign/breadth_panel/successive_n4096/RESULTS.md)
+- [the FP64 n=4096 successive-proxy result](../stieltjes_hybrid_campaign/breadth_panel/successive_n4096/RESULTS.md)
   for the 16-lineage C/A/M/V neural references, M0-through-highest frozen
   comparisons, 20,000-resample uncertainty, and the observed M2 optimum;
-- [the FP64 n=8192 result and paired-width comparison](numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/RESULTS.md)
+- [the FP64 n=8192 result and paired-width comparison](../stieltjes_hybrid_campaign/breadth_panel/successive_n8192/RESULTS.md)
   for the nested 16-lineage replication, the V optimum's central M2-to-M4
   change, and the unresolved 99% paired width movements;
 - [the earlier report](archive/EARLIER_REPORT.md) only as a superseded

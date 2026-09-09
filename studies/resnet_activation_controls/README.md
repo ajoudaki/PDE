@@ -1,5 +1,11 @@
 # Activation-linearity smoking-gun experiment
 
+This is a study record, not an established-library entry. Historical claims and
+review labels below retain their original scope; consult the
+[reconciled research map](../project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md)
+for current qualifications and the [maintained library](../../docs/README.md)
+for accepted self-contained presentations.
+
 This is the frozen, sparse falsification experiment for the question: does
 the fixed \(P=5\) neural PDE follow activation-specific nonlinear feature
 dynamics, or is it merely reproducing a deep-linear effect?

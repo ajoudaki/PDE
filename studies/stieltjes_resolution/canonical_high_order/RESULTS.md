@@ -100,8 +100,8 @@ the production order-seventeen line is likewise the complete terminal run,
 not an incremental timing after order fifteen.  Both are far below the frozen
 30-minute/8-GiB caps.  Exact commands, checkpoints, term counts, cache sizes,
 and resource records are retained in
-[PRODUCTION_RESULT.json](PRODUCTION_RESULT.json) and
-[INDEPENDENT_RESULT.json](INDEPENDENT_RESULT.json).
+[PRODUCTION_RESULT.json](../../../data/historical/studies/stieltjes_resolution/canonical_high_order/PRODUCTION_RESULT.json) and
+[INDEPENDENT_RESULT.json](../../../data/historical/studies/stieltjes_resolution/canonical_high_order/INDEPENDENT_RESULT.json).
 
 The moment and Hankel calculation is separately regenerated using standard-
 library exact fractions.  [F17_MOMENT_HANKEL_AUDIT.json](F17_MOMENT_HANKEL_AUDIT.json)

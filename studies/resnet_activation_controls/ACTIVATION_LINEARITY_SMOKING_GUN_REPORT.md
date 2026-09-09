@@ -221,7 +221,7 @@ training-clock change.
 
 ## 8. Results
 
-![Activation-linearity evidence](figures/activation_linearity_smoking_gun.png)
+![Activation-linearity evidence](../../data/historical/studies/resnet_activation_controls/figures/activation_linearity_smoking_gun.png)
 
 All percentages below use the preregistered common global scale for the
 observable, recomputed inside every paired whole-trajectory bootstrap

@@ -67,7 +67,7 @@ The stage ceiling was 270 GPU-seconds.  The frozen source-bundle digest is
 the source-lock digest is
 `5f1bd2b4160eac4508e2fe34d39c7df6f44187100e1beaa650cbe9c208cd0ea6`.
 The authoritative machine-readable decision is
-[`LOCAL_QUALIFICATION_RESULT.json`](LOCAL_QUALIFICATION_RESULT.json), which
+[`LOCAL_QUALIFICATION_RESULT.json`](../../../../data/historical/studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/LOCAL_QUALIFICATION_RESULT.json), which
 binds the unlock, preflight, attempt ledger, group results, watchdog records,
 and six raw-array hashes.
 

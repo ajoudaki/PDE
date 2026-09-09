@@ -49,8 +49,8 @@ the unscaled label vector `y`.
 Run:
 
 ```bash
-python -m studies.mean_field_peeling.generic_first_stieltjes.b2.run_checks
-python -m studies.mean_field_peeling.generic_first_stieltjes.b2.raw_coordinate_jet_audit
+python -m studies.mfp_gaussian_calculus.b2.run_checks
+python -m studies.mfp_gaussian_calculus.b2.raw_coordinate_jet_audit
 ```
 
 Expected terminal line:

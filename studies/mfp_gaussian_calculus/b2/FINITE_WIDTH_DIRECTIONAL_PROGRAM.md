@@ -191,7 +191,7 @@ ODE through order three. Seedwise equality is tested for:
 Run from the repository root:
 
 ```bash
-python -m studies.mean_field_peeling.generic_first_stieltjes.b2.run_checks
+python -m studies.mfp_gaussian_calculus.b2.run_checks
 ```
 
 Passing this check establishes the exact finite-width directional encoding.

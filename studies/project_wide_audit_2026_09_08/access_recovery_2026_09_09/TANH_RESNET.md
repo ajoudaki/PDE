@@ -57,20 +57,20 @@ Every document in the following table was read completely, including all section
 
 | Absolute path | Bytes | SHA256 |
 |---|---:|---|
-| `/home/amir/Codes/PDE/studies/mean_field_peeling/tanh_depth3_operator_ide/RESEARCH_REPORT_2026-08-22.md` | 61,637 | `1036632354ece5c9779f980342dcf7fb7d6cd6d25c8d27a73387b1aceaf70ddb` |
-| `/home/amir/Codes/PDE/studies/mean_field_peeling/tanh_depth3_operator_ide/RESOLUTION_AUDIT.md` | 8,153 | `f11dc8e94b90e2b40924fbcdd8302500bac2e706802f588e8ed040ad6f146273` |
-| `/home/amir/Codes/PDE/studies/mean_field_peeling/tanh_depth3_operator_ide/FROZEN_CONTRACT.md` | 5,893 | `6814386f263792fbc46c199fe593c8ef9426a0b0e6a365788f1cee698dc34aa8` |
-| `/home/amir/Codes/PDE/studies/mean_field_peeling/tanh_depth3_operator_ide/EVIDENCE_LEDGER.md` | 8,519 | `c47466b0a373ca5ff28259abe4af1567e99b5415521d89a979e5239c817cdc22` |
-| `/home/amir/Codes/PDE/studies/mean_field_peeling/tanh_depth3_operator_ide/PROOF_ROUTE_REGISTRY.md` | 5,503 | `cf5fed1e5a6d3e6bb15b1748ef0406eeb9a0e6ff281be67bffee502640274edf` |
-| `/home/amir/Codes/PDE/studies/mean_field_peeling/tanh_depth3_operator_ide/NUMERICAL_TAIL_AUDIT.md` | 1,034 | `b79b118373415558a02d4cbd2f0b68ffee83f2b38c9b6f8c12b16114898e2884` |
-| `/home/amir/Codes/PDE/studies/mean_field_peeling/residual_continuous_depth_gradient_flow/RESNET_MEAN_FIELD_IDE_THEOREM.md` | 34,134 | `d380c3396a87186a52fc4351df12c7090374fbe4ed5333c23a9b80deccd9692e` |
-| `/home/amir/Codes/PDE/studies/mean_field_peeling/residual_continuous_depth_gradient_flow/CONSTANT_SPECIES_GENERAL_ACTIVATION_IDE.md` | 26,376 | `dbfcdfc03208aa40695f56ff9065a6cea9a262447a55a2b4ea61694f6765929e` |
-| `/home/amir/Codes/PDE/studies/mean_field_peeling/residual_continuous_depth_gradient_flow/AUDIT_REPORT.md` | 5,950 | `f2e393e70cb6a3ca5ce4213293d936b08eb299cf95bf44a06425070c58779b78` |
-| `/home/amir/Codes/PDE/studies/mean_field_peeling/residual_continuous_depth_gradient_flow/GENERAL_ACTIVATION_CONSTANT_SPECIES_AUDIT.md` | 5,708 | `ee6d53e5633ad404e7f702f3e4f5831d94f6c8e5ff1246b20f67d61d9ba3cab0` |
+| `/home/amir/Codes/PDE/studies/tanh_l3_operator_limit/RESEARCH_REPORT_2026-08-22.md` | 61,637 | `1036632354ece5c9779f980342dcf7fb7d6cd6d25c8d27a73387b1aceaf70ddb` |
+| `/home/amir/Codes/PDE/studies/tanh_l3_operator_limit/RESOLUTION_AUDIT.md` | 8,153 | `f11dc8e94b90e2b40924fbcdd8302500bac2e706802f588e8ed040ad6f146273` |
+| `/home/amir/Codes/PDE/studies/tanh_l3_operator_limit/FROZEN_CONTRACT.md` | 5,893 | `6814386f263792fbc46c199fe593c8ef9426a0b0e6a365788f1cee698dc34aa8` |
+| `/home/amir/Codes/PDE/studies/tanh_l3_operator_limit/EVIDENCE_LEDGER.md` | 8,519 | `c47466b0a373ca5ff28259abe4af1567e99b5415521d89a979e5239c817cdc22` |
+| `/home/amir/Codes/PDE/studies/tanh_l3_operator_limit/PROOF_ROUTE_REGISTRY.md` | 5,503 | `cf5fed1e5a6d3e6bb15b1748ef0406eeb9a0e6ff281be67bffee502640274edf` |
+| `/home/amir/Codes/PDE/studies/tanh_l3_operator_limit/NUMERICAL_TAIL_AUDIT.md` | 1,034 | `b79b118373415558a02d4cbd2f0b68ffee83f2b38c9b6f8c12b16114898e2884` |
+| `/home/amir/Codes/PDE/studies/residual_continuous_depth_gradient_flow/RESNET_MEAN_FIELD_IDE_THEOREM.md` | 34,134 | `d380c3396a87186a52fc4351df12c7090374fbe4ed5333c23a9b80deccd9692e` |
+| `/home/amir/Codes/PDE/studies/residual_continuous_depth_gradient_flow/CONSTANT_SPECIES_GENERAL_ACTIVATION_IDE.md` | 26,376 | `dbfcdfc03208aa40695f56ff9065a6cea9a262447a55a2b4ea61694f6765929e` |
+| `/home/amir/Codes/PDE/studies/residual_continuous_depth_gradient_flow/AUDIT_REPORT.md` | 5,950 | `f2e393e70cb6a3ca5ce4213293d936b08eb299cf95bf44a06425070c58779b78` |
+| `/home/amir/Codes/PDE/studies/residual_continuous_depth_gradient_flow/GENERAL_ACTIVATION_CONSTANT_SPECIES_AUDIT.md` | 5,708 | `ee6d53e5633ad404e7f702f3e4f5831d94f6c8e5ff1246b20f67d61d9ba3cab0` |
 | `/home/codex-b/.codex/attachments/b1cdf01d-281a-4b6a-b4eb-94e5a83c7d6b/pasted-text.txt` | 11,726 | `9c533f423f2772ae63da7498701654fc238a41f99e285554bd5064a574059cab` |
 | `/home/codex-b/.codex/attachments/2bc72fa0-54e2-4959-bdc4-55cee075486c/pasted-text.txt` | 19,743 | `a7161adced4d10d67dd70486fc27489f946e5c601c6d0b85662db1aa0c2092af` |
 
-The [old audit](/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/OLD_NONLINEAR_RESNET_RMS.md) was fully read as a claim ledger, not assumed correct: 66,894 bytes, SHA256 `d19b839ad051ede6ac119a6b63c840192874c98cadf32ee5ef36d0e5f577bb46`. The [master](/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md) was fully read at the start and reread during the coordinator's concurrent recovery amendments in consecutive character ranges [0,34000), [34000,68000), [68000,98107). The latter observed version has 98,280 bytes and SHA256 `204a790a0a65b569c4f9d85c8db1efa8b4df824aaf69bc331bfa13ec576d8b56`; it may change again during consolidation.
+The [old audit](../source_audits/OLD_NONLINEAR_RESNET_RMS.md) was fully read as a claim ledger, not assumed correct: 66,894 bytes, SHA256 `d19b839ad051ede6ac119a6b63c840192874c98cadf32ee5ef36d0e5f577bb46`. The [master](../MASTER_RESEARCH_REPORT.md) was fully read at the start and reread during the coordinator's concurrent recovery amendments in consecutive character ranges [0,34000), [34000,68000), [68000,98107). The latter observed version has 98,280 bytes and SHA256 `204a790a0a65b569c4f9d85c8db1efa8b4df824aaf69bc331bfa13ec576d8b56`; it may change again during consolidation.
 
 Inventory metadata used: `/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/SESSION_INVENTORY.json`, 50,116 bytes, SHA256 `78d53c9c3b3a8de6671f2cc59b1e6378c70d3164b75c8c46237cce7a6de1417c`. The updated helper was fully inspected: same directory, `session_reader.mjs`, 3,882 bytes, SHA256 `0018a6d22a9f8f6697bd033adaa3bd4ba303080ca1bae4ef74f7e259e2d6a432`.
 

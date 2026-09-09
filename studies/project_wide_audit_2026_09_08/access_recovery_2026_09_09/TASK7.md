@@ -47,7 +47,7 @@ Four attachments under `/home/codex-b/.codex/attachments/`:
 | `52fe5b35-423f-4720-80a0-78c7ff153e30/pasted-text.txt` | Complete; 1328 newline-counted lines, 20386 characters, including final non-newline text. An initially abbreviated combined output was repaired by a separate full read and tail read. | `62753d323eb38e8adcd68c6ba3fee1e61d0e0a106de5bef985aae445d83dd85c` |
 | `690fe483-345a-48ce-a7db-b625c472070f/pasted-text.txt` | Complete; 430 newline-counted lines, 7254 characters. Simplified tanh matrix/vector teaching example. | `12bf52fa06222fad46520ed70fe2117d5132202aeafed75c2ad63094beb5af44` |
 
-For the next table, `C` expands to `/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation`; `E` expands to `C/expanded_sources/EXPLAIN_PRIMARY`. These are explicit local archive paths, not an assumption that `/tmp` paths on different hosts coincide.
+For the next table, `C` expands to `/home/amir/Codes/PDE/studies/four_thread_consolidation`; `E` expands to `C/expanded_sources/EXPLAIN_PRIMARY`. These are explicit local archive paths, not an assumption that `/tmp` paths on different hosts coincide.
 
 | Full-read file | SHA256 | Version evidence |
 |---|---|---|
@@ -64,7 +64,7 @@ Two L2 versions were read comparatively: the full final proof above, the full fi
 
 Section-only checks, explicitly not full manuscripts:
 
-- `/home/amir/Codes/PDE/AUTONOMOUS_DEEP_FEATURE_LEARNING_THEOREM_AND_PROGRAM_2026-08-21.md`: all of §10, lines830–1172, and status ledger lines1483–1507. SHA256 `cd2fcde497a403ec4ccf15f783d002177498e2f6f2c759606eeb4a45632249c7`.
+- `/home/amir/Codes/PDE/studies/historical_project_documents/AUTONOMOUS_DEEP_FEATURE_LEARNING_THEOREM_AND_PROGRAM_2026-08-21.md`: all of §10, lines830–1172, and status ledger lines1483–1507. SHA256 `cd2fcde497a403ec4ccf15f783d002177498e2f6f2c759606eeb4a45632249c7`.
 - `E/l3-full-resolution-9nbD4z/NEXT_PROOF_OBLIGATION.md`: lines1–170 and890–913 only, checking local/global and final counterexample scope. SHA256 `f19b28770d5f19d3acf58b9d48c7be851f258cd1c44194f475c62b2c24797294`.
 - Current consolidated L3 proof: exact text/hash comparison only, **not** a fresh full read. B12:1270 matches both `E/l3-full-resolution-9nbD4z/L3_LOCAL_COMPLETE_PROOF.md` and `C/inherited_baselines/L3_ONE_SAMPLE_ARCTAN_LOCAL_PROOF.md`: SHA256 `f97148f84979ab5b8489927d477b6abb3d919e27fd457455f2e3b98416725de4`, 93788 characters. This directly implements the instruction not to duplicate the already audited task-7 primary L3 proof.
 

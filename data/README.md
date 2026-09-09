@@ -17,6 +17,9 @@ study's migration notes before executing a historical campaign.
 
 New established reproductions use `data/established/<run-name>/`, with explicit
 commands, parameters and seeds documented by the corresponding source module.
+New study outputs use `data/generated/<study-name>/<run-name>/`. A replay must
+read retained historical inputs separately from its fresh output directory;
+never overwrite the historical archive or silently regenerate an old seal.
 No figure or empirical numerical conclusion is accepted into the established
 documentation without its complete reproduction recipe. Historical retained
 data are evidence archives, not a claim that all old campaigns can currently

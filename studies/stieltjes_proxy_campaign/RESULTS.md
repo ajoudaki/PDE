@@ -125,11 +125,11 @@ by this closed campaign.
 - [`PROTOCOL.md`](PROTOCOL.md) is the original frozen suite.
 - [`SUCCESSOR_02_PROTOCOL.md`](SUCCESSOR_02_PROTOCOL.md) is the executed
   successor contract.
-- [`boundary_result.json`](boundary_result.json) is the exact calibration.
-- [`summary.json`](reference/runs/canonical_pilot_successor02_20260813/summary.json)
+- [`boundary_result.json`](../../data/historical/studies/stieltjes_proxy_campaign/boundary_result.json) is the exact calibration.
+- [`summary.json`](../../data/historical/studies/stieltjes_proxy_campaign/reference/runs/canonical_pilot_successor02_20260813/summary.json)
   and [`manifest.json`](reference/runs/canonical_pilot_successor02_20260813/manifest.json)
   are the producer certificate and raw-array hash manifest.
-- [`analysis_result.json`](reference/runs/canonical_pilot_successor02_20260813/analysis_result.json)
+- [`analysis_result.json`](../../data/historical/studies/stieltjes_proxy_campaign/reference/runs/canonical_pilot_successor02_20260813/analysis_result.json)
   is the frozen 2,000-resample analysis.
 - [`analysis_manifest.json`](reference/runs/canonical_pilot_successor02_20260813/analysis_manifest.json)
   binds the compact results to the producer and unlock.

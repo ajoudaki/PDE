@@ -48,7 +48,7 @@ The complete formulas and proof are in
 The independently frozen second producer, exact layerwise maps, and full
 finite-width/partition/transpose ledger are in
 [`../../depth_order5_observables/independent/INDEPENDENT_ROUTE_S_REPORT.md`](../../depth_order5_observables/independent/INDEPENDENT_ROUTE_S_REPORT.md).
-The hostile contract and audit live in [`audit/`](audit/).
+The hostile contract and audit live in [`audit/`](audit).
 The final decision and claim-level evidence are recorded explicitly in
 [`audit/HOSTILE_REPORT.md`](audit/HOSTILE_REPORT.md) and
 [`audit/EVIDENCE_LEDGER.md`](audit/EVIDENCE_LEDGER.md).
@@ -152,7 +152,7 @@ claim is promoted.
 ## Reproduction
 
 ```bash
-python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.multi_observable.independent_route_a.run_checks
-python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_observables.independent.run_checks
-python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.multi_observable.audit.run_hostile_checks
+python -m studies.mfp_gaussian_calculus.depth_order5_scalar.multi_observable.independent_route_a.run_checks
+python -m studies.mfp_gaussian_calculus.depth_order5_observables.independent.run_checks
+python -m studies.mfp_gaussian_calculus.depth_order5_scalar.multi_observable.audit.run_hostile_checks
 ```

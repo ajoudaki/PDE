@@ -22,7 +22,7 @@ order seventeen, and no order-nineteen computation was attempted.
 - [production_canonical_recurrence.py](production_canonical_recurrence.py)
   is the production scalar specialization of the proved Gaussian-program
   recurrence.
-- [PRODUCTION_RESULT.json](PRODUCTION_RESULT.json) binds the production
+- [PRODUCTION_RESULT.json](../../../data/historical/studies/stieltjes_resolution/canonical_high_order/PRODUCTION_RESULT.json) binds the production
   source and frozen order-thirteen inputs and retains its exact jet,
   checkpoints, resource use, cache sizes, and arithmetic diagnostics.
 - [independent_canonical_recurrence.py](independent_canonical_recurrence.py)
@@ -30,7 +30,7 @@ order seventeen, and no order-nineteen computation was attempted.
   engine.
 - [INDEPENDENT_RECURRENCE_AUDIT.md](INDEPENDENT_RECURRENCE_AUDIT.md) explains
   the independent recurrence, dependency cuts, prefix gate, and resources.
-- [INDEPENDENT_RESULT.json](INDEPENDENT_RESULT.json) retains its exact jet,
+- [INDEPENDENT_RESULT.json](../../../data/historical/studies/stieltjes_resolution/canonical_high_order/INDEPENDENT_RESULT.json) retains its exact jet,
   commands, checkpoints, and resource measurements.
 - [moment_hankel_audit.py](moment_hankel_audit.py) performs exact direct
   coefficientwise series reversion and enumerates every available principal

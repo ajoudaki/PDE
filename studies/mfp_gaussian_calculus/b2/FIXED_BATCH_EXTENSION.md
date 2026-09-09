@@ -481,7 +481,7 @@ linear test verifies
 The full maintained command reports
 
 ```text
-python -m studies.mean_field_peeling.generic_first_stieltjes.b2.run_checks
+python -m studies.mfp_gaussian_calculus.b2.run_checks
 PASS 12 fixed-batch checks
 ```
 

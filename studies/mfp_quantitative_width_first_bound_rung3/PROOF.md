@@ -308,7 +308,7 @@ it.
 
 ### 3.1 Adaptive row/column Gaussian conditioning
 
-We use [Lemma 4.1 of the preceding proof](../temporary_quantitative_width_first_bound/PROOF.md),
+We use [Lemma 4.1 of the preceding proof](../mfp_quantitative_width_first_bound/PROOF.md),
 whose full adaptive-filtration proof is part of this study.  It proves the
 following result for an arbitrary finite predictable sequence, not merely
 for five actions.  We restate its formulas here so that the present
@@ -420,7 +420,7 @@ be invertible.
 
 The first five actions, including the critical dependence of \(H^1_j\) on
 the reused column through \(\chi_{0j}\), are the proved five-query lemma in
-[the preceding two-step proof](../temporary_quantitative_width_first_bound/PROOF.md).
+[the preceding two-step proof](../mfp_quantitative_width_first_bound/PROOF.md).
 That lemma proves the same stopped \(L^p\) coupling, all empirical overlaps,
 and the \(D^1,Y^2\) response cancellations.  We now calculate the two
 additional reused-matrix actions explicitly.
@@ -1061,7 +1061,7 @@ output.
 ### 5.1 Price differentiation at a singular covariance
 
 We invoke [the singular-covariance Price lemma proved in Section 5 of the
-preceding proof](../temporary_quantitative_width_first_bound/PROOF.md).
+preceding proof](../mfp_quantitative_width_first_bound/PROOF.md).
 That proof uses compact cutoffs, the Gaussian Fourier identity, uniform
 polynomial domination, and the fundamental theorem of calculus to pass from
 \(C+\epsilon I\) to \(C\), including the derivatives.  Thus it does not
@@ -1345,7 +1345,7 @@ majorants.
 ## 6. Direct cubic jet of the width-first DAG
 
 This section reproduces the calculation in
-[the dedicated nodewise jet ledger](../temporary_quantitative_width_first_bound/RUNG3_CUBIC_JET.md).
+[the dedicated nodewise jet ledger](../mfp_quantitative_width_first_bound/RUNG3_CUBIC_JET.md).
 That ledger differentiates the lower responses, feature Grams, terminal top
 node, and every singular Price term in chronological order; it does not use
 a symbolic script or a finite-width initialization derivative.

@@ -1,5 +1,11 @@
 # A wider activation class for three separated inputs
 
+This is a study record, not an established-library entry. Historical claims and
+review labels below retain their original scope; consult the
+[reconciled research map](../project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md)
+for current qualifications and the [maintained library](../../docs/README.md)
+for accepted self-contained presentations.
+
 [MANUSCRIPT.md](MANUSCRIPT.md) contains the complete model, generalized theorem, explicit constants and all proofs. Theorem M.1 covers every bounded nonconstant C² perturbation with bounded first and second derivatives, after normalization, in φ(z)=a(1+z)+eψ(z). Part A gives uniform infinite-dimensional subclasses, including a neighborhood with a separation-independent positive nonaffinity coefficient, and explicit examples.
 
 The same activation works for every fixed admissible three-input configuration. The model has three hidden layers, binary labels and the stated original raw metric. The stronger one-sided cosine separation suffices; the requested two-sided interval is included. Gain is allowed as in the preceding completed three-input theorem.

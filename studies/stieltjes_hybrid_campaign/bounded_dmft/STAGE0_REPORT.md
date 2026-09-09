@@ -198,7 +198,7 @@ integers.
 
 The source is [truncated_mfp_reference.py](truncated_mfp_reference.py), and
 the durable output is
-[truncated_mfp_A3_order5.json](truncated_mfp_A3_order5.json).
+[truncated_mfp_A3_order5.json](../../../data/historical/studies/stieltjes_hybrid_campaign/bounded_dmft/truncated_mfp_A3_order5.json).
 
 ## 4. One-step response/contact audit
 

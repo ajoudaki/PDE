@@ -437,7 +437,7 @@ peak RSS; the independent route used 43.59 seconds at standalone order
 fifteen and 163.08 seconds with 94,060 KiB peak RSS at order seventeen.  The
 exact results, route audits, and complete minor
 certificates are in
-[canonical_high_order/](canonical_high_order/).
+[canonical_high_order/](canonical_high_order).
 
 This extends canonical finite-prefix compatibility from six to eight moments.
 It does not affect the theorem above, does not prove canonical V1--V3, and

@@ -79,7 +79,7 @@ The exact moments are
 
 Every principal minor accessible through \(H_3\) and \(H_3^+\) is strictly
 positive.  The complete exact certificate is
-[`F17_MOMENT_HANKEL_AUDIT.json`](../stieltjes_conjecture/resolution_program/canonical_high_order/F17_MOMENT_HANKEL_AUDIT.json).
+[`F17_MOMENT_HANKEL_AUDIT.json`](../stieltjes_resolution/canonical_high_order/F17_MOMENT_HANKEL_AUDIT.json).
 
 ## 2. One input, raw quadratic, three hidden layers
 
@@ -111,7 +111,7 @@ The six exact moments are
 All 22 enumerated nonempty principal-minor conditions across the available
 ordinary and shifted Hankel matrices are strictly positive; in particular
 \(H_2\succ0\) and \(H_2^+\succ0\).  See
-[`ORDER13_STIELTJES_RESULTS.md`](quadratic_compiler/depth3_gaussian_program/ORDER13_STIELTJES_RESULTS.md).
+[`ORDER13_STIELTJES_RESULTS.md`](../mfp_quadratic_compiler/depth3_gaussian_program/ORDER13_STIELTJES_RESULTS.md).
 
 ## 3. One input, raw cubic, two hidden layers
 
@@ -152,7 +152,7 @@ but the first shifted determinant is exactly negative:
 \]
 
 Thus \(H_1\succ0\) while \(H_1^+\) is indefinite.  See
-[`STIELTJES_RESULTS.md`](cubic_compiler/depth2_gaussian_program/STIELTJES_RESULTS.md).
+[`STIELTJES_RESULTS.md`](../mfp_cubic_compiler/depth2_gaussian_program/STIELTJES_RESULTS.md).
 
 ## 4. One input, sine, two hidden layers
 
@@ -186,7 +186,7 @@ For both scalings, all four moment signs and both two-by-two determinants
 \(H_0,H_0^+,H_1,H_1^+\) are all non-PSD.  These are certified
 high-precision finite-Fourier values rather than rational numbers.  The
 80- and 100-digit routes agree; see
-[`ORDER9_RESULTS.md`](sine_compiler/depth2_gaussian_program/ORDER9_RESULTS.md).
+[`ORDER9_RESULTS.md`](../mfp_sine_compiler/depth2_gaussian_program/ORDER9_RESULTS.md).
 
 ## 5. Two inputs, equal labels, raw cubic, two hidden layers
 
@@ -204,9 +204,9 @@ F_+^{(0)}=F_+^{(2)}=F_+^{(4)}=0.
 
 The complete expanded polynomials \(F_+^{(1)}(0;\rho)\),
 \(F_+^{(3)}(0;\rho)\), and \(F_+^{(5)}(0;\rho)\) are listed in
-[`ORDER5_SYMBOLIC_RESULTS.md`](cubic_compiler/two_input_plus_gaussian_program/ORDER5_SYMBOLIC_RESULTS.md),
+[`ORDER5_SYMBOLIC_RESULTS.md`](../mfp_cubic_compiler/two_input_plus_gaussian_program/ORDER5_SYMBOLIC_RESULTS.md),
 with machine-readable coefficient lists in
-[`results_symbolic_order5.json`](cubic_compiler/two_input_plus_gaussian_program/results_symbolic_order5.json).
+[`results_symbolic_order5.json`](../../data/historical/studies/mfp_cubic_compiler/two_input_plus_gaussian_program/results_symbolic_order5.json).
 
 With the exact factorizations
 
@@ -254,7 +254,7 @@ The determinant of \(H_1\) requires \(\mu_2\), hence \(F_+^{(7)}\), and is
 not available.
 
 The exact polynomial coefficients and Sturm data are in
-[`stieltjes_order5_audit.json`](cubic_compiler/two_input_plus_gaussian_program/stieltjes_order5_audit.json).
+[`stieltjes_order5_audit.json`](../mfp_cubic_compiler/two_input_plus_gaussian_program/stieltjes_order5_audit.json).
 
 ## 6. One input, raw quadratic, one hidden layer
 
@@ -297,7 +297,7 @@ The shifted three-by-three determinant is
 \]
 
 This is an exact formal Stieltjes counterexample.  See
-[`SHALLOW_QUADRATIC_CERTIFICATE.json`](../stieltjes_conjecture/resolution_program/SHALLOW_QUADRATIC_CERTIFICATE.json).
+[`SHALLOW_QUADRATIC_CERTIFICATE.json`](../stieltjes_resolution/SHALLOW_QUADRATIC_CERTIFICATE.json).
 
 ## 7. One input, normalized centered Hermite-2, one hidden layer
 
@@ -335,7 +335,7 @@ are positive, but
 
 Hence normalized centering does not repair the shallow raw-square
 counterexample.  See
-[RESULTS.md](quadratic_compiler/centered_depth1_order13/RESULTS.md).
+[RESULTS.md](../mfp_quadratic_compiler/centered_depth1_order13/RESULTS.md).
 
 ## 8. One input, identity activation, one, two, and three hidden layers
 
@@ -358,7 +358,7 @@ The output-coordinate moments satisfy
 
 Consequently \(H_{d,1},H_{d,1}^+\succ0\) for every \(d\ge0\).  The exact
 order-thirteen certificate is
-[`DEPTH1_ORDER13_RESULTS.md`](identity_compiler/linear_gaussian_program/DEPTH1_ORDER13_RESULTS.md).
+[`DEPTH1_ORDER13_RESULTS.md`](../mfp_identity_compiler/linear_gaussian_program/DEPTH1_ORDER13_RESULTS.md).
 
 At depth two, an independent Gram-invariant/Wishart derivation now gives an
 exact all-fixed-order spectral recursion.  It has been evaluated and matched
@@ -373,7 +373,7 @@ H_{d,2}\succ0,\qquad H_{d,2}^+\succ0,
 No elementary scalar formula for \(F_2\) or \(K_2\), representing measure,
 or all-order Hankel-sign proof is presently known.  The exact spectral
 closure and coefficient files are in
-[depth2_all_order_search/RESULTS.md](identity_compiler/linear_gaussian_program/depth2_all_order_search/RESULTS.md).
+[depth2_all_order_search/RESULTS.md](../mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/RESULTS.md).
 
 Separately from the coefficient and Stieltjes questions, the one-sample
 identity model now has an autonomous rooted-path equation at every fixed
@@ -385,7 +385,7 @@ finite-width convergence is rigorous at depths one and two.  At depth three
 and beyond, the path equation retains the required noncommuting mixed words,
 but its finite-width identification remains conditional on the multi-edge
 rooted-word and coefficient-lift lemmas.  See
-[CANONICAL_NOTE.md](identity_compiler/linear_gaussian_program/arbitrary_depth_autonomous_mse_closure/CANONICAL_NOTE.md).
+[CANONICAL_NOTE.md](../mfp_identity_compiler/linear_gaussian_program/arbitrary_depth_autonomous_mse_closure/CANONICAL_NOTE.md).
 
 At depth three, the current exact endpoint remains order thirteen.
 
@@ -431,7 +431,7 @@ particular,
 \]
 
 The full certificate is
-[`ORDER13_RESULTS.md`](identity_compiler/linear_gaussian_program/ORDER13_RESULTS.md).
+[`ORDER13_RESULTS.md`](../mfp_identity_compiler/linear_gaussian_program/ORDER13_RESULTS.md).
 
 ## 9. Broader parameter and input-geometry variants
 
@@ -441,11 +441,11 @@ exact derivative and moment lists rather than interpolated summaries.
 
 | family | exact derivative endpoint | moments/Hankel result | authoritative coefficient source |
 |---|---:|---|---|
-| quadratic depth 2, relative metric \(D_a+\lambda(D_u+D_W)\), \(\lambda\ge0\) | \(F^{(9)}(\lambda)\) | \(\mu_0,\ldots,\mu_3\); ordinary and shifted \(2\times2\) tests nonnegative on the full ray, strict after removing forced powers | [`results_order9_q2_order8.json`](quadratic_compiler/campaign1/results_order9_q2_order8.json), [`hankel_certificates_order9_q2_order8.json`](quadratic_compiler/campaign1/hankel_certificates_order9_q2_order8.json) |
-| quadratic depth 2, two inputs, equal/opposite label symmetry channels, \(t=\rho^2\in[0,1]\) | both channels through \(F^{(7)}(t)\) | \(\mu_0,\mu_1,\mu_2\) and ordinary \(H_1\) positive throughout each nondegenerate channel | [`certificates_order7.json`](quadratic_compiler/campaign2/certificates_order7.json) |
-| quadratic depth 2 with first activation \(u^2-c\), \(0\le c\le2\) | \(F^{(7)}(c)\) | \(\mu_0,\mu_1,\mu_2\) and ordinary \(H_1\) positive by exact Sturm isolation | [`certificates_order7.json`](quadratic_compiler/campaign3/certificates_order7.json) |
-| quadratic depth 2, independent metrics \(D_a+\alpha D_u+\beta D_W\) | full quadrant through \(F^{(9)}\); slice \(\beta=1\) through \(F^{(13)}\) | full-quadrant four-moment tests pass; on \(\beta=1\), shifted \(H_2^+\) changes sign once at \(\alpha_*=0.017519225541486\ldots\) and is negative below it | [`results_order9.json`](quadratic_compiler/campaign4/results_order9.json), [`ALPHA_TRANSITION_CERTIFICATE.json`](../stieltjes_conjecture/resolution_program/ALPHA_TRANSITION_CERTIFICATE.json) |
-| quadratic depth 2, three equicorrelated equal-label inputs, \(-1/2\le\rho\le1\) | symbolic \(F^{(5)}(\rho)\) | \(\mu_0,\mu_1>0\) throughout; no \(\mu_2\) or Hankel determinant | [`stage_b_connected_order5.json`](quadratic_compiler/campaign5_b3/frozen/stage_b_connected_order5.json), [`certificates_lower_moments.json`](quadratic_compiler/campaign5_b3/certificates_lower_moments.json) |
+| quadratic depth 2, relative metric \(D_a+\lambda(D_u+D_W)\), \(\lambda\ge0\) | \(F^{(9)}(\lambda)\) | \(\mu_0,\ldots,\mu_3\); ordinary and shifted \(2\times2\) tests nonnegative on the full ray, strict after removing forced powers | [`results_order9_q2_order8.json`](../../data/historical/studies/mfp_quadratic_compiler/campaign1/results_order9_q2_order8.json), [`hankel_certificates_order9_q2_order8.json`](../mfp_quadratic_compiler/campaign1/hankel_certificates_order9_q2_order8.json) |
+| quadratic depth 2, two inputs, equal/opposite label symmetry channels, \(t=\rho^2\in[0,1]\) | both channels through \(F^{(7)}(t)\) | \(\mu_0,\mu_1,\mu_2\) and ordinary \(H_1\) positive throughout each nondegenerate channel | [`certificates_order7.json`](../mfp_quadratic_compiler/campaign2/certificates_order7.json) |
+| quadratic depth 2 with first activation \(u^2-c\), \(0\le c\le2\) | \(F^{(7)}(c)\) | \(\mu_0,\mu_1,\mu_2\) and ordinary \(H_1\) positive by exact Sturm isolation | [`certificates_order7.json`](../mfp_quadratic_compiler/campaign3/certificates_order7.json) |
+| quadratic depth 2, independent metrics \(D_a+\alpha D_u+\beta D_W\) | full quadrant through \(F^{(9)}\); slice \(\beta=1\) through \(F^{(13)}\) | full-quadrant four-moment tests pass; on \(\beta=1\), shifted \(H_2^+\) changes sign once at \(\alpha_*=0.017519225541486\ldots\) and is negative below it | [`results_order9.json`](../../data/historical/studies/mfp_quadratic_compiler/campaign4/results_order9.json), [`ALPHA_TRANSITION_CERTIFICATE.json`](../stieltjes_resolution/ALPHA_TRANSITION_CERTIFICATE.json) |
+| quadratic depth 2, three equicorrelated equal-label inputs, \(-1/2\le\rho\le1\) | symbolic \(F^{(5)}(\rho)\) | \(\mu_0,\mu_1>0\) throughout; no \(\mu_2\) or Hankel determinant | [`stage_b_connected_order5.json`](../../data/historical/studies/mfp_quadratic_compiler/campaign5_b3/frozen/stage_b_connected_order5.json), [`certificates_lower_moments.json`](../mfp_quadratic_compiler/campaign5_b3/certificates_lower_moments.json) |
 
 Hidden-layer norm responses \(Q_1,Q_2\) were also studied, but they are
 observables of the canonical architecture rather than separate network

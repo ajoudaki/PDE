@@ -2,7 +2,8 @@
 
 **Date:** 2026-08-24  
 **Command (from repository root):**
-`python -m unittest studies.renormalized_causal_gaussian_calculus.compiler.test_rcgc_compiler`  
+`python -m unittest studies.rcgc_compiler.test_rcgc_compiler`
+
 **Result:** six tests passed
 
 The executable compiler reproduces the following ladder without

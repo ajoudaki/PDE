@@ -1,6 +1,6 @@
 # Activation-property audit and explicit generalization routes
 
-Source inspected: `/home/amir/Codes/PDE/studies/mean_field_peeling/three_sample_self_contained/MANUSCRIPT.md`, including every activation-specific occurrence in Parts F, R, G, V, V.I and N. This is an authoring audit of the activation substitution, not an independent verification of every general Gaussian-program argument in the source. No numerical experiments or other study summaries were used.
+Source inspected: `/home/amir/Codes/PDE/studies/three_sample_self_contained/MANUSCRIPT.md`, including every activation-specific occurrence in Parts F, R, G, V, V.I and N. This is an authoring audit of the activation substitution, not an independent verification of every general Gaussian-program argument in the source. No numerical experiments or other study summaries were used.
 
 ## 1. Main finding and an important quantifier distinction
 

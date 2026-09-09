@@ -1,5 +1,11 @@
 # Fixed-\(P=5\) neural-PDE generalization study
 
+This is a study record, not an established-library entry. Historical claims and
+review labels below retain their original scope; consult the
+[reconciled research map](../project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md)
+for current qualifications and the [maintained library](../../docs/README.md)
+for accepted self-contained presentations.
+
 This project tests whether the previously validated width-independent
 operator–Liouville PDE was accidentally tuned to one dataset.
 
@@ -45,6 +51,13 @@ extension; their success would not prove \(P\to\infty\) convergence or the
 ordered dense limit.
 
 ## Integrity gates
+
+The restored `environment.json` is the byte-exact **23 July 2026 historical
+environment record**, not a description of the current runtime. Retaining it
+closes a missing provenance label but does not renew any source seal or authorize
+new computation. Fresh outputs now use repository
+`data/generated/resnet_generalization/`; explicit historical replay reads the
+retained archive separately and writes a new review outside that archive.
 
 The PDE source imports no dense-reference code or trajectory. Every PDE run
 is completed and sealed before dense references may start.

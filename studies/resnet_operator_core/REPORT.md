@@ -13,9 +13,9 @@
 > model. Exact parity makes the added even-degree shell inert; the observed
 > difference was cubature symmetry leakage. The parity-correct ladder and the
 > later aggregate noncontraction diagnostics are maintained under
-> [`pde_convergence/03_bridgeability`](../../pde_convergence/03_bridgeability/)
+> [`pde_convergence/03_bridgeability`](../resnet_bridgeability)
 > and
-> [`pde_convergence/05_tail_and_compactness`](../../pde_convergence/05_tail_and_compactness/).
+> [`pde_convergence/05_tail_and_compactness`](../resnet_tail_compactness).
 
 ## Bottom line
 

@@ -29,9 +29,9 @@ so it is **not** the frozen-direction curve
 `theta_0 + t n grad(g_c)(theta_0)`.
 
 The executable entry point is
-[`finite_width_jet.py`](./finite_width_jet.py).  The state helpers are in
-[`model.py`](./model.py), and an independent raw-coordinate audit is in
-[`raw_coordinate_jet_audit.py`](./raw_coordinate_jet_audit.py).
+[`finite_width_jet.py`](finite_width_jet.py).  The state helpers are in
+[`model.py`](model.py), and an independent raw-coordinate audit is in
+[`raw_coordinate_jet_audit.py`](raw_coordinate_jet_audit.py).
 
 ## 2. Exact model and normalization
 
@@ -199,7 +199,7 @@ when an order-three output is requested.
 ## 5. Executable interface
 
 ```python
-from studies.mean_field_peeling.generic_first_stieltjes.depth import (
+from studies.mfp_gaussian_calculus.depth import (
     feature_ascent_jet,
     sample_state,
 )
@@ -226,7 +226,7 @@ costs `O(H n^2)`, and the forward/reverse feature series costs `O(H n B)`.
 Run
 
 ```bash
-python -m studies.mean_field_peeling.generic_first_stieltjes.depth.run_checks
+python -m studies.mfp_gaussian_calculus.depth.run_checks
 ```
 
 The current gate checks:
