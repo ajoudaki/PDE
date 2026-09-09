@@ -457,3 +457,12 @@ removing its recorded insertions exactly recovers d220cff chapter bodies.
 FINAL_NONLINEAR_CONTROLS_CHECKS.json records report hashes and unchanged inherited
 work. The scientific implementation is unchanged and retains its 106-test result.
 No new training, historical campaign or numerical evidence is introduced.
+
+## Completion pass: shallow continuous-flow rates
+
+Two complete independent isolated reviews give clean separate shallow verdicts
+at the unchanged 161+215-line proof/dependency hashes. The full fragment occurs
+exactly once, its removal recovers the previous linear chapter, and the accepted
+standalone edition passes all 25 boundary/local-link inputs. The implementation
+is unchanged, retaining the 106-test result. FINAL_SHALLOW_RATE_CHECKS.json records
+review hashes, insertion and concurrent-work preservation; no experiment occurs.

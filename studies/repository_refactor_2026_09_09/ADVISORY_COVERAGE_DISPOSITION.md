@@ -384,3 +384,8 @@ proof, two-pass filtered algorithm, o(log n) same-cap comparison and complete
 adaptive transcript law. Their remaining reachable-tail, uncut, physical-algorithm
 and general-data global dependencies remain explicit. Final coverage reconciliation
 will distinguish the remaining live established assembly from those actual gaps.
+
+The shallow continuous-flow rate row is now actually incorporated in the linear
+chapter, with its full characteristic dependency and two clean isolated reviews.
+This adds the compact-time second/fourth output moments, loss rate and bounded-
+activation particle coupling; it leaves the historical raw-GD rare-event gap.

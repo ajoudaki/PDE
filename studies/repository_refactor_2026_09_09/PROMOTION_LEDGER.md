@@ -179,3 +179,9 @@ exact scopes in the acceptance record. Existing global_nonlinear, special_data_l
 finite_optimization_and_controls and gaussian_calculus chapters contain all their
 arguments and dependencies. Growing-cap comparison remains same-cap comparison;
 conditional endpoints and compactness do not become uncut existence or uniqueness.
+
+The distinct shallow continuous-GF quantitative theorem is now incorporated:
+compact-time squared/fourth output error, variance/loss rates and bounded-
+activation particle coupling. Two full isolated reviews are clean. This closes
+the earlier conversation-native proof-assembly row at its GF-only scope;
+unsupported raw-GD exceptional-event estimates are not imported.

@@ -1,0 +1,14 @@
+{
+  "studies/repository_refactor_2026_09_09/FINAL_SHALLOW_RATE_ADDITION.md": {
+    "sha256": "0adf42cdd2cfa3328a7e21f6e72eb4a9a2f5311a4da05edff3b71130564d11b8",
+    "lines": 161
+  },
+  "studies/repository_refactor_2026_09_09/reviews/FINAL_SHALLOW_RATE_DEPENDENCIES.md": {
+    "sha256": "ec3f238c98356de7ee4311e7cdaff5da6cfca359cf0612b1472cb98165830f35",
+    "lines": 215
+  },
+  "docs/NOTATION.md": {
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "lines": 98
+  }
+}

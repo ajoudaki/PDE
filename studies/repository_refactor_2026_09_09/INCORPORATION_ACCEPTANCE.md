@@ -750,3 +750,41 @@ reviews/FINAL_NONLINEAR_CONTROLS_CHECKS.json. Exporter/.gitignore/task-index wor
 and unreadable inherited artifacts remain outside the scoped commit; the latter
 receive metadata-only checks. Remaining scope, Gaussian-readout and identity/rate
 proofs continue through full review before final coverage closure.
+
+## Completion pass: quantitative shallow continuous-gradient-flow rates
+
+The nonlinear/control package is committed at `ea66f26`. The 161-line
+FINAL_SHALLOW_RATE_ADDITION.md (SHA256
+0adf42cdd2cfa3328a7e21f6e72eb4a9a2f5311a4da05edff3b71130564d11b8)
+now occurs byte-exactly before linear_dynamics Section 9. Its complete
+215-line Section-8 characteristic dependency is supplied in the review packet.
+The two separate shallow verdicts in FINAL_CONTROLS_B3.md and
+FINAL_TAIL_COMPLETE_B1.md are CLEAN, with no required correction. They read
+all 5,027 and 8,820 respective scientific input lines, including this entire
+candidate/dependency. Both reports were read fully by the coordinator.
+The second reviewer ran as a fresh ephemeral read-only process against only
+selected complete proof/dependency files, without project history or prior
+verdicts. Its exact command inventory is retained. Broader packet verdicts
+are not an acceptance of the other pending candidates in this entry.
+
+The theorem uses one RMS-unit sample, label one, independent order-one Gaussian
+stored readout/first coordinate, full square loss and common mobility kappa>=0.
+For every fixed physical horizon it proves expected uniform output squared
+error O(1/n), fourth-power error O(1/n²), the corresponding variance and loss
+bounds, and bounded-activation same-seed particle-path coupling. Output/loss
+rates allow linearly growing C2 activation with bounded first two derivatives.
+The empirical derivative-integral argument avoids a mesh logarithm; actual GF
+residual monotonicity handles the exceptional initialization event. The particle
+rate uses its separately stated bounded-activation hypothesis. No raw-GD rare-
+event, kernel-rate, growing-horizon or fitting theorem is added.
+
+The recovered complete operative source records, hashes and correction scope
+are in source_audits/FINAL_SHALLOW_PRIMARY.md and FINAL_SHALLOW_RATE_ASSEMBLY.md.
+The historical Euler exceptional-event argument remains excluded. The maintained
+proof has no dependency on that recovered history. Removing its recorded insertion
+recovers the earlier chapter exactly. The 27-file standalone edition passes the
+25-file boundary/local-link check and preserves inherited concurrent work.
+The unchanged implementation retains its 106-test result without a new-run claim.
+Exact hashes and checks are under reviews/FINAL_SHALLOW_RATE. Other complete
+proofs continue through review, including a wording correction in an older
+shared dependency; no deferral is treated as completion.
