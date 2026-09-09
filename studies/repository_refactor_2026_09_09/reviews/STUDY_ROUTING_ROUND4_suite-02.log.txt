@@ -1,0 +1,37 @@
+test_conflict_after_loading_is_rechecked_before_publication (_inspected_acceptance_suite.OutputBoundaryTests) ... ok
+test_exclusive_partial_creation_does_not_truncate_a_late_file (_inspected_acceptance_suite.OutputBoundaryTests) ... ok
+test_existing_final_partial_and_dangling_links_are_preserved (_inspected_acceptance_suite.OutputBoundaryTests) ... ok
+test_input_aliases_are_rejected_before_inputs (_inspected_acceptance_suite.OutputBoundaryTests) ... ok
+test_own_generated_and_external_scratch_are_valid_without_writes (_inspected_acceptance_suite.OutputBoundaryTests) ... ok
+test_protected_outputs_rejected_before_inputs (_inspected_acceptance_suite.OutputBoundaryTests) ... ok
+test_tiny_scratch_merge_preserves_output_and_provenance_format (_inspected_acceptance_suite.OutputBoundaryTests) ... ERROR
+
+======================================================================
+ERROR: test_tiny_scratch_merge_preserves_output_and_provenance_format (_inspected_acceptance_suite.OutputBoundaryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_output_boundaries.py", line 93, in test_tiny_scratch_merge_preserves_output_and_provenance_format
+    np.testing.assert_array_equal(result['f_mean'], [[1.], [2.]])
+  File "/usr/local/lib/python3.10/dist-packages/numpy/__init__.py", line 327, in __getattr__
+    import numpy.testing as testing
+  File "/usr/local/lib/python3.10/dist-packages/numpy/testing/__init__.py", line 11, in <module>
+    from ._private.utils import *
+  File "/usr/local/lib/python3.10/dist-packages/numpy/testing/_private/utils.py", line 1253, in <module>
+    _SUPPORTS_SVE = check_support_sve()
+  File "/usr/local/lib/python3.10/dist-packages/numpy/testing/_private/utils.py", line 1247, in check_support_sve
+    output = subprocess.run(cmd, capture_output=True, text=True)
+  File "/usr/lib/python3.10/subprocess.py", line 503, in run
+    with Popen(*popenargs, **kwargs) as process:
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1735, in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+  File "/tmp/seven-study-acceptance.XDKtlKsM/run_permitted.py", line 20, in guard
+    raise RuntimeError(f'acceptance forbids {event}')
+RuntimeError: acceptance forbids subprocess.Popen
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.045s
+
+FAILED (errors=1)
+ACCEPTANCE_RESULT {"module": "studies/resnet_generalization/tests/test_output_boundaries.py", "tests": 7, "failures": 0, "errors": 1, "skipped": 0}

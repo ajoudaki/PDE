@@ -1,0 +1,166 @@
+{
+  "scope": "Hand-authored backup source, excluding generated build/rendering products; all original backup bytes separately covered by verify_preservation.mjs",
+  "files": [
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/current_main/MEAN_FIELD_DERIVATIVE_WICK_CALCULUS.tex",
+      "bytes": 1088,
+      "sha256": "cf49865178e47190e85efe2fc73c73fbe39633cf9fddbf80542cfb77d71a4bf8",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/current_main/MEAN_FIELD_DERIVATIVE_WICK_CALCULUS.tex"
+      }
+    },
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/current_main/MEAN_FIELD_PEELING_COMPACT_REPORT.tex",
+      "bytes": 16322,
+      "sha256": "c9e516c5a749653550f4b0a244c4500b6b1562db8c1272943ea887f5793593b1",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/current_main/MEAN_FIELD_PEELING_COMPACT_REPORT.tex"
+      }
+    },
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/current_main/MEAN_FIELD_PEELING_PROGRAM.md",
+      "bytes": 61116,
+      "sha256": "a21380f08df0a8e2135f665ab31659ac1dc9ef5b62c6e9d754ad1c9b2dc5625e",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/current_main/MEAN_FIELD_PEELING_PROGRAM.md"
+      }
+    },
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/current_main/README.md",
+      "bytes": 1181,
+      "sha256": "d6a2fe69473c949456357b8488862eddc90da770ec2e14fa900dd90407ba6fa4",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/current_main/README.md"
+      }
+    },
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/MANIFEST.sha256",
+      "bytes": 5243,
+      "sha256": "74d154a1b1648c4246f1837803f2545d1fe807936cdfcad1d8b45f9b430a50d5",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/MANIFEST.sha256"
+      }
+    },
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/pushed_branch_afcb2fc/MEAN_FIELD_DERIVATIVE_WICK_CALCULUS.tex",
+      "bytes": 1088,
+      "sha256": "cf49865178e47190e85efe2fc73c73fbe39633cf9fddbf80542cfb77d71a4bf8",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/current_main/MEAN_FIELD_DERIVATIVE_WICK_CALCULUS.tex"
+      }
+    },
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/pushed_branch_afcb2fc/MEAN_FIELD_PEELING_FULL_REPORT.tex",
+      "bytes": 14919,
+      "sha256": "ecc191140362d6c39d7148a1b2bd05cd56053eb118770974f4856fe3040a871f",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/pushed_branch_afcb2fc/MEAN_FIELD_PEELING_FULL_REPORT.tex"
+      }
+    },
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/pushed_branch_afcb2fc/MEAN_FIELD_PEELING_PROGRAM.md",
+      "bytes": 62900,
+      "sha256": "174f629e2cdca19ff0e3268a7401f57027a39704a25e63bda63b924fc0fd8a71",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/pushed_branch_afcb2fc/MEAN_FIELD_PEELING_PROGRAM.md"
+      }
+    },
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/pushed_branch_afcb2fc/MEAN_FIELD_PEELING_SELF_CONTAINED_REPORT.md",
+      "bytes": 52082,
+      "sha256": "9a198e9bb5213595a030670fbf86d8e6d2cd387a7d09355d3d82747ab786316d",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/pushed_branch_afcb2fc/MEAN_FIELD_PEELING_SELF_CONTAINED_REPORT.md"
+      }
+    },
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/pushed_branch_afcb2fc/MEAN_FIELD_PEELING_SELF_CONTAINED_REPORT.tex",
+      "bytes": 2445,
+      "sha256": "d321a27c71ea8e3c5d8f556ba63e150558aedc8e2a4e02882c2c931932fc2468",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/pushed_branch_afcb2fc/MEAN_FIELD_PEELING_SELF_CONTAINED_REPORT.tex"
+      }
+    },
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/pushed_branch_afcb2fc/MUP_TRAINING_PEELING_CASE_STUDY.md",
+      "bytes": 67390,
+      "sha256": "1e8312abb6be2db4501e90cbcc75adf5ed6b4e7eb94aeef6df6ef8ad6c64d54a",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/pushed_branch_afcb2fc/MUP_TRAINING_PEELING_CASE_STUDY.md"
+      }
+    },
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/pushed_branch_afcb2fc/README.md",
+      "bytes": 3387,
+      "sha256": "6fbe786a769671aad20becdb54af13bbc7b04d4ea0af90ac64fed43fc6eef4bf",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/pushed_branch_afcb2fc/README.md"
+      }
+    },
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/pushed_branch_afcb2fc/render_markdown_math.py",
+      "bytes": 3327,
+      "sha256": "832c463dd6bf68b0ffccfd6b8f6bfe6549f846ef0872b2327cf256b4166f4d9d",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/pushed_branch_afcb2fc/render_markdown_math.py"
+      }
+    },
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/pushed_branch_afcb2fc/render_mean_field_report.py",
+      "bytes": 4231,
+      "sha256": "535c35d0189f6332808a560f982ececcfcf604174e0ee8337f495c3881e52201",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/pushed_branch_afcb2fc/render_mean_field_report.py"
+      }
+    },
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/pushed_branch_afcb2fc/TENSOR_PROGRAMS_CONTRAST_AND_THEOREM_FRAMING_REPORT.md",
+      "bytes": 25911,
+      "sha256": "8ffa3c7f732168423c9e9af10dc04fe81df7d714567091c2513a603e0ef4c187",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/pushed_branch_afcb2fc/TENSOR_PROGRAMS_CONTRAST_AND_THEOREM_FRAMING_REPORT.md"
+      }
+    },
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/README.md",
+      "bytes": 1090,
+      "sha256": "fc80e4bcb5cb0ba42afdce97ab0160fbbe1a78ee9c0dde4cf411fa6f1a0279dd",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/README.md"
+      }
+    },
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/repository_context/README.md",
+      "bytes": 2129,
+      "sha256": "0534ee7731a3701791d69645de8b4ded65478fdfc8ba067d9e63cc4081dc883d",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/repository_context/README.md"
+      }
+    },
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/repository_context/ROOT_README.md",
+      "bytes": 2129,
+      "sha256": "0534ee7731a3701791d69645de8b4ded65478fdfc8ba067d9e63cc4081dc883d",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/repository_context/README.md"
+      }
+    },
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/repository_context/STUDIES_README.md",
+      "bytes": 1280,
+      "sha256": "eef2df1a9f41d66ff53fc8266c282f8b38a5d190caef1a75c0c15dd7a8a7f1dc",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/repository_context/STUDIES_README.md"
+      }
+    },
+    {
+      "path": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/RESTRUCTURE_AUDIT.md",
+      "bytes": 7080,
+      "sha256": "6f8cf8734493d703670eabc9e9d05c196a2cc0bfdcec08db633ab9c222798981",
+      "coveredBy": {
+        "currentTracked": "studies/recovered_sources_2026_09_09/recovered/repository_backups/mean_field_peeling_pre_restructure_20260805T154408Z/RESTRUCTURE_AUDIT.md"
+      }
+    }
+  ],
+  "missing": []
+}

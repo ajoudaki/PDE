@@ -1,0 +1,52 @@
+{
+  "files_unchanged": 154,
+  "repository_tests": 92,
+  "repository_modules": 19,
+  "rerun_executions": 8,
+  "independent_probe_functions": 3,
+  "independent_cases": 8,
+  "manifest_before_sha256": "0bd00311c24caeaec0ed677423e30151f47769fe40c7d659e8d74155ad285214",
+  "manifest_after_sha256": "0bd00311c24caeaec0ed677423e30151f47769fe40c7d659e8d74155ad285214",
+  "groups": {
+    "source-and-interfaces": {
+      "files": 134,
+      "before": "510af5a9404cf7b8cd0b9e81b856948d9e549aa291a5b026c9495dcdcd6d7ab0",
+      "after": "510af5a9404cf7b8cd0b9e81b856948d9e549aa291a5b026c9495dcdcd6d7ab0"
+    },
+    "focused-tests-and-support": {
+      "files": 20,
+      "before": "5af94fa9697796c1459a363ecdcd12404a738f898db6992b3f96166fc820640b",
+      "after": "5af94fa9697796c1459a363ecdcd12404a738f898db6992b3f96166fc820640b"
+    }
+  },
+  "studies": {
+    "resnet_activation_controls": {
+      "tests": 5,
+      "modules": 1
+    },
+    "resnet_generalization": {
+      "tests": 27,
+      "modules": 4
+    },
+    "resnet_proof_audit": {
+      "tests": 5,
+      "modules": 2
+    },
+    "stieltjes_direct_loewner": {
+      "tests": 3,
+      "modules": 1
+    },
+    "stieltjes_finite_width": {
+      "tests": 15,
+      "modules": 4
+    },
+    "stieltjes_hybrid_campaign": {
+      "tests": 24,
+      "modules": 5
+    },
+    "stieltjes_proxy_campaign": {
+      "tests": 13,
+      "modules": 2
+    }
+  }
+}

@@ -42,6 +42,10 @@ only the maintained, self-contained mathematical library.
 - `845effd`: operator/early publication guards and 51 combined routing checks.
 - `5b9ef6e`: comparison input-side alias repair and exact fresh review evidence.
 - `62a34ea`: seven-study repair with 92 bounded tests and frozen-contract records.
+- `5262acc`: concrete provenance-input protection and pre-dispatch validation,
+  with 56 bounded regression tests.
+- `e93ce49`: remaining comparison-input protection and safe archived helper
+  imports, with 60 coordinator checks across the Gaussian/identity slice.
 
 [INVENTORY_BEFORE.json](INVENTORY_BEFORE.json) records the original paths,
 sizes and hashes. [MOVE_MANIFEST.json](MOVE_MANIFEST.json) records relocation.
@@ -83,6 +87,12 @@ The later [session supplement](../recovered_sources_2026_09_09/manifests/SESSION
 also materializes one missing rejected causal note at its exact historically
 recorded final hash. Total unique recovered payload is 273 files, 6,193,108
 bytes. Earlier receipts correctly count their earlier 272-file snapshot.
+
+[Backup source coverage](BACKUP_SOURCE_COVERAGE.json) separately checks all
+20 hand-authored Markdown/TeX/Python/checksum backup files, excluding generated
+renderings and build products. Every selected file already has an exact tracked
+recovery copy; none needs to be imported again. All 41 original backup files,
+including generated products, remain covered by the retained-byte check.
 
 ## Audit evidence and its limits
 

@@ -1,0 +1,47 @@
+{
+  "selection": "/tmp/pde-patch-acceptance.iUBcgMxi/tmp/tmpy9fust8_/fresh root\n",
+  "returncode": 0,
+  "events": [
+    {
+      "event": "validate",
+      "path": "/tmp/pde-patch-acceptance.iUBcgMxi/tmp/tmpy9fust8_/fresh root\n"
+    },
+    {
+      "event": "normalized",
+      "path": "/tmp/pde-patch-acceptance.iUBcgMxi/tmp/tmpy9fust8_/fresh root\n"
+    },
+    {
+      "event": "dispatch",
+      "args": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": "/home/amir/Codes/PDE/studies/resnet_dense_long_horizon"
+    },
+    {
+      "event": "dispatch",
+      "args": [
+        "run_all.py",
+        "--config",
+        "config/protocol.json",
+        "--output-root",
+        "/tmp/pde-patch-acceptance.iUBcgMxi/tmp/tmpy9fust8_/fresh root"
+      ],
+      "cwd": "/home/amir/Codes/PDE/studies/resnet_dense_long_horizon"
+    },
+    {
+      "event": "dispatch",
+      "args": [
+        "make_manifest.py",
+        "--output-root",
+        "/tmp/pde-patch-acceptance.iUBcgMxi/tmp/tmpy9fust8_/fresh root"
+      ],
+      "cwd": "/home/amir/Codes/PDE/studies/resnet_dense_long_horizon"
+    }
+  ],
+  "stderr": ""
+}

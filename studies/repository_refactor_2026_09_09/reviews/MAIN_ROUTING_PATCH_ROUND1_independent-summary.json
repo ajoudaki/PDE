@@ -1,0 +1,10 @@
+{
+  "total": 65,
+  "failures": 2,
+  "errors": 0,
+  "skipped": 0,
+  "failing_tests": [
+    "__main__.Acceptance.test_wrapper_trailing-newline",
+    "__main__.Acceptance.test_wrapper_trailing-newline-unsafe-neighbor"
+  ]
+}

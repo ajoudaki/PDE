@@ -1,0 +1,12 @@
+test_claim_and_finish_refuse_before_lock_or_ledger_access (_inspected_acceptance_suite.AcceptanceBoundaryTests) ... ok
+test_validation_named_output_alias_refuses_callable_and_cli_before_analysis (_inspected_acceptance_suite.AcceptanceBoundaryTests) ... ok
+test_validation_regular_outputs_keep_historical_review_label (_inspected_acceptance_suite.AcceptanceBoundaryTests) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.031s
+
+OK
+FIXTURE_SHA256 {"case": "claim_canonical_attempt", "before": "d5a7bcc6aeccf94ae89cd3e62e7e98c83319638aad0ccdd91a5fe81c663bc343", "after": "d5a7bcc6aeccf94ae89cd3e62e7e98c83319638aad0ccdd91a5fe81c663bc343"}
+FIXTURE_SHA256 {"case": "finish_canonical_attempt", "before": "d5a7bcc6aeccf94ae89cd3e62e7e98c83319638aad0ccdd91a5fe81c663bc343", "after": "d5a7bcc6aeccf94ae89cd3e62e7e98c83319638aad0ccdd91a5fe81c663bc343"}
+FIXTURE_SHA256 {"case": "validation-named-output", "before": "d9977d40036e7a42a5f7264afc0b9a5ce8d76f81ec169f630e751a07de43553a", "after": "d9977d40036e7a42a5f7264afc0b9a5ce8d76f81ec169f630e751a07de43553a"}
+ACCEPTANCE_RESULT {"module": "studies/stieltjes_hybrid_campaign/breadth_panel/test_acceptance_boundaries.py", "tests": 3, "failures": 0, "errors": 0, "skipped": 0}

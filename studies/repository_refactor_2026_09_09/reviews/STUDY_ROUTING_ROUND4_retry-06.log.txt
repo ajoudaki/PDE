@@ -1,0 +1,7 @@
+test_affine_integral_on_irregular_grid_and_reversed_axis (_inspected_acceptance_suite.TrapezoidCompatibilityTests) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+ACCEPTANCE_RESULT {"module": "studies/resnet_proof_audit/tests/test_trapezoid_compat.py", "tests": 1, "failures": 0, "errors": 0, "skipped": 0}

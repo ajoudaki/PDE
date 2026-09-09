@@ -1,0 +1,31 @@
+test_affine_integral_on_irregular_grid_and_reversed_axis (_inspected_acceptance_suite.TrapezoidCompatibilityTests) ... ERROR
+
+======================================================================
+ERROR: test_affine_integral_on_irregular_grid_and_reversed_axis (_inspected_acceptance_suite.TrapezoidCompatibilityTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/resnet_proof_audit/tests/test_trapezoid_compat.py", line 18, in test_affine_integral_on_irregular_grid_and_reversed_axis
+    np.testing.assert_allclose(_trapezoid(values, x, axis=1), [18.0, 1.5], rtol=0, atol=0)
+  File "/usr/local/lib/python3.10/dist-packages/numpy/__init__.py", line 327, in __getattr__
+    import numpy.testing as testing
+  File "/usr/local/lib/python3.10/dist-packages/numpy/testing/__init__.py", line 11, in <module>
+    from ._private.utils import *
+  File "/usr/local/lib/python3.10/dist-packages/numpy/testing/_private/utils.py", line 1253, in <module>
+    _SUPPORTS_SVE = check_support_sve()
+  File "/usr/local/lib/python3.10/dist-packages/numpy/testing/_private/utils.py", line 1247, in check_support_sve
+    output = subprocess.run(cmd, capture_output=True, text=True)
+  File "/usr/lib/python3.10/subprocess.py", line 503, in run
+    with Popen(*popenargs, **kwargs) as process:
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1735, in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+  File "/tmp/seven-study-acceptance.XDKtlKsM/run_permitted.py", line 20, in guard
+    raise RuntimeError(f'acceptance forbids {event}')
+RuntimeError: acceptance forbids subprocess.Popen
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (errors=1)
+ACCEPTANCE_RESULT {"module": "studies/resnet_proof_audit/tests/test_trapezoid_compat.py", "tests": 1, "failures": 0, "errors": 1, "skipped": 0}

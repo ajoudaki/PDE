@@ -1,0 +1,70 @@
+[
+  {
+    "case": "activation/write-once/matching-final-plus-stale-partial",
+    "returned_without_refusal": true,
+    "before": {
+      "/tmp/seven-study-acceptance.XDKtlKsM/independent/activation-stale-partial/inert-record.json": "4a5393f09ceebc290956bac37d824f431fe5ad0e2d15bd5836ee22e1f2351b4e",
+      "/tmp/seven-study-acceptance.XDKtlKsM/independent/activation-stale-partial/inert-record.json.partial": "dd1dc8916530c2a9e7f8981a15ebfde6ac7a8ae80e59a7ae2c82b3485969b740"
+    },
+    "after": {
+      "/tmp/seven-study-acceptance.XDKtlKsM/independent/activation-stale-partial/inert-record.json": "4a5393f09ceebc290956bac37d824f431fe5ad0e2d15bd5836ee22e1f2351b4e",
+      "/tmp/seven-study-acceptance.XDKtlKsM/independent/activation-stale-partial/inert-record.json.partial": "dd1dc8916530c2a9e7f8981a15ebfde6ac7a8ae80e59a7ae2c82b3485969b740"
+    }
+  },
+  {
+    "case": "activation/protocol-equals-summary",
+    "entry_reached_first_input_loader": true,
+    "publication_probe": "separate real writer, no intervening analysis",
+    "fixture": "/tmp/seven-study-acceptance.XDKtlKsM/independent/activation-protocol/processed/summary.json",
+    "before": "d15039cc93b48dc95c65856c35332da09f1b5a8325be5b817dc073ef92c6b9af",
+    "after": "f7521e19f40b175da370f7612c98c88efc5cbdba707716085060868df4da103d"
+  },
+  {
+    "case": "generalization/report/PDE_STAGE_SEAL.json/linked=False",
+    "entry_reached_first_input_loader": true,
+    "publication_probe": "separate real writer, no intervening analysis",
+    "fixture": "/tmp/seven-study-acceptance.XDKtlKsM/independent/generalization-PDE_STAGE_SEAL.json-False/results/generalization/PDE_STAGE_SEAL.json",
+    "before": "b2df597d45d426c1f0e8b057749b79e3630c32dd441f0ec001ab15e51a7398fa",
+    "after": "f7521e19f40b175da370f7612c98c88efc5cbdba707716085060868df4da103d"
+  },
+  {
+    "case": "generalization/report/PDE_STAGE_SEAL.json/linked=True",
+    "entry_reached_first_input_loader": true,
+    "publication_probe": "separate real writer, no intervening analysis",
+    "fixture": "/tmp/seven-study-acceptance.XDKtlKsM/independent/generalization-PDE_STAGE_SEAL.json-True/results/generalization/PDE_STAGE_SEAL.json",
+    "before": "b2df597d45d426c1f0e8b057749b79e3630c32dd441f0ec001ab15e51a7398fa",
+    "after": "f7521e19f40b175da370f7612c98c88efc5cbdba707716085060868df4da103d"
+  },
+  {
+    "case": "generalization/report/DENSE_STAGE_SEAL.json/linked=False",
+    "entry_reached_first_input_loader": true,
+    "publication_probe": "separate real writer, no intervening analysis",
+    "fixture": "/tmp/seven-study-acceptance.XDKtlKsM/independent/generalization-DENSE_STAGE_SEAL.json-False/results/generalization/DENSE_STAGE_SEAL.json",
+    "before": "b2df597d45d426c1f0e8b057749b79e3630c32dd441f0ec001ab15e51a7398fa",
+    "after": "f7521e19f40b175da370f7612c98c88efc5cbdba707716085060868df4da103d"
+  },
+  {
+    "case": "generalization/report/DENSE_STAGE_SEAL.json/linked=True",
+    "entry_reached_first_input_loader": true,
+    "publication_probe": "separate real writer, no intervening analysis",
+    "fixture": "/tmp/seven-study-acceptance.XDKtlKsM/independent/generalization-DENSE_STAGE_SEAL.json-True/results/generalization/DENSE_STAGE_SEAL.json",
+    "before": "b2df597d45d426c1f0e8b057749b79e3630c32dd441f0ec001ab15e51a7398fa",
+    "after": "f7521e19f40b175da370f7612c98c88efc5cbdba707716085060868df4da103d"
+  },
+  {
+    "case": "generalization/report/pde_numerical_decision.json/linked=False",
+    "entry_reached_first_input_loader": true,
+    "publication_probe": "separate real writer, no intervening analysis",
+    "fixture": "/tmp/seven-study-acceptance.XDKtlKsM/independent/generalization-pde_numerical_decision.json-False/results/generalization/pde_numerical_decision.json",
+    "before": "b2df597d45d426c1f0e8b057749b79e3630c32dd441f0ec001ab15e51a7398fa",
+    "after": "f7521e19f40b175da370f7612c98c88efc5cbdba707716085060868df4da103d"
+  },
+  {
+    "case": "generalization/report/pde_numerical_decision.json/linked=True",
+    "entry_reached_first_input_loader": true,
+    "publication_probe": "separate real writer, no intervening analysis",
+    "fixture": "/tmp/seven-study-acceptance.XDKtlKsM/independent/generalization-pde_numerical_decision.json-True/results/generalization/pde_numerical_decision.json",
+    "before": "b2df597d45d426c1f0e8b057749b79e3630c32dd441f0ec001ab15e51a7398fa",
+    "after": "f7521e19f40b175da370f7612c98c88efc5cbdba707716085060868df4da103d"
+  }
+]

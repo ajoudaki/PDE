@@ -1,0 +1,30 @@
+#!/usr/bin/python3
+"""Dispatch recorder: execute only the wrapper's real stdlib validation query."""
+import json
+import os
+from pathlib import Path
+import sys
+
+def record(row):
+    with Path(os.environ['PATCH_RECORD']).open('a') as stream:
+        stream.write(json.dumps(row) + '\n')
+
+args = sys.argv[1:]
+if args[:2] == ['-B', '-c']:
+    query = args[2]
+    assert 'validate_output_root' in query, 'unexpected query'
+    sys.path.insert(0, os.getcwd())
+    sys.argv = ['-c', *args[3:]]
+    def profile(frame, event, value):
+        if frame.f_code.co_name == 'validate_output_root':
+            if event == 'call':
+                record({'event': 'validate', 'path': str(frame.f_locals['path'])})
+            elif event == 'return':
+                record({'event': 'normalized', 'path': None if value is None else str(value)})
+    sys.setprofile(profile)
+    exec(compile(query, '<actual wrapper query>', 'exec'), {'__name__': '__main__'})
+    sys.setprofile(None)
+else:
+    record({'event': 'dispatch', 'args': args, 'cwd': os.getcwd()})
+    if os.environ.get('PATCH_FAIL_COMMAND') == (args[0] if args else ''):
+        sys.exit(17)

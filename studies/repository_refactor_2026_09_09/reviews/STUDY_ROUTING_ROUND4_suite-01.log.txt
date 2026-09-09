@@ -1,0 +1,13 @@
+test_analyzer_evidence_interface_without_optional_plot_import (_inspected_acceptance_suite.EvidencePathTests) ... ok
+test_grid_and_verifier_read_the_same_synthetic_seal (_inspected_acceptance_suite.EvidencePathTests) ... ok
+test_historical_precheck_requires_explicit_selection_and_fresh_output (_inspected_acceptance_suite.EvidencePathTests) ... ok
+test_label_round_trip_and_escapes (_inspected_acceptance_suite.EvidencePathTests) ... ok
+test_precheck_child_command_passes_its_input_root (_inspected_acceptance_suite.EvidencePathTests) ... ok
+test_precheck_reads_selected_tiny_archive (_inspected_acceptance_suite.EvidencePathTests) ... ok
+test_writer_precheck_verifier_defaults_agree (_inspected_acceptance_suite.EvidencePathTests) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.026s
+
+OK
+ACCEPTANCE_RESULT {"module": "studies/resnet_generalization/tests/test_migration_paths.py", "tests": 7, "failures": 0, "errors": 0, "skipped": 0}

@@ -1,0 +1,12 @@
+test_analysis_writers_preserve_colliding_intermediates_and_targets (_inspected_acceptance_suite.WriterBoundaryTests) ... ok
+test_analysis_writers_validate_before_mkdir_and_accept_regular_replacement (_inspected_acceptance_suite.WriterBoundaryTests) ... ok
+test_both_raw_entry_guards_refuse_links_before_any_calculation (_inspected_acceptance_suite.WriterBoundaryTests) ... ok
+test_exact_default_writer_with_fixed_arrays_then_alias_refusal (_inspected_acceptance_suite.WriterBoundaryTests) ... ok
+test_pde_publication_refuses_identical_restart_input (_inspected_acceptance_suite.WriterBoundaryTests) ... ok
+test_raw_intermediates_are_exclusive_even_after_precheck (_inspected_acceptance_suite.WriterBoundaryTests) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.141s
+
+OK
+ACCEPTANCE_RESULT {"module": "studies/resnet_generalization/tests/test_writer_boundaries.py", "tests": 6, "failures": 0, "errors": 0, "skipped": 0}

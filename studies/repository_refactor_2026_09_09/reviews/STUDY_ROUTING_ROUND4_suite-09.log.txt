@@ -1,0 +1,7 @@
+test_both_mains_hash_the_current_declared_compiler_path (_inspected_acceptance_suite.MigratedRecurrenceTests) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.011s
+
+OK
+ACCEPTANCE_RESULT {"module": "studies/stieltjes_finite_width/test_migration_preflight.py", "tests": 1, "failures": 0, "errors": 0, "skipped": 0}

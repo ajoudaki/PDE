@@ -1,0 +1,16 @@
+test_all_five_campaign_outputs_are_generated (_inspected_acceptance_suite.FiniteWidthPathTests) ... ok
+test_both_fresh_producer_consumer_roots_agree (_inspected_acceptance_suite.FiniteWidthPathTests) ... ok
+test_historical_input_selection_is_explicit (_inspected_acceptance_suite.FiniteWidthPathTests) ... ok
+test_jet_reader_uses_selected_fixture_before_any_jet_work (_inspected_acceptance_suite.FiniteWidthPathTests) ... jets width=64
+ok
+test_source_and_historical_outputs_are_rejected (_inspected_acceptance_suite.FiniteWidthPathTests) ... usage: run_permitted.py [-h] [--output-dir OUTPUT_DIR]
+run_permitted.py: error: fresh outputs must be under /home/amir/Codes/PDE/data/generated/stieltjes_finite_width or external scratch
+usage: run_permitted.py [-h] [--output-dir OUTPUT_DIR]
+run_permitted.py: error: fresh outputs must be under /home/amir/Codes/PDE/data/generated/stieltjes_finite_width or external scratch
+ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.036s
+
+OK
+ACCEPTANCE_RESULT {"module": "studies/stieltjes_finite_width/test_migration_paths.py", "tests": 5, "failures": 0, "errors": 0, "skipped": 0}

@@ -1,0 +1,12 @@
+test_clean_main_reaches_log_without_running_science (_inspected_acceptance_suite.CorrectedClockBoundaryTests) ... ok
+test_named_log_aliases_refuse_before_main_or_callable_truncation (_inspected_acceptance_suite.CorrectedClockBoundaryTests) ... ok
+test_normal_log_remains_usable (_inspected_acceptance_suite.CorrectedClockBoundaryTests) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.039s
+
+OK
+FIXTURE_SHA256 {"case": "corrected-clock/hardlink", "before": "1452bc8b340806c479ca732632433be4d9e81fb09884be869c66386099c19c93", "after": "1452bc8b340806c479ca732632433be4d9e81fb09884be869c66386099c19c93"}
+FIXTURE_SHA256 {"case": "corrected-clock/symlink", "before": "1452bc8b340806c479ca732632433be4d9e81fb09884be869c66386099c19c93", "after": "1452bc8b340806c479ca732632433be4d9e81fb09884be869c66386099c19c93"}
+FIXTURE_SHA256 {"case": "corrected-clock/directory", "before": "1452bc8b340806c479ca732632433be4d9e81fb09884be869c66386099c19c93", "after": "1452bc8b340806c479ca732632433be4d9e81fb09884be869c66386099c19c93"}
+ACCEPTANCE_RESULT {"module": "studies/stieltjes_direct_loewner/test_writer_boundaries.py", "tests": 3, "failures": 0, "errors": 0, "skipped": 0}

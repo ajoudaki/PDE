@@ -1,0 +1,11 @@
+{
+  "counts": {
+    "quadratic": 27,
+    "resnet": 24,
+    "metadata": 5
+  },
+  "total": 56,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0
+}
