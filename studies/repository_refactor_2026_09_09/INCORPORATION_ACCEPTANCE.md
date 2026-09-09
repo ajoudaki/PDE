@@ -534,3 +534,60 @@ The first full integration report is retained unchanged as [ASSEMBLY2_FINAL_INTE
 The original review manifests are `reviews/ASSEMBLY2_INTEGRATION_INPUTS.json` and `reviews/ASSEMBLY2_INTEGRATION_R2_INPUTS.json`; they are byte-identical. The current scientific edition remains the exact 27-file, 1,450,848-byte inventory in `LIBRARY_INPUTS.json` and `reviews/ASSEMBLY2_FINAL_LIBRARY_INPUTS.json`. `ASSEMBLY2_FINAL_CHECKS.json` verifies live/review/committed equality, exact insertion of all four proof fragments, prior proof-body and code-definition preservation, all report hashes and concurrent-work preservation. Review prompts and process identities are in `reviews/ASSEMBLY2_REVIEW_PROTOCOL.md` and `reviews/ASSEMBLY2_REVIEW_SESSIONS.json`. Original reports retain their intentional formatting unchanged.
 
 The eight inherited unreadable review artifacts have unchanged metadata; no content-hash verification is claimed for those files. The task index and subsequently observed exporter/.gitignore changes remain untouched and unstaged by this work. Both other exporter files remain byte-identical to the earlier baseline. Exporter correctness remains outside the scientific acceptance. Remaining candidates and actual analytic/compiler/identification gaps are listed in `CONTINUATION_DISPOSITION.md`; their deferral is not counted as incorporation or completion.
+
+## Completion pass: plateau geometry and necessary fitting scales
+
+Starting from `8bda541`, the existing special-data chapter now contains two
+further complete proof fragments, each inserted byte-exactly once:
+
+| Fragment | Lines | SHA-256 |
+|---|---:|---|
+| `FINAL_PLATEAU_ADDITION.md` | 947 | `4e7308ff9c7bdbe2f85f12705fa49d6110e5883f9775045cc097c3aa56a2adaa` |
+| `FINAL_FITTING_SCALE_ADDITION.md` | 151 | `089389fe7c7e0111ff62be4bd1f5846e6266a9ba168da60316ced8557eb8050d` |
+
+The plateau package fixes two hidden layers, three separated unit input
+directions (including rank-two Grams), binary labels, a displayed fixed smooth
+plateau activation, the canonical finite Gaussian storage, and half-sum loss.
+It proves the protected first-feature Gram, GF freezing/nonentry and exact
+GD freezing, finite initial-Gram concentration, fixed Gaussian nonaffinity,
+control-independent continuous-time row confinement under integrable realized
+controls, selected W2 path-law compactness for supplied strong dissipative
+flows, protected backward-force primitives, bounded learned returns, and two
+finite fitting/restart obstructions. No population existence/uniqueness,
+Gaussian action identification, first-kernel convergence, cap removal or
+finite-width dynamics theorem is inferred.
+
+The fitting package uses the distinct odd mixture `(1-theta)z+theta atan(z)`,
+equilateral correlated three-sample data with labels one, any fixed finite
+hidden depth L>=2, and given initial operators bounded by fixed M. It proves
+necessary raw distance and time scales conditional on reaching half-sum loss
+3/8, including the stronger first-exit order 1/theta when L>2. M=2 is an
+explicit special case; no unread sharp Gaussian norm theorem is imported.
+Successful fitting and the actual energy identity are premises, not results.
+
+The first full isolated A1 report found no mathematical error and suggested
+wording refinements. Its original 930-line input is preserved. The revised
+version adds a contained subsequence compactness argument and clarifies
+population fractions and the uncapped first kernel. Both fresh complete
+isolated reviews, `reviews/FINAL_PLATEAU_FIT_A2.md` and
+`reviews/FINAL_PLATEAU_FIT_B2.md`, are clean with no required corrections at
+the identical final hashes. Each reviewer read all three supplied files,
+including the 98-line notation contract, with no project history, sources or
+prior verdicts. The exact seal is `reviews/FINAL_PLATEAU_FIT_R2_INPUTS.json`.
+The B2 optional wording point does not affect the theorem and caused no edit.
+
+Source/correction inspection and adaptations are recorded in
+`source_audits/FINAL_PLATEAU_FITTING_ASSEMBLY.md` and its referenced read ledger.
+The 27-file accepted standalone edition passes the boundary/local-link check
+on all 25 docs/code inputs. Exact insertion, prior chapter-body preservation,
+and inherited work preservation are checked in `reviews/FINAL_PLATEAU_CHECKS.json`.
+The edition inventory is `reviews/FINAL_PLATEAU_LIBRARY_INPUTS.json`, also the
+current `LIBRARY_INPUTS.json`. Its unmodified implementation retains its
+previous accepted testing; no new test run is falsely claimed for this
+proof-only addition. Live API and other proof candidates are not accepted by
+this entry or its manifest. They remain under assembly and independent review.
+
+The coordinator alone stages this scoped scientific package. Exporter changes,
+.gitignore, the task index, and the eight unreadable inherited review artifacts
+are preserved. For the latter only unchanged metadata is verified. No new
+training, historical campaign or empirical result is part of this package.

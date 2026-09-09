@@ -341,3 +341,14 @@ Frozen quadratic and ReLU material is now incorporated in finite-dynamics Sectio
 The resumed assembly also incorporates coherent-kernel global well-posedness in continuous-depth Section 15 and complete finite tangent geometry in finite-controls Section 14. Both proof packages have paired full CLEAN independent reviews. Their positive results and scoped obstruction are actual contained proofs, not ledger-only dispositions. The principal nonlinear correlated-data objective and the still-unproved Gaussian identification, projection-angle and adaptive-response estimates are unchanged.
 
 Final resumed-assembly acceptance is complete for the four actually incorporated packages. Each has paired full clean reviews; the fresh scoped integration audit also passes all 90 tests and the standalone boundary check. Its exact read/unread scope, original unsuccessful reports, corrected environment and final hashes are preserved in `INCORPORATION_ACCEPTANCE.md` and `ASSEMBLY2_FINAL_CHECKS.json`. Remaining-family rows continue to mean unincorporated or unresolved work, not completed promotion.
+
+## Completion-pass incorporation after 8bda541
+
+The plateau geometry/confinement/selected-law package and conditional
+near-identity fitting-distance/time theorem are now fully incorporated in the
+special-data chapter, with paired final isolated reviews and standalone
+checks. Their exact scopes and hashes are in the current acceptance entry.
+This supersedes any older missing-coverage description for those particular
+partials. Other FINAL source assemblies are candidates, not accepted proofs,
+until their corresponding reviews complete. Final coverage disposition will
+reconcile the whole important-material queue, not stop at this package.

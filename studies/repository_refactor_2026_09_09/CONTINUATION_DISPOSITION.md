@@ -83,3 +83,13 @@ rows by deferral. Further source-specific positives, including separate
 squared-log response results, remain unincorporated pending their own useful
 assembly and review. Numerical tables, generalized engines and unresolved
 identification estimates retain the reasons stated above.
+
+## Completion pass in progress
+
+After `8bda541`, plateau geometry, continuous-time confinement, selected
+conditional path laws, protected force/return identities and finite
+obstructions, together with the conditional near-identity necessary fitting
+scales, are actually incorporated and paired-reviewed. The broader calculus,
+nonlinear and control assemblies are in progress. The earlier exclusion table
+is a baseline locator and is being superseded by actual incorporated packages;
+it does not mark the current completion request finished by deferral.

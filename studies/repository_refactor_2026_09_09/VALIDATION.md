@@ -408,3 +408,19 @@ The fresh [R2 integration audit](reviews/ASSEMBLY2_FINAL_INTEGRATION_R2.md) is C
 The first full integration report, with five read-only-sandbox fixture errors, is retained unchanged and not counted as a passing integration run. The fresh review used identical scientific inputs with read-only file/directory modes and a separate writable temporary-fixture directory; it received no earlier verdict. No test was skipped or source changed for the environment correction.
 
 `ASSEMBLY2_FINAL_CHECKS.json` seals the 27-file, 1,450,848-byte scientific edition, exact proof insertions and prior bodies, report hashes, old code definitions and preservation observations. The scientific changes are in progressive commits `f4d6dfa`, `b0482b2`, and `8d48185`; this final record adds no scientific source change. The exporter, its concurrent changes, the task index and inherited unreadable artifacts remain outside the work. No training, historical campaign, generated scientific data or whole-book recertification occurred.
+
+## Completion pass: plateau/fitting proof package
+
+The two final fragments (947 and 151 lines) have paired complete clean
+independent isolated reviews A2/B2 at identical hashes. Original A1 input and
+report remain preserved. The standalone accepted edition contains only the
+27 scientific inputs, omits pending API edits, and passes the library boundary
+and local-link checker on all 25 docs/code files. The mathematical fragments
+occur byte-exactly once; removing their insertion recovers the previous
+special-data chapter. See `reviews/FINAL_PLATEAU_STANDALONE.md`,
+`reviews/FINAL_PLATEAU_CHECKS.json`, and `reviews/FINAL_PLATEAU_LIBRARY_INPUTS.json`.
+No implementation or empirical result changed in this proof package. Its
+previous test acceptance is not represented as a new run. The combined
+completion pass will test new finite APIs independently and again standalone.
+All inherited readable hashes and unreadable-file metadata match
+`FINAL_COMPLETION_START.json`; no concurrent file was staged.

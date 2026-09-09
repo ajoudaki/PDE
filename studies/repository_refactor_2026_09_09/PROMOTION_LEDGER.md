@@ -144,3 +144,12 @@ Frozen quadratic and ReLU source-specific assembly is now accepted in finite-dyn
 The coherent kernel and finite tangent-geometry additions now have paired full CLEAN reviews. The latter includes actual positive nuclear/intrinsic-volume bounds and their Gaussian expectations, not only the deterministic reached obstruction. Its exact hidden-projection factor remains unbounded below; no covariance, hidden-entropy or adaptive-query theorem is inferred. These completed incorporations supersede the corresponding earlier editorial deferrals.
 
 The resumed four-package edition has final CLEAN scoped integration acceptance on the unchanged 27-file scientific library. All 90 tests and the guide example passed independently; the first sandbox-limited report remains preserved. The exact 8,983-line read scope and 23,500-line unread complement are explicit. No earlier global, population, fitting, uniqueness, Gaussian-typical or cap-removal conclusion is enlarged.
+
+The completion pass after `8bda541` now incorporates plateau geometry,
+continuous-time confinement and selected conditional path-law compactness,
+protected force/return identities, finite fitting/restart obstructions, and
+conditional necessary fitting distance/time scales for the odd near-identity
+family. Both complete final isolated reviews are clean at the hashes in the
+acceptance record. This is actual proof incorporation in the existing
+special-data chapter; other FINAL candidates remain unaccepted until their
+own complete reviews and checks. No training or global proof campaign is reopened.

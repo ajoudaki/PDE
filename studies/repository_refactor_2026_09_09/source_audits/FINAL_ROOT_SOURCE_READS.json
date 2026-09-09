@@ -1,0 +1,128 @@
+[
+  {
+    "path": "studies/practical_fixed_depth2/CONTRACT.md",
+    "read": "complete",
+    "lines": 59,
+    "sha256": "d121fbd08111d4470ec34aae8ffc0e399d31150326023c374cdda984ab098d83"
+  },
+  {
+    "path": "studies/practical_fixed_depth2/development/PLATEAU_GEOMETRY.md",
+    "read": "complete",
+    "lines": 337,
+    "sha256": "64b2f0400baf93bfe3ac1c8d85c0da16149c354fb602e7ed2d547fb11af6dcbc"
+  },
+  {
+    "path": "studies/practical_fixed_depth2/development/PLATEAU_CONFINEMENT.md",
+    "read": "complete",
+    "lines": 221,
+    "sha256": "e66b09fd0b115113da658cff6a0e7f3da3ddbc5401360b275546cdacb027b5d3"
+  },
+  {
+    "path": "studies/practical_fixed_depth2/development/PLATEAU_PATH_COMPACTNESS.md",
+    "read": "complete",
+    "lines": 166,
+    "sha256": "0bbdc1bd61754f3a8aa2df7d06da987f7ac7670ddd52dbe76903e1ac97c74436"
+  },
+  {
+    "path": "studies/practical_fixed_depth2/development/PLATEAU_HOSTILE.md",
+    "read": "complete",
+    "lines": 393,
+    "sha256": "1ef04b00771dc0b5d2d51ddab459f0d468c5bb51a7b1c360b899a319334bf10e"
+  },
+  {
+    "path": "studies/practical_fixed_depth2/development/FEATURE_MOBILITY_HOSTILE.md",
+    "read": "complete",
+    "lines": 171,
+    "sha256": "b63be6b3a04ef5ad61bc18d9d9a2aa29e57b555494c0a69aeb35cbd0a76064c2"
+  },
+  {
+    "path": "studies/practical_fixed_depth2/reviews/PLATEAU_CONFINEMENT_R1_ONE.md",
+    "read": "complete",
+    "lines": 47,
+    "sha256": "919de628f2306a0961424ce33f48e6bb800cfffd4b375bef41ccc43689c5893b"
+  },
+  {
+    "path": "studies/practical_fixed_depth2/reviews/PLATEAU_CONFINEMENT_FINAL_TWO.md",
+    "read": "complete",
+    "lines": 35,
+    "sha256": "17eff52c91a85cfcdb08e556abf188409e85f91dec4692f8a339aa83c896d8e1"
+  },
+  {
+    "path": "studies/practical_fixed_depth2/reviews/PLATEAU_CONFINEMENT_FINAL_THREE.md",
+    "read": "complete",
+    "lines": 19,
+    "sha256": "6cc755db7bf947485240a3ff3db422147d1730bf9ab30e94c06920932170e853"
+  },
+  {
+    "path": "studies/three_sample_near_identity_all_depths/NECESSARY_FITTING_SCALE.md",
+    "read": "complete",
+    "lines": 142,
+    "sha256": "98705d5550bb977f26712e273b47592340ba2899cf952025889b386349af1fbd"
+  },
+  {
+    "path": "studies/three_sample_near_identity_all_depths/reviews/SOURCE_PARTIAL_REVIEW.md",
+    "read": "complete",
+    "lines": 127,
+    "sha256": "e982cd2b8896897384cdf823eca326e1a37fdc7f3a441bdf50fa24b7ca39f899"
+  },
+  {
+    "path": "studies/three_sample_near_identity_all_depths/reviews/LIMITS_PARTIAL_REVIEW.md",
+    "read": "complete",
+    "lines": 157,
+    "sha256": "7ce21bd148434d3a9681a4db4d195439b27cb315cfb2570a3b8bee0416f4374d"
+  },
+  {
+    "path": "studies/resnet_operator_core/theory/operator_galerkin_pde.md",
+    "read": "complete",
+    "lines": 334,
+    "sha256": "f7e3510d809be46eb24ca265894ebef10bbf87a66283ef30b34897f704bfc548"
+  },
+  {
+    "path": "studies/resnet_operator_core/audits/pde_derivation.md",
+    "read": "complete; initial truncated display recovered in separate ranges",
+    "lines": 805,
+    "sha256": "59ec4967863eb0346e83ae17f83aca419f2dffa27c792fec51c4ef6af5987a1a"
+  },
+  {
+    "path": "studies/resnet_operator_core/audits/final_adversarial_pde_audit.md",
+    "read": "complete; initial truncated display recovered in separate ranges",
+    "lines": 538,
+    "sha256": "fc5a6636d9931ffacf2688458a66c7b6f359724fe6410335994ab365f1266947"
+  },
+  {
+    "path": "studies/resnet_bridgeability/REPORT.md",
+    "read": "complete",
+    "lines": 331,
+    "sha256": "ca1ee7ca5a0f18e3b44f2e3a8afd398634f70be8d3ce326c76a4a4a8868111a9"
+  },
+  {
+    "path": "studies/resnet_tail_compactness/COMPACTNESS_REPORT.md",
+    "read": "1\u2013360; mathematical sections only, empirical remainder not promoted",
+    "lines": 500,
+    "sha256": "268c585841abae82509801055ad2eb90d57d8ba00b605092356763621b1bfa4f"
+  },
+  {
+    "path": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/GAUSSIAN_ACTION_LP_OBSTRUCTION.md",
+    "read": "complete",
+    "lines": 255,
+    "sha256": "66bab078eb40ac789cf4f818485db07aaec7c1b4f6c9b3b5eb254d5d89bf322c"
+  },
+  {
+    "path": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/GAUSSIAN_ACTION_LP_REVIEW.md",
+    "read": "complete",
+    "lines": 502,
+    "sha256": "6ac0c2b1c9b0322a2608016504785223297119abf906596a6065b0b23455a45b"
+  },
+  {
+    "path": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/LOCAL_ACTION_SPACE_AND_FLOW.md",
+    "read": "complete",
+    "lines": 271,
+    "sha256": "a61dda52b01e6f44c2bc5cb345d442e84ff6a7dd0de30bc709aa85bf18490482"
+  },
+  {
+    "path": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/L3_FIXED_MESH_SOURCE_IDENTIFICATION.md",
+    "read": "complete",
+    "lines": 241,
+    "sha256": "ba5cd7a52674a2031bf18ccb633bbb6eeeadd8f2a207369b38695d66ec40c03a"
+  }
+]

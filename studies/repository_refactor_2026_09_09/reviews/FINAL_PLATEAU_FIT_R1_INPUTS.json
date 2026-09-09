@@ -1,0 +1,17 @@
+[
+  {
+    "path": "studies/repository_refactor_2026_09_09/reviews/FINAL_PLATEAU_R1_CANDIDATE.md",
+    "sha256": "459a0b230266c2f1078ae26c015504f189098cca3d27c8e03bbcec834851d790",
+    "lines": 930
+  },
+  {
+    "path": "studies/repository_refactor_2026_09_09/FINAL_FITTING_SCALE_ADDITION.md",
+    "sha256": "089389fe7c7e0111ff62be4bd1f5846e6266a9ba168da60316ced8557eb8050d",
+    "lines": 151
+  },
+  {
+    "path": "docs/NOTATION.md",
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "lines": 98
+  }
+]
