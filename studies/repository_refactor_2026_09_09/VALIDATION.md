@@ -116,7 +116,7 @@ The coordinator has repeated these current, explicitly selected suites:
 |---|---:|---|
 | ResNet/operator/quadratic and metadata routing | 56 | Two Python interfaces clean in the first patch review; wrapper clean in a fresh repair review |
 | Gaussian/MFP/identity/causal analyzer routing | 60 | CLEAN for eleven latest repaired interfaces plus bounded regression compatibility |
-| Seven-study raw/analysis/archival routing | 108 | Latest two analyzers and record writer under fresh patch review |
+| Seven-study raw/analysis/archival routing | 111 | Activation interfaces clean within the three-interface review; final generalization path-planning repair under fresh review |
 
 The first slice's seven broad reviews found and motivated CLI forwarding,
 source/input/output separation, checkpoint/export distinction, consumed trace
@@ -175,9 +175,19 @@ record's premature return before its stale-partial check. The subsequent
 preserves 148 of 151 original source callables byte-for-byte; exactly reversing
 the specified boundary insertions and block move restores all three complete
 original modules. All original test callables are unchanged. It adds 16 tests,
-and the coordinator passes the complete 108-test allowlist. A fresh isolated
-review of these three repaired interfaces is pending; the broad NOT CLEAN
-report is not relabeled by this repair record.
+and the coordinator passes the complete 108-test allowlist. The subsequent
+[three-interface review](reviews/STUDY_ROUTING_PATCH_ROUND1_report.md) passed
+22 selected existing tests and all its independent checks except four nested
+generalization-output layouts. Activation's two repaired interfaces were clean
+within that scope. The overall NOT CLEAN verdict remains unchanged.
+
+The final [named-file planning repair](source_audits/ANALYZER_OVERLAP_REPAIR.md)
+rejects equal or nested final/partial file destinations and incompatible
+existing file/directory roles, while allowing ordinary distinct products to
+share directories. Three added regression methods bring the coordinator's
+complete seven-study allowlist to 111 passing tests. All scientific bodies and
+original test methods still pass the exact preservation check. Fresh acceptance
+of this last local helper and its callsites is pending.
 
 These are bounded interface checks using AST extraction, mocked scientific
 work, inert metadata and small transport fixtures. They do not scientifically

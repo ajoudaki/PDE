@@ -1,0 +1,123 @@
+PRIVATE_DIRECTORY /tmp/resnet-patch-acceptance-FKChgWGP
+BEFORE_SHA256 {"studies/_output_paths.py": "8e67059e7083fcb5d230de92f1daa4387dba4da1c081e3f111180cef1e2cd02e", "studies/resnet_activation_controls/analyze_activation.py": "ae29dac3ee9ac9a9796d8a75a9a2d14dea4aea1bfe74bf040a969cc567fdf5de", "studies/resnet_activation_controls/output_paths.py": "dbd1ee0dac8b349b34fa32846ef637db0c4259cceeb9a0a75bffdde83191da91", "studies/resnet_activation_controls/run_experiment.py": "8f4db13f1a5102978ee8166a9df47988ddbdbaed744e1f74941e79de2771e62d", "studies/resnet_activation_controls/tests/test_migration_boundaries.py": "542b38c681217f5847168cce49da2ccedb3652af49abe35d753afea91d3362e9", "studies/resnet_generalization/analyze_generalization.py": "b989f077294a9e19c0ccd0eecb22a4eece2f2af8299426dd71815ea8aac39005", "studies/resnet_generalization/generalization_paths.py": "ccc364726bdce39dccd5fcc12559e1d628aa25db93e57ee9e511fa5176927b70", "studies/resnet_generalization/tests/test_writer_boundaries.py": "68513deb326e99895b7f9a047ecff9db1b7930a4324c23be2761f2ce8d25cc97"}
+test_analysis_writers_preserve_colliding_intermediates_and_targets (__main__.WriterBoundaryTests) ... ok
+test_analysis_writers_validate_before_mkdir_and_accept_regular_replacement (__main__.WriterBoundaryTests) ... ok
+test_distinct_regular_products_reach_original_first_loader_unchanged (__main__.AnalysisRoutingTests) ... ok
+test_every_named_final_and_partial_protects_selected_input_identity (__main__.AnalysisRoutingTests) ... ok
+test_every_occupied_partial_refuses_before_input_or_output_work (__main__.AnalysisRoutingTests) ... ok
+test_original_selected_directory_links_are_not_resolved_away (__main__.AnalysisRoutingTests) ... ok
+test_preflight_names_and_publication_order_match_actual_writer_ast (__main__.AnalysisRoutingTests) ... ok
+test_protected_namespace_destinations_refuse_without_creation (__main__.AnalysisRoutingTests) ... ok
+test_report_cannot_overlap_another_named_final_or_partial (__main__.AnalysisRoutingTests) ... ok
+test_report_refuses_each_consumed_input_and_link_alias (__main__.AnalysisRoutingTests) ... ok
+test_analysis_refuses_output_alias_before_loading_inputs (__main__.MigrationBoundaryTests) ... ok
+test_intermediate_aliases_and_stale_files_preserve_inputs (__main__.MigrationBoundaryTests) ... FIXTURE_SHA256 {"case": "_atomic_text/ordinary", "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e", "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"}
+FIXTURE_SHA256 {"case": "_atomic_text/hardlink", "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e", "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"}
+FIXTURE_SHA256 {"case": "_atomic_text/symlink", "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e", "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"}
+FIXTURE_SHA256 {"case": "_atomic_text/dangling", "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e", "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"}
+FIXTURE_SHA256 {"case": "_write_once/ordinary", "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e", "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"}
+FIXTURE_SHA256 {"case": "_write_once/hardlink", "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e", "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"}
+FIXTURE_SHA256 {"case": "_write_once/symlink", "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e", "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"}
+FIXTURE_SHA256 {"case": "_write_once/dangling", "before": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e", "after": "13f69aff18d5cf742d270bc768392fd8df05cb5f5a4a0e706dc909b8084a170e"}
+ok
+test_matching_final_does_not_hide_an_occupied_partial (__main__.MigrationBoundaryTests) ... ok
+test_named_directory_and_final_aliases_refuse_before_mkdir (__main__.MigrationBoundaryTests) ... ok
+test_regular_writes_and_write_once_idempotence_remain_available (__main__.MigrationBoundaryTests) ... ok
+test_all_named_finals_and_partials_protect_explicit_protocol_and_cases (__main__.AnalysisRoutingTests) ... ok
+test_distinct_regular_products_and_sibling_inputs_remain_usable (__main__.AnalysisRoutingTests) ... ok
+test_each_frozen_map_role_protects_finals_and_partials_in_both_seals (__main__.AnalysisRoutingTests) ... ok
+test_each_stale_partial_refuses_before_loading_or_publication (__main__.AnalysisRoutingTests) ... ok
+test_original_output_links_and_named_aliases_refuse_before_ingestion (__main__.AnalysisRoutingTests) ... ok
+test_preflight_names_and_guard_order_match_actual_publication_ast (__main__.AnalysisRoutingTests) ... ok
+test_selected_seal_and_archive_paths_protect_all_named_outputs (__main__.AnalysisRoutingTests) ... ok
+test_absent_selected_input_identity_still_refuses (__main__.Independent) ... ok
+test_activation_seals_use_pde_parent_even_with_separate_dense_parent (__main__.Independent) ... ok
+test_all_generalization_report_endpoint_collisions (__main__.Independent) ... ok
+test_all_named_link_occupancy_kinds (__main__.Independent) ... ok
+test_analyzer_source_role_uses_file_global_for_every_destination (__main__.Independent) ... ok
+test_generalization_input_roles_cross_all_finals_and_partials (__main__.Independent) ... ok
+test_generalization_named_file_destinations_cannot_be_ancestors (__main__.Independent) ... test_guards_recheck_changed_private_paths (__main__.Independent) ... ok
+test_identical_final_with_occupied_partial_refuses_before_final_read (__main__.Independent) ... ok
+test_mapped_input_spellings_and_link_identity_both_stages (__main__.Independent) ... ok
+test_ordinary_distinct_products_reach_first_read_and_preserve_bytes (__main__.Independent) ... ok
+test_original_spelling_survives_parent_dotdot_link (__main__.Independent) ... ok
+test_real_refresh_writers_and_write_once_changed_final (__main__.Independent) ... ok
+
+======================================================================
+ERROR: test_generalization_named_file_destinations_cannot_be_ancestors (__main__.Independent) (layout='report-is-output-parent')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/resnet-patch-acceptance-FKChgWGP/acceptance.py", line 256, in test_generalization_named_file_destinations_cannot_be_ancestors
+    self.refuse('g', args)
+  File "/tmp/resnet-patch-acceptance-FKChgWGP/acceptance.py", line 134, in refuse
+    env['run_analysis'](args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py", line 1466, in run_analysis
+    protocol = _json(root / "protocol" / "generalization_protocol.json")
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1173, in _execute_mock_call
+    raise effect
+StopIngestion: first ingestion tripwire
+
+======================================================================
+ERROR: test_generalization_named_file_destinations_cannot_be_ancestors (__main__.Independent) (layout='report-below-summary')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/resnet-patch-acceptance-FKChgWGP/acceptance.py", line 256, in test_generalization_named_file_destinations_cannot_be_ancestors
+    self.refuse('g', args)
+  File "/tmp/resnet-patch-acceptance-FKChgWGP/acceptance.py", line 134, in refuse
+    env['run_analysis'](args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py", line 1466, in run_analysis
+    protocol = _json(root / "protocol" / "generalization_protocol.json")
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1173, in _execute_mock_call
+    raise effect
+StopIngestion: first ingestion tripwire
+
+======================================================================
+ERROR: test_generalization_named_file_destinations_cannot_be_ancestors (__main__.Independent) (layout='figures-below-summary')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/resnet-patch-acceptance-FKChgWGP/acceptance.py", line 256, in test_generalization_named_file_destinations_cannot_be_ancestors
+    self.refuse('g', args)
+  File "/tmp/resnet-patch-acceptance-FKChgWGP/acceptance.py", line 134, in refuse
+    env['run_analysis'](args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py", line 1466, in run_analysis
+    protocol = _json(root / "protocol" / "generalization_protocol.json")
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1173, in _execute_mock_call
+    raise effect
+StopIngestion: first ingestion tripwire
+
+======================================================================
+ERROR: test_generalization_named_file_destinations_cannot_be_ancestors (__main__.Independent) (layout='output-below-report-partial')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/resnet-patch-acceptance-FKChgWGP/acceptance.py", line 256, in test_generalization_named_file_destinations_cannot_be_ancestors
+    self.refuse('g', args)
+  File "/tmp/resnet-patch-acceptance-FKChgWGP/acceptance.py", line 134, in refuse
+    env['run_analysis'](args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py", line 1466, in run_analysis
+    protocol = _json(root / "protocol" / "generalization_protocol.json")
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1173, in _execute_mock_call
+    raise effect
+StopIngestion: first ingestion tripwire
+
+----------------------------------------------------------------------
+Ran 35 tests in 24.831s
+
+FAILED (errors=4)
+AFTER_SHA256 {"studies/_output_paths.py": "8e67059e7083fcb5d230de92f1daa4387dba4da1c081e3f111180cef1e2cd02e", "studies/resnet_activation_controls/analyze_activation.py": "ae29dac3ee9ac9a9796d8a75a9a2d14dea4aea1bfe74bf040a969cc567fdf5de", "studies/resnet_activation_controls/output_paths.py": "dbd1ee0dac8b349b34fa32846ef637db0c4259cceeb9a0a75bffdde83191da91", "studies/resnet_activation_controls/run_experiment.py": "8f4db13f1a5102978ee8166a9df47988ddbdbaed744e1f74941e79de2771e62d", "studies/resnet_activation_controls/tests/test_migration_boundaries.py": "542b38c681217f5847168cce49da2ccedb3652af49abe35d753afea91d3362e9", "studies/resnet_generalization/analyze_generalization.py": "b989f077294a9e19c0ccd0eecb22a4eece2f2af8299426dd71815ea8aac39005", "studies/resnet_generalization/generalization_paths.py": "ccc364726bdce39dccd5fcc12559e1d628aa25db93e57ee9e511fa5176927b70", "studies/resnet_generalization/tests/test_writer_boundaries.py": "68513deb326e99895b7f9a047ecff9db1b7930a4324c23be2761f2ce8d25cc97"}
+RESULT {"tests": 35, "subtests": 1314, "failures": 0, "errors": 4, "unchanged": true}

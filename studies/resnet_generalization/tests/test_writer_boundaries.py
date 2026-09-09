@@ -311,6 +311,43 @@ class AnalysisRoutingTests(unittest.TestCase):
         self.assertLess(guards[0], next(i for i, n in enumerate(calls) if n.startswith('protocol = _json')))
         self.assertEqual(calls[guards[1]+1], 'figure_paths = _figures(records, curves, figures_dir)')
 
+    def test_nested_file_destinations_refuse_before_ingestion(self):
+        for layout in ('report-is-output', 'report-below-summary',
+                       'figures-below-summary', 'output-below-report-partial'):
+            with self.subTest(layout=layout), tempfile.TemporaryDirectory() as tmp:
+                args = self.args(Path(tmp))
+                if layout == 'report-is-output':
+                    args.report = args.output_dir
+                elif layout == 'report-below-summary':
+                    args.report = args.output_dir/'summary.json'/'report.md'
+                elif layout == 'figures-below-summary':
+                    args.figures_dir = args.output_dir/'summary.json'
+                else:
+                    args.output_dir = args.report.with_name(args.report.name+'.partial')/'products'
+                self.refused(args)
+
+    def test_named_file_destinations_refuse_existing_directories(self):
+        for index in range(9):
+            with self.subTest(output=index), tempfile.TemporaryDirectory() as tmp:
+                args = self.args(Path(tmp))
+                target = self.outputs(args)[index]
+                target.mkdir(parents=True)
+                retained = target/'retained.txt'
+                retained.write_bytes(b'not an output file')
+                self.refused(args)
+                self.assertEqual(retained.read_bytes(), b'not an output file')
+                self.assertEqual(list(target.iterdir()), [retained])
+
+    def test_named_file_destinations_refuse_existing_file_parents(self):
+        for field in ('report', 'output_dir', 'figures_dir', 'results_dir'):
+            with self.subTest(field=field), tempfile.TemporaryDirectory() as tmp:
+                args = self.args(Path(tmp))
+                blocker = Path(tmp)/'ordinary-file'
+                blocker.write_bytes(b'not an output directory')
+                setattr(args, field, blocker/'child')
+                self.refused(args)
+                self.assertEqual(blocker.read_bytes(), b'not an output directory')
+
 
 if __name__ == '__main__':
     unittest.main()

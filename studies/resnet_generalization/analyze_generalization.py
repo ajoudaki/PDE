@@ -1440,11 +1440,16 @@ def _preflight_analysis_outputs(args: argparse.Namespace) -> None:
         final = require_output(selected)
         partial = require_output(selected.with_name(selected.name + ".partial"))
         for target in (final, partial):
+            if (target.exists() and not target.is_file()) or any(
+                parent.exists() and not parent.is_dir() for parent in target.parents
+            ):
+                raise ValueError(f"analysis file destination has incompatible file/directory roles: {target}")
             if any(target == source or (
                 target.exists() and source.exists() and target.samefile(source)
             ) for source in sources):
                 raise ValueError(f"analysis output aliases an input: {target}")
-            if target in seen:
+            if any(target == other or target in other.parents or other in target.parents
+                   for other in seen):
                 raise ValueError(f"analysis outputs overlap: {target}")
             seen.add(target)
         if partial.exists():

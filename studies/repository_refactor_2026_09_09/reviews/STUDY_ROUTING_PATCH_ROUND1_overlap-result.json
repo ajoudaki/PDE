@@ -1,0 +1,22 @@
+{
+  "layout": "report = output_dir",
+  "selected_report": "/tmp/resnet-patch-acceptance-FKChgWGP/overlap-evidence/products",
+  "nested_summary": "/tmp/resnet-patch-acceptance-FKChgWGP/overlap-evidence/products/summary.json",
+  "initial_guard": "accepted",
+  "whole_entry": "reached first _json; stopped without ingestion or directory creation",
+  "repeated_guard": "accepted",
+  "writer_consequence": "[Errno 21] Is a directory: '/tmp/resnet-patch-acceptance-FKChgWGP/overlap-evidence/products.partial' -> '/tmp/resnet-patch-acceptance-FKChgWGP/overlap-evidence/products'",
+  "already_published": {
+    "/tmp/resnet-patch-acceptance-FKChgWGP/overlap-evidence/products/summary.json": "ea7d0c9612bb80b89dd547ba27a9f6fccd4168eb42cce44c4909b050afe1fad5",
+    "/tmp/resnet-patch-acceptance-FKChgWGP/overlap-evidence/products/case_metrics.csv": "7dfecc4aacc22438459ce22b089abe8131c996332389580f17dd4ff9b8ae541f",
+    "/tmp/resnet-patch-acceptance-FKChgWGP/overlap-evidence/products/numerical_metrics.csv": "7dfecc4aacc22438459ce22b089abe8131c996332389580f17dd4ff9b8ae541f",
+    "/tmp/resnet-patch-acceptance-FKChgWGP/overlap-evidence/products/plateau_metrics.csv": "7dfecc4aacc22438459ce22b089abe8131c996332389580f17dd4ff9b8ae541f",
+    "/tmp/resnet-patch-acceptance-FKChgWGP/overlap-evidence/figures/all_case_errors.png": "e7f108c0a7143e8bf492bda09735aa09ca5103ec159e5f509a6d1159144eca7f",
+    "/tmp/resnet-patch-acceptance-FKChgWGP/overlap-evidence/figures/loss_curves.png": "e7f108c0a7143e8bf492bda09735aa09ca5103ec159e5f509a6d1159144eca7f",
+    "/tmp/resnet-patch-acceptance-FKChgWGP/overlap-evidence/figures/gram_motion_curves.png": "e7f108c0a7143e8bf492bda09735aa09ca5103ec159e5f509a6d1159144eca7f"
+  },
+  "retained_partial": {
+    "/tmp/resnet-patch-acceptance-FKChgWGP/overlap-evidence/products.partial": "f0930ff03b28bba672b0e7edc33c6d24339c4b54736574041715e70ff14a216d"
+  },
+  "source_test_helper_hashes_unchanged": true
+}

@@ -1,0 +1,239 @@
+
+======================================================================
+ERROR: test_nested_file_destinations_refuse_before_ingestion (studies.resnet_generalization.tests.test_writer_boundaries.AnalysisRoutingTests) (layout='report-is-output')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 327, in test_nested_file_destinations_refuse_before_ingestion
+    self.refused(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 184, in refused
+    run(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py", line 1466, in run_analysis
+    protocol = _json(root / "protocol" / "generalization_protocol.json")
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1173, in _execute_mock_call
+    raise effect
+RuntimeError: stop before ingestion
+
+======================================================================
+ERROR: test_nested_file_destinations_refuse_before_ingestion (studies.resnet_generalization.tests.test_writer_boundaries.AnalysisRoutingTests) (layout='report-below-summary')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 327, in test_nested_file_destinations_refuse_before_ingestion
+    self.refused(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 184, in refused
+    run(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py", line 1466, in run_analysis
+    protocol = _json(root / "protocol" / "generalization_protocol.json")
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1173, in _execute_mock_call
+    raise effect
+RuntimeError: stop before ingestion
+
+======================================================================
+ERROR: test_nested_file_destinations_refuse_before_ingestion (studies.resnet_generalization.tests.test_writer_boundaries.AnalysisRoutingTests) (layout='figures-below-summary')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 327, in test_nested_file_destinations_refuse_before_ingestion
+    self.refused(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 184, in refused
+    run(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py", line 1466, in run_analysis
+    protocol = _json(root / "protocol" / "generalization_protocol.json")
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1173, in _execute_mock_call
+    raise effect
+RuntimeError: stop before ingestion
+
+======================================================================
+ERROR: test_nested_file_destinations_refuse_before_ingestion (studies.resnet_generalization.tests.test_writer_boundaries.AnalysisRoutingTests) (layout='output-below-report-partial')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 327, in test_nested_file_destinations_refuse_before_ingestion
+    self.refused(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 184, in refused
+    run(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py", line 1466, in run_analysis
+    protocol = _json(root / "protocol" / "generalization_protocol.json")
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1173, in _execute_mock_call
+    raise effect
+RuntimeError: stop before ingestion
+
+======================================================================
+ERROR: test_named_file_destinations_refuse_existing_directories (studies.resnet_generalization.tests.test_writer_boundaries.AnalysisRoutingTests) (output=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 337, in test_named_file_destinations_refuse_existing_directories
+    self.refused(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 184, in refused
+    run(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py", line 1466, in run_analysis
+    protocol = _json(root / "protocol" / "generalization_protocol.json")
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1173, in _execute_mock_call
+    raise effect
+RuntimeError: stop before ingestion
+
+======================================================================
+ERROR: test_named_file_destinations_refuse_existing_directories (studies.resnet_generalization.tests.test_writer_boundaries.AnalysisRoutingTests) (output=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 337, in test_named_file_destinations_refuse_existing_directories
+    self.refused(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 184, in refused
+    run(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py", line 1466, in run_analysis
+    protocol = _json(root / "protocol" / "generalization_protocol.json")
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1173, in _execute_mock_call
+    raise effect
+RuntimeError: stop before ingestion
+
+======================================================================
+ERROR: test_named_file_destinations_refuse_existing_directories (studies.resnet_generalization.tests.test_writer_boundaries.AnalysisRoutingTests) (output=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 337, in test_named_file_destinations_refuse_existing_directories
+    self.refused(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 184, in refused
+    run(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py", line 1466, in run_analysis
+    protocol = _json(root / "protocol" / "generalization_protocol.json")
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1173, in _execute_mock_call
+    raise effect
+RuntimeError: stop before ingestion
+
+======================================================================
+ERROR: test_named_file_destinations_refuse_existing_directories (studies.resnet_generalization.tests.test_writer_boundaries.AnalysisRoutingTests) (output=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 337, in test_named_file_destinations_refuse_existing_directories
+    self.refused(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 184, in refused
+    run(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py", line 1466, in run_analysis
+    protocol = _json(root / "protocol" / "generalization_protocol.json")
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1173, in _execute_mock_call
+    raise effect
+RuntimeError: stop before ingestion
+
+======================================================================
+ERROR: test_named_file_destinations_refuse_existing_directories (studies.resnet_generalization.tests.test_writer_boundaries.AnalysisRoutingTests) (output=4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 337, in test_named_file_destinations_refuse_existing_directories
+    self.refused(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 184, in refused
+    run(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py", line 1466, in run_analysis
+    protocol = _json(root / "protocol" / "generalization_protocol.json")
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1173, in _execute_mock_call
+    raise effect
+RuntimeError: stop before ingestion
+
+======================================================================
+ERROR: test_named_file_destinations_refuse_existing_directories (studies.resnet_generalization.tests.test_writer_boundaries.AnalysisRoutingTests) (output=5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 337, in test_named_file_destinations_refuse_existing_directories
+    self.refused(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 184, in refused
+    run(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py", line 1466, in run_analysis
+    protocol = _json(root / "protocol" / "generalization_protocol.json")
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1173, in _execute_mock_call
+    raise effect
+RuntimeError: stop before ingestion
+
+======================================================================
+ERROR: test_named_file_destinations_refuse_existing_directories (studies.resnet_generalization.tests.test_writer_boundaries.AnalysisRoutingTests) (output=6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 337, in test_named_file_destinations_refuse_existing_directories
+    self.refused(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 184, in refused
+    run(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py", line 1466, in run_analysis
+    protocol = _json(root / "protocol" / "generalization_protocol.json")
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1173, in _execute_mock_call
+    raise effect
+RuntimeError: stop before ingestion
+
+======================================================================
+ERROR: test_named_file_destinations_refuse_existing_directories (studies.resnet_generalization.tests.test_writer_boundaries.AnalysisRoutingTests) (output=7)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 337, in test_named_file_destinations_refuse_existing_directories
+    self.refused(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 184, in refused
+    run(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py", line 1466, in run_analysis
+    protocol = _json(root / "protocol" / "generalization_protocol.json")
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1173, in _execute_mock_call
+    raise effect
+RuntimeError: stop before ingestion
+
+======================================================================
+ERROR: test_named_file_destinations_refuse_existing_directories (studies.resnet_generalization.tests.test_writer_boundaries.AnalysisRoutingTests) (output=8)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 337, in test_named_file_destinations_refuse_existing_directories
+    self.refused(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py", line 184, in refused
+    run(args)
+  File "/home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py", line 1466, in run_analysis
+    protocol = _json(root / "protocol" / "generalization_protocol.json")
+  File "/usr/lib/python3.10/unittest/mock.py", line 1114, in __call__
+    return self._mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1118, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+  File "/usr/lib/python3.10/unittest/mock.py", line 1173, in _execute_mock_call
+    raise effect
+RuntimeError: stop before ingestion
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.279s
+
+FAILED (errors=13)
