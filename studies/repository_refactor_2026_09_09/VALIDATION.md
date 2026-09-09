@@ -447,3 +447,13 @@ FINAL_CALCULUS_CHECKS.json records exact insertion, earlier definition/proof
 preservation and all inherited-work checks; FINAL_CALCULUS_STANDALONE.md records
 the standalone test/example outputs. No training, numerical trajectory or
 historical coefficient campaign was run.
+
+## Completion pass: nonlinear families and adaptive controls
+
+The two nonlinear and two controls final complete isolated reviews are clean
+at the exact candidate/dependency hashes in the acceptance record. The maintained
+four-chapter assembly passes the standalone 25-file boundary/local-link check;
+removing its recorded insertions exactly recovers d220cff chapter bodies.
+FINAL_NONLINEAR_CONTROLS_CHECKS.json records report hashes and unchanged inherited
+work. The scientific implementation is unchanged and retains its 106-test result.
+No new training, historical campaign or numerical evidence is introduced.

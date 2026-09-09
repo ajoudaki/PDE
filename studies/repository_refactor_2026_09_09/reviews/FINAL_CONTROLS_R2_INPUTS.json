@@ -1,0 +1,14 @@
+{
+  "studies/repository_refactor_2026_09_09/FINAL_CONTROLS_ADDITION.md": {
+    "sha256": "6a5c29d04b5efade2d13b5c404fde669933dbece31a6ee68590f1f596887d135",
+    "lines": 4308
+  },
+  "studies/repository_refactor_2026_09_09/reviews/FINAL_CONTROLS_DEPENDENCIES.md": {
+    "sha256": "e36cf31741b43271b66b1c21469fcba2dfff6cb170e1a55ac9070cab2465d1e4",
+    "lines": 245
+  },
+  "docs/NOTATION.md": {
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "lines": 98
+  }
+}

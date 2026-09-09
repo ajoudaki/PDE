@@ -1,0 +1,57 @@
+{
+  "head_before": "d220cff113f88ccbe79c5fe631663c9c30337c75",
+  "nonlinear_candidate_sha256": "f9c8371a2b3828e73e0ce19a9d3ad59c3ade7adc3f6aac9c4ae2e8a40bb8c882",
+  "controls_candidate_sha256": "426fab7e5fda6c8e31747d5cddb3501892577fb26bec762c910c6680cf1e0dc2",
+  "nonlinear_abc_bytes": 94727,
+  "nonlinear_i4_replaced_by_complete_controls_E": true,
+  "i4_retained_remark_equation_mapping": "(13)-(15) -> finite-controls (E.13)\u2013(E.15)",
+  "routing_only_intro_edits": [
+    "top heading level",
+    "Result to insert -> Result",
+    "within chapter -> within library",
+    "explicit internal destination/dependency pointers"
+  ],
+  "insertions": [
+    {
+      "path": "docs/global_nonlinear.md",
+      "sha256": "83b0678963731dca785315eb14369101c5775d92a4135f85e07eda3d7e8e0e40",
+      "bytes": 99845,
+      "lines": 2033
+    },
+    {
+      "path": "docs/special_data_limits.md",
+      "sha256": "4ce54eb5649fdd132c8c0e81e5cff862bcba63bdae84317624d6acccefdc0f14",
+      "bytes": 623929,
+      "lines": 13320
+    },
+    {
+      "path": "docs/finite_optimization_and_controls.md",
+      "sha256": "b43872cac93bd9d4d13a3a9d08cf8720e6d53647388f830c318d37a3a8f82b3a",
+      "bytes": 65222,
+      "lines": 1718
+    },
+    {
+      "path": "docs/gaussian_calculus.md",
+      "sha256": "de03ea247919ae9cf463a5e9e88959b69ff1cf4acfe5a9f5958edac32bfeb744",
+      "bytes": 103538,
+      "lines": 2603
+    }
+  ],
+  "pure_typesetting_transforms": [
+    {
+      "path": "docs/special_data_limits.md",
+      "prior_insertion_sha256": "65ee644bb90725e18698467c3296f8f548c4788ba1c07d545f1edf30035b479d",
+      "change": "remove trailing whitespace; delimit one ASCII formula as inline code to avoid false Markdown link"
+    },
+    {
+      "path": "docs/finite_optimization_and_controls.md",
+      "prior_insertion_sha256": "d7fe35abfe0439b4dff2ec63c5527a9529d7b96b08520c65739a480cc616546a",
+      "change": "remove trailing whitespace"
+    },
+    {
+      "path": "docs/gaussian_calculus.md",
+      "prior_insertion_sha256": "01e85afbd42edba7aa2a86c7e50e5678ea96e9a05f28a1f4d2fe8a690393c519",
+      "change": "remove trailing whitespace"
+    }
+  ]
+}

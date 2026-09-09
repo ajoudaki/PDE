@@ -171,3 +171,11 @@ all 106 selected deterministic tests pass. Two fresh complete isolated proof/cod
 reviews are clean at the exact manifest bytes. High-order numerical tables,
 formal-symbolic/nonpolynomial head modes and unproved neural/time bridges remain
 separate from this acceptance.
+
+The completion pass now incorporates the full broad/qualified nonlinear family
+and adaptive-control proofs after paired complete clean isolated reviews. This
+supersedes earlier source-import and concentration-proof editorial holds for the
+exact scopes in the acceptance record. Existing global_nonlinear, special_data_limits,
+finite_optimization_and_controls and gaussian_calculus chapters contain all their
+arguments and dependencies. Growing-cap comparison remains same-cap comparison;
+conditional endpoints and compactness do not become uncut existence or uniqueness.

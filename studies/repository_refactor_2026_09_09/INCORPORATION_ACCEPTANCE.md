@@ -683,3 +683,70 @@ are recorded under reviews/FINAL_CALCULUS. The exporter, .gitignore, task index
 and inherited unreadable artifacts remain outside this commit; the latter have
 metadata-only preservation checks. Remaining nonlinear, controls and scope
 packets continue through full reviews and final coverage reconciliation.
+
+## Completion pass: broad nonlinear families and adaptive physical controls
+
+The preceding exact-calculus package is committed at `d220cff`. Two complete
+proof packets now extend four existing chapters, with full dependencies already
+in the maintained library. The coordinator read both source-assembly records,
+complete candidates and all final reports. Exact candidates and their supplied
+complete dependencies are sealed in FINAL_NONLINEAR_R2_INPUTS.json and
+FINAL_CONTROLS_R3_INPUTS.json under reviews/.
+
+| Candidate | Lines | SHA256 | Two final complete isolated reviews |
+|---|---:|---|---|
+| FINAL_NONLINEAR_ADDITION.md | 15616 | f9c8371a2b3828e73e0ce19a9d3ad59c3ade7adc3f6aac9c4ae2e8a40bb8c882 | FINAL_NONLINEAR_A2.md, FINAL_NONLINEAR_B2.md |
+| FINAL_CONTROLS_ADDITION.md | 4308 | 426fab7e5fda6c8e31747d5cddb3501892577fb26bec762c910c6680cf1e0dc2 | FINAL_CONTROLS_A3.md, FINAL_CONTROLS_B3.md |
+
+All four final verdicts are CLEAN with no required correction. Nonlinear
+reviewers each read all 18,582 supplied lines. Controls A3 read all 4,651 lines;
+B3 read those plus the separate 376-line shallow rate/dependency packet, giving
+5,027 lines, with distinct verdicts. Shallow rates still require their second
+independent review and are not included in this commit. Earlier adverse reports
+and exact previous candidates remain preserved. Nonlinear corrections supplied
+the complete variance asymptotic and removed unsupported fitting advertising;
+controls corrections supplied the full direct-noise law, maximum inequality,
+correct dimension and one malformed fraction. Corrected proofs received fresh
+complete reviews. Isolation means fresh context and an explicit allowed-input
+contract, not a physical filesystem restriction.
+
+The nonlinear additions contain linear-growth characteristic and fixed-product
+response foundations, the sharp Gaussian norm proof, global two-layer bounded
+readout/orthogonal-data and affine-first comparisons, and arbitrary-data local
+C1,1/sub-Gaussian results with their precise strict-activity scope. They also
+contain the full correlated two-sample offset, odd, general-shape and every-fixed-
+depth families, the three-sample odd large-gain family, moderate-sine initialization
+and local dynamics, conditional tail continuation, and memory/bracket/ambient
+obstructions. Depth, gain, separation powers, activation constants, Gaussian
+nondegeneracy, initialization, loss and algorithm qualifications are retained.
+They do not supply the remaining moderate-gain arbitrary-data global theorem.
+
+Controls contain actual squared-log response bounds; initialization and small-time
+Gaussian middle curvature; finite sine GF/GD energy and weak path-law compactness;
+conditional strong given-space endpoints; integrated frozen-query compression;
+the fully proved rectangular matrix martingale inequality and adaptive half-step
+application; the actual two-pass filtered algorithm, fixed/growing-cap deterministic
+comparison; and the exact complete adaptive two-matrix transcript law. The
+replacement's fresh innovation retains its unbounded predictable mean. Its
+bounded-Lipschitz transfer does not give unbounded moments or conditional laws.
+The growing cap may be o(log n); both compared systems use that same cap.
+No cap removal, uncut identification, population uniqueness, derivative-tail
+closure or filtered-to-physical-GD identification is inferred.
+
+The insertion map records all exact routing and pure typesetting changes.
+Nonlinear I.4's duplicated finite sine argument routes to the complete, corrected
+controls E proof in finite_optimization_and_controls; its local-source remark
+is retained with equation references translated. No distinct theorem is dropped.
+One ASCII formula is code-delimited to avoid a false Markdown link, and three
+trailing spaces are removed. These presentation changes do not alter mathematics.
+All four prior chapter bodies are recovered byte-exactly by removing the recorded
+insertions. No maintained dependency points to historical material.
+
+The accepted 27-file standalone edition passes the 25-file boundary/local-link
+check. The implementation is byte-identical to d220cff and retains its 106-test
+acceptance without claiming a new test run. Exact inventories, report hashes,
+insertion checks and concurrent-work preservation are in
+reviews/FINAL_NONLINEAR_CONTROLS_CHECKS.json. Exporter/.gitignore/task-index work
+and unreadable inherited artifacts remain outside the scoped commit; the latter
+receive metadata-only checks. Remaining scope, Gaussian-readout and identity/rate
+proofs continue through full review before final coverage closure.

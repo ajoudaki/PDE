@@ -1,0 +1,17 @@
+[
+  {
+    "path": "studies/repository_refactor_2026_09_09/FINAL_NONLINEAR_ADDITION.md",
+    "sha256": "88d726339ac16a5f2b43d0085f2f556df2aa8d0bbf4226040dc81dd80495484b",
+    "lines": 15597
+  },
+  {
+    "path": "studies/repository_refactor_2026_09_09/reviews/FINAL_NONLINEAR_DEPENDENCIES.md",
+    "sha256": "5104e50fdea12bd04b274016750cbd165a916529152137cf247d1d6ccbe8fa6f",
+    "lines": 2868
+  },
+  {
+    "path": "docs/NOTATION.md",
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "lines": 98
+  }
+]

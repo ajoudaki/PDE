@@ -371,3 +371,16 @@ shallow identity raw-GD/positive measure and exact finite threshold algebra are
 also included. This does not import high-order numerical tables, arbitrary
 symbolic covariance as a Gaussian law, or the canonical quadratic GF/adaptive
 bridge. The exact scopes and unimplemented optional modes are in acceptance.
+
+### Completion-pass acceptance: nonlinear and adaptive controls
+
+The formerly pending nonlinear family and controls packets are now incorporated
+at the exact reviewed scopes in INCORPORATION_ACCEPTANCE.md. Complete maintained
+proofs supersede the earlier assembly/import holds: broad bounded-readout L2,
+affine-first and local C1,1; offset/odd/general-shape/depth/gain correlated families;
+moderate-sine local/conditional results; physical response/curvature and finite
+energy controls; integrated/adaptive query compression, contained matrix martingale
+proof, two-pass filtered algorithm, o(log n) same-cap comparison and complete
+adaptive transcript law. Their remaining reachable-tail, uncut, physical-algorithm
+and general-data global dependencies remain explicit. Final coverage reconciliation
+will distinguish the remaining live established assembly from those actual gaps.

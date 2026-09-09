@@ -1,0 +1,160 @@
+{
+  "head_before": "d220cff113f88ccbe79c5fe631663c9c30337c75",
+  "standalone_path": "/tmp/pde_final_nonlinear_controls_book_nrd4ge4p",
+  "structural_check": "Library boundary and local links checked: 25 files.",
+  "accepted_files": 27,
+  "inherited_preservation": [
+    {
+      "path": ".gitignore",
+      "mode": "0o660",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 461,
+      "mtime_ns": 1788982243339943279,
+      "sha256": "bf9e25889d63c4d97a614457f0af687027e0e0b0afcdf3e8062600a9d10fcc1e"
+    },
+    {
+      "path": "code/tests/test_book_exporter.py",
+      "mode": "0o664",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 6283,
+      "mtime_ns": 1788982243059936433,
+      "sha256": "8ecde48a39b08cf336b2e87884107392e694785773dc973c0808d96f6bf0725c"
+    },
+    {
+      "path": "code/tools/book_pdf/README.md",
+      "mode": "0o664",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 4971,
+      "mtime_ns": 1788982242775929488,
+      "sha256": "74dd2c7a2f3deb7a8f6d5ececbf442974659570b198c618c6e1046851c085f5e"
+    },
+    {
+      "path": "code/tools/book_pdf/build-pdf.sh",
+      "mode": "0o764",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 553,
+      "mtime_ns": 1788982262476411126,
+      "sha256": "f826d05662cb7e8c340ef0dba7e1b70af7b9e94530f515f3dbf2b49d3ffef141"
+    },
+    {
+      "path": "code/tools/book_pdf/export_book.py",
+      "mode": "0o664",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 13810,
+      "mtime_ns": 1788982242491922544,
+      "sha256": "e2da7f3887a457ee2d2a4885a1c8ba31b9ca4cde49308da00075f78346d33a13"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_REPORT.md",
+      "mode": "0o600",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 6526,
+      "mtime_ns": 1788963216993681790,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_acceptance.py",
+      "mode": "0o600",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 20501,
+      "mtime_ns": 1788963216993681790,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_evidence.json",
+      "mode": "0o600",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 164582,
+      "mtime_ns": 1788963216997681887,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/EXACT_CAPTURE_ROUND2_B.md",
+      "mode": "0o600",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 47745,
+      "mtime_ns": 1788968431757160353,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/GUIDE_ADVISORY_INTEGRATION.md",
+      "mode": "0o600",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 21557,
+      "mtime_ns": 1788964143848130813,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/INCORPORATION_FINAL_INTEGRATION.md",
+      "mode": "0o600",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 40877,
+      "mtime_ns": 1788968767713405392,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/MAIN_ROUTING_PATCH_ROUND1_record-python",
+      "mode": "0o700",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 1137,
+      "mtime_ns": 1788961638254522868,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/MAIN_ROUTING_WRAPPER_ACCEPTANCE_record-python",
+      "mode": "0o700",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 1608,
+      "mtime_ns": 1788962221941085963,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/TASK_NAME_INDEX.md",
+      "mode": "0o664",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 8961,
+      "mtime_ns": 1788971690237912280,
+      "sha256": "48dc99c5f858eb3f67496b447a7b7cd76baabc4422e714d38656631aff871695"
+    }
+  ],
+  "reviews": [
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/FINAL_NONLINEAR_A2.md",
+      "sha256": "8a4a856ebd774b4798e54dfb459fdd67e52edb4ecbc9e7be2bce8aa91dfd6727"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/FINAL_NONLINEAR_B2.md",
+      "sha256": "3220804972847ad4f81dcdede187869c8e0395415d65db646057201db51328db"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/FINAL_CONTROLS_A3.md",
+      "sha256": "2a3aa8dbdbe480784d3d4382c508c4e8a3d3d7f5d127964bcdb18caef25f0bc8"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/FINAL_CONTROLS_B3.md",
+      "sha256": "aadc7673de5002b2868ff127559d7e653c1309c59fe4335bc89031a9a6436ba9"
+    }
+  ],
+  "insertion_map_sha256": "357388521ea0d4700250d96c8acae0560668066b9bf9fc5563ae4d7ecdee8ef1",
+  "prior_bodies_preserved": [
+    "docs/global_nonlinear.md",
+    "docs/special_data_limits.md",
+    "docs/finite_optimization_and_controls.md",
+    "docs/gaussian_calculus.md"
+  ],
+  "no_implementation_change": true
+}
