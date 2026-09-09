@@ -13,6 +13,7 @@
 #include <mutex>
 #include <fstream>
 #include <filesystem>
+#include "checkpoint_paths.h"
 #ifdef _OPENMP
 #include <omp.h>
 #endif
@@ -80,6 +81,8 @@ struct DiscoveryRecursion {
 int main(int argc, char **argv) {
   int max_order = argc > 1 ? std::stoi(argv[1]) : 13;
   std::string checkpoint = argc > 2 ? argv[2] : "";
+  if (!checkpoint.empty() &&
+      !distinct_checkpoint_output(checkpoint + ".tmp", checkpoint)) return 2;
   Tree root;
   root.a = {1}; root.h = {1, 1}; root.edges = {{0, 0}, {0, 1}};
 

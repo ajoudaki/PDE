@@ -1,0 +1,1734 @@
+{
+  "hashes": {
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/results_order9.json": {
+      "bytes": 74423,
+      "sha256": "530ef0818f4142eb162c28fa6b388d69a1e13eeb9de399d54a25008d591f6d5e"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k1_w0_a0.json": {
+      "bytes": 383,
+      "sha256": "56c8d09eeadc381ca5ab70d702d5f39d132ea072d8ca00460b3a489a4e04bfb1"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k1_w0_a1.json": {
+      "bytes": 384,
+      "sha256": "0ad277f905909d97d94d7f1132636ceb46532b01aafc1b33e263f7b7bba30145"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k1_w1_a0.json": {
+      "bytes": 384,
+      "sha256": "9ee7e8ab4578f7bb53d810c7ef9becfccb9e1c8c25be87d8133c21e6e8bab9c6"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w0_a0.json": {
+      "bytes": 389,
+      "sha256": "662f400c35149687d689bf6375cdb461131843224dc8eb3004869a2a1e3d88f5"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w0_a1.json": {
+      "bytes": 389,
+      "sha256": "af3e6cf55dec151767df30ae70fbdebfb932b1f3dbb8cec0d91b70dcd5dd2426"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w0_a2.json": {
+      "bytes": 388,
+      "sha256": "e3027a6b17f7bf2c307aadd69ee8b088db8d34d80402dbff340f706071fccc61"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w0_a3.json": {
+      "bytes": 383,
+      "sha256": "04e5dcaffd830927edeea5e810aa25f557848c357fb32d232bb5dd7d588eac60"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w1_a0.json": {
+      "bytes": 390,
+      "sha256": "33916b044fe7f600e2945260fa36a41d33af4dc08457640aa91f27e0efec4b6e"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w1_a1.json": {
+      "bytes": 391,
+      "sha256": "c2c531ba965844438d540dda255233a576e85a9f200ddf3d079286d4a1e07fbf"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w1_a2.json": {
+      "bytes": 390,
+      "sha256": "a3fc04987d887f0f91aa01c32f0e01086e52c4da4f93fe12d13ab787e917e865"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w2_a0.json": {
+      "bytes": 391,
+      "sha256": "1a01ba572d36826c1509a6e96e3e0e72f81e885a6781c6c5258091fc34fe381a"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w2_a1.json": {
+      "bytes": 390,
+      "sha256": "6c6f0e19e75764c93cf49e32588ce3e09747053d6e266f4253d1a0e8ddb9d04e"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w3_a0.json": {
+      "bytes": 390,
+      "sha256": "e6cb201d23a3ec56a189ad1cd0f8e922b32e44a0436f6f83f8c4bb01d9dc1888"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w0_a0.json": {
+      "bytes": 394,
+      "sha256": "231b00f450cd2e39460a46ab7b8ff0a047bd4a372a52473f9bcf8f8bd6be06d0"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w0_a1.json": {
+      "bytes": 394,
+      "sha256": "c00bc90f347fcdefa86db0ead924a5bede2ff5499d6923e24b3f0129ef5ce6b7"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w0_a2.json": {
+      "bytes": 393,
+      "sha256": "3aab28de5d9c9dcc44f78b4a3a7521610709c022c02c0b6cb29c38f2480784ac"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w0_a3.json": {
+      "bytes": 394,
+      "sha256": "8144abcb3716b88b83a035b5aa28b1014a059fadece308b84e9dbdbd79b20e1e"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w0_a4.json": {
+      "bytes": 383,
+      "sha256": "dcdd85ab9713aaa21f53a931e98c28cf70498a950e94def0b50084bb1e4a8fab"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w0_a5.json": {
+      "bytes": 383,
+      "sha256": "8b3eb81e3364906a6a0552f99792eff232204ad4673e374d7d05c61c0c054138"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w1_a0.json": {
+      "bytes": 394,
+      "sha256": "d5540533bcc9fbaebfc9c360c896f95b0bafe459c775d3f33f513773c57093df"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w1_a1.json": {
+      "bytes": 396,
+      "sha256": "cc00ef206bedd223a97e2c10e6296716c1fd1efde1f708411c560243b4a72a90"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w1_a2.json": {
+      "bytes": 393,
+      "sha256": "7423c2afc3042ffbe11f6904ffe4f193dbd668dfafdc8b9266ccd8bf0d41fcaa"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w1_a3.json": {
+      "bytes": 394,
+      "sha256": "58437578620a45b29bd3530b106f47bd959ae8a29ff895b4b014d4abef0b5050"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w1_a4.json": {
+      "bytes": 386,
+      "sha256": "326d428174402aca2f177ef304d521f10a1a4756c62672ae2a176f8290785e47"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w2_a0.json": {
+      "bytes": 395,
+      "sha256": "24f1bece115c95d2fa3816e7cd90a26dc6a3867d0e839a582e81db053a0af32e"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w2_a1.json": {
+      "bytes": 396,
+      "sha256": "224e2da65d614f3e6b606f5ae975d28ad1d934840f9db1013fdec7f6146ef31d"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w2_a2.json": {
+      "bytes": 396,
+      "sha256": "e4c5f34256298231a3f8b5737d0068e0f05e062cf2ba8b90106b131b092f9596"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w2_a3.json": {
+      "bytes": 393,
+      "sha256": "52148c3a6fc648546ceabc0ab6ac6828e2b82c6f3bb72df69da3e776f296bb1d"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w3_a0.json": {
+      "bytes": 395,
+      "sha256": "537bca728da03d4f688266b2e0396c1204711f3dfb66de9b6fca06f21334e769"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w3_a1.json": {
+      "bytes": 396,
+      "sha256": "fb281aac7f86172402a034193619165ed549abf0fc723bb1bc44d9922f916067"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w3_a2.json": {
+      "bytes": 395,
+      "sha256": "eaa68273183ebe4859a97926fe8a3f2a78e9340985e114a027590d640d55ba39"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w4_a0.json": {
+      "bytes": 394,
+      "sha256": "edf6eb703a54a033715f30fddb98d646938337aebef111f8da5f506c3f07f48d"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w4_a1.json": {
+      "bytes": 394,
+      "sha256": "668699d632e340ce234727c062b3252265d259604c53efc8893cc927002f8297"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w5_a0.json": {
+      "bytes": 393,
+      "sha256": "05aa043a66bd7c12627acfd953ccb4b41819cd7c5bc073f51267d01323b3cb10"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w0_a0.json": {
+      "bytes": 397,
+      "sha256": "1537134588c2ace88b7858f212fa15e4bcb8a9a403872c4a5e986c3cc6685df1"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w0_a1.json": {
+      "bytes": 399,
+      "sha256": "e224d9cbca4d0d47f83a7fc3c324cb7e0cddc32a52f1b893b9648dfa917fd42a"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w0_a2.json": {
+      "bytes": 400,
+      "sha256": "bcc660d2f8006b36cd10945ef74263f066b408509a55cf115b23eaf211511f0e"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w0_a3.json": {
+      "bytes": 399,
+      "sha256": "55aac96014655b3279806e3cfa34c172ecbfdf4d7449045225c0c5231fcbc13c"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w0_a4.json": {
+      "bytes": 397,
+      "sha256": "2668633a6a249778ed80a0a793f3af409f1129275be4fd048d6251783630e2aa"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w0_a5.json": {
+      "bytes": 385,
+      "sha256": "3d1942427aa15fb2fd4446905180ff8e6db40cfe2aa05c08449483653900d7e9"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w0_a6.json": {
+      "bytes": 382,
+      "sha256": "5b879ecf4cbbb260347326986c213e44d1d8f412ad212c6eb70f43ae0021bab3"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w0_a7.json": {
+      "bytes": 382,
+      "sha256": "d40b52e038e680aeee53f0345bf6c17bce1f27acaca7ccad395540f18a38c1c9"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w1_a0.json": {
+      "bytes": 400,
+      "sha256": "b08a3353bbc7b3479f017085bbca40b8fb2a6fe1774e312f6d70905bcc501c87"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w1_a1.json": {
+      "bytes": 400,
+      "sha256": "d42550edb42524d5d36aea078ca3f55c639e75d75efc27ef98763955d2d7d023"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w1_a2.json": {
+      "bytes": 400,
+      "sha256": "bc77460ad766eeebe66c8ab17125cb9aa0627bb6d2e91dae115ec74d6cd017e1"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w1_a3.json": {
+      "bytes": 400,
+      "sha256": "324d7ebc41f8a2227ba71196d1d73510aa823943b2c2fcbf0a918e54fdfded7c"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w1_a4.json": {
+      "bytes": 399,
+      "sha256": "b1ba117c68250ed9146857a9f61707063e75bb50ffd9d7214dc6bdff581b301a"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w1_a5.json": {
+      "bytes": 386,
+      "sha256": "a7495021232d7300cb07a41b227ccd808c407c412c101d6a12c8e522089be3c0"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w1_a6.json": {
+      "bytes": 386,
+      "sha256": "97960e28b14247a698790eea5ea424ad4cf6ad555a37671a9be4a2e9ecaba1df"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w2_a0.json": {
+      "bytes": 400,
+      "sha256": "e162b5e699e2dbdc7edb9bd1e8aa6a1dcd463489189304eb6337642d697983b5"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w2_a1.json": {
+      "bytes": 402,
+      "sha256": "9c704f1b0da6b497f5eb92827f08d9948132735cb80c5a5313d87b05a7b0bd82"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w2_a2.json": {
+      "bytes": 401,
+      "sha256": "68fd6acd37c93facc77ffc145db47093b22b382123412b7c04e03cba4188c702"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w2_a3.json": {
+      "bytes": 400,
+      "sha256": "2ff54ee7353fd79998b65e3e05c56da591b87645cfa8f66a580605e934794ec7"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w2_a4.json": {
+      "bytes": 399,
+      "sha256": "91e6a204266d8afeae7e0dda06ba25af74f6b15ad5d83b8914914fd9d83e7c5d"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w2_a5.json": {
+      "bytes": 387,
+      "sha256": "f13cd1a282081717d749ef26e20905c7922dd3d824588b1339fb50163e4ed7eb"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w3_a0.json": {
+      "bytes": 401,
+      "sha256": "fa2857ffdcb847e33807b89c6341f728e0a9233629f0ed61eb03c15915cb6318"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w3_a1.json": {
+      "bytes": 400,
+      "sha256": "5ca66e464817283e61d57c1618dfc64f19dec56c86097f9a86f513f831bb01db"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w3_a2.json": {
+      "bytes": 401,
+      "sha256": "137de9837d2eb1cbc53e492b014d34b6210748b312a09d575aaf70ae2cc2fb26"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w3_a3.json": {
+      "bytes": 400,
+      "sha256": "69cae261c9487b4f5fb035e530c9d8b9b9fd8b41d2ef9784fc909367bf01f43a"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w3_a4.json": {
+      "bytes": 398,
+      "sha256": "8188cfc9d253e552a5dc5f7c849c1422efd83c0f85c3f21cd3f241c2e5233edd"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w4_a0.json": {
+      "bytes": 401,
+      "sha256": "8e149ecb59bc4f910d3934945ea48395ee703eb816e2c974a21e0457699eeff6"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w4_a1.json": {
+      "bytes": 400,
+      "sha256": "ddf64f26d326829292f0cc84dd311b1166f02b018fd786f624b884719cc067fd"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w4_a2.json": {
+      "bytes": 400,
+      "sha256": "7ec198c5b2b12884ad0075c9ff0565642453291fbcd503b558c2f85358214e82"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w4_a3.json": {
+      "bytes": 398,
+      "sha256": "76945b1b76e3068b40502263bcb36e42ac9299f97223651b9be5a3152039df2e"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w5_a0.json": {
+      "bytes": 400,
+      "sha256": "2d2f75e5061be38fd0e12009ecd44a50efb7984f0136647f0611c5cf65178b1d"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w5_a1.json": {
+      "bytes": 400,
+      "sha256": "5fd78193be8e045389ee8baf031efab1b6d504f4ba0ba5ec63f905b100e4b53c"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w5_a2.json": {
+      "bytes": 398,
+      "sha256": "c7963dc5f0f0f1467318cf4c18a8959f13813caae677927d9724adfe75821c9f"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w6_a0.json": {
+      "bytes": 399,
+      "sha256": "7c7550d00786868cfc604be82e134fcb62fa334347c76c184fd6ec9b216efca9"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w6_a1.json": {
+      "bytes": 398,
+      "sha256": "a7f460a2e94f05a19a21b0fd80fca378e816b01e7ee732f26bebb0493b1edb12"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w7_a0.json": {
+      "bytes": 397,
+      "sha256": "763bda75dd8332e301d7f98e190595e705e40c8079f3190e1b4713ae16b0f8ee"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a0.json": {
+      "bytes": 402,
+      "sha256": "b4071ac89f4560b4225c094d4a673c04c99494f4a4da4f2c6d6c53054ec6063e"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a1.json": {
+      "bytes": 404,
+      "sha256": "a7af5dda604f40044ac99921cead9d471663178fcce60b1cfdc76e54bd1a1ab4"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a2.json": {
+      "bytes": 405,
+      "sha256": "b197b0931b6521a71b8b434e5ca238fc0a7fbe03b83fbe5e563c34de3f2f58e7"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a3.json": {
+      "bytes": 404,
+      "sha256": "a924d087f6f121dd68f529865a81cf272c8a7841b749ab3f91903a28edefe21a"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a4.json": {
+      "bytes": 403,
+      "sha256": "98947f54e27032def16c7ba65ee38fb1461d16498f0ac8a53e7b3fba7063f2f6"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a5.json": {
+      "bytes": 402,
+      "sha256": "09ed9c873d49c102b1f0b87daaf4a2e65c1c5a4a7e6a80d42d4948c809e98dc2"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a6.json": {
+      "bytes": 385,
+      "sha256": "848dfd65c89173a5ae2c46047e8411481447c56dbabfe79dc5c712ac528c98df"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a7.json": {
+      "bytes": 385,
+      "sha256": "b5dcb30c3c7d668d84a69df190692434dae2238a4c6adfb315c595298d078f03"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a8.json": {
+      "bytes": 383,
+      "sha256": "6434906cf9eb813deb43b0dcff198714e33a18646d4a896664b57a7270e48caf"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a9.json": {
+      "bytes": 382,
+      "sha256": "1f13cf8854d39b35b3367da6403eee51d6ba6a98bcbce5aa0cacfaa2b7f87a7d"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w1_a0.json": {
+      "bytes": 405,
+      "sha256": "edb880869062b6d5e5595cb053efe5da22086adcd256df2f051710ac5768c4ee"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w1_a1.json": {
+      "bytes": 405,
+      "sha256": "06e2f567086d9ea297dd532198adc2bd0fd36fa7726375a6c33b7ccacb5f5433"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w1_a2.json": {
+      "bytes": 407,
+      "sha256": "1b3bb1a5512735d0f7a502de7ac2e8fdefb2b3cf3e23e7544b7ab1f0c21a1c83"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w1_a3.json": {
+      "bytes": 405,
+      "sha256": "d421e70525cb046d151f1338578c4f7e9a3d5855d220d71ee9fe76abe70b3eed"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w1_a4.json": {
+      "bytes": 406,
+      "sha256": "bf8092c8881578b8da1c11181187bb7d4fde30c709fcfb084a91f385bda6bc90"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w1_a5.json": {
+      "bytes": 404,
+      "sha256": "a8a9af85be5f09dc994594d305f39b58cf0e77a9fa1fe6a9f7ff0b2ab14373fa"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w1_a6.json": {
+      "bytes": 387,
+      "sha256": "3f348e5b7a7999facf94b957a786a1363239064a3aab8a28193f63f39e2f9e5b"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w1_a7.json": {
+      "bytes": 387,
+      "sha256": "4ef6afe34a30c7640ed6ee863070e0806335dff91cf27bb2f74f60393aa464ae"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w1_a8.json": {
+      "bytes": 387,
+      "sha256": "17a58f236274e1f4f40afc9abfa172c313bac5e042dd503403920445d3a2cb09"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w2_a0.json": {
+      "bytes": 404,
+      "sha256": "e730de5283fdef42b341bbc76fc666a37050d35ede3cf3723743ad5917782e72"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w2_a1.json": {
+      "bytes": 408,
+      "sha256": "8be9656554daea99dd95fe2b8bd8c23a8be36201e4f413dc59d7d75496e04102"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w2_a2.json": {
+      "bytes": 408,
+      "sha256": "d10845ce1301c0e44b6a5f42dbcb36a0f9dc73bc5a86c836028420698736a9ec"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w2_a3.json": {
+      "bytes": 407,
+      "sha256": "a81313cf978381a805c70d9fe7e17d7e3134ac5faa3b52cf843f830c90daedec"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w2_a4.json": {
+      "bytes": 406,
+      "sha256": "e3da72c8d47de5df77f87afa766b3824f921a0f891486816b5627692b44e953e"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w2_a5.json": {
+      "bytes": 405,
+      "sha256": "eca18beea842e9653149e98889ed4bca19f35b247bc841f975c08d44bfe7a174"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w2_a6.json": {
+      "bytes": 388,
+      "sha256": "b910af18d478050c863f7eb432a679ba696853b9b93a012e8237771804785666"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w2_a7.json": {
+      "bytes": 388,
+      "sha256": "ae1e46792d85c6b60d21076b3c027dca1e5a17ea1576c503d92e05da17afc7e5"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w3_a0.json": {
+      "bytes": 405,
+      "sha256": "a82fb458f23b28fc58c4d88b4b89c39c7233d40e150560f45b2e990984377c5c"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w3_a1.json": {
+      "bytes": 408,
+      "sha256": "d13e31ab13018e8e525bcf5d958ea86c6bd2ef3441a5cfbc78f3cec3fb430ca9"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w3_a2.json": {
+      "bytes": 407,
+      "sha256": "cb71d934e41ebb8fdc9c3278fbcf5a7b5f87858397c248eaa90eccd05fe3c6d8"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w3_a3.json": {
+      "bytes": 407,
+      "sha256": "92b56dc3c2250292dd4091470f7d93941c81ede7c13d0bff198970b86d755b83"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w3_a4.json": {
+      "bytes": 406,
+      "sha256": "acffc3828bbfb3fcab0699481ec023caa110998c13a132a76424c8d057c4dd1d"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w3_a5.json": {
+      "bytes": 404,
+      "sha256": "aa4e9e5ceecb97e00e2aefce93786d13949f19c33fb2dc463ab257c715b6a779"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w3_a6.json": {
+      "bytes": 388,
+      "sha256": "60f4cceba427588249e803e05ffeef6757233a8247904ec84205ec2d32224d79"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w4_a0.json": {
+      "bytes": 406,
+      "sha256": "069af237dbfdd81deab52f8456e5ad64cd21061c6c59feac969c5dd6d6eb1aa8"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w4_a1.json": {
+      "bytes": 407,
+      "sha256": "a9144aacd06b58572f5c59c62b4666c9b6456f59e9a8cc8ac73d29e09a7addca"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w4_a2.json": {
+      "bytes": 407,
+      "sha256": "b35eefdb6d87e4a3b026468ec73a70fba80128de166f35883c935c8c1f462f85"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w4_a3.json": {
+      "bytes": 406,
+      "sha256": "8a2f0c667a95593046602ecfa673c8b37f0b82c28ee9b9928be9dfa9dc537f8f"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w4_a4.json": {
+      "bytes": 405,
+      "sha256": "211d8b86e01f614e8ec6c0b68b894e47f1bb93d184ded9d11b9b2a521660818b"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w4_a5.json": {
+      "bytes": 403,
+      "sha256": "1828eccdb42b1fb307cd28fe79157c940aee457ee407848c4ced6663b9e602c1"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w5_a0.json": {
+      "bytes": 406,
+      "sha256": "877b2a53786ac8ecf754af92691e499621e26c4adbda33da571afce003f186d1"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w5_a1.json": {
+      "bytes": 407,
+      "sha256": "a9d747a6a1828c3e395b0255149e7ae9d22e91c1128b8e0069a64886c91b9e67"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w5_a2.json": {
+      "bytes": 406,
+      "sha256": "df226ac34ae9c3189c2b85494fa3adfd210f54f05b6b11b94a75d7cb54fb1a08"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w5_a3.json": {
+      "bytes": 405,
+      "sha256": "b4e70ab3c166f2b41bcef35c6c0121c4a9d2e9cbe2e3afba9370be711ca656e6"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w5_a4.json": {
+      "bytes": 403,
+      "sha256": "d41c92be194bb1ba3c3c7e7954913b0200bdd7b1aeae6d06128a510c47d4ff02"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w6_a0.json": {
+      "bytes": 405,
+      "sha256": "719f9630e3877238967e540b33d0684e023c6e563d7669abe242dc1484d76f90"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w6_a1.json": {
+      "bytes": 406,
+      "sha256": "47aed29c5de85eb49d5f6001a982099c31a3664261a4efab68f843ef85ed8739"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w6_a2.json": {
+      "bytes": 405,
+      "sha256": "b814e17a093a5a4761a44b49264dffb5df673602e0609090dadb70951b2d58b7"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w6_a3.json": {
+      "bytes": 404,
+      "sha256": "1958bc0d4c3aec2da2b37686b09044b3a9f6107173d9297a052ccd9f31a94a9d"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w7_a0.json": {
+      "bytes": 403,
+      "sha256": "3f0ed8baf687905e358e79c637a948380cf4f0e69e463193bcc5509787409ced"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w7_a1.json": {
+      "bytes": 404,
+      "sha256": "ee0fd85c8e73e5e5dc8d1b3973e995a0e3b215383d8f5a1b5b823eb0e305388a"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w7_a2.json": {
+      "bytes": 403,
+      "sha256": "ec9d5c1b2ae23b7953377be8ef7f13334cdb388c2ada744c23f6bb5b37547eea"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w8_a0.json": {
+      "bytes": 402,
+      "sha256": "9e5654fad1fc93e191642613b679ca467c71b191de6064326bd88647315839b7"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w8_a1.json": {
+      "bytes": 403,
+      "sha256": "7d1c300d3c4176fde582e137dc18e2d0d50752eae60047bf6c529880af34b9ce"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w9_a0.json": {
+      "bytes": 400,
+      "sha256": "6ce795bbd53d96a18b9989f2bf03dbf47b34012327c4df83c45a87bd5425a62d"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign5_b3/frozen/stage_a_connected_order3.json": {
+      "bytes": 257,
+      "sha256": "bc81c144288492749e453bf1c1a5612d3f94628e4aa94cebd17161c54558bc0a"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign5_b3/frozen/stage_a_reference_order3.json": {
+      "bytes": 2583,
+      "sha256": "11fed6ba89511240db6dc86312dbdc1fbfd99455d8d92820bf057a727448020c"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign5_b3/frozen/stage_b_connected_order5.json": {
+      "bytes": 466,
+      "sha256": "46e99ee2a7c4a69f1428579e3110eed0310d28ca60a41fc70ebd5d7149f883db"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign5_b3/provenance_stage_a.json": {
+      "bytes": 2488,
+      "sha256": "3bedd2f73b2d52d1f8bc91f9701520fe4ea53078db5419baf756b09d66b39062"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign5_b3/provenance_stage_b.json": {
+      "bytes": 2166,
+      "sha256": "f56f839d91bb355b4a93bed01397e7a34cb29964cce4911c41f151a31288fbbd"
+    },
+    "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign5_b3/provenance_stage_c_projection.json": {
+      "bytes": 5435,
+      "sha256": "22c1db51a9f74497a1ad733c241dcbdfe14842887d1bee5a16a81a7d4f54159f"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/CURRENT_SOURCE_SHA256.txt": {
+      "bytes": 1451,
+      "sha256": "faabd087e46ece472773747d8ff2d46f4f8f48e490f3e06db26bfffa4db25bf8"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/D11_LOWER_SECTOR_AUDIT.md": {
+      "bytes": 7126,
+      "sha256": "f44a82b4ffc533cc059be8ab8e2b377dde8e67e1d85ff42b3a01b8948bf1d24c"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/D13_ATTEMPT.md": {
+      "bytes": 3844,
+      "sha256": "3e1bf9206e3e4bdf144addb0b9ab041e1ef0b9ff08e81acd44864e63e8983e3a"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/HISTORICAL_SOURCE_HASHES.txt": {
+      "bytes": 736,
+      "sha256": "002834681bbd5d6521fceb1e0a59c1b1a99700e4e1d6a1d841f7fcbb9980b706"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/README.md": {
+      "bytes": 10261,
+      "sha256": "4e9f167de013012b127038ca1100fa6a7aea0cbd09bad68c856757edf06341e3"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/SECTOR_ENGINE.md": {
+      "bytes": 3742,
+      "sha256": "6ab51299604155b4c79fade2c45d1f372445e6860320ea77c6a65c41ec962a78"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/TWO_HIT_CHARGING_AUDIT.md": {
+      "bytes": 4110,
+      "sha256": "fa76036b49c060b92f3b8309adb9ca82cc4f88ace10048ac89b384bcff28f085"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/archive/MATROID_WICK_AUDIT.md": {
+      "bytes": 3861,
+      "sha256": "efb72441f91dfc718616f24a608c7f2cd2ae43abcb0ad83e3523f974af7500ce"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/archive/README.md": {
+      "bytes": 1115,
+      "sha256": "8c10de9219e7016448345c7ef37a9d4c9231ae6e9beb8ccab411e74f886ef67c"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/archive/component_recursion_parallel.cpp": {
+      "bytes": 6117,
+      "sha256": "e57ef7193155ca7fb5ac8a04a0d749c3a6b24504e22099bec42752768a9bc121"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/archive/component_term_evaluator.cpp": {
+      "bytes": 3561,
+      "sha256": "8f0bf5df3cd42e859936dd9174667e1ff28e365e5434b6181c06ac5706aaaf50"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/archive/leading_wick_jet_forest.cpp": {
+      "bytes": 27551,
+      "sha256": "b5909a960b57eb9540573d5b79e149e924cbba3c60c64d03b1ea005f067e1e25"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/archive/matroid_sector_driver.cpp": {
+      "bytes": 1249,
+      "sha256": "c0ec1abd2ce0b1ceb73857a84cf49fa46755e85e3a700888a7ba024fb71fe179"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/archive/matroid_wick_evaluator.cpp": {
+      "bytes": 13190,
+      "sha256": "2bab58c9ced0cde294f03fedc781c36c57ed88505302ec112664a951325fd94e"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/archive/maximal_sector_peeling.cpp": {
+      "bytes": 19381,
+      "sha256": "4c9c2368498bbf6ee2b22d51814bf24b534d00e1ea4d77321a6b8acaafe36892"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/autonomous_single_source_closure/EVIDENCE_LEDGER.md": {
+      "bytes": 1762,
+      "sha256": "708f75b474dea8f5bdcc30d6b3fb133ee307d96c0ed111f1f97120e6a2ca4a32"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/autonomous_single_source_closure/PARTIAL_ORDER17_RESULTS.md": {
+      "bytes": 3247,
+      "sha256": "6c01d091fac00f679758d9ae34a857b7a4da3e83d9b6a5d11327a1a3765ee225"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/autonomous_single_source_closure/PROTOCOL.md": {
+      "bytes": 3479,
+      "sha256": "28434136bdd2268ab31027446829031dc949c27792b564e1ea3b2bfea056d571"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/autonomous_single_source_closure/THEOREM_AND_AUDIT.md": {
+      "bytes": 8612,
+      "sha256": "0a7c7313a447b3f7f5345b5901f189ff6133d22401a4bb6c3f7bad87242e42e0"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/autonomous_single_source_closure/partial_activation_recurrence.py": {
+      "bytes": 8355,
+      "sha256": "920355141e32600e0e76b03900c8b38465c4c4e15682b539f340ddc8f9079f6f"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/autonomous_single_source_closure/test_partial_activation_recurrence.py": {
+      "bytes": 983,
+      "sha256": "7b51445fb0266425e07187e4b540492ce1e294433a179ddf3acd46fa3e0e91b5"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/PROTOCOL.md": {
+      "bytes": 13677,
+      "sha256": "38f24406778c5351d5d364951f98ef8912bdae831ee197fbf5146bb0248b6b59"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/analyze_hankel.py": {
+      "bytes": 7264,
+      "sha256": "fe351e9d3346b01641d3cdfb1a37a2e16f78e21d471ae9d2eca99c9c2f240593"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/connected_parametric_multiroot.cpp": {
+      "bytes": 15309,
+      "sha256": "bd88f12c8ec1cd851dbd849848464f900f9a7f93aef0c524e8774649dcdd9b61"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/graded_sector.cpp": {
+      "bytes": 6592,
+      "sha256": "b6657defd7897e54a121b7f8523396d4f6fef666a7a044fe32d6b4d43926a061"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/hankel_certificates_order7_q2_order6.json": {
+      "bytes": 2402,
+      "sha256": "813554497465be55dca1ee9d9d57840581bb0f825965c6f1f599af9bddc0750a"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/hankel_certificates_order9_q2_order8.json": {
+      "bytes": 3797,
+      "sha256": "5d25d3febb64673d3ef88e43490d02886cf1d8b62a7b576ac7714cc1d6e1efa2"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/parametric_certificates_order7_q2_order6.json": {
+      "bytes": 18134,
+      "sha256": "fb9002a757f7216d6cc3ec6f91ce87c55b31da87037c1532be7abeda2c58ce7a"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/parametric_multiroot_reference.py": {
+      "bytes": 12677,
+      "sha256": "cddc5d211cae59ece6af98d854de91e060b0c68d72e3bf7297ea91bfd8bd9816"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/parametric_stieltjes_postprocess.py": {
+      "bytes": 20034,
+      "sha256": "095b96f181c73ad0693102328174ee37e2a756fedcb60ebd5da985367e23a4a6"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/run_graded_campaign.py": {
+      "bytes": 6496,
+      "sha256": "6c1df2f53085c1d31853b4cb06a9733e2bc86a26f276015fbf17eb37725240c8"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/test_connected_parametric_multiroot.py": {
+      "bytes": 3020,
+      "sha256": "df2f37bedc6abec0507527c13bd5f6b1821759298867bb2a7b9d07f499559294"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/test_graded_sector.py": {
+      "bytes": 4446,
+      "sha256": "33bdc273e16d306fbdc6f8eb174ffb8b78a3dbd8bbc5cf83ce07d0967cf4187b"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/test_hankel_analysis.py": {
+      "bytes": 6138,
+      "sha256": "1dab484f7460ebbb235c5b66a8143545480d623fb60e5f8b5469e1c68327cdea"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/test_order9_q2_order8.py": {
+      "bytes": 6498,
+      "sha256": "a19fea01cfd45066d83b0457b0cf4959b76eeb06bd3a1578368a7f8c0394d5bf"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/test_parametric_multiroot_reference.py": {
+      "bytes": 3659,
+      "sha256": "6bf53a93399da73d4b5c4f5605c35b80eeed3e2220c33e29ca1c78d14c423fca"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/test_parametric_stieltjes_postprocess.py": {
+      "bytes": 6592,
+      "sha256": "37d931a20e139f14387909166e6bc53f7562246ffe59394cb5ff376701e28c6d"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/.gitignore": {
+      "bytes": 154,
+      "sha256": "99a0c0dc851dcc102bc0f126d399eb0e3b5093281ee4fa55b2777d22d91960a1"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/PROTOCOL.md": {
+      "bytes": 4405,
+      "sha256": "02222affdca3536fbb75949714de348e5272aae32ee919256aaa1b57cca69b6c"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/RESULTS.md": {
+      "bytes": 5309,
+      "sha256": "4cc0ba6510ab005bd8f9c62f3b3532b00569f2fb1454bb9280878084323ec177"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/certificates_order7.json": {
+      "bytes": 13560,
+      "sha256": "8715b91af60c34b4f77b5b32da5b15b07fe9e97ac55c1d46c6385f79f4e09e64"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/postprocess.py": {
+      "bytes": 6903,
+      "sha256": "fd0eebc6a0a3475069db1d9a90640d2f2d572c4029ae5f643d5815012a7c44bf"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/test_postprocess.py": {
+      "bytes": 2055,
+      "sha256": "c1fc5b16e1a2312821e6d07e4b638f5305c1feac76bddb54839050403c5b06d4"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/test_provenance.py": {
+      "bytes": 2811,
+      "sha256": "b3f9bdc67c2024f4d7c235853fe9d8699a315a2c64a5e57d34ae322301d3f0c2"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/test_two_input_connected.py": {
+      "bytes": 1964,
+      "sha256": "729c61fdb59781dc669ed33e08a41affd4617896b1ca6f4a44ca32f4d3450db7"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/test_two_input_reference.py": {
+      "bytes": 1573,
+      "sha256": "708a53a35d6ed183a3ed811eda41fd8c854c2233c5e93e547cf6a91ffdad1b0d"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/two_input_connected.cpp": {
+      "bytes": 26788,
+      "sha256": "85c5c47c92bf926d4835120eac2be2f7d9ee70df12d3cd60359ea78ecacaed8e"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/two_input_reference.py": {
+      "bytes": 10384,
+      "sha256": "c1561c6db2df449c85182e772f5efc75574050e26c34feb8e00bf7c4a3b090c2"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/.gitignore": {
+      "bytes": 312,
+      "sha256": "367866a7ed1ae9b4bb19e9d524f525b88cb2b49c9214904cf0fe6b565a4af69b"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/PROTOCOL.md": {
+      "bytes": 3039,
+      "sha256": "5731cb63d612a1fb271f00afc38bd707a2d95497a845f22fbfe32d4a5d15cd7c"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/RESULTS.md": {
+      "bytes": 6718,
+      "sha256": "829e3e408326765ba3b456cef95ca194d45e528397ae47c30ba9a9e9e8632a7b"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/centered_connected.cpp": {
+      "bytes": 21247,
+      "sha256": "9183e02f8ba0f32389c7a56b4c3cc52796126c70c254d76c0a3259a3accc7c5d"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/centered_reference.py": {
+      "bytes": 9987,
+      "sha256": "310b63193e191893bc61ec24b2220f3e8b59fd280a84d9b2144265f10306e2ef"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/certificates_order7.json": {
+      "bytes": 24294,
+      "sha256": "92cfd80f5bd039dcb05cf01aa3b3242847d354f0802002721da76652956ecb22"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/postprocess.py": {
+      "bytes": 7441,
+      "sha256": "54f67a8a81bd8cfc2f6bdf24951bea290ec86a2cb3c28bc59c0c9473563a23d7"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/test_campaign3_postprocess.py": {
+      "bytes": 1155,
+      "sha256": "ec62ef95737b5575feecc04cec8e39d0e2c433904c225bda0853bbf8d8616de7"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/test_campaign3_provenance.py": {
+      "bytes": 1368,
+      "sha256": "4d9fa2b68016cd11c7efc8c6642cd901f6a8bec54ec2a5886069f591c8e72147"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/test_centered_reference.py": {
+      "bytes": 1195,
+      "sha256": "a703800b882548182f0da09f002580c6bcca26022962f9f9f1a7dd5c92beeafc"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/test_connected_results.py": {
+      "bytes": 2494,
+      "sha256": "0b1d58b513b8ebac542eacf16cf825c47fb5407ef26bf8a697c9646327ea4749"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/.gitignore": {
+      "bytes": 264,
+      "sha256": "729468bfc3ff3ecf5987f6aade708e2b0bbd6f3a655eb3750db1425aa2bd2307"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/PROTOCOL.md": {
+      "bytes": 4246,
+      "sha256": "a1c0fedb179317c99275a325260edf84c6ea2abe8127b5a83039be16490977f5"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/RESULTS.md": {
+      "bytes": 11602,
+      "sha256": "d5c94708b31458f5e1e385a6c79e4b11730120013cd91742d6e56e2925aa7cea"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/bivariate_reference.py": {
+      "bytes": 5392,
+      "sha256": "85fb2a6c295e3c1a36b81c2b9f60bdf690b1cd0fb5640ed04c73019ab0f1e221"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/certificates_order9.json": {
+      "bytes": 77194,
+      "sha256": "721811f924e73c3281e1b064532e2d55c430633e7345b042d302c569dd190394"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/make_provenance.py": {
+      "bytes": 6540,
+      "sha256": "7dc2c618e2813f484eaaccf97879fc7e2bda2ac65d39f06c41e216feee08ea39"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/postprocess.py": {
+      "bytes": 8572,
+      "sha256": "bb8e79af94a0c8370948df9165d5b74b73c451b7b9f71b8ed766120ebec96408"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/run_sectors.py": {
+      "bytes": 11636,
+      "sha256": "779db8428250e7e0266bde8634997275c86c68506064358c730a87b6fe5fd280"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/sector_wrapper.cpp": {
+      "bytes": 318,
+      "sha256": "ed3ebfcc5b8dceb8e3e8bf0c98604c33446a00c5962472339b06f0810575739f"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/test_campaign4_provenance.py": {
+      "bytes": 2126,
+      "sha256": "22c6b01f763e942669ea0940dd744a5979fdb8d4682e011b0b2580cc2f7c6880"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/test_low_order_production.py": {
+      "bytes": 2335,
+      "sha256": "de3891f4d4dc1b4902d55af2f901bb95f6455520ef664f57705808a2fb938210"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/test_reference.py": {
+      "bytes": 2141,
+      "sha256": "67367be03578f052ce3c74dca7ff294d2621cc074cbda5599b01d25fc6c8e9e2"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/test_results_and_certificates.py": {
+      "bytes": 4292,
+      "sha256": "4248c8f6da7046bfb89514027af21587a5a07b9574f609adcab1e7920e21fe33"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/.gitignore": {
+      "bytes": 501,
+      "sha256": "365f6139dcfac382c70c3c25617dda0aa25e8f637ca45921b882349550585cbc"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/PROTOCOL.md": {
+      "bytes": 9024,
+      "sha256": "cc022e233a3de6bddeab7fc766769ab6e14cc98c2f95f6ff7c2b6971e9e5d606"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/RESULTS.md": {
+      "bytes": 17093,
+      "sha256": "ac3556676009c62f351030d7dd85f9927ff111304b904d7c80e882da1419c2ba"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/STAGE_C_PROJECTION_PLAN.md": {
+      "bytes": 3196,
+      "sha256": "72115b19f2b9fb37c331436a3733ed86b83222e8a24d35a625acf12cdbd778f6"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/b3_connected.cpp": {
+      "bytes": 27547,
+      "sha256": "5dd93cbc8fb97479e6c54dbc2202bfec42d0156014f5d34b4d40e77da9d6621f"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/b3_reference.py": {
+      "bytes": 14272,
+      "sha256": "dda01ff669e63a9e601dfb98d32375a37f2c59c1eb1e8f887ba045495a8c5661"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/certificates_lower_moments.json": {
+      "bytes": 2708,
+      "sha256": "12b00da53bf61bfe653e64fda63f41839b182d355a80d16bc6eb02180737c6b5"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/postprocess_lower_moments.py": {
+      "bytes": 3957,
+      "sha256": "c41e36ce25dc0977a401bfec8f1cfdc50fe7c75dc11041b954243ddee84beff1"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/provenance_b2_order5_gate.json": {
+      "bytes": 1546,
+      "sha256": "9e00475113f4014abd2a8d33051de609be8009f9c410f9b55274eea271de45a3"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/provenance_stage_c_lower_gate.json": {
+      "bytes": 2551,
+      "sha256": "4846ddd5fe38556dd9d6044a7f3b75abbb89c82c26c7481a22a6730213c308ea"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/run_stage_c.py": {
+      "bytes": 7011,
+      "sha256": "25257a0de873543c65354c662d2e0eacde2179120b80e542e81430114d59bfd0"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/stage_c_sector.cpp": {
+      "bytes": 28487,
+      "sha256": "f1912e81b2f25bdef04bcef9c490a0975757a64deda4cb55f74c7c50abfe64ce"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_b2_order5_gate.py": {
+      "bytes": 4206,
+      "sha256": "541107c8f96f291250de648157f702a95bda63e741ab9a9724dc18acc79b4d1f"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_b3_connected.py": {
+      "bytes": 1373,
+      "sha256": "759314771e03d5ff8e3c217f8ede3894ceb24dabb16c9ca1af11adefd9464f40"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_b3_reference.py": {
+      "bytes": 1378,
+      "sha256": "fc7049c0aea3a56f74ff2578c67e4980cb2708cf15c41f954a2e5e7d5af69808"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_lower_moment_certificate.py": {
+      "bytes": 1187,
+      "sha256": "bd1f9f522c7b59b1f81cb593d298cccaf52c01ff8ff2f5755dfbc281097a1639"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_stage_a_provenance.py": {
+      "bytes": 1909,
+      "sha256": "9a66d320788a2ce91013fbb98368eee2aa8d0f9a117d5ab13a6af739e8687c98"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_stage_c_closed.py": {
+      "bytes": 911,
+      "sha256": "63ed83ddddc8de4f9feed158372c9cd0f75c2cb99b6dcedb8280677c2e0c5a9f"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_stage_c_sector.py": {
+      "bytes": 1917,
+      "sha256": "fece234f0774735f1314ff0e09e4ebac56b987413dc6a2826bb69c8026afc0c7"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign6_f13_threshold/.gitignore": {
+      "bytes": 116,
+      "sha256": "530daaf9fc70083878e6434322d337257078692195247a8f069c3c478211ae08"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign6_f13_threshold/CAMPAIGN_REPORT.md": {
+      "bytes": 14007,
+      "sha256": "fb80305fb9c88af31b39449fcfd386e744ec36a6b23a86e71e5099c458dfdbac"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign6_f13_threshold/FROZEN_PROTOCOL_SHA256.txt": {
+      "bytes": 436,
+      "sha256": "2d4fef98d0d26812f3f90afb71d18976ca77394544a71725afe9d30198f007d7"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign6_f13_threshold/PROTOCOL.md": {
+      "bytes": 5312,
+      "sha256": "1cdc9f40f8180e744275806f667a66e5c4194afe2884c4a57262c2fb7ec7ed43"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign6_f13_threshold/coarse_sector_bounds.py": {
+      "bytes": 9609,
+      "sha256": "5bfb5787e072044a704d38aa9ebf87c0cd253e1288a3b034b8ea89ba03a2aca7"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign6_f13_threshold/hybrid_component_interval.cpp": {
+      "bytes": 28399,
+      "sha256": "20459283d497a0924019b5b891bd5827ddb309b2d82923ec6b5f336027917a5c"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign6_f13_threshold/run_benchmark.py": {
+      "bytes": 3037,
+      "sha256": "f2b35ce19e7df38cb6228e91b8646475ad965cacb812a7b49786abf1642170e5"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign6_f13_threshold/test_campaign6.py": {
+      "bytes": 5119,
+      "sha256": "8aa06533eea48404aa2a09e5aafffebbbc93fc51da7e685038f9c938dd67f0ac"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign_paths.py": {
+      "bytes": 2783,
+      "sha256": "9aa339812a929461c49e15c2566545f98b89230f39b48e93292d67c23b66e093"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/centered_depth1_order13/EVIDENCE_LEDGER.md": {
+      "bytes": 1375,
+      "sha256": "f5bcefb53efce577765a37e8c7102911bbef2bb8f6492bbef6b3316669f70262"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/centered_depth1_order13/PROTOCOL.md": {
+      "bytes": 2492,
+      "sha256": "716b34a63629aafea775672e6dfd8581435652783e9273dc34a380bbc55e3d72"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/centered_depth1_order13/RESULTS.md": {
+      "bytes": 3585,
+      "sha256": "98b0c1a6220112a543bc1b8ed49afa5336e7f0e866964f13f7b9005bf982db08"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/centered_depth1_order13/centered_h2_exact.py": {
+      "bytes": 12377,
+      "sha256": "e4a687a99fec98d08c9a78d49e3ecd269ca9159c229b8e40fe8095a7e9db687d"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/centered_depth1_order13/test_centered_h2_exact.py": {
+      "bytes": 2237,
+      "sha256": "2627e325bf04864407d3a6d7d77959f5c225ecaca5cb8a2143b08bf679591f7a"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/component_direct.cpp": {
+      "bytes": 1250,
+      "sha256": "3bb7f47b6796b952b4f4f61b2661ed76dcf6801c4033d97427ba1eb2716bdfbc"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/component_parallel.cpp": {
+      "bytes": 6194,
+      "sha256": "d51486aaff893ae603acae3d084a0132d3864be0e0869401e74d44fa96681d5a"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/component_recursion.cpp": {
+      "bytes": 17052,
+      "sha256": "ad53d2d786393cafc9d034685638348afa19f08dbb8d5aeb3110f8e24c7847ad"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/d11_high_sectors_exact.txt": {
+      "bytes": 684,
+      "sha256": "280313211a8d9bb38b363c39869418ecc751b259ff9c855f7e73b66f7131f63f"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/.gitignore": {
+      "bytes": 13,
+      "sha256": "32dae3052f331ee34d628ef535709b301259a45df7c7522c4d35dcf49873f00b"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/DERIVATION.md": {
+      "bytes": 5033,
+      "sha256": "69dd9fddaec51b6ec228b17952cfef8a0deb1e995f17f8df192035cc562b552a"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/ORDER13_STIELTJES_PROTOCOL.md": {
+      "bytes": 4602,
+      "sha256": "52562a4ffb2e61c5d153a9a1d50a0197a4a2490660839cf69f88836f3f046956"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/ORDER13_STIELTJES_RESULTS.md": {
+      "bytes": 4664,
+      "sha256": "ee71b593560361f15b1794cdd97f84a186056c301ae5f03fe3dc21057465fdcc"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/PROTOCOL.md": {
+      "bytes": 3467,
+      "sha256": "a698db66749aa99ed11b8b289e16573e10de246ea16eb17a5d1f3119da7909ee"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/RESULTS.md": {
+      "bytes": 3197,
+      "sha256": "6f32a60dfd06686f17166f1488e59680629839c73940709cfec434c9fd4dc371"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/STIELTJES_PROTOCOL.md": {
+      "bytes": 2924,
+      "sha256": "9ec16a785e4a39788d0d8832b05ec334193f987a873425507ac86f07faa093d9"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/STIELTJES_RESULTS.md": {
+      "bytes": 3340,
+      "sha256": "c3cecfa14e9c5da4be2e191f33f1f8c18ba98f8309a91ae0e9203316d8493c53"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/depth3_exact_jet.py": {
+      "bytes": 25623,
+      "sha256": "f7f40919f6a286ad82facfc6451ab9809ed8ed7999110f0aadd58bafb96e2a5c"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/depth3_order13_stieltjes_audit.py": {
+      "bytes": 5159,
+      "sha256": "47cc08ee708f64c9fc64afed60809d3b9a642b5548ba125631e996370cb92109"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/depth3_stieltjes_audit.py": {
+      "bytes": 10122,
+      "sha256": "27bb3c259413f83d19addea02a7035b66313df2ccd7f1ea0a04cc194d9aa6104"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/stieltjes_order13_audit.json": {
+      "bytes": 4813,
+      "sha256": "cff6627b10d4f24a1971e21485ad8f6a338657ca076245ea23ea71d186091070"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/stieltjes_order9_audit.json": {
+      "bytes": 3178,
+      "sha256": "cb72d2e3ac0ba038a1576ba5f54de8b3dd37edb684c3ca88df5cbe15d2c96aeb"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/test_depth3_exact_jet.py": {
+      "bytes": 1150,
+      "sha256": "27ade6780f5288b2c573cd117d1b15c365c1450a01252fff6d34b7dbcbea0512"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/test_depth3_order13_stieltjes.py": {
+      "bytes": 3102,
+      "sha256": "76f202bcdea99abf873b1d3c84a5ca514fb7641d5abaf7ae1457e035ab3f08b5"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/test_depth3_stieltjes_audit.py": {
+      "bytes": 1777,
+      "sha256": "360c428b1e0fca2821f2bc4da144ab52bd5373eae41ef398998dc280ab9e61ff"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/exact_graph_wick.py": {
+      "bytes": 19792,
+      "sha256": "0678a45afd089a5e690296e2cc7f6f668b3635ca550ab0ee3013b396ac2ca77d"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/exhaustive_reference.cpp": {
+      "bytes": 25427,
+      "sha256": "5f1b8b1ba3ee4ceec248255d295842092dbdc40f4cfe0ced3723bb0fa8efc041"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/export_evaluator_reference.cpp": {
+      "bytes": 22673,
+      "sha256": "f429865db14efa0623fc2a05e16d52f3328983218a9cea2135dc55baffd7644e"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/finite_width_jet_reference.py": {
+      "bytes": 5110,
+      "sha256": "eaeec166f9b811d318150c1e84e13de838afd824e708d2cc0af32b41e61f2940"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/graph_compiler_reference.py": {
+      "bytes": 19288,
+      "sha256": "21056f8dd8a02bf5a2b0bfccd5e71c53a0c0ffe10ab377673d675896b11db4d6"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/high_sector.py": {
+      "bytes": 1667,
+      "sha256": "aaf108e7bc08a42e9ded5a080368c19b4eadd31f645da7673e655b9c7a0851ec"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/independent_checks.py": {
+      "bytes": 4641,
+      "sha256": "c186081a703e0c083386d10f2e970a77bca35cbc78db1f5a59703fa9a4099af4"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_closure/EVIDENCE_LEDGER.md": {
+      "bytes": 9982,
+      "sha256": "c9939b0d2c6fe7369dda4ded0a728f1c7967876431469f24d46315497f0e0a08"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_closure/FINITE_WIDTH_PROTOCOL.md": {
+      "bytes": 2532,
+      "sha256": "5f126d64cc66b8d9ef750ad4b24bfccf07fcd1cd240cb1280da8ef9cff36ba2e"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_closure/FINITE_WIDTH_RESULTS.md": {
+      "bytes": 1633,
+      "sha256": "38cfa28e24684f55880bc518022ea0daf1c88aec81d8efb814849d374dff1043"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_closure/PROTOCOL.md": {
+      "bytes": 3989,
+      "sha256": "b7981a43362e422717e927d79aa8d9e7974eb1d7b91f6bbbb28f0ea690b2fd58"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_closure/README.md": {
+      "bytes": 1935,
+      "sha256": "c84a7c481233d80873533bd232f551ea883b69941a4922419c35e5362b132e05"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_closure/THEOREM_AND_AUDIT.md": {
+      "bytes": 40153,
+      "sha256": "3c247cd21946257e2f422c1ad9705de64d7a495e64555325f90eb1440345938a"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_closure/finite_width_boundary_layer.py": {
+      "bytes": 4495,
+      "sha256": "86cfe8efc4a3401612563e5add6ce29e9766114bffd0ffdaa524476022d4bc18"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_closure/test_finite_identities.py": {
+      "bytes": 4858,
+      "sha256": "580b32ac10f2c2b1666015e1bf56fe502096687769d2fcf436c3c9929848de55"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_resolution/CANONICAL_CONCENTRATION_NO_GO.md": {
+      "bytes": 25812,
+      "sha256": "2b8396ed4ed84cc75f0485d5129ab7edade774e8c2828887f91488bbd4a836db"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_resolution/CANONICAL_CONCENTRATION_NO_GO_COVARIANT_SCHUR.md": {
+      "bytes": 120080,
+      "sha256": "a1eb606ab73a34476ac5ab8f848c25db681c662d655ac6a90f8099eb5ef24c1c"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_resolution/CANONICAL_CONCENTRATION_NO_GO_FINAL.md": {
+      "bytes": 26469,
+      "sha256": "299c19391d5496f16bdd87a9fabccee2ab8c2288313de571f32e00f2779616de"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_resolution/CANONICAL_CONCENTRATION_NO_GO_REPAIRED.md": {
+      "bytes": 20745,
+      "sha256": "24f942028c34c5171f7c2e4147e5fa84f036c0289ec26da1779ea782b01fc68e"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_resolution/CANONICAL_NO_GO_PROOF.md": {
+      "bytes": 12596,
+      "sha256": "96b1044ab63dd27244bf2557f3a223513038b710e6fc220e510bd829b5a4915b"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_resolution/FROZEN_CONJECTURE.md": {
+      "bytes": 3984,
+      "sha256": "7216f09f09ee71f3d4e080b07ddd8cfc8005c19737a23bfb4bb009c93c0b2452"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_resolution/ROUND_REGISTRY.md": {
+      "bytes": 8928,
+      "sha256": "66a7c4378830e0dc27eadbe07fe91f956fbe96618a62c9e6aee871339250fc80"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_resolution/WORKING_LEMMAS.md": {
+      "bytes": 30783,
+      "sha256": "cc1c6e32aa04b09e4e7ef8484b95b3fb2fbf0cc08d52a3f3db4b54420d8cac11"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_resolution/outer_pole_certificate.c": {
+      "bytes": 9330,
+      "sha256": "f191d9720196e9300b7771a4b9aca4e65340cf3f2399e44d60493ccf062026d1"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_resolution/outer_pole_certificate.sha256": {
+      "bytes": 91,
+      "sha256": "a10c768592b327724d0b516feee6cceb80be803aed8d4e19d13e28f33be77834"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/order13_single_star.term": {
+      "bytes": 501,
+      "sha256": "14e6372c9f5fcd416149d789cc60c8ce44af3d82a59e5ae6c796398dc32590e2"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/peeling_budget_checked_safe.provenance.txt": {
+      "bytes": 1229,
+      "sha256": "6a16066a3a78ac1e91b6b66bf77f42868d9781e9b8b4263d72515b58afe7dc20"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/peeling_lower_bound.cpp": {
+      "bytes": 27753,
+      "sha256": "5b746c28b7e19eb8f4199cdee71c9ae16db4ef0fa187f79d85bd3750e480171c"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/peeling_variance_polynomial.cpp": {
+      "bytes": 5639,
+      "sha256": "4da01ca179c0622b537960f30626c92d1f2f3c48a54462d70d2f49352640ef18"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/rms_normalized_operator_closure/APPROACH_REGISTRY.md": {
+      "bytes": 3096,
+      "sha256": "32d24bdd6b3bc3d1b0aca1abbdaabd2b07f3fd5a2a834cc49be27fdb7c599237"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/rms_normalized_operator_closure/CONTRACT_AUDIT.md": {
+      "bytes": 2784,
+      "sha256": "dc7eddfe478b57f5a4c1be6085671ae9cf44e43f230bdd38f57416b38d16e12b"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/rms_normalized_operator_closure/EARLY_SPIKE_EXPERIMENT_PROTOCOL.md": {
+      "bytes": 3288,
+      "sha256": "dd4d82fcba01d14f58ac42392ca13337f395fe8881a809555e82b203896dbe80"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/rms_normalized_operator_closure/EARLY_SPIKE_PARTIAL_RESULTS.md": {
+      "bytes": 2062,
+      "sha256": "008145bd23d17bac1a97049454918730ba356ff8733ef88a6b7c18e50bdaf5f5"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/rms_normalized_operator_closure/EVIDENCE_LEDGER.md": {
+      "bytes": 7562,
+      "sha256": "12cfd0d0b1e36034c2d9adcaff2cc8bd6a7af47fdf4c9c946c04fc12a50e90ee"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/rms_normalized_operator_closure/FINITE_WIDTH_THEOREM.md": {
+      "bytes": 8137,
+      "sha256": "a712fb83e09b90c283ad82b44d0026d2749f79db204ad14322a805be4e9a740f"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/rms_normalized_operator_closure/HOSTILE_AUDIT.md": {
+      "bytes": 5683,
+      "sha256": "ec58c6ceca0bfbfc8f059646504c877af227cbd241919a15c0c332c7181b02f5"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/rms_normalized_operator_closure/KINETIC_COMPACTNESS_GATE.md": {
+      "bytes": 4404,
+      "sha256": "b041f8faaf12215ebf63d7a576d6d5e485f1786b00d02a808a9a0699727f2570"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/rms_normalized_operator_closure/OPERATOR_SOURCE_AUDIT.md": {
+      "bytes": 4555,
+      "sha256": "9c15e223c3ad0c64005d816d8e82d654f8ab2991d5b0aa250aa7085fc128ce0d"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/rms_normalized_operator_closure/PAUSE_STATE.md": {
+      "bytes": 9691,
+      "sha256": "b52a953631d9039c16cd99f396a578474b89e659f56b1d9815cf33e77fa39511"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/rms_normalized_operator_closure/PRIMARY_SOURCE_AUDIT.md": {
+      "bytes": 2390,
+      "sha256": "21eeffb51576224a0aa49b5cdacf4bd42186ef216980a4cf19680cb3b0982acc"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/rms_normalized_operator_closure/PROTOCOL.md": {
+      "bytes": 5895,
+      "sha256": "4f0db9e8c9ccb306f4d5d5e160d1f7fe6f718310c88105198401bb0ae13a3e6c"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/rms_normalized_operator_closure/REACHABLE_TAIL_AUDIT.md": {
+      "bytes": 5968,
+      "sha256": "2e4c730efc6e236379c0ad4be20671e97173b1bde2fe859567ae4069f491e83e"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/rms_normalized_operator_closure/run_early_spike_diagnostic.py": {
+      "bytes": 8959,
+      "sha256": "f6cdb119b556b4ff2653569ddf85ff6a19eb7b72b69709c329a524ca2a55161a"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/sector_engine_checked.cpp": {
+      "bytes": 40578,
+      "sha256": "1931b628b25d2a7c018bc20a06d14aee6ee86ca702d8abcbec17e1ec719be260"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/sector_parallel.cpp": {
+      "bytes": 7418,
+      "sha256": "9ea028a247f803f3b1beca6e927b74cd8d9717999a88beb09e3fe27a39204ceb"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/sector_parallel_reuse.cpp": {
+      "bytes": 7223,
+      "sha256": "752c9f744e48cbc2ceecfd7800ae57aabbabd40b6fb6315ee22bc16246a4636c"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/tree_state_tp_audit.py": {
+      "bytes": 6853,
+      "sha256": "6759d58074911c01a20919b3789082eb4b6b1ecf1b84d39c8aec22462da75680"
+    },
+    "/home/amir/Codes/PDE/studies/repository_refactor_2026_09_09/test_quadratic_routing.py": {
+      "bytes": 12266,
+      "sha256": "76c7d08785a8fafdf30dbb12e85e0e4f3fbb731cba6544e3095b68456e81f2be"
+    }
+  },
+  "python_functions": {
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/autonomous_single_source_closure/partial_activation_recurrence.py": {
+      "GaussianLaw": "081f66f44986f74be8184152f827e6a7e3c875d4c41d1f1b3084c6b01e6c7f27",
+      "add_scaled": "dfae03e0813d5b22fc3fc95b2610aac0c3e796a7fa4c99e3787405bf54a732be",
+      "convolution": "a2b932e5a13a233f9d39c45213a7f00a2728aac0a5dff5251f9884e50f79d8d6",
+      "main": "f8ebd66d4ef2549b930a3308a31bb3dc4454806a271bfe4ee542043a3a8d8cd1",
+      "product": "55ae2a12feb731dc1bc20d027aecb5f32e0f430840304cb7bec002bad43d4edb",
+      "recurrence": "87214d83a6c21775fee9d818dc5ee5cb1a276793321d6c70c77ffbdc812d757a",
+      "scale": "682a0656085af5fc91c877222fdc14155eaad78c52d54c4fc0f30d91334f2863",
+      "symmetric": "d934f9908ea9437b29deb825d98372b49a908dc48094e88641edd305222f8d45",
+      "variable": "d8f7e84380fb7150b0620ed7151984a8161a823122fc21b4d678fa40722480f1"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/autonomous_single_source_closure/test_partial_activation_recurrence.py": {
+      "test_both_square_control_through_order_thirteen": "70a732b3c98d304b6d28d8984fabef3e33e17e9e95462f70efd5c3d400dea6ab",
+      "test_inner_square_control_through_order_nine": "26c24607e982aa9e09eab037e05cc4d24bfe8e88ab4879c07504b5a3b8c9c513",
+      "test_outer_square_control_through_order_nine": "023a88c7dd66caaade889a0f4822bd9d4aa2767b887e4ec95490f035d66e5b6a"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/analyze_hankel.py": {
+      "analyze": "d3c39d731bb8d073991f1b58ba9394ba0f3e87b62ba695e369488c7ae258fb78",
+      "ascending_coefficients": "883cf42178b65f767134c976f44105b86de1cd5c335b36792f9a1438311c07bc",
+      "jets": "78c93d38f868dcc175f8aff65da5c27a7500f54f0d0bdb59b2224666b2ca3237",
+      "main": "886afb4fb26d11ef06a9e966494955ffa3ac2f2598cba13947fdfa36ffe86c4d",
+      "polynomial": "0cc3043d0163ac954d300efd01a8562979a4a96d5aa120785682b508cf4ecd2b",
+      "sign_certificate": "1362c68d71e9861d9bf24a3c50dc3d2e63e12d1e8adeda3365713a664a24a9a0"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/parametric_multiroot_reference.py": {
+      "add_term": "87867c6cbdbd1e4b30d2c4110a491eac77794dfa77f5eea08d235a88e478a3be",
+      "amplitude_add": "990d6c570a1c0c5f88b1c836c5df2de83fe6f3f7aa7276e3566de31b5266f461",
+      "amplitude_scale_shift": "bad769a27a6274cdf05ad0dc2f22a6511f8be9372ee7111ccdba99bc9218c4d3",
+      "check_parent_children": "200cd0a47124e55e21094d3967ba08ccbd72cf50f49f7ae4102ceaf9e58d85dc",
+      "component_cache_census": "a669a6152b2487d808002bba09d6b5f6cc4538111483fcb1e3777c4bc1cc3a8f",
+      "differentiate": "c065ae402ed5dea14f4c6c16eef6227cc752fded8b9e357822bb3261dc200fd0",
+      "evaluate_polynomial": "129d4a8eaa2e20a53e056152061b4649aa701a51cec8269dd6bfe319774625ec",
+      "expected_large_n": "0d9360382e9377abae4e5e16ade46a4865064842fb585e30fe03e1d0adf54d22",
+      "initial_observables": "e5306fd2f72f8dc2904beee8d322755e8f5581590de99bde7da3508dd0dcfff5",
+      "main": "c2755020202787eaa50154d2a9af131a2d7cebd3d79fa0e44912d6dcb26b6b50",
+      "poly_add": "e091d84d9c8beb320003ef3d6379ed313c275fd6ece8c4df9951a19bdaf146b5",
+      "poly_scale_shift": "ed92a06be9b64302a3a14966d5abcc74db38a1e843fb248839d47f52178466c3",
+      "project_root_at_integer": "cb07e639afdf27f0e94826601278478cea7e22d816cdafc97041a46011b9b647",
+      "run": "6bfdb04667e340c27bed6cae633905254001deb77d290f33b5e5b95309894851",
+      "tagged_children": "3799e5db5e0aeba26591474cd097dd57831c114d6ceb185356c1cd29d3774bf0",
+      "trim": "821cd21f8e09acfd5c5d2b80e3056c9c9159e0f4727680a5d13919e4eb8d5f91",
+      "unit_amplitude": "08d22e699d80df0cebf437b1847f71dd36866fb5c58326ba512a87e2a230d71e"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/parametric_stieltjes_postprocess.py": {
+      "_cancel": "086857c518a4fcd1f8ba3cb74e1eff74c4c9bf2afd3a6f2ca44dc1643950142a",
+      "_certify_determinants": "4609e11c8ceafec72c0a61a35c639c86add402b5bbdd3c171c4dec64bd658ab5",
+      "_extract_dense_jets": "d06e2b16ddea333a42ee0053f27f3fe3a18c5b89f458a2547b74cb1242aca6ff",
+      "_normalize_forced_moment_powers": "aa009b8cfbfcc5dcf691d586a0177ac8214d585bdb29d02567297a716aa338e9",
+      "_parse_exact": "67f4e27b5ab570d3d5ae0ae4068f411589d3906010e332f11c72164dbd219beb",
+      "_rational_midpoint": "3c420150bfc4c3b86df9df3cb752e2e92bfa1264a8575ae042f2b79b5518aab6",
+      "_refine_away_from_zero": "2f7a97cf79bf0c20214e886da9345b0b84d7a64112afbe11954ebdb03eb7afc6",
+      "_serialize": "1d38b4400229b033329ca1400df85526bd3d47399527ab319354f5c329d640c9",
+      "_series_compose": "66ae84128149fe01ae3413bf9e9ccdc2e39bcb411bed6175032bc92360237c82",
+      "_series_mul": "671b9e3393652a2b1a71ce22a1154acd407adbe10d590b96577a0e632f5a49b6",
+      "_series_power": "cd99636158a2cf279077ec9ef5209ce7b06a865435a4555d5f5d586e5515d90f",
+      "_valuation_at_zero": "0541a635a2b05134e309db70aa627777170a722a7fb1897eb58457da4cbdcc9f",
+      "certify_rational_nonnegative": "0ee7087da7e2b5eb6fba464eb685e7d983950754e1278f2fbf462ad899603e55",
+      "compute": "1f0ce17be981e8da58128b5417db94b67a4e4db3040451958b84da0801f4a16e",
+      "dense_parameter_polynomial": "2e85470aa3fbadd2177c0467c3d56734b7f4a45927199eb4a77aafb7727c9e63",
+      "determinant": "cbf31337fe4108e49c6e5ebb827efb52b4038f6786acade91a09d1f5590efb67",
+      "hankel_determinants": "3428d531f8dc5423fa369e239a0a20936ffa5eb80871eb9542dad58bcdf542a9",
+      "main": "43986af3fd4477bd5c74a414c8004e0a045df33b64ed87565f639073425eb795",
+      "polynomial_sign_on_nonnegative": "74783de87341052c62a33d8b5d5b428943803989b3e54d7f0ca730655c395b1a",
+      "rational_valuation_at_zero": "9d528ca4a7aa49eb9c20213797ce87966409245de9e8ff9194dc84403431566b",
+      "reverse_r_times_a_squared": "275b47cd4954c7cd288e6aa8209411b0d6640fde6f4eafbd2817d467fa10360e"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/run_graded_campaign.py": {
+      "jet_record": "c9bd8c2b520e8bfcad70b2263e41663c3878ad3e0f64f4d4a74dbc31dbbfea77",
+      "main": "f93be9dad1d878a2b92b567bbe1a1724334d109564d26777717db39979baaa67",
+      "memory_limiter": "51b6db0fd079079b5c06c211ac042985aac9cac798393f5ef386476da55e0960",
+      "run_order": "a479fbecdf7df79d92078171d125bfebd9b24089e79b1a8db98a9c8aa338f1dc",
+      "sha256": "ecf34992dd7a47dcd429d831e46e06ccecacf780d2e4d5c8dc1faa21a1a79915"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/test_connected_parametric_multiroot.py": {
+      "ProductionCompilerTests": "1ba2fc751622adb01163135ed2df9c00656a2f8a986ffd0b24f4a6db12a9c099"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/test_graded_sector.py": {
+      "GradedSectorTests": "5c83af61b14aff1c8313bd39c25a01891b555a5c7f813ad5f8fd139d6defbf7c",
+      "aggregate_sectors": "97818694f3d5091c58acab6c57535e05d063d317dd3dfa10d96888515518c27f"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/test_hankel_analysis.py": {
+      "HankelAnalysisTests": "533f81c9b1bff7521dfc0bf269e0b7d94e066d4dcafc72468e6b14ddbccc76f0",
+      "parse_certificate_expression": "40c46e41fb8c316f99cf1b1ebbbb8542af4001a5dcbcacbecd8597bb23f006b4"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/test_order9_q2_order8.py": {
+      "UpperCampaignAcceptanceTests": "e4ec99c8eeb5e450b836c9828bf540ec101f49f4144045080e51551141c4b440",
+      "parse": "bf7660b17d5fa7bff06ce0f19a1d239566a1acc071395dbdecaec816ef602bb6"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/test_parametric_multiroot_reference.py": {
+      "ExactCompilerTests": "a530807690ad7212cfe4314d47cb0d72e1d19ab3e7b72bde77616f68a3d95f03",
+      "PolynomialTests": "012d32b5a5677ace5822c6700a21d57ca80a34ea181b37a19bc3988d4151269b"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/test_parametric_stieltjes_postprocess.py": {
+      "CampaignOnePilotTests": "c3953d2c54e32e72e22490dba8c60cf8997f79ec343d7b92b5826c688b1be87f",
+      "ExactRaySignTests": "ce2479843db8bd72719f9a6685c39c5200284e788b0420514c78f42c504311fb",
+      "FormalSeriesTests": "650314d7dff0136f3d4b77abc9911ddc1cb261f029944bd110125cc2369ac43f",
+      "campaign1_order6_fixture": "b23d31699be985a44133e56f4d31216d2a8863b7f2811618a22632b2c189fa80"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/postprocess.py": {
+      "certificates": "15e76a8fa3389ee2b5a6ec965c4b7b06263d323a74c60d19f5cd85d8f4020e88",
+      "divide_minus_endpoint": "53487e667294dbfb14cccdd21e9a16ddf63e4a92bd36dc83da0fd89e8c8c0245",
+      "load_jets": "3f190cabf42d15bdc453f545b11196693738706917f2770c0167899f81f4d567",
+      "main": "073b1d8f1863af969f3a827095758298634b628ec90ea5e33b359e22709960dc",
+      "polynomial_json": "2990a8491848ec484d05f852670a932ac9e9780fbad62444360d226ca58bcdd2",
+      "sha256": "c566775b09fcbacebeb4ff767fb68470aa7f27ec57982b85ed57d6f1abdb6add",
+      "sign_certificate": "1d10fe77d726f519d1b9341169857cc665d1099d421e0c31a3b8490c4886532b"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/test_postprocess.py": {
+      "PostprocessTests": "e26cb9cd09e7b4e3258aff7f072d52848ea7cb66fbb1acc6d4609715d2ac6bc7"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/test_provenance.py": {
+      "ProvenanceTests": "fd787296518938509492ca22311b10d507101cfe9ed173e1fe6a3a308c887b48",
+      "sha256": "ecf34992dd7a47dcd429d831e46e06ccecacf780d2e4d5c8dc1faa21a1a79915"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/test_two_input_connected.py": {
+      "ConnectedCompilerTests": "5b4bd1303a343f323dde5008dda7653976fbcc88d7b891be75647383fca3c1ef"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/test_two_input_reference.py": {
+      "JetTests": "83f6405f1064062663dbf91251e5998d59b92f23bca930504c67156005e87b5e",
+      "MomentTests": "e24ac04f6f109a1ac708e474f1313539fc07e5c247180aaec076fc5fa8902584"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/two_input_reference.py": {
+      "DSU": "025eae71e7b01edb5f597d33086b5650a85b4dbe50b082134ed60f3a5f1889b2",
+      "Graph": "c5930ed0b750310f3d80eeaf5011e462157f1ad3dc1f5d994509cbdf5b4775ed",
+      "add": "6667b3e930b4464a35f50141df4e626421417e31b20ac3f285e0ff9f527f2fae",
+      "add_term": "5b03a69a1b9b232b6b4f17f97a56fa8f3288e8ae6ff33dd8da0711b24eac52af",
+      "bivariate_moment": "6b80c373a8179fed4bbad87256bf40030a77ac6809bda70ccbb45eac3bfcf62b",
+      "canonical_key": "37340ea7405bcb58b44ffac261bfd8f888de15ba0e9e8374bf16fac1503b1301",
+      "differentiate": "8f76acc4884e5c588ccdd622dc0171ad77c63aca8bf81392e21b2a15f03b0865",
+      "differentiated_children": "ee3b085aaffbaf44a29895ad7047e7aa801548cad8cfafadb154561b6b3e2228",
+      "exhaustive_wick": "149fc19fc70bf271a9ddca8c33e08685812ab2359481b5afb22bcfeedb2f78ce",
+      "expectation": "ed126bef3189f9532da2a875bfc4ef3653cbecc0e7391b7e755eead513f0f72f",
+      "initial": "625fd6924d360bbd940dfe763e802fa76674d5219e88178bbaabbb39316d7dd2",
+      "main": "2bba904bce74fed49ba5a50546d43f411c1a57300463c9e7eb9781b68a0062ab",
+      "mul": "d03f2bd2769ff1dead1b7a1f0840cf53c1f0f7e5fdd4241cd778de5d82e62d0f",
+      "odd_df": "22364bccedbcf9eab58bba6e1353e3d45c92d24e70820bdb7ca2e0fc3a9e1323",
+      "run": "7b2d8dc661db36f1b133317f26bd61a30c9a00de92a564aab1423d07469c3171",
+      "scale_shift": "acc20fed0e45e23c8a27fa56ea356be07ccce117085cf7fb2295924712156df9",
+      "theta_to_t": "33aa29d9d9959c22d5fa4a5ac47e4b3f0fb49d91cb10753d1036ef435af58345",
+      "trim": "d78d15831f6717a1da708835e216a2d3dd8cf2da7089767d811709c30dee1020"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/centered_reference.py": {
+      "DSU": "34713e43391c7ae30a5f298222f65be6c44db9f2ec1e283e95e185490b2d9f3d",
+      "Graph": "8648fd1cc46bd4612d8b413e31526e52a091ab4faa6143133395a88bfc362060",
+      "add": "e42b43a209f075b0cf3bdfa1880fa1bc0dff4ccd5ff1bfde5b81c1b380b889aa",
+      "add_term": "b714d5be9063376e346d713a3bec41fc8e56c1e5d2c12d5bd285d4ca54a4a999",
+      "canonical_key": "3c46d318551c5d05f3af3d61f1f93eeb8bb8c175ba43a6474224b303fad2f98d",
+      "centered_moment": "37d37739c24ea3e57a41bbe537b9ba2b67cb9626c6ceba07182641e6cafccbf8",
+      "differentiate": "7c3269f2f0a779a02944ee8c983dd696e09fe38accbd3d2866175486d8175dd2",
+      "differentiated_children": "0bd797c20a4c4e6620b83245447c50ecf8600dd6f0ed0185ed4a523f891a8ab3",
+      "exhaustive_wick": "7294bf6e034d924bb0d08e67a40f62427d77e2a94fb2313744629a0488c666bd",
+      "expectation": "fbe52fb099c49b20bec08d686c58b73594fa044ac9a0cc22925b364520ae1cb4",
+      "initial": "c90519f54d6918f7e7ccb7ef1ed3d65a1294ee41534192626162d2496e1d0792",
+      "main": "6c16cdd3832ab2c9c067055da2599018dd2e9441e89de405a89219729cb7dabc",
+      "multiply": "1737a4517e937df118450375c805b84b0fda7ac507ef8986d8eddde3fd71b49f",
+      "odd_double_factorial": "c056079247f50a5d05ea82ee4b189816ec066c930f89a145a6d2c53d96ef4919",
+      "run": "78c747fa761ecdb8e74ca5cca943a21df237e9a94fcd20b9e324a5bbf045ff34",
+      "scale_shift": "89912f48b7c4d026dd174a09e98c53c7de0f762388350692d08718cf56fa8303",
+      "trim": "1429fd59cbf340a2668e3a14b0fcda3250fd04052c684783141741ed303d44c2"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/postprocess.py": {
+      "load_jets": "a7a87350698771bdf19ddc7785faa898eb6f5941fbb8e932b7acff7694cf68e2",
+      "main": "6fe0ee9d48432f0e265c7a14dce992c67364a2cc038a66049388df6a000d751f",
+      "polynomial": "103236acd99466f7c16ac4a93585e1eb14fbb3b8fe9d204a0842a0d27364bcab",
+      "rational_certificate": "8588f1b6631389ee9a37db19096f4e8900190bfd0cf1b7b0f9a3087f7658b206",
+      "sha256": "c566775b09fcbacebeb4ff767fb68470aa7f27ec57982b85ed57d6f1abdb6add",
+      "stieltjes_expressions": "55698e4047953b6b0568b41bb4875af010179577883c5cc52f660c34fe1f8b0b",
+      "strict_polynomial_certificate": "835f8650241a59e4de62b6d69bee2eb01bbe376e7580f11f0f28b4e0ad9e287a"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/test_campaign3_postprocess.py": {
+      "test_sturm_positive_polynomial_both_halves": "0e68674b7517d0e4a84c8026e78c4d193041edb03d29d4900bb3b40c3562bb48",
+      "test_universal_reversion_matches_canonical_moments": "d93ea667af9cfab0037ddaf0b50244b4e24bae612dd5757ce6ffbc2506ea955b"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/test_campaign3_provenance.py": {
+      "sha256": "c566775b09fcbacebeb4ff767fb68470aa7f27ec57982b85ed57d6f1abdb6add",
+      "test_frozen_hashes_match_provenance": "97bf7b356ac253fbba5e16ac3d33a784eb046d60c07715a07ba54885fb79f135"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/test_centered_reference.py": {
+      "direct_centered_moment": "b2ef0dc7be3f780af00692f5e4b199d5e01cce197e65e26074f23626b08bad21",
+      "test_canonical_and_centered_endpoints_through_three": "23a64b5ffdf27e540dac7b99dcb1460b134148549bd8ad292060dee599e0a6c4",
+      "test_centered_moment_recurrence_against_direct_binomial_expansion": "5fd3867113fd85e9c684e2434fb3f47778266006dd7104637164d543fc42e5c8",
+      "test_reference_exact_orders_through_three": "4c38c1258ac8f0a075747c487fd2411b9609476930dc4e40eb1d5c7423c9bbb4"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/test_connected_results.py": {
+      "production": "01d58f9dc00f859c2808545fc8074f3d2c6f87e540dde31504bd9dcc314cedb5",
+      "test_centered_endpoint_exact_values": "e7bbdc5ed70f3e9d9d27ef937bc8d1b22bfa810c41face633a27d22883faaba3",
+      "test_every_stored_interval_certificate_is_strict": "b714fcaa92ec5fcf07ad27df5d2fa9d8f3b7d6843ff52159528a607817b23ac3",
+      "test_mandatory_parity_degree_and_endpoint_gates": "5619422a6d1db9ff7001308df9b14603f29134d0d47e76e5856cb59368bc6a12",
+      "test_production_matches_transparent_oracle_through_order_three": "33785d0ec1648872949bbe3091e5fe7a29be85453f736f52d791fe5b1c77f363"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/bivariate_reference.py": {
+      "add_polynomial": "2d7bd5c12e79d0e8600703844366c7eba677008b9c6d710ae966274bf906fa17",
+      "add_term": "6890ad00994feeb99e2dd64aebe74bd8ce589b237901d7d097ad97815447c90d",
+      "differentiate": "e128458274a13e97e9f82b2888702bf6546afd9ffc3272409f3b0187604c7ace",
+      "differentiated_children": "e935105881d1a14b3eb127f7572e29905ab0911c35418e939cba7123fc1e5e20",
+      "evaluate": "07ba00d301b9a01d20545cef1401ef6c41a70aa9e74daa11ec5ddad15abfee2e",
+      "expectation": "fbfa1338773643b9c726c8c63d7072f8ad7cf4178b64e26d3c655d651eb397ba",
+      "initial": "8f4de22398cec1ce0acf332732d6d57094df6945af84bb7c6b6820324f06694c",
+      "main": "5370295dcfed62a266d7a978ca71b55eb89ec44ca220e002ab329281a83dc805",
+      "parse_records": "69edde258da7457a88f3d5b18aaa3819b0ece5b1d2fc722fce7680f1cd7b0afd",
+      "records": "8ee6d8a1a9e311599b3202f12dda9d510f55a42dd323fff3d5f6c75d834bf283",
+      "run": "03d53193f93dcf82e8a593d8e3fbd97cd6d34838abc583c64c24ef80a36ba5b9",
+      "scale_shift": "c807f5917d6a26024e91999f1282ad1760effae41ee202b8d744cc68016f447a"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/make_provenance.py": {
+      "atomic_json": "543777372220c4d7f24a51411b8a07432e0eb6891d85000606409bd04d4f9786",
+      "main": "071d84e605f951865e97ece82e77bfd4c83b5e2ea934dadd301d3f7d484e455f",
+      "sha256": "ecf34992dd7a47dcd429d831e46e06ccecacf780d2e4d5c8dc1faa21a1a79915"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/postprocess.py": {
+      "atomic_json": "039a34341c1997b89e1b0516075dc5964b4aab48a74df61f64dccc4edc664d75",
+      "coefficient_table": "f6c87cb51d70474dbab96089f462acb9b82552905dc6917692689ecd8bcc5c34",
+      "compute": "67f9f3843357674e26c7237609c8c2934e117e136aaeb19786e7c2c27ee1335a",
+      "decide_numerator": "5e375baae8d7925807858214fefe8041e3f5de166f6004e296cc34cae539646b",
+      "exact_grid_witness": "56b198682e889f20d98797ffaa47a0883f06e6039fd824cccae7831648db3c86",
+      "load_derivatives": "96cdfa75fda76015017e5e0f924aaa729156f1b086df24f513fdf57a6288cfe2",
+      "main": "5d83ed32de30a86237557578ebd4809051ac1ede753ac038f5b56d5c93ad29a8",
+      "moments": "6098bf21824a93936068ced75f42683ed15e9d5ba2db598c11342e2e4f94321f",
+      "rational_certificate": "4aa2ad7029e790668ce6c38e720786bb7ed266520370e82a6439aa317625d7fe",
+      "sha256": "ecf34992dd7a47dcd429d831e46e06ccecacf780d2e4d5c8dc1faa21a1a79915"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/run_sectors.py": {
+      "atomic_json": "1e796cd273e4e319a11a5bfbcda21e467d133d577ea33955787f51f129edec6c",
+      "compile_result": "8567582c5d9711c78415b4ba08a52390fbe2b8d4ca642459abd5f34db9b5bd41",
+      "frozen_diagonal": "4e25cd9d8dcb445ae4d2ec81556f08ac5e41722ae721dfc1216c99c3e45d437f",
+      "limiter": "46803ed308dd4de5af2c22921990c8b722b7b029dd1878b85b74bf9556e55281",
+      "main": "6c3dbdf782d71fd0708948808a28af6e11697add975b556cd75bfc3544ba20dd",
+      "sector_path": "bc793184d592aedeac8a412b41cd1d48a5fc263506549c4008ce3a7047efb837",
+      "sha256": "ecf34992dd7a47dcd429d831e46e06ccecacf780d2e4d5c8dc1faa21a1a79915",
+      "validate_record": "d70250853647cb441ed7cee965a84aa5899b2837068c8203089f4454104166a8"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/test_campaign4_provenance.py": {
+      "sha256": "ecf34992dd7a47dcd429d831e46e06ccecacf780d2e4d5c8dc1faa21a1a79915",
+      "test_denominator_origin_and_resource_limits_are_explicit": "437b58e02f4ed97769b80c4c06804bd5cd85b702b1e58696de997cac07394aa8",
+      "test_frozen_hashes_match_provenance": "dec207471b26ffb01d83b47a6e7141df99c982a5fe3f208e0a8d5b13ead1df29"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/test_low_order_production.py": {
+      "binary": "3589673e884bef0ce16ace2c6684eb19efd5e26bcb9db70fe049170f8e716380",
+      "production_polynomial": "b680fc448fe825aa94e722c59dc13540d28df415d83c12148e5f3932fa4c8123",
+      "test_every_bivariate_coefficient_matches_independent_oracle": "7d9becc5fa3728f38f1b2412c8bd91528f48dbe20516e0e00d37e91dee7b4521",
+      "test_off_diagonal_points_from_production": "fcd6e18c79894d07127ac93a2e688d5fd5780a7ea8fb8a1857792d6fca0b0600"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/test_reference.py": {
+      "diagonal": "da2ba8b211023e1f404c7abdaf4dd25ae2a454529b3b205bdeb79683983e431d",
+      "test_exact_first_jet_and_off_diagonal_values": "ab9b8a16ddeae1d06a0489c951e6b16654f7ad1d34d155daf7abadd9f33d278a",
+      "test_reference_diagonal_and_canonical_through_five": "6456b7af02b743ab28618cf0a6904135d804d17e6b8d9ff694a6964436fe2766",
+      "test_reference_even_parity": "6ec6faaee344713cbe73954d57241f82fb26977fd33e9773ffd1d34611d08ab0",
+      "test_selected_exact_sector_coefficients": "2c89f8b40bfe63c9252cce8c7a84aae45956ac8631d7a8b52d796b9cd8ba2eea"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/test_results_and_certificates.py": {
+      "sha256": "ecf34992dd7a47dcd429d831e46e06ccecacf780d2e4d5c8dc1faa21a1a79915",
+      "test_atomic_result_manifest_and_frozen_gates": "3899a4857c8b7c33f9c1f4c42815acf4bf6f6dd4735cb88c03529146df0c3006",
+      "test_every_accessible_numerator_is_strictly_positive_off_origin": "8298a563fe17ed9888702b42f0620ac065ddc8564bbd4c12052ebdea51e02b4f",
+      "test_exact_certificate_replays_from_raw_jets": "75579ec25d86f33adea5f84264e264fcc7562fc410ca1f73f04c21de775f6f48",
+      "test_shifted_determinant_restricts_to_frozen_campaign1_ray": "c14ace51f8e605724c5887efd391fa26437a25bbfeb9afb3b0f5ac31fa70e190"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/b3_reference.py": {
+      "DSU": "0fee399ce333a13d5123fa7e298cf43ab530b0613fdcda1b011cc0780b7da01e",
+      "Graph": "1a44d350f3c4132c1f77030951613df748bf3ebff99771e77f5ee88f253eaf01",
+      "_canonical_for_color_permutation": "036cadd1a562d747fbf41e8041ba78e40995beae26f552b7c9fd1089bafcbcb6",
+      "add": "a3deb8cca7057896131f4211706c167eeca105ebcf6d45de408603394aaf7176",
+      "add_term": "0c19ec9dd015cd5ce483998ee0fbce5ad1ea9d3f613d7f10babbc34837416a39",
+      "canonical_key": "768baaf0dccfd730cb2b39d525bfa3156bacdc390902d9464f2095f970450ef0",
+      "differentiate": "94c1090e905151b77e262fac65b513d94895d886967f9709dd13714a2dff3579",
+      "differentiated_children": "08461b8cb9a7e7cd75006f59f98d9737dec0b5953c130eb1cb43c9bf797123b3",
+      "equicorrelated_moment": "9968498cd8b18fcbabc01ea79558a85f625f0ba3535478638993efdbd6297800",
+      "exhaustive_wick": "098406dcf958f25fe1fc66f357d803b7de9843026a612b0a9be8b3a088def357",
+      "exhaustive_wick_terms": "4e472b7979ad9218d8a865d1345802d2527edfe0d00c7ae4c1a6b5d3baaca5b9",
+      "expectation": "c929b258286173384f68d39845530448fd410962f4d1f468eb39812cc537de2b",
+      "fraction_json": "caf5ced291a2b1b960e3688e23be63194faf7ca18a898d565f8e88493cf96848",
+      "initial": "e0ece958bf5cd7523279ff542fb68a022f6bdabcf5ed8441fa0dd01756321579",
+      "main": "ab60b0ec8cb6c546325b90d77b8783874eb3807ca9d28e1ecc2b2734841c2342",
+      "multiply": "4a1dcbe8e63cf35b7537d9327129b33af535df3a535fc0347d9b4e6c55eea2f4",
+      "normalize": "b0f14cfd7c5a620e3248e4093ac1518bc18e58ff0c94fe5026e0fd07c5b2fe2b",
+      "run": "5b5c0c9d9a824fac40f43ec4c6ab0da27aca8e2b0353f80627fc64b988181b55",
+      "scale_shift": "7d385708d87eb2bbe221dfa18f491e3143082a2ca823d12f33a50305ed3b8060",
+      "three_color_witness": "0d7c3bd56c04825515deb654a26a771cbec3569a37fed40ef91883bb35bfb050",
+      "trim": "4097755ecc3d068a33d709dba95086e3624b4b539a64e335eb69f3470e1f7399"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/postprocess_lower_moments.py": {
+      "exact_string": "046bb7573e283c8328305a1e1876a6a914b5dad1a7260620f32eaa35f5dba6e5",
+      "interval_certificate": "004f1843a22b08bf68e08457c44636fcaf550827be894efc99a2f96f4c02ed33",
+      "main": "c64d822076e7b4a5b1524f61bc433620f947e4d9bffd62231ddea46c348590ea",
+      "polynomial": "125c3d1ae1bec154334bcee1c71c2a3241f5b4d2be243136aec970b9dc4dfe2f",
+      "sha256": "ecf34992dd7a47dcd429d831e46e06ccecacf780d2e4d5c8dc1faa21a1a79915"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/run_stage_c.py": {
+      "atomic_json": "e5f8e62ef973e8c25c05cb57737f6f90d95963c815e3d34ad5c91eecd8358615",
+      "capped_child": "3bd74bb9178b7cf5d7dbc06b00bd369c93a871de7711bdab7c4ff5552f1455e4",
+      "main": "feb3afea3d23e791d67b73d4e6917a989cab9655fa6446e583e7062989847c0f",
+      "sha256": "ecf34992dd7a47dcd429d831e46e06ccecacf780d2e4d5c8dc1faa21a1a79915",
+      "validate_record": "5d4379e1da1b6bbef77bcf60242e04f3b6808865c8290b3997480058a3aba1ae"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_b2_order5_gate.py": {
+      "test_exact_two_colour_equal_label_gate_through_order_five": "9ea6f4ae763a3550f06796032d54680d2629b2eb05d923d568bdb19f7f15fa62"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_b3_connected.py": {
+      "binary": "6f69166e22d22ef830a192c577cfa03eaa38f6ee02d4e176deb5a7ca1cad233a",
+      "run": "b8bf8933e36e1d69f91f69752268a57bceb50c6d2fbb570da6c867b7a8a7fc83",
+      "test_connected_first_derivative_and_canonical_endpoint": "cfc7439c70f9b23a3952258257e8da432d0cf4d0dc4548b3b3715d07991a2008",
+      "test_connected_matches_labelled_wick_through_order_three": "47aa23bffc299997f98c1ac4f82270344db85acaf82e529348ee36884d5aa096",
+      "test_invalid_orders_fail_closed": "ffcc9a9c4292a9406d8a0faea1fa818b67dadc5d20304d4506e41b201e2b9b14"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_b3_reference.py": {
+      "test_canonical_endpoint_through_order_three": "c70d83697cfd1a50d392f05f0ce199062c166159f9676cbae3d84459a68279af",
+      "test_equicorrelated_triangle_moment": "01695c28f026277de8d83b12b3e31417155f08f6179ad923784f32ef7df35405",
+      "test_explicit_triangle_sector_is_nonzero": "92f386348ba4c0807cd6f1609ba3c794dd068e4ce756787ec1bdbd94fa15e344",
+      "test_three_color_first_derivative_and_parity": "16bf5b9fc992988395bcf9f6e1122dc87d8ef046f7f29ca2f5bd1e1cd74ee334",
+      "test_two_color_campaign2_equal_label_control": "5e88841d36f427eb9ded38ba18a6dbb87eba29f5dff5ab81c8816fcf2fb0e7b1"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_lower_moment_certificate.py": {
+      "test_lower_moment_certificate_recomputes_exactly": "f971f40580bc2b5b8c650e4f42fc121763dc365a9d0c91f58a64d2df60fe15c6"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_stage_a_provenance.py": {
+      "sha256": "ecf34992dd7a47dcd429d831e46e06ccecacf780d2e4d5c8dc1faa21a1a79915",
+      "test_stage_a_durable_hashes_and_status": "2390e5b162b0a06f39546d55f4944831649a51078fc01d2be4fd156f25a59f3b",
+      "test_stage_b_durable_hashes_caps_and_novelty": "14d960a5623302a5601463c7231d166bb080295db99519f4725b2b21e9576036"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_stage_c_closed.py": {
+      "test_projection_is_terminally_unauthorized": "28ab2e5ab8e0fb95463bafbbebc9b5b7e7b1b8ee24d8a3cde5b63c22cfd4653e",
+      "test_runner_refuses_to_launch_any_binary": "abb1ded2c341b93e1f5f40e0223fc659c747b64326f365710892ef94d5c4d100"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_stage_c_sector.py": {
+      "test_order_five_w_hit_sectors_sum_to_independent_dense_result": "d77046fb9d51283b67c3df2eef275bde06d0570fd734e6efb96bc1ce2104a3d6"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign6_f13_threshold/coarse_sector_bounds.py": {
+      "coefficient_mass": "5ab47f82bf61f20c70b7b1716e0e4f8fece6e7ca82fcaedc7a32b7c35f6a361d",
+      "main": "1b418bc88792dd7b385082d87b82548168fa3c7a4eda24283eebdbd9e3dfe3d3",
+      "odd_double_factorial_from_even_degree": "e0c7e6382400bb2894efa635d45ecc3dfa730e9421048a33a2ee980fe3c759ef",
+      "sector_envelope": "961e871afb07a4fa387822d5b5cabae735f01eb5b5ed357c03b9527b4315c583"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign6_f13_threshold/run_benchmark.py": {
+      "main": "4011c421a21cf918083e3609a713603acbd560c2513bc87f38e910056d66dba4",
+      "sha256": "ecf34992dd7a47dcd429d831e46e06ccecacf780d2e4d5c8dc1faa21a1a79915"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign6_f13_threshold/test_campaign6.py": {
+      "Campaign6Tests": "fe9c52f701c06e1d917210402b1d0bd0c5f21bd86e54d7ed8857324fd1da064d"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign_paths.py": {
+      "certificate_path": "d5bea042ede21c63ff246e91d199844cab0309fa91ea8a9e1bfc58ee23da5975",
+      "recorded_sector_path": "78d706914ea25ad0b4b964e2248e9c5884c34c1df1267121057caa610fc1d1ba",
+      "require_new_output": "cd9b6c27bcce49d19d978e04f8f5dddb6af8846cb7409dc7a5b9826b1f817f22"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/centered_depth1_order13/centered_h2_exact.py": {
+      "add": "ab8e41b46446cdbb98a46d633eb406c5090f9aff275dfe8c9e4538780696aa0b",
+      "gaussian_expectation": "7154e7a64456c0ec663c5e5d68bc2be8def4c78f6cbc9908010b7b4a74395531",
+      "lie_derivative": "52bc7bafc6a8966f0a756994869ab0cdbc634f5c7079032328943f9aa78714e8",
+      "lie_jet": "2406a78f6c6832474bca6386edd5e137a3f959dd611c35651d681522da70d6cb",
+      "main": "641ae5915ec219e7a9b16fbfa4973d7961dcf710598212385886f9d3247050c9",
+      "multiply": "a539ab1bb4f81922494ff94c81391d1f66cf7f54aa6562dbe0b2a8f9ee4c10a2",
+      "odd_double_factorial": "ca21111a613ff49be34ff4de67fce918f3defea19c2e54235ebcafad72bfe0d1",
+      "scale": "465e7cb56e5df5310dc8ca6cb7e37105c7e033205fbb1843c69f9c6c0cd5ba13",
+      "serialize_minors": "5bbba26b9bf26940a1842ba0c1012310d86241c1531db79192b312b16471da78",
+      "sha256": "ecf34992dd7a47dcd429d831e46e06ccecacf780d2e4d5c8dc1faa21a1a79915",
+      "taylor_jet": "a375ee7e7c51842935b4ccb1ec2527a6cc2200e3be5978e1b5985403e9c1411d"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/centered_depth1_order13/test_centered_h2_exact.py": {
+      "CenteredHermite2Tests": "00ffdb9382bc9ac9156b69ffb9403be254f4d9bb92ea2d619972b0620b53bb70"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/depth3_exact_jet.py": {
+      "GaussianExpectation": "e896d04b5f95588a2c4787d3cdc9f965c5979997fb54d189259b9b4aab3c2dd5",
+      "JetResult": "5cc4a1b8a0bd6ef2630ccba86fbfd50d8282506c545003625404d63d0656be85",
+      "_assert_frozen_gates": "96c52cf66182f0d1ea96fcc786002c9fb13448fdf4652b7647ab9733cb9f06d9",
+      "_format_progress": "3da342693e873e53613f731d75bd5b9132ba963599b75e26c078463e96ff999f",
+      "_result_payload": "b4da94f15829476ae5b20ae53e727693bac075e9042cc32390d3509f660a8299",
+      "_serialize_fraction": "16ad2ccb7585cadef4e32ab74f92cbddc4fc0588a9a85a216b8ac11273de058b",
+      "_sizes": "8c6f8d5a56859efb13122d37b3a589fd6d4a2f696f21542201564c1668923f1d",
+      "add_polynomials": "fa5b6ced86e21334a35cf7c95e1b6470c01d409e4c6a2b0b531724e294710291",
+      "derivative_jet": "b36dfb8ddd10b0978e633b08fafde459b63a387961e714be531c9b5c1487ba0c",
+      "main": "43c418169f06e405a32fd77daa624a27ebab496884eb2bcd7329708137522c38",
+      "multiply_polynomials": "17eaee9429fa3b3b1838767df06b37a1d21d6753c5ef65e09fb29d377b605490",
+      "scale_polynomial": "d16a022b260fb43c9098eef065ebeb82ad0d65bce42b2e3f33d46a93b93b86f2",
+      "taylor_jet": "6a1eb42af92afa66e3b37b0c411ed770f2ef6a42726f8348adc66d933411cc5e",
+      "variable": "03b656591f2a040071bb7ffba1a5ab83ed5e68e718615e351a5d1eb8cf802001",
+      "zero_monomial": "8eeaa4222e0311cf3b7015ffd38d004bfa343d63f7b0c22cb8a34dcbb0d81784"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/depth3_order13_stieltjes_audit.py": {
+      "main": "8aeef94ec41829bd8520a066078f6e6ae885c32ad34c90bf6493160c697ef4db",
+      "sha256": "ecf34992dd7a47dcd429d831e46e06ccecacf780d2e4d5c8dc1faa21a1a79915"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/depth3_stieltjes_audit.py": {
+      "approximate_eigenvalues": "d4eda6a4bcc6fb6a338e9eff315b811071ea3fd3daac4175d330bc289ddfe563",
+      "audit_hankels": "5e994ef00d63c0da1977249b6f2dca9a9f42fe250d3c709a12b9444b8ac89f9d",
+      "audit_matrix": "50a3a4204b3b47a57cb79946780b39d53e81707cac957fe28d27a76be9081178",
+      "determinant": "cb6f6426f366c3ff6e4c9e9cbdd4b249145326621167f8fcd785d5613f78b67c",
+      "fraction_string": "b3a537069fcbff2dd18d89b3217e19ac29c5eeea01532a7b37b2e977031ab0ab",
+      "load_existing_moment_transform": "0711942f0f0ae30f98c26db1b90c9194acf3c8a045d7bf3f283c41cf354dbde5",
+      "main": "1611636e62dc344ba2c87bc92845f81752c309af2df020a60273feef971e1b80",
+      "moments_from_triangular_identity": "afec6ee0afa94821a227e3ba93b06325efff137171bac68a719db41e500d994e",
+      "multiply_series": "8d67ba64deafee331f33b91a91a54a356d8721a5261669d35ffbfa48c70860aa",
+      "power_series": "1beef36f155e5eecf1152f2d4b1813a7193935e4a433a9fe7f591ee5bc877aab",
+      "principal_minors": "f3d74f293ec5105257a59a7691ba143fead89b1e85a0ad6f8a6655f885e5fa40",
+      "sha256": "ecf34992dd7a47dcd429d831e46e06ccecacf780d2e4d5c8dc1faa21a1a79915"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/test_depth3_exact_jet.py": {
+      "Depth3ExactJetTests": "7c8f7bebb0fbdc7f150e6e104c99f072fdbc52f0105ec97a713ca125b9c7779e"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/test_depth3_order13_stieltjes.py": {
+      "Depth3Order13StieltjesTests": "b65fad28b92929ab71658dc004d96c4dd3c3110a31bf064736f5cabbea7f7f32"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/test_depth3_stieltjes_audit.py": {
+      "Depth3StieltjesAuditTests": "3e336889821b1b6abda58e9ea55838ca72c61643fbae201c164908e7e6766a53"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/exact_graph_wick.py": {
+      "Graph": "18643648760b5a012964764dc7c37f02fd99d535fa6f004949b8da07e607eaea",
+      "_forest_canonical_codes": "29f231edbfa1a0f87f545adb72417b2b51b58a83abdc1c35a522907d6b13c157",
+      "_intern_tree": "0be5b609d64d7f83c2d120948b9da4eef89f56eeb16e0bd6728d5ba48d6f76b4",
+      "_refine_partition": "d60c8100419c3567fc2af181562a6a77f2fd1ecd198eab22262f87a985fd5d92",
+      "add_term": "441aecaca7288ef883902fc8590b1fdfac97b788d26a0f53faf7a79db0d97cb0",
+      "adjacency": "a020002bcab8ab92bbcd1876248f1c89f29310b2bc8b86c2bf3b714a861adaf2",
+      "canonical_graph": "e80a2325377e5cc219dc41f93a945c70e15068cee9bd9be8fb047b22bbe3884c",
+      "canonical_key": "ec64a5e5886f9e967af5b02248850105cfaa1612271c74908755c828bdd8d278",
+      "connected_component_graphs": "73f1f501007881108fd8a25280ed091d5654cd29ba9ddaa99b3130dec8dcf37c",
+      "differentiate": "f6af3bebb66c4a88f55d9f8002cd929bb15421e67c087cf603502981662eaa8a",
+      "differentiate_graph": "4d2a6a4baf584f8b5f4552386b8f44d66a8133c7e9b782668f4e63ecbaf5f98a",
+      "expected_large_n": "0bb0ef9aff822947d0489d642f329b50167d8f15bc9edd2bbdd2c62bae1c49b3",
+      "final_max_degree_and_weight": "dbe209e8b6efc217ac91768db9856804ade2ccc9b2d7bf84c98460042ba5d7cb",
+      "graph_from": "a549ccd6930a8da8a4f1a5beca3be3b3bf47951ab2d322f9a3a3ae2863e6c7e2",
+      "initial_observable": "8155366e807d596949f51defcfd2888a3e4e77264ebb8623d269e0a45284c876",
+      "main": "5b3882e986f01c6555ea1e913c9e4185782594136d97ac122102f5d90a9186f8",
+      "merge_vertices": "e2842baf8aacf7961be76f5d948ae313fa6217e622fc55a7c31407ea4350f06a",
+      "normal_moment": "9dd749fe0955cb3c2e31136ff6bed5929b945c95068f4b1333f811d50f328b07",
+      "odd_double_factorial_from_half_power": "7db93f53a51059edc91327da3ff6f54c4535a3d9534102f7b332d4077f86a6bd",
+      "run": "9bedd1dd5a819a1a4b2ba84b513317fdd3983266093e95ae7b4da2a6e4e5c2fc",
+      "save_checkpoint": "0c6feb96cfc2f8c59b231daf7c591a3073f8ae4259198af63856d77e3478f1ed",
+      "wick_leading": "3611426168500ff8acabee86988f2630947bb2bc898146053db838dde18d41dd"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/finite_width_jet_reference.py": {
+      "compose": "47d754175e31e49bb28340473b1d0036a78c0f7b782173767315b8b5a72f9978",
+      "feature_jet": "c3c96ff50f1a9a5db0593a29ae2051d29809c82a8e67be23a6ae46afdea98ae5",
+      "inverse_series": "547b1f056debb1a8c2928725fcb04db4c862af53649fb387e8e01dc5db58628b",
+      "main": "e730dbdcbf02acb60b0ec7736ea3befc01554e22785d5e44133d3b33b72deb7f",
+      "mul": "f91a846ec1aa7d35db32b8accd53bd0dcb73d7fd20e3ac5407fe79030ef615e8",
+      "output_kernel_jet": "0a3f498119a267c7b0adf7e50104d33e04babad227efed47375e3397d00dd0d0"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/graph_compiler_reference.py": {
+      "Term": "78e1ff89b424d5117611dffa6b627168809ce736ff61a5e5f3fd51545a1ef8a0",
+      "canon_partition": "b2138efd4b05651aac6d93a417c3e0c511daa13c17a765c54c0d04b018c8b55e",
+      "component_code": "641a129c4af0fb032a8ee7254887f3470c5bb40d6a0cb8fee4ac61f664693f1b",
+      "differentiate": "ef3cca86f0baec48d41b88c7b4f1edea4bce1cbb23771ffae5ab72b8cd93761f",
+      "differentiate_by_rule": "b311ba32f160733981937b41160a75cabd4ec3eaf3334f7140dc07f828dd14f8",
+      "discrete_partition": "d14271632056b395df26af067c855836122ddf85af610eb900333206534bf144",
+      "forest_key": "d7f96de917966d061a9f19dac294378c43c87e82095d37a54111dcbb19ba1532",
+      "gaussian_pair_dist": "f1b72add24426adf92e5099ba62ece14aa3305d0ec7f699b0c2b436e53596d42",
+      "graph_for": "47096fedaff3310bad6b5fc5e555290356efa944044f584ae2b70ccd2bb58d15",
+      "iso": "a7532f4f5b137ab27691b503b20af27b6651a0d73bf6f4ded696d9a22f637dae",
+      "leading_component_expectation": "de9829432f43baf2f06c533a3cc79e4d0f9ffad2a1e685da7cf73041b4f41cb8",
+      "leading_expectation": "4b7d3a6adcfe8d3c93ff0dba512745686e0493fcf2d38d217bf8c51f8e2a5be1",
+      "leading_expectation_fast": "a1e6c3d5f7600b1d67c13b2f38c1c41b9106bb83c1926d546e4ac842370fc317",
+      "leading_expectation_wpair_audit": "f88cdd655bf5f09fbd7f33bc644fcc2d165de2fbbf67068b9a381f743d920031",
+      "main": "319075c641e7eb3a741ae8b3a6fab96811eeef244b37c0784ea7eef7a6b6efe5",
+      "maximal_odd_block_pairings": "56762e106892422c7cb5e8720efcb4bddded171df785928a90e037b204714c16",
+      "merge_terms": "c1d8630c009ece75cee4091ea4be968428a9b8b9a57afbf8e89f13d08edaea75",
+      "normalize": "b0166cd1af6e67fc6ccc0e2a6dd2a84a58a368ae1923021ee57d20ac3a9bc992",
+      "odd_double_factorial": "6cc5888445166b9788e0e501a103c1fd4e24fdb4d6844fb2e5e5ad5fd769a3c3",
+      "term_hash": "86f976902d9c2eae4b783c8e35dcbf5305779bb90a64394401860342fd415c05",
+      "union_partition": "44c52c37377accca46a6cffd50fac2f7983a52bcf351d244bb9a6be981f01922",
+      "w_pair_partitions": "17402ef766b7bff529469eb2e5d002be1da9434270209fe634ce2b4238d1cc5b"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/high_sector.py": {
+      "main": "1f487e5c7323306063d50e6351aaad10021d87111e179958de8e6423990cd084"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/independent_checks.py": {
+      "DSU": "05bc3c2df99675c50ed7bc3f61220e81231af5695d8cab2ba89875a4f14b851f",
+      "direct_large_n": "b27e259e7ee649659e907994f21abd899362afbeaa32641d8be86961a0671117",
+      "direct_pairing_graph": "cf27c802f2d3196f1424e3fd12d73328008a451a20f702a03431a7857bb6dd6f",
+      "final_weight_from_dsu": "fe51c274eaead9a4fca9a5e9a00d18fbbb38f1cfc1d0ab1e33c920d5e88a662d",
+      "graph_n1_expectation": "1c5c1fed07abfa6d19ec2cdd5862b7f476110efc2d69089014899a2dfd73299b",
+      "main": "0eaa16096455c412acb8518b3fa08c4cd73fac01d177757b821bd227cfafe8bb",
+      "scalar_expectation": "1d71e6afb2770dd7ec3ba5753e19dd7c2c7a286a2a5375f17c72e0660382a9bc",
+      "scalar_step": "814ba6df23ed24174c585ca08e7e80bac9fb72736d4082598d5b8ffa4b596660"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_closure/finite_width_boundary_layer.py": {
+      "RunResult": "3e2229aa11b2b8826d1eb6ea87da0d6910f1cdade1de859f0e978cbd8ff43289",
+      "initial_state": "d1e2231b2bbdb01cb547b08887b8be9e4e9f3cbb2c276882ee95038cd7ed73f0",
+      "main": "41b05dacc42ed74a42ec65065a1c9348f492637042c9c6c6dbf6b228c4b7e9c3",
+      "observables": "76e8d47bbe41ea652c6812f42d359408fc88fd37c1648fb834b180e706a9a769",
+      "solve_one": "8137eff25a78e610ab548b940446a436d90b66281e288d30b7f7f17bdba5129c",
+      "unpack": "08948c1e256a4106cbebed49c89ad1168eeb4bfdba487e7ccd73ce2594e954e1"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_closure/test_finite_identities.py": {
+      "feature_rhs": "97d7b1bdb964cd0d08216f0f4175f31c6e10a02383e6d4cab832ce07a5cb330f",
+      "fields": "55361d4a1242d806c45c72078274dce35e55eab08b2c8ae732e7cc682e1db080",
+      "inner": "071c08ae9874c3caf835ebd031d3d4eadf4daac3fbc842aa1033a3838ff9ded1",
+      "kernel_derivative": "f2f6bfbf09a460faad86a1d577ba7f5f9111304ab568f110acfc928cb6587807",
+      "orthogonal_component": "c44f62e7e2aa7d94c428fecf5015f40d26a454a374fbb3c1c6798edf2bcfb131",
+      "prediction_and_kernel": "303de9020d80332ecc394980928a07e15d7fa6a02350649abc0b02c5f9888899",
+      "test_general_one_cell_reduction": "46d873abe04a0c866adcc34517e2a36bbaa8bc1f154cc4f395d74ec9d0fe28e7",
+      "test_gradient_and_balances": "ddbf7fa16651d1af70d28b806970e16aa4684565c895f8c3c9d583b25f5fef7c",
+      "test_hidden_rank_one_direction": "2c92bd2d6f6878d190293cec1d41217b03138e9fd49bd525f4f085548a07ed36"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/rms_normalized_operator_closure/run_early_spike_diagnostic.py": {
+      "State": "17e46470a7f28faed0f14208b8c3338ff5934f6dd4d41bc458d6189a150e061c",
+      "add": "ca45a6e2b52882161ecf8ae63c49721d8c839b6dd0191bec903542222c915c4c",
+      "combine_rk4": "314e43542a23494d75dc67306c1e4e6a91143dcf08b0394a6e73734aa58253c3",
+      "diagnostics": "bd7cf2def3461cb60e9272fe7a9cf521c30306b38f9b5362a81d174ca7b97474",
+      "extrema": "b3e7708b64310cd092f448d94b3a8c875b05a6d50c24d88de22dea0d6c47ccb0",
+      "integrate": "ecf111654880ef76cba9247e6b4083a0f84018e3b07c05e59074d4601a05b03a",
+      "main": "b6a4ce7275330dac746f3dd016abf671f3d3cad53603ce709385a522862d2b53",
+      "rhs": "8d2b348081abec24f5071fa92230bce059dab633684407d9a336bc859fa3cce2"
+    },
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/tree_state_tp_audit.py": {
+      "descendants": "d3bb001dcb33ff0fc62abcaecad2e77ee13b2d739c8546f5ac88837a9d6f6a08",
+      "determinant2": "d8843747fdc1cc4d4118eb23a7a57fb96b5b119ec37435190b68ab1bf82d7e3a",
+      "main": "3060f308a0fbb57835a072636360da5ab3bc2b4333d1ea36affd9a5fc2527895",
+      "one_step": "e0faf658131bc266093dd1863eaf0a97a83b6c501f2d365d3e51c84c76b53034",
+      "unit": "1780db2d159f251068698d9a56f9dafd1fc8a6c982d68cc6e947a3c0244f53d3"
+    }
+  }
+}

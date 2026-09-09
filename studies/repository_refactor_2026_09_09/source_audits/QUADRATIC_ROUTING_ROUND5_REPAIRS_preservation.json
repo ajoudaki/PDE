@@ -1,0 +1,57 @@
+{
+  "CURRENT_SOURCE_SHA256.txt_byte_unchanged_sha256": "faabd087e46ece472773747d8ff2d46f4f8f48e490f3e06db26bfffa4db25bf8",
+  "HISTORICAL_SOURCE_HASHES.txt_byte_unchanged_sha256": "002834681bbd5d6521fceb1e0a59c1b1a99700e4e1d6a1d841f7fcbb9980b706",
+  "campaign1/graded_sector.cpp_byte_unchanged_sha256": "b6657defd7897e54a121b7f8523396d4f6fef666a7a044fe32d6b4d43926a061",
+  "campaign1/run_graded_campaign.py_main_otherwise_ast_identical": true,
+  "campaign5_b3/b3_connected.cpp_byte_unchanged_sha256": "5dd93cbc8fb97479e6c54dbc2202bfec42d0156014f5d34b4d40e77da9d6621f",
+  "campaign5_b3/b3_reference.py_byte_unchanged_sha256": "dda01ff669e63a9e601dfb98d32375a37f2c59c1eb1e8f887ba045495a8c5661",
+  "campaign5_b3/run_stage_c.py_byte_unchanged_sha256": "25257a0de873543c65354c662d2e0eacde2179120b80e542e81430114d59bfd0",
+  "campaign5_b3/stage_c_sector.cpp_byte_unchanged_sha256": "f1912e81b2f25bdef04bcef9c490a0975757a64deda4cb55f74c7c50abfe64ce",
+  "campaign5_b3/test_stage_a_provenance.py_assertions_preserved_except_evidence_root": true,
+  "campaign5_b3/test_stage_c_closed.py_assertions_preserved_except_evidence_root": true,
+  "campaign6_f13_threshold/FROZEN_PROTOCOL_SHA256.txt_byte_unchanged_sha256": "2d4fef98d0d26812f3f90afb71d18976ca77394544a71725afe9d30198f007d7",
+  "changed_only_owned_interfaces_and_requested_readme": [
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/README.md",
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/run_graded_campaign.py",
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_stage_a_provenance.py",
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_stage_c_closed.py",
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign6_f13_threshold/run_benchmark.py",
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign_paths.py",
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/checkpoint_paths.h",
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/component_parallel.cpp",
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/exact_graph_wick.py",
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/sector_parallel.cpp",
+    "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/sector_parallel_reuse.cpp",
+    "/home/amir/Codes/PDE/studies/repository_refactor_2026_09_09/test_quadratic_routing.py"
+  ],
+  "changed_python_functions_only": {
+    "campaign1/run_graded_campaign.py": [
+      "main"
+    ],
+    "campaign5_b3/test_stage_a_provenance.py": [
+      "test_stage_a_durable_hashes_and_status",
+      "test_stage_b_durable_hashes_caps_and_novelty"
+    ],
+    "campaign5_b3/test_stage_c_closed.py": [
+      "test_projection_is_terminally_unauthorized"
+    ],
+    "campaign6_f13_threshold/run_benchmark.py": [
+      "main"
+    ],
+    "campaign_paths.py": [
+      "require_new_output"
+    ],
+    "exact_graph_wick.py": [
+      "main"
+    ]
+  },
+  "component_parallel.cpp_only_interface_insertions": "d51486aaff893ae603acae3d084a0132d3864be0e0869401e74d44fa96681d5a",
+  "exact_graph_wick.py_main_otherwise_ast_identical": true,
+  "export_evaluator_reference.cpp_byte_unchanged_sha256": "f429865db14efa0623fc2a05e16d52f3328983218a9cea2135dc55baffd7644e",
+  "historical_unchanged_count": 132,
+  "native_validation_limit": "Source inspection only; no compilation or native execution.",
+  "readme_only_requested_current_limits_note": true,
+  "sector_parallel.cpp_only_interface_insertions": "9ea028a247f803f3b1beca6e927b74cd8d9717999a88beb09e3fe27a39204ceb",
+  "sector_parallel_reuse.cpp_only_interface_insertions": "752c9f744e48cbc2ceecfd7800ae57aabbabd40b6fb6315ee22bc16246a4636c",
+  "source_bytecode_absent": true
+}

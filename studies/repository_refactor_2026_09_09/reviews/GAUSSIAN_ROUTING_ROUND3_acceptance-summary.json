@@ -1,0 +1,15 @@
+{
+  "input_file_count": 747,
+  "source_tree_helper_ignore_file_count": 741,
+  "historical_file_count": 6,
+  "all_inputs_before_manifest_sha256": "839cdb8a123395e8dcab9e052afde654258042d0098d76ff6908ce8684b31eff",
+  "all_inputs_after_manifest_sha256": "839cdb8a123395e8dcab9e052afde654258042d0098d76ff6908ce8684b31eff",
+  "input_changes": {},
+  "shared_helper_expected_sha256": "8e67059e7083fcb5d230de92f1daa4387dba4da1c081e3f111180cef1e2cd02e",
+  "shared_helper_before_sha256": "8e67059e7083fcb5d230de92f1daa4387dba4da1c081e3f111180cef1e2cd02e",
+  "shared_helper_after_sha256": "8e67059e7083fcb5d230de92f1daa4387dba4da1c081e3f111180cef1e2cd02e",
+  "bounded_migration_tests_passed": 24,
+  "private_directory": "/tmp/pde-migration-acceptance.tTQJzxO5",
+  "private_directory_mode": "0o700",
+  "scientific_reproduction_performed": false
+}

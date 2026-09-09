@@ -11,7 +11,11 @@ import json
 from pathlib import Path
 import resource
 import subprocess
+import sys
 import time
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from campaign_paths import require_distinct_output
 
 
 EXPECTED_LOWER_SHA = (
@@ -99,6 +103,7 @@ def main() -> None:
     parser.add_argument("--memory-bytes", type=int, default=4 * 1024**3)
     args = parser.parse_args()
 
+    args.output = require_distinct_output(args.output, (args.lower_result, args.binary))
     if sha256(args.lower_result) != EXPECTED_LOWER_SHA:
         raise AssertionError("lower-order input hash differs from frozen result")
     lower = json.loads(args.lower_result.read_text(encoding="utf-8"))

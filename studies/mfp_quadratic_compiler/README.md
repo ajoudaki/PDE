@@ -52,6 +52,14 @@ Campaign 4's budgeted production and provenance-building entrypoints are now
 archive-only and refuse before execution. Their old implementations and consumed
 budget remain inspectable; a new campaign requires separate authorization.
 
+Current CLI limitation (static inspection only): `export_evaluator_reference.cpp`
+applies the requested power filter only for `terms.txt power` (`argc == 3`).
+The advertised extra-argument forms `terms.txt power term_limit` and
+`terms.txt power start length` leave that filter disabled. This known legacy
+limitation is unchanged and outside the migration interface repair; it is not
+a numerical validation result. Do not interpret those extra-argument forms as
+power-filtered evaluations.
+
 Five bounded parameter extensions of this compiler are maintained as
 separate, auditable campaigns.  They reuse the peeling/Wick grammar but do not
 alter the accepted canonical derivatives above.  Campaigns 1--4 reached exact

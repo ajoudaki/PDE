@@ -1,0 +1,28 @@
+[
+  {
+    "result_path": "/home/amir/Codes/PDE/data/historical/studies/stieltjes_resolution/canonical_hidden_high_order/PRODUCTION_HIDDEN_RESULT.json",
+    "result_sha256_before": "4ee8022d59e3ff19eff89ff654518acd182cf19c48c1d3557f2099ab88f91c97",
+    "result_sha256_after": "4ee8022d59e3ff19eff89ff654518acd182cf19c48c1d3557f2099ab88f91c97",
+    "recorded_source": {
+      "path": "studies/stieltjes_conjecture/resolution_program/canonical_hidden_high_order/production_hidden_recurrence.py",
+      "sha256": "d49a8a19cbe2cd31699776d1359d947ec4f3f825eef06346c0e81331b5777530"
+    },
+    "current_source_path": "/home/amir/Codes/PDE/studies/stieltjes_resolution/canonical_hidden_high_order/production_hidden_recurrence.py",
+    "current_source_sha256": "0597f9f291f9b39d5e39b6fe7d7f0d27e63c23f363b052cd1b20ab707d86625b",
+    "original_failure": "source hash mismatch for production_hidden_recurrence.py",
+    "reset_or_authorization_change": false
+  },
+  {
+    "result_path": "/home/amir/Codes/PDE/data/historical/studies/stieltjes_resolution/canonical_hidden_high_order/INDEPENDENT_HIDDEN_RESULT.json",
+    "result_sha256_before": "b1d092dffa9f8b9bd670a0ef02fa67cce58ff95a53eafeec0ba269604b940440",
+    "result_sha256_after": "b1d092dffa9f8b9bd670a0ef02fa67cce58ff95a53eafeec0ba269604b940440",
+    "recorded_source": {
+      "path": "studies/stieltjes_conjecture/resolution_program/canonical_hidden_high_order/independent_hidden_recurrence.py",
+      "sha256": "fd923a6bff5e7f6d3f09a56f8a2ec208068615e7545c7e2d31178dd7c4817893"
+    },
+    "current_source_path": "/home/amir/Codes/PDE/studies/stieltjes_resolution/canonical_hidden_high_order/independent_hidden_recurrence.py",
+    "current_source_sha256": "a18dea37e4bb0f346012e9ce33d2de1124efadf872585917ee76879e2462c161",
+    "original_failure": "source hash mismatch for independent_hidden_recurrence.py",
+    "reset_or_authorization_change": false
+  }
+]

@@ -1,0 +1,151 @@
+[
+  {
+    "name": "g2-input-alias",
+    "kind": "same",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/g2-same/raw.csv",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/g2-same/raw.csv",
+    "before": "aacc3b13d222b33ced620d28e80072a1d2b881f22a034f0cb4119e8f568928aa",
+    "after": "85d75a5c94d2cf446ffd1343f7555a8d59cc76bf4cef25f7cf82753bfb2a9849",
+    "overwritten": true
+  },
+  {
+    "name": "g2-input-alias",
+    "kind": "symlink",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/g2-symlink/raw.csv",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/g2-symlink/summary.json",
+    "before": "aacc3b13d222b33ced620d28e80072a1d2b881f22a034f0cb4119e8f568928aa",
+    "after": "85d75a5c94d2cf446ffd1343f7555a8d59cc76bf4cef25f7cf82753bfb2a9849",
+    "overwritten": true
+  },
+  {
+    "name": "g2-input-alias",
+    "kind": "hardlink",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/g2-hardlink/raw.csv",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/g2-hardlink/summary.json",
+    "before": "aacc3b13d222b33ced620d28e80072a1d2b881f22a034f0cb4119e8f568928aa",
+    "after": "85d75a5c94d2cf446ffd1343f7555a8d59cc76bf4cef25f7cf82753bfb2a9849",
+    "overwritten": true
+  },
+  {
+    "name": "analyze_middle_response-input-alias",
+    "kind": "same",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/analyze_middle_response-same/selected.jsonl",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/analyze_middle_response-same/selected.jsonl",
+    "before": "ef4ceaf07d27549ef7db143fa22aecc26b6e1f44485849c57f78cee2f59e76c3",
+    "after": "ee89c11b5aa7f55a5152e93c0057a9df60633c749016cdd63d564f8f44ec3be3",
+    "overwritten": true
+  },
+  {
+    "name": "analyze_middle_response-input-alias",
+    "kind": "symlink",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/analyze_middle_response-symlink/selected.jsonl",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/analyze_middle_response-symlink/summary.json",
+    "before": "ef4ceaf07d27549ef7db143fa22aecc26b6e1f44485849c57f78cee2f59e76c3",
+    "after": "ee89c11b5aa7f55a5152e93c0057a9df60633c749016cdd63d564f8f44ec3be3",
+    "overwritten": true
+  },
+  {
+    "name": "analyze_middle_response-input-alias",
+    "kind": "hardlink",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/analyze_middle_response-hardlink/selected.jsonl",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/analyze_middle_response-hardlink/summary.json",
+    "before": "ef4ceaf07d27549ef7db143fa22aecc26b6e1f44485849c57f78cee2f59e76c3",
+    "after": "ee89c11b5aa7f55a5152e93c0057a9df60633c749016cdd63d564f8f44ec3be3",
+    "overwritten": true
+  },
+  {
+    "name": "analyze_response_leverage-input-alias",
+    "kind": "same",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/analyze_response_leverage-same/selected.jsonl",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/analyze_response_leverage-same/selected.jsonl",
+    "before": "ef4ceaf07d27549ef7db143fa22aecc26b6e1f44485849c57f78cee2f59e76c3",
+    "after": "9e73dcb1f1ec42851700b8537fea0ee77efc3432093dbac92ca2f08edf442ee4",
+    "overwritten": true
+  },
+  {
+    "name": "analyze_response_leverage-input-alias",
+    "kind": "symlink",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/analyze_response_leverage-symlink/selected.jsonl",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/analyze_response_leverage-symlink/summary.json",
+    "before": "ef4ceaf07d27549ef7db143fa22aecc26b6e1f44485849c57f78cee2f59e76c3",
+    "after": "9e73dcb1f1ec42851700b8537fea0ee77efc3432093dbac92ca2f08edf442ee4",
+    "overwritten": true
+  },
+  {
+    "name": "analyze_response_leverage-input-alias",
+    "kind": "hardlink",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/analyze_response_leverage-hardlink/selected.jsonl",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/analyze_response_leverage-hardlink/summary.json",
+    "before": "ef4ceaf07d27549ef7db143fa22aecc26b6e1f44485849c57f78cee2f59e76c3",
+    "after": "9e73dcb1f1ec42851700b8537fea0ee77efc3432093dbac92ca2f08edf442ee4",
+    "overwritten": true
+  },
+  {
+    "name": "marked-summary-alias",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/marked-input-alias/selected/raw_replacement.csv",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/marked-input-alias/fresh/summary.json",
+    "before": "fbe970fdfff56fc608dc1e68536b892ff030a753106ad18d550658f7553f5928",
+    "after": "0fcfe4ff6759b0e2f0bd9d8675da534fadcbd4571c72ad1c40ace28833aa28b4",
+    "overwritten": true
+  },
+  {
+    "name": "history-report-publication-alias",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/history-report-alias/maintained.md",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/history-report-alias/MEAN_FIELD_PEELING_REPORT.pdf",
+    "before": "4aa77dd3f8bd557fd312ea3b5bd6296a0fb8fa8dca9ae418155d393f82acade1",
+    "after": "86cfdc7e503964852bd40a110563a71b305bc6e438947ed67f97b0c6da37efd4",
+    "overwritten": true,
+    "compilation": "mock only"
+  },
+  {
+    "name": "archive-writer-temp-input-alias",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/archive-helper/retained-input.json",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/archive-helper/H3_UNIT_COEFFICIENTS.json",
+    "before": "1ff555cf5a111f46d64242fcd143ff86883c7a01300424d57caaac55a5c164e9",
+    "after": "4daa35e480dc75a32283144a3a080c10a8063d1613e5cbcf62eebb4429c9abca",
+    "overwritten": true,
+    "refused": false,
+    "result": {}
+  },
+  {
+    "name": "gaussian-postprocess-same-input-output",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/gaussian-postprocess-same-file/H3_NORMALIZED_SINE_RESULT.json",
+    "before": "d99931b2976f87f2c40988399555d08ab203893d9e77107a546f62b49b95faef",
+    "after": "89ebd872f1f0ad44668b9e606814bf9dcd13fb717b05c63086faf01ceef0152a",
+    "overwritten": true,
+    "original_expected_digest": "d99931b2976f87f2c40988399555d08ab203893d9e77107a546f62b49b95faef",
+    "science": "mocked"
+  },
+  {
+    "name": "curvature-named-output-is-input",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/curvature-H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RAW.npz/H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RAW.npz",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/curvature-H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RAW.npz/H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RAW.npz",
+    "guard_and_original_digest_accepted": true,
+    "input_preserved": true,
+    "scope": "stopped before decoding; later write evidenced in complete source body"
+  },
+  {
+    "name": "curvature-named-output-is-input",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/curvature-H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RESULT.json/H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RESULT.json",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/curvature-H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RESULT.json/H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RESULT.json",
+    "guard_and_original_digest_accepted": true,
+    "input_preserved": true,
+    "scope": "stopped before decoding; later write evidenced in complete source body"
+  },
+  {
+    "name": "duplicate-hidden-source-role",
+    "source_role": "production_hidden_recurrence.py",
+    "selected": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/duplicate-role-production_hidden_recurrence.py/selected.json",
+    "production_equals_independent": true,
+    "provenance_accepted": true,
+    "scope": "stopped before scientific fields"
+  },
+  {
+    "name": "duplicate-hidden-source-role",
+    "source_role": "independent_hidden_recurrence.py",
+    "selected": "/tmp/pde-migration-acceptance.tTQJzxO5/private-fixtures/duplicate-role-independent_hidden_recurrence.py/selected.json",
+    "production_equals_independent": true,
+    "provenance_accepted": true,
+    "scope": "stopped before scientific fields"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "reachable-tail-input-alias",
+    "role": "primary",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/supplemental-fixtures/reachable-tail-primary/primary.csv",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/supplemental-fixtures/reachable-tail-primary/primary.csv",
+    "before": "a405c94b5cfee5993548c104ade40e5d8d7b6f0debcdaa0ebde6bbd6ba5126be",
+    "after": "ce957e195afa8085c49d6cd1db327e1751defe0c5babcda43c943abbfb7e2206",
+    "overwritten": true,
+    "science": "empty rows; analytics not reached"
+  },
+  {
+    "name": "reachable-tail-input-alias",
+    "role": "step",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/supplemental-fixtures/reachable-tail-step/step.csv",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/supplemental-fixtures/reachable-tail-step/step.csv",
+    "before": "a405c94b5cfee5993548c104ade40e5d8d7b6f0debcdaa0ebde6bbd6ba5126be",
+    "after": "ce957e195afa8085c49d6cd1db327e1751defe0c5babcda43c943abbfb7e2206",
+    "overwritten": true,
+    "science": "empty rows; analytics not reached"
+  },
+  {
+    "name": "reachable-tail-input-alias",
+    "role": "metadata",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/supplemental-fixtures/reachable-tail-metadata/metadata.json",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/supplemental-fixtures/reachable-tail-metadata/metadata.json",
+    "before": "a43b308042adcb4913837a18bfdaa66c9db0d299a5b5448e2aaba42fc843aac5",
+    "after": "ce957e195afa8085c49d6cd1db327e1751defe0c5babcda43c943abbfb7e2206",
+    "overwritten": true,
+    "science": "empty rows; analytics not reached"
+  },
+  {
+    "name": "first-passage-input-alias",
+    "kind": "same",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/supplemental-fixtures/first-passage-same/first_passage_fixture.npz",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/supplemental-fixtures/first-passage-same/first_passage_fixture.npz",
+    "before": "d16767586ed41b0048f9c613fafcb22b7c3dd5438c7cdc854377d4cb6fd394fb",
+    "after": "21bc177d0fefc964917cd4a37df06d429e314a7eb7eb66b9c2fd36194f6a58bd",
+    "overwritten": true,
+    "science": "summarize mocked; no panel decoding"
+  },
+  {
+    "name": "first-passage-input-alias",
+    "kind": "symlink",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/supplemental-fixtures/first-passage-symlink/first_passage_fixture.npz",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/supplemental-fixtures/first-passage-symlink/summary.json",
+    "before": "d16767586ed41b0048f9c613fafcb22b7c3dd5438c7cdc854377d4cb6fd394fb",
+    "after": "e1eaa7b03a13ffab6ca9cb4e24866a480c6069fbfdab6aea36c9658e94da6583",
+    "overwritten": true,
+    "science": "summarize mocked; no panel decoding"
+  },
+  {
+    "name": "first-passage-input-alias",
+    "kind": "hardlink",
+    "input": "/tmp/pde-migration-acceptance.tTQJzxO5/supplemental-fixtures/first-passage-hardlink/first_passage_fixture.npz",
+    "output": "/tmp/pde-migration-acceptance.tTQJzxO5/supplemental-fixtures/first-passage-hardlink/summary.json",
+    "before": "d16767586ed41b0048f9c613fafcb22b7c3dd5438c7cdc854377d4cb6fd394fb",
+    "after": "2cdce7313de23e6343df415d853383bba882b62f158f4344d201d5b467987dc7",
+    "overwritten": true,
+    "science": "summarize mocked; no panel decoding"
+  }
+]

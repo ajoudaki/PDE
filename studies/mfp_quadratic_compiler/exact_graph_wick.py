@@ -28,6 +28,11 @@ from fractions import Fraction
 from pathlib import Path
 from typing import Iterable
 
+if __package__:
+    from .campaign_paths import require_distinct_output
+else:
+    from campaign_paths import require_distinct_output
+
 
 _TREE_SIG_TO_ID: dict[tuple, int] = {}
 _TREE_ID_TO_SIG: list[tuple] = []
@@ -579,6 +584,10 @@ def main() -> None:
         value = expected_large_n(state["poly"])
         print(json.dumps({"order": state["order"], "graphs": len(state["poly"]), "derivative": str(value)}))
         return
+    if args.output:
+        args.output = require_distinct_output(
+            args.output, (args.checkpoint,) if args.checkpoint else ()
+        )
     result = run(args.max_order, args.checkpoint, args.resume)
     encoded = json.dumps(result, indent=2, sort_keys=True) + "\n"
     if args.output:

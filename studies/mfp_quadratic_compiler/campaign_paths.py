@@ -49,11 +49,12 @@ def certificate_path(relative: str) -> Path:
     return base / relative
 
 
-def require_new_output(output: Path, inputs=()) -> Path:
-    """Refuse input aliases and occupied destinations before postprocessing.
+def require_distinct_output(output: Path, inputs=()) -> Path:
+    """Reject pre-existing input aliases, allowing deliberate output updates.
 
-    Callers create direct outputs exclusively or publish a unique temporary
-    file. This is a pre-existing-alias guard, not a concurrent-adversary claim.
+    This checks resolved names and existing file identity, not concurrent
+    filesystem changes. Mutable checkpoints are not read-only inputs to
+    their own update operation; separate exports must still avoid them.
     """
     output = Path(output).expanduser().absolute()
     for source in inputs:
@@ -62,6 +63,16 @@ def require_new_output(output: Path, inputs=()) -> Path:
             output.exists() and source.exists() and output.samefile(source)
         ):
             raise ValueError(f"output aliases an input: {source}")
+    return output
+
+
+def require_new_output(output: Path, inputs=()) -> Path:
+    """Refuse input aliases and occupied destinations before postprocessing.
+
+    Callers create direct outputs exclusively or publish a unique temporary
+    file. This is a pre-existing-alias guard, not a concurrent-adversary claim.
+    """
+    output = require_distinct_output(output, inputs)
     if output.exists() or output.is_symlink():
         raise FileExistsError(f"refusing to overwrite existing output: {output}")
     return output

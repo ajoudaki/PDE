@@ -114,8 +114,11 @@ ResNet/quadratic slice began at `3abe93d` and now has 24 bounded checks at
 actual mocked wrapper propagation, selected input roots, and input/output alias
 protection. Its five unsuccessful independent reviews are retained; round 5
 identified further consumed-checkpoint/trace aliases and two omitted evidence
-readers. The ResNet repair now passes 15 checks; quadratic repairs and fresh
-round 6 are pending. No earlier test count is presented as final acceptance.
+readers. The repaired combined slice now passes 38 checks (15 ResNet, 23
+quadratic); fresh round 6 is pending. Native checkpoint guards were inspected
+as source, not compiled. The legacy native export power-filter limitation is
+recorded in the quadratic README and remains outside the repaired routing
+scope. No earlier test count is presented as final acceptance.
 Source metadata has the additional byte-verified checkpoint `6922cc5`.
 
 The seven-study and remaining Gaussian/MFP slices are checkpointed at `e3cab42`
@@ -124,8 +127,12 @@ linked-output, retained-reader and callable archival-guard defects. Those
 NOT CLEAN reports and exact input hashes are retained unchanged. Concrete
 repairs are checkpointed at `4e173b7` and `bd15262`; the coordinator repeated
 21 Gaussian and 62 seven-study bounded checks, all passing. Fresh third-round
-acceptance reviews are in progress. Their supplied passing regressions alone
-are not being treated as clean independent verdicts.
+acceptance reviews follow those exact implementations. The Gaussian third round
+found additional same-file analyzer-input collisions, report-source aliases,
+an uncovered archival writer and a production/independent role check; those
+findings are retained and repairs are in progress. The seven-study third round
+is pending. Supplied passing regressions alone are not being treated as clean
+independent verdicts.
 
 Unchanged expected limitations are explicit: optional PyTorch, Matplotlib,
 pytest, SymPy and mpmath are absent; historical source/environment seals do not

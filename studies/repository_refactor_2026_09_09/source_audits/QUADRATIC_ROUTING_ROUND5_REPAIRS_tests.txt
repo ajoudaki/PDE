@@ -1,0 +1,31 @@
+Command: env PYTHONDONTWRITEBYTECODE=1 TMPDIR=/tmp/pde-quadratic-worker-7eUHn2 python3 -B /home/amir/Codes/PDE/studies/repository_refactor_2026_09_09/test_quadratic_routing.py -v
+Working directory: /tmp/pde-quadratic-worker-7eUHn2
+Exit: 0
+test_all_historical_sector_labels_resolve (__main__.RoutingTests) ... ok
+test_all_selected_evidence_bindings (__main__.RoutingTests) ... ok
+test_benchmark_distinct_output_with_mocked_child (__main__.RoutingTests) ... ok
+test_benchmark_output_must_not_alias_selected_executable (__main__.RoutingTests) ... ok
+test_campaign5_evidence_and_live_source_roles_with_mocked_documents (__main__.RoutingTests) ... ok
+test_campaign6_documented_build_routes (__main__.RoutingTests) ... ok
+test_default_roles (__main__.RoutingTests) ... ok
+test_distinct_output_preserves_legitimate_updates (__main__.RoutingTests) ... ok
+test_explicit_roles_no_import_write (__main__.RoutingTests) ... ok
+test_graded_aliases_and_frozen_hash_fail_before_sectors (__main__.RoutingTests) ... ok
+test_graded_distinct_export_with_mocked_sectors (__main__.RoutingTests) ... ok
+test_graded_parent_hash_gate_is_unchanged (__main__.RoutingTests) ... ok
+test_graph_checkpoint_updates_and_modes_remain_available (__main__.RoutingTests) ... ok
+test_graph_export_rejects_checkpoint_alias_before_run (__main__.RoutingTests) ... ok
+test_native_checkpoint_identity_guards_source_only (__main__.RoutingTests) ... ok
+test_postprocessors_refuse_input_aliases_before_computation (__main__.RoutingTests) ... ok
+test_producer_default_bindings (__main__.RoutingTests) ... ok
+test_protected_output (__main__.RoutingTests) ... ok
+test_repaired_cli_imports_and_help_do_not_create_products (__main__.RoutingTests) ... ok
+test_retired_campaign_refuses_before_work (__main__.RoutingTests) ... ok
+test_sector_guide_uses_current_sources_and_generated_products (__main__.RoutingTests) ... ok
+test_stage_c_remains_closed_before_hashes_or_launch (__main__.RoutingTests) ... ok
+test_stdout_only_boundary_diagnostic_rejects_output_before_solves (__main__.RoutingTests) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.350s
+
+OK

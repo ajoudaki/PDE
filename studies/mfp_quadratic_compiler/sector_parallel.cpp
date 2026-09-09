@@ -12,6 +12,7 @@
 #include <fstream>
 #include <mutex>
 #include <unordered_set>
+#include "checkpoint_paths.h"
 
 #ifdef _OPENMP
 #include <omp.h>
@@ -97,6 +98,9 @@ int main(int argc, char **argv) {
   // 2=hybrid (labelled at >=16 edges), 3=vertex-partition recursion,
   // 4=structural portfolio (partition while its enumerated side has <=11
   // vertices, otherwise multiplicity recursion).
+
+  if (!checkpoint.empty() &&
+      !distinct_checkpoint_output(checkpoint + ".tmp", checkpoint)) return 2;
 
   Tree root;
   root.a = {1}; root.h = {1, 1}; root.edges = {{0, 0}, {0, 1}};

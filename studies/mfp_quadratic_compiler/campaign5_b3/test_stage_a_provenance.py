@@ -3,9 +3,13 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+import sys
 
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent))
+from campaign_paths import INPUT_ROOT
+DATA = INPUT_ROOT / "campaign5_b3"
 
 
 def sha256(path: Path) -> str:
@@ -13,15 +17,15 @@ def sha256(path: Path) -> str:
 
 
 def test_stage_a_durable_hashes_and_status():
-    data = json.loads((HERE / "provenance_stage_a.json").read_text())
+    data = json.loads((DATA / "provenance_stage_a.json").read_text())
     assert data["protocol_sha256"] == sha256(HERE / "PROTOCOL.md")
     assert data["reference"]["source_sha256"] == sha256(HERE / "b3_reference.py")
     assert data["connected"]["source_sha256"] == sha256(HERE / "b3_connected.cpp")
     assert data["reference"]["raw_output_sha256"] == sha256(
-        HERE / "frozen/stage_a_reference_order3.json"
+        DATA / "frozen/stage_a_reference_order3.json"
     )
     assert data["connected"]["raw_output_sha256"] == sha256(
-        HERE / "frozen/stage_a_connected_order3.json"
+        DATA / "frozen/stage_a_connected_order3.json"
     )
     assert data["reference"]["peak_rss_kib"] < 2 * 1024 * 1024
     assert data["connected"]["peak_rss_kib"] < 2 * 1024 * 1024
@@ -32,11 +36,11 @@ def test_stage_a_durable_hashes_and_status():
 
 
 def test_stage_b_durable_hashes_caps_and_novelty():
-    data = json.loads((HERE / "provenance_stage_b.json").read_text())
+    data = json.loads((DATA / "provenance_stage_b.json").read_text())
     assert data["protocol_sha256"] == sha256(HERE / "PROTOCOL.md")
     assert data["connected"]["source_sha256"] == sha256(HERE / "b3_connected.cpp")
     assert data["connected"]["raw_output_sha256"] == sha256(
-        HERE / "frozen/stage_b_connected_order5.json"
+        DATA / "frozen/stage_b_connected_order5.json"
     )
     assert data["connected"]["peak_rss_kib"] < 4 * 1024 * 1024
     assert data["connected"]["wall_seconds"] < 1800

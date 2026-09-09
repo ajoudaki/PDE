@@ -1,0 +1,3 @@
+After report creation, a fresh stdlib snapshot exactly matched after.json.
+306 per-path hashes/sizes and all recorded Python function/class AST digests match.
+No further source edits, new source bytecode, historical changes, or deletions detected.

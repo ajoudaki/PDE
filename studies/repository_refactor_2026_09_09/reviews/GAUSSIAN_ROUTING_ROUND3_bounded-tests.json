@@ -1,0 +1,93 @@
+[
+  {
+    "name": "studies.mfp_gaussian_calculus.test_migration_paths",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "studies.mfp_gaussian_calculus.test_migration_paths"
+    ],
+    "exit_code": 0,
+    "log": "/tmp/pde-migration-acceptance.tTQJzxO5/bounded-test-1.log"
+  },
+  {
+    "name": "studies.mfp_gaussian_calculus.test_migration_retired_interfaces.RetiredInterfaceTests",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "studies.mfp_gaussian_calculus.test_migration_retired_interfaces.RetiredInterfaceTests"
+    ],
+    "exit_code": 0,
+    "log": "/tmp/pde-migration-acceptance.tTQJzxO5/bounded-test-2.log"
+  },
+  {
+    "name": "studies.mfp_gaussian_calculus.test_migration_retired_interfaces.FrozenComparisonInputTests.test_historical_paths_and_both_retained_map_schemas",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "studies.mfp_gaussian_calculus.test_migration_retired_interfaces.FrozenComparisonInputTests.test_historical_paths_and_both_retained_map_schemas"
+    ],
+    "exit_code": 0,
+    "log": "/tmp/pde-migration-acceptance.tTQJzxO5/bounded-test-3.log"
+  },
+  {
+    "name": "studies.mfp_gaussian_calculus.test_migration_retired_interfaces.FrozenComparisonInputTests.test_missing_or_malformed_retained_inputs_do_not_fall_back",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "studies.mfp_gaussian_calculus.test_migration_retired_interfaces.FrozenComparisonInputTests.test_missing_or_malformed_retained_inputs_do_not_fall_back"
+    ],
+    "exit_code": 0,
+    "log": "/tmp/pde-migration-acceptance.tTQJzxO5/bounded-test-4.log"
+  },
+  {
+    "name": "studies.mfp_linear_growth_uniform_counterexample.test_migration_paths",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "studies.mfp_linear_growth_uniform_counterexample.test_migration_paths"
+    ],
+    "exit_code": 0,
+    "log": "/tmp/pde-migration-acceptance.tTQJzxO5/bounded-test-5.log"
+  },
+  {
+    "name": "studies.mfp_cubic_compiler.two_input_plus_gaussian_program.test_migration_paths.CubicInputPathsTests.test_three_retained_input_hashes_are_exact",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "studies.mfp_cubic_compiler.two_input_plus_gaussian_program.test_migration_paths.CubicInputPathsTests.test_three_retained_input_hashes_are_exact"
+    ],
+    "exit_code": 0,
+    "log": "/tmp/pde-migration-acceptance.tTQJzxO5/bounded-test-6.log"
+  },
+  {
+    "name": "studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_paths",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_paths"
+    ],
+    "exit_code": 0,
+    "log": "/tmp/pde-migration-acceptance.tTQJzxO5/bounded-test-7.log"
+  }
+]

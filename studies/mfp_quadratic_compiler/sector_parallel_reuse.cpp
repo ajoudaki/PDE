@@ -5,6 +5,7 @@
 #include "sector_parallel.cpp"
 
 #include <sstream>
+#include "checkpoint_paths.h"
 
 static std::vector<std::pair<std::string, Tree>> sorted_jobs(
     const SectorDiscovery &discovery) {
@@ -58,6 +59,10 @@ int main(int argc, char **argv) {
   std::string sparse_checkpoint = argv[5];
   int evaluator_mode = std::stoi(argv[6]);
   std::string target_prefix = argc > 7 ? argv[7] : "";
+
+  if (!distinct_checkpoint_output(sparse_checkpoint, source_checkpoint) ||
+      (!target_prefix.empty() &&
+       !distinct_checkpoint_output(sparse_checkpoint, target_prefix))) return 2;
 
   Tree root;
   root.a = {1}; root.h = {1, 1}; root.edges = {{0, 0}, {0, 1}};

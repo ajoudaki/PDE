@@ -5,14 +5,18 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import subprocess
+import sys
 
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent))
+from campaign_paths import INPUT_ROOT
+DATA = INPUT_ROOT / "campaign5_b3"
 
 
 def test_projection_is_terminally_unauthorized() -> None:
     provenance = json.loads(
-        (HERE / "provenance_stage_c_projection.json").read_text()
+        (DATA / "provenance_stage_c_projection.json").read_text()
     )
     assert provenance["status"] == "failed_closed_unauthorized"
     assert not provenance["authorization_conditions"]["stage_c_authorized"]
@@ -29,4 +33,3 @@ def test_runner_refuses_to_launch_any_binary() -> None:
     )
     assert completed.returncode != 0
     assert "closed unauthorized" in completed.stderr
-

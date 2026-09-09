@@ -207,3 +207,27 @@ analysis deliverable that reach no trace-analysis call. The quadratic findings
 are being handled as a separate implementation slice before fresh round 6.
 The additional native export power-filter inconsistency recorded by round 5
 is not silently repaired or scientifically validated by these routing changes.
+
+A further AST comparison with `bd15262` confirms that the PDE quadrature,
+state, time-stepping and configuration block is unchanged after accounting for
+the two relocated restart-read/end-time assignments. Its NPZ payload call is
+identical. The analyzer and representative-plot bodies are identical after
+removing only the inserted output inventory/alias checks and the relocated
+default report-path choice. All four comparisons pass without numerical work.
+
+The quadratic implementation is now complete in
+`QUADRATIC_ROUTING_ROUND5_REPAIRS_report.md`. It fixes the two remaining
+Campaign-5 evidence roles; guards graph/graded/benchmark exports against their
+consumed checkpoints, lower evidence or executable; and guards native sparse
+reuse and checkpoint intermediates against existing input aliases. Deliberate
+checkpoint updates remain supported. The three native drivers reconstruct
+their original bytes when only the includes/guards are removed. Their new
+identity helper has source-only checks: no native compilation was performed.
+All historical inputs and expected seals are unchanged.
+
+The combined current suite passes 38 bounded tests (15 ResNet, 23 quadratic).
+The new worker's 306-path before/after inventory and preservation checks are
+retained alongside its report, including the original TSV bytes renamed to
+`QUADRATIC_ROUTING_ROUND5_REPAIRS_INPUTS.txt`. The unchanged power-filter
+limitation is now visible in the quadratic README. Fresh isolated round 6
+is running against the frozen current four-study slice.

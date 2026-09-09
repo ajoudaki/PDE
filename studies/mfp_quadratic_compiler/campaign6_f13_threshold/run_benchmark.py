@@ -16,7 +16,7 @@ import time
 HERE = Path(__file__).resolve().parent
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from campaign_paths import INPUT_ROOT, OUTPUT_ROOT, recorded_sector_path
+from campaign_paths import OUTPUT_ROOT, require_distinct_output
 
 MEMORY_BYTES = 4 * 1024**3
 CPU_SECONDS = 900
@@ -37,8 +37,10 @@ def main() -> None:
     if Path(ns.name).name != ns.name or ns.name in ("", ".", ".."):
         raise ValueError("Benchmark name must be a simple filename component.")
     output_dir = OUTPUT_ROOT / "campaign6_f13_threshold"
-    output_dir.mkdir(parents=True, exist_ok=True)
+    output = output_dir / f"{ns.name}.benchmark.json"
     executable = ns.executable.resolve()
+    output = require_distinct_output(output, (executable,))
+    output_dir.mkdir(parents=True, exist_ok=True)
     command = [
         "prlimit",
         f"--as={MEMORY_BYTES}",
@@ -93,7 +95,6 @@ def main() -> None:
             "wall_seconds": WALL_SECONDS,
         },
     }
-    output = output_dir / f"{ns.name}.benchmark.json"
     output.write_text(json.dumps(record, indent=2) + "\n")
     print(output)
     if timed_out or returncode != 0:

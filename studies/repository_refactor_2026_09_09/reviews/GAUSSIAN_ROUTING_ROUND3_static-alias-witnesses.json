@@ -1,0 +1,72 @@
+[
+  {
+    "source": "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_gpu_forward_query_budget.py",
+    "main_start": 36,
+    "main_end": 185,
+    "selected_input_leaf": "forward_query_main_n256.npz",
+    "writers": [
+      {
+        "field": "output",
+        "line": 184,
+        "statement": "args.output.write_text(json.dumps(results, indent=2, sort_keys=True) + \"\\n\")"
+      }
+    ],
+    "witness": "Set the stated output argument to this selected input inside --input-dir; the completed main writes unconditionally after analysis.",
+    "evidence_level": "complete-body static inspection; scientific stages not executed"
+  },
+  {
+    "source": "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_gpu_middle_saturation.py",
+    "main_start": 88,
+    "main_end": 268,
+    "selected_input_leaf": "middle_saturation_main_n512.npz",
+    "writers": [
+      {
+        "field": "output_json",
+        "line": 233,
+        "statement": "args.output_json.write_text(json.dumps(result, indent=2, sort_keys=True) + \"\\n\")"
+      },
+      {
+        "field": "output_md",
+        "line": 268,
+        "statement": "args.output_md.write_text(md)"
+      }
+    ],
+    "witness": "Set the stated output argument to this selected input inside --input-dir; the completed main writes unconditionally after analysis.",
+    "evidence_level": "complete-body static inspection; scientific stages not executed"
+  },
+  {
+    "source": "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_gpu_paired_cavity_product.py",
+    "main_start": 35,
+    "main_end": 186,
+    "selected_input_leaf": "paired_product_main_h001_fp32_n128.npz",
+    "writers": [
+      {
+        "field": "output",
+        "line": 185,
+        "statement": "args.output.write_text(json.dumps(results, indent=2, sort_keys=True) + \"\\n\")"
+      }
+    ],
+    "witness": "Set the stated output argument to this selected input inside --input-dir; the completed main writes unconditionally after analysis.",
+    "evidence_level": "complete-body static inspection; scientific stages not executed"
+  },
+  {
+    "source": "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_gpu_susceptibility_trace.py",
+    "main_start": 80,
+    "main_end": 224,
+    "selected_input_leaf": "susceptibility_main_n128_h0.02_T1.npz",
+    "writers": [
+      {
+        "field": "json_output",
+        "line": 186,
+        "statement": "args.json_output.write_text(json.dumps(result, indent=2) + \"\\n\")"
+      },
+      {
+        "field": "md_output",
+        "line": 221,
+        "statement": "args.md_output.write_text(\"\\n\".join(lines))"
+      }
+    ],
+    "witness": "Set the stated output argument to this selected input inside --input-dir; the completed main writes unconditionally after analysis.",
+    "evidence_level": "complete-body static inspection; scientific stages not executed"
+  }
+]
