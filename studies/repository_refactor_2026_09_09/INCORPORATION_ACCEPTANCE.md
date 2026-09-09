@@ -97,5 +97,40 @@ API contracts, examples, limitations and the complete certificate command.
 
 `make check` passes all 73 small deterministic tests and the structural boundary
 check. No training experiment, high-order campaign, data or figure was generated.
-Initialization, quantitative and exact-capture drafts still await their remaining
-independent reviews; the final integrated-edition audit and inventory are pending.
+The code/API/reproduction integration review is also CLEAN, with the exact
+read scope in `reviews/CODE_INCORPORATION_INTEGRATION.md`. It fully read all
+in-scope code/tests and guide, complete finite dynamics, Gaussian Section 4,
+and the entire new Section 7; it independently passed all 73 tests and all
+four guide examples. It is not a whole-book mathematical review. The incidental
+concurrent PDF-exporter files were excluded and never used as proof or tests.
+
+## Third accepted package: quantitative fixed-program discretization
+
+The complete 863-line addition, `QUANTITATIVE_ADDITION.md`, has SHA-256
+`bc41e23b07917257ce5810018d3d6ab2937551ce079a44d6e936965061f0d46d`.
+It is inserted unchanged as calculus Section 8. Two fresh isolated reviewers
+read all 2,676 lines of the combined original calculus and addition, plus the
+complete notation contract. Both returned PASS/CLEAN with no required
+correction: `reviews/QUANTITATIVE_A.md`, `reviews/QUANTITATIVE_B.md`.
+The common combined proof hash was
+`acfee00f63de4f35023521fe5c9baef00d018dae3fe79186ea3d6147ea1e77ce`.
+Section 7 was not an input or a dependency of that review; its independent
+acceptance is recorded above. The final integration checks the chapter assembly.
+
+The proof contains singular-covariance Price differentiation, explicit derivative
+and syntax budgets, the exact compiler coefficient, fifth-order remainder,
+and the full fixed-program expectation-identification dependency. It assumes
+the stated C12 activation bounds and normalized Gaussian second moment,
+one sample, order-one readout and feature-ascent updates. Depth and update
+count are separately fixed. It supplies no growing-update or physical-loss-GF
+limit. Conditioning constants in the fixed-program dependency refer to the
+chosen activation and its actual Gram gaps; no class-uniform gap is accepted.
+The new inverse-free remainder exponent is explicitly given in terms of its
+own stated activation bound, not inferred from such a gap.
+
+The full source and dependency read record is in
+`source_audits/QUANTITATIVE_ASSEMBLY.md`; its historical audits are locators,
+not mathematical premises. No compiler campaign or data generation was needed.
+
+Initialization and exact-capture drafts still await their corrected-version
+reviews; the final integrated-edition audit and inventory remain pending.
