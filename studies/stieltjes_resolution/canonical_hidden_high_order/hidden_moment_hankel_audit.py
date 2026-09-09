@@ -30,6 +30,15 @@ INDEPENDENT_RESULT = (
     HERE.parents[2] / "data/historical/studies/stieltjes_resolution/canonical_hidden_high_order/INDEPENDENT_HIDDEN_RESULT.json"
 )
 PROTOCOL = HERE / "PROTOCOL.md"
+SOURCE_ROLES = {
+    label: HERE / filename
+    for filename in ("production_hidden_recurrence.py", "independent_hidden_recurrence.py")
+    for label in (
+        filename,
+        f"studies/stieltjes_resolution/canonical_hidden_high_order/{filename}",
+        f"studies/stieltjes_conjecture/resolution_program/canonical_hidden_high_order/{filename}",
+    )
+}
 
 CAMPAIGN1_Q1 = {
     0: 1,
@@ -224,12 +233,10 @@ def validate_source(document: dict[str, object], result_path: Path) -> dict[str,
     digest = source.get("sha256")
     if not isinstance(filename, str) or not isinstance(digest, str):
         raise ValueError(f"{result_path.name} has malformed source record")
-    relative = Path(filename)
-    path = (
-        result_path.parent / relative
-        if len(relative.parts) == 1
-        else REPO / relative
-    )
+    # Frozen labels identify exact source roles, not locations beside run data.
+    if filename not in SOURCE_ROLES:
+        raise ValueError(f"unrecognized hidden-recurrence source label: {filename}")
+    path = SOURCE_ROLES[filename]
     actual = sha256(path)
     if actual != digest:
         raise AssertionError(f"source hash mismatch for {path.name}")

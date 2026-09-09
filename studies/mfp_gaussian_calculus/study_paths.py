@@ -2,9 +2,12 @@
 
 from pathlib import Path
 
+from studies._output_paths import StudyPaths
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 GENERATED_ROOT = REPO_ROOT / "data/generated/mfp_gaussian_calculus"
 HISTORICAL_ROOT = REPO_ROOT / "data/historical/studies/mfp_gaussian_calculus"
+_PATHS = StudyPaths(__file__)
 
 
 def input_directory(relative: str, *, historical: bool = False) -> Path:
@@ -12,7 +15,4 @@ def input_directory(relative: str, *, historical: bool = False) -> Path:
 
 
 def require_output(path: Path) -> Path:
-    path = Path(path).resolve()
-    if path.is_relative_to(REPO_ROOT) and not path.is_relative_to(REPO_ROOT / "data/generated"):
-        raise ValueError(f"fresh output must be generated data, not source/history: {path}")
-    return path
+    return _PATHS.require_output(path)

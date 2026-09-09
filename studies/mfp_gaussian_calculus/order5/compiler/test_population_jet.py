@@ -131,10 +131,12 @@ def test_self_contained_report_embeds_frozen_artifacts_byte_for_byte() -> None:
 
 
 def test_all_frozen_coefficient_comparisons_report_zero_discrepancies() -> None:
-    order5 = Path(__file__).parents[1]
-    combined = json.loads((Path(__file__).resolve().parents[4] / "data/historical/studies/mfp_gaussian_calculus/order5/compiler/INDEPENDENT_COMPARISON.json").read_text())
+    from ...study_paths import HISTORICAL_ROOT
+
+    retained = HISTORICAL_ROOT / "order5"
+    combined = json.loads((retained / "compiler/INDEPENDENT_COMPARISON.json").read_text())
     symbolic = json.loads(
-        (order5 / "independent" / "SYMBOLIC_Q0_PRIMARY_COMPARISON.json").read_text()
+        (retained / "independent/SYMBOLIC_Q0_PRIMARY_COMPARISON.json").read_text()
     )
     assert combined["pass"] and symbolic["pass"]
     for family in ("discrepancy_counts", "tagged_discrepancy_counts", "symbolic_q0_discrepancy_counts"):

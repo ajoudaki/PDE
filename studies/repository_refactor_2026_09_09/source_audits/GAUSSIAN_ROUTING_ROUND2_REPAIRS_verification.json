@@ -1,0 +1,11 @@
+{
+  "python_files_syntax_checked": 176,
+  "existing_top_level_functions_compared": 1089,
+  "unchanged_existing_top_level_functions": 1085,
+  "changed_functions_limited_to_interfaces": true,
+  "report_build_body_identical_after_removing_new_guard": true,
+  "pure_reduce_ast_sha256": "b61f34089c6424f6a885354d0f380521e97eb3d7e7c12a623fb6b69a1d2c45b4",
+  "frozen_digest_literals_unchanged": true,
+  "historical_files_unchanged": true,
+  "formula_report_manifest_and_other_non_python_payloads_unchanged": true
+}

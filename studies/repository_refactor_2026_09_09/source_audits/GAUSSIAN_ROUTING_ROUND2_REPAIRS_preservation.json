@@ -1,0 +1,116 @@
+{
+  "changed_existing_digest_literals": [],
+  "changed_existing_functions": {
+    "studies/mfp_gaussian_calculus/depth_order5/primary/build_self_contained_report.py": [
+      "build"
+    ],
+    "studies/mfp_gaussian_calculus/order5/compiler/test_population_jet.py": [
+      "test_all_frozen_coefficient_comparisons_report_zero_discrepancies"
+    ],
+    "studies/mfp_gaussian_calculus/study_paths.py": [
+      "require_output"
+    ],
+    "studies/stieltjes_resolution/canonical_hidden_high_order/hidden_moment_hankel_audit.py": [
+      "validate_source"
+    ]
+  },
+  "changed_files": {
+    "studies/mfp_gaussian_calculus/depth_order5/primary/build_self_contained_report.py": {
+      "after": {
+        "bytes": 5738,
+        "group": "source",
+        "sha256": "dd00192dbdd61b0618faa843595314ee7c5ae46ebdb5035c3c315bba03c5fb2f"
+      },
+      "before": {
+        "bytes": 5613,
+        "group": "source",
+        "sha256": "dad74e50640ae3dfa2b5923bbb2da8cb48848086969fdd60b2dc868c4750d0d5"
+      }
+    },
+    "studies/mfp_gaussian_calculus/depth_order5_observables/independent/reduce_frozen_head.py": {
+      "after": {
+        "bytes": 3796,
+        "group": "source",
+        "sha256": "b4bbc0723e476cf312bb57f4e73b2364837ebc4d219a2e72be8b995a072012e6"
+      },
+      "before": {
+        "bytes": 3643,
+        "group": "source",
+        "sha256": "e22db8c2b1cd68333257fb75a8bb21209e6f7b3d8e7ba002ce8644775edd3639"
+      }
+    },
+    "studies/mfp_gaussian_calculus/order5/compiler/test_population_jet.py": {
+      "after": {
+        "bytes": 5526,
+        "group": "source",
+        "sha256": "1688771f624db74d206e14f23457f92b90b37f7b2d2ad9e7da47e66093969f1d"
+      },
+      "before": {
+        "bytes": 5557,
+        "group": "source",
+        "sha256": "4128cdf9efa2b4e116fd78265af71d349761ca6913af78a2b674ca9773738411"
+      }
+    },
+    "studies/mfp_gaussian_calculus/study_paths.py": {
+      "after": {
+        "bytes": 608,
+        "group": "source",
+        "sha256": "aea6795fae0b4429d7f23e120c5c1e662084f189298db897caec54acfdbf531a"
+      },
+      "before": {
+        "bytes": 731,
+        "group": "source",
+        "sha256": "09de1ab508c56c2c62ad9f696dee81ccbc22b9ab5b8e1e0a834420e288f1cfc2"
+      }
+    },
+    "studies/mfp_gaussian_calculus/test_migration_paths.py": {
+      "after": {
+        "bytes": 10748,
+        "group": "source",
+        "sha256": "763ad9e3fe6919110ad62f06b4f2314e9ae17623fb060e7f94be8191ab242825"
+      },
+      "before": {
+        "bytes": 8251,
+        "group": "source",
+        "sha256": "b3fa05135b44250908ee018e2168216634e60c0620006068e4512820499561bf"
+      }
+    },
+    "studies/mfp_gaussian_calculus/test_migration_retired_interfaces.py": {
+      "after": {
+        "bytes": 8229,
+        "group": "source",
+        "sha256": "af21c7634bf88b5b8a7521e6b145a0075e25b5e253825d961bea40bb346cdf12"
+      },
+      "before": {
+        "bytes": 6104,
+        "group": "source",
+        "sha256": "35ad5e98d3f6d5ebe99bd3b75c51eb03093b2551ad7e211441530e92cfff7148"
+      }
+    },
+    "studies/stieltjes_resolution/canonical_hidden_high_order/hidden_moment_hankel_audit.py": {
+      "after": {
+        "bytes": 16373,
+        "group": "source",
+        "sha256": "75465c1de279d4e6b0cdd8f7bd1d0a583a77b10d6ecf875af5ee238e90eefbb4"
+      },
+      "before": {
+        "bytes": 15929,
+        "group": "source",
+        "sha256": "9dc36c844d7d884530c45d4d253fbcec3947a6889c501650c0a836d3e4eb3eef"
+      }
+    },
+    "studies/stieltjes_resolution/canonical_hidden_high_order/test_migration_paths.py": {
+      "after": {
+        "bytes": 3844,
+        "group": "source",
+        "sha256": "df00e0e5ee74fd36fd9d513f22f7a820bd98717c4a99f1691d9c27658625292e"
+      },
+      "before": null
+    }
+  },
+  "existing_functions_compared": 1089,
+  "historical_files_unchanged": true,
+  "non_python_files_unchanged": true,
+  "shared_helper_after": "8e67059e7083fcb5d230de92f1daa4387dba4da1c081e3f111180cef1e2cd02e",
+  "shared_helper_before": "71ad7cbc47336b662d2a33fd8be817ff1ea9881d8be51236d791d1ad3cbbf3b6"
+}

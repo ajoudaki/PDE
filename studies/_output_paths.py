@@ -8,10 +8,30 @@ This module does not create directories at import or argument-parsing time.
 from __future__ import annotations
 
 import argparse
+from itertools import chain
 from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+
+
+def reject_output_links(path: str | Path) -> None:
+    """Reject existing output aliases without creating anything.
+
+    Check components and children without following directory symlinks. The
+    hardlink check is deliberately a simple existing-file check, not protection
+    against a malicious process racing validation and publication.
+    """
+    selected = Path(path).expanduser().absolute()
+    for component in (selected, *selected.parents):
+        if component.is_symlink():
+            raise ValueError(f"output path contains a symlink: {component}")
+    children = selected.rglob("*") if selected.is_dir() else ()
+    for child in chain((selected,), children):
+        if child.is_symlink():
+            raise ValueError(f"output directory contains a symlink: {child}")
+        if child.is_file() and child.stat().st_nlink > 1:
+            raise ValueError(f"output contains an existing hardlink: {child}")
 
 
 class StudyPaths:
@@ -30,10 +50,7 @@ class StudyPaths:
         output = Path(path).expanduser().resolve()
         if output.is_relative_to(REPO_ROOT) and not output.is_relative_to(self.generated):
             raise ValueError(f"fresh output must be under {self.generated} or external scratch, not {output}")
-        # An old link below an otherwise valid output root must not redirect a
-        # later writer to source or retained data. Do not follow directory links.
-        if output.is_dir() and any(child.is_symlink() for child in output.rglob("*")):
-            raise ValueError(f"output directory contains symlinks: {output}")
+        reject_output_links(path)
         return output
 
     def add_arguments(

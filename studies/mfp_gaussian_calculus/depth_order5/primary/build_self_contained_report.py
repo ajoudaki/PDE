@@ -84,6 +84,7 @@ def build_bytes() -> tuple[bytes, dict[str, dict[str, object]]]:
 
 
 def build() -> None:
+    raise RuntimeError("archive-only report/freeze interface; migration does not authorize rebuilding its historical seals")
     report_bytes, embedded = build_bytes()
     missing = [str(path) for path in AUDIT_PATHS if not path.exists()]
     if missing:

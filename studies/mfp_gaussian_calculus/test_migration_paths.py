@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import ast
+from contextlib import ExitStack
 import hashlib
 import json
 from pathlib import Path
@@ -49,6 +50,46 @@ class GaussianPathTests(unittest.TestCase):
             with self.assertRaises(ValueError): curvature.run(Path('/missing-input'), output)
             with self.assertRaises(ValueError): postprocess.run(Path('/missing-input'), output)
             with self.assertRaises(ValueError): comparison.comparison_paths(['--output-dir', str(output)])
+
+    def test_existing_child_aliases_refuse_before_work_and_preserve_input(self):
+        for kind in ('symlink', 'hardlink'):
+            with self.subTest(kind=kind), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                retained = root / 'retained-result.json'
+                retained.write_bytes(b'immutable fixture')
+                output = root / 'fresh'
+                output.mkdir()
+                alias = output / 'H3_NORMALIZED_SINE_RESULT.json'
+                if kind == 'symlink':
+                    alias.symlink_to(retained)
+                else:
+                    alias.hardlink_to(retained)
+                with ExitStack() as stack:
+                    for operation in ('read_text', 'read_bytes', 'write_text', 'write_bytes', 'mkdir'):
+                        stack.enter_context(mock.patch.object(
+                            Path, operation, side_effect=AssertionError('input/output work reached')
+                        ))
+                    for target, name in ((sine, 'compile_numeric'), (curvature, 'compile_numeric'),
+                                         (postprocess, 'compile_numeric'), (comparison, 'compile_factored')):
+                        stack.enter_context(mock.patch.object(
+                            target, name, side_effect=AssertionError('scientific work reached')
+                        ))
+                    with self.assertRaises(ValueError): paths.require_output(output)
+                    with self.assertRaises(ValueError): sine.run(output)
+                    with self.assertRaises(ValueError): curvature.run(root / 'missing-raw', output)
+                    with self.assertRaises(ValueError): postprocess.run(root / 'missing-raw', output)
+                    with self.assertRaises(ValueError):
+                        comparison.comparison_paths(['--output-dir', str(output)])
+                self.assertEqual(retained.read_bytes(), b'immutable fixture')
+                self.assertEqual(list(output.iterdir()), [alias])
+
+    def test_generated_defaults_and_unaliased_scratch_remain_accepted(self):
+        self.assertEqual(paths.require_output(sine.OUTPUT), sine.OUTPUT)
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp)
+            (output / 'ordinary.json').write_text('{}')
+            self.assertEqual(paths.require_output(output), output)
+            self.assertEqual(paths.require_output(output / 'new'), output / 'new')
 
     def test_selected_sine_fixture_to_separate_fresh_result(self):
         # This tests I/O and the existing small fit, not simulated trajectories.

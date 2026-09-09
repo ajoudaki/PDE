@@ -69,7 +69,8 @@ def reduce() -> dict[str, object]:
     }
 
 
-if __name__ == "__main__":
+def main() -> None:
+    raise RuntimeError("archive-only frozen-head writer; use pure reduce() without rewriting retained source or seals")
     payload = reduce()
     path = HERE / "FROZEN_GAMMA04_REDUCED_RECURRENCE.json"
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
@@ -89,3 +90,7 @@ if __name__ == "__main__":
     print(markdown)
     print(hashlib.sha256(markdown.read_bytes()).hexdigest())
     print(json.dumps(payload["term_counts"], sort_keys=True))
+
+
+if __name__ == "__main__":
+    main()

@@ -1,9 +1,10 @@
 """Tiny routing and refusal checks; no recurrence or scientific checks run."""
 from __future__ import annotations
 
-from contextlib import ExitStack
+from contextlib import ExitStack, redirect_stdout
 from fractions import Fraction
 import importlib
+import io
 import json
 from pathlib import Path
 import subprocess
@@ -22,6 +23,8 @@ RETIRED = (
     ("depth_order5_scalar/multi_observable/independent_route_a/gamma04_contraction.py", "emit", ("transitions",)),
     ("depth_order5_observables/independent/gamma04_contraction.py", "emit", ("transitions", "local_audit")),
     ("depth_order5_scalar/independent/build_full_report.py", "build", ("equation_appendix",)),
+    ("depth_order5_observables/independent/reduce_frozen_head.py", "main", ("reduce",)),
+    ("depth_order5/primary/build_self_contained_report.py", "build", ("build_bytes",)),
     ("order5/run_checks.py", "run", ("run_finite_width", "run_compiler", "run_hostile")),
     ("order5/audit_hostile.py", "run", ("test_universal_six_family_identity",)),
 )
@@ -68,11 +71,46 @@ class RetiredInterfaceTests(unittest.TestCase):
     def test_pure_modules_and_individual_tests_remain_importable(self):
         from studies.mfp_gaussian_calculus.depth_order5_scalar.independent import forward_contraction
         from studies.mfp_gaussian_calculus.order5 import audit_hostile
+        from studies.mfp_gaussian_calculus.depth_order5_observables.independent import reduce_frozen_head
+        from studies.mfp_gaussian_calculus.depth_order5.primary import build_self_contained_report
         self.assertTrue(callable(forward_contraction.transition))
         self.assertTrue(callable(audit_hostile.test_universal_six_family_identity))
+        self.assertTrue(callable(reduce_frozen_head.reduce))
+        self.assertTrue(callable(build_self_contained_report.build_bytes))
 
 
 class FrozenComparisonInputTests(unittest.TestCase):
+    def test_compiler_package_dispatches_retained_gate_before_science(self):
+        from studies.mfp_gaussian_calculus.order5.compiler import run_checks as runner
+        from studies.mfp_gaussian_calculus.study_paths import HISTORICAL_ROOT
+
+        gate_name = 'test_all_frozen_coefficient_comparisons_report_zero_discrepancies'
+        gate = getattr(runner.test_population_jet, gate_name)
+        paths = []
+        read_text = Path.read_text
+
+        def read(path, *args, **kwargs):
+            paths.append(path)
+            return read_text(path, *args, **kwargs)
+
+        with ExitStack() as stack:
+            selected = stack.enter_context(mock.patch.object(runner.test_population_jet, gate_name, wraps=gate))
+            selected.__name__ = gate_name
+            for name in dir(runner.test_population_jet):
+                if name.startswith('test_') and name != gate_name:
+                    stack.enter_context(mock.patch.object(
+                        runner.test_population_jet, name, side_effect=RuntimeError('stop before science')
+                    ))
+            stack.enter_context(mock.patch.object(Path, 'read_text', read))
+            stack.enter_context(redirect_stdout(io.StringIO()))
+            with self.assertRaisesRegex(RuntimeError, 'stop before science'):
+                runner.run()
+            selected.assert_called_once_with()
+        self.assertEqual(paths, [
+            HISTORICAL_ROOT / 'order5/compiler/INDEPENDENT_COMPARISON.json',
+            HISTORICAL_ROOT / 'order5/independent/SYMBOLIC_Q0_PRIMARY_COMPARISON.json',
+        ])
+
     def test_historical_paths_and_both_retained_map_schemas(self):
         from studies.mfp_gaussian_calculus.depth_order5_scalar.independent import depth_assembler as assembler
         expected = {name: {("M010000",): Fraction(3, 2)} for name in "ABC"}
