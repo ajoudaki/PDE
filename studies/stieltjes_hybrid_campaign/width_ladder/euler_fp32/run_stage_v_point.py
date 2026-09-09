@@ -40,6 +40,12 @@ LEDGER = OUTPUT_ROOT / ".runtime" / "stage_v_attempts.json"
 LEDGER_LOCK = OUTPUT_ROOT / ".runtime" / "stage_v_attempts.lock"
 HISTORICAL_LEDGER = HISTORICAL_ROOT / ".runtime" / "stage_v_attempts.json"
 
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
+
 
 class ExternalTermination(RuntimeError):
     pass
@@ -62,9 +68,25 @@ def utc_now() -> str:
 
 
 def atomic_json(path: Path, payload: dict[str, Any]) -> None:
+    path = PATHS.require_output(path)
     temporary = path.with_suffix(path.suffix + ".tmp")
-    temporary.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+    with temporary.open("x") as handle:
+        handle.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+    PATHS.require_output(path)
     os.replace(temporary, path)
+
+
+def checked_point_dir(point_id: str) -> Path:
+    points = {point["id"] for point in load_json(CONFIG)["points"]}
+    if (point_id not in points or Path(point_id).name != point_id
+            or point_id in {"", ".", ".."}):
+        raise ValueError("only the two frozen Stage-V point IDs are accepted")
+    PATHS.require_output(OUTPUT_ROOT)
+    root = PATHS.require_output(RUN_ROOT)
+    directory = PATHS.require_output(RUN_ROOT / point_id)
+    if directory.parent != root:
+        raise ValueError("Stage-V point escapes the generated run root")
+    return directory
 
 
 def configure_ieee_fp32() -> dict[str, Any]:
@@ -153,11 +175,13 @@ def environment(device: torch.device, numerical: dict[str, Any]) -> dict[str, An
 
 
 def reserve_attempt(point_id: str) -> None:
+    checked_point_dir(point_id)
     if HISTORICAL_LEDGER.is_file():
         historical = load_json(HISTORICAL_LEDGER)
         if point_id in historical["attempts"]:
             raise RuntimeError(f"point {point_id} already consumed its only attempt in history")
     LEDGER.parent.mkdir(parents=True, exist_ok=True)
+    PATHS.require_output(LEDGER_LOCK)
     with LEDGER_LOCK.open("a+") as handle:
         fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
         ledger = load_json(LEDGER) if LEDGER.is_file() else {"attempts": {}}
@@ -181,10 +205,20 @@ def validate_predecessor(point_id: str, lock_sha: str) -> None:
 
 
 def finalize_timeout(point_id: str) -> int:
-    path = RUN_ROOT / point_id / "manifest.json"
+    path = checked_point_dir(point_id) / "manifest.json"
     if not path.is_file():
         return 0
     manifest = load_json(path)
+    # Finalization only marks a previously reserved generated attempt failed;
+    # it never launches work or grants/replaces an execution authorization.
+    if manifest.get("point_id") != point_id or not LEDGER.is_file():
+        raise RuntimeError("timeout finalization requires the matching generated attempt")
+    if point_id not in load_json(LEDGER).get("attempts", {}):
+        raise RuntimeError("timeout finalization requires an existing generated reservation")
+    for field, source in (("config_sha256", CONFIG), ("frozen_manifest_sha256", LOCK),
+                          ("unlock_sha256", UNLOCK)):
+        if manifest.get(field) != sha256(source):
+            raise RuntimeError(f"timeout attempt binding mismatch: {field}")
     if manifest.get("status") == "running":
         manifest.update(
             status="failed_inconclusive_external_timeout",
@@ -215,6 +249,7 @@ def main() -> int:
     points = {point["id"]: point for point in config["points"]}
     if args.point not in points:
         raise ValueError("only the two frozen Stage-V point IDs are accepted")
+    point_dir = checked_point_dir(args.point)
     lock, lock_sha = validate_lock()
     unlock = validate_unlock(lock_sha)
     if args.point not in unlock.get("authorized_point_ids", []):
@@ -226,7 +261,6 @@ def main() -> int:
     validate_predecessor(args.point, lock_sha)
 
     point = points[args.point]
-    point_dir = RUN_ROOT / args.point
     if point_dir.exists():
         raise RuntimeError("refusing to overwrite a prior Stage-V attempt")
     reserve_attempt(args.point)
@@ -270,8 +304,10 @@ def main() -> int:
             progress_callback=heartbeat,
         )
         temporary = arrays_path.with_suffix(".npz.tmp")
-        with temporary.open("wb") as handle:
+        PATHS.require_output(arrays_path)
+        with temporary.open("xb") as handle:
             np.savez_compressed(handle, **arrays)
+        PATHS.require_output(arrays_path)
         os.replace(temporary, arrays_path)
         atomic_json(
             manifest_path,

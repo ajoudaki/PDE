@@ -77,7 +77,10 @@ class OutputBoundaryTests(unittest.TestCase):
                 output = root/f'{name}.npz'
                 occupied = Path(str(output)+suffix)
                 occupied.symlink_to(root/'absent-target')
-                self.assert_before_inputs([root/'unread.npz'], output, FileExistsError)
+                # The shared guard rejects a linked final before the
+                # combiner's existing-file check; both refuse pre-read.
+                self.assert_before_inputs([root/'unread.npz'], output,
+                                          ValueError if not suffix else FileExistsError)
                 self.assertTrue(occupied.is_symlink())
 
     def test_tiny_scratch_merge_preserves_output_and_provenance_format(self):

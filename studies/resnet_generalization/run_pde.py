@@ -376,9 +376,11 @@ def run(args: argparse.Namespace) -> Path:
             ".npz",
             f"_from{_tag(start_time)}_to{_tag(start_time + args.duration)}.npz",
         )
-    path = output_dir / name
+    path = require_output(output_dir / name)
+    if args.restart_from is not None and path == Path(args.restart_from).resolve():
+        raise ValueError("output aliases the restart input")
     partial = path.with_suffix(path.suffix + ".partial")
-    with partial.open("wb") as handle:
+    with partial.open("xb") as handle:
         np.savez_compressed(
             handle,
             times=times,
@@ -399,6 +401,7 @@ def run(args: argparse.Namespace) -> Path:
         )
         handle.flush()
         os.fsync(handle.fileno())
+    require_output(path)
     os.replace(partial, path)
     print(
         json.dumps(

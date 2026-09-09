@@ -30,7 +30,7 @@ HERE = Path(__file__).resolve().parent
 PANEL = HERE.parent
 if str(PANEL) not in sys.path:
     sys.path.insert(0, str(PANEL))
-from successive_paths import GENERATED_PANEL, parse_analysis_paths, path_label
+from successive_paths import GENERATED_PANEL, parse_analysis_paths, path_label, require_output
 REPO = HERE.parents[3]
 HISTORICAL_PANEL = REPO / "data/historical/studies/stieltjes_hybrid_campaign/breadth_panel"
 OUTPUT_ROOT = REPO / "data/generated/stieltjes_hybrid_campaign/breadth_panel/successive_n8192"
@@ -713,17 +713,22 @@ def analyze_configuration(
 
 def write_csv_atomic(path: Path, rows: list[dict[str, Any]]) -> None:
     require(bool(rows), f"refusing to write empty CSV: {path}")
+    path = require_output(path)
     temporary = path.with_name(path.name + ".tmp")
-    with temporary.open("w", encoding="utf-8", newline="") as handle:
+    with temporary.open("x", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=list(rows[0].keys()), lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
+    require_output(path)
     os.replace(temporary, path)
 
 
 def write_json_atomic(path: Path, value: dict[str, Any]) -> None:
+    path = require_output(path)
     temporary = path.with_name(path.name + ".tmp")
-    temporary.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    with temporary.open("x", encoding="utf-8") as handle:
+        handle.write(json.dumps(value, indent=2, sort_keys=True) + "\n")
+    require_output(path)
     os.replace(temporary, path)
 
 
@@ -739,9 +744,12 @@ def import_plotting():
 
 
 def save_figure(figure: Any, path: Path, plt: Any) -> None:
+    path = require_output(path)
     temporary = path.with_name(path.name + ".tmp.png")
-    figure.savefig(temporary, dpi=180)
+    with temporary.open("xb") as handle:
+        figure.savefig(handle, format="png", dpi=180)
     plt.close(figure)
+    require_output(path)
     os.replace(temporary, path)
 
 

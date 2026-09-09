@@ -76,19 +76,30 @@ time grid, or evidence seal.
 
 ## Reproduce
 
-Create an environment from `requirements-lock.txt`, then run:
+The current source/data separation does **not** renew the historical freeze.
+Source verification currently fails on changed frozen-source hashes, and the
+post-freeze dense/analyzer wrappers also enforce their original hashes. Do not
+waive those failures or regenerate expected seals to make a replay pass.
+
+The retained reproduction interface, from this study directory with the
+dependencies in `requirements-lock.txt`, is:
 
 ```bash
-PYTHONPATH=src python protocol/reproduce_generalization.py
+PYTHONPATH=src python protocol/reproduce_generalization_postfreeze.py
 ```
 
-This executes tests, all PDE curves and numerical audits, the PDE-only
+With a valid, separately authorized source contract this orchestrates tests,
+all PDE curves and numerical audits, the PDE-only
 quadrature decision, exact stage sealing, dense screening and held-out
 references, trajectory bootstrap analysis, figures, and final verification.
 
-The full run creates large raw `.npz` arrays under
-`results/generalization/`. A compact source release may omit those arrays;
-the same command regenerates them.
+It currently stops at source verification before that work. Fresh raw arrays,
+seals and processed products route to repository
+`data/generated/resnet_generalization/results/generalization/`; retained
+evidence lives under `data/historical/studies/resnet_generalization/`.
+Standalone raw writers default to the generated study's `results/raw/`.
+These are routing interfaces, not a claim that a fresh checkout can reproduce
+the frozen experiment. See [REPRODUCTION.md](REPRODUCTION.md).
 
 Useful checks:
 
@@ -97,7 +108,8 @@ PYTHONPATH=src python verify_study.py source
 PYTHONPATH=src python verify_study.py evidence
 ```
 
-The second command requires regenerated raw evidence and processed outputs.
+Both retain source-hash checks. The second also requires generated raw
+evidence and processed outputs; it does not silently consume historical data.
 
 ## Scientific decision rule
 

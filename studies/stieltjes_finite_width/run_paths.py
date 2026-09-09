@@ -2,10 +2,15 @@
 
 import argparse
 from pathlib import Path
+import sys
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 GENERATED_ROOT = REPO_ROOT / "data/generated/stieltjes_finite_width"
 HISTORICAL_ROOT = REPO_ROOT / "data/historical/studies/stieltjes_finite_width"
+
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+from studies._output_paths import reject_output_links
 
 
 def parse_paths(output: Path, argv=None, *, input_dir: Path | None = None,
@@ -23,8 +28,12 @@ def parse_paths(output: Path, argv=None, *, input_dir: Path | None = None,
         if historical_input is None:
             parser.error("this entry point has no historical input binding")
         args.input_dir = historical_input
-    args.output_dir = (args.output_dir or
-                       (GENERATED_ROOT / "historical_review" / output.name if historical else output)).resolve()
+    selected = args.output_dir or (GENERATED_ROOT / "historical_review" / output.name if historical else output)
+    args.output_dir = selected.resolve()
     if args.output_dir.is_relative_to(REPO_ROOT) and not args.output_dir.is_relative_to(GENERATED_ROOT):
         parser.error(f"fresh outputs must be under {GENERATED_ROOT} or external scratch")
+    try:
+        reject_output_links(selected)
+    except ValueError as exc:
+        parser.error(str(exc))
     return args

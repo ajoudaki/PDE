@@ -1,0 +1,7 @@
+{
+  "analyze_postfreeze_amendment.py": "frozen analyzer hash mismatch",
+  "generalization_source": "frozen source mismatch: README.md",
+  "seal_dense_postfreeze_amendment.py": "frozen run_grid.py hash mismatch",
+  "stage_v_generated_root_unlock": "unlock does not bind the fresh generated run root; historical authorization cannot be reused after migration",
+  "stage_v_source_lock": "locked source mismatch: run_stage_v_point.py"
+}

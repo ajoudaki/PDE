@@ -3,17 +3,24 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import sys
 
 PANEL = Path(__file__).resolve().parent
 REPO = PANEL.parents[2]
 GENERATED_PANEL = REPO / 'data/generated/stieltjes_hybrid_campaign/breadth_panel'
 HISTORICAL_PANEL = REPO / 'data/historical/studies/stieltjes_hybrid_campaign/breadth_panel'
 
+if str(REPO) not in sys.path:
+    sys.path.insert(0, str(REPO))
+from studies._output_paths import reject_output_links
+
 
 def require_output(path: Path) -> Path:
+    selected = path
     path = path.resolve()
     if path.is_relative_to(REPO) and not path.is_relative_to(GENERATED_PANEL.parent):
         raise ValueError(f'fresh outputs must be under {GENERATED_PANEL.parent} or external scratch')
+    reject_output_links(selected)
     return path
 
 

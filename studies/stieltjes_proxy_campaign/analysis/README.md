@@ -79,15 +79,23 @@ defaults.
 
 ## Frozen successor-02 entry point
 
-The completed hash-bound run was analyzed with:
+For explicit reanalysis of read-only retained inputs, the current
+repository-root paths are:
 
 ```bash
-python studies/stieltjes_conjecture/numerics/global_proxy_campaign/analysis/run_frozen_pilot.py \
-  --summary studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/runs/canonical_pilot_successor02_20260813/summary.json \
-  --config studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_02.json \
-  --analysis-config studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_02_ANALYSIS.json \
-  --output studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/runs/canonical_pilot_successor02_20260813/analysis_result.json
+python studies/stieltjes_proxy_campaign/analysis/run_frozen_pilot.py \
+  --summary data/historical/studies/stieltjes_proxy_campaign/reference/runs/canonical_pilot_successor02_20260813/summary.json \
+  --config studies/stieltjes_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_02.json \
+  --analysis-config studies/stieltjes_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_02_ANALYSIS.json \
+  --output data/generated/stieltjes_proxy_campaign/historical_review/successor02_analysis.json
 ```
+
+This is an interface example, not a successful current reproduction claim:
+changed frozen source bindings still fail. The output and its `.tmp` must both
+be absent; choose a new generated or external scratch name for another attempt.
+Source/history/other-study destinations are rejected before analysis, and both
+success and failure publication preserve existing files and input aliases.
+Writing a new certificate does not grant new scientific execution authorization.
 
 The output is one compact JSON certificate containing input/source hashes,
 bands and width unions, every rational and Taylor comparison, paired
@@ -95,7 +103,8 @@ step-halving, ordinary/output-clock overlap, projection and diagnostic trends,
 the Stage-2 resolution gate, per-prefix classifications, and the exact overall
 three-way result.  The writer refuses to overwrite an existing result.  Any
 provenance or numerical-analysis failure emits only an inconclusive failure
-certificate and a nonzero exit code.  For successor 02, all 2,000 registered
+certificate and a nonzero exit code when the output destination itself is valid
+and unused; routing/collision refusal writes nothing. For successor 02, all 2,000 registered
 resamples were valid, but the conservative width-sensitivity band missed the
 resolution threshold by a factor of 82.67 and the exact paired-initial-array
 gate failed at floating-roundoff scale.  The resulting Stage-3 authorization
@@ -107,7 +116,7 @@ No scientific trajectory is read by the test suite.  From the repository
 root:
 
 ```bash
-pytest -q studies/stieltjes_conjecture/numerics/global_proxy_campaign/analysis/tests
+pytest -q studies/stieltjes_proxy_campaign/analysis/tests
 ```
 
 The fixtures verify hash-gated ingestion, validation-only rejection,

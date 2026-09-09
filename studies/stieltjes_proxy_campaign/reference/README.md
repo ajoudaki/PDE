@@ -64,16 +64,19 @@ inconclusive rather than evidence for or against the Stieltjes conjecture.
 - The shell launcher adds an independent external `timeout`.
 - A first invalid point stops the configuration; no unregistered branch is
   launched.
-- Configurations must be direct children of `configs/`, and outputs are written
-  only below `runs/` without overwriting a nonempty run.
+- Configurations must be direct children of this directory's `configs/`.
+  Fresh runs default to repository
+  `data/generated/stieltjes_proxy_campaign/reference/runs/`. Explicit output
+  roots must be in the owning generated tree or external scratch; nonempty
+  runs and existing symlink/hardlink aliases are rejected.
 - Scientific execution is mechanically locked.  The executed successor used
   `configs/FROZEN_SUCCESSOR_02.json`,
   `configs/FROZEN_SUCCESSOR_02_ANALYSIS.json`, and
   `PRODUCTION_UNLOCK.json`, which bind the exact protocol, configuration,
   analysis rules, and source-bundle hashes.  The one-attempt rule now keeps
   this branch closed.
-- Raw `.npz` arrays are excluded from Git by the study-level `.gitignore`; JSON
-  summaries and manifests retain source and result hashes.
+- Fresh products are excluded from Git by the repository's generated-data
+  rule; retained summaries and manifests preserve source and result hashes.
 
 The memory guard checks PyTorch allocations.  GPU driver/library allocations
 outside PyTorch are not included, so the protocol must retain explicit
@@ -84,20 +87,25 @@ headroom below physical VRAM.  Host RSS uses Linux `ru_maxrss`, a process peak.
 Run the small CPU tests and smoke configuration:
 
 ```bash
-python -m unittest discover -s studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/tests -v
-studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/run_capped_reference.sh cpu-validation
+python -m unittest discover -s studies/stieltjes_proxy_campaign/reference/tests -v
+studies/stieltjes_proxy_campaign/reference/run_capped_reference.sh cpu-validation
 ```
 
 The two GPU validation configurations contain only tiny smoke trajectories and
 are not scientific seeds.  Their preflight command was:
 
 ```bash
-studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/run_capped_reference.sh gpu-preflight
+studies/stieltjes_proxy_campaign/reference/run_capped_reference.sh gpu-preflight
 ```
 
 The final validation-v3 actions were run separately on both devices before the
 successor-02 unlock was written.  The scientific command was the distinct
 `successor-02` action.  It must not be rerun.
+
+These commands require their scientific dependencies and any separate device
+approval; they were not rerun for routing repair. Retained source/unlock hashes
+are not refreshed by migration, so historical validation is not a current
+execution authorization or a guarantee that a frozen replay now passes.
 
 On 2026-08-13, a read-only audit outside the restricted task sandbox saw two
 RTX 3090 devices with 24 GiB each and driver 580.65.06, mostly free.  Inside

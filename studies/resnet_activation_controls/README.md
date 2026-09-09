@@ -16,13 +16,22 @@ gain-matched L2 control remains within the study's 5% Gram tolerance. See
 `ACTIVATION_LINEARITY_SMOKING_GUN_REPORT.md` for the numerical result and its
 limitations.
 
-Run the complete \(T=8\) study from this directory:
+The current migration does not renew the historical input freeze. Inspect it
+read-only from this directory with:
+
+```bash
+python run_experiment.py all --historical-status
+```
+
+The retained complete \(T=8\) interface is:
 
 ```bash
 python run_experiment.py all
 ```
 
-The stages are also independently resumable:
+It is not currently a clean-checkout regeneration promise: without a live
+input manifest the runner refuses to recreate the historical freeze. The
+stages remain independently resumable only with valid live authorization:
 
 ```bash
 python run_experiment.py validate
@@ -59,10 +68,13 @@ different number of weight draws changes the later RNG position.
 
 `validate` runs the activation/formula, finite-difference, dense-gradient,
 PDE-kernel, protocol/CLI-parity, and safe-resume tests. It then creates
-`results/FROZEN_INPUTS.json`, cryptographically binding the audited parent
+`data/generated/resnet_activation_controls/results/FROZEN_INPUTS.json`
+(repository-relative), cryptographically binding the audited parent
 release, exact source lineage, protocol, cases, runner, analyzer, tests, and
-dependency lock before any trajectory can run. The audited parent release is
-the bundled `parent/dense_mup_pde_generalization_repro.zip`; its required
+dependency lock before any trajectory can run. It refuses to regenerate this
+manifest when only the historical freeze exists. The audited parent release is
+`data/historical/studies/resnet_activation_controls/parent/dense_mup_pde_generalization_repro.zip`;
+its required
 SHA-256 is
 `8e66e442fb322380acce93a0b59da4851a319401a087bb4b3e3146ed0c1de003`.
 
@@ -72,16 +84,13 @@ arrays. Changed or duplicate archives and `.partial` remnants stop the run.
 Dense commands cannot start until the exact 11-file PDE inventory is sealed;
 analysis cannot start until the exact 9-file dense inventory is sealed.
 
-Results are written under `results/`, with the two immutable stage seals at
-`results/PDE_STAGE_SEAL.json` and `results/DENSE_STAGE_SEAL.json`. Processed
-tables and figures are written to `results/processed/`.
-
-The compact release intentionally omits the active `results/` tree so a clean
-`python run_experiment.py all` can freeze and regenerate it from scratch.
-Copies of the completed processed evidence and immutable run seals are kept
-under `evidence/processed/` and `evidence/seals/`; they are never consumed by
-the runner. The full working tree instead keeps those files at their active
-`results/` paths.
+Fresh results use repository `data/generated/resnet_activation_controls/results/`,
+with `PDE_STAGE_SEAL.json`, `DENSE_STAGE_SEAL.json`, and `processed/` below it.
+Retained evidence and seals are under
+`data/historical/studies/resnet_activation_controls/evidence/`; they are not
+current execution authorization. `make_figures.py` consumes fresh processed
+results by default; `--historical-inputs` explicitly selects retained evidence
+while still writing fresh figures. Old source hashes and seals are not renewed.
 
 The sole confirmatory nonlinear case is `C2`. `C4` is descriptive
 dose-response evidence. The horizon is fixed at \(T=8\); if the preregistered

@@ -24,6 +24,17 @@ Chronologically:
    estimator.  It gives a useful target for (mu_5), but also fails its frozen
    strong calibration gate and is therefore inconclusive.
 
-Generated results and frozen integrity records are grouped under
-[`runs/`](runs).  Old path strings inside those records are intentionally
-unaltered historical provenance.
+Fresh results route to repository `data/generated/stieltjes_finite_width/runs/`;
+retained arrays and integrity records are under
+`data/historical/studies/stieltjes_finite_width/runs/`. Old paths in immutable
+records are intentionally unchanged.
+
+The five Python entry points accept `--output-dir` under this study's generated
+tree or external scratch; existing symlinks and hardlinked children are
+rejected before work. `jet_control_variate.py` reads the generated direct-Loewner
+corrected-clock run by default. `run_positive_time_pair_median.py` reads the
+generated fresh-pair run. Both accept `--input-dir`, or explicit `--historical`
+to select retained inputs and a separate generated `historical_review/` output.
+They do not fall back to history when fresh input is missing. These interfaces
+preserve the scientific calculations and resource requirements; migration alone
+does not establish full campaign reproducibility.

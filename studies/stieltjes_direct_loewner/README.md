@@ -17,6 +17,14 @@ This branch preserves the chronological direct numerical investigation.
   the resulting robust proxy has an (O(1)) local-coefficient bias and is not
   calibrated well enough for a target Loewner conclusion.
 
-All generated arrays, logs, summaries, and frozen manifests are under
-[`runs/`](runs).  They remain useful negative-result and reproducibility
-records.
+Retained arrays, logs, summaries and frozen manifests are under repository
+`data/historical/studies/stieltjes_direct_loewner/runs/`. Fresh producers use
+`data/generated/stieltjes_direct_loewner/`; the corrected-clock producer writes
+`runs/corrected_clock_run_20260814/`, also the finite-width jet consumer's
+default input. Historical records retain their original paths and hashes.
+
+`simulate_loewner.py` validates its `--output` as this study's generated tree
+or external scratch, rejecting existing symlink/hardlink aliases before opening
+its log. Related shared-helper tools use `--output-dir` and, when reading saved
+products, explicit `--input-dir` or `--historical-inputs`. There is no implicit
+historical fallback. This documents routing, not a fresh campaign validation.

@@ -14,3 +14,11 @@ Generated data were separated during the repository cleanup. Old absolute paths,
 commands and frozen hashes may describe the historical layout; the
 [migration record](../repository_refactor_2026_09_09/PLAN.md) explains how to locate
 preserved files. Do not run an old campaign assuming its former output layout.
+
+Current producers and immediate consumers use repository
+`data/generated/resnet_proof_audit/`. Retained evidence and the original freeze
+are read-only under `data/historical/studies/resnet_proof_audit/`. From this
+study directory, `python protocol/verify_study.py --historical-status` reports
+the old seal and changed/missing source bindings without renewing them.
+Ordinary verification/execution still requires its live freeze; migration does
+not authorize recreating a historical seal or promise full reproduction.

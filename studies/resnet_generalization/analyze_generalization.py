@@ -1211,12 +1211,14 @@ def _case_verdict(
 
 
 def _atomic_bytes(path: Path, payload: bytes) -> None:
+    path = require_output(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     partial = path.with_name(path.name + ".partial")
-    with partial.open("wb") as handle:
+    with partial.open("xb") as handle:
         handle.write(payload)
         handle.flush()
         os.fsync(handle.fileno())
+    require_output(path)
     os.replace(partial, path)
 
 
@@ -1244,11 +1246,14 @@ def _atomic_csv(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
 
 
 def _atomic_figure(path: Path, figure: plt.Figure) -> None:
+    path = require_output(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     partial = path.with_name(path.name + ".partial")
-    figure.savefig(partial, format="png", dpi=150, bbox_inches="tight")
-    with partial.open("rb+") as handle:
+    with partial.open("xb") as handle:
+        figure.savefig(handle, format="png", dpi=150, bbox_inches="tight")
+        handle.flush()
         os.fsync(handle.fileno())
+    require_output(path)
     os.replace(partial, path)
     plt.close(figure)
 

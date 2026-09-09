@@ -94,7 +94,7 @@ cutoffs belong in the frozen parent protocol, not in this reusable engine.
 From the repository root:
 
 ```bash
-pytest -q studies/stieltjes_conjecture/numerics/global_proxy_campaign/proxy
+pytest -q studies/stieltjes_proxy_campaign/proxy
 ```
 
 The suite checks exact canonical and family-intersection regressions, the

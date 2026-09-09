@@ -44,7 +44,7 @@ if str(GLOBAL_PROXY_CAMPAIGN) not in sys.path:
     sys.path.insert(0, str(GLOBAL_PROXY_CAMPAIGN))
 
 from proxy_contract import frozen_proxy_points  # noqa: E402
-from successive_paths import parse_analysis_paths, path_label  # noqa: E402
+from successive_paths import parse_analysis_paths, path_label, require_output  # noqa: E402
 from analysis.bootstrap import simultaneous_log_band  # noqa: E402
 
 
@@ -801,8 +801,9 @@ def analyze_configuration(
 
 def write_csv_atomic(path: Path, rows: list[dict[str, Any]]) -> None:
     require(bool(rows), f"refusing to write empty CSV: {path}")
+    path = require_output(path)
     temporary = path.with_name(path.name + ".tmp")
-    with temporary.open("w", encoding="utf-8", newline="") as handle:
+    with temporary.open("x", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(
             handle,
             fieldnames=list(rows[0].keys()),
@@ -810,14 +811,16 @@ def write_csv_atomic(path: Path, rows: list[dict[str, Any]]) -> None:
         )
         writer.writeheader()
         writer.writerows(rows)
+    require_output(path)
     os.replace(temporary, path)
 
 
 def write_json_atomic(path: Path, value: dict[str, Any]) -> None:
+    path = require_output(path)
     temporary = path.with_name(path.name + ".tmp")
-    temporary.write_text(
-        json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
+    with temporary.open("x", encoding="utf-8") as handle:
+        handle.write(json.dumps(value, indent=2, sort_keys=True) + "\n")
+    require_output(path)
     os.replace(temporary, path)
 
 
@@ -865,9 +868,12 @@ def plot_curves(results: dict[str, dict[str, Any]], path: Path) -> str:
         axis.set_ylabel("effective kernel")
         axis.grid(alpha=0.25)
         axis.legend(fontsize=8, ncol=2)
+    path = require_output(path)
     temporary = path.with_name(path.name + ".tmp.png")
-    figure.savefig(temporary, dpi=180)
+    with temporary.open("xb") as handle:
+        figure.savefig(handle, format="png", dpi=180)
     plt.close(figure)
+    require_output(path)
     os.replace(temporary, path)
     return matplotlib.__version__
 
@@ -894,9 +900,12 @@ def plot_aggregate(results: dict[str, dict[str, Any]], path: Path) -> None:
         axis.set_ylabel("absolute log error")
         axis.grid(alpha=0.25, which="both")
         axis.legend(fontsize=8)
+    path = require_output(path)
     temporary = path.with_name(path.name + ".tmp.png")
-    figure.savefig(temporary, dpi=180)
+    with temporary.open("xb") as handle:
+        figure.savefig(handle, format="png", dpi=180)
     plt.close(figure)
+    require_output(path)
     os.replace(temporary, path)
 
 
@@ -933,9 +942,12 @@ def plot_transitions(results: dict[str, dict[str, Any]], path: Path) -> None:
                 ha="center",
                 fontsize=7,
             )
+    path = require_output(path)
     temporary = path.with_name(path.name + ".tmp.png")
-    figure.savefig(temporary, dpi=180)
+    with temporary.open("xb") as handle:
+        figure.savefig(handle, format="png", dpi=180)
     plt.close(figure)
+    require_output(path)
     os.replace(temporary, path)
 
 

@@ -252,7 +252,8 @@ def run(args: argparse.Namespace) -> Path:
         f"_cfg{scientific_config_sha256[:12]}.npz"
     )
     partial = path.with_suffix(path.suffix + ".partial")
-    with partial.open("wb") as handle:
+    require_output(path)
+    with partial.open("xb") as handle:
         np.savez_compressed(
             handle,
             times=times,
@@ -270,6 +271,7 @@ def run(args: argparse.Namespace) -> Path:
         )
         handle.flush()
         os.fsync(handle.fileno())
+    require_output(path)
     os.replace(partial, path)
     print(
         json.dumps(
