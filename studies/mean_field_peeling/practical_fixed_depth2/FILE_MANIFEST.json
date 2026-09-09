@@ -1,0 +1,193 @@
+{
+  "created_utc": "2026-09-08T11:24:56.142394+00:00",
+  "status": "research_stopped_by_user",
+  "main_theorem": "unresolved_not_proved_or_disproved",
+  "entry_point": "PERSISTENT_HANDOFF.md",
+  "reviewed_manuscripts_unchanged": {
+    "CAPS_MANUSCRIPT.md": "c83bdce94e4655befbc35c88cafb19012c39a9fb2a3a08ced3ef216433acbaed",
+    "development/PLATEAU_CONFINEMENT.md": "e66b09fd0b115113da658cff6a0e7f3da3ddbc5401360b275546cdacb027b5d3"
+  },
+  "files": [
+    {
+      "path": "CAPS_MANUSCRIPT.md",
+      "bytes": 17942,
+      "sha256": "c83bdce94e4655befbc35c88cafb19012c39a9fb2a3a08ced3ef216433acbaed"
+    },
+    {
+      "path": "CONTRACT.md",
+      "bytes": 5752,
+      "sha256": "d121fbd08111d4470ec34aae8ffc0e399d31150326023c374cdda984ab098d83"
+    },
+    {
+      "path": "PERSISTENT_HANDOFF.md",
+      "bytes": 17182,
+      "sha256": "fdd2eaeaab1ceb98dfd1664552250c77efcd0d0169a41f50d3fdefba6c71792f"
+    },
+    {
+      "path": "PROJECT_STATE.md",
+      "bytes": 18429,
+      "sha256": "055035ca9502f53cf92ea459ac98ea06533943e1a212a63738c2285d3d961285"
+    },
+    {
+      "path": "RESULT.md",
+      "bytes": 7772,
+      "sha256": "3271893092e76877bdca4547195e2670d9802f5060f6a7741c1c3838c38d30ed"
+    },
+    {
+      "path": "development/BOUNDED_CURVATURE_COMPENSATION.md",
+      "bytes": 14994,
+      "sha256": "6cd1e50290509924f6a76713d4f77615b601dfb02452c927547f7ee6403992a6"
+    },
+    {
+      "path": "development/BOUNDED_RESPONSE_MEASURE.md",
+      "bytes": 25794,
+      "sha256": "07cce5043cc855c9a599c1be9e3d81aa78ff9ccb1b7b7c59b3d108017611c141"
+    },
+    {
+      "path": "development/BOUNDED_SINE_PICARD.md",
+      "bytes": 24189,
+      "sha256": "6ce30c35d5e95105c0c179a7c33dd1dfe528760908c79865b5c94844f5f62e83"
+    },
+    {
+      "path": "development/BOUNDED_SOURCE_EVOLUTION.md",
+      "bytes": 15082,
+      "sha256": "ccaf252eb78a72050ac8430ffddddcbc031443038aee3ee6577550034d61a966"
+    },
+    {
+      "path": "development/CAVITY_ROUTE.md",
+      "bytes": 23493,
+      "sha256": "ea7228404f667f0a004eb8cfabea97fea049a53513543abebf0db2ab79cb159d"
+    },
+    {
+      "path": "development/CONCENTRATION_DEFECT_ROUTE.md",
+      "bytes": 19974,
+      "sha256": "e0dd8fc8fa9a0338c22162b92191316238bece492f6e711a876b38a9e0c4be04"
+    },
+    {
+      "path": "development/DISORDER_LITERATURE.md",
+      "bytes": 16410,
+      "sha256": "c5a609fe11415b4e9a5962655265509132467d7b108cc7e8b07fb791229b29d7"
+    },
+    {
+      "path": "development/ENERGY_ROUTE.md",
+      "bytes": 23346,
+      "sha256": "cfd070445cea4f056f4f216b896dc78cd9156e7dc6285d25f7b5c28469ce5e68"
+    },
+    {
+      "path": "development/FEATURE_MOBILITY_HOSTILE.md",
+      "bytes": 8442,
+      "sha256": "b63be6b3a04ef5ad61bc18d9d9a2aa29e57b555494c0a69aeb35cbd0a76064c2"
+    },
+    {
+      "path": "development/GAUSSIAN_OPERATOR_ROUTE.md",
+      "bytes": 18482,
+      "sha256": "7b79cadd54f27ee7bd12e67e3b8d7d4b759f0209b01ec7b0a623e349d22a531e"
+    },
+    {
+      "path": "development/INTEGRATED_CURVATURE.md",
+      "bytes": 30252,
+      "sha256": "6c69e97077234a85697dc18f10ddf993ad21f56f9756626ae1428c2984999c7f"
+    },
+    {
+      "path": "development/INTERRUPTED_AVERAGING_NOTES.md",
+      "bytes": 4349,
+      "sha256": "448ea85cbc3fc3e90ea424cd39478fec0c20c4f6fa53acf5323034714c6095fa"
+    },
+    {
+      "path": "development/LEGAL_QUERY_AUDIT.md",
+      "bytes": 17768,
+      "sha256": "c36c2c9a26099789f4c692ebcda4230db40267abf63cb1f5f0f14fbfa0fddfe3"
+    },
+    {
+      "path": "development/PLATEAU_BOTTOM_CAVITY.md",
+      "bytes": 17196,
+      "sha256": "273b4f4dfe1fda21dc1d2eb8d469e1d6c426635644433f09fa551471820a21ec"
+    },
+    {
+      "path": "development/PLATEAU_CONFINEMENT.md",
+      "bytes": 11629,
+      "sha256": "e66b09fd0b115113da658cff6a0e7f3da3ddbc5401360b275546cdacb027b5d3"
+    },
+    {
+      "path": "development/PLATEAU_DYNAMICS.md",
+      "bytes": 36455,
+      "sha256": "453f59b5ec0436fc0369f75ea40ce2556e0c6510def966c61ec48539be7848cd"
+    },
+    {
+      "path": "development/PLATEAU_GEOMETRY.md",
+      "bytes": 14853,
+      "sha256": "64b2f0400baf93bfe3ac1c8d85c0da16149c354fb602e7ed2d547fb11af6dcbc"
+    },
+    {
+      "path": "development/PLATEAU_HOSTILE.md",
+      "bytes": 17986,
+      "sha256": "1ef04b00771dc0b5d2d51ddab459f0d468c5bb51a7b1c360b899a319334bf10e"
+    },
+    {
+      "path": "development/PLATEAU_PATH_COMPACTNESS.md",
+      "bytes": 7426,
+      "sha256": "0bbdc1bd61754f3a8aa2df7d06da987f7ac7670ddd52dbe76903e1ac97c74436"
+    },
+    {
+      "path": "development/SINE_RESUMMED_ITERATION.md",
+      "bytes": 28198,
+      "sha256": "a526d39f526f2f2553373ea264dc71f10c32e4f106375a8f58abb367e53e3ef0"
+    },
+    {
+      "path": "development/SOURCE_ROUTE.md",
+      "bytes": 17140,
+      "sha256": "1b1b6d094c7bb84f758ba84ae38d6f493ca2bc3b06ee92bc6739ecb241afdb88"
+    },
+    {
+      "path": "development/STRUCTURAL_ACTIVATION_ROUTE.md",
+      "bytes": 18422,
+      "sha256": "5436b248dd82d8140948b261e2a6d5259d9587f8913f9857073f729c48335acc"
+    },
+    {
+      "path": "development/VARIATIONAL_ROUTE.md",
+      "bytes": 15875,
+      "sha256": "111dd8ec76bffc640a5ce08e36dce45956d22ab7cad3d678113c724d0c0d3ecb"
+    },
+    {
+      "path": "reviews/CAPS_ANALYSIS_R1.md",
+      "bytes": 14276,
+      "sha256": "34c789387ec18850eaf7f15da132a326179a1e2a5cb46d4415feeb72033c8813"
+    },
+    {
+      "path": "reviews/CAPS_FINAL_ONE.md",
+      "bytes": 739,
+      "sha256": "7023f3e4d1376feafe375d38b5ad25fc9d580d381d325251159aec1ba4bae10e"
+    },
+    {
+      "path": "reviews/CAPS_FINAL_TWO.md",
+      "bytes": 5622,
+      "sha256": "a75f21b7b91bb9b060ad7c291f886886d58c26b18d51e85789bfa505bf74d8a2"
+    },
+    {
+      "path": "reviews/CAPS_PROBABILITY_R1.md",
+      "bytes": 6676,
+      "sha256": "5718fc5bee518c065850e498e2c79e3d5a9ddeaff9358a2c0175886f02ba133d"
+    },
+    {
+      "path": "reviews/PLATEAU_CONFINEMENT_FINAL_THREE.md",
+      "bytes": 4808,
+      "sha256": "6cc755db7bf947485240a3ff3db422147d1730bf9ab30e94c06920932170e853"
+    },
+    {
+      "path": "reviews/PLATEAU_CONFINEMENT_FINAL_TWO.md",
+      "bytes": 5521,
+      "sha256": "17eff52c91a85cfcdb08e556abf188409e85f91dec4692f8a339aa83c896d8e1"
+    },
+    {
+      "path": "reviews/PLATEAU_CONFINEMENT_R1_ONE.md",
+      "bytes": 7066,
+      "sha256": "919de628f2306a0961424ce33f48e6bb800cfffd4b375bef41ccc43689c5893b"
+    },
+    {
+      "path": "reviews/REVIEW_SUMMARY.md",
+      "bytes": 3257,
+      "sha256": "a25af3b564a75787ed71725832cff87ae1c94f3f28fa15aedad78e38f52384ed"
+    }
+  ],
+  "note": "This manifest excludes itself. Review status is specified in PERSISTENT_HANDOFF.md, not implied by hashing."
+}

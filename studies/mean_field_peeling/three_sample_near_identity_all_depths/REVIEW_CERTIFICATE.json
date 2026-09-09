@@ -1,0 +1,26 @@
+{
+  "date": "2026-09-08",
+  "accepted_target": "genuine perturbation of identity; no overall gain",
+  "full_global_target": "unproved",
+  "certified_scope": "initialization and conditional necessary fitting bounds only",
+  "mathematical_hashes": {
+    "CONTRACT.md": "55c3075fa8f699cc7f44542a814393dbcbc3cb6645b1c822b29b793cde6ee6ce",
+    "REPORT.md": "98207c46cb44c525ef0fd7e140a97624bd9750939c3e260a1d03d92c3f7614b8",
+    "INITIALIZATION.md": "f53b4893ae4cacc2180ab1149c2c00a1b8f8b0b941d3319df5a3c0009f531163",
+    "NECESSARY_FITTING_SCALE.md": "98705d5550bb977f26712e273b47592340ba2899cf952025889b386349af1fbd",
+    "SOURCE_ROUTE.md": "06f5cbe85d86587efaf1e8636e4da40d8f4497b95ab1dc5200f4f8766e36431e",
+    "ENERGY_GALERKIN_ROUTE.md": "85f3b60cf95a6368a0b143d22d160844da90a09f1312033c150027b92917b2c4"
+  },
+  "reviews": {
+    "reviews/SOURCE_PARTIAL_REVIEW.md": {
+      "INITIALIZATION.md": true,
+      "NECESSARY_FITTING_SCALE.md": true
+    },
+    "reviews/LIMITS_PARTIAL_REVIEW.md": {
+      "INITIALIZATION.md": true,
+      "NECESSARY_FITTING_SCALE.md": true
+    }
+  },
+  "separate_gain_math_unchanged": true,
+  "experiments_run": false
+}

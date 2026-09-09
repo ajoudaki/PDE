@@ -6,6 +6,7 @@ layouts are preserved separately in [`../archive/bundles`](../archive/bundles/).
 
 | Program | Current role |
 |---|---|
+| [Renormalized Causal Gaussian Calculus Program](renormalized_causal_gaussian_calculus/) | Completed diagnostic probe: common calculus proves the resolved ladder but fails at the D3 dependent-action Orlicz/response gate |
 | [`quadratic_nonclosure`](quadratic_nonclosure/) | Analytical negative laboratory for the prescribed Taylor/Wick compiler |
 | [`mean_field_peeling`](mean_field_peeling/) | Canonical conditional-Gaussian peeling program, audited μP case studies, and the exact quadratic decorated-forest compiler |
 | [D3 Arctan Closure Program](d3_arctan_closure_program/) | Paused strict three-hidden-layer arctan IDE/convergence program, with its complete evidence ledger and reproducibility artifacts |

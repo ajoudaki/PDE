@@ -1,0 +1,186 @@
+[
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/GF_RESULT.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/GF_RESULT.md",
+    "sha256": "6d3b6705379b5167e1994af7be6c0932012062a44d945291d940c424d9a2c00e",
+    "lines": 118,
+    "bytes": 5640
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/GENERAL_POPULATION_GF_PROOF.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/GENERAL_POPULATION_GF_PROOF.md",
+    "sha256": "5406c9e3a812127be623d22e225ac545e83bc8ea1010b5046bd4bab6a295514d",
+    "lines": 524,
+    "bytes": 27429
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/GENERAL_DEPTH_RESPONSE_PROOF.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/GENERAL_DEPTH_RESPONSE_PROOF.md",
+    "sha256": "3dfb63e3cac21ee15573af7f4107287f58dc2013db7e4a11083c90472bf8995b",
+    "lines": 540,
+    "bytes": 18722
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/ACTIVITY_SOURCE_AUDIT.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/ACTIVITY_SOURCE_AUDIT.md",
+    "sha256": "3d91ef619477525519a7faacd293418b15e7f2f24699ed871df6eef11b194421",
+    "lines": 206,
+    "bytes": 19109
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/TWO_LAYER_RESPONSE_AUDIT.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/TWO_LAYER_RESPONSE_AUDIT.md",
+    "sha256": "3acf88c92c5ad001cc620f26bd1e339ecde0ce9501880f5f55dc381392721207",
+    "lines": 300,
+    "bytes": 18543
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/INDEPENDENT_REVIEW_A.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/INDEPENDENT_REVIEW_A.md",
+    "sha256": "e9214a67eb93d76bf0b1a374b8519ccb19d4b8208d90f3e43937fb1bd6fcc676",
+    "lines": 62,
+    "bytes": 10402
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/INDEPENDENT_REVIEW_B.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/INDEPENDENT_REVIEW_B.md",
+    "sha256": "0a9f35da932d06fae37ac931bea1dc14f2e79ff4035fe4b616e15c2f5053d343",
+    "lines": 47,
+    "bytes": 13057
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/INDEPENDENT_REVIEW_C.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/INDEPENDENT_REVIEW_C.md",
+    "sha256": "c577114a51925b670d7ba6e56a5b6dcc0fd440e3487a9e8bde7c9b4a41cce292",
+    "lines": 80,
+    "bytes": 13130
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/REVIEW_RECORD.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/REVIEW_RECORD.md",
+    "sha256": "162501296a9f232d6cd87bc320cc3e8ff6c90594bede8c4fdaf01689f909acff",
+    "lines": 48,
+    "bytes": 2581
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/RESEARCH_STATE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/RESEARCH_STATE.md",
+    "sha256": "0784ce7f4e7ed27baf10ec71ed9dfe105b16650cb61c7c235028186275ea22bb",
+    "lines": 66,
+    "bytes": 4069
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/FINAL_SHA256SUMS.txt",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/FINAL_SHA256SUMS.txt",
+    "sha256": "21330c47bcf238ccc355bc604f98d6aa03fab234e9ebb1c546920c2ba151758d",
+    "lines": 10,
+    "bytes": 896
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/sources/GENERAL_ACTIVATION_ACTIVITY.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/sources/GENERAL_ACTIVATION_ACTIVITY.md",
+    "sha256": "c6bfa76ac200ce59f91109b31a40d22d668ec678e2ea60386f93f7d7604b4e89",
+    "lines": 373,
+    "bytes": 18356
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/sources/THREE_INPUT_LOCAL_LIMIT_PROOF.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/sources/THREE_INPUT_LOCAL_LIMIT_PROOF.md",
+    "sha256": "08c96e9b4dff421d99e7213509bb3bec3adf1d7c897ea9cc436e4e6f02d1a95b",
+    "lines": 661,
+    "bytes": 41677
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/sources/THREE_INPUT_LOCAL_LIMIT_REVIEW.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/sources/THREE_INPUT_LOCAL_LIMIT_REVIEW.md",
+    "sha256": "2c84f5dee8998ad39a9e56d0c2ce89b81f6663b2ef4dde3a387e26e2119431c1",
+    "lines": 19,
+    "bytes": 1898
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/BOREL_HYPOTHESIS_AND_LOCAL_IMPLICATIONS.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/BOREL_HYPOTHESIS_AND_LOCAL_IMPLICATIONS.md",
+    "sha256": "0195f7136c3fcefa327c5830e64085444c9c02bfd36e2dffaa1e50716429d234",
+    "lines": 304,
+    "bytes": 12919
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/BOREL_IDENTIFICATION_AUDIT.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/BOREL_IDENTIFICATION_AUDIT.md",
+    "sha256": "120fd07108c29458829012f2727dd9356677626c73f5c2e56ad965c05b48b20b",
+    "lines": 152,
+    "bytes": 13102
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/GF_EXPOSITION_MATH_REVIEW.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/GF_EXPOSITION_MATH_REVIEW.md",
+    "sha256": "987cfe3633e6d965d5b1337b37a59542ad53bc8acd32e0d69e3d14a8891f6298",
+    "lines": 148,
+    "bytes": 8760
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/GF_MAIN_READABILITY_REVIEW.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/GF_MAIN_READABILITY_REVIEW.md",
+    "sha256": "65541c3557c7410c2670d49f590f5b408b760613ee943c89a35a43b31454c4e6",
+    "lines": 70,
+    "bytes": 3909
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/BOREL_PDF_ACCURACY_REVIEW.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/BOREL_PDF_ACCURACY_REVIEW.md",
+    "sha256": "10dc25870ee53c316dcf71146e5e85a6e0f60c31e73a781b670f7be3b79f5d4e",
+    "lines": 136,
+    "bytes": 7306
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/BOREL_PDF_READABILITY_REVIEW.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/BOREL_PDF_READABILITY_REVIEW.md",
+    "sha256": "a44e99cb3cacf9173eb17c8b06cb6eaab6dbf1fbea4715abef36ad4ddc92cc1b",
+    "lines": 54,
+    "bytes": 5788
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/PADE_BOREL_UNIFORM_APPROXIMATION.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/PADE_BOREL_UNIFORM_APPROXIMATION.md",
+    "sha256": "ebe2085b362f1befb57a4bfdbb9fbaefd02119b0d97eb04dc636608c84b042ef",
+    "lines": 306,
+    "bytes": 12848
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/PADE_STIELTJES_GUARANTEE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/PADE_STIELTJES_GUARANTEE.md",
+    "sha256": "1ca8eab3ee7e1c950e66f8611ad2adb116b0bc885e124e54e9d9ebadab808c5d",
+    "lines": 191,
+    "bytes": 10472
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/PADE_ANALYTIC_GUARANTEES.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/PADE_ANALYTIC_GUARANTEES.md",
+    "sha256": "433965e01f126df5c8a5cb5b023d5e10cdf5e4d3cc723770aa17da4e6565e245",
+    "lines": 120,
+    "bytes": 11229
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/BOREL_PADE_TRANSFER.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/BOREL_PADE_TRANSFER.md",
+    "sha256": "b78c98b4fbf040330e69e9d6d57422639798658f27e20b9cdedab6f88a3c7663",
+    "lines": 220,
+    "bytes": 9293
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/gf_exposition/main.tex",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/gf_exposition/main.tex",
+    "sha256": "78437f4c90dfc2d20f951783e6ed970dae179434d095a6804087e1ced4170319",
+    "lines": 527,
+    "bytes": 26020,
+    "coverage": "theorem and finite-GF-relevant passages inspected; not entire exposition appendix re-audited"
+  },
+  {
+    "source": "/tmp/pde-gf-supervisor-worktree/gf_exposition/appendix.tex",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/gf_exposition/appendix.tex",
+    "sha256": "043c4a39ab4990370307358efe5e1f256ab9bd718416250eccd67b76c604e0e3",
+    "lines": 862,
+    "bytes": 37320,
+    "coverage": "theorem and finite-GF-relevant passages inspected; not entire exposition appendix re-audited"
+  }
+]

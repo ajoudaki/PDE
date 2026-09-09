@@ -1,0 +1,19 @@
+{
+  "date": "2026-09-08",
+  "status": "three independent reviews accept partial claims only; full requested theorem unproved",
+  "mathematical_files": {
+    "REPORT.md": "25cfd1e93b619b6c5aabc674cab7170199024ac7a3cb700365a23048e62d341f",
+    "GEOMETRY_AND_NECESSARY_SCALES.md": "37a6c0bf1715ab5a182ecfd9a6a3213cddf9cb4a0ae95fd441a5a6a7d46f61e6",
+    "SOURCE_AND_CONTINUATION.md": "4c3b8c54893a417ce210f73eaae2b8e71a71eac8f3205f5fdc32da9480c2a568",
+    "NONLINEAR_REFERENCE.md": "778793eb7a832f16dadc5b5746e9b705c02ca08a74ab9e3f81748962a958a422",
+    "CONTRACT.md": "e4acafb4b6dee57ab867bd3947a92b6b25d994c51e62bbfaeaaccebede6c113d"
+  },
+  "review_files": {
+    "reviews/GEOMETRY_REVIEW.md": "a893999c03f76ae1bcc666ac1630ab572d23eef68f9cbe102136ec16e215b9b2",
+    "reviews/SOURCE_REVIEW.md": "7257c876929a9d5e2a33d81bbb0112865e78f5681074e0b49cb86cbc123d54b9",
+    "reviews/REFERENCE_REVIEW.md": "5b449b55f0f78e435908111a1c5f62485ddac3083ecac8abeb01f4bc64feb11c"
+  },
+  "direct_dependency_count": 13,
+  "dependency_manifest_sha256": "af96e583e666d6a30be5f1edac118990bbe6e47b43a3c0549c629b9dca5010c6",
+  "not_claimed": "No polynomial theta upper threshold is certified for the full global three-input L2 joint population/GF/GD theorem."
+}

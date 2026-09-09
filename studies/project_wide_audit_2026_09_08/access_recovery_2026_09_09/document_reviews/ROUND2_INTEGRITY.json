@@ -1,0 +1,1333 @@
+{
+  "master": {
+    "bytes": 123661,
+    "sha256": "88289386359588a7b0402d1e8f6bbc1780d116dcff44ae5beec741cdd1a2a1a1"
+  },
+  "links": [
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/REVIEW_STATUS.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/TASK_INDEX.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/MFP_CALCULUS.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/STIELTJES_QUADRATIC.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/LINEAR_AND_REPRESENTATION.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/OLD_NONLINEAR_RESNET_RMS.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/PRIMARY_LITERATURE.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/GLOBAL_NONLINEAR_FRONTIER.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/ROOT_CONTINUATION_AND_OPERATOR.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/LOGICAL_BRIDGES_AND_SCIENTIFIC_SCOPE.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/CONSOLIDATED_RESULTS.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/sources/README.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/sources/ARCTAN_DESTINATION_SHA256.txt",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/README.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/TMP_ACCESS_RECOVERY.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/MUP_TRAINING_CASE_STUDY.md:605",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/generic_first_stieltjes/depth/DEPTH_FIXED_BATCH_GAUSSIAN_RECURSION.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/generic_first_stieltjes/depth_order5_scalar/ARBITRARY_DEPTH_B1_ORDER5_SCALAR_RECURRENCE.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/generic_first_stieltjes/depth_order5_scalar/multi_observable/README.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/generic_first_stieltjes/depth_order5_scalar/multi_observable/independent_route_a/INDEPENDENT_DERIVATION.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/generic_first_stieltjes/depth_order5_scalar/multi_observable/audit/HOSTILE_REPORT.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_depth_time_doubling/WIDTH_DEPTH_TIME.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_depth_time_doubling/PROOF.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_depth_time_doubling/UNIFORM_L1.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_general_depth_general_time_stepdoubling_bound/CUBIC_MARKED_BRIDGE.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_general_depth_general_time_stepdoubling_bound/GENERAL_FIXED_H_IDENTIFICATION.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/MFP_HISTORY.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/MFP_CALCULUS.md:323",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_omfp_continuous_time/THEOREM_AND_AUDIT.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/OPERATOR1.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_uniform_near_identity_l2/FINAL_RESOLUTION.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/OPERATOR2.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/stieltjes_conjecture/resolution_program/PROOF_CONTRACT.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/stieltjes_conjecture/resolution_program/canonical_high_order/RESULTS.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/stieltjes_conjecture/resolution_program/BLOCK_METRIC_RESOLUTION.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/stieltjes_conjecture/resolution_program/POSITIVE_ALPHA_JET_DERIVATION.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/stieltjes_conjecture/resolution_program/ALPHA_TRANSITION_CERTIFICATE.json",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/RESULTS.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/successive_n8192/RESULTS.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/quadratic_nonclosure/approximate_single_source_conjecture_resolution.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/quadratic_nonclosure/adversarial_audit_report.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/quadratic_compiler/operator_ide_resolution/CANONICAL_CONCENTRATION_NO_GO_COVARIANT_SCHUR.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/COVARIANT_SCHUR_FOCUSED_RECHECK.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_loss_mesh_resolution/FINAL_X2_RELU_MESH_VERDICT.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/TANH_RESNET.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_deep_linear_joint_audit/JOINT_DEEP_LINEAR_THEOREM.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/renormalized_causal_gaussian_calculus/linear_fixed_depth/LINEAR_FIXED_DEPTH_THEOREM.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/renormalized_causal_gaussian_calculus/audits/LINEAR_PHYSICAL_FINAL_AUDIT_03.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/OLD_ARCTAN.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_deep_linear_pde_no_go/PDE_CLOSURE_BOUNDARY.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/LINEAR_AND_REPRESENTATION.md:177",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/GENERAL_POPULATION_GF_PROOF.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/GENERALIZE_PRIMARY/GENERAL_DEPTH_RESPONSE_PROOF.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/inherited_baselines/L2_ONE_SAMPLE_ARCTAN_GLOBAL_PROOF.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/arctan_two_primary/GLOBAL_ACTIVATION_TRANSFORM_EXTENSION.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/SHIFTED_ATAN_ALL_DEPTHS/GENERAL_DEPTH_SELF_CONTAINED_PROOF.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_separated_angle_theorem/PROOF.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/odd_activation_lower_powers_three_inputs/TWO_INPUT_PROOF.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_depth56/PROOF.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_activation_design/PROOF.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/activation_class_all_depths/MANUSCRIPT.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/three_sample_odd_gain_all_depths/PROOF.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/nonlinear_activation_operator_ide/ARCTAN_THEOREM_AND_PROOF.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/OLD_NONLINEAR_RESNET_RMS.md:372",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/renormalized_causal_gaussian_calculus/arctan_l2/TAME_NATURAL_GATE_H2_THEOREM.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/OLD_ARCTAN.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/L2_SPECIAL_ANGLES_RECOVERY_AUDIT.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/L3_BOUNDED_SAME_LABEL_RECOVERY_AUDIT.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/L2_MIXED_FINITE_GF_RECOVERY_AUDIT.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/SPECIAL_NONLINEAR_VARIANTS.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/READOUT_COERCIVITY.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/EXACT_GD_COERCIVITY.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/OLD_NONLINEAR_RESNET_RMS.md:93",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/L3_LOCAL_COMPLETE_PROOF.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/ORIGINAL_L3_LOCAL.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/ROOT_CONTINUATION_AND_OPERATOR.md:113",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/OPERATOR2.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/tanh_depth3_operator_ide/RESEARCH_REPORT_2026-08-22.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/OLD_NONLINEAR_RESNET_RMS.md:127",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/odd_mixture_general_depth/REPORT.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/three_sample_near_identity_all_depths/NECESSARY_FITTING_SCALE.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_activation_design/SINE_INITIALIZATION.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/moderate_sine_global/LOCAL_SOURCE.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/calibrated_near_identity_reviews/manuscript.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/moderate_sine_global/PHYSICAL_CONTINUATION.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/MODERN.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/CAPS_MANUSCRIPT.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/development/PLATEAU_CONFINEMENT.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/development/PLATEAU_PATH_COMPACTNESS.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/ROOT_CONTINUATION_AND_OPERATOR.md:32",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ENERGY_COMPATIBLE_LOWER_PROJECTION.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/TASK7.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/MODERN.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/OPERATOR2.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/OLD_ARCTAN.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/OLD_NONLINEAR_RESNET_RMS.md:145",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/residual_continuous_depth_gradient_flow/CONSTANT_SPECIES_GENERAL_ACTIVATION_IDE.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/mean_field_peeling/residual_continuous_depth_gradient_flow/RESNET_MEAN_FIELD_IDE_THEOREM.md:964",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/TANH_RESNET.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/TANH_RESNET.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/OLD_NONLINEAR_RESNET_RMS.md:250",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/source_audits/PRIMARY_LITERATURE.md:147",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/TMP_TP3_AUDIT.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/TASK_INDEX.md",
+      "ok": true
+    },
+    {
+      "target": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/ROOT_RECOVERY.md",
+      "ok": true
+    }
+  ],
+  "snapshots": [
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/ACTUAL_CLOCK_RANK_ONE_RESPONSE_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/ACTUAL_LOG_RESPONSE_METRIC_TRANSFER_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/ACTUAL_ONE_SIDED_CLOCK_RESPONSE_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/ACTUAL_SQUARED_LOG_RESPONSE_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/CANONICAL_FRACTIONAL_GATE_HIERARCHY_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/CANONICAL_GAUSSIAN_SIGNED_WORK_JET_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/DESTINATION_RESEARCH_STATE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/GAUSSIAN_ACTION_LP_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/GAUSSIAN_SIGNED_PRIMITIVE_WORK_JET_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/L2_FULL_AUDITED_PROOF.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/L3_FIXED_MESH_SOURCE_IDENTIFICATION.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/L3_SELF_CONTAINED_PROOF.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/RECOVERY_STATUS.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/SHARP_FRACTIONAL_GATE_QUERY_BOUND_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/SHARP_SIZE_COMPOSITION_HIERARCHY_TEST_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/SHORT_HORIZON_SIZE_COMPOSITION_TEST_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3_exact_gd_coercivity_candidate.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTIVE_GATE_PRIMITIVE_AUDIT.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_BACKPROP_PRIMITIVE_RESPONSE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_BULK_GAUSSIAN_TANGENT_ENERGY.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_CANONICAL_MIDDLE_POSITIVE_CURVATURE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_CANONICAL_MIDDLE_POSITIVE_CURVATURE_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_CLOCK_RANK_ONE_RESPONSE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_FULL_PAIR_GAUSSIAN_IBP.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_GAUSSIAN_DIVERGENCE_SCOPE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_HIDDEN_GRAPH_VOLUME.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_LOG_GATE_COVARIANCE_COMMUTATOR.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_LOG_GATE_SECOND_IBP.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_LOG_RESPONSE_METRIC_TRANSFER.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_MIDDLE_FOURTH_MOMENT_TEST.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_MOVING_RANGE_PROBE_NORMAL_FORM.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_ONE_SIDED_CLOCK_RESPONSE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_PRIMITIVE_OFFDIAGONAL_PAIR.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_PROBE_LEVERAGE_LOCALIZATION.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_PROJECTED_DENSITY.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_RARE_BACKWARD_DERIVATIVE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_SCHWARZIAN_MATERIAL_HESSIAN.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_SIGNED_RANGE_INTEGRATING_FACTOR.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_SQUARED_LOG_RESPONSE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_TOP_CURVATURE_SIGN_LAG.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_TOP_CURVATURE_SIGN_LAG_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_TOP_POSITIVE_CURVATURE_BOUND.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_TOP_POSITIVE_CURVATURE_BOUND_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_TWO_TIME_RARE_RETURN.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_WEIGHTED_ADDITIVE_PROBE_SOURCE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_WEIGHTED_GATE_HARDY_BOUND.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_ZERO_READOUT_REACHABLE_HESSIAN.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ADAPTIVE_RARE_SELF_BLOCK_MODULUS.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/CANONICAL_FRACTIONAL_GATE_HIERARCHY.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/CANONICAL_GAUSSIAN_SIGNED_WORK_JET.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/CANONICAL_PROBE_INITIAL_SELF_RETURN.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/CANONICAL_TINY_READOUT_RARE_PATH.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/CAUSAL_FILTERED_QUERY_COMBINED_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/CAUSAL_FILTERED_QUERY_RANK.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/CONSISTENCY_FORCING_VARIATION.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/CONTINUATION_ROUTE_REGISTRY.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/CONTRACT_AND_LEDGER.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/COVARIANCE_RESPONSE_INCREMENT_REDUCTION.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/DELETED_QUERY_RESPONSE_AND_ENTROPY_AUDIT.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/DETERMINISTIC_LOCALIZATION_COUNTEREXAMPLE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/DIRECT_SCALAR_PRUNED_REDUCTION.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ENDPOINT_RESTART_REDUCTION.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ENERGY_COMPATIBLE_LOWER_PROJECTION.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ENERGY_COMPATIBLE_LOWER_PROJECTION_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/EXACT_GD_COERCIVITY.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/FAN_ADAPTIVE_RESPONSE_TRANSFER_CHECK.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/FILTERED_QUERY_CLIPPED_STABILITY.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/FILTERED_QUERY_CLIPPED_STABILITY_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/FILTERED_QUERY_GROWING_CLIP_TRANSFER.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/FILTERED_TOP_RESPONSE_TEST.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/FILTERED_TWO_MATRIX_GAUSSIAN_LAW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/FILTERED_TWO_MATRIX_GAUSSIAN_LAW_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/FINITE_FLOOR_HARDY_HIERARCHY_COUNTEREXAMPLE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/FINITE_PRUNED_BACKPROP_PRIMITIVE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/FROZEN_MIDDLE_SATURATION_STABILITY_TEST.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/GATED_LOCALIZATION_AUDIT.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/GAUGE_MEAN_REDUCTION.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/GAUSSIAN_ACTION_LP_OBSTRUCTION.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/GAUSSIAN_MIDDLE_CURVATURE_INITIAL_LAW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/GAUSSIAN_SIGNED_PRIMITIVE_WORK_JET.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/GLOBAL_RESPONSE_CONTINUATION_AUDIT.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/GRADIENT_ACTION_VARIATIONAL_SCOPE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/INTEGRATED_INITIAL_QUERY_COMPRESSION.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/INVERSE_MIDDLE_METRIC_AUDIT.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/JOINT_MIDDLE_QUERY_ENERGY_AUDIT.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/L3_LOCAL_COMPLETE_PROOF.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/LOCAL_ACTION_SPACE_AND_FLOW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/LOCAL_CUTOFF_BRIDGE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/LOCAL_FEATURE_LEARNING.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/LOCAL_GRADIENT_STRUCTURE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/LOCAL_RESPONSE_BOOTSTRAP_AUDIT.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/LOCAL_THEOREM.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/LOGARITHMIC_NETWORK_COMPARISON.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/METRIC_PROJECTION_GATE_STABILITY_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/METRIC_PROJECTION_GATE_STABILITY_TEST.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/MIDDLE_RESIDENCE_TIME_TEST.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/MIDDLE_RESIDENCE_TIME_TEST_REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/NEXT_PROOF_OBLIGATION.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/NISHIYAMA_IMAIZUMI_PRIMARY_SCOPE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ORTHOGONAL_SK_PRIMARY_SCOPE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/PAIR_SPECIFIC_COMMUTATOR.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/PANAHI_ADAPTIVE_GRAM_MARTINGALE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/PANAHI_CAUSAL_ADAPTATION_ISOMETRY_TEST.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/PANAHI_EULER_PERTURBATION_SIZE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/PANAHI_GAUSSIAN_COMPARISON_SCOPE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/PANAHI_SMALL_JITTER_RANK_INFLATION.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/PRIMARY_DMFT_APPLICABILITY.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/PROJECTED_ANGLE_STRUCTURAL_COUNTEREXAMPLE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/PRUNED_GAUSSIAN_SUBSET_BOUND.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/PRUNED_RARE_BLOCK_GEOMETRY.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/RARE_BACKWARD_ENERGY.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/RARE_HARDY_HIERARCHY_COUNTEREXAMPLE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/READOUT_COERCIVITY.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/RECENT_CAVITY_THEOREM_SCOPE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/RESNET_DMFT_PRIMARY_SCOPE.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/REVIEW.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/SCALAR_READOUT_PROJECTION_THEOREM.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/SHARP_FRACTIONAL_GATE_QUERY_BOUND.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/SHARP_RARE_ACCUMULATED_FORCING.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/SHARP_SIZE_COMPOSITION_HIERARCHY_TEST.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/SHORT_HORIZON_SIZE_COMPOSITION_TEST.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/SINGLE_PRUNED_OFFBLOCK_OSGOOD.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/STOCHASTIC_TAYLOR_UNIVERSALITY_APPLICABILITY.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/TIME_ANALYTICITY_DERIVATIVE_AUDIT.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/TIME_ORDERED_PROBE_AND_SELF_RETURN_AUDIT.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/TINY_READOUT_SIGNED_JET_TRANSFER.md",
+      "ok": true
+    },
+    {
+      "file": "studies/project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/TOP_COUPLED_LOCALIZATION.md",
+      "ok": true
+    }
+  ],
+  "histories": [
+    {
+      "task": 1,
+      "file": "/home/codex-b/.codex/sessions/2026/09/08/rollout-2026-09-08T11-16-04-01a0804d-9bf4-71a2-8542-fc5b240235f9.jsonl",
+      "bytes": 5415915,
+      "ok": true
+    },
+    {
+      "task": 2,
+      "file": "/home/codex-b/.codex/sessions/2026/09/07/rollout-2026-09-07T19-18-29-01a07ce0-e69d-74d2-868d-c2edc3068c7d.jsonl",
+      "bytes": 2983395,
+      "ok": true
+    },
+    {
+      "task": 2,
+      "file": "/home/codex-b/.codex/sessions/2026/09/07/rollout-2026-09-07T20-24-57-01a07ce0-e69d-74d2-868d-c2edc3068c7d_01a07d1d-c0eb-7b71-a35d-e7c22a1a4008.jsonl",
+      "bytes": 2722911,
+      "ok": true
+    },
+    {
+      "task": 2,
+      "file": "/home/codex-b/.codex/sessions/2026/09/08/rollout-2026-09-08T07-44-02-01a07ce0-e69d-74d2-868d-c2edc3068c7d_01a07f8b-7a83-78f1-8236-0bd93e5e07b3.jsonl",
+      "bytes": 4204799,
+      "ok": true
+    },
+    {
+      "task": 3,
+      "file": "/home/codex-b/.codex/sessions/2026/09/07/rollout-2026-09-07T17-07-02-01a07c68-9087-79b1-a4c1-536838241d32.jsonl",
+      "bytes": 2508963,
+      "ok": true
+    },
+    {
+      "task": 3,
+      "file": "/home/codex-b/.codex/sessions/2026/09/07/rollout-2026-09-07T17-43-37-01a07c68-9087-79b1-a4c1-536838241d32_01a07c8a-0db0-72b2-a244-1a9c1895256d.jsonl",
+      "bytes": 2573580,
+      "ok": true
+    },
+    {
+      "task": 3,
+      "file": "/home/codex-b/.codex/sessions/2026/09/07/rollout-2026-09-07T18-33-40-01a07c68-9087-79b1-a4c1-536838241d32_01a07cb7-e0d6-7862-b7ad-03155631a24a.jsonl",
+      "bytes": 546055,
+      "ok": true
+    },
+    {
+      "task": 3,
+      "file": "/home/codex-b/.codex/sessions/2026/09/07/rollout-2026-09-07T18-43-36-01a07c68-9087-79b1-a4c1-536838241d32_01a07cc0-fa9e-7d40-9a29-2869c73e6553.jsonl",
+      "bytes": 7907156,
+      "ok": true
+    },
+    {
+      "task": 3,
+      "file": "/home/codex-b/.codex/sessions/2026/09/08/rollout-2026-09-08T08-23-40-01a07c68-9087-79b1-a4c1-536838241d32_01a07faf-c47a-7b83-a5eb-d7b852febe48.jsonl",
+      "bytes": 2477099,
+      "ok": true
+    },
+    {
+      "task": 4,
+      "file": "/home/codex-b/.codex/sessions/2026/09/07/rollout-2026-09-07T14-25-27-01a07bd4-a15f-7d42-9559-f59d7a9e96ff.jsonl",
+      "bytes": 15336301,
+      "ok": true
+    },
+    {
+      "task": 4,
+      "file": "/home/codex-b/.codex/sessions/2026/09/08/rollout-2026-09-08T07-57-14-01a07bd4-a15f-7d42-9559-f59d7a9e96ff_01a07f97-90fc-7fc3-87ac-cbffb5bd72fd.jsonl",
+      "bytes": 1906027,
+      "ok": true
+    },
+    {
+      "task": 4,
+      "file": "/home/codex-b/.codex/sessions/2026/09/08/rollout-2026-09-08T08-39-52-01a07bd4-a15f-7d42-9559-f59d7a9e96ff_01a07fbe-9894-7300-81ff-bbd8fbfdbece.jsonl",
+      "bytes": 8710668,
+      "ok": true
+    },
+    {
+      "task": 4,
+      "file": "/home/codex-b/.codex/sessions/2026/09/08/rollout-2026-09-08T11-14-07-01a07bd4-a15f-7d42-9559-f59d7a9e96ff_01a0804b-cfa4-7a33-9308-0b07c5c4f718.jsonl",
+      "bytes": 14999753,
+      "ok": true
+    },
+    {
+      "task": 4,
+      "file": "/home/codex-b/.codex/sessions/2026/09/08/rollout-2026-09-08T14-06-12-01a07bd4-a15f-7d42-9559-f59d7a9e96ff_01a080e9-5bd3-79d2-9efe-9bd67b615f3b.jsonl",
+      "bytes": 37290409,
+      "ok": true
+    },
+    {
+      "task": 5,
+      "file": "/home/codex-b/.codex/sessions/2026/09/07/rollout-2026-09-07T13-15-26-01a07b94-872c-7750-81c9-f3a5a2bea8a4.jsonl",
+      "bytes": 2299701,
+      "ok": true
+    },
+    {
+      "task": 5,
+      "file": "/home/codex-b/.codex/sessions/2026/09/07/rollout-2026-09-07T14-15-38-01a07b94-872c-7750-81c9-f3a5a2bea8a4_01a07bcb-a226-7d30-bf68-e2765bdfc03e.jsonl",
+      "bytes": 2263385,
+      "ok": true
+    },
+    {
+      "task": 6,
+      "file": "/home/codex-b/.codex/sessions/2026/09/05/rollout-2026-09-05T12-19-37-01a07114-b2fd-78b0-bb18-fa4c15cff3d6.jsonl",
+      "bytes": 4304592,
+      "ok": true
+    },
+    {
+      "task": 6,
+      "file": "/home/codex-b/.codex/sessions/2026/09/05/rollout-2026-09-05T13-26-49-01a07114-b2fd-78b0-bb18-fa4c15cff3d6_01a07152-394e-7283-9fbd-ae4fc81866f5.jsonl",
+      "bytes": 3044347,
+      "ok": true
+    },
+    {
+      "task": 6,
+      "file": "/home/codex-b/.codex/sessions/2026/09/05/rollout-2026-09-05T14-23-43-01a07114-b2fd-78b0-bb18-fa4c15cff3d6_01a07186-5424-79c2-9f2c-1db3290497c5.jsonl",
+      "bytes": 1772811,
+      "ok": true
+    },
+    {
+      "task": 7,
+      "file": "/home/codex-b/.codex/sessions/2026/08/28/rollout-2026-08-28T18-15-00-01a04927-31c8-79d1-bd23-8196b13a1d9b.jsonl",
+      "bytes": 635773,
+      "ok": true
+    },
+    {
+      "task": 7,
+      "file": "/home/codex-b/.codex/sessions/2026/08/28/rollout-2026-08-28T18-24-20-01a04927-31c8-79d1-bd23-8196b13a1d9b_01a0492f-bbd0-7b82-a837-eb446dda5e86.jsonl",
+      "bytes": 447973,
+      "ok": true
+    },
+    {
+      "task": 7,
+      "file": "/home/codex-b/.codex/sessions/2026/08/30/rollout-2026-08-30T13-03-20-01a04927-31c8-79d1-bd23-8196b13a1d9b_01a05256-921c-7522-a50d-7931afed3698.jsonl",
+      "bytes": 408346,
+      "ok": true
+    },
+    {
+      "task": 7,
+      "file": "/home/codex-b/.codex/sessions/2026/08/30/rollout-2026-08-30T13-12-07-01a04927-31c8-79d1-bd23-8196b13a1d9b_01a0525e-9dde-78b2-84b5-1eff5950880d.jsonl",
+      "bytes": 266865,
+      "ok": true
+    },
+    {
+      "task": 7,
+      "file": "/home/codex-b/.codex/sessions/2026/08/30/rollout-2026-08-30T13-29-53-01a04927-31c8-79d1-bd23-8196b13a1d9b_01a0526e-e075-78b3-a091-e5781a7fb86b.jsonl",
+      "bytes": 326455,
+      "ok": true
+    },
+    {
+      "task": 7,
+      "file": "/home/codex-b/.codex/sessions/2026/08/30/rollout-2026-08-30T19-01-39-01a04927-31c8-79d1-bd23-8196b13a1d9b_01a0539e-9d7a-72e1-9a97-3293a240a27a.jsonl",
+      "bytes": 1045317,
+      "ok": true
+    },
+    {
+      "task": 7,
+      "file": "/home/codex-b/.codex/sessions/2026/09/01/rollout-2026-09-01T10-25-44-01a04927-31c8-79d1-bd23-8196b13a1d9b_01a05c12-ff87-7d70-a818-94d95d96562e.jsonl",
+      "bytes": 3878412,
+      "ok": true
+    },
+    {
+      "task": 7,
+      "file": "/home/codex-b/.codex/sessions/2026/09/04/rollout-2026-09-04T22-01-31-01a04927-31c8-79d1-bd23-8196b13a1d9b_01a06e03-1853-7c33-b829-af5d9e8571bf.jsonl",
+      "bytes": 2372207,
+      "ok": true
+    },
+    {
+      "task": 7,
+      "file": "/home/codex-b/.codex/sessions/2026/09/04/rollout-2026-09-04T22-52-27-01a04927-31c8-79d1-bd23-8196b13a1d9b_01a06e31-b768-7050-a898-91601e249c6b.jsonl",
+      "bytes": 38682,
+      "ok": true
+    },
+    {
+      "task": 7,
+      "file": "/home/codex-b/.codex/sessions/2026/09/04/rollout-2026-09-04T23-00-55-01a04927-31c8-79d1-bd23-8196b13a1d9b_01a06e39-7825-7910-8a33-30ca968a880d.jsonl",
+      "bytes": 3546515,
+      "ok": true
+    },
+    {
+      "task": 7,
+      "file": "/home/codex-b/.codex/sessions/2026/09/05/rollout-2026-09-05T09-10-12-01a04927-31c8-79d1-bd23-8196b13a1d9b_01a07067-4b71-71d1-b2d8-a194bf8846ed.jsonl",
+      "bytes": 1777560,
+      "ok": true
+    },
+    {
+      "task": 7,
+      "file": "/home/codex-b/.codex/sessions/2026/09/05/rollout-2026-09-05T09-30-46-01a04927-31c8-79d1-bd23-8196b13a1d9b_01a0707a-1fec-7762-875e-4e3ac36e4b39.jsonl",
+      "bytes": 26612210,
+      "ok": true
+    },
+    {
+      "task": 8,
+      "file": "/home/codex-b/.codex/sessions/2026/08/27/rollout-2026-08-27T21-35-19-01a044b8-39b5-7240-8406-c08a614deaa8.jsonl",
+      "bytes": 107517395,
+      "ok": true
+    },
+    {
+      "task": 9,
+      "file": "/home/codex-b/.codex/sessions/2026/08/24/rollout-2026-08-24T21-35-00-01a03544-ddce-77a1-b5af-44df07c54f4b.jsonl",
+      "bytes": 112211063,
+      "ok": true
+    },
+    {
+      "task": 10,
+      "file": "/home/codex-b/.codex/sessions/2026/08/26/rollout-2026-08-26T15-47-13-01a03e53-2e5f-75e2-8dcf-a02ee6f8d10c.jsonl",
+      "bytes": 1303340,
+      "ok": true
+    },
+    {
+      "task": 11,
+      "file": "/home/codex-b/.codex/sessions/2026/08/26/rollout-2026-08-26T12-07-45-01a03d8a-3d77-7441-a157-7bc33559ecd2.jsonl",
+      "bytes": 16861986,
+      "ok": true
+    },
+    {
+      "task": 12,
+      "file": "/home/codex-b/.codex/sessions/2026/08/24/rollout-2026-08-24T14-50-27-01a033d2-7d4d-7ce2-b123-20aa9e88fa58.jsonl",
+      "bytes": 27048520,
+      "ok": true
+    },
+    {
+      "task": 13,
+      "file": "/home/codex-b/.codex/sessions/2026/08/24/rollout-2026-08-24T14-41-00-01a033c9-d562-7e32-9daa-c08150eec25b.jsonl",
+      "bytes": 56628744,
+      "ok": true
+    },
+    {
+      "task": 14,
+      "file": "/home/codex-b/.codex/sessions/2026/08/22/rollout-2026-08-22T10-56-46-01a028af-d185-7bb0-9ad2-dfc17ce68aa3.jsonl",
+      "bytes": 50666161,
+      "ok": true
+    },
+    {
+      "task": 15,
+      "file": "/home/codex-b/.codex/sessions/2026/08/24/rollout-2026-08-24T14-16-56-01a033b3-cbdf-76b0-9c25-b167b4986037.jsonl",
+      "bytes": 1935330,
+      "ok": true
+    },
+    {
+      "task": 16,
+      "file": "/home/codex-b/.codex/sessions/2026/08/22/rollout-2026-08-22T08-41-48-01a02834-417b-77a2-bdd3-61743fdde50f.jsonl",
+      "bytes": 8462441,
+      "ok": true
+    },
+    {
+      "task": 17,
+      "file": "/home/codex-b/.codex/sessions/2026/08/22/rollout-2026-08-22T23-14-13-01a02b52-f887-77a0-bf5a-d2d4a5083b63.jsonl",
+      "bytes": 31198812,
+      "ok": true
+    },
+    {
+      "task": 18,
+      "file": "/home/codex-b/.codex/sessions/2026/08/18/rollout-2026-08-18T16-43-49-01a01554-1f64-7c30-8412-032bfebc02ec.jsonl",
+      "bytes": 21181974,
+      "ok": true
+    },
+    {
+      "task": 19,
+      "file": "/home/codex-b/.codex/sessions/2026/08/18/rollout-2026-08-18T17-58-43-01a01598-b22b-7663-a7c2-2fdcb57971c9.jsonl",
+      "bytes": 20846113,
+      "ok": true
+    }
+  ],
+  "temporarySources": [
+    {
+      "file": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/sources/three_hard_nonlinear_20260908.md",
+      "ok": true,
+      "sourceStillEqual": true
+    },
+    {
+      "file": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/sources/three_hard_energy_20260908.md",
+      "ok": true,
+      "sourceStillEqual": true
+    },
+    {
+      "file": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/sources/three_hard_direct_20260908.md",
+      "ok": true,
+      "sourceStillEqual": true
+    },
+    {
+      "file": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/sources/three_hard_metric_20260908.md",
+      "ok": true,
+      "sourceStillEqual": true
+    },
+    {
+      "file": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/sources/three_hard_signed_response_20260908.md",
+      "ok": true,
+      "sourceStillEqual": true
+    },
+    {
+      "file": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/sources/three_hard_weakmode_20260908.md",
+      "ok": true,
+      "sourceStillEqual": true
+    },
+    {
+      "file": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/sources/three_absolute_affine_reference_20260908.md",
+      "ok": true,
+      "sourceStillEqual": true
+    },
+    {
+      "file": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/sources/three_absolute_affine_global_20260908.md",
+      "ok": true,
+      "sourceStillEqual": true
+    }
+  ],
+  "baseline": {
+    "sha256": "09dde386c53621ced229ba41d042829bf5b79fcc6376aaf328dbf2d23b53f5e0",
+    "ok": true
+  },
+  "access": {
+    "/tmp/tp3-audit.Trwr6N/proofs.tex": {
+      "readable": true,
+      "bytes": 168962,
+      "sha256": "b601c9a00007dd033c4cda2fa5fb412d87cbadf5e42117aeccd3fe20cc63d3da"
+    },
+    "/tmp/tensor-programs-iii.txt": {
+      "readable": true,
+      "bytes": 423216,
+      "sha256": "7da471803779bc2f584cf34b262b47d353ec98181c4ffaa88f4d18b2571648d7"
+    },
+    "/tmp/l2-proof-review-wBzgFS/TWO_HIDDEN_LAYER_PROOF.md": {
+      "readable": true,
+      "bytes": 37299,
+      "sha256": "f0660112d066a5955d356909bc7f6d4b7086b571a7bf2f4b9675eb882a31017f"
+    },
+    "/tmp/l3-arctan-audit-sZue2v/EXACT_RESULTS_AND_GAP.md": {
+      "readable": true,
+      "bytes": 9627,
+      "sha256": "0688eefacbf77b261e2fe19001054082fba79df9a5cd833ce1b5f3c5689c939c"
+    },
+    "/tmp/l3-extension-check-mj4s9q/VERIFIED_SCOPE.md": {
+      "readable": true,
+      "bytes": 8035,
+      "sha256": "646a66981a53b6eda1313874a8c481cb5f2bc203657a4b472723814d7a21b7bf"
+    }
+  },
+  "attachments": [
+    {
+      "file": "/home/codex-b/.codex/attachments/10208185-2322-4ac9-8bc9-72f4dd83276d/pasted-text.txt",
+      "ok": true
+    },
+    {
+      "file": "/home/codex-b/.codex/attachments/399929a6-5ef3-498a-9b47-7baa60578036/pasted-text.txt",
+      "ok": true
+    },
+    {
+      "file": "/home/codex-b/.codex/attachments/52fe5b35-423f-4720-80a0-78c7ff153e30/pasted-text.txt",
+      "ok": true
+    },
+    {
+      "file": "/home/codex-b/.codex/attachments/690fe483-345a-48ce-a7db-b625c472070f/pasted-text.txt",
+      "ok": true
+    },
+    {
+      "file": "/home/codex-b/.codex/attachments/b1cdf01d-281a-4b6a-b4eb-94e5a83c7d6b/pasted-text.txt",
+      "ok": true
+    },
+    {
+      "file": "/home/codex-b/.codex/attachments/2bc72fa0-54e2-4959-bdc4-55cee075486c/pasted-text.txt",
+      "ok": true
+    },
+    {
+      "file": "/home/codex-b/.codex/attachments/27e9ef0b-b0dd-4c05-8037-3a88ff4115c4/pasted-text.txt",
+      "ok": true
+    }
+  ],
+  "originalProofMatches": [
+    {
+      "source": "/tmp/l2-proof-review-wBzgFS/TWO_HIDDEN_LAYER_PROOF.md",
+      "archive": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/inherited_baselines/L2_ONE_SAMPLE_ARCTAN_GLOBAL_PROOF.md",
+      "ok": true
+    },
+    {
+      "source": "/tmp/l3-arctan-audit-sZue2v/EXACT_RESULTS_AND_GAP.md",
+      "archive": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-arctan-audit-sZue2v/EXACT_RESULTS_AND_GAP.md",
+      "ok": true
+    },
+    {
+      "source": "/tmp/l3-extension-check-mj4s9q/VERIFIED_SCOPE.md",
+      "archive": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-extension-check-mj4s9q/VERIFIED_SCOPE.md",
+      "ok": true
+    }
+  ],
+  "texArchive": {
+    "sourceSha256": "b601c9a00007dd033c4cda2fa5fb412d87cbadf5e42117aeccd3fe20cc63d3da",
+    "archiveSha256": "49a578796eb7e11f7e950394ecb5c0365dac55f3e4c1f9460040fc307527089e",
+    "onlyAddedTerminalNewline": true
+  },
+  "summary": {
+    "localLinks": 105,
+    "continuationSnapshots": 127,
+    "histories": 43,
+    "historyBytes": 620486061,
+    "preservedTemporarySources": 8,
+    "failures": [],
+    "attachments": 7,
+    "originalProofMatches": 3
+  }
+}

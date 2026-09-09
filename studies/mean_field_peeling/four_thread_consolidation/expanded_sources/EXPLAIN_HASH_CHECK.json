@@ -1,0 +1,374 @@
+[
+  {
+    "file": "/tmp/L3_FIXED_MESH_SOURCE_IDENTIFICATION.md",
+    "accepted": "ba5cd7a52674a2031bf18ccb633bbb6eeeadd8f2a207369b38695d66ec40c03a",
+    "actual": "ba5cd7a52674a2031bf18ccb633bbb6eeeadd8f2a207369b38695d66ec40c03a",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/LOCAL_THEOREM.md",
+    "accepted": "3182e140122332bb26621ae382f6b1baebf7aaea4b6de2791d8e8b8c94e3af9b",
+    "actual": "3182e140122332bb26621ae382f6b1baebf7aaea4b6de2791d8e8b8c94e3af9b",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/LOCAL_RESPONSE_BOOTSTRAP_AUDIT.md",
+    "accepted": "2a999c88df03e0344fe53f58c9d73e8ae4c6b4b79a860b531700060444fdbf47",
+    "actual": "2a999c88df03e0344fe53f58c9d73e8ae4c6b4b79a860b531700060444fdbf47",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/LOCAL_ACTION_SPACE_AND_FLOW.md",
+    "accepted": "a61dda52b01e6f44c2bc5cb345d442e84ff6a7dd0de30bc709aa85bf18490482",
+    "actual": "a61dda52b01e6f44c2bc5cb345d442e84ff6a7dd0de30bc709aa85bf18490482",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/LOCAL_CUTOFF_BRIDGE.md",
+    "accepted": "a872fb412273ad4674c4d53729a36dc7a81f1c6e6bd471bb80d7ee613f018960",
+    "actual": "a872fb412273ad4674c4d53729a36dc7a81f1c6e6bd471bb80d7ee613f018960",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/LOCAL_GRADIENT_STRUCTURE.md",
+    "accepted": "aeeee314cda7ba82f24293afcd3af03abc13788bd5131109624f2d01b911ab13",
+    "actual": "aeeee314cda7ba82f24293afcd3af03abc13788bd5131109624f2d01b911ab13",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/LOCAL_FEATURE_LEARNING.md",
+    "accepted": "4bf2940f3abeacbd49ff28f137a3882ff5db5bb85a10f57f374b518748e423a2",
+    "actual": "4bf2940f3abeacbd49ff28f137a3882ff5db5bb85a10f57f374b518748e423a2",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/PRUNED_GAUSSIAN_SUBSET_BOUND.md",
+    "accepted": "383a12f3c5b459ec54927788a710fbea9e4d11b95ef83b0413c53dc5b2099787",
+    "actual": "383a12f3c5b459ec54927788a710fbea9e4d11b95ef83b0413c53dc5b2099787",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ENDPOINT_RESTART_REDUCTION.md",
+    "accepted": "26ed125b0aa5e93785db9007cd198897bf0ed0aeb445f8be15373d37e0b22bed",
+    "actual": "26ed125b0aa5e93785db9007cd198897bf0ed0aeb445f8be15373d37e0b22bed",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/TOP_COUPLED_LOCALIZATION.md",
+    "accepted": "6ff9ef87b9f83053b9c6c876c516c2da12636c3668e63333674e1f34861dad82",
+    "actual": "6ff9ef87b9f83053b9c6c876c516c2da12636c3668e63333674e1f34861dad82",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/DELETED_QUERY_RESPONSE_AND_ENTROPY_AUDIT.md",
+    "accepted": "8b80cdb09a11bf53555d70f426ea06ca8db288a377b7a09ac728dcd0da3eaf66",
+    "actual": "8b80cdb09a11bf53555d70f426ea06ca8db288a377b7a09ac728dcd0da3eaf66",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/COVARIANCE_RESPONSE_INCREMENT_REDUCTION.md",
+    "accepted": "d1e29b659c5fd7850736680ff686a8b45c1233656ba57729befd39675c2ce7cd",
+    "actual": "d1e29b659c5fd7850736680ff686a8b45c1233656ba57729befd39675c2ce7cd",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/INVERSE_MIDDLE_METRIC_AUDIT.md",
+    "accepted": "aa7f6438cbe615eb9675c33d5e907688a0d2a76bfa9dbb3af1f74f32808cd053",
+    "actual": "aa7f6438cbe615eb9675c33d5e907688a0d2a76bfa9dbb3af1f74f32808cd053",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/GRADIENT_ACTION_VARIATIONAL_SCOPE.md",
+    "accepted": "9a72a55b0e6659844e39fc945ceb81b3fc1a7e9339c6b99f560535b1fb41b5f1",
+    "actual": "9a72a55b0e6659844e39fc945ceb81b3fc1a7e9339c6b99f560535b1fb41b5f1",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/STOCHASTIC_TAYLOR_UNIVERSALITY_APPLICABILITY.md",
+    "accepted": "a0efcb883fe23423801e5854b2b97cc85fa6b6552f5a200c8ebf0954010135e7",
+    "actual": "a0efcb883fe23423801e5854b2b97cc85fa6b6552f5a200c8ebf0954010135e7",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/PRUNED_RARE_BLOCK_GEOMETRY.md",
+    "accepted": "71316052df34a348164ba02addd5478a4ecdd9bf5f26649535f2c047307d7c99",
+    "actual": "71316052df34a348164ba02addd5478a4ecdd9bf5f26649535f2c047307d7c99",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ADAPTIVE_RARE_SELF_BLOCK_MODULUS.md",
+    "accepted": "3356d7f4063090dc79f7a856c0492ced304092c447b4996f258fb15c6d826db1",
+    "actual": "3356d7f4063090dc79f7a856c0492ced304092c447b4996f258fb15c6d826db1",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/DIRECT_SCALAR_PRUNED_REDUCTION.md",
+    "accepted": "31f84ed356d9f26eff58d2ca4b9f596c07ad1e265b3b825b6c5b3fd8feec3e39",
+    "actual": "31f84ed356d9f26eff58d2ca4b9f596c07ad1e265b3b825b6c5b3fd8feec3e39",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_BULK_GAUSSIAN_TANGENT_ENERGY.md",
+    "accepted": "ce800c6f86550319b138bd8a1387f69a2f8a91cca5e0a20586d2aed2aeeebffe",
+    "actual": "ce800c6f86550319b138bd8a1387f69a2f8a91cca5e0a20586d2aed2aeeebffe",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/TIME_ORDERED_PROBE_AND_SELF_RETURN_AUDIT.md",
+    "accepted": "2e9719c23de96d6c02a938c0bafbc18f0a13c55f7c9de646e50341efb212fb8a",
+    "actual": "2e9719c23de96d6c02a938c0bafbc18f0a13c55f7c9de646e50341efb212fb8a",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_TWO_TIME_RARE_RETURN.md",
+    "accepted": "5107747cabffdd2f2e4be2775d151944a5484aa7ce49f4d840b20861c8000dce",
+    "actual": "5107747cabffdd2f2e4be2775d151944a5484aa7ce49f4d840b20861c8000dce",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/SINGLE_PRUNED_OFFBLOCK_OSGOOD.md",
+    "accepted": "0f907e82e212813ac3f97818b0fbd3db652ac1310b8629365b456b6cb68256c3",
+    "actual": "0f907e82e212813ac3f97818b0fbd3db652ac1310b8629365b456b6cb68256c3",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/SHARP_RARE_ACCUMULATED_FORCING.md",
+    "accepted": "3e5d7ad08462dc3161e195285b498ec4dac6d0e1627da15942c5593afe92cd63",
+    "actual": "3e5d7ad08462dc3161e195285b498ec4dac6d0e1627da15942c5593afe92cd63",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_PROBE_LEVERAGE_LOCALIZATION.md",
+    "accepted": "9518db9ad030d15d11ee792e42e8107a4fb865187f9611a2f2539abf363ddd96",
+    "actual": "9518db9ad030d15d11ee792e42e8107a4fb865187f9611a2f2539abf363ddd96",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_MOVING_RANGE_PROBE_NORMAL_FORM.md",
+    "accepted": "3fe2d0a2e3926ffa65fd6891a4631b809c7d346e5eae2cf967274a38c6d147a3",
+    "actual": "3fe2d0a2e3926ffa65fd6891a4631b809c7d346e5eae2cf967274a38c6d147a3",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ACTIVE_GATE_PRIMITIVE_AUDIT.md",
+    "accepted": "485853c417cababa0b7535dc2baba664e139d4d52fca75773f20da36a86598f1",
+    "actual": "485853c417cababa0b7535dc2baba664e139d4d52fca75773f20da36a86598f1",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/RECENT_CAVITY_THEOREM_SCOPE.md",
+    "accepted": "f53181d23da03bc74cce1d7ad26f051711e0a89afb318c36cda8c30a1a67375c",
+    "actual": "f53181d23da03bc74cce1d7ad26f051711e0a89afb318c36cda8c30a1a67375c",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_RARE_BACKWARD_DERIVATIVE.md",
+    "accepted": "e402abc3c591fb029bf82d6e7b97bc533003e79104aab1b6c4837b13ed040be8",
+    "actual": "e402abc3c591fb029bf82d6e7b97bc533003e79104aab1b6c4837b13ed040be8",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/RARE_BACKWARD_ENERGY.md",
+    "accepted": "32675e45b51502fbc56ae69b15c840129a322115d12c5ec44fd11302e1fd645b",
+    "actual": "32675e45b51502fbc56ae69b15c840129a322115d12c5ec44fd11302e1fd645b",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_WEIGHTED_GATE_HARDY_BOUND.md",
+    "accepted": "73b5f44b4fc6796ab08078e2d845d20fc51378107a48bc0233ef81d08359ce41",
+    "actual": "73b5f44b4fc6796ab08078e2d845d20fc51378107a48bc0233ef81d08359ce41",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/RARE_HARDY_HIERARCHY_COUNTEREXAMPLE.md",
+    "accepted": "ba4d53b5844cc228b0058b4250e27d7ea0191adbb8893268e4ab3267a31e7800",
+    "actual": "ba4d53b5844cc228b0058b4250e27d7ea0191adbb8893268e4ab3267a31e7800",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/FINITE_FLOOR_HARDY_HIERARCHY_COUNTEREXAMPLE.md",
+    "accepted": "ac079950b4cb061736400645d0efc647e3222e924633a4cf8191ae9e3e4698bc",
+    "actual": "ac079950b4cb061736400645d0efc647e3222e924633a4cf8191ae9e3e4698bc",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_SIGNED_RANGE_INTEGRATING_FACTOR.md",
+    "accepted": "4c10c2cc562c387469c9da260e008a4e485ccd4e6af886b88a5ba1b3821a45b0",
+    "actual": "4c10c2cc562c387469c9da260e008a4e485ccd4e6af886b88a5ba1b3821a45b0",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_WEIGHTED_ADDITIVE_PROBE_SOURCE.md",
+    "accepted": "4da8640a8b40ccb22f835762413f1f2a9e11a6d067e54b998156d342fb0ba5f4",
+    "actual": "4da8640a8b40ccb22f835762413f1f2a9e11a6d067e54b998156d342fb0ba5f4",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_BACKPROP_PRIMITIVE_RESPONSE.md",
+    "accepted": "067e1bc7d38c7409dab9639f29f84543abd2d0b7a9b9d543f9a47a6747e54d1e",
+    "actual": "067e1bc7d38c7409dab9639f29f84543abd2d0b7a9b9d543f9a47a6747e54d1e",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/LOGARITHMIC_NETWORK_COMPARISON.md",
+    "accepted": "adc98d1f9fe2c23560afc649e9107e2125a87aca1c94ee5db9a4f43e7034f480",
+    "actual": "adc98d1f9fe2c23560afc649e9107e2125a87aca1c94ee5db9a4f43e7034f480",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_PRIMITIVE_OFFDIAGONAL_PAIR.md",
+    "accepted": "f7f1b24a4f53cacdf0f86258eafb9b4ae86473b894d70fc9346af0726697df04",
+    "actual": "f7f1b24a4f53cacdf0f86258eafb9b4ae86473b894d70fc9346af0726697df04",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/JOINT_MIDDLE_QUERY_ENERGY_AUDIT.md",
+    "accepted": "2052f2e13249c4876e5045dda1ab035e24c11e6d28f34fede5dea615e2ad45a5",
+    "actual": "2052f2e13249c4876e5045dda1ab035e24c11e6d28f34fede5dea615e2ad45a5",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/TIME_ANALYTICITY_DERIVATIVE_AUDIT.md",
+    "accepted": "81a570015e8aec4cb0810dc75ec3d68764e8a54633ce7af5f8c7a7844bed9e98",
+    "actual": "81a570015e8aec4cb0810dc75ec3d68764e8a54633ce7af5f8c7a7844bed9e98",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_LOG_GATE_SECOND_IBP.md",
+    "accepted": "cd162a86090a6ef025bededd06b0cb723368006befeba2939bfe23a094fe4210",
+    "actual": "cd162a86090a6ef025bededd06b0cb723368006befeba2939bfe23a094fe4210",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/FINITE_PRUNED_BACKPROP_PRIMITIVE.md",
+    "accepted": "4ed5dfe0d63ed1108dff35841cb603523f06e2c34f806face02fe1d42602cc5a",
+    "actual": "4ed5dfe0d63ed1108dff35841cb603523f06e2c34f806face02fe1d42602cc5a",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_LOG_GATE_COVARIANCE_COMMUTATOR.md",
+    "accepted": "5770d934df3840184d0b19bc3a15eae82290cc879201fe862786ba56d24c6c76",
+    "actual": "5770d934df3840184d0b19bc3a15eae82290cc879201fe862786ba56d24c6c76",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_FULL_PAIR_GAUSSIAN_IBP.md",
+    "accepted": "73a855fcd5dbb63dcdb5ed4e8bc60eba6f0274b21962ff88417166a169148efd",
+    "actual": "73a855fcd5dbb63dcdb5ed4e8bc60eba6f0274b21962ff88417166a169148efd",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/RESNET_DMFT_PRIMARY_SCOPE.md",
+    "accepted": "2509a7bb5922efe5b789268ca74527e33d62b0731d8c43467a899b74ec5f0d74",
+    "actual": "2509a7bb5922efe5b789268ca74527e33d62b0731d8c43467a899b74ec5f0d74",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ORTHOGONAL_SK_PRIMARY_SCOPE.md",
+    "accepted": "5a03cc54e7d469e184dd47ebd13b494991c1f19b16abeebd8ca8058fd4db3a86",
+    "actual": "5a03cc54e7d469e184dd47ebd13b494991c1f19b16abeebd8ca8058fd4db3a86",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_GAUSSIAN_DIVERGENCE_SCOPE.md",
+    "accepted": "024d8fc5097a35c5556d98b1956abfa06f130fee256d696af5475c896ebacd01",
+    "actual": "024d8fc5097a35c5556d98b1956abfa06f130fee256d696af5475c896ebacd01",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_PROJECTED_DENSITY.md",
+    "accepted": "e41b9a5a5239172b40b9cfb2f5b40d4a975c98f19dae618ea207972aa379e9cd",
+    "actual": "e41b9a5a5239172b40b9cfb2f5b40d4a975c98f19dae618ea207972aa379e9cd",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_HIDDEN_GRAPH_VOLUME.md",
+    "accepted": "7b70789e567d8c17d0f6ad1c7b4ab703fc9d0ed385863bf38bb8f81b80eeff7e",
+    "actual": "7b70789e567d8c17d0f6ad1c7b4ab703fc9d0ed385863bf38bb8f81b80eeff7e",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/PROJECTED_ANGLE_STRUCTURAL_COUNTEREXAMPLE.md",
+    "accepted": "62467a4467817ff2c6583e663b7b0735ebc650a21a09acb3abcff46dd809722d",
+    "actual": "62467a4467817ff2c6583e663b7b0735ebc650a21a09acb3abcff46dd809722d",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/SCALAR_READOUT_PROJECTION_THEOREM.md",
+    "accepted": "365b73f71843bf64bde13166ca56845653003b0519ae6cbe5dd49d0ca62680a1",
+    "actual": "365b73f71843bf64bde13166ca56845653003b0519ae6cbe5dd49d0ca62680a1",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_SCHWARZIAN_MATERIAL_HESSIAN.md",
+    "accepted": "41086c4aa7d2f9432cfcac91b45485713ee292d6fcf7ef11588177c42b1a10ac",
+    "actual": "41086c4aa7d2f9432cfcac91b45485713ee292d6fcf7ef11588177c42b1a10ac",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/PANAHI_EULER_PERTURBATION_SIZE.md",
+    "accepted": "5c5b7a7fe40a670da99f3d188c7bbbba22b969ef1cecdeb21ac6027f7538809b",
+    "actual": "5c5b7a7fe40a670da99f3d188c7bbbba22b969ef1cecdeb21ac6027f7538809b",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/PANAHI_GAUSSIAN_COMPARISON_SCOPE.md",
+    "accepted": "b1cd3f9f4f3e2ddd38e7a506fea613b71201786cdc8b6fb38a99328e6509366a",
+    "actual": "b1cd3f9f4f3e2ddd38e7a506fea613b71201786cdc8b6fb38a99328e6509366a",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/NISHIYAMA_IMAIZUMI_PRIMARY_SCOPE.md",
+    "accepted": "164bfada3dda1524ffab1bfb86cf8c8c870ace3aa0e4e4e3362dcfb14090ff89",
+    "actual": "164bfada3dda1524ffab1bfb86cf8c8c870ace3aa0e4e4e3362dcfb14090ff89",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/PANAHI_CAUSAL_ADAPTATION_ISOMETRY_TEST.md",
+    "accepted": "1031c8fd75aba6ef2965fc0a624cffacbd150b31787cac493f26c9437dc441a6",
+    "actual": "1031c8fd75aba6ef2965fc0a624cffacbd150b31787cac493f26c9437dc441a6",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/PANAHI_SMALL_JITTER_RANK_INFLATION.md",
+    "accepted": "16ef6bcbd50681f46c45d1399e0496c9d42baa87a37880bfefa8b220efc8a1be",
+    "actual": "16ef6bcbd50681f46c45d1399e0496c9d42baa87a37880bfefa8b220efc8a1be",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/PANAHI_ADAPTIVE_GRAM_MARTINGALE.md",
+    "accepted": "6cec745dde896fa2932592b126f48488618cd426a45de1fa03598fd467bdb4b5",
+    "actual": "6cec745dde896fa2932592b126f48488618cd426a45de1fa03598fd467bdb4b5",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/INTEGRATED_INITIAL_QUERY_COMPRESSION.md",
+    "accepted": "2c97e9fe8c4e9b3a66d7efdf80f825f8c7bb6275649518c47fc001aef6b57c73",
+    "actual": "2c97e9fe8c4e9b3a66d7efdf80f825f8c7bb6275649518c47fc001aef6b57c73",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_ZERO_READOUT_REACHABLE_HESSIAN.md",
+    "accepted": "59b2bc2d3ee1fcfd3f4f118780b624986fc01aa4f2f7d7a8cea2eec18ca88b93",
+    "actual": "59b2bc2d3ee1fcfd3f4f118780b624986fc01aa4f2f7d7a8cea2eec18ca88b93",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/L3_LOCAL_COMPLETE_PROOF.md",
+    "accepted": "f97148f84979ab5b8489927d477b6abb3d919e27fd457455f2e3b98416725de4",
+    "actual": "f97148f84979ab5b8489927d477b6abb3d919e27fd457455f2e3b98416725de4",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/READOUT_COERCIVITY.md",
+    "accepted": "0bd062da74fbde03d41a125561beee7345915ea6aa0578ed8e7b81d2c9f08c53",
+    "actual": "0bd062da74fbde03d41a125561beee7345915ea6aa0578ed8e7b81d2c9f08c53",
+    "matches": true
+  },
+  {
+    "file": "/tmp/l3-full-resolution-9nbD4z/EXACT_GD_COERCIVITY.md",
+    "accepted": "fcac71917f0a0c60c4368d7c86167aae0689ae87778622ab8745ac213fa9c35c",
+    "actual": "fcac71917f0a0c60c4368d7c86167aae0689ae87778622ab8745ac213fa9c35c",
+    "matches": true
+  }
+]

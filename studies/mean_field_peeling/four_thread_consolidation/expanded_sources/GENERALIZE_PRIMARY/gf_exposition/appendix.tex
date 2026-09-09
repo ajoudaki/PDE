@@ -1,0 +1,862 @@
+\section{Detailed estimates and completion of the proof}
+\label{app:proof}
+
+This appendix supplies the estimates used in the main proof.  It first treats
+$C^2$ activations whose first two derivatives are bounded.  The last part
+passes to the stated $C^{1,1}$ class.  All inputs, the input dimension, and
+the depth are fixed during the width limit.  Uniformity of the existence
+time in their displayed bounds does not assert a convergence theorem for
+a dataset or depth growing with width.
+
+Expectations and $L^2$ norms always refer to the neuron population of the
+field being measured.  Different hidden layers have different coordinate
+spaces.  A finite-width field norm is always $\|b\|_2/\sqrt n$, and a
+finite-width pairing is always $b^\top c/n$.  No comparison in operator
+norm is made between a finite matrix and a population operator.
+
+For completeness, the exact stored-weight gradient-descent updates at
+step $k$, including both endpoints, are
+\begin{align*}
+ W_{k+1}^{(1)}-W_k^{(1)}
+ &=-\frac{2\eta_n\kappa_1}{\sqrt d}
+   \sum_b\omega_b(f_{n,b,k}-y_b)\delta_{b,k}^{(1)}x_b^\top,\\
+ z_{a,k+1}^{(1)}-z_{a,k}^{(1)}
+ &=-2\eta_n\kappa_1\sum_b\omega_b\frac{x_a^\top x_b}{d}
+                   (f_{n,b,k}-y_b)\delta_{b,k}^{(1)},\\
+ W_{k+1}^{(\ell)}-W_k^{(\ell)}
+ &=-\frac{2\eta_n\kappa_\ell}{n}
+   \sum_b\omega_b(f_{n,b,k}-y_b)
+       \delta_{b,k}^{(\ell)}(h_{b,k}^{(\ell-1)})^\top,
+       \quad 2\le\ell\le L,\\
+ W_{k+1}^{(L+1)}-W_k^{(L+1)}
+ &=-2\eta_n\kappa_{L+1}\sum_b\omega_b(f_{n,b,k}-y_b)h_{b,k}^{(L)}.
+\end{align*}
+The second line follows from the first by applying the updated first
+matrix to $x_a/\sqrt d$.  All other finite preactivations and activations
+are recomputed by the forward pass; the backward fields are recomputed
+at the current parameters and do not contain the loss residual.
+
+\subsection{A common norm ball before any tail estimate}
+\label{app:norm-ball}
+
+Assume $\|x_a\|_2/\sqrt d\le X$, $|y_a|\le Y$, and
+$\sum_a\omega_a=1$.  Let $D_0,D_1,D_2$ bound, respectively,
+$|\phi^{(\ell)}(0)|$, $|\phi^{(\ell)\prime}|$, and
+$|\phi^{(\ell)\prime\prime}|$, simultaneously over the layers.
+In particular,
+\[
+ |\phi^{(\ell)}(s)|\le D_0+D_1|s|,
+ \qquad \left|\frac{x_a^\top x_b}{d}\right|\le X^2.
+\]
+Choose a fixed $S_0$ exceeding the initial first-preactivation and
+readout $L^2$ norms and every initial middle-operator norm.  The same
+bounds hold with probability tending to one at finite width.  For the
+first and last fields this is the law of large numbers, applied to a
+fixed finite set of inputs.  For a middle Gaussian matrix a sphere-net
+bound gives, for a sufficiently large fixed $M$,
+\[
+ \mathbb P\bigl(\|W_0^{(\ell)}\|_{\operatorname{op}}>M\bigr)
+ \le 2\,9^{2n}
+       \exp\!\left(-\frac{nM^2}{8\sigma_\ell^2}\right)
+ \longrightarrow0.
+\]
+For zero variance the operator is zero.  Fixed depth permits intersecting
+the finitely many events.
+
+Put $B=2S_0+2$.  On the set where every individual state norm is at most
+$B$, define the following deterministic bounds recursively:
+\[
+ C_{H,1}=D_0+D_1B,\qquad
+ C_{H,\ell}=D_0+D_1BC_{H,\ell-1},\qquad 2\le\ell\le L,
+\]
+\[
+ C_{\delta,\ell}=D_1^{L-\ell+1}B^{L-\ell+1},
+ \qquad R_0=BC_{H,L}+Y.
+\]
+These are numerical bounds.  Forward multiplication, bounded activation
+derivatives, and
+backward multiplication give
+\[
+ \|H_a^{(\ell)}\|_{L^2}\le C_{H,\ell},\qquad
+ \|\delta_a^{(\ell)}\|_{L^2}\le C_{\delta,\ell},\qquad
+ |f_a-y_a|\le R_0.
+\]
+Exactly the same calculation holds for finite vectors.  Since the
+operator $u\otimes v$, defined by
+$(u\otimes v)V=u\mathbb E[vV]$, has norm
+$\|u\|_{L^2}\|v\|_{L^2}$, the norms of the state velocities are bounded
+by the corresponding members of
+\[
+ 2\kappa_1X^2R_0C_{\delta,1},\qquad
+ 2\kappa_\ell R_0C_{\delta,\ell}C_{H,\ell-1}\ (2\le\ell\le L),\qquad
+ 2\kappa_{L+1}R_0C_{H,L}.
+\]
+Let $V_0\ge1$ dominate their sum and choose
+\[
+ T_{\mathrm{ball}}=
+ \min\left\{1,\frac{B-S_0}{4V_0}\right\}.
+\]
+Until a first exit, an Euler trajectory accumulates at most
+$2T_{\mathrm{ball}}V_0<B-S_0$ in time $2T_{\mathrm{ball}}$.
+Thus the exit cannot occur.  This argument also works for a strong
+integral solution and for arbitrary positive Euler step lengths of the
+same total duration.  Parameter interpolations have bounded speed;
+repeated forward differentiation gives bounded root-mean-square hidden
+speeds, with constants depending on fixed depth.  This argument uses no
+coordinate maximum, no exponential moment, and no smallest Gram
+eigenvalue.  The normalized dataset weights prevent a factor equal to
+the number of inputs.
+
+\subsection{The fixed-computation probability theorem and common operators}
+\label{app:fixed-program}
+
+The external probability input is the following specialization of
+Tensor Programs III, Setup 2.2, Theorem 2.10, Box 1, and Remarks
+2.11--2.12 \cite{TP3}.  A \emph{fixed finite} computation starts from
+iid coordinate copies of jointly Gaussian roots and independent Gaussian
+matrices with entries of variance $\sigma_\ell^2/n$.  It may use these
+matrices and their transposes, linear combinations, and polynomially
+bounded measurable coordinate maps.  Same-population empirical
+measurements by polynomially bounded functions converge to deterministic
+expectations.  Matrix reuse is represented by a Gaussian innovation and
+opposite-direction response terms.  When the dependence on the formal
+innovation variables is differentiable, its response coefficients are
+$\sigma_\ell^2$ times expected partial derivatives.  Deterministic
+coefficients and covariance laws are held fixed in these derivatives.
+The formulation permits singular covariance matrices.
+
+The required hypotheses hold here for every fixed Euler mesh.  The
+activation has at most linear growth, its first two derivatives are
+bounded, and a finite list of forward, backward, and Euler operations
+and their first innovation derivatives has polynomial growth.  The
+residuals and inner products used by the oracle are deterministic
+population numbers.  A fixed finite union of such computations also
+satisfies the hypotheses.  The theorem does not give uniform control
+when the number of instructions tends to infinity; the response and
+comparison estimates below provide that missing control.
+
+Non-Gaussian subGaussian scalar roots fit this theorem by an explicit
+encoding.  If $F$ is their distribution function and $g$ is standard
+Gaussian, use $F^{-1}(\Phi(g))$, where $\Phi$ is the Gaussian distribution
+function.  SubGaussian tails and Gaussian tail estimates imply
+\[
+ |F^{-1}(\Phi(s))|\le C(1+|s|)
+\]
+away from irrelevant quantile endpoints.  This is a polynomially bounded
+measurable coordinate map.  Apply it separately to the fixed $d$
+first-weight roots and the readout root.  Innovation differentiation
+holds these roots fixed and does not differentiate their quantile map.
+For centered independent subGaussian first weights, multiplication of
+their exponential-moment bounds yields
+\[
+ \mathbb E\exp\!\left(
+    t\sum_{j=1}^d\frac{x_{a,j}}{\sqrt d}W_{0,ij}^{(1)}\right)
+ \le \exp(Ct^2B_{\mathrm{in}}^2X^2).
+\]
+Thus the first-preactivation marginals have a bound independent of $d$
+when $B_{\mathrm{in}}$ and $X$ are fixed.  Independence of neuron
+coordinates is used at initialization, not asserted after matrix reuse.
+
+For common population spaces, take the countable family of programs on
+rational meshes, their finite unions, rational linear combinations, and
+the coordinate operations needed in the proof.  Include clipped products
+and, later, rational smoothing scales.  Their finite-dimensional laws
+are consistent when instructions are deleted.  Realize them jointly on
+each neuron population, and close their generated spans in $L^2$.
+The finite operator inequality
+\[
+ \frac{\|W_0^{(\ell)}b\|_2}{\sqrt n}
+ \le M\frac{\|b\|_2}{\sqrt n}
+\]
+passes to the limit for each finite family and every rational linear
+combination, because both squared norms converge.  It defines a bounded
+operator on the completed space.  The finite identity
+\[
+ \frac{c^\top W_0^{(\ell)}b}{n}
+ =\frac{((W_0^{(\ell)})^\top c)^\top b}{n}
+\]
+passes to the limit as well; the backward operator is therefore the
+adjoint of the same forward operator.  Clipping and $L^2$ approximation
+extend the coordinate operations wherever they are used.  This is
+consistent with the operator semantics in Tensor Programs IVb,
+Definition 2.6.7 and Propositions 2.6.8--2.6.9 \cite{TP4b}.
+
+\subsection{Exact Gaussian responses for a fixed Euler mesh}
+\label{app:response-formulas}
+
+Only in this response calculation, introduce the backward field before
+the activation derivative:
+\[
+ P_{a,k}^{(L)}=W_k^{(L+1)},\qquad
+ P_{a,k}^{(\ell)}=(W_k^{(\ell+1)})^*
+                         \delta_{a,k}^{(\ell+1)}\quad(\ell<L).
+\]
+Thus $\delta_{a,k}^{(\ell)}=
+\phi^{(\ell)\prime}(Z_{a,k}^{(\ell)})P_{a,k}^{(\ell)}$.
+The symbol $P$ will be used only for these fields, whose tails are the
+possible obstruction to mean-square stability.
+
+Fix a coarse step $\Delta$.  For each initial middle matrix, let
+$\xi_{a,k}^{(\ell)}$ denote its forward Gaussian innovation and
+$\eta_{a,k}^{(\ell)}$ its backward Gaussian innovation.  Their covariance
+rules are
+\begin{align*}
+ \mathbb E[\xi_{a,k}^{(\ell)}\xi_{b,s}^{(\ell)}]
+ &=\sigma_\ell^2
+       \mathbb E[H_{a,k}^{(\ell-1)}H_{b,s}^{(\ell-1)}],\\
+ \mathbb E[\eta_{a,k}^{(\ell)}\eta_{b,s}^{(\ell)}]
+ &=\sigma_\ell^2
+       \mathbb E[\delta_{a,k}^{(\ell)}\delta_{b,s}^{(\ell)}].
+\end{align*}
+Different matrix/orientation families use independent Gaussian families;
+times and inputs inside one family are usually dependent.  The coordinate
+space of an internal layer uses its two adjacent families.  This is a
+description of distinct population spaces, not a pairing of neuron
+indices across finite layers.
+
+Define response coefficients
+\begin{align*}
+ A_{ak,bs}^{(\ell)}
+ &=\mathbb E\left[
+   \frac{\partial\delta_{a,k}^{(\ell)}}
+        {\partial\xi_{b,s}^{(\ell)}}\right],\qquad s\le k,\\
+ C_{ak,bs}^{(\ell)}
+ &=\mathbb E\left[
+   \frac{\partial H_{a,k}^{(\ell-1)}}
+        {\partial\eta_{b,s}^{(\ell)}}\right],\qquad s<k.
+\end{align*}
+The derivatives are in formal innovation slots.  Even if their joint
+Gaussian law is singular, the response identity holds in mean square;
+no inverse covariance matrix is estimated.  Hold all deterministic
+residuals, contractions, response coefficients, and covariance laws fixed
+in these derivatives.
+
+The exact response representation is
+\begin{align*}
+ Z_{a,k}^{(\ell)}
+ &=\xi_{a,k}^{(\ell)}+
+       \sum_{b,s<k}B_{ak,bs}^{(\ell)}\delta_{b,s}^{(\ell)},\\
+ P_{a,k}^{(\ell-1)}
+ &=\eta_{a,k}^{(\ell)}+
+       \sum_{b,s\le k}D_{ak,bs}^{(\ell)}H_{b,s}^{(\ell-1)},
+\end{align*}
+where
+\begin{align*}
+ B_{ak,bs}^{(\ell)}
+ &=\sigma_\ell^2C_{ak,bs}^{(\ell)}
+   -2\kappa_\ell\Delta\omega_b(f_{b,s}-y_b)
+       \mathbb E[H_{b,s}^{(\ell-1)}H_{a,k}^{(\ell-1)}],\\
+ D_{ak,bs}^{(\ell)}
+ &=\sigma_\ell^2A_{ak,bs}^{(\ell)}
+   -\mathbf{1}_{s<k}2\kappa_\ell\Delta\omega_b(f_{b,s}-y_b)
+       \mathbb E[\delta_{b,s}^{(\ell)}\delta_{a,k}^{(\ell)}].
+\end{align*}
+The first terms come from Gaussian matrix reuse; the second terms come
+from the accumulated trained rank-one updates.  In particular,
+$\sigma_\ell^2$ multiplies both Gaussian response terms and does not
+multiply the trained terms.  These formulas are the preceding
+fixed-computation theorem applied to the expanded Euler updates.
+
+\subsection{Uniform tails: weighted pulses and noncircular response bounds}
+\label{app:response}
+
+\begin{lemma}[Response and tail estimate]
+\label{lem:app-response}
+On a fixed interval $[0,T_0]$, with $T_0>0$ independent of the Euler
+mesh, all the preactivations, activations, and fields $P^{(\ell)}$
+constructed above have uniformly bounded subGaussian marginals.
+Moreover there are finite constants $c_\ell,a_\ell$ such that
+\[
+ |\sigma_\ell^2C_{ak,bs}^{(\ell)}|
+      \le c_\ell\Delta\omega_b,
+ \qquad
+ \sum_{b,s\le k}|\sigma_\ell^2A_{ak,bs}^{(\ell)}|
+      \le a_\ell.
+\]
+The constants depend only on the norm-ball bounds, fixed depth,
+activation and initialization bounds, input bound, and learning
+multipliers.  They do not depend on covariance rank or the number of
+inputs.
+\end{lemma}
+
+\begin{proof}
+Some numerical bookkeeping is needed only in this proof.  Let $S$ bound
+all forward and backward root-mean-square norms on the preliminary ball,
+and put
+\[
+ J=2\max_\ell\kappa_\ell R_0S^2.
+\]
+Every innovation has a bounded Gaussian variance.  For a scalar random
+variable $U$, use the moment norm
+\[
+ \mathcal N(U)=\sup_{p\ge2}\frac{\|U\|_{L^p}}{\sqrt p}.
+\]
+It obeys the triangle inequality.  If $\mathcal N(U)\le B_1$, expansion
+of the exponential series and $r!\ge(r/e)^r$ show that
+\[
+ \mathbb E\exp\!\left(\frac{U^2}{8eB_1^2}\right)\le\frac43,
+ \qquad
+ \mathbb E e^{\lambda|U|}
+ \le\frac43\exp(2e\lambda^2B_1^2).
+\]
+The zero-norm case is interpreted separately as $U=0$.  If every
+$U_{b,s}$ has this same bound, convexity of the exponential gives
+\[
+ \mathbb E\exp\!\left(
+    \lambda\Delta\sum_{s<k}\sum_b\omega_b|U_{b,s}|\right)
+ \le\frac43\exp(2e\lambda^2T^2B_1^2),
+ \qquad k\Delta\le T.
+\]
+The convex weights are $\Delta\omega_b/(k\Delta)$.  This is why
+dependence across inputs and time is harmless.  A maximum of the random
+history would not have this mesh-independent estimate.
+
+Temporarily assume the response bounds in the lemma.  Define only for
+the following estimates
+\[
+ b_1=1,\qquad b_\ell=c_\ell+J\quad(\ell\ge2).
+\]
+Then
+\[
+ |B_{ak,bs}^{(\ell)}|\le b_\ell\Delta\omega_b,
+ \qquad
+ \sum_{b,s\le k}|D_{ak,bs}^{(\ell)}|\le a_\ell+JT.
+\]
+Fix $K\ge2$ depending only on the preliminary bounds, large enough to
+dominate the root and innovation moment norms after activation, and the
+coefficients of the endpoint updates.  The causal recursions give
+\begin{align*}
+ \mathcal N(H_{a,k}^{(1)})
+ &\le K+KT\sup_{b,s<k}\mathcal N(P_{b,s}^{(1)}),\\
+ \mathcal N(H_{a,k}^{(\ell)})
+ &\le K+Kb_\ell T\sup_{b,s<k}\mathcal N(P_{b,s}^{(\ell)}),
+       &&2\le\ell\le L,\\
+ \mathcal N(P_{a,k}^{(\ell)})
+ &\le K+(a_{\ell+1}+JT)
+             \sup_{b,s\le k}\mathcal N(H_{b,s}^{(\ell)}),
+       &&\ell<L,\\
+ \mathcal N(W_k^{(L+1)})
+ &\le K+KT\sup_{b,s<k}\mathcal N(H_{b,s}^{(L)}).
+\end{align*}
+Thus compatible field bounds are
+\[
+ B_H=2K,\qquad B_{P,L}=2K,\qquad
+ B_{P,\ell}=4K(1+a_{\ell+1})\quad(\ell<L).
+\]
+They are preserved when
+\[
+ JT\le1,\qquad2KT\le1,\qquad
+ b_\ell T B_{P,\ell}\le1\quad(1\le\ell\le L).
+\]
+For a fixed mesh all these moment norms are finite before applying a
+uniform bound: each causal magnitude recursion bounds the new field by
+a finite deterministic linear combination of absolute roots and
+innovations.  This uses linear growth of $\phi^{(\ell)}$ and boundedness
+of $\phi^{(\ell)\prime}$ in every layer.
+
+We next prove the assumed response bounds.  For a fixed middle layer,
+differentiate with respect to all its own forward slots, holding adjacent
+backward slots and roots fixed.  Define
+\[
+ V_k^{(\ell)}=
+ \max_{a,u\le k}
+ \sum_{b,s\le u}
+ \left|\frac{\partial Z_{a,u}^{(\ell)}}
+                  {\partial\xi_{b,s}^{(\ell)}}\right|.
+\]
+This maximum concerns derivative row sums, not Gaussian histories.
+Write $q_\ell=1+a_{\ell+1}$ for $\ell<L$, and $q_L=1$.
+Differentiating the response formula for $P^{(\ell)}$ bounds its
+derivative row by a fixed constant times
+$(a_{\ell+1}+JT)V_k^{(\ell)}$.  At the last layer, differentiate the
+accumulated readout update instead; its row is bounded by a fixed
+constant times $TV_k^{(L)}$.  The product rule therefore gives
+\[
+ \sum_{b,s\le k}
+ \left|\frac{\partial\delta_{a,k}^{(\ell)}}
+                  {\partial\xi_{b,s}^{(\ell)}}\right|
+ \le C\bigl(|P_{a,k}^{(\ell)}|+q_\ell\bigr)V_k^{(\ell)}.
+\]
+The innovation in the forward formula contributes row sum one.  Its
+memory only involves earlier times.  Hence
+\[
+ V_k^{(\ell)}\le1+
+ Cb_\ell\Delta\sum_{u<k}
+ \left(q_\ell+\sum_b\omega_b|P_{b,u}^{(\ell)}|\right)V_u^{(\ell)}.
+\]
+Taking the prefix maximum is legitimate because the right side grows
+with $k$ and all summands are nonnegative.  Discrete Gronwall yields
+\[
+ V_k^{(\ell)}\le
+ \exp\!\left(Cb_\ell Tq_\ell+
+ Cb_\ell\Delta\sum_{u<k}\sum_b\omega_b|P_{b,u}^{(\ell)}|\right).
+\]
+The weighted exponential estimate and Cauchy--Schwarz now imply
+\begin{equation}
+ \sum_{b,s\le k}|\sigma_\ell^2A_{ak,bs}^{(\ell)}|
+ \le C(B_{P,\ell}+q_\ell)
+ \exp\!\left(Cb_\ell Tq_\ell+
+                    Cb_\ell^2T^2B_{P,\ell}^2\right).
+ \label{eq:app-A-bound}
+\end{equation}
+In particular the estimate uses an individual $P_{a,k}^{(\ell)}$ in
+Cauchy--Schwarz, not the $L^2$ norm of a maximum over times or inputs.
+
+For the forward response, fix a single backward slot
+$\eta_{b,s}^{(\ell)}$ and differentiate the layer below it.  Let
+\[
+ E_k=\max_{a,u\le k}
+ \left|\frac{\partial Z_{a,u}^{(\ell-1)}}
+                  {\partial\eta_{b,s}^{(\ell)}}\right|.
+\]
+It vanishes for $k\le s$.  The direct backward innovation contributes
+only at $(a,u)=(b,s)$.  The other product-rule terms give
+\[
+ \left|\frac{\partial\delta_{a,u}^{(\ell-1)}}
+                  {\partial\eta_{b,s}^{(\ell)}}\right|
+ \le D_1\mathbf{1}_{a=b,u=s}
+       +C\bigl(|P_{a,u}^{(\ell-1)}|+q_{\ell-1}\bigr)E_u.
+\]
+Insert this inequality into the accumulated first-layer update when
+$\ell=2$, and into the forward response formula at layer $\ell-1$
+when $\ell\ge3$.  The direct pulse has size at most
+$Cb_{\ell-1}\Delta\omega_b$.  Subsequent propagation satisfies
+\[
+ E_k\le Cb_{\ell-1}\Delta\omega_b+
+ Cb_{\ell-1}\Delta\sum_{u<k}
+ \left(q_{\ell-1}+\sum_a\omega_a|P_{a,u}^{(\ell-1)}|\right)E_u.
+\]
+The same Gronwall and exponential estimates, followed by the bounded
+activation derivative, give
+\begin{equation}
+ \frac{|\sigma_\ell^2C_{ak,bs}^{(\ell)}|}{\Delta\omega_b}
+ \le Cb_{\ell-1}
+ \exp\!\left(Cb_{\ell-1}Tq_{\ell-1}+
+          Cb_{\ell-1}^2T^2B_{P,\ell-1}^2\right).
+ \label{eq:app-C-bound}
+\end{equation}
+The weight of the single source pulse survives.  No inverse dataset
+weight and no unweighted sum of Gaussian absolute values appears.
+
+Choose the constant $C\ge1$ in these two estimates before choosing any
+response bound.  First choose the forward-response bounds upward:
+\[
+ c_2=4C,\qquad c_\ell=4C(c_{\ell-1}+J),\quad3\le\ell\le L.
+\]
+Then choose the backward-response bounds downward:
+\[
+ a_L=4C(2K+1),\qquad
+ a_\ell=4C(4K+1)(1+a_{\ell+1}),\quad2\le\ell<L.
+\]
+These dominate four times the respective prefactors at $T=0$ in
+\eqref{eq:app-C-bound} and \eqref{eq:app-A-bound}.  Now all constants
+are fixed.  Choose $T_0\le\min(T_{\mathrm{ball}},1)$ to satisfy the
+three field-bound inequalities and to make every exponent in those two
+estimates at most $\log2$.  There are finitely many exponents and each
+tends to zero with $T$, so $T_0$ is strictly positive.  Both response
+bounds are then improved by a factor of two.  The opposed directions of
+the two recursions cause no circular choice: only their exponents couple
+the already chosen bounds, and these exponents vanish as $T\downarrow0$.
+
+To make the argument a literal induction, first construct the current
+$Z^{(1)}$ and readout from earlier times.  Construct forward layers in
+increasing order: the new $C^{(\ell)}$ is calculated from the already
+constructed lower-layer field and depends on earlier backward fields;
+then the forward recursion uses earlier $P^{(\ell)}$.  Construct
+backward layers in decreasing order: the current upper response is
+already known when constructing $P^{(\ell)}$, after which
+\eqref{eq:app-A-bound} gives the current $A^{(\ell)}$.  At time zero
+there is no forward memory, and the backward induction starts at the
+subGaussian readout.  No zero-readout assumption is needed.
+
+Finally the exponential-moment implication gives constants $c,C>0$
+such that
+\[
+ \sup_\Delta\sup_{k\Delta\le T_0}\max_{a,\ell}
+ \mathbb E e^{c|P_{a,k}^{(\ell)}|^2}\le C.
+\]
+The field recursions give the same conclusion for $H_a^{(\ell)}$ and
+$Z_a^{(\ell)}$.  Reducing
+$c$ if necessary yields the cutoff estimate
+\[
+ \|P_{a,k}^{(\ell)}
+       \mathbf{1}_{|P_{a,k}^{(\ell)}|>R}\|_{L^2}
+ \le Ce^{-cR^2}.
+\]
+All these estimates also hold for arbitrary deterministic positive step
+lengths: replace each source factor $\Delta\omega_b$ by
+$\Delta_s\omega_b$ and use their total time.  In particular, a
+recomputed network at an affine Euler interpolation time is obtained by
+appending one fractional Euler step.  It has the same marginal bounds.
+No exponential estimate for a supremum of a random path is claimed.
+\end{proof}
+
+\subsection{Localization, the population Euler limit, and strong uniqueness}
+\label{app:localization}
+
+For comparisons on the common population spaces, denote a state by
+\[
+\theta=(\{Z_a^{(1)}\}_a,W^{(2)},\ldots,W^{(L)},W^{(L+1)})
+\]
+and use the distance
+\begin{align*}
+ \operatorname{dist}(\theta,\widetilde\theta)
+ ={}&\max_a\|Z_a^{(1)}-\widetilde Z_a^{(1)}\|_{L^2}
+   +\sum_{\ell=2}^L
+       \|W^{(\ell)}-\widetilde W^{(\ell)}\|_{\operatorname{op}}\\
+ &+\|W^{(L+1)}-\widetilde W^{(L+1)}\|_{L^2}.
+\end{align*}
+The analogous finite-width distance replaces field norms by
+$\|b\|_2/\sqrt n$.  This notation is only a device for the estimates;
+the state retains the explicit network operations.
+
+Forward fields and predictions are Lipschitz in this distance on the
+norm ball.  To prove this, successively expand
+\begin{align*}
+ &W^{(\ell)}H_a^{(\ell-1)}
+          -\widetilde W^{(\ell)}\widetilde H_a^{(\ell-1)}\\
+ &\quad=(W^{(\ell)}-\widetilde W^{(\ell)})H_a^{(\ell-1)}
+       +\widetilde W^{(\ell)}
+          (H_a^{(\ell-1)}-\widetilde H_a^{(\ell-1)}),
+\end{align*}
+and use the activation bound
+\[
+ \|\phi^{(\ell)}(Z_a^{(\ell)})
+           -\phi^{(\ell)}(\widetilde Z_a^{(\ell)})\|_{L^2}
+ \le D_1\|Z_a^{(\ell)}-\widetilde Z_a^{(\ell)}\|_{L^2}.
+\]
+The delicate product is in the backward recursion.  For a reference
+backward field $\widetilde P_a^{(\ell)}$,
+\begin{align*}
+ &\|[\phi^{(\ell)\prime}(Z_a^{(\ell)})
+     -\phi^{(\ell)\prime}(\widetilde Z_a^{(\ell)})]
+                                    \widetilde P_a^{(\ell)}\|_{L^2}\\
+ &\quad\le D_2R\|Z_a^{(\ell)}-\widetilde Z_a^{(\ell)}\|_{L^2}
+ +2D_1\|\widetilde P_a^{(\ell)}
+                   \mathbf{1}_{|\widetilde P_a^{(\ell)}|>R}\|_{L^2}.
+\end{align*}
+This follows by splitting the coordinate space at
+$|\widetilde P_a^{(\ell)}|=R$.  Expand a backward difference as
+\begin{align*}
+ \delta_a^{(\ell)}-\widetilde\delta_a^{(\ell)}
+ ={}&\phi^{(\ell)\prime}(Z_a^{(\ell)})
+                         (P_a^{(\ell)}-\widetilde P_a^{(\ell)})\\
+ &+[\phi^{(\ell)\prime}(Z_a^{(\ell)})
+     -\phi^{(\ell)\prime}(\widetilde Z_a^{(\ell)})]
+                                    \widetilde P_a^{(\ell)}.
+\end{align*}
+At every downward step, the previous error is multiplied only by a
+bounded activation derivative and a bounded operator.  The new cutoff
+term is added.  Thus the error factor is $C(1+R)$, not $CR^L$.
+The rank-one bound
+\begin{align*}
+ \|u\otimes v-\widetilde u\otimes\widetilde v\|_{\operatorname{op}}
+ \le{}&\|u-\widetilde u\|_{L^2}\|v\|_{L^2}\\
+ &+\|\widetilde u\|_{L^2}\|v-\widetilde v\|_{L^2}
+\end{align*}
+then controls the parameter velocities.  Writing $\mathcal F$ for the
+explicit population right-hand side, with its norm measured as the
+sum in the preceding distance, we obtain
+\begin{equation}
+ \|\mathcal F(\theta)-\mathcal F(\widetilde\theta)\|
+ \le C(1+R)\operatorname{dist}(\theta,\widetilde\theta)
+          +Ce^{-cR^2},
+ \label{eq:app-localization}
+\end{equation}
+when the reference $\widetilde\theta$ is a population Euler grid state.
+Only the reference requires the tail estimate.
+
+Set $T_*\le\min(T_{\mathrm{ball}},T_0)$.  Compare two piecewise linear
+Euler paths of meshes $\Delta,\Delta'$.  Their preceding grid states
+differ by their current interpolant distance plus
+$C(\Delta+\Delta')$.  Apply \eqref{eq:app-localization} to these grid
+states and integrate their assigned velocities.  Gronwall gives
+\begin{align*}
+ &\sup_{t\le T_*}
+ \operatorname{dist}(\theta^\Delta(t),\theta^{\Delta'}(t))\\
+ &\hspace{8mm}\le
+ Ce^{C(1+R)T_*}
+ \left((1+R)(\Delta+\Delta')+e^{-cR^2}\right).
+\end{align*}
+First let the meshes vanish for fixed $R$, then let $R\to\infty$.
+The last term tends to zero because the negative quadratic exponent
+dominates the positive linear exponent.  The Euler paths are Cauchy in
+the complete field and bounded-operator spaces.
+
+The vector field is continuous in those spaces.  For the only subtle
+product, let $\nu$ index an approximating sequence with
+$Z_a^{(\ell),\nu}\to Z_a^{(\ell)}$ and
+$P_a^{(\ell),\nu}\to P_a^{(\ell)}$ in $L^2$.  Expand
+\begin{align*}
+ &\phi^{(\ell)\prime}(Z_a^{(\ell),\nu})P_a^{(\ell),\nu}
+      -\phi^{(\ell)\prime}(Z_a^{(\ell)})P_a^{(\ell)}\\
+ &\quad=\phi^{(\ell)\prime}(Z_a^{(\ell),\nu})
+                           (P_a^{(\ell),\nu}-P_a^{(\ell)})\\
+ &\qquad+[\phi^{(\ell)\prime}(Z_a^{(\ell),\nu})
+       -\phi^{(\ell)\prime}(Z_a^{(\ell)})]P_a^{(\ell)}.
+\end{align*}
+The first term tends to zero by boundedness of
+$\phi^{(\ell)\prime}$.  In the second,
+the bounded multiplier tends to zero in probability and its square is
+integrated against the fixed integrable variable $|P_a^{(\ell)}|^2$;
+truncating $P_a^{(\ell)}$
+proves convergence in $L^2$.  This proves continuity of the backward
+recursion and hence of the vector field.  On the compact range of the
+converging paths, this continuity is uniform.  The Euler integral
+equations therefore pass to the limit in $L^2$ and operator norm.
+Fatou's lemma transfers the reference exponential bounds to the
+constructed strong solution.
+
+For any other strong solution with the same realized initial state,
+the first-exit argument gives the same norm ball.  Apply
+\eqref{eq:app-localization} with the constructed solution as reference.
+Gronwall bounds the distance by $Ce^{C(1+R)T_*-cR^2}$ for every $R$;
+letting $R\to\infty$ proves equality.  Thus uniqueness does not assume
+subGaussian tails of the competing solution.  The equations depend
+only on the current fields, operators, and their adjoints.  The closed
+spaces generated by these operations contain all subsequent Euler
+approximations and their limits.  An isometry identifying two current
+joint action laws intertwines their evolutions by uniqueness.  This is
+autonomy of the field/operator state, not closure on finitely many
+scalar moments.
+
+\subsection{The oracle, its parameter proxy, and the joint width/step limit}
+\label{app:oracle}
+
+Fix a rational coarse mesh $\Delta$ independently of the actual step
+$\eta_n$.  At population Euler times, the trained middle operator is
+exactly
+\[
+ W_k^{(\ell)}=W_0^{(\ell)}
+ -2\kappa_\ell\Delta\sum_{s<k,b}
+ \omega_b(f_{b,s}-y_b)
+       \delta_{b,s}^{(\ell)}\otimes H_{b,s}^{(\ell-1)}.
+\]
+On the same sampled initial arrays as actual GD, evaluate these expanded
+actions using deterministic population Euler residuals and contractions.
+This \emph{oracle computation} is a fixed finite program.  The
+fixed-computation theorem gives joint empirical convergence of all
+needed nodes, second moments, inner products, and continuous
+quadratic-growth tail cutoffs.  These supplied numbers are a comparison
+device; the limiting evolution itself computes its residuals and
+contractions from its current state.
+
+The oracle's prescribed matrix actions need not exactly equal the
+actions of parameters reconstructed from its nodes.  To bridge that
+distinction, form a \emph{parameter proxy}: use the oracle first-layer
+and readout nodes and the finite rank expansion with
+$uv^\top/n$ in place of $u\otimes v$.  The discrepancy of a forward
+proxy action from the prescribed oracle action is a finite sum of terms
+\begin{align*}
+ &-2\kappa_\ell\Delta\omega_b(f_{b,s}-y_b)
+       \delta_{b,s}^{(\ell),\mathrm{oracle}}\\
+ &\quad\times\left(
+ \frac{(h_{b,s}^{(\ell-1),\mathrm{oracle}})^\top
+               h_{a,k}^{(\ell-1),\mathrm{oracle}}}{n}
+ -\mathbb E[H_{b,s}^{(\ell-1)}H_{a,k}^{(\ell-1)}]
+ \right).
+\end{align*}
+At fixed $\Delta$, each scalar discrepancy vanishes and each vector
+factor has bounded root-mean-square norm.  Transpose discrepancies have
+the corresponding backward contractions.  Forward induction proves
+consistency of all proxy forward fields.  Backward induction applies
+the cutoff estimate against oracle $P$ fields, first at a fixed cutoff
+and then with the cutoff tending to infinity.  This proves consistency
+of the \emph{recomputed} proxy backpropagation, predictions, and vector
+field, including an unbounded readout.
+
+Proxy backward fields inherit reference tails.  The elementary
+inequality, valid for finite vectors,
+\[
+ \frac{\|v\mathbf{1}_{|v|>2R}\|_2}{\sqrt n}
+ \le2\frac{\|v-u\|_2}{\sqrt n}
+     +2\frac{\|u\mathbf{1}_{|u|>R}\|_2}{\sqrt n}
+\]
+transfers the oracle cutoff estimate to a consistent proxy field.
+Its norm and speed bounds have limiting upper bounds independent of
+$\Delta$, by the norm ball and consistency.  Enlarge the comparison
+ball by a fixed amount if needed.
+
+At a physical time $t$, compare actual GD and the affine proxy using
+their assigned preceding-grid velocities.  The preceding fine and
+coarse states differ by their current interpolant distance plus
+$C(\eta_n+\Delta)$.  The finite counterpart of
+\eqref{eq:app-localization}, with empirical reference tails and the
+fixed-mesh proxy consistency error, gives
+\begin{align*}
+ &\sup_{t\le T_*}
+ \operatorname{dist}_n(
+       \theta_n^{\mathrm{GD}}(t),\theta_n^{\mathrm{proxy},\Delta}(t))\\
+ &\quad\le Ce^{C(1+R)T_*}
+ \left((1+R)(\eta_n+\Delta)+e^{-cR^2}+o_{\mathbb P}(1)\right).
+\end{align*}
+Here $o_{\mathbb P}(1)$ is for fixed $R,\Delta$.  Initial distance is
+zero because the comparison uses the same roots.  The actual network
+needs only its norm ball; no fixed-program theorem is invoked for its
+growing list of fine steps.
+
+Take $n\to\infty$ with $R,\Delta$ fixed, then $\Delta\to0$, and finally
+$R\to\infty$.  Combine the comparison, fixed-mesh empirical convergence,
+and the population Euler limit.  This proves the joint limit for every
+$\eta_n\to0$.  In particular the argument introduces no condition such
+as $\eta_n\sqrt n\to0$.  The separation between a fixed-step width
+theorem and the subsequent continuous-time argument is essential;
+fixed-step tensor-program results alone do not supply this passage
+\cite{TP4,TP4b}.
+
+\subsection{Predictions, kernels, hidden paths, and velocities}
+\label{app:observables}
+
+Prediction convergence follows from the forward Lipschitz estimates.
+The layer contributions to the physical kernel are
+\begin{align*}
+ K_{ab}^{(1)}
+ &=\frac{x_a^\top x_b}{d}
+       \mathbb E[\delta_a^{(1)}\delta_b^{(1)}],\\
+ K_{ab}^{(\ell)}
+ &=\mathbb E[H_a^{(\ell-1)}H_b^{(\ell-1)}]
+   \mathbb E[\delta_a^{(\ell)}\delta_b^{(\ell)}],
+       &&2\le\ell\le L,\\
+ K_{ab}^{(L+1)}
+ &=\mathbb E[H_a^{(L)}H_b^{(L)}],\\
+ K_{ab}&=\sum_{\ell=1}^{L+1}\kappa_\ell K_{ab}^{(\ell)}.
+\end{align*}
+Finite counterparts use $b^\top c/n$ in every contraction.  Forward
+and backward mean-square consistency and Cauchy--Schwarz prove uniform
+convergence of all these entries.  Direct differentiation gives
+\[
+ \dot f_a=-2\sum_b\omega_bK_{ab}(f_b-y_b)
+\]
+and
+\[
+ \frac{d}{dt}\sum_a\omega_a(f_a-y_a)^2
+ =-4\sum_{a,b}\omega_a\omega_b
+           (f_a-y_a)K_{ab}(f_b-y_b).
+\]
+Every block is positive semidefinite: it is a parameter-gradient Gram
+matrix, or equivalently the displayed product of positive semidefinite
+Gram matrices.  The relative stored learning-rate powers used here are
+the established maximal-update powers \cite{TP5}.
+
+For velocity observables, the state-velocity convergence follows first
+from the localized estimate.  Forward differentiation gives, for
+$\ell\ge2$,
+\begin{align*}
+ \dot Z_a^{(\ell)}
+ ={}&\dot W^{(\ell)}H_a^{(\ell-1)}\\
+ &+W^{(\ell)}\!\left[
+   \phi^{(\ell-1)\prime}(Z_a^{(\ell-1)})
+                          \dot Z_a^{(\ell-1)}\right],
+\end{align*}
+and $\dot H_a^{(\ell)}=
+\phi^{(\ell)\prime}(Z_a^{(\ell)})\dot Z_a^{(\ell)}$.
+The bounded-multiplier argument used for vector-field continuity proves
+continuity of these formulas.  Along the compact population time path,
+their values form compact $L^2$ families and therefore have uniformly
+vanishing squared tails.  At a fixed coarse mesh their oracle
+evaluations are fixed finite computations, so the corresponding
+empirical cutoff moments converge.  First apply state stability, then
+localize these derived velocity formulas, then let the coarse mesh and
+the velocity cutoff tend to their limits.  This gives, for example,
+\[
+ \int_0^{T_*}\frac{\|\dot z_{n,a}^{(\ell)}(t)\|_2^2}{n}\,dt
+ \longrightarrow
+ \int_0^{T_*}\mathbb E|\dot Z_a^{(\ell)}(t)|^2\,dt
+\]
+in probability, and the analogous activation assertion.  Velocities
+are taken almost everywhere along the interpolated parameter paths.
+These later cutoffs lie outside Gronwall; exponential velocity tails
+are not required.
+
+For path laws, a scalar absolutely continuous coordinate satisfies on
+any interval of length at most $\varepsilon$
+\[
+ \sup_{s,t\ \mathrm{in\ that\ interval}}
+ |z(t)-z(s)|^2
+ \le\varepsilon\int_{\mathrm{interval}}|\dot z(u)|^2\,du.
+\]
+Average over neurons and sum over a fixed time partition.  The squared
+uniform-path error of reconstruction from the partition is at most
+$C\varepsilon$, both empirically and in the population.  At the finitely
+many partition times, joint empirical laws converge with their second
+moments, hence in Wasserstein distance of order two.  Applying the
+reconstruction estimate and then letting $\varepsilon\downarrow0$
+proves convergence for the uniform norm on the whole path, separately
+in each neuron population.  The activation statement follows by its
+Lipschitz bound.
+
+The same induction applies to any fixed finite, correctly typed list of
+operator and adjoint applications, linear combinations, Lipschitz
+coordinate maps, and products of an $L^2$ field with a bounded continuous
+factor.  Operators amplify errors by their norm; bounded-factor
+products use the uniform integrability of the compact reference family.
+This proves convergence of continuous quadratic-growth measurements
+of such probes.  It does not cover arbitrary products of two unbounded
+fields or a number of probes growing with width.
+
+\subsection{Activation, loss, and initialization extensions}
+\label{app:extensions}
+
+For a $C^1$ activation with bounded globally Lipschitz derivative,
+convolve with a compactly supported smooth probability density at scale
+$\varepsilon$.  The smoothed activation obeys
+\begin{align*}
+ \|\phi_\varepsilon^{(\ell)}-\phi^{(\ell)}\|_\infty
+ &\le CD_1\varepsilon,\\
+ \|\phi_\varepsilon^{(\ell)\prime}
+             -\phi^{(\ell)\prime}\|_\infty
+ &\le CD_2\varepsilon,\\
+ \|\phi_\varepsilon^{(\ell)\prime}\|_\infty&\le D_1,
+ \qquad
+ \|\phi_\varepsilon^{(\ell)\prime\prime}\|_\infty\le D_2.
+\end{align*}
+The time and all response constants are uniform in the smoothing
+scale.  Include rational scales in the common computation family.
+The localized comparison between two smoothings has an additional
+$C(1+R)(\varepsilon+\varepsilon')$ error.  The forward recursion gains
+the uniform activation error; the backward recursion gains the uniform
+derivative error multiplied by an already bounded $L^2$ field.  The
+same ordered-limit argument constructs the unsmoothed strong flow,
+transfers its reference tails, and proves uniqueness.  Comparing
+finite GD for the original activation with a fixed smooth oracle adds
+$C(1+R)\varepsilon$ to the finite comparison.  Take the width limit,
+the coarse-mesh limit, the smoothing limit, then the tail-cutoff limit.
+ReLU's discontinuous derivative is outside this argument.
+
+For a separable loss $\sum_a\omega_a\ell_a(f_a)$, assume that each
+$\ell_a$ is $C^1$ and that $\ell_a'$ has common bounds and common
+Lipschitz constants on each bounded prediction interval.  Replace
+every factor $2(f_b-y_b)$ in the updates by $\ell_b'(f_b)$.
+The norm ball uses the bound of this derivative on its prediction
+range; feedback stability uses its local Lipschitz constant.  In the
+response computation these scalar oracle values are held fixed, so
+the single-slot pulse still carries $\Delta\omega_b$ and only their
+boundedness enters.  Every estimate therefore persists with these
+explicit replacements.  Convexity and a global growth condition on the
+loss are not needed for this local result.  The output and loss laws
+become
+\begin{align*}
+ \dot f_a&=-\sum_b\omega_bK_{ab}\ell_b'(f_b),\\
+ \frac{d}{dt}\sum_a\omega_a\ell_a(f_a)
+ &=-\sum_{a,b}\omega_a\omega_b
+        \ell_a'(f_a)K_{ab}\ell_b'(f_b).
+\end{align*}
+
+A perturbation of the sampled initial arrays tending to zero in the
+finite comparison distance simply adds its size inside the Gronwall
+bound.  The same is true for a vanishing perturbation of the fixed
+learning multipliers.  In particular, zero limiting readout allows
+Gaussian finite readout of size $n^{-\beta}$ for every $\beta>0$, or
+any perturbation whose $\|W_0^{(L+1)}\|_2/\sqrt n$ tends to zero in
+probability.  This is not a universality assertion for different
+order-one middle matrices, whose operator-norm difference need not
+vanish.
+
+The final existence time depends only on the declared bounds and fixed
+depth.  It may shrink rapidly with depth.  For an unnormalized summed
+squared loss on $m$ examples, the normalized-loss trajectory is evaluated
+at time $mt$; its guaranteed physical interval is correspondingly
+divided by $m$.  Strict hidden feature activity is a separate result
+with additional assumptions, established here only for two hidden
+layers.  Neither all-time existence nor arbitrary-depth strict activity
+is a consequence of the preceding local proof.

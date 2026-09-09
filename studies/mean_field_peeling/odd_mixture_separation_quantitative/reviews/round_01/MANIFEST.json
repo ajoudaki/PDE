@@ -1,0 +1,50 @@
+{
+  "round": 1,
+  "sha256": "daa5a57856db4edc58e58f5f9efff12fbe6e0b442b503e1ef731eecfd444ae7b",
+  "bytes": 302359,
+  "lines": 5743,
+  "reviewers": [
+    {
+      "role": "birch",
+      "input": "/tmp/report-cdac813f004c/REPORT.md",
+      "output": "/tmp/report-cdac813f004c/REVIEW.md",
+      "state": "complete",
+      "agent": "mixture_audit_birch",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_01/BIRCH_REVIEW.md",
+      "review_sha256": "95297590f40a909768bfa95437dd9c002f01c95d5a66cbd2adaee4de5ef9748e"
+    },
+    {
+      "role": "canyon",
+      "input": "/tmp/report-9bd90863b407/REPORT.md",
+      "output": "/tmp/report-9bd90863b407/REVIEW.md",
+      "state": "complete",
+      "agent": "mixture_audit_canyon",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_01/CANYON_REVIEW.md",
+      "review_sha256": "873fe915d425ab88d57af6265fbf6cd73f4131ad9a847f790cf41bf81184df71"
+    },
+    {
+      "role": "harbor",
+      "input": "/tmp/report-83c5f4e8d603/REPORT.md",
+      "output": "/tmp/report-83c5f4e8d603/REVIEW.md",
+      "state": "complete",
+      "agent": "mixture_audit_harbor",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_01/HARBOR_REVIEW.md",
+      "review_sha256": "dd51c4da7b6f2bab98e4da55ae7139d5e33fc3c063881f82619c55e543a6ab2c"
+    },
+    {
+      "role": "slate",
+      "input": "/tmp/report-cf533a099202/REPORT.md",
+      "output": "/tmp/report-cf533a099202/REVIEW.md",
+      "state": "complete",
+      "agent": "mixture_audit_slate",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_01/SLATE_REVIEW.md",
+      "review_sha256": "3e95a61a19ced26d4f51d65fa307151f2350b771315b8ed9ec275a0e4c2196a1"
+    }
+  ],
+  "status": "complete",
+  "verdict": "ALL PASS; no substantive mathematical objections or required mathematical repairs"
+}

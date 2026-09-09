@@ -1,0 +1,18 @@
+{
+  "manuscript_sha256": "efa3c2b1e592a469d8aa7900e95f0a8a43a4a1865b9c4c3f69f3bacfcb613e4a",
+  "verdict_scope": "Full gain-based global trained theorem as stated, with one pair of activation constants for every separately fixed finite depth; does not settle the literal convex-mixture question.",
+  "reviewers": [
+    {
+      "name": "cobalt",
+      "verdict": "PASS",
+      "input": "whole manuscript only; no inherited context, other mathematical files, reviews or agents",
+      "report_sha256": "663b5e40bbe36d58ef20dd34059ef43b2ac343d86ba4c0259b5499a58ee2ac5d"
+    },
+    {
+      "name": "elm",
+      "verdict": "PASS",
+      "input": "whole manuscript only; no inherited context, other mathematical files, reviews or agents",
+      "report_sha256": "a11061f812c674807b4f04adf5236a7b0b446d35a886e3291a870193a89a2b67"
+    }
+  ]
+}

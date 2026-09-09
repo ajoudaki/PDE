@@ -1,0 +1,307 @@
+# Two-Hidden-Layer Arctangent Completion Theorem
+
+## Theorem
+
+Use the model and Gaussian initialization in `PROGRAM_CONTRACT.md` at hidden depth `L=2`, with `phi=arctan`.  For every finite `T`:
+
+1. the finite-width feature flow exists globally;
+2. its predictor, raw tangent kernel, and every fixed typed observable in the CFPC dense algebra converge uniformly on `[0,T]` in probability;
+3. products with a fixed finite moment envelope converge in the corresponding `L^p`;
+4. the limits form a unique, persistent-single-source, restartable autonomous character;
+5. clipped Euler programs give computable finite approximations with a certified sequential error.
+
+The proof uses only the mobility, clipping, persistent-source, and completion rules of `MOBILITY_CLIPPING_CALCULUS.md`, plus MFP's fixed-finite-program theorem.  It does not invoke a pre-existing model-specific `L=2` limit.
+
+## 1. Transformed exact flow
+
+Put
+
+\[
+c=\frac\pi2,
+\quad
+\Phi(u)=u+\frac{u^3}{3},
+\quad
+w=\Phi(u),
+\quad
+\psi=\Phi^{-1},
+\quad
+x=\chi(w)=\arctan(\psi(w)).
+\]
+
+Write `G=Gamma+H`.  The exact flow is
+
+\[
+z=Gx,
+\qquad
+y=\arctan z,
+\qquad
+b=A d(z),
+\qquad
+q=G^*b,
+\]
+
+\[
+\dot A=y,
+\qquad
+\dot H=b\otimes_nx,
+\qquad
+\dot w=q.
+\tag{1}
+\]
+
+Both `psi` and `chi` are one-Lipschitz, and `|chi|<=c`.
+
+## 2. Width-free state envelope
+
+Let
+
+\[
+a_0=\|A(0)\|_n,
+\qquad
+w_0=\|\Phi(u(0))\|_n,
+\qquad
+\gamma=\|\Gamma\|_{\rm op}.
+\]
+
+For `t<=T`, define
+
+\[
+a_t=a_0+ct,
+\]
+
+\[
+h_t=ca_0t+\frac{c^2t^2}{2},
+\qquad
+g_t=\gamma+h_t,
+\]
+
+\[
+W_t=w_0+\gamma a_0t
++\frac c2(\gamma+a_0^2)t^2
++\frac{c^2a_0}{2}t^3
++\frac{c^3}{8}t^4.
+\]
+
+Since
+
+\[
+\|b\|_n\le\|A\|_n,
+\quad
+\|x\|_n\le c,
+\quad
+D^+\|H\|_{\rm op}\le c\|A\|_n,
+\quad
+D^+\|w\|_n\le\|G\|_{\rm op}\|A\|_n,
+\]
+
+integration gives
+
+\[
+\|A(t)\|_n\le a_t,
+\quad
+\|H(t)\|_{\rm op}\le h_t,
+\quad
+\|G(t)\|_{\rm op}\le g_t,
+\quad
+\|w(t)\|_n\le W_t.
+\tag{2}
+\]
+
+The right sides have uniform moments of every fixed order under the Gaussian initialization and the standard Gaussian operator-norm bound.  Equation (2) prevents finite-time blow-up and proves the first assertion.
+
+## 3. Clipped comparison
+
+Use a smooth one-Lipschitz clip `kappa_R`, equal to the identity on `[-R,R]` and bounded by `R+1`.  In (1), replace `b` in the `H,w` velocities by
+
+\[
+b_R=\kappa_R(A)d(z).
+\]
+
+The `A` equation remains unchanged.  Let `X=(A,H,w)` and `X_R=(A_R,H_R,w_R)`, with norm
+
+\[
+\|X\|_{\mathcal X_n}
+=\|A\|_n+\|H\|_{\rm op}+\|w\|_n.
+\]
+
+Localize to
+
+\[
+\Omega_K=\{a_0\le K,\ \gamma\le K\}.
+\]
+
+Set
+
+\[
+A_K=K+cT,
+\quad
+H_K=cKT+\frac{c^2T^2}{2},
+\quad
+G_K=K+H_K,
+\quad
+Z_K=G_K+c.
+\]
+
+The smooth clip changes harmless unit constants; to display the clean formula, use the hard-clip bound with effective radius `R+1`.  Since each coordinate satisfies
+
+\[
+|A_i(t)-A_i(0)|\le cT,
+\]
+
+the clipping source is controlled by
+
+\[
+\tau_{n,R-cT-1}
+=\left[
+\frac1n\sum_i(|A_i(0)|-(R-cT-1))_+^2
+\right]^{1/2}.
+\]
+
+Let
+
+\[
+D(t)=\|X(t)-X_R(t)\|_{\mathcal X_n}.
+\]
+
+Using the Lipschitz bounds for `chi`, `arctan`, and `d`, normalized rank-one continuity, and the operator norm gives
+
+\[
+\|z-z_R\|_n\le Z_KD,
+\]
+
+\[
+\|b-b_R\|_n
+\le
+\tau_{n,R-cT-1}+[1+(R+1)Z_K]D,
+\]
+
+and
+
+\[
+D^+D
+\le
+L_{K,T,R}D+Z_K\tau_{n,R-cT-1},
+\tag{3}
+\]
+
+where one may take
+
+\[
+L_{K,T,R}
+=2Z_K+2A_K+(R+1)Z_K^2.
+\]
+
+Therefore
+
+\[
+\sup_{t\le T}D(t)
+\le
+Z_KT e^{L_{K,T,R}T}\tau_{n,R-cT-1}.
+\tag{4}
+\]
+
+For `p>=2`, Gaussian tails give
+
+\[
+\mathbb E\tau_{n,S}^p
+\le
+\frac{2\Gamma(p+1)\varphi(S)}{S^{p+1}}.
+\tag{5}
+\]
+
+For fixed `K,T`, the quadratic exponent in (5) dominates the linear-in-`R` exponent in (4).  Removing `Omega_K` by higher-moment Hölder and then taking `K -> infinity` proves
+
+\[
+\lim_{R\to\infty}\sup_n
+\|X^n-X_R^n\|_{L^p(C([0,T];\mathcal X_n))}=0
+\tag{6}
+\]
+
+for every finite `p` for which the displayed state norm is requested.  The same estimate holds for all derived fields; for example,
+
+\[
+\|q-q_R\|_n
+\le
+G_K\{\tau+[1+(R+1)Z_K]D\}+A_KD.
+\]
+
+## 4. Uniform time discretization
+
+On `Omega_K`, the clipped vector field is dimension-free Lipschitz with constant `L_{K,T,R}` and is bounded by
+
+\[
+M_{K,T}=c+cA_K+G_KA_K
+\]
+
+up to harmless smooth-clip constants.  Its `N`-step Euler interpolation satisfies
+
+\[
+\sup_{t\le T}
+\|X_R(t)-X_{R,N}(t)\|_{\mathcal X_n}
+\le
+\frac{M_{K,T}T}{2N}
+(e^{L_{K,T,R}T}-1).
+\tag{7}
+\]
+
+This is uniform in width.
+
+At step `j`, expanding the learned operator gives the exact finite-history formulas
+
+\[
+z_j=\Gamma x_j
++h\sum_{s<j}b_s\langle x_s,x_j\rangle_n,
+\]
+
+\[
+q_j=\Gamma^*b_j
++h\sum_{s<j}x_s\langle b_s,b_j\rangle_n.
+\tag{8}
+\]
+
+Thus every fixed `(R,N)` clipped Euler system is one finite MFP program with exact source/transpose reuse.  The nodes `psi`, `chi`, the smooth clip, `arctan`, and `d` satisfy the maintained smooth polynomial-growth envelope.
+
+## 5. Width limit and mesh removal
+
+Fix `K,R,N`.  MFP gives joint convergence of every finite family of scalar contractions generated by (8).  Hence it gives the predictor, kernel, and any fixed typed observable on the Euler grid.  Equicontinuity from the uniform velocity envelope extends this to the interpolated compact interval.
+
+For two meshes `N,M`, compare their limiting observables through a common finite width and use (7).  They are uniformly Cauchy, so they define a unique clipped limiting character.  Equation (6) then removes the clip.  Finally remove `Omega_K` using its Gaussian/operator-norm probability bound and the state moment envelope.
+
+The sequential error is therefore
+
+\[
+\varepsilon_{\rm loc}(K)
++\varepsilon_{\rm clip}(K,R,T)
++\varepsilon_{\rm Euler}(K,R,T,N)
++\varepsilon_{\rm fixed\ program}(n;K,R,N),
+\]
+
+with the order
+
+\[
+K\uparrow\infty,
+\qquad
+R\uparrow\infty,
+\qquad
+N\uparrow\infty,
+\qquad
+n\uparrow\infty
+\]
+
+implemented operationally as: choose `K`, then `R`, then `N`, and finally `n`.  Each choice is independent of later variables.
+
+The predictor and raw kernel are continuous under the clipped derived-field bounds.  Their unclipped difference is controlled by (4)--(6) and uniform integrability, proving compact-time convergence.
+
+## 6. Autonomy and computability
+
+Apply the construction jointly to a countable dense typed observable algebra containing the fixed source.  Positivity passes from finite-width contractions.  The projective limiting character, together with current `A,w,H` and the immutable source orientations, is the limiting state.
+
+The finite-width semigroup identity passes through the uniform clipped-Euler approximation.  Therefore the state is restartable and autonomous.  A finite `(K,R,N)` program approximates any requested finite observable to a certified tolerance, and its MFP normal form is algorithmically computable.
+
+This completes the `L=2` arctangent rung of the CFPC contract.
+
+## 7. Exact limit of the method
+
+No analytic Taylor radius, exponential chaos algebra, or uniform coordinate maximum is used.  The proof succeeds because, after mobility flattening, the only unstable multiplier is the readout `A`, and `A` remains a bounded drift away from its original Gaussian seed.
+
+At `L=3`, the corresponding hidden multiplier is `r_2=G_2^*b_3`; it is not seed-dominated.  The present theorem does not establish its clipping tail.  That is the next machinery obligation.

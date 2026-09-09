@@ -1,0 +1,22 @@
+[
+  {
+    "task": "01a07bd4-a15f-7d42-9559-f59d7a9e96ff",
+    "rollouts": 5,
+    "distinct_finals": 18
+  },
+  {
+    "task": "01a07c68-9087-79b1-a4c1-536838241d32",
+    "rollouts": 5,
+    "distinct_finals": 9
+  },
+  {
+    "task": "01a07ce0-e69d-74d2-868d-c2edc3068c7d",
+    "rollouts": 3,
+    "distinct_finals": 5
+  },
+  {
+    "task": "01a0804d-9bf4-71a2-8542-fc5b240235f9",
+    "rollouts": 1,
+    "distinct_finals": 2
+  }
+]

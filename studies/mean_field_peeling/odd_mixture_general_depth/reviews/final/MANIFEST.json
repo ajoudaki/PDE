@@ -1,0 +1,38 @@
+{
+  "sha256": "cd62425a6d8ae0ca7351bb6e71b31cd0b4eb7266263e53e377f976bab261e037",
+  "reviewers": [
+    {
+      "label": "orion",
+      "input": "/tmp/proof-735e1a9531d4/REPORT.md",
+      "output": "/tmp/proof-735e1a9531d4/REVIEW.md",
+      "state": "complete",
+      "verdict": "PASS",
+      "saved_review": "reviews/final/ORION_REVIEW.md",
+      "review_sha256": "73508c3061130cd97f9e089cafc17fae4a8a6434c0935418f8dceafc99e7530b",
+      "certifies_global_target": false
+    },
+    {
+      "label": "larch",
+      "input": "/tmp/proof-f17d445202e2/REPORT.md",
+      "output": "/tmp/proof-f17d445202e2/REVIEW.md",
+      "state": "complete",
+      "verdict": "PASS",
+      "saved_review": "reviews/final/LARCH_REVIEW.md",
+      "review_sha256": "4d83c2a13c8dad3aa4d2807be952754c251924caecd22087e068a93d4b98789a",
+      "certifies_global_target": false
+    },
+    {
+      "label": "flint",
+      "input": "/tmp/proof-ef1cd41278f3/REPORT.md",
+      "output": "/tmp/proof-ef1cd41278f3/REVIEW.md",
+      "state": "complete",
+      "verdict": "PASS for stated partial theorems; FAIL as completion of requested global trained theorem",
+      "saved_review": "reviews/final/FLINT_REVIEW.md",
+      "review_sha256": "986c13befd785c722b0dc8a415e6e017c47f7c7cdfd465a76e3c768b4ec6a454",
+      "certifies_global_target": false
+    }
+  ],
+  "review_status": "complete",
+  "proved_scope_verdict": "All three validate the initialization theorems and explicitly conditional continuation theorem; no mathematical corrections requested in those scopes.",
+  "requested_global_target_status": "UNRESOLVED; no sufficient cutoff or global trained joint limit certified. Flint explicitly records FAIL against completion of that objective."
+}

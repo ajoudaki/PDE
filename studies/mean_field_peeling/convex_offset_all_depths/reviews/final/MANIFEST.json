@@ -1,0 +1,18 @@
+{
+  "report_sha256": "a6dae64cd54b9ab34520d2b493b78cefbbd4c868b5c222552e169982aff9f668",
+  "verdict_scope": "Initialized conditioning obstruction only; full global trained theorem unresolved.",
+  "reviewers": [
+    {
+      "name": "brook",
+      "verdict": "PASS",
+      "input": "whole manuscript only; no inherited context, other files, reviews or agents",
+      "report_sha256": "83a0290421783fad1edc92bc6bb6bcbae7da5c03f1a04251b19b14e37bb64492"
+    },
+    {
+      "name": "garnet",
+      "verdict": "PASS",
+      "input": "whole manuscript only; no inherited context, other files, reviews or agents",
+      "report_sha256": "19eb28944ded756a6b7836f47ad3ca3db630c4d07725c6ba08e0bc411aa10686"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "round": 2,
+  "sha256": "43dcb3930747cb3ad00615d3eac93ec15e2eff85c1a8e56c30145f029b3360f3",
+  "bytes": 302361,
+  "lines": 5743,
+  "reviewers": [
+    {
+      "role": "pine",
+      "input": "/tmp/report-a3fed73a0309/REPORT.md",
+      "output": "/tmp/report-a3fed73a0309/REVIEW.md",
+      "state": "complete",
+      "agent": "mixture_final_pine",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_02/PINE_REVIEW.md",
+      "review_sha256": "2615e99f7fe9cb8fec715dd6c6c88372e419e9bd5a5542752b779a3a58c1a285",
+      "root_read_complete": true,
+      "input_hash_verified_after_review": true
+    },
+    {
+      "role": "mesa",
+      "input": "/tmp/report-dc0d522df099/REPORT.md",
+      "output": "/tmp/report-dc0d522df099/REVIEW.md",
+      "state": "complete",
+      "agent": "mixture_final_mesa",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_02/MESA_REVIEW.md",
+      "review_sha256": "8f4bc962ddcc2e6e8613255f91725dd22246f22407b8c994bed436c523b95b68",
+      "root_read_complete": true,
+      "input_hash_verified_after_review": true
+    },
+    {
+      "role": "brook",
+      "input": "/tmp/report-f48578624d99/REPORT.md",
+      "output": "/tmp/report-f48578624d99/REVIEW.md",
+      "state": "complete",
+      "agent": "mixture_final_brook",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_02/BROOK_REVIEW.md",
+      "review_sha256": "397665c6ae85bbad1c26418f8f300fd25d7d026da861118c1744fe94b7e46870",
+      "root_read_complete": true,
+      "input_hash_verified_after_review": true
+    },
+    {
+      "role": "flint",
+      "input": "/tmp/report-9e9d67605cc3/REPORT.md",
+      "output": "/tmp/report-9e9d67605cc3/REVIEW.md",
+      "state": "complete",
+      "agent": "mixture_final_flint",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_02/FLINT_REVIEW.md",
+      "review_sha256": "f4e10c7fd635a0dabbd8c80b96a778057f83f56f05b708109b8528ad64914aed",
+      "root_read_complete": true,
+      "input_hash_verified_after_review": true
+    }
+  ],
+  "status": "complete",
+  "verdict": "ALL PASS; no substantive mathematical objections or required mathematical repairs"
+}

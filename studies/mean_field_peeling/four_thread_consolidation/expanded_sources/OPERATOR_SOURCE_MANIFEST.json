@@ -1,0 +1,87 @@
+[
+  {
+    "type": "primary_session_rollout",
+    "operator": 1,
+    "path": "/home/codex-b/.codex/sessions/2026/08/24/rollout-2026-08-24T21-35-00-01a03544-ddce-77a1-b5af-44df07c54f4b.jsonl",
+    "sha256": "3de0bea6d66704335b667befae8b8091b8fb18a60c36ba54dd38bc7f23e4a0c7",
+    "bytes": 62709547,
+    "lines": 36944,
+    "messages_exported": 458,
+    "final_answers_exported": 52,
+    "reviews_exported": 510
+  },
+  {
+    "type": "primary_session_rollout",
+    "operator": 2,
+    "path": "/home/codex-b/.codex/sessions/2026/08/27/rollout-2026-08-27T21-35-19-01a044b8-39b5-7240-8406-c08a614deaa8.jsonl",
+    "sha256": "e9eb9a5d71e5f59e2770144d9aca27f050e3cf20fa146a485d729ad524b47915",
+    "bytes": 60402354,
+    "lines": 34738,
+    "messages_exported": 428,
+    "final_answers_exported": 50,
+    "reviews_exported": 112
+  },
+  {
+    "type": "verbatim_preservation_copy",
+    "original": "/tmp/L2_FULL_AUDITED_PROOF.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OPERATOR_L2_FULL_AUDITED_PROOF.md",
+    "sha256": "e9f963cde5061f4f5b4d8d3913a62ccd013af451334e46356134f624759d42fb",
+    "bytes": 46033
+  },
+  {
+    "type": "verbatim_preservation_copy",
+    "original": "/tmp/L3_AUDITED_REPORT.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OPERATOR1_L3_AUDITED_REPORT.md",
+    "sha256": "bf6c25c58122400794da9226380263546be3165f5cd9245e5296e34eecf7f82e",
+    "bytes": 9676
+  },
+  {
+    "type": "verbatim_preservation_copy",
+    "original": "/tmp/l3_joint_limit_audited_report.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OPERATOR2_L3_AUDITED_REPORT.md",
+    "sha256": "5fc3b4470a7863bcb8c0f350f329e20cc9a68a1a770005f9a1c683c2e404cfb3",
+    "bytes": 34237
+  },
+  {
+    "type": "primary_study_artifact",
+    "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_deep_linear_joint_audit/JOINT_DEEP_LINEAR_THEOREM.md",
+    "sha256": "ca3407d83f19faa857307c976d680b4c5b97f90901fd5faf48920d2f9e20d799",
+    "bytes": 32324
+  },
+  {
+    "type": "primary_study_artifact",
+    "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_deep_linear_joint_audit/AUDIT_RECORD.md",
+    "sha256": "53bfd8e718a169671d80d584728d843dbd8bebbf8081050fef031e6d1f714a6b",
+    "bytes": 1413
+  },
+  {
+    "type": "primary_study_artifact",
+    "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_deep_linear_pde_no_go/PDE_CLOSURE_BOUNDARY.md",
+    "sha256": "cc8b6fa5c8084ed69d56c794214edb5c14d8208801e47aab2fb4a5d5715bcd2e",
+    "bytes": 20677
+  },
+  {
+    "type": "primary_study_artifact",
+    "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/quadratic_compiler/operator_ide_resolution/CANONICAL_CONCENTRATION_NO_GO_COVARIANT_SCHUR.md",
+    "sha256": "a1eb606ab73a34476ac5ab8f848c25db681c662d655ac6a90f8099eb5ef24c1c",
+    "bytes": 120080
+  },
+  {
+    "type": "primary_study_artifact",
+    "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_loss_mesh_resolution/FINAL_X2_RELU_MESH_VERDICT.md",
+    "sha256": "a32d762ae6f80597f065a25547e73387bc13d201c9285e263068c5c86342022f",
+    "bytes": 12742
+  },
+  {
+    "type": "primary_study_artifact",
+    "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_loss_time_doubling/RELU_NO_CONTINUOUS_LIMIT_TEST.md",
+    "sha256": "15c1c094ec7e3ddfc8c46714be63ccebd47aeed946122a4a2ce11f46141ad70c",
+    "bytes": 10900
+  },
+  {
+    "type": "primary_study_artifact",
+    "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/temporary_joint_width_mesh_quadratic/ARBITRARY_DIAGONAL_FROZEN_THEOREM_AND_FULL_GAP.md",
+    "sha256": "9c4390df30702a8b1be9762e3fb4fcb485c06339fe7017eddfb86c6263390f00",
+    "bytes": 12674
+  }
+]

@@ -1,0 +1,494 @@
+[
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/TIME_ORDERED_PROBE_AND_SELF_RETURN_AUDIT.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/TIME_ORDERED_PROBE_AND_SELF_RETURN_AUDIT.md",
+    "sha256": "2e9719c23de96d6c02a938c0bafbc18f0a13c55f7c9de646e50341efb212fb8a",
+    "bytes": 7350
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/PRIMARY_DMFT_APPLICABILITY.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/PRIMARY_DMFT_APPLICABILITY.md",
+    "sha256": "19cc9a1ac3b1bd064f6b89e0ac43335a86a8b966a149ddf787af0ce38bc2d0f0",
+    "bytes": 9127
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_BACKPROP_PRIMITIVE_RESPONSE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ACTUAL_BACKPROP_PRIMITIVE_RESPONSE.md",
+    "sha256": "067e1bc7d38c7409dab9639f29f84543abd2d0b7a9b9d543f9a47a6747e54d1e",
+    "bytes": 11648
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_TWO_TIME_RARE_RETURN.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ACTUAL_TWO_TIME_RARE_RETURN.md",
+    "sha256": "5107747cabffdd2f2e4be2775d151944a5484aa7ce49f4d840b20861c8000dce",
+    "bytes": 6584
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/GATED_LOCALIZATION_AUDIT.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/GATED_LOCALIZATION_AUDIT.md",
+    "sha256": "d0e8b8140659879a3c3214982140d1e77cbbaa77b5268ebfaa5a5ade6058a547",
+    "bytes": 9356
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/RESNET_DMFT_PRIMARY_SCOPE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/RESNET_DMFT_PRIMARY_SCOPE.md",
+    "sha256": "2509a7bb5922efe5b789268ca74527e33d62b0731d8c43467a899b74ec5f0d74",
+    "bytes": 8359
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/REVIEW.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/REVIEW.md",
+    "sha256": "64d35471008bb536d2bc8ade6ee251fa2985a083ed61947df404349685c24b97",
+    "bytes": 48660
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_LOG_GATE_SECOND_IBP.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ACTUAL_LOG_GATE_SECOND_IBP.md",
+    "sha256": "cd162a86090a6ef025bededd06b0cb723368006befeba2939bfe23a094fe4210",
+    "bytes": 6743
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/GAUGE_MEAN_REDUCTION.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/GAUGE_MEAN_REDUCTION.md",
+    "sha256": "ee87d4c9ed2c086244aa7cbb964e54bd360d8d5bffbbf00fb3e9d5a3f07ea007",
+    "bytes": 2991
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/PANAHI_ADAPTIVE_GRAM_MARTINGALE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/PANAHI_ADAPTIVE_GRAM_MARTINGALE.md",
+    "sha256": "6cec745dde896fa2932592b126f48488618cd426a45de1fa03598fd467bdb4b5",
+    "bytes": 10809
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_PRIMITIVE_OFFDIAGONAL_PAIR.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ACTUAL_PRIMITIVE_OFFDIAGONAL_PAIR.md",
+    "sha256": "f7f1b24a4f53cacdf0f86258eafb9b4ae86473b894d70fc9346af0726697df04",
+    "bytes": 4189
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ACTIVE_GATE_PRIMITIVE_AUDIT.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ACTIVE_GATE_PRIMITIVE_AUDIT.md",
+    "sha256": "485853c417cababa0b7535dc2baba664e139d4d52fca75773f20da36a86598f1",
+    "bytes": 5454
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/GRADIENT_ACTION_VARIATIONAL_SCOPE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/GRADIENT_ACTION_VARIATIONAL_SCOPE.md",
+    "sha256": "9a72a55b0e6659844e39fc945ceb81b3fc1a7e9339c6b99f560535b1fb41b5f1",
+    "bytes": 2771
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/LOCAL_CUTOFF_BRIDGE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/LOCAL_CUTOFF_BRIDGE.md",
+    "sha256": "a872fb412273ad4674c4d53729a36dc7a81f1c6e6bd471bb80d7ee613f018960",
+    "bytes": 28155
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/CONTRACT_AND_LEDGER.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/CONTRACT_AND_LEDGER.md",
+    "sha256": "c47efd26c8a10d386ea7d6646c351224ffb4baffce1574bdd1479bed543f4110",
+    "bytes": 47649
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/PROJECTED_ANGLE_STRUCTURAL_COUNTEREXAMPLE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/PROJECTED_ANGLE_STRUCTURAL_COUNTEREXAMPLE.md",
+    "sha256": "62467a4467817ff2c6583e663b7b0735ebc650a21a09acb3abcff46dd809722d",
+    "bytes": 10396
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/GLOBAL_RESPONSE_CONTINUATION_AUDIT.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/GLOBAL_RESPONSE_CONTINUATION_AUDIT.md",
+    "sha256": "2b79089c4676a92056430f9927d00417a47d9ba54949ea6b475b1c21f29b2791",
+    "bytes": 7322
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_WEIGHTED_ADDITIVE_PROBE_SOURCE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ACTUAL_WEIGHTED_ADDITIVE_PROBE_SOURCE.md",
+    "sha256": "4da8640a8b40ccb22f835762413f1f2a9e11a6d067e54b998156d342fb0ba5f4",
+    "bytes": 9307
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/PANAHI_SMALL_JITTER_RANK_INFLATION.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/PANAHI_SMALL_JITTER_RANK_INFLATION.md",
+    "sha256": "16ef6bcbd50681f46c45d1399e0496c9d42baa87a37880bfefa8b220efc8a1be",
+    "bytes": 6106
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_WEIGHTED_GATE_HARDY_BOUND.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ACTUAL_WEIGHTED_GATE_HARDY_BOUND.md",
+    "sha256": "73b5f44b4fc6796ab08078e2d845d20fc51378107a48bc0233ef81d08359ce41",
+    "bytes": 10119
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/LOGARITHMIC_NETWORK_COMPARISON.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/LOGARITHMIC_NETWORK_COMPARISON.md",
+    "sha256": "adc98d1f9fe2c23560afc649e9107e2125a87aca1c94ee5db9a4f43e7034f480",
+    "bytes": 19196
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/READOUT_COERCIVITY.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/READOUT_COERCIVITY.md",
+    "sha256": "0bd062da74fbde03d41a125561beee7345915ea6aa0578ed8e7b81d2c9f08c53",
+    "bytes": 14558
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/GAUSSIAN_ACTION_LP_OBSTRUCTION.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/GAUSSIAN_ACTION_LP_OBSTRUCTION.md",
+    "sha256": "66bab078eb40ac789cf4f818485db07aaec7c1b4f6c9b3b5eb254d5d89bf322c",
+    "bytes": 7845
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/LOCAL_ACTION_SPACE_AND_FLOW.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/LOCAL_ACTION_SPACE_AND_FLOW.md",
+    "sha256": "a61dda52b01e6f44c2bc5cb345d442e84ff6a7dd0de30bc709aa85bf18490482",
+    "bytes": 11611
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/FINITE_PRUNED_BACKPROP_PRIMITIVE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/FINITE_PRUNED_BACKPROP_PRIMITIVE.md",
+    "sha256": "4ed5dfe0d63ed1108dff35841cb603523f06e2c34f806face02fe1d42602cc5a",
+    "bytes": 9240
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/L3_LOCAL_COMPLETE_PROOF.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/L3_LOCAL_COMPLETE_PROOF.md",
+    "sha256": "f97148f84979ab5b8489927d477b6abb3d919e27fd457455f2e3b98416725de4",
+    "bytes": 93788
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_GAUSSIAN_DIVERGENCE_SCOPE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ACTUAL_GAUSSIAN_DIVERGENCE_SCOPE.md",
+    "sha256": "024d8fc5097a35c5556d98b1956abfa06f130fee256d696af5475c896ebacd01",
+    "bytes": 16352
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ORTHOGONAL_SK_PRIMARY_SCOPE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ORTHOGONAL_SK_PRIMARY_SCOPE.md",
+    "sha256": "5a03cc54e7d469e184dd47ebd13b494991c1f19b16abeebd8ca8058fd4db3a86",
+    "bytes": 1364
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/TIME_ANALYTICITY_DERIVATIVE_AUDIT.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/TIME_ANALYTICITY_DERIVATIVE_AUDIT.md",
+    "sha256": "81a570015e8aec4cb0810dc75ec3d68764e8a54633ce7af5f8c7a7844bed9e98",
+    "bytes": 10164
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_ZERO_READOUT_REACHABLE_HESSIAN.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ACTUAL_ZERO_READOUT_REACHABLE_HESSIAN.md",
+    "sha256": "59b2bc2d3ee1fcfd3f4f118780b624986fc01aa4f2f7d7a8cea2eec18ca88b93",
+    "bytes": 12504
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ADAPTIVE_RARE_SELF_BLOCK_MODULUS.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ADAPTIVE_RARE_SELF_BLOCK_MODULUS.md",
+    "sha256": "3356d7f4063090dc79f7a856c0492ced304092c447b4996f258fb15c6d826db1",
+    "bytes": 5802
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/DIRECT_SCALAR_PRUNED_REDUCTION.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/DIRECT_SCALAR_PRUNED_REDUCTION.md",
+    "sha256": "31f84ed356d9f26eff58d2ca4b9f596c07ad1e265b3b825b6c5b3fd8feec3e39",
+    "bytes": 10368
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/EXACT_GD_COERCIVITY.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/EXACT_GD_COERCIVITY.md",
+    "sha256": "fcac71917f0a0c60c4368d7c86167aae0689ae87778622ab8745ac213fa9c35c",
+    "bytes": 19090
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/INVERSE_MIDDLE_METRIC_AUDIT.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/INVERSE_MIDDLE_METRIC_AUDIT.md",
+    "sha256": "aa7f6438cbe615eb9675c33d5e907688a0d2a76bfa9dbb3af1f74f32808cd053",
+    "bytes": 9311
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/DETERMINISTIC_LOCALIZATION_COUNTEREXAMPLE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/DETERMINISTIC_LOCALIZATION_COUNTEREXAMPLE.md",
+    "sha256": "fb79c1f863648d5575632d9b227d8ecbf168266ce5a00d0034ed7450e9bf2dad",
+    "bytes": 3947
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/TOP_COUPLED_LOCALIZATION.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/TOP_COUPLED_LOCALIZATION.md",
+    "sha256": "6ff9ef87b9f83053b9c6c876c516c2da12636c3668e63333674e1f34861dad82",
+    "bytes": 9911
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/NISHIYAMA_IMAIZUMI_PRIMARY_SCOPE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/NISHIYAMA_IMAIZUMI_PRIMARY_SCOPE.md",
+    "sha256": "164bfada3dda1524ffab1bfb86cf8c8c870ace3aa0e4e4e3362dcfb14090ff89",
+    "bytes": 1711
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/SCALAR_READOUT_PROJECTION_THEOREM.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/SCALAR_READOUT_PROJECTION_THEOREM.md",
+    "sha256": "365b73f71843bf64bde13166ca56845653003b0519ae6cbe5dd49d0ca62680a1",
+    "bytes": 18533
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/FINITE_FLOOR_HARDY_HIERARCHY_COUNTEREXAMPLE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/FINITE_FLOOR_HARDY_HIERARCHY_COUNTEREXAMPLE.md",
+    "sha256": "ac079950b4cb061736400645d0efc647e3222e924633a4cf8191ae9e3e4698bc",
+    "bytes": 8139
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/PANAHI_EULER_PERTURBATION_SIZE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/PANAHI_EULER_PERTURBATION_SIZE.md",
+    "sha256": "5c5b7a7fe40a670da99f3d188c7bbbba22b969ef1cecdeb21ac6027f7538809b",
+    "bytes": 13500
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/RARE_BACKWARD_ENERGY.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/RARE_BACKWARD_ENERGY.md",
+    "sha256": "32675e45b51502fbc56ae69b15c840129a322115d12c5ec44fd11302e1fd645b",
+    "bytes": 6885
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/SHARP_RARE_ACCUMULATED_FORCING.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/SHARP_RARE_ACCUMULATED_FORCING.md",
+    "sha256": "3e5d7ad08462dc3161e195285b498ec4dac6d0e1627da15942c5593afe92cd63",
+    "bytes": 6867
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_SIGNED_RANGE_INTEGRATING_FACTOR.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ACTUAL_SIGNED_RANGE_INTEGRATING_FACTOR.md",
+    "sha256": "4c10c2cc562c387469c9da260e008a4e485ccd4e6af886b88a5ba1b3821a45b0",
+    "bytes": 9536
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_LOG_GATE_COVARIANCE_COMMUTATOR.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ACTUAL_LOG_GATE_COVARIANCE_COMMUTATOR.md",
+    "sha256": "5770d934df3840184d0b19bc3a15eae82290cc879201fe862786ba56d24c6c76",
+    "bytes": 7864
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_SCHWARZIAN_MATERIAL_HESSIAN.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ACTUAL_SCHWARZIAN_MATERIAL_HESSIAN.md",
+    "sha256": "41086c4aa7d2f9432cfcac91b45485713ee292d6fcf7ef11588177c42b1a10ac",
+    "bytes": 10056
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_HIDDEN_GRAPH_VOLUME.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ACTUAL_HIDDEN_GRAPH_VOLUME.md",
+    "sha256": "7b70789e567d8c17d0f6ad1c7b4ab703fc9d0ed385863bf38bb8f81b80eeff7e",
+    "bytes": 8219
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_BULK_GAUSSIAN_TANGENT_ENERGY.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ACTUAL_BULK_GAUSSIAN_TANGENT_ENERGY.md",
+    "sha256": "ce800c6f86550319b138bd8a1387f69a2f8a91cca5e0a20586d2aed2aeeebffe",
+    "bytes": 9951
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/PAIR_SPECIFIC_COMMUTATOR.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/PAIR_SPECIFIC_COMMUTATOR.md",
+    "sha256": "5ff74adfc12ffd04d5c60dd6fb19ecf229d64d563209b5da53bac42f31c81da4",
+    "bytes": 10020
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_PROBE_LEVERAGE_LOCALIZATION.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ACTUAL_PROBE_LEVERAGE_LOCALIZATION.md",
+    "sha256": "9518db9ad030d15d11ee792e42e8107a4fb865187f9611a2f2539abf363ddd96",
+    "bytes": 7107
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_MOVING_RANGE_PROBE_NORMAL_FORM.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ACTUAL_MOVING_RANGE_PROBE_NORMAL_FORM.md",
+    "sha256": "3fe2d0a2e3926ffa65fd6891a4631b809c7d346e5eae2cf967274a38c6d147a3",
+    "bytes": 11721
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/LOCAL_RESPONSE_BOOTSTRAP_AUDIT.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/LOCAL_RESPONSE_BOOTSTRAP_AUDIT.md",
+    "sha256": "2a999c88df03e0344fe53f58c9d73e8ae4c6b4b79a860b531700060444fdbf47",
+    "bytes": 11122
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/JOINT_MIDDLE_QUERY_ENERGY_AUDIT.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/JOINT_MIDDLE_QUERY_ENERGY_AUDIT.md",
+    "sha256": "2052f2e13249c4876e5045dda1ab035e24c11e6d28f34fede5dea615e2ad45a5",
+    "bytes": 12554
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_PROJECTED_DENSITY.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ACTUAL_PROJECTED_DENSITY.md",
+    "sha256": "e41b9a5a5239172b40b9cfb2f5b40d4a975c98f19dae618ea207972aa379e9cd",
+    "bytes": 14905
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/CANONICAL_PROBE_INITIAL_SELF_RETURN.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/CANONICAL_PROBE_INITIAL_SELF_RETURN.md",
+    "sha256": "9d00c14fd90deca87a58cee1b1026f40c5d75cb9784b2b26d75c4cdb29cc1481",
+    "bytes": 3630
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/LOCAL_GRADIENT_STRUCTURE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/LOCAL_GRADIENT_STRUCTURE.md",
+    "sha256": "aeeee314cda7ba82f24293afcd3af03abc13788bd5131109624f2d01b911ab13",
+    "bytes": 6578
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/COVARIANCE_RESPONSE_INCREMENT_REDUCTION.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/COVARIANCE_RESPONSE_INCREMENT_REDUCTION.md",
+    "sha256": "d1e29b659c5fd7850736680ff686a8b45c1233656ba57729befd39675c2ce7cd",
+    "bytes": 10123
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/NEXT_PROOF_OBLIGATION.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/NEXT_PROOF_OBLIGATION.md",
+    "sha256": "f19b28770d5f19d3acf58b9d48c7be851f258cd1c44194f475c62b2c24797294",
+    "bytes": 43524
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/HANDOFF_PAUSED.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/HANDOFF_PAUSED.md",
+    "sha256": "48532f8fac3941defc36316a2f67a05481ad5be11c2282ad01c0af57af1e8c92",
+    "bytes": 2418
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/CONSISTENCY_FORCING_VARIATION.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/CONSISTENCY_FORCING_VARIATION.md",
+    "sha256": "2cc5936e90421442f2938ef7d63ce958b2e6fe7a881cec65c655198051fa08e0",
+    "bytes": 13938
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/PANAHI_GAUSSIAN_COMPARISON_SCOPE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/PANAHI_GAUSSIAN_COMPARISON_SCOPE.md",
+    "sha256": "b1cd3f9f4f3e2ddd38e7a506fea613b71201786cdc8b6fb38a99328e6509366a",
+    "bytes": 3090
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/LOCAL_THEOREM.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/LOCAL_THEOREM.md",
+    "sha256": "3182e140122332bb26621ae382f6b1baebf7aaea4b6de2791d8e8b8c94e3af9b",
+    "bytes": 8610
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/RARE_HARDY_HIERARCHY_COUNTEREXAMPLE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/RARE_HARDY_HIERARCHY_COUNTEREXAMPLE.md",
+    "sha256": "ba4d53b5844cc228b0058b4250e27d7ea0191adbb8893268e4ab3267a31e7800",
+    "bytes": 6858
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/PANAHI_CAUSAL_ADAPTATION_ISOMETRY_TEST.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/PANAHI_CAUSAL_ADAPTATION_ISOMETRY_TEST.md",
+    "sha256": "1031c8fd75aba6ef2965fc0a624cffacbd150b31787cac493f26c9437dc441a6",
+    "bytes": 5428
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ENDPOINT_RESTART_REDUCTION.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ENDPOINT_RESTART_REDUCTION.md",
+    "sha256": "26ed125b0aa5e93785db9007cd198897bf0ed0aeb445f8be15373d37e0b22bed",
+    "bytes": 7162
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/PRUNED_GAUSSIAN_SUBSET_BOUND.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/PRUNED_GAUSSIAN_SUBSET_BOUND.md",
+    "sha256": "383a12f3c5b459ec54927788a710fbea9e4d11b95ef83b0413c53dc5b2099787",
+    "bytes": 8285
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_FULL_PAIR_GAUSSIAN_IBP.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ACTUAL_FULL_PAIR_GAUSSIAN_IBP.md",
+    "sha256": "73a855fcd5dbb63dcdb5ed4e8bc60eba6f0274b21962ff88417166a169148efd",
+    "bytes": 13526
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/STOCHASTIC_TAYLOR_UNIVERSALITY_APPLICABILITY.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/STOCHASTIC_TAYLOR_UNIVERSALITY_APPLICABILITY.md",
+    "sha256": "a0efcb883fe23423801e5854b2b97cc85fa6b6552f5a200c8ebf0954010135e7",
+    "bytes": 3790
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/SINGLE_PRUNED_OFFBLOCK_OSGOOD.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/SINGLE_PRUNED_OFFBLOCK_OSGOOD.md",
+    "sha256": "0f907e82e212813ac3f97818b0fbd3db652ac1310b8629365b456b6cb68256c3",
+    "bytes": 15065
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/CONTINUATION_ROUTE_REGISTRY.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/CONTINUATION_ROUTE_REGISTRY.md",
+    "sha256": "75e92033dd99bc9fc1acb919d0512f8848cb30d8e5e50a37cf1616b646553de0",
+    "bytes": 16698
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/ACTUAL_RARE_BACKWARD_DERIVATIVE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/ACTUAL_RARE_BACKWARD_DERIVATIVE.md",
+    "sha256": "e402abc3c591fb029bf82d6e7b97bc533003e79104aab1b6c4837b13ed040be8",
+    "bytes": 14536
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/PRUNED_RARE_BLOCK_GEOMETRY.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/PRUNED_RARE_BLOCK_GEOMETRY.md",
+    "sha256": "71316052df34a348164ba02addd5478a4ecdd9bf5f26649535f2c047307d7c99",
+    "bytes": 8917
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/INTEGRATED_INITIAL_QUERY_COMPRESSION.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/INTEGRATED_INITIAL_QUERY_COMPRESSION.md",
+    "sha256": "2c97e9fe8c4e9b3a66d7efdf80f825f8c7bb6275649518c47fc001aef6b57c73",
+    "bytes": 12941
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/LOCAL_FEATURE_LEARNING.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/LOCAL_FEATURE_LEARNING.md",
+    "sha256": "4bf2940f3abeacbd49ff28f137a3882ff5db5bb85a10f57f374b518748e423a2",
+    "bytes": 15387
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/DELETED_QUERY_RESPONSE_AND_ENTROPY_AUDIT.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/DELETED_QUERY_RESPONSE_AND_ENTROPY_AUDIT.md",
+    "sha256": "8b80cdb09a11bf53555d70f426ea06ca8db288a377b7a09ac728dcd0da3eaf66",
+    "bytes": 7055
+  },
+  {
+    "source": "/tmp/l3-full-resolution-9nbD4z/RECENT_CAVITY_THEOREM_SCOPE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-full-resolution-9nbD4z/RECENT_CAVITY_THEOREM_SCOPE.md",
+    "sha256": "f53181d23da03bc74cce1d7ad26f051711e0a89afb318c36cda8c30a1a67375c",
+    "bytes": 1817
+  },
+  {
+    "source": "/tmp/l3-extension-check-mj4s9q/VERIFIED_SCOPE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-extension-check-mj4s9q/VERIFIED_SCOPE.md",
+    "sha256": "646a66981a53b6eda1313874a8c481cb5f2bc203657a4b472723814d7a21b7bf",
+    "bytes": 8035
+  },
+  {
+    "source": "/tmp/l3-extension-check-mj4s9q/REVIEW.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-extension-check-mj4s9q/REVIEW.md",
+    "sha256": "2736e5e999f277a44861244a2b9942eabbc07e06f0d721082cacf648d0a1a837",
+    "bytes": 1455
+  },
+  {
+    "source": "/tmp/l3-arctan-audit-sZue2v/EXACT_RESULTS_AND_GAP.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-arctan-audit-sZue2v/EXACT_RESULTS_AND_GAP.md",
+    "sha256": "0688eefacbf77b261e2fe19001054082fba79df9a5cd833ce1b5f3c5689c939c",
+    "bytes": 9627
+  },
+  {
+    "source": "/tmp/l3-arctan-audit-sZue2v/REVIEW.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-arctan-audit-sZue2v/REVIEW.md",
+    "sha256": "71d7fa440113b354673f6a6bfd0c612368c9a34df4424c5e88aed7f378ce4cab",
+    "bytes": 1863
+  },
+  {
+    "source": "/tmp/L3_SELF_CONTAINED_PROOF.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/historical/L3_SELF_CONTAINED_PROOF.md",
+    "sha256": "ea9762d9b67901e0e168c206149cb10db44c53d2df020b0302629489a58d3d23",
+    "bytes": 30013
+  },
+  {
+    "source": "/tmp/L3_FIXED_MESH_SOURCE_IDENTIFICATION.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/historical/L3_FIXED_MESH_SOURCE_IDENTIFICATION.md",
+    "sha256": "ba5cd7a52674a2031bf18ccb633bbb6eeeadd8f2a207369b38695d66ec40c03a",
+    "bytes": 13229
+  },
+  {
+    "source": "/tmp/l3-supervisor-handoff-nTFDQy/START_HERE.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/EXPLAIN_PRIMARY/l3-supervisor-handoff-nTFDQy/START_HERE.md",
+    "sha256": "931318638d57995864268036328319a55d2efcd111ee64fefeea8dc67d4d3768",
+    "bytes": 12291
+  }
+]

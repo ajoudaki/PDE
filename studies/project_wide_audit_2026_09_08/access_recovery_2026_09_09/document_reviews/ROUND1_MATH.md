@@ -1,0 +1,41 @@
+# ROUND1 mathematical document-only review
+
+**CLEAN** — no required mathematical correction identified.
+
+The review checks internal deductions, consistency, signs, scales, normalizations, limit orders, and state/observable implications. Source theorem statements are assessed at their declared evidence level. This verdict does not independently certify the inaccessible proofs, coefficient tables, historical coverage, or imported theorems.
+
+## Read and integrity record
+
+- Sole mathematical/evidential input: `/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/document_reviews/ROUND1_INPUT.md`.
+- Input size before and after review: **649 lines; 122,075 bytes**.
+- SHA256 before reading: `0629b35cbc044747233fe10788fb18158b269c56d0b73778708971e56fc61d06`.
+- SHA256 after the complete read and mathematical review: `0629b35cbc044747233fe10788fb18158b269c56d0b73778708971e56fc61d06`.
+- Fully read, consecutive numbered ranges: **1–90, 91–170, 171–240, 241–310, 311–365, 366–420, 421–475, 476–525, 526–570, 571–610, 611–649**. These include all sections, displayed equations, tables, and the final paragraph. No tool result was truncated; no missing range required repair.
+- Operational instructions read: `/etc/codex/skills/solve-math-rigorously/SKILL.md`, completely. Its deduction/hypothesis checks guided this review; the user's document-only restriction governed evidential access.
+- Isolation compliance: no linked/source/project files, earlier reviews, rollout histories, other agents' work, source audits, web pages, or external papers were read. No agents, experiments, task contacts, or master edits were performed. The only file written is this assigned report, using `apply_patch`.
+
+## Mathematical checks
+
+1. **Gaussian reuse and directional derivatives (lines 74–89).** Conditioning a row of variance-`1/n` Gaussian entries on its row sum gives covariance `P/n`; summing the independent conditioned rows with coefficients `g(y_i)` gives exactly the displayed conditional mean and covariance. The finite random coefficient is correctly distinguished from its deterministic limit. Writing `g = ∇f` and `H = ∇²f`, one has `Df = ||g||²`, `D²f = 2⟨g,Hg⟩`, and therefore `D³f = 2∇³f[g,g,g] + 4||Hg||²`. The coefficients in the display are consistent, and lines 100–108 explicitly distinguish the Euler-defect coefficient `J` from `D³F`.
+
+2. **Euler comparison scales and the deterministic counterexample (lines 100–133).** The identity-activation specialization has a consistent one-layer check: with the stated unit normalization, `F_{k,1}(h) = ((1+h)^{2k} − (1−h)^{2k})/2`, whose paired cubic difference is `−4k(2k−1)h³`, agreeing with lines 127–129 at `L=1`. The fixed-count and mesh-uniform bounds have different quantified domains and are not merged. In the stability witness, the additive activation perturbation moves the exceptional second preactivation from zero to one. Since `ψ′(0)=2` and `ψ′(1)=3/2`, the first-layer updates are indeed `4h` and `3h` coordinatewise. The restriction to a nonzero target for the physical-loss implication is necessary and present.
+
+3. **Formal series and trajectory claims (lines 141–202).** Output order 17 supplies the even kernel terms through order 16, hence eight candidate moments after the displayed division by `x`; integrating the Ward identity can give hidden order 18 without output order 19. Finite Hankel tests and the positive-alpha transition are not promoted to all-order positivity. The smooth zero-radius example is valid: its coefficient at `t^{2k}` is `(-1)^k E[G^{2k}]`, while bounded derivatives of the rational integrand and Gaussian moments justify smoothness. For the residual-clock argument, a hypothetical analytic physical output with nonzero initial residual would give an analytic locally invertible clock, contradicting the formal feature-series divergence. The document retains the separate trajectory-identification obligation and the zero-residual exception.
+
+4. **Finite algebra, gradient energy, and the GF diagonal (lines 212–291).** The trace readout has differential `df[H]=Tr(C³H)`, giving the adjoint-cube gradient and the sign of the displayed fitting flow. The partial-square updates carry the expected factors two/four and the middle-matrix factor `1/n`. For fixed-width square-loss GF, `||D∇E||² ≤ ||D||⟨∇E,D∇E⟩` gives the stated integrated speed bound. Cauchy–Schwarz then gives finite path length on every finite interval, sufficient for continuation in finite dimensions. Fixed-width Euler convergence permits the deterministic probability-based mesh selection in lines 285–289; the hypothesis covering every deterministic vanishing mesh then gives the GF corollary. No uniform-in-width Euler rate or cross-mesh same-neuron coupling is inferred.
+
+5. **Clocks, nonlinearity, and depth scales (lines 295–377).** The feature-kernel floor `25/36`, full-square-loss clock `ds/dt=2(1−f)`, and loss exponent `25/9` agree: `d(1−f)²/dt ≤ −(25/9)(1−f)²`. Also `36/25 < 3/2`. The nonaffinity ratio follows from the independent-copy variance identity and the lower difference bound `|φ(z)−φ(z′)| ≥ (a−e)|z−z′|`; its assumptions exclude the equal-coefficient odd-gain case, as acknowledged. The stated absolute/relative large-depth nonaffinity scales are consistent with variance `1/(2θL)`. Initialization conditioning, conditional fitting-time lower bounds, and trained continuation remain distinct claims.
+
+6. **Caps, projection, and generated actions (lines 399–477).** For `R_n=o(log n)`, the exponential cap factor is `n^{o(1)}`, so the displayed `n^{-1/24}` comparison error vanishes despite the logarithms. This comparison is correctly not used to establish existence of a varying-cap limit. For the metric projection, the box normal condition gives `e_i=0` at interior coordinates and `u_i=R sign(e_i)` when `e_i≠0`; hence `eᵀu=R||e||₁`, with the displayed positive sign. The integrated `L¹` defect is not promoted to an RMS or squared-observable estimate. The generated-action witness keeps width first at each fixed bump scale, and `||e_ε/√v_ε||_p` has precisely the stated `ε^{1/p−1/2}` growth.
+
+7. **Recovered partial results and further limits (lines 383–395, 479–523).** The same-array value lemma retains its response-row premise. Capped flows on supplied spaces, selected path compactness, finite-time endpoints, and a strong coherent-graphon flow are not promoted to canonical Gaussian identification or restart. The scalar-particle estimate permits the stated joint width/depth conclusion: the expected layer average equals a single-layer expected empirical `W₁` error, tending to zero under the stated finite-first-moment assumption, independently of the number of layers. The coherent graphon's vanishing Gaussian operator estimate is correctly separated from raw Frobenius convergence and from an assembled noisy nonlinear joint limit.
+
+8. **Optimization and the final synthesis (lines 539–649).** The odd/even symmetry obstructions and the readout contrast lower bound follow from their stated assumptions. With mean square loss, `ḟ=−2Kr/m` gives `L̇=−4rᵀKr/m²`; a uniform residual-direction lower bound yields decay at rate `4κ/m`. The prescribed-accuracy bridge chooses a finite horizon before width tends to infinity and establishes the displayed probability bound. It does not exchange infinite-time and width limits. The final task tables and corrections preserve the earlier distinctions between fixed depth and depth-uniform claims, finite GF and exact GD, initialized and trained quantities, and checked versus dependency-qualified results.
+
+## Disposition
+
+Required corrections: **none**.
+
+Optional clarification only: at lines **221–223**, the explicitly displayed `K=||C³||²_HS` is the unit-metric kernel with the common rate `η` written outside it. Calling it the “unit-metric kernel” would make its relation to the mobility-inclusive convention at line **41** immediate: absorbing `η` into the mobility gives kernel `ηK`. The source-normalization introduction and displayed flow already specify the convention, so this is not a required correction.
+
+No missing source proof has been treated as an internal mathematical defect merely because the consolidation expressly retains an audit dependency or an open premise.

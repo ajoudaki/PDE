@@ -1,0 +1,107 @@
+[
+  {
+    "source": "/tmp/TWO_INPUT_LOCAL_LIMIT_PROOF.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/arctan_two_primary/TWO_INPUT_LOCAL_LIMIT_PROOF.md",
+    "bytes": 35198,
+    "sha256": "de2904c3ae577ccaf7390e5bde8580620c48b39d2554c36c8d56debc0fce6bf3",
+    "copy_matches_source": true
+  },
+  {
+    "source": "/tmp/TWO_INPUT_LOCAL_LIMIT_REVIEW.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/arctan_two_primary/TWO_INPUT_LOCAL_LIMIT_REVIEW.md",
+    "bytes": 2228,
+    "sha256": "a4b34ffd1069cc5b60b181605375e023b3d5e83f4cf2f21ee835cdc2fb492ff1",
+    "copy_matches_source": true
+  },
+  {
+    "source": "/tmp/THREE_INPUT_LOCAL_LIMIT_PROOF.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/arctan_two_primary/THREE_INPUT_LOCAL_LIMIT_PROOF.md",
+    "bytes": 41677,
+    "sha256": "08c96e9b4dff421d99e7213509bb3bec3adf1d7c897ea9cc436e4e6f02d1a95b",
+    "copy_matches_source": true
+  },
+  {
+    "source": "/tmp/THREE_INPUT_LOCAL_LIMIT_REVIEW.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/arctan_two_primary/THREE_INPUT_LOCAL_LIMIT_REVIEW.md",
+    "bytes": 1898,
+    "sha256": "2c84f5dee8998ad39a9e56d0c2ce89b81f6663b2ef4dde3a387e26e2119431c1",
+    "copy_matches_source": true
+  },
+  {
+    "source": "/tmp/THREE_INPUT_SCALED_LIMIT_EXTENSION_CHECK.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/arctan_two_primary/THREE_INPUT_SCALED_LIMIT_EXTENSION_CHECK.md",
+    "bytes": 9414,
+    "sha256": "eeb5b0b2b206fa5318e50840b5b9dcec663b1f4433239d3d602dfbbfe963a051",
+    "copy_matches_source": true
+  },
+  {
+    "source": "/tmp/three_input_activity_lemma.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/arctan_two_primary/three_input_activity_lemma.md",
+    "bytes": 12275,
+    "sha256": "02a7c6e3862d0c72b75d93e95d9e26cf3c7efe077bb17f5473e3da580f3d0c00",
+    "copy_matches_source": true
+  },
+  {
+    "source": "/tmp/GLOBAL_ACTIVATION_TRANSFORM_EXTENSION.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/arctan_two_primary/GLOBAL_ACTIVATION_TRANSFORM_EXTENSION.md",
+    "bytes": 32816,
+    "sha256": "356eddd6a5154d9099492cb0b676feebfc0bc16fd7c462144fe700da426b65b9",
+    "copy_matches_source": true
+  },
+  {
+    "source": "/tmp/GLOBAL_MULTIINPUT_EXTENSION_ATTEMPT.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/arctan_two_primary/GLOBAL_MULTIINPUT_EXTENSION_ATTEMPT.md",
+    "bytes": 10318,
+    "sha256": "0cff270470ff55a946b7005cd754cb78ae9a5a9d70877b6af2159fcba38b807e",
+    "copy_matches_source": true
+  },
+  {
+    "source": "/tmp/GENERAL_ACTIVATION_ACTIVITY.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/arctan_two_primary/GENERAL_ACTIVATION_ACTIVITY.md",
+    "bytes": 18356,
+    "sha256": "c6bfa76ac200ce59f91109b31a40d22d668ec678e2ea60386f93f7d7604b4e89",
+    "copy_matches_source": true
+  },
+  {
+    "source": "/tmp/GENERAL_DEPTH_LIMIT_CHECK.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/arctan_two_primary/GENERAL_DEPTH_LIMIT_CHECK.md",
+    "bytes": 11548,
+    "sha256": "e5c19b1e79111e8aea0d634fa519c5384b741a9dd48704f7a7a28bda5d3a5113",
+    "copy_matches_source": true
+  },
+  {
+    "source": "/tmp/PDE_GF_SUPERVISOR_HANDOFF.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/arctan_two_primary/PDE_GF_SUPERVISOR_HANDOFF.md",
+    "bytes": 21544,
+    "sha256": "89436a0b68cc257f0bad11375a25f853aca16cccdf0a566d6912ae821988acf9",
+    "copy_matches_source": true
+  },
+  {
+    "source": "/tmp/L2_FULL_AUDITED_PROOF.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/arctan_two_primary/L2_FULL_AUDITED_PROOF.md",
+    "bytes": 46033,
+    "sha256": "e9f963cde5061f4f5b4d8d3913a62ccd013af451334e46356134f624759d42fb",
+    "copy_matches_source": true
+  },
+  {
+    "source": "/tmp/L2_CONTINUUM_REPAIRS.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/arctan_two_primary/L2_CONTINUUM_REPAIRS.md",
+    "bytes": 15872,
+    "sha256": "9969c5013bd74f374bc6a0818764339c2e12d94d5e5697357777ebda3e4628b6",
+    "copy_matches_source": true
+  },
+  {
+    "source": "/tmp/L2_SECTIONS_4_5_REPAIR.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/arctan_two_primary/L2_SECTIONS_4_5_REPAIR.md",
+    "bytes": 19247,
+    "sha256": "66bdcd24ab62d794c4d9b4648678d2a5a39109ce60dc936422dc2fa11a6aebf1",
+    "copy_matches_source": true
+  },
+  {
+    "source": "/tmp/THREE_INPUT_LIMIT_EXTENSION_CHECK.md",
+    "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/arctan_two_primary/THREE_INPUT_LIMIT_EXTENSION_CHECK.md",
+    "bytes": 6001,
+    "sha256": "6a89ca0659977180beada854a4613fbe762a5702ab82832a2bba3f10fa9e18a5",
+    "copy_matches_source": true
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "file": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/EXACT_TWO_SAMPLE_REDUCTION.md",
+    "expected": "432f98ff185c797901a81f83c72e4217395d0100f0804b0e609b98db83182e60",
+    "actual": "432f98ff185c797901a81f83c72e4217395d0100f0804b0e609b98db83182e60",
+    "matches": true
+  },
+  {
+    "file": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/TWO_SAMPLE_SHORT_RESPONSE_BOOTSTRAP.md",
+    "expected": "9305453f933ad30a0e813e4e97942ee9e00490ce726d70142b25c8f67a475170",
+    "actual": "9305453f933ad30a0e813e4e97942ee9e00490ce726d70142b25c8f67a475170",
+    "matches": true
+  },
+  {
+    "file": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SAME_LABEL_GLOBAL_ASSEMBLY_REVIEWED_SNAPSHOT.md",
+    "expected": "2ad0d70ec48eb56dc4170c90df1075e02c8d208913e2dd4fcb4f77d2702baa57",
+    "actual": "2ad0d70ec48eb56dc4170c90df1075e02c8d208913e2dd4fcb4f77d2702baa57",
+    "matches": true
+  },
+  {
+    "file": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SAME_LABEL_GLOBAL_ASSEMBLY.md",
+    "expected": "510fd019c204e0e89e0c6bcb99c031a11de974b05323df1c016c72b263f64a44",
+    "actual": "510fd019c204e0e89e0c6bcb99c031a11de974b05323df1c016c72b263f64a44",
+    "matches": true
+  },
+  {
+    "file": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SAME_LABEL_NONTRIVIALITY.md",
+    "expected": "76124a7552d67304a7e43212b4461ca53c9d79a214af80761f6560012bdf48b6",
+    "actual": "76124a7552d67304a7e43212b4461ca53c9d79a214af80761f6560012bdf48b6",
+    "matches": true
+  },
+  {
+    "file": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SECH_SAME_LABEL_GLOBAL_TRANSFER.md",
+    "expected": "f7cfaf82de5ba25a7b8429435366a2919c2c82e15cf132d2525e4b260c602302",
+    "actual": "f7cfaf82de5ba25a7b8429435366a2919c2c82e15cf132d2525e4b260c602302",
+    "matches": true
+  },
+  {
+    "file": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/POSITIVE_TIME_MIDDLE_CURVATURE.md",
+    "expected": "9efd5283d35a493982f3a142332536d32a9905eff62cb44ea8793aaf001ea79a",
+    "actual": "9efd5283d35a493982f3a142332536d32a9905eff62cb44ea8793aaf001ea79a",
+    "matches": true
+  }
+]

@@ -1,0 +1,8 @@
+# Additional literature screening for the three-input gap
+
+This screening is separate from the immutable proof report and its audits. No result below is used as a mathematical premise. These are scope checks, not claims of complete proof validation.
+
+- Akmal Xodarev, “Feature Learning in Wide Neural Networks under μP: Identifiability and Sparse-Dictionary Decomposition of the Mean-Field Limit,” arXiv:2605.24710v1 (23 May 2026), https://arxiv.org/abs/2605.24710v1. The primary abstract explicitly concerns two-layer networks and noisy gradient descent. It does not supply the required theorem for our three-hidden-layer deterministic raw gradient flow. Its full proofs have not been audited here and none of its advanced claims is invoked.
+- Cong Fang, Jason D. Lee, Pengkun Yang, Tong Zhang, “Modeling from Features: a Mean-field Framework for Over-parameterized Deep Neural Networks,” COLT 2021, https://proceedings.mlr.press/v134/fang21a/fang21a.pdf. The full 50-page paper was retrieved. The introduction and scope discussion explicitly use an initialization regression and a special residual architecture; standard-DNN global convergence is stated as open there. This does not directly furnish our original Gaussian initialization, raw all-layer metric and all-time nonaffinity theorem. No theorem or proof from this paper is invoked, and a complete proof audit was not undertaken after the scope mismatch was identified.
+
+This limited screen found no directly applicable replacement for the missing bridge. It is not a claim that the wider literature contains no possible relevant method. Any future invocation of an advanced external theorem must receive the complete proof and hypothesis audit required by the research contract.

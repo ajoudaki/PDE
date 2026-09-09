@@ -1,0 +1,458 @@
+{
+  "two_sample_activation_design": {
+    "total": 40,
+    "matched": 40,
+    "results": [
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_activation_design/PROOF.md",
+        "expected": "c36d92166c65affeb7974c5fe07ddfaa8697399b56d3c4322e89db51a02748ce",
+        "actual": "c36d92166c65affeb7974c5fe07ddfaa8697399b56d3c4322e89db51a02748ce",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_activation_design/SHAPE_SYMMETRY.md",
+        "expected": "58432555e59bc191e98cb7fda7e1063d22410933c2cb5816003f6e5bbe061540",
+        "actual": "58432555e59bc191e98cb7fda7e1063d22410933c2cb5816003f6e5bbe061540",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_activation_design/LINEAR_GROWTH.md",
+        "expected": "5e06d3414959abef70cfbe569f1b393df689ad3826e31d391149d556ad861bd9",
+        "actual": "5e06d3414959abef70cfbe569f1b393df689ad3826e31d391149d556ad861bd9",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_activation_design/AFFINE_POSITIVITY.md",
+        "expected": "d87609ed88ed1d31ee3a9a32363e813ad4f30721b455737aa208db1c9bfaba81",
+        "actual": "d87609ed88ed1d31ee3a9a32363e813ad4f30721b455737aa208db1c9bfaba81",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_activation_design/BOUNDED_ACTIVATION_ROUTE.md",
+        "expected": "018e912b6b6e434c26eea0ea9a4c499952f9ffbff4c2cb4b235f18a2f61fa381",
+        "actual": "018e912b6b6e434c26eea0ea9a4c499952f9ffbff4c2cb4b235f18a2f61fa381",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_activation_design/RELATIVE_NONLINEARITY.md",
+        "expected": "bcaa95026a90736f32cd4e2cdd8f2a662439afa20051abb9522918becab2070f",
+        "actual": "bcaa95026a90736f32cd4e2cdd8f2a662439afa20051abb9522918becab2070f",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_activation_design/SINE_INITIALIZATION.md",
+        "expected": "55be13083cc6a61967e7e993a819c92a1e8ef981de858294a99e67e6fe335e72",
+        "actual": "55be13083cc6a61967e7e993a819c92a1e8ef981de858294a99e67e6fe335e72",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_activation_design/DEPENDENCIES.json",
+        "expected": "3f5916ff969e28e8fb3b899d91813a654802ab00c346baff82f1dede2d38d012",
+        "actual": "3f5916ff969e28e8fb3b899d91813a654802ab00c346baff82f1dede2d38d012",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/PROOF.md",
+        "expected": "a4d6ed0ee99a1e111b5eba068f2219cf561a2281b1828b26227aca7a0a54a050",
+        "actual": "a4d6ed0ee99a1e111b5eba068f2219cf561a2281b1828b26227aca7a0a54a050",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/AFFINE_CORE.md",
+        "expected": "634dd3bbc35436e9d1760bee5c11cbf2124b3c42e8920a1bf3a4fcbb15039711",
+        "actual": "634dd3bbc35436e9d1760bee5c11cbf2124b3c42e8920a1bf3a4fcbb15039711",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/SOURCE_AND_LIMIT_BRIDGE.md",
+        "expected": "2a140f2a5a39f911b5c2ca51bc79102d20e9209f1450d38005360c88103f6e77",
+        "actual": "2a140f2a5a39f911b5c2ca51bc79102d20e9209f1450d38005360c88103f6e77",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/INITIAL_MOTION_AND_NORMALIZATION.md",
+        "expected": "c96316fdc481ef3f9e6fc402514ca9b45bcff12e199023505fbbb86d4e15bf24",
+        "actual": "c96316fdc481ef3f9e6fc402514ca9b45bcff12e199023505fbbb86d4e15bf24",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/sources/ANGLE_SPECIFIC_THEOREM_ASSEMBLY.md",
+        "expected": "27b2579f27ec14319dd39a93a4942d7b6463860648462d5ccb31b662c7725b75",
+        "actual": "27b2579f27ec14319dd39a93a4942d7b6463860648462d5ccb31b662c7725b75",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/sources/CONTRACT.md",
+        "expected": "e32b52edb2c8061a341b1e93ff237f62f59d03f84b16e5b67a941bdd460c21bd",
+        "actual": "e32b52edb2c8061a341b1e93ff237f62f59d03f84b16e5b67a941bdd460c21bd",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/sources/FIXED_CAP_VELOCITY_BRIDGE.md",
+        "expected": "a2322a8dbacf28244b9fef63e757ba3a915628dbdf31020062f8c5772a1c0aa0",
+        "actual": "a2322a8dbacf28244b9fef63e757ba3a915628dbdf31020062f8c5772a1c0aa0",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/sources/INITIAL_FEATURE_LEARNING.md",
+        "expected": "bd81de0a7ad0cb9bdd1f27f89961f4a3b7a7da6914456ae08596a882fa2ec351",
+        "actual": "bd81de0a7ad0cb9bdd1f27f89961f4a3b7a7da6914456ae08596a882fa2ec351",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/sources/L3_LOCAL_COMPLETE_PROOF.md",
+        "expected": "f97148f84979ab5b8489927d477b6abb3d919e27fd457455f2e3b98416725de4",
+        "actual": "f97148f84979ab5b8489927d477b6abb3d919e27fd457455f2e3b98416725de4",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/sources/NONLINEAR_RESPONSE_PERTURBATION.md",
+        "expected": "ef0ea077406a27307bc84e045feebf5099f6f81883bdfed41508035fe4559568",
+        "actual": "ef0ea077406a27307bc84e045feebf5099f6f81883bdfed41508035fe4559568",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/sources/PREVIOUS_TWO_SAMPLE_PROOF.md",
+        "expected": "2891b892667396d64bd747689bcd59aa7ca3ffd224d3579fc3407bca0b623f9a",
+        "actual": "2891b892667396d64bd747689bcd59aa7ca3ffd224d3579fc3407bca0b623f9a",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/sources/PRIMAL_COMPARISON_AND_CONTINUATION_BRIDGE.md",
+        "expected": "99eb60a64df1bbf4d8b70f351198abced9ef7eaeacf9b39c3997da5700a8f066",
+        "actual": "99eb60a64df1bbf4d8b70f351198abced9ef7eaeacf9b39c3997da5700a8f066",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/sources/SYMMETRY_RADIAL_CLOCK.md",
+        "expected": "40882fc19e44b4b9245156595bb1071bd4de6007d619fada54c9fce7c37903f4",
+        "actual": "40882fc19e44b4b9245156595bb1071bd4de6007d619fada54c9fce7c37903f4",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/sources/THREE_SAMPLE_CONTROLLED_RESPONSE_LEMMA.md",
+        "expected": "49da0f68047b4f516d3ad3c94b7112259838bcebf68e2296a948364232842789",
+        "actual": "49da0f68047b4f516d3ad3c94b7112259838bcebf68e2296a948364232842789",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/sources/TWO_SAMPLE_SOURCE_BASELINE.md",
+        "expected": "a84187ecd3639d0c4b7b209255056597326c97f11548faaf9b918659ae07477f",
+        "actual": "a84187ecd3639d0c4b7b209255056597326c97f11548faaf9b918659ae07477f",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_quantitative/PROOF.md",
+        "expected": "0a7dbd32cb9cc291e706813b59c0142394e6f9532244e52c21a5ab5d89ed4d02",
+        "actual": "0a7dbd32cb9cc291e706813b59c0142394e6f9532244e52c21a5ab5d89ed4d02",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_quantitative/AFFINE_POLYNOMIAL_BOUNDS.md",
+        "expected": "8387e2f253063c139dacb282ca9f2372478521f54b33a9ef6c8dbd83f2b521ca",
+        "actual": "8387e2f253063c139dacb282ca9f2372478521f54b33a9ef6c8dbd83f2b521ca",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_quantitative/POLYNOMIAL_RESPONSE_LEMMA.md",
+        "expected": "51b0f717b33ed618219e086d32b16a95ef4253892171597d1805dd9d37a64f7f",
+        "actual": "51b0f717b33ed618219e086d32b16a95ef4253892171597d1805dd9d37a64f7f",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_quantitative/OLD_THRESHOLD_AND_NONAFFINITY.md",
+        "expected": "c63753a83e832793c886b8ae8c122e30e0c01864b86a1a5dc9bee030852f9210",
+        "actual": "c63753a83e832793c886b8ae8c122e30e0c01864b86a1a5dc9bee030852f9210",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_power10/PROOF.md",
+        "expected": "37b9e8a27135b95b8dffe05fe2b734229fadedc98bc1609259e365dbb2aeba37",
+        "actual": "37b9e8a27135b95b8dffe05fe2b734229fadedc98bc1609259e365dbb2aeba37",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_power10/AFFINE_SOURCE_CERTIFICATE.md",
+        "expected": "bc55c0f8e25de1f3a4316fe36e86afa25c9486e014192f2eb818358909b048eb",
+        "actual": "bc55c0f8e25de1f3a4316fe36e86afa25c9486e014192f2eb818358909b048eb",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_power10/REFINED_RESPONSE.md",
+        "expected": "3622a0f903cd51b712d1d524a140d834471b5eb588611f059535c41f6efd2332",
+        "actual": "3622a0f903cd51b712d1d524a140d834471b5eb588611f059535c41f6efd2332",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_power10/POSITIVE_SUPERSOLUTION.md",
+        "expected": "e2be183521919ce69c7ae41b81f5cd78566c5430a78c2408687f52f1b6d86774",
+        "actual": "e2be183521919ce69c7ae41b81f5cd78566c5430a78c2408687f52f1b6d86774",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_power10/NORMALIZED_GATES_AND_PRIMALS.md",
+        "expected": "8715de810f689037d2223712cd60bce15c3025bc53338a3a0fdeda6e07664dae",
+        "actual": "8715de810f689037d2223712cd60bce15c3025bc53338a3a0fdeda6e07664dae",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_power4/PROOF.md",
+        "expected": "7e33899649b547e7dcac8a465f2d118518d9db9ef001a3d04d2b9da615aa9485",
+        "actual": "7e33899649b547e7dcac8a465f2d118518d9db9ef001a3d04d2b9da615aa9485",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_power4/AFFINE_PROPAGATOR.md",
+        "expected": "88a1bfbaf6fd1fc6fcfea56b25a4490932663090eb01710e9d96ba04d26fe460",
+        "actual": "88a1bfbaf6fd1fc6fcfea56b25a4490932663090eb01710e9d96ba04d26fe460",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_power4/PRIMAL_L2_RESPONSE.md",
+        "expected": "cf313286d301aa9fe5fb121d0c1fa5351213efbeaa4c087656d205c3156e417a",
+        "actual": "cf313286d301aa9fe5fb121d0c1fa5351213efbeaa4c087656d205c3156e417a",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_power4/SECTOR_SUPERSOLUTION.md",
+        "expected": "e1ce9401b58bcd20384e1b2932d725844fda6904e9c9d70ef4a4f1af0f9ab68d",
+        "actual": "e1ce9401b58bcd20384e1b2932d725844fda6904e9c9d70ef4a4f1af0f9ab68d",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_activation_design/CANDIDATE_HASHES.json",
+        "expected": "c8e3ef6c9b7313e870348c179bfa5a940698cf9fa2f08e47e505ffe79a437d40",
+        "actual": "c8e3ef6c9b7313e870348c179bfa5a940698cf9fa2f08e47e505ffe79a437d40",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_activation_design/reviews/REVIEW_A.md",
+        "expected": "08f76854bfcea7b1a6e56d6cd78099ece4316908beb9b8d28bff5e5b16f849e2",
+        "actual": "08f76854bfcea7b1a6e56d6cd78099ece4316908beb9b8d28bff5e5b16f849e2",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_activation_design/reviews/REVIEW_B.md",
+        "expected": "4b25de3081c5cbce593cde45a9245967fd5293a3454c637cb841c546f714a739",
+        "actual": "4b25de3081c5cbce593cde45a9245967fd5293a3454c637cb841c546f714a739",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_activation_design/reviews/REVIEW_C.md",
+        "expected": "455a35a28b04e3d34e35fb308ed3e3710afe72df8ed786ac4ae4c1b868969e9e",
+        "actual": "455a35a28b04e3d34e35fb308ed3e3710afe72df8ed786ac4ae4c1b868969e9e",
+        "matches": true
+      }
+    ]
+  },
+  "moderate_sine_global": {
+    "total": 19,
+    "matched": 19,
+    "results": [
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/moderate_sine_global/LOCAL_SOURCE.md",
+        "expected": "4bfa60f57e8a226ed73ae85c225f28a17562f26b1aa498351e3617069c94be1e",
+        "actual": "4bfa60f57e8a226ed73ae85c225f28a17562f26b1aa498351e3617069c94be1e",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/moderate_sine_global/PHYSICAL_CONTINUATION.md",
+        "expected": "801901a3dc777fc64fcc568ac75c979ce8d7ffd85d7d70e2e3652d05a29a8c14",
+        "actual": "801901a3dc777fc64fcc568ac75c979ce8d7ffd85d7d70e2e3652d05a29a8c14",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/moderate_sine_global/CONDITIONAL_GLOBAL_AND_OBSTRUCTIONS.md",
+        "expected": "2a81c1e4810a4646da097cbac29b29dce982c9136bdb691863869b69834bf094",
+        "actual": "2a81c1e4810a4646da097cbac29b29dce982c9136bdb691863869b69834bf094",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_activation_design/PROOF.md",
+        "expected": "c36d92166c65affeb7974c5fe07ddfaa8697399b56d3c4322e89db51a02748ce",
+        "actual": "c36d92166c65affeb7974c5fe07ddfaa8697399b56d3c4322e89db51a02748ce",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_activation_design/SINE_INITIALIZATION.md",
+        "expected": "55be13083cc6a61967e7e993a819c92a1e8ef981de858294a99e67e6fe335e72",
+        "actual": "55be13083cc6a61967e7e993a819c92a1e8ef981de858294a99e67e6fe335e72",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_activation_design/BOUNDED_ACTIVATION_ROUTE.md",
+        "expected": "018e912b6b6e434c26eea0ea9a4c499952f9ffbff4c2cb4b235f18a2f61fa381",
+        "actual": "018e912b6b6e434c26eea0ea9a4c499952f9ffbff4c2cb4b235f18a2f61fa381",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/sources/TWO_SAMPLE_SOURCE_BASELINE.md",
+        "expected": "a84187ecd3639d0c4b7b209255056597326c97f11548faaf9b918659ae07477f",
+        "actual": "a84187ecd3639d0c4b7b209255056597326c97f11548faaf9b918659ae07477f",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/sources/NONLINEAR_RESPONSE_PERTURBATION.md",
+        "expected": "ef0ea077406a27307bc84e045feebf5099f6f81883bdfed41508035fe4559568",
+        "actual": "ef0ea077406a27307bc84e045feebf5099f6f81883bdfed41508035fe4559568",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/sources/L3_LOCAL_COMPLETE_PROOF.md",
+        "expected": "f97148f84979ab5b8489927d477b6abb3d919e27fd457455f2e3b98416725de4",
+        "actual": "f97148f84979ab5b8489927d477b6abb3d919e27fd457455f2e3b98416725de4",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/sources/PRIMAL_COMPARISON_AND_CONTINUATION_BRIDGE.md",
+        "expected": "99eb60a64df1bbf4d8b70f351198abced9ef7eaeacf9b39c3997da5700a8f066",
+        "actual": "99eb60a64df1bbf4d8b70f351198abced9ef7eaeacf9b39c3997da5700a8f066",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/sources/FIXED_CAP_VELOCITY_BRIDGE.md",
+        "expected": "a2322a8dbacf28244b9fef63e757ba3a915628dbdf31020062f8c5772a1c0aa0",
+        "actual": "a2322a8dbacf28244b9fef63e757ba3a915628dbdf31020062f8c5772a1c0aa0",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_odd_activation_theorem/sources/SYMMETRY_RADIAL_CLOCK.md",
+        "expected": "40882fc19e44b4b9245156595bb1071bd4de6007d619fada54c9fce7c37903f4",
+        "actual": "40882fc19e44b4b9245156595bb1071bd4de6007d619fada54c9fce7c37903f4",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_separated_angle_theorem/sources/TWO_SAMPLE_SOURCE_BASELINE.md",
+        "expected": "a84187ecd3639d0c4b7b209255056597326c97f11548faaf9b918659ae07477f",
+        "actual": "a84187ecd3639d0c4b7b209255056597326c97f11548faaf9b918659ae07477f",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_separated_angle_theorem/sources/L3_LOCAL_COMPLETE_PROOF.md",
+        "expected": "f97148f84979ab5b8489927d477b6abb3d919e27fd457455f2e3b98416725de4",
+        "actual": "f97148f84979ab5b8489927d477b6abb3d919e27fd457455f2e3b98416725de4",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/practical_fixed_depth2/development/ENERGY_ROUTE.md",
+        "expected": "cfd070445cea4f056f4f216b896dc78cd9156e7dc6285d25f7b5c28469ce5e68",
+        "actual": "cfd070445cea4f056f4f216b896dc78cd9156e7dc6285d25f7b5c28469ce5e68",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/moderate_sine_global/reviews/LOCAL_SOURCE_AUDIT.md",
+        "expected": "66418712be2378dfaa042c4ff0f54fed577fc60aa5c7824239c3050cbe20a295",
+        "actual": "66418712be2378dfaa042c4ff0f54fed577fc60aa5c7824239c3050cbe20a295",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/moderate_sine_global/reviews/LOCAL_BRIDGE_AUDIT.md",
+        "expected": "1b0793e1c70cef64f9a3017120fde32cc9a1c73734d3d3c1c727ecf4747ac6de",
+        "actual": "1b0793e1c70cef64f9a3017120fde32cc9a1c73734d3d3c1c727ecf4747ac6de",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/moderate_sine_global/reviews/CONDITIONAL_GLOBAL_AUDIT.md",
+        "expected": "af23f12c8359c147213d14783c8cfe85a5f14dc02474fb1c04b94cc8312492fd",
+        "actual": "af23f12c8359c147213d14783c8cfe85a5f14dc02474fb1c04b94cc8312492fd",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/moderate_sine_global/reviews/PHYSICAL_ROUTE_AUDIT.md",
+        "expected": "b20218fc37faba2daf3e56a1c62f4e1ac9b564adedda4a52fe3b0a3a25ed8f72",
+        "actual": "b20218fc37faba2daf3e56a1c62f4e1ac9b564adedda4a52fe3b0a3a25ed8f72",
+        "matches": true
+      }
+    ]
+  },
+  "two_sample_separated_angle_theorem": {
+    "total": 14,
+    "matched": 14,
+    "results": [
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_separated_angle_theorem/PROOF.md",
+        "expected": "2891b892667396d64bd747689bcd59aa7ca3ffd224d3579fc3407bca0b623f9a",
+        "actual": "2891b892667396d64bd747689bcd59aa7ca3ffd224d3579fc3407bca0b623f9a",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_separated_angle_theorem/SOURCE_HASHES.json",
+        "expected": "e36f1696924912c0af5d7f7aa90c856d7f9ff064c486f212cf26f2eaafbe9af1",
+        "actual": "e36f1696924912c0af5d7f7aa90c856d7f9ff064c486f212cf26f2eaafbe9af1",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_separated_angle_theorem/reviews/REVIEW_A.md",
+        "expected": "9fff25c25e66ff1fafa48b1f89d18ad9f057592235ef0d1f63c58bc538e2ee1f",
+        "actual": "9fff25c25e66ff1fafa48b1f89d18ad9f057592235ef0d1f63c58bc538e2ee1f",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_separated_angle_theorem/reviews/REVIEW_B.md",
+        "expected": "8928d877dbc43788a57ada39e484dd2657b421c82d2aebd630a7eec5e03e6491",
+        "actual": "8928d877dbc43788a57ada39e484dd2657b421c82d2aebd630a7eec5e03e6491",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_separated_angle_theorem/reviews/REVIEW_C.md",
+        "expected": "32bcdd865a21fe388c7af2857705d735f6db4e7576b95e11173bececfc57ff70",
+        "actual": "32bcdd865a21fe388c7af2857705d735f6db4e7576b95e11173bececfc57ff70",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_separated_angle_theorem/sources/ANGLE_SPECIFIC_THEOREM_ASSEMBLY.md",
+        "expected": "27b2579f27ec14319dd39a93a4942d7b6463860648462d5ccb31b662c7725b75",
+        "actual": "27b2579f27ec14319dd39a93a4942d7b6463860648462d5ccb31b662c7725b75",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_separated_angle_theorem/sources/CONTRACT.md",
+        "expected": "e32b52edb2c8061a341b1e93ff237f62f59d03f84b16e5b67a941bdd460c21bd",
+        "actual": "e32b52edb2c8061a341b1e93ff237f62f59d03f84b16e5b67a941bdd460c21bd",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_separated_angle_theorem/sources/FIXED_CAP_VELOCITY_BRIDGE.md",
+        "expected": "a2322a8dbacf28244b9fef63e757ba3a915628dbdf31020062f8c5772a1c0aa0",
+        "actual": "a2322a8dbacf28244b9fef63e757ba3a915628dbdf31020062f8c5772a1c0aa0",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_separated_angle_theorem/sources/INITIAL_FEATURE_LEARNING.md",
+        "expected": "bd81de0a7ad0cb9bdd1f27f89961f4a3b7a7da6914456ae08596a882fa2ec351",
+        "actual": "bd81de0a7ad0cb9bdd1f27f89961f4a3b7a7da6914456ae08596a882fa2ec351",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_separated_angle_theorem/sources/L3_LOCAL_COMPLETE_PROOF.md",
+        "expected": "f97148f84979ab5b8489927d477b6abb3d919e27fd457455f2e3b98416725de4",
+        "actual": "f97148f84979ab5b8489927d477b6abb3d919e27fd457455f2e3b98416725de4",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_separated_angle_theorem/sources/NONLINEAR_RESPONSE_PERTURBATION.md",
+        "expected": "ef0ea077406a27307bc84e045feebf5099f6f81883bdfed41508035fe4559568",
+        "actual": "ef0ea077406a27307bc84e045feebf5099f6f81883bdfed41508035fe4559568",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_separated_angle_theorem/sources/PRIMAL_COMPARISON_AND_CONTINUATION_BRIDGE.md",
+        "expected": "99eb60a64df1bbf4d8b70f351198abced9ef7eaeacf9b39c3997da5700a8f066",
+        "actual": "99eb60a64df1bbf4d8b70f351198abced9ef7eaeacf9b39c3997da5700a8f066",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_separated_angle_theorem/sources/SYMMETRY_RADIAL_CLOCK.md",
+        "expected": "40882fc19e44b4b9245156595bb1071bd4de6007d619fada54c9fce7c37903f4",
+        "actual": "40882fc19e44b4b9245156595bb1071bd4de6007d619fada54c9fce7c37903f4",
+        "matches": true
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mean_field_peeling/two_sample_separated_angle_theorem/sources/TWO_SAMPLE_SOURCE_BASELINE.md",
+        "expected": "a84187ecd3639d0c4b7b209255056597326c97f11548faaf9b918659ae07477f",
+        "actual": "a84187ecd3639d0c4b7b209255056597326c97f11548faaf9b918659ae07477f",
+        "matches": true
+      }
+    ]
+  }
+}

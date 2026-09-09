@@ -1,0 +1,23 @@
+--- GENERAL_POPULATION_GF_PROOF_REVIEWED.md
++++ GENERAL_POPULATION_GF_PROOF.md
+@@ -1,8 +1,8 @@
+ # A fixed positive-time population gradient-flow limit
+ 
+-Status: complete theorem framework; the response lemma is being independently
+-checked in GENERAL_DEPTH_RESPONSE_PROOF.md. This status line will be updated only
+-after the written proof and that lemma have passed adversarial review.
++Status: complete proof, independently reviewed by three fresh adversarial
++reviewers, all PASS with no required mathematical repair. The detailed response
++lemma is GENERAL_DEPTH_RESPONSE_PROOF.md; the review record is REVIEW_RECORD.md.
+ 
+ The time interval in this result is chosen before width and step size tend to
+ their limits. It is not a claim about every finite time interval. The population
+@@ -498,7 +498,7 @@
+ 
+ ## Strict feature activity is a separate two-hidden-layer corollary
+ 
+-For L=2, squared loss, zero limiting readout, positive sigma_1,sigma_2 and
++For L=2, squared loss, Gaussian first weights, zero limiting readout, positive sigma_1,sigma_2 and
+ kappa_1,kappa_2,kappa_3, assume normalized pairwise nonparallel inputs,
+ nonzero labels, and both activations nonaffine. Within the theorem's C1,1
+ class, the strict-activity proof in the companion activity note applies.

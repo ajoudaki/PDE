@@ -1,0 +1,4504 @@
+{
+  "database": "/home/amir/.codex/thread_history_1.sqlite",
+  "method": "Apply recorded fileChange add and unified update diffs exactly in timestamp order; no originals accessed and no mathematical edits. Unsuccessful chains omitted.",
+  "files": [
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/CONTRACT_AND_SEARCH.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/CONTRACT_AND_SEARCH.md",
+      "success": true,
+      "error": null,
+      "sha256": "7e19db02f9f3526363196436ba73d0ac7f6bb06f974e17c5a6617726cd49053d",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11212,
+          "created_at_ms": 1788723079228
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11282,
+          "created_at_ms": 1788723394668
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11305,
+          "created_at_ms": 1788723502954
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11382,
+          "created_at_ms": 1788723827391
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11459,
+          "created_at_ms": 1788724128487
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11565,
+          "created_at_ms": 1788724682426
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11633,
+          "created_at_ms": 1788724933067
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11817,
+          "created_at_ms": 1788725657912
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11864,
+          "created_at_ms": 1788725882841
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11920,
+          "created_at_ms": 1788726039724
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11994,
+          "created_at_ms": 1788726286201
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12123,
+          "created_at_ms": 1788726914973
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12247,
+          "created_at_ms": 1788727307169
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12307,
+          "created_at_ms": 1788727465205
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12414,
+          "created_at_ms": 1788727776330
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12435,
+          "created_at_ms": 1788727795092
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12462,
+          "created_at_ms": 1788727852987
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12479,
+          "created_at_ms": 1788727883883
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12498,
+          "created_at_ms": 1788727903451
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12655,
+          "created_at_ms": 1788728471239
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12675,
+          "created_at_ms": 1788728521826
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12810,
+          "created_at_ms": 1788728977335
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12832,
+          "created_at_ms": 1788729017578
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12861,
+          "created_at_ms": 1788729156664
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12943,
+          "created_at_ms": 1788729320147
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 13114,
+          "created_at_ms": 1788729855465
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 13166,
+          "created_at_ms": 1788730151373
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 13367,
+          "created_at_ms": 1788730812791
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 13528,
+          "created_at_ms": 1788731281335
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 13643,
+          "created_at_ms": 1788731679434
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 13701,
+          "created_at_ms": 1788731852294
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 13737,
+          "created_at_ms": 1788731899523
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 13798,
+          "created_at_ms": 1788732154714
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 13875,
+          "created_at_ms": 1788732344667
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 13898,
+          "created_at_ms": 1788732446298
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/MONOTONE_GATE_TOP_RESPONSE.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/MONOTONE_GATE_TOP_RESPONSE.md",
+      "success": true,
+      "error": null,
+      "sha256": "05923d87529ad1705a359060aa8a3789e7f18639b9e0648910002d7b935e445a",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11273,
+          "created_at_ms": 1788723371359
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/HARMONIC_FULL_RESPONSE_TEST.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/HARMONIC_FULL_RESPONSE_TEST.md",
+      "success": true,
+      "error": null,
+      "sha256": "6a6a49cd1e5c25c4e6884de8dca7d933f54cb3e2d67c8fcd8833b50b87480ae7",
+      "history_events": [
+        {
+          "thread_id": "01a07836-6695-7890-8c21-ce3b1a4ded61",
+          "turn_id": "01a07836-66e2-72d3-bd6d-4da93ad11eff",
+          "ordinal": 87,
+          "created_at_ms": 1788723604121
+        },
+        {
+          "thread_id": "01a07836-6695-7890-8c21-ce3b1a4ded61",
+          "turn_id": "01a07836-66e2-72d3-bd6d-4da93ad11eff",
+          "ordinal": 121,
+          "created_at_ms": 1788723766110
+        },
+        {
+          "thread_id": "01a07836-6695-7890-8c21-ce3b1a4ded61",
+          "turn_id": "01a07836-66e2-72d3-bd6d-4da93ad11eff",
+          "ordinal": 138,
+          "created_at_ms": 1788723802493
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/ORTHOGONAL_ANTIPARALLEL_FLOW_ANCHOR.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/ORTHOGONAL_ANTIPARALLEL_FLOW_ANCHOR.md",
+      "success": true,
+      "error": null,
+      "sha256": "c3f147633689050f8d9a4749e23861b02640dd7ba0e201b0f05a609b9c76cf39",
+      "history_events": [
+        {
+          "thread_id": "01a07836-6712-7530-99ea-a119672fd40a",
+          "turn_id": "01a07836-674f-75d2-9184-629e20d8f651",
+          "ordinal": 61,
+          "created_at_ms": 1788723637677
+        },
+        {
+          "thread_id": "01a07836-6712-7530-99ea-a119672fd40a",
+          "turn_id": "01a07836-674f-75d2-9184-629e20d8f651",
+          "ordinal": 78,
+          "created_at_ms": 1788723701426
+        },
+        {
+          "thread_id": "01a07836-6712-7530-99ea-a119672fd40a",
+          "turn_id": "01a07836-674f-75d2-9184-629e20d8f651",
+          "ordinal": 102,
+          "created_at_ms": 1788723770020
+        },
+        {
+          "thread_id": "01a07836-6712-7530-99ea-a119672fd40a",
+          "turn_id": "01a07836-674f-75d2-9184-629e20d8f651",
+          "ordinal": 112,
+          "created_at_ms": 1788723781666
+        },
+        {
+          "thread_id": "01a07836-6712-7530-99ea-a119672fd40a",
+          "turn_id": "01a07836-674f-75d2-9184-629e20d8f651",
+          "ordinal": 133,
+          "created_at_ms": 1788723803726
+        },
+        {
+          "thread_id": "01a07836-6712-7530-99ea-a119672fd40a",
+          "turn_id": "01a07836-674f-75d2-9184-629e20d8f651",
+          "ordinal": 139,
+          "created_at_ms": 1788723811805
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/MONOTONE_GATE_TOP_RESPONSE_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/MONOTONE_GATE_TOP_RESPONSE_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "f1011444a559c31b625f755c9d30248d6c2d3ee0ec6e6c33f905efd4f923694b",
+      "history_events": [
+        {
+          "thread_id": "01a07838-f7a1-7fc1-8843-3450049ca223",
+          "turn_id": "01a07838-f7de-7443-a93b-0672aaf52082",
+          "ordinal": 64,
+          "created_at_ms": 1788723696800
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/SOURCE_SCREENING.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/SOURCE_SCREENING.md",
+      "success": true,
+      "error": null,
+      "sha256": "207a257d6c6f6854b061e214fe748fb0db0e0cdf6b030a36b073d6fab0b00065",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11459,
+          "created_at_ms": 1788724128487
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11633,
+          "created_at_ms": 1788724933067
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12479,
+          "created_at_ms": 1788727883883
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12715,
+          "created_at_ms": 1788728711647
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/ORTHOGONAL_ANTIPARALLEL_FLOW_ANCHOR_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/ORTHOGONAL_ANTIPARALLEL_FLOW_ANCHOR_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "a7a0bc6e549dd39c3e6c461536ec22ef66d3e910e05532e1f390dacc67e102cf",
+      "history_events": [
+        {
+          "thread_id": "01a07844-29e2-7260-983c-19c613911359",
+          "turn_id": "01a07844-2a1e-7da0-8650-df4753ac78f2",
+          "ordinal": 67,
+          "created_at_ms": 1788724431044
+        },
+        {
+          "thread_id": "01a07844-29e2-7260-983c-19c613911359",
+          "turn_id": "01a07844-2a1e-7da0-8650-df4753ac78f2",
+          "ordinal": 82,
+          "created_at_ms": 1788724457241
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/HARMONIC_FULL_RESPONSE_TEST_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/HARMONIC_FULL_RESPONSE_TEST_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "b9ce700260542d1f608b06338820fe0705a3bcd9f4e4f67b12772c67f895de66",
+      "history_events": [
+        {
+          "thread_id": "01a07844-2a38-7421-823b-91cac3921c73",
+          "turn_id": "01a07844-2a74-7cc2-8fb5-2cfc0461bb6a",
+          "ordinal": 74,
+          "created_at_ms": 1788724683966
+        },
+        {
+          "thread_id": "01a07844-2a38-7421-823b-91cac3921c73",
+          "turn_id": "01a07844-2a74-7cc2-8fb5-2cfc0461bb6a",
+          "ordinal": 93,
+          "created_at_ms": 1788724725005
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/EXPONENTIAL_GATE_KILLING_TEST.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/EXPONENTIAL_GATE_KILLING_TEST.md",
+      "success": true,
+      "error": null,
+      "sha256": "9cc003a30975fa252497230d32633e8ac8e042e6178f1dfc795790036e295f4f",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11633,
+          "created_at_ms": 1788724933067
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/EXPONENTIAL_FIRST_HARMONIC_TEST.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/EXPONENTIAL_FIRST_HARMONIC_TEST.md",
+      "success": true,
+      "error": null,
+      "sha256": "06ee6563831212cb16f9b9523e9c584589b9304d084cf04cccdb8d1f072a7bb6",
+      "history_events": [
+        {
+          "thread_id": "01a0784b-bd3d-7760-9a25-1deead37a05c",
+          "turn_id": "01a0784b-bd7a-7020-9ad4-48f2face5014",
+          "ordinal": 77,
+          "created_at_ms": 1788724995349
+        },
+        {
+          "thread_id": "01a0784b-bd3d-7760-9a25-1deead37a05c",
+          "turn_id": "01a0784b-bd7a-7020-9ad4-48f2face5014",
+          "ordinal": 97,
+          "created_at_ms": 1788725039219
+        },
+        {
+          "thread_id": "01a0784b-bd3d-7760-9a25-1deead37a05c",
+          "turn_id": "01a0784b-bd7a-7020-9ad4-48f2face5014",
+          "ordinal": 113,
+          "created_at_ms": 1788725068291
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLE_NONTRIVIALITY.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLE_NONTRIVIALITY.md",
+      "success": true,
+      "error": null,
+      "sha256": "b14f75e6909b32762aca147f14a6ab7d3bafd6394c2d93e9a4df76ed1b142c3c",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11675,
+          "created_at_ms": 1788725152301
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11784,
+          "created_at_ms": 1788725570702
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLE_CANONICAL_BRIDGE.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLE_CANONICAL_BRIDGE.md",
+      "success": true,
+      "error": null,
+      "sha256": "de061c34befd83240e938c2511adc68168d6c2cbaa45b2c5b4b48e86a7a741c5",
+      "history_events": [
+        {
+          "thread_id": "01a0784c-9e05-7010-874b-cf1e3d4f3422",
+          "turn_id": "01a0784c-9e44-7ad3-9e9f-c3b840abfa5a",
+          "ordinal": 96,
+          "created_at_ms": 1788725218849
+        },
+        {
+          "thread_id": "01a0784c-9e05-7010-874b-cf1e3d4f3422",
+          "turn_id": "01a0784c-9e44-7ad3-9e9f-c3b840abfa5a",
+          "ordinal": 136,
+          "created_at_ms": 1788725394643
+        },
+        {
+          "thread_id": "01a0784c-9e05-7010-874b-cf1e3d4f3422",
+          "turn_id": "01a0784c-9e44-7ad3-9e9f-c3b840abfa5a",
+          "ordinal": 161,
+          "created_at_ms": 1788725448490
+        },
+        {
+          "thread_id": "01a0784c-9e05-7010-874b-cf1e3d4f3422",
+          "turn_id": "01a0784c-9e44-7ad3-9e9f-c3b840abfa5a",
+          "ordinal": 185,
+          "created_at_ms": 1788725509824
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLE_NONTRIVIALITY_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLE_NONTRIVIALITY_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "9c14e87f8ac128218b5569f76e0916ea21a72a61e40fff677ff8ce2d831d050a",
+      "history_events": [
+        {
+          "thread_id": "01a07854-62da-73a1-8752-13e14dc3e60c",
+          "turn_id": "01a07854-6314-7c01-a8cf-7038566527e9",
+          "ordinal": 52,
+          "created_at_ms": 1788725449277
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_LAYER_ACTION.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_LAYER_ACTION.md",
+      "success": true,
+      "error": null,
+      "sha256": "9c0349c8aa76a6d7b260c34fd45a9e1d5dd8caf637a5ecbee0b16028bbd72ac9",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11752,
+          "created_at_ms": 1788725529655
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11918,
+          "created_at_ms": 1788726039179
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/ALL_ANGLE_RAW_GD_ACTION.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/ALL_ANGLE_RAW_GD_ACTION.md",
+      "success": true,
+      "error": null,
+      "sha256": "95dd9f24b44245737bfd3cdcf4692383c24cacae84290d100deb2c21140a08e2",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11839,
+          "created_at_ms": 1788725797674
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11992,
+          "created_at_ms": 1788726285628
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_LAYER_ACTION_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_LAYER_ACTION_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "8a2af4b2716047111888d84a9297cb1d95fe24dcc80e7c93da37ccd0a832ba84",
+      "history_events": [
+        {
+          "thread_id": "01a07859-cde3-73a1-a02b-31e98067df92",
+          "turn_id": "01a07859-ce20-7b43-8373-a9c44ff965ad",
+          "ordinal": 61,
+          "created_at_ms": 1788725817182
+        },
+        {
+          "thread_id": "01a07859-cde3-73a1-a02b-31e98067df92",
+          "turn_id": "01a07859-ce20-7b43-8373-a9c44ff965ad",
+          "ordinal": 80,
+          "created_at_ms": 1788725946014
+        }
+      ],
+      "recovery_detail": "Replayed with newline-only splitting so embedded literal control characters in historical TeX do not count as extra patch lines."
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLE_NONTRIVIALITY_REVIEW_ROUND2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLE_NONTRIVIALITY_REVIEW_ROUND2.md",
+      "success": true,
+      "error": null,
+      "sha256": "b4b7b544f7d4fe1923e6b81630f5cefe0cac58494761f0368d60d1f6055c2690",
+      "history_events": [
+        {
+          "thread_id": "01a0785a-62b5-7f42-bce6-fa55c1b04b09",
+          "turn_id": "01a0785a-62f5-72c2-bb6a-bb231a078aa7",
+          "ordinal": 63,
+          "created_at_ms": 1788725919746
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLE_CANONICAL_BRIDGE_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLE_CANONICAL_BRIDGE_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "773a00e5a796f324826f4b0d8e595a14bd3ad4da24d5e10f8058705fec949acb",
+      "history_events": [
+        {
+          "thread_id": "01a0785b-8063-7980-8ee8-3b65ca31134e",
+          "turn_id": "01a0785b-80a7-7ea3-95f5-bb72d55702e5",
+          "ordinal": 119,
+          "created_at_ms": 1788726084714
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/ALL_ANGLE_RAW_GD_ACTION_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/ALL_ANGLE_RAW_GD_ACTION_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "7092e18f38303f1408b39b07fe8760bb527a9c445eb11194dc97037f3a935a33",
+      "history_events": [
+        {
+          "thread_id": "01a0785e-eed3-7952-80a8-109599a1291b",
+          "turn_id": "01a0785e-ef12-7351-8729-c0b8c39db417",
+          "ordinal": 57,
+          "created_at_ms": 1788726150962
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_VELOCITY_COMPACTNESS.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_VELOCITY_COMPACTNESS.md",
+      "success": true,
+      "error": null,
+      "sha256": "a78c7439023d51e19e17b57e0105521a81fb09ccfc1920b32e97f376fdf6d742",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11947,
+          "created_at_ms": 1788726180383
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11970,
+          "created_at_ms": 1788726220437
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_LAYER_ACTION_REVIEW_ROUND2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_LAYER_ACTION_REVIEW_ROUND2.md",
+      "success": true,
+      "error": null,
+      "sha256": "474318cb905719f97f5dd8fbda4659a94344c67eaf5bd5c8c33e7a5143364c75",
+      "history_events": [
+        {
+          "thread_id": "01a07861-75f3-72a2-a4f1-e7e50fa06965",
+          "turn_id": "01a07861-7638-7822-a434-bf923d896a64",
+          "ordinal": 57,
+          "created_at_ms": 1788726303144
+        },
+        {
+          "thread_id": "01a07861-75f3-72a2-a4f1-e7e50fa06965",
+          "turn_id": "01a07861-7638-7822-a434-bf923d896a64",
+          "ordinal": 66,
+          "created_at_ms": 1788726328212
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/L2_TWO_SAMPLE_SPECIAL_ANGLES_COMPLETE_PROOF.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/L2_TWO_SAMPLE_SPECIAL_ANGLES_COMPLETE_PROOF.md",
+      "success": true,
+      "error": null,
+      "sha256": "830ca8830edddd5acf351664e71a346a702dd8c73e9191775458fec8b6df71e0",
+      "history_events": [
+        {
+          "thread_id": "01a07864-9bdb-70f0-8552-7205a3630016",
+          "turn_id": "01a07864-9c20-7b20-91ca-4bb1248459a7",
+          "ordinal": 77,
+          "created_at_ms": 1788726500720
+        },
+        {
+          "thread_id": "01a07864-9bdb-70f0-8552-7205a3630016",
+          "turn_id": "01a07864-9c20-7b20-91ca-4bb1248459a7",
+          "ordinal": 87,
+          "created_at_ms": 1788726688833
+        },
+        {
+          "thread_id": "01a07864-9bdb-70f0-8552-7205a3630016",
+          "turn_id": "01a07864-9c20-7b20-91ca-4bb1248459a7",
+          "ordinal": 105,
+          "created_at_ms": 1788726843507
+        },
+        {
+          "thread_id": "01a07864-9bdb-70f0-8552-7205a3630016",
+          "turn_id": "01a07864-9c20-7b20-91ca-4bb1248459a7",
+          "ordinal": 116,
+          "created_at_ms": 1788726991944
+        },
+        {
+          "thread_id": "01a07864-9bdb-70f0-8552-7205a3630016",
+          "turn_id": "01a07864-9c20-7b20-91ca-4bb1248459a7",
+          "ordinal": 130,
+          "created_at_ms": 1788727016282
+        },
+        {
+          "thread_id": "01a07864-9bdb-70f0-8552-7205a3630016",
+          "turn_id": "01a07864-9c20-7b20-91ca-4bb1248459a7",
+          "ordinal": 159,
+          "created_at_ms": 1788727070699
+        },
+        {
+          "thread_id": "01a07864-9bdb-70f0-8552-7205a3630016",
+          "turn_id": "01a07864-9c20-7b20-91ca-4bb1248459a7",
+          "ordinal": 191,
+          "created_at_ms": 1788727169318
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12601,
+          "created_at_ms": 1788728327114
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/ALL_ANGLE_RAW_GD_ACTION_REVIEW_ROUND2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/ALL_ANGLE_RAW_GD_ACTION_REVIEW_ROUND2.md",
+      "success": true,
+      "error": null,
+      "sha256": "b53c22e7909f6f14fa7bbe9db467e933bcb6ca417c85462a95a5f4467c3550e5",
+      "history_events": [
+        {
+          "thread_id": "01a07865-5265-7c51-b106-6adb64c55f90",
+          "turn_id": "01a07865-52a1-7a81-9945-55edb7b22a50",
+          "ordinal": 51,
+          "created_at_ms": 1788726542854
+        },
+        {
+          "thread_id": "01a07865-5265-7c51-b106-6adb64c55f90",
+          "turn_id": "01a07865-52a1-7a81-9945-55edb7b22a50",
+          "ordinal": 75,
+          "created_at_ms": 1788726584318
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_VELOCITY_COMPACTNESS_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_VELOCITY_COMPACTNESS_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "fc933542e78b7f49e94b41a1d93d55af4c904bd41892975813adef11ddb24032",
+      "history_events": [
+        {
+          "thread_id": "01a07865-52ff-7411-bc42-3f477e47e901",
+          "turn_id": "01a07865-535f-7b82-b05e-5a04a69f7b2b",
+          "ordinal": 65,
+          "created_at_ms": 1788726589122
+        },
+        {
+          "thread_id": "01a07865-52ff-7411-bc42-3f477e47e901",
+          "turn_id": "01a07865-535f-7b82-b05e-5a04a69f7b2b",
+          "ordinal": 82,
+          "created_at_ms": 1788726614442
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_COMPACTNESS_INTEGRATION_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_COMPACTNESS_INTEGRATION_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "6594f13797fb5b85982fbb499410ee19e010ec7c9efb333b10b0a124abc00ba1",
+      "history_events": [
+        {
+          "thread_id": "01a0786e-ae02-7930-a27a-b38569abe65d",
+          "turn_id": "01a0786e-ae45-7b83-8521-e80a5921b8dc",
+          "ordinal": 56,
+          "created_at_ms": 1788727256118
+        },
+        {
+          "thread_id": "01a0786e-ae02-7930-a27a-b38569abe65d",
+          "turn_id": "01a0786e-ae45-7b83-8521-e80a5921b8dc",
+          "ordinal": 79,
+          "created_at_ms": 1788727317827
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLES_ROOT_ASSEMBLY_CHECK.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLES_ROOT_ASSEMBLY_CHECK.md",
+      "success": true,
+      "error": null,
+      "sha256": "e3eede1b600c8fcd29c162d3dd8f8e6410915417520146c6343a8c24ad4e405f",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12247,
+          "created_at_ms": 1788727307169
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12435,
+          "created_at_ms": 1788727795092
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/HARMONIC_COVARIANCE_RESPONSE_TEST.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/HARMONIC_COVARIANCE_RESPONSE_TEST.md",
+      "success": true,
+      "error": null,
+      "sha256": "cb1ccec3a4431815b17ef6a8268c168a5feb5f6fe55b0a7c4a6b155ba7c69fb5",
+      "history_events": [
+        {
+          "thread_id": "01a07870-3b54-77b1-b9ca-5019143ee8e4",
+          "turn_id": "01a07870-3b93-77e1-854c-92113f1d3fd3",
+          "ordinal": 74,
+          "created_at_ms": 1788727323578
+        },
+        {
+          "thread_id": "01a07870-3b54-77b1-b9ca-5019143ee8e4",
+          "turn_id": "01a07870-3b93-77e1-854c-92113f1d3fd3",
+          "ordinal": 85,
+          "created_at_ms": 1788727361778
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12476,
+          "created_at_ms": 1788727883155
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/COMPACT_GATE_CONFINEMENT_TEST.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/COMPACT_GATE_CONFINEMENT_TEST.md",
+      "success": true,
+      "error": null,
+      "sha256": "bbce988f9082d2137d822491008dc7b60f74091017436a15944797b1ccefd2c3",
+      "history_events": [
+        {
+          "thread_id": "01a0786e-ae75-7a81-81a7-36329168d46d",
+          "turn_id": "01a0786e-aeb7-7690-8b73-783696a3dd7a",
+          "ordinal": 84,
+          "created_at_ms": 1788727336165
+        },
+        {
+          "thread_id": "01a0786e-ae75-7a81-81a7-36329168d46d",
+          "turn_id": "01a0786e-aeb7-7690-8b73-783696a3dd7a",
+          "ordinal": 121,
+          "created_at_ms": 1788727457591
+        },
+        {
+          "thread_id": "01a0786e-ae75-7a81-81a7-36329168d46d",
+          "turn_id": "01a0786e-aeb7-7690-8b73-783696a3dd7a",
+          "ordinal": 132,
+          "created_at_ms": 1788727504085
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12359,
+          "created_at_ms": 1788727632534
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12589,
+          "created_at_ms": 1788728310931
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12598,
+          "created_at_ms": 1788728326378
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/FIRST_RAW_METRIC_AND_CONTROLLED_KERNEL_COMPACTNESS.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/FIRST_RAW_METRIC_AND_CONTROLLED_KERNEL_COMPACTNESS.md",
+      "success": true,
+      "error": null,
+      "sha256": "372110271ecdbd8df79dabaca56114014ecdd25732e599222b0b82797aa58d06",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12265,
+          "created_at_ms": 1788727407928
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12287,
+          "created_at_ms": 1788727427432
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12411,
+          "created_at_ms": 1788727775600
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/FIRST_RAW_METRIC_CONTROLLED_KERNEL_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/FIRST_RAW_METRIC_CONTROLLED_KERNEL_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "025d6959fb920dab3742cfb882fcb74ca9b566662e81c5b78f4ceab2dd8b30c7",
+      "history_events": [
+        {
+          "thread_id": "01a07877-1449-7363-b506-1a12e951927e",
+          "turn_id": "01a07877-1486-7043-ac6e-d7e9162b2d0c",
+          "ordinal": 46,
+          "created_at_ms": 1788727689481
+        },
+        {
+          "thread_id": "01a07877-1449-7363-b506-1a12e951927e",
+          "turn_id": "01a07877-1486-7043-ac6e-d7e9162b2d0c",
+          "ordinal": 62,
+          "created_at_ms": 1788727709886
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLES_COMPLETE_REVIEW_ROUND1_C.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLES_COMPLETE_REVIEW_ROUND1_C.md",
+      "success": true,
+      "error": null,
+      "sha256": "6c80c73390c437deef132f24855520a8d8af0806308b1a78421e76ef889ec799",
+      "history_events": [
+        {
+          "thread_id": "01a07873-d993-7df2-84ca-ea667b96d335",
+          "turn_id": "01a07873-d9f3-7f81-8f1a-0048f4374cc0",
+          "ordinal": 96,
+          "created_at_ms": 1788727732764
+        },
+        {
+          "thread_id": "01a07873-d993-7df2-84ca-ea667b96d335",
+          "turn_id": "01a07873-d9f3-7f81-8f1a-0048f4374cc0",
+          "ordinal": 105,
+          "created_at_ms": 1788727789362
+        },
+        {
+          "thread_id": "01a07873-d993-7df2-84ca-ea667b96d335",
+          "turn_id": "01a07873-d9f3-7f81-8f1a-0048f4374cc0",
+          "ordinal": 112,
+          "created_at_ms": 1788727856560
+        },
+        {
+          "thread_id": "01a07873-d993-7df2-84ca-ea667b96d335",
+          "turn_id": "01a07873-d9f3-7f81-8f1a-0048f4374cc0",
+          "ordinal": 127,
+          "created_at_ms": 1788727875080
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/L2_TWO_SAMPLE_SPECIAL_ANGLES_COMPLETE_PROOF_NEXT.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/L2_TWO_SAMPLE_SPECIAL_ANGLES_COMPLETE_PROOF_NEXT.md",
+      "success": true,
+      "error": null,
+      "sha256": "830ca8830edddd5acf351664e71a346a702dd8c73e9191775458fec8b6df71e0",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12394,
+          "created_at_ms": 1788727738881
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12450,
+          "created_at_ms": 1788727841390
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12498,
+          "created_at_ms": 1788727903451
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12589,
+          "created_at_ms": 1788728310931
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLES_COMPLETE_REVIEW_ROUND1_A.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLES_COMPLETE_REVIEW_ROUND1_A.md",
+      "success": true,
+      "error": null,
+      "sha256": "c18ae48fefd3d879300a18668e4dbd89180816905c8132ec5a4b6421125d9d67",
+      "history_events": [
+        {
+          "thread_id": "01a07873-ad5e-79f0-8601-9863376ab9c8",
+          "turn_id": "01a07873-ad9a-7050-a62f-254d3c78e3d0",
+          "ordinal": 118,
+          "created_at_ms": 1788727740435
+        },
+        {
+          "thread_id": "01a07873-ad5e-79f0-8601-9863376ab9c8",
+          "turn_id": "01a07873-ad9a-7050-a62f-254d3c78e3d0",
+          "ordinal": 133,
+          "created_at_ms": 1788727761015
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/HARMONIC_COVARIANCE_RESPONSE_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/HARMONIC_COVARIANCE_RESPONSE_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "723887c5fcd1691dbaa0d36d8cf38a9454ccb951ad831beb6399476f9d023d9c",
+      "history_events": [
+        {
+          "thread_id": "01a07877-13cd-7130-b8d8-884c80fc9218",
+          "turn_id": "01a07877-1411-7910-b500-c4e66dc69b81",
+          "ordinal": 65,
+          "created_at_ms": 1788727783887
+        },
+        {
+          "thread_id": "01a07877-13cd-7130-b8d8-884c80fc9218",
+          "turn_id": "01a07877-1411-7910-b500-c4e66dc69b81",
+          "ordinal": 80,
+          "created_at_ms": 1788727797865
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/COMPACT_GATE_CONFINEMENT_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/COMPACT_GATE_CONFINEMENT_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "7ce4d1c118e5c7bf4dfd86148786998c316bdb858b67321661f164e4a9ededa8",
+      "history_events": [
+        {
+          "thread_id": "01a07879-a45f-7f22-a5d7-69221f15075d",
+          "turn_id": "01a07879-a4a0-77e2-9fbf-9aba891a9f21",
+          "ordinal": 72,
+          "created_at_ms": 1788727952850
+        },
+        {
+          "thread_id": "01a07879-a45f-7f22-a5d7-69221f15075d",
+          "turn_id": "01a07879-a4a0-77e2-9fbf-9aba891a9f21",
+          "ordinal": 89,
+          "created_at_ms": 1788727985134
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLES_COMPLETE_REVIEW_ROUND1_B.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLES_COMPLETE_REVIEW_ROUND1_B.md",
+      "success": true,
+      "error": null,
+      "sha256": "655ee9af1d9bc0e45da54762b099ccc862306156439057aa66efa7043fa04689",
+      "history_events": [
+        {
+          "thread_id": "01a07873-adcd-7643-848a-1aadb3c80ac2",
+          "turn_id": "01a07873-ae12-7753-ae4f-3b49d65e03f8",
+          "ordinal": 159,
+          "created_at_ms": 1788727968027
+        },
+        {
+          "thread_id": "01a07873-adcd-7643-848a-1aadb3c80ac2",
+          "turn_id": "01a07873-ae12-7753-ae4f-3b49d65e03f8",
+          "ordinal": 176,
+          "created_at_ms": 1788727985138
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/FIRST_RAW_METRIC_CONTROLLED_KERNEL_REVIEW_ROUND2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/FIRST_RAW_METRIC_CONTROLLED_KERNEL_REVIEW_ROUND2.md",
+      "success": true,
+      "error": null,
+      "sha256": "742f17e4739590acd672f0317658048ce4fc364e5cf18603d4c7212e599b24b1",
+      "history_events": [
+        {
+          "thread_id": "01a0787b-d33a-7d73-9d83-1693155b629b",
+          "turn_id": "01a0787b-d3a6-7bf0-aafb-c68028f72ed6",
+          "ordinal": 51,
+          "created_at_ms": 1788728031886
+        },
+        {
+          "thread_id": "01a0787b-d33a-7d73-9d83-1693155b629b",
+          "turn_id": "01a0787b-d3a6-7bf0-aafb-c68028f72ed6",
+          "ordinal": 67,
+          "created_at_ms": 1788728050875
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/HARMONIC_COVARIANCE_RESPONSE_REVIEW_ROUND2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/HARMONIC_COVARIANCE_RESPONSE_REVIEW_ROUND2.md",
+      "success": true,
+      "error": null,
+      "sha256": "6d42ec3aae3ead0616b464f195e21c42310055f6fec8f64e40e4eaa5670ee933",
+      "history_events": [
+        {
+          "thread_id": "01a0787d-773d-7aa0-92d5-c5a7dc80b3f2",
+          "turn_id": "01a0787d-777c-7af1-a76e-97111a2de03c",
+          "ordinal": 61,
+          "created_at_ms": 1788728179303
+        },
+        {
+          "thread_id": "01a0787d-773d-7aa0-92d5-c5a7dc80b3f2",
+          "turn_id": "01a0787d-777c-7af1-a76e-97111a2de03c",
+          "ordinal": 75,
+          "created_at_ms": 1788728202523
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/L2_TWO_SAMPLE_SPECIAL_ANGLES_COMPLETE_PROOF_ROUND1_SNAPSHOT.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/L2_TWO_SAMPLE_SPECIAL_ANGLES_COMPLETE_PROOF_ROUND1_SNAPSHOT.md",
+      "success": true,
+      "error": null,
+      "sha256": "5cd54a6125dfbf4b7d1bc86149760b842d7d2c1f9a44fe73fcf57f5d3d15f12e",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12601,
+          "created_at_ms": 1788728327114
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/COMPACT_GATE_CONFINEMENT_REVIEW_ROUND2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/COMPACT_GATE_CONFINEMENT_REVIEW_ROUND2.md",
+      "success": true,
+      "error": null,
+      "sha256": "63b68ba7c052dd51b9679b4b17b5ab34d9082f7a7c85b9f3783649b9c88e7c22",
+      "history_events": [
+        {
+          "thread_id": "01a07884-a775-7260-953c-a9fa56240b5a",
+          "turn_id": "01a07884-a7b6-7f71-b216-5ac97f6292c9",
+          "ordinal": 64,
+          "created_at_ms": 1788728644586
+        },
+        {
+          "thread_id": "01a07884-a775-7260-953c-a9fa56240b5a",
+          "turn_id": "01a07884-a7b6-7f71-b216-5ac97f6292c9",
+          "ordinal": 98,
+          "created_at_ms": 1788728706492
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLES_COMPLETE_REVIEW_ROUND2_A.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLES_COMPLETE_REVIEW_ROUND2_A.md",
+      "success": true,
+      "error": null,
+      "sha256": "801a661c457579f6aec06f9a9c2ffc9c671ae83acdf974c91035b32df4fc63ed",
+      "history_events": [
+        {
+          "thread_id": "01a07884-a645-7a83-9e3c-4a78c633f8ff",
+          "turn_id": "01a07884-a683-7e92-a6ef-32da7f5fda76",
+          "ordinal": 105,
+          "created_at_ms": 1788728807258
+        },
+        {
+          "thread_id": "01a07884-a645-7a83-9e3c-4a78c633f8ff",
+          "turn_id": "01a07884-a683-7e92-a6ef-32da7f5fda76",
+          "ordinal": 121,
+          "created_at_ms": 1788728826326
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLES_COMPLETE_REVIEW_ROUND2_C.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLES_COMPLETE_REVIEW_ROUND2_C.md",
+      "success": true,
+      "error": null,
+      "sha256": "3acd8233637f1353fba2f9c88b16065535f719e577e6648d89a3afb3f931dcb9",
+      "history_events": [
+        {
+          "thread_id": "01a07884-a706-73f0-8514-d2251fde335b",
+          "turn_id": "01a07884-a74a-7603-98c6-c0ec1ae6d5d1",
+          "ordinal": 98,
+          "created_at_ms": 1788728809302
+        },
+        {
+          "thread_id": "01a07884-a706-73f0-8514-d2251fde335b",
+          "turn_id": "01a07884-a74a-7603-98c6-c0ec1ae6d5d1",
+          "ordinal": 114,
+          "created_at_ms": 1788728826444
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLES_COMPLETE_REVIEW_ROUND2_B.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLES_COMPLETE_REVIEW_ROUND2_B.md",
+      "success": true,
+      "error": null,
+      "sha256": "7b631fd210553ba669a5c315fa1776aa892e31487b4b57facf788aa6b684a359",
+      "history_events": [
+        {
+          "thread_id": "01a07884-a6a6-79e3-87a3-d5a66bef07fd",
+          "turn_id": "01a07884-a6e1-7541-97a7-c278e0dde088",
+          "ordinal": 116,
+          "created_at_ms": 1788728835980
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/COMPACT_GATE_RAW_GD_AND_GAUSSIAN_PATHS.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/COMPACT_GATE_RAW_GD_AND_GAUSSIAN_PATHS.md",
+      "success": true,
+      "error": null,
+      "sha256": "4801b9a5608a1332c9f2f278836f680568fdd5117dbf938630cd4d61a6311b1d",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12751,
+          "created_at_ms": 1788728903550
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12941,
+          "created_at_ms": 1788729319649
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_LAYER_COMPACTNESS_COMPLETE_PROOF.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_LAYER_COMPACTNESS_COMPLETE_PROOF.md",
+      "success": true,
+      "error": null,
+      "sha256": "910f4df8fdcaf79313858fd5a8bfe8f58dd5a655b7bb90181ef97233fa5ba8a9",
+      "history_events": [
+        {
+          "thread_id": "01a0788a-1aed-7442-bb07-884c5366d750",
+          "turn_id": "01a0788a-1b2c-7aa0-ab26-fb069ab781a9",
+          "ordinal": 61,
+          "created_at_ms": 1788729000362
+        },
+        {
+          "thread_id": "01a0788a-1aed-7442-bb07-884c5366d750",
+          "turn_id": "01a0788a-1b2c-7aa0-ab26-fb069ab781a9",
+          "ordinal": 70,
+          "created_at_ms": 1788729226941
+        },
+        {
+          "thread_id": "01a0788a-1aed-7442-bb07-884c5366d750",
+          "turn_id": "01a0788a-1b2c-7aa0-ab26-fb069ab781a9",
+          "ordinal": 91,
+          "created_at_ms": 1788729300052
+        },
+        {
+          "thread_id": "01a0788a-1aed-7442-bb07-884c5366d750",
+          "turn_id": "01a0788a-1b2c-7aa0-ab26-fb069ab781a9",
+          "ordinal": 120,
+          "created_at_ms": 1788729371430
+        },
+        {
+          "thread_id": "01a07899-759f-7640-85e0-23d219d06a3e",
+          "turn_id": "01a07899-75e6-76d0-9df6-d77e56bb35c7",
+          "ordinal": 83,
+          "created_at_ms": 1788729907262
+        }
+      ],
+      "recovery_detail": "Replayed with newline-only splitting so embedded literal control characters in historical TeX do not count as extra patch lines."
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLES_AUDIT_CERTIFICATE.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/SPECIAL_ANGLES_AUDIT_CERTIFICATE.md",
+      "success": true,
+      "error": null,
+      "sha256": "63c85973277af0892ee1923447fc5356135c718c7fd1a684eacc76d2c19b81c8",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12832,
+          "created_at_ms": 1788729017578
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/SINGLE_FIRST_NEURON_CAVITY_TEST.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/SINGLE_FIRST_NEURON_CAVITY_TEST.md",
+      "success": true,
+      "error": null,
+      "sha256": "ad91fa72d361ebbb8f9e1be3d8a5e5ba9d0b6c3f186f9689e6380360555caebb",
+      "history_events": [
+        {
+          "thread_id": "01a07887-33a3-7841-9feb-bda7528c5ba7",
+          "turn_id": "01a07887-33e3-7420-bc85-25b7b35097b5",
+          "ordinal": 95,
+          "created_at_ms": 1788729025450
+        },
+        {
+          "thread_id": "01a07887-33a3-7841-9feb-bda7528c5ba7",
+          "turn_id": "01a07887-33e3-7420-bc85-25b7b35097b5",
+          "ordinal": 133,
+          "created_at_ms": 1788729127854
+        },
+        {
+          "thread_id": "01a07887-33a3-7841-9feb-bda7528c5ba7",
+          "turn_id": "01a07887-33e3-7420-bc85-25b7b35097b5",
+          "ordinal": 163,
+          "created_at_ms": 1788729159529
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 13065,
+          "created_at_ms": 1788729771486
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 13093,
+          "created_at_ms": 1788729800240
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/FROZEN_RESERVOIR_UNIFORM_FIRST_NONAFFINITY.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/FROZEN_RESERVOIR_UNIFORM_FIRST_NONAFFINITY.md",
+      "success": true,
+      "error": null,
+      "sha256": "203249b51ba4be6d4b304a9cf81a745bede8a906fa077846a2cfddbcd7aebb5f",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 12851,
+          "created_at_ms": 1788729142210
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/COMPACT_GATE_RAW_GD_GAUSSIAN_PATHS_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/COMPACT_GATE_RAW_GD_GAUSSIAN_PATHS_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "addd64b9f11621de54903d90070cb09f0c87920f72ea818fa2f5ba9ce7543efe",
+      "history_events": [
+        {
+          "thread_id": "01a0788d-69e1-75c3-87e3-c599c30cc2cc",
+          "turn_id": "01a0788d-6a22-7453-aee1-c7a61c75ec72",
+          "ordinal": 64,
+          "created_at_ms": 1788729224147
+        },
+        {
+          "thread_id": "01a0788d-69e1-75c3-87e3-c599c30cc2cc",
+          "turn_id": "01a0788d-6a22-7453-aee1-c7a61c75ec72",
+          "ordinal": 82,
+          "created_at_ms": 1788729248508
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/FROZEN_RESERVOIR_UNIFORM_FIRST_NONAFFINITY_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/FROZEN_RESERVOIR_UNIFORM_FIRST_NONAFFINITY_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "0132865831fe7d04071a1e377e9137a11344006e961077cbcf4bae8c046f5267",
+      "history_events": [
+        {
+          "thread_id": "01a07890-e2c3-7712-9e03-8e3e5658c098",
+          "turn_id": "01a07890-e303-7de1-8f1b-c1fda384ba1b",
+          "ordinal": 64,
+          "created_at_ms": 1788729467674
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/SINGLE_FIRST_NEURON_CAVITY_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/SINGLE_FIRST_NEURON_CAVITY_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "140555b7ec22a84c4cf584997fd839461de9df1da25e9ab64690afeb29000576",
+      "history_events": [
+        {
+          "thread_id": "01a07893-0771-74c1-9060-1ab8fc3735a1",
+          "turn_id": "01a07893-07b3-7dc1-a6ae-e219b7f0d801",
+          "ordinal": 69,
+          "created_at_ms": 1788729579007
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/COMPACT_GATE_RAW_GD_GAUSSIAN_PATHS_REVIEW_ROUND2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/COMPACT_GATE_RAW_GD_GAUSSIAN_PATHS_REVIEW_ROUND2.md",
+      "success": true,
+      "error": null,
+      "sha256": "77ce416c7acc7e9302398cdf01ae554d7063f8ff9b37a75ca082dd599c5468ed",
+      "history_events": [
+        {
+          "thread_id": "01a07894-d01e-76f0-af7c-ecdc2f691a00",
+          "turn_id": "01a07894-d05c-7dc3-8780-5ecf60379822",
+          "ordinal": 60,
+          "created_at_ms": 1788729723106
+        },
+        {
+          "thread_id": "01a07894-d01e-76f0-af7c-ecdc2f691a00",
+          "turn_id": "01a07894-d05c-7dc3-8780-5ecf60379822",
+          "ordinal": 74,
+          "created_at_ms": 1788729738434
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_LAYER_COMPACTNESS_AUTHOR_SNAPSHOT.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_LAYER_COMPACTNESS_AUTHOR_SNAPSHOT.md",
+      "success": true,
+      "error": null,
+      "sha256": "a3aa59799be06b90322b3825f56ed19c3f0b21d69f8a52de51518f0cfaa97586",
+      "history_events": [
+        {
+          "thread_id": "01a07899-759f-7640-85e0-23d219d06a3e",
+          "turn_id": "01a07899-75e6-76d0-9df6-d77e56bb35c7",
+          "ordinal": 44,
+          "created_at_ms": 1788729765319
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/GENERAL_GATE_FIRST_VELOCITY_COMPACTNESS.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/GENERAL_GATE_FIRST_VELOCITY_COMPACTNESS.md",
+      "success": true,
+      "error": null,
+      "sha256": "319f0843407592ecca8b9fd10523a0b0bdd188cb62c67383a9bd46440b3b4b92",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 13125,
+          "created_at_ms": 1788729966684
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/NOTATION_NORMALIZATION_LOG.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/NOTATION_NORMALIZATION_LOG.md",
+      "success": true,
+      "error": null,
+      "sha256": "d75b524e8220cfbaf571d39be6e40b7386e550e4c35b403d61a03e2b272d979b",
+      "history_events": [
+        {
+          "thread_id": "01a07899-759f-7640-85e0-23d219d06a3e",
+          "turn_id": "01a07899-75e6-76d0-9df6-d77e56bb35c7",
+          "ordinal": 107,
+          "created_at_ms": 1788729996140
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/CAVITY_STOPPED_TRACE_LINEARIZATION_TEST.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/CAVITY_STOPPED_TRACE_LINEARIZATION_TEST.md",
+      "success": true,
+      "error": null,
+      "sha256": "192a22168de5c560c3d8046f297e813dda1ca037065caa323a90eb9dd7a6bedb",
+      "history_events": [
+        {
+          "thread_id": "01a07894-d07b-7a20-b71d-5202fda721d0",
+          "turn_id": "01a07894-d0b7-7890-bcc9-5a95ce04bd07",
+          "ordinal": 104,
+          "created_at_ms": 1788730137624
+        },
+        {
+          "thread_id": "01a07894-d07b-7a20-b71d-5202fda721d0",
+          "turn_id": "01a07894-d0b7-7890-bcc9-5a95ce04bd07",
+          "ordinal": 128,
+          "created_at_ms": 1788730205396
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/SINGLE_FIRST_NEURON_CAVITY_REVIEW_ROUND2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/SINGLE_FIRST_NEURON_CAVITY_REVIEW_ROUND2.md",
+      "success": true,
+      "error": null,
+      "sha256": "71a42d669ac5ecc04aaabf2ef9a6e1242cc0629c30e97570d9905e7d46602c13",
+      "history_events": [
+        {
+          "thread_id": "01a0789b-0518-7ee1-a603-68da447ecbf8",
+          "turn_id": "01a0789b-0556-7332-88fd-2b9a091b433f",
+          "ordinal": 83,
+          "created_at_ms": 1788730229229
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/GENERAL_GATE_FIRST_VELOCITY_COMPACTNESS_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/GENERAL_GATE_FIRST_VELOCITY_COMPACTNESS_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "e4137c1bca2fb43a4aa454f50ad31dd923dd384e16cfe82cd7320473c917ca56",
+      "history_events": [
+        {
+          "thread_id": "01a0789d-7c63-7681-b024-4b39c0bead70",
+          "turn_id": "01a0789d-7ca5-7fb0-acc5-c32da8fa2804",
+          "ordinal": 73,
+          "created_at_ms": 1788730398993
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_COMPACTNESS_COMPLETE_REVIEW_C.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_COMPACTNESS_COMPLETE_REVIEW_C.md",
+      "success": true,
+      "error": null,
+      "sha256": "2589f185990b9ca737c7176fe6179725a76499b42b26260d765f479f4e3bf18d",
+      "history_events": [
+        {
+          "thread_id": "01a078a0-89dc-7de0-8ab4-9a0bb6f14878",
+          "turn_id": "01a078a0-8a18-70e2-8eda-88d33b736556",
+          "ordinal": 83,
+          "created_at_ms": 1788730481140
+        },
+        {
+          "thread_id": "01a078a0-89dc-7de0-8ab4-9a0bb6f14878",
+          "turn_id": "01a078a0-8a18-70e2-8eda-88d33b736556",
+          "ordinal": 92,
+          "created_at_ms": 1788730601928
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/CAVITY_STOPPED_TRACE_LINEARIZATION_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/CAVITY_STOPPED_TRACE_LINEARIZATION_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "93da450f44f332acd443b4e4bbe94aa8c914be021eb4e2fa18201d223c3b32cc",
+      "history_events": [
+        {
+          "thread_id": "01a078a3-c899-79b1-a400-81e6c74fe0fc",
+          "turn_id": "01a078a3-c8dd-7fc2-a6fc-4024a117eb68",
+          "ordinal": 63,
+          "created_at_ms": 1788730599703
+        },
+        {
+          "thread_id": "01a078a3-c899-79b1-a400-81e6c74fe0fc",
+          "turn_id": "01a078a3-c8dd-7fc2-a6fc-4024a117eb68",
+          "ordinal": 70,
+          "created_at_ms": 1788730655930
+        },
+        {
+          "thread_id": "01a078a3-c899-79b1-a400-81e6c74fe0fc",
+          "turn_id": "01a078a3-c8dd-7fc2-a6fc-4024a117eb68",
+          "ordinal": 79,
+          "created_at_ms": 1788730737134
+        },
+        {
+          "thread_id": "01a078a3-c899-79b1-a400-81e6c74fe0fc",
+          "turn_id": "01a078a3-c8dd-7fc2-a6fc-4024a117eb68",
+          "ordinal": 87,
+          "created_at_ms": 1788730751810
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_COMPACTNESS_COMPLETE_REVIEW_B.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_COMPACTNESS_COMPLETE_REVIEW_B.md",
+      "success": true,
+      "error": null,
+      "sha256": "c831762da968fdf7b11490613722f46372cc047c3a56996210e64b116f43d8c3",
+      "history_events": [
+        {
+          "thread_id": "01a078a0-8a37-7933-a597-8304c4d0f5f9",
+          "turn_id": "01a078a0-8a7b-7503-b4da-12efaf201dae",
+          "ordinal": 91,
+          "created_at_ms": 1788730626593
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/FROZEN_MASK_UNIFORM_GAUSSIAN_RESPONSE_GAP.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/FROZEN_MASK_UNIFORM_GAUSSIAN_RESPONSE_GAP.md",
+      "success": true,
+      "error": null,
+      "sha256": "a05a83e0ee5ea13d02a3ef51bb8967d1d3ddb7fd6eed601b4f1fdb4cea85c65a",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 13314,
+          "created_at_ms": 1788730658379
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_COMPACTNESS_COMPLETE_REVIEW_A.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_COMPACTNESS_COMPLETE_REVIEW_A.md",
+      "success": true,
+      "error": null,
+      "sha256": "a2a6fca7a3899ac0983dd975e06e9396d952ae2e81d922f503ac8ee478928cf8",
+      "history_events": [
+        {
+          "thread_id": "01a078a0-8973-7372-806c-a5ed2a022f64",
+          "turn_id": "01a078a0-89b2-7591-b7ba-1281aa7d0746",
+          "ordinal": 116,
+          "created_at_ms": 1788730686831
+        },
+        {
+          "thread_id": "01a078a0-8973-7372-806c-a5ed2a022f64",
+          "turn_id": "01a078a0-89b2-7591-b7ba-1281aa7d0746",
+          "ordinal": 138,
+          "created_at_ms": 1788730722422
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/CAVITY_STOPPED_TRACE_RAW_GD_TEST.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/CAVITY_STOPPED_TRACE_RAW_GD_TEST.md",
+      "success": true,
+      "error": null,
+      "sha256": "5453ebedc1b4989aec222857feedd6ed53be87945b5c02a5359e552de5572d2d",
+      "history_events": [
+        {
+          "thread_id": "01a078a3-c905-7511-b22e-1ebd8e9c85e8",
+          "turn_id": "01a078a3-c944-73b0-8863-6fc57f198ade",
+          "ordinal": 52,
+          "created_at_ms": 1788730797201
+        },
+        {
+          "thread_id": "01a078a3-c905-7511-b22e-1ebd8e9c85e8",
+          "turn_id": "01a078a3-c944-73b0-8863-6fc57f198ade",
+          "ordinal": 65,
+          "created_at_ms": 1788730838080
+        },
+        {
+          "thread_id": "01a078a3-c905-7511-b22e-1ebd8e9c85e8",
+          "turn_id": "01a078a3-c944-73b0-8863-6fc57f198ade",
+          "ordinal": 76,
+          "created_at_ms": 1788730867090
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/FROZEN_MASK_UNIFORM_GAUSSIAN_RESPONSE_GAP_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/FROZEN_MASK_UNIFORM_GAUSSIAN_RESPONSE_GAP_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "263fabd4fbdebffccd651ddb6b1b84ca4404994955d916bfbcec2b378c40dd30",
+      "history_events": [
+        {
+          "thread_id": "01a078a8-0632-7ed1-8e30-0e953cb42703",
+          "turn_id": "01a078a8-0673-7dd1-91af-f8c2dbf7fa10",
+          "ordinal": 69,
+          "created_at_ms": 1788730996995
+        },
+        {
+          "thread_id": "01a078a8-0632-7ed1-8e30-0e953cb42703",
+          "turn_id": "01a078a8-0673-7dd1-91af-f8c2dbf7fa10",
+          "ordinal": 84,
+          "created_at_ms": 1788731011631
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/COMPACT_GATE_PERSISTENT_FIRST_ACTIVITY.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/COMPACT_GATE_PERSISTENT_FIRST_ACTIVITY.md",
+      "success": true,
+      "error": null,
+      "sha256": "8cf3fb3270f1f4b81b068f7ed749bf1cea90a3b5a122e1d6b5b36502d4af916c",
+      "history_events": [
+        {
+          "thread_id": "01a078aa-bec6-7d33-ba3d-6e306b7f7373",
+          "turn_id": "01a078aa-bf0a-70e2-bdf5-a7ae72de5929",
+          "ordinal": 43,
+          "created_at_ms": 1788731074975
+        },
+        {
+          "thread_id": "01a078aa-bec6-7d33-ba3d-6e306b7f7373",
+          "turn_id": "01a078aa-bf0a-70e2-bdf5-a7ae72de5929",
+          "ordinal": 56,
+          "created_at_ms": 1788731089665
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/FROZEN_MASK_CANONICAL_MEMORY_TEST.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/FROZEN_MASK_CANONICAL_MEMORY_TEST.md",
+      "success": true,
+      "error": null,
+      "sha256": "7af67979a2734b4b2955e644a5a17b54497e6892c775d53cc175c990db494c3a",
+      "history_events": [
+        {
+          "thread_id": "01a078a9-13b1-7a80-9ef8-55fa20e628a4",
+          "turn_id": "01a078a9-13f3-7e72-95bf-a837f4096639",
+          "ordinal": 110,
+          "created_at_ms": 1788731276850
+        },
+        {
+          "thread_id": "01a078a9-13b1-7a80-9ef8-55fa20e628a4",
+          "turn_id": "01a078a9-13f3-7e72-95bf-a837f4096639",
+          "ordinal": 130,
+          "created_at_ms": 1788731336667
+        },
+        {
+          "thread_id": "01a078a9-13b1-7a80-9ef8-55fa20e628a4",
+          "turn_id": "01a078b4-ab1a-7481-a509-68449d8f911c",
+          "ordinal": 224,
+          "created_at_ms": 1788732113462
+        },
+        {
+          "thread_id": "01a078a9-13b1-7a80-9ef8-55fa20e628a4",
+          "turn_id": "01a078b4-ab1a-7481-a509-68449d8f911c",
+          "ordinal": 248,
+          "created_at_ms": 1788732173338
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_COMPACTNESS_AUDIT_CERTIFICATE.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_COMPACTNESS_AUDIT_CERTIFICATE.md",
+      "success": true,
+      "error": null,
+      "sha256": "789b3091d5c81b2867b07f599a7032278c6ac7d888087f2af4f1bc66b5659d4d",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 13528,
+          "created_at_ms": 1788731281335
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/COMPACT_GATE_PERSISTENT_FIRST_ACTIVITY_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/COMPACT_GATE_PERSISTENT_FIRST_ACTIVITY_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "011f194c4bb5bf5d75b144e00a9670b4e99ad9b45b3d3636cc245845f5341256",
+      "history_events": [
+        {
+          "thread_id": "01a078b0-751a-7462-9ae0-4333d8646a7e",
+          "turn_id": "01a078b0-7557-7002-9b64-f21d05a3663d",
+          "ordinal": 71,
+          "created_at_ms": 1788731572187
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/FROZEN_MASK_CANONICAL_MEMORY_TEST.PRE_PHYSICAL_CORRECTION.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/FROZEN_MASK_CANONICAL_MEMORY_TEST.PRE_PHYSICAL_CORRECTION.md",
+      "success": true,
+      "error": null,
+      "sha256": "d50d76b61e21d14bc45e73a41c89b763b26c157189af839c88e3073fe482273d",
+      "history_events": [
+        {
+          "thread_id": "01a078a9-13b1-7a80-9ef8-55fa20e628a4",
+          "turn_id": "01a078b4-ab1a-7481-a509-68449d8f911c",
+          "ordinal": 192,
+          "created_at_ms": 1788731609773
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/COMPACT_FIRST_LINEAR_TAIL_TOP_CLOCK.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/COMPACT_FIRST_LINEAR_TAIL_TOP_CLOCK.md",
+      "success": true,
+      "error": null,
+      "sha256": "cb0a9abb96ede054190b54cf883f9bd51081b39c3d7b36689eaa335268301e8b",
+      "history_events": [
+        {
+          "thread_id": "01a078b3-b1aa-7862-bbd9-baeef2691fb3",
+          "turn_id": "01a078b3-b1ed-75d3-a5e7-9c6865a010a3",
+          "ordinal": 58,
+          "created_at_ms": 1788731734822
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/CAVITY_STOPPED_TRACE_RAW_GD_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/CAVITY_STOPPED_TRACE_RAW_GD_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "be4b58cf67059ecf62e4f06434523e5f707e1cab39239de054b5616541c883a9",
+      "history_events": [
+        {
+          "thread_id": "01a078b0-1db2-7d21-b247-7740830b23bc",
+          "turn_id": "01a078b0-1df9-72d3-884a-940852efaef9",
+          "ordinal": 102,
+          "created_at_ms": 1788731759256
+        },
+        {
+          "thread_id": "01a078b0-1db2-7d21-b247-7740830b23bc",
+          "turn_id": "01a078b0-1df9-72d3-884a-940852efaef9",
+          "ordinal": 109,
+          "created_at_ms": 1788731872657
+        },
+        {
+          "thread_id": "01a078b0-1db2-7d21-b247-7740830b23bc",
+          "turn_id": "01a078b0-1df9-72d3-884a-940852efaef9",
+          "ordinal": 123,
+          "created_at_ms": 1788731889436
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/COMPACT_FIRST_LINEAR_TAIL_TOP_CLOCK_REVIEW_B.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/COMPACT_FIRST_LINEAR_TAIL_TOP_CLOCK_REVIEW_B.md",
+      "success": true,
+      "error": null,
+      "sha256": "4c90477ea5c9b89de6cbbe4e79e226d84fbc9ac8eed45050dd7a8700b2359a45",
+      "history_events": [
+        {
+          "thread_id": "01a078ba-92cd-79e2-bf5a-6ff7e539d322",
+          "turn_id": "01a078ba-930d-79e0-8b72-6c259d5532ea",
+          "ordinal": 53,
+          "created_at_ms": 1788732104566
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/COMPACT_FIRST_LINEAR_TAIL_TOP_CLOCK_REVIEW_A.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/COMPACT_FIRST_LINEAR_TAIL_TOP_CLOCK_REVIEW_A.md",
+      "success": true,
+      "error": null,
+      "sha256": "e1649ad19a9f196ae777f90f12dae4db9b401f49f3ff2510e7d6de6b5c81f706",
+      "history_events": [
+        {
+          "thread_id": "01a078ba-9262-7af0-92ce-6d10efeec95a",
+          "turn_id": "01a078ba-92a4-7cb1-ab07-98f2dc37416b",
+          "ordinal": 62,
+          "created_at_ms": 1788732139177
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/FROZEN_MASK_CANONICAL_MEMORY_TEST.PHYSICAL_CORRECTION_DIFF.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/FROZEN_MASK_CANONICAL_MEMORY_TEST.PHYSICAL_CORRECTION_DIFF.md",
+      "success": true,
+      "error": null,
+      "sha256": "8e01584a094951dc1dfa1c0c4498cea50ea4a018405b09bc60fc6c2aa26c2183",
+      "history_events": [
+        {
+          "thread_id": "01a078a9-13b1-7a80-9ef8-55fa20e628a4",
+          "turn_id": "01a078b4-ab1a-7481-a509-68449d8f911c",
+          "ordinal": 265,
+          "created_at_ms": 1788732227618
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/COMPACT_LINEAR_TAIL_PERMANENT_FIRST_GATES.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/COMPACT_LINEAR_TAIL_PERMANENT_FIRST_GATES.md",
+      "success": true,
+      "error": null,
+      "sha256": "dcaaea01fe2f22b8848da127eed58fbcf29bc8fe9fba516ebcaa0dde70abac20",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 13889,
+          "created_at_ms": 1788732426400
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/COMPACT_LINEAR_TAIL_PERMANENT_FIRST_GATES_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/COMPACT_LINEAR_TAIL_PERMANENT_FIRST_GATES_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "d3c08e9bfdf69f7f9ac27fc831ba0484d5bfb12c15d9d11ddeb855893341f29b",
+      "history_events": [
+        {
+          "thread_id": "01a078c3-159c-7543-a314-5e9b28c9ccd1",
+          "turn_id": "01a078c3-15e0-7020-830a-588683ce80f7",
+          "ordinal": 45,
+          "created_at_ms": 1788732596483
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/COMPACT_FIRST_LINEAR_TAIL_TOP_RAW_GD.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/COMPACT_FIRST_LINEAR_TAIL_TOP_RAW_GD.md",
+      "success": true,
+      "error": null,
+      "sha256": "4cfb3649a27b6110c1f61e1caff2d59de8c11ab1538f6ee50b7017783b7a3ede",
+      "history_events": [
+        {
+          "thread_id": "01a078bf-43e8-73a1-a684-f536b9daea55",
+          "turn_id": "01a078bf-4428-7aa2-8ec8-70bbb89d3925",
+          "ordinal": 56,
+          "created_at_ms": 1788732597689
+        },
+        {
+          "thread_id": "01a078bf-43e8-73a1-a684-f536b9daea55",
+          "turn_id": "01a078bf-4428-7aa2-8ec8-70bbb89d3925",
+          "ordinal": 69,
+          "created_at_ms": 1788732647552
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l2-two-sample-proof-0ywjpp/FROZEN_MASK_CANONICAL_MEMORY_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/FROZEN_MASK_CANONICAL_MEMORY_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "ea0cbcc7e4cd35770ed48266b46f3f3cb86fc0a79ea83219bdf5d0e4404f9385",
+      "history_events": [
+        {
+          "thread_id": "01a078c1-888a-7142-98c8-6b1d4fa52959",
+          "turn_id": "01a078c1-88c9-7580-9caa-941fbaf5970d",
+          "ordinal": 86,
+          "created_at_ms": 1788732616710
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/CONTRACT_AND_LEDGER.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/CONTRACT_AND_LEDGER.md",
+      "success": true,
+      "error": null,
+      "sha256": "0b47e6cb424e3d011a4794b83e54cc238e45fee6dc3bab8591393c4f7e5c264b",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 6741,
+          "created_at_ms": 1788702839306
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7035,
+          "created_at_ms": 1788704388895
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7158,
+          "created_at_ms": 1788704927050
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7220,
+          "created_at_ms": 1788705220678
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7351,
+          "created_at_ms": 1788705926057
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7538,
+          "created_at_ms": 1788707003469
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7696,
+          "created_at_ms": 1788707699593
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7740,
+          "created_at_ms": 1788707826857
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7905,
+          "created_at_ms": 1788708785370
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7993,
+          "created_at_ms": 1788709190669
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8089,
+          "created_at_ms": 1788709521117
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8155,
+          "created_at_ms": 1788709782338
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8185,
+          "created_at_ms": 1788709880533
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8252,
+          "created_at_ms": 1788710197880
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8294,
+          "created_at_ms": 1788710445387
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8370,
+          "created_at_ms": 1788710766975
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8468,
+          "created_at_ms": 1788711270429
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8617,
+          "created_at_ms": 1788712080528
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8731,
+          "created_at_ms": 1788712583640
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8820,
+          "created_at_ms": 1788712898378
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8887,
+          "created_at_ms": 1788713091078
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9032,
+          "created_at_ms": 1788713837951
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9146,
+          "created_at_ms": 1788714344071
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9252,
+          "created_at_ms": 1788714973240
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9390,
+          "created_at_ms": 1788715291078
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9445,
+          "created_at_ms": 1788715553767
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9558,
+          "created_at_ms": 1788716067466
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9839,
+          "created_at_ms": 1788717183096
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9905,
+          "created_at_ms": 1788717418624
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10045,
+          "created_at_ms": 1788717868728
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10124,
+          "created_at_ms": 1788718185634
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10322,
+          "created_at_ms": 1788719078961
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10493,
+          "created_at_ms": 1788719868126
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10571,
+          "created_at_ms": 1788720328365
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10954,
+          "created_at_ms": 1788721847457
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11212,
+          "created_at_ms": 1788723079228
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/ROUTE_REGISTRY.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/ROUTE_REGISTRY.md",
+      "success": true,
+      "error": null,
+      "sha256": "25f03052aaee715de3091ee5c5181588425552cabc4d462c4a0fe8fad95f0277",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 6741,
+          "created_at_ms": 1788702839306
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7035,
+          "created_at_ms": 1788704388895
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7220,
+          "created_at_ms": 1788705220678
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7351,
+          "created_at_ms": 1788705926057
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7538,
+          "created_at_ms": 1788707003469
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7740,
+          "created_at_ms": 1788707826857
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7905,
+          "created_at_ms": 1788708785370
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7993,
+          "created_at_ms": 1788709190669
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8089,
+          "created_at_ms": 1788709521117
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8155,
+          "created_at_ms": 1788709782338
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8185,
+          "created_at_ms": 1788709880533
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8252,
+          "created_at_ms": 1788710197880
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8370,
+          "created_at_ms": 1788710766975
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8468,
+          "created_at_ms": 1788711270429
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8617,
+          "created_at_ms": 1788712080528
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8731,
+          "created_at_ms": 1788712583640
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8887,
+          "created_at_ms": 1788713091078
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9032,
+          "created_at_ms": 1788713837951
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9146,
+          "created_at_ms": 1788714344071
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9252,
+          "created_at_ms": 1788714973240
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9390,
+          "created_at_ms": 1788715291078
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9445,
+          "created_at_ms": 1788715553767
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9558,
+          "created_at_ms": 1788716067466
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9839,
+          "created_at_ms": 1788717183096
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9905,
+          "created_at_ms": 1788717418624
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10124,
+          "created_at_ms": 1788718185634
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10322,
+          "created_at_ms": 1788719078961
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10493,
+          "created_at_ms": 1788719868126
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10571,
+          "created_at_ms": 1788720328365
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10807,
+          "created_at_ms": 1788721236640
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10954,
+          "created_at_ms": 1788721847457
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11032,
+          "created_at_ms": 1788722169680
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11212,
+          "created_at_ms": 1788723079228
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/EXACT_TWO_SAMPLE_REDUCTION.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/EXACT_TWO_SAMPLE_REDUCTION.md",
+      "success": true,
+      "error": null,
+      "sha256": "432f98ff185c797901a81f83c72e4217395d0100f0804b0e609b98db83182e60",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 6787,
+          "created_at_ms": 1788703147823
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 6927,
+          "created_at_ms": 1788703786750
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/ACTIVATION_STRUCTURE_ROUTE.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/ACTIVATION_STRUCTURE_ROUTE.md",
+      "success": true,
+      "error": null,
+      "sha256": "8c90cd38714f88b2944af6650056ed00b7f2afefc040ce7ecae2407a7ac9ab2d",
+      "history_events": [
+        {
+          "thread_id": "01a076ff-9748-7101-bb10-453b5d8cca53",
+          "turn_id": "01a076ff-978a-79e2-a737-33da2ce5fd2f",
+          "ordinal": 78,
+          "created_at_ms": 1788703251051
+        },
+        {
+          "thread_id": "01a076ff-9748-7101-bb10-453b5d8cca53",
+          "turn_id": "01a076ff-978a-79e2-a737-33da2ce5fd2f",
+          "ordinal": 106,
+          "created_at_ms": 1788703329977
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SHIFTED_ARCTAN_CONTRAST_ROUTE.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SHIFTED_ARCTAN_CONTRAST_ROUTE.md",
+      "success": true,
+      "error": null,
+      "sha256": "b96e685402fa843c35cbc84279b6210e3cb791818e4d5af930a40238cee916f3",
+      "history_events": [
+        {
+          "thread_id": "01a076ff-96dd-7931-becb-4e5f9b8481d1",
+          "turn_id": "01a076ff-9719-7471-981b-803a5fb42233",
+          "ordinal": 96,
+          "created_at_ms": 1788703293358
+        },
+        {
+          "thread_id": "01a076ff-96dd-7931-becb-4e5f9b8481d1",
+          "turn_id": "01a076ff-9719-7471-981b-803a5fb42233",
+          "ordinal": 133,
+          "created_at_ms": 1788703431541
+        },
+        {
+          "thread_id": "01a076ff-96dd-7931-becb-4e5f9b8481d1",
+          "turn_id": "01a076ff-9719-7471-981b-803a5fb42233",
+          "ordinal": 141,
+          "created_at_ms": 1788703454326
+        },
+        {
+          "thread_id": "01a076ff-96dd-7931-becb-4e5f9b8481d1",
+          "turn_id": "01a076ff-9719-7471-981b-803a5fb42233",
+          "ordinal": 157,
+          "created_at_ms": 1788703496079
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/EXACT_TWO_SAMPLE_REDUCTION_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/EXACT_TWO_SAMPLE_REDUCTION_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "9ad5e6c085646a8bbe9aa0640a2b28cda6819ac3215fc90af38dd6955d68493a",
+      "history_events": [
+        {
+          "thread_id": "01a07704-acfb-7b02-8cf7-efa98f1fc202",
+          "turn_id": "01a07704-ad35-7251-9916-6a917f9a2413",
+          "ordinal": 55,
+          "created_at_ms": 1788703469731
+        },
+        {
+          "thread_id": "01a07704-acfb-7b02-8cf7-efa98f1fc202",
+          "turn_id": "01a07704-ad35-7251-9916-6a917f9a2413",
+          "ordinal": 68,
+          "created_at_ms": 1788703621451
+        },
+        {
+          "thread_id": "01a07704-acfb-7b02-8cf7-efa98f1fc202",
+          "turn_id": "01a07704-ad35-7251-9916-6a917f9a2413",
+          "ordinal": 85,
+          "created_at_ms": 1788703675672
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/TWO_SAMPLE_SHORT_RESPONSE_BOOTSTRAP.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/TWO_SAMPLE_SHORT_RESPONSE_BOOTSTRAP.md",
+      "success": true,
+      "error": null,
+      "sha256": "9305453f933ad30a0e813e4e97942ee9e00490ce726d70142b25c8f67a475170",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 6848,
+          "created_at_ms": 1788703524236
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7005,
+          "created_at_ms": 1788704298643
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SAME_LABEL_GLOBAL_ASSEMBLY.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SAME_LABEL_GLOBAL_ASSEMBLY.md",
+      "success": true,
+      "error": null,
+      "sha256": "510fd019c204e0e89e0c6bcb99c031a11de974b05323df1c016c72b263f64a44",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 6943,
+          "created_at_ms": 1788703945311
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7220,
+          "created_at_ms": 1788705220678
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/TWO_SAMPLE_SHORT_RESPONSE_BOOTSTRAP_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/TWO_SAMPLE_SHORT_RESPONSE_BOOTSTRAP_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "70785dd1359734cb1651a461d7eb5ce7912931e0db4d7dfc7bc52c0ae7e53efc",
+      "history_events": [
+        {
+          "thread_id": "01a0770a-cee5-7cb0-ba49-8e595c78d812",
+          "turn_id": "01a0770a-cf22-7450-8686-0d15013b452c",
+          "ordinal": 87,
+          "created_at_ms": 1788704029662
+        },
+        {
+          "thread_id": "01a0770a-cee5-7cb0-ba49-8e595c78d812",
+          "turn_id": "01a0770a-cf22-7450-8686-0d15013b452c",
+          "ordinal": 117,
+          "created_at_ms": 1788704107955
+        },
+        {
+          "thread_id": "01a0770a-cee5-7cb0-ba49-8e595c78d812",
+          "turn_id": "01a0770a-cf22-7450-8686-0d15013b452c",
+          "ordinal": 130,
+          "created_at_ms": 1788704160711
+        },
+        {
+          "thread_id": "01a0770a-cee5-7cb0-ba49-8e595c78d812",
+          "turn_id": "01a0770a-cf22-7450-8686-0d15013b452c",
+          "ordinal": 138,
+          "created_at_ms": 1788704182450
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SAME_LABEL_NONTRIVIALITY.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SAME_LABEL_NONTRIVIALITY.md",
+      "success": true,
+      "error": null,
+      "sha256": "76124a7552d67304a7e43212b4461ca53c9d79a214af80761f6560012bdf48b6",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 6960,
+          "created_at_ms": 1788704094358
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/EXACT_TWO_SAMPLE_REDUCTION_REVIEW_2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/EXACT_TWO_SAMPLE_REDUCTION_REVIEW_2.md",
+      "success": true,
+      "error": null,
+      "sha256": "8f2fbf41dca5107c1b36c8fe579df147d860f6a44059962538176a1b67c45350",
+      "history_events": [
+        {
+          "thread_id": "01a0770d-c810-7952-94a9-29521ec85ac9",
+          "turn_id": "01a0770d-c84b-7993-82d8-12ad38e66883",
+          "ordinal": 69,
+          "created_at_ms": 1788704199087
+        },
+        {
+          "thread_id": "01a0770d-c810-7952-94a9-29521ec85ac9",
+          "turn_id": "01a0770d-c84b-7993-82d8-12ad38e66883",
+          "ordinal": 83,
+          "created_at_ms": 1788704225064
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/AFFINE_TAIL_ACTIVATION_ROUTE.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/AFFINE_TAIL_ACTIVATION_ROUTE.md",
+      "success": true,
+      "error": null,
+      "sha256": "71e83a84024dd1a25d9e8afe8de5370a5ef79fea77a9c2591af941d16fcd551c",
+      "history_events": [
+        {
+          "thread_id": "01a07714-fc0f-7fc3-bf44-841d24f41d74",
+          "turn_id": "01a07714-fc4b-70b3-9cac-58cb7e923cac",
+          "ordinal": 78,
+          "created_at_ms": 1788704649579
+        },
+        {
+          "thread_id": "01a07714-fc0f-7fc3-bf44-841d24f41d74",
+          "turn_id": "01a07714-fc4b-70b3-9cac-58cb7e923cac",
+          "ordinal": 91,
+          "created_at_ms": 1788704700560
+        },
+        {
+          "thread_id": "01a07714-fc0f-7fc3-bf44-841d24f41d74",
+          "turn_id": "01a07714-fc4b-70b3-9cac-58cb7e923cac",
+          "ordinal": 107,
+          "created_at_ms": 1788704723794
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/TWO_SAMPLE_SHORT_RESPONSE_BOOTSTRAP_REVIEW_2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/TWO_SAMPLE_SHORT_RESPONSE_BOOTSTRAP_REVIEW_2.md",
+      "success": true,
+      "error": null,
+      "sha256": "40c331f97b07647599b1df775928e6e85d46110fbcee04135ff3bab77f00913d",
+      "history_events": [
+        {
+          "thread_id": "01a07715-97a9-78f3-bf72-8920b54cb022",
+          "turn_id": "01a07715-97e3-7d70-b141-a4541aefaf92",
+          "ordinal": 76,
+          "created_at_ms": 1788704680804
+        },
+        {
+          "thread_id": "01a07715-97a9-78f3-bf72-8920b54cb022",
+          "turn_id": "01a07715-97e3-7d70-b141-a4541aefaf92",
+          "ordinal": 105,
+          "created_at_ms": 1788704744333
+        },
+        {
+          "thread_id": "01a07715-97a9-78f3-bf72-8920b54cb022",
+          "turn_id": "01a07715-97e3-7d70-b141-a4541aefaf92",
+          "ordinal": 110,
+          "created_at_ms": 1788704756302
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/WEIGHTED_RESPONSE_BRIDGE.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/WEIGHTED_RESPONSE_BRIDGE.md",
+      "success": true,
+      "error": null,
+      "sha256": "031783c6108c69ad5bf06f4a007cac2a7b2713bf1df3185e866d29e8be76493c",
+      "history_events": [
+        {
+          "thread_id": "01a07714-fc6b-7f33-9f58-c2a163c66a73",
+          "turn_id": "01a07714-fcaf-71b3-a806-fbb3779fb971",
+          "ordinal": 117,
+          "created_at_ms": 1788704798185
+        },
+        {
+          "thread_id": "01a07714-fc6b-7f33-9f58-c2a163c66a73",
+          "turn_id": "01a07714-fcaf-71b3-a806-fbb3779fb971",
+          "ordinal": 143,
+          "created_at_ms": 1788704889231
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOURCE_SCREENING.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOURCE_SCREENING.md",
+      "success": true,
+      "error": null,
+      "sha256": "d0dcbb5d18d478772a5c1d23e65ef2d8966893d6e36bd3238dac9b9b4222346f",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7158,
+          "created_at_ms": 1788704927050
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7351,
+          "created_at_ms": 1788705926057
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8089,
+          "created_at_ms": 1788709521117
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8775,
+          "created_at_ms": 1788712805329
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9146,
+          "created_at_ms": 1788714344071
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9788,
+          "created_at_ms": 1788716938595
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10728,
+          "created_at_ms": 1788720969184
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SAME_LABEL_ASSEMBLY_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SAME_LABEL_ASSEMBLY_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "c1da5e7575f6e38485b9e26c7df9da6d3b72d1aa433452b04785d4190d02ae08",
+      "history_events": [
+        {
+          "thread_id": "01a07716-f608-70b0-bd2b-addd951cd5d5",
+          "turn_id": "01a07716-f644-7471-886b-c0e1a46e6697",
+          "ordinal": 111,
+          "created_at_ms": 1788704931482
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/TWO_SAMPLE_KILLING_FRAME_TEST.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/TWO_SAMPLE_KILLING_FRAME_TEST.md",
+      "success": true,
+      "error": null,
+      "sha256": "45d46bc9d3da4956197101d0bd12b16f97e1240510c8c6d1540aed63a71e9c69",
+      "history_events": [
+        {
+          "thread_id": "01a07725-1062-71d3-b259-feeabfb76647",
+          "turn_id": "01a07725-10a0-7581-a885-c386a8317e1d",
+          "ordinal": 75,
+          "created_at_ms": 1788705621872
+        },
+        {
+          "thread_id": "01a07725-1062-71d3-b259-feeabfb76647",
+          "turn_id": "01a07725-10a0-7581-a885-c386a8317e1d",
+          "ordinal": 95,
+          "created_at_ms": 1788705665027
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/AFFINE_TAIL_TRAVERSAL_TEST.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/AFFINE_TAIL_TRAVERSAL_TEST.md",
+      "success": true,
+      "error": null,
+      "sha256": "62c5d8e96afa12ddc8496a1a2f59b0d2b854cb961e2d52486c9d4502c5e0cf2d",
+      "history_events": [
+        {
+          "thread_id": "01a07725-0fed-7423-8da1-e85343ebdb92",
+          "turn_id": "01a07725-1033-7291-8031-5a9057334483",
+          "ordinal": 89,
+          "created_at_ms": 1788705715169
+        },
+        {
+          "thread_id": "01a07725-0fed-7423-8da1-e85343ebdb92",
+          "turn_id": "01a07725-1033-7291-8031-5a9057334483",
+          "ordinal": 106,
+          "created_at_ms": 1788705827717
+        },
+        {
+          "thread_id": "01a07725-0fed-7423-8da1-e85343ebdb92",
+          "turn_id": "01a07725-1033-7291-8031-5a9057334483",
+          "ordinal": 134,
+          "created_at_ms": 1788705910887
+        },
+        {
+          "thread_id": "01a07725-0fed-7423-8da1-e85343ebdb92",
+          "turn_id": "01a07725-1033-7291-8031-5a9057334483",
+          "ordinal": 141,
+          "created_at_ms": 1788705933438
+        }
+      ],
+      "recovery_detail": "Replayed with newline-only splitting so embedded literal control characters in historical TeX do not count as extra patch lines."
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/CONVEX_AFFINE_TAIL_BASELINE.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/CONVEX_AFFINE_TAIL_BASELINE.md",
+      "success": true,
+      "error": null,
+      "sha256": "d527ba30de64cd6dec00a774faae1987eb14203187b81fced84941171d87f028",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7305,
+          "created_at_ms": 1788705733756
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/CONVEX_AFFINE_TAIL_BASELINE_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/CONVEX_AFFINE_TAIL_BASELINE_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "81e3b51704152b3636f34ef4542572a75560054331be5979df8465972331887d",
+      "history_events": [
+        {
+          "thread_id": "01a0772b-c970-7770-b3fa-c39fd1356427",
+          "turn_id": "01a0772b-c9b0-7892-ae22-8fc3ca6b9db8",
+          "ordinal": 68,
+          "created_at_ms": 1788706172065
+        },
+        {
+          "thread_id": "01a0772b-c970-7770-b3fa-c39fd1356427",
+          "turn_id": "01a0772b-c9b0-7892-ae22-8fc3ca6b9db8",
+          "ordinal": 102,
+          "created_at_ms": 1788706249629
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/ACTUAL_TRAINED_TOP_ALIGNMENT_TEST.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/ACTUAL_TRAINED_TOP_ALIGNMENT_TEST.md",
+      "success": true,
+      "error": null,
+      "sha256": "e83eaee5b01c77b1e0a4663af61714aea4d62a4095f2331898ea2d68271d13b9",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7421,
+          "created_at_ms": 1788706301444
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7564,
+          "created_at_ms": 1788707038037
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/ACTUAL_TRAINED_TOP_ALIGNMENT_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/ACTUAL_TRAINED_TOP_ALIGNMENT_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "fa97a1e63011dfa993ceb73f3045b440e3d8f8e19c46228c7112a2f9a2e36a52",
+      "history_events": [
+        {
+          "thread_id": "01a07734-9b7f-7280-b8c1-197eb93ab0a4",
+          "turn_id": "01a07734-9bbd-7eb2-a75e-2051d9311b69",
+          "ordinal": 82,
+          "created_at_ms": 1788706772962
+        },
+        {
+          "thread_id": "01a07734-9b7f-7280-b8c1-197eb93ab0a4",
+          "turn_id": "01a07734-9bbd-7eb2-a75e-2051d9311b69",
+          "ordinal": 110,
+          "created_at_ms": 1788706837071
+        },
+        {
+          "thread_id": "01a07734-9b7f-7280-b8c1-197eb93ab0a4",
+          "turn_id": "01a07734-9bbd-7eb2-a75e-2051d9311b69",
+          "ordinal": 133,
+          "created_at_ms": 1788706893967
+        }
+      ],
+      "recovery_detail": "Replayed with newline-only splitting so embedded literal control characters in historical TeX do not count as extra patch lines."
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/UNALIGNED_CURVATURE_BUDGET.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/UNALIGNED_CURVATURE_BUDGET.md",
+      "success": true,
+      "error": null,
+      "sha256": "a173459960cccbf09fd9a4a1eb9ea1aa44bb88e86427d965fe8009ec266f0e3d",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7511,
+          "created_at_ms": 1788706873922
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7687,
+          "created_at_ms": 1788707679364
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/UNALIGNED_CURVATURE_BUDGET_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/UNALIGNED_CURVATURE_BUDGET_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "b1110b5cf2bc45b6ff5282a7724e42eb0fbd5129f446c8ff3ef372783b862bdb",
+      "history_events": [
+        {
+          "thread_id": "01a0773d-2b21-7202-8314-3e714c5dfa83",
+          "turn_id": "01a0773d-2b5e-7d12-9ea3-939485f82949",
+          "ordinal": 48,
+          "created_at_ms": 1788707201610
+        },
+        {
+          "thread_id": "01a0773d-2b21-7202-8314-3e714c5dfa83",
+          "turn_id": "01a0773d-2b5e-7d12-9ea3-939485f82949",
+          "ordinal": 82,
+          "created_at_ms": 1788707301534
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/ACTUAL_TRAINED_TOP_ALIGNMENT_REVIEW_2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/ACTUAL_TRAINED_TOP_ALIGNMENT_REVIEW_2.md",
+      "success": true,
+      "error": null,
+      "sha256": "0d498787a6360e0326aab8ff23d37beaa86822369efe1a5810e8813fd86ca74f",
+      "history_events": [
+        {
+          "thread_id": "01a0773f-64f9-78b3-b623-d5e4683cd740",
+          "turn_id": "01a0773f-6536-7b13-9cee-a8ac4bfbaaae",
+          "ordinal": 87,
+          "created_at_ms": 1788707448309
+        },
+        {
+          "thread_id": "01a0773f-64f9-78b3-b623-d5e4683cd740",
+          "turn_id": "01a0773f-6536-7b13-9cee-a8ac4bfbaaae",
+          "ordinal": 102,
+          "created_at_ms": 1788707491948
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/NEXT_PROOF_OBLIGATION.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/NEXT_PROOF_OBLIGATION.md",
+      "success": true,
+      "error": null,
+      "sha256": "238fe1ddae1194b772db20c5aca9784854f3493ad54e657bdcc25046df416c6c",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7634,
+          "created_at_ms": 1788707515437
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7905,
+          "created_at_ms": 1788708785370
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8294,
+          "created_at_ms": 1788710445387
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8310,
+          "created_at_ms": 1788710531170
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8346,
+          "created_at_ms": 1788710679770
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8379,
+          "created_at_ms": 1788710777979
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8468,
+          "created_at_ms": 1788711270429
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8617,
+          "created_at_ms": 1788712080528
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8731,
+          "created_at_ms": 1788712583640
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8746,
+          "created_at_ms": 1788712647165
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9034,
+          "created_at_ms": 1788713838985
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9146,
+          "created_at_ms": 1788714344071
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9252,
+          "created_at_ms": 1788714973240
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9398,
+          "created_at_ms": 1788715309007
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9445,
+          "created_at_ms": 1788715553767
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9558,
+          "created_at_ms": 1788716067466
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9839,
+          "created_at_ms": 1788717183096
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9905,
+          "created_at_ms": 1788717418624
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10045,
+          "created_at_ms": 1788717868728
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10124,
+          "created_at_ms": 1788718185634
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10279,
+          "created_at_ms": 1788718762863
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10493,
+          "created_at_ms": 1788719868126
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10571,
+          "created_at_ms": 1788720328365
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10728,
+          "created_at_ms": 1788720969184
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10807,
+          "created_at_ms": 1788721236640
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10859,
+          "created_at_ms": 1788721521797
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10905,
+          "created_at_ms": 1788721655934
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10954,
+          "created_at_ms": 1788721847457
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11010,
+          "created_at_ms": 1788722058214
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11032,
+          "created_at_ms": 1788722169680
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11212,
+          "created_at_ms": 1788723079228
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/GAUSSIAN_INITIAL_SIGNED_RESPONSE.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/GAUSSIAN_INITIAL_SIGNED_RESPONSE.md",
+      "success": true,
+      "error": null,
+      "sha256": "05708450c2896f62e9ec39beeb67c9b9d1e804ba37a96fa8e342d6cd3692e1f1",
+      "history_events": [
+        {
+          "thread_id": "01a07741-f2e3-7703-ba32-96808c1ef659",
+          "turn_id": "01a07741-f326-74d3-83d9-7b54100e7a6a",
+          "ordinal": 84,
+          "created_at_ms": 1788707603507
+        },
+        {
+          "thread_id": "01a07741-f2e3-7703-ba32-96808c1ef659",
+          "turn_id": "01a07741-f326-74d3-83d9-7b54100e7a6a",
+          "ordinal": 93,
+          "created_at_ms": 1788707625618
+        },
+        {
+          "thread_id": "01a07741-f2e3-7703-ba32-96808c1ef659",
+          "turn_id": "01a07741-f326-74d3-83d9-7b54100e7a6a",
+          "ordinal": 102,
+          "created_at_ms": 1788707660673
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/UNALIGNED_CURVATURE_BUDGET_REVIEW_2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/UNALIGNED_CURVATURE_BUDGET_REVIEW_2.md",
+      "success": true,
+      "error": null,
+      "sha256": "35fede5349d5429405d4bfef6977dd7661f68e764b057afcdd2ea0aafb3b209f",
+      "history_events": [
+        {
+          "thread_id": "01a07749-7a9a-7622-be06-98f0045fa4ad",
+          "turn_id": "01a07749-7ae4-7e70-83ed-0c19c0a2683b",
+          "ordinal": 66,
+          "created_at_ms": 1788707997768
+        },
+        {
+          "thread_id": "01a07749-7a9a-7622-be06-98f0045fa4ad",
+          "turn_id": "01a07749-7ae4-7e70-83ed-0c19c0a2683b",
+          "ordinal": 80,
+          "created_at_ms": 1788708073554
+        },
+        {
+          "thread_id": "01a07749-7a9a-7622-be06-98f0045fa4ad",
+          "turn_id": "01a07749-7ae4-7e70-83ed-0c19c0a2683b",
+          "ordinal": 89,
+          "created_at_ms": 1788708182957
+        },
+        {
+          "thread_id": "01a07749-7a9a-7622-be06-98f0045fa4ad",
+          "turn_id": "01a07749-7ae4-7e70-83ed-0c19c0a2683b",
+          "ordinal": 106,
+          "created_at_ms": 1788708257818
+        },
+        {
+          "thread_id": "01a07749-7a9a-7622-be06-98f0045fa4ad",
+          "turn_id": "01a07749-7ae4-7e70-83ed-0c19c0a2683b",
+          "ordinal": 127,
+          "created_at_ms": 1788708310947
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/GAUSSIAN_BACKWARD_SIGN_TRANSFER.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/GAUSSIAN_BACKWARD_SIGN_TRANSFER.md",
+      "success": true,
+      "error": null,
+      "sha256": "5ff166e2c9ab7faf504be74795d513d61fae14a1b8d789e3759606dba09670e8",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7802,
+          "created_at_ms": 1788708260130
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 7982,
+          "created_at_ms": 1788709172912
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/GAUSSIAN_INITIAL_SIGNED_RESPONSE_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/GAUSSIAN_INITIAL_SIGNED_RESPONSE_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "bb0a913a706ce23f49fdfc985cd4c6ea446b31d2c3e4a7c50ed948a560832494",
+      "history_events": [
+        {
+          "thread_id": "01a0774b-324c-78a3-891e-c2a6e870c72f",
+          "turn_id": "01a0774b-3292-7292-b395-902ca606187f",
+          "ordinal": 65,
+          "created_at_ms": 1788708300022
+        },
+        {
+          "thread_id": "01a0774b-324c-78a3-891e-c2a6e870c72f",
+          "turn_id": "01a0774b-3292-7292-b395-902ca606187f",
+          "ordinal": 80,
+          "created_at_ms": 1788708336494
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/GAUSSIAN_BACKWARD_SIGN_TRANSFER_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/GAUSSIAN_BACKWARD_SIGN_TRANSFER_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "93577faf35a63054b94092c7ffaa0d29c3e94ef78aa1c8c8469b8512c1888139",
+      "history_events": [
+        {
+          "thread_id": "01a07756-39fe-7fa3-8406-2b6ac446127a",
+          "turn_id": "01a07756-3a42-7371-bf7f-ba01a8d2db41",
+          "ordinal": 79,
+          "created_at_ms": 1788708947559
+        },
+        {
+          "thread_id": "01a07756-39fe-7fa3-8406-2b6ac446127a",
+          "turn_id": "01a07756-3a42-7371-bf7f-ba01a8d2db41",
+          "ordinal": 88,
+          "created_at_ms": 1788708978925
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/CONSTANT_CONTROL_ARCTAN_TRAVERSAL.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/CONSTANT_CONTROL_ARCTAN_TRAVERSAL.md",
+      "success": true,
+      "error": null,
+      "sha256": "8fca2c20127608fc84f04906ecf733b9d4a6e8b65a78c8af9416d52f8b36522c",
+      "history_events": [
+        {
+          "thread_id": "01a0775b-901a-7e02-b293-16c1420d65dc",
+          "turn_id": "01a0775b-905f-7b92-972a-b40b8f4ccc24",
+          "ordinal": 84,
+          "created_at_ms": 1788709298099
+        },
+        {
+          "thread_id": "01a0775b-901a-7e02-b293-16c1420d65dc",
+          "turn_id": "01a0775b-905f-7b92-972a-b40b8f4ccc24",
+          "ordinal": 98,
+          "created_at_ms": 1788709322999
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/ACTUAL_REVERSE_QUERY_EVOLUTION.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/ACTUAL_REVERSE_QUERY_EVOLUTION.md",
+      "success": true,
+      "error": null,
+      "sha256": "fb9b8fb1e43f31bf16c7b08f2e079e6e5ff20fb39fd7d7a142712514df34677c",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8078,
+          "created_at_ms": 1788709493364
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/GAUSSIAN_BACKWARD_SIGN_TRANSFER_REVIEW_2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/GAUSSIAN_BACKWARD_SIGN_TRANSFER_REVIEW_2.md",
+      "success": true,
+      "error": null,
+      "sha256": "bbbc33572a16fa4bb82c3c2b1590efa7dcff7dfd6fb0a6aef3bdf42bd7659aed",
+      "history_events": [
+        {
+          "thread_id": "01a07760-3af2-7f51-a4ca-62d0461b5290",
+          "turn_id": "01a07760-3b2e-7363-92f6-b2560f825413",
+          "ordinal": 68,
+          "created_at_ms": 1788709554361
+        },
+        {
+          "thread_id": "01a07760-3af2-7f51-a4ca-62d0461b5290",
+          "turn_id": "01a07760-3b2e-7363-92f6-b2560f825413",
+          "ordinal": 90,
+          "created_at_ms": 1788709611974
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/CONSTANT_CONTROL_ARCTAN_TRAVERSAL_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/CONSTANT_CONTROL_ARCTAN_TRAVERSAL_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "455dbb60ed57a30dc6da21c2906c35806002604e01e6c13f9c64dede58b38dfe",
+      "history_events": [
+        {
+          "thread_id": "01a07763-8740-7dc3-be82-694c7c9e639e",
+          "turn_id": "01a07763-8780-7f12-a066-def6a5575b0b",
+          "ordinal": 52,
+          "created_at_ms": 1788709707170
+        },
+        {
+          "thread_id": "01a07763-8740-7dc3-be82-694c7c9e639e",
+          "turn_id": "01a07763-8780-7f12-a066-def6a5575b0b",
+          "ordinal": 66,
+          "created_at_ms": 1788709735361
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/FIXED_SIGN_VARIABLE_CONTROL_BOUNDARY.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/FIXED_SIGN_VARIABLE_CONTROL_BOUNDARY.md",
+      "success": true,
+      "error": null,
+      "sha256": "28ae2496937d65ec80a8e727519f60cac146574fbcabcfec6fbde57f11364c9f",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8174,
+          "created_at_ms": 1788709860567
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/ACTUAL_REVERSE_QUERY_EVOLUTION_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/ACTUAL_REVERSE_QUERY_EVOLUTION_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "9e4c19d1b940016954ce8cd5420c5f732ce0efc0528fecb37dd4551e1141dc3d",
+      "history_events": [
+        {
+          "thread_id": "01a07765-457b-7c30-b6d4-eb894b7661eb",
+          "turn_id": "01a07765-45b8-77b3-af9c-234e3f433d5e",
+          "ordinal": 67,
+          "created_at_ms": 1788709875282
+        },
+        {
+          "thread_id": "01a07765-457b-7c30-b6d4-eb894b7661eb",
+          "turn_id": "01a07765-45b8-77b3-af9c-234e3f433d5e",
+          "ordinal": 82,
+          "created_at_ms": 1788709910334
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/GAUSSIAN_GATE_ACTIVATION_DESIGN.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/GAUSSIAN_GATE_ACTIVATION_DESIGN.md",
+      "success": true,
+      "error": null,
+      "sha256": "fe7ac18d21022823911c32d3a61447a65f376cf08160f42e76a27ee70ba7b716",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8237,
+          "created_at_ms": 1788710131597
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/FIXED_SIGN_VARIABLE_CONTROL_BOUNDARY_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/FIXED_SIGN_VARIABLE_CONTROL_BOUNDARY_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "5d7509ceea44675b9539cd0b127230672490ba44a87f9ad81158dac63668050e",
+      "history_events": [
+        {
+          "thread_id": "01a0776a-c1d1-7442-a13a-436f061add04",
+          "turn_id": "01a0776a-c20d-7630-9b79-d0e30e26a13d",
+          "ordinal": 50,
+          "created_at_ms": 1788710140503
+        },
+        {
+          "thread_id": "01a0776a-c1d1-7442-a13a-436f061add04",
+          "turn_id": "01a0776a-c20d-7630-9b79-d0e30e26a13d",
+          "ordinal": 57,
+          "created_at_ms": 1788710159256
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/GAUSSIAN_GATE_AUXILIARY_IDENTITIES.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/GAUSSIAN_GATE_AUXILIARY_IDENTITIES.md",
+      "success": true,
+      "error": null,
+      "sha256": "cab0a18d37d21885a315590aca12ed7ebe2cd8767eef06d050fe2a982c11bc31",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8308,
+          "created_at_ms": 1788710530645
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/GAUSSIAN_GATE_ACTIVATION_DESIGN_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/GAUSSIAN_GATE_ACTIVATION_DESIGN_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "30165f381e2bf8c03512bad5f2b3e8adb528976f9a9847dcb662d88800953b1a",
+      "history_events": [
+        {
+          "thread_id": "01a0776f-9965-78f1-9dec-84686263abcf",
+          "turn_id": "01a0776f-99a5-7a61-9927-ab5318c24b85",
+          "ordinal": 65,
+          "created_at_ms": 1788710566408
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/GAUSSIAN_GATE_SIGN_SWITCHING_TEST.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/GAUSSIAN_GATE_SIGN_SWITCHING_TEST.md",
+      "success": true,
+      "error": null,
+      "sha256": "cd97bafe6125f53e67f05751efb0ffbb9b16368ab88a50fa9f419a258a91cb4d",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8344,
+          "created_at_ms": 1788710679264
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/GAUSSIAN_GATE_SIGN_SWITCHING_TEST_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/GAUSSIAN_GATE_SIGN_SWITCHING_TEST_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "0afc063a19cc9ecb1ee0aea93b8d21c92f6922ec346eb6d4dd08d7efd51df20d",
+      "history_events": [
+        {
+          "thread_id": "01a07778-4860-7c20-b548-aeba8c07446c",
+          "turn_id": "01a07778-48a2-7a61-a100-7fac1c42af19",
+          "ordinal": 61,
+          "created_at_ms": 1788711046350
+        },
+        {
+          "thread_id": "01a07778-4860-7c20-b548-aeba8c07446c",
+          "turn_id": "01a07778-48a2-7a61-a100-7fac1c42af19",
+          "ordinal": 70,
+          "created_at_ms": 1788711120371
+        },
+        {
+          "thread_id": "01a07778-4860-7c20-b548-aeba8c07446c",
+          "turn_id": "01a07778-48a2-7a61-a100-7fac1c42af19",
+          "ordinal": 86,
+          "created_at_ms": 1788711160001
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SECH_GATE_ACTIVATION_DESIGN.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SECH_GATE_ACTIVATION_DESIGN.md",
+      "success": true,
+      "error": null,
+      "sha256": "c0f67365fbe36af74db9708ce8a32018b30d8164e77c50b068f71299045e4f24",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8421,
+          "created_at_ms": 1788711059812
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SECH_GATE_ACTIVATION_DESIGN_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SECH_GATE_ACTIVATION_DESIGN_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "114f6d88355b28d8ef20c04e9694a756eb7cb5f1ff0aff10561af414d3d045ac",
+      "history_events": [
+        {
+          "thread_id": "01a0777f-3f3d-7272-8f17-3cc32412b48f",
+          "turn_id": "01a0777f-3f79-7f62-a555-b6abdb67ee24",
+          "ordinal": 65,
+          "created_at_ms": 1788711579980
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SECH_ACTUAL_CONTROL_SIGN_TEST.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SECH_ACTUAL_CONTROL_SIGN_TEST.md",
+      "success": true,
+      "error": null,
+      "sha256": "43c2e8422f3973a883e4dcab86509bfe97b91a5a001c8189b198c69642f53e51",
+      "history_events": [
+        {
+          "thread_id": "01a07783-b9d2-79e1-b570-1a1327873fcc",
+          "turn_id": "01a07783-ba10-7b43-840f-a5f491477dfa",
+          "ordinal": 96,
+          "created_at_ms": 1788711974378
+        },
+        {
+          "thread_id": "01a07783-b9d2-79e1-b570-1a1327873fcc",
+          "turn_id": "01a07783-ba10-7b43-840f-a5f491477dfa",
+          "ordinal": 127,
+          "created_at_ms": 1788712084079
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8810,
+          "created_at_ms": 1788712880103
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SECH_LOCAL_JET_AND_SIGN_BRIDGE.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SECH_LOCAL_JET_AND_SIGN_BRIDGE.md",
+      "success": true,
+      "error": null,
+      "sha256": "65fab11c5892afe517fe4289450f0736bb137bb1a118e85f8ea8541e18a017f8",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8720,
+          "created_at_ms": 1788712537997
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8861,
+          "created_at_ms": 1788713015691
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8875,
+          "created_at_ms": 1788713065260
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SECH_ACTUAL_CONTROL_SIGN_TEST_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SECH_ACTUAL_CONTROL_SIGN_TEST_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "98e6f0fda4dff9fa39db216c7baa11d5d9be7a8dd2afe2e9e41fb7fff3f123ff",
+      "history_events": [
+        {
+          "thread_id": "01a0778e-c46c-71f0-b5d1-53ebe99fe464",
+          "turn_id": "01a0778e-c4aa-7500-b995-97a722bdc13a",
+          "ordinal": 87,
+          "created_at_ms": 1788712714292
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SECH_LOCAL_JET_AND_SIGN_BRIDGE_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SECH_LOCAL_JET_AND_SIGN_BRIDGE_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "d4d3c1275fabacd63c4b7eaa0200ee98256c235fc8a44d1b868981c66dd26249",
+      "history_events": [
+        {
+          "thread_id": "01a07794-003d-7562-a45a-29bc3105f3c8",
+          "turn_id": "01a07794-007c-7380-ae31-fcf0b1c33038",
+          "ordinal": 121,
+          "created_at_ms": 1788712919239
+        },
+        {
+          "thread_id": "01a07794-003d-7562-a45a-29bc3105f3c8",
+          "turn_id": "01a07794-007c-7380-ae31-fcf0b1c33038",
+          "ordinal": 140,
+          "created_at_ms": 1788712968754
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SECH_SAME_LABEL_GLOBAL_TRANSFER.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SECH_SAME_LABEL_GLOBAL_TRANSFER.md",
+      "success": true,
+      "error": null,
+      "sha256": "f7cfaf82de5ba25a7b8429435366a2919c2c82e15cf132d2525e4b260c602302",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8839,
+          "created_at_ms": 1788712987479
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SECH_ACTUAL_CONTROL_SIGN_TEST_REVIEW_2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SECH_ACTUAL_CONTROL_SIGN_TEST_REVIEW_2.md",
+      "success": true,
+      "error": null,
+      "sha256": "58870d5c5a1b07a19d4ab49d3e2ffcfcd219959e78c1ee01f99357d3a220fe79",
+      "history_events": [
+        {
+          "thread_id": "01a07798-ce63-7d43-819b-6ff43a2ad0c1",
+          "turn_id": "01a07798-cea1-7e03-966b-eba060b89397",
+          "ordinal": 64,
+          "created_at_ms": 1788713296460
+        },
+        {
+          "thread_id": "01a07798-ce63-7d43-819b-6ff43a2ad0c1",
+          "turn_id": "01a07798-cea1-7e03-966b-eba060b89397",
+          "ordinal": 82,
+          "created_at_ms": 1788713334010
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SECH_LOCAL_JET_AND_SIGN_BRIDGE_REVIEW_2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SECH_LOCAL_JET_AND_SIGN_BRIDGE_REVIEW_2.md",
+      "success": true,
+      "error": null,
+      "sha256": "2dc953543c130355efbe637920ed3d74942144d9fd942dbd6268467372271395",
+      "history_events": [
+        {
+          "thread_id": "01a0779b-be3b-7682-a50c-39f4f56c2e86",
+          "turn_id": "01a0779b-be80-7440-b237-b550ce18a4a0",
+          "ordinal": 106,
+          "created_at_ms": 1788713440702
+        },
+        {
+          "thread_id": "01a0779b-be3b-7682-a50c-39f4f56c2e86",
+          "turn_id": "01a0779b-be80-7440-b237-b550ce18a4a0",
+          "ordinal": 120,
+          "created_at_ms": 1788713465364
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/ACTUAL_GAUSSIAN_INITIAL_HESSIAN_TEST.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/ACTUAL_GAUSSIAN_INITIAL_HESSIAN_TEST.md",
+      "success": true,
+      "error": null,
+      "sha256": "8068a63d710643d06020701a19d5d90260bf02ce5300d158fe52bd4b10546407",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 8941,
+          "created_at_ms": 1788713465362
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SECH_SAME_LABEL_GLOBAL_TRANSFER_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SECH_SAME_LABEL_GLOBAL_TRANSFER_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "66291f85fdd377a472febe98d51c1962a68f6a16f4a6b26ad213e5ae80adf940",
+      "history_events": [
+        {
+          "thread_id": "01a0779b-beae-78a2-b397-d9ade064cc9d",
+          "turn_id": "01a0779b-bef7-72f2-9dbb-b02046d67912",
+          "ordinal": 133,
+          "created_at_ms": 1788713523491
+        },
+        {
+          "thread_id": "01a0779b-beae-78a2-b397-d9ade064cc9d",
+          "turn_id": "01a0779b-bef7-72f2-9dbb-b02046d67912",
+          "ordinal": 148,
+          "created_at_ms": 1788713559644
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/ACTUAL_GAUSSIAN_INITIAL_HESSIAN_TEST_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/ACTUAL_GAUSSIAN_INITIAL_HESSIAN_TEST_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "8385bc38a104b412d148be193059f691f4b80fcb438fd0168fd11c6e1a2f86b5",
+      "history_events": [
+        {
+          "thread_id": "01a077a4-ecc4-7a90-8c27-2ef5b5bb7fdb",
+          "turn_id": "01a077a4-ed08-7c82-84de-e8148132f598",
+          "ordinal": 54,
+          "created_at_ms": 1788713936597
+        },
+        {
+          "thread_id": "01a077a4-ecc4-7a90-8c27-2ef5b5bb7fdb",
+          "turn_id": "01a077a4-ed08-7c82-84de-e8148132f598",
+          "ordinal": 69,
+          "created_at_ms": 1788714069515
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/POSITIVE_TIME_MIDDLE_CURVATURE.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/POSITIVE_TIME_MIDDLE_CURVATURE.md",
+      "success": true,
+      "error": null,
+      "sha256": "9efd5283d35a493982f3a142332536d32a9905eff62cb44ea8793aaf001ea79a",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9194,
+          "created_at_ms": 1788714683722
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9379,
+          "created_at_ms": 1788715270839
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/POSITIVE_TIME_MIDDLE_CURVATURE_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/POSITIVE_TIME_MIDDLE_CURVATURE_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "144a656fce84106ba72a307ec729fa761e40c8987c3beb257387e77a17122b4c",
+      "history_events": [
+        {
+          "thread_id": "01a077b4-52b3-7ad2-af2f-747057d9c404",
+          "turn_id": "01a077b4-52f1-7c42-945e-9d4708339803",
+          "ordinal": 102,
+          "created_at_ms": 1788715070406
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/POSITIVE_TIME_MIDDLE_CURVATURE_PROBABILITY_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/POSITIVE_TIME_MIDDLE_CURVATURE_PROBABILITY_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "79170f5d2628f6eaeb7d774446b1305b5d75045fb26bad4063dc98ed650cd52c",
+      "history_events": [
+        {
+          "thread_id": "01a077b4-5312-7ea1-953a-88c4960f0a66",
+          "turn_id": "01a077b4-5350-7951-9481-e8b7e04dfb6e",
+          "ordinal": 71,
+          "created_at_ms": 1788715080956
+        },
+        {
+          "thread_id": "01a077b4-5312-7ea1-953a-88c4960f0a66",
+          "turn_id": "01a077b4-5350-7951-9481-e8b7e04dfb6e",
+          "ordinal": 82,
+          "created_at_ms": 1788715121951
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/POSITIVE_TIME_MIDDLE_CURVATURE_REVIEW_2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/POSITIVE_TIME_MIDDLE_CURVATURE_REVIEW_2.md",
+      "success": true,
+      "error": null,
+      "sha256": "a062c0a546c9216612df84284a3291b8a7b7a925a616b19276c856ff5f6e26d6",
+      "history_events": [
+        {
+          "thread_id": "01a077bd-506c-7d41-a025-715585392a69",
+          "turn_id": "01a077bd-50ae-71b3-b242-23cf84087d17",
+          "ordinal": 92,
+          "created_at_ms": 1788715552868
+        },
+        {
+          "thread_id": "01a077bd-506c-7d41-a025-715585392a69",
+          "turn_id": "01a077bd-50ae-71b3-b242-23cf84087d17",
+          "ordinal": 103,
+          "created_at_ms": 1788715680115
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/POSITIVE_TIME_MIDDLE_CURVATURE_PROBABILITY_REVIEW_2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/POSITIVE_TIME_MIDDLE_CURVATURE_PROBABILITY_REVIEW_2.md",
+      "success": true,
+      "error": null,
+      "sha256": "c5e080e163a0c88e7ce3fc33259dd726652a2de0b23b74d29be738b0da7efbdd",
+      "history_events": [
+        {
+          "thread_id": "01a077bd-50ca-7530-b2ae-33573a9d29b0",
+          "turn_id": "01a077bd-5106-7501-8e6e-b5a5fb51773c",
+          "ordinal": 57,
+          "created_at_ms": 1788715685539
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SHIFTED_HARMONIC_CAUSAL_RESPONSE.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SHIFTED_HARMONIC_CAUSAL_RESPONSE.md",
+      "success": true,
+      "error": null,
+      "sha256": "fbb08acfe9decd7e4797266be32a68b6a5a84e892e50ae1acb958b10353770ae",
+      "history_events": [
+        {
+          "thread_id": "01a077c0-309a-7361-9f32-b373e3a740ce",
+          "turn_id": "01a077c0-30d6-7963-be8e-9c4c76face31",
+          "ordinal": 105,
+          "created_at_ms": 1788715928037
+        },
+        {
+          "thread_id": "01a077c0-309a-7361-9f32-b373e3a740ce",
+          "turn_id": "01a077c0-30d6-7963-be8e-9c4c76face31",
+          "ordinal": 121,
+          "created_at_ms": 1788715965675
+        },
+        {
+          "thread_id": "01a077c0-309a-7361-9f32-b373e3a740ce",
+          "turn_id": "01a077c0-30d6-7963-be8e-9c4c76face31",
+          "ordinal": 141,
+          "created_at_ms": 1788716028313
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9734,
+          "created_at_ms": 1788716640277
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SHIFTED_HARMONIC_CAUSAL_RESPONSE_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SHIFTED_HARMONIC_CAUSAL_RESPONSE_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "e806b9d8147064aa2fee8284896a0a0a91ebaef08c4765c79b5ed3af3e7e73e7",
+      "history_events": [
+        {
+          "thread_id": "01a077c9-e4ed-7a52-a911-de433288ad74",
+          "turn_id": "01a077c9-e52f-7301-af30-2156ebf46eb7",
+          "ordinal": 86,
+          "created_at_ms": 1788716506331
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SHIFTED_HARMONIC_CAUSAL_RESPONSE_REVIEW_2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SHIFTED_HARMONIC_CAUSAL_RESPONSE_REVIEW_2.md",
+      "success": true,
+      "error": null,
+      "sha256": "43b4cc2b164e4c27eef49fb0349d38f5c4f7871023c759284eb107944af8fbd4",
+      "history_events": [
+        {
+          "thread_id": "01a077d1-e921-7fd2-947b-0d1112caecfc",
+          "turn_id": "01a077d1-e95f-7990-b280-947caa87aa92",
+          "ordinal": 70,
+          "created_at_ms": 1788716961104
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/CONVEX_GATE_CURVATURE_ACTION.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/CONVEX_GATE_CURVATURE_ACTION.md",
+      "success": true,
+      "error": null,
+      "sha256": "e222051b6b85c07a23243b4c502ae6db4bbf7a2e7c659d0a4393e18f03522b2c",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9818,
+          "created_at_ms": 1788717127144
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9974,
+          "created_at_ms": 1788717581847
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/OPPOSITE_LABEL_MODE_RESPONSE.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/OPPOSITE_LABEL_MODE_RESPONSE.md",
+      "success": true,
+      "error": null,
+      "sha256": "1318581760487566cc467b2952016ce502a4d2da4a2cbf841e15c19e88a9776b",
+      "history_events": [
+        {
+          "thread_id": "01a077d6-74b0-7682-8c81-e8eb9d76e9ea",
+          "turn_id": "01a077d6-74eb-79f0-9196-8e444b6f3a0d",
+          "ordinal": 94,
+          "created_at_ms": 1788717369014
+        },
+        {
+          "thread_id": "01a077d6-74b0-7682-8c81-e8eb9d76e9ea",
+          "turn_id": "01a077d6-74eb-79f0-9196-8e444b6f3a0d",
+          "ordinal": 124,
+          "created_at_ms": 1788717435075
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9974,
+          "created_at_ms": 1788717581847
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/MIDDLE_CURVATURE_MODE_ACTION.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/MIDDLE_CURVATURE_MODE_ACTION.md",
+      "success": true,
+      "error": null,
+      "sha256": "9f812d0d7ecc5196f699a338fc4f8d4b0b5db6a703e817bdf6ebfc2dae60634b",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9878,
+          "created_at_ms": 1788717380861
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 9893,
+          "created_at_ms": 1788717396338
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10025,
+          "created_at_ms": 1788717775926
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/CONVEX_GATE_CURVATURE_ACTION_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/CONVEX_GATE_CURVATURE_ACTION_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "63602df63a40650acb935584faf423f5f8a3814ac20c2d8573667665006cee17",
+      "history_events": [
+        {
+          "thread_id": "01a077d9-965a-7890-abb6-733a7863950a",
+          "turn_id": "01a077d9-9697-7d53-8498-0209acb14ebb",
+          "ordinal": 53,
+          "created_at_ms": 1788717428704
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/MIDDLE_CURVATURE_MODE_ACTION_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/MIDDLE_CURVATURE_MODE_ACTION_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "6f08f6350b82f9206dc1f1078040440af900d3f5749c84566ae85f482d9b1ffc",
+      "history_events": [
+        {
+          "thread_id": "01a077dd-7280-7cd3-af11-2ca0af1c86f2",
+          "turn_id": "01a077dd-72c0-7181-a1bf-b87db94f7776",
+          "ordinal": 47,
+          "created_at_ms": 1788717613956
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_LOCAL_BOOTSTRAP_PLAN.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_LOCAL_BOOTSTRAP_PLAN.md",
+      "success": true,
+      "error": null,
+      "sha256": "4848c8a8dd38b4b5bd856e7cad30418c9c538d83a6bb906b9d86c233ed3aba01",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10002,
+          "created_at_ms": 1788717735197
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10044,
+          "created_at_ms": 1788717868194
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/CONVEX_GATE_CURVATURE_ACTION_REVIEW_2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/CONVEX_GATE_CURVATURE_ACTION_REVIEW_2.md",
+      "success": true,
+      "error": null,
+      "sha256": "3e7bc22af2e3a0817e2eebca4b7131262c2d7dc6ea487b3e95a37819457dce93",
+      "history_events": [
+        {
+          "thread_id": "01a077e0-487e-7111-a0f2-a627a5d041ae",
+          "turn_id": "01a077e0-48b9-77a3-9e4e-17437881f5d8",
+          "ordinal": 57,
+          "created_at_ms": 1788717871091
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/OPPOSITE_LABEL_MODE_RESPONSE_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/OPPOSITE_LABEL_MODE_RESPONSE_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "09f9dde5488ca2aaf04c51481c87b32aed67659429de79afb5a2967f29e1bdae",
+      "history_events": [
+        {
+          "thread_id": "01a077e0-4821-7670-be10-babf6e77ae6f",
+          "turn_id": "01a077e0-485d-7913-b6a9-7829b0761d88",
+          "ordinal": 75,
+          "created_at_ms": 1788717921712
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/MIDDLE_CURVATURE_MODE_ACTION_REVIEW_2.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/MIDDLE_CURVATURE_MODE_ACTION_REVIEW_2.md",
+      "success": true,
+      "error": null,
+      "sha256": "c83b8ff61a8aa2d02a2251b0ac53b544ae1da9712d02c1fa6dbbab9b98e81c44",
+      "history_events": [
+        {
+          "thread_id": "01a077e3-3d4b-7863-a888-9318a2b159dc",
+          "turn_id": "01a077e3-3d8b-7072-9438-42430c0bb84f",
+          "ordinal": 49,
+          "created_at_ms": 1788718010758
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_LOCAL_GAUSSIAN_RESPONSE.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_LOCAL_GAUSSIAN_RESPONSE.md",
+      "success": true,
+      "error": null,
+      "sha256": "0cf9f84eb9ff99d1831355b56e24034660fe5c0c98722d78b3a8e33c586a5b6b",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10131,
+          "created_at_ms": 1788718306498
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_THREE_CUT_PRIMAL_COMPARISON.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_THREE_CUT_PRIMAL_COMPARISON.md",
+      "success": true,
+      "error": null,
+      "sha256": "51323710f5c02314f232b3fa8e42a7dc9c0c385530398c009fa28a595bf3f02f",
+      "history_events": [
+        {
+          "thread_id": "01a077e8-2d70-7e00-85fe-4b5bb8ef0208",
+          "turn_id": "01a077e8-2db1-7d70-8699-8c56baf40f54",
+          "ordinal": 48,
+          "created_at_ms": 1788718433899
+        },
+        {
+          "thread_id": "01a077e8-2d70-7e00-85fe-4b5bb8ef0208",
+          "turn_id": "01a077e8-2db1-7d70-8699-8c56baf40f54",
+          "ordinal": 78,
+          "created_at_ms": 1788718507547
+        },
+        {
+          "thread_id": "01a077e8-2d70-7e00-85fe-4b5bb8ef0208",
+          "turn_id": "01a077e8-2db1-7d70-8699-8c56baf40f54",
+          "ordinal": 87,
+          "created_at_ms": 1788718548340
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10241,
+          "created_at_ms": 1788718697558
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_FIXED_PROGRAM_IDENTIFICATION.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_FIXED_PROGRAM_IDENTIFICATION.md",
+      "success": true,
+      "error": null,
+      "sha256": "875fe50be7d9eb859810504649020ae0005be5f47109ef4f98c0c288cbf5d603",
+      "history_events": [
+        {
+          "thread_id": "01a077e8-2d13-7f91-9a5e-fab2c938ad49",
+          "turn_id": "01a077e8-2d51-78f0-b816-3bd3d91268d2",
+          "ordinal": 75,
+          "created_at_ms": 1788718519505
+        },
+        {
+          "thread_id": "01a077e8-2d13-7f91-9a5e-fab2c938ad49",
+          "turn_id": "01a077e8-2d51-78f0-b816-3bd3d91268d2",
+          "ordinal": 94,
+          "created_at_ms": 1788718562556
+        },
+        {
+          "thread_id": "01a077e8-2d13-7f91-9a5e-fab2c938ad49",
+          "turn_id": "01a077e8-2d51-78f0-b816-3bd3d91268d2",
+          "ordinal": 105,
+          "created_at_ms": 1788718603093
+        },
+        {
+          "thread_id": "01a077e8-2d13-7f91-9a5e-fab2c938ad49",
+          "turn_id": "01a077e8-2d51-78f0-b816-3bd3d91268d2",
+          "ordinal": 127,
+          "created_at_ms": 1788718653209
+        },
+        {
+          "thread_id": "01a077e8-2d13-7f91-9a5e-fab2c938ad49",
+          "turn_id": "01a077e8-2d51-78f0-b816-3bd3d91268d2",
+          "ordinal": 134,
+          "created_at_ms": 1788718677572
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_LOCAL_GAUSSIAN_RESPONSE_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_LOCAL_GAUSSIAN_RESPONSE_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "8db980e741768639cdf2ccf6a62a1e30734b52ce9fdbf89b53791d98904f3cc4",
+      "history_events": [
+        {
+          "thread_id": "01a077eb-abfd-7d42-a423-02d030fcfec2",
+          "turn_id": "01a077eb-ac42-7e10-9aa7-72b0e42e5b1f",
+          "ordinal": 52,
+          "created_at_ms": 1788718592389
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_LOCAL_POPULATION_ASSEMBLY.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_LOCAL_POPULATION_ASSEMBLY.md",
+      "success": true,
+      "error": null,
+      "sha256": "398d12f41a60276cbee91323293c2f64b97055eac935f45ee31b8cac6946c97d",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10297,
+          "created_at_ms": 1788718935174
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_THREE_CUT_PRIMAL_COMPARISON_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_THREE_CUT_PRIMAL_COMPARISON_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "2411cffac616c3eb28893f9073733d217ddb5628032289996414e33b8c918e5f",
+      "history_events": [
+        {
+          "thread_id": "01a077f1-4dfd-7aa3-88e8-ccb7559c2435",
+          "turn_id": "01a077f1-4e3d-7dd2-9858-6ddec21bf1b8",
+          "ordinal": 55,
+          "created_at_ms": 1788719035867
+        },
+        {
+          "thread_id": "01a077f1-4dfd-7aa3-88e8-ccb7559c2435",
+          "turn_id": "01a077f1-4e3d-7dd2-9858-6ddec21bf1b8",
+          "ordinal": 82,
+          "created_at_ms": 1788719092342
+        },
+        {
+          "thread_id": "01a077f1-4dfd-7aa3-88e8-ccb7559c2435",
+          "turn_id": "01a077f1-4e3d-7dd2-9858-6ddec21bf1b8",
+          "ordinal": 91,
+          "created_at_ms": 1788719119008
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_FIXED_PROGRAM_IDENTIFICATION_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_FIXED_PROGRAM_IDENTIFICATION_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "bb3fcf6b3bb99e5c67df729dd1cfb744a8940b43715754dc578261020c60c7df",
+      "history_events": [
+        {
+          "thread_id": "01a077f2-4a17-7e12-99a6-64857df586e9",
+          "turn_id": "01a077f2-4a57-7311-b5a9-2a2592fc1247",
+          "ordinal": 74,
+          "created_at_ms": 1788719057445
+        },
+        {
+          "thread_id": "01a077f2-4a17-7e12-99a6-64857df586e9",
+          "turn_id": "01a077f2-4a57-7311-b5a9-2a2592fc1247",
+          "ordinal": 93,
+          "created_at_ms": 1788719086751
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_LOCAL_POPULATION_ASSEMBLY_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_LOCAL_POPULATION_ASSEMBLY_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "0f9c8559eff4d5552641c152a7a019d9a1452462351c73a6597b2a220efeee4f",
+      "history_events": [
+        {
+          "thread_id": "01a077f7-1d16-7c83-986a-818726d3bea1",
+          "turn_id": "01a077f7-1d54-7861-8e66-258428aaaec0",
+          "ordinal": 105,
+          "created_at_ms": 1788719431846
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_LOCAL_NONTRIVIALITY.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_LOCAL_NONTRIVIALITY.md",
+      "success": true,
+      "error": null,
+      "sha256": "004e20c23963e2b628c84ece79e97226acc91ef70e3d0f61c554859647fe4258",
+      "history_events": [
+        {
+          "thread_id": "01a077fa-3f14-7e20-b832-187c109d0b7e",
+          "turn_id": "01a077fa-3f50-7482-bbfb-18d1e148232e",
+          "ordinal": 82,
+          "created_at_ms": 1788719616900
+        },
+        {
+          "thread_id": "01a077fa-3f14-7e20-b832-187c109d0b7e",
+          "turn_id": "01a077fa-3f50-7482-bbfb-18d1e148232e",
+          "ordinal": 113,
+          "created_at_ms": 1788719680292
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_ENERGY_PRESERVING_OPERATOR_REFERENCES.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_ENERGY_PRESERVING_OPERATOR_REFERENCES.md",
+      "success": true,
+      "error": null,
+      "sha256": "464df3966e4d899f8615179968926edfe2b1e592fade50bbde08ba9fdcdd06f2",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10444,
+          "created_at_ms": 1788719753768
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10458,
+          "created_at_ms": 1788719806771
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_ENERGY_PRESERVING_OPERATOR_REFERENCES_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_ENERGY_PRESERVING_OPERATOR_REFERENCES_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "24b4546e4cc2b1bb83592314880edb805b544733b335fa3dc8fae0485c0911c4",
+      "history_events": [
+        {
+          "thread_id": "01a07802-3b06-7820-a32a-9b126d34c4d4",
+          "turn_id": "01a07802-3b4d-7552-bb61-3796a45a1fb3",
+          "ordinal": 65,
+          "created_at_ms": 1788720133284
+        },
+        {
+          "thread_id": "01a07802-3b06-7820-a32a-9b126d34c4d4",
+          "turn_id": "01a07802-3b4d-7552-bb61-3796a45a1fb3",
+          "ordinal": 80,
+          "created_at_ms": 1788720151823
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_LOCAL_NONTRIVIALITY_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_LOCAL_NONTRIVIALITY_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "80e8a137085576bd4f96d082f265e6e12c4fe30cb33822278bf90b403130a864",
+      "history_events": [
+        {
+          "thread_id": "01a07803-272f-7be2-9c11-bef7df9c4fe0",
+          "turn_id": "01a07803-276c-71a2-9338-1895cbd7a9fe",
+          "ordinal": 79,
+          "created_at_ms": 1788720157029
+        },
+        {
+          "thread_id": "01a07803-272f-7be2-9c11-bef7df9c4fe0",
+          "turn_id": "01a07803-276c-71a2-9338-1895cbd7a9fe",
+          "ordinal": 95,
+          "created_at_ms": 1788720188630
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_ACTUAL_QUERY_TIME_REGULARITY.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_ACTUAL_QUERY_TIME_REGULARITY.md",
+      "success": true,
+      "error": null,
+      "sha256": "e3fd00736b3094a16395b524d4e6ed7a0376b5c4e0c4d2e2b5bdccc5e8d71112",
+      "history_events": [
+        {
+          "thread_id": "01a0780e-5819-7882-8702-120b05d73cdd",
+          "turn_id": "01a0780e-5860-7340-a5fa-97d20e169244",
+          "ordinal": 86,
+          "created_at_ms": 1788721029370
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_LOCAL_EXACT_GD_OBSERVABLES.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_LOCAL_EXACT_GD_OBSERVABLES.md",
+      "success": true,
+      "error": null,
+      "sha256": "a830c8bfc6d6a398c693fef8669303341a0dc40e12cd498e75e7995f752a8071",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10768,
+          "created_at_ms": 1788721159006
+        },
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10777,
+          "created_at_ms": 1788721189326
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_LOCAL_EXACT_GD_OBSERVABLES_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_LOCAL_EXACT_GD_OBSERVABLES_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "eedd2542faa81c31684f254228320c137941ea5918f4bf3f9c729a8950f6e5c6",
+      "history_events": [
+        {
+          "thread_id": "01a07817-855e-7f23-a99c-dacff8694467",
+          "turn_id": "01a07817-85a1-7251-921c-f366ed8600c0",
+          "ordinal": 102,
+          "created_at_ms": 1788721559884
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_ACTUAL_QUERY_TIME_REGULARITY_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_ACTUAL_QUERY_TIME_REGULARITY_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "ac61e6fb14e050bcb2ee0b713b052932108856a1629b3b906013a8232bedb8f9",
+      "history_events": [
+        {
+          "thread_id": "01a07818-0988-7330-be42-5b56e6e01b68",
+          "turn_id": "01a07818-09cb-74b2-ba9d-8401ac8d8beb",
+          "ordinal": 78,
+          "created_at_ms": 1788721610329
+        },
+        {
+          "thread_id": "01a07818-0988-7330-be42-5b56e6e01b68",
+          "turn_id": "01a07818-09cb-74b2-ba9d-8401ac8d8beb",
+          "ordinal": 91,
+          "created_at_ms": 1788721642830
+        },
+        {
+          "thread_id": "01a07818-0988-7330-be42-5b56e6e01b68",
+          "turn_id": "01a07818-09cb-74b2-ba9d-8401ac8d8beb",
+          "ordinal": 101,
+          "created_at_ms": 1788721660025
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_CONSTANT_CONTROL_SENSITIVITY.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_CONSTANT_CONTROL_SENSITIVITY.md",
+      "success": true,
+      "error": null,
+      "sha256": "cc61329a498a65da53513a2af948febba35b07d1ee47547de863584f0541e38a",
+      "history_events": [
+        {
+          "thread_id": "01a0781c-63c1-74c1-bde4-47baddfaafc3",
+          "turn_id": "01a0781c-6401-7db2-be07-d2dab0e33d1b",
+          "ordinal": 60,
+          "created_at_ms": 1788721786001
+        },
+        {
+          "thread_id": "01a0781c-63c1-74c1-bde4-47baddfaafc3",
+          "turn_id": "01a0781c-6401-7db2-be07-d2dab0e33d1b",
+          "ordinal": 75,
+          "created_at_ms": 1788721833584
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_TOP_TRANSVERSE_COORDINATE.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_TOP_TRANSVERSE_COORDINATE.md",
+      "success": true,
+      "error": null,
+      "sha256": "1623764a294c53a475c004c3d99e2d17b65a3cd70a5a5993bd80599908544c98",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 10926,
+          "created_at_ms": 1788721801790
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_ZERO_READOUT_TOP_RESPONSE.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_ZERO_READOUT_TOP_RESPONSE.md",
+      "success": true,
+      "error": null,
+      "sha256": "b3db63b762556636bb5ec5607acbe04729f23944f055e35e4339c2370ae42566",
+      "history_events": [
+        {
+          "thread_id": "01a07192-e207-7ab2-8b41-d34600659e7e",
+          "turn_id": "01a076fb-5b40-70f0-9d67-79274d044101",
+          "ordinal": 11000,
+          "created_at_ms": 1788722027965
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_TOP_TRANSVERSE_COORDINATE_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_TOP_TRANSVERSE_COORDINATE_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "c0e265fc1d2cf7b330c611a97ae41752149d06c325a21f364fd0a6be8af4cee9",
+      "history_events": [
+        {
+          "thread_id": "01a07820-f083-76f0-ae2d-604032edf892",
+          "turn_id": "01a07820-f0c7-7222-8359-7bae6cc9d59e",
+          "ordinal": 70,
+          "created_at_ms": 1788722147173
+        },
+        {
+          "thread_id": "01a07820-f083-76f0-ae2d-604032edf892",
+          "turn_id": "01a07820-f0c7-7222-8359-7bae6cc9d59e",
+          "ordinal": 81,
+          "created_at_ms": 1788722168377
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_ZERO_READOUT_TOP_RESPONSE_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_ZERO_READOUT_TOP_RESPONSE_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "ae637363315d15cea012370c3b0bd911a907d66c6992c32dbbc600420e506bd4",
+      "history_events": [
+        {
+          "thread_id": "01a07824-9299-7ca0-8456-d705aaa2d7e5",
+          "turn_id": "01a07824-92dc-78d2-aeee-5f63967d50ed",
+          "ordinal": 50,
+          "created_at_ms": 1788722320230
+        },
+        {
+          "thread_id": "01a07824-9299-7ca0-8456-d705aaa2d7e5",
+          "turn_id": "01a07824-92dc-78d2-aeee-5f63967d50ed",
+          "ordinal": 75,
+          "created_at_ms": 1788722391996
+        },
+        {
+          "thread_id": "01a07824-9299-7ca0-8456-d705aaa2d7e5",
+          "turn_id": "01a07824-92dc-78d2-aeee-5f63967d50ed",
+          "ordinal": 82,
+          "created_at_ms": 1788722409412
+        },
+        {
+          "thread_id": "01a07824-9299-7ca0-8456-d705aaa2d7e5",
+          "turn_id": "01a07824-92dc-78d2-aeee-5f63967d50ed",
+          "ordinal": 102,
+          "created_at_ms": 1788722438595
+        },
+        {
+          "thread_id": "01a07824-9299-7ca0-8456-d705aaa2d7e5",
+          "turn_id": "01a07824-92dc-78d2-aeee-5f63967d50ed",
+          "ordinal": 109,
+          "created_at_ms": 1788722451410
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_CONSTANT_CONTROL_SENSITIVITY_REVIEW.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_CONSTANT_CONTROL_SENSITIVITY_REVIEW.md",
+      "success": true,
+      "error": null,
+      "sha256": "8554d1b4cbe398d96633ea7adcd98e21f9b32ae36aae50ecf1bbec8ec2ea8669",
+      "history_events": [
+        {
+          "thread_id": "01a07824-930e-7b30-bec6-9a8948a19aa5",
+          "turn_id": "01a07824-9355-71b0-96b2-1f99ce2730ff",
+          "ordinal": 56,
+          "created_at_ms": 1788722331796
+        }
+      ]
+    },
+    {
+      "original_path": "/tmp/l3-two-sample-proof-DLuelg/SOFTPLUS_GAUSSIAN_TAIL_PRESERVING_REFERENCES.md",
+      "recovered_path": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l3-two-sample-proof-DLuelg/SOFTPLUS_GAUSSIAN_TAIL_PRESERVING_REFERENCES.md",
+      "success": true,
+      "error": null,
+      "sha256": "0ff3258245446f3e3180d01b083ff7470038142bb41955a267b9ca045ea3734b",
+      "history_events": [
+        {
+          "thread_id": "01a0782e-5320-72e2-98af-666375d94422",
+          "turn_id": "01a0782e-5369-7343-a8c2-37d8e59fbf15",
+          "ordinal": 55,
+          "created_at_ms": 1788722973572
+        },
+        {
+          "thread_id": "01a0782e-5320-72e2-98af-666375d94422",
+          "turn_id": "01a0782e-5369-7343-a8c2-37d8e59fbf15",
+          "ordinal": 69,
+          "created_at_ms": 1788723008544
+        },
+        {
+          "thread_id": "01a0782e-5320-72e2-98af-666375d94422",
+          "turn_id": "01a0782e-5369-7343-a8c2-37d8e59fbf15",
+          "ordinal": 84,
+          "created_at_ms": 1788723030515
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "date": "2026-09-07",
+  "status": "complete two-input delta-squared theorem reviewed; generic three-input theorem open",
+  "two_input_claim": {
+    "activation": "a z + e arctan(z), 1/2 <= a <= 1",
+    "mixing_family": "(1-theta)z + theta arctan(z)",
+    "amplitude": "0 < e <= c_poly delta^2; includes 0 < theta <= c_poly delta^2",
+    "separation": "0 < delta <= 1, |rho| <= 1-delta",
+    "labels": "all binary label pairs",
+    "prefactor": "c_poly=min(1/4,c_*,10^-70 H^-400), exactly unchanged from power-four result",
+    "original_theorem": "../two_sample_odd_activation_theorem/PROOF.md",
+    "main_proof": "TWO_INPUT_PROOF.md",
+    "includes_delta_cubed": true,
+    "scope": [
+      "autonomous global strong population flow",
+      "nonsymmetric bounded-primal uniqueness and reached-state restart",
+      "original finite initialized Gaussian readout",
+      "simultaneous raw GD step n^-2 and raw GF",
+      "full width sequence joint convergence in probability for each fixed dataset and finite physical interval",
+      "all four full kernel matrices, predictions and loss",
+      "both actual action/adjoint orientations on generated probes",
+      "same-layer preactivation/feature path and velocity laws with original topology and time quantifiers",
+      "second moments and integrated squared speeds",
+      "strict activation-regression nonaffinity at every finite physical time",
+      "original initial hidden-block/sample/layer motion certificates",
+      "stated Gaussian-energy normalized activation family"
+    ]
+  },
+  "three_input_claim": {
+    "full_theorem": "open",
+    "proved": [
+      "cubic tensor and nonlinear initialization Gram bounds, including singular input Grams",
+      "affine equilateral stationarity obstruction",
+      "necessary fitted-state raw displacement bound",
+      "energy-based fitting-time lower bound conditional on true strong GF",
+      "nonlinear scalar-clock lemma conditional on strong existence and symmetry"
+    ],
+    "remaining": [
+      "generic strong source construction and continuation",
+      "adequate cap-uniform source tails",
+      "nonsymmetric uniqueness and reached-state restart",
+      "trained-time nonaffinity",
+      "full finite GF/raw-GD population observable limits"
+    ],
+    "no_counterexample_to_positive_amplitude_theorem": true
+  },
+  "candidate_files": {
+    "TWO_INPUT_PROOF.md": "1ec4886b450deafb255c60a3e053d5c7c32ef3c02ad9a2aa41e50f0db7f98e7a",
+    "WEIGHTED_AFFINE_AND_CLOSURE.md": "17d8bac86024c2dff6344f95d948c9783ad6f64b2fd12441ea5c953c08387076",
+    "SECTOR_RESPONSE.md": "2f2e7e66f4d754fca842ebf9524e605ba846c5e2445fc9792e263c859f62d725",
+    "THREE_INPUT_ANALYSIS.md": "87327edbd36e63fc40043e5e41783fa6a2e75a0be148af0e41d82337a5bbd2f9"
+  },
+  "dependency_root": "..",
+  "unchanged_dependencies": {
+    "two_sample_odd_activation_theorem/PROOF.md": "a4d6ed0ee99a1e111b5eba068f2219cf561a2281b1828b26227aca7a0a54a050",
+    "two_sample_odd_activation_theorem/AFFINE_CORE.md": "634dd3bbc35436e9d1760bee5c11cbf2124b3c42e8920a1bf3a4fcbb15039711",
+    "two_sample_odd_activation_theorem/SOURCE_AND_LIMIT_BRIDGE.md": "2a140f2a5a39f911b5c2ca51bc79102d20e9209f1450d38005360c88103f6e77",
+    "two_sample_odd_activation_theorem/INITIAL_MOTION_AND_NORMALIZATION.md": "c96316fdc481ef3f9e6fc402514ca9b45bcff12e199023505fbbb86d4e15bf24",
+    "two_sample_odd_activation_theorem/sources/ANGLE_SPECIFIC_THEOREM_ASSEMBLY.md": "27b2579f27ec14319dd39a93a4942d7b6463860648462d5ccb31b662c7725b75",
+    "two_sample_odd_activation_theorem/sources/CONTRACT.md": "e32b52edb2c8061a341b1e93ff237f62f59d03f84b16e5b67a941bdd460c21bd",
+    "two_sample_odd_activation_theorem/sources/FIXED_CAP_VELOCITY_BRIDGE.md": "a2322a8dbacf28244b9fef63e757ba3a915628dbdf31020062f8c5772a1c0aa0",
+    "two_sample_odd_activation_theorem/sources/INITIAL_FEATURE_LEARNING.md": "bd81de0a7ad0cb9bdd1f27f89961f4a3b7a7da6914456ae08596a882fa2ec351",
+    "two_sample_odd_activation_theorem/sources/L3_LOCAL_COMPLETE_PROOF.md": "f97148f84979ab5b8489927d477b6abb3d919e27fd457455f2e3b98416725de4",
+    "two_sample_odd_activation_theorem/sources/NONLINEAR_RESPONSE_PERTURBATION.md": "ef0ea077406a27307bc84e045feebf5099f6f81883bdfed41508035fe4559568",
+    "two_sample_odd_activation_theorem/sources/PREVIOUS_TWO_SAMPLE_PROOF.md": "2891b892667396d64bd747689bcd59aa7ca3ffd224d3579fc3407bca0b623f9a",
+    "two_sample_odd_activation_theorem/sources/PRIMAL_COMPARISON_AND_CONTINUATION_BRIDGE.md": "99eb60a64df1bbf4d8b70f351198abced9ef7eaeacf9b39c3997da5700a8f066",
+    "two_sample_odd_activation_theorem/sources/SYMMETRY_RADIAL_CLOCK.md": "40882fc19e44b4b9245156595bb1071bd4de6007d619fada54c9fce7c37903f4",
+    "two_sample_odd_activation_theorem/sources/THREE_SAMPLE_CONTROLLED_RESPONSE_LEMMA.md": "49da0f68047b4f516d3ad3c94b7112259838bcebf68e2296a948364232842789",
+    "two_sample_odd_activation_theorem/sources/TWO_SAMPLE_SOURCE_BASELINE.md": "a84187ecd3639d0c4b7b209255056597326c97f11548faaf9b918659ae07477f",
+    "two_sample_odd_activation_quantitative/PROOF.md": "0a7dbd32cb9cc291e706813b59c0142394e6f9532244e52c21a5ab5d89ed4d02",
+    "two_sample_odd_activation_quantitative/AFFINE_POLYNOMIAL_BOUNDS.md": "8387e2f253063c139dacb282ca9f2372478521f54b33a9ef6c8dbd83f2b521ca",
+    "two_sample_odd_activation_quantitative/POLYNOMIAL_RESPONSE_LEMMA.md": "51b0f717b33ed618219e086d32b16a95ef4253892171597d1805dd9d37a64f7f",
+    "two_sample_odd_activation_quantitative/OLD_THRESHOLD_AND_NONAFFINITY.md": "c63753a83e832793c886b8ae8c122e30e0c01864b86a1a5dc9bee030852f9210",
+    "two_sample_odd_activation_power10/PROOF.md": "37b9e8a27135b95b8dffe05fe2b734229fadedc98bc1609259e365dbb2aeba37",
+    "two_sample_odd_activation_power10/AFFINE_SOURCE_CERTIFICATE.md": "bc55c0f8e25de1f3a4316fe36e86afa25c9486e014192f2eb818358909b048eb",
+    "two_sample_odd_activation_power10/REFINED_RESPONSE.md": "3622a0f903cd51b712d1d524a140d834471b5eb588611f059535c41f6efd2332",
+    "two_sample_odd_activation_power10/POSITIVE_SUPERSOLUTION.md": "e2be183521919ce69c7ae41b81f5cd78566c5430a78c2408687f52f1b6d86774",
+    "two_sample_odd_activation_power4/PROOF.md": "7e33899649b547e7dcac8a465f2d118518d9db9ef001a3d04d2b9da615aa9485",
+    "two_sample_odd_activation_power4/AFFINE_PROPAGATOR.md": "88a1bfbaf6fd1fc6fcfea56b25a4490932663090eb01710e9d96ba04d26fe460",
+    "two_sample_odd_activation_power4/PRIMAL_L2_RESPONSE.md": "cf313286d301aa9fe5fb121d0c1fa5351213efbeaa4c087656d205c3156e417a",
+    "two_sample_odd_activation_power4/SECTOR_SUPERSOLUTION.md": "e1ce9401b58bcd20384e1b2932d725844fda6904e9c9d70ef4a4f1af0f9ab68d",
+    "odd_mixture_separation_quantitative/THREE_INPUT_GEOMETRY.md": "5b5788fcf61ca350c31ca36868bbb0eed9d86f88dcafb36348632a443b8c45dc",
+    "odd_mixture_separation_quantitative/REPORT.md": "43dcb3930747cb3ad00615d3eac93ec15e2eff85c1a8e56c30145f029b3360f3",
+    "three_sample_separated_angle_theorem/PROOF.md": "e319166dbdd3c0c8b8ddfc7c588642bbac67f4cc5c870f0513b1bdddc6633300"
+  },
+  "manifests": {
+    "CANDIDATE_HASHES.json": "1f2c05ad0e37de101add136d4e3d284ed8b3c8bae77896f86e76e73a0977b469",
+    "DEPENDENCY_HASHES.json": "0f2791cb302c2b330617041448929e587863a06e111f879f627b4106c9879523"
+  },
+  "complete_reviews": {
+    "reviews/WEIGHTED_COMPLETE_REVIEW.md": {
+      "sha256": "c34923d5021d49c0c087fb44f4fca7cf525e4dc9baf2c9a3dfa33c153e0d9c5c",
+      "emphasis": "weighted",
+      "complete_two_input_review": true,
+      "two_input_verdict": "no remaining mathematical gap found",
+      "three_input_full_theorem": "open",
+      "three_input_limited_statements": "supported"
+    },
+    "reviews/RESPONSE_COMPLETE_REVIEW.md": {
+      "sha256": "0cd988d4224a94bd61d6f3677cbb1b91ce59b37af7899f9c63118d0ef55faf2a",
+      "emphasis": "response",
+      "complete_two_input_review": true,
+      "two_input_verdict": "no remaining mathematical gap found",
+      "three_input_full_theorem": "open",
+      "three_input_limited_statements": "supported"
+    },
+    "reviews/SCOPE_COMPLETE_REVIEW.md": {
+      "sha256": "5d1539012fcc98c487aa7aa7675b743234731054f0cce6ec58be84b0a6772aad",
+      "emphasis": "scope",
+      "complete_two_input_review": true,
+      "two_input_verdict": "no remaining mathematical gap found",
+      "three_input_full_theorem": "open",
+      "three_input_limited_statements": "supported"
+    }
+  },
+  "initial_three_input_review": {
+    "path": "reviews/THREE_INPUT_INITIAL_REVIEW.md",
+    "sha256": "7ab2f71c05a056b6edd0bed4cbe886a7a87f529b166885284e5a38e279dceccf"
+  },
+  "review_process": {
+    "fresh_complete_reviewers": 3,
+    "reviewers_used_historical_or_sibling_opinions_as_mathematical_evidence": false,
+    "root_read_final_reports": true,
+    "final_candidate_hashes_verified": 4,
+    "final_dependency_hashes_verified": 30,
+    "machine_formalization": false
+  },
+  "resolved_findings": [
+    "three-input matching worst-case scale restricted to d>=2 and 0<delta<=1/4",
+    "unsupported nonlinear R1-I/R2-I strict-density claims removed; response needs complete weighted rows only",
+    "Euler-number logarithms disambiguated from nonlinear amplitude",
+    "main equation (6) spacing typo repaired and all three complete reports rebound to final hash"
+  ],
+  "limits": [
+    "no optimality claim for exponent two",
+    "prefactor remains extremely small",
+    "no uniform-in-dataset width convergence or uniform convergence on infinite physical half-line",
+    "no generic three-input complete theorem"
+  ],
+  "workspace_actions": {
+    "earlier_mathematical_files_edited": false,
+    "trajectory_experiments_run": false,
+    "commits_created": false
+  }
+}

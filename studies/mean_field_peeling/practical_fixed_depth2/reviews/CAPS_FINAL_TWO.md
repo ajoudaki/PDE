@@ -1,0 +1,28 @@
+# Independent isolated review
+
+**Verdict: PASS / no objections to the assertions actually made.**
+
+Reviewed input: `CAPS_MANUSCRIPT.md`, read in full and checked independently.
+
+SHA256: `c83bdce94e4655befbc35c88cafb19012c39a9fb2a3a08ced3ef216433acbaed`
+
+The review used only this manuscript. No other mathematical files, earlier reviews, prior discussions, external sources, experiments, or delegated checks were consulted. No manuscript edits were made.
+
+## Mathematical audit
+
+- **Analytic setting and genuine adjoints (lines 16–68).** The stated bounded action, Hilbert–Schmidt perturbation, probability spaces, and bounded activation derivatives suffice for all field definitions and bounded-ball estimates. The multiplier continuity argument (4) is valid in strong L2. The chain rule along C1 state curves is justified by the pointwise absolutely continuous representatives and the L2-continuous differentiated fields. The adjoint and rank-one terms have the correct orientations; no replacement or independent action is introduced.
+- **Smooth caps and local existence (lines 72–161).** The scalar and radial caps have the stated smoothness, magnitude bounds, and Lipschitz constants. In (10), the bound `|tau_M(C)| <= 2M` combines with `Lip(phi') <= 1/2` to give the coefficient M; the analogous calculation gives R in (12). Thus the extension's Lipschitz constant grows linearly in R for fixed T, without a product of cap sizes. Its field norm on a bounded state ball remains independent of the cap sizes. The contraction argument is applicable in the stated Hilbert space.
+- **Dissipation, global existence, and capped uniqueness (lines 163–174).** The readout equation makes the auxiliary top cap inactive up to the chosen horizon. The common scalar factor multiplying the full lower-layer gradient gives (14), including when different input contributions cancel. The initial energy is exactly 3/2. The energy and displacement estimates prevent escape from a bounded state ball; bounded velocity gives a strong endpoint and continuation. The same readout bound places every strong competitor for (8) in a common locally Lipschitz extension. The overlap and uniqueness arguments are valid.
+- **Tail quantifiers (lines 178–225).** Premise (15) is explicitly uniform in every cap radius, time in the fixed horizon, and cutoff at least one. It is not inferred from the uniform L2 bounds of Theorem 1. The probability-tail, integer-moment, time-integral, and squared-amplitude-tail estimates deriving (18) preserve the required uniformity. Constants can depend on T. The small-cutoff ranges are covered by enlarging constants; a zero-length horizon is trivial.
+- **Comparison estimate and cap removal (lines 227–297).** The two multiplier comparisons require tails only of the reference C and residual-weighted p fields. Each component's tail is controlled by the reference P tail. The already estimated p difference is multiplied by a bounded gate, so the proof yields `(1+L)s`, with no additional factor of L. Optimizing L gives the claimed Osgood modulus. The defect estimate (24), including its square-root-of-three factor, is valid. The scalar majorant and first-exit argument imply uniform Cauchy convergence on every finite horizon.
+- **Strong topology, fields, and kernels (lines 299–306).** Compactness is used only for the union of a uniformly converging sequence of path images and its limit image, which is indeed totally bounded with compact closure. It is not asserted for an arbitrary bounded Hilbert-space ball. This proves uniform strong convergence of the continuous field maps, then kernel convergence and passage to the integral equation. Continuity of the limiting vector field gives a C1 solution. The exact limiting energy identity follows from the proved chain rule.
+- **Unrestricted competitors and restarts (line 308).** Fatou's lemma with a smaller approximating threshold transfers the uniform tails to the limit. For cutoffs below two, the uniform L2 bounds supply the harmless adjustment of constants. The reference-oriented comparison needs no exponential tails for a competing strong solution. The zero-forcing majorant therefore proves uniqueness on common bounded-state horizons. Time translation of the reference curve provides the asserted continuation and restart uniqueness.
+- **Singular input geometry.** No proof step uses a Gram inverse, separation, or positive definiteness of the input Gram matrix. Unit norms suffice for the estimates. The stated allowance for coincident, dependent, or otherwise singular input geometry is respected.
+
+## Scope of the verdict
+
+Theorem 1 is unconditional within the explicitly assumed population setting with an arbitrary fixed bounded action A0 and its genuine adjoint. A standard Gaussian w0 meets the stated projection-norm condition, but that observation does not construct the initialized Gaussian action or establish any finite-width identification.
+
+Theorem 2 is conditional on the unproved exponential-tail premise (15). Its conclusions do not establish that premise for the approximations, and the report does not claim otherwise. The concentration example correctly distinguishes uniform L2 bounds from uniform square-integrability and is expressly not presented as a trajectory counterexample.
+
+**The actual practical Gaussian-width theorem remains open in this manuscript.** This PASS applies to the dissipative approximation theorem and conditional continuation theorem as written; it is not a verdict that the broader Gaussian initialization, finite-width GF/GD, or observation-transfer target has been resolved.

@@ -1,0 +1,116 @@
+[
+  {
+    "file": "/home/codex-b/.codex/sessions/2026/09/05/rollout-2026-09-05T12-19-37-01a07114-b2fd-78b0-bb18-fa4c15cff3d6.jsonl",
+    "bytes": 4304592,
+    "sha256": "2e7823d4f3f82a9a434ca423e09ccc0c9ee0f1e26fd8e45b74a60ca77a902127",
+    "first_ordinal": 1155,
+    "last_ordinal": 2048,
+    "rows": 894,
+    "turns": [
+      {
+        "ordinal": 1159,
+        "event": "task_started",
+        "turn_id": "01a07116-336d-7dd3-81d4-3e34bdef252c",
+        "timestamp": "2026-09-05T10:21:15.569Z"
+      },
+      {
+        "ordinal": 1561,
+        "event": "task_complete",
+        "turn_id": "01a07116-336d-7dd3-81d4-3e34bdef252c",
+        "timestamp": "2026-09-05T10:40:21.888Z"
+      },
+      {
+        "ordinal": 1563,
+        "event": "task_started",
+        "turn_id": "01a0712b-9b1f-7e01-a3b6-944f30e62dfd",
+        "timestamp": "2026-09-05T10:44:38.311Z"
+      },
+      {
+        "ordinal": 1780,
+        "event": "task_complete",
+        "turn_id": "01a0712b-9b1f-7e01-a3b6-944f30e62dfd",
+        "timestamp": "2026-09-05T10:54:35.478Z"
+      },
+      {
+        "ordinal": 1782,
+        "event": "task_started",
+        "turn_id": "01a0713a-3cf6-7203-89db-04c9113f529f",
+        "timestamp": "2026-09-05T11:00:37.248Z"
+      },
+      {
+        "ordinal": 1955,
+        "event": "task_complete",
+        "turn_id": "01a0713a-3cf6-7203-89db-04c9113f529f",
+        "timestamp": "2026-09-05T11:08:26.928Z"
+      },
+      {
+        "ordinal": 1957,
+        "event": "task_started",
+        "turn_id": "01a0714a-308f-7512-9540-2e3e7331504d",
+        "timestamp": "2026-09-05T11:18:02.649Z"
+      },
+      {
+        "ordinal": 2048,
+        "event": "task_complete",
+        "turn_id": "01a0714a-308f-7512-9540-2e3e7331504d",
+        "timestamp": "2026-09-05T11:21:03.425Z"
+      }
+    ]
+  },
+  {
+    "file": "/home/codex-b/.codex/sessions/2026/09/05/rollout-2026-09-05T13-26-49-01a07114-b2fd-78b0-bb18-fa4c15cff3d6_01a07152-394e-7283-9fbd-ae4fc81866f5.jsonl",
+    "bytes": 3044347,
+    "sha256": "6bf32ef9627c689e78e5968cdcf6b521c0570482ac20e41bc6d2dde27589304d",
+    "first_ordinal": 1957,
+    "last_ordinal": 2434,
+    "rows": 478,
+    "turns": [
+      {
+        "ordinal": 1959,
+        "event": "task_started",
+        "turn_id": "01a07152-3d5a-7a72-8fea-187f709394a3",
+        "timestamp": "2026-09-05T11:26:50.213Z"
+      },
+      {
+        "ordinal": 2092,
+        "event": "task_complete",
+        "turn_id": "01a07152-3d5a-7a72-8fea-187f709394a3",
+        "timestamp": "2026-09-05T11:31:04.076Z"
+      },
+      {
+        "ordinal": 2094,
+        "event": "task_started",
+        "turn_id": "01a0716a-55c2-7211-be65-c4a2f8ef2e22",
+        "timestamp": "2026-09-05T11:53:09.324Z"
+      },
+      {
+        "ordinal": 2434,
+        "event": "task_complete",
+        "turn_id": "01a0716a-55c2-7211-be65-c4a2f8ef2e22",
+        "timestamp": "2026-09-05T12:10:55.647Z"
+      }
+    ]
+  },
+  {
+    "file": "/home/codex-b/.codex/sessions/2026/09/05/rollout-2026-09-05T14-23-43-01a07114-b2fd-78b0-bb18-fa4c15cff3d6_01a07186-5424-79c2-9f2c-1db3290497c5.jsonl",
+    "bytes": 1772811,
+    "sha256": "11321e435d5cfe57ea927755b2745166fb16938982aaf9b409147f53cf0947bf",
+    "first_ordinal": 2094,
+    "last_ordinal": 2327,
+    "rows": 234,
+    "turns": [
+      {
+        "ordinal": 2096,
+        "event": "task_started",
+        "turn_id": "01a07186-577d-7b12-85f2-b1f0f278e66e",
+        "timestamp": "2026-09-05T12:23:44.777Z"
+      },
+      {
+        "ordinal": 2327,
+        "event": "task_complete",
+        "turn_id": "01a07186-577d-7b12-85f2-b1f0f278e66e",
+        "timestamp": "2026-09-05T12:35:39.183Z"
+      }
+    ]
+  }
+]

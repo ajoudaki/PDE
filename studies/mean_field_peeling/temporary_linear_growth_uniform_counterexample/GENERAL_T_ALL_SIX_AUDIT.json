@@ -1,0 +1,30 @@
+{
+  "audit_command": "python temporary_linear_growth_uniform_counterexample/audit_general_t_transition_map.py",
+  "exit_code": 0,
+  "elementary_term_counts": [76, 383, 192, 496, 770, 515],
+  "general_polynomial_map_term_count": 1045,
+  "all_source_subset_census": {
+    "negative_margin_count": 0,
+    "zero_margin_count": 267,
+    "zero_margin_type": "one effective (excess=4, high-factor-count=2) new block"
+  },
+  "E6": {
+    "term_count": 515,
+    "negative_margin_count": 0,
+    "conservative_zero_margin_count": 84,
+    "raw_identity_principal_weights": {
+      "(phi''')^2": "16",
+      "phi''*phi''''": "16",
+      "slope_variation*phi'''''": "0"
+    },
+    "integrated_principal_weight": "16-16+0=0",
+    "marked_source_classification": "no true quadratic excess-four sector; reaching excess four in ||H^2 g||^2 requires four new singular Hessian factors"
+  },
+  "integrated_principal_polynomials": {
+    "total": "-215*t^4-(645/8)*t",
+    "lower": "-5*t^4-(15/8)*t",
+    "upper": "-210*t^4-(315/4)*t"
+  },
+  "identity_output_polynomial_low_to_high": ["0", "-369", "4403/3", "-1896", "2452/3"],
+  "identity_output_at_t=1": "20"
+}

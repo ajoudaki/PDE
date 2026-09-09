@@ -1,0 +1,46 @@
+{
+  "round": 1,
+  "sha256": "d4ab2401e4659ab4a7aef66f83ad40ab14b2db99984df8185cfa7770965304a5",
+  "reviewers": [
+    {
+      "role": "cobalt",
+      "input": "/tmp/manuscript-fa82f5c2c6bd/REPORT.md",
+      "output": "/tmp/manuscript-fa82f5c2c6bd/REVIEW.md",
+      "agent": "audit_cobalt",
+      "state": "complete",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_01/COBALT_REVIEW.md",
+      "review_sha256": "d07013ce14e5827d2a5b8136779833b4dde62d8a16d66059827f0bdab4b02455"
+    },
+    {
+      "role": "cedar",
+      "input": "/tmp/manuscript-37a446c39d7b/REPORT.md",
+      "output": "/tmp/manuscript-37a446c39d7b/REVIEW.md",
+      "agent": "audit_cedar",
+      "state": "complete",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_01/CEDAR_REVIEW.md",
+      "review_sha256": "fac960bb38776eec16b900d69057467c9eba3c2c62a9395ab4a861dc7869148d"
+    },
+    {
+      "role": "flint",
+      "input": "/tmp/manuscript-a8abf0b79445/REPORT.md",
+      "output": "/tmp/manuscript-a8abf0b79445/REVIEW.md",
+      "agent": "audit_flint",
+      "state": "complete",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_01/FLINT_REVIEW.md",
+      "review_sha256": "81b2953ea8f189db6e64621e2956e375ec6fed37be78e3012a1b362e8e648281"
+    },
+    {
+      "role": "marble",
+      "input": "/tmp/manuscript-c65b05ff7449/REPORT.md",
+      "output": "/tmp/manuscript-c65b05ff7449/REVIEW.md",
+      "agent": "audit_marble",
+      "state": "complete",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_01/MARBLE_REVIEW.md",
+      "review_sha256": "4067a819436507a3f334c706b2055feafd29b89b682c08e632d70df2c90fda80"
+    }
+  ]
+}

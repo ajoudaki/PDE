@@ -1,0 +1,19 @@
+# Three-input activation threshold: current research state
+
+The [report](REPORT.md) answers the original three-hidden-layer question.
+No positive sufficient theta_delta for the complete three-input theorem
+has been proved in this investigation. The full theorem remains open;
+polynomial, exponential and constant choices have not been ruled out.
+
+The sharp established small-delta statement is the worst initialization
+eigenvalue scale theta^2 delta^2. New partial results bound necessary
+fitting excursions, the complete tangent kernel in input-Gram null
+directions, and the combined Gaussian response in L2. They identify
+why initialization or energy bounds alone do not close the proof.
+
+The [contract](CONTRACT.md) preserves the original dynamics and scope.
+The [evidence ledger](EVIDENCE_LEDGER.md) distinguishes proved partial
+claims from the open theorem. The [review record](REVIEW_STATUS.md)
+links independent checks of the bounded claims; it is not a complete
+three-input theorem certificate. [INTEGRITY.json](INTEGRITY.json)
+identifies the final files, reviews and mathematical dependencies.

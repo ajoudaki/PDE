@@ -1,0 +1,3970 @@
+%auto-ignore
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\section{Mathematical Tools}
+
+\label{sec:proofs}
+
+We will use the following trivial but useful fact repeatedly.
+
+\begin{lemma}\label{lem:powerbound}
+For an integer $m$, and complex numbers $a_i \in \C$, $i \in [k]$,
+\[
+\left| \sum_{i=1}^k a_i \right|^m
+\le 
+k^{m-1} \sum_{i=1}^k \left|a_i\right|^m
+.
+\]
+\end{lemma}
+\begin{proof}
+Expand the power in the LHS using the multinomial theorem, apply AM-GM to each summand, and finally aggregate using triangle inequality.
+\end{proof}
+
+\subsection{Probability Facts}
+\label{sec:probfacts}
+
+\paragraph{Notations}
+Given two random variables $X, \Zz$, and a $\sigma$-algebra $\Aa$, the notation $X \disteq_\Aa \Zz$ means that for any integrable function $\phi$ and for any random varible $Z$ measurable on $\Aa$, $\EV \phi(X) Z = \EV \phi(\Zz)Z$.
+We say that $X$ is distributed as (or is equal in distribution to) $\Zz$ conditional on $\Aa$.
+In case $\Aa$ is the trivial $\sigma$-algebra, we just write $X \disteq \Zz$.
+If $X$ and $Z$ agrees almost surely, then we write $X \aseq Z$.
+The expression $X \distto \Zz$ (resp. $X \asto \Zz$) means $X$ converges to $\Zz$ in distribution (resp. almost surely).
+
+\begin{lemma}\label{lemma:momentBoundASConvergence}
+Let $\{X_n\}_{n \ge 1}$ be a sequence of random variables with zero mean.
+If for some $p \in \N$ and for all $n$, $\EV X_n^{2p} \le c n^{-1-\lambda}$, for some $\lambda > 0$, then $X_n \to 0$ almost surely.
+\end{lemma}
+\begin{proof}
+By Markov's inequality, for any $\epsilon > 0$,
+\begin{align*}
+    \Pr(|X_n| > \epsilon)
+        &=
+            \Pr(X_n^{2p} > \epsilon^{2p})
+        \le
+            \EV X_n^{2p}/\epsilon^{2p}
+        \le c n^{-1-\lambda}/\epsilon^{2p}
+        \\
+    \sum_n \Pr(|X_n| > \epsilon)
+        &\le
+            \sum_n c n^{-1-\lambda}/\epsilon^{2p}
+        <    
+            \infty.
+\end{align*}
+By Borel-Cantelli Lemma, almost surely, $|X_n| \le \epsilon$ for all large $n$.
+Then, if we pick a sequence $\{\epsilon_k > 0\}_k$ converging to 0, we have that, almost surely, for each $k$, $|X_n| \le \epsilon_k$ for large enough $n$ --- i.e. almost surely, $X_n \to 0$.
+\end{proof}
+
+The following is a standard fact about multivariate Gaussian conditioning
+\begin{prop}\label{prop:GaussianCondition}
+Suppose $\R^{n_1 + n_2} \ni x \sim \Gaus(\mu, K)$, where we partition $x = (x_1, x_2) \in \R^{n_1} \times \R^{n_2}, \mu = (\mu_1, \mu_2) \in \R^{n_1} \times \R^{n_2}$, and $K = \begin{pmatrix} K_{11} & K_{12}\\ K_{21} & K_{22}\end{pmatrix}$.
+Then
+$x_1 \disteq_{x_2} \Gaus(\mu|_{x_2}, K|_{x_2})$
+where
+\begin{align*}
+    \mu|_{x_2}
+        &=
+            \mu_1 + K_{12} K_{22}^+ (x_2 - \mu_2)\\
+    K|_{x_2}
+        &=
+            K_{11} - K_{12} K_{22}^+ K_{21}.
+\end{align*}
+
+\end{prop}
+
+\begin{lemma}[Stein's Lemma]\label{lemma:stein}
+For jointly Gaussian random variables $Z_1, Z_2$ with means $\overline Z_1, \overline Z_2$, and any differentiable function $\phi: \R \to \R$ where both $\EV \phi'(Z_1)$ and $\EV Z_1 \phi(Z_2)$ exist, we have
+\[\EV (Z_1 - \overline Z_1) \phi(Z_2) = \Cov(Z_1, Z_2) \EV \phi'(Z_2).\]
+
+More generally, for jointly Gaussian random variables $Z_1,\ldots, Z_k$ with means $\overline Z_1, \ldots, \overline Z_k$, and any differentiable function $\phi: \R^k \to \R$, we have
+\[\EV (Z_1 - \overline Z_1) \phi(Z_1, \ldots, Z_k) =
+\sum_{j=1}^k \Cov(Z_1, Z_j) \EV \pd_j \phi(Z_1, \ldots, Z_k)\]
+whenever both sides are finite.
+\end{lemma}
+
+\begin{lemma}\label{lemma:EXf}
+Let $X = (X_1, \ldots, X_k) \in \R^k$ be a multivariate Gaussian with 0 mean and nondegenerate covariance $\Omega$.
+Let $X_{\bar i}$ denote the vector $(X_1, \ldots, X_{i-1}, X_{i+1}, \ldots, X_k) \in \R^{k-1}$.
+Likewise, let $\Omega_{i \bar i} \in \R^{k-1}$ (resp.\ $\Omega_{\bar i i} \in \R^{k-1}$) be the $i$th row (resp.\ column) with entry $i$ removed,
+and $\Omega_{\bar i \bar i} \in \R^{(k-1) \times (k-1)}$ be the submatrix of $\Omega$ obtained by removing the $i$th row and $i$th column.
+Then for any $i \in [k]$ and any $f: \R^k \to \R$,
+\begin{align*}
+\EV X_i f(X)
+  &=
+    \sum_{j=1}^k a_j \Omega_{ji}
+\end{align*}
+whenever both sides are defined,
+where
+\begin{align*}
+a_j
+  &\defeq
+    \f{\EV (X_j - \EV[X_j \mid X_{\bar j}]) f(X)}
+    {\Var(X_j \mid X_{\bar j})}
+  =
+    \f{\EV (X_j - \Omega_{j\bar j} \Omega_{\bar j\bar j}^+ X_{\bar j}) f(X)}
+    {\Omega_{jj} - \Omega_{j\bar j} \Omega_{\bar j\bar j}^+ \Omega_{\bar j j}}
+    .
+\end{align*}
+Note that, for any $j$, $a_j$ does not depend on $i$.
+\end{lemma}
+\begin{proof}
+By a standard density argument, we may assume $f$ is differentiable.
+Then by multivariate Stein's Lemma (\cref{lemma:stein}),
+\begin{align*}
+\EV X_i f(X)
+  &=
+    \sum_{j=1}^k \Omega_{ij} \EV \pd_j f(X)
+    .
+\end{align*}
+By applying bivariate Stein's Lemma (\cref{lemma:stein}) to conditional distributions, we get
+\begin{align*}
+\EV \pd_j f(X)
+  &=
+    \EV_{X_{\bar j}} \EV_{X_j | X_{\bar j}} \pd_j f(X)
+  =
+    \EV_{X_{\bar j}}
+    \EV_{X_j | X_{\bar j}}
+      \f{(X_j - \EV[X_j \mid X_{\bar j}]) f(X)}
+      {\Var(X_j \mid X_{\bar j})}
+  =
+    \EV_{X}
+      \f{(X_j - \EV[X_j \mid X_{\bar j}]) f(X)}
+      {\Var(X_j \mid X_{\bar j})}
+      .
+\end{align*}
+The other equality follows from straightforward calculations.
+\end{proof}
+
+\begin{lemma}\label{lemma:gaussianDer}
+Let $\Phi: \R^n \to \R$ be measurable.
+Then for $z \sim \Gaus(\zeta, \Sigma)$, the following Hessian and gradient matrices are equal:
+\begin{align*}
+    \Jac{^2}{\zeta^2} \EV \Phi(z)
+        &=
+            2\Jac{}{\Sigma} \EV \Phi(z)
+\end{align*}
+whenever both sides exist.
+\end{lemma}
+\begin{proof}
+First assume $\Sigma$ is invertible.
+We check
+\begin{align*}
+    \Jac{}{\zeta} e^{-\f 1 2 (\zeta-z)\inv \Sigma (\zeta-z)}
+        &=
+            - \inv \Sigma (\zeta - z)
+            e^{-\f 1 2 (\zeta-z)\inv \Sigma (\zeta-z)}
+            \\
+    \Jac{^2}{\zeta^2} e^{-\f 1 2 (\zeta-z)\inv \Sigma (\zeta-z)}
+        &=
+            \left[
+                - \inv \Sigma
+                + \inv \Sigma (\zeta-z) (\zeta-z)^\trsp \inv \Sigma
+            \right]
+            e^{-\f 1 2 (\zeta-z)\inv \Sigma (\zeta-z)}
+            \\
+    \Jac{}{\Sigma} \f{e^{-\f 1 2 (\zeta-z)\inv \Sigma (\zeta-z)}}{
+                    \det(2\pi \Sigma)^{1/2}}
+        &=
+            \f 1 2 \left[
+                - \inv \Sigma
+                + \inv \Sigma (\zeta-z) (\zeta-z)^\trsp \inv \Sigma
+            \right]
+            \f{e^{-\f 1 2 (\zeta-z)\inv \Sigma (\zeta-z)}}{
+                    \det(2\pi \Sigma)^{1/2}}
+            \\
+        &=
+            \f 1 2
+            \Jac{^2}{\zeta^2} e^{-\f 1 2 (\zeta-z)\inv \Sigma (\zeta-z)}
+            .
+\end{align*}
+Integrating against $\Phi$ gives the result.
+For general $\Sigma$, apply a continuity argument, since the set of invertible $\Sigma$s is dense inside the set of all PSD $\Sigma$.
+\end{proof}
+
+\subsection{Gaussian Conditioning Trick}
+
+\paragraph{Review of Moore-Penrose Pseudoinverse}
+
+We first recall Moore-Penrose pseudoinverse and some properties of it.
+\begin{defn}\label{defn:pseuodoinverse}
+For $A \in \R^{n \times m}$, a pseudoinverse of $A$ is defined as a matrix $A^+ \in \R^{m \times n}$ that satisfies all of the following criteria
+\begin{align*}
+  A A^+ A &= A,&
+  A^+ A A^+ &= A^+,&
+  (AA^+)^\trsp &= AA^+,&
+  (A^+ A)^\trsp &= A^+ A
+  .
+\end{align*}
+\end{defn}
+
+The following facts are standard.
+\begin{itemize}
+    \item If $A$ has real entries, then so does $A^+$.
+    \item The pseudoinverse always exists and is unique.
+    \item When $A$ is invertible, $A^+ = \inv A$.
+    \item $(A^\trsp)^+ = (A^+)^\trsp$, which we denote as $A^{+\trsp}$.
+    \item $A^+ = (A^\trsp A)^+ A^\trsp = A^\trsp (A A^\trsp)^+$.
+    \item $AA^+$ is the orthogonal projector to the column space of $A$;
+        $I - A^+ A$ is the orthogonal project to the null space of $A$.
+    \item If $A$ has singular value decomposition $A = U\Lambda V$ where $U$ and $V$ are orthogonal and $\Lambda$ has the singular values on its diagonal, then $A^+ = V^\trsp \Lambda^+ U^\trsp$ where $\Lambda^+$ inverts all nonzero entries of $\Lambda$.
+    \item For any collection of vectors $\{v_i\}_{i=1}^n$ in a Hilbert space, $w \mapsto \sum_{i,j=1}^n v_i (\Sigma^+)_{ij} \la v_j, w \ra $, where $\Sigma_{ij} = \la v_i, v_j \ra$, is the projection operator to the linear span of $\{v_i\}_{i=1}^n$.
+\end{itemize}
+
+We present a slightly more general versions of lemmas from \citet{bayati_dynamics_2011} that deal with singular matrices.
+\begin{lemma}\label{lemma:condTrickVec}
+Let $z \in \R^n$ be a random vector with i.i.d. $\Gaus(0, v^2)$ entries and let $D \in \R^{m\times n}$ be a linear operator.
+Then for any constant vector $b \in \R^n$ the distribution of $z$ conditioned on $Dz = b$ satisfies:
+\begin{align*}
+    z
+        &\disteq_{Dz = b}
+            D^+ b + \Pi \tilde z
+\end{align*}
+where $D^+$ is the (Moore-Penrose) pseudoinverse, $\Pi$ is the orthogonal projection onto subspace $\{z: Dz = 0\}$, and $\tilde z$ is a random vector of i.i.d. $\Gaus(0, v^2)$.
+\end{lemma}
+\begin{proof}
+When $D = [I_{m \times m} | 0_{m \times {n-m}}]$, this claim is immediate.
+By rotational symmetry, this shows that, for any vector space $\mathcal V$ and $v$ orthogonal to it, conditioning $z$ on $\mathcal V + v$ yields a Gaussian centered on $v$ with covariance determined by $\Pi_{\mathcal V} z$.
+Then the lemma in the general case is implied by noting that $\{z: Dz = b\}$ can be decomposed as $\{z: Dz = 0 \} + D^+ b$.
+\end{proof}
+
+\begin{lemma}\label{lemma:condTrick}
+Let $A \in \R^{n \times m}$ be a matrix with random Gaussian entries, $A_{ij} \sim \Gaus(0, \sigma^2)$.
+Consider fixed matrices $Q \in \R^{m \times q}, \Zz \in \R^{n \times q}, P \in \R^{n \times p}, X \in \R^{m \times p}$.
+Suppose there exists a solution in $A$ to the equations $\Zz = AQ$ and $X = A^\trsp P$.
+Then the distribution of $A$ conditioned on $\Zz = AQ$ and $X = A^\trsp P$ is
+\begin{align*}
+    A &\disteq_{\Zz=AQ, X=A^\trsp P} E + \Pi_P^\perp \tilde A \Pi_Q^\perp
+\end{align*}
+where
+\begin{align*}
+    E
+        &=
+            \Zz Q^+
+            + P^{+\trsp} X^\trsp
+            - P^{+\trsp} P^\trsp
+                YQ^+,
+\end{align*}
+$\tilde A$ is an iid copy of $A$,
+and $\Pi_P^\perp = I - \Pi_P$ and $\Pi_Q^\perp = I - \Pi_Q$ in which $\Pi_P = PP^+$ and $\Pi_Q = QQ^+$ are the orthogonal projection to the space spanned by the column spaces of $P$ and $Q$ respectively.
+\end{lemma}
+\begin{proof}
+We apply \cref{lemma:condTrickVec} to $D: A \mapsto (AQ, P^\trsp A)$.
+The pseudoinverse of $D$ applied to $(\Zz, X^\trsp)$ can be formulated as the unique solution of
+\begin{align*}
+    \argmin_A \left\{ \|A\|^2_F : AQ = \Zz, P^\trsp A = X^\trsp \right\}
+\end{align*}
+where $\|-\|_F$ denotes Frobenius norm.
+We check that $E$ is a 1) a solution to $AQ = \Zz, P^\trsp A = X^\trsp$ and 2) the minimal norm solution.
+
+We have $EQ = 
+        \Zz Q^+Q
+            + P^{+\trsp} X^\trsp Q
+            - P^{+\trsp} P^\trsp
+                YQ^+Q$.
+Note that $YQ^+Q = \Zz$ because $\Zz=AQ \implies YQ^+ Q = AQQ^+Q = AQ = \Zz$.
+So $EQ = \Zz + P^{+T} (X^\trsp Q - P^\trsp \Zz)$.
+But $X^\trsp Q = P^\trsp A Q = P^\trsp \Zz$, so $EQ = \Zz$ as desired.
+A similar, but easier reasoning, gives $P^\trsp E = X^\trsp$.
+This verifies that $E$ is a solution.
+
+To check that $E$ is minimal norm, we show that it satisfies the stationarity of the Lagrangian
+\begin{align*}
+    L(A, \Theta, \Gamma)
+        &=
+            \|A\|^2_F + \la \Theta, \Zz - AQ \ra + \la \Gamma, X - A^\trsp P\ra.
+\end{align*}
+So $\pdf{L}{A} = 0 \implies 2A = \Theta Q^\trsp + P \Gamma^\trsp$ for some choices of $\Theta \in \R^{n \times q}$ and $\Gamma \in \R^{m \times p}$.
+For $\Theta = 2 \Zz (Q^\trsp Q)^+$ and $\Gamma^\trsp = 2(P^\trsp P)^+ [ X^\trsp - P^\trsp \Zz Q^\trsp]$, we can check that
+\begin{align*}
+    \Theta Q^\trsp + P \Gamma^\trsp
+        &=
+            2 \Zz (Q^\trsp Q)^+ Q^\trsp + 2P(P^\trsp P)^+ [ X^\trsp - P^\trsp \Zz Q^+] \\
+        &=
+            2 \Zz Q^+ + 2 P^{+\trsp} X^\trsp - 2P^{+\trsp} P^\trsp \Zz Q^+\\
+        &=
+            2E
+\end{align*}
+as desired.
+\end{proof}
+
+\subsection{Hermite Polynomials}
+We follow a presentation roughly given by \citet{odonnell_analysis_2014}.
+
+\newcommand{\pHerm}{\mathrm{He}}
+\newcommand{\Herm}{H}
+
+\begin{defn}
+Let $\pHerm_n(x)$ be the {\it probabilist's Hermite polynomial}, given by the generating function $e^{xt - \f 1 2 t^2} = \sum_{n=0}^\infty \pHerm_n(x) \f{t^n}{n!}.$
+Let $L^2(\R; \Gaus(0, 1))$ be the space of square-integrable functions against the standard Gaussian measure, equipped with inner product $\la \phi, \psi \ra_G = \EV_{x \sim \Gaus(0, 1)} \phi(x) \psi(x)$ and norm $\|\phi\|_G^2 = \la \phi, \phi \ra_G$.
+Let $\Herm_n(x) = \pHerm_n(x) / \|\pHerm_n\|_G$ be the normalized versions.
+\end{defn}
+
+\begin{fact}
+$\{\pHerm_n(x)\}_{n \ge 0}$ form an orthogonal basis for $L^2(\R; \Gaus(0, 1))$ and $\{\Herm_n(x)\}_{n \ge 0}$ form an orthonormal basis for $L^2(\R; \Gaus(0, 1))$.
+\end{fact}
+\begin{fact}
+$\|\pHerm_n\|_G^2 = n!$ so that $\Herm_n(x) = \pHerm_n(x)/\sqrt{n!}$.
+\end{fact}
+
+\begin{fact}\label{fact:hermiteInnerproduct}
+  Let $\phi, \psi: \R \to \R$ be square integrable against $\Gaus(0, 1)$.
+  Suppose we have the expansions in the orthonormal Hermite basis
+  \begin{align*}
+    \phi(x) = a_0 H_0(x) + a_{1} H_1(x) + \cdots,\quad
+    \psi(x) = b_0 H_0(x) + b_{1} H_1(x) + \cdots.
+  \end{align*}
+  Let $(z_1, z_2) \sim \Gaus(0, C)$ where $C_{11} = C_{22} = 1$ and $C_{12} = \rho \in [-1, 1]$.
+  Then we have the absolutely convergence series
+  \begin{align*}
+    \EV \phi(z_1)\psi(z_2) = a_0 b_0 + a_1 b_1 \rho + a_2 b_2 \rho^2 + \cdots.
+  \end{align*}
+\end{fact}
+
+Suppose $u^1, \ldots, u^k$ are unit vectors in $\R^k$, and let $\lambda_{ij} \defeq \la u^i, u^j\ra$.
+Construct a zero mean Gaussian vector $z = (z_1, \ldots, z_k)$ such that $\EV z_i z_j = \lambda_{ij}$.
+Note that $z \disteq U g$ where $g = (g_1, \ldots, g_k)$ is a standard Gaussian vector and $U = (u^i_j)_{i,j=1}^k$ is the matrix with $u^i$ as rows.
+Then for any $s = (s_1, \ldots, s_k)$ we can compute
+\begin{align*}
+    \EV \exp(\la s, z \ra)
+        &=
+            \EV \exp(s^\trsp U g)
+        = 
+            \EV \prod_i \exp(g_i (U^\trsp s)_i)
+            \\
+        &=
+            \prod_i \EV \exp(g_i (U^\trsp s)_i)
+        &
+            \pushright{\text{by independence of $\{g_i\}_i$}}
+            \\
+        &=
+            \prod_i \exp\left(\f 1 2 (U^\trsp s)_i^2\right)
+        =
+            \exp\left(\f 1 2 \sum_i (U^\trsp s)_i^2\right)
+            \\
+        &=
+            \exp\left(\f 1 2 \|U^\trsp s\|^2\right)
+        =
+            \exp \lp \f 1 2 \sum_{i,j} \la u^i, u^j \ra s_i s_j \rp
+            \\
+        &=
+            \exp \lp \f 1 2 \sum_{i,j} \lambda_{ij} s_i s_j \rp
+            .
+\end{align*}
+Dividing by $\exp\lp \f 1 2 \sum_i s_i^2 \rp$, we obtain
+\begin{align*}
+    \EV \exp\left(\sum_i s_i z_i - s_i^2\right)
+        &=
+            \exp \lp \sum_{i< j} \lambda_{ij} s_i s_j \rp
+            \\
+    \EV \prod_i \sum_m \pHerm_m(z_i) (m!)^{-1} s_i^m
+        &=
+            \prod_{i< j} \sum_n (n!)^{-1}\lp \lambda_{ij} s_i s_j\rp^n
+            \\
+    \sum_{(m_i)_{i=1}^k}
+        \prod_i \f{s_i^{m_i}}{m_i!} \EV \prod_i \pHerm_{m_i}(z_i)
+        &=
+            \sum_{(n_{(ij)})_{i<j}}
+                \prod_i s_i^{\sum_{j \ne i} n_{(ij)}}
+                \prod_{i<j} \f{\lambda_{ij}^{n_{(ij)}}}
+                                {n_{(ij)}!}
+\end{align*}
+where $m_i \ge 0$ for all $i$, and $n_{(ij)} = n_{(ji)} \ge 0$ are indexed by unordered sets $\{i,j\}$.
+Matching coefficients of $s$, we get
+\begin{thm}
+For any sequence $(m_i \ge 0)_{i=1}^k$,
+\begin{align*}
+    \EV \prod_i \pHerm_{m_i}(z_i)
+        &=
+            \lp \prod_r m_r! \rp 
+            \lp \prod_{i<j} \f{\lambda_{ij}^{n_{(ij)}}}
+                                {n_{(ij)}!}
+                \rp
+            \\
+    \EV \prod_i \Herm_{m_i}(z_i)
+        &=
+            \lp \prod_r \sqrt{m_r!} \rp 
+            \lp \prod_{i<j} \f{\lambda_{ij}^{n_{(ij)}}}
+                                {n_{(ij)}!}
+                \rp
+\end{align*}
+whenever there are $(n_{(ij)} \ge 0)_{i<j}$ such that, for all $i$, $m_i = \sum_{j\ne i} n_{(ij)}$.
+$\EV \prod_i \pHerm_{m_i}(z_i) = 0$ otherwise.
+\end{thm}
+
+In particular, 
+\begin{thm}\label{thm:multivariateHermiteExpectation}
+If $\phi_i: \R \to \R$ has Hermite expansion $\phi_i(z) = \sum_{u=0}^\infty a_{iu} \Herm_u(z) = \sum_{u=0}^\infty b_{iu} \pHerm_u(z)$ where $b_{iu} = a_{iu}/\sqrt{u!}$, then
+\begin{align*}
+    \EV \prod_i \phi_i(z_i)
+        &=
+            \sum_{(n_{(ij)})_{i<j}}
+                \lp \prod_r b_{r m_r} m_r! \rp 
+                \lp \prod_{i<j} \f{\lambda_{ij}^{n_{(ij)}}}
+                                    {n_{(ij)}!}
+                    \rp
+            \\
+        &=
+            \sum_{(n_{(ij)})_{i<j}}
+                \lp \prod_r a_{r m_r} \sqrt{m_r!} \rp 
+                \lp \prod_{i<j} \f{\lambda_{ij}^{n_{(ij)}}}
+                                    {n_{(ij)}!}
+                    \rp
+            \\
+        &=
+            \sum_{(n_{(ij)})_{i<j}}
+                \lp \prod_r a_{r m_r} \sqrt{\binom{m_i}{\{n_{(ij)}\}_{j \ne i}}} \rp 
+                \lp \prod_{i<j} \lambda_{ij}^{n_{(ij)}}
+                    \rp
+\end{align*}
+where $m_i = \sum_{j\ne i} n_{(ij)}$, whenever the RHS is absolutely convergent.
+\end{thm}
+
+\begin{lemma}\label{lemma:smallRhoMomentBound}
+Suppose $\phi_i, i\in[k]$ are as in \cref{thm:multivariateHermiteExpectation}, with additionally the constraint that we have an index set $I \sbe [k]$ such that $b_{i0} = a_{i0} = 0$ (i.e. $\EV \phi_i(z_i) = 0$) for all $i \in I$.
+Assume that, for some $\lambda < 1/2 $, $|\lambda_{ij}| \le \lambda/(k-1)$ for all $i \ne j$.
+Then
+\begin{align*}
+    \left|\EV \prod_{i=1}^k \phi_i(z_i)\right| \le
+    C_{k,|I|} \lp \prod_{r=1}^k \|\phi_r\|_G\rp 
+        \lambda^{\lceil |I|/2\rceil}
+\end{align*}
+for some constant $C_{k, |I|}$ depending on $k$ and $|I|$ but independent of $\{\phi_i\}_i$ and $\lambda$.
+\end{lemma}
+\begin{proof}
+In the notation of \cref{thm:multivariateHermiteExpectation}, $\binom{m_i}{\{n_{(ij)}\}_{j \ne i}} \le (k-1)^{m_i}$ by the multinomial theorem.
+Thus
+\begin{align*}
+    \left|\EV \prod_{i=1}^k \phi_i(z_i)\right|
+    &\le
+        \sum_{\substack{(n_{(ij)})_{i<j}:\\\forall r\in I, m_r \ge 1}}
+        \left|
+        \lp \prod_{r=1}^k a_{r m_r} \sqrt{\binom{m_r}{\{n_{(rj)}\}_{j \ne r}}} \rp 
+        \lp \prod_{i<j} \lambda_{ij}^{n_{(ij)}}
+            \rp
+        \right|
+        \\
+    &\le
+        \sum_{\substack{(n_{(ij)})_{i<j}:\\\forall r \in I, m_r \ge 1}}
+        \lp \prod_{r=1}^k \|\phi_r\|_G \sqrt{(k-1)^{m_r}} \rp 
+        \lp \prod_{i<j} \lp \f \lambda{k-1} \rp^{n_{(ij)}}
+            \rp
+        \\
+    &\le
+        \sum_{\substack{(n_{(ij)})_{i<j}:\\\forall r \in I, m_r \ge 1}}
+        \lp \prod_{r=1}^k \|\phi_r\|_G  \rp 
+        \lambda^{\sum_{i<j} n_{(ij)}}
+        \\
+    &=
+        \lp \prod_{r=1}^k \|\phi_r\|_G\rp 
+        \lp B_{|I|} \lambda^{\lceil |I|/2\rceil} (1 + o(1)) \rp
+        .
+\end{align*}
+where $B_V$ is the number of ways to cover $V$ vertices with $\lceil V/2 \rceil$ edges, and
+$o(1)$ is a term that goes to 0 as $\lambda \to 0$ and is bounded above by a function of $k$ whenever $\lambda < 1/2$.
+Then an appropriate $C_{k, |I|}$ can be chosen to obtain the desired result.
+\end{proof}
+
+\begin{lemma}\label{lemma:largeRhoMomentBound}
+Suppose $\phi_i, i\in[k]$ are as in \cref{thm:multivariateHermiteExpectation}, with additionally  the constraint that, we have some index set $I \sbe [3, k]$ such that for all $i \in I$, $b_{i0} = a_{i0} = 0$ (i.e. $\EV \phi_i(z_i) = 0$).
+Assume that $|\lambda_{12}| \le 1/2$, for some $\lambda < 1/\sqrt 8 $, $|\lambda_{ij}| \le \lambda/(k-1)$ for all $i \ne j$ and $\{i,j\} \ne \{1, 2\}$.
+Then
+\begin{align*}
+    \left|\EV \prod_{i=1}^k \phi_i(z_i)\right| \le
+    C'_{k, |I|} \lp \prod_{r=1}^k \|\phi_r\|_G\rp 
+        \lambda^{\lceil |I|/2\rceil}
+\end{align*}
+for some constant $C'_k$ depending on $k$ and $I$ but independent of $\{\phi_i\}_i$ and $\lambda$.
+\end{lemma}
+\begin{proof}
+\newcommand{\suchthat}{\mathrm{s.t.}}
+Define $\mathcal P = \{(i,j): 1\ne i<j \ne 2\}$ and $\mathcal Q = \{(i,j): i<j \text{ and } (\text{$i=1$ XOR $j=2$})\}$.
+Also write $R = \prod_{r=1}^k \|\phi_r\|_G.$
+As in the above proof,
+\begin{align*}
+    &\phantomeq
+      |\EV \prod_{i=1}^k \phi_i(z_i)|\\
+    &\le
+        \sum_{\substack{(n_{(ij)})_{i<j}:\\\forall r \in I, m_r \ge 1}}
+        \left|
+        \lp \prod_{r=1}^k a_{r m_r} \sqrt{\binom{m_r}{\{n_{(rj)}\}_{j \ne r}}} \rp 
+        \lp \prod_{(i,j) \in \mathcal P} \lambda_{ij}^{n_{(ij)}}
+            \rp
+        2^{-n_{(12)}}
+        \right|
+        \\
+    &\le
+        \sum_{\substack{(n_{(ij)})_{i<j}:\\\forall r \in I, m_r \ge 1}}
+        R
+        \sqrt{\prod_{r=1}^2 \binom{m_r}{n_{(12)}}
+                    \binom{m_r - n_{(12)}}{\{n_{(rj)}\}_{j \not \in \{1,2\}}}
+            }
+        \prod_{r=3}^k \sqrt{(k-1)^{m_r}}
+        \lp \prod_{(i,j) \in \mathcal P} \lp \f \lambda{k-1} \rp^{n_{(ij)}}
+            \rp
+        2^{-n_{(12)}}
+        \\
+    &\le
+        R
+        \sum_{\substack{(n_{(ij)})_{i<j}:\\\forall r \in I, m_r \ge 1}}
+        \sqrt{\prod_{r=1}^2 \binom{m_r}{n_{(12)}}
+                    (k-1)^{m_r - n_{(12)}}
+            }
+        (k-1)^{\f 1 2 \sum_{r=3}^k m_r}
+         \lp \f \lambda{k-1} \rp^{\sum_{i<j} n_{(ij)} - n_{(12)}}
+        2^{-n_{(12)}}
+        \\
+    &=
+        R
+        \sum_{\substack{(n_{(ij)})_{i<j}:\\\forall r \in I, m_r \ge 1}}
+        \sqrt{\prod_{r=1}^2 \binom{m_r}{n_{(12)}}
+            }
+         \lambda^{\sum_{i<j} n_{(ij)} - n_{(12)}}
+         2^{-n_{(12)}}
+        \\
+    &\le
+        R
+        \sum_{\substack{(n_{(ij)})_{i<j}:\\\forall r \in I, m_r \ge 1}}
+        \binom{\f{m_1+m_2}2}{n_{(12)}}
+         2^{-n_{(12)}}
+         \lambda^{\sum_{i<j} n_{(ij)} - n_{(12)}}
+        \\
+    &\le
+        R
+        \sum_{\substack{(n_{(ij)})_{i<j}:\\\forall r \in I, m_r \ge 1}}
+        \binom{n_{(12)} + \f 1 2 m_{(12)}}{n_{(12)}}
+         2^{-n_{(12)}}
+         \lambda^{\sum_{i<j} n_{(ij)} - n_{(12)}}
+        \\
+    &\qquad {\text{where $m_{(12)} = \sum_{(i,j) \in \mathcal Q} n_{(ij)}$}}
+        \\
+    &\le
+        2R
+        \sum_{\substack{(n_{(ij)})_{(i,j) \in \mathcal P}:\\\forall r \in I, m_r \ge 1}}
+        \lp \f 1 {1 - 1/2} \rp^{1 + \f 1 2 m_{(12)}}
+         \lambda^{\sum_{(i,j) \in \mathcal P} n_{(ij)}}
+        \\
+    &\le
+        2R
+        \sum_{\substack{(n_{(ij)})_{(i,j) \in \mathcal P}:\\\forall r \in I, m_r \ge 1}}
+         (\sqrt 2 \lambda)^{\sum_{(i,j) \in \mathcal Q} n_{(ij)}}
+         \lambda^{\sum_{(i,j)\in \mathcal P \setminus \mathcal Q} n_{(ij)}}
+        \\
+    &\le
+        2R
+        \lp 2^{|I|/4} B_{|I|} \lambda^{\lceil |I|/2\rceil} (1 + o(1)) \rp
+\end{align*}
+where $B_{|I|}$ is the number of ways of covering $|I|$ vertices with $\lceil \f{|I|}2 \rceil$ edges, and
+$o(1)$ is a term that goes to 0 as $\lambda \to 0$ and is upper bounded by a function of $k$ for all $\lambda < 1/\sqrt 8$.
+Choosing the appropriate constant $C'_{k, |I|}$ then gives the result.
+\end{proof}
+
+\subsection{Bounding the Off-Diagonal Correlations of a Projection Matrix}
+
+\begin{lemma}\label{lemma:projectionDiagonal}
+Let $\Pi \in \R^{n \times n}$ be an orthogonal projection matrix.
+Then each diagonal entry $\Pi_{ii} \in [0, 1].$
+\end{lemma}
+\begin{proof}
+Because $\Pi = \Pi^2$, we have for each $i$, $\Pi_{ii} = \sum_{j} \Pi_{ij}^2 \implies \Pi_{ii} (1 - \Pi_{ii}) = \sum_{j \ne i} \Pi_{ij}^2 \ge 0 \implies \Pi_{ii} \in [0, 1].$
+\end{proof}
+
+\begin{lemma}\label{lemma:projectionCorrelation}
+
+Let $\Pi \in \R^{n \times n}$ be an orthogonal projection matrix of rank $k$.
+Suppose its diagonal entries are strictly positive.
+Consider the correlation matrix $C \defeq D^{-1/2} \Pi D^{-1/2}$ where $D = \Diag(\Pi)$.
+Then the off-diagonal entries of $C$ satisfy $\sum_{i < j} C_{ij}^2 \le 0.5 (r^2 + r),$ where $r = n-k$.
+\end{lemma}
+\noindent\textit{Proof.}
+Because $\Pi = \Pi^2$, we have for each $i$, $\Pi_{ii} = \sum_{j} \Pi_{ij}^2 = \sum_j \Pi_{ii}\Pi_{jj} C_{ij}^2
+\implies
+1 - \Pi_{ii} = \sum_{j \ne i} \Pi_{jj} C_{ij}^2.$
+At the same time, each $C_{ij}^2 \in [0, 1]$.
+Thus we seek an upper bound on the following linear program in the $n(n-1)/2$ variables $C_{(ij)}^2$ (which identiy $C_{ij} = C_{ji} = C_{(ij)}$).
+\begin{align*}
+    \text{Maximize }&
+        \sum_{i \ne j} C_{(ij)}^2
+        \\
+    \text{s.t. }&
+        \forall i, 1 - \Pi_{ii} = \sum_{j \ne i} \Pi_{jj} C_{(ij)}^2
+        \\
+        &\forall i < j, C_{(ij)}^2 \in [0, 1].
+\end{align*}
+
+This LP has the dual
+\begin{align*}
+    \text{Minimize }&
+        \sum_{i < j} \tau_{ij} + \sum_{i=1}^n (1 - \Pi_{ii}) \zeta_i\\
+    \text{s.t. }&
+        \forall i < j,
+            \tau_{ij} + \zeta_i \Pi_{jj} + \zeta_j \Pi_{ii} \ge 1\\
+        &\forall i < j,
+            \tau_{ij} \ge 0
+            \\
+        &\forall i, \zeta_i \in \R.
+\end{align*}
+
+Any feasible value of the dual LP is an upper bound on the original LP.
+We now set the dual variables.
+
+We will set $\tau_{ij} = 1 - \zeta_i \Pi_{jj} - \zeta_j \Pi_{ii}$ for all $i < j$, so that the objective is now
+\begin{align*}
+  \binom n 2 - (k-1)\sum_{i=1}^n \zeta_i.
+\end{align*}
+It remains to 1) set the variables $\zeta_i$ and 2) verify that $1 - \zeta_i \Pi_{jj} + \zeta_j \Pi_{ii} \ge 0$ for all $i < j$.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\textwidth]{graphics/pihat.pdf}
+  \caption{Illustration of $\hat \pi$, $x_t$, and $t_x$.}
+  \label{fig:pihat}
+\end{figure}
+
+\global\long\def\zzeta{\hat{\zeta}}%
+
+\global\long\def\ppi{\hat{\pi}}%
+WLOG, assume $\Pi_{11}\ge\cdots\ge\Pi_{nn}>0$. Define the function $\pi:(0,n]\to\R$ as the piecewise constant extension of the diagonal of $\Pi$ to a real function on $(0,n]$:
+\[
+\pi(t)\defeq\Pi_{ii},\quad\text{where}\quad i=\lceil t\rceil.
+\]
+Note $\pi$ is nonincreasing and takes values in $(0,1]$. Define $f$ as the integral of $\pi$:
+\[
+f(s)\defeq\int_{0}^{s}\pi(t)\dd t.
+\]
+Note $f$ is increasing and concave because $\pi$ is positive and nonincreasing, so $f$ has an inverse $f^{-1}$. Additionally, $f(0)=0,f(n)=k$.
+
+Let
+\[
+t_{x}\defeq f^{-1}(k/2+x),\quad x_{t}\defeq f(t)-k/2.
+\]
+
+Now define $\ppi:[-k/2,k/2]\to(0,1]$ by
+\[
+\ppi(x)=\pi(t_{x})=\pi(\lceil t_{x}\rceil),\quad\text{so that for all \ensuremath{t\in(0,n],}}\quad\ppi(x_{t})=\pi(t).
+\]
+\cref{fig:pihat} illustrates the above definitions.
+Suppose 
+\begin{equation}
+\text{\ensuremath{\{x_{1},\ldots,x_{n}\}} and \ensuremath{\{-x_{1},\ldots,-x_{n}\}} are disjoint and do not contain 0.}\label{assm:grid}
+\end{equation}
+
+We can assume this WLOG as the set of $\Pi$ satisfying this property is dense and the function $\Pi\mapsto\sum C_{ij}^{2}$ is continuous so our bound applies to all $\Pi$ be continuity. This assumption implies that any line segment $[-\delta,+\delta]$ has at most one endpoint in $\{x_{1},\ldots,x_{n}\}$.
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+  \centering
+  \includegraphics[width=0.5\textwidth]{graphics/projCorLP_cropped.pdf}
+  \caption{Illustration of how to define $\hat \zeta$.}
+  \label{fig:zetahat}
+\end{wrapfigure}
+Now we define $\zzeta:[-k/2,k/2]\to\R$ as the unique function satisfying
+\begin{equation}
+\zzeta(x)\ppi(-x)+\zzeta(-x)\ppi(x)=1.\label{eq:reflection}
+\end{equation}
+and 
+\begin{equation}
+\zzeta(x)=\zzeta(y)\quad\text{if $\lceil t_{x}\rceil=\lceil t_{y}\rceil$}\label{eq:zzetapiecewise}
+\end{equation}
+Note \cref{eq:reflection} implies $\zzeta(0)=\frac{1}{2\ppi(0)}$ and
+\begin{equation}
+\frac{\zzeta(x)}{\ppi(x)}+\frac{\zzeta(-x)}{\ppi(-x)}=\frac{1}{\ppi(x)\ppi(-x)}.\label{eq:reflection2}
+\end{equation}
+By \cref{eq:zzetapiecewise}, $\zzeta$ is constant on each subinterval of $[-k/2,k/2]$ in the partition induced by $\{x_{1},\ldots,x_{n}\}$. A second of thought shows there is a unique $\zzeta$ satisfying \cref{eq:reflection} and \cref{eq:zzetapiecewise}; this is illustrated by by \cref{fig:zetahat}.
+
+Thus we may set the dual variables
+\[
+\zeta_{i}\defeq\zzeta(x),\quad\text{where}\quad\lceil t_{x}\rceil=i.
+\]
+We check this is a valid assignment of dual variables (in that $\tau_{ij}\ge0$ are satisfied) in \cref{claim:tauconstraint}. 
+
+Let $r=n-k$. It turns out, given \cref{claim:sumzeta} and \cref{claim:intInverseProd}, we have
+\[
+\sum_{i=1}^{n}\zeta_{i}\ge\frac{n+r}{2}
+\]
+so that the objective value given the above dual variables is
+\[
+\binom{n}{2}-\frac{n+r}{2}(n-r-1)=\frac{1}{2}(n^{2}-n)-\frac{1}{2}(n^{2}-r^{2}-n-r)=\frac{1}{2}(r^{2}+r)
+\]
+as desired.
+\begin{claim}
+\label{claim:sumzeta}
+\[
+\sum_{i=1}^{n}\zeta_{i}=\int_{-k/2}^{k/2}\frac{\zzeta(x)}{\ppi(x)}\dd x=\int_{0}^{k/2}\frac{\dd x}{\ppi(x)\ppi(-x)}.
+\]
+\end{claim}
+
+\begin{proof}
+The first equality follows from 
+\[
+\int_{x:\lceil t_{x}\rceil=i}\frac{\zzeta(x)}{\ppi(x)}\dd x=\int_{f(i-1)-k/2}^{f(i)-k/2}\frac{\zzeta(x)}{\ppi(x)}\dd x=\int_{f(i-1)}^{f(i)}\frac{\zeta_{i}}{\pi(i)}\dd x=(f(i)-f(i-1))\frac{\zeta_{i}}{\pi(i)}=\zeta_{i}.
+\]
+
+The second equality follows from folding the integral around $x=0$ and applying \cref{eq:reflection}.
+\end{proof}
+\begin{claim}
+\label{claim:intInverseProd}With $r=n-k$,
+\[
+\int_{0}^{k/2}\frac{\dd x}{\ppi(x)\ppi(-x)}\ge\frac{n+r}{2}
+\]
+\end{claim}
+
+\begin{proof}
+Note $\int_{-k/2}^{k/2}\frac{\dd x}{\ppi(x)}=\sum_{i=1}^{n}1=n$ by same reasoning as in \cref{claim:sumzeta}. We also have $\ppi(x)\le1\implies\frac{1}{\ppi(x)}\ge1$ for all $x$. Thus $\int_{0}^{k/2}\frac{\dd x}{\ppi(x)\ppi(-x)}$ is at least
+\[
+\frac{1}{2}\inf\left\{ \int_{-k/2}^{k/2}g(x)g(-x)\dd x\mid g:[-k/2,k/2]\to[1,\infty),\int_{-k/2}^{k/2}g(x)\dd x=n,g\text{ nondecreasing}\right\} .
+\]
+It's not hard to see this infimum is achieved by $g^{*}(x)=1$ for all $x\in[-k/2,k/2)$ with a delta jump of mass $n-k=r$ at the point $k/2$. The value for this $g^{*}(x)$ is $\frac{1}{2}(k+2r)=\frac{n+r}{2}$.
+\end{proof}
+\begin{claim}
+\label{claim:tauconstraint}For any $x,y\in[-k/2,k/2]$,
+\[
+\zzeta(x)\ppi(y)+\zzeta(y)\ppi(x)\le1.
+\]
+\end{claim}
+
+\begin{proof}
+We show the equivalent claim that
+\[
+\frac{\zzeta(x)}{\ppi(x)}+\frac{\zzeta(y)}{\ppi(y)}\le\frac{1}{\ppi(x)\ppi(y)}.
+\]
+
+Suppose $-x<y$, then by telescoping and \cref{claim:deltazeta},
+\begin{align*}
+\frac{\zzeta(x)}{\ppi(x)}+\frac{\zzeta(y)}{\ppi(y)} & =\frac{\zzeta(x)}{\ppi(x)}+\frac{\zzeta(-x)}{\ppi(-x)}+\sum_{i=\lceil t_{-x}\rceil}^{\lceil t_{y}\rceil}\left(\frac{\zeta_{i+1}}{\pi(i+1)}-\frac{\zeta_{i}}{\pi(i)}\right)\\
+ & =\frac{1}{\ppi(x)\ppi(-x)}+\sum_{i=\lceil t_{-x}\rceil}^{\lceil t_{y}\rceil}\left(\frac{1}{\pi(i+1)}-\frac{1}{\pi(i)}\right)\frac{1}{\ppi(-x_{i})}.
+\end{align*}
+Note that because $x_{i}\ge-x$ for all $i$ in the sum, we have $-x_{i}\le x$ and $\frac{1}{\ppi(-x_{i})}\le\frac{1}{\ppi(x)}$. Therefore, by telescoping again,
+\begin{align*}
+\frac{\zzeta(x)}{\ppi(x)}+\frac{\zzeta(y)}{\ppi(y)} & \le\frac{1}{\ppi(x)\ppi(-x)}+\sum_{i=\lceil t_{-x}\rceil}^{\lceil t_{y}\rceil}\left(\frac{1}{\pi(i+1)}-\frac{1}{\pi(i)}\right)\frac{1}{\ppi(x)}\\
+ & =\frac{1}{\pi(\lceil t_{y}\rceil)\ppi(x)}=\frac{1}{\ppi(y)\ppi(x)}
+\end{align*}
+as desired. 
+
+Now suppose $y<-x$. Then by telescoping and \cref{claim:deltazeta},
+\begin{align*}
+\frac{\zzeta(x)}{\ppi(x)}+\frac{\zzeta(y)}{\ppi(y)} & =\frac{\zzeta(x)}{\ppi(x)}+\frac{\zzeta(-x)}{\ppi(-x)}-\sum_{i=\lceil t_{y}\rceil}^{\lceil t_{-x}\rceil}\left(\frac{\zeta_{i+1}}{\pi(i+1)}-\frac{\zeta_{i}}{\pi(i)}\right)\\
+ & =\frac{1}{\ppi(x)\ppi(-x)}-\sum_{i=\lceil t_{y}\rceil}^{\lceil t_{-x}\rceil}\left(\frac{1}{\pi(i+1)}-\frac{1}{\pi(i)}\right)\frac{1}{\ppi(-x_{i})}.
+\end{align*}
+Note that because $x_{i}\le-x$ for all $i$ in the sum, we have $-x_{i}\ge x$ and $\frac{1}{\ppi(-x_{i})}\ge\frac{1}{\ppi(x)}$. Therefore, by telescoping again,
+\begin{align*}
+\frac{\zzeta(x)}{\ppi(x)}+\frac{\zzeta(y)}{\ppi(y)} & \le\frac{1}{\ppi(x)\ppi(-x)}-\sum_{i=\lceil t_{y}\rceil}^{\lceil t_{-x}\rceil}\left(\frac{1}{\pi(i+1)}-\frac{1}{\pi(i)}\right)\frac{1}{\ppi(x)}\\
+ & =\frac{1}{\pi(\lceil t_{y}\rceil)\ppi(x)}=\frac{1}{\ppi(y)\ppi(x)}
+\end{align*}
+as desired.
+\end{proof}
+\begin{claim}
+\label{claim:deltazeta}For any $i=1,\ldots n-1$, we have
+\[
+\frac{\zeta_{i+1}}{\pi(i+1)}-\frac{\zeta_{i}}{\pi(i)}=\frac{1}{\ppi(-x_{i})}\left(\frac{1}{\pi(i+1)}-\frac{1}{\pi(i)}\right).
+\]
+\end{claim}
+
+\begin{proof}
+By \cref{eq:reflection2}, for any $x\in\{x_{1},\ldots,x_{n-1}\}$, we have
+\[
+\frac{\zzeta(x+\epsilon)}{\ppi(x+\epsilon)}-\frac{\zzeta(x-\epsilon)}{\ppi(x-\epsilon)}=\frac{1}{\ppi(x+\epsilon)\ppi(-x)}-\frac{1}{\ppi(x-\epsilon)\ppi(-x)}\ge0
+\]
+for sufficiently small $\epsilon>0$. This is because, by \cref{assm:grid}, $\ppi(-x+\epsilon)=\ppi(-x-\epsilon)$ and $\zzeta(-x+\epsilon)=\zzeta(-x-\epsilon)$, and we obtain the above by subtracting \cref{eq:reflection2} for $x+\epsilon$ and $x-\epsilon$. In particular, letting $i=\lceil t_{x-\epsilon}\rceil$ so that $i+1=\lceil t_{x+\epsilon}\rceil$, we have the desired claim.
+\end{proof}
+
+\qed
+
+\begin{rem}\label{lemma:projectionCorrelation}
+Bobby He provided a much simpler argument to show that $\sum_{i < j} C_{ij}^2 \le 2 r^2 + 6r$ (which is slightly weaker than \cref{lemma:projectionCorrelation} but suffices for our downstream needs):
+
+Let $J \defeq \{i: \Pi_{ii} \ge 1/2\}$ and $\bar J = [n] \setminus J$.
+Then because $\tr \Pi_{ii} = n - r$, $|\bar J| \le 2 r$.
+We split the squared sum of off-diagonal entries into
+\begin{align*}
+  \sum_{i\ne j} C_{ij}^2
+  &=
+    \sum_{\substack{i\ne j\\ i,j \in J}} C_{ij}^2
+    + 2\sum_{\substack{i \in J \\ j \in \bar J}} C_{ij}^2
+    + \sum_{\substack{i\ne j\\ i, j \in \bar J}} C_{ij}^2
+    .
+\end{align*}
+We bound each of the terms separately.
+\begin{align*}
+  \sum_{\substack{i\ne j\\ i,j \in J}} C_{ij}^2
+  \le 4 \sum_{\substack{i\ne j\\ i,j \in J}} \Pi_{ij}^2
+  \le 4 \sum_{\substack{i\ne j}} \Pi_{ij}^2
+  = 4 (\tr \Pi ^ 2 - \sum_{i} \Pi_{ii}^2)
+  \le 4 (k - n (k/n)^2)
+  = 4(n - k)k/n \le 4r.
+\end{align*}
+\begin{align*}
+  2\sum_{\substack{i \in J \\ j \in \bar J}} C_{ij}^2
+  = 2\sum_{\substack{i \in J \\ j \in \bar J}} \Pi_{ij}^2/\Pi_{ii} \Pi_{jj}
+  \le 4\sum_{\substack{i \in J \\ j \in \bar J}} \Pi_{ij}^2/  \Pi_{jj}
+  = 4\sum_{\substack{j \in \bar J}} \Pi_{jj}/  \Pi_{jj}
+  = 4 |\bar J|
+  \le 8 r.
+\end{align*}
+Above, we used the fact that $\Pi^2 = \Pi \implies \Pi_{jj} + \sum_{i} \Pi_{ij}^2$.
+Finally, because $|C_{ij}| \le 1$, we have
+\begin{align*}
+  \sum_{\substack{i\ne j\\ i, j \in \bar J}} C_{ij}^2
+  \le |\bar J|^2 \le 4r^2.
+\end{align*}
+Summing the above and dividing by two yields the desired result.
+\end{rem}
+
+\subsection{Law of Large Numbers for Images of Weakly Correlated Gaussians}
+
+\begin{thm}\label{thm:projectVariance}
+  Let $z \sim \Gaus(0, \Pi)$ where $\Pi \in \R^{n \times n}$ is a matrix with nonzero diagonal entries and
+  satisfying $\sum_{i<j} \Pi_{ij}^2 / (\Pi_{ii} \Pi_{jj}) \le R$
+  for some constant $R$.
+  Consider functions $\phi_i: \R \to \R, i\in[n],$ with finite variance $\Var\lp \phi_i(x) : x \sim \Gaus(0, \Pi_{ii})\rp < \infty$.
+  Then
+  \begin{align*}
+      \Var\lp\sum_{i=1}^n \phi_i(z_i)\rp
+          &\le
+              \lp R\sqrt 2 + 1 \rp \sum_i \Var\lp \phi_i(x) : x \sim \Gaus(0, \Pi_{ii})\rp.
+  \end{align*}
+\end{thm}
+
+Note, by \cref{lemma:projectionCorrelation}, if $\Pi$ is an orthogonal projection matrix of rank $k$, then we may take $R = 0.5 ((n - k)^2 + (n-k))$.
+By \cref{thm:projectVariance} and Chebyshev's inequality, we have the following.
+\begin{cor}[Weak Law of Large Numbers for Images of Weakly Correlated Gaussians]
+  \label{thm:WeakLLNGaussianImage} Consider a triangular array $\{\zeta_{1}^{n},\ldots,\zeta_{n}^{n}\}_{n\ge1}$ of Gaussian variables, where each row is given by $\zeta^{n}\sim\Gaus(0,\Sigma^{n})$ and the covariance matrix $\Sigma^{n}$ has nonzero diagonal entries and satisfies
+  \[\sum_{\alpha<\beta}(\Sigma_{\alpha\beta}^{n})^{2} / (\Sigma_{\alpha\alpha}^n \Sigma_{\beta\beta}^n)\le R(n)\]
+  for some $R(n) > 0$.
+  Let $\phi^n_\alpha:\R\to\R, \alpha\in[n], n \ge1,$ be functions with mean $\mu_\alpha^n \defeq \EV_{\zeta_\alpha^n} \phi^n_\alpha(\zeta^n_\alpha)$.
+  Then, as $n\to\infty$, we have the following convergence in probability
+  \begin{align*}
+    \f 1 n \sum_{\alpha=1}^n (\phi^n_\alpha(\zeta^n_\alpha) - \mu^n_\alpha) \probto 0
+  \end{align*}
+  if the following holds
+  \begin{align*}
+    \f{R(n) \sqrt 2 + 1}{n^2}\sum_{\alpha=1}^n \Var_{\zeta^n_\alpha}(\phi^n_\alpha(\zeta^n_\alpha)) \to 0.
+  \end{align*}
+\end{cor}
+Note that, if the variance $\Var_{\zeta^n_\alpha}(\phi^n_\alpha(\zeta^n_\alpha))$ is uniformly bounded by some $T>0$, then $R(n)$ can grow like $n^{1-\varepsilon}$ and we still have convergence in probability.
+
+\begin{proof}[Proof of \cref{thm:projectVariance}]
+Let $C = D^{-1/2} \Pi D^{-1/2}, D = \Diag(\Pi),$ be the correlation matrix of $\Pi$.
+The premise of the theorem implies $\sum_{i<j} C_{ij}^2 \le R$.
+Define functions $\psi_i$ by $\psi_i(y) = \phi_i(\sqrt{\Pi_{ii}}y) - \EV_{x \sim \Gaus(0, 1)}[\phi_i(\sqrt{\Pi_{ii}}x)]$.
+Then
+\begin{align*}
+\Var_{z \sim \Gaus(0, \Pi)}\lp \sum_{i=1}^n \phi_i(z_i) \rp
+    &=
+        \EV_{z \sim \Gaus(0, C)}
+            \lp \sum_{i=1}^n \psi_i(z_i) \rp^2
+    =
+        \EV_{z \sim \Gaus(0, C)}
+            \sum_{i,j} \psi_i(z_i) \psi_j(z_j).
+\end{align*}
+Expand $\psi_i$ in the Hermite orthonormal basis,
+\begin{align*}
+    \psi_i(x) = a_{i1} H_1(x) + a_{i2} H_2(x) + \cdots
+\end{align*}
+where $H_j(x)$ is the $j$th Hermite polynomial, normalized so that $\EV_{z \sim \Gaus(0, 1)} H_j(z)^2 = 1$ (note that $H_0(x) = 1$ and does not appear here because $\EV_{x \sim \Gaus(0, 1)}\psi_i(x) = 0$ by construction).
+For any locally integrable $\phi: \R \to \R$, let $\|\phi\|_G^2 \defeq \EV_{z \sim \Gaus(0, 1)} \phi(z)^2$, so that $\|\psi_i\|_G^2 = \sum_k a_{ik}^2 = \Var\lp \phi_i(x) : x \sim \Gaus(0, \Pi_{ii})\rp.$
+Then,
+\begin{align*}
+    \sum_{i < j} \EV_{z \sim \Gaus(0, C)} \psi_i(z_i) \psi_j(z_j)
+        &=
+            \sum_{i<j} \sum_{k=1}^\infty a_{ik} a_{jk} C_{ij}^k
+            \\
+        &\le
+            \sum_{k=1}^\infty \sqrt{\lp \sum_{i<j} a_{ik}^2 a_{jk}^2\rp
+                                    \lp \sum_{i<j} C_{ij}^{2k}\rp}
+            \\
+        &\le
+            \sum_{k=1}^\infty \sqrt{\f 1 2 \lp \sum_{i} a_{ik}^2\rp^2
+                                    \lp \sum_{i<j} C_{ij}^2\rp}
+        &
+            \pushright{\text{since $|C_{ij}| \le 1$}}
+            \\
+        &\le
+            2^{-1/2}\sum_{k=1}^\infty \lp \sum_{i} a_{ik}^2\rp R
+        &
+            \pushright{\text{by premise}}
+            \\
+        &=
+            \f R {\sqrt 2} \sum_i \|\psi_i\|_G^2
+\end{align*}
+On the other hand, $\sum_i \EV_{x \sim \Gaus(0, 1)} \psi_i(x)^2 = \sum_i \|\psi\|_G^2$, so that
+\begin{align*}
+    \sum_{i,j}\EV_{z \sim \Gaus(0, C)} \psi_i(z_i) \psi_j(z_j)
+        &\le
+            \lp R \sqrt 2 + 1 \rp \sum_i \|\psi_i\|_G^2
+            \\
+        &=
+            \lp R \sqrt 2 + 1 \rp \sum_i \Var\lp \phi_i(x) : x \sim \Gaus(0, \Pi_{ii})\rp.
+\end{align*}
+
+\end{proof}
+
+\begin{thm}\label{thm:controlHighMoments}
+\newcommand{\LL}{2p}
+\newcommand{\CC}{\mathcal{C}}
+Let $z \sim \Gaus(0, \Pi)$ where $\Pi \in \R^{n \times n}$ is a matrix with nonzero diagonal entries and
+satisfying $\sum_{i<j} \Pi_{ij}^2 / (\Pi_{ii} \Pi_{jj}) \le R$
+for some constant $R$ independent of $n$.
+Consider functions $\phi_i: \R \to \R$ for each $i \in [n]$ with mean $\mu_i \defeq \EV_{z_i} \phi_i(z_i)$.
+Suppose each $\phi_i$ has finite ($\LL$)th centered moment $\EV_{z_i} (\phi_i(z_i) - \mu_i)^{\LL}$, where $p \ge 6$.
+Then for $Q \defeq \f 1 n \sum_{i=1}^n \phi_i(z_i),$ %
+\begin{align*}
+    \EV[(Q - \EV Q)^{2p}]
+        &\le
+           \CC
+            n^{-1.5} \max_{i \in [n]}
+                \EV
+                    \left(\phi_{i}(z_i) - \mu_i \right)^{2p}
+\end{align*}
+for some constant $\CC$ depending on $p$ and $R$, but not on $n$ or the functions $\phi_i$.
+If in addition, each $\phi_i$ has finite centered moments of order $2p L$ for some $L > 1$, then
+\begin{align*}
+    \EV[(Q - \EV Q)^{2p}]
+        &\le
+           \CC
+            n^{-1.5+1/L}
+                \sqrt[L]{\f 1 n \sum_{i=1}^n 
+                    \EV
+                    \left(\phi_{i}(z_i) - \mu_i \right)^{2p L}
+                    }
+            .
+\end{align*}
+\end{thm}
+
+Note, by \cref{lemma:projectionCorrelation}, an orthogonal projection matrix of rank $n - O(1)$ satisfies the off-diagonal condition of \cref{thm:controlHighMoments}.
+Combining \cref{thm:controlHighMoments} and \cref{lemma:momentBoundASConvergence}, we obtain the following.
+\begin{cor}[Strong Law of Large Numbers for Images of Weakly Correlated Gaussians]
+  \label{thm:StrongLLNGaussianImage} Consider a triangular array $\{\zeta_{1}^{n},\ldots,\zeta_{n}^{n}\}_{n\ge1}$ of Gaussian variables, where each row is given by $\zeta^{n}\sim\Gaus(0,\Sigma^{n})$ and the covariance matrix $\Sigma^{n}$ has nonzero diagonal entries and satisfies
+  \[\sum_{\alpha<\beta}(\Sigma_{\alpha\beta}^{n})^{2} / (\Sigma_{\alpha\alpha}^n \Sigma_{\beta\beta}^n)\le R\]
+  for some $R > 0$ independent of $n$.
+  Let $\phi^n_\alpha:\R\to\R, \alpha\in[n], n \ge1,$ be functions with mean $\mu_\alpha^n \defeq \EV_{\zeta_\alpha^n} \phi^n_\alpha(\zeta^n_\alpha)$.
+  Then, as $n\to\infty$,
+  \begin{align*}
+    \f 1 n \sum_{\alpha=1}^n (\phi^n_\alpha(\zeta^n_\alpha) - \mu^n_\alpha) \asto 0
+  \end{align*}
+  if one of the following condition holds:
+  \begin{itemize}
+    \item For some $p \ge 6$ and some $S$ independent of $n$,
+    \[\EV_{\zeta^n_\alpha} (\phi^n_\alpha(\zeta^n_\alpha) - \mu^n_\alpha)^{2p} \le S.\]
+    \item For some $q > 12$ and some $S$ independent of $n$,
+    \[\f 1 n \sum_{\alpha=1}^n \EV_{\zeta^n_\alpha} (\phi^n_\alpha(\zeta^n_\alpha) - \mu^n_\alpha)^{2q} < S.\]
+  \end{itemize}
+
+ \end{cor}
+
+\begin{proof}[Proof of \cref{thm:controlHighMoments}]
+\newcommand{\Cijt}[3]{C_{\p{(#1 #2)}{#3}}}
+Define the correlation matrix $C = D^{-1/2} \Pi D^{-1/2}, D = \Diag(\Pi)$.
+The premise of the theorem implies $\sum_{i<j} C_{ij}^2 \le R$.
+Let $\psi_i(y) = \phi_i(\sqrt{\Pi_{ii}}y) - \EV_{x \sim \Gaus(0, 1)}[\phi_i(\sqrt{\Pi_{ii}}x)]$ be the scaled, centered version of $\phi_i$.
+
+Order the off-diagonal entries of the correlation matrix in the order of decreasing squared value:
+$$C_{(ij)^{(1)}}^2 \ge C_{(ij)^{(2)}}^2 \ge \ldots \ge C_{(ij)^{(N)}}^2,$$
+where $N = \binom n 2$, and $(ij)^{(t)} = (\p i t \p j t)$ are unordered pairs of distinct indices $\p i t \ne \p j t$.
+Since $\sum_t C_{\p{(ij)}{t}}^2 \le R$, by \cref{lemma:projectionCorrelation}, we deduce that
+\begin{equation}
+    |\Cijt i j t| \le n^{-1/4} \qquad \text{for all $t > R \sqrt n$}.
+    \label{eqn:CijtBound}
+\end{equation}
+
+Consider the $(2p)$th centered moment 
+\begin{equation*}
+\EV \lp \f 1 n \sum_{i=1}^n \psi_i(y_i)\rp^{2p}
+= n^{-2p} \EV \sum_{\sigma: [2p] \to [n]} \prod_{a=1}^{2p} \psi_{\sigma(a)}(y_{\sigma(a)}),
+\end{equation*}
+where $y \sim \Gaus(0, C)$.
+We shall bound the sum to show that this moment is not too large.
+
+First note the naive bound via AM-GM,
+\begin{align*}
+    \EV \left|\prod_{a=1}^{2p} \psi_{\sigma(a)}(y_{\sigma(a)})\right|
+    &\le
+        \EV \f 1 {2p} \sum_{a=1}^{2p} \psi_{\sigma(a)}(y_{\sigma(a)})^{2p}
+    \le
+        \max_{i \in [n]} \EV_{y \sim \Gaus(0, 1)}[\psi_i(y)^{2p}]
+        \\
+    &=
+        \max_{i \in [n]} \EV[(\phi_{i}(z_i) - \EV \phi_i(z_i))^{2p}: 
+                        z_i \sim \Gaus(0, \Pi_{ii})]
+    \defeq
+        B_{2p}.
+        \numberthis
+        \label{eqn:naiveAMGM}
+\end{align*}
+Now, for any collection of numbers $\{x_i \in \R \}_{i=1}^m$ and any $L > 0$, we have the trivial bound $\max_i |x_i| \le \lp \sum_{j=1}^m |x_j|^L \rp^{1/L}$, and this bound is tighter the larger $L$ is.
+Thus
+\begin{equation*}
+B_{2p} \le n^{1/L} \sqrt[L]{\f 1 n \sum_{i=1}^n (\EV[\psi_i(y)^{2p}])^L} \le n^{1/L} B_{2p,L},
+\end{equation*}
+where $B_{2p,L} \defeq \sqrt[L]{\f 1 n \sum_{i=1}^n \EV[\psi_i(y)^{2pL}]}$, for any $L$.
+
+\newcommand{\CC}{\mathcal{C}}
+
+We can categorize the $n^{2p}$ terms of 
+\begin{equation}
+\sum_{\sigma: [2p] \to [n]} \EV\prod_{a=1}^{2p} \psi_{\sigma(a)}(y_{\sigma(a)})
+\label{eqn:momentSum}
+\end{equation}
+as follows.
+\begin{itemize}
+    \item Suppose $\sigma$ is injective.
+    \begin{itemize}
+        \item
+            Suppose for each $a\ne b$, $(\sigma(a)\sigma(b)) = \p{(ij)}{t}$ for some $t > R\sqrt n$, so that $|C_{\sigma(a)\sigma(b)}| \le n ^{-1/4}$ by \cref{eqn:CijtBound}.
+            By \cref{lemma:smallRhoMomentBound}, 
+            \[\EV \prod_{a=1}^{2p} \psi_{\sigma(a)}(y_{\sigma(a)}) \le \CC_1 \lp \prod_{r=1}^{2p} \|\psi_{\sigma(r)}\|_G\rp \lp n^{-1/4} \rp ^{p}\]
+            for some constant $\CC_1$ dependent on $p$ but \emph{not} on $R$, $\{\psi_r\}_r$, or $n$.
+            Thus the contribution of all such $\sigma$ to the sum \cref{eqn:momentSum} is
+            \begin{align*}
+                \sum_{\text{all such }\sigma} \CC_1 \lp \prod_{r=1}^{2p} \|\psi_{\sigma(r)}\|_G\rp n^{-p/4}
+                    &\le
+                        \sum_{\text{all }\sigma} \CC_1 \lp \prod_{r=1}^{2p} \|\psi_{\sigma(r)}\|_G\rp n^{-p/4} 
+                        \\
+                    &\le 
+                        \CC_1 n^{-p/4} \lp \sum_{i=1}^{n} \|\psi_{\sigma(r)}\|_G \rp^{2p}
+                        \\
+                    &=
+                        \CC_1 n^{1.75 p} B'_{2p}
+            \end{align*}
+            where we have set
+            \[B'_{2p} \defeq \lp \f 1 n \sum_{i=1}^{n} \|\psi_{i}\|_G \rp^{2p}.
+            \]
+        \item
+            Suppose for some $a, b \in [2p]$, $(\sigma(a)\sigma(b)) = \p{(ij)}t$ for $t \le R\sqrt n$.
+            There are at most $2\binom{2p}2 R \sqrt n \cdot n^{2p-2} \le \CC_2 n^{2p-1.5}$ such $\sigma$, for some $\CC_2$ depending on $p$ and $R$ but not $n$ (or $\{\psi_r\}_r$).
+            Indeed, there are $R \sqrt n$ of choosing such a $t$, $2\binom {2p} 2$ ways of choosing their preimages under $\sigma$ out of $2p$, and $\le n^{2p-2}$ ways of choosing the rest of the values of $\sigma$.
+            By \cref{eqn:naiveAMGM}, the contribution of all such $\sigma$ to the sum is at most $\CC_2 n^{2p-1.5} B_{2p}.$
+            
+    \end{itemize}
+    \item
+        Suppose for some $a^* \ne b^*$ in $[2p]$, $\sigma(a^*) = \sigma(b^*)$, but $\sigma|_{[n] \setminus \{a^*, b^*\}}$ is injective and takes range outside $\{\sigma(a^*)\}$.
+        There are $\binom {2p} 2 n \binom{n-1}{2p-2} \le \CC_3 n^{2p-1}$ such $\sigma$, where $\CC_3$ depends only on $p$ (but not on $R$, $\{\psi_r\}_r$, and $n$).
+        \begin{itemize}
+            \item 
+                Suppose for each $a\ne b$, $(\sigma(a)\sigma(b)) = \p{(ij)}{t}$ for some $t > R\sqrt n$, so that $|C_{\sigma(a)\sigma(b)}| \le n^{-1/4}.$
+                We apply \cref{lemma:smallRhoMomentBound} to the $2p-1$ functions $\{\psi_{\sigma(a^*)}^2\} \cup \{\psi_{\sigma(a)}\}_{a \not \in \{a^*, b^*\}}$, with $\psi_{\sigma(a^*)}^2$ being the sole function whose expectation is not 0, so that the $I$ of \cref{lemma:smallRhoMomentBound} has size $2p-2$, and the $\lambda$ of \cref{lemma:smallRhoMomentBound} is $(2p-2)n^{-1/4}.$
+                Then \cref{lemma:smallRhoMomentBound} gives
+                \begin{align*}
+                    \EV \prod_{a=1}^{2p} \psi_{\sigma(a)}(z_{\sigma(a)})
+                        &\le
+                            \CC_4
+                            \|\psi^2_{\sigma(a^*)}\|_G
+                            \lp \prod_{a\not\in\{a^*, b^*\}} \|\psi_{\sigma(a)}\|_G \rp
+                            (n^{-1/4})^{(2p-2)/2}
+                            \\
+                        &=
+                            \CC_4
+                            \|\psi^2_{\sigma(a^*)}\|_G
+                            \lp \prod_{a\not\in\{a^*, b^*\}} \|\psi_{\sigma(a)}\|_G \rp
+                            n^{-(p-1)/4}
+                \end{align*}
+                for some constant $\CC_4$ depending on $p$ but \emph{not} on $n$, $R$, or $\{\psi_r\}_r$.
+                Thus the collective contribution of such $\sigma$ to the sum is at most
+                \begin{align*}
+                    &\phantomeq
+                        \sum_{\text{all such }\sigma} \CC_4
+                            \|\psi^2_{\sigma(a^*)}\|_G
+                            \lp \prod_{a\not\in\{a^*, b^*\}} \|\psi_{\sigma(a)}\|_G \rp
+                            n^{-(p-1)/4}
+                        \\
+                    &\le
+                        \CC_4 n^{-(p-1)/4} \binom p 2
+                        \sum_{i=1}^n \|\psi^2_i\|_G
+                            \sum_{\pi: [2p-2] \to [n] \setminus \{i\}}
+                                \prod_{a=1}^{2p-2}
+                                \|\psi_{\pi(a)}\|_G
+                        \\
+                    &\le
+                        \CC_4 n^{-(p-1)/4} \binom p 2
+                        \sum_{i=1}^n \|\psi^2_i\|_G
+                            \sum_{\pi: [2p-2] \to [n]}
+                                \prod_{a=1}^{2p-2}
+                                \|\psi_{\pi(a)}\|_G
+                        \\
+                    &=
+                        \CC_5
+                        n^{-(p-1)/4}
+                        \lp \sum_{i=1}^n \|\psi_i^2\|_G\rp
+                        \lp \sum_{i=1}^n \|\psi_i\|_G\rp^{2p-2}
+                        \\
+                    &=
+                        \CC_5 n^{1.75(p-1)} 
+                        B''_{2p}
+                        ,
+                \end{align*}
+                where $\CC_5 = \CC_4 \binom p 2$ and depends only on $p$, but \emph{not} on $n$, $R$, or $\{\psi_r\}_r$, and where we have set
+                \[
+                    B''_{2p}
+                        =
+                            \lp \f 1 n \sum_{i=1}^n \|\psi_i^2\|_G\rp
+                            \lp \f 1 n \sum_{i=1}^n \|\psi_i\|_G\rp^{2p-2}.
+                \]
+            \item
+                 Suppose for some $a, b \in [2p]$, $(\sigma(a)\sigma(b)) = \p{(ij)}t$ for $t \le R\sqrt n$.
+                 There are at most $\binom{2p}{2} n \cdot R\sqrt n \cdot \binom{n-2}{2p-3} = \CC_6 n^{2p-1.5}$ such $\sigma$, where $\CC_6$ depends only on $p$ and $R$, but \emph{not} on $n$ or $\{\psi_r\}_r$.
+                 Using \cref{eqn:naiveAMGM} again, we can upper bound the contribution of such $\sigma$ by $\CC_6 n^{2p-1.5} B_{2p}.$
+        \end{itemize}
+        \item Otherwise, there are more than one pair of inputs that collide under $\sigma$. 
+        There are at most $\CC_7 n^{2p-2}$ such $\sigma$, where $\CC_7$ depends only on $p$, but \emph{not} on $n$, $R$, or $\{\psi_r\}_r$.
+        Using \cref{eqn:naiveAMGM}, we upper bound their contributions by $\CC_7 n^{2p-2} B_{2p}$.
+\end{itemize}
+To summarize, using $O(-)$ to hide the constants $\CC_*$ which don't depend on $n$ or the functions $\psi_i$:
+\begin{align*}
+    \EV \sum_{\sigma: [2p] \to [n]} \prod_{a=1}^{2p} \psi_{\sigma(a)}(y_{\sigma(a)})
+    &\le
+        O\lp
+        n^{1.75p} B'_{2p}
+        + n^{1.75(p-1)} B''_{2p}
+        + n^{2p-1.5} B_{2p}
+        \rp
+        \\
+    &\le
+        O\lp
+        n^{1.75p} B'_{2p}
+        + n^{1.75(p-1)} B''_{2p}
+        + n^{2p-1.5+1/L} B_{2p, L}
+        \rp
+        \\
+    \EV \lp \f 1 n \sum_{i=1}^n \phi_i(z_i) - \mu_i)\rp^{2p}
+        &\le
+           O\lp
+            n^{-0.25 p} B'_{2p}
+            + n^{-0.25 p - 1.75} B''_{2p}
+            + n^{-1.5} B_{2p}
+            \rp
+            \\
+        &\le
+           O\lp
+            n^{-0.25 p} B'_{2p}
+            + n^{-0.25 p - 1.75} B''_{2p}
+            + n^{-1.5+1/L} B_{2p, L}
+            \rp
+\end{align*}
+
+By the power mean inequality, we get that $B'_{2p}, B''_{2p} \le B_{2p} \le n^{1/L} B_{2p,L}$.
+Substitution then gives the desired result.
+
+\end{proof}
+
+This theorem can be significantly strengthened with more careful case work and applying more involved versions of \cref{lemma:smallRhoMomentBound,lemma:largeRhoMomentBound}, but we will not be concerned with this here.
+
+\section{Proof of \netsort{} Master Theorem}
+\label{sec:proofMainTheorem}
+\renewcommand{\nu}{\eta}
+\newcommand{\rankext}[1]{{\color{green}#1}}
+
+\newcommand{\coreset}{{\mathcal{M}}}
+\newcommand{\basespace}{\mathsf{U}}
+\newcommand{\MM}{m}
+
+In this section, we will give the proof for our main theorem.
+
+\paragraph{A Bit of Notation and Terminology}
+Note that, for each $n$, the randomness of our program specified by \cref{thm:NetsorTMasterTheorem} comes from the sampling of the initial vectors $\mathcal V$ and matrices $\mathcal W$.
+Let $\basespace$ be the product space obtained from multiplying together the corresponding probability space for each $n$.
+Each sample from this product probability space thus correspond to a sequence $\{S(n)\}_n$ of instantiatiations of $\mathcal V$ and $\mathcal W$.
+Below, when we say ``almost surely'' (often abbreviated ``a.s.''), we mean ``almost surely over the probability of $\basespace{}$.''
+We will also often make statements of the form 
+\begin{equation*}
+\text{\emph{almost surely (or, a.s.), for all large $n$, \quad $\mathcal A(n)$ is true}}
+\end{equation*}
+where $\mathcal A(n)$ is a claim parametrized by $n$.
+This means that for all but a $\basespace{}$-probability-zero set of sequences $\{S(n)\}_n$, $\mathcal A(n)$ is true for large enough $n$.
+Note that the order of the qualifiers is very important here.
+
+Let $g^1, \ldots, g^M$ be all of the G-vars (including those of $\mathcal V$) in the program.
+It suffices to prove \cref{thm:NetsorTMasterTheorem} where $k=M$ and the vector $\{h^i\}_i$ are the G-vars $g^1, \ldots, g^M$, since all other vectors are \refNonlin{} images of them.
+For convenience, we also assume that for all $g\in \mathcal V$, we have $\EV Z^g = 0$; this is without loss of generality (WLOG) since any nonzero mean can be absorbed into applications of \refNonlin{}.
+
+\paragraph{We induct, but on what?}
+A natural way of going about proving \cref{thm:NetsorTMasterTheorem} is by inducting on the number of variables in a program.
+While this would be the main backbone of the proof, it turns out such a proof would require us to assume a certain rank condition (\cref{lemma:rankStability}) on $g^1, \ldots, g^M$ which is not so easy to check.
+Thus, it would be more fruitful to perform a simultaneous induction on our claim (\ref{IH:MomConv}) along with another statement, parametrized by $\MM$, that would prove such a condition for us.
+\begin{description}
+\item[Moments\label{IH:MomConv}]\!\!\!$(\MM)$\ \ \ 
+    For any polynomially-bounded $\psi: \R^\MM \to \R$, as $n \to \infty$,
+\begin{align*}
+    \f 1 n \sum_{\alpha=1}^n \psi(g^1_\alpha, \ldots, g^\MM_\alpha) &\asto 
+    \EV
+      \psi\left(
+      \Zz^{g^1}, \ldots, \Zz^{g^\MM} \right)
+      .
+\end{align*}
+
+\item[CoreSet\label{IH:coreSet}]\!\!\!$(\MM)$\ \ \ 
+    There exists a ``core set'' $\coreset \sbe [\MM]$ such that, 
+  \begin{description}
+    \item[Basis\label{prop:basis}]\!\!\!$(\MM)$\ \ \ 
+      almost surely, for large enough $n$, for every $i \in [\MM]$, there exist \emph{unique} constants (not depending on $n$) $\{a_j\}_{j \in \coreset}$ such that $g^i = \sum_{j \in \coreset} a_j g^j$.
+      Note the uniqueness implies that $\{g^i\}_{i \in \coreset}$ is linearly independent.
+    \item[Density\label{prop:density}]\!\!\!$(\MM)$\ \ \ 
+      The distribution of the random vector
+      \[\{\Zz^{g^j}\}_{j \in \coreset} \in \R^{\coreset}\]
+      is absolutely continuous w.r.t.\ the Lebesgue measure in $\R^{\coreset}$, and vice versa.%
+      \footnote{
+        {Compared to the proof of the Master Theorem in \citet{yangTP2}, this is a new inductive hypothesis.
+        This is trivially true in the NTK case since the distribution in question is Gaussian with full support.}}
+      In other words, for every measurable set $U \sbe \R^{\coreset}$,
+      \[\Pr[\{\Zz^{g^j}\}_{j \in \coreset} \in U] = 0 \iff \text{$U$ has Lebesgue measure 0.}\]
+    \item[NullAvoid\label{prop:nullAvoid}]\!\!\!$(\MM)$\ \ \ 
+      for every triangular array of Lesbegue measure zero sets $\{U_{n\alpha} \in \R^{\coreset} \}_{n \in \N, \alpha \in [n]}$, almost surely for all large enough $n$, for all $\alpha \in [n]$, we have
+      \[\{g^i_\alpha\}_{i \in \coreset} \not \in U_{n\alpha}.\]
+      In other words, the values $\{g^i_\alpha\}_{\alpha \in \coreset}$ of the core set ``avoid'' Lebesgue measure zero sets asymptotically.
+      Intuitively, this says that the distribution of these values are not singular.
+      (Note the LHS depends on $n$ although we are suppressing it notationally)
+  \end{description}
+\end{description}
+
+Let us explain in brief why we need to consider \ref{IH:coreSet} satisfying \ref{prop:basis} and \ref{prop:nullAvoid}.
+\begin{itemize}
+\item
+    \ref{prop:basis} reduces the consideration of \ref{IH:MomConv} to only the core set G-vars, since every other G-var is asymptotically a linear combination of them.
+\item
+    When we apply the Gaussian conditioning technique \cref{prop:GaussianCondition}, we need to reason about the pseudo-inverse $\Lambda^+$ of some covariance matrix $\Lambda$.
+    Each entry of $\Lambda$ is of the form $\f 1 n \sum_{\alpha=1}^n \phi_i(g^1_\alpha, \ldots, g^{\MM-1}_\alpha) \phi_j(g^1_\alpha, \ldots, g^{\MM-1}_\alpha)$ for a collection of polynomially bounded scalar functions $\{\phi_i\}_i$.
+    This $\Lambda$ will be a random variable which converges a.s.\ to a determinstic limit $\mathring \Lambda$  as $n \to \infty$.
+    It should be generically true that $\Lambda^+ \asto \mathring \Lambda^+$ as well, which is essential to make the Gaussian conditioning argument go through.
+    But in general, this is guaranteed only if $\Lambda$'s rank doesn't drop suddenly in the $n \to \infty$ limit.
+    We thus need to guard against the possibility that $g^1, \ldots, g^\MM$, in the limit, suddenly concentrate on a small set on which $\{\phi_i(g^1, \ldots, g^\MM)\}_i$ are linearly dependent.
+    This is where \ref{prop:nullAvoid} comes in.
+    It tells us that $g^1, \ldots, g^\MM$ will avoid any such small set asymptotically, so that indeed the rank of $\Lambda$ will not drop in the limit.
+\end{itemize}
+
+\paragraph{Proof organization}
+
+We will show that \ref{IH:MomConv} and \ref{IH:coreSet} are true for initial G-vars in $\mathcal V$, as the base case, and
+\begin{equation*}
+\text{\ref{IH:MomConv}}(\MM-1) \text{ and } \text{\ref{IH:coreSet}}(\MM-1) \implies \text{\ref{IH:MomConv}}(\MM) \text{ and } \text{\ref{IH:coreSet}}(\MM)
+\end{equation*}
+as the inductive step.
+By induction, we obtain \ref{IH:MomConv}$(M)$, which is \cref{thm:NetsorTMasterTheorem}.
+
+The base cases are easy and we will dispatch with them immediately after this in \cref{sec:basecases}, but the inductive step is much more complicated, and we will need to set up notation in \cref{sec:inductiveSetup}.
+During this setup, we prove some basic limit theorems using the induction hypothesis.
+However, the full generality of these claims requires some consequences of \ref{IH:coreSet}, which we call ``rank stability'' and ``zero stability.''
+These notions are introduced and proved in \cref{sec:rankStabilityZeroStability}.
+
+We would then finally be able to handle the inductive steps at this point.
+We first prove
+\begin{equation*}
+\text{\ref{IH:MomConv}$(\MM-1)$ and \ref{IH:coreSet}$(\MM-1)$} \implies \text{\ref{IH:coreSet}}(\MM)
+\end{equation*}
+in \cref{sec:inductiveCoreSet} because it is easier.
+Then we prove
+\begin{equation*}
+\text{\ref{IH:MomConv}$(\MM-1)$ and \ref{IH:coreSet}$(\MM-1)$} \implies \text{\ref{IH:MomConv}}(\MM)
+\end{equation*}
+in \cref{sec:inductiveMoments}.
+
+Before we proceed with the induction, let us set up establish some matrix notations that will make the proof significantly easier to express.
+
+\subsection{Preliminaries: Square-Integrable Random Variables and Matrix Notation}
+
+\newcommand{\LsqZ}{\mathcal{L}}
+
+\begin{defn}
+\label{defn:LsqZ}
+Consider the space $\LsqZ$ of square-integrable random variables.
+This space has inner product given by $(X, Y) \mapsto \EV XY$ for any $X, Y \in \LsqZ$.
+We will often use matrix notation in \emph{square brackets} to express certain sum of (inner) products between elements of $\LsqZ$ and real scalars in $\R$.
+For example, for $X^1, \ldots, X^k, Y^1, \ldots, Y^k, X, Y \in \LsqZ$ and $a_1, \ldots, a_k, a \in \R$, we write
+\begin{align*}
+[X^1, \ldots, X^k]
+\begin{bmatrix}
+Y^1\\
+\vdots\\
+Y^k
+\end{bmatrix}
+  &=
+    \sum_{i=1}^k \EV X^i Y^i
+      \in \R
+    &
+[Y^1, \ldots, Y^k]
+\begin{bmatrix}
+a_1\\
+\vdots\\
+a_k
+\end{bmatrix}
+  &=
+    \sum_{i=1}^k a_i Y^i \in \LsqZ
+    \\
+\begin{bmatrix}
+X^1\\
+\vdots\\
+X^k
+\end{bmatrix}
+[Y]
+  &=
+    \begin{bmatrix}
+    \EV X^1 Y\\
+    \vdots\\
+    \EV X^k Y
+    \end{bmatrix}
+      \in \R^{k}
+    &
+\begin{bmatrix}
+X^1\\
+\vdots\\
+X^k
+\end{bmatrix}
+[a]
+  &=
+    \begin{bmatrix}
+    aX^1\\
+    \vdots\\
+    aX^k
+    \end{bmatrix}
+    \in \LsqZ^k.
+\end{align*}
+In addition,
+\begin{align*}
+  \begin{bmatrix}
+  X^1\\
+  \vdots\\
+  X^k
+  \end{bmatrix}
+  [Y^1, \ldots, Y^k]
+  =
+  \begin{bmatrix}
+    \EV X^1 Y^1 & \cdots & \EV X^1 Y^k\\
+    \vdots & \ddots & \vdots\\
+    \EV X^k Y^1 & \cdots & \EV X^k Y^k
+  \end{bmatrix} \in \R^{k\times k},
+\end{align*}
+but note that this ``outer product'' is not a rank-1 matrix, but rather full rank typically.
+In general, a matrix in $\LsqZ^{k \times l}$ multiplied by a matrix $\LsqZ^{l \times m}$ on the right produces a matrix $\R^{k \times m}$, where the elementwise product is provided by the inner product of $\LsqZ$;
+a matrix in $\LsqZ^{k \times l}$ multiplied by a matrix $\R^{l \times m}$ on the right produces a matrix $\LsqZ^{k \times m}$, where the elementwise product is provided by the scalar multiplication of $\LsqZ$.
+In general, this mixed-type matrix multiplication is not associative, i.e. $A(BC) \ne (AB)C$.
+We will always read a series of matrix multiplication from the right: $ABCD = A(B(CD))$.
+
+\end{defn}
+
+\newcommand{\phz}{\phantom{0}}
+\newcommand{\sqmat}[1]{
+    \begin{bmatrix}
+    \phz
+      &\phz
+        &\phz\\
+    \phz
+      &#1
+        &\phz\\
+    \phz
+      &\phz
+        &\phz
+    \end{bmatrix}}
+\newcommand{\colmat}[1]{
+    \begin{bmatrix}
+    \phz\\
+    #1\\
+    \phz
+    \end{bmatrix}}
+
+\begin{fact}\label{fact:LsqProjection}
+Just like in a finite-dimensional inner product space, given a finite collection $\Ss = \{X^i\}_{i=1}^k \sbe \LsqZ$, the orthogonal projection operator $\Pi_\Ss$ to the span of $\Ss$ (inside $\LsqZ$) is given by
+\[\Pi_\Ss Y \defeq \sum_{i=1}^k a_i X^i,
+\]
+for any $Y \in \LsqZ$, where
+\begin{align*}
+a &= \Lambda^+ b \in \R^k,\quad
+b_j = \EV X^j Y,\ b \in \R^k,\quad
+\Lambda_{ij} = \EV X^i X^j,\ \Lambda \in \R^{k \times k}.
+\end{align*}
+In the matrix notation of \cref{defn:LsqZ}, this can be expressed as
+\begin{align*}
+\Pi_\Ss Y
+  &=
+    [X^1, \ldots, X^k]
+    \begin{bmatrix}
+    \phz
+      &\phz
+        &\phz\\
+    \phz
+      &\Lambda^+
+        &\phz\\
+    \phz
+      &\phz
+        &\phz
+    \end{bmatrix}
+    \begin{bmatrix}
+    X^1\\
+    \vdots\\
+    X^k
+    \end{bmatrix}
+    [Y]
+    \\
+  &=
+    [X^1, \ldots, X^k]
+    \left(
+      \begin{bmatrix}
+      X^1\\
+      \vdots\\
+      X^k
+      \end{bmatrix}
+      [X^1, \ldots, X^k]
+    \right)^+
+    \begin{bmatrix}
+      X^1\\
+      \vdots\\
+      X^k
+    \end{bmatrix}
+    [Y]
+    .
+    \numberthis\label{eqn:matrixformProjection}
+\end{align*}
+We denote the the projection to the orthogonal complement of the linear span of $\Ss$ by
+\[\Pi_\Ss^\perp \defeq I - \Pi_\Ss.\]
+
+\end{fact}
+
+\subsection{Preliminaries: Adjunction Relation Between \texorpdfstring{$\Zhat$}{Z hat} and \texorpdfstring{$\Zdot$}{Z check}}
+A sort of ``adjunction'' holds between $\Zhat$ and $\Zdot$, as we describe below.
+This is a crucial calculation needed to prove that the ``Onsager correction term'' $\Zdot$ is right.
+\begin{lemma}\label{lemma:DtrxAdjunction}
+For any vectors $x, h \in \R^n$ and matrix $W\in \R^{n\times n}$ in the program, we have%
+\footnote{
+  In the variable dimension case, if $x \in \R^m, h \in \R^n, W \in \R^{m \times n}$, and $n/m \to \rho$, then we have
+  $\rho \EV \Zhat^{W^\trsp x} Z^h = \EV Z^{x} \Zdot^{Wh}.$
+}
+\begin{align*}
+  \EV \Zhat^{W^\trsp x} Z^h = \EV Z^{x} \Zdot^{Wh}.
+\end{align*}
+\end{lemma}
+Compare with the identity
+\[\EV Z^{W^\trsp x} Z^h = \EV Z^x Z^{Wh}\]
+which, assuming \cref{thm:NetsorTMasterTheorem}, would follow from $(W^\trsp x)^\trsp h = x^\trsp (Wh)$.
+\begin{proof}
+  \newcommand{\xx}{x}
+  \newcommand{\Ee}{\mathcal{E}}
+  \newcommand{\uu}{u}
+  \newcommand{\vv}{v}
+  \newcommand{\Ff}{\mathcal{F}}
+  Fix $g=Wh$ and we will prove, for all $u = W^\trsp v$ in the program,
+  \begin{align*}
+    \EV \Zhat^{u} Z^h = \EV Z^{v} \Zdot^g.
+  \end{align*}
+  Let $\Gg$ be the set of G-vars introduced before $g$ (so $g\not\in\Gg$).
+  Note that by \cref{prop:hatZRandomSource}, $Z^h$ is a deterministic function of $\Zhat^\Gg \defeq \{\Zhat^{x}: x \in \Gg\}$.
+  Let $\Ee$ be a subset of $\Gg$ such that $\Zhat^{\Ee} \defeq \{\Zhat^{x}: x \in \Ee\}$ has a nonsingular covariance matrix and generates the same $\sigma$-algebra as $\Zhat^\Gg$.
+  Then, because $\Zhat^\Gg$ is jointly Gaussian, $\Zhat^\Gg$ is a linear function of $\Zhat^\Ee$, and $Z^h$ is a deterministic function of $\Zhat^\Ee$.
+
+  Suppose $\uu^1, \ldots, \uu^k$ are all G-vars in $\Gg$ introduced via \refMatMul{} with $W^\trsp$
+  \[\uu^i = W^\trsp \vv^i \]
+  for H-vars $\vv^1, \ldots, \vv^k$.
+  Assume WLOG that for $\ell \le k$, we have $\{\uu^1, \ldots, \uu^{\ell}\} = \{\uu^1, \ldots, \uu^{k}\} \cap \Ee$, so that $\Zhat^{\uu^{1}}, \ldots, \Zhat^{\uu^{{\ell}}}$ also have full rank covariance.
+  Note that any $\Zhat^{\uu^{j}}, j \in [k]$, has to be a linear combination of $\{\Zhat^{\uu^i}\}_{i=1}^{\ell}$.
+
+  Any G-var $\bar g$ where $\bar g = W^\trsp \bar h$ for some $\bar h$ must be one of $u^i, i\in[k],$ or $\bar g \not\in\Ee$.
+  We will divide up the proof of \cref{lemma:DtrxAdjunction} into two cases.
+
+  \emph{Case 1.} For any $i \in [k]$, we have $\EV \Zhat^{\uu^{i}} Z^{h} = \EV Z^{\vv^{i}} \Zdot^{g}$.
+
+  \emph{Case 2.} For any G-var $\bar g \not \in \Ee$ such that $\bar g = W^\trsp \bar h$ for some $\bar h$, we have $\EV  \Zhat^{\bar g} Z^{h}  = \EV   Z^{\bar h} \Zdot^{g} $.
+
+  \emph{Proof of Case 1.}
+  By treating $Z^h$ as a deterministic function of $\Zhat^\Ee$, \cref{lemma:EXf} says there are coefficients $\{a_{\xx} \in \R: \xx \in \Ee\}$ such that
+  \begin{align*}
+  \EV \Zhat^{\uu^i} Z^h
+    &=
+      \sum_{\xx \in \Ee} a_{\xx} \Cov(\Zhat^{\uu^i}, \Zhat^\xx)
+      .
+  \end{align*}
+  However, if $\xx \in \Ee\setminus \{\uu^1, \ldots, \uu^k\}$ (i.e.\ $\xx \ne W^\trsp y$ for some $y$), then $\Cov(\Zhat^{\uu^{i}}, \Zhat^\xx) = 0$ by \refZhat{} for all $i=1,\ldots,k$.
+  Thus the sum above over $x\in\Ee$ reduces to a sum over $x\in \Ee \cap \{\uu^1, \ldots, \uu^k\} = \{\uu^1, \ldots, \uu^\ell\}$:
+  \begin{align*}
+  \EV  \Zhat^{\uu^i} Z^{h} 
+    &=
+      \sum_{j=1}^{\ell} a_{\uu^j} \Cov(\Zhat^{\uu^{i}}, \Zhat^{\uu^{j}})
+    =
+      \sum_{j=1}^{\ell} a_{\uu^j} \sigma_W^2
+        \EV  Z^{\vv^i} Z^{\vv^j} 
+    =
+      \EV
+        Z^{\vv^i}
+        \sum_{j=1}^{\ell} a_{\uu^j} \sigma_W^2
+          Z^{\vv^j}
+      .
+  \end{align*}
+  Note that this argument works for any $\uu^i$ with $i \le \ell$, and the constants $\{a_{\uu^j}\}_{j=1}^{\ell}$ \emph{remain the same} for all $\uu^i$:
+  \begin{equation*}
+  \forall i \in [\ell],\quad
+  \EV  \Zhat^{\uu^i} Z^{h} 
+    =
+      \EV
+        Z^{\vv^i}
+        \sum_{j=1}^{\ell} a_{\uu^j} \sigma_W^2
+          Z^{\vv^j}
+      .
+  \end{equation*}
+
+  By the observation above that any $\Zhat^{\uu^{j}}, j \in [k],$ is a linear combination of $\{\Zhat^{\uu^i}\}_{i=1}^{\ell}$, this equality is also extended to all $i \in [k]$:
+  \begin{equation}
+  \forall i \in [k],\quad
+  \EV  \Zhat^{\uu^i} Z^{h} 
+    =
+      \EV
+        Z^{\vv^i}
+        \sum_{j=1}^{\ell} a_{\uu^j} \sigma_W^2
+          Z^{\vv^j}
+      .
+      \label{eqn:partialAdjunction}
+  \end{equation}
+
+  Set $Y \defeq \sum_{j=1}^{\ell} a_{\uu^j} \sigma_W^2
+  Z^{\vv^j}$.
+  To prove our claim for case 1, it suffices to show that $\Zdot^{g} = Y$.
+
+  Recall that in \cref{rem:ExpectationPartialDer}, the matrix $C\in \R^{k \times k}$ and $b \in \R^k$, in the matrix notation of \cref{defn:LsqZ}, are given by
+  \begin{align*}
+  C
+    &=
+      \begin{bmatrix}
+      Z^{\vv^1}\\
+      \vdots\\
+      Z^{\vv^k}
+      \end{bmatrix}
+      [Z^{\vv^1}, \ldots,  Z^{\vv^{k}}]
+      ,\quad
+  b
+    =
+      \begin{bmatrix}
+      \Zhat^{\uu^1}\\
+      \vdots\\
+      \Zhat^{\uu^k}
+      \end{bmatrix}
+      [Z^{h}]
+      .
+  \end{align*}
+  By \cref{eqn:partialAdjunction}, we can also re-express $b$ as the following product of a $k \times 1$ vector and a $1 \times 1$ vector,
+  \begin{equation*}
+  b
+    =
+      \begin{bmatrix}
+      Z^{\vv^1}\\
+      \vdots\\
+      Z^{\vv^k}
+      \end{bmatrix}
+      \left[ Y
+      \right]
+      .
+  \end{equation*}
+  Thus, from \cref{rem:ExpectationPartialDer},
+  \begin{align*}
+  \Zdot^{g}
+    &=
+      [Z^{\vv^1}, \ldots,  Z^{\vv^k}]
+      \sqmat{C^+}
+      \colmat{b}
+    =
+      [Z^{\vv^1}, \ldots,  Z^{\vv^k}]
+      \sqmat{C^+}
+      \begin{bmatrix}
+      Z^{\vv^1}\\
+      \vdots\\
+      Z^{\vv^k}
+      \end{bmatrix}
+      [Y]
+    =
+      \Pi Y
+  \end{align*}
+  where $\Pi$ is the orthogonal projection in $\LsqZ$ to the subspace spanned by $\{ Z^{\vv^1}, \ldots,  Z^{\vv^k}\}$, as discussed in \cref{fact:LsqProjection}.
+  Since $Y$ is already in this subspace, we just get
+  \begin{align*}
+  \Zdot^{g}
+    &=
+      Y
+  \end{align*}
+  as desired.
+
+  \emph{Proof of Case 2.}
+  Let $U$ denote the random column vector $(Z^{\uu^1}, \ldots, Z^{\uu^k})^\trsp$.
+  Then, conditioned on $U$, the random variable $Z^h$ has randomness coming only from $\{\Zhat^\xx: \xx \in \Ee \setminus \{\uu^1, \ldots, \uu^k\}\}$.
+  So conditioned on $U$, $Z^h$ is independent from $\Zhat^{\bar g}$, by \refZhat{}.
+  Therefore,
+  \begin{align}
+    \EV \Zhat^{\bar g} Z^h
+    &=
+      \EV_{U}\lp
+      \EV [ Z^h \mid U]
+      \EV [ \Zhat^{\bar g} \mid U]
+      \rp
+      .  \label{eqn:E1}
+  \end{align}
+  We now will massage the RHS into the desired form.
+  Let $C \in \R^{k\times k}, C_{ij} = \Cov(\Zhat^{u^i}, \Zhat^{u^j})$ be the covariance matrix of $\Zhat^{u^i}$, and let $b \in \R^k, b_i = \Cov(\Zhat^{\bar g}, \Zhat^{u^i})$.
+  Then by standard Gaussian conditioning formula (\cref{prop:GaussianCondition}), we have
+  \begin{align*}
+    \EV [ \Zhat^{\bar g} \mid U] = b^\trsp C^+ U,
+  \end{align*}
+  as a linear function of $U$.
+  Plugging into \cref{eqn:E1}, in the matrix notation of \cref{defn:LsqZ}, we have
+  \begin{align*}
+    \EV \Zhat^{\bar g} Z^h = b^\trsp C^+ 
+    \begin{bmatrix}
+    \Zhat^{\uu^1}\\
+    \vdots\\
+    \Zhat^{\uu^k}
+    \end{bmatrix}
+    [Z^{h}]
+    .
+  \end{align*}
+  By Case 1, we have $\EV \Zhat^{\uu^{i}} Z^{h} = \EV Z^{\vv^{i}} \Zdot^{g}$, so we can write
+  \begin{align*}
+    \EV \Zhat^{\bar g} Z^h = b^\trsp C^+ 
+    \begin{bmatrix}
+    \Zhat^{\vv^1}\\
+    \vdots\\
+    \Zhat^{\vv^k}
+    \end{bmatrix}
+    [\Zdot^{g}]
+    = \EV \lp b^\trsp C^+ V \rp \Zdot^g
+    ,
+  \end{align*}
+  where $V$ is the random column vector $(Z^{v^1}, \ldots, Z^{v^k})^\trsp$.
+  Now, because $C_{ij} = \sigma_W^2 \EV Z^{v^i} Z^{v^j}$ and $b_i = \sigma_W^2 \EV Z^{\bar h} Z^{v^i}$, we see
+  \[b^\trsp C^+ V
+  = \Pi Z^{\bar h},\]
+  where $\Pi$ is the orthogonal projection to the subspace of $\LsqZ$ spanned by $\{Z^{v^1}, \ldots, Z^{v^k}\}$.
+  Putting this all together, we have, by the self-adjoint property of $\Pi$,
+  \begin{align*}
+    \EV \Zhat^{\bar g} Z^h = \EV (\Pi Z^{\bar h}) \Zdot^g = \EV Z^{\bar h} (\Pi \Zdot^g).
+  \end{align*}
+  However, since $\Zdot^g$ is already a linear combination of $\{Z^{v^1}, \ldots, Z^{v^k}\}$ by definition (\refZdot), we have $\Pi \Zdot^g = \Zdot^g$.
+  Thus we obtain
+  \begin{align*}
+    \EV \Zhat^{\bar g} Z^h = \EV Z^{\bar h} \Zdot^g,
+  \end{align*}
+  as desired.
+\end{proof}
+
+\begin{lemma}\label{lemma:conjugatePairDtrxh}
+  Consider a G-var $g = Wh$ in our program.
+  Suppose $g^i = W^\trsp h^i, i=1,\ldots,\ell$, includes all G-vars of the form $W^\trsp x$ introduced before $h$.
+  If we set $ Z^{H}$ be the column vector $[Z^{h^1},
+  \ldots,
+  Z^{h^\ell}]^\trsp$ and define $C \in\R^{\ell\times \ell}, b \in \R^\ell$ by
+  \[C_{ij} \defeq \EV Z^{h^i} Z^{h^j},\quad b_i \defeq \EV \Zhat^{g^i} Z^h,\]
+  then, using the matrix notation of \cref{defn:LsqZ}, we have
+  \begin{align}
+  \Zdot^{g} &= 
+     Z^{H}{}^\trsp C^+ b =
+  [Z^{h^1},
+  \ldots,
+   Z^{h^\ell}]
+  \begin{bmatrix}
+  \phz
+    &\phz
+      &\phz\\
+  \phz
+    &C^+
+      &\phz\\
+  \phz
+    &\phz
+      &\phz
+  \end{bmatrix}
+  \begin{bmatrix}
+  \phz\\
+  b\\
+  \phz
+  \end{bmatrix}
+  \label{eqn:expandedZdotSum}
+  .
+  \end{align}
+\end{lemma}
+Note, by assumption, $\ell$ here is at least $k$ in \cref{rem:ExpectationPartialDer}.
+If $\{g^i\}_i$ are exactly the G-vars of the form $W^\trsp x$ introduced before $h$, then \cref{eqn:expandedZdotSum} is equivalent to \cref{eq:ExpectationPartialDer} in \cref{rem:ExpectationPartialDer}.
+So this lemma says this expression always evaluates to $\Zdot^g$ as long as $\{g^i\}_i$ is no smaller.
+\begin{proof}
+  By \cref{lemma:DtrxAdjunction}, we can re-express
+  \[b_i = \EV   Z^{h^i} \Zdot^{g}.\]
+  Then by \cref{fact:LsqProjection},
+  \begin{align*}
+  Z^{H\trsp } C^+ b
+    &=
+      Z^{H}{}^\trsp C^+ \EV Z^{H} \Zdot^{g}
+    =
+      \Pi_H \Zdot^{g}
+  \end{align*}
+  where $\Pi_H$ is the orthogonal projection operator to the span of $\{ Z^{h^1},
+  \ldots,
+  Z^{h^\ell}\}$; see \cref{fact:LsqProjection}.
+  But by \refZdot{}, $\Zdot^{g}$ is already a linear combination of $\{Z^{h^i}: g^i\text{ introduced before $h$}\}$.
+  Thus
+  \[ \Pi_H \Zdot^{g} = \Zdot^{g}\]
+  as desired.
+\end{proof}
+
+\subsection{Base Cases: \ref{IH:MomConv} and \ref{IH:coreSet} for Initial Vectors}
+\label{sec:basecases}
+
+\paragraph{Base case: \ref{IH:MomConv}($\mathcal V$)}
+Since the vectors in $\mathcal V$ are sampled iid coordinatewise, \ref{IH:MomConv}($\mathcal V$) just follows from the strong law of large numbers.
+
+\paragraph{Base Case: \ref{IH:coreSet}($\mathcal V$)}
+Pick the core set $\coreset$ to be (the indices of) any subset $\mathcal U \sbe \mathcal V$ such that $Z^{\mathcal U}$ forms a linear basis of $Z^{\mathcal V}$.
+Then it's straightforward to verify \ref{prop:basis}, \ref{prop:density}, and \ref{prop:nullAvoid}.
+
+\subsection{Inductive Case: Setup}
+\label{sec:inductiveSetup}
+
+We now assume \ref{IH:MomConv}$(\MM-1)$ and \ref{IH:coreSet}$(\MM-1)$ and want to reason about $g^\MM$ to show \ref{IH:MomConv}$(\MM)$ and \ref{IH:coreSet}$(\MM)$.
+In this section, we will set up the notation and helper lemmas toward this goal. 
+We need to (unfortunately) introduce a large number of symbols.
+To alleviate possible confusion, we provide an index of all such symbols in \cref{sec:indexSymbols}.
+
+\subsubsection{Definitions}
+Suppose
+\begin{align}
+    g^{\MM} = A h \quad \text{and} \quad h = \phi(g^{1}, \ldots, g^{\MM - 1})
+    \label{eqn:gAh}
+\end{align}
+for some polynomially-bounded $\phi$.
+For brevity, we will just write $g = g^{\MM}$.
+Consider all previous instances where $A$ or $A^\trsp$ is used: 
+\begin{equation}
+  \xme^{i} = A \yme^{i}, i = 1, \ldots, r, \quad\text{and}\quad
+  \ume^{j} = A^\trsp \vme^{j}, j = 1, \ldots, s.
+  \label{eqn:xAy&uATv}
+\end{equation}
+Define the matrices $\Xme \in \R^{n\times r}, \Ume \in \R^{n \times s}, \Yme \in \R^{n \times r}, \Vme \in \R^{n \times s}$ with $\xme^i, \ume^i, \yme^i, \vme^i$ as columns
+\begin{align}
+\Xme &\defeq [\xme^1| \ldots| \xme^{r}],&
+\Ume &\defeq [\ume^1| \ldots| \ume^{s}],&
+\Yme &\defeq [\yme^1| \ldots| \yme^r],&
+\Vme &\defeq [\vme^1| \ldots| \vme^s]
+.
+\label{eqn:XUYZ}
+\end{align}
+Let $\Bb$ be the $\sigma$-algebra spanned by all previous G-vars $g^1, \ldots, g^{\MM-1}$; since all previous vectors are deterministic images of these G-vars, $\Bb$ is also the $\sigma$-algebra generated by all previous vectors before $g$.
+Conditioning on $\Bb$, $A$ is linearly constrained by $\Xme = A\Yme, \Ume = A^\trsp \Vme$.
+Thus we have, by the Gaussian conditioning trick (\cref{lemma:condTrick}),
+\begin{align}
+    g \disteq_{\Bb} (E + \PP_{\Vme}^\perp \tilde A \PP_{\Yme}^\perp) h
+    \label{eqn:gCondTrick}
+\end{align}
+where
+$\tilde A$ is an independent copy of $A$, and $\PP_{\Yme} \defeq \Yme \Yme^+ = \Yme(\Yme^\trsp \Yme)^+ \Yme^\trsp$ is the projection to the column space of $\Yme$ (likewise for $\PP_{\Vme}$), and
+\begin{equation}
+  \begin{aligned}
+  E
+      &\defeq
+          \Xme \Yme^+
+          + \Vme^{+\trsp} \Ume^{\trsp}
+          - \Vme^{+\trsp} \Ume^\trsp \Yme \Yme^+
+          \\
+      &=
+          \Xme (\Yme^\trsp \Yme)^+ \Yme^{\trsp}
+          + \Vme (\Vme^{\trsp} \Vme)^+ \Ume^{\trsp}
+          - \Vme (\Vme^{\trsp} \Vme)^+ \Ume^\trsp \Yme (\Yme^\trsp \Yme)^+ \Yme^\trsp.
+  \end{aligned}
+  \label{eqn:Eexpansion}
+\end{equation}
+
+We can make obvious the conditional distribution of $g$ if we rewrite \cref{eqn:gCondTrick} as
+\begin{align}
+  g &\disteq_\Bb \omega + \sigma \PP_{\Vme}^\perp z,\quad \text{with $z \sim \Gaus(0, I_n)$}
+  \label{eqn:gConditionedOnB}
+  \\
+  \text{with}\quad
+  \omega
+  &\defeq
+      E h \in \R^n,
+      \quad
+  \sigma \defeq
+    \sigma_A
+  \sqrt{\|\PP_{\Yme}^\perp h\|^2/n} \in \R
+  .
+  \label{eqn:meanvardef}
+\end{align}
+where $\omega, \sigma, \PP_\Vme^\perp$ are all deterministic conditioned on $\Bb$, and the only randomness after conditioning comes from $z$.
+We will see below that $\omega$ can be expressed explicitly as a linear combination in $\Xme$ and $\Vme$ (\cref{lemma:omegaExpansion}), and $\sigma$ converges to a deterministic limit $\mathring\sigma$ (\cref{lemma:sigmaConverges}).
+But to get there, we need to first define a few useful matrices and vectors of fixed dimensions
+\begin{equation}
+\begin{aligned}
+    \Upsilonme 
+        &\defeq
+            \Yme^\trsp \Yme/n \in \R^{r \times r}
+            &
+    \Lambdame 
+        &\defeq
+            \Vme^\trsp \Vme/n \in \R^{s \times s}
+            &
+    \Gamma
+        &\defeq
+            \Ume^\trsp \Yme/n \in \R^{s \times r}
+            \\
+    \gammame
+        &\defeq
+            \Yme^\trsp h/n \in \R^{r}
+            &
+    \deltame
+        &\defeq
+            \Ume^\trsp h /n \in \R^s
+            .
+\end{aligned}
+    \label{eqn:momentMatrices}
+\end{equation}
+
+By induction hypothesis \ref{IH:MomConv}$(\MM-1)$, $\Upsilonme , \Lambdame , \Gamma, \gammame, \deltame$ all converge a.s.\ to corresponding deterministic limits $\mathring{\Upsilonme }, \mathring{\Lambdame }, \mathring \Gamma, \mathring{\gammame}, \mathring{\deltame}$:
+\begin{equation}
+\begin{aligned}
+  \Upsilonme_{ij}
+    &\asto
+      \mathring{\Upsilonme }_{ij}
+    \defeq
+      \EV  Z^{\yme^i}  Z^{\yme^j}
+    =
+      (\sigma_A)^{-2} 
+      \Cov(\Zhat^{\xme^i}, \Zhat^{\xme^j})
+      \\
+    \Lambdame_{ij}
+      &\asto
+        \mathring{\Lambdame }_{ij}
+      \defeq
+        \EV  Z^{\vme^i}  Z^{\vme^j}
+      =
+        (\sigma_A)^{-2} \Cov(\Zhat^{\ume^{i}}, \Zhat^{\ume^{j}})
+      \\
+  \gammame_i
+    &\asto
+      \mathring{\gammame}_i
+    \defeq
+      \EV  Z^{\yme^i} Z^h
+    =
+      (\sigma_A)^{-2} \Cov(\Zhat^{\xme^i}, \Zhat^{g})
+      \\
+  \Gamma_{ij}
+    &\asto
+      \mathring \Gamma_{ij}
+    \defeq
+      \EV  Z^{\ume^i} Z^{\yme^j}
+      \\
+  \deltame_i
+    &\asto
+      \mathring{\deltame}_i
+    \defeq
+      \EV  Z^{\ume^i} Z^h
+\end{aligned}
+\label{eqn:limitMatrices}
+\end{equation}
+
+It turns out that, as a consequence of \cref{lemma:rankStability} below, we have: a.s.\ for all large enough $n$, $\rank \Upsilonme  = \rank \mathring {\Upsilonme }$ and $\rank \Lambdame  = \rank \mathring{\Lambdame }$.
+Therefore, as pseudoinverse is continuous on matrices of fixed rank,
+we get the following proposition
+\begin{prop}\label{prop:pseudoinverseLambda}
+$\Upsilonme ^+ \asto \mathring{\Upsilonme }^+$ and $\Lambdame ^+ \asto \mathring{\Lambdame }^+$.
+\end{prop}
+
+Using this proposition, we compute the limit of $\sigma^2$.
+\begin{lemma}\label{lemma:sigmaConverges}
+The quantity $\sigma$, defined in \cref{eqn:meanvardef}, converges to a deterministic limit $\mathring \sigma$ almost surely:
+\begin{equation}\sigma^2 \asto \mathring \sigma^2 \defeq \sigma_A^2 (\EV (Z^h)^2 - \mathring \gammame^\trsp \mathring \Upsilonme^+ \mathring \gammame).
+  \label{eqn:mathringsigma}
+\end{equation}
+\end{lemma}
+\begin{proof}
+Note that
+\begin{align*}
+    \sigma^2 = \f {\sigma_A^2} n (h^\trsp h - h^\trsp \PP_{\Yme} h)
+        = \f {\sigma_A^2} n (h^\trsp h - h^\trsp {\Yme} (\Yme^\trsp \Yme)^+ \Yme^\trsp h)
+        = \f {\sigma_A^2} n (h^\trsp h - \gammame^\trsp \Upsilonme ^+ \gammame).
+\end{align*}
+Because $\phi$ is polynomially-bounded, so is $\phi(z)^2$.
+By induction hypothesis (\ref{IH:MomConv}($\MM-1$)),
+\begin{align*}
+    \f 1 n h^\trsp h = \f 1 n \sum_{\alpha = 1}^n \phi(g^1_\alpha, \ldots, g^{\MM - 1}_\alpha)^2
+    \asto
+    &\EV
+      \phi(Z^{g^1}, \ldots, Z^{g^{\MM-1}})^2
+    =
+      \EV (Z^h)^2
+      .
+\end{align*}
+By \cref{eqn:limitMatrices}, $\gammame \asto \mathring{\gammame}$ and $\Upsilonme  \asto \mathring{\Upsilonme }$.
+By \cref{prop:pseudoinverseLambda}, $\Upsilonme ^+ \asto \mathring{\Upsilonme }^+$.
+Combining all of these limits together yields the desired claim.
+\end{proof}
+
+Using \cref{eqn:momentMatrices,eqn:Eexpansion}, we can re-express $\omega$ as
+\begin{align*}
+\omega
+    &=
+        \Xme \Upsilonme ^+ \gammame
+        + \Vme \Lambdame ^+ \deltame
+        - \Vme \Lambdame ^+ \Gamma \Upsilonme ^+ \gammame
+        .
+\end{align*}
+Define $\dme \in \R^r$ and $\eme \in \R^s$ by
+\begin{equation}
+  \begin{aligned}
+    \dme &\defeq \Upsilonme ^+ \gammame,
+        &\text{so that}&&
+          \dme &\asto \mathring {\dme} \defeq \mathring{\Upsilonme }^+ \mathring{\gammame}, \quad\text{and}\\
+    \eme &\defeq {\Lambdame }^+({\deltame} - \Gamma {\Upsilonme }^+ {\gammame}),
+        &\text{so that}&&
+          \eme &\asto \mathring {\eme} \defeq \mathring{\Lambdame }^+(\mathring{\deltame} - \mathring \Gamma \mathring{\Upsilonme }^+ \mathring{\gammame}).
+  \end{aligned}
+  \label{eqn:zetaeta}
+\end{equation}
+Then the next lemma follows trivially.
+\begin{lemma}\label{lemma:omegaExpansion}
+For $\omega$ defined in \cref{eqn:meanvardef}, we have
+\[\omega = Eh = \Xme \dme + \Vme \eme = \Xme(\mathring {\dme} + \varepsilonhat) + \Vme (\mathring {\eme} + \varepsiloncheck),\]
+for some random vectors $\varepsilonhat \in \R^r, \varepsiloncheck \in \R^s$ that go to 0 a.s.\ with $n$,
+\end{lemma}
+
+\subsubsection{Helper Lemmas}
+
+Using the matrix notation of \cref{defn:LsqZ} and the expression for the projection operator, we can rewrite $\mathring{\dme}$ and $\mathring{\eme}$ as follows.
+The punchline of this section is \cref{lemma:hpartReExpression}, which says
+\begin{align*}
+  \sum_{i=1}^r \mathring{\dme}_i \Zdot^{\xme^i}
+  +
+  \sum_{j=1}^s \mathring{\eme}_j  Z^{\vme^j}
+    &=
+    \Zdot^g.
+\end{align*}
+
+\begin{prop}\label{prop:vReExpression}
+  Let $\Pi: \LsqZ \to \LsqZ$ be the orthogonal projection operator onto the linear span of $\{ Z^{\yme^1}, \ldots,  Z^{\yme^r}\}$.
+  Then,
+  \begin{align}
+  \mathring{\dme}
+    &=
+      \begin{bmatrix}
+      \phz
+        &\phz
+          &\phz\\
+      \phz
+        &\mathring{\Upsilonme }^+
+          &\phz\\
+      \phz
+        &\phz
+          &\phz
+      \end{bmatrix}
+      \begin{bmatrix}
+         Z^{\yme^1}\\
+        \vdots\\
+         Z^{\yme^r}
+      \end{bmatrix}
+         [Z^{h}]
+      ,
+      \quad
+  \mathring{\eme}
+      =
+      \begin{bmatrix}
+        \phz
+          &\phz
+            &\phz\\
+        \phz
+          &\mathring{\Lambdame }^+
+            &\phz\\
+        \phz
+          &\phz
+            &\phz
+        \end{bmatrix}
+        \begin{bmatrix}
+          \Zhat^{\ume^1}\\
+          \vdots\\
+          \Zhat^{\ume^s}
+        \end{bmatrix}
+        [\Pi^\perp  Z^{h}]
+      .
+      \label{eqn:xi&zetaLimit}
+  \end{align}
+  and
+  \begin{equation}
+    \mathring\sigma^2 = \sigma_A^2 \EV Z^h \Pi^\perp Z^h
+      = \sigma_A^2 \EV (\Pi^\perp Z^h)^2
+      .
+    \label{eqn:sigmalimitPiPerp}
+  \end{equation}
+  \end{prop}
+  
+  \begin{proof}
+    The identity for $\mathring \dme$ is obvious.
+    We derive the identity for $\mathring \eme$, and the proof of \cref{eqn:sigmalimitPiPerp} follows similarly.
+    First, we expand the definitions of $\mathring \deltame, \mathring\Gamma, \mathring\Upsilonme, \mathring\gammame$ in matrix notation of \cref{defn:LsqZ}.
+    \begin{align*}
+      \mathring \deltame &= \begin{bmatrix}
+              Z^{\ume^1}\\
+            \vdots\\
+              Z^{\ume^s}
+          \end{bmatrix}
+          [Z^h]
+          ,&
+      \mathring \Gamma &=
+          \begin{bmatrix}
+              Z^{\ume^1}\\
+            \vdots\\
+              Z^{\ume^s}
+          \end{bmatrix}
+          [Z^{\yme^1}, \ldots, Z^{\yme^r}]
+          ,&
+      \mathring \Upsilonme &=
+        \begin{bmatrix}
+            Z^{\yme^1}\\
+          \vdots\\
+            Z^{\yme^r}
+        \end{bmatrix}
+        [Z^{\yme^1}, \ldots, Z^{\yme^r}]
+        ,&
+      \mathring \gammame &=
+        \begin{bmatrix}
+            Z^{\yme^1}\\
+          \vdots\\
+            Z^{\yme^r}
+        \end{bmatrix}
+        [Z^h]
+        .
+    \end{align*}
+    Then with the matrix form of $\Pi$ in mind (\cref{eqn:matrixformProjection}), we derive
+    \begin{align}
+    \mathring{\deltame} - \mathring \Gamma \mathring{\Upsilonme }^+ \mathring{\gammame}
+      &=
+        \begin{bmatrix}
+           Z^{\ume^1}\\
+          \vdots\\
+           Z^{\ume^s}
+        \end{bmatrix}
+        [(I - \Pi)  Z^{h}]
+      =
+        \begin{bmatrix}
+           Z^{\ume^1}\\
+          \vdots\\
+           Z^{\ume^s}
+        \end{bmatrix}
+        [\Pi^\perp  Z^{h}]
+      =
+        \begin{bmatrix}
+          \Zhat^{\ume^1}\\
+          \vdots\\
+          \Zhat^{\ume^s}
+        \end{bmatrix}
+        [\Pi^\perp  Z^{h}]
+        .
+        \label{eqn:etaGammaUpsilongamma}
+    \end{align}
+  Here the last equality follows from the following
+  \begin{align*}
+    \begin{bmatrix}
+       Z^{\ume^1}\\
+      \vdots\\
+       Z^{\ume^s}
+    \end{bmatrix}
+    [\Pi^\perp
+     Z^{h}]
+    &=
+      \begin{bmatrix}
+        \Pi^\perp  Z^{\ume^1}\\
+        \vdots\\
+        \Pi^\perp  Z^{\ume^s}
+      \end{bmatrix}
+       [Z^{h}]
+    =
+      \begin{bmatrix}
+        \Pi^\perp \Zhat^{\ume^1}\\
+        \vdots\\
+        \Pi^\perp \Zhat^{\ume^s}
+      \end{bmatrix}
+       [Z^{h}]
+    =
+      \begin{bmatrix}
+        \Zhat^{\ume^1}\\
+        \vdots\\
+        \Zhat^{\ume^s}
+      \end{bmatrix}
+      [\Pi^\perp
+       Z^{h}]
+  \end{align*}
+  where the middle equality follows because each $ Z^{\ume^j} - \Zhat^{\ume^j} = \Zdot^{\ume^j}$ is a linear combination of $ \{Z^{\yme^i}\}_{i=1}^r$ by \refZdot{}.
+  Finally, plugging in \cref{eqn:etaGammaUpsilongamma} to \cref{eqn:zetaeta}, we have
+  \begin{align*}
+    \mathring{\eme}
+      &=
+        \mathring{\Lambdame }^+(\mathring{\deltame} - \mathring \Gamma \mathring  {\Upsilonme }^+ \mathring{\gammame})
+      =
+        \begin{bmatrix}
+        \phz
+          &\phz
+            &\phz\\
+        \phz
+          &\mathring{\Lambdame }^+
+            &\phz\\
+        \phz
+          &\phz
+            &\phz
+        \end{bmatrix}
+        \begin{bmatrix}
+          \Zhat^{\ume^1}\\
+          \vdots\\
+          \Zhat^{\ume^s}
+        \end{bmatrix}
+        [\Pi^\perp  Z^{h}]
+        .
+  \end{align*}
+  \end{proof}
+  
+  
+
+Using \cref{eqn:xi&zetaLimit}, we can write the following
+\begin{lemma}\label{lemma:DtrxhHatGReExpression}
+  Let $\Pi: \LsqZ \to \LsqZ$ be the orthogonal projection operator onto the linear span of $\{ Z^{\yme^1}, \ldots,  Z^{\yme^r}\}$.
+  Then
+  \begin{align}
+  \sum_{i=1}^r \mathring{\dme}_i \Zdot^{\xme^i}
+    &=
+      [
+        Z^{\vme^1},
+        \ldots,
+        Z^{\vme^s}
+      ]
+      \begin{bmatrix}
+      \phz
+        &\phz
+          &\phz\\
+      \phz
+        &\mathring{\Lambdame }^+
+          &\phz\\
+      \phz
+        &\phz
+          &\phz
+      \end{bmatrix}
+      \begin{bmatrix}
+      \Zhat^{\ume^1}\\
+      \vdots\\
+      \Zhat^{\ume^s}
+      \end{bmatrix}
+      [\Pi  Z^{h}]    
+      .
+      \label{eqn:zetaZdot}
+  \end{align}
+\end{lemma}
+
+\begin{proof}
+By \cref{lemma:conjugatePairDtrxh}, for each $i \in [r]$,
+\begin{align*}
+\Zdot^{\xme^i}
+  &=  
+    [Z^{\vme^1},
+    \ldots,
+     Z^{\vme^s}]
+    \begin{bmatrix}
+    \phz
+      &\phz
+        &\phz\\
+    \phz
+      &\mathring{\Lambdame }^+
+        &\phz\\
+    \phz
+      &\phz
+        &\phz
+    \end{bmatrix}
+    \begin{bmatrix}
+    \Zhat^{\ume^1}\\
+    \vdots\\
+    \Zhat^{\ume^s}
+    \end{bmatrix}
+     [Z^{\yme^i}]
+\end{align*}
+because $\{\ume^j\}_{j=1}^s$ contains all G-vars of the form $W^\trsp\mathrm{vector}$ introduced before $\xme^i$.
+By \cref{prop:vReExpression},
+\begin{align*}
+\mathring{\dme}
+  &=
+    \begin{bmatrix}
+    \phz
+      &\phz
+        &\phz\\
+    \phz
+      &\mathring{\Upsilonme }^+
+        &\phz\\
+    \phz
+      &\phz
+        &\phz
+    \end{bmatrix}
+    \begin{bmatrix}
+       Z^{\yme^1}\\
+      \vdots\\
+       Z^{\yme^r}
+    \end{bmatrix}
+       [Z^{h}]
+      .
+\end{align*}
+Then
+\begin{align*}
+\sum_{i=1}^r \mathring{\dme}_i \Zdot^{\xme^i}
+&=
+  [\Zdot^{\xme^1}, \ldots, \Zdot^{\xme^r}]
+  \begin{bmatrix}
+    \phz\\
+    \mathring{\dme}\\
+    \phz
+  \end{bmatrix}
+  \\
+&=
+  [Z^{\vme^1},
+  \ldots,
+   Z^{\vme^s}]
+  \begin{bmatrix}
+  \phz
+    &\phz
+      &\phz\\
+  \phz
+    &\mathring{\Lambdame }^+
+      &\phz\\
+  \phz
+    &\phz
+      &\phz
+  \end{bmatrix}
+  \begin{bmatrix}
+  \Zhat^{\ume^1}\\
+  \vdots\\
+  \Zhat^{\ume^s}
+  \end{bmatrix}
+  [Z^{\yme^1},
+    \ldots,
+     Z^{\yme^r}
+  ]
+  \\
+&\phantomeq\quad
+  \times
+  \begin{bmatrix}
+  \phz
+    &\phz
+      &\phz\\
+  \phz
+    &\mathring{\Upsilonme }^+
+      &\phz\\
+  \phz
+    &\phz
+      &\phz
+  \end{bmatrix}
+  \begin{bmatrix}
+     Z^{\yme^1}\\
+    \vdots\\
+     Z^{\yme^r}
+  \end{bmatrix}
+     [Z^{h}]
+  \\
+&=
+  ( Z^{\vme^1},
+  \ldots,
+   Z^{\vme^s})
+  \begin{bmatrix}
+  \phz
+    &\phz
+      &\phz\\
+  \phz
+    &\mathring{\Lambdame }^+
+      &\phz\\
+  \phz
+    &\phz
+      &\phz
+  \end{bmatrix}
+  \begin{bmatrix}
+  \Zhat^{\ume^1}\\
+  \vdots\\
+  \Zhat^{\ume^s}
+  \end{bmatrix}
+  [\Pi  Z^{h}]
+\end{align*}
+as desired.
+\end{proof}
+
+By combining \cref{lemma:DtrxhHatGReExpression} with \cref{prop:vReExpression}, we get
+\begin{lemma}\label{lemma:hpartReExpression}
+\begin{align*}
+  \sum_{i=1}^r \mathring{\dme}_i \Zdot^{\xme^i}
+  +
+  \sum_{j=1}^s \mathring{\eme}_j  Z^{\vme^j}
+    &=
+    \Zdot^g.
+\end{align*}
+\end{lemma}
+\begin{proof}
+  By realizing the $\Pi^\perp$ and $\Pi$ in \cref{eqn:xi&zetaLimit} and \cref{eqn:zetaZdot} ``cancel'' to get identity, we have
+\begin{align*}
+  \sum_{i=1}^r \mathring{\dme}_i \Zdot^{\xme^i}
+  +
+  \sum_{j=1}^s \mathring{\eme}_j  Z^{\vme^j}
+    &=
+      [
+         Z^{\vme^1},
+        \ldots,
+         Z^{\vme^s}
+      ]
+      \begin{bmatrix}
+      \phz
+        &\phz
+          &\phz\\
+      \phz
+        &\mathring{\Lambdame }^+
+          &\phz\\
+      \phz
+        &\phz
+          &\phz
+      \end{bmatrix}
+      \begin{bmatrix}
+      \Zhat^{\ume^1}\\
+      \vdots\\
+      \Zhat^{\ume^s}
+      \end{bmatrix}
+       [Z^{h}]
+      \\
+    &=
+      [
+         Z^{\vme^1},
+        \ldots,
+         Z^{\vme^s}
+      ]
+      \begin{bmatrix}
+      \phz
+        &\phz
+          &\phz\\
+      \phz
+        &C^+
+          &\phz\\
+      \phz
+        &\phz
+          &\phz
+      \end{bmatrix}
+      \begin{bmatrix}
+      \phz\\
+      b\\
+      \phz
+      \end{bmatrix}
+      .
+  \end{align*}
+where $C=\mathring \Lambdame$ and $b$ are as in \cref{eq:ExpectationPartialDer}.
+By definition (\refZdot{}), we have the desired result.
+\end{proof}
+
+\subsubsection{Index of Symbols}
+\label{sec:indexSymbols}
+\begin{align*}
+  g=g^{\MM}, h, \phi &\cdots\cdots \text{\cref{eqn:gAh}} &
+  x^i,y^i, u^j, v^j &\cdots\cdots \text{\cref{eqn:xAy&uATv}} &
+  \Xme, \Yme, \Ume, \Vme &\cdots\cdots \text{\cref{eqn:XUYZ}} \\
+  \PP_\Vme, \PP_\Yme & \cdots\cdots \text{\cref{eqn:gCondTrick}} &
+  E & \cdots\cdots \text{\cref{eqn:Eexpansion}} &
+  \omega, \sigma &\cdots\cdots \text{\cref{eqn:meanvardef}} \\
+  \Upsilonme, \Lambdame, \Gamma, \gammame, \deltame &\cdots\cdots \text{\cref{eqn:momentMatrices}} &
+  \mathring\Upsilonme, \mathring\Lambdame, \mathring\Gamma, \mathring\gammame, \mathring\deltame &\cdots\cdots \text{\cref{eqn:limitMatrices}} &
+  \mathring \sigma & \cdots\cdots \text{\cref{eqn:mathringsigma}}\\
+  \dme, \eme, \mathring\dme, \mathring\eme &\cdots\cdots \text{\cref{eqn:zetaeta}} &
+\end{align*}
+In addition, $\Bb$ denotes the $\sigma$-algebra spanned by $g^1, \ldots, g^{\MM-1}$.
+
+\subsection{Rank Stability and Zero Stability}
+\label{sec:rankStabilityZeroStability}
+In this section, we prove the following consequence of \ref{IH:coreSet}$(\MM-1)$ and \ref{IH:MomConv}$(\MM-1)$.
+
+\begin{lemma}[Rank Stability]\label{lemma:rankStability}
+For any collection of polynomially-bounded functions $\{\psi_j: \R^{\MM-1} \to \R\}_{j=1}^l$, let $K \in \R^{l \times l}$ be the random matrix (depending on $n$) defined by
+\begin{equation*}
+K_{ij} = \f 1 n \sum_{\alpha=1}^n \psi_i(g^1_\alpha, \ldots, g^{\MM-1}_\alpha) \psi_j(g^1_\alpha, \ldots, g^{\MM-1}_\alpha).
+\end{equation*}
+By \ref{IH:MomConv}$(\MM-1)$,
+\[K \asto \mathring K\]
+for some matrix $\mathring K \in \R^{l \times l}$.
+\begin{enumerate}
+\item
+    Then, almost surely, for large enough $n$,
+    \begin{equation*}
+    \ker K = \ker \mathring K, \quad \im K = \im \mathring K, \quad\text{and}\quad \rank K = \rank \mathring K.
+    \end{equation*}
+    Here $\ker$ denotes null space and $\im$ denotes image space.
+\item
+    Suppose $I \sbe [l]$ is any subset such that $\mathring K|_I$, the restriction of $\mathring K$ to rows and columns corresponding to $I$, satisfies
+    \[|I| = \rank \mathring K|_I = \rank \mathring K.\]
+    There are unique coefficients $\{F_{ij}\}_{i \in [l], j \in I}$ that expresses each row of $\mathring K$ as linear combinations of rows corresponding to $I$:
+    \[
+    \forall i \in [l],\quad 
+    \mathring K_i = \sum_{j \in I} F_{ij} \mathring K_j.
+    \]
+    Then, a.s.\ for all large $n$, for all $\alpha \in [n]$,
+    \begin{equation*}
+    \psi_i(g^1_\alpha, \ldots, g^{\MM-1}_\alpha)
+    = \sum_{j \in I} F_{ij} \psi_j(g^1_\alpha, \ldots, g^{\MM-1}_\alpha).
+    \end{equation*}
+\end{enumerate}
+
+\end{lemma}
+
+\cref{lemma:rankStability} will be primarily a corollary of the following \cref{lemma:zerofunStability}.
+
+\begin{lemma}[Zero Stability]\label{lemma:zerofunStability}
+If $\psi: \R^{\MM-1} \to \R^{\ge 0}$ is a nonnegative function such that
+\begin{align*}
+\f 1 n \sum_{\alpha = 1}^n \psi(g^1_\alpha, \ldots, g^{\MM-1}_\alpha) \asto 0
+\end{align*}
+then, almost surely, for large enough $n$,
+\[\psi(g^1_\alpha, \ldots, g^{\MM-1}_\alpha) = 0\]
+for all $\alpha \in [n]$.
+\end{lemma}
+
+We give the proof of \cref{lemma:rankStability} now, assuming \cref{lemma:zerofunStability}.
+\begin{proof}
+  \newcommand{\myvv}{z}
+Let $\myvv \in \R^l$ be in the null space of $\mathring K$, i.e. $\myvv^\trsp \mathring K \myvv = 0$.
+Then we also have $\myvv^\trsp K \myvv \asto \myvv^\trsp \mathring K \myvv = 0$.
+But
+\begin{align*}
+\myvv^\trsp K \myvv
+    &=
+        \f 1 n \sum_{\alpha=1}^n \Psi(g^1_\alpha, \ldots, g^{\MM-1}_\alpha)
+        ,
+        \quad
+        \text{where}
+        \quad
+        \Psi(g^1_\alpha, \ldots, g^{\MM-1}_\alpha) \defeq
+        \lp
+            \sum_{i=1}^l \myvv_i \psi_i(g^1_\alpha, \ldots, g^{\MM-1}_\alpha)
+        \rp^2
+\end{align*}
+and $\Psi$ is a nonnegative function.
+By \cref{lemma:zerofunStability}, we have that: almost surely, for large enough $n$, 
+\[\Psi(g^1_\alpha, \ldots, g^{\MM-1}_\alpha) = 0 \quad \text{for all $\alpha \in [n]$}
+\quad
+\implies \myvv^\trsp K \myvv = 0.\]
+\textit{Proof of Claim 1.}\ \ 
+If we apply this argument to a basis $\{\myvv^1, \ldots, \myvv^t\}$ of $\ker \mathring K$, then we get, 
+\[\text{a.s.\ for all large $n$,}\quad 
+\ker \mathring K \sbe \ker K,\]
+so that
+\[\text{a.s.\ for all large $n$,}\quad 
+\rank \mathring K \ge \rank K.\]
+Because the rank function is lower semicontinuous (i.e.\ the rank can drop suddenly, but cannot increase suddenly), and $K \asto \mathring K$, we also have
+\[\text{a.s.\ for all large $n$,}\quad 
+\rank \mathring K \le \rank K.\]
+Combined with the above, this gives the desired result on rank.
+The equality of null space then follows from the equality of rank, and the equality of image space follows immediately, as the image space is the orthogonal complement of the null space.
+
+\textit{Proof of Claim 2.}\ \ 
+If we apply the above argument to each $\myvv^i$ defined by inner product as
+\[\forall x \in \R^l,\quad x^\trsp \myvv^i = x_i - \sum_{j \in I} F_{ij} x_j,
+\]
+(note that only for $i \not \in I$ is $\myvv^i$ nonzero),
+then we have, a.s.\ for large $n$, $\myvv^i{}^\trsp K \myvv^i = 0$, or
+\begin{equation*}
+    \psi_i(g^1_\alpha, \ldots, g^{\MM-1}_\alpha)
+    = \sum_{j \in I} F_{ij} \psi_j(g^1_\alpha, \ldots, g^{\MM-1}_\alpha),
+    \quad \forall \alpha \in [n].
+\end{equation*}
+\end{proof}
+
+In the rest of this section, we prove \cref{lemma:zerofunStability}.
+It helps to first show that the linear relations given in \ref{prop:basis} carries over to the $n\to\infty$ limit.
+\begin{prop}\label{prop:limitbasis}
+By the \ref{prop:basis} property, each $g^i, i \in \coreset \sbe [\MM-1]$, has a set of unique constants $\{a_j\}_{j \in \coreset}$ (independent of $n$) such that, almost surely, for large enough $n$,
+\[g^i = \sum_{j \in \coreset} a_j g^j.\]
+Then for each $i \in [\MM-1]$,
+\[\Zz^{g^i} \aseq \sum_{j \in \coreset} a_j \Zz^{g^j}
+.\]
+\end{prop}
+\begin{proof}
+
+Let $\psi(x^1, \ldots, x^{\MM-1}) \defeq (x^i - \sum_{j \in \coreset} a_j x^j)^2$.
+Then by \ref{prop:basis}$(\MM-1)$ and \ref{IH:MomConv}$(\MM-1)$,
+\begin{align*}
+\f 1 n \sum_{\alpha=1}^n \psi(g^1_\alpha, \ldots, g^{\MM-1}_\alpha) \asto \EV \psi\lp \Zz^{g^1}, \ldots, \Zz^{g^{\MM-1}}\rp = 0.
+\end{align*}
+This implies that
+\begin{align*}
+\Zz^{g^i} - \sum_{j \in \coreset} a_j \Zz^{g^j} \aseq 0
+\iff
+\Zz^{g^i} \aseq \sum_{j \in \coreset} a_j \Zz^{g^j}
+\end{align*}
+as desired.
+
+\end{proof}
+
+Now we show \cref{lemma:zerofunStability}.
+
+\begin{proof}[Proof of \cref{lemma:zerofunStability}]
+By \ref{IH:MomConv}$(\MM-1)$ and the premise of \cref{lemma:zerofunStability},
+\begin{align*}
+\f 1 n \sum_{\alpha = 1}^n \psi(g^1_\alpha, \ldots, g^{\MM-1}_\alpha) \to \EV \psi(\Zz^{g^1}, \ldots, \Zz^{g^{\MM-1}}) = 0.
+\end{align*}
+Let $\Zz^\coreset \defeq \{\Zz^{g^i}\}_{i \in \coreset}$.
+By \ref{prop:density}$(\MM-1)$, the law of $\Zz^\coreset$ has density, i.e.\ a set is measure zero against its law iff it has measure zero against Lebesgue measure.
+Furthermore, \ref{prop:basis} yields a linear function $F$ such that
+\[\text{a.s.\ for large enough $n$, for all $\alpha \in [n]$,}\quad
+F(\{g^j_\alpha\}_{j \in \coreset}) = (g^1_\alpha, \ldots, g^{\MM-1}_\alpha)
+.
+\]
+By \cref{prop:limitbasis}, the same linear function satisfies
+\[F(\Zz^\coreset) = (\Zz^{g^1}, \ldots, \Zz^{g^{\MM-1}})
+.\]
+Therefore,
+\begin{equation*}
+0 = \EV \psi(\Zz^{g^1}, \ldots, \Zz^{g^{\MM-1}})
+= \EV \psi \circ F(\Zz^\coreset)
+.
+\end{equation*}
+Because $\psi$, and thus $\psi \circ F$, is a nonnegative function, the nullity of the expectation implies that, other than a set $U$ of measure 0 under the distribution of $\Zz^\coreset$, $\psi\circ F$ is 0.
+This set $U$ also has Lebesgue measure zero as the law of $\Zz^\coreset$ has density, as discussed above.
+
+If in \ref{prop:nullAvoid}$(\MM-1)$, we set $U_{n\alpha} = U$ for all $n$ and all $\alpha \in [n]$, then we get that: almost surely, for all large enough $n$, for all $\alpha \in [n]$,
+
+\begin{equation*}
+\{g^i_\alpha\}_{i \in \coreset} \not\in U
+\iff
+\psi\circ F(\{g^i_\alpha\}_{i \in \coreset}) = 0
+\iff
+\psi(g^1_\alpha, \ldots, g^{\MM-1}_\alpha) = 0,
+\end{equation*}
+as desired.
+\end{proof}
+
+\subsection{Inductive Step: \ref{IH:coreSet}\texorpdfstring{$(\MM)$}{(m)}}
+\label{sec:inductiveCoreSet}
+In this section, we show
+\begin{equation*}
+\text{\ref{IH:MomConv}$(\MM-1)$ and \ref{IH:coreSet}$(\MM-1)$} \implies \text{\ref{IH:coreSet}}(\MM).
+\end{equation*}
+More explicitly, we need to think about whether to add $\MM$ to the core set $\coreset$ of $[\MM-1]$ in order to maintain the \ref{prop:basis}, \ref{prop:density}, and \ref{prop:nullAvoid} properties.
+
+We proceed by casework on whether $\mathring \sigma = 0$.
+
+\newcommand{\Lsq}{\mathcal{L}}
+\subsubsection{If \texorpdfstring{$\mathring \sigma = 0$}{sigma converges to 0 a.s.}.}
+
+We will show that the core set properties are maintained if we don't add $m$ to the core set.
+
+\paragraph{$\coreset$ can be kept the same}
+Recall that $g = Ah$ and $\xme^i = A \yme^i$ where $h$ was introduced by $h = \phi(g^{1}, \ldots, g^{\MM - 1})$, for some polynomially bounded $\phi$.
+Suppose we likewise have $\yme^i = \hat \phi^i(g^1, \ldots, g^{\MM-1})$, for each $i \in [r]$, for polynomially bounded $\hat \phi^i: \R^{\MM-1} \to \R$ (where $\hat\phi^i$ only depends on the G-vars that came before $\yme^i$, but we implicitly pad coordinates of $\hat \phi^i$ to allow it to take all of $g^1, \ldots, g^{\MM-1}$ as inputs).
+By \ref{prop:basis}, we know that, a.s.\ for large enough $n$, each of $g^1, \ldots, g^{\MM-1}$ is a (unique, constant-in-$n$) linear combination of $\{g^j\}_{j \in \coreset}$.
+Therefore, we can express
+\begin{equation}h = \psi(\{g^j\}_{j \in \coreset}),\quad\text{and}\quad
+\forall i \in [r],\quad \yme^i = \hat {\psi}^i(\{g^j\}_{j \in \coreset})
+\label{eqn:psireduce}
+\end{equation}
+for some polynomially bounded $\psi, \hat {\psi}^i: \R^\coreset \to \R$.
+Let $\Pi: \LsqZ \to \LsqZ$ be the orthogonal projection onto the subspace spanned by $Z^{\yme^1}, \ldots, Z^{\yme^r}$.
+By \cref{eqn:sigmalimitPiPerp}, we have
+\(
+\mathring\sigma^2
+    =
+        \sigma_A^2 \EV (\Pi^\perp Z^h)^2
+        .
+\)
+Therefore, $\mathring \sigma = 0$ implies that 
+\[Z^h \aseq \Pi Z^h.\]
+Since $Z^h, Z^{\yme^1}, \ldots, Z^{\yme^r}$ are resp.\ deterministic images of $Z^\coreset$ under the functions $\psi, \hat \psi^1, \ldots, \hat \psi^r$, this shows that $\psi$ is a linear combination of $\hat \psi^1, \ldots, \hat \psi^r$ almost surely under the law of $Z^\coreset$.
+But by \ref{prop:density}($\MM-1$), the law of $Z^\coreset$ is absolutely continuous w.r.t.\ the Lesbegue measure (and vice versa), so this statement also holds under Lesbegue measure:
+For a set $U \sbe \R^\coreset$ of Lesbegue measure zero and a set of coefficients $c_1, \ldots, c_r \in \R$, we have
+\begin{equation*}
+\forall \vec x \not \in U,\quad \psi(\vec x) = \sum_{i=1}^r c_i {\hat \psi^i}(\vec x).
+\end{equation*}
+By \ref{prop:nullAvoid}$(\MM-1)$ applied to $U_{n\alpha} = U$ for all $n$ and $\alpha \in [n]$, we also have that: a.s.\ for large enough $n$,
+\begin{align*}
+\psi(\{g^j\}_{j \in \coreset})
+&= \sum_{i=1}^r c_i {\hat \psi^i}(\{g^j\}_{j \in \coreset}),
+\quad\text{so that by \cref{eqn:psireduce}}
+\\
+g = Ah = A \psi(\{g^j\}_{j \in \coreset})
+&= \sum_{i=1}^r c_i A{\hat \psi^i}(\{g^j\}_{j \in \coreset}),
+= \sum_{i=1}^r c_i A\yme^i
+= \sum_{i=1}^r c_i \xme^i.
+\end{align*}
+This shows that, if we keep the core set as $\coreset$, then \ref{prop:basis} is still satisfied.
+Since the core set is not changing, \ref{prop:density} and \ref{prop:nullAvoid} just follows from the induction hypothesis.
+For usage later in the proof of \ref{IH:MomConv}$(\MM)$, we record our observation here as a lemma.
+\begin{lemma}\label{lemma:limitSigmaIsZero}
+If $\mathring \sigma = 0$, then there are coefficients $c_1, \ldots, c_r \in \R$ independent of $n$ such that a.s.\ for large enough $n$,
+\[
+g = \sum_{i = 1}^r c_i \xme^i.
+\]
+\end{lemma}
+
+\subsubsection{If \texorpdfstring{$\mathring \sigma > 0$}{sigma converges to nonzero value a.s.}.}
+
+\newcommand{\prvZ}{\mathcal{Z}}
+
+It's clear that $g$ cannot be in the linear span of $\{\xme^i\}_{i\in[r]}$ asymptotically, so we will add $g$ to the core set, and the \ref{prop:basis} property follows immediately.
+In the below, we shall write $\coreset$ for the old core set, and $\coreset' \defeq \coreset \cup \{g\}$ for the new one.
+
+It remains to show \ref{prop:density} and \ref{prop:nullAvoid} for $\coreset'$.
+
+\paragraph{\ref{prop:density}$(\MM)$ holds}
+By definition (\refZMatMul{}), we have
+\begin{align*}
+\Zz^g = \Zhat^g + \Zdot^g = \Zhat^g + \sum_{j=1}^s a_j  Z^{\vme^j}
+\end{align*}
+where $a_j$ are the partial derivative expectations in \refZdot{} (whose specific values we will not care about) and \cref{eq:ExpectationPartialDer}.
+Note that for all $j \in [s]$, $ Z^{\vme^j}$ only depends on $\Zhat^{g^1}, \ldots, \Zhat^{g^{\MM-1}}$.
+Let $\prvZ$ be the $\sigma$-algebra generated by $Z^{g^1}, \ldots, Z^{g^{\MM-1}}$, which is the same as the $\sigma$-algebra generated by $\Zhat^{g^1}, \ldots, \Zhat^{g^{\MM-1}}$ by \cref{prop:hatZRandomSource}.
+Then conditioned on $\prvZ$, we can follow a quick calculation to see that
+\begin{align*}
+\Zhat^{g}
+  &\disteq_\prvZ
+    \mathring \sigma z + \sum_{i=1}^r \mathring{\dme}_i \Zhat^{\xme^i}
+\end{align*}
+where $z \sim \Gaus(0, 1)$ is independent from $\prvZ$, and $\mathring{\dme}$ is as in \cref{lemma:omegaExpansion}.
+This allows us to write
+\begin{align*}
+\Zz^g
+  &\disteq_\prvZ
+    \mathring \sigma z + F(\Zhat^{g^1}, \ldots, \Zhat^{g^{\MM-1}})
+\end{align*}
+for some deterministic function $F$.
+Since $\mathring \sigma > 0$, this shows that the distribution of $\Zz^g$ conditioned on $\prvZ$ is absolutely continuous w.r.t.\ the 1-dimensional Lebesgue measure, and vice versa.
+If we apply \cref{lemma:conditionalDensity} below with $X_1 = \Zz^g, X_2 = \{\Zz^{g^i}\}_{i \in \coreset},$ and $Y = (\Zhat^{g^1}, \ldots, \Zhat^{g^{\MM-1}})$, then the lemma premise \cref{eqn:X1density} follows from the above reasoning, and the lemma premise \cref{eqn:X2density} follows from induction hypothesis \ref{prop:density}$(\MM-1)$ (for $\coreset$).
+This then yields \ref{prop:density}$(\MM)$ (for $\coreset'$), as desired.
+
+\begin{lemma}\label{lemma:conditionalDensity}
+Consider a random vector $X = (X_1, X_2) \in \R^a \times \R^b$ and another random vector $Y \in \R^c$.
+Suppose $X_2$ is deterministic conditioned on $Y$.
+Let $\lambda$ denote the Lebesgue measure in any Euclidean space.
+If
+\begin{itemize}
+\item for every measurable set $U \sbe \R^b$,
+  \begin{equation}
+    \Pr(X_2 \in U) = 0 \iff \lambda(U) = 0, \quad \text{and}
+    \label{eqn:X2density}
+  \end{equation}
+\item for every $y \in \R^c$, and every measurable set $U \sbe \R^a$,
+  \begin{equation}
+    \Pr(X_1 \in U \mid Y = y) = 0 \iff \lambda(U) = 0,
+    \label{eqn:X1density}
+  \end{equation}
+\end{itemize}
+then for every measurable set $V \sbe \R^a \times \R^b$,
+\[\Pr(X \in V) = 0 \iff  \lambda(V) = 0
+.\]
+\end{lemma}
+\begin{proof}
+  Fix $V \sbe \R^a \times \R^b$.
+We have
+\begin{align*}
+\Pr(X \in V)
+  &=
+    \int \Pr(X \in V \mid Y = y)\dd\Pr(Y = y)
+    \\
+  &=
+    \int \Pr(X_1 \in V_{x_2(y)} \mid Y = y)\dd\Pr(Y = y)
+    \numberthis\label{eqn:expandInY}
+,
+\end{align*}
+where $x_2(y)$ is the deterministic value of $X_2$ conditioned on $Y = y$, and $V_{x_2} = \{x_1: (x_1, x_2) \in V\}$.
+Likewise,
+\begin{align}
+\lambda(V)
+  &=
+    \int \lambda(V_{x_2}) \dd \lambda(x_2)
+.
+  \label{eqn:expandLebesgue}
+\end{align}
+Then
+\begin{align*}
+\Pr(X \in V) = 0
+&\iff
+  \Pr_{Y}(\Pr_{X_1}(X_1 \in V_{X_2} \mid Y) > 0) = 0
+  &\text{by \cref{eqn:expandInY}}
+  \\
+&\iff
+  \Pr_{Y}(\lambda(V_{X_2}) > 0) = 0
+  &\text{by \cref{eqn:X1density}}
+  \\
+&\iff
+  \Pr_{X_2}(\lambda(V_{X_2}) > 0) = 0
+  &\text{because $X_2$ is deterministic given $Y$}
+  \\
+&\iff
+  \lambda(x_2: \lambda(V_{x_2}) > 0) = 0
+  &\text{by \cref{eqn:X2density}}
+  \\
+&\iff
+  \lambda(V) = 0
+  &\text{by \cref{eqn:expandLebesgue}}
+\end{align*}
+as desired.
+
+\end{proof}
+
+Now we tackle \ref{prop:nullAvoid}.
+
+\paragraph{\ref{prop:nullAvoid}$(\MM)$ holds}
+
+First, let's assume that, a.s.\ for large enough $n$, $\PP_{\Vme}^\perp$ has no zero diagonal entry;
+we shall show this fact below in \cref{lemma:PiCheckHDiagonal}.
+Because the conditional variance of $g^\MM_\alpha$ given $g^1, \ldots, g^{\MM-1}$ is $\sigma^2 (\PP_{\Vme}^\perp)_{\alpha\alpha}$, and because $\mathring \sigma > 0$ by assumption in this section, this implies that, a.s.\ for all large enough $n$,
+\begin{equation}
+\text{$g^\MM_\alpha$, conditioned on $g^1, \ldots, g^{\MM-1}$, has density for all $\alpha \in [n]$.}
+\label{eqn:conditionalDistributionHasDensity}
+\end{equation}
+By ``has density'' here, we in particular mean that any Lesbegue measure zero set in $\R$ has zero probability under the conditional distribution of $g^\MM_\alpha$ given $g^1, \ldots, g^{\MM-1}$.
+
+Now, assuming \cref{lemma:PiCheckHDiagonal}, we prove \ref{prop:nullAvoid} holds for $\coreset'$.
+
+Let $\{U_{n\alpha} \sbe \R^{\coreset'}\}_{n\in\N, \alpha \in [n]}$ be a triangular array of Lesbegue measure zero sets.
+For each $U_{n\alpha}$, define $B_{n\alpha} \defeq \{\vec x \in \R^{\coreset}: \lambda(U_{n\alpha}|_{\vec x}) \ne 0\}$, where $U_{n\alpha}|_{\vec x} = \{y \in \R: (\vec x, y) \in U_{n\alpha} \sbe \R^{\coreset} \times \R\}$ is the ``slice'' of $U_{n\alpha}$ at $\vec x$, and $\lambda$ is the 1-dimensional Lebesgue measure.
+Because each $U_{n\alpha}$ has measure zero in $\R^{\coreset'}$, necessarily each $B_{n\alpha}$ also has measure zero in $\R^{\coreset}$.
+Applying \ref{prop:nullAvoid} to the triangular array $\{B_{n\alpha} \sbe \R^{\coreset}\}_{n \in \N, \alpha \in [n]}$, we get that: a.s.\ for large enough $n$,
+\[
+\forall \alpha \in [n],\quad \{g^i_\alpha\}_{i \in \coreset} \not \in B_{n\alpha}.\]
+Therefore, by \cref{eqn:conditionalDistributionHasDensity}, a.s.\ for large enough $n$,
+\[
+\forall \alpha \in [n],\quad \{g^i_\alpha\}_{i \in \coreset'} \not \in U_{n\alpha}.
+\]
+This finishes the proof of \ref{prop:nullAvoid} for $\coreset'$, and also \ref{IH:coreSet}$(\MM)$, save for \cref{lemma:PiCheckHDiagonal} below.
+
+\begin{lemma}\label{lemma:PiCheckHDiagonal}
+Almost surely, for large enough $n$, $\PP_{\Vme}^\perp$ has no zero diagonal entry.
+\end{lemma}
+\begin{proof}
+
+WLOG, assume $\mathring{\Lambdame }$ is full rank.
+Otherwise, by \cref{lemma:rankStability}(2), we can replace $\vme^1,\ldots, \vme^s$ by a linearly independent spanning set $\vme^{i_1}, \ldots, \vme^{i_k}$ such that 1) each $\vme^j$ is almost surely, for all large $n$, a linear combination of them and such that 2) their 2nd moment matrix is full rank in the limit.
+Then the projection matrix associated to $\vme^{i_1}, \ldots, \vme^{i_k}$ is, almost surely, for all large $n$, the same as $\PP_{\Vme}$.
+
+By the Sherman-Morrison formula (\cref{fact:ShermanMorrison}),
+\begin{equation*}
+(\PP_{\Vme})_{\alpha\alpha}
+    =
+        f\lp \f 1 n \check h_\alpha{}^\trsp \Lambdame_{-\alpha}^{-1} \check h_\alpha\rp
+\end{equation*}
+where $f(x) = x/(1+x)$, $\check h_\alpha$ is the column vector $(\vme^1_\alpha, \ldots, \vme^s_\alpha)^\trsp$,
+and $\Lambdame_{-\alpha} = \f 1 n \sum_{\beta \ne \alpha} \check h_\beta \check h_\beta{}^\trsp$.
+Thus, unless $\Lambdame_{-\alpha}$ is singular for some $\alpha$, all diagonal entries of $\PP_{\Vme}^\perp = I - \PP_{\Vme}$ are nonzero.
+So it suffices to show that, 
+\begin{equation*}
+\text{a.s.\ for large enough $n$, \quad $\Lambdame_{-\alpha}$ is nonsingular for all $\alpha$.}
+\end{equation*}
+
+To do this, it pays to note that $\Lambdame_{-\alpha} = \Lambdame  - \f 1 n \check h_\alpha \check h_\alpha^\trsp$, so that
+\[|\lambda_{\mathrm{min}}(\Lambdame_{-\alpha}) - \lambda_{\mathrm{min}}(\Lambdame )| \le \|\f 1 n \check h_\alpha \check h_\alpha^\trsp\|_{\mathrm{op}} = \f 1 n \check h_\alpha^\trsp \check h_\alpha.\]
+
+By \cref{lemma:maxbound} below (which bounds the max by a high moment),
+\[\max_{\alpha \in n} \f 1 n \check h_\alpha^\trsp \check h_\alpha \asto 0,\]
+and consequently
+\[\max_{\alpha \in [n]} |\lambda_{\mathrm{min}}(\Lambdame_{-\alpha}) - \lambda_{\mathrm{min}}(\Lambdame )| \asto 0.\]
+Because $\Lambdame  \asto \mathring{\Lambdame }$, we know that, a.s.\ for large enough $n$, $\lambda_{\mathrm{min}}(\Lambdame )$ is bounded away from 0 by a constant (independent of $n$).
+Altogether, this implies that all $\Lambdame_{-\alpha}$ are nonsingular, as desired.
+\end{proof}
+
+\begin{fact}[Sherman-Morrison formula]\label{fact:ShermanMorrison}
+For any nonsingular matrix $A \in \R^{l \times l}$ and vector $a \in \R^l$,
+we have
+\[a^\trsp (A + aa^\trsp)^{-1} a = \f{a^\trsp A^{-1} a}{1 + a^\trsp \inv A a}.
+\]
+Consequently, for any full rank matrix $H$, the $\alpha$th diagonal entry of its associated projection matrix $\Pi_H = H (H^\trsp H)^{-1} H^\trsp$ can be written as
+\[(\Pi_H)_{\alpha\alpha} = \f{H_\alpha (H_{-\alpha}^\trsp H_{-\alpha})^{-1} H_\alpha^\trsp}{1 + H_\alpha (H_{-\alpha}^\trsp H_{-\alpha})^{-1} H_\alpha^\trsp}
+\]
+where $H_\alpha$ is the $\alpha$th row of $H$, and $H_{-\alpha}$ is $H$ with the $\alpha$th row removed.
+\end{fact}
+
+\begin{lemma}\label{lemma:maxbound}
+Assume \ref{IH:MomConv}$(\MM-1)$.
+Suppose $\psi: \R^{\MM-1} \to \R$ is polynomially bounded.
+Then as $n \to \infty,$
+\[\f 1 {n^p} \max_{\alpha \in [n]} |\psi(g^1_\alpha, \ldots, g^{\MM-1}_\alpha)| \asto 0\]
+for any $p > 0$.
+\end{lemma}
+\begin{proof}
+For any $q > 0$, we have the elementary bound
+\begin{equation*}
+\max_{\alpha \in [n]} |\psi(g^1_\alpha, \ldots, g^{\MM-1}_\alpha)|
+\le
+\sqrt[q]{\sum_{\alpha \in [n]}
+|\psi(g^1_\alpha, \ldots, g^{\MM-1}_\alpha)|^q}.
+\end{equation*}
+Thus, for any $q > 0$,
+\begin{align*}
+\f 1 {n^p} \max_{\alpha \in [n]} |\psi(g^1_\alpha, \ldots, g^{\MM-1}_\alpha)|
+&\le
+    \f 1 {n^{p-1/q}} 
+    \sqrt[q]{\f 1 n
+        \sum_{\alpha \in [n]}
+        |\psi(g^1_\alpha, \ldots, g^{\MM-1}_\alpha)|^q}.
+\end{align*}
+Because, by \ref{IH:MomConv}$(\MM-1)$, $\f 1 n
+        \sum_{\alpha \in [n]}
+        |\psi(g^1_\alpha, \ldots, g^{\MM-1}_\alpha)|^q \asto C$ for some finite constant $C$ as $n \to \infty$,
+the RHS above converges a.s.\ to 0 as soon as we take $q > 1/p$, and therefore so does the LHS.
+
+\end{proof}
+
+\subsection{Inductive Step: \ref{IH:MomConv}\texorpdfstring{$(\MM)$}{(m)}}
+\label{sec:inductiveMoments}
+In this section, we show
+\begin{equation*}
+\text{\ref{IH:MomConv}$(\MM-1)$ and \ref{IH:coreSet}$(\MM-1)$} \implies \text{\ref{IH:MomConv}}(\MM).
+\end{equation*}
+
+More specifically,
+we will show that for any polynomially-bounded $\psi: \R^{\MM} \to \R$,
+\begin{align*}
+    \f 1 n \sum_{\alpha=1}^n \psi(g^1_\alpha, \ldots, g^{\MM}_\alpha) 
+    \asto
+    \EV \psi(\Zz^{g^1}, \ldots, \Zz^{g^\MM})
+    .
+\end{align*}
+By \cref{lemma:limitSigmaIsZero}, if $\mathring \sigma = 0$, then almost surely, for large enough $n$, $g = g^\MM$ is just a (fixed) linear combination of $g^1, \ldots, g^{\MM-1}$, so \ref{IH:MomConv} is trivially true.
+Therefore, in the below, we assume 
+\begin{equation}
+\mathring \sigma > 0.
+\label{assm:mathringSigmaPositive}
+\tag{$\star$}
+\end{equation}
+This assumption will be crucial for our arguments involving smoothness induced by Gaussian averaging.
+
+\newcommand{\probA}{\mathsf{A}}
+\newcommand{\probB}{\mathsf{B}}
+\newcommand{\probC}{\mathsf{C}}
+\newcommand{\probD}{\mathsf{D}}
+
+\newcommand{\EVbr}[2][]{\EV_{#1}\left[#2\right]}
+\newcommand{\EVcond}[2]{\EV\left[\left.#1\right| #2 \right]}
+\newcommand{\extcom}[1]{{\color{blue}{#1}}}
+\newcommand{\exttcom}[1]{{\color{olive}{#1}}}
+
+To clarify notation in the following, we will write $\EVbr[X]{expression}$ to denote the expectation over only the randomness in $X$, $\EVcond{expression}{\Bb}$ to denote the expectation taken over all randomness except those in $\Bb$, and $\EV[expression]$ to denote expectation taken over \emph{all randomness} in $expression$.
+
+\paragraph{Proof Plan}
+By triangle inequality, we decompose
+\begin{align}
+        \left|\f 1 n \sum_{\alpha = 1}^n \psi(g^1_\alpha, \ldots, g^{\MM}_\alpha)
+        - \EV \psi(\Zz^{g^1}, \ldots, \Zz^{g^\MM})
+        \right|
+    \le
+        \probA + \probB + \probC
+        \label{eqn:decompABC}
+\end{align}
+where, with $\omega, \sigma$ (\cref{eqn:meanvardef}), $\mathring \sigma$ (\cref{eqn:mathringsigma}), $\PP_{\Vme}$ (\cref{eqn:gCondTrick}), $\mathring \dme, \mathring\eme$ (\cref{eqn:zetaeta}) as in \cref{sec:inductiveSetup}, and with $z  \sim \Gaus(0, 1)$, we have defined
+\begin{align*}
+    \probA
+        &\defeq
+            \left|\f 1 n \sum_{\alpha = 1}^n \psi(g^1_\alpha, \ldots, g^{\MM}_\alpha)
+            - \EV_z\psi\left(g^1_\alpha, \ldots, g^{\MM-1}_\alpha, \omega_\alpha + \sigma z \sqrt{(\PP^\perp_{\Vme})_{\alpha\alpha}}\right)\right|
+            \\
+    \probB
+        &\defeq
+            \left|
+            \f 1 n \sum_{\alpha = 1}^n \EV_z\psi\left(g^1_\alpha, \ldots, g^{\MM-1}_\alpha, \omega_\alpha + \sigma z \sqrt{(\PP^\perp_{\Vme})_{\alpha\alpha}}\right)
+            \right.
+            \\
+          &\phantomeq
+            \phantom{\f 1 n \sum_{\alpha = 1}^n}\quad
+            \left.
+            -
+            \EV_z
+                {
+                    \psi\lp
+                        g^1_\alpha, \ldots, g^{\MM-1}_\alpha,
+                        \sum_{i=1}^r \mathring {\dme}_i \xme^i_\alpha +
+                        \sum_{j=1}^s \mathring {\eme}_j \vme^j_\alpha + \mathring \sigma z
+                        \rp
+                }
+            \right|
+            \\
+    \probC
+        &\defeq
+            \left|
+            \f 1 n \sum_{\alpha = 1}^n
+            \EV_z
+                {
+                    \psi\lp
+                        g^1_\alpha, \ldots, g^{\MM-1}_\alpha,
+                        \sum_{i=1}^r \mathring {\dme}_i \xme^i_\alpha +
+                        \sum_{j=1}^s \mathring {\eme}_j \vme^j_\alpha + \mathring \sigma z
+                        \rp
+                }
+            -
+            \EV \psi(\Zz^{g^1}, \ldots, \Zz^{g^\MM})
+            \right|
+            .
+\end{align*}
+Note that $\probB$ and $\probC$ are random variables in $\Bb$, but $\probA$ has additional randomness even after conditioning on $\Bb$.
+We will show that each of $\probA, \probB, \probC$ goes to 0 almost surely, which would finish the proof of \cref{thm:NetsorTMasterTheorem}.
+
+\paragraph{High Level Logic}
+Roughly speaking,
+\begin{description}
+  \item[$\probA \asto 0$] because of a law of large numbers,
+  \item[$\probB \asto 0$] because of the smoothness in $\EV_z \psi$ induced by Gaussian averaging, and
+  \item[$\probC \asto 0$] by induction hypothesis.
+\end{description}
+We start by proving $\probC \asto 0$, since it's the easiest.
+
+\subsubsection{\texorpdfstring{$\probC$}{C} Converges Almost Surely to 0}
+
+In this section we show that $\probC \asto 0$ by a straightforward reduction to the induction hypothesis.
+
+A simple inductive argument with \cref{defn:Z} shows that $Z^{\xme^1}, \ldots, Z^{\xme^r}, Z^{\vme^1}, \ldots, Z^{\vme^s}$ are all deterministic, polynomially-bounded functions of $Z^{g^1}, \ldots, Z^{g^{\MM-1}}$.
+Thus we may define the function $\Psi: \R^{\MM-1} \to \R$ by
+\[
+\Psi(\Zz^{g^1}, \ldots, \Zz^{g^{\MM-1}})
+  \defeq
+    \EV_{z \sim \Gaus(0, 1)}
+      \psi\lp \Zz^{g^1}, \ldots, \Zz^{g^{\MM-1}},
+        \sum_{i=1}^r \mathring{\dme}_i \Zz^{\xme^i}
+        + \sum_{j=1}^s \mathring{\eme}_j \Zz^{\vme^j}
+        + \mathring \sigma z
+      \rp
+      .
+\]
+The function $\Psi$ is polynomially bounded since $\psi$ is, and
+$Z^{\xme^1}, \ldots, Z^{\xme^r}, Z^{\vme^1}, \ldots, Z^{\vme^s}$ are  polynomially-bounded functions of $Z^{g^1}, \ldots, Z^{g^{\MM-1}}$.
+Observe that the function that expresses $Z^{\xme^i}$ in terms of $Z^{g^1}, \ldots, Z^{g^{\MM-1}}$ is the same function that expresses $\xme^i_\alpha$ in terms of $g^1_\alpha, \ldots, g^{\MM-1}_\alpha$ for all $\alpha \in[n]$; likewise for $Z^{\vme^j}$ and $\vme^j_\alpha$.
+Applying the induction hypothesis \ref{IH:MomConv}($\MM-1$) to $\Psi$, we obtain
+\begin{align*}
+    &\phantomeq
+        \f 1 n \sum_{\alpha = 1}^n
+            \EV_z
+                {
+                    \psi\lp
+                        g^1_\alpha, \ldots, g^{\MM-1}_\alpha,
+                        \sum_{i=1}^r \mathring {\dme}_i \xme^i_\alpha +
+                        \sum_{j=1}^s \mathring {\eme}_j \vme^j_\alpha + \mathring \sigma z
+                        \rp
+                }
+        \\
+    &=
+        \f 1 n \sum_{\alpha = 1}^n
+                {
+                    \Psi\lp
+                        g^1_\alpha, \ldots, g^{\MM-1}_\alpha
+                        \rp
+                }
+        \\
+    &\asto
+        \EV \Psi(\Zz^{g^1}, \ldots, \Zz^{g^{\MM-1}})
+        \\
+    &\pushright{
+      \text{by \ref{IH:MomConv}$(\MM-1)$}
+      }
+        \\
+    &=
+        \EV
+        \psi\lp
+          \Zz^{g^1}, \ldots, \Zz^{g^{\MM-1}},
+          \sum_{i=1}^r \mathring {\dme}_i \Zz^{\xme^i} +
+            \sum_{j=1}^s \mathring {\eme}_j \Zz^{\vme^j} + \mathring \sigma z
+          \rp
+          .
+\end{align*}
+By \cref{lemma:YgConditionalDistribution} below, this is precisely
+\begin{align*}
+\EV \psi\lp
+            \Zz^{g^1}, \ldots, \Zz^{g^{\MM-1}}, \Zz^{g^{\MM}}\rp
+\end{align*}
+as desired.
+
+\begin{lemma}\label{lemma:YgConditionalDistribution}
+  Let $\prvZ$ be the $\sigma$-algebra generated by $\Zz^{g^1}, \ldots, \Zz^{g^{\MM-1}}$.
+  Then for $z \sim \Gaus(0, 1)$ sampled independently of $\prvZ$,
+  \begin{align*}
+  \Zz^{g}
+    &\disteq_{\prvZ}
+      \mathring \sigma z +
+      \sum_{i=1}^r \mathring {\dme}_i \Zz^{\xme^i} +
+      \sum_{j=1}^s \mathring {\eme}_j \Zz^{\vme^j}
+  \end{align*}
+  where $\mathring{\dme}$ and $\mathring{\eme}$ are as in \cref{eqn:zetaeta} and $\mathring \sigma$ is as in \cref{eqn:mathringsigma}.
+  
+  
+\end{lemma}
+\begin{proof}
+  We can split each $ Z^{\xme^i}$ into $\Zhat^{\xme^i} + \Zdot^{\xme^i}$, to obtain
+  \begin{align*}
+  &\phantomeq
+    \mathring \sigma z +
+      \sum_{i=1}^r \mathring {\dme}_i  Z^{\xme^i} +
+      \sum_{j=1}^s \mathring {\eme}_j  Z^{\vme^j}
+    \\
+  &=
+    \left(\mathring \sigma z +
+      \sum_{i=1}^r \mathring {\dme}_i \Zhat^{\xme^i}
+      \right)
+    +
+    \left(
+      \sum_{i=1}^r \mathring {\dme}_i \Zdot^{\xme^i}
+      +
+      \sum_{j=1}^s \mathring {\eme}_j  Z^{\vme^j}
+    \right)
+    \\
+  &=
+    \left(\mathring \sigma z +
+      \sum_{i=1}^r \mathring {\dme}_i \Zhat^{\xme^i}
+    \right)
+    +
+    \Zdot^{g}
+  &{\text{by \cref{lemma:hpartReExpression}}}
+    \\
+  &\disteq_\prvZ
+    \Zhat^{g}
+    +
+    \Zdot^{g}
+  &{\text{see below for justification}}
+    \\
+  &=
+     Z^{g},
+  \end{align*}
+  as desired.
+  It remains to justify the second-to-last equality, which is easily done via the usual formula for Gaussian conditioning (\cref{prop:GaussianCondition}):
+  Let $\Zhat$ be the column vector $(\Zhat^{\xme^1}, \ldots, \Zhat^{\xme^r})^\trsp$.
+  Then we know that $\Zhat$ and $\Zhat^{g}$ are jointly Gaussian with zero mean%
+  \footnote{recall we have assumed WLOG that $\EV Z^g = 0$ for all $g \in \mathcal V$; see discussion at the beginning of \cref{sec:proofMainTheorem}.}%
+  .
+  The covariance between $\Zhat$ and $\Zhat^{g}$ is $\sigma_A^2 \mathring\gammame$ and $\Zhat$ has covariance matrix $\sigma_A^2 \mathring\Upsilonme$ by \cref{eqn:limitMatrices}.
+  Then by \cref{prop:GaussianCondition}, we know that, conditioned on $\prvZ$, $\Zhat^{g}$ is distributed as a Gaussian with mean
+  \[\sigma_A^2 \mathring\gammame^\trsp (\sigma_A^2 \mathring\Upsilonme)^+ \Zhat
+  =\mathring\dme^\trsp \Zhat
+  =\sum_{i=1}^r \mathring {\dme}_i \Zhat^{\xme^i},\]
+  by \cref{eqn:zetaeta}
+  and variance
+  \[
+    \EV (Z^{g})^2 - \sigma_A^2 \mathring\gammame^\trsp (\sigma_A^2 \mathring\Upsilonme)^+ \sigma_A^2 \mathring\gammame
+    = \mathring\sigma\]
+  by \cref{lemma:sigmaConverges}.
+  This is exactly what we needed.
+\end{proof}
+
+ 
+\subsubsection{\texorpdfstring{$\probA$}{A} Converges Almost Surely to 0}
+\label{sec:probA}
+
+\newcommand{\rvec}{z}
+
+In this section we show $\probA \asto 0.$
+
+For each $\alpha \in [n]$, define the function $\psi_\alpha: \R \to \R$ by
+ \[\psi_\alpha (x) \defeq \psi(g^1_\alpha, \ldots, g^{\MM-1}_\alpha, \omega_\alpha + \sigma x),\]
+with $\omega$ and $\sigma$ defined in \cref{eqn:meanvardef}.
+This is a random function depending on the random vectors $g^1_\alpha, \ldots, g^{\MM-1}_\alpha$, and it changes with $n$ as well.
+We also consider the ``centered version'' $\tilde \psi_\alpha: \R \to \R$ of $\psi_\alpha,$
+\[\tilde \psi_\alpha(x) \defeq \psi_\alpha(x) - \EV_{y}\psi_\alpha(y)\]
+with expectation taken over $y \sim \Gaus(0, (\PP^\perp_{\Vme})_{\alpha\alpha})$ (but not $g^1_\alpha, \ldots, g^{\MM-1}_\alpha$).
+Note by \cref{eqn:gConditionedOnB},
+\[ \probA \disteq_\Bb \left|\f 1 n \sum_{\alpha =1}^n \tilde \psi_\alpha(\rvec_\alpha)\right|\]
+where $\rvec \sim \Gaus(0, \PP_{\Vme}^\perp)$.
+
+\paragraph{Proof idea}
+To prove our claim, we will show that, for almost all (i.e. probability 1 in the probability space $\basespace$ defined in the beginning of \cref{sec:proofMainTheorem}) sequences of $(g^1, \ldots, g^{\MM-1}) = (g^1(n), \ldots, g^{\MM-1}(n))$ in $n$ --- which we shall call \emph{amenable sequences of $g^1, \ldots, g^{\MM-1}$} --- 
+we have a moment bound
+\begin{equation}
+\EV[\probA^{2\lambda} | \Bb] = 
+\EV_{\rvec \sim \Gaus(0, \PP^\perp_{\Vme})} 
+    \lp \f 1 n \sum_{\alpha =1}^n \tilde \psi_\alpha(\rvec_\alpha)\rp^{2\lambda}
+    < C n^{-1.25}
+    \label{eqn:highMomentBound}
+\end{equation}
+for some large $\lambda$ and some constant $C > 0$ depending only on $\lambda$ and the particular sequence of $\{(g^1(n), \ldots, g^{\MM-1}(n))\}_n$.
+Then we apply \cref{lemma:momentBoundASConvergence} to show that, conditioned on any amenable sequence, $\probA$ converges to 0 almost surely over all randomness remaining after conditioning.
+Since almost all sequences are amenable, this shows that the convergence is also almost sure without the conditioning.
+
+\paragraph{The moment bound}
+For $\lambda \ge 6$ and any $q > 1$, we first apply \cref{thm:controlHighMoments} to get the bound
+\begin{equation*}
+\EV_{\rvec} 
+    \lp \f 1 n \sum_{\alpha =1}^n \tilde \psi_\alpha(\rvec_\alpha)\rp^{2\lambda}
+    \le c n^{-1.5 + 1/q}
+        \sqrt[q]{\f 1 n \sum_{\alpha=1}^n \EV \tilde \psi_\alpha(\rvec_\alpha)^{2\lambda q}}
+\end{equation*}
+where on both sides $\rvec \sim \Gaus(0, \PP^\perp_{\Vme})$, and $c$ is a constant depending only on $\lambda$ and $\MM$, but not on $n$, the functions $\psi_\alpha$, or $g^1, \ldots, g^{\MM-1}$.
+To obtain \cref{eqn:highMomentBound}, we will show that
+\begin{equation}
+\f 1 n \sum_{\alpha=1}^n \EV \tilde \psi_\alpha(\rvec_\alpha)^{2\lambda q}
+\label{eqn:moment}
+\end{equation}
+is uniformly bounded (in $n$), almost surely over the randomness of the sequences $\{g^1(n), \ldots, g^{\MM -1}(n)\}_n$.
+We take all such sequences to be the \emph{amenable sequences}.
+For $q > 4$, we then get the desired moment bound \cref{eqn:highMomentBound}.
+
+It remains to show the almost sure uniform boundedness.
+
+\paragraph{Almost sure uniform boundedness}
+Intuitively, \cref{eqn:moment} should converge almost surely to a deterministic value by applying some version of the induction hypothesis, so it should be almost surely uniformly bounded in $n$.
+The obstacle is that the variance $(\PP_{\Vme}^\perp)_{\alpha\alpha}$ of $\rvec_\alpha$ depends not only on $g^1_\alpha, \ldots, g^{\MM-1}_\alpha$, but also on $g^1_\beta, \ldots, g^{\MM-1}_\beta$ for other indices $\beta \not= \alpha$ as well.
+So \textit{a priori} it is not clear how to apply the \ref{IH:MomConv}($\MM-1$) in a straightforward way.
+We thus first process \cref{eqn:moment} a bit.
+Let
+\[\mu_\alpha \defeq \EV_{x \sim \Gaus(0, (\PP^\perp_{\Vme})_{\alpha\alpha})} \psi_\alpha(x).\]
+Then, abbreviating $\EV_z$ for expectation taken over $\rvec \sim \Gaus(0, \PP^\perp_{\Vme})$, we have the following inequalities of random variables in $\Bb$:
+\begin{align*}
+  \f 1 n \sum_{\alpha=1}^n \EV_z \tilde \psi_\alpha(\rvec_\alpha)^{2\lambda q}
+  &=
+      \f 1 n \sum_{\alpha=1}^n \EV_z (\psi_\alpha(\rvec_\alpha) - \mu_\alpha)^{2\lambda q}
+      \\
+  &\le
+      \f 1 n 2^{2\lambda q - 1}
+          \sum_{\alpha=1}^n
+              \EV_z 
+                  \left[
+                      \psi_\alpha(\rvec_\alpha)^{2\lambda q} + \mu_\alpha^{2\lambda q}
+                  \right]
+  &{\text{by \cref{lem:powerbound}}}
+      \\
+  &\le
+      \f 1 n 2^{2\lambda q}
+          \sum_{\alpha=1}^n
+              \EV_z 
+                  \psi_\alpha(\rvec_\alpha)^{2\lambda q}
+  &\text{see below}
+      \\
+  &=
+      \f 1 n 2^{2\lambda q}
+      \sum_{\alpha=1}^n
+          \EV_z 
+              \psi(g^1_\alpha, \ldots, g^{\MM-1}_\alpha, \omega_\alpha + \sigma \rvec_\alpha )^{2\lambda q}
+      ,
+\end{align*}
+where in the second inequality we applied power mean inequality $\mu_\alpha \le \sqrt[2\lambda q]{\EV_z\psi_\alpha(\rvec_\alpha)^{2\lambda q}}$.
+Suppose, WLOG, that $\psi$ is polynomially bounded by an inequality $|\psi(x)| \le C \|x\|^p_p + c$ for some $p, C, c > 0$.
+In the below, we will silently introduce constants $C_1, C_2, \ldots$ via \cref{lem:powerbound} and merge with old constants, such that they will only depend on $\lambda, p, q$.
+Continuing the chain of inequalities above
+\begin{align*}
+  \f 1 n \sum_{\alpha=1}^n \EV_z \tilde \psi_\alpha(\rvec_\alpha)^{2\lambda q}
+  &\le
+      c + 
+      \f 1 n C 2^{2\lambda q}
+      \sum_{\alpha=1}^n
+          \EV_z 
+              \lp 
+                  |g^1_\alpha|^p + \ldots + |g^{\MM-1}_\alpha|^p + |\omega_\alpha + \sigma \rvec_\alpha|^p
+              \rp^{2\lambda q}
+      \\
+  &\le
+      c + 
+      \f 1 n C_1
+      \sum_{\alpha=1}^n
+          \EV_z 
+              \lp 
+                  |g^1_\alpha|^p + \ldots + |g^{\MM-1}_\alpha|^p + |\omega_\alpha|^p + |\sigma \rvec_\alpha|^p
+              \rp^{2\lambda q}
+      \\
+  &\le
+      c +
+      \f 1 n C_2
+      \sum_{\alpha=1}^n
+        \EV_z 
+          |g^1_\alpha|^{2 \lambda q p} + \ldots + |g^{\MM-1}_\alpha|^{2 \lambda q p} + |\omega_\alpha|^{2 \lambda q p}
+          + |\sigma \rvec_\alpha|^{2 \lambda q p}
+      .
+      \numberthis \label{eqn:momentUpperBoundDecomposition}
+  \end{align*}
+  
+  We now proceed to show that the summands of \cref{eqn:momentUpperBoundDecomposition} are almost surely uniformly bounded, which finishes our proof of $\probA \asto 0$.
+  
+  \begin{itemize}
+      \item
+          By \ref{IH:MomConv}($\MM-1$),
+          \[
+          \f 1 n
+              \sum_{\alpha=1}^n
+                  \EV_z 
+                      |g^1_\alpha|^{2 \lambda q p} + \ldots + |g^{\MM-1}_\alpha|^{2 \lambda q p}
+          \]
+          almost surely converges to a deterministic value, so it is almost surely uniformly bounded in $n$.
+  
+      \item
+          In addition, $\sigma \asto \mathring \sigma$, so that, almost surely, for large enough $n$, we have $\sigma \le \mathring \sigma + 1$.
+          (The order of the qualifiers is important here; in general this statement cannot be made uniformly in $n$).
+          Therefore, \emph{almost surely, for large enough $n$},
+          \begin{align*}
+          \f 1 n
+              \sum_{\alpha=1}^n
+              \EV_z |\sigma \rvec_\alpha|^{2 \lambda q p}
+          &\le
+              \f 1 n
+              \sum_{\alpha=1}^n
+                  |\mathring \sigma + 1|^{2\lambda q p}
+                  \EV_z |\rvec_\alpha|^{2 \lambda q p}
+                  .
+          \end{align*}
+          This is almost surely uniformly bounded in $n$ because $\Var(\rvec_\alpha) = (\PP_{\Vme}^\perp)_{\alpha\alpha} \in [0, 1]$ for all $\alpha$ by \cref{lemma:projectionDiagonal}, so that $\EV_z |\rvec_\alpha|^{2 \lambda q p}$ (which is purely a monotonic function of $\Var(z_\alpha)$) is bounded as well.
+      \item
+          It remains to bound $\f 1 n \sum_{\alpha=1}^n |\omega_\alpha|^{2\lambda q p}$.
+          We extract our reasoning here into the \cref{lemma:omegaAlphaUnifomBounded} below, as we will need to reuse this for later.
+          This finishes the proof of $\probA\asto 0.$
+  
+  \end{itemize}
+
+\begin{lemma}\label{lemma:omegaAlphaUnifomBounded}
+  For any polynomially bounded function $\varphi: \R \to \R,$
+  \[
+  \f 1 n \sum_{\alpha=1}^n |\varphi(\omega_\alpha)|
+  \]
+  is almost surely uniformly bounded in $n$.
+\end{lemma}
+\begin{proof}
+  It suffices to prove this for $\varphi(x) = |x|^d$ for any $d > 0$.
+  
+  Expanding $\omega$ according to \cref{lemma:omegaExpansion}, we get
+  \begin{align*}
+      \f 1 n \sum_{\alpha=1}^n |\omega_\alpha|^{d}
+      &=
+          \f 1 n \sum_{\alpha=1}^n \left|
+              \sum_{i=1}^r
+                  \xme_\alpha^i (\mathring {\dme}_i + \varepsilonhat_i)
+              + \sum_{j=1}^s
+                  \vme_\alpha^j (\mathring{\eme}_j + \varepsiloncheck_j)
+          \right|^d
+  \end{align*}
+  for (fixed dimensional) $\varepsilonhat \in \R^r, \varepsiloncheck \in \R^s$ that go to 0 almost surely with $n$.
+  Applying \cref{lem:powerbound}, we get
+  \begin{align*}
+      \f 1 n \sum_{\alpha=1}^n |\omega_\alpha|^d
+      &\le
+          \f 1 n C_3\sum_{\alpha=1}^n
+              \left|
+                  \sum_{i=1}^r
+                  \xme_\alpha^i \mathring {\dme}_i
+              \right|^d
+              +
+              \left|
+                  \sum_{j=1}^s
+                  \vme_\alpha^j \mathring {\eme}_i
+              \right|^d
+              +
+              \left|
+                  \sum_{i=1}^r
+                  \xme_\alpha^i \varepsilonhat_i
+              \right|^d
+              +
+              \left|
+                  \sum_{j=1}^s
+                  \vme_\alpha^j \varepsiloncheck_j
+              \right|^d
+              .
+  \end{align*}
+  We bound each summand separately.
+  \begin{itemize}
+      \item
+          By induction hypothesis, 
+          \begin{align*}
+              \f 1 n \sum_{\alpha=1}^n
+              \left|
+                  \sum_{i=1}^r
+                  \xme_\alpha^i \mathring {\dme}_i
+              \right|^d
+          \end{align*}
+          converges a.s.\ to a deterministic value, so it is a.s uniformly bounded in $n.$
+      \item
+          By the a.s.\ decaying property of $\varepsilonhat$, we have
+          almost surely, for large enough $n$, $|\sum_{i=1}^r \xme_\alpha^i \varepsilonhat_i| \le \sum_{i=1}^r |\xme_\alpha^i|$ (again, the order of qualifier is very important here).
+          By induction hypothesis,
+          \begin{align*}
+          \f 1 n \sum_{\alpha=1}^n
+              \lp \sum_{i=1}^r |\xme_\alpha^i|\rp^d
+          \end{align*}
+          converges a.s.\ to a deterministic value, yielding the a.s.\ uniform-boundedness of it and of
+          \begin{align*}
+          \f 1 n \sum_{\alpha=1}^n
+              \left| \sum_{i=1}^r \xme_\alpha^i \varepsilonhat_i \right|^d.
+          \end{align*}
+      \item
+          Likewise, because for each $j$, $\vme^j$ is a polynomially-bounded function of $g^1, \ldots, g^{\MM-1}$\ \footnote{This is the most crucial place where we need the assumption that all nonlinearities in the program are polynomially bounded. Otherwise, for faster growing functions, the compositions of such nonlinearities might not be integrable against the Gaussian measure}, the summands of
+          \begin{align*}
+          \f 1 n \sum_{\alpha=1}^n
+              \lp \sum_{j=1}^s |\vme_\alpha^j|\rp^d
+          \quad\text{and}\quad
+          \f 1 n \sum_{\alpha=1}^n
+                      \left|
+                          \sum_{j=1}^s
+                          \vme_\alpha^j \mathring{\eme}_j
+                      \right|^d
+          \end{align*}
+          are polynomially-bounded functions of $g^1, \ldots, g^{\MM-1}$ too.
+          So by induction hypothesis, these sums converge a.s., implying the a.s. uniform-boundedness of them and of
+          \begin{align*}
+          \f 1 n \sum_{\alpha=1}^n
+                      \left|
+                          \sum_{j=1}^s
+                          \vme_\alpha^j \varepsiloncheck_j
+                      \right|^d
+              .
+         \end{align*}
+  \end{itemize}
+\end{proof}
+
+\subsubsection{\texorpdfstring{$\probB$}{B} Converges Almost Surely to 0}
+\label{sec:probB}
+\newcommand{\JJc}{J}
+\newcommand{\JJ}{\bar{\JJc}}
+
+In this section we show  $\probB \asto 0.$
+
+\paragraph{Some Notations}
+For brevity, we will set $d_\alpha \defeq (\PP^\perp_{\Vme})_{\alpha\alpha}$.
+In addition, for each $\alpha \in [n]$, $w \in \R$, $\tau \ge 0$, define the function $\Psi_\alpha(-; -): \R \times \R^{\ge 0} \to \R$ by
+\[\Psi_\alpha(w; \tau^2) \defeq
+            \EV_{z\sim\Gaus(0, 1)}
+            \psi\lp
+                g^1_\alpha, \ldots, g^{\MM-1}_\alpha, w + \tau z
+                \rp.
+\]
+(Here and in all that follows, $\tau^2$ is the square of $\tau$, and the $2$ is not an index).
+This is a random function, with randomness induced by $g^1, \ldots, g^{\MM-1}$.
+
+\paragraph{Our proof idea} is to write
+\begin{align*}
+\probB
+    &=
+        \left| \f 1 n \sum_{\alpha=1}^n
+            \Psi_\alpha\lp \omega_\alpha; \sigma^2 d_\alpha \rp
+            -
+            \Psi_\alpha\lp
+              \sum_{i=1}^r \mathring {\dme}_i \xme^i_\alpha +
+                \sum_{j=1}^s \mathring {\eme}_j \vme^j_\alpha
+              ; \mathring \sigma^2 \rp
+        \right|
+        \\
+    &\le
+        \f 1 n
+        \sum_{\alpha\in \JJ}
+        \left|\Psi_\alpha\lp \omega_\alpha; \sigma^2 d_\alpha\rp\right|
+        +
+        \left|\Psi_\alpha\lp
+              \sum_{i=1}^r \mathring {\dme}_i \xme^i_\alpha +
+                \sum_{j=1}^s \mathring {\eme}_j \vme^j_\alpha
+                ;
+                \mathring \sigma^2
+              \rp
+        \right|
+        \numberthis \label{eqn:smalldiagonal}
+        \\
+    &\qquad
+        +
+        \f 1 n \sum_{\alpha\in \JJc}
+        \left|
+        \Psi_\alpha\lp \omega_\alpha; \sigma^2 d_\alpha\rp
+        -
+        \Psi_\alpha\lp
+              \sum_{i=1}^r \mathring {\dme}_i \xme^i_\alpha +
+                \sum_{j=1}^s \mathring {\eme}_j \vme^j_\alpha
+                ; \mathring \sigma^2
+              \rp
+        \numberthis \label{eqn:largediagonal}
+        \right|
+\end{align*}
+where $\JJc \sqcup \JJ = [n]$ is a partition of $[n]$ with $\JJc \defeq \{\alpha: d_\alpha \ge 1/2\}$ and $\JJ$ is its complement.
+Note that $|\JJ| \le 2 \rank \Vme \le 2 s$ is uniformly bounded in $n$.
+We then show each summand of \cref{eqn:smalldiagonal} goes to 0 a.s.\ individually.
+Finally we use the smoothness of $\Psi_\alpha$ (\cref{eqn:PsiSmoothness}) induced by the Gaussian averaging in $z$ to show each summand of \cref{eqn:largediagonal} is almost surely $o(1)$, finishing the proof.
+
+\paragraph{\cref{eqn:smalldiagonal} converges to 0 a.s.}
+We first look at the term
+\begin{align*}
+\f 1 n
+\sum_{\alpha\in \JJ}
+\left|\Psi_\alpha\lp
+            \sum_{i=1}^r \mathring {\dme}_i \xme^i_\alpha +
+              \sum_{j=1}^s \mathring {\eme}_j \vme^j_\alpha
+              ;
+              \mathring \sigma^2
+            \rp
+\right|
+&\le
+    \f{|\JJ|}n \max_{\alpha \in [n]}
+        \left|\Psi_\alpha\lp 
+              \sum_{i=1}^r \mathring {\dme}_i \xme^i_\alpha +
+                \sum_{j=1}^s \mathring {\eme}_j \vme^j_\alpha
+                ; \mathring \sigma^2 \rp\right|
+    \\
+&\le
+    \f{2s}{n^{1-1/q}} \sqrt[q]{\f 1 n \sum_{\alpha \in [n]} \left|\Psi_\alpha\lp
+              \sum_{i=1}^r \mathring {\dme}_i \xme^i_\alpha +
+                \sum_{j=1}^s \mathring {\eme}_j \vme^j_\alpha
+              ; \mathring \sigma^2
+            \rp
+          \right|^q}
+    \numberthis\label{eqn:smalldiagonalEasy}
+\end{align*}
+for any $q > 0$.
+Here we used  $|\JJ| \le 2 \rank \Vme \le 2 s$ as noted above.
+Now $\left|\Psi_\alpha\lp 
+\sum_{i=1}^r \mathring {\dme}_i \xme^i_\alpha +
+\sum_{j=1}^s \mathring {\eme}_j \vme^j_\alpha;
+\mathring \sigma^2 \rp\right|^q$
+is a fixed (independent of $\alpha$ and $n$) polynomially-bounded function of $g^1_\alpha, \ldots, g^{\MM-1}_\alpha$, so by induction hypothesis, 
+\[\f 1 n \sum_{\alpha \in [n]} \left|\Psi_\alpha\lp
+  \sum_{i=1}^r \mathring {\dme}_i \xme^i_\alpha +
+    \sum_{j=1}^s \mathring {\eme}_j \vme^j_\alpha
+; \mathring \sigma^2 \rp\right|^q\]
+is a.s. uniformly bounded in $n$, so that using a large $q \ge 2$, we see \cref{eqn:smalldiagonalEasy} converges a.s. to 0.
+
+Next, we apply a similar reasoning to the other term and obtain
+\begin{align*}
+\f 1 n
+\sum_{\alpha\in \JJ}
+\left|\Psi_\alpha\lp \omega_\alpha; \sigma^2 d_\alpha\rp\right|
+&\le
+    \f{2s}{n^{1-1/q}} \sqrt[q]{\f 1 n \sum_{\alpha \in [n]}
+    \left|\Psi_\alpha\lp \omega_\alpha; \sigma^2 d_\alpha\rp\right|^q
+    }
+\end{align*}
+We in fact already know that
+\[\f 1 n \sum_{\alpha \in [n]}
+    \left|\Psi_\alpha\lp \omega_\alpha; \sigma^2 d_\alpha\rp\right|^q\]
+is a.s. uniformly bounded in $n$
+from \cref{eqn:momentUpperBoundDecomposition} in \cref{sec:probA}, so that 
+\[
+\f 1 n
+\sum_{\alpha\in \JJ}
+\left|\Psi_\alpha\lp \omega_\alpha; \sigma^2 d_\alpha\rp\right|
+\asto 0\]
+from which follows the same for \cref{eqn:smalldiagonal}.
+
+\paragraph{\cref{eqn:largediagonal} converges to 0 a.s.}
+
+As mentioned above, to prove this we will use the following smoothness bound of $\Psi_\alpha$, whose proof will be delayed to the end of the section.
+Suppose, WLOG, that the polynomially boundedness of $\psi$ presents itself in an inequality $|\psi(x)| \le C \|x\|^p_{p} + C$, for some $p, C > 0$, where $p$ is an integer.
+This $p$ will appear explicitly in this smoothness bound below.
+
+\begin{lemma}[Smoothness of $\Psi_\alpha$]\label{lemma:PsiAlphaSmoothnessBound}
+Let $w, \Delta w \in \R, \tau^2, \Delta \tau^2 \in \R^{\ge 0}$.
+Then
+\begin{align*}
+&\left| \Psi_\alpha(w+\Delta w ; \tau^2 + \Delta \tau^2) - \Psi_\alpha(w; \tau^2)\right|
+\\
+&\quad\quad\quad\le
+    R
+    (|\Delta w| + \Delta \tau^2)
+    (1 + \tau^{-2})
+        \lp S_\alpha + |w|^p + |\Delta w|^p + \tau^p + (\Delta\tau^2)^{p/2} \rp
+    \numberthis
+    \label{eqn:PsiSmoothness}
+\end{align*}
+for some constant $R > 0$, and where
+\[S_\alpha \defeq 1 + |g^1_\alpha|^{p} + \cdots + |g^{\MM-1}_\alpha|^p.\]
+\end{lemma}
+
+To bound \cref{eqn:largediagonal}, first we expand
+\[
+\omega_\alpha =
+\sum_{i=1}^r \xme_\alpha^i (\mathring {\dme}_i + \hat \epsilon_i)
++ \sum_{j=1}^s \vme_\alpha^j (\mathring {\eme}_j + \check \epsilon_j)
+\]
+where, by \cref{lemma:omegaExpansion}, $\hat \epsilon \in \R^r, \check \epsilon \in \R^s$ are vectors that go to 0 almost surely with $n$.
+Then we apply the smoothness bound \cref{eqn:PsiSmoothness} to get, for each $\alpha \in \JJc$
+\begin{align*}
+    \left|
+    \Psi_\alpha\lp \omega_\alpha; \sigma^2 d_\alpha\rp
+    -
+    \Psi_\alpha\lp
+      \sum_{i=1}^r \mathring {\dme}_i \xme^i_\alpha +
+        \sum_{j=1}^s \mathring {\eme}_j \vme^j_\alpha
+        ; \mathring \sigma^2 \rp
+    \right|
+    &\le
+        R
+        \lp 1 + \min(\sigma^2 d_\alpha, \mathring \sigma^2)^{-1} \rp
+        X_\alpha
+        Y_\alpha
+        \\
+    &\le
+        R
+        \lp 1 + \min(\sigma^2/2, \mathring \sigma^2)^{-1} \rp
+        X_\alpha
+        Y_\alpha
+\end{align*}
+using the definition of $\JJc$ that $d_\alpha \ge 1/2, \forall \alpha \in \JJc$.
+Here we have defined
+\begin{align*}
+X_\alpha
+    &\defeq
+        |\omega_\alpha - 
+          \sum_{i=1}^r \mathring {\dme}_i \xme^i_\alpha -
+            \sum_{j=1}^s \mathring {\eme}_j \vme^j_\alpha|
+        + |\sigma^2 d_\alpha - \mathring \sigma^2|
+        \\
+    &=
+        \left|\sum_{i=1}^r \xme_\alpha^i \hat \epsilon_i
+                + \sum_{j=1}^s \vme_\alpha^j \check \epsilon_j
+        \right|
+        + |\sigma^2 d_\alpha - \mathring \sigma^2|
+        \\
+Y_\alpha
+    &\defeq
+        S_\alpha + |\omega_\alpha|^p
+        + \left|\sum_{i=1}^r \xme_\alpha^i \hat \epsilon_i
+                + \sum_{j=1}^s \vme_\alpha^j \check \epsilon_j
+        \right|^p
+        + \max(\sigma^2 d_\alpha, \mathring \sigma^2)^{p/2}
+        + |\sigma^2 d_\alpha - \mathring \sigma^2|^{p/2}
+        .
+        \\
+\end{align*}
+Thus,
+\begin{align*}
+\cref{eqn:largediagonal}
+    &=
+        \f 1 n \sum_{\alpha\in \JJc}
+        \left|
+        \Psi_\alpha\lp \omega_\alpha; \sigma^2 d_\alpha\rp
+        -
+        \Psi_\alpha\lp
+          \sum_{i=1}^r \mathring {\dme}_i \xme^i_\alpha +
+            \sum_{j=1}^s \mathring {\eme}_j \vme^j_\alpha;
+          \mathring \sigma^2 \rp
+        \right|
+        \\
+    &\le
+        R
+        \f 1 n
+        \lp 1 + \min(\sigma^2/2, \mathring \sigma^2)^{-1} \rp
+        \sum_{\alpha \in \JJc}
+            X_\alpha
+            Y_\alpha
+        \\
+    &\le
+        R
+        \lp 1 + \min(\sigma^2/2, \mathring \sigma^2)^{-1} \rp
+        \sqrt{\f 1 n \sum_{\alpha \in \JJc}
+            X_\alpha^2}
+        \sqrt{\f 1 n \sum_{\alpha \in \JJc}
+            Y_\alpha^2
+            }
+        .
+\end{align*}
+Since $\sigma \asto \mathring \sigma$ and we have assumed $\mathring \sigma > 0$ by \cref{assm:mathringSigmaPositive}, we have $\lp 1 + \min(\sigma^2/2, \mathring \sigma^2)^{-1} \rp$ is almost surely uniformly bounded in $n$.
+
+Therefore, \cref{eqn:largediagonal} can be shown to converge a.s.\ to 0 if we show
+\begin{align*}
+&\sqrt{\f 1 n \sum_{\alpha \in \JJc} Y_\alpha^2} \quad\text{is a.s.\ uniformly bounded in $n$, and}\\
+&\sqrt{\f 1 n \sum_{\alpha \in \JJc} X_\alpha^2} \asto 0
+\end{align*}
+
+We prove these two claims in \cref{lemma:YAlphaUnifBounded,lemma:XalphaAsto0} below, which would finish our proof of $\probB \asto 0$, and of our main theorem \cref{thm:NetsorTMasterTheorem} as well.
+
+\begin{lemma}\label{lemma:XalphaAsto0}
+$\sqrt{\f 1 n \sum_{\alpha \in \JJc} X_\alpha^2} \asto 0$.
+\end{lemma}
+\begin{proof}
+    Note that
+    \begin{align*}
+    X_\alpha
+        &\le
+            \left|\sum_{i=1}^r \xme_\alpha^i \hat \epsilon_i
+                    + \sum_{j=1}^s \vme_\alpha^j \check \epsilon_j
+            \right|
+            + |\mathring \sigma^2 - \sigma^2|
+            + |\sigma^2 - \sigma^2 d_\alpha|
+            \\
+        &\defeq
+            P_\alpha + Q_\alpha + R_\alpha
+            .
+    \end{align*}
+    Then by triangle inequality (in $\ell_2$-norm),
+    \begin{align*}
+    \sqrt{\f 1 n \sum_{\alpha \in \JJc} X_\alpha^2}
+        &\le
+            \sqrt{\f 1 n \sum_{\alpha \in \JJc} P_\alpha^2}
+            + \sqrt{\f 1 n \sum_{\alpha \in \JJc} Q_\alpha^2}
+            + \sqrt{\f 1 n \sum_{\alpha \in \JJc} R_\alpha^2}
+            .
+    \end{align*}
+    We now show that each term above converges a.s.\ to 0, which would finish the proof of \cref{lemma:XalphaAsto0}.
+    \begin{itemize}
+    \item
+        Because $\hat \epsilon \asto 0$ and $\check \epsilon \asto 0$, we have, for some constant $C > 0$,
+        \begin{align*}
+        \f 1 n \sum_{\alpha \in \JJc} P_\alpha^2
+            &\le
+                C \f 1 n \sum_{\alpha \in \JJc} \lp
+                    \sum_{i=1}^r (\xme_\alpha^i \hat \epsilon_i)^2
+                    + \sum_{j=1}^s (\vme_\alpha^j \check \epsilon_j)^2
+                    \rp
+                \\
+            &\le
+                C \max_{i,j}\{|\hat \epsilon_i|, |\check \epsilon_j|\} \times 
+                \f 1 n \sum_{\alpha \in \JJc} \lp
+                    \sum_{i=1}^r (\xme_\alpha^i)^2
+                    + \sum_{j=1}^s (\vme_\alpha^j)^2
+                    \rp
+                \\
+            &\le
+                C \max_{i,j}\{|\hat \epsilon_i|, |\check \epsilon_j|\} \times 
+                \f 1 n \sum_{\alpha \in [n]} \lp
+                    \sum_{i=1}^r (\xme_\alpha^i)^2
+                    + \sum_{j=1}^s (\vme_\alpha^j)^2
+                    \rp
+                \\
+            &\asto
+                C \times 0 \times \mathcal{E} = 0
+        \end{align*}
+        where $\mathcal{E}$ is the Gaussian expectation that $\f 1 n \sum_{\alpha \in [n]} \lp
+                    \sum_{i=1}^r (\xme_\alpha^i)^2
+                    + \sum_{j=1}^s (\vme_\alpha^j)^2
+                    \rp$ converges a.s. to, by inductive hypothesis.
+    \item
+        The quantity $Q_\alpha$ actually doesn't depend on $\alpha$, so that
+        \[\sqrt{\f 1 n \sum_{\alpha \in \JJc} Q_\alpha^2} \le |\mathring \sigma^2 - \sigma^2| \asto 0\]
+        by \cref{lemma:sigmaConverges}.
+    \item
+        Notice $R_\alpha^2 = \sigma^4 (1 - d_\alpha)^2 \le \sigma^4 (1 - d_\alpha)$ because $1 - d_\alpha \in [0, 1/2]$ for $\alpha \in \JJc$.
+        Thus,
+        \begin{align*}
+        \f 1 n \sum_{\alpha \in \JJc} R_\alpha^2
+            &\le
+                \sigma^4 \f 1 n \sum_{\alpha \in \JJc} 1 - d_\alpha
+            \le 
+                \sigma^4 \f 1 n \sum_{\alpha \in [n]} 1 - d_\alpha
+            =
+                \sigma^4 \f 1 n \rank \Vme
+        \end{align*}
+        by the definition that $d_\alpha = (\PP^\perp_{\Vme})_{\alpha\alpha}$.
+        But of course $\rank \Vme \le s$ is bounded relative to $n$.
+        So this quantity goes to 0 almost surely) as desired.
+    \end{itemize}
+\end{proof}
+
+\begin{lemma}\label{lemma:YAlphaUnifBounded}
+$\sqrt{\f 1 n \sum_{\alpha \in \JJc} Y_\alpha^2}$ is a.s.\ uniformly bounded in $n$.
+\end{lemma}
+\begin{proof}
+  \newcommand{\XX}{\hat{X}}
+  We have
+  \begin{align*}
+  \sqrt{\f 1 n \sum_{\alpha \in \JJc} Y_\alpha^2}
+      &\le
+          \sqrt{\f 1 n \sum_{\alpha \in \JJc} S_\alpha^2}
+          + \sqrt{\f 1 n \sum_{\alpha \in \JJc} |\omega_\alpha|^{2p}}
+          + \sqrt{\f 1 n \sum_{\alpha \in \JJc} \XX_\alpha{}^2}
+          + \sqrt{\f 1 n \sum_{\alpha \in \JJc} \max(\sigma^2 d_\alpha, \mathring \sigma^2)^p}
+          \\
+      &\le
+          \sqrt{\f 1 n \sum_{\alpha \in [n]} S_\alpha^2}
+          + \sqrt{\f 1 n \sum_{\alpha \in [n]} |\omega_\alpha|^{2p}}
+          + \sqrt{\f 1 n \sum_{\alpha \in [n]} \XX_\alpha{}^2}
+          + \sqrt{\f 1 n \sum_{\alpha \in [n]} \max(\sigma^2 d_\alpha, \mathring \sigma^2)^p}
+  \end{align*}
+  where
+  \[\XX_\alpha \defeq \left|\sum_{i=1}^r \xme_\alpha^i \hat \epsilon_i
+                  + \sum_{j=1}^s \vme_\alpha^j \check \epsilon_j
+          \right|^p
+          + |\sigma^2 d_\alpha - \mathring \sigma^2|^{p/2}
+  \]
+  We proceed to show that each of 4 summands above are individually a.s.\ uniformly bounded in $n$.
+  \begin{itemize}
+  \item
+      $S_\alpha^2$ is a polynomially bounded function of $g^1_\alpha, \ldots, g^{\MM-1}_\alpha$, so that by \ref{IH:MomConv}$(\MM-1)$,
+      \[\f 1 n \sum_{\alpha \in [n]} S_\alpha^2 \asto C\]
+      for some constant $C$, so it is also a.s.\ uniformly bounded in $n$.
+  \item
+      By \cref{lemma:omegaAlphaUnifomBounded}, we get
+      \begin{equation*}
+      \f 1 n \sum_{\alpha \in [n]} |\omega_\alpha|^{2p}
+      \end{equation*}
+      is a.s.\ uniformly bounded in $n$.
+  \item
+      Using the same reasoning as in the proof of \cref{lemma:XalphaAsto0}, one can easily show
+      \[
+      \f 1 n \sum_{\alpha \in [n]} \XX_\alpha{}^2 \asto 0
+      \]
+      so it is also a.s.\ uniformly bounded. 
+  \item
+      Since $d_\alpha \le 1$, we have $\max(\sigma^2 d_\alpha, \mathring\sigma^2) \le \max(\sigma^2, \mathring \sigma^2)$, which is independent of $\alpha$.
+      Therefore,
+      \begin{align*}
+      \f 1 n \sum_{\alpha \in [n]} \max(\sigma^2 d_\alpha, \mathring \sigma^2)^p
+      &\le
+          \f 1 n \sum_{\alpha \in [n]} \max(\sigma^2, \mathring \sigma^2)^p
+      =
+          \max(\sigma^2, \mathring \sigma^2)^{p/2}
+      \asto \mathring \sigma^p.
+      \end{align*}
+      and it is also a.s.\ uniformly bounded in $n$.
+  \end{itemize}
+  
+  
+\end{proof}
+  
+Finally, we deliver the promised proof of \cref{lemma:PsiAlphaSmoothnessBound}.
+
+\begin{proof}[Proof of \cref{lemma:PsiAlphaSmoothnessBound}]
+
+By \cref{lemma:stein}, $\Psi_\alpha$ is differentiable in $w$, and
+\begin{align}
+    \pd_w \Psi_\alpha(w; \tau^2)
+    &=
+        \inv \tau \EV_{z \sim \Gaus(0, 1)} z \psi(g^1_\alpha, \ldots, g^{\MM - 1}_\alpha, w+ \tau z)
+        \label{eqn:PsiAlphaDW}
+        \\
+    \pd_{\tau^2} \Psi_\alpha(w; \tau^2)
+    &=
+        \f 1 2 \tau^{-2}
+        \EV_{z \sim \Gaus(0, 1)} (z^2-1) \psi(g^1_\alpha, \ldots, g^{\MM - 1}_\alpha, w+ \tau z)
+        .
+        \label{eqn:PsiAlphaDTau2}
+\end{align}
+
+Recall that $|\psi(x)| \le C \|x\|^p_{p} + C$.
+We will silently introduce constants $C_1, C_2, \ldots$ depending only on $p$, merging with old constants, typically via \cref{lem:powerbound} or by integrating out some integrands depending only on $p$.
+With $z \sim \Gaus(0, 1)$,
+\begin{align*}
+|\pd_w \Psi_\alpha(w; \tau^2)|
+    &\le
+        \inv \tau \EV_{z} |z| |\psi(g^1_\alpha, \ldots, g^{\MM - 1}_\alpha, w+ \tau z)|
+        \\
+    &\le
+        \inv \tau C\EV_z |z| \lp 1 + |g^1_\alpha|^{p} + \cdots + |g^{\MM-1}_\alpha|^p + |w + \tau z|^p \rp
+        \\
+    &\le
+        \inv \tau C_1\EV_z |z| \lp 1 + |g^1_\alpha|^{p} + \cdots + |g^{\MM-1}_\alpha|^p + |w|^p + \tau^p |z|^p \rp
+        \\
+    &\le
+        \inv \tau C_2 \lp 1 + |g^1_\alpha|^{p} + \cdots + |g^{\MM-1}_\alpha|^p + |w|^p + \tau^p \rp
+        .
+\end{align*}
+Similarly,
+\begin{align*}
+|\pd_{\tau^2} \Psi_\alpha(w; \tau^2)|
+    &\le
+        \f 1 2 \tau^{-2} \EV_z |z^2-1| |\psi(g^1_\alpha, \ldots, g^{\MM - 1}_\alpha, w+ \tau z)|
+        \\
+    &\le
+        \tau^{-2} C_3 \lp 1 + |g^1_\alpha|^{p} + \cdots + |g^{\MM-1}_\alpha|^p + |w|^p + \tau^p \rp
+        .
+\end{align*}
+
+Therefore, for any $\Delta w \in \R, \Delta \tau^2 \in \R^{\ge 0}$, we have
+\begin{align*}
+&\phantomeq
+    \left| \Psi_\alpha(w+\Delta w; \tau^2 + \Delta \tau^2) - \Psi_\alpha(w; \tau^2)\right|
+    \\
+&=
+    \left|
+    \int_0^1 \dd t \lp 
+        \Delta w \cdot \pd_w \Psi_\alpha(w + \Delta w t; \tau^2 + \Delta \tau^2 t) +
+        \Delta \tau^2 \cdot \pd_{\tau^2} \Psi_\alpha(w + \Delta w t; \tau^2 + \Delta \tau^2 t)
+        \rp
+    \right|
+    \\
+&\le
+    \int_0^1 \dd t \lp 
+        |\Delta w| \cdot |\pd_w \Psi_\alpha(w + \Delta w t; \tau^2 + \Delta \tau^2 t)| +
+        |\Delta \tau^2| \cdot |\pd_{\tau^2} \Psi_\alpha(w + \Delta w t; \tau^2 + \Delta \tau^2 t)|
+        \rp
+    \\
+&\le
+    (C_2 + C_3)
+    (|\Delta w| + |\Delta \tau^2|)
+    \\
+&\quad
+    \int_0^1 \dd t
+        ((\tau^2 + \Delta \tau^2 t)^{-1/2} + (\tau^2 + \Delta \tau^2 t)^{-1})
+        \times
+        \lp S_\alpha + |w+\Delta w t|^p + (\tau^2 + \Delta\tau^2 t)^{p/2} \rp
+\end{align*}
+where
+\[S_\alpha \defeq 1 + |g^1_\alpha|^{p} + \cdots + |g^{\MM-1}_\alpha|^p,\]
+which is independent of $t$.
+Since $\Delta \tau^2 \ge 0$, $(\tau^2 + \Delta \tau^2 t)^{-1} \le \tau^{-2}$, and we get
+\begin{align*}
+&\phantomeq
+    \left| \Psi_\alpha(w+\Delta w; \tau^2 + \Delta \tau^2) - \Psi_\alpha(w; \tau^2)\right|
+    \\
+&\le
+    C_4
+    (|\Delta w| + \Delta \tau^2)
+    (\inv \tau + \tau^{-2})
+    \int_0^1 \dd t
+        \lp S_\alpha + |w+\Delta w t|^p + (\tau^2 + \Delta\tau^2 t)^{p/2} \rp
+    \\
+&\le
+    C_5
+    (|\Delta w| + \Delta \tau^2)
+    (\inv \tau + \tau^{-2})
+    \int_0^1 \dd t
+        \lp S_\alpha + |w|^p + |\Delta w|^p t^p + \tau^p + (\Delta\tau^2)^{p/2} t^{p/2} \rp
+    \\
+&\le
+    C_6
+    (|\Delta w| + \Delta \tau^2)
+    (\inv \tau + \tau^{-2})
+        \lp S_\alpha + |w|^p + |\Delta w|^p + \tau^p + (\Delta\tau^2)^{p/2} \rp
+\end{align*}
+where in the end we have integrated out $t^p$ and $t^{p/2}$.
+We finally apply the simplification $\tau^{-1} \le \f 1 2 + \f 1 2 \tau^{-2}$ by AM-GM to get the desired \cref{eqn:PsiSmoothness}.
+\end{proof}
+
+\section{Proof of \texorpdfstring{\netsortplus{}}{NetsorT+} Master Theorem Assuming Rank Stability}
+
+\label{sec:netsortplusMasterTheoremProof}
+
+In this section we describe how to augment the proof of \cref{thm:NetsorTMasterTheorem} given in \cref{sec:proofMainTheorem} to yield the proof of \cref{thm:PCNetsorT+MasterTheorem}.
+This is very similar to the proof of the \netsorplus{} Master Theorem in \citet{yangTP1}.
+The key points to note here are 1) the rank stability assumption \cref{assm:asRankStab} used in \cref{thm:PCNetsorT+MasterTheorem}, and 2) an additional term in \cref{eqn:decompABC} due to fluctuations in the parameter $\bigtheta$.
+
+\subsection{Rank Stability}
+
+By \cref{remk:necessityRankStab}, we see that rank stability assumption is necessary for the parameter-controlled \netsortplus{} Master Theorem.
+In the proof of the \netsort{} Master Theorem (\cref{sec:proofMainTheorem}), we had to intricately weave together an induction on rank stability (more generally, \ref{IH:coreSet}) and an induction on moment convergence (\ref{IH:MomConv}).
+However, here, to show \cref{thm:PCNetsorT+MasterTheorem}, we just need 1) to induct on \ref{IH:MomConv} and 2)
+to invoke \cref{assm:asRankStab} whenever we need to use \cref{lemma:rankStability}, which is when we need to show that pseudo-inverse commutes with almost surely limit, such as in \cref{prop:pseudoinverseLambda}, and when we need to ensure either $\sigma$ is almost surely 0 or is almost surely positive, as in \cref{sec:probB}.
+
+\subsection{Fluctuation of the Parameters}
+\label{sec:D}
+As in \cref{sec:proofMainTheorem}, we will induct on the G-vars $g^1, \ldots, g^\MM$ in the program to show that
+\begin{enumerate}
+  \item For any random vector $\bigtheta \in \R^l$ that converges almost surely to a deterministic vector $\mathring{\bigtheta}$ as $n \to \infty$, and for any $\psi(-; -): \R^\MM \times \R^l \to \R$ parameter-controlled at $\mathring{\bigtheta}$,
+  \begin{align*}
+      \f 1 n \sum_{\alpha=1}^n \psi(g^1_\alpha, \ldots, g^\MM_\alpha; \bigtheta) \asto \EV\psi(Z^{g^1}, \ldots, Z^{g^\MM}; \mathring{\bigtheta}).
+  \end{align*}
+  for any G-vars $g^1, \ldots, g^\MM$, 
+  where $Z^{g^{i}}$ are as defined in \cref{{defn:netsortplusKeyIntuit}}.
+  \item Each scalar $\theta$ that is a deterministic function of $g^1, \ldots, g^\MM$ converges a.s.\ to $\mathring \theta$.
+\end{enumerate}
+The latter trivially follows from former, so we will focus on proving the former in the inductive step.
+
+When we have parameters in nonlinearities, \cref{eqn:decompABC} needs to be modified to contain an additional term $\probD$:
+
+\begin{align*}
+    &\phantomeq
+        \left|\f 1 n \sum_{\alpha = 1}^n \psi(g^1_\alpha, \ldots, g^{\MM}_\alpha; \bigtheta)
+        - \EV \psi(Z^{g^1}, \ldots, Z^{g^\MM}; \mathring{\bigtheta})
+        \right|
+    \le
+        \probD + \probA + \probB + \probC
+\end{align*}
+where
+\begin{align*}
+\probD
+    &\defeq
+        \left|\f 1 n \sum_{\alpha = 1}^n \psi(g^1_\alpha, \ldots, g^{\MM}_\alpha; \bigtheta)
+        - \psi(g^1_\alpha, \ldots, g^{\MM}_\alpha; \mathring{\bigtheta})
+        \right|
+\end{align*}
+and $\probA, \probB, \probC$ are as in \cref{eqn:decompABC} but replacing $\psi(-)$ there with $\psi(-; \mathring{\bigtheta})$.
+Because $\psi(-; -)$ is parameter-controlled at $\mathring{\bigtheta}$ by assumption, $\psi(-; \mathring{\bigtheta})$ is controlled, and $\probA, \probB, \probC \asto 0$ with the same arguments as before (except using rank stability assumption \cref{assm:asRankStab} where appropriate, instead of \ref{IH:coreSet}).
+
+Now, by the other property of parameter-control, we have
+\begin{align*}
+\probD
+    \le
+        \f 1 n \sum_{\alpha = 1}^n 
+        \left|\psi(g^1_\alpha, \ldots, g^{\MM}_\alpha; \bigtheta)
+        - \psi(g^1_\alpha, \ldots, g^{\MM}_\alpha; \mathring{\bigtheta})
+        \right|
+    &\le
+        \f 1 n \sum_{\alpha = 1}^n 
+        f(\bigtheta) \bar \psi(g^1_\alpha, \ldots, g^\MM_\alpha)
+        \\
+    &=
+        f(\bigtheta)
+        \f 1 n \sum_{\alpha = 1}^n 
+        \bar \psi(g^1_\alpha, \ldots, g^\MM_\alpha)
+\end{align*}
+for some controlled $\bar \psi: \R^\MM \to \R$ and some $f: \R^l \to \R^{\ge 0} \cup \{\infty\}$ that is continuous at $\mathring{\bigtheta}$ and has $f(\mathring{\bigtheta}) = 0$ (where $\bar \psi$ and $f$ can both depend on $\mathring{\bigtheta}$).
+Since $\bigtheta \asto \mathring{\bigtheta}$ by induction hypothesis, we have $f(\bigtheta) \asto 0$.
+In addition, by \ref{IH:MomConv}, $\f 1 n \sum_{\alpha = 1}^n 
+\bar \psi(g^1_\alpha, \ldots, g^\MM_\alpha)$ converges a.s.\ as well to a finite constant.
+Therefore,
+\begin{align*}
+\probD \asto 0
+\end{align*}
+as desired.
+
+\subsection{Summary}
+
+The proof of \cref{thm:PCNetsorT+MasterTheorem} would proceed as follows: We induct on \ref{IH:MomConv} with the same setup as \cref{sec:inductiveSetup}, except using \cref{assm:asRankStab} for \cref{prop:pseudoinverseLambda}.
+Then we prove the inductive step for \ref{IH:MomConv} as in \cref{sec:inductiveMoments}.
+We modify \cref{eqn:decompABC} to add a term $\probD$ as in \cref{sec:D}, which goes to 0 a.s.\ as argued there.
+The same arguments for $\probA, \probB, \probC \asto 0$, exhibited in \cref{sec:inductiveMoments} still hold, except that in the proof of $\probB \asto 0$, we apply \cref{assm:asRankStab} (instead of \cref{lemma:rankStability}) to allow us to assume $\mathring \sigma > 0$ and $\sigma > 0$ almost surely.
+
+\section{Proof of \texorpdfstring{\netsortplus{}}{NetsorT+} Master Theorem without Assuming Rank Stability}
+
+\label{sec:proofNetsorTPlusNoRS}
+
+In this section, we prove \cref{thm:PLNetsorT+MasterTheoremNoRS}.
+
+\global\long\def\coreset{\mathcal{M}}%
+
+\global\long\def\vanset{\overline{\mathcal{M}}}%
+
+\begin{defn}
+We say a vector $v\in\R^{n}$ has \emph{vanishing moments} if $\frac{1}{n}\sum_{\alpha=1}^{n}v_{\alpha}^{2k}\asto0$ for all integer $k>0$ as $n\to\infty$. We say it has \emph{bounded moments} if there are finite $C_{k}\in\R$ such that $\frac{1}{n}\sum_{\alpha=1}^{n}v_{\alpha}^{2k}\asto C_{k}$ for all $k$.
+\end{defn}
+
+Assume each \refNonlinPlus{} instruction only takes G-vars instead of any vector in the program.
+
+\subparagraph*{Proof Plan}
+
+We will inductively rewrite the program and maintain a 1) core set $\coreset$ of G-vars whose elements are orthogonal as vectors and have non-vanishing moments and 2) a set $\vanset$ of G-vars with vanishing moments. In particular, the vectors in $\vanset$ will take the form $Av$ for some matrix $A$ and some $v$ with vanishing moments. Any vector in the original program will always be (mathematically) a linear combination of vectors in $\coreset$ and $\vanset$. Then \ref{IH:MomConv} largely reduces to that of $\coreset$, which has rank stability. 
+
+Every non-initial vector $g$ of $\coreset$ is created by \refMatMulPlus{}, say $g=Ah$ for some matrix $A$ and vector $h$. For any matrix $A$, define $\coreset_{A}^{*}$ to be the collection of all such $h$.
+
+\subsection{Induction Hypotheses}
+
+Let $g^{1},\ldots,g^{M}$ be all of the G-vars in the program, including initial vectors, in order of appearance. We inductively rewrite the program and expand $\coreset$ and $\vanset$, maintaining the following induction hypothesis for each $m\in[M]$.
+\begin{description}
+\item [IH\label{IH:NoRS}]\!\!\!$(m)$\ \ \ 
+  The following hold simultaneously
+  \begin{description}
+  \item [Rewrite\label{IH:Rewrite}]\!\!\!$(m)$\ \ \ 
+    $g^{1},\ldots,g^{m}$ are mathematically linear combinations of vectors in $\coreset$ and $\vanset$ whose coefficients are definable using \refMoment{} applied to $\coreset$ and $\vanset$.
+  \item [Moments\label{IH:MomentsNoRS}]\!\!\!$(m)$\ \ \ 
+    Let $z^{1},\ldots,z^{k}$ be all vectors in $\coreset$ and $\bar{z}^{1},\ldots,\bar{z}^{\bar{k}}$ be all vectors in $\vanset$. For any pseudo-Lipschitz $\psi:\R^{k+\bar{k}}\to\R$,
+  \[
+  \frac{1}{n}\sum_{\alpha=1}^{n}\psi(z_{\alpha}^{1},\ldots,z_{\alpha}^{k},\bar{z}_{\alpha}^{1},\ldots,\bar{z}_{\alpha}^{\bar{k}})\asto\EV\psi(Z^{z^{1}},\ldots,Z^{z^{k}},0,\ldots,0).
+  \]
+  \item [Orthogonal\label{IH:Orthogonal}]\!\!\!$(m)$\ \ \ 
+    For all $n$, for any matrix $A$, $\coreset_{A}^{*}$ forms an orthogonal system of vectors where each vector has $\ell_{2}$ norm $\sqrt{n}$
+  \item [VanSet\label{IH:Vanset}]\!\!\!$(m)$\ \ \ 
+    Every vector of $\vanset$ has vanishing moments
+  \end{description}
+\end{description}
+By induction, we will have \ref{IH:Rewrite}$(M)$ and \ref{IH:MomentsNoRS}$(M)$, which together with \cref{lemma:removeVanishing} imply \cref{thm:PLNetsorT+MasterTheoremNoRS}.
+
+\subsection{Base Case}
+
+WLOG, we may assume the initial vectors have identity covariance by applying Gram-Schmidt. These vectors are added to $\coreset$. Currently, $\vanset$ is empty. \ref{IH:MomentsNoRS} is then automatic by the Strong Law of Large Numbers; the other clauses of the induction hypothesis are obvious.
+
+\subsection{Induction}
+
+Assume \ref{IH:NoRS}$(m-1)$. We seek to show \ref{IH:NoRS}$(m)$.
+
+Suppose $g=g^{m}=Ah$ for some vector $h$. By \ref{IH:Rewrite}$(m-1)$, we have \[h=\phi(z^{1},\ldots,z^{k},\bar{z}^{1},\ldots,\bar{z}^{\bar{k}};\theta_{1},\ldots,\theta_{l})\] where 1) $z^{1},\ldots,z^{k}$ are all of the vectors in $\coreset$, 2) $\bar{z}^{1},\ldots,\bar{z}^{\bar{k}}$ are all of the vectors in $\vanset$, 3) $\theta_{1},\ldots,\theta_{l}$ are scalars created by \refMoment{} from $z^{1},\ldots,z^{k},\bar{z}^{1},\ldots,\bar{z}^{\bar{k}}$ and so converge a.s. to $\mathring{\theta}_{1},\ldots,\mathring{\theta}_{l}$ by \ref{IH:MomentsNoRS}$(m-1)$, and 4) $\phi$ is pseudo-Lipschitz jointly in all of them.
+
+Let 
+\[h^{0}\defeq\phi(z^{1},\ldots,z^{k},0,\ldots,0;\theta_{1},\ldots,\theta_{l}) \quad\text{and}\quad \Delta h\defeq h-h^{0}.\] (Note both $h^{0}$ and $\Delta h$ are expressible by \refNonlinPlus{} in terms of $z^{1},\ldots,z^{k},\bar{z}^{1},\ldots,\bar{z}^{\bar{k}};\theta_{1},\ldots,\theta_{l}$). Because $\bar{z}^{1},\ldots,\bar{z}^{\bar{k}}$ have vanishing moments by induction hypothesis and $\phi$ is pseudo-Lipschitz, $\Delta h$ has vanishing moments as well by \cref{lemma:removeVanishing}. We insert $A\Delta h$ into $\vanset$; we will prove that $A\Delta h$ has vanishing moments below in \cref{lemma:ADeltah}.
+
+Now define $\hat{h}^{0}\defeq h^{0}-\Pi h^{0}$ where $\Pi$ is the projection onto the linear span of $\coreset_{A}^{*}$. $\Pi h^{0}$ can be written as a \refNonlinPlus{} like so: $\Pi h^{0}=\sum_{v\in\coreset_{A}^{*}}\frac{v^{\trsp}h^{0}}{n}v$, where we used the induction hypothesis that $\|v\|_{2}=\sqrt{n}$ and $\coreset_{A}^{*}$ is orthogonal. Then $\hat{h}^{0}$ can also be written as a \refNonlinPlus{}.
+
+We proceed by casework on whether $Z^{\hat{h}^{0}}=0$.
+
+1) Suppose $Z^{\hat{h}^{0}}=0$. Then $A\hat{h}^{0}$ has vanishing moments by the same Gaussian conditioning technique as in \cref{sec:proofMainTheorem}, which is possible because we only need to condition on $z^{1},\ldots,z^{k}$, which are all of the G-vars that $\hat{h}^{0}$ depends on, and \ref{IH:Orthogonal}$(m-1)$ implies they have rank stability. Then we add $A\hat{h}^{0}$ to $\vanset$. Because $g=Ah=A(h^{0}+\Delta h)=A(\hat{h}^{0}+\Pi h^{0}+\Delta h)$, we can rewrite all instances of $g$ in the program as the sum of $A\hat{h}^{0}$, $A\Delta h$ (in $\vanset$), and $A\Pi h^{0}=\sum_{v\in\coreset_{A}^{*}}\frac{v^{\trsp}h^{0}}{n}Av$ (a linear combination of $\coreset$).
+
+2) Suppose $Z^{\hat{h}^{0}}\ne0$. Define $h^{1}\defeq h^{0}/\frac{\|\hat{h}^{0}\|^{2}}{n}$ via \refNonlinPlus{} (which is valid since $\frac{\|\hat{h}^{0}\|^{2}}{n}\asto\EV(Z^{\hat{h}^{0}})^{2}\ne0$ by induction hypothesis). We add $Ah^{1}$ to $\coreset$. Because $g=Ah=A(h^{0}+\Delta h)=A(\frac{\|\hat{h}^{0}\|^{2}}{n}h^{1}+\Pi h^{0}+\Delta h)$, we can rewrite all instances of $g$ in the program as the sum of $A\Delta h$ (in $\vanset$), $\frac{\|\hat{h}^{0}\|^{2}}{n}Ah^{1}$, and $A\Pi h^{0}=\sum_{v\in\coreset_{A}^{*}}\frac{v^{\trsp}h^{0}}{n}Av$ (linear combinations of $\coreset$).
+
+With the above updates to $\coreset$ and/or $\vanset$, it's clear that \ref{IH:Rewrite}$(m)$, \ref{IH:Orthogonal}$(m)$ and \ref{IH:Vanset}$(m)$ are true. So it remains to prove \ref{IH:MomentsNoRS}$(m)$.
+
+\subparagraph*{Moments$(m)$}
+
+In the case 1) above (where we did not expand $\coreset$), \ref{IH:MomentsNoRS}$(m)$ follows straightforwardly from \ref{IH:MomentsNoRS}$(m-1)$ and \cref{lemma:removeVanishing}.
+
+In the case 2) above (where we added $Ah^{1}$ to $\coreset$), we need to show
+\[
+\frac{1}{n}\sum_{\alpha=1}^{n}\psi(Ah_{\alpha}^{1},z_{\alpha}^{1},\ldots,z_{\alpha}^{k},\bar{z}_{\alpha}^{1},\ldots,\bar{z}_{\alpha}^{\bar{k}})\asto\EV\psi(Z^{Ah_{\alpha}^{1}},Z^{z^{1}},\ldots,Z^{z^{k}},0,\ldots,0)
+\]
+for any pseudo-Lipschitz $\psi$. Since $h^{1}$ is expressible as a \refNonlinPlus{} of purely $z^{1},\ldots,z^{k}$ and some parameters, we can just condition on $z_{\alpha}^{1},\ldots,z_{\alpha}^{k}$ and proceed as in \cref{sec:proofMainTheorem}, after replacing $\bar{z}_{\alpha}^{1},\ldots,\bar{z}_{\alpha}^{\bar{k}}$ by zeros by \cref{lemma:removeVanishing}. (Note this argument wouldn't have worked if we naively put $g=Ah$ in place of $Ah^{1}$ because $h$ depends on $\bar{z}^{1},\ldots,\bar{z}^{\bar{k}}$).
+
+This finishes the induction, barring for the promised \cref{lemma:ADeltah} below.
+
+\begin{lemma}
+\label{lemma:ADeltah}$A\Delta h$ has vanishing moments.
+\end{lemma}
+
+It's clear that $A\Delta h$ at least has vanishing second moment because $A$ has a uniformly (in $n$) bounded operator norm from standard matrix concentration bounds. We need to work a bit harder to get all moments to vanish.
+\begin{proof}
+We condition on $z^{1},\ldots,z^{k},\bar{z}^{1},\ldots,\bar{z}^{\bar{k}}$. Suppose
+\[
+u^{j}=A^{\trsp}v^{j},\quad j=1,\ldots,s,\quad\text{and}\quad\bar{u}^{j}=A^{\trsp}\bar{v}^{j},\quad j=1,\ldots,\bar{s}
+\]
+are respectively the elements of $\coreset$ and $\vanset$ that are images of MatMul with $A^{\trsp}$. As in the ($\hat{Z}$, $\dot{Z}$)-decomposition in the $n\to\infty$ limit, we can write $A\Delta h$, for finite $n$, as a sum of 1) a Gaussian vector with vanishing 2nd moment and 2) a linear combination of \{$v^{j}\}_{j=1}^{s}$ and $\{\bar{v}^{j}\}_{j=1}^{\bar{s}}$, where the coefficient of $v^{j}$ (resp. $\bar{v}^{j}$) converges to $\sigma_{A}^{2}\EV\partial Z^{\Delta h}/\partial Z^{v^{j}}=0$ (resp. $\sigma_{A}^{2}\EV\partial Z^{\Delta h}/\partial Z^{\bar{v}^{j}}<\infty$). The former has vanishing moments of all order by Gaussianity. Since $v^{j}$ has bounded moments and $\bar{v}^{j}$ has vanishing moments, the latter also has vanishing moments.
+\end{proof}
+\begin{lemma}
+\label{lemma:removeVanishing}Let $z^{1},\ldots,z^{k}$ have bounded moments, $\bar{z}^{1},\ldots,\bar{z}^{\bar{k}}$ have vanishing moments, and $\theta_{1},\ldots,\theta_{l}\in\R$ converge almost surely to deterministic $\mathring{\theta}_{1},\ldots,\mathring{\theta}_{l}\in\R$. Then for any pseudo-Lipschitz $\psi$ and $t>0$,
+\[
+\frac{1}{n}\sum_{\alpha=1}^{n}|\psi(z_{\alpha}^{1},\ldots,z_{\alpha}^{k},\bar{z}_{\alpha}^{1},\ldots,\bar{z}_{\alpha}^{\bar{k}};\theta_{1},\ldots\theta_{l})-\psi(z_{\alpha}^{1},\ldots,z_{\alpha}^{k},0,\ldots,0;\mathring{\theta}_{1},\ldots,\mathring{\theta}_{l})|^t \asto0.
+\]
+\end{lemma}
+\begin{proof}
+  Holder's inequality.
+\end{proof}
+
+\end{document}

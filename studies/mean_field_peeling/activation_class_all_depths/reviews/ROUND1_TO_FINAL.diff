@@ -1,0 +1,53 @@
+--- round1
++++ final
+@@ -942,7 +942,7 @@
+     max_(k,i)||Y_(k,i)||_p
+         <=[F+50alpha S(Q_l+b/K_l)]sqrt(p).               (S.3)
+ 
+-Indeed ||Y-Y_G||_p<=2alpha S m_p(q)+4alpha S b/K_l; use this at p=2 to bound the Gaussian variance by F+2alpha S Q_l+4alpha S b/K_l and then use (S.1). The coefficient 50 exceeds the resulting coefficients 42 for Q_l and 44+4/sqrt(S.2) for b/K_l. In the box below the bracket is <=2F, hence ||X_(k,i)||_p<=4F sqrt(p).
++Indeed ||Y-Y_G||_p<=2alpha S m_p(q)+4alpha S b/K_l; use this at p=2 to bound the Gaussian variance by F+2alpha S Q_l+4alpha S b/K_l and then use (S.1). The coefficient 50 exceeds the resulting coefficients 42 for Q_l and 44+4/sqrt(2) for b/K_l. In the box below the bracket is <=2F, hence ||X_(k,i)||_p<=4F sqrt(p).
+ 
+ This calculation isolates why the offset is harmless: its size is 1/K_l, exactly the inverse scale of the possible curvature K_l. The remainder estimate 4b/K_l therefore gives the displayed constants 20 and 60.
+ 
+@@ -974,9 +974,9 @@
+ 
+ These are pointwise bounds on actual named derivatives.
+ 
+-For completeness, if ||Z||_p<=M sqrt(p) for all p>=2, expansion of exp(Z^2/(4 exp(S.1)M^2)) and k!>=(k/exp(S.1))^k gives expectation <=2. Young's inequality then gives, in particular,
+-
+-    E exp(u|Z|)<=2 exp(2 exp(S.1)M^2 u^2),   u>=0.
++For completeness, if ||Z||_p<=M sqrt(p) for all p>=2, expansion of exp(Z^2/(4 exp(1)M^2)) and k!>=(k/exp(1))^k gives expectation <=2. Young's inequality then gives, in particular,
++
++    E exp(u|Z|)<=2 exp(2 exp(1)M^2 u^2),   u>=0.
+ 
+ Minkowski applied to the weighted time sum in E_k gives its p-norm <=S W_l sqrt(p). Hence no temporal independence or path-maximum moment is needed. If
+ 
+@@ -986,7 +986,7 @@
+ 
+     E E_k <=4,
+     [E E_k^2]^(1/2)
+-      <=sqrt(S.2) exp[4alpha b S+4 exp(S.1)alpha^2 S^2 W_l^2].
++      <=sqrt(2) exp[4alpha b S+4 exp(1)alpha^2 S^2 W_l^2].
+ 
+ Taking expectations in (S.4) and adding the learned contractions yields
+ 
+@@ -995,8 +995,8 @@
+ 
+ For the second bound the response row is at most
+ 
+-    sqrt(S.2)(sqrt(S.2)W_l+4b)
+-       exp[4alpha b S+4 exp(S.1)alpha^2 S^2 W_l^2]
++    sqrt(2)(sqrt(2)W_l+4b)
++       exp[4alpha b S+4 exp(1)alpha^2 S^2 W_l^2]
+        <512(n_l+b).
+ 
+ The forward learned density is <=3F^2. The reverse learned row is <=3S because ||d_l||_2<=1. All displayed norms bound the absolute values of signed response coefficients; no coefficient signs have been discarded from the actual identities.
+@@ -2259,7 +2259,7 @@
+ 
+ Only the finite Gaussian foundation is needed here. This section states its precise specialization, checks the actual query schedule, and proves its derivative-valid extension for every unbounded product used above. Oddness, monotonicity of the perturbation, and affine perturbation estimates play no role.
+ 
+-The actual finite initialization transcript, with normalized finite inner products, is as follows. First reveal the first-layer roots and calculate all three ordinary forward calls at each layer. Next form \(H\), the three top \(\beta_i^L\), and, descending through the layers, the three calls \(A_{\ell+1}^*\beta_i^{\ell+1}\) and the gates \(\beta_i^\ell\). For one fixed sample \(j\), form \(U_j^1=\sum_i\Gamma_{ji}p_i\beta_i^1\) and \(T_j^1\). Then ascend through layers \(2,\ldots,L\): make the one added query \(A_\ell T_j^{\ell-1}\), add \(\sum_i p_i\langle h_i^{\ell-1},h_j^{\ell-1}\rangle_n\beta_i^\ell\), and apply the gate to obtain \(T_j^\ell\). These are all the action probes used. Their empirical contractions converge to the \(Q\) coefficients; replacing these finitely many convergent scalar coefficients by their limits changes the normalized vector errors by \(o(N.1)\), because all participating vector norms are bounded in probability. One may therefore use deterministic limiting coefficients in the source calculation.
++The actual finite initialization transcript, with normalized finite inner products, is as follows. First reveal the first-layer roots and calculate all three ordinary forward calls at each layer. Next form \(H\), the three top \(\beta_i^L\), and, descending through the layers, the three calls \(A_{\ell+1}^*\beta_i^{\ell+1}\) and the gates \(\beta_i^\ell\). For one fixed sample \(j\), form \(U_j^1=\sum_i\Gamma_{ji}p_i\beta_i^1\) and \(T_j^1\). Then ascend through layers \(2,\ldots,L\): make the one added query \(A_\ell T_j^{\ell-1}\), add \(\sum_i p_i\langle h_i^{\ell-1},h_j^{\ell-1}\rangle_n\beta_i^\ell\), and apply the gate to obtain \(T_j^\ell\). These are all the action probes used. Their empirical contractions converge to the \(Q\) coefficients; replacing these finitely many convergent scalar coefficients by their limits changes the normalized vector errors by \(o_P(1)\), because all participating vector norms are bounded in probability. One may therefore use deterministic limiting coefficients in the source calculation.
+ 
+ Here is the needed finite-program statement and why its use is legitimate. For a fixed finite list of independent \(N(0,1/n)\) matrices, reused in both orientations, fixed finite root tuples with finite second moment, and coordinate instructions that are \(C^1\) with bounded first derivatives, same-layer empirical laws and second moments converge. For an initialized forward query on \(h\), and reverse query on \(u\), their scalar source formulas are
+ 

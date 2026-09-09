@@ -1,0 +1,18 @@
+{
+  "manuscript_sha256": "f55df0156da98d67a655b27280a005d148df0bb206b783a454dfed379bc99211",
+  "scope": "Initialization theorem only; no trained population/GF/GD or joint growing-width/depth theorem.",
+  "reviewers": [
+    {
+      "name": "isolated",
+      "verdict": "PASS",
+      "input": "whole note only, no inherited context, other mathematical sources, reviewers, agents or numerical experiments",
+      "review_sha256": "9d2ea6920caf3846ebe18c9d9953881cd523ee0fee0d20bfc4311e1c301269df"
+    },
+    {
+      "name": "scope",
+      "verdict": "PASS",
+      "input": "whole note only, no inherited context, other mathematical sources, reviewers, agents or numerical experiments",
+      "review_sha256": "caa42acac2f6e88cf0f39d6de1c8f5b4d1a98e75469e3992a917aa22a7043ede"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "date": "2026-09-07",
+  "status": "Three fresh independent complete-proof agent audits returned PASS at the final mathematical hashes.",
+  "claim": "For all 0<delta<=1, 1/2<=a<=1, and 0<e<=c_poly delta^4, the complete original odd two-input theorem holds for |rho|<=1-delta and all binary labels. In particular every 0<theta<=c_poly delta^4 is an admissible convex mixture coefficient; the delta^8 choice is included.",
+  "prefactor": "Unchanged exact c_poly=min(1/4,c_*,10^-70 H^-400), with H and c_* defined in PROOF.md equation (1) and the original quantitative theorem.",
+  "log10_c_poly_approx": -1004171.5712636512,
+  "contract": {
+    "file": "CONTRACT.md",
+    "sha256": "e6dac8711ef82af350791211445c19ece1d9936dacefd0ac2bf2c93dc24ad270",
+    "note": "Only completion-status metadata changed after the reviews; the mathematical task contract is unchanged."
+  },
+  "mathematical_files": {
+    "PROOF.md": "7e33899649b547e7dcac8a465f2d118518d9db9ef001a3d04d2b9da615aa9485",
+    "AFFINE_PROPAGATOR.md": "88a1bfbaf6fd1fc6fcfea56b25a4490932663090eb01710e9d96ba04d26fe460",
+    "PRIMAL_L2_RESPONSE.md": "cf313286d301aa9fe5fb121d0c1fa5351213efbeaa4c087656d205c3156e417a",
+    "SECTOR_SUPERSOLUTION.md": "e1ce9401b58bcd20384e1b2932d725844fda6904e9c9d70ef4a4f1af0f9ab68d"
+  },
+  "dependency_path_base": "..",
+  "unchanged_mathematical_dependencies": {
+    "two_sample_odd_activation_theorem/PROOF.md": "a4d6ed0ee99a1e111b5eba068f2219cf561a2281b1828b26227aca7a0a54a050",
+    "two_sample_odd_activation_theorem/AFFINE_CORE.md": "634dd3bbc35436e9d1760bee5c11cbf2124b3c42e8920a1bf3a4fcbb15039711",
+    "two_sample_odd_activation_theorem/SOURCE_AND_LIMIT_BRIDGE.md": "2a140f2a5a39f911b5c2ca51bc79102d20e9209f1450d38005360c88103f6e77",
+    "two_sample_odd_activation_theorem/INITIAL_MOTION_AND_NORMALIZATION.md": "c96316fdc481ef3f9e6fc402514ca9b45bcff12e199023505fbbb86d4e15bf24",
+    "two_sample_odd_activation_theorem/sources/ANGLE_SPECIFIC_THEOREM_ASSEMBLY.md": "27b2579f27ec14319dd39a93a4942d7b6463860648462d5ccb31b662c7725b75",
+    "two_sample_odd_activation_theorem/sources/CONTRACT.md": "e32b52edb2c8061a341b1e93ff237f62f59d03f84b16e5b67a941bdd460c21bd",
+    "two_sample_odd_activation_theorem/sources/FIXED_CAP_VELOCITY_BRIDGE.md": "a2322a8dbacf28244b9fef63e757ba3a915628dbdf31020062f8c5772a1c0aa0",
+    "two_sample_odd_activation_theorem/sources/INITIAL_FEATURE_LEARNING.md": "bd81de0a7ad0cb9bdd1f27f89961f4a3b7a7da6914456ae08596a882fa2ec351",
+    "two_sample_odd_activation_theorem/sources/L3_LOCAL_COMPLETE_PROOF.md": "f97148f84979ab5b8489927d477b6abb3d919e27fd457455f2e3b98416725de4",
+    "two_sample_odd_activation_theorem/sources/NONLINEAR_RESPONSE_PERTURBATION.md": "ef0ea077406a27307bc84e045feebf5099f6f81883bdfed41508035fe4559568",
+    "two_sample_odd_activation_theorem/sources/PREVIOUS_TWO_SAMPLE_PROOF.md": "2891b892667396d64bd747689bcd59aa7ca3ffd224d3579fc3407bca0b623f9a",
+    "two_sample_odd_activation_theorem/sources/PRIMAL_COMPARISON_AND_CONTINUATION_BRIDGE.md": "99eb60a64df1bbf4d8b70f351198abced9ef7eaeacf9b39c3997da5700a8f066",
+    "two_sample_odd_activation_theorem/sources/SYMMETRY_RADIAL_CLOCK.md": "40882fc19e44b4b9245156595bb1071bd4de6007d619fada54c9fce7c37903f4",
+    "two_sample_odd_activation_theorem/sources/THREE_SAMPLE_CONTROLLED_RESPONSE_LEMMA.md": "49da0f68047b4f516d3ad3c94b7112259838bcebf68e2296a948364232842789",
+    "two_sample_odd_activation_theorem/sources/TWO_SAMPLE_SOURCE_BASELINE.md": "a84187ecd3639d0c4b7b209255056597326c97f11548faaf9b918659ae07477f",
+    "two_sample_odd_activation_quantitative/PROOF.md": "0a7dbd32cb9cc291e706813b59c0142394e6f9532244e52c21a5ab5d89ed4d02",
+    "two_sample_odd_activation_quantitative/AFFINE_POLYNOMIAL_BOUNDS.md": "8387e2f253063c139dacb282ca9f2372478521f54b33a9ef6c8dbd83f2b521ca",
+    "two_sample_odd_activation_quantitative/POLYNOMIAL_RESPONSE_LEMMA.md": "51b0f717b33ed618219e086d32b16a95ef4253892171597d1805dd9d37a64f7f",
+    "two_sample_odd_activation_quantitative/OLD_THRESHOLD_AND_NONAFFINITY.md": "c63753a83e832793c886b8ae8c122e30e0c01864b86a1a5dc9bee030852f9210",
+    "two_sample_odd_activation_power10/PROOF.md": "37b9e8a27135b95b8dffe05fe2b734229fadedc98bc1609259e365dbb2aeba37",
+    "two_sample_odd_activation_power10/AFFINE_SOURCE_CERTIFICATE.md": "bc55c0f8e25de1f3a4316fe36e86afa25c9486e014192f2eb818358909b048eb",
+    "two_sample_odd_activation_power10/REFINED_RESPONSE.md": "3622a0f903cd51b712d1d524a140d834471b5eb588611f059535c41f6efd2332",
+    "two_sample_odd_activation_power10/POSITIVE_SUPERSOLUTION.md": "e2be183521919ce69c7ae41b81f5cd78566c5430a78c2408687f52f1b6d86774"
+  },
+  "complete_reviews": [
+    {
+      "agent": "/root/four_review_affine",
+      "file": "reviews/AFFINE_COMPLETE_REVIEW.md",
+      "sha256": "68418987943dbe70629d3e03b63b5544139fecebcaf15b9526f69d1d0d554c63",
+      "verdict": "PASS",
+      "scope": "Complete exponent-four theorem, including all original global population/GF/raw-GD, uniqueness/restart, observable, nonaffinity and initial-motion conclusions."
+    },
+    {
+      "agent": "/root/four_review_response",
+      "file": "reviews/RESPONSE_COMPLETE_REVIEW.md",
+      "sha256": "479dcdf26d37c5f2159c0d2c1938aa5dae2fd778b2f6aaccaf160fd95bb45a1c",
+      "verdict": "PASS",
+      "scope": "Complete exponent-four theorem, including all original global population/GF/raw-GD, uniqueness/restart, observable, nonaffinity and initial-motion conclusions."
+    },
+    {
+      "agent": "/root/four_review_closure",
+      "file": "reviews/CLOSURE_COMPLETE_REVIEW.md",
+      "sha256": "9cdab7f014a60076afa95b924a94325c681a371a50e51140c97d272fe69fcb6b",
+      "verdict": "PASS",
+      "scope": "Complete exponent-four theorem, including all original global population/GF/raw-GD, uniqueness/restart, observable, nonaffinity and initial-motion conclusions."
+    }
+  ],
+  "audit_revisions": [
+    "Rounded the affine source numerical product up to 10^30 exp(2100), still below the unchanged H.",
+    "Made the backward derivative-row estimate max_k E[sum_j |defect_kj|] explicit, with the terminal-time maximum outside expectation. The fixed-k deterministic row expansion proves precisely the needed coefficient bound."
+  ],
+  "final_revisions_verified_by_all_reviewers": true,
+  "review_independence": "Each fresh reviewer read all four mathematical files and needed original proofs, verified four candidate and 23 dependency hashes, and did not use historical or sibling reviews as evidence.",
+  "proof_check_type": "Independent agent mathematical audits; no machine-checked formal proof.",
+  "limits": [
+    "Sufficient exponent only; optimality is not asserted.",
+    "The numerical prefactor remains extremely small and is not optimized.",
+    "Width convergence is for each fixed dataset on every fixed finite physical interval, not uniform over datasets or the infinite half-line.",
+    "No three-input polynomial extension is asserted."
+  ],
+  "old_proof_files_modified": false,
+  "trajectory_experiments_run": false,
+  "commits_made": false
+}

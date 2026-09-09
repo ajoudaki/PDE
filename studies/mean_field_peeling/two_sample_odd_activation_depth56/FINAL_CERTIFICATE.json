@@ -1,0 +1,19 @@
+{
+  "date": "2026-09-07",
+  "status": "three independent complete-proof PASS reviews",
+  "mathematical_files": {
+    "PROOF.md": "366bf83ff0250a42da9f4f2fae7d51f0dd296cfb2ea3c462761423fec09e8d70",
+    "AFFINE_CERTIFICATE.md": "50d09b24de8fe6aa8cbf0d068f71f71596bcefc227c5d745191c69fdcaab095a",
+    "SOURCE_RESPONSE.md": "9a05a1b7d4e2075156cb1483c69ed80e7ab02f9fd84de2c6d8a704f2466049b1",
+    "POPULATION_AND_MOMENTS.md": "dd49edf52076dce683934f90df58e0ff2362e14fa02c00edd0d2cabd49b43c8b"
+  },
+  "contract_sha256": "e3555b8366f9bdba253f1b0c991f84c1d1bc0082f06131416548646d50ae9207",
+  "review_files": {
+    "reviews/FINAL_AFFINE_REVIEW.md": "1d4c4748cd1ae24c3ac455616269f6d1ba5edbdc406db653128b282bf659d038",
+    "reviews/FINAL_RESPONSE_REVIEW.md": "1a89a49b65ba75a56c56bf25e01f8912b557991e6de3a4154e00d96b643350d7",
+    "reviews/FINAL_LIMITS_REVIEW.md": "73a835ea2f0e997d358ebe7d0b1e3f47faae0fd55c775c167e8b5e7afe9d2f08"
+  },
+  "immutable_dependency_count": 28,
+  "dependency_manifest_sha256": "71bc20afa6f380a56774fa024c963985c5ece5a2d1b6769e68c7261793ad2f8c",
+  "scope": "Same old c_poly at L3-L6 with powers31/8,9/2,21/4,83/14; explicit depth-dependent c_L for every fixed L, p_L=9-43/[2(L+1)] for L>=6. No common positive prefactor for all depths proved."
+}

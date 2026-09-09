@@ -1,0 +1,57 @@
+{
+  "date": "2026-09-07",
+  "status": "proved_after_three_independent_adversarial_reviews",
+  "claim": "One odd activation for all two RMS-unit inputs with |rho| <= 1-delta, all binary labels, original L3 raw GF/GD model; compact-gain theorem includes convex and Gaussian-unit-energy normalized mixtures.",
+  "contract_sha256": "3b7631880fe9438f778de1d07797aae7b2f083c57730d368fb1fa57e3f3c0d20",
+  "mathematical_files": {
+    "PROOF.md": "a4d6ed0ee99a1e111b5eba068f2219cf561a2281b1828b26227aca7a0a54a050",
+    "AFFINE_CORE.md": "634dd3bbc35436e9d1760bee5c11cbf2124b3c42e8920a1bf3a4fcbb15039711",
+    "SOURCE_AND_LIMIT_BRIDGE.md": "2a140f2a5a39f911b5c2ca51bc79102d20e9209f1450d38005360c88103f6e77",
+    "INITIAL_MOTION_AND_NORMALIZATION.md": "c96316fdc481ef3f9e6fc402514ca9b45bcff12e199023505fbbb86d4e15bf24"
+  },
+  "source_files": {
+    "ANGLE_SPECIFIC_THEOREM_ASSEMBLY.md": "27b2579f27ec14319dd39a93a4942d7b6463860648462d5ccb31b662c7725b75",
+    "CONTRACT.md": "e32b52edb2c8061a341b1e93ff237f62f59d03f84b16e5b67a941bdd460c21bd",
+    "FIXED_CAP_VELOCITY_BRIDGE.md": "a2322a8dbacf28244b9fef63e757ba3a915628dbdf31020062f8c5772a1c0aa0",
+    "INITIAL_FEATURE_LEARNING.md": "bd81de0a7ad0cb9bdd1f27f89961f4a3b7a7da6914456ae08596a882fa2ec351",
+    "L3_LOCAL_COMPLETE_PROOF.md": "f97148f84979ab5b8489927d477b6abb3d919e27fd457455f2e3b98416725de4",
+    "NONLINEAR_RESPONSE_PERTURBATION.md": "ef0ea077406a27307bc84e045feebf5099f6f81883bdfed41508035fe4559568",
+    "PREVIOUS_TWO_SAMPLE_PROOF.md": "2891b892667396d64bd747689bcd59aa7ca3ffd224d3579fc3407bca0b623f9a",
+    "PRIMAL_COMPARISON_AND_CONTINUATION_BRIDGE.md": "99eb60a64df1bbf4d8b70f351198abced9ef7eaeacf9b39c3997da5700a8f066",
+    "SYMMETRY_RADIAL_CLOCK.md": "40882fc19e44b4b9245156595bb1071bd4de6007d619fada54c9fce7c37903f4",
+    "THREE_SAMPLE_CONTROLLED_RESPONSE_LEMMA.md": "49da0f68047b4f516d3ad3c94b7112259838bcebf68e2296a948364232842789",
+    "TWO_SAMPLE_SOURCE_BASELINE.md": "a84187ecd3639d0c4b7b209255056597326c97f11548faaf9b918659ae07477f"
+  },
+  "reviews": [
+    {
+      "agent": "odd_final_core",
+      "scope": "complete proof",
+      "verdict": "PASS",
+      "report": "reviews/CORE_REVIEW.md",
+      "sha256": "87c17ab72310a3c26fa2282c4bead39e8132bfa303a3ab12d0db722ec37d29ca"
+    },
+    {
+      "agent": "odd_final_bridge",
+      "scope": "complete proof",
+      "verdict": "PASS",
+      "report": "reviews/BRIDGE_REVIEW.md",
+      "sha256": "0c166616e70c4b4fdb38cb114f541f3bca37b85f30305e40ae57ecead7b35d16"
+    },
+    {
+      "agent": "odd_final_motion",
+      "scope": "complete proof",
+      "verdict": "PASS",
+      "report": "reviews/MOTION_REVIEW.md",
+      "sha256": "3e0fd7404eb333c18dc09146b0b532cf3335c09e7ab21ad4472d63041e9b2887"
+    }
+  ],
+  "revision_verified_by_all_reviewers": "Separate capped feature field V_R from uncut gradient in scalar-reduction statements; restore LaTeX separator backslashes.",
+  "no_remaining_proof_obligation_identified": true,
+  "scope_limits": [
+    "Two inputs only",
+    "Fixed positive delta",
+    "Width limits for each fixed finite physical horizon and fixed dataset",
+    "No perpetual nonzero-velocity claim",
+    "No trained variance conservation"
+  ]
+}

@@ -1,0 +1,527 @@
+\begin{center}
+{\LARGE\bfseries Population gradient flow at fixed depth}\\[5pt]
+{\large Why a positive physical-time interval survives the width limit}\\[7pt]
+{\small Main exposition with a separate technical appendix \quad\textbullet\quad 6 September 2026}
+\end{center}
+
+\section*{1. The network and the question}
+
+The conclusion is a population law for training through a \emph{fixed positive
+physical time} $T_*$. Width tends to infinity and the gradient-descent step
+tends to zero together, with no restriction linking their rates. The interval
+can depend on depth and on fixed bounds describing the model; it does not
+shrink with width or step size. This is the sense of ``semi-global'' intended
+here. In the usual terminology it is a local-in-time theorem, not an assertion
+about every finite horizon.
+
+There are $L\ge2$ hidden layers of width $n$, and $m$ fixed inputs
+$x_a\in\mathbb R^d$ with labels $y_a$. The indices $a,b$ denote examples,
+$i,j$ neurons, $\ell$ layers, and $k$ training steps. Both $L$ and the dataset
+are fixed as $n$ grows. Each layer may have its own coordinatewise activation
+$\phi^{(\ell)}$. The finite forward pass is
+\[
+\begin{aligned}
+z_a^{(1)}&=W^{(1)}x_a/\sqrt d,
+&h_a^{(1)}&=\phi^{(1)}(z_a^{(1)}),\\
+z_a^{(\ell)}&=W^{(\ell)}h_a^{(\ell-1)},
+&h_a^{(\ell)}&=\phi^{(\ell)}(z_a^{(\ell)}),\quad 2\le\ell\le L,\\
+f_{n,a}&=(W^{(L+1)})^\top h_a^{(L)}/n.
+\end{aligned}
+\]
+$W^{(1)}$ is $n$ by $d$, each middle $W^{(\ell)}$ is $n$ by $n$, and
+$W^{(L+1)}$ is an $n$-vector. The last object is always the \emph{stored
+rescaled readout}. In particular, when $L=2$, the prediction is
+$(W^{(3)})^\top h_a^{(2)}/n$.
+
+The backpropagated fields contain the derivative of the prediction, but
+\emph{not} the loss residual:
+\[
+\begin{aligned}
+\delta_a^{(L)}&=W^{(L+1)}\phi^{(L)\prime}(z_a^{(L)}),\\
+\delta_a^{(\ell)}&=\phi^{(\ell)\prime}(z_a^{(\ell)})
+       (W^{(\ell+1)})^\top\delta_a^{(\ell+1)},\qquad \ell<L.
+\end{aligned}
+\]
+Products with $\phi^{(\ell)\prime}$ are coordinatewise. Equivalently,
+$\delta_a^{(\ell)}=n\,\partial f_{n,a}/\partial z_a^{(\ell)}$.
+
+We use the weighted squared loss
+\[
+\mathcal L_n=\sum_{a=1}^m\omega_a(f_{n,a}-y_a)^2,
+\qquad \omega_a>0,\qquad\sum_{a=1}^m\omega_a=1,
+\]
+and stored-weight learning rates
+\[
+\eta_n\bigl(n\kappa_1,\kappa_2,\ldots,\kappa_L,n\kappa_{L+1}\bigr),
+\qquad t=k\eta_n.
+\]
+The fixed $\kappa_\ell\ge0$ set the relative training speeds of the layers.
+The common $\eta_n$ resolves physical time more finely; it is not present
+in the final differential equation.
+
+\newpage
+\section*{2. The configuration covered by the theorem}
+
+\textbf{Activations.} Each $\phi^{(\ell)}$ is continuously differentiable,
+its derivative is bounded, and its derivative is globally Lipschitz.
+The constants bounding these quantities and $|\phi^{(\ell)}(0)|$ are fixed.
+Activation values themselves may be unbounded: bounded derivatives imply
+at most linear growth. Arctan, tanh, sigmoid, softplus, GELU and SiLU are
+examples. No oddness, monotonicity, analyticity or positive lower bound on
+the derivative is required. ReLU itself is outside this result.
+
+\textbf{Initialization.} First-weight entries are independent, identically
+distributed, centered subGaussian variables. Each middle matrix has
+independent entries
+\[
+W_{0,ji}^{(\ell)}\sim
+\mathcal N(0,\sigma_\ell^2/n),\qquad 2\le\ell\le L.
+\]
+Readout entries are independent copies of a fixed subGaussian variable;
+their mean need not vanish. All initialization groups are independent.
+Here subGaussian means that absolute moments grow no faster than a fixed
+constant times $\sqrt p$ in $L^p$, or equivalently that tails have a Gaussian
+upper bound. Zero readout, bounded readout and order-one Gaussian readout
+are all allowed. Gaussian first weights are a special case. Zero variance
+or a zero learning multiplier is allowed for existence.
+
+\textbf{Data.} The normalized input lengths $\|x_a\|_2/\sqrt d$ and labels
+are bounded. Inputs may coincide; their Gram matrix may be singular. Its
+entries will be written explicitly as $x_a^\top x_b/d$. No inverse Gram
+matrix or angular separation is used in the existence proof.
+
+\medskip
+\textbf{Theorem (fixed positive-time joint limit).}
+For this configuration there is $T_*>0$ such that, for \emph{every}
+$\eta_n\to0$, gradient descent has the population limit described below,
+throughout $[0,T_*]$, in the observable senses stated here. Parameters are
+interpolated linearly, and forward quantities are recomputed from them.
+The population integral equations have a unique strong solution on their
+realized field and operator spaces. Moreover:
+\begin{itemize}
+\item predictions, loss and all tangent-kernel entries converge in probability,
+uniformly in time;
+\item in each hidden layer separately, the empirical joint laws of the
+examples' preactivation and activation paths converge, including second
+moments measured with the uniform path norm;
+\item the time integrals of squared hidden-coordinate speeds converge.
+\end{itemize}
+``Strong'' here means that fields satisfy the equations in mean square and
+the middle operators in operator norm. It does not mean coordinatewise
+uniform control over all neurons.
+
+$T_*$ depends only on fixed depth, activation bounds, initialization scales,
+input/label bounds and layer learning multipliers. Under normalized loss
+weights, it can be chosen independently of $m,d$ and the input angles when
+these bounds remain fixed. The convergence assertion still fixes $m,d$ and
+the dataset: this is not a theorem for datasets growing with width. For the
+unweighted \emph{summed} loss, physical time is multiplied by $m$ relative
+to the uniformly weighted loss. No interval uniform over increasing depth
+is claimed.
+
+\newpage
+\section*{3. What survives in the population description}
+
+There is one neuron population for each hidden layer. Uppercase
+$Z_a^{(\ell)},H_a^{(\ell)}$ describe a coordinate in that population, jointly
+across examples and times. They retain a distribution: taking width to
+infinity makes empirical averages deterministic, not every neuron identical.
+An expectation below averages within the population containing its factors.
+
+Each $W^{(\ell)}$, $2\le\ell\le L$, becomes a bounded linear map from
+mean-square fields in layer $\ell-1$ to those in layer $\ell$. The reverse
+map is its adjoint $(W^{(\ell)})^*$, inherited from the \emph{same} finite
+matrix. It is not an independently sampled backward operator. Thus
+\[
+\begin{aligned}
+H_a^{(1)}&=\phi^{(1)}(Z_a^{(1)}),\\
+Z_a^{(\ell)}&=W^{(\ell)}H_a^{(\ell-1)},\qquad
+H_a^{(\ell)}=\phi^{(\ell)}(Z_a^{(\ell)}),\quad 2\le\ell\le L,\\
+f_a&=\mathbb E[W^{(L+1)}H_a^{(L)}],\\
+\delta_a^{(L)}&=W^{(L+1)}\phi^{(L)\prime}(Z_a^{(L)}),\\
+\delta_a^{(\ell)}&=\phi^{(\ell)\prime}(Z_a^{(\ell)})
+             (W^{(\ell+1)})^*\delta_a^{(\ell+1)},\quad\ell<L.
+\end{aligned}
+\]
+To see the middle-layer evolution, begin with its exact finite update:
+\[
+W_{k+1}^{(\ell)}-W_k^{(\ell)}
+=-\frac{2\eta_n\kappa_\ell}{n}
+\sum_b\omega_b(f_{n,b,k}-y_b)
+\delta_{b,k}^{(\ell)}(h_{b,k}^{(\ell-1)})^\top.
+\]
+Applied to a vector, this is a sum of backward fields multiplied by
+feature overlaps. A finite overlap
+$(h_a^{(\ell-1)})^\top h_b^{(\ell-1)}/n$ becomes the population average
+$\mathbb E[H_a^{(\ell-1)}H_b^{(\ell-1)}]$.
+For any fixed mean-square test field $V$ in layer $\ell-1$, the complete
+evolution is therefore
+\[
+\begin{aligned}
+\dot Z_a^{(1)}
+ &=-2\kappa_1\sum_b\omega_b\frac{x_a^\top x_b}{d}
+          (f_b-y_b)\delta_b^{(1)},\\
+\dot W^{(\ell)}V
+ &=-2\kappa_\ell\sum_b\omega_b(f_b-y_b)
+          \delta_b^{(\ell)}\mathbb E[H_b^{(\ell-1)}V],\quad 2\le\ell\le L,\\
+\dot W^{(L+1)}
+ &=-2\kappa_{L+1}\sum_b\omega_b(f_b-y_b)H_b^{(L)}.
+\end{aligned}
+\]
+The derivative in the middle line acts on $W^{(\ell)}$, with $V$ fixed.
+The initial operators are defined by joint limits of all the needed forward
+and transpose computations. Their construction, and passage of the finite
+adjunction identity to the limit, are given in the appendix.
+
+These equations use only the current state. Earlier training is stored in
+the current operators and fields; a separate history is not required to
+evolve them. This is an autonomous population law with infinitely many
+scalar degrees of freedom, not a finite-dimensional closure.
+
+\newpage
+\section*{4. The mechanism of feature learning and the proof's task}
+
+The population equations keep the nonlinear forward and backward passes.
+Their content is especially visible after differentiating a hidden
+preactivation, for $2\le\ell\le L$:
+\[
+\dot Z_a^{(\ell)}
+=\dot W^{(\ell)}H_a^{(\ell-1)}
+ +W^{(\ell)}\bigl[
+ \phi^{(\ell-1)\prime}(Z_a^{(\ell-1)})\dot Z_a^{(\ell-1)}\bigr].
+\]
+The first term changes the receiving layer's weights. The second transports
+the movement of the preceding layer through its current weights. Thus
+training can modify both what a layer receives and how it processes that
+input. Neither term has a vanishing width factor under the stored scaling.
+
+Let $K_{ab}(t)$ be the current tangent-kernel entry, including the fixed
+$\kappa_\ell$. It is the sum of parameter-gradient inner products from
+the layers; its explicit contractions are in the appendix. The output law is
+\[
+\dot f_a=-2\sum_b\omega_bK_{ab}(t)(f_b-y_b),
+\]
+and
+\[
+\frac{d\mathcal L}{dt}
+=-4\sum_{a,b}\omega_a\omega_b(f_a-y_a)K_{ab}(t)(f_b-y_b)
+\le0.
+\]
+The sign follows because $K(t)$ is a Gram matrix with nonnegative layer
+weights. The kernel is recomputed from the evolving features and backward
+fields. The theorem does not freeze it at initialization or replace the
+activations by affine functions.
+
+Existence does not force strict movement in every layer: zero training
+multipliers, zero residuals and degenerate configurations are permitted.
+With zero initial readout, all hidden backpropagated fields initially vanish,
+although the readout can start moving immediately. Subsequent readout
+movement creates backward signals that drive hidden learning. The separate
+strict-activity result for two hidden layers quantifies this onset, under its
+additional nondegeneracy assumptions. Such a result for every depth is not
+part of the present theorem.
+
+The convergence proof has to justify the full feedback loop, not just write
+its formal differential equation. It proceeds through four concrete tasks:
+\begin{enumerate}
+\item Bound typical field sizes and matrix amplification for a common
+positive time, at every width and every sufficiently small step.
+\item Account for reuse of the initial Gaussian matrices, then control the
+tails of the backward signals uniformly as the time mesh is refined.
+\item Use those tails to compare different time discretizations, constructing
+and identifying a unique continuous population flow.
+\item Compare actual finite-width training to a fixed, coarser reference
+computation, and then remove that reference mesh.
+\end{enumerate}
+The middle two tasks contain the main analysis. A width limit for a fixed
+number of operations does not on its own control the growing number
+$T_*/\eta_n$ of gradient-descent steps.
+
+\newpage
+\section*{5. Why a fixed time is possible, and why size bounds are not enough}
+
+The correct notion of a typical finite field size is
+$\|h_a^{(\ell)}\|_2/\sqrt n$ or $\|\delta_a^{(\ell)}\|_2/\sqrt n$.
+In the population it is the square root of the corresponding second moment.
+A middle matrix is measured by its ordinary operator norm, which controls
+its amplification of these field sizes.
+
+These norms match the training update exactly:
+\[
+\left\|\frac{\delta_a^{(\ell)}(h_a^{(\ell-1)})^\top}{n}
+\right\|_{\operatorname{op}}
+=\frac{\|\delta_a^{(\ell)}\|_2}{\sqrt n}
+ \frac{\|h_a^{(\ell-1)}\|_2}{\sqrt n}.
+\]
+The factor $1/n$ balances two vectors of Euclidean size $\sqrt n$.
+As long as field sizes, readout size and matrix norms stay in a fixed bounded
+range, all parameter velocities are bounded by constants independent of
+width. Forward propagation uses the activation's linear growth; backward
+propagation uses its bounded derivative and finitely many matrix norms.
+Weighted training sums contribute total weight one.
+
+Initialization lies in such a range with probability tending to one. Choose
+a larger range with a fixed margin. Before a hypothetical first exit, the
+total motion is at most the uniform velocity bound times elapsed time.
+Choosing time smaller than margin divided by that bound prevents the exit.
+The same argument applies to discrete Euler updates and population integral
+equations. This supplies the first positive interval. Its constants may grow
+with depth, but contain neither $n$ nor the number of time steps.
+
+Why does this not already prove the theorem? The backward pass contains
+multiplication by an unbounded random field. At an internal layer this is
+\[
+\phi^{(\ell)\prime}(Z_a^{(\ell)})
+       (W^{(\ell+1)})^*\delta_a^{(\ell+1)}.
+\]
+A change in $Z_a^{(\ell)}$ multiplies the existing backward signal. A
+Lipschitz derivative bounds that change by a constant times
+$|Z_a^{(\ell)}-\widetilde Z_a^{(\ell)}|$, where the tilde denotes a comparison
+state. But a second-moment bound on each
+factor does not bound the second moment of their product. The ordinary
+finite-dimensional Lipschitz proof would instead use the largest coordinate,
+which can grow with width. That would spoil a uniform time estimate.
+
+There is also a dependence issue. For example,
+$(W^{(\ell)})^\top W^{(\ell)}h_a^{(\ell-1)}$ uses the same matrix twice.
+Conditioning on earlier forward and backward calls changes the law of later
+calls. Treating every call as independent Gaussian noise discards the very
+correlations generated by feature learning. The proof must preserve these
+correlations while controlling the rare, large backward signals that make
+the comparison difficult.
+
+\newpage
+\section*{6. Matrix reuse, small feedback pulses, and uniform tails}
+
+For a fixed Euler mesh $\Delta$, each trained middle matrix equals its initial
+Gaussian matrix plus a finite sum of rank-one updates. The learned terms
+therefore involve only previously computed features, backward fields and
+their scalar overlaps. The remaining task is to understand repeated calls
+to the same initial Gaussian matrix and its transpose.
+
+The fixed-computation Gaussian response theorem supplies exactly this
+description \cite{TP3}: a new call has a Gaussian part together with
+correction terms recording its dependence on previous calls in the opposite
+direction. The correction coefficients are expectations of sensitivities
+to the Gaussian inputs in those earlier calls. Their covariance laws,
+residuals and scalar coefficients are held fixed in taking these
+sensitivities. The Gaussian parts at different times are correlated; neither
+time independence nor finite-width neuron independence after reuse is used.
+
+The decisive estimate is more precise than a bound on the total response.
+A backward Gaussian input belonging to example $b$ at an earlier step can
+affect a later forward feature only through training. That first change
+carries the update weight $\Delta\omega_b$. Propagating the change through
+later steps preserves this factor:
+\[
+\bigl|\text{expected forward sensitivity to that backward input}\bigr|
+\le C\Delta\omega_b.
+\]
+Here $C,c>0$ are fixed constants determined by the model bounds. The appendix
+proves these sensitivity estimates, including the reverse-direction bounds.
+
+This small pulse is what turns sums over many training steps into integrals
+over a fixed amount of time. The random amplification involves expressions
+of the form
+\[
+\Delta\sum_{s<k}\sum_b\omega_b
+\left|(W_s^{(\ell+1)})^*\delta_{b,s}^{(\ell+1)}\right|,
+\]
+where $s$ indexes earlier steps. It does \emph{not} require the maximum of
+these random fields over a refining time grid. Jensen's inequality applied
+to the weights $\Delta\omega_b/(k\Delta)$ controls the exponential of this
+time average using marginal Gaussian-tail bounds, even with complete
+dependence across times and inputs. The weights sum to one: the exponential
+of their average is at most the corresponding average of exponentials.
+
+The size bound controls every Gaussian innovation's variance. Forward fields
+are a Gaussian or root contribution plus time-weighted backward fields;
+backward fields are Gaussian contributions plus response-weighted forward
+fields. Their tail estimates must therefore be closed together.
+
+To do this without circular reasoning, choose forward-response bounds from the first
+layer upward, using their zero-time prefactors. Choose backward-response
+bounds from the readout downward in the same way. At zero time the opposite
+direction enters only through terms multiplied by elapsed time. Once all
+these finitely many bounds are fixed, reduce $T_*$ so those terms are small.
+The forward-then-backward construction at each Euler step preserves the
+bounds; it never assumes a future estimate to prove a current one.
+
+The resulting internal-layer estimate is
+\[
+\sup_{k\Delta\le T_*}\mathbb E\exp\!\left(
+c\left|(W_k^{(\ell+1)})^*\delta_{a,k}^{(\ell+1)}\right|^2\right)
+\le C,
+\]
+uniformly in $\Delta$; the readout obeys the analogous bound. This controls
+each time marginal, not the maximum of a random path. It is the additional
+estimate that makes the continuous-time argument possible.
+
+\newpage
+\section*{7. Localized stability constructs the flow and proves uniqueness}
+
+Compare two states on the same population spaces. Measure their difference
+by the first-preactivation and readout mean-square distances, together with
+the middle-operator norm distances. Forward propagation is Lipschitz in
+this distance on the bounded range from page 5.
+
+For the backward pass, split the difference into two effects: a change in
+the incoming backward field multiplied by a bounded activation derivative,
+and a change in the derivative multiplied by the reference backward field.
+For the second effect, choose a cutoff $R>0$.
+
+On coordinates where the absolute reference backward signal is at most $R$,
+the contribution is bounded by a constant times
+\[
+R\,|Z_a^{(\ell)}-\widetilde Z_a^{(\ell)}|.
+\]
+On the remaining coordinates, the preceding Gaussian-tail estimate makes
+its mean-square norm at most $Ce^{-cR^2}$. This estimate applies to the
+readout at the final layer as well, so a bounded readout is not needed.
+
+The way this comparison passes through depth matters. At each preceding
+layer, the error already present is multiplied only by a bounded derivative
+and a bounded operator. The layer adds a new cutoff contribution. It does
+not multiply the entire incoming error by $R$. Thus the final stability
+constant grows like $C(1+R)$, with depth absorbed into $C$, rather than
+like $R^L$.
+
+Apply this comparison to two population Euler paths with meshes $\Delta$
+and $\Delta'$. Their grid states differ from their interpolated states by
+at most a constant times their mesh lengths. Integration and Gronwall's
+inequality give
+\[
+\begin{split}
+\text{largest state discrepancy on }[0,T_*]
+\ \le\ & C e^{C(1+R)T_*}\\[-3pt]
+&\times\left[(1+R)(\Delta+\Delta')+e^{-cR^2}\right].
+\end{split}
+\]
+First hold $R$ fixed and let both meshes tend to zero. Then let $R$ grow.
+The remaining term vanishes because
+\[
+e^{C(1+R)T_*-cR^2}\longrightarrow0.
+\]
+This balance is the heart of the proof: the amplification cost is exponential
+in $R$, while the discarded tail decays exponentially in $R^2$.
+
+The Euler paths are consequently Cauchy in the complete field and operator
+spaces. Their limit satisfies the population integral equations; continuity
+of bounded-derivative products is justified by a reference-field cutoff.
+The tail estimates pass to this solution. If another strong solution starts
+from the same state, use the constructed solution as reference in the same
+comparison. The other solution needs only the bounded-range estimate.
+Letting $R$ grow forces their distance to zero. This proves uniqueness,
+without assuming Gaussian tails for every possible competing solution.
+
+\newpage
+\section*{8. Why every vanishing gradient-descent step is allowed}
+
+We still have to connect the population construction to actual training,
+which takes approximately $T_*/\eta_n$ steps. Applying the fixed-computation
+theorem directly to this growing program would not be justified.
+
+Instead fix a coarse mesh $\Delta$ independently of $n$ and $\eta_n$.
+Compute its population Euler path. In a finite-width reference computation,
+use the \emph{same sampled initial arrays} as actual gradient descent,
+but supply the scalar residuals and feature/backward overlaps from that
+population Euler path. After expanding the matrices into their initial
+parts and trained rank-one terms, this is a fixed finite computation.
+The Gaussian response theorem therefore proves empirical convergence of
+all its required fields and scalar overlaps.
+
+There is a necessary consistency step. Reassemble actual finite matrices
+from the reference rank-one updates and recompute their forward and backward
+passes. These need not equal the prescribed reference calls exactly:
+recomputed overlaps are empirical averages, while the prescribed calls use
+their population expectations. At the fixed mesh there are only finitely
+many such differences. They vanish as width grows. The backward comparison
+uses reference tails again to handle the unbounded readout. This produces
+a finite parameter path that is an approximate solution of the \emph{actual}
+training equations, with a vanishing error at fixed $\Delta$.
+
+Now compare actual fine-step gradient descent to this coarse reference.
+Both have uniform field-size and operator bounds. Only the reference needs
+the tail estimate. The same localized stability argument gives
+\[
+\begin{split}
+\text{largest finite-state discrepancy on }[0,T_*]
+\ \le\ & C e^{C(1+R)T_*}\\[-3pt]
+&\times\left[(1+R)(\eta_n+\Delta)+e^{-cR^2}
+                 +o_{\mathbb P}(1)\right].
+\end{split}
+\]
+Here $o_{\mathbb P}(1)$ denotes a quantity tending to zero in probability
+as $n\to\infty$, with $R,\Delta$ fixed. The state comparison is between
+two finite systems on the same sampled arrays; no operator-norm comparison
+between a finite matrix and a population operator is asserted.
+
+The order of limits is deliberate. First let $n\to\infty$ with the desired arbitrary sequence $\eta_n\to0$,
+while $R,\Delta$ stay fixed. Then refine $\Delta\to0$ using the population
+Euler convergence from page 7. Finally send $R\to\infty$. Each contribution
+to the displayed error vanishes in that order.
+
+The coarse computation is used only in the proof. It does not replace the
+feedback of actual training, nor become an external forcing in the population
+law. Crucially, its number of operations stays fixed during the width limit.
+There is therefore no requirement such as $\eta_n\sqrt n\to0$.
+
+\newpage
+\section*{9. Completing the result and locating the technical details}
+
+Once state comparisons are available, predictions follow from the forward
+Lipschitz bounds. Kernel entries are products of same-population second
+moments; convergence of forward and backward fields controls those moments
+by Cauchy--Schwarz. There is no need for a central limit theorem or an
+independence claim about trained neurons.
+
+To recover whole hidden paths, first record a finite grid of times. The
+fixed-computation limit identifies their joint empirical laws. Between
+neighboring grid points, the squared variation of each coordinate is bounded
+by the cell length times its integrated squared speed. Averaging this
+inequality over neurons controls the error of reconstructing the paths from
+the grid. Refining the grid therefore gives convergence with second moments
+in the uniform path norm. The appendix carries out the additional cutoff
+argument for convergence of integrated squared speeds.
+
+The proof is first written for twice differentiable activations with bounded
+first and second derivatives. Smooth approximations to a continuously
+differentiable activation with Lipschitz derivative preserve these same
+bounds. The time interval and stability constants are consequently uniform
+over the smoothing scale. Passing that scale to zero gives the stated
+activation class. This passage does not cover a jump in the derivative,
+which is why ReLU is excluded.
+
+More general separable losses are permitted. Write them as
+\[
+\mathcal L=\sum_a\omega_a\ell_a(f_a),
+\]
+where each loss derivative is locally Lipschitz, with common finite bounds
+and Lipschitz constants on bounded prediction intervals. Replace every
+$2(f_b-y_b)$ in the updates by $\ell_b'(f_b)$. The size argument uses its
+bound; the feedback comparison uses its Lipschitz constant. No convexity is
+needed for the fixed positive-time result.
+
+Vanishing initialization changes are also allowed: first preactivations and
+readout must change by a vanishing mean-square amount, and middle matrices
+by a vanishing operator norm. In particular, zero population readout includes
+finite Gaussian readouts whose stored coordinate scale is $n^{-\beta}$ for
+any fixed $\beta>0$. This does not imply universality for order-one changes
+to the middle-matrix distribution.
+
+The appendix supplies the exact finite updates and kernel, the common
+operator construction, the complete Gaussian response recursions, the
+weighted sensitivity induction and choice of the depth-dependent constants,
+the comparison estimates, and the passages for paths, losses and smoothing.
+The main mechanism is preserved above: \emph{size bounds give room to evolve;
+the update-weighted response controls tails despite matrix reuse; the tails
+make the nonlinear feedback stable; a fixed coarse computation connects
+that stable flow to every vanishing-step finite training sequence.}
+
+The stored scaling, fixed-step width limits and operator viewpoint have prior
+literature \cite{TP3,TP4,TP4b,TP5}. The additional argument presented here
+is the control uniform in time mesh and its use in the joint limit. This
+exposition makes no publication-priority claim. It establishes a fixed
+positive interval at each fixed depth, not all-time control, strict feature
+activity at every depth, or reconstruction from initialization jets by Borel
+or Pad\'e summation.

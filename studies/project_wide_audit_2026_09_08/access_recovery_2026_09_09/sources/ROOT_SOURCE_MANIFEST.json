@@ -1,0 +1,16 @@
+[
+  {
+    "task": 10,
+    "file": "/home/codex-b/.codex/sessions/2026/08/26/rollout-2026-08-26T15-47-13-01a03e53-2e5f-75e2-8dcf-a02ee6f8d10c.jsonl",
+    "line": 506,
+    "time": "2026-08-26T14:20:29.733Z",
+    "sha256": "8ebfd4d6cf16437561765903e8ea3cac61e8ea28198e7566866e09f67a35aff0"
+  },
+  {
+    "task": 11,
+    "file": "/home/codex-b/.codex/sessions/2026/08/26/rollout-2026-08-26T12-07-45-01a03d8a-3d77-7441-a157-7bc33559ecd2.jsonl",
+    "line": 4272,
+    "time": "2026-08-26T15:19:36.247Z",
+    "sha256": "3acb441cc0459c6417ea06d787adce5a4ac2ca198907d1ce07d85fedc7de2124"
+  }
+]

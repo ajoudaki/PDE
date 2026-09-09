@@ -1,0 +1,65 @@
+{
+  "date": "2026-09-07",
+  "status": "proved extension; three independent complete-proof agent audits PASS",
+  "proof_documents": [
+    {
+      "path": "PROOF.md",
+      "sha256": "e319166dbdd3c0c8b8ddfc7c588642bbac67f4cc5c870f0513b1bdddc6633300"
+    },
+    {
+      "path": "CONTROLLED_RESPONSE_LEMMA.md",
+      "sha256": "49da0f68047b4f516d3ad3c94b7112259838bcebf68e2296a948364232842789"
+    },
+    {
+      "path": "GEOMETRY_AND_INITIAL_MOTION.md",
+      "sha256": "e19c6c7f04d4e182ee1988dcc1aef10b91a0081ac7fd4f3504735f4c61fa1422"
+    }
+  ],
+  "candidate_manifest": {
+    "path": "CANDIDATE_HASHES.json",
+    "sha256": "48c3d3ea34b0a46344bef893963e53fb9bf011b7a21340fb388e3ae52eb16a27"
+  },
+  "source_manifest": {
+    "path": "SOURCE_HASHES.json",
+    "sha256": "e36f1696924912c0af5d7f7aa90c856d7f9ff064c486f212cf26f2eaafbe9af1",
+    "source_count": 9
+  },
+  "reviews": [
+    {
+      "path": "reviews/REVIEW_A.md",
+      "sha256": "4814a2aa55567c51fb55143cc3c0b814dcacc97b23ad50fa3727ba9b2131bd83",
+      "verdict": "PASS for the complete final theorem",
+      "required_repairs": []
+    },
+    {
+      "path": "reviews/REVIEW_B.md",
+      "sha256": "39956622f67d7844997ecd53d42c6106584aaf7282cc3b9b3b2ba3360193fa5a",
+      "verdict": "PASS for the complete final theorem",
+      "required_repairs": []
+    },
+    {
+      "path": "reviews/REVIEW_C.md",
+      "sha256": "be385a4591dd57b6601fbe2fe24e066de49a41ba172620165213cd1b56f23e44",
+      "verdict": "PASS for the complete final theorem",
+      "required_repairs": []
+    }
+  ],
+  "in_review_corrections": [
+    {
+      "file": "GEOMETRY_AND_INITIAL_MOTION.md",
+      "change": "Corrected illustrative matrix-vector product to (q,q,2c-q) for diagonal q and off-diagonal c.",
+      "before_sha256": "f9e8547ec4037b574496643d931f80a7d99f70a0c33215e7f6f3c33d21499c74",
+      "after_sha256": "e19c6c7f04d4e182ee1988dcc1aef10b91a0081ac7fd4f3504735f4c61fa1422",
+      "effect": "Illustrative scalar-clock obstruction unchanged; no role in constructive theorem.",
+      "verified_by": [
+        "A",
+        "B",
+        "C"
+      ]
+    }
+  ],
+  "open_extensions": [
+    "The restricted unit-slope activation family.",
+    "One fixed activation for every positive separation delta."
+  ]
+}

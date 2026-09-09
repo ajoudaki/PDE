@@ -1,0 +1,50 @@
+[
+  {
+    "source": "/tmp/three_hard_nonlinear_20260908.md",
+    "archive": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/sources/three_hard_nonlinear_20260908.md",
+    "bytes": 14861,
+    "sha256": "529fdb98cde71d1c6f23462ace24fa1648a46a825ad6ff24900dbba43d7fbce2"
+  },
+  {
+    "source": "/tmp/three_hard_energy_20260908.md",
+    "archive": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/sources/three_hard_energy_20260908.md",
+    "bytes": 14741,
+    "sha256": "6d1197b5d7a292b4a5495e54768bcdc3b86037a2293cfa805beb8ea80cc694dc"
+  },
+  {
+    "source": "/tmp/three_hard_direct_20260908.md",
+    "archive": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/sources/three_hard_direct_20260908.md",
+    "bytes": 13776,
+    "sha256": "1e3b7c609a352cc236d1e2687317117870ac1fc6d07c20e75f2b1de632d034d0"
+  },
+  {
+    "source": "/tmp/three_hard_metric_20260908.md",
+    "archive": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/sources/three_hard_metric_20260908.md",
+    "bytes": 13380,
+    "sha256": "940ce1b81dc976b7757bd551f0db2f7dcc47b63d53e88f5a65d4c8299a98b297"
+  },
+  {
+    "source": "/tmp/three_hard_signed_response_20260908.md",
+    "archive": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/sources/three_hard_signed_response_20260908.md",
+    "bytes": 12680,
+    "sha256": "cea1efb75fa56efda8fe82ffbce5b5bbf3c3e3ad2568264724241b395a541279"
+  },
+  {
+    "source": "/tmp/three_hard_weakmode_20260908.md",
+    "archive": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/sources/three_hard_weakmode_20260908.md",
+    "bytes": 17470,
+    "sha256": "7c7ccd83b5d51a668552d335361bf7a2293289d56a22d79a9fd3a1253d39a6ad"
+  },
+  {
+    "source": "/tmp/three_absolute_affine_reference_20260908.md",
+    "archive": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/sources/three_absolute_affine_reference_20260908.md",
+    "bytes": 12289,
+    "sha256": "d6a1e327896611660f5bd2da0cc4f54ada32c0884e1125632b930ce74a119dac"
+  },
+  {
+    "source": "/tmp/three_absolute_affine_global_20260908.md",
+    "archive": "/home/amir/Codes/PDE/studies/project_wide_audit_2026_09_08/access_recovery_2026_09_09/sources/three_absolute_affine_global_20260908.md",
+    "bytes": 13770,
+    "sha256": "70126d29c2b62ea788c159027d175b77b2ac073b07261d3f0f570940d38f1b6b"
+  }
+]

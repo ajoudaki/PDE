@@ -1,0 +1,31 @@
+# Isolated adversarial review
+
+**Verdict: PASS.** No substantive mathematical defect or missing nonclassical dependency was found.
+
+Reviewed file: `/home/amir/Codes/PDE/studies/mean_field_peeling/CALIBRATED_NEAR_IDENTITY_INITIALIZATION.md`
+
+SHA256: `f55df0156da98d67a655b27280a005d148df0bb206b783a454dfed379bc99211`
+
+**Full-read confirmation:** I read the entire note, from its title through the last sentence of Section 6. The note was my sole mathematical input. I did not read other files, consult external material or other agents, or run numerical experiments. The checks below use direct algebra and mathematical reasoning.
+
+## Verified claims
+
+1. **Calibration and correlation kernel, (1)–(6).** The choice `c = exp(3/2)/2` gives the exact cancellation `E[G w(G)] = 0`. Positivity of `v` follows from the nonzero smooth function and Gaussian full support. Expanding the sine products gives precisely `v = exp(-1) N` and the displayed formula for `K`. The coefficient of each odd power is `(2^(m-1)-1)^2/(N m!)`; the linear coefficient vanishes, `p_3 = 3/(2N)`, and the coefficients sum to one. Thus `|K(rho)| <= |rho|^3` on `[-1,1]`, and the correlation map preserves sign and absolute separation. All population diagonal entries equal one by induction.
+
+2. **The tensor lower bound, (7).** Each `a_ij` is a well-defined unit vector because the absolute separation excludes correlations of magnitude one. The tensor `A_i` annihilates the two unwanted cubic tensors. Its pairing with the remaining tensor is `sqrt((1-C_ij^2)(1-C_ik^2))`, which is at least `delta(2-delta)`. Applying Cauchy–Schwarz separately to the three unit tensors gives exactly the factor three in (7). No invertibility assumption on the original Gram is needed.
+
+3. **The uniform population bound, (8)–(9).** All entrywise powers are tensor Gram matrices and hence positive semidefinite. The absolutely convergent series therefore permits retaining the positive cubic contribution, yielding (8). The recursion is a positive convex combination of `Q_k` and `K[Q_k]`; its iteration gives `Q_L >= b^L Gamma + (1-b^L) mu_delta I`. Dropping the positive semidefinite initial term and using the binomial inequality `(1+tau/L)^L >= 1+tau` gives both inequalities in (9), for every positive `tau`, integer `L >= 1`, and admissible separated triple. The constants do not require choosing the shape or `tau` as a function of `delta`.
+
+4. **Width quantifiers.** For each fixed finite depth, conditional Gaussian rows and bounded conditional fourth moments give entrywise empirical-Gram concentration on events whose probability tends to one. Continuity of the covariance expectation follows from continuous positive square roots and the globally Lipschitz activation; possible singular limiting covariances cause no difficulty. Induction justifies the stated width-first population recursion. This argument does not establish uniformity in depth, and the note expressly makes no such finite-width claim. Bound (9) concerns the population matrices. There is no improper interchange of the width and depth limits.
+
+5. **Population depth limit, (10)–(11).** The entire kernel gives a bounded Lipschitz vector field on the invariant interval `[-1,1]`. The exact solution has a uniform local increment error of order `(tau/L)^2`; replacing `tau/L` by `(tau/L)/(1+tau/L)` has the same order of error. The displayed discrete error inequality yields an order `1/L` terminal error at each fixed `tau`. Applying it to the three off-diagonal entries gives the asserted matrix limit, whose positive semidefiniteness follows by passage to the limit. Standard finite-dimensional square-root continuity, scalar Picard existence/uniqueness, and the elementary geometric-series estimate are classical ingredients, not missing specialized dependencies.
+
+6. **Nonlinear witness, (12).** Oddness gives `r' = K(r)-r` with `r(0)=1/2`. The inequality `r' >= -r` ensures positivity at finite times, while `r' <= r^3-r` ensures decrease. Thus the change of variables `u=r^(-2)` is valid and gives `u' >= 2(u-1)`, hence `u(s) >= 1+3 exp(2s)`. The equicorrelation matrix has eigenvalues `1-2r, 1+r, 1+r`, proving (12). The stated bound at `tau=1` exceeds `0.58`; this can be checked without a numerical experiment from `exp(2) > 109/15 > 9559/1323`. The initial zero eigenvalue cannot be removed by scalar multiplication of the initial Gram. This is an admissible example in dimension at least two, with separation parameter at most `1/2`; it is not presented as a witness for every larger separation parameter.
+
+7. **Near-identity scope, (13).** The normalization discrepancy is bounded by `h^2/2`, and the bounded shape and derivative give precisely the displayed uniform derivative and weighted value estimates. The second derivative is uniformly order `h`. For fixed `tau`, these perturbations vanish as depth grows. The note correctly restricts value closeness to the weighted or locally uniform sense and does not assert a finite unweighted global supremum.
+
+8. **Variance sign and local attraction.** Gaussian integration by parts gives the cross term `q a(q)`. Direct differentiation yields `a'(1) = -3 exp(-1/2)/(2 sqrt(v))`, so the linear-in-`h` term of `V_h'(1)` has the stated negative sign. Bounded smooth derivatives permit dominated differentiation of `b`. Consequently `|V_h'(1)| < 1` for all sufficiently small positive `h`; continuity of this derivative gives a contracting neighborhood of the fixed point. The assertion is correctly confined to this local scalar population map.
+
+9. **Gate moments and training exclusions, (14) and Section 6.** Integration by parts gives `E chi'(G)=0`, so the gate second-moment identity is exact. Dropping the denominator and applying `1+x <= exp(x)` gives the displayed depth-independent exponential bound. This is only a scalar Gaussian moment statement; it neither assumes independence of network Jacobians nor bounds their operator-norm product. The note explicitly excludes training evolution, joint growing-width/depth control, trained Gaussianity, backward-field control, all-time continuation, and fitting. Its concluding initialization-only interpretation is supported by the proved results.
+
+No correction is required for the asserted initialization results.

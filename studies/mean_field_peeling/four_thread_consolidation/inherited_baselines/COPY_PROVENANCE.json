@@ -1,0 +1,40 @@
+{
+  "scope": "Exact readable baseline copies and historical review provenance; no fresh proof review",
+  "files": [
+    {
+      "source": "/tmp/l2-proof-review-wBzgFS/TWO_HIDDEN_LAYER_PROOF.md",
+      "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/inherited_baselines/L2_ONE_SAMPLE_ARCTAN_GLOBAL_PROOF.md",
+      "sha256": "f0660112d066a5955d356909bc7f6d4b7086b571a7bf2f4b9675eb882a31017f",
+      "byte_identical": true
+    },
+    {
+      "source": "/tmp/l2-proof-review-wBzgFS/REVIEW.md",
+      "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/inherited_baselines/L2_ONE_SAMPLE_ARCTAN_GLOBAL_REVIEW.md",
+      "sha256": "e0cc0ffbaf8b6a9969ffebf50b78a518b031088ec1093c70d266c82727fc276c",
+      "byte_identical": true
+    },
+    {
+      "source": "/tmp/l2-proof-review-wBzgFS/proof-r2.md",
+      "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/inherited_baselines/L2_ONE_SAMPLE_ARCTAN_GLOBAL_REVIEWED_ROUND2.md",
+      "sha256": "0e453116551d96ec7a06504b5b9035a39fdc42d9d4ef0b939bff1da88555fbd1",
+      "byte_identical": true
+    },
+    {
+      "source": "/tmp/l3-full-resolution-9nbD4z/L3_LOCAL_COMPLETE_PROOF.md",
+      "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/inherited_baselines/L3_ONE_SAMPLE_ARCTAN_LOCAL_PROOF.md",
+      "sha256": "f97148f84979ab5b8489927d477b6abb3d919e27fd457455f2e3b98416725de4",
+      "byte_identical": true,
+      "declared_review_sha256": "f97148f84979ab5b8489927d477b6abb3d919e27fd457455f2e3b98416725de4",
+      "declared_hash_matches": true,
+      "matches_persistent_source": true
+    },
+    {
+      "source": "/tmp/l3-full-resolution-9nbD4z/REVIEW.md",
+      "copy": "/home/amir/Codes/PDE/studies/mean_field_peeling/four_thread_consolidation/inherited_baselines/L3_ONE_SAMPLE_ARCTAN_REVIEW_RECORD.md",
+      "sha256": "64d35471008bb536d2bc8ade6ee251fa2985a083ed61947df404349685c24b97",
+      "byte_identical": true
+    }
+  ],
+  "L2_review_declares_hash": false,
+  "L3_declared_hash_verified": true
+}

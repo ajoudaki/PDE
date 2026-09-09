@@ -1,0 +1,3646 @@
+=== OPERATOR2 ROLLOUT LINE 31493 | 2026-08-27T19:40:32.550Z | /root/audit_dynamics_activity ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/audit_dynamics_activity
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 31499 | 2026-08-27T19:40:45.136Z | /root/audit_han_invocation ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/audit_han_invocation
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 31509 | 2026-08-27T19:41:31.656Z | /root/audit_response_operator ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/audit_response_operator
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 31516 | 2026-08-27T19:41:41.027Z | /root/audit_dynamics_activity ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/audit_dynamics_activity
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 31527 | 2026-08-27T19:42:13.794Z | /root/audit_han_invocation ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/audit_han_invocation
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 31533 | 2026-08-27T19:42:20.559Z | /root/audit_dynamics_activity ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/audit_dynamics_activity
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 31549 | 2026-08-27T19:42:59.781Z | /root/audit_han_invocation ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/audit_han_invocation
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 31572 | 2026-08-27T19:43:29.646Z | /root/audit_dynamics_activity ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/audit_dynamics_activity
+Payload:
+Audit verdict for the finite-width algebra and dynamical/nondegeneracy portion: the core construction is mathematically plausible and its principal formulas are correct, but the proof as written does not yet pass a fully rigorous audit.
+
+## Checks that pass
+
+1. With \(C=nc\), \(D^a=C\phi'(S^a)\), and \(P^a=B^\top D^a\),
+
+\[
+\nabla_{w_i}f_a
+=\frac1n\phi'(U_i^a)P_i^a x_a,
+\quad
+\nabla_{B_{ji}}f_a
+=\frac1nD_j^aH_i^a,
+\quad
+\nabla_{c_j}f_a=G_j^a.
+\]
+
+The mobilities
+
+\[
+\lambda_{1,n}=\frac nd,\qquad
+\lambda_{2,n}=1,\qquad
+\lambda_{3,n}=\frac1n
+\]
+
+therefore produce exactly the displayed normalized flow.
+
+2. The NTK blocks are exactly
+
+\[
+\Theta^{(1)}_{ab}
+=
+R_{ab}
+\langle\phi'(U^a)P^a,\phi'(U^b)P^b\rangle_n,
+\]
+
+\[
+\Theta^{(2)}_{ab}
+=
+\langle H^a,H^b\rangle_n
+\langle D^a,D^b\rangle_n,
+\qquad
+\Theta^{(3)}_{ab}
+=
+\langle G^a,G^b\rangle_n.
+\]
+
+3. For \(\phi=\sin+\cos\),
+
+\[
+Q_{ab}
+=
+\mathbb E[\phi(U_a)\phi(U_b)]
+=
+e^{-1+R_{ab}}
+=
+\exp\!\left[-\frac{\|x_a-x_b\|^2}{2d}\right].
+\]
+
+This is strictly positive definite for every finite set of distinct inputs. Moreover,
+
+\[
+T_{ab}=e^{-1+Q_{ab}}
+=e^{-1}\sum_{k\ge0}\frac{Q_{ab}^{\,k}}{k!}
+\]
+
+is strictly positive definite because \(Q\succ0\) and all other Hadamard-power terms are positive semidefinite.
+
+4. If
+
+\[
+g(s)=\sum_a y_a\phi(s_a),\qquad
+V_a(s)=y_ag(s)\phi'(s_a),
+\]
+
+then
+
+\[
+M=\mathbb E[V(S)V(S)^\top]\succ0.
+\]
+
+The analytic argument establishing this is valid.
+
+5. The formal small-time identities
+
+\[
+C(t)=\gamma t\,g(S)+O_{L^2}(t^2),
+\qquad
+\dot h(t)
+=
+\gamma^2t\,M_h\nabla_h\Psi+O_{L^2}(t^2)
+\]
+
+and
+
+\[
+h(t)-h(0)
+=
+\frac{\gamma^2t^2}{2}M_h\nabla_h\Psi+O_{L^2}(t^3)
+\]
+
+have the correct signs and coefficients.
+
+6. The initialization nonlinear-regression residual is explicitly
+
+\[
+\inf_{a,b}
+\mathbb E|\sin Z+\cos Z-aZ-b|^2
+=
+1-\frac2e>0,
+\qquad Z\sim N(0,1).
+\]
+
+Its short-time persistence follows once the asserted \(W_2\) path convergence is established.
+
+## Corrections required
+
+### 1. Separate two covariance matrices
+
+The proof conflates
+
+\[
+M^0_{ab}
+=
+\mathbb E[g(S)^2\phi'(S_a)\phi'(S_b)]
+\]
+
+with
+
+\[
+M=D_yM^0D_y,
+\qquad D_y=\operatorname{diag}(y).
+\]
+
+The individual fields satisfy
+
+\[
+\langle D^a(t),D^b(t)\rangle
+=
+\gamma^2t^2M^0_{ab}+O(t^3),
+\]
+
+whereas \(M\) is the covariance of the label-combined fields \(V_a\).
+
+### 2. The reused-adjoint statement is not proved
+
+The crucial formula must be stated componentwise:
+
+\[
+(B_0^\top V^a)_i
+\Longrightarrow
+\xi_i^a+\sum_c\Gamma_{ac}H_i^c,
+\]
+
+where
+
+\[
+\Gamma=\mathbb E[DV(S)],
+\qquad
+\xi_i\sim N(0,M),
+\]
+
+and \(\xi_i\) is independent of the representative right mark \(U_i\).
+
+A leave-one-column calculation supports it:
+
+\[
+S_j=S_j^{(-i)}+B_{ji}H_i.
+\]
+
+Taylor expansion gives:
+
+- a conditionally Gaussian zeroth-order term with covariance
+  \[
+  \frac1n\sum_jV(S_j^{(-i)})V(S_j^{(-i)})^\top\to M;
+  \]
+- the response term
+  \[
+  \left(\frac1n\sum_jDV(S_j^{(-i)})\right)H_i\to\Gamma H_i;
+  \]
+- a remainder bounded using
+  \[
+  \sum_j|B_{ji}|^3=O_{\mathbb P}(n^{-1/2}).
+  \]
+
+But this proves only a representative-column limit. The proof still needs either:
+
+- a two-column asymptotic-independence/concentration argument yielding empirical convergence; or
+- an exact application of the fixed-step state-evolution theorem to this observable.
+
+The previous one-sentence assertion does neither.
+
+### 3. The missing positive coefficients should be displayed
+
+Let
+
+\[
+D_U=\operatorname{diag}(\phi'(U)),
+\qquad
+T_*=\xi+\Gamma H.
+\]
+
+Then the correct first-block coefficient is
+
+\[
+\lim_{t\downarrow0}
+t^{-2}y^\top\Theta^{(1)}(t)y
+=
+\gamma^2
+\mathbb E[T_*^\top D_URD_UT_*].
+\]
+
+Its innovation part is
+
+\[
+\gamma^2\mathbb E\operatorname{tr}(RD_UMD_U)>0.
+\]
+
+For the first-preactivation speed,
+
+\[
+\lim_{t\downarrow0}
+t^{-2}\mathbb E\|\dot U(t)\|^2
+=
+\gamma^4
+\mathbb E\|RD_UT_*\|^2,
+\]
+
+whose innovation contribution is
+
+\[
+\gamma^4
+\mathbb E\operatorname{tr}(RD_UMD_UR)>0.
+\]
+
+For the middle block,
+
+\[
+\lim_{t\downarrow0}
+t^{-2}y^\top\Theta^{(2)}(t)y
+=
+\gamma^2\mathbf1^\top(Q\circ M)\mathbf1>0.
+\]
+
+These establish the claimed aggregate activities, but they were not actually derived in the submitted proof.
+
+### 4. Multi-sample quantities are undefined
+
+A rigorous theorem must specify, for example,
+
+\[
+V_n^{(1)}(t)^2
+=
+\frac1{np}\sum_{i,a}|\dot U_i^a(t)|^2,
+\]
+
+\[
+V_n^{(2)}(t)^2
+=
+\frac1{np}\sum_{j,a}|\dot S_j^a(t)|^2,
+\]
+
+\[
+K_n^{(\ell)}(t)
+=
+\frac1p\operatorname{tr}\Theta_n^{(\ell)}(t),
+\]
+
+and sample-averaged nonlinear residuals.
+
+Under these aggregate definitions, the positivity arguments work. If the intended requirement is positive motion for every individual sample separately, the proof does not establish it, especially for \(S^a\).
+
+### 5. Kernel motion has an interpretation gap
+
+The calculation
+
+\[
+y^\top[\Theta(t)-\Theta(0)]y>0
+\]
+
+proves that the NTK matrix \(\Theta(t)\) is nonconstant. It does not prove that
+
+\[
+p^{-1}\operatorname{tr}\Theta(t)
+\]
+
+is nonconstant. Therefore the corrected theorem must formulate kernel motion as motion of the full NTK matrix. If it requires the trace scalar to move, another calculation is necessary.
+
+### 6. Small-time differentiability remains asserted
+
+The proof uses \(O_{L^2}(t^2)\) and \(O_{L^2}(t^3)\) expansions of the limiting operator flow without proving:
+
+- differentiability of the width-limit flow at zero;
+- domination of the reused-adjoint fields;
+- convergence of the finite-width derivative coefficients in empirical \(L^2\);
+- uniform control of the Taylor remainders.
+
+The bounded activation makes such a lemma plausible, but it is a missing lemma, not a completed step.
+
+## Final certificate
+
+There is no algebraic or dataset-geometric counterexample in the audited portion. The activation and scaling survive antipodal inputs and arbitrarily close distinct inputs. Nevertheless, the theorem cannot presently be labeled fully proved because the empirical reused-adjoint lemma, limiting small-time regularity, and multi-sample quantifiers are not closed.
+
+Under the explicit aggregate definitions above, and conditional on completing those two analytic/probabilistic lemmas, the activity, nondegeneracy, nonlinearity, loss-decrease, and NTK-matrix-motion conclusions are valid.
+
+=== OPERATOR2 ROLLOUT LINE 31594 | 2026-08-27T19:44:29.927Z | /root/audit_han_invocation ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/audit_han_invocation
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 31596 | 2026-08-27T19:44:29.927Z | /root/audit_dynamics_activity ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/audit_dynamics_activity
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 31603 | 2026-08-27T19:44:39.244Z | /root/audit_han_invocation ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/audit_han_invocation
+Payload:
+Verdict: Han’s theorem is correctly usable only for a fixed finite, deterministic conditional-oracle GFOM. It does not directly justify the adaptive network Euler scheme or the claimed operator-action limit.
+
+Source checked: Qiyang Han, arXiv:2406.19061v2, 29 May 2025, specifically Definition 3.3 and Theorems 3.4–3.5. In the TeX source these are lines 587–647.
+
+Theorem 3.5 requires:
+
+- \(A=A_0/\sqrt m\), with independent centered uniformly sub-Gaussian entries;
+- \(m/n\) bounded above and below;
+- row-separate globally Lipschitz maps with uniformly bounded values at zero;
+- a fixed finite GFOM history.
+
+It concludes conditional \(L^q\) control only for empirical pseudo-Lipschitz observables, with error
+
+\[
+\bigl[
+K\Lambda\Lambda_\psi\log n
+(1+\|u^{(0)}\|_\infty+\|v^{(0)}\|_\infty)
+\bigr]^{C_0t^5}n^{-1/C_0^t}.
+\]
+
+It does not assert continuous-time convergence, an actual-oracle coupling, countably many probes, operator-norm convergence, a GNS realization, or autonomy. It imposes no Gaussian-covariance nonsingularity condition.
+
+The proposed repair is viable, subject to these explicit additions:
+
+1. Set Han’s initialization to \(u^{(0)}=v^{(0)}=0\), condition on the independent side marks \((U_0,C_0)\), and work on \(\max_j|C_{0,j}|\le1\). Construct the oracle using deterministic conditional-state-evolution errors and overlaps. Verify recursively that every oracle row map has a finite uniform \(\Lambda_{h,R,N}\).
+
+2. Prove the same-\(B_0\) actual-oracle induction. If \(\delta_q\) is the accumulated normalized-\(L^2\) field error and \(\zeta_q\) the oracle empirical-scalar error, use
+
+\[
+\begin{aligned}
+|\langle x,y\rangle_n-a^\star|
+\le{}&
+\|x-\bar x\|_n\|y\|_n+
+\|\bar x\|_n\|y-\bar y\|_n\\
+&+
+|\langle\bar x,\bar y\rangle_n-a^\star|
+\end{aligned}
+\]
+
+and \(\|B_0v\|_n\le\|B_0\|_{\rm op}\|v\|_n\) to obtain
+
+\[
+\delta_q
+\le
+C_{h,R,N,M}
+\left(\delta_{q-1}+\max_{r\le q}\zeta_r\right).
+\]
+
+Han then gives \(\zeta_r\to0\) for the finite list of observables.
+
+3. Prove convergence of the conditional, \(n\)-dependent state evolutions by induction simultaneously over covariance matrices, response coefficients, row maps, and their first source derivatives. For singular covariances, couple by
+
+\[
+Z_n=\Sigma_n^{1/2}G,\qquad Z=\Sigma^{1/2}G
+\]
+
+and use \(\Sigma_n^{1/2}\to\Sigma^{1/2}\). Bounded \(C^1\) integrands then pass both ordinary Gaussian expectations and response expectations. Bare continuity of Gaussian laws is insufficient because responses contain derivatives.
+
+4. For the action state, append only finitely many dummy \(B_0,B_0^*\) queries at a time, using bounded globally Lipschitz feed maps. Raw \(P\)-products may appear as pseudo-Lipschitz observables, not as matrix inputs. Pass from finite probe lists to a countable algebra through a weighted metric.
+
+5. Independently establish
+
+\[
+\|B_n(t)\|_{\rm op}
+\le
+\|B_0\|_{\rm op}
++\gamma\int_0^t
+\sum_a |e_a|
+\|D^a\|_n\|H^a\|_n\,ds
+\le M_T.
+\]
+
+This lets the GNS quotient inherit both boundedness and
+
+\[
+\langle Bv,u\rangle=\langle v,B^*u\rangle.
+\]
+
+6. Pointwise countable-probe convergence is not compact-time convergence. Add rational-time convergence and depth-wise equicontinuity for every probe. GNS existence alone is not autonomy: prove that the vector field is determined continuously by the current generated algebra and combine it with the separate uniqueness theorem.
+
+One additional source caveat: arXiv v2 explicitly omits the proof of the symmetric averaged state-evolution theorem, and contains no separate proof of asymmetric Theorem 3.5. It is an asserted theorem, but its proof cannot itself be independently checked from that v2 text.
+
+Thus the original proof overstates Han’s conclusion and is not rigorous as written. The oracle repair can close the Han-specific gaps, but only with the six estimates and lifting arguments above.
+
+=== OPERATOR2 ROLLOUT LINE 31609 | 2026-08-27T19:44:42.676Z | /root/audit_response_operator ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/audit_response_operator
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 31625 | 2026-08-27T19:45:36.481Z | /root/audit_dynamics_activity ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/audit_dynamics_activity
+Payload:
+Second-round verdict: the corrected local part passes.
+
+With
+
+\[
+V_n^{(1)}(t)^2
+=
+\frac1{pn}\sum_{a,i}|\dot U_i^a(t)|^2,
+\qquad
+V_n^{(2)}(t)^2
+=
+\frac1{pn}\sum_{a,j}|\dot S_j^a(t)|^2,
+\]
+
+\[
+K_n^{(\ell)}(t)
+=
+\frac1p\operatorname{tr}\Theta_n^{(\ell)}(t),
+\]
+
+and sample-averaged nonlinear residuals, all required local properties follow. Kernel motion must be formulated as nonconstancy of the matrix \(\Theta(t)\), not necessarily of its trace.
+
+The integral equations yield, after the width limit and in normalized \(L^2\)/operator norms,
+
+\[
+C(t)=\gamma t g_0+O(t^2),
+\]
+
+\[
+e(t)=-y+O(t),
+\]
+
+\[
+B(t)-B_0=O(t^2),
+\qquad
+U(t)-U_0=O(t^2),
+\qquad
+S(t)-S_0=O(t^2),
+\]
+
+\[
+D^a(t)
+=
+\gamma t\,g_0\phi'(S_0^a)+O(t^2).
+\]
+
+These follow successively from \(C=O(t)\), hence \(D=O(t)\), then \(\dot B,\dot U=O(t)\), followed by
+
+\[
+S-S_0=(B-B_0)H_0+B(H-H_0).
+\]
+
+Consequently,
+
+\[
+\frac{y_aP^a(t)}t
+=
+\gamma B_0^\top V^a+O(t),
+\qquad
+V_a=y_ag_0\phi'(S_0^a).
+\]
+
+The reused-adjoint law can be obtained from a fixed \(O(p)\)-stage serialization of Han’s asymmetric GFOM theorem. Its hypotheses match here:
+
+- \(B_0\) has independent \(N(0,1/n)\) entries;
+- the two dimensions are equal;
+- \(p\) is fixed;
+- after conditioning on the independent side marks, all row maps are deterministic;
+- \(\phi,\phi'\), \(V\), and their required derivatives are bounded;
+- the empirical quadratic observables are pseudo-Lipschitz.
+
+The resulting state evolution is
+
+\[
+B_0^\top V
+\Longrightarrow
+T:=\xi+\Gamma H,
+\qquad
+\xi\sim N(0,M),
+\]
+
+where
+
+\[
+\Gamma=\mathbb E DV(S),
+\qquad
+M=\mathbb E[V(S)V(S)^\top]\succ0,
+\]
+
+and \(\xi\) is independent of the representative right mark \(U\). An appended forward query identifies the second-preactivation velocity.
+
+Writing
+
+\[
+D_U=\operatorname{diag}(\phi'(U)),
+\]
+
+define
+
+\[
+A_w
+=
+\mathbb E[T^\top D_URD_UT],
+\]
+
+\[
+A_B
+=
+\mathbf1^\top(Q\circ M)\mathbf1,
+\qquad
+A=A_w+A_B.
+\]
+
+Both coefficients are strictly positive. Indeed,
+
+\[
+A_w
+\ge
+\mathbb E\operatorname{tr}(RD_UMD_U)>0,
+\]
+
+and \(Q\circ M\succ0\) by the Schur product theorem.
+
+The exact kernel expansions are
+
+\[
+y^\top\Theta^{(1)}(t)y
+=
+\gamma^2A_wt^2+O(t^3),
+\]
+
+\[
+y^\top\Theta^{(2)}(t)y
+=
+\gamma^2A_Bt^2+O(t^3),
+\]
+
+\[
+y^\top\Theta^{(3)}(t)y
+=
+y^\top Ty+\gamma^2At^2+O(t^3),
+\]
+
+and therefore
+
+\[
+y^\top\Theta(t)y
+=
+y^\top Ty+2\gamma^2At^2+O(t^3).
+\]
+
+Thus the NTK matrix is nonconstant. Since every block is positive semidefinite,
+
+\[
+K^{(\ell)}(t)
+=
+\frac1p\operatorname{tr}\Theta^{(\ell)}(t)>0
+\]
+
+for all sufficiently small \(t>0\); \(K^{(3)}(0)=1\).
+
+The first feature-speed expansion is
+
+\[
+V^{(1)}(t)^2
+=
+\frac{\gamma^4t^2}{p}
+\mathbb E\|RD_UT\|^2+O(t^3),
+\]
+
+with strictly positive leading coefficient.
+
+For the second preactivation,
+
+\[
+\frac{\dot S(t)}t
+=
+\gamma^2J_SM_h\nabla\Psi+O(t),
+\]
+
+and
+
+\[
+\left\langle
+\nabla_S\Psi,\,
+J_SM_hJ_S^*\nabla_S\Psi
+\right\rangle
+=
+A>0.
+\]
+
+Hence \(J_SM_h\nabla\Psi\neq0\), so \(V^{(2)}(t)^2\) also has a strictly positive \(t^2\) coefficient. Positive time-integrated velocities and nonzero \(t^2\)-order displacements follow.
+
+Finally,
+
+\[
+\dot{\mathcal L}(0)
+=
+-\frac4{p^2}y^\top Ty<0,
+\]
+
+the hidden variances remain bounded below by continuity, and the averaged nonlinear residual starts from
+
+\[
+1-\frac2e>0.
+\]
+
+Thus, conditional on the separately audited compact-time convergence theorem, the corrected local activity, feature-motion, nonlinearity, loss, and NTK-matrix assertions are valid. I found no remaining algebraic or quantifier defect in this corrected portion.
+
+=== OPERATOR2 ROLLOUT LINE 31666 | 2026-08-27T19:46:00.345Z | /root/audit_response_operator ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/audit_response_operator
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 31837 | 2026-08-27T19:49:28.539Z | /root/round3_constructive ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/round3_constructive
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 31843 | 2026-08-27T19:49:51.298Z | /root/round3_constructive ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/round3_constructive
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 31851 | 2026-08-27T19:50:05.062Z | /root/round3_foundations ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/round3_foundations
+Payload:
+Third-round foundations audit: **FAIL as currently written**, though I found no counterexample to the intended theorem. The remaining failures are proof gaps, not a demonstrated impossibility.
+
+1. **The countable action/GNS state is not yet constructed.** Finite-prefix probe convergence does not by itself produce the asserted autonomous operator state. A complete construction must:
+
+   - define countable left/right rational probe algebras closed under bounded cylinder maps and \(B,B^*\);
+   - obtain projectively consistent finite-tuple laws;
+   - quotient each algebra by its limiting \(L^2\)-null ideal;
+   - prove that
+     \[
+     \|Bv\|_2\le M\|v\|_2,\qquad
+     \langle Bv,u\rangle=\langle v,B^*u\rangle
+     \]
+     descend to the quotients;
+   - complete the quotient spaces and retain their commutative multiplication structure, not merely abstract Hilbert spaces;
+   - prove that equivalent realizations are intertwined by multiplication-preserving isometries and yield identical Euler successors.
+
+   The proposed paragraph sketches these steps but does not prove them. They are plausibly repairable.
+
+2. **The claimed uniqueness class is too large.** The cutoff comparison gives an estimate of the form
+   \[
+   d_R(T)\lesssim e^{CRT}
+   \left\|P\,\mathbf1_{\{|P|>R\}}\right\|_2 .
+   \]
+   From \(P\in L^2\) alone the right side need not vanish: an \(L^2\) random variable may have only polynomial tail decay. Thus uniqueness in the stated class “bounded \(B,C\), \(P\in L^2\)” has not been proved.
+
+   A valid repair is to state well-posedness in the reachable response class
+   \[
+   \sup_{s\le T}\|P(s)\|_{\psi_2}\le \Sigma_T,
+   \]
+   with \(\Sigma_T\) explicit and deterministic. Then
+   \[
+   \|P\mathbf1_{\{|P|>R\}}\|_2
+   \le C\Sigma_T e^{-cR^2/\Sigma_T^2},
+   \]
+   which beats \(e^{CRT}\). One must additionally prove that this class is invariant under restriction/restart and that any competing solution in the class obeys the same cutoff comparison. Without this correction, autonomy and restartable uniqueness remain unproved.
+
+3. **The continuum construction needs its quantifiers written explicitly.** The defensible order is
+   \[
+   n\to\infty\quad\text{for fixed }(h,R,N),\qquad
+   h\downarrow0\quad\text{for fixed }R,\qquad
+   R\uparrow\infty.
+   \]
+   The proof must establish mesh-uniform response bounds before taking \(h\downarrow0\), and cutoff-uniform bounds before \(R\uparrow\infty\). Han’s theorem supplies none of those uniformities.
+
+4. **Path-Wasserstein convergence is not supplied by finite-step state evolution.** The missing lemma must prove, for some \(q>1\),
+   \[
+   \sup_n
+   \mathbb E\!\left[
+     \left(\int_0^T V_{n,\ell}(s)^2\,ds\right)^q
+   \right]<\infty ,
+   \]
+   together with
+   \[
+   \frac1n\sum_i\sup_{s,t\in I}
+   |z_i(t)-z_i(s)|^2
+   \le |I|\int_I V_{n,\ell}(r)^2\,dr .
+   \]
+   Rational-time joint convergence, these modulus estimates, and uniform integrability then give \(W_2(C([0,T]))\) convergence. The present proof states this conclusion without proving the \(q>1\) bounds or the passage from mesh times.
+
+5. **Uniform kernel convergence also needs a separate derivative estimate.** Pointwise convergence of finite probe averages does not imply
+   \[
+   \sup_{t\le T}\|\Theta_n(t)-\Theta(t)\|\to0.
+   \]
+   One must bound the time modulus of every kernel entry using the response moment estimates and then combine rational-time convergence with equicontinuity. Also, the proved expansion shows that the **NTK matrix** moves because
+   \[
+   y^\top[\Theta(t)-\Theta(0)]y>0.
+   \]
+   It does not by itself show that the scalar \(p^{-1}\operatorname{tr}\Theta(t)\) is nonconstant. The theorem must use matrix nonconstancy, unless a separate trace calculation is supplied.
+
+6. **The exact-GD diagonal estimate is presently asserted rather than proved.** The bounds
+   \[
+   \|DF_n\|\le Cn^4,\qquad
+   \|DF_nF_n\|\le Cn^8
+   \]
+   require an explicit stopped region and coordinate-by-coordinate estimates. A safe repair is:
+
+   - prove \(C_n\) and \(\|B_n\|_{\rm op}\) remain deterministically bounded on the stopped interval;
+   - derive a polynomial bound \(n^m\) for the vector field and its first two derivatives from the finite formulas;
+   - choose, for example, \(\eta_{0,n}=e^{-n^{100}}\);
+   - apply the stopped Euler estimate
+     \[
+     \sup_{k\eta_{0,n}\le T}
+     \|\theta_{n,k}-\theta_n(k\eta_{0,n})\|
+     \le C_T\eta_{0,n}n^m e^{C_Tn^m},
+     \]
+     and close the stopping argument.
+
+   Super-exponential step size makes this repair feasible, but the displayed \(n^4,n^8\) exponents were not audited into existence.
+
+7. **External-theorem audit.** I checked the full source of Han’s Definition 3.3 and Theorems 3.4–3.5. The relevant averaged theorem assumes a fixed finite asymmetric GFOM history, independent centered sub-Gaussian matrix entries, proportional dimensions, and row-separate globally Lipschitz maps with bounded values at zero. It yields conditional \(L^q\) convergence of empirical pseudo-Lipschitz averages. Singular Gaussian covariances are not excluded.
+
+   It does **not** assert countable-probe convergence, an operator/GNS realization, continuous-time convergence, path-law convergence, cutoff removal, or autonomous uniqueness. Those must be proved independently.
+
+   There is also a source-verification caveat: in the inspected arXiv v2 source, the asymmetric state-evolution proof reduces to a separately stated AMP variant, and the averaged asymmetric theorem has no separate proof. Thus its exact assertion and hypotheses are verified, but its proof cannot be independently audited from that manuscript alone.
+
+The finite-width identities, initialization kernel geometry, strict positive definiteness for distinct inputs, and the corrected small-time activity coefficients survive this audit. The theorem should **not yet be called fully proved** until the response-class uniqueness repair and the six completion lemmas above are actually supplied.
+
+=== OPERATOR2 ROLLOUT LINE 31858 | 2026-08-27T19:50:41.623Z | /root/round3_constructive ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/round3_constructive
+Payload:
+FAIL.
+
+The affirmative construction is plausible and its finite-width algebra and small-time activity calculations check out. But neither the original proof nor the repair chain is complete.
+
+The first missing lemma is the adaptive cutoff-Euler to deterministic-oracle reduction. Han’s fixed-step theorem applies only after one explicitly serializes every \(B_0\) and \(B_0^\top\) query, replaces the complete scalar list
+\[
+e_{ka},\qquad
+\langle H_{\ell b},H_{ka}\rangle_n,\qquad
+\langle D_{\ell b},D_{ka}\rangle_n
+\]
+by deterministic conditional state-evolution values, verifies uniform row-map hypotheses, and proves the coupled induction
+\[
+\max_{q\le pN}d_n(X_q,\bar X_q)
+\le C_{h,R,N}
+\max_{q\le pN}\zeta_q
+\;\xrightarrow{\mathbb P}\;0.
+\]
+The candidate does not contain that construction or proof.
+
+Even granting this lemma, it still lacks complete proofs of:
+
+- convergence of the \(n\)-dependent response recursion at singular covariances;
+- construction and uniqueness of the autonomous current action operator;
+- uniform-in-mesh Euler convergence in the action topology;
+- the finite-width tail estimate needed for cutoff removal;
+- the exact-GD derivative and stopping estimates;
+- path-Wasserstein and uniform-integrability transfer.
+
+I checked Han’s primary source. Its averaged asymmetric theorem gives only fixed-finite-history conditional convergence of empirical pseudo-Lipschitz observables for deterministic row-separate Lipschitz GFOM maps. It does not provide any of the bridges above. Moreover, the primary source does not include a full proof of that averaged asymmetric statement, so its stated conclusion may be invoked as a black box, but its proof cannot be independently audited there.
+
+Thus the theorem has not yet passed a clean rigorous audit and must not be reported as proved.
+
+=== OPERATOR2 ROLLOUT LINE 31864 | 2026-08-27T19:51:38.604Z | /root/round3_external_local ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/round3_external_local
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 31910 | 2026-08-27T19:55:34.510Z | /root/final_corrected_claims ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/final_corrected_claims
+Payload:
+PASS, but only with the following wording corrections.
+
+1. Replace “local \(t^2\) expansions of the limiting dynamics” by:
+
+> For fixed \(p,d\), the limits as \(n\to\infty\) of the relevant finite-width gradient-flow initialization jets exist in probability. Writing \(\mathcal J_2X_n=\tfrac12X_n''(0)\),
+> \[
+> \begin{aligned}
+> \mathcal J_2(y^\top\Theta_n^{(1)}y)&\to\gamma^2A_w,\\
+> \mathcal J_2(y^\top\Theta_n^{(2)}y)&\to\gamma^2A_B,\\
+> \mathcal J_2(y^\top\Theta_n^{(3)}y)&\to\gamma^2(A_w+A_B),\\
+> \mathcal J_2(y^\top\Theta_ny)&\to2\gamma^2(A_w+A_B).
+> \end{aligned}
+> \]
+> These are initialization-jet statements, not fixed-\(t\) width-limit expansions.
+
+This is essential because expressions such as
+\[
+\Theta(t)=\Theta(0)+ct^2+O(t^3)
+\]
+implicitly assert existence and local regularity of a width-first limiting path, which has not been proved.
+
+2. State explicitly that the finite-width algebra uses
+\[
+L_n=\frac1p\sum_{a=1}^p(f_{n,a}-y_a)^2,\qquad \gamma=\frac2p,
+\]
+and distinguish the two exact statements:
+
+> The normalized discrete-GD update is exactly forward Euler for the displayed finite-\(n\) vector field; the NTK block identities are exact at every finite \(n\). No uniform Euler-to-flow comparison is asserted.
+
+3. Restrict the initialization conclusions:
+
+> For fixed, pairwise-distinct, RMS-normalized inputs, \(Q\) and \(T\) are strictly positive definite at initialization, and each hidden marginal has nonlinear regression residual \(1-2/e\). These are initialization properties only; they do not establish persistence of nonlinearity or nondegeneracy on a time interval.
+
+The positivity calculations are valid:
+\[
+Q_{ab}=e^{-1+R_{ab}},
+\qquad
+T_{ab}=e^{-1+Q_{ab}},
+\]
+and
+\[
+\inf_{a,b}\mathbb E|\sin Z+\cos Z-aZ-b|^2=1-\frac2e>0.
+\]
+
+4. The coefficient positivity is also valid. With
+\[
+M=\mathbb E[V(S)V(S)^\top]\succ0,
+\]
+\[
+A_B=\mathbf1^\top(Q\circ M)\mathbf1=\operatorname{tr}(QM)>0.
+\]
+Moreover, conditional on \(U,H\), the independent Gaussian part of \(T_*\) has covariance \(M\), so
+\[
+A_w=\mathbb E[T_*^\top D_URD_UT_*]>0.
+\]
+This remains true even when \(R\) is singular: \(D_UMD_U\succ0\) almost surely and \(R\succeq0\), \(R\neq0\), hence
+\[
+\operatorname{tr}(R D_UMD_U)>0.
+\]
+
+5. Add the following nonimplication verbatim:
+
+> These jet limits do not prove the existence of \(F(t)\), \(\Theta(t)\), hidden path laws, or an autonomous action-law process at any fixed \(t\ne0\). They do not justify exchanging \(n\to\infty\) with \(t\downarrow0\), and they do not establish compact-time feature learning, kernel motion, or the joint exact-GD limit. Such conclusions require the presently unproved actual-oracle, action-state, tail-removal, continuous-time, and diagonal-limit bridges.
+
+6. Han’s theorem must be described more narrowly than “globally Lipschitz GFOM”:
+
+> Han’s Theorems 3.4–3.5 are invoked only for each fixed finite deterministic asymmetric-GFOM oracle history. The required feed maps are row-separate \(C^3\) maps with uniformly bounded derivatives through order three, the matrix has independent centered uniformly sub-Gaussian entries with proportional dimensions, and the theorem yields only fixed-history state-evolution/empirical-observable control. It is not applied directly to adaptive GD.
+
+Also disclose:
+
+> In arXiv:2406.19061v2, a proof of Theorem 3.4 is presented through an asymmetric-AMP reduction, although that proof itself imports an asserted AMP comparison; no separate proof of the averaged Theorem 3.5 was located. Thus its statement and invocation hypotheses were checked, but its complete proof was not independently source-audited.
+
+With these corrections, no surviving statement assumes the missing compact-time theorem. The corrected rigorous conclusion is therefore: the finite-width algebra, initialization geometry, and initialization jets are valid; the previously claimed compact-time joint mean-field/gradient-flow theorem remains unproved.
+
+=== OPERATOR2 ROLLOUT LINE 31942 | 2026-08-27T20:02:27.495Z | /root/round3_external_local ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/round3_external_local
+Payload:
+Third-round verdict:
+
+- Exact finite-width algebra and scaling: **PASS**.
+- Local positivity, activity, nonlinearity, loss decrease, and \(y^\top\Theta y\) expansion: **PASS** with the corrected definitions.
+- Scalar trace-kernel nonconstancy: **NOT PROVED** by the expansion; only the full NTK matrix is proved nonconstant.
+- Han theorem hypotheses/assertions: **MATCH only the deterministic fixed-query oracle**, not the adaptive network or continuous-time limit.
+- Availability of a complete proof for the invoked averaged asymmetric GFOM theorem: **FAIL**. Han’s Theorem 3.5 is stated but not proved in the source; the nearby entrywise theorem also relies on an unproved extension of Bao–Han–Xu.
+
+Therefore the external-theorem bridge cannot pass the user’s strongest source-proof audit unless the needed averaged fixed-query result is independently proved or replaced.
+
+=== OPERATOR2 ROLLOUT LINE 32048 | 2026-08-27T20:06:59.981Z | /root/negative_no_go ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/negative_no_go
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32081 | 2026-08-27T20:08:48.687Z | /root/negative_no_go ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/negative_no_go
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32096 | 2026-08-27T20:09:33.567Z | /root/affirmative_literature ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/affirmative_literature
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32112 | 2026-08-27T20:10:30.461Z | /root/negative_no_go ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/negative_no_go
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32138 | 2026-08-27T20:11:27.305Z | /root/negative_no_go ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/negative_no_go
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32154 | 2026-08-27T20:12:21.023Z | /root/negative_no_go ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/negative_no_go
+Payload:
+The universal negative route fails under the intended quantifiers.
+
+For the bounded mixed-parity activation
+
+\[
+\phi(u)=\sin u+\cos u,
+\]
+
+every fixed finite pairwise-distinct RMS-normalized dataset avoids the obvious algebraic obstructions. If
+
+\[
+R_{ab}=\frac{x_a^\top x_b}{d},
+\]
+
+then the two initialization kernels are
+
+\[
+Q_{ab}=e^{-1+R_{ab}}
+=\exp\!\left(-\frac{\|x_a-x_b\|^2}{2d}\right),
+\qquad
+T_{ab}=e^{-1+Q_{ab}}.
+\]
+
+The Gaussian RBF matrix \(Q\) is strictly positive definite for distinct inputs. Moreover,
+
+\[
+T=e^{-1}\sum_{k=0}^\infty \frac{Q^{\circ k}}{k!}
+\]
+
+is strictly positive definite: every Hadamard power is positive semidefinite and the \(k=1\) term is strictly positive definite. Hence, for every \(y\in\{\pm1\}^p\),
+
+\[
+\mathbb E\!\left(\sum_a y_a\phi(S_a)\right)^2
+=y^\top Ty>0.
+\]
+
+There is also no hidden-layer cancellation. Set
+
+\[
+g(s)=\sum_a y_a\phi(s_a),\qquad
+V_a(s)=y_ag(s)\phi'(s_a),\qquad
+M=\mathbb E[V(S)V(S)^\top].
+\]
+
+Then \(M\succ0\). Indeed, if \(q^\top Mq=0\), positivity of the Gaussian density and analyticity give
+
+\[
+g(s)\sum_aq_ay_a\phi'(s_a)\equiv0.
+\]
+
+The first factor is not identically zero. Analytic continuation therefore makes the second factor identically zero; differentiating in \(s_a\), and using \(\phi''\not\equiv0\), yields \(q_a=0\) for every \(a\).
+
+Consequently,
+
+\[
+\mathbf1^\top(Q\circ M)\mathbf1>0,
+\]
+
+so the middle-layer activity coefficient is positive. The independent Gaussian cavity part \(\xi\sim N(0,M)\) also gives
+
+\[
+\mathbb E\!\left[\xi^\top D_URD_U\xi\right]
+=
+\mathbb E\operatorname{tr}(D_URD_UM)>0.
+\]
+
+This remains true when \(R\) is singular, including \(p>d\): \(D_U\) is invertible almost surely, \(R\) is a nonzero positive-semidefinite matrix with unit diagonal, and \(M\succ0\).
+
+The width scalings are mutually consistent:
+
+\[
+c=C/n,\qquad B_{ji}=O(n^{-1/2}),\qquad
+\lambda_1\asymp n,\quad
+\lambda_2\asymp1,\quad
+\lambda_3\asymp n^{-1}.
+\]
+
+They give \(O(1)\) hidden velocities and finite, nonzero leading kernel blocks. The condition \(\eta_n\lambda_1\to0\) is compatible with this by taking \(\eta_n=o(n^{-1})\).
+
+Near-duplicate opposite-label inputs do not refute the theorem. If
+
+\[
+R_{12}=1-\varepsilon,\qquad y=(1,-1),
+\]
+
+then
+
+\[
+y^\top Ty
+=
+2\left[1-\exp\!\left(-1+e^{-\varepsilon}\right)\right]
+=
+2\varepsilon+O(\varepsilon^2)>0
+\]
+
+for every fixed \(\varepsilon>0\). Constants deteriorate as \(\varepsilon\downarrow0\), but the theorem requests no dataset-uniform lower bound.
+
+There is a genuine negative result only under stronger quantifiers: if datasets may form a triangular array with \(\varepsilon_n\to0\), or if activity must be bounded uniformly below over all distinct configurations, the statement is false. Exact duplication with opposite labels is the zero-energy endpoint. The user explicitly excluded that interpretation by retaining a fixed, though arbitrarily small, positive angle.
+
+Thus neither scaling balance, antipodal symmetry, rank-deficient Gram matrices, arbitrary signs, near duplication, nor ordinary empirical-law nonclosure yields a universal impossibility theorem. Since a full random-operator/action law is expressly permitted, its necessity is not itself a contradiction. Any complete resolution must therefore close the affirmative compact-time convergence, oracle-coupling, autonomy, and uniqueness arguments; the theorem cannot be disproved by the available structural obstructions.
+
+=== OPERATOR2 ROLLOUT LINE 32163 | 2026-08-27T20:12:48.895Z | /root/affirmative_selfcontained ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/affirmative_selfcontained
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32184 | 2026-08-27T20:14:42.534Z | /root/affirmative_selfcontained ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/affirmative_selfcontained
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32221 | 2026-08-27T20:15:50.518Z | /root/affirmative_selfcontained ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/affirmative_selfcontained
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32225 | 2026-08-27T20:16:08.084Z | /root/affirmative_selfcontained ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/affirmative_selfcontained
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32231 | 2026-08-27T20:16:24.067Z | /root/affirmative_selfcontained ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/affirmative_selfcontained
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32240 | 2026-08-27T20:16:53.356Z | /root/affirmative_selfcontained ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/affirmative_selfcontained
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32263 | 2026-08-27T20:18:15.902Z | /root/affirmative_selfcontained ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/affirmative_selfcontained
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32272 | 2026-08-27T20:18:45.258Z | /root/affirmative_selfcontained ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/affirmative_selfcontained
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32311 | 2026-08-27T20:20:04.984Z | /root/affirmative_literature ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/affirmative_literature
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32313 | 2026-08-27T20:20:04.985Z | /root/affirmative_selfcontained ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/affirmative_selfcontained
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32320 | 2026-08-27T20:20:24.525Z | /root/affirmative_selfcontained ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/affirmative_selfcontained
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32326 | 2026-08-27T20:20:41.608Z | /root/affirmative_literature ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/affirmative_literature
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32358 | 2026-08-27T20:22:42.283Z | /root/affirmative_literature ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/affirmative_literature
+Payload:
+The literature audit gives a sharp split:
+
+1. Yang–Hu rigorously identifies every fixed finite unrolling.
+2. No located theorem supplies the nonlinear compact-time joint width/gradient-flow limit or the autonomous action state.
+
+The exact primary result is [Yang–Hu, Tensor Programs IV, arXiv v3](https://arxiv.org/pdf/2011.14522), §7:
+
+- Definition 7.1 permits \(Wx\), \(W^\top x\), coordinatewise nonlinearities depending on previously computed scalars, and empirical Moment scalars.
+- Setup 7.2 assumes independent \(N(0,\sigma_W^2/n)\) matrices, iid coordinate copies of a joint Gaussian initial-vector family, and initial scalars converging almost surely to deterministic limits.
+- Assumption F.4 requires continuity for pure-scalar maps and joint pseudo-Lipschitzness for maps having vector inputs.
+- Theorem 7.4 proves almost-sure empirical pseudo-Lipschitz convergence for every finite family of program vectors and almost-sure convergence of every program scalar.
+- Definition 7.3’s ZMatMul rule handles reuse of \(W,W^\top\):
+  \[
+  Z^{Wx}=\widehat Z^{Wx}+\dot Z^{Wx},
+  \qquad
+  \dot Z^{Wx}
+  =
+  \sigma_W^2
+  \sum_i Z^{y_i}
+  \mathbb E\!\left[
+  \frac{\partial Z^x}
+       {\partial \widehat Z^{W^\top y_i}}
+  \right].
+  \]
+  Remark F.2 replaces derivatives by a Gram-pseudoinverse definition when the Gaussian covariance is singular.
+- Theorem 6.4 is the direct two-hidden-layer, ordinary-backpropagation specialization and explicitly contains the response terms produced by reusing the middle matrix and its transpose.
+
+For a fixed dataset of size \(m\) and fixed number \(K\) of Euler steps, the target dynamics fit this theorem exactly after writing
+\[
+B_k
+=
+B_0+\sum_{r<k}\sum_{a=1}^{m}
+u_{r,a}\otimes_n v_{r,a}.
+\]
+Then
+\[
+B_kv
+=
+B_0v+\sum_{r,a}u_{r,a}\langle v_{r,a},v\rangle_n,
+\]
+and similarly for \(B_k^\top u\). Thus all learned-matrix actions reduce to \(B_0,B_0^\top\), coordinate maps, and finitely many Moment scalars. Residuals, outputs, Gram coefficients, and full-batch sums are permitted adaptive scalars. A smooth cutoff depending on finitely many Moment scalars is also permitted. A hard discontinuous cutoff or an operator-norm cutoff is not automatically covered.
+
+What Theorem 7.4 does not prove is decisive:
+
+- no number of steps \(K_n\to\infty\);
+- no estimates uniform in program length;
+- no \(\delta_n\to0\) compact-time limit;
+- no path-space tightness or equicontinuity;
+- no joint exact-GD/Euler/width diagonal limit;
+- no uniform summability of the growing response hierarchy;
+- no realized limiting random operator or action state;
+- no autonomous restartable semigroup;
+- no abstract all-source adjoint identity such as \(J^*V=\mathbb E[D_JV]\).
+
+Yang–Hu explicitly state that width is the only limit taken, GD remains discrete, and training time is independent of width.
+
+This limitation is independently confirmed by [Chizat–Colombo–Fernández-Real–Figalli, *Infinite-width limit of deep linear neural networks*](https://infoscience.epfl.ch/bitstreams/71c0badf-abba-45f5-a87f-33041faaab0e/download), CPAM 2024. Their introduction characterizes Yang–Hu as a finite-number-of-steps result whose nonlinear limit is non-Markovian and hard to study beyond a few steps. They prove a well-posed continuous-time limit only for deep linear networks and explicitly state that the corresponding questions remain unresolved for general nonlinear networks.
+
+Other audited rigorous results do not specialize:
+
+- Nguyen–Pham’s compact-time theorem uses LLN/neuron-embedded \(1/n\) middle-layer scaling, not centered iid \(N(0,1/n)\) initialization.
+- Gerbelot et al. and Han give fixed-step GFOM/DMFT state evolution with structurally narrower update maps.
+- Celentano–Cheng–Montanari’s continuous-time theorem has one static random-data operator and does not encompass an independently evolving left state plus trained two-sided matrix action.
+- Action-convergence compactness gives, at best, subsequential operator limits and does not itself provide the marked autonomous dynamics.
+
+Therefore the fixed finite Euler identification is rigorously supported, including adaptive moments and \(B/B^\top\) reuse. The nonlinear compact-time joint theorem is not supplied by any audited external theorem; it still requires a new uniform stability, action-state realization, response-control, and diagonal-limit proof.
+
+=== OPERATOR2 ROLLOUT LINE 32368 | 2026-08-27T20:23:14.314Z | /root/adversarial_bridge ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/adversarial_bridge
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32370 | 2026-08-27T20:23:14.314Z | /root/affirmative_selfcontained ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/affirmative_selfcontained
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32390 | 2026-08-27T20:24:23.049Z | /root/affirmative_selfcontained ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/affirmative_selfcontained
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32402 | 2026-08-27T20:25:04.285Z | /root/affirmative_selfcontained ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/affirmative_selfcontained
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32409 | 2026-08-27T20:25:20.491Z | /root/adversarial_bridge ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/adversarial_bridge
+Payload:
+Decisive bridge verdict: I found no fatal obstruction. The fixed-mesh Tensor Program argument can be upgraded to full-sequence compact-time convergence, but only after the following repairs are written explicitly. Without them, the argument remains an outline.
+
+1. Fixed-mesh identification is valid.
+
+For fixed cutoff \(R<\infty\), mesh \(h>0\), and \(N=\lceil T/h\rceil<\infty\), eliminate the learned matrix through
+
+\[
+\begin{aligned}
+B_k&=B_0-\gamma h\sum_{r<k,b}e_{rb}D_r^b\otimes_n H_r^b,\\
+B_kH_k^a
+&=B_0H_k^a-\gamma h\sum_{r<k,b}
+e_{rb}D_r^b\langle H_r^b,H_k^a\rangle_n,\\
+B_k^*D_k^a
+&=B_0^*D_k^a-\gamma h\sum_{r<k,b}
+e_{rb}H_r^b\langle D_r^b,D_k^a\rangle_n .
+\end{aligned}
+\]
+
+After serializing each time step as forward queries \(B_0H_k^a\), moment and coordinate nodes, then adjoint queries \(B_0^*D_k^a\), the entire cutoff Euler trajectory is one fixed NETSOR\({}^{\mathsf T+}\) program.
+
+The applicable primary result is Yang, *Tensor Programs III*, arXiv:2009.10685v3, Theorem E.15, not an informal DMFT claim. Its hypotheses match exactly:
+
+- \(B_0\) has iid \(N(0,1/n)\) entries.
+- The \(p\) initial \(U^a\) vectors have iid coordinate tuples with the possibly singular Gaussian covariance \(R\).
+- All cutoff coordinate maps and adaptive scalar Moment maps are globally pseudo-Lipschitz.
+- Reuse of both \(B_0\) and \(B_0^*\) is part of the theorem.
+- No rank-stability hypothesis is required.
+- The theorem gives empirical pseudo-Lipschitz averages and all Moment scalars along the full sequence almost surely.
+
+The true normalized output initialization \(C_0=nW^{(3)}(0)=n^{-1}\Gamma\) can be included directly as a standard Gaussian initial vector multiplied by the deterministic scalar \(n^{-1}\to0\).
+
+2. The compact-time bridge must use a cutoff ODE.
+
+Use
+
+\[
+d_n(\theta,\widetilde\theta)
+=
+\Bigl(\sum_a\|U^a-\widetilde U^a\|_n^2\Bigr)^{1/2}
++\|C-\widetilde C\|_n
++\|B-\widetilde B\|_{\rm op}.
+\]
+
+For bounded \(\phi,\phi',\phi''\) and a smooth \(1\)-Lipschitz cutoff \(\tau_R\), the cutoff vector field is dimension-independently Lipschitz on the deterministic region reached before \(T\). In particular,
+
+\[
+\sup_{t\le T}d_n(\theta_{n,R}(t),\theta_{n,R}^{h}(t))
+\le C_{R,T}h,
+\]
+
+uniformly in \(n\) on an event of probability tending to one. The required bounds follow from
+
+\[
+\|u\otimes_n v\|_{\rm op}=\|u\|_n\|v\|_n,
+\]
+
+the Gaussian estimate \(\|B_0\|_{\rm op}\le C\) with exponentially high probability, and
+
+\[
+\|C(t)\|_\infty
+\le \frac{e^{2b^2t}-1}{b},
+\qquad
+b=\max(\|\phi\|_\infty,\|\phi'\|_\infty,\|\phi''\|_\infty).
+\]
+
+Thus fixed-mesh Tensor Programs plus this uniform Euler estimate—not Tensor Programs alone—give compact-time convergence of every fixed cutoff system.
+
+3. The action topology closes rigorously.
+
+Enumerate the countable two-sorted grammar generated by
+
+\[
+U^1,\dots,U^p,\ C,\ 1,\ B,\ B^*,
+\]
+
+rational linear combinations, bounded Lipschitz coordinate maps, and normalized moments. For its first \(m\) probes let \(\nu_m\) be their same-side joint law and define
+
+\[
+d_{\mathfrak A}(\mathfrak S,\widetilde{\mathfrak S})
+=
+\sum_{m\ge1}2^{-m}
+\bigl(1\wedge W_2(\nu_m,\widetilde\nu_m)\bigr).
+\]
+
+Tensor Programs is applied separately to every finite prefix; a countable intersection gives simultaneous full-sequence convergence. The empirical operator bound gives, for every rational probe combination \(v\),
+
+\[
+\|Bv\|_2\le C\|v\|_2.
+\]
+
+Consequently \(B\) descends through the limiting \(L^2\)-null quotient and extends to the completed cyclic \(L^2\) space. Passing
+
+\[
+\langle Bu,v\rangle_n=\langle u,B^*v\rangle_n
+\]
+
+gives the actual adjoint identity. Bounded cylinder functions are dense, so the completed state contains the action of \(B\) on every future reachable coordinate function, not merely finitely many observables.
+
+The cutoff Euler map is an autonomous map of this current action state. The uniform finite-width Euler comparison implies that its vanishing-mesh limit exists, is independent of the mesh sequence, and obeys the semigroup identity. No history or finite array is retained.
+
+4. The all-source response estimate closes.
+
+With forward Gaussian sources \(\widehat S_r^b\) and adjoint sources \(\widehat P_r^b\), Tensor Programs gives
+
+\[
+\begin{aligned}
+S_k^a&=\widehat S_k^a+
+\sum_{r<k,b}\alpha_{ka;rb}D_r^b
++\text{learned-rank terms},\\
+P_k^a&=\widehat P_k^a+
+\sum_{r\le k,b}\beta_{ka;rb}H_r^b
++\text{learned-rank terms},
+\end{aligned}
+\]
+
+where
+
+\[
+\alpha_{ka;rb}
+=
+\mathbb E\frac{\partial H_k^a}{\partial\widehat P_r^b},
+\qquad
+\beta_{ka;rb}
+=
+\mathbb E\frac{\partial D_k^a}{\partial\widehat S_r^b}.
+\]
+
+These are exactly the ZDot terms; singular source covariances are covered by Theorem E.15.
+
+Let
+
+\[
+A=\sup_{k,a}\sum_{r<k,b}|\alpha_{ka;rb}|,\quad
+B=\sup_{k,a}\sum_{r\le k,b}|\beta_{ka;rb}|,\quad
+K=\sup_{k,a}\|P_k^a\|_{\psi_2}.
+\]
+
+Take \(b=2\), \(\Lambda=6\), \(a=\Lambda b^2T\), and
+
+\[
+a\le \frac1{64p}.
+\]
+
+Writing \(c=\Lambda bT\), \(\delta=2a\), and
+\(\mu=\Lambda(cb)^2T\), direct differentiation over every source history gives
+
+\[
+B\le \frac{\delta}{1-\delta(A+a)},
+\]
+
+and Gaussian-source plus bounded-response decomposition gives
+
+\[
+K\le4cb+4b(B+\mu).
+\]
+
+The right-source Volterra recursion, followed by discrete Grönwall and
+
+\[
+\mathbb E e^{s|X|}
+\le 2e^{s^2K^2/4}
+\quad\text{when}\quad \|X\|_{\psi_2}\le K,
+\]
+
+gives
+
+\[
+A\le
+2pa\exp\!\left\{
+a(B+\mu)+\frac{(\Lambda bTK)^2}{4}
+\right\}.
+\]
+
+The bootstrap \(A\le1/4\) improves strictly to
+
+\[
+B\le4a,\qquad K\le40a,\qquad A<1/4.
+\]
+
+Hence these estimates hold uniformly in the mesh length, number of steps, and cutoff radius. No source hierarchy is truncated.
+
+5. Cutoff removal is non-circular.
+
+For cutoff radii \(S\ge R\), split products before estimating:
+
+\[
+P=P\,\mathbf1_{\{|P|\le R\}}
++P\,\mathbf1_{\{|P|>R\}}.
+\]
+
+The core part gives a Lipschitz factor \(CR\), while the response theorem gives
+
+\[
+\|P\,\mathbf1_{\{|P|>R\}}\|_2
+\le C(K+R)e^{-R^2/(2K^2)}.
+\]
+
+Therefore
+
+\[
+\sup_{t\le T}
+d(\mathfrak S_R(t),\mathfrak S_S(t))
+\le
+C_Te^{C_TR}(K+R)e^{-R^2/(2K^2)}
+\longrightarrow0.
+\]
+
+The same inequality first at finite width and then under \(\limsup_{n\to\infty}\) identifies the actual uncut finite-width ODE with this limit. A smoothed-tail test or the polynomial-moment bound from Tensor Programs justifies the empirical tail passage. This also proves uniqueness in the reachable sub-Gaussian class and cutoff-independent restartability.
+
+6. Exact GD follows by a genuine diagonal estimate.
+
+On the high-probability region above, all finite-dimensional coordinates and all first derivatives of the uncut vector field are bounded by a fixed polynomial in \(n\). Thus, for some explicit finite \(m\),
+
+\[
+\sup_{t\le T}
+d_n(\text{GD interpolation},\text{finite-width ODE})
+\le
+C_T\eta_{0,n}n^m e^{C_Tn^m}.
+\]
+
+Choosing, for example,
+
+\[
+\eta_{0,n}=e^{-n^{100}}
+\]
+
+makes this vanish and also gives
+
+\[
+\eta_{0,n}\lambda_n^{(\ell)}\to0
+\]
+
+for \(\lambda_1=n/d,\lambda_2=1,\lambda_3=1/n\). This is a joint diagonal limit, not an unsupported interchange of two limits.
+
+Audit caveats that must appear in the final theorem:
+
+- The dataset quantifier is: every fixed finite \(p,d\) and every fixed pairwise-distinct normalized input configuration. Nothing here proves a statement uniform in \(p,d\), or for growing datasets.
+- For multiple samples, the canonical kernel is the full NTK matrix \(\Theta(t)\). The local calculation proves \(y^\top\Theta(t)y\) changes. It does not by itself prove that the scalar trace \(\operatorname{tr}\Theta(t)\) changes.
+- “Apply Tensor Programs to the countable action family” must mean a countable intersection of applications to finite programs.
+- The action state must include the completed cyclic operator and its adjoint, not only the laws of a selected list of probes.
+
+With these qualifications and lemmas incorporated, the affirmative bridge is rigorous; I found no counterexample or incompatible quantifier.
+
+=== OPERATOR2 ROLLOUT LINE 32447 | 2026-08-27T20:27:06.394Z | /root/affirmative_selfcontained ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/affirmative_selfcontained
+Payload:
+The affirmative route closes; I found no fatal mathematical obstruction.
+
+For every fixed finite dataset of pairwise-distinct RMS-normalized inputs and arbitrary labels \(y_a\in\{-1,1\}\), take
+
+\[
+\phi(x)=\sin x+\cos x,
+\]
+
+\[
+\operatorname{Var}(W^{(1)}_{ir})=\frac1d,\qquad
+\operatorname{Var}(W^{(2)}_{ji})=\frac1n,\qquad
+\operatorname{Var}(W^{(3)}_j)=n^{-4},
+\]
+
+\[
+\lambda_n^{(1)}=\frac nd,\qquad
+\lambda_n^{(2)}=1,\qquad
+\lambda_n^{(3)}=\frac1n,
+\qquad
+\eta_{0,n}=e^{-e^n}.
+\]
+
+There is an explicit nonzero interval, for example
+
+\[
+0\le t\le T_*,
+\qquad
+T_*=\frac1{1536p},
+\]
+
+on which the joint exact-GD/width limit exists and is the unique autonomous action-operator mean-field gradient flow.
+
+The previously missing bridge can be closed as follows.
+
+1. Eliminate the learned part of the middle matrix exactly:
+
+\[
+B_k=B_0-\gamma h\sum_{r<k,b}e_{rb}D_r^b\otimes H_r^b .
+\]
+
+Thus every fixed-mesh trajectory is a finite program using only \(B_0,B_0^\top\), coordinate maps, and empirical Moment nodes.
+
+2. Apply Tensor Programs III, Theorem E.15. I verified directly that:
+
+- Setup E.2 permits the required Gaussian initial vectors and matrices;
+- Definition E.3 explicitly contains adaptive Moment scalars;
+- Theorem E.15 permits both a matrix and its transpose and requires no rank-stability assumption;
+- all nonlinearities here are globally pseudo-Lipschitz after smooth cutoff;
+- singular Gaussian covariances are covered;
+- Appendix N supplies the advertised proof, reducing the singular case to core and vanishing-moment sets.
+
+The exact reused-adjoint response identities follow from its ZDot rule:
+
+\[
+S_k^a
+=
+Z_k^a+\sum_{r<k,b}\alpha_{ka,rb}D_r^b
+-\gamma h\sum_{r<k,b}e_{rb}D_r^bq_{rb,ka},
+\]
+
+\[
+P_k^a
+=
+Y_k^a+\sum_{r\le k,b}\beta_{ka,rb}H_r^b
+-\gamma h\sum_{r<k,b}e_{rb}H_r^br_{rb,ka},
+\]
+
+where
+
+\[
+\alpha_{ka,rb}
+=
+\mathbb E\frac{\partial H_k^a}{\partial Y_r^b},
+\qquad
+\beta_{ka,rb}
+=
+\mathbb E\frac{\partial D_k^a}{\partial Z_r^b}.
+\]
+
+The distinction \(r<k\) versus \(r\le k\) follows from the actual query order.
+
+3. The all-source response hierarchy is uniformly controlled. With
+
+\[
+A=\sup_{k,a}\sum_{r,b}|\alpha_{ka,rb}|,\quad
+B=\sup_{k,a}\sum_{r,b}|\beta_{ka,rb}|,\quad
+K=\sup_{k,a}\|P_k^a\|_{\psi_2},
+\]
+
+and
+
+\[
+a=24T,\qquad
+\delta=2a,\qquad
+\mu\le a^3,
+\]
+
+exact differentiation of every past source gives
+
+\[
+B\le
+\frac{\delta}{1-\delta(A+a)},
+\]
+
+\[
+K\le 4a+8(B+\mu),
+\]
+
+\[
+A\le
+2pa
+\exp\left\{
+a(B+\mu)+\frac{(12TK)^2}{4}
+\right\}.
+\]
+
+For \(a\le1/(64p)\), the bootstrap \(A\le1/4\) improves strictly and yields
+
+\[
+A\le\frac14,\qquad B\le4a,\qquad K\le40a.
+\]
+
+These estimates are independent of the cutoff, mesh size, and number of mesh steps. No source derivatives are discarded.
+
+4. A countable reachable-probe construction produces two commutative \(L^2\) coordinate spaces and an actual bounded adjoint pair
+
+\[
+B_0:\mathcal H_R\to\mathcal H_L,\qquad
+B_0^*:\mathcal H_L\to\mathcal H_R.
+\]
+
+The bound follows by passing the finite-matrix inequality
+
+\[
+\|B_0v\|_2\le M\|v\|_2
+\]
+
+through the limiting probe Gram matrices. The current state consists of \(w,C,B\), not its history. The cutoff vector field is a locally Lipschitz Banach-space ODE on this state, so it is autonomous and restartable.
+
+5. Width-uniform Euler error for the cutoff ODE and fixed-mesh Tensor Program convergence give uniform compact-time convergence. The response estimate gives Gaussian tails for \(P_R\). Comparing the uncut and cutoff flows gives
+
+\[
+d'(t)
+\le C(1+R)d(t)
+ +C\sum_a\|P_R^a-\tau_R(P_R^a)\|_2,
+\]
+
+and therefore
+
+\[
+d(T)
+\le
+C e^{CRT}(K+R)
+e^{-R^2/(2K^2)}
+\longrightarrow0.
+\]
+
+The same comparison proves uniqueness against any natural \(L^2\)-strong solution; no tail assumption on the competing solution is required.
+
+6. Grid convergence and
+
+\[
+\frac1n\sum_i
+\sup_{s,t\in I}|z_i(t)-z_i(s)|^2
+\le
+|I|\int_I V_n(u)^2\,du
+\]
+
+give the required path-Wasserstein convergence and uniform integrability.
+
+7. On finite-width stopped regions, the vector field and its Euler defect grow only polynomially in \(n\). Hence
+
+\[
+\eta_{0,n}=e^{-e^n}
+\]
+
+makes the exact-GD/finite-width-flow error vanish uniformly on compact time intervals.
+
+The initialization geometry and previously audited jets then prove positive motion in both hidden layers, positive leading-order contribution from every parameter block, surviving nonlinear regression residual \(1-2/e\), strict initial loss decrease, and nonconstancy of the full NTK matrix.
+
+One statement must remain precise: the calculation proves that the full NTK matrix moves through
+
+\[
+y^\top\Theta(t)y
+=
+y^\top Ty
++
+2\gamma^2(A_w+A_B)t^2+O(t^3),
+\qquad A_w,A_B>0.
+\]
+
+It does not by itself prove that the scalar trace \(p^{-1}\operatorname{tr}\Theta(t)\) is nonconstant. Thus “non-lazy NTK” should mean nonconstancy of the NTK matrix. If the requested theorem specifically defines kernel motion as motion of its scalar trace, that additional trace claim is not yet established.
+
+=== OPERATOR2 ROLLOUT LINE 32463 | 2026-08-27T20:28:01.881Z | /root/negative_no_go ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/negative_no_go
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32493 | 2026-08-27T20:29:31.515Z | /root/negative_no_go ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/negative_no_go
+Payload:
+Adversarial audit result:
+
+1. The initialization Hessian and directional-NTK calculations are correct, including all factors. With \(\gamma=2/p\),
+
+\[
+C'(0)=\gamma g,\qquad
+B''(0)=\gamma^2\sum_aV_a\otimes H_a,
+\]
+
+\[
+U_a''(0)
+=
+\gamma^2\sum_bR_{ab}\phi'(U_b)B_0^*V_b.
+\]
+
+Consequently,
+
+\[
+[t^2]\,y^\top\Theta^{(1)}(t)y=\gamma^2A_w,
+\]
+
+\[
+[t^2]\,y^\top\Theta^{(2)}(t)y=\gamma^2A_B,
+\]
+
+\[
+[t^2]\,y^\top\Theta^{(3)}(t)y
+=\gamma^2(A_w+A_B),
+\]
+
+and
+
+\[
+[t^2]\,y^\top\Theta(t)y
+=2\gamma^2(A_w+A_B)>0.
+\]
+
+The reused-adjoint law
+
+\[
+B_0^*V=\xi+\Gamma H,\qquad
+\operatorname{Cov}(\xi)=M,
+\]
+
+has the correct covariance; it does not subtract the response covariance.
+
+2. Positivity holds for every fixed finite distinct dataset, including \(p>d\), antipodal inputs, and singular \(R\):
+
+- \(Q\succ0\) and \(T\succ0\);
+- \(M\succ0\) by the analytic no-zero-divisors argument;
+- \(A_B>0\) because \(Q\circ M\succ0\);
+- \(A_w>0\) because
+  \[
+  \mathbb E\operatorname{tr}(D_URD_UM)>0.
+  \]
+
+The speed coefficients are also strictly positive:
+
+\[
+\frac{\gamma^4}{p}
+\mathbb E\|RD_UT_*\|^2>0,
+\qquad
+\frac{\gamma^4}{p}\mathbb E\|\mathcal LV\|^2>0.
+\]
+
+3. Once compact-time path convergence is available, properties 3–6 and strict local loss decrease follow correctly by continuity. Block activity follows because a positive quadratic form of a positive-semidefinite NTK block implies that block has positive trace.
+
+4. One qualification remains essential for property 7. The calculation proves that the full NTK matrix is nonconstant:
+
+\[
+y^\top[\Theta(t)-\Theta(0)]y>0
+\]
+
+for sufficiently small \(t>0\). It does not by itself prove that the scalar trace \(p^{-1}\operatorname{tr}\Theta(t)\) is nonconstant. The theorem must either define kernel movement using the full NTK matrix—natural in the multi-sample setting—or add a separate trace calculation. Substituting directional movement for trace movement without saying so would be a gap.
+
+5. The exact-GD diagonal with
+
+\[
+\eta_n=e^{-n^{10}}
+\]
+
+passes. On the stopped high-probability region, bounded activation derivatives, the loss bound, and the rank-one evolution give safely loose estimates
+
+\[
+\|DF_n\|\le C_Tn^4,\qquad
+\|DF_nF_n\|\le C_Tn^8.
+\]
+
+The stopped Euler estimate is therefore
+
+\[
+\sup_{k\eta_n\le T}
+\|\theta_{n,k}-\theta_n(k\eta_n)\|
+\le
+C_T\eta_nn^8e^{C_Tn^4T}\longrightarrow0.
+\]
+
+The continuous flow remains strictly inside enlarged stopping bounds; hence the discrete bootstrap makes the stopping inactive. Also,
+
+\[
+\eta_n\lambda_n^{(1)}
+=\frac nd e^{-n^{10}}\to0
+\]
+
+and the other two raw layerwise steps vanish.
+
+6. The quantifiers must say that \(p,d\) and the dataset are fixed independently of \(n\). A triangular array with opposite-label separations tending to zero would not satisfy a uniform version. No dataset-uniform activity lower bound has been proved or is true.
+
+Subject to the explicit full-matrix interpretation of kernel movement and fixed-dataset quantifier, this audit found no error in the local calculations, positivity arguments, requested-property deductions, or superexponential exact-GD diagonal.
+
+=== OPERATOR2 ROLLOUT LINE 32528 | 2026-08-27T20:31:34.213Z | /root/audit_cutoff_gns ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/audit_cutoff_gns
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32575 | 2026-08-27T20:34:13.830Z | /root/audit_cutoff_gns ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/audit_cutoff_gns
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32631 | 2026-08-27T21:01:18.389Z | /root/audit_cutoff_gns ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/audit_cutoff_gns
+Payload:
+Audit result: the cutoff/GNS passage is repairable, but it is rigorous only after proving the full response-source lemma. The key corrected argument is:
+
+\[
+\phi'(U)P-\phi'(U_R)\tau_R(P_R)
+=
+\phi'(U)(P-P_R)
++\phi'(U)\bigl(P_R-\tau_R(P_R)\bigr)
++\bigl(\phi'(U)-\phi'(U_R)\bigr)\tau_R(P_R).
+\]
+
+Thus, in the normalized \(L^2\)/operator norm state distance \(E_{n,R}\),
+
+\[
+E_{n,R}(t)
+\le
+C\int_0^t(1+R)E_{n,R}(s)\,ds
++
+C\int_0^t\|P_{n,R}(s)-\tau_R(P_{n,R}(s))\|_{2,n}\,ds.
+\]
+
+Consequently,
+
+\[
+E_{n,R}(T)
+\le
+C_Te^{C_TR}
+\int_0^T\|P_{n,R}(s)-\tau_R(P_{n,R}(s))\|_{2,n}\,ds.
+\]
+
+For fixed \(R\), cutoff finite-width ODE convergence passes the tail integral to its limiting counterpart. If the response theorem gives the uniform bound
+
+\[
+\sup_{R,t,a}\|P_R^a(t)\|_{\psi_2}\le K,
+\]
+
+then
+
+\[
+\|P_R-\tau_R(P_R)\|_2
+\le C(K+R)e^{-R^2/(2K^2)},
+\]
+
+so the right side vanishes as \(R\to\infty\). This proves cutoff removal for the actual finite-width uncut dynamics. The same truncation identity proves uniqueness of the uncut reachable subgaussian flow. No finite-width empirical \(\psi_2\) theorem or Osgood argument is needed.
+
+Necessary corrections:
+
+- The GNS \(L^2\) space must not be called an algebra. Use canonical probability spaces generated by the countable joint probe law. Only bounded-multiplier operations are required.
+- Define \(B\) first on the probe span. The finite-width inequalities
+  \[
+  \|Bv\|_2\le3\|v\|_2,\qquad
+  \langle Bv,u\rangle=\langle v,B^*u\rangle
+  \]
+  make it well-defined on the null quotient and extend it continuously.
+- The autonomous state must retain only the current action operator \(B(t)\); \(B_0\) and the update history may appear only in the construction.
+- Path-\(W_2\) convergence must use finite-time-mesh approximation and
+  \[
+  \frac1n\sum_i\sup_{s,t\in I}|z_i(s)-z_i(t)|^2
+  \le |I|\int_I V_n(r)^2\,dr.
+  \]
+  A bounded second moment alone does not establish uniform integrability.
+- Tensor Program convergence is applied to a countable family of fixed finite programs, followed by a countable intersection—not to one infinite program.
+
+The remaining indispensable lemma must explicitly define and control every source:
+
+\[
+A=\sup_{k,a}\sum_{r<k,c}
+\mathbb E\left|
+\partial_{\widehat P_{rc}}H_{ka}
+\right|,
+\qquad
+B=\sup_{k,a}\sum_{r\le k,c}
+\mathbb E\left|
+\partial_{\widehat S_{rc}}D_{ka}
+\right|,
+\]
+
+and prove the exact reused-matrix decompositions
+
+\[
+S=\widehat S+
+\sum D\,\mathbb E[\partial_{\widehat P}H]
++\text{learned-rank terms},
+\]
+
+\[
+P=\widehat P+
+\sum H\,\mathbb E[\partial_{\widehat S}D]
++\text{learned-rank terms}.
+\]
+
+All adaptive Moment scalars must be held fixed under the Tensor Program source derivative. The contemporaneous \(r=k\) source in the second decomposition and every factor of the sample count must be included. A small-time \(A\)-\(B\)-\(K\) bootstrap is structurally sufficient, including at singular Gaussian covariances, because the no-rank-stability Tensor Program theorem uses no covariance inverse.
+
+Therefore: I found no contradiction or no-go in the cutoff/GNS construction. With that exact all-source response lemma, the repaired passage is rigorous. Without it, the affirmative theorem remains unproved.
+
+=== OPERATOR2 ROLLOUT LINE 32681 | 2026-08-27T21:02:30.553Z | /root/l3_local_geometry ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_local_geometry
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32726 | 2026-08-27T21:04:03.541Z | /root/l3_fatal_audit ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_fatal_audit
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32768 | 2026-08-27T21:05:51.097Z | /root/l3_response_builder ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_response_builder
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32796 | 2026-08-27T21:07:02.812Z | /root/l3_fatal_audit ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_fatal_audit
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32817 | 2026-08-27T21:07:38.810Z | /root/l3_local_geometry ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_local_geometry
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32825 | 2026-08-27T21:07:57.859Z | /root/l3_fatal_audit ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_fatal_audit
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32850 | 2026-08-27T21:09:19.421Z | /root/l3_local_geometry ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_local_geometry
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32866 | 2026-08-27T21:11:16.438Z | /root/l3_local_geometry ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_local_geometry
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32868 | 2026-08-27T21:11:16.439Z | /root/l3_local_geometry ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_local_geometry
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32870 | 2026-08-27T21:11:16.439Z | /root/l3_local_geometry ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_local_geometry
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 32890 | 2026-08-27T21:11:37.806Z | /root/l3_fatal_audit ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/l3_fatal_audit
+Payload:
+Verdict: under the clarified initialization \(w_i\sim N(0,I_d/d)\), labels \(y_a\in\{\pm1\}\), and pointed three-sorted action/GNS state, I find no fatal exponent mismatch. The theorem is plausible, but not proved by “all countable reachable probes” alone. The decisive missing result is a uniform two-matrix response-tail/uniqueness lemma.
+
+With \(C=nc\) and normalized inner product \(\langle u,v\rangle_n=n^{-1}u^\top v\), the limiting action equations have the balanced form
+\[
+\begin{aligned}
+\dot C&=-\sum_a r_a H_3^a,\\
+\dot B_3&=-\sum_a r_a\,D_3^a\otimes_n H_2^a,\\
+\dot B_2&=-\sum_a r_a\,D_2^a\otimes_n H_1^a,\\
+\dot w_i&=-\frac1d\sum_a r_aD_{1,i}^a x_a,
+\end{aligned}
+\]
+where
+\[
+D_3^a=C\odot\phi'(Z_3^a),\quad
+D_2^a=\phi'(Z_2^a)\odot B_3^*D_3^a,\quad
+D_1^a=\phi'(Z_1^a)\odot B_2^*D_2^a.
+\]
+Thus \(B_\ell\)-entry increments are \(O(n^{-1})\), but the rank-\(m\) action increments have \(O(1)\) operator norm. The \(n/d\) first-layer mobility makes \(\dot w=O(1)\). Also \(C(0)\to0\), but
+\[
+\dot C(0)=\sum_a y_aH_3^a\neq0,
+\]
+so each hidden-block NTK starts at order \(t^2\), consistent with positive integrated activity on every small interval. For \(\phi=\sin+\cos\),
+\[
+\mathbb E[\phi(U)\phi(V)]
+=\exp\!\left[-\tfrac12\operatorname{Var}(U-V)\right],
+\]
+giving a strictly positive-definite first-layer RBF Gram matrix on distinct inputs; the deep kernel recursion preserves strict positivity. A short separate nondegeneracy lemma is still needed to show the leading \(D_3,D_2,D_1\) tensors do not cancel, especially for the \(w\)-block, but no counterexample is apparent.
+
+The real obstruction is topology. In \(L^2\)/GNS topology the backprop map is not locally Lipschitz:
+\[
+D_2-D_2'
+=(g_2-g_2')\odot(B_3^*D_3)
++g_2'\odot(B_3^*D_3-B_3'^*D_3').
+\]
+The first term multiplies two merely \(L^2\) fields and is only automatically \(L^1\). Repeated differentiation through both adjoints causes an escalating moment requirement. Operator-norm bounds on \(B_2,B_3\) do not control coordinate \(L^p\) tails. Consequently, retaining every finite probe does not itself imply closure or uniqueness. The model hierarchy has the same logical danger as
+\[
+\dot u_k=u_{k+1},
+\]
+which has nonzero flat solutions \(u_k=g^{(k)}\) with all \(u_k(0)=0\) in unrestricted product topology.
+
+A sufficient missing lemma is:
+
+> For every \(T<\infty\), there exist events \(E_n(T)\) with probability tending to one and constants \(C_T,K_T,\delta_T>0\), uniform in \(n\) and restart time \(s\le T\), such that:
+>
+> 1. \(C,B_2,B_3\) and all forward fields obey the required compact-time bounds.
+> 2. If \(\mathcal T_r\) denotes all typed response trees containing \(r\) complete forward/backward response rounds, including both exact adjoints and every Hadamard gate, then
+> \[
+> \sum_{\tau\in\mathcal T_r}
+> \|A_{\tau,n}(t_1,\ldots,t_r)\|_{\mathrm{typed}}
+> \le C_TK_T^r r!
+> \]
+> uniformly on \(E_n(T)\). The typed norm must include enough uniform \(L^p\) or Orlicz control to make every required Hadamard contraction uniformly integrable.
+> 3. Hence, on every slab of length \(\delta<1/K_T\),
+> \[
+> \sup_n\operatorname{Tail}_{R,n}([s,s+\delta])
+> \le
+> C_T\sum_{r\ge R}(K_T\delta)^r
+> \longrightarrow0.
+> \]
+> 4. The estimate also holds for differences of two solutions and after restart at any \(s\), giving uniqueness and excluding information entering from infinite response depth.
+
+Finite-depth action-law convergence plus this lemma would justify the full-width limit, closure, autonomy, and restartability. The tiny \(\eta_n=e^{-n^{10}}\) then handles Euler/exact-GD consistency, but it cannot substitute for the response-tail estimate.
+
+Two cautions remain:
+
+- The cyclic state must include the diagonal/Hadamard algebra and pointed vector states. Normalized trace alone misses the \(O(1)\)-action finite-rank training perturbations.
+- Physical time must explicitly be \(t=k\eta_n\); fixed iteration time would yield a frozen limit.
+
+So: no fatal scaling under the clarified contract, but the theorem should currently be labeled conditional on the response-tail lemma, not established.
+
+=== OPERATOR2 ROLLOUT LINE 32904 | 2026-08-27T21:12:11.380Z | /root/l3_local_geometry ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/l3_local_geometry
+Payload:
+Let \(m\) be fixed, \(\|x_\mu\|^2=d\), \(G_{\mu\nu}=x_\mu^\top x_\nu/d\), and \(a_\mu=y_\mu/m\), with \(y_\mu\in\{\pm1\}\). Use
+\[
+Z_1=U,\quad H_1=\phi(Z_1),\quad
+Z_2=S_2,\quad H_2=\phi(Z_2),\quad
+Z_3=S_3,\quad H_3=\phi(Z_3),
+\]
+and
+\[
+D_3=C\odot\phi'(Z_3),\quad
+D_2=\phi'(Z_2)\odot B_3^\top D_3,\quad
+D_1=\phi'(Z_1)\odot B_2^\top D_2 .
+\]
+
+For the mean squared loss, the exact normalized flow is
+\[
+\dot C=-\frac1m\sum_\alpha r_\alpha H_{3,\alpha},
+\]
+\[
+\dot B_\ell=-\frac1m\sum_\alpha r_\alpha
+\frac{D_{\ell,\alpha}H_{\ell-1,\alpha}^{\top}}n,\qquad \ell=2,3,
+\]
+\[
+\dot w_i=-\frac1m\sum_\alpha r_\alpha D_{1,i\alpha}\frac{x_\alpha}{d},
+\qquad r_\alpha=f_\alpha-y_\alpha.
+\]
+
+At \(C(0)=0\), set
+\[
+C_1=\sum_\alpha a_\alpha H_{3,\alpha},
+\]
+\[
+A_{3,\mu}=C_1\odot\phi'(Z_{3,\mu}),\quad
+A_{2,\mu}=\phi'(Z_{2,\mu})\odot B_3^\top A_{3,\mu},
+\]
+\[
+A_{1,\mu}=\phi'(Z_{1,\mu})\odot B_2^\top A_{2,\mu}.
+\]
+Then
+\[
+C(t)=tC_1+O(t^2),\qquad D_\ell(t)=tA_\ell+O(t^2),
+\]
+and
+\[
+B_3(t)=B_3(0)+\frac{t^2}{2}\sum_\alpha a_\alpha
+\frac{A_{3,\alpha}H_{2,\alpha}^{\top}}n+O(t^3),
+\]
+\[
+B_2(t)=B_2(0)+\frac{t^2}{2}\sum_\alpha a_\alpha
+\frac{A_{2,\alpha}H_{1,\alpha}^{\top}}n+O(t^3),
+\]
+\[
+w_i(t)=w_i(0)+\frac{t^2}{2}\sum_\alpha
+a_\alpha A_{1,i\alpha}\frac{x_\alpha}{d}+O(t^3).
+\]
+
+Thus \(Z_\ell(t)=Z_\ell(0)+t^2V_\ell/2+O(t^3)\), where
+\[
+V_{1,i\mu}=\sum_\alpha a_\alpha G_{\mu\alpha}A_{1,i\alpha},
+\]
+\[
+V_{2,i\mu}=\sum_\alpha a_\alpha Q^{(n)}_{1,\mu\alpha}A_{2,i\alpha}
++\sum_jB_{2,ij}\phi'(U_{j\mu})V_{1,j\mu},
+\]
+\[
+V_{3,i\mu}=\sum_\alpha a_\alpha Q^{(n)}_{2,\mu\alpha}A_{3,i\alpha}
++\sum_jB_{3,ij}\phi'(S_{2,j\mu})V_{2,j\mu}.
+\]
+Consequently every hidden-feature velocity is \(tV_\ell+O(t^2)\), and every squared speed begins at order \(t^2\).
+
+For \(\phi(z)=\sin z+\cos z\),
+\[
+\mathbb E[\phi(X)\phi(Y)]
+=\mathbb E[\phi'(X)\phi'(Y)]
+=e^{\rho-1}
+\]
+when \((X,Y)\) are standard Gaussian with correlation \(\rho\). Hence
+\[
+Q_1=e^{\circ(G-\mathbf1)},\qquad
+Q_2=e^{\circ(Q_1-\mathbf1)},\qquad
+Q_3=e^{\circ(Q_2-\mathbf1)}.
+\]
+
+The exact backward Gaussian recursion is as follows. Let \(Z_3\sim N(0,Q_2)\) and
+\[
+A_{3,\mu}(Z_3)=\bigl(a^\top\phi(Z_3)\bigr)\phi'(Z_{3,\mu}),
+\qquad R_3=\mathbb E[A_3A_3^\top].
+\]
+Then
+\[
+(J_3)_{\mu\alpha}
+=a_\alpha Q_{3,\mu\alpha}
+-\delta_{\mu\alpha}(Q_3a)_\mu .
+\]
+With \(Z_2\sim N(0,Q_1)\), \(\Xi_3\sim N(0,R_3)\) independent, define
+\[
+A_2=\phi'(Z_2)\odot\bigl(\Xi_3+J_3\phi(Z_2)\bigr),
+\qquad R_2=\mathbb E[A_2A_2^\top],
+\]
+\[
+(J_2)_{\mu\alpha}
+=(J_3)_{\mu\alpha}Q_{2,\mu\alpha}
+-\delta_{\mu\alpha}\sum_\beta(J_3)_{\mu\beta}Q_{2,\mu\beta}.
+\]
+Finally, with \(Z_1\sim N(0,G)\), \(\Xi_2\sim N(0,R_2)\) independent,
+\[
+A_1=\phi'(Z_1)\odot\bigl(\Xi_2+J_2\phi(Z_1)\bigr),
+\qquad R_1=\mathbb E[A_1A_1^\top].
+\]
+
+Therefore the four NTK blocks have jets
+\[
+K_C(t)=Q_3+O(t^2),
+\]
+\[
+K_{B_3}(t)=t^2(Q_2\odot R_3)+O(t^3),
+\]
+\[
+K_{B_2}(t)=t^2(Q_1\odot R_2)+O(t^3),
+\]
+\[
+K_w(t)=t^2(G\odot R_1)+O(t^3).
+\]
+More precisely, if \(q_3=\phi'(Z_3)\odot V_3\),
+\[
+K_C(t)=Q_3+\frac{t^2}{2}\Gamma_C+O(t^3),
+\quad
+(\Gamma_C)_{\mu\nu}
+=\mathbb E[q_{3,\mu}\phi(Z_{3,\nu})
++\phi(Z_{3,\mu})q_{3,\nu}].
+\]
+
+All integrals reduce to finite sign sums. If
+\[
+\theta_r=-\frac{\pi}{4}+\frac{r\pi}{2},
+\]
+then, for \(Z\sim N(0,Q)\),
+\[
+\mathcal M_Q[(i_j,r_j)_{j=1}^k]
+=
+2^{-k/2}\sum_{\varepsilon\in\{\pm1\}^k}
+\cos\!\left(\sum_j\varepsilon_j\theta_{r_j}\right)
+\exp\!\left(
+-\frac12\sum_{j,l}\varepsilon_j\varepsilon_lQ_{i_ji_l}
+\right).
+\]
+Writing
+\[
+T_Q^{\mu\nu;\alpha\beta}
+=\mathcal M_Q[(\mu,1),(\nu,1),(\alpha,0),(\beta,0)],
+\]
+gives
+\[
+(R_3)_{\mu\nu}
+=\sum_{\alpha,\beta}a_\alpha a_\beta
+T_{Q_2}^{\mu\nu;\alpha\beta},
+\]
+\[
+(R_2)_{\mu\nu}
+=Q_{2,\mu\nu}(R_3)_{\mu\nu}
++\sum_{\alpha,\beta}
+(J_3)_{\mu\alpha}(J_3)_{\nu\beta}
+T_{Q_1}^{\mu\nu;\alpha\beta},
+\]
+\[
+(R_1)_{\mu\nu}
+=Q_{1,\mu\nu}(R_2)_{\mu\nu}
++\sum_{\alpha,\beta}
+(J_2)_{\mu\alpha}(J_2)_{\nu\beta}
+T_G^{\mu\nu;\alpha\beta}.
+\]
+
+For explicit speed integrals, define
+\[
+\Theta_1=Q_1+Q_1\odot G,\qquad
+\Theta_2=Q_2+Q_2\odot\Theta_1,\qquad D_a=\operatorname{diag}(a).
+\]
+Then
+\[
+W_1:=\mathbb E[V_1V_1^\top]
+=GD_aR_1D_aG.
+\]
+Let
+\[
+q_1=\phi'(Z_1)\odot V_1,\quad
+P_1=\mathbb E[q_1q_1^\top],\quad
+X_1=\mathbb E[\phi(Z_1)q_1^\top].
+\]
+Draw \((Z_2,\zeta_1)\) jointly Gaussian with covariance
+\[
+\begin{pmatrix}Q_1&X_1\\X_1^\top&P_1\end{pmatrix},
+\]
+independently of \(\Xi_3\), and set
+\[
+V_2=\zeta_1+\Theta_1D_aA_2.
+\]
+Likewise set
+\[
+q_2=\phi'(Z_2)\odot V_2,\quad
+P_2=\mathbb E[q_2q_2^\top],\quad
+X_2=\mathbb E[\phi(Z_2)q_2^\top],
+\]
+draw \((Z_3,\zeta_2)\) jointly Gaussian with covariance
+\[
+\begin{pmatrix}Q_2&X_2\\X_2^\top&P_2\end{pmatrix},
+\]
+and set
+\[
+V_3=\zeta_2+\Theta_2D_aA_3.
+\]
+Thus \(W_\ell=\mathbb E[V_\ell V_\ell^\top]\). Equivalently,
+\[
+W_2=P_1+M_1R_2M_1^\top+C_2M_1^\top+M_1C_2^\top,
+\]
+\[
+W_3=P_2+M_2R_3M_2^\top+C_3M_2^\top+M_2C_3^\top,
+\]
+where
+\[
+M_1=\Theta_1D_a,\quad C_2=X_1^\top J_2^\top,
+\qquad
+M_2=\Theta_2D_a,\quad C_3=X_2^\top J_3^\top.
+\]
+
+Strict positivity follows as follows:
+
+1. \(Q_1\) is strictly positive definite on every finite set of distinct inputs, even if \(G\) is singular. Expand \(e^{G_{\mu\nu}}\) into tensor-power Gram matrices; vanishing of the quadratic form at every degree contradicts polynomial interpolation on distinct points.
+
+2. \(Q_2,Q_3\) are strictly positive definite because their exponential series contains the preceding SPD matrix as its degree-one summand.
+
+3. \(R_3\succ0\): if \(b^\top R_3b=0\), then
+   \[
+   (a^\top\phi(z))(b^\top\phi'(z))=0
+   \]
+   almost everywhere under a full-support Gaussian. Analyticity, \(a\ne0\), and coordinatewise linear independence force \(b=0\).
+
+4. \(R_2\succ0\) because it contains \(Q_2\odot R_3\succ0\); similarly \(R_1\succ0\) because it contains \(Q_1\odot R_2\succ0\).
+
+5. Hence the \(B_3\)- and \(B_2\)-coefficients are SPD. For the first layer, use the lemma
+   \[
+   A\succeq0,\quad A_{\mu\mu}>0,\quad B\succ0
+   \Longrightarrow A\odot B\succ0.
+   \]
+   Applied to \(A=G\), \(B=R_1\), it proves \(G\odot R_1\succ0\) despite singular \(G\).
+
+The aggregate feature-speed coefficients are strictly positive through
+\[
+\mathbb E\sum_\mu a_\mu A_{1,\mu}V_{1,\mu}
+=a^\top(G\odot R_1)a>0,
+\]
+\[
+\mathbb E\sum_\mu a_\mu A_{2,\mu}V_{2,\mu}
+=a^\top[(Q_1\odot R_2)+(G\odot R_1)]a>0,
+\]
+\[
+\mathbb E\sum_\mu a_\mu A_{3,\mu}V_{3,\mu}
+=a^\top[(Q_2\odot R_3)+(Q_1\odot R_2)+(G\odot R_1)]a>0.
+\]
+
+There is one necessary qualification: the \(U\)-speed Gram itself is not SPD when \(G\) is singular, since
+\[
+W_1=GD_aR_1D_aG,\qquad \operatorname{rank}W_1\leq\operatorname{rank}G.
+\]
+For example, \(d=1\), \(x_1=1,x_2=-1\) gives singular \(W_1\). Its diagonal entries and aggregate RMS speed remain strictly positive for labels \(\pm1\); only the stronger matrix-PD claim fails.
+
+=== OPERATOR2 ROLLOUT LINE 32991 | 2026-08-27T21:14:07.810Z | /root/l3_response_builder ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_response_builder
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33036 | 2026-08-27T21:16:03.825Z | /root/l3_response_builder ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/l3_response_builder
+Payload:
+The correct verdict is bifurcated:
+
+- For each fixed mesh, after \(n\to\infty\), the all-source Tensor-Program coordinate law admits a mesh-uniform small-time response bootstrap.
+- The literal finite-width global subgaussian claim is false, and a fixed-program Tensor-Program theorem alone does not justify a mesh-to-zero limit.
+
+Let \(\langle u,v\rangle_n=n^{-1}u^\top v\), \(u\otimes_n v=uv^\top/n\), and write the signed residual coefficient as \(\rho_k^a\). If \(A_\ell=B_\ell(0)\), then exactly at finite width,
+\[
+B_{\ell,k}
+=A_\ell+\sum_{r<k}\Delta_r\sum_b\rho_r^b
+D_{\ell,r}^b\otimes_n H_{\ell-1,r}^b,\qquad \ell=2,3.
+\]
+Consequently,
+\[
+S_{\ell,k}^a
+=A_\ell H_{\ell-1,k}^a+
+\sum_{r<k,b}\Delta_r\rho_r^bD_{\ell,r}^b
+\langle H_{\ell-1,r}^b,H_{\ell-1,k}^a\rangle_n,
+\]
+and
+\[
+P_{\ell-1,k}^a
+=A_\ell^\top D_{\ell,k}^a+
+\sum_{r<k,b}\Delta_r\rho_r^bH_{\ell-1,r}^b
+\langle D_{\ell,r}^b,D_{\ell,k}^a\rangle_n.
+\]
+
+For the limiting coordinate law, introduce forward Gaussian sources
+\(\xi_{\ell,k}^a\) and transpose sources \(\eta_{\ell,k}^a\). The four required response formulas are
+\[
+A_2H_{1,k}^a
+=\xi_{2,k}^a+\sum_{r<k,b}D_{2,r}^b\,
+\alpha_{2;k,a}^{r,b},
+\qquad
+\alpha_{2;k,a}^{r,b}
+=\mathbb E\,\partial_{\eta_{2,r}^b}H_{1,k}^a,
+\]
+\[
+A_2^\top D_{2,k}^a
+=\eta_{2,k}^a+\sum_{r\le k,b}H_{1,r}^b\,
+\beta_{2;k,a}^{r,b},
+\qquad
+\beta_{2;k,a}^{r,b}
+=\mathbb E\,\partial_{\xi_{2,r}^b}D_{2,k}^a,
+\]
+\[
+A_3H_{2,k}^a
+=\xi_{3,k}^a+\sum_{r<k,b}D_{3,r}^b\,
+\alpha_{3;k,a}^{r,b},
+\qquad
+\alpha_{3;k,a}^{r,b}
+=\mathbb E\,\partial_{\eta_{3,r}^b}H_{2,k}^a,
+\]
+\[
+A_3^\top D_{3,k}^a
+=\eta_{3,k}^a+\sum_{r\le k,b}H_{2,r}^b\,
+\beta_{3;k,a}^{r,b},
+\qquad
+\beta_{3;k,a}^{r,b}
+=\mathbb E\,\partial_{\xi_{3,r}^b}D_{3,k}^a.
+\]
+The forward-source covariance is
+\[
+\mathbb E[\xi_{\ell,k}^a\xi_{\ell,r}^b]
+=\mathbb E[H_{\ell-1,k}^aH_{\ell-1,r}^b],
+\]
+the transpose-source covariance is
+\[
+\mathbb E[\eta_{\ell,k}^a\eta_{\ell,r}^b]
+=\mathbb E[D_{\ell,k}^aD_{\ell,r}^b],
+\]
+and the forward and transpose Gaussian families are independent. Sources belonging to different matrices are independent.
+
+Set
+\[
+q_{\ell-1;r,k}^{b,a}
+=\mathbb E[H_{\ell-1,r}^bH_{\ell-1,k}^a],
+\qquad
+\gamma_{\ell;r,k}^{b,a}
+=\mathbb E[D_{\ell,r}^bD_{\ell,k}^a],
+\]
+and
+\[
+\mathcal A_{\ell;k,a}^{r,b}
+=\alpha_{\ell;k,a}^{r,b}
++\Delta_r\rho_r^bq_{\ell-1;r,k}^{b,a},
+\]
+\[
+\mathcal B_{\ell;k,a}^{r,b}
+=\beta_{\ell;k,a}^{r,b}
++\mathbf 1_{\{r<k\}}\Delta_r\rho_r^b
+\gamma_{\ell;r,k}^{b,a}.
+\]
+Then the closed coordinate recurrences are
+\[
+S_{\ell,k}^a
+=\xi_{\ell,k}^a+
+\sum_{r<k,b}\mathcal A_{\ell;k,a}^{r,b}D_{\ell,r}^b,
+\]
+\[
+P_{\ell-1,k}^a
+=\eta_{\ell,k}^a+
+\sum_{r\le k,b}\mathcal B_{\ell;k,a}^{r,b}H_{\ell-1,r}^b.
+\]
+
+For every one of the four formal source types \(q\), the exact derivative recursion is
+\[
+\partial_qS_{\ell,k}^a
+=\mathbf1_{\{q=(\ell,+,k,a)\}}
++\sum_{r<k,b}\mathcal A_{\ell;k,a}^{r,b}
+\partial_qD_{\ell,r}^b,
+\]
+\[
+\partial_qP_{\ell-1,k}^a
+=\mathbf1_{\{q=(\ell,-,k,a)\}}
++\sum_{r\le k,b}\mathcal B_{\ell;k,a}^{r,b}
+\partial_qH_{\ell-1,r}^b,
+\]
+together with
+\[
+\partial_qH_{1,k}^a=\phi'(U_k^a)\partial_qU_k^a,
+\]
+\[
+\partial_qU_{k+1}^a
+=\partial_qU_k^a+
+\Delta_k\sum_b\rho_k^bK_{ab}
+\theta_R'(P_{1,k}^b)\partial_qP_{1,k}^b,
+\]
+\[
+\partial_qH_{\ell,k}^a
+=\phi'(S_{\ell,k}^a)\partial_qS_{\ell,k}^a,
+\]
+\[
+\partial_qC_{k+1}
+=\partial_qC_k+
+\Delta_k\sum_b\rho_k^b\phi'(S_{3,k}^b)
+\partial_qS_{3,k}^b,
+\]
+\[
+\partial_qD_{3,k}^a
+=\phi'(S_{3,k}^a)\partial_qC_k
++C_k\phi''(S_{3,k}^a)\partial_qS_{3,k}^a,
+\]
+\[
+\partial_qD_{2,k}^a
+=\phi''(S_{2,k}^a)P_{2,k}^a\partial_qS_{2,k}^a
++\phi'(S_{2,k}^a)\partial_qP_{2,k}^a.
+\]
+This is the complete all-source system; omitting either matrix’s opposite-orientation sources loses genuine paths.
+
+For \(\phi=\sin+\cos\), let \(L=\sqrt2\), so every derivative of \(\phi\) is bounded by \(L\). With
+\(\rho^a=(y^a-f^a)/m\), \(Y=m^{-1}\sum_a|y^a|\), and limiting \(C_0=0\),
+\[
+|C_k|\le C_T:=\frac{Y}{L}(e^{L^2T}-1),
+\qquad
+\sum_a|\rho_k^a|\le R_T:=Ye^{L^2T},
+\qquad
+|D_{3,k}^a|\le D_T:=LC_T.
+\]
+These bounds are mesh-independent.
+
+The current-time transpose responses are particularly important and are exact:
+\[
+\beta_{3;k,a}^{k,b}
+=\delta_{ab}\,\mathbb E[C_k\phi''(S_{3,k}^a)],
+\]
+and, writing
+\(\zeta_{3,k}^a=\mathbb E[C_k\phi''(S_{3,k}^a)]\),
+\[
+\beta_{2;k,a}^{k,b}
+=\delta_{ab}\,
+\mathbb E\!\left[
+\phi''(S_{2,k}^a)P_{2,k}^a
++\phi'(S_{2,k}^a)^2\zeta_{3,k}^a
+\right].
+\]
+Hence, under \(\|P_{2,k}^a\|_{\psi_2}\le K_2T\),
+\[
+\sum_b|\beta_{3;k,a}^{k,b}|\le LC_T,
+\]
+\[
+\sum_b|\beta_{2;k,a}^{k,b}|
+\le L\sqrt2K_2T+L^3C_T.
+\]
+
+The essential mesh-uniform response estimates must retain the per-source mesh factor:
+\[
+\sum_b|\alpha_{\ell;k,a}^{r,b}|
+\le \Lambda\Delta_r,\qquad r<k,
+\]
+\[
+\sum_b|\beta_{\ell;k,a}^{r,b}|
+\le \Lambda\Delta_r,\qquad r<k.
+\]
+Dropping \(\Delta_r\) is invalid. It replaces a time-ordered Volterra expansion by a Neumann series with terms comparable to
+\(\varepsilon^q\mathbb E|G|^q\), which diverges for every \(\varepsilon>0\).
+
+The dangerous derivative is
+\[
+\partial D_2
+=\phi''(S_2)P_2\,\partial S_2+\phi'(S_2)\partial P_2.
+\]
+A naive estimate
+\[
+\mathbb E|P_2\partial S_2|
+\le \|P_2\|_2\|\partial S_2\|_2
+\]
+does not close: controlling the derivative in \(L^2\) requires \(L^4\), then \(L^8\), and so on. The correct causal expansion gives a pathwise bound of the form
+\[
+Z_k\le 2J\exp\!\left(
+2M t_k+2M\sum_{r<k}\Delta_r|P_{2,r}|
+\right),
+\]
+where \(J,M\) depend only on \(L,R_T,K\), the input Gram row bound, and the proposed response bounds, but not on the mesh or cutoff radius. If
+\(\|P_{2,r}\|_{\psi_2}\le K_2T\), then
+\[
+\mathbb E\exp\!\left(
+\lambda\sum_r\Delta_r|P_{2,r}|
+\right)
+\le
+2\exp\!\left(\frac{\lambda^2K_2^2T^4}{4}\right).
+\]
+This follows from Jensen in the time weights and
+\(\lambda|x|\le x^2/s^2+\lambda^2s^2/4\). Thus the response bootstrap closes for sufficiently small \(T\), provided
+\(\sup_R\|\theta_R'\|_\infty\le1\). This avoids the invalid Hölder hierarchy.
+
+Once the response sums are bounded by \(\Lambda T\), the tail estimates are direct:
+\[
+\|P_{2,k}^a\|_{\psi_2}
+\le
+2D_T
++2L\sum_{r\le k,b}|\beta_{3;k,a}^{r,b}|
++2LR_TTD_T^2,
+\]
+and, if \(\|P_2\|_{\psi_2}\le K_2T\),
+\[
+\|P_{1,k}^a\|_{\psi_2}
+\le
+2\sqrt2LK_2T
++2L\sum_{r\le k,b}|\beta_{2;k,a}^{r,b}|
++4R_TL^3K_2^2T^3.
+\]
+Thus the limiting fixed-mesh coordinate laws satisfy
+\[
+\sup_{k,a}\|P_{2,k}^a\|_{\psi_2}\le K_2T,
+\qquad
+\sup_{k,a}\|P_{1,k}^a\|_{\psi_2}\le K_1T
+\]
+for suitable finite \(K_1,K_2\) and small \(T\), uniformly in mesh length and normalized cutoff radius.
+
+There are nevertheless fatal obstructions to the literal requested theorem.
+
+First, finite-width global subgaussianity is false. Take \(n=m=1\), \(H_1=1\), \(y\ne0\), \(C_0=0\), and \(X=B_2(0),Y=B_3(0)\) independent standard Gaussians. Then
+\[
+\dot P_1(0)
+=yXY\,\phi'(X)\cos\!\bigl(2Y\phi(X)\bigr).
+\]
+For \(R=2\pi q\), on
+\[
+X\in[R,R+\varepsilon/R],\qquad
+Y\in[R,R+\varepsilon],
+\]
+with fixed sufficiently small \(\varepsilon\), both trigonometric factors are bounded away from zero. Hence
+\[
+|\dot P_1(0)|\gtrsim R^2,
+\qquad
+\mathbb P(\text{this event})
+\gtrsim R^{-1}e^{-R^2-O(R)}.
+\]
+Its far tail is exponential in the level, not Gaussian. If
+\(\|P_1(t)\|_{\psi_2}\le Kt\) held uniformly near zero, then Fatou applied to \(P_1(t)/t\to\dot P_1(0)\) would make \(\dot P_1(0)\) subgaussian, a contradiction.
+
+Second, a Tensor-Program master theorem applies to each fixed finite program. Uniform bounds on its limiting recurrence do not furnish uniform finite-width convergence as the mesh length grows. Conditioning proofs using source Gram matrices are especially nonuniform because adjacent-time inputs become nearly collinear and the Gram inverses become ill-conditioned.
+
+Finally, \(C_0\to0\) without a uniform tail assumption is insufficient at finite width; convergence in probability permits rare heavy-tailed contamination.
+
+So the response bootstrap is valid as a limiting-coordinate lemma under the added normalization and cutoff hypotheses, but it cannot establish the literal finite-\(n\), all-mesh global subgaussian statement.
+
+=== OPERATOR2 ROLLOUT LINE 33070 | 2026-08-27T21:17:28.919Z | /root/l3_response_energy ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_response_energy
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33140 | 2026-08-27T21:20:38.866Z | /root/l3_response_energy ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_response_energy
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33178 | 2026-08-27T21:22:32.161Z | /root/l3_response_energy ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_response_energy
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33194 | 2026-08-27T21:23:04.526Z | /root/l3_response_energy ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_response_energy
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33284 | 2026-08-27T21:25:43.870Z | /root/l3_joint_bridge ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_joint_bridge
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33307 | 2026-08-27T21:27:42.616Z | /root/l3_joint_bridge ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_joint_bridge
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33309 | 2026-08-27T21:27:42.617Z | /root/l3_response_energy ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_response_energy
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33311 | 2026-08-27T21:27:42.617Z | /root/l3_response_energy ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_response_energy
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33327 | 2026-08-27T21:28:06.267Z | /root/l3_response_energy ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_response_energy
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33350 | 2026-08-27T21:29:11.017Z | /root/l3_response_energy ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_response_energy
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33373 | 2026-08-27T21:29:43.038Z | /root/l3_joint_bridge ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_joint_bridge
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33384 | 2026-08-27T21:30:06.519Z | /root/l3_response_energy ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_response_energy
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33412 | 2026-08-27T21:31:09.629Z | /root/l3_response_energy ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_response_energy
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33420 | 2026-08-27T21:31:22.741Z | /root/l3_joint_bridge ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/l3_joint_bridge
+Payload:
+Verdict: the stated ingredients do not yet prove the joint compact-time limit. A pure diagonal argument is impossible; direct random-ODE compactness gives tightness but not identification; and the closest rigorous theorems do not cover this μP/CLT scaling.
+
+### 1. Diagonalization cannot work from fixed-step TP alone
+
+At horizon \(T\), let \(K_n=\lfloor T/\eta_n\rfloor\). Since \(n\eta_n\to0\),
+\[
+\frac{K_n}{n}\sim \frac{T}{n\eta_n}\longrightarrow\infty.
+\]
+Fixed-program convergence only controls every fixed \(K\). A standard diagonal argument instead makes \(K_n\) grow sufficiently slowly compared with the unknown width threshold.
+
+The logical obstruction is exact. Define a terminal observable
+\[
+A_{n,\eta}=\mathbf 1_{\{n\eta<1\}}.
+\]
+For every fixed \(\eta>0\), \(A_{n,\eta}\to0\), and the fixed-mesh limit is identically zero as \(\eta\downarrow0\). Nevertheless, for every sequence satisfying \(n\eta_n\to0\),
+\[
+A_{n,\eta_n}=1
+\]
+eventually. Thus even an existential subsequence is not supplied by the iterated limits.
+
+Equivalently, with \(A_{n,K}=\mathbf 1_{\{K>n\}}\), every fixed-\(K\) limit is zero, while compact time under \(n\eta_n\to0\) requires \(K_n\gg n\), where the array equals one.
+
+### 2. The exact sufficient bridge
+
+No uniform TP rate is needed if one can prove either of these equivalent stability statements for the finite-width observable \(O\):
+
+\[
+\sup_{t\le T}d\!\left(O^{\eta_n}_n(t),O^{\mathrm{GF}}_n(t)\right)
+ \xrightarrow{\mathbb P}0,
+\tag{A}
+\]
+and
+\[
+\lim_{\delta\downarrow0}\limsup_{n\to\infty}
+\mathbb P\!\left(
+\sup_{t\le T}d\!\left(O^{\delta}_n(t),O^{\mathrm{GF}}_n(t)\right)>\varepsilon
+\right)=0.
+\tag{B}
+\]
+
+Indeed, fix \(\delta\). The \(\delta\)-trajectory has only \(T/\delta\) steps, so fixed-program TP gives \(O_n^\delta\to O^\delta\). Conditions (A)–(B) imply that \(O^\delta\) is Cauchy as \(\delta\downarrow0\), and then
+\[
+\|O_n^{\eta_n}-O\|_T
+\le
+\|O_n^{\eta_n}-O_n^{\rm GF}\|_T+
+\|O_n^{\rm GF}-O_n^\delta\|_T+
+\|O_n^\delta-O^\delta\|_T+
+\|O^\delta-O\|_T .
+\]
+First send \(n\to\infty\) with \(\delta\) fixed, then \(\delta\downarrow0\).
+
+A direct two-mesh estimate,
+\[
+\lim_{\delta,\delta'\downarrow0}\limsup_n
+\mathbb P\!\left(\|O_n^\delta-O_n^{\delta'}\|_T>\varepsilon\right)=0,
+\]
+would serve equally well.
+
+### 3. What finite-width energy bounds do establish
+
+In the usual μP coordinates \(a=\alpha/n\), write
+\[
+f=\frac1n X_3^\top\alpha,\qquad
+H_1=W_1X,\quad H_2=W_2X_1,\quad H_3=W_3X_2.
+\]
+With
+\[
+Q_3=(\alpha r^\top)\odot\phi'(H_3),\quad
+Q_2=(W_3^\top Q_3)\odot\phi'(H_2),\quad
+Q_1=(W_2^\top Q_2)\odot\phi'(H_1),
+\]
+the μP gradient flow has
+\[
+\dot W_1=-Q_1X^\top,\quad
+\dot W_2=-\frac1nQ_2X_1^\top,\quad
+\dot W_3=-\frac1nQ_3X_2^\top,\quad
+\dot\alpha=-X_3r.
+\]
+
+For a lower-bounded empirical loss,
+\[
+\int_0^T\!\left[
+\frac1n\|\dot W_1\|_F^2+
+\|\dot W_2\|_F^2+
+\|\dot W_3\|_F^2+
+\frac1n\|\dot\alpha\|_2^2
+\right]dt
+\le \mathcal L(0)-\inf\mathcal L .
+\]
+Together with Gaussian operator-norm bounds for \(W_2(0),W_3(0)\), this yields width-uniform reachable-ball and \(1/2\)-Hölder estimates in
+\[
+d_n(\theta,\tilde\theta)=
+\frac{\|W_1-\tilde W_1\|_F}{\sqrt n}
++\|W_2-\tilde W_2\|_{\rm op}
++\|W_3-\tilde W_3\|_{\rm op}
++\frac{\|\alpha-\tilde\alpha\|_2}{\sqrt n}.
+\]
+Hence output tightness is plausible.
+
+### 4. Why compactness does not complete the proof
+
+The tempting claim that the vector fields are uniformly Lipschitz in \(d_n\) is false from these bounds alone. For example, subtracting two \(Q_2\) equations produces
+\[
+(\widetilde W_3^\top\widetilde Q_3)\odot
+\bigl[\phi'(H_2)-\phi'(\widetilde H_2)\bigr].
+\]
+Its normalized \(L^2\) norm satisfies only
+\[
+\frac1{\sqrt n}\|\cdot\|_F
+\le
+\|\phi''\|_\infty
+\|\widetilde W_3^\top\widetilde Q_3\|_\infty
+\frac{\|H_2-\widetilde H_2\|_F}{\sqrt n}.
+\]
+Energy controls the first factor only in normalized \(L^2\), not \(L^\infty\). For nondegenerate Gaussian disorder its maximum typically grows at least like \(\sqrt{\log n}\). Hölder estimates replace this by an \(L^4\) requirement; propagating that estimate requires \(L^8\), then \(L^{16}\), recreating the growing response/program hierarchy.
+
+Thus bare Arzelà–Ascoli compactness yields subsequences but cannot pass through the nonlinear forward/backward products or identify the Gaussian response terms. The missing result is precisely a finite-width response/moment-tail stability estimate establishing (A)–(B). Limiting-DAG row-sum or boundedness estimates control propagation after taking \(n=\infty\); they do not bound finite-width error production.
+
+### 5. Literature audit
+
+- Yang–Hu explicitly restrict their TP results to training time independent of width; their Master Theorem is for a fixed finite program. The paper remarks that a quantitative theorem might be possible but does not provide one. [Tensor Programs IV](https://arxiv.org/pdf/2011.14522)
+- Nguyen–Pham’s Theorem 15 does give uniform compact-time width/step bounds of order \(n^{-c}+\epsilon^c\), but for classical mean-field forward sums \(n^{-1}\sum_j w_{ij}x_j\) with width-uniform \(O(1)\) sub-Gaussian weights. Matching \(n^{-1/2}\sum_j Z_{ij}x_j\) would require \(w_{ij}=\sqrt n\,Z_{ij}\), violating their initialization hypothesis. [Nguyen–Pham](https://arxiv.org/pdf/2001.11443)
+- Sirignano–Spiliopoulos jointly send iterations and widths to infinity, but use \(1/N\) mean-field normalization, compactly supported initialization, and sequential layer-width limits—not the two-Gaussian-matrix μP limit. [Sirignano–Spiliopoulos](https://arxiv.org/pdf/1903.04440)
+- The 2026 GFOM/DMFT theorem fixes a finite iteration horizon \(T\) and treats a single iid Gaussian design matrix; it supplies another fixed-program theorem, not growing-step control for two trained middle matrices. [Dandi et al.](https://arxiv.org/pdf/2603.14573)
+
+So the defensible conclusion is: no diagonal or inspected off-the-shelf theorem closes the limit. A direct random-ODE proof remains viable, but only after proving a genuinely new uniform response/tail stability or fine-to-coarse shadowing estimate; compactness and limiting small-time bounds alone are insufficient.
+
+=== OPERATOR2 ROLLOUT LINE 33446 | 2026-08-27T21:32:31.516Z | /root/l3_response_energy ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/l3_response_energy
+Payload:
+Verdict: the proposed closure is valid for the limiting tensor-program coordinate laws, with one essential scope restriction: “all-source” must mean all first-order TP source labels, with deterministic moment coefficients frozen during source differentiation. It is false as a literal finite-width marginal \(\psi _2\) statement.
+
+### Causal-forest lemma
+
+Let \(\pi=\{t_k\}\subset[0,T]\) be any explicit serialized mesh. Sum absolute values over all time, data, and source labels, and define
+\[
+\mathcal A_\ell=\sup_k\sum_{r<k}|\alpha_{\ell;kr}|,\qquad
+\mathcal B_\ell=\sup_k\sum_{r\le k}|\beta_{\ell;kr}|,
+\]
+and
+\[
+K_\ell=\sup_{a,k}\|P_{\ell,k}^a\|_{\psi _2},\qquad
+\|X\|_{\psi _2}:=\inf\{s>0:\mathbb E e^{X^2/s^2}\le2\}.
+\]
+Assume:
+
+- \(D<\infty\), targets and learning rates are fixed;
+- \(\phi=\sin+\cos\), so every derivative is bounded;
+- \(|\tau_R(x)|\le |x|\), \(|\tau_R'|\le1\), uniformly in \(R\);
+- the limiting TP moment scalars are deterministic and held fixed under the partial derivatives defining \(\alpha,\beta\);
+- fresh adjoint Gaussian sources have the TP covariances \(r_3=\mathbb E[D_3D_3]\), \(r_2=\mathbb E[D_2D_2]\);
+- all sums with \(r<k\) are strictly causal in the serialized gate order.
+
+Then there are structural constants \(b,c\), independent of \(\pi\) and \(R\), and \(T_0>0\), such that for \(T\le T_0\),
+\[
+\|C\|_\infty\le cT,
+\]
+\[
+\mathcal A_\ell\le cT\mathcal E,\qquad
+\mathcal B_3\le c(\|C\|_\infty+T)\mathcal E,\qquad
+\mathcal B_2\le c(K_2+T)\mathcal E,
+\]
+\[
+K_2\le cD(T+\mathcal B_3+T^3),\qquad
+K_1\le cD(K_2+\mathcal B_2+TK_2^2),
+\]
+where \(\mathcal E\le2\) is the total absolute response-forest mass. Consequently,
+\[
+\mathcal A_\ell+\mathcal B_\ell+K_\ell\le C_DT
+\]
+uniformly in the mesh and cutoff.
+
+### Why the dangerous-factor count closes
+
+The only same-time response coefficients are triangular:
+\[
+\beta_{3;k,k}=\mathbb E[C_k\phi''(S_{3,k})],
+\]
+and
+\[
+\beta_{2;k,k}
+ =\mathbb E\!\left[
+ \phi''(S_{2,k})\tau(P_{2,k})
+ +\phi'(S_{2,k})^2\tau'(P_{2,k})\beta_{3;k,k}
+ \right].
+\]
+Thus current \(\beta_3\) contains no \(P\)-factor, while current \(\beta_2\) contains at most one \(P_2\). Neither contains \(\beta_2\) on its right-hand side. All \(\alpha\)-responses and every return from an adjoint variable to a forward variable cross a strictly earlier-time edge.
+
+For a connected first-order response component with \(q\ge1\) time edges:
+
+- \(P_1\) appears only at a \(U\)-update gate, at most once per such edge.
+- \(P_2\) appears only through a \(D_2\)-gate.
+- The covariance \(r_2=\mathbb E[D_2D_2]\) is the sole gate contributing two \(P_2\)-marks at one time edge.
+- The current \(\beta_2\) root contributes the only uncharged \(P_2\)-endpoint.
+
+Hence
+\[
+N_P(\Gamma)\le 2q+1,
+\]
+or \(2q+2\) after allowing one fresh Gaussian endpoint. This bound is sharp: \(r_2\) can attain two marks per edge.
+
+First-order Leibniz differentiation chooses one factor, so each connected component has one causal spine. Expanding deterministic response coefficients creates separate forest components; it does not branch the causal spine. This fails for higher-order Malliavin derivatives, so that interpretation of “all-source” is excluded.
+
+There is also no instantaneous loop: the only non-past chain is
+\[
+\beta_{3;k,k}\longrightarrow P_{2,k}\longrightarrow\beta_{2;k,k},
+\]
+and it terminates.
+
+### Uniform summation
+
+A component with \(q\) ordered time edges has mesh weight at most
+\[
+\sum_{i_1<\cdots<i_q}\Delta_{i_1}\cdots\Delta_{i_q}
+\le \frac{T^q}{q!}.
+\]
+Same-mesh gate types can be serialized as finitely many micro-times and absorbed into \(b\).
+
+If the dangerous \(P\)-marks obey \(\|P_\ell\|_{\psi_2}\le KT\), generalized Hölder gives, for \(m\le2q+2\),
+\[
+\mathbb E\prod_{\nu=1}^{m}(1+|Z_\nu|)
+\le \bigl(1+cKT\sqrt m\bigr)^m .
+\]
+Therefore the connected-component majorant is
+\[
+\mathcal C_K(T)
+=\sum_{q\ge1}\frac{(bT)^q}{q!}
+ \bigl(1+aT\sqrt{2q+2}\bigr)^{2q+2},
+\qquad a=cK .
+\]
+Using \((1+x)^m\le2^{m-1}(1+x^m)\) and \(q!\ge(q/e)^q\),
+\[
+\mathcal C_K(T)
+\le
+2(e^{4bT}-1)
++8a^2T^2\frac{\rho}{(1-\rho)^2},
+\qquad
+\rho=16eb a^2T^3.
+\]
+Thus \(\mathcal C_K(T)=O(T)\) uniformly in the mesh. If there were \((2+\varepsilon)q\) dangerous factors, the summand would retain \(q^{\varepsilon q/2}\), and no fixed \(T>0\) would make the series converge. The incidence count is therefore the decisive threshold.
+
+Zero-edge primitive mass is also \(O(T)\): current \(\beta_3=O(C)=O(T)\), and current \(\beta_2=O(\mathbb E|P_2|+T)=O(T)\). Forest shapes grow at most exponentially, so, after absorbing their constant into \(b\),
+\[
+\mathcal E\le \sum_{j\ge0}(b\mathcal C_K(T))^j\le2
+\]
+for small \(T\).
+
+A bootstrap then closes the displayed inequalities. Assuming \(\mathcal E\le2\) gives successively
+\[
+\mathcal B_3=O(T),\quad K_2=O(T),\quad
+\mathcal B_2=O(T),\quad K_1=O(T).
+\]
+These bounds fix a mesh-independent \(K\); choosing \(T_0\) so the forest estimate improves \(\mathcal E\le2\) closes by first-exit/mesh induction.
+
+The \(TK_2^2\) term is harmless here: it is the deterministic covariance \(T\,\mathbb E[D_2^2]\), not a coordinatewise product required to remain subgaussian.
+
+### Subgaussianity and cutoff removal
+
+At the TP-law level,
+\[
+P_2=\eta_3+\sum_r\beta_{3;r}H_{2,r}+\text{learned bounded shifts},
+\]
+and similarly for \(P_1\). The \(\eta_\ell\) are Gaussian with deterministic covariance, \(H_1,H_2\) are bounded, and the deterministic coefficient rows have finite \(\ell^1\)-mass. Hence the two \(P\)-fields are uniformly \(\psi_2\).
+
+The same forest expansion with one marked defect gives
+\[
+d_{\pi,\pi'}(T)
+\le C(|\pi|+|\pi'|)+\theta(T)d_{\pi,\pi'}(T),
+\qquad \theta(T)<1,
+\]
+provided the two meshes are encoded jointly using the same Gaussian matrices. This yields the mesh-Cauchy estimate. With zero defect it gives uniqueness. The five size inequalities alone prove boundedness, not mesh convergence; the marked-defect version is necessary.
+
+Finally,
+\[
+\|(\tau_R(P)-P)\|_2
+\le \|P\,\mathbf1_{\{|P|>R\}}\|_2\to0
+\]
+uniformly by the \(\psi_2\) bound. Treating this as the marked root defect removes the cutoff.
+
+### Literal finite-width caveat
+
+For exact finite \(n\), marginal \(\psi_2\) is false. With one zero input, \(B_2\) is frozen. Decompose an iid Gaussian row of \(B_3\) into its common mode and an independent contrast mode \(M(1,-1)\). The forward pass sees only the common mode, while normalized rank-one gradient flow preserves the contrast. Since \(C(0)=0\) but \(C'(0)\ne0\), at every sufficiently small \(t>0\),
+\[
+P_1(t)=M\,G\,d(t)+\text{other Gaussian terms},
+\qquad d(t)\ne0,
+\]
+with independent Gaussians \(M,G\). Conditional variance is unbounded, so
+\[
+\mathbb E e^{P_1(t)^2/K^2}=\infty
+\]
+for every finite \(K\). This product is only \(\psi_1\). Thus the theorem must explicitly concern limiting TP coordinate laws, or weaken the prelimit claim to subexponential/high-probability control.
+
+=== OPERATOR2 ROLLOUT LINE 33549 | 2026-08-27T21:39:06.192Z | /root/l3_allorder_bridge ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_allorder_bridge
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33596 | 2026-08-27T21:41:06.988Z | /root/l3_allorder_bridge ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_allorder_bridge
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33624 | 2026-08-27T21:43:01.935Z | /root/l3_allorder_bridge ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_allorder_bridge
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33676 | 2026-08-27T21:44:08.509Z | /root/l3_allorder_bridge ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_allorder_bridge
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33707 | 2026-08-27T21:48:54.503Z | /root/l3_allorder_bridge ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_allorder_bridge
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33713 | 2026-08-27T21:49:10.586Z | /root/l3_allorder_bridge ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/l3_allorder_bridge
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 33720 | 2026-08-27T21:49:21.989Z | /root/isolated_bridge_audit1 ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/isolated_bridge_audit1
+Payload:
+FAIL. Lemma 5.1 is not merely underproved: item (5.9) is false with its stated quantifiers.
+
+1. **The all-\(q\), all-small-\(T\) moment envelope (5.9) is impossible.**  
+   Take \(p=d=1\), \(x_1=y_1=1\). In the limiting initialization, \(C(0)=0\), \(e(0)=-1\), and \(\gamma=2\). Hence
+   \[
+   \dot C(0)=2H_3,\qquad
+   \dot D_3(0)=2H_3\phi'(S_3)=2\cos(2S_3).
+   \]
+   Since \(B_3(t)=A_3+O(t^2)\),
+   \[
+   \dot P_2(0)=A_3^\top\!\bigl(2\cos(2S_3)\bigr).
+   \]
+   Its tensor-program transpose law contains an independent Gaussian innovation of variance
+   \[
+   4\,\mathbb E[\cos^2(2S_3)]>0
+   \]
+   plus a bounded multiple of \(H_2\). Thus
+   \(\|\dot P_2(0)\|_{L^q}\to\infty\) like \(\sqrt q\). But applying (5.9) with \(T=t\), dividing by \(t\), and sending \(t\downarrow0\) would give
+   \[
+   \|\dot P_2(0)\|_{L^q}\le K
+   \quad\text{for every }q\ge2,
+   \]
+   a contradiction. A viable bound must contain at least a \(\sqrt q\) factor, e.g.
+   \[
+   \|P(t)\|_{L^q}\lesssim T\sqrt q\,e^{CTq}.
+   \]
+
+2. **The algebraic inequality (5.15) is false.**  
+   From (5.14), the stated elementary estimates give
+   \[
+   \mathcal C_s(T)
+   \le 2(e^{4DT}-1)
+      +32s^2\frac{\rho}{(1-\rho)^2},
+   \qquad \rho=64eDs^2T,
+   \]
+   with no factor \(T^2\) in the second term. The displayed version can be disproved by taking \(s=1\) and \(T\downarrow0\): the \(q=1\) term of (5.14) is
+   \[
+   625DT,
+   \]
+   whereas the right side of (5.15) is \(8DT+o(T)\). Constants and \(T_0\) must be recomputed after correcting this.
+
+3. **The passage to (5.18) is algebraically invalid.**  
+   For \(m\) time edges, the preceding bound is
+   \[
+   \frac{(DT)^m}{m!}
+   \bigl(2\sqrt{q(2m+2)}\bigr)^{2m+2}
+   \asymp q\sqrt m\,(8eDqT)^m .
+   \]
+   The Gaussian moment growth cancels the time-simplex factorial; it does not yield
+   \(\sum_m(KTq)^m/m!\). Even the zero-edge term in the stated source bound is \(8q\), while the zero-edge term in (5.18) is silently replaced by \(1\). The argument only gives a local geometric series when \(qT\) is small. To obtain all \(q\), one would need a rigorous time-slicing/iteration argument, retaining the unavoidable \(\sqrt q\) innovation factor.
+
+4. **The finite-\(n\) Gaussian integration-by-parts/index argument is only an assertion.**  
+   No graph class, induction invariant, or exact \(n\)-exponent is defined. In particular:
+
+   - a reused \(g_{ij}\) occurs in many downstream expressions, so integration by parts differentiates a sum of occurrences, not a “unique downstream coordinate expression”;
+   - derivatives of \(e\), covariance moments, normalized scalar nodes, and cross-pairings are not included in the gate table;
+   - the four local cases in (5.17) do not control global free-index loops, transpose identifications, root normalization, or cross-graph identifications;
+   - repeated integration by parts requires integrability of all differentiated expressions, which is part of the moment estimate being proved;
+   - equality of the nonlinear Duhamel forest with the flow is concluded from convergence of the same series whose convergence is under proof, with no finite truncation or remainder estimate.
+
+   A repair requires a formally defined decorated-graph expansion, an Euler-characteristic-style index invariant, all derivative landing cases, and a truncated expansion with a controlled remainder.
+
+5. **The cutoff-removal conclusion does not follow from (5.19).**  
+   Since
+   \[
+   x-\tau_R(x)=x-R\tanh(x/R)
+   \]
+   is nonzero even for \(|x|\le R\), a tail bound on
+   \(P^2\mathbf1_{\{|P|>R\}}\) does not bound the root \(P-\tau_R(P)\). For example, \(P\equiv1\) has zero tail for \(R>1\) but nonzero cutoff error. One needs, for instance,
+   \[
+   \mathbb E|P-\tau_R(P)|^2
+   \lesssim R^{-4}\mathbb E|P|^6
+      +\mathbb E[P^2\mathbf1_{\{|P|>R\}}],
+   \]
+   and then a separately proved finite-\(n\) response estimate. The limiting \(4/3\) forest factor cannot simply be reused for finite-width arrays.
+
+6. **Mesh stability and uniqueness are not proved.**  
+   The paragraph leading to (5.7) omits the main work:
+
+   - hatted Gaussian sources have state-dependent covariance, so “the same hatted sources” across meshes needs a joint isonormal/operator coupling with cross-covariance \(\mathbb E[X^\pi X^{\pi'}]\);
+   - source differences, residual differences, and covariance-scalar differences are not controlled by the source-response estimate, whose derivatives explicitly hold moment scalars fixed;
+   - no \(L^2\) time regularity establishing an \(O(|\pi|)\) quadrature defect is shown;
+   - a finite probe set is not closed under all probes generated by subtraction and differentiation;
+   - the coefficient \(\mathcal C_s(T)\) is not shown to be the Lipschitz constant of the full nonlinear recursion;
+   - Cauchy completion is not shown to preserve the integral equations or operator actions.
+
+   Consequently existence, uniqueness, and the claimed restart/semigroup property do not follow.
+
+7. **The causal count is not established at the required scope.**  
+   The “charging” discussion may plausibly describe first derivatives in the fixed-mesh DAG with scalar moments frozen, but it does not establish (5.11) for mesh differences or finite-\(n\) integration by parts. Zero-time current components, branching through changing scalar moments, residual derivatives, and multiple Gaussian occurrences need explicit treatment. The assertion that there are at most \(D^{m+1}\) colored shapes is also unsupported.
+
+8. **Section 4 has a type error that makes the state ill-defined.**  
+   \(C\) is placed on \(E_2\), whereas it indexes third-layer neurons and must be a mark on \(E_3\). As written, \(C\odot\phi'(S_3)\) and \(\mathbb E[CH_3]\) are not typed operations, so the action law does not determine \(D_3\), the output, or the vector field. Also, (4.4) needs normalized norms:
+   \[
+   \|B_\ell(t)\|_{\rm op}
+   \le8+\gamma\int\sum_a|e_a|\,
+   \|D_\ell^a\|_n\|H_{\ell-1}^a\|_n\,dt;
+   \]
+   with ordinary Euclidean norms, the displayed formula is missing \(1/n\).
+
+9. **Further quantifier/reference problems.**
+
+   - The lemma globally quantifies over \(R\in[1,\infty]\), but the mesh proof only produces a constant \(D_R\) for finite cutoff \(R\).
+   - The master theorem gives an event for each fixed finite program; simultaneous statements over arbitrary real meshes require a countable-mesh reduction plus stability, which is absent.
+   - The restart claim reuses estimates initialized with \(C(0)=P(0)=0\); no corresponding theorem is proved for a nonzero reachable restart state.
+   - The theorem refers to \(T_0\) in nonexistent equation (5.25); the document defines it in (5.3).
+
+The fixed-mesh formulas (3.4)–(3.8) are broadly consistent with the stated tensor-program rule, but they do not bridge to continuous time. Repair requires a substantial replacement of Lemma 5.1, not a local edit.
+
+=== OPERATOR2 ROLLOUT LINE 33766 | 2026-08-27T21:51:33.929Z | /root/l3_allorder_bridge ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/l3_allorder_bridge
+Payload:
+The joint \(L=3\) bridge is not proved. Section 5’s finite-width argument has a fatal gap and should not appear as a theorem.
+
+The decisive errors are:
+
+1. Equations (5.10)–(5.16) control only first-order limiting tensor-program source derivatives with moment scalars frozen. Finite-width Gaussian integration by parts generates higher Malliavin derivatives, Leibniz branching, and Faà di Bruno terms, none of which are counted.
+
+2. The summation leading to (5.18) is algebraically wrong. Its claimed \(q\)-edge bound actually behaves as
+
+\[
+\frac{(DT)^q}{q!}
+\bigl(C\sqrt{rq}\bigr)^{2q+2}
+\asymp Cr\sqrt q\,(C'DTr)^q,
+\]
+
+not as an exponential series retaining \(1/q!\). It only converges when \(rT\) is sufficiently small and cannot yield the all-\(r\) estimate (5.9).
+
+3. Equation (5.15) is false as stated: for \(s=1\), its \(q=1\) left-hand contribution is \(625DT+O(T^2)\), whereas the proposed right side is \(8DT+O(T^2)+O(T^3)\).
+
+4. Nonpositive powers of \(n\) in the index ledger do not control diagram multiplicities or coefficients. The assertion that differentiating an empirical moment automatically gains \(n^{-1/2}\) is unproved.
+
+5. The limiting \(4/3\) response-forest factor cannot be reused for finite-width cutoff removal. Finite-width coordinates are not subgaussian; \(P_1\) already contains products of independent Gaussian contrasts.
+
+6. For \(\tau_R(x)=R\tanh(x/R)\), the defect is not supported on \(\{|x|>R\}\). Thus (5.19) does not directly bound \(x-\tau_R(x)\).
+
+A correct sufficient bridge can be stated precisely. On the high-probability event \(\|A_2\|_{\rm op},\|A_3\|_{\rm op}\le8\), all cutoff trajectories have \(R\)-independent size bounds, while their vector fields satisfy
+
+\[
+\operatorname{Lip}(F_R)\le C_{p,d}(1+R).
+\]
+
+Consequently, if the actual uncut \(n^{-2}\)-mesh trajectories could be proved to satisfy, uniformly on the short interval, empirical tail estimates of the form
+
+\[
+\frac1n\sum_i e^{(P_{2,i}/KT)^2}=O_{\mathbb P}(1),
+\qquad
+\frac1n\sum_i e^{|P_{1,i}|/(KT)}=O_{\mathbb P}(1),
+\]
+
+then
+
+\[
+\|P_1\mathbf1_{\{|P_1|>R\}}\|_{2,n}
+ \lesssim (R+KT)e^{-R/(2KT)}
+\]
+
+and cutoff stability would give
+
+\[
+d(\theta_n,\theta_n^R)
+ \lesssim
+(R+KT)\exp\!\left(C_{p,d}TR-\frac{R}{2KT}\right).
+\]
+
+This vanishes for sufficiently small \(T\). The compatible forest counting assigns weight \(1\) to \(P_2\) and weight \(2\) to \(P_1\), with total weighted incidence at most \(2q+O(1)\) for \(q\) causal edges.
+
+But the required finite-width empirical \(\psi_2/\psi_1\) theorem—or an equivalent marked-defect estimate—has not been proved. Fixed-program Yang–Hu results do not supply it, and the 2025 Chen–Yang–Zhao–Gu result also proceeds by induction over a fixed discrete step index.
+
+Therefore the honest resolution is: the fixed-mesh limiting DAG and its local geometry may be valid, but the claimed full-sequence joint \(n\to\infty,\eta_n=n^{-2}\) continuous-time theorem remains open.
+
+=== OPERATOR2 ROLLOUT LINE 33821 | 2026-08-27T21:56:06.712Z | /root/corrected_report_audit_b ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/corrected_report_audit_b
+Payload:
+PASS.
+
+=== OPERATOR2 ROLLOUT LINE 33828 | 2026-08-27T21:58:00.275Z | /root/corrected_report_audit_c ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/corrected_report_audit_c
+Payload:
+FAIL.
+
+The core negative conclusion is sound, but Section 7 incorrectly lists the fixed-cutoff joint limit as proved.
+
+- Section 4’s triangular-array obstruction is valid for the required admissible diagonals \(n\eta_n\to0\). Qualify “even an existential one” with “within this admissible class.” The \(L^2\times L^2\not\to L^2\) observation only defeats this stability route; it does not show every possible proof must close that hierarchy.
+- The contradiction to (4.3) is valid provided \(K\) is independent of \(q,T\) and \(P_2(t)/t\to\dot P_2(0)\) in each fixed \(L^q\). Those hypotheses should be stated. The Gaussian innovation then indeed forces \(\|\dot P_2(0)\|_q\asymp\sqrt q\).
+
+Section 6 has substantive proof gaps:
+
+1. \(F_R\), its state space, the short-time ball, and the metric \(d\) are never defined. Estimate (6.2) is asserted, not proved. A valid norm must track normalized \(L^2\) vectors and matrix operator norms while restricting \(\|C\|_\infty\); the constant should initially be \(C_{p,d,M}(1+R)\), where \(M\) is the ball radius.
+
+2. Uniformity in \(n\) requires a high-probability initialization event controlling
+   \(\|A_2\|_{\rm op},\|A_3\|_{\rm op}\) and \(\|C(0)\|_\infty\). Tensor Program convergence does not itself supply the spectral-norm bound, and no separate lemma is proved or cited.
+
+3. The claimed “successive subtraction” omits forward dependencies such as \(S_2,H_1,H_2,H_3,e\). The full chain of inequalities is needed to verify that no \(R^2\) factor appears and that the ball is invariant independently of \(R\).
+
+4. Euler shadowing plus fixed-mesh Tensor Program convergence does not, by itself, constitute the stated joint-limit proof. The report must define the convergence topology, prove that deterministic fixed-mesh limits are Cauchy as the mesh tends to zero, establish uniform-in-time convergence, and then perform the triangle argument for every \(\eta_n\to0\), including \(n\eta_n\to0\).
+
+5. Applicability of the reused-adjoint theorem to the nonsmooth hard clip must be justified, including threshold atoms, or the clip should be replaced by a smooth saturation that is exactly the identity on \([-R,R]\) and whose defect is supported outside that interval.
+
+The tail bridge is plausible but not yet an “exact theorem”:
+
+- “Uniformly in \(a,t,n\)” and “over exact meshes” must be encoded as explicit suprema in random variables \(Z_{r,n}=O_{\mathbb P}(1)\).
+- (6.4) and (6.5) should be \(O_{\mathbb P}\)-bounds, not inequalities with an unexplained deterministic \(C\).
+- The “corresponding marked-defect stability estimate” is undefined. It must be stated with norms, constants, mesh quantifiers, and conclusion, or replaced by a complete finite-dimensional Gronwall comparison.
+- The desired conclusion should be written as
+  \[
+  \lim_{R\to\infty}\limsup_{n\to\infty}
+  \Pr\!\left(\sup_{t\le T}d_n(\theta_n(t),\theta_n^R(t))>\varepsilon\right)=0.
+  \]
+- The asymmetric Orlicz classes are sufficient and plausibly sharp, but not logically “necessary”; weaker tails could also close the comparison.
+- One must finally prove the cutoff limiting trajectories are Cauchy as \(R\to\infty\) and identify their limit with the claimed uncut autonomous flow.
+
+Accordingly, Section 7 item 4 must be demoted to “outlined, conditional on the missing uniform cutoff lemma and topology/Cauchy argument.” The conclusion that the unmodified joint theorem is not proved is correct. “The theorem remains open” should be qualified as “this report neither proves nor disproves it,” since proof failure alone does not establish global open status.
+
+=== OPERATOR2 ROLLOUT LINE 33886 | 2026-08-27T22:03:11.045Z | /root/corrected_report_audit_a ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/corrected_report_audit_a
+Payload:
+FAIL.
+
+The central negative verdict is defensible, and the finite-width normalization/NTK identities (2.7)–(2.10) are correct. The initial Gaussian calculations (5.1)–(5.12), including the factor \(2\) in (5.10), also check out. However, several claimed statements need correction:
+
+1. Equation (2.5) is not implied merely by \(\lambda_{w,n}=n/d\). In normalized variables, GD is Euler with step \(\eta_{0,n}\); consistency requires \(\eta_{0,n}\operatorname{Lip}(F_n)\to0\), not automatically \(n\eta_{0,n}\to0\). Indeed Section 6 claims \(\operatorname{Lip}(F_R)=O_R(1)\), for which only \(\eta_{0,n}\to0\) is needed. Thus either explicitly define admissibility by the extra condition \(\eta_{0,n}\lambda_{w,n}\to0\), or remove \(N_n/n\to\infty\). Without that extra condition, Section 4 does not rule out an existential slow diagonal; fixed-program convergence generally permits diagonal extraction, though not convergence along every prescribed growing program.
+
+2. The transpose-reuse identity (3.2) has the wrong normalization for the stated variance. For \(A_{ij}\sim N(0,\sigma_A^2/n)\), it should be
+   \[
+   Z_{AX}=\widehat Z_{AX}
+   +\sigma_A^2\sum_r Z_{Y_r}\,
+   \mathbb E\!\left[
+   \frac{\partial Z_X}{\partial\widehat Z_{A^TY_r}}
+   \right].
+   \]
+   The omission does not affect the application because \(A_2,A_3\) have \(\sigma_A^2=1\), but the claimed general theorem statement is false as written.
+
+3. The cited Tensor Program theorem is paraphrased too broadly. Its transpose-matrix form carries the structural/rank-convergence hypotheses of the cited setup. A Moore–Penrose recursive formula can represent singular limiting covariance, but does not by itself prove the required finite-program rank stability. The report neither states nor verifies this for every source family in every finite unrolling. Naming Assumption L.4 without stating and checking it is likewise insufficient. Consequently Section 7, item 2 is not established from the theorem as stated in the report.
+
+4. The fixed-cutoff “joint limit” in Section 6 is not a precise proved theorem yet: no convergence topology or metric \(d\) is defined, and the required uniform high-probability initialization ball and the coarse-mesh/double-limit argument are only asserted. The Lipschitz/Euler strategy is plausible, but item 4 of Section 7 should be weakened until those details and the Tensor Program hypotheses are supplied.
+
+5. The report establishes only “not proved by this argument.” It does not establish the global literature claim that the theorem “remains open,” nor the stronger claim that no proof can be obtained from the same ingredients by another bridge. Those sentences should be correspondingly weakened.
+
+6. In (3.3), `-gamma` must be \(-\gamma\).
+
+Thus the finite-width identities and nondegeneracy calculations are sound, but the report is not clean as a self-contained proof audit.
+
+=== OPERATOR2 ROLLOUT LINE 34199 | 2026-08-27T22:16:09.652Z | /root/isolated_report_audit_round2_external ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/isolated_report_audit_round2_external
+Payload:
+PASS
+
+=== OPERATOR2 ROLLOUT LINE 34221 | 2026-08-27T22:18:51.325Z | /root/isolated_report_audit_round2_logic ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/isolated_report_audit_round2_logic
+Payload:
+PASS
+
+=== OPERATOR2 ROLLOUT LINE 34241 | 2026-08-27T22:23:49.410Z | /root/isolated_report_audit_round2_algebra ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/isolated_report_audit_round2_algebra
+Payload:
+FAIL
+
+- Equation (5.7) is false as written. Since \(R_3=\mathbb E[A_3A_3^\top]\), the correct identity is
+  \[
+  v^\top R_3v
+  =\mathbb E\!\left[\bigl((a^\top\phi(Z_3))(v^\top\phi'(Z_3))\bigr)^2\right]>0,
+  \]
+  not \(\bigl(\mathbb E[(a^\top\phi(Z_3))(v^\top\phi'(Z_3))]\bigr)^2\). For \(p\ge2\), one can choose nonzero \(v\) orthogonal to \(\mathbb E[(a^\top\phi(Z_3))\phi'(Z_3)]\), making the printed right-hand side zero while \(v^\top R_3v>0\). The prose uses the corrected identity.
+
+- Equation (6.5) does not follow and is not well-defined with the stated \(d_n\): \(d_n\) is a nonlinear distance on states through the derived variables \(Z_2=B_2\phi(U)\), \(Z_3=B_3\phi(Z_2)\), not a norm on tangent vectors. If interpreted using \(\dot Z_\ell\), subtracting
+  \[
+  \dot Z_3=\dot B_3H_2+B_3\bigl(\phi'(Z_2)\odot\dot Z_2\bigr)
+  \]
+  produces \(B_3[(\phi'(Z_2)-\phi'(\widetilde Z_2))\odot\dot{\widetilde Z}_2]\). The ball controls both factors only in empirical \(L^2\); the cutoffs do not give an \(L^\infty\) bound on \(B_2v\), so no width-uniform \(L^2\) Lipschitz estimate follows. Consequently the Euler and Gronwall claims do not follow from (6.5) as written. A valid repair is to use the independent-coordinate norm
+  \[
+  \rho_n=\|\delta B_2\|_{\rm op}+\|\delta B_3\|_{\rm op}
+  +\|\delta C\|_{2,n}+\max_a\|\delta U^a\|_{2,n},
+  \]
+  prove the cutoff vector field in \((B_2,B_3,C,U)\) is \(C(1+R)\)-Lipschitz in \(\rho_n\), and then use the algebraic forward relations to show \(d_n\le C_M\rho_n\) on the constraint manifold.
+
+- The output-feature display should read \(\frac{d^2}{dt^2}\|h_y(t)\|_2^2\big|_{t=0}\); \(\|h_y(t)\|_2^{,2}\) is malformed.
+
+=== OPERATOR2 ROLLOUT LINE 34390 | 2026-08-27T22:33:15.708Z | /root/final_isolated_audit_external_full ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/final_isolated_audit_external_full
+Payload:
+PASS
+
+=== OPERATOR2 ROLLOUT LINE 34397 | 2026-08-27T22:33:43.228Z | /root/final_isolated_audit_limits ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/final_isolated_audit_limits
+Payload:
+PASS
+
+=== OPERATOR2 ROLLOUT LINE 34423 | 2026-08-27T22:38:14.834Z | /root/final_isolated_audit_algebra ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/final_isolated_audit_algebra
+Payload:
+FAIL
+
+- In (4.7), with the same fixed \(C\), Stirling gives
+  \[
+  \frac{(DT)^m}{m!}\bigl(C\sqrt{q(2m+2)}\bigr)^{2m+2}
+  \sim \frac{2e}{\sqrt{2\pi}}C^2q\sqrt m\,
+  \bigl(2eC^2DqT\bigr)^m.
+  \]
+  The displayed \(\asymp q\sqrt m(C^2eDqT)^m\) misses an exponential factor \(2^m\). Alternatively introduce a new generic constant in the exponential base.
+
+- The cutoff definition must be
+  \[
+  P_{1,R}=B_2^T\!\left[\phi'(S_2)\odot\chi_R(P_2)\right],
+  \]
+  not vector juxtaposition.
+
+- Before (5.11), explicitly state \(Z\sim N(0,Q)\); otherwise \(Q\) is undefined there and could be confused with \(Q_1,Q_2,Q_3\).
+
+=== OPERATOR2 ROLLOUT LINE 34470 | 2026-08-27T22:42:15.019Z | /root/clean_pass_b ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/clean_pass_b
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 34477 | 2026-08-27T22:45:09.621Z | /root/clean_pass_b ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/clean_pass_b
+Payload:
+PASS
+
+=== OPERATOR2 ROLLOUT LINE 34486 | 2026-08-27T22:45:42.749Z | /root/clean_pass_a ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/clean_pass_a
+Payload:
+PASS
+
+=== OPERATOR2 ROLLOUT LINE 34557 | 2026-09-04T21:00:10.489Z | /root/report_only_math_audit ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/report_only_math_audit
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 34584 | 2026-09-04T21:01:06.228Z | /root/report_only_math_audit ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/report_only_math_audit
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 34586 | 2026-09-04T21:01:06.228Z | /root/report_only_limit_audit ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/report_only_limit_audit
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 34604 | 2026-09-04T21:01:50.872Z | /root/report_only_limit_audit ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/report_only_limit_audit
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 34625 | 2026-09-04T21:02:25.610Z | /root/report_only_limit_audit ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/report_only_limit_audit
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 34627 | 2026-09-04T21:02:25.610Z | /root/report_only_math_audit ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/report_only_math_audit
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 34634 | 2026-09-04T21:02:39.072Z | /root/report_only_limit_audit ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/report_only_limit_audit
+Payload:
+PASS on the revised report, within the requested audit scope. No remaining material defect found.
+
+- Yang–Hu’s Setup G.2, Definition G.3, Theorem G.4, and Assumption L.4 support the stated fixed-program convergence. Remarks L.1–L.2 support syntactic derivatives and the generalized pseudoinverse rule; rank stability is not an additional G.4 assumption. Their training-horizon discussion explicitly limits the results to time independent of width. [Full supplement](https://proceedings.mlr.press/v139/yang21c/yang21c-supp.pdf)
+- The distinction between fixed-program limits and the required diagonal limit is correct; the triangular-array counterexample establishes the logical obstruction.
+- The revised one-step Gaussian counterexample to (4.3) is sound and requires no continuous limiting flow.
+- The cutoff Lipschitz estimate (6.7) is valid on the stated ball. The revised restricted probe algebra now justifies its claimed continuity.
+- Assuming (6.11), the tail estimates and Gronwall argument establish the core comparison (6.14) on the stated sufficiently short interval. The report now correctly leaves the full action topology, integrability passages, well-posedness, and restartability unproved.
+- Chen–Yang–Zhao–Gu’s cited result concerns discrete training and induction over its time index; it does not supply the missing joint-limit bridge. [Full paper](https://arxiv.org/pdf/2503.09565)
+
+This is a PASS for the report’s mathematical honesty and the audited claims—not certification of the explicitly unproved L=3 joint theorem.
+
+=== OPERATOR2 ROLLOUT LINE 34636 | 2026-09-04T21:02:39.072Z | /root/report_only_math_audit ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/report_only_math_audit
+Payload:
+PASS for the revised report’s mathematical validity and stated scope. No remaining material defect found.
+
+I verified the finite-width scaling, adjoint-response coefficients, Gaussian identities and positivity, formal kernel coefficients, and conditional cutoff estimates. The revised one-step counterexample and restricted probe algebra resolve the defects identified during review.
+
+I checked the exact hypotheses and recursion in [Yang–Hu’s supplement](https://proceedings.mlr.press/v139/yang21c/yang21c-supp.pdf) and the discrete-time scope of [Chen–Yang–Zhao–Gu](https://arxiv.org/pdf/2503.09565).
+
+This PASS certifies only the audit/status report. The full joint \(L=3\) theorem remains unproved; the report supplies neither that theorem nor its negation.
+
+=== OPERATOR2 ROLLOUT LINE 34690 | 2026-09-04T21:04:36.519Z | /root/final_report_blind_b ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/final_report_blind_b
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 34694 | 2026-09-04T21:04:42.813Z | /root/final_report_blind_a ===
+Message Type: MESSAGE
+Task name: /root
+Sender: /root/final_report_blind_a
+Payload:
+
+
+
+=== OPERATOR2 ROLLOUT LINE 34709 | 2026-09-04T21:05:31.554Z | /root/final_report_blind_b ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/final_report_blind_b
+Payload:
+PASS for the report’s stated scope. I read all 885 lines and found no substantive error requiring correction.
+
+The normalized dynamics and NTK factors are consistent. The reused-transpose DAG includes the required response terms, including the current-step coefficients in (3.7). The initial Gaussian integrals, positive-definiteness arguments, and formal quadratic kernel coefficients check out.
+
+The one-step Gaussian counterexample correctly refutes (4.3) with a constant uniform in both \(q\) and small \(T\). The triangular-array example also correctly establishes that fixed-program convergence alone cannot yield an admissible diagonal with \(n\eta_n\to0\).
+
+The cutoff argument uses suitable independent coordinates. Bounds (6.4)–(6.7) avoid the uncontrolled product that would arise from treating deeper preactivations as independent coordinates. Conditional on (6.11), the tail estimates and Gronwall comparison support (6.14). The report correctly leaves completion of the limiting probe space, removal of the cutoff in a common topology, passage of uncut observables, and restartability unproved.
+
+I retrieved the complete primary PDFs and inspected the applicable statements and surrounding context:
+
+- Yang–Hu’s Setup G.2, Definition G.3, Theorem G.4, and Remarks L.1–L.2/Assumption L.4 support the fixed finite-program application. Rank stability belongs to alternative versions, and no width-uniform continuous-time conclusion is supplied. [Primary supplement](https://proceedings.mlr.press/v139/yang21c/yang21c-supp.pdf)
+- Chen–Yang–Zhao–Gu’s Theorem 4.5 and its Appendix C proof concern the discrete infinite-width dynamics and induction in the time index. They do not provide the missing diagonal bridge. [Primary paper](https://arxiv.org/pdf/2503.09565)
+
+This PASS covers the exact finite-width identities, fixed-step width limits, formal initial coefficients, and the report’s diagnosis of the missing proof. It does **not** certify the original joint-limit theorem, an existing continuous limiting trajectory, or an analytic remainder for the formal \(O(t^3)\) notation.
+
+=== OPERATOR2 ROLLOUT LINE 34731 | 2026-09-04T21:06:50.044Z | /root/final_report_blind_a ===
+Message Type: FINAL_ANSWER
+Task name: /root
+Sender: /root/final_report_blind_a
+Payload:
+PASS for the document’s stated, limited scope. I found no material algebraic error or unsupported assertion that the original joint theorem has been proved.
+
+The document establishes:
+
+- Exact normalized finite-width dynamics, NTK blocks, and dissipation identities, including the \(n/d\) first-layer scaling.
+- Fixed-finite-step width limits with reused-transpose corrections. The initialization and pseudo-Lipschitz hypotheses match [Yang–Hu, Setup G.2, Definition G.3, Theorem G.4 and Appendix L](https://proceedings.mlr.press/v139/yang21c/yang21c-supp.pdf); rank stability is not an additional hypothesis of the cited version.
+- The one-step counterexample to (4.3). Its limiting variance is correctly \(2h^2(1+e^{-8})\), and the order of quantifiers produces the claimed contradiction.
+- Positive definiteness of \(Q_1,Q_2,Q_3\) and every leading hidden NTK coefficient. The response matrices \(J_3,J_2\), Gaussian moment formula, and affine approximation error \(1-2/e\) check out.
+- The formal coefficients (5.9)–(5.10), including the factor \(2\) in the total kernel variation. These are expressly formal coefficients, without a trajectory or analytic remainder claim.
+
+The conditional calculations in Section 6 also check out: independent coordinates avoid the uncontrolled product; the cutoff Lipschitz constant grows at most linearly in \(R\); the restricted probe comparison uses both bounded factors where necessary; and the assumed exponential-tail tightness yields the stated Gronwall comparison on a sufficiently short interval.
+
+Two interpretive qualifications matter but do not require mathematical correction:
+
+1. The triangular coefficients (3.7) use syntactic derivatives. Under singular covariance, pseudoinverse coefficients are an alternative representation of the total correction and need not coincide coefficient by coefficient.
+2. “Feature acceleration,” “active blocks,” and “changing kernel” in Section 5 retain the explicitly declared formal meaning.
+
+The report correctly leaves unproved the finite-width tail assertion, completion and realization of the cutoff law-level dynamics, transfer to an \(R\)-independent topology, passage of uncut velocities and kernels, and well-posedness/restartability. The cited [2025 feature-richness paper](https://arxiv.org/pdf/2503.09565) supplies no such joint continuous-time bridge.
+
+Thus this passes as an audit documenting a missing proof, not as a proof of the requested joint \(L=3\) theorem.

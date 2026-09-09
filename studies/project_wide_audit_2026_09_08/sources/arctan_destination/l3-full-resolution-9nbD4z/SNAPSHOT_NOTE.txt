@@ -1,0 +1,1 @@
+Unmodified historical Markdown proofs and ledgers are preserved in this directory. This note was added by the project-wide audit; it is not part of the historical proof bundle.

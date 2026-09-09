@@ -1,0 +1,33 @@
+{
+  "date": "2026-09-07",
+  "status": "complete proof with three independent complete-proof PASS reviews",
+  "mathematical_files": {
+    "PROOF.md": "f91ce73868922220fd7f6621e08b167472639ebe10f8775d6bb632c10e31c585",
+    "AFFINE_CERTIFICATE.md": "541d18c292f63fbd1d408953af9ade9c3911cb623fd68baee3dede4c72d0eb82",
+    "SOURCE_RESPONSE.md": "25b0c23ad475f1d0565e15441de01cf9df8336aeff101c1dbf6f83224ced2e79",
+    "POPULATION_AND_MOTION.md": "fd1dc71289992880ad4560afa787ddb29bb234f4883addc16cc62e49d519c837",
+    "DEPTH_UNIFORMITY.md": "5782203423cba6e5695d7aa36ce1d271f75a2984801b859d426f870d7d10e9fb"
+  },
+  "review_files": {
+    "reviews/FINAL_AFFINE_REVIEW.md": {
+      "sha256": "7551b252eff104392a0f01d5d664d125a9c3d36687c9bfc7ab26b0cb6790e442",
+      "verdict": "PASS",
+      "scope": "complete proof; independently read mathematical dependencies"
+    },
+    "reviews/FINAL_RESPONSE_REVIEW.md": {
+      "sha256": "8c319aeebb2eac6d897a61b4b01a8f85d85bc68978fd2557b798a67a6f178148",
+      "verdict": "PASS",
+      "scope": "complete proof; independently read mathematical dependencies"
+    },
+    "reviews/FINAL_LIMITS_REVIEW.md": {
+      "sha256": "eda81c1476ca87a0b7b13be5081ebb0ef563b1a4603110be18bc8978466ea91c",
+      "verdict": "PASS",
+      "scope": "complete proof; independently read mathematical dependencies"
+    }
+  },
+  "unchanged_dependency_count": 23,
+  "dependency_manifest_sha256": "1e6427032404b97eeff50bcdabf65350fa9d64680e92639e4c522d8c50464316",
+  "verified": "All mathematical file hashes match every review; all reported dependency hashes match preserved files.",
+  "established": "Four hidden layers with exactly the L3 c_poly and exponent10, including the full population/GF/raw-GD, nonaffinity and initial-motion conclusions.",
+  "open": "One common positive amplitude for every fixed finite hidden depth, with other estimates allowed to depend on depth."
+}

@@ -1,0 +1,47 @@
+[
+  {
+    "file": "MODERN.md",
+    "bytes": 45921,
+    "sha256": "dfbcec1112cee9288335ac360f76b56197e530db80ee12c73690811bd80875fd"
+  },
+  {
+    "file": "TASK7.md",
+    "bytes": 33490,
+    "sha256": "dcacb25dacf1c1e90ae9edeb1dfe75a1b553efcba5ba79c5e371e54425d75ad9"
+  },
+  {
+    "file": "OPERATOR1.md",
+    "bytes": 42624,
+    "sha256": "e5dd8fc58ab530e7a477871485056d394edfa3ed76e0901111eddc023036012f"
+  },
+  {
+    "file": "OPERATOR2.md",
+    "bytes": 41491,
+    "sha256": "606ca911cb4a16d0ae961871005f6278136b2baed72fed08d76f98b7e9d7dab0"
+  },
+  {
+    "file": "ROOT_RECOVERY.md",
+    "bytes": 10570,
+    "sha256": "8d4bb74692cb20d5c06cf463d5b84d6a13c0fd6183cb3d1760d7b95fca5de4d0"
+  },
+  {
+    "file": "MFP_HISTORY.md",
+    "bytes": 39672,
+    "sha256": "b25d35e8f96a0b9a80ed30b5fd9b3d9b019f6cef4f05b9637c95de7d772a78ac"
+  },
+  {
+    "file": "OLD_ARCTAN.md",
+    "bytes": 42755,
+    "sha256": "67c8f221836170cc2c3ae014484afb82bcd775e8414b4fb4c0acfcc860519f59"
+  },
+  {
+    "file": "TANH_RESNET.md",
+    "bytes": 45056,
+    "sha256": "e143a7cbff678c02d5da2380e6c0e75d612532448e1021d327d22ce16889d3b3"
+  },
+  {
+    "file": "TMP_TP3_AUDIT.md",
+    "bytes": 28085,
+    "sha256": "414952eea8cbcbfbe3ff595b0f742246b4e0c6c4eae5ac1432cafee6f9b16972"
+  }
+]

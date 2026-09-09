@@ -1,0 +1,69 @@
+[
+  {
+    "file": "GF_RESULT.md",
+    "expected": "6d3b6705379b5167e1994af7be6c0932012062a44d945291d940c424d9a2c00e",
+    "actual": "6d3b6705379b5167e1994af7be6c0932012062a44d945291d940c424d9a2c00e",
+    "match": true
+  },
+  {
+    "file": "GENERAL_POPULATION_GF_PROOF.md",
+    "expected": "5406c9e3a812127be623d22e225ac545e83bc8ea1010b5046bd4bab6a295514d",
+    "actual": "5406c9e3a812127be623d22e225ac545e83bc8ea1010b5046bd4bab6a295514d",
+    "match": true
+  },
+  {
+    "file": "GENERAL_DEPTH_RESPONSE_PROOF.md",
+    "expected": "3dfb63e3cac21ee15573af7f4107287f58dc2013db7e4a11083c90472bf8995b",
+    "actual": "3dfb63e3cac21ee15573af7f4107287f58dc2013db7e4a11083c90472bf8995b",
+    "match": true
+  },
+  {
+    "file": "ACTIVITY_SOURCE_AUDIT.md",
+    "expected": "3d91ef619477525519a7faacd293418b15e7f2f24699ed871df6eef11b194421",
+    "actual": "3d91ef619477525519a7faacd293418b15e7f2f24699ed871df6eef11b194421",
+    "match": true
+  },
+  {
+    "file": "TWO_LAYER_RESPONSE_AUDIT.md",
+    "expected": "3acf88c92c5ad001cc620f26bd1e339ecde0ce9501880f5f55dc381392721207",
+    "actual": "3acf88c92c5ad001cc620f26bd1e339ecde0ce9501880f5f55dc381392721207",
+    "match": true
+  },
+  {
+    "file": "INDEPENDENT_REVIEW_A.md",
+    "expected": "e9214a67eb93d76bf0b1a374b8519ccb19d4b8208d90f3e43937fb1bd6fcc676",
+    "actual": "e9214a67eb93d76bf0b1a374b8519ccb19d4b8208d90f3e43937fb1bd6fcc676",
+    "match": true
+  },
+  {
+    "file": "INDEPENDENT_REVIEW_B.md",
+    "expected": "0a9f35da932d06fae37ac931bea1dc14f2e79ff4035fe4b616e15c2f5053d343",
+    "actual": "0a9f35da932d06fae37ac931bea1dc14f2e79ff4035fe4b616e15c2f5053d343",
+    "match": true
+  },
+  {
+    "file": "INDEPENDENT_REVIEW_C.md",
+    "expected": "c577114a51925b670d7ba6e56a5b6dcc0fd440e3487a9e8bde7c9b4a41cce292",
+    "actual": "c577114a51925b670d7ba6e56a5b6dcc0fd440e3487a9e8bde7c9b4a41cce292",
+    "match": true
+  },
+  {
+    "file": "REVIEW_RECORD.md",
+    "expected": "162501296a9f232d6cd87bc320cc3e8ff6c90594bede8c4fdaf01689f909acff",
+    "actual": "162501296a9f232d6cd87bc320cc3e8ff6c90594bede8c4fdaf01689f909acff",
+    "match": true
+  },
+  {
+    "file": "RESEARCH_STATE.md",
+    "expected": "0784ce7f4e7ed27baf10ec71ed9dfe105b16650cb61c7c235028186275ea22bb",
+    "actual": "0784ce7f4e7ed27baf10ec71ed9dfe105b16650cb61c7c235028186275ea22bb",
+    "match": true
+  },
+  {
+    "file": "GENERAL_POPULATION_GF_PROOF_REVIEWED.md",
+    "expected": "792dbd8eca426dc8fd5434d67b183826025a7a301f42fd579d6332fa458005e2",
+    "actual": "792dbd8eca426dc8fd5434d67b183826025a7a301f42fd579d6332fa458005e2",
+    "match": true,
+    "recovered_from": "Inverted exact final fileChange in GENERALIZE_PAGE1.json turn 01a07193-3f18-7350-a8b4-ce5d609eeef0 item exec-4e92d2d8-667e-40b7-9ad6-92410a460cce"
+  }
+]

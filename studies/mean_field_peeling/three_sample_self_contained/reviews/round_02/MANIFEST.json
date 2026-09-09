@@ -1,0 +1,49 @@
+{
+  "round": 2,
+  "sha256": "fdbfa412195aedfbdae103b1e7e862dd42fffd5061e662dbda7dfe462eab0f7c",
+  "reviewers": [
+    {
+      "role": "river",
+      "input": "/tmp/manuscript-5e73c4891e4c/REPORT.md",
+      "output": "/tmp/manuscript-5e73c4891e4c/REVIEW.md",
+      "state": "complete",
+      "agent": "audit_river",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_02/RIVER_REVIEW.md",
+      "review_sha256": "a9ee6d3d3e10c8b1ad3bc1e29d49ae25dfd53f00d4b41e2c5d925fd8f6f3c621"
+    },
+    {
+      "role": "summit",
+      "input": "/tmp/manuscript-766d3a3d78ba/REPORT.md",
+      "output": "/tmp/manuscript-766d3a3d78ba/REVIEW.md",
+      "state": "complete",
+      "agent": "audit_summit",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_02/SUMMIT_REVIEW.md",
+      "review_sha256": "07995d605f260f141837ca7c403af0ab815ef5333256b01a6e9c0ffdfd6b9d26"
+    },
+    {
+      "role": "willow",
+      "input": "/tmp/manuscript-9fe58d95d81c/REPORT.md",
+      "output": "/tmp/manuscript-9fe58d95d81c/REVIEW.md",
+      "state": "complete",
+      "agent": "audit_willow",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_02/WILLOW_REVIEW.md",
+      "review_sha256": "bafa4f0dc25df8434323cff90b0ecbd1a762acbd4bb118d8f11979c604570e10"
+    },
+    {
+      "role": "quartz",
+      "input": "/tmp/manuscript-df7d08ceda6b/REPORT.md",
+      "output": "/tmp/manuscript-df7d08ceda6b/REVIEW.md",
+      "state": "complete",
+      "agent": "audit_quartz",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_02/QUARTZ_REVIEW.md",
+      "review_sha256": "5ddda19003c9bd389a24c4a438bf42c4cb56f6b5a117f4c3585bd956697f1404"
+    }
+  ],
+  "status": "complete",
+  "final_verdict": "ALL PASS; no mathematical correctness or completeness objections; no required repairs",
+  "integrity_verified": true
+}

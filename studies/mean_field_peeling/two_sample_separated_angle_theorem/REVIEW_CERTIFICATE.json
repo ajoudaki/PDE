@@ -1,0 +1,42 @@
+{
+  "date": "2026-09-07",
+  "status": "proved extension; three independent complete-proof agent audits PASS",
+  "proof": {
+    "path": "PROOF.md",
+    "sha256": "2891b892667396d64bd747689bcd59aa7ca3ffd224d3579fc3407bca0b623f9a"
+  },
+  "source_manifest": {
+    "path": "SOURCE_HASHES.json",
+    "sha256": "e36f1696924912c0af5d7f7aa90c856d7f9ff064c486f212cf26f2eaafbe9af1",
+    "source_count": 9
+  },
+  "reviews": [
+    {
+      "path": "reviews/REVIEW_A.md",
+      "sha256": "9fff25c25e66ff1fafa48b1f89d18ad9f057592235ef0d1f63c58bc538e2ee1f",
+      "verdict": "PASS for the complete stated extension",
+      "required_repairs": []
+    },
+    {
+      "path": "reviews/REVIEW_B.md",
+      "sha256": "8928d877dbc43788a57ada39e484dd2657b421c82d2aebd630a7eec5e03e6491",
+      "verdict": "PASS for the full separated-input theorem",
+      "required_repairs": []
+    },
+    {
+      "path": "reviews/REVIEW_C.md",
+      "sha256": "32bcdd865a21fe388c7af2857705d735f6db4e7576b95e11173bececfc57ff70",
+      "verdict": "PASS for the complete separated-angle corollary",
+      "required_repairs": [],
+      "optional_clarifications": [
+        "Auxiliary clips may explicitly be described as smooth and odd, as supplied by the construction.",
+        "The initial-acceleration certificate concerns the population path."
+      ]
+    }
+  ],
+  "proof_modified_after_reviews": false,
+  "open_extensions": [
+    "One positive coefficient for all delta>0.",
+    "The same extension for the earlier bounded one-sample activation."
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "round": 1,
+  "sha256": "ad30e1e3ed36db9d1f36220859e3d40916aab4b26f892e478ccb850c9dbc7cd5",
+  "lines": 3826,
+  "bytes": 223246,
+  "status": "complete",
+  "reviewers": [
+    {
+      "role": "cedar",
+      "input": "/tmp/report-e42cddb32cea/REPORT.md",
+      "output": "/tmp/report-e42cddb32cea/REVIEW.md",
+      "state": "complete",
+      "agent": "activation_review_cedar",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_01/CEDAR_REVIEW.md",
+      "review_sha256": "28a33e478951a049446c37e0e832f0e1da830af64dad3a0a289452186dd09fe4",
+      "author_read_full_review": true
+    },
+    {
+      "role": "onyx",
+      "input": "/tmp/report-a18efe65b35a/REPORT.md",
+      "output": "/tmp/report-a18efe65b35a/REVIEW.md",
+      "state": "complete",
+      "agent": "activation_review_onyx",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_01/ONYX_REVIEW.md",
+      "review_sha256": "08c85d3ad5c27335da03a8ed37b034eb62e99525f83ee5787fb86a53eba92412",
+      "author_read_full_review": true
+    },
+    {
+      "role": "birch",
+      "input": "/tmp/report-ed1646d91004/REPORT.md",
+      "output": "/tmp/report-ed1646d91004/REVIEW.md",
+      "state": "complete",
+      "agent": "activation_review_birch",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_01/BIRCH_REVIEW.md",
+      "review_sha256": "97f0b3fd3a9e0e037fed60f907a674508caffdc3320f31c4e2868b9e4e65f88d",
+      "author_read_full_review": true
+    },
+    {
+      "role": "sable",
+      "input": "/tmp/report-90a3cb5da6c3/REPORT.md",
+      "output": "/tmp/report-90a3cb5da6c3/REVIEW.md",
+      "state": "complete",
+      "agent": "activation_review_sable",
+      "verdict": "PASS",
+      "saved_review": "reviews/round_01/SABLE_REVIEW.md",
+      "review_sha256": "a7cd62e00ce97f7ebacda666f81171f4a819669f7a5a8585a819c83541c851e5",
+      "author_read_full_review": true
+    }
+  ],
+  "final_verdict": "4/4 PASS; no mathematical correctness or completeness objections; no required repairs",
+  "integrity_verified": true
+}

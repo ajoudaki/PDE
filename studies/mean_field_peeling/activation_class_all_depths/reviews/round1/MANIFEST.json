@@ -1,0 +1,10 @@
+{
+  "round": 1,
+  "manuscript_sha256": "e61789c67fc6ea5ee918c50b82c7d5a233c0991e7222d32a003ca722f837606a",
+  "reports": {
+    "review_spruce.md": "1631372f1543f2ad3fda701f9adaaf220e6f3323340edabb03e80ff96adbe908",
+    "review_lyra.md": "b615724231668fd9a7f8a3ecea980a9de1217ef9b7794bec2edde69f85943e65",
+    "review_basalt.md": "9578e84f5e0f0f60d0a3764a0af9e7b1d17611166676485cb589e85d72212eb5"
+  },
+  "status": "Complete: Spruce PASS; Basalt PASS mathematics; Lyra UNVERIFIED literal file. All identified the same numeric/asymptotic reference-renumbering artifacts. Exact repairs made and fresh isolated whole-manuscript round started."
+}
