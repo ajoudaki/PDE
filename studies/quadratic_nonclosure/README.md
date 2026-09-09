@@ -24,7 +24,7 @@ positive-time width-first trajectory.  The later covariant-Schur theorem
 nevertheless resolves the frozen canonical conjecture negatively: with high
 probability the predictor makes a fixed increase in vanishing physical time,
 contradicting compact-time convergence to any continuous readout.  See
-[`CANONICAL_CONCENTRATION_NO_GO_COVARIANT_SCHUR.md`](../mean_field_peeling/quadratic_compiler/operator_ide_resolution/CANONICAL_CONCENTRATION_NO_GO_COVARIANT_SCHUR.md).
+[`CANONICAL_CONCENTRATION_NO_GO_COVARIANT_SCHUR.md`](../mfp_quadratic_compiler/operator_ide_resolution/CANONICAL_CONCENTRATION_NO_GO_COVARIANT_SCHUR.md).
 
 The tagged-site Volterra/DMFT equation in item 4 is postulated rather than
 derived.  Its no-positive-delay comparison is exact under the asserted

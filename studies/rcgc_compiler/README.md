@@ -13,4 +13,4 @@ continuous-time proof.
 
 From the repository root, run:
 
-    python -m unittest studies.renormalized_causal_gaussian_calculus.compiler.test_rcgc_compiler
+    python -m unittest studies.rcgc_compiler.test_rcgc_compiler

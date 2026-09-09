@@ -24,10 +24,10 @@ were frozen with the certified runs.  The one preserved binary,
 other exploratory build products have been removed from the live study.
 
 The general MFP theorem program is maintained in
-[`../CURRENT_RESEARCH_STATE.md`](../CURRENT_RESEARCH_STATE.md).  Stieltjes
+[`../CURRENT_RESEARCH_STATE.md`](../mfp_program_history/CURRENT_RESEARCH_STATE.md).  Stieltjes
 moments and Hankel certificates derived from these raw feature derivatives
 are conceptually owned by the separate
-[`../../stieltjes_conjecture/`](../../stieltjes_conjecture/) study.  Compact
+[`../../stieltjes_conjecture/`](../stieltjes_program_history) study.  Compact
 campaign-local certificates are colocated here with the exact jets whose
 integrity they audit.
 
@@ -39,28 +39,28 @@ alter the accepted canonical derivatives above.  Campaigns 1--4 reached exact
 finite Hankel endpoints; Campaign 5 reached exact lower jets and partial
 moment signs only.
 
-- [`campaign1/`](campaign1/) varies the relative feature-ascent metric
+- [`campaign1/`](campaign1) varies the relative feature-ascent metric
   ($D_\lambda=D_a+\lambda(D_u+D_W)$) and jointly computes the output and
   hidden squared-RMS responses.  Exact ordinary and shifted $2\times2$
   Hankel tests pass for both responses over the full ray $\lambda\ge0$.
-- [`campaign2/`](campaign2/) treats two equal-norm inputs in the same-label
+- [`campaign2/`](campaign2) treats two equal-norm inputs in the same-label
   and opposite-label symmetry channels.  It retains the input Gram matrix in
   both the initialization covariance and first-layer gradient metric.  Exact
   order-seven ordinary $2\times2$ Hankel tests pass throughout the full
   correlation interval; the degenerate opposite-label endpoint is handled by
   its exact normalization.
-- [`campaign3/`](campaign3/) replaces the first activation by
+- [`campaign3/`](campaign3) replaces the first activation by
   $u^2-c$, $0\le c\le2$.  In the centered coordinate
   $u^2-c=(u^2-1)+(1-c)$, exact Sturm certificates prove the available
   moment and ordinary $2\times2$ Hankel inequalities on both halves of the
   parameter interval.
-- [`campaign4/`](campaign4/) separates the first-hidden and middle-weight
+- [`campaign4/`](campaign4) separates the first-hidden and middle-weight
   block metrics:
   $D_{\alpha,\beta}=D_a+\alpha D_u+\beta D_W$ on the full quadrant.  All 125
   atomic sectors through order nine completed, and exact positive-coefficient
   certificates prove $\mu_0,\ldots,\mu_3$ plus ordinary and shifted
   $2\times2$ Hankel positivity, strictly away from the constant-kernel origin.
-- [`campaign5_b3/`](campaign5_b3/) treats three equicorrelated equal-label
+- [`campaign5_b3/`](campaign5_b3) treats three equicorrelated equal-label
   inputs on $-1/2\leq\rho\leq1$, retaining the Gram matrix in both the
   initialization covariance and first-layer gradient metric.  It gives an
   exact faithful scalar loss channel, exact jets through order five, a genuine
@@ -70,7 +70,7 @@ moment signs only.
   $F^{(7)}$, $\mu_2$, or Hankel determinant and is not counted as a Hankel
   pass.
 
-[`campaign6_f13_threshold/`](campaign6_f13_threshold/) is not a parameter
+[`campaign6_f13_threshold/`](campaign6_f13_threshold) is not a parameter
 extension or successful certificate.  It records a bounded canonical D13
 threshold probe whose candidate bounds were nonseparating and whose mandatory
 fresh-regression/provenance gate was incomplete.  It is protocol-inconclusive
@@ -81,7 +81,7 @@ prove all-order Stieltjes positivity nor identify the formal jets with an
 independently established global mean-field trajectory.  The consolidated
 mathematical account, including why no B=4 or metric-ray order-eleven
 conditional branch was launched, is the sole downstream master:
-[`../../stieltjes_conjecture/CURRENT_RESEARCH_STATE.md`](../../stieltjes_conjecture/CURRENT_RESEARCH_STATE.md).
+[`../../stieltjes_conjecture/CURRENT_RESEARCH_STATE.md`](../stieltjes_program_history/CURRENT_RESEARCH_STATE.md).
 
 ## Scalarized state
 

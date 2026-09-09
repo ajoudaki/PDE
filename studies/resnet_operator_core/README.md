@@ -11,7 +11,7 @@ evidence, and audits are now visible together.
 - [`REPORT.md`](REPORT.md): completed direct experiment and limitations.
 - [`theory/operator_galerkin_pde.md`](theory/operator_galerkin_pde.md): PDE
   derivation.
-- [`results/processed/summary.json`](results/processed/summary.json): compact
+- [`results/processed/summary.json`](../../data/historical/studies/resnet_operator_core/results/processed/summary.json): compact
   machine-readable evidence.
 - [`audits/final_adversarial_pde_audit.md`](audits/final_adversarial_pde_audit.md):
   final hostile audit.
@@ -40,7 +40,7 @@ WORKERS=8 PYTHON_BIN=../../../../.venv/bin/python bash protocol/reproduce_full.s
 
 Raw canonical trajectories are intentionally not part of the original compact
 release. The later locally generated trajectories are kept separately under
-[`../rerun_2026-07-31`](../rerun_2026-07-31/).
+[`../rerun_2026-07-31`](../resnet_reproduction_2026_07_31).
 
 The `audits/` directory contains independent derivations, numerical probes,
 statistical analyses, and hostile reviews. These are scientific notes and

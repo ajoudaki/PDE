@@ -46,7 +46,7 @@ is \(B_H=F_H^{(3)}(0)\), not the fifth-order
 \(C_H=F_H^{(5)}(0)\).
 
 The same two-hidden-layer, one-sample model is now closed through route order
-five.  The [`order5/`](order5/) calculation gives fully flattened formulas
+five.  The [`order5/`](order5) calculation gives fully flattened formulas
 
 \[
 A=F'(0),\qquad B=F^{(3)}(0),\qquad C=F^{(5)}(0)
@@ -73,7 +73,7 @@ one-pole Padé-induced loss curve.  As already seen at order three, a generic
 smooth activation need not yield positive Stieltjes moments: normalized sine
 has both \(\mu_0<0\) and \(\mu_1<0\).
 
-The [`depth_order5/`](depth_order5/) route extends this same one-sample,
+The [`depth_order5/`](depth_order5) route extends this same one-sample,
 order-five calculation to three and four hidden layers.  At each depth it
 emits both a layer-tagged arbitrary-forward-variance terminal formula and a
 unit-Gram formula containing only deterministic arithmetic and declared
@@ -116,7 +116,7 @@ grows from 1,045 terms at \(H=2\) to 462,776 at \(H=4\), so no depth-uniform
 flat-polynomial-size claim is made.
 
 The
-[multi-observable extension](depth_order5_scalar/multi_observable/)
+[multi-observable extension](depth_order5_scalar/multi_observable)
 separates that six-sweep graph into a universal parameter-flow backbone and
 observable-specific readout heads. For hidden-activation squared RMS, the
 missing moving \(\Gamma_{04}\) contraction is algebraically reduced to one
@@ -247,17 +247,17 @@ specialization and does not supersede it.
 From the repository root, run
 
 ```bash
-python -m studies.mean_field_peeling.generic_first_stieltjes.compiler.run_checks
-python -m studies.mean_field_peeling.generic_first_stieltjes.b2.run_checks
-python -m studies.mean_field_peeling.generic_first_stieltjes.b2.raw_coordinate_jet_audit
-python -m studies.mean_field_peeling.generic_first_stieltjes.depth.run_checks
-python -m studies.mean_field_peeling.generic_first_stieltjes.depth.run_fixed_batch_gates
-python -m studies.mean_field_peeling.generic_first_stieltjes.order5.run_checks
-python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5.primary.run_lightweight_checks
-python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.run_checks
-python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.multi_observable.independent_route_a.run_checks
-python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_observables.independent.run_checks
-python -m studies.mean_field_peeling.generic_first_stieltjes.depth_order5_scalar.multi_observable.audit.run_hostile_checks
+python -m studies.mfp_gaussian_calculus.compiler.run_checks
+python -m studies.mfp_gaussian_calculus.b2.run_checks
+python -m studies.mfp_gaussian_calculus.b2.raw_coordinate_jet_audit
+python -m studies.mfp_gaussian_calculus.depth.run_checks
+python -m studies.mfp_gaussian_calculus.depth.run_fixed_batch_gates
+python -m studies.mfp_gaussian_calculus.order5.run_checks
+python -m studies.mfp_gaussian_calculus.depth_order5.primary.run_lightweight_checks
+python -m studies.mfp_gaussian_calculus.depth_order5_scalar.run_checks
+python -m studies.mfp_gaussian_calculus.depth_order5_scalar.multi_observable.independent_route_a.run_checks
+python -m studies.mfp_gaussian_calculus.depth_order5_observables.independent.run_checks
+python -m studies.mfp_gaussian_calculus.depth_order5_scalar.multi_observable.audit.run_hostile_checks
 ```
 
 For the independent accepted quadratic pairing gate, run

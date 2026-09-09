@@ -3,13 +3,13 @@
 This directory contains the exact derivative-to-moment calculations,
 Stieltjes/Hankel certificates, atomic quadrature reconstruction, and analytic
 bounds used by the authoritative
-[`../CURRENT_RESEARCH_STATE.md`](../CURRENT_RESEARCH_STATE.md).
+[`../CURRENT_RESEARCH_STATE.md`](../stieltjes_program_history/CURRENT_RESEARCH_STATE.md).
 
 The principal current artifacts are:
 
 - `certificates_order11.json`: exact audited coefficients of $K$, moments, and
   Hankel determinants; the raw derivative certificate is owned by the
-  [`../../mean_field_peeling/quadratic_compiler/`](../../mean_field_peeling/quadratic_compiler/)
+  [`../../mean_field_peeling/quadratic_compiler/`](../mfp_quadratic_compiler)
   study;
 - `stieltjes_certificates.py`: exact rational certificate generator;
 - `moment_reconstruction.py` and `reconstruction_order11.json`: Gaussian and

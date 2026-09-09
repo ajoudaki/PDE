@@ -1,6 +1,8 @@
 # Repository refactor: preservation and acceptance contract
 
-Status: inventory; no scientific result is promoted by this plan.
+Status: source snapshots and byte-verified layout committed; established-library
+assembly and isolated acceptance audits in progress. This plan itself promotes
+no scientific result.
 
 ## Scope
 

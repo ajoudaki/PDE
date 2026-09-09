@@ -30,7 +30,7 @@ observable-grammar theorem and depth-linear finite-state closure remain open.
 | Full canonical quadratic coefficients through order seventeen | Exact finite-order certificates |
 | One-sample identity activation, arbitrary fixed hidden depth | Exact autonomous rooted-path ODE / counting-measure IDE with global zero-loss convergence internally; for this construction, compact-time finite-width identification is proved for hidden depths 1--2 and conditional for depth 3 and beyond |
 | One-sample identity activation, exactly three hidden layers | A separate cyclic trace-class/free-Wishart construction proves the fully trained compact-time width limit and zero-loss convergence |
-| One-sample raw-square activation, two hidden layers | [Resolved negatively for the canonical iid-Gaussian sequence](quadratic_compiler/operator_ide_resolution/CANONICAL_CONCENTRATION_NO_GO_COVARIANT_SCHUR.md): a fixed predictor increase occurs in vanishing physical time, ruling out the frozen compact-time continuous-readout limit and hence every admissible autonomous IDE under that contract |
+| One-sample raw-square activation, two hidden layers | [Resolved negatively for the canonical iid-Gaussian sequence](../mfp_quadratic_compiler/operator_ide_resolution/CANONICAL_CONCENTRATION_NO_GO_COVARIANT_SCHUR.md): a fixed predictor increase occurs in vanishing physical time, ruling out the frozen compact-time continuous-readout limit and hence every admissible autonomous IDE under that contract |
 
 ## Maintained sources
 
@@ -46,7 +46,7 @@ backward-kernel peel, the one-step loss and hidden-Gram coefficients, the
 two-step gradient correction, deep-linear checks, the general readout-scaled
 backward template, and the explicit five-branch two-sample expansion.
 
-[`generic_first_stieltjes/`](generic_first_stieltjes/) is the audited
+[`generic_first_stieltjes/`](../mfp_gaussian_calculus) is the audited
 fixed-observable specialization for the first feature-dependent MSE
 coefficient with a generic activation.  It starts from two hidden layers and
 one sample, then closes the Gaussian recursion for every separately fixed
@@ -59,13 +59,13 @@ flattened calculation through \(F^{(5)}(0)\), with literal moment-only
 artifacts, an independent atomwise audit, and the induced one-pole Padé loss
 approximation.
 For the same order-five one-sample observable at three and four hidden layers,
-[`generic_first_stieltjes/depth_order5/`](generic_first_stieltjes/depth_order5/)
+[`generic_first_stieltjes/depth_order5/`](../mfp_gaussian_calculus/depth_order5)
 contains four explicit terminal moment DAGs and fully distributed coefficient
 maps, independently equal coefficient-by-coefficient, including the complete
 symbolic input-variance dependence.  Its arbitrary-fixed-depth derivation
 retains exactly 66 covariance/response states per reused hidden matrix at
 order five.  In the shared-activation unit-Gram quotient, the adjacent
-[`generic_first_stieltjes/depth_order5_scalar/`](generic_first_stieltjes/depth_order5_scalar/)
+[`generic_first_stieltjes/depth_order5_scalar/`](../mfp_gaussian_calculus/depth_order5_scalar)
 fully contracts that proof IR into 29 deterministic scalar coordinate types
 and 38 explicit one-dimensional-moment transition polynomials.  Its six
 chronological sweeps reproduce the frozen H=2,3,4 maps with zero exact
@@ -78,7 +78,7 @@ finite \(C^5\) regularity alone supplies only the exact finite-width Taylor
 algebra unless a separate probability/UI bridge is proved.
 
 The adjacent
-[multi-observable study](generic_first_stieltjes/depth_order5_scalar/multi_observable/)
+[multi-observable study](../mfp_gaussian_calculus/depth_order5_scalar/multi_observable)
 reorganizes that graph as a reusable parameter-flow backbone with
 observable-specific heads. It gives the exact observable chain rule, the
 semantic meaning of all backbone states, hidden squared-RMS and RMS
@@ -97,7 +97,7 @@ under named probabilistic assumptions, formal nonlinear closures, restricted
 audits, and open theorem targets.
 
 The identity-only successor
-[`identity_compiler/linear_gaussian_program/arbitrary_depth_autonomous_mse_closure/`](identity_compiler/linear_gaussian_program/arbitrary_depth_autonomous_mse_closure/)
+[`identity_compiler/linear_gaussian_program/arbitrary_depth_autonomous_mse_closure/`](../mfp_identity_compiler/linear_gaussian_program/arbitrary_depth_autonomous_mse_closure)
 gives a different kind of result: a positive-physical-time, autonomous
 single-source closure for one sample at every separately fixed linear hidden
 depth.  Its source is a noncommutative rooted-path operator, its loss is one
@@ -106,10 +106,10 @@ The formula retains `L-1` depth grades, so it is not a growing-depth
 constant-cost theorem and it does not prove the all-order Stieltjes
 specialization.  Its network-identification proof is conditional at hidden
 depth three and beyond.  For exactly three hidden layers, the separate
-[`depth3_unfrozen_readout_closure/`](identity_compiler/linear_gaussian_program/depth3_unfrozen_readout_closure/)
+[`depth3_unfrozen_readout_closure/`](../mfp_identity_compiler/linear_gaussian_program/depth3_unfrozen_readout_closure)
 cyclic construction supplies the missing compact-time identification theorem.
 
-[`quadratic_compiler/`](quadratic_compiler/) contains the exact canonical
+[`quadratic_compiler/`](../mfp_quadratic_compiler) contains the exact canonical
 special-case graph rewrites, connected recurrence, Wick-sector engines,
 checked arithmetic, certificates, provenance, and rejected acceleration
 attempts. Its completed bounded parameter portfolio covers a relative metric
@@ -129,7 +129,7 @@ turn the implementation into a generic MLP compiler or establish a
 positive-time trajectory.
 
 Its
-[operator_ide_closure/](quadratic_compiler/operator_ide_closure/)
+[operator_ide_closure/](../mfp_quadratic_compiler/operator_ide_closure)
 successor addresses that positive-time question directly for the
 two-hidden-layer raw-square network.  It constructs the exact present-state
 system and a fixed pointed-Gaussian traffic source, and equivalently packages
@@ -142,29 +142,29 @@ normalized additive gauges, marginal Orlicz/operator-norm estimates, and the
 canonical unweighted copy map.  A canonical concentration layer is reduced
 to one explicit dynamic leave-one-row estimate (LOO), not asserted.
 This is the historical positive-construction route.  The later
-[`operator_ide_resolution/`](quadratic_compiler/operator_ide_resolution/)
+[`operator_ide_resolution/`](../mfp_quadratic_compiler/operator_ide_resolution)
 program resolves the frozen continuous-readout conjecture negatively for the
 canonical iid-Gaussian sequence through a vanishing-physical-time predictor
 increase.
 
 The exact Stieltjes claim levels, all five campaign outcomes, and the
 conditional-stop decision are consolidated in the sole downstream master,
-[`../stieltjes_conjecture/CURRENT_RESEARCH_STATE.md`](../stieltjes_conjecture/CURRENT_RESEARCH_STATE.md).
+[`../stieltjes_conjecture/CURRENT_RESEARCH_STATE.md`](../stieltjes_program_history/CURRENT_RESEARCH_STATE.md).
 
 The downstream
-[`../stieltjes_conjecture/`](../stieltjes_conjecture/) study consumes the
+[`../stieltjes_conjecture/`](../stieltjes_program_history) study consumes the
 quadratic feature derivatives but owns the series inversion, moment problem,
 Hankel certificates, rational reconstruction, and numerical conjecture tests.
-Its [resolution program](../stieltjes_conjecture/resolution_program/) extends
+Its [resolution program](../stieltjes_resolution) extends
 the exact \((0,1)\) reduction to the full \(\beta=1\) order-thirteen jet and
 proves a negative shifted determinant for every
 \(0<\alpha\leq1/100\).  Its
-[canonical high-order successor](../stieltjes_conjecture/resolution_program/canonical_high_order/)
+[canonical high-order successor](../stieltjes_resolution/canonical_high_order)
 computes $F^{(15)}(0)$ and $F^{(17)}(0)$ exactly and finds both newly
 available $4\times4$ Hankel matrices positive definite.  This extends
 canonical compatibility to eight moments while leaving the all-order claim
 open; no order-nineteen computation was attempted.  Its
-[hidden-norm successor](../stieltjes_conjecture/resolution_program/canonical_hidden_high_order/)
+[hidden-norm successor](../stieltjes_resolution/canonical_hidden_high_order)
 also contracts the first- and second-hidden squared-RMS jets through the
 available orders.  The resulting nine- and eight-moment prefixes, including
 their normalized literal-RMS readouts, pass every accessible Hankel principal
@@ -173,11 +173,11 @@ measure or positive-time theorem.
 
 ## Nonlinear autonomous operator-IDE successor
 
-[`nonlinear_activation_operator_ide/`](nonlinear_activation_operator_ide/)
+[`nonlinear_activation_operator_ide/`](../arctan_l2_order_one_readout)
 resolves the broader nonlinear-existence target by selecting
 \(\phi(x)=\arctan x\), rather than the canonical raw-square sequence.  The
 latter has since been
-[resolved negatively](quadratic_compiler/operator_ide_resolution/CANONICAL_CONCENTRATION_NO_GO_COVARIANT_SCHUR.md):
+[resolved negatively](../mfp_quadratic_compiler/operator_ide_resolution/CANONICAL_CONCENTRATION_NO_GO_COVARIANT_SCHUR.md):
 its predictor develops a fixed initial-layer increase in vanishing physical
 time, precluding the frozen compact-time continuous-readout limit.  For the
 arctangent model, the natural coordinate
@@ -193,7 +193,7 @@ autonomous IDE, while the separate canonical quadratic conjecture is false
 under its frozen contract.
 
 Its three-hidden-layer successor, the
-[D3 Arctan Closure Program](../d3_arctan_closure_program/), freezes the
+[D3 Arctan Closure Program](../d3_arctan_closure_program), freezes the
 strict one-time Markov contract at the next depth.  It proves the exact
 four-block feature flow and raw-kernel identity, constructs the joint
 two-Gaussian-action/two-current-operator IDE, establishes compact-time
@@ -213,7 +213,7 @@ the canonical theory and case study.
 
 ## Generated reading edition
 
-[`report/MEAN_FIELD_PEELING_REPORT.pdf`](report/MEAN_FIELD_PEELING_REPORT.pdf) is the
+[`report/MEAN_FIELD_PEELING_REPORT.pdf`](../../data/historical/studies/mfp_program_history/report/MEAN_FIELD_PEELING_REPORT.pdf) is the
 offline reading edition.  The maintained Markdown sources above are
 authoritative when they differ from an older generated PDF.  The PDF is generated from the general theory,
 detailed training case, and frozen historical source using

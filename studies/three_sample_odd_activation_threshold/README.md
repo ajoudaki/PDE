@@ -15,5 +15,5 @@ The [contract](CONTRACT.md) preserves the original dynamics and scope.
 The [evidence ledger](EVIDENCE_LEDGER.md) distinguishes proved partial
 claims from the open theorem. The [review record](REVIEW_STATUS.md)
 links independent checks of the bounded claims; it is not a complete
-three-input theorem certificate. [INTEGRITY.json](INTEGRITY.json)
+three-input theorem certificate. [INTEGRITY.json](../../data/historical/studies/three_sample_odd_activation_threshold/INTEGRITY.json)
 identifies the final files, reviews and mathematical dependencies.

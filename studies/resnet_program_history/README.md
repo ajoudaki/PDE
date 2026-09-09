@@ -6,10 +6,10 @@ reading order are in
 
 The three substudies are:
 
-- [`dense_response`](dense_response/): finite-matrix response mechanism;
-- [`operator_pde`](operator_pde/): explicit finite-cutoff PDE and direct
+- [`dense_response`](dense_response): finite-matrix response mechanism;
+- [`operator_pde`](operator_pde): explicit finite-cutoff PDE and direct
   empirical tests; and
-- [`pde_convergence`](pde_convergence/): parity, hierarchy, compactness, and
+- [`pde_convergence`](pde_convergence): parity, hierarchy, compactness, and
   stability audit.
 
 These concern the repository's fully connected Euclidean-\(\mu\)P residual

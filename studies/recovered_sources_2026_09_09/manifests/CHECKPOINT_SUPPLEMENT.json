@@ -1,0 +1,20 @@
+[
+  {
+    "from": ".ipynb_checkpoints/AUTONOMOUS_DEEP_FEATURE_LEARNING_THEOREM_AND_PROGRAM_2026-08-21-checkpoint.md",
+    "to": "studies/recovered_sources_2026_09_09/checkpoint_editions/AUTONOMOUS_DEEP_FEATURE_LEARNING_THEOREM_AND_PROGRAM_2026-08-21-checkpoint.md",
+    "bytes": 51526,
+    "sha256": "c1ef07f9d0185b65db9ac3c50b67e5aa03bc50be7aef265c1b336d2893f71713"
+  },
+  {
+    "from": ".ipynb_checkpoints/README-checkpoint.md",
+    "to": "studies/recovered_sources_2026_09_09/checkpoint_editions/README-checkpoint.md",
+    "bytes": 1946,
+    "sha256": "220b17ba9648ec6ba4bfc0132d29e8ff5f3dbca3401501932ae93ae2e205a0a3"
+  },
+  {
+    "from": ".backups/mean_field_peeling_pre_restructure_20260805T154408Z/current_main/.ipynb_checkpoints/MEAN_FIELD_PEELING_PROGRAM-checkpoint.md",
+    "to": "studies/recovered_sources_2026_09_09/checkpoint_editions/MEAN_FIELD_PEELING_PROGRAM-checkpoint.md",
+    "bytes": 48671,
+    "sha256": "3e56c6ff54fc2263c0f0b8969c9225b93ae672335ec86fa5c3a86dea2cf6294e"
+  }
+]

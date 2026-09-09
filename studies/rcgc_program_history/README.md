@@ -9,7 +9,7 @@ validation ladder and then decide the unresolved three-hidden-layer
 arctangent model.
 
 This is a new study. It does not resume the paused
-[D3 Arctan Closure Program](../d3_arctan_closure_program/), and no claim from
+[D3 Arctan Closure Program](../d3_arctan_closure_program), and no claim from
 that program is silently promoted here. The paused program is an evidence
 source and a hostile regression suite.
 
@@ -69,15 +69,15 @@ failure, not a solution.
   artifacts.
 - [`PROBE_REPORT.md`](PROBE_REPORT.md): terminal synthesis, gate results,
   falsified rules, exact D3 blocker, and corrected machinery frontier.
-- [`linear_fixed_depth/`](linear_fixed_depth/): the first common-calculus
+- [`linear_fixed_depth/`](../rcgc_linear_depth): the first common-calculus
   validation theorem, covering all fixed linear depths at once.
-- [`generic_l1/`](generic_l1/): the generic one-hidden-layer gate.
-- [`arctan_l2/`](arctan_l2/): the nonlinear one-action gate.
-- [`arctan_l3/`](arctan_l3/): base gates passed; the D3 calculus execution
+- [`generic_l1/`](../rcgc_shallow): the generic one-hidden-layer gate.
+- [`arctan_l2/`](../rcgc_arctan_l2): the nonlinear one-action gate.
+- [`arctan_l3/`](../rcgc_arctan_l3): base gates passed; the D3 calculus execution
   is attempted but not promoted.
-- [`compiler/`](compiler/): executable exact-syntax compiler and regression
+- [`compiler/`](../rcgc_compiler): executable exact-syntax compiler and regression
   tests; it emits proof obligations but does not decide convergence.
-- [`audits/`](audits/): isolated designs, theorem-invocation checks, and
+- [`audits/`](audits): isolated designs, theorem-invocation checks, and
   hostile reconstructions at their actual claim levels.
 
 Experiments, if any, must be preregistered under `experiments/` before code is

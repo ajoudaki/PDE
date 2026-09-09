@@ -63,11 +63,11 @@ and no order-nineteen computation was attempted.
 - [ROUTE_REGISTRY.md](ROUTE_REGISTRY.md) records the independent proof and
   falsification routes.
 - [EVIDENCE_LEDGER.md](EVIDENCE_LEDGER.md) records claim-level consequences.
-- [canonical_high_order/](canonical_high_order/) contains the frozen
+- [canonical_high_order/](canonical_high_order) contains the frozen
   order-fifteen/order-seventeen successor, two-route exact recurrence audits,
   the new moments $\mu_6,\mu_7$, and complete ordinary/shifted $4\times4$
   Hankel certificates.
-- [canonical_hidden_high_order/](canonical_hidden_high_order/) contracts the
+- [canonical_hidden_high_order/](canonical_hidden_high_order) contracts the
   same exact recurrence against both hidden preactivation squared-RMS
   observables.  It retains nine first-hidden and eight second-hidden moment
   candidates, normalized literal-RMS readouts, two independent exact

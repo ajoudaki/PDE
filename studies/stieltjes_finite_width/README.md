@@ -2,7 +2,7 @@
 
 This branch contains the later preregistered experiments.  The authoritative
 interpretation is in
-[`../../CURRENT_RESEARCH_STATE.md`](../../CURRENT_RESEARCH_STATE.md).
+[`../../CURRENT_RESEARCH_STATE.md`](../stieltjes_program_history/CURRENT_RESEARCH_STATE.md).
 
 Chronologically:
 
@@ -19,5 +19,5 @@ Chronologically:
    strong calibration gate and is therefore inconclusive.
 
 Generated results and frozen integrity records are grouped under
-[`runs/`](runs/).  Old path strings inside those records are intentionally
+[`runs/`](runs).  Old path strings inside those records are intentionally
 unaltered historical provenance.

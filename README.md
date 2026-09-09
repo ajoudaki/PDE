@@ -1,43 +1,56 @@
-# Finite causal neural PDE research
+# Deep nonlinear learning dynamics
 
-This repository studies whether dense nonlinear feature-learning dynamics can
-be represented by a finite, autonomous, causal PDE state.
+The project asks whether actual deep, nonlinear feature learning admits a
+well-defined population evolution that finite networks approximate jointly in
+width and gradient-descent step—and what that evolution can explain about
+optimization and, ultimately, generalization.
 
-The dated project-wide baseline is
-[`FINITE_CAUSAL_NEURAL_PDE_MASTER_MONOGRAPH_v2.2_2026-07-31.md`](FINITE_CAUSAL_NEURAL_PDE_MASTER_MONOGRAPH_v2.2_2026-07-31.md).
-It records the state on 31 July 2026 and does not contain later MFP or
-Stieltjes work. The later cross-study orientation is
-[`UNIFIED_FINITE_CAUSAL_NEURAL_PDE_SYNTHESIS_2026-08-19.md`](UNIFIED_FINITE_CAUSAL_NEURAL_PDE_SYNTHESIS_2026-08-19.md).
-Within each active program, that program's maintained
-`CURRENT_RESEARCH_STATE.md` or README-designated current report takes
-precedence over the older monograph and historical reports.
+## Start here
 
-## Research map
+This page is the repository gateway, not part of the established theorem book.
+That book begins at `docs/README.md` and never refers back to research studies.
 
-The repository is organized by scientific question, not by software artifact
-type:
+- [Established theory: reading guide](docs/README.md), with one
+  [notation contract](docs/NOTATION.md) and complete modular proofs.
+- [Reusable code and API](code/README.md): finite all-depth network dynamics
+  and exact rational Gaussian moments.
+- [Study catalogue](studies/README.md): exploratory work and historical sources.
+- [Data policy](data/README.md): generated outputs and figures, separate from
+  source and excluded from new Git commits.
 
-| Program | Question |
-|---|---|
-| [`studies/quadratic_nonclosure`](studies/quadratic_nonclosure/) | What fails in the prescribed quadratic Taylor/Wick closure? |
-| [`studies/mean_field_peeling`](studies/mean_field_peeling/) | How can fixed-order μP derivative observables be peeled layer by layer into explicit Gaussian calculations, and which parts are proved or compiled exactly? |
-| [`studies/stieltjes_conjecture`](studies/stieltjes_conjecture/) | Does the quadratic-network output kernel define a Stieltjes moment sequence and a convergent rational ODE hierarchy? |
-| [`studies/resnet_pde`](studies/resnet_pde/) | How much of the fully connected residual-network dynamics is captured by finite response structure and an explicit finite-source PDE, and what still blocks convergence and dense-limit identification? |
+The theory and code libraries stand on their own. Exploratory material can use
+them, but the established library has no dependency in the reverse direction.
+Historical labels and old review verdicts do not automatically confer current
+established status.
 
-Each program keeps its reports, code, protocols, and evidence together.
-Sequential investigations are arranged as phases only when chronology is
-scientifically important. Release-only wrappers and exact historical layouts
-live in the archive rather than in the active research tree.
+## Check the library
 
-## Other material
+The tested baseline is Python 3.10.12 and NumPy 1.26.4. The minimal dependency
+is recorded in [requirements.txt](requirements.txt).
 
-- [`archive/bundles`](archive/bundles/) contains the original immutable ZIP
-  releases.
-- [`archive/earlier_documents`](archive/earlier_documents/) contains superseded
-  project-wide syntheses and reports.
-- [`requirements-lock.txt`](requirements-lock.txt) records the common Python
-  environment used for the 31 July numerical execution audit.
+```sh
+python -m pip install -r requirements.txt
+make check
+```
 
-There is deliberately no repository-wide `src`, `tests`, `tools`, `releases`,
-or `runs` layer. Tests remain beside the experiment they validate, and new
-reproductions remain beside the study they reproduce.
+This checks the library boundary and links, then runs the small deterministic
+test suite. It does not run historical experiments, install optional scientific
+packages, generate figures or claim a population theorem from a numerical test.
+The [API guide](code/README.md) includes an example and the equivalent direct
+Python command.
+
+## Research state and preservation
+
+The [reconciled research map](studies/project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md)
+retains the broader positive, negative, conditional and open results. It is a
+research ledger, not an additional established theorem book.
+
+The [refactor record](studies/repository_refactor_2026_09_09/PLAN.md) records
+preservation, path changes, promotion decisions and validation. Rollback sources
+were committed before reorganization: `25dfbf2` (repository source snapshot),
+then `4753435` (recovered temporary and archived sources). `4e6ff81` is the
+byte-verified layout change. Existing history has not been rewritten.
+
+New work starts in a named study. Promotion requires a complete proof or code
+contract, all dependencies inside the established library, shared notation,
+independent review, and reproducible commands for any numerical evidence.

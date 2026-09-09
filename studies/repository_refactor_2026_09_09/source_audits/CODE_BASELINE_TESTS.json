@@ -1,0 +1,127 @@
+{
+  "testFirst0": {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "e75c9c",
+      "wall_time_seconds": 1.008298797,
+      "session_id": 37914,
+      "original_token_count": 408,
+      "output": "RUN studies.mean_field_peeling.generic_first_stieltjes.compiler.test_normal_form.test_all_correction_atoms_are_literal_univariate_expectations\nRUN studies.mean_field_peeling.generic_first_stieltjes.compiler.test_normal_form.test_first_correction_constant_linear_affine_quadratic_cubic\nRUN studies.mean_field_peeling.generic_first_stieltjes.compiler.test_normal_form.test_independent_canonical_formula_map_is_structurally_identical\nRUN studies.mean_field_peeling.generic_first_stieltjes.compiler.test_normal_form.test_initial_ntk_constant_linear_quadratic\nRUN studies.mean_field_peeling.generic_first_stieltjes.compiler.test_normal_form.test_inventory_is_dependency_first\nRUN studies.mean_field_peeling.generic_first_stieltjes.compiler.test_normal_form.test_multivariate_wick_atom\nRUN studies.mean_field_peeling.generic_first_stieltjes.compiler.test_normal_form.test_quadrature_sine_and_tanh_regressions\nRUN studies.mean_field_peeling.generic_first_stieltjes.compiler.test_finite_width_jet.test_constant_activation_is_exactly_linear_in_feature_time\nRUN studies.mean_field_peeling.generic_first_stieltjes.compiler.test_finite_width_jet.test_generic_oracle_matches_quadratic_reference_seedwise\nRUN studies.mean_field_peeling.generic_first_stieltjes.compiler.test_finite_width_jet.test_linear_exact_expectation_target_is_48\nRUN studies.mean_field_peeling.generic_first_stieltjes.compiler.test_finite_width_contraction.test_direct_contraction_matches_feature_jet_seedwise\nRUN studies.mean_field_peeling.generic_first_stieltjes.compiler.test_finite_width_contraction.test_direct_contraction_respects_nonunit_input_metric\nPASS 12 checks\n"
+    }
+  },
+  "testFirst1": {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "e9eef2",
+      "wall_time_seconds": 0.400156385,
+      "exit_code": 0,
+      "original_token_count": 308,
+      "output": "test_tangent_kernel_matches_output_velocity (test_dense_reference.DenseReferenceTests) ... ok\ntest_vector_field_is_scaled_euclidean_gradient (test_dense_reference.DenseReferenceTests) ... ok\ntest_hybrid_complete_quadratic_basis_is_exact_and_nested (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_no_finite_network_weight_state (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_orientation_mutation_is_detected (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_output_kernel_identity_by_directional_difference (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_parseval_covariance (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_positive_time_state_accepts_new_labels (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_shared_transpose_pairing (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_static_cubature_moments (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_tensor_gauss_hermite_realization (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_zero_residual_freezes_every_characteristic (test_operator_galerkin.OperatorGalerkinTests) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 0.079s\n\nOK\n"
+    }
+  },
+  "testFirst2": {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "c2c1e3",
+      "wall_time_seconds": 0.00000324,
+      "exit_code": 0,
+      "original_token_count": 245,
+      "output": "test_generic_depth_one_is_local_only (studies.renormalized_causal_gaussian_calculus.compiler.test_rcgc_compiler.CompilerRegressionTest) ... ok\ntest_generic_depth_three_emits_nested_two_colour_word (studies.renormalized_causal_gaussian_calculus.compiler.test_rcgc_compiler.CompilerRegressionTest) ... ok\ntest_generic_depth_two_emits_one_colour (studies.renormalized_causal_gaussian_calculus.compiler.test_rcgc_compiler.CompilerRegressionTest) ... ok\ntest_identity_kills_every_curvature_word (studies.renormalized_causal_gaussian_calculus.compiler.test_rcgc_compiler.CompilerRegressionTest) ... ok\ntest_invalid_depth_rejected (studies.renormalized_causal_gaussian_calculus.compiler.test_rcgc_compiler.CompilerRegressionTest) ... ok\ntest_kernel_has_one_term_per_parameter_block (studies.renormalized_causal_gaussian_calculus.compiler.test_rcgc_compiler.CompilerRegressionTest) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.000s\n\nOK\n"
+    }
+  },
+  "testFirst3": {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "8f11e5",
+      "wall_time_seconds": 0.052523428,
+      "exit_code": 0,
+      "original_token_count": 225,
+      "output": "test_constant_control (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_identity_control (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_k_step_identity_closed_form (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_k_step_raw_and_stein_dags_agree (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_one_step_iterator_matches_direct_formula (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_quadratic_control (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_raw_and_stein_dags_agree_for_tanh (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_separate_block_rates (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_two_step_identity_control (test_finite_step_dag.FiniteStepDagTests) ... ok\ntest_two_step_quadratic_control (test_finite_step_dag.FiniteStepDagTests) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 0.029s\n\nOK\n"
+    }
+  },
+  "testSecond1": {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "1159af",
+      "wall_time_seconds": 1.001434504,
+      "session_id": 49955,
+      "original_token_count": 0,
+      "output": ""
+    }
+  },
+  "testSecond2": {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "d0f1a0",
+      "wall_time_seconds": 0.046613805,
+      "exit_code": 1,
+      "original_token_count": 259,
+      "output": "test_core (unittest.loader._FailedTest) ... ERROR\n\n======================================================================\nERROR: test_core (unittest.loader._FailedTest)\n----------------------------------------------------------------------\nImportError: Failed to import test module: test_core\nTraceback (most recent call last):\n  File \"/usr/lib/python3.10/unittest/loader.py\", line 436, in _find_test_path\n    module = self._get_module_from_name(name)\n  File \"/usr/lib/python3.10/unittest/loader.py\", line 377, in _get_module_from_name\n    __import__(name)\n  File \"/home/amir/Codes/PDE/studies/resnet_pde/dense_response/long_horizon/tests/test_core.py\", line 13, in <module>\n    from dense_mup.analysis import plateau_ladder\n  File \"/home/amir/Codes/PDE/studies/resnet_pde/dense_response/long_horizon/src/dense_mup/analysis.py\", line 11, in <module>\n    import matplotlib\nModuleNotFoundError: No module named 'matplotlib'\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n"
+    }
+  },
+  "testSecond3": {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "d54298",
+      "wall_time_seconds": 0.483065898,
+      "exit_code": 0,
+      "original_token_count": 211,
+      "output": "test_default_remains_tanh (test_generalization_core.ActivationRegistryTests) ... ok\ntest_exact_derivatives_match_centered_differences (test_generalization_core.ActivationRegistryTests) ... ok\ntest_registry_is_closed_and_formulas_are_normalized (test_generalization_core.ActivationRegistryTests) ... ok\ntest_unknown_or_aliased_activation_is_rejected (test_generalization_core.ActivationRegistryTests) ... ok\ntest_dense_scaled_gradient_and_kernel_identities (test_generalization_core.CrossConfigurationIdentityTests) ... ok\ntest_p_equals_d_plus_two_is_complete_linear_basis (test_generalization_core.CrossConfigurationIdentityTests) ... ok\ntest_pde_output_kernel_identity_and_psd (test_generalization_core.CrossConfigurationIdentityTests) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.162s\n\nOK\n"
+    }
+  },
+  "third0": {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "4dc2b6",
+      "wall_time_seconds": 0.285130981,
+      "exit_code": 0,
+      "original_token_count": 157,
+      "output": "PASS exact-series inverse both ways, reciprocal, independent order-five formula\nEDGE output_kernel_moments({1: 2}) IndexError list index out of range\nEDGE companion_moments({1: 2}, {0: 3}) IndexError list index out of range\nPASS test_axis_moments_and_negative_determinant\nPASS test_elementary_and_bernstein_certificates_are_exact\nPASS test_nonconstant_baseline_has_structural_power_33\nPASS test_primitive_integer_polynomial_clears_rational_content\nEDGE certify_negative_by_bernstein([], 1) returned ()\nPASS q0=0 affine jet/contraction equality and truncated-order consistency\nPASS finite-width invalid width/q0/order rejection\n"
+    }
+  },
+  "third1": {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "14d4a8",
+      "wall_time_seconds": 1.000720779,
+      "session_id": 77055,
+      "original_token_count": 310,
+      "output": "test_tangent_kernel_matches_output_velocity (test_dense_reference.DenseReferenceTests) ... ok\ntest_vector_field_is_scaled_euclidean_gradient (test_dense_reference.DenseReferenceTests) ... ok\ntest_hybrid_complete_quadratic_basis_is_exact_and_nested (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_no_finite_network_weight_state (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_orientation_mutation_is_detected (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_output_kernel_identity_by_directional_difference (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_parseval_covariance (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_positive_time_state_accepts_new_labels (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_shared_transpose_pairing (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_static_cubature_moments (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_tensor_gauss_hermite_realization (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_zero_residual_freezes_every_characteristic (test_operator_galerkin.OperatorGalerkinTests) ... ok\ntest_duplicate_conflicting_inputs_have_irreducible_loss (test_structural_controls.StructuralControlTests) ... "
+    }
+  },
+  "fourth1": {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "2a4e20",
+      "wall_time_seconds": 0.00000137,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  },
+  "fourth2": {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "8ebe04",
+      "wall_time_seconds": 0.0000018,
+      "exit_code": 0,
+      "original_token_count": 409,
+      "output": "RUN studies.mean_field_peeling.generic_first_stieltjes.b2.test_finite_width_directional.test_channel_homogeneity_and_named_specializations\nRUN studies.mean_field_peeling.generic_first_stieltjes.b2.test_finite_width_directional.test_direct_tensor_program_matches_independent_taylor_jet\nRUN studies.mean_field_peeling.generic_first_stieltjes.b2.test_finite_width_directional.test_frozen_mse_response_scalars_and_readout_parity\nRUN studies.mean_field_peeling.generic_first_stieltjes.b2.test_finite_width_directional.test_linear_channel_is_exact_effective_single_input\nRUN studies.mean_field_peeling.generic_first_stieltjes.b2.test_finite_width_directional.test_single_active_sample_reduces_exactly_to_b1_program\nRUN studies.mean_field_peeling.generic_first_stieltjes.b2.test_finite_width_directional.test_three_sample_program_matches_independent_taylor_jet\nRUN studies.mean_field_peeling.generic_first_stieltjes.b2.test_finite_width_directional.test_zero_channel_has_zero_directional_jet\nRUN studies.mean_field_peeling.generic_first_stieltjes.b2.test_contracted_gnf.test_arbitrary_fixed_batch_linear_control\nRUN studies.mean_field_peeling.generic_first_stieltjes.b2.test_contracted_gnf.test_constant_and_linear_controls_for_arbitrary_geometry\nRUN studies.mean_field_peeling.generic_first_stieltjes.b2.test_contracted_gnf.test_exact_channel_homogeneity\nRUN studies.mean_field_peeling.generic_first_stieltjes.b2.test_contracted_gnf.test_quadratic_matches_accepted_two_input_campaign\nRUN studies.mean_field_peeling.generic_first_stieltjes.b2.test_contracted_gnf.test_single_active_channel_reduces_to_b1_gnf_exactly\nPASS 12 fixed-batch checks\n"
+    }
+  },
+  "fourth3": {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "d1dc84",
+      "wall_time_seconds": 0.00000259,
+      "exit_code": 0,
+      "original_token_count": 76,
+      "output": "ok\ntest_pde_sample_permutation_equivariance (test_structural_controls.StructuralControlTests) ... ok\ntest_zero_label_pde_null_is_explicitly_trivial (test_structural_controls.StructuralControlTests) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 2.641s\n\nOK\n"
+    }
+  },
+  "depth_followup": {
+    "exit_code": 0,
+    "wall_time_seconds": 0.186030581,
+    "output": "PASS test_arbitrary_batch_depth_singular_gram_and_layerwise_activations\nPASS test_depth_state_can_be_constructed_from_existing_h2_state\nPASS test_h2_is_seedwise_identical_to_existing_fixed_batch_compiler\nPASS test_independent_raw_coordinate_jets_at_depths_one_two_three\nPASS test_one_hidden_layer_accepts_arbitrary_batch\nPASS 5 existing arbitrary-depth finite-width tests"
+  }
+}

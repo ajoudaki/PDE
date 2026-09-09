@@ -12,5 +12,5 @@ This branch preserves the chronological direct numerical investigation.
   calibrated well enough for a target Loewner conclusion.
 
 All generated arrays, logs, summaries, and frozen manifests are under
-[`runs/`](runs/).  They remain useful negative-result and reproducibility
+[`runs/`](runs).  They remain useful negative-result and reproducibility
 records.
