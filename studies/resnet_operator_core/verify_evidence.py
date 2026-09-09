@@ -9,11 +9,12 @@ import json
 from pathlib import Path
 
 import numpy as np
+from runtime_paths import INPUT_ROOT
 
 ROOT = Path(__file__).resolve().parent
-RAW = ROOT / "results" / "raw"
-PROCESSED = ROOT / "results" / "processed"
-AGENT_OUTPUTS = ROOT / "audits"
+RAW = INPUT_ROOT / "results" / "raw"
+PROCESSED = INPUT_ROOT / "results" / "processed"
+AGENT_OUTPUTS = INPUT_ROOT / "audits"
 
 
 def check(condition: bool, message: str) -> None:
@@ -27,12 +28,7 @@ def load_complete(path: Path) -> dict[str, np.ndarray]:
 
 
 def verify_all_npz() -> int:
-    paths = sorted(
-        [
-            *ROOT.rglob("*.npz"),
-            *AGENT_OUTPUTS.rglob("*.npz"),
-        ]
-    )
+    paths = sorted(INPUT_ROOT.rglob("*.npz"))
     for path in paths:
         arrays = load_complete(path)
         check(bool(arrays), f"empty archive: {path}")

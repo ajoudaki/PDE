@@ -11,8 +11,9 @@ case "${1:-}" in
     PYTHONPATH=src "$python_bin" -m unittest discover -s tests -v
     ;;
   evidence)
-    if [[ ! -f results/raw/pde_QMC_P5_N16_M256_R128_s20260723_dt0p02_T8.npz ]]; then
-      echo "Raw evidence is absent. Run protocol/reproduce_full.sh first." >&2
+    input_dir="$("$python_bin" -B -c 'from runtime_paths import INPUT_ROOT; print(INPUT_ROOT)')"
+    if [[ ! -f "$input_dir/results/raw/pde_QMC_P5_N16_M256_R128_s20260723_dt0p02_T8.npz" ]]; then
+      echo "Raw evidence is absent in $input_dir. Select PDE_OPERATOR_INPUT_ROOT or reproduce into that run directory." >&2
       exit 2
     fi
     PYTHONPATH=src "$python_bin" -m unittest discover -s tests -v

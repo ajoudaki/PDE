@@ -9,7 +9,7 @@
 - one BLAS thread
 
 The exact environment and BLAS build are written to
-`metadata/environment.json` at run time.
+`metadata/environment.json` under the selected generated run directory at run time.
 
 ## Commands
 
@@ -22,6 +22,7 @@ export MPLCONFIGDIR="${TMPDIR:-/tmp}/dense_mup_mpl"
 python -m unittest discover -s tests -v
 python run_all.py --config config/protocol.json
 python make_manifest.py
+python make_manifest.py --verify
 ```
 
 ## Determinism
@@ -51,11 +52,18 @@ Each compressed NPZ contains:
 
 Load without pickle:
 
+The default run directory is repository
+`data/generated/resnet_dense_long_horizon/`. The example below is run from this
+study directory. If using `--output-root`, select that same root here and in
+both manifest commands.
+
 ```python
 import json
 import numpy as np
+from pathlib import Path
 
-with np.load("results/raw/<run>.npz", allow_pickle=False) as z:
+run_root = Path("../../data/generated/resnet_dense_long_horizon").resolve()
+with np.load(run_root / "results/raw/<run>.npz", allow_pickle=False) as z:
     metadata = json.loads(str(z["metadata_json"]))
     times = z["times"]
     grams = z["grams"]
@@ -63,8 +71,16 @@ with np.load("results/raw/<run>.npz", allow_pickle=False) as z:
 
 ## Verification
 
-After reproduction, from the bundle root:
+After reproduction, from the study root, verify the newly generated manifest:
 
 ```bash
-sha256sum -c metadata/SHA256SUMS
+python make_manifest.py --verify
 ```
+
+For a selected run, add the same `--output-root /absolute/path/to/run` used by
+the producer. Verification is read-only and resolves schema-2 `source` and
+`run` roots from the selected `metadata/manifest.json`, checking the companion
+`SHA256SUMS` too. Its virtual prefixes are not physical paths relative to the
+source directory. The retained source-side historical seal is not modified or
+used to certify a new run. These checks verify recorded bytes, not scientific
+correctness or cross-environment equality of newly generated arrays.

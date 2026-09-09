@@ -62,3 +62,23 @@ No expensive compiler, simulation, plotting workflow, package installation or
 scientific reanalysis was run. Syntax and routing checks do not establish that
 all historical workflows reproduce in the minimal core environment. Independent
 routing acceptance remains required.
+
+## Independent round 1 and repaired verification chain
+
+The independent review is retained in `../reviews/MAIN_ROUTING_ROUND1.md`,
+with its NOTCLEAN verdict. It found a source-bound operator verifier and two
+reproduction guides that still selected the old source/seal layout. Those were
+not detected by the initial 13 tests.
+
+The operator shell/Python verifiers now use the same selected input root as
+the producers and analyses, while source inspection keeps its own source root.
+The early-audit guide uses the generated defaults. The long-horizon guide now
+loads the selected run and calls `make_manifest.py --verify`, which resolves
+both schema-2 roots and verifies bytes and the companion checksum listing
+without rewriting either file. Historical seals are unchanged.
+
+The revised suite has 10 ResNet tests and 6 quadratic tests, all passing.
+New checks cover the actual missing-evidence shell branch, imported verifier
+roots, read-only manifest verification/tamper detection and the reproduction
+guides. A fresh isolated round 2 is in progress; these are implementation
+checks, not its verdict.

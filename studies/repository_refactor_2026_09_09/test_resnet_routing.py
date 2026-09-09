@@ -65,7 +65,8 @@ class RoutingTests(unittest.TestCase):
             self.assertIn('OUT = OUTPUT_ROOT / "audits" / "statistical_audit"', text)
 
     def test_reproduction_paths_and_syntax(self):
-        for script in (OPERATOR / "protocol/reproduce_full.sh", LONG / "reproduce.sh"):
+        for script in (OPERATOR / "protocol/reproduce_full.sh", OPERATOR / "protocol/verify_bundle.sh",
+                       LONG / "reproduce.sh"):
             subprocess.run(["bash", "-n", str(script)], check=True)
         text = (OPERATOR / "protocol/reproduce_full.sh").read_text()
         self.assertNotIn("--restart-from results/", text)
@@ -94,6 +95,45 @@ class RoutingTests(unittest.TestCase):
                 path = Path(manifest["roots"][row["root"]]) / row["path"]
                 self.assertEqual(row["sha256"], hashlib.sha256(path.read_bytes()).hexdigest())
             self.assertFalse((source / "metadata").exists())
+            # Verification is read-only, resolves both roots, and detects tampering.
+            before = (output / "metadata/manifest.json").read_bytes()
+            with patch.object(sys, "argv", ["make_manifest", "--output-root", str(output), "--verify"]):
+                module.main()
+            self.assertEqual((output / "metadata/manifest.json").read_bytes(), before)
+            (output / "result.txt").write_text("tampered")
+            with self.assertRaisesRegex(ValueError, "Checksum mismatch"):
+                module.verify_manifest(output / "metadata/manifest.json")
+
+    def test_operator_verifier_uses_selected_evidence(self):
+        with tempfile.TemporaryDirectory() as temp:
+            with patch.dict(os.environ, {"PDE_OPERATOR_INPUT_ROOT": temp}, clear=True):
+                helper = load(OPERATOR / "runtime_paths.py")
+            with patch.dict(sys.modules, {"runtime_paths": helper}):
+                verifier = load(OPERATOR / "verify_evidence.py")
+            self.assertEqual(verifier.RAW, Path(temp) / "results/raw")
+            self.assertEqual(verifier.PROCESSED, Path(temp) / "results/processed")
+            self.assertEqual(verifier.AGENT_OUTPUTS, Path(temp) / "audits")
+            self.assertEqual(verifier.verify_all_npz(), 0)
+            self.assertEqual(list(Path(temp).iterdir()), [])
+
+    def test_operator_shell_missing_evidence_uses_selected_root(self):
+        with tempfile.TemporaryDirectory() as temp:
+            env = dict(os.environ, PDE_OPERATOR_INPUT_ROOT=temp,
+                       PYTHON_BIN=sys.executable, PYTHONDONTWRITEBYTECODE="1")
+            result = subprocess.run(["bash", str(OPERATOR / "protocol/verify_bundle.sh"), "evidence"],
+                                    env=env, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 2)
+            self.assertIn(temp, result.stderr)
+            self.assertEqual(list(Path(temp).iterdir()), [])
+
+    def test_reproduction_guides_select_fresh_artifacts(self):
+        early = (REPO / "studies/resnet_dense_early_audit/REPRODUCE.md").read_text()
+        self.assertNotIn("--out results/", early)
+        self.assertNotIn("GALERKIN_OUT=results/", early)
+        long = (LONG / "REPRODUCE.md").read_text()
+        self.assertNotIn("sha256sum -c metadata/", long)
+        self.assertIn("python make_manifest.py --verify", long)
+        self.assertIn("../../data/generated/resnet_dense_long_horizon", long)
 
     def test_long_analysis_explicit_report(self):
         text = (LONG / "run_all.py").read_text()
