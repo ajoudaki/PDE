@@ -1,0 +1,842 @@
+[
+  {
+    "path": "studies/_output_paths.py",
+    "before_sha256": "8e67059e7083fcb5d230de92f1daa4387dba4da1c081e3f111180cef1e2cd02e",
+    "bytes": 4267,
+    "lines": 89,
+    "after_sha256": "8e67059e7083fcb5d230de92f1daa4387dba4da1c081e3f111180cef1e2cd02e",
+    "snapshot_after_sha256": "8e67059e7083fcb5d230de92f1daa4387dba4da1c081e3f111180cef1e2cd02e",
+    "initial_target_sha256": "8e67059e7083fcb5d230de92f1daa4387dba4da1c081e3f111180cef1e2cd02e",
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/b2/__init__.py",
+    "before_sha256": "2f33347ceed59917d18693aef1e19dfd50a2e41068a8d343e0d66ac1b6c0b6f6",
+    "bytes": 62,
+    "lines": 1,
+    "after_sha256": "2f33347ceed59917d18693aef1e19dfd50a2e41068a8d343e0d66ac1b6c0b6f6",
+    "snapshot_after_sha256": "2f33347ceed59917d18693aef1e19dfd50a2e41068a8d343e0d66ac1b6c0b6f6",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/b2/model.py",
+    "before_sha256": "d331878645a4ae819e5e1a5b834c5fe5905d635d06d98929563e88b8d5082121",
+    "bytes": 2618,
+    "lines": 74,
+    "after_sha256": "d331878645a4ae819e5e1a5b834c5fe5905d635d06d98929563e88b8d5082121",
+    "snapshot_after_sha256": "d331878645a4ae819e5e1a5b834c5fe5905d635d06d98929563e88b8d5082121",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth/__init__.py",
+    "before_sha256": "cba2f9881a32d2eaafd90c6f7398b2141ddd1a43d9e0275870ba9c6b942420e1",
+    "bytes": 418,
+    "lines": 15,
+    "after_sha256": "cba2f9881a32d2eaafd90c6f7398b2141ddd1a43d9e0275870ba9c6b942420e1",
+    "snapshot_after_sha256": "cba2f9881a32d2eaafd90c6f7398b2141ddd1a43d9e0275870ba9c6b942420e1",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth/finite_width_jet.py",
+    "before_sha256": "ccd3f6fef4aef507a472b68d33ef6ba615d123fcdc0a5f23dfe06f680cac3308",
+    "bytes": 5861,
+    "lines": 167,
+    "after_sha256": "ccd3f6fef4aef507a472b68d33ef6ba615d123fcdc0a5f23dfe06f680cac3308",
+    "snapshot_after_sha256": "ccd3f6fef4aef507a472b68d33ef6ba615d123fcdc0a5f23dfe06f680cac3308",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth/gnf_recursion.py",
+    "before_sha256": "b272cb78a8201156f3456954828aeff87361134af31eb334491d3f261537f0dd",
+    "bytes": 16182,
+    "lines": 461,
+    "after_sha256": "b272cb78a8201156f3456954828aeff87361134af31eb334491d3f261537f0dd",
+    "snapshot_after_sha256": "b272cb78a8201156f3456954828aeff87361134af31eb334491d3f261537f0dd",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth/model.py",
+    "before_sha256": "8e3864431d2f9630544f98ba8adaa63e4eb69cd0ccde0e32c1c306d2bb4dfa1f",
+    "bytes": 4509,
+    "lines": 127,
+    "after_sha256": "8e3864431d2f9630544f98ba8adaa63e4eb69cd0ccde0e32c1c306d2bb4dfa1f",
+    "snapshot_after_sha256": "8e3864431d2f9630544f98ba8adaa63e4eb69cd0ccde0e32c1c306d2bb4dfa1f",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/__init__.py",
+    "before_sha256": "70ebbc7f140645c2dc713704c355acfb4a7bae14a337184efeb20b0f06bbc938",
+    "bytes": 68,
+    "lines": 1,
+    "after_sha256": "70ebbc7f140645c2dc713704c355acfb4a7bae14a337184efeb20b0f06bbc938",
+    "snapshot_after_sha256": "70ebbc7f140645c2dc713704c355acfb4a7bae14a337184efeb20b0f06bbc938",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/audit/audit_symbolic_q0.py",
+    "before_sha256": "418e2115aa982222a36b385e372dc845bcaae7e13a2abbb3e1ce18f6094a26f4",
+    "bytes": 6256,
+    "lines": 159,
+    "after_sha256": "418e2115aa982222a36b385e372dc845bcaae7e13a2abbb3e1ce18f6094a26f4",
+    "snapshot_after_sha256": "418e2115aa982222a36b385e372dc845bcaae7e13a2abbb3e1ce18f6094a26f4",
+    "initial_target_sha256": "418e2115aa982222a36b385e372dc845bcaae7e13a2abbb3e1ce18f6094a26f4",
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/audit/compare_frozen.py",
+    "before_sha256": "311b469d4914a6d4a28b7ea8f8cbc9b6fa9a73ce4c5a9c81dd006ac4c05fd820",
+    "bytes": 10004,
+    "lines": 231,
+    "after_sha256": "311b469d4914a6d4a28b7ea8f8cbc9b6fa9a73ce4c5a9c81dd006ac4c05fd820",
+    "snapshot_after_sha256": "311b469d4914a6d4a28b7ea8f8cbc9b6fa9a73ce4c5a9c81dd006ac4c05fd820",
+    "initial_target_sha256": "311b469d4914a6d4a28b7ea8f8cbc9b6fa9a73ce4c5a9c81dd006ac4c05fd820",
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/audit/run_checks.py",
+    "before_sha256": "fb13521621f22a27ca54ddcbf011aea3affbda9bb443141a2869f217ddfb86f6",
+    "bytes": 5207,
+    "lines": 119,
+    "after_sha256": "fb13521621f22a27ca54ddcbf011aea3affbda9bb443141a2869f217ddfb86f6",
+    "snapshot_after_sha256": "fb13521621f22a27ca54ddcbf011aea3affbda9bb443141a2869f217ddfb86f6",
+    "initial_target_sha256": "fb13521621f22a27ca54ddcbf011aea3affbda9bb443141a2869f217ddfb86f6",
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/audit/run_normalized_sine_experiment.py",
+    "before_sha256": "88b335e1cfef56ead1afb6c5444a97b25ff9258e921adb961f2d1e88a327f5c5",
+    "bytes": 9572,
+    "lines": 247,
+    "after_sha256": "88b335e1cfef56ead1afb6c5444a97b25ff9258e921adb961f2d1e88a327f5c5",
+    "snapshot_after_sha256": "88b335e1cfef56ead1afb6c5444a97b25ff9258e921adb961f2d1e88a327f5c5",
+    "initial_target_sha256": "88b335e1cfef56ead1afb6c5444a97b25ff9258e921adb961f2d1e88a327f5c5",
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/common/__init__.py",
+    "before_sha256": "11b22087680e4934a4272193b64b5fbcd70b80deda5144c1105cbb7ad512f2bf",
+    "bytes": 78,
+    "lines": 1,
+    "after_sha256": "11b22087680e4934a4272193b64b5fbcd70b80deda5144c1105cbb7ad512f2bf",
+    "snapshot_after_sha256": "11b22087680e4934a4272193b64b5fbcd70b80deda5144c1105cbb7ad512f2bf",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/common/finite_width_jet.py",
+    "before_sha256": "b1a38eabc43412fe27894e11852e56f1cb6efdcc0180a10687013dcf5c37c6ff",
+    "bytes": 6650,
+    "lines": 209,
+    "after_sha256": "b1a38eabc43412fe27894e11852e56f1cb6efdcc0180a10687013dcf5c37c6ff",
+    "snapshot_after_sha256": "b1a38eabc43412fe27894e11852e56f1cb6efdcc0180a10687013dcf5c37c6ff",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/independent/FROZEN_MANIFEST.json",
+    "before_sha256": "dee0198e119864a90195101466f29f3ab2f248495c6e6a3494f35cafd3f2502b",
+    "bytes": 2079,
+    "lines": 1,
+    "after_sha256": "dee0198e119864a90195101466f29f3ab2f248495c6e6a3494f35cafd3f2502b",
+    "snapshot_after_sha256": "dee0198e119864a90195101466f29f3ab2f248495c6e6a3494f35cafd3f2502b",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/independent/FROZEN_MANIFEST_SHA256.txt",
+    "before_sha256": "9b60e50984afb9cf9c691858ba7bbac3e92161a0631fee4eb30d7235abec382f",
+    "bytes": 87,
+    "lines": 1,
+    "after_sha256": "9b60e50984afb9cf9c691858ba7bbac3e92161a0631fee4eb30d7235abec382f",
+    "snapshot_after_sha256": "9b60e50984afb9cf9c691858ba7bbac3e92161a0631fee4eb30d7235abec382f",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/independent/__init__.py",
+    "before_sha256": "e122c710db8e3d2ae132cec384b9bc35b23d32dc0a79ccfb45d861a86266ede8",
+    "bytes": 76,
+    "lines": 1,
+    "after_sha256": "e122c710db8e3d2ae132cec384b9bc35b23d32dc0a79ccfb45d861a86266ede8",
+    "snapshot_after_sha256": "e122c710db8e3d2ae132cec384b9bc35b23d32dc0a79ccfb45d861a86266ede8",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/independent/compare_symbolic_q0.py",
+    "before_sha256": "7f5a03301c214830b9575da7d785c4736aef8afcd9b2a4611268b5e2a07692fe",
+    "bytes": 6592,
+    "lines": 178,
+    "after_sha256": "7f5a03301c214830b9575da7d785c4736aef8afcd9b2a4611268b5e2a07692fe",
+    "snapshot_after_sha256": "7f5a03301c214830b9575da7d785c4736aef8afcd9b2a4611268b5e2a07692fe",
+    "initial_target_sha256": "7f5a03301c214830b9575da7d785c4736aef8afcd9b2a4611268b5e2a07692fe",
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/independent/depth_factored.py",
+    "before_sha256": "118ac528a2e9feb400cfcb66575c252eac4b6e0e4278dee92735a5e1e90fec49",
+    "bytes": 28782,
+    "lines": 696,
+    "after_sha256": "118ac528a2e9feb400cfcb66575c252eac4b6e0e4278dee92735a5e1e90fec49",
+    "snapshot_after_sha256": "118ac528a2e9feb400cfcb66575c252eac4b6e0e4278dee92735a5e1e90fec49",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/primary/PRIMARY_FREEZE_MANIFEST.json",
+    "before_sha256": "f4838437c1fb70b14713d39e8438d703434c49ffd72001beeb6fee8d53366b30",
+    "bytes": 3996,
+    "lines": 135,
+    "after_sha256": "f4838437c1fb70b14713d39e8438d703434c49ffd72001beeb6fee8d53366b30",
+    "snapshot_after_sha256": "f4838437c1fb70b14713d39e8438d703434c49ffd72001beeb6fee8d53366b30",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/primary/PRIMARY_FREEZE_SHA256.txt",
+    "before_sha256": "bf3e03e6adbd9a808fe513c20e3eaec4e035faedced76c11f8fa3d1d101f4d79",
+    "bytes": 95,
+    "lines": 1,
+    "after_sha256": "bf3e03e6adbd9a808fe513c20e3eaec4e035faedced76c11f8fa3d1d101f4d79",
+    "snapshot_after_sha256": "bf3e03e6adbd9a808fe513c20e3eaec4e035faedced76c11f8fa3d1d101f4d79",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/primary/__init__.py",
+    "before_sha256": "8849fcc2d43b7aa75954dbe9980016e4d682a672001f2b7197f35c118f205637",
+    "bytes": 71,
+    "lines": 2,
+    "after_sha256": "8849fcc2d43b7aa75954dbe9980016e4d682a672001f2b7197f35c118f205637",
+    "snapshot_after_sha256": "8849fcc2d43b7aa75954dbe9980016e4d682a672001f2b7197f35c118f205637",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/primary/build_self_contained_report.py",
+    "before_sha256": "dd00192dbdd61b0618faa843595314ee7c5ae46ebdb5035c3c315bba03c5fb2f",
+    "bytes": 5738,
+    "lines": 153,
+    "after_sha256": "dd00192dbdd61b0618faa843595314ee7c5ae46ebdb5035c3c315bba03c5fb2f",
+    "snapshot_after_sha256": "dd00192dbdd61b0618faa843595314ee7c5ae46ebdb5035c3c315bba03c5fb2f",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/primary/compare_frozen_routes.py",
+    "before_sha256": "8dad16c6f42c51a6d9a69340242c0d337d669a45b258079cd11bbcf1c0c43f4d",
+    "bytes": 5252,
+    "lines": 135,
+    "after_sha256": "8dad16c6f42c51a6d9a69340242c0d337d669a45b258079cd11bbcf1c0c43f4d",
+    "snapshot_after_sha256": "8dad16c6f42c51a6d9a69340242c0d337d669a45b258079cd11bbcf1c0c43f4d",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/primary/depth_population_jet.py",
+    "before_sha256": "8f5dcc4b65c283632afe6c9b0a7e54aff575ba9cb83e9aca32f7a6bf9870dea6",
+    "bytes": 23448,
+    "lines": 633,
+    "after_sha256": "8f5dcc4b65c283632afe6c9b0a7e54aff575ba9cb83e9aca32f7a6bf9870dea6",
+    "snapshot_after_sha256": "8f5dcc4b65c283632afe6c9b0a7e54aff575ba9cb83e9aca32f7a6bf9870dea6",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/primary/freeze_primary.py",
+    "before_sha256": "9d344788c012f4510bbae6b3b45bd90a6c8acf8dae05cac2c014bd1939d91ddc",
+    "bytes": 4102,
+    "lines": 117,
+    "after_sha256": "9d344788c012f4510bbae6b3b45bd90a6c8acf8dae05cac2c014bd1939d91ddc",
+    "snapshot_after_sha256": "9d344788c012f4510bbae6b3b45bd90a6c8acf8dae05cac2c014bd1939d91ddc",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/primary/generate_frozen_artifacts.py",
+    "before_sha256": "86fcf771714206a6117fcdac0304706691d4d605838a03358e87b4bb2f07cff3",
+    "bytes": 5793,
+    "lines": 158,
+    "after_sha256": "86fcf771714206a6117fcdac0304706691d4d605838a03358e87b4bb2f07cff3",
+    "snapshot_after_sha256": "86fcf771714206a6117fcdac0304706691d4d605838a03358e87b4bb2f07cff3",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5/primary/run_lightweight_checks.py",
+    "before_sha256": "9821ad2d8aaa32b5df0a5d021ea04daeacc6a4c7d654f3ff80aa4f01dc465c76",
+    "bytes": 3725,
+    "lines": 83,
+    "after_sha256": "9821ad2d8aaa32b5df0a5d021ea04daeacc6a4c7d654f3ff80aa4f01dc465c76",
+    "snapshot_after_sha256": "9821ad2d8aaa32b5df0a5d021ea04daeacc6a4c7d654f3ff80aa4f01dc465c76",
+    "initial_target_sha256": "9821ad2d8aaa32b5df0a5d021ea04daeacc6a4c7d654f3ff80aa4f01dc465c76",
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/finite_width_hidden_jet.py",
+    "before_sha256": "0d34f47a9ecbb726ad467ffd5118ea0b3c2be3a8b8109631e219f9d603bc46f1",
+    "bytes": 9750,
+    "lines": 276,
+    "after_sha256": "0d34f47a9ecbb726ad467ffd5118ea0b3c2be3a8b8109631e219f9d603bc46f1",
+    "snapshot_after_sha256": "0d34f47a9ecbb726ad467ffd5118ea0b3c2be3a8b8109631e219f9d603bc46f1",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/gamma04_contraction.py",
+    "before_sha256": "8c4f636b688184fdeefd289150aa2d90b8c11af0cec4b2bb1748c167561d0d86",
+    "bytes": 15026,
+    "lines": 478,
+    "after_sha256": "8c4f636b688184fdeefd289150aa2d90b8c11af0cec4b2bb1748c167561d0d86",
+    "snapshot_after_sha256": "8c4f636b688184fdeefd289150aa2d90b8c11af0cec4b2bb1748c167561d0d86",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/reduce_frozen_head.py",
+    "before_sha256": "b4bbc0723e476cf312bb57f4e73b2364837ebc4d219a2e72be8b995a072012e6",
+    "bytes": 3796,
+    "lines": 96,
+    "after_sha256": "b4bbc0723e476cf312bb57f4e73b2364837ebc4d219a2e72be8b995a072012e6",
+    "snapshot_after_sha256": "b4bbc0723e476cf312bb57f4e73b2364837ebc4d219a2e72be8b995a072012e6",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/run_sine_experiment.py",
+    "before_sha256": "7c0d61ceb4cc2270d01b6a06215720abaa6c4485fc36025102a7dafc86eafa3b",
+    "bytes": 7007,
+    "lines": 192,
+    "after_sha256": "7c0d61ceb4cc2270d01b6a06215720abaa6c4485fc36025102a7dafc86eafa3b",
+    "snapshot_after_sha256": "7c0d61ceb4cc2270d01b6a06215720abaa6c4485fc36025102a7dafc86eafa3b",
+    "initial_target_sha256": "7c0d61ceb4cc2270d01b6a06215720abaa6c4485fc36025102a7dafc86eafa3b",
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/audit/exact_controls.py",
+    "before_sha256": "bd30b9f330794a949a37e9542bced4b9e30a4242b9381936997f9eca0cf53667",
+    "bytes": 3310,
+    "lines": 111,
+    "after_sha256": "bd30b9f330794a949a37e9542bced4b9e30a4242b9381936997f9eca0cf53667",
+    "snapshot_after_sha256": "bd30b9f330794a949a37e9542bced4b9e30a4242b9381936997f9eca0cf53667",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/audit/reference_maps.py",
+    "before_sha256": "1c14f9c540ece4afe0cc921e99e292c96d83e581fd0b2d514e1ea5ae74d9f3f3",
+    "bytes": 4491,
+    "lines": 130,
+    "after_sha256": "1c14f9c540ece4afe0cc921e99e292c96d83e581fd0b2d514e1ea5ae74d9f3f3",
+    "snapshot_after_sha256": "1c14f9c540ece4afe0cc921e99e292c96d83e581fd0b2d514e1ea5ae74d9f3f3",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/independent/build_full_report.py",
+    "before_sha256": "236bcceb8375018b71001e98d2df395244dc53a7d72ad3e239563565dc29c44d",
+    "bytes": 2130,
+    "lines": 63,
+    "after_sha256": "236bcceb8375018b71001e98d2df395244dc53a7d72ad3e239563565dc29c44d",
+    "snapshot_after_sha256": "236bcceb8375018b71001e98d2df395244dc53a7d72ad3e239563565dc29c44d",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/independent/depth_assembler.py",
+    "before_sha256": "2d87ca91cebf873a23def3c42c36994a04b9ef08008986468211f84ea1881bc8",
+    "bytes": 13521,
+    "lines": 366,
+    "after_sha256": "2d87ca91cebf873a23def3c42c36994a04b9ef08008986468211f84ea1881bc8",
+    "snapshot_after_sha256": "2d87ca91cebf873a23def3c42c36994a04b9ef08008986468211f84ea1881bc8",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/independent/forward_contraction.py",
+    "before_sha256": "f7eb735516f04ef0bc8db8e545640e7982d54241553c6cce0d3718bd681be3ce",
+    "bytes": 14384,
+    "lines": 449,
+    "after_sha256": "f7eb735516f04ef0bc8db8e545640e7982d54241553c6cce0d3718bd681be3ce",
+    "snapshot_after_sha256": "f7eb735516f04ef0bc8db8e545640e7982d54241553c6cce0d3718bd681be3ce",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/independent/moving_contraction.py",
+    "before_sha256": "54bf55c3dfea5334ef06673e539d47a0cef6ddb6508dd2467d54b001baecc47d",
+    "bytes": 14475,
+    "lines": 424,
+    "after_sha256": "54bf55c3dfea5334ef06673e539d47a0cef6ddb6508dd2467d54b001baecc47d",
+    "snapshot_after_sha256": "54bf55c3dfea5334ef06673e539d47a0cef6ddb6508dd2467d54b001baecc47d",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/independent/reverse_contraction.py",
+    "before_sha256": "1c50b62ba68d976fc28fe228c5143ba9923ad6e7718541aabf638467503e3036",
+    "bytes": 13288,
+    "lines": 407,
+    "after_sha256": "1c50b62ba68d976fc28fe228c5143ba9923ad6e7718541aabf638467503e3036",
+    "snapshot_after_sha256": "1c50b62ba68d976fc28fe228c5143ba9923ad6e7718541aabf638467503e3036",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/__init__.py",
+    "before_sha256": "0586af8637db3ef346f1fc4a62803932dde984a54201cf885da05e95917b3f8a",
+    "bytes": 74,
+    "lines": 1,
+    "after_sha256": "0586af8637db3ef346f1fc4a62803932dde984a54201cf885da05e95917b3f8a",
+    "snapshot_after_sha256": "0586af8637db3ef346f1fc4a62803932dde984a54201cf885da05e95917b3f8a",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/postprocess_h3_curvature_extension.py",
+    "before_sha256": "fd883f8805c2e764274428aa8f3e888b985c0a70e75de5e72ad0a7d7de954ea3",
+    "bytes": 2627,
+    "lines": 76,
+    "after_sha256": "fd883f8805c2e764274428aa8f3e888b985c0a70e75de5e72ad0a7d7de954ea3",
+    "snapshot_after_sha256": "fd883f8805c2e764274428aa8f3e888b985c0a70e75de5e72ad0a7d7de954ea3",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/postprocess_h3_sine_regression.py",
+    "before_sha256": "19af852cd3c7b8dbc726ed2c2e9422e7eec58784539641b8aea527af7540765e",
+    "bytes": 4538,
+    "lines": 116,
+    "after_sha256": "19af852cd3c7b8dbc726ed2c2e9422e7eec58784539641b8aea527af7540765e",
+    "snapshot_after_sha256": "19af852cd3c7b8dbc726ed2c2e9422e7eec58784539641b8aea527af7540765e",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_h3_curvature_extension.py",
+    "before_sha256": "d9029a693014ffdf8517a8ce9076011f081401a2b0b25efd77b10ef37e5a00ba",
+    "bytes": 9403,
+    "lines": 228,
+    "after_sha256": "d9029a693014ffdf8517a8ce9076011f081401a2b0b25efd77b10ef37e5a00ba",
+    "snapshot_after_sha256": "d9029a693014ffdf8517a8ce9076011f081401a2b0b25efd77b10ef37e5a00ba",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_h3_sine_regression.py",
+    "before_sha256": "1ea3788530c851c12f74719a3133f5cb20179d78129fd3844db6fbb3a69cf38f",
+    "bytes": 5816,
+    "lines": 155,
+    "after_sha256": "1ea3788530c851c12f74719a3133f5cb20179d78129fd3844db6fbb3a69cf38f",
+    "snapshot_after_sha256": "1ea3788530c851c12f74719a3133f5cb20179d78129fd3844db6fbb3a69cf38f",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+    "before_sha256": "58f5f44cfa5f812748f6c840fa75e359b90bc163aa70b33b31996d7e068fc3f3",
+    "bytes": 18892,
+    "lines": 421,
+    "after_sha256": "58f5f44cfa5f812748f6c840fa75e359b90bc163aa70b33b31996d7e068fc3f3",
+    "snapshot_after_sha256": "58f5f44cfa5f812748f6c840fa75e359b90bc163aa70b33b31996d7e068fc3f3",
+    "initial_target_sha256": "58f5f44cfa5f812748f6c840fa75e359b90bc163aa70b33b31996d7e068fc3f3",
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/__init__.py",
+    "before_sha256": "7b2909833cb3b3c01a16a7e1b25d86610d8afa0cb0dfe3c4e7a6ec018c7b06a7",
+    "bytes": 64,
+    "lines": 1,
+    "after_sha256": "7b2909833cb3b3c01a16a7e1b25d86610d8afa0cb0dfe3c4e7a6ec018c7b06a7",
+    "snapshot_after_sha256": "7b2909833cb3b3c01a16a7e1b25d86610d8afa0cb0dfe3c4e7a6ec018c7b06a7",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/finite_width_hidden.py",
+    "before_sha256": "87f690e201141e512299159cd2ba793d5e1785b7fd1421dd61cfa747c4e2a4c9",
+    "bytes": 8988,
+    "lines": 272,
+    "after_sha256": "87f690e201141e512299159cd2ba793d5e1785b7fd1421dd61cfa747c4e2a4c9",
+    "snapshot_after_sha256": "87f690e201141e512299159cd2ba793d5e1785b7fd1421dd61cfa747c4e2a4c9",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/gamma04_contraction.py",
+    "before_sha256": "c4883c8fa6513d15b241a548cac220b780413d64b7249afafeef96820af4153a",
+    "bytes": 12606,
+    "lines": 421,
+    "after_sha256": "c4883c8fa6513d15b241a548cac220b780413d64b7249afafeef96820af4153a",
+    "snapshot_after_sha256": "c4883c8fa6513d15b241a548cac220b780413d64b7249afafeef96820af4153a",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/numeric_head.py",
+    "before_sha256": "9fe19fbad71c483c7f95a16637c45910c9b0006d8524b4343f12d2b58083b8e6",
+    "bytes": 10733,
+    "lines": 321,
+    "after_sha256": "9fe19fbad71c483c7f95a16637c45910c9b0006d8524b4343f12d2b58083b8e6",
+    "snapshot_after_sha256": "9fe19fbad71c483c7f95a16637c45910c9b0006d8524b4343f12d2b58083b8e6",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/audit_hostile.py",
+    "before_sha256": "1b75a9ffb4fd899c0e19b545ac9ad52743af74ed76df2b3d82a79884f85dd1b5",
+    "bytes": 30439,
+    "lines": 775,
+    "after_sha256": "1b75a9ffb4fd899c0e19b545ac9ad52743af74ed76df2b3d82a79884f85dd1b5",
+    "snapshot_after_sha256": "1b75a9ffb4fd899c0e19b545ac9ad52743af74ed76df2b3d82a79884f85dd1b5",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/compiler/__init__.py",
+    "before_sha256": "2e143f9ec659cbdc55517fb91373705ac7c95335105b82be3f7a39ac4dc67ea1",
+    "bytes": 72,
+    "lines": 2,
+    "after_sha256": "2e143f9ec659cbdc55517fb91373705ac7c95335105b82be3f7a39ac4dc67ea1",
+    "snapshot_after_sha256": "2e143f9ec659cbdc55517fb91373705ac7c95335105b82be3f7a39ac4dc67ea1",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/compiler/artifact_evaluator.py",
+    "before_sha256": "c863e7a752db167c776fd82ea7810bcf5a4c39eb3e7f014239f689e0f4f9a6b0",
+    "bytes": 2069,
+    "lines": 59,
+    "after_sha256": "c863e7a752db167c776fd82ea7810bcf5a4c39eb3e7f014239f689e0f4f9a6b0",
+    "snapshot_after_sha256": "c863e7a752db167c776fd82ea7810bcf5a4c39eb3e7f014239f689e0f4f9a6b0",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/compiler/build_self_contained_report.py",
+    "before_sha256": "7f288e0f87ffebacebf5a076e035e67992c9c043830778460590a20a97047980",
+    "bytes": 2417,
+    "lines": 68,
+    "after_sha256": "7f288e0f87ffebacebf5a076e035e67992c9c043830778460590a20a97047980",
+    "snapshot_after_sha256": "7f288e0f87ffebacebf5a076e035e67992c9c043830778460590a20a97047980",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/compiler/coefficient_map.py",
+    "before_sha256": "43b09b660ae01e722ca6c43814220e4da94c2cc233415750d46a7aca63cbbc78",
+    "bytes": 2220,
+    "lines": 57,
+    "after_sha256": "43b09b660ae01e722ca6c43814220e4da94c2cc233415750d46a7aca63cbbc78",
+    "snapshot_after_sha256": "43b09b660ae01e722ca6c43814220e4da94c2cc233415750d46a7aca63cbbc78",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/compiler/compare_independent.py",
+    "before_sha256": "26349de37914ad03edd7a1487a2d514565a07d0959ff33e89175667f5d3f4621",
+    "bytes": 9670,
+    "lines": 241,
+    "after_sha256": "26349de37914ad03edd7a1487a2d514565a07d0959ff33e89175667f5d3f4621",
+    "snapshot_after_sha256": "26349de37914ad03edd7a1487a2d514565a07d0959ff33e89175667f5d3f4621",
+    "initial_target_sha256": "26349de37914ad03edd7a1487a2d514565a07d0959ff33e89175667f5d3f4621",
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/compiler/factored_expression.py",
+    "before_sha256": "a99a2b353e46f485d4be1f7d56d10fd551550f1230b205e3d927eee6a04a99df",
+    "bytes": 12137,
+    "lines": 362,
+    "after_sha256": "a99a2b353e46f485d4be1f7d56d10fd551550f1230b205e3d927eee6a04a99df",
+    "snapshot_after_sha256": "a99a2b353e46f485d4be1f7d56d10fd551550f1230b205e3d927eee6a04a99df",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/compiler/generate_artifacts.py",
+    "before_sha256": "c86f3f889e41a979102832b3ab6f885680c8bef9714d0505012a08052223cc32",
+    "bytes": 2955,
+    "lines": 87,
+    "after_sha256": "c86f3f889e41a979102832b3ab6f885680c8bef9714d0505012a08052223cc32",
+    "snapshot_after_sha256": "c86f3f889e41a979102832b3ab6f885680c8bef9714d0505012a08052223cc32",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/compiler/population_jet.py",
+    "before_sha256": "d6fa637a38a7fbf0b6e8182aa7a44d6a301d1ac99926f543ed6dabf8b56ca9d6",
+    "bytes": 26277,
+    "lines": 659,
+    "after_sha256": "d6fa637a38a7fbf0b6e8182aa7a44d6a301d1ac99926f543ed6dabf8b56ca9d6",
+    "snapshot_after_sha256": "d6fa637a38a7fbf0b6e8182aa7a44d6a301d1ac99926f543ed6dabf8b56ca9d6",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/compiler/run_checks.py",
+    "before_sha256": "53f2689fdda0a4cefd26ab3a6f787b93f277f6851475ca64e53ae15e11b1a53b",
+    "bytes": 407,
+    "lines": 19,
+    "after_sha256": "53f2689fdda0a4cefd26ab3a6f787b93f277f6851475ca64e53ae15e11b1a53b",
+    "snapshot_after_sha256": "53f2689fdda0a4cefd26ab3a6f787b93f277f6851475ca64e53ae15e11b1a53b",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/compiler/smooth_control.py",
+    "before_sha256": "c9cb68f0ee3b628fbf49132a8407ac29669e8e503e3f5c653d84c6de5cab9476",
+    "bytes": 2467,
+    "lines": 71,
+    "after_sha256": "c9cb68f0ee3b628fbf49132a8407ac29669e8e503e3f5c653d84c6de5cab9476",
+    "snapshot_after_sha256": "c9cb68f0ee3b628fbf49132a8407ac29669e8e503e3f5c653d84c6de5cab9476",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/compiler/test_population_jet.py",
+    "before_sha256": "1688771f624db74d206e14f23457f92b90b37f7b2d2ad9e7da47e66093969f1d",
+    "bytes": 5526,
+    "lines": 143,
+    "after_sha256": "1688771f624db74d206e14f23457f92b90b37f7b2d2ad9e7da47e66093969f1d",
+    "snapshot_after_sha256": "1688771f624db74d206e14f23457f92b90b37f7b2d2ad9e7da47e66093969f1d",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/finite_width/__init__.py",
+    "before_sha256": "48b555fb6fc2541aec727bca8d428e850cbc16bf9ae4d7a846cf16672a74d512",
+    "bytes": 394,
+    "lines": 14,
+    "after_sha256": "48b555fb6fc2541aec727bca8d428e850cbc16bf9ae4d7a846cf16672a74d512",
+    "snapshot_after_sha256": "48b555fb6fc2541aec727bca8d428e850cbc16bf9ae4d7a846cf16672a74d512",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/finite_width/exact_controls.py",
+    "before_sha256": "9c6c420a4f7a16294a6d7ac1460d4fab141bcec1462356ce9f667ea963404deb",
+    "bytes": 8104,
+    "lines": 229,
+    "after_sha256": "9c6c420a4f7a16294a6d7ac1460d4fab141bcec1462356ce9f667ea963404deb",
+    "snapshot_after_sha256": "9c6c420a4f7a16294a6d7ac1460d4fab141bcec1462356ce9f667ea963404deb",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/finite_width/feature_flow.py",
+    "before_sha256": "c72c6058042e6e2dd5b60c5f426aeace89efcd0c6e567063d630ddcf412a22a2",
+    "bytes": 5007,
+    "lines": 162,
+    "after_sha256": "c72c6058042e6e2dd5b60c5f426aeace89efcd0c6e567063d630ddcf412a22a2",
+    "snapshot_after_sha256": "c72c6058042e6e2dd5b60c5f426aeace89efcd0c6e567063d630ddcf412a22a2",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/finite_width/oracles.py",
+    "before_sha256": "e141e328a99c4f05912c6e998533855c038a5c095de29e05f693a7a9991515fd",
+    "bytes": 1725,
+    "lines": 59,
+    "after_sha256": "e141e328a99c4f05912c6e998533855c038a5c095de29e05f693a7a9991515fd",
+    "snapshot_after_sha256": "e141e328a99c4f05912c6e998533855c038a5c095de29e05f693a7a9991515fd",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/finite_width/raw_ad.py",
+    "before_sha256": "b99de0bbcdea578430b5fbe424772d967fe93771b8e0d3199b9b48cdd267067b",
+    "bytes": 8646,
+    "lines": 261,
+    "after_sha256": "b99de0bbcdea578430b5fbe424772d967fe93771b8e0d3199b9b48cdd267067b",
+    "snapshot_after_sha256": "b99de0bbcdea578430b5fbe424772d967fe93771b8e0d3199b9b48cdd267067b",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/finite_width/regression.py",
+    "before_sha256": "f3caf13480535ae0f3a515ee79b5a5752166f3de816a3e3e4b9aad8287670e4b",
+    "bytes": 5010,
+    "lines": 132,
+    "after_sha256": "f3caf13480535ae0f3a515ee79b5a5752166f3de816a3e3e4b9aad8287670e4b",
+    "snapshot_after_sha256": "f3caf13480535ae0f3a515ee79b5a5752166f3de816a3e3e4b9aad8287670e4b",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/finite_width/run_checks.py",
+    "before_sha256": "09cc1ecdd7e2e2c1e3820998b62ce5e60989b591d8745b334d519a75c2ebcfd1",
+    "bytes": 728,
+    "lines": 22,
+    "after_sha256": "09cc1ecdd7e2e2c1e3820998b62ce5e60989b591d8745b334d519a75c2ebcfd1",
+    "snapshot_after_sha256": "09cc1ecdd7e2e2c1e3820998b62ce5e60989b591d8745b334d519a75c2ebcfd1",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/finite_width/test_order5.py",
+    "before_sha256": "e5eb95d9af4e61bfb2964eb29903b612eb5a1d8f7abf472865b54de096255267",
+    "bytes": 4088,
+    "lines": 117,
+    "after_sha256": "e5eb95d9af4e61bfb2964eb29903b612eb5a1d8f7abf472865b54de096255267",
+    "snapshot_after_sha256": "e5eb95d9af4e61bfb2964eb29903b612eb5a1d8f7abf472865b54de096255267",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/independent/__init__.py",
+    "before_sha256": "d8513e7e86da2eb1acfa81863fc88a2b9e6535667ec029e4e23c16f977579f86",
+    "bytes": 67,
+    "lines": 1,
+    "after_sha256": "d8513e7e86da2eb1acfa81863fc88a2b9e6535667ec029e4e23c16f977579f86",
+    "snapshot_after_sha256": "d8513e7e86da2eb1acfa81863fc88a2b9e6535667ec029e4e23c16f977579f86",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/independent/freeze_tagged.py",
+    "before_sha256": "193dcbf5d3d947922fdbdbb67bc504951bd78892a4e9a828aedfbed2efab2d13",
+    "bytes": 1789,
+    "lines": 50,
+    "after_sha256": "193dcbf5d3d947922fdbdbb67bc504951bd78892a4e9a828aedfbed2efab2d13",
+    "snapshot_after_sha256": "193dcbf5d3d947922fdbdbb67bc504951bd78892a4e9a828aedfbed2efab2d13",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/independent/independent_compiler.py",
+    "before_sha256": "140970dc94a1824e1d7349f75ded9ac51821da1ca6fec8ebe53b5adcaf40a6a8",
+    "bytes": 24431,
+    "lines": 651,
+    "after_sha256": "140970dc94a1824e1d7349f75ded9ac51821da1ca6fec8ebe53b5adcaf40a6a8",
+    "snapshot_after_sha256": "140970dc94a1824e1d7349f75ded9ac51821da1ca6fec8ebe53b5adcaf40a6a8",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/independent/interpolate_symbolic_q0.py",
+    "before_sha256": "f14e92abc591a41b9fa7862927e0426c662edb64758950e42226ec379bc26d94",
+    "bytes": 9355,
+    "lines": 237,
+    "after_sha256": "f14e92abc591a41b9fa7862927e0426c662edb64758950e42226ec379bc26d94",
+    "snapshot_after_sha256": "f14e92abc591a41b9fa7862927e0426c662edb64758950e42226ec379bc26d94",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/order5/run_checks.py",
+    "before_sha256": "841b7480b51f272a923202ae2c6a73780d41981b319f7d777433d0acacdc2f86",
+    "bytes": 694,
+    "lines": 24,
+    "after_sha256": "841b7480b51f272a923202ae2c6a73780d41981b319f7d777433d0acacdc2f86",
+    "snapshot_after_sha256": "841b7480b51f272a923202ae2c6a73780d41981b319f7d777433d0acacdc2f86",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/study_paths.py",
+    "before_sha256": "d188b1c3de8770585d62b2131f31915129ca05c8850916f615adcd9e59649e7e",
+    "bytes": 1005,
+    "lines": 28,
+    "after_sha256": "d188b1c3de8770585d62b2131f31915129ca05c8850916f615adcd9e59649e7e",
+    "snapshot_after_sha256": "d188b1c3de8770585d62b2131f31915129ca05c8850916f615adcd9e59649e7e",
+    "initial_target_sha256": "d188b1c3de8770585d62b2131f31915129ca05c8850916f615adcd9e59649e7e",
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/test_migration_input_aliases.py",
+    "before_sha256": "68f99f11efecc659d27d84e8521757f323536f0bbd182dc20a05e9f01054a130",
+    "bytes": 4445,
+    "lines": 80,
+    "after_sha256": "68f99f11efecc659d27d84e8521757f323536f0bbd182dc20a05e9f01054a130",
+    "snapshot_after_sha256": "68f99f11efecc659d27d84e8521757f323536f0bbd182dc20a05e9f01054a130",
+    "initial_target_sha256": "68f99f11efecc659d27d84e8521757f323536f0bbd182dc20a05e9f01054a130",
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/test_migration_paths.py",
+    "before_sha256": "763ad9e3fe6919110ad62f06b4f2314e9ae17623fb060e7f94be8191ab242825",
+    "bytes": 10748,
+    "lines": 191,
+    "after_sha256": "763ad9e3fe6919110ad62f06b4f2314e9ae17623fb060e7f94be8191ab242825",
+    "snapshot_after_sha256": "763ad9e3fe6919110ad62f06b4f2314e9ae17623fb060e7f94be8191ab242825",
+    "initial_target_sha256": "763ad9e3fe6919110ad62f06b4f2314e9ae17623fb060e7f94be8191ab242825",
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/test_migration_replay_helpers.py",
+    "before_sha256": "9c209a96ae814264c34d2d7a9560675a1336fd4c8339c1cea1715bbcffb768c4",
+    "bytes": 4856,
+    "lines": 87,
+    "after_sha256": "9c209a96ae814264c34d2d7a9560675a1336fd4c8339c1cea1715bbcffb768c4",
+    "snapshot_after_sha256": "9c209a96ae814264c34d2d7a9560675a1336fd4c8339c1cea1715bbcffb768c4",
+    "initial_target_sha256": "9c209a96ae814264c34d2d7a9560675a1336fd4c8339c1cea1715bbcffb768c4",
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/test_migration_retired_interfaces.py",
+    "before_sha256": "af21c7634bf88b5b8a7521e6b145a0075e25b5e253825d961bea40bb346cdf12",
+    "bytes": 8229,
+    "lines": 151,
+    "after_sha256": "af21c7634bf88b5b8a7521e6b145a0075e25b5e253825d961bea40bb346cdf12",
+    "snapshot_after_sha256": "af21c7634bf88b5b8a7521e6b145a0075e25b5e253825d961bea40bb346cdf12",
+    "initial_target_sha256": "af21c7634bf88b5b8a7521e6b145a0075e25b5e253825d961bea40bb346cdf12",
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_gaussian_calculus/test_migration_sibling_consumers.py",
+    "before_sha256": "ce7cfd5b34d59a78e6df0dfc6261642836bddb90634854ec55121bc50a498fb8",
+    "bytes": 12944,
+    "lines": 213,
+    "after_sha256": "ce7cfd5b34d59a78e6df0dfc6261642836bddb90634854ec55121bc50a498fb8",
+    "snapshot_after_sha256": "ce7cfd5b34d59a78e6df0dfc6261642836bddb90634854ec55121bc50a498fb8",
+    "initial_target_sha256": "ce7cfd5b34d59a78e6df0dfc6261642836bddb90634854ec55121bc50a498fb8",
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/audit_hankel40.py",
+    "before_sha256": "02e997445b26cc22aa523573f62e0311112e12bc37d63023430c8bc820215301",
+    "bytes": 5387,
+    "lines": 147,
+    "after_sha256": "02e997445b26cc22aa523573f62e0311112e12bc37d63023430c8bc820215301",
+    "snapshot_after_sha256": "02e997445b26cc22aa523573f62e0311112e12bc37d63023430c8bc820215301",
+    "initial_target_sha256": "02e997445b26cc22aa523573f62e0311112e12bc37d63023430c8bc820215301",
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/spectral_closure.py",
+    "before_sha256": "4824cee317c57cd52d72a9338e9aed2dcf55c2bd23614b15d311f369d45984a5",
+    "bytes": 8860,
+    "lines": 241,
+    "after_sha256": "4824cee317c57cd52d72a9338e9aed2dcf55c2bd23614b15d311f369d45984a5",
+    "snapshot_after_sha256": "4824cee317c57cd52d72a9338e9aed2dcf55c2bd23614b15d311f369d45984a5",
+    "initial_target_sha256": "4824cee317c57cd52d72a9338e9aed2dcf55c2bd23614b15d311f369d45984a5",
+    "unchanged": true
+  },
+  {
+    "path": "studies/mfp_identity_compiler/linear_gaussian_program/identity_stieltjes_audit.py",
+    "before_sha256": "7c95d2359ce051c9a0c25bb62732c3a37a91fb21b7208e2f392cd7f2018b048f",
+    "bytes": 11629,
+    "lines": 331,
+    "after_sha256": "7c95d2359ce051c9a0c25bb62732c3a37a91fb21b7208e2f392cd7f2018b048f",
+    "snapshot_after_sha256": "7c95d2359ce051c9a0c25bb62732c3a37a91fb21b7208e2f392cd7f2018b048f",
+    "initial_target_sha256": null,
+    "unchanged": true
+  },
+  {
+    "path": "studies/repository_refactor_2026_09_09/test_gaussian_consumer_routing.py",
+    "before_sha256": "041adf4285c5eb6bdfd72022e1e7b042abde9c2a2202624ee2544fc7e6eb46e5",
+    "bytes": 6780,
+    "lines": 119,
+    "after_sha256": "041adf4285c5eb6bdfd72022e1e7b042abde9c2a2202624ee2544fc7e6eb46e5",
+    "snapshot_after_sha256": "041adf4285c5eb6bdfd72022e1e7b042abde9c2a2202624ee2544fc7e6eb46e5",
+    "initial_target_sha256": "041adf4285c5eb6bdfd72022e1e7b042abde9c2a2202624ee2544fc7e6eb46e5",
+    "unchanged": true
+  }
+]

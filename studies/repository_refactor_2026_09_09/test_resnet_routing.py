@@ -520,10 +520,21 @@ with Path(os.environ['ROUTING_RECORD']).open('a') as stream:
             linked_child = base / "linked-child"
             linked_child.mkdir()
             (linked_child / "metadata.json").symlink_to(base / "absent-input")
+            shorter_target = base / "shorter-target"
+            shorter_target.mkdir()
+            neighbor_input = shorter_target / "input.txt"
+            neighbor_input.write_bytes(b"inert retained neighbor input")
+            neighbor_hash = hashlib.sha256(neighbor_input.read_bytes()).hexdigest()
+            shorter_neighbor = base / "shorter-neighbor"
+            shorter_neighbor.symlink_to(shorter_target, target_is_directory=True)
             selections = (
                 (None, True), ("~/pde-long-routing-never-created", True),
                 (str(base / "out with spaces/../normalized output"), True),
                 (os.path.relpath(base / "relative output", LONG), True),
+                (str(base / "embedded\nnewline"), True),
+                (str(base / "trailing-newlines\n\n"), True),
+                (str(shorter_neighbor), False),
+                (str(shorter_neighbor) + "\n\n", True),
                 (str(REPO / "studies"), False), (str(linked), False),
                 (str(linked_child), False),
             )
@@ -540,7 +551,7 @@ with Path(os.environ['ROUTING_RECORD']).open('a') as stream:
                                             env=env, cwd=base, capture_output=True, text=True)
                     self.assertEqual(len(validations.read_text().splitlines()), 1)
                     if not accepted:
-                        self.assertNotEqual(result.returncode, 0)
+                        self.assertEqual(result.returncode, 1, result.stderr)
                         self.assertFalse(log.exists(), "dispatch occurred before output validation")
                         continue
                     self.assertEqual(result.returncode, 0, result.stderr)
@@ -554,6 +565,7 @@ with Path(os.environ['ROUTING_RECORD']).open('a') as stream:
                         self.assertEqual(arguments[arguments.index("--output-root") + 1], str(expected))
                     if selection is not None:
                         self.assertFalse(expected.exists())
+            self.assertEqual(hashlib.sha256(neighbor_input.read_bytes()).hexdigest(), neighbor_hash)
 
     def test_operator_wrapper_normalizes_before_any_work(self):
         # Delegate only the exact stdlib path query; record, never dispatch,

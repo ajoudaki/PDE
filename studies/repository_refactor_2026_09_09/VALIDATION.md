@@ -112,10 +112,10 @@ retained byte-for-byte rather than edited.
 
 The coordinator has repeated these current, explicitly selected suites:
 
-| Slice | Passing tests | Independent follow-up currently pending |
+| Slice | Passing coordinator tests | Independent follow-up |
 |---|---:|---|
 | ResNet/operator/quadratic and metadata routing | 56 | Three latest repaired interfaces plus regression compatibility |
-| Gaussian/MFP/identity/causal analyzer routing | 60 | Eleven latest repaired interfaces plus regression compatibility |
+| Gaussian/MFP/identity/causal analyzer routing | 60 | CLEAN for eleven latest repaired interfaces plus bounded regression compatibility |
 | Seven-study raw/analysis/archival routing | 92 | Current seven-study migration interfaces |
 
 The first slice's seven broad reviews found and motivated CLI forwarding,
@@ -140,6 +140,14 @@ remains available. The coordinator passed the prior 44 tests and 16 new
 targeted tests. The last eight-file worker preserved 53 checked AST bodies or
 blocks, including all 72 statements of the hostile replay block behind its
 refusal. No source seal or mathematical calculation was regenerated.
+
+The fresh isolated [Gaussian/identity patch acceptance](reviews/GAUSSIAN_ROUTING_PATCH_ACCEPTANCE_PATCH_ACCEPTANCE.md)
+is CLEAN at `e93ce49` (including `5b9ef6e`). It fully read the eleven interfaces
+and their two routing helpers, passed 33 admitted regression tests and 11
+independent adversarial tests, and verified 84 unchanged source/dependency
+hashes. Its 736 subtests are separate from the 44 test-method count. This is
+acceptance of input/output and retirement boundaries, not scientific acceptance
+of all ten historical studies or their unexecuted optional dependencies.
 
 The seven-study third-round repair is checkpointed at `62a34ea`. It addresses
 stale source paths, raw final/partial identity collisions, processed output

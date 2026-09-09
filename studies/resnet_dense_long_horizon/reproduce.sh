@@ -6,9 +6,11 @@ run_dir="${PDE_LONG_HORIZON_OUTPUT_ROOT:-$study_dir/../../data/generated/resnet_
 cd "$study_dir"
 
 # Validate and normalize once before dispatching tests or scientific work.
+# A sentinel preserves path newlines through command substitution.
 run_dir="$(python -B -c \
   'import sys; from pathlib import Path; from make_manifest import validate_output_root; print(validate_output_root(Path(sys.argv[1])))' \
-  "$run_dir")"
+  "$run_dir" && printf '.')"
+run_dir="${run_dir%$'\n.'}"
 
 export OPENBLAS_NUM_THREADS=1
 export OMP_NUM_THREADS=1

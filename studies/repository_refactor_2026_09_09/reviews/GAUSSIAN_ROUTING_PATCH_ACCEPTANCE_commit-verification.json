@@ -1,0 +1,513 @@
+{
+  "commit": "e93ce49",
+  "included_ancestor": "5b9ef6e",
+  "files": 84,
+  "all_match": true,
+  "mismatches": [],
+  "records": [
+    {
+      "path": "studies/_output_paths.py",
+      "snapshot_git_blob": "f041edb1bb0af4c638b73c4e2e4adf9f6d2a33ad",
+      "commit_git_blob": "f041edb1bb0af4c638b73c4e2e4adf9f6d2a33ad",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/b2/__init__.py",
+      "snapshot_git_blob": "8b6b0ef56a05b86e9069e49e81ab819119bba851",
+      "commit_git_blob": "8b6b0ef56a05b86e9069e49e81ab819119bba851",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/b2/model.py",
+      "snapshot_git_blob": "6a64a8a3ac81eed118a6434601f2d6f20b966ac7",
+      "commit_git_blob": "6a64a8a3ac81eed118a6434601f2d6f20b966ac7",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth/__init__.py",
+      "snapshot_git_blob": "3984762aa3942467ae64b656325a5805bd121cdc",
+      "commit_git_blob": "3984762aa3942467ae64b656325a5805bd121cdc",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth/finite_width_jet.py",
+      "snapshot_git_blob": "04d14ad43afd700d3a518118506afbac2131e265",
+      "commit_git_blob": "04d14ad43afd700d3a518118506afbac2131e265",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth/gnf_recursion.py",
+      "snapshot_git_blob": "09524d08cc1df1614591f40d08e603d9bb6d53b2",
+      "commit_git_blob": "09524d08cc1df1614591f40d08e603d9bb6d53b2",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth/model.py",
+      "snapshot_git_blob": "0eeba5e1380ecc0676dd3411c0e60736e1f34933",
+      "commit_git_blob": "0eeba5e1380ecc0676dd3411c0e60736e1f34933",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/__init__.py",
+      "snapshot_git_blob": "eef63f6d8eb6cecd9e294213a1f3f02f339a16a5",
+      "commit_git_blob": "eef63f6d8eb6cecd9e294213a1f3f02f339a16a5",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/audit/audit_symbolic_q0.py",
+      "snapshot_git_blob": "525aae6a9b226b1f1018e4724fa82148886c7eae",
+      "commit_git_blob": "525aae6a9b226b1f1018e4724fa82148886c7eae",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/audit/compare_frozen.py",
+      "snapshot_git_blob": "0d4b819ab97aa15cf8318c1677ae7a858a3c669d",
+      "commit_git_blob": "0d4b819ab97aa15cf8318c1677ae7a858a3c669d",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/audit/run_checks.py",
+      "snapshot_git_blob": "c0e787eb277e26ee08338f8009764d880bb03308",
+      "commit_git_blob": "c0e787eb277e26ee08338f8009764d880bb03308",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/audit/run_normalized_sine_experiment.py",
+      "snapshot_git_blob": "89dfdb4eaaa1cd50bd0260ebcb58ffd2dc37b227",
+      "commit_git_blob": "89dfdb4eaaa1cd50bd0260ebcb58ffd2dc37b227",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/common/__init__.py",
+      "snapshot_git_blob": "371d68a68cc2947048320008ca791982a6f639c5",
+      "commit_git_blob": "371d68a68cc2947048320008ca791982a6f639c5",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/common/finite_width_jet.py",
+      "snapshot_git_blob": "301c8f2ed0cb8233a2c33ec205936b16a9ba08ee",
+      "commit_git_blob": "301c8f2ed0cb8233a2c33ec205936b16a9ba08ee",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/independent/FROZEN_MANIFEST.json",
+      "snapshot_git_blob": "7a8d1daac50be77772fae40a545f1540fd148b13",
+      "commit_git_blob": "7a8d1daac50be77772fae40a545f1540fd148b13",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/independent/FROZEN_MANIFEST_SHA256.txt",
+      "snapshot_git_blob": "091e9e4f761be8268e7b800553c29b63539cfe3e",
+      "commit_git_blob": "091e9e4f761be8268e7b800553c29b63539cfe3e",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/independent/__init__.py",
+      "snapshot_git_blob": "5c6b43970aecbf97a8323ba24afe9a0af714642b",
+      "commit_git_blob": "5c6b43970aecbf97a8323ba24afe9a0af714642b",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/independent/compare_symbolic_q0.py",
+      "snapshot_git_blob": "ecc9860af4d0b6a6515cbe5eb4a84602ddb85ca5",
+      "commit_git_blob": "ecc9860af4d0b6a6515cbe5eb4a84602ddb85ca5",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/independent/depth_factored.py",
+      "snapshot_git_blob": "16d62ed4297452922ddce14594be44ee8d15bddb",
+      "commit_git_blob": "16d62ed4297452922ddce14594be44ee8d15bddb",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/primary/PRIMARY_FREEZE_MANIFEST.json",
+      "snapshot_git_blob": "3d4abf9f8ec30b8f2308f4ced321d04fe6bb7ae7",
+      "commit_git_blob": "3d4abf9f8ec30b8f2308f4ced321d04fe6bb7ae7",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/primary/PRIMARY_FREEZE_SHA256.txt",
+      "snapshot_git_blob": "1aed73bf1570d52ead15821446ae4ae6f1dd2968",
+      "commit_git_blob": "1aed73bf1570d52ead15821446ae4ae6f1dd2968",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/primary/__init__.py",
+      "snapshot_git_blob": "f9699adfaa261637eb134d1838307925a910bf49",
+      "commit_git_blob": "f9699adfaa261637eb134d1838307925a910bf49",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/primary/build_self_contained_report.py",
+      "snapshot_git_blob": "2eb650271df4e765c4f0aae1d43f5bd9d457952e",
+      "commit_git_blob": "2eb650271df4e765c4f0aae1d43f5bd9d457952e",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/primary/compare_frozen_routes.py",
+      "snapshot_git_blob": "be01f6fcaec8d43d7884ca54d7dfad79f5888e8d",
+      "commit_git_blob": "be01f6fcaec8d43d7884ca54d7dfad79f5888e8d",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/primary/depth_population_jet.py",
+      "snapshot_git_blob": "22b531fd3f1479baa10f1083295ba2883637c98c",
+      "commit_git_blob": "22b531fd3f1479baa10f1083295ba2883637c98c",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/primary/freeze_primary.py",
+      "snapshot_git_blob": "73f0e414b4f7a23d45cecb75df8d45e9972f036c",
+      "commit_git_blob": "73f0e414b4f7a23d45cecb75df8d45e9972f036c",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/primary/generate_frozen_artifacts.py",
+      "snapshot_git_blob": "68c30319f9e4eb07357457988da1c221ca93a1f0",
+      "commit_git_blob": "68c30319f9e4eb07357457988da1c221ca93a1f0",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5/primary/run_lightweight_checks.py",
+      "snapshot_git_blob": "cfd7d9155abb82a00d10a1cf93b874ea3f4abeb8",
+      "commit_git_blob": "cfd7d9155abb82a00d10a1cf93b874ea3f4abeb8",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/finite_width_hidden_jet.py",
+      "snapshot_git_blob": "769cf886b4c90e79849f475bd9e81ba352f42120",
+      "commit_git_blob": "769cf886b4c90e79849f475bd9e81ba352f42120",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/gamma04_contraction.py",
+      "snapshot_git_blob": "48f1f542448c1166099766e60ea3763f3b7e7c9c",
+      "commit_git_blob": "48f1f542448c1166099766e60ea3763f3b7e7c9c",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/reduce_frozen_head.py",
+      "snapshot_git_blob": "cc0eb4546c6f8cdb393b7b8e7991fb7ac0760d83",
+      "commit_git_blob": "cc0eb4546c6f8cdb393b7b8e7991fb7ac0760d83",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_observables/independent/run_sine_experiment.py",
+      "snapshot_git_blob": "dd10187f7e7baf01a5df9b3cf14a2c874c7ee5f4",
+      "commit_git_blob": "dd10187f7e7baf01a5df9b3cf14a2c874c7ee5f4",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/audit/exact_controls.py",
+      "snapshot_git_blob": "82d68ae0a2853b55be3f0eb5781495892aee7a81",
+      "commit_git_blob": "82d68ae0a2853b55be3f0eb5781495892aee7a81",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/audit/reference_maps.py",
+      "snapshot_git_blob": "76516a3e639fc47c0ec01568a8ce69ede22b77ea",
+      "commit_git_blob": "76516a3e639fc47c0ec01568a8ce69ede22b77ea",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/independent/build_full_report.py",
+      "snapshot_git_blob": "88ddcc061b55bbdd1be3d0f77735268973386313",
+      "commit_git_blob": "88ddcc061b55bbdd1be3d0f77735268973386313",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/independent/depth_assembler.py",
+      "snapshot_git_blob": "ee8e84f7c36fa88be89c4a72a202a09d70fcb7bc",
+      "commit_git_blob": "ee8e84f7c36fa88be89c4a72a202a09d70fcb7bc",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/independent/forward_contraction.py",
+      "snapshot_git_blob": "00d60d4c20e07f82996981f8d5b97589c71b8726",
+      "commit_git_blob": "00d60d4c20e07f82996981f8d5b97589c71b8726",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/independent/moving_contraction.py",
+      "snapshot_git_blob": "ea9d6a5db659b3bc5990395c2a10af5150b679f4",
+      "commit_git_blob": "ea9d6a5db659b3bc5990395c2a10af5150b679f4",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/independent/reverse_contraction.py",
+      "snapshot_git_blob": "e21d29c88e946f2be147aa1f27edeb02ee9b8072",
+      "commit_git_blob": "e21d29c88e946f2be147aa1f27edeb02ee9b8072",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/__init__.py",
+      "snapshot_git_blob": "c18ac1322f755cad85fc4c4a98844b0387d1f440",
+      "commit_git_blob": "c18ac1322f755cad85fc4c4a98844b0387d1f440",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/postprocess_h3_curvature_extension.py",
+      "snapshot_git_blob": "6e7a7a11ef5c4fc93fda8cb8c86cbc7e8049e183",
+      "commit_git_blob": "6e7a7a11ef5c4fc93fda8cb8c86cbc7e8049e183",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/postprocess_h3_sine_regression.py",
+      "snapshot_git_blob": "5d0904214e9ab7064bb38d91dea68fd38621bc37",
+      "commit_git_blob": "5d0904214e9ab7064bb38d91dea68fd38621bc37",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_h3_curvature_extension.py",
+      "snapshot_git_blob": "a81bfbf053f9027edb48a7bf987a1bf009cb23f6",
+      "commit_git_blob": "a81bfbf053f9027edb48a7bf987a1bf009cb23f6",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_h3_sine_regression.py",
+      "snapshot_git_blob": "a2d448f016493c88406c90b611a94ba56f2bd8ab",
+      "commit_git_blob": "a2d448f016493c88406c90b611a94ba56f2bd8ab",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_hostile_checks.py",
+      "snapshot_git_blob": "3dd5c25d17a445de2a6bd62b406932c451e9e9b2",
+      "commit_git_blob": "3dd5c25d17a445de2a6bd62b406932c451e9e9b2",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/__init__.py",
+      "snapshot_git_blob": "8c81ac33a1dcc277b92c83ee1e8816ad1a0b807f",
+      "commit_git_blob": "8c81ac33a1dcc277b92c83ee1e8816ad1a0b807f",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/finite_width_hidden.py",
+      "snapshot_git_blob": "d001c13fd9b59d3c798fbc6a95ccb8780b49f0b0",
+      "commit_git_blob": "d001c13fd9b59d3c798fbc6a95ccb8780b49f0b0",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/gamma04_contraction.py",
+      "snapshot_git_blob": "dd94732c69f8d823d9e9bee13fc759d9ce9f9755",
+      "commit_git_blob": "dd94732c69f8d823d9e9bee13fc759d9ce9f9755",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/independent_route_a/numeric_head.py",
+      "snapshot_git_blob": "01743aa42ee9495088175d2c9899397c19b61cd7",
+      "commit_git_blob": "01743aa42ee9495088175d2c9899397c19b61cd7",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/audit_hostile.py",
+      "snapshot_git_blob": "599caf7fbe2cb0146b8680672daeccbe77f20d30",
+      "commit_git_blob": "599caf7fbe2cb0146b8680672daeccbe77f20d30",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/compiler/__init__.py",
+      "snapshot_git_blob": "d7dcd12b0de9ab077b0d137b5ffb96364d4777b7",
+      "commit_git_blob": "d7dcd12b0de9ab077b0d137b5ffb96364d4777b7",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/compiler/artifact_evaluator.py",
+      "snapshot_git_blob": "76e9a2cc80537b4626a75f831b697792d8615933",
+      "commit_git_blob": "76e9a2cc80537b4626a75f831b697792d8615933",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/compiler/build_self_contained_report.py",
+      "snapshot_git_blob": "67ed098b192cb9357045c4d156b52512b25198e3",
+      "commit_git_blob": "67ed098b192cb9357045c4d156b52512b25198e3",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/compiler/coefficient_map.py",
+      "snapshot_git_blob": "37ffe1fc09475aba3ede840386b95814e1df8625",
+      "commit_git_blob": "37ffe1fc09475aba3ede840386b95814e1df8625",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/compiler/compare_independent.py",
+      "snapshot_git_blob": "28821fb48dca0f648c4364576595229508895bb4",
+      "commit_git_blob": "28821fb48dca0f648c4364576595229508895bb4",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/compiler/factored_expression.py",
+      "snapshot_git_blob": "969c1d2db5d7cdd3726bebf84160ee410de09ab2",
+      "commit_git_blob": "969c1d2db5d7cdd3726bebf84160ee410de09ab2",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/compiler/generate_artifacts.py",
+      "snapshot_git_blob": "144eeb6c04410ee69ad84a6a78b01be5918602bc",
+      "commit_git_blob": "144eeb6c04410ee69ad84a6a78b01be5918602bc",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/compiler/population_jet.py",
+      "snapshot_git_blob": "10550736f630a9a00420d8cb0142c8007a374f48",
+      "commit_git_blob": "10550736f630a9a00420d8cb0142c8007a374f48",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/compiler/run_checks.py",
+      "snapshot_git_blob": "490b60be330a6df6157441fcdedc7c24f4ec0e66",
+      "commit_git_blob": "490b60be330a6df6157441fcdedc7c24f4ec0e66",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/compiler/smooth_control.py",
+      "snapshot_git_blob": "7c2ded253b8f19c8ce37e3caab7f1fe3cfb00c67",
+      "commit_git_blob": "7c2ded253b8f19c8ce37e3caab7f1fe3cfb00c67",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/compiler/test_population_jet.py",
+      "snapshot_git_blob": "d7a76aaee5e1869c1ca34793eec8e3dc24d2fbd0",
+      "commit_git_blob": "d7a76aaee5e1869c1ca34793eec8e3dc24d2fbd0",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/finite_width/__init__.py",
+      "snapshot_git_blob": "9b59e2c51c0955654a2fe1c5e46dc8c510bc4076",
+      "commit_git_blob": "9b59e2c51c0955654a2fe1c5e46dc8c510bc4076",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/finite_width/exact_controls.py",
+      "snapshot_git_blob": "2df7985a4c0e7a95657e6c0d42cb8f8384f11203",
+      "commit_git_blob": "2df7985a4c0e7a95657e6c0d42cb8f8384f11203",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/finite_width/feature_flow.py",
+      "snapshot_git_blob": "366b4a7f973292b4ccd69b7bd8f95beaf63cc62d",
+      "commit_git_blob": "366b4a7f973292b4ccd69b7bd8f95beaf63cc62d",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/finite_width/oracles.py",
+      "snapshot_git_blob": "f4370e11e9ee5532fb719ac63a7fe659696ce893",
+      "commit_git_blob": "f4370e11e9ee5532fb719ac63a7fe659696ce893",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/finite_width/raw_ad.py",
+      "snapshot_git_blob": "e72288c0563cb37048bcdedea9741077e694ddc4",
+      "commit_git_blob": "e72288c0563cb37048bcdedea9741077e694ddc4",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/finite_width/regression.py",
+      "snapshot_git_blob": "615bfd868db444c8f86cd7ed1cb242942264eacb",
+      "commit_git_blob": "615bfd868db444c8f86cd7ed1cb242942264eacb",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/finite_width/run_checks.py",
+      "snapshot_git_blob": "f28f90368882cd7190bc94a097893b3686860587",
+      "commit_git_blob": "f28f90368882cd7190bc94a097893b3686860587",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/finite_width/test_order5.py",
+      "snapshot_git_blob": "deb3d08dccf4eb69207bab5ed333c3b18e9dd020",
+      "commit_git_blob": "deb3d08dccf4eb69207bab5ed333c3b18e9dd020",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/independent/__init__.py",
+      "snapshot_git_blob": "4ed36f5d71b2c5dd3d052f3c07d4638f10bf2b87",
+      "commit_git_blob": "4ed36f5d71b2c5dd3d052f3c07d4638f10bf2b87",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/independent/freeze_tagged.py",
+      "snapshot_git_blob": "41fed3ee6a8a324fefba144007699203bf064c3b",
+      "commit_git_blob": "41fed3ee6a8a324fefba144007699203bf064c3b",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/independent/independent_compiler.py",
+      "snapshot_git_blob": "e8b1605ec557cc53877f8e420fb9314195f41f17",
+      "commit_git_blob": "e8b1605ec557cc53877f8e420fb9314195f41f17",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/independent/interpolate_symbolic_q0.py",
+      "snapshot_git_blob": "aac421b53c845336e0655422fce5e30cc0e24121",
+      "commit_git_blob": "aac421b53c845336e0655422fce5e30cc0e24121",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/order5/run_checks.py",
+      "snapshot_git_blob": "a2454532a52a8b8460e88a201c3f20d0ddb46191",
+      "commit_git_blob": "a2454532a52a8b8460e88a201c3f20d0ddb46191",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/study_paths.py",
+      "snapshot_git_blob": "718a7d9360dd09b435634d5b59e4ec4848ed28a2",
+      "commit_git_blob": "718a7d9360dd09b435634d5b59e4ec4848ed28a2",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/test_migration_input_aliases.py",
+      "snapshot_git_blob": "bfd689d374b6e5b8c15cfb7b5da3b7d04f9e050a",
+      "commit_git_blob": "bfd689d374b6e5b8c15cfb7b5da3b7d04f9e050a",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/test_migration_paths.py",
+      "snapshot_git_blob": "ea72e4702f05a06e7ec6561b3e6641a42b78b4dc",
+      "commit_git_blob": "ea72e4702f05a06e7ec6561b3e6641a42b78b4dc",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/test_migration_replay_helpers.py",
+      "snapshot_git_blob": "c980bda97a7039bc07928dfaadf16c44178ff2c4",
+      "commit_git_blob": "c980bda97a7039bc07928dfaadf16c44178ff2c4",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/test_migration_retired_interfaces.py",
+      "snapshot_git_blob": "95210cac70f2680f6d1e6c63f0bfbc1a86813aab",
+      "commit_git_blob": "95210cac70f2680f6d1e6c63f0bfbc1a86813aab",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_gaussian_calculus/test_migration_sibling_consumers.py",
+      "snapshot_git_blob": "d7112f47e7f9086af4552564a3814eef025c2766",
+      "commit_git_blob": "d7112f47e7f9086af4552564a3814eef025c2766",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/audit_hankel40.py",
+      "snapshot_git_blob": "cf189fcce30277cdf47f2f92939d2459b0523ea9",
+      "commit_git_blob": "cf189fcce30277cdf47f2f92939d2459b0523ea9",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/spectral_closure.py",
+      "snapshot_git_blob": "fe777b57a9d23c2eb84c5b39d273efb342211d40",
+      "commit_git_blob": "fe777b57a9d23c2eb84c5b39d273efb342211d40",
+      "matches": true
+    },
+    {
+      "path": "studies/mfp_identity_compiler/linear_gaussian_program/identity_stieltjes_audit.py",
+      "snapshot_git_blob": "4c63f834951655d0111de68c95cbffed084b8878",
+      "commit_git_blob": "4c63f834951655d0111de68c95cbffed084b8878",
+      "matches": true
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/test_gaussian_consumer_routing.py",
+      "snapshot_git_blob": "6679ea8933b4f774867ebaf84918090df6cde2c0",
+      "commit_git_blob": "6679ea8933b4f774867ebaf84918090df6cde2c0",
+      "matches": true
+    }
+  ]
+}

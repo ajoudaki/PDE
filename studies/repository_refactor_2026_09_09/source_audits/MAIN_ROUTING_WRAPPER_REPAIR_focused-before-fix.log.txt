@@ -1,0 +1,35 @@
+
+======================================================================
+FAIL: test_long_wrapper_validates_once_before_dispatch_and_forwards_normalized_root (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) (selection='/tmp/pde-wrapper-fix.Acmw6cf0/tmp/tmp4v2f1qm5/trailing-newlines\n\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/repository_refactor_2026_09_09/test_resnet_routing.py", line 565, in test_long_wrapper_validates_once_before_dispatch_and_forwards_normalized_root
+    self.assertEqual(arguments[arguments.index("--output-root") + 1], str(expected))
+AssertionError: '/tmp/pde-wrapper-fix.Acmw6cf0/tmp/tmp4v2f1qm5/trailing-newlines' != '/tmp/pde-wrapper-fix.Acmw6cf0/tmp/tmp4v2f1qm5/trailing-newlines\n\n'
+- /tmp/pde-wrapper-fix.Acmw6cf0/tmp/tmp4v2f1qm5/trailing-newlines
++ /tmp/pde-wrapper-fix.Acmw6cf0/tmp/tmp4v2f1qm5/trailing-newlines
+
+
+?                                                                
+++
+
+
+======================================================================
+FAIL: test_long_wrapper_validates_once_before_dispatch_and_forwards_normalized_root (studies.repository_refactor_2026_09_09.test_resnet_routing.RoutingTests) (selection='/tmp/pde-wrapper-fix.Acmw6cf0/tmp/tmp4v2f1qm5/shorter-neighbor\n\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/repository_refactor_2026_09_09/test_resnet_routing.py", line 565, in test_long_wrapper_validates_once_before_dispatch_and_forwards_normalized_root
+    self.assertEqual(arguments[arguments.index("--output-root") + 1], str(expected))
+AssertionError: '/tmp/pde-wrapper-fix.Acmw6cf0/tmp/tmp4v2f1qm5/shorter-neighbor' != '/tmp/pde-wrapper-fix.Acmw6cf0/tmp/tmp4v2f1qm5/shorter-neighbor\n\n'
+- /tmp/pde-wrapper-fix.Acmw6cf0/tmp/tmp4v2f1qm5/shorter-neighbor
++ /tmp/pde-wrapper-fix.Acmw6cf0/tmp/tmp4v2f1qm5/shorter-neighbor
+
+
+?                                                               
+++
+
+
+----------------------------------------------------------------------
+Ran 1 test in 1.289s
+
+FAILED (failures=2)

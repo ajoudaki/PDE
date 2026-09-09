@@ -1,0 +1,69 @@
+{
+  "tests": 11,
+  "subtests": 446,
+  "failures": [
+    [
+      "__main__.AdversarialTests.test_hostile_entire_executable_body_remains_below_unconditional_raise",
+      "Traceback (most recent call last):\n  File \"/tmp/gaussian-identity-patch-acceptance.nTnf19i6/adversarial.py\", line 342, in test_hostile_entire_executable_body_remains_below_unconditional_raise\n    self.assertEqual(len(main.body), 63)\nAssertionError: 73 != 63\n"
+    ]
+  ],
+  "errors": [],
+  "matrix": [
+    {
+      "module": "studies.mfp_gaussian_calculus.order5.compiler.compare_independent",
+      "source_fallback": false,
+      "inputs": 3,
+      "outputs": 4
+    },
+    {
+      "module": "studies.mfp_gaussian_calculus.depth_order5.independent.compare_symbolic_q0",
+      "source_fallback": false,
+      "inputs": 4,
+      "outputs": 1
+    },
+    {
+      "module": "studies.mfp_gaussian_calculus.depth_order5.audit.compare_frozen",
+      "source_fallback": false,
+      "inputs": 26,
+      "outputs": 1
+    },
+    {
+      "module": "studies.mfp_gaussian_calculus.depth_order5.audit.compare_frozen",
+      "source_fallback": true,
+      "inputs": 26,
+      "outputs": 1
+    },
+    {
+      "module": "studies.mfp_gaussian_calculus.depth_order5.audit.audit_symbolic_q0",
+      "source_fallback": false,
+      "inputs": 4,
+      "outputs": 1
+    },
+    {
+      "module": "studies.mfp_gaussian_calculus.depth_order5.audit.run_normalized_sine_experiment",
+      "source_fallback": false,
+      "inputs": 2,
+      "outputs": 9
+    },
+    {
+      "module": "studies.mfp_gaussian_calculus.depth_order5_observables.independent.run_sine_experiment",
+      "source_fallback": false,
+      "inputs": 2,
+      "outputs": 5
+    },
+    {
+      "module": "studies.mfp_identity_compiler.linear_gaussian_program.depth2_all_order_search.spectral_closure",
+      "source_fallback": false,
+      "inputs": 3,
+      "outputs": 1
+    },
+    {
+      "module": "studies.mfp_identity_compiler.linear_gaussian_program.depth2_all_order_search.audit_hankel40",
+      "source_fallback": false,
+      "inputs": 3,
+      "outputs": 1
+    }
+  ],
+  "fixture_hash_cases": 416,
+  "optional_stub": "sympy import only; Matrix/Rational raise"
+}

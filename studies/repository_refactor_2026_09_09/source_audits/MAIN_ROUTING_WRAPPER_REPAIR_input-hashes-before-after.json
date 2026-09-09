@@ -1,0 +1,2427 @@
+[
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/results_order9.json",
+    "before_sha256": "530ef0818f4142eb162c28fa6b388d69a1e13eeb9de399d54a25008d591f6d5e",
+    "after_sha256": "530ef0818f4142eb162c28fa6b388d69a1e13eeb9de399d54a25008d591f6d5e",
+    "observed_sha256": [
+      "530ef0818f4142eb162c28fa6b388d69a1e13eeb9de399d54a25008d591f6d5e"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k1_w0_a0.json",
+    "before_sha256": "56c8d09eeadc381ca5ab70d702d5f39d132ea072d8ca00460b3a489a4e04bfb1",
+    "after_sha256": "56c8d09eeadc381ca5ab70d702d5f39d132ea072d8ca00460b3a489a4e04bfb1",
+    "observed_sha256": [
+      "56c8d09eeadc381ca5ab70d702d5f39d132ea072d8ca00460b3a489a4e04bfb1"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k1_w0_a1.json",
+    "before_sha256": "0ad277f905909d97d94d7f1132636ceb46532b01aafc1b33e263f7b7bba30145",
+    "after_sha256": "0ad277f905909d97d94d7f1132636ceb46532b01aafc1b33e263f7b7bba30145",
+    "observed_sha256": [
+      "0ad277f905909d97d94d7f1132636ceb46532b01aafc1b33e263f7b7bba30145"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k1_w1_a0.json",
+    "before_sha256": "9ee7e8ab4578f7bb53d810c7ef9becfccb9e1c8c25be87d8133c21e6e8bab9c6",
+    "after_sha256": "9ee7e8ab4578f7bb53d810c7ef9becfccb9e1c8c25be87d8133c21e6e8bab9c6",
+    "observed_sha256": [
+      "9ee7e8ab4578f7bb53d810c7ef9becfccb9e1c8c25be87d8133c21e6e8bab9c6"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w0_a0.json",
+    "before_sha256": "662f400c35149687d689bf6375cdb461131843224dc8eb3004869a2a1e3d88f5",
+    "after_sha256": "662f400c35149687d689bf6375cdb461131843224dc8eb3004869a2a1e3d88f5",
+    "observed_sha256": [
+      "662f400c35149687d689bf6375cdb461131843224dc8eb3004869a2a1e3d88f5"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w0_a1.json",
+    "before_sha256": "af3e6cf55dec151767df30ae70fbdebfb932b1f3dbb8cec0d91b70dcd5dd2426",
+    "after_sha256": "af3e6cf55dec151767df30ae70fbdebfb932b1f3dbb8cec0d91b70dcd5dd2426",
+    "observed_sha256": [
+      "af3e6cf55dec151767df30ae70fbdebfb932b1f3dbb8cec0d91b70dcd5dd2426"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w0_a2.json",
+    "before_sha256": "e3027a6b17f7bf2c307aadd69ee8b088db8d34d80402dbff340f706071fccc61",
+    "after_sha256": "e3027a6b17f7bf2c307aadd69ee8b088db8d34d80402dbff340f706071fccc61",
+    "observed_sha256": [
+      "e3027a6b17f7bf2c307aadd69ee8b088db8d34d80402dbff340f706071fccc61"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w0_a3.json",
+    "before_sha256": "04e5dcaffd830927edeea5e810aa25f557848c357fb32d232bb5dd7d588eac60",
+    "after_sha256": "04e5dcaffd830927edeea5e810aa25f557848c357fb32d232bb5dd7d588eac60",
+    "observed_sha256": [
+      "04e5dcaffd830927edeea5e810aa25f557848c357fb32d232bb5dd7d588eac60"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w1_a0.json",
+    "before_sha256": "33916b044fe7f600e2945260fa36a41d33af4dc08457640aa91f27e0efec4b6e",
+    "after_sha256": "33916b044fe7f600e2945260fa36a41d33af4dc08457640aa91f27e0efec4b6e",
+    "observed_sha256": [
+      "33916b044fe7f600e2945260fa36a41d33af4dc08457640aa91f27e0efec4b6e"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w1_a1.json",
+    "before_sha256": "c2c531ba965844438d540dda255233a576e85a9f200ddf3d079286d4a1e07fbf",
+    "after_sha256": "c2c531ba965844438d540dda255233a576e85a9f200ddf3d079286d4a1e07fbf",
+    "observed_sha256": [
+      "c2c531ba965844438d540dda255233a576e85a9f200ddf3d079286d4a1e07fbf"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w1_a2.json",
+    "before_sha256": "a3fc04987d887f0f91aa01c32f0e01086e52c4da4f93fe12d13ab787e917e865",
+    "after_sha256": "a3fc04987d887f0f91aa01c32f0e01086e52c4da4f93fe12d13ab787e917e865",
+    "observed_sha256": [
+      "a3fc04987d887f0f91aa01c32f0e01086e52c4da4f93fe12d13ab787e917e865"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w2_a0.json",
+    "before_sha256": "1a01ba572d36826c1509a6e96e3e0e72f81e885a6781c6c5258091fc34fe381a",
+    "after_sha256": "1a01ba572d36826c1509a6e96e3e0e72f81e885a6781c6c5258091fc34fe381a",
+    "observed_sha256": [
+      "1a01ba572d36826c1509a6e96e3e0e72f81e885a6781c6c5258091fc34fe381a"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w2_a1.json",
+    "before_sha256": "6c6f0e19e75764c93cf49e32588ce3e09747053d6e266f4253d1a0e8ddb9d04e",
+    "after_sha256": "6c6f0e19e75764c93cf49e32588ce3e09747053d6e266f4253d1a0e8ddb9d04e",
+    "observed_sha256": [
+      "6c6f0e19e75764c93cf49e32588ce3e09747053d6e266f4253d1a0e8ddb9d04e"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k3_w3_a0.json",
+    "before_sha256": "e6cb201d23a3ec56a189ad1cd0f8e922b32e44a0436f6f83f8c4bb01d9dc1888",
+    "after_sha256": "e6cb201d23a3ec56a189ad1cd0f8e922b32e44a0436f6f83f8c4bb01d9dc1888",
+    "observed_sha256": [
+      "e6cb201d23a3ec56a189ad1cd0f8e922b32e44a0436f6f83f8c4bb01d9dc1888"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w0_a0.json",
+    "before_sha256": "231b00f450cd2e39460a46ab7b8ff0a047bd4a372a52473f9bcf8f8bd6be06d0",
+    "after_sha256": "231b00f450cd2e39460a46ab7b8ff0a047bd4a372a52473f9bcf8f8bd6be06d0",
+    "observed_sha256": [
+      "231b00f450cd2e39460a46ab7b8ff0a047bd4a372a52473f9bcf8f8bd6be06d0"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w0_a1.json",
+    "before_sha256": "c00bc90f347fcdefa86db0ead924a5bede2ff5499d6923e24b3f0129ef5ce6b7",
+    "after_sha256": "c00bc90f347fcdefa86db0ead924a5bede2ff5499d6923e24b3f0129ef5ce6b7",
+    "observed_sha256": [
+      "c00bc90f347fcdefa86db0ead924a5bede2ff5499d6923e24b3f0129ef5ce6b7"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w0_a2.json",
+    "before_sha256": "3aab28de5d9c9dcc44f78b4a3a7521610709c022c02c0b6cb29c38f2480784ac",
+    "after_sha256": "3aab28de5d9c9dcc44f78b4a3a7521610709c022c02c0b6cb29c38f2480784ac",
+    "observed_sha256": [
+      "3aab28de5d9c9dcc44f78b4a3a7521610709c022c02c0b6cb29c38f2480784ac"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w0_a3.json",
+    "before_sha256": "8144abcb3716b88b83a035b5aa28b1014a059fadece308b84e9dbdbd79b20e1e",
+    "after_sha256": "8144abcb3716b88b83a035b5aa28b1014a059fadece308b84e9dbdbd79b20e1e",
+    "observed_sha256": [
+      "8144abcb3716b88b83a035b5aa28b1014a059fadece308b84e9dbdbd79b20e1e"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w0_a4.json",
+    "before_sha256": "dcdd85ab9713aaa21f53a931e98c28cf70498a950e94def0b50084bb1e4a8fab",
+    "after_sha256": "dcdd85ab9713aaa21f53a931e98c28cf70498a950e94def0b50084bb1e4a8fab",
+    "observed_sha256": [
+      "dcdd85ab9713aaa21f53a931e98c28cf70498a950e94def0b50084bb1e4a8fab"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w0_a5.json",
+    "before_sha256": "8b3eb81e3364906a6a0552f99792eff232204ad4673e374d7d05c61c0c054138",
+    "after_sha256": "8b3eb81e3364906a6a0552f99792eff232204ad4673e374d7d05c61c0c054138",
+    "observed_sha256": [
+      "8b3eb81e3364906a6a0552f99792eff232204ad4673e374d7d05c61c0c054138"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w1_a0.json",
+    "before_sha256": "d5540533bcc9fbaebfc9c360c896f95b0bafe459c775d3f33f513773c57093df",
+    "after_sha256": "d5540533bcc9fbaebfc9c360c896f95b0bafe459c775d3f33f513773c57093df",
+    "observed_sha256": [
+      "d5540533bcc9fbaebfc9c360c896f95b0bafe459c775d3f33f513773c57093df"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w1_a1.json",
+    "before_sha256": "cc00ef206bedd223a97e2c10e6296716c1fd1efde1f708411c560243b4a72a90",
+    "after_sha256": "cc00ef206bedd223a97e2c10e6296716c1fd1efde1f708411c560243b4a72a90",
+    "observed_sha256": [
+      "cc00ef206bedd223a97e2c10e6296716c1fd1efde1f708411c560243b4a72a90"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w1_a2.json",
+    "before_sha256": "7423c2afc3042ffbe11f6904ffe4f193dbd668dfafdc8b9266ccd8bf0d41fcaa",
+    "after_sha256": "7423c2afc3042ffbe11f6904ffe4f193dbd668dfafdc8b9266ccd8bf0d41fcaa",
+    "observed_sha256": [
+      "7423c2afc3042ffbe11f6904ffe4f193dbd668dfafdc8b9266ccd8bf0d41fcaa"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w1_a3.json",
+    "before_sha256": "58437578620a45b29bd3530b106f47bd959ae8a29ff895b4b014d4abef0b5050",
+    "after_sha256": "58437578620a45b29bd3530b106f47bd959ae8a29ff895b4b014d4abef0b5050",
+    "observed_sha256": [
+      "58437578620a45b29bd3530b106f47bd959ae8a29ff895b4b014d4abef0b5050"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w1_a4.json",
+    "before_sha256": "326d428174402aca2f177ef304d521f10a1a4756c62672ae2a176f8290785e47",
+    "after_sha256": "326d428174402aca2f177ef304d521f10a1a4756c62672ae2a176f8290785e47",
+    "observed_sha256": [
+      "326d428174402aca2f177ef304d521f10a1a4756c62672ae2a176f8290785e47"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w2_a0.json",
+    "before_sha256": "24f1bece115c95d2fa3816e7cd90a26dc6a3867d0e839a582e81db053a0af32e",
+    "after_sha256": "24f1bece115c95d2fa3816e7cd90a26dc6a3867d0e839a582e81db053a0af32e",
+    "observed_sha256": [
+      "24f1bece115c95d2fa3816e7cd90a26dc6a3867d0e839a582e81db053a0af32e"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w2_a1.json",
+    "before_sha256": "224e2da65d614f3e6b606f5ae975d28ad1d934840f9db1013fdec7f6146ef31d",
+    "after_sha256": "224e2da65d614f3e6b606f5ae975d28ad1d934840f9db1013fdec7f6146ef31d",
+    "observed_sha256": [
+      "224e2da65d614f3e6b606f5ae975d28ad1d934840f9db1013fdec7f6146ef31d"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w2_a2.json",
+    "before_sha256": "e4c5f34256298231a3f8b5737d0068e0f05e062cf2ba8b90106b131b092f9596",
+    "after_sha256": "e4c5f34256298231a3f8b5737d0068e0f05e062cf2ba8b90106b131b092f9596",
+    "observed_sha256": [
+      "e4c5f34256298231a3f8b5737d0068e0f05e062cf2ba8b90106b131b092f9596"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w2_a3.json",
+    "before_sha256": "52148c3a6fc648546ceabc0ab6ac6828e2b82c6f3bb72df69da3e776f296bb1d",
+    "after_sha256": "52148c3a6fc648546ceabc0ab6ac6828e2b82c6f3bb72df69da3e776f296bb1d",
+    "observed_sha256": [
+      "52148c3a6fc648546ceabc0ab6ac6828e2b82c6f3bb72df69da3e776f296bb1d"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w3_a0.json",
+    "before_sha256": "537bca728da03d4f688266b2e0396c1204711f3dfb66de9b6fca06f21334e769",
+    "after_sha256": "537bca728da03d4f688266b2e0396c1204711f3dfb66de9b6fca06f21334e769",
+    "observed_sha256": [
+      "537bca728da03d4f688266b2e0396c1204711f3dfb66de9b6fca06f21334e769"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w3_a1.json",
+    "before_sha256": "fb281aac7f86172402a034193619165ed549abf0fc723bb1bc44d9922f916067",
+    "after_sha256": "fb281aac7f86172402a034193619165ed549abf0fc723bb1bc44d9922f916067",
+    "observed_sha256": [
+      "fb281aac7f86172402a034193619165ed549abf0fc723bb1bc44d9922f916067"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w3_a2.json",
+    "before_sha256": "eaa68273183ebe4859a97926fe8a3f2a78e9340985e114a027590d640d55ba39",
+    "after_sha256": "eaa68273183ebe4859a97926fe8a3f2a78e9340985e114a027590d640d55ba39",
+    "observed_sha256": [
+      "eaa68273183ebe4859a97926fe8a3f2a78e9340985e114a027590d640d55ba39"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w4_a0.json",
+    "before_sha256": "edf6eb703a54a033715f30fddb98d646938337aebef111f8da5f506c3f07f48d",
+    "after_sha256": "edf6eb703a54a033715f30fddb98d646938337aebef111f8da5f506c3f07f48d",
+    "observed_sha256": [
+      "edf6eb703a54a033715f30fddb98d646938337aebef111f8da5f506c3f07f48d"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w4_a1.json",
+    "before_sha256": "668699d632e340ce234727c062b3252265d259604c53efc8893cc927002f8297",
+    "after_sha256": "668699d632e340ce234727c062b3252265d259604c53efc8893cc927002f8297",
+    "observed_sha256": [
+      "668699d632e340ce234727c062b3252265d259604c53efc8893cc927002f8297"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k5_w5_a0.json",
+    "before_sha256": "05aa043a66bd7c12627acfd953ccb4b41819cd7c5bc073f51267d01323b3cb10",
+    "after_sha256": "05aa043a66bd7c12627acfd953ccb4b41819cd7c5bc073f51267d01323b3cb10",
+    "observed_sha256": [
+      "05aa043a66bd7c12627acfd953ccb4b41819cd7c5bc073f51267d01323b3cb10"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w0_a0.json",
+    "before_sha256": "1537134588c2ace88b7858f212fa15e4bcb8a9a403872c4a5e986c3cc6685df1",
+    "after_sha256": "1537134588c2ace88b7858f212fa15e4bcb8a9a403872c4a5e986c3cc6685df1",
+    "observed_sha256": [
+      "1537134588c2ace88b7858f212fa15e4bcb8a9a403872c4a5e986c3cc6685df1"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w0_a1.json",
+    "before_sha256": "e224d9cbca4d0d47f83a7fc3c324cb7e0cddc32a52f1b893b9648dfa917fd42a",
+    "after_sha256": "e224d9cbca4d0d47f83a7fc3c324cb7e0cddc32a52f1b893b9648dfa917fd42a",
+    "observed_sha256": [
+      "e224d9cbca4d0d47f83a7fc3c324cb7e0cddc32a52f1b893b9648dfa917fd42a"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w0_a2.json",
+    "before_sha256": "bcc660d2f8006b36cd10945ef74263f066b408509a55cf115b23eaf211511f0e",
+    "after_sha256": "bcc660d2f8006b36cd10945ef74263f066b408509a55cf115b23eaf211511f0e",
+    "observed_sha256": [
+      "bcc660d2f8006b36cd10945ef74263f066b408509a55cf115b23eaf211511f0e"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w0_a3.json",
+    "before_sha256": "55aac96014655b3279806e3cfa34c172ecbfdf4d7449045225c0c5231fcbc13c",
+    "after_sha256": "55aac96014655b3279806e3cfa34c172ecbfdf4d7449045225c0c5231fcbc13c",
+    "observed_sha256": [
+      "55aac96014655b3279806e3cfa34c172ecbfdf4d7449045225c0c5231fcbc13c"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w0_a4.json",
+    "before_sha256": "2668633a6a249778ed80a0a793f3af409f1129275be4fd048d6251783630e2aa",
+    "after_sha256": "2668633a6a249778ed80a0a793f3af409f1129275be4fd048d6251783630e2aa",
+    "observed_sha256": [
+      "2668633a6a249778ed80a0a793f3af409f1129275be4fd048d6251783630e2aa"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w0_a5.json",
+    "before_sha256": "3d1942427aa15fb2fd4446905180ff8e6db40cfe2aa05c08449483653900d7e9",
+    "after_sha256": "3d1942427aa15fb2fd4446905180ff8e6db40cfe2aa05c08449483653900d7e9",
+    "observed_sha256": [
+      "3d1942427aa15fb2fd4446905180ff8e6db40cfe2aa05c08449483653900d7e9"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w0_a6.json",
+    "before_sha256": "5b879ecf4cbbb260347326986c213e44d1d8f412ad212c6eb70f43ae0021bab3",
+    "after_sha256": "5b879ecf4cbbb260347326986c213e44d1d8f412ad212c6eb70f43ae0021bab3",
+    "observed_sha256": [
+      "5b879ecf4cbbb260347326986c213e44d1d8f412ad212c6eb70f43ae0021bab3"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w0_a7.json",
+    "before_sha256": "d40b52e038e680aeee53f0345bf6c17bce1f27acaca7ccad395540f18a38c1c9",
+    "after_sha256": "d40b52e038e680aeee53f0345bf6c17bce1f27acaca7ccad395540f18a38c1c9",
+    "observed_sha256": [
+      "d40b52e038e680aeee53f0345bf6c17bce1f27acaca7ccad395540f18a38c1c9"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w1_a0.json",
+    "before_sha256": "b08a3353bbc7b3479f017085bbca40b8fb2a6fe1774e312f6d70905bcc501c87",
+    "after_sha256": "b08a3353bbc7b3479f017085bbca40b8fb2a6fe1774e312f6d70905bcc501c87",
+    "observed_sha256": [
+      "b08a3353bbc7b3479f017085bbca40b8fb2a6fe1774e312f6d70905bcc501c87"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w1_a1.json",
+    "before_sha256": "d42550edb42524d5d36aea078ca3f55c639e75d75efc27ef98763955d2d7d023",
+    "after_sha256": "d42550edb42524d5d36aea078ca3f55c639e75d75efc27ef98763955d2d7d023",
+    "observed_sha256": [
+      "d42550edb42524d5d36aea078ca3f55c639e75d75efc27ef98763955d2d7d023"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w1_a2.json",
+    "before_sha256": "bc77460ad766eeebe66c8ab17125cb9aa0627bb6d2e91dae115ec74d6cd017e1",
+    "after_sha256": "bc77460ad766eeebe66c8ab17125cb9aa0627bb6d2e91dae115ec74d6cd017e1",
+    "observed_sha256": [
+      "bc77460ad766eeebe66c8ab17125cb9aa0627bb6d2e91dae115ec74d6cd017e1"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w1_a3.json",
+    "before_sha256": "324d7ebc41f8a2227ba71196d1d73510aa823943b2c2fcbf0a918e54fdfded7c",
+    "after_sha256": "324d7ebc41f8a2227ba71196d1d73510aa823943b2c2fcbf0a918e54fdfded7c",
+    "observed_sha256": [
+      "324d7ebc41f8a2227ba71196d1d73510aa823943b2c2fcbf0a918e54fdfded7c"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w1_a4.json",
+    "before_sha256": "b1ba117c68250ed9146857a9f61707063e75bb50ffd9d7214dc6bdff581b301a",
+    "after_sha256": "b1ba117c68250ed9146857a9f61707063e75bb50ffd9d7214dc6bdff581b301a",
+    "observed_sha256": [
+      "b1ba117c68250ed9146857a9f61707063e75bb50ffd9d7214dc6bdff581b301a"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w1_a5.json",
+    "before_sha256": "a7495021232d7300cb07a41b227ccd808c407c412c101d6a12c8e522089be3c0",
+    "after_sha256": "a7495021232d7300cb07a41b227ccd808c407c412c101d6a12c8e522089be3c0",
+    "observed_sha256": [
+      "a7495021232d7300cb07a41b227ccd808c407c412c101d6a12c8e522089be3c0"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w1_a6.json",
+    "before_sha256": "97960e28b14247a698790eea5ea424ad4cf6ad555a37671a9be4a2e9ecaba1df",
+    "after_sha256": "97960e28b14247a698790eea5ea424ad4cf6ad555a37671a9be4a2e9ecaba1df",
+    "observed_sha256": [
+      "97960e28b14247a698790eea5ea424ad4cf6ad555a37671a9be4a2e9ecaba1df"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w2_a0.json",
+    "before_sha256": "e162b5e699e2dbdc7edb9bd1e8aa6a1dcd463489189304eb6337642d697983b5",
+    "after_sha256": "e162b5e699e2dbdc7edb9bd1e8aa6a1dcd463489189304eb6337642d697983b5",
+    "observed_sha256": [
+      "e162b5e699e2dbdc7edb9bd1e8aa6a1dcd463489189304eb6337642d697983b5"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w2_a1.json",
+    "before_sha256": "9c704f1b0da6b497f5eb92827f08d9948132735cb80c5a5313d87b05a7b0bd82",
+    "after_sha256": "9c704f1b0da6b497f5eb92827f08d9948132735cb80c5a5313d87b05a7b0bd82",
+    "observed_sha256": [
+      "9c704f1b0da6b497f5eb92827f08d9948132735cb80c5a5313d87b05a7b0bd82"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w2_a2.json",
+    "before_sha256": "68fd6acd37c93facc77ffc145db47093b22b382123412b7c04e03cba4188c702",
+    "after_sha256": "68fd6acd37c93facc77ffc145db47093b22b382123412b7c04e03cba4188c702",
+    "observed_sha256": [
+      "68fd6acd37c93facc77ffc145db47093b22b382123412b7c04e03cba4188c702"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w2_a3.json",
+    "before_sha256": "2ff54ee7353fd79998b65e3e05c56da591b87645cfa8f66a580605e934794ec7",
+    "after_sha256": "2ff54ee7353fd79998b65e3e05c56da591b87645cfa8f66a580605e934794ec7",
+    "observed_sha256": [
+      "2ff54ee7353fd79998b65e3e05c56da591b87645cfa8f66a580605e934794ec7"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w2_a4.json",
+    "before_sha256": "91e6a204266d8afeae7e0dda06ba25af74f6b15ad5d83b8914914fd9d83e7c5d",
+    "after_sha256": "91e6a204266d8afeae7e0dda06ba25af74f6b15ad5d83b8914914fd9d83e7c5d",
+    "observed_sha256": [
+      "91e6a204266d8afeae7e0dda06ba25af74f6b15ad5d83b8914914fd9d83e7c5d"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w2_a5.json",
+    "before_sha256": "f13cd1a282081717d749ef26e20905c7922dd3d824588b1339fb50163e4ed7eb",
+    "after_sha256": "f13cd1a282081717d749ef26e20905c7922dd3d824588b1339fb50163e4ed7eb",
+    "observed_sha256": [
+      "f13cd1a282081717d749ef26e20905c7922dd3d824588b1339fb50163e4ed7eb"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w3_a0.json",
+    "before_sha256": "fa2857ffdcb847e33807b89c6341f728e0a9233629f0ed61eb03c15915cb6318",
+    "after_sha256": "fa2857ffdcb847e33807b89c6341f728e0a9233629f0ed61eb03c15915cb6318",
+    "observed_sha256": [
+      "fa2857ffdcb847e33807b89c6341f728e0a9233629f0ed61eb03c15915cb6318"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w3_a1.json",
+    "before_sha256": "5ca66e464817283e61d57c1618dfc64f19dec56c86097f9a86f513f831bb01db",
+    "after_sha256": "5ca66e464817283e61d57c1618dfc64f19dec56c86097f9a86f513f831bb01db",
+    "observed_sha256": [
+      "5ca66e464817283e61d57c1618dfc64f19dec56c86097f9a86f513f831bb01db"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w3_a2.json",
+    "before_sha256": "137de9837d2eb1cbc53e492b014d34b6210748b312a09d575aaf70ae2cc2fb26",
+    "after_sha256": "137de9837d2eb1cbc53e492b014d34b6210748b312a09d575aaf70ae2cc2fb26",
+    "observed_sha256": [
+      "137de9837d2eb1cbc53e492b014d34b6210748b312a09d575aaf70ae2cc2fb26"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w3_a3.json",
+    "before_sha256": "69cae261c9487b4f5fb035e530c9d8b9b9fd8b41d2ef9784fc909367bf01f43a",
+    "after_sha256": "69cae261c9487b4f5fb035e530c9d8b9b9fd8b41d2ef9784fc909367bf01f43a",
+    "observed_sha256": [
+      "69cae261c9487b4f5fb035e530c9d8b9b9fd8b41d2ef9784fc909367bf01f43a"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w3_a4.json",
+    "before_sha256": "8188cfc9d253e552a5dc5f7c849c1422efd83c0f85c3f21cd3f241c2e5233edd",
+    "after_sha256": "8188cfc9d253e552a5dc5f7c849c1422efd83c0f85c3f21cd3f241c2e5233edd",
+    "observed_sha256": [
+      "8188cfc9d253e552a5dc5f7c849c1422efd83c0f85c3f21cd3f241c2e5233edd"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w4_a0.json",
+    "before_sha256": "8e149ecb59bc4f910d3934945ea48395ee703eb816e2c974a21e0457699eeff6",
+    "after_sha256": "8e149ecb59bc4f910d3934945ea48395ee703eb816e2c974a21e0457699eeff6",
+    "observed_sha256": [
+      "8e149ecb59bc4f910d3934945ea48395ee703eb816e2c974a21e0457699eeff6"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w4_a1.json",
+    "before_sha256": "ddf64f26d326829292f0cc84dd311b1166f02b018fd786f624b884719cc067fd",
+    "after_sha256": "ddf64f26d326829292f0cc84dd311b1166f02b018fd786f624b884719cc067fd",
+    "observed_sha256": [
+      "ddf64f26d326829292f0cc84dd311b1166f02b018fd786f624b884719cc067fd"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w4_a2.json",
+    "before_sha256": "7ec198c5b2b12884ad0075c9ff0565642453291fbcd503b558c2f85358214e82",
+    "after_sha256": "7ec198c5b2b12884ad0075c9ff0565642453291fbcd503b558c2f85358214e82",
+    "observed_sha256": [
+      "7ec198c5b2b12884ad0075c9ff0565642453291fbcd503b558c2f85358214e82"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w4_a3.json",
+    "before_sha256": "76945b1b76e3068b40502263bcb36e42ac9299f97223651b9be5a3152039df2e",
+    "after_sha256": "76945b1b76e3068b40502263bcb36e42ac9299f97223651b9be5a3152039df2e",
+    "observed_sha256": [
+      "76945b1b76e3068b40502263bcb36e42ac9299f97223651b9be5a3152039df2e"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w5_a0.json",
+    "before_sha256": "2d2f75e5061be38fd0e12009ecd44a50efb7984f0136647f0611c5cf65178b1d",
+    "after_sha256": "2d2f75e5061be38fd0e12009ecd44a50efb7984f0136647f0611c5cf65178b1d",
+    "observed_sha256": [
+      "2d2f75e5061be38fd0e12009ecd44a50efb7984f0136647f0611c5cf65178b1d"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w5_a1.json",
+    "before_sha256": "5fd78193be8e045389ee8baf031efab1b6d504f4ba0ba5ec63f905b100e4b53c",
+    "after_sha256": "5fd78193be8e045389ee8baf031efab1b6d504f4ba0ba5ec63f905b100e4b53c",
+    "observed_sha256": [
+      "5fd78193be8e045389ee8baf031efab1b6d504f4ba0ba5ec63f905b100e4b53c"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w5_a2.json",
+    "before_sha256": "c7963dc5f0f0f1467318cf4c18a8959f13813caae677927d9724adfe75821c9f",
+    "after_sha256": "c7963dc5f0f0f1467318cf4c18a8959f13813caae677927d9724adfe75821c9f",
+    "observed_sha256": [
+      "c7963dc5f0f0f1467318cf4c18a8959f13813caae677927d9724adfe75821c9f"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w6_a0.json",
+    "before_sha256": "7c7550d00786868cfc604be82e134fcb62fa334347c76c184fd6ec9b216efca9",
+    "after_sha256": "7c7550d00786868cfc604be82e134fcb62fa334347c76c184fd6ec9b216efca9",
+    "observed_sha256": [
+      "7c7550d00786868cfc604be82e134fcb62fa334347c76c184fd6ec9b216efca9"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w6_a1.json",
+    "before_sha256": "a7f460a2e94f05a19a21b0fd80fca378e816b01e7ee732f26bebb0493b1edb12",
+    "after_sha256": "a7f460a2e94f05a19a21b0fd80fca378e816b01e7ee732f26bebb0493b1edb12",
+    "observed_sha256": [
+      "a7f460a2e94f05a19a21b0fd80fca378e816b01e7ee732f26bebb0493b1edb12"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k7_w7_a0.json",
+    "before_sha256": "763bda75dd8332e301d7f98e190595e705e40c8079f3190e1b4713ae16b0f8ee",
+    "after_sha256": "763bda75dd8332e301d7f98e190595e705e40c8079f3190e1b4713ae16b0f8ee",
+    "observed_sha256": [
+      "763bda75dd8332e301d7f98e190595e705e40c8079f3190e1b4713ae16b0f8ee"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a0.json",
+    "before_sha256": "b4071ac89f4560b4225c094d4a673c04c99494f4a4da4f2c6d6c53054ec6063e",
+    "after_sha256": "b4071ac89f4560b4225c094d4a673c04c99494f4a4da4f2c6d6c53054ec6063e",
+    "observed_sha256": [
+      "b4071ac89f4560b4225c094d4a673c04c99494f4a4da4f2c6d6c53054ec6063e"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a1.json",
+    "before_sha256": "a7af5dda604f40044ac99921cead9d471663178fcce60b1cfdc76e54bd1a1ab4",
+    "after_sha256": "a7af5dda604f40044ac99921cead9d471663178fcce60b1cfdc76e54bd1a1ab4",
+    "observed_sha256": [
+      "a7af5dda604f40044ac99921cead9d471663178fcce60b1cfdc76e54bd1a1ab4"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a2.json",
+    "before_sha256": "b197b0931b6521a71b8b434e5ca238fc0a7fbe03b83fbe5e563c34de3f2f58e7",
+    "after_sha256": "b197b0931b6521a71b8b434e5ca238fc0a7fbe03b83fbe5e563c34de3f2f58e7",
+    "observed_sha256": [
+      "b197b0931b6521a71b8b434e5ca238fc0a7fbe03b83fbe5e563c34de3f2f58e7"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a3.json",
+    "before_sha256": "a924d087f6f121dd68f529865a81cf272c8a7841b749ab3f91903a28edefe21a",
+    "after_sha256": "a924d087f6f121dd68f529865a81cf272c8a7841b749ab3f91903a28edefe21a",
+    "observed_sha256": [
+      "a924d087f6f121dd68f529865a81cf272c8a7841b749ab3f91903a28edefe21a"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a4.json",
+    "before_sha256": "98947f54e27032def16c7ba65ee38fb1461d16498f0ac8a53e7b3fba7063f2f6",
+    "after_sha256": "98947f54e27032def16c7ba65ee38fb1461d16498f0ac8a53e7b3fba7063f2f6",
+    "observed_sha256": [
+      "98947f54e27032def16c7ba65ee38fb1461d16498f0ac8a53e7b3fba7063f2f6"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a5.json",
+    "before_sha256": "09ed9c873d49c102b1f0b87daaf4a2e65c1c5a4a7e6a80d42d4948c809e98dc2",
+    "after_sha256": "09ed9c873d49c102b1f0b87daaf4a2e65c1c5a4a7e6a80d42d4948c809e98dc2",
+    "observed_sha256": [
+      "09ed9c873d49c102b1f0b87daaf4a2e65c1c5a4a7e6a80d42d4948c809e98dc2"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a6.json",
+    "before_sha256": "848dfd65c89173a5ae2c46047e8411481447c56dbabfe79dc5c712ac528c98df",
+    "after_sha256": "848dfd65c89173a5ae2c46047e8411481447c56dbabfe79dc5c712ac528c98df",
+    "observed_sha256": [
+      "848dfd65c89173a5ae2c46047e8411481447c56dbabfe79dc5c712ac528c98df"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a7.json",
+    "before_sha256": "b5dcb30c3c7d668d84a69df190692434dae2238a4c6adfb315c595298d078f03",
+    "after_sha256": "b5dcb30c3c7d668d84a69df190692434dae2238a4c6adfb315c595298d078f03",
+    "observed_sha256": [
+      "b5dcb30c3c7d668d84a69df190692434dae2238a4c6adfb315c595298d078f03"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a8.json",
+    "before_sha256": "6434906cf9eb813deb43b0dcff198714e33a18646d4a896664b57a7270e48caf",
+    "after_sha256": "6434906cf9eb813deb43b0dcff198714e33a18646d4a896664b57a7270e48caf",
+    "observed_sha256": [
+      "6434906cf9eb813deb43b0dcff198714e33a18646d4a896664b57a7270e48caf"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w0_a9.json",
+    "before_sha256": "1f13cf8854d39b35b3367da6403eee51d6ba6a98bcbce5aa0cacfaa2b7f87a7d",
+    "after_sha256": "1f13cf8854d39b35b3367da6403eee51d6ba6a98bcbce5aa0cacfaa2b7f87a7d",
+    "observed_sha256": [
+      "1f13cf8854d39b35b3367da6403eee51d6ba6a98bcbce5aa0cacfaa2b7f87a7d"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w1_a0.json",
+    "before_sha256": "edb880869062b6d5e5595cb053efe5da22086adcd256df2f051710ac5768c4ee",
+    "after_sha256": "edb880869062b6d5e5595cb053efe5da22086adcd256df2f051710ac5768c4ee",
+    "observed_sha256": [
+      "edb880869062b6d5e5595cb053efe5da22086adcd256df2f051710ac5768c4ee"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w1_a1.json",
+    "before_sha256": "06e2f567086d9ea297dd532198adc2bd0fd36fa7726375a6c33b7ccacb5f5433",
+    "after_sha256": "06e2f567086d9ea297dd532198adc2bd0fd36fa7726375a6c33b7ccacb5f5433",
+    "observed_sha256": [
+      "06e2f567086d9ea297dd532198adc2bd0fd36fa7726375a6c33b7ccacb5f5433"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w1_a2.json",
+    "before_sha256": "1b3bb1a5512735d0f7a502de7ac2e8fdefb2b3cf3e23e7544b7ab1f0c21a1c83",
+    "after_sha256": "1b3bb1a5512735d0f7a502de7ac2e8fdefb2b3cf3e23e7544b7ab1f0c21a1c83",
+    "observed_sha256": [
+      "1b3bb1a5512735d0f7a502de7ac2e8fdefb2b3cf3e23e7544b7ab1f0c21a1c83"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w1_a3.json",
+    "before_sha256": "d421e70525cb046d151f1338578c4f7e9a3d5855d220d71ee9fe76abe70b3eed",
+    "after_sha256": "d421e70525cb046d151f1338578c4f7e9a3d5855d220d71ee9fe76abe70b3eed",
+    "observed_sha256": [
+      "d421e70525cb046d151f1338578c4f7e9a3d5855d220d71ee9fe76abe70b3eed"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w1_a4.json",
+    "before_sha256": "bf8092c8881578b8da1c11181187bb7d4fde30c709fcfb084a91f385bda6bc90",
+    "after_sha256": "bf8092c8881578b8da1c11181187bb7d4fde30c709fcfb084a91f385bda6bc90",
+    "observed_sha256": [
+      "bf8092c8881578b8da1c11181187bb7d4fde30c709fcfb084a91f385bda6bc90"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w1_a5.json",
+    "before_sha256": "a8a9af85be5f09dc994594d305f39b58cf0e77a9fa1fe6a9f7ff0b2ab14373fa",
+    "after_sha256": "a8a9af85be5f09dc994594d305f39b58cf0e77a9fa1fe6a9f7ff0b2ab14373fa",
+    "observed_sha256": [
+      "a8a9af85be5f09dc994594d305f39b58cf0e77a9fa1fe6a9f7ff0b2ab14373fa"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w1_a6.json",
+    "before_sha256": "3f348e5b7a7999facf94b957a786a1363239064a3aab8a28193f63f39e2f9e5b",
+    "after_sha256": "3f348e5b7a7999facf94b957a786a1363239064a3aab8a28193f63f39e2f9e5b",
+    "observed_sha256": [
+      "3f348e5b7a7999facf94b957a786a1363239064a3aab8a28193f63f39e2f9e5b"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w1_a7.json",
+    "before_sha256": "4ef6afe34a30c7640ed6ee863070e0806335dff91cf27bb2f74f60393aa464ae",
+    "after_sha256": "4ef6afe34a30c7640ed6ee863070e0806335dff91cf27bb2f74f60393aa464ae",
+    "observed_sha256": [
+      "4ef6afe34a30c7640ed6ee863070e0806335dff91cf27bb2f74f60393aa464ae"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w1_a8.json",
+    "before_sha256": "17a58f236274e1f4f40afc9abfa172c313bac5e042dd503403920445d3a2cb09",
+    "after_sha256": "17a58f236274e1f4f40afc9abfa172c313bac5e042dd503403920445d3a2cb09",
+    "observed_sha256": [
+      "17a58f236274e1f4f40afc9abfa172c313bac5e042dd503403920445d3a2cb09"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w2_a0.json",
+    "before_sha256": "e730de5283fdef42b341bbc76fc666a37050d35ede3cf3723743ad5917782e72",
+    "after_sha256": "e730de5283fdef42b341bbc76fc666a37050d35ede3cf3723743ad5917782e72",
+    "observed_sha256": [
+      "e730de5283fdef42b341bbc76fc666a37050d35ede3cf3723743ad5917782e72"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w2_a1.json",
+    "before_sha256": "8be9656554daea99dd95fe2b8bd8c23a8be36201e4f413dc59d7d75496e04102",
+    "after_sha256": "8be9656554daea99dd95fe2b8bd8c23a8be36201e4f413dc59d7d75496e04102",
+    "observed_sha256": [
+      "8be9656554daea99dd95fe2b8bd8c23a8be36201e4f413dc59d7d75496e04102"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w2_a2.json",
+    "before_sha256": "d10845ce1301c0e44b6a5f42dbcb36a0f9dc73bc5a86c836028420698736a9ec",
+    "after_sha256": "d10845ce1301c0e44b6a5f42dbcb36a0f9dc73bc5a86c836028420698736a9ec",
+    "observed_sha256": [
+      "d10845ce1301c0e44b6a5f42dbcb36a0f9dc73bc5a86c836028420698736a9ec"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w2_a3.json",
+    "before_sha256": "a81313cf978381a805c70d9fe7e17d7e3134ac5faa3b52cf843f830c90daedec",
+    "after_sha256": "a81313cf978381a805c70d9fe7e17d7e3134ac5faa3b52cf843f830c90daedec",
+    "observed_sha256": [
+      "a81313cf978381a805c70d9fe7e17d7e3134ac5faa3b52cf843f830c90daedec"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w2_a4.json",
+    "before_sha256": "e3da72c8d47de5df77f87afa766b3824f921a0f891486816b5627692b44e953e",
+    "after_sha256": "e3da72c8d47de5df77f87afa766b3824f921a0f891486816b5627692b44e953e",
+    "observed_sha256": [
+      "e3da72c8d47de5df77f87afa766b3824f921a0f891486816b5627692b44e953e"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w2_a5.json",
+    "before_sha256": "eca18beea842e9653149e98889ed4bca19f35b247bc841f975c08d44bfe7a174",
+    "after_sha256": "eca18beea842e9653149e98889ed4bca19f35b247bc841f975c08d44bfe7a174",
+    "observed_sha256": [
+      "eca18beea842e9653149e98889ed4bca19f35b247bc841f975c08d44bfe7a174"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w2_a6.json",
+    "before_sha256": "b910af18d478050c863f7eb432a679ba696853b9b93a012e8237771804785666",
+    "after_sha256": "b910af18d478050c863f7eb432a679ba696853b9b93a012e8237771804785666",
+    "observed_sha256": [
+      "b910af18d478050c863f7eb432a679ba696853b9b93a012e8237771804785666"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w2_a7.json",
+    "before_sha256": "ae1e46792d85c6b60d21076b3c027dca1e5a17ea1576c503d92e05da17afc7e5",
+    "after_sha256": "ae1e46792d85c6b60d21076b3c027dca1e5a17ea1576c503d92e05da17afc7e5",
+    "observed_sha256": [
+      "ae1e46792d85c6b60d21076b3c027dca1e5a17ea1576c503d92e05da17afc7e5"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w3_a0.json",
+    "before_sha256": "a82fb458f23b28fc58c4d88b4b89c39c7233d40e150560f45b2e990984377c5c",
+    "after_sha256": "a82fb458f23b28fc58c4d88b4b89c39c7233d40e150560f45b2e990984377c5c",
+    "observed_sha256": [
+      "a82fb458f23b28fc58c4d88b4b89c39c7233d40e150560f45b2e990984377c5c"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w3_a1.json",
+    "before_sha256": "d13e31ab13018e8e525bcf5d958ea86c6bd2ef3441a5cfbc78f3cec3fb430ca9",
+    "after_sha256": "d13e31ab13018e8e525bcf5d958ea86c6bd2ef3441a5cfbc78f3cec3fb430ca9",
+    "observed_sha256": [
+      "d13e31ab13018e8e525bcf5d958ea86c6bd2ef3441a5cfbc78f3cec3fb430ca9"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w3_a2.json",
+    "before_sha256": "cb71d934e41ebb8fdc9c3278fbcf5a7b5f87858397c248eaa90eccd05fe3c6d8",
+    "after_sha256": "cb71d934e41ebb8fdc9c3278fbcf5a7b5f87858397c248eaa90eccd05fe3c6d8",
+    "observed_sha256": [
+      "cb71d934e41ebb8fdc9c3278fbcf5a7b5f87858397c248eaa90eccd05fe3c6d8"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w3_a3.json",
+    "before_sha256": "92b56dc3c2250292dd4091470f7d93941c81ede7c13d0bff198970b86d755b83",
+    "after_sha256": "92b56dc3c2250292dd4091470f7d93941c81ede7c13d0bff198970b86d755b83",
+    "observed_sha256": [
+      "92b56dc3c2250292dd4091470f7d93941c81ede7c13d0bff198970b86d755b83"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w3_a4.json",
+    "before_sha256": "acffc3828bbfb3fcab0699481ec023caa110998c13a132a76424c8d057c4dd1d",
+    "after_sha256": "acffc3828bbfb3fcab0699481ec023caa110998c13a132a76424c8d057c4dd1d",
+    "observed_sha256": [
+      "acffc3828bbfb3fcab0699481ec023caa110998c13a132a76424c8d057c4dd1d"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w3_a5.json",
+    "before_sha256": "aa4e9e5ceecb97e00e2aefce93786d13949f19c33fb2dc463ab257c715b6a779",
+    "after_sha256": "aa4e9e5ceecb97e00e2aefce93786d13949f19c33fb2dc463ab257c715b6a779",
+    "observed_sha256": [
+      "aa4e9e5ceecb97e00e2aefce93786d13949f19c33fb2dc463ab257c715b6a779"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w3_a6.json",
+    "before_sha256": "60f4cceba427588249e803e05ffeef6757233a8247904ec84205ec2d32224d79",
+    "after_sha256": "60f4cceba427588249e803e05ffeef6757233a8247904ec84205ec2d32224d79",
+    "observed_sha256": [
+      "60f4cceba427588249e803e05ffeef6757233a8247904ec84205ec2d32224d79"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w4_a0.json",
+    "before_sha256": "069af237dbfdd81deab52f8456e5ad64cd21061c6c59feac969c5dd6d6eb1aa8",
+    "after_sha256": "069af237dbfdd81deab52f8456e5ad64cd21061c6c59feac969c5dd6d6eb1aa8",
+    "observed_sha256": [
+      "069af237dbfdd81deab52f8456e5ad64cd21061c6c59feac969c5dd6d6eb1aa8"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w4_a1.json",
+    "before_sha256": "a9144aacd06b58572f5c59c62b4666c9b6456f59e9a8cc8ac73d29e09a7addca",
+    "after_sha256": "a9144aacd06b58572f5c59c62b4666c9b6456f59e9a8cc8ac73d29e09a7addca",
+    "observed_sha256": [
+      "a9144aacd06b58572f5c59c62b4666c9b6456f59e9a8cc8ac73d29e09a7addca"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w4_a2.json",
+    "before_sha256": "b35eefdb6d87e4a3b026468ec73a70fba80128de166f35883c935c8c1f462f85",
+    "after_sha256": "b35eefdb6d87e4a3b026468ec73a70fba80128de166f35883c935c8c1f462f85",
+    "observed_sha256": [
+      "b35eefdb6d87e4a3b026468ec73a70fba80128de166f35883c935c8c1f462f85"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w4_a3.json",
+    "before_sha256": "8a2f0c667a95593046602ecfa673c8b37f0b82c28ee9b9928be9dfa9dc537f8f",
+    "after_sha256": "8a2f0c667a95593046602ecfa673c8b37f0b82c28ee9b9928be9dfa9dc537f8f",
+    "observed_sha256": [
+      "8a2f0c667a95593046602ecfa673c8b37f0b82c28ee9b9928be9dfa9dc537f8f"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w4_a4.json",
+    "before_sha256": "211d8b86e01f614e8ec6c0b68b894e47f1bb93d184ded9d11b9b2a521660818b",
+    "after_sha256": "211d8b86e01f614e8ec6c0b68b894e47f1bb93d184ded9d11b9b2a521660818b",
+    "observed_sha256": [
+      "211d8b86e01f614e8ec6c0b68b894e47f1bb93d184ded9d11b9b2a521660818b"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w4_a5.json",
+    "before_sha256": "1828eccdb42b1fb307cd28fe79157c940aee457ee407848c4ced6663b9e602c1",
+    "after_sha256": "1828eccdb42b1fb307cd28fe79157c940aee457ee407848c4ced6663b9e602c1",
+    "observed_sha256": [
+      "1828eccdb42b1fb307cd28fe79157c940aee457ee407848c4ced6663b9e602c1"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w5_a0.json",
+    "before_sha256": "877b2a53786ac8ecf754af92691e499621e26c4adbda33da571afce003f186d1",
+    "after_sha256": "877b2a53786ac8ecf754af92691e499621e26c4adbda33da571afce003f186d1",
+    "observed_sha256": [
+      "877b2a53786ac8ecf754af92691e499621e26c4adbda33da571afce003f186d1"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w5_a1.json",
+    "before_sha256": "a9d747a6a1828c3e395b0255149e7ae9d22e91c1128b8e0069a64886c91b9e67",
+    "after_sha256": "a9d747a6a1828c3e395b0255149e7ae9d22e91c1128b8e0069a64886c91b9e67",
+    "observed_sha256": [
+      "a9d747a6a1828c3e395b0255149e7ae9d22e91c1128b8e0069a64886c91b9e67"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w5_a2.json",
+    "before_sha256": "df226ac34ae9c3189c2b85494fa3adfd210f54f05b6b11b94a75d7cb54fb1a08",
+    "after_sha256": "df226ac34ae9c3189c2b85494fa3adfd210f54f05b6b11b94a75d7cb54fb1a08",
+    "observed_sha256": [
+      "df226ac34ae9c3189c2b85494fa3adfd210f54f05b6b11b94a75d7cb54fb1a08"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w5_a3.json",
+    "before_sha256": "b4e70ab3c166f2b41bcef35c6c0121c4a9d2e9cbe2e3afba9370be711ca656e6",
+    "after_sha256": "b4e70ab3c166f2b41bcef35c6c0121c4a9d2e9cbe2e3afba9370be711ca656e6",
+    "observed_sha256": [
+      "b4e70ab3c166f2b41bcef35c6c0121c4a9d2e9cbe2e3afba9370be711ca656e6"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w5_a4.json",
+    "before_sha256": "d41c92be194bb1ba3c3c7e7954913b0200bdd7b1aeae6d06128a510c47d4ff02",
+    "after_sha256": "d41c92be194bb1ba3c3c7e7954913b0200bdd7b1aeae6d06128a510c47d4ff02",
+    "observed_sha256": [
+      "d41c92be194bb1ba3c3c7e7954913b0200bdd7b1aeae6d06128a510c47d4ff02"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w6_a0.json",
+    "before_sha256": "719f9630e3877238967e540b33d0684e023c6e563d7669abe242dc1484d76f90",
+    "after_sha256": "719f9630e3877238967e540b33d0684e023c6e563d7669abe242dc1484d76f90",
+    "observed_sha256": [
+      "719f9630e3877238967e540b33d0684e023c6e563d7669abe242dc1484d76f90"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w6_a1.json",
+    "before_sha256": "47aed29c5de85eb49d5f6001a982099c31a3664261a4efab68f843ef85ed8739",
+    "after_sha256": "47aed29c5de85eb49d5f6001a982099c31a3664261a4efab68f843ef85ed8739",
+    "observed_sha256": [
+      "47aed29c5de85eb49d5f6001a982099c31a3664261a4efab68f843ef85ed8739"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w6_a2.json",
+    "before_sha256": "b814e17a093a5a4761a44b49264dffb5df673602e0609090dadb70951b2d58b7",
+    "after_sha256": "b814e17a093a5a4761a44b49264dffb5df673602e0609090dadb70951b2d58b7",
+    "observed_sha256": [
+      "b814e17a093a5a4761a44b49264dffb5df673602e0609090dadb70951b2d58b7"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w6_a3.json",
+    "before_sha256": "1958bc0d4c3aec2da2b37686b09044b3a9f6107173d9297a052ccd9f31a94a9d",
+    "after_sha256": "1958bc0d4c3aec2da2b37686b09044b3a9f6107173d9297a052ccd9f31a94a9d",
+    "observed_sha256": [
+      "1958bc0d4c3aec2da2b37686b09044b3a9f6107173d9297a052ccd9f31a94a9d"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w7_a0.json",
+    "before_sha256": "3f0ed8baf687905e358e79c637a948380cf4f0e69e463193bcc5509787409ced",
+    "after_sha256": "3f0ed8baf687905e358e79c637a948380cf4f0e69e463193bcc5509787409ced",
+    "observed_sha256": [
+      "3f0ed8baf687905e358e79c637a948380cf4f0e69e463193bcc5509787409ced"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w7_a1.json",
+    "before_sha256": "ee0fd85c8e73e5e5dc8d1b3973e995a0e3b215383d8f5a1b5b823eb0e305388a",
+    "after_sha256": "ee0fd85c8e73e5e5dc8d1b3973e995a0e3b215383d8f5a1b5b823eb0e305388a",
+    "observed_sha256": [
+      "ee0fd85c8e73e5e5dc8d1b3973e995a0e3b215383d8f5a1b5b823eb0e305388a"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w7_a2.json",
+    "before_sha256": "ec9d5c1b2ae23b7953377be8ef7f13334cdb388c2ada744c23f6bb5b37547eea",
+    "after_sha256": "ec9d5c1b2ae23b7953377be8ef7f13334cdb388c2ada744c23f6bb5b37547eea",
+    "observed_sha256": [
+      "ec9d5c1b2ae23b7953377be8ef7f13334cdb388c2ada744c23f6bb5b37547eea"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w8_a0.json",
+    "before_sha256": "9e5654fad1fc93e191642613b679ca467c71b191de6064326bd88647315839b7",
+    "after_sha256": "9e5654fad1fc93e191642613b679ca467c71b191de6064326bd88647315839b7",
+    "observed_sha256": [
+      "9e5654fad1fc93e191642613b679ca467c71b191de6064326bd88647315839b7"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w8_a1.json",
+    "before_sha256": "7d1c300d3c4176fde582e137dc18e2d0d50752eae60047bf6c529880af34b9ce",
+    "after_sha256": "7d1c300d3c4176fde582e137dc18e2d0d50752eae60047bf6c529880af34b9ce",
+    "observed_sha256": [
+      "7d1c300d3c4176fde582e137dc18e2d0d50752eae60047bf6c529880af34b9ce"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign4/sectors/k9_w9_a0.json",
+    "before_sha256": "6ce795bbd53d96a18b9989f2bf03dbf47b34012327c4df83c45a87bd5425a62d",
+    "after_sha256": "6ce795bbd53d96a18b9989f2bf03dbf47b34012327c4df83c45a87bd5425a62d",
+    "observed_sha256": [
+      "6ce795bbd53d96a18b9989f2bf03dbf47b34012327c4df83c45a87bd5425a62d"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/_output_paths.py",
+    "before_sha256": "8e67059e7083fcb5d230de92f1daa4387dba4da1c081e3f111180cef1e2cd02e",
+    "after_sha256": "8e67059e7083fcb5d230de92f1daa4387dba4da1c081e3f111180cef1e2cd02e",
+    "observed_sha256": [
+      "8e67059e7083fcb5d230de92f1daa4387dba4da1c081e3f111180cef1e2cd02e"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/SECTOR_ENGINE.md",
+    "before_sha256": "6ab51299604155b4c79fade2c45d1f372445e6860320ea77c6a65c41ec962a78",
+    "after_sha256": "6ab51299604155b4c79fade2c45d1f372445e6860320ea77c6a65c41ec962a78",
+    "observed_sha256": [
+      "6ab51299604155b4c79fade2c45d1f372445e6860320ea77c6a65c41ec962a78"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/autonomous_single_source_closure/partial_activation_recurrence.py",
+    "before_sha256": "920355141e32600e0e76b03900c8b38465c4c4e15682b539f340ddc8f9079f6f",
+    "after_sha256": "920355141e32600e0e76b03900c8b38465c4c4e15682b539f340ddc8f9079f6f",
+    "observed_sha256": [
+      "920355141e32600e0e76b03900c8b38465c4c4e15682b539f340ddc8f9079f6f"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/autonomous_single_source_closure/test_partial_activation_recurrence.py",
+    "before_sha256": "7b51445fb0266425e07187e4b540492ce1e294433a179ddf3acd46fa3e0e91b5",
+    "after_sha256": "7b51445fb0266425e07187e4b540492ce1e294433a179ddf3acd46fa3e0e91b5",
+    "observed_sha256": [
+      "7b51445fb0266425e07187e4b540492ce1e294433a179ddf3acd46fa3e0e91b5"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/analyze_hankel.py",
+    "before_sha256": "fe351e9d3346b01641d3cdfb1a37a2e16f78e21d471ae9d2eca99c9c2f240593",
+    "after_sha256": "fe351e9d3346b01641d3cdfb1a37a2e16f78e21d471ae9d2eca99c9c2f240593",
+    "observed_sha256": [
+      "fe351e9d3346b01641d3cdfb1a37a2e16f78e21d471ae9d2eca99c9c2f240593"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/parametric_multiroot_reference.py",
+    "before_sha256": "cddc5d211cae59ece6af98d854de91e060b0c68d72e3bf7297ea91bfd8bd9816",
+    "after_sha256": "cddc5d211cae59ece6af98d854de91e060b0c68d72e3bf7297ea91bfd8bd9816",
+    "observed_sha256": [
+      "cddc5d211cae59ece6af98d854de91e060b0c68d72e3bf7297ea91bfd8bd9816"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/parametric_stieltjes_postprocess.py",
+    "before_sha256": "095b96f181c73ad0693102328174ee37e2a756fedcb60ebd5da985367e23a4a6",
+    "after_sha256": "095b96f181c73ad0693102328174ee37e2a756fedcb60ebd5da985367e23a4a6",
+    "observed_sha256": [
+      "095b96f181c73ad0693102328174ee37e2a756fedcb60ebd5da985367e23a4a6"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/run_graded_campaign.py",
+    "before_sha256": "a65c887c6d5f7fe233152e0721fc3f5425f62458bac447205fdb23b600a91d4b",
+    "after_sha256": "a65c887c6d5f7fe233152e0721fc3f5425f62458bac447205fdb23b600a91d4b",
+    "observed_sha256": [
+      "a65c887c6d5f7fe233152e0721fc3f5425f62458bac447205fdb23b600a91d4b"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/test_connected_parametric_multiroot.py",
+    "before_sha256": "df2f37bedc6abec0507527c13bd5f6b1821759298867bb2a7b9d07f499559294",
+    "after_sha256": "df2f37bedc6abec0507527c13bd5f6b1821759298867bb2a7b9d07f499559294",
+    "observed_sha256": [
+      "df2f37bedc6abec0507527c13bd5f6b1821759298867bb2a7b9d07f499559294"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/test_graded_sector.py",
+    "before_sha256": "33bdc273e16d306fbdc6f8eb174ffb8b78a3dbd8bbc5cf83ce07d0967cf4187b",
+    "after_sha256": "33bdc273e16d306fbdc6f8eb174ffb8b78a3dbd8bbc5cf83ce07d0967cf4187b",
+    "observed_sha256": [
+      "33bdc273e16d306fbdc6f8eb174ffb8b78a3dbd8bbc5cf83ce07d0967cf4187b"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/test_hankel_analysis.py",
+    "before_sha256": "1dab484f7460ebbb235c5b66a8143545480d623fb60e5f8b5469e1c68327cdea",
+    "after_sha256": "1dab484f7460ebbb235c5b66a8143545480d623fb60e5f8b5469e1c68327cdea",
+    "observed_sha256": [
+      "1dab484f7460ebbb235c5b66a8143545480d623fb60e5f8b5469e1c68327cdea"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/test_order9_q2_order8.py",
+    "before_sha256": "a19fea01cfd45066d83b0457b0cf4959b76eeb06bd3a1578368a7f8c0394d5bf",
+    "after_sha256": "a19fea01cfd45066d83b0457b0cf4959b76eeb06bd3a1578368a7f8c0394d5bf",
+    "observed_sha256": [
+      "a19fea01cfd45066d83b0457b0cf4959b76eeb06bd3a1578368a7f8c0394d5bf"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/test_parametric_multiroot_reference.py",
+    "before_sha256": "6bf53a93399da73d4b5c4f5605c35b80eeed3e2220c33e29ca1c78d14c423fca",
+    "after_sha256": "6bf53a93399da73d4b5c4f5605c35b80eeed3e2220c33e29ca1c78d14c423fca",
+    "observed_sha256": [
+      "6bf53a93399da73d4b5c4f5605c35b80eeed3e2220c33e29ca1c78d14c423fca"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/test_parametric_stieltjes_postprocess.py",
+    "before_sha256": "37d931a20e139f14387909166e6bc53f7562246ffe59394cb5ff376701e28c6d",
+    "after_sha256": "37d931a20e139f14387909166e6bc53f7562246ffe59394cb5ff376701e28c6d",
+    "observed_sha256": [
+      "37d931a20e139f14387909166e6bc53f7562246ffe59394cb5ff376701e28c6d"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/postprocess.py",
+    "before_sha256": "fd0eebc6a0a3475069db1d9a90640d2f2d572c4029ae5f643d5815012a7c44bf",
+    "after_sha256": "fd0eebc6a0a3475069db1d9a90640d2f2d572c4029ae5f643d5815012a7c44bf",
+    "observed_sha256": [
+      "fd0eebc6a0a3475069db1d9a90640d2f2d572c4029ae5f643d5815012a7c44bf"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/test_postprocess.py",
+    "before_sha256": "c1fc5b16e1a2312821e6d07e4b638f5305c1feac76bddb54839050403c5b06d4",
+    "after_sha256": "c1fc5b16e1a2312821e6d07e4b638f5305c1feac76bddb54839050403c5b06d4",
+    "observed_sha256": [
+      "c1fc5b16e1a2312821e6d07e4b638f5305c1feac76bddb54839050403c5b06d4"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/test_provenance.py",
+    "before_sha256": "b3f9bdc67c2024f4d7c235853fe9d8699a315a2c64a5e57d34ae322301d3f0c2",
+    "after_sha256": "b3f9bdc67c2024f4d7c235853fe9d8699a315a2c64a5e57d34ae322301d3f0c2",
+    "observed_sha256": [
+      "b3f9bdc67c2024f4d7c235853fe9d8699a315a2c64a5e57d34ae322301d3f0c2"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/test_two_input_connected.py",
+    "before_sha256": "729c61fdb59781dc669ed33e08a41affd4617896b1ca6f4a44ca32f4d3450db7",
+    "after_sha256": "729c61fdb59781dc669ed33e08a41affd4617896b1ca6f4a44ca32f4d3450db7",
+    "observed_sha256": [
+      "729c61fdb59781dc669ed33e08a41affd4617896b1ca6f4a44ca32f4d3450db7"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/test_two_input_reference.py",
+    "before_sha256": "708a53a35d6ed183a3ed811eda41fd8c854c2233c5e93e547cf6a91ffdad1b0d",
+    "after_sha256": "708a53a35d6ed183a3ed811eda41fd8c854c2233c5e93e547cf6a91ffdad1b0d",
+    "observed_sha256": [
+      "708a53a35d6ed183a3ed811eda41fd8c854c2233c5e93e547cf6a91ffdad1b0d"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/two_input_reference.py",
+    "before_sha256": "c1561c6db2df449c85182e772f5efc75574050e26c34feb8e00bf7c4a3b090c2",
+    "after_sha256": "c1561c6db2df449c85182e772f5efc75574050e26c34feb8e00bf7c4a3b090c2",
+    "observed_sha256": [
+      "c1561c6db2df449c85182e772f5efc75574050e26c34feb8e00bf7c4a3b090c2"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/centered_reference.py",
+    "before_sha256": "310b63193e191893bc61ec24b2220f3e8b59fd280a84d9b2144265f10306e2ef",
+    "after_sha256": "310b63193e191893bc61ec24b2220f3e8b59fd280a84d9b2144265f10306e2ef",
+    "observed_sha256": [
+      "310b63193e191893bc61ec24b2220f3e8b59fd280a84d9b2144265f10306e2ef"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/postprocess.py",
+    "before_sha256": "54f67a8a81bd8cfc2f6bdf24951bea290ec86a2cb3c28bc59c0c9473563a23d7",
+    "after_sha256": "54f67a8a81bd8cfc2f6bdf24951bea290ec86a2cb3c28bc59c0c9473563a23d7",
+    "observed_sha256": [
+      "54f67a8a81bd8cfc2f6bdf24951bea290ec86a2cb3c28bc59c0c9473563a23d7"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/test_campaign3_postprocess.py",
+    "before_sha256": "ec62ef95737b5575feecc04cec8e39d0e2c433904c225bda0853bbf8d8616de7",
+    "after_sha256": "ec62ef95737b5575feecc04cec8e39d0e2c433904c225bda0853bbf8d8616de7",
+    "observed_sha256": [
+      "ec62ef95737b5575feecc04cec8e39d0e2c433904c225bda0853bbf8d8616de7"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/test_campaign3_provenance.py",
+    "before_sha256": "4d9fa2b68016cd11c7efc8c6642cd901f6a8bec54ec2a5886069f591c8e72147",
+    "after_sha256": "4d9fa2b68016cd11c7efc8c6642cd901f6a8bec54ec2a5886069f591c8e72147",
+    "observed_sha256": [
+      "4d9fa2b68016cd11c7efc8c6642cd901f6a8bec54ec2a5886069f591c8e72147"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/test_centered_reference.py",
+    "before_sha256": "a703800b882548182f0da09f002580c6bcca26022962f9f9f1a7dd5c92beeafc",
+    "after_sha256": "a703800b882548182f0da09f002580c6bcca26022962f9f9f1a7dd5c92beeafc",
+    "observed_sha256": [
+      "a703800b882548182f0da09f002580c6bcca26022962f9f9f1a7dd5c92beeafc"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/test_connected_results.py",
+    "before_sha256": "0b1d58b513b8ebac542eacf16cf825c47fb5407ef26bf8a697c9646327ea4749",
+    "after_sha256": "0b1d58b513b8ebac542eacf16cf825c47fb5407ef26bf8a697c9646327ea4749",
+    "observed_sha256": [
+      "0b1d58b513b8ebac542eacf16cf825c47fb5407ef26bf8a697c9646327ea4749"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/bivariate_reference.py",
+    "before_sha256": "85fb2a6c295e3c1a36b81c2b9f60bdf690b1cd0fb5640ed04c73019ab0f1e221",
+    "after_sha256": "85fb2a6c295e3c1a36b81c2b9f60bdf690b1cd0fb5640ed04c73019ab0f1e221",
+    "observed_sha256": [
+      "85fb2a6c295e3c1a36b81c2b9f60bdf690b1cd0fb5640ed04c73019ab0f1e221"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/make_provenance.py",
+    "before_sha256": "7dc2c618e2813f484eaaccf97879fc7e2bda2ac65d39f06c41e216feee08ea39",
+    "after_sha256": "7dc2c618e2813f484eaaccf97879fc7e2bda2ac65d39f06c41e216feee08ea39",
+    "observed_sha256": [
+      "7dc2c618e2813f484eaaccf97879fc7e2bda2ac65d39f06c41e216feee08ea39"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/postprocess.py",
+    "before_sha256": "bb8e79af94a0c8370948df9165d5b74b73c451b7b9f71b8ed766120ebec96408",
+    "after_sha256": "bb8e79af94a0c8370948df9165d5b74b73c451b7b9f71b8ed766120ebec96408",
+    "observed_sha256": [
+      "bb8e79af94a0c8370948df9165d5b74b73c451b7b9f71b8ed766120ebec96408"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/run_sectors.py",
+    "before_sha256": "779db8428250e7e0266bde8634997275c86c68506064358c730a87b6fe5fd280",
+    "after_sha256": "779db8428250e7e0266bde8634997275c86c68506064358c730a87b6fe5fd280",
+    "observed_sha256": [
+      "779db8428250e7e0266bde8634997275c86c68506064358c730a87b6fe5fd280"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/test_campaign4_provenance.py",
+    "before_sha256": "22c6b01f763e942669ea0940dd744a5979fdb8d4682e011b0b2580cc2f7c6880",
+    "after_sha256": "22c6b01f763e942669ea0940dd744a5979fdb8d4682e011b0b2580cc2f7c6880",
+    "observed_sha256": [
+      "22c6b01f763e942669ea0940dd744a5979fdb8d4682e011b0b2580cc2f7c6880"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/test_low_order_production.py",
+    "before_sha256": "de3891f4d4dc1b4902d55af2f901bb95f6455520ef664f57705808a2fb938210",
+    "after_sha256": "de3891f4d4dc1b4902d55af2f901bb95f6455520ef664f57705808a2fb938210",
+    "observed_sha256": [
+      "de3891f4d4dc1b4902d55af2f901bb95f6455520ef664f57705808a2fb938210"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/test_reference.py",
+    "before_sha256": "67367be03578f052ce3c74dca7ff294d2621cc074cbda5599b01d25fc6c8e9e2",
+    "after_sha256": "67367be03578f052ce3c74dca7ff294d2621cc074cbda5599b01d25fc6c8e9e2",
+    "observed_sha256": [
+      "67367be03578f052ce3c74dca7ff294d2621cc074cbda5599b01d25fc6c8e9e2"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/test_results_and_certificates.py",
+    "before_sha256": "4248c8f6da7046bfb89514027af21587a5a07b9574f609adcab1e7920e21fe33",
+    "after_sha256": "4248c8f6da7046bfb89514027af21587a5a07b9574f609adcab1e7920e21fe33",
+    "observed_sha256": [
+      "4248c8f6da7046bfb89514027af21587a5a07b9574f609adcab1e7920e21fe33"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/b3_reference.py",
+    "before_sha256": "dda01ff669e63a9e601dfb98d32375a37f2c59c1eb1e8f887ba045495a8c5661",
+    "after_sha256": "dda01ff669e63a9e601dfb98d32375a37f2c59c1eb1e8f887ba045495a8c5661",
+    "observed_sha256": [
+      "dda01ff669e63a9e601dfb98d32375a37f2c59c1eb1e8f887ba045495a8c5661"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/postprocess_lower_moments.py",
+    "before_sha256": "c41e36ce25dc0977a401bfec8f1cfdc50fe7c75dc11041b954243ddee84beff1",
+    "after_sha256": "c41e36ce25dc0977a401bfec8f1cfdc50fe7c75dc11041b954243ddee84beff1",
+    "observed_sha256": [
+      "c41e36ce25dc0977a401bfec8f1cfdc50fe7c75dc11041b954243ddee84beff1"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/run_stage_c.py",
+    "before_sha256": "25257a0de873543c65354c662d2e0eacde2179120b80e542e81430114d59bfd0",
+    "after_sha256": "25257a0de873543c65354c662d2e0eacde2179120b80e542e81430114d59bfd0",
+    "observed_sha256": [
+      "25257a0de873543c65354c662d2e0eacde2179120b80e542e81430114d59bfd0"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_b2_order5_gate.py",
+    "before_sha256": "541107c8f96f291250de648157f702a95bda63e741ab9a9724dc18acc79b4d1f",
+    "after_sha256": "541107c8f96f291250de648157f702a95bda63e741ab9a9724dc18acc79b4d1f",
+    "observed_sha256": [
+      "541107c8f96f291250de648157f702a95bda63e741ab9a9724dc18acc79b4d1f"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_b3_connected.py",
+    "before_sha256": "759314771e03d5ff8e3c217f8ede3894ceb24dabb16c9ca1af11adefd9464f40",
+    "after_sha256": "759314771e03d5ff8e3c217f8ede3894ceb24dabb16c9ca1af11adefd9464f40",
+    "observed_sha256": [
+      "759314771e03d5ff8e3c217f8ede3894ceb24dabb16c9ca1af11adefd9464f40"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_b3_reference.py",
+    "before_sha256": "fc7049c0aea3a56f74ff2578c67e4980cb2708cf15c41f954a2e5e7d5af69808",
+    "after_sha256": "fc7049c0aea3a56f74ff2578c67e4980cb2708cf15c41f954a2e5e7d5af69808",
+    "observed_sha256": [
+      "fc7049c0aea3a56f74ff2578c67e4980cb2708cf15c41f954a2e5e7d5af69808"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_lower_moment_certificate.py",
+    "before_sha256": "bd1f9f522c7b59b1f81cb593d298cccaf52c01ff8ff2f5755dfbc281097a1639",
+    "after_sha256": "bd1f9f522c7b59b1f81cb593d298cccaf52c01ff8ff2f5755dfbc281097a1639",
+    "observed_sha256": [
+      "bd1f9f522c7b59b1f81cb593d298cccaf52c01ff8ff2f5755dfbc281097a1639"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_stage_a_provenance.py",
+    "before_sha256": "d9e49700d1e5512db70116770ac92c3bec6cb37e4903a4fea649ece0b8014cc9",
+    "after_sha256": "d9e49700d1e5512db70116770ac92c3bec6cb37e4903a4fea649ece0b8014cc9",
+    "observed_sha256": [
+      "d9e49700d1e5512db70116770ac92c3bec6cb37e4903a4fea649ece0b8014cc9"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_stage_c_closed.py",
+    "before_sha256": "fef0541e3e6183f1b0d2a03b1a08209e21bda90b021dc079e4af7613ccb88bcb",
+    "after_sha256": "fef0541e3e6183f1b0d2a03b1a08209e21bda90b021dc079e4af7613ccb88bcb",
+    "observed_sha256": [
+      "fef0541e3e6183f1b0d2a03b1a08209e21bda90b021dc079e4af7613ccb88bcb"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_stage_c_sector.py",
+    "before_sha256": "fece234f0774735f1314ff0e09e4ebac56b987413dc6a2826bb69c8026afc0c7",
+    "after_sha256": "fece234f0774735f1314ff0e09e4ebac56b987413dc6a2826bb69c8026afc0c7",
+    "observed_sha256": [
+      "fece234f0774735f1314ff0e09e4ebac56b987413dc6a2826bb69c8026afc0c7"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign6_f13_threshold/CAMPAIGN_REPORT.md",
+    "before_sha256": "fb80305fb9c88af31b39449fcfd386e744ec36a6b23a86e71e5099c458dfdbac",
+    "after_sha256": "fb80305fb9c88af31b39449fcfd386e744ec36a6b23a86e71e5099c458dfdbac",
+    "observed_sha256": [
+      "fb80305fb9c88af31b39449fcfd386e744ec36a6b23a86e71e5099c458dfdbac"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign6_f13_threshold/coarse_sector_bounds.py",
+    "before_sha256": "5bfb5787e072044a704d38aa9ebf87c0cd253e1288a3b034b8ea89ba03a2aca7",
+    "after_sha256": "5bfb5787e072044a704d38aa9ebf87c0cd253e1288a3b034b8ea89ba03a2aca7",
+    "observed_sha256": [
+      "5bfb5787e072044a704d38aa9ebf87c0cd253e1288a3b034b8ea89ba03a2aca7"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign6_f13_threshold/run_benchmark.py",
+    "before_sha256": "8b9cb48a1c0a6ef12b5af5493a288513eeefbd80af4df0b90fca5dc55caec50f",
+    "after_sha256": "8b9cb48a1c0a6ef12b5af5493a288513eeefbd80af4df0b90fca5dc55caec50f",
+    "observed_sha256": [
+      "8b9cb48a1c0a6ef12b5af5493a288513eeefbd80af4df0b90fca5dc55caec50f"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign6_f13_threshold/test_campaign6.py",
+    "before_sha256": "8aa06533eea48404aa2a09e5aafffebbbc93fc51da7e685038f9c938dd67f0ac",
+    "after_sha256": "8aa06533eea48404aa2a09e5aafffebbbc93fc51da7e685038f9c938dd67f0ac",
+    "observed_sha256": [
+      "8aa06533eea48404aa2a09e5aafffebbbc93fc51da7e685038f9c938dd67f0ac"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign_paths.py",
+    "before_sha256": "bbb7aecb3400bb695cd166fe761e8275eb0462775c37d77904809540a3e40289",
+    "after_sha256": "bbb7aecb3400bb695cd166fe761e8275eb0462775c37d77904809540a3e40289",
+    "observed_sha256": [
+      "bbb7aecb3400bb695cd166fe761e8275eb0462775c37d77904809540a3e40289"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/centered_depth1_order13/centered_h2_exact.py",
+    "before_sha256": "0a8f378f35716a568a48b1b9cef86040030439a2dfadc9e112294f21762de769",
+    "after_sha256": "0a8f378f35716a568a48b1b9cef86040030439a2dfadc9e112294f21762de769",
+    "observed_sha256": [
+      "0a8f378f35716a568a48b1b9cef86040030439a2dfadc9e112294f21762de769"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/centered_depth1_order13/test_centered_h2_exact.py",
+    "before_sha256": "2627e325bf04864407d3a6d7d77959f5c225ecaca5cb8a2143b08bf679591f7a",
+    "after_sha256": "2627e325bf04864407d3a6d7d77959f5c225ecaca5cb8a2143b08bf679591f7a",
+    "observed_sha256": [
+      "2627e325bf04864407d3a6d7d77959f5c225ecaca5cb8a2143b08bf679591f7a"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/checkpoint_paths.h",
+    "before_sha256": "59b98a143721f1024a424ed7d6a7f2f152909ea6ce78329dffb14b6a816e2c40",
+    "after_sha256": "59b98a143721f1024a424ed7d6a7f2f152909ea6ce78329dffb14b6a816e2c40",
+    "observed_sha256": [
+      "59b98a143721f1024a424ed7d6a7f2f152909ea6ce78329dffb14b6a816e2c40"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/component_parallel.cpp",
+    "before_sha256": "88ee7a84d38250b74fc2993d8cc0fb1a1ebfb572d3ff30e50849ca7b6cd5d376",
+    "after_sha256": "88ee7a84d38250b74fc2993d8cc0fb1a1ebfb572d3ff30e50849ca7b6cd5d376",
+    "observed_sha256": [
+      "88ee7a84d38250b74fc2993d8cc0fb1a1ebfb572d3ff30e50849ca7b6cd5d376"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/depth3_exact_jet.py",
+    "before_sha256": "f7f40919f6a286ad82facfc6451ab9809ed8ed7999110f0aadd58bafb96e2a5c",
+    "after_sha256": "f7f40919f6a286ad82facfc6451ab9809ed8ed7999110f0aadd58bafb96e2a5c",
+    "observed_sha256": [
+      "f7f40919f6a286ad82facfc6451ab9809ed8ed7999110f0aadd58bafb96e2a5c"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/depth3_order13_stieltjes_audit.py",
+    "before_sha256": "47cc08ee708f64c9fc64afed60809d3b9a642b5548ba125631e996370cb92109",
+    "after_sha256": "47cc08ee708f64c9fc64afed60809d3b9a642b5548ba125631e996370cb92109",
+    "observed_sha256": [
+      "47cc08ee708f64c9fc64afed60809d3b9a642b5548ba125631e996370cb92109"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/depth3_stieltjes_audit.py",
+    "before_sha256": "27bb3c259413f83d19addea02a7035b66313df2ccd7f1ea0a04cc194d9aa6104",
+    "after_sha256": "27bb3c259413f83d19addea02a7035b66313df2ccd7f1ea0a04cc194d9aa6104",
+    "observed_sha256": [
+      "27bb3c259413f83d19addea02a7035b66313df2ccd7f1ea0a04cc194d9aa6104"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/test_depth3_exact_jet.py",
+    "before_sha256": "27ade6780f5288b2c573cd117d1b15c365c1450a01252fff6d34b7dbcbea0512",
+    "after_sha256": "27ade6780f5288b2c573cd117d1b15c365c1450a01252fff6d34b7dbcbea0512",
+    "observed_sha256": [
+      "27ade6780f5288b2c573cd117d1b15c365c1450a01252fff6d34b7dbcbea0512"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/test_depth3_order13_stieltjes.py",
+    "before_sha256": "76f202bcdea99abf873b1d3c84a5ca514fb7641d5abaf7ae1457e035ab3f08b5",
+    "after_sha256": "76f202bcdea99abf873b1d3c84a5ca514fb7641d5abaf7ae1457e035ab3f08b5",
+    "observed_sha256": [
+      "76f202bcdea99abf873b1d3c84a5ca514fb7641d5abaf7ae1457e035ab3f08b5"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/depth3_gaussian_program/test_depth3_stieltjes_audit.py",
+    "before_sha256": "360c428b1e0fca2821f2bc4da144ab52bd5373eae41ef398998dc280ab9e61ff",
+    "after_sha256": "360c428b1e0fca2821f2bc4da144ab52bd5373eae41ef398998dc280ab9e61ff",
+    "observed_sha256": [
+      "360c428b1e0fca2821f2bc4da144ab52bd5373eae41ef398998dc280ab9e61ff"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/exact_graph_wick.py",
+    "before_sha256": "34ece0c40aa6f1fbb16a5fca7dc451142ffb3c2174a38062b7bcc5311bfa88fe",
+    "after_sha256": "34ece0c40aa6f1fbb16a5fca7dc451142ffb3c2174a38062b7bcc5311bfa88fe",
+    "observed_sha256": [
+      "34ece0c40aa6f1fbb16a5fca7dc451142ffb3c2174a38062b7bcc5311bfa88fe"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/finite_width_jet_reference.py",
+    "before_sha256": "eaeec166f9b811d318150c1e84e13de838afd824e708d2cc0af32b41e61f2940",
+    "after_sha256": "eaeec166f9b811d318150c1e84e13de838afd824e708d2cc0af32b41e61f2940",
+    "observed_sha256": [
+      "eaeec166f9b811d318150c1e84e13de838afd824e708d2cc0af32b41e61f2940"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/graph_compiler_reference.py",
+    "before_sha256": "21056f8dd8a02bf5a2b0bfccd5e71c53a0c0ffe10ab377673d675896b11db4d6",
+    "after_sha256": "21056f8dd8a02bf5a2b0bfccd5e71c53a0c0ffe10ab377673d675896b11db4d6",
+    "observed_sha256": [
+      "21056f8dd8a02bf5a2b0bfccd5e71c53a0c0ffe10ab377673d675896b11db4d6"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/high_sector.py",
+    "before_sha256": "aaf108e7bc08a42e9ded5a080368c19b4eadd31f645da7673e655b9c7a0851ec",
+    "after_sha256": "aaf108e7bc08a42e9ded5a080368c19b4eadd31f645da7673e655b9c7a0851ec",
+    "observed_sha256": [
+      "aaf108e7bc08a42e9ded5a080368c19b4eadd31f645da7673e655b9c7a0851ec"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/independent_checks.py",
+    "before_sha256": "c186081a703e0c083386d10f2e970a77bca35cbc78db1f5a59703fa9a4099af4",
+    "after_sha256": "c186081a703e0c083386d10f2e970a77bca35cbc78db1f5a59703fa9a4099af4",
+    "observed_sha256": [
+      "c186081a703e0c083386d10f2e970a77bca35cbc78db1f5a59703fa9a4099af4"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_closure/finite_width_boundary_layer.py",
+    "before_sha256": "86cfe8efc4a3401612563e5add6ce29e9766114bffd0ffdaa524476022d4bc18",
+    "after_sha256": "86cfe8efc4a3401612563e5add6ce29e9766114bffd0ffdaa524476022d4bc18",
+    "observed_sha256": [
+      "86cfe8efc4a3401612563e5add6ce29e9766114bffd0ffdaa524476022d4bc18"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/operator_ide_closure/test_finite_identities.py",
+    "before_sha256": "580b32ac10f2c2b1666015e1bf56fe502096687769d2fcf436c3c9929848de55",
+    "after_sha256": "580b32ac10f2c2b1666015e1bf56fe502096687769d2fcf436c3c9929848de55",
+    "observed_sha256": [
+      "580b32ac10f2c2b1666015e1bf56fe502096687769d2fcf436c3c9929848de55"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/rms_normalized_operator_closure/run_early_spike_diagnostic.py",
+    "before_sha256": "f6cdb119b556b4ff2653569ddf85ff6a19eb7b72b69709c329a524ca2a55161a",
+    "after_sha256": "f6cdb119b556b4ff2653569ddf85ff6a19eb7b72b69709c329a524ca2a55161a",
+    "observed_sha256": [
+      "f6cdb119b556b4ff2653569ddf85ff6a19eb7b72b69709c329a524ca2a55161a"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/sector_parallel.cpp",
+    "before_sha256": "d15056b61a75350adb435e023c848722b595e8570aed131736910439d0904b11",
+    "after_sha256": "d15056b61a75350adb435e023c848722b595e8570aed131736910439d0904b11",
+    "observed_sha256": [
+      "d15056b61a75350adb435e023c848722b595e8570aed131736910439d0904b11"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/sector_parallel_reuse.cpp",
+    "before_sha256": "65bf4c1e4be6c6394ace052e88025faccdd36b0f076cb33fc139fad69527f63d",
+    "after_sha256": "65bf4c1e4be6c6394ace052e88025faccdd36b0f076cb33fc139fad69527f63d",
+    "observed_sha256": [
+      "65bf4c1e4be6c6394ace052e88025faccdd36b0f076cb33fc139fad69527f63d"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/tree_state_tp_audit.py",
+    "before_sha256": "6759d58074911c01a20919b3789082eb4b6b1ecf1b84d39c8aec22462da75680",
+    "after_sha256": "6759d58074911c01a20919b3789082eb4b6b1ecf1b84d39c8aec22462da75680",
+    "observed_sha256": [
+      "6759d58074911c01a20919b3789082eb4b6b1ecf1b84d39c8aec22462da75680"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/repository_refactor_2026_09_09/test_metadata_routing.py",
+    "before_sha256": "2dc20edb91bcc87252d45daba637ef3bb38d6bf498979427d70856065c5a6392",
+    "after_sha256": "2dc20edb91bcc87252d45daba637ef3bb38d6bf498979427d70856065c5a6392",
+    "observed_sha256": [
+      "2dc20edb91bcc87252d45daba637ef3bb38d6bf498979427d70856065c5a6392"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/repository_refactor_2026_09_09/test_quadratic_routing.py",
+    "before_sha256": "c3373a2720e10c6f481c61f938d7e1b40f2384cb20056e059079bfded21e9b1c",
+    "after_sha256": "c3373a2720e10c6f481c61f938d7e1b40f2384cb20056e059079bfded21e9b1c",
+    "observed_sha256": [
+      "c3373a2720e10c6f481c61f938d7e1b40f2384cb20056e059079bfded21e9b1c"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/repository_refactor_2026_09_09/test_resnet_routing.py",
+    "before_sha256": "730652e8e193b31cffb3a1cc48c4ff3e65c19bcb163d07c00eaedcbe9fe69767",
+    "after_sha256": "eba91749ddc218299fb562ca5c78dcba1ce7702f4c4884c1777186fb24d0a2ce",
+    "observed_sha256": [
+      "eba91749ddc218299fb562ca5c78dcba1ce7702f4c4884c1777186fb24d0a2ce"
+    ],
+    "changed": true,
+    "authorized_patch_target": true,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/resnet_dense_early_audit/REPRODUCE.md",
+    "before_sha256": "caa1c88e12735c0d056057ed4307138a5517ce9ce1eddbbb76feebad89c7af0b",
+    "after_sha256": "caa1c88e12735c0d056057ed4307138a5517ce9ce1eddbbb76feebad89c7af0b",
+    "observed_sha256": [
+      "caa1c88e12735c0d056057ed4307138a5517ce9ce1eddbbb76feebad89c7af0b"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/resnet_dense_early_audit/run_dense_resnet_audit.py",
+    "before_sha256": "9422b9fe359592cdb000834943bb4e8d030df475f160e8be2a01269902b9ded8",
+    "after_sha256": "9422b9fe359592cdb000834943bb4e8d030df475f160e8be2a01269902b9ded8",
+    "observed_sha256": [
+      "9422b9fe359592cdb000834943bb4e8d030df475f160e8be2a01269902b9ded8"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/resnet_dense_early_audit/run_response_galerkin_projection.py",
+    "before_sha256": "7a788900a74bd9a87aef4a1fc9ab26b932bb2ede8b99206ef33ff32a34f89458",
+    "after_sha256": "7a788900a74bd9a87aef4a1fc9ab26b932bb2ede8b99206ef33ff32a34f89458",
+    "observed_sha256": [
+      "7a788900a74bd9a87aef4a1fc9ab26b932bb2ede8b99206ef33ff32a34f89458"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/resnet_dense_long_horizon/REPRODUCE.md",
+    "before_sha256": "8231bb08c7d3dbaadcc2dae1c030f9c6d2abbb2d88803ef6cc302a71d5fe4e1a",
+    "after_sha256": "8231bb08c7d3dbaadcc2dae1c030f9c6d2abbb2d88803ef6cc302a71d5fe4e1a",
+    "observed_sha256": [
+      "8231bb08c7d3dbaadcc2dae1c030f9c6d2abbb2d88803ef6cc302a71d5fe4e1a"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/resnet_dense_long_horizon/make_manifest.py",
+    "before_sha256": "e59f6e8b1c10a4be98efa40fa286004ce40fe7cdf6ed5200d0cea36f362c6f41",
+    "after_sha256": "e59f6e8b1c10a4be98efa40fa286004ce40fe7cdf6ed5200d0cea36f362c6f41",
+    "observed_sha256": [
+      "e59f6e8b1c10a4be98efa40fa286004ce40fe7cdf6ed5200d0cea36f362c6f41"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/resnet_dense_long_horizon/reproduce.sh",
+    "before_sha256": "f292fd618fba8984905124289eb20b7f12e60f225fd5107f77c4780830ba983f",
+    "after_sha256": "b35270ea1e4bd01ab0e113b3ec6453f21af0f6d66933fb89c04b4adbc731a40e",
+    "observed_sha256": [
+      "b35270ea1e4bd01ab0e113b3ec6453f21af0f6d66933fb89c04b4adbc731a40e"
+    ],
+    "changed": true,
+    "authorized_patch_target": true,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/resnet_dense_long_horizon/run_all.py",
+    "before_sha256": "709b1b37e4ec56d63b730bbc970300145223a0f328f18c131f4714fec13070d9",
+    "after_sha256": "709b1b37e4ec56d63b730bbc970300145223a0f328f18c131f4714fec13070d9",
+    "observed_sha256": [
+      "709b1b37e4ec56d63b730bbc970300145223a0f328f18c131f4714fec13070d9"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/resnet_dense_long_horizon/src/dense_mup/analysis.py",
+    "before_sha256": "431fef69e19b4c870a152b635d419f257aa4cd039cdd4b476ccd6da2b7d8038c",
+    "after_sha256": "431fef69e19b4c870a152b635d419f257aa4cd039cdd4b476ccd6da2b7d8038c",
+    "observed_sha256": [
+      "431fef69e19b4c870a152b635d419f257aa4cd039cdd4b476ccd6da2b7d8038c"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/resnet_operator_core/analyze.py",
+    "before_sha256": "53e78657f7c9e79aa11fe1b88f6cfb95aa3cd1a1d92fdfbbfb574a21a29a8e9d",
+    "after_sha256": "53e78657f7c9e79aa11fe1b88f6cfb95aa3cd1a1d92fdfbbfb574a21a29a8e9d",
+    "observed_sha256": [
+      "53e78657f7c9e79aa11fe1b88f6cfb95aa3cd1a1d92fdfbbfb574a21a29a8e9d"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/resnet_operator_core/audits/numerics/paired_w_variance.py",
+    "before_sha256": "5ef84183cd7b9d02fb02bf5c95e5a74e41ff5295f08001ad03e1909269232be4",
+    "after_sha256": "5ef84183cd7b9d02fb02bf5c95e5a74e41ff5295f08001ad03e1909269232be4",
+    "observed_sha256": [
+      "5ef84183cd7b9d02fb02bf5c95e5a74e41ff5295f08001ad03e1909269232be4"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/resnet_operator_core/audits/statistical_audit/analyze.py",
+    "before_sha256": "375790b659c0dc11946193441305968137b83d1b0447954545ea7b143ed19869",
+    "after_sha256": "375790b659c0dc11946193441305968137b83d1b0447954545ea7b143ed19869",
+    "observed_sha256": [
+      "375790b659c0dc11946193441305968137b83d1b0447954545ea7b143ed19869"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/resnet_operator_core/audits/statistical_audit/ordered_limit_update.py",
+    "before_sha256": "a8c3ed6da64054ec01aacaf39a73f1cee1cb5ac4b442ed6e77f98b0c3cf1c533",
+    "after_sha256": "a8c3ed6da64054ec01aacaf39a73f1cee1cb5ac4b442ed6e77f98b0c3cf1c533",
+    "observed_sha256": [
+      "a8c3ed6da64054ec01aacaf39a73f1cee1cb5ac4b442ed6e77f98b0c3cf1c533"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/resnet_operator_core/audits/statistical_audit/reference_noise_update.py",
+    "before_sha256": "06e74a877cf151e5cf88ff07ed2e20023eb888ca8112c0afeab32f85868c1a7b",
+    "after_sha256": "06e74a877cf151e5cf88ff07ed2e20023eb888ca8112c0afeab32f85868c1a7b",
+    "observed_sha256": [
+      "06e74a877cf151e5cf88ff07ed2e20023eb888ca8112c0afeab32f85868c1a7b"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/resnet_operator_core/combine_references.py",
+    "before_sha256": "86c6380bf22b04dbc683029b2081f921229d971f0036c19eacf634e8f725e4f9",
+    "after_sha256": "86c6380bf22b04dbc683029b2081f921229d971f0036c19eacf634e8f725e4f9",
+    "observed_sha256": [
+      "86c6380bf22b04dbc683029b2081f921229d971f0036c19eacf634e8f725e4f9"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/resnet_operator_core/protocol/reproduce_full.sh",
+    "before_sha256": "bb0e31d27286c2e1f12007d54b1f305ea10bb3443ebb9c4a3fb19beec467fcb9",
+    "after_sha256": "bb0e31d27286c2e1f12007d54b1f305ea10bb3443ebb9c4a3fb19beec467fcb9",
+    "observed_sha256": [
+      "bb0e31d27286c2e1f12007d54b1f305ea10bb3443ebb9c4a3fb19beec467fcb9"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/resnet_operator_core/run_exact_reference.py",
+    "before_sha256": "850d22afb7fa8e63d69710afd6a4b6868c2c2d4693782acc8fb6b3cf71b72478",
+    "after_sha256": "850d22afb7fa8e63d69710afd6a4b6868c2c2d4693782acc8fb6b3cf71b72478",
+    "observed_sha256": [
+      "850d22afb7fa8e63d69710afd6a4b6868c2c2d4693782acc8fb6b3cf71b72478"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/resnet_operator_core/run_pde.py",
+    "before_sha256": "9d4d1fbcc4d3b3076592592ab342f11b677cc274c1791c63bbda9b81fc42226e",
+    "after_sha256": "9d4d1fbcc4d3b3076592592ab342f11b677cc274c1791c63bbda9b81fc42226e",
+    "observed_sha256": [
+      "9d4d1fbcc4d3b3076592592ab342f11b677cc274c1791c63bbda9b81fc42226e"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/resnet_operator_core/runtime_paths.py",
+    "before_sha256": "458eb517ac27616902552d90ef9631822e348b7950377ef57b4de8ad6ad1c88e",
+    "after_sha256": "458eb517ac27616902552d90ef9631822e348b7950377ef57b4de8ad6ad1c88e",
+    "observed_sha256": [
+      "458eb517ac27616902552d90ef9631822e348b7950377ef57b4de8ad6ad1c88e"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/home/amir/Codes/PDE/studies/resnet_operator_core/verify_evidence.py",
+    "before_sha256": "83ee179d3447cdc625b6c5b4deea291063cc2b7695b54b315f8e60f238109135",
+    "after_sha256": "83ee179d3447cdc625b6c5b4deea291063cc2b7695b54b315f8e60f238109135",
+    "observed_sha256": [
+      "83ee179d3447cdc625b6c5b4deea291063cc2b7695b54b315f8e60f238109135"
+    ],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/tmp/pde-patch-acceptance.iUBcgMxi/REPORT.md",
+    "before_sha256": "b6f08e9adc58d2f1892b1ed4e66b4cf6d79bcbeb1402d03d3e1f7b04fac227bc",
+    "after_sha256": "b6f08e9adc58d2f1892b1ed4e66b4cf6d79bcbeb1402d03d3e1f7b04fac227bc",
+    "observed_sha256": [],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/tmp/pde-patch-acceptance.iUBcgMxi/run_supplied.py",
+    "before_sha256": "b6bf5664e457571876760047993a184eab694d44724140db88e3bc30eda60ed2",
+    "after_sha256": "b6bf5664e457571876760047993a184eab694d44724140db88e3bc30eda60ed2",
+    "observed_sha256": [],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  },
+  {
+    "path": "/tmp/pde-patch-acceptance.iUBcgMxi/test_independent.py",
+    "before_sha256": "88c4b9de92f4821e6d5d1d5d30b5efacfdba17e4720ef07f462a13e2ef6ef23c",
+    "after_sha256": "88c4b9de92f4821e6d5d1d5d30b5efacfdba17e4720ef07f462a13e2ef6ef23c",
+    "observed_sha256": [],
+    "changed": false,
+    "authorized_patch_target": false,
+    "unexpected_change": false
+  }
+]
