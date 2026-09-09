@@ -1,0 +1,87 @@
+{
+  "date": "2026-09-09",
+  "scope": "Main-agent repeat of 11 explicitly selected bounded migration suites. Not an independent acceptance or science reproduction.",
+  "sourceCheckpoint": "bd15262",
+  "sharedHelperSHA256": "8e67059e7083fcb5d230de92f1daa4387dba4da1c081e3f111180cef1e2cd02e",
+  "privateHarnessDirectory": "/tmp/pde-seven-study-final-tests.SG5Rtnr4",
+  "total": 62,
+  "suites": [
+    {
+      "suite": "studies/resnet_generalization/tests/test_migration_paths.py",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "studies/resnet_generalization/tests/test_output_boundaries.py",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "studies/resnet_generalization/tests/test_writer_boundaries.py",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "studies/stieltjes_finite_width/test_migration_paths.py",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "studies/stieltjes_finite_width/test_output_boundaries.py",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "studies/stieltjes_finite_width/test_shared_output_paths.py",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "studies/stieltjes_hybrid_campaign/breadth_panel/test_migration_paths.py",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "studies/stieltjes_hybrid_campaign/breadth_panel/test_output_boundaries.py",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32/test_output_boundaries.py",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "studies/stieltjes_proxy_campaign/analysis/tests/test_output_boundaries.py",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "studies/resnet_proof_audit/tests/test_trapezoid_compat.py",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ]
+}

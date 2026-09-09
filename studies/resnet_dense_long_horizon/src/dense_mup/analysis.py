@@ -17,6 +17,23 @@ import numpy as np
 from .experiment import load_trace
 
 
+REPRESENTATIVE_FIGURES = (
+    "representative_curves.png", "time_depth_gram_error.png",
+    "gram_entries_mid.png", "gram_entries_out.png",
+)
+
+
+def _check_input_aliases(outputs: Iterable[Path], inputs: Iterable[Path]) -> None:
+    """Protect consumed traces against existing aliases, not concurrent races."""
+    inputs = list(inputs)
+    for output in outputs:
+        for source in inputs:
+            if output.resolve() == source.resolve() or (
+                output.exists() and source.exists() and output.samefile(source)
+            ):
+                raise ValueError(f"analysis output aliases a consumed trace: {source}")
+
+
 def _norm_last(x: np.ndarray) -> np.ndarray:
     return np.linalg.norm(x, axis=(-2, -1))
 
@@ -703,6 +720,8 @@ def _write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
 def _plot_representative(
     summary: dict[str, Any], figures: Path
 ) -> None:
+    _check_input_aliases([figures / name for name in REPRESENTATIVE_FIGURES],
+                         [Path(summary["path"])])
     metadata, a = load_trace(Path(summary["path"]))
     labels = [str(x) for x in a["method_labels"]]
     t = a["times"] - a["times"][0]
@@ -1173,6 +1192,15 @@ def analyze_directory(
 ) -> dict[str, Any]:
     expected = {item["id"]: item for item in expected_manifest}
     paths = [raw_dir / f"{run_id}.npz" for run_id in sorted(expected)]
+    if report_path is None:
+        report_path = processed_dir.parent.parent / "REPORT.md"
+    # Keep this inventory aligned with every deliverable below, including plots.
+    outputs = [processed_dir / name for name in (
+        "per_run.csv", "errors_by_horizon.csv", "required_order.csv", "refinement.csv",
+        "per_run.json", "aggregate.json", "analysis_manifest.json",
+    )] + [figures_dir / name for name in (*REPRESENTATIVE_FIGURES, "order_convergence.png")]
+    outputs.append(report_path)
+    _check_input_aliases(outputs, paths)
     missing = [str(path) for path in paths if not path.exists()]
     if missing:
         raise ValueError(f"missing expected traces: {missing}")
@@ -1203,6 +1231,7 @@ def analyze_directory(
     )
     refinement_rows = _refinement_comparison(summaries)
     aggregates = _aggregate(rows)
+    _check_input_aliases(outputs, paths)
     processed_dir.mkdir(parents=True, exist_ok=True)
     figures_dir.mkdir(parents=True, exist_ok=True)
     _write_csv(processed_dir / "per_run.csv", rows)
@@ -1230,8 +1259,7 @@ def analyze_directory(
         refinement_rows,
         representative["run_id"],
     )
-    if report_path is None:
-        report_path = processed_dir.parent.parent / "REPORT.md"
+    _check_input_aliases([report_path], paths)
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(report, encoding="utf-8")
     result = {

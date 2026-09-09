@@ -109,11 +109,23 @@ review repeated 25 focused tests and verified preservation, but found remaining
 reader/writer inconsistencies. Those findings are retained in
 [MIGRATION_ROUND1.md](reviews/MIGRATION_ROUND1.md), not relabeled as successes.
 A repair and broader output-routing scan are in progress. The main-agent
-ResNet/quadratic slice is checkpointed at `3abe93d`: seven routing/metadata
-checks and six quadratic routing/preservation checks pass, including all 125
-retained sector hashes and early refusal of the sealed Campaign-4 producer.
-Its independent acceptance is still pending. Source metadata has the additional
-byte-verified checkpoint `6922cc5`.
+ResNet/quadratic slice began at `3abe93d` and now has 24 bounded checks at
+`0cd94a0`, including all 125 retained sector hashes, early archival refusal,
+actual mocked wrapper propagation, selected input roots, and input/output alias
+protection. Its five unsuccessful independent reviews are retained; round 5
+identified further consumed-checkpoint/trace aliases and two omitted evidence
+readers. The ResNet repair now passes 15 checks; quadratic repairs and fresh
+round 6 are pending. No earlier test count is presented as final acceptance.
+Source metadata has the additional byte-verified checkpoint `6922cc5`.
+
+The seven-study and remaining Gaussian/MFP slices are checkpointed at `e3cab42`
+and `c499fd9`. Their second isolated reviews found additional timeout-path,
+linked-output, retained-reader and callable archival-guard defects. Those
+NOT CLEAN reports and exact input hashes are retained unchanged. Concrete
+repairs are checkpointed at `4e173b7` and `bd15262`; the coordinator repeated
+21 Gaussian and 62 seven-study bounded checks, all passing. Fresh third-round
+acceptance reviews are in progress. Their supplied passing regressions alone
+are not being treated as clean independent verdicts.
 
 Unchanged expected limitations are explicit: optional PyTorch, Matplotlib,
 pytest, SymPy and mpmath are absent; historical source/environment seals do not

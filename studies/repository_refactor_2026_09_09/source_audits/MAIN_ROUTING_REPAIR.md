@@ -172,3 +172,38 @@ regression suites and research runs were not dispatched. The round-4 reports,
 501-row unchanged input manifests and diagnostic scripts remain byte-exact;
 their old private paths are archival provenance, not portable entrypoints.
 Fresh isolated round 5 is pending.
+
+A read-only AST comparison of the changed source files against `c499fd9`
+found 78 existing top-level functions/classes unchanged. The nine changed
+bodies are seven CLI `main` functions, the atomic writer, and one selected
+certificate-reader test. Their changes are the guards, publication mode and
+path selection described above. No 64-hex-character literal hash changed in
+any of these files. This is source-preservation evidence, not a scientific rerun.
+
+## Independent round 5: consumed checkpoints and trace inputs
+
+The fresh fifth verdict remains NOT CLEAN in
+`../reviews/MAIN_ROUTING_ROUND5_verdict.md`. It found two omitted Campaign-5
+evidence readers and further aliases involving restart archives, raw traces,
+exported graph results, lower-order merge inputs and native reuse checkpoints.
+The exact 382-row before/after inventory is preserved as
+`../reviews/MAIN_ROUTING_ROUND5_INPUTS.txt` (original private name:
+`input-hashes.tsv`). The diagnostic report distinguishes four executed private
+mocked alias cases from the statically inspected C++ case.
+
+The operator PDE runner now derives and checks both archive destinations after
+reading only the restart's end time, before quadrature construction or training.
+The original name is unchanged; compiler/hash validation and state evolution
+remain in place. It rechecks destinations before exclusive partial creation
+and refuses an occupied final before publishing. The long-horizon analyzer
+checks all 13 deliverables against consumed traces before any trace analysis,
+and checks again before writing. Its representative-plot helper protects its
+own selected trace too. Ordinary non-aliased generated analysis refresh remains
+supported. No concurrent-adversary filesystem guarantee is claimed.
+
+All 15 ResNet routing tests pass, including same-path/symlink/hardlink restart
+fixtures that reach no quadrature or training call, and aliases for every
+analysis deliverable that reach no trace-analysis call. The quadratic findings
+are being handled as a separate implementation slice before fresh round 6.
+The additional native export power-filter inconsistency recorded by round 5
+is not silently repaired or scientifically validated by these routing changes.

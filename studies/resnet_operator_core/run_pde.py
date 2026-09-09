@@ -14,7 +14,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parent
-from runtime_paths import OUTPUT_ROOT
+from runtime_paths import OUTPUT_ROOT, require_new_archive
 
 sys.path.insert(0, str(ROOT / "src"))
 
@@ -44,6 +44,24 @@ def _array_sha256(array: np.ndarray) -> str:
     return digest.hexdigest()
 
 
+def archive_paths(args: argparse.Namespace, base_points: int, fast_points: int,
+                  start_time: float) -> tuple[Path, Path]:
+    name = (
+        f"pde_{'GH' if args.quadrature == 'gauss-hermite' else ('HYBRID' if args.quadrature == 'hybrid' else 'QMC')}"
+        f"_P{args.P}_N{args.N}_M{base_points}_R{fast_points}"
+        f"_s{args.seed}_dt{_tag(args.dt)}_T{_tag(args.duration)}.npz"
+    )
+    if args.integrator != "rk4":
+        name = name.replace(".npz", f"_{args.integrator.upper()}.npz")
+    if start_time:
+        name = name.replace(
+            ".npz",
+            f"_from{_tag(start_time)}_to{_tag(start_time + args.duration)}.npz",
+        )
+    inputs = [] if args.restart_from is None else [args.restart_from]
+    return require_new_archive(OUTPUT_ROOT / "results/raw" / name, inputs)
+
+
 def run(args: argparse.Namespace) -> Path:
     X = np.eye(3)
     y = np.array([0.8, -0.55, 0.35])
@@ -57,6 +75,9 @@ def run(args: argparse.Namespace) -> Path:
     else:
         base_points = args.M
         fast_points = args.R
+    restart = None if args.restart_from is None else np.load(args.restart_from)
+    start_time = 0.0 if restart is None else float(restart["times"][-1])
+    path, partial = archive_paths(args, base_points, fast_points, start_time)
     spec = PDESpec(
         X=X,
         y=y,
@@ -120,7 +141,6 @@ def run(args: argparse.Namespace) -> Path:
         state = initialize(spec, quadrature)
         start_time = 0.0
     else:
-        restart = np.load(args.restart_from)
         source_metadata = json.loads(str(restart["metadata_json"]))
         source_static_hash = source_metadata.get("static_compiler_sha256")
         if source_static_hash is not None:
@@ -168,7 +188,6 @@ def run(args: argparse.Namespace) -> Path:
             raise ValueError("restart B shape mismatch")
         if state.a.shape != (spec.base_points,):
             raise ValueError("restart a shape mismatch")
-        start_time = float(restart["times"][-1])
     steps = int(round(args.duration / args.dt))
     sample_stride = int(round(args.sample_dt / args.dt))
     if abs(steps * args.dt - args.duration) > 1e-12:
@@ -269,23 +288,9 @@ def run(args: argparse.Namespace) -> Path:
     config_blob = json.dumps(config, sort_keys=True, separators=(",", ":"))
     config["config_sha256"] = hashlib.sha256(config_blob.encode()).hexdigest()
 
-    output_dir = OUTPUT_ROOT / "results" / "raw"
-    output_dir.mkdir(parents=True, exist_ok=True)
-    name = (
-        f"pde_{'GH' if args.quadrature == 'gauss-hermite' else ('HYBRID' if args.quadrature == 'hybrid' else 'QMC')}"
-        f"_P{args.P}_N{args.N}_M{spec.base_points}_R{spec.fast_points}"
-        f"_s{args.seed}_dt{_tag(args.dt)}_T{_tag(args.duration)}.npz"
-    )
-    if args.integrator != "rk4":
-        name = name.replace(".npz", f"_{args.integrator.upper()}.npz")
-    if start_time:
-        name = name.replace(
-            ".npz",
-            f"_from{_tag(start_time)}_to{_tag(start_time + args.duration)}.npz",
-        )
-    path = output_dir / name
-    partial = path.with_suffix(path.suffix + ".partial")
-    with partial.open("wb") as handle:
+    path, partial = archive_paths(args, spec.base_points, spec.fast_points, start_time)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with partial.open("xb") as handle:
         np.savez_compressed(
             handle,
             times=times,
@@ -306,6 +311,8 @@ def run(args: argparse.Namespace) -> Path:
         )
         handle.flush()
         os.fsync(handle.fileno())
+    if path.exists() or path.is_symlink():
+        raise FileExistsError(f"archive appeared during publication: {path}")
     os.replace(partial, path)
     print(
         json.dumps(

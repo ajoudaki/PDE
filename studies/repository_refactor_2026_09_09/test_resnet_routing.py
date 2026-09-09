@@ -13,6 +13,8 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from types import SimpleNamespace
+from typing import Any, Iterable
 from unittest.mock import Mock, patch
 
 import numpy as np
@@ -30,6 +32,93 @@ def load(path):
 
 
 class RoutingTests(unittest.TestCase):
+    def test_restart_output_aliases_refuse_before_quadrature_or_training(self):
+        source_path = OPERATOR / "run_pde.py"
+        tree = ast.parse(source_path.read_text())
+        nodes = [node for node in tree.body if isinstance(node, ast.FunctionDef)
+                 and node.name in {"_tag", "archive_paths", "run"}]
+        helper = load(OPERATOR / "runtime_paths.py")
+        for target_kind in ("final", "partial"):
+            for alias_kind in ("same", "symlink", "hardlink"):
+                with self.subTest(target=target_kind, alias=alias_kind), tempfile.TemporaryDirectory() as tmp:
+                    root = Path(tmp)
+                    source = root / "restart.npz"
+                    np.savez(source, times=np.array([0.]))
+                    before = source.read_bytes()
+                    args = SimpleNamespace(quadrature="sobol", M=1, R=1, P=1, N=1, seed=1,
+                                           dt=1., duration=1., integrator="rk4", restart_from=source)
+                    science = Mock(side_effect=RuntimeError("stop before quadrature"))
+                    namespace = dict(argparse=argparse, Path=Path, np=np, OUTPUT_ROOT=root,
+                                     require_new_archive=helper.require_new_archive, PDESpec=science)
+                    exec(compile(ast.Module(body=nodes, type_ignores=[]), str(source_path), "exec"), namespace)
+                    final, partial = namespace["archive_paths"](args, 1, 1, 0.)
+                    target = final if target_kind == "final" else partial
+                    target.parent.mkdir(parents=True)
+                    if alias_kind == "same":
+                        target.write_bytes(before)
+                        args.restart_from = target
+                    elif alias_kind == "symlink":
+                        target.symlink_to(source)
+                    else:
+                        os.link(source, target)
+                    with self.assertRaises((ValueError, FileExistsError)):
+                        namespace["run"](args)
+                    science.assert_not_called()
+                    self.assertEqual(Path(args.restart_from).read_bytes(), before)
+                    self.assertEqual(source.read_bytes(), before)
+
+    def test_long_analysis_guards_every_deliverable_before_reading_traces(self):
+        source = LONG / "src/dense_mup/analysis.py"
+        tree = ast.parse(source.read_text())
+        nodes = [node for node in tree.body if (
+            isinstance(node, ast.FunctionDef) and node.name in {
+                "_check_input_aliases", "analyze_directory", "_plot_representative"}
+        ) or (isinstance(node, ast.Assign) and any(
+            isinstance(target, ast.Name) and target.id == "REPRESENTATIVE_FIGURES"
+            for target in node.targets))]
+        load_trace = Mock(side_effect=RuntimeError("stop before analysis"))
+        namespace = dict(Path=Path, Any=Any, Iterable=Iterable, load_trace=load_trace)
+        exec(compile(ast.Module(body=nodes, type_ignores=[]), str(source), "exec"), namespace)
+        names = [("processed", name) for name in (
+            "per_run.csv", "errors_by_horizon.csv", "required_order.csv", "refinement.csv",
+            "per_run.json", "aggregate.json", "analysis_manifest.json",
+        )] + [("figures", name) for name in (
+            *namespace["REPRESENTATIVE_FIGURES"], "order_convergence.png",
+        )] + [("report", "report.md")]
+        for directory, name in names:
+            for kind in ("symlink", "hardlink"):
+                with self.subTest(output=name, alias=kind), tempfile.TemporaryDirectory() as tmp:
+                    root = Path(tmp)
+                    raw = root / "raw"
+                    raw.mkdir()
+                    trace = raw / "run.npz"
+                    trace.write_bytes(b"retained trace")
+                    target = root / directory / name
+                    target.parent.mkdir(parents=True)
+                    if kind == "symlink":
+                        target.symlink_to(trace)
+                    else:
+                        os.link(trace, target)
+                    with self.assertRaisesRegex(ValueError, "aliases.*trace"):
+                        namespace["analyze_directory"](raw, root / "processed", root / "figures",
+                            {}, "run", [{"id": "run"}], root / "report/report.md")
+                    if directory == "figures" and name in namespace["REPRESENTATIVE_FIGURES"]:
+                        with self.assertRaisesRegex(ValueError, "aliases.*trace"):
+                            namespace["_plot_representative"]({"path": str(trace)}, root / "figures")
+                    load_trace.assert_not_called()
+                    self.assertEqual(trace.read_bytes(), b"retained trace")
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            trace = root / "run.npz"
+            trace.write_bytes(b"retained trace")
+            with self.assertRaisesRegex(ValueError, "aliases.*trace"):
+                namespace["analyze_directory"](root, root / "processed", root / "figures",
+                                               {}, "run", [{"id": "run"}], trace)
+            with self.assertRaisesRegex(RuntimeError, "stop before analysis"):
+                namespace["analyze_directory"](root, root / "processed", root / "figures",
+                                               {}, "run", [{"id": "run"}], root / "new-report.md")
+            self.assertEqual(list(root.iterdir()), [trace])
+
     def test_galerkin_help_and_unknown_flags_stop_before_work(self):
         path = REPO / "studies/resnet_dense_early_audit/run_response_galerkin_projection.py"
         tree = ast.parse(path.read_text())

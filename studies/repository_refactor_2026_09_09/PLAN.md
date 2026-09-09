@@ -1,8 +1,8 @@
 # Repository refactor: preservation and acceptance contract
 
-Status: source snapshots and byte-verified layout committed; established-library
-assembly and isolated acceptance audits in progress. This plan itself promotes
-no scientific result.
+Status: source snapshots, byte-verified layout and independently accepted
+standalone library committed. Final legacy-interface acceptance and preservation
+receipts are in progress. This plan itself promotes no scientific result.
 
 ## Scope
 

@@ -35,3 +35,19 @@ OUTPUT_ROOT = output_root()
 INPUT_ROOT = Path(os.environ.get(
     "PDE_OPERATOR_INPUT_ROOT", str(OUTPUT_ROOT),
 )).expanduser().resolve()
+
+
+def require_new_archive(path: Path, inputs=()) -> tuple[Path, Path]:
+    """Check the concrete archive and partial before constructing a trajectory."""
+    path = Path(path).expanduser().absolute()
+    partial = path.with_suffix(path.suffix + ".partial")
+    for target in (path, partial):
+        for source in inputs:
+            source = Path(source)
+            if target.resolve() == source.resolve() or (
+                target.exists() and source.exists() and target.samefile(source)
+            ):
+                raise ValueError(f"output aliases a consumed input: {source}")
+        if target.exists() or target.is_symlink():
+            raise FileExistsError(f"refusing to overwrite archive or partial: {target}")
+    return path, partial

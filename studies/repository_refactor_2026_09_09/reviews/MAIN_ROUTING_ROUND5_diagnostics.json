@@ -1,0 +1,278 @@
+[
+  {
+    "after_sha256": "3d86d07176e5d37e6bb6a325289066ea8ccf8ba5aed4a20da0c81714ce301e22",
+    "before_sha256": "68787f25ee6ee32b5e7cd0902f2f96b11f31cbec4b16f28cd5de6fcfc8cae7c7",
+    "case": "graph checkpoint/output same",
+    "input": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/graph-same/checkpoint.pkl",
+    "input_changed": true,
+    "output": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/graph-same/checkpoint.pkl",
+    "reproduced": true,
+    "science_calls": 0
+  },
+  {
+    "after_sha256": "3d86d07176e5d37e6bb6a325289066ea8ccf8ba5aed4a20da0c81714ce301e22",
+    "before_sha256": "68787f25ee6ee32b5e7cd0902f2f96b11f31cbec4b16f28cd5de6fcfc8cae7c7",
+    "case": "graph checkpoint/output symlink",
+    "input": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/graph-symlink/checkpoint.pkl",
+    "input_changed": true,
+    "output": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/graph-symlink/output.json",
+    "reproduced": true,
+    "science_calls": 0
+  },
+  {
+    "after_sha256": "3d86d07176e5d37e6bb6a325289066ea8ccf8ba5aed4a20da0c81714ce301e22",
+    "before_sha256": "68787f25ee6ee32b5e7cd0902f2f96b11f31cbec4b16f28cd5de6fcfc8cae7c7",
+    "case": "graph checkpoint/output hardlink",
+    "input": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/graph-hardlink/checkpoint.pkl",
+    "input_changed": true,
+    "output": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/graph-hardlink/output.json",
+    "reproduced": true,
+    "science_calls": 0
+  },
+  {
+    "after_sha256": "2e094e9350c346f622e1adf40af7154ee8c4524c562f857c0cb8da61bc0efde6",
+    "before_sha256": "2097cc84c1e0f2dbf8e45b8181e020fdea739919756807274ed23ea9bafbc960",
+    "case": "graded lower/output same",
+    "input": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/graded-same/lower.json",
+    "input_changed": true,
+    "mocked_sector_calls": 2,
+    "output": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/graded-same/lower.json",
+    "reproduced": true,
+    "valid_frozen_input_hash_mocked": true
+  },
+  {
+    "after_sha256": "2e094e9350c346f622e1adf40af7154ee8c4524c562f857c0cb8da61bc0efde6",
+    "before_sha256": "2097cc84c1e0f2dbf8e45b8181e020fdea739919756807274ed23ea9bafbc960",
+    "case": "graded lower/output symlink",
+    "input": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/graded-symlink/lower.json",
+    "input_changed": true,
+    "mocked_sector_calls": 2,
+    "output": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/graded-symlink/upper.json",
+    "reproduced": true,
+    "valid_frozen_input_hash_mocked": true
+  },
+  {
+    "after_sha256": "2e094e9350c346f622e1adf40af7154ee8c4524c562f857c0cb8da61bc0efde6",
+    "before_sha256": "2097cc84c1e0f2dbf8e45b8181e020fdea739919756807274ed23ea9bafbc960",
+    "case": "graded lower/output hardlink",
+    "input": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/graded-hardlink/lower.json",
+    "input_changed": true,
+    "mocked_sector_calls": 2,
+    "output": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/graded-hardlink/upper.json",
+    "reproduced": true,
+    "valid_frozen_input_hash_mocked": true
+  },
+  {
+    "after_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "before_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "case": "graded frozen hash fails closed",
+    "error": "lower-order input hash differs from frozen result",
+    "input": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/bad-lower.json",
+    "input_changed": false,
+    "reproduced": true
+  },
+  {
+    "after_sha256": "b8c0efb20abd823018306cf4b799433cc34d67868467b27f9a28e04391dc17fe",
+    "before_sha256": "a63c2e12733196144f88529682621a5bbd47430f3a0596f30053731de735e280",
+    "case": "long analysis report/input same",
+    "input": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/long-same/raw/trace.npz",
+    "input_changed": true,
+    "output": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/long-same/raw/trace.npz",
+    "reproduced": true,
+    "science_and_plots_mocked": true
+  },
+  {
+    "after_sha256": "b8c0efb20abd823018306cf4b799433cc34d67868467b27f9a28e04391dc17fe",
+    "before_sha256": "a63c2e12733196144f88529682621a5bbd47430f3a0596f30053731de735e280",
+    "case": "long analysis report/input symlink",
+    "input": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/long-symlink/raw/trace.npz",
+    "input_changed": true,
+    "output": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/long-symlink/report.md",
+    "reproduced": true,
+    "science_and_plots_mocked": true
+  },
+  {
+    "after_sha256": "b8c0efb20abd823018306cf4b799433cc34d67868467b27f9a28e04391dc17fe",
+    "before_sha256": "a63c2e12733196144f88529682621a5bbd47430f3a0596f30053731de735e280",
+    "case": "long analysis report/input hardlink",
+    "input": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/long-hardlink/raw/trace.npz",
+    "input_changed": true,
+    "output": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/long-hardlink/report.md",
+    "reproduced": true,
+    "science_and_plots_mocked": true
+  },
+  {
+    "after_sha256": "de2947eb4c899dba475469917fe971f1a0b1e0115bee1f4080aaa00561d8a97b",
+    "before_sha256": "b3886e718bb822af93501348e8724dae3fd20255a9e34cd27665c11226c15725",
+    "case": "PDE automatic partial/input symlink",
+    "input": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/pde-symlink/restart.npz",
+    "input_changed": true,
+    "output": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/pde-symlink/results/raw/pde_QMC_P1_N1_M1_R1_s1_dt0p02_T0p04_from8_to8p04.npz",
+    "reproduced": true,
+    "science_and_serialization_mocked": true
+  },
+  {
+    "after_sha256": "de2947eb4c899dba475469917fe971f1a0b1e0115bee1f4080aaa00561d8a97b",
+    "before_sha256": "b3886e718bb822af93501348e8724dae3fd20255a9e34cd27665c11226c15725",
+    "case": "PDE automatic partial/input hardlink",
+    "input": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/pde-hardlink/restart.npz",
+    "input_changed": true,
+    "output": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/pde-hardlink/results/raw/pde_QMC_P1_N1_M1_R1_s1_dt0p02_T0p04_from8_to8p04.npz",
+    "reproduced": true,
+    "science_and_serialization_mocked": true
+  },
+  {
+    "after_sha256": null,
+    "before_sha256": "b3886e718bb822af93501348e8724dae3fd20255a9e34cd27665c11226c15725",
+    "case": "PDE selected restart equals automatic partial",
+    "input": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/pde-same-partial/results/raw/pde_QMC_P1_N1_M1_R1_s1_dt0p02_T0p04_from8_to8p04.npz.partial",
+    "input_removed": true,
+    "output": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/pde-same-partial/results/raw/pde_QMC_P1_N1_M1_R1_s1_dt0p02_T0p04_from8_to8p04.npz",
+    "reproduced": true,
+    "science_and_serialization_mocked": true
+  },
+  {
+    "after_sha256": "d9bbc42e864783f08c938508c3730e4cb13dbb0bbf041d516564d9ebb8caccdb",
+    "before_sha256": "d9bbc42e864783f08c938508c3730e4cb13dbb0bbf041d516564d9ebb8caccdb",
+    "case": "PDE restart hash fails closed",
+    "error": "restart static compiler/quadrature hash mismatch",
+    "input": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/pde-bad-hash/restart.npz",
+    "input_changed": false,
+    "reproduced": true
+  },
+  {
+    "case": "mfp_quadratic_compiler/campaign4/run_sectors.py callable authorization gate",
+    "error": "Archive-only Campaign 4: the cumulative production budget and its source seal remain historical. A separately authorized new campaign is required; migration does not reset that budget.",
+    "reproduced": true
+  },
+  {
+    "case": "mfp_quadratic_compiler/campaign4/make_provenance.py callable authorization gate",
+    "error": "Archive-only provenance builder: do not re-seal migrated source as historical Campaign 4 evidence. Inspect the retained provenance instead.",
+    "reproduced": true
+  },
+  {
+    "case": "mfp_quadratic_compiler/campaign5_b3/run_stage_c.py callable authorization gate",
+    "error": "Stage C is closed unauthorized: the final-source W-hit-zero pilot failed the frozen 1800-second completion gate. See provenance_stage_c_projection.json. Production is disabled.",
+    "reproduced": true
+  },
+  {
+    "case": "depth3_stieltjes_audit.py old seal fails closed",
+    "error": "SHA-256 gate failed: actual={'input': '2fe59a9e56bda01dcdb90aaa1b727c2f7dea3b28eb28f9f8177b52ddd48530ed', 'protocol': '9ec16a785e4a39788d0d8832b05ec334193f987a873425507ac86f07faa093d9', 'exact_series_route': 'd003563deb87c6baea7f423f954979f3082b306035eeba35cc223dda25d0ed60'}, expected={'input': 'e6205be08cf663e64c259328afb276e03188845ef51a7001deef1a92e8778b3d', 'protocol': '06e58ae90fbd6de9224489b4ad1f82e8d5e859bcbe9d5832de90109f6ab06f98', 'exact_series_route': 'd003563deb87c6baea7f423f954979f3082b306035eeba35cc223dda25d0ed60'}",
+    "expected": {
+      "exact_series_route": "d003563deb87c6baea7f423f954979f3082b306035eeba35cc223dda25d0ed60",
+      "input": "e6205be08cf663e64c259328afb276e03188845ef51a7001deef1a92e8778b3d",
+      "protocol": "06e58ae90fbd6de9224489b4ad1f82e8d5e859bcbe9d5832de90109f6ab06f98"
+    },
+    "out_of_scope_route_hash_mocked_as_matching": true,
+    "reproduced": true,
+    "scoped_actual": {
+      "exact_series_route": "d003563deb87c6baea7f423f954979f3082b306035eeba35cc223dda25d0ed60",
+      "input": "2fe59a9e56bda01dcdb90aaa1b727c2f7dea3b28eb28f9f8177b52ddd48530ed",
+      "protocol": "9ec16a785e4a39788d0d8832b05ec334193f987a873425507ac86f07faa093d9"
+    }
+  },
+  {
+    "case": "depth3_order13_stieltjes_audit.py old seal fails closed",
+    "error": "SHA-256 gate failed: actual={'input': '2813c24ce18b31254d762fc4cd7b46c89c01d696022bc31ba58da0e85c84b257', 'protocol': '52562a4ffb2e61c5d153a9a1d50a0197a4a2490660839cf69f88836f3f046956', 'derivative_engine': 'f7f40919f6a286ad82facfc6451ab9809ed8ed7999110f0aadd58bafb96e2a5c', 'moment_audit_primitives': '27bb3c259413f83d19addea02a7035b66313df2ccd7f1ea0a04cc194d9aa6104', 'exact_series_route': 'd003563deb87c6baea7f423f954979f3082b306035eeba35cc223dda25d0ed60'}, expected={'input': '2813c24ce18b31254d762fc4cd7b46c89c01d696022bc31ba58da0e85c84b257', 'protocol': '52562a4ffb2e61c5d153a9a1d50a0197a4a2490660839cf69f88836f3f046956', 'derivative_engine': 'f7f40919f6a286ad82facfc6451ab9809ed8ed7999110f0aadd58bafb96e2a5c', 'moment_audit_primitives': '4c8207612cb3a807bb60884d179424fa02a6eb4fbea73ddea90881557cc74a46', 'exact_series_route': 'd003563deb87c6baea7f423f954979f3082b306035eeba35cc223dda25d0ed60'}",
+    "expected": {
+      "derivative_engine": "f7f40919f6a286ad82facfc6451ab9809ed8ed7999110f0aadd58bafb96e2a5c",
+      "exact_series_route": "d003563deb87c6baea7f423f954979f3082b306035eeba35cc223dda25d0ed60",
+      "input": "2813c24ce18b31254d762fc4cd7b46c89c01d696022bc31ba58da0e85c84b257",
+      "moment_audit_primitives": "4c8207612cb3a807bb60884d179424fa02a6eb4fbea73ddea90881557cc74a46",
+      "protocol": "52562a4ffb2e61c5d153a9a1d50a0197a4a2490660839cf69f88836f3f046956"
+    },
+    "out_of_scope_route_hash_mocked_as_matching": true,
+    "reproduced": true,
+    "scoped_actual": {
+      "derivative_engine": "f7f40919f6a286ad82facfc6451ab9809ed8ed7999110f0aadd58bafb96e2a5c",
+      "exact_series_route": "d003563deb87c6baea7f423f954979f3082b306035eeba35cc223dda25d0ed60",
+      "input": "2813c24ce18b31254d762fc4cd7b46c89c01d696022bc31ba58da0e85c84b257",
+      "moment_audit_primitives": "27bb3c259413f83d19addea02a7035b66313df2ccd7f1ea0a04cc194d9aa6104",
+      "protocol": "52562a4ffb2e61c5d153a9a1d50a0197a4a2490660839cf69f88836f3f046956"
+    }
+  },
+  {
+    "actual_exists": false,
+    "actual_lookup": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/provenance_stage_a.json",
+    "case": "Campaign5 evidence path ignores selection",
+    "diagnostic": "AST path expression only; test function not executed",
+    "historical_path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign5_b3/provenance_stage_a.json",
+    "historical_sha256": "3bedd2f73b2d52d1f8bc91f9701520fe4ea53078db5419baf756b09d66b39062",
+    "line": 16,
+    "reproduced": true,
+    "selected_exists": true,
+    "selected_root": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/selected-evidence",
+    "source": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_stage_a_provenance.py"
+  },
+  {
+    "actual_exists": false,
+    "actual_lookup": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/provenance_stage_b.json",
+    "case": "Campaign5 evidence path ignores selection",
+    "diagnostic": "AST path expression only; test function not executed",
+    "historical_path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign5_b3/provenance_stage_b.json",
+    "historical_sha256": "f56f839d91bb355b4a93bed01397e7a34cb29964cce4911c41f151a31288fbbd",
+    "line": 35,
+    "reproduced": true,
+    "selected_exists": true,
+    "selected_root": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/selected-evidence",
+    "source": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_stage_a_provenance.py"
+  },
+  {
+    "actual_exists": false,
+    "actual_lookup": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/provenance_stage_c_projection.json",
+    "case": "Campaign5 evidence path ignores selection",
+    "diagnostic": "AST path expression only; test function not executed",
+    "historical_path": "/home/amir/Codes/PDE/data/historical/studies/mfp_quadratic_compiler/campaign5_b3/provenance_stage_c_projection.json",
+    "historical_sha256": "22c1db51a9f74497a1ad733c241dcbdfe14842887d1bee5a16a81a7d4f54159f",
+    "line": 15,
+    "reproduced": true,
+    "selected_exists": true,
+    "selected_root": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/selected-evidence",
+    "source": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign5_b3/test_stage_c_closed.py"
+  },
+  {
+    "after_sha256": "d6baa22dffd014b30edb6ebe1e13c061d2e9e6cfc607fc31f27611fa05521fc3",
+    "before_sha256": "d6baa22dffd014b30edb6ebe1e13c061d2e9e6cfc607fc31f27611fa05521fc3",
+    "case": "long config_sha256 fails closed",
+    "error": "stale config hash in /tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/long-stale/raw/trace.npz",
+    "input": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/long-stale/raw/trace.npz",
+    "input_changed": false,
+    "reproduced": true
+  },
+  {
+    "after_sha256": "d6baa22dffd014b30edb6ebe1e13c061d2e9e6cfc607fc31f27611fa05521fc3",
+    "before_sha256": "d6baa22dffd014b30edb6ebe1e13c061d2e9e6cfc607fc31f27611fa05521fc3",
+    "case": "long code_sha256 fails closed",
+    "error": "stale code hash in /tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/long-stale/raw/trace.npz",
+    "input": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/long-stale/raw/trace.npz",
+    "input_changed": false,
+    "reproduced": true
+  },
+  {
+    "case": "native sparse/source alias same",
+    "evidence": "Complete main inspection: unconditional append newline at lines 143-146; no identity guard.",
+    "native_execution": false,
+    "samefile": true,
+    "source": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/sector_parallel_reuse.cpp",
+    "source_checkpoint": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/native-alias-identities/source-values.chk",
+    "sparse_checkpoint": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/native-alias-identities/source-values.chk"
+  },
+  {
+    "case": "native sparse/source alias symlink",
+    "evidence": "Complete main inspection: unconditional append newline at lines 143-146; no identity guard.",
+    "native_execution": false,
+    "samefile": true,
+    "source": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/sector_parallel_reuse.cpp",
+    "source_checkpoint": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/native-alias-identities/source-values.chk",
+    "sparse_checkpoint": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/native-alias-identities/symlink.sparse"
+  },
+  {
+    "case": "native sparse/source alias hardlink",
+    "evidence": "Complete main inspection: unconditional append newline at lines 143-146; no identity guard.",
+    "native_execution": false,
+    "samefile": true,
+    "source": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/sector_parallel_reuse.cpp",
+    "source_checkpoint": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/native-alias-identities/source-values.chk",
+    "sparse_checkpoint": "/tmp/pde-migration-acceptance-YwQzWC/fixtures-zr52b36m/native-alias-identities/hardlink.sparse"
+  }
+]

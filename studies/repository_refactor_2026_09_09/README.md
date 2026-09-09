@@ -24,6 +24,17 @@ only the maintained, self-contained mathematical library.
   with exact isolated review records and the maintained reading guide.
 - `38b1a47`: independent-review repairs to live verification/reproduction
   interfaces, including a read-only two-root manifest verifier.
+- `f6bcef5`: reconciled study navigation/status and exact standalone inputs.
+- `afaddad`: CLEAN fresh standalone-library integration and its exact review.
+- `9cd393c`: normalized replay roots and pre-work CLI refusal repairs.
+- `e3cab42`: seven-study source/input/output separation and archival guards.
+- `c499fd9`: remaining calculus routing and exact repair-audit lineage.
+- `0cd94a0`: consumed-input protection and complete quadratic evidence selection;
+  fresh legacy-interface acceptance remains separately recorded.
+- `4e173b7`: callable Gaussian archival guards, retained source-role resolution
+  and the shared existing-link protection, with calculation-preservation evidence.
+- `bd15262`: seven-study failure/publication guards and current reproduction
+  instructions; 62 bounded tests repeated independently by the coordinator.
 
 [INVENTORY_BEFORE.json](INVENTORY_BEFORE.json) records the original paths,
 sizes and hashes. [MOVE_MANIFEST.json](MOVE_MANIFEST.json) records relocation.
