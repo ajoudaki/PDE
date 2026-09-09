@@ -30,6 +30,11 @@ from fractions import Fraction
 from pathlib import Path
 from typing import Sequence
 
+if __package__:
+    from ._audit_paths import guard_output
+else:
+    from _audit_paths import guard_output
+
 
 Rat = Fraction
 HERE = Path(__file__).resolve().parent
@@ -582,6 +587,10 @@ def main() -> None:
     parser.add_argument("--independent", type=Path, default=INDEPENDENT_DEFAULT)
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
+    guard_output(args.output, (
+        args.production, args.independent, Path(__file__),
+        HERE / "production_hidden_recurrence.py", HERE / "independent_hidden_recurrence.py",
+    ))
     document = audit_documents(args.production, args.independent)
     encoded = json.dumps(document, indent=2, sort_keys=True) + "\n"
     if args.output is None:

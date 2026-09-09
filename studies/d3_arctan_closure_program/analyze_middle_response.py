@@ -14,6 +14,11 @@ from pathlib import Path
 
 import numpy as np
 
+if __package__:
+    from ._analysis_paths import guard_outputs
+else:
+    from _analysis_paths import guard_outputs
+
 
 HORIZONS = (0.5, 1.0, 2.0)
 FIELDS = ("r2", "r2_static", "r2_learned")
@@ -228,6 +233,7 @@ def main():
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
 
+    guard_outputs((args.output,), (args.main, args.cavity, args.main_fine, args.cavity_fine))
     main_meta, main_runs = load(args.main)
     cavity_meta, cavity_runs = load(args.cavity)
     main_fine_meta, main_fine_runs = load(args.main_fine)

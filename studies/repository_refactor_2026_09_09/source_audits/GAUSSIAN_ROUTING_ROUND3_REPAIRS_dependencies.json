@@ -1,0 +1,8 @@
+{
+  "numpy": true,
+  "scipy": true,
+  "sympy": false,
+  "mpmath": false,
+  "torch": false,
+  "pytest": false
+}

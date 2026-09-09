@@ -14,6 +14,12 @@ import re
 import shutil
 import subprocess
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+from studies._output_paths import StudyPaths
+
+PATHS = StudyPaths(__file__)
 
 
 REPORT_DIR = Path(__file__).resolve().parent
@@ -38,6 +44,25 @@ UNESCAPED_DOLLAR = re.compile(r"(?<!\\)\$")
 LOCAL_LINK = re.compile(r"(?<!!)\[([^\]\n]+)\]\((?!https?://)[^)]+\)")
 
 
+def validate_paths() -> None:
+    """Keep rebuilds and publication disjoint from source and intermediate inputs."""
+    sources = {path.resolve() for path in (*SOURCES, REPORT_TEX)}
+    intermediates = [
+        *(MARKDOWN_DIR / (path.stem + ".pdf.md") for path in SOURCES),
+        MARKDOWN_DIR / "markdown_math_defs.tex",
+    ]
+    for directory in (OUTPUT_DIR, BUILD_DIR, MARKDOWN_DIR):
+        PATHS.require_output(directory.absolute())
+    if any(path.is_relative_to(BUILD_DIR.resolve()) for path in sources):
+        raise ValueError("report rebuild would delete a maintained source")
+    protected = set(sources)
+    for path in (*intermediates, REPORT_PDF, BUILD_DIR / REPORT_PDF.name):
+        output = PATHS.require_output(path.absolute())
+        if output in protected:
+            raise ValueError(f"report output aliases a source, intermediate or another output: {path}")
+        protected.add(output)
+
+
 def run(command: list[str], *, cwd: Path) -> subprocess.CompletedProcess[str]:
     completed = subprocess.run(
         command,
@@ -57,6 +82,7 @@ def run(command: list[str], *, cwd: Path) -> subprocess.CompletedProcess[str]:
 
 
 def protect_markdown() -> int:
+    validate_paths()
     mathematics: list[tuple[str, str]] = []
 
     def register(kind: str, body: str) -> str:
@@ -144,6 +170,7 @@ def protect_markdown() -> int:
 
 
 def compile_report() -> Path:
+    validate_paths()
     if shutil.which("latexmk") is None or shutil.which("xelatex") is None:
         raise RuntimeError("latexmk and xelatex are required to build the report")
 
@@ -203,6 +230,7 @@ def verify_pdf(pdf_path: Path) -> None:
 
 
 def main() -> None:
+    validate_paths()
     if BUILD_DIR.exists():
         shutil.rmtree(BUILD_DIR)
     MARKDOWN_DIR.mkdir(parents=True)
@@ -211,6 +239,7 @@ def main() -> None:
     print(f"Protected {math_count} math spans from {len(SOURCES)} sources.")
 
     built_pdf = compile_report()
+    validate_paths()
     verify_pdf(built_pdf)
     shutil.copy2(built_pdf, REPORT_PDF)
     print(f"Wrote {REPORT_PDF}")

@@ -1,0 +1,102 @@
+{
+  "/home/amir/Codes/PDE/studies/causal_flow_peeling_calculus/experiments/_analysis_paths.py": {
+    "before": null,
+    "after": "1db486b0e079c850cc9de6be68d856c14697487c3167eb032978e222d298643e"
+  },
+  "/home/amir/Codes/PDE/studies/causal_flow_peeling_calculus/experiments/analyze_d3_reachable_tail.py": {
+    "before": "aabafc0d6de417059b2832956d4a244d9fb8b12b912780d89254726ff71e95ed",
+    "after": "e1fad52f1a7d7f46bc896fcc891864f52717a43bc4bdabbfdf335675a8164553"
+  },
+  "/home/amir/Codes/PDE/studies/causal_flow_peeling_calculus/experiments/analyze_g2_gate_defect.py": {
+    "before": "49e8023fa60b33f0de16acd757996a8f3f924f9b99088476aa427cb58c5f221a",
+    "after": "b9d95f03123ec00b20eed1c9c1cf4b4aa364b3dd66e2dd22887c32fdb50afd14"
+  },
+  "/home/amir/Codes/PDE/studies/causal_flow_peeling_calculus/experiments/analyze_marked_column_cavity.py": {
+    "before": "4a12071a66b30b139d468238717d78806b602036e6c18a58563077c4409dedeb",
+    "after": "674eb0d255cb0ed334e8bc0324ddaf95880f7ca68568d98b656cc6f956e8040c"
+  },
+  "/home/amir/Codes/PDE/studies/causal_flow_peeling_calculus/test_migration_input_aliases.py": {
+    "before": null,
+    "after": "8a4705896b5448c5e964d2c7046403f58c0186754d7befb7568f701acc870db3"
+  },
+  "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/_analysis_paths.py": {
+    "before": null,
+    "after": "ab9984bb029d79f5ce0536222143092d55e6b128ddf40cbaf4e70ed9679728bd"
+  },
+  "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_first_passage_cooperative.py": {
+    "before": "8969cbba59cf46d2e4646166b287daa5caedb98b1e0e28753bd258e446a90549",
+    "after": "12813f4451d8f3f72a778573b0a9df4a3d7e269dc0028e5ef80b475789cbfe18"
+  },
+  "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_gpu_forward_query_budget.py": {
+    "before": "0a19c5954874cc51a84b7abe199560c473f7a6138f6c620e0b111f2ced05524a",
+    "after": "71c2376facab98aca9457a81872d3b0bdc1cc7466023e9f81969ffaf98867003"
+  },
+  "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_gpu_middle_saturation.py": {
+    "before": "e15e82849b0d062a60a4a3f8f9f340b3bc9100996fd6e393db9dd4ece0d4594a",
+    "after": "b220ab3323ab1c0d3ce321b1291352b026e27d5ce4c907ccaf841e4e3a48507b"
+  },
+  "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_gpu_paired_cavity_product.py": {
+    "before": "9efaf772f2e407506aca269355a8705ec0cca51cd0dd87e48eb8988aca13f7f6",
+    "after": "87a3d4f363a595e2b9f8ffe7c642d53e682861a31479731e0c78a14a8f7cba47"
+  },
+  "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_gpu_susceptibility_trace.py": {
+    "before": "b329e823e45b86ae054a6f896a4ecc298ab0f9c099436b59075c742221a0593c",
+    "after": "62fc82809f2e3b039c0e72512d65c8c62ff24742db4a945e89ae6362ec7c3ac1"
+  },
+  "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_middle_response.py": {
+    "before": "92180c5210576bcfb42786bf8496ff7e5340f63dbfc4653adeee9d06e898d679",
+    "after": "86aa6ecb6030325379beeea1ac0d63965b49ea3945c31174bdf5a081f5e853c5"
+  },
+  "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_response_leverage.py": {
+    "before": "c5a85ec8dbd238e4aaa59ce0c73998607ca06e520e8340480f7491938cd86cdb",
+    "after": "dabc2f9b9714dadcff3a5ac8affd1974ad44ecfe5596a22b7f4c44b923e2629a"
+  },
+  "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/test_migration_input_aliases.py": {
+    "before": null,
+    "after": "e246efd1208a7260041081082b387ffb0ef704c4a03b875ecc6dd77f27564afd"
+  },
+  "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5/primary/generate_frozen_artifacts.py": {
+    "before": "1b9898146fa9f780c8d470abdcd11cf4bf4b5f96466095fd21cb9e53c48e55ce",
+    "after": "86fcf771714206a6117fcdac0304706691d4d605838a03358e87b4bb2f07cff3"
+  },
+  "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/postprocess_h3_sine_regression.py": {
+    "before": "f378649268ba9da6003a13f600a7cd1e5c3af7be46d76eb2fdc6b78cbb5085ca",
+    "after": "19af852cd3c7b8dbc726ed2c2e9422e7eec58784539641b8aea527af7540765e"
+  },
+  "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_h3_curvature_extension.py": {
+    "before": "21d81b0edb263d9db9a7fd6be8acd9ee2a1cf357ff8cc194e1cf30f0cab753f2",
+    "after": "d9029a693014ffdf8517a8ce9076011f081401a2b0b25efd77b10ef37e5a00ba"
+  },
+  "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/study_paths.py": {
+    "before": "aea6795fae0b4429d7f23e120c5c1e662084f189298db897caec54acfdbf531a",
+    "after": "d188b1c3de8770585d62b2131f31915129ca05c8850916f615adcd9e59649e7e"
+  },
+  "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/test_migration_input_aliases.py": {
+    "before": null,
+    "after": "68f99f11efecc659d27d84e8521757f323536f0bbd182dc20a05e9f01054a130"
+  },
+  "/home/amir/Codes/PDE/studies/mfp_program_history/report/build_report.py": {
+    "before": "a62164194d1afd10a19cbac86d43b1a6b1511b184191935efbe6f5ea5a8e6b7e",
+    "after": "e122d68a2b76da19306e2ce64e411d3247ad36a64daf87035857ec8784cacac2"
+  },
+  "/home/amir/Codes/PDE/studies/mfp_program_history/report/test_migration_paths.py": {
+    "before": null,
+    "after": "de82e34babb8e99d23a5d21fd3c74e97fac990980dba876830aa229c72ba6a65"
+  },
+  "/home/amir/Codes/PDE/studies/stieltjes_resolution/canonical_hidden_high_order/_audit_paths.py": {
+    "before": null,
+    "after": "f3b6911ef4d80348573abe4260ae1f707818ac1ad5709b6a41a17d3f33f2d63f"
+  },
+  "/home/amir/Codes/PDE/studies/stieltjes_resolution/canonical_hidden_high_order/hidden_moment_hankel_audit.py": {
+    "before": "75465c1de279d4e6b0cdd8f7bd1d0a583a77b10d6ecf875af5ee238e90eefbb4",
+    "after": "86af5af98370ec55cb8b69ff24238fd10bb6e0c74a25a0b258e712c1ed0a544d"
+  },
+  "/home/amir/Codes/PDE/studies/stieltjes_resolution/canonical_hidden_high_order/independent_hidden_scalar_audit.py": {
+    "before": "9646a738a3485ee3775ef2779d8a713485a7d799caa9b5ccfccdd72c9b354f1e",
+    "after": "78313917bfaab07a85b41d8c3c45d91b21a4d6249884478ba04b3471ce40d23e"
+  },
+  "/home/amir/Codes/PDE/studies/stieltjes_resolution/canonical_hidden_high_order/test_migration_input_aliases.py": {
+    "before": null,
+    "after": "677c5495a5eaaf613bb16d21f30a7ec040a379c77554ae29fcfc8e168483b4ce"
+  }
+}

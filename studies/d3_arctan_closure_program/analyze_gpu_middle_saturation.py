@@ -10,6 +10,11 @@ from pathlib import Path
 
 import numpy as np
 
+if __package__:
+    from ._analysis_paths import guard_outputs
+else:
+    from _analysis_paths import guard_outputs
+
 
 WIDTHS = (512, 1024, 2048, 4096)
 HORIZONS = (1.0, 2.0, 4.0)
@@ -92,6 +97,12 @@ def main():
     parser.add_argument("--output-md", type=Path, required=True)
     args = parser.parse_args()
 
+    guard_outputs((args.output_json, args.output_md), [
+        *(args.input_dir / f"middle_saturation_main_n{n}.npz" for n in WIDTHS),
+        args.input_dir / "middle_saturation_audit_h0005_n512.npz",
+        args.input_dir / "middle_saturation_audit_fp32draw64_n256.npz",
+        args.input_dir / "middle_saturation_audit_fp64_n256.npz",
+    ])
     main_data = {
         n: load(args.input_dir / f"middle_saturation_main_n{n}.npz")
         for n in WIDTHS

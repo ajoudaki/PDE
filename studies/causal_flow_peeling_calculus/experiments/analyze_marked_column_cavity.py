@@ -12,6 +12,11 @@ import statistics
 from collections import defaultdict
 from pathlib import Path
 
+if __package__:
+    from ._analysis_paths import guard_outputs
+else:
+    from _analysis_paths import guard_outputs
+
 
 REPLACEMENT_METRICS = (
     "marked_r2_abs",
@@ -301,6 +306,13 @@ def main():
     parser.add_argument("--output", required=True)
     args = parser.parse_args()
 
+    guard_outputs(
+        (Path(args.output) / "summary.json", Path(args.output) / "width_scaling.csv"),
+        [Path(__file__),
+         *(Path(directory) / "raw_replacement.csv" for directory in (
+             *args.primary, *args.refined, *args.float64_coarse, *args.float64_fine)),
+         *(Path(directory) / "raw_jvp.csv" for directory in args.primary)],
+    )
     primary_replacement = read_rows(args.primary, "raw_replacement.csv")
     primary_jvp = read_rows(args.primary, "raw_jvp.csv")
     scaling = scaling_summary(

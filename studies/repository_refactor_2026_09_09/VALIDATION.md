@@ -133,7 +133,11 @@ repairs are checkpointed at `4e173b7` and `bd15262`; the coordinator repeated
 acceptance reviews follow those exact implementations. The Gaussian third round
 found additional same-file analyzer-input collisions, report-source aliases,
 an uncovered archival writer and a production/independent role check; those
-findings are retained and repairs are in progress. The seven-study third round
+findings are retained. Its repair now passes 44 explicitly selected bounded
+checks, repeated by the coordinator; 1,978 original function bodies retain all
+their prior statements in order, and all 287 corresponding retained files
+are byte-identical. Only guards/imports and eight new helper/test files were
+added. Fresh isolated Gaussian round 4 is running. The seven-study third round
 also remains NOT CLEAN: it found two stale source paths, further named-output
 and consumed-input collisions, a late missing-reference check, and two omitted
 archive-only callable guards. Its 62 passing tests and exact unchanged input

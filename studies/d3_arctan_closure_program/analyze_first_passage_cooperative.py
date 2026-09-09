@@ -9,6 +9,11 @@ from pathlib import Path
 
 import numpy as np
 
+if __package__:
+    from ._analysis_paths import guard_outputs
+else:
+    from _analysis_paths import guard_outputs
+
 
 LEVELS = (1.5, 2.0, 3.0)
 
@@ -137,6 +142,7 @@ def main():
     args = parser.parse_args()
 
     files = sorted(args.input_dir.glob("first_passage_*.npz"))
+    guard_outputs((args.output,), files)
     summaries = [summarize(path) for path in files]
     mains = {s["width"]: s for s in summaries if "_main_" in s["path"]}
     by_tag = {Path(s["path"]).stem: s for s in summaries}

@@ -11,7 +11,9 @@ from pathlib import Path
 import numpy as np
 from scipy.stats import chi2
 
-from studies.mfp_gaussian_calculus.study_paths import GENERATED_ROOT, input_directory, require_output
+from studies.mfp_gaussian_calculus.study_paths import (
+    GENERATED_ROOT, input_directory, require_output, guard_output_inputs,
+)
 
 from studies.mfp_gaussian_calculus.depth.model import sample_state
 from studies.mfp_gaussian_calculus.depth_order5_scalar.multi_observable.independent_route_a.finite_width_hidden import (
@@ -99,6 +101,10 @@ def one_network(width: int, replicate: int):
 
 def run(old_raw: Path = OLD_RAW, output_dir: Path = OUTPUT):
     output_dir = require_output(output_dir)
+    guard_output_inputs((
+        output_dir / "H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RAW.npz",
+        output_dir / "H3_NORMALIZED_SINE_CURVATURE_EXTENSION_RESULT.json",
+    ), (old_raw,))
     if digest(old_raw) != OLD_SHA256:
         raise RuntimeError("the frozen three-width raw panel changed")
     old = np.load(old_raw, allow_pickle=False)

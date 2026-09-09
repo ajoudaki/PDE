@@ -13,6 +13,11 @@ from pathlib import Path
 
 import numpy as np
 
+if __package__:
+    from ._analysis_paths import guard_outputs
+else:
+    from _analysis_paths import guard_outputs
+
 
 def read_rows(paths):
     rows = []
@@ -33,6 +38,10 @@ def main():
     parser.add_argument("--step", nargs="+", required=True)
     parser.add_argument("--output", required=True)
     args = parser.parse_args()
+    guard_outputs((args.output,), [
+        *args.primary, *args.step,
+        *(Path(path).with_name("metadata.json") for path in args.step),
+    ])
     rows = read_rows(args.primary)
     summary = {"width": {}, "step_refinement": {}}
     widths = sorted({int(row["width"]) for row in rows})

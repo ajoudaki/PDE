@@ -1,0 +1,124 @@
+{
+  "original_function_bodies_checked": 1978,
+  "changed_functions_only_add_guard_statements": [
+    {
+      "path": "/home/amir/Codes/PDE/studies/causal_flow_peeling_calculus/experiments/analyze_d3_reachable_tail.py",
+      "function": "main",
+      "original_statements_retained_in_order": true,
+      "added_top_level_statements": 1
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/causal_flow_peeling_calculus/experiments/analyze_g2_gate_defect.py",
+      "function": "main",
+      "original_statements_retained_in_order": true,
+      "added_top_level_statements": 1
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/causal_flow_peeling_calculus/experiments/analyze_marked_column_cavity.py",
+      "function": "main",
+      "original_statements_retained_in_order": true,
+      "added_top_level_statements": 1
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_first_passage_cooperative.py",
+      "function": "main",
+      "original_statements_retained_in_order": true,
+      "added_top_level_statements": 1
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_gpu_forward_query_budget.py",
+      "function": "main",
+      "original_statements_retained_in_order": true,
+      "added_top_level_statements": 1
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_gpu_middle_saturation.py",
+      "function": "main",
+      "original_statements_retained_in_order": true,
+      "added_top_level_statements": 1
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_gpu_paired_cavity_product.py",
+      "function": "main",
+      "original_statements_retained_in_order": true,
+      "added_top_level_statements": 1
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_gpu_susceptibility_trace.py",
+      "function": "main",
+      "original_statements_retained_in_order": true,
+      "added_top_level_statements": 1
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_middle_response.py",
+      "function": "main",
+      "original_statements_retained_in_order": true,
+      "added_top_level_statements": 1
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_response_leverage.py",
+      "function": "main",
+      "original_statements_retained_in_order": true,
+      "added_top_level_statements": 1
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5/primary/generate_frozen_artifacts.py",
+      "function": "write_coefficient_json",
+      "original_statements_retained_in_order": true,
+      "added_top_level_statements": 1
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/postprocess_h3_sine_regression.py",
+      "function": "run",
+      "original_statements_retained_in_order": true,
+      "added_top_level_statements": 1
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/run_h3_curvature_extension.py",
+      "function": "run",
+      "original_statements_retained_in_order": true,
+      "added_top_level_statements": 1
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_program_history/report/build_report.py",
+      "function": "protect_markdown",
+      "original_statements_retained_in_order": true,
+      "added_top_level_statements": 1
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_program_history/report/build_report.py",
+      "function": "compile_report",
+      "original_statements_retained_in_order": true,
+      "added_top_level_statements": 1
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/mfp_program_history/report/build_report.py",
+      "function": "main",
+      "original_statements_retained_in_order": true,
+      "added_top_level_statements": 2
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_resolution/canonical_hidden_high_order/hidden_moment_hankel_audit.py",
+      "function": "build_audit",
+      "original_statements_retained_in_order": true,
+      "added_top_level_statements": 1
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_resolution/canonical_hidden_high_order/hidden_moment_hankel_audit.py",
+      "function": "main",
+      "original_statements_retained_in_order": true,
+      "added_top_level_statements": 1
+    },
+    {
+      "path": "/home/amir/Codes/PDE/studies/stieltjes_resolution/canonical_hidden_high_order/independent_hidden_scalar_audit.py",
+      "function": "main",
+      "original_statements_retained_in_order": true,
+      "added_top_level_statements": 1
+    }
+  ],
+  "pre_existing_module_statements_and_constants_preserved": true,
+  "retained_files_byte_identical": 287,
+  "retained_manifest_sha256_before_and_after": "5ac0de3110a659cfa9cd4475a5a5667bd2313b337c2774749aaf40e488fb16d5",
+  "pre_existing_non_python_files_byte_identical": 736,
+  "no_scientific_execution_in_this_check": true
+}

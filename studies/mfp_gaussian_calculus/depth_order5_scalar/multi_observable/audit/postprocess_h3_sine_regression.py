@@ -11,7 +11,9 @@ from pathlib import Path
 import numpy as np
 from scipy.stats import chi2
 
-from studies.mfp_gaussian_calculus.study_paths import GENERATED_ROOT, input_directory, require_output
+from studies.mfp_gaussian_calculus.study_paths import (
+    GENERATED_ROOT, input_directory, require_output, guard_output_inputs,
+)
 
 from studies.mfp_gaussian_calculus.depth_order5_scalar.multi_observable.independent_route_a.numeric_head import (
     compile_numeric,
@@ -50,6 +52,7 @@ def affine_fit(widths, means, sems):
 
 def run(raw_path: Path = RAW, output_dir: Path = OUTPUT):
     output_dir = require_output(output_dir)
+    guard_output_inputs((output_dir / "H3_NORMALIZED_SINE_RESULT.json",), (raw_path,))
     if digest(raw_path) != EXPECTED_RAW_SHA256:
         raise RuntimeError("raw H3 panel hash changed")
     payload = np.load(raw_path, allow_pickle=False)

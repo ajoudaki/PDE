@@ -9,6 +9,11 @@ from pathlib import Path
 
 import numpy as np
 
+if __package__:
+    from ._analysis_paths import guard_outputs
+else:
+    from _analysis_paths import guard_outputs
+
 
 WIDTHS = (256, 512, 1024, 2048, 4096)
 HORIZONS = (1.0, 2.0, 4.0)
@@ -39,6 +44,13 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--bootstrap", type=int, default=4000)
     args = parser.parse_args()
+    guard_outputs((args.output,), [
+        *(args.input_dir / f"forward_query_main_n{n}.npz" for n in WIDTHS),
+        *(args.input_dir / f"forward_query_audit_{tag}_n{n}.npz"
+          for n in (256, 512) for tag in ("h001", "h0005")),
+        *(args.input_dir / f"forward_query_audit_{tag}_n{n}.npz"
+          for n in (128, 256) for tag in ("fp32draw64", "fp64")),
+    ])
     main_data = {
         n: load(args.input_dir / f"forward_query_main_n{n}.npz")
         for n in WIDTHS

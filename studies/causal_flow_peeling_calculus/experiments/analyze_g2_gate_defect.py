@@ -11,6 +11,11 @@ import statistics
 from collections import defaultdict
 from pathlib import Path
 
+if __package__:
+    from ._analysis_paths import guard_outputs
+else:
+    from _analysis_paths import guard_outputs
+
 
 METRICS = (
     "A_error",
@@ -39,6 +44,7 @@ def main():
     parser.add_argument("--output", required=True)
     args = parser.parse_args()
 
+    guard_outputs((args.output,), (args.input,))
     with Path(args.input).open(newline="") as handle:
         rows = list(csv.DictReader(handle))
     grouped = defaultdict(list)

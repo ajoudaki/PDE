@@ -9,6 +9,11 @@ from pathlib import Path
 
 import numpy as np
 
+if __package__:
+    from ._analysis_paths import guard_outputs
+else:
+    from _analysis_paths import guard_outputs
+
 
 WIDTHS = (128, 256, 512)
 HORIZONS = (1, 2, 4)
@@ -84,6 +89,15 @@ def main():
     parser.add_argument("--md-output", type=Path, required=True)
     args = parser.parse_args()
     root = args.input_dir
+    guard_outputs((args.json_output, args.md_output), [
+        *(main_path(root, n, horizon) for horizon in HORIZONS for n in WIDTHS),
+        *(root / f"susceptibility_main_extra_n{n}_h0.02_T4.npz" for n in WIDTHS),
+        root / "susceptibility_refine_n128_h0.01_T4.npz",
+        root / "susceptibility_fine_n128_h0.005_T4.npz",
+        root / "susceptibility_refine_n256_h0.01_T4.npz",
+        root / "susceptibility_arithmetic32_n128_h0.02_T4.npz",
+        root / "susceptibility_arithmetic64_n128_h0.02_T4.npz",
+    ])
     rng = np.random.default_rng(2026082312)
 
     main_data = {(T, n): load(main_path(root, n, T))

@@ -1,0 +1,23 @@
+test_clis_refuse_from_external_cwd_without_site_dependencies (studies.mfp_gaussian_calculus.test_migration_retired_interfaces.RetiredInterfaceTests) ... ok
+test_imported_writers_and_runners_refuse_before_work_or_io (studies.mfp_gaussian_calculus.test_migration_retired_interfaces.RetiredInterfaceTests) ... ok
+test_pure_modules_and_individual_tests_remain_importable (studies.mfp_gaussian_calculus.test_migration_retired_interfaces.RetiredInterfaceTests) ... ok
+test_historical_paths_and_both_retained_map_schemas (studies.mfp_gaussian_calculus.test_migration_retired_interfaces.FrozenComparisonInputTests) ... ok
+test_missing_or_malformed_retained_inputs_do_not_fall_back (studies.mfp_gaussian_calculus.test_migration_retired_interfaces.FrozenComparisonInputTests) ... ok
+test_actual_retained_records_reach_current_sources_and_keep_frozen_hash_failures (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_paths.SourceRoleTests) ... ok
+test_exact_legacy_current_and_basename_labels_bind_source_not_data (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_paths.SourceRoleTests) ... ok
+test_unknown_or_traversing_labels_refuse_before_read (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_paths.SourceRoleTests) ... ok
+test_wrong_digest_is_not_replaced_with_current_digest (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_paths.SourceRoleTests) ... ok
+test_archival_curvature_wrapper_refuses_before_global_patch_or_campaign (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_comparison_uses_selected_inputs_and_fresh_outputs (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_existing_child_aliases_refuse_before_work_and_preserve_input (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_freeze_is_archive_only_even_when_seal_is_missing (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_generated_defaults_and_unaliased_scratch_remain_accepted (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_h3_fresh_producers_and_consumers_agree (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_historical_selection_is_explicit (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_other_archive_guards_precede_function_work (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_reject_unsafe_outputs_before_any_compiler_or_input_work (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.242s
+
+OK

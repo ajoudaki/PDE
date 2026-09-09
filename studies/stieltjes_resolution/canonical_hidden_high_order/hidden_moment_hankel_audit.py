@@ -19,6 +19,11 @@ from fractions import Fraction
 from pathlib import Path
 from typing import Sequence
 
+if __package__:
+    from ._audit_paths import guard_output
+else:
+    from _audit_paths import guard_output
+
 
 Q = Fraction
 HERE = Path(__file__).resolve().parent
@@ -318,6 +323,9 @@ def build_audit(production_path: Path, independent_path: Path) -> dict[str, obje
         "production": validate_source(production, production_path),
         "independent": validate_source(independent, independent_path),
     }
+    for role, source in sources.items():
+        if SOURCE_ROLES[source["file"]] != HERE / f"{role}_hidden_recurrence.py":
+            raise ValueError(f"{role} input has the wrong hidden-recurrence source role")
     production_f = exact_derivatives(production, "feature_derivatives")
     independent_f = exact_derivatives(independent, "feature_derivatives")
     production_q1 = exact_derivatives(production, "q1_derivatives")
@@ -407,6 +415,10 @@ def main() -> None:
     parser.add_argument("--independent", type=Path, default=INDEPENDENT_RESULT)
     parser.add_argument("--output", type=Path)
     arguments = parser.parse_args()
+    guard_output(arguments.output, (
+        arguments.production, arguments.independent, PROTOCOL,
+        *SOURCE_ROLES.values(), Path(__file__),
+    ))
     audit = build_audit(arguments.production, arguments.independent)
     encoded = json.dumps(audit, indent=2, sort_keys=True) + "\n"
     if arguments.output:

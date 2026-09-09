@@ -1,0 +1,44 @@
+[
+  {
+    "group": "focused",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "studies.causal_flow_peeling_calculus.test_migration_input_aliases",
+      "studies.d3_arctan_closure_program.test_migration_input_aliases",
+      "studies.mfp_gaussian_calculus.test_migration_input_aliases",
+      "studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_input_aliases",
+      "studies.mfp_program_history.report.test_migration_paths"
+    ],
+    "exit_code": 0,
+    "log": "/tmp/pde-gaussian-main-recheck.x91vAIKr/tests-focused.log"
+  },
+  {
+    "group": "existing",
+    "command": [
+      "/usr/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "studies.mfp_gaussian_calculus.test_migration_retired_interfaces.RetiredInterfaceTests",
+      "studies.mfp_gaussian_calculus.test_migration_retired_interfaces.FrozenComparisonInputTests.test_historical_paths_and_both_retained_map_schemas",
+      "studies.mfp_gaussian_calculus.test_migration_retired_interfaces.FrozenComparisonInputTests.test_missing_or_malformed_retained_inputs_do_not_fall_back",
+      "studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_paths",
+      "studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests.test_archival_curvature_wrapper_refuses_before_global_patch_or_campaign",
+      "studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests.test_comparison_uses_selected_inputs_and_fresh_outputs",
+      "studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests.test_existing_child_aliases_refuse_before_work_and_preserve_input",
+      "studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests.test_freeze_is_archive_only_even_when_seal_is_missing",
+      "studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests.test_generated_defaults_and_unaliased_scratch_remain_accepted",
+      "studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests.test_h3_fresh_producers_and_consumers_agree",
+      "studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests.test_historical_selection_is_explicit",
+      "studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests.test_other_archive_guards_precede_function_work",
+      "studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests.test_reject_unsafe_outputs_before_any_compiler_or_input_work"
+    ],
+    "exit_code": 0,
+    "log": "/tmp/pde-gaussian-main-recheck.x91vAIKr/tests-existing.log"
+  }
+]

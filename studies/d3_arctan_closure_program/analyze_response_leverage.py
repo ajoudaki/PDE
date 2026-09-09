@@ -9,6 +9,11 @@ from pathlib import Path
 
 import numpy as np
 
+if __package__:
+    from ._analysis_paths import guard_outputs
+else:
+    from _analysis_paths import guard_outputs
+
 
 HORIZONS = (1.0, 2.0, 4.0)
 STATS = (
@@ -127,6 +132,7 @@ def main():
     parser.add_argument("--fine")
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
+    guard_outputs((args.output,), (args.coarse, args.fine))
     coarse_meta, coarse_runs = load(args.coarse)
     result = {
         "coarse_metadata": coarse_meta,

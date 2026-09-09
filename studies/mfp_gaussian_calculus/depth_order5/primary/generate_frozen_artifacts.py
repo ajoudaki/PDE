@@ -41,6 +41,7 @@ def sha256(path: Path) -> str:
 
 
 def write_coefficient_json(path: Path, depth: int, quotient: str, roots) -> dict[str, int]:
+    raise RuntimeError("archive-only frozen-artifact writer; do not overwrite the already compared primary artifacts")
     temporary = path.with_suffix(path.suffix + ".tmp")
     counts: dict[str, int] = {}
     with temporary.open("w", encoding="utf-8", newline="\n") as stream:

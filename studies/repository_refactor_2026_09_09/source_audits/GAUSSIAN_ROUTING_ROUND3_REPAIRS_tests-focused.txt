@@ -1,0 +1,35 @@
+test_direct_script_help_from_external_directory (studies.causal_flow_peeling_calculus.test_migration_input_aliases.InputAliasTests) ... ok
+test_empty_valid_fresh_workflows_preserve_selected_bytes (studies.causal_flow_peeling_calculus.test_migration_input_aliases.InputAliasTests) ... ok
+test_g2_all_alias_forms_refuse_before_read (studies.causal_flow_peeling_calculus.test_migration_input_aliases.InputAliasTests) ... ok
+test_marked_both_outputs_protect_every_consumed_group (studies.causal_flow_peeling_calculus.test_migration_input_aliases.InputAliasTests) ... ok
+test_named_source_guard_precedes_read (studies.causal_flow_peeling_calculus.test_migration_input_aliases.InputAliasTests) ... ok
+test_tail_protects_every_primary_step_and_metadata (studies.causal_flow_peeling_calculus.test_migration_input_aliases.InputAliasTests) ... ok
+test_all_npz_inputs_and_all_output_fields_precede_analysis (studies.d3_arctan_closure_program.test_migration_input_aliases.InputAliasTests) ... /home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_gpu_middle_saturation.py:254: DeprecationWarning: invalid escape sequence '\('
+  md = f"""# GPU result: middle-query saturation versus bath cancellation
+/home/amir/Codes/PDE/studies/d3_arctan_closure_program/analyze_gpu_middle_saturation.py:254: DeprecationWarning: invalid escape sequence '\('
+  md = f"""# GPU result: middle-query saturation versus bath cancellation
+ok
+test_direct_script_help_from_external_directory (studies.d3_arctan_closure_program.test_migration_input_aliases.InputAliasTests) ... ok
+test_disjoint_and_stdout_routes_remain_available (studies.d3_arctan_closure_program.test_migration_input_aliases.InputAliasTests) ... ok
+test_first_passage_selection_and_aliases (studies.d3_arctan_closure_program.test_migration_input_aliases.InputAliasTests) ... ok
+test_jsonl_every_selected_input_alias (studies.d3_arctan_closure_program.test_migration_input_aliases.InputAliasTests) ... ok
+test_npz_symlink_hardlink_and_output_output_aliases (studies.d3_arctan_closure_program.test_migration_input_aliases.InputAliasTests) ... ok
+test_archived_writer_refuses_before_temporary_or_expansion (studies.mfp_gaussian_calculus.test_migration_input_aliases.SelectedRawAliasTests) ... ok
+test_disjoint_input_keeps_original_digest_failure (studies.mfp_gaussian_calculus.test_migration_input_aliases.SelectedRawAliasTests) ... ok
+test_each_named_output_refuses_all_input_alias_forms_before_hash_or_science (studies.mfp_gaussian_calculus.test_migration_input_aliases.SelectedRawAliasTests) ... ok
+test_both_clis_protect_both_inputs_before_audit (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_input_aliases.OutputAliasTests) ... ok
+test_direct_script_help_from_external_directory (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_input_aliases.OutputAliasTests) ... ok
+test_stdout_and_disjoint_destinations_still_dispatch (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_input_aliases.OutputAliasTests) ... ok
+test_correct_roles_and_all_accepted_labels_reach_only_derivative_tripwire (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_input_aliases.SourceSlotTests) ... ok
+test_exact_hash_failure_is_not_replaced_by_role_failure (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_input_aliases.SourceSlotTests) ... ok
+test_swapped_and_duplicate_roles_refuse_before_derivatives (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_input_aliases.SourceSlotTests) ... ok
+test_intermediate_aliases_refuse_in_main_and_direct_callables (studies.mfp_program_history.report.test_migration_paths.ReportPathTests) ... ok
+test_publication_preserves_all_maintained_inputs (studies.mfp_program_history.report.test_migration_paths.ReportPathTests) ... ok
+test_publication_preserves_intermediate_markdown_and_tex_even_before_creation (studies.mfp_program_history.report.test_migration_paths.ReportPathTests) ... ok
+test_rebuild_cannot_delete_a_source_or_follow_parent_alias (studies.mfp_program_history.report.test_migration_paths.ReportPathTests) ... ok
+test_valid_plain_text_pipeline_preserves_sources_and_intermediates (studies.mfp_program_history.report.test_migration_paths.ReportPathTests) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 1.518s
+
+OK
