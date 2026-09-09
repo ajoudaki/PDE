@@ -1,0 +1,67 @@
+% PDF-only typography. No changes to the source Markdown.
+\usepackage{adjustbox,fvextra,mathrsfs,xurl,etoolbox}
+\usepackage[headsepline=.3pt]{scrlayer-scrpage}
+\DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
+\definecolor{ExportBlue}{HTML}{1E5067}
+\definecolor{ExportGray}{HTML}{66727C}
+\definecolor{ExportLight}{HTML}{D7DEE2}
+\setkomafont{disposition}{\normalfont\sffamily\bfseries\color{ExportBlue}}
+\setkomafont{chapter}{\normalfont\sffamily\bfseries\LARGE\color{ExportBlue}}
+\setkomafont{section}{\normalfont\sffamily\bfseries\large\color{ExportBlue}}
+\setkomafont{subsection}{\normalfont\sffamily\bfseries\normalsize\color{ExportBlue}}
+\RedeclareSectionCommand[beforeskip=0pt,afterskip=18pt]{chapter}
+\clearpairofpagestyles
+\ihead{\small\sffamily\color{ExportGray}PROJECT PDE}
+\ohead{\small\sffamily\color{ExportGray}Established theory}
+\cfoot[\pagemark]{\pagemark}
+\pagestyle{scrheadings}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
+\setlength{\parfillskip}{0pt plus 1fil}
+\AtBeginDocument{\setlength{\parfillskip}{0pt plus 1fil}}
+\setlength{\emergencystretch}{4em}
+\tolerance=1800
+\widowpenalty=8000
+\clubpenalty=8000
+\raggedbottom
+\setlength{\LTpre}{8pt}
+\setlength{\LTpost}{8pt}
+\AtBeginEnvironment{longtable}{\small\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{1.15}}
+\DefineVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\footnotesize,breaklines=true,breakanywhere=true,frame=leftline,framesep=3mm,rulecolor=\color{ExportLight}}
+\newsavebox{\ExportEquationBox}
+\newsavebox{\ExportEquationTag}
+\newlength{\ExportEquationAvailable}
+\newcommand{\ExportDisplay}[3]{%
+  \par\addvspace{7pt}\begingroup
+  \setlength{\parfillskip}{0pt plus 1fil}%
+  \sbox{\ExportEquationBox}{$\displaystyle #2$}%
+  \sbox{\ExportEquationTag}{\ifstrempty{#3}{}{\normalfont\small(#3)}}%
+  \setlength{\ExportEquationAvailable}{\linewidth}%
+  \ifstrempty{#3}{}{\addtolength{\ExportEquationAvailable}{-2\wd\ExportEquationTag}\addtolength{\ExportEquationAvailable}{-12pt}}%
+  \ifdim\wd\ExportEquationBox>\ExportEquationAvailable
+    \typeout{EXPORT-SCALED #1: width=\the\wd\ExportEquationBox; available=\the\ExportEquationAvailable}%
+  \fi
+  \noindent\hbox to\linewidth{\hfil\adjustbox{max width=\ExportEquationAvailable}{\usebox{\ExportEquationBox}}\hfil\llap{\usebox{\ExportEquationTag}}}%
+  \par\endgroup\addvspace{7pt}
+}
+\makeatletter
+\renewcommand{\maketitle}{%
+  \begin{titlepage}
+  \thispagestyle{empty}
+  \vspace*{19mm}
+  {\sffamily\large\color{ExportGray}PROJECT PDE\par}
+  \vspace{18mm}
+  {\sffamily\bfseries\fontsize{34}{40}\selectfont\color{ExportBlue}Deep Neural Network\\Learning Dynamics\par}
+  \vspace{9mm}
+  {\sffamily\Large Established theory\par}
+  \vspace{5mm}
+  {\large Population limits, gradient flows,\\Gaussian calculus, and closure boundaries\par}
+  \vspace{12mm}
+  {\color{ExportLight}\rule{\linewidth}{1pt}\par}
+  \vfill
+  {\sffamily\large Reading edition\quad\textbullet\quad\@date\par}
+  \vspace{4mm}
+  {\small\color{ExportGray}A printable snapshot of the maintained book, with the implementation guide as an appendix. Source statements and equation tags are retained; layout adjustments are confined to this export.\par}
+  \end{titlepage}
+}
+\makeatother
