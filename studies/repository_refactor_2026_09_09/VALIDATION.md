@@ -344,3 +344,43 @@ and both new guide examples; its receipt and manifest are
 `reviews/CONTINUATION_FINITE_TAYLOR_LIBRARY_INPUTS.json`. The live scientific
 command adds `test_finite_reductions` to the previous six-module allowlist.
 No empirical, population-simulation or whole-book proof claim is inferred.
+
+## Final continuation: six scoped packages
+
+Integrated queries and finite dense residual identities complete the six
+selected packages after `ae43aa4`. Each has two clean complete independent
+reviews at its accepted hash. The failed regularity and notation rounds are
+retained, with fresh complete reviews of the corrected inputs. Exact scopes,
+line counts, hashes and reports are in
+[INCORPORATION_ACCEPTANCE.md](INCORPORATION_ACCEPTANCE.md).
+
+The fresh [integration review](reviews/CONTINUATION_FINAL_INTEGRATION.md)
+is CLEAN. It read all new proofs, their supplied dependencies, the guides,
+notation, finite-dynamics chapter and implementation in full: 9,283 of the
+27-file edition's 29,482 lines, with exact remaining read/unread ranges.
+It does not replace the paired proof reviews or certify unread older proofs.
+All 27 inputs remained unchanged and match the live scientific files.
+
+The final standalone library boundary/local-link check passes on 25 docs/code
+files, and all 86 scientific tests and both new guide examples pass. The logs
+are retained in `reviews/CONTINUATION_FINAL_STANDALONE.md`. `Makefile` and
+`requirements.txt` complete the 27-file, 1,338,187-byte current inventory in
+`LIBRARY_INPUTS.json`; earlier inventories retain their historical meanings.
+The exact live scientific test allowlist is:
+
+```sh
+PYTHONPATH=code:code/tests PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -B -m unittest test_finite_network test_numerical_contract test_gaussian_moments test_library_boundary test_finite_jets test_exact_calculus test_finite_reductions
+```
+
+The unchanged live implementation passed those 86 tests; the final integrated
+docs and implementation passed the same tests in the isolated scientific copy.
+No studies, arrays or old verdicts are runtime/proof dependencies. No new
+training experiment, coefficient campaign or exporter test was run.
+
+`CONTINUATION_FINAL_CHECKS.json` records exact fragment preservation, prior
+proof-body/code preservation, final file and review hashes, exporter hashes,
+and the limited metadata check on the eight inherited unreadable artifacts.
+The concurrent task index is left untouched. The accepted objective remains
+nonlinear correlated-data feature learning, with diagnostic/conditional/formal
+scope and all remaining gaps recorded in
+[CONTINUATION_DISPOSITION.md](CONTINUATION_DISPOSITION.md).

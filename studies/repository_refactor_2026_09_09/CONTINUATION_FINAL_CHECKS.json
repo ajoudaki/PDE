@@ -1,0 +1,218 @@
+{
+  "checkpoint": "ae43aa4",
+  "head_before_final_commit": "b3415729ffb3454146c351b1312d8105695dc193",
+  "scope": "Mechanical preservation and exact assembly; not a new whole-book proof audit.",
+  "proof_fragments": {
+    "GIVEN_SPACE_CAPS_ADDITION.md": {
+      "destination": "docs/finite_optimization_and_controls.md",
+      "bytes": 18663,
+      "lines": 417,
+      "sha256": "cdda914e481b46d51366a5d80661cd192b0f319d6507bc8b29eba69d87f9f95d",
+      "occurrences": 1
+    },
+    "CALCULUS_PULLBACK_ADDITION.md": {
+      "destination": "docs/gaussian_calculus.md",
+      "bytes": 16049,
+      "lines": 366,
+      "sha256": "dccefe204d607ad778a09e9a2c98ced0fbcb50a75cba869c44df9d9f652108ea",
+      "occurrences": 1
+    },
+    "FINITE_IDENTITIES_ADDITION.md": {
+      "destination": "docs/finite_dynamics.md",
+      "bytes": 16001,
+      "lines": 434,
+      "sha256": "5c422cb6bed3ce0816853cccd78d49a85f1fd3c8ca9718528584e15dc725427f",
+      "occurrences": 1
+    },
+    "POSITIVE_METRIC_TAYLOR_ADDITION.md": {
+      "destination": "docs/gaussian_calculus.md",
+      "bytes": 20752,
+      "lines": 496,
+      "sha256": "bfe815697f0a7a6e090d3e48bcf72cdf357e2cc9fbeb837007ce636010b667b8",
+      "occurrences": 1
+    },
+    "INTEGRATED_QUERIES_ADDITION.md": {
+      "destination": "docs/finite_optimization_and_controls.md",
+      "bytes": 10764,
+      "lines": 242,
+      "sha256": "fbe02d7d7c85167242cca00393fdb01f62c2357e5d94900cc1b439157b93850e",
+      "occurrences": 1
+    },
+    "DENSE_RESPONSE_ADDITION.md": {
+      "destination": "docs/continuous_depth.md",
+      "bytes": 13876,
+      "lines": 380,
+      "sha256": "446c817b40cb7b32cf83a0fd1bdc3dd54461dbc7bf7b688eacdd9f5dbe9e0286",
+      "occurrences": 1
+    }
+  },
+  "prior_proof_bodies": {
+    "docs/finite_dynamics.md": {
+      "range": "From Section1 to end of prior chapter",
+      "sha256_rstrip": "6a1b11813203a75bc45c78c5100c47326c4b0627de4da67b72c5a53e829b157e",
+      "unchanged": true
+    },
+    "docs/gaussian_calculus.md": {
+      "range": "From Section1 to end of prior chapter",
+      "sha256_rstrip": "6b96acce58cad7ee02ae735f1d631ba912aceaf8072eff4790de649485e9bd1a",
+      "unchanged": true
+    },
+    "docs/finite_optimization_and_controls.md": {
+      "range": "From Section1 to end of prior chapter",
+      "sha256_rstrip": "88eeb4f77570fd2cdb658fca3299bea5fb66d4eb0a8f665f2528d92796c06cb7",
+      "unchanged": true
+    },
+    "docs/continuous_depth.md": {
+      "range": "From Section1 to before Section13",
+      "sha256_rstrip": "42805053541d0ce3f25351820ecd86cc549790461bba90975f2c1550341db52b",
+      "unchanged": true
+    }
+  },
+  "unchanged_prior_scientific_files": [
+    "Makefile",
+    "code/pde/__init__.py",
+    "code/pde/finite_jets.py",
+    "code/pde/finite_network.py",
+    "code/pde/gaussian_moments.py",
+    "code/tests/test_finite_jets.py",
+    "code/tests/test_finite_network.py",
+    "code/tests/test_gaussian_moments.py",
+    "code/tests/test_library_boundary.py",
+    "code/tests/test_numerical_contract.py",
+    "code/tools/check_library.py",
+    "docs/NOTATION.md",
+    "docs/arctan_limits.md",
+    "docs/global_nonlinear.md",
+    "docs/linear_dynamics.md",
+    "docs/special_data_limits.md",
+    "requirements.txt"
+  ],
+  "unchanged_code_definitions": {
+    "code/pde/exact_calculus.py": [
+      "_compose",
+      "_integer",
+      "_multiply",
+      "_rationals",
+      "determinant",
+      "forest_key",
+      "quadratic_axis_certificate",
+      "revert_series"
+    ],
+    "code/tests/test_exact_calculus.py": [
+      "CertificateTests.test_displayed_exact_certificate_and_independent_witness",
+      "ForestTests.test_components_decorations_and_empty",
+      "ForestTests.test_invalid_graphs",
+      "ForestTests.test_relabeling_all_orders_and_edge_orientations",
+      "FormalArithmeticTests.test_determinants_swaps_singular_empty_and_rational",
+      "FormalArithmeticTests.test_invalid_rational_inputs",
+      "FormalArithmeticTests.test_reversion_two_compositions_and_exact_known_inverse",
+      "permutation_determinant",
+      "polynomial_composition"
+    ]
+  },
+  "exporter": {
+    "code/tests/test_book_exporter.py": {
+      "sha256": "da30acb6303447bf4c069da432a235390470faa36959ea1ebf93b1730f7e6923",
+      "unchanged": true
+    },
+    "code/tools/book_pdf/README.md": {
+      "sha256": "a15f6b774bc5350af383008abadd9f2cb7db3212fcc60b5f97b4911ff2475188",
+      "unchanged": true
+    },
+    "code/tools/book_pdf/build-pdf.sh": {
+      "sha256": "e02f11fa1616a841f5200b1bf64d248a590a793aff2b0fb10f98fd0801886d9e",
+      "unchanged": true
+    },
+    "code/tools/book_pdf/export_book.py": {
+      "sha256": "c6954b1adff817393ba624d80c59444aa4c9615faa2303a81acc456b3ceeb4d4",
+      "unchanged": true
+    },
+    "code/tools/book_pdf/layout.tex": {
+      "sha256": "8660194207cc2a7126f5133881f81fa141fcc33479150863365fb6e368d7c074",
+      "unchanged": true
+    },
+    "code/tools/book_pdf/render_book.py": {
+      "sha256": "018ca1da5b292093ca6917e522976800d278e641092694e1b343634f8b8493ae",
+      "unchanged": true
+    }
+  },
+  "inherited_modified_artifacts": [
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_REPORT.md",
+      "metadata_unchanged": true,
+      "content_hash": "unavailable to this credential; no edits made"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_acceptance.py",
+      "metadata_unchanged": true,
+      "content_hash": "unavailable to this credential; no edits made"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_evidence.json",
+      "metadata_unchanged": true,
+      "content_hash": "unavailable to this credential; no edits made"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/EXACT_CAPTURE_ROUND2_B.md",
+      "metadata_unchanged": true,
+      "content_hash": "unavailable to this credential; no edits made"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/GUIDE_ADVISORY_INTEGRATION.md",
+      "metadata_unchanged": true,
+      "content_hash": "unavailable to this credential; no edits made"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/INCORPORATION_FINAL_INTEGRATION.md",
+      "metadata_unchanged": true,
+      "content_hash": "unavailable to this credential; no edits made"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/MAIN_ROUTING_PATCH_ROUND1_record-python",
+      "metadata_unchanged": true,
+      "content_hash": "unavailable to this credential; no edits made"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/MAIN_ROUTING_WRAPPER_ACCEPTANCE_record-python",
+      "metadata_unchanged": true,
+      "content_hash": "unavailable to this credential; no edits made"
+    }
+  ],
+  "concurrent_untracked_left_untouched": "studies/repository_refactor_2026_09_09/TASK_NAME_INDEX.md",
+  "scientific_test_command": "PYTHONPATH=code:code/tests PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -B -m unittest test_finite_network test_numerical_contract test_gaussian_moments test_library_boundary test_finite_jets test_exact_calculus test_finite_reductions",
+  "final_scientific_inputs": {
+    "manifest": "LIBRARY_INPUTS.json",
+    "manifest_sha256": "f12e41e14069ea7df005ba56ee0835c417e145e21f5476cae4d83e024f85e721",
+    "files": 27,
+    "bytes": 1338187,
+    "lines": 29482,
+    "all_live_files_equal_isolated_snapshot": true
+  },
+  "accepted_review_sha256": {
+    "CONTINUATION_CAPS_PULLBACK_A2.md": "b5a095bb89064231818018142ba0e2d14ce90006278136aa3e8c5cdd3d3e5d7f",
+    "CONTINUATION_CAPS_PULLBACK_B2.md": "6911ab8523195fb3032299bdb03c721c587793195296a70a5e7e84c8f36be2c5",
+    "CONTINUATION_FINITE_TAYLOR_A2.md": "026d777c93637fd863074022bc276f8301f1919661080f5c61f44d86de39ad12",
+    "CONTINUATION_FINITE_TAYLOR_B2.md": "746d6ba871976d237b06908f62b300d6e27e713d8f8682f980183628a907955c",
+    "CONTINUATION_QUERIES_A2.md": "b691ddaaae8963abadba9d147abb317610bad2a2aafe545210a1879592b13b9f",
+    "CONTINUATION_QUERIES_B2.md": "285452d7a81222e90cf51c93080e968936ffb127d515cec91511221a5645d403",
+    "CONTINUATION_DENSE_A1.md": "31a85fd398ff4d3488d5ccc477e8bd568c16d7088cd0704e060091f158cdf813",
+    "CONTINUATION_DENSE_B1.md": "299831d1c48e5d325f96f460fc72a5f328003b9ccddfeeb9b3d2e0bd557567e5",
+    "CONTINUATION_FINAL_INTEGRATION.md": "0e12acc0b6a5a85a9bedf76b2ca0b4669cbb8c8259c05dcd9620ccf5a56e446e"
+  },
+  "validation": {
+    "scientific_tests": 86,
+    "standalone_boundary_files": 25,
+    "new_guide_examples": 2,
+    "receipt": "reviews/CONTINUATION_FINAL_STANDALONE.md",
+    "receipt_sha256": "f0566eab801e4326bedf3d5c8e39694ad1409ff1932e926408bdf41754cce61f",
+    "training_experiments": 0,
+    "historical_campaigns": 0
+  },
+  "integration_review_scope": {
+    "fully_read_files": 20,
+    "selectively_read_chapters": 7,
+    "lines_read": 9283,
+    "lines_total": 29482,
+    "whole_book_fresh_proof_audit": false
+  }
+}

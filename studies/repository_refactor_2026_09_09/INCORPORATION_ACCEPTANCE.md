@@ -376,3 +376,100 @@ and all 86 tests; both new guide examples run there. See
 No studies, data, prior verdicts or PDF exporter were supplied. The thirteen
 new methods since the 73-test baseline check finite identities/combinatorics.
 No new training experiment or historical coefficient campaign was run.
+
+## Continuation: integrated queries and dense residual identities
+
+The preceding finite-reduction/formal-jet package is committed at `b341572`.
+Two further complete proof additions extend existing chapters:
+
+| Fragment | Destination | Lines | SHA-256 |
+|---|---|---:|---|
+| `INTEGRATED_QUERIES_ADDITION.md` | Finite controls, Section 13 | 242 | `fbe02d7d7c85167242cca00393fdb01f62c2357e5d94900cc1b439157b93850e` |
+| `DENSE_RESPONSE_ADDITION.md` | Continuous depth, Section 14 | 380 | `446c817b40cb7b32cf83a0fd1bdc3dd54461dbc7bf7b688eacdd9f5dbe9e0286` |
+
+The integrated-query result treats a finite three-hidden-layer arctangent
+network, one scalar input/sample, and its specified small-readout initialization
+and feature-ascent clock. It derives both trained-matrix memories, the four
+remaining initial matrix actions, their full derivative bounds, a time cover
+independent of width for a supplied path under the stated bounds, and the
+integration-by-parts memory estimates. The tail-stability, finite-transcript
+causality and strong velocity/kernel identification requirements remain
+explicitly unproved. The diagnostic counterexamples do not claim reachability.
+
+The first full review `reviews/CONTINUATION_QUERIES_A1.md` required removal
+of noncanonical finite RMS notation. The rejected candidate is retained as
+`reviews/CONTINUATION_QUERIES_R1_CANDIDATE.md`. All normalization factors are
+now explicit. Both fresh complete corrected-version reviews are CLEAN:
+`reviews/CONTINUATION_QUERIES_A2.md` and
+`reviews/CONTINUATION_QUERIES_B2.md`. Each read all three supplied documents
+and 554 lines, including the complete finite-network dependency and notation,
+and verified their unchanged hashes. Neither used numerical or training work.
+
+The dense result uses a separately specified finite tanh residual network,
+linear input map, arbitrary finite data, order-one stored readout, all trained
+blocks, mobilities `(L,n,n)`, and full mean square loss. It proves raw gradients,
+kernel positivity and dissipation, global finite physical GF, finite-horizon
+state bounds, exact response recurrences, finite ordered-product grades,
+factorial tails along a supplied trajectory, and separate source-recomputation
+error bounds. No width/depth limit or autonomous compression theorem follows.
+The chapter distinguishes these results from its scalar-particle Sections 1–13.
+
+Both complete isolated dense reviews are CLEAN without a required correction:
+`reviews/CONTINUATION_DENSE_A1.md` and
+`reviews/CONTINUATION_DENSE_B1.md`. Each read all 478 lines of the two supplied
+documents and verified unchanged input hashes. Independent single-state
+derivative/algebra checks supplement the contained proofs. Reviewer A's own
+diagnostic script was initially written in the temporary packet, then moved
+outside it; no mathematical input changed. Reviewer B explicitly confirmed
+that it never read or executed the extra script and confined mathematical
+reads to the two manifest documents. No report or diagnostic was shared as
+a mathematical review input.
+
+The complete source/correction read records are
+`source_audits/INTEGRATED_QUERIES_ASSEMBLY.md` and
+`source_audits/DENSE_RESPONSE_ASSEMBLY.md`. No specialized external theorem
+is imported by either proof. Both accepted fragments occur byte-exactly once
+in their maintained destinations. These are proof additions, with no new
+solver, empirical promotion or data product. The complete bounded disposition
+of the remaining families is `CONTINUATION_DISPOSITION.md`; it retains actual
+probability, tail, generator, semantics and identification gaps as such.
+
+## Final continuation assembly acceptance
+
+All six continuation packages have paired clean complete independent reviews
+at the accepted bytes, with failed versions and their corrections retained.
+The further isolated integration review is CLEAN with no required correction:
+[CONTINUATION_FINAL_INTEGRATION.md](reviews/CONTINUATION_FINAL_INTEGRATION.md).
+It received only the 27-file scientific library and its manifest, without
+studies, data, prior verdicts, historical arrays or the unrelated exporter.
+All 27 inputs and the manifest remained unchanged.
+
+The reviewer read 9,283 of 29,482 scientific lines: twenty files in full and
+seven chapters at explicitly recorded ranges. All new sections, their needed
+Gaussian proof dependencies, the entire finite-dynamics chapter, guides,
+notation, production code, tests and boundary checker were read in full.
+The report records every complementary older body range not freshly reviewed.
+This is a scoped integration acceptance, not a new whole-book certification.
+
+The standalone boundary/local-link check passes on all 25 docs/code inputs;
+`Makefile` and `requirements.txt` are the other two scientific inputs.
+All 86 tests and both new guide examples pass under Python 3.10.12 and
+NumPy 1.26.4. The unchanged logs are retained in
+`reviews/CONTINUATION_FINAL_STANDALONE.md`. The exact final 27-file inventory,
+totaling 1,338,187 bytes, is `LIBRARY_INPUTS.json`, also preserved as
+`reviews/CONTINUATION_FINAL_LIBRARY_INPUTS.json`. The review's original input
+manifest is `reviews/CONTINUATION_INTEGRATION_INPUTS.json`.
+
+The coordinator verified all final scientific bytes against that isolated
+snapshot, all six exact proof-fragment insertions, preservation of the prior
+proof bodies and code definitions, and the six unchanged PDF-exporter hashes.
+`CONTINUATION_FINAL_CHECKS.json` records the checks and their limits. The eight
+inherited modified review artifacts remain untouched; their contents are
+unreadable to this credential, so only metadata preservation is claimed.
+The concurrently appearing `TASK_NAME_INDEX.md` remains untouched and unstaged.
+
+The maintained book and implementation contain every dependency used by the
+accepted additions. No empirical figure, generated array, historical campaign
+or training result was promoted. Coverage and the promotion ledger now point
+to the explicit remaining-family disposition; none of the listed unresolved
+premises is silently treated as a theorem.

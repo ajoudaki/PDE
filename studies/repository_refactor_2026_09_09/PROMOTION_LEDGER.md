@@ -47,8 +47,8 @@ acceptance gates are in [INCORPORATION_ACCEPTANCE.md](INCORPORATION_ACCEPTANCE.m
 | Special-data limits | Opposite-label L2 arctangent at orthogonal/antipodal inputs; equal-label shifted L3; three-sample bounded-shape/gain family; actual generic-correlation first-layer GF/raw-GD compactness, no kinetic defect and residual-weighted kernel convergence along strong subsequences | Unique generic-angle opposite-label population, arbitrary sample count, unweighted first-kernel convergence from compactness, or fitting in the special-angle L2 theorem |
 | Initialization comparison within special-data chapter | Sharp odd-mixture depth/nonlinearity/separation conditioning and planar examples; convex-offset contraction/nonaffinity contrast; calibrated sequential width-first/depth-second geometry; absolute versus relative gain effects | Trained Gaussian recursions, joint growing-depth/width control, cap removal, trained nonaffinity, feature velocity or fitting |
 | Linear dynamics and exact-capture comparisons | Existing L3 one-input operator/GF/GD theorem, fitting and restricted nonclosure; shallow nonlinear marked GF; L2 spectral GF/fitting; every-fixed-depth linear operator GF and trace-norm increment/tail control; contained trace-class foundations | Added all-depth GD, arbitrary data, all-depth fitting, unrestricted scalar nonclosure, or global spectral continuation from arbitrary ambient states |
-| Continuous depth | Scalar-particle residual architecture, characteristic GF and joint width/depth limit | Dense Gaussian-matrix theorem, raw-GD step limit, fitting or generalization |
-| Finite optimization and controls | Canonical L3 arctangent finite GF/exact-GD fitting and endpoints; finite metric projection; mixed-activation opposite-label L2 finite-GF fitting/endpoints at all interior correlations; permanent first-gate mass on an augmented event; global dissipative caps on prescribed Hilbert spaces and conditional exponential-tail continuation | Gaussian action construction from prescribed spaces; projection or mixed-model population/GD limit; feature velocity from gate mass; identification of all training endpoints as width grows |
+| Continuous depth | Scalar-particle residual architecture, characteristic GF and joint width/depth limit; separate finite dense-ResNet gradients, kernels, energy and response tails with source-error bounds | Dense Gaussian width/depth limit, raw-GD step limit, fitting or generalization |
+| Finite optimization and controls | Canonical L3 arctangent finite GF/exact-GD fitting and endpoints; finite metric projection; mixed-activation opposite-label L2 finite-GF fitting/endpoints at all interior correlations; permanent first-gate mass on an augmented event; global dissipative caps on prescribed Hilbert spaces and conditional exponential-tail continuation; finite integrated initial queries, exact memories and supplied-path time covers | Gaussian action construction from prescribed spaces; projection or mixed-model population/GD limit; feature velocity from gate mass; identification of all training endpoints as width grows |
 | Reference implementation | Finite equal-width APIs; rational Gaussian moments/PSD validation; L2 one-sample moving physical jets through degree three; canonical forest keys, exact finite reversion/determinants and direct certificate regeneration; finite quadratic/RMS state evaluators and exact Euler-word weights | Population simulator, full MFP compiler, arbitrary-precision floating network arithmetic or an empirical proof |
 
 The three-sample gain construction's nonaffinity is absolute regression error;
@@ -83,8 +83,9 @@ action space is constructed by the finite projection or fixed-query theorem.
 ## Proved sources awaiting further editorial assembly
 
 The completeness audit identifies additional narrow positives, not failed
-research: sharper shallow discretization estimates and integrated-query
-representations. Finite QI/IQ/QQ and RMS reductions are now incorporated.
+research: sharper shallow discretization estimates and separately qualified
+endpoint/activation refinements. Integrated-query representations and finite
+QI/IQ/QQ/RMS reductions are now incorporated.
 Given-space capped flows are now incorporated, with their conditional
 continuation premise preserved.
 The exact-compiler fixed-program time-doubling, first-layer compactness and
@@ -96,7 +97,9 @@ Promotion of these is future editorial work, not a new conjecture by default.
 The shallow, spectral and every-fixed-depth linear GF statements are now
 incorporated with complete dependencies and matching normalization. Other
 coherent graphon statements still require their actual source chains; the
-scalar-particle chapter does not stand in for a different dense architecture.
+scalar-particle theorem does not stand in for a different dense architecture.
+The new dense section proves only finite identities and supplied-trajectory
+response bounds; the separate operator-Galerkin candidate is not identified.
 
 Broad L2 activation classes, affine-first arbitrary-data extensions and general
 C1,1 local population statements retain their precise Tensor Program import
@@ -128,3 +131,7 @@ seals remain historical, not silently renewed after source relocation.
 This is a repository refactor, not a solution of the general nonlinear global
 population problem or a generalization theorem. Nothing here turns a failed
 proof method into a canonical counterexample.
+
+The continuation's selected six packages and every remaining handoff family
+have an explicit [current disposition](CONTINUATION_DISPOSITION.md), with
+actual exact versions, corrections and paired reviews in the acceptance record.

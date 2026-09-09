@@ -63,9 +63,9 @@ remain diagnostic results, not replacements for that target.
 | 5. Shallow and broader linear capture | Existing L3 operator/GF/GD theorem and restricted nonclosure; now also shallow nonlinear marked GF, L2 linear spectral GF with fitting, and every-fixed-depth linear operator GF with trace-norm increment control | Complete Sections 8–12 and trace-class foundations have two fresh full CLEAN reviews. Added results are one-input, order-one-readout and GF-only; all-depth fitting, arbitrary data and new raw-GD limits are not inferred. |
 | 6. Broader nonlinear and correlated-data progress | Earlier global families plus complete generic-correlation L2 arctangent first-layer GF/raw-GD compactness, mixed-activation finite-GF fitting/endpoints, and permanent first-gate mass with the necessary augmented event | These partials are incorporated with two independent complete reviews each; first-layer notation repairs received fresh complete reviews. They do not supply a unique generic-correlation population or a mixed-model GD/feature-velocity theorem. Broad activation/local and perturbation families retain their specific import/ancestral-review gates. |
 | 7. Initialization geometry | Existing gain-based results plus a complete Part V: sharp odd-mixture bounds and matching examples, convex-offset contraction despite scalar nonaffinity, calibrated sequential depth geometry, and absolute/relative comparisons | Incorporated after explicit statement/endpoint repairs and two fresh complete CLEAN reviews of the final version. Every width result fixes depth and activation; the later calibrated depth limit is sequential. None provides trained-flow continuation. |
-| 8. Clipping/filtering/continuation | Global fixed coordinate-query-cap population theorem; separate finite metric projection, integrated L1 defect and sufficient C sqrt(n) exactness | Section 12 now supplies global given-space dissipative caps and conditional exponential-tail continuation. Integrated-query compression remains a separate candidate. Growing-cap comparison has a specialized concentration-proof containment gate and, even if imported, would not give a common varying-cap population limit. |
+| 8. Clipping/filtering/continuation | Global fixed coordinate-query-cap population theorem; separate finite metric projection, integrated L1 defect and sufficient C sqrt(n) exactness | Section 12 now supplies global given-space dissipative caps and conditional exponential-tail continuation. Section 13 adds exact integrated-query memories, complete derivative estimates, supplied-path time covers and memory continuity, retaining the causal/stability and velocity gaps. Growing-cap comparison has a specialized concentration-proof containment gate and, even if imported, would not give a common varying-cap population limit. |
 | 9. Further negatives and finite reductions | Restricted linear bounded-contraction nonclosure; some norm/jet obstructions; general finite energy continuation | Sections 5–7 of finite dynamics now contain complete QI/IQ/QQ and differentiated RMS formulas, Lax identities, the spectrum-orientation witness, balance laws and a finite API. Preserve the unresolved canonical quadratic adaptive bridge; deterministic reachable Hessian examples are not typical-Gaussian counterexamples. |
-| 10. Response compiler and dense ResNet | Finite feedforward APIs and the distinct scalar-particle continuous-depth theorem | Curvature-word algebra and dense chronological/variational identities are substantive omissions. A small algebraic module is a candidate. Dense solvers and empirical panels need a complete accepted reproduction chain; dense-limit and hierarchy claims remain open. |
+| 10. Response compiler and dense ResNet | Finite feedforward APIs and the distinct scalar-particle continuous-depth theorem | Continuous-depth Section 14 now contains exact finite dense gradients, kernel/energy, response recurrences and factorial propagator tails with explicit source-error terms. The string curvature compiler lacks a complete typed derivative contract; general operator-Galerkin geometry retains a separate regularity/identification gate. Dense solvers and empirical panels need a complete accepted reproduction chain; dense-limit and hierarchy claims remain open. |
 
 ## Decisive scope checks and source routes
 
@@ -229,9 +229,10 @@ and [integrated-query compression](../project_wide_audit_2026_09_08/sources/arct
 have different dispositions. The complete given-space proof is now Section 12:
 it constructs global dissipative capped flows, and strong uncapped convergence
 and reached-state restart only under its explicit exponential-tail premise.
-It does not construct the canonical Gaussian action space. The integrated-query
-source is a separate candidate; sampling an actual Lipschitz query path does
-not establish causal autonomous approximation.
+It does not construct the canonical Gaussian action space. The complete integrated-query argument and all its temporal derivatives are
+now Section 13, together with exact trained memories and their continuity.
+Sampling an actual Lipschitz path still does not establish causal autonomous
+approximation, strong spatial compactness or derivative/kernel convergence.
 
 ### Additional obstructions, exact reductions and dense ResNet
 
@@ -259,15 +260,20 @@ The [response/curvature compiler](../rcgc_compiler/rcgc_compiler.py) has a small
 algebraic core distinct from Gaussian integration. Its expansion of nested
 curvature returns is useful; classifying a word that uses multiple matrices
 identifies an analytic obligation, not a nonclosure or convergence certificate.
-Its historical tests do not by themselves establish a maintained API.
+Its historical tests do not by themselves establish a maintained API. The
+full source/test/validation read in the calculus assembly finds no typed
+meaning for the local Hessian source or held-fixed variables; promoting the
+string expander alone would leave that scientific contract unstated.
 
 The [reconciled dense-ResNet state](../resnet_program_history/CURRENT_RESEARCH_STATE.md)
 separates exact finite chronological memory and projected-gradient geometry
 from unproved dense-limit identification and arbitrary-accuracy hierarchy
-convergence. These exact identities merit a future section in the current
-continuous-depth chapter with an explicit different-model boundary. Internal
-geometry is stated for sufficiently regular candidate solutions, not used to
-assert general well-posedness. Parity corrections and later adverse cutoff
+convergence. Section 14 now contains the finite dense identities and full chronological
+counting proof, with the half-sum clock translated to full mean loss. The
+linear input map is preserved, so the earlier tanh-input envelope is replaced
+by an explicit energy bound. Exact and recomputed backward sources have
+separate estimates. Operator-Galerkin geometry remains a different candidate:
+its regularity assumptions do not establish general well-posedness. Parity corrections and later adverse cutoff
 evidence must accompany any empirical hierarchy discussion. The existing
 scalar-particle theorem is not evidence for the dense Gaussian candidate.
 
@@ -315,3 +321,13 @@ rounds after every required correction. Those are stronger, separately scoped
 checks than the earlier coverage sidecars. Exact reports and final acceptance
 status are recorded in [VALIDATION.md](VALIDATION.md) and
 [INCORPORATION_ACCEPTANCE.md](INCORPORATION_ACCEPTANCE.md).
+
+## Disposition after the continuation
+
+[CONTINUATION_DISPOSITION.md](CONTINUATION_DISPOSITION.md) gives a bounded
+decision for every remaining family named at the ae43aa4 handoff. Six selected
+packages are incorporated at their actual reviewed scopes. General compilers,
+uncontained probability imports, growing-cap common-limit premises and dense
+identification remain distinguished from later editorial refinements. The
+record does not claim a new proof audit of all studies or a resolution of the
+general correlated-data dynamics.

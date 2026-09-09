@@ -1,0 +1,12 @@
+{
+  "docs/dense_response.md": {
+    "sha256": "446c817b40cb7b32cf83a0fd1bdc3dd54461dbc7bf7b688eacdd9f5dbe9e0286",
+    "bytes": 13876,
+    "lines": 380
+  },
+  "docs/NOTATION.md": {
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "bytes": 5110,
+    "lines": 98
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "docs/finite_dynamics.md": {
+    "sha256": "486a2864738d23c21e14e3830ee4cd9555ef2e909d2054366890a958a3dc626c",
+    "bytes": 8355,
+    "lines": 214
+  },
+  "docs/integrated_queries.md": {
+    "sha256": "fbe02d7d7c85167242cca00393fdb01f62c2357e5d94900cc1b439157b93850e",
+    "bytes": 10764,
+    "lines": 242
+  },
+  "docs/NOTATION.md": {
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "bytes": 5110,
+    "lines": 98
+  }
+}
