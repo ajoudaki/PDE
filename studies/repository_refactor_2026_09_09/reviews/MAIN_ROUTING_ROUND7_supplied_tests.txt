@@ -1,0 +1,56 @@
+test_early_boundaries_allow_distinct_refresh_and_fresh_cli_roots (test_resnet_routing.OutputBoundaryTests) ... ok
+test_early_cli_preserves_unresolved_aliases_until_guard (test_resnet_routing.OutputBoundaryTests) ... ok
+test_early_public_directory_callables_guard_plots_tables_and_intermediates (test_resnet_routing.OutputBoundaryTests) ... ok
+test_operator_analysis_allows_distinct_existing_outputs (test_resnet_routing.OutputBoundaryTests) ... ok
+test_operator_directory_boundaries_refuse_all_child_kinds_before_work (test_resnet_routing.OutputBoundaryTests) ... ok
+test_operator_root_and_explicit_variance_destination_reject_links (test_resnet_routing.OutputBoundaryTests) ... ok
+test_reference_refresh_and_pde_preflight_accept_unlinked_output_tree (test_resnet_routing.OutputBoundaryTests) ... ok
+test_standalone_writers_reject_aliases_and_refresh_distinct_outputs (test_resnet_routing.OutputBoundaryTests) ... ok
+test_galerkin_help_and_unknown_flags_stop_before_work (test_resnet_routing.RoutingTests) ... ok
+test_long_analysis_explicit_report (test_resnet_routing.RoutingTests) ... ok
+test_long_analysis_guards_every_deliverable_before_reading_traces (test_resnet_routing.RoutingTests) ... ok
+test_long_manifest_roundtrip (test_resnet_routing.RoutingTests) ... ok
+test_operator_consumers_and_imports (test_resnet_routing.RoutingTests) ... ok
+test_operator_default (test_resnet_routing.RoutingTests) ... ok
+test_operator_merge_refuses_aliases_before_load_and_pools_tiny_fixture (test_resnet_routing.RoutingTests) ... ok
+test_operator_protected_destinations (test_resnet_routing.RoutingTests) ... ok
+test_operator_selected_evidence_does_not_write_on_import (test_resnet_routing.RoutingTests) ... ok
+test_operator_shell_missing_evidence_uses_selected_root (test_resnet_routing.RoutingTests) ... ok
+test_operator_verifier_uses_selected_evidence (test_resnet_routing.RoutingTests) ... ok
+test_operator_wrapper_normalizes_before_any_work (test_resnet_routing.RoutingTests) ... ok
+test_reproduction_guides_select_fresh_artifacts (test_resnet_routing.RoutingTests) ... ok
+test_reproduction_paths_and_syntax (test_resnet_routing.RoutingTests) ... ok
+test_restart_output_aliases_refuse_before_quadrature_or_training (test_resnet_routing.RoutingTests) ... ok
+test_all_historical_sector_labels_resolve (test_quadratic_routing.RoutingTests) ... ok
+test_all_selected_evidence_bindings (test_quadratic_routing.RoutingTests) ... ok
+test_benchmark_distinct_output_with_mocked_child (test_quadratic_routing.RoutingTests) ... ok
+test_benchmark_output_must_not_alias_selected_executable (test_quadratic_routing.RoutingTests) ... ok
+test_campaign5_evidence_and_live_source_roles_with_mocked_documents (test_quadratic_routing.RoutingTests) ... ok
+test_campaign6_documented_build_routes (test_quadratic_routing.RoutingTests) ... skipped 'User excludes prior campaign reports.'
+test_default_roles (test_quadratic_routing.RoutingTests) ... ok
+test_distinct_output_preserves_legitimate_updates (test_quadratic_routing.RoutingTests) ... ok
+test_explicit_roles_no_import_write (test_quadratic_routing.RoutingTests) ... ok
+test_graded_aliases_and_frozen_hash_fail_before_sectors (test_quadratic_routing.RoutingTests) ... ok
+test_graded_distinct_export_with_mocked_sectors (test_quadratic_routing.RoutingTests) ... ok
+test_graded_parent_hash_gate_is_unchanged (test_quadratic_routing.RoutingTests) ... ok
+test_graph_checkpoint_updates_and_modes_remain_available (test_quadratic_routing.RoutingTests) ... ok
+test_graph_export_rejects_checkpoint_alias_before_run (test_quadratic_routing.RoutingTests) ... ok
+test_native_checkpoint_identity_guards_source_only (test_quadratic_routing.RoutingTests) ... ok
+test_postprocessors_refuse_input_aliases_before_computation (test_quadratic_routing.RoutingTests) ... ok
+test_producer_default_bindings (test_quadratic_routing.RoutingTests) ... ok
+test_protected_output (test_quadratic_routing.RoutingTests) ... ok
+test_repaired_cli_imports_and_help_do_not_create_products (test_quadratic_routing.RoutingTests) ... ok
+test_retired_campaign_refuses_before_work (test_quadratic_routing.RoutingTests) ... ok
+test_sector_guide_uses_current_sources_and_generated_products (test_quadratic_routing.RoutingTests) ... skipped 'User limits documentation inputs to current README/reproduction guides.'
+test_stage_c_remains_closed_before_hashes_or_launch (test_quadratic_routing.RoutingTests) ... ok
+test_stdout_only_boundary_diagnostic_rejects_output_before_solves (test_quadratic_routing.RoutingTests) ... ok
+test_input_configuration_cannot_be_a_mutable_output (test_metadata_routing.MetadataRoutingTests) ... ok
+test_manifest_links_preserve_hashed_source_and_run_inputs (test_metadata_routing.MetadataRoutingTests) ... ok
+test_manifest_refresh_and_read_only_verification (test_metadata_routing.MetadataRoutingTests) ... ok
+test_run_metadata_links_refuse_before_trace_reuse (test_metadata_routing.MetadataRoutingTests) ... ok
+test_run_reuses_separate_trace_and_refreshes_ordinary_metadata (test_metadata_routing.MetadataRoutingTests) ... ok
+
+----------------------------------------------------------------------
+Ran 51 tests in 6.661s
+
+OK (skipped=2)

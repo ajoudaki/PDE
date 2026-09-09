@@ -1,0 +1,25 @@
+{
+  "verdict": "NOT CLEAN",
+  "initial_inventory_files": 98,
+  "unique_input_files_including_transitive_source_and_allowed_historical_digest_checks": 260,
+  "historical_metadata_files_for_supplied_path_digest_test_only": 126,
+  "historical_arrays_read": 0,
+  "hash_changes": [],
+  "inconsistent_intermediate_baselines": [],
+  "all_inputs_before_manifest_sha256": "f18aa361018a92d68e464ed1d06e108dfa1a2308a343ceec7b783fe72da81b02",
+  "all_inputs_after_manifest_sha256": "f18aa361018a92d68e464ed1d06e108dfa1a2308a343ceec7b783fe72da81b02",
+  "supplied_tests": {
+    "collected": 51,
+    "passed": 49,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 2,
+    "seconds": 6.661
+  },
+  "test_exclusions": [
+    "test_campaign6_documented_build_routes: forbidden campaign report",
+    "test_sector_guide_uses_current_sources_and_generated_products: established guide outside README/reproduction scope"
+  ],
+  "private_output_only": true,
+  "source_edits": false
+}

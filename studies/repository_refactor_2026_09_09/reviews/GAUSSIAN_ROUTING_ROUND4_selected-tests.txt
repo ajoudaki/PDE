@@ -1,0 +1,69 @@
+test_direct_script_help_from_external_directory (studies.causal_flow_peeling_calculus.test_migration_input_aliases.InputAliasTests) ... ok
+test_empty_valid_fresh_workflows_preserve_selected_bytes (studies.causal_flow_peeling_calculus.test_migration_input_aliases.InputAliasTests) ... ok
+test_g2_all_alias_forms_refuse_before_read (studies.causal_flow_peeling_calculus.test_migration_input_aliases.InputAliasTests) ... ok
+test_marked_both_outputs_protect_every_consumed_group (studies.causal_flow_peeling_calculus.test_migration_input_aliases.InputAliasTests) ... ok
+test_named_source_guard_precedes_read (studies.causal_flow_peeling_calculus.test_migration_input_aliases.InputAliasTests) ... ok
+test_tail_protects_every_primary_step_and_metadata (studies.causal_flow_peeling_calculus.test_migration_input_aliases.InputAliasTests) ... ok
+test_all_npz_inputs_and_all_output_fields_precede_analysis (studies.d3_arctan_closure_program.test_migration_input_aliases.InputAliasTests) ... ok
+test_direct_script_help_from_external_directory (studies.d3_arctan_closure_program.test_migration_input_aliases.InputAliasTests) ... ok
+test_disjoint_and_stdout_routes_remain_available (studies.d3_arctan_closure_program.test_migration_input_aliases.InputAliasTests) ... ok
+test_first_passage_selection_and_aliases (studies.d3_arctan_closure_program.test_migration_input_aliases.InputAliasTests) ... ok
+test_jsonl_every_selected_input_alias (studies.d3_arctan_closure_program.test_migration_input_aliases.InputAliasTests) ... ok
+test_npz_symlink_hardlink_and_output_output_aliases (studies.d3_arctan_closure_program.test_migration_input_aliases.InputAliasTests) ... ok
+test_archived_writer_refuses_before_temporary_or_expansion (studies.mfp_gaussian_calculus.test_migration_input_aliases.SelectedRawAliasTests) ... ok
+test_disjoint_input_keeps_original_digest_failure (studies.mfp_gaussian_calculus.test_migration_input_aliases.SelectedRawAliasTests) ... ok
+test_each_named_output_refuses_all_input_alias_forms_before_hash_or_science (studies.mfp_gaussian_calculus.test_migration_input_aliases.SelectedRawAliasTests) ... ok
+test_both_clis_protect_both_inputs_before_audit (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_input_aliases.OutputAliasTests) ... ok
+test_direct_script_help_from_external_directory (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_input_aliases.OutputAliasTests) ... ok
+test_stdout_and_disjoint_destinations_still_dispatch (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_input_aliases.OutputAliasTests) ... ok
+test_correct_roles_and_all_accepted_labels_reach_only_derivative_tripwire (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_input_aliases.SourceSlotTests) ... ok
+test_exact_hash_failure_is_not_replaced_by_role_failure (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_input_aliases.SourceSlotTests) ... ok
+test_swapped_and_duplicate_roles_refuse_before_derivatives (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_input_aliases.SourceSlotTests) ... ok
+test_intermediate_aliases_refuse_in_main_and_direct_callables (studies.mfp_program_history.report.test_migration_paths.ReportPathTests) ... ok
+test_publication_preserves_all_maintained_inputs (studies.mfp_program_history.report.test_migration_paths.ReportPathTests) ... ok
+test_publication_preserves_intermediate_markdown_and_tex_even_before_creation (studies.mfp_program_history.report.test_migration_paths.ReportPathTests) ... ok
+test_rebuild_cannot_delete_a_source_or_follow_parent_alias (studies.mfp_program_history.report.test_migration_paths.ReportPathTests) ... ok
+test_valid_plain_text_pipeline_preserves_sources_and_intermediates (studies.mfp_program_history.report.test_migration_paths.ReportPathTests) ... ERROR
+test_archival_curvature_wrapper_refuses_before_global_patch_or_campaign (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_comparison_uses_selected_inputs_and_fresh_outputs (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_existing_child_aliases_refuse_before_work_and_preserve_input (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_freeze_is_archive_only_even_when_seal_is_missing (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_generated_defaults_and_unaliased_scratch_remain_accepted (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_h3_fresh_producers_and_consumers_agree (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_historical_selection_is_explicit (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_other_archive_guards_precede_function_work (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_reject_unsafe_outputs_before_any_compiler_or_input_work (studies.mfp_gaussian_calculus.test_migration_paths.GaussianPathTests) ... ok
+test_historical_paths_and_both_retained_map_schemas (studies.mfp_gaussian_calculus.test_migration_retired_interfaces.FrozenComparisonInputTests) ... ok
+test_missing_or_malformed_retained_inputs_do_not_fall_back (studies.mfp_gaussian_calculus.test_migration_retired_interfaces.FrozenComparisonInputTests) ... ok
+test_clis_refuse_from_external_cwd_without_site_dependencies (studies.mfp_gaussian_calculus.test_migration_retired_interfaces.RetiredInterfaceTests) ... ok
+test_imported_writers_and_runners_refuse_before_work_or_io (studies.mfp_gaussian_calculus.test_migration_retired_interfaces.RetiredInterfaceTests) ... ok
+test_pure_modules_and_individual_tests_remain_importable (studies.mfp_gaussian_calculus.test_migration_retired_interfaces.RetiredInterfaceTests) ... ok
+test_actual_retained_records_reach_current_sources_and_keep_frozen_hash_failures (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_paths.SourceRoleTests) ... ok
+test_exact_legacy_current_and_basename_labels_bind_source_not_data (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_paths.SourceRoleTests) ... ok
+test_unknown_or_traversing_labels_refuse_before_read (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_paths.SourceRoleTests) ... ok
+test_wrong_digest_is_not_replaced_with_current_digest (studies.stieltjes_resolution.canonical_hidden_high_order.test_migration_paths.SourceRoleTests) ... ok
+
+======================================================================
+ERROR: test_valid_plain_text_pipeline_preserves_sources_and_intermediates (studies.mfp_program_history.report.test_migration_paths.ReportPathTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/amir/Codes/PDE/studies/mfp_program_history/report/test_migration_paths.py", line 104, in test_valid_plain_text_pipeline_preserves_sources_and_intermediates
+    report.main()
+  File "/home/amir/Codes/PDE/studies/mfp_program_history/report/build_report.py", line 235, in main
+    shutil.rmtree(BUILD_DIR)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/tmp/pde-migration-acceptance-yH8UnKLS/run_selected.py", line 40, in audit
+    check_path(args[0], True)
+  File "/tmp/pde-migration-acceptance-yH8UnKLS/run_selected.py", line 29, in check_path
+    raise PermissionError('review write boundary: ' + path)
+PermissionError: review write boundary: /home/amir/Codes/PDE/old-build-placeholder
+
+----------------------------------------------------------------------
+Ran 44 tests in 1.839s
+
+FAILED (errors=1)

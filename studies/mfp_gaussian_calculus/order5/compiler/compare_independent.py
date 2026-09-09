@@ -11,7 +11,9 @@ from pathlib import Path
 from .coefficient_map import expand_coefficient_map, serializable_map
 from .factored_expression import compile_factored
 
-from studies.mfp_gaussian_calculus.study_paths import GENERATED_ROOT, input_directory, require_output
+from studies.mfp_gaussian_calculus.study_paths import (
+    GENERATED_ROOT, input_directory, require_output, guard_output_inputs,
+)
 
 
 HERE = Path(__file__).resolve().parent
@@ -38,6 +40,13 @@ def main() -> None:
     independent_path = inputs_root / INDEPENDENT.name
     independent_tagged_path = inputs_root / INDEPENDENT_TAGGED.name
     independent_symbolic_path = inputs_root / INDEPENDENT_SYMBOLIC_Q0.name
+    guard_output_inputs(
+        (output / name for name in (
+            "PRIMARY_UNIT_COEFFICIENT_MAP.json", "PRIMARY_LAYER_TAGGED_COEFFICIENT_MAP.json",
+            "PRIMARY_SYMBOLIC_Q0_COEFFICIENT_MAP.json", "INDEPENDENT_COMPARISON.json",
+        )),
+        (independent_path, independent_tagged_path, independent_symbolic_path),
+    )
     for path in (independent_path, independent_tagged_path, independent_symbolic_path):
         if not path.is_file():
             raise FileNotFoundError(path)

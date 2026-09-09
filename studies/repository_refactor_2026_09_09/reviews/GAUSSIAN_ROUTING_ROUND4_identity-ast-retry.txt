@@ -1,0 +1,21 @@
+test_identity_consumers_reject_selected_input_alias_before_read (__main__.PrivateAcceptance) ... 
+======================================================================
+FAIL: test_identity_consumers_reject_selected_input_alias_before_read (__main__.PrivateAcceptance) (module='spectral_closure')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/pde-migration-acceptance-yH8UnKLS/adversarial_checks.py", line 176, in test_identity_consumers_reject_selected_input_alias_before_read
+    self.assertTrue(refused,'input/output alias passed directory preflight and reached input read')
+AssertionError: False is not true : input/output alias passed directory preflight and reached input read
+
+======================================================================
+FAIL: test_identity_consumers_reject_selected_input_alias_before_read (__main__.PrivateAcceptance) (module='audit_hankel40')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/pde-migration-acceptance-yH8UnKLS/adversarial_checks.py", line 176, in test_identity_consumers_reject_selected_input_alias_before_read
+    self.assertTrue(refused,'input/output alias passed directory preflight and reached input read')
+AssertionError: False is not true : input/output alias passed directory preflight and reached input read
+
+----------------------------------------------------------------------
+Ran 1 test in 0.008s
+
+FAILED (failures=2)

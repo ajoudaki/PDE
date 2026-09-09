@@ -160,6 +160,10 @@ def spectral_fixed_point(max_r_order: int) -> tuple[list[Fraction], list[Polynom
 def main() -> int:
     args = PATHS.parse(inputs=True)
     accepted_path = args.input_dir / "RESULTS.json"
+    if (args.output_dir / "SPECTRAL_CLOSURE_RESULTS.json").resolve() in {
+        accepted_path.resolve(), (HERE / "SPECTRAL_CLOSURE_PROTOCOL.md").resolve(), Path(__file__).resolve(),
+    }:
+        raise ValueError("output aliases a consumed comparison input")
     accepted = json.loads(accepted_path.read_text())
     r, a, b = spectral_fixed_point(MAX_R_ORDER)
     derivatives = [

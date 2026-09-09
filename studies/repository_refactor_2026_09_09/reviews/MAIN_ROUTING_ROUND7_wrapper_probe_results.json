@@ -1,0 +1,51 @@
+[
+  {
+    "case": "valid",
+    "returncode": 0,
+    "calls": [
+      [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      [
+        "run_all.py",
+        "--config",
+        "config/protocol.json",
+        "--output-root",
+        "/tmp/pde-migration-interface.FWY2yfEV/wrapper-0liuoiwp/out with spaces"
+      ],
+      [
+        "make_manifest.py",
+        "--output-root",
+        "/tmp/pde-migration-interface.FWY2yfEV/wrapper-0liuoiwp/out with spaces"
+      ]
+    ],
+    "science_tests_and_manifest": "recorded only, never dispatched"
+  },
+  {
+    "case": "protected-source",
+    "returncode": 1,
+    "calls": [
+      [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      [
+        "run_all.py",
+        "--config",
+        "config/protocol.json",
+        "--output-root",
+        "/home/amir/Codes/PDE/studies/resnet_dense_long_horizon"
+      ]
+    ],
+    "science_tests_and_manifest": "recorded only, never dispatched"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "case": "identity preflight spectral_closure",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/identity-spectral_closure-yf4jd4za/selected/RESULTS.json",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "identity preflight audit_hankel40",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/identity-audit_hankel40-4gy0v9s6/selected/RESULTS.json",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  }
+]

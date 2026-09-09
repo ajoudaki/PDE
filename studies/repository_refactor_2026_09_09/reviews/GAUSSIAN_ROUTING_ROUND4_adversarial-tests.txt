@@ -1,0 +1,44 @@
+test_gaussian_comparison_preserves_selected_input (__main__.PrivateAcceptance) ... FAIL
+test_identity_consumers_reject_selected_input_alias_before_read (__main__.PrivateAcceptance) ... test_report_input_side_symlink_cannot_be_published_over (__main__.PrivateAcceptance) ... ok
+test_roots_all_ten_and_ordinary_refresh (__main__.PrivateAcceptance) ... ok
+test_ten_complete_selected_sets_and_declared_outputs (__main__.PrivateAcceptance) ... ok
+test_ten_existing_distinct_outputs_dispatch_without_changing_inputs (__main__.PrivateAcceptance) ... ok
+
+======================================================================
+ERROR: test_identity_consumers_reject_selected_input_alias_before_read (__main__.PrivateAcceptance) (module='audit_hankel40')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/pde-migration-acceptance-yH8UnKLS/adversarial_checks.py", line 160, in test_identity_consumers_reject_selected_input_alias_before_read
+    target=importlib.import_module('studies.mfp_identity_compiler.linear_gaussian_program.depth2_all_order_search.'+leaf)
+  File "/usr/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/amir/Codes/PDE/studies/mfp_identity_compiler/linear_gaussian_program/depth2_all_order_search/audit_hankel40.py", line 12, in <module>
+    import sympy as sp
+ModuleNotFoundError: No module named 'sympy'
+
+======================================================================
+FAIL: test_gaussian_comparison_preserves_selected_input (__main__.PrivateAcceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/pde-migration-acceptance-yH8UnKLS/adversarial_checks.py", line 155, in test_gaussian_comparison_preserves_selected_input
+    self.assertTrue(remember('Gaussian real main with inert compiler mocks',inputs,before), 'selected input was overwritten via input-side symlink')
+AssertionError: False is not true : selected input was overwritten via input-side symlink
+
+======================================================================
+FAIL: test_identity_consumers_reject_selected_input_alias_before_read (__main__.PrivateAcceptance) (module='spectral_closure')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/pde-migration-acceptance-yH8UnKLS/adversarial_checks.py", line 171, in test_identity_consumers_reject_selected_input_alias_before_read
+    self.assertTrue(refused,'input/output alias passed directory preflight and reached input read')
+AssertionError: False is not true : input/output alias passed directory preflight and reached input read
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.155s
+
+FAILED (failures=2, errors=1)

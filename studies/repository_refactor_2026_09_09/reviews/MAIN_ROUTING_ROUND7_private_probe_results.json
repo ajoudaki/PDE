@@ -1,0 +1,120 @@
+[
+  {
+    "name": "direct_help_and_bootstrap",
+    "passed": 12,
+    "dependency_limits": [
+      {
+        "path": "/home/amir/Codes/PDE/studies/resnet_dense_early_audit/run_dense_resnet_audit.py",
+        "missing": "matplotlib",
+        "bootstrap_probe": "real complete script with plotting-import-only stub"
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/resnet_dense_early_audit/run_response_galerkin_projection.py",
+        "missing": "matplotlib",
+        "bootstrap_probe": "real complete script with plotting-import-only stub"
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/resnet_dense_long_horizon/run_all.py",
+        "missing": "matplotlib",
+        "bootstrap_probe": "real complete script with plotting-import-only stub"
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/analyze_hankel.py",
+        "missing": "sympy"
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign1/parametric_stieltjes_postprocess.py",
+        "missing": "sympy"
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign2/postprocess.py",
+        "missing": "sympy"
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign3/postprocess.py",
+        "missing": "sympy"
+      },
+      {
+        "path": "/home/amir/Codes/PDE/studies/mfp_quadratic_compiler/campaign4/postprocess.py",
+        "missing": "sympy"
+      }
+    ]
+  },
+  {
+    "name": "real_early_callable_guard_bootstrap",
+    "passed": 8
+  },
+  {
+    "name": "real_direct_script_alias_refusal",
+    "passed": 4
+  },
+  {
+    "name": "whole_early_main_refresh",
+    "dispatches": 6,
+    "output": "summary.json",
+    "science": "mocked"
+  },
+  {
+    "name": "real_operator_analysis_import_and_refresh",
+    "passed": 4
+  },
+  {
+    "name": "whole_reference_publication_and_distinct_refresh",
+    "passed": 2,
+    "science": "mocked worker; inert arrays only"
+  },
+  {
+    "name": "whole_long_analysis_publication_and_refresh",
+    "passed": 2,
+    "science": "all analysis and plots mocked; selected bytes preserved"
+  },
+  {
+    "name": "BLOCKER_graded_consumed_source_overwritten",
+    "kind": "same",
+    "before": "6d826acacd169dfe2eb52306377af82396afa9d157ce550b5ba8e707a5acc111",
+    "after": "e1ac7c94db0047cf0038097d51fedf8b8a8b2c564a1fa186baafb706c87fa46a",
+    "source": "/tmp/pde-migration-interface.FWY2yfEV/probe-run-8_pxna7n/graded-consumed-source/same/graded_sector.cpp",
+    "computed_sectors": "mocked",
+    "reported_source_digest": "6d826acacd169dfe2eb52306377af82396afa9d157ce550b5ba8e707a5acc111"
+  },
+  {
+    "name": "BLOCKER_graded_consumed_source_overwritten",
+    "kind": "symlink",
+    "before": "6d826acacd169dfe2eb52306377af82396afa9d157ce550b5ba8e707a5acc111",
+    "after": "bed6958553d00361f8e62eadb60bb7b8ad79840636440dc89da0a5b532cb9350",
+    "source": "/tmp/pde-migration-interface.FWY2yfEV/probe-run-8_pxna7n/graded-consumed-source/symlink/graded_sector.cpp",
+    "computed_sectors": "mocked",
+    "reported_source_digest": "6d826acacd169dfe2eb52306377af82396afa9d157ce550b5ba8e707a5acc111"
+  },
+  {
+    "name": "BLOCKER_graded_consumed_source_overwritten",
+    "kind": "hardlink",
+    "before": "6d826acacd169dfe2eb52306377af82396afa9d157ce550b5ba8e707a5acc111",
+    "after": "ff741563fd01052642fa014f5f87fb7b0e6a83ebed7b3c659cd56d302e4e949c",
+    "source": "/tmp/pde-migration-interface.FWY2yfEV/probe-run-8_pxna7n/graded-consumed-source/hardlink/graded_sector.cpp",
+    "computed_sectors": "mocked",
+    "reported_source_digest": "6d826acacd169dfe2eb52306377af82396afa9d157ce550b5ba8e707a5acc111"
+  },
+  {
+    "name": "BLOCKER_centered_consumed_source_overwritten",
+    "kind": "symlink",
+    "before": "887756309cb8cfba7618ef76dfee900a48efb328123f2d62a018a1517601bf6f",
+    "after": "5a92ebcdfea13049a1788b0a78de292e43b24bf6369056413fec07a23d323724",
+    "source": "/tmp/pde-migration-interface.FWY2yfEV/probe-run-8_pxna7n/centered-consumed-source/symlink/source/centered_h2_exact.py",
+    "science": "all routines mocked",
+    "reported_source_digest": "887756309cb8cfba7618ef76dfee900a48efb328123f2d62a018a1517601bf6f"
+  },
+  {
+    "name": "BLOCKER_centered_consumed_source_overwritten",
+    "kind": "hardlink",
+    "before": "887756309cb8cfba7618ef76dfee900a48efb328123f2d62a018a1517601bf6f",
+    "after": "fe96e69760cde3d4473f451581c7837a90a97d9edc16b2ab8906475b2b6a87f8",
+    "source": "/tmp/pde-migration-interface.FWY2yfEV/probe-run-8_pxna7n/centered-consumed-source/hardlink/source/centered_h2_exact.py",
+    "science": "all routines mocked",
+    "reported_source_digest": "887756309cb8cfba7618ef76dfee900a48efb328123f2d62a018a1517601bf6f"
+  },
+  {
+    "name": "extra_source_hashes_unchanged",
+    "count": 91
+  }
+]

@@ -98,6 +98,10 @@ def audit_family(moments: list[Fraction], shift: int) -> dict[str, object]:
 def main() -> int:
     args = PATHS.parse(inputs=True)
     INPUT = args.input_dir / "RESULTS.json"
+    if (args.output_dir / "HANKEL40_RESULTS.json").resolve() in {
+        INPUT.resolve(), (HERE / "HANKEL40_PROTOCOL.md").resolve(), Path(__file__).resolve(),
+    }:
+        raise ValueError("output aliases a consumed moment input")
     document = json.loads(INPUT.read_text())
     moments = [Q(value) for value in document["moments"]]
     if len(moments) != 40:

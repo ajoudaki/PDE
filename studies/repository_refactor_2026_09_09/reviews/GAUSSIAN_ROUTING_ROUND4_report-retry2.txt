@@ -1,0 +1,6 @@
+test_valid_plain_text_pipeline_preserves_sources_and_intermediates (studies.mfp_program_history.report.test_migration_paths.ReportPathTests) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.007s
+
+OK

@@ -1,0 +1,847 @@
+[
+  {
+    "case": "Gaussian real main with inert compiler mocks",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/gaussian-comparison-repro-_1tli_09/selected/independent_coefficient_map.json",
+        "before": "e8562db74e299489a527f300afe926771886246a536e862832fe2c1fa5c76ef8",
+        "after": "227fd890e7a3eb70f13d5e58d963c07d55cc6880c58fa8e40637426ca661b748"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/gaussian-comparison-repro-_1tli_09/selected/independent_layer_tagged_coefficient_map.json",
+        "before": "ceb0bf40d708e8e976b4bd0d9230e165ee817c1e8ee6951d1f11853e0686a8bd",
+        "after": "ceb0bf40d708e8e976b4bd0d9230e165ee817c1e8ee6951d1f11853e0686a8bd"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/gaussian-comparison-repro-_1tli_09/selected/independent_symbolic_q0_coefficient_map.json",
+        "before": "f022a45f9fbaa81d62c54f49599b32fc3aea17bee2f406797bfd452bc43f58f1",
+        "after": "f022a45f9fbaa81d62c54f49599b32fc3aea17bee2f406797bfd452bc43f58f1"
+      }
+    ]
+  },
+  {
+    "case": "identity preflight spectral_closure",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/identity-spectral_closure-vm87mydn/selected/RESULTS.json",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "report input-side alias",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/report-input-link-imw1vjr3/selected.md",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/report-input-link-imw1vjr3/wrapper.tex",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "studies.causal_flow_peeling_calculus.experiments.analyze_g2_gate_defect",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/raw.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "studies.causal_flow_peeling_calculus.experiments.analyze_d3_reachable_tail",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/p1.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/p2.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/s1/raw.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/s2/raw.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/s1/metadata.json",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/s2/metadata.json",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "studies.causal_flow_peeling_calculus.experiments.analyze_marked_column_cavity",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/primary/raw_replacement.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/refined/raw_replacement.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/float64-coarse/raw_replacement.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/float64-fine/raw_replacement.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/primary/raw_jvp.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "studies.d3_arctan_closure_program.analyze_middle_response",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/main.jsonl",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/cavity.jsonl",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/main-fine.jsonl",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/cavity-fine.jsonl",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "studies.d3_arctan_closure_program.analyze_response_leverage",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/coarse.jsonl",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/fine.jsonl",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "studies.d3_arctan_closure_program.analyze_gpu_forward_query_budget",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/forward_query_main_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/forward_query_main_n512.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/forward_query_main_n1024.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/forward_query_main_n2048.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/forward_query_main_n4096.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/forward_query_audit_h001_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/forward_query_audit_h0005_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/forward_query_audit_h001_n512.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/forward_query_audit_h0005_n512.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/forward_query_audit_fp32draw64_n128.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/forward_query_audit_fp64_n128.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/forward_query_audit_fp32draw64_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/forward_query_audit_fp64_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "studies.d3_arctan_closure_program.analyze_gpu_middle_saturation",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/middle_saturation_main_n512.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/middle_saturation_main_n1024.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/middle_saturation_main_n2048.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/middle_saturation_main_n4096.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/middle_saturation_audit_h0005_n512.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/middle_saturation_audit_fp32draw64_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/middle_saturation_audit_fp64_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "studies.d3_arctan_closure_program.analyze_gpu_paired_cavity_product",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/paired_product_main_h001_fp32_n128.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/paired_product_main_h001_fp32_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/paired_product_main_h001_fp32_n512.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/paired_product_main_h001_fp32_n1024.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/paired_product_main_h001_fp32_n2048.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/paired_product_audit_h001_fp32_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/paired_product_audit_h0005_fp32_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/paired_product_audit_h001_fp32_n512.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/paired_product_audit_h0005_fp32_n512.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/paired_product_audit_h001_fp32draw64_n128.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/paired_product_audit_h001_fp64_n128.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/paired_product_audit_h001_fp32draw64_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/paired_product_audit_h001_fp64_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "studies.d3_arctan_closure_program.analyze_gpu_susceptibility_trace",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/susceptibility_main_n128_h0.02_T1.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/susceptibility_main_n256_h0.02_T1.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/susceptibility_main_n512_h0.02_T1.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/susceptibility_main_n128_h0.02_T2.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/susceptibility_main_n256_h0.02_T2.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/susceptibility_main_n512_h0.02_T2.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/susceptibility_main_n128_h0.02_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/susceptibility_main_n256_h0.02_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/susceptibility_main_n512_h0.02_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/susceptibility_main_extra_n128_h0.02_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/susceptibility_main_extra_n256_h0.02_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/susceptibility_main_extra_n512_h0.02_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/susceptibility_refine_n128_h0.01_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/susceptibility_fine_n128_h0.005_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/susceptibility_refine_n256_h0.01_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/susceptibility_arithmetic32_n128_h0.02_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/susceptibility_arithmetic64_n128_h0.02_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "studies.d3_arctan_closure_program.analyze_first_passage_cooperative",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/first_passage_any.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-selections-01s09dox/first_passage_other.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "refresh studies.causal_flow_peeling_calculus.experiments.analyze_g2_gate_defect",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/raw.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "refresh studies.causal_flow_peeling_calculus.experiments.analyze_d3_reachable_tail",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/p1.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/p2.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/s1/raw.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/s2/raw.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/s1/metadata.json",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/s2/metadata.json",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "refresh studies.causal_flow_peeling_calculus.experiments.analyze_marked_column_cavity",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/primary/raw_replacement.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/refined/raw_replacement.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/float64-coarse/raw_replacement.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/float64-fine/raw_replacement.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/primary/raw_jvp.csv",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "refresh studies.d3_arctan_closure_program.analyze_middle_response",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/main.jsonl",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/cavity.jsonl",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/main-fine.jsonl",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/cavity-fine.jsonl",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "refresh studies.d3_arctan_closure_program.analyze_response_leverage",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/coarse.jsonl",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/fine.jsonl",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "refresh studies.d3_arctan_closure_program.analyze_gpu_forward_query_budget",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/forward_query_main_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/forward_query_main_n512.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/forward_query_main_n1024.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/forward_query_main_n2048.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/forward_query_main_n4096.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/forward_query_audit_h001_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/forward_query_audit_h0005_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/forward_query_audit_h001_n512.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/forward_query_audit_h0005_n512.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/forward_query_audit_fp32draw64_n128.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/forward_query_audit_fp64_n128.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/forward_query_audit_fp32draw64_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/forward_query_audit_fp64_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "refresh studies.d3_arctan_closure_program.analyze_gpu_middle_saturation",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/middle_saturation_main_n512.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/middle_saturation_main_n1024.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/middle_saturation_main_n2048.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/middle_saturation_main_n4096.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/middle_saturation_audit_h0005_n512.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/middle_saturation_audit_fp32draw64_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/middle_saturation_audit_fp64_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "refresh studies.d3_arctan_closure_program.analyze_gpu_paired_cavity_product",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/paired_product_main_h001_fp32_n128.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/paired_product_main_h001_fp32_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/paired_product_main_h001_fp32_n512.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/paired_product_main_h001_fp32_n1024.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/paired_product_main_h001_fp32_n2048.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/paired_product_audit_h001_fp32_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/paired_product_audit_h0005_fp32_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/paired_product_audit_h001_fp32_n512.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/paired_product_audit_h0005_fp32_n512.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/paired_product_audit_h001_fp32draw64_n128.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/paired_product_audit_h001_fp64_n128.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/paired_product_audit_h001_fp32draw64_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/paired_product_audit_h001_fp64_n256.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "refresh studies.d3_arctan_closure_program.analyze_gpu_susceptibility_trace",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/susceptibility_main_n128_h0.02_T1.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/susceptibility_main_n256_h0.02_T1.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/susceptibility_main_n512_h0.02_T1.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/susceptibility_main_n128_h0.02_T2.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/susceptibility_main_n256_h0.02_T2.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/susceptibility_main_n512_h0.02_T2.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/susceptibility_main_n128_h0.02_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/susceptibility_main_n256_h0.02_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/susceptibility_main_n512_h0.02_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/susceptibility_main_extra_n128_h0.02_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/susceptibility_main_extra_n256_h0.02_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/susceptibility_main_extra_n512_h0.02_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/susceptibility_refine_n128_h0.01_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/susceptibility_fine_n128_h0.005_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/susceptibility_refine_n256_h0.01_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/susceptibility_arithmetic32_n128_h0.02_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/susceptibility_arithmetic64_n128_h0.02_T4.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  },
+  {
+    "case": "refresh studies.d3_arctan_closure_program.analyze_first_passage_cooperative",
+    "inputs": [
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/first_passage_any.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      },
+      {
+        "path": "/tmp/pde-migration-acceptance-yH8UnKLS/analyzer-refresh-agevp30c/first_passage_other.npz",
+        "before": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5",
+        "after": "b86a39d66aff4558761302741e54b398ba8a55d26bf8ef40209f4122a94112d5"
+      }
+    ]
+  }
+]

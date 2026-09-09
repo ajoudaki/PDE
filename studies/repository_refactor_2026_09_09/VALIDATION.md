@@ -122,6 +122,13 @@ Those fixes are now complete: the coordinator repeated 51 combined checks
 (23 ResNet, 23 quadratic, 5 metadata), all passing. The separate worker's 191
 normalized function/class AST comparisons show no non-routing changes.
 Fresh isolated round 7 is running against the frozen current slice.
+Round 7 subsequently returned NOT CLEAN on two additional consumed-provenance
+source collisions and a wrapper that dispatched tests before validating its
+output root. It passed 49 of the 51 supplied checks and deliberately skipped
+two documentation-reading checks outside its input boundary. Those path guides
+are now explicitly in scope for the repair verification. The three concrete
+findings are being repaired; the report and unchanged 260-input inventory remain
+exactly retained.
 Native checkpoint guards were inspected
 as source, not compiled. The legacy native export power-filter limitation is
 recorded in the quadratic README and remains outside the repaired routing
@@ -142,6 +149,14 @@ checks, repeated by the coordinator; 1,978 original function bodies retain all
 their prior statements in order, and all 287 corresponding retained files
 are byte-identical. Only guards/imports and eight new helper/test files were
 added. Fresh isolated Gaussian round 4 is running. The seven-study third round
+returned NOT CLEAN separately as described below. Gaussian round 4 then confirmed
+the new preflights but found sibling comparison input-side aliases and three
+blanket import refusals hiding safe helpers. Its 44 supplied tests passed;
+independent probes found the omitted cases. The Gaussian compiler comparison
+and two identity consumers now reject their actual input aliases before work,
+with four additional bounded tests preserving distinct same-directory refresh.
+The remaining identified siblings and safe-helper exposure are being repaired.
+The seven-study third round
 also remains NOT CLEAN: it found two stale source paths, further named-output
 and consumed-input collisions, a late missing-reference check, and two omitted
 archive-only callable guards. Its 62 passing tests and exact unchanged input
