@@ -1,0 +1,17 @@
+{
+  "coherent.md": {
+    "sha256": "19c267a56658d6980ed5bd4957d2db9fda5f7178c4eb7024dde961c285a8fd53",
+    "bytes": 20170,
+    "lines": 589
+  },
+  "hessian.md": {
+    "sha256": "1dbf61698ef88e716a9bf1ef11b6d5ded2d21b321f5f50b9d1a4fba89fa9bbf1",
+    "bytes": 37284,
+    "lines": 985
+  },
+  "NOTATION.md": {
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "bytes": 5110,
+    "lines": 98
+  }
+}

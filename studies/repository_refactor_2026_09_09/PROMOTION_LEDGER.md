@@ -96,11 +96,11 @@ retains its original source and exact claim scope.
 Promotion of these is future editorial work, not a new conjecture by default.
 
 The shallow, spectral and every-fixed-depth linear GF statements are now
-incorporated with complete dependencies and matching normalization. Other
-coherent graphon statements still require their actual source chains; the
-scalar-particle theorem does not stand in for a different dense architecture.
-The new dense section proves only finite identities and supplied-trajectory
-response bounds; the separate operator-Galerkin candidate is not identified.
+incorporated with complete dependencies and matching normalization. The coherent W/n kernel model is now separately incorporated in continuous-depth
+Section 15 with its complete strong-carrier global-flow proof and fixed endpoints.
+The scalar-particle and finite dense-response results retain their distinct
+architectures. No noisy joint width/depth approximation or general
+operator-Galerkin identification is supplied.
 
 Broad L2 activation classes, affine-first arbitrary-data extensions and general
 C1,1 local population statements retain their precise Tensor Program import
@@ -140,3 +140,5 @@ actual exact versions, corrections and paired reviews in the acceptance record.
 The resumed assembly after `caf975a` has now accepted sharp shallow discretization, with complete paired isolated reviews and contained Gaussian integrability and constant proofs. Its accepted edition and exact scope are recorded in `INCORPORATION_ACCEPTANCE.md`; no source deferral is counted as incorporation.
 
 Frozen quadratic and ReLU source-specific assembly is now accepted in finite-dynamics Sections 8–9, alongside an exact finite frozen evaluator/step. Both first reviews found the same validation defect; the corrected version has two fresh complete CLEAN reviews. The positive ReLU output compactness theorem is retained beside the prescribed-field obstruction, and the frozen initial-layer result is not transferred to full training. No additional canonical adaptive or generalized-flow theorem is claimed.
+
+The coherent kernel and finite tangent-geometry additions now have paired full CLEAN reviews. The latter includes actual positive nuclear/intrinsic-volume bounds and their Gaussian expectations, not only the deterministic reached obstruction. Its exact hidden-projection factor remains unbounded below; no covariance, hidden-entropy or adaptive-query theorem is inferred. These completed incorporations supersede the corresponding earlier editorial deferrals.

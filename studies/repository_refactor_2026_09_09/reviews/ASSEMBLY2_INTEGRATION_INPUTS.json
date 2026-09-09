@@ -1,6 +1,6 @@
 {
   "date": "2026-09-09",
-  "scope": "Current 27-file scientific edition after all four resumed assembly additions. Each complete proof/code package has paired clean independent reviews. Final assembled-library integration is recorded separately. Excludes exporter files and concurrent exporter changes, studies, generated data and historical arrays.",
+  "scope": "Candidate final scientific edition for independent integration review. Only maintained scientific inputs; no studies, data, exporter, history or prior verdicts supplied. Acceptance is separately recorded after all complete reviews.",
   "excluded_concurrent_commit": "eb6e628",
   "files": [
     {

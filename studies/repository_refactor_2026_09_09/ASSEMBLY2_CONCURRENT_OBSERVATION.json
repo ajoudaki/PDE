@@ -1,0 +1,37 @@
+{
+  "observed_utc": "2026-09-09T19:33:40.968979+00:00",
+  "head": "f4d6dfabe744b51f674e140cbd0b4db0e4b259db",
+  "scope": "These exporter/gitignore changes appeared concurrently after the initial receipt; the scientific coordinator did not edit or stage them. Preserve subsequent changes as well. This observation is not an exporter acceptance.",
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "bf9e25889d63c4d97a614457f0af687027e0e0b0afcdf3e8062600a9d10fcc1e",
+      "bytes": 461,
+      "mtime_ns": 1788982243339943279
+    },
+    {
+      "path": "code/tests/test_book_exporter.py",
+      "sha256": "8ecde48a39b08cf336b2e87884107392e694785773dc973c0808d96f6bf0725c",
+      "bytes": 6283,
+      "mtime_ns": 1788982243059936433
+    },
+    {
+      "path": "code/tools/book_pdf/README.md",
+      "sha256": "74dd2c7a2f3deb7a8f6d5ececbf442974659570b198c618c6e1046851c085f5e",
+      "bytes": 4971,
+      "mtime_ns": 1788982242775929488
+    },
+    {
+      "path": "code/tools/book_pdf/build-pdf.sh",
+      "sha256": "f826d05662cb7e8c340ef0dba7e1b70af7b9e94530f515f3dbf2b49d3ffef141",
+      "bytes": 553,
+      "mtime_ns": 1788982262476411126
+    },
+    {
+      "path": "code/tools/book_pdf/export_book.py",
+      "sha256": "e2da7f3887a457ee2d2a4885a1c8ba31b9ca4cde49308da00075f78346d33a13",
+      "bytes": 13810,
+      "mtime_ns": 1788982242491922544
+    }
+  ]
+}
