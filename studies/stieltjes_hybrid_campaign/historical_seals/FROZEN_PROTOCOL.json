@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "campaign": "hybrid_mean_field_campaign",
+  "frozen_at": "2026-08-14T10:19:57+02:00",
+  "git_head_at_freeze": "db394062edeba8df8b6e3115bf726a32193aeb93",
+  "protocol_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/PROTOCOL.md",
+  "protocol_sha256": "d1e75ad896a3572f77b9bc6ec68a7047219a075645b87d44c520d677fc3b153a",
+  "initial_authorization": {
+    "width_ladder": [
+      {"width": 2048, "antithetic_pairs": 16, "dtype": "float64", "wall_seconds": 180},
+      {"width": 4096, "antithetic_pairs": 16, "dtype": "float64", "wall_seconds": 720},
+      {"width": 8192, "antithetic_pairs": 16, "dtype": "float64", "wall_seconds": 2400}
+    ],
+    "width_16384": "not_authorized",
+    "dmft_initial": {"cutoff": 3, "time_grid": 64, "population": 4096, "wall_seconds": 600},
+    "dmft_conditional_refinement": {"time_grid": 128, "population": 16384, "wall_seconds": 1800},
+    "dmft_256x65536": "not_authorized",
+    "unbounded_gaussian_dmft": "not_authorized",
+    "matched_bridge_and_cutoff_removal": "require_new_child_protocol"
+  }
+}

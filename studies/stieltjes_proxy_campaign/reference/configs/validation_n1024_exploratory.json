@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "purpose": "validation_only",
+  "run_id": "canonical_n1024_exploratory_20260813",
+  "dtype": "float64",
+  "analysis": {
+    "family_key": "canonical",
+    "scope": "side_conversation_exploratory_n1024_interval_only"
+  },
+  "global_caps": {
+    "device": "cuda:1",
+    "total_wall_seconds": 180.0,
+    "max_points": 1,
+    "max_width": 1024,
+    "max_antithetic_pairs": 16
+  },
+  "points": [
+    {
+      "id": "canonical_physical_n1024_r16",
+      "mode": "physical",
+      "width": 1024,
+      "antithetic_pairs": 16,
+      "pair_batch_size": 8,
+      "seed_base": 202608140200,
+      "target": 1.0,
+      "integrator": "rk4",
+      "microcanonical_readout": false,
+      "step": 0.00002,
+      "max_time": 0.024,
+      "output_nodes": [0.0, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99],
+      "monotonic_tolerance": 1e-10,
+      "loss_nonincrease_tolerance": 1e-10,
+      "caps": {
+        "wall_seconds": 180.0,
+        "max_steps_all_batches": 2400,
+        "host_rss_gib": 8.0,
+        "gpu_memory_gib": 8.0,
+        "max_raw_curve_mib": 32.0,
+        "state_ceiling": 10000.0,
+        "kernel_ceiling": 10000000000.0,
+        "kernel_floor": 1e-14,
+        "diagnostic_stride": 25
+      }
+    }
+  ]
+}

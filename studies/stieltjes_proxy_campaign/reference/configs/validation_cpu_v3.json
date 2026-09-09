@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "purpose": "validation_only",
+  "run_id": "reference_validation_cpu_v3_20260813",
+  "dtype": "float64",
+  "global_caps": {
+    "device": "cpu",
+    "total_wall_seconds": 120,
+    "max_points": 2,
+    "max_width": 8,
+    "max_antithetic_pairs": 8
+  },
+  "points": [
+    {
+      "id": "physical_cpu_smoke",
+      "mode": "physical",
+      "width": 4,
+      "antithetic_pairs": 4,
+      "pair_batch_size": 2,
+      "seed_base": 202608130101,
+      "target": 1.0,
+      "integrator": "rk4",
+      "microcanonical_readout": false,
+      "step": 0.0001,
+      "max_time": 0.0004,
+      "output_nodes": [0.0, 0.005, 0.01, 0.02],
+      "monotonic_tolerance": 1e-10,
+      "caps": {
+        "wall_seconds": 45,
+        "max_steps_all_batches": 8,
+        "host_rss_gib": 4.0,
+        "gpu_memory_gib": 1.0,
+        "max_raw_curve_mib": 2.0,
+        "state_ceiling": 10000.0,
+        "kernel_ceiling": 10000000000.0,
+        "kernel_floor": 1e-14,
+        "diagnostic_stride": 1
+      }
+    },
+    {
+      "id": "output_clock_cpu_smoke",
+      "mode": "output_clock",
+      "width": 4,
+      "antithetic_pairs": 4,
+      "pair_batch_size": 2,
+      "seed_base": 202608130102,
+      "target": 1.0,
+      "integrator": "rk4",
+      "microcanonical_readout": true,
+      "step": 0.005,
+      "max_output": 0.02,
+      "output_nodes": [0.0, 0.005, 0.01, 0.02],
+      "output_defect_tolerance": 1e-8,
+      "caps": {
+        "wall_seconds": 45,
+        "max_steps_all_batches": 8,
+        "host_rss_gib": 4.0,
+        "gpu_memory_gib": 1.0,
+        "max_raw_curve_mib": 2.0,
+        "state_ceiling": 10000.0,
+        "kernel_ceiling": 10000000000.0,
+        "kernel_floor": 1e-14,
+        "diagnostic_stride": 1
+      }
+    }
+  ]
+}

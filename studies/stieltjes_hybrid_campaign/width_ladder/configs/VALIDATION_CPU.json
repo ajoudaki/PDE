@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "purpose": "validation_only_never_scientific",
+  "seed": 202608190704,
+  "points": [
+    {
+      "id": "cpu_smoke_n16",
+      "predecessors": [],
+      "mode": "physical",
+      "dtype": "float64",
+      "width": 16,
+      "lineage_start": 0,
+      "lineage_stop": 4,
+      "pair_batch_size": 2,
+      "target": 1.0,
+      "step": 0.00001,
+      "max_time": 0.00002,
+      "output_nodes": [0.0, 0.00001],
+      "monotonic_tolerance": 1e-10,
+      "loss_nonincrease_tolerance": 1e-10,
+      "mean_initial_output_tolerance": 1e-14,
+      "rng_row_block": 8,
+      "caps": {
+        "wall_seconds": 30.0,
+        "max_steps_all_batches": 4,
+        "host_rss_gib": 4.0,
+        "gpu_memory_gib": 1.0,
+        "state_ceiling": 10000.0,
+        "kernel_ceiling": 10000000000.0,
+        "kernel_floor": 1e-14,
+        "diagnostic_stride": 1
+      }
+    }
+  ]
+}

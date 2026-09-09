@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "frozen_before_new_trajectory_generation": true,
+  "scientific_question": "Does the fixed P=5 PDE track activation-specific nonlinear dynamics better than deep-linear null curves?",
+  "base_activation": "tanh",
+  "continuation": "phi_c(z)=tanh(c z)/c for c>0 and phi_0(z)=z",
+  "primary_cases": ["C0", "C1", "C2", "C4"],
+  "linear_null_cases": ["L2"],
+  "model": {
+    "X": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+    "y": [0.8, -0.55, 0.35],
+    "sigma_w": 0.65,
+    "A": 1.0,
+    "gamma": 1.0
+  },
+  "pde": {
+    "P": 5,
+    "N": 16,
+    "quadrature": "hybrid",
+    "base_order": 3,
+    "M": 81,
+    "R": 128,
+    "seed": 20260723,
+    "integrator": "rk4",
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "duration": 8.0
+  },
+  "pde_numerical_controls": {
+    "independent_scramble_seed": 20260724,
+    "scramble_cases": ["C0", "C2", "C4", "L2"],
+    "pass_margin_normalized": 0.01
+  },
+  "dense_reference": {
+    "n": 128,
+    "depth": 32,
+    "seeds": 16,
+    "seed_start": 61000,
+    "common_random_numbers_across_all_cases": true,
+    "workers": 4,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "duration": 8.0
+  },
+  "physical_depth_control": {
+    "cases": ["C0", "C2"],
+    "n": 128,
+    "depth": 64,
+    "seeds": 8,
+    "seed_start": 61000,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "duration": 8.0,
+    "criterion": "The basic-bootstrap 95% lower bound for C2-vs-C0 Gram separation must exceed 5%, the matched C2 PDE-vs-L64 dense Gram error upper bound must be below 5%, and the point separation must be at least half the L32 separation."
+  },
+  "physical_width_control": {
+    "cases": ["C0", "C2"],
+    "n": 256,
+    "depth": 32,
+    "seeds": 4,
+    "seed_start": 63000,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "duration": 8.0,
+    "criterion": "Diagnostic only because S=4: C2-vs-C0 point Gram separation must exceed 5% and be at least half the n=128 paired separation; matched C2 PDE error must be below 5%."
+  },
+  "pde_depth_control": {
+    "cases": ["C0", "C2"],
+    "N": 32,
+    "criterion": "N=16 versus N=32 discrepancy below 1% of the relevant common Gram-motion scale for C0, C2, and their activation contrast."
+  },
+  "primary_metrics": {
+    "curve_objects": [
+      "all-depth learned Gram increments",
+      "output increments",
+      "loss of the ensemble-mean predictor",
+      "Gram path reparameterized by fractional loss progress"
+    ],
+    "time_norm": "supremum over every saved time",
+    "gram_norm": "maximum over aligned depth nodes of the sample-pair Frobenius norm",
+    "output_norm": "Euclidean over samples",
+    "learned_increment_rule": "Gram and output curves subtract their own t=0 value; loss is 0.5*||ensemble-mean output-y||^2 without initialization subtraction.",
+    "depth_alignment": "L32 dense nodes 0,2,...,32 and L64 nodes 0,4,...,64 align to PDE N16 nodes 0,...,16.",
+    "common_normalizers": {
+      "gram": "Q_G=max(0.05, max over all five primary PDE and dense curves of sup_{t,s} ||Delta G(s,t)||_F).",
+      "output": "Q_f=max(0.05, max over all five primary PDE and dense curves of sup_t ||Delta f(t)||_2).",
+      "loss": "Q_L=max(0.05, max over all five primary PDE and dense curves of sup_t L(t)).",
+      "bootstrap_rule": "Recompute each common Q inside each paired whole-trajectory bootstrap replicate using the resampled dense means and fixed PDE curves."
+    },
+    "activation_separation_threshold": 0.05,
+    "matched_pde_error_threshold": 0.05,
+    "required_identity_advantage_ratio": 2.0,
+    "required_linear_null_advantage_ratio": 1.5
+  },
+  "decision_rule": {
+    "confirmatory_case": "C2 only. C4 is a preregistered descriptive dose-response stress and is not an alternative route to the confirmatory verdict.",
+    "identity_smoking_gun": "For Gram motion require simultaneous truth of: basic-bootstrap one-sided 95% LCB[S_G(C2,C0)]>0.05; basic-bootstrap 95% UCB[E_G(PDE_C2,dense_C2)]<0.05; LCB[S_G-2*E_G]>0; and UCB[E_G(PDE_C0,dense_C0)]<0.05. Loss and output are judged and reported separately; passing the same rules upgrades the result to a joint curve smoking gun.",
+    "beyond_first_hermite_smoking_gun": "For C2 require both basic-bootstrap one-sided 95% LCB[H_G(dense_L2,dense_C2)]>0.05 and LCB[H_G(dense_L2,dense_C2)-1.5*E_G(PDE_C2,dense_C2)]>0. The first condition establishes that the fixed optimal Gaussian linearization itself misses by more than the study tolerance; the second establishes a resolved matched-PDE advantage.",
+    "not_just_a_clock": "For each C0/C2 dense and PDE loss use q(t)=(L(0)-L(t))/(L(0)-L(T)); require terminal loss reduction at least 95%, and no saved-step loss increase larger than 1e-8*Q_L. After clipping only such numerical-tolerance violations by cumulative maximum, interpolate learned Gram increments on q=0,0.01,...,0.95. With a common progress-path Gram scale defined analogously to Q_G, require basic-bootstrap LCB[dense C2-C0 path separation]>0.05 and LCB[path separation-2*PDE-vs-dense activation-contrast error]>0.",
+    "failure": "The C2 dense Gram curve does not separate from C0 beyond 5%, or the matched C2 PDE does not improve on the identity null.",
+    "inconclusive": "Point estimates satisfy a rule but paired ensemble or PDE quadrature uncertainty crosses its boundary.",
+    "verdict_hierarchy": {
+      "full_nonlinear_smoking_gun": "Both identity_smoking_gun and beyond_first_hermite_smoking_gun pass, all central C0/C2 PDE numerical gates pass, the matched C0 PDE control passes, and the physical L64 C0/C2 criterion passes. The n=256 width tier remains diagnostic because it has only four paired seeds.",
+      "joint_curve_smoking_gun": "full_nonlinear_smoking_gun passes, the identity rule also passes for output and loss, and every preregistered PDE numerical metric—not only Gram—passes its 1% gate.",
+      "strongest_not_just_a_clock": "full_nonlinear_smoking_gun passes and not_just_a_clock also passes.",
+      "identity_only": "identity_smoking_gun passes, the central PDE numerical gates and physical L64 criterion pass, but beyond_first_hermite_smoking_gun does not; this rejects exact identity dynamics but not an optimal fixed Gaussian linear-gain explanation.",
+      "descriptive_only": "Point separations are material but a statistical or numerical gate is unresolved.",
+      "no_smoking_gun": "The confirmatory C2 separation or matched-PDE advantage fails at the point-estimate level."
+    }
+  },
+  "linear_null_definition": {
+    "distribution": "Z~N(0,1), first-layer initialization preactivation 0.65 Z",
+    "kappa_2": 0.5101185599716273,
+    "quadrature": "1024-point Gauss-Hermite, frozen before trajectories"
+  },
+  "bootstrap": {
+    "replicates": 4000,
+    "seed": 2026072402,
+    "resampling": "paired whole trajectories using common seed indices",
+    "confidence": 0.95,
+    "interval": "one-sided centered/basic bootstrap: for statistic T and deviations d_b=T_b-T_hat, LCB=T_hat-quantile_0.95(d_b), UCB=T_hat-quantile_0.05(d_b). Do not use percentile lower bounds for nonnegative sup norms.",
+    "multiplicity": "C2 is the sole confirmatory activation; C4 is descriptive. Within C2, all required Gram inequalities must pass, so no OR selection is used."
+  },
+  "plateau_reporting_rule": {
+    "fixed_horizon": 8.0,
+    "check_window": [6.0, 8.0],
+    "pass": "A case passes if terminal loss is at most 1e-6 of initial loss and endpoint Gram drift over [6,8] is at most 0.005*Q_G.",
+    "failure_semantics": "A failed case remains valid finite-horizon transient evidence but any claim about its plateau or loss-progress clock test is marked unresolved. No horizon is adaptively extended after viewing dense results."
+  }
+}

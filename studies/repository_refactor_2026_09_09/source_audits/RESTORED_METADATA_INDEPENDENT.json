@@ -1,0 +1,762 @@
+[
+  {
+    "from": "data/historical/studies/resnet_dense_long_horizon/config/protocol.json",
+    "to": "studies/resnet_dense_long_horizon/config/protocol.json",
+    "bytes": 2536,
+    "sha256": "d800b57533a0af2230b0b92317e8863438400195f72db4b9d80f05d2e7b02ae6",
+    "kind": "source_configuration",
+    "actual_from_sha256": "d800b57533a0af2230b0b92317e8863438400195f72db4b9d80f05d2e7b02ae6",
+    "actual_to_sha256": "d800b57533a0af2230b0b92317e8863438400195f72db4b9d80f05d2e7b02ae6",
+    "original_path": "studies/resnet_pde/dense_response/long_horizon/config/protocol.json",
+    "original_inventory": {
+      "path": "studies/resnet_pde/dense_response/long_horizon/config/protocol.json",
+      "bytes": 2536,
+      "sha256": "d800b57533a0af2230b0b92317e8863438400195f72db4b9d80f05d2e7b02ae6",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/resnet_activation_controls/protocol/cases.json",
+    "to": "studies/resnet_activation_controls/protocol/cases.json",
+    "bytes": 1777,
+    "sha256": "f17745421d1cf4bab34f3332540482134ffe7a895beb16dea22e542281c05663",
+    "kind": "source_configuration",
+    "actual_from_sha256": "f17745421d1cf4bab34f3332540482134ffe7a895beb16dea22e542281c05663",
+    "actual_to_sha256": "f17745421d1cf4bab34f3332540482134ffe7a895beb16dea22e542281c05663",
+    "original_path": "studies/resnet_pde/operator_pde/activation_controls/protocol/cases.json",
+    "original_inventory": {
+      "path": "studies/resnet_pde/operator_pde/activation_controls/protocol/cases.json",
+      "bytes": 1777,
+      "sha256": "f17745421d1cf4bab34f3332540482134ffe7a895beb16dea22e542281c05663",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/resnet_activation_controls/protocol/preregistered_protocol.json",
+    "to": "studies/resnet_activation_controls/protocol/preregistered_protocol.json",
+    "bytes": 7648,
+    "sha256": "6f09bf7cd10f633fd441c7337df1499122c3d31ddad0fc65944970bcc0e9acd1",
+    "kind": "source_configuration",
+    "actual_from_sha256": "6f09bf7cd10f633fd441c7337df1499122c3d31ddad0fc65944970bcc0e9acd1",
+    "actual_to_sha256": "6f09bf7cd10f633fd441c7337df1499122c3d31ddad0fc65944970bcc0e9acd1",
+    "original_path": "studies/resnet_pde/operator_pde/activation_controls/protocol/preregistered_protocol.json",
+    "original_inventory": {
+      "path": "studies/resnet_pde/operator_pde/activation_controls/protocol/preregistered_protocol.json",
+      "bytes": 7648,
+      "sha256": "6f09bf7cd10f633fd441c7337df1499122c3d31ddad0fc65944970bcc0e9acd1",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/resnet_operator_core/protocol/expected_metrics.json",
+    "to": "studies/resnet_operator_core/protocol/expected_metrics.json",
+    "bytes": 815,
+    "sha256": "0f8707fcf987bae689ed333850e80de7058457220308158943e5b6596309f628",
+    "kind": "source_configuration",
+    "actual_from_sha256": "0f8707fcf987bae689ed333850e80de7058457220308158943e5b6596309f628",
+    "actual_to_sha256": "0f8707fcf987bae689ed333850e80de7058457220308158943e5b6596309f628",
+    "original_path": "studies/resnet_pde/operator_pde/core/protocol/expected_metrics.json",
+    "original_inventory": {
+      "path": "studies/resnet_pde/operator_pde/core/protocol/expected_metrics.json",
+      "bytes": 815,
+      "sha256": "0f8707fcf987bae689ed333850e80de7058457220308158943e5b6596309f628",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/resnet_operator_core/protocol/protocol.json",
+    "to": "studies/resnet_operator_core/protocol/protocol.json",
+    "bytes": 1682,
+    "sha256": "bc8ac071b738a3a4c928a4f4f8e29cc7bc2b116bf3628059e05d81b0ca3d1c58",
+    "kind": "source_configuration",
+    "actual_from_sha256": "bc8ac071b738a3a4c928a4f4f8e29cc7bc2b116bf3628059e05d81b0ca3d1c58",
+    "actual_to_sha256": "bc8ac071b738a3a4c928a4f4f8e29cc7bc2b116bf3628059e05d81b0ca3d1c58",
+    "original_path": "studies/resnet_pde/operator_pde/core/protocol/protocol.json",
+    "original_inventory": {
+      "path": "studies/resnet_pde/operator_pde/core/protocol/protocol.json",
+      "bytes": 1682,
+      "sha256": "bc8ac071b738a3a4c928a4f4f8e29cc7bc2b116bf3628059e05d81b0ca3d1c58",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/resnet_generalization/protocol/analysis_plan.json",
+    "to": "studies/resnet_generalization/protocol/analysis_plan.json",
+    "bytes": 6163,
+    "sha256": "bd404f851a617e5a2c7a8e0271f15b46ed744b13161e91f1a370c2ffdd2f784d",
+    "kind": "source_configuration",
+    "actual_from_sha256": "bd404f851a617e5a2c7a8e0271f15b46ed744b13161e91f1a370c2ffdd2f784d",
+    "actual_to_sha256": "bd404f851a617e5a2c7a8e0271f15b46ed744b13161e91f1a370c2ffdd2f784d",
+    "original_path": "studies/resnet_pde/operator_pde/generalization/protocol/analysis_plan.json",
+    "original_inventory": {
+      "path": "studies/resnet_pde/operator_pde/generalization/protocol/analysis_plan.json",
+      "bytes": 6163,
+      "sha256": "bd404f851a617e5a2c7a8e0271f15b46ed744b13161e91f1a370c2ffdd2f784d",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/resnet_generalization/protocol/cases.json",
+    "to": "studies/resnet_generalization/protocol/cases.json",
+    "bytes": 5819,
+    "sha256": "351ffee28ec9750cef1c208fb49253c555dd6e22e11129c339b960645a15c8e3",
+    "kind": "source_configuration",
+    "actual_from_sha256": "351ffee28ec9750cef1c208fb49253c555dd6e22e11129c339b960645a15c8e3",
+    "actual_to_sha256": "351ffee28ec9750cef1c208fb49253c555dd6e22e11129c339b960645a15c8e3",
+    "original_path": "studies/resnet_pde/operator_pde/generalization/protocol/cases.json",
+    "original_inventory": {
+      "path": "studies/resnet_pde/operator_pde/generalization/protocol/cases.json",
+      "bytes": 5819,
+      "sha256": "351ffee28ec9750cef1c208fb49253c555dd6e22e11129c339b960645a15c8e3",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/resnet_generalization/protocol/generalization_protocol.json",
+    "to": "studies/resnet_generalization/protocol/generalization_protocol.json",
+    "bytes": 3137,
+    "sha256": "e7ad4adf703ee4a6984c1bd4b7be476300af291c0e1ef7e73c94755ecf6d067d",
+    "kind": "source_configuration",
+    "actual_from_sha256": "e7ad4adf703ee4a6984c1bd4b7be476300af291c0e1ef7e73c94755ecf6d067d",
+    "actual_to_sha256": "e7ad4adf703ee4a6984c1bd4b7be476300af291c0e1ef7e73c94755ecf6d067d",
+    "original_path": "studies/resnet_pde/operator_pde/generalization/protocol/generalization_protocol.json",
+    "original_inventory": {
+      "path": "studies/resnet_pde/operator_pde/generalization/protocol/generalization_protocol.json",
+      "bytes": 3137,
+      "sha256": "e7ad4adf703ee4a6984c1bd4b7be476300af291c0e1ef7e73c94755ecf6d067d",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/resnet_proof_audit/protocol/preregistered_protocol.json",
+    "to": "studies/resnet_proof_audit/protocol/preregistered_protocol.json",
+    "bytes": 40738,
+    "sha256": "8b3f6a9ce80575f675454a5ebff63c33e347b28d33a77e0442a4385209eda1fd",
+    "kind": "source_configuration",
+    "actual_from_sha256": "8b3f6a9ce80575f675454a5ebff63c33e347b28d33a77e0442a4385209eda1fd",
+    "actual_to_sha256": "8b3f6a9ce80575f675454a5ebff63c33e347b28d33a77e0442a4385209eda1fd",
+    "original_path": "studies/resnet_pde/pde_convergence/01_proof_audit/protocol/preregistered_protocol.json",
+    "original_inventory": {
+      "path": "studies/resnet_pde/pde_convergence/01_proof_audit/protocol/preregistered_protocol.json",
+      "bytes": 40738,
+      "sha256": "8b3f6a9ce80575f675454a5ebff63c33e347b28d33a77e0442a4385209eda1fd",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/FROZEN_PRODUCTION.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/FROZEN_PRODUCTION.json",
+    "bytes": 3342,
+    "sha256": "ca211503f77bec5f0d54541dfac3c18b027ec92173636ae729c7b1d1817b8630",
+    "kind": "source_configuration",
+    "actual_from_sha256": "ca211503f77bec5f0d54541dfac3c18b027ec92173636ae729c7b1d1817b8630",
+    "actual_to_sha256": "ca211503f77bec5f0d54541dfac3c18b027ec92173636ae729c7b1d1817b8630",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/FROZEN_PRODUCTION.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/FROZEN_PRODUCTION.json",
+      "bytes": 3342,
+      "sha256": "ca211503f77bec5f0d54541dfac3c18b027ec92173636ae729c7b1d1817b8630",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_01.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_01.json",
+    "bytes": 3767,
+    "sha256": "43c9b98f3569e3e6046163f76bd6893b3d0ef5cb5b1443c372381d8a6d34e226",
+    "kind": "source_configuration",
+    "actual_from_sha256": "43c9b98f3569e3e6046163f76bd6893b3d0ef5cb5b1443c372381d8a6d34e226",
+    "actual_to_sha256": "43c9b98f3569e3e6046163f76bd6893b3d0ef5cb5b1443c372381d8a6d34e226",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_01.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_01.json",
+      "bytes": 3767,
+      "sha256": "43c9b98f3569e3e6046163f76bd6893b3d0ef5cb5b1443c372381d8a6d34e226",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_02_ANALYSIS.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_02_ANALYSIS.json",
+    "bytes": 5906,
+    "sha256": "7f9cc9863cc09eaa302d5c492d581a72c97470aaf055c7faef91c72475a8d709",
+    "kind": "source_configuration",
+    "actual_from_sha256": "7f9cc9863cc09eaa302d5c492d581a72c97470aaf055c7faef91c72475a8d709",
+    "actual_to_sha256": "7f9cc9863cc09eaa302d5c492d581a72c97470aaf055c7faef91c72475a8d709",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_02_ANALYSIS.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_02_ANALYSIS.json",
+      "bytes": 5906,
+      "sha256": "7f9cc9863cc09eaa302d5c492d581a72c97470aaf055c7faef91c72475a8d709",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_02.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_02.json",
+    "bytes": 5668,
+    "sha256": "70f14567d7eb23388b51a6e2e6807572d7781c779a66f170edc16647108c8417",
+    "kind": "source_configuration",
+    "actual_from_sha256": "70f14567d7eb23388b51a6e2e6807572d7781c779a66f170edc16647108c8417",
+    "actual_to_sha256": "70f14567d7eb23388b51a6e2e6807572d7781c779a66f170edc16647108c8417",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_02.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/FROZEN_SUCCESSOR_02.json",
+      "bytes": 5668,
+      "sha256": "70f14567d7eb23388b51a6e2e6807572d7781c779a66f170edc16647108c8417",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/validation_cpu_v3.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/validation_cpu_v3.json",
+    "bytes": 1744,
+    "sha256": "f453335e7fdea8ab4d44ee3a5f2713c3648ab96b6b4dcc294d5876f918627634",
+    "kind": "source_configuration",
+    "actual_from_sha256": "f453335e7fdea8ab4d44ee3a5f2713c3648ab96b6b4dcc294d5876f918627634",
+    "actual_to_sha256": "f453335e7fdea8ab4d44ee3a5f2713c3648ab96b6b4dcc294d5876f918627634",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_cpu_v3.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_cpu_v3.json",
+      "bytes": 1744,
+      "sha256": "f453335e7fdea8ab4d44ee3a5f2713c3648ab96b6b4dcc294d5876f918627634",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/validation_cpu.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/validation_cpu.json",
+    "bytes": 1741,
+    "sha256": "fc3e35806f062af32c48da0ef62fed75d57f7a3fe015946e1da483434b7a47b7",
+    "kind": "source_configuration",
+    "actual_from_sha256": "fc3e35806f062af32c48da0ef62fed75d57f7a3fe015946e1da483434b7a47b7",
+    "actual_to_sha256": "fc3e35806f062af32c48da0ef62fed75d57f7a3fe015946e1da483434b7a47b7",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_cpu.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_cpu.json",
+      "bytes": 1741,
+      "sha256": "fc3e35806f062af32c48da0ef62fed75d57f7a3fe015946e1da483434b7a47b7",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/validation_gpu0_v3.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/validation_gpu0_v3.json",
+    "bytes": 1753,
+    "sha256": "91afe28aee7c74569b08e2bd1782518f03879566447690ce640022c7b292d1c7",
+    "kind": "source_configuration",
+    "actual_from_sha256": "91afe28aee7c74569b08e2bd1782518f03879566447690ce640022c7b292d1c7",
+    "actual_to_sha256": "91afe28aee7c74569b08e2bd1782518f03879566447690ce640022c7b292d1c7",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_gpu0_v3.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_gpu0_v3.json",
+      "bytes": 1753,
+      "sha256": "91afe28aee7c74569b08e2bd1782518f03879566447690ce640022c7b292d1c7",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/validation_gpu0.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/validation_gpu0.json",
+    "bytes": 1750,
+    "sha256": "848e60da603b01439a9e48beb4a9b5a3555181ba122dddbde68c6f9fdb8090f0",
+    "kind": "source_configuration",
+    "actual_from_sha256": "848e60da603b01439a9e48beb4a9b5a3555181ba122dddbde68c6f9fdb8090f0",
+    "actual_to_sha256": "848e60da603b01439a9e48beb4a9b5a3555181ba122dddbde68c6f9fdb8090f0",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_gpu0.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_gpu0.json",
+      "bytes": 1750,
+      "sha256": "848e60da603b01439a9e48beb4a9b5a3555181ba122dddbde68c6f9fdb8090f0",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/validation_gpu1_v3.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/validation_gpu1_v3.json",
+    "bytes": 1753,
+    "sha256": "1b0ca19a326d595b1cc22b157e25e40b1edc5a2ba39bfe2053472db44a4be9d0",
+    "kind": "source_configuration",
+    "actual_from_sha256": "1b0ca19a326d595b1cc22b157e25e40b1edc5a2ba39bfe2053472db44a4be9d0",
+    "actual_to_sha256": "1b0ca19a326d595b1cc22b157e25e40b1edc5a2ba39bfe2053472db44a4be9d0",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_gpu1_v3.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_gpu1_v3.json",
+      "bytes": 1753,
+      "sha256": "1b0ca19a326d595b1cc22b157e25e40b1edc5a2ba39bfe2053472db44a4be9d0",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/validation_gpu1.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/validation_gpu1.json",
+    "bytes": 1750,
+    "sha256": "b9d123f0ec0df27c1792721315d2a062cb096c7d3070c06f5a2e873670a5b07b",
+    "kind": "source_configuration",
+    "actual_from_sha256": "b9d123f0ec0df27c1792721315d2a062cb096c7d3070c06f5a2e873670a5b07b",
+    "actual_to_sha256": "b9d123f0ec0df27c1792721315d2a062cb096c7d3070c06f5a2e873670a5b07b",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_gpu1.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_gpu1.json",
+      "bytes": 1750,
+      "sha256": "b9d123f0ec0df27c1792721315d2a062cb096c7d3070c06f5a2e873670a5b07b",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/validation_n1024_exploratory.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/validation_n1024_exploratory.json",
+    "bytes": 1227,
+    "sha256": "c376fe071a6b0e0212d8d583f418f28093786154328a7b76c1105c9d9bd8cba8",
+    "kind": "source_configuration",
+    "actual_from_sha256": "c376fe071a6b0e0212d8d583f418f28093786154328a7b76c1105c9d9bd8cba8",
+    "actual_to_sha256": "c376fe071a6b0e0212d8d583f418f28093786154328a7b76c1105c9d9bd8cba8",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n1024_exploratory.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n1024_exploratory.json",
+      "bytes": 1227,
+      "sha256": "c376fe071a6b0e0212d8d583f418f28093786154328a7b76c1105c9d9bd8cba8",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/validation_n2048_exploratory.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/validation_n2048_exploratory.json",
+    "bytes": 1231,
+    "sha256": "1140ef5c4842b498787d0405713056b27192d86a63a42333291c17b7630d97d3",
+    "kind": "source_configuration",
+    "actual_from_sha256": "1140ef5c4842b498787d0405713056b27192d86a63a42333291c17b7630d97d3",
+    "actual_to_sha256": "1140ef5c4842b498787d0405713056b27192d86a63a42333291c17b7630d97d3",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n2048_exploratory.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n2048_exploratory.json",
+      "bytes": 1231,
+      "sha256": "1140ef5c4842b498787d0405713056b27192d86a63a42333291c17b7630d97d3",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/validation_n2048_r16_exploratory.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/validation_n2048_r16_exploratory.json",
+    "bytes": 1245,
+    "sha256": "72405d55f438e92bfcd5b454a834dcd5fe7c4c1ee45c537cd6ab2d049cc6b24a",
+    "kind": "source_configuration",
+    "actual_from_sha256": "72405d55f438e92bfcd5b454a834dcd5fe7c4c1ee45c537cd6ab2d049cc6b24a",
+    "actual_to_sha256": "72405d55f438e92bfcd5b454a834dcd5fe7c4c1ee45c537cd6ab2d049cc6b24a",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n2048_r16_exploratory.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n2048_r16_exploratory.json",
+      "bytes": 1245,
+      "sha256": "72405d55f438e92bfcd5b454a834dcd5fe7c4c1ee45c537cd6ab2d049cc6b24a",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/validation_n4096_exploratory.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/validation_n4096_exploratory.json",
+    "bytes": 1231,
+    "sha256": "ba6700f756a61e713e1968239a06eab71c358d732d067b93fbabf0daef89cf4e",
+    "kind": "source_configuration",
+    "actual_from_sha256": "ba6700f756a61e713e1968239a06eab71c358d732d067b93fbabf0daef89cf4e",
+    "actual_to_sha256": "ba6700f756a61e713e1968239a06eab71c358d732d067b93fbabf0daef89cf4e",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n4096_exploratory.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n4096_exploratory.json",
+      "bytes": 1231,
+      "sha256": "ba6700f756a61e713e1968239a06eab71c358d732d067b93fbabf0daef89cf4e",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/validation_n4096_r16_exploratory.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/validation_n4096_r16_exploratory.json",
+    "bytes": 1233,
+    "sha256": "65a75ccefbddd826615a764b387fa9ec297b3ee4c2e4e708c40293b3e81d565d",
+    "kind": "source_configuration",
+    "actual_from_sha256": "65a75ccefbddd826615a764b387fa9ec297b3ee4c2e4e708c40293b3e81d565d",
+    "actual_to_sha256": "65a75ccefbddd826615a764b387fa9ec297b3ee4c2e4e708c40293b3e81d565d",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n4096_r16_exploratory.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n4096_r16_exploratory.json",
+      "bytes": 1233,
+      "sha256": "65a75ccefbddd826615a764b387fa9ec297b3ee4c2e4e708c40293b3e81d565d",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/validation_n4096_r8_fp32_cast_control.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/validation_n4096_r8_fp32_cast_control.json",
+    "bytes": 1282,
+    "sha256": "b178c0eb7e7af3ba159a4bb420c6aecbe590a817ba4fbe46bb3b279f899d46ec",
+    "kind": "source_configuration",
+    "actual_from_sha256": "b178c0eb7e7af3ba159a4bb420c6aecbe590a817ba4fbe46bb3b279f899d46ec",
+    "actual_to_sha256": "b178c0eb7e7af3ba159a4bb420c6aecbe590a817ba4fbe46bb3b279f899d46ec",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n4096_r8_fp32_cast_control.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n4096_r8_fp32_cast_control.json",
+      "bytes": 1282,
+      "sha256": "b178c0eb7e7af3ba159a4bb420c6aecbe590a817ba4fbe46bb3b279f899d46ec",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/validation_n4096_r8_fp32_control.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/validation_n4096_r8_fp32_control.json",
+    "bytes": 1265,
+    "sha256": "432f42a043ddd7985ff3863612f49515ceb5e31abe0019d32b14699249a6a53e",
+    "kind": "source_configuration",
+    "actual_from_sha256": "432f42a043ddd7985ff3863612f49515ceb5e31abe0019d32b14699249a6a53e",
+    "actual_to_sha256": "432f42a043ddd7985ff3863612f49515ceb5e31abe0019d32b14699249a6a53e",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n4096_r8_fp32_control.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n4096_r8_fp32_control.json",
+      "bytes": 1265,
+      "sha256": "432f42a043ddd7985ff3863612f49515ceb5e31abe0019d32b14699249a6a53e",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/validation_n8192_r16_exploratory.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/validation_n8192_r16_exploratory.json",
+    "bytes": 1236,
+    "sha256": "9ce87c8876d10523ae0295d5009aeee3532d65d8212b6bff2fdccc7ddebd873b",
+    "kind": "source_configuration",
+    "actual_from_sha256": "9ce87c8876d10523ae0295d5009aeee3532d65d8212b6bff2fdccc7ddebd873b",
+    "actual_to_sha256": "9ce87c8876d10523ae0295d5009aeee3532d65d8212b6bff2fdccc7ddebd873b",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n8192_r16_exploratory.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n8192_r16_exploratory.json",
+      "bytes": 1236,
+      "sha256": "9ce87c8876d10523ae0295d5009aeee3532d65d8212b6bff2fdccc7ddebd873b",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/validation_n8192_r8_fp32_holdout.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/validation_n8192_r8_fp32_holdout.json",
+    "bytes": 1264,
+    "sha256": "a148c750e5c138924752ae0064240e42f678aa7835667fe07c688d43242d0f7c",
+    "kind": "source_configuration",
+    "actual_from_sha256": "a148c750e5c138924752ae0064240e42f678aa7835667fe07c688d43242d0f7c",
+    "actual_to_sha256": "a148c750e5c138924752ae0064240e42f678aa7835667fe07c688d43242d0f7c",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n8192_r8_fp32_holdout.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n8192_r8_fp32_holdout.json",
+      "bytes": 1264,
+      "sha256": "a148c750e5c138924752ae0064240e42f678aa7835667fe07c688d43242d0f7c",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_proxy_campaign/reference/configs/validation_n8192_r8_holdout.json",
+    "to": "studies/stieltjes_proxy_campaign/reference/configs/validation_n8192_r8_holdout.json",
+    "bytes": 1250,
+    "sha256": "558b5dbdd852de659af77090fffef37c27d5d9096184dbc9fbbfe3e84b654984",
+    "kind": "source_configuration",
+    "actual_from_sha256": "558b5dbdd852de659af77090fffef37c27d5d9096184dbc9fbbfe3e84b654984",
+    "actual_to_sha256": "558b5dbdd852de659af77090fffef37c27d5d9096184dbc9fbbfe3e84b654984",
+    "original_path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n8192_r8_holdout.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/global_proxy_campaign/reference/configs/validation_n8192_r8_holdout.json",
+      "bytes": 1250,
+      "sha256": "558b5dbdd852de659af77090fffef37c27d5d9096184dbc9fbbfe3e84b654984",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/FROZEN_LOCAL_QUALIFICATION.json",
+    "to": "studies/stieltjes_hybrid_campaign/breadth_panel/fp64_successor/FROZEN_LOCAL_QUALIFICATION.json",
+    "bytes": 3585,
+    "sha256": "aea83711e8956c43d55204f3dd0d5fd59b2b451d427e7441a7477519994cbdbc",
+    "kind": "source_configuration",
+    "actual_from_sha256": "aea83711e8956c43d55204f3dd0d5fd59b2b451d427e7441a7477519994cbdbc",
+    "actual_to_sha256": "aea83711e8956c43d55204f3dd0d5fd59b2b451d427e7441a7477519994cbdbc",
+    "original_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/FROZEN_LOCAL_QUALIFICATION.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/fp64_successor/FROZEN_LOCAL_QUALIFICATION.json",
+      "bytes": 3585,
+      "sha256": "aea83711e8956c43d55204f3dd0d5fd59b2b451d427e7441a7477519994cbdbc",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_hybrid_campaign/breadth_panel/FROZEN_ONE_INPUT_POINTS.json",
+    "to": "studies/stieltjes_hybrid_campaign/breadth_panel/FROZEN_ONE_INPUT_POINTS.json",
+    "bytes": 4599,
+    "sha256": "4d2de690f73a9242604e2a7c05b86700056c27db373b97185e3b9881f5c94f62",
+    "kind": "source_configuration",
+    "actual_from_sha256": "4d2de690f73a9242604e2a7c05b86700056c27db373b97185e3b9881f5c94f62",
+    "actual_to_sha256": "4d2de690f73a9242604e2a7c05b86700056c27db373b97185e3b9881f5c94f62",
+    "original_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/FROZEN_ONE_INPUT_POINTS.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/FROZEN_ONE_INPUT_POINTS.json",
+      "bytes": 4599,
+      "sha256": "4d2de690f73a9242604e2a7c05b86700056c27db373b97185e3b9881f5c94f62",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_hybrid_campaign/breadth_panel/FROZEN_TWO_INPUT_POINTS.json",
+    "to": "studies/stieltjes_hybrid_campaign/breadth_panel/FROZEN_TWO_INPUT_POINTS.json",
+    "bytes": 3548,
+    "sha256": "5262ce9355b08a3e7f8f6f1c38589389e2f962778394063529509dd663efdb88",
+    "kind": "source_configuration",
+    "actual_from_sha256": "5262ce9355b08a3e7f8f6f1c38589389e2f962778394063529509dd663efdb88",
+    "actual_to_sha256": "5262ce9355b08a3e7f8f6f1c38589389e2f962778394063529509dd663efdb88",
+    "original_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/FROZEN_TWO_INPUT_POINTS.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/breadth_panel/FROZEN_TWO_INPUT_POINTS.json",
+      "bytes": 3548,
+      "sha256": "5262ce9355b08a3e7f8f6f1c38589389e2f962778394063529509dd663efdb88",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_hybrid_campaign/width_ladder/configs/FROZEN_WIDTH_LADDER.json",
+    "to": "studies/stieltjes_hybrid_campaign/width_ladder/configs/FROZEN_WIDTH_LADDER.json",
+    "bytes": 4712,
+    "sha256": "52fa0b55c222ad912f2771f0451724e38c299eec1024adc369e573d759db69e6",
+    "kind": "source_configuration",
+    "actual_from_sha256": "52fa0b55c222ad912f2771f0451724e38c299eec1024adc369e573d759db69e6",
+    "actual_to_sha256": "52fa0b55c222ad912f2771f0451724e38c299eec1024adc369e573d759db69e6",
+    "original_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/width_ladder/configs/FROZEN_WIDTH_LADDER.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/width_ladder/configs/FROZEN_WIDTH_LADDER.json",
+      "bytes": 4712,
+      "sha256": "52fa0b55c222ad912f2771f0451724e38c299eec1024adc369e573d759db69e6",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_hybrid_campaign/width_ladder/configs/VALIDATION_CPU.json",
+    "to": "studies/stieltjes_hybrid_campaign/width_ladder/configs/VALIDATION_CPU.json",
+    "bytes": 882,
+    "sha256": "5eed49b15828ce9a7dcf45713e564244938091ce166091e1bba6b0b77139e499",
+    "kind": "source_configuration",
+    "actual_from_sha256": "5eed49b15828ce9a7dcf45713e564244938091ce166091e1bba6b0b77139e499",
+    "actual_to_sha256": "5eed49b15828ce9a7dcf45713e564244938091ce166091e1bba6b0b77139e499",
+    "original_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/width_ladder/configs/VALIDATION_CPU.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/width_ladder/configs/VALIDATION_CPU.json",
+      "bytes": 882,
+      "sha256": "5eed49b15828ce9a7dcf45713e564244938091ce166091e1bba6b0b77139e499",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32/configs/FROZEN_STAGE_V.json",
+    "to": "studies/stieltjes_hybrid_campaign/width_ladder/euler_fp32/configs/FROZEN_STAGE_V.json",
+    "bytes": 3127,
+    "sha256": "3dfc8d12ef20d297adba9e8927387736a0e0b38a8e2ceefb9bd9b8c43e3dfcbc",
+    "kind": "source_configuration",
+    "actual_from_sha256": "3dfc8d12ef20d297adba9e8927387736a0e0b38a8e2ceefb9bd9b8c43e3dfcbc",
+    "actual_to_sha256": "3dfc8d12ef20d297adba9e8927387736a0e0b38a8e2ceefb9bd9b8c43e3dfcbc",
+    "original_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/width_ladder/euler_fp32/configs/FROZEN_STAGE_V.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/width_ladder/euler_fp32/configs/FROZEN_STAGE_V.json",
+      "bytes": 3127,
+      "sha256": "3dfc8d12ef20d297adba9e8927387736a0e0b38a8e2ceefb9bd9b8c43e3dfcbc",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/resnet_activation_controls/evidence/seals/FROZEN_INPUTS.json",
+    "to": "studies/resnet_activation_controls/historical_seals/FROZEN_INPUTS.json",
+    "bytes": 6534,
+    "sha256": "76887fc5f8774360c56080986c6bba57208992c34b3639941ffb6e6fe8e05ed2",
+    "kind": "historical_provenance_not_current_authorization",
+    "actual_from_sha256": "76887fc5f8774360c56080986c6bba57208992c34b3639941ffb6e6fe8e05ed2",
+    "actual_to_sha256": "76887fc5f8774360c56080986c6bba57208992c34b3639941ffb6e6fe8e05ed2",
+    "original_path": "studies/resnet_pde/operator_pde/activation_controls/evidence/seals/FROZEN_INPUTS.json",
+    "original_inventory": {
+      "path": "studies/resnet_pde/operator_pde/activation_controls/evidence/seals/FROZEN_INPUTS.json",
+      "bytes": 6534,
+      "sha256": "76887fc5f8774360c56080986c6bba57208992c34b3639941ffb6e6fe8e05ed2",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/resnet_proof_audit/results/seals/FROZEN_INPUTS.json",
+    "to": "studies/resnet_proof_audit/historical_seals/FROZEN_INPUTS.json",
+    "bytes": 3789,
+    "sha256": "c3c5a4779d4546d3704401929aa97bca79daf81876063a83fc84df075f485244",
+    "kind": "historical_provenance_not_current_authorization",
+    "actual_from_sha256": "c3c5a4779d4546d3704401929aa97bca79daf81876063a83fc84df075f485244",
+    "actual_to_sha256": "c3c5a4779d4546d3704401929aa97bca79daf81876063a83fc84df075f485244",
+    "original_path": "studies/resnet_pde/pde_convergence/01_proof_audit/results/seals/FROZEN_INPUTS.json",
+    "original_inventory": {
+      "path": "studies/resnet_pde/pde_convergence/01_proof_audit/results/seals/FROZEN_INPUTS.json",
+      "bytes": 3789,
+      "sha256": "c3c5a4779d4546d3704401929aa97bca79daf81876063a83fc84df075f485244",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  },
+  {
+    "from": "data/historical/studies/stieltjes_hybrid_campaign/FROZEN_PROTOCOL.json",
+    "to": "studies/stieltjes_hybrid_campaign/historical_seals/FROZEN_PROTOCOL.json",
+    "bytes": 1084,
+    "sha256": "33d167afe0bc4f8b936dd96259d0afe2c83afad63ffdddd19772ce76a56a6dfe",
+    "kind": "historical_provenance_not_current_authorization",
+    "actual_from_sha256": "33d167afe0bc4f8b936dd96259d0afe2c83afad63ffdddd19772ce76a56a6dfe",
+    "actual_to_sha256": "33d167afe0bc4f8b936dd96259d0afe2c83afad63ffdddd19772ce76a56a6dfe",
+    "original_path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/FROZEN_PROTOCOL.json",
+    "original_inventory": {
+      "path": "studies/stieltjes_conjecture/numerics/hybrid_mean_field_campaign/FROZEN_PROTOCOL.json",
+      "bytes": 1084,
+      "sha256": "33d167afe0bc4f8b936dd96259d0afe2c83afad63ffdddd19772ce76a56a6dfe",
+      "tracked": true,
+      "category": "data",
+      "reason": "generated numerical, symbolic-table or run output"
+    },
+    "matches": true,
+    "matches_original_inventory": true
+  }
+]

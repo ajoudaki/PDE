@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "status": "preregistered_before_nonbaseline_dense_references",
+  "case_registry": "cases.json",
+  "active_case_ids": ["B0", "Y1", "Y2", "Y3", "Y4", "X1", "X2", "M2", "M4", "M5", "A1", "A2", "I1", "I2"],
+  "fixed_pde": {
+    "quadrature": "hybrid",
+    "basis_size_P": 5,
+    "basis_interpretation": "complete degree-one Hermite basis for d=3",
+    "depth_nodes_N": 16,
+    "base_order": 3,
+    "base_points_M": 81,
+    "fast_points_R": 128,
+    "primary_seed": 20260723,
+    "second_scramble_seed": 20260724,
+    "integrator": "rk4",
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "initial_horizon": 8.0,
+    "plateau_confirmation_horizon": 32.0
+  },
+  "screening_reference": {
+    "width_n": 128,
+    "depth_L": 32,
+    "ensemble_members": 32,
+    "seed_blocks": [[41000, 16], [42000, 16]],
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "horizon": 32.0
+  },
+  "heldout_confirmation": {
+    "case_ids": ["Y1", "Y3", "Y4", "X2", "M5", "A1", "I1", "I2"],
+    "width_n": 256,
+    "depth_L": 32,
+    "ensemble_members": 24,
+    "seed_blocks": [[51000, 12], [52000, 12]],
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "horizon": 32.0
+  },
+  "depth_diagnostic": {
+    "case_ids": ["I1", "I2"],
+    "width_n": 256,
+    "depth_L": 64,
+    "ensemble_members": 16,
+    "seed_start": 61000,
+    "dt": 0.02,
+    "sample_dt": 0.04,
+    "horizon": 32.0
+  },
+  "numerical_audits": {
+    "qmc_crosscheck_cases": ["B0", "I1", "I2"],
+    "qmc_settings": {"M": 256, "R": 128, "N": 16, "dt": 0.02},
+    "N32_cases": ["I1", "I2"],
+    "dt001_cases": ["I1", "I2"],
+    "scramble_tolerance_fraction_of_motion": 0.01,
+    "qmc_tolerance_fraction_of_motion": 0.01,
+    "time_depth_tolerance_fraction_of_motion": 0.005,
+    "fallback_fast_points_R": 256,
+    "identity_loss_defect_tolerance": 1e-10,
+    "identity_minimum_eigenvalue_tolerance": -1e-10
+  },
+  "primary_metrics": {
+    "gram": "full-time full-depth Frobenius sup error of Gram increments",
+    "output": "full-time Euclidean sup error of output increments",
+    "loss": "full-time sup error versus loss of ensemble-mean predictor",
+    "equivalence_margin": 0.05,
+    "near_original_gram_margin": 0.025,
+    "material_failure_margin": 0.10,
+    "nonlazy_motion_floor": 0.05,
+    "feature_motion_ratio_bounds": [0.5, 2.0],
+    "bootstrap_replicates": 2000,
+    "confidence": 0.95
+  },
+  "plateau": {
+    "endpoint_output_gram_drift": 0.0001,
+    "tail_arclength": 0.0002,
+    "analytic_output_speed": 0.00001,
+    "loss_drift": 0.000001,
+    "memberwise_p95_tail_drift": 0.001,
+    "horizon_ladder": [8.0, 16.0, 32.0],
+    "fixed_budget_failure_rule": "if either system fails the t=32 plateau rule, the case is reported as unresolved or a failure; no post-result horizon extension enters the frozen primary evidence"
+  },
+  "interpretation": {
+    "direct_current_conjecture_cases": ["B0", "Y1"],
+    "extension_cases": ["Y2", "Y3", "Y4", "X1", "X2", "M2", "M4", "M5", "A1", "A2", "I1", "I2"],
+    "prohibited_claims": [
+      "proof of the ordered width-depth limit",
+      "proof of P-to-infinity convergence",
+      "proof of arbitrary-accuracy finite-PDE existence"
+    ]
+  }
+}
