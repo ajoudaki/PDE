@@ -58,7 +58,44 @@ persistent-feature-velocity theorem. Introductory chapter and guide summaries
 have been updated to keep these scopes distinct. The prior complete theorem
 proofs are unchanged.
 
-The remaining initialization, calculus/code, quantitative and exact-capture
-drafts are not accepted by this package. `make check` currently passes 73
-small deterministic tests, including draft-code tests; that test count is
-not an independent proof/code verdict or promotion of those drafts.
+## Second accepted package: finite calculus and reusable implementation
+
+The moving L2, one-sample, order-three physical-GF recurrence is fully contained
+in `FINITE_JET_ADDITION.md`, SHA-256
+`bb927e3f7a2dc75a222664a871b7caf247ebccd0fc1f31815434f6f2e3c26fb6`.
+Two isolated reviewers read the entire proof, notation, numerical contract,
+implementation, tests and complete local import dependencies. Both returned
+CLEAN with no required corrections: `reviews/FINITE_JETS_A.md` and
+`reviews/FINITE_JETS_B.md`. Their independent rational coordinate-differentiation
+checks complement, rather than replace, the recurrence proof. The floating-point
+range exclusions remain explicit, including intermediate overflow even when
+an exact coefficient exists.
+
+The forest factorization, key, reversion/determinant algorithms and quadratic
+zero-first-mobility certificate are contained in `EXACT_CALCULUS_ADDITION.md`,
+SHA-256 `1babf900769e75b6951d1579108e4e3159d1fd297589f5d580f7382d5f95b799`.
+Both full isolated reviews are CLEAN with no required corrections:
+`reviews/EXACT_CALCULUS_A.md` and `reviews/EXACT_CALCULUS_B.md`.
+Their proof input also contained the complete Gaussian Section 4; all supplied
+code, tests and import dependencies were fully read. Independent Riccati/formal
+ODE coefficient derivations and independent inverse/determinant calculations
+reproduced every displayed certificate coefficient. These checks do not supply
+concentration or a positive-time identification claim, which are not asserted.
+
+The book's Section 7 preserves both proof bodies except for heading levels and
+the optional harmless superscript typo `^{,k}` changed to `^{k}` in (7.C3).
+The original reviewed fragment is retained unchanged. This is an editorial
+correction, not a new probability or arithmetic assertion. The code guide adds
+API contracts, examples, limitations and the complete certificate command.
+
+| Accepted implementation/test | SHA-256 |
+|---|---|
+| `code/pde/finite_jets.py` | `1d8e5bdf4ca056645c720fce69a4df9e82dbbdf840da7f9f4599efe5c401aca2` |
+| `code/tests/test_finite_jets.py` | `991ae49dc65f1e0970c02ab57596560fabd79a1e71416879b43c52aa5e75c88a` |
+| `code/pde/exact_calculus.py` | `482a45deb3e5fb721acdd0ae97654f9f5db57da145e0902d9ff1b24f01c8fc41` |
+| `code/tests/test_exact_calculus.py` | `b4a7f5795def064e53b2e7a849637d29dcaa0bad403e8e8ff893863b8468a439` |
+
+`make check` passes all 73 small deterministic tests and the structural boundary
+check. No training experiment, high-order campaign, data or figure was generated.
+Initialization, quantitative and exact-capture drafts still await their remaining
+independent reviews; the final integrated-edition audit and inventory are pending.

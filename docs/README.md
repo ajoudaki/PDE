@@ -150,13 +150,13 @@ alone would not establish that connection.
 | Chapter | Established content and scope |
 |---|---|
 | [Finite dynamics and energy](finite_dynamics.md) | Exact all-depth, finite-batch gradients, raw kernel blocks and dissipation; global finite-width GF for `C^2` activations; finite-horizon norm bounds under bounded slopes. |
-| [Gaussian and flow calculus](gaussian_calculus.md) | Exact conditioning, empirical transpose laws, finite-order gradient identities and rational Gaussian moments; complete width identification for each fixed-depth, fixed-length feature-ascent program with order-one stored readout. Also proves limits of same-space product norms and explains why Taylor divergence does not exclude smooth ODEs. No growing-program/GF inference. |
+| [Gaussian and flow calculus](gaussian_calculus.md) | Exact conditioning, empirical transpose laws, rational Gaussian moments and fixed-program width identification with order-one stored readout. Also moving L2 physical-flow jets through order three, Gaussian forest expectation factorization, canonical keys, and an exactly regenerated frozen-first-block Stieltjes certificate. Formal coefficients, same-space norm obstructions and Taylor divergence are kept distinct from positive-time convergence. No growing-program/GF inference. |
 | [Arctangent operator limits](arctan_limits.md) | One input and label one, small stored readout: global joint L=2 limit and complete local L=3 limit, with their own step conditions and observable contracts. Also contains a global auxiliary population/width theorem at each fixed backward-query cap, on finite feature-time horizons. This is not the uncut optimizer. |
 | [Global nonlinear learning](global_nonlinear.md) | The same activation `1+arctan(z)/10`, every separately fixed hidden depth `L>=3`, one input and label one: global compact-time joint limit, fitting, persistent nonaffinity and hidden activity. |
 | [Population limits and correlated-data geometry](special_data_limits.md) | Opposite-label L2 arctangent at orthogonal/antipodal inputs; equal-label shifted-arctangent L3 at all admitted correlations; and a three-sample bounded-shape/gain family at every fixed depth. A separate generic-correlation L2 arctangent theorem proves strong first-layer GF/raw-GD compactness and no kinetic defect, not a unique population limit. |
 | [Linear dynamics and closure boundaries](linear_dynamics.md) | L=3, one input, order-one stored readout: global operator-valued population/GF/GD limit and fitting; nonclosure only in the precisely specified bounded-contraction scalar/local-PDE encoding classes. |
 | [Continuous depth](continuous_depth.md) | A different, scalar-particle residual architecture: global characteristic GF and joint width/depth convergence under explicit parameter regularity. Not the dense Gaussian matrix architecture and not a joint GD-step theorem. |
-| [Finite optimization and controls](finite_optimization_and_controls.md) | Canonical L=3 arctangent finite GF and exact GD fitting with finite endpoints on proved Gaussian events; a separate energy-compatible finite projection, integrated L1 defect and exactness at a sufficient cap C sqrt(n). Also mixed-activation L2 finite-GF fitting at every interior correlation with opposite labels, and permanent first-gate mass on an augmented event. No population/GD extension for these two auxiliary families. |
+| [Finite optimization and controls](finite_optimization_and_controls.md) | Canonical L=3 arctangent finite GF and exact GD fitting with finite endpoints on proved Gaussian events; a separate energy-compatible finite projection, integrated L1 defect and exactness at a sufficient cap C sqrt(n). Also mixed-activation L2 finite-GF fitting at every interior correlation with opposite labels, and permanent first-gate mass on an augmented event. No population/GD extension for the projection or mixed-activation results. |
 
 Read the first two chapters as common mathematical foundations. The nonlinear
 chapters carry their complete source-identification and stability proofs; a
@@ -164,8 +164,10 @@ reader need not reconstruct a probability argument from an earlier report.
 The linear and continuous-depth chapters clarify what an operator representation
 can retain and which conclusions are architecture-dependent. The finite-controls
 chapter separates optimization from population identification. The accompanying
-[implementation guide](../code/README.md) describes the finite reference and
-exact Gaussian arithmetic; code execution is not needed to check the proofs.
+[implementation guide](../code/README.md) describes the finite reference, moving
+jets and exact Gaussian/certificate arithmetic. Code execution is not needed
+to check the proofs; the displayed certificate has a complete reproduction
+command and independent checking routes.
 
 ## Comparison of mathematical targets
 

@@ -1,10 +1,12 @@
 # Gaussian reuse and finite-order flow calculus
 
-This chapter establishes two elementary building blocks for calculations of
-deep-network dynamics: the response retained when a Gaussian matrix is reused,
-and exact derivatives along a gradient direction. Use [the shared notation](NOTATION.md).
-These statements do not assert convergence of an infinite Taylor series or a
-width-dependent number of adaptive matrix calls.
+This chapter develops Gaussian matrix reuse and finite-order flow calculus.
+It includes conditioning and fixed-program width identification, moving
+physical-flow jets, forest expectation factorization, and small exact rational
+certificates. Use [the shared notation](NOTATION.md). The statements distinguish
+finite derivatives, formal coefficients and actual width limits; they do not
+assert convergence of an infinite Taylor series or a width-dependent number
+of adaptive matrix calls.
 
 ## 1. One forward call followed by a transpose
 
@@ -1810,3 +1812,620 @@ Thus failure of analyticity alone is not an obstruction to a smooth
 finite-dimensional realization. Conversely, this example does not
 supply a network closure, a convergent flow Taylor series, or a
 depth- or time-uniform extension of the fixed-program theorem.
+
+## 7. Reusable finite calculus and exact certificates
+
+### 7.1. A finite moving-flow Taylor recurrence through order three
+
+#### Specification and claim
+
+Fix hidden depth \(L=2\), one sample \(m=1\), positive integers \(n,d\),
+an input \(x_1\in\mathbb R^d\), a label \(y_1\in\mathbb R\), and constant
+positive multipliers \(\kappa_1,\kappa_2,\kappa_3\). The input Gram entry is
+\(G_{11}=x_1^Tx_1/d\); it need not be one or positive. Both hidden layers
+use the same scalar activation \(\phi\in C^3(\mathbb R)\). No distributional
+assumption is imposed on the finite initial weights.
+
+The stored weights are \(W^{(1)}\in\mathbb R^{n\times d}\),
+\(W^{(2)}\in\mathbb R^{n\times n}\), and
+\(W^{(3)}\in\mathbb R^n\). For the sole sample, suppress the sample index
+on hidden and backward fields. Use first-layer neuron index \(j\),
+second-layer neuron index \(i\), and input-coordinate index \(\alpha\):
+
+\[
+\begin{aligned}
+z_j^{(1)}&=\frac1{\sqrt d}\sum_{\alpha=1}^d W_{j\alpha}^{(1)}x_{1,\alpha},
+&h_j^{(1)}&=\phi(z_j^{(1)}),\\
+z_i^{(2)}&=\sum_{j=1}^n W_{ij}^{(2)}h_j^{(1)},
+&h_i^{(2)}&=\phi(z_i^{(2)}),\\
+f_{n,1}&=\frac1n\sum_{i=1}^n W_i^{(3)}h_i^{(2)},
+&r_1&=f_{n,1}-y_1,\qquad \mathcal L_n=r_1^2.
+\end{aligned}                                                    \tag{J1}
+\]
+
+In particular no extra width factor occurs in the hidden forward action.
+The residual-free backward fields are
+
+\[
+\delta_i^{(2)}=W_i^{(3)}\phi'(z_i^{(2)}),\qquad
+\delta_j^{(1)}=\phi'(z_j^{(1)})\sum_{i=1}^n W_{ij}^{(2)}\delta_i^{(2)}.
+                                                               \tag{J2}
+\]
+
+The same entry \(W_{ij}^{(2)}\) in (J1) appears in (J2); the two actions
+are \(W^{(2)}\) and its actual transpose. No identification of first- and
+second-layer neurons is made even though their cardinalities agree.
+
+Let \(t\) be physical time, with all raw blocks moving according to
+\(\dot\theta=-D\nabla\mathcal L_n\), where the first, middle, and readout
+blocks of the constant mobility \(D\) are multiplication by
+\(n\kappa_1,\kappa_2,n\kappa_3\), respectively. Then
+
+\[
+\begin{aligned}
+\dot W^{(1)}&=-\frac{2\kappa_1}{\sqrt d}\,r_1\delta^{(1)}x_1^T,\\
+\dot W^{(2)}&=-\frac{2\kappa_2}{n}\,r_1\delta^{(2)}(h^{(1)})^T,\\
+\dot W^{(3)}&=-2\kappa_3 r_1h^{(2)}.
+\end{aligned}                                                    \tag{J3}
+\]
+
+For an integer \(0\le R\le3\), the recurrence below computes the
+ordinary coefficients \(v_k=v^{(k)}(0)/k!\), \(0\le k\le R\), of all
+three weight blocks, both forward preactivations and activations, and the
+output along (J3). Here the expansion point is any supplied finite state;
+calling its time zero does not require it to be a random initialization.
+Backward coefficients are needed only through \(R-1\).
+
+All identities in this specification concern real arithmetic. Their
+evaluation with floating-point arrays is a numerical oracle for these
+coefficients, not exact arithmetic, a population law, or an exact
+positive-time solution.
+
+#### Elementary algebra of ordinary coefficients
+
+Write \(v(t)=\sum_{k=0}^R v_k t^k+o(|t|^R)\) for a \(C^R\) field,
+with the usual continuous-value interpretation when \(R=0\). For any
+fixed bilinear operation \(B\) between finite-dimensional spaces,
+
+\[
+[B(u,v)]_k=\sum_{p=0}^k B(u_p,v_{k-p}).                          \tag{J4}
+\]
+
+Indeed multiply the two finite expansions: the products of powers with
+total degree \(k\) have exactly the displayed indices. Their remainders
+are \(o(|t|^R)\), because the retained polynomials are locally bounded.
+The rule applies entrywise to scalar multiplication, Hadamard products,
+matrix products, outer products, and row-vector pairings. Finite sums
+commute with coefficient extraction, and
+\([(W^{(2)})^T]_k=(W_k^{(2)})^T\).
+
+For a scalar function \(\psi\in C^q\), \(0\le q\le3\), use the following
+coordinatewise composition coefficients only at degrees at most \(q\):
+
+\[
+\begin{aligned}
+\mathcal C_0(\psi,z)&=\psi(z_0),\\
+\mathcal C_1(\psi,z)&=\psi'(z_0)\odot z_1,\\
+\mathcal C_2(\psi,z)&=\psi'(z_0)\odot z_2
+ +\tfrac12\psi''(z_0)\odot z_1^{\odot2},\\
+\mathcal C_3(\psi,z)&=\psi'(z_0)\odot z_3
+ +\psi''(z_0)\odot z_1\odot z_2
+ +\tfrac16\psi'''(z_0)\odot z_1^{\odot3}.
+\end{aligned}                                                    \tag{J5}
+\]
+
+To verify (J5), put \(e(t)=z(t)-z_0\). Scalar Taylor expansion gives
+\(\psi(z_0+e)=\psi(z_0)+\psi'(z_0)e+\psi''(z_0)e^2/2
++\psi'''(z_0)e^3/6+o(|e|^3)\). At positive truncation order,
+\(e=O(|t|)\). The degree-two and degree-three terms of \(e^2\) are
+\(z_1^{\odot2}\) and \(2z_1\odot z_2\), and the degree-three term of
+\(e^3\) is \(z_1^{\odot3}\). Substitution proves each line, including
+the lower-order versions obtained by truncation. Applying (J5) to
+\(\psi=\phi'\) only for degrees at most two requires derivatives of
+\(\phi\) through order three, not four.
+
+#### Recurrence
+
+Initialize \(W_0^{(1)},W_0^{(2)},W_0^{(3)}\) to the supplied raw state.
+At each degree \(k=0,\ldots,R\), do the following forward sweep:
+
+\[
+\begin{aligned}
+z_k^{(1)}&=W_k^{(1)}x_1/\sqrt d,
+&h_k^{(1)}&=\mathcal C_k(\phi,z^{(1)}),\\
+z_k^{(2)}&=\sum_{p=0}^k W_p^{(2)}h_{k-p}^{(1)},
+&h_k^{(2)}&=\mathcal C_k(\phi,z^{(2)}),\\
+f_{n,1;k}&=\frac1n\sum_{p=0}^k (W_p^{(3)})^Th_{k-p}^{(2)}.
+\end{aligned}                                                    \tag{J6}
+\]
+
+If \(k=R\), stop. Otherwise form
+\(r_{1;k}=f_{n,1;k}-\mathbf1_{\{k=0\}}y_1\), and compute
+
+\[
+\begin{aligned}
+\delta_k^{(2)}
+ &=\sum_{p=0}^k W_p^{(3)}\odot\mathcal C_{k-p}(\phi',z^{(2)}),\\
+\delta_k^{(1)}
+ &=\sum_{a+b+c=k}
+   \mathcal C_a(\phi',z^{(1)})\odot (W_b^{(2)})^T\delta_c^{(2)}.
+\end{aligned}                                                    \tag{J7}
+\]
+
+All indices in a sum of degrees are nonnegative integers. With these
+coefficients, update the next degree of every weight block:
+
+\[
+\begin{aligned}
+W_{k+1}^{(1)}
+ &=-\frac{2\kappa_1}{(k+1)\sqrt d}
+       \sum_{a+b=k} r_{1;a}\delta_b^{(1)}x_1^T,\\
+W_{k+1}^{(2)}
+ &=-\frac{2\kappa_2}{(k+1)n}
+       \sum_{a+b+c=k} r_{1;a}\delta_b^{(2)}(h_c^{(1)})^T,\\
+W_{k+1}^{(3)}
+ &=-\frac{2\kappa_3}{k+1}
+       \sum_{a+b=k} r_{1;a}h_b^{(2)}.
+\end{aligned}                                                    \tag{J8}
+\]
+
+There is no circular dependence at a given degree. The weight coefficients
+through \(k\) are available before (J6); the first layer of (J6) precedes
+the second. Equation (J7) uses that forward sweep and already available
+weights. Equation (J8) then creates the next weight coefficients. When
+\(R=0\) only (J6)'s values are computed. For \(R>0\), (J7)'s largest
+degree is \(R-1\), so its largest activation derivative is \(\phi^{(R)}\).
+The terminal (J6) also uses derivatives only through \(\phi^{(R)}\).
+
+In coordinates, the transpose contribution in (J7) is explicitly
+
+\[
+(\delta_k^{(1)})_j
+=\sum_{a+b+c=k}\mathcal C_a(\phi',z^{(1)})_j
+                    \sum_{i=1}^n (W_b^{(2)})_{ij}(\delta_c^{(2)})_i.
+                                                               \tag{J9}
+\]
+
+Terms with \(b>0\) retain trained-weight contributions. Replacing this
+matrix by \(W_0^{(2)}\), using an independent reverse matrix, or deleting
+positive-degree residual coefficients changes the recurrence.
+
+#### Proof that these are moving physical-flow coefficients
+
+First verify (J3). Differentiating (J1) with respect to the final
+preactivation gives \(\partial f_{n,1}/\partial z_i^{(2)}
+=\delta_i^{(2)}/n\). Differentiating through the second layer gives
+\(\partial f_{n,1}/\partial z_j^{(1)}=\delta_j^{(1)}/n\) by (J2).
+Consequently the ordinary matrix and vector gradients are
+
+\[
+\nabla_{W^{(1)}}f_{n,1}=\delta^{(1)}x_1^T/(n\sqrt d),\quad
+\nabla_{W^{(2)}}f_{n,1}=\delta^{(2)}(h^{(1)})^T/n,\quad
+\nabla_{W^{(3)}}f_{n,1}=h^{(2)}/n.
+\]
+
+The derivative of \(r_1^2\) is \(2r_1\nabla f_{n,1}\). Multiplying each
+gradient by its negative mobility proves (J3), including every width,
+input, and loss factor.
+
+For completeness, a local \(C^3\) solution exists and is unique without
+any probabilistic argument. The finite vector field \(V\) in (J3) is
+\(C^2\), since its factors involve \(\phi\) and \(\phi'\). On a small
+closed Euclidean ball around the initial state its norm is bounded by
+\(B\) and its first derivative by \(M\). Integration along a segment in
+the ball gives \(\|V(u)-V(v)\|\le M\|u-v\|\). Choose a time radius
+\(a>0\) with \(aB\) smaller than the ball radius and \(aM<1\).
+For curves in the ball, the map
+\(u\mapsto\theta_0+\int_0^t V(u(s))\,ds\), \(|t|\le a\), stays in
+the ball and decreases the sup norm of differences by a factor at most
+\(aM\). Iterating from the constant curve gives successive differences
+bounded by a geometric series, hence a uniformly convergent curve. The
+Lipschitz bound permits passage through the integral; its limit solves
+the integral equation. Two solutions have sup norm difference at most
+\(aM\) times that difference, hence agree. The integral equation first
+gives a \(C^1\) solution. Substituting into the \(C^2\) vector field and
+using the chain rule twice gives a \(C^3\) solution. The forward fields
+and output are \(C^3\) by composition.
+
+We now prove correctness by induction on degree. At degree zero, (J6)
+is the defining network evaluation (J1). Assume that the algorithm has
+the true coefficients of every weight through degree \(k\), and all
+previously computed fields. The first equation of (J6) is a linear
+contraction of the weight and fixed input, so has the true degree-\(k\)
+coefficient. Equation (J5) proves the first activation coefficient.
+Equation (J4) applied to \(W^{(2)}h^{(1)}\) proves the next
+preactivation coefficient, and (J5) proves its activation coefficient.
+Finally (J4) applied to the readout pairing proves \(f_{n,1;k}\).
+Subtracting the fixed label only at degree zero gives the true residual
+coefficient.
+
+If \(k<R\), apply (J4) to (J2) and (J5) to its two activation derivatives.
+This yields precisely (J7), including the derivative coefficients of the
+transpose. Apply (J4) again to each product on the right of (J3); its
+degree-\(k\) coefficient is the corresponding numerator of (J8). The
+left side has degree-\(k\) coefficient \((k+1)W_{k+1}^{(\ell)}\).
+Equating coefficients proves (J8). Thus all newly created weights are
+correct, closing the induction up to \(R\). No higher derivative is
+needed to justify the last step: when \(R=3\) the vector field is
+expanded only through degree two.
+
+In particular these coefficients have the finite Taylor interpretation
+\(v(t)=\sum_{k=0}^R v_k t^k+o(|t|^R)\). A stronger
+\(O(|t|^{R+1})\) remainder, a convergent infinite series, and a uniform
+bound in width do not follow from this proof.
+
+#### Relation to feature ascent and raw normalization
+
+Feature ascent with these same mobilities is the separately defined flow
+\(d\theta/ds=D\nabla f_{n,1}(\theta)\). Its raw equations are
+
+\[
+\frac{dW^{(1)}}{ds}=\kappa_1\delta^{(1)}x_1^T/\sqrt d,\quad
+\frac{dW^{(2)}}{ds}=\kappa_2\delta^{(2)}(h^{(1)})^T/n,\quad
+\frac{dW^{(3)}}{ds}=\kappa_3h^{(2)}.
+                                                               \tag{J10}
+\]
+
+The scalarized first coordinate obeys
+\(dz^{(1)}/ds=\kappa_1G_{11}\delta^{(1)}\). Its factor \(G_{11}\) is
+forced by the raw first matrix and input, and is not an independent
+normalization parameter. If one instead stores the auxiliary matrix
+\(\widehat W^{(2)}=\sqrt n W^{(2)}\), then
+\(z^{(2)}=\widehat W^{(2)}h^{(1)}/\sqrt n\) and
+\(d\widehat W^{(2)}/ds=\kappa_2\delta^{(2)}(h^{(1)})^T/\sqrt n\).
+This is a coordinate change; it introduces no extra factor into (J1).
+With unit multipliers, the mobility in the coordinates
+\((W^{(1)},\widehat W^{(2)},W^{(3)})\) is multiplication by \(n\) in
+every block.
+
+Physical time satisfies \(ds/dt=-2r_1\). On intervals where this is
+positive it is the increasing feature-time change. At \(r_1=0\),
+(J3) has zero vector field; the unique local physical solution is
+constant, and all its positive-order coefficients vanish. The recurrence
+handles this case directly without dividing by \(r_1\).
+
+It is not sufficient to rescale the \(k\)-th feature derivative by the
+\(k\)-th power of the initial clock speed. To see the missing terms,
+let \(F(s)=f_{n,1}(\theta(s))\), and write \(b=-2r_1(0)\).
+At the expansion point, \(s'=b\), \(s''=-2bF'\), and
+\(s'''=-2b^2F''+4b(F')^2\), obtained by differentiating
+\(s'=-2(F(s)-y_1)\) twice. The chain rule gives physical derivatives
+
+\[
+\begin{aligned}
+\dot f_{n,1}&=bF',\\
+\ddot f_{n,1}&=b^2F''-2b(F')^2,\\
+f_{n,1}^{(3)}&=b^3F'''-8b^2F'F''+4b(F')^3.
+\end{aligned}                                                    \tag{J11}
+\]
+
+Equation (J8) incorporates these clock effects by retaining the moving
+residual before every coefficient update. It also retains acceleration
+and higher weight coefficients; evaluating the network on the straight
+line \(\theta_0+t\dot\theta_0\) would discard them.
+
+#### Numerical interface and claim boundary
+
+`pde.finite_jets.flow_jet(parameters, inputs, labels,
+activation_derivative, order=R, kappas=...)` implements (J6)--(J8).
+`inputs` has shape `(d,1)` and `labels` has shape `(1,)`. Its result has
+`parameter_coefficients[k]` in raw `Parameters` storage; each array in
+`preactivation_coefficients` and `hidden_coefficients` has shape
+`(R+1,n,1)`, with tuple positions zero and one corresponding to layers
+one and two. `output_coefficients[k,0]` is \(f_{n,1;k}\), and
+`output_derivatives[k,0]` is its factorial multiple.
+
+The derivative callback receives `(j,z)` with \(0\le j\le R\), and
+must return the true coordinatewise \(\phi^{(j)}(z)\) as a real finite
+array of the same shape `(n,1)`. Each call receives a private copy of
+the initial preactivation; its returned array is copied immediately.
+This permits in-place callbacks and reusable output buffers without
+altering the initial coordinates or earlier derivatives. Consistency,
+coordinatewise semantics, and \(C^3\) regularity cannot be certified
+by shape and finiteness checks; they are requirements on the caller.
+Callbacks must not mutate unrelated external state of the calculation.
+
+Parameter and argument validation follows the finite numerical contract.
+Only the evaluated degrees are required to be representable: no terminal
+backward field, loss value, or unused residual is constructed. Raw first
+matrix contraction precedes division by \(\sqrt d\). Scalar mobility,
+normalization, and degree factors are combined using mantissa/exponent
+multiplication. This avoids premature range loss for those factors but
+does not protect raw matrix products, convolution sums, or composition
+powers from overflow, underflow, or cancellation. Nonfinite evaluated
+coefficients are rejected. An unrepresentable factorial multiple is
+rejected when output derivatives are requested. There is no
+correct-rounding or universal extreme-range guarantee.
+
+For bounded \(R\le3\), storage and algebraic work are \(O(nd+n^2)\),
+in addition to callback costs, with constants depending on the degree. No
+Gaussian initialization, expectation, width extrapolation, population
+closure, infinite-order calculus, or positive-time error estimate is
+part of this result. In particular the finite deterministic recurrence
+applies both to order-one and small stored readouts without identifying
+their different population initialization regimes.
+
+### 7.2. Forest factorization and small exact certificates
+
+The following is a reusable, finite algebraic part of the calculus. It is
+not a claim that a high-order compiler, an infinite Taylor series, or a
+positive-time population evolution has been verified. The implementation
+`pde.exact_calculus` supplies a canonical forest key, rational finite-series
+reversion, rational determinants, and one completely specified certificate.
+No retained table is an input to these operations.
+
+#### Decorated forests and the leading Gaussian factorization
+
+Take independent standard Gaussian variables \(a_i,u_j,g_{ij}\), for
+\(1\le i,j\le n\), with the two neuron populations kept separate. A finite
+bipartite forest has second-layer vertices decorated by powers of \(a_i\),
+first-layer vertices decorated by powers of \(u_j\), and an edge for each
+factor \(g_{ij}\). Decorations are nonnegative integers, and edges are simple.
+Sum its monomial over all neuron labels, with no restriction that different
+vertices have different labels. If it has \(e\) edges and \(r\) connected
+components, normalize this sum by \(n^{-e/2-r}\). Let its expectation be
+\(T_n\). All graph sizes and decorations in this paragraph are fixed while
+\(n\) grows.
+
+**Finite-forest factorization.** The limit of \(T_n\) exists. It equals the
+product of the limits of its separately normalized connected components.
+A component with an odd number of edges has zero limit. The assertion
+concerns expectation; it does not alone prove concentration or empirical-law
+convergence.
+
+Here is a direct proof. If the total edge count is odd, Gaussian symmetry
+makes the expectation zero. Otherwise write \(e=2p\). Expanding the Gaussian
+edge expectation into pairings, as proved in Section 4, identifies both
+endpoints of every pair of edges. Collapse each pair to a single edge in
+the resulting multigraph. Let \(v\) be its number of vertices and \(c\)
+its number of connected components. A connected multigraph with \(v_0\)
+vertices needs at least \(v_0-1\) edges: begin with one vertex and add an
+edge each time the reachable vertex set grows. Consequently
+\[
+ v\le p+c,\qquad c\le r.
+ \tag{7.F1}
+\]
+For this fixed pairing, labelings with no extra equality among distinct
+vertices in either neuron population number
+\((n)_{v_1}(n)_{v_2}=n^v+O(n^{v-1})\), where \(v_1+v_2=v\) and
+\((n)_b=n(n-1)\cdots(n-b+1)\). Their decoration expectation is the product
+of the Gaussian moments at the quotient vertices. Labelings with an extra
+equality number \(O(n^{v-1})\): choose an equal vertex pair and then all
+remaining labels freely. Their Gaussian decoration moments are bounded by
+a constant depending only on the fixed decorations. Thus this pairing
+contributes a constant times \(n^{v-p-r}\), with an error one power smaller.
+There are finitely many pairings. By (7.F1) none diverges.
+
+Only \(v=p+r\) can survive. It requires \(c=r\) and equality in the
+connected edge bound, so no pairing joins two original components and each
+quotient component is a tree. Conversely the independently chosen surviving
+pairings of the original components give exactly these surviving full-forest
+pairings. Their decoration factors multiply, and the leading coefficient
+of each free-label count is one. Summing proves the product assertion. If
+an original component has odd edge count there is no internal complete
+pairing, so the limit is zero. This also handles odd total edge count and
+isolated vertices. No independence of trained coordinates has been asserted.
+
+For example a two-edge component \(g_{ij}g_{ik}u_j^2u_k^2\), with its
+three labels summed and normalization \(n^{-2}\), has only one edge
+pairing. It forces \(j=k\), leaving two free labels and moment
+\(E u_j^4=3\). Two disjoint copies have limit \(9\): pairings between
+the copies identify their components and lose at least a factor \(1/n\).
+An isolated second-layer decoration \(a_i^2\), normalized by \(1/n\),
+has limit one and can be multiplied into this example. This factorization
+is the reason connected objects can be computed once and reused.
+
+To make that reuse independent of arbitrary vertex names, give vertex \(v\)
+the color \((\ell_v,b_v)\), its layer in \(\{1,2\}\) and decoration.
+For a rooted tree define its key recursively to be its root color followed
+by the sorted tuple of its children's keys. The key of an unrooted tree
+is the lexicographically smallest rooted key over all possible roots.
+The key of a forest is the sorted tuple of its component keys, retaining
+repetitions. The empty forest has the empty tuple.
+
+Induction on tree size proves that rooted keys agree exactly when a
+color-preserving rooted isomorphism exists: equal sorted lists match the
+children with multiplicity and invoke the induction on each subtree;
+the reverse implication follows from the same decomposition. Equal minima
+for two unrooted trees give roots with equal rooted keys and hence an
+unrooted isomorphism. An unrooted isomorphism maps the whole list of rooted
+keys onto the other, proving the converse. The same component argument
+proves the forest assertion. Therefore this immutable key can safely index
+a caller's memoization of any genuinely isomorphism-invariant calculation.
+It does not by itself compute that calculation or certify a coefficient
+generator. Edge validation by successively merging connected components
+rejects a duplicate or cycle exactly when its two endpoints were already
+connected. This proves the validation and key logic in `forest_key`.
+
+#### A fully specified quadratic initialization-jet obstruction
+
+This example uses a different metric and initialization from the main
+nonlinear training theorem. It is a negative test of a proposed universal
+representation, not a recommended model for feature learning. There is one
+sample \(x=y=1\), \(d=1\), \(L=2\), quadratic activations, and
+\[
+ W^{(1)}_j=u_j,\quad W^{(2)}_{ij}=g_{ij}/\sqrt n,
+ \quad W^{(3)}_i=a_i,\qquad
+ z_i^{(2)}=\frac1{\sqrt n}\sum_j g_{ij}u_j^2,
+ \quad f_n=\frac1n\sum_i a_i(z_i^{(2)})^2.
+ \tag{7.C1}
+\]
+All the displayed initialization Gaussians are independent standard normals;
+the stored readout is order one. Freeze only the first parameter block and
+use feature ascent, with hidden stored-block mobility one and readout
+mobility \(n\). Thus, in the auxiliary unscaled matrix coordinates,
+\[
+ \frac{da_i}{ds}=(z_i^{(2)})^2,\qquad
+ \frac{dg_{ij}}{ds}=\frac2{\sqrt n}a_i z_i^{(2)}u_j^2,
+ \qquad \frac{du_j}{ds}=0.
+ \tag{7.C2}
+\]
+These equations follow by differentiating (7.C1); they are not loss GD or
+physical-time GF. Put \(q_n=n^{-1}\sum_j u_j^4\). Differentiating the
+preactivation gives \(dz_i^{(2)}/ds=2q_n a_i z_i^{(2)}\). Therefore the
+exact finite initialization derivative of order \(k\) is
+\[
+ \left.\frac{d^k f_n}{ds^k}\right|_{s=0}
+ =\frac1n\sum_i \mathscr D_{q_n}^{k}(a_i(z_i^{(2)})^2),
+ \quad \mathscr D_q=z^2\partial_a+2qaz\partial_z.
+ \tag{7.C3}
+\]
+Here \(a,z\) are the two scalar arguments of a polynomial; the superscript
+on \(\mathscr D\) is repeated application, not a weight-layer index.
+Repeated chain rule proves (7.C3), since \(q_n\) is constant along (7.C2).
+Smooth finite equations have a local solution at every initial state; no
+positive-time uniform existence is needed to define these derivatives.
+
+Conditional on all \(u_j\), the pairs \((a_i,z_i^{(2)})\) at initialization
+are independent, with laws \(N(0,1)\otimes N(0,q_n)\). Set
+\(z=\sqrt q\,\xi\). Then
+\(\mathscr D_q=q(\xi^2\partial_a+2a\xi\partial_\xi)\) and
+\(az^2=qa\xi^2\). Conditional expectation of (7.C3) is consequently
+\(c_k q_n^{k+1}\), for a fixed finite constant \(c_k\).
+
+To pass to the unconditional limit without a probabilistic black box, note
+that \(E u^4=3\) and independence imply \(E(q_n-3)^2=\operatorname{Var}(u^4)/n\).
+For every positive integer \(b\), convexity gives
+\(E q_n^{2b}\le E|u|^{8b}<\infty\), uniformly in \(n\).
+For a nonnegative \(x\), factorization of \(x^b-3^b\) bounds its absolute
+value by \(b|x-3|\max(x,3)^{b-1}\). Cauchy--Schwarz and the preceding
+moment bound show \(E|q_n^b-3^b|\to0\). Hence all fixed-order annealed
+initialization derivatives have the exact limit
+\[
+ d_k=E\mathscr D^k(AZ^2),\qquad
+ \mathscr D=z^2\partial_a+6az\partial_z,\quad
+ A\sim N(0,1),\ Z\sim N(0,3)\text{ independent}.
+ \tag{7.C4}
+\]
+The expectation is of the polynomial after substitution \((a,z)=(A,Z)\).
+This proves the probabilistic interpretation of this particular coefficient
+recurrence. It does not interchange an infinite series with a width limit.
+
+The elementary monomial rules are
+\[
+ \mathscr D(a^p z^q)=p a^{p-1}z^{q+2}+6q a^{p+1}z^q,
+ \qquad E[A^pZ^q]=
+ \begin{cases}(p-1)!!(q-1)!!3^{q/2},&p,q\text{ even},\\0,&\text{otherwise}.
+ \end{cases}
+ \tag{7.C5}
+\]
+Use \((-1)!!=1\). The moment rule follows by integrating the Gaussian
+density derivative by parts, starting with moment zero equal to one;
+independence multiplies the two moments. Each application changes the
+parity of the \(a\) exponent and preserves the parity of the \(z\) exponent.
+Thus all even \(d_k\) vanish. Starting from the single monomial \(az^2\),
+(7.C5) through order thirteen gives
+\[
+ (d_1,d_3,d_5,d_7,d_9,d_{11},d_{13})=
+ (63,77760,274547232,2141006515200,31149221916487680,
+ 759035131220036321280,28719223368439752070594560).
+ \tag{7.C6}
+\]
+For instance the first differentiated polynomial is \(z^4+12a^2z^2\),
+whose expectation is \(27+36=63\). The finite recurrence (7.C5), not a
+table read from another source, specifies every other integer in (7.C6).
+
+Form the formal series \(F(s)=\sum_{k\ge0}d_k s^k/k!\). This is a
+formal algebraic object; no convergence is presumed. Its zero constant and
+nonzero linear coefficient give a unique formal inverse \(B(y)\).
+Define \(K(y)=F'(B(y))\). Since \(F\) is odd, uniqueness makes \(B\)
+odd and \(K\) even. Define the coefficients \(\mu_j\) by
+\[
+ K(y)=63+y^2\sum_{j\ge0}(-1)^j\mu_j y^{2j}.
+ \tag{7.C7}
+\]
+Only (7.C6) is needed for \(\mu_0,\ldots,\mu_5\). There is no use
+of a specialized inversion theorem: if \(a_k=d_k/k!\), let \(b_0=0\),
+\(b_1=1/a_1\), and successively set
+\[
+ b_k=-\frac1{a_1}[y^k]\sum_{j=2}^k a_j
+                  \left(\sum_{i=1}^{k-1}b_i y^i\right)^j.
+ \tag{7.C8}
+\]
+The only degree-\(k\) term involving the unknown \(b_k\) in \(F(B(y))\)
+is \(a_1b_k\); thus induction proves both existence and uniqueness and
+the formula. Ordinary convolution gives each product coefficient.
+Substitution in \(F'(B(y))\) gives exactly
+\[
+ (\mu_0,\ldots,\mu_5)=\left(
+ \frac{480}{49},\frac{43756}{151263},\frac{7214528}{200120949},
+ \frac{12545175968}{2402451992745},
+ \frac{171752915595136}{200241971143303005},
+ \frac{2199776554157960896}{14570607030242443158825}\right).
+ \tag{7.C9}
+\]
+
+These six coefficients cannot be moments of a nonnegative measure on
+\([0,\infty)\). Indeed the shifted moment matrix
+\(M_{ij}=\mu_{i+j+1}\), \(0\le i,j\le2\), satisfies
+\[
+ \det M=-\frac{86245462994269879146938487857152}
+ {200150589172828762588730609071155193161975}<0.
+ \tag{7.C10}
+\]
+There is also a direct polynomial witness, avoiding a definiteness criterion.
+Let \(p(\lambda)=v_0+v_1\lambda+\lambda^2\), where
+\[
+ v_0=\frac{40042013405871059816}{2310453239160606810795},\qquad
+ v_1=-\frac{14165989123115588}{49896409440894219}.
+\]
+Direct rational multiplication of (7.C9) gives
+\[
+ \sum_{i,j=0}^2v_i v_j\mu_{i+j+1}
+ =-\frac{673792679642733430835456936384}
+ {329714727520793070279653295504327135}<0,
+ \qquad v_2=1.
+ \tag{7.C11}
+\]
+If such a representing measure \(\nu\) existed, this finite sum would
+equal \(\int\lambda p(\lambda)^2\nu(d\lambda)\ge0\). This is the
+contradiction. All relevant moments are finite by the representation being
+tested. The result refutes a representation demanded uniformly over metrics
+including this zero first-block mobility. It does not settle the unit-metric
+case, any strictly positive first mobility, or an actual positive-time
+population equation. Nonexistence of this moment representation is not
+nonexistence of a nonlinear feature-learning limit.
+
+#### Implementation and independent checking routes
+
+`revert_series` accepts ordinary rational coefficients and implements (7.C8)
+by truncated composition in Horner order. Multiplication is the finite
+convolution \((ab)_k=\sum_{i=0}^k a_i b_{k-i}\). It returns all inverse
+coefficients to the same length, without mutating its input. A nonzero
+constant or zero linear coefficient is rejected. `determinant` eliminates
+successive columns using a nonzero pivot, swapping rows when necessary and
+tracking the determinant sign. Subtracting multiples of one row from another
+preserves the determinant; each pivot multiplies the remaining triangular
+determinant. If no pivot exists, the remaining first column is zero and the
+determinant is zero. The empty determinant is one. This proves its algorithm
+over the rational field, including singular matrices.
+
+`quadratic_axis_certificate()` generates (7.C6) directly from (7.C5), reverts
+the ordinary series using (7.C8), composes its derivative to produce (7.C9),
+and constructs the witness by solving the leading two-by-two shifted system:
+\[
+ v_0=\frac{\mu_2\mu_4-\mu_3^2}{\mu_1\mu_3-\mu_2^2},\qquad
+ v_1=\frac{\mu_2\mu_3-\mu_1\mu_4}{\mu_1\mu_3-\mu_2^2}.
+\]
+The positive denominator is checked before division. Tests independently
+compare the six displayed fractions and evaluate (7.C11) from the displayed
+witness; a Leibniz-permutation determinant checks the elimination route.
+Series tests compose both directions of reversion, and forest tests check
+relabelling, edge order, component multiplicity, invalid graphs and changed
+decorations. They do not validate an unimplemented general-depth generator.
+
+All scalar arithmetic in this module is integer or `fractions.Fraction`;
+floating values and booleans are rejected by its rational interfaces.
+Graph indices and colors are nonnegative Python integers, with layer one or
+two. Inputs are finite lists or tuples. Results are freshly constructed;
+there is no cross-call cache, sampling or file output. Rational bit sizes and
+the all-roots tree-key cost can grow, so these are small transparent reference
+primitives, not performance claims for large-order campaigns. Python recursion
+limits still apply to the recursive tree key.
+
+The established unit-test command in the code guide regenerates all displayed
+coefficient and witness checks. No generated data, historical coefficient
+array, symbolic package or external source is required. Exact arithmetic
+certifies these finite computations, while (7.C1)--(7.C5) supply the separate
+initialization-jet interpretation. Neither part supplies a positive-time
+identification bridge.
