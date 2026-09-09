@@ -1,6 +1,6 @@
 {
-  "scope": "Final retained-byte verification at implementation checkpoint c229a4a. This is a preservation receipt, not a mathematical or whole-study acceptance verdict.",
-  "sourceCheckpoint": "c229a4a",
+  "scope": "Final retained-byte verification at implementation checkpoint c089b5e. This is a preservation receipt, not a mathematical or whole-study acceptance verdict.",
+  "sourceCheckpoint": "c089b5e",
   "unchanged": {
     "backup": {
       "files": 41,
@@ -1574,7 +1574,7 @@
       "original": "studies/resnet_pde/operator_pde/generalization/analyze_generalization.py",
       "target": "studies/resnet_generalization/analyze_generalization.py",
       "before": "d5df92ce1423e740f77a5928c1d4a58745d7fcbd37558aad23895c8053efbb1e",
-      "after": "b989f077294a9e19c0ccd0eecb22a4eece2f2af8299426dd71815ea8aac39005"
+      "after": "a9a5385d8cb9482b35763c123ddae3c8adb2915a6f92ccd8304605e08b63199b"
     },
     {
       "original": "studies/resnet_pde/operator_pde/generalization/combine_references.py",

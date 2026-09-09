@@ -1,0 +1,2555 @@
+{
+  "verdict": "CLEAN",
+  "hashes": {
+    "/home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py": {
+      "before": "a9a5385d8cb9482b35763c123ddae3c8adb2915a6f92ccd8304605e08b63199b",
+      "after": "a9a5385d8cb9482b35763c123ddae3c8adb2915a6f92ccd8304605e08b63199b"
+    },
+    "/home/amir/Codes/PDE/studies/resnet_generalization/generalization_paths.py": {
+      "before": "ccc364726bdce39dccd5fcc12559e1d628aa25db93e57ee9e511fa5176927b70",
+      "after": "ccc364726bdce39dccd5fcc12559e1d628aa25db93e57ee9e511fa5176927b70"
+    },
+    "/home/amir/Codes/PDE/studies/_output_paths.py": {
+      "before": "8e67059e7083fcb5d230de92f1daa4387dba4da1c081e3f111180cef1e2cd02e",
+      "after": "8e67059e7083fcb5d230de92f1daa4387dba4da1c081e3f111180cef1e2cd02e"
+    },
+    "/home/amir/Codes/PDE/studies/resnet_generalization/tests/test_writer_boundaries.py": {
+      "before": "caa46839e81ebcc05cfc650b045c48abe31b0634af55df6a3d79376372b4f91f",
+      "after": "caa46839e81ebcc05cfc650b045c48abe31b0634af55df6a3d79376372b4f91f"
+    }
+  },
+  "independent_layout_count": 248,
+  "independent_boundary_invocation_count": 744,
+  "independent_accepted_layouts": 18,
+  "independent_rejected_layouts": 230,
+  "guard_lines": [
+    1470,
+    1841
+  ],
+  "first_ingestion_line": 1471,
+  "first_publication_line": 1842,
+  "publication_trace": [
+    [
+      "figure",
+      "/tmp/path-planning-acceptance.3LE8LFHn/publication-trace-hcubbn8v/figures/all_case_errors.png"
+    ],
+    [
+      "figure",
+      "/tmp/path-planning-acceptance.3LE8LFHn/publication-trace-hcubbn8v/figures/loss_curves.png"
+    ],
+    [
+      "figure",
+      "/tmp/path-planning-acceptance.3LE8LFHn/publication-trace-hcubbn8v/figures/gram_motion_curves.png"
+    ],
+    [
+      "file",
+      "/tmp/path-planning-acceptance.3LE8LFHn/publication-trace-hcubbn8v/processed/summary.json"
+    ],
+    [
+      "file",
+      "/tmp/path-planning-acceptance.3LE8LFHn/publication-trace-hcubbn8v/processed/case_metrics.csv"
+    ],
+    [
+      "file",
+      "/tmp/path-planning-acceptance.3LE8LFHn/publication-trace-hcubbn8v/processed/numerical_metrics.csv"
+    ],
+    [
+      "file",
+      "/tmp/path-planning-acceptance.3LE8LFHn/publication-trace-hcubbn8v/processed/plateau_metrics.csv"
+    ],
+    [
+      "file",
+      "/tmp/path-planning-acceptance.3LE8LFHn/publication-trace-hcubbn8v/REPORT.md"
+    ],
+    [
+      "seal",
+      "/tmp/path-planning-acceptance.3LE8LFHn/publication-trace-hcubbn8v/results/generalization/PROCESSED_STAGE_SEAL.json"
+    ]
+  ],
+  "allowed_routing_test_count": 11,
+  "allowed_routing_test_output": "test_distinct_regular_products_reach_original_first_loader_unchanged (builtins.AnalysisRoutingTests) ... ok\ntest_every_named_final_and_partial_protects_selected_input_identity (builtins.AnalysisRoutingTests) ... ok\ntest_every_occupied_partial_refuses_before_input_or_output_work (builtins.AnalysisRoutingTests) ... ok\ntest_named_file_destinations_refuse_existing_directories (builtins.AnalysisRoutingTests) ... ok\ntest_named_file_destinations_refuse_existing_file_parents (builtins.AnalysisRoutingTests) ... ok\ntest_nested_file_destinations_refuse_before_ingestion (builtins.AnalysisRoutingTests) ... ok\ntest_original_selected_directory_links_are_not_resolved_away (builtins.AnalysisRoutingTests) ... ok\ntest_preflight_names_and_publication_order_match_actual_writer_ast (builtins.AnalysisRoutingTests) ... ok\ntest_protected_namespace_destinations_refuse_without_creation (builtins.AnalysisRoutingTests) ... ok\ntest_report_cannot_overlap_another_named_final_or_partial (builtins.AnalysisRoutingTests) ... ok\ntest_report_refuses_each_consumed_input_and_link_alias (builtins.AnalysisRoutingTests) ... ok\n\n----------------------------------------------------------------------\nRan 11 tests in 2.413s\n\nOK\n",
+  "scientific_modules_imported": false,
+  "real_publication_executed": false,
+  "independent_probes": [
+    {
+      "label": "representative/report=output_dir",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-1v0ym5d0/processed",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-1v0ym5d0/processed",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-1v0ym5d0/processed"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "representative/report=output_dir/summary.json/report.md",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-fbqpia29/processed/summary.json/report.md",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-fbqpia29/processed/summary.json/report.md",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-fbqpia29/processed/summary.json/report.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "representative/figures_dir=output_dir/summary.json",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-fxx0qtm2/processed/summary.json/all_case_errors.png",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-fxx0qtm2/processed/summary.json/all_case_errors.png",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-fxx0qtm2/processed/summary.json/all_case_errors.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "representative/output_dir=report.partial/products",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-9p71weny/REPORT.md.partial",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-9p71weny/REPORT.md.partial",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-9p71weny/REPORT.md.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-equal-target-0-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-jqvkubbo/processed/summary.json",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-jqvkubbo/processed/summary.json",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-jqvkubbo/processed/summary.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-descendant-target-0-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-lsqdjlyb/processed/summary.json/report.md",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-lsqdjlyb/processed/summary.json/report.md",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-lsqdjlyb/processed/summary.json/report.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-ancestor-target-0-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-l2gq300x/processed",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-l2gq300x/processed",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-l2gq300x/processed"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-equal-target-0-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-w42i7bae/processed/summary.json.partial",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-w42i7bae/processed/summary.json.partial",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-w42i7bae/processed/summary.json.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-descendant-target-0-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-ahga8xit/processed/summary.json.partial/report.md",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-ahga8xit/processed/summary.json.partial/report.md",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-ahga8xit/processed/summary.json.partial/report.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-ancestor-target-0-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-8xmqrfcc/processed",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-8xmqrfcc/processed",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-8xmqrfcc/processed"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-equal-target-1-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-4i0r5aod/processed/case_metrics.csv",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-4i0r5aod/processed/case_metrics.csv",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-4i0r5aod/processed/case_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-descendant-target-1-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-hyg5fzkb/processed/case_metrics.csv/report.md",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-hyg5fzkb/processed/case_metrics.csv/report.md",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-hyg5fzkb/processed/case_metrics.csv/report.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-ancestor-target-1-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-0_n5a2_g/processed",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-0_n5a2_g/processed",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-0_n5a2_g/processed"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-equal-target-1-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-rkqas1f3/processed/case_metrics.csv.partial",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-rkqas1f3/processed/case_metrics.csv.partial",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-rkqas1f3/processed/case_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-descendant-target-1-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-eqrohwv2/processed/case_metrics.csv.partial/report.md",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-eqrohwv2/processed/case_metrics.csv.partial/report.md",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-eqrohwv2/processed/case_metrics.csv.partial/report.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-ancestor-target-1-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-zp1u4kyb/processed",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-zp1u4kyb/processed",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-zp1u4kyb/processed"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-equal-target-2-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-viihy8l3/processed/numerical_metrics.csv",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-viihy8l3/processed/numerical_metrics.csv",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-viihy8l3/processed/numerical_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-descendant-target-2-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-n4gpst_b/processed/numerical_metrics.csv/report.md",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-n4gpst_b/processed/numerical_metrics.csv/report.md",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-n4gpst_b/processed/numerical_metrics.csv/report.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-ancestor-target-2-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-51727hsh/processed",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-51727hsh/processed",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-51727hsh/processed"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-equal-target-2-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-byr123tb/processed/numerical_metrics.csv.partial",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-byr123tb/processed/numerical_metrics.csv.partial",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-byr123tb/processed/numerical_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-descendant-target-2-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-jfqlkhs8/processed/numerical_metrics.csv.partial/report.md",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-jfqlkhs8/processed/numerical_metrics.csv.partial/report.md",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-jfqlkhs8/processed/numerical_metrics.csv.partial/report.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-ancestor-target-2-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-jkuacsmv/processed",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-jkuacsmv/processed",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-jkuacsmv/processed"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-equal-target-3-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-38fsmvx7/processed/plateau_metrics.csv",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-38fsmvx7/processed/plateau_metrics.csv",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-38fsmvx7/processed/plateau_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-descendant-target-3-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-3dhvhn8g/processed/plateau_metrics.csv/report.md",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-3dhvhn8g/processed/plateau_metrics.csv/report.md",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-3dhvhn8g/processed/plateau_metrics.csv/report.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-ancestor-target-3-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-0ghzsqae/processed",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-0ghzsqae/processed",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-0ghzsqae/processed"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-equal-target-3-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-d2gbq3sr/processed/plateau_metrics.csv.partial",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-d2gbq3sr/processed/plateau_metrics.csv.partial",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-d2gbq3sr/processed/plateau_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-descendant-target-3-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-mndx12no/processed/plateau_metrics.csv.partial/report.md",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-mndx12no/processed/plateau_metrics.csv.partial/report.md",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-mndx12no/processed/plateau_metrics.csv.partial/report.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-ancestor-target-3-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-6i1p88l8/processed",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-6i1p88l8/processed",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-6i1p88l8/processed"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-equal-target-4-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-zokna8f2/figures/all_case_errors.png",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-zokna8f2/figures/all_case_errors.png",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-zokna8f2/figures/all_case_errors.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-descendant-target-4-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-a8phi279/figures/all_case_errors.png/report.md",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-a8phi279/figures/all_case_errors.png/report.md",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-a8phi279/figures/all_case_errors.png/report.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-ancestor-target-4-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-hujf3908/figures",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-hujf3908/figures",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-hujf3908/figures"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-equal-target-4-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-sp3ha4qz/figures/all_case_errors.png.partial",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-sp3ha4qz/figures/all_case_errors.png.partial",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-sp3ha4qz/figures/all_case_errors.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-descendant-target-4-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-xdj0x76i/figures/all_case_errors.png.partial/report.md",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-xdj0x76i/figures/all_case_errors.png.partial/report.md",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-xdj0x76i/figures/all_case_errors.png.partial/report.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-ancestor-target-4-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-dm5xku98/figures",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-dm5xku98/figures",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-dm5xku98/figures"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-equal-target-5-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-11ly5rbo/figures/loss_curves.png",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-11ly5rbo/figures/loss_curves.png",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-11ly5rbo/figures/loss_curves.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-descendant-target-5-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-gth57p2p/figures/loss_curves.png/report.md",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-gth57p2p/figures/loss_curves.png/report.md",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-gth57p2p/figures/loss_curves.png/report.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-ancestor-target-5-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-qa7ez_7z/figures",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-qa7ez_7z/figures",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-qa7ez_7z/figures"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-equal-target-5-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-nd9ibx2f/figures/loss_curves.png.partial",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-nd9ibx2f/figures/loss_curves.png.partial",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-nd9ibx2f/figures/loss_curves.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-descendant-target-5-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-3j8qo7sx/figures/loss_curves.png.partial/report.md",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-3j8qo7sx/figures/loss_curves.png.partial/report.md",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-3j8qo7sx/figures/loss_curves.png.partial/report.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-ancestor-target-5-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-xuxslfji/figures",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-xuxslfji/figures",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-xuxslfji/figures"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-equal-target-6-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-muw9icte/figures/gram_motion_curves.png",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-muw9icte/figures/gram_motion_curves.png",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-muw9icte/figures/gram_motion_curves.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-descendant-target-6-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-biv4nnbw/figures/gram_motion_curves.png/report.md",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-biv4nnbw/figures/gram_motion_curves.png/report.md",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-biv4nnbw/figures/gram_motion_curves.png/report.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-ancestor-target-6-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-x6ue8wp4/figures",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-x6ue8wp4/figures",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-x6ue8wp4/figures"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-equal-target-6-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-5ofj7dtv/figures/gram_motion_curves.png.partial",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-5ofj7dtv/figures/gram_motion_curves.png.partial",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-5ofj7dtv/figures/gram_motion_curves.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-descendant-target-6-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-hbl9711s/figures/gram_motion_curves.png.partial/report.md",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-hbl9711s/figures/gram_motion_curves.png.partial/report.md",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-hbl9711s/figures/gram_motion_curves.png.partial/report.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-ancestor-target-6-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-_uq2k93x/figures",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-_uq2k93x/figures",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-_uq2k93x/figures"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-equal-target-8-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-kezd7lhg/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-kezd7lhg/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-kezd7lhg/results/generalization/PROCESSED_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-descendant-target-8-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-wrv8f0dx/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-wrv8f0dx/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-wrv8f0dx/results/generalization/PROCESSED_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-ancestor-target-8-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-6ey981km/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-6ey981km/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-6ey981km/results/generalization/PROCESSED_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-equal-target-8-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-x0mtulzg/results/generalization/PROCESSED_STAGE_SEAL.json.partial",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-x0mtulzg/results/generalization/PROCESSED_STAGE_SEAL.json.partial",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-x0mtulzg/results/generalization/PROCESSED_STAGE_SEAL.json.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-descendant-target-8-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-xmgklxky/results/generalization/PROCESSED_STAGE_SEAL.json.partial",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-xmgklxky/results/generalization/PROCESSED_STAGE_SEAL.json.partial",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-xmgklxky/results/generalization/PROCESSED_STAGE_SEAL.json.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/report-ancestor-target-8-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-iddm7y9h/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-iddm7y9h/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-iddm7y9h/results/generalization/PROCESSED_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/output_dir-below-report-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-0drm1d7y/REPORT.md",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-0drm1d7y/REPORT.md",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-0drm1d7y/REPORT.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/output_dir-below-report-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-ri1h2q5j/REPORT.md.partial",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-ri1h2q5j/REPORT.md.partial",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-ri1h2q5j/REPORT.md.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/figures_dir-below-report-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-epfucty5/REPORT.md",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-epfucty5/REPORT.md",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-epfucty5/REPORT.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/figures_dir-below-report-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-a54wnly7/REPORT.md.partial",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-a54wnly7/REPORT.md.partial",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-a54wnly7/REPORT.md.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/results_dir-below-report-partial-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-30jrtg_w/REPORT.md/products/PROCESSED_STAGE_SEAL.json",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-30jrtg_w/REPORT.md/products/PROCESSED_STAGE_SEAL.json",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-30jrtg_w/REPORT.md/products/PROCESSED_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "prefix/results_dir-below-report-partial-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-9md1b5ci/REPORT.md.partial/products/PROCESSED_STAGE_SEAL.json",
+        "entry": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-9md1b5ci/REPORT.md.partial/products/PROCESSED_STAGE_SEAL.json",
+        "publication": "ValueError: analysis outputs overlap: /tmp/path-planning-acceptance.3LE8LFHn/probe-9md1b5ci/REPORT.md.partial/products/PROCESSED_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/directory-target-0",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-2vgfbvk7/processed/summary.json",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-2vgfbvk7/processed/summary.json",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-2vgfbvk7/processed/summary.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/fifo-target-0",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-tmpmmfg_/processed/summary.json",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-tmpmmfg_/processed/summary.json",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-tmpmmfg_/processed/summary.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/directory-target-1",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-tjo9fvkj/processed/summary.json.partial",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-tjo9fvkj/processed/summary.json.partial",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-tjo9fvkj/processed/summary.json.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/fifo-target-1",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-x0hvdp7t/processed/summary.json.partial",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-x0hvdp7t/processed/summary.json.partial",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-x0hvdp7t/processed/summary.json.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/directory-target-2",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-2e2oknl5/processed/case_metrics.csv",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-2e2oknl5/processed/case_metrics.csv",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-2e2oknl5/processed/case_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/fifo-target-2",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-5jgq_r1c/processed/case_metrics.csv",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-5jgq_r1c/processed/case_metrics.csv",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-5jgq_r1c/processed/case_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/directory-target-3",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-bpl3ju3m/processed/case_metrics.csv.partial",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-bpl3ju3m/processed/case_metrics.csv.partial",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-bpl3ju3m/processed/case_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/fifo-target-3",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-42tw4a48/processed/case_metrics.csv.partial",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-42tw4a48/processed/case_metrics.csv.partial",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-42tw4a48/processed/case_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/directory-target-4",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-5ffoumsj/processed/numerical_metrics.csv",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-5ffoumsj/processed/numerical_metrics.csv",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-5ffoumsj/processed/numerical_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/fifo-target-4",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-cerw668f/processed/numerical_metrics.csv",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-cerw668f/processed/numerical_metrics.csv",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-cerw668f/processed/numerical_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/directory-target-5",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-vh7wljrh/processed/numerical_metrics.csv.partial",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-vh7wljrh/processed/numerical_metrics.csv.partial",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-vh7wljrh/processed/numerical_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/fifo-target-5",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-u8622qo1/processed/numerical_metrics.csv.partial",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-u8622qo1/processed/numerical_metrics.csv.partial",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-u8622qo1/processed/numerical_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/directory-target-6",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-7qxyt7rv/processed/plateau_metrics.csv",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-7qxyt7rv/processed/plateau_metrics.csv",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-7qxyt7rv/processed/plateau_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/fifo-target-6",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-a2kq45l8/processed/plateau_metrics.csv",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-a2kq45l8/processed/plateau_metrics.csv",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-a2kq45l8/processed/plateau_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/directory-target-7",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-bilg1am4/processed/plateau_metrics.csv.partial",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-bilg1am4/processed/plateau_metrics.csv.partial",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-bilg1am4/processed/plateau_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/fifo-target-7",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-dur0tyf7/processed/plateau_metrics.csv.partial",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-dur0tyf7/processed/plateau_metrics.csv.partial",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-dur0tyf7/processed/plateau_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/directory-target-8",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-qunb_6gn/figures/all_case_errors.png",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-qunb_6gn/figures/all_case_errors.png",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-qunb_6gn/figures/all_case_errors.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/fifo-target-8",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-sos2qn2t/figures/all_case_errors.png",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-sos2qn2t/figures/all_case_errors.png",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-sos2qn2t/figures/all_case_errors.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/directory-target-9",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-pvbc8j1c/figures/all_case_errors.png.partial",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-pvbc8j1c/figures/all_case_errors.png.partial",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-pvbc8j1c/figures/all_case_errors.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/fifo-target-9",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-itx_lul1/figures/all_case_errors.png.partial",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-itx_lul1/figures/all_case_errors.png.partial",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-itx_lul1/figures/all_case_errors.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/directory-target-10",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-hu1aefko/figures/loss_curves.png",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-hu1aefko/figures/loss_curves.png",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-hu1aefko/figures/loss_curves.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/fifo-target-10",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-2vq327zx/figures/loss_curves.png",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-2vq327zx/figures/loss_curves.png",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-2vq327zx/figures/loss_curves.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/directory-target-11",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-n9eo0yzh/figures/loss_curves.png.partial",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-n9eo0yzh/figures/loss_curves.png.partial",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-n9eo0yzh/figures/loss_curves.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/fifo-target-11",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-st1gi3t3/figures/loss_curves.png.partial",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-st1gi3t3/figures/loss_curves.png.partial",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-st1gi3t3/figures/loss_curves.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/directory-target-12",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-kfyv9l3j/figures/gram_motion_curves.png",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-kfyv9l3j/figures/gram_motion_curves.png",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-kfyv9l3j/figures/gram_motion_curves.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/fifo-target-12",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-r8hzunjc/figures/gram_motion_curves.png",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-r8hzunjc/figures/gram_motion_curves.png",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-r8hzunjc/figures/gram_motion_curves.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/directory-target-13",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-e04k7y7x/figures/gram_motion_curves.png.partial",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-e04k7y7x/figures/gram_motion_curves.png.partial",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-e04k7y7x/figures/gram_motion_curves.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/fifo-target-13",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-mplmk96p/figures/gram_motion_curves.png.partial",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-mplmk96p/figures/gram_motion_curves.png.partial",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-mplmk96p/figures/gram_motion_curves.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/directory-target-14",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-950g31_v/REPORT.md",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-950g31_v/REPORT.md",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-950g31_v/REPORT.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/fifo-target-14",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-ts_84lbq/REPORT.md",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-ts_84lbq/REPORT.md",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-ts_84lbq/REPORT.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/directory-target-15",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-ukj6l6un/REPORT.md.partial",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-ukj6l6un/REPORT.md.partial",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-ukj6l6un/REPORT.md.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/fifo-target-15",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-tpgeervv/REPORT.md.partial",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-tpgeervv/REPORT.md.partial",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-tpgeervv/REPORT.md.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/directory-target-16",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-zcucrtww/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-zcucrtww/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-zcucrtww/results/generalization/PROCESSED_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/fifo-target-16",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-3hpvpv9o/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-3hpvpv9o/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-3hpvpv9o/results/generalization/PROCESSED_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/directory-target-17",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-kfbbqrq0/results/generalization/PROCESSED_STAGE_SEAL.json.partial",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-kfbbqrq0/results/generalization/PROCESSED_STAGE_SEAL.json.partial",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-kfbbqrq0/results/generalization/PROCESSED_STAGE_SEAL.json.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "role/fifo-target-17",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-8f1myu3o/results/generalization/PROCESSED_STAGE_SEAL.json.partial",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-8f1myu3o/results/generalization/PROCESSED_STAGE_SEAL.json.partial",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-8f1myu3o/results/generalization/PROCESSED_STAGE_SEAL.json.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "parent/output_dir-file-depth-0",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-jodt3v7t/blocker/selected/summary.json",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-jodt3v7t/blocker/selected/summary.json",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-jodt3v7t/blocker/selected/summary.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "parent/output_dir-file-depth-2",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-gg1aoyw0/blocker/missing/missing/selected/summary.json",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-gg1aoyw0/blocker/missing/missing/selected/summary.json",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-gg1aoyw0/blocker/missing/missing/selected/summary.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "parent/output_dir-fifo-depth-0",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-6ej4gj41/blocker/selected/summary.json",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-6ej4gj41/blocker/selected/summary.json",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-6ej4gj41/blocker/selected/summary.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "parent/output_dir-fifo-depth-2",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-hvd77gun/blocker/missing/missing/selected/summary.json",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-hvd77gun/blocker/missing/missing/selected/summary.json",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-hvd77gun/blocker/missing/missing/selected/summary.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "parent/figures_dir-file-depth-0",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-udeq_e6t/blocker/selected/all_case_errors.png",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-udeq_e6t/blocker/selected/all_case_errors.png",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-udeq_e6t/blocker/selected/all_case_errors.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "parent/figures_dir-file-depth-2",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-zc1_xeqm/blocker/missing/missing/selected/all_case_errors.png",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-zc1_xeqm/blocker/missing/missing/selected/all_case_errors.png",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-zc1_xeqm/blocker/missing/missing/selected/all_case_errors.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "parent/figures_dir-fifo-depth-0",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-j5fgj499/blocker/selected/all_case_errors.png",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-j5fgj499/blocker/selected/all_case_errors.png",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-j5fgj499/blocker/selected/all_case_errors.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "parent/figures_dir-fifo-depth-2",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-v6fal6qc/blocker/missing/missing/selected/all_case_errors.png",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-v6fal6qc/blocker/missing/missing/selected/all_case_errors.png",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-v6fal6qc/blocker/missing/missing/selected/all_case_errors.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "parent/results_dir-file-depth-0",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-tzvkaesh/blocker/selected/PROCESSED_STAGE_SEAL.json",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-tzvkaesh/blocker/selected/PROCESSED_STAGE_SEAL.json",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-tzvkaesh/blocker/selected/PROCESSED_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "parent/results_dir-file-depth-2",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-iu_orpka/blocker/missing/missing/selected/PROCESSED_STAGE_SEAL.json",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-iu_orpka/blocker/missing/missing/selected/PROCESSED_STAGE_SEAL.json",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-iu_orpka/blocker/missing/missing/selected/PROCESSED_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "parent/results_dir-fifo-depth-0",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-40baznaf/blocker/selected/PROCESSED_STAGE_SEAL.json",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-40baznaf/blocker/selected/PROCESSED_STAGE_SEAL.json",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-40baznaf/blocker/selected/PROCESSED_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "parent/results_dir-fifo-depth-2",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-b4samyk4/blocker/missing/missing/selected/PROCESSED_STAGE_SEAL.json",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-b4samyk4/blocker/missing/missing/selected/PROCESSED_STAGE_SEAL.json",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-b4samyk4/blocker/missing/missing/selected/PROCESSED_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "parent/report-file-depth-0",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-6j4quv1i/blocker/selected",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-6j4quv1i/blocker/selected",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-6j4quv1i/blocker/selected"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "parent/report-file-depth-2",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-otsujc63/blocker/missing/missing/selected",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-otsujc63/blocker/missing/missing/selected",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-otsujc63/blocker/missing/missing/selected"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "parent/report-fifo-depth-0",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-c_ctklhb/blocker/selected",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-c_ctklhb/blocker/selected",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-c_ctklhb/blocker/selected"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "parent/report-fifo-depth-2",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-59e3sk11/blocker/missing/missing/selected",
+        "entry": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-59e3sk11/blocker/missing/missing/selected",
+        "publication": "ValueError: analysis file destination has incompatible file/directory roles: /tmp/path-planning-acceptance.3LE8LFHn/probe-59e3sk11/blocker/missing/missing/selected"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "selected-link/output_dir-live",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-_4qkk195/alias",
+        "entry": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-_4qkk195/alias",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-_4qkk195/alias"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "selected-link/output_dir-dangling",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-68drlx7h/alias",
+        "entry": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-68drlx7h/alias",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-68drlx7h/alias"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "selected-link/output_dir-dotdot",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-e82sonsn/alias",
+        "entry": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-e82sonsn/alias",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-e82sonsn/alias"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "selected-link/figures_dir-live",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-u29jfvnu/alias",
+        "entry": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-u29jfvnu/alias",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-u29jfvnu/alias"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "selected-link/figures_dir-dangling",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-j5g4tago/alias",
+        "entry": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-j5g4tago/alias",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-j5g4tago/alias"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "selected-link/figures_dir-dotdot",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-0x2fzr0s/alias",
+        "entry": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-0x2fzr0s/alias",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-0x2fzr0s/alias"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "selected-link/results_dir-live",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-lu5jnngw/alias",
+        "entry": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-lu5jnngw/alias",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-lu5jnngw/alias"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "selected-link/results_dir-dangling",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-8912yqme/alias",
+        "entry": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-8912yqme/alias",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-8912yqme/alias"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "selected-link/results_dir-dotdot",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-b8qoq8z9/alias",
+        "entry": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-b8qoq8z9/alias",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-b8qoq8z9/alias"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "selected-link/report-live",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-5ouaa9m5/alias",
+        "entry": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-5ouaa9m5/alias",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-5ouaa9m5/alias"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "selected-link/report-dangling",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-k597jvq0/alias",
+        "entry": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-k597jvq0/alias",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-k597jvq0/alias"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "selected-link/report-dotdot",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-jmb27ub7/alias",
+        "entry": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-jmb27ub7/alias",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-jmb27ub7/alias"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/symlink-target-0",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-gykd_sh7/processed/summary.json",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-gykd_sh7/processed/summary.json",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-gykd_sh7/processed/summary.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/dangling-target-0",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-fyn9hjzo/processed/summary.json",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-fyn9hjzo/processed/summary.json",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-fyn9hjzo/processed/summary.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/hardlink-target-0",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-t36n5qcc/processed/summary.json",
+        "entry": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-t36n5qcc/processed/summary.json",
+        "publication": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-t36n5qcc/processed/summary.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/symlink-target-1",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-y5wxa7in/processed/summary.json.partial",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-y5wxa7in/processed/summary.json.partial",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-y5wxa7in/processed/summary.json.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/dangling-target-1",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-2x02jmis/processed/summary.json.partial",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-2x02jmis/processed/summary.json.partial",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-2x02jmis/processed/summary.json.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/hardlink-target-1",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-_yn2bwsw/processed/summary.json.partial",
+        "entry": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-_yn2bwsw/processed/summary.json.partial",
+        "publication": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-_yn2bwsw/processed/summary.json.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/symlink-target-2",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-4ezczsx9/processed/case_metrics.csv",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-4ezczsx9/processed/case_metrics.csv",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-4ezczsx9/processed/case_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/dangling-target-2",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-_yjy1cow/processed/case_metrics.csv",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-_yjy1cow/processed/case_metrics.csv",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-_yjy1cow/processed/case_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/hardlink-target-2",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-k0td__tp/processed/case_metrics.csv",
+        "entry": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-k0td__tp/processed/case_metrics.csv",
+        "publication": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-k0td__tp/processed/case_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/symlink-target-3",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-qbo_sxae/processed/case_metrics.csv.partial",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-qbo_sxae/processed/case_metrics.csv.partial",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-qbo_sxae/processed/case_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/dangling-target-3",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-xwzoq_hz/processed/case_metrics.csv.partial",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-xwzoq_hz/processed/case_metrics.csv.partial",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-xwzoq_hz/processed/case_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/hardlink-target-3",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-klr9ikr5/processed/case_metrics.csv.partial",
+        "entry": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-klr9ikr5/processed/case_metrics.csv.partial",
+        "publication": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-klr9ikr5/processed/case_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/symlink-target-4",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-ch3sqp1d/processed/numerical_metrics.csv",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-ch3sqp1d/processed/numerical_metrics.csv",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-ch3sqp1d/processed/numerical_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/dangling-target-4",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-vccddo3g/processed/numerical_metrics.csv",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-vccddo3g/processed/numerical_metrics.csv",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-vccddo3g/processed/numerical_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/hardlink-target-4",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-0ajv1b7r/processed/numerical_metrics.csv",
+        "entry": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-0ajv1b7r/processed/numerical_metrics.csv",
+        "publication": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-0ajv1b7r/processed/numerical_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/symlink-target-5",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-_gpzguu0/processed/numerical_metrics.csv.partial",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-_gpzguu0/processed/numerical_metrics.csv.partial",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-_gpzguu0/processed/numerical_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/dangling-target-5",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-z6ro2xos/processed/numerical_metrics.csv.partial",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-z6ro2xos/processed/numerical_metrics.csv.partial",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-z6ro2xos/processed/numerical_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/hardlink-target-5",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-drqvbw38/processed/numerical_metrics.csv.partial",
+        "entry": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-drqvbw38/processed/numerical_metrics.csv.partial",
+        "publication": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-drqvbw38/processed/numerical_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/symlink-target-6",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-2sk9wpsj/processed/plateau_metrics.csv",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-2sk9wpsj/processed/plateau_metrics.csv",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-2sk9wpsj/processed/plateau_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/dangling-target-6",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-my97yfvp/processed/plateau_metrics.csv",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-my97yfvp/processed/plateau_metrics.csv",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-my97yfvp/processed/plateau_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/hardlink-target-6",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-r287bv79/processed/plateau_metrics.csv",
+        "entry": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-r287bv79/processed/plateau_metrics.csv",
+        "publication": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-r287bv79/processed/plateau_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/symlink-target-7",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-1w1fkvwi/processed/plateau_metrics.csv.partial",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-1w1fkvwi/processed/plateau_metrics.csv.partial",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-1w1fkvwi/processed/plateau_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/dangling-target-7",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-dct18fnl/processed/plateau_metrics.csv.partial",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-dct18fnl/processed/plateau_metrics.csv.partial",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-dct18fnl/processed/plateau_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/hardlink-target-7",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-ozuiu2zn/processed/plateau_metrics.csv.partial",
+        "entry": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-ozuiu2zn/processed/plateau_metrics.csv.partial",
+        "publication": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-ozuiu2zn/processed/plateau_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/symlink-target-8",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-bmj8d5vo/figures/all_case_errors.png",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-bmj8d5vo/figures/all_case_errors.png",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-bmj8d5vo/figures/all_case_errors.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/dangling-target-8",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-sa1reh5d/figures/all_case_errors.png",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-sa1reh5d/figures/all_case_errors.png",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-sa1reh5d/figures/all_case_errors.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/hardlink-target-8",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-73wkcl_i/figures/all_case_errors.png",
+        "entry": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-73wkcl_i/figures/all_case_errors.png",
+        "publication": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-73wkcl_i/figures/all_case_errors.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/symlink-target-9",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-s5tgbsnz/figures/all_case_errors.png.partial",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-s5tgbsnz/figures/all_case_errors.png.partial",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-s5tgbsnz/figures/all_case_errors.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/dangling-target-9",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-g1e7390y/figures/all_case_errors.png.partial",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-g1e7390y/figures/all_case_errors.png.partial",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-g1e7390y/figures/all_case_errors.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/hardlink-target-9",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-refo18xr/figures/all_case_errors.png.partial",
+        "entry": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-refo18xr/figures/all_case_errors.png.partial",
+        "publication": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-refo18xr/figures/all_case_errors.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/symlink-target-10",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-8fxvxclj/figures/loss_curves.png",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-8fxvxclj/figures/loss_curves.png",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-8fxvxclj/figures/loss_curves.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/dangling-target-10",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-ukfs2s6b/figures/loss_curves.png",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-ukfs2s6b/figures/loss_curves.png",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-ukfs2s6b/figures/loss_curves.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/hardlink-target-10",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-1lzs1kz5/figures/loss_curves.png",
+        "entry": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-1lzs1kz5/figures/loss_curves.png",
+        "publication": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-1lzs1kz5/figures/loss_curves.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/symlink-target-11",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-6s4qdgs6/figures/loss_curves.png.partial",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-6s4qdgs6/figures/loss_curves.png.partial",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-6s4qdgs6/figures/loss_curves.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/dangling-target-11",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-csxat34k/figures/loss_curves.png.partial",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-csxat34k/figures/loss_curves.png.partial",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-csxat34k/figures/loss_curves.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/hardlink-target-11",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-4743hnhi/figures/loss_curves.png.partial",
+        "entry": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-4743hnhi/figures/loss_curves.png.partial",
+        "publication": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-4743hnhi/figures/loss_curves.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/symlink-target-12",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-sbjqfmc4/figures/gram_motion_curves.png",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-sbjqfmc4/figures/gram_motion_curves.png",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-sbjqfmc4/figures/gram_motion_curves.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/dangling-target-12",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-tdg8zz5o/figures/gram_motion_curves.png",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-tdg8zz5o/figures/gram_motion_curves.png",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-tdg8zz5o/figures/gram_motion_curves.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/hardlink-target-12",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-xj3v0yn8/figures/gram_motion_curves.png",
+        "entry": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-xj3v0yn8/figures/gram_motion_curves.png",
+        "publication": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-xj3v0yn8/figures/gram_motion_curves.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/symlink-target-13",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-8pw251m6/figures/gram_motion_curves.png.partial",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-8pw251m6/figures/gram_motion_curves.png.partial",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-8pw251m6/figures/gram_motion_curves.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/dangling-target-13",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-l7wnh_lt/figures/gram_motion_curves.png.partial",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-l7wnh_lt/figures/gram_motion_curves.png.partial",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-l7wnh_lt/figures/gram_motion_curves.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/hardlink-target-13",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-x6z3xf0h/figures/gram_motion_curves.png.partial",
+        "entry": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-x6z3xf0h/figures/gram_motion_curves.png.partial",
+        "publication": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-x6z3xf0h/figures/gram_motion_curves.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/symlink-target-14",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-5jzthqp6/REPORT.md",
+        "entry": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-5jzthqp6/REPORT.md",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-5jzthqp6/REPORT.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/dangling-target-14",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-9w59rrqj/REPORT.md",
+        "entry": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-9w59rrqj/REPORT.md",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-9w59rrqj/REPORT.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/hardlink-target-14",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-5auj_x50/REPORT.md",
+        "entry": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-5auj_x50/REPORT.md",
+        "publication": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-5auj_x50/REPORT.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/symlink-target-15",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-1w6kdwqm/REPORT.md.partial",
+        "entry": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-1w6kdwqm/REPORT.md.partial",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-1w6kdwqm/REPORT.md.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/dangling-target-15",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-03j9wunf/REPORT.md.partial",
+        "entry": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-03j9wunf/REPORT.md.partial",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-03j9wunf/REPORT.md.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/hardlink-target-15",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-9234s58c/REPORT.md.partial",
+        "entry": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-9234s58c/REPORT.md.partial",
+        "publication": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-9234s58c/REPORT.md.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/symlink-target-16",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-h3gvnof7/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-h3gvnof7/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-h3gvnof7/results/generalization/PROCESSED_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/dangling-target-16",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-hocoh41o/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-hocoh41o/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-hocoh41o/results/generalization/PROCESSED_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/hardlink-target-16",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-1rzexjp3/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "entry": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-1rzexjp3/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "publication": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-1rzexjp3/results/generalization/PROCESSED_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/symlink-target-17",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-r7w_vbci/results/generalization/PROCESSED_STAGE_SEAL.json.partial",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-r7w_vbci/results/generalization/PROCESSED_STAGE_SEAL.json.partial",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-r7w_vbci/results/generalization/PROCESSED_STAGE_SEAL.json.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/dangling-target-17",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-ooyo167i/results/generalization/PROCESSED_STAGE_SEAL.json.partial",
+        "entry": "ValueError: output directory contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-ooyo167i/results/generalization/PROCESSED_STAGE_SEAL.json.partial",
+        "publication": "ValueError: output path contains a symlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-ooyo167i/results/generalization/PROCESSED_STAGE_SEAL.json.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "link/hardlink-target-17",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-xdbv7pua/results/generalization/PROCESSED_STAGE_SEAL.json.partial",
+        "entry": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-xdbv7pua/results/generalization/PROCESSED_STAGE_SEAL.json.partial",
+        "publication": "ValueError: output contains an existing hardlink: /tmp/path-planning-acceptance.3LE8LFHn/probe-xdbv7pua/results/generalization/PROCESSED_STAGE_SEAL.json.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "occupied-partial/0",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-62iadzk2/processed/summary.json.partial",
+        "entry": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-62iadzk2/processed/summary.json.partial",
+        "publication": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-62iadzk2/processed/summary.json.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "occupied-partial/1",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-dc7h3gel/processed/case_metrics.csv.partial",
+        "entry": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-dc7h3gel/processed/case_metrics.csv.partial",
+        "publication": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-dc7h3gel/processed/case_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "occupied-partial/2",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-x1dvnsts/processed/numerical_metrics.csv.partial",
+        "entry": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-x1dvnsts/processed/numerical_metrics.csv.partial",
+        "publication": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-x1dvnsts/processed/numerical_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "occupied-partial/3",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-ptfhvbuu/processed/plateau_metrics.csv.partial",
+        "entry": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-ptfhvbuu/processed/plateau_metrics.csv.partial",
+        "publication": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-ptfhvbuu/processed/plateau_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "occupied-partial/4",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-grkq038p/figures/all_case_errors.png.partial",
+        "entry": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-grkq038p/figures/all_case_errors.png.partial",
+        "publication": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-grkq038p/figures/all_case_errors.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "occupied-partial/5",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-xg_60uzz/figures/loss_curves.png.partial",
+        "entry": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-xg_60uzz/figures/loss_curves.png.partial",
+        "publication": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-xg_60uzz/figures/loss_curves.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "occupied-partial/6",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-0qr9y52t/figures/gram_motion_curves.png.partial",
+        "entry": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-0qr9y52t/figures/gram_motion_curves.png.partial",
+        "publication": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-0qr9y52t/figures/gram_motion_curves.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "occupied-partial/7",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-0weqit5x/REPORT.md.partial",
+        "entry": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-0weqit5x/REPORT.md.partial",
+        "publication": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-0weqit5x/REPORT.md.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "occupied-partial/8",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-s882d40j/results/generalization/PROCESSED_STAGE_SEAL.json.partial",
+        "entry": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-s882d40j/results/generalization/PROCESSED_STAGE_SEAL.json.partial",
+        "publication": "FileExistsError: stale partial blocks analysis output: /tmp/path-planning-acceptance.3LE8LFHn/probe-s882d40j/results/generalization/PROCESSED_STAGE_SEAL.json.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/root/protocol/generalization_protocol.json/present-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-r5is1ced/source/protocol/generalization_protocol.json",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-r5is1ced/source/protocol/generalization_protocol.json",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-r5is1ced/source/protocol/generalization_protocol.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/root/protocol/generalization_protocol.json/present-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-xyjxjko3/source/protocol/generalization_protocol.json",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-xyjxjko3/source/protocol/generalization_protocol.json",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-xyjxjko3/source/protocol/generalization_protocol.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/root/protocol/analysis_plan.json/present-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-bdbcw1jb/source/protocol/analysis_plan.json",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-bdbcw1jb/source/protocol/analysis_plan.json",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-bdbcw1jb/source/protocol/analysis_plan.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/root/protocol/analysis_plan.json/present-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-e1wny_yl/source/protocol/analysis_plan.json",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-e1wny_yl/source/protocol/analysis_plan.json",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-e1wny_yl/source/protocol/analysis_plan.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/root/protocol/cases.json/present-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-twjik02n/source/protocol/cases.json",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-twjik02n/source/protocol/cases.json",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-twjik02n/source/protocol/cases.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/root/protocol/cases.json/present-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-gn1_y0tn/source/protocol/cases.json",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-gn1_y0tn/source/protocol/cases.json",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-gn1_y0tn/source/protocol/cases.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/root/protocol/FROZEN_DYNAMICS_MANIFEST.json/present-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-tmmykcwm/source/protocol/FROZEN_DYNAMICS_MANIFEST.json",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-tmmykcwm/source/protocol/FROZEN_DYNAMICS_MANIFEST.json",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-tmmykcwm/source/protocol/FROZEN_DYNAMICS_MANIFEST.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/root/protocol/FROZEN_DYNAMICS_MANIFEST.json/present-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-qvyf14zl/source/protocol/FROZEN_DYNAMICS_MANIFEST.json",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-qvyf14zl/source/protocol/FROZEN_DYNAMICS_MANIFEST.json",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-qvyf14zl/source/protocol/FROZEN_DYNAMICS_MANIFEST.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/root/protocol/run_grid.py/present-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-vm6i8zd1/source/protocol/run_grid.py",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-vm6i8zd1/source/protocol/run_grid.py",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-vm6i8zd1/source/protocol/run_grid.py"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/root/protocol/run_grid.py/present-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-18ds9dz7/source/protocol/run_grid.py",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-18ds9dz7/source/protocol/run_grid.py",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-18ds9dz7/source/protocol/run_grid.py"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/root/pde_precheck.py/present-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-5zx42f2h/source/pde_precheck.py",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-5zx42f2h/source/pde_precheck.py",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-5zx42f2h/source/pde_precheck.py"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/root/pde_precheck.py/present-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-_r662x3t/source/pde_precheck.py",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-_r662x3t/source/pde_precheck.py",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-_r662x3t/source/pde_precheck.py"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/results_dir/PDE_STAGE_SEAL.json/present-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-rmdz9jxh/results/generalization/PDE_STAGE_SEAL.json",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-rmdz9jxh/results/generalization/PDE_STAGE_SEAL.json",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-rmdz9jxh/results/generalization/PDE_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/results_dir/PDE_STAGE_SEAL.json/present-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-x073twz_/results/generalization/PDE_STAGE_SEAL.json",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-x073twz_/results/generalization/PDE_STAGE_SEAL.json",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-x073twz_/results/generalization/PDE_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/results_dir/DENSE_STAGE_SEAL.json/present-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-c_fbxa86/results/generalization/DENSE_STAGE_SEAL.json",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-c_fbxa86/results/generalization/DENSE_STAGE_SEAL.json",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-c_fbxa86/results/generalization/DENSE_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/results_dir/DENSE_STAGE_SEAL.json/present-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-0r_fru5s/results/generalization/DENSE_STAGE_SEAL.json",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-0r_fru5s/results/generalization/DENSE_STAGE_SEAL.json",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-0r_fru5s/results/generalization/DENSE_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/results_dir/pde_numerical_decision.json/present-False",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-j3alaigo/results/generalization/pde_numerical_decision.json",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-j3alaigo/results/generalization/pde_numerical_decision.json",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-j3alaigo/results/generalization/pde_numerical_decision.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/results_dir/pde_numerical_decision.json/present-True",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-heb1wqnv/results/generalization/pde_numerical_decision.json",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-heb1wqnv/results/generalization/pde_numerical_decision.json",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-heb1wqnv/results/generalization/pde_numerical_decision.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/resolved-source-equals-target-0",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-uniruzih/processed/summary.json",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-uniruzih/processed/summary.json",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-uniruzih/processed/summary.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/resolved-source-equals-target-1",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-qwtp1267/processed/summary.json.partial",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-qwtp1267/processed/summary.json.partial",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-qwtp1267/processed/summary.json.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/resolved-source-equals-target-2",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-v3ld1mjo/processed/case_metrics.csv",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-v3ld1mjo/processed/case_metrics.csv",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-v3ld1mjo/processed/case_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/resolved-source-equals-target-3",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-euurl7e6/processed/case_metrics.csv.partial",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-euurl7e6/processed/case_metrics.csv.partial",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-euurl7e6/processed/case_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/resolved-source-equals-target-4",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-nahfn4pk/processed/numerical_metrics.csv",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-nahfn4pk/processed/numerical_metrics.csv",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-nahfn4pk/processed/numerical_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/resolved-source-equals-target-5",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-ikp4biby/processed/numerical_metrics.csv.partial",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-ikp4biby/processed/numerical_metrics.csv.partial",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-ikp4biby/processed/numerical_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/resolved-source-equals-target-6",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-rre2mkbq/processed/plateau_metrics.csv",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-rre2mkbq/processed/plateau_metrics.csv",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-rre2mkbq/processed/plateau_metrics.csv"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/resolved-source-equals-target-7",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-l9pecm05/processed/plateau_metrics.csv.partial",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-l9pecm05/processed/plateau_metrics.csv.partial",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-l9pecm05/processed/plateau_metrics.csv.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/resolved-source-equals-target-8",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-l7nrd0g5/figures/all_case_errors.png",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-l7nrd0g5/figures/all_case_errors.png",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-l7nrd0g5/figures/all_case_errors.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/resolved-source-equals-target-9",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-krsfmxl0/figures/all_case_errors.png.partial",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-krsfmxl0/figures/all_case_errors.png.partial",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-krsfmxl0/figures/all_case_errors.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/resolved-source-equals-target-10",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-syyic1a5/figures/loss_curves.png",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-syyic1a5/figures/loss_curves.png",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-syyic1a5/figures/loss_curves.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/resolved-source-equals-target-11",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-v5gjjut8/figures/loss_curves.png.partial",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-v5gjjut8/figures/loss_curves.png.partial",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-v5gjjut8/figures/loss_curves.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/resolved-source-equals-target-12",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-6o3givbb/figures/gram_motion_curves.png",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-6o3givbb/figures/gram_motion_curves.png",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-6o3givbb/figures/gram_motion_curves.png"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/resolved-source-equals-target-13",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-ahgof695/figures/gram_motion_curves.png.partial",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-ahgof695/figures/gram_motion_curves.png.partial",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-ahgof695/figures/gram_motion_curves.png.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/resolved-source-equals-target-14",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-_9170z0b/REPORT.md",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-_9170z0b/REPORT.md",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-_9170z0b/REPORT.md"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/resolved-source-equals-target-15",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-71auirc4/REPORT.md.partial",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-71auirc4/REPORT.md.partial",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-71auirc4/REPORT.md.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/resolved-source-equals-target-16",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-rfk_i4m3/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-rfk_i4m3/results/generalization/PROCESSED_STAGE_SEAL.json",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-rfk_i4m3/results/generalization/PROCESSED_STAGE_SEAL.json"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/resolved-source-equals-target-17",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-mfi1rczb/results/generalization/PROCESSED_STAGE_SEAL.json.partial",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-mfi1rczb/results/generalization/PROCESSED_STAGE_SEAL.json.partial",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-mfi1rczb/results/generalization/PROCESSED_STAGE_SEAL.json.partial"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/archive/pde_primary",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-4adjjci8/results/generalization/pde_primary/inert.npz",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-4adjjci8/results/generalization/pde_primary/inert.npz",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-4adjjci8/results/generalization/pde_primary/inert.npz"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/archive/pde_scramble",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-wgg3p091/results/generalization/pde_scramble/inert.npz",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-wgg3p091/results/generalization/pde_scramble/inert.npz",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-wgg3p091/results/generalization/pde_scramble/inert.npz"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/archive/pde_audits",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-oyfl2qst/results/generalization/pde_audits/inert.npz",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-oyfl2qst/results/generalization/pde_audits/inert.npz",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-oyfl2qst/results/generalization/pde_audits/inert.npz"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/archive/pde_fallback",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-ca0w6op5/results/generalization/pde_fallback/inert.npz",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-ca0w6op5/results/generalization/pde_fallback/inert.npz",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-ca0w6op5/results/generalization/pde_fallback/inert.npz"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/archive/dense_screen",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-74oqmipk/results/generalization/dense_screen/inert.npz",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-74oqmipk/results/generalization/dense_screen/inert.npz",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-74oqmipk/results/generalization/dense_screen/inert.npz"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/archive/dense_confirm",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-s71eccun/results/generalization/dense_confirm/inert.npz",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-s71eccun/results/generalization/dense_confirm/inert.npz",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-s71eccun/results/generalization/dense_confirm/inert.npz"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/archive/dense_depth",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-sejc2kcr/results/generalization/dense_depth/inert.npz",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-sejc2kcr/results/generalization/dense_depth/inert.npz",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-sejc2kcr/results/generalization/dense_depth/inert.npz"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/archive/extra/nested",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-vg4wt7p6/results/generalization/extra/nested/inert.npz",
+        "entry": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-vg4wt7p6/results/generalization/extra/nested/inert.npz",
+        "publication": "ValueError: analysis output aliases an input: /tmp/path-planning-acceptance.3LE8LFHn/probe-vg4wt7p6/results/generalization/extra/nested/inert.npz"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "input/analyzer-source",
+      "expected": "reject",
+      "outcomes": {
+        "preflight": "ValueError: fresh output must be under /home/amir/Codes/PDE/data/generated/resnet_generalization or external scratch: /home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py",
+        "entry": "ValueError: fresh output must be under /home/amir/Codes/PDE/data/generated/resnet_generalization or external scratch: /home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py",
+        "publication": "ValueError: fresh output must be under /home/amir/Codes/PDE/data/generated/resnet_generalization or external scratch: /home/amir/Codes/PDE/studies/resnet_generalization/analyze_generalization.py"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "compatible/default/existing-False",
+      "expected": "accept",
+      "outcomes": {
+        "preflight": "accepted",
+        "entry": "reached ingestion tripwire",
+        "publication": "reached publication tripwire"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "compatible/default/existing-True",
+      "expected": "accept",
+      "outcomes": {
+        "preflight": "accepted",
+        "entry": "reached ingestion tripwire",
+        "publication": "reached publication tripwire"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "compatible/all-share-directory/existing-False",
+      "expected": "accept",
+      "outcomes": {
+        "preflight": "accepted",
+        "entry": "reached ingestion tripwire",
+        "publication": "reached publication tripwire"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "compatible/all-share-directory/existing-True",
+      "expected": "accept",
+      "outcomes": {
+        "preflight": "accepted",
+        "entry": "reached ingestion tripwire",
+        "publication": "reached publication tripwire"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "compatible/report-nested-under-output/existing-False",
+      "expected": "accept",
+      "outcomes": {
+        "preflight": "accepted",
+        "entry": "reached ingestion tripwire",
+        "publication": "reached publication tripwire"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "compatible/report-nested-under-output/existing-True",
+      "expected": "accept",
+      "outcomes": {
+        "preflight": "accepted",
+        "entry": "reached ingestion tripwire",
+        "publication": "reached publication tripwire"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "compatible/report-nested-under-figures/existing-False",
+      "expected": "accept",
+      "outcomes": {
+        "preflight": "accepted",
+        "entry": "reached ingestion tripwire",
+        "publication": "reached publication tripwire"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "compatible/report-nested-under-figures/existing-True",
+      "expected": "accept",
+      "outcomes": {
+        "preflight": "accepted",
+        "entry": "reached ingestion tripwire",
+        "publication": "reached publication tripwire"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "compatible/figures-nested-under-report-directory/existing-False",
+      "expected": "accept",
+      "outcomes": {
+        "preflight": "accepted",
+        "entry": "reached ingestion tripwire",
+        "publication": "reached publication tripwire"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "compatible/figures-nested-under-report-directory/existing-True",
+      "expected": "accept",
+      "outcomes": {
+        "preflight": "accepted",
+        "entry": "reached ingestion tripwire",
+        "publication": "reached publication tripwire"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "compatible/sibling-string-prefixes/existing-False",
+      "expected": "accept",
+      "outcomes": {
+        "preflight": "accepted",
+        "entry": "reached ingestion tripwire",
+        "publication": "reached publication tripwire"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "compatible/sibling-string-prefixes/existing-True",
+      "expected": "accept",
+      "outcomes": {
+        "preflight": "accepted",
+        "entry": "reached ingestion tripwire",
+        "publication": "reached publication tripwire"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "compatible/report-inside-directory-with-partial-suffix/existing-False",
+      "expected": "accept",
+      "outcomes": {
+        "preflight": "accepted",
+        "entry": "reached ingestion tripwire",
+        "publication": "reached publication tripwire"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "compatible/report-inside-directory-with-partial-suffix/existing-True",
+      "expected": "accept",
+      "outcomes": {
+        "preflight": "accepted",
+        "entry": "reached ingestion tripwire",
+        "publication": "reached publication tripwire"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "compatible/report-partial-suffix-filename/existing-False",
+      "expected": "accept",
+      "outcomes": {
+        "preflight": "accepted",
+        "entry": "reached ingestion tripwire",
+        "publication": "reached publication tripwire"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "compatible/report-partial-suffix-filename/existing-True",
+      "expected": "accept",
+      "outcomes": {
+        "preflight": "accepted",
+        "entry": "reached ingestion tripwire",
+        "publication": "reached publication tripwire"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "compatible/ordinary-dotdot/existing-False",
+      "expected": "accept",
+      "outcomes": {
+        "preflight": "accepted",
+        "entry": "reached ingestion tripwire",
+        "publication": "reached publication tripwire"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    },
+    {
+      "label": "compatible/ordinary-dotdot/existing-True",
+      "expected": "accept",
+      "outcomes": {
+        "preflight": "accepted",
+        "entry": "reached ingestion tripwire",
+        "publication": "reached publication tripwire"
+      },
+      "all_fixture_metadata_and_regular_file_hashes_unchanged": true
+    }
+  ]
+}
