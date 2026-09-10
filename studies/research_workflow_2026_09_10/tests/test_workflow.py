@@ -106,6 +106,7 @@ class WorkflowTests(unittest.TestCase):
     def test_fresh_start_status_and_standalone(self):
         self.start()
         self.assertEqual({p.name for p in self.study.iterdir()}, set(wf.RECORDS))
+        self.assertFalse((self.study / "AGENTS.md").exists())
         self.assertIn("MECHANICAL READINESS ONLY", self.cli("check", "demo"))
         self.assertIn("owner: owner", self.cli("status", "demo"))
         installed = self.root / "studies/_workflow.py"
@@ -118,6 +119,7 @@ class WorkflowTests(unittest.TestCase):
         self.start()
         self.cli("start", "demo", "--question", "Other", "--owner", "other", success=False)
         (self.study / "CLAIMS.md").write_bytes(b"old record\x00\xff")
+        (self.study / "AGENTS.md").write_text("Existing local instructions; preserve verbatim.\n")
         (self.study / "STATE.md").unlink()
         original = {p.name: p.read_bytes() for p in self.study.iterdir()}
         self.cli("adopt", "demo", "--question", "Other", "--owner", "other")

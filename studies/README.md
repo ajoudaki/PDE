@@ -135,28 +135,25 @@ on a dated migration study. Study-specific rules remain inside their studies.
 
 ## Starting and promoting work
 
-The permanent [study lifecycle and promotion gates](../RESEARCH_WORKFLOW.md) are
-introduced automatically by the root [AGENTS.md](../AGENTS.md). One research
-thrust occupies one study even when several PDE/PDE-2 tasks cooperate. Use
-`python -B studies/_workflow.py start <name> --question "..." --owner "..."`
-from the repository root, or `adopt` for an existing study. The helper creates
-current records and freezes hash-bound review inputs; its checks establish only
-evidence readiness, not scientific correctness or permission to bypass reviews.
-The helper itself, like `_output_paths.py`, is shared exploration infrastructure,
-not an established mathematical API or a new scientific programme hierarchy.
+Root [AGENTS.md](../AGENTS.md) introduces the shared [workflow](../RESEARCH_WORKFLOW.md).
+Read Part 1 for routine research and Part 2 when proposing promotion. A task may
+work on several studies; a study may have several contributors. Reuse one flat
+folder per research direction and agree on file ownership when cooperating.
 
+Each study's existing README is the only required administrative record: keep its
+question, scope, results, internal checks/gaps, reproduction instructions and
+evidence links current. Preserve complete proofs, code, configurations and original
+reports as needed. Generated outputs use `data/generated/<study>/<run>/`.
+Internally checked results can remain in a study without promotion or a relevance test.
 
-Use one distinctive study name for a scientific investigation. Keep its question,
-model/clock contract, current claim status, source dependencies, experiments and
-review evidence explicit. Do not split every intermediate proof lemma into a new
-study. Keep independent verification implementations genuinely independent.
+Promotion adds independent relevance/duplication screening, fresh complete paired
+audits, canonical self-contained writing and reusable code, and a separate review
+of the assembled edition. Obtain user approval of the concrete reviewed addition
+before maintained book/code changes, then verify final correspondence. Established
+material must work without study files or archived outputs.
 
-Write generated output to an explicit directory under `data/`; record the full
-command, configuration and seed. A study may use the established code or theory.
-The reverse dependency is prohibited, including from tests, figures and proof
-appendices. Promotion requires bringing the entire accepted dependency closure
-into the library, reconciling notation, independent value screening, paired full
-correctness audits and a separate review of the actual final integration. New
-provenance and acceptance records stay in the originating study, not in the dated
-refactor study. Generated scratch and review execution outputs use only the study
-data namespace; author edits stay in the study until the integration role takes over.
+[_workflow.py](_workflow.py) is optional support for the older structured packet
+format. Its explicit `start`/`adopt` commands create extra records; ordinary studies
+need neither those records nor its checks. It does not create per-study instruction
+files or grant internal verification, promotion, or user approval. Existing records
+and historical review packets remain valid evidence for their original versions.

@@ -54,8 +54,9 @@ were committed before reorganization: `25dfbf2` (repository source snapshot),
 then `4753435` (recovered temporary and archived sources). `4e6ff81` is the
 byte-verified layout change. Existing history has not been rewritten.
 
-New work starts or resumes in one named study under the permanent workflow.
-Promotion requires independent value/duplication screening, two complete isolated
-reviews of the final theory/code/empirical packet, and separate final integration
-acceptance. The source-controlled workflow and helper keep these records with
-each study; neither a study label nor a passing test suite grants acceptance.
+Tasks may contribute to several studies, and studies may have several contributing
+tasks. Each study's README is its current record; additional ledgers and the helper
+are optional. The workflow separates internal checks and reproducibility from
+promotion, which requires independent relevance screening, fresh complete reviews,
+canonical self-contained theory/reusable code, user approval of the reviewed
+addition, and verification of the final integration.

@@ -1,68 +1,34 @@
-# PDE: instructions for every task
+# PDE: shared task instructions
 
-PDE and PDE-2 use this **same checkout on the same machine**, under different
-credentials. Do not clone, move or copy the checkout, create a parallel worktree,
-reset other work, or assume a second project name means an independent Git index.
+PDE and PDE-2 use this same `/home/amir/Codes/PDE` checkout and Git index.
+Do not clone, move or copy it, create parallel worktrees, or reset others' work.
 
-## First action: select the role and read its instructions
+Before acting, select the appropriate reading scope:
 
-- **Research author or resumed study:** before scientific work or edits, read
-  `RESEARCH_WORKFLOW.md` completely, then `docs/README.md`, `docs/NOTATION.md`,
-  and the chosen study's `STUDY.json`, `STATE.md`, `CLAIMS.md` and relevant
-  complete sources/corrections. Read `code/README.md` before using/changing APIs.
-  Discover/reuse the one appropriate flat `studies/<name>/`; initialize or adopt
-  its records with `python studies/_workflow.py`. Never start a second folder
-  merely because a second PDE/PDE-2 task joins the same research direction.
-- **Promotion coordinator or repository maintenance:** read
-  `RESEARCH_WORKFLOW.md` completely and work within the explicitly assigned
-  integration paths. Check status and preserve concurrent work before writes.
-- **Independent isolated reviewer:** the supplied neutral review prompt and
-  frozen input manifest define your read scope. Read those complete inputs and
-  the relevant required skill instructions. **Do not perform the author startup
-  above**: no study state, project history, author discussion, prior verdicts or
-  another reviewer's findings. Report missing inputs instead of searching the
-  surrounding study. Keep scientific inputs unchanged; write only your assigned
-  report and study-owned scratch outputs. This exception preserves isolation.
-- **Read-only question/status task:** read only what the answer requires. Do
-  not create a study, run experiments or start promotion for a simple question.
+- **Research:** read Part 1 of `RESEARCH_WORKFLOW.md` and the README of each
+  study you will work on. Read the complete relevant sources and corrections.
+  Read `docs/README.md` and `docs/NOTATION.md` for scientific work, and
+  `code/README.md` when using or changing maintained APIs.
+- **Promotion:** also read Part 2 of `RESEARCH_WORKFLOW.md` completely.
+- **Repository maintenance:** read the workflow and use only the assigned shared
+  paths; keep working artifacts in the relevant maintenance study.
+- **Independent isolated review:** read only the neutral assignment, complete
+  frozen inputs and required skills. Do not perform author startup or read
+  study history, prior verdicts or another reviewer's findings. Report missing
+  inputs; write only the assigned report and study-owned scratch.
+- **Read-only questions:** read only what the answer requires.
 
-If this file or the workflow changed during an existing session, explicitly
-reread it before the next substantive action. A link is not the full workflow:
-read the referenced file, do not substitute its filename or a remembered summary.
+Studies organize research directions; tasks organize conversations and work.
+One task may work on several studies, and several tasks may share a study.
+Keep each study's source and evidence in its flat `studies/<name>/` folder and
+its generated products in `data/generated/<name>/`. Its existing README is the
+only required administrative record; additional ledgers and the helper are optional.
 
-## Rules that apply throughout
+Keep internally checked results distinct from established material. Promotion
+requires relevance screening, fresh complete independent reviews, self-contained
+canonical theory/reusable code, and user approval of the concrete reviewed addition.
+The workflow specifies the checks; an internal PASS or helper result cannot replace them.
 
-1. One study is one research thrust. All author-created source, notes, proofs,
-   configurations, tests, candidates and review records stay in that study.
-   Generated arrays, logs, figures, caches and scratch go only to its private
-   `data/generated/<name>/` namespace. Reading dependencies elsewhere is allowed;
-   editing another study or the maintained library is not ordinary study work.
-2. Use `solve-math-rigorously` for mathematical proof work and
-   `investigate-conjectures` for research-state/conjecture work, reading their
-   applicable instructions and required references yourself. If unavailable,
-   report the missing skill; the explicit rigor rules in the workflow still
-   apply. Do not substitute a historical PASS for a current complete argument.
-3. Preserve the actual nonlinear correlated-data objective and every model,
-   initialization, metric, clock, data, depth, observable and limit-order scope.
-   Separate exact, conditional, formal, empirical, open and rejected claims.
-4. No direct author promotion. Scientific value/duplication screening, **two
-   fresh independent complete adversarial reviews of the same final inputs**,
-   applicable code/empirical reproduction checks, and a separate final
-   integration audit precede established status. Corrections require fresh full
-   reviews. The full procedure and rejection criteria are in the workflow.
-5. The book and reusable code must work without studies, chats, review packets,
-   historical verdicts or retained arrays. Extend appropriate existing chapters
-   and modules using canonical notation. Keep provenance in the originating study.
-6. Coordinate one Git writer. Never stage everything or include another task's
-   paths. Use the common Git-directory advisory lock described in the workflow
-   for each staged transaction; an existing staged index is not yours to clear.
-7. Run only authorized experiments and budgets; ordinary deterministic tests
-   for authorized implementation are allowed. Preserve unsuccessful runs and
-   adverse reviews. Never overwrite historical inputs or another study's outputs.
-8. User instructions and already-granted authorization govern the task. Do not
-   repeatedly ask approval for routine work or qualifying integration after all
-   gates. A review refusal or genuine proof gap must be reported precisely;
-   never label ungated work established to avoid the gate.
-
-The helper checks evidence structure and hashes; it cannot certify mathematics,
-reviewer independence, truthfulness, or operating-system write confinement.
+Preserve concurrent changes and coordinate one Git writer using the common lock
+in the workflow. Existing tasks must reread changed instructions before substantive
+work. These files guide all tasks in this checkout; they are not OS confinement.

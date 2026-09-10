@@ -1,0 +1,44 @@
+[
+  {
+    "path": "AGENTS.md",
+    "sha256": "a5e5b3749d9e9ee088c659bc2cf4ddb2d88adf371d98bf34140ded532020a517",
+    "bytes": 2088,
+    "lines": 34
+  },
+  {
+    "path": "RESEARCH_WORKFLOW.md",
+    "sha256": "4323e5ada1a4875af2c8121c742c50f07d8ff5b569c3aa71e11ef9a14605b442",
+    "bytes": 12553,
+    "lines": 187
+  },
+  {
+    "path": "README.md",
+    "sha256": "1320f6047ac3a6e8c49807b574fcee1b49e02d662da1b151668c916c1ef1037c",
+    "bytes": 3084,
+    "lines": 62
+  },
+  {
+    "path": "studies/README.md",
+    "sha256": "ef74a49c38f02fcc1f628906d3d42c5776b5b5ec0af7d6437c309cb9df85d366",
+    "bytes": 10800,
+    "lines": 159
+  },
+  {
+    "path": "data/README.md",
+    "sha256": "a4a97a4fffcfb58b2b987d96f1303b71976a1766ca44bf2b5649b64747b347a6",
+    "bytes": 2511,
+    "lines": 40
+  },
+  {
+    "path": "studies/_workflow.py",
+    "sha256": "a72eaa0f76edd8fe720ff5cff455e98b8b8f45257e0e71cc6769c2cdda549e20",
+    "bytes": 28468,
+    "lines": 538
+  },
+  {
+    "path": "studies/research_workflow_2026_09_10/tests/test_workflow.py",
+    "sha256": "dd568b317ea76fad50078349e47b1c6894ea0cd96f9b7b61c816b6b705a75c47",
+    "bytes": 13254,
+    "lines": 257
+  }
+]
