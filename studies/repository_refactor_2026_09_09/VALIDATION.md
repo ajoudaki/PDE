@@ -484,3 +484,21 @@ before the successful invocation; no maintained implementation changed.
 FINAL_TAIL_CHECKS.json records exact inherited preservation, with metadata-only
 verification of the eight unreadable files. No exporter, training or historical
 computational campaign is within these test or proof verdicts.
+
+## Final completion edition
+
+FINAL_COMPLETION_INTEGRATION.md supplies the fresh scoped final integration
+verdict and exact read/unread scope. Its 30 input hashes (27 maintained files
+plus three complete candidate proofs) match the final live edition. The
+coordinator read the complete report. The scientific files also match the
+successful FINAL_TAIL standalone receipt: 106 selected tests, all eight Python
+guide examples and 25 boundary/link inputs. The independent final report records
+its own repetition of these acceptance checks. No additional whole-book proof,
+exporter or empirical acceptance is claimed.
+
+FINAL_COMPLETION_LIBRARY_INPUTS.json and FINAL_COMPLETION_CHECKS.json seal the
+edition and inherited work. The only failed commit attempt stopped before
+staging because sandbox uid/gid 65534 maps to host uid/gid 1000; a read-only
+check confirmed the mapping, and content/mode/timestamp checks passed under
+both credentials before the successful explicit-path commit. No ownership
+change, checkout copy, reset, training or historical campaign occurred.

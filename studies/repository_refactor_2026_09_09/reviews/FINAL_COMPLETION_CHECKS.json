@@ -1,0 +1,150 @@
+{
+  "head_before_final_records": "4d261ea71ac99829febf29bb366713293e677e82",
+  "scientific_inputs": 27,
+  "integration_inputs": 30,
+  "scientific_hashes_unchanged_since_test_and_review": true,
+  "integration_report_sha256": "3cec8444411baf4bec22f47b6fceef90344d2fcdb60e97b0a7828f253e4c01a4",
+  "integration_event_sha256": "2c115aefe2ceec937b5ce11f8aef2578afcab2486f341f9c7caf255cedd34e1d",
+  "integration_command_inventory_sha256": "b134b096c0e391d8237827b69ca5efbae5f15f670f7c620d80caa104df14f4e7",
+  "integration_completion_evidence": "turn.completed and final full report",
+  "isolation": "Fresh ephemeral task with complete selected input files; read-only scientific bytes, workspace-write temporary fixtures, no project history or earlier verdicts; allowed-input restriction, not filesystem inaccessibility.",
+  "test_receipt": "reviews/FINAL_TAIL_CHECKS.json",
+  "test_receipt_sha256": "28e071c22b9b20bb0f340a53f78a38f9700e22ad685271ebd6cb2e16485a0247",
+  "inherited_preservation": [
+    {
+      "path": ".gitignore",
+      "mode": "0o660",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 461,
+      "mtime_ns": 1788982243339943279,
+      "sha256": "bf9e25889d63c4d97a614457f0af687027e0e0b0afcdf3e8062600a9d10fcc1e"
+    },
+    {
+      "path": "code/tests/test_book_exporter.py",
+      "mode": "0o664",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 6283,
+      "mtime_ns": 1788982243059936433,
+      "sha256": "8ecde48a39b08cf336b2e87884107392e694785773dc973c0808d96f6bf0725c"
+    },
+    {
+      "path": "code/tools/book_pdf/README.md",
+      "mode": "0o664",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 4971,
+      "mtime_ns": 1788982242775929488,
+      "sha256": "74dd2c7a2f3deb7a8f6d5ececbf442974659570b198c618c6e1046851c085f5e"
+    },
+    {
+      "path": "code/tools/book_pdf/build-pdf.sh",
+      "mode": "0o764",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 553,
+      "mtime_ns": 1788982262476411126,
+      "sha256": "f826d05662cb7e8c340ef0dba7e1b70af7b9e94530f515f3dbf2b49d3ffef141"
+    },
+    {
+      "path": "code/tools/book_pdf/export_book.py",
+      "mode": "0o664",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 13810,
+      "mtime_ns": 1788982242491922544,
+      "sha256": "e2da7f3887a457ee2d2a4885a1c8ba31b9ca4cde49308da00075f78346d33a13"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_REPORT.md",
+      "mode": "0o600",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 6526,
+      "mtime_ns": 1788963216993681790,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_acceptance.py",
+      "mode": "0o600",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 20501,
+      "mtime_ns": 1788963216993681790,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_evidence.json",
+      "mode": "0o600",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 164582,
+      "mtime_ns": 1788963216997681887,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/EXACT_CAPTURE_ROUND2_B.md",
+      "mode": "0o600",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 47745,
+      "mtime_ns": 1788968431757160353,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/GUIDE_ADVISORY_INTEGRATION.md",
+      "mode": "0o600",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 21557,
+      "mtime_ns": 1788964143848130813,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/INCORPORATION_FINAL_INTEGRATION.md",
+      "mode": "0o600",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 40877,
+      "mtime_ns": 1788968767713405392,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/MAIN_ROUTING_PATCH_ROUND1_record-python",
+      "mode": "0o700",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 1137,
+      "mtime_ns": 1788961638254522868,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/MAIN_ROUTING_WRAPPER_ACCEPTANCE_record-python",
+      "mode": "0o700",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 1608,
+      "mtime_ns": 1788962221941085963,
+      "content_check": "unreadable; metadata only"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/TASK_NAME_INDEX.md",
+      "mode": "0o664",
+      "uid": 65534,
+      "gid": 65534,
+      "size": 8961,
+      "mtime_ns": 1788971690237912280,
+      "sha256": "48dc99c5f858eb3f67496b447a7b7cd76baabc4422e714d38656631aff871695"
+    }
+  ],
+  "ownership_note": "Sandbox uid/gid 65534 for inherited files maps to host uid/gid 1000 under the authorized Git execution credentials. Both read-only stat results were checked; no ownership change occurred.",
+  "completion_commits": [
+    "4d261ea71ac99829febf29bb366713293e677e82 Incorporate final scoped limits and uniform identity flow",
+    "6510f613199dbb337f198f86769cbf909ffbd50d Incorporate quantitative shallow continuous-flow error bounds",
+    "ea66f261ebb05cd2dc9ee52177b65578d404a7ab Incorporate qualified nonlinear families and adaptive physical controls",
+    "d220cff113f88ccbe79c5fe631663c9c30337c75 Incorporate exact forest and moving physical-loss calculus",
+    "479b83b95b423975f341abb0ac6140164065eb3e Incorporate Gaussian action obstruction and conditional source transport",
+    "a4a784128c6e642437d8a3e5dc509eabc984c043 Incorporate plateau confinement and necessary fitting scales"
+  ]
+}

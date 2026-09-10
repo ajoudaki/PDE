@@ -1,0 +1,152 @@
+[
+  {
+    "path": "Makefile",
+    "lines": 9,
+    "sha256": "740d59f44f085975520f375a5d96c8871ecf3a07afdf767c3090bfde61e7db65"
+  },
+  {
+    "path": "code/README.md",
+    "lines": 591,
+    "sha256": "00f5070d35a3e9fb9d0e9886f0f6d9f680a8d34bb32307807d1f88afc807a774"
+  },
+  {
+    "path": "code/pde/__init__.py",
+    "lines": 26,
+    "sha256": "65eb96a5dd455041d2ad1f32652e3e26e8c15192eb41bdffba27980f0f69e8c3"
+  },
+  {
+    "path": "code/pde/exact_calculus.py",
+    "lines": 774,
+    "sha256": "7fd7fd515028a924bb4c28dcd374d652a3a3af15c9339c1ce2361390faa48e1a"
+  },
+  {
+    "path": "code/pde/finite_jets.py",
+    "lines": 437,
+    "sha256": "a8e22e14c7ce387636a7981a5e80556b975f83f8cf6a2b85ab22af877f5cca4c"
+  },
+  {
+    "path": "code/pde/finite_network.py",
+    "lines": 363,
+    "sha256": "efe694b200b8af2603cbf1bb9d0249f49636e874088c2bafd98f402b5bfbe551"
+  },
+  {
+    "path": "code/pde/finite_reductions.py",
+    "lines": 346,
+    "sha256": "391dc35773a35d86f889cebda9f95820d793a656f2fb05f9b01bb7453be20a4c"
+  },
+  {
+    "path": "code/pde/gaussian_moments.py",
+    "lines": 114,
+    "sha256": "6c2a21a9f3d101c433b5f06cb3f6e1dcdeca23a814891ea7bd81e73960e854ae"
+  },
+  {
+    "path": "code/tests/test_exact_calculus.py",
+    "lines": 551,
+    "sha256": "dcb5f213cc5f4598c40f67598e405fef3c1507104e29b507a32e3bcbc8b78028"
+  },
+  {
+    "path": "code/tests/test_finite_jets.py",
+    "lines": 445,
+    "sha256": "566b4a6bf93e4a0efca0b7cdbc8ca29ba91c03ffb85f2dec366940eabc8cf555"
+  },
+  {
+    "path": "code/tests/test_finite_network.py",
+    "lines": 297,
+    "sha256": "a45ddc72c943b85aff63b6c4d49c88d8784100dbed8878cd9bb710b8256b9931"
+  },
+  {
+    "path": "code/tests/test_finite_reductions.py",
+    "lines": 340,
+    "sha256": "7b1a4023334956a25afd4217de7a311145b64c240fc78b87f84b16d2af7dedb0"
+  },
+  {
+    "path": "code/tests/test_gaussian_moments.py",
+    "lines": 110,
+    "sha256": "9aeb8a09137edf50fd30db36b08a337a3b1b3cebe9ac85b95ec4c6787f1188ea"
+  },
+  {
+    "path": "code/tests/test_library_boundary.py",
+    "lines": 58,
+    "sha256": "375a033e737923ea5f10df687adb0556baee5bcd1a44dff184b88d76b381966a"
+  },
+  {
+    "path": "code/tests/test_numerical_contract.py",
+    "lines": 202,
+    "sha256": "c925d71d60aa1965d44900122fa04e5fdfff18f00bdf8a41ddc9a2b91e5e1d92"
+  },
+  {
+    "path": "code/tools/check_library.py",
+    "lines": 100,
+    "sha256": "7ae3148f2418ec60744435e0685cde63d2de5a8448816b98d1ed4b700dfb48f6"
+  },
+  {
+    "path": "docs/NOTATION.md",
+    "lines": 98,
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b"
+  },
+  {
+    "path": "docs/README.md",
+    "lines": 265,
+    "sha256": "4d3cf63cf09e2effb3342f96272a754e8f8f127aada44179b893f6e1a36df453"
+  },
+  {
+    "path": "docs/arctan_limits.md",
+    "lines": 3117,
+    "sha256": "19f01b6112949f4d186ef17ff94415804830ed51a519b155ed45343c26cbbead"
+  },
+  {
+    "path": "docs/continuous_depth.md",
+    "lines": 2825,
+    "sha256": "12be7aafbf37cb3651facdcac9c5333281b793c96b96a8a52a1232cd86ca006d"
+  },
+  {
+    "path": "docs/finite_dynamics.md",
+    "lines": 1275,
+    "sha256": "a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca5545bc0012a"
+  },
+  {
+    "path": "docs/finite_optimization_and_controls.md",
+    "lines": 5112,
+    "sha256": "80dcce91ed3cd8313654523725e28b312ab925376cd7a28d71323bed648a5628"
+  },
+  {
+    "path": "docs/gaussian_calculus.md",
+    "lines": 9580,
+    "sha256": "d2f6a065432b5dadc7a1973f11b335cbd0f180caa29a81f863c58fff3ac5ef5e"
+  },
+  {
+    "path": "docs/global_nonlinear.md",
+    "lines": 3829,
+    "sha256": "8c575acb99ed713ef688cafb39fe9d8d8430e80815d2a69ac6686bac2cc19101"
+  },
+  {
+    "path": "docs/linear_dynamics.md",
+    "lines": 2803,
+    "sha256": "8de3beaca0cd6f970c27a25eb8c2bc4a1fefa2e7840bd97e7bccfc4f41281c1d"
+  },
+  {
+    "path": "docs/special_data_limits.md",
+    "lines": 27274,
+    "sha256": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489"
+  },
+  {
+    "path": "requirements.txt",
+    "lines": 2,
+    "sha256": "c907c176d0ef35a2a05a8650accb80616d99d55f620dc0fd55d8bfe994bc7ae2"
+  },
+  {
+    "path": "studies/repository_refactor_2026_09_09/FINAL_LAST_ADDITION.md",
+    "lines": 2229,
+    "sha256": "bb28eb597f0e6a230e90674eb379e2a901e2038f8aa1138b1e236e137c212976"
+  },
+  {
+    "path": "studies/repository_refactor_2026_09_09/FINAL_SCOPE_ADDITION.md",
+    "lines": 1256,
+    "sha256": "b85476dd8886365c292de1cd19463f988971d6f472800d838a8a1cd6d7b166d6"
+  },
+  {
+    "path": "studies/repository_refactor_2026_09_09/FINAL_IDENTITY_UNIFORM_ADDITION.md",
+    "lines": 1032,
+    "sha256": "d26113499bb36349cbb95fe7c78bedc74e694b4ae57ffcc862c7351103081bce"
+  }
+]

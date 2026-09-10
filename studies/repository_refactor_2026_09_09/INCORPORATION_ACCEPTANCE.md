@@ -866,3 +866,39 @@ exact hashes; eight inaccessible inherited artifacts have unchanged metadata
 only. PDF exporter work remains outside scientific acceptance. Final scoped
 integration and coverage reconciliation follow separately; this is already
 actual incorporation of all three proof packages.
+
+## Completion edition: final integration and disposition
+
+The last complete proof package and current coverage reconciliation are committed
+at `4d261ea`. This completes the checked important supportable incorporation
+queue; the 55-headline coverage map has no remaining high-priority closed-proof
+editorial hold. CONTINUATION_DISPOSITION.md states specific residual proof,
+generator/recovery and empirical-reproduction gaps, and deliberate duplicate or
+architecture exclusions. These omissions are not counted as incorporation or
+as resolved research problems.
+
+The independent FINAL_COMPLETION_INTEGRATION.md gives PASS with no required
+correction for a fresh scoped acceptance of
+assembly, internal routing, claim boundaries, self-containment and operation.
+The coordinator read its full report and verified all 30 input hashes against
+the live accepted edition. Its exact read ranges and unread complement are
+recorded in that report: this is not a fresh whole-book proof audit. The two
+completed full R2 mathematical reviews remain the final proof verdicts for the
+three last candidates; their valid reports were reused, not rerun.
+
+The final 27-file scientific manifest is FINAL_COMPLETION_LIBRARY_INPUTS.json.
+All scientific bytes are unchanged from the successful coordinator standalone
+106-test/eight-example/boundary check and from the final integration input.
+The integration reviewer independently passed the same selected scientific checks;
+its exact commands, limitations and final verdict remain in the original report.
+Its independent anchor scan checks all 52 local links, including 27 fragment
+links, with zero unresolved destinations.
+No exporter or historical campaign is covered. FINAL_COMPLETION_CHECKS.json
+records final hashes, prior scoped commits and inherited preservation. The
+sandbox/host uid mapping was verified read-only; no file ownership was changed.
+
+No maintained proof/API depends on studies, chats, archived arrays or temporary
+review packets. The final records themselves are provenance outside the library.
+The shared checkout, flat studies, separate data and unrelated concurrent changes
+are preserved. This concludes incorporation, with the stated mathematical frontiers
+left as frontiers and no new experiment or proof-search campaign.
