@@ -1,0 +1,26 @@
+{
+  "scope": "Executed exact REPLAY_REVIEWS.md Python block; preserved independent diagnostic sources restored to expected private scratch layout",
+  "recipe_sha256": "845508900d11ddc96cc25c1804c1f275f4855de7e822de2ff1e061c396dae7bf",
+  "exit_code": 0,
+  "command_count": 4,
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "platform": "Linux-5.15.0-151-generic-x86_64-with-glibc2.35",
+  "logs": [
+    {
+      "path": "data/generated/research_workflow_2026_09_10/replay_r1_001/command_0.log",
+      "sha256": "a9f84b0da7ce390a8200b5cd8223bcdece7fa4f57d6c0429b48e5a9265f68fa3"
+    },
+    {
+      "path": "data/generated/research_workflow_2026_09_10/replay_r1_001/command_1.log",
+      "sha256": "6f3f568b4ea021a897a8e1df2fa2fc87260d750f7742348d38acd735da055fa6"
+    },
+    {
+      "path": "data/generated/research_workflow_2026_09_10/replay_r1_001/command_2.log",
+      "sha256": "1cdd7f9b690b13aed329cfbf20997e3bd5606d532c34a62477ca64967db77f9f"
+    },
+    {
+      "path": "data/generated/research_workflow_2026_09_10/replay_r1_001/command_3.log",
+      "sha256": "03b5bda99fbbf787794df356ade4bea975d43ee53fcb7801cd17414f943196c1"
+    }
+  ]
+}

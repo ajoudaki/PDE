@@ -1,0 +1,19 @@
+{
+  "baseline_commit": "29ddc6f1701599a6e9b75dabc0deacb784a0c2bd",
+  "data_path": "data/generated/research_workflow_2026_09_10",
+  "lifecycle": "closed",
+  "owner": "/root",
+  "participants": [
+    "/root",
+    "/root/workflow_helper",
+    "/root/workflow_gate_requirements"
+  ],
+  "question": "Maintain the permanent study lifecycle and independent promotion gates",
+  "schema": 1,
+  "slug": "research_workflow_2026_09_10",
+  "tasks": [
+    "Implement shared study lifecycle and automatic instruction entry",
+    "Independently audit policy, helper and installation"
+  ],
+  "thrust": "Maintain the permanent study lifecycle and independent promotion gates"
+}

@@ -1,0 +1,6 @@
+{
+  "scope": "Workflow maintenance integration; scientific edition unchanged",
+  "baseline": "29ddc6f1701599a6e9b75dabc0deacb784a0c2bd",
+  "implementation_commit": null,
+  "status": "Prepared for scoped writer transaction"
+}

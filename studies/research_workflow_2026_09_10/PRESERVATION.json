@@ -1,0 +1,65 @@
+{
+  "scope": "Preservation before workflow integration",
+  "scientific_manifest": "studies/repository_refactor_2026_09_09/LIBRARY_INPUTS.json",
+  "scientific_file_count": 27,
+  "scientific_hashes_unchanged": true,
+  "inherited_files": [
+    {
+      "path": ".gitignore",
+      "verified": "metadata and SHA256"
+    },
+    {
+      "path": "code/tests/test_book_exporter.py",
+      "verified": "metadata and SHA256"
+    },
+    {
+      "path": "code/tools/book_pdf/README.md",
+      "verified": "metadata and SHA256"
+    },
+    {
+      "path": "code/tools/book_pdf/build-pdf.sh",
+      "verified": "metadata and SHA256"
+    },
+    {
+      "path": "code/tools/book_pdf/export_book.py",
+      "verified": "metadata and SHA256"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_REPORT.md",
+      "verified": "metadata only; preexisting file unreadable"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_acceptance.py",
+      "verified": "metadata only; preexisting file unreadable"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/ANALYZER_PATH_PLAN_ACCEPTANCE_evidence.json",
+      "verified": "metadata only; preexisting file unreadable"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/EXACT_CAPTURE_ROUND2_B.md",
+      "verified": "metadata only; preexisting file unreadable"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/GUIDE_ADVISORY_INTEGRATION.md",
+      "verified": "metadata only; preexisting file unreadable"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/INCORPORATION_FINAL_INTEGRATION.md",
+      "verified": "metadata only; preexisting file unreadable"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/MAIN_ROUTING_PATCH_ROUND1_record-python",
+      "verified": "metadata only; preexisting file unreadable"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/reviews/MAIN_ROUTING_WRAPPER_ACCEPTANCE_record-python",
+      "verified": "metadata only; preexisting file unreadable"
+    },
+    {
+      "path": "studies/repository_refactor_2026_09_09/TASK_NAME_INDEX.md",
+      "verified": "metadata and SHA256"
+    }
+  ],
+  "limitations": "Eight unreadable inherited files have metadata checks only; no ownership or mode edits."
+}

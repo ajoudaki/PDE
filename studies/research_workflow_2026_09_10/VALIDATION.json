@@ -1,0 +1,25 @@
+{
+  "scope": "Workflow helper and policy; not a mathematical proof or new scientific library acceptance",
+  "command": [
+    "python",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "studies/research_workflow_2026_09_10/tests",
+    "-p",
+    "test_workflow.py",
+    "-v"
+  ],
+  "exit_code": 0,
+  "log": "data/generated/research_workflow_2026_09_10/coordinator_tests_r1.log",
+  "log_sha256": "47810a0a9591c67352dc8695df24b0469b5cfd5a7bf764cfc5aecb92785c8f33",
+  "helper_sha256": "56da34a7a5880446109764f496e39c748b31d54a6df014154aef91d55692307e",
+  "tests_sha256": "f0b57f4305d483c67df52196e4b817822c83ab9f9b5cd76cc10366adb9597f10",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "platform": "Linux-5.15.0-151-generic-x86_64-with-glibc2.35",
+  "working_directory": "/home/amir/Codes/PDE",
+  "test_count": 10,
+  "scientific_experiments_run": false
+}

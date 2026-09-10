@@ -1,0 +1,56 @@
+{
+  "scope": "Actual fresh Codex automatic instruction discovery using the available credential; no assertion about the other credential private configuration",
+  "command": [
+    "codex",
+    "exec",
+    "--ephemeral",
+    "--sandbox",
+    "read-only",
+    "--json",
+    "-C",
+    "/home/amir/Codes/PDE",
+    "-o",
+    "/home/amir/Codes/PDE/data/generated/research_workflow_2026_09_10/loader_probe_result.md",
+    "-"
+  ],
+  "stdin": "studies/research_workflow_2026_09_10/loader_probe_prompt.txt",
+  "exit_code": 0,
+  "thread_id": "01a08b2a-2550-7542-99cf-402e4de95a63",
+  "result": "Root AGENTS.md supplied automatically; the full RESEARCH_WORKFLOW.md then explicitly read",
+  "observed_tool_commands": [
+    "cat RESEARCH_WORKFLOW.md"
+  ],
+  "artifacts": [
+    {
+      "path": "data/generated/research_workflow_2026_09_10/loader_probe_result.md",
+      "bytes": 1782,
+      "sha256": "e79979446d293fcfc9151c3ab628d7c0aff47fa5569fc3b7919bcb05d7cd07d0"
+    },
+    {
+      "path": "data/generated/research_workflow_2026_09_10/loader_probe_events.jsonl",
+      "bytes": 31345,
+      "sha256": "65eac023a4daf496bad9807c36ead45ac4e89f3b2c5bb15db234e70342bb079e"
+    },
+    {
+      "path": "data/generated/research_workflow_2026_09_10/loader_probe_process.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 4635,
+      "sha256": "b17e84384975db9529b25eb22882ddcde9a7a224910c29fafdd5d8c3a4d38297"
+    },
+    {
+      "path": "RESEARCH_WORKFLOW.md",
+      "bytes": 28122,
+      "sha256": "5daa20113fad9b00729894132d6fd3792e5ee2ae94e0b50ec4c31531424a7b98"
+    },
+    {
+      "path": "studies/research_workflow_2026_09_10/loader_probe_prompt.txt",
+      "bytes": 1006,
+      "sha256": "06e00ac7f094417eeb0583163f77a713c7762453570f433c92037f5657aa778a"
+    }
+  ],
+  "codex_version": "codex-cli 0.154.0"
+}
