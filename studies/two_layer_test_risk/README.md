@@ -1,11 +1,110 @@
 # Two-hidden-layer feature learning and test-risk improvement at matched training loss
 
-Started 2026-09-10. Current research record; study work only, not established material.
-Scientific outcome: **bounded partial result; the risk sign remains open**.
-The controlled cubic reduction is internally checked. The final quadrature
-did not meet the declared convergence gate and does not certify a sign.
-No existing study of this exact assignment was found by the initial README/content search.
-Initial HEAD: `02af27154186dd3e45f83989a8ddf78e92ebceff`. Unrelated dirty paths are preserved.
+Started 2026-09-10. This is the single current research record.
+**Scientific status: complete, internally checked positive finite-time comparison.**
+Both fresh complete scientific audits accepted the signed theorem with no
+required corrections. This is a study result; established book/code are unchanged.
+No existing study of this exact assignment was found at startup. Initial HEAD
+was `02af27154186dd3e45f83989a8ddf78e92ebceff`; the first phase was committed as
+`df1117948764a984e7fd2d28949a3c87bc284f84`. Unrelated shared-checkout work is preserved.
+
+## Answer and exact scope
+
+For the fixed model below, learning both hidden layers gives strictly lower
+uniform-circle test risk than freezing them, **at the same training loss**, for
+all sufficiently small positive physical times. The unique matching clock and
+actual-flow remainder were already proved; the continuation resolved the
+previously open sign by a complete deterministic arithmetic certificate:
+
+`27/100000 < chi < 273/1000000`,
+`35309/1000000 < beta < 35311/1000000`, and
+`|Delta(t)-chi t^3| <= M t^4` on `[0,T]`.
+
+Consequently, with `t0=min(T,27/(200000M))`,
+`Delta(t) >= (27/200000)t^3 > 0` for `0<t<=t0`.
+The cubic term is now proved to be the first nonzero contribution.
+The complete statement and signed proof are in [SIGN_THEOREM.md](SIGN_THEOREM.md).
+Its initial pending-audit preface records its frozen version; the audit
+condition is now satisfied by the original reports linked below.
+
+The benefit is small: its leading term is about `0.000272 t^3`, against
+initial test risk `1/2`. The width-independent positive interval exists, but
+`T`, `M`, and `t0` are not numerically evaluated. This proves no practically
+substantial gain, later-time dominance, universal feature-learning benefit,
+iid-average risk/sample-complexity theorem, or growing-design/depth limit.
+Finite GF and every deterministic vanishing raw-GD step inherit the sign in
+probability on each fixed `[delta,t0]`, `delta>0`, with the actual common small
+random readout retained. There is no width rate or finite-width sign claim
+uniformly down to zero. Hidden activation and preactivation movement begins
+at nonzero order `t^2`; the local absolute nonaffinity bounds in
+[RESULT.md](RESULT.md) remain at their original scope.
+
+## Evidence and independent checks
+
+The full exact coefficient retains the moving residual, all trained blocks,
+and both directions and response means of the reused connector; see
+[CUBIC_DERIVATION.md](CUBIC_DERIVATION.md). Unique matching and the actual
+uniform fourth-order remainder are proved in
+[MATCHING_AND_REMAINDER.md](MATCHING_AND_REMAINDER.md). Passive-circle capture
+is a supporting corollary of the established population theorem, not a new
+population-existence achievement.
+
+The new certificate's complete components are
+[CERTIFIED_ERROR.md](CERTIFIED_ERROR.md),
+[CERTIFICATION_ENGINE.md](CERTIFICATION_ENGINE.md),
+[ANGULAR_CERTIFICATE.md](ANGULAR_CERTIFICATE.md), and
+[DRIVER_CERTIFICATION.md](DRIVER_CERTIFICATION.md). They bound Gaussian
+integration and tails, covariance/root errors including singular cases,
+elementary arithmetic and summation, labels/input constants, rational
+interval propagation, and the whole-circle rule. No statistical confidence
+level or numerical convergence heuristic decides the sign.
+
+The primary target-26 run and sole reserved fresh reproduction both exited
+zero, taking respectively 31.18 and 30.67 CPU seconds. Each used 64 evaluations
+of the exact symmetry-reduced 256-angle rule and 86,101,134 upper Gaussian
+nodes. Their final rational certificate and all 322 invariant input/output
+files agree byte for byte. The enclosing chi interval is approximately
+`[0.00027054037037366814,0.00027259851133052906]`, entirely positive after
+all error charges. Raw data and provenance are in fresh runs
+`certificate_20260910_01/` and `certificate_reproduction_20260910_01/` under
+`data/generated/two_layer_test_risk/`.
+
+Component audits [angular](ANGULAR_REVIEW.md), [kernel](KERNEL_REVIEW.md),
+and [driver](DRIVER_REVIEW.md) passed. A preflight interval-efficiency bug
+was fixed before any coefficient execution and its adverse evidence retained.
+The two fresh complete final audits are [A](SIGN_REVIEW_A_V1.md) and
+[B](SIGN_REVIEW_B_V1.md). Both read the complete proof/dependency/code packet;
+A performed the reserved fresh full reproduction. Each separately rebuilt
+all 64 enclosures using its own rational interval implementation of the full
+four-slot Gaussian contraction, and independently proved the positive bound.
+Their checker corrections and limitations are preserved in the original
+reports. The coordinator read both reports completely and verified all 625
+frozen hashes, report provenance and exact rational sign comparisons.
+
+[SOURCE_AND_CHECKS.md](SOURCE_AND_CHECKS.md) records complete source-reading
+coverage, hashes, commands and verification evidence. Generated results are
+reproducible from retained sources, never committed as unique proof source.
+
+## Approaches, adverse findings and supersession
+
+The user explicitly asked to continue until the comparison was completely
+resolved. That reopened the old scalar-sign stop without changing the fixed
+model, local-time scope, or prohibition on training/witness searches.
+Exactly two analytic approaches were used:
+
+| Approach | Outcome |
+|---|---|
+| A: moving-flow expansion and analytic structure | Complete coefficient, unique matching and remainder. Structural symmetry/matching identities alone did not establish a sign; adverse and useful identities are retained in [SIGN_STRUCTURE.md](SIGN_STRUCTURE.md). |
+| B: certified deterministic integration | Strict positive coefficient proved with full analytic/arithmetic error enclosure and one fresh identical reproduction. |
+
+The earlier Gauss--Hermite orders 12/20/28 gave positive diagnostics but the
+last 1.69 percent change failed their declared convergence gate. They remain
+inconclusive diagnostics in [QUADRATURE.md](QUADRATURE.md). The new proof
+does not retrospectively certify those arrays. Old open-sign statements in
+RESULT and the original proof-only promotion documents describe that earlier
+version; the signed theorem and this current record supersede that obligation.
+No third approach, new teacher/design, training, GPU work or further full
+coefficient run is authorized or needed.
 
 ## Frozen contract
 
@@ -34,6 +133,86 @@ count, training runs, GPU work, parameter sweeps, or search for another witness.
 No quantitative width rate may be invented. Passive-input capture is a
 supporting corollary only. At most two analytic approaches are allowed.
 
+## Promotion and remaining authorized work
+
+Independent [signed-result relevance selection](SIGN_RELEVANCE.md) accepts
+narrow assembly: one signed C.4 with its full certificate proof, an opt-in
+self-contained fixed-certificate command, focused tests and minimal guide
+updates. The scientific result is complete independently of this packaging.
+The complete canonical edition and tool are frozen and all promotion gates
+before user approval have passed. The concrete nine-file addition is in
+[SIGNED_PROMOTION_PROPOSAL.md](SIGNED_PROMOTION_PROPOSAL.md), with the full
+[C.4 proof](PROMOTION_SIGN_C4_V2.md) and [tool guide](PROMOTION_TOOL_GUIDE.md).
+Two fresh isolated complete scientific reviews
+[A](SIGNED_PROMOTION_REVIEW_A_V1.md) and
+[B](SIGNED_PROMOTION_REVIEW_B_V1.md), and the separate fresh
+[integration review](SIGNED_PROMOTION_INTEGRATION_V1.md), accepted exactly
+the frozen edition with no required corrections. The coordinator read every
+full report and verified all 1,194 frozen payload hashes and current sources.
+These reviews used no prior verdict as a premise and ran no third coefficient
+integration. They independently checked the unchanged numerical core,
+both complete saved runs, standalone interfaces and focused tests; each
+scientific reviewer also rebuilt the full four-slot contraction independently.
+The old [proof-only proposal](PROMOTION_PROPOSAL.md) and its passing reviews
+cover only their earlier unsigned scope and are superseded as a recommendation.
+They are preserved unchanged and are not reused to accept the signed edition.
+
+Root owns this README, synthesis, source checks, canonical theory assembly
+and the sole Git transaction. Original authors own their named proof/code
+sources. `sign_code_assembly` owns only the new candidate tool/guide/checks.
+All scientific reviewers and the selector own their original assigned reports
+and separate scratch; none may stage or commit. Only explicit owned study
+paths will be committed under the common nonblocking `pde-writer.lock`.
+
+Research is closed with the positive theorem; there is no unresolved
+coefficient or remainder obligation. Final integrity checks passed; the
+study-only Git transaction evidence is retained under
+`data/generated/two_layer_test_risk/signed_commit_20260910_01/`.
+The only next step is user approval of the exact reviewed
+promotion proposal, followed by dependency rechecking and integration under
+workflow Part 2. Do not run further coefficient calculations or change live
+established book/code before that approval.
+
+## Preserved calculation contracts
+
+The following pre-execution specifications are retained with their original
+limits. Both permitted certificate runs are now complete.
+
+### Preregistered certificate calculation
+
+The second approach now has complete analytic Gaussian-tail/strip and
+covariance-error bounds in `CERTIFIED_ERROR.md`, plus the independent circle
+bound in `ANGULAR_CERTIFICATE.md`. Exact rational derivative arithmetic gave
+an angle error below `1.62e-7` (fresh `angle_bound_20260910_01`); the executing
+certificate conservatively charges `1e-6`, conditional on verifying
+`|beta|<=1/10`. This small scalar majorant check is not a coefficient run.
+
+Before executing a new coefficient calculation, freeze: the exact original
+model; 256-angle periodic rule reduced by exact symmetry to 64 evaluations;
+Gaussian tensor trapezoid with root radius at least eight; strip exponent
+target B=26, all root spacings dyadic, chosen from the certified column
+bounds alone; and exact rational interval propagation through every moment,
+covariance perturbation, matrix response and clock division. Elementary
+functions in the bulk are polynomial/rational evaluations with proved
+rounding bounds. The certificate must verify all declared numeric contracts
+and a strictly positive denominator; no empirical convergence test substitutes.
+
+Primary outcome is the complete enclosing interval for chi: lower endpoint
+positive proves benefit, upper endpoint negative proves disadvantage, and
+an interval containing zero is inconclusive. The second run is reserved
+either for independent fresh reproduction if the first valid interval
+excludes zero, or for B=30 refinement if the first valid interval contains
+zero and Gaussian integration error is the removable bottleneck. All other
+scientific settings remain unchanged.
+At most two full coefficient runs, at most fifteen CPU minutes per run and
+thirty CPU minutes total, on CPU with one calculation process at a time.
+No random seeds, sampling, training or data/teacher search. Each run goes in
+a fresh generated directory and retains inputs, bit-exact primitive output,
+source hashes, environment, limits, errors and exit status. Source failures
+are preserved; fixing a demonstrated implementation bug is not evidence of
+the coefficient's sign. Small deterministic primitive and contraction tests
+are separate verification, capped at one CPU minute each.
+
 ## First decisive calculation and bounded plan
 
 Approach A: the moving-residual physical-flow jet. With `K0` the initial
@@ -46,8 +225,9 @@ alone will not count as a risk result. The first calculation to resolve is
 the matched coefficient, including the moving residual and both directions
 of the same connector operator. Its order/sign are not assumed.
 
-Only approach A was used. The reserved second approach was not launched;
-independent reconstruction/audits of A do not constitute a new route.
+In the first completed phase, only approach A was used. The second approach
+was reserved then and was launched only after the user reopened the study.
+Independent reconstruction/audits do not constitute another analytic route.
 Stop with either a complete locally uniform sign/remainder theorem or an
 explicit unresolved coefficient/remainder obligation. Preserve adverse findings.
 Small deterministic algebra or quadrature checks may be used only after
@@ -72,94 +252,3 @@ symmetry error and covariance eigenvalues. An identity error exceeding
 quadrature remains inconclusive. Cap each calculation at five CPU minutes
 and the full verification at fifteen CPU minutes; no GPU or random sampling.
 Use fresh run paths, preserve code/hashes, environment and full output.
-
-## Claims and checks
-
-The exact moving-residual calculation is persisted in
-[CUBIC_DERIVATION.md](CUBIC_DERIVATION.md). With `p=y/3`, initialized
-`S=sum p_a H_a`, initial readout kernel `K`, and the fully specified cubic
-predictor coefficient `J(x)` in that proof,
-
-`f_t-g_t = J t^3 + O(t^4)`,
-`tau(t)=t+beta t^3+O(t^4)`,
-`beta=(p^T J_train)/(2 E S^2)>0`, and
-`|Delta(t)-chi t^3| <= M t^4`, where
-`chi=2 integral cos(3 alpha)[J(alpha)-beta g'_0(alpha)] d alpha/(2 pi)`.
-
-The clock matching is proved uniquely on a positive local interval. The
-cubic term is the first **possible** risk contribution: nonvanishing and
-sign of `chi` are still open. The complete fourth-order remainder argument
-is in [MATCHING_AND_REMAINDER.md](MATCHING_AND_REMAINDER.md). The constant
-`M>=1` and positive interval are width-independent and not numerically
-evaluated. [RESULT.md](RESULT.md) states the exact theorem, conditional sign
-implication, hidden movement/nonaffinity bounds and remaining obligation.
-
-Required source reading is complete for the coordinator; full coverage,
-hashes and finite deterministic evidence are in
-[SOURCE_AND_CHECKS.md](SOURCE_AND_CHECKS.md). The finite cubic identity,
-kernel identity and matched-loss cancellation pass an independent
-supplied-state check against the maintained moving-jet producer. This is
-algebra verification only, not Gaussian or training evidence.
-
-The prescribed quadrature checks give positive diagnostic coefficients
-`0.0002932043404` (order 12), `0.0002776889548` (order 20) and
-`0.0002730773235` (the conditionally authorized final order 28).
-The final relative change is still about 1.69 percent. Numerical convergence
-is therefore **inconclusive at the declared gate**, and there is no certified
-integration error. All quadrature has stopped; positivity is not a theorem.
-Details and full producer evidence are in [QUADRATURE.md](QUADRATURE.md).
-
-| Claim | Type | Internal check | Promotion status |
-|---|---|---|---|
-| Unique matching, cubic coefficient and uniform fourth-order remainder | Proved local reduction | Complete; [independent adversarial report](INTERNAL_REVIEW.md) and coordinator reconstruction | Exact proof-only candidate passed separate reviews; awaiting user approval |
-| Positive hidden movement and absolute nonaffinity | Existing C.3 specialized with explicit local scales | Hypotheses and expansions checked | Duplicate material stays in study |
-| Positive or negative risk difference | Open | No rigorous coefficient sign or nonzero bound | Not eligible as a signed theorem |
-| Positive quadrature values | Numerical diagnostic, inconclusive accuracy | Producer/identities and all saved rows checked | Excluded from candidate |
-
-The coordinator read the full original internal review and verified its
-frozen input/output hashes. Internal acceptance is not promotion review.
-Independent [relevance selection](RELEVANCE.md) accepted a narrower C.4
-appendix for assembly: the exact equal-loss expansion with unresolved sign,
-plus one guide sentence. All numerical material stays in the study. The exact
-[promotion proposal](PROMOTION_PROPOSAL.md) now passed both fresh complete
-scientific reviews, [A](PROMOTION_REVIEW_A_V1.md) and
-[B](PROMOTION_REVIEW_B_V1.md), and the separate fresh
-[integration review](PROMOTION_INTEGRATION_V1.md). Each reports no required
-corrections. The coordinator read all three original reports completely and
-verified their provenance and frozen hashes. Standalone structural/link checks
-passed; this is not a whole-book proof audit or code-library recertification.
-The established book/code remain unchanged, pending approval of the exact
-reviewed C.4 appendix and one guide sentence.
-
-Reproduction instructions for the finite supplied-state identity are in
-[SOURCE_AND_CHECKS.md](SOURCE_AND_CHECKS.md); the fixed, completed quadrature
-budget and commands are in [QUADRATURE.md](QUADRATURE.md). The retained
-assembler and independent integration-check source reproduce the proposed
-edition and structural checks using the fresh-directory recipe in
-[PROMOTION_PROPOSAL.md](PROMOTION_PROPOSAL.md). Generated evidence is preserved
-under `data/generated/two_layer_test_risk/` and is excluded from commits.
-
-## Ownership and next authorized action
-
-The main task owns this README, synthesis, checks and the sole Git transaction.
-Agent `cubic_derivation` owns `CUBIC_DERIVATION.md` and independently reconstructs
-the jet and Gaussian response contraction. No agent may stage or commit.
-Agent `matching_remainder` owns `MATCHING_AND_REMAINDER.md`.
-Agent `quadrature_check` owns its producer and `QUADRATURE.md`.
-Fresh `internal_adversary` owns the internal report; fresh `relevance_selector`
-owns the independent placement report. `cubic_derivation` also assembles
-`PROMOTION_C4.md`; all these authors/assemblers and the selector are excluded
-from the paired isolated promotion reviews.
-Fresh agents `promotion_review_a`, `promotion_review_b` and
-`promotion_integration` each own their original assigned report only; all
-three completed without reading prior verdicts or one another's findings.
-The integration review's exact check source is also retained in the study.
-Generated outputs go into fresh `data/generated/two_layer_test_risk/<run>/`.
-Only owned study paths may be committed under the shared `pde-writer.lock`.
-The bounded scientific calculation is complete at its unresolved scalar-sign
-obligation; no further research or quadrature is running. The completed study
-and exact reviewed proposal are retained together here. The next
-external decision is user approval of that proposal. If approved, recheck live
-dependencies and integrate only the reviewed addition under the shared lock;
-changed scientific inputs require renewed reviews and approval. Do not restart
-research or quadrature from this closeout note.
