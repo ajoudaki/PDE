@@ -1,6 +1,46 @@
 {
-  "scope": "Workflow maintenance integration; scientific edition unchanged",
+  "scope": "Completed workflow maintenance integration; no new mathematical acceptance",
   "baseline": "29ddc6f1701599a6e9b75dabc0deacb784a0c2bd",
-  "implementation_commit": null,
-  "status": "Prepared for scoped writer transaction"
+  "implementation_commit": "2fe4a695d66bbd2547bbb81e8eb60887d951f5d3",
+  "status": "Implemented, independently reviewed, tested and committed",
+  "implementation_paths": 41,
+  "manifest": "studies/research_workflow_2026_09_10/reviews/r1/INPUTS.json",
+  "manifest_sha256": "17e8e35c86acac16c9a64ee7a6158c0373736d762ae818c6f5aeefd7ad23b6df",
+  "reviews": [
+    {
+      "path": "studies/research_workflow_2026_09_10/reviews/WORKFLOW_A1.md",
+      "sha256": "012826d414e47510ffe951f38837378dd6e7796e4a8e75540d6b91395ab44f31",
+      "verdict": "clean",
+      "required_corrections": 0
+    },
+    {
+      "path": "studies/research_workflow_2026_09_10/reviews/WORKFLOW_B1.md",
+      "sha256": "728df3b2a4b594759392a2dcf20a9ec1aeba8a15c4ed9ddc71e361f4283ad6c2",
+      "verdict": "clean",
+      "required_corrections": 0
+    },
+    {
+      "path": "studies/research_workflow_2026_09_10/reviews/INTEGRATION_1.md",
+      "sha256": "988655c139ff627feca3c0b3f0fb55628464cdfe559fb54af8b32ac6cae70cab",
+      "verdict": "clean",
+      "required_corrections": 0
+    }
+  ],
+  "validation_receipts": [
+    "VALIDATION.json",
+    "REPLAY_VALIDATION.json",
+    "AUTO_LOADING.json",
+    "PRESERVATION.json",
+    "reviews/EVIDENCE.json"
+  ],
+  "writer_transaction": {
+    "lock": ".git/pde-writer.lock",
+    "nonblocking": true,
+    "index_empty_before_and_after": true,
+    "explicit_staged_paths_verified": true,
+    "scientific_hashes_preserved": 27,
+    "inherited_paths_preserved": 14,
+    "uid_gid_mapping": "Inherited sandbox UID/GID 65534 corresponds to host 1000; other metadata and readable hashes matched exactly"
+  },
+  "seal_note": "This receipt and the closed STATE.md are committed in a following scoped provenance commit; its own hash is obtained from Git rather than recursively embedded."
 }

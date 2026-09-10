@@ -6,7 +6,8 @@ process/code reviews are clean at the exact `reviews/r1/INPUTS.json` bytes.
 The coordinator has read both complete reports and inspected their actual logs.
 The separate final installation review is also clean. All three original reports
 were read completely and their reported hashes verified. The accepted edition
-is ready for its scoped commit; COMMITS.json records the resulting commit.
+was committed as `2fe4a69`; COMMITS.json records the exact commit and evidence.
+This maintenance study is closed; no required incorporation remains.
 
 The coordinator owns the root/shared integration paths listed in README.md and
 all current records. The helper author worked only on the assigned draft/tests.
