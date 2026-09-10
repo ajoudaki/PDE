@@ -1,0 +1,32 @@
+[
+  {
+    "path": "studies/repository_refactor_2026_09_09/FINAL_LAST_ADDITION.md",
+    "lines": 2229,
+    "sha256": "bb28eb597f0e6a230e90674eb379e2a901e2038f8aa1138b1e236e137c212976"
+  },
+  {
+    "path": "studies/repository_refactor_2026_09_09/FINAL_SCOPE_ADDITION.md",
+    "lines": 1256,
+    "sha256": "b85476dd8886365c292de1cd19463f988971d6f472800d838a8a1cd6d7b166d6"
+  },
+  {
+    "path": "studies/repository_refactor_2026_09_09/FINAL_SHALLOW_RATE_ADDITION.md",
+    "lines": 161,
+    "sha256": "0adf42cdd2cfa3328a7e21f6e72eb4a9a2f5311a4da05edff3b71130564d11b8"
+  },
+  {
+    "path": "studies/repository_refactor_2026_09_09/reviews/FINAL_LAST_DEPENDENCIES.md",
+    "lines": 4861,
+    "sha256": "e27b438b599b7e8554f05cca455e9b20913ac06bea5342cb845151e0b8e8aecf"
+  },
+  {
+    "path": "studies/repository_refactor_2026_09_09/reviews/FINAL_SHALLOW_RATE_DEPENDENCIES.md",
+    "lines": 215,
+    "sha256": "ec3f238c98356de7ee4311e7cdaff5da6cfca359cf0612b1472cb98165830f35"
+  },
+  {
+    "path": "docs/NOTATION.md",
+    "lines": 98,
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b"
+  }
+]

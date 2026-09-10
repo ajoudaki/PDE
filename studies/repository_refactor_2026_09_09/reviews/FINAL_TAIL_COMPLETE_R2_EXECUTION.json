@@ -1,0 +1,26 @@
+{
+  "protocol": "Two fresh independent ephemeral processes, no prior scientific context. Only complete selected proofs and explicit dependencies; scientific files mode 0444, reviewer tools read-only. Allowed-input isolation, not inaccessible external filesystem. Both complete reports personally read by coordinator. Valid completed reviews reused; no repeated review requested.",
+  "runtime": "codex exec --ephemeral --ignore-user-config --skip-git-repo-check --sandbox read-only; no explicit model or effort override",
+  "reviews": [
+    {
+      "label": "A",
+      "path": "studies/repository_refactor_2026_09_09/reviews/FINAL_TAIL_COMPLETE_A2.md",
+      "sha256": "d00b86bc6f64df0331a97054bb123cc54eaa630b7cc2ed5b0c4d95712473c33b",
+      "scientific_lines": 9476,
+      "events_sha256": "23a1fc350eb9f62b3568d9da020a88db96319cd78991b424ebd01bde660f47de",
+      "command_inventory_sha256": "48cc66521edcc9afe95b48faa2e51c70a5df838192936a15a6c85f57d59d44b5",
+      "completion_event": "turn.completed",
+      "inputs_unchanged": true
+    },
+    {
+      "label": "B",
+      "path": "studies/repository_refactor_2026_09_09/reviews/FINAL_TAIL_COMPLETE_B2.md",
+      "sha256": "f62375ae8b5ec8d283e29a9769163e1a9e06557a29b23631ff04cdcc2f09b71f",
+      "scientific_lines": 9476,
+      "events_sha256": "61b86e1a96237387b30aa10e500f2cf117ffe8a9da46dfdab396cacaa980415d",
+      "command_inventory_sha256": "259085bf3aacb71863e668becd57d6d983696e8f72fdcd101e5ec6927970dad9",
+      "completion_event": "turn.completed",
+      "inputs_unchanged": true
+    }
+  ]
+}

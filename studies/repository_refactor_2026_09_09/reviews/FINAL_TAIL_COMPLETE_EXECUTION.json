@@ -1,0 +1,29 @@
+{
+  "protocol": "Fresh independent ephemeral processes; no prior scientific context; complete selected proof/dependency files only; scientific files mode 0444; reviewer tools read-only; allowed-input restriction, not inaccessible external filesystem",
+  "runtime": "codex exec --ephemeral --ignore-user-config --skip-git-repo-check --sandbox read-only; no explicit model/effort override",
+  "root_git_writer_only": true,
+  "reviews": [
+    {
+      "label": "A",
+      "path": "studies/repository_refactor_2026_09_09/reviews/FINAL_TAIL_COMPLETE_A1.md",
+      "sha256": "7bd439ae6fc3019f59d9f99f13868c2d502e36ff55f9131c81b7801bbc45add7",
+      "input_directory": "/tmp/pde_final_tail_a_a8d7_3gt",
+      "scientific_lines": 8820,
+      "events_sha256": "1fba501dbd1c6d3bd7ddc922384cd115073783b04a62f422df9d9a0ee15af83f",
+      "command_inventory_sha256": "c2c1901b55c8e3100d273d58c996d488cb333ad5d3769d6527cb4222459dab85",
+      "exit_status": 0,
+      "inputs_unchanged": true
+    },
+    {
+      "label": "B",
+      "path": "studies/repository_refactor_2026_09_09/reviews/FINAL_TAIL_COMPLETE_B1.md",
+      "sha256": "8d0d750443507a935430a044429e91097337d5cf73637b3fbe2c4c54a3e79b84",
+      "input_directory": "/tmp/pde_final_tail_b_glhw1wpf",
+      "scientific_lines": 8820,
+      "events_sha256": "21bc0f9f9084e4024fe0df376c5805eb26090bf940cc4ac10d3003c44313b8e8",
+      "command_inventory_sha256": "30eb5c9c5f192469724b532c56ad3de7622f3dc1cfb98973146c3f58de11253a",
+      "exit_status": 0,
+      "inputs_unchanged": true
+    }
+  ]
+}

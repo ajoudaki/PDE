@@ -788,3 +788,81 @@ The unchanged implementation retains its 106-test result without a new-run claim
 Exact hashes and checks are under reviews/FINAL_SHALLOW_RATE. Other complete
 proofs continue through review, including a wording correction in an older
 shared dependency; no deferral is treated as completion.
+
+## Completion pass: final Gaussian-readout, scoped and identity packages
+
+The preceding shallow-rate package is committed at `6510f61`. The following
+complete candidates are now incorporated into existing chapters. Both fresh
+independent R2 reports, FINAL_TAIL_COMPLETE_A2.md and FINAL_TAIL_COMPLETE_B2.md,
+were personally read completely by the coordinator and give separate CLEAN
+verdicts for all three candidates. Each reviewer read all 9,476 scientific
+lines, including the complete 4,861-line corrected dependency packet and the
+98-line notation contract. All starting, final and live candidate hashes match.
+The already completed valid reports were reused after the interruption.
+
+| Candidate | Lines | SHA256 | Maintained destination |
+|---|---:|---|---|
+| FINAL_LAST_ADDITION.md | 2229 | bb28eb597f0e6a230e90674eb379e2a901e2038f8aa1138b1e236e137c212976 | special_data_limits: Gaussian-readout limits and three-input continuation boundaries |
+| FINAL_SCOPE_ADDITION.md | 1256 | b85476dd8886365c292de1cd19463f988971d6f472800d838a8a1cd6d7b166d6 | special_data_limits: Initialized, conditional and local dynamics |
+| FINAL_IDENTITY_UNIFORM_ADDITION.md | 1032 | d26113499bb36349cbb95fe7c78bedc74e694b4ae57ffcc862c7351103081bce | gaussian_calculus: Every fixed identity depth |
+
+The only proof-adjacent integration correction calls III.M's one-sided
+assumption “weaker,” replacing the incorrect “stronger.” Its mathematics is
+unchanged. The full corrected dependency, SHA256
+d98b98ce35bf3f2f16d55be8ded7c1d10dd4f713abb49169f07bd3b82b808753,
+was included in both complete R2 reviews. Earlier reports/candidates are
+preserved: SCOPE's row/column distinction and explicit unit-mobility fixes,
+and the R1 dependency wording objection, are not erased by the final verdicts.
+No earlier partial or adverse report is counted as a clean final full review.
+
+LAST contains the actual trained affine first-order weak coupling; conditional
+reached-moment Osgood construction; strong-Orlicz, signed-response, raw-ball and
+smooth-metric obstructions; one-input two-hidden-layer order-one Gaussian
+readout natural-gate global physical GF with current-field/kernel observations;
+equal-label three-hidden-layer sech full GF/GD transfer; prescribed fixed-sign
+control tangent bounds; and a separate auxiliary zero-readout first-Euler
+neighborhood obstruction. Its full-square, half-sum and unhalved-sum models are
+explicitly separated. The GF theorem adds no raw-GD, full-velocity or fitting
+claim. The equal-label transfer adds no global opposite-label conclusion.
+
+SCOPE contains order-one-readout tanh vanishing-time continuity and zero-label
+stationarity; unit-mobility sin-plus-cosine initialization and formal coefficients;
+global given-space affine flow with fitting conditional on raw Gram and loss
+entry; actual same-array response/value and moving-coordinate identities; and
+local actual reached-state sech loss-gradient non-Lipschitzness for either binary
+label pair. Formal jets remain formal; same-array response assumptions remain
+assumptions. The reached local obstruction is distinguished from ambient examples.
+
+IDENTITY contains every separately fixed identity depth, order-one Gaussian
+stored endpoints, width first at each fixed signed feature-Euler program,
+complete polynomial moment control, explicit cubic coefficient and update-uniform
+fifth-order remainder, local trace-class operator flow and dyadic error bound.
+The deterministic bounded-energy activation-stability witness concerns feature
+Euler, not Gaussian-typical states, annealed continuity or physical-loss dynamics.
+There is no growing-depth, simultaneous width/mesh or global feature-time claim.
+
+All arguments and mathematical dependencies are maintained. The source audits
+FINAL_LAST_ASSEMBLY, FINAL_SCOPE_ASSEMBLY and FINAL_IDENTITY_UNIFORM_ASSEMBLY
+record complete operative source/correction reads and precise exclusions.
+FINAL_TAIL_ASSEMBLY_MAP.json records exact proof-body-preserving heading and
+boundary transformations; the previous chapter bodies are recovered by removing
+these insertions and reversing the reviewed wording correction. The guide's two
+chapter summaries now route to the exact added scopes.
+
+Both R2 reviewers ran as fresh ephemeral tasks with no prior scientific context;
+their scientific inputs were read-only. Their complete command inventories,
+input manifests, original report bytes and completion-event receipts are retained.
+Isolation is an allowed-input protocol, not a claim of an inaccessible outside
+filesystem. B's parent process handle was unavailable after interruption; its
+turn.completed event, unchanged inputs and complete final report establish
+completion without inventing a parent exit code.
+
+FINAL_TAIL_CHECKS.json and FINAL_TAIL_STANDALONE.md record the successful
+27-file standalone edition: all 106 scientific tests, all eight Python guide
+examples and the 25-file boundary/local-link check pass. Two preliminary
+coordinator harness invocation errors are preserved separately; neither changed
+maintained code or counts as a successful test. Inherited readable files retain
+exact hashes; eight inaccessible inherited artifacts have unchanged metadata
+only. PDF exporter work remains outside scientific acceptance. Final scoped
+integration and coverage reconciliation follow separately; this is already
+actual incorporation of all three proof packages.

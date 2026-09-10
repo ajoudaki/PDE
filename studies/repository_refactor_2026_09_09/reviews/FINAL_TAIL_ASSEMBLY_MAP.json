@@ -1,0 +1,41 @@
+{
+  "base_commit": "6510f613199dbb337f198f86769cbf909ffbd50d",
+  "transformations": [
+    "Demote all candidate Markdown heading levels by one.",
+    "Rename SCOPE top heading to Initialized, conditional and local dynamics.",
+    "Add explicit local numbering notices.",
+    "Add blank-line boundaries; preserve every proof body.",
+    "Correct existing III.M prose from stronger one-sided condition to weaker one-sided assumption; hypotheses and proof unchanged. This exact corrected dependency received both complete R2 reviews.",
+    "Remove one trailing blank line at the Gaussian chapter EOF; no proof text changed."
+  ],
+  "prior_chapter_bodies_preserved_except_reviewed_wording": true,
+  "insertions": [
+    {
+      "candidate": "studies/repository_refactor_2026_09_09/FINAL_SCOPE_ADDITION.md",
+      "candidate_sha256": "b85476dd8886365c292de1cd19463f988971d6f472800d838a8a1cd6d7b166d6",
+      "insertion": "studies/repository_refactor_2026_09_09/reviews/FINAL_TAIL_INSERT_SCOPE.md",
+      "insertion_sha256": "b57444ec0434a4406c402ac697d5822f6bb16298eea63ddad4194bdfedfca39a",
+      "target": "docs/special_data_limits.md",
+      "start_line": 23746,
+      "lines": 1260
+    },
+    {
+      "candidate": "studies/repository_refactor_2026_09_09/FINAL_LAST_ADDITION.md",
+      "candidate_sha256": "bb28eb597f0e6a230e90674eb379e2a901e2038f8aa1138b1e236e137c212976",
+      "insertion": "studies/repository_refactor_2026_09_09/reviews/FINAL_TAIL_INSERT_LAST.md",
+      "insertion_sha256": "6b742c94671de9be14f32a5e9c03c3abbab189b37abc6a8c5ec1dbd0acf53a72",
+      "target": "docs/special_data_limits.md",
+      "start_line": 25006,
+      "lines": 2232
+    },
+    {
+      "candidate": "studies/repository_refactor_2026_09_09/FINAL_IDENTITY_UNIFORM_ADDITION.md",
+      "candidate_sha256": "d26113499bb36349cbb95fe7c78bedc74e694b4ae57ffcc862c7351103081bce",
+      "insertion": "studies/repository_refactor_2026_09_09/reviews/FINAL_TAIL_INSERT_IDENTITY.md",
+      "insertion_sha256": "208881f4043ec82224abaa44abe012eaf779145f4eacd74df31937092eab8c8b",
+      "target": "docs/gaussian_calculus.md",
+      "start_line": 8546,
+      "lines": 1035
+    }
+  ]
+}

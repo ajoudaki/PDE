@@ -466,3 +466,21 @@ exactly once, its removal recovers the previous linear chapter, and the accepted
 standalone edition passes all 25 boundary/local-link inputs. The implementation
 is unchanged, retaining the 106-test result. FINAL_SHALLOW_RATE_CHECKS.json records
 review hashes, insertion and concurrent-work preservation; no experiment occurs.
+
+## Completion pass: final reviewed proof assembly
+
+The complete LAST, SCOPE and IDENTITY inputs have two fresh independent CLEAN
+R2 mathematical reviews, each covering all 9,476 supplied scientific lines.
+The coordinator read both full reports and verified all five input hashes before
+reusing the completed reviews. Exact reports, command inventories, manifests and
+completion evidence are retained under FINAL_TAIL_COMPLETE_*2. All mathematical
+bodies are preserved by the recorded presentation-only insertion map; the one
+existing III.M wording correction was itself included in both complete reviews.
+
+The resulting selected standalone edition passes all 106 scientific tests,
+all eight maintained Python guide examples, and all 25 boundary/local-link
+checks. FINAL_TAIL_INITIAL_CHECK_FAILURE.md records two temporary harness errors
+before the successful invocation; no maintained implementation changed.
+FINAL_TAIL_CHECKS.json records exact inherited preservation, with metadata-only
+verification of the eight unreadable files. No exporter, training or historical
+computational campaign is within these test or proof verdicts.

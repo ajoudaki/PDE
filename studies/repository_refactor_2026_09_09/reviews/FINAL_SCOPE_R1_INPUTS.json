@@ -1,0 +1,14 @@
+{
+  "studies/repository_refactor_2026_09_09/FINAL_SCOPE_ADDITION.md": {
+    "sha256": "7454e66b690d39f0a7acfa20903b59f07342ff3af159aa98eccee6595306abcf",
+    "lines": 1253
+  },
+  "studies/repository_refactor_2026_09_09/reviews/FINAL_SCOPE_DEPENDENCIES.md": {
+    "sha256": "ec849bf098b9c48da4b10f3be63b92acc89ba1de3ff25412634948928769ec51",
+    "lines": 4511
+  },
+  "docs/NOTATION.md": {
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "lines": 98
+  }
+}

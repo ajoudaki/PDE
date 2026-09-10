@@ -1,391 +1,72 @@
-# Advisory coverage: decisions for the maintained book and code
+# Advisory coverage: final incorporation disposition
 
-9 September 2026. This is an editorial disposition, not a new mathematical
-certificate or a competing repository design. “Included” means that the actual
-argument or implementation is in `docs/` or `code/`; an archive, link or sentence
-in this ledger does not qualify. The current layout remains
-`docs/`, `code/`, flat `studies/`, and separate `data/`.
+10 September 2026. This is the current incorporation disposition. It supersedes
+earlier editorial “pending” entries; historical reports and their original
+verdicts remain preserved. “Incorporated” means a complete maintained proof or
+implementation, with contained dependencies and accepted isolated reviews.
+A ledger entry alone does not promote a result.
 
-## Judgment and current changes
+The important supportable assembly queue identified by the handoff, advisory
+and 55-headline completeness cross-check is now incorporated at the qualified
+scopes below. This is a selected scientific library, not automatic promotion
+of every historical study or a fresh proof audit of all 105 study directories.
+There is no remaining high-priority closed-proof package in this checked queue
+being deferred merely for editorial assembly. The exclusions below have specific
+missing proof/generator premises or duplicate/out-of-scope purposes; they are
+not counted as incorporation. No open research campaign was reopened.
 
-The advisory identifies real omissions. The selected library must not be
-described as a complete incorporation of all established research. In
-particular, the computational MFP contribution, exact scoped Stieltjes
-certificates, initialization tradeoffs and generic-correlation partials are not
-replaced by the existing global-limit chapters. Their narrower scope is not a
-reason to call them speculative.
+## Current ten-family decisions
 
-The initial advisory revision substantially expanded the actual
-[book introduction](../../docs/README.md): the two scientific mysteries,
-mechanism-preserving approximations, the elementary prescribed-accuracy bridge,
-subsequent limits, generalization frontier, and careful prior-art positioning.
-That revision left the eight proof chapters and implementation unchanged.
-The earlier accepted input edition is frozen in
-[the round-2 manifest](reviews/INTEGRATION_ROUND2_LIBRARY_INPUTS.json); the new
-guide has a fresh CLEAN [isolated review](reviews/GUIDE_ADVISORY_INTEGRATION.md).
-The later user-authorized incorporation is recorded in
-[INCORPORATION_ACCEPTANCE.md](INCORPORATION_ACCEPTANCE.md), with exact proof
-fragments, source provenance and independent review rounds. The narrative-only
-description no longer applies to the current book: the correlated-data partials,
-initialization comparison, finite-calculus implementation, quantitative theorem
-and exact-capture comparisons below are now actually incorporated.
-
-The three agreed editorial priorities are:
-
-1. **Correlated-data progress and activation tradeoffs:** integrate the closed
-   first-layer compactness and finite-fitting partials, and compare the existing
-   initialization results in the current special-data/finite-controls chapters.
-   This makes visible what is already known outside orthogonal benchmarks.
-2. **A small MFP computational core:** specify finite jets, forest factorization
-   and independently checked rational certificate primitives before importing
-   large tables or historical optimized engines. Extend the calculus chapter
-   and existing code rather than preserve every compiler as a public API.
-3. **Discretization and representation contrasts:** add the exact-compiler
-   fixed-program remainder theorem and carefully delimited shallow/spectral/
-   all-depth linear comparisons, after closing their particular dependencies.
-
-These are assembly priorities, not new experiments or proof-search campaigns.
-Initialization comparison means incorporating already proved geometry, not
-spending another campaign optimizing an initial Gram while trained-response
-control remains open. No currently justified extra data or optimizer assumption
-is supplied by this coverage pass. Keep correlated data and genuinely nonlinear
-hidden learning in the main target; auxiliary caps and changed architectures
-remain diagnostic results, not replacements for that target.
-
-## Family-by-family disposition
-
-| Advisory family | Actual maintained coverage | Decision and remaining boundary |
+| Advisory family | Current decision and contained result | Remaining qualification |
 |---|---|---|
-| 1. Scientific narrative | Expanded in this revision, with explicit accuracy-transfer proof and cited non-exhaustive prior-art orientation | Incorporated; fresh isolated guide review CLEAN. No global novelty, optimization or generalization claim is added. |
-| 2. MFP computational machinery | Now includes complete moving L2 one-sample physical jets through order three, leading Gaussian forest expectation factorization, canonical colored-forest keys and rational reversion/determinant/certificate primitives, alongside the earlier foundations | Small common core incorporated with two independent complete proof/code reviews per module. General-depth/high-order packed compilers, pruning engines and historical coefficient tables are not promoted. |
-| 3. Quantitative discretization and physical loss | Fixed-program width theorem; exact-compiler cubic step-doubling coefficient and explicit fifth-order remainder; moving physical-loss jets through order three | Contained Section 8 has two fresh full CLEAN reviews. Depth/update count are fixed and its clock is feature ascent with order-one readout. Section 9 now supplies finite physical-loss Euler words, an arbitrary-residual cubic identity and a separately conditional convex-region comparison bound. Section 11 now also proves the sharp shallow uniform-in-update-count estimate and restricted dyadic expected-output limit, with its order-one initialization and feature clock. Growing-update deep neural claims remain separate. |
-| 4. Stieltjes and formal Taylor | Now includes the complete quadratic zero-first-mobility annealed initialization-jet bridge, six rational moments, negative shifted determinant and polynomial witness, with a direct coefficient-regeneration command; also the earlier norm/jet obstructions and smooth-ODE correction | Scoped axis certificate incorporated and independently regenerated by different algebraic routes. Section 10 now proves an existential strictly positive-metric extension, a canonical formal factorial lower bound and failure of the prescribed Taylor-loss family. The canonical order-17 positive prefix remains unpromoted. No unit-metric or positive-time no-go is inferred. |
-| 5. Shallow and broader linear capture | Existing L3 operator/GF/GD theorem and restricted nonclosure; now also shallow nonlinear marked GF, L2 linear spectral GF with fitting, and every-fixed-depth linear operator GF with trace-norm increment control | Complete Sections 8–12 and trace-class foundations have two fresh full CLEAN reviews. Added results are one-input, order-one-readout and GF-only; all-depth fitting, arbitrary data and new raw-GD limits are not inferred. |
-| 6. Broader nonlinear and correlated-data progress | Earlier global families plus complete generic-correlation L2 arctangent first-layer GF/raw-GD compactness, mixed-activation finite-GF fitting/endpoints, and permanent first-gate mass with the necessary augmented event | These partials are incorporated with two independent complete reviews each; first-layer notation repairs received fresh complete reviews. They do not supply a unique generic-correlation population or a mixed-model GD/feature-velocity theorem. Broad activation/local and perturbation families retain their specific import/ancestral-review gates. |
-| 7. Initialization geometry | Existing gain-based results plus a complete Part V: sharp odd-mixture bounds and matching examples, convex-offset contraction despite scalar nonaffinity, calibrated sequential depth geometry, and absolute/relative comparisons | Incorporated after explicit statement/endpoint repairs and two fresh complete CLEAN reviews of the final version. Every width result fixes depth and activation; the later calibrated depth limit is sequential. None provides trained-flow continuation. |
-| 8. Clipping/filtering/continuation | Global fixed coordinate-query-cap population theorem; separate finite metric projection, integrated L1 defect and sufficient C sqrt(n) exactness | Section 12 now supplies global given-space dissipative caps and conditional exponential-tail continuation. Section 13 adds exact integrated-query memories, complete derivative estimates, supplied-path time covers and memory continuity, retaining the causal/stability and velocity gaps. Growing-cap comparison has a specialized concentration-proof containment gate and, even if imported, would not give a common varying-cap population limit. |
-| 9. Further negatives and finite reductions | Restricted linear bounded-contraction nonclosure; some norm/jet obstructions; general finite energy continuation | Sections 5–7 contain QI/IQ/QQ and RMS identities and APIs. Sections 8–9 now contain the arbitrary-vanishing-mesh frozen quadratic initial layer, exact frozen evaluator/step, deletion counterexample, reached finite ReLU classical obstruction, positive local ReLU Euler output compactness and exact frozen-gate occupations. The fully trained quadratic adaptive bridge and generalized ReLU identification remain unresolved; Finite-controls Section 14 now includes the complete reached signed-Hessian obstruction and positive full tangent-volume/Gaussian expectation/projection identities. Its deterministic witness is not a typical-Gaussian counterexample. |
-| 10. Response compiler and dense ResNet | Finite feedforward APIs and the distinct scalar-particle continuous-depth theorem | Continuous-depth Section 14 now contains exact finite dense gradients, kernel/energy, response recurrences and factorial propagator tails with explicit source-error terms. Section 15 now supplies a complete global coherent W/n kernel flow in its strong row/column Bochner carrier, with fixed bounded endpoints and bounded C2 activation. It supplies no noisy Gaussian width/depth approximation. The string curvature compiler still lacks a complete typed derivative contract; broader operator-Galerkin geometry remains separate. Dense solvers and empirical panels need a complete accepted reproduction chain; dense-limit and hierarchy claims remain open. |
+| 1. Scientific narrative | Expanded scientific introduction, prescribed-accuracy bridge and carefully scoped prior-art orientation | Nonlinear, nonlazy deep learning on correlated data remains the objective; no generalization or global novelty theorem |
+| 2. MFP computational machinery | Complete finite contraction/forest semantics and all-moment laws, general finite depth/batch moving jets through five, exact rational primitives and finite Gaussian polynomial heads | Packed high-order tables/optimized producer and full neural-head identification excluded for specific generating-chain gaps |
+| 3. Quantitative discretization/physical loss | Fixed-program exact-compiler remainder, physical-loss Euler words, fixed quadratic loss closure, sharp shallow bound and fixed-depth identity update-uniform/local operator result | Preserve feature versus physical clocks and width-first versus joint limits; no general nonlinear update-uniform bridge |
+| 4. Stieltjes/formal Taylor | Regenerated axis certificate, existential positive-metric extension, canonical formal factorial/Taylor obstruction, exact finite certificate algebra and shallow identity measure | Numerical transition endpoints/canonical positive tables and all-order or dynamical inference remain excluded |
+| 5. Shallow/broader linear | Shallow characteristic GF, quantitative output/loss and particle rates, spectral L2 GF/fitting, every-fixed-depth operator GF, local identity feature flow | One-input/order-one-readout normalization and separate GF/GD/feature scopes |
+| 6. Nonlinear/correlated data | Broad L2, affine-first, local C1,1, perturbation/depth/gain, Gaussian-readout natural-gate and equal-label sech families; actual compactness/fitting/gate/plateau partials | Model-specific smallness, initialization, observable and step conditions; conditional moments and fitting-entry premises remain premises |
+| 7. Initialization geometry | Odd/convex/calibrated geometry, tanh short-time/zero-label exception, sin+cos formal coefficients and moving affine reference identities | Initialization is not trained continuation; sequential depth limit is not joint depth/width |
+| 8. Clipping/filtering/continuation | Given-space caps, integrated memories, same-array response, complete matrix-concentration/adaptive-law proofs and growing same-cap comparison; conditional Osgood construction | No common varying-cap limit, cap removal, global tail premise or autonomous compressed dynamics |
+| 9. Negatives/finite reductions | QI/IQ/QQ/RMS, frozen quadratic/ReLU, tangent geometry; Gaussian/Orlicz/response/ambient metric and actual reached local obstructions | Each negative names its actual state/model/class; no universal nonlinear or population nonexistence |
+| 10. Curvature/dense ResNet | Typed held-fixed finite Hessian implementation; dense finite response/energy/tails, coherent kernel strong flow and conditional finite-source transport/Galerkin calculus | String compiler semantics, noisy dense limit, hierarchy convergence and empirical/generalization bridges remain unresolved or deliberately excluded |
 
-## Decisive scope checks and source routes
+## Auditable source routes
 
-### MFP, coefficients and physical loss
+The historical [master report](../project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md)
+and [original completeness map](source_audits/PROMOTION_COMPLETENESS.md) remain
+source locators. Their old missing-coverage findings are superseded by the
+[final 55-family map](source_audits/FINAL_COMPLETION_COVERAGE.md). That current
+map gives every retained headline a maintained destination or a specific reason.
+Complete source/correction reads and dependencies for the completion pass are
+recorded in:
 
-The [Gaussian chapter](../../docs/gaussian_calculus.md) already proves a fixed
-depth, fixed update-count, fixed nonzero feature-step width theorem. The older
-completeness audit's “missing” classification of that theorem has been
-superseded. Section 7 now adds the moving finite-jet oracle, forest
-factorization and canonical keys, and a small exact certificate generator.
-It still does not contain a general forest compiler, canonical counting engine,
-or the complete high-order coefficient machinery. Section 10 now adds the
-exact derivative-to-normalized-forest grammar and all-fixed-order annealed
-existence proof for the specified raw-square model, without implementing a
-high-order forest enumerator or asserting concentration.
+- [Plateau and fitting-scale assembly](source_audits/FINAL_PLATEAU_FITTING_ASSEMBLY.md).
+- [Gaussian-action and source-transport assembly](source_audits/FINAL_GAUSSIAN_GALERKIN_ASSEMBLY.md).
+- [Finite calculus assembly](source_audits/FINAL_CALCULUS_ASSEMBLY.md): forests, loss, finite jets, Gaussian heads and compiler exclusions.
+- [Nonlinear assembly](source_audits/FINAL_NONLINEAR_ASSEMBLY.md): broad/local and correlated perturbation families with contained probability proofs.
+- [Controls assembly](source_audits/FINAL_CONTROLS_ASSEMBLY.md): full concentration chain, adaptive queries, tangent and endpoint controls.
+- [Final scoped assembly](source_audits/FINAL_SCOPE_ASSEMBLY.md): initialized, affine, same-array and reached local results with corrections.
+- [Gaussian-readout/continuation assembly](source_audits/FINAL_LAST_ASSEMBLY.md): complete retained proofs, assumptions and excluded surrogates.
+- [Identity uniform assembly](source_audits/FINAL_IDENTITY_UNIFORM_ASSEMBLY.md): complete width/cubic/uniform/flow dependencies and bounded-slope obstruction scope.
+- [Shallow primary recovery](source_audits/FINAL_SHALLOW_PRIMARY.md): complete operative continuous-GF rate proof and unsupported discrete alternative.
 
-The [finite jet oracle](../mfp_gaussian_calculus/compiler/finite_width_jet.py)
-propagates ordinary Taylor coefficients through order three for its particular
-two-hidden-layer finite model. Its recurrence is an exact differentiation
-identity; float64 execution is not exact rational arithmetic. The
-[quadratic compiler](../mfp_quadratic_compiler/README.md) contributes decorated
-forests, leading-width component factorization and Leibniz convolution. The
-[tree enumerator](../mfp_gaussian_calculus/depth_order5_scalar/multi_observable/audit/count_free_trees.py)
-counts abstract shapes; that count is not certification of weighted,
-rank-labelled, width-audited contractions. Fixed-order tables and hidden
-activation-RMS heads retain their exact observable and generator obligations.
+These are provenance records only: the maintained chapters contain the complete
+arguments and do not refer back to studies. Older route-specific advisory
+reports remain available without being relabeled as fresh mathematical audits.
 
-For discretization, the primary
-[unconditional audit](../mfp_depth_time_doubling/AUDIT_UNCONDITIONAL.md) makes a
-useful refinement to a coarse dependency list: its accepted coefficient is the
-**exact-compiler** coefficient from `WIDTH_DEPTH_TIME.md` and
-`COMPILER_DEPTH_TIME.md`, expressly not the compact nine-moment coefficient
-or a claim in `CUBIC_DEPTH_TIME.md`. Its C12 hypotheses yield an explicit
-fifth-order remainder for every fixed finite depth/update pair. This does not
-establish the stronger update-uniform remainder or the compact coefficient
-identity. The complete Section 8 assembly now follows that exact route,
-including singular-covariance differentiation and its existing fixed-program
-probability dependency; both full reviews are clean. The separate
-[L2 half-step proof](../mfp_quantitative_width_first_bound/PROOF.md) takes width
-first at fixed nonzero step; differentiation is then on the identified program.
+## Remaining work is mathematical or deliberately outside this library
 
-The [physical-loss expansion](../mfp_loss_gradient_time_doubling/LOSS_GRADIENT_EXPANSION.md)
-and [time-change analysis](../mfp_loss_time_doubling/LOSS_TIMECHANGE_ANALYSIS.md)
-now supply the complete finite pullback-word argument in Section 9, its exact
-integer/Fraction implementation, arbitrary-residual cubic loss formula and
-sixth-derivative fixed-update remainder. Predictor tensors explicitly require
-C3 regularity, separately from smoothness of the loss field. The section also
-proves an equal-horizon Euler comparison under a convex region containing all
-hybrid/intermediate paths. These conditional finite estimates are distinct
-from a neural probability identification or update-uniform Taylor remainder. Raw loss-GD
-has a state-dependent residual multiplier. A continuous residual clock does
-not turn it into constant-step feature ascent. These sources also use a
-different residual sign and half-loss convention; promotion must translate
-them to the shared notation rather than transplant their symbols.
+The [current exclusion table](CONTINUATION_DISPOSITION.md#remaining-exclusions-and-genuine-proof-gaps)
+identifies the missing incoming-tail, adaptive, occupation-product,
+coefficient-generator, dense-source and empirical-reproduction obligations.
+It also distinguishes a missing recovered GD proof and duplicate assumed-model
+diagnostics from conjectures disproved by a valid counterexample. No deferral
+entry is being used as a substitute for incorporating a closed important proof.
 
-### Stieltjes and Taylor: useful negatives, not universal nonexistence
-
-The [block-metric report](../stieltjes_resolution/BLOCK_METRIC_RESOLUTION.md)
-and [rational generator](../stieltjes_resolution/block_metric_counterexample.py)
-supplied the compact axis certificate now proved in Section 7.2 with its direct
-expectation argument and independent implementation. This is a
-diagnostic negative for a specified model/metric family, not a proposal to
-freeze layers in the main learning theorem. The maintained implementation has
-no historical regression-file/hash dependency: it derives the coefficients
-directly and tests the complete displayed certificate.
-The more informative all-blocks-training extension at positive metric parameter
-is now proved by a complete derivative-forest expectation argument and
-continuity of the finite negative witness. It uses no positive-parameter table
-or generic detransposition/concentration lemma. Its interval is existential:
-no endpoint 1/100, sharp transition or unit-metric Stieltjes result is added.
-
-The retained [canonical calculation](../stieltjes_resolution/canonical_high_order/README.md)
-reaches output order **17**, eight moments and positive ordinary/shifted 4x4
-tests. A hidden ninth moment obtained by an identity is not output order 19.
-Neither those positive tests nor a six-moment metric-parameter transition
-settles canonical all-order Stieltjes positivity or identifies a trajectory.
-
-The raw-square canonical factorial-growth argument and its consequences for
-the specified positive Taylor family are now fully contained in Section 10.
-The proof uses fixed-order annealed derivatives, a positive primitive-polynomial
-comparison and an explicitly derived frozen scalar branch. No concentration
-or high-order campaign is imported. Formal divergence does not, without identification, establish
-an actual training initial layer. It does not rule out general smooth ODEs,
-signed resummations or arbitrary operator descriptions. The existing smooth-ODE
-correction must remain beside, not be displaced by, a stronger scoped negative.
-
-### Shallow, linear and correlated-data partials
-
-The [shallow theorem](../rcgc_shallow/GENERIC_L1_THEOREM.md),
-[L2 spectral construction](../mfp_identity_compiler/linear_gaussian_program/depth2_autonomous_mse_closure/THEOREM_AND_PROOF.md)
-and [fixed-depth linear theorem](../rcgc_linear_depth/LINEAR_FIXED_DEPTH_THEOREM.md)
-are genuinely different capture mechanisms. Complete Sections 8–12 now contain
-their characteristic/clock, rooted spectral and two-endpoint operator proofs.
-The source's short Wick-counting and sharp-norm references are replaced by a
-contained fixed-word argument and a sufficient elementary norm bound. The
-spectral measure, including its negative atom, is verified without importing
-an inversion theorem. Section 2.A also derives the required trace-class
-foundations. Both fresh complete amended-chapter reviews are CLEAN.
-The new statements retain GF-only, one-input and order-one-readout scope;
-the existing L3 raw-GD theorem is neither a missing dependency nor permission
-to attach a GD conclusion to every new family.
-
-For opposite labels at general correlations, the
-[all-angle first-layer proof](../four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/ALL_ANGLE_FIRST_LAYER_COMPACTNESS_COMPLETE_PROOF.md)
-is a particularly valuable partial: actual GF/raw-GD first-layer path and
-velocity compact containment, row reconstruction and no first-layer kinetic
-defect. Its controlled kernel conclusion is residual-weighted, node-controlled
-L1 convergence along convergent subsequences. It is not an unweighted first
-kernel theorem, second-layer identification, full-sequence result or equality
-of GF/GD subsequential limits.
-
-The [mixed-activation clock theorem](../four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/COMPACT_FIRST_LINEAR_TAIL_TOP_CLOCK.md)
-gives finite-GF fitting, residual clocks and endpoints at interior correlations,
-with a compact first derivative and top activation `z+epsilon arctan(z)`.
-The [gate extension and audit](../four_thread_consolidation/expanded_sources/OLDER_TWO_SAMPLE_RECOVERED/l2-two-sample-proof-0ywjpp/COMPACT_LINEAR_TAIL_PERMANENT_FIRST_GATES_REVIEW.md)
-require the augmented strip-count event; dropping it has an explicit
-counterexample. Positive unsaturated mass is not a lower bound on feature
-velocity. No mixed-model GD or population theorem is added by these results.
-
-Broad L2 activation, affine-first arbitrary-data and local C1,1 population
-families retain the specialized probability-import gates in the
-[completeness audit](source_audits/PROMOTION_COMPLETENESS.md). The broad local
-finite-GF corollary is not a separate open bridge: it inherits the local
-population theorem's qualification. Perturbed two-sample families have a
-different ancestral proof-review gate. Consolidate superseded threshold powers
-into one current entry per model: the two-input L3 arctangent `delta^2`
-refinement is not the same scope as a general-shape or all-depth bound. These
-qualifications are not counterexamples to the claimed statements.
-
-### Initialization and continuation
-
-The [odd-mixture report](../odd_mixture_general_depth/REPORT.md),
-[convex-offset report](../convex_offset_all_depths/REPORT.md) and
-[calibrated manuscript](../calibrated_near_identity_reviews/manuscript.md)
-now form one contained Part V, retaining each exact activation and normalization.
-Odd-mixture absolute versus normalized conditioning have different depth
-scales; relative scalar nonaffinity can decay despite normalized sample
-conditioning. Literal convex offsets can contract initialized pair distances
-geometrically, obstructing a depth-uniform kernel-floor argument, not each
-fixed-depth theorem. Calibrated near-identity initialization gives a sequential
-width-first/depth-second correlation evolution, not joint trained-depth control.
-These proofs are separate from the gain-based three-sample training result;
-the latter's initialized Gram estimate is not used as a substitute. The new
-comparison also explicitly proves why scalar gain normalization generally
-changes the next nonlinear argument, with the identity-scaling exception.
-
-The [moderate-sine report](../moderate_sine_global/RESULT.md) also contains finite
-and endpoint partials beyond general finite-GF existence. Strong endpoints of
-an existing path are not restartability; the global tail premise remains open.
-These are reasons for qualified placement, not for erasing the finite partials.
-
-The three clipping scales/rules already have a precise
-[ledger entry](PROMOTION_LEDGER.md). The
-[growing-cap comparison](../project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/FILTERED_QUERY_GROWING_CLIP_TRANSFER.md)
-includes `sqrt(log n)` but does not construct a common varying-cap population
-limit. Its six-file chain invokes specialized matrix concentration whose full
-proof is not contained in the book. This is separate from the missing canonical
-cap-removal premise. The
-[given-space capped theorem](../practical_fixed_depth2/CAPS_MANUSCRIPT.md)
-and [integrated-query compression](../project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/INTEGRATED_INITIAL_QUERY_COMPRESSION.md)
-have different dispositions. The complete given-space proof is now Section 12:
-it constructs global dissipative capped flows, and strong uncapped convergence
-and reached-state restart only under its explicit exponential-tail premise.
-It does not construct the canonical Gaussian action space. The complete integrated-query argument and all its temporal derivatives are
-now Section 13, together with exact trained memories and their continuity.
-Sampling an actual Lipschitz path still does not establish causal autonomous
-approximation, strong spatial compactness or derivative/kernel convergence.
-
-### Additional obstructions, exact reductions and dense ResNet
-
-Use the reconciled [quadratic/ReLU assessment](../project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md),
-not an old “no-go” title. Width-first fixed-update quadratic Euler results and
-the [arbitrary-diagonal frozen-bottom theorem](../mfp_joint_width_mesh_quadratic/ARBITRARY_DIAGONAL_FROZEN_THEOREM_AND_FULL_GAP.md)
-have scopes distinct from the canonical finite-GF initial layer, whose adaptive
-bridge is unresolved. ReLU failure of a prescribed classical GF at some
-finite-width initializations is distinct from local Euler tightness and from
-macroscopic nonexistence. The
-[reachable Hessian witness](../project_wide_audit_2026_09_08/sources/arctan_destination/l3-full-resolution-9nbD4z/ACTUAL_ZERO_READOUT_REACHABLE_HESSIAN.md)
-uses deterministic correlated hidden initialization, not typical independent
-Gaussians. Its failure of a deterministic signed pointwise bound does not
-refute the canonical population theorem.
-
-The [mixed quadratic/identity reductions](../mfp_quadratic_compiler/autonomous_single_source_closure/THEOREM_AND_AUDIT.md)
-and [differentiated RMS identities](../mfp_quadratic_compiler/rms_normalized_operator_closure/FINITE_WIDTH_THEOREM.md)
-are now fully proved and implemented at their finite one-sample, two-layer
-scopes. Both normalizers are differentiated; the RMS row drift generally
-persists at zero regularization, correcting the earlier source remark. Spectra-only insufficiency is an orientation-sensitive statement,
-not impossibility of retaining the actual operators. Correct finite RMS energy
-does not close population tails or uniqueness.
-
-The [response/curvature compiler](../rcgc_compiler/rcgc_compiler.py) has a small
-algebraic core distinct from Gaussian integration. Its expansion of nested
-curvature returns is useful; classifying a word that uses multiple matrices
-identifies an analytic obligation, not a nonclosure or convergence certificate.
-Its historical tests do not by themselves establish a maintained API. The
-full source/test/validation read in the calculus assembly finds no typed
-meaning for the local Hessian source or held-fixed variables; promoting the
-string expander alone would leave that scientific contract unstated.
-
-The [reconciled dense-ResNet state](../resnet_program_history/CURRENT_RESEARCH_STATE.md)
-separates exact finite chronological memory and projected-gradient geometry
-from unproved dense-limit identification and arbitrary-accuracy hierarchy
-convergence. Section 14 now contains the finite dense identities and full chronological
-counting proof, with the half-sum clock translated to full mean loss. The
-linear input map is preserved, so the earlier tanh-input envelope is replaced
-by an explicit energy bound. Exact and recomputed backward sources have
-separate estimates. Operator-Galerkin geometry remains a different candidate:
-its regularity assumptions do not establish general well-posedness. Parity corrections and later adverse cutoff
-evidence must accompany any empirical hierarchy discussion. The existing
-scalar-particle theorem is not evidence for the dense Gaussian candidate.
-
-## Implementation and empirical acceptance
-
-A result need not have a simulation to be valuable. For an empirical inclusion,
-however, require the complete chain: mathematical specification and claim,
-maintained implementation, parameters/seeds and environment, commands,
-generated products under `data/established/`, independent checks, and the
-displayed result. Performance claims also need a specified workload and
-measurement procedure. Agreement between two evaluators of one recurrence
-does not verify that recurrence's network interpretation. Reproducing a table
-from retained coefficients is not regenerating its coefficients.
-
-No historical coefficient campaign, training experiment, installation, native
-build, seal reset or source-budget reuse was performed. The small deterministic
-certificate is newly regenerated by the maintained exact module and independently
-checked; it does not use a retained table. No historical array or empirical
-figure was promoted. Existing frozen campaigns remain frozen. The finite
-reference, moving jets and exact primitives are accepted at their stated scopes,
-not advertised as a population solver or full MFP compiler.
-
-## Evidence and read coverage
-
-This disposition combines the earlier full-source consolidation and its
-qualifications with bounded current coverage checks. It is **not a fresh
-complete proof/code audit of the 105 study folders**. The older completeness
-audit is retained unchanged even where current chapters supersede its rows.
-
-The coordinator reread the current guide, notation, promotion ledger and
-completeness audit, the older master's relevant scientific/strategic sections,
-the complete exact-compiler unconditional audit, and selected statements and
-scope sections of the quantitative half-step, physical-loss and dense-ResNet
-sources. Primary external papers were checked for the guide's narrow context
-claims, not used as proof imports or represented as freshly proof-audited.
-
-Two isolated read-only sidecars checked disjoint coverage families:
-[MFP/Stieltjes/curvature machinery](source_audits/ADVISORY_MFP_STIELTJES_COMPILER.md)
-and [initialization/correlated-data partials](source_audits/ADVISORY_GEOMETRY_CORRELATED_DATA.md). Their
-reports record which primary files were read fully or selectively and expressly
-decline fresh proof/generator certification. The guide's independent review is
-separate from those coverage recommendations. Later incorporation uses complete
-source assemblies and fresh paired full-proof/code reviews, including new
-rounds after every required correction. Those are stronger, separately scoped
-checks than the earlier coverage sidecars. Exact reports and final acceptance
-status are recorded in [VALIDATION.md](VALIDATION.md) and
-[INCORPORATION_ACCEPTANCE.md](INCORPORATION_ACCEPTANCE.md).
-
-## Disposition after the continuation
-
-[CONTINUATION_DISPOSITION.md](CONTINUATION_DISPOSITION.md) gives a bounded
-decision for every remaining family named at the ae43aa4 handoff. Six selected
-packages are incorporated at their actual reviewed scopes. General compilers,
-uncontained probability imports, growing-cap common-limit premises and dense
-identification remain distinguished from later editorial refinements. The
-record does not claim a new proof audit of all studies or a resolution of the
-general correlated-data dynamics.
-
-## Resumed assembly update
-
-Sharp shallow discretization is now incorporated in Gaussian-calculus Section 11 with two complete independent CLEAN reviews. See the resumed-assembly acceptance and hash records. This supersedes its earlier editorial deferral; the existing remaining-family disposition is historical where superseded by later actual incorporations. Further proof/code candidates are being assembled and require their own acceptance.
-
-Frozen quadratic and ReLU material is now incorporated in finite-dynamics Sections 8–9 with a finite state/step API. Both fresh corrected-version reviews are complete and CLEAN; see the exact initialization, half-loss clock, compactness and obstruction scopes in the resumed-assembly acceptance. This supersedes the corresponding earlier editorial deferral; no fully trained quadratic or generalized ReLU limit has been promoted.
-
-The resumed assembly also incorporates coherent-kernel global well-posedness in continuous-depth Section 15 and complete finite tangent geometry in finite-controls Section 14. Both proof packages have paired full CLEAN independent reviews. Their positive results and scoped obstruction are actual contained proofs, not ledger-only dispositions. The principal nonlinear correlated-data objective and the still-unproved Gaussian identification, projection-angle and adaptive-response estimates are unchanged.
-
-Final resumed-assembly acceptance is complete for the four actually incorporated packages. Each has paired full clean reviews; the fresh scoped integration audit also passes all 90 tests and the standalone boundary check. Its exact read/unread scope, original unsuccessful reports, corrected environment and final hashes are preserved in `INCORPORATION_ACCEPTANCE.md` and `ASSEMBLY2_FINAL_CHECKS.json`. Remaining-family rows continue to mean unincorporated or unresolved work, not completed promotion.
-
-## Completion-pass incorporation after 8bda541
-
-The plateau geometry/confinement/selected-law package and conditional
-near-identity fitting-distance/time theorem are now fully incorporated in the
-special-data chapter, with paired final isolated reviews and standalone
-checks. Their exact scopes and hashes are in the current acceptance entry.
-This supersedes any older missing-coverage description for those particular
-partials. Other FINAL source assemblies are candidates, not accepted proofs,
-until their corresponding reviews complete. Final coverage disposition will
-reconcile the whole important-material queue, not stop at this package.
-
-The completion pass has now incorporated the Gaussian-action Lp obstruction
-and finite-source conditional transport identities, with complete contained
-proofs and paired clean isolated reviews. The operator obstruction retains its
-common-realization premise; the source model retains its supplied regularity,
-conditional uniqueness and lack of a dense-network/source-cutoff limit.
-These replace editorial assembly deferrals for those precise results. Broader
-calculus, nonlinear-family, compression and scoped-obstruction packets remain
-active and are not disposed of by this entry.
-
-The complete calculus package now supersedes the editorial gates for the small
-general weighted-forest engine, all-moment fixed quadratic loss-program law,
-weighted contraction compiler and typed preactivation-Hessian semantics. Their
-full proofs and finite APIs are maintained, with paired complete clean reviews
-and 106 passing selected tests. The supplied polynomial Gaussian fourth head,
-shallow identity raw-GD/positive measure and exact finite threshold algebra are
-also included. This does not import high-order numerical tables, arbitrary
-symbolic covariance as a Gaussian law, or the canonical quadratic GF/adaptive
-bridge. The exact scopes and unimplemented optional modes are in acceptance.
-
-### Completion-pass acceptance: nonlinear and adaptive controls
-
-The formerly pending nonlinear family and controls packets are now incorporated
-at the exact reviewed scopes in INCORPORATION_ACCEPTANCE.md. Complete maintained
-proofs supersede the earlier assembly/import holds: broad bounded-readout L2,
-affine-first and local C1,1; offset/odd/general-shape/depth/gain correlated families;
-moderate-sine local/conditional results; physical response/curvature and finite
-energy controls; integrated/adaptive query compression, contained matrix martingale
-proof, two-pass filtered algorithm, o(log n) same-cap comparison and complete
-adaptive transcript law. Their remaining reachable-tail, uncut, physical-algorithm
-and general-data global dependencies remain explicit. Final coverage reconciliation
-will distinguish the remaining live established assembly from those actual gaps.
-
-The shallow continuous-flow rate row is now actually incorporated in the linear
-chapter, with its full characteristic dependency and two clean isolated reviews.
-This adds the compact-time second/fourth output moments, loss rate and bounded-
-activation particle coupling; it leaves the historical raw-GD rare-event gap.
+All accepted groups have their complete isolated review records and exact hashes
+in [acceptance](INCORPORATION_ACCEPTANCE.md). Final scientific checks are in
+[validation](VALIDATION.md); the final integration review is scoped to assembly,
+routing, self-containment and operation, not a fresh whole-book proof audit.
+The 27-file standalone edition runs all 106 selected tests and all eight guide
+examples without studies, data or the exporter. No empirical campaign was run.
+The same shared checkout and unrelated concurrent work are preserved.
