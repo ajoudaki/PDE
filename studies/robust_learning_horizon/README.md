@@ -1,9 +1,12 @@
 # Robust whole-circle prediction after substantial learning
 
-Status: mandatory fixed-accuracy target resolved; exact P1 accepted by two fresh
-complete independent scientific reviews and a separate integration review.
-No required correction or necessary proof gap remains. Promotion is prepared,
-awaiting user approval of the [exact proposal](PROMOTION_PROPOSAL.md).
+Status: mandatory fixed-accuracy target resolved and exact user-approved P1
+incorporated as [established C.4.5](../../docs/global_nonlinear.md#c45-robust-whole-circle-prediction-after-substantial-learning),
+with its reviewed reading-guide update. Two fresh complete independent
+scientific reviews and a separate integration review accepted the same bytes.
+No required correction or necessary proof gap remains. Approval, unchanged-input
+gate recheck, final hashes and integration evidence are recorded in
+[PROMOTION_INTEGRATION.md](PROMOTION_INTEGRATION.md).
 The theorem certifies `T=40`, `delta=exp(-exp(3000))`, whole-circle endpoint
 error and both population/empirical risks at most `1/4`, plus early paired
 activity of both layers. The radius is positive but extraordinarily small.
@@ -59,8 +62,8 @@ record are authoritative; its completed local audit is not reopened.
 
 The independent selector's [RELEVANCE.md](RELEVANCE.md) recommends a narrow
 C.4.5 addition and guide update. The exact candidate, dependencies, scope edits
-and hashes are in [P1_MANIFEST.json](P1_MANIFEST.json). The maintained book is
-unchanged. The manifest SHA256 is
+and hashes are in [P1_MANIFEST.json](P1_MANIFEST.json). The two maintained files
+now match the reviewed editions exactly. The manifest SHA256 is
 `3dc31cc04695cb3fd48741cbfcea8575a746f3182132e93c0ac609cd5ec6e089`.
 
 Reproduce the assembly and rational certificates with
@@ -77,8 +80,10 @@ Source proofs and verification scripts belong here. Generated outputs and
 scratch belong in `data/generated/robust_learning_horizon/<run>/`. Only
 deterministic evaluation/verification of theoretical constants is authorized;
 no training experiment or parameter campaign was run. Scoped progressive
-commits are `7cf8c26` (startup/transfer) and `5159004` (complete frozen P1);
-review completion and proposal are committed separately. Generated products
-remain outside new Git commits. Next action is user approval of exact P1;
-after approval, recheck dependencies/concurrent changes, apply the two reviewed
-files, verify correspondence and commit only the scoped integration.
+commits are `7cf8c26` (startup/transfer), `5159004` (complete frozen P1), and
+`0ecf050` (review completion/proposal). The promotion commit is recorded in
+[PROMOTION_INTEGRATION.md](PROMOTION_INTEGRATION.md). Generated products remain
+outside new Git commits. Promotion is complete; no further action is required
+for this package. The later conversational frozen-feature comparison is outside
+this reviewed addition. The original proposal and review records retain their
+historical checkpoints unchanged.
