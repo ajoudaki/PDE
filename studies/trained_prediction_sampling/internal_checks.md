@@ -125,3 +125,34 @@ specified edits. Unchanged base hashes were checked before and after.
 No training run, random simulation, parameter sweep, or finite-width experiment
 was performed. All proof sources and check code remain in the flat study folder;
 generated reports are reproducible from those sources.
+
+## Corrected edition and review provenance
+
+The full version-1 paired reports and integration report have now been read and
+their provenance verified. The integration objections supersede any suggestion
+that version 1 was ready for promotion. Their exact resolutions and report/input
+hashes are preserved in [review_resolution.md](review_resolution.md).
+
+The coordinator checked each version-2 edit against the frozen original. The
+finite-GF existence paragraph now uses explicit ordinary Euclidean/Frobenius
+norms and retains the full factor `2|r|` in the middle update. Its first-row
+bound uses the operator norm of the initialized action plus the Frobenius norm
+of the learned middle increment. Gronwall first bounds the readout, integration
+then bounds the middle increment and first-row field on any finite horizon.
+The three textual corrections repair a TeX control word, heading placement,
+and stale local section references. No source-response or statistical estimate
+was changed. Complete fresh version-2 reviews are pending.
+
+Version-2 standalone validation was run from the repository root:
+
+```
+python studies/trained_prediction_sampling/validate_proposal_v2.py --output data/generated/trained_prediction_sampling/standalone_v2
+```
+
+Observed exit 0, PASS. The full output report hash is
+`a43fbd60d00c8891c62d289d1f3c1846722192781c1dde3118b40c7cf2483ec9`.
+The candidate hash is
+`98fa7614b6449b58b07c65df047b68a3484bf0760b36a3a25052f67d72692928`.
+The exact checks and limitations are as recorded above and in the resolution
+record, with an added TeX-control-word whitelist and explicit heading-depth
+check. Established scientific/process inputs were unchanged after validation.

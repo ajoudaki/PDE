@@ -1,8 +1,10 @@
 # Sampling fluctuations of the whole trained prediction
 
 Status: A–C and the bounded-extension mean-square strengthening have complete
-internally checked candidate proofs. Fresh promotion proof and integration
-reviews are running. No established files changed.
+internally checked candidate proofs. Version 1 received two proof PASS reports
+and a blocked integration report. All four integration corrections are incorporated
+in frozen version 2; three fresh complete reviews are running. No established
+files changed. See [review_resolution.md](review_resolution.md).
 
 ## Contract
 
@@ -32,9 +34,9 @@ Fresh independent routes (no inherited conversation and no mutual exposure):
 
 | Route | Mechanism / permitted inputs | Owned output | Status |
 |---|---|---|---|
-| weak_topology_route | Analytic weak-law differentiation; C.4 and explicit established dependencies | route_weak_topology.md | first round frozen; second-phase audit |
-| statistical_route | Probabilistic empirical forcing / leave-one-out; self-contained assignment only | route_statistical.md | first round frozen; replacement argument in progress |
-| source_response_route | Exact finite Gaussian source calculus; selected C.4.7/III.F inputs | route_source_response.md | first round frozen; second sensitivity proof in progress |
+| weak_topology_route | Analytic weak-law differentiation; C.4 and explicit established dependencies | route_weak_topology.md | first round and independent source-feedback audit complete |
+| statistical_route | Probabilistic empirical forcing / leave-one-out; self-contained assignment only | route_statistical.md | replacement theorem and deterministic checks complete |
+| source_response_route | Exact finite Gaussian source calculus; selected C.4.7/III.F inputs | route_source_response.md | source calculus and second sensitivity proof complete |
 | coordinator | Complete established proof reading, raw response and synthesis | remaining study files | active |
 
 All generated products and scratch belong under
@@ -45,8 +47,9 @@ All generated products and scratch belong under
 C.4.7 constructs the actual nearby-law trajectories, their passive-query tails,
 reached weighted moments and finite-GF capture. Its first-order contamination
 expansion is at the two-point reference only. Extending that derivative to
-arbitrary laws and controlling empirical remainders are separate open obligations;
-total variation does not approximate a nonatomic law by its empirical measures.
+arbitrary laws and controlling empirical remainders were separate obligations,
+resolved below; total variation does not approximate a nonatomic law by its
+empirical measures.
 
 The coordinator has read the complete C.4.5--C.4.7 proofs, C.4.1--C.4.3,
 Gaussian-action construction III.F.1--10, and the earlier action/dynamics
@@ -78,8 +81,10 @@ only the small feature increment remains. The independent reconstruction is
 in [route_slab_audit.md](route_slab_audit.md), with moment and Borel-kernel
 checks in [route_slab_kernel_addendum.md](route_slab_kernel_addendum.md).
 
-The complete candidate is [proposal_C4_8.md](proposal_C4_8.md), with exact
-proposed book/guide edits in [promotion_edits.json](promotion_edits.json).
+The current complete candidate is [proposal_C4_8_v2.md](proposal_C4_8_v2.md),
+with exact proposed book/guide edits in
+[promotion_edits_v2.json](promotion_edits_v2.json) and a user-facing
+[promotion proposal](promotion_proposal.md). Version 1 remains frozen for provenance.
 It uses delta'_Y=delta_Y/4 and proves, for every separately fixed admitted
 Borel law, the actual centered whole-circle influence from the full Gaussian
 source response, m E||r_m||_H^2→0, the Hilbert Gaussian covariance limit,
@@ -95,12 +100,16 @@ argument is also preserved in [route_replacement.md](route_replacement.md).
 versions and limitations. This status is distinct from promotion acceptance.
 
 [selection_report.md](selection_report.md) accepts the result for assembly as
-C.4.8; its full report was read by the coordinator. Its two assembly suggestions
-were incorporated before the paired packet was frozen: explicit finite metric
-normalizations, and agreement with C.4.6 at the reference law. Fresh independent
-reviewers receive only [review_packet_v1.md](review_packet_v1.md) and its frozen
-complete candidate/dependencies. A separate fresh integration reviewer receives
-[integration_packet_v1.md](integration_packet_v1.md). Their reports are pending.
+C.4.8; its full report was read by the coordinator. The assembled candidate
+records agreement with C.4.6 at the reference law. The complete original
+[proof review A](review_v1_A.md), [proof review B](review_v1_B.md), and
+[integration review](integration_v1.md) are preserved. The integration review
+required four corrections, including explicit ordinary Euclidean/Frobenius
+norm normalizations and the full residual factor in the middle update.
+All are resolved in version 2. Fresh independent reviewers receive only
+[review_packet_v2.md](review_packet_v2.md) and its complete frozen inputs;
+a separate fresh reviewer receives [integration_packet_v2.md](integration_packet_v2.md).
+Their reports are pending. No prior findings or internal reports are supplied.
 
 Frozen first-round SHA256 hashes:
 
@@ -119,28 +128,30 @@ Required workflow and both math skills read by the coordinator; applicable skill
 references read. Complete canonical source and statistical lemmas were read and
 checked by the coordinator, and the assembled mathematics was checked against
 those components. No training experiments or sweeps were run. Scoped commits:
-`94f776842874fa9b497cba9d5b0cc313cc019970` (initial contract), and `f231b18`
-(independent first-round routes).
+`94f776842874fa9b497cba9d5b0cc313cc019970` (initial contract), `f231b18`
+(independent first-round routes), and `917dfaa` (complete version-1 theorem,
+frozen packets, and checks).
 
 Reproduction (run from the repository root; choose a fresh standalone output
 directory if rerunning):
 
 ```
-python studies/trained_prediction_sampling/assemble_proposal.py
-python studies/trained_prediction_sampling/validate_proposal.py --output data/generated/trained_prediction_sampling/standalone_v1
+python studies/trained_prediction_sampling/assemble_proposal_v2.py
+python studies/trained_prediction_sampling/validate_proposal_v2.py --output data/generated/trained_prediction_sampling/standalone_v2
 ```
 
 The frozen assembled candidate hash is
-`53ef8e1c31795ecd1ae8400c9ed8183cc8f1a86a2e71c74a0d736b7eb2b33456`.
+`98fa7614b6449b58b07c65df047b68a3484bf0760b36a3a25052f67d72692928`.
 Standalone validation passed: 88 unique new equation tags and resolved references,
 new navigation anchor, exact inverse preservation of both existing documents,
 and isolated standard-library checks of Gaussian calculus and 748 exact sampling
 identities. Evidence is in
-`data/generated/trained_prediction_sampling/standalone_v1/validation_report.json`.
+`data/generated/trained_prediction_sampling/standalone_v2/validation_report.json`.
 This is validation of the addition and its needed dependencies, not a whole-book
 proof/link/exporter or unrelated-code audit. The standalone assembly contains only
 the proposed documents, required excerpts/notation and check programs; no checkout
 or worktree was created.
-On success prepare a canonical proposal and complete the workflow's independent
-selection, paired adversarial reviews and standalone/integration validation.
-Explicit user approval of the reviewed package is required before book/code edits.
+The concrete canonical proposal and independent selection are complete. Finish
+the fresh version-2 paired and integration reviews, verify all frozen inputs and
+read the complete reports. Then present the reviewed package for explicit user
+approval before book/code edits, as requested by the user and Part 2 of the workflow.
