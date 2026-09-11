@@ -1,6 +1,8 @@
 # Sampling fluctuations of the whole trained prediction
 
-Status: active theoretical study; A–C open. No established files changed.
+Status: A–C and the bounded-extension mean-square strengthening have complete
+internally checked candidate proofs. Fresh promotion proof and integration
+reviews are running. No established files changed.
 
 ## Contract
 
@@ -69,10 +71,36 @@ First-round comparison (all three complete reports read by the coordinator):
   A uniform second law-response estimate is the precise outstanding analytic
   requirement. A short-physical-time closure is under independent attack.
 
-These are partial research results, not a claim that A--C are resolved. In the
-second phase the routes may compare their frozen first-round findings. The
-probability route is checking whether replacement differences and a smooth law
-cutoff suffice for the L2 remainder without any empirical total-variation limit.
+These first-round findings are partial results. The second-phase comparison
+closed the uniform output-response estimate using short physical-time intervals:
+unknown covariance changes annihilate the old-boundary lower expression, so
+only the small feature increment remains. The independent reconstruction is
+in [route_slab_audit.md](route_slab_audit.md), with moment and Borel-kernel
+checks in [route_slab_kernel_addendum.md](route_slab_kernel_addendum.md).
+
+The complete candidate is [proposal_C4_8.md](proposal_C4_8.md), with exact
+proposed book/guide edits in [promotion_edits.json](promotion_edits.json).
+It uses delta'_Y=delta_Y/4 and proves, for every separately fixed admitted
+Borel law, the actual centered whole-circle influence from the full Gaussian
+source response, m E||r_m||_H^2→0, the Hilbert Gaussian covariance limit,
+the trace/m prediction-error asymptotic, and the width-first finite-GF bridge.
+The extension is F on U_Y and zero outside it. No ambient raw-L2 tangent,
+finite-width rate, joint fluctuation limit, supremum-norm CLT or GD claim is made.
+
+Proof components are [canonical_source_lemma.md](canonical_source_lemma.md),
+[canonical_completion.md](canonical_completion.md), and
+[canonical_sampling_lemma.md](canonical_sampling_lemma.md). The probability
+argument is also preserved in [route_replacement.md](route_replacement.md).
+[internal_checks.md](internal_checks.md) records the actual internal checks,
+versions and limitations. This status is distinct from promotion acceptance.
+
+[selection_report.md](selection_report.md) accepts the result for assembly as
+C.4.8; its full report was read by the coordinator. Its two assembly suggestions
+were incorporated before the paired packet was frozen: explicit finite metric
+normalizations, and agreement with C.4.6 at the reference law. Fresh independent
+reviewers receive only [review_packet_v1.md](review_packet_v1.md) and its frozen
+complete candidate/dependencies. A separate fresh integration reviewer receives
+[integration_packet_v1.md](integration_packet_v1.md). Their reports are pending.
 
 Frozen first-round SHA256 hashes:
 
@@ -88,10 +116,31 @@ docs/finite_dynamics.md  a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca55
 ## Checks and next action
 
 Required workflow and both math skills read by the coordinator; applicable skill
-references read. First-round reports have been compared against the established
-inputs; the combined response proof is still under construction. No proof is yet
-marked internally checked. No experiments run. The first scoped commit is
-`94f776842874fa9b497cba9d5b0cc313cc019970` (initial study contract).
+references read. Complete canonical source and statistical lemmas were read and
+checked by the coordinator, and the assembled mathematics was checked against
+those components. No training experiments or sweeps were run. Scoped commits:
+`94f776842874fa9b497cba9d5b0cc313cc019970` (initial contract), and `f231b18`
+(independent first-round routes).
+
+Reproduction (run from the repository root; choose a fresh standalone output
+directory if rerunning):
+
+```
+python studies/trained_prediction_sampling/assemble_proposal.py
+python studies/trained_prediction_sampling/validate_proposal.py --output data/generated/trained_prediction_sampling/standalone_v1
+```
+
+The frozen assembled candidate hash is
+`53ef8e1c31795ecd1ae8400c9ed8183cc8f1a86a2e71c74a0d736b7eb2b33456`.
+Standalone validation passed: 88 unique new equation tags and resolved references,
+new navigation anchor, exact inverse preservation of both existing documents,
+and isolated standard-library checks of Gaussian calculus and 748 exact sampling
+identities. Evidence is in
+`data/generated/trained_prediction_sampling/standalone_v1/validation_report.json`.
+This is validation of the addition and its needed dependencies, not a whole-book
+proof/link/exporter or unrelated-code audit. The standalone assembly contains only
+the proposed documents, required excerpts/notation and check programs; no checkout
+or worktree was created.
 On success prepare a canonical proposal and complete the workflow's independent
 selection, paired adversarial reviews and standalone/integration validation.
 Explicit user approval of the reviewed package is required before book/code edits.

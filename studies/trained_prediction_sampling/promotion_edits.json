@@ -1,0 +1,23 @@
+{
+  "append": {
+    "path": "docs/global_nonlinear.md",
+    "source": "proposal_C4_8.md"
+  },
+  "replacements": [
+    {
+      "path": "docs/global_nonlinear.md",
+      "old": "a width-first bridge to C.4.6. The local C.4.1–C.4.4 theorem retains the",
+      "new": "a width-first bridge to C.4.6. Section C.4.8 gives the actual centered influence and an L2(circle) Gaussian sampling limit at T=40 for every separately fixed Borel law in a smaller neighborhood, with spatial covariance, a mean-square remainder and a width-first finite-GF bridge.\nThe local C.4.1–C.4.4 theorem retains the"
+    },
+    {
+      "path": "docs/README.md",
+      "old": "and gives a finite-contamination remainder with a width-first bridge to the response. |",
+      "new": "and gives a finite-contamination remainder with a width-first bridge to the response. [Section C.4.8](global_nonlinear.md#c48-sampling-fluctuations-of-the-trained-prediction) gives the actual centered influence and an L2(circle) Gaussian sampling limit at T=40 for every separately fixed Borel law in a smaller neighborhood, with spatial covariance, a mean-square remainder and a width-first finite-GF bridge. |"
+    },
+    {
+      "path": "docs/README.md",
+      "old": "have the stated neighborhood and fixed horizon.",
+      "new": "have the stated neighborhood and fixed horizon. Section C.4.8 gives the actual centered influence and an L2(circle) Gaussian sampling limit at T=40 for every separately fixed Borel law in a smaller neighborhood, with spatial covariance, a mean-square remainder and a width-first finite-GF bridge."
+    }
+  ]
+}
