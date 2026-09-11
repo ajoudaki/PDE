@@ -116,5 +116,18 @@ scientific and placement review. No generated product is included in commits.
 The coordinator is the sole Git writer and uses the common nonblocking
 `pde-writer.lock` for each short stage/verify/commit transaction. The checked
 pre-integration HEAD was `0ecf05026913c678bef57b3967962effc73c453d`.
-The integration commit and final commit correspondence are recorded below
-after the locked transaction.
+The integration commit is
+`bee4161f810048cff84dcbac1e61ea7abe097e1d`
+(`Promote reviewed robust learning horizon as established C.4.5`). Under the
+lock the coordinator rechecked HEAD, the empty index and all five owned file
+hashes, staged only those files, verified the staged names and bytes, and ran
+the staged whitespace check. The committed paths and bytes then matched those
+exact inputs, and the index was empty after the commit. The other three files
+in that commit are this record, the study README and the fresh gate report.
+`promotion_integration_01/commit_inputs.json` and `integration_commit.json`
+retain the transaction's exact inputs and result. This final study-record
+update records the completed integration without changing either established
+file. The original frozen packet, assignments and full reports are unchanged.
+
+Promotion is complete for this exact package. No required gate, correction or
+approval remains outstanding.
