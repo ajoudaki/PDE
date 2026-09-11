@@ -141,7 +141,7 @@ of the learned middle increment. Gronwall first bounds the readout, integration
 then bounds the middle increment and first-row field on any finite horizon.
 The three textual corrections repair a TeX control word, heading placement,
 and stale local section references. No source-response or statistical estimate
-was changed. Complete fresh version-2 reviews are pending.
+was changed. Complete fresh version-2 reviews subsequently passed; see below.
 
 Version-2 standalone validation was run from the repository root:
 
@@ -156,3 +156,14 @@ The candidate hash is
 The exact checks and limitations are as recorded above and in the resolution
 record, with an added TeX-control-word whitelist and explicit heading-depth
 check. Established scientific/process inputs were unchanged after validation.
+
+The coordinator has now read all of [review_v2_A.md](review_v2_A.md),
+[review_v2_B.md](review_v2_B.md), and [integration_v2.md](integration_v2.md).
+Both independent proof reviews and the separate complete integration review
+PASS, without required corrections, missing inputs or unresolved objections.
+The coordinator verified their exact report hashes, frozen packet inputs,
+before/after records, fresh assembly correspondence, and reported deterministic
+outputs. Full evidence hashes, earlier objections and their resolutions are in
+[review_resolution.md](review_resolution.md). These checks close the research
+and review obligations for the final theorem; explicit approval of the concrete
+reviewed package is still required before changing established book/code.

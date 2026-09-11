@@ -1,9 +1,10 @@
 # Proposed C.4.8: sampling fluctuations of the trained prediction
 
-Status: complete corrected version-2 candidate and standalone validation; fresh
-complete promotion reviews are in progress. Version-1 proof reviews passed but
-its integration review required corrections, all incorporated in version 2.
-This proposal does not authorize established book/code edits.
+Status: complete reviewed version-2 addition; both fresh complete proof reviews,
+standalone validation and the fresh integration review PASS with no unresolved
+objection. Version-1 integration corrections are fully resolved. Explicit user
+approval of this exact package is the remaining promotion gate; this proposal
+does not itself authorize established book/code edits.
 
 ## Concrete addition
 
@@ -84,16 +85,22 @@ supremum norm. The test-circle measure introduces no teacher labels.
   [full report](selection_report.md).
 - Internal proof checks: [complete record](internal_checks.md), including the
   independent source-feedback reconstruction and exact Borel-kernel passage.
-- Fresh paired proof reviews: pending for the complete frozen
-  [version-2 packet](review_packet_v2.md). Earlier proof PASS reports and the
-  required integration corrections are preserved in the
-  [resolution record](review_resolution.md).
+- Fresh paired proof reviews: [review A](review_v2_A.md) and
+  [review B](review_v2_B.md) both PASS for the complete frozen
+  [version-2 packet](review_packet_v2.md), with no required corrections or
+  missing inputs. The coordinator read both complete reports and verified their
+  frozen sources and check outputs. Earlier reports and all correction resolutions
+  are preserved in the [resolution record](review_resolution.md).
 - Standalone edition: PASS. Exact inverse preservation, 88 unique equation
   tags, new navigation link, six Gaussian-calculus identities including rank
   loss, and 748 exact sampling identities passed. Full report:
   `data/generated/trained_prediction_sampling/standalone_v2/validation_report.json`.
-- Fresh integration review: pending for the complete
-  [version-2 integration packet](integration_packet_v2.md).
+- Fresh integration review: [complete report](integration_v2.md), PASS for the
+  precise [version-2 integration scope](integration_packet_v2.md), with no
+  required correction. The coordinator read it completely, verified its frozen
+  inputs, fresh assembled edition and independent deterministic checks. The
+  finite normalization check covered all 18 velocity components of one fixed
+  network state; no training trajectory was computed.
 
 The standalone proposed documents are under
 `data/generated/trained_prediction_sampling/standalone_v2/docs/`.
@@ -101,6 +108,15 @@ Validation uses only necessary documents, complete required dependency excerpts,
 and isolated standard-library checks. It does not claim a whole-book proof,
 exporter, old-link, or unrelated-code audit. No training experiments were run.
 
-After all required reviews pass, the remaining step is the user's explicit
-approval of this exact reviewed package under Part 2 of RESEARCH_WORKFLOW.md.
-The live established files have not been changed.
+I recommend approving this exact addition. It resolves the sampling fluctuation
+milestone beyond the book's existing nearby-law trajectories and reference-law
+response, includes the stronger population mean-square conclusion, and preserves
+the requested model and limit order. The substantial proof includes its own
+source-response and statistical arguments so the theorem does not depend on
+unpromoted study material.
+
+The remaining step is the user's explicit approval of this exact reviewed
+package under Part 2 of RESEARCH_WORKFLOW.md. Approval covers only the appended
+C.4.8 and the three specified summary replacements in the two destination
+documents. No code change is proposed. The live established files have not been
+changed, and no approval has yet been received.

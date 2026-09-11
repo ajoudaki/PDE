@@ -1,10 +1,11 @@
 # Sampling fluctuations of the whole trained prediction
 
-Status: A–C and the bounded-extension mean-square strengthening have complete
-internally checked candidate proofs. Version 1 received two proof PASS reports
-and a blocked integration report. All four integration corrections are incorporated
-in frozen version 2; three fresh complete reviews are running. No established
-files changed. See [review_resolution.md](review_resolution.md).
+Research status: A–C and the bounded-extension mean-square strengthening are
+resolved with complete checked proofs. Promotion status: frozen version 2 has
+two fresh complete proof PASS reports, a fresh integration PASS, and standalone
+validation PASS; explicit user approval is pending. Version 1's integration
+objections and their resolutions are preserved in
+[review_resolution.md](review_resolution.md). No established files changed.
 
 ## Contract
 
@@ -37,7 +38,7 @@ Fresh independent routes (no inherited conversation and no mutual exposure):
 | weak_topology_route | Analytic weak-law differentiation; C.4 and explicit established dependencies | route_weak_topology.md | first round and independent source-feedback audit complete |
 | statistical_route | Probabilistic empirical forcing / leave-one-out; self-contained assignment only | route_statistical.md | replacement theorem and deterministic checks complete |
 | source_response_route | Exact finite Gaussian source calculus; selected C.4.7/III.F inputs | route_source_response.md | source calculus and second sensitivity proof complete |
-| coordinator | Complete established proof reading, raw response and synthesis | remaining study files | active |
+| coordinator | Complete established proof reading, raw response and synthesis | remaining study files | research and review complete; promotion approval pending |
 
 All generated products and scratch belong under
 `data/generated/trained_prediction_sampling/`. No shared code API is currently used.
@@ -109,7 +110,13 @@ norm normalizations and the full residual factor in the middle update.
 All are resolved in version 2. Fresh independent reviewers receive only
 [review_packet_v2.md](review_packet_v2.md) and its complete frozen inputs;
 a separate fresh reviewer receives [integration_packet_v2.md](integration_packet_v2.md).
-Their reports are pending. No prior findings or internal reports are supplied.
+The [version-2 proof review A](review_v2_A.md),
+[proof review B](review_v2_B.md), and
+[integration review](integration_v2.md) all PASS with no required corrections,
+missing inputs or unresolved objections. No prior findings or internal reports
+were supplied. The coordinator read all three complete reports and verified
+their frozen inputs and recorded deterministic outputs. The final proposal
+is scientifically accepted for the exact reviewed scope, but is not yet established.
 
 Frozen first-round SHA256 hashes:
 
@@ -129,8 +136,9 @@ references read. Complete canonical source and statistical lemmas were read and
 checked by the coordinator, and the assembled mathematics was checked against
 those components. No training experiments or sweeps were run. Scoped commits:
 `94f776842874fa9b497cba9d5b0cc313cc019970` (initial contract), `f231b18`
-(independent first-round routes), and `917dfaa` (complete version-1 theorem,
-frozen packets, and checks).
+(independent first-round routes), `917dfaa` (complete version-1 theorem,
+frozen packets, and checks), and `4f0c82e` (original reviews and corrected edition).
+The closing commit records the final three reports and approval-ready proposal.
 
 Reproduction (run from the repository root; choose a fresh standalone output
 directory if rerunning):
@@ -151,7 +159,12 @@ This is validation of the addition and its needed dependencies, not a whole-book
 proof/link/exporter or unrelated-code audit. The standalone assembly contains only
 the proposed documents, required excerpts/notation and check programs; no checkout
 or worktree was created.
-The concrete canonical proposal and independent selection are complete. Finish
-the fresh version-2 paired and integration reviews, verify all frozen inputs and
-read the complete reports. Then present the reviewed package for explicit user
-approval before book/code edits, as requested by the user and Part 2 of the workflow.
+The independent relevance selection, paired adversarial reviews, standalone
+validation and fresh integration review are complete. The remaining action is
+the user's explicit approval of the exact
+[reviewed promotion package](promotion_proposal.md), as requested by the user
+and Part 2 of the workflow. On approval, recheck dependency hashes, apply only
+the frozen append and three summary replacements, verify live correspondence
+with the reviewed edition, and commit those exact established changes under
+the shared Git lock. Changed scientific inputs would reopen the relevant gates.
+No scientific gap remains for A–C or the stated population mean-square result.
