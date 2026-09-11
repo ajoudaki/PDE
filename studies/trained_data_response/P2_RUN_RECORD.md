@@ -7,8 +7,9 @@ Date: 2026-09-11. Working directory for all commands below:
 
 No training run, parameter sweep, external scientific retrieval, repository
 clone/worktree, reset, or established-book/code edit was performed.
-The generated products check algebra/provenance only. They do not prove
-the missing reached-query estimate H.
+The generated products check algebra/provenance only. The reached-query
+estimate H is proved in the later frozen source argument and canonical
+section; its proof and all A–C passed the complete reviews recorded below.
 
 ## Complete scientific reading and provenance
 
@@ -205,6 +206,8 @@ environment permission issue, not a scientific failure or user rejection.
 | e960b4a8d6f7645fffa4c970ec1018ffeddb107f | Conditional audits, corrected observation/bridge contract, exact gap and bounded-feature route | commit_03.json |
 | 0772d18e8816c87144948f861022b132c81d9dc9 | Complete author candidate, source proof, frozen dependencies and standalone recipe | commit_04.json |
 | 3c9feacb0befd20fd57aa577494af36286af5758 | Both complete success reviews and independent promotion selection | commit_05.json |
+| 5be000b2d5d1feed8e0582b00e1022b156ede4e1 | Complete frozen canonical edition, standalone implementation and fresh review assignments | commit_06.json |
+| Recorded in commit_07.json | Final canonical reviews, original check archives and approval-ready records | commit_07.json |
 
 The second commit changes nine assigned study files; the third changes
 thirteen. Neither includes generated products. The third transaction's
@@ -388,3 +391,100 @@ strict whitespace check. The writer transaction verifies that this is the
 only dependency whitespace diagnostic, checks all other files strictly,
 and disables only blank-at-EOL checking for that immutable dependency file.
 This is a preexisting formatting diagnostic, not a proof correction.
+
+## Final canonical gates, original evidence and resolved status
+
+Both fresh complete isolated canonical scientific reviews PASS every A–C
+obligation, all complete invoked dependency proofs and applicable check
+implementation, with no required corrections. The separate fresh integration
+review also PASSes without required corrections. No frozen scientific
+input changed after the canonical manifest was sealed. Root read all three
+original reports completely; one truncated sentence in scientific review B
+was explicitly recovered by reading lines110–170. The reports are:
+
+| Original report | SHA256 |
+|---|---|
+| P2_CANONICAL_REVIEW_A.md | 80b92cb312d9dc79424b2216163e8867e1dfc000f1f7bc81f72c7c5c812e26ac |
+| P2_CANONICAL_REVIEW_B.md | 5984c09e172825c0834971c449b9a1baaa2effd9419e51ad8047a92fa0f3773c |
+| P2_INTEGRATION_REVIEW.md | 588a2465b78e6752632732a803372ca271561c2312b1e0abd7a1729ed7187fb2 |
+
+Each scientific reviewer read the complete 2,461-line new section, all
+7,434 dependency lines, the full proposed guide, exact ancillary edits,
+manifest, recipe and every applicable script. Their detailed reports record
+source-density and mass-splitting attacks, complete residual feedback in
+query forcing, raw/clock differentiated consistency, the two causal
+bootstraps, Osgood completion, arbitrary-strong-competitor uniqueness,
+finite-GF/empirical-law limit order, reached integrability, compact-direction
+Taylor and the exact P1 finite derivative bridge. Neither reviewer received
+prior verdicts, author history or the other reviewer's findings.
+
+The integration reviewer read the complete new assembled section and new
+guide/navigation/implementation. Its older scope includes complete finite
+§§1–4, III.F.1–11, global A.1–A.4/C.2, C.4 introduction/C.4.1–2,
+complete C.4.5, the C.4.6 theorem and first two proof units, and its final
+scope boundaries. Its explicit unread older dependency spans are
+1229–1787 (B.1), 3099–3736 (C.4.3–4), and 5801–7387 (the remaining
+C.4.6 propagation/cavity-capture proofs). Those established interfaces are
+used without claiming a fresh whole-book audit; both scientific reviewers
+read their complete proofs. Integration checked notation, placement,
+exact A–C scope, dependency and implementation closure, independent
+preservation and affected link correspondence.
+
+Each reviewer independently ran the same frozen supported command with
+its own fresh output path:
+
+```sh
+python -B studies/trained_data_response/P2_PROMOTION_CHECK.py --output data/generated/trained_data_response/p2_20260911_02/canonical_review_a/standalone_run
+python -B studies/trained_data_response/P2_PROMOTION_CHECK.py --output data/generated/trained_data_response/p2_20260911_02/canonical_review_b/standalone_run
+python -B studies/trained_data_response/P2_PROMOTION_CHECK.py --output data/generated/trained_data_response/p2_20260911_02/integration_review/standalone_run_01
+```
+
+All three completed with exit zero and PASS, including all component
+commands. Complete original commands, logs, environments, hashes and
+review-specific checks remain in those generated namespaces. Reviewer A's
+additional scalar/HS/activity check passed using standard-library Decimal.
+Reviewer B independently checked complete forward-query forcing at one
+fixed supplied state and the canceled clock identities at three declared
+scalar points. The forcing error was 1.734723475976807e-18; duplicate-atom
+additivity error was 5.421010862427522e-20. Suppressing residual feedback
+produced the intended nonzero signal 0.0010650008147578167. The three
+70-digit Decimal identity errors were at most 3.47e-43. These are bounded
+algebra checks, not flows or parameter sweeps. Both reviewers' initial
+optional mpmath imports failed before computation; original failed attempts
+were retained and no package was installed. Their standard-library checks
+then passed. The integration reviewer's independent edition check passed.
+
+P2_REVIEW_CHECK_ARCHIVE.json maps five byte-exact supplemental reviewer
+check sources from generated scratch to flat study-owned files. Root read
+all five sources in full and verified both original and archived hashes.
+The original reports, sources and outputs remain unchanged. These archives
+are forensic copies of already executed independent checks, not additions
+to the frozen canonical scientific dependency set. Do not execute those
+copies in the study directory: some retain original output paths or write
+adjacent output. Fresh supported reproduction uses P2_PROMOTION_CHECK.py.
+
+Root's final inline Python/hashlib audit is final_audit_01.json. It checks
+the exact three manifest hashes and all 10 P1, 16 original P2 and 10
+canonical input hashes; all ten base documents and both shared instructions;
+all six original review/selection hashes; and the five archived check
+correspondences. It checks the two assembled output hashes, exact P1
+substring in the actual book, exact P2 substring only in the standalone
+book, and the empty shared index before the closure transaction. Result:
+PASS. A separate bounded read-only metadata recheck by the integration
+reviewer independently confirmed every canonical input/base/instruction and
+both assembled hashes, with no discrepancy and no file writes.
+
+A–C are resolved by the frozen proof, including the previously missing H.
+The positive law radius may be extremely small and no practical numerical
+radius is claimed. The finite nonlinear response statement has exactly the
+required width-first order and no arbitrary joint epsilon/width rate.
+Existing risk/activity results apply only on their exact admitted subclass.
+There is no unresolved mathematical lemma in the primary target. Earlier
+partial-route reports and their original verdicts remain historical evidence.
+
+The complete recommendation is P2_PROPOSAL.md. Every required scientific,
+relevance, standalone and integration gate has passed. Only explicit user
+approval and the subsequent approved two-file incorporation remain. No
+established document or maintained API has been changed by this P2 task.
+The final study-only transaction and exact staged paths/hashes are recorded
+in checkpoint_07_inputs.json and commit_07.json under the common writer lock.

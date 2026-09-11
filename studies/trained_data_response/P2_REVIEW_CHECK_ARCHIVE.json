@@ -1,0 +1,31 @@
+{
+  "purpose": "Byte-exact archival copies of supplemental reviewer-created check sources, not new canonical dependencies or tests. Original reports and generated evidence remain unchanged.",
+  "execution_note": "Do not execute these archived scripts in the study directory. They preserve the reviewers original output paths. The supported fresh standalone reproduction is P2_PROMOTION_CHECK.py; these sources document the additional independently executed checks.",
+  "files": [
+    {
+      "original_generated_path": "data/generated/trained_data_response/p2_20260911_02/full_review_a/independent_algebra.py",
+      "archived_study_path": "P2_FULL_REVIEW_A_CHECK.py",
+      "sha256": "4187a7e9f1e33c997466c2fa7e498556c338ed9036efe9cf69539ebe4f940f2b"
+    },
+    {
+      "original_generated_path": "data/generated/trained_data_response/p2_20260911_02/full_review_b/source_algebra.py",
+      "archived_study_path": "P2_FULL_REVIEW_B_CHECK.py",
+      "sha256": "c1e77a2d24fcdba914508b3bfde0d4a34133b393bd7f88e708d1eca2f2a1d271"
+    },
+    {
+      "original_generated_path": "data/generated/trained_data_response/p2_20260911_02/canonical_review_a/independent_algebra.py",
+      "archived_study_path": "P2_CANONICAL_REVIEW_A_CHECK.py",
+      "sha256": "555ee8cb40ff9a6b28c3943eaa0f8caef7f6670724f6eec0d78f2d242c29d8f8"
+    },
+    {
+      "original_generated_path": "data/generated/trained_data_response/p2_20260911_02/integration_review/independent_assembly_check.py",
+      "archived_study_path": "P2_INTEGRATION_CHECK.py",
+      "sha256": "d6ff181a353bd0293c0819af96a12670e00e56dd0992c16757d5f5f803672fbf"
+    },
+    {
+      "original_generated_path": "data/generated/trained_data_response/p2_20260911_02/canonical_review_b/independent_algebra.py",
+      "archived_study_path": "P2_CANONICAL_REVIEW_B_CHECK.py",
+      "sha256": "ffc9424ab55ceeb933f12eda0b0be33e2430cbdc09f3d6ab60e16d093d4ba3fc"
+    }
+  ]
+}

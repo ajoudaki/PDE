@@ -1,9 +1,11 @@
 # Milestone 2: nonlinear trained-law continuation
 
 Author/coordinator: task `01a09106-41c4-7193-9db9-8068144fd825`, `/root`.
-Claim status: full frozen A–C theorem passed two fresh complete isolated
-reviews, with no required corrections. Canonical promotion assembly is
-underway; established edits remain unapproved and unperformed.
+Claim status: **A–C resolved.** The original full theorem and its canonical
+edition each passed two fresh complete isolated scientific reviews without
+required corrections. Relevance, standalone validation and the separate
+canonical integration review also passed. The exact P2_PROPOSAL.md package
+is ready for user approval; established edits remain unperformed.
 
 ## Fixed contract
 
@@ -68,6 +70,7 @@ P2_THEOREM.md and P2_MANIFEST.json freeze the complete A–C candidate.
 P2_FULL_REVIEW_A.md and P2_FULL_REVIEW_B.md both pass every primary
 requirement on these exact frozen inputs. Their original reports and
 independence/coverage/check evidence are retained. The accepted relevance
-assessment selects one self-contained C.4.7; its rewritten canonical
-packet needs its own fresh reviews and integration validation before
-user approval is requested.
+assessment selects one self-contained C.4.7. P2_PROMOTION_MANIFEST.json
+freezes that rewritten canonical packet. P2_CANONICAL_REVIEW_A.md,
+P2_CANONICAL_REVIEW_B.md and P2_INTEGRATION_REVIEW.md all PASS without
+required corrections. The exact reviewed proposal awaits user approval.

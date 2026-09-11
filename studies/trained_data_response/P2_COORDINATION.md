@@ -161,3 +161,18 @@ integration_review scratch. Exact complete assignments and launches are
 P2_CANONICAL_REVIEW_ASSIGNMENT.md, P2_INTEGRATION_REVIEW_ASSIGNMENT.md and
 P2_PROMOTION_REVIEW_LAUNCHES.json. They receive no prior verdicts or each
 other's findings. Root retains sole Git and current-record ownership.
+
+## Final review closure and approval boundary
+
+All three canonical reviewers have frozen original PASS reports with no
+required corrections. Root read their complete reports, repaired output
+truncation explicitly, and verified all unchanged input hashes and reported
+coverage. Their exact neutral scopes, original reports and generated checks
+remain intact. Authors and reviewers have no further scientific assignment;
+a bounded read-only final metadata recheck does not modify a review.
+
+P2_PROPOSAL.md is the complete reviewed two-file package ready for user
+approval. Only study records, frozen reports and byte-exact supplemental
+check archives are being committed at closure. Established book/code edits
+remain unapproved and unperformed. Root retains sole Git-writing ownership;
+the shared index and unrelated work must still be preserved at incorporation.

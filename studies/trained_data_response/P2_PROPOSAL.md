@@ -1,9 +1,9 @@
 # Milestone 2: concrete canonical promotion proposal
 
-Status: the original full A–C proof passed both complete isolated reviews.
-The actual canonical edition below is frozen and has passed standalone
-validation. Its two fresh complete scientific reviews and separate fresh
-integration review are in progress. No established edit is approved or made.
+Status: **A–C resolved; the exact canonical edition is ready for user approval.**
+Both fresh complete canonical scientific reviews and the separate fresh
+integration review PASS with no required corrections. Standalone validation
+and deterministic checks pass. No established edit is approved or made.
 
 ## Addition and exact scope
 
@@ -61,7 +61,7 @@ The source section has 2,461 lines, including complete proofs, and 114
 unique namespaced equation labels. The complete dependency collection
 includes every invoked finite-dynamics, source-calculus, common-carrier,
 reference, transport and C.4.6 response proof, together with the full
-notation contract and reading guide. The two scientific reviewers receive
+notation contract and reading guide. Both scientific reviewers read
 all of it, all check scripts and the actual proposed guide/navigation.
 
 The author component files and [P2_ASSEMBLY_MAP.json](P2_ASSEMBLY_MAP.json)
@@ -78,8 +78,13 @@ section; they do not replace its mathematical proof or change its theorem.
 - Original full proof: [review A](P2_FULL_REVIEW_A.md) and
   [review B](P2_FULL_REVIEW_B.md) both PASS, with no required corrections.
   These are not substituted for the canonical edition's reviews.
-- Fresh complete canonical scientific reviews: pending.
-- Fresh independent integration review: pending.
+- Fresh complete canonical scientific reviews: [review A](P2_CANONICAL_REVIEW_A.md)
+  and [review B](P2_CANONICAL_REVIEW_B.md), both PASS on every A–C obligation,
+  all complete dependencies and applicable implementation; no required corrections.
+- Fresh independent integration review: [P2_INTEGRATION_REVIEW.md](P2_INTEGRATION_REVIEW.md),
+  PASS with no required corrections. It reads the complete new assembled content
+  and states its exact older read scope and unread complement. Its verdict is
+  an integration gate, not a whole-book scientific audit.
 - Standalone edition and deterministic checks: PASS. Exact recipe is
   [P2_PROMOTION_RECIPE.md](P2_PROMOTION_RECIPE.md); commands, logs and
   hashes are under data/generated/trained_data_response/p2_20260911_02/promotion_check_01/.
@@ -97,15 +102,17 @@ unaffected older chapter links are not revalidated. No training was run.
 
 ## Approval boundary
 
-The recommendation will be to incorporate this exact two-file edition if
-all pending canonical gates pass without required correction. Any required
-scientific correction reopens the paired review gate; integration corrections
-require fresh review of the corrected integration scope.
+**Recommendation: incorporate exactly the two-file edition and hashes above.**
+All required scientific, relevance, standalone and integration gates have
+passed. There is no unresolved mathematical lemma in A–C. Only approval and
+the subsequent approved incorporation remain. The positive neighborhood
+is not given a practical numerical radius; the theorem makes the precise
+fixed-horizon and ordered-limit claims stated above.
 
 No established edit should occur before explicit approval of the concrete
 reviewed package. RESEARCH_WORKFLOW.md Part 2 §5 requires: “Obtain and retain
 the user's approval for that reviewed package before changing established
-book/code.” The final request will identify this manifest and the two
+book/code.” Approval is requested for this manifest and the two
 resulting document hashes. After approval, current dependencies and
 concurrent edits must be rechecked, the exact edition applied, live-file
 correspondence verified, affected checks rerun and the incorporation

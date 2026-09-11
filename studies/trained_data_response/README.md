@@ -288,48 +288,43 @@ This task has no remaining milestone-1 or promotion action. The separately
 started P2 task's ownership is recorded above; its research is outside this
 completed promotion, and no P2 conclusion is established here.
 
-## Milestone 2 — nonlinear continuation, current research
+## Milestone 2 — resolved A–C theorem; promotion awaiting approval
 
-Status: **A–C proved and passed two complete isolated reviews; canonical promotion package in preparation**. The task in [P2_COORDINATION.md](P2_COORDINATION.md)
-preserves the fixed A–C target through physical time 40 in
-[P2_CONTRACT.md](P2_CONTRACT.md). Its fresh generated namespace is
-`data/generated/trained_data_response/p2_20260911_02/`.
-The P1 frozen hashes and byte-for-byte incorporated section verify.
+**A–C are proved through physical time 40.** The complete
+[canonical theorem and proofs](P2_SECTION.md) give a positive Wasserstein
+neighborhood among all bounded-label Borel laws, strong population GF and
+reached restart, quantitative raw-state/predictor continuity, actual finite
+capture with unrestricted empirical-law/width rates, and the uniform
+nonlinear contamination remainder equal to P1's response with the required
+width-first finite bridge. The exact model, Gaussian action/adjoint and
+finite random readout are retained. See the [contract](P2_CONTRACT.md).
 
-The frozen [A–C candidate](P2_THEOREM.md) now includes a
-[source-coefficient proof](P2_SOURCE_BOOTSTRAP.md) of the previously open
-tail hypothesis H. It uses the reference query-insertion bound,
-differentiated clock consistency, and a law-weighted coefficient
-comparison. A fresh prompt-only [kernel check](P2_KERNEL_CHECK.md)
-independently proves that last conditional comparison. The fresh complete
-isolated [review A](P2_FULL_REVIEW_A.md) and [review B](P2_FULL_REVIEW_B.md)
-both pass all A–C with no required corrections, including the new tail
-proof and the actual finite nonlinear bridge. Root read both full reports
-and verified their coverage and unchanged inputs.
-[P2_MANIFEST.json](P2_MANIFEST.json) freezes this complete reviewed result.
-An independent [relevance assessment](P2_RELEVANCE.md) accepts one C.4.7
-for assembly. Canonical scientific/integration reviews and user approval
-remain separate requirements before promotion.
-The [earlier checkpoint](P2_REPORT.md) preserves the conditional reduction,
-original audits, partial results and exact route failures; its open-H
-status predates the new candidate.
+Both fresh complete canonical [review A](P2_CANONICAL_REVIEW_A.md) and
+[review B](P2_CANONICAL_REVIEW_B.md) PASS with no required corrections,
+as does the separate [integration review](P2_INTEGRATION_REVIEW.md).
+The original full proof's [review A](P2_FULL_REVIEW_A.md) and
+[review B](P2_FULL_REVIEW_B.md) also passed; their sixteen-input
+[packet](P2_MANIFEST.json) remains frozen. The independent
+[relevance assessment](P2_RELEVANCE.md) accepts one new C.4.7.
+The [earlier checkpoint](P2_REPORT.md) preserves superseded conditional
+routes and their exact failures, without treating them as refutations.
 
-Standalone frozen-dependency and deterministic algebra checks pass. Run
-`python -B studies/trained_data_response/P2_VALIDATE.py --output
-data/generated/trained_data_response/NEW_RUN` from the repository root.
-The full frozen packet also passes standalone correspondence and algebra
-checks. Reproduce with `python -B studies/trained_data_response/P2_BUILD_PACKET.py
---output data/generated/trained_data_response/NEW_RUN`. These checks
-certify provenance and algebra, not the source-coefficient proof. Exact
-commands, hashes, outcomes and reading coverage are in
-[P2_RUN_RECORD.md](P2_RUN_RECORD.md); generated outputs are in
-`p2_20260911_02/`, including `full_packet_01/`. No training was run and no
-established book/code was changed by P2. Scoped commits so far: ae37dfe,
-48da104, e960b4a and 0772d18. Root is sole Git writer. Next authorized work
-is to finish fresh scientific/integration reviews of the frozen
-[canonical section](P2_SECTION.md) and [exact navigation proposal](P2_EDITION_ANCILLARY.json).
-[P2_PROMOTION_MANIFEST.json](P2_PROMOTION_MANIFEST.json) freezes its full
-dependencies and validation implementation. The complete proposed edition
-passes standalone validation: `python -B studies/trained_data_response/P2_PROMOTION_CHECK.py
---output data/generated/trained_data_response/NEW_RUN`.
-Established edits still require approval of that concrete reviewed package.
+The [concrete promotion proposal](P2_PROPOSAL.md) contains only the new
+C.4.7 and seven navigation replacements in docs/global_nonlinear.md and
+docs/README.md. Its ten scientific/implementation inputs are frozen by
+[P2_PROMOTION_MANIFEST.json](P2_PROMOTION_MANIFEST.json). All gates have
+passed; incorporation awaits explicit user approval. The positive radius
+may be very small. This is a fixed-horizon GF result, with existing risk
+and activity consequences only on their exact admitted subclasses.
+
+Standalone dependency, exact edition-preservation and deterministic algebra
+checks PASS. Reproduce with `python -B studies/trained_data_response/P2_PROMOTION_CHECK.py
+--output data/generated/trained_data_response/NEW_RUN` from the repository
+root, using a fresh output path. Full commands, hashes, reading coverage,
+original review reports and scoped commit evidence are in
+[P2_RUN_RECORD.md](P2_RUN_RECORD.md). Generated outputs are under
+`data/generated/trained_data_response/p2_20260911_02/`; the earlier run is
+preserved. [Ownership](P2_COORDINATION.md) remains scoped to this task;
+root is the sole Git writer. Frozen P1 inputs and its incorporated proof
+verify unchanged. No training was run and P2 has changed no established
+book or code. The next step is approval of the exact reviewed proposal.
