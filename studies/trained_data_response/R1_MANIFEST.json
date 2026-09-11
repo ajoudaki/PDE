@@ -1,0 +1,90 @@
+{
+  "round": "R1",
+  "head": "fed05677de9a8e4c8ff7117779a5866954793436",
+  "authors": [
+    "/root",
+    "/root/propagator",
+    "/root/weighted_source",
+    "/root/capture"
+  ],
+  "inputs": {
+    "R1_PROOF.md": {
+      "sha256": "38b2c81be6e32f3d93f7fd85145487b33b2676b6d8698c504230189b9e625721",
+      "lines": 2358
+    },
+    "R1_DEPENDENCIES.md": {
+      "sha256": "ca696bc4ed14ea337028eb1e6ef9c7f729ed2a0153bc210de8e16dea18f5ee79",
+      "lines": 3238
+    },
+    "R1_CHECK_IDENTITIES.py": {
+      "sha256": "b0bbbde5f1f024dbb46975b2092d3aa2a79cabd0375f4520c05489f934d3902f",
+      "lines": 197
+    },
+    "R1_REFERENCE_CERTIFICATE.py": {
+      "sha256": "112ce04c6d8e20859b5a778cfdeed42690949af807d421b7db90e82c2576a49e",
+      "lines": 56
+    },
+    "R1_ASSIGNMENT.md": {
+      "sha256": "5d49497988a172dabefd80e13c214564018495f28ea0b126e83aaac475eb89d6",
+      "lines": 49
+    }
+  },
+  "author_sources": {
+    "THEOREM.md": "123e5ee20adad45b5ee7262c7fc66b3d22ccf0dddc0cbf2ea93df333750c7191",
+    "PROPAGATOR.md": "0f803ef07553d6ad3c618b5d83c06af4de74393c939493f5e003509330da363c",
+    "WEIGHTED_SOURCE.md": "580c7556976c52727733263b2cfc199c16ff699d8ea64130111b7bba8fe45831",
+    "FINITE_CAPTURE.md": "d8fe981bf38cf3e1610b2d025174d64c78a3330a25d681c92a6d7597d3e4a4b8"
+  },
+  "dependency_excerpts": [
+    {
+      "source": "docs/README.md",
+      "first_line": 1,
+      "last_line": 273,
+      "source_sha256": "7824df11fe7fa2d89cf2c75dc32716438b20c815a18d1c3809a84a0785d9d34e",
+      "excerpt_sha256": "7824df11fe7fa2d89cf2c75dc32716438b20c815a18d1c3809a84a0785d9d34e"
+    },
+    {
+      "source": "docs/NOTATION.md",
+      "first_line": 1,
+      "last_line": 98,
+      "source_sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+      "excerpt_sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b"
+    },
+    {
+      "source": "docs/finite_dynamics.md",
+      "first_line": 1,
+      "last_line": 227,
+      "source_sha256": "a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca5545bc0012a",
+      "excerpt_sha256": "bd10bbff9d16f60c63d26b06e793510fa19958e1ec91dbdd85709caff7d96980"
+    },
+    {
+      "source": "docs/special_data_limits.md",
+      "first_line": 3785,
+      "last_line": 4326,
+      "source_sha256": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489",
+      "excerpt_sha256": "8a8dbe6a31a51d3f73c999b75c75dcade76b3d533c8901a062c66587776cdd0a"
+    },
+    {
+      "source": "docs/global_nonlinear.md",
+      "first_line": 1840,
+      "last_line": 2453,
+      "source_sha256": "d473d95ee27bc39d484185cea2689b5d3ceed448567a1527488f1003e24f1fa1",
+      "excerpt_sha256": "bcfd408439134d630c4f6b5e907f9d4cf08a7bc3388b48c15fc0e603dc17e408"
+    },
+    {
+      "source": "docs/global_nonlinear.md",
+      "first_line": 3972,
+      "last_line": 4296,
+      "source_sha256": "d473d95ee27bc39d484185cea2689b5d3ceed448567a1527488f1003e24f1fa1",
+      "excerpt_sha256": "54253f0395991ccd8460624a2fc93edee1bee2b265123417fed82187f347d16d"
+    },
+    {
+      "source": "docs/global_nonlinear.md",
+      "first_line": 5465,
+      "last_line": 6585,
+      "source_sha256": "d473d95ee27bc39d484185cea2689b5d3ceed448567a1527488f1003e24f1fa1",
+      "excerpt_sha256": "7e5eef92285920d78a75e8776c458ee7a3593b104aba8050f5435326da01bcec"
+    }
+  ],
+  "check_scope": "deterministic mathematical identities; no training experiments"
+}
