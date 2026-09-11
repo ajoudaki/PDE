@@ -1,7 +1,7 @@
 # Trained data response at a nonlinear fitted reference
 
 Status: active research; no primary theorem is yet independently accepted.
-This study addresses milestone 1 only: capture the data-direction derivative
+This study addresses the primary response milestone: capture the data-direction derivative
 of actual finite gradient flow after substantial learning, including T=40,
 and construct a usable forced population evolution.
 
@@ -24,9 +24,10 @@ failure probability over laws, or uniform-time finite-width limit is claimed.
 
 | Component / route | Owner and assigned file | Current scope / bottleneck |
 |---|---|---|
-| Homogeneous trained propagation | `/root/propagator`, PROPAGATOR.md | Candidate: finite-rank Gauss–Newton endpoint plus integrable curvature; singular endpoint must be handled |
-| Actual finite weighted source | `/root/weighted_source`, WEIGHTED_SOURCE.md | Candidate: column-deletion cavity estimates for passive reverse queries; weighted uniform integrability required |
-| Actual derivative capture | `/root/capture`, FINITE_CAPTURE.md | Fixed-program approximation and strong multiplier passage; depends on actual finite source lemma |
+| Homogeneous trained propagation | original `/root/propagator`; reconstruction `/root/propagator_reconstruct`, PROPAGATOR_CHECK.md | Complete author candidate in PROPAGATOR.md; checking singular endpoint and dependencies |
+| Actual finite weighted source | `/root/weighted_source_recovery`, WEIGHTED_SOURCE.md | Missing source recovered by a new column-deletion cavity proof; not yet complete |
+| Independent source route | `/root/source_alternative`, SOURCE_ALTERNATIVE.md | Population passive weighted source and alternatives to strong finite moment hypotheses |
+| Actual derivative capture | original `/root/capture`; coordinator owns FINITE_CAPTURE.md | Conditional fixed-program bridge; requires the missing weighted-source lemma |
 | Contract, synthesis and checks | `/root`, remaining study files | Assemble complete proofs, deterministic algebra checks, then freeze for isolated reviews |
 
 The coordinator alone edits this README and writes Git, taking the common
@@ -56,3 +57,21 @@ their arguments, then freeze complete inputs and obtain two fresh isolated
 adversarial reviews. Any required correction needs a new complete review round.
 Promotion, if justified, requires all additional workflow gates and approval
 of a concrete reviewed edition; this study does not itself authorize promotion.
+
+Continuation checkpoint, 2026-09-11: HEAD `e111b63`; index initially empty.
+Recovered untracked THEOREM.md, PROPAGATOR.md, FINITE_CAPTURE.md and
+check_identities.py without replacing them. The prior WEIGHTED_SOURCE.md was
+absent, so every conclusion depending on it remains conditional. The theorem
+draft's references to that missing proof are obligations, not accepted evidence.
+The current coordinator read the complete recovered component drafts and the
+maintained B.1/C.4/C.4.5 proofs. The resumed author agents above are not isolated
+reviewers and cannot count toward the two fresh scientific reviews.
+
+Deterministic check: `python studies/trained_data_response/check_identities.py
+--output data/generated/trained_data_response/algebra_recovery_20260911`
+exited zero with PASS on Python 3.10.12, NumPy 1.26.4, SciPy 1.13.0.
+The script hash is `b0bbbde5f1f024dbb46975b2092d3aa2a79cabd0375f4520c05489f934d3902f`.
+Its retained results check finite tangent/source factors, the raw loss metric,
+the singular semigroup identity and a nilpotent incompatible-factor witness.
+They do not validate the missing probabilistic estimate or constitute training
+experiments. Generated evidence is in the indicated separate data directory.
