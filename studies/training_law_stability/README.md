@@ -1,7 +1,8 @@
 # Training-law stability and the input-population limit
 
-Status: complete candidate proof, author-checked; two fresh complete isolated
-scientific reviews of frozen R1 inputs are in progress. Not resolved or promoted.
+Status: research resolved at its stated local-time scope. Two fresh complete
+isolated reviews accepted frozen R1 with no required corrections. Promotion
+preparation is in progress; no established material has changed.
 
 The target is quantitative stability of the entire learned predictor with respect
 to every probability law on `sqrt(2) S^1 x [-Y,Y]`, for two width-n tanh hidden
@@ -78,7 +79,30 @@ whole-file dependency hashes and all scientific input hashes are retained.
 Generated/scratch reviewer outputs belong in the separately assigned run
 directories; complete original reports belong in this flat study.
 
-Next authorized action: read both complete original independent reports,
-resolve any required corrections, obtain fresh paired complete reviews of
-corrected inputs if needed, and only then finalize research resolution and
-the independent promotion selection. No executed numerical result is asserted.
+## Resolved statements and independent evidence
+
+The exact statements are [THEOREM.md](THEOREM.md), frozen in R1. They prove
+the requested `C q exp(C sqrt(log(e/q)))` law modulus for full state and
+whole-circle predictions; `C/m exp(C sqrt(log(em)))` sample replacement and
+`sup_t |E_S gap_t|`; the arbitrary simultaneous sample/width/GD-step limit;
+both corresponding loss/risk limits; and a relative open W1 neighborhood of
+the explicit two-input reference with positive finite-time activation RMS
+displacement in both hidden layers. All support degeneracies remain admitted
+in the stability and limit theorem. Constants depend only on Y and the fixed
+model, except the reference activity time/neighborhood/margins.
+
+Original complete reports: [review A](R1_REVIEW_A.md) and
+[review B](R1_REVIEW_B.md), by fresh isolated nonauthors
+`/root/research_review_a` and `/root/research_review_b`. Each reports reading
+all 1,841 proof and 1,310 dependency lines and verifying the frozen hashes;
+each accepts with no required correction. The coordinator read both reports
+completely and verified their input/provenance correspondence. Review B also
+performed a small exact Wick-pairing consistency check, not a training
+experiment or finite-width rate validation. There are no adverse review
+findings or superseded proof claims to conceal. No formal proof assistant was
+used; acceptance is based on complete mathematical reconstruction.
+
+Next authorized action: complete independent promotion selection, canonical
+assembly and fresh paired scientific reviews, standalone validation and fresh
+independent integration review. Present the exact reviewed edition for the
+user's approval before any established book/code edit.
