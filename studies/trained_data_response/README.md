@@ -192,3 +192,25 @@ Further commits use the common lock and explicit owned paths. Any required
 scientific correction needs a new complete review round. Promotion requires
 approval of the concrete reviewed edition. No established book/code file has
 been changed by this study.
+
+## Independent milestone assessment — 2026-09-11
+
+At the user's request, a separate coordinator checked the original milestone
+contract against the complete unchanged P1 proof and dependencies, verified
+the existing review hashes and completion evidence, and reran standalone
+validation. Two new complete isolated audits, [A](ASSESSMENT_FRESH_A.md) and
+[B](ASSESSMENT_FRESH_B.md), accepted with no required corrections. The
+[full assessment](MILESTONE1_ASSESSMENT.md) records the evidence and concludes
+that A–C accomplish milestone 1. Its [separate strategic challenge](ASSESSMENT_STRATEGY.md)
+is advice, not an additional reviewed theorem. Fresh generated evidence is in
+`data/generated/trained_data_response/assessment_root_20260911/` and the
+separate reviewer namespaces documented in their reports.
+
+The recommendation is to pursue nonlinear trained-law continuation and a
+controlled finite-contamination remainder through time 40, with transport
+continuity adequate for empirical laws. This is a proposed next research
+target, not a completed consequence or authorization to start another campaign.
+The scientific candidate remains unchanged; promotion still awaits explicit
+user approval of the exact package. This assessment task owns only the four
+assessment reports linked above and this README addition; concurrent
+continuation, exporter and maintenance artifacts were preserved.
