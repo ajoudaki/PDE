@@ -49,18 +49,30 @@ required corrections: [research review A](R1_REVIEW_A.md) and
 [research review B](R1_REVIEW_B.md). The first canonical edition received
 two scientific acceptances, but its [integration review](P1_INTEGRATION_REVIEW.md)
 required two notation corrections. Both are corrected in P2; all original
-P1 evidence is retained. The corrected proposed edition must receive two new
-complete scientific reviews and a separate fresh integration review. Their
-final original reports will be linked here before approval is requested.
+P1 evidence is retained. The corrected proposed edition received two fresh
+complete scientific acceptances with no required corrections:
+[P2 review A](P2_REVIEW_A.md) and [P2 review B](P2_REVIEW_B.md). The separate
+fresh complete [P2 integration review](P2_INTEGRATION_REVIEW.md) also accepts,
+with no required correction. The coordinator read all original reports in
+full and verified their provenance and exact input hashes. The integration
+review's generic role label is distinguished from its verified fresh process
+identity in the study README and retained execution evidence.
 
 [Standalone validation](P2_VALIDATION.md) passed with exact candidate-to-edition
 correspondence, unchanged-content preservation, valid new links and equation
 references, and no study dependencies in the new canonical proof. There are
 no empirical claims or maintained APIs requiring training reproduction.
 The unrelated exporter and unchanged book complement are outside validation.
+The independent integration reviewer reproduced all six scientific artifacts
+byte for byte and separately checked exact assembly and preservation. Current
+live dependencies and destination baselines still match the frozen proposal.
 
-Recommendation: promote exactly this scoped addition once its new scientific
-and integration review gates pass and the user approves the frozen package.
+Recommendation: approve and promote exactly this scoped P2 addition. Its
+scientific and integration review gates have passed; only user approval is
+pending. The complete proposed chapter has SHA-256
+`1945ef5d407eafd534b32185e952fa3ed479605f3ffec09afd468b6266fd18d9`,
+and the guide has SHA-256
+`95b14c5a0430a783023d412d0103d8598a476963bad19180e2d4d0e2291bce3e`.
 Before applying approval, recheck live baselines/dependency hashes and the
 shared Git index, use the common writer lock for the owned Git transaction,
 and verify that the live result equals the reviewed edition byte for byte.

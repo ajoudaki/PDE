@@ -1,8 +1,10 @@
 # Training-law stability and the input-population limit
 
-Status: research resolved at its stated local-time scope. Two fresh complete
-isolated reviews accepted frozen R1 with no required corrections. Promotion
-preparation is in progress; no established material has changed.
+Status: research resolved at its stated local-time scope. Frozen R1 passed
+two complete isolated scientific reviews. The corrected canonical proposal
+P2 passed two fresh complete scientific reviews and an independent integration
+review, with no required corrections remaining. Promotion is ready for user
+approval; no established material has changed.
 
 The target is quantitative stability of the entire learned predictor with respect
 to every probability law on `sqrt(2) S^1 x [-Y,Y]`, for two width-n tanh hidden
@@ -142,10 +144,42 @@ author diff inspection caught and corrected a replacement-script residual
 subscript typo; the intermediate validator output and correction note remain
 in the P2 generated run. The final P2 packet was frozen only after that check.
 
-Two fresh complete scientific reviews are underway under the retained
-[P2 scientific assignment](P2_SCIENTIFIC_ASSIGNMENT.md). A separate fresh
-complete integration review is required under the
-[P2 integration assignment](P2_INTEGRATION_ASSIGNMENT.md). Their decisions
-must concern the exact new hashes. The concrete
-[promotion proposal](PROMOTION_PROPOSAL.md) remains pending these gates and
-the user's approval before any established book/code edit.
+P2 received two fresh complete scientific acceptances under the retained
+[P2 scientific assignment](P2_SCIENTIFIC_ASSIGNMENT.md): original reports
+[A](P2_REVIEW_A.md) and [B](P2_REVIEW_B.md), by `/root/p2_scientific_a` and
+`/root/p2_scientific_b`. Both read all 1,423 new proof lines and 1,310
+dependency lines, verified the exact hashes and found no required corrections
+or missing mathematical inputs. The coordinator read both reports completely.
+
+A separate fresh complete [integration review](P2_INTEGRATION_REVIEW.md)
+accepted the exact P2 edition under the retained
+[P2 integration assignment](P2_INTEGRATION_ASSIGNMENT.md). Because the
+collaboration tool's reviewer-thread capacity was exhausted, it ran in a
+fresh ephemeral reviewer process, instance
+`01a08fe2-bba2-7d73-aae5-41c67ea02f31`, with no inherited conversation.
+The neutral prompt, invocation, complete event transcript and outputs are
+retained under `data/generated/training_law_stability/integration_review_p2/`.
+The process completed with exit code zero. Its original report accurately
+discloses the generic `/root` role label: that label is not the evidence of
+independence. The coordinator launched a new ephemeral process, with neither
+resume nor fork, supplied only the neutral review prompt, and verified the
+distinct instance in the event transcript. The recorded file-access commands
+show only assigned inputs, required skills and reviewer-owned scratch, with
+no author history or prior reports. The reviewer attests the same isolation.
+Its initial truncated dependency output was fully reread in smaller chunks.
+
+The coordinator read the complete integration report and its independent
+correspondence-check source, verified all input/provenance identities and
+confirmed the exit-zero independent rerun. Both editions contain the same
+six scientific artifacts byte for byte. All original P1/P2 reports remain
+unaltered, including adverse and optional findings. Optional P2 presentation
+suggestions are not changes to the accepted frozen edition.
+
+There is no remaining required proof or integration correction within this
+scope. All frozen proof hashes and the seven live dependency/destination
+baselines were rechecked unchanged after review. Mathematical review is not
+formal machine verification; deterministic checks establish assembly and
+reproducibility, not a numerical learning-performance claim. Only the user's
+approval remains before established book/code changes. The concrete
+[promotion proposal](PROMOTION_PROPOSAL.md) identifies the exact two-file
+edition and its limitations.
