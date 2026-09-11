@@ -1,10 +1,12 @@
 # Trained data response at a nonlinear fitted reference
 
-Status: all primary claims are proved and accepted in two complete isolated
-R1 scientific reviews. The canonical P1 addition also has two fresh scientific
-ACCEPT reports, and corrected P1I2 packaging has a fresh integration ACCEPT.
-All reports, hashes and actual checks are verified. The concrete promotion
-proposal is ready for specific user approval; nothing has been promoted.
+Status: promoted on 2026-09-11, with the user's explicit approval, as
+[established C.4.6](../../docs/global_nonlinear.md#c46-trained-data-response-at-the-fitted-tanh-reference).
+All primary claims are proved. The R1 and canonical P1 packets each have two
+complete isolated scientific ACCEPT reports, and corrected P1I2 packaging
+has a fresh integration ACCEPT. The exact approved edition is installed;
+live correspondence and affected standalone checks pass. See the final
+incorporation record below for approval, gates, hashes and commits.
 This study addresses the primary response milestone: capture the data-direction derivative
 of actual finite gradient flow after substantial learning, including T=40,
 and construct a usable forced population evolution.
@@ -34,10 +36,13 @@ failure probability over laws, or uniform-time finite-width limit is claimed.
 | Contract, synthesis and checks | Original task coordinator `/root`, [THEOREM.md](THEOREM.md) | Frozen R1 packet, executed deterministic checks; both independent reviews ACCEPT |
 | Concurrent reconstruction | Task `01a090bb-ded9-7f73-b893-0fce3cf9e257`, [CONTINUATION_COORDINATION.md](CONTINUATION_COORDINATION.md) | Owns its named reconstruction/alternative files; no main-proof or README writes; its checks are author-side only |
 
-The coordinator alone edits this README and writes Git, taking the common
-nonblocking writer lock for each scoped transaction. All generated files and
+The original coordinator owns the milestone-1 and promotion records in this
+README. The separately started P2 task owns its P2 artifacts and later README
+checkpoint, as declared in [P2_COORDINATION.md](P2_COORDINATION.md). Each Git
+transaction uses the common nonblocking writer lock. All generated files and
 reviewer scratch go to `data/generated/trained_data_response/<run>/`.
-No established book/code change is authorized. Startup HEAD was
+Only the exact reviewed book addition and ancillary edits were authorized
+for promotion on 2026-09-11; they are now incorporated. Startup HEAD was
 `ca98db4ff20fd8e6ccdc7b0b1a606193177106f3`; the index was empty. Concurrent
 PDF-exporter and repository-maintenance work is outside this study and preserved.
 
@@ -174,12 +179,11 @@ continuity, sampling/risk expansions and GD derivatives remain outside this
 milestone. The uniform claim is population homogeneous propagation; forced
 response grows at most linearly in the horizon and width capture fixes T.
 
-Next action requiring the user's approval: promote only the exact reviewed
-P1 text using P1I2 assembly, after rechecking unchanged sources. All authorized
-research and promotion preparation are complete. Established-file edits await
-specific approval. [prepare_promotion.py](prepare_promotion.py) only writes a
-fresh generated draft; it cannot install into established files.
-The closing verification in
+The preparation-stage next action was promotion of the exact reviewed P1
+text using P1I2 assembly after specific approval and source rechecking. That
+action is now complete; the incorporation record below supersedes its pending
+status. [prepare_promotion.py](prepare_promotion.py) only writes a fresh generated
+draft; it cannot install into established files. The preparation verification in
 `data/generated/trained_data_response/final_acceptance_01/verification.json`
 checks every frozen packet/report hash, all declared live inputs, process
 completion and identity, and the successful independent edition audit.
@@ -189,9 +193,8 @@ Scoped commits so far: `e111b63` (startup), `fed0567` (concurrent recovery),
 `fb2353c` (canonical P1 freeze and standalone verification),
 `bb256d8` (accepted canonical science and corrected integration packaging).
 Further commits use the common lock and explicit owned paths. Any required
-scientific correction needs a new complete review round. Promotion requires
-approval of the concrete reviewed edition. No established book/code file has
-been changed by this study.
+scientific correction needs a new complete review round. The book was unchanged
+at the preparation checkpoint; the later approved incorporation is recorded below.
 
 ## Independent milestone assessment — 2026-09-11
 
@@ -210,7 +213,77 @@ The recommendation is to pursue nonlinear trained-law continuation and a
 controlled finite-contamination remainder through time 40, with transport
 continuity adequate for empirical laws. This is a proposed next research
 target, not a completed consequence or authorization to start another campaign.
-The scientific candidate remains unchanged; promotion still awaits explicit
-user approval of the exact package. This assessment task owns only the four
+At the assessment checkpoint the scientific candidate remained unchanged and
+promotion awaited explicit approval; the later approval and incorporation below
+supersede that pending status. This assessment task owns only the four
 assessment reports linked above and this README addition; concurrent
 continuation, exporter and maintenance artifacts were preserved.
+
+## Approved incorporation — 2026-09-11
+
+The user approved the concrete package in the original research task:
+"btw, I approve of promoting your result to the established part , make sure
+you pass the gates specified in the research flow". This approval applies to
+the unchanged P1 section and ancillary edits in [the proposal](PROMOTION_PROPOSAL.md),
+using the reviewed P1I2 assembly. No new scientific scope was added.
+
+The coordinator reread current AGENTS.md and both workflow parts, checked
+HEAD/index/status, and reverified all frozen packets, reports, declared live
+scientific/support hashes, reviewer launch prompts, event logs, distinct
+instances and successful exits. Instructions had changed, but scientific inputs
+had not. Part 2 step 3 explicitly permits reuse of completed reviews with
+identical inputs and complete evidence; no new scientific review was needed.
+Independent relevance, both canonical scientific reviews and the corrected
+fresh integration review remain accepted with no unresolved required correction.
+The optional attempt to delegate an additional evidence audit hit the agent
+thread limit; that extra audit was not a required or claimed scientific gate.
+
+Fresh assembly, pre-installation standalone validation, and post-installation
+live correspondence/standalone validation all pass. The new
+[CHECK_ESTABLISHED.py](CHECK_ESTABLISHED.py) checks the eleven declared live
+book/support files against the reviewed final hashes, constructs a fresh
+standalone edition and runs the unchanged reviewed validator. It was first
+checked against the approved draft, then executed on the actual live files.
+It writes only generated products and changes no maintained API. Reproduce:
+
+```sh
+python studies/trained_data_response/CHECK_ESTABLISHED.py --output data/generated/trained_data_response/NEW_RUN
+```
+
+The frozen pre-promotion builder retains its old-base hash requirements;
+use this command for the incorporated edition. Checks cover exact candidate
+correspondence, base restoration outside the accepted edits, guide links and
+fragments, mathematical display structure, tangent/metric normalization,
+singular-semigroup boundary cases and the exact rational reference certificate.
+No training experiment was run. The unrelated PDF exporter was not modified.
+The ordinary Git whitespace check reports one trailing space already present
+in the immutable P1 section; its exact byte was retained to match the approved
+edition. This is a formatting diagnostic, not an unresolved scientific or
+integration-review correction. An initial metadata snapshot attempted to hash
+an unreadable inherited maintenance file and failed; the successful snapshot
+uses metadata only for other studies, without changing their files or permissions.
+
+Final mapping and SHA256:
+
+| Frozen input / operation | Established destination | Final SHA256 |
+|---|---|---|
+| P1_SECTION.md appended as C.4.6; one declared navigation replacement | docs/global_nonlinear.md | `3f32122dea7915e25e4abc7abe9d74017d535badfa5abbe1939e84fe2b100bdf` |
+| Two declared P1_ANCILLARY.md guide replacements | docs/README.md | `88757537ae600ebf79cf265288d6ca3034254caba236b4dcb055a21dd568c721` |
+
+The incorporated section retains SHA256
+`33c819282d83f7f4704cbd3a90e87b445d17ce161cc922c1ad786b5eb0d9de38`.
+All other declared scientific and structural dependencies retain their reviewed
+hashes. Exact approval, preflight, application and live check evidence are under
+`data/generated/trained_data_response/promotion_20260911_01/`, particularly
+`preflight.json`, `application.json`, `check_live/correspondence.json` and
+`check_live/validation/validation.json`. Original review reports and failed runs
+are preserved unchanged. The incorporation commit is
+`1e293fdf26231d80b1f8a7170db5f3eaa5399732`, parent
+`81447293842a9848509f546c2650194e5c86e806`, and changes exactly the two
+established destinations above. Its lock/path/hash evidence is in
+`incorporation_commit.json` in the same run. The separate study-record commit
+contains this README, the updated proposal status and CHECK_ESTABLISHED.py.
+
+This task has no remaining milestone-1 or promotion action. The separately
+started P2 task's ownership is recorded above; its research is outside this
+completed promotion, and no P2 conclusion is established here.

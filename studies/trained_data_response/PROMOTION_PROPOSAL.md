@@ -1,10 +1,13 @@
 # Trained data response: result and concrete promotion proposal
 
-Status: ready for specific user approval. The complete research theorem R1
+Status: approved and incorporated on 2026-09-11; see the study README's final
+incorporation record for exact correspondence, fresh checks and commits.
+The complete research theorem R1
 and canonical theorem P1 each have two isolated scientific ACCEPT reports.
 The fresh P1I2 integration review accepts the corrected packaging with no
 required corrections. All reports have been read completely and their hashes,
-provenance and actual checks verified. No established file has been edited.
+provenance and actual checks verified. The exact proposed book edition below
+is now established, with no change to the reviewed scientific inputs.
 
 ## Result and scientific value
 
@@ -190,8 +193,8 @@ was not a fresh whole-book proof audit.
 The original adverse integration report and all failed runs remain intact.
 Its two packaging objections are resolved by the reviewed P1I2 read set and
 manifest. No scientific correction was required in either scientific round
-or either integration audit. All preparation and review gates are complete;
-only specific user approval and the subsequent authorized integration remain.
+or either integration audit. All preparation and review gates were complete
+before the subsequent user approval and exact incorporation recorded in README.
 
 The coordinator read the entire canonical section and checked its final
 notation corrections. Standalone validation passed with exact preservation
@@ -224,16 +227,15 @@ R1 reviews and assembly preparation), `fb2353c` (canonical P1 freeze), and
 All use owned paths and the common
 Git writer lock; unrelated concurrent work is preserved.
 
-## Approval boundary
+## Approval and incorporation
 
-**Recommendation: approve promotion of the exact P1 section and ancillary
-edits, using the reviewed P1I2 assembly.** This adds a complete trained
+**The user approved promotion of the exact P1 section and ancillary edits,
+using the reviewed P1I2 assembly, on 2026-09-11.** This adds a complete trained
 data-response theorem that the next nonlinear-continuation milestone can
 use, with its limits explicit.
 
-Established-file integration requires the user's specific approval under
-RESEARCH_WORKFLOW Part 2, step 5. After approval, recheck the current sources,
-apply only the reviewed text, verify the resulting destination hashes against
-the table above, rerun affected checks and make a scoped incorporation commit.
-Any intervening scientific or dependency change reopens the applicable review
-and approval gates. No established file has been edited by this study.
+The coordinator rechecked current sources, applied only the approved text and
+verified that both live destination hashes equal the reviewed hashes above.
+Fresh affected checks pass. The full approval, gate verification, evidence,
+commit and reproducible post-promotion command are in the study README's
+incorporation record. The original frozen packets and reports remain unchanged.
