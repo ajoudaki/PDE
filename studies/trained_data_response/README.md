@@ -290,35 +290,36 @@ completed promotion, and no P2 conclusion is established here.
 
 ## Milestone 2 — nonlinear continuation, current research
 
-Status: **open**. The task in [P2_COORDINATION.md](P2_COORDINATION.md)
+Status: **complete author candidate; full reviews pending**. The task in [P2_COORDINATION.md](P2_COORDINATION.md)
 preserves the fixed A–C target through physical time 40 in
 [P2_CONTRACT.md](P2_CONTRACT.md). Its fresh generated namespace is
 `data/generated/trained_data_response/p2_20260911_02/`.
 The P1 frozen hashes and byte-for-byte incorporated section verify.
 
-The [current report](P2_REPORT.md) records the exact remaining lemma H:
-uniform averaged exponential backward tails for refining raw Euler
-programs through40 on one positive law neighborhood. The
-[combined proof](P2_COMBINED_TAIL_CONTRACT.md) derives all A–C from H,
-including the nonlinear remainder and width-first finite bridge. H is
-unproved. A [fresh complete conditional audit](P2_COMBINED_AUDIT.md)
-and a [scoped variation audit](P2_VARIATION_AUDIT.md) passed for their
-stated conditions; neither is an unconditional milestone success review.
-The original independent routes, corrected partial comparison, precise
-observation contract and proof-route obstructions remain linked in the
-report. A bounded source-response attempt is checking the missing estimate.
-No complete A–C proof or neural refutation is claimed.
+The frozen [A–C candidate](P2_THEOREM.md) now includes a
+[source-coefficient proof](P2_SOURCE_BOOTSTRAP.md) of the previously open
+tail hypothesis H. It uses the reference query-insertion bound,
+differentiated clock consistency, and a law-weighted coefficient
+comparison. A fresh prompt-only [kernel check](P2_KERNEL_CHECK.md)
+independently proves that last conditional comparison. These author and
+scoped checks do not substitute for the two fresh complete isolated
+A–C reviews now underway. [P2_MANIFEST.json](P2_MANIFEST.json) freezes
+all candidate inputs. No milestone success or promotion is yet declared.
+The [earlier checkpoint](P2_REPORT.md) preserves the conditional reduction,
+original audits, partial results and exact route failures; its open-H
+status predates the new candidate.
 
 Standalone frozen-dependency and deterministic algebra checks pass. Run
 `python -B studies/trained_data_response/P2_VALIDATE.py --output
 data/generated/trained_data_response/NEW_RUN` from the repository root.
-The validator writes only to a fresh generated path; it certifies source
-correspondence and algebra, not H. The independent supplied-state radial
-identity check also passes. Exact commands, hashes, outcomes, source
-coverage and original reports are in [P2_RUN_RECORD.md](P2_RUN_RECORD.md);
-generated outputs are in `p2_20260911_02/`. No training was run and no
-established book/code was changed by P2. Scoped commits so far:
-ae37dfe and 48da104. Root is the sole Git writer; all author file scopes
-are in P2_COORDINATION. Next authorized work is the missing source/tail
-estimate, followed by two fresh full reviews if an unconditional theorem
-is obtained.
+The full frozen packet also passes standalone correspondence and algebra
+checks. Reproduce with `python -B studies/trained_data_response/P2_BUILD_PACKET.py
+--output data/generated/trained_data_response/NEW_RUN`. These checks
+certify provenance and algebra, not the source-coefficient proof. Exact
+commands, hashes, outcomes and reading coverage are in
+[P2_RUN_RECORD.md](P2_RUN_RECORD.md); generated outputs are in
+`p2_20260911_02/`, including `full_packet_01/`. No training was run and no
+established book/code was changed by P2. Scoped commits so far: ae37dfe,
+48da104 and e960b4a. Root is sole Git writer. Next authorized work is to
+resolve the full mathematical reviews and complete separate promotion
+gates if accepted; established edits still require package-specific approval.

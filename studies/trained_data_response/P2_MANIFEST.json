@@ -1,0 +1,40 @@
+{
+  "version": "P2 full author candidate 1",
+  "status": "frozen for fresh complete isolated reviews; not accepted or promoted",
+  "authors_assemblers": [
+    "/root",
+    "/root/p2_continuation",
+    "/root/p2_variation",
+    "/root/p2_reached_tails"
+  ],
+  "excluded_prior_reviews": true,
+  "inputs": {
+    "P2_THEOREM.md": "849655c74c7552b874085401ffb4af22fc51d126702bf5bc61b689946cb0854a",
+    "P2_SOURCE_BOOTSTRAP.md": "0cf6d54dbb85c6d7f4c5b737dbbe3c92956aef4680d7a88214bd2c34c5034efb",
+    "P2_DEPENDENCIES.md": "35375c597d65df70ca7fcec375357b0fdbca8d06bab3a873e690fda285d290e9",
+    "P2_CONTINUATION.md": "fe59ffe02281be549d6d7815d9c3b58bfe9b51545236cbffb9899339838669d2",
+    "P2_COMBINED_TAIL_CONTRACT.md": "818d2885fa706d6ceae1101afc3cee2e91afea27ec49c431a4d87f6321e3f994",
+    "P2_VARIATION.md": "ef28df6745758adc1c587a4d73442c3a49db575026ac2bee86708a24de44c5fd",
+    "P2_REFERENCE_COMPARISON.md": "a6d229fd69be98df8bf41fa7fdde9dad55cfcae86799f2c268791dc3e3904c4d",
+    "P2_RESPONSE_BRIDGE.md": "7a410d6d5e2fc16a07b4a04ab355878d51ec9940a1d52c1ca506b6288d528e89",
+    "P2_REACHED_TAILS.md": "837535f363d8140516ed993698f0e48d183dc029fe66cffc1277aff79e328716",
+    "P1_SECTION.md": "33c819282d83f7f4704cbd3a90e87b445d17ce161cc922c1ad786b5eb0d9de38",
+    "P1_DEPENDENCIES.md": "ca696bc4ed14ea337028eb1e6ef9c7f729ed2a0153bc210de8e16dea18f5ee79",
+    "P1_MANIFEST.json": "f9f3ac7dd834429f2afd1b2d819e20cf04da37446311405943332300ca4fa53d",
+    "P1_CHECK_IDENTITIES.py": "b0bbbde5f1f024dbb46975b2092d3aa2a79cabd0375f4520c05489f934d3902f",
+    "P1_REFERENCE_CERTIFICATE.py": "112ce04c6d8e20859b5a778cfdeed42690949af807d421b7db90e82c2576a49e",
+    "P2_CHECK_RADIAL.py": "c23fd43ede3a0660a2a9e2f31a1361e63d871e4ec3ad4444928cb342d876d30c",
+    "P2_BUILD_PACKET.py": "017fb97a2f9590d91488d59676b8cb002259795ec6d61656d4688226ce874f2d"
+  },
+  "established_sha256": {
+    "docs/README.md": "88757537ae600ebf79cf265288d6ca3034254caba236b4dcb055a21dd568c721",
+    "docs/NOTATION.md": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "docs/global_nonlinear.md": "3f32122dea7915e25e4abc7abe9d74017d535badfa5abbe1939e84fe2b100bdf",
+    "docs/finite_dynamics.md": "a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca5545bc0012a",
+    "docs/special_data_limits.md": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489"
+  },
+  "proof_entry": "P2_THEOREM.md",
+  "new_tail_proof": "P2_SOURCE_BOOTSTRAP.md",
+  "additional_dependencies": "P2_DEPENDENCIES.md",
+  "reproduction": "python -B studies/trained_data_response/P2_BUILD_PACKET.py --output data/generated/trained_data_response/NEW_RUN"
+}

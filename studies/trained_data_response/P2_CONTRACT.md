@@ -1,7 +1,8 @@
 # Milestone 2: nonlinear trained-law continuation
 
 Author/coordinator: task `01a09106-41c4-7193-9db9-8068144fd825`, `/root`.
-Claim status: open. No A–C success or promotion is asserted.
+Claim status: full author candidate frozen for two fresh complete reviews.
+No A–C success or promotion is asserted before those gates pass.
 
 ## Fixed contract
 
@@ -54,12 +55,13 @@ scientific base hashes match. See the fresh run's startup_hashes.json.
 | variation | abstract variation along reachable curves | P2_VARIATION.md | frozen conditional remainder theorem; scoped independent check passed |
 | mature combination | active tails, probe atoms, radial saturation | P2_COMBINED_TAIL_CONTRACT.md | conditional H implies A–C; full conditional audit passed |
 | bounded-feature alternative | correlated-row stability and coordinates | P2_TAIL_ALTERNATIVE.md | frozen exact route obstructions; no neural refutation |
-| source bootstrap | named-response coefficient comparison | P2_SOURCE_BOOTSTRAP.md | bounded additional attempt in progress |
+| source bootstrap | named-response coefficient comparison | P2_SOURCE_BOOTSTRAP.md | complete author H proof, frozen for full review |
+| independent kernel check | conditional weighted coefficient inequality | P2_KERNEL_CHECK.md | frozen separate derivation confirms the conditional inequality |
 | coordinator | dependency audit and finite comparison | P2_REPORT.md, P2_RUN_RECORD.md | full exact gap and evidence preserved |
 
-The central unresolved estimate is H in P2_REPORT §3: averaged exponential
-backward tails on every sufficiently fine raw Euler program, uniformly
-over one positive law neighborhood through40. H suffices for all A–C,
-including reached inverse-gate uniform integrability, but has not been
-proved. P1 propagation and C.4.5 fixed-accuracy reference comparison do
-not establish it. The original target remains open.
+The new source proof claims H, the averaged backward tail estimate for all
+fine raw Euler programs on one positive law neighborhood through40. It
+uses fresh-query coefficient extraction and two causal bootstraps;
+propagation or fixed reference proximity alone remain insufficient.
+P2_THEOREM.md and P2_MANIFEST.json freeze the complete A–C candidate.
+Its correctness must now survive the two fresh complete isolated reviews.

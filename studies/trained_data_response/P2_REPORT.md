@@ -1,7 +1,12 @@
 # P2 nonlinear trained-law continuation: current resolution and exact gap
 
 Coordinator: task 01a09106-41c4-7193-9db9-8068144fd825, /root.
-Date: 2026-09-11. **The requested A–C theorem remains open.**
+Checkpoint date: 2026-09-11. This report predates the full author candidate
+in [P2_THEOREM.md](P2_THEOREM.md) and the new H proof in
+[P2_SOURCE_BOOTSTRAP.md](P2_SOURCE_BOOTSTRAP.md). Those frozen inputs
+are undergoing the required full reviews. The following preserves the
+earlier exact gap and evidence rather than silently rewriting its history.
+**At this checkpoint the requested A–C theorem remained open.**
 There is no complete proof, neural counterexample, or promotion claim.
 This report records the strongest retained conclusions and one precise
 sufficient missing lemma. It does not replace that lemma by an assumption

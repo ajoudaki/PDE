@@ -96,3 +96,28 @@ P2_SOURCE_BOOTSTRAP.md and source_bootstrap scratch. It was told not to
 read new alternative reports or reviews. No author may modify a frozen
 original or write Git. Root owns P2_REPORT.md, P2_RUN_RECORD.md, input
 manifests, correction notices and the concise README checkpoint.
+
+The source author subsequently froze a full H proof in
+P2_SOURCE_BOOTSTRAP.md. Independently, fresh /root/p2_kernel_check
+received only self-contained exact source recursions and explicit
+temporary-cap/raw-closeness premises. It wrote P2_KERNEL_CHECK.md and
+kernel_check scratch, frozen before comparison. It read no other
+scientific source or author findings. Root supplied a clarification
+deriving residual and forward-field differences from the raw premise.
+Its stronger conditional estimate is corroboration, not an extra
+premise in the frozen candidate.
+
+Root assembled P2_THEOREM.md, P2_DEPENDENCIES.md, P2_MANIFEST.json and
+P2_BUILD_PACKET.py. Sixteen inputs are frozen unchanged during the
+complete mathematical reviews. Fresh /root/p2_full_review_a and
+/root/p2_full_review_b receive only the neutral assignments, these
+complete inputs and required process/skills; they receive no prior
+verdicts, history or each other's findings. Their outputs are
+P2_FULL_REVIEW_A.md and P2_FULL_REVIEW_B.md, with separate full_review_a
+and full_review_b generated scratch. Neither is an author/assembler.
+
+Fresh selector /root/p2_relevance independently examines the complete
+candidate statement/source proof against the established coverage,
+without prior verdicts. It owns only P2_RELEVANCE.md and relevance
+scratch. This is the separate relevance/placement gate and neither a
+mathematical review nor authorization to edit established files.

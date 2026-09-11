@@ -202,9 +202,70 @@ environment permission issue, not a scientific failure or user rejection.
 |---|---|---|
 | ae37dfe5400cc4fbc1c260e29272b7667a92ab87 | P2 contract and independent input/write scopes | commit_01.json |
 | 48da1046efc2e1f4a8da6c0d5cbaf4c10febe394 | Frozen route reductions, raw comparison, deterministic checks and README checkpoint | commit_02.json |
+| e960b4a8d6f7645fffa4c970ec1018ffeddb107f | Conditional audits, corrected observation/bridge contract, exact gap and bounded-feature route | commit_03.json |
 
-The latter commit changes exactly nine assigned study files and no
-generated products. Subsequent checkpoint hashes and validation are
-recorded with their own transaction evidence. All scientific source,
+The second commit changes nine assigned study files; the third changes
+thirteen. Neither includes generated products. The third transaction's
+first strict whitespace check found one final blank line in the original
+frozen variation audit and stopped before committing. The index then
+contained only the thirteen staged owned files. On retry their exact
+staged blobs and source hashes were verified under the shared lock.
+All other files passed the ordinary strict check; that one frozen report
+passed with only blank-at-EOF checking disabled so its original bytes
+and hash were preserved. The original diagnostic and both transaction
+outcomes are in commit_03_attempt_01.json and commit_03.json.
+No scientific or other whitespace exception was introduced.
+
+Subsequent checkpoint hashes and validation are recorded with their own
+transaction evidence. All scientific source,
 original reviews, essential proof arguments and check scripts are in the
 flat study directory; generated files contain only reproducible evidence.
+
+## Full author candidate and standalone packet
+
+After the earlier conditional checkpoint, the source author proved a
+physical reference clock coefficient bound by fresh query insertion,
+then used differentiated raw-to-clock consistency and a weighted
+law/source comparison to claim H. Root read all 1,070 lines of
+P2_SOURCE_BOOTSTRAP.md and checked its two bootstraps, causal ordering,
+atom/step density bounds, Gaussian-source coupling and moment steps.
+The original is frozen at SHA
+0cf6d54dbb85c6d7f4c5b737dbbe3c92956aef4680d7a88214bd2c34c5034efb.
+
+A fresh prompt-only checker independently derived the conditional
+coefficient-difference estimate, retaining every source's atom mass.
+Root read all 586 lines after it froze. P2_KERNEL_CHECK.md has SHA
+bb0b3d15f4b6338daf51494a64cfa4511e76fe86c3004ef45e20900480e3477b.
+The checker had no source report or prior verdict. Its estimate is
+stronger than needed; the candidate retains the original conservative
+exponent and does not depend on this separate check's acceptance.
+
+P2_THEOREM.md states all A–C and the observation, restart and limit
+contracts explicitly. P2_MANIFEST.json freezes sixteen full inputs,
+including all needed proofs, the complete additional established units,
+and applicable assembly/check scripts. Its SHA is
+e0ea00ceedcec700811af7584ead90af44e15a40bb48dc9374db04e90e436e7d.
+This is an author candidate, pending two fresh complete isolated
+mathematical reviews. No prior review report is in their input manifest.
+
+The full standalone command was:
+
+~~~sh
+python -B studies/trained_data_response/P2_BUILD_PACKET.py --output data/generated/trained_data_response/p2_20260911_02/full_packet_01
+~~~
+
+Exit status was zero, result PASS. The assembler verified every frozen
+input hash, the five current established source hashes, all four exact
+additional dependency excerpts, and the frozen P1 correspondence. It
+copied only the proof/check packet, without Git or unrelated files, into
+the generated standalone directory. From that packet it executed both
+P1 algebra/certificate scripts and the P2 supplied-state radial check
+with empty PYTHONPATH and one BLAS/OpenMP thread. All three passed.
+Commands, working directories, complete logs and final rechecked hashes
+are in full_packet_01/validation.json. Its checks establish exact input
+correspondence and standalone algebra, not correctness of the new proof.
+
+The fresh full reviewers and separate relevance selector have distinct
+file/scratch ownership recorded in P2_COORDINATION.md. Their original
+reports and complete coverage must be retained before any success or
+promotion conclusion.
