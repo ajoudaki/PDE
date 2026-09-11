@@ -1,6 +1,7 @@
 # Training-law stability and the input-population limit
 
-Status: active theoretical study; no result is yet marked resolved or promoted.
+Status: complete candidate proof, author-checked; two fresh complete isolated
+scientific reviews of frozen R1 inputs are in progress. Not resolved or promoted.
 
 The target is quantitative stability of the entire learned predictor with respect
 to every probability law on `sqrt(2) S^1 x [-Y,Y]`, for two width-n tanh hidden
@@ -21,10 +22,10 @@ Gaussian middle action and its adjoint; predictor compactness alone is inadequat
 
 | Component | Owner | Mechanism | Current status |
 |---|---|---|---|
-| Transport comparison | `/root/transport` | Coupled observations, full first-row distance, individual reference tails | Developing `TRANSPORT.md` |
-| Strong population construction | `/root/population` | Common Gaussian generated spaces; state completion of finite laws | Developing `POPULATION.md` |
-| Nonlazy open family | `/root/nonlazy` | Actual-flow C.3 activity and state continuity | Developing `NONLAZY.md` |
-| Joint finite algorithm limit, statistical argument, synthesis | `/root` | Fixed finite oracle proxy and ordered limits; ghost replacement | In progress |
+| Transport comparison | `/root/transport` | Coupled observations, full first-row distance, individual reference tails | Complete candidate: [TRANSPORT.md](TRANSPORT.md) |
+| Strong population construction | `/root/population` | Common Gaussian generated spaces; state completion of finite laws | Complete candidate: [POPULATION.md](POPULATION.md) |
+| Nonlazy open family | `/root/nonlazy` | Actual-flow expansion, positive adjunction, state continuity | Complete candidate: [NONLAZY.md](NONLAZY.md) |
+| Joint finite algorithm limit, statistical argument, synthesis | `/root` | Fixed finite oracle proxy and ordered limits; ghost replacement | Complete candidate: [ALGORITHM_AND_STATISTICS.md](ALGORITHM_AND_STATISTICS.md), [THEOREM.md](THEOREM.md) |
 
 All contributors edit only their assigned flat study files. The coordinator is
 the only Git writer and README editor. Scratch and generated evidence belong to
@@ -56,6 +57,28 @@ must precede the user's promotion approval. Established book/code files are not
 within current write scope. No fitting, risk improvement, superiority, global
 time control or quantitative finite-width rate is part of the target.
 
-Next authorized action: complete and cross-check the four proof components,
-then freeze a full candidate for isolated review. Reproduction at present is
-mathematical reading; no executed numerical result is asserted.
+## Candidate and actual checks
+
+The complete frozen input is [R1_PROOF.md](R1_PROOF.md), with complete
+[dependencies](R1_DEPENDENCIES.md), [hashes and source ranges](R1_MANIFEST.json),
+and the [neutral assignment](R1_ASSIGNMENT.md). The coordinator reconstructed
+all component arguments and read the complete invoked dependencies; the
+nonlazy author additionally read the whole algorithm/statistics component and
+checked the ghost exchange and paired displacement bridge. These are author
+checks, not independent reviews. No formal proof assistant or numerical
+experiment was used. The reference nonlazy positivity proof was simplified to
+an averaged adjunction identity; no fresh-forward conditioning claim from C.3
+is required. The population proof directly constructs full-row Euler limits;
+C.1's projection-only state is not used as a substitute.
+
+The frozen packet is reproducible by concatenating THEOREM, TRANSPORT,
+POPULATION, ALGORITHM_AND_STATISTICS and NONLAZY in that order, plus the
+verbatim line ranges recorded in its manifest. The frozen source contents,
+whole-file dependency hashes and all scientific input hashes are retained.
+Generated/scratch reviewer outputs belong in the separately assigned run
+directories; complete original reports belong in this flat study.
+
+Next authorized action: read both complete original independent reports,
+resolve any required corrections, obtain fresh paired complete reviews of
+corrected inputs if needed, and only then finalize research resolution and
+the independent promotion selection. No executed numerical result is asserted.
