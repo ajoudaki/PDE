@@ -4,19 +4,22 @@ This shared guide applies to PDE and PDE-2 in the same checkout. Root `AGENTS.md
 is the automatic entry point. Read Part 1 for research; read Part 2 as well when
 proposing promotion. A read-only question needs only its relevant sources.
 Studies remain flat: one folder per research direction, with no task-count limit.
-A task may start or contribute to several studies; several tasks may share one.
+A task may coordinate several studies through separate research contexts;
+several tasks may share one. Study boundaries also apply to read-only research.
 
 ## Part 1: conduct and internally check a study
 
 ### Start and keep one useful record
 
 Check current HEAD, index and status before edits; preserve concurrent work.
-Find and reuse the appropriate study for each direction rather than creating a
-folder for every task or lemma. Do not move old studies or rewrite their history.
+Use the assigned study, or identify its folder from names/ownership metadata;
+do not browse other studies to recover a research state. Reuse the appropriate
+folder rather than creating one for every task or lemma. Do not move old studies
+or rewrite their history.
 Keep each study's research source, proofs, configurations, tests and review reports
 in `studies/<name>/`; generated arrays, figures, logs, caches and scratch belong
-in its own `data/generated/<name>/<run>/`. Work across studies is allowed within
-the task's assignment; agree on file ownership when tasks share a study.
+in its own `data/generated/<name>/<run>/`. Agree on file ownership when tasks share
+a study; this does not by itself make their research attempts independent.
 
 Use the study's existing **README.md** as its current record. Update it at meaningful
 checkpoints with the question and model/scope, results and evidence links, check
@@ -27,6 +30,39 @@ No separate STATE, CLAIMS, EXPERIMENTS, STUDY.json or per-study AGENTS is requir
 Keep existing useful records and link them; do not migrate or delete them merely
 to adopt this routine. The optional `studies/_workflow.py` supports the older
 structured packet format; its extra records/checks are not prerequisites for research.
+
+### Study boundaries and scoped delegation
+
+A study may use its own source/evidence and generated namespace, the established
+`docs/` and `code/`, and their designated reproduction inputs. Other studies are
+not research inputs, even if linked, apparently relevant, or internally checked.
+Do not retrieve their contents through searches, chats, session logs, Git history,
+copied summaries, or another agent. Required instructions/skills and metadata-only
+checks for directory selection, file ownership and Git safety remain available.
+External scientific sources remain subject to the proof requirements below.
+A task coordinating several studies keeps their research in separate contexts;
+unpromoted findings may not be passed between them. Missing dependencies are
+reported, not silently imported from another study.
+
+Before delegation, the supervisor chooses the scientific context suited to the
+question, creativity and needed rigor: a self-contained prompt alone, specified
+book sections/code, or the relevant permitted study material. State the allowed
+inputs and output paths in the assignment. For independent attempts or creative
+work with restricted inputs, start a fresh agent without inherited conversation
+(`fork_turns="none"` when available); supply only that assignment and its allowed
+inputs. Narrow scope replaces routine author README/guide reading, not required
+skills or process instructions. Prompt-only means no additional scientific
+retrieval. Scoped agents report missing inputs before the supervisor supplies
+anything further within the study boundary.
+
+Independent routes in the same study use separate flat files and output namespaces
+and do not see each other's approaches or verdicts until their candidates are
+frozen for comparison. Record input scope in the assignment and actual sources
+in the result; no extra ledger is required. Disclose accidental exposure and use
+a fresh context for a blind attempt. The supervisor checks scoped findings against
+the complete relevant established sources before accepting them. Promotion reviewers
+still receive complete frozen candidates and dependencies under Part 2; creative
+scoping does not relax that gate.
 
 ### Check results before calling them internally checked
 
@@ -40,9 +76,10 @@ Comparisons and partial results must keep their exact scope.
 Use `solve-math-rigorously` for proof work and `investigate-conjectures` for research
 state/conjectures; read their applicable instructions and required references.
 If unavailable, report that limitation and retain these explicit rigor requirements.
-Read complete sources and corrections. For specialized external theorems, inspect
-statements, proofs and heavy dependencies and verify hypotheses, or import the
-needed proof. An inaccessible dependency or unmet hypothesis remains a gap.
+Read complete sources and corrections within the permitted scope. For specialized
+external theorems, inspect statements, proofs and heavy dependencies and verify
+hypotheses, or import the needed proof. An inaccessible dependency or unmet
+hypothesis remains a gap.
 
 Before marking a result **internally checked**, retain:
 
