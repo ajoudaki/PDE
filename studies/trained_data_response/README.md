@@ -1,7 +1,8 @@
 # Trained data response at a nonlinear fitted reference
 
-Status: complete author candidate frozen as R1; two fresh complete isolated
-scientific reviews are running. No primary theorem is yet independently accepted.
+Status: all primary claims in frozen R1 accepted by two fresh complete isolated
+scientific reviews, with no required corrections. Canonical assembly and its
+separate promotion reviews are in progress; nothing has been promoted.
 This study addresses the primary response milestone: capture the data-direction derivative
 of actual finite gradient flow after substantial learning, including T=40,
 and construct a usable forced population evolution.
@@ -28,7 +29,7 @@ failure probability over laws, or uniform-time finite-width limit is claimed.
 | Homogeneous trained propagation | `/root/propagator`, [PROPAGATOR.md](PROPAGATOR.md) | Complete author proof: singular endpoint kernel compatibility and integrable curvature/finite-rank perturbation give uniformly bounded U(t,s) |
 | Actual finite weighted source | `/root/weighted_source`, [WEIGHTED_SOURCE.md](WEIGHTED_SOURCE.md) | Complete author proof: column-deletion comparison for actual finite GF, Gaussian chaining and weighted uniform integrability; bounded feature segment gives all-time population forcing |
 | Actual derivative capture | `/root/capture`, [FINITE_CAPTURE.md](FINITE_CAPTURE.md) | Complete author proof: finite right derivative, fixed-program/strong multiplier passage, arbitrary fixed Borel forcing, whole-circle observations |
-| Contract, synthesis and checks | Original task coordinator `/root`, [THEOREM.md](THEOREM.md) | Frozen R1 packet, executed deterministic checks; independent review pending |
+| Contract, synthesis and checks | Original task coordinator `/root`, [THEOREM.md](THEOREM.md) | Frozen R1 packet, executed deterministic checks; both independent reviews ACCEPT |
 | Concurrent reconstruction | Task `01a090bb-ded9-7f73-b893-0fce3cf9e257`, [CONTINUATION_COORDINATION.md](CONTINUATION_COORDINATION.md) | Owns its named reconstruction/alternative files; no main-proof or README writes; its checks are author-side only |
 
 The coordinator alone edits this README and writes Git, taking the common
@@ -47,13 +48,13 @@ drafts are not substituted for maintained proofs. Both required mathematical
 skills and applicable research-contract, evidence, audit and proof-search
 references are in use.
 
-The candidate supplies all primary claims at author-proof level: forced
+The reviewed study proves all primary claims at their stated scope: forced
 clock-state evolution, every fixed-horizon finite-GF capture, and a uniform
 population propagator with `C_Y T ||sigma||TV` response. Conditioning is
 exposed through the endpoint training Gram pseudoinverse; it has not been
 numerically evaluated. Signed zero-mass extension is through the linear
 equation, without assuming a two-sided probability-law neighborhood.
-No primary result is labeled fully resolved before both independent reviews.
+Both complete independent reviews found no surviving mathematical gap.
 
 The coordinator read every component and its invoked maintained proof inputs.
 The propagator author additionally read the complete source and capture proofs;
@@ -76,7 +77,16 @@ Proof SHA256: `38b2c81be6e32f3d93f7fd85145487b33b2676b6d8698c504230189b9e625721`
 Dependencies SHA256: `ca696bc4ed14ea337028eb1e6ef9c7f729ed2a0153bc210de8e16dea18f5ee79`.
 Fresh isolated nonauthors `/root/scientific_r1_a` and `/root/scientific_r1_b`
 received only that assignment, complete frozen inputs and required skills.
-Their reports will be retained here and read completely before any acceptance.
+Their complete reports [A](R1_REVIEW_A.md) and [B](R1_REVIEW_B.md) both
+give ACCEPT, with no required corrections. The coordinator read every line,
+verified the packet/component/report hashes, and inspected the actual check
+outputs. Report hashes are respectively
+`b52cbf930119686b2b754b1f09242d5c66ce344da13cc58d4185051ed2152ca6` and
+`4a40f727abb02897a109db2dbb7741175a53960d8e1ff420ac99c9fb16949487`.
+Their extra exact checks are preserved as [A check](R1_REVIEW_A_CHECK.py)
+and [B check](R1_REVIEW_B_CHECK.py), in addition to original scratch and logs.
+Coordinator verification is in
+`data/generated/trained_data_response/review_acceptance_01/verification.json`.
 
 From the repository root, choosing a fresh generated path:
 
@@ -97,12 +107,25 @@ source check could not import SymPy and was replaced by an executed
 standard-library exact check; the failed attempt remains in source_01.
 The continuation's separate deterministic runs remain linked in its report.
 
-Next authorized action: complete both isolated scientific reviews, read their
-full reports, verify hashes, and repair any objections with fresh complete
-review. Independent relevance/placement assessment is also in progress under
-[RELEVANCE_ASSIGNMENT.md](RELEVANCE_ASSIGNMENT.md). Scoped commits so far:
-`e111b63` (startup), `fed0567` (concurrent recovery/check checkpoint).
-Further frozen-candidate commits use the common lock and explicit owned paths.
-Any required scientific correction needs a new complete review round.
-Promotion requires all additional workflow gates and approval of a concrete
-reviewed edition. No established book/code file has been changed by this study.
+The independent [relevance report](RELEVANCE.md) accepts assembly as C.4.6
+after C.4.5.3, with only narrow reading-guide and C.4 navigation updates.
+Its fresh isolated selector instance was
+`01a090c0-8a58-7da1-8075-8c0b0f23f959`, launched without history; full
+process/access logs and successful exit are retained in
+`data/generated/trained_data_response/relevance_01/launch_03/`.
+The coordinator read its complete report, verified its hash
+`958f833f3039b094a7ce4c56f978d18c71c385adf5893c56906798fa036dae61`,
+and checked its recorded access scope. This selector authored no mathematics.
+Two earlier launcher failures remain labeled in the same generated run.
+
+Next authorized action: `/root/capture` assembles the complete canonical
+section in `CANONICAL_SECTION.md`; `/root` prepares exact ancillary edits,
+standalone validation, fresh paired scientific reviews of that assembly,
+and a separate fresh integration review. [prepare_promotion.py](prepare_promotion.py)
+only writes a fresh generated draft; it cannot install into established files.
+Scoped commits so far: `e111b63` (startup), `fed0567` (concurrent recovery),
+`2c5cddb` (complete proofs and immutable R1 freeze).
+Further commits use the common lock and explicit owned paths. Any required
+scientific correction needs a new complete review round. Promotion requires
+approval of the concrete reviewed edition. No established book/code file has
+been changed by this study.
