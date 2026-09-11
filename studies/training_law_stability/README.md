@@ -23,10 +23,10 @@ Gaussian middle action and its adjoint; predictor compactness alone is inadequat
 
 | Component | Owner | Mechanism | Current status |
 |---|---|---|---|
-| Transport comparison | `/root/transport` | Coupled observations, full first-row distance, individual reference tails | Complete candidate: [TRANSPORT.md](TRANSPORT.md) |
-| Strong population construction | `/root/population` | Common Gaussian generated spaces; state completion of finite laws | Complete candidate: [POPULATION.md](POPULATION.md) |
-| Nonlazy open family | `/root/nonlazy` | Actual-flow expansion, positive adjunction, state continuity | Complete candidate: [NONLAZY.md](NONLAZY.md) |
-| Joint finite algorithm limit, statistical argument, synthesis | `/root` | Fixed finite oracle proxy and ordered limits; ghost replacement | Complete candidate: [ALGORITHM_AND_STATISTICS.md](ALGORITHM_AND_STATISTICS.md), [THEOREM.md](THEOREM.md) |
+| Transport comparison | `/root/transport` | Coupled observations, full first-row distance, individual reference tails | Accepted research: [TRANSPORT.md](TRANSPORT.md) |
+| Strong population construction | `/root/population` | Common Gaussian generated spaces; state completion of finite laws | Accepted research: [POPULATION.md](POPULATION.md) |
+| Nonlazy open family | `/root/nonlazy` | Actual-flow expansion, positive adjunction, state continuity | Accepted research: [NONLAZY.md](NONLAZY.md) |
+| Joint finite algorithm limit, statistical argument, synthesis | `/root` | Fixed finite oracle proxy and ordered limits; ghost replacement | Accepted research: [ALGORITHM_AND_STATISTICS.md](ALGORITHM_AND_STATISTICS.md), [THEOREM.md](THEOREM.md) |
 
 All contributors edit only their assigned flat study files. The coordinator is
 the only Git writer and README editor. Scratch and generated evidence belong to
@@ -110,25 +110,42 @@ C.3. This preserves the existing D–J fragment assignments. The canonical
 addition consolidates the repeated state/ball, multiplier, modulus and
 displacement proofs. It does not supersede C.1–C.3's broader fixed-data results.
 
-The frozen proposed edition is [P1_ADDITION.md](P1_ADDITION.md), with
-[five chapter scope edits](P1_GLOBAL_EDITS.json), the complete
-[proposed guide](P1_DOCS_README.md), [assembled chapter](P1_GLOBAL_EDITION.md),
-[complete dependencies](P1_DEPENDENCIES.md), and [input hashes](P1_MANIFEST.json).
+The current frozen proposed edition is [P2_ADDITION.md](P2_ADDITION.md), with
+[five chapter scope edits](P2_GLOBAL_EDITS.json), the complete
+[proposed guide](P2_DOCS_README.md), [assembled chapter](P2_GLOBAL_EDITION.md),
+[complete dependencies](P2_DEPENDENCIES.md), and [input hashes](P2_MANIFEST.json).
 The two destinations are `docs/global_nonlinear.md` and `docs/README.md`.
 No code API or notation-guide change is proposed.
 
-[Standalone validation](P1_VALIDATION.md) passed in
-`data/generated/training_law_stability/promotion_validation_01/` using only
+[Standalone validation](P2_VALIDATION.md) passed in
+`data/generated/training_law_stability/promotion_validation_02/` using only
 frozen inputs and the standalone validator. It checks exact assembly and
 preservation, newly added links, mathematical environments and equation
 references. This is proof-only validation, with no training or unrelated
 exporter check. The complete original research-review evidence remains tied
 to R1, independently of the canonical consolidation.
 
-Two new isolated scientific reviews of P1 and a distinct independent
-integration review are in progress under the retained
-[scientific assignment](P1_SCIENTIFIC_ASSIGNMENT.md) and
-[integration assignment](P1_INTEGRATION_ASSIGNMENT.md). Next authorized
-action: resolve any objections, preserve the full original reports, and
-present the exact reviewed edition for the user's approval before any
-established book/code edit.
+P1 received two fresh complete scientific acceptances, with original reports
+[A](P1_REVIEW_A.md) and [B](P1_REVIEW_B.md). Its original independent
+[integration report](P1_INTEGRATION_REVIEW.md) **did not accept the exact
+edition**, requiring canonical activation-derivative notation and an explicitly
+typed population norm/finite state distance. It found no substantive
+mathematical gap. The coordinator read all three reports completely. The
+entire original P1 packet and reports remain unchanged; P1 is superseded for
+promotion, not retroactively relabeled accepted.
+
+P2 corrects both required notation issues and also removes the unnecessary
+nondecreasing-modulus alternative, identifies the observation-law diameter
+explicitly, and repairs a local section pointer. No theorem, assumption,
+constant, limit order or conclusion is changed. Before review dispatch,
+author diff inspection caught and corrected a replacement-script residual
+subscript typo; the intermediate validator output and correction note remain
+in the P2 generated run. The final P2 packet was frozen only after that check.
+
+Two fresh complete scientific reviews are underway under the retained
+[P2 scientific assignment](P2_SCIENTIFIC_ASSIGNMENT.md). A separate fresh
+complete integration review is required under the
+[P2 integration assignment](P2_INTEGRATION_ASSIGNMENT.md). Their decisions
+must concern the exact new hashes. The concrete
+[promotion proposal](PROMOTION_PROPOSAL.md) remains pending these gates and
+the user's approval before any established book/code edit.
