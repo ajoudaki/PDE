@@ -1,0 +1,87 @@
+{
+  "version": "P1",
+  "authors": [
+    "/root",
+    "/root/reference",
+    "/root/response"
+  ],
+  "assembler": "/root",
+  "selector": "/root/selector",
+  "dependency_spans": [
+    {
+      "path": "docs/NOTATION.md",
+      "start_line": 1,
+      "end_line": 98,
+      "file_sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+      "excerpt_sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b"
+    },
+    {
+      "path": "docs/global_nonlinear.md",
+      "start_line": 1841,
+      "end_line": 2452,
+      "file_sha256": "1945ef5d407eafd534b32185e952fa3ed479605f3ffec09afd468b6266fd18d9",
+      "excerpt_sha256": "c673a8feabc88b7fafd1d57eb9861823c628a00b29a93684dbfd47f04c1c9904"
+    },
+    {
+      "path": "docs/global_nonlinear.md",
+      "start_line": 3835,
+      "end_line": 5257,
+      "file_sha256": "1945ef5d407eafd534b32185e952fa3ed479605f3ffec09afd468b6266fd18d9",
+      "excerpt_sha256": "b1d34b78bd50354ce2d036046a180a2beba415530472cbd32264684b0b378774"
+    },
+    {
+      "path": "docs/special_data_limits.md",
+      "start_line": 134,
+      "end_line": 1349,
+      "file_sha256": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489",
+      "excerpt_sha256": "b21046f7674455290f558ebb3da0a3c2f7e5ca113c71be4f1853f91a5ca624d5"
+    },
+    {
+      "path": "docs/special_data_limits.md",
+      "start_line": 3785,
+      "end_line": 4326,
+      "file_sha256": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489",
+      "excerpt_sha256": "8a8dbe6a31a51d3f73c999b75c75dcade76b3d533c8901a062c66587776cdd0a"
+    },
+    {
+      "path": "docs/finite_dynamics.md",
+      "start_line": 1,
+      "end_line": 227,
+      "file_sha256": "a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca5545bc0012a",
+      "excerpt_sha256": "bd10bbff9d16f60c63d26b06e793510fa19958e1ec91dbdd85709caff7d96980"
+    },
+    {
+      "path": "docs/finite_optimization_and_controls.md",
+      "start_line": 1,
+      "end_line": 345,
+      "file_sha256": "80dcce91ed3cd8313654523725e28b312ab925376cd7a28d71323bed648a5628",
+      "excerpt_sha256": "06f3a5fc06ac766c9562cec9c774fb99e88b93b2ddfb4cf709c85d2de2fab887"
+    },
+    {
+      "path": "docs/global_nonlinear.md",
+      "start_line": 2923,
+      "end_line": 3439,
+      "file_sha256": "1945ef5d407eafd534b32185e952fa3ed479605f3ffec09afd468b6266fd18d9",
+      "excerpt_sha256": "cf223a3eed88b3755d0379948316534fb44febc9fa1d6f0bb5d282ff8be4ac94"
+    }
+  ],
+  "inputs": {
+    "P1_ADDITION.md": "741e9a8ee2dfd10db5638c82fc3fa6f35bde4297ab65edeae834f3ee9d001baf",
+    "P1_GLOBAL_BASELINE.md": "1945ef5d407eafd534b32185e952fa3ed479605f3ffec09afd468b6266fd18d9",
+    "P1_GLOBAL_EDITION.md": "d473d95ee27bc39d484185cea2689b5d3ceed448567a1527488f1003e24f1fa1",
+    "P1_DOCS_README_BASELINE.md": "95b14c5a0430a783023d412d0103d8598a476963bad19180e2d4d0e2291bce3e",
+    "P1_DOCS_README.md": "7824df11fe7fa2d89cf2c75dc32716438b20c815a18d1c3809a84a0785d9d34e",
+    "P1_DEPENDENCIES.md": "6dab773038b451c74fcb3be082f92e4dbd3c1b3b6df2ab55c58a27b782d25b69",
+    "P1_CERTIFY_REFERENCE.py": "f61103c86b278da16334f30e7af2961c41b4bcaae7062c5b8433fe4eef7a2036",
+    "P1_CERTIFY_TRANSFER.py": "09da5455910c20ded0caf5dc979a956f43ea98b6039dc3ff98977ad6f6cada90",
+    "P1_EDITS.json": "2bdc66ba6ac554bc29f60fdcf6b5ed6b442c69083fad52ec16ed38801e52e1e7",
+    "validate_candidate.py": "a294bd8193b1393fa31ab634f505b83f08f6a95eb605b65ab57226f944b4295d",
+    "P1_SCIENTIFIC_ASSIGNMENT.md": "aa59c19c5a27c21c7722492d365bddc3bfcc9f8bb0c87a7bc832d6858cbd7544"
+  },
+  "source_components": {
+    "THEOREM.md": "46bb60ec5a867badd2bd3f9f7fe727f17c4a16fa5b34fabe94e288da7a3ad2d1",
+    "REFERENCE.md": "0ada1a68210ca6bed95fbce997fca8053018e943eda8cee1632ac6aef3e1a6bf",
+    "RESPONSE.md": "96be804c16c7abb62f93fa7d94a3013b08bf595dde4c15a0a367f02d43f9150b",
+    "TRANSFER.md": "859b59ba8bbab4a6772b3c1e878ed1752bf151db5742ce53247a0a299851fca3"
+  }
+}

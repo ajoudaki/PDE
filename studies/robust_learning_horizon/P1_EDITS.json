@@ -1,0 +1,39 @@
+{
+  "destinations": [
+    "docs/global_nonlinear.md",
+    "docs/README.md"
+  ],
+  "chapter_replacements": [
+    {
+      "old": "Section C.4 separately proves local training-law stability and an\ninput-population limit for two hidden tanh layers on the normalized input\ncircle, with the precise statistical and nonlazy conclusions stated there.",
+      "new": "Sections C.4.1\u2013C.4.4 separately prove local training-law stability and an\ninput-population limit for two hidden tanh layers on the normalized input\ncircle. Section C.4.5 proves fixed-time risk reduction and whole-circle\nrobustness near one fitted reference, with an explicit extremely small radius."
+    },
+    {
+      "old": "C.4 proves its stated simultaneous sampling/width/GD-step limit for the fixed two-hidden-tanh circle-input model on a common local interval.",
+      "new": "C.4.1\u2013C.4.4 prove their stated simultaneous sampling/width/GD-step limit for the fixed two-hidden-tanh circle-input model on a common local interval. C.4.5 separately transfers a fitted reference's predictions and useful risk to a fixed-time finite-network guarantee in an explicit small law neighborhood."
+    },
+    {
+      "old": "| C.4 | Training-law stability and input-population limit | Global nonlinear: two hidden tanh layers, normalized circle inputs and bounded labels; arbitrary laws, quantitative law/replacement stability, the stated expected-gap bound, simultaneous sampling/width/GD-step consistency, and an open nonlazy family, all on a common local interval. |",
+      "new": "| C.4 | Training-law stability, local input-population limit and fitted-reference transfer | Two hidden tanh layers: C.4.1\u2013C.4.4 give arbitrary bounded-label laws, quantitative local stability and simultaneous limits. C.4.5 gives whole-circle endpoint approximation, risk at most 1/4 at T=40, and early paired hidden activity for binary laws in an explicit extremely small neighborhood; no global perturbed-law population flow. |"
+    },
+    {
+      "old": "This section proves a local quantitative statement about the actual nonlinear\nlearning algorithm.",
+      "new": "Sections C.4.1\u2013C.4.4 prove a local quantitative statement about the actual nonlinear\nlearning algorithm. The separate fixed-accuracy extension is in C.4.5."
+    },
+    {
+      "old": "The conclusion concerns finite-time training-law stability with genuine\nnonlinear hidden learning. It does not assert activity for every law,",
+      "new": "The preceding local theorem concerns finite-time training-law stability with genuine\nnonlinear hidden learning. It does not assert activity for every law,"
+    }
+  ],
+  "chapter_operation": "apply replacements, then append P1_ADDITION.md after rstrip and two newlines",
+  "guide_replacements": [
+    {
+      "old": "and an open nonlazy family. |",
+      "new": "and an open nonlazy family. A separate fitted-reference transfer gives whole-circle endpoint approximation and risk at most 1/4 at T=40 for an explicit, extremely small binary-law neighborhood, with early paired hidden activity; it does not construct global perturbed-law population dynamics. |"
+    },
+    {
+      "old": "proves an input-population limit and bounds the absolute value of the expected\ntrain\u2013test gap, with the time supremum outside the expectation. It does not\nbound the expected absolute gap, excess risk or useful-risk improvement.",
+      "new": "proves a local input-population limit and bounds the absolute value of the expected\ntrain\u2013test gap, with the time supremum outside the expectation. Its local theorem\ndoes not bound the expected absolute gap or excess risk. Section C.4.5 separately\nproves useful-risk reduction and whole-circle robustness at a fixed time near\none fitted opposite-label reference. Its certified neighborhood is extraordinarily\nsmall; it supplies neither a global perturbed-law population flow nor evidence\nthat feature learning outperforms frozen or linear models."
+    }
+  ]
+}
