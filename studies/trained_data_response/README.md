@@ -290,7 +290,7 @@ completed promotion, and no P2 conclusion is established here.
 
 ## Milestone 2 — nonlinear continuation, current research
 
-Status: **complete author candidate; full reviews pending**. The task in [P2_COORDINATION.md](P2_COORDINATION.md)
+Status: **A–C proved and passed two complete isolated reviews; canonical promotion package in preparation**. The task in [P2_COORDINATION.md](P2_COORDINATION.md)
 preserves the fixed A–C target through physical time 40 in
 [P2_CONTRACT.md](P2_CONTRACT.md). Its fresh generated namespace is
 `data/generated/trained_data_response/p2_20260911_02/`.
@@ -301,10 +301,15 @@ The frozen [A–C candidate](P2_THEOREM.md) now includes a
 tail hypothesis H. It uses the reference query-insertion bound,
 differentiated clock consistency, and a law-weighted coefficient
 comparison. A fresh prompt-only [kernel check](P2_KERNEL_CHECK.md)
-independently proves that last conditional comparison. These author and
-scoped checks do not substitute for the two fresh complete isolated
-A–C reviews now underway. [P2_MANIFEST.json](P2_MANIFEST.json) freezes
-all candidate inputs. No milestone success or promotion is yet declared.
+independently proves that last conditional comparison. The fresh complete
+isolated [review A](P2_FULL_REVIEW_A.md) and [review B](P2_FULL_REVIEW_B.md)
+both pass all A–C with no required corrections, including the new tail
+proof and the actual finite nonlinear bridge. Root read both full reports
+and verified their coverage and unchanged inputs.
+[P2_MANIFEST.json](P2_MANIFEST.json) freezes this complete reviewed result.
+An independent [relevance assessment](P2_RELEVANCE.md) accepts one C.4.7
+for assembly. Canonical scientific/integration reviews and user approval
+remain separate requirements before promotion.
 The [earlier checkpoint](P2_REPORT.md) preserves the conditional reduction,
 original audits, partial results and exact route failures; its open-H
 status predates the new candidate.
@@ -320,6 +325,7 @@ commands, hashes, outcomes and reading coverage are in
 [P2_RUN_RECORD.md](P2_RUN_RECORD.md); generated outputs are in
 `p2_20260911_02/`, including `full_packet_01/`. No training was run and no
 established book/code was changed by P2. Scoped commits so far: ae37dfe,
-48da104 and e960b4a. Root is sole Git writer. Next authorized work is to
-resolve the full mathematical reviews and complete separate promotion
-gates if accepted; established edits still require package-specific approval.
+48da104, e960b4a and 0772d18. Root is sole Git writer. Next authorized work
+is to finish the smallest self-contained canonical proposal and its fresh
+scientific/integration reviews and standalone validation. Established edits
+still require approval of that concrete reviewed package.

@@ -203,6 +203,7 @@ environment permission issue, not a scientific failure or user rejection.
 | ae37dfe5400cc4fbc1c260e29272b7667a92ab87 | P2 contract and independent input/write scopes | commit_01.json |
 | 48da1046efc2e1f4a8da6c0d5cbaf4c10febe394 | Frozen route reductions, raw comparison, deterministic checks and README checkpoint | commit_02.json |
 | e960b4a8d6f7645fffa4c970ec1018ffeddb107f | Conditional audits, corrected observation/bridge contract, exact gap and bounded-feature route | commit_03.json |
+| 0772d18e8816c87144948f861022b132c81d9dc9 | Complete author candidate, source proof, frozen dependencies and standalone recipe | commit_04.json |
 
 The second commit changes nine assigned study files; the third changes
 thirteen. Neither includes generated products. The third transaction's
@@ -269,3 +270,42 @@ The fresh full reviewers and separate relevance selector have distinct
 file/scratch ownership recorded in P2_COORDINATION.md. Their original
 reports and complete coverage must be retained before any success or
 promotion conclusion.
+
+## Complete mathematical review outcome and canonical assembly
+
+Both fresh complete isolated reviews of the unchanged sixteen-input
+packet passed all A–C, with no required corrections. Root read both
+original reports completely, including all coverage, source/excerpt hash
+records, source/tail attacks, continuation and actual finite capture,
+uniform nonlinear response and the width-first finite bridge, applicable
+check code and results. Their reports are frozen as:
+
+- P2_FULL_REVIEW_A.md, 201 lines, SHA256
+  00efc606e4511b90e27387a3a79bc30430b35aacc387fff9fcff43d142381e17.
+- P2_FULL_REVIEW_B.md, SHA256
+  f9c21865c76ae87770489e2022793e04a688dd052943ef8045fd64740b1c4ccc.
+
+Both reviewers read every scientific input line, verifying exact duplicate
+dependency correspondence where a body was read once. Both ran the full
+standalone packet and their own bounded source/clock algebra checks.
+Reviewer A checked the direct source chain, zero-mass pulse and canceled
+clock-defect derivatives. Reviewer B additionally checked source-atom
+duplication with a tiny far atom. All passed; no training was run. Their
+original evidence remains in full_review_a/ and full_review_b/. Neither
+reviewer received the other's findings before freezing. Their complete
+neutral assignments remain P2_FULL_REVIEW_ASSIGNMENTS.json.
+
+P2_RELEVANCE.md, SHA256
+d7bf17c8e1534055abf07b6d99a30e01b7fb903dff3642c10d790fd5fed1446e,
+independently accepts the full result for assembly as one C.4.7 appended
+after C.4.6, plus small guide/navigation edits. Root read its entire
+report. This is separate from mathematical correctness and is conditional
+on canonical scientific and integration gates. The original mathematics
+has now met the user's two-review success requirement. Promotion remains
+unapproved and unperformed.
+
+The canonical assembly removes historical conditional labels and repeated
+setup while retaining every substantive proof in canonical notation.
+P2_COORDINATION.md records separate source/remainder assembler ownership.
+This rewrite will be a new frozen packet, with fresh complete mathematical
+and integration reviews; earlier verdicts are not canonical review inputs.

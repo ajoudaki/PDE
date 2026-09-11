@@ -1,8 +1,9 @@
 # Milestone 2: nonlinear trained-law continuation
 
 Author/coordinator: task `01a09106-41c4-7193-9db9-8068144fd825`, `/root`.
-Claim status: full author candidate frozen for two fresh complete reviews.
-No A–C success or promotion is asserted before those gates pass.
+Claim status: full frozen A–C theorem passed two fresh complete isolated
+reviews, with no required corrections. Canonical promotion assembly is
+underway; established edits remain unapproved and unperformed.
 
 ## Fixed contract
 
@@ -55,13 +56,18 @@ scientific base hashes match. See the fresh run's startup_hashes.json.
 | variation | abstract variation along reachable curves | P2_VARIATION.md | frozen conditional remainder theorem; scoped independent check passed |
 | mature combination | active tails, probe atoms, radial saturation | P2_COMBINED_TAIL_CONTRACT.md | conditional H implies A–C; full conditional audit passed |
 | bounded-feature alternative | correlated-row stability and coordinates | P2_TAIL_ALTERNATIVE.md | frozen exact route obstructions; no neural refutation |
-| source bootstrap | named-response coefficient comparison | P2_SOURCE_BOOTSTRAP.md | complete author H proof, frozen for full review |
+| source bootstrap | named-response coefficient comparison | P2_SOURCE_BOOTSTRAP.md | complete H proof passed both full A–C reviews |
 | independent kernel check | conditional weighted coefficient inequality | P2_KERNEL_CHECK.md | frozen separate derivation confirms the conditional inequality |
 | coordinator | dependency audit and finite comparison | P2_REPORT.md, P2_RUN_RECORD.md | full exact gap and evidence preserved |
 
-The new source proof claims H, the averaged backward tail estimate for all
+The new source proof establishes H, the averaged backward tail estimate for all
 fine raw Euler programs on one positive law neighborhood through40. It
 uses fresh-query coefficient extraction and two causal bootstraps;
 propagation or fixed reference proximity alone remain insufficient.
 P2_THEOREM.md and P2_MANIFEST.json freeze the complete A–C candidate.
-Its correctness must now survive the two fresh complete isolated reviews.
+P2_FULL_REVIEW_A.md and P2_FULL_REVIEW_B.md both pass every primary
+requirement on these exact frozen inputs. Their original reports and
+independence/coverage/check evidence are retained. The accepted relevance
+assessment selects one self-contained C.4.7; its rewritten canonical
+packet needs its own fresh reviews and integration validation before
+user approval is requested.

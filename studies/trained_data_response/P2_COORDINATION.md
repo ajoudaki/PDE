@@ -121,3 +121,32 @@ candidate statement/source proof against the established coverage,
 without prior verdicts. It owns only P2_RELEVANCE.md and relevance
 scratch. This is the separate relevance/placement gate and neither a
 mathematical review nor authorization to edit established files.
+
+Both complete isolated A–C reviews have now frozen PASS reports with no
+required corrections; root read both reports completely and verified their
+input coverage and hashes. The independent relevance selector accepts one
+canonical C.4.7 for assembly, conditional on the separate remaining gates.
+
+Canonical assembly assignments, with fresh scoped author contexts and no
+prior verdicts as scientific inputs:
+
+- /root/p2_canonical_source owns P2_CANONICAL_SOURCE.md and
+  canonical_source scratch. Inputs are the complete source bootstrap,
+  theorem, corrected raw comparison, complete relevant P2 dependencies,
+  complete invoked P1 dependency units and NOTATION. It preserves every
+  new source/clock/bootstrap argument and translates to canonical notation.
+- /root/p2_canonical_variation owns P2_CANONICAL_VARIATION.md and
+  canonical_variation scratch. Inputs are the complete theorem, variation,
+  combined-tail, response-bridge, reached-tail and P1 response files, and
+  complete invoked established dependencies. It preserves the probe/radial/
+  compact-direction remainder and finite bridge route.
+- Root owns P2_CANONICAL_THEOREM.md, P2_CANONICAL_COMPLETION.md, the
+  final P2_SECTION.md assembly, navigation proposal, validation scripts,
+  frozen promotion packet and current records. All assemblers are
+  ineligible for the fresh canonical scientific/integration reviews.
+
+The original sixteen-input mathematical packet stays frozen. Established
+book/code remains unchanged. Preparing the actual canonical edition does
+not reuse the original packet's reviews as if it were byte-identical;
+the completed canonical packet will receive two fresh complete scientific
+reviews and a separate fresh integration review before an approval request.
