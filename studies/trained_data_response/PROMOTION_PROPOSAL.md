@@ -1,10 +1,10 @@
 # Trained data response: result and concrete promotion proposal
 
-Status: the complete research theorem R1 has two isolated scientific ACCEPT
-reports. Both fresh scientific reviews of canonical P1 accept without required
-corrections. The first integration review requires packaging corrections only;
-the corrected P1I2 packaging is frozen and under fresh complete integration
-review. This document does not authorize established-file edits.
+Status: ready for specific user approval. The complete research theorem R1
+and canonical theorem P1 each have two isolated scientific ACCEPT reports.
+The fresh P1I2 integration review accepts the corrected packaging with no
+required corrections. All reports have been read completely and their hashes,
+provenance and actual checks verified. No established file has been edited.
 
 ## Result and scientific value
 
@@ -176,9 +176,22 @@ The mathematical section, ancillary text, dependencies and mathematical
 check programs retain exactly their P1 hashes. The two destination edition
 hashes are unchanged. This packaging-only change requires fresh integration
 review under workflow Part 2 step 4; it does not change the scientific inputs.
-The fresh instance `01a090d2-454d-7550-8cdd-ef01257c6712` is conducting that
-complete review without prior findings. No promotion acceptance is asserted
-until the remaining reviews complete.
+The fresh instance `01a090d2-454d-7550-8cdd-ef01257c6712` completed that
+review without prior findings. Its [complete report](P1I2_INTEGRATION_REVIEW.md)
+gives ACCEPT with no required corrections. The coordinator read all 263
+lines, checked the full build/validation/audit outputs and verified the report
+hash `5ba1f42becdc703f7cc4cc3a1df837e079a6e156d2e599a2c0b61870db21adef`.
+The report's locally minted evidence UUID corresponds to the distinct
+platform instance above, as verified in the retained launch events.
+Both required commands and the independent integration audit exited zero.
+The exact older read scope and unread complement are in the report; this
+was not a fresh whole-book proof audit.
+
+The original adverse integration report and all failed runs remain intact.
+Its two packaging objections are resolved by the reviewed P1I2 read set and
+manifest. No scientific correction was required in either scientific round
+or either integration audit. All preparation and review gates are complete;
+only specific user approval and the subsequent authorized integration remain.
 
 The coordinator read the entire canonical section and checked its final
 notation corrections. Standalone validation passed with exact preservation
@@ -188,7 +201,9 @@ metric identities, singular semigroup boundaries, and the exact rational
 reference certificate. Evidence is under
 `data/generated/trained_data_response/standalone_01/validation_02/`.
 An initial validator heading-match bug is retained as a failed run; its
-correction changed no scientific input.
+correction changed no scientific input. The final independently executed
+edition and complete successful evidence are under
+`data/generated/trained_data_response/integration_p1i2/review_fbeb4d53-eaf6-4974-a41c-543dd3c81bc6/`.
 
 Reproduce from the repository root, substituting a fresh run name:
 
@@ -204,14 +219,21 @@ all assembly/check programs are in the frozen manifest.
 
 Scoped commits currently include `e111b63` (startup), `fed0567` (concurrent
 recovery), `2c5cddb` (complete proofs and R1 freeze), and `b922d12` (accepted
-R1 reviews and assembly preparation), and `fb2353c` (canonical P1 freeze).
+R1 reviews and assembly preparation), `fb2353c` (canonical P1 freeze), and
+`bb256d8` (accepted canonical science and corrected integration packaging).
 All use owned paths and the common
 Git writer lock; unrelated concurrent work is preserved.
 
 ## Approval boundary
 
-After the pending reviews complete, the recommendation will concern only
-the exact P1 package above. Established-file integration requires the user's
-specific approval under RESEARCH_WORKFLOW Part 2, step 5. Any intervening
-scientific or dependency change reopens the applicable review and approval
-gates. No established file has been edited by this study.
+**Recommendation: approve promotion of the exact P1 section and ancillary
+edits, using the reviewed P1I2 assembly.** This adds a complete trained
+data-response theorem that the next nonlinear-continuation milestone can
+use, with its limits explicit.
+
+Established-file integration requires the user's specific approval under
+RESEARCH_WORKFLOW Part 2, step 5. After approval, recheck the current sources,
+apply only the reviewed text, verify the resulting destination hashes against
+the table above, rerun affected checks and make a scoped incorporation commit.
+Any intervening scientific or dependency change reopens the applicable review
+and approval gates. No established file has been edited by this study.

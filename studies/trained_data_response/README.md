@@ -1,8 +1,10 @@
 # Trained data response at a nonlinear fitted reference
 
-Status: all primary claims in frozen R1 accepted by two fresh complete isolated
-scientific reviews, with no required corrections. Canonical assembly and its
-separate promotion reviews are in progress; nothing has been promoted.
+Status: all primary claims are proved and accepted in two complete isolated
+R1 scientific reviews. The canonical P1 addition also has two fresh scientific
+ACCEPT reports, and corrected P1I2 packaging has a fresh integration ACCEPT.
+All reports, hashes and actual checks are verified. The concrete promotion
+proposal is ready for specific user approval; nothing has been promoted.
 This study addresses the primary response milestone: capture the data-direction derivative
 of actual finite gradient flow after substantial learning, including T=40,
 and construct a usable forced population evolution.
@@ -26,9 +28,9 @@ failure probability over laws, or uniform-time finite-width limit is claimed.
 
 | Component / route | Owner and proof | Current scope |
 |---|---|---|
-| Homogeneous trained propagation | `/root/propagator`, [PROPAGATOR.md](PROPAGATOR.md) | Complete author proof: singular endpoint kernel compatibility and integrable curvature/finite-rank perturbation give uniformly bounded U(t,s) |
-| Actual finite weighted source | `/root/weighted_source`, [WEIGHTED_SOURCE.md](WEIGHTED_SOURCE.md) | Complete author proof: column-deletion comparison for actual finite GF, Gaussian chaining and weighted uniform integrability; bounded feature segment gives all-time population forcing |
-| Actual derivative capture | `/root/capture`, [FINITE_CAPTURE.md](FINITE_CAPTURE.md) | Complete author proof: finite right derivative, fixed-program/strong multiplier passage, arbitrary fixed Borel forcing, whole-circle observations |
+| Homogeneous trained propagation | `/root/propagator`, [PROPAGATOR.md](PROPAGATOR.md) | Reviewed proof: singular endpoint kernel compatibility and integrable curvature/finite-rank perturbation give uniformly bounded U(t,s) |
+| Actual finite weighted source | `/root/weighted_source`, [WEIGHTED_SOURCE.md](WEIGHTED_SOURCE.md) | Reviewed proof: column-deletion comparison for actual finite GF, Gaussian chaining and weighted uniform integrability; bounded feature segment gives all-time population forcing |
+| Actual derivative capture | `/root/capture`, [FINITE_CAPTURE.md](FINITE_CAPTURE.md) | Reviewed proof: finite right derivative, fixed-program/strong multiplier passage, arbitrary fixed Borel forcing, whole-circle observations |
 | Contract, synthesis and checks | Original task coordinator `/root`, [THEOREM.md](THEOREM.md) | Frozen R1 packet, executed deterministic checks; both independent reviews ACCEPT |
 | Concurrent reconstruction | Task `01a090bb-ded9-7f73-b893-0fce3cf9e257`, [CONTINUATION_COORDINATION.md](CONTINUATION_COORDINATION.md) | Owns its named reconstruction/alternative files; no main-proof or README writes; its checks are author-side only |
 
@@ -129,7 +131,7 @@ freezes complete science/dependencies, proposed ancillary text, recipes,
 and neutral review assignments. Two fresh isolated scientific processes
 `01a090ca-1bf7-70b1-be49-7ac58e2e0f6d` and
 `01a090ca-1e9e-7482-8804-54261fdfc386`, and the separate integration
-process `01a090ca-1d3f-7082-b65f-2dcd9bcaa82b`, are reviewing it.
+process `01a090ca-1d3f-7082-b65f-2dcd9bcaa82b`, completed their reviews.
 Full access/check/process logs are under `scientific_p1_a`,
 `scientific_p1_b`, and `integration_p1` in the generated namespace.
 
@@ -146,8 +148,14 @@ manifest includes only authorized files. `standalone_02/validation` passes
 and both proposed destination hashes remain identical. P1 inputs are untouched.
 The frozen [P1I2 integration manifest](P1I2_MANIFEST.json), hash
 `174bd123c8fd48cdc536925681f7eade0b5f37f3b3b1cebf53d7b383a0a5298f`,
-is under fresh complete review by instance
-`01a090d2-454d-7550-8cdd-ef01257c6712`, with logs in `integration_p1i2`.
+has a fresh complete [integration ACCEPT](P1I2_INTEGRATION_REVIEW.md) by
+instance `01a090d2-454d-7550-8cdd-ef01257c6712`, with logs in `integration_p1i2`.
+The coordinator read all 263 report lines and verified its hash
+`5ba1f42becdc703f7cc4cc3a1df837e079a6e156d2e599a2c0b61870db21adef`,
+the successful process exit, and all actual command/audit outputs. Both
+packaging objections are resolved. No required scientific or integration
+correction remains. P1_BUILD.py is retained as an immutable predecessor;
+use P1I2_BUILD.py and P1I2_VALIDATE.py for fresh standalone reproduction.
 [P1 scientific review A](P1_REVIEW_A.md) and [review B](P1_REVIEW_B.md)
 both accept with no required corrections. Both complete reports, input
 hashes, independent check results, process identities and successful exits
@@ -157,14 +165,29 @@ have been read or verified by the coordinator. Their report hashes are
 Coordinator verification is in `scientific_p1_acceptance_01`; their extra
 checking sources are preserved as P1_REVIEW_A_CHECK.py and P1_REVIEW_B_CHECK.py.
 
-Next authorized action: finish and read all P1 reports, resolve any
-objections under fresh review, and finalize the concrete
-[promotion proposal](PROMOTION_PROPOSAL.md). [prepare_promotion.py](prepare_promotion.py)
-only writes a fresh generated draft; it cannot install into established files.
+The complete [result and promotion proposal](PROMOTION_PROPOSAL.md) records
+the exact model, norms, horizons, limit order, forcing/propagator bounds,
+conditioning, downstream exclusions, review evidence, source hashes and
+reproduction commands. No primary proof gap remains. Nonlinear changed-law
+flows, finite-contamination remainders, transport forcing control, endpoint
+continuity, sampling/risk expansions and GD derivatives remain outside this
+milestone. The uniform claim is population homogeneous propagation; forced
+response grows at most linearly in the horizon and width capture fixes T.
+
+Next action requiring the user's approval: promote only the exact reviewed
+P1 text using P1I2 assembly, after rechecking unchanged sources. All authorized
+research and promotion preparation are complete. Established-file edits await
+specific approval. [prepare_promotion.py](prepare_promotion.py) only writes a
+fresh generated draft; it cannot install into established files.
+The closing verification in
+`data/generated/trained_data_response/final_acceptance_01/verification.json`
+checks every frozen packet/report hash, all declared live inputs, process
+completion and identity, and the successful independent edition audit.
 Scoped commits so far: `e111b63` (startup), `fed0567` (concurrent recovery),
 `2c5cddb` (complete proofs and immutable R1 freeze),
 `b922d12` (accepted R1 reviews and assembly preparation),
-`fb2353c` (canonical P1 freeze and standalone verification).
+`fb2353c` (canonical P1 freeze and standalone verification),
+`bb256d8` (accepted canonical science and corrected integration packaging).
 Further commits use the common lock and explicit owned paths. Any required
 scientific correction needs a new complete review round. Promotion requires
 approval of the concrete reviewed edition. No established book/code file has
