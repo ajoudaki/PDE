@@ -49,12 +49,17 @@ scientific base hashes match. See the fresh run's startup_hashes.json.
 
 | Route | Mechanism | Exact deliverable | Status |
 |---|---|---|---|
-| reached tails | actual finite column removal / weighted bounds | control along nonlinear changed-law trajectories | independent author working |
-| continuation | reference-tail completion / reached-state construction | A–B or its precise missing continuation estimate | independent author working |
-| variation | abstract variation along reachable curves | explicit sufficient o(epsilon) lemma and neural obligations | independent prompt-only author working |
-| coordinator | full dependency audit and finite comparison | verify interfaces and preserve the strongest valid conclusions | working |
+| reached tails | actual finite column removal / weighted bounds | P2_REACHED_TAILS.md | frozen; exponential/cavity premise open |
+| continuation | reference-tail completion / reached-state construction | P2_CONTINUATION.md | frozen conditional A–B theorem |
+| variation | abstract variation along reachable curves | P2_VARIATION.md | frozen conditional remainder theorem; scoped independent check passed |
+| mature combination | active tails, probe atoms, radial saturation | P2_COMBINED_TAIL_CONTRACT.md | conditional H implies A–C; full conditional audit passed |
+| bounded-feature alternative | correlated-row stability and coordinates | P2_TAIL_ALTERNATIVE.md | frozen exact route obstructions; no neural refutation |
+| source bootstrap | named-response coefficient comparison | P2_SOURCE_BOOTSTRAP.md | bounded additional attempt in progress |
+| coordinator | dependency audit and finite comparison | P2_REPORT.md, P2_RUN_RECORD.md | full exact gap and evidence preserved |
 
-The central unresolved implication is control of nonlinear error production
-on reached changed-law trajectories. P1 bounds propagation on the reference.
-C.4.5 gives fixed-accuracy comparison with that reference; neither statement
-alone makes approximations to one fixed changed law Cauchy.
+The central unresolved estimate is H in P2_REPORT §3: averaged exponential
+backward tails on every sufficiently fine raw Euler program, uniformly
+over one positive law neighborhood through40. H suffices for all A–C,
+including reached inverse-gate uniform integrability, but has not been
+proved. P1 propagation and C.4.5 fixed-accuracy reference comparison do
+not establish it. The original target remains open.

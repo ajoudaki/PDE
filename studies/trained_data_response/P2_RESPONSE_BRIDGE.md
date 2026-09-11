@@ -10,6 +10,9 @@ notation/reading guide and C.4 proofs. No other P2 route was an input.
 
 Use P1's clock/HS/readout Hilbert space V, horizon T=40, generator L(t),
 propagator U(t,s) and continuous V-valued source integrand b(t,z).
+Throughout use the normalized metric
+\(d_Z((x,y),(x',y'))=|x-x'|/\sqrt2+|y-y'|\), equivalently
+\(|u-u'|+|y-y'|\), and its Wasserstein distance W₁.
 All source values use the actual reference, its Gaussian action and
 adjoint. The P1 proof establishes continuity of b on the compact
 [0,T]×Z, boundedness, and the Bochner integral against every law.
@@ -89,11 +92,14 @@ reached-trajectory estimate; assuming it would hide the main obligation.
 
 ## 3. The finite nonlinear display follows once the population remainder does
 
-Suppose A–B have been proved on a genuine radius δY>0 and suppose, in
-addition, the required uniform population remainder is established:
+Suppose population predictions exist on a genuine radius δY>0 and,
+for every separately fixed Borel law there, actual finite GF predictions
+converge in probability uniformly through T and over the circle. These
+are population premises required below, not conclusions of this report.
+Suppose also the required uniform population remainder is established:
 
 \[
-\|f_{\mu_\epsilon}-f_*-epsilon\mathscr D_\sigma f\|_{C([0,T]\times S^1)}
+\|f_{\mu_\epsilon}-f_*-\epsilon\mathscr D_\sigma f\|_{C([0,T]\times S^1)}
 \le\epsilon\omega_Y(\epsilon),\qquad\omega_Y(\epsilon)\to0.   \tag{4}
 \]
 
@@ -116,13 +122,14 @@ inequality is
 +\|D_\sigma f_n-\mathscr D_\sigma f\|_\infty.              \tag{5}
 \]
 
-At each fixed positive ε, B and the reference theorem make the two
+At each fixed positive ε, the assumed capture and the reference theorem make the two
 prediction errors vanish in probability. P1 makes the last error
 vanish in probability. A finite union bound suffices on this common
 initialization; their independence is neither needed nor asserted.
 For ε small enough that ωY(ε)<a/2, (5) gives a vanishing width-limsup
 probability of exceeding a. Sending ε down to zero proves exactly the
-user's finite nonlinear display. No εn/width rate is used.
+user's finite nonlinear display for each fixed ν and each a>0. No
+supremum over ν of finite failure probabilities and no εn/width rate is used.
 
 This is a limit bridge, not a proof of (4). Finite differentiability
 and convergence of its right derivatives alone cannot supply (4): the

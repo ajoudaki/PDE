@@ -60,3 +60,39 @@ Independent fresh author assignments (no inherited conversation):
 Each author owns only its named file and its separate generated scratch.
 Only frozen route reports will be compared. None is an independent reviewer.
 The coordinator retains sole Git-writing and README checkpoint ownership.
+
+## Mature comparison, scoped audits and further attempts
+
+After their original reports were frozen, the continuation author was
+allowed the frozen variation, reached-tail and root-comparison arguments
+for P2_COMBINED_TAIL_CONTRACT.md. The variation author was separately
+allowed the root comparison/bridge and full relevant P1/C.4 proofs for
+P2_ROOT_LEMMAS_CHECK.md. Neither author check is a fresh complete review.
+
+Fresh reviewer /root/p2_conditional_audit received only P2_VARIATION.md,
+NOTATION, required skills/process and the missing physical-flow equations;
+its exact assignment is P2_VARIATION_AUDIT_ASSIGNMENT.md. It owns only
+P2_VARIATION_AUDIT.md and its assigned scratch. Fresh reviewer
+/root/p2_combined_audit received the full six conditional derivations,
+P1 and all invoked established proofs, without prior verdicts. Its exact
+assignment is P2_COMBINED_AUDIT_ASSIGNMENT.md. It owns only
+P2_COMBINED_AUDIT.md and combined_audit scratch. Neither is an author.
+These are conditional-scope checks; they do not close the unconditional
+A–C success gate.
+
+Fresh author /root/p2_tail_final_attempt received a self-contained
+tail-estimate problem and only the frozen P1 section/dependencies as
+optional scientific inputs. It owns P2_TAIL_ALTERNATIVE.md and
+tail_alternative scratch. A stray tentative scaling in its initial
+assignment was immediately corrected to c=W3 with entry variance n^-2;
+the report uses and checks that exact scaling. It froze its independent
+row/feature calculations before any mature comparison. A subsequent
+root speculation was not used in those derivations.
+
+The continuation author then received a bounded mature task on exact
+named-source coefficient recursions, reading only its already allowed
+scientific scope and complete C.2/P1 source proofs. It owns the additional
+P2_SOURCE_BOOTSTRAP.md and source_bootstrap scratch. It was told not to
+read new alternative reports or reviews. No author may modify a frozen
+original or write Git. Root owns P2_REPORT.md, P2_RUN_RECORD.md, input
+manifests, correction notices and the concise README checkpoint.

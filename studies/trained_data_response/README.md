@@ -296,20 +296,29 @@ preserves the fixed A–C target through physical time 40 in
 `data/generated/trained_data_response/p2_20260911_02/`.
 The P1 frozen hashes and byte-for-byte incorporated section verify.
 
-Independent routes have produced a conditional exponential-tail
-[continuation theorem](P2_CONTINUATION.md) for A–B and a conditional
-[variation theorem](P2_VARIATION.md) for C. Their respective additional
-reached/Euler-family tail hypotheses are not proved. The coordinator's
-[raw reference comparison](P2_REFERENCE_COMPARISON.md) and
-[response compactness/limit bridge](P2_RESPONSE_BRIDGE.md) retain their
-limited scopes. No complete A–C proof or neural refutation is claimed.
-Further tail work and a scoped conditional-lemma check are in progress;
-these are not the two required complete success reviews.
+The [current report](P2_REPORT.md) records the exact remaining lemma H:
+uniform averaged exponential backward tails for refining raw Euler
+programs through40 on one positive law neighborhood. The
+[combined proof](P2_COMBINED_TAIL_CONTRACT.md) derives all A–C from H,
+including the nonlinear remainder and width-first finite bridge. H is
+unproved. A [fresh complete conditional audit](P2_COMBINED_AUDIT.md)
+and a [scoped variation audit](P2_VARIATION_AUDIT.md) passed for their
+stated conditions; neither is an unconditional milestone success review.
+The original independent routes, corrected partial comparison, precise
+observation contract and proof-route obstructions remain linked in the
+report. A bounded source-response attempt is checking the missing estimate.
+No complete A–C proof or neural refutation is claimed.
 
 Standalone frozen-dependency and deterministic algebra checks pass. Run
 `python -B studies/trained_data_response/P2_VALIDATE.py --output
 data/generated/trained_data_response/NEW_RUN` from the repository root.
 The validator writes only to a fresh generated path; it certifies source
-correspondence and algebra, not the missing nonlinear estimate. Original
-outputs are in `p2_20260911_02/validation_01/`. No training was run and no
-established book/code was changed by P2. Scoped startup commit: `ae37dfe`.
+correspondence and algebra, not H. The independent supplied-state radial
+identity check also passes. Exact commands, hashes, outcomes, source
+coverage and original reports are in [P2_RUN_RECORD.md](P2_RUN_RECORD.md);
+generated outputs are in `p2_20260911_02/`. No training was run and no
+established book/code was changed by P2. Scoped commits so far:
+ae37dfe and 48da104. Root is the sole Git writer; all author file scopes
+are in P2_COORDINATION. Next authorized work is the missing source/tail
+estimate, followed by two fresh full reviews if an unconditional theorem
+is obtained.

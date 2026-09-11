@@ -88,8 +88,8 @@ jointly in raw state and input: bounded multiplier continuity handles
 each gate, bounded actions handle each matrix, and rank differences are
 controlled in HS. On a compact input set this continuity is uniform near
 any fixed state (otherwise extract a convergent input subsequence).
-Thus the scalar loss is C¹ with gradient equal to the law integral of
-the prediction gradient, and (2) follows in the population raw metric.
+Thus the scalar loss is C¹ with gradient
+\(2\int(f(u)-y)\nabla f(u)\,d\mu(u,y)\), and (2) follows in the population raw metric.
 The readout equation integrated pointwise proves (3) with 2TY in place
 of 1+2T(Y+1). These are a priori bounds, not existence or continuation
 proofs at an arbitrary ambient endpoint.
@@ -177,19 +177,25 @@ truncate its reference field first; (5) and reference compact L² families
 remove the cutoff. No neuronwise or operator-norm convergence between
 finite and population carriers is involved.
 
-Precisely, an admitted observation starts from a finite list of current
-and initialized fields at specified times and inputs, applies finitely
+Precisely, an admitted observation starts from a finite list of raw
+fields w,c and the displayed h,z,H,d,Q at specified times and inputs,
+and identified initialized generated fields. It applies finitely
 many same-layer continuous globally Lipschitz coordinate operations,
-bounded gates times named L² fields, and the actions A₀,A₀*,A(t),A(t)*,
+fixed bounded continuous gates times named L² fields, and the actions A₀,A₀*,A(t),A(t)*,
 K(t),K(t)* with matching layer types, and records its joint same-layer
 law and quadratic contractions. For each fixed accuracy the reference
 has a finite-program approximation; use its identical finite-array
 realization for the changed flow comparison. Errors of each action
 application are bounded by the input error times the bounded action
 norm, plus the input norm times the same-carrier HS increment error.
-For a bounded gate times a named field use reference-field truncation.
+For a bounded continuous gate times a named field use reference-field
+truncation and a compact box for the gate arguments. Their identified
+joint law and second moments give tightness and uniform integrability
+on the complement of that box.
 Finite induction proves convergence for this observation contract.
 An arbitrary unbounded coordinate product is not an admitted operation.
+Nonlinear clocks, inverse gates and their weighted products are not
+starting fields unless separate moment and approximation proofs admit them.
 
 One can also read (6) as a quantitative fixed-radius bound. For 0<q≤1
 take R=max(R₀,K√log(e/q)) with cK²≥2. Enlarging constants gives
