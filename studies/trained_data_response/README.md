@@ -287,3 +287,29 @@ contains this README, the updated proposal status and CHECK_ESTABLISHED.py.
 This task has no remaining milestone-1 or promotion action. The separately
 started P2 task's ownership is recorded above; its research is outside this
 completed promotion, and no P2 conclusion is established here.
+
+## Milestone 2 — nonlinear continuation, current research
+
+Status: **open**. The task in [P2_COORDINATION.md](P2_COORDINATION.md)
+preserves the fixed A–C target through physical time 40 in
+[P2_CONTRACT.md](P2_CONTRACT.md). Its fresh generated namespace is
+`data/generated/trained_data_response/p2_20260911_02/`.
+The P1 frozen hashes and byte-for-byte incorporated section verify.
+
+Independent routes have produced a conditional exponential-tail
+[continuation theorem](P2_CONTINUATION.md) for A–B and a conditional
+[variation theorem](P2_VARIATION.md) for C. Their respective additional
+reached/Euler-family tail hypotheses are not proved. The coordinator's
+[raw reference comparison](P2_REFERENCE_COMPARISON.md) and
+[response compactness/limit bridge](P2_RESPONSE_BRIDGE.md) retain their
+limited scopes. No complete A–C proof or neural refutation is claimed.
+Further tail work and a scoped conditional-lemma check are in progress;
+these are not the two required complete success reviews.
+
+Standalone frozen-dependency and deterministic algebra checks pass. Run
+`python -B studies/trained_data_response/P2_VALIDATE.py --output
+data/generated/trained_data_response/NEW_RUN` from the repository root.
+The validator writes only to a fresh generated path; it certifies source
+correspondence and algebra, not the missing nonlinear estimate. Original
+outputs are in `p2_20260911_02/validation_01/`. No training was run and no
+established book/code was changed by P2. Scoped startup commit: `ae37dfe`.
