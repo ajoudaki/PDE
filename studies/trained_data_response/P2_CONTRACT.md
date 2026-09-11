@@ -4,8 +4,10 @@ Author/coordinator: task `01a09106-41c4-7193-9db9-8068144fd825`, `/root`.
 Claim status: **A–C resolved.** The original full theorem and its canonical
 edition each passed two fresh complete isolated scientific reviews without
 required corrections. Relevance, standalone validation and the separate
-canonical integration review also passed. The exact P2_PROPOSAL.md package
-is ready for user approval; established edits remain unperformed.
+canonical integration review also passed. The user explicitly approved the
+exact P2_PROPOSAL.md package; its two-file edition is now incorporated as
+established C.4.7. Approval and exact correspondence evidence are retained
+in P2_APPROVAL.md and P2_RUN_RECORD.md.
 
 ## Fixed contract
 
@@ -38,7 +40,8 @@ Quadratic bounds, arbitrary joint epsilon/width rates and GD derivatives are
 not required.
 
 No training experiments, sweeps, global changed-law dynamics, universal
-fitting, new architecture or promotion edits are authorized. A proof-route
+fitting or new architecture are authorized. The later explicit approval
+authorizes only the exact reviewed two-file promotion. A proof-route
 failure does not refute this target. Completion needs a full frozen A–C
 proof and two fresh complete isolated adversarial reviews, then the separate
 promotion gates if applicable. The existing reviewed P1 proof is the
@@ -73,4 +76,5 @@ independence/coverage/check evidence are retained. The accepted relevance
 assessment selects one self-contained C.4.7. P2_PROMOTION_MANIFEST.json
 freezes that rewritten canonical packet. P2_CANONICAL_REVIEW_A.md,
 P2_CANONICAL_REVIEW_B.md and P2_INTEGRATION_REVIEW.md all PASS without
-required corrections. The exact reviewed proposal awaits user approval.
+required corrections. The exact reviewed proposal has now been approved
+and incorporated, with unchanged scientific text and declared scope.

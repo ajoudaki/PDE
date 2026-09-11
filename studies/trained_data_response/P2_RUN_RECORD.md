@@ -6,7 +6,9 @@ Date: 2026-09-11. Working directory for all commands below:
 /home/amir/Codes/PDE, unless a standalone directory is explicitly stated.
 
 No training run, parameter sweep, external scientific retrieval, repository
-clone/worktree, reset, or established-book/code edit was performed.
+clone/worktree or reset was performed. The research/review phases made no
+established edits; the final section below records the later explicitly
+approved two-file incorporation.
 The generated products check algebra/provenance only. The reached-query
 estimate H is proved in the later frozen source argument and canonical
 section; its proof and all A–C passed the complete reviews recorded below.
@@ -488,3 +490,86 @@ approval and the subsequent approved two-file incorporation remain. No
 established document or maintained API has been changed by this P2 task.
 The final study-only transaction and exact staged paths/hashes are recorded
 in checkpoint_07_inputs.json and commit_07.json under the common writer lock.
+
+## Explicit approval and completed incorporation
+
+The user replied verbatim “yes I approve” to the preceding concrete request
+for the unchanged reviewed package. P2_APPROVAL.md preserves this approval,
+the accepted proposal hash, unchanged promotion manifest hash and both
+approved complete output hashes. The current proposal status is updated;
+its accepted pre-approval edition was already committed in 0f78a673fab74e6dc9d9e34bc25e282e3c25a8b0
+with SHA256 3511103f7c8ccc7e9077331fe2e9805dff6223be9448ace10ba967df121cdcc0.
+No further permission was required for this exact approved scope.
+
+Before application root reread all shared instructions, verified the ten
+scientific/implementation hashes, every base document, both instructions,
+the original scientific/integration/selection hashes, the empty shared
+index and the two assembled output hashes. These were unchanged. Root
+applied exactly those two complete files under the nonblocking common
+writer lock, leaving the index untouched. The recorded application is
+incorporation_apply.json; preflight metadata is incorporation_preflight.json.
+Root independently reversed the seven edits and removed the exact appended
+section in memory, recovering all ten base hashes and the complete P1
+section. This separate result is incorporation_root_correspondence.json.
+
+The live section starts at docs/global_nonlinear.md line8976. Exact final
+correspondence is:
+
+| Destination | Complete live SHA256 |
+|---|---|
+| docs/global_nonlinear.md | 9e758665ec842167b3fa49ab3b3e6f4539ced45b65a85cda081cc5969258c226 |
+| docs/README.md | 5dce185a68fafd4f5f366b491e4b367cdbb9d55443b8ac83eb8f5da3d417a19a |
+
+The scoped verifier /root/p2_live_check wrote P2_CHECK_ESTABLISHED.py
+(278 lines), SHA256
+fe8d1257d153a4ff7587a454363c71cfcdd62fc5ef6ad5a4756f33129e9d4ff5.
+Root read its entire source; no required correction was found. This is a
+study-only post-incorporation correspondence runner, not a new maintained
+scientific implementation or replacement for the scientific reviews.
+The verifier read the complete frozen builder (372 lines), promotion runner
+(102), and three check scripts (197/56/67), plus shared instructions.
+Scientific text was accessed only for exact byte/hash/structural matching;
+no new scientific verdict or external source was introduced.
+
+The single authorized fresh post-incorporation run was:
+
+```sh
+python -B studies/trained_data_response/P2_CHECK_ESTABLISHED.py --output data/generated/trained_data_response/p2_20260911_02/incorporation_check_01
+```
+
+Exit zero, PASS, no failures. The runner verifies the exact live edition,
+all unchanged P2 and P1 inputs and both shared instructions; recovers all
+ten base hashes in memory; checks all seven complete dependency excerpts,
+114 equation tags and 154 displays; and checks six affected links plus all
+17 guide links under the stated exclusions. The eight other documents are
+unchanged. The preexisting code-guide link is additionally checked for
+existence in the actual repository; its content is neither copied nor read.
+External URLs remain unfetched and unrelated older chapter links/proofs
+are outside this incorporation check.
+
+It copies only ten live documents and three byte-exact frozen deterministic
+scripts into a fresh standalone directory with no studies/Git/bytecode.
+The three checks run there with empty PYTHONPATH, disabled bytecode and
+one numerical-library thread. All exits are zero and all stderr logs are
+empty. Root read every stdout log and inspected the full preservation/link
+results, command/exit records and original/final input correspondence;
+every generated hash in SHA256SUMS.json verifies. Tangent, loss-metric,
+singular-semigroup, rational-reference and radial results match the prior
+frozen checks exactly. No training or parameter sweep was run.
+
+The complete command/environment/output evidence is
+incorporation_check_01/validation.json, SHA256
+816f4392bdc6e7b53036d1b6be4d916095339be8bfd878a122bb0c11960e3923.
+Its SHA256SUMS.json has SHA256
+202c7a023f2f7554c0560aa9407bc6994484ee1a20d7c9cd31cfabdd80a37df1.
+The post-incorporation runner is now the reproduction entry point for the
+live edition. The frozen earlier builder/recipe intentionally retain their
+pre-incorporation base requirements and have not been silently rewritten.
+
+The approved established edits, approval record, checker and current study
+records are committed together under the common writer lock. Exact paths,
+precommit hashes, strict whitespace check and final commit are recorded in
+incorporation_commit_inputs.json and incorporation_commit.json. Unrelated
+working changes and all original proof/review packets are preserved. This
+completes the original A–C research task and its approved promotion; no
+remaining scientific or incorporation obligation is deferred.

@@ -176,3 +176,29 @@ approval. Only study records, frozen reports and byte-exact supplemental
 check archives are being committed at closure. Established book/code edits
 remain unapproved and unperformed. Root retains sole Git-writing ownership;
 the shared index and unrelated work must still be preserved at incorporation.
+
+## Approved incorporation, 2026-09-11
+
+The user replied “yes I approve” to the explicit request for this exact
+reviewed package. P2_APPROVAL.md records the approval and accepted hashes.
+Root owns only the two approved established destinations for incorporation:
+docs/global_nonlinear.md and docs/README.md. Current base documents,
+unchanged inputs/instructions and original review hashes were rechecked;
+both approved complete files were applied under the common writer lock.
+No other book or maintained code changes belong to this task.
+
+Scoped verification agent /root/p2_live_check owns P2_CHECK_ESTABLISHED.py
+and incorporation_check_01/ scratch. Its allowed inputs are the frozen
+manifest/ancillary, complete builder/runner/three check scripts, and
+section/guide/dependency/P1 bytes for metadata, hash, link and correspondence
+checks only. It receives no other studies or scientific review task and
+may not edit established files or Git. Root remains sole Git writer and
+current-record owner. The final run record retains its scope and outcomes.
+
+The post-incorporation checker completed PASS with all three frozen checks
+passing and the approved live hashes verified. Root read the whole checker
+and inspected all logs and correspondence results. Its assignment is complete;
+no further scientific work is active. The exact approved edition and current
+study records are in the final scoped incorporation transaction. A–C and
+promotion are complete; neither task ownership nor an old next-step note
+authorizes a new research campaign.

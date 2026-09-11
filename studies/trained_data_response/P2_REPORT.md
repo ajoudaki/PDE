@@ -7,7 +7,7 @@ in [P2_THEOREM.md](P2_THEOREM.md) and the new H proof in
 subsequently passed both full reviews. The complete canonical
 [P2_SECTION.md](P2_SECTION.md) also passed two fresh scientific reviews
 and a separate integration review; see [P2_PROPOSAL.md](P2_PROPOSAL.md)
-for the resolved A–C theorem and approval-ready package. The following
+for the resolved A–C theorem and approved incorporation. The following
 preserves the earlier exact gap and evidence at this historical checkpoint.
 **At this checkpoint the requested A–C theorem remained open.**
 There is no complete proof, neural counterexample, or promotion claim.

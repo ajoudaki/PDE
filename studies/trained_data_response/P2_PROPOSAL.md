@@ -1,9 +1,12 @@
 # Milestone 2: concrete canonical promotion proposal
 
-Status: **A–C resolved; the exact canonical edition is ready for user approval.**
-Both fresh complete canonical scientific reviews and the separate fresh
-integration review PASS with no required corrections. Standalone validation
-and deterministic checks pass. No established edit is approved or made.
+Status: **A–C resolved; the exact canonical edition was explicitly approved
+and incorporated on 2026-09-11.** Both fresh complete canonical scientific
+reviews and the separate fresh integration review PASS without required
+corrections. [P2_APPROVAL.md](P2_APPROVAL.md) retains the user’s approval and
+the exact proposal hash as presented. The live two-file edition matches
+the approved hashes below; final incorporation checks are recorded in
+[P2_RUN_RECORD.md](P2_RUN_RECORD.md).
 
 ## Addition and exact scope
 
@@ -100,20 +103,24 @@ preexisting guide link to ../code/README.md is explicitly outside the
 docs-only artifact; no new code interface depends on it. External URLs and
 unaffected older chapter links are not revalidated. No training was run.
 
-## Approval boundary
+## Approval and incorporation
 
 **Recommendation: incorporate exactly the two-file edition and hashes above.**
 All required scientific, relevance, standalone and integration gates have
-passed. There is no unresolved mathematical lemma in A–C. Only approval and
-the subsequent approved incorporation remain. The positive neighborhood
+passed. There is no unresolved mathematical lemma in A–C. The user approved
+this exact package with “yes I approve”; it has been applied unchanged.
+The positive neighborhood
 is not given a practical numerical radius; the theorem makes the precise
 fixed-horizon and ordered-limit claims stated above.
 
-No established edit should occur before explicit approval of the concrete
-reviewed package. RESEARCH_WORKFLOW.md Part 2 §5 requires: “Obtain and retain
-the user's approval for that reviewed package before changing established
-book/code.” Approval is requested for this manifest and the two
-resulting document hashes. After approval, current dependencies and
-concurrent edits must be rechecked, the exact edition applied, live-file
-correspondence verified, affected checks rerun and the incorporation
-recorded under the shared Git writer lock.
+The approval boundary in RESEARCH_WORKFLOW.md Part 2 §5 has been met.
+Before applying the two-file edition, every frozen input, current base
+document and shared instruction hash was rechecked, along with the original
+review hashes and empty index. Application used the shared writer lock.
+The final live-file check reverses the exact approved edits in memory to
+recover every frozen base byte, validates complete dependency correspondence
+and affected links, and reruns the three frozen deterministic checks in a
+fresh standalone copy. Use [P2_CHECK_ESTABLISHED.py](P2_CHECK_ESTABLISHED.py)
+after incorporation; the frozen pre-incorporation recipe remains unchanged
+as evidence for its original base edition. Exact hashes, commands, outcomes
+and commit evidence are recorded in [P2_RUN_RECORD.md](P2_RUN_RECORD.md).
