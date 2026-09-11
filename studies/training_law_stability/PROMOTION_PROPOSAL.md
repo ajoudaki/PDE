@@ -1,13 +1,14 @@
 # Concrete promotion proposal: local training-law stability
 
-Proposed destinations: `docs/global_nonlinear.md` and `docs/README.md`.
-No established file has been changed. User approval is pending.
+Approved destinations: `docs/global_nonlinear.md` and `docs/README.md`.
+Status: user-approved P2 incorporated exactly; see the
+[integration record](PROMOTION_INTEGRATION.md) for approval and verification.
 
-The exact new mathematical source is [P2_ADDITION.md](P2_ADDITION.md), to be
+The exact new mathematical source is [P2_ADDITION.md](P2_ADDITION.md),
 appended as C.4 after C.3. Five precise chapter scope edits are recorded in
 [P2_GLOBAL_EDITS.json](P2_GLOBAL_EDITS.json); their complete assembled result
-is [P2_GLOBAL_EDITION.md](P2_GLOBAL_EDITION.md). The second destination would
-become [P2_DOCS_README.md](P2_DOCS_README.md). All version identities are in
+is [P2_GLOBAL_EDITION.md](P2_GLOBAL_EDITION.md). The second destination now
+equals [P2_DOCS_README.md](P2_DOCS_README.md). All version identities are in
 [P2_MANIFEST.json](P2_MANIFEST.json). The proposal does not change maintained
 code, the notation guide, or the existing C.1–C.3 proofs.
 
@@ -64,16 +65,17 @@ references, and no study dependencies in the new canonical proof. There are
 no empirical claims or maintained APIs requiring training reproduction.
 The unrelated exporter and unchanged book complement are outside validation.
 The independent integration reviewer reproduced all six scientific artifacts
-byte for byte and separately checked exact assembly and preservation. Current
-live dependencies and destination baselines still match the frozen proposal.
+byte for byte and separately checked exact assembly and preservation. Before
+integration, live dependencies and destination baselines matched the frozen
+proposal. After integration, live destinations match the approved outputs.
 
-Recommendation: approve and promote exactly this scoped P2 addition. Its
-scientific and integration review gates have passed; only user approval is
-pending. The complete proposed chapter has SHA-256
+Recommendation implemented: promote exactly this scoped P2 addition. Its
+scientific and integration review gates passed, and the user approved this
+package. The complete incorporated chapter has SHA-256
 `1945ef5d407eafd534b32185e952fa3ed479605f3ffec09afd468b6266fd18d9`,
 and the guide has SHA-256
 `95b14c5a0430a783023d412d0103d8598a476963bad19180e2d4d0e2291bce3e`.
-Before applying approval, recheck live baselines/dependency hashes and the
-shared Git index, use the common writer lock for the owned Git transaction,
-and verify that the live result equals the reviewed edition byte for byte.
-Changed scientific dependencies or content reopen review and approval.
+The integration rechecked live baselines/dependency hashes and the shared
+index, verified exact correspondence, and uses the common writer lock for
+the owned Git transaction. Future changes of scientific dependencies or
+content are outside this package's approval and review identity.

@@ -3,8 +3,12 @@
 Status: research resolved at its stated local-time scope. Frozen R1 passed
 two complete isolated scientific reviews. The corrected canonical proposal
 P2 passed two fresh complete scientific reviews and an independent integration
-review, with no required corrections remaining. Promotion is ready for user
-approval; no established material has changed.
+review, with no required corrections remaining. The user approved promotion,
+and the exact P2 edition is now incorporated as C.4 in
+[the established chapter](../../docs/global_nonlinear.md#c4-training-law-stability-for-two-hidden-tanh-layers),
+with the reviewed reading-guide updates. The
+[integration record](PROMOTION_INTEGRATION.md) retains approval, mapping,
+final hashes, checks and commit evidence.
 
 The target is quantitative stability of the entire learned predictor with respect
 to every probability law on `sqrt(2) S^1 x [-Y,Y]`, for two width-n tanh hidden
@@ -56,8 +60,8 @@ trigger a corrected frozen packet and two fresh complete reviews.
 After scientific resolution, a distinct independent selector will assess current
 coverage and placement. A concrete self-contained proposed addition, paired
 scientific reviews, standalone validation and independent integration review
-must precede the user's promotion approval. Established book/code files are not
-within current write scope. No fitting, risk improvement, superiority, global
+must precede the user's promotion approval. That approval now authorizes the
+exact reviewed two-document integration recorded below. No fitting, risk improvement, superiority, global
 time control or quantitative finite-width rate is part of the target.
 
 ## Candidate and actual checks
@@ -179,7 +183,11 @@ There is no remaining required proof or integration correction within this
 scope. All frozen proof hashes and the seven live dependency/destination
 baselines were rechecked unchanged after review. Mathematical review is not
 formal machine verification; deterministic checks establish assembly and
-reproducibility, not a numerical learning-performance claim. Only the user's
-approval remains before established book/code changes. The concrete
-[promotion proposal](PROMOTION_PROPOSAL.md) identifies the exact two-file
-edition and its limitations.
+reproducibility, not a numerical learning-performance claim. The user subsequently
+approved the concrete [promotion proposal](PROMOTION_PROPOSAL.md). The exact
+two-file edition was applied after fresh dependency, baseline and review-hash
+checks; its live files equal the approved edition and the fresh standalone
+validation outputs byte for byte. The common writer lock coordinates the
+owned commit, with all concurrent work preserved. See
+[PROMOTION_INTEGRATION.md](PROMOTION_INTEGRATION.md) for the approval quote,
+canonical mapping, final hashes, verification scope and retained commit record.
