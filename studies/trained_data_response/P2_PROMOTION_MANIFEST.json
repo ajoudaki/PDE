@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "scope": "Complete proposed canonical C.4.7 and all invoked proof/validation inputs; no established edit authorization",
+  "authors": [
+    "/root",
+    "/root/p2_continuation",
+    "/root/p2_variation",
+    "/root/p2_reached_tails",
+    "/root/p2_canonical_source",
+    "/root/p2_canonical_variation",
+    "/root/p2_edition_builder"
+  ],
+  "selector": "/root/p2_relevance",
+  "inputs": {
+    "P2_SECTION.md": "707a7d42eb2e2e58ae92fa2ee8e25343977224fe1307675e7c0c82609b0571f0",
+    "P2_PROPOSED_GUIDE.md": "5dce185a68fafd4f5f366b491e4b367cdbb9d55443b8ac83eb8f5da3d417a19a",
+    "P2_PROMOTION_DEPENDENCIES.md": "a68aaa0107f4f73cd0df22af8a8f3867b1c76b515c5d0a920ef387ff2d32acd3",
+    "P2_EDITION_ANCILLARY.json": "7aae13594bc1e5139d8d67cb33c3cc2f1b2e7f5dd5cafaaaae5ebededcb1dedc",
+    "P2_EDITION_BUILD.py": "fac14c4e375a4504c71c868a14cf9f1c6490cbc2c341731d1725f514411ab5ac",
+    "P2_PROMOTION_CHECK.py": "9a1526c6a030ac379ec1e1ae6f041a094464ad56ef9d2112f98ca7f254150549",
+    "P2_PROMOTION_TANGENT_CHECK.py": "b0bbbde5f1f024dbb46975b2092d3aa2a79cabd0375f4520c05489f934d3902f",
+    "P2_PROMOTION_REFERENCE_CHECK.py": "112ce04c6d8e20859b5a778cfdeed42690949af807d421b7db90e82c2576a49e",
+    "P2_PROMOTION_RADIAL_CHECK.py": "91ef15a16d42063dc210e82055da3a855c4d9e9e6694b90db8b0191f3390998a",
+    "P2_PROMOTION_RECIPE.md": "1fc72c36d72a574b37a4e095eecf1b7e3506068497a1012f3348928c20a697eb"
+  },
+  "established_sha256": {
+    "docs/NOTATION.md": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "docs/README.md": "88757537ae600ebf79cf265288d6ca3034254caba236b4dcb055a21dd568c721",
+    "docs/arctan_limits.md": "19f01b6112949f4d186ef17ff94415804830ed51a519b155ed45343c26cbbead",
+    "docs/continuous_depth.md": "12be7aafbf37cb3651facdcac9c5333281b793c96b96a8a52a1232cd86ca006d",
+    "docs/finite_dynamics.md": "a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca5545bc0012a",
+    "docs/finite_optimization_and_controls.md": "80dcce91ed3cd8313654523725e28b312ab925376cd7a28d71323bed648a5628",
+    "docs/gaussian_calculus.md": "d2f6a065432b5dadc7a1973f11b335cbd0f180caa29a81f863c58fff3ac5ef5e",
+    "docs/global_nonlinear.md": "3f32122dea7915e25e4abc7abe9d74017d535badfa5abbe1939e84fe2b100bdf",
+    "docs/linear_dynamics.md": "8de3beaca0cd6f970c27a25eb8c2bc4a1fefa2e7840bd97e7bccfc4f41281c1d",
+    "docs/special_data_limits.md": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489"
+  },
+  "instruction_sha256": {
+    "AGENTS.md": "7778b7073a02de3e94f8ae9aefe940ebc9eddea7467816662e5cce1020cd98ba",
+    "RESEARCH_WORKFLOW.md": "8b36d7dfc1ad881fcb6bfe32274a5e50c5125b33d68dbcf7c3937f7f6c21ce12"
+  },
+  "complete_dependency_units": [
+    "Full base reading guide and notation",
+    "finite_dynamics \u00a7\u00a71\u20134",
+    "special_data_limits III.F.1\u201311",
+    "global_nonlinear A.1\u2013A.4 and B.1",
+    "global_nonlinear C.2",
+    "global_nonlinear complete C.4 introduction through C.4.6"
+  ],
+  "review_scope": "Every new scientific line and every complete invoked dependency proof; all applicable scripts and exact proposed guide/navigation. Other copied established chapters are metadata-only link inputs."
+}

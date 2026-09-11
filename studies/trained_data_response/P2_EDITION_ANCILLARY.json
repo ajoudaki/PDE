@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "purpose": "Exact navigation changes and frozen source metadata for the proposed C.4.7 standalone edition; no authorization to edit established files.",
+  "section": {
+    "source": "P2_SECTION.md",
+    "destination": "docs/global_nonlinear.md",
+    "title": "#### C.4.7. Nonlinear training near the fitted tanh reference",
+    "fragment": "c47-nonlinear-training-near-the-fitted-tanh-reference",
+    "append_separator": "\n"
+  },
+  "scientific_base_sha256": {
+    "docs/README.md": "88757537ae600ebf79cf265288d6ca3034254caba236b4dcb055a21dd568c721",
+    "docs/NOTATION.md": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "docs/global_nonlinear.md": "3f32122dea7915e25e4abc7abe9d74017d535badfa5abbe1939e84fe2b100bdf",
+    "docs/finite_dynamics.md": "a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca5545bc0012a",
+    "docs/special_data_limits.md": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489"
+  },
+  "copied_docs_sha256": {
+    "docs/NOTATION.md": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "docs/README.md": "88757537ae600ebf79cf265288d6ca3034254caba236b4dcb055a21dd568c721",
+    "docs/arctan_limits.md": "19f01b6112949f4d186ef17ff94415804830ed51a519b155ed45343c26cbbead",
+    "docs/continuous_depth.md": "12be7aafbf37cb3651facdcac9c5333281b793c96b96a8a52a1232cd86ca006d",
+    "docs/finite_dynamics.md": "a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca5545bc0012a",
+    "docs/finite_optimization_and_controls.md": "80dcce91ed3cd8313654523725e28b312ab925376cd7a28d71323bed648a5628",
+    "docs/gaussian_calculus.md": "d2f6a065432b5dadc7a1973f11b335cbd0f180caa29a81f863c58fff3ac5ef5e",
+    "docs/global_nonlinear.md": "3f32122dea7915e25e4abc7abe9d74017d535badfa5abbe1939e84fe2b100bdf",
+    "docs/linear_dynamics.md": "8de3beaca0cd6f970c27a25eb8c2bc4a1fefa2e7840bd97e7bccfc4f41281c1d",
+    "docs/special_data_limits.md": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489"
+  },
+  "instruction_sha256": {
+    "AGENTS.md": "7778b7073a02de3e94f8ae9aefe940ebc9eddea7467816662e5cce1020cd98ba",
+    "RESEARCH_WORKFLOW.md": "8b36d7dfc1ad881fcb6bfe32274a5e50c5125b33d68dbcf7c3937f7f6c21ce12"
+  },
+  "actual_read_scope": {
+    "full": [
+      "AGENTS.md",
+      "RESEARCH_WORKFLOW.md",
+      "docs/README.md",
+      "docs/NOTATION.md"
+    ],
+    "selected": {
+      "docs/global_nonlinear.md": [
+        "C.4 introduction, lines 3836–3898",
+        "C.4.5 opening, lines 5264–5315",
+        "C.4.6 opening, lines 6898–6952",
+        "C.4.6 final boundary, lines 8915–8959"
+      ]
+    },
+    "other_docs": "Hashes and Markdown link/heading metadata only; no scientific reading."
+  },
+  "implementation_choices": [
+    "Only the ten frozen Markdown files under docs/ are copied; no Git metadata, code, studies, caches or binary artifacts are copied.",
+    "The only changed copied files are docs/global_nonlinear.md and docs/README.md.",
+    "All navigation changes are exact unique replacements listed here; the section is appended after one additional newline.",
+    "Every new equation tag must have prefix C.4.7 and must be unique and absent from the original chapter.",
+    "The preexisting ../code/README.md link in docs/README.md is preserved and explicitly excluded from this docs-only artifact.",
+    "The optional promotion manifest validates all named flat study inputs and established inputs before assembly; the manifest must not name itself.",
+    "External deterministic validation is owned by the supervisor and is not executed by this builder."
+  ],
+  "allowed_preexisting_external_doc_links": [
+    {
+      "source": "docs/README.md",
+      "target": "../code/README.md",
+      "reason": "Existing implementation-guide reference is outside the explicitly docs-only standalone artifact."
+    }
+  ],
+  "replacements": [
+    {
+      "id": "c4-introduction",
+      "path": "docs/global_nonlinear.md",
+      "old": "Sections C.4.1–C.4.4 prove a local quantitative statement about the actual nonlinear\nlearning algorithm. The separate fixed-accuracy extension is in C.4.5.\nSection C.4.6 identifies actual finite-GF data derivatives at that fitted\nreference on each fixed horizon and bounds the population homogeneous\npropagator uniformly in time. The local theorem retains the Gaussian matrix\naction and its adjoint and permits every training law on the compact\nobservation space.",
+      "new": "Sections C.4.1–C.4.4 prove a local quantitative statement about the actual nonlinear\nlearning algorithm. The separate fixed-accuracy extension is in C.4.5.\nSection C.4.6 identifies actual finite-GF data derivatives at that fitted\nreference on each fixed horizon and bounds the population homogeneous\npropagator uniformly in time. Section [C.4.7](#c47-nonlinear-training-near-the-fitted-tanh-reference)\nconstructs nonlinear changed-law population flows in a sufficiently small\nneighborhood of that reference through physical time 40, captures actual\nfinite GF on this interval, and gives a finite-contamination remainder with\na width-first bridge to C.4.6. The local C.4.1–C.4.4 theorem retains the\nGaussian matrix action and its adjoint and permits every training law on\nthe compact observation space."
+    },
+    {
+      "id": "c45-opening",
+      "path": "docs/global_nonlinear.md",
+      "old": "This theorem extends the prediction and risk scope of the local C.4 result by comparison with one fitted reference. It does not extend the local population-flow theorem for arbitrary laws. Equation numbers are local to each of the statement and three proof units below.",
+      "new": "This theorem extends the prediction and risk scope of the local C.4 result by comparison with one fitted reference. It does not extend the local population-flow theorem for arbitrary laws. Section [C.4.7](#c47-nonlinear-training-near-the-fitted-tanh-reference) separately constructs nonlinear changed-law population dynamics near the fitted reference through T=40. The raw-GD conclusion below retains its stated step condition and endpoint scope. Equation numbers are local to each of the statement and three proof units below."
+    },
+    {
+      "id": "c46-opening",
+      "path": "docs/global_nonlinear.md",
+      "old": "This section constructs and controls the response to changed training data\nat the nonlinear fitted reference of C.4.5. Finite GF is differentiated\nbefore width tends to infinity. The width theorem holds on each fixed\nphysical horizon; the homogeneous population propagator has a separate\nbound uniform in physical time. This does not construct a nonlinear\npopulation flow for a changed law or a finite-contamination remainder.",
+      "new": "This section constructs and controls the response to changed training data\nat the nonlinear fitted reference of C.4.5. Finite GF is differentiated\nbefore width tends to infinity. The width theorem holds on each fixed\nphysical horizon; the homogeneous population propagator has a separate\nbound uniform in physical time. The present section is infinitesimal: it\ndoes not construct a nonlinear population flow for a changed law or a\nfinite-contamination remainder. Section [C.4.7](#c47-nonlinear-training-near-the-fitted-tanh-reference)\nseparately supplies nonlinear population continuation and actual finite-GF\ncapture near this reference through physical time 40, with a nonlinear\nremainder and a width-first bridge to the response constructed here."
+    },
+    {
+      "id": "c46-nonlinear-obligation",
+      "path": "docs/global_nonlinear.md",
+      "old": "For nonlinear continuation this theorem supplies an actual trained\npropagator, an admissible full-row clock/HS/readout state, a total-variation\ndata-to-forcing map, and controlled passive observations. It still must\ncontrol nonlinear products away from the reference, including changes of\noff-support inverse-gate factors times reverse queries, products of readout\nand hidden increments, and the quadratic remainder of hidden activation\nchanges. These are not bounded bilinear maps on arbitrary L² directions\nmerely because the present linear equation is bounded.",
+      "new": "For nonlinear continuation this theorem supplies an actual trained\npropagator, an admissible full-row clock/HS/readout state, a total-variation\ndata-to-forcing map, and controlled passive observations. A nonlinear\ncontinuation must additionally control products away from the reference,\nincluding changes of off-support inverse-gate factors times reverse queries,\nproducts of readout and hidden increments, and the quadratic remainder of\nhidden activation changes. These are not bounded bilinear maps on arbitrary\nL² directions merely because the present linear equation is bounded."
+    },
+    {
+      "id": "c46-final-boundary",
+      "path": "docs/global_nonlinear.md",
+      "old": "No nonlinear perturbed population flow, finite-contamination remainder,\nlarge path of laws, sampling CLT, expected-risk expansion, endpoint\ncontinuity, transport forcing modulus, or raw-GD derivative theorem is\nincluded. Empirical laws of nonatomic distributions do not approach them\nin total variation. This is not a convergence claim for a training-time\nTaylor series or evidence of superiority of one learning mechanism.",
+      "new": "No nonlinear perturbed population flow, finite-contamination remainder,\nlarge path of laws, sampling CLT, expected-risk expansion, endpoint\ncontinuity, transport forcing modulus, or raw-GD derivative theorem is\nincluded in C.4.6. Empirical laws of nonatomic distributions do not approach\nthem in total variation. This is not a convergence claim for a training-time\nTaylor series or evidence of superiority of one learning mechanism.\n\nSection [C.4.7](#c47-nonlinear-training-near-the-fitted-tanh-reference) proves\nnonlinear changed-law population continuation and actual finite-GF capture\nin a sufficiently small neighborhood of the fitted reference through\nphysical time 40. Its finite-contamination remainder and width-first bridge\nto this response have that fixed horizon. The derivative theorem in C.4.6\nretains its separate scope on every fixed finite physical horizon."
+    },
+    {
+      "id": "readme-chapter-row",
+      "path": "docs/README.md",
+      "old": "At that fitted reference, a separate response theorem captures actual finite-GF data derivatives on each fixed horizon and the whole circle, with uniformly bounded population homogeneous propagation and total-variation forcing control. |",
+      "new": "At that fitted reference, a separate response theorem captures actual finite-GF data derivatives on each fixed horizon and the whole circle, with uniformly bounded population homogeneous propagation and total-variation forcing control. [Section C.4.7](global_nonlinear.md#c47-nonlinear-training-near-the-fitted-tanh-reference) separately constructs nonlinear changed-law population flows in a sufficiently small neighborhood of that reference through physical time 40, captures actual finite GF there, and gives a finite-contamination remainder with a width-first bridge to the response. |"
+    },
+    {
+      "id": "readme-future-scope",
+      "path": "docs/README.md",
+      "old": "Its total-variation forcing bound gives response control\nlinear in the horizon; it constructs neither nonlinear changed-law population\nflows nor a finite-contamination remainder.\nA global input-population theorem and a dense Gaussian joint depth/width/time\ntheorem remain outside the established scope; this is not an impossibility result.",
+      "new": "Its total-variation forcing bound gives response control\nlinear in the horizon; C.4.6 itself constructs neither nonlinear changed-law\npopulation flows nor a finite-contamination remainder. Section\n[C.4.7](global_nonlinear.md#c47-nonlinear-training-near-the-fitted-tanh-reference)\nseparately constructs nonlinear changed-law population flows in a sufficiently\nsmall neighborhood of that fitted reference through physical time 40, captures\nactual finite GF on this interval, and gives a finite-contamination remainder\nwith a width-first bridge to the infinitesimal response. Its nonlinear claims\nhave the stated neighborhood and fixed horizon.\nA global input-population theorem and a dense Gaussian joint depth/width/time\ntheorem remain outside the established scope; this is not an impossibility result."
+    }
+  ]
+}

@@ -150,3 +150,14 @@ book/code remains unchanged. Preparing the actual canonical edition does
 not reuse the original packet's reviews as if it were byte-identical;
 the completed canonical packet will receive two fresh complete scientific
 reviews and a separate fresh integration review before an approval request.
+
+The canonical packet is now frozen by P2_PROMOTION_MANIFEST.json (SHA256
+7ad4d1a5479153bc568c67706c1497ed28d5c64acace30ac0f43ef5f8334a73e).
+Its ten inputs stay unchanged throughout review. Fresh isolated reviewers
+/root/p2_canonical_review_a and /root/p2_canonical_review_b own only
+P2_CANONICAL_REVIEW_A.md/B.md and their canonical_review_a/b scratch.
+Fresh /root/p2_integration_review owns only P2_INTEGRATION_REVIEW.md and
+integration_review scratch. Exact complete assignments and launches are
+P2_CANONICAL_REVIEW_ASSIGNMENT.md, P2_INTEGRATION_REVIEW_ASSIGNMENT.md and
+P2_PROMOTION_REVIEW_LAUNCHES.json. They receive no prior verdicts or each
+other's findings. Root retains sole Git and current-record ownership.

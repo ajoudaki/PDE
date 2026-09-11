@@ -204,6 +204,7 @@ environment permission issue, not a scientific failure or user rejection.
 | 48da1046efc2e1f4a8da6c0d5cbaf4c10febe394 | Frozen route reductions, raw comparison, deterministic checks and README checkpoint | commit_02.json |
 | e960b4a8d6f7645fffa4c970ec1018ffeddb107f | Conditional audits, corrected observation/bridge contract, exact gap and bounded-feature route | commit_03.json |
 | 0772d18e8816c87144948f861022b132c81d9dc9 | Complete author candidate, source proof, frozen dependencies and standalone recipe | commit_04.json |
+| 3c9feacb0befd20fd57aa577494af36286af5758 | Both complete success reviews and independent promotion selection | commit_05.json |
 
 The second commit changes nine assigned study files; the third changes
 thirteen. Neither includes generated products. The third transaction's
@@ -309,3 +310,81 @@ setup while retaining every substantive proof in canonical notation.
 P2_COORDINATION.md records separate source/remainder assembler ownership.
 This rewrite will be a new frozen packet, with fresh complete mathematical
 and integration reviews; earlier verdicts are not canonical review inputs.
+
+## Frozen canonical edition and standalone validation
+
+Root read both complete canonical component drafts and their author notes:
+P2_CANONICAL_SOURCE.md (1,063 lines; 1,011 scientific lines) and
+P2_CANONICAL_VARIATION.md (918 lines; 843 scientific lines). Their original
+hashes are 9a7e927206fbeaad283487276a6dcb459f5a4297b5efa0475c75cfb915606738
+and 10b1cc4f33e6fe710fba5ba3276954a5a7c4f112c9ac2aea3c9c371353bddad5.
+The complete new arguments were checked against the original frozen routes;
+no mathematical route change or new assumption was introduced. Root wrote
+the precise theorem, raw HS comparison, strong completion/finite capture
+and inherited-subclass corollary in the other three canonical component
+files. P2_ASSEMBLY_MAP.json records the five body sources, exact hashes,
+the raw sum-distance alias normalization, two local constant renamings,
+and the C.4.7 equation namespace applied to every new tag and reference.
+Historical author notes remain outside the assembled scientific section.
+
+P2_SECTION.md contains 2,461 lines and 114 unique C.4.7 equation tags,
+with SHA256 707a7d42eb2e2e58ae92fa2ee8e25343977224fe1307675e7c0c82609b0571f0.
+The complete proposed guide has 284 lines and SHA256
+5dce185a68fafd4f5f366b491e4b367cdbb9d55443b8ac83eb8f5da3d417a19a.
+The seven verbatim navigation replacements and exact base hashes are
+P2_EDITION_ANCILLARY.json. Root read that entire file and the entire
+P2_EDITION_BUILD.py implementation. Its author's pre-section guardrail
+checks are retained in edition_builder/pre_section_checks.json.
+
+P2_PROMOTION_DEPENDENCIES.md supplies seven complete exact established
+units (7,434 lines): the current guide and notation, finite dynamics §§1–4,
+special-data III.F.1–11, global-nonlinear A.1–A.4/B.1, complete C.2, and
+complete C.4 through C.4.6. These are the complete units root had already
+read; exact excerpt checks verify their correspondence. The ten canonical
+scientific/implementation inputs are frozen by P2_PROMOTION_MANIFEST.json,
+SHA256 7ad4d1a5479153bc568c67706c1497ed28d5c64acace30ac0f43ef5f8334a73e.
+Neither prior reports nor review verdicts occur in this input set.
+
+Executed from /home/amir/Codes/PDE:
+
+```sh
+python -B studies/trained_data_response/P2_PROMOTION_CHECK.py --output data/generated/trained_data_response/p2_20260911_02/promotion_check_01
+```
+
+Exit zero, PASS. Root inspected every subprocess log and the edition's
+preservation/link results. All ten frozen inputs, ten copied established
+document hashes, seven dependency excerpts and shared instructions match.
+The standalone artifact contains docs, three fresh validation scripts and
+fresh check outputs, with no studies or Git directory. It recovers every
+base byte by exact inverse edits. The eight other copied documents are
+unchanged. New/affected guide links and fragments resolve; the only explicit
+preexisting local exclusion is ../code/README.md in the docs-only artifact.
+No code API or empirical claim is added. External URLs are preserved,
+not retrieved; unrelated older chapter links are outside this check.
+
+The tangent, loss-metric, compatible singular semigroup, rational
+certificate and correlated/repeated-input radial checks all pass with the
+same outcomes as recorded above. The radial check changes only its output
+path policy for standalone execution; the first two scripts are exact
+byte copies. Full logs, commands, environment and hashes are under
+promotion_check_01/. Its standalone chapter hash is
+9e758665ec842167b3fa49ab3b3e6f4539ced45b65a85cda081cc5969258c226;
+its guide hash is the proposed-guide hash above. This does not certify
+the theorem and does not edit established files.
+
+Two fresh complete canonical mathematical reviewers and a separate fresh
+integration reviewer are now reading the unchanged packet. Exact neutral
+assignments and all three launch messages are persisted in
+P2_CANONICAL_REVIEW_ASSIGNMENT.md, P2_INTEGRATION_REVIEW_ASSIGNMENT.md and
+P2_PROMOTION_REVIEW_LAUNCHES.json. They receive no earlier verdicts or
+each other's findings. Their reports must be read in full before the
+canonical package can be approved for an incorporation request.
+
+A pre-stage whitespace check of the new complete dependency collection
+reports exactly one trailing space on its line5513, the exact copied
+established C.4.6 line `` `ell(t,u)v`. ``. That byte is part of the frozen
+dependency hash and is preserved. The new scientific section passes the
+strict whitespace check. The writer transaction verifies that this is the
+only dependency whitespace diagnostic, checks all other files strictly,
+and disables only blank-at-EOL checking for that immutable dependency file.
+This is a preexisting formatting diagnostic, not a proof correction.

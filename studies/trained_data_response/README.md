@@ -326,6 +326,10 @@ commands, hashes, outcomes and reading coverage are in
 `p2_20260911_02/`, including `full_packet_01/`. No training was run and no
 established book/code was changed by P2. Scoped commits so far: ae37dfe,
 48da104, e960b4a and 0772d18. Root is sole Git writer. Next authorized work
-is to finish the smallest self-contained canonical proposal and its fresh
-scientific/integration reviews and standalone validation. Established edits
-still require approval of that concrete reviewed package.
+is to finish fresh scientific/integration reviews of the frozen
+[canonical section](P2_SECTION.md) and [exact navigation proposal](P2_EDITION_ANCILLARY.json).
+[P2_PROMOTION_MANIFEST.json](P2_PROMOTION_MANIFEST.json) freezes its full
+dependencies and validation implementation. The complete proposed edition
+passes standalone validation: `python -B studies/trained_data_response/P2_PROMOTION_CHECK.py
+--output data/generated/trained_data_response/NEW_RUN`.
+Established edits still require approval of that concrete reviewed package.

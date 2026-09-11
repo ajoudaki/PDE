@@ -1,0 +1,24 @@
+{
+  "launches": [
+    {
+      "task_name": "p2_canonical_review_a",
+      "fork_turns": "none",
+      "message": "Perform the complete isolated scientific review specified verbatim in /home/amir/Codes/PDE/studies/trained_data_response/P2_CANONICAL_REVIEW_ASSIGNMENT.md. Work in /home/amir/Codes/PDE. The frozen manifest is studies/trained_data_response/P2_PROMOTION_MANIFEST.json, expected SHA-256 7ad4d1a5479153bc568c67706c1497ed28d5c64acace30ac0f43ef5f8334a73e. Read that exact assignment, manifest and every full named input under its scope; personally read required skills/process. Your sole report is studies/trained_data_response/P2_CANONICAL_REVIEW_A.md; your separate scratch is data/generated/trained_data_response/p2_20260911_02/canonical_review_a/. You are a fresh reviewer, distinct from all listed authors/assemblers and selector. Receive no prior verdicts or discussion; do not read other reports, README/history/other studies. Audit every new scientific line and all complete necessary dependency proofs, all A\u2013C and applicable scripts, then freeze your original complete report with exact read coverage/hashes, commands/results and all objections before comparison. Do not edit inputs or Git. Run the standalone recipe in a fresh child of your scratch. Send metadata-only progress until your report is frozen; then send its path, hash and verdict."
+    },
+    {
+      "task_name": "p2_canonical_review_b",
+      "fork_turns": "none",
+      "message": "Perform the complete isolated scientific review specified verbatim in /home/amir/Codes/PDE/studies/trained_data_response/P2_CANONICAL_REVIEW_ASSIGNMENT.md. Work in /home/amir/Codes/PDE. The frozen manifest is studies/trained_data_response/P2_PROMOTION_MANIFEST.json, expected SHA-256 7ad4d1a5479153bc568c67706c1497ed28d5c64acace30ac0f43ef5f8334a73e. Read that exact assignment, manifest and every full named input under its scope; personally read required skills/process. Your sole report is studies/trained_data_response/P2_CANONICAL_REVIEW_B.md; your separate scratch is data/generated/trained_data_response/p2_20260911_02/canonical_review_b/. You are a fresh reviewer, distinct from all listed authors/assemblers and selector. Receive no prior verdicts or discussion; do not read other reports, README/history/other studies. Audit every new scientific line and all complete necessary dependency proofs, all A\u2013C and applicable scripts, then freeze your original complete report with exact read coverage/hashes, commands/results and all objections before comparison. Do not edit inputs or Git. Run the standalone recipe in a fresh child of your scratch. Send metadata-only progress until your report is frozen; then send its path, hash and verdict."
+    },
+    {
+      "task_name": "p2_integration_review",
+      "fork_turns": "none",
+      "message": "Perform the complete isolated integration review specified verbatim in /home/amir/Codes/PDE/studies/trained_data_response/P2_INTEGRATION_REVIEW_ASSIGNMENT.md. Work in /home/amir/Codes/PDE. Frozen manifest studies/trained_data_response/P2_PROMOTION_MANIFEST.json has expected SHA-256 7ad4d1a5479153bc568c67706c1497ed28d5c64acace30ac0f43ef5f8334a73e. Read the full exact assignment and follow its full-new-material and declared older-interface scope, with required process/skills. Your sole report is studies/trained_data_response/P2_INTEGRATION_REVIEW.md; scratch data/generated/trained_data_response/p2_20260911_02/integration_review/. You are fresh and distinct from every author/assembler and selector. Do not read prior verdicts, other reports, study README/history/other studies or obtain other reviewers' findings. Run the standalone recipe in a fresh child of your scratch. Audit complete new scientific material, notation/interfaces/placement/summaries/preservation and applicable scripts; older proof scope is explicitly limited by your assignment and must be stated accurately, with unread complement. No source/Git edits. Freeze your original complete report, recheck input hashes, then send path/hash/verdict. Until freezing, progress messages must be metadata only."
+    }
+  ],
+  "assignment_sha256": {
+    "P2_CANONICAL_REVIEW_ASSIGNMENT.md": "d32e861a604721b7afc083b25494e6bd6ad8a9899c6c373078c61a94001f1386",
+    "P2_INTEGRATION_REVIEW_ASSIGNMENT.md": "98a34f3dd935cdcc0d68571d112c53065f7b1cd42ccb4bc921bf8bc09c98906e"
+  },
+  "manifest_sha256": "7ad4d1a5479153bc568c67706c1497ed28d5c64acace30ac0f43ef5f8334a73e"
+}
