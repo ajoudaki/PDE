@@ -1,0 +1,22 @@
+[
+  {
+    "old": "Auxiliary clips,\nquery perturbations and oracle programs are removed before stating the\nlimiting dynamics. The theorem concerns each fixed depth and each finite\nphysical horizon; it does not take a simultaneous depth and width limit.",
+    "new": "Auxiliary clips,\nquery perturbations and oracle programs are removed before stating the\nlimiting dynamics. The main theorem concerns each fixed depth and each finite\nphysical horizon; it does not take a simultaneous depth and width limit.\nSection C.4 separately proves local training-law stability and an\ninput-population limit for two hidden tanh layers on the normalized input\ncircle, with the precise statistical and nonlazy conclusions stated there."
+  },
+  {
+    "old": "These fragments extend the global nonlinear and special-data chapters. Each probability statement takes width to infinity at a fixed depth, fixed finite dataset, fixed activation, and fixed finite physical horizon. Constants uniform over a parameter class do not assert a probability supremum over that class.",
+    "new": "These fragments extend the global nonlinear and special-data chapters. Except for C.4, their probability statements take width to infinity at a fixed depth, fixed finite dataset, fixed activation, and fixed finite physical horizon. C.4 proves its stated simultaneous sampling/width/GD-step limit for the fixed two-hidden-tanh circle-input model on a common local interval. Constants uniform over a parameter class do not by themselves assert a probability supremum over that class."
+  },
+  {
+    "old": "There are 46 proof units after the common lemmas. They are organized as follows.",
+    "new": "The proof units after the common lemmas are organized as follows."
+  },
+  {
+    "old": "| C | Local C1,1 limit, finite-GF corollary, strict Gaussian activity | Global nonlinear: fixed L,m,d, subGaussian first/readout roots and arbitrary fixed data on one positive interval; activity has its additional stated Gaussian/nondegeneracy assumptions. |",
+    "new": "| C.1–C.3 | Local C1,1 limit, finite-GF corollary, strict Gaussian activity | Global nonlinear: fixed L,m,d, subGaussian first/readout roots and arbitrary fixed data on one positive interval; activity has its additional stated Gaussian/nondegeneracy assumptions. |\n| C.4 | Training-law stability and input-population limit | Global nonlinear: two hidden tanh layers, normalized circle inputs and bounded labels; arbitrary laws, quantitative law/replacement stability, the stated expected-gap bound, simultaneous sampling/width/GD-step consistency, and an open nonlazy family, all on a common local interval. |"
+  },
+  {
+    "old": "The local theorem permits subGaussian first weights and readout, arbitrary fixed data, zero middle variances and frozen blocks as stated. The separate strict-activity corollary requires Gaussian first weights, positive variances and mobilities, zero population readout, nonzero labels and pairwise nonparallel unit inputs. These are additional hypotheses of that corollary.",
+    "new": "The local theorem C.1 permits subGaussian first weights and readout, arbitrary fixed data, zero middle variances and frozen blocks as stated. The separate strict-activity corollary C.3 requires Gaussian first weights, positive variances and mobilities, zero population readout, nonzero labels and pairwise nonparallel unit inputs. These are additional hypotheses of that corollary. Section C.4 instead fixes two hidden tanh layers and Gaussian initialization, extends the learning law to every bounded-label law on the normalized input circle, and proves quantitative stability and a simultaneous sampling/width/GD-step limit. Its activity conclusion applies to a specified open family of laws."
+  }
+]

@@ -102,7 +102,33 @@ experiment or finite-width rate validation. There are no adverse review
 findings or superseded proof claims to conceal. No formal proof assistant was
 used; acceptance is based on complete mathematical reconstruction.
 
-Next authorized action: complete independent promotion selection, canonical
-assembly and fresh paired scientific reviews, standalone validation and fresh
-independent integration review. Present the exact reviewed edition for the
-user's approval before any established book/code edit.
+## Concrete promotion preparation
+
+The independent [relevance decision](RELEVANCE.md), by nonauthor
+`/root/selector`, accepts the exact research scope for assembly as C.4 after
+C.3. This preserves the existing D–J fragment assignments. The canonical
+addition consolidates the repeated state/ball, multiplier, modulus and
+displacement proofs. It does not supersede C.1–C.3's broader fixed-data results.
+
+The frozen proposed edition is [P1_ADDITION.md](P1_ADDITION.md), with
+[five chapter scope edits](P1_GLOBAL_EDITS.json), the complete
+[proposed guide](P1_DOCS_README.md), [assembled chapter](P1_GLOBAL_EDITION.md),
+[complete dependencies](P1_DEPENDENCIES.md), and [input hashes](P1_MANIFEST.json).
+The two destinations are `docs/global_nonlinear.md` and `docs/README.md`.
+No code API or notation-guide change is proposed.
+
+[Standalone validation](P1_VALIDATION.md) passed in
+`data/generated/training_law_stability/promotion_validation_01/` using only
+frozen inputs and the standalone validator. It checks exact assembly and
+preservation, newly added links, mathematical environments and equation
+references. This is proof-only validation, with no training or unrelated
+exporter check. The complete original research-review evidence remains tied
+to R1, independently of the canonical consolidation.
+
+Two new isolated scientific reviews of P1 and a distinct independent
+integration review are in progress under the retained
+[scientific assignment](P1_SCIENTIFIC_ASSIGNMENT.md) and
+[integration assignment](P1_INTEGRATION_ASSIGNMENT.md). Next authorized
+action: resolve any objections, preserve the full original reports, and
+present the exact reviewed edition for the user's approval before any
+established book/code edit.
