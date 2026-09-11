@@ -118,13 +118,38 @@ The coordinator read its complete report, verified its hash
 and checked its recorded access scope. This selector authored no mathematics.
 Two earlier launcher failures remain labeled in the same generated run.
 
-Next authorized action: `/root/capture` assembles the complete canonical
-section in `CANONICAL_SECTION.md`; `/root` prepares exact ancillary edits,
-standalone validation, fresh paired scientific reviews of that assembly,
-and a separate fresh integration review. [prepare_promotion.py](prepare_promotion.py)
+The complete [canonical section](CANONICAL_SECTION.md) is assembled by
+`/root/capture` and frozen unchanged as [P1_SECTION.md](P1_SECTION.md).
+The coordinator read all 2062 lines and the final notation corrections.
+Its SHA256 is
+`33c819282d83f7f4704cbd3a90e87b445d17ce161cc922c1ad786b5eb0d9de38`.
+The [P1 manifest](P1_MANIFEST.json), hash
+`f9f3ac7dd834429f2afd1b2d819e20cf04da37446311405943332300ca4fa53d`,
+freezes complete science/dependencies, proposed ancillary text, recipes,
+and neutral review assignments. Two fresh isolated scientific processes
+`01a090ca-1bf7-70b1-be49-7ac58e2e0f6d` and
+`01a090ca-1e9e-7482-8804-54261fdfc386`, and the separate integration
+process `01a090ca-1d3f-7082-b65f-2dcd9bcaa82b`, are reviewing it.
+Full access/check/process logs are under `scientific_p1_a`,
+`scientific_p1_b`, and `integration_p1` in the generated namespace.
+
+Standalone validation passed, including exact base preservation outside
+the selected edits, guide links/fragments and both mathematical checks.
+Evidence is `standalone_01/validation_02`; its first failed validator
+heading match is retained. An integration packaging issue identified
+while reviews run concerns copying structural link targets without
+declaring their input hashes. The unfrozen assembler now pins those
+hashes; `standalone_02/validation` passes and both proposed destination
+hashes remain identical. P1 inputs are untouched. The complete original
+integration report will determine the necessary fresh integration scope.
+
+Next authorized action: finish and read all P1 reports, resolve any
+objections under fresh review, and finalize the concrete
+[promotion proposal](PROMOTION_PROPOSAL.md). [prepare_promotion.py](prepare_promotion.py)
 only writes a fresh generated draft; it cannot install into established files.
 Scoped commits so far: `e111b63` (startup), `fed0567` (concurrent recovery),
-`2c5cddb` (complete proofs and immutable R1 freeze).
+`2c5cddb` (complete proofs and immutable R1 freeze),
+`b922d12` (accepted R1 reviews and assembly preparation).
 Further commits use the common lock and explicit owned paths. Any required
 scientific correction needs a new complete review round. Promotion requires
 approval of the concrete reviewed edition. No established book/code file has

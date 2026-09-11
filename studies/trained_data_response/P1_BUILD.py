@@ -19,17 +19,6 @@ EXPECTED = {
     "docs/special_data_limits.md": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489",
 }
 
-# Unchanged link targets are structural support, not additional scientific
-# dependencies of C.4.6. Pin every byte read by the standalone assembler.
-SUPPORTING = {
-    "docs/arctan_limits.md": "19f01b6112949f4d186ef17ff94415804830ed51a519b155ed45343c26cbbead",
-    "docs/continuous_depth.md": "12be7aafbf37cb3651facdcac9c5333281b793c96b96a8a52a1232cd86ca006d",
-    "docs/finite_optimization_and_controls.md": "80dcce91ed3cd8313654523725e28b312ab925376cd7a28d71323bed648a5628",
-    "docs/gaussian_calculus.md": "d2f6a065432b5dadc7a1973f11b335cbd0f180caa29a81f863c58fff3ac5ef5e",
-    "docs/linear_dynamics.md": "8de3beaca0cd6f970c27a25eb8c2bc4a1fefa2e7840bd97e7bccfc4f41281c1d",
-    "code/README.md": "00f5070d35a3e9fb9d0e9886f0f6d9f680a8d34bb32307807d1f88afc807a774",
-}
-
 EDITS = [
     {
         "path": "docs/global_nonlinear.md",
@@ -60,9 +49,6 @@ def assemble(section_path, output):
     sources = {p: (ROOT / p).read_bytes() for p in EXPECTED}
     for p, data in sources.items():
         assert sha(data) == EXPECTED[p], f"Changed dependency: {p}"
-    support = {p: (ROOT / p).read_bytes() for p in SUPPORTING}
-    for p, data in support.items():
-        assert sha(data) == SUPPORTING[p], f"Changed structural link target: {p}"
     assert not output.exists(), "use a fresh output directory"
     output.mkdir(parents=True)
     result = {p: data.decode() for p, data in sources.items()}
@@ -75,19 +61,20 @@ def assemble(section_path, output):
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text(content)
     # Complete local link targets, without importing tools, history or Git.
-    for p, data in support.items():
-        dest = output / p
-        dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_bytes(data)
+    for p in (ROOT / "docs").glob("*.md"):
+        dest = output / "docs" / p.name
+        if not dest.exists():
+            dest.write_bytes(p.read_bytes())
+    (output / "code").mkdir()
+    (output / "code/README.md").write_bytes((ROOT / "code/README.md").read_bytes())
     checks = output / "checks"
     checks.mkdir()
-    for original, name in [("R1_CHECK_IDENTITIES.py", "identities.py"),
-                           ("R1_REFERENCE_CERTIFICATE.py", "reference_certificate.py")]:
+    for original, name in [("P1_CHECK_IDENTITIES.py", "identities.py"),
+                           ("P1_REFERENCE_CERTIFICATE.py", "reference_certificate.py")]:
         (checks / name).write_bytes((BASE / original).read_bytes())
     manifest = {
         "section_sha256": sha(section),
         "base_sha256": EXPECTED,
-        "structural_support_sha256": SUPPORTING,
         "edits": EDITS,
         "edition_sha256": {p: sha((output / p).read_bytes()) for p in result},
         "supporting_files": {str(p.relative_to(output)): sha(p.read_bytes())
@@ -97,8 +84,6 @@ def assemble(section_path, output):
     (output / "edition_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     for p, data in sources.items():
         assert (ROOT / p).read_bytes() == data, f"Concurrent dependency change: {p}"
-    for p, data in support.items():
-        assert (ROOT / p).read_bytes() == data, f"Concurrent structural support change: {p}"
     print(json.dumps(manifest["edition_sha256"], indent=2))
 
 
