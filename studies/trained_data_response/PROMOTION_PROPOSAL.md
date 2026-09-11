@@ -1,9 +1,10 @@
 # Trained data response: result and concrete promotion proposal
 
 Status: the complete research theorem R1 has two isolated scientific ACCEPT
-reports. The exact canonical package P1 is frozen; its two fresh scientific
-reviews and separate fresh integration review are pending. This document
-does not authorize established-file edits.
+reports. Both fresh scientific reviews of canonical P1 accept without required
+corrections. The first integration review requires packaging corrections only;
+the corrected P1I2 packaging is frozen and under fresh complete integration
+review. This document does not authorize established-file edits.
 
 ## Result and scientific value
 
@@ -146,10 +147,38 @@ reading coverage and actual checks are retained. The coordinator read both
 completely and verified their provenance. [Independent relevance](RELEVANCE.md)
 accepts the stated destination and boundaries.
 
-Canonical P1: two fresh isolated scientific reviews and a separate fresh
-integration review are pending. Their exact neutral assignments and inputs
-are frozen in [P1_MANIFEST.json](P1_MANIFEST.json). No promotion acceptance
-is asserted until these gates complete.
+Canonical P1: [scientific review A](P1_REVIEW_A.md) and
+[scientific review B](P1_REVIEW_B.md) both accept without required corrections.
+The coordinator read every line of both reports (322 and 838 lines),
+verified their input and report hashes, inspected the independent check
+outputs and confirmed the distinct process identities and successful exits.
+The report hashes are respectively
+`1dff779a0721ce15b6d660cd7a9b46a555224537771509ccc3fb9e86beda34bd` and
+`768b2fc7e20f6d65e530a6bd87e485a07314d8b1960122fe91dab601b8235349`.
+The exact neutral assignments and inputs are frozen in
+[P1_MANIFEST.json](P1_MANIFEST.json). Their extra independent checking sources
+are also preserved as P1_REVIEW_A_CHECK.py and P1_REVIEW_B_CHECK.py; the
+original executed copies and complete results remain in reviewer scratch.
+
+The original [integration report](P1_INTEGRATION_REVIEW.md) requires two
+packaging corrections: the standalone builder read undeclared structural
+link targets, and the integration manifest included an assignment outside
+its allowed input list. The reviewer correctly preserved the failed guarded
+build and validator runs. It found no scientific integration defect.
+The coordinator read all 343 report lines and verified its hash
+`47dc9f59e3a3595d34bb7c7e2895aa691dc26246f998dae0a7a4afb52376b834`.
+
+Both packaging corrections are implemented in [P1I2_MANIFEST.json](P1I2_MANIFEST.json),
+hash `174bd123c8fd48cdc536925681f7eade0b5f37f3b3b1cebf53d7b383a0a5298f`.
+Every structural support file is explicitly listed, hash-checked before
+assembly and rechecked afterward; the manifest contains only allowed inputs.
+The mathematical section, ancillary text, dependencies and mathematical
+check programs retain exactly their P1 hashes. The two destination edition
+hashes are unchanged. This packaging-only change requires fresh integration
+review under workflow Part 2 step 4; it does not change the scientific inputs.
+The fresh instance `01a090d2-454d-7550-8cdd-ef01257c6712` is conducting that
+complete review without prior findings. No promotion acceptance is asserted
+until the remaining reviews complete.
 
 The coordinator read the entire canonical section and checked its final
 notation corrections. Standalone validation passed with exact preservation
@@ -164,8 +193,8 @@ correction changed no scientific input.
 Reproduce from the repository root, substituting a fresh run name:
 
 ```sh
-python studies/trained_data_response/P1_BUILD.py --section studies/trained_data_response/P1_SECTION.md --output data/generated/trained_data_response/NEW_RUN/edition
-python studies/trained_data_response/P1_VALIDATE.py --edition data/generated/trained_data_response/NEW_RUN/edition --output data/generated/trained_data_response/NEW_RUN/validation
+python studies/trained_data_response/P1I2_BUILD.py --section studies/trained_data_response/P1_SECTION.md --output data/generated/trained_data_response/NEW_RUN/edition
+python studies/trained_data_response/P1I2_VALIDATE.py --edition data/generated/trained_data_response/NEW_RUN/edition --output data/generated/trained_data_response/NEW_RUN/validation
 ```
 
 The checks run from the standalone edition without study/history imports.
@@ -175,7 +204,8 @@ all assembly/check programs are in the frozen manifest.
 
 Scoped commits currently include `e111b63` (startup), `fed0567` (concurrent
 recovery), `2c5cddb` (complete proofs and R1 freeze), and `b922d12` (accepted
-R1 reviews and assembly preparation). All use owned paths and the common
+R1 reviews and assembly preparation), and `fb2353c` (canonical P1 freeze).
+All use owned paths and the common
 Git writer lock; unrelated concurrent work is preserved.
 
 ## Approval boundary

@@ -1,0 +1,87 @@
+{
+  "packet": "P1I2",
+  "authors": [
+    "original-task /root (01a090b5-1a52-7072-a829-cd2aad518558)",
+    "/root/propagator",
+    "/root/weighted_source",
+    "/root/capture"
+  ],
+  "assembler": "/root/capture; original-task /root (ancillary edits and tooling)",
+  "selector_instance": "01a090c0-8a58-7da1-8075-8c0b0f23f959",
+  "inputs": {
+    "P1_SECTION.md": {
+      "sha256": "33c819282d83f7f4704cbd3a90e87b445d17ce161cc922c1ad786b5eb0d9de38",
+      "lines": 2062
+    },
+    "P1_ANCILLARY.md": {
+      "sha256": "649f0ee17af3c0a2f4b995e971929f8e7a62d9d420614baee418af62d6cdd420",
+      "lines": 300
+    },
+    "P1_DEPENDENCIES.md": {
+      "sha256": "ca696bc4ed14ea337028eb1e6ef9c7f729ed2a0153bc210de8e16dea18f5ee79",
+      "lines": 3238
+    },
+    "P1_INTEGRATION_BASE.md": {
+      "sha256": "675898673ac2be8c12540d0994e15c09695dba3d2cf76ebe2279cc5d31d671ba",
+      "lines": 1622
+    },
+    "P1_CHECK_IDENTITIES.py": {
+      "sha256": "b0bbbde5f1f024dbb46975b2092d3aa2a79cabd0375f4520c05489f934d3902f",
+      "lines": 197
+    },
+    "P1_REFERENCE_CERTIFICATE.py": {
+      "sha256": "112ce04c6d8e20859b5a778cfdeed42690949af807d421b7db90e82c2576a49e",
+      "lines": 56
+    },
+    "P1I2_BUILD.py": {
+      "sha256": "a4d45f8e6feacc52fa04d3519907afb05d98c99a7d0dd7b62196d0e792bd08d1",
+      "lines": 113
+    },
+    "P1I2_VALIDATE.py": {
+      "sha256": "758b17ad4a84309a5a1814c5f3d11d36dc39846c0ec1b31b069857c598a32b40",
+      "lines": 96
+    },
+    "P1I2_ASSIGNMENT.md": {
+      "sha256": "b49a7e797069faf485f8cfd4ba33a08f35fd7e95bbdc485f6c7f0e738e13bf0a",
+      "lines": 48
+    }
+  },
+  "base_sha256": {
+    "docs/global_nonlinear.md": "d473d95ee27bc39d484185cea2689b5d3ceed448567a1527488f1003e24f1fa1",
+    "docs/README.md": "7824df11fe7fa2d89cf2c75dc32716438b20c815a18d1c3809a84a0785d9d34e",
+    "docs/NOTATION.md": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "docs/finite_dynamics.md": "a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca5545bc0012a",
+    "docs/special_data_limits.md": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489"
+  },
+  "structural_support_sha256": {
+    "docs/arctan_limits.md": "19f01b6112949f4d186ef17ff94415804830ed51a519b155ed45343c26cbbead",
+    "docs/continuous_depth.md": "12be7aafbf37cb3651facdcac9c5333281b793c96b96a8a52a1232cd86ca006d",
+    "docs/finite_optimization_and_controls.md": "80dcce91ed3cd8313654523725e28b312ab925376cd7a28d71323bed648a5628",
+    "docs/gaussian_calculus.md": "d2f6a065432b5dadc7a1973f11b335cbd0f180caa29a81f863c58fff3ac5ef5e",
+    "docs/linear_dynamics.md": "8de3beaca0cd6f970c27a25eb8c2bc4a1fefa2e7840bd97e7bccfc4f41281c1d",
+    "code/README.md": "00f5070d35a3e9fb9d0e9886f0f6d9f680a8d34bb32307807d1f88afc807a774"
+  },
+  "ancillary_edits": [
+    {
+      "path": "docs/global_nonlinear.md",
+      "old": "Sections C.4.1\u2013C.4.4 prove a local quantitative statement about the actual nonlinear\nlearning algorithm. The separate fixed-accuracy extension is in C.4.5. The proof retains the Gaussian matrix action and its\nadjoint and permits every training law on the compact observation space.",
+      "new": "Sections C.4.1\u2013C.4.4 prove a local quantitative statement about the actual nonlinear\nlearning algorithm. The separate fixed-accuracy extension is in C.4.5.\nSection C.4.6 identifies actual finite-GF data derivatives at that fitted\nreference on each fixed horizon and bounds the population homogeneous\npropagator uniformly in time. The local theorem retains the Gaussian matrix\naction and its adjoint and permits every training law on the compact\nobservation space."
+    },
+    {
+      "path": "docs/README.md",
+      "old": "with early paired hidden activity; it does not construct global perturbed-law population dynamics. |",
+      "new": "with early paired hidden activity; it does not construct global perturbed-law population dynamics. At that fitted reference, a separate response theorem captures actual finite-GF data derivatives on each fixed horizon and the whole circle, with uniformly bounded population homogeneous propagation and total-variation forcing control. |"
+    },
+    {
+      "path": "docs/README.md",
+      "old": "that feature learning outperforms frozen or linear models.\nA global input-population theorem",
+      "new": "that feature learning outperforms frozen or linear models. Section C.4.6\nseparately captures actual finite-GF data derivatives at this trained reference\non each fixed horizon, with a population homogeneous propagator bounded\nuniformly in time. Its total-variation forcing bound gives response control\nlinear in the horizon; it constructs neither nonlinear changed-law population\nflows nor a finite-contamination remainder.\nA global input-population theorem"
+    }
+  ],
+  "scientific_input_contract": "The section, ancillary text, dependency proofs and deterministic mathematical checks have the exact displayed bytes; no scientific change is made by the assembly tooling.",
+  "edition_sha256": {
+    "docs/global_nonlinear.md": "3f32122dea7915e25e4abc7abe9d74017d535badfa5abbe1939e84fe2b100bdf",
+    "docs/README.md": "88757537ae600ebf79cf265288d6ca3034254caba236b4dcb055a21dd568c721"
+  },
+  "scope": "Complete canonical integration review with exact declared assembly reads and an explicit unread structural complement"
+}

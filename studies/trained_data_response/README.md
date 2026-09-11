@@ -136,12 +136,26 @@ Full access/check/process logs are under `scientific_p1_a`,
 Standalone validation passed, including exact base preservation outside
 the selected edits, guide links/fragments and both mathematical checks.
 Evidence is `standalone_01/validation_02`; its first failed validator
-heading match is retained. An integration packaging issue identified
-while reviews run concerns copying structural link targets without
-declaring their input hashes. The unfrozen assembler now pins those
-hashes; `standalone_02/validation` passes and both proposed destination
-hashes remain identical. P1 inputs are untouched. The complete original
-integration report will determine the necessary fresh integration scope.
+heading match is retained. The original [integration report](P1_INTEGRATION_REVIEW.md)
+requires packaging corrections only: undeclared structural-file reads and
+an extra assignment entry outside its allowed list. It found no scientific
+defect. The coordinator read the entire report and verified its hash
+`47dc9f59e3a3595d34bb7c7e2895aa691dc26246f998dae0a7a4afb52376b834`.
+The assembler now pins every structural input and the integration-specific
+manifest includes only authorized files. `standalone_02/validation` passes
+and both proposed destination hashes remain identical. P1 inputs are untouched.
+The frozen [P1I2 integration manifest](P1I2_MANIFEST.json), hash
+`174bd123c8fd48cdc536925681f7eade0b5f37f3b3b1cebf53d7b383a0a5298f`,
+is under fresh complete review by instance
+`01a090d2-454d-7550-8cdd-ef01257c6712`, with logs in `integration_p1i2`.
+[P1 scientific review A](P1_REVIEW_A.md) and [review B](P1_REVIEW_B.md)
+both accept with no required corrections. Both complete reports, input
+hashes, independent check results, process identities and successful exits
+have been read or verified by the coordinator. Their report hashes are
+`1dff779a0721ce15b6d660cd7a9b46a555224537771509ccc3fb9e86beda34bd` and
+`768b2fc7e20f6d65e530a6bd87e485a07314d8b1960122fe91dab601b8235349`.
+Coordinator verification is in `scientific_p1_acceptance_01`; their extra
+checking sources are preserved as P1_REVIEW_A_CHECK.py and P1_REVIEW_B_CHECK.py.
 
 Next authorized action: finish and read all P1 reports, resolve any
 objections under fresh review, and finalize the concrete
@@ -149,7 +163,8 @@ objections under fresh review, and finalize the concrete
 only writes a fresh generated draft; it cannot install into established files.
 Scoped commits so far: `e111b63` (startup), `fed0567` (concurrent recovery),
 `2c5cddb` (complete proofs and immutable R1 freeze),
-`b922d12` (accepted R1 reviews and assembly preparation).
+`b922d12` (accepted R1 reviews and assembly preparation),
+`fb2353c` (canonical P1 freeze and standalone verification).
 Further commits use the common lock and explicit owned paths. Any required
 scientific correction needs a new complete review round. Promotion requires
 approval of the concrete reviewed edition. No established book/code file has
