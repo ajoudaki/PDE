@@ -62,10 +62,34 @@ run made before the assignment and validator were included in the manifest;
 it is not the final-manifest validation evidence. `author_validation_01/`
 retains the independent author rerun of both component scripts.
 
+The coordinator separately reconstructed the author argument from the full
+component proofs and relevant maintained dependencies: the raw metric and
+mean-loss factor give `ds/dt=2(1-b)`; strong curve differentiation gives
+`c_ss=JJ*c`; convexity of the readout norm gives `b_s>=m>=1/10`; integrating
+`||theta_s||raw^2=b_s` bounds the endpoint path by `(1-b)/sqrt(m)`.
+The resulting endpoint gradient bound is less than 17. The response audit
+checked fixed-root clock differentiation, the two fresh-root pulses and
+width-before-zero-forcing order. The transfer audit checked that the only
+actual GD defect is the preceding-state error, reference tails alone enter
+the changed-law comparison, and fixed time/input nets have uniform extension
+bounds. The activity audit checked both successive uses of the same initial
+Gaussian matrix, conditional residual variance, the explicit fourth-order
+remainders and the physical time conversion. These are author checks;
+required independent verdicts remain separate.
+
+After freezing and committing P1, all live dependency whole-file hashes were
+rechecked against the recorded provenance, and the live chapter/guide were
+byte-identical to their frozen baselines. Reviewers need only the supplied
+complete dependency bodies and their excerpt hashes; unavailable full-source
+and author-component hashes in the manifest are provenance metadata, not
+additional review inputs. The common Git index was empty after scoped commit
+`515900412ae8f2a0d1789396c4f1590d210e97f2`.
+
 Limitations: simple markup balance is not a rendering test or complete link
 checker. Exact arithmetic certifies the programmed inequalities, not all
 proof implications. This is not a formal proof-assistant check, a whole-book
 audit, an empirical reproduction, or a quantitative finite-width estimate.
-The complete new scientific argument and its notation/interfaces are assigned
-to separate fresh scientific and integration reviewers. Their reports and
-completion evidence must be read before acceptance.
+The complete new scientific argument and its notation/interfaces were separately
+accepted by fresh scientific and integration reviewers. Their original full
+reports, coordinator reading and verified completion evidence are recorded in
+[P1_REVIEW_COMPLETION.md](P1_REVIEW_COMPLETION.md).

@@ -1,8 +1,10 @@
 # Robust whole-circle prediction after substantial learning
 
-Status: authored candidate complete; independent scientific and integration
-reviews of frozen P1 are running. No affirmative acceptance or promotion yet.
-The candidate certifies `T=40`, `delta=exp(-exp(3000))`, whole-circle endpoint
+Status: mandatory fixed-accuracy target resolved; exact P1 accepted by two fresh
+complete independent scientific reviews and a separate integration review.
+No required correction or necessary proof gap remains. Promotion is prepared,
+awaiting user approval of the [exact proposal](PROMOTION_PROPOSAL.md).
+The theorem certifies `T=40`, `delta=exp(-exp(3000))`, whole-circle endpoint
 error and both population/empirical risks at most `1/4`, plus early paired
 activity of both layers. The radius is positive but extraordinarily small.
 See [THEOREM.md](THEOREM.md) for exact probability, width, step and sample scope.
@@ -13,7 +15,23 @@ joint transport cost `|x-x'|/sqrt(2)+|y-y'|`. No support, Gram or weight
 restriction is allowed. Initial variances are `(1,1/n,1/n^2)`, mobilities
 `(n,1,n)`, and loss is the unhalved mean square. The finite initial readout is
 retained. Full first rows and both directions of the actual middle Gaussian
-action must survive every comparison.
+action are retained in every comparison.
+
+The global reference endpoint is the actual autonomous feature state stopped
+at its unique first `b=1`, at feature time at most 10. Its whole-circle error
+is at most `17 sqrt(10) exp(-t/5)`. The finite result holds in probability for
+every fixed nearby law, deterministic empirical W1 approximations, widths
+`n_k->infinity` and actual steps `eta_k sqrt(n_k)->0`, at the preceding node
+to T. Independent iid samples of size tending to infinity obey the same joint
+conclusion without relative sample/width restrictions. At `t_act=1/200`,
+both training-averaged paired initial/current squared RMS activation
+displacements exceed `1e-13` with probability tending to one.
+
+The radius admits nonorthogonal, nonatomic and label-contaminated laws but is
+impractical: `log10(log10(1/delta))` is approximately `1302.52`. The result
+does not give global population dynamics/endpoints for perturbed laws, a
+finite-width rate, useful risk for a uniform-circle teacher, or superiority
+or causal necessity of feature learning.
 
 | Proof component | Owner | Source |
 |---|---|---|
@@ -23,12 +41,16 @@ action must survive every comparison.
 
 Owners write only their component files. The coordinator alone edits this
 README and acts as Git writer under the common workflow lock. Fresh isolated
-nonauthors `/root/scientific_p1_a` and `/root/scientific_p1_b` review the same
+nonauthors `/root/scientific_p1_a` and `/root/scientific_p1_b` reviewed the same
 complete frozen packet under [P1_SCIENTIFIC_ASSIGNMENT.md](P1_SCIENTIFIC_ASSIGNMENT.md).
-Fresh `/root/integration_p1` separately reviews the assembled edition under
+Fresh `/root/integration_p1` separately reviewed the assembled edition under
 [P1_INTEGRATION_ASSIGNMENT.md](P1_INTEGRATION_ASSIGNMENT.md).
 Required corrections block acceptance. Established book/code edits require
 separate approval of a concrete fully reviewed package.
+Full original reports, hashes, complete read coverage, execution records,
+isolation and coordinator verification are linked in
+[P1_REVIEW_COMPLETION.md](P1_REVIEW_COMPLETION.md). All three verdicts are
+ACCEPT with no required corrections; all reports were read completely.
 
 Startup HEAD is `7441606` (incorporated C.4). The shared index was empty.
 Concurrent exporter and repository-maintenance working changes were present
@@ -45,13 +67,18 @@ Reproduce the assembly and rational certificates with
 `python studies/robust_learning_horizon/validate_candidate.py --inputs studies/robust_learning_horizon --output data/generated/robust_learning_horizon/NEW_RUN/edition`
 from the checkout root, choosing a fresh run path. Author verification passed
 both exact-arithmetic scripts; generated records are under `author_validation_01/`.
-Standalone assembly checks passed under `promotion_validation_01/`; the final
-frozen manifest is rerun independently under `promotion_validation_02/` and by
-each reviewer. These are arithmetic/assembly checks, not independent proof verdicts.
+The final frozen manifest passed standalone validation under
+`promotion_validation_02/` and independently in each reviewer's new directory.
+[P1_VALIDATION.md](P1_VALIDATION.md) gives commands, actual outputs, hashes
+and limits of those arithmetic/assembly checks. Independent mathematical
+verdicts remain the separate full reports.
 
 Source proofs and verification scripts belong here. Generated outputs and
 scratch belong in `data/generated/robust_learning_horizon/<run>/`. Only
 deterministic evaluation/verification of theoretical constants is authorized;
-no training experiment or parameter campaign is planned. The next authorized
-action is completion and adversarial verification of the exact scoped target,
-or identification of a precise remaining mathematical gap.
+no training experiment or parameter campaign was run. Scoped progressive
+commits are `7cf8c26` (startup/transfer) and `5159004` (complete frozen P1);
+review completion and proposal are committed separately. Generated products
+remain outside new Git commits. Next action is user approval of exact P1;
+after approval, recheck dependencies/concurrent changes, apply the two reviewed
+files, verify correspondence and commit only the scoped integration.
