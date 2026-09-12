@@ -1,0 +1,65 @@
+{
+  "kind": "standalone proposed edition, no live established edits",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "platform": "Linux-5.15.0-151-generic-x86_64-with-glibc2.35",
+  "frozen_inputs": {
+    "candidate_v3.md": "f9a20bf6519c802581d293e3cde02218020c127c683699b0a93be9eda277aae2",
+    "README_proposed_v3.md": "a402cd21b58fe889500ca9ba9e79aa8d2e1fbbbe371ea2a577f3fafdae69455d",
+    "dependencies_v1.md": "6a40bc9ee6e6de49fbefd9118298c4ab807b1ef52ecf29b99a71937eab0a63d7",
+    "check_weak_identity.py": "0c2112077644de84cb9b5f6b41267297a241fd7c656d29869c18d1ecd35deb39",
+    "guide_current_v3.md": "ae2f74fca1ecc93eed1f42dbcf3c8a79498546bad1b635adbba1310382f4afad",
+    "notation_v3.md": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "instructions_v3.md": "7778b7073a02de3e94f8ae9aefe940ebc9eddea7467816662e5cce1020cd98ba",
+    "workflow_v3.md": "8b36d7dfc1ad881fcb6bfe32274a5e50c5125b33d68dbcf7c3937f7f6c21ce12"
+  },
+  "established_sources": {
+    "docs/README.md": "ae2f74fca1ecc93eed1f42dbcf3c8a79498546bad1b635adbba1310382f4afad",
+    "docs/NOTATION.md": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "docs/global_nonlinear.md": "1f079e1e891dfbee88ac87495cb3b39c9e6992da34d4acf56d98c1c024d89dc9",
+    "docs/special_data_limits.md": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489",
+    "docs/gaussian_calculus.md": "d2f6a065432b5dadc7a1973f11b335cbd0f180caa29a81f863c58fff3ac5ef5e"
+  },
+  "checks": [
+    {
+      "command": [
+        "/usr/bin/python",
+        "/home/amir/Codes/PDE/data/generated/observable_hierarchy/edition_v3/checks/check_weak_identity.py",
+        "/home/amir/Codes/PDE/data/generated/observable_hierarchy/edition_v3/results/static_identity"
+      ],
+      "cwd": "/home/amir/Codes/PDE/data/generated/observable_hierarchy/edition_v3",
+      "exit_code": 0,
+      "output": "check_0.txt",
+      "sha256": "c7f2764a976fbfa9ee6f2f47e3aca7245065016a603249464f84e7517d32e8a0"
+    },
+    {
+      "command": [
+        "/usr/bin/python",
+        "/home/amir/Codes/PDE/data/generated/observable_hierarchy/edition_v3/checks/reference_certificate.py"
+      ],
+      "cwd": "/home/amir/Codes/PDE/data/generated/observable_hierarchy/edition_v3",
+      "exit_code": 0,
+      "output": "check_1.txt",
+      "sha256": "ad40e8d8f73fed6d22cc9b68a19f7f9e6c3f2f59383d581e372ce0c976786900"
+    }
+  ],
+  "new_material": {
+    "start_line": 11441,
+    "line_count": 642
+  },
+  "scope": "Exact insertion/removal preservation, exact guide diff, new local link, equation labels, standalone static identity and rational certificate. Existing untouched book links and unread scientific complement are not audited.",
+  "outputs": {
+    "README.md.patch": "f35ddd5e4d9b18afd6e048c75c12b9e761f377bef2509c3f62b2ec972b4af52b",
+    "check_0.txt": "c7f2764a976fbfa9ee6f2f47e3aca7245065016a603249464f84e7517d32e8a0",
+    "check_1.txt": "ad40e8d8f73fed6d22cc9b68a19f7f9e6c3f2f59383d581e372ce0c976786900",
+    "checks/check_weak_identity.py": "0c2112077644de84cb9b5f6b41267297a241fd7c656d29869c18d1ecd35deb39",
+    "checks/reference_certificate.py": "112ce04c6d8e20859b5a778cfdeed42690949af807d421b7db90e82c2576a49e",
+    "docs/NOTATION.md": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "docs/README.md": "a402cd21b58fe889500ca9ba9e79aa8d2e1fbbbe371ea2a577f3fafdae69455d",
+    "docs/gaussian_calculus.md": "d2f6a065432b5dadc7a1973f11b335cbd0f180caa29a81f863c58fff3ac5ef5e",
+    "docs/global_nonlinear.md": "434b3e6bfcdd71576e271ea35910fc1994b3a9c1bfb01acad92f302bdeb07e14",
+    "docs/special_data_limits.md": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489",
+    "global_nonlinear.md.patch": "25f0d3b64f13edb70860e1a3788e029c569b16c8f1a5a241c36b64c549a5dadb",
+    "results/static_identity/result.json": "c7f2764a976fbfa9ee6f2f47e3aca7245065016a603249464f84e7517d32e8a0"
+  },
+  "status": "PASS"
+}

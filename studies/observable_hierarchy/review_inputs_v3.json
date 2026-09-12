@@ -1,0 +1,19 @@
+{
+  "version": 3,
+  "authors_assemblers": [
+    "/root",
+    "/root/route_observable",
+    "/root/route_weak"
+  ],
+  "selector": "/root/selector",
+  "files": {
+    "candidate_v3.md": "f9a20bf6519c802581d293e3cde02218020c127c683699b0a93be9eda277aae2",
+    "README_proposed_v3.md": "a402cd21b58fe889500ca9ba9e79aa8d2e1fbbbe371ea2a577f3fafdae69455d",
+    "dependencies_v1.md": "6a40bc9ee6e6de49fbefd9118298c4ab807b1ef52ecf29b99a71937eab0a63d7",
+    "check_weak_identity.py": "0c2112077644de84cb9b5f6b41267297a241fd7c656d29869c18d1ecd35deb39",
+    "guide_current_v3.md": "ae2f74fca1ecc93eed1f42dbcf3c8a79498546bad1b635adbba1310382f4afad",
+    "notation_v3.md": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "instructions_v3.md": "7778b7073a02de3e94f8ae9aefe940ebc9eddea7467816662e5cce1020cd98ba",
+    "workflow_v3.md": "8b36d7dfc1ad881fcb6bfe32274a5e50c5125b33d68dbcf7c3937f7f6c21ce12"
+  }
+}

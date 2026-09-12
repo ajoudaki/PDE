@@ -76,3 +76,22 @@ changing the argument. The internal weak reviewer independently flagged it.
 Review status and exact frozen versions belong in the README and the full
 review reports. Neither deterministic checks nor internal audits replace the
 fresh complete isolated reviews required for promotion.
+
+The concrete version-3 insertion is `candidate_v3.md`. Before freezing it,
+the literal frozen-forward construction count was corrected from two to three
+instructions (projection, tanh, action); the existing `3j` allowance already
+covered this. Hierarchy order is now `j`, distinct from network width `n`.
+Characteristic frequencies are counted explicitly: at most `4j` real marks
+including frequencies, plus `j` circle marks. The canonical layer superscripts
+remain `(1),(2),(3)` while equation labels are `(H1)`–`(H19)`. A transient
+automated relabeling that touched layer superscripts was repaired before freeze.
+The candidate introduces its overlap with existing C.4.2 explicitly and is
+formatted as the exact proposed C.4.7.8 addition.
+
+Full internal reports are `internal_weak_v1.md` and
+`internal_representation_v1.md`. Their restricted source scopes and conditional
+internal verdicts are preserved. The separate selector's original report is
+`selection_v1.md`: accept for assembly in a narrow C.4.7.8 subsection, with a
+short guide update. It is not a scientific paired review. The parent read all
+three reports completely. The full version-3 neutral review assignment and
+input hashes are `review_assignment_v3.md` and `review_inputs_v3.json`.
