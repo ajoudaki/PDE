@@ -1,9 +1,10 @@
 # Nonlinear selection generalization (milestone B)
 
-Status: corrected theorem packet v2 frozen; fresh complete scientific and
-integration reviews running. V1 is not accepted because one scientific reviewer
-required an explicit finite-cap hypothesis in the robust subfamily. Nothing
-promoted; no established file changed.
+Status: research and review complete at the declared finite-episode scope;
+v2 is ready for promotion approval. Both fresh complete scientific reviews
+and the separate fresh integration review PASS with no required corrections.
+No unresolved gap remains within that scope. Nothing promoted; no established
+file changed. V1's adverse review and explicit finite-cap repair are retained.
 
 ## Contract frozen before learning analysis
 
@@ -154,8 +155,15 @@ Current gate: [v2 C.4.10](candidate_addition_v2.md),
 [revision record](revision_v2.md) gives the exact six-line correction,
 original report hashes, new deterministic checks and fresh-review identities.
 Reviewers `scientific_review_v2_c`, `scientific_review_v2_d`, and
-`integration_review_v2` are reading complete inputs without earlier verdicts.
-Next authorized action: read their complete reports, resolve any required
-correction through fresh reviews, then present the concrete reviewed package
-for promotion approval.
+`integration_review_v2` completed their isolated reviews and all passed. Root
+read each original report completely and checked its provenance, hashes,
+coverage and retained deterministic evidence. The
+[final review record](final_review_record_v2.md) fixes the exact accepted
+scope, report hashes and unchanged source/edition checks. The
+[concrete promotion proposal](promotion_proposal_v2.md) recommends the appended
+C.4.10 and three reading-guide additions. The v2 packet was committed as
+`b384475316cc0e18bab14438f0140f8f2ede6c9a`.
+Next action: obtain user approval of this reviewed package. After approval,
+recheck dependencies and concurrent changes, apply the exact reviewed edition,
+verify live correspondence and make a scoped integration commit.
 No established file may change before those gates and user approval.
