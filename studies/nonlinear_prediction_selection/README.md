@@ -1,10 +1,12 @@
 # Nonlinear prediction selection — milestone A
 
-Status: milestone A is resolved for the stated open one-atom family. The complete
-proof, both fresh complete mathematical reviews, standalone validation and fresh
-final integration review pass. The [concrete reviewed promotion proposal](PROMOTION_PROPOSAL.md)
-is ready for user approval. Nothing has been promoted, and this study has changed
-no established book or code file.
+Status: milestone A is resolved and its approved result is incorporated into
+[established C.4.9](../../docs/global_nonlinear.md#c49-nonlinear-prediction-selection-during-a-finite-added-data-episode).
+The user explicitly approved canonical proof v3/integration edition v4 on
+2026-09-12. Both complete mathematical reviews, standalone validation and fresh
+integration review pass; the live chapter and guide match the approved edition
+byte for byte. [The promotion record](PROMOTION_RECORD_2026_09_12.md) retains
+approval, final hashes, preservation checks and the integration commit.
 
 ## Question, exact model and result
 
@@ -62,7 +64,7 @@ The initial independent routes were frozen before comparison:
 limitations and exposure disclosures remain in those records. In particular,
 the special finite-width geometric witness was not a solution to this target.
 
-## Review and proposed integration
+## Review and completed integration
 
 The independent [relevance screening](RELEVANCE_SCREENING.md) accepts assembly
 as C.4.9, with the smallest destination being the global nonlinear chapter and
@@ -107,7 +109,7 @@ edition fingerprint. The independent review recovered the entire current guide
 and global chapter by reversing only the proposed changes. No mathematical or
 integration objection remains for this package.
 
-The concrete proposed changes are [the final v4 patch](PROPOSED_EDITION_v4.patch) and
+The approved and applied changes are [the final v4 patch](PROPOSED_EDITION_v4.patch) and
 [scope edit specification](PROPOSED_EDITS_v4.json).
 [Standalone validation v4](STANDALONE_VALIDATION_v4.md) passed all frozen/source
 hash checks, preservation of older text, newly introduced links and delimiters,
@@ -132,7 +134,9 @@ and records additional independent proof and strategy checks with their exact
 scopes. It recommends milestone B as a quantitative continuum-regression theorem
 on the slow learning clock. The [new-task prompt](NEXT_MILESTONE_B_PROMPT.md)
 starts only after C.4.9 is promoted, using the established book as its input.
-This assessment is a recommendation, not user approval; promotion remains pending.
+That assessment preceded approval. The user subsequently approved the exact
+reviewed package; the completed promotion is recorded in
+[PROMOTION_RECORD_2026_09_12.md](PROMOTION_RECORD_2026_09_12.md).
 
 `/root` owns this README, finite-capture argument, canonical assembly and Git
 writes. `/root/conditioning_route`, `/root/continuation_route` and
@@ -145,8 +149,6 @@ only explicit study-owned paths and the common nonblocking Git writer lock.
 Other studies are outside the scientific input scope. Initial HEAD was
 `bb9e57b6410f7e76b3bf1de5a33dc4cc7ee58cb3`.
 
-Next action: obtain the user's approval of the concrete reviewed package under
-Part 2.5 of the shared workflow. After approval, recheck current dependencies
-and concurrent changes, apply only the final v4 patch/scoped edits, verify the
-result against the reviewed edition, and retain the integration correspondence
-and scoped commit. No further research or training campaign is implied.
+The approved promotion is complete. No mathematical, review or integration
+obligation remains for the stated milestone-A result. The separate milestone-B
+recommendation does not start a new research task or training campaign.
