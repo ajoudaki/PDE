@@ -152,4 +152,13 @@ Scoped internal checks are not promotion reviews. Independent relevance
 screening, two complete isolated scientific/code reviews and a separate
 integration review have not been represented as complete. There is no complete
 canonical C addition ready for approval. No established book/code files were
-changed and no approval is requested for an unfinished C promotion.
+changed by this study and no approval is requested for an unfinished C promotion.
+
+The study sources were committed as `f30920f49841b48483f7aef2eef05998fb65f474`
+under the shared writer lock, with only the 33 owned study files staged.
+A final dependency check detected a concurrent canonical C.4.10 append and
+three corresponding roadmap-summary changes. The entire earlier nonlinear
+chapter through C.4.9 remains byte-identical to the recorded source. The
+roadmap changes were read; the new C.4.10 body was not read or used. The
+source record preserves both versions and this check, so the unchanged
+scientific dependencies of this study remain identifiable.

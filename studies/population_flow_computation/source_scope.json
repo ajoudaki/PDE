@@ -104,5 +104,27 @@
       ]
     }
   ],
-  "route_scope_records": "Each original route/review report records its narrower input scope; coordinator startup coverage is not imputed to subagents."
+  "route_scope_records": "Each original route/review report records its narrower input scope; coordinator startup coverage is not imputed to subagents.",
+  "post_commit_check": {
+    "study_source_commit": "f30920f49841b48483f7aef2eef05998fb65f474",
+    "observed_head": "f30920f49841b48483f7aef2eef05998fb65f474",
+    "changed_files": [
+      {
+        "path": "docs/global_nonlinear.md",
+        "current_sha256": "5c7f4cd85eebe73f497ff91cca4f3c525f158727c28b8a187a09add94e756483",
+        "current_line_count": 17016,
+        "used_prefix_lines": 15322,
+        "used_prefix_sha256": "7633fb054cf02f2359b193fcb090634304cc1153f4d8f978fd0ac30789355465",
+        "used_prefix_unchanged": true,
+        "unread_complement": "New C.4.10 body, lines 15323–17016; not used by this study."
+      },
+      {
+        "path": "docs/README.md",
+        "current_sha256": "d149815d53784b9093bf22608456a19eabfa91a2cca8c6f0d60df9a187ed313c",
+        "read_update": "Complete three changed hunks and surrounding context read against recorded consolidation HEAD; only C.4.10 roadmap/chapter-summary additions. Earlier complete reading retained."
+      }
+    ],
+    "other_recorded_inputs_unchanged": true,
+    "effect": "No previously used proof/dependency text changed. New canonical chapter body not imported; prior report input hashes remain their exact review versions."
+  }
 }
