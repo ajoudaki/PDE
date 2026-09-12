@@ -1,8 +1,9 @@
 # Nonlinear prediction selection — milestone A
 
 Status: the complete theorem is internally checked in corrected candidate v3.
-Fresh complete review gates are in progress. Nothing has been promoted, and no
-established book or code file has been changed.
+Both fresh complete mathematical reviews pass. The final integration-only
+refresh is under independent review. Nothing has been promoted, and this task
+has changed no established book or code file.
 
 ## Question, exact model and result
 
@@ -76,29 +77,42 @@ The original [integration review](INTEGRATION_REVIEW_v1.md) also requires explic
 finite RMS tail, rank and hidden-field factors in D.2. v3 supplies them and
 uses continuous soft-tail convergence before bounding hard tails. The full
 [correction check](CORRECTION_v3.md) records the exact algebra. This changes
-neither the theorem nor its limits. Every superseded packet is preserved; a
-v2 review already in progress remains evidence only for its frozen v2 inputs.
+neither the theorem nor its limits. Every superseded packet is preserved; the
+[stopped v2 review](ADVERSARIAL_A_v2.md) is explicitly incomplete and carries no
+acceptance verdict. The coordinator read its complete original record.
 
 
 The [v3 neutral assignment](REVIEW_ASSIGNMENT_v3.md) and
 [frozen input manifest](REVIEW_MANIFEST_v3.json) govern two entirely new complete
 isolated reviews. Unchanged dependencies and guide retain v1 filenames.
-A [separate fresh integration assignment](INTEGRATION_ASSIGNMENT_v3.md) covers
+A [separate fresh integration assignment](INTEGRATION_ASSIGNMENT_v4.md) covers
 the entire assembled addition, exact older context, notation and preservation.
-These reviews are pending; no prior verdict substitutes for them.
+Both [complete review A](ADVERSARIAL_A_v3.md) and
+[complete review B](ADVERSARIAL_B_v3.md) pass without required corrections.
+The coordinator read both full reports, checked the recorded read coverage and
+isolation, and verified their input fingerprints and independent certificate
+records. Their immutable scientific packet is unchanged.
 
-The concrete proposed changes are [the v3 patch](PROPOSED_EDITION_v3.patch) and
-[scope edit specification](PROPOSED_EDITS_v3.json).
-[Standalone validation v3](STANDALONE_VALIDATION_v3.md) passed all frozen/source
+[Integration v3](INTEGRATION_REVIEW_v3.md) passes its frozen edition but detected
+a concurrent live-guide roadmap addition. Its full report and HOLD are preserved.
+The [integration-only refresh](INTEGRATION_REFRESH_v4.md) retains the entire
+current roadmap and applies exactly the same two C.4.9 guide additions through
+unique-context replacements. The canonical proof and all scientific dependencies
+remain byte-identical. Fresh complete integration review of this current edition
+is pending under [its own frozen manifest](INTEGRATION_INPUTS_v4.json).
+
+The concrete proposed changes are [the final v4 patch](PROPOSED_EDITION_v4.patch) and
+[scope edit specification](PROPOSED_EDITS_v4.json).
+[Standalone validation v4](STANDALONE_VALIDATION_v4.md) passed all frozen/source
 hash checks, preservation of older text, newly introduced links and delimiters,
 and the unchanged exact rational reference certificate. This validation is
 separate from independent scientific review; no empirical claim is made.
 
 For deterministic reproduction, run
 `python studies/nonlinear_prediction_selection/verify_reference_certificate.py`.
-The standalone producer is `validate_proposed_edition_v3.py`; it requires a fresh
+The standalone producer is `validate_proposed_edition_v4.py`; it requires a fresh
 output directory and preserves the completed run under
-`data/generated/nonlinear_prediction_selection/standalone_v3/`. To rerun, copy the
+`data/generated/nonlinear_prediction_selection/standalone_v4/`. To rerun, copy the
 producer inside this study and change only its output namespace to a fresh run.
 The recorded Python environment is 3.10.12; the certificate uses exact standard-
 library rational arithmetic and exits zero. Generated products are not committed.
@@ -116,7 +130,6 @@ only explicit study-owned paths and the common nonblocking Git writer lock.
 Other studies are outside the scientific input scope. Initial HEAD was
 `bb9e57b6410f7e76b3bf1de5a33dc4cc7ee58cb3`.
 
-Next authorized action: finish both fresh v3 mathematical reviews and the fresh
-integration review, resolve any objections, and prepare the concrete reviewed
-promotion proposal. Established edits require the user's approval of that exact
+Next authorized action: finish the fresh final integration review, verify
+current-source correspondence, and finalize the [concrete promotion proposal](PROMOTION_PROPOSAL.md). Established edits require the user's approval of that exact
 package under Part 2.5 of the shared workflow.

@@ -1,0 +1,42 @@
+{
+  "INTEGRATION_ASSIGNMENT_v4.md": {
+    "sha256": "41bfc848b789bdca6d61915a1c9b9fbae7551d5cccc618a98906d400c4c0da06",
+    "lines": 77
+  },
+  "CANONICAL_ADDITION_v3.md": {
+    "sha256": "c858c7b41d90b490871450b8bf7494afe8c6cd7f39bebd3f1faa89f3604a5879",
+    "lines": 2329
+  },
+  "INTEGRATION_BASE_GUIDE_v4.md": {
+    "sha256": "3f341b52fa6449a4008602f573590b1528158bd1370f17bc26db032813799f5e",
+    "lines": 577
+  },
+  "PROPOSED_GUIDE_v4.md": {
+    "sha256": "26c5f81ad355b892430e015a786df1d0e2e4f6c9a1fc920ea634bd311558412e",
+    "lines": 578
+  },
+  "PROPOSED_EDITS_v4.json": {
+    "sha256": "491c43614bc1438ad55f9c0df668bb7e774f6acce457e3f6a0ed89fe3ea07b91",
+    "lines": 26
+  },
+  "PROPOSED_EDITION_v4.patch": {
+    "sha256": "f15934b5cf3b2b9db9bc7bab32109a8146ba9f0d31baef36d99a89ca9a0c3dbd",
+    "lines": 2363
+  },
+  "DEPENDENCY_NOTATION_v1.md": {
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "lines": 98
+  },
+  "DEPENDENCIES_GLOBAL_v1.md": {
+    "sha256": "6ebdaf1a3b28bdd07244a7b8c1bb882a36c7c525c4170cd25af4d7661ab7d942",
+    "lines": 8901
+  },
+  "DEPENDENCIES_GAUSSIAN_v1.md": {
+    "sha256": "c95e358f6bb9741858e6293dabacf4fee01927a23cda1289cd3cd17e85a1ee77",
+    "lines": 550
+  },
+  "DEPENDENCY_MANIFEST_v1.json": {
+    "sha256": "75f8b2ae6716fb88d8f89306b78a104a2bffc62e1bf67bb64474b8298d5b415a",
+    "lines": 44
+  }
+}

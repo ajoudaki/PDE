@@ -1,6 +1,7 @@
 # Milestone A: nonlinear prediction selection — proposed C.4.9
 
-Status: prepared concrete proposal; final v3 review gates are still in progress.
+Status: both final mathematical reviews pass; final integration-only refresh
+awaits its fresh independent integration review.
 This proposal does not authorize or apply established-file edits.
 
 ## Scientific result and exact scope
@@ -75,28 +76,30 @@ No decisive conditioning, tail or continuation premise is left assumed.
 
 ## Concrete proposed changes
 
-Apply exactly [PROPOSED_EDITION_v3.patch](PROPOSED_EDITION_v3.patch):
+Apply exactly [PROPOSED_EDITION_v4.patch](PROPOSED_EDITION_v4.patch):
 
 1. Append the complete canonical C.4.9 and insert its scope sentence in
    `docs/global_nonlinear.md`.
 2. Add matching navigation/scope text to the two relevant entries of
-   `docs/README.md`, using [the complete proposed guide](PROPOSED_GUIDE_v1.md).
+   `docs/README.md`, using [the complete proposed guide](PROPOSED_GUIDE_v4.md).
 
-The explicit edit specification is [PROPOSED_EDITS_v3.json](PROPOSED_EDITS_v3.json).
+The explicit edit specification is [PROPOSED_EDITS_v4.json](PROPOSED_EDITS_v4.json).
 The proposed addition uses established dependencies in their existing locations;
 it does not depend on study files, conversation history or generated arrays.
-The notation contract, existing proofs and maintained code are preserved.
+The notation contract, existing proofs, maintained code and complete concurrent
+roadmap are preserved. The guide operation applies two uniquely matched
+additions; it does not replace the live guide wholesale.
 
 | Reviewed object | SHA-256 |
 |---|---|
 | Complete canonical addition v3 | `c858c7b41d90b490871450b8bf7494afe8c6cd7f39bebd3f1faa89f3604a5879` |
-| Concrete proposed patch | `ce121bad1089ca01e471c5c0a20fbfb8ef58f428258eba6b36ae9dd7e7b5b573` |
+| Concrete proposed patch | `f15934b5cf3b2b9db9bc7bab32109a8146ba9f0d31baef36d99a89ca9a0c3dbd` |
 | Assembled proposed global chapter | `7633fb054cf02f2359b193fcb090634304cc1153f4d8f978fd0ac30789355465` |
-| Complete proposed guide | `d5ecdfd35fbddd511d98dccd148a9a9e840f5a4c814658f930c5732bab218bc5` |
+| Complete proposed guide | `26c5f81ad355b892430e015a786df1d0e2e4f6c9a1fc920ea634bd311558412e` |
 
 The [review manifest](REVIEW_MANIFEST_v3.json) and
 [dependency manifest](DEPENDENCY_MANIFEST_v1.json) retain every input fingerprint.
-The [standalone edition](../../data/generated/nonlinear_prediction_selection/standalone_v3/docs/global_nonlinear.md)
+The [standalone edition](../../data/generated/nonlinear_prediction_selection/standalone_v4/docs/global_nonlinear.md)
 is available for inspection before any established edit.
 
 ## Review and validation record
@@ -114,14 +117,31 @@ The original [integration review](INTEGRATION_REVIEW_v1.md) required explicit
 finite RMS normalization in the comparison proof. [Correction v3](CORRECTION_v3.md)
 defines normalized hard/soft tails, displays finite rank/hidden factors, and
 uses continuous soft-tail convergence. The theorem and all limits are unchanged.
-This adverse report and all superseded packets are retained.
+This adverse report and all superseded packets are retained. The
+[coordinator-stopped v2 review](ADVERSARIAL_A_v2.md) is preserved as incomplete,
+without an acceptance verdict; its full record and fingerprints were checked.
 
-Two new complete isolated v3 mathematical reviews and a new separate integration
-review are in progress. They receive frozen complete inputs and no prior verdicts.
-Final acceptance requires all their original reports and coordinator provenance
-checks; this proposal's status will be updated only after those gates close.
+Both [fresh complete review A](ADVERSARIAL_A_v3.md) and
+[fresh complete review B](ADVERSARIAL_B_v3.md) pass with no required correction.
+The coordinator read every line of both original reports, checked their complete
+input coverage and isolation, verified the unchanged input fingerprints and
+independent certificate records, and checked these original report hashes:
 
-[Standalone validation v3](STANDALONE_VALIDATION_v3.md) passed. It constructed a
+- A: `5121dff3f35b60e3201efed3d98c002cacce14cf66288d2100722c9ee2a1394a`.
+- B: `88447dec945f203b876c9b4b91a5b921d72356245a580196f2fdfc35c9fd3a46`.
+
+[Integration v3](INTEGRATION_REVIEW_v3.md) passes the frozen scientific edition,
+but its final source check found a concurrently added strategic roadmap in the
+live guide. Its current-live preservation HOLD is retained. The
+[integration-only v4 refresh](INTEGRATION_REFRESH_v4.md) preserves that complete
+roadmap and keeps exactly the same C.4.9 proof, dependencies and scope sentences.
+The paired scientific packet remains identical. Only the guide baseline and
+safe application contract are refreshed; no scientific change is inferred from
+the roadmap, which explicitly records planning. The revised integration inputs
+are [frozen separately](INTEGRATION_INPUTS_v4.json) for a new complete fresh
+integration review. This last correspondence review is pending.
+
+[Standalone validation v4](STANDALONE_VALIDATION_v4.md) passed. It constructed a
 fresh documentation-only edition, verified frozen and live dependency hashes,
 checked all new links and mathematical delimiters, reversed the chapter delta
 to recover older content, and preserved every other documentation file byte for
