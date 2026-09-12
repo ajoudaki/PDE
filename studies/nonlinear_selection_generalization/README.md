@@ -1,7 +1,9 @@
 # Nonlinear selection generalization (milestone B)
 
-Status: complete candidate arguments under assembly; independent relevance
-accepted, scientific and integration reviews still pending. Nothing promoted.
+Status: corrected theorem packet v2 frozen; fresh complete scientific and
+integration reviews running. V1 is not accepted because one scientific reviewer
+required an explicit finite-cap hypothesis in the robust subfamily. Nothing
+promoted; no established file changed.
 
 ## Contract frozen before learning analysis
 
@@ -126,13 +128,34 @@ Reproduce with
 `python3 studies/nonlinear_selection_generalization/check_reference_certificate.py data/generated/nonlinear_selection_generalization/<fresh-directory>`.
 No training experiment was run.
 
-Current gate: the full integrated theorem is being assembled, with all
-mathematical interfaces supplied as candidates. There is no identified
+The original [v1 C.4.10](candidate_addition_v1.md) and
+[v1 reading-guide addition](candidate_docs_README_v1.md) were frozen under
+[v1 scientific manifest](scientific_manifest_v1.json), commit
+`13dd024d516f490ea85d5c65878125f089f37f7e`. The
+[standalone edition checks](edition_validation_v1.md) passed within their
+declared deterministic scope. There is no identified
 persistent GF obstacle warranting a change of algorithm. The canonical
 assembly uses one source-based gradient modulus consistently for continuation,
 sampling and hidden contrast, replacing redundant endpoint constants.
-Next authorized action: freeze the actual proposed addition and complete
-dependency packet; obtain two fresh complete adversarial scientific reviews;
-validate a standalone proposed edition and obtain a separate fresh integration
-review; then present the concrete unchanged package for promotion approval.
+Fresh reviewers `scientific_review_v1_a` and `scientific_review_v1_b` each
+received the [same neutral assignment](scientific_assignment_v1.md) and
+complete frozen dependency bodies, with no internal verdicts or author history.
+Fresh `integration_review_v1` received the separate
+[integration assignment](integration_assignment_v1.md) and
+[assembled-edition manifest](integration_manifest_v1.json), without the other
+reviewers' findings. Root has read all three reports completely; original
+reports and evidence remain unchanged. Review A required the explicit zero
+higher-coefficient condition that the robust proof uses. Review B and integration
+passed their interpreted finite-cap scope, which does not override A's objection.
+
+Current gate: [v2 C.4.10](candidate_addition_v2.md),
+[unchanged guide scope](candidate_docs_README_v2.md), and
+[complete frozen v2 packet](scientific_manifest_v2.json). The
+[revision record](revision_v2.md) gives the exact six-line correction,
+original report hashes, new deterministic checks and fresh-review identities.
+Reviewers `scientific_review_v2_c`, `scientific_review_v2_d`, and
+`integration_review_v2` are reading complete inputs without earlier verdicts.
+Next authorized action: read their complete reports, resolve any required
+correction through fresh reviews, then present the concrete reviewed package
+for promotion approval.
 No established file may change before those gates and user approval.

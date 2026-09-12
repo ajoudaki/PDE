@@ -1,0 +1,20 @@
+{
+  "kind": "frozen assembled edition integration inputs v2",
+  "edition": "/home/amir/Codes/PDE/data/generated/nonlinear_selection_generalization/edition_validation_v2_20260912_01/edition",
+  "edition_files": {
+    "AGENTS.md": "7778b7073a02de3e94f8ae9aefe940ebc9eddea7467816662e5cce1020cd98ba",
+    "RESEARCH_WORKFLOW.md": "8b36d7dfc1ad881fcb6bfe32274a5e50c5125b33d68dbcf7c3937f7f6c21ce12",
+    "docs/NOTATION.md": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "docs/README.md": "d149815d53784b9093bf22608456a19eabfa91a2cca8c6f0d60df9a187ed313c",
+    "docs/global_nonlinear.md": "5c7f4cd85eebe73f497ff91cca4f3c525f158727c28b8a187a09add94e756483",
+    "docs/special_data_limits.md": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489"
+  },
+  "candidate": "candidate_addition_v2.md",
+  "scientific_manifest_sha256": "cb8b6827db6b24ba2c7c6bf00320cce82c66e687ae4ffe268b02a01bef3336c7",
+  "integration_assignment_sha256": "1757fb1e056b2ed59acd73eba2f290be88aa7bd5dd882831e544ff2ab2efbeec",
+  "old_read_scope": "global_nonlinear.md original lines 12994-13183 plus exact frozen interface ranges assigned; full guides/notation; unread older complement not audited",
+  "intended_edits": [
+    "append candidate_addition_v2.md after existing docs/global_nonlinear.md bytes",
+    "replace docs/README.md by candidate_docs_README_v2.md; only three described summary insertions"
+  ]
+}
