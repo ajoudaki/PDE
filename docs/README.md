@@ -145,6 +145,299 @@ additional argument connects the selected representations to out-of-sample
 risk. Finite training correlations and successful transfer-panel experiments
 alone would not establish that connection.
 
+## Strategic roadmap: insight before breadth
+
+This section records research objectives and the reasoning behind their order.
+It is a plan, not an additional theorem or a claim that its later steps will
+succeed. The established statements and their exact scopes remain in the
+chapters listed below. Milestone letters A–F are planning labels, distinct
+from the numbered sections of those chapters.
+
+The intended destination is a coherent explanation of what deep nonlinear
+training learns, why its predictions generalize, when depth and activation
+help, and how the same population evolution can be computed independently.
+The learning, comparison and computational conclusions must eventually apply
+to substantially overlapping task families. Separate favorable examples for
+different models would not establish this combined objective.
+
+### Why these milestones are separated
+
+The strategic choice is to isolate a tractable part of a hard problem that
+still exposes an important learning mechanism. A fixed depth, a structured
+family of correlated data, or one finite learning episode can support a deep
+insight without simultaneously resolving arbitrary depth, arbitrary laws and
+all-time dynamics. The restrictions must preserve the mechanism: ordinary
+Gaussian initialization, actual matrix reuse, nonlinear activations and
+learned hidden features. Freezing the feature dynamics or imposing a special
+initialization that supplies the desired representation would change the
+question rather than make progress on this route.
+
+Each milestone should settle one substantial scientific obligation and remain
+valuable if the next one fails. The count follows from these obligations;
+proof lemmas, additional examples and routine integration are not automatically
+new milestones. Successful results also change the next problem: a proof can
+expose a better state space, a sharper task family or a simpler argument.
+Recalibration after a completed milestone is therefore part of the design.
+
+Breadth is postponed when it adds major technical cost without changing the
+explanation. Universal fitting, a generic global Lyapunov construction,
+arbitrary growing-horizon finite-width control and joint continuous-depth
+limits are not prerequisites for this campaign. They remain possible subjects
+of later concerted work, guided by a demonstrated mechanism. Their omission
+here is not evidence of impossibility. Conversely, an extension is worth
+prioritizing when it is needed to reveal a new mechanism: varying dimension or
+task complexity can be essential to a meaningful depth or sample-efficiency
+separation. The aim is neither maximal generality nor an isolated toy witness.
+
+This postponement does not permit assuming away a milestone's decisive gap.
+If a learning conclusion requires a tail bound, conditioning estimate or
+continuation theorem, that obligation must be proved for the admitted family.
+Conditional progress can be retained, but it does not complete the stronger
+target. Restrictions and unresolved dependencies should remain visible.
+
+### Established starting point and dependency map
+
+In *Global nonlinear learning*, C.4.5 supplies the fitted two-hidden-layer
+tanh reference and its whole-circle endpoint. The first three milestones
+are established at the following scopes: C.4.6 captures actual finite-GF data
+derivatives at that reference on every separately fixed horizon and gives
+uniformly bounded population homogeneous propagation; C.4.7 constructs nearby
+nonlinear changed-law flows through physical time 40 and a finite-contamination
+remainder; C.4.8 supplies the actual influence field, Hilbert sampling limit
+and mean-square remainder at time 40, with a width-first finite-GF bridge.
+These statements retain the full Gaussian action and actual adjoint. They do
+not by themselves prove broad useful generalization, architectural superiority
+or an efficient independent numerical representation.
+
+```mermaid
+flowchart TD
+    M["Established milestones 1–3<br/>Trained response · nonlinear law dependence<br/>Sampling fluctuations"]:::done
+    A["A · Nonlinear prediction selection<br/>What substantial additional training selects"]:::theory
+    B["B · Generalization<br/>When the selected prediction is useful"]:::theory
+    D["D · Activation-dependent bias<br/>Which activation helps which tasks"]:::theory
+    E["E · Unknown-structure discovery<br/>Learning beyond linear and frozen models"]:::theory
+    F["F · Advantage of depth<br/>Separation from trained shallow models"]:::theory
+    C["C · Independent computable dynamics<br/>Certified simulation + broader exploration"]:::compute
+    J["Common-family completion<br/>G only if extending the solver requires new mathematics"]:::join
+    M --> A
+    M --> C
+    A --> B
+    B --> D
+    B --> E
+    E --> F
+    C --> J
+    D --> J
+    E --> J
+    F --> J
+    classDef done fill:#e3f3e7,stroke:#43865b,color:#163d23
+    classDef theory fill:#e8f0fc,stroke:#527bb6,color:#17365e
+    classDef compute fill:#f0e8fa,stroke:#8862ad,color:#42245f
+    classDef join fill:#fff0d6,stroke:#b48835,color:#614710
+```
+
+The arrows express the intended mathematical dependencies, not implications
+already proved. The same dependency map is recorded in the table for readers
+whose renderer does not display Mermaid diagrams. C can inform the other
+directions empirically without being a prerequisite for their initial proofs.
+
+| Milestone | Starting dependency | Scientific result sought |
+|---|---|---|
+| A | Established 1–3 | Nonlinear selection of the whole-input prediction |
+| B | A and the established sampling calculus | Useful generalization of that selection |
+| C | Established 1–3 | Independent computation and controlled broader exploration |
+| D | B | An explanation of activation-dependent bias |
+| E | B | Efficient discovery of unknown structure |
+| F | E | A genuine advantage over trained shallow models |
+| Common-family completion; G only if needed | C, D, E and F | Compatible conclusions and computation at the learning scales |
+
+### A. Nonlinear prediction selection after substantial learning
+
+Determine the whole-input prediction selected after finite, nonvanishing
+adaptation to additional data, starting from the original initialization and
+actual training law. A representative setting is
+\(\mu_{\varepsilon,\nu}=(1-\varepsilon)\nu_*+\varepsilon\nu\), where
+\(\nu_*=\tfrac12\delta_{(\sqrt2e_1,+1)}+
+\tfrac12\delta_{(\sqrt2e_2,-1)}\) and \(\nu\) ranges over a nontrivial
+family on \(\sqrt2S^1\times[-Y,Y]\), with fixed \(Y\ge1\).
+Here \(e_1,e_2\) are the input coordinate unit vectors. Inputs outside the
+reference pair need not be orthogonal.
+
+The target is a determining characterization with controlled whole-circle
+error and additional hidden adaptation. Write \(f_*^\infty\) for the fitted
+reference prediction and \(P_\nu\) for the selected prediction. Seek a fixed
+improvement \(R_\nu(f_*^\infty)-R_\nu(P_\nu)\ge a>0\), where
+\(R_\nu(f)=\int(f(x)-y)^2\,d\nu(x,y)\). The margin must survive
+the small-contamination and width limits on a specified robust subfamily;
+it cannot disappear merely because the component has weight \(\varepsilon\).
+Measure additional hidden motion against the matched reference evolution or
+its justified hidden endpoint, rather than against initialization alone.
+The original finite Gaussian readout, both orientations of the reused middle
+action, and the exact model and training metric are retained. Population
+continuation and actual finite-GF capture must be justified through the chosen
+learning horizon, with explicit limit order.
+
+One finite adaptation episode can suffice. A first derivative, formal jet,
+restatement of the original parameter equations or small mixture loss alone
+does not determine the requested nonlinear selection. The fitted endpoint,
+response geometry and source estimates provide a concrete starting point;
+control of accumulated adaptation remains the new obligation. This yields an
+independent explanation of substantial nonlinear learning even if B fails.
+
+### B. Generalization of the selected predictor
+
+For a task family defined independently of the network's eventual answer,
+connect the selected whole-input prediction to the regression target. Derive
+population approximation error, sampling and noise control, and a justified
+training horizon or stopping rule. The guarantee should improve with available
+information or computational effort in a stated regime; finite-network
+transfer must keep its proved scope.
+
+The sampling limit in C.4.8 describes fluctuations around the population
+predictor. It does not establish that this predictor is close to the desired
+target, nor does its prediction-variance formula automatically identify excess
+risk. A supplies the selection mechanism to analyze; B supplies the connection
+to useful unseen predictions. This is valuable without an architectural
+superiority theorem.
+
+### C. Independent computation and broader empirical exploration
+
+Construct a fundamentally different finite causal system approximating the
+same population GF, with one physical time, explicit initialization and
+prediction reconstruction. The certified target includes enough internal
+observations to identify the evolution and support its claimed restartability,
+including the effects of both Gaussian action directions and their reuse.
+An autonomous ODE, PDE or integro-differential hierarchy is admissible; a fitted
+surrogate or replay of the target trajectory is not.
+
+Account for total storage, computation, precision, quadrature, field count and
+memory cost. A collection of low-dimensional fields can qualify. A hidden
+high-dimensional density, unevaluated Gaussian-action oracle or renamed
+trainable fully connected matrix does not establish manageable computation.
+The first theorem can cover an explicitly represented family of laws,
+including nonatomic examples, through the established learning horizon. It
+should attain useful accuracy within a concrete resource bound.
+
+The second purpose is reliable empirical investigation beyond conservative
+proof bounds. Make the construction reusable wherever its equations and
+approximations remain meaningful, to investigate larger law perturbations,
+broader input correlations, longer training and the resulting whole-input
+predictions and risks. Such observations may reveal that a theorem's small
+admissible neighborhood reflects its estimates rather than actual failure of
+learning. This is a hypothesis to test, not a conclusion supplied by the plan.
+
+Outside the certified regime, label results exploratory. Check refinement of
+time discretization, resolution and truncation, relevant numerical errors,
+and agreement with independently simulated finite networks as width increases
+under stated step conditions. Finite networks already provide a simulation
+route; C supplies an independent approximation to help separate population
+behavior from finite-width and numerical effects. A stable-looking curve at
+one resolution is insufficient. Broader empirical evidence does not prove
+existence, convergence or generalization theorems, and changed depth or
+architecture may require different equations. Experiments retain their own
+authorization, reproducibility and review requirements.
+
+### D. Activation-dependent inductive bias
+
+Explain which task characteristics favor one activation over another through
+the actual trained selection mechanism. Seek two genuinely different
+activations and robust regimes with a meaningful crossover, including sampling
+sensitivity where relevant. Initial kernel spectra can guide a proof but do
+not replace analysis of trained nonlinear predictions.
+
+Control initialization and output scales, training time and tuning opportunities.
+Avoid manufacturing the comparison through scalar gain alone or a symmetry
+mismatch that prevents one model from representing the task. Each activation
+requires its own justified dynamical scope. B makes the comparison interpretable
+in terms of task structure and risk. A successful D explains activation choice
+even if efficient unknown-structure discovery remains open.
+
+### E. Efficient discovery of unknown structure
+
+Show how useful representations emerge without being supplied in the
+initialization. On a substantial structured task family with unknown directions,
+components or interactions, prove discovery and exploitation by the actual
+jointly trained network, with explicit sample, training-time and finite-network
+requirements. Finite GD claims retain their proved step conditions.
+
+Establish class-level advantages over deep linear training and precisely
+specified frozen-feature and initialized tangent-kernel alternatives. The
+advantage may concern sample, parameter or computational scaling; it need not
+exclude approximation by a much more expensive competitor. State resource
+constraints and tuning opportunities fairly. A and B explain selection and
+its usefulness; emergence from the original Gaussian initialization is E's
+additional obligation. Response around a fitted reference alone does not
+establish it.
+
+### F. A genuine advantage of depth
+
+Find a robust task class for which the actual deep training algorithm has a
+learning guarantee that a trained one-hidden-layer alternative cannot match
+under clearly stated resource or training constraints. Combine the deep upper
+bound with an appropriate shallow approximation, statistical or optimization
+lower bound. The explanation must identify useful nonlinear composition across
+layers. Feature motion, sequential discovery or superiority over a frozen
+kernel alone does not establish the shallow comparison.
+
+E supplies actual discovery of unknown structure; F identifies structures for
+which depth makes its exploitation substantially more efficient. A suitable
+common task family and the required exact-model shallow obstruction remain
+research obligations, not assumptions secured by the roadmap.
+
+### Common-family completion and the possible milestone G
+
+The final learning, activation, depth and computational results must have
+substantial overlap in task families, models and learning regimes. C's solver
+must cover the relevant horizons with error smaller than the claimed learning
+and comparison margins. If C's approximation and complexity theorem already
+provides this, completion is integration and verification. If extending it
+requires new mathematics, that is a separate milestone G; its count is not
+fixed in advance for presentation symmetry.
+
+A possible missing obligation is controlling the necessary source modes or
+memory using the learned structure. Low-dimensional structure in a target
+does not automatically imply a small representation of the trained Gaussian
+evolution. This computational compatibility and the exact-model shallow
+separation are substantial uncertainties. Screen candidate families early
+for compatibility rather than accumulating results that cannot be combined.
+
+### Conditional GD fallback and recalibration
+
+The current route uses the established GF foundation. Reconsider direct GD
+when a milestone encounters a persistent, precisely identified obstacle that
+a discrete formulation might remove. A failed calculation or one unsuccessful
+proof route is not evidence against the target itself.
+
+First distinguish a route failure, a missing estimate and an obstruction to
+the claim. Then compare concrete GF and GD formulations with the same learning
+objective, initialization, nonlinear mechanism and observations. Tensor-program
+identification makes each admissible fixed GD computation available in the
+width limit; the number of steps may be large and depend on the dataset or
+desired accuracy if chosen before width. It does not itself prove that those
+steps achieve useful loss, hidden adaptation or generalization. A discrete
+route can therefore avoid continuous-time existence while retaining a hard
+long-training problem. The exact clocks and endpoint geometry already
+available for GF are reasons to assess the particular obstacle before switching.
+
+Adopt a GD route only when this comparison identifies a documented, concrete
+advantage in addressing the named obstacle while preserving the stated target,
+or explicitly agreeing a revised target. Availability of tensor-program limits
+alone is insufficient reason for a switch.
+
+A fixed-step GD result must be stated as such: its learning-rate-dependent
+prediction is not automatically the GF prediction. If a branch adopts GD,
+common-family completion with C requires a proved dynamics comparison,
+controlled discretization bias or a separately formulated computational theorem
+for GD. Numerically discretizing GF is also distinct from changing the learning
+algorithm to fixed-step GD.
+
+Recalibrate after successes as well as persistent blockages, using the actual
+proved statements and dependencies. The intended order is A, then B, followed
+by D and E, with F after E; C can proceed independently from the established
+starting point. Each claimed win retains independent scientific review and
+the existing promotion requirements. The roadmap does not authorize importing
+unreviewed findings across study boundaries or treating exploratory evidence
+as established theory.
+
 ## Chapters and their exact roles
 
 | Chapter | Established content and scope |

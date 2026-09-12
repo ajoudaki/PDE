@@ -4,7 +4,8 @@ This is the migration and acceptance record, outside the established library.
 The [plan](PLAN.md) defines the preservation and promotion gates. The
 [research map](../project_wide_audit_2026_09_08/MASTER_RESEARCH_REPORT.md) retains
 the broad research state; the [theory guide](../../docs/README.md) describes
-only the maintained, self-contained mathematical library.
+the maintained, self-contained mathematical library and its explicitly labeled
+research roadmap.
 
 ## Preservation and navigation
 
@@ -170,6 +171,32 @@ the exact 25-file edition; `INCORPORATION_FINAL_CHECKS.json` records final
 byte and navigation checks. All 73 small deterministic tests pass. Remaining
 coverage items are deliberate, qualified backlog, not implicitly rejected
 mathematics or unannounced extensions of the accepted theorem scopes.
+
+## Strategic-roadmap editorial maintenance, 12 September 2026
+
+The user authorized adding the agreed A–F roadmap, DAG, conditional GD fallback,
+and C's certified-computation/exploration roles immediately below the book's
+research philosophy, together with the insight-before-breadth rationale.
+This is editorial maintenance, not promotion of a study theorem or experiment.
+The sole maintained change is an insertion in `docs/README.md`; prior introduction
+text and chapter-link order are preserved. No other study supplied research inputs.
+
+The [first editorial report](STRATEGIC_ROADMAP_REVIEW_2026_09_12.md) records two
+clarifications; the [fresh final report](STRATEGIC_ROADMAP_REVIEW_FINAL_2026_09_12.md)
+reviews the complete corrected introduction and its supplied statement/notation
+dependencies. These are scoped editorial checks, not new proof audits.
+The final book-input SHA-256 is
+`3f341b52fa6449a4008602f573590b1528158bd1370f17bc26db032813799f5e`.
+Frozen inputs, HTML preview and mechanical-check results are retained under
+`data/generated/repository_refactor_2026_09_09/strategic_roadmap_2026_09_12/`.
+
+Validation checks the insertion boundary, preservation of the original text,
+Markdown parsing, mathematical-delimiter balance in the addition, DAG nodes,
+edges and acyclicity, unchanged link sequence, and unchanged chapter discovery
+using the existing PDF exporter. A dependency table retains the DAG's meaning
+when Mermaid rendering is unavailable. No full PDF build or graphical Mermaid
+render is claimed. Concurrent exporter, scientific-study and historical-review
+changes remain outside this maintenance scope and its commit.
 
 ## Rollback without losing work
 
