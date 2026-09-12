@@ -1,8 +1,11 @@
 # Observable hierarchy — milestone C-H1
 
-**C-H1 completed as a reviewed study theorem.** Two fresh complete scientific
-reviews and the independent integration review pass. The exact promotion
-proposal is ready for user approval; no result is promoted.
+**C-H1 promoted with user approval.** The exact reviewed theorem is established
+in `docs/global_nonlinear.md` C.4.7.8, and `docs/README.md` records its scope.
+Two fresh complete scientific reviews and the independent integration review
+pass. Approval and final correspondence are retained in
+[promotion_v3.md](promotion_v3.md).
+Promotion commit: `48555cc76d52619d3a1927aef4739c7fdb928512`.
 
 The target is an exact, predictively sufficient current observable hierarchy
 for canonical two-hidden-layer tanh population physical gradient flow, with
@@ -48,8 +51,8 @@ Initial HEAD: `dbc4ffda9a57b063dfd2a6895621af554d06157b`; index initially empty.
 Concurrent changes outside this study were observed and are preserved. Git
 transactions use the shared nonblocking `pde-writer.lock` and explicit owned paths.
 
-The current complete candidate is [candidate_v3.md](candidate_v3.md), the exact
-proposed C.4.7.8 subsection. Earlier versions are retained. It uses a finite
+The promoted source is [candidate_v3.md](candidate_v3.md), the exact
+approved C.4.7.8 subsection. Earlier versions are retained. It uses a finite
 typed alphabet and finite-dimensional scalar/input
 marks, joint populations, and a weak reverse-adjoint compiler whose cutoff limit
 stays inside a fixed higher level. The all-order joint state reconstructs reducing
@@ -92,7 +95,8 @@ static identity and exact rational certificate; the integration reviewer reran
 both from standalone copied source in Python isolated mode. Full acceptance
 provenance and optional editorial notes are in
 [review_acceptance_v3.json](review_acceptance_v3.json). All frozen scientific
-inputs and current established source hashes remain unchanged.
+inputs remain unchanged. The two approved live document hashes now match the
+reviewed edition; all other dependency hashes are unchanged.
 
 The theorem fixes `T0=1/200` and one positive law ball independently of level.
 It provides Gaussian initialization, exact finite upward weak evolution using
@@ -101,8 +105,14 @@ sufficiency/reached restart for matching realizations under the reference law.
 Both hidden layers move and remain nonaffine at one common positive time.
 Finite levels are marked families of laws, not finite scalar compression.
 
-Next authorized boundary: obtain the user's approval of the exact
-[promotion proposal](promotion_proposal_v3.md) before applying C.4.7.8 and the
-guide update to established material. C-H2 finite autonomous closure and its
-convergence remain open, as do effective cutoff, quadrature and solver costs.
-No training experiments or established theory/code changes were performed.
+The user approved the exact [promotion proposal](promotion_proposal_v3.md).
+The approved C.4.7.8 and guide changes are applied without scientific alteration.
+[check_promoted_v3.py](check_promoted_v3.py) verifies the actual live mapping,
+dependencies, links and equation definitions and reruns the two static checks
+in a fresh generated directory. It passed, with outputs identical to the
+reviewed edition. Use this checker after promotion; the frozen assembly recipe
+deliberately expects pre-promotion source hashes.
+
+This milestone is complete. C-H2 finite autonomous closure and its convergence
+remain open, as do effective cutoff, quadrature and solver costs. No C-H2
+campaign or training experiment has been started, and no maintained code changed.
