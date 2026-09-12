@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "recorded_utc": "2026-09-12T18:51:16.106770+00:00",
+  "coordinator": "/root",
+  "task": "01a096c9-0ffc-7173-8198-831cf5b6ac53",
+  "full_C_H3_complete": false,
+  "canonical_promotion_ready": false,
+  "bounded_scientific_scope": "Fixed two-atom orthogonal reference, physical T=1/200, uniform time/whole-circle prediction and two paired RMS observations, one/two-step certified continuation; separate source-cap and conditional same-base stability lemma.",
+  "relevance": "Accept narrow assembly/standalone validation; hold full C-H3.",
+  "scientific_reviews": "Two fresh complete isolated reviews PASS the exact bounded claims without required scientific corrections; both mark full C-H3 NOT MET.",
+  "scientific_manifest_sha256": "bc60684162353c63704644f4a543b2f644eb7a27ec6179e293a3bbbb71f241f9",
+  "integration_v1": "Required copied proof filename correction; original adverse report and packet preserved.",
+  "integration_v2": "Fresh separate reviewer PASSes the bounded standalone capsule without required correction; no empirical producer run and no installed edition reviewed.",
+  "final_capsule_manifest_sha256": "830c13f59538a80ab5365303370136344645534bf9bc30ac9ce92f162be90035",
+  "mapping_verification": "All 15 common proof/scientific-code/test/config/guide input records and bytes unchanged; only circle proof destination renamed. Builder changes solely its manifest selection.",
+  "original_reports_sha256": {
+    "H3_relevance_v2.md": "8bf9de28b95696b3cd5af106ebd84ecf19af3d4bd77dc962aae332eee08c8e88",
+    "H3_review_a_v1.md": "77ce890ca0122b1c416dc4f2cb441e47f5daad751e62b12416113e9b24921374",
+    "H3_review_b_v1.md": "81f14f0b6ac7eae21c1210ad6876a38fd1ac0ce453859e4d58a575a235f55d3c",
+    "H3_integration_v1.md": "24f268fbf100ee1adb16cfa0db31fcac6a064c6ee5bacaf9b240718fa8bc958e",
+    "H3_integration_v2.md": "3819edddda5d6371624336d3b94a21a9ee7bb4ca03172031893eb6d609a4456a"
+  },
+  "coordinator_report_read_coverage": {
+    "H3_relevance_v2.md": "1-146, complete",
+    "H3_review_a_v1.md": "1-494, complete",
+    "H3_review_b_v1.md": "1-433, complete",
+    "H3_integration_v1.md": "1-348, complete",
+    "H3_integration_v2.md": "1-312, complete"
+  },
+  "provenance_checks": "Read original full reports; checked identities, declared fresh isolated input scopes, complete scientific reads and explicit integration older scope/unread complement; verified all frozen originals and five capsules, output hashes, and navigation-only correction. These checks do not replace scientific arguments.",
+  "review_A_process_exception": "Original report discloses two temporary-fixture fallback invocations; final test fixtures were in assigned scratch. Reports and fixture history retained.",
+  "fresh_reproductions": [
+    {
+      "reviewer": "/root/h3_review_a",
+      "result_path": "data/generated/observable_hierarchy/H3_review_a_v1/capsule/run/result.json",
+      "result_sha256": "12806be780f5b6654913137ec20ce8fe95bf39a0c7cf76a71e407f23a3d52541",
+      "verified_recorded_output_count": 48,
+      "cpu_seconds": 10.72,
+      "wall_seconds": 20.52,
+      "peak_rss_kib": 18728,
+      "supplied_tests_passed": 16
+    },
+    {
+      "reviewer": "/root/h3_review_b",
+      "result_path": "data/generated/observable_hierarchy/H3_review_b_v1/capsule/run/result.json",
+      "result_sha256": "bfa5725d4cd649f60da7b505adfeba9a4f3d4fbd0f586c841f3b13c164bad149",
+      "verified_recorded_output_count": 36,
+      "cpu_seconds": 10.67,
+      "wall_seconds": 20.47,
+      "peak_rss_kib": 18720,
+      "supplied_tests_passed": 16
+    }
+  ],
+  "integration_v2_resources": {
+    "cpu_seconds": 2.525909,
+    "wall_seconds": 2.499565,
+    "peak_child_rss_kib": 20992,
+    "supplied_tests_passed": 16,
+    "empirical_producer_runs": 0
+  },
+  "integration_v2_verified_evidence_sha256": {
+    "execution.json": "2a0fe2b2ac976737cbbf3ce5a03b64a376e8e6be20f3447e22437638fb877560",
+    "hashes.json": "3549da7be2c9e5f9fa511654c6c2cfb871525192c524753c3a24bf351edb490b",
+    "static_results.json": "10dfcbf83cbe496c7d942cf1df3373eafd59ee1a6147105a4303a8b2ee7b9d05",
+    "synthetic_checkpoint.json": "51cb6ab07416a865d6cdeb4f4a184768ed91aab44e8f852754d7196d28a8640b",
+    "synthetic_kernel.json": "e868bb6713108aa447d5db3decd68578532b41f5d3e9dd0ae7091759a52a3759",
+    "plan.md": "2132e4c2d8af3c141e81b237cdc6e6bc7aa27e8e1c306b6ba7c86e500488ac9e",
+    "static_checks.py": "56cfc9ab01983fda5bebd76b261ed8a0f8efbc97ef59e334c043d6cd21e9ef4b",
+    "run_checks.py": "251e228750df60852408a0351bf2c081de182d792073e091aa86d665368afc00"
+  },
+  "review_evidence_source_bundle_sha256": "7e3e6effc1d1dad69d3ca88809f6e39f2135e2c0696a48d838532ed0ce968eef",
+  "live_H2_five_approved_hashes_verified": {
+    "docs/global_nonlinear.md": "947eb52f10a8ebcd4970fa2acb1d26cba25dc5d73e8839893d5d2f4e3f688161",
+    "docs/README.md": "269f481c6198971875ec22cb1b7e451ad0f3fbf3fe21a41be42a72dd49ae7ce2",
+    "code/README.md": "3ffc27a58e8e090828fbac3f7d4b86c9e33f4ff5cdd7b0690e086364e8e82731",
+    "code/pde/observable_closure.py": "f8dc5d16e5de1737444c44aae737ee1c9b4d664188d72f59acd0bb92f457c137",
+    "code/tests/test_observable_closure.py": "ecc60bfd7eec882c8ae05140d756f6ec8cf90909b6317aab2c126b3c27439635"
+  },
+  "unmet_obligations": [
+    "Implemented terminating nonlinear refinement for every positive tolerance, with computable closure/defect bounds.",
+    "Effective fixed nontrivial represented law family within H2 supported neighborhood, including nonorthogonal and nonatomic laws.",
+    "Certified integration/observation of every fixed admissible same-population tuple, full state/storage/precision and general restart guarantees.",
+    "Concrete canonical full-milestone edition and its full promotion gates."
+  ],
+  "negative_scope": "Feasibility/portfolio obstructions are study-internal and not all in the paired positive-component review packet; no impossibility or H2 refutation is claimed.",
+  "remaining_work_status": "Full milestone remains open; this bounded execution attempt is closed. No further trajectory or H4 campaign is running."
+}

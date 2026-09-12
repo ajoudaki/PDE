@@ -225,23 +225,65 @@ remain C-H3 and C-H4, with no additional result asserted here.
 
 ## C-H3 continuation — 2026-09-12
 
-Active task `01a096c9-0ffc-7173-8198-831cf5b6ac53` is authorized to pursue useful
-certified computation at physical `T=1/200`, including bounded deterministic
-execution and independent reproduction. [H3_contract.md](H3_contract.md) freezes
-the exact target, claim ladder, route ownership, demonstration configuration,
-signal/error thresholds and numerical resource limits before trajectories.
-Coordinator `/root` owns this appended record and is the sole study Git writer.
-Three fresh scoped routes own only their separately assigned H3_route_* files.
+**C-H3 remains incomplete.** The bounded attempt in task
+`01a096c9-0ffc-7173-8198-831cf5b6ac53` produced a useful certified reference
+calculation, with two complete scientific reviews and independent reproductions,
+but no arbitrary-accuracy solver for the requested represented law family.
+[H3_assessment.md](H3_assessment.md) is the current outcome and gap record.
+The frozen [H3_contract.md](H3_contract.md) retains the initial target, claim
+ladder, route ownership, demonstration configuration, signal/error thresholds
+and finite resource limits fixed before trajectories. Coordinator `/root`
+owns this appended record and is the sole study Git writer.
 
 Recovery verifies that all five live H2 files match the approved v3 hashes and
 that all seven frozen dependency excerpts match their maintained sources.
-H2.10's target-dependent source error is the initial decisive obstacle to an
-effective order rule. H3 remains incomplete. The three frozen candidate routes
-and their current comparison are in [H3_portfolio_comparison.md](H3_portfolio_comparison.md).
-The exact short-time source-cap/stability calculation has passed a nonauthor
-internal component audit; it still takes the full trajectory defect as an
-unverified input and is not a solver certificate. The independent
-[relevance gate](H3_relevance.md) holds the full milestone for the effective
-family and implemented terminating certificate pipeline. A bounded reference
-numerical component is under construction and review. Established book/code
-remain unchanged pending the full review and concrete approval gates.
+H2.10's target-dependent source error is the decisive obstacle to an effective
+order rule. Three fresh isolated routes tested structurally different answers:
+an a priori dictionary cover, an original-action residual certificate, and a
+short-time integral approximation. Their frozen reports and comparison are in
+[H3_portfolio_comparison.md](H3_portfolio_comparison.md). The
+[residual feasibility investigation](H3_residual_feasibility.md) gives a scoped
+obstruction to the literal float64 H2 implementation and the proposed generic
+residual bound; it is not a lower bound against all closures. The source-cap
+and stability proof supplies explicit constants, but still requires an actual
+certified defect producer for a general trajectory.
+
+The [reference proof](H3_candidate_reference_v1.md),
+[whole-circle proof](H3_candidate_circle_v1.md), and
+[autonomous reference solver](H3_reference_solver.py) cover the preregistered
+two-atom orthogonal law through physical `T=1/200`. Uniform prediction error is
+below `7.376364e-6`; the whole-circle prediction change exceeds `.0011791368`.
+The same-population paired RMS intervals are `[4.4732053e-6,4.5182496e-6]` and
+`[6.6076920e-6,6.7410684e-6]`, with errors below `2.252213e-8` and `6.668817e-8`.
+All predeclared signal and accuracy thresholds pass. Independent end-to-end
+reproductions took 10.72 and 10.67 CPU seconds, 20.52 and 20.47 wall seconds,
+and at most 18,728 KiB RSS. They used 60 decimal digits, certified Gaussian
+tails and quadrature, and an actual disk checkpoint with accumulated error.
+These are bounds for a fixed-order reference approximation, not arbitrary
+accuracy or a certified API for nonorthogonal/nonatomic training laws.
+
+The [relevance follow-up](H3_relevance_v2.md) accepts narrow assembly and holds
+full C-H3. Original [scientific A](H3_review_a_v1.md) and
+[scientific B](H3_review_b_v1.md) each read the complete 8,119-line frozen
+packet and pass the bounded claims; each says full C-H3 is not met. The first
+[integration report](H3_integration_v1.md) requires a copied proof filename
+correction. The [v2 capsule builder](H3_make_review_capsule_v2.py) makes that
+packaging correction without altering any scientific input; its separate
+fresh [integration v2 review](H3_integration_v2.md) passes the bounded capsule
+with no required corrections. [Review disposition](H3_review_disposition_v1.json)
+records exact scopes/hashes, and [retained review sources](H3_review_evidence_sources_v1.json)
+preserve the handwritten attacks and preregistrations. No canonical
+full-milestone promotion package is ready.
+
+Missing obligations are an implemented terminating nonlinear refinement for
+every positive tolerance; an effective nontrivial family inside H2's fixed
+supported neighborhood, including nonorthogonal and nonatomic laws; and
+certified general finite joint observations with corresponding complete
+storage and restart bounds. The fixed-order remainder cannot be eliminated
+by finer quadrature. These are limitations of this attempt and its unfinished
+general construction, not a refutation of H2 or impossibility of C-H3.
+
+The assessment contains fresh-path reproduction commands and exact scope.
+All H3 study sources, original corrections/reports and generated evidence are
+preserved. Scoped commits use the shared writer lock and exclude concurrent
+changes. Full promotion remains held; C-H4 and training campaigns were not run.

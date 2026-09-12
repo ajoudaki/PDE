@@ -1,7 +1,7 @@
 # C-H3 portfolio comparison
 
-Coordinator synthesis, 2026-09-12. Status: work in progress; the full milestone
-is incomplete. The three first-route files were frozen before this comparison.
+Coordinator synthesis, 2026-09-12. Status: bounded attempt closed; the full
+milestone is incomplete. The three first-route files were frozen before this comparison.
 Their observations are candidates, not accepted canonical additions.
 
 ## Common target and decisive obstacle
@@ -117,6 +117,7 @@ existential law radius cannot be replaced by a convenient decimal. Nor does
 the new all-finite-law short-time source cap automatically prove that a
 specified perturbed law lies within the original H2 neighborhood.
 
-Final execution, reproduction, review outcomes and promotion disposition will
-be recorded separately after the bounded work finishes. The existing book and
-maintained code have not been changed.
+Final execution, reproduction, review outcomes and promotion disposition are
+recorded in [H3_assessment.md](H3_assessment.md). The bounded reference succeeds
+at its preregistered accuracy; full C-H3 remains incomplete. The existing book
+and maintained code have not been changed by this attempt.
