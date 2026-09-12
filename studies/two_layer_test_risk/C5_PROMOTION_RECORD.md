@@ -133,6 +133,22 @@ inherited review file was unreadable; `_02` records such files as metadata only,
 as required by the workflow. No permissions or unrelated files were changed.
 
 The preparation commit is `fda31b9361683ba2fa1faab4404372b33da45a0c`.
-The installation commit is recorded below after the scoped writer transaction.
+The installation commit is `1cd17ff83d87075d9fb41226116a9341403971f9`.
+The following record-only commit seals this commit identity; it changes no
+reviewed book/code bytes.
 Original proof/review records remain unchanged. This promotion resolves only
 the fixed-design early-time comparison; all broader exclusions above remain.
+
+### Final installed SHA256 values
+
+| Maintained file | SHA256 |
+|---|---|
+| `docs/global_nonlinear.md` | `1f079e1e891dfbee88ac87495cb3b39c9e6992da34d4acf56d98c1c024d89dc9` |
+| `docs/README.md` | `75b01a8d3888674d6034e8543a42bac13e5fdad4c989e3a6a9081c81cbc8d9d8` |
+| `code/README.md` | `3cb90e55b630870c391e56158432a909fc60872b4af724756b2be19884ef7d6e` |
+| `code/tools/two_layer_risk/certificate.py` | `773f8c90c08b17736fe3fb37213ecce6ef3fb5c848fd3ff2e4f73e8f9b909855` |
+| `code/tools/two_layer_risk/certificate_kernel.cpp` | `a75b60a5615df7853e54179458ff8f0b5c646a5fe956eb87f31b1431c1251cc7` |
+| `code/tools/two_layer_risk/angle_error_bound.py` | `cc3d750d096212016534056d35d221d6e7840a4a9f192379d283c093b0f94149` |
+| `code/tools/two_layer_risk/check_driver.py` | `1f70dda734e117dca6ed25e1f2656242fbb085ee8cd0fd6f7ee9b7de8da9a4e2` |
+| `code/tools/two_layer_risk/check_kernel.py` | `cc7f3fded02082eee118b5eecd0f947f39486eef27ea47d8095a828d62790be1` |
+| `code/tools/two_layer_risk/README.md` | `fa51953f28a7ef39c6770ccf9c2e9a18d9302ecefe36d8a16d288988fca86681` |
