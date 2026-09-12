@@ -1,125 +1,122 @@
 # Nonlinear prediction selection — milestone A
 
-Status: active research; no result is established or approved for promotion.
+Status: the complete theorem is internally checked in corrected candidate v3.
+Fresh complete review gates are in progress. Nothing has been promoted, and no
+established book or code file has been changed.
 
-## Contract
+## Question, exact model and result
 
-Determine the whole-circle prediction selected after substantial added-data
-learning by the canonical two-hidden-layer, bias-free tanh network, stored
-variances `(1,1/n,1/n²)`, mobilities `(n,1,n)`, unhalved square loss, physical GF.
-Training uses `(1-epsilon) nu_* + epsilon nu` from the original initialization;
-`nu_*` has labels `+1,-1` at `sqrt(2)e_1,sqrt(2)e_2`. Added laws must range over
-a nontrivial open finite-atom parameter family admitting nonorthogonal inputs.
-Retain actual finite Gaussian readout, full first rows, initialized Gaussian
-middle action and its true adjoint. Width may tend to infinity first for each
-positive epsilon, then epsilon to zero. No training experiments are authorized.
+Determine the whole-circle prediction after a nonvanishing episode of additional
+learning in the canonical bias-free two-hidden-layer tanh network. Stored Gaussian
+variances are `(1,1/n,1/n²)`, mobilities `(n,1,n)`, loss is unhalved mean square,
+and time is physical GF. Every actual run uses its fixed mixture from the original
+initialization, retaining the actual Gaussian readout, full first rows, initialized
+middle action and true adjoint. No training experiments have been authorized or run.
 
-The target combines a determining nonlinear population description, a justified
-nonvanishing adaptation horizon, an added-risk improvement bounded away from
-zero, changed-law hidden-feature displacement with matched initialization,
-and actual finite-GF capture uniformly on the circle with internal observations.
-Fixed-time response, a frozen kernel, conditional continuation, or an oracle
-trajectory does not complete this contract. Initial layers and limit orders
-must be explicit. Canonical starting material is `docs/global_nonlinear.md`,
-especially complete C.4.5–C.4.8 and necessary established dependencies.
+The [complete canonical candidate v3](CANONICAL_ADDITION_v3.md) admits one added
+atom at `sqrt(2)(cos(alpha),sin(alpha))` with
+`|alpha-pi/4| <= 1/1216` and `3/8 <= y <= 5/8`. This compact parameter rectangle
+has nonempty interior; all added inputs are nonorthogonal to both anchors.
 
-## Independent approaches and current synthesis
+The determining equation is the full nonlinear raw gradient of the added loss,
+projected onto the tangent space preserving the two fitted anchor predictions.
+It starts at the justified reference latent endpoint and reconstructs every
+circle prediction from its evolving first rows, middle action and readout.
+The proof constructs a unique strong finite episode, justifies the original
+mixture's initial layer and continuation, and identifies the slow clock
+`tau=epsilon*t`. On `T_epsilon=tau0/epsilon`, with common fixed `tau0>0`, it proves:
 
-The coordinator owns this README, synthesis and Git writes. The first fresh
-round is frozen: [geometric route](ROUTE_GEOMETRIC.md) used prompt-only inputs;
-[conditioning route](ROUTE_CONDITIONING.md) used complete C.4.5–C.4.6;
-[continuation route](ROUTE_CONTINUATION.md) used the finite-program and C.4.7
-sources. Their exact input coverage and limitations are in the reports.
-The coordinator's [integrated-control route](ROUTE_RESIDUAL_CLOCK.md) is a
-candidate synthesis, not a proved selection theorem.
+- whole-circle prediction selection, uniform in the law rectangle at population
+  level and uniformly on compact slow-time intervals away from zero;
+- an added-component risk improvement `a>0`, without a mixture-weight factor;
+- a normalized second-hidden squared displacement `j>0` from the matched reference
+  on the same initialized primitives, averaged over the anchors and added input;
+- actual finite-GF capture in probability, including the same-array internal
+  observations, with width first at each fixed epsilon and then epsilon to zero.
 
-The conditioning route supplies a new proof mechanism: saturated Gaussian
-rows survive the bounded reference clocks, giving independent first features
-at every finite list of directions distinct modulo antipodes. Their middle
-rank gradients then give a positive trained Gram and a nonzero hidden projected
-learning direction. The other routes independently identify constrained
-nonlinear evolution on the scale tau=epsilon t. The geometric finite-width
-witness uses a Gaussian-probability-zero initialization and is not a target
-solution. The continuation route's fixed-time extension alone does not reach
-the proposed learning horizon.
+All margins are independent of width and contamination. Constants are qualitative
+and may be impractical. The theorem claims one finite episode, not a changed-law
+endpoint, a simultaneous width rate, raw GD, a first-hidden margin, feature
+necessity/superiority, or out-of-sample generalization.
 
-Second-round ownership: continuation_route writes
-CONTINUATION_CONTROL_TUBE.md; geometric_route writes SLOW_SELECTION.md;
-conditioning_route writes CONDITIONING_ACTIVITY.md. The target family is now
-one added atom with position near pi/4 and label in (3/8,5/8). Authors are
-checking a source-control neighborhood of the entire reference history,
-original-initialization slow selection, and uniform finite-episode risk and
-upper-activation margins, respectively. These are not independent promotion
-reviews.
-Assignments and actual input coverage are retained with each result.
+## Proof and evidence
 
-## Evidence and gaps
+[Source coverage](SOURCE_COVERAGE.md) records complete C.4.5–C.4.8 and required
+established dependency reading, shared instructions and required skills.
+[Internal reconstruction](INTERNAL_CHECK_v1.md) checks the combined proof;
+[correction v2](CORRECTION_v2.md) and [correction v3](CORRECTION_v3.md)
+record subsequent hypothesis and finite-normalization corrections.
+The decisive ingredients are the [integrated-control source bound](CONTINUATION_CONTROL_TUBE.md),
+[endpoint interface](CONTROL_TUBE_APPLICATION_NOTES.md),
+[conditioning and hidden activity](CONDITIONING_ACTIVITY.md),
+[nonlinear slow selection](SLOW_SELECTION.md), and
+[actual finite-GF capture](FINITE_CAPTURE.md). The canonical candidate contains
+the complete argument without depending on these author artifacts.
 
-Startup and complete relevant established source reading are recorded in
-[SOURCE_COVERAGE.md](SOURCE_COVERAGE.md). AGENTS.md, both workflow parts, and
-the required solve-math-rigorously and investigate-conjectures skills were read. Starting HEAD: bb9e57b6410f7e76b3bf1de5a33dc4cc7ee58cb3.
-Other dirty paths were inspected as metadata only and are outside this study.
+The initial independent routes were frozen before comparison:
+[geometric](ROUTE_GEOMETRIC.md), [conditioning](ROUTE_CONDITIONING.md),
+[continuation](ROUTE_CONTINUATION.md), plus the coordinator's
+[residual-clock synthesis](ROUTE_RESIDUAL_CLOCK.md). Their exact allowed inputs,
+limitations and exposure disclosures remain in those records. In particular,
+the special finite-width geometric witness was not a solution to this target.
 
-Next authorized action: independent proof exploration, exact source audit,
-deterministic verification, and progressive scoped commits under the shared
-writer lock. Any positive promotion requires the full workflow review gates
-and approval of the concrete reviewed package before established edits.
+## Review and proposed integration
 
+The independent [relevance screening](RELEVANCE_SCREENING.md) accepts assembly
+as C.4.9, with the smallest destination being the global nonlinear chapter and
+its guide. Candidate v1 and its full original reports remain frozen:
+[A: PASS](ADVERSARIAL_A_v1.md), [B: REVISE](ADVERSARIAL_B_v1.md).
+B found a false auxiliary overgeneralization: nonantipodal lists can contain
+repeats. v2 explicitly requires pairwise distinct inputs in that assertion and
+its sign-crossing argument. The actual theorem family already satisfies it.
+The coordinator read both full reports and checked their unchanged fingerprints.
+v1 is not accepted for promotion.
 
-Checkpoint: first-round arguments have been reconstructed by the coordinator,
-with no training experiments and no established edits. They remain candidate
-or conditional results, with exact scopes above. The decisive unresolved
-obligation is a uniform named-source/tail continuation estimate for a small
-integrated-control perturbation of the bounded reference history, followed by
-actual nonlinear slow-limit and finite-GF capture. No obstruction to the target
-has been proved. Initial scoped commit: abab5537b4a248ada7fde7164c60a56fb864e881.
-
-
-Second checkpoint: [source-control tube](CONTINUATION_CONTROL_TUBE.md) and
-[endpoint application](CONTROL_TUBE_APPLICATION_NOTES.md) have complete candidate
-proofs, read and reconstructed by the coordinator. They control the full
-reference history in integrated control mass without physical-horizon constants.
-[One-atom conditioning/activity](CONDITIONING_ACTIVITY.md) gives explicit
-positive nonlinear-episode margins once the common constrained evolution is
-constructed. [Finite GF bridge](FINITE_CAPTURE.md) proves fixed-epsilon capture
-from population Euler tails, including the actual Gaussian readout and paired
-reference observations. Its readout argument was sharpened after author checking
-to a fixed-oracle cutoff induction. These component implications do not alone
-establish the combined theorem; SLOW_SELECTION.md is being finalized.
-
-The independent relevance selector is /root/relevance_selector. It has no
-inherited author discussion and is reading complete components and established
-coverage; its verdict is pending the slow-selection module. No paired promotion
-review has started. A [canonical statement draft](CANONICAL_STATEMENT_DRAFT.md)
-is being assembled. Frozen established dependency excerpts and their exact
-manifest are retained under DEPENDENCIES_*_v1.md and DEPENDENCY_MANIFEST_v1.json.
-
-The unchanged established rational certificate was rerun from source and passed
-all exact assertions; see [VERIFICATION.md](VERIFICATION.md) and
-[verify_reference_certificate.py](verify_reference_certificate.py).
-Reproduce it with `python studies/nonlinear_prediction_selection/verify_reference_certificate.py`.
-This was deterministic constant verification, not a training experiment. New
-source bounds and selection claims remain theoretical candidates awaiting the
-full combination check and independent reviews.
+The original [integration review](INTEGRATION_REVIEW_v1.md) also requires explicit
+finite RMS tail, rank and hidden-field factors in D.2. v3 supplies them and
+uses continuous soft-tail convergence before bounding hard tails. The full
+[correction check](CORRECTION_v3.md) records the exact algebra. This changes
+neither the theorem nor its limits. Every superseded packet is preserved; a
+v2 review already in progress remains evidence only for its frozen v2 inputs.
 
 
-Third checkpoint: the combined candidate is internally reconstructed in
-[INTERNAL_CHECK_v1.md](INTERNAL_CHECK_v1.md). The independent
-[relevance screening](RELEVANCE_SCREENING.md) accepts assembly as C.4.9.
-The complete [canonical addition](CANONICAL_ADDITION_v1.md),
-[exact proposed patch](PROPOSED_EDITION_v1.patch), frozen review assignment
-and fingerprints are ready. Fresh isolated reviewers /root/adversarial_a_v1
-and /root/adversarial_b_v1 are reading the full frozen packet separately.
-The [standalone validation](STANDALONE_VALIDATION_v1.md) passed source hashes,
-old-content preservation, new links, delimiters and the exact certificate.
-Separate integration review and both full mathematical verdicts remain pending.
-No established files have been edited and no promotion approval is requested yet.
+The [v3 neutral assignment](REVIEW_ASSIGNMENT_v3.md) and
+[frozen input manifest](REVIEW_MANIFEST_v3.json) govern two entirely new complete
+isolated reviews. Unchanged dependencies and guide retain v1 filenames.
+A [separate fresh integration assignment](INTEGRATION_ASSIGNMENT_v3.md) covers
+the entire assembled addition, exact older context, notation and preservation.
+These reviews are pending; no prior verdict substitutes for them.
 
-## Review correction checkpoint
+The concrete proposed changes are [the v3 patch](PROPOSED_EDITION_v3.patch) and
+[scope edit specification](PROPOSED_EDITS_v3.json).
+[Standalone validation v3](STANDALONE_VALIDATION_v3.md) passed all frozen/source
+hash checks, preservation of older text, newly introduced links and delimiters,
+and the unchanged exact rational reference certificate. This validation is
+separate from independent scientific review; no empirical claim is made.
 
-The first paired review found a required auxiliary-hypothesis correction:
-nonantipodal lists must also be pairwise distinct. v1 is not accepted for
-promotion. Its packet and original reports remain intact. [CORRECTION_v2.md](CORRECTION_v2.md)
-records the two corrected sentences and the direct internal check. The main
-family satisfies the corrected hypothesis. The complete v2 packet is frozen
-for two new complete isolated reviews and fresh integration review.
+For deterministic reproduction, run
+`python studies/nonlinear_prediction_selection/verify_reference_certificate.py`.
+The standalone producer is `validate_proposed_edition_v3.py`; it requires a fresh
+output directory and preserves the completed run under
+`data/generated/nonlinear_prediction_selection/standalone_v3/`. To rerun, copy the
+producer inside this study and change only its output namespace to a fresh run.
+The recorded Python environment is 3.10.12; the certificate uses exact standard-
+library rational arithmetic and exits zero. Generated products are not committed.
+
+## Ownership and next action
+
+`/root` owns this README, finite-capture argument, canonical assembly and Git
+writes. `/root/conditioning_route`, `/root/continuation_route` and
+`/root/geometric_route` own their named component files. The selector and every
+reviewer are distinct from all authors; their full original reports retain scope,
+hashes, isolation, actual attacks and deterministic checks.
+
+This task shares the exact checkout and index with PDE-2. The coordinator uses
+only explicit study-owned paths and the common nonblocking Git writer lock.
+Other studies are outside the scientific input scope. Initial HEAD was
+`bb9e57b6410f7e76b3bf1de5a33dc4cc7ee58cb3`.
+
+Next authorized action: finish both fresh v3 mathematical reviews and the fresh
+integration review, resolve any objections, and prepare the concrete reviewed
+promotion proposal. Established edits require the user's approval of that exact
+package under Part 2.5 of the shared workflow.
