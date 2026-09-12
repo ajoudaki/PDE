@@ -152,3 +152,14 @@ Other studies are outside the scientific input scope. Initial HEAD was
 The approved promotion is complete. No mathematical, review or integration
 obligation remains for the stated milestone-A result. The separate milestone-B
 recommendation does not start a new research task or training campaign.
+
+The subsequent [milestone-C assessment](C_ASSESSMENT_2026_09_12.md) retains the
+independent population-computation target, using A's accumulated-control estimates
+without treating its full Gaussian history as a compressed state. It recommends
+first certifying the original physical flow through 40 on a represented family
+containing nonatomic laws, with A's slow episode as optional later scope.
+The [new-task C prompt](NEXT_MILESTONE_C_PROMPT.md) specifies the numerical,
+identification, resource, exploration and review requirements. Three fresh
+scoped agents informed that assessment; it changes no established result and
+launches no task or experiment. `/root` owns these strategy artifacts and their
+Git writes; the two named assessment agents own their respective reports.
