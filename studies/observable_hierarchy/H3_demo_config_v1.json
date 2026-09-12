@@ -1,0 +1,55 @@
+{
+  "model": "bias-free two-hidden-layer tanh",
+  "Y": 1,
+  "T": "1/200",
+  "normalized_directions": [
+    [
+      "1",
+      "0"
+    ],
+    [
+      "0",
+      "1"
+    ]
+  ],
+  "labels": [
+    "1",
+    "-1"
+  ],
+  "masses": [
+    "1/2",
+    "1/2"
+  ],
+  "mobilities": [
+    "n",
+    "1",
+    "n"
+  ],
+  "loss": "unhalved squared",
+  "initialization_variances": [
+    "1",
+    "1/n",
+    "1/n^2"
+  ],
+  "times": [
+    "0",
+    "1/400",
+    "1/200"
+  ],
+  "restart": "1/400",
+  "thresholds": {
+    "prediction_signal_lower": "1e-4",
+    "first_paired_rms_lower": "1e-7",
+    "upper_paired_rms_lower": "1e-7",
+    "uniform_prediction_error": "1e-5",
+    "each_paired_rms_error": "1e-7"
+  },
+  "resources": {
+    "cores": 1,
+    "rss_gib": 8,
+    "wall_seconds": 900
+  },
+  "precision_decimal_digits": 60,
+  "simpson_subdivisions": 8192,
+  "gaussian_radius": 8
+}

@@ -1,0 +1,108 @@
+{
+  "status": "frozen bounded component for complete isolated review; no full-milestone acceptance",
+  "version": 1,
+  "authors": [
+    "/root",
+    "/root/h3_shorttime_route",
+    "/root/h3_effective_route"
+  ],
+  "selector": "/root/h3_relevance",
+  "inputs": [
+    {
+      "path": "studies/observable_hierarchy/H3_candidate_reference_v1.md",
+      "capsule_name": "H3_candidate_reference_v1.md",
+      "sha256": "2135a0d1f3bd9cdb754b1a0f08f7ae9d3c059cfb646360487f7eb1f92c2c78a2",
+      "lines": 620
+    },
+    {
+      "path": "studies/observable_hierarchy/H3_candidate_circle_v1.md",
+      "capsule_name": "H3_candidate_circle_v1.md",
+      "sha256": "567247c7afa09ac4502bafa4f3dfea0197c449ba5ca46a8a3826ff74d37f54dc",
+      "lines": 342
+    },
+    {
+      "path": "studies/observable_hierarchy/H3_stability_proof.md",
+      "capsule_name": "H3_stability_proof.md",
+      "sha256": "a5a68240508b3601faddbc30005626c144190fe38d02d1291787ef3ebeb69735",
+      "lines": 124
+    },
+    {
+      "path": "studies/observable_hierarchy/H3_stability.py",
+      "capsule_name": "H3_stability.py",
+      "sha256": "a59194db71e5b17fcd8a4884a0a5839a16c93007cd4e06dc65dbd1bb22bcf65d",
+      "lines": 140
+    },
+    {
+      "path": "studies/observable_hierarchy/H3_shorttime_solver.py",
+      "capsule_name": "H3_shorttime_solver.py",
+      "sha256": "cf3b479826c8900bc4097d023128330c380df415d83b2a782054c5e565542e6b",
+      "lines": 530
+    },
+    {
+      "path": "studies/observable_hierarchy/H3_shorttime_test.py",
+      "capsule_name": "H3_shorttime_test.py",
+      "sha256": "11dd36c0d7ead265ddc3bfc20f7d5b688d1f6dacac7cfe8b7b652468c81eedb5",
+      "lines": 154
+    },
+    {
+      "path": "studies/observable_hierarchy/H3_circle_kernel.py",
+      "capsule_name": "H3_circle_kernel.py",
+      "sha256": "ec4975ae0f469755f0fa025e4b4b0b185f6b05fd97dbfa74bd60d34e61ffdef2",
+      "lines": 337
+    },
+    {
+      "path": "studies/observable_hierarchy/H3_circle_kernel_test.py",
+      "capsule_name": "H3_circle_kernel_test.py",
+      "sha256": "6550f472cc5876307832e62ed8a0cb451bccfe9a3deafe67ce9d86fb9a1aeb45",
+      "lines": 98
+    },
+    {
+      "path": "studies/observable_hierarchy/H3_reference_solver.py",
+      "capsule_name": "H3_reference_solver.py",
+      "sha256": "5ce7e2789083269ed9f5b02a02fc277d9464551655f31b2bc890a0fed1273f62",
+      "lines": 106
+    },
+    {
+      "path": "studies/observable_hierarchy/H3_make_review_capsule.py",
+      "capsule_name": "H3_make_review_capsule.py",
+      "sha256": "7fea40ee5aaa34c666bb94155350e0c839312e2babb97ce96915b506f33f72b1",
+      "lines": 58
+    },
+    {
+      "path": "studies/observable_hierarchy/H3_demo_config_v1.json",
+      "capsule_name": "H3_demo_config_v1.json",
+      "sha256": "baacdb913ed2b92053aa8b647744c2e9260c70d2f6d2b74e0a464d9345091125",
+      "lines": 55
+    },
+    {
+      "path": "studies/observable_hierarchy/dependencies_v1.md",
+      "capsule_name": "dependencies_v1.md",
+      "sha256": "6a40bc9ee6e6de49fbefd9118298c4ab807b1ef52ecf29b99a71937eab0a63d7",
+      "lines": 3569
+    },
+    {
+      "path": "studies/observable_hierarchy/H2_proposed_section_v3.md",
+      "capsule_name": "H2_proposed_section_v3.md",
+      "sha256": "c84617a514adaa43224c0f2990b75abb48eb92611ee3b45da753f47866ed90d2",
+      "lines": 470
+    },
+    {
+      "path": "docs/README.md",
+      "capsule_name": "docs_README.md",
+      "sha256": "269f481c6198971875ec22cb1b7e451ad0f3fbf3fe21a41be42a72dd49ae7ce2",
+      "lines": 670
+    },
+    {
+      "path": "docs/NOTATION.md",
+      "capsule_name": "NOTATION.md",
+      "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+      "lines": 98
+    },
+    {
+      "path": "code/README.md",
+      "capsule_name": "code_README.md",
+      "sha256": "3ffc27a58e8e090828fbac3f7d4b86c9e33f4ff5cdd7b0690e086364e8e82731",
+      "lines": 748
+    }
+  ]
+}
