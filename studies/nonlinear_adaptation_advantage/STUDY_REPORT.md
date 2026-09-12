@@ -190,6 +190,28 @@ rewrites the actual disputed contractions using the full anchor-fitting
 history but supplies neither sign. Its demonstrated failure concerns the
 absolute estimates used in that argument, not the actual neural comparison.
 
+The fresh [Gaussian-sign route](ROUTE_GAUSSIAN_SIGN.md) finds an actual
+early-reference mixed covariance with positive anchor-sum and negative
+anchor-contrast quadratic forms. This is a reference-time result, proved
+using the actual strong equations and the contained Gaussian Poincaré
+inequality. It rules out a positive-response induction. It cannot be
+continued to the fitted endpoint by the available estimates and does not
+compare the two learners during their added-data episode. Its complete
+[internal check](GAUSSIAN_SIGN_CHECK_G.md) found no required correction.
+
+The [finite endpoint reduction](CURVATURE_CERTIFICATE_REDUCTION.md), read
+together with its essential [probe correction](CURVATURE_CERTIFICATE_CORRECTION.md),
+also passed a [fresh complete internal check](CORRECTED_CURVATURE_CHECK_H.md).
+It supplies deterministic finite Gaussian computations with certified
+endpoint, directional-product, projector and spatial errors. Arbitrary
+positive accuracy is obtainable for the stated effective inputs; the
+unchanged abstract family is covered through finite computable nets and
+analytic extension. Probe amplitudes, quadrature masses and residual errors
+must be propagated through every derivative and polarization bound. No
+neural integral was evaluated, no favorable sign follows from computability,
+and exact zero is not decidable by approximation alone. Its exceptionally
+large constants provide no practical computation or resource claim.
+
 ## Proof methods ruled out, with their exact scope
 
 1. **Independent ordinary Fourier learning rates.** The full projected
@@ -259,6 +281,7 @@ network endpoint is substituted for theta_dagger.
 | Uniform positive matched-clock population margin | **Open** |
 | Beneficial relative component learning beyond scalar gain | **Open** |
 | Finite-time derivative drift and interaction remainder | Explicit formulas internally checked; conditioning not numerically enclosed |
+| Corrected finite endpoint/curvature approximation | Internally checked for effective inputs; no neural sign enclosure executed |
 | Positive evaluated stop and complete sign/remainder certificate | **Open**: favorable signs and their positive constants missing |
 | Shared-sample positive risk margin | Conditional on the missing population theorem |
 | Actual finite nonlinear GF advantage | Conditional, with the required iterated order |

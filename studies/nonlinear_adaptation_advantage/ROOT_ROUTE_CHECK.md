@@ -236,9 +236,37 @@ their own residual and endpoint-approximation constants and effective
 spatial input data. The separate correction supplies these in P1–P15,
 including all downstream force and derivative bounds. Root verified the
 1/48 and 27/48 polarization factors and error multipliers E/6 and 9E/2.
-The corrected pair is under a fresh full internal check. No numerical
-curvature enclosure was executed. Arbitrary-accuracy approximation is not
+Root read the fresh full CORRECTED_CURVATURE_CHECK_H.md completely at SHA256
+`610b59c30f840ada4185f344dccc1ca6fbb8b895955fcaac7e475eb87fc7f24b`.
+It finds no remaining required correction when the original and correction
+are used together. Root verified the report's input hashes and reconstructed
+its additional explicit conventions: the spatial error for the projected
+derivative includes the normal-projector term, and the Gram search finds
+and then retains some certified positive gap. No numerical curvature
+enclosure was executed. Arbitrary-accuracy approximation is not
 a general exact-zero decision procedure; a certified zero would require an
 additional exact argument. The central unchanged-family approximation and
 the corrected auxiliary probes must be distinguished from a negative sign
 certificate, which is still absent.
+
+Root read ROUTE_GAUSSIAN_SIGN.md completely at SHA256
+`2b1d2397526624922f932a9fcea9e2cf0471f10335f211cb2c44e3814e36093c`.
+The actual reference limit c(s)/s=(tanh X+tanh Y)/2 uses Y=-Z2(0)
+and the even upper derivative, so both mixed-covariance rows have the
+claimed signs and factors. Root rechecked the contained A.3 Gaussian
+Poincaré proof and its variance scaling: Var(S)<=4v0 E[T²S²], giving
+eta-mu²<=-2D/5 from v0<.4. Gaussian integration by parts proves eta>0.
+The event 1<=|G|<=2 gives G8's positive lower bound. Gate derivatives and
+G10's two signs were recomputed. The physical covariance uses fixed actual
+initial observations, avoiding an assertion about representation-dependent
+individual response coefficients. Kernel block/projector identities and
+the first/third harmonic swap signs in G16–G17 were also reconstructed.
+No actual endpoint or added-data sign follows. Root read the complete
+GAUSSIAN_SIGN_CHECK_G.md at SHA256
+`a715b568e4837eb4a241f9d8894eeaa5de97203addf665c9978c2a40cf4d5ea7`
+and verified its frozen input/source hashes. It finds no required correction
+and independently reconstructs the variance factors, strong-limit argument,
+source ambiguity, full-kernel symmetry and density caveats. Its density
+example has weighted cross-sector inner product epsilon/2, as direct
+integration confirms. These are checks of the route's exact limitations;
+no source beyond the recorded established units was imported.

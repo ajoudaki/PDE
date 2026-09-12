@@ -54,14 +54,19 @@ cannot certify the desired coercivity; it proves no failure of the actual
 network or fixed family. A [deterministic endpoint certificate reduction](CURVATURE_CERTIFICATE_REDUCTION.md)
 has also been frozen. Its [first check](CURVATURE_REDUCTION_CHECK_G.md)
 requires explicit scope and scaling conditions for auxiliary polarization
-probes; the author's [correction](CURVATURE_CERTIFICATE_CORRECTION.md) is
-under a fresh internal check with the full original. No neural reference
-integral or sign certificate has been evaluated.
+probes. The author's [correction](CURVATURE_CERTIFICATE_CORRECTION.md) and
+full original passed a [fresh internal check](CORRECTED_CURVATURE_CHECK_H.md).
+The two files must be used together: effective inputs, probe-specific bounds,
+and the full source history are essential. No neural reference integral or
+sign certificate has been evaluated.
 
-A fourth fresh approach is examining Gaussian correlation structure on the
-same fixed ordinary family, using only the neutral contract and established
-inputs. Its candidate will remain isolated until frozen. This is a sign
-search, not a change to the family or a computational training campaign.
+A fourth fresh [Gaussian-sign route](ROUTE_GAUSSIAN_SIGN.md) has frozen an
+actual early-reference covariance inequality: its anchor-sum and
+anchor-contrast quadratic forms have opposite signs. This rules out a
+positive-response induction, but supplies no fitted-endpoint or added-episode
+advantage. The route used only neutral and established inputs before freezing;
+its complete [internal check](GAUSSIAN_SIGN_CHECK_G.md) found no required
+correction. The ordinary family is unchanged.
 
 The current synthesis and precise scientific gaps are in
 [STUDY_REPORT.md](STUDY_REPORT.md). Exact Duhamel comparison, actual O(T²)
@@ -104,6 +109,8 @@ comparison checkpoint: `e3d0021`.
 | Energy | Exact finite-time risk identity, scalar-clock criterion and relative-gain bound | Favorable signed trajectory integral with a finite positive margin |
 | Targeted balance follow-up | Exact projected readout and tanh saturation balances | Control of the remaining same-order signed anchor/curvature terms |
 | Reference-specific sign follow-up | Exact task/reference-history contractions and a checked limitation of the absolute bounds | Signed actual-neural control of those contractions |
+| Gaussian correlations | Opposite actual early-reference sum/contrast covariance signs; failure of a positive-response induction | Transport to the fitted endpoint and a beneficial added-episode component comparison |
+| Deterministic certificate reduction | Checked finite endpoint and curvature approximation with the explicit probe correction | An evaluated strict sign certificate over the unchanged ordinary family |
 
 No route proves failure on an admitted actual-neural family or an obstruction
 to E₀ itself. Reopening requires a new signed property of the actual constrained
