@@ -1,0 +1,108 @@
+{
+  "status": "coordinator reading and version record; hashes identify entire files, coverage is limited to stated units",
+  "study": "population_flow_computation",
+  "date": "2026-09-12",
+  "initial_head": "c709b6f292dc58a73e8dd300e9a8217d5646af45",
+  "consolidation_head": "c9f2db6a631b69bc1871f184f33e54818fefce9a",
+  "required_skills_read": [
+    "/etc/codex/skills/solve-math-rigorously/SKILL.md",
+    "/etc/codex/skills/investigate-conjectures/SKILL.md"
+  ],
+  "investigate_references_read": [
+    "research-contract",
+    "proof-search-orchestration",
+    "decisive-experiments",
+    "adversarial-audit",
+    "evidence-ledger"
+  ],
+  "scope_boundary": "Only this study and established book/code were scientific inputs. No other study, milestone B, task history or scientific Git history was read. Whole-file hashes do not assert reading unneeded complement sections.",
+  "entries": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "7778b7073a02de3e94f8ae9aefe940ebc9eddea7467816662e5cce1020cd98ba",
+      "line_count": 47,
+      "read_scope": [
+        "complete"
+      ]
+    },
+    {
+      "path": "RESEARCH_WORKFLOW.md",
+      "sha256": "8b36d7dfc1ad881fcb6bfe32274a5e50c5125b33d68dbcf7c3937f7f6c21ce12",
+      "line_count": 224,
+      "read_scope": [
+        "complete Parts 1 and 2; reread at consolidation"
+      ]
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "26c5f81ad355b892430e015a786df1d0e2e4f6c9a1fc920ea634bd311558412e",
+      "line_count": 578,
+      "read_scope": [
+        "complete, including philosophy and roadmap"
+      ]
+    },
+    {
+      "path": "docs/NOTATION.md",
+      "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+      "line_count": 98,
+      "read_scope": [
+        "complete"
+      ]
+    },
+    {
+      "path": "code/README.md",
+      "sha256": "00f5070d35a3e9fb9d0e9886f0f6d9f680a8d34bb32307807d1f88afc807a774",
+      "line_count": 591,
+      "read_scope": [
+        "complete"
+      ]
+    },
+    {
+      "path": "docs/global_nonlinear.md",
+      "sha256": "7633fb054cf02f2359b193fcb090634304cc1153f4d8f978fd0ac30789355465",
+      "line_count": 15322,
+      "read_scope": [
+        "A.1–A.4, lines 1840–1898",
+        "B.1 complete, lines 1903–2453",
+        "C.2 complete, lines 2924–3440",
+        "C.4.1–C.4.5.3 complete, lines 3836–6903",
+        "C.4.6 complete, lines 6904–8977",
+        "C.4.7 complete, lines 8978–11440",
+        "C.4.9 complete, lines 12994–end; C.4.8 not used"
+      ]
+    },
+    {
+      "path": "docs/special_data_limits.md",
+      "sha256": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489",
+      "line_count": 27274,
+      "read_scope": [
+        "III.F complete, lines 3785–4286"
+      ]
+    },
+    {
+      "path": "docs/gaussian_calculus.md",
+      "sha256": "d2f6a065432b5dadc7a1973f11b335cbd0f180caa29a81f863c58fff3ac5ef5e",
+      "line_count": 9580,
+      "read_scope": [
+        "complete relevant integrated-query package and corrections, lines 5945–8546"
+      ]
+    },
+    {
+      "path": "docs/finite_optimization_and_controls.md",
+      "sha256": "80dcce91ed3cd8313654523725e28b312ab925376cd7a28d71323bed648a5628",
+      "line_count": 5112,
+      "read_scope": [
+        "Section 13 complete, lines 2167–2413"
+      ]
+    },
+    {
+      "path": "docs/finite_dynamics.md",
+      "sha256": "a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca5545bc0012a",
+      "line_count": 1275,
+      "read_scope": [
+        "Sections 1–4 complete, lines 1–227"
+      ]
+    }
+  ],
+  "route_scope_records": "Each original route/review report records its narrower input scope; coordinator startup coverage is not imputed to subagents."
+}

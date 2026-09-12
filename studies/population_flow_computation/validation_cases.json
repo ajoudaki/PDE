@@ -1,0 +1,19 @@
+{
+  "seed": 20260912,
+  "query_seed": 80419,
+  "circle_points": 65,
+  "quadrature_orders": [16, 32],
+  "case_definitions": [
+    {"name": "short_reference", "law": "reference", "representatives": 256, "h": 0.125, "steps": 16, "noise": 0.05, "precision": "float64"},
+    {"name": "reference_base", "law": "reference", "representatives": 1024, "h": 0.3125, "steps": 128, "noise": 0.05, "precision": "float64"},
+    {"name": "reference_time", "law": "reference", "representatives": 1024, "h": 0.15625, "steps": 256, "noise": 0.05, "precision": "float64"},
+    {"name": "reference_samples", "law": "reference", "representatives": 4096, "h": 0.3125, "steps": 128, "noise": 0.05, "precision": "float64"},
+    {"name": "reference_noise", "law": "reference", "representatives": 1024, "h": 0.3125, "steps": 128, "noise": 0.025, "precision": "float64"},
+    {"name": "reference_precision", "law": "reference", "representatives": 1024, "h": 0.3125, "steps": 128, "noise": 0.05, "precision": "float32"},
+    {"name": "arc_quadrature_2", "law": "arcs", "arc_cells": 2, "representatives": 1024, "h": 0.125, "steps": 32, "noise": 0.05, "precision": "float64"},
+    {"name": "arc_quadrature_4", "law": "arcs", "arc_cells": 4, "representatives": 1024, "h": 0.125, "steps": 32, "noise": 0.05, "precision": "float64"},
+    {"name": "reference_combined", "law": "reference", "representatives": 4096, "h": 0.15625, "steps": 256, "noise": 0.05, "precision": "float64"}
+  ],
+  "arc_law": {"a": 0.03, "b": 0.02, "p": 0.53, "label_bound": 1},
+  "status": "exploratory; no certified solver error or arc-law admission asserted"
+}
