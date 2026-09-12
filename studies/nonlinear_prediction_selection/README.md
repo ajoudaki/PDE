@@ -23,20 +23,53 @@ trajectory does not complete this contract. Initial layers and limit orders
 must be explicit. Canonical starting material is `docs/global_nonlinear.md`,
 especially complete C.4.5–C.4.8 and necessary established dependencies.
 
-## Independent approach round
+## Independent approaches and current synthesis
 
-The coordinator owns this README, synthesis and Git writes. Fresh scoped agents
-own separate flat route files. Approaches remain separate until frozen.
+The coordinator owns this README, synthesis and Git writes. The first fresh
+round is frozen: [geometric route](ROUTE_GEOMETRIC.md) used prompt-only inputs;
+[conditioning route](ROUTE_CONDITIONING.md) used complete C.4.5–C.4.6;
+[continuation route](ROUTE_CONTINUATION.md) used the finite-program and C.4.7
+sources. Their exact input coverage and limitations are in the reports.
+The coordinator's [integrated-control route](ROUTE_RESIDUAL_CLOCK.md) is a
+candidate synthesis, not a proved selection theorem.
+
+The conditioning route supplies a new proof mechanism: saturated Gaussian
+rows survive the bounded reference clocks, giving independent first features
+at every finite list of directions distinct modulo antipodes. Their middle
+rank gradients then give a positive trained Gram and a nonzero hidden projected
+learning direction. The other routes independently identify constrained
+nonlinear evolution on the scale tau=epsilon t. The geometric finite-width
+witness uses a Gaussian-probability-zero initialization and is not a target
+solution. The continuation route's fixed-time extension alone does not reach
+the proposed learning horizon.
+
+Second-round ownership: continuation_route writes
+CONTINUATION_CONTROL_TUBE.md; geometric_route writes SLOW_SELECTION.md;
+conditioning_route writes CONDITIONING_ACTIVITY.md. The target family is now
+one added atom with position near pi/4 and label in (3/8,5/8). Authors are
+checking a source-control neighborhood of the entire reference history,
+original-initialization slow selection, and uniform finite-episode risk and
+upper-activation margins, respectively. These are not independent promotion
+reviews.
 Assignments and actual input coverage are retained with each result.
 
 ## Evidence and gaps
 
-Startup: read AGENTS.md and both parts of RESEARCH_WORKFLOW.md; required skills
-solve-math-rigorously and investigate-conjectures applied. Complete scientific
-source reading is underway. Starting HEAD: bb9e57b6410f7e76b3bf1de5a33dc4cc7ee58cb3.
+Startup and complete relevant established source reading are recorded in
+[SOURCE_COVERAGE.md](SOURCE_COVERAGE.md). AGENTS.md, both workflow parts, and
+the required solve-math-rigorously and investigate-conjectures skills were read. Starting HEAD: bb9e57b6410f7e76b3bf1de5a33dc4cc7ee58cb3.
 Other dirty paths were inspected as metadata only and are outside this study.
 
 Next authorized action: independent proof exploration, exact source audit,
 deterministic verification, and progressive scoped commits under the shared
 writer lock. Any positive promotion requires the full workflow review gates
 and approval of the concrete reviewed package before established edits.
+
+
+Checkpoint: first-round arguments have been reconstructed by the coordinator,
+with no training experiments and no established edits. They remain candidate
+or conditional results, with exact scopes above. The decisive unresolved
+obligation is a uniform named-source/tail continuation estimate for a small
+integrated-control perturbation of the bounded reference history, followed by
+actual nonlinear slow-limit and finite-GF capture. No obstruction to the target
+has been proved. Initial scoped commit: abab5537b4a248ada7fde7164c60a56fb864e881.
