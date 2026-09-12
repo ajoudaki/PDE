@@ -1,0 +1,20 @@
+{
+  "purpose": "Exact unique static-review source copies. Original execution paths and outputs remain as recorded in each report; verbatim guide examples already have maintained candidate source.",
+  "copies": [
+    {
+      "original": "data/generated/observable_hierarchy/H2_review_v3_a/adversarial_static.py",
+      "retained_source": "studies/observable_hierarchy/H2_review_v3_a_static.py",
+      "sha256": "4dd8d4e14edaf0d3463c438da3dd2693262352fdf3b9b149a5670464282773db"
+    },
+    {
+      "original": "data/generated/observable_hierarchy/H2_review_v3_b/adversarial_checks.py",
+      "retained_source": "studies/observable_hierarchy/H2_review_v3_b_static.py",
+      "sha256": "78cfeefb62bc8cc34b1486018f358039c7559252dedf1c13e778df27cf0dda96"
+    },
+    {
+      "original": "data/generated/observable_hierarchy/H2_integration_v3/independent_checks.py",
+      "retained_source": "studies/observable_hierarchy/H2_integration_v3_checks.py",
+      "sha256": "155e0fb52bad1286ec2798bd95890786efb0885390f823264bb3614583d89cf7"
+    }
+  ]
+}

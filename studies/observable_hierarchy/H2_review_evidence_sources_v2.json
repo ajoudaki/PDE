@@ -1,0 +1,25 @@
+{
+  "purpose": "Exact source copies of unique original static review probes; generated outputs remain in reviewer scratch. Verbatim guide examples and rational dependency certificates already have retained source inputs.",
+  "copies": [
+    {
+      "original": "data/generated/observable_hierarchy/H2_review_v2_a/adversarial_static.py",
+      "retained_source": "studies/observable_hierarchy/H2_review_v2_a_static.py",
+      "sha256": "0a13f78753833e70c2bd535ff037d974fb15359fe439335952f978202aed9e2a"
+    },
+    {
+      "original": "data/generated/observable_hierarchy/H2_review_v2_b/adversarial_static.py",
+      "retained_source": "studies/observable_hierarchy/H2_review_v2_b_static.py",
+      "sha256": "348bc19ec5e21cef06b9d758cd3e37207e1d32cf5a2b47a081503efa72874a6a"
+    },
+    {
+      "original": "data/generated/observable_hierarchy/H2_integration_v2/check_supplied_restart.py",
+      "retained_source": "studies/observable_hierarchy/H2_integration_v2_restart_probe.py",
+      "sha256": "ce3f3cbe249e9cbf6dba551bb7523926d1ef31ddebf6993ddbed0a495e72866b"
+    },
+    {
+      "original": "data/generated/observable_hierarchy/H2_integration_v2/check_integration.py",
+      "retained_source": "studies/observable_hierarchy/H2_integration_v2_checks.py",
+      "sha256": "10620807590c6e4eec8760f31cf7fb4fe4ce2ff73bb8d61b2d016143d8412738"
+    }
+  ]
+}

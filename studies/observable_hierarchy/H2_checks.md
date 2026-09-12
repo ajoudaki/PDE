@@ -1,7 +1,8 @@
 # C-H2 checks and comparison record
 
-Current status: candidate theorem under checking; no C-H2 completion or promotion
-claim. No training or empirical campaign has run.
+Current status: C-H2 qualitative construction and convergence theorem complete
+and independently reviewed in v3; exact promotion proposal awaits user approval.
+No maintained promotion, training or empirical campaign has occurred.
 
 ## Source coverage and preservation
 
@@ -195,3 +196,55 @@ prior verdicts. Their original reports remain pending. The coordinator's fresh
 H2_edition_v3 assembly, all 14 installed tests, exact guide example/import/link
 and full source-preservation check pass; logs are in H2_validation_v3. The
 assembly manifest hash is 21cfe562172947aa1499126e44796b27c5b3a9d6ae19dd2742e2671e32f31eff.
+
+## Final v3 acceptance
+
+The complete original reports H2_review_v3_a.md, H2_review_v3_b.md and
+H2_integration_v3.md all return PASS at the stated scope, with no required
+correction. The coordinator personally read all three in full, including their
+coverage/hash appendices, derivations, commands, outcomes and scope limits.
+Their hashes are respectively
+2fe51dd519ec65646c40b638f47dab57bfa2ecab6e8a2ebdf1f9e7c960b7a140,
+898d1640a8f6adcd27ebe72b1a6b8f343f375cbb84fa8703b96078b503f7d2b6,
+and 82c61fc788bb2c304252e6590c7b4ef4f120f030200cf6a98cbd5ef978791096.
+The two scientific contexts read all complete dependencies and code. The separate
+integration context states its full new-material and precise older read scope
+and unread complement. All three were fresh and isolated from the prior reports.
+
+The coordinator rehashed both complete manifests against every current input,
+verified all three original report hashes, checked every payload of all four
+identical v3 standalone editions, and verified all nine independent validation
+subprocess exits and their actual output hashes. The five-file promotion map
+matches both the current untouched live destinations and the accepted edition.
+H2_review_acceptance_v3.json retains that concrete evidence and exact limitations;
+its acceptance is based on the complete original reviews, not on helper status.
+
+Both source and relocated 14-test suites, the exact guide example, imports,
+new link and source-preservation checks pass. Independent static probes include
+noncentered correlated source/Stein identities, singular formal source slots,
+rectangular positive filters, all-coordinate scalar loss gradients, population
+permutations and supplied-state restart with empty/nested/stale-tag metadata.
+No empirical or training claim was added. Unique review probe sources have exact
+flat study copies recorded in H2_review_evidence_sources_v2.json and
+H2_review_evidence_sources_v3.json; original execution paths and outputs remain
+in the corresponding generated namespaces. Verbatim guide examples and rational
+certificates already have retained canonical source inputs.
+
+Optional suggestions concerning backward-field notation, where to display the
+filtered K velocity identity, and a convenience citation for the sharp action
+bound are not correctness conditions. They are recorded without modifying the
+accepted frozen package. C-H3 numerical certification/resource costs and C-H4
+longer-time computation remain open.
+
+Progressive owned commits so far are f0a9bdf (contract/initial construction),
+b0d83e8 (theory/prototype), 447459e (complete review freeze), and e7662a8
+(original v2 reviews, recorded integration failure and corrected v3 packet).
+Every transaction used the shared nonblocking writer lock and explicit owned
+paths. A unified-diff patch's required blank context markers were validated
+with git apply --check separately from ordinary source whitespace checking.
+No live promotion or unrelated staged change was included.
+
+The final recommendation and approval boundary are in H2_promotion_proposal_v3.md.
+The research milestone is complete at its exact qualitative scope. The next step
+is user approval of that specific five-file addition, followed by the workflow's
+live correspondence check and scoped integration; no such approval is inferred.

@@ -1,0 +1,114 @@
+{
+  "version": 3,
+  "scientific_status": "C-H2 exact qualitative construction and convergence theorem accepted at stated scope",
+  "integration_status": "PASS",
+  "promotion_status": "awaiting user approval; no maintained changes applied",
+  "coordinator": "/root",
+  "reports": [
+    {
+      "file": "studies/observable_hierarchy/H2_review_v3_a.md",
+      "identity": "/root/h2_review3_a",
+      "role": "scientific",
+      "sha256": "2fe51dd519ec65646c40b638f47dab57bfa2ecab6e8a2ebdf1f9e7c960b7a140",
+      "lines": 231,
+      "coordinator_read_complete": true,
+      "verdict": "PASS",
+      "required_corrections": []
+    },
+    {
+      "file": "studies/observable_hierarchy/H2_review_v3_b.md",
+      "identity": "/root/h2_review3_b",
+      "role": "scientific",
+      "sha256": "898d1640a8f6adcd27ebe72b1a6b8f343f375cbb84fa8703b96078b503f7d2b6",
+      "lines": 179,
+      "coordinator_read_complete": true,
+      "verdict": "PASS",
+      "required_corrections": []
+    },
+    {
+      "file": "studies/observable_hierarchy/H2_integration_v3.md",
+      "identity": "/root/h2_integration3",
+      "role": "integration",
+      "sha256": "82c61fc788bb2c304252e6590c7b4ef4f120f030200cf6a98cbd5ef978791096",
+      "lines": 210,
+      "coordinator_read_complete": true,
+      "verdict": "PASS",
+      "required_corrections": []
+    }
+  ],
+  "manifests": {
+    "review": {
+      "path": "studies/observable_hierarchy/H2_review_inputs_v3.json",
+      "sha256": "0c4695b70ecd03445d6f5aa724bc8500ffc6b2302a2f580eee1c92b6b7dcc3a1",
+      "input_files": 32,
+      "all_hashes_unchanged": true
+    },
+    "integration": {
+      "path": "studies/observable_hierarchy/H2_integration_inputs_v3.json",
+      "sha256": "eaef3d4c793aa6c8e85b2ca74208370ff3bf8df23340a0508ffda9acefd6b835",
+      "input_files": 32,
+      "all_hashes_unchanged": true
+    }
+  },
+  "standalone_editions": [
+    {
+      "edition": "data/generated/observable_hierarchy/H2_edition_v3",
+      "payloads": 18,
+      "all_hashes_match": true
+    },
+    {
+      "edition": "data/generated/observable_hierarchy/H2_review_v3_a/edition",
+      "payloads": 18,
+      "all_hashes_match": true
+    },
+    {
+      "edition": "data/generated/observable_hierarchy/H2_review_v3_b/edition",
+      "payloads": 18,
+      "all_hashes_match": true
+    },
+    {
+      "edition": "data/generated/observable_hierarchy/H2_integration_v3/edition",
+      "payloads": 18,
+      "all_hashes_match": true
+    }
+  ],
+  "assembly_manifest_sha256": "21cfe562172947aa1499126e44796b27c5b3a9d6ae19dd2742e2671e32f31eff",
+  "proposal_mapping": {
+    "docs/global_nonlinear.md": {
+      "old_sha256": "434b3e6bfcdd71576e271ea35910fc1994b3a9c1bfb01acad92f302bdeb07e14",
+      "proposed_sha256": "947eb52f10a8ebcd4970fa2acb1d26cba25dc5d73e8839893d5d2f4e3f688161"
+    },
+    "docs/README.md": {
+      "old_sha256": "a402cd21b58fe889500ca9ba9e79aa8d2e1fbbbe371ea2a577f3fafdae69455d",
+      "proposed_sha256": "269f481c6198971875ec22cb1b7e451ad0f3fbf3fe21a41be42a72dd49ae7ce2"
+    },
+    "code/README.md": {
+      "old_sha256": "3cb90e55b630870c391e56158432a909fc60872b4af724756b2be19884ef7d6e",
+      "proposed_sha256": "3ffc27a58e8e090828fbac3f7d4b86c9e33f4ff5cdd7b0690e086364e8e82731"
+    },
+    "code/pde/observable_closure.py": {
+      "old_sha256": null,
+      "proposed_sha256": "f8dc5d16e5de1737444c44aae737ee1c9b4d664188d72f59acd0bb92f457c137"
+    },
+    "code/tests/test_observable_closure.py": {
+      "old_sha256": null,
+      "proposed_sha256": "ecc60bfd7eec882c8ae05140d756f6ec8cf90909b6317aab2c126b3c27439635"
+    }
+  },
+  "prototype_tests": 14,
+  "limitations": [
+    "separately fixed laws and fixed finite observation tuples",
+    "rho=delta/2, T=1/200; no law-uniform rate",
+    "exact-real population theorem; finite-law rational-word float64 quadrature prototype",
+    "no practical quadrature/error/cost guarantee, monotonic accuracy or longer-time solver",
+    "no training experiments performed"
+  ],
+  "optional_suggestions_not_required": [
+    "backward q versus Q notation",
+    "adjacent placement of filtered K velocity identity",
+    "explicit sharp-bound A.3 citation"
+  ],
+  "previous_packet": "v2 scientific reviews passed but integration failed R1/R2; all reports/inputs preserved, corrections reviewed afresh",
+  "evidence_sources": "H2_review_evidence_sources_v3.json",
+  "source_and_final_mapping_verified": true
+}

@@ -119,88 +119,91 @@ campaign or training experiment has been started, and no maintained code changed
 
 ## C-H2 continuation — 2026-09-12
 
-The user has now authorized theoretical work on a convergent finite autonomous
-closure, a minimal executable prototype, static deterministic checks, isolated
-research routes and independent review. No training experiments are authorized.
-The frozen C-H1 package above is preserved. Its candidate is byte-identical to
-the maintained C.4.7.8 subsection (verified at this continuation's startup).
+**C-H2 is complete at the requested qualitative research scope.** The exact
+population theorem and limited executable prototype have passed two fresh
+complete scientific reviews and a distinct fresh integration review. The
+[concrete promotion proposal](H2_promotion_proposal_v3.md) awaits user approval;
+no maintained book/code file has changed. The frozen C-H1 package is preserved.
 
-Current ownership: coordinator `/root` in task
-`01a0966c-d650-7512-91e9-5fd0298c2ad4` owns new `H2_*` coordinator files and
-this appended README section, and is the only Git writer for this continuation.
-Fresh isolated route agents own only `H2_route_prompt.md`,
-`H2_route_hierarchy.md`, and `H2_route_regularized.md`, respectively. They do
-not read one another's approaches before their first candidates are frozen.
-The first and third receive self-contained scientific prompts only; the second
-receives the frozen C-H1 candidate/dependencies, notation and designated
-established obstruction sections. No other studies are scientific inputs.
-Generated output stays under `data/generated/observable_hierarchy/H2_*/`.
+The [full proof](H2_proposed_section_v3.md) constructs two current joint
+population laws and a finite matrix of initialized-observable action
+coefficients, with all frozen coordinates and fixed contractions counted.
+Its explicit ridge schedule, finite Gaussian joint initialization, current
+vector field and observation maps contain no target-path query or history.
+Both action orientations reuse the same initialization and actual transpose.
 
-Startup HEAD: `d1f808a56f4b3ea010a42f1fc1f6bc165d383aa4`; index empty.
-Concurrent changes outside this study are preserved. All short Git transactions
-use the common nonblocking `pde-writer.lock` and explicit owned paths.
+For each fixed Y>=1, it uses rho=delta/2 from C-H1 and T=1/200, independently
+of order. It proves well-posedness and own-state restart, whole-circle prediction
+convergence uniformly in time for each fixed admitted law, and uniform-in-time
+W2 convergence for every separately fixed finite C-H1 observation tuple,
+including paired initial/current hidden observations, both directions and
+quadratic contractions. The fixed family contains nonorthogonal and nonatomic
+laws and keeps the common positive paired activity time. Identification is a
+direct comparison to canonical nonlinear GF, preserving its finite random
+readout interpretation. No arbitrary formal-hierarchy uniqueness is assumed.
 
-The fixed research contract and route registry are in
-[H2_contract.md](H2_contract.md). The requested C-H2 theorem now has an
-internally checked construction; fresh independent gates are still pending.
+The [prototype](H2_prototype_v3.py), [14 static tests](H2_test_prototype_v3.py),
+and [API/limitations](H2_prototype_notes_v3.md) expose initialization, the full
+retained state, finite RHS, observations and restart. The theorem allows exact
+population integrals; the prototype uses float64 Gaussian quadrature and finite
+weighted data laws. It provides no practical accuracy, quadrature/cost certificate,
+fixed-quadrature growing-order limit or longer-time solver. No training experiment
+or empirical campaign ran. C-H3 and C-H4 remain separate open milestones.
 
-C-H2 checkpoint: all three isolated first routes are frozen and retained in
-[H2_route_prompt.md](H2_route_prompt.md),
-[H2_route_hierarchy.md](H2_route_hierarchy.md), and
-[H2_route_regularized.md](H2_route_regularized.md). The selected
-[H2_candidate_v2.md](H2_candidate_v2.md) keeps two current joint populations
-and a finite initialized-observable action coefficient block, with an explicit
-ridge schedule and direct comparison to canonical GF. Its complete internal
-theorem audit [H2_internal_v2.md](H2_internal_v2.md) found no blocking defect;
-the coordinator read that report completely. See [H2_checks.md](H2_checks.md).
-The first candidate remains preserved.
+The current [book guide](H2_docs_README_v3.md), [code guide](H2_code_README_v3.md),
+[exact five-file diff](H2_promotion_diff_v3.patch) and
+[file mapping](H2_promotion_mapping_v3.json) specify the complete addition.
+The proposed chapter destination is C.4.7.9 immediately before C.4.8; removing
+only that insertion restores every byte of the original chapter, including C-H1.
 
-The concrete [prototype](H2_prototype.py), [13 static tests](H2_test_prototype.py)
-and [API/limitations](H2_prototype_notes.md) are frozen. The coordinator read
-them completely and independently reran all tests successfully. These use
-deterministic prescribed states and analytic identities; no training or
-convergence experiment ran. The implementation author was the prompt-route
-agent, owning only those three files after its first route was frozen.
+Original final reports: [scientific A](H2_review_v3_a.md),
+[scientific B](H2_review_v3_b.md), and [integration](H2_integration_v3.md).
+All are PASS with no required corrections. The coordinator read all three
+completely and verified identities, isolation, complete read scope, frozen
+input hashes, execution evidence, four identical standalone editions and the
+exact live-to-proposed mapping. [Acceptance evidence](H2_review_acceptance_v3.json)
+records the limits and optional editorial notes. Reviewers received only the
+[neutral assignment](H2_review_assignment_v3.md) and
+[frozen complete packet](H2_review_inputs_v3.json), or the separate
+[integration assignment](H2_integration_assignment_v3.md) and
+[packet](H2_integration_inputs_v3.json), without history or prior verdicts.
 
-The proposed canonical addition is [H2_proposed_section_v1.md](H2_proposed_section_v1.md),
-with separate full [book guide](H2_docs_README_v1.md) and
-[code guide](H2_code_README_v2.md) proposals. The independent theory relevance
-selector accepted assembly in [H2_selection.md](H2_selection.md). A fresh
-code selector accepted the scoped prototype in [H2_selection_code.md](H2_selection_code.md).
-Its guide-name and standalone-wording requirements are incorporated in v2;
-the theorem, module and tests are unchanged. The v1 package is preserved and
-its started review was stopped as incomplete, with no acceptance inferred.
+Earlier routes, original packets and adverse evidence remain intact. The first
+three isolated routes are [prompt](H2_route_prompt.md),
+[hierarchy](H2_route_hierarchy.md), and [regularized](H2_route_regularized.md).
+Their exact scopes, discarded implications and synthesis are in
+[H2_checks.md](H2_checks.md) and [H2_contract.md](H2_contract.md). V2's paired
+scientific reviews passed, but its [integration review](H2_integration_v2.md)
+found a supplied-state restart metadata defect and guide-scope inconsistencies.
+Those were corrected in v3 and all gates were rerun with fresh isolated agents.
+[Original static witness sources](H2_review_evidence_sources_v3.json) are retained
+in this flat study, with outputs in the corresponding generated directories.
 
-Fresh isolated reviewers `/root/h2_review_v2_a` and `/root/h2_review_v2_b`
-own only H2_review_v2_a.md and H2_review_v2_b.md and their distinct generated
-scratch directories. Their [neutral assignment](H2_review_assignment_v2.md)
-and [frozen complete inputs](H2_review_inputs_v2.json) exclude author history,
-prior verdicts and one another's findings. The standalone v2 edition and its
-13 tests, exact guide example, imports, source preservation and new link all
-pass the coordinator's static checks; logs are under
-data/generated/observable_hierarchy/H2_validation_v2/.
-Paired scientific reports and a separate integration review remain pending.
-No maintained file or frozen C-H1 file has been edited.
+Reproduction from the repository root, choosing fresh output directories:
 
-V2 review outcome: [review A](H2_review_v2_a.md) and [review B](H2_review_v2_b.md)
-both passed; the separate [integration report](H2_integration_v2.md) required
-corrections to supplied-state archive metadata and book-guide scope wording.
-The coordinator read all three complete original reports and verified their
-hashes; [H2_review_record_v2.json](H2_review_record_v2.json) records that v2 was
-**not accepted** for promotion. All earlier inputs and adverse evidence remain.
+```sh
+PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
+python -B studies/observable_hierarchy/H2_test_prototype_v3.py
+python -B studies/observable_hierarchy/H2_assemble_edition_v3.py --output data/generated/observable_hierarchy/H2_reproduce_v3
+python -B studies/observable_hierarchy/H2_validate_edition_v1.py --edition data/generated/observable_hierarchy/H2_reproduce_v3 --output data/generated/observable_hierarchy/H2_reproduce_validation_v3
+python -B studies/observable_hierarchy/H2_check_documents_v3.py --edition data/generated/observable_hierarchy/H2_reproduce_v3
+```
 
-The corrected [v3 theorem text](H2_proposed_section_v3.md),
-[prototype](H2_prototype_v3.py), [14 static tests](H2_test_prototype_v3.py),
-[notes](H2_prototype_notes_v3.md), [book guide](H2_docs_README_v3.md) and
-[code guide](H2_code_README_v3.md) form the current candidate. The theorem proof
-is unchanged apart from a scalar-name clarification. The archive writer now
-supplies its own format tag, so an ordinary public State with empty metadata
-round-trips; the new test verifies the complete contract without an initializer.
+The checked final edition is data/generated/observable_hierarchy/H2_edition_v3/;
+coordinator logs are in H2_validation_v3/. Each reviewer reproduced it in a
+separate scratch directory. All 14 tests, the exact guide example, imports,
+new link and source-preservation checks pass. Generated products are not committed.
 
-Fresh independent agents `/root/h2_review3_a`, `/root/h2_review3_b` and
-`/root/h2_integration3` own only H2_review_v3_a.md, H2_review_v3_b.md and
-H2_integration_v3.md and their separate generated scratch paths. They receive
-the [complete v3 packet](H2_review_inputs_v3.json) or
-[integration packet](H2_integration_inputs_v3.json), with no earlier reports.
-All 14 tests and standalone v3 guide/import/link/preservation checks pass in
-H2_validation_v3. Fresh original reports and promotion approval are pending.
+Ownership: coordinator `/root`, task `01a0966c-d650-7512-91e9-5fd0298c2ad4`,
+owns this appended section and coordinator H2_* files and is the only Git
+writer. Initial independent route authors owned only their assigned H2_route_*
+reports; the prompt-route agent later owned the original prototype/tests/notes.
+Root authored the v3 corrections. Final reviewers `/root/h2_review3_a`,
+`/root/h2_review3_b`, and `/root/h2_integration3` owned only their reports and
+separate generated scratch. All scoped commits used the nonblocking common
+pde-writer.lock, explicit owned paths and staged-list verification. Concurrent
+work was preserved; no other study supplied scientific inputs.
+
+Next action is approval of the exact reviewed five-file proposal, then its
+scoped integration and correspondence check under workflow Part 2.5–6. The
+current research authorization does not include promotion or a training campaign.

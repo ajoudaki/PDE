@@ -1,6 +1,6 @@
 # Proposed C-H2 addition — exact package version 3
 
-Status: complete candidate and standalone checks; independent reports pending.
+Status: complete, independently reviewed and ready for approval at the stated scope.
 No promotion approval has been obtained. All maintained files remain unchanged.
 
 ## Scientific addition
@@ -72,11 +72,22 @@ and convergence with fixed quadrature while N grows is not asserted.
 ## Gates and approval
 
 The separate relevance selections accepted the theory and the narrowly scoped
-prototype for assembly. The complete scientific packet is
-H2_review_inputs_v3.json with H2_review_assignment_v3.md. Its independent reports
-and the distinct integration report will be recorded here after the coordinator
-reads them in full and verifies their provenance. Static helper success does
-not replace those gates.
+prototype for assembly. Fresh complete [scientific review A](H2_review_v3_a.md),
+[scientific review B](H2_review_v3_b.md), and a separate fresh
+[integration review](H2_integration_v3.md) all returned PASS with no required
+corrections. The coordinator read the complete original reports and verified
+independence, coverage, hashes, actual checks and exact edition correspondence.
+[H2_review_acceptance_v3.json](H2_review_acceptance_v3.json) records this evidence.
+The frozen scientific and integration inputs remain unchanged. The two earlier
+v2 interface defects and their original adverse report remain preserved; v3
+corrects them and received entirely fresh complete reviews.
+
+All four independently assembled editions have identical payload hashes.
+Both source and installed 14-test suites, the exact guide example, imports,
+new link, preservation checks and independent adversarial static probes pass.
+No mathematical or code objection remains open at this scope. I recommend
+approval of this exact five-file package. Practical certified computation and
+longer-time continuation remain outside the addition.
 
 Under RESEARCH_WORKFLOW.md Part 2.5, approval of this exact concrete package is
 required before the five maintained destinations may be changed. General

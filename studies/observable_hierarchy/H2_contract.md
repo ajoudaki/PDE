@@ -1,6 +1,6 @@
 # C-H2 research contract and route registry
 
-Status: internally checked construction; independent review gates pending.
+Status: C-H2 qualitative theorem and prototype fully reviewed; promotion approval pending.
 Date: 2026-09-12. Coordinator: `/root`, task
 `01a0966c-d650-7512-91e9-5fd0298c2ad4`.
 
@@ -58,8 +58,8 @@ small-tail estimates and correct finite coefficients do not complete C-H2.
 | Approximation convergence | Internally checked | Strong source decay and Osgood comparison |
 | Actual GF identification | Internally checked | Direct comparison to canonical GF |
 | Joint W2 observations | Internally checked | Common-carrier coupling and bounded products |
-| Concrete prototype | Static checks passed | H2_prototype; 13 deterministic tests |
-| C-H2 overall | Independent gates pending | Complete paired scientific and integration reviews |
+| Concrete prototype | Static checks and independent reviews passed | H2_prototype_v3; 14 deterministic tests |
+| C-H2 overall | Complete at stated qualitative scope | H2_review_acceptance_v3: two fresh scientific PASS and distinct integration PASS |
 
 No hard user time/token budget is set. Initial portfolio has three independent
 routes, with synthesis capacity reserved in the coordinator. No training runs,
@@ -82,9 +82,10 @@ against the complete relevant established sources before acceptance. Independent
 promotion gates apply only to a concrete complete proposed addition, with user
 approval required before changing maintained material.
 
-Selected assembled candidate: H2_candidate_v2.md. It retains two current joint
+Selected final construction: H2_proposed_section_v3.md (developed from H2_candidate_v2.md). It retains two current joint
 populations for w/c plus a finite initialized-observable coefficient block.
 Ridge normalization removes exact Gram-rank decisions; energy preserves c∞.
-A direct strong comparison proves the proposed convergence; the internal audit
-and prototype checks are complete. Fresh independent gates remain pending.
-See H2_checks.md. No promotion approval has been requested or obtained.
+A direct strong comparison proves the convergence. Complete fresh scientific
+and integration reviews passed for v3 after the recorded v2 interface corrections.
+See H2_checks.md and H2_review_acceptance_v3.json. The concrete five-file promotion
+proposal is ready; user approval remains outstanding.
