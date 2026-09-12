@@ -130,7 +130,9 @@ Post-application result:
 
 ## Git correspondence
 
-Integration commit: to be recorded after the locked transaction.
+Integration commit: `c1796ca1e9d6fe61fcb1a3515028f24384b97868`.
+Both established file blobs in this commit match the approved final hashes.
+This commit reference is retained in a subsequent study-record-only commit.
 The commit stages only the two approved established files, the updated study
 README and this promotion record. Earlier study evidence and unrelated concurrent
 changes are preserved.
