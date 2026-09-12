@@ -1,6 +1,6 @@
 # C-H2 research contract and route registry
 
-Status: open; theoretical research and deterministic prototype checks authorized.
+Status: internally checked construction; independent review gates pending.
 Date: 2026-09-12. Coordinator: `/root`, task
 `01a0966c-d650-7512-91e9-5fd0298c2ad4`.
 
@@ -53,13 +53,13 @@ small-tail estimates and correct finite coefficients do not complete C-H2.
 
 | Claim | Initial status | Completion evidence required |
 |---|---|---|
-| Finite explicit autonomous system | Open | Equations and full information accounting |
-| Well-posedness and own-state restart | Open | Complete proof with stated domains |
-| Approximation convergence | Open | Vanishing error production and stability |
-| Actual GF identification | Open | Dynamic comparison or admissibility argument |
-| Joint W2 observations | Open | Correlations and second moments controlled |
-| Concrete prototype | Open | Executable retained state, initialization, RHS, maps |
-| C-H2 overall | Open | Complete proof and independent adversarial checking |
+| Finite explicit autonomous system | Internally checked | H2_candidate_v2, H2_internal_v2 |
+| Well-posedness and own-state restart | Internally checked | Complete characteristic proof |
+| Approximation convergence | Internally checked | Strong source decay and Osgood comparison |
+| Actual GF identification | Internally checked | Direct comparison to canonical GF |
+| Joint W2 observations | Internally checked | Common-carrier coupling and bounded products |
+| Concrete prototype | Static checks passed | H2_prototype; 13 deterministic tests |
+| C-H2 overall | Independent gates pending | Complete paired scientific and integration reviews |
 
 No hard user time/token budget is set. Initial portfolio has three independent
 routes, with synthesis capacity reserved in the coordinator. No training runs,
@@ -71,9 +71,9 @@ failure of a route is not an impossibility result.
 
 | Route | Mechanism/input scope | Assigned artifact | Status |
 |---|---|---|---|
-| Prompt | Independent choice; self-contained equations and known bounds only | H2_route_prompt.md | Active |
-| Hierarchy | Direct population hierarchy truncation/regularization; full selected established dependencies | H2_route_hierarchy.md | Active |
-| Regularized | Functional/polynomial/rational closure; prompt-only, excluding raw Galerkin route | H2_route_regularized.md | Active |
+| Prompt | Independent initialized-feature/ridge/Osgood construction; prompt only | H2_route_prompt.md | Frozen; readout product gap repaired in assembled population-field variant |
+| Hierarchy | Direct boundary-freezing population closure; full selected dependencies | H2_route_hierarchy.md | Frozen; own-state tail/coherence and dynamic lift remain open |
+| Regularized | Bernstein/Picard functional-calculus cascade; prompt only | H2_route_regularized.md | Frozen; replay boundary unresolved; not selected |
 
 Each first route is isolated from other attempts. Required skills are read by
 each agent. Reports must include exact claims, derived proofs, actual source
@@ -81,3 +81,10 @@ scope, attacks, missing implications and reopen conditions. Coordinator checks
 against the complete relevant established sources before acceptance. Independent
 promotion gates apply only to a concrete complete proposed addition, with user
 approval required before changing maintained material.
+
+Selected assembled candidate: H2_candidate_v2.md. It retains two current joint
+populations for w/c plus a finite initialized-observable coefficient block.
+Ridge normalization removes exact Gram-rank decisions; energy preserves c∞.
+A direct strong comparison proves the proposed convergence; the internal audit
+and prototype checks are complete. Fresh independent gates remain pending.
+See H2_checks.md. No promotion approval has been requested or obtained.

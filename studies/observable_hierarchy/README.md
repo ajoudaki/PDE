@@ -141,5 +141,32 @@ Concurrent changes outside this study are preserved. All short Git transactions
 use the common nonblocking `pde-writer.lock` and explicit owned paths.
 
 The fixed research contract and route registry are in
-[H2_contract.md](H2_contract.md). The requested C-H2 theorem remains **open**
-while the routes are investigated; no finite closure has yet passed checking.
+[H2_contract.md](H2_contract.md). The requested C-H2 theorem now has an
+internally checked construction; fresh independent gates are still pending.
+
+C-H2 checkpoint: all three isolated first routes are frozen and retained in
+[H2_route_prompt.md](H2_route_prompt.md),
+[H2_route_hierarchy.md](H2_route_hierarchy.md), and
+[H2_route_regularized.md](H2_route_regularized.md). The selected
+[H2_candidate_v2.md](H2_candidate_v2.md) keeps two current joint populations
+and a finite initialized-observable action coefficient block, with an explicit
+ridge schedule and direct comparison to canonical GF. Its complete internal
+theorem audit [H2_internal_v2.md](H2_internal_v2.md) found no blocking defect;
+the coordinator read that report completely. See [H2_checks.md](H2_checks.md).
+The first candidate remains preserved.
+
+The concrete [prototype](H2_prototype.py), [13 static tests](H2_test_prototype.py)
+and [API/limitations](H2_prototype_notes.md) are frozen. The coordinator read
+them completely and independently reran all tests successfully. These use
+deterministic prescribed states and analytic identities; no training or
+convergence experiment ran. The implementation author was the prompt-route
+agent, owning only those three files after its first route was frozen.
+
+The proposed canonical addition is [H2_proposed_section_v1.md](H2_proposed_section_v1.md),
+with separate full [book guide](H2_docs_README_v1.md) and
+[code guide](H2_code_README_v1.md) proposals. The independent theory relevance
+selector accepted assembly in [H2_selection.md](H2_selection.md). A fresh
+code relevance selector owns only H2_selection_code.md. Two fresh complete
+scientific reviews and a separate integration review remain required before
+presenting the concrete promotion decision to the user. No maintained file
+or frozen C-H1 file has been edited.
