@@ -150,8 +150,8 @@ alone would not establish that connection.
 This section records research objectives and the reasoning behind their order.
 It is a plan, not an additional theorem or a claim that its later steps will
 succeed. The established statements and their exact scopes remain in the
-chapters listed below. Milestone letters A–F are planning labels, distinct
-from the numbered sections of those chapters.
+chapters listed below. Milestone letters A–F and the C-H1–C-H4 hierarchy
+packages are planning labels, distinct from the numbered chapter sections.
 
 The intended destination is a coherent explanation of what deep nonlinear
 training learns, why its predictions generalize, when depth and activation
@@ -217,15 +217,21 @@ flowchart TD
     D["D · Activation-dependent bias<br/>Which activation helps which tasks"]:::theory
     E["E · Unknown-structure discovery<br/>Learning beyond linear and frozen models"]:::theory
     F["F · Advantage of depth<br/>Separation from trained shallow models"]:::theory
-    C["C · Independent computable dynamics<br/>Certified simulation + broader exploration"]:::compute
+    CH1["C-H1 · Predictive observable state<br/>Exact current-state hierarchy"]:::compute
+    CH2["C-H2 · Convergent finite closure<br/>Fixed nonlinear interval"]:::compute
+    CH3["C-H3 · Useful certified solver<br/>Accuracy, cost + broader exploration"]:::compute
+    CH4["C-H4 · Substantial learning<br/>Certified horizon without growing state"]:::compute
     J["Common-family completion<br/>G only if extending the solver requires new mathematics"]:::join
     M --> A
-    M --> C
+    M --> CH1
+    CH1 --> CH2
+    CH2 --> CH3
+    CH3 --> CH4
     A --> B
     B --> D
     B --> E
     E --> F
-    C --> J
+    CH4 --> J
     D --> J
     E --> J
     F --> J
@@ -237,18 +243,21 @@ flowchart TD
 
 The arrows express the intended mathematical dependencies, not implications
 already proved. The same dependency map is recorded in the table for readers
-whose renderer does not display Mermaid diagrams. C can inform the other
+whose renderer does not display Mermaid diagrams. C-H3 can inform the other
 directions empirically without being a prerequisite for their initial proofs.
 
 | Milestone | Starting dependency | Scientific result sought |
 |---|---|---|
 | A | Established 1–3 | Nonlinear selection of the whole-input prediction |
 | B | A and the established sampling calculus | Useful generalization of that selection |
-| C | Established 1–3 | Independent computation and controlled broader exploration |
+| C-H1 | Established 1–3 and the exact population equations | A sufficient current observable state with exact evolution identities |
+| C-H2 | C-H1 | One convergent finite autonomous closure on a fixed nonlinear interval |
+| C-H3 | C-H2; prototype during C-H2 | A useful certified solver and controlled broader exploration |
+| C-H4 | C-H3 and the established learning-horizon bounds | Certified substantial training with no accumulating state |
 | D | B | An explanation of activation-dependent bias |
 | E | B | Efficient discovery of unknown structure |
 | F | E | A genuine advantage over trained shallow models |
-| Common-family completion; G only if needed | C, D, E and F | Compatible conclusions and computation at the learning scales |
+| Common-family completion; G only if needed | C-H4, D, E and F | Compatible conclusions and computation at the learning scales |
 
 ### A. Nonlinear prediction selection after substantial learning
 
@@ -309,15 +318,73 @@ prediction reconstruction. The certified target includes enough internal
 observations to identify the evolution and support its claimed restartability,
 including the effects of both Gaussian action directions and their reuse.
 An autonomous ODE, PDE or integro-differential hierarchy is admissible; a fitted
-surrogate or replay of the target trajectory is not.
+surrogate or replay of the target trajectory is not. The current route replaces
+the single C package by the four hierarchy milestones below. Its finite state
+consists of current observable populations and their required joint statistics,
+including differentiated fields where justified. At a chosen order, state size
+stays fixed during the run; elapsed steps cannot add history slots. The chosen
+order may depend on the requested accuracy and declared horizon.
 
 Account for total storage, computation, precision, quadrature, field count and
 memory cost. A collection of low-dimensional fields can qualify. A hidden
 high-dimensional density, unevaluated Gaussian-action oracle or renamed
 trainable fully connected matrix does not establish manageable computation.
-The first theorem can cover an explicitly represented family of laws,
-including nonatomic examples, through the established learning horizon. It
-should attain useful accuracy within a concrete resource bound.
+The completed route should cover an explicitly represented family of laws,
+including nonatomic examples, through the established learning horizon, with
+useful accuracy within a concrete resource bound. Earlier milestones isolate
+information sufficiency, convergence and numerical usefulness so each is a
+substantial result even if the later horizon extension fails.
+
+**C-H1: a predictively sufficient current observable hierarchy.** Give an
+explicit nested dictionary, its exact finite-order evolution and initialization,
+and its typed joint-law or mixed-statistic state. Prove that equal complete
+hierarchy states at admissible reached restarts determine equal subsequent
+whole-circle predictions and the declared internal/action observations under
+the same training law. Preserve both directions of matrix reuse; a list of
+formal initialization derivatives is insufficient. Bounded determining tests
+may replace raw moments when moment determinacy is unavailable. This package
+does not require a closed finite truncation or a numerical efficiency theorem.
+
+**C-H2: one convergent finite autonomous closure.** Construct actual finite
+equations initialized from the canonical model, and prove their convergence in
+prediction and internal observations on a fixed positive nonlinear interval
+and a fixed nontrivial correlated-law family. Neither may shrink with order.
+Highest-order equations may be modified, provided their effects are controlled.
+Develop a small prototype during this work. Fixed-order bounds, compatible
+joint laws, compactness and identification may provide a route to convergence
+without a single all-order weighted norm; realizability and identification of
+the limiting dynamics must be proved. A conditional estimate assuming a small
+omitted tail does not complete this milestone.
+
+**C-H3: useful certified computation.** Make that same closure independently
+computable, with separate control of hierarchy, population/input quadrature,
+time-integration and arithmetic errors. Evaluate resource and conditioning
+bounds and resolve a predetermined prediction change and hidden-learning
+signal within the proved regime. Verify restart using only the saved current
+state. Count the required joint correlations, not merely separate marginal
+populations. The equations should also admit broader exploratory use without
+fitting to a known population trajectory.
+
+**C-H4: substantial learning without accumulating state.** Extend the same
+solver and its certified useful accuracy through the established physical
+time 40 on a fixed supported family, retaining prediction and paired internal
+observations. Carry errors across every continuation interval; do not import
+exact intermediate states or grow the history. Accumulated-training-force
+estimates are a possible analysis tool, with their control-tube hypotheses
+preserved; they are not a source of prescribed reference forcing for the
+solver. If C-H3 already proves this horizon, merge these two packages. A shorter
+certified interval alone does not complete C-H4.
+
+The strategic separation is between information, truncation, useful cost and
+continuation. C-H2 carries the principal unresolved theoretical risk. Existing
+fixed-order Gaussian-source derivatives are not temporal-jet tail estimates.
+The Stieltjes representation disproved in *Gaussian and flow calculus*,
+Sections 7.2 and 10.2, is not a premise of this route. Rational or Padé-type
+closures remain options requiring their own justification. The same chapter's
+Section 6 excludes certain unrestricted same-norm algebra/jet estimates, and
+Section 10.4 excludes its specified Taylor closure; neither supplies a general
+impossibility theorem for current observable hierarchies. No particular closure,
+tail estimate or success of these planning milestones is asserted here.
 
 The second purpose is reliable empirical investigation beyond conservative
 proof bounds. Make the construction reusable wherever its equations and
