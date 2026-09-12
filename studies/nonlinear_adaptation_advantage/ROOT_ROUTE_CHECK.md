@@ -191,3 +191,54 @@ All checks above are manual algebraic reconstruction against complete frozen
 inputs and the recorded established sources. No numerical training or formal
 proof checker was used. The rational upstream certificate has a separate
 executed check. These checks are internal, not independent promotion reviews.
+
+## Continuation: actual-reference sign and quantitative remainder
+
+Root completely read REFERENCE_SIGN_ATTEMPT.md, SHA256
+`6cfef322be7e9ee1d49c8287e3bfd94e6069c17ce40dfdf6619745472c1afa6f`.
+The five terms in R5 follow by expanding the two readout-linear Hessians;
+R6–R7 follow by the exact reference history and integration by parts.
+Root checked the hidden mixed-term norm in R9 using the two-dimensional
+row/middle Cauchy–Schwarz inequality. The absolute bounds in R10–R12 have
+the stated factors, and the lower bound greater than 120/11 is a lower
+bound on the *certificate's right-hand side*, not on the unknown actual
+ratio. The PSD readout diagnostic has the stated signs. R13–R14 retain
+the whole task and reference history. No required scientific correction
+was found, and no actual favorable sign was inferred.
+
+Root authored the frozen QUANTITATIVE_CURVATURE_DRIFT.md, SHA256
+`5bfd6b4c1683d172e3c7a543e8b9e7faa17b2b14f0299ea4242a3776cbcee7d5`.
+Its new directional forward-query fourth moment uses CT29's *whole-history*
+pulse bound, two gate terms, current direct injections, and the old memory
+row sum. It does not invoke an Lp action norm. The scalar-Hessian drift
+then uses the new L4 bound only for the upper curvature product; all other
+differences use already proved L2/L4 state and direction bounds. The
+changing anchor measure and changing residual both contribute to Q12.
+This yields an explicit operator time-Lipschitz modulus and finite risk
+remainder, with source conditioning still unevaluated.
+
+Root read SOURCE_MOMENT_AUDIT_H.md, QUANTITATIVE_DRIFT_CHECK_G.md and
+QUANTITATIVE_DRIFT_CHECK_H.md completely, including provenance and boundary
+checks. All three independently reconstructed their assigned claims and
+reported no required correction. Their input hashes match the frozen
+candidate and established sources. The H full check explicitly retains
+G24's separate |alpha|T<=1 condition when using the scalar-clock remainder.
+These reports validate the new quantitative lemma internally; they do not
+provide the absent signed coefficients or satisfy promotion review gates.
+
+Root also read all 749 lines of CURVATURE_CERTIFICATE_REDUCTION.md, all
+388 lines of CURVATURE_CERTIFICATE_CORRECTION.md, and the complete
+CURVATURE_REDUCTION_CHECK_G.md. The original's coarse clock constants,
+source pulse amplification, derivative cutoffs, projector products,
+Gaussian square-root bound and tail quadrature argument were reconstructed.
+The G check correctly identified that arbitrary polarization sums need
+their own residual and endpoint-approximation constants and effective
+spatial input data. The separate correction supplies these in P1–P15,
+including all downstream force and derivative bounds. Root verified the
+1/48 and 27/48 polarization factors and error multipliers E/6 and 9E/2.
+The corrected pair is under a fresh full internal check. No numerical
+curvature enclosure was executed. Arbitrary-accuracy approximation is not
+a general exact-zero decision procedure; a certified zero would require an
+additional exact argument. The central unchanged-family approximation and
+the corrected auxiliary probes must be distinguished from a negative sign
+certificate, which is still absent.

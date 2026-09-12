@@ -91,8 +91,16 @@ e452735f683a6f8c3e4e895949dbd8aa912f470bbdeb475bf676bce4a10b9c04  ROUTE_GEOMETRY
 27c2768e719a7cc8c3e58a1e98a3fb3dc54c38752f65b815de631792733efced  INTERNAL_CROSSCHECK_E.md
 232a27180a435f10cd7aa1d87ec03746d41c102146bc89da724a671fdd30218e  INTERNAL_CROSSCHECK_H.md
 f0c6908b1ac9559297da247b0a2e4009fd8d880b123e8c5f6aded6c2118f75d2  INTERNAL_BALANCE_CHECK_H.md
-96eee2a5ac32871dc8bd9d9cb5c5f569cf8aa32ebf785d9fa26eb78be098582c  ROOT_ROUTE_CHECK.md
-aa745457d35d06ad318f39e4c7593e7d817b54d9dda11b2c1feead45513092df  STUDY_REPORT.md
+14c6811330d6d2dbff1ad38a1ec5ab85250f7acce941b1175594a6c74c89c2ae  ROOT_ROUTE_CHECK.md
+1447edccce73954f08665c9dc443582645d28b6ac29536e0bfdddafcc51cef27  STUDY_REPORT.md
+6cfef322be7e9ee1d49c8287e3bfd94e6069c17ce40dfdf6619745472c1afa6f  REFERENCE_SIGN_ATTEMPT.md
+5bfd6b4c1683d172e3c7a543e8b9e7faa17b2b14f0299ea4242a3776cbcee7d5  QUANTITATIVE_CURVATURE_DRIFT.md
+b34420220022c7c30cd8a4b75d3c3a9c40702987df2328e8467ddb4c92c4cdbd  SOURCE_MOMENT_AUDIT_H.md
+92a2af4304836d216aa48a9bbcdb33f8c08d229ecfa7b1c77c71772b7c9b44cf  QUANTITATIVE_DRIFT_CHECK_G.md
+ccc1df9313df2b83d293bc4215235f2adfd559a55aae30fdd64c0e60e5064195  QUANTITATIVE_DRIFT_CHECK_H.md
+24a69ef255c14e15cfb666332ea0f772ed9ae8deeb74938b6450ffb7f9918039  CURVATURE_CERTIFICATE_REDUCTION.md
+b6c1b155b24db2da8b6ae1e27fc091cf10f75c2026bdb8c91612653e54b83bf8  CURVATURE_CERTIFICATE_CORRECTION.md
+2e33aaa566240888be3801e031af58e1840ecdf105d90ceb92ecc2e15ba295e0  CURVATURE_REDUCTION_CHECK_G.md
 ```
 
 Root read all three initial reports, the complete follow-up and all three
@@ -108,6 +116,26 @@ including the exact scope of counterexamples and conditional identities.
 | H | COMPARISON_TRANSFER.md and ROUTE_GEOMETRY.md | No required correction; actual curvature/component signs open |
 | H balance | GEOMETRY_SIGN_FOLLOWUP.md | No required correction; trace/rank construction and factors verified; neural sign open |
 | Root | All three routes, follow-up and all internal reports | Scoped claims reconstructed; no successful E₀ theorem accepted |
+| H source | Prompt-supplied generated-input moment lemma, before reading root's full drift proof | No required correction; full-history cap explicitly required |
+| G drift | QUANTITATIVE_CURVATURE_DRIFT.md completely | No required correction; explicit reached-kernel derivative drift and conditional remainder |
+| H drift | QUANTITATIVE_CURVATURE_DRIFT.md completely, without G's check | No required correction; all projector/residual interactions and scalar-clock conditions retained |
+| G reduction | CURVATURE_CERTIFICATE_REDUCTION.md completely | Central family passes; explicit probe-scaling and effective-input correction required |
+
+The continuation's source-moment lemma and quantitative drift proof are
+internally checked additions. Root read the complete three new reports,
+verified their candidate/source hashes, and reconstructed the reference-sign
+attempt. This replaces the earlier unevaluated G20 time modulus by an explicit
+formula; it does not supply a negative cubic or beneficial component sign.
+The separately frozen endpoint approximation reduction is undergoing a full
+internal check. That check identified a required scope correction for arbitrary
+polarization probes: their residual magnitude and approximation errors can
+exceed the constants for a single admitted training task. The separate frozen
+correction supplies these constants and effective spatial-input conditions;
+root has read it completely and a fresh check of the full corrected pair is
+underway. The original report is preserved. No reference integral, neural
+sign or training run was evaluated. A fourth fresh Gaussian-correlation sign
+route has separately started from neutral inputs on the unchanged family;
+its candidate remains isolated and is not yet part of the checked evidence.
 
 Frozen report bytes were preserved. INTERNAL_CROSSCHECK_E.md has a harmless
 extra blank line at EOF; the commit whitespace check disables only that
@@ -118,7 +146,7 @@ recorded in ROOT_ROUTE_CHECK.md; its metric formulas are unchanged.
 The initial contract was committed as `1bed52e`; the independent routes and
 comparison checkpoint as `e3d0021`, using the nonblocking shared Git-writer
 lock and exactly enumerated study paths. No unrelated path was staged or
-committed. The final scoped checkpoint adds the completed follow-up/checks
+committed. The `8817293` scoped checkpoint adds the completed follow-up/checks
 and updates the disposition. Generated products remain under the designated
 generated directory.
 

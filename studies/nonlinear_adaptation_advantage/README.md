@@ -1,9 +1,9 @@
 # E₀: The benefit of nonlinear adaptation
 
-Status: **E₀ unresolved**. Three independent routes and the targeted sign
-follow-up are frozen and internally checked. This investigation is recorded
-with an exact open obligation; E₀ is not complete. No result promoted.
-Started and final checkpoint recorded 2026-09-12.
+Status: **E₀ unresolved**. The continuation has closed the previously
+unevaluated finite-time derivative-modulus gap. The favorable actual-neural
+curvature and component signs remain open. E₀ is not complete and no result
+is promoted. Started and continuation checkpoint recorded 2026-09-12.
 
 The question is whether actual nonlinear constrained evolution after fitting
 the established two-anchor reference has a robust, structurally explained
@@ -37,6 +37,31 @@ Root read all three completely and reconstructed their scoped claims in
 [readout/hidden-balance follow-up](GEOMETRY_SIGN_FOLLOWUP.md) is also complete.
 Its exact balances retain same-order signed anchor and curvature interactions;
 no favorable sign follows from the positive squared-norm terms alone.
+
+The continuation's [quantitative curvature-drift proof](QUANTITATIVE_CURVATURE_DRIFT.md)
+derives a source-based fourth-moment bound for generated directional queries
+and proves an explicit operator bound
+`||K'_t-K'_s|| <= Lambda_1 |t-s|`. This replaces the initial geometry route's
+unevaluated G20 modulus. The separate [source audit](SOURCE_MOMENT_AUDIT_H.md)
+and complete [G](QUANTITATIVE_DRIFT_CHECK_G.md) and
+[H](QUANTITATIVE_DRIFT_CHECK_H.md) internal checks found no required correction.
+The constants are formulas in the established source/reference constants;
+they remain unevaluated and potentially extremely impractical.
+
+The further [reference-specific sign attempt](REFERENCE_SIGN_ATTEMPT.md)
+exposes the actual reference-history contractions. Its absolute estimates
+cannot certify the desired coercivity; it proves no failure of the actual
+network or fixed family. A [deterministic endpoint certificate reduction](CURVATURE_CERTIFICATE_REDUCTION.md)
+has also been frozen. Its [first check](CURVATURE_REDUCTION_CHECK_G.md)
+requires explicit scope and scaling conditions for auxiliary polarization
+probes; the author's [correction](CURVATURE_CERTIFICATE_CORRECTION.md) is
+under a fresh internal check with the full original. No neural reference
+integral or sign certificate has been evaluated.
+
+A fourth fresh approach is examining Gaussian correlation structure on the
+same fixed ordinary family, using only the neutral contract and established
+inputs. Its candidate will remain isolated until frozen. This is a sign
+search, not a change to the family or a computational training campaign.
 
 The current synthesis and precise scientific gaps are in
 [STUDY_REPORT.md](STUDY_REPORT.md). Exact Duhamel comparison, actual O(T²)
@@ -74,10 +99,11 @@ comparison checkpoint: `e3d0021`.
 
 | Approach | Retained result | Decisive missing obligation |
 |---|---|---|
-| Geometry | Full constrained-curvature cubic and finite remainders | Actual cubic and beneficial component signs on its ordinary family |
+| Geometry | Full constrained-curvature cubic and explicit finite remainders, with the continuation's drift bound | Actual cubic and beneficial component signs on its ordinary family |
 | Harmonics | Active robust bands; failure of Fourier diagonalization and symmetry-only sign arguments | A signed actual-neural interaction between the bands |
 | Energy | Exact finite-time risk identity, scalar-clock criterion and relative-gain bound | Favorable signed trajectory integral with a finite positive margin |
 | Targeted balance follow-up | Exact projected readout and tanh saturation balances | Control of the remaining same-order signed anchor/curvature terms |
+| Reference-specific sign follow-up | Exact task/reference-history contractions and a checked limitation of the absolute bounds | Signed actual-neural control of those contractions |
 
 No route proves failure on an admitted actual-neural family or an obstruction
 to E₀ itself. Reopening requires a new signed property of the actual constrained
