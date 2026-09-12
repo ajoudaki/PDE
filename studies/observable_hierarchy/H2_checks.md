@@ -94,3 +94,63 @@ that ||D_N||op<=2, and that the raw dictionaries/spans are nested while the
 ridge coordinates change. It also counts both the static D and evolving M.
 No optional extension beyond the declared C-H1 observation alphabet is claimed.
 The entire existing C-H1 subsection remains literal in the proposed edition.
+
+## Prototype and standalone static checks
+
+The coordinator read the full 693-line prototype, complete tests and complete
+implementation notes, then repaired the final docstring/scratch-path changes.
+Frozen source hashes are 0b2ef5c283698ae077f8dedda1fd485728bbfe00d7624681d74ff4a39d35afd2
+(module), fe976db10472fc877c2ad6b8f08419b2d390e25f0f9f62c3640a17a502c2d058
+(tests), and af26490945a4e5e604afc1f7c3ad00f6a3ab2042206f4f4de4147624e5bf0eca
+(notes). All 13 static deterministic tests passed on an independent coordinator
+execution with Python 3.10.12, NumPy 1.26.4 and one BLAS/OpenMP thread. No
+trajectory, training experiment or empirical accuracy claim was made.
+
+H2_assemble_edition_v1.py assembled only declared established source copies and
+the concrete proposed changes. The module is copied unchanged. Test adaptation
+changes only its default import and corresponding explanatory docstring.
+H2_validate_edition_v1.py ran all 13 tests, the exact new guide example and
+normal package imports from data/generated/observable_hierarchy/H2_edition_v1_assembled,
+using only that edition's code path. All passed; its new chapter-link fragment
+also resolved. Full commands, environment, exit codes and log hashes are in
+data/generated/observable_hierarchy/H2_validation_v1/validation.json. The assembled
+manifest hash is 9a04298c70c8c826601b2c4ec45e2a29a88511bae8dd26417e425caa8ae22d1f.
+H2_check_documents.py --edition data/generated/observable_hierarchy/H2_edition_v1_assembled
+also passed: all seven complete dependency excerpts and the entire frozen C-H1
+body remain literal, and removing only the new section restores the live chapter.
+
+Checkpoint commit b0d83e8b310c815c4917660cbdace7ca200673d2 records 23 owned study
+files under the common writer lock. A first diff whitespace check found one
+extra EOF blank line in the new obstruction packet; that blank line was removed
+before commit, with no scientific change. The already owned staged list was
+verified and preserved on retry. No unrelated staged work was adopted.
+
+The complete review inputs are frozen in H2_review_inputs_v1.json with the exact
+neutral H2_review_assignment_v1.md and all contributor identities. Reviewers
+receive full scientific inputs and no internal reports or prior verdicts.
+
+## Version 2 freeze and independent gates
+
+The coordinator read the complete H2_selection_code.md. This fresh selector
+accepted assembly at the prototype scope and required the real `order` parameter
+name and self-contained wording for unprovided later numerical work in the code
+guide. Its installed-import and final-link requirements were already met by the
+assembly recipe and standalone checks. Version 2 implements only those two
+guide wording changes; proof, module and test bodies remain byte-identical.
+
+The first v1 review had started while code selection was finishing. The
+coordinator stopped it, requested an original incomplete-coverage report, and
+did not count it as a scientific review. All v1 inputs remain preserved. Two
+new isolated reviewers `/root/h2_review_v2_a` and `/root/h2_review_v2_b` receive
+only H2_review_assignment_v2.md, H2_review_inputs_v2.json and its complete listed
+inputs. They are distinct from every author/assembler and both selectors, with
+no inherited history or prior findings.
+
+The final assembly recipe is H2_assemble_edition_v2.py with
+H2_edition_inputs_v2.json. Its standalone output H2_edition_v2 has assembly
+manifest hash 6058e85b86c666af8fbc529f6a2a387159c12104d1a8c78743f841475cb2184c.
+The coordinator reran H2_validate_edition_v1.py against that exact edition into
+H2_validation_v2: all 13 static tests, the exact new guide example, normal package
+imports and the new chapter fragment passed. H2_check_documents.py --edition
+also passed with seven literal complete dependencies and intact frozen C-H1.
+These checks do not replace the pending original independent reports.

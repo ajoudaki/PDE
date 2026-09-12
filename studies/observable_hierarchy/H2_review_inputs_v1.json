@@ -1,0 +1,186 @@
+{
+  "version": 1,
+  "claim": "C-H2 finite autonomous observable closure; exact population theorem plus explicitly limited static quadrature prototype",
+  "base_head": "b0d83e8b310c815c4917660cbdace7ca200673d2",
+  "author_assembler_identities": [
+    "/root (task 01a0966c-d650-7512-91e9-5fd0298c2ad4)",
+    "/root/h2_route_prompt",
+    "/root/h2_route_hierarchy (internal audit clarifications)",
+    "/root/h2_route_regularized (independent unused first route)"
+  ],
+  "selector_identities": [
+    "/root/h2_selector",
+    "/root/h2_code_selector"
+  ],
+  "prohibited_inputs": "All study files not listed; all prior findings/verdicts/history and other studies. Generated review scratch only per assignment.",
+  "inputs": {
+    "studies/observable_hierarchy/H2_review_assignment_v1.md": {
+      "sha256": "ebb34a26a88c15021663cbd4037a21b38c42675d64004080552f163dd7cd96a8",
+      "lines": 151,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_proposed_section_v1.md": {
+      "sha256": "3f142c4f5f364f65cb5a5c487fdbca38efccd1872741cd5815a661647c6f5b99",
+      "lines": 470,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/candidate_v3.md": {
+      "sha256": "f9a20bf6519c802581d293e3cde02218020c127c683699b0a93be9eda277aae2",
+      "lines": 642,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/dependencies_v1.md": {
+      "sha256": "6a40bc9ee6e6de49fbefd9118298c4ab807b1ef52ecf29b99a71937eab0a63d7",
+      "lines": 3569,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_obstructions_v1.md": {
+      "sha256": "9cc2a505a70368e6b042f6b7449bbd9f38b3866838a62e78427644ec2edfd77d",
+      "lines": 875,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_guides_v1.md": {
+      "sha256": "c6b78aa9fa374db2f949b15dcf8f38f630423f94f0281425bf39bfcb64eb1faa",
+      "lines": 1673,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_docs_README_v1.md": {
+      "sha256": "3fdc01dc3bca4c1e8ea4888e8f2fa01ec056ffc45658f53486c82e2532f04341",
+      "lines": 668,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_code_README_v1.md": {
+      "sha256": "0661c6549469082d0f1174977a5775111876e5d5e40f9c940c8b9b537f5df874",
+      "lines": 744,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_prototype.py": {
+      "sha256": "0b2ef5c283698ae077f8dedda1fd485728bbfe00d7624681d74ff4a39d35afd2",
+      "lines": 693,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_test_prototype.py": {
+      "sha256": "fe976db10472fc877c2ad6b8f08419b2d390e25f0f9f62c3640a17a502c2d058",
+      "lines": 283,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_prototype_notes.md": {
+      "sha256": "af26490945a4e5e604afc1f7c3ad00f6a3ab2042206f4f4de4147624e5bf0eca",
+      "lines": 277,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_assemble_edition_v1.py": {
+      "sha256": "27af5fbffc6a03972b4cf02f0eb1125b90b0b17f44447cfbb125d15af0022d5a",
+      "lines": 67,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_edition_inputs_v1.json": {
+      "sha256": "b6890ed36dcc62f6321d37432b7e6256074a9d8a6deccdd336fcbe261ce8ae10",
+      "lines": 46,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_check_documents.py": {
+      "sha256": "716c6d51ba20e4bc87692af8bdade84f95cd69e856b2c240370574320bec8906",
+      "lines": 63,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_validate_edition_v1.py": {
+      "sha256": "224505f69ab9d4b61820c9c02321207e46d64613e76272ffc91c7fbba7b9f21d",
+      "lines": 75,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_source_hashes.json": {
+      "sha256": "09aeeaad1ee3b6081d7604113f0a414226c4e60a7fdcda5cfb11ae608c3f307a",
+      "lines": 12,
+      "read_scope": "complete"
+    },
+    "code/pde/__init__.py": {
+      "sha256": "65eb96a5dd455041d2ad1f32652e3e26e8c15192eb41bdffba27980f0f69e8c3",
+      "lines": 26,
+      "read_scope": "complete"
+    },
+    "code/pde/finite_network.py": {
+      "sha256": "efe694b200b8af2603cbf1bb9d0249f49636e874088c2bafd98f402b5bfbe551",
+      "lines": 363,
+      "read_scope": "complete"
+    },
+    "code/pde/gaussian_moments.py": {
+      "sha256": "6c2a21a9f3d101c433b5f06cb3f6e1dcdeca23a814891ea7bd81e73960e854ae",
+      "lines": 114,
+      "read_scope": "complete"
+    },
+    "docs/NOTATION.md": {
+      "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+      "lines": 98,
+      "read_scope": "correspondence_only: full frozen excerpts and proposed changes; unrelated older complement is not a new scientific dependency"
+    },
+    "docs/README.md": {
+      "sha256": "a402cd21b58fe889500ca9ba9e79aa8d2e1fbbbe371ea2a577f3fafdae69455d",
+      "lines": 654,
+      "read_scope": "correspondence_only: full frozen excerpts and proposed changes; unrelated older complement is not a new scientific dependency"
+    },
+    "docs/arctan_limits.md": {
+      "sha256": "19f01b6112949f4d186ef17ff94415804830ed51a519b155ed45343c26cbbead",
+      "lines": 3117,
+      "read_scope": "correspondence_only: full frozen excerpts and proposed changes; unrelated older complement is not a new scientific dependency"
+    },
+    "docs/continuous_depth.md": {
+      "sha256": "12be7aafbf37cb3651facdcac9c5333281b793c96b96a8a52a1232cd86ca006d",
+      "lines": 2825,
+      "read_scope": "correspondence_only: full frozen excerpts and proposed changes; unrelated older complement is not a new scientific dependency"
+    },
+    "docs/finite_dynamics.md": {
+      "sha256": "a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca5545bc0012a",
+      "lines": 1275,
+      "read_scope": "correspondence_only: full frozen excerpts and proposed changes; unrelated older complement is not a new scientific dependency"
+    },
+    "docs/finite_optimization_and_controls.md": {
+      "sha256": "80dcce91ed3cd8313654523725e28b312ab925376cd7a28d71323bed648a5628",
+      "lines": 5112,
+      "read_scope": "correspondence_only: full frozen excerpts and proposed changes; unrelated older complement is not a new scientific dependency"
+    },
+    "docs/gaussian_calculus.md": {
+      "sha256": "d2f6a065432b5dadc7a1973f11b335cbd0f180caa29a81f863c58fff3ac5ef5e",
+      "lines": 9580,
+      "read_scope": "correspondence_only: full frozen excerpts and proposed changes; unrelated older complement is not a new scientific dependency"
+    },
+    "docs/global_nonlinear.md": {
+      "sha256": "434b3e6bfcdd71576e271ea35910fc1994b3a9c1bfb01acad92f302bdeb07e14",
+      "lines": 19396,
+      "read_scope": "correspondence_only: full frozen excerpts and proposed changes; unrelated older complement is not a new scientific dependency"
+    },
+    "docs/linear_dynamics.md": {
+      "sha256": "8de3beaca0cd6f970c27a25eb8c2bc4a1fefa2e7840bd97e7bccfc4f41281c1d",
+      "lines": 2803,
+      "read_scope": "correspondence_only: full frozen excerpts and proposed changes; unrelated older complement is not a new scientific dependency"
+    },
+    "docs/special_data_limits.md": {
+      "sha256": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489",
+      "lines": 27274,
+      "read_scope": "correspondence_only: full frozen excerpts and proposed changes; unrelated older complement is not a new scientific dependency"
+    },
+    "AGENTS.md": {
+      "sha256": "7778b7073a02de3e94f8ae9aefe940ebc9eddea7467816662e5cce1020cd98ba",
+      "lines": 47,
+      "read_scope": "correspondence_only: full frozen excerpts and proposed changes; unrelated older complement is not a new scientific dependency"
+    },
+    "RESEARCH_WORKFLOW.md": {
+      "sha256": "8b36d7dfc1ad881fcb6bfe32274a5e50c5125b33d68dbcf7c3937f7f6c21ce12",
+      "lines": 224,
+      "read_scope": "correspondence_only: full frozen excerpts and proposed changes; unrelated older complement is not a new scientific dependency"
+    },
+    "code/README.md": {
+      "sha256": "3cb90e55b630870c391e56158432a909fc60872b4af724756b2be19884ef7d6e",
+      "lines": 621,
+      "read_scope": "correspondence_only: full frozen excerpts and proposed changes; unrelated older complement is not a new scientific dependency"
+    }
+  },
+  "reports": {
+    "a": "studies/observable_hierarchy/H2_review_v1_a.md",
+    "b": "studies/observable_hierarchy/H2_review_v1_b.md"
+  },
+  "scratch": {
+    "a": "data/generated/observable_hierarchy/H2_review_v1_a",
+    "b": "data/generated/observable_hierarchy/H2_review_v1_b"
+  }
+}

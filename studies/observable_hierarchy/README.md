@@ -164,9 +164,20 @@ agent, owning only those three files after its first route was frozen.
 
 The proposed canonical addition is [H2_proposed_section_v1.md](H2_proposed_section_v1.md),
 with separate full [book guide](H2_docs_README_v1.md) and
-[code guide](H2_code_README_v1.md) proposals. The independent theory relevance
+[code guide](H2_code_README_v2.md) proposals. The independent theory relevance
 selector accepted assembly in [H2_selection.md](H2_selection.md). A fresh
-code relevance selector owns only H2_selection_code.md. Two fresh complete
-scientific reviews and a separate integration review remain required before
-presenting the concrete promotion decision to the user. No maintained file
-or frozen C-H1 file has been edited.
+code selector accepted the scoped prototype in [H2_selection_code.md](H2_selection_code.md).
+Its guide-name and standalone-wording requirements are incorporated in v2;
+the theorem, module and tests are unchanged. The v1 package is preserved and
+its started review was stopped as incomplete, with no acceptance inferred.
+
+Fresh isolated reviewers `/root/h2_review_v2_a` and `/root/h2_review_v2_b`
+own only H2_review_v2_a.md and H2_review_v2_b.md and their distinct generated
+scratch directories. Their [neutral assignment](H2_review_assignment_v2.md)
+and [frozen complete inputs](H2_review_inputs_v2.json) exclude author history,
+prior verdicts and one another's findings. The standalone v2 edition and its
+13 tests, exact guide example, imports, source preservation and new link all
+pass the coordinator's static checks; logs are under
+data/generated/observable_hierarchy/H2_validation_v2/.
+Paired scientific reports and a separate integration review remain pending.
+No maintained file or frozen C-H1 file has been edited.
