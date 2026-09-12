@@ -1,6 +1,11 @@
 # Two-hidden-layer feature learning and test-risk improvement at matched training loss
 
 Started 2026-09-10. This is the single current research record.
+**2026-09-12 promotion update:** the user authorized incorporating this exact
+signed result as C.5. [The current promotion record](C5_PROMOTION_RECORD.md)
+supersedes the old C.4 destination and whole-guide replacement. The existing
+scientific result is unchanged; the current C.4 book branch is preserved.
+Fresh C.5 scientific/integration gates are in progress before installation.
 **Scientific status: complete, internally checked positive finite-time comparison.**
 Both fresh complete scientific audits accepted the signed theorem with no
 required corrections. This is a study result; established book/code are unchanged.
