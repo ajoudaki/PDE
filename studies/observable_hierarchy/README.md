@@ -236,5 +236,12 @@ Three fresh scoped routes own only their separately assigned H3_route_* files.
 Recovery verifies that all five live H2 files match the approved v3 hashes and
 that all seven frozen dependency excerpts match their maintained sources.
 H2.10's target-dependent source error is the initial decisive obstacle to an
-effective order rule. H3 is not yet complete or internally checked. Established
-book/code remain unchanged pending the full review and concrete approval gates.
+effective order rule. H3 remains incomplete. The three frozen candidate routes
+and their current comparison are in [H3_portfolio_comparison.md](H3_portfolio_comparison.md).
+The exact short-time source-cap/stability calculation has passed a nonauthor
+internal component audit; it still takes the full trajectory defect as an
+unverified input and is not a solver certificate. The independent
+[relevance gate](H3_relevance.md) holds the full milestone for the effective
+family and implemented terminating certificate pipeline. A bounded reference
+numerical component is under construction and review. Established book/code
+remain unchanged pending the full review and concrete approval gates.
