@@ -222,3 +222,19 @@ the promotion record is the current incorporation record.
 C-H2 is complete at the stated qualitative scope. No further research or training
 campaign is running. Practical certified computation and longer-time continuation
 remain C-H3 and C-H4, with no additional result asserted here.
+
+## C-H3 continuation — 2026-09-12
+
+Active task `01a096c9-0ffc-7173-8198-831cf5b6ac53` is authorized to pursue useful
+certified computation at physical `T=1/200`, including bounded deterministic
+execution and independent reproduction. [H3_contract.md](H3_contract.md) freezes
+the exact target, claim ladder, route ownership, demonstration configuration,
+signal/error thresholds and numerical resource limits before trajectories.
+Coordinator `/root` owns this appended record and is the sole study Git writer.
+Three fresh scoped routes own only their separately assigned H3_route_* files.
+
+Recovery verifies that all five live H2 files match the approved v3 hashes and
+that all seven frozen dependency excerpts match their maintained sources.
+H2.10's target-dependent source error is the initial decisive obstacle to an
+effective order rule. H3 is not yet complete or internally checked. Established
+book/code remain unchanged pending the full review and concrete approval gates.
