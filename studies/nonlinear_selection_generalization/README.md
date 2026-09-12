@@ -1,10 +1,13 @@
 # Nonlinear selection generalization (milestone B)
 
-Status: research and review complete at the declared finite-episode scope;
-v2 is ready for promotion approval. Both fresh complete scientific reviews
-and the separate fresh integration review PASS with no required corrections.
-No unresolved gap remains within that scope. Nothing promoted; no established
-file changed. V1's adverse review and explicit finite-cap repair are retained.
+Status: complete and promoted at the declared finite-episode scope. The user
+approved the exact reviewed v2 package on 2026-09-12. C.4.10 and its three guide
+additions are incorporated in commit
+`de6f15dbb5e807d8c69da764fbe0a9bbdc1ef5d7`, with exact live correspondence
+verified. Both fresh complete scientific reviews and the separate fresh
+integration review PASS with no required corrections. No unresolved gap remains
+within that scope. V1's adverse review and explicit finite-cap repair are retained.
+See the [approval and incorporation record](promotion_record_v2.md).
 
 ## Contract frozen before learning analysis
 
@@ -149,7 +152,7 @@ reports and evidence remain unchanged. Review A required the explicit zero
 higher-coefficient condition that the robust proof uses. Review B and integration
 passed their interpreted finite-cap scope, which does not override A's objection.
 
-Current gate: [v2 C.4.10](candidate_addition_v2.md),
+Incorporated packet: [v2 C.4.10](candidate_addition_v2.md),
 [unchanged guide scope](candidate_docs_README_v2.md), and
 [complete frozen v2 packet](scientific_manifest_v2.json). The
 [revision record](revision_v2.md) gives the exact six-line correction,
@@ -163,10 +166,15 @@ scope, report hashes and unchanged source/edition checks. The
 [concrete promotion proposal](promotion_proposal_v2.md) recommends the appended
 C.4.10 and three reading-guide additions. The v2 packet was committed as
 `b384475316cc0e18bab14438f0140f8f2ede6c9a`.
-Next action: obtain user approval of this reviewed package. After approval,
-recheck dependencies and concurrent changes, apply the exact reviewed edition,
-verify live correspondence and make a scoped integration commit.
-No established file may change before those gates and user approval.
+The user approved this exact package with “I approve” on 2026-09-12. The
+dependencies and retained review inputs were unchanged at integration; the
+live chapter and guide match the accepted edition byte for byte. The
+[incorporation record](promotion_record_v2.md) retains approval, final hashes,
+the integration commit and checks. The [live correspondence checker](check_promoted_v2.py)
+passed, with generated evidence under
+`data/generated/nonlinear_selection_generalization/promotion_v2_20260912_01/`.
+Milestone B is closed at its stated finite-episode scope. No further work is
+required for this approved package; broader directions need a separate task.
 
 ## Subsequent user-requested assessment — 2026-09-12
 
