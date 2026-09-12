@@ -341,3 +341,43 @@ with Python's standard Fraction arithmetic, exit 0, from the repository
 root. No Gaussian integral, reference trajectory, or training was computed.
 This is a limitation of the stated error bound, not a lower bound on the
 actual number of steps needed by a sharper certified approximation.
+
+## Completed checks retained at the user-directed stop
+
+Root completely read and reconstructed EXPECTED_SIGN_ATTEMPT.md at SHA256
+`c88d6eab7be97171e1fd36ff0cf17ce7573d90744a2e645205f35dca6d1a048d`
+before the stop. The normalization by v0, differentiation through every
+named source slot with fixed coefficients, and endpoint passage of the
+whole invariant mixed moment were checked. Canonical-expression symmetry,
+not value-law symmetry alone, is needed at singular source covariance.
+The auxiliary delay solution, rational positive covariance bound and smooth
+memory stability estimate were reconstructed. They give no neural endpoint
+sign. At closure root read the completed EXPECTED_SIGN_CHECK_H.md in full,
+SHA256 `7fdc1a0af50e1acc41be520516898322f8904ec63d540e45a54621fcc1bdf0e0`,
+and verified its input hashes. It finds no required correction, retaining
+the same scope. Its scientific check was completed before the stop.
+
+Root completely read FAMILY_SIGN_ATTEMPT_H.md at SHA256
+`ba2131a746324a05e9bcec684d96082571c0138e2edd95524960da7291ed3ecb`
+before the stop. The polarized mixed-cubic factors, anchor-normal subtraction,
+and exact conditional coefficient averages on the coupled domain were
+reconstructed. The favorable hidden-force square has same-order unsigned
+partners. The averaging identity does not imply a uniform sign. No actual
+hidden-force coercivity or favorable neural comparison was accepted.
+
+Root authored VARIANCE_ARGUMENT_CHECK.md at SHA256
+`40942327a54d47fef88a7d644590f7767c57c2ab5b94026af8069d4d03d00209`.
+Before the stop root checked its scalar invariant, full tangent kernel,
+continuation, exact Fourier Gram and whitening, anchor-preserving projection,
+and finite adverse gap over the original unperturbed coefficient box.
+Root read VARIANCE_CHECK_G.md completely at SHA256
+`f35de5480ad9ab00688ea66fda052851caf89b2a34fc94fd41ca0598993de7d1`
+and checked its input hash and exact constants. The report finds no required
+correction. This is an auxiliary-model obstruction to a generic variance
+argument, not an E₀ counterexample. No training or neural integration was run.
+
+All five files are preserved at their frozen hashes. These are internal
+checks, not promotion reviews. The user stopped the proof campaign on
+2026-09-12; closure work only records and commits already completed results.
+The uniform positive population margin and beneficial component effect
+remain unproved. No further research is authorized by these notes.

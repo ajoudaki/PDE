@@ -113,8 +113,8 @@ e452735f683a6f8c3e4e895949dbd8aa912f470bbdeb475bf676bce4a10b9c04  ROUTE_GEOMETRY
 27c2768e719a7cc8c3e58a1e98a3fb3dc54c38752f65b815de631792733efced  INTERNAL_CROSSCHECK_E.md
 232a27180a435f10cd7aa1d87ec03746d41c102146bc89da724a671fdd30218e  INTERNAL_CROSSCHECK_H.md
 f0c6908b1ac9559297da247b0a2e4009fd8d880b123e8c5f6aded6c2118f75d2  INTERNAL_BALANCE_CHECK_H.md
-c58c7866d3a9d222e71b72fc83c6d4e45c72ca51861a85ebcf6f9e33aea82b5c  ROOT_ROUTE_CHECK.md
-e6563ee9a6836b7eb9e47fea0f40df7dfca04dbdf8c4c86b21e9f2ec3118a470  STUDY_REPORT.md
+09432d62c5d2f6b7934568781ece614b65f88fc5558f9bbbb12a27032a12720b  ROOT_ROUTE_CHECK.md
+a8973a706bf057221830a4b7e304080e5050c06aa83568e00f29b9edf484d2a4  STUDY_REPORT.md
 6cfef322be7e9ee1d49c8287e3bfd94e6069c17ce40dfdf6619745472c1afa6f  REFERENCE_SIGN_ATTEMPT.md
 5bfd6b4c1683d172e3c7a543e8b9e7faa17b2b14f0299ea4242a3776cbcee7d5  QUANTITATIVE_CURVATURE_DRIFT.md
 b34420220022c7c30cd8a4b75d3c3a9c40702987df2328e8467ddb4c92c4cdbd  SOURCE_MOMENT_AUDIT_H.md
@@ -129,6 +129,11 @@ a715b568e4837eb4a241f9d8894eeaa5de97203addf665c9978c2a40cf4d5ea7  GAUSSIAN_SIGN_
 41767114a3d7a6dd81c519eee306f06107bc6f4ca1c538b9f751b34b499d10c1  PARITY_SIGN_REDUCTION.md
 5f44ec005410cbdfa4557580c243ea77c1abce6a067882a722d2552578cb484c  GAUSSIAN_SIGN_TRANSPORT.md
 6f751bc7879b9598220690a6c11346533081c98723edb5886095d8f15ea5d4a9  GAUSSIAN_TRANSPORT_CHECK_H.md
+c88d6eab7be97171e1fd36ff0cf17ce7573d90744a2e645205f35dca6d1a048d  EXPECTED_SIGN_ATTEMPT.md
+7fdc1a0af50e1acc41be520516898322f8904ec63d540e45a54621fcc1bdf0e0  EXPECTED_SIGN_CHECK_H.md
+ba2131a746324a05e9bcec684d96082571c0138e2edd95524960da7291ed3ecb  FAMILY_SIGN_ATTEMPT_H.md
+40942327a54d47fef88a7d644590f7767c57c2ab5b94026af8069d4d03d00209  VARIANCE_ARGUMENT_CHECK.md
+f35de5480ad9ab00688ea66fda052851caf89b2a34fc94fd41ca0598993de7d1  VARIANCE_CHECK_G.md
 ```
 
 Root read all three initial reports, the complete follow-up and all three
@@ -208,6 +213,41 @@ method; it is not an adverse risk comparison or an impossibility theorem.
 The H checker completed and wrote its independent reconstruction before
 root's agreement message. These remain internal checks, not promotion
 reviews. No neural sign integral or training experiment was executed.
+
+## User-directed stop and retained final checks
+
+The actual-reference transport and parity checkpoint was committed as
+`fbe203c`. The final bounded follow-ups were completed before the user
+instructed root to stop the campaign on 2026-09-12. Root then interrupted
+all extant delegated assignments; completed reports were retained and the
+pending energy assignment remained canceled. No new proof search, experiment
+or promotion work was undertaken after the stop. Closure work reads the
+completed final report, verifies provenance, updates the current records,
+and commits only this study's owned paths under the common Git-writer lock.
+
+| Final internal check | Complete assigned input | Outcome |
+|---|---|---|
+| Root and H expected sign | EXPECTED_SIGN_ATTEMPT.md and its recorded dependencies | No required correction; complete-history invariant contraction, no actual endpoint sign; auxiliary memory counterexample only |
+| Root family sign | FAMILY_SIGN_ATTEMPT_H.md | Exact unchanged-family decomposition and conditional averages reconstructed; same-order signed terms uncontrolled |
+| G variance | VARIANCE_ARGUMENT_CHECK.md completely | No required correction; full tangent projection and finite adverse gap in an auxiliary model, not E₀ |
+
+Root read all five final files completely, including both internal reports,
+and verified their frozen hashes and recorded scientific inputs. H's final
+report was completed before the stop; its terminal message confirmed no
+further scientific work. Root's detailed checks are in ROOT_ROUTE_CHECK.md.
+The frozen proof and review bytes are preserved. Source hash and local-link
+checks are part of closure validation; these are integrity checks, not new
+research evidence or promotion review.
+
+Closure validation from the repository root used Python's standard hashlib
+and pathlib to check all 36 manifest hashes, all 53 local Markdown links,
+and every scientific input hash in the two final internal reports: PASS,
+exit 0. The scoped Git whitespace check passed and the shared index was
+empty before the closing transaction. No scientific computation was rerun.
+
+No unfinished delegated proof is represented as completed. The study is
+closed as unresolved at the user's request. Reopening requires a new
+explicit user instruction; old next-step notes authorize no continuation.
 
 **Final scientific disposition:** E₀ unresolved. The positive uniform risk
 margin and beneficial component sign are unproved. There is no successful

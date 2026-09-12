@@ -1,9 +1,11 @@
 # E₀: The benefit of nonlinear adaptation
 
-Status: **E₀ unresolved**. The continuation has closed the previously
-unevaluated finite-time derivative-modulus gap. The favorable actual-neural
+Status: **E₀ unresolved; proof campaign stopped at the user's request on
+2026-09-12.** All subagent work has been stopped or canceled. Completed
+proof notes and internal checks are retained. The favorable actual-neural
 curvature and component signs remain open. E₀ is not complete and no result
-is promoted. Started and continuation checkpoint recorded 2026-09-12.
+is promoted. No further research is authorized without a new explicit user
+instruction; earlier next-step notes do not authorize continuation.
 
 The question is whether actual nonlinear constrained evolution after fitting
 the established two-anchor reference has a robust, structurally explained
@@ -19,8 +21,9 @@ only. No other study, including the separately running milestone C, is an
 input. Root coordinates and owns this README, synthesis and Git transactions.
 Fresh independent routes own their separately assigned flat proof files.
 Generated outputs belong to `data/generated/nonlinear_adaptation_advantage/`.
-No training experiments or broad computation are authorized. Deterministic
-proof checks and progressive scoped commits are authorized.
+No training experiments or broad computation were authorized or performed.
+The final authorized action is to preserve completed work, record the
+unresolved verdict, and make the scoped closing commit. Research is stopped.
 
 Startup HEAD: `ec3be9b188d1b89cbbcd054fb23f567d533104a5`; the initial index was
 empty. Concurrent changes outside this study are preserved.
@@ -86,6 +89,19 @@ The current synthesis and precise scientific gaps are in
 discrepancy bounds, and finite scalar-clock criteria are available. No
 positive actual-neural total-risk or beneficial component sign is proved.
 
+The last completed [expected-sign attempt](EXPECTED_SIGN_ATTEMPT.md)
+retains the whole Gaussian source history and its invariant endpoint
+contraction. Its [internal check](EXPECTED_SIGN_CHECK_H.md) found no required
+correction. The actual endpoint sign remains open; an auxiliary memory
+counterexample rules out a proposed general positivity inference only.
+The [family-sign attempt](FAMILY_SIGN_ATTEMPT_H.md) keeps the original
+coefficient box and exposes the uncontrolled alignment, anchor and baseline
+terms even after task averaging. Root reconstructed its scoped identities.
+The separate [variance argument check](VARIANCE_ARGUMENT_CHECK.md), with
+its complete [internal review](VARIANCE_CHECK_G.md), shows why readout
+linearity and multicomponent task averaging alone do not imply a benefit.
+That counterexample uses an auxiliary model and does not disprove E₀.
+
 [COMPARISON_TRANSFER.md](COMPARISON_TRANSFER.md) proves full frozen evolution,
 absence of a permanent frozen approximation floor on B's odd class, and a
 shared-sample error bound. Its explicit positive-margin sample threshold and
@@ -113,7 +129,7 @@ This checks an upstream constant; it is not a training experiment or evidence
 of an E₀ advantage. Initial contract commit: `1bed52e`; independent-route and
 comparison checkpoint: `e3d0021`.
 
-## Route disposition and reopening criterion
+## Stopped campaign and remaining scientific gaps
 
 | Approach | Retained result | Decisive missing obligation |
 |---|---|---|
@@ -124,13 +140,16 @@ comparison checkpoint: `e3d0021`.
 | Reference-specific sign follow-up | Exact task/reference-history contractions and a checked limitation of the absolute bounds | Signed actual-neural control of those contractions |
 | Gaussian correlations | Opposite actual early-reference sum/contrast covariance signs; actual failure of the proposed pointwise contrast-order cone | Signed expected transport to the fitted endpoint and a beneficial added-episode component comparison |
 | Deterministic certificate reduction | Checked finite endpoint and curvature approximation with the explicit probe correction | An evaluated strict sign certificate over the unchanged ordinary family |
+| Expected-sign follow-up | Complete-history Gaussian contraction and a checked auxiliary memory counterexample | Actual fitted-endpoint sign |
+| Family and variance follow-ups | Exact unchanged-family decomposition; auxiliary full-tangent counterexample to a generic averaging argument | Control of actual alignment, anchor and baseline terms; beneficial component sign |
 
 No route proves failure on an admitted actual-neural family or an obstruction
-to E₀ itself. Reopening requires a new signed property of the actual constrained
+to E₀ itself. The scientific gap is a signed property of the actual constrained
 tanh flow, or a rigorously bounded evaluation of that property over a declared
 ordinary family. Further unsigned continuity or an isolated favorable time
-derivative cannot close the gap. The shared-sample and ordered actual-network
-bridge is ready to use if the missing population margin is established.
+derivative cannot close it. Sampling and actual-network advantage remain
+conditional on the missing population margin. These are recorded gaps, not
+queued work. Reopening requires a new explicit user instruction.
 
 Successful promotion would require the workflow's separate relevance, paired
 isolated review, standalone validation, integration review and user-approval

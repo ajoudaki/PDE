@@ -1,5 +1,9 @@
 # E₀: current verdict and exact unresolved obligation
 
+**Campaign stopped at the user's request on 2026-09-12.** All delegated work
+has been stopped or canceled. This report preserves completed work and open
+obligations; it does not authorize further proof search. E₀ remains unresolved.
+
 E₀ is **unresolved**. This study has not proved a common positive nonlinear
 advantage, a beneficial component effect beyond scalar speed, or a positive
 actual-network comparison. It has not disproved them either. Three fresh
@@ -240,6 +244,33 @@ is recorded in ROOT_ROUTE_CHECK.md. It concerns that conservative bound,
 not the true complexity of reference approximation. An effective finite
 procedure does not supply a feasible evaluated sign certificate here.
 
+The final completed [expected-sign attempt](EXPECTED_SIGN_ATTEMPT.md)
+separates the canonical Gaussian exchange-sector source histories and
+expresses the endpoint moment as a limit of complete-history contractions.
+The named coefficients and all previous source slots must be retained;
+individual derivatives cannot simply be passed through the increasing
+transcript. Its [internal check](EXPECTED_SIGN_CHECK_H.md) found no required
+correction. The contraction still has no proved actual endpoint sign.
+A contained auxiliary delay equation reverses the expected initial-source
+sign despite positive source covariance and nonnegative inhibitory memory,
+including a smooth version. Its coefficients are not identified with the
+neural flow, so it only defeats that general comparison rule.
+
+The final [family-sign attempt](FAMILY_SIGN_ATTEMPT_H.md) decomposes the
+mixed cubic on the unchanged coefficient box into a favorable hidden-force
+square and signed alignment, anchor-normal and baseline terms. Neither the
+original midpoint nor an average over the original box controls those
+terms. Full-force nonstationarity does not imply hidden-block coercivity.
+The separate [variance argument check](VARIANCE_ARGUMENT_CHECK.md) supplies
+an auxiliary trainable-readout tanh model on the same unperturbed,
+uniform-density target box whose full frozen tangent learner is uniformly
+better at every fixed positive horizon. Its exact bound and complete tangent
+projection passed an [internal check](VARIANCE_CHECK_G.md). This is a
+counterexample to a generic inference from readout linearity and task
+averaging; it is not the Gaussian-initialized E₀ model or a counterexample
+to the requested existence theorem. No target or density perturbation
+extension of that auxiliary comparison is claimed.
+
 ## Proof methods ruled out, with their exact scope
 
 1. **Independent ordinary Fourier learning rates.** The full projected
@@ -340,6 +371,8 @@ relative component recovery after an independently defined scalar-clock
 control, with finite interaction bounds. The routes give neither inequality.
 This is a failure to resolve the requested existence question after substantive
 alternative approaches, not a failed empirical test or an impossibility result.
+The user's stop instruction closes this campaign with that obligation open;
+none of the possible future directions in the retained notes is queued.
 
 The continuation changes the technical outlook narrowly: finite-time control
 is now available in explicit source/reference constants once signed endpoint
