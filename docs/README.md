@@ -345,6 +345,15 @@ formal initialization derivatives is insufficient. Bounded determining tests
 may replace raw moments when moment determinacy is unavailable. This package
 does not require a closed finite truncation or a numerical efficiency theorem.
 
+Section C.4.7.8 establishes this information milestone for the canonical
+two-hidden-layer tanh model on a fixed positive law neighborhood and physical
+interval `[0,1/200]`. Its finite-alphabet joint populations have exact weak
+evolution through a finite higher level and an explicit cutoff limit within
+that level. Equal complete hierarchies at a reached state give equal future
+whole-circle predictions and the declared joint observations, including for
+matching realizations on another carrier. Finite closure convergence and
+effective evaluation of the cutoff limit remain open.
+
 **C-H2: one convergent finite autonomous closure.** Construct actual finite
 equations initialized from the canonical model, and prove their convergence in
 prediction and internal observations on a fixed positive nonlinear interval
@@ -384,7 +393,7 @@ closures remain options requiring their own justification. The same chapter's
 Section 6 excludes certain unrestricted same-norm algebra/jet estimates, and
 Section 10.4 excludes its specified Taylor closure; neither supplies a general
 impossibility theorem for current observable hierarchies. No particular closure,
-tail estimate or success of these planning milestones is asserted here.
+tail estimate or success of the later computation milestones is asserted here.
 
 The second purpose is reliable empirical investigation beyond conservative
 proof bounds. Make the construction reusable wherever its equations and
