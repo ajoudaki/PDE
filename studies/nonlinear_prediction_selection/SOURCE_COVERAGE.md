@@ -13,3 +13,27 @@ Source SHA-256 at this checkpoint:
 - `docs/global_nonlinear.md`: `bda93ec446425c05f8c06ac3a67fa1505906dff309b74e13bab4effc1527bf05`
 
 - `docs/special_data_limits.md`: `5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489`
+
+
+## Final integration-context refresh and closure
+
+After the scientific v3 packet was frozen and reviewed, the live guide received
+a concurrent planning-only roadmap insertion. The coordinator read the complete
+new guide context, repaired the initial truncated insertion read with the complete
+frozen insertion at INTEGRATION_BASE_GUIDE_v4.md:148–440, and verified that all
+other original guide lines were unchanged. The final baseline has 577 lines and
+SHA-256 3f341b52fa6449a4008602f573590b1528158bd1370f17bc26db032813799f5e.
+No new roadmap statement was imported as a scientific proof input; no other study
+or task was read. The scientific sources and shared instructions remain at their
+original fingerprints.
+
+The coordinator read every line of both final v3 mathematical reports and the
+372-line final v4 integration report, checked their original fingerprints and
+actual coverage/isolation/completion records, and verified the independently
+executed certificate records. A's initial/final JSON metadata schemas differ,
+but all eleven SHA-256 entries agree exactly. B's initial/final hash records
+agree exactly. Both mathematical reports PASS. The final integration report
+PASSes and its independent reconstruction preserves the complete current guide
+and chapter, including concurrent planning text. All superseded/adverse and
+incomplete records remain preserved. The final proposal links the exact original
+reports and reviewed patch; no established edits precede user approval.

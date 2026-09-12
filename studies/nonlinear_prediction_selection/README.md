@@ -1,9 +1,10 @@
 # Nonlinear prediction selection — milestone A
 
-Status: the complete theorem is internally checked in corrected candidate v3.
-Both fresh complete mathematical reviews pass. The final integration-only
-refresh is under independent review. Nothing has been promoted, and this task
-has changed no established book or code file.
+Status: milestone A is resolved for the stated open one-atom family. The complete
+proof, both fresh complete mathematical reviews, standalone validation and fresh
+final integration review pass. The [concrete reviewed promotion proposal](PROMOTION_PROPOSAL.md)
+is ready for user approval. Nothing has been promoted, and this study has changed
+no established book or code file.
 
 ## Question, exact model and result
 
@@ -98,8 +99,13 @@ a concurrent live-guide roadmap addition. Its full report and HOLD are preserved
 The [integration-only refresh](INTEGRATION_REFRESH_v4.md) retains the entire
 current roadmap and applies exactly the same two C.4.9 guide additions through
 unique-context replacements. The canonical proof and all scientific dependencies
-remain byte-identical. Fresh complete integration review of this current edition
-is pending under [its own frozen manifest](INTEGRATION_INPUTS_v4.json).
+remain byte-identical. [Fresh complete integration review v4](INTEGRATION_REVIEW_v4.md) passes without
+required corrections under [its own frozen manifest](INTEGRATION_INPUTS_v4.json).
+The coordinator read all 372 report lines, verified the original report hash and
+completion evidence, and rechecked every final packet, live baseline and proposed
+edition fingerprint. The independent review recovered the entire current guide
+and global chapter by reversing only the proposed changes. No mathematical or
+integration objection remains for this package.
 
 The concrete proposed changes are [the final v4 patch](PROPOSED_EDITION_v4.patch) and
 [scope edit specification](PROPOSED_EDITS_v4.json).
@@ -130,6 +136,8 @@ only explicit study-owned paths and the common nonblocking Git writer lock.
 Other studies are outside the scientific input scope. Initial HEAD was
 `bb9e57b6410f7e76b3bf1de5a33dc4cc7ee58cb3`.
 
-Next authorized action: finish the fresh final integration review, verify
-current-source correspondence, and finalize the [concrete promotion proposal](PROMOTION_PROPOSAL.md). Established edits require the user's approval of that exact
-package under Part 2.5 of the shared workflow.
+Next action: obtain the user's approval of the concrete reviewed package under
+Part 2.5 of the shared workflow. After approval, recheck current dependencies
+and concurrent changes, apply only the final v4 patch/scoped edits, verify the
+result against the reviewed edition, and retain the integration correspondence
+and scoped commit. No further research or training campaign is implied.

@@ -1,8 +1,9 @@
 # Milestone A: nonlinear prediction selection — proposed C.4.9
 
-Status: both final mathematical reviews pass; final integration-only refresh
-awaits its fresh independent integration review.
-This proposal does not authorize or apply established-file edits.
+Status: milestone A is resolved for the stated family. Both fresh complete
+mathematical reviews, standalone validation and the fresh final integration
+review pass. This is the concrete reviewed package presented for user approval;
+no established-file edits have been applied by this study.
 
 ## Scientific result and exact scope
 
@@ -97,8 +98,10 @@ additions; it does not replace the live guide wholesale.
 | Assembled proposed global chapter | `7633fb054cf02f2359b193fcb090634304cc1153f4d8f978fd0ac30789355465` |
 | Complete proposed guide | `26c5f81ad355b892430e015a786df1d0e2e4f6c9a1fc920ea634bd311558412e` |
 
-The [review manifest](REVIEW_MANIFEST_v3.json) and
-[dependency manifest](DEPENDENCY_MANIFEST_v1.json) retain every input fingerprint.
+The [scientific review manifest](REVIEW_MANIFEST_v3.json) and
+[dependency manifest](DEPENDENCY_MANIFEST_v1.json) retain the scientific packet
+fingerprints. The [final integration manifest](INTEGRATION_INPUTS_v4.json)
+records the current guide, patch and assembled-edition inputs.
 The [standalone edition](../../data/generated/nonlinear_prediction_selection/standalone_v4/docs/global_nonlinear.md)
 is available for inspection before any established edit.
 
@@ -138,8 +141,18 @@ roadmap and keeps exactly the same C.4.9 proof, dependencies and scope sentences
 The paired scientific packet remains identical. Only the guide baseline and
 safe application contract are refreshed; no scientific change is inferred from
 the roadmap, which explicitly records planning. The revised integration inputs
-are [frozen separately](INTEGRATION_INPUTS_v4.json) for a new complete fresh
-integration review. This last correspondence review is pending.
+are [frozen separately](INTEGRATION_INPUTS_v4.json). The new complete fresh
+[integration review v4](INTEGRATION_REVIEW_v4.md) passes with no required
+correction. Its 372-line original report was read completely by the coordinator,
+including exact older scope, isolation, reconstruction and current-baseline
+preservation. Report SHA-256:
+`356070cc6e08172f7af98d82af66f956d01a79c97b14f139277509811d26e1c6`.
+Its independently written parser reproduces both assembled files and reverses
+all additions to recover the full current guide and chapter. All 2,779 granular
+mechanical assertions passed; that number counts mechanical checks, not separate
+scientific theorems. The final coordinator check verified all frozen inputs,
+original review hashes, live baselines and proposed-edition fingerprints.
+No required mathematical or integration correction remains.
 
 [Standalone validation v4](STANDALONE_VALIDATION_v4.md) passed. It constructed a
 fresh documentation-only edition, verified frozen and live dependency hashes,
@@ -159,8 +172,9 @@ changed-law endpoint, useful simultaneous width rates, raw GD, a first-hidden
 margin, the necessity or superiority of hidden adaptation, or out-of-sample
 generalization. Those are outside this milestone's resolved target.
 
-Once all final reviews pass, the recommendation is to approve precisely this
-C.4.9 and guide package. Approval under Part 2.5 of `RESEARCH_WORKFLOW.md` must
+The recommendation is to approve precisely this reviewed C.4.9 and guide
+package: canonical proof v3 and final integration edition/patch v4. Approval
+under Part 2.5 of `RESEARCH_WORKFLOW.md` must
 precede changing established files. After approval, recheck dependencies and
 concurrent changes, apply only the reviewed patch, verify live files against
 these proposed hashes, and retain the correspondence record and scoped commit.
