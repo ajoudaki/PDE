@@ -101,3 +101,16 @@ Reproduce it with `python studies/nonlinear_prediction_selection/verify_referenc
 This was deterministic constant verification, not a training experiment. New
 source bounds and selection claims remain theoretical candidates awaiting the
 full combination check and independent reviews.
+
+
+Third checkpoint: the combined candidate is internally reconstructed in
+[INTERNAL_CHECK_v1.md](INTERNAL_CHECK_v1.md). The independent
+[relevance screening](RELEVANCE_SCREENING.md) accepts assembly as C.4.9.
+The complete [canonical addition](CANONICAL_ADDITION_v1.md),
+[exact proposed patch](PROPOSED_EDITION_v1.patch), frozen review assignment
+and fingerprints are ready. Fresh isolated reviewers /root/adversarial_a_v1
+and /root/adversarial_b_v1 are reading the full frozen packet separately.
+The [standalone validation](STANDALONE_VALIDATION_v1.md) passed source hashes,
+old-content preservation, new links, delimiters and the exact certificate.
+Separate integration review and both full mathematical verdicts remain pending.
+No established files have been edited and no promotion approval is requested yet.

@@ -1,0 +1,16 @@
+{
+  "docs/global_nonlinear.md": {
+    "replace_once": {
+      "old": "Section C.4.8 gives the actual centered influence and an L2(circle) Gaussian sampling limit at T=40 for every separately fixed Borel law in a smaller neighborhood, with spatial covariance, a mean-square remainder and a width-first finite-GF bridge.",
+      "new": "Section C.4.8 gives the actual centered influence and an L2(circle) Gaussian sampling limit at T=40 for every separately fixed Borel law in a smaller neighborhood, with spatial covariance, a mean-square remainder and a width-first finite-GF bridge.\nSection [C.4.9](#c49-nonlinear-prediction-selection-during-a-finite-added-data-episode) constructs a finite nonlinear slow-time episode for an open one-added-atom family, selected from original fixed-mixture training at t=tau/epsilon. It determines the whole-circle prediction, proves positive added-atom risk improvement and paired second-hidden adaptation, and captures actual finite GF with width taken first at each fixed epsilon."
+    },
+    "append_file": "CANONICAL_ADDITION_v1.md"
+  },
+  "docs/README.md": {
+    "replacement_file": "PROPOSED_GUIDE_v1.md"
+  },
+  "unchanged": [
+    "docs/NOTATION.md",
+    "code/"
+  ]
+}

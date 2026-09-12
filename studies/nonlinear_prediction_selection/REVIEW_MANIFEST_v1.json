@@ -1,0 +1,42 @@
+{
+  "REVIEW_ASSIGNMENT_v1.md": {
+    "sha256": "57b550e6f4abf2a8d327e1f84e34a67ed5bdd49316f4fda34820c93f27af05c4",
+    "lines": 96
+  },
+  "CANONICAL_ADDITION_v1.md": {
+    "sha256": "e53cefcd3aa58c456d8cee49bc7bff8c6330bffb1f05b9d8baa3646074189404",
+    "lines": 2300
+  },
+  "PROPOSED_EDITS_v1.json": {
+    "sha256": "0493be3c29d2499826320e3324dea54a77ec865b494e0db0e169a438d3c9c006",
+    "lines": 16
+  },
+  "PROPOSED_GUIDE_v1.md": {
+    "sha256": "d5ecdfd35fbddd511d98dccd148a9a9e840f5a4c814658f930c5732bab218bc5",
+    "lines": 285
+  },
+  "DEPENDENCIES_GLOBAL_v1.md": {
+    "sha256": "6ebdaf1a3b28bdd07244a7b8c1bb882a36c7c525c4170cd25af4d7661ab7d942",
+    "lines": 8901
+  },
+  "DEPENDENCIES_GAUSSIAN_v1.md": {
+    "sha256": "c95e358f6bb9741858e6293dabacf4fee01927a23cda1289cd3cd17e85a1ee77",
+    "lines": 550
+  },
+  "DEPENDENCY_GUIDE_v1.md": {
+    "sha256": "5210ccd284ea79215d81c18f2fba93762538cfb1bb5b6b295c6e33e558225e1f",
+    "lines": 284
+  },
+  "DEPENDENCY_NOTATION_v1.md": {
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "lines": 98
+  },
+  "DEPENDENCY_MANIFEST_v1.json": {
+    "sha256": "75f8b2ae6716fb88d8f89306b78a104a2bffc62e1bf67bb64474b8298d5b415a",
+    "lines": 44
+  },
+  "verify_reference_certificate.py": {
+    "sha256": "07c51c139ebf66912ef7b730201dcc71581b11355dd29dbee6140bf2bba63118",
+    "lines": 58
+  }
+}
