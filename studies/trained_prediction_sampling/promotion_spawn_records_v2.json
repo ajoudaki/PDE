@@ -1,0 +1,49 @@
+{
+  "source_file": "/home/codex-b/.codex/sessions/2026/09/11/rollout-2026-09-11T23-11-17-01a0924f-7b0b-7360-8f81-e593b5f2ca7b.jsonl",
+  "source_scope": "Only the three named v2 spawn-agent call records in this task; no other task/session file read.",
+  "retrieved_on": "2026-09-12",
+  "records": [
+    {
+      "source_line": 958,
+      "record_sha256": "60309adc419791ca219683489452ebd31e162fbfb8182b00f2bb60fd8fdd43d0",
+      "timestamp": "2026-09-11T21:42:10.180Z",
+      "namespace": "collaboration",
+      "name": "spawn_agent",
+      "call_id": "call_YAKEO4ZMqU3QsNMKvMm4Ro72",
+      "item_id": "fc_003e235b4678ffcd016aa475ae290487d294aada9a79761ba9",
+      "arguments": {
+        "task_name": "review_v2_a",
+        "fork_turns": "none"
+      },
+      "message_handling": "At-rest encrypted message omitted; exact neutral review scope is retained in the frozen packet and complete reviewer report."
+    },
+    {
+      "source_line": 964,
+      "record_sha256": "ab328323d82083cb4b37fe541a07d8531c6425a5b13bf04bbc98c3afcb98156a",
+      "timestamp": "2026-09-11T21:42:16.404Z",
+      "namespace": "collaboration",
+      "name": "spawn_agent",
+      "call_id": "call_EV8AjZnPe73gRPlSk2XgXRG7",
+      "item_id": "fc_003e235b4678ffcd016aa475b4467087d2882a3b683bc0bf54",
+      "arguments": {
+        "task_name": "review_v2_b",
+        "fork_turns": "none"
+      },
+      "message_handling": "At-rest encrypted message omitted; exact neutral review scope is retained in the frozen packet and complete reviewer report."
+    },
+    {
+      "source_line": 979,
+      "record_sha256": "8895b0b40efa09f0db5608cbc8f77b3e0ff905c577a35e47b1d9818639fb8821",
+      "timestamp": "2026-09-11T21:42:40.570Z",
+      "namespace": "collaboration",
+      "name": "spawn_agent",
+      "call_id": "call_7X0sE41lU2hZFyBT8Cmb8U0J",
+      "item_id": "fc_003e235b4678ffcd016aa475cc58cc87d2b45415230d2cc471",
+      "arguments": {
+        "task_name": "integration_v2",
+        "fork_turns": "none"
+      },
+      "message_handling": "At-rest encrypted message omitted; exact neutral review scope is retained in the frozen packet and complete reviewer report."
+    }
+  ]
+}
