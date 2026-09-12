@@ -123,6 +123,23 @@ The coordinator inspected the full verification report. These are affected
 integration/algebra checks; they are not new proof reviews, a whole-book
 exporter audit or a training experiment. No maintained API changed.
 
-The scoped integration commit and final post-commit verification are recorded
-below after the shared-lock transaction. No scientific difference from the
-reviewed edition was introduced.
+The scoped integration commit is
+`0557717fb873818404f98cce66ab8c7d40faf7b0`, with message
+`Promote reviewed trained-prediction sampling theorem to C.4.8`.
+It contains exactly the two approved destination files, this execution record,
+the live-verification source, the frozen administrative preflight/addendum and
+the two review-event metadata records. A nonblocking common Git lock protected
+the stage/verify/commit transaction. The index was empty before staging;
+the staged path set and frozen file versions were verified explicitly;
+no generated product or concurrently owned assessment/unrelated file was staged.
+The follow-up study-only closure records this commit and final state in the
+README. No scientific difference from the reviewed edition was introduced.
+
+Post-commit verification read both destination blobs directly from that commit
+and confirmed exact equality with the live files and reviewed final hashes.
+All frozen scientific/review inputs and the new deterministic-result hashes
+were rechecked; closure links and whitespace checks passed. The two established
+destinations have no remaining working-tree diff. Promotion is complete for
+the exact approved scope; the original frozen proposal/review records retain
+their historical pre-approval wording and are superseded operationally by this
+execution record and the current README.

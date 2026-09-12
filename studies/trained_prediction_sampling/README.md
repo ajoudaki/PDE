@@ -1,11 +1,13 @@
 # Sampling fluctuations of the whole trained prediction
 
 Research status: A–C and the bounded-extension mean-square strengthening are
-resolved with complete checked proofs. Promotion status: frozen version 2 has
-two fresh complete proof PASS reports, a fresh integration PASS, and standalone
-validation PASS; explicit user approval is pending. Version 1's integration
-objections and their resolutions are preserved in
-[review_resolution.md](review_resolution.md). No established files changed.
+resolved with complete checked proofs. Promotion status: **incorporated into
+the established book on 2026-09-12**, after explicit user approval and all
+review/validation gates. Commit `0557717fb873818404f98cce66ab8c7d40faf7b0`
+adds the exact reviewed C.4.8 and its three summary updates. See the complete
+[promotion execution record](promotion_execution.md). Original objections,
+reviews and frozen candidates are preserved in
+[review_resolution.md](review_resolution.md).
 
 ## Contract
 
@@ -38,7 +40,7 @@ Fresh independent routes (no inherited conversation and no mutual exposure):
 | weak_topology_route | Analytic weak-law differentiation; C.4 and explicit established dependencies | route_weak_topology.md | first round and independent source-feedback audit complete |
 | statistical_route | Probabilistic empirical forcing / leave-one-out; self-contained assignment only | route_statistical.md | replacement theorem and deterministic checks complete |
 | source_response_route | Exact finite Gaussian source calculus; selected C.4.7/III.F inputs | route_source_response.md | source calculus and second sensitivity proof complete |
-| coordinator | Complete established proof reading, raw response and synthesis | remaining study files | research and review complete; promotion approval pending |
+| coordinator | Complete established proof reading, raw response and synthesis | remaining study files | research, reviews, approved promotion and correspondence complete |
 
 All generated products and scratch belong under
 `data/generated/trained_prediction_sampling/`. No shared code API is currently used.
@@ -82,8 +84,10 @@ only the small feature increment remains. The independent reconstruction is
 in [route_slab_audit.md](route_slab_audit.md), with moment and Borel-kernel
 checks in [route_slab_kernel_addendum.md](route_slab_kernel_addendum.md).
 
-The current complete candidate is [proposal_C4_8_v2.md](proposal_C4_8_v2.md),
-with exact proposed book/guide edits in
+The established theorem is
+[C.4.8 in the nonlinear chapter](../../docs/global_nonlinear.md#c48-sampling-fluctuations-of-the-trained-prediction).
+Its complete reviewed source is [proposal_C4_8_v2.md](proposal_C4_8_v2.md),
+with the exact incorporated book/guide edits in
 [promotion_edits_v2.json](promotion_edits_v2.json) and a user-facing
 [promotion proposal](promotion_proposal.md). Version 1 remains frozen for provenance.
 It uses delta'_Y=delta_Y/4 and proves, for every separately fixed admitted
@@ -115,8 +119,10 @@ The [version-2 proof review A](review_v2_A.md),
 [integration review](integration_v2.md) all PASS with no required corrections,
 missing inputs or unresolved objections. No prior findings or internal reports
 were supplied. The coordinator read all three complete reports and verified
-their frozen inputs and recorded deterministic outputs. The final proposal
-is scientifically accepted for the exact reviewed scope, but is not yet established.
+their frozen inputs and recorded deterministic outputs. Following explicit user
+approval, the final proposal was incorporated without scientific changes.
+Live byte correspondence and inverse preservation passed, as recorded in
+[promotion_execution.md](promotion_execution.md).
 
 Frozen first-round SHA256 hashes:
 
@@ -129,7 +135,7 @@ docs/special_data_limits.md 5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d
 docs/finite_dynamics.md  a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca5545bc0012a
 ```
 
-## Checks and next action
+## Checks and promotion completion
 
 Required workflow and both math skills read by the coordinator; applicable skill
 references read. Complete canonical source and statistical lemmas were read and
@@ -138,14 +144,15 @@ those components. No training experiments or sweeps were run. Scoped commits:
 `94f776842874fa9b497cba9d5b0cc313cc019970` (initial contract), `f231b18`
 (independent first-round routes), `917dfaa` (complete version-1 theorem,
 frozen packets, and checks), and `4f0c82e` (original reviews and corrected edition).
-The closing commit records the final three reports and approval-ready proposal.
+Commit `a68fed6` records the final three reports and approval-ready proposal.
+Commit `0557717` incorporates the approved established addition, approval record,
+provenance rechecks and post-integration verification source.
 
-Reproduction (run from the repository root; choose a fresh standalone output
-directory if rerunning):
+Post-promotion verification (run from the repository root and choose a fresh
+output directory; this also compares the retained two reviewed editions):
 
 ```
-python studies/trained_prediction_sampling/assemble_proposal_v2.py
-python studies/trained_prediction_sampling/validate_proposal_v2.py --output data/generated/trained_prediction_sampling/standalone_v2
+python studies/trained_prediction_sampling/verify_live_promotion_v2.py --output data/generated/trained_prediction_sampling/promotion_live_recheck_01
 ```
 
 The frozen assembled candidate hash is
@@ -159,12 +166,30 @@ This is validation of the addition and its needed dependencies, not a whole-book
 proof/link/exporter or unrelated-code audit. The standalone assembly contains only
 the proposed documents, required excerpts/notation and check programs; no checkout
 or worktree was created.
+The original assembly/validation scripts and their pre-promotion base hashes
+remain frozen historical evidence; they must not be run against the now-promoted
+live documents as though those documents were still the old base. The current
+verification command above checks the approved final hashes, reconstructs the
+old hashes by exact inversion, and executes the affected isolated checks.
+
 The independent relevance selection, paired adversarial reviews, standalone
-validation and fresh integration review are complete. The remaining action is
-the user's explicit approval of the exact
-[reviewed promotion package](promotion_proposal.md), as requested by the user
-and Part 2 of the workflow. On approval, recheck dependency hashes, apply only
-the frozen append and three summary replacements, verify live correspondence
-with the reviewed edition, and commit those exact established changes under
-the shared Git lock. Changed scientific inputs would reopen the relevant gates.
-No scientific gap remains for A–C or the stated population mean-square result.
+validation, fresh integration review, explicit user approval, live integration
+and final correspondence checks are complete. The post-integration run is
+`data/generated/trained_prediction_sampling/promotion_live_20260912/report.json`
+(SHA256 `a0e76f819e692d85ccd5fd6a65010bc63bd8545cfc99b90a23fee9508cebba4f`).
+All 88 labels, 67 explicit references, the new navigation link, six Gaussian
+identities and 748 exact sampling assertions passed. The live chapter hash is
+`bda93ec446425c05f8c06ac3a67fa1505906dff309b74e13bab4effc1527bf05`;
+the guide hash is
+`5210ccd284ea79215d81c18f2fba93762538cfb1bb5b6b295c6e33e558225e1f`.
+No code change or training experiment was included. Concurrent assessment and
+unrelated working files were preserved and excluded from this task's commits.
+
+The [administrative preflight](promotion_preflight.md) and
+[launch/completion evidence addendum](promotion_provenance_addendum.md)
+verify reuse of the identical complete reviews; their limits are explicit.
+The separately owned later assessment reports were read for new objections,
+but were not substituted for the original promotion gates or adopted into
+this task's commits. No scientific gap or remaining promotion action remains
+for A–C or the stated population mean-square result. The wider rate, GD and
+supremum-norm CLT extensions listed above remain outside the incorporated scope.
