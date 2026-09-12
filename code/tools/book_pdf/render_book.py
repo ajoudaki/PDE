@@ -67,7 +67,7 @@ for filename, chapter in FILES:
     raw = source.read_bytes()
     manifest[filename] = {"sha256": hashlib.sha256(raw).hexdigest(), "bytes": len(raw)}
     ast = json.loads(subprocess.check_output([
-        str(PANDOC), "--from=markdown+tex_math_single_backslash-superscript-subscript", "--to=json", str(source)
+        str(PANDOC), "--from=markdown+tex_math_single_backslash-superscript-subscript+gfm_auto_identifiers", "--to=json", str(source)
     ]))
     namespace = filename.replace("/", "-").replace(".md", "").lower()
     def name_target(node):
@@ -106,10 +106,19 @@ for filename, ast in documents:
     def transform(node):
         kind = node.get("t")
         counts[kind] += 1
+        # Pandoc can leave these existing inline math commands outside math mode.
+        # A bare accent has no operand: display it literally rather than consuming prose.
+        if kind == "RawInline" and node["c"][0] in ("tex", "latex"):
+            raw = node["c"][1]
+            if re.fullmatch(r"\\widehat\s*", raw):
+                return {"t": "RawInline", "c": ["latex", tex_escape(raw)]}
+            if re.match(r"\\(?:lambda|ge|le|pi|ell|delta|mapsto|sqrt|eta|cdot)(?![A-Za-z])", raw):
+                return {"t": "RawInline", "c": ["latex", r"\ensuremath{" + raw.strip() + "}"]}
         if kind == "Math":
             # Group the existing layer-indexed matrix before its transpose.
             # Two source occurrences otherwise have invalid double superscripts.
             node["c"][1] = node["c"][1].replace(r"W^{(\ell)}_n^T", r"(W^{(\ell)}_n)^T")
+            node["c"][1] = node["c"][1].replace(r"_{\rm primal,\psi}", r"_{\mathrm{primal},\psi}")
         if kind == "Link":
             target = node["c"][2][0]
             if not re.match(r"^[a-zA-Z]+:", target):
@@ -127,6 +136,8 @@ for filename, ast in documents:
                 raise ValueError((filename, "Multiple equation tags", body))
             body = re.sub(r"\\tag\*?\{([^{}]*)\}", "", body).strip()
             body = body.replace(r"\begin{split}", r"\begin{aligned}").replace(r"\end{split}", r"\end{aligned}")
+            # Blank source lines must not introduce TeX paragraphs inside an equation.
+            body = re.sub(r"\n[ \t]*\n+", "\n", body)
             body = wrap_long_integer_tuple(body)
             tag = tags[0] if tags else ""
             eid = "E" + str(len(equations) + 1)
@@ -171,7 +182,7 @@ subprocess.run([
     "--variable=fontsize:11pt", "--variable=papersize:a4",
     "--variable=geometry:top=23mm,bottom=23mm,left=22mm,right=22mm,headheight=15pt,headsep=7mm,footskip=11mm",
     "--variable=mainfont:TeX Gyre Pagella", "--variable=sansfont:TeX Gyre Heros",
-    "--variable=monofont:DejaVu Sans Mono", "--variable=monofontoptions:Scale=0.83",
+    "--variable=monofont:FreeMono", "--variable=monofontoptions:Scale=0.83",
     "--variable=mathfont:TeX Gyre Pagella Math", "--variable=colorlinks:true",
     "--variable=linkcolor:ExportBlue", "--variable=urlcolor:ExportBlue", "--variable=toccolor:black",
     "--include-in-header=" + str(ROOT / "layout.tex"), "--output=" + str(ROOT / "book.tex")

@@ -1,5 +1,5 @@
 % PDF-only typography. No changes to the source Markdown.
-\usepackage{adjustbox,fvextra,mathrsfs,xurl,etoolbox}
+\usepackage{adjustbox,fvextra,mathrsfs,xurl,etoolbox,mathtools}
 \usepackage[headsepline=.3pt]{scrlayer-scrpage}
 \DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
 \definecolor{ExportBlue}{HTML}{1E5067}
@@ -28,6 +28,7 @@
 \setlength{\LTpost}{8pt}
 \AtBeginEnvironment{longtable}{\small\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{1.15}}
 \DefineVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\footnotesize,breaklines=true,breakanywhere=true,frame=leftline,framesep=3mm,rulecolor=\color{ExportLight}}
+\newif\ifExportTagBelow
 \newsavebox{\ExportEquationBox}
 \newsavebox{\ExportEquationTag}
 \newlength{\ExportEquationAvailable}
@@ -38,10 +39,16 @@
   \sbox{\ExportEquationTag}{\ifstrempty{#3}{}{\normalfont\small(#3)}}%
   \setlength{\ExportEquationAvailable}{\linewidth}%
   \ifstrempty{#3}{}{\addtolength{\ExportEquationAvailable}{-2\wd\ExportEquationTag}\addtolength{\ExportEquationAvailable}{-12pt}}%
+  % A long label gets its own line before it forces the equation below 60% scale.
+  \ExportTagBelowfalse
+  \ifdim .6\wd\ExportEquationBox>\ExportEquationAvailable
+    \ifstrempty{#3}{}{\setlength{\ExportEquationAvailable}{\linewidth}\ExportTagBelowtrue}%
+  \fi
   \ifdim\wd\ExportEquationBox>\ExportEquationAvailable
     \typeout{EXPORT-SCALED #1: width=\the\wd\ExportEquationBox; available=\the\ExportEquationAvailable}%
   \fi
-  \noindent\hbox to\linewidth{\hfil\adjustbox{max width=\ExportEquationAvailable}{\usebox{\ExportEquationBox}}\hfil\llap{\usebox{\ExportEquationTag}}}%
+  \noindent\hbox to\linewidth{\hfil\adjustbox{max width=\ExportEquationAvailable}{\usebox{\ExportEquationBox}}\hfil\ifExportTagBelow\else\llap{\usebox{\ExportEquationTag}}\fi}%
+  \ifExportTagBelow\par\nobreak\noindent\hfill\usebox{\ExportEquationTag}\fi
   \par\endgroup\addvspace{7pt}
 }
 \makeatletter
@@ -65,3 +72,13 @@
   \end{titlepage}
 }
 \makeatother
+
+% Local export-only support for symbols present in the captured edition.
+\usepackage{newunicodechar}
+\newunicodechar{⁴}{\ensuremath{^{4}}}
+\newunicodechar{≪}{\ensuremath{\ll}}
+\newunicodechar{𝛿}{\ensuremath{\delta}}
+\newunicodechar{𝜆}{\ensuremath{\lambda}}
+\newunicodechar{𝜋}{\ensuremath{\pi}}
+\newunicodechar{𝜓}{\ensuremath{\psi}}
+\AtBeginDocument{\renewcommand{\setminus}{\mathbin{\backslash}}}

@@ -29,8 +29,8 @@ the source checkout. Keep the shell script, Python helpers, and layout together.
 
 Python 3.9+, Pandoc **3.6.4**, XeLaTeX, `qpdf`, and `pdftotext` are required.
 The TeX installation must include KOMA-Script, `unicode-math`, `adjustbox`,
-`fvextra`, `mathrsfs`, `xurl`, `etoolbox`, and the TeX Gyre Pagella (including
-Math), TeX Gyre Heros, and DejaVu Sans Mono fonts. This exporter is tested on
+`fvextra`, `mathrsfs`, `xurl`, `etoolbox`, `mathtools`, `newunicodechar`, and the
+TeX Gyre Pagella (including Math), TeX Gyre Heros, and FreeMono fonts. This exporter is tested on
 Linux. Its optional archived Pandoc executable is specifically Linux x86-64.
 
 Pandoc may be installed on `PATH`. Alternatively, provide its unmodified official
@@ -75,6 +75,12 @@ PDF-only transformations namespace cross-references, wrap code/tables, fit wide
 equations, reflow long literal integer tuples, and group two existing
 matrix-transpose expressions that otherwise produce invalid double superscripts.
 They act on the copy only, retaining the integer tuple's values and order.
+Heading anchors follow GitHub conventions. The export also supplies missing
+math-mode wrappers and equivalent glyphs for existing notation, removes blank
+lines inside displayed equations, and scopes a Roman subscript separately from
+its Greek symbol. Long equation tags move to a separate line when reserving
+inline space would force the equation below the minimum readable scale; the
+60% check still applies to the equation itself.
 
 Checks cover unresolved local links, LaTeX errors, missing glyphs, overfull boxes,
 unsettled references, PDF structural validity, off-page extracted text, and a
