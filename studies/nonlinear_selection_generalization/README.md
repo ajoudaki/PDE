@@ -167,3 +167,18 @@ Next action: obtain user approval of this reviewed package. After approval,
 recheck dependencies and concurrent changes, apply the exact reviewed edition,
 verify live correspondence and make a scoped integration commit.
 No established file may change before those gates and user approval.
+
+## Subsequent user-requested assessment — 2026-09-12
+
+[The promotion and strategy assessment](ASSESSMENT_2026_09_12.md) recommends
+approving the exact v2 package at its stated finite-episode scope. A fresh
+isolated complete mathematical assessment found no blocker; a separate
+integrity check verified the retained reviews and reproduced all four final
+deterministic checks. Their full reports and hashes are linked in the
+assessment. This is advice, not user approval or promotion.
+
+With C already running, the recommended next research target is a structured
+causal comparison of nonlinear selection with its full tangent model frozen
+at the fitted reference. Its success requires more than a favorable initial
+coefficient or scalar acceleration. This is a proposed direction toward E,
+not an established advantage or a claim that D/E/F are complete.
