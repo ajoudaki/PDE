@@ -1,0 +1,44 @@
+{
+  "DEPENDENCIES_GLOBAL_v1.md": {
+    "source": "docs/global_nonlinear.md",
+    "source_sha256": "bda93ec446425c05f8c06ac3a67fa1505906dff309b74e13bab4effc1527bf05",
+    "ranges": [
+      [
+        1840,
+        2461
+      ],
+      [
+        2462,
+        3440
+      ],
+      [
+        3836,
+        4947
+      ],
+      [
+        5269,
+        11439
+      ]
+    ],
+    "sha256": "6ebdaf1a3b28bdd07244a7b8c1bb882a36c7c525c4170cd25af4d7661ab7d942"
+  },
+  "DEPENDENCIES_GAUSSIAN_v1.md": {
+    "source": "docs/special_data_limits.md",
+    "source_sha256": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489",
+    "ranges": [
+      [
+        3785,
+        4326
+      ]
+    ],
+    "sha256": "c95e358f6bb9741858e6293dabacf4fee01927a23cda1289cd3cd17e85a1ee77"
+  },
+  "DEPENDENCY_GUIDE_v1.md": {
+    "source": "docs/README.md",
+    "sha256": "5210ccd284ea79215d81c18f2fba93762538cfb1bb5b6b295c6e33e558225e1f"
+  },
+  "DEPENDENCY_NOTATION_v1.md": {
+    "source": "docs/NOTATION.md",
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b"
+  }
+}

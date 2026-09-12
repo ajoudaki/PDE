@@ -73,3 +73,31 @@ obligation is a uniform named-source/tail continuation estimate for a small
 integrated-control perturbation of the bounded reference history, followed by
 actual nonlinear slow-limit and finite-GF capture. No obstruction to the target
 has been proved. Initial scoped commit: abab5537b4a248ada7fde7164c60a56fb864e881.
+
+
+Second checkpoint: [source-control tube](CONTINUATION_CONTROL_TUBE.md) and
+[endpoint application](CONTROL_TUBE_APPLICATION_NOTES.md) have complete candidate
+proofs, read and reconstructed by the coordinator. They control the full
+reference history in integrated control mass without physical-horizon constants.
+[One-atom conditioning/activity](CONDITIONING_ACTIVITY.md) gives explicit
+positive nonlinear-episode margins once the common constrained evolution is
+constructed. [Finite GF bridge](FINITE_CAPTURE.md) proves fixed-epsilon capture
+from population Euler tails, including the actual Gaussian readout and paired
+reference observations. Its readout argument was sharpened after author checking
+to a fixed-oracle cutoff induction. These component implications do not alone
+establish the combined theorem; SLOW_SELECTION.md is being finalized.
+
+The independent relevance selector is /root/relevance_selector. It has no
+inherited author discussion and is reading complete components and established
+coverage; its verdict is pending the slow-selection module. No paired promotion
+review has started. A [canonical statement draft](CANONICAL_STATEMENT_DRAFT.md)
+is being assembled. Frozen established dependency excerpts and their exact
+manifest are retained under DEPENDENCIES_*_v1.md and DEPENDENCY_MANIFEST_v1.json.
+
+The unchanged established rational certificate was rerun from source and passed
+all exact assertions; see [VERIFICATION.md](VERIFICATION.md) and
+[verify_reference_certificate.py](verify_reference_certificate.py).
+Reproduce it with `python studies/nonlinear_prediction_selection/verify_reference_certificate.py`.
+This was deterministic constant verification, not a training experiment. New
+source bounds and selection claims remain theoretical candidates awaiting the
+full combination check and independent reviews.
