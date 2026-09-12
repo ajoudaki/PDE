@@ -154,3 +154,44 @@ H2_validation_v2: all 13 static tests, the exact new guide example, normal packa
 imports and the new chapter fragment passed. H2_check_documents.py --edition
 also passed with seven literal complete dependencies and intact frozen C-H1.
 These checks do not replace the pending original independent reports.
+
+## Completed v2 reviews and required corrections
+
+The coordinator read all of H2_review_v2_a.md (280 lines), H2_review_v2_b.md,
+and H2_integration_v2.md, including complete hash/evidence appendices. Both
+scientific reviewers returned PASS with no required correction, after all
+10,811 complete-read lines, source hashes, independent mathematical attacks,
+original/installed tests, guide example and additional deterministic checks.
+The integration reviewer completed its distinct full new-material scope and
+returned FAIL on two concrete interfaces. H2_review_record_v2.json records exact
+report hashes, verified input/edition hashes, and the nonacceptance of v2.
+
+R1 is a real reusable-API defect: a public supplied State with default empty
+metadata could be evaluated and saved, but load_restart required an unstated
+format entry inside that optional provenance. The mathematical reached-state
+proof and initialized-state test were unaffected, but the advertised general
+save/load contract was false. R2 concerns book-guide scope: the theorem uses
+rho=delta/2, while the summary said the same C-H1 family, and an older roadmap
+sentence said no particular closure was asserted after the new paragraphs
+asserted C-H2. The original adverse integration report is preserved unchanged.
+
+Version 3 corrects the archive writer to set its own reserved format tag in a
+copy of metadata, independently of caller provenance. A new deterministic test
+round-trips a public supplied State with empty and ordinary optional metadata,
+checks unchanged caller metadata, and verifies identical fields, loss and RHS.
+The full suite now has 14 tests and passes. New module/test/notes filenames are
+H2_prototype_v3.py, H2_test_prototype_v3.py and H2_prototype_notes_v3.md; every
+earlier frozen source is preserved. The book guide says a fixed smaller ball
+and limits its remaining nonclaims to alternative closures/later numerical work.
+The code guide documents the public archive contract. Optional title and tail-
+constant naming clarifications are also included; the mathematical argument and
+equations are unchanged except for renaming the tail scalar M_tail.
+
+The complete v3 packet is H2_review_inputs_v3.json with its neutral assignment;
+the separate integration packet is H2_integration_inputs_v3.json. Fresh isolated
+reviewers `/root/h2_review3_a`, `/root/h2_review3_b`, and `/root/h2_integration3`
+receive only those respective inputs and required skills, not v2 findings or
+prior verdicts. Their original reports remain pending. The coordinator's fresh
+H2_edition_v3 assembly, all 14 installed tests, exact guide example/import/link
+and full source-preservation check pass; logs are in H2_validation_v3. The
+assembly manifest hash is 21cfe562172947aa1499126e44796b27c5b3a9d6ae19dd2742e2671e32f31eff.

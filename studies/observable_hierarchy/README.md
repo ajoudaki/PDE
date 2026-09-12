@@ -181,3 +181,26 @@ pass the coordinator's static checks; logs are under
 data/generated/observable_hierarchy/H2_validation_v2/.
 Paired scientific reports and a separate integration review remain pending.
 No maintained file or frozen C-H1 file has been edited.
+
+V2 review outcome: [review A](H2_review_v2_a.md) and [review B](H2_review_v2_b.md)
+both passed; the separate [integration report](H2_integration_v2.md) required
+corrections to supplied-state archive metadata and book-guide scope wording.
+The coordinator read all three complete original reports and verified their
+hashes; [H2_review_record_v2.json](H2_review_record_v2.json) records that v2 was
+**not accepted** for promotion. All earlier inputs and adverse evidence remain.
+
+The corrected [v3 theorem text](H2_proposed_section_v3.md),
+[prototype](H2_prototype_v3.py), [14 static tests](H2_test_prototype_v3.py),
+[notes](H2_prototype_notes_v3.md), [book guide](H2_docs_README_v3.md) and
+[code guide](H2_code_README_v3.md) form the current candidate. The theorem proof
+is unchanged apart from a scalar-name clarification. The archive writer now
+supplies its own format tag, so an ordinary public State with empty metadata
+round-trips; the new test verifies the complete contract without an initializer.
+
+Fresh independent agents `/root/h2_review3_a`, `/root/h2_review3_b` and
+`/root/h2_integration3` own only H2_review_v3_a.md, H2_review_v3_b.md and
+H2_integration_v3.md and their separate generated scratch paths. They receive
+the [complete v3 packet](H2_review_inputs_v3.json) or
+[integration packet](H2_integration_inputs_v3.json), with no earlier reports.
+All 14 tests and standalone v3 guide/import/link/preservation checks pass in
+H2_validation_v3. Fresh original reports and promotion approval are pending.

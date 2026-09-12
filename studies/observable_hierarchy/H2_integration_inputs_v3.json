@@ -1,0 +1,178 @@
+{
+  "version": 3,
+  "role": "independent integration, not whole-book scientific audit",
+  "author_assembler_identities": [
+    "/root (task 01a0966c-d650-7512-91e9-5fd0298c2ad4)",
+    "/root/h2_route_prompt",
+    "/root/h2_route_hierarchy (internal audit clarifications)",
+    "/root/h2_route_regularized (independent unused first route)"
+  ],
+  "selector_identities": [
+    "/root/h2_selector",
+    "/root/h2_code_selector"
+  ],
+  "inputs": {
+    "studies/observable_hierarchy/H2_integration_assignment_v3.md": {
+      "sha256": "c67fe6a7ea6d72fbcbaa175c825064b9be6169dccf6b06af159cda17f3df83f5",
+      "lines": 64,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_review_assignment_v3.md": {
+      "sha256": "fd8e48d1ea77058993a0bb3289b374fc5d46a21a58475a464f05c1838111ab0a",
+      "lines": 151,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_proposed_section_v3.md": {
+      "sha256": "c84617a514adaa43224c0f2990b75abb48eb92611ee3b45da753f47866ed90d2",
+      "lines": 470,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/candidate_v3.md": {
+      "sha256": "f9a20bf6519c802581d293e3cde02218020c127c683699b0a93be9eda277aae2",
+      "lines": 642,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_guides_v1.md": {
+      "sha256": "c6b78aa9fa374db2f949b15dcf8f38f630423f94f0281425bf39bfcb64eb1faa",
+      "lines": 1673,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_docs_README_v3.md": {
+      "sha256": "269f481c6198971875ec22cb1b7e451ad0f3fbf3fe21a41be42a72dd49ae7ce2",
+      "lines": 670,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_code_README_v3.md": {
+      "sha256": "3ffc27a58e8e090828fbac3f7d4b86c9e33f4ff5cdd7b0690e086364e8e82731",
+      "lines": 748,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_prototype_v3.py": {
+      "sha256": "f8dc5d16e5de1737444c44aae737ee1c9b4d664188d72f59acd0bb92f457c137",
+      "lines": 697,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_test_prototype_v3.py": {
+      "sha256": "dc6d90f0ea978fafff1e07b8f80ed9443c1a9f642bd0513f95b0a66b505dc21f",
+      "lines": 312,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_prototype_notes_v3.md": {
+      "sha256": "bc3aac299026b8665cf6d69765d482692a40ff0cfb6f5d443837fc7d049a3f8e",
+      "lines": 279,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_assemble_edition_v3.py": {
+      "sha256": "e07840dd61026965b7f47a9704adedc0aac4110ebcaa139212f55b0bf1c7390f",
+      "lines": 67,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_edition_inputs_v3.json": {
+      "sha256": "cd85534aa4f3f178627beef6cb7840528290020e9bd9c345c9e171a76377a406",
+      "lines": 46,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_check_documents_v3.py": {
+      "sha256": "27eae4e6b931e5102e571c040940787e1a4ac401b582c5f06e45891a9d4ace16",
+      "lines": 63,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_validate_edition_v1.py": {
+      "sha256": "224505f69ab9d4b61820c9c02321207e46d64613e76272ffc91c7fbba7b9f21d",
+      "lines": 75,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/H2_source_hashes.json": {
+      "sha256": "09aeeaad1ee3b6081d7604113f0a414226c4e60a7fdcda5cfb11ae608c3f307a",
+      "lines": 12,
+      "read_scope": "complete"
+    },
+    "studies/observable_hierarchy/dependencies_v1.md": {
+      "sha256": "6a40bc9ee6e6de49fbefd9118298c4ab807b1ef52ecf29b99a71937eab0a63d7",
+      "lines": 3569,
+      "read_scope": "available for reference verification; disclose every portion read"
+    },
+    "code/pde/__init__.py": {
+      "sha256": "65eb96a5dd455041d2ad1f32652e3e26e8c15192eb41bdffba27980f0f69e8c3",
+      "lines": 26,
+      "read_scope": "complete import dependency"
+    },
+    "code/pde/finite_network.py": {
+      "sha256": "efe694b200b8af2603cbf1bb9d0249f49636e874088c2bafd98f402b5bfbe551",
+      "lines": 363,
+      "read_scope": "complete import dependency"
+    },
+    "code/pde/gaussian_moments.py": {
+      "sha256": "6c2a21a9f3d101c433b5f06cb3f6e1dcdeca23a814891ea7bd81e73960e854ae",
+      "lines": 114,
+      "read_scope": "complete import dependency"
+    },
+    "docs/NOTATION.md": {
+      "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+      "lines": 98,
+      "read_scope": "source preservation and declared placement/reference context only; unrelated complement excluded"
+    },
+    "docs/README.md": {
+      "sha256": "a402cd21b58fe889500ca9ba9e79aa8d2e1fbbbe371ea2a577f3fafdae69455d",
+      "lines": 654,
+      "read_scope": "source preservation and declared placement/reference context only; unrelated complement excluded"
+    },
+    "docs/arctan_limits.md": {
+      "sha256": "19f01b6112949f4d186ef17ff94415804830ed51a519b155ed45343c26cbbead",
+      "lines": 3117,
+      "read_scope": "source preservation and declared placement/reference context only; unrelated complement excluded"
+    },
+    "docs/continuous_depth.md": {
+      "sha256": "12be7aafbf37cb3651facdcac9c5333281b793c96b96a8a52a1232cd86ca006d",
+      "lines": 2825,
+      "read_scope": "source preservation and declared placement/reference context only; unrelated complement excluded"
+    },
+    "docs/finite_dynamics.md": {
+      "sha256": "a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca5545bc0012a",
+      "lines": 1275,
+      "read_scope": "source preservation and declared placement/reference context only; unrelated complement excluded"
+    },
+    "docs/finite_optimization_and_controls.md": {
+      "sha256": "80dcce91ed3cd8313654523725e28b312ab925376cd7a28d71323bed648a5628",
+      "lines": 5112,
+      "read_scope": "source preservation and declared placement/reference context only; unrelated complement excluded"
+    },
+    "docs/gaussian_calculus.md": {
+      "sha256": "d2f6a065432b5dadc7a1973f11b335cbd0f180caa29a81f863c58fff3ac5ef5e",
+      "lines": 9580,
+      "read_scope": "source preservation and declared placement/reference context only; unrelated complement excluded"
+    },
+    "docs/global_nonlinear.md": {
+      "sha256": "434b3e6bfcdd71576e271ea35910fc1994b3a9c1bfb01acad92f302bdeb07e14",
+      "lines": 19396,
+      "read_scope": "source preservation and declared placement/reference context only; unrelated complement excluded"
+    },
+    "docs/linear_dynamics.md": {
+      "sha256": "8de3beaca0cd6f970c27a25eb8c2bc4a1fefa2e7840bd97e7bccfc4f41281c1d",
+      "lines": 2803,
+      "read_scope": "source preservation and declared placement/reference context only; unrelated complement excluded"
+    },
+    "docs/special_data_limits.md": {
+      "sha256": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489",
+      "lines": 27274,
+      "read_scope": "source preservation and declared placement/reference context only; unrelated complement excluded"
+    },
+    "AGENTS.md": {
+      "sha256": "7778b7073a02de3e94f8ae9aefe940ebc9eddea7467816662e5cce1020cd98ba",
+      "lines": 47,
+      "read_scope": "source preservation and declared placement/reference context only; unrelated complement excluded"
+    },
+    "RESEARCH_WORKFLOW.md": {
+      "sha256": "8b36d7dfc1ad881fcb6bfe32274a5e50c5125b33d68dbcf7c3937f7f6c21ce12",
+      "lines": 224,
+      "read_scope": "source preservation and declared placement/reference context only; unrelated complement excluded"
+    },
+    "code/README.md": {
+      "sha256": "3cb90e55b630870c391e56158432a909fc60872b4af724756b2be19884ef7d6e",
+      "lines": 621,
+      "read_scope": "source preservation and declared placement/reference context only; unrelated complement excluded"
+    }
+  },
+  "report": "studies/observable_hierarchy/H2_integration_v3.md",
+  "scratch": "data/generated/observable_hierarchy/H2_integration_v3/"
+}

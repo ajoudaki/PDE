@@ -1,0 +1,22 @@
+{
+  "docs/global_nonlinear.md": {
+    "old_sha256": "434b3e6bfcdd71576e271ea35910fc1994b3a9c1bfb01acad92f302bdeb07e14",
+    "proposed_sha256": "947eb52f10a8ebcd4970fa2acb1d26cba25dc5d73e8839893d5d2f4e3f688161"
+  },
+  "docs/README.md": {
+    "old_sha256": "a402cd21b58fe889500ca9ba9e79aa8d2e1fbbbe371ea2a577f3fafdae69455d",
+    "proposed_sha256": "269f481c6198971875ec22cb1b7e451ad0f3fbf3fe21a41be42a72dd49ae7ce2"
+  },
+  "code/README.md": {
+    "old_sha256": "3cb90e55b630870c391e56158432a909fc60872b4af724756b2be19884ef7d6e",
+    "proposed_sha256": "3ffc27a58e8e090828fbac3f7d4b86c9e33f4ff5cdd7b0690e086364e8e82731"
+  },
+  "code/pde/observable_closure.py": {
+    "old_sha256": null,
+    "proposed_sha256": "f8dc5d16e5de1737444c44aae737ee1c9b4d664188d72f59acd0bb92f457c137"
+  },
+  "code/tests/test_observable_closure.py": {
+    "old_sha256": null,
+    "proposed_sha256": "ecc60bfd7eec882c8ae05140d756f6ec8cf90909b6317aab2c126b3c27439635"
+  }
+}

@@ -1,0 +1,1684 @@
+--- a/docs/global_nonlinear.md
++++ b/docs/global_nonlinear.md
+@@ -12081,6 +12081,477 @@
+ risk open. The Stieltjes proposition and unrestricted same-norm product/jet
+ bounds excluded by Gaussian calculus §§6,10 play no role.
+ 
++##### C.4.7.9. Finite autonomous observable closure
++
++The preceding subsection separates exact hierarchy information from finite
++closure. This subsection supplies a convergent finite population construction
++on a fixed smaller ball within that nonlinear family, with the same time
++interval; useful numerical error and cost certification remain separate.
++
++###### 1. Statement and dependency scope
++
++Use precisely C.4.7.8's model (H1)–(H3), loss, mobilities, canonical Gaussian
++initialization, two separate population expectations, and joint observation
++alphabet. Fix Y>=1, T=1/200 and rho=delta/2, where delta is its fixed positive
++radius (H3). Let U_rho={mu: W1(mu,nu*)<rho}, with normalized-input-plus-label
++cost on sqrt(2) S1 × [-Y,Y]. These constants never depend on approximation
++order. Lowercase fields below are aliases for the notation contract's typed
++population fields. All times are physical unhalved-loss GF times.
++
++**Theorem.** The construction below gives an increasing sequence of
++finite-type autonomous population systems (increasing means nested retained
++feature spans; the ridge-normalized coordinates themselves need not be nested), initialized from finite canonical
++Gaussian observable programs. Each system is uniquely well posed through T
++and restartable from its own saved current population state. For each
++separately fixed mu in U_rho, its predictions converge uniformly in time and
++on the whole input circle to canonical nonlinear population GF. Every
++separately fixed finite admissible C-H1 same-layer joint observation tuple
++converges uniformly in time in Euclidean W2, including frozen/current pairs,
++both action directions, bounded-gate pushforwards and quadratic contractions.
++No numerical accuracy or resource rate is asserted.
++
++The dependencies are III.F.1–7 in *Population limits and correlated-data
++geometry* for finite Gaussian laws and common actions, III.F.8–10 there for
++Hilbert–Schmidt and scalar gradient calculus, C.4.7.1–5 here for the actual
++GF and its uniform tails, and C.4.7.8 parts 2–3,5–6,8 for the observation
++language, initialized generated space, invariance and fixed activity family.
++Their proved conclusions are applied below on precisely their stated domains.
++No uniqueness assertion for arbitrary formal hierarchy solutions is used.
++The obstructions in Gaussian calculus §§6,7.2,10 supply no positive premise.
++
++The proof first builds bounded initialized observable feature lists. It evolves two
++current populations and a finite block of action contractions, derives uniform
++energy bounds, and compares directly on the canonical carrier against the
++already identified actual GF. Strong approximation of compact sets controls
++the omitted action and learned-increment sources; the reference tail estimate
++controls error propagation. No infinite formal hierarchy is solved.
++
++###### 2. A deterministic finite dictionary and its joint initialization
++
++Consider C-H1's alphabet at initialization: w=g, c=0 and A=A0. The
++following concrete countable tree encoding avoids an enormous graph catalog.
++Code 0 is population-1 constant one, 1 is population-2 constant one, 2 is g1,
++and 3 is g2. For code n>=4 write n-4=8k+j, 0<=j<8. Codes j=0,1,2 mean
++sin,cos,tanh of code k; j=3 applies A0 or A0* to code k according to its
++population, and is valid only for a bounded operand. Let (a,b) be the Cantor
++unpairing of k, the inverse of pi(a,b)=(a+b)(a+b+1)/2+b. Codes j=4,7 add
++codes a,b and are valid only on the same population; j=5 multiplies those
++codes and additionally requires both bounded; j=6 multiplies code b by the
++rational number r(a). Here if (p,q) is the Cantor unpairing of a, let
++r(a)=s(p)/(q+1), with s(0)=0,s(2h-1)=h,s(2h)=-h for h>=1. Invalid codes
++are skipped, together with their use by later codes. Every dependency has a
++strictly smaller code, so decoding a finite prefix terminates. Bounds and
++population/sort types are inferred by the C-H1 rules.
++
++Every finite tree using this grammar has a code: compose the indicated
++pairing formula upward. Rational linear combinations, elementary bounded
++functions, bounded products and both actions are therefore exhausted. DAGs
++can be unfolded into finite trees. Arbitrary real marks are reached by L2
++completion as proved below; frozen z20(v) is A0 tanh(g·v). No discrete input
++restriction is imposed on the evolution or its observation maps.
++
++To expose both orientations already in the small prototype, start with a fixed
++pilot list: population-1 constant, g1,g2, h_i=sin(g_i), z_i=A0 h_i,
++s_i=sin(z_i), p_i=A0* s_i, and t_i=tanh(p_i), i=1,2, plus population-2
++constant. All are finite initialization words. At order N>=1 take their
++finite union with every valid code 0<=n<=N and all dependencies. Retain all
++bounded outputs on each population in that fixed pilot-then-code order;
++duplicates are retained. There are at most N+15 retained outputs altogether,
++and every union needed to compute their actions has finitely many additional
++nodes. The population dimensions therefore have this explicit finite bound.
++Nothing depends on a time mesh, target trajectory, training law or width.
++
++Let psi_l,N be the column vector of all bounded outputs included at
++order N, with duplicates allowed, in their fixed causal order. Its length is
++d_l(N). These finite lists are nested and contain constants. Define
++
++  G_l,N = E_l[psi_l,N psi_l,N^T], eta_N=2^(-N),
++  b_l,N = (G_l,N+eta_N I)^(-1/2) psi_l,N.                    (H2.0)
++
++The positive inverse square root is uniquely specified by diagonalization of
++the strictly positive finite symmetric matrix. No rank decision, Gram inverse
++at zero or adaptive tolerance is required. Every b_l,i is a finite linear
++combination of bounded initialized words. Its explicit finite supremum envelope
++is obtained from that matrix and the word envelopes. The lists and eta_N depend
++only on N and initialization, not on mu, the target path, time mesh or width.
++Their spans V_l,N are nested. Let U_l,N:R^d_l -> H_l be the map
++v -> b_l^T v. Its Gram satisfies
++
++  U_l,N* U_l,N = G_l,N(G_l,N+eta_N I)^(-1) <= I.
++
++Thus U_l,N and its adjoint are contractions. Put Q_l,N=U_l,N U_l,N*.
++This is a finite-rank positive contraction, not an orthogonal projection.
++Its formula on a field v is b_l^T E_l[b_l v].
++
++Write b_l for the column vector of feature functions and use the operators just defined only in the proof. Record the two finite **joint** initial laws
++
++  lambda_1,N = Law_1(b_1,g_1,g_2) on R^(d_1+2),
++  lambda_2,N = Law_2(b_2) on R^d_2,
++
++and the fixed contraction matrix
++
++  D_N[i,j] = E_2[b_2,i (A0 b_1,j)].                         (H2.1)
++
++Compute all of these in one finite union of initialization programs, including
++the calls A0 b_1,j and the reverse calls used inside the bases. The complete
++rule is C-H1 (H6): each new oriented Gaussian source has the uncentered input
++Gram as covariance, and its answer adds all earlier opposite-orientation
++input fields times their expected frozen named-source derivative. Extend
++singular Gaussian Grams by C-dagger and a nonnegative Schur complement as
++proved there. Every integral here is a finite-dimensional Gaussian integral.
++The normalization (H2.0) is performed after those joint laws are computed; (H2.1) uses the
++same joint law, not an independently sampled second population coordinate.
++The transpose D_N^T is the contraction matrix of the actual reverse action.
++No independent reverse Gaussian matrix is introduced. In particular
++D_N=U_2,N* A0 U_1,N gives ||D_N||op<=2 by the two contraction bounds.
++
++This is an exact-real population construction. It permits defined Gaussian
++integrals and finite positive-definite linear algebra. The ridge eta_N is
++explicit and strictly positive. A floating prototype exposes quadrature and
++floating square-root errors as additional approximations; they cannot silently
++change the mathematical order or discard eigenmodes. No useful conditioning
++or quadrature cost is claimed.
++
++**Density and the retained Gaussian action.**
++
++Let H_l^obs be the initialized observable L2 spaces of C-H1 part 5. Rational
++marks give the same spaces: approximate a fixed real marked graph inductively
++in L2 using bounded action norms, Lipschitz elementary gates, locally bounded
++syntax envelopes for products, and continuity of g·v and A0 tanh(g·v).
++Thus every real finite word is measurable in the completed countable algebra.
++Conversely its rational words are among the original words. Bounded word
++spans are dense by the bounded Fourier-cylinder proof in C-H1 part 5; hence
++Q_l,N v -> v for every v in H_l^obs. Here is a proof for these filters.
++Write S_l,N a=psi_l,N^T a, so Q=S(G+eta I)^(-1)S*. For v=S a,
++(I-Q)v=eta S(G+eta I)^(-1)a; diagonalization gives
++||(I-Q)v||2<=sqrt(eta)||a||/2 because
++eta sqrt(lambda)/(lambda+eta)<=sqrt(eta)/2. A vector in an earlier finite
++span keeps the same coefficient norm by zero-padding as N increases. Hence
++its error tends to zero. Approximate an arbitrary v by that dense span and
++use ||I-Q||<=1 to conclude. This proof needs no lower Gram eigenvalue bound.
++
++These spaces reduce A0 with its adjoint, and the canonical GF starting at
++initialization stays in them, with K(t) supported between them, by C-H1
++(H11) and part 6's restarted-Euler comparison at s=0. This application uses
++mu in U_rho and the complete initialized hierarchy, exactly within that
++proved domain. It imposes no admissibility condition on a formal hierarchy.
++
++On these spaces define only for analysis
++
++  B_N = Q_2,N A0 Q_1,N = b_2^T D_N E_1[b_1 (·)].           (H2.2)
++
++Then ||B_N||<=2 and B_N->A0, B_N*->A0* strongly. For example
++||B_N v-A0 v|| <=2||(Q_1,N-I)v||+||(Q_2,N-I)A0 v|| ->0.
++The reverse proof uses adjunction. The bounds are uniform in N.
++For any compact L2 set this convergence is uniform: choose a finite epsilon
++net and use the uniform operator bound on the distance to that net.
++
++###### 3. The complete saved finite state and autonomous equations
++
++The saved state is a real matrix M in R^(d_2 × d_1), and two current
++probability populations
++
++  Gamma_1 on R^(d_1+4), coordinates (b,g,w), w,g in R2,
++  Gamma_2 on R^(d_2+1), coordinates (b,c), c in R.            (H2.3)
++
++Their static mark marginals are lambda_1,N and lambda_2,N. Initially
++M=D_N, Gamma_1=Law(b_1,g,g), Gamma_2=Law(b_2,0). All entries of b and g
++are frozen coordinates, not history. Their dimensions, every joint
++correlation with current w or c, and d_1*d_2 matrix entries are counted in
++(H2.3). Each population is an actual finite-dimensional joint law, not separate
++marginals. Static D_N and dictionary definitions are also saved fixed inputs.
++There are two evolving law-field types and one evolving matrix. Including
++the fixed D_N requires 2d_1*d_2 scalar matrix entries. Its static population
++mark laws are already the marginals of (H2.3), so no further joint population
++is omitted from this count. Initialization-only Gram and normalization arrays
++may be discarded after initialization. No field takes an arbitrary
++function, raw matrix or unbounded vector as a mark. The input mark is u in
++S1; the label y belongs to [-Y,Y].
++
++For each input u compute from the current state
++
++  a(u) = integral b tanh(w·u) dGamma_1 in R^d_1,
++  z(u,b) = b^T M a(u),  h(u,b)=tanh z(u,b),
++  d(u) = integral b c [1-h(u,b)^2] dGamma_2 in R^d_2,
++  q(u,b) = b^T M^T d(u),
++  f_N(u) = integral c h(u,b) dGamma_2, r_N(u,y)=f_N(u)-y.   (H2.4)
++
++The law velocities act only on their moving coordinates:
++
++  v_w(b,w) = -2 integral r_N(u,y)[1-tanh(w·u)^2]q(u,b)u dmu,
++  v_c(b)   = -2 integral r_N(u,y)h(u,b) dmu,
++  M'       = -2 integral r_N(u,y)d(u)a(u)^T dmu.            (H2.5)
++
++The population equations are the continuity equations
++
++  partial_t Gamma_1 + div_w(v_w Gamma_1)=0,
++  partial_t Gamma_2 + partial_c(v_c Gamma_2)=0.             (H2.6)
++
++Equivalently push the initial joint laws along the characteristics (H2.5).
++All integrals in (H2.4)–(H2.6) are declared finite population/data integrals, using
++only the saved current state and fixed mu. No Gaussian action is queried
++operationally: multiplying the explicitly stored finite M and taking the
++specified b-contractions is the full action rule. No omitted hierarchy level,
++cutoff limit, elapsed-time list or target path is in (H2.4)–(H2.6).
++
++The mathematical role of M is the matrix of current action coefficients in
++fixed **initialized observable feature lists**. In the common-carrier interpretation
++it represents B_N+K_N with K_N=b_2^T(M-D_N)E_1[b_1(·)]. It is a finite
++compression of a population action, and its evolution is the two-sided positive
++filtering of the exact learned rank increment. It is not an initialized
++n-by-n trainable middle array in new coordinates: N is unrelated to neuron
++width, D_N is deterministic and built from limiting observable contractions,
++and the two populations remain continuum laws with nonlinear coordinates
++outside the basis spans. Neither population is a full parameter law; no
++middle row or original matrix entries occur in its coordinate domain.
++Quadrature of these fields is a separate numerical approximation, not a
++replacement finite-network theorem.
++
++###### 4. Well-posedness, energy and own-state restart
++
++For fixed N the feature envelopes L_l=(sum_i ||b_l,i||_infty^2)^(1/2) are finite.
++Use characteristics on the fixed mark probability spaces lambda_l,N. Their
++unknowns are w=g+v with v in L-infinity(lambda_1;R2), c in
++L-infinity(lambda_2), and M in a finite Euclidean matrix space. The base g
++is unbounded but fixed and square-integrable. On bounded sets of (v,c,M),
++(H2.4)–(H2.5) are locally Lipschitz in these supremum/Euclidean norms. To verify
++this, |tanh s-tanh t|<=|s-t| and Lip(1-tanh²)<=2 control every gate;
++|b|<=L_l controls evaluation and integration; |u|=1; all remaining
++operations are finite sums, products of bounded factors and probability
++integrals. No estimate multiplies two unrestricted L2 variables. The local
++Lipschitz constant may depend on N and these bounds but is finite.
++
++Picard existence here needs no black box: on a closed radius-R ball of
++continuous paths, integrate (H2.5). If h times the local speed bound is smaller
++than R and h times its Lipschitz constant is less than one, this integral
++map preserves the ball and is a contraction. Successive iterates are Cauchy,
++the complete Banach space supplies their limit, and the integral identity
++and the same contraction prove existence and uniqueness. Repetition extends
++until a bounded set could be left. Measurability follows from the continuous
++operations and integration. Pushforward gives (H2.6). Conversely in the declared
++characteristic solution class (H2.6) is exactly this construction; no claim of
++uniqueness for pathological distributional solutions with uncontrolled moments
++is needed.
++
++There are bounds independent of N that prevent finite-time escape in the raw
++norm. Because U_l,N are contractions, the coefficient representation obeys
++||K_N||HS<=||M-D_N||F. Let L_N=integral(f_N-y)^2 dmu. The scalar gradient
++calculus gives precisely (H2.5), with the ordinary Euclidean gradient in the M coefficients and
++unrestricted w,c gradients. The induced K velocity has the two Q filters. Direct differentiation
++under these bounded characteristic integrands and adjunction yields
++
++  L_N' = -||w_N'||2² - ||M'||F² - ||c_N'||2².               (H2.7)
++
++For the middle block, variation delta M gives
++  delta f = d(u)^T delta M a(u),
++so its loss gradient is 2 integral r_N d a^T. For w, propagating this
++scalar pairing back through M gives the q and lower gate in (H2.5); for c it
++gives h. These derivations also verify the factors and the actual transpose.
++Initially L_N=integral y² dmu<=Y². Thus integral|r_N| dmu<=Y, and
++
++  ||c_N(t)||infty <=2Yt,
++  ||M-D_N||F <=2Y²t², ||B_N+K_N||op <=2+2Y²t²,
++  ||w_N(t)||2 <=sqrt(2)+4Y²t²+2Y⁴t⁴.                       (H2.8)
++
++Indeed ||a||<=||tanh(w·u)||2<=1, ||d||<=||c_N||2<=2Yt.
++The M speed is at most 4Y²t. The row L2 speed is at most
++4Y²t(2+2Y²t²); integrate for (H2.8). On a fixed finite interval the row
++supremum increment speed is at most 4Y²t L_1 ||M||op, since
++|q|<=L_1||M||op||d||, and ||M||op<=2+2Y²t². Thus v,c,M remain bounded
++in the local-existence norms on each finite interval. Their bounded speeds
++give Cauchy endpoints there and the local argument extends them. In particular
++the system exists uniquely through T.
++
++At any reached time, save (H2.3), M and its fixed marks. Restart the same
++characteristic equation using that current joint law: w and c may be treated
++as initial coordinate labels for the characteristic proof, but no extra
++saved field is needed. Their current conditional distributions are already
++in (H2.3). The row drift is uniformly Lipschitz in w on the bounded M,c region,
++and the readout drift is independent of its individual c coordinate, so
++couple equal current coordinates and repeat the preceding estimates. Uniqueness
++identifies the continuation with the original restriction. Bounds use the
++remaining horizon and the saved finite energy/readout bound, with no query
++of the original path or elapsed history. Initial g is retained solely to
++reconstruct initial/current observations. Both equations and observation maps
++are autonomous, and field domains do not grow at a restart.
++
++###### 5. Direct convergence and identification with actual GF
++
++Fix one admitted mu. Realize every finite initialization dictionary on the
++canonical carrier. Solve the characteristic equations there; by uniqueness
++their laws are exactly (H2.3)–(H2.6). The finite fields are measurable functions of
++their finite marks and initial g. Compare with the canonical established
++solution (w,K,c) for this same mu, whose readout, energy and exponential
++backward tails are supplied by C.4.7. Let A=A0+K and A_N=B_N+K_N.
++Use the sum error
++
++  e_N(t)=||w_N-w||2+||K_N-K||HS+||c_N-c||2.                 (H2.9)
++
++The operator difference A_N-A need not go to zero in operator norm; it is
++never included as a small term in (H2.9). Define the following **proof errors**
++from the existing target, not inputs to (H2.4)–(H2.6):
++
++  eps_N = sup_(t<=T,u) ||(B_N-A0)H1(t,u)||2
++        + sup_(t<=T,u) ||(B_N*-A0*)Delta2(t,u)||2
++        + sup_(t<=T) ||Q_2,N K'(t)Q_1,N-K'(t)||HS.          (H2.10)
++
++Then eps_N->0. The first two target argument sets are compact in L2 because
++their fields are jointly continuous on [0,T]×S1; bounded multiplier
++continuity proves this also for Delta2. Uniform strong approximation from
++(H2.2) applies. For the last term, K' is a continuous HS curve supported
++between H_l^obs. Finite-rank tensors are dense in HS by its square-summable
++matrix coefficients. Q_l,N converges strongly, so it approximates every
++such tensor and then every HS operator, using its contraction norm. A finite
++net of the compact K' curve makes this uniform. This proves small **error
++production**, not a hypothesis of small unknown hierarchy tails. The actual
++scheme uses every integer N with no schedule selected from (H2.10).
++
++Here are the complete comparison subtractions. Bounds (H2.8) and the target
++energy bounds give one common raw/action ball, depending only on Y,T.
++The forward differences obey, uniformly in u,
++
++  ||H1_N-H1||2 <=e_N,
++  ||Z2_N-Z2||2 <=C e_N+eps_N,
++  ||H2_N-H2||2+|f_N-f| <=C(e_N+eps_N).                      (H2.11)
++
++In the second line write A_N(H1_N-H1)+(K_N-K)H1+(B_N-A0)H1.
++In the last line subtract c_N-c first and multiply the hidden difference
++by the bounded reference c. The upper backward subtraction gives
++
++  ||Delta2_N-Delta2||2 <=C(e_N+eps_N),
++  ||Q_N-Q||2 <=C(e_N+eps_N),                               (H2.12)
++
++because c is bounded and
++Q_N-Q=A_N*(Delta2_N-Delta2)+(K_N-K)*Delta2
++                         +(B_N*-A0*)Delta2.
++For the first backward gate at every R>=1,
++
++ ||phi'(w_N·u)Q_N-phi'(w·u)Q||2
++ <= C(e_N+eps_N)+2R e_N+2 tau_R(Q(t,u)).                   (H2.13)
++
++This splits the unchanged target Q at |Q|=R. Only the target needs tails;
++no moment bound for arbitrary approximate action outputs has been assumed.
++
++The row velocity difference follows by subtracting residual and then the
++backward field in (H2.5). Residuals are bounded on the common raw ball and
++||Q_N||2 is bounded, so its norm is bounded by
++C(1+R)(e_N+eps_N)+C integral tau_R(Q(t,u)) dmu.
++The readout difference uses (H2.11). For the middle difference use
++
++ K_N' - K' = Q_2,N(F_K(w_N,A_N,c_N)-F_K(w,A,c))Q_1,N
++                         +(Q_2,N K'Q_1,N-K').            (H2.14)
++
++The filtered exact rank is precisely (H2.5), since its two coefficients
++are d(u) and a(u). HS contraction by Q_l,N and the two-factor rank difference
++bound reduce its first term to (H2.11)–(H2.12) and residual differences; its
++second is bounded by eps_N. Thus almost everywhere
++
++ e_N' <= C(1+R)(e_N+eps_N)+C M_tail exp(-aR), R>=1, e_N(0)=0.  (H2.15)
++
++The constants a,M_tail are the established target tails, uniform on the fixed
++family; the constants C use only (H2.8), Y,T. Norms of C1 Hilbert curves are
++absolutely continuous and their upper derivatives are bounded by the norm
++of the derivative, which justifies (H2.15) even at a zero component norm.
++
++Set v=e_N+eps_N+eta for eta>0. While 0<v<=1 choose
++R=1+a^(-1)log(1/v), giving v'<=L v log(e/v) with one finite L independent
++of N. Integrate exactly: z=log(e/v) satisfies z'>=-Lz, hence
++
++ e_N(t)+eps_N+eta <=exp(1-alpha(t))(eps_N+eta)^alpha(t),
++ alpha(t)=exp(-Lt)>0.                                    (H2.16)
++
++For small eps_N+eta the bound stays below one through T, so first exit
++validates its use. Send eta to zero. Since eps_N->0, sup_t e_N(t)->0.
++The case eps_N=0 follows by the same positive eta argument. This comparison
++identifies the limiting dynamics **with the existing canonical GF itself**;
++it does not appeal to uniqueness for arbitrary formal hierarchy solutions.
++Although (H2.10) is useful for the proof, none of its target-dependent errors or
++constants is used to initialize, select, or evolve any approximation order.
++Equation (H2.11) proves the required uniform-in-time whole-circle prediction
++convergence on the same fixed law ball and interval.
++
++###### 6. All declared observation maps and second moments
++
++On (H2.3), seeds w,g,c are the displayed current/frozen coordinates. The frozen
++upper seed at any v is reconstructed by
++
++  z20_N(v,b_2)=b_2^T D_N integral b_1 tanh(g·v) dlambda_1,N. (H2.17)
++
++Its time derivative is zero. Use the original affine, sin,cos,tanh and bounded
++product instructions on the appropriate population. For an action input V
++on population 1 define its output on population 2 to be
++b_2^T M integral b_1 V dGamma_1; the reverse output is
++b_1^T M^T integral b_2 V dGamma_2. The marks and any required current
++coordinates are evaluated in the **same** population joint law at every
++occurrence. These are finite integrals with a declared kernel, not an action
++oracle receiving an undeclared external vector. A separately fixed graph
++may use its finite scalar/input marks and a finite union of outputs. Its
++joint law is the pushforward of (H2.3); requesting more output coordinates
++does not enlarge the evolving state.
++
++We prove convergence inductively on any such fixed graph, uniformly in time.
++The seed convergence is (H2.9), exact g, and the strong-compact argument for
++(H2.17). The readout is bounded by 2YT at all orders, as is the target.
++Every bounded node consequently has a common finite syntax envelope across
++N and t at its fixed marks. Affine and Lipschitz unary operations preserve
++L2 convergence. A bounded product uses
++||V_N W_N-VW||2<=||V_N||infty||W_N-W||2+||W||infty||V_N-V||2.
++For an action node use
++
++ A_N V_N-A V=A_N(V_N-V)+(K_N-K)V+(B_N-A0)V.                (H2.18)
++
++The first two terms vanish by the uniform action bounds and (H2.9). The
++last vanishes uniformly on the compact target L2 curve V(t), by (H2.2).
++The identical proof with actual adjoints handles every reverse node.
++Frozen upper inputs use (H2.17). All target node curves are L2 continuous
++by the same finite induction. A bounded continuous gate times a named L2
++field converges uniformly on these compact curves: truncate that target
++field, use bounded convergence on the bounded part, and control the tail
++uniformly by a finite L2 net. This is the established strong multiplier
++lemma, not an L2 algebra assertion.
++
++For a tuple (V1,...,Vk) on one population, pair the approximate and target
++values on that same canonical carrier. Then
++
++ W2(Law(V_N),Law(V))² <=sum_i ||V_i,N-V_i||2²,             (H2.19)
++
++uniformly in t. This is the stated C-H1 Euclidean W2 interpretation, not
++independently coupled marginals. For each quadratic contraction
++|E U_N V_N-E UV|<=||U_N-U||2||V_N||2+||U||2||V_N-V||2,
++so its convergence and the needed second moments follow as well. Initial
++and current hidden fields in the same tuple give the correct paired
++observations and displacements. Arbitrarily nested but separately fixed
++admitted actions are covered by (H2.18), without a growing-program theorem.
++
++The canonical limit has the actual finite-network interpretation from
++C.4.7.5 and C-H1. That theorem retains the actual finite Gaussian readout:
++its RMS tends to zero and its supremum satisfies
++P(max_i|W3_i|>epsilon)<=2n exp(-n²epsilon²/2). No finite network is initialized
++with zero readout here. Our population initialization c=0 is precisely its
++limit. The closure order limit is a population approximation; no joint
++order/width rate or cross-carrier operator-norm convergence is asserted.
++
++###### 7. Nontrivial family, activity, and limitations
++
++Because rho<delta and T is unchanged, C-H1 part 8 supplies the same common
++positive activity time t_a in (0,T). Its positive paired hidden squared
++displacements and nonaffinity bounds persist throughout U_rho. The ball
++contains the explicit small rotated two-atom laws and the small-arc nonatomic
++laws constructed there. Equations (H2.19) and the bounded hidden gates make the
++paired displacements converge to those positive values for every fixed law.
++The interval and radius never shrink with order, and no reference prediction
++or fitted coefficient appears in the vector field.
++
++The equations make sense for every bounded-label data law, with the same
++initialization, and the fixed-order population well-posedness proof is not
++restricted to the small ball. Only convergence to canonical nonlinear GF and
++the activity guarantee are asserted on the declared family and interval.
++We assert asymptotic convergence, not monotonic error reduction at every
++successive order, a uniform rate over the law ball, practical quadrature,
++useful accuracy, or a time-40 certified solver. The exact population fields
++are allowed at C-H2; their dimension, joint dependence, feature conditioning,
++quadrature and finite precision remain serious C-H3 costs.
++
+ #### C.4.8. Sampling fluctuations of the trained prediction
+ 
+ Unqualified equation labels below belong to this proof unit. The finite-source and statistical lemmas state their local notation explicitly.
+--- a/docs/README.md
++++ b/docs/README.md
+@@ -351,8 +351,10 @@
+ evolution through a finite higher level and an explicit cutoff limit within
+ that level. Equal complete hierarchies at a reached state give equal future
+ whole-circle predictions and the declared joint observations, including for
+-matching realizations on another carrier. Finite closure convergence and
+-effective evaluation of the cutoff limit remain open.
++matching realizations on another carrier. Section C.4.7.9 now supplies a separate finite autonomous population closure
++with qualitative convergence on a fixed smaller ball within that family,
++with the same time interval. Effective
++quadrature, finite-precision certification and useful solver cost remain open.
+ 
+ **C-H2: one convergent finite autonomous closure.** Construct actual finite
+ equations initialized from the canonical model, and prove their convergence in
+@@ -365,6 +367,17 @@
+ the limiting dynamics must be proved. A conditional estimate assuming a small
+ omitted tail does not complete this milestone.
+ 
++Section C.4.7.9 establishes C-H2 on a fixed positive law ball and physical
++interval `[0,1/200]`. It retains two current joint populations and a finite
++matrix of initialized-observable coefficients, uses an explicit ridge schedule,
++and proves convergence directly to canonical GF. The convergence is uniform
++in time and input for predictions and uniform in time in `W2` for each fixed
++C-H1 observation tuple, including both action directions and paired hidden
++observations. The construction is autonomous and restarts from its own saved
++state. Its exact population integrals are not a certified practical solver;
++the accompanying prototype exposes initialization, evolution and observations
++with separate quadrature and arithmetic limitations.
++
+ **C-H3: useful certified computation.** Make that same closure independently
+ computable, with separate control of hierarchy, population/input quadrature,
+ time-integration and arithmetic errors. Evaluate resource and conditioning
+@@ -385,15 +398,18 @@
+ certified interval alone does not complete C-H4.
+ 
+ The strategic separation is between information, truncation, useful cost and
+-continuation. C-H2 carries the principal unresolved theoretical risk. Existing
+-fixed-order Gaussian-source derivatives are not temporal-jet tail estimates.
++continuation. C-H2's qualitative finite closure resolves the truncation step
++on its stated small nonlinear interval; useful certified cost and later
++continuation remain C-H3 and C-H4. Existing fixed-order Gaussian-source
++derivatives are not temporal-jet tail estimates.
+ The Stieltjes representation disproved in *Gaussian and flow calculus*,
+ Sections 7.2 and 10.2, is not a premise of this route. Rational or Padé-type
+ closures remain options requiring their own justification. The same chapter's
+ Section 6 excludes certain unrestricted same-norm algebra/jet estimates, and
+ Section 10.4 excludes its specified Taylor closure; neither supplies a general
+-impossibility theorem for current observable hierarchies. No particular closure,
+-tail estimate or success of the later computation milestones is asserted here.
++impossibility theorem for current observable hierarchies. Beyond the C.4.7.9
++closure, no alternative closure or success of the later numerical-computation
++milestones is asserted here.
+ 
+ The second purpose is reliable empirical investigation beyond conservative
+ proof bounds. Make the construction reusable wherever its equations and
+--- a/code/README.md
++++ b/code/README.md
+@@ -619,3 +619,130 @@
+ that interval numerically, supply a width rate, or assert a universal or
+ later-time benefit. The complete analytic error proof and finite calculation
+ are both necessary for the sign; a floating positive estimate is insufficient.
++
++## Finite autonomous observable population closure
++
++`pde.observable_closure` exposes the finite population/action construction in
++[Global nonlinear learning, C.4.7.9](../docs/global_nonlinear.md#c479-finite-autonomous-observable-closure).
++Its exact-real population theorem is qualitative. This module is a minimal
++float64 quadrature prototype, with a finite weighted data-law API and static
++checks; it provides no trajectory solver or certified numerical accuracy.
++
++The model is bias-free two-hidden-layer tanh, with normalized directions
++`u=x/sqrt(2)`, stored Gaussian variances `(1,1/n,1/n^2)`, mobilities `(n,1,n)`,
++residual `f-y`, and physical unhalved mean-square loss. Population `c=0` is the
++limit of the actual random finite readout. No finite network is constructed.
++
++`State` retains two joint quadrature populations: `(b,g,w)` with two-dimensional
++`g,w`, and `(b,c)` with scalar readout `c`. Its `M` and fixed `D` are matrices
++indexed by initialized observable features. All node probabilities and frozen
++marks are saved. The moving `w,c` values are unrestricted characteristic values
++at quadrature nodes, not expansions in the features. Arrays are copied by state
++constructors; they remain mutable for supplied-state work and are revalidated
++on evaluation. Changing a frozen mark changes the model.
++
++`initialize(order, limits)` builds the explicit word prefix and fixed two-orientation
++pilot, retaining duplicate bounded dictionary outputs. It computes uncentered
++Gaussian input Grams and every earlier opposite-source response coefficient,
++with derivatives in frozen named Gaussian coordinates. Both forward and reverse
++calls reuse that joint source program. It compiles the raw forward contractions
++before extracting either population, then uses the prescribed ridge `2**(-N)`.
++The returned `GaussianProgram` and fixed diagnostic metadata expose this producer.
++The operational RHS never calls it.
++
++`fields(state, inputs)` returns `h1,a,z2,h2,delta2,d,q,f` for a nonempty `(m,2)`
++direction array. `DataLaw` takes a nonempty `(m,2)` array of unit directions,
++finite labels, and nonnegative probabilities summing to one. This discrete data
++API does not cover all nonatomic laws of the exact theorem. `loss` and `rhs` use
++those probabilities; `rhs` returns the moving `w,c,M` velocities. The only action
++is the finite feature contraction
++
++```text
++b2 @ M @ (b1.T @ (probability1[:,None] * values)).
++```
++
++Its reverse uses the same `M.T` and the other population weights.
++`apply_action` accepts values on the declared retained quadrature population;
++it is a finite contraction, not an arbitrary Gaussian-action oracle.
++`observe` evaluates finite typed words with `g1,g2,w1,w2,c`, rational scalings,
++addition, bounded products, `sin,cos,tanh` and both action orientations.
++`frozen_z20(v)` uses `D` and frozen `g`. `joint_observe` returns a same-population
++coordinate matrix with its probabilities, preserving current/frozen correlations.
++This rational-mark API is a subset of the real-mark mathematical observation
++language. Evaluating a fixed finite input batch does not certify a circle supremum.
++
++`save_restart` and `load_restart` preserve the entire current state, fixed data
++law and an optional metadata dictionary with string keys and JSON-serializable
++values, without time or history. The writer
++sets the reserved `format` tag automatically, without mutating caller metadata;
++a supplied `State` with the default empty metadata round-trips without an
++initializer or private tag. Other metadata fields are preserved. Archives use no pickle.
++`algebraic_update` makes one simultaneous `state + step*velocity` map on `w,c,M`;
++it is not an exact flow solution or a guarantee of loss decrease.
++
++From the repository root with `PYTHONPATH=code`:
++
++```python
++from pde import observable_closure as closure
++
++state, initialization_program = closure.initialize(
++    1, closure.QuadratureLimits(order=5, max_nodes=100000)
++)
++data = closure.DataLaw([[1., 0.], [0., 1.]], [1., -1.], [0.5, 0.5])
++velocity = closure.rhs(state, data)
++values = closure.fields(state, data.inputs)
++paired, probabilities = closure.joint_observe(
++    state,
++    [closure.frozen_z20((1., 0.)),
++     closure.action(closure.unary("tanh", closure.seed("w1")))],
++)
++assert values["f"].shape == (2,)
++assert paired.shape[1] == 2
++```
++
++The initializer uses deterministic tensor Gauss–Hermite quadrature. Defaults are
++order 5, at most 100000 nodes per population, total independent Gaussian dimension
++at most 7 (including lower `g`), at most 32 named action sources, and covariance
++roundoff allowance `2e-11` times the declared local scale. The word decoder's
++prefix limit is 10000. Orders above 1074 are rejected for float64 ridge underflow;
++conditioning and tensor limits can stop much smaller orders. `ResourceLimit`
++reports a requested allocation beyond these caps. A failed compile may leave a
++partial compiler object, which must not be used as a completed initialization.
++
++At hierarchy order 1 the defaults yield 6 and 4 features, a `4 x 6` action block,
++and 625 and 3125 quadrature nodes. These are integration node counts, not widths.
++The default quadrature is coarse: it approximates `E sin(g)^2` by about `0.425679`,
++versus the analytic value `(1-exp(-2))/2`, about `0.432332`. The analytic source
++checks use quadrature order 15. No useful accuracy is claimed for the defaults.
++
++All positive Gaussian innovations and regularized Gram modes are retained.
++Exactly zero innovation adds a named derivative coordinate without an independent
++Gaussian coordinate. A slightly negative Schur complement within the explicit
++allowance is set to zero and recorded in diagnostics; a larger negative value or
++unresolved covariance range raises `NumericalInitializationError`. Small positive
++roundoff innovations can increase tensor cost. Nonpositive regularized eigenvalues,
++nonfinite results and unrepresentable ridges are rejected without mode removal or
++substituted schedules. The floating square root is not an interval certificate.
++Numerical `||D||` is reported, not rescaled to enforce the exact operator bound.
++
++There is no quadrature-error certificate, extreme-range guarantee, monotonic
++accuracy claim, or convergence theorem when N grows with a fixed quadrature rule.
++Exact hierarchy-order convergence and approximation of any fixed order's integrals
++are distinct limits. Practical conditioning, quadrature and resource certification
++and a longer-time solver remain outside this module’s claims.
++
++The deterministic checks use analytic source/Stein identities, singular sources,
++named partials and forward-after-reverse reuse, ridge duplicates, actual transpose
++contractions, all matrix-coordinate and selected population-coordinate finite
++differences, the independent energy directional identity, paired observations,
++and one algebraic update followed by bitwise-equal restart. No training run is
++part of these checks. Run only this suite with:
++
++```sh
++PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
++PYTHONPATH=code python -B code/tests/test_observable_closure.py
++```
++
++`H2_TEST_SCRATCH` selects the temporary archive directory; no retained output is
++an input to these tests. `H2_PROTOTYPE_MODULE` can override the import for isolated
++checks; its installed default is `pde.observable_closure`.
+--- a/code/pde/observable_closure.py
++++ b/code/pde/observable_closure.py
+@@ -0,0 +1,697 @@
++"""Deterministic C-H2 population/action prototype.
++
++The arrays are quadrature of two retained populations, never a sampled dense
++neural network. Initialization uses named Gaussian sources and frozen response
++partials. No training integrator, Monte Carlo, or width limit is implemented.
++"""
++from __future__ import annotations
++
++from dataclasses import dataclass, field
++from fractions import Fraction
++from functools import lru_cache
++import json
++import math
++from pathlib import Path
++from typing import Any, Iterable
++
++import numpy as np
++
++
++class ResourceLimit(ValueError):
++    """The requested explicit tensor rule exceeds a declared resource limit."""
++
++
++class NumericalInitializationError(ValueError):
++    """Floating Gaussian or ridge algebra cannot resolve the requested input."""
++
++
++def _integer(value: Any, name: str, minimum: int = 0) -> int:
++    if isinstance(value, bool) or not isinstance(value, (int, np.integer)):
++        raise ValueError(f"{name} must be an integer")
++    if value < minimum:
++        raise ValueError(f"{name} must be at least {minimum}")
++    return int(value)
++
++
++def _array(value: Any, name: str, ndim: int | None = None) -> np.ndarray:
++    original = np.asarray(value)
++    if original.dtype.kind not in "iuf" or original.dtype.kind == "b":
++        raise ValueError(f"{name} must contain real numbers")
++    result = np.array(original, dtype=float, copy=True)
++    if ndim is not None and result.ndim != ndim:
++        raise ValueError(f"{name} must have {ndim} dimensions")
++    if not np.all(np.isfinite(result)):
++        raise ValueError(f"{name} must be finite")
++    return result
++
++
++def _probabilities(value: Any, count: int, name: str) -> np.ndarray:
++    result = _array(value, name, 1)
++    if result.shape != (count,) or count == 0:
++        raise ValueError(f"{name} has the wrong nonempty shape")
++    if np.any(result < 0) or not np.isclose(result.sum(), 1.0, rtol=0, atol=2e-12):
++        raise ValueError(f"{name} must be nonnegative and sum to one")
++    return result
++
++
++@dataclass(frozen=True)
++class Word:
++    op: str
++    population: int
++    args: tuple["Word", ...] = ()
++    scalar: Fraction | None = None
++    mark: tuple[float, ...] = ()
++    envelope: float | None = None
++
++    @property
++    def bounded(self) -> bool:
++        return self.envelope is not None
++
++
++def constant(population: int) -> Word:
++    if population not in (1, 2):
++        raise ValueError("population must be 1 or 2")
++    return Word("one", population, envelope=1.0)
++
++
++def seed(name: str) -> Word:
++    if name in ("g1", "g2", "w1", "w2"):
++        return Word(name, 1)
++    if name == "c":
++        # Bounded readout seed; its actual bound is a runtime/horizon premise.
++        return Word(name, 2, envelope=float("inf"))
++    raise ValueError("unknown seed")
++
++
++def unary(op: str, word: Word) -> Word:
++    if op not in ("sin", "cos", "tanh"):
++        raise ValueError("unknown unary operation")
++    return Word(op, word.population, (word,), envelope=1.0)
++
++
++def add(left: Word, right: Word) -> Word:
++    if left.population != right.population:
++        raise ValueError("addition requires one population")
++    bound = left.envelope + right.envelope if left.bounded and right.bounded else None
++    return Word("add", left.population, (left, right), envelope=bound)
++
++
++def multiply(left: Word, right: Word) -> Word:
++    if left.population != right.population or not left.bounded or not right.bounded:
++        raise ValueError("product operands must be bounded on one population")
++    return Word("multiply", left.population, (left, right), envelope=left.envelope * right.envelope)
++
++
++def scale(value: Fraction | int, word: Word) -> Word:
++    if isinstance(value, bool) or not isinstance(value, (int, Fraction)):
++        raise ValueError("word scalars must be rational")
++    value = Fraction(value)
++    bound = abs(float(value)) * word.envelope if word.bounded else None
++    return Word("scale", word.population, (word,), scalar=value, envelope=bound)
++
++
++def action(word: Word) -> Word:
++    if not word.bounded:
++        raise ValueError("actions require a bounded word")
++    return Word("action", 3 - word.population, (word,))
++
++
++def frozen_z20(direction: Iterable[float]) -> Word:
++    u = _array(tuple(direction), "direction", 1)
++    if u.shape != (2,):
++        raise ValueError("a frozen direction has two coordinates")
++    return Word("frozen_z20", 2, mark=tuple(u))
++
++
++def pair(a: int, b: int) -> int:
++    a, b = _integer(a, "a"), _integer(b, "b")
++    return (a + b) * (a + b + 1) // 2 + b
++
++
++def unpair(k: int) -> tuple[int, int]:
++    k = _integer(k, "code")
++    total = (math.isqrt(8 * k + 1) - 1) // 2
++    b = k - total * (total + 1) // 2
++    return total - b, b
++
++
++def rational_code(a: int) -> Fraction:
++    p, q = unpair(a)
++    signed = 0 if p == 0 else (p + 1) // 2 if p % 2 else -(p // 2)
++    return Fraction(signed, q + 1)
++
++
++@lru_cache(maxsize=100000)
++def decode_word(n: int) -> Word | None:
++    """Decode exactly the candidate's natural-number grammar; invalid is None."""
++    n = _integer(n, "word code")
++    if n < 4:
++        return (constant(1), constant(2), seed("g1"), seed("g2"))[n]
++    k, op = divmod(n - 4, 8)
++    try:
++        if op <= 3:
++            child = decode_word(k)
++            if child is None:
++                return None
++            return action(child) if op == 3 else unary(("sin", "cos", "tanh")[op], child)
++        a, b = unpair(k)
++        right = decode_word(b)
++        if right is None:
++            return None
++        if op == 6:
++            return scale(rational_code(a), right)
++        left = decode_word(a)
++        if left is None:
++            return None
++        return multiply(left, right) if op == 5 else add(left, right)
++    except ValueError:
++        return None
++
++
++def pilot_words() -> dict[str, Word]:
++    g1, g2 = seed("g1"), seed("g2")
++    h1, h2 = unary("sin", g1), unary("sin", g2)
++    z1, z2 = action(h1), action(h2)
++    s1, s2 = unary("sin", z1), unary("sin", z2)
++    p1, p2 = action(s1), action(s2)
++    return dict(one1=constant(1), g1=g1, g2=g2, h1=h1, h2=h2,
++                z1=z1, z2=z2, s1=s1, s2=s2, p1=p1, p2=p2,
++                t1=unary("tanh", p1), t2=unary("tanh", p2), one2=constant(2))
++
++
++def initial_dictionary(order: int, max_codes: int = 10000) -> tuple[list[Word], list[Word], list[Word]]:
++    order = _integer(order, "order", 1)
++    if order > _integer(max_codes, "max_codes", 1):
++        raise ResourceLimit("word prefix exceeds max_codes")
++    targets = list(pilot_words().values())
++    targets.extend(word for code in range(order + 1) if (word := decode_word(code)) is not None)
++    first = [word for word in targets if word.population == 1 and word.bounded]
++    second = [word for word in targets if word.population == 2 and word.bounded]
++    return first, second, targets
++
++
++@dataclass(frozen=True)
++class QuadratureLimits:
++    order: int = 5
++    max_nodes: int = 100000
++    max_innovation_dimension: int = 7
++    max_named_sources: int = 32
++    roundoff_tolerance: float = 2e-11
++
++    def __post_init__(self) -> None:
++        _integer(self.order, "quadrature order", 2)
++        _integer(self.max_nodes, "max_nodes", 1)
++        _integer(self.max_innovation_dimension, "max_innovation_dimension", 0)
++        _integer(self.max_named_sources, "max_named_sources", 1)
++        if not math.isfinite(self.roundoff_tolerance) or self.roundoff_tolerance < 0:
++            raise ValueError("roundoff_tolerance must be finite and nonnegative")
++
++
++def gaussian_rule(dimension: int, limits: QuadratureLimits) -> tuple[np.ndarray, np.ndarray]:
++    dimension = _integer(dimension, "Gaussian dimension")
++    nodes = limits.order ** dimension
++    if dimension > limits.max_innovation_dimension or nodes > limits.max_nodes:
++        raise ResourceLimit(f"GH rule requires dimension {dimension}, {nodes} nodes")
++    if dimension == 0:
++        return np.zeros((1, 0)), np.ones(1)
++    x, p = np.polynomial.hermite.hermgauss(limits.order)
++    x, p = np.sqrt(2.0) * x, p / np.sqrt(np.pi)
++    index = np.indices((limits.order,) * dimension).reshape(dimension, -1).T
++    return x[index], np.prod(p[index], axis=1)
++
++
++@dataclass
++class Source:
++    name: str
++    word: Word
++    operand: Word
++    gaussian_index: int
++    response: tuple[tuple[Word, float], ...]
++
++
++@dataclass
++class _Carrier:
++    population: int
++    limits: QuadratureLimits
++    factor: np.ndarray = field(default_factory=lambda: np.zeros((0, 0)))
++    sources: list[Source] = field(default_factory=list)
++    nodes: np.ndarray = field(init=False)
++    weights: np.ndarray = field(init=False)
++    gaussian: np.ndarray = field(init=False)
++
++    def __post_init__(self) -> None:
++        self.refresh()
++
++    def refresh(self) -> None:
++        base = 2 if self.population == 1 else 0
++        self.nodes, self.weights = gaussian_rule(base + self.factor.shape[1], self.limits)
++        self.gaussian = self.nodes[:, base:] @ self.factor.T
++
++
++class GaussianProgram:
++    """Finite Gaussian-source compiler with frozen named-source derivatives.
++
++    Each source covariance is the uncentered operand Gram. Each answer is its
++    named centered source plus all opposite-input response terms. AD treats
++    named correlated sources as formal independent coordinates, holding their
++    law and all previously computed response coefficients fixed.
++    """
++
++    def __init__(self, limits: QuadratureLimits | None = None):
++        self.limits = limits or QuadratureLimits()
++        self.carriers = {i: _Carrier(i, self.limits) for i in (1, 2)}
++        self.sources: dict[Word, Source] = {}
++        self.diagnostics: list[dict[str, Any]] = []
++
++    def compile(self, words: Iterable[Word]) -> "GaussianProgram":
++        words = tuple(words)
++        if not words:
++            raise ValueError("a source program must request at least one word")
++        for word in words:
++            self._visit(word)
++        return self
++
++    def _visit(self, word: Word) -> None:
++        if not isinstance(word, Word):
++            raise ValueError("source programs require typed words")
++        if word.op in ("c", "w1", "w2", "frozen_z20"):
++            raise ValueError("initial programs use g and explicit initialized actions")
++        for arg in word.args:
++            self._visit(arg)
++        if word.op == "action" and word not in self.sources:
++            self._new_source(word)
++
++    def evaluate(self, word: Word, derivative: bool = False) -> np.ndarray | tuple[np.ndarray, np.ndarray]:
++        value, gradient = self._evaluate(word, {})
++        if not np.all(np.isfinite(value)) or not np.all(np.isfinite(gradient)):
++            raise NumericalInitializationError("nonfinite initialized word or named derivative")
++        return (value.copy(), gradient.copy()) if derivative else value.copy()
++
++    def _evaluate(self, word: Word, cache: dict[Word, tuple[np.ndarray, np.ndarray]]) -> tuple[np.ndarray, np.ndarray]:
++        if word in cache:
++            return cache[word]
++        carrier = self.carriers[word.population]
++        size, count = len(carrier.weights), len(carrier.sources)
++        if word.op == "one":
++            result = np.ones(size), np.zeros((size, count))
++        elif word.op in ("g1", "g2"):
++            result = carrier.nodes[:, int(word.op[1]) - 1], np.zeros((size, count))
++        elif word.op == "action":
++            if word not in self.sources:
++                raise ValueError("action has not been compiled")
++            source = self.sources[word]
++            value = carrier.gaussian[:, source.gaussian_index].copy()
++            gradient = np.zeros((size, count))
++            gradient[:, source.gaussian_index] = 1.0
++            for previous_input, coefficient in source.response:
++                v, d = self._evaluate(previous_input, cache)
++                value += coefficient * v
++                gradient += coefficient * d
++            result = value, gradient
++        elif word.op in ("sin", "cos", "tanh"):
++            v, d = self._evaluate(word.args[0], cache)
++            if word.op == "sin":
++                result = np.sin(v), np.cos(v)[:, None] * d
++            elif word.op == "cos":
++                result = np.cos(v), -np.sin(v)[:, None] * d
++            else:
++                value = np.tanh(v)
++                result = value, (1 - value * value)[:, None] * d
++        elif word.op == "scale":
++            v, d = self._evaluate(word.args[0], cache)
++            result = float(word.scalar) * v, float(word.scalar) * d
++        elif word.op in ("add", "multiply"):
++            v, dv = self._evaluate(word.args[0], cache)
++            w, dw = self._evaluate(word.args[1], cache)
++            result = (v + w, dv + dw) if word.op == "add" else (v * w, dv * w[:, None] + dw * v[:, None])
++        else:
++            raise ValueError(f"unsupported initialized operation {word.op}")
++        cache[word] = result
++        return result
++
++    def expectation(self, word: Word) -> float:
++        return float(self.carriers[word.population].weights @ self.evaluate(word))
++
++    def _new_source(self, word: Word) -> None:
++        operand = word.args[0]
++        if not operand.bounded:
++            raise ValueError("source operands must be bounded")
++        out = self.carriers[word.population]
++        inside = self.carriers[operand.population]
++        if len(self.sources) >= self.limits.max_named_sources:
++            raise ResourceLimit("source count exceeds max_named_sources")
++        value, derivative = self._evaluate(operand, {})
++        if not np.all(np.isfinite(value)) or not np.all(np.isfinite(derivative)):
++            raise NumericalInitializationError("nonfinite Gaussian-source input")
++        variance = float(inside.weights @ (value * value))
++        previous = [self._evaluate(s.operand, {})[0] for s in out.sources]
++        covariance = np.array([inside.weights @ (value * v) for v in previous])
++        response = tuple((s.operand, float(inside.weights @ derivative[:, j]))
++                         for j, s in enumerate(inside.sources))
++        if not math.isfinite(variance) or not np.all(np.isfinite(covariance)) or not all(math.isfinite(c) for _, c in response):
++            raise NumericalInitializationError("nonfinite Gaussian covariance or response")
++        factor = out.factor
++        innovation_count = factor.shape[1]
++        if innovation_count:
++            q, r = np.linalg.qr(factor, mode="reduced")
++            try:
++                coefficient = np.linalg.solve(r, q.T @ covariance)
++            except np.linalg.LinAlgError as exc:
++                raise NumericalInitializationError("unresolved Gaussian covariance range") from exc
++        else:
++            coefficient = np.zeros(0)
++        mismatch = float(np.linalg.norm(factor @ coefficient - covariance))
++        tolerance = self.limits.roundoff_tolerance * max(1.0, variance, float(np.linalg.norm(covariance)))
++        if mismatch > tolerance:
++            raise NumericalInitializationError("new covariance is outside the existing source range")
++        schur = variance - float(coefficient @ coefficient)
++        correction = 0.0
++        if schur < 0:
++            if schur < -tolerance:
++                raise NumericalInitializationError("negative Gaussian Schur complement")
++            correction, schur = -schur, 0.0
++        # Retain every positive innovation, however small. Exact zero adds a
++        # named derivative coordinate but needs no new independent Gaussian.
++        positive = schur > 0
++        new_factor = np.zeros((len(out.sources) + 1, innovation_count + int(positive)))
++        new_factor[:-1, :innovation_count] = factor
++        new_factor[-1, :innovation_count] = coefficient
++        if positive:
++            new_factor[-1, -1] = np.sqrt(schur)
++        base = 2 if word.population == 1 else 0
++        dimension = base + new_factor.shape[1]
++        if dimension > self.limits.max_innovation_dimension or self.limits.order ** dimension > self.limits.max_nodes:
++            raise ResourceLimit(f"new source would require dimension {dimension}, {self.limits.order ** dimension} GH nodes")
++        name = ("F" if word.population == 2 else "R") + str(len(out.sources))
++        source = Source(name, word, operand, len(out.sources), response)
++        out.factor = new_factor
++        out.sources.append(source)
++        self.sources[word] = source
++        out.refresh()
++        self.diagnostics.append(dict(name=name, population=word.population,
++                                     variance=variance, covariance=covariance.tolist(),
++                                     response=[co for _, co in response],
++                                     innovation_variance=schur,
++                                     covariance_range_residual=mismatch,
++                                     negative_schur_roundoff_correction=correction,
++                                     named_sources=len(out.sources),
++                                     independent_source_dimensions=new_factor.shape[1]))
++
++
++def ridge_features(raw: Any, probabilities: Any, order: int) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
++    raw = _array(raw, "raw dictionary", 2)
++    if min(raw.shape) == 0:
++        raise ValueError("dictionary must have nonempty rows and columns")
++    probabilities = _probabilities(probabilities, len(raw), "dictionary probabilities")
++    order = _integer(order, "order", 1)
++    eta = math.ldexp(1.0, -order)
++    if eta == 0:
++        raise NumericalInitializationError("requested ridge underflows float64")
++    gram = raw.T @ (probabilities[:, None] * raw)
++    if not np.all(np.isfinite(gram)):
++        raise NumericalInitializationError("nonfinite dictionary Gram")
++    regularized = (gram + gram.T) / 2 + eta * np.eye(raw.shape[1])
++    eigenvalues, eigenvectors = np.linalg.eigh(regularized)
++    if np.any(eigenvalues <= 0):
++        raise NumericalInitializationError("positive ridge is unresolved in float64; no modes were dropped")
++    transform = (eigenvectors * (1 / np.sqrt(eigenvalues))) @ eigenvectors.T
++    features = raw @ transform.T
++    if not np.all(np.isfinite(features)):
++        raise NumericalInitializationError("nonfinite ridge features")
++    return features, transform, gram
++
++
++@dataclass
++class Population1:
++    b: np.ndarray
++    g: np.ndarray
++    w: np.ndarray
++    probabilities: np.ndarray
++
++    def __post_init__(self) -> None:
++        self.b, self.g, self.w = (_array(getattr(self, k), k, 2) for k in ("b", "g", "w"))
++        if min(self.b.shape) == 0 or self.g.shape != (len(self.b), 2) or self.w.shape != self.g.shape:
++            raise ValueError("population 1 requires nonempty (b,g,w), with two-dimensional g,w")
++        self.probabilities = _probabilities(self.probabilities, len(self.b), "population 1 probabilities")
++
++
++@dataclass
++class Population2:
++    b: np.ndarray
++    c: np.ndarray
++    probabilities: np.ndarray
++
++    def __post_init__(self) -> None:
++        self.b, self.c = _array(self.b, "b", 2), _array(self.c, "c", 1)
++        if min(self.b.shape) == 0 or self.c.shape != (len(self.b),):
++            raise ValueError("population 2 requires nonempty (b,c)")
++        self.probabilities = _probabilities(self.probabilities, len(self.b), "population 2 probabilities")
++
++
++@dataclass
++class State:
++    first: Population1
++    second: Population2
++    M: np.ndarray
++    D: np.ndarray
++    metadata: dict[str, Any] = field(default_factory=dict)
++
++    def __post_init__(self) -> None:
++        self.M, self.D = _array(self.M, "M", 2), _array(self.D, "D", 2)
++        expected = (self.second.b.shape[1], self.first.b.shape[1])
++        if self.M.shape != expected or self.D.shape != expected:
++            raise ValueError("M and D must index the two retained feature lists")
++
++    def copy(self) -> "State":
++        return State(Population1(self.first.b, self.first.g, self.first.w, self.first.probabilities),
++                     Population2(self.second.b, self.second.c, self.second.probabilities),
++                     self.M, self.D, json.loads(json.dumps(self.metadata)))
++
++
++@dataclass
++class DataLaw:
++    inputs: np.ndarray
++    labels: np.ndarray
++    probabilities: np.ndarray
++
++    def __post_init__(self) -> None:
++        self.inputs = _array(self.inputs, "inputs", 2)
++        self.labels = _array(self.labels, "labels", 1)
++        if len(self.inputs) == 0 or self.inputs.shape[1] != 2 or self.labels.shape != (len(self.inputs),):
++            raise ValueError("nonempty data require (m,2) unit inputs and m labels")
++        if not np.allclose(np.linalg.norm(self.inputs, axis=1), 1, rtol=0, atol=2e-12):
++            raise ValueError("inputs must lie on the unit circle")
++        self.probabilities = _probabilities(self.probabilities, len(self.inputs), "data probabilities")
++
++
++@dataclass
++class Velocity:
++    w: np.ndarray
++    c: np.ndarray
++    M: np.ndarray
++
++
++def _word_record(word: Word) -> dict[str, Any]:
++    return dict(op=word.op, population=word.population, args=[_word_record(a) for a in word.args],
++                scalar=None if word.scalar is None else [word.scalar.numerator, word.scalar.denominator])
++
++
++def initialize(order: int = 1, limits: QuadratureLimits | None = None) -> tuple[State, GaussianProgram]:
++    order = _integer(order, "order", 1)
++    if order > 1074 or math.ldexp(1.0, -order) == 0:
++        raise NumericalInitializationError("requested ridge underflows float64")
++    first_words, second_words, targets = initial_dictionary(order)
++    program = GaussianProgram(limits).compile(targets)
++    # Compile the entire raw contraction union before extracting either law.
++    forward_words = [action(word) for word in first_words]
++    program.compile(forward_words)
++    raw1 = np.column_stack([program.evaluate(word) for word in first_words])
++    raw2 = np.column_stack([program.evaluate(word) for word in second_words])
++    weights1, weights2 = (program.carriers[i].weights for i in (1, 2))
++    b1, transform1, gram1 = ridge_features(raw1, weights1, order)
++    b2, transform2, gram2 = ridge_features(raw2, weights2, order)
++    raw_forward = np.column_stack([program.evaluate(word) for word in forward_words])
++    contraction = raw2.T @ (weights2[:, None] * raw_forward)
++    D = transform2 @ contraction @ transform1
++    g = program.carriers[1].nodes[:, :2]
++    metadata = dict(format="C-H2-quadrature-v1", hierarchy_order=order, ridge=math.ldexp(1.0, -order),
++                    gaussian_order=program.limits.order, exact_initial_law=False,
++                    dictionary1=[_word_record(w) for w in first_words],
++                    dictionary2=[_word_record(w) for w in second_words],
++                    source_diagnostics=program.diagnostics,
++                    gram1=gram1.tolist(), gram2=gram2.tolist(),
++                    normalization1=transform1.tolist(), normalization2=transform2.tolist(),
++                    initialization_operator_norm=float(np.linalg.norm(D, ord=2)))
++    state = State(Population1(b1, g, g, weights1), Population2(b2, np.zeros(len(b2)), weights2), D, D, metadata)
++    return state, program
++
++
++def _validate_state(state: State) -> None:
++    # Arrays remain mutable for supplied-state work, so reject corruptions at
++    # every evaluation rather than relying on constructor validation alone.
++    for name, array in (("w", state.first.w), ("c", state.second.c), ("M", state.M),
++                        ("b1", state.first.b), ("g", state.first.g), ("b2", state.second.b), ("D", state.D)):
++        if not np.all(np.isfinite(array)):
++            raise ValueError(f"nonfinite state coordinate {name}")
++    if state.first.w.shape != state.first.g.shape or state.first.g.shape != (len(state.first.b), 2):
++        raise ValueError("invalid first-population state shape")
++    if state.second.c.shape != (len(state.second.b),):
++        raise ValueError("invalid second-population state shape")
++    expected = (state.second.b.shape[1], state.first.b.shape[1])
++    if state.M.shape != expected or state.D.shape != expected:
++        raise ValueError("invalid action matrix shape")
++    _probabilities(state.first.probabilities, len(state.first.b), "first probabilities")
++    _probabilities(state.second.probabilities, len(state.second.b), "second probabilities")
++
++
++def apply_action(state: State, input_population: int, values: Any, frozen: bool = False) -> np.ndarray:
++    _validate_state(state)
++    if input_population not in (1, 2):
++        raise ValueError("input population must be 1 or 2")
++    values = _array(values, "action values")
++    population = state.first if input_population == 1 else state.second
++    if values.ndim not in (1, 2) or values.shape[0] != len(population.b):
++        raise ValueError("action values must use the retained input population")
++    scalar = values.ndim == 1
++    if scalar:
++        values = values[:, None]
++    matrix = state.D if frozen else state.M
++    coefficients = population.b.T @ (population.probabilities[:, None] * values)
++    output = state.second.b @ matrix @ coefficients if input_population == 1 else state.first.b @ matrix.T @ coefficients
++    if not np.all(np.isfinite(output)):
++        raise ValueError("nonfinite action output")
++    return output[:, 0] if scalar else output
++
++
++def fields(state: State, inputs: Any) -> dict[str, np.ndarray]:
++    _validate_state(state)
++    inputs = _array(inputs, "observation inputs", 2)
++    if len(inputs) == 0 or inputs.shape[1] != 2:
++        raise ValueError("observation inputs must have nonempty shape (m,2)")
++    first, second = state.first, state.second
++    h1 = np.tanh(first.w @ inputs.T)
++    a = first.b.T @ (first.probabilities[:, None] * h1)
++    z2 = second.b @ state.M @ a
++    h2 = np.tanh(z2)
++    delta2 = second.c[:, None] * (1 - h2 * h2)
++    d = second.b.T @ (second.probabilities[:, None] * delta2)
++    q = first.b @ state.M.T @ d
++    f = second.probabilities @ (second.c[:, None] * h2)
++    result = dict(h1=h1, a=a, z2=z2, h2=h2, delta2=delta2, d=d, q=q, f=f)
++    if not all(np.all(np.isfinite(v)) for v in result.values()):
++        raise ValueError("nonfinite evaluated field")
++    return result
++
++
++def loss(state: State, data: DataLaw) -> float:
++    DataLaw(data.inputs, data.labels, data.probabilities)
++    residual = fields(state, data.inputs)["f"] - data.labels
++    result = float(data.probabilities @ (residual * residual))
++    if not math.isfinite(result):
++        raise ValueError("nonfinite loss")
++    return result
++
++
++def rhs(state: State, data: DataLaw) -> Velocity:
++    DataLaw(data.inputs, data.labels, data.probabilities)
++    values = fields(state, data.inputs)
++    weighted_residual = data.probabilities * (values["f"] - data.labels)
++    w = -2 * ((1 - values["h1"] ** 2) * values["q"] * weighted_residual) @ data.inputs
++    c = -2 * values["h2"] @ weighted_residual
++    M = -2 * (values["d"] * weighted_residual) @ values["a"].T
++    return Velocity(w, c, M)
++
++
++def velocity_squared_norm(state: State, velocity: Velocity) -> float:
++    return float(state.first.probabilities @ np.sum(velocity.w ** 2, axis=1)
++                 + state.second.probabilities @ (velocity.c ** 2) + np.sum(velocity.M ** 2))
++
++
++def algebraic_update(state: State, velocity: Velocity, step: float) -> State:
++    """One simultaneous algebraic state map; this is not a trajectory solver."""
++    if isinstance(step, bool) or not math.isfinite(step):
++        raise ValueError("step must be a finite real scalar")
++    result = state.copy()
++    if velocity.w.shape != result.first.w.shape or velocity.c.shape != result.second.c.shape or velocity.M.shape != result.M.shape:
++        raise ValueError("velocity shape mismatch")
++    result.first.w += step * velocity.w
++    result.second.c += step * velocity.c
++    result.M += step * velocity.M
++    _validate_state(result)
++    return result
++
++
++def observe(state: State, word: Word) -> np.ndarray:
++    _validate_state(state)
++    cache: dict[Word, np.ndarray] = {}
++
++    def visit(node: Word) -> np.ndarray:
++        if node in cache:
++            return cache[node]
++        population = state.first if node.population == 1 else state.second
++        if node.op == "one":
++            result = np.ones(len(population.b))
++        elif node.op in ("g1", "g2", "w1", "w2"):
++            coordinates = state.first.g if node.op[0] == "g" else state.first.w
++            result = coordinates[:, int(node.op[1]) - 1]
++        elif node.op == "c":
++            result = state.second.c
++        elif node.op == "frozen_z20":
++            result = apply_action(state, 1, np.tanh(state.first.g @ np.asarray(node.mark)), frozen=True)
++        elif node.op == "action":
++            result = apply_action(state, node.args[0].population, visit(node.args[0]))
++        elif node.op in ("sin", "cos", "tanh"):
++            result = getattr(np, node.op)(visit(node.args[0]))
++        elif node.op == "scale":
++            result = float(node.scalar) * visit(node.args[0])
++        elif node.op == "add":
++            result = visit(node.args[0]) + visit(node.args[1])
++        elif node.op == "multiply":
++            result = visit(node.args[0]) * visit(node.args[1])
++        else:
++            raise ValueError("unknown observation node")
++        cache[node] = result
++        return result
++
++    result = visit(word)
++    if not np.all(np.isfinite(result)):
++        raise ValueError("nonfinite observation")
++    return result.copy()
++
++
++def joint_observe(state: State, words: Iterable[Word]) -> tuple[np.ndarray, np.ndarray]:
++    words = tuple(words)
++    if not words or any(word.population != words[0].population for word in words):
++        raise ValueError("joint observations require a nonempty same-population tuple")
++    population = state.first if words[0].population == 1 else state.second
++    return np.column_stack([observe(state, word) for word in words]), population.probabilities.copy()
++
++
++def save_restart(path: str | Path, state: State, data: DataLaw) -> None:
++    """Save complete current quadrature populations, fixed inputs, and M; no clock."""
++    _validate_state(state)
++    DataLaw(data.inputs, data.labels, data.probabilities)
++    # The archive schema is writer-owned, independent of optional provenance.
++    # Do not mutate the caller's metadata, including an empty supplied-state map.
++    metadata = dict(state.metadata)
++    metadata["format"] = "C-H2-quadrature-v1"
++    with Path(path).open("wb") as handle:
++        np.savez_compressed(handle, b1=state.first.b, g=state.first.g, w=state.first.w,
++                            p1=state.first.probabilities, b2=state.second.b, c=state.second.c,
++                            p2=state.second.probabilities, M=state.M, D=state.D,
++                            inputs=data.inputs, labels=data.labels, data_p=data.probabilities,
++                            metadata=np.array(json.dumps(metadata, sort_keys=True)))
++
++
++def load_restart(path: str | Path) -> tuple[State, DataLaw]:
++    with np.load(path, allow_pickle=False) as saved:
++        expected = {"b1", "g", "w", "p1", "b2", "c", "p2", "M", "D", "inputs", "labels", "data_p", "metadata"}
++        if set(saved.files) != expected:
++            raise ValueError("invalid restart schema")
++        metadata = json.loads(str(saved["metadata"]))
++        if metadata.get("format") != "C-H2-quadrature-v1":
++            raise ValueError("unsupported restart format")
++        state = State(Population1(saved["b1"], saved["g"], saved["w"], saved["p1"]),
++                      Population2(saved["b2"], saved["c"], saved["p2"]), saved["M"], saved["D"], metadata)
++        data = DataLaw(saved["inputs"], saved["labels"], saved["data_p"])
++    return state, data
+--- a/code/tests/test_observable_closure.py
++++ b/code/tests/test_observable_closure.py
+@@ -0,0 +1,312 @@
++"""Deterministic static checks; no trajectory or Monte Carlo is run.
++
++The default imports pde.observable_closure from the installed package.
++H2_PROTOTYPE_MODULE may override that import for isolated checks.
++"""
++import importlib
++import math
++import os
++from pathlib import Path
++import tempfile
++import unittest
++
++import numpy as np
++
++core = importlib.import_module(os.environ.get("H2_PROTOTYPE_MODULE", "pde.observable_closure"))
++
++
++class WordAndSourceTests(unittest.TestCase):
++    def test_natural_number_decoder_and_types(self):
++        for a in range(10):
++            for b in range(10):
++                self.assertEqual(core.unpair(core.pair(a, b)), (a, b))
++        self.assertEqual(core.decode_word(4 + 8 * 2), core.unary("sin", core.seed("g1")))
++        self.assertIsNone(core.decode_word(4 + 8 * 2 + 3))  # A g1 is invalid.
++        self.assertIsNone(core.decode_word(4 + 8 * core.pair(0, 1) + 4))
++        self.assertEqual(core.decode_word(4 + 8 * core.pair(0, 0) + 5),
++                         core.multiply(core.constant(1), core.constant(1)))
++        first, second, _ = core.initial_dictionary(1)
++        self.assertEqual((len(first), len(second)), (6, 4))
++        self.assertEqual(first[0], first[-1])  # Candidate keeps duplicates.
++        self.assertEqual(second[-2], second[-1])
++        with self.assertRaises(ValueError):
++            core.decode_word(True)
++        with self.assertRaises(ValueError):
++            core.multiply(core.seed("g1"), core.seed("g2"))
++        with self.assertRaises(core.ResourceLimit):
++            core.initial_dictionary(6, max_codes=5)
++
++    def test_pilot_covariances_response_and_stein_pairing(self):
++        pilot = core.pilot_words()
++        program = core.GaussianProgram(core.QuadratureLimits(order=15, max_innovation_dimension=4)).compile(pilot.values())
++        variance_h = (1 - math.exp(-2)) / 2
++        variance_s = (1 - math.exp(-2 * variance_h)) / 2
++        response = math.exp(-variance_h / 2)
++        self.assertEqual(len(program.sources), 4)
++        self.assertAlmostEqual(program.diagnostics[0]["variance"], variance_h, delta=3e-12)
++        self.assertAlmostEqual(program.diagnostics[2]["variance"], variance_s, delta=3e-12)
++        self.assertAlmostEqual(program.diagnostics[2]["response"][0], response, delta=3e-12)
++        self.assertAlmostEqual(program.diagnostics[2]["response"][1], 0, delta=3e-14)
++        first, second = program.carriers[1], program.carriers[2]
++        p1, h1 = program.evaluate(pilot["p1"]), program.evaluate(pilot["h1"])
++        z1, s1 = program.evaluate(pilot["z1"]), program.evaluate(pilot["s1"])
++        lhs = first.weights @ (h1 * p1)
++        rhs = second.weights @ (z1 * s1)
++        self.assertAlmostEqual(lhs, response * variance_h, delta=3e-12)
++        self.assertAlmostEqual(lhs, rhs, delta=3e-12)
++        # Removing response gives zero here and fails this nonzero identity.
++        self.assertGreater(abs(lhs), 0.3)
++        centered = first.gaussian[:, program.sources[pilot["p1"]].gaussian_index]
++        np.testing.assert_allclose(p1, centered + response * h1, atol=3e-12, rtol=0)
++
++    def test_named_derivatives_and_forward_reuse_after_reverse(self):
++        pilot = core.pilot_words()
++        limits = core.QuadratureLimits(order=15, max_innovation_dimension=4)
++        program = core.GaussianProgram(limits).compile(pilot.values())
++        p1 = program.evaluate(pilot["p1"])
++        value, gradient = program.evaluate(pilot["t1"], derivative=True)
++        np.testing.assert_allclose(value, np.tanh(p1), rtol=0, atol=0)
++        np.testing.assert_allclose(gradient[:, 0], 1 - np.tanh(p1) ** 2, rtol=0, atol=0)
++        np.testing.assert_allclose(gradient[:, 1], 0, rtol=0, atol=0)
++        new_forward = core.action(pilot["t1"])
++        expected_response = program.carriers[1].weights @ gradient[:, 0]
++        program.compile([new_forward])
++        descriptor = program.sources[new_forward]
++        self.assertAlmostEqual(descriptor.response[0][1], expected_response, delta=2e-15)
++        second = program.carriers[2]
++        gaussian = second.gaussian[:, descriptor.gaussian_index]
++        np.testing.assert_allclose(program.evaluate(new_forward) - gaussian,
++                                   expected_response * program.evaluate(pilot["s1"]), atol=5e-15, rtol=0)
++        source_count = len(program.sources)
++        program.compile([new_forward, pilot["z1"], new_forward])
++        self.assertEqual(len(program.sources), source_count)
++
++    def test_zero_and_singular_gaussian_sources_keep_named_coordinates(self):
++        one = core.constant(1)
++        zero_source = core.action(core.scale(0, one))
++        first_source = core.action(one)
++        scaled_source = core.action(core.scale(2, one))
++        program = core.GaussianProgram().compile([zero_source, first_source, scaled_source])
++        self.assertEqual(len(program.carriers[2].sources), 3)
++        self.assertEqual(program.carriers[2].factor.shape[1], 1)
++        np.testing.assert_allclose(program.evaluate(zero_source), 0, atol=0, rtol=0)
++        np.testing.assert_allclose(program.evaluate(scaled_source), 2 * program.evaluate(first_source), atol=1e-14, rtol=0)
++        _, derivatives = program.evaluate(scaled_source, derivative=True)
++        np.testing.assert_allclose(derivatives[:, :2], 0, atol=0, rtol=0)
++        np.testing.assert_allclose(derivatives[:, 2], 1, atol=0, rtol=0)
++        # The coefficient covariance is uncentered: E[1*1]=1, not zero.
++        self.assertAlmostEqual(program.diagnostics[1]["variance"], 1, delta=1e-15)
++        self.assertEqual(program.diagnostics[2]["independent_source_dimensions"], 1)
++
++    def test_quadrature_and_source_resource_limits(self):
++        with self.assertRaises(core.ResourceLimit):
++            core.gaussian_rule(4, core.QuadratureLimits(order=5, max_nodes=100))
++        with self.assertRaises(core.ResourceLimit):
++            core.GaussianProgram(core.QuadratureLimits(max_named_sources=1)).compile(core.pilot_words().values())
++        with self.assertRaises(ValueError):
++            core.GaussianProgram().compile([])
++        with self.assertRaises(ValueError):
++            core.QuadratureLimits(order=1)
++
++
++class RidgeTests(unittest.TestCase):
++    def test_singular_repeated_and_zero_dictionary_columns(self):
++        raw = np.array([[1., 1., 0., -1.], [1., 1., 0., 0.], [1., 1., 0., 1.]])
++        probabilities = np.array([0.25, 0.5, 0.25])
++        b, transform, gram = core.ridge_features(raw, probabilities, order=4)
++        self.assertEqual(b.shape, raw.shape)
++        self.assertEqual(transform.shape, (4, 4))
++        self.assertLessEqual(np.linalg.eigvalsh(b.T @ (probabilities[:, None] * b)).max(), 1 + 1e-13)
++        np.testing.assert_allclose(transform @ (gram + np.eye(4) / 16) @ transform, np.eye(4), atol=2e-14, rtol=0)
++        np.testing.assert_allclose(b[:, 0], b[:, 1], atol=2e-14, rtol=0)
++        np.testing.assert_allclose(b[:, 2], 0, atol=0, rtol=0)
++        with self.assertRaises(core.NumericalInitializationError):
++            core.ridge_features(raw, probabilities, order=1100)
++        with self.assertRaises(ValueError):
++            core.ridge_features(np.empty((3, 0)), probabilities, 1)
++
++
++class PopulationStaticTests(unittest.TestCase):
++    @classmethod
++    def setUpClass(cls):
++        cls.initial, cls.program = core.initialize(1)
++        cls.data = core.DataLaw([[1., 0.], [0., 1.], [0.6, 0.8]], [1., -1., 0.2], [0.4, 0.4, 0.2])
++
++    def supplied_state(self):
++        state = self.initial.copy()
++        g = state.first.g
++        state.first.w += 0.07 * np.column_stack([np.sin(g[:, 1]) + 0.2, np.cos(g[:, 0]) - 0.4])
++        state.second.c = 0.12 * np.sin(state.second.b[:, 0]) + 0.04 * np.cos(state.second.b[:, 1])
++        i, j = np.indices(state.M.shape)
++        state.M += 0.025 * np.sin(1 + i + 2 * j)
++        return state
++
++    def test_initialization_and_actual_retained_populations(self):
++        state = self.initial
++        self.assertEqual(state.first.b.shape, (625, 6))
++        self.assertEqual(state.second.b.shape, (3125, 4))
++        self.assertEqual(state.M.shape, (4, 6))
++        np.testing.assert_array_equal(state.first.w, state.first.g)
++        np.testing.assert_array_equal(state.second.c, 0)
++        np.testing.assert_array_equal(state.M, state.D)
++        self.assertFalse(state.metadata["exact_initial_law"])
++        self.assertEqual(state.metadata["ridge"], 0.5)
++        self.assertTrue(all("negative_schur_roundoff_correction" in item
++                            for item in state.metadata["source_diagnostics"]))
++        np.testing.assert_array_equal(core.fields(state, self.data.inputs)["f"], 0)
++        velocity = core.rhs(state, self.data)
++        np.testing.assert_array_equal(velocity.w, 0)
++        np.testing.assert_array_equal(velocity.M, 0)
++        self.assertGreater(np.linalg.norm(velocity.c), 0)
++
++    def test_actual_transpose_contraction(self):
++        state = self.supplied_state()
++        v = np.sin(state.first.g[:, 0]) + 0.3 * np.cos(state.first.g[:, 1])
++        u = np.tanh(state.second.b[:, 0] - 0.4 * state.second.b[:, 1])
++        forward = core.apply_action(state, 1, v)
++        reverse = core.apply_action(state, 2, u)
++        lhs = state.second.probabilities @ (u * forward)
++        rhs = state.first.probabilities @ (v * reverse)
++        self.assertAlmostEqual(lhs, rhs, delta=3e-15)
++        # Unequal feature and quadrature dimensions prohibit a hidden plain
++        # transposition of population arrays or identification of carriers.
++        self.assertNotEqual(len(state.first.b), len(state.second.b))
++        self.assertNotEqual(state.M.shape[0], state.M.shape[1])
++
++    def test_all_matrix_and_selected_population_coordinate_gradients(self):
++        state = self.supplied_state()
++        velocity = core.rhs(state, self.data)
++        epsilon = 2e-6
++        for index in np.ndindex(state.M.shape):
++            plus, minus = state.copy(), state.copy()
++            plus.M[index] += epsilon
++            minus.M[index] -= epsilon
++            finite_difference = (core.loss(plus, self.data) - core.loss(minus, self.data)) / (2 * epsilon)
++            self.assertAlmostEqual(finite_difference, -velocity.M[index], delta=7e-11)
++        for row in np.argsort(state.first.probabilities)[-3:]:
++            for coordinate in (0, 1):
++                plus, minus = state.copy(), state.copy()
++                plus.first.w[row, coordinate] += epsilon
++                minus.first.w[row, coordinate] -= epsilon
++                finite_difference = (core.loss(plus, self.data) - core.loss(minus, self.data)) / (2 * epsilon)
++                expected = -state.first.probabilities[row] * velocity.w[row, coordinate]
++                self.assertAlmostEqual(finite_difference, expected, delta=7e-11)
++        for row in np.argsort(state.second.probabilities)[-3:]:
++            plus, minus = state.copy(), state.copy()
++            plus.second.c[row] += epsilon
++            minus.second.c[row] -= epsilon
++            finite_difference = (core.loss(plus, self.data) - core.loss(minus, self.data)) / (2 * epsilon)
++            self.assertAlmostEqual(finite_difference, -state.second.probabilities[row] * velocity.c[row], delta=7e-11)
++
++    def test_energy_directional_identity_all_blocks_move(self):
++        state = self.supplied_state()
++        velocity = core.rhs(state, self.data)
++        self.assertGreater(np.linalg.norm(velocity.w), 1e-6)
++        self.assertGreater(np.linalg.norm(velocity.c), 1e-6)
++        self.assertGreater(np.linalg.norm(velocity.M), 1e-6)
++        epsilon = 2e-6
++        plus, minus = state.copy(), state.copy()
++        for sign, copy in ((1, plus), (-1, minus)):
++            copy.first.w += sign * epsilon * velocity.w
++            copy.second.c += sign * epsilon * velocity.c
++            copy.M += sign * epsilon * velocity.M
++        derivative = (core.loss(plus, self.data) - core.loss(minus, self.data)) / (2 * epsilon)
++        self.assertAlmostEqual(derivative, -core.velocity_squared_norm(state, velocity), delta=1e-10)
++
++    def test_joint_frozen_current_observations_and_nested_actions(self):
++        state = self.supplied_state()
++        frozen = core.frozen_z20((1., 0.))
++        current = core.action(core.unary("tanh", core.seed("w1")))
++        values, probabilities = core.joint_observe(state, [frozen, current, core.seed("c")])
++        np.testing.assert_array_equal(probabilities, state.second.probabilities)
++        np.testing.assert_array_equal(values[:, 2], state.second.c)
++        np.testing.assert_allclose(values[:, 0], core.observe(self.initial, frozen), atol=0, rtol=0)
++        self.assertGreater(np.linalg.norm(values[:, 1] - values[:, 0]), 1e-5)
++        nested = core.action(core.unary("sin", current))
++        direct = core.apply_action(state, 2, np.sin(values[:, 1]))
++        np.testing.assert_allclose(core.observe(state, nested), direct, atol=0, rtol=0)
++        squared_c = core.multiply(core.seed("c"), core.seed("c"))
++        np.testing.assert_allclose(core.observe(state, squared_c), state.second.c ** 2, atol=0, rtol=0)
++        with self.assertRaises(ValueError):
++            core.joint_observe(state, [])
++        with self.assertRaises(ValueError):
++            core.joint_observe(state, [core.seed("g1"), core.seed("c")])
++
++    def test_one_algebraic_update_and_restart_without_history(self):
++        state = self.supplied_state()
++        velocity = core.rhs(state, self.data)
++        updated = core.algebraic_update(state, velocity, 0.001)
++        np.testing.assert_allclose(updated.first.w, state.first.w + 0.001 * velocity.w, atol=0, rtol=0)
++        np.testing.assert_allclose(updated.second.c, state.second.c + 0.001 * velocity.c, atol=0, rtol=0)
++        np.testing.assert_allclose(updated.M, state.M + 0.001 * velocity.M, atol=0, rtol=0)
++        np.testing.assert_array_equal(updated.first.g, state.first.g)
++        np.testing.assert_array_equal(updated.first.b, state.first.b)
++        np.testing.assert_array_equal(updated.D, state.D)
++        default_scratch = Path(__file__).resolve().parents[2] / "data/generated/observable_hierarchy/H2_prototype"
++        scratch = Path(os.environ.get("H2_TEST_SCRATCH", str(default_scratch)))
++        scratch.mkdir(parents=True, exist_ok=True)
++        with tempfile.TemporaryDirectory(dir=scratch) as temporary:
++            path = Path(temporary) / "restart.npz"
++            core.save_restart(path, updated, self.data)
++            restored, data = core.load_restart(path)
++            actual = core.rhs(updated, self.data)
++            restarted = core.rhs(restored, data)
++            for name in ("w", "c", "M"):
++                np.testing.assert_array_equal(getattr(actual, name), getattr(restarted, name))
++            np.testing.assert_array_equal(core.fields(restored, data.inputs)["f"], core.fields(updated, self.data.inputs)["f"])
++            with np.load(path, allow_pickle=False) as raw:
++                self.assertNotIn("time", raw.files)
++                self.assertNotIn("history", raw.files)
++
++    def test_supplied_state_restart_without_initialization_metadata(self):
++        # A valid public State needs no GaussianProgram or private metadata tag.
++        state = core.State(
++            core.Population1([[1.]], [[0., 0.]], [[1., 0.]], [1.]),
++            core.Population2([[1.]], [0.2], [1.]), [[0.3]], [[0.3]],
++        )
++        data = core.DataLaw([[1., 0.]], [1.], [1.])
++        self.assertEqual(state.metadata, {})
++        before = core.rhs(state, data)
++        default_scratch = Path(__file__).resolve().parents[2] / "data/generated/observable_hierarchy/H2_prototype"
++        scratch = Path(os.environ.get("H2_TEST_SCRATCH", str(default_scratch)))
++        scratch.mkdir(parents=True, exist_ok=True)
++        with tempfile.TemporaryDirectory(dir=scratch) as temporary:
++            for metadata in ({}, {"note": "supplied without initializer"}):
++                state.metadata = metadata.copy()
++                path = Path(temporary) / "supplied.npz"
++                core.save_restart(path, state, data)
++                self.assertEqual(state.metadata, metadata)
++                restored, restored_data = core.load_restart(path)
++                self.assertEqual(restored.metadata["format"], "C-H2-quadrature-v1")
++                for key, value in metadata.items():
++                    self.assertEqual(restored.metadata[key], value)
++                after = core.rhs(restored, restored_data)
++                for name in ("w", "c", "M"):
++                    np.testing.assert_array_equal(getattr(before, name), getattr(after, name))
++                self.assertEqual(core.loss(restored, restored_data), core.loss(state, data))
++                np.testing.assert_array_equal(core.fields(restored, data.inputs)["f"],
++                                              core.fields(state, data.inputs)["f"])
++
++    def test_validation_ownership_and_empty_inputs(self):
++        state = self.initial.copy()
++        state.first.w[0, 0] += 1
++        self.assertNotEqual(state.first.w[0, 0], self.initial.first.w[0, 0])
++        with self.assertRaises(ValueError):
++            core.DataLaw(np.empty((0, 2)), [], [])
++        with self.assertRaises(ValueError):
++            core.DataLaw([[2, 0]], [1], [1])
++        with self.assertRaises(ValueError):
++            core.DataLaw([[1, 0]], [1], [-1])
++        with self.assertRaises(ValueError):
++            core.Population1(np.empty((0, 2)), np.empty((0, 2)), np.empty((0, 2)), [])
++        with self.assertRaises(ValueError):
++            core.fields(state, np.empty((0, 2)))
++        with self.assertRaises(ValueError):
++            core.apply_action(state, 1, np.zeros(2))
++        state.M[0, 0] = np.nan
++        with self.assertRaises(ValueError):
++            core.rhs(state, self.data)
++
++
++if __name__ == "__main__":
++    unittest.main(verbosity=2)

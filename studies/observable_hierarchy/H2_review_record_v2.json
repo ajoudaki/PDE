@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "reports": {
+    "H2_review_v2_a.md": {
+      "sha256": "456700d2c34621cc7aa5b6e41054d2756bf692dcc880b74ef143ebef11f3712d",
+      "lines": 280,
+      "coordinator_read_complete": true
+    },
+    "H2_review_v2_b.md": {
+      "sha256": "5734a54316c49cf900bb421d838f670356127fffd2c90f362f75d6dd4b3ce3fe",
+      "lines": 242,
+      "coordinator_read_complete": true
+    },
+    "H2_integration_v2.md": {
+      "sha256": "c88e497ed2de173b0e1c478fbd3746a40f45cdfed809c218dd8e5dd6c516cf2a",
+      "lines": 244,
+      "coordinator_read_complete": true
+    }
+  },
+  "scientific_verdicts": [
+    "PASS",
+    "PASS"
+  ],
+  "integration_verdict": "FAIL",
+  "accepted_for_promotion": false,
+  "required_corrections": [
+    "R1: archive format incorrectly required optional supplied-state metadata",
+    "R2: guide says same law family instead of smaller ball and retains contradictory closure disclaimer"
+  ],
+  "coordinator": "/root",
+  "scope": "All original reports fully read and report/input/edition hashes verified. No v2 integration approval; preserve all adverse evidence. Corrected full v3 packet requires fresh complete gates."
+}
