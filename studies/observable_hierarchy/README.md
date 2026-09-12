@@ -116,3 +116,30 @@ deliberately expects pre-promotion source hashes.
 This milestone is complete. C-H2 finite autonomous closure and its convergence
 remain open, as do effective cutoff, quadrature and solver costs. No C-H2
 campaign or training experiment has been started, and no maintained code changed.
+
+## C-H2 continuation — 2026-09-12
+
+The user has now authorized theoretical work on a convergent finite autonomous
+closure, a minimal executable prototype, static deterministic checks, isolated
+research routes and independent review. No training experiments are authorized.
+The frozen C-H1 package above is preserved. Its candidate is byte-identical to
+the maintained C.4.7.8 subsection (verified at this continuation's startup).
+
+Current ownership: coordinator `/root` in task
+`01a0966c-d650-7512-91e9-5fd0298c2ad4` owns new `H2_*` coordinator files and
+this appended README section, and is the only Git writer for this continuation.
+Fresh isolated route agents own only `H2_route_prompt.md`,
+`H2_route_hierarchy.md`, and `H2_route_regularized.md`, respectively. They do
+not read one another's approaches before their first candidates are frozen.
+The first and third receive self-contained scientific prompts only; the second
+receives the frozen C-H1 candidate/dependencies, notation and designated
+established obstruction sections. No other studies are scientific inputs.
+Generated output stays under `data/generated/observable_hierarchy/H2_*/`.
+
+Startup HEAD: `d1f808a56f4b3ea010a42f1fc1f6bc165d383aa4`; index empty.
+Concurrent changes outside this study are preserved. All short Git transactions
+use the common nonblocking `pde-writer.lock` and explicit owned paths.
+
+The fixed research contract and route registry are in
+[H2_contract.md](H2_contract.md). The requested C-H2 theorem remains **open**
+while the routes are investigated; no finite closure has yet passed checking.
