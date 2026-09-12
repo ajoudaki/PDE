@@ -4,8 +4,9 @@ E₀ is **unresolved**. This study has not proved a common positive nonlinear
 advantage, a beneficial component effect beyond scalar speed, or a positive
 actual-network comparison. It has not disproved them either. Three fresh
 independent approaches produced exact comparison results and concrete
-obstructions to several proposed proof methods. A targeted balance follow-up
-is recorded separately when complete. No training experiment was run.
+obstructions to several proposed proof methods. A targeted readout/layer-balance
+follow-up was also completed and internally checked; it leaves explicit signed
+terms uncontrolled. No training experiment was run.
 
 The decisive missing result concerns the actual reached tanh geometry, not
 existence of the selected episode or sampling consistency. The comparison
@@ -116,6 +117,32 @@ on the ordinary families. The relevant swap symmetry cancels the pure
 symmetric cubic; it leaves a mixed antisymmetric–symmetric term whose sign
 is also unknown. The nonstationarity proof does not determine it.
 
+The targeted follow-up
+[GEOMETRY_SIGN_FOLLOWUP.md](GEOMETRY_SIGN_FOLLOWUP.md) tests whether the
+positive hidden-motion square in readout acceleration resolves that sign.
+It does not: even in the pure symmetric diagnostic, the exact second
+derivative of the readout norm is
+
+    (||c||²)''(0)
+      =8[||b||²-(H_mu[b,g_B]+H_B[b,b])/B_s],                (S4a)
+
+where b is the full projected residual force, B_s=||g_B||²>0 is reference
+anchor-contrast conditioning, and H_mu and H_B are the signed-residual and
+anchor-contrast directional Hessian forms. Both remaining contractions are
+uncontrolled and have the same order as the positive square. This diagnostic
+is not an admissible replacement of the fixed ordinary target family by a
+target defined around F_*.
+
+The follow-up also proves exact tanh saturation balances using a finite
+renormalized middle-action increment, preserving the reused initialized
+Gaussian action and its actual adjoint. The scalar saturation defect has a
+known sign relative to its preactivation, but the balance integrates it against
+different correlated fields and a signed control measure. Consequently these
+balances supply no risk or component sign. Conditional next-derivative
+identities likewise retain a same-order signed curvature term; the needed
+extra derivatives and evaluated remainder are not claimed. The complete
+internal balance check is [INTERNAL_BALANCE_CHECK_H.md](INTERNAL_BALANCE_CHECK_H.md).
+
 Two independently interpretable controls were supplied:
 
 - G removes the prediction-space projection of K'_0r0 onto K_0r0, the
@@ -217,6 +244,14 @@ of the *actual constrained tanh evolution* predicting which ordinary task
 components receive beneficial reweighting, with enough finite-time control
 to dominate interactions. Increasing a Fourier cap, restating conditioning,
 or proving more unsigned continuity does not close it.
+
+The unresolved obligation can be stated without any Taylor expansion: prove
+uniformly on a declared ordinary robust family that the actual W_T in (S1)
+satisfies <z_T,W_T>_p-||W_T||_p²>=a/4, and separately certify beneficial
+relative component recovery after an independently defined scalar-clock
+control, with finite interaction bounds. The routes give neither inequality.
+This is a failure to resolve the requested existence question after substantive
+alternative approaches, not a failed empirical test or an impossibility result.
 
 No initialized-NTK superiority, unknown-structure discovery, trained-shallow
 separation or resource-efficiency conclusion follows. No established book or

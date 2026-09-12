@@ -132,7 +132,62 @@ counterexamples pass internal reconstruction. The actual signed neural
 interaction and beneficial component sign remain open. The pointwise kernel
 order counterexample concerns a different flow, not the E₀ network.
 
+Typographical clarification for the unchanged frozen E report: its opening
+description of the raw norm as a sum of squares means the **squared** raw
+norm. Its formulas and this study's metric contract use the correct metric.
+This does not alter any stated bound or scientific conclusion.
+
+## G follow-up: readout and tanh saturation balances
+
+Complete input read: GEOMETRY_SIGN_FOLLOWUP.md, SHA256
+`7400b12eb9655a24f8ba23af2fd41b60733947ca5fc184850d2629eafd980719`.
+
+Checks performed:
+
+- Differentiated the projected force with both the anchor span and residual
+  changing. The normal term in B8 and all factors in B9 are retained.
+  Pairing the actual acceleration with the readout direction gives B10;
+  swap parity removes only the displayed residual-feedback cross term in
+  its pure symmetric diagnostic. The two anchor/curvature contractions
+  remain at the same order as the positive squared norm.
+- Recomputed the reference contrast factors My=2B_s y and
+  GM^-1 y=g_B/B_s. These give precisely B11. Positive B_s does not
+  determine the numerator's sign.
+- Checked the finite renormalized middle-action quantity in B12. The raw
+  initialized Gaussian action is bounded but not assumed Hilbert–Schmidt.
+  The reached increment is nuclear: its reference and selected velocities
+  are integrable rank operators. The trace pairing with the initialized
+  action is continuous in the nuclear norm. Thus differentiation of B12
+  uses finite terms, not a difference of undefined infinite norms.
+- Substituted the actual middle and row velocities and the actual adjoint
+  into the norm derivatives. This yields B13–B14 with the factor -4.
+  The scalar tanh defect is odd, bounded by one and nondecreasing, but its
+  multiplier and signed control measure prevent a sign inference.
+- Directly differentiated the quadratic prediction energy under the
+  additional hypotheses explicitly stated in B15–B16. The coefficients
+  -48 and +4 in B15, and 8 in B16, are correct. The positive square in
+  B16 has a same-order signed partner. These conditional identities prove
+  neither the extra derivative hypotheses nor a finite E₀ margin.
+- Confirmed the follow-up returns to the original fixed family. Its
+  reference residual cannot be made small merely by decreasing the family
+  coefficient scale, and the symmetric diagnostic is not a new target
+  family centered on the trained prediction.
+
+Disposition: exact reached-curve balances are internally checked. No actual
+favorable sign, beneficial component inequality or successful E₀ theorem
+follows. The frozen original routes and family definitions are unchanged.
+
+## Cross-check reports read by root
+
+Root read INTERNAL_CROSSCHECK_E.md, INTERNAL_CROSSCHECK_H.md and
+INTERNAL_BALANCE_CHECK_H.md completely, including scope and caveats. Their
+input hashes match the frozen files. All give no required scientific
+correction within their assigned scope; none claims E₀ is proved. The last
+report's explicit rank-series construction additionally verifies the trace
+legitimacy in B12, with ||K_dagger||_nuc<=50 and selected increment at most
+c_b A_s tau. All report and input hashes are in SOURCE_AND_CHECK_RECORD.md.
+
 All checks above are manual algebraic reconstruction against complete frozen
 inputs and the recorded established sources. No numerical training or formal
 proof checker was used. The rational upstream certificate has a separate
-executed check. The active follow-up preserves the frozen initial reports.
+executed check. These checks are internal, not independent promotion reviews.

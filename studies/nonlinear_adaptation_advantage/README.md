@@ -1,7 +1,9 @@
 # E₀: The benefit of nonlinear adaptation
 
-Status: E₀ unresolved; initial independent routes frozen and checked, targeted
-sign follow-up active. No result promoted. Started 2026-09-12.
+Status: **E₀ unresolved**. Three independent routes and the targeted sign
+follow-up are frozen and internally checked. This investigation is recorded
+with an exact open obligation; E₀ is not complete. No result promoted.
+Started and final checkpoint recorded 2026-09-12.
 
 The question is whether actual nonlinear constrained evolution after fitting
 the established two-anchor reference has a robust, structurally explained
@@ -31,8 +33,10 @@ independent initial routes were kept isolated until their candidates froze.
 Their full reports are [geometry](ROUTE_GEOMETRY.md),
 [harmonics](ROUTE_HARMONICS.md), and [energy](ROUTE_ENERGY.md).
 Root read all three completely and reconstructed their scoped claims in
-[ROOT_ROUTE_CHECK.md](ROOT_ROUTE_CHECK.md). The geometry author is pursuing
-one targeted readout/hidden-balance sign follow-up in a separate flat file.
+[ROOT_ROUTE_CHECK.md](ROOT_ROUTE_CHECK.md). The targeted
+[readout/hidden-balance follow-up](GEOMETRY_SIGN_FOLLOWUP.md) is also complete.
+Its exact balances retain same-order signed anchor and curvature interactions;
+no favorable sign follows from the positive squared-norm terms alone.
 
 The current synthesis and precise scientific gaps are in
 [STUDY_REPORT.md](STUDY_REPORT.md). Exact Duhamel comparison, actual O(T²)
@@ -46,8 +50,12 @@ actual-GF transfer are conditional on the still unproved population E₀ margin.
 The energy author independently derived the same frozen sampling bound before
 reading this note, then checked it in full after freezing. Its original
 [internal report](INTERNAL_CROSSCHECK_E.md) finds no required correction.
-The harmonic author is checking the root and geometric notes. These are
-internal checks, not the workflow's isolated promotion reviews.
+The harmonic author checked the root and geometric notes in full in
+[INTERNAL_CROSSCHECK_H.md](INTERNAL_CROSSCHECK_H.md), then separately checked
+the complete balance follow-up in
+[INTERNAL_BALANCE_CHECK_H.md](INTERNAL_BALANCE_CHECK_H.md). Root read all
+reports completely and verified their frozen input hashes. These are internal
+checks, not the workflow's isolated promotion reviews.
 
 The deterministic reference Gaussian certificate was freshly reproduced with
 all exact rational assertions passing (Python 3.10.12). Run:
@@ -59,12 +67,26 @@ python3 studies/nonlinear_adaptation_advantage/DETERMINISTIC_CHECKS.py --output 
 Evidence is in
 `data/generated/nonlinear_adaptation_advantage/reference_certificate_20260912/result.json`.
 This checks an upstream constant; it is not a training experiment or evidence
-of an E₀ advantage. Initial contract commit: `1bed52e`.
+of an E₀ advantage. Initial contract commit: `1bed52e`; independent-route and
+comparison checkpoint: `e3d0021`.
 
-## Next authorized action
+## Route disposition and reopening criterion
 
-Complete the targeted actual-neural sign follow-up and remaining internal
-checks, preserve the exact route/gap disposition, and commit the scoped
-study artifacts. Successful promotion would require the workflow's separate
-relevance, paired isolated review, standalone validation, integration review
-and user-approval stages. There is no successful candidate for that process.
+| Approach | Retained result | Decisive missing obligation |
+|---|---|---|
+| Geometry | Full constrained-curvature cubic and finite remainders | Actual cubic and beneficial component signs on its ordinary family |
+| Harmonics | Active robust bands; failure of Fourier diagonalization and symmetry-only sign arguments | A signed actual-neural interaction between the bands |
+| Energy | Exact finite-time risk identity, scalar-clock criterion and relative-gain bound | Favorable signed trajectory integral with a finite positive margin |
+| Targeted balance follow-up | Exact projected readout and tanh saturation balances | Control of the remaining same-order signed anchor/curvature terms |
+
+No route proves failure on an admitted actual-neural family or an obstruction
+to E₀ itself. Reopening requires a new signed property of the actual constrained
+tanh flow, or a rigorously bounded evaluation of that property over a declared
+ordinary family. Further unsigned continuity or an isolated favorable time
+derivative cannot close the gap. The shared-sample and ordered actual-network
+bridge is ready to use if the missing population margin is established.
+
+Successful promotion would require the workflow's separate relevance, paired
+isolated review, standalone validation, integration review and user-approval
+stages. There is no successful candidate for that process and no established
+book or code edit.

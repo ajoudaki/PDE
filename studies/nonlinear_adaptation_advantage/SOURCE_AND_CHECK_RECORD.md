@@ -73,8 +73,57 @@ Full environment and result record:
 
 ## Check and promotion status
 
-The root comparator/sampling draft was frozen for internal cross-check at
-SHA256 `d341800ae1b42a38b583514d18ced89c6118290fc2dc2456a9f93258776495c2`.
-Independent route results and checks will be recorded after their freeze.
-There is no successful E₀ candidate, no promotion packet and no established
-book/code edit. Study commits follow the shared writer lock with explicit paths.
+Three creative routes were started in fresh contexts with a neutral contract
+and explicitly restricted established-source scope. Their initial reports were
+frozen before any cross-route exposure. Geometry then pursued a targeted
+balance follow-up without seeing the other routes. The later checks are
+internal cross-checks, not isolated promotion reviews.
+
+Frozen study inputs and reports, SHA256 (paths relative to this folder):
+
+```
+0bbd681da93a44574fbe30d9ee7fd5a984105d363c473c7756f31964c2896c0f  RESEARCH_CONTRACT.md
+d341800ae1b42a38b583514d18ced89c6118290fc2dc2456a9f93258776495c2  COMPARISON_TRANSFER.md
+e452735f683a6f8c3e4e895949dbd8aa912f470bbdeb475bf676bce4a10b9c04  ROUTE_GEOMETRY.md
+43f46b4f15dff0127370765446a92f4c9a15514c3affeee6af9b8018de707225  ROUTE_HARMONICS.md
+01779adf6e60fde92fb6979c3e421b3bc5061850bc3051399714b7d4aa58993b  ROUTE_ENERGY.md
+7400b12eb9655a24f8ba23af2fd41b60733947ca5fc184850d2629eafd980719  GEOMETRY_SIGN_FOLLOWUP.md
+27c2768e719a7cc8c3e58a1e98a3fb3dc54c38752f65b815de631792733efced  INTERNAL_CROSSCHECK_E.md
+232a27180a435f10cd7aa1d87ec03746d41c102146bc89da724a671fdd30218e  INTERNAL_CROSSCHECK_H.md
+f0c6908b1ac9559297da247b0a2e4009fd8d880b123e8c5f6aded6c2118f75d2  INTERNAL_BALANCE_CHECK_H.md
+96eee2a5ac32871dc8bd9d9cb5c5f569cf8aa32ebf785d9fa26eb78be098582c  ROOT_ROUTE_CHECK.md
+aa745457d35d06ad318f39e4c7593e7d817b54d9dda11b2c1feead45513092df  STUDY_REPORT.md
+```
+
+Root read all three initial reports, the complete follow-up and all three
+internal cross-check reports. Their recorded scientific input hashes match
+the actual frozen files and the established source versions listed above.
+The shared instructions and established source hashes were unchanged at the
+final checkpoint. ROOT_ROUTE_CHECK.md records root's manual reconstructions,
+including the exact scope of counterexamples and conditional identities.
+
+| Internal check | Complete assigned input | Outcome |
+|---|---|---|
+| E | COMPARISON_TRANSFER.md | No required correction; positivity remains conditional |
+| H | COMPARISON_TRANSFER.md and ROUTE_GEOMETRY.md | No required correction; actual curvature/component signs open |
+| H balance | GEOMETRY_SIGN_FOLLOWUP.md | No required correction; trace/rank construction and factors verified; neural sign open |
+| Root | All three routes, follow-up and all internal reports | Scoped claims reconstructed; no successful E₀ theorem accepted |
+
+Frozen report bytes were preserved. INTERNAL_CROSSCHECK_E.md has a harmless
+extra blank line at EOF; the commit whitespace check disables only that
+warning (`core.whitespace=-blank-at-eof`) rather than rewriting a hashed
+review. The squared-raw-norm wording clarification for the frozen E route is
+recorded in ROOT_ROUTE_CHECK.md; its metric formulas are unchanged.
+
+The initial contract was committed as `1bed52e`; the independent routes and
+comparison checkpoint as `e3d0021`, using the nonblocking shared Git-writer
+lock and exactly enumerated study paths. No unrelated path was staged or
+committed. The final scoped checkpoint adds the completed follow-up/checks
+and updates the disposition. Generated products remain under the designated
+generated directory.
+
+**Final scientific disposition:** E₀ unresolved. The positive uniform risk
+margin and beneficial component sign are unproved. There is no successful
+candidate, no promotion packet and no established book/code edit. Internal
+checks and the upstream rational certificate cannot substitute for those
+missing results or for the workflow's promotion process.
