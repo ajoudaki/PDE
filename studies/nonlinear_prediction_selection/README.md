@@ -163,3 +163,7 @@ identification, resource, exploration and review requirements. Three fresh
 scoped agents informed that assessment; it changes no established result and
 launches no task or experiment. `/root` owns these strategy artifacts and their
 Git writes; the two named assessment agents own their respective reports.
+The user's subsequent scope clarification is explicit in the C prompt: one
+model-derived approximation sequence must have proved arbitrary-accuracy
+convergence in the restricted regime and a naturally defined, numerically
+testable construction on a substantially broader declared family.

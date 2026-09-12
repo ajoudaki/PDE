@@ -43,6 +43,19 @@ Prove an effective sufficient admission condition or checkable certificate.
 An instance-dependent theorem is acceptable; arbitrary Borel inputs and
 uniformly practical accuracy for every tiny perturbation are not required.
 
+**One mechanism for both scopes.** Derive one model-based approximation
+sequence whose initialization, causal updates and refinement parameters are
+naturally defined on a substantially broader declared family of configurations
+of this same model. The restricted assumptions may be needed to prove
+convergence, but special identities of that regime must not be essential to
+defining the numerical dynamics. Prove arbitrary-accuracy convergence on the
+certified family, with no intrinsic approximation floor; make convergence of
+the same sequence numerically testable on the broader family without fitting
+a new closure or redesigning the mechanism. Separate the broader derivation
+from unproved existence or convergence there. A broadly accurate empirical
+surrogate with no proved regime, or a narrow proved solver with no natural
+broader construction, does not complete C.
+
 Digest C.4.7 and C.4.9 completely, with their necessary complete established
 dependencies and observation contracts. Inspect the relevant complete
 integrated-query results in `docs/gaussian_calculus.md` and §13 of
