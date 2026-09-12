@@ -119,11 +119,15 @@ campaign or training experiment has been started, and no maintained code changed
 
 ## C-H2 continuation — 2026-09-12
 
-**C-H2 is complete at the requested qualitative research scope.** The exact
-population theorem and limited executable prototype have passed two fresh
-complete scientific reviews and a distinct fresh integration review. The
-[concrete promotion proposal](H2_promotion_proposal_v3.md) awaits user approval;
-no maintained book/code file has changed. The frozen C-H1 package is preserved.
+**C-H2 is promoted with explicit user approval.** The exact reviewed theorem
+is established in [C.4.7.9](../../docs/global_nonlinear.md#c479-finite-autonomous-observable-closure),
+with the [maintained prototype](../../code/pde/observable_closure.py) and its
+static tests. Two fresh complete scientific reviews and a distinct fresh
+integration review passed. The user approved the unchanged
+[five-file proposal](H2_promotion_proposal_v3.md) with “I approve”. The
+[promotion record](H2_promotion_record_v3.json) retains approval, exact final
+hashes and live checks. The frozen C-H1 package is preserved; its preceding
+README section remains the historical record of that earlier milestone.
 
 The [full proof](H2_proposed_section_v3.md) constructs two current joint
 population laws and a finite matrix of initialized-observable action
@@ -153,7 +157,7 @@ or empirical campaign ran. C-H3 and C-H4 remain separate open milestones.
 The current [book guide](H2_docs_README_v3.md), [code guide](H2_code_README_v3.md),
 [exact five-file diff](H2_promotion_diff_v3.patch) and
 [file mapping](H2_promotion_mapping_v3.json) specify the complete addition.
-The proposed chapter destination is C.4.7.9 immediately before C.4.8; removing
+The incorporated chapter destination is C.4.7.9 immediately before C.4.8; removing
 only that insertion restores every byte of the original chapter, including C-H1.
 
 Original final reports: [scientific A](H2_review_v3_a.md),
@@ -179,20 +183,23 @@ Those were corrected in v3 and all gates were rerun with fresh isolated agents.
 [Original static witness sources](H2_review_evidence_sources_v3.json) are retained
 in this flat study, with outputs in the corresponding generated directories.
 
-Reproduction from the repository root, choosing fresh output directories:
+Live post-promotion reproduction from the repository root, choosing a fresh
+output directory:
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
-python -B studies/observable_hierarchy/H2_test_prototype_v3.py
-python -B studies/observable_hierarchy/H2_assemble_edition_v3.py --output data/generated/observable_hierarchy/H2_reproduce_v3
-python -B studies/observable_hierarchy/H2_validate_edition_v1.py --edition data/generated/observable_hierarchy/H2_reproduce_v3 --output data/generated/observable_hierarchy/H2_reproduce_validation_v3
-python -B studies/observable_hierarchy/H2_check_documents_v3.py --edition data/generated/observable_hierarchy/H2_reproduce_v3
+python -B studies/observable_hierarchy/H2_check_promoted_v3.py --output data/generated/observable_hierarchy/H2_live_reproduce_v3
 ```
 
-The checked final edition is data/generated/observable_hierarchy/H2_edition_v3/;
-coordinator logs are in H2_validation_v3/. Each reviewer reproduced it in a
-separate scratch directory. All 14 tests, the exact guide example, imports,
-new link and source-preservation checks pass. Generated products are not committed.
+The frozen pre-promotion assembly recipe and document checker deliberately
+expect the old live hashes. Use H2_check_promoted_v3.py after promotion. It
+checks the five exact approved live hashes, all other frozen inputs, original
+reports, seven complete dependency excerpts, the whole old chapter and C-H1.
+It reruns all 14 installed tests, the verbatim API example, imports and new link.
+All passed in data/generated/observable_hierarchy/H2_promotion_v3/. The retained
+standalone edition is H2_edition_v3/ and earlier coordinator logs are in
+H2_validation_v3/ within that generated namespace. Each reviewer reproduced
+the edition separately. Generated products are not committed.
 
 Ownership: coordinator `/root`, task `01a0966c-d650-7512-91e9-5fd0298c2ad4`,
 owns this appended section and coordinator H2_* files and is the only Git
@@ -204,6 +211,13 @@ separate generated scratch. All scoped commits used the nonblocking common
 pde-writer.lock, explicit owned paths and staged-list verification. Concurrent
 work was preserved; no other study supplied scientific inputs.
 
-Next action is approval of the exact reviewed five-file proposal, then its
-scoped integration and correspondence check under workflow Part 2.5–6. The
-current research authorization does not include promotion or a training campaign.
+The approved package was applied without scientific or implementation changes.
+An additional scoped read-only integrity check by `/root/h2_promotion_integrity`
+confirmed the frozen package immediately before application; it is metadata
+verification, not an additional scientific review. The original proposal and
+acceptance documents retain their pre-approval status as frozen snapshots;
+the promotion record is the current incorporation record.
+
+C-H2 is complete at the stated qualitative scope. No further research or training
+campaign is running. Practical certified computation and longer-time continuation
+remain C-H3 and C-H4, with no additional result asserted here.

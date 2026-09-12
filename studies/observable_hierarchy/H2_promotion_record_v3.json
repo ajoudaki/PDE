@@ -1,0 +1,139 @@
+{
+  "version": 3,
+  "approval": {
+    "user_message": "I approve",
+    "date": "2026-09-12",
+    "task": "01a0966c-d650-7512-91e9-5fd0298c2ad4",
+    "scope": "Exact reviewed five-file package in H2_promotion_proposal_v3.md"
+  },
+  "base_head": "534f74da60b4be08e2a6b811c2f78e78909c3276",
+  "approved_artifact_hashes": {
+    "studies/observable_hierarchy/H2_promotion_proposal_v3.md": "4aef063a3018460f9b482233ba00c25e1fd6a2f24193e70ce134727f75fa9d13",
+    "studies/observable_hierarchy/H2_promotion_diff_v3.patch": "0e6dd6c1ecba138c4492034adf39833b148e7ebe967144a2711785c9a2d8a81e",
+    "studies/observable_hierarchy/H2_promotion_mapping_v3.json": "d8b305ed38f92057e23cf1fedfcbb923d7b55c6d000f59a357f91a7f07ff0f4e",
+    "studies/observable_hierarchy/H2_review_acceptance_v3.json": "b2a33d7775245a9d1368c3072caf1d527dabe9733da496bf6cb312dfc56bd603"
+  },
+  "mapping": {
+    "docs/global_nonlinear.md": {
+      "old_sha256": "434b3e6bfcdd71576e271ea35910fc1994b3a9c1bfb01acad92f302bdeb07e14",
+      "proposed_sha256": "947eb52f10a8ebcd4970fa2acb1d26cba25dc5d73e8839893d5d2f4e3f688161"
+    },
+    "docs/README.md": {
+      "old_sha256": "a402cd21b58fe889500ca9ba9e79aa8d2e1fbbbe371ea2a577f3fafdae69455d",
+      "proposed_sha256": "269f481c6198971875ec22cb1b7e451ad0f3fbf3fe21a41be42a72dd49ae7ce2"
+    },
+    "code/README.md": {
+      "old_sha256": "3cb90e55b630870c391e56158432a909fc60872b4af724756b2be19884ef7d6e",
+      "proposed_sha256": "3ffc27a58e8e090828fbac3f7d4b86c9e33f4ff5cdd7b0690e086364e8e82731"
+    },
+    "code/pde/observable_closure.py": {
+      "old_sha256": null,
+      "proposed_sha256": "f8dc5d16e5de1737444c44aae737ee1c9b4d664188d72f59acd0bb92f457c137"
+    },
+    "code/tests/test_observable_closure.py": {
+      "old_sha256": null,
+      "proposed_sha256": "ecc60bfd7eec882c8ae05140d756f6ec8cf90909b6317aab2c126b3c27439635"
+    }
+  },
+  "C_H1_README_prefix_sha256": "6b9926713b4ca073df8fc5a2df67ecfd2109b71ff42e4a8dff790cf2acee1929",
+  "preflight": {
+    "both_frozen_input_manifests_verified": true,
+    "all_original_reports_verified": true,
+    "four_reviewed_editions_verified": true,
+    "all_old_destinations_matched": true,
+    "exact_patch_check_passed": true,
+    "index_empty": true
+  },
+  "status": "Promoted unchanged with user approval; all live correspondence and affected static checks PASS",
+  "promotion_commit": null,
+  "live_validation": {
+    "status": "PASS",
+    "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+    "platform": "Linux-5.15.0-151-generic-x86_64-with-glibc2.35",
+    "environment": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "PYTHONPATH": "/home/amir/Codes/PDE/code",
+      "H2_TEST_SCRATCH": "/home/amir/Codes/PDE/data/generated/observable_hierarchy/H2_promotion_v3/scratch"
+    },
+    "checker_sha256": "acbbb93acb8ae45664714cb7b292ac08f35db87df1cc359eccf1c8dabb37b09a",
+    "final_hashes": {
+      "docs/global_nonlinear.md": "947eb52f10a8ebcd4970fa2acb1d26cba25dc5d73e8839893d5d2f4e3f688161",
+      "docs/README.md": "269f481c6198971875ec22cb1b7e451ad0f3fbf3fe21a41be42a72dd49ae7ce2",
+      "code/README.md": "3ffc27a58e8e090828fbac3f7d4b86c9e33f4ff5cdd7b0690e086364e8e82731",
+      "code/pde/observable_closure.py": "f8dc5d16e5de1737444c44aae737ee1c9b4d664188d72f59acd0bb92f457c137",
+      "code/tests/test_observable_closure.py": "ecc60bfd7eec882c8ae05140d756f6ec8cf90909b6317aab2c126b3c27439635"
+    },
+    "frozen_input_count": 33,
+    "original_reports_unchanged": 3,
+    "complete_dependency_excerpts": 7,
+    "frozen_C_H1_preserved": true,
+    "full_old_chapter_preserved": true,
+    "new_guide_fragment": "c479-finite-autonomous-observable-closure",
+    "checks": [
+      {
+        "command": [
+          "/usr/bin/python",
+          "-B",
+          "code/tests/test_observable_closure.py"
+        ],
+        "cwd": "/home/amir/Codes/PDE",
+        "exit": 0,
+        "output": "/home/amir/Codes/PDE/data/generated/observable_hierarchy/H2_promotion_v3/check_0.log",
+        "sha256": "41ace0d8575bd437ceb8dff7c1bd2422272b7bc30bb9a4e2ee648d63660104b0"
+      },
+      {
+        "command": [
+          "/usr/bin/python",
+          "-B",
+          "-c",
+          "from pde import observable_closure as closure\n\nstate, initialization_program = closure.initialize(\n    1, closure.QuadratureLimits(order=5, max_nodes=100000)\n)\ndata = closure.DataLaw([[1., 0.], [0., 1.]], [1., -1.], [0.5, 0.5])\nvelocity = closure.rhs(state, data)\nvalues = closure.fields(state, data.inputs)\npaired, probabilities = closure.joint_observe(\n    state,\n    [closure.frozen_z20((1., 0.)),\n     closure.action(closure.unary(\"tanh\", closure.seed(\"w1\")))],\n)\nassert values[\"f\"].shape == (2,)\nassert paired.shape[1] == 2\n"
+        ],
+        "cwd": "/home/amir/Codes/PDE",
+        "exit": 0,
+        "output": "/home/amir/Codes/PDE/data/generated/observable_hierarchy/H2_promotion_v3/check_1.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "command": [
+          "/usr/bin/python",
+          "-B",
+          "-c",
+          "from pathlib import Path; import pde, pde.observable_closure, numpy; assert Path(pde.observable_closure.__file__).resolve() == Path('/home/amir/Codes/PDE/code/pde/observable_closure.py'); print(numpy.__version__); print(pde.observable_closure.__file__)"
+        ],
+        "cwd": "/home/amir/Codes/PDE",
+        "exit": 0,
+        "output": "/home/amir/Codes/PDE/data/generated/observable_hierarchy/H2_promotion_v3/check_2.log",
+        "sha256": "23dcf1df8aba1bed1750afb8945a8aba87012ddf9e74db0353bc54a37c390b0e"
+      }
+    ],
+    "scope": "Exact approved mapping; installed static tests, API example, imports and link; no training."
+  },
+  "live_validation_record": {
+    "path": "data/generated/observable_hierarchy/H2_promotion_v3/validation.json",
+    "sha256": "efd4d95eb63bb35f091afaef7ae99a6189241668ceddca45856c874b5000140c"
+  },
+  "additional_integrity_check": {
+    "identity": "/root/h2_promotion_integrity",
+    "role": "Read-only metadata/static integrity; not scientific review",
+    "verdict": "PASS",
+    "observed_before_application": true,
+    "findings": [
+      "Five-file mapping exactly matches acceptance",
+      "Assembly manifest and all 18 payload hashes match; 19 files including manifest",
+      "Three report hashes and both 32-input manifest hashes match",
+      "All 33 unique review/integration inputs and 22 edition sources match",
+      "All five live destinations were at their original states",
+      "Seven patch hunks cover exactly five approved paths; reversing approved payloads restores originals"
+    ],
+    "mutations": false
+  },
+  "limitations": [
+    "separately fixed laws and fixed finite observation tuples",
+    "rho=delta/2, T=1/200; no law-uniform rate",
+    "exact-real population theorem; finite-law rational-word float64 quadrature prototype",
+    "no practical quadrature/error/cost guarantee, monotonic accuracy or longer-time solver",
+    "no training experiments performed"
+  ]
+}

@@ -1,8 +1,9 @@
 # C-H2 checks and comparison record
 
-Current status: C-H2 qualitative construction and convergence theorem complete
-and independently reviewed in v3; exact promotion proposal awaits user approval.
-No maintained promotion, training or empirical campaign has occurred.
+Current status: C-H2 qualitative construction and convergence theorem promoted
+in v3 after explicit user approval of the exact reviewed five-file package.
+Live correspondence and all affected static checks pass. No training or empirical
+campaign has occurred. Earlier entries below retain their chronological status.
 
 ## Source coverage and preservation
 
@@ -248,3 +249,38 @@ The final recommendation and approval boundary are in H2_promotion_proposal_v3.m
 The research milestone is complete at its exact qualitative scope. The next step
 is user approval of that specific five-file addition, followed by the workflow's
 live correspondence check and scoped integration; no such approval is inferred.
+
+## User-approved promotion and live correspondence
+
+On 2026-09-12 the user answered “I approve” to the exact five-file proposal.
+H2_promotion_record_v3.json retains that authorization, the approved proposal,
+diff/mapping/acceptance hashes, the pre-promotion HEAD and final hashes. The
+original proposal, acceptance and review packets remain unchanged snapshots.
+
+Before applying anything, the coordinator rechecked both complete input
+manifests, the three original reports, all 18 payloads in each of four identical
+reviewed editions and all five old destination states. The index was empty and
+the exact reviewed patch passed its applicability check. A separate read-only
+metadata check by /root/h2_promotion_integrity also found no discrepancy; this
+did not replace any scientific review. Only the approved five-file patch was
+applied, and every resulting live hash matched the accepted edition.
+
+H2_check_promoted_v3.py passed against the actual checkout. It verifies all 33
+unique frozen review/integration inputs with only the three approved existing
+destinations mapped to their new hashes, the three unchanged original reports,
+seven complete dependency excerpts, literal C-H1 preservation and restoration
+of the full original chapter by removing only C.4.7.9. It also checks preservation
+of the preceding C-H1 README section, the copied module and the new chapter link.
+
+All 14 installed static tests, the exact API example and actual maintained-module
+imports passed. Commands, environment, exit codes, log hashes and final source
+hashes are retained in the promotion record and in
+data/generated/observable_hierarchy/H2_promotion_v3/validation.json. Environment:
+Python 3.10.12, NumPy 1.26.4, Linux 5.15.0-151, one BLAS/OpenMP thread. No training
+or numerical convergence experiment ran. The old pre-promotion checkers remain
+frozen and intentionally require old live hashes; use the new checker now.
+
+The resulting theorem and finite-law float64 prototype have exactly the approved
+scope. No quadrature/resource certificate, law-uniform rate or longer-time solver
+is claimed. C-H3 and C-H4 remain open. Concurrent files and index ownership are
+preserved by explicit-path transactions under the common nonblocking writer lock.

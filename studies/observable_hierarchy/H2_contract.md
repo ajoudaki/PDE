@@ -1,6 +1,6 @@
 # C-H2 research contract and route registry
 
-Status: C-H2 qualitative theorem and prototype fully reviewed; promotion approval pending.
+Status: C-H2 qualitative theorem and prototype fully reviewed and promoted with explicit user approval.
 Date: 2026-09-12. Coordinator: `/root`, task
 `01a0966c-d650-7512-91e9-5fd0298c2ad4`.
 
@@ -88,4 +88,6 @@ Ridge normalization removes exact Gram-rank decisions; energy preserves c∞.
 A direct strong comparison proves the convergence. Complete fresh scientific
 and integration reviews passed for v3 after the recorded v2 interface corrections.
 See H2_checks.md and H2_review_acceptance_v3.json. The concrete five-file promotion
-proposal is ready; user approval remains outstanding.
+proposal was explicitly approved and applied unchanged as C.4.7.9 and the
+maintained observable_closure module/test. H2_promotion_record_v3.json retains
+approval, exact correspondence and passing live checks. C-H3 and C-H4 remain open.

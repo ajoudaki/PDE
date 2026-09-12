@@ -619,3 +619,130 @@ training loss on a width-independent initial interval. It does not evaluate
 that interval numerically, supply a width rate, or assert a universal or
 later-time benefit. The complete analytic error proof and finite calculation
 are both necessary for the sign; a floating positive estimate is insufficient.
+
+## Finite autonomous observable population closure
+
+`pde.observable_closure` exposes the finite population/action construction in
+[Global nonlinear learning, C.4.7.9](../docs/global_nonlinear.md#c479-finite-autonomous-observable-closure).
+Its exact-real population theorem is qualitative. This module is a minimal
+float64 quadrature prototype, with a finite weighted data-law API and static
+checks; it provides no trajectory solver or certified numerical accuracy.
+
+The model is bias-free two-hidden-layer tanh, with normalized directions
+`u=x/sqrt(2)`, stored Gaussian variances `(1,1/n,1/n^2)`, mobilities `(n,1,n)`,
+residual `f-y`, and physical unhalved mean-square loss. Population `c=0` is the
+limit of the actual random finite readout. No finite network is constructed.
+
+`State` retains two joint quadrature populations: `(b,g,w)` with two-dimensional
+`g,w`, and `(b,c)` with scalar readout `c`. Its `M` and fixed `D` are matrices
+indexed by initialized observable features. All node probabilities and frozen
+marks are saved. The moving `w,c` values are unrestricted characteristic values
+at quadrature nodes, not expansions in the features. Arrays are copied by state
+constructors; they remain mutable for supplied-state work and are revalidated
+on evaluation. Changing a frozen mark changes the model.
+
+`initialize(order, limits)` builds the explicit word prefix and fixed two-orientation
+pilot, retaining duplicate bounded dictionary outputs. It computes uncentered
+Gaussian input Grams and every earlier opposite-source response coefficient,
+with derivatives in frozen named Gaussian coordinates. Both forward and reverse
+calls reuse that joint source program. It compiles the raw forward contractions
+before extracting either population, then uses the prescribed ridge `2**(-N)`.
+The returned `GaussianProgram` and fixed diagnostic metadata expose this producer.
+The operational RHS never calls it.
+
+`fields(state, inputs)` returns `h1,a,z2,h2,delta2,d,q,f` for a nonempty `(m,2)`
+direction array. `DataLaw` takes a nonempty `(m,2)` array of unit directions,
+finite labels, and nonnegative probabilities summing to one. This discrete data
+API does not cover all nonatomic laws of the exact theorem. `loss` and `rhs` use
+those probabilities; `rhs` returns the moving `w,c,M` velocities. The only action
+is the finite feature contraction
+
+```text
+b2 @ M @ (b1.T @ (probability1[:,None] * values)).
+```
+
+Its reverse uses the same `M.T` and the other population weights.
+`apply_action` accepts values on the declared retained quadrature population;
+it is a finite contraction, not an arbitrary Gaussian-action oracle.
+`observe` evaluates finite typed words with `g1,g2,w1,w2,c`, rational scalings,
+addition, bounded products, `sin,cos,tanh` and both action orientations.
+`frozen_z20(v)` uses `D` and frozen `g`. `joint_observe` returns a same-population
+coordinate matrix with its probabilities, preserving current/frozen correlations.
+This rational-mark API is a subset of the real-mark mathematical observation
+language. Evaluating a fixed finite input batch does not certify a circle supremum.
+
+`save_restart` and `load_restart` preserve the entire current state, fixed data
+law and an optional metadata dictionary with string keys and JSON-serializable
+values, without time or history. The writer
+sets the reserved `format` tag automatically, without mutating caller metadata;
+a supplied `State` with the default empty metadata round-trips without an
+initializer or private tag. Other metadata fields are preserved. Archives use no pickle.
+`algebraic_update` makes one simultaneous `state + step*velocity` map on `w,c,M`;
+it is not an exact flow solution or a guarantee of loss decrease.
+
+From the repository root with `PYTHONPATH=code`:
+
+```python
+from pde import observable_closure as closure
+
+state, initialization_program = closure.initialize(
+    1, closure.QuadratureLimits(order=5, max_nodes=100000)
+)
+data = closure.DataLaw([[1., 0.], [0., 1.]], [1., -1.], [0.5, 0.5])
+velocity = closure.rhs(state, data)
+values = closure.fields(state, data.inputs)
+paired, probabilities = closure.joint_observe(
+    state,
+    [closure.frozen_z20((1., 0.)),
+     closure.action(closure.unary("tanh", closure.seed("w1")))],
+)
+assert values["f"].shape == (2,)
+assert paired.shape[1] == 2
+```
+
+The initializer uses deterministic tensor Gauss–Hermite quadrature. Defaults are
+order 5, at most 100000 nodes per population, total independent Gaussian dimension
+at most 7 (including lower `g`), at most 32 named action sources, and covariance
+roundoff allowance `2e-11` times the declared local scale. The word decoder's
+prefix limit is 10000. Orders above 1074 are rejected for float64 ridge underflow;
+conditioning and tensor limits can stop much smaller orders. `ResourceLimit`
+reports a requested allocation beyond these caps. A failed compile may leave a
+partial compiler object, which must not be used as a completed initialization.
+
+At hierarchy order 1 the defaults yield 6 and 4 features, a `4 x 6` action block,
+and 625 and 3125 quadrature nodes. These are integration node counts, not widths.
+The default quadrature is coarse: it approximates `E sin(g)^2` by about `0.425679`,
+versus the analytic value `(1-exp(-2))/2`, about `0.432332`. The analytic source
+checks use quadrature order 15. No useful accuracy is claimed for the defaults.
+
+All positive Gaussian innovations and regularized Gram modes are retained.
+Exactly zero innovation adds a named derivative coordinate without an independent
+Gaussian coordinate. A slightly negative Schur complement within the explicit
+allowance is set to zero and recorded in diagnostics; a larger negative value or
+unresolved covariance range raises `NumericalInitializationError`. Small positive
+roundoff innovations can increase tensor cost. Nonpositive regularized eigenvalues,
+nonfinite results and unrepresentable ridges are rejected without mode removal or
+substituted schedules. The floating square root is not an interval certificate.
+Numerical `||D||` is reported, not rescaled to enforce the exact operator bound.
+
+There is no quadrature-error certificate, extreme-range guarantee, monotonic
+accuracy claim, or convergence theorem when N grows with a fixed quadrature rule.
+Exact hierarchy-order convergence and approximation of any fixed order's integrals
+are distinct limits. Practical conditioning, quadrature and resource certification
+and a longer-time solver remain outside this module’s claims.
+
+The deterministic checks use analytic source/Stein identities, singular sources,
+named partials and forward-after-reverse reuse, ridge duplicates, actual transpose
+contractions, all matrix-coordinate and selected population-coordinate finite
+differences, the independent energy directional identity, paired observations,
+and one algebraic update followed by bitwise-equal restart. No training run is
+part of these checks. Run only this suite with:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
+PYTHONPATH=code python -B code/tests/test_observable_closure.py
+```
+
+`H2_TEST_SCRATCH` selects the temporary archive directory; no retained output is
+an input to these tests. `H2_PROTOTYPE_MODULE` can override the import for isolated
+checks; its installed default is `pde.observable_closure`.

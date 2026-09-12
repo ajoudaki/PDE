@@ -351,8 +351,10 @@ interval `[0,1/200]`. Its finite-alphabet joint populations have exact weak
 evolution through a finite higher level and an explicit cutoff limit within
 that level. Equal complete hierarchies at a reached state give equal future
 whole-circle predictions and the declared joint observations, including for
-matching realizations on another carrier. Finite closure convergence and
-effective evaluation of the cutoff limit remain open.
+matching realizations on another carrier. Section C.4.7.9 now supplies a separate finite autonomous population closure
+with qualitative convergence on a fixed smaller ball within that family,
+with the same time interval. Effective
+quadrature, finite-precision certification and useful solver cost remain open.
 
 **C-H2: one convergent finite autonomous closure.** Construct actual finite
 equations initialized from the canonical model, and prove their convergence in
@@ -364,6 +366,17 @@ joint laws, compactness and identification may provide a route to convergence
 without a single all-order weighted norm; realizability and identification of
 the limiting dynamics must be proved. A conditional estimate assuming a small
 omitted tail does not complete this milestone.
+
+Section C.4.7.9 establishes C-H2 on a fixed positive law ball and physical
+interval `[0,1/200]`. It retains two current joint populations and a finite
+matrix of initialized-observable coefficients, uses an explicit ridge schedule,
+and proves convergence directly to canonical GF. The convergence is uniform
+in time and input for predictions and uniform in time in `W2` for each fixed
+C-H1 observation tuple, including both action directions and paired hidden
+observations. The construction is autonomous and restarts from its own saved
+state. Its exact population integrals are not a certified practical solver;
+the accompanying prototype exposes initialization, evolution and observations
+with separate quadrature and arithmetic limitations.
 
 **C-H3: useful certified computation.** Make that same closure independently
 computable, with separate control of hierarchy, population/input quadrature,
@@ -385,15 +398,18 @@ solver. If C-H3 already proves this horizon, merge these two packages. A shorter
 certified interval alone does not complete C-H4.
 
 The strategic separation is between information, truncation, useful cost and
-continuation. C-H2 carries the principal unresolved theoretical risk. Existing
-fixed-order Gaussian-source derivatives are not temporal-jet tail estimates.
+continuation. C-H2's qualitative finite closure resolves the truncation step
+on its stated small nonlinear interval; useful certified cost and later
+continuation remain C-H3 and C-H4. Existing fixed-order Gaussian-source
+derivatives are not temporal-jet tail estimates.
 The Stieltjes representation disproved in *Gaussian and flow calculus*,
 Sections 7.2 and 10.2, is not a premise of this route. Rational or Padé-type
 closures remain options requiring their own justification. The same chapter's
 Section 6 excludes certain unrestricted same-norm algebra/jet estimates, and
 Section 10.4 excludes its specified Taylor closure; neither supplies a general
-impossibility theorem for current observable hierarchies. No particular closure,
-tail estimate or success of the later computation milestones is asserted here.
+impossibility theorem for current observable hierarchies. Beyond the C.4.7.9
+closure, no alternative closure or success of the later numerical-computation
+milestones is asserted here.
 
 The second purpose is reliable empirical investigation beyond conservative
 proof bounds. Make the construction reusable wherever its equations and
