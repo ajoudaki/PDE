@@ -1,6 +1,7 @@
 # Nonlinear selection generalization (milestone B)
 
-Status: active research; no milestone claim and no promotion proposal.
+Status: complete candidate arguments under assembly; independent relevance
+accepted, scientific and integration reviews still pending. Nothing promoted.
 
 ## Contract frozen before learning analysis
 
@@ -83,9 +84,9 @@ independently checked or promoted:
   unknown Fourier-tail estimate for that reference residual.
 - [Statistical lemma](sampling_lemma.md): root's separate input/noise Hilbert
   variance argument and explicit Osgood propagation on the slow horizon.
-- `attempt_continuation.md` is owned by continuation_route and is being
-  completed before integration. Its role is arbitrary-law construction,
-  original-mixture continuation, selection and actual finite-GF capture.
+- [Continuation route](attempt_continuation.md): complete candidate for
+  bounded Borel-law construction, original-mixture continuation, selection
+  and actual finite-GF capture.
 
 The independent agents started with fork_turns="none" and did not read each
 other's attempts before freezing. All three independently identified the
@@ -94,6 +95,27 @@ differ. No failed mechanism is being presented as a false target.
 After population_route froze its candidate, it was assigned an internal
 audit of the root's frozen finite-mode and statistical files. This later
 comparison is explicitly not an independent promotion review.
+
+The post-freeze internal comparisons are preserved in
+[finite modes and sampling](internal_modes_check.md) and
+[sampling/continuation interface](internal_sampling_interface.md). They check
+the principal algebra and supply explicit stability, source-radius and
+positive-horizon constants. Root's [combined bounds](combined_bounds.md)
+close the robust stopping, hidden contrast and sample threshold interfaces.
+These are author-side checks, not promotion reviews. Root read all three
+initial attempts and both full internal reports. Root saw the continuation
+file's final twenty lines shortly before its author marked the file frozen;
+root is an assembler, and this does not count as independent blind review.
+
+A fresh independent selector, who authored no result, read its scoped inputs
+and accepted one C.4.10 for assembly: [neutral assignment](relevance_assignment.md),
+[full disposition](relevance_report.md), report SHA-256
+`020c126d5d0d537ca9881320056fa877e2b7a5742ac75021c9beb949b64773ff`.
+The selected scope is bounded-law capture, continuum separation, finite-mode
+nonlinear approximation, separated input/noise sampling, and a robust
+unseen-risk/paired-hidden corollary. Redundant spectral/oracle developments
+remain study results. The first owned scoped commit is
+`eecb6433c8c6f7a73596488aa90f82f7c9d93082`.
 
 The established exact rational reference certificate was rerun successfully:
 [check source](check_reference_certificate.py), generated report
@@ -104,9 +126,13 @@ Reproduce with
 `python3 studies/nonlinear_selection_generalization/check_reference_certificate.py data/generated/nonlinear_selection_generalization/<fresh-directory>`.
 No training experiment was run.
 
-Current scientific gap: the full integrated theorem has not yet been
-assembled or audited. Each learning argument retains the continuum
-continuation premise until its separate proof is accepted. Next authorized
-action: compare the frozen attempts, verify every bridge, prepare the
-smallest complete candidate, then obtain fresh relevance, scientific and
-integration reviews before requesting approval for established changes.
+Current gate: the full integrated theorem is being assembled, with all
+mathematical interfaces supplied as candidates. There is no identified
+persistent GF obstacle warranting a change of algorithm. The canonical
+assembly uses one source-based gradient modulus consistently for continuation,
+sampling and hidden contrast, replacing redundant endpoint constants.
+Next authorized action: freeze the actual proposed addition and complete
+dependency packet; obtain two fresh complete adversarial scientific reviews;
+validate a standalone proposed edition and obtain a separate fresh integration
+review; then present the concrete unchanged package for promotion approval.
+No established file may change before those gates and user approval.
