@@ -1,11 +1,18 @@
 # Two-hidden-layer feature learning and test-risk improvement at matched training loss
 
 Started 2026-09-10. This is the single current research record.
-**2026-09-12 promotion update:** the user authorized incorporating this exact
-signed result as C.5. [The current promotion record](C5_PROMOTION_RECORD.md)
-supersedes the old C.4 destination and whole-guide replacement. The existing
-scientific result is unchanged; the current C.4 book branch is preserved.
-Fresh C.5 scientific/integration gates are in progress before installation.
+**2026-09-12 promotion update: incorporated as C.5.** The complete proof is now
+in [the maintained chapter](../../docs/global_nonlinear.md#c5-early-test-risk-advantage-over-frozen-features-at-matched-training-loss),
+with its [standalone certificate tool](../../code/tools/two_layer_risk/README.md).
+[The current promotion record](C5_PROMOTION_RECORD.md) records user approval,
+two fresh complete scientific acceptances, separate integration acceptance,
+exact installed hashes, checks and commits. It supersedes the old C.4 destination
+and whole-guide replacement. Existing C.4 material, the roadmap and unrelated
+work are preserved. The scientific result and its limitations are unchanged.
+
+The following September 10 research and original-promotion account is retained
+as history; its statements that established files are unchanged or approval is
+still pending describe that earlier checkpoint, not the current status.
 **Scientific status: complete, internally checked positive finite-time comparison.**
 Both fresh complete scientific audits accepted the signed theorem with no
 required corrections. This is a study result; established book/code are unchanged.

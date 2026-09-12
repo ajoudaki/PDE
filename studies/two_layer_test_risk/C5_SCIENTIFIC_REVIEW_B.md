@@ -1,0 +1,123 @@
+# C.5 scientific promotion review B
+
+**Verdict: ACCEPT the frozen scientific candidate and its stated computer-assisted coefficient certificate.** No required scientific, implementation, or evidence correction remains. Acceptance is restricted to the exact fixed two-hidden-layer tanh model, three-point design, mean loss, uniform-circle teacher, local matched-loss comparison, and limit order stated in C.5. It is not an integration review, permission to change the frozen material, or user approval of promotion.
+
+Reviewer identity: `/root/c5_scientific_b`, a fresh independent reviewer, distinct from every author/assembler and the selector named in the manifest. Date: 2026-09-12. This report did not use another review, historical verdict, author study README, another study, Git history, live research results, or external scientific premises. No Gaussian coefficient integration, resolution change, training run, or search was performed. The two authorized completed coefficient calculations were assessed from their supplied primitive bits; all fresh calculations were bounded exact reconstruction, arithmetic checks, or supplied finite tests.
+
+## Frozen inputs and complete reading coverage
+
+Frozen root: `/home/amir/Codes/PDE/data/generated/two_layer_test_risk/c5_promotion_20260912_v2/`. Paths below beginning `packet/`, `edition/`, `evidence/`, or `reviewer_b/` are relative to that root. The exact assignment SHA256 is `84cdca2a537dc16309d0511800ac1d80c7fd1199aac17e178a7a64448295c60d`; the frozen manifest SHA256 is `bff8f94655977a14491d3777463513069a1895bf2eaea7f924e6e58802b31941`.
+
+I read every line of the following operative scientific and source inputs:
+
+| Input | Complete coverage |
+|---|---|
+| `scientific_assignment.md`, `manifest.json` | Entire assignment, manifest fields, author/assembler list, source/destination/packet/edition/evidence hashes and configuration |
+| `packet/candidate.md` | All 1,736 lines, every statement, proof, table, formula and interface specification |
+| `packet/dependencies.md` | All 1,775 lines: complete Section 2, Section 3.1–3.4, A.1–A.4, C.1–C.3, and weighted-loss correction |
+| `packet/NOTATION.md` | All 98 lines |
+| `packet/original_numerical_source.py` | All 382 lines, including the executed numerical loop and original operational wrapper |
+| Before/after theory guide | All 580 lines of `packet/docs_README.md.before` and all 578 lines of `edition/docs/README.md` |
+| Before/after code guide | All 591 lines of `packet/code_README.md.before` and all 621 lines of `edition/code/README.md` |
+| Tool sources and guide | All lines of the six `edition/code/tools/two_layer_risk/` files: `certificate.py` 429, `certificate_kernel.cpp` 236, `angle_error_bound.py` 88, `check_driver.py` 140, `check_kernel.py` 161, `README.md` 169 |
+| Raw evidence | Both complete run directories, 580 files each: all metadata/constants/results/compile logs and all 64 nodes' lower/upper inputs, primitive output bits, stderr, audit records, and enclosures |
+
+Scientific reading of the older chapter was limited to the operative proof bodies above. Byte correspondence located those complete units in `packet/docs_global_nonlinear.md.before` at actual lines 185–503, 1840–1896, and 2454–3834. The candidate occurs verbatim once in the standalone edition chapter. The C-unit orientation paragraph in the dependency extraction omits the unrelated C.4 overview and removes its local C.1/C.3 labels; the complete operative proof bodies remain unchanged. Other chapter files in the manifest were checked for hash identity only, not used as additional premises. `original_candidate.md` was hashed but was not an additional scientific premise or duplicate scientific reading.
+
+Truncations were repaired. The combined tool-source read truncated part of the tool guide; I reread the entire 169-line guide. Large theory-guide reads truncated their middle portions; I reread before-guide lines 301–430 and 431–460, and after-guide lines 301–455. No candidate or dependency proof body remained truncated. An initial skill lookup at an incorrect system location failed; the actual `/etc/codex/skills/solve-math-rigorously/SKILL.md` was then read completely. I also read `/etc/codex/skills/investigate-conjectures/SKILL.md` and its complete `references/research-contract.md` and `references/adversarial-audit.md`. These supplied the rigorous and adversarial review process. No external theorem was required or imported.
+
+Every one of the manifest's 8 packet, 18 edition, and 1,160 evidence file hashes matched, as did the separately checked assignment hash. The full per-file hash inventory is `reviewer_b/input_hashes.json`, SHA256 `d6fc9913b14d6692646c8aa1b60edbe4fa5f2176a871c39720c734f5b288f8de`. This identifies exact inputs, including hash-only correspondence inputs, without implying that unrelated chapter proofs were reviewed.
+
+## Scientific audit and component verdicts
+
+| Component | Verdict and decisive reasoning |
+|---|---|
+| Model and normalization | PASS. Input division is by sqrt(2), hidden storage already has variance 1/n, output is divided by n, and raw mobilities are (n,1,n). The mean-loss derivative is 2/3, residual is f−y, and p=y/3. Neither an additional hidden normalization nor a summed/half-loss clock was inserted. The Gram has rank two with the stated cosines; it is never whitened or inverted. |
+| Strong population flow and probes | PASS. C.1 supplies the correctly typed flow retaining the actual operator and adjoint, vanishing stored-readout perturbations, arbitrary deterministic eta_n→0 and finite GF. Its complete response/tail construction, one-reference cutoff comparison and limit order were checked, including C.2's causal cap selection and weighted single-slot pulse. C.5 uses only the bounded tanh specialization. |
+| Passive whole-circle capture | PASS. The two nonparallel first-layer inputs span the input plane, so C5.9 is an exact linear identity for finite parameters and population fields. Bounded angular coefficients and derivatives give an angular Lipschitz bound on the common norm event. Finite angular nets followed by their refinement upgrade fixed probes to whole-circle prediction and risk capture. No unproved zero-training-weight extension or growing probe program is used. |
+| Positive training Grams | PASS. The complete ridge-function difference proof yields Q positive definite despite singular G. Upper Gaussian full support gives K positive definite. C.3 and its weighted correction yield V,D positive definite with the actual nonzero signed p weights; the Schur-product argument makes A positive. No unweighted y-direction conclusion was substituted for the required p direction. |
+| Actual-flow fourth-order remainder | PASS. Zero population readout and bounded activations first give readout O(t) in L-infinity, backward fields O(t) in L2 and hidden increments O(t²). Only initialized directions need L4 bounds. The first reused-transpose law gives bounded response plus Gaussian innovation, and the subsequent forward conditional law gives uniform L4 for R^hid. The varying gate estimate is L4 O(t), using an L2 O(t²) input change. C5.20 Taylor-expands the fixed L4 direction after removing the L2 O(t³) error. This is a valid strong-integral proof and does not assume Frechet smoothness of the ambient L2 activation map or infer a population remainder from finite jets. |
+| Moving residual and all trained blocks | PASS. The exact subtraction C5.22 retains (f−g)H and rF. Its first feedback term is O(t³), hence contributes O(t⁴) after integration; its second gives (4/3)t³ sum p_b E_b. Pairing with initialized hidden output and with the moving readout gives the two terms in J. R^hid includes both the connector rank-one increment and W0 applied to the lower activation increment. |
+| Unique matching and sign convention | PASS. The frozen residual solves r'=−(2/3)Kr, with Lg' = −(4/9)r^T Kr < 0 and range (0,Lg(0)]. The trained energy lower bound prevents zero loss in finite time; the clock estimate gives a local margin inside C.1. The identities p^T J=(16/3)A and p^T a=2B0 give beta=8A/(3B0)>0. Subtraction at matched loss gives chi=2 integral cos(3alpha)(J−beta a), with the sign appropriate to R(g_tau)−R(f). Lower-order risk terms cancel. |
+| Reused Gaussian contractions | PASS. The conditional transpose innovation has the full second moment E[F1F2], plus a separate source-response mean product. C5.31 and Lambda retain both. Singular passive slots are formal source slots, handled by scalar Gaussian integration by parts and the complete singular-program comparison of Section 3.4; no inverse passive Gram or derivative of its factor is needed. The generic four-slot independent reconstruction checks the contraction beyond the producer's factorized loops. |
+| Finite matching and GF/GD scope | PASS. Positive definite empirical frozen K and nonzero common initial residual hold with probability tending to one. Frozen GD eigenfactors and their affine within-step factors are positive for sufficiently small eta_n. The fixed delta>0 margin places trained loss strictly inside the frozen loss range, and the population frozen derivative bounded away from zero controls clock error. Actual finite small random readouts are retained. There is no uniform finite-width sign at zero or arbitrary delta_n→0 assertion. |
+
+The main theorem's small-time consequence follows directly from the lower coefficient bound and Mt≤27/200000. Its unevaluated T and M do not yield a practical time window or width requirement. The activity assertions are distinct from the sign conclusion. The before/after guides correctly describe the limited C.5 comparison and distinguish it from class-level, later-time, unknown-structure, or trained-shallow superiority questions. Unrelated guide roadmap statements were not used to prove C.5.
+
+## Gaussian, angular and arithmetic certificate
+
+The separate-strip trapezoid argument is sound. The Gaussian Fourier contour shift is one coordinate at a time; the tensor telescoping uses positive preceding rule masses. The finite tail uses the Gaussian monotonicity/Mills estimate. The exact infinite Gaussian mass is bounded by 1+delta rather than silently replaced by one. All retained root columns meet the specified dyadic strip and tail inequalities. Dimensions omitted by an exactly zero fourth column are legitimate, and training moments are integrated over three roots without acquiring an artificial passive rule mass.
+
+The complex tanh bounds hold through |Im z|≤pi/4. The real Hessian sums 4,6,10,18 follow by counting ordered cross derivatives and each factor's second derivative, including repeated slots. The Price interpolation regularizes both covariance endpoints, integrates by parts, and then passes to zero regularization by bounded convergence. Thus it applies to singular positive semidefinite covariances. I checked both the lower-direction covariance discrepancy and exact A_hat A_hat^T upper discrepancy, all p-error entries, and every primitive table entry. The largest saved upper covariance error is exactly `5199379552312523209/4951760157141521099596496896`, approximately 1.05000634e−9. The tiny nonzero numerical passive residual variance at alpha=0 is charged by that covariance argument; no exact nonsingularity claim is made.
+
+For the circle estimate, the isonormal realization of the upper Gaussian process supplies Lp angular derivatives through the lower feature's L2 derivatives. Product/chain-rule majorants require only finite Gaussian moments and bounded scalar derivatives; no path analyticity or passive Cholesky differentiability is assumed. I checked the displayed forward/backward decompositions and every coefficient in A8–A9, including the identity phi' phi=−phi''/2. The independent reviewer check uses exponential generating-series composition instead of the producer's Stirling/Bell recurrences and returns exactly
+
+`D8 = 41272525446939874982/31640625`,
+
+`16 D8/(7·256^8) = 20636262723469937491/127677049435953561600000000 < 1/1000000`.
+
+Eight integrations by parts and the roots-of-unity average give the periodic-rule bound. Reflection with the equal-label training permutation gives evenness, and odd activations give the pi shift sign in predictions. The teacher has matching symmetries, so the risk integrand is even and pi-periodic; its pi/2 value is zero. The resulting weight is 2/256 at zero and 4/256 at indices 1–63. The normalized teacher-square check also encloses 1/2.
+
+I independently checked the exact rational inequalities behind exp(26), exp(30), exp(32), the strip/tail envelopes including nonunit masses, the Horner initial relative error <46u, the eight-squaring error <2e−12, and the long-double summation estimate. The maximum fourth tanh derivative is below five at both algebraically specified critical points. Code and proof agree on 12 Horner multiplications/additions, eight squarings, binary64 elementary values, long-double inner/outer accumulations, and the one final binary64 cast. The global tanh saturation branch, six-factor primitive envelope, weight errors, maximal 401-point inner sums and 401³ outer sums fit strictly inside the declared 1e−9 arithmetic radius. Ranges exclude overflow; the stated absolute slack covers underflow. Compiler fast-math and fused contraction are excluded.
+
+Machin's identity, alternating arctangent remainder, integer-square-root endpoints and real trig Taylor remainder support the exact input intervals. The label, normal-density and root/direction values sent to the kernel are dyadic inputs whose parsing is checked by complete bit echoes. The interval class rounds outward and only divides by a strictly signed interval. Tiny scalar Taylor coefficients are multiplied before outward rounding. No floating displayed sign decides acceptance.
+
+## Producer/evidence correspondence and reconstruction
+
+The original executed Python source hash is `a2e49e1c635b347e6542372bbdb4fb8ad3438e6c923e4292dc79964a000d48e1`. The maintained driver hash is `773f8c90c08b17736fe3fb37213ecce6ef3fb5c848fd3ff2e4f73e8f9b909855`. Independent AST comparison, ignoring function docstrings, found all 20 shared numerical definitions identical, including interval arithmetic, constants, grids, primitive invocation, covariance enclosure, root proposal and contraction. The entire scientific loop from constants generation through final result assembly and decision is also identical. The operational changes isolate thread settings in a worker, remove study/Git dependencies and validate the public output request; they do not alter the numerical calculation.
+
+I initially raised a kernel provenance concern because only the newer commented source was explicit. Root supplied its own inverse-comment transformation, not another review's finding: replace the single substring `See the arithmetic proof in global_nonlinear.md, C.5` by `See CERTIFICATION_ENGINE.md`. I performed that transformation independently and verified that the entire recovered bytes have the exact executed hash `9d7bbcd743e465ae0e4caacd0f1e670d78283e1388a2fe48bda6193ef0e66ad9`. It changes only a `//` comment. Moreover compiling the frozen maintained kernel independently yields the exact saved executable hash `8c5b241801eaa4b8912989b9e404eb9693e63e94487661071c3bfa7044c189c7`. The provenance concern is closed without obtaining another scientific source or launching another integral.
+
+Both raw run records use target 26, 256 circle nodes reduced to 64 evaluated nodes, 96-bit outward intervals, the stated errors, no seed, and the required compile flags. Recorded self-plus-child CPU times are 31.17975 and 30.66773 seconds, with completed status, zero exit status, and result hash `89815a7b16fb69f51683834049b370256fd32aba26528630f4c4f6b427fe406d` in both runs. Each run used 86,101,134 upper Gaussian nodes. I checked every node input/output size, scalar finite bit pattern, bit echo, exact grid, radius, root restrictions, p bound, density input, outer and total node count, stderr, audit hash, and result-row identity. This covers 21,120 primitive scalar outputs per run. Reported one-dimensional masses range from approximately 0.9999999999999936 to 1.0000000000007778 and meet the diagnostic gate; the proof, not this diagnostic, controls their true mass. Both runs have identical nodal input and primitive output bytes.
+
+Two distinct reconstructions were performed from supplied bits:
+
+1. **Exact maintained-source replay:** recompute constants, proposed factors, all covariance and label errors, every row's full contraction/clock/risk intervals, cumulative sums, and final enclosures. Every rational endpoint and saved row matched for both complete runs. This is exact interval reconstruction, not Gaussian integration.
+2. **Independent mathematical reconstruction:** a separately written 128-bit endpoint interval type, longer Machin/trig series, direct covariance products and primitive error tables feed the generic four-slot Lambda formula. This does not call the producer's interval class, covariance enclosure, contraction, or angular assembly. Its differently grouped interval has chi approximately `[0.0002705403266745527, 0.0002725985550296455]`, strictly within the theorem's rational coarse bounds. It independently retains both transpose responses and the matching subtraction. Complete exact endpoints are retained in `reviewer_b/independent_reconstruction.json`.
+
+The exact saved certificate reconstructed in route 1 is
+
+`5358604107658561212253567/19807040628566084398385987584 ≤ chi ≤ 21597479156841685713774185/79228162514264337593543950336`,
+
+`2797504526179671494928101665/79228162514264337593543950336 ≤ beta ≤ 2797556156441557459457527739/79228162514264337593543950336`.
+
+The raw nodal teacher projection is approximately `[0.0004387881644736982,0.0004388054963340112]`; the separately reconstructed clock subtraction is `[0.0001672069850034821,0.00016724779410003002]`. Their nodal difference and the added ±1e−6 angular radius give the displayed chi. Exact rational comparisons place the coefficient and beta strictly inside C5.8a and verify the separate |beta|≤1/10 premise. Resolution agreement or a positive producer flag played no role in deciding the sign.
+
+## Standalone checks, commands and results
+
+Unique retained check source: `/home/amir/Codes/PDE/studies/two_layer_test_risk/C5_REVIEW_B_CHECKS.py`, SHA256 `c373b7e382714ea8cfb70ff33adc8c776bf22346ee59c405b1a71fb0878bbf39`. Only this file, the assigned report, and the assigned `reviewer_b/` scratch directory were written. No frozen input or Git state was edited.
+
+For the following original commands, `R` denotes the frozen root above and `C` denotes the absolute retained check-source path above. Each mode runs in a separate Python process with `RLIMIT_CPU=(60,61)` set by the source. The first two supplied checks were launched through a Python `runpy.run_path(...,run_name='__main__')` wrapper after setting that same CPU limit, with `sys.argv` equal to the command shown. All used `-B`; the NumPy checks used `OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1`.
+
+| Executed command/arguments | Outcome |
+|---|---|
+| `python -B R/edition/code/tools/two_layer_risk/check_driver.py --output R/reviewer_b/driver_check` | PASS, 3.103 seconds elapsed; exact constants, longer trig/atan series, sqrt/grid inequalities, rational finite response-mean oracle, symmetry weights |
+| `python -B R/edition/code/tools/two_layer_risk/check_kernel.py --output R/reviewer_b/kernel_check` | PASS, 0.824 seconds elapsed including compile; all primitive absolute/relative gates pass; direct finite-tensor maximum discrepancy 5.88418203051333e−15; omitted passive branch reports 27 points; 64 long-double significand bits |
+| `python -B R/edition/code/tools/two_layer_risk/angle_error_bound.py --output R/reviewer_b/angle_check` | PASS, exact C5.34 values; no coefficient evaluation |
+| `python -B C audit` | Initial reviewer check stopped on stale dependency line-number comments, before evidence-contract checking; retained `audit.log`. After locating full bodies instead of assuming the comments were current, the reviewer-only check was corrected and rerun: PASS, 39.373 CPU seconds, `audit_retry.log`/`audit.json`. No candidate correction was made. |
+| `python -B C reconstruct` | PASS, 10.902 CPU seconds; both complete runs reconstructed by the independent generic four-slot implementation |
+| `python -B C replay` | PASS, 47.796 CPU seconds; every saved exact interval reconstructed for both runs |
+| `python -B C boundary` | PASS; import leaves environment unchanged; CLI help returns without computation; eight invalid targets and six invalid outputs rejected; dangling symlink rejected; fresh nested output validated without creation; optimized Python rejected; actual missing-compiler worker failure retains failed metadata and no result; five malformed kernel inputs reject |
+| `python -B C theory` | PASS, 0.007 CPU seconds; independent exact exponential/strip/tail/rounding inequalities, independent generating-series angular bound and fourth-derivative extrema |
+
+The boundary command exercised the real public API without a full calculation by temporarily giving its worker an empty compiler search path. `CalledProcessError` propagated and `reviewer_b/missing_compiler/metadata.json` records failure; the caller's environment was restored. This was an intentionally induced failure, not a scientific calculation failure. Optimized-Python stderr and CLI help are retained separately. The normal supported runtime is Linux/Python 3.10.12/NumPy 1.26.4/g++ 11.4.0. The public worker contract is correctly documented as a 900-second cumulative gate around primitive calls, not a hard compiler or whole-process wall timeout. The optional helper is self-contained and requires no study/history/archive/network inputs. No target-30 full execution is asserted.
+
+The full audit outputs and hashes are:
+
+| Review evidence | SHA256 |
+|---|---|
+| `reviewer_b/audit.json` | `6eab9b569ada3d9d445f2218eb74281e47069c0638e1d08af12d926deab35492` |
+| `reviewer_b/boundary.json` | `e046fedc44e5302bacdfff1476ada8643216d9ef989692b75355e6febd9a59be` |
+| `reviewer_b/exact_replay.json` | `8d7593a57d5dd7af82fe352f0423550edf4ae30867978da2064c5c125f294504` |
+| `reviewer_b/independent_reconstruction.json` | `3da6e06dac4fe48bc4165f0e7e5fb0f1f9c0420049e910947974860d91948def` |
+| `reviewer_b/theory.json` | `f84841df696b891629f4ced35224f2f9751184df7158a52f33990810858b0cc6` |
+
+The final whole-report SHA256 is recorded externally in `reviewer_b/report_sha256.txt`, avoiding a circular self-hash, and delivered with the final review handoff.
+
+## Objections, limitations and final scope
+
+No unresolved blocking objection remains. The strongest plausible artifacts—loss normalization drift, frozen residual substitution, independent transpose replacement, omission of the readout correction, passive rank loss, uncharged covariance/root error, normalized finite masses, elementary-function assumptions, missing summation error and omission of the clock subtraction—were checked directly in both proof and source. The exact coefficient claim does not need an empirical generalization experiment or a trained-network run. Its bridge to the actual population flow is the separately verified strong-integral remainder, and its bridge to finite networks has the fixed positive-delta scope stated above.
+
+One **nonblocking editorial metadata suggestion** is to update dependency extraction comments in a future packet: their nominal ranges 181–500, 1835–1893 and 2449–3829 are stale relative to the frozen older chapter; actual complete text occurs at 185–503, 1840–1896 and 2454–3834. The supplied scientific bodies are complete and were independently matched, so the stale comments do not weaken the theorem, source correspondence or this review. This is not a requested change to the accepted frozen proof or code and must not silently be implemented as an accepted post-freeze modification.
+
+The maintained theorem is a strict but small early-time comparison for one prescribed design. The remainder constant and time radius are finite and unevaluated; there is no practical effect-size or numerical width guarantee. Gaussian initialization, two hidden tanh layers, the actual full trainable model, exact loss clock and passive teacher distribution are indispensable to this review's claim. No iid-average, global-time, quantitative-width, growing-design, arbitrary joint delta_n limit, universal feature-learning, activation-superiority or depth-superiority conclusion has been accepted. Promotion still requires its separate integration check and the applicable concrete user approval gate.

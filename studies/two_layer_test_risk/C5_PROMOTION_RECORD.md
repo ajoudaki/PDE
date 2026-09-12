@@ -1,7 +1,8 @@
 # C.5 promotion, acceptance and validation
 
-Status: candidate frozen; fresh complete paired scientific reviews and separate
-integration review in progress. No established file has yet been changed.
+Status: incorporated as C.5 on 2026-09-12. Both complete scientific reviews and
+the separate integration review accepted without required corrections. All nine
+installed files match the frozen reviewed edition; live integration checks pass.
 
 ## Authorization and scope
 
@@ -73,6 +74,27 @@ original frozen review records are preserved.
   C.5/current-guide packet receives fresh complete reviews under
   [the scientific assignment](C5_SCIENTIFIC_ASSIGNMENT.md) and
   [the separate integration assignment](C5_INTEGRATION_ASSIGNMENT.md).
+- Fresh [scientific review A](C5_SCIENTIFIC_REVIEW_A.md), SHA256
+  `3633c85c022815239f39858ed6fb97352be7ed357cb4b407c5acd1735d38bd3f`:
+  PASS, no required corrections. Fresh [scientific review B](C5_SCIENTIFIC_REVIEW_B.md),
+  SHA256 `b9e5e0d03d9d2c2e01fe6f9a58c1eb9344d1a9cd4102560b0b62a179cef9e01d`:
+  ACCEPT, no required corrections. Both used fresh noninherited contexts and
+  the complete neutral frozen assignment, with disjoint scratch and no prior
+  verdicts or each other's findings. The coordinator read both complete reports,
+  repaired the combined-output truncation, and verified delivered report,
+  checker and output hashes.
+- Each scientific reviewer checked all 128 saved node enclosures and 42,240
+  primitive scalar outputs, replayed the exact intervals, and independently
+  rebuilt the general four-slot Gaussian contraction and matched-clock risk
+  subtraction. Their independent intervals lie strictly inside the theorem's
+  rational bounds. Both rebuilt the kernel and obtained the original executed
+  binary hash. Boundary, arithmetic, angular and standalone API checks passed.
+- Both reports retain a nonblocking metadata observation: old dependency
+  extraction line comments are stale. Complete content correspondence locates
+  the units at current-before lines 185–503, 1840–1896 and 2454–3834; only the
+  third unit's orientation paragraph differs editorially. All operative proof
+  bodies are present and unchanged. No frozen input was modified to correct
+  that annotation. Initial reviewer-check failures are retained in the reports.
 
 ## Standalone validation
 
@@ -93,7 +115,24 @@ training claim. The new edition's focused checks do not replace that evidence.
 
 ## Integration completion
 
-Pending the three complete review reports. Before installation, recheck every
-current baseline and frozen destination hash. Integrate only the nine approved
-destinations; verify their bytes against the reviewed edition, run affected
-structural checks, and commit only owned paths under the common writer lock.
+The separate [complete integration review](C5_INTEGRATION_REVIEW.md) accepted
+all nine destinations without required corrections. Report SHA256:
+`b4357dc8a797e465b95d49cd4e13520be33a1c9d44f5d9ee0f56cd78aba6a44e`.
+The coordinator read all 331 lines and verified the report, assignment and
+complete input-hash inventory. Its exact reconstruction of both saved runs,
+standalone checks, interfaces, links, placement and preservation checks passed.
+
+All current baselines, frozen inputs and review hashes were rechecked before
+installation. The nine destinations were copied byte-for-byte from the accepted
+edition and verified afterwards. Live library-boundary/link, CLI-help and
+namespace-import checks passed. Exact commands, outputs, before/after hashes and
+concurrent-file preservation evidence are retained in
+`data/generated/two_layer_test_risk/c5_installation_20260912_02/`.
+The preceding `_01` preflight stopped before established writes when an unrelated
+inherited review file was unreadable; `_02` records such files as metadata only,
+as required by the workflow. No permissions or unrelated files were changed.
+
+The preparation commit is `fda31b9361683ba2fa1faab4404372b33da45a0c`.
+The installation commit is recorded below after the scoped writer transaction.
+Original proof/review records remain unchanged. This promotion resolves only
+the fixed-design early-time comparison; all broader exclusions above remain.
