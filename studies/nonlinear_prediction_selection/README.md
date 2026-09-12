@@ -114,3 +114,12 @@ The [standalone validation](STANDALONE_VALIDATION_v1.md) passed source hashes,
 old-content preservation, new links, delimiters and the exact certificate.
 Separate integration review and both full mathematical verdicts remain pending.
 No established files have been edited and no promotion approval is requested yet.
+
+## Review correction checkpoint
+
+The first paired review found a required auxiliary-hypothesis correction:
+nonantipodal lists must also be pairwise distinct. v1 is not accepted for
+promotion. Its packet and original reports remain intact. [CORRECTION_v2.md](CORRECTION_v2.md)
+records the two corrected sentences and the direct internal check. The main
+family satisfies the corrected hypothesis. The complete v2 packet is frozen
+for two new complete isolated reviews and fresh integration review.
