@@ -128,6 +128,7 @@ integration review passed. The user approved the unchanged
 [promotion record](H2_promotion_record_v3.json) retains approval, exact final
 hashes and live checks. The frozen C-H1 package is preserved; its preceding
 README section remains the historical record of that earlier milestone.
+Promotion commit: `7a8be4f4cf468a37eae3d817b26de09da16b62ec`.
 
 The [full proof](H2_proposed_section_v3.md) constructs two current joint
 population laws and a finite matrix of initialized-observable action

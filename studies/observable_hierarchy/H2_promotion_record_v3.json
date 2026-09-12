@@ -45,7 +45,7 @@
     "index_empty": true
   },
   "status": "Promoted unchanged with user approval; all live correspondence and affected static checks PASS",
-  "promotion_commit": null,
+  "promotion_commit": "7a8be4f4cf468a37eae3d817b26de09da16b62ec",
   "live_validation": {
     "status": "PASS",
     "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
@@ -135,5 +135,6 @@
     "exact-real population theorem; finite-law rational-word float64 quadrature prototype",
     "no practical quadrature/error/cost guarantee, monotonic accuracy or longer-time solver",
     "no training experiments performed"
-  ]
+  ],
+  "committed_payload_hashes_verified": true
 }
