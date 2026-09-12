@@ -95,3 +95,65 @@ internal verdicts are preserved. The separate selector's original report is
 short guide update. It is not a scientific paired review. The parent read all
 three reports completely. The full version-3 neutral review assignment and
 input hashes are `review_assignment_v3.md` and `review_inputs_v3.json`.
+
+Every source-delimited dependency excerpt was also compared literally with its
+named current established source. All seven excerpts match, after removing only
+the packet's external blank lines and separators. Exact source line spans and
+excerpt hashes are in `dependency_spans_v3.json`. The source books and shared
+instructions still match their recorded hashes. This verifies provenance; it
+does not replace mathematical dependency review.
+
+## Standalone proposed edition
+
+`assemble_edition_v3.py` produced
+`data/generated/observable_hierarchy/edition_v3/`, with only five named
+established documents copied and the exact candidate/guide changes applied
+there. Removing the insertion recovers the original global chapter byte for
+byte. The assembled guide is exactly its frozen proposal; the only guide diff
+is the nine-line C-H1 status paragraph and one planning-status sentence.
+The new local link and equation-label set pass. No study path occurs in the
+new subsection. Both deterministic checks were rerun using standalone source,
+with the edition as working directory and fresh outputs, and exited zero.
+The full run environment, output hashes and coverage limits are frozen in
+`edition_manifest_v3.json`. This includes no whole-book link audit or new
+empirical claim. An independent integration reviewer has the exact assembled
+new material and explicitly limited older interface scope.
+
+## Final complete reviews and coordinator acceptance
+
+Fresh scientific reviewers `/root/review_v3_a` and `/root/review_v3_b` each
+read the complete frozen candidate, complete dependency packet, full guides and
+notation, and all check sources. Both returned PASS without required correction.
+The separate fresh `/root/integration_v3` reviewer read every assembled new line
+and the assigned older interfaces, verified preservation and exact diffs, and
+independently reproduced both checks in isolated Python. Its original report
+also returns PASS without required correction and states its unread complement.
+
+The parent read all three original reports in full and checked their provenance
+and actual execution records. All review inputs remain byte-identical. The
+independent certificate sources and static outputs have the expected hashes.
+In reviewer B's prose, the extracted certificate is called 55 lines; the actual
+file is the identical complete 56-line source with both final assertions. No
+scientific input or executed assertion was omitted. Both reviewers also noted
+that the neutral assignment's shorthand 'five certified upper bounds' should
+say 'certified bounds': the outputs are lower q, upper q, lower v, lower a0,
+lower r0. The candidate and certificate directions are correct. The frozen
+assignment and original reports are preserved, with this clarification.
+
+Optional candidate/navigation wording suggestions were not applied, so the
+reviewed mathematical package has not changed. Its use of an upstream reference
+certificate remains explicit in the promotion proposal; the new qualitative
+activity proof needs no additional numeric certificate. Acceptance hashes and
+limits are in `review_acceptance_v3.json`.
+
+The independent integration verifier is retained byte-for-byte as
+`verify_integration_v3.py` (SHA256
+`290971d44a280ac7b55eb2c0ba5e12d77db58589df2bec68014bb3f069061c75`).
+This is archival review source, not a maintained API. To rerun it, copy this one
+source file into a fresh directory beneath this study's generated namespace
+and run the copy there: its output directory is its own parent. Do not execute
+the archival copy in the study folder. Its original command, results and exact
+read scope remain in `integration_v3.md` and the assigned generated scratch.
+
+Research and review are complete. The next boundary is user approval of the
+concrete `promotion_proposal_v3.md`; no established theory or code has changed.

@@ -1,0 +1,27 @@
+{
+  "version": 3,
+  "coordinator": "/root",
+  "date": "2026-09-12",
+  "candidate_sha256": "f9a20bf6519c802581d293e3cde02218020c127c683699b0a93be9eda277aae2",
+  "reports": {
+    "review_v3_a.md": "38b40040ee08d17e7a9b21a2c422cd1b4a5a08e135aca904e8137bb5578b6879",
+    "review_v3_b.md": "e530c4b2bf25c00ba54a1288358a18b52b5d3bc723fa0b7db607f4ccfbd2faaf",
+    "integration_v3.md": "03ebccf8cfa3defc46dd284d2c8a6867ccd101cf6dde7a2c10ab0b4c5a998541",
+    "selection_v1.md": "1be705cbcfd3abe8765eb38e36ceafe9162b8809d3e3c4a3270cd1a64670ebb7"
+  },
+  "scientific_review_verdicts": {
+    "/root/review_v3_a": "PASS",
+    "/root/review_v3_b": "PASS"
+  },
+  "integration_verdict": "PASS",
+  "selection": "accept for narrow assembly",
+  "coordinator_audit": "Read every original report in full. Verified frozen input hashes, the two independent source/output hashes and exit records, full integration metadata and standalone check outputs. All frozen inputs unchanged. Reviewed isolation and explicit complete scientific coverage; integration unread complement is declared.",
+  "required_corrections": [],
+  "nonblocking_notes": [
+    "Review assignment calls five rational outputs upper bounds; actual directions are lower q, upper q, lower v, lower a0, lower r0. Source and assertions are unambiguous and unchanged.",
+    "Reviewer B states a 55-line extraction range; its actual certificate is the identical complete 56-line source with both final assertions, confirmed by hash. This report line-count slip does not omit executed source.",
+    "Optional navigation and activity-certificate wording suggestions were not applied to the frozen candidate. The proposal explicitly records the established upstream certificate dependence."
+  ],
+  "promotion_status": "prepared; pending user approval of exact candidate and guide; no established edits",
+  "standalone_scope": "new material and declared older interfaces only, not whole-book proof/export audit"
+}

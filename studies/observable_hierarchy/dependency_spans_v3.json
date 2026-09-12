@@ -1,0 +1,63 @@
+{
+  "dependency_sha256": "6a40bc9ee6e6de49fbefd9118298c4ab807b1ef52ecf29b99a71937eab0a63d7",
+  "method": "For each Source-delimited complete excerpt, strip only external blank lines and the packet separator; find exact literal bytes in the named established source. No scientific line is changed.",
+  "spans": [
+    {
+      "source": "docs/special_data_limits.md",
+      "scope": "III.F.1\u201310.",
+      "source_first_line": 3785,
+      "source_last_line": 4285,
+      "excerpt_sha256": "2d28210c73bfb75b0d63c48c1c48b3718b0ad5399a98e534b72d592ce34fc0ea",
+      "verbatim": true
+    },
+    {
+      "source": "docs/global_nonlinear.md",
+      "scope": "A.1\u20134.",
+      "source_first_line": 1840,
+      "source_last_line": 1896,
+      "excerpt_sha256": "ec5c088735f30837d744a33fe47f72c763d4dae390091938f174a563a31d0fef",
+      "verbatim": true
+    },
+    {
+      "source": "docs/global_nonlinear.md",
+      "scope": "C.4.1 and C.4.2.1\u20133.",
+      "source_first_line": 3982,
+      "source_last_line": 4363,
+      "excerpt_sha256": "54ba3e12590e4f4e3fe7aa62b04f348c5b9e2b5a4966a1f9844e1031233c2dc2",
+      "verbatim": true
+    },
+    {
+      "source": "docs/global_nonlinear.md",
+      "scope": "C.4.5.1 complete and C.4.5.2.1\u20134.",
+      "source_first_line": 5475,
+      "source_last_line": 6520,
+      "excerpt_sha256": "02613496dbc4901cde98501d01ea388a5bfab65aaae9f18c6272d9433572e971",
+      "verbatim": true
+    },
+    {
+      "source": "docs/global_nonlinear.md",
+      "scope": "C.4.7 model and conclusions 1\u20133.",
+      "source_first_line": 8978,
+      "source_last_line": 9105,
+      "excerpt_sha256": "242bf3e8e2cdfeba0c7ac4b953456f0f62cd03f9b3e337e95208ff36ecb5d343",
+      "verbatim": true
+    },
+    {
+      "source": "docs/global_nonlinear.md",
+      "scope": "C.4.7 observation contract.",
+      "source_first_line": 9158,
+      "source_last_line": 9169,
+      "excerpt_sha256": "8772e70342e1f32c15febde7c96e46ce90dae654ffe69575d703a1fa5ab714d0",
+      "verbatim": true
+    },
+    {
+      "source": "docs/global_nonlinear.md",
+      "scope": "C.4.7.2\u20135 complete.",
+      "source_first_line": 9171,
+      "source_last_line": 10553,
+      "excerpt_sha256": "9bd2c2d5115351b17211e802eaf8a374111caf5157b5ea5c87a6cfffe6bbd8be",
+      "verbatim": true
+    }
+  ],
+  "status": "PASS"
+}
