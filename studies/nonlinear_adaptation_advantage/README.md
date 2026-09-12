@@ -68,6 +68,19 @@ advantage. The route used only neutral and established inputs before freezing;
 its complete [internal check](GAUSSIAN_SIGN_CHECK_G.md) found no required
 correction. The ordinary family is unchanged.
 
+Its [transport follow-up](GAUSSIAN_SIGN_TRANSPORT.md) retains the exact
+first-row/adjoint remainder and proves that a proposed pointwise contrast
+ordering fails on the actual reference, even near time zero. Root has
+reconstructed it; a complete [internal check](GAUSSIAN_TRANSPORT_CHECK_H.md)
+found no required correction and supplied explicit remainder constants. This does not
+determine the fitted-endpoint covariance sign. The
+[exact parity reduction](PARITY_SIGN_REDUCTION.md) leaves 19 actual-neural
+cubic contractions on the unchanged four-coefficient family, all unsigned.
+The current endpoint certificate bound would require more than 10^122903
+Euler intervals for even 1/100 raw accuracy over its full feature interval;
+this is a limitation of that bound, not of the actual network or every
+possible approximation method.
+
 The current synthesis and precise scientific gaps are in
 [STUDY_REPORT.md](STUDY_REPORT.md). Exact Duhamel comparison, actual O(T²)
 discrepancy bounds, and finite scalar-clock criteria are available. No
@@ -109,7 +122,7 @@ comparison checkpoint: `e3d0021`.
 | Energy | Exact finite-time risk identity, scalar-clock criterion and relative-gain bound | Favorable signed trajectory integral with a finite positive margin |
 | Targeted balance follow-up | Exact projected readout and tanh saturation balances | Control of the remaining same-order signed anchor/curvature terms |
 | Reference-specific sign follow-up | Exact task/reference-history contractions and a checked limitation of the absolute bounds | Signed actual-neural control of those contractions |
-| Gaussian correlations | Opposite actual early-reference sum/contrast covariance signs; failure of a positive-response induction | Transport to the fitted endpoint and a beneficial added-episode component comparison |
+| Gaussian correlations | Opposite actual early-reference sum/contrast covariance signs; actual failure of the proposed pointwise contrast-order cone | Signed expected transport to the fitted endpoint and a beneficial added-episode component comparison |
 | Deterministic certificate reduction | Checked finite endpoint and curvature approximation with the explicit probe correction | An evaluated strict sign certificate over the unchanged ordinary family |
 
 No route proves failure on an admitted actual-neural family or an obstruction

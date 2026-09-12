@@ -212,6 +212,34 @@ neural integral was evaluated, no favorable sign follows from computability,
 and exact zero is not decidable by approximation alone. Its exceptionally
 large constants provide no practical computation or resource claim.
 
+The further [parity reduction](PARITY_SIGN_REDUCTION.md) specifies the
+remaining initial-sign calculation on the unchanged uniform-density,
+unperturbed slice: 16 of 35 formal cubic tensor slots vanish, leaving 19
+potentially nonzero contractions. The four original coefficient intervals
+give a coupled domain; the symmetric-sector quadratic matrix varies affinely
+with both antisymmetric coefficients. Even the fixed original midpoint
+has no proved sign. This reduces the actual calculation without changing
+the family or providing the component mechanism.
+
+The [covariance transport follow-up](GAUSSIAN_SIGN_TRANSPORT.md) identifies
+the missing first-row/actual-adjoint transport term. It also proves failure
+of a proposed pointwise ordering cone for the actual reference flow, with
+a strong remainder and a positive-probability crossing event at each
+sufficiently small feature time. Root reconstructed the proof; a separate
+complete [internal check](GAUSSIAN_TRANSPORT_CHECK_H.md) found no required
+correction and supplied explicit remainder constants. This rules out the indicated stronger
+ordering argument. It does not reverse the previously proved expected
+covariance sign, determine an endpoint sign, or disprove E₀.
+
+The computational limitation is quantitative. For a mesh covering the
+certificate's [0,10] feature interval, the displayed C4–C5 bound alone
+requires more than 10^122903 Euler intervals to certify raw endpoint error
+at most 1/100, even with exact Gaussian integrations. This follows by
+retaining its nonnegative first term and using h>=10/N; the exact arithmetic
+is recorded in ROOT_ROUTE_CHECK.md. It concerns that conservative bound,
+not the true complexity of reference approximation. An effective finite
+procedure does not supply a feasible evaluated sign certificate here.
+
 ## Proof methods ruled out, with their exact scope
 
 1. **Independent ordinary Fourier learning rates.** The full projected
@@ -236,6 +264,14 @@ large constants provide no practical computation or resource claim.
    frozen risk tends to zero on every such task. On compact finite-cap
    target/density classes it does so uniformly as time grows. No practical
    rate is obtained. A possible E₀ advantage must have a finite-clock scope.
+
+5. **Preserving the initial pointwise anchor-contrast ordering.** The new
+   actual-reference crossing theorem disproves this proposed invariant.
+   Its first-row contribution through the reused action has a nondegenerate
+   Gaussian innovation beyond the initial contrast. A strong remainder
+   proves the crossing on positive-probability events at every sufficiently
+   small fixed reference time. This does not disprove persistence of the
+   expected covariance signs or the requested learning advantage.
 
 These results distinguish failure of a method from failure on a task family
 and from an impossibility theorem. No admitted actual-neural family has been

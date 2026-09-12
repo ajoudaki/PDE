@@ -1,7 +1,8 @@
 # Source versions and internal checks
 
-This is an evidence record, not a promotion verdict. All scientific inputs
-are this study and established material. No other study was opened or used.
+This is an evidence record, not a promotion verdict. All proof dependencies
+are this study and established material. The later abstract-only external
+discovery screen is recorded separately below. No other study was opened or used.
 
 ## Root's read scope
 
@@ -44,6 +45,19 @@ instructions were unchanged. Full read coverage and input scopes of the
 independent authors are recorded in their own route reports; their narrower
 reading is not represented as root's complete dependency reading.
 
+## Bounded external discovery screen
+
+After the frozen sign follow-ups, root made two primary-source discovery
+calls restricted to arxiv.org, with five queries on feature learning,
+pretrained tangent kernels, tanh and spherical harmonics. Coverage was
+search-returned abstracts/snippets only, not complete-paper reading.
+The returned abstracts included [Yang and Hu](https://arxiv.org/abs/2011.14522)
+and [Chen, Vanden-Eijnden and Bruna](https://arxiv.org/abs/2204.10782).
+No external theorem, experimental result or dependency was imported into
+this study's proofs. This bounded screen is not a literature-exhaustiveness
+claim or evidence that no applicable theorem exists. The new follow-ups
+had already frozen before the screen and used only their recorded inputs.
+
 ## Executed deterministic check
 
 Command from repository root:
@@ -71,6 +85,14 @@ Extracted established program SHA256:
 Full environment and result record:
 `data/generated/nonlinear_adaptation_advantage/reference_certificate_20260912/result.json`.
 
+The later certificate-scale calculation used Python's standard Fraction
+and integer arithmetic from this repository root, exit 0. Its exact
+coefficients and rational exponential lower bound are recorded in
+ROOT_ROUTE_CHECK.md. This evaluated only the stated C3–C5 error bound,
+not a reference trajectory or Gaussian integral. A duplicate delegated
+scale audit remained pending_init and was explicitly canceled after root
+completed the calculation; it produced no report and supplies no evidence.
+
 ## Check and promotion status
 
 Three creative routes were started in fresh contexts with a neutral contract
@@ -91,8 +113,8 @@ e452735f683a6f8c3e4e895949dbd8aa912f470bbdeb475bf676bce4a10b9c04  ROUTE_GEOMETRY
 27c2768e719a7cc8c3e58a1e98a3fb3dc54c38752f65b815de631792733efced  INTERNAL_CROSSCHECK_E.md
 232a27180a435f10cd7aa1d87ec03746d41c102146bc89da724a671fdd30218e  INTERNAL_CROSSCHECK_H.md
 f0c6908b1ac9559297da247b0a2e4009fd8d880b123e8c5f6aded6c2118f75d2  INTERNAL_BALANCE_CHECK_H.md
-25241819dab98f1de25cfaef59e2d635a122c348e3183a0204ef3c654f2da7b5  ROOT_ROUTE_CHECK.md
-368de1f102f54dcdf0279ed83e49acbd0a57de7d333a46763e18ff7938eac3e2  STUDY_REPORT.md
+c58c7866d3a9d222e71b72fc83c6d4e45c72ca51861a85ebcf6f9e33aea82b5c  ROOT_ROUTE_CHECK.md
+e6563ee9a6836b7eb9e47fea0f40df7dfca04dbdf8c4c86b21e9f2ec3118a470  STUDY_REPORT.md
 6cfef322be7e9ee1d49c8287e3bfd94e6069c17ce40dfdf6619745472c1afa6f  REFERENCE_SIGN_ATTEMPT.md
 5bfd6b4c1683d172e3c7a543e8b9e7faa17b2b14f0299ea4242a3776cbcee7d5  QUANTITATIVE_CURVATURE_DRIFT.md
 b34420220022c7c30cd8a4b75d3c3a9c40702987df2328e8467ddb4c92c4cdbd  SOURCE_MOMENT_AUDIT_H.md
@@ -104,6 +126,9 @@ b6c1b155b24db2da8b6ae1e27fc091cf10f75c2026bdb8c91612653e54b83bf8  CURVATURE_CERT
 610b59c30f840ada4185f344dccc1ca6fbb8b895955fcaac7e475eb87fc7f24b  CORRECTED_CURVATURE_CHECK_H.md
 2b1d2397526624922f932a9fcea9e2cf0471f10335f211cb2c44e3814e36093c  ROUTE_GAUSSIAN_SIGN.md
 a715b568e4837eb4a241f9d8894eeaa5de97203addf665c9978c2a40cf4d5ea7  GAUSSIAN_SIGN_CHECK_G.md
+41767114a3d7a6dd81c519eee306f06107bc6f4ca1c538b9f751b34b499d10c1  PARITY_SIGN_REDUCTION.md
+5f44ec005410cbdfa4557580c243ea77c1abce6a067882a722d2552578cb484c  GAUSSIAN_SIGN_TRANSPORT.md
+6f751bc7879b9598220690a6c11346533081c98723edb5886095d8f15ea5d4a9  GAUSSIAN_TRANSPORT_CHECK_H.md
 ```
 
 Root read all three initial reports, the complete follow-up and all three
@@ -125,6 +150,8 @@ including the exact scope of counterexamples and conditional identities.
 | G reduction | CURVATURE_CERTIFICATE_REDUCTION.md completely | Central family passes; explicit probe-scaling and effective-input correction required |
 | H corrected reduction | CURVATURE_CERTIFICATE_REDUCTION.md and CURVATURE_CERTIFICATE_CORRECTION.md completely, without G's check | No remaining required correction when used together; effective-input and full-history restrictions retained |
 | G Gaussian | ROUTE_GAUSSIAN_SIGN.md completely | No required correction; actual early-reference mixed-covariance signs, no endpoint or added-data advantage |
+| Root parity | PARITY_SIGN_REDUCTION.md completely | Exact 16 forced-zero and 19 allowed tensor slots; original coupled coefficient domain retained; no favorable sign |
+| Root and H transport | GAUSSIAN_SIGN_TRANSPORT.md completely; H did not read root's check | No required correction; actual failure of the proposed pointwise order cone, with strong remainder; expected endpoint covariance remains open |
 
 The continuation's source-moment lemma and quantitative drift proof are
 internally checked additions. Root read the complete three new reports,
@@ -169,6 +196,18 @@ the index was empty before and after that transaction. The following scoped
 review checkpoint records both completed checks, the fourth frozen route,
 and the updated synthesis. It adds no evaluated neural sign or promotion
 claim. All frozen input/report hashes and local links were checked again.
+
+That completed-check checkpoint is `d6dab47`, with its exact seven study
+paths committed under the common lock and an empty index afterwards.
+The next bounded follow-ups kept the same family and used only their
+explicitly assigned frozen or established inputs. Root completely read the
+parity reduction, covariance transport report, and H transport check,
+reconstructed their claims, and verified the input hashes. The actual
+pointwise-order failure is new adverse evidence against a specific sign
+method; it is not an adverse risk comparison or an impossibility theorem.
+The H checker completed and wrote its independent reconstruction before
+root's agreement message. These remain internal checks, not promotion
+reviews. No neural sign integral or training experiment was executed.
 
 **Final scientific disposition:** E₀ unresolved. The positive uniform risk
 margin and beneficial component sign are unproved. There is no successful

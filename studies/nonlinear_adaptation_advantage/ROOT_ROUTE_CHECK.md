@@ -270,3 +270,74 @@ source ambiguity, full-kernel symmetry and density caveats. Its density
 example has weighted cross-sector inner product epsilon/2, as direct
 integration confirms. These are checks of the route's exact limitations;
 no source beyond the recorded established units was imported.
+
+## Further bounded sign follow-ups
+
+Root read PARITY_SIGN_REDUCTION.md completely at SHA256
+`41767114a3d7a6dd81c519eee306f06107bc6f4ca1c538b9f751b34b499d10c1`.
+The actual raw symmetry acts on predictions by minus the coordinate swap,
+so the polarized cubic vanishes precisely in the 16 formal slots with an
+odd number of swap-symmetric arguments. Root enumerated the remaining ten
+AAA and nine ASS slots and expanded the polynomial independently. Its
+constant, linear, quadratic and cubic monomial counts are 1, 2, 6 and 10.
+The inverse coefficient change gives the exact coupled domain P12, not an
+independent rectangle in the four new coordinates. The worst sign of w
+retains 2|q12|z|w|, and the original midpoint has y=R/32, z=3R/32, giving
+the factor 27R²/1024 in P19. No sign of a surviving actual-neural entry is
+provided. The necessary midpoint test concerns the proposed uniform
+negative-cubic proof, not every possible finite-time E₀ theorem.
+
+Root read all 602 lines of GAUSSIAN_SIGN_TRANSPORT.md at SHA256
+`5f44ec005410cbdfa4557580c243ea77c1abce6a067882a722d2552578cb484c`.
+For its source specialization root reread global_nonlinear.md 6310–6521
+and special_data_limits.md 3860–4053, within the previously complete units.
+The label-oriented change v2=-w2 gives two plus-sign feature updates and
+the exact first-row term A(sech⁴(v_a)A*delta_a)/2. Root reconstructed both
+covariance derivatives, the integrating factor, and the bounds T11–T13.
+The fitted feature time is at least one because |c|<=s and |h|<=1.
+
+The localized source bound has Q L4 norm at most C_Q s: the old response
+sum, learned ranks and current injections each carry the horizon factor S,
+and the source standard deviation is at most S. Integrating the full-row
+equation gives an L4 displacement of order s². Root then checked each
+product subtraction in T21–T23, including the tanh remainder bounded by
+the squared row displacement. This yields a strong L2 remainder O(s⁴),
+without an ambient Hessian or an assumed Taylor radius.
+
+The two initial reverse responses have the stated eta/2 and mu²/2
+coefficients. In the appended forward query the response is
+bar_m(d1-d2), which must be retained. The reverse-Gaussian part of the
+new input is conditionally centered given the first-row root, hence
+orthogonal to every root-only function. Its covariance lower bound is
+2(gamma_d-gamma_o)E sech⁸G>0. This proves a nondegenerate forward innovation
+independent of the initial X,Y by Gaussian projection, without treating
+actual forward and reverse answers as independent. Root verified the
+event probability of order s², the leading negative difference of order
+s², and the O(s⁴) probability bound for remainder failure. They prove the
+actual pointwise ordering-cone failure for every sufficiently small fixed
+positive feature time. The earlier expected negative covariance remains
+compatible with that event. Root read the complete separate
+GAUSSIAN_TRANSPORT_CHECK_H.md at SHA256
+`6f751bc7879b9598220690a6c11346533081c98723edb5886095d8f15ea5d4a9`.
+It finds no required correction. Root reconstructed its explicit constants
+H1–H4, the variance projection H5, and the probability lower bounds H6–H7,
+and verified every recorded scientific input hash. The report was written
+before root sent its agreement message. The cone implies a nonpositive
+expected covariance; strict negativity additionally requires a positive
+integral. The crossing theorem's fixed-time quantifier does not assert one
+positive-probability event crossing at all arbitrarily small times.
+
+Root also checked the scale of C3–C5 in the corrected endpoint reduction.
+For a mesh covering [0,10] with N intervals, h>=10/N. Even with exact
+Gaussian integrals, the displayed bound can be at most 1/100 only if
+
+    N >= 580093872438150000 exp(286740) > 10^122903.
+
+Indeed L²=340011, 1+20L²=6800221, and the nonnegative first term of C5
+alone gives the necessary inequality. The last strict bound uses
+sum_{k=0}^{11} 7^k/k!=2959911103/2851200>1000 and
+floor(286740/7)=40962. These integer/rational calculations were checked
+with Python's standard Fraction arithmetic, exit 0, from the repository
+root. No Gaussian integral, reference trajectory, or training was computed.
+This is a limitation of the stated error bound, not a lower bound on the
+actual number of steps needed by a sharper certified approximation.
