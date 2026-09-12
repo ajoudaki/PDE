@@ -125,6 +125,15 @@ library rational arithmetic and exits zero. Generated products are not committed
 
 ## Ownership and next action
 
+The user's subsequent requested [promotion and next-step assessment](ASSESSMENT_2026_09_12.md)
+recommends approving precisely proof v3/integration v4. It reuses the valid
+complete reviews, verifies the original hashes and fresh standalone assembly,
+and records additional independent proof and strategy checks with their exact
+scopes. It recommends milestone B as a quantitative continuum-regression theorem
+on the slow learning clock. The [new-task prompt](NEXT_MILESTONE_B_PROMPT.md)
+starts only after C.4.9 is promoted, using the established book as its input.
+This assessment is a recommendation, not user approval; promotion remains pending.
+
 `/root` owns this README, finite-capture argument, canonical assembly and Git
 writes. `/root/conditioning_route`, `/root/continuation_route` and
 `/root/geometric_route` own their named component files. The selector and every
