@@ -1,7 +1,10 @@
 # H4 scope remaining after the revised H3 candidate
 
-This is a scope assessment of frozen edition v2, conditional on its scientific
-acceptance. It is not a time-40 theorem or authorization to start that extension.
+This is a scope assessment of the accepted H3 proof, scientifically reviewed in
+edition v2 and preserved without mathematical change in edition v3. Both complete
+scientific reviews and the fresh complete integration review pass; established
+promotion awaits user approval. This is not a time-40 theorem or authorization
+to start that extension.
 No long-horizon computation or finite-network training was performed.
 
 The candidate proves population/closure/numerical agreement on the fixed
@@ -29,7 +32,9 @@ paired observations and own-state restart. It must not reset to exact population
 states. A qualitative extension does not require true-error certificates,
 convergence rates, automatic tolerance selection or a cost-to-tolerance bound.
 
-Therefore H4 is not merged into this H3 package. Its remaining scientific and
-computational scope should be assessed after the present candidate's reviews,
-before launching any new work. The present note neither asserts impossibility
-nor requires a broad experiment or a new certification campaign.
+Therefore H4 is not merged into this H3 package. Reassessment after the completed
+reviews leaves precisely the longer-horizon comparison and declared computation
+obligations above. The new numerical machinery can be reused; this note does not
+show that those remaining obligations are small. No extension work is launched.
+The assessment neither asserts impossibility nor requires a broad experiment
+or a new certification campaign.

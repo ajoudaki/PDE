@@ -1,0 +1,52 @@
+{
+  "reviewer": "/root/h3v2_integration_v4",
+  "report_sha256": "1269a5e66a407876c4c48dfaf6d44b949114377ecaeb7a8fe8c33dbbdf2e037d",
+  "entry_inputs": 157,
+  "all_inputs_and_output_artifacts_verified": true,
+  "sources": [
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_integration_v4/finalize_checks.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_integration_finalize_checks_v4.py",
+      "sha256": "9362a46dffd13910daaa8c488721b6d9be9d6d0b64193643ab0f662d9cf97982",
+      "role": "original executed verification source"
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_integration_v4/math_render_command.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_integration_math_render_command_v4.py",
+      "sha256": "1e40b11c79401fd4078c1e507b0762d611e41f9c727ad3a24909fea2d502e230",
+      "role": "retrospective exact copy of executed inline rendering command"
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_integration_v4/recheck_evidence.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_integration_recheck_evidence_v4.py",
+      "sha256": "53e025d9556e32bdc9930d6e0aff8e4ee30c8673d8c9bd39aa47b64f9ced21a3",
+      "role": "original executed verification source"
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_integration_v4/run_checks.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_integration_run_checks_v4.py",
+      "sha256": "4d5da869a10559c676ee7b89ed9be774ec253fcb723cd44e5af98beea5d5a440",
+      "role": "original executed verification source"
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_integration_v4/static_checks.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_integration_static_checks_v4.py",
+      "sha256": "ae60e53de781c85c51aad83689801b58bb7e45b2c20e15f54eaf4ec9312c4944",
+      "role": "original executed verification source"
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_integration_v4/static_checks_failed_v1.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_integration_static_checks_failed_v1_v4.py",
+      "sha256": "b59f13526abe808fafbbd37092dd3381145c616c067a85afd754998d2f0cb3ab",
+      "role": "retrospective reconstruction of failed checker; not contemporaneously hashed"
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_integration_v4/predeclared_checks.md",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_integration_predeclared_checks_v4.md",
+      "sha256": "c8cef91c7a48544d31eb124c9d4dd250cbf9446a0a89cf93115371a9c3e9fcf4",
+      "role": "original preregistration"
+    }
+  ],
+  "original_artifact_manifest_sha256": "de02c2255a632efb2a387dc15d3ea4d07d59815e5aaad3f9fcedcaa91488aab2",
+  "provenance_limits": "See the original full report for checker and inspection failures, reconstructed failed source, retrospective rendering command and omitted standalone entry-hash source."
+}

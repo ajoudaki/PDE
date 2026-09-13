@@ -1,14 +1,16 @@
 # Observable hierarchy — milestone C-H1
 
-## Revised C-H3: scientific reviews passed, final integration pending — 2026-09-13
+## Revised C-H3 complete as a reviewed candidate; promotion approval pending — 2026-09-13
 
-Task `01a09b51-6f6c-7371-9726-159b9402da2b` is executing the revised
+Task `01a09b51-6f6c-7371-9726-159b9402da2b` has completed the revised
 qualitative target in [H3_v2_contract.md](H3_v2_contract.md). Coordinator
 `/root` owns this current entry and is the sole study Git writer. Fresh
 scoped route agents froze their candidates before author synthesis and
 implementation assignments; their exact scopes remain in the study records.
 All original H3 findings and the stronger old contract are preserved below.
-No revised C-H3 completion or promotion is yet claimed.
+The revised qualitative C-H3 target is met by the complete reviewed candidate.
+Established promotion remains pending explicit user approval of the concrete
+addition. All preceding failed/partial stronger-scope results remain historical.
 
 Foundation correspondence passed: the maintained H2 theorem matches its frozen
 source, all seven dependency excerpts match current maintained proof bodies,
@@ -68,23 +70,37 @@ one presentation correction: Markdown hid a factor in a bare ASCII bound.
 [Edition v3](H3_v2_edition_v3_manifest.json) changes only that bound's display;
 all other 25 frozen files, including the exact executed plan, are byte-identical.
 The [correction record](H3_v2_presentation_correction.md) preserves its scope.
-A fresh isolated reviewer is checking the entire corrected integration scope
-under [packet v4](H3_v2_integration_assignment_v4.md); no earlier verdict is
-an input. The scientific reviews remain attached to their original inputs;
-this presentation-only change invokes Part 2 step 4's fresh integration gate.
+A fresh isolated [integration review](H3_v2_integration_v4.md) passes the entire
+corrected integration scope under [packet v4](H3_v2_integration_assignment_v4.md),
+with no required correction and no earlier verdict as an input. Its 157 input
+hashes remain unchanged; all 54 tests pass, all 331 TeX expressions compile,
+and read-only reconstruction/analysis recovers the saved evidence. The
+coordinator read the complete report and all verification sources and checked
+their hashes. The scientific reviews remain attached to their original inputs;
+this presentation-only correction satisfies Part 2 step 4's fresh integration
+gate without a mathematical change. See the complete
+[review disposition](H3_v2_review_acceptance_v4.md),
+[original review-source preservation](H3_v2_review_sources_complete_v3.json),
+and [final integration sources](H3_v2_review_sources_v4.json).
 The [H4 scope note](H3_v2_H4_scope.md) records the remaining long-horizon
 implication; no extension work was launched.
 
-Remaining authorized work: complete the fresh integration review, resolve any
-required corrections, and present [the concrete 17-file addition](H3_v2_promotion_proposal_v4.md)
-for user approval before any established edits. Both original editions and all
-earlier findings are retained. The exact proposed patch passes a dry application
-check against current files; it has not been applied.
+Next action: obtain user approval of [the concrete 17-file addition](H3_v2_promotion_proposal_v4.md)
+before established edits. All required scientific, reproduction, relevance and
+integration gates pass. After approval, recheck current dependencies and base
+hashes, apply the reviewed patch, verify exact correspondence and run affected
+tests under the shared writer discipline. Every original edition and earlier
+finding is retained. The proposed patch passes a dry application check against
+current files; it has not been applied. The final
+[preapproval checker](H3_v2_check_preapproval_v4.py) passed all 361 comparisons;
+its fresh output and exact invocation are recorded in the review disposition.
 
 Current planning scope (2026-09-13): C-H3 and C-H4 now target efficient numerical
 implementation with qualitative population convergence; quantitative error
 certification is deferred. See the final revision entry below and
-[the revised H3 task prompt](H3_prompt_v2.md). Neither milestone is yet complete.
+[the revised H3 task prompt](H3_prompt_v2.md). The revised C-H3 target is now met
+at its stated scope; C-H4 remains open. The dated entries below preserve earlier
+states and the original stronger task without rewriting their conclusions.
 
 **C-H1 promoted with user approval.** The exact reviewed theorem is established
 in `docs/global_nonlinear.md` C.4.7.8, and `docs/README.md` records its scope.

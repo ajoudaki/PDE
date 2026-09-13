@@ -1,0 +1,346 @@
+{
+  "schema": "H3_v2_review_sources_complete_v3",
+  "checked_at_utc": "2026-09-13T16:35:40.078877+00:00",
+  "actor": "/root/h3v2_review_provenance",
+  "method": "SHA-256 streaming of exact ledger-assigned bytes; report hash association and byte-for-byte source preservation; no scientific code executed.",
+  "limits": {
+    "cpu_seconds": 60,
+    "address_space_bytes": 1073741824
+  },
+  "sources": [
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_scientific_a_v3/checkpoint_checks.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_a_checkpoint_checks_v3.py",
+      "sha256": "a6deba5ab63e08761e026af15284167dd72f73cb3d298a41e5607beb70677bcb",
+      "bytes": 5214,
+      "role": "Independent read-only saved-checkpoint and observation reconstruction source.",
+      "reviewer": "/root/h3v2_scientific_a_v3",
+      "byte_identical": true,
+      "already_present": false
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_scientific_a_v3/exit_hashes.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_a_exit_hashes_v3.py",
+      "sha256": "66b8b9c471c7fd81bd2ec1a65034121482f8d55963ffa6798d71b9fbea2a025f",
+      "bytes": 883,
+      "role": "Exit frozen-input immutability checker.",
+      "reviewer": "/root/h3v2_scientific_a_v3",
+      "byte_identical": true,
+      "already_present": false
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_scientific_a_v3/finish_report.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_a_finish_report_v3.py",
+      "sha256": "b846efbdf55b06211f991783f484465c9a0d278941c6944bb2f6bb3d1b8bd425",
+      "bytes": 29466,
+      "role": "Original review report assembly source; retained as an archival source, not executed.",
+      "reviewer": "/root/h3v2_scientific_a_v3",
+      "byte_identical": true,
+      "already_present": false
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_scientific_a_v3/run_tests.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_a_run_tests_v3.py",
+      "sha256": "9d522c6eff03ffa216f65aa15beb9a5467ff37a0ebf4dc58c8b56bed55ec4c7e",
+      "bytes": 1746,
+      "role": "Bounded frozen-suite launch and recording source.",
+      "reviewer": "/root/h3v2_scientific_a_v3",
+      "byte_identical": true,
+      "already_present": false
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_scientific_a_v3/scalar_checks.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_a_scalar_checks_v3.py",
+      "sha256": "fdb3798f6ca2f6c3a13aa1f70fdaaa916c4a9af54a868731221129de41c18e2f",
+      "bytes": 5757,
+      "role": "Independent scalar, arithmetic, kernel, law, and boundary check source.",
+      "reviewer": "/root/h3v2_scientific_a_v3",
+      "byte_identical": true,
+      "already_present": false
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_scientific_a_v3/source_correspondence.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_a_source_correspondence_v3.py",
+      "sha256": "57d63fb088874b83400fd490ce174ca421c0d06676becb7350a00f461c3b6604",
+      "bytes": 1634,
+      "role": "Frozen dependency and proposal text-correspondence source.",
+      "reviewer": "/root/h3v2_scientific_a_v3",
+      "byte_identical": true,
+      "already_present": false
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_integration_v3/bounded_command.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_integration_bounded_command_v3.py",
+      "sha256": "00b2fb1f903c82407920571c23dc773bdcbb0b78b758c339d2f1c387b96a3f40",
+      "bytes": 2470,
+      "role": "Bounded launch wrapper; byte-identical to the frozen reproduction wrapper.",
+      "reviewer": "/root/h3v2_integration_v3",
+      "byte_identical": true,
+      "already_present": false
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_integration_v3/render_check.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_integration_render_check_v3.py",
+      "sha256": "be7cd07be780fdf3d316887bcf8c9d85e04742ec7ca46948c3354217f9bb7566",
+      "bytes": 772,
+      "role": "Exact Markdown rendering witness for the original integration objection.",
+      "reviewer": "/root/h3v2_integration_v3",
+      "byte_identical": true,
+      "already_present": false
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_integration_v3/static_evidence_audit.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_integration_static_evidence_audit_v3.py",
+      "sha256": "f91b0273ee9c7b1dff213005542c522f4d3b49f8be2f5158638a2e4c99bdb70a",
+      "bytes": 9579,
+      "role": "Final complete static/evidence audit source; records the rendering objection.",
+      "reviewer": "/root/h3v2_integration_v3",
+      "byte_identical": true,
+      "already_present": false
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_integration_v3/static_evidence_audit_attempt1.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_integration_static_evidence_audit_attempt1_v3.py",
+      "sha256": "862afdd7b8798a1c2348cce66f520a903ced2e67c61f113bd4a0c36cc7a72076",
+      "bytes": 8989,
+      "role": "Preserved failed static link-audit attempt; exact original variant.",
+      "reviewer": "/root/h3v2_integration_v3",
+      "byte_identical": true,
+      "already_present": false
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_integration_v3/static_evidence_audit_attempt2.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_integration_static_evidence_audit_attempt2_v3.py",
+      "sha256": "7935449f85fb517af63453a032c7008dace0d2cbf64f9a1183c041039b54aa33",
+      "bytes": 9181,
+      "role": "Preserved failed static link-audit attempt; exact original variant.",
+      "reviewer": "/root/h3v2_integration_v3",
+      "byte_identical": true,
+      "already_present": false
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_integration_v3/static_evidence_audit_attempt3.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_integration_static_evidence_audit_attempt3_v3.py",
+      "sha256": "ff3c1a6ff25b594d25442495f54f2445ccaad8ffc735186e22648439334c0c83",
+      "bytes": 9255,
+      "role": "Preserved failed static link-audit attempt; exact original variant.",
+      "reviewer": "/root/h3v2_integration_v3",
+      "byte_identical": true,
+      "already_present": false
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_integration_v3/static_evidence_audit_attempt4.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_integration_static_evidence_audit_attempt4_v3.py",
+      "sha256": "fde23cd6a8c310487be99309cfd7d0648ee049f036400b5ba7addb075c3d3f01",
+      "bytes": 9328,
+      "role": "Preserved failed static link-audit attempt; exact original variant.",
+      "reviewer": "/root/h3v2_integration_v3",
+      "byte_identical": true,
+      "already_present": false
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_integration_v3/predeclared.md",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_integration_predeclared_v3.md",
+      "sha256": "521bcb445456913e037e1c1d95bd69c684726f36316b7140ef972a2b77759484",
+      "bytes": 1616,
+      "role": "Original integration preregistration.",
+      "reviewer": "/root/h3v2_integration_v3",
+      "byte_identical": true,
+      "already_present": false
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_scientific_b_v3/independent_checks.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_b_checks_v3.py",
+      "sha256": "ba8c426ac3c75afaa408907237da09b62fc86c434f44ae20b339c4a27cd036b0",
+      "bytes": 8779,
+      "role": "Previously preserved scientific B review source or preregistration.",
+      "reviewer": "/root/h3v2_scientific_b_v3",
+      "byte_identical": true,
+      "already_present": true
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_scientific_b_v3/independent_checks_attempt1.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_b_checks_attempt1_v3.py",
+      "sha256": "3ded98ea5ecd0afb68278cd6b6edd00f9eb8f44103caccc0eb623eeadcce03af",
+      "bytes": 8550,
+      "role": "Previously preserved scientific B review source or preregistration.",
+      "reviewer": "/root/h3v2_scientific_b_v3",
+      "byte_identical": true,
+      "already_present": true
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_scientific_b_v3/preregistrations.md",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_b_preregistrations_v3.md",
+      "sha256": "af88188a0f1bcd5e7fc3b87dbef396843e62c0a3eea8a0013cb758d0772908f7",
+      "bytes": 3851,
+      "role": "Previously preserved scientific B review source or preregistration.",
+      "reviewer": "/root/h3v2_scientific_b_v3",
+      "byte_identical": true,
+      "already_present": true
+    },
+    {
+      "original_path": "data/generated/observable_hierarchy/H3_v2_scientific_b_v3/bounded_command.py",
+      "flat_copy": "studies/observable_hierarchy/H3_v2_review_integration_bounded_command_v3.py",
+      "sha256": "00b2fb1f903c82407920571c23dc773bdcbb0b78b758c339d2f1c387b96a3f40",
+      "bytes": 2470,
+      "role": "Shared bounded wrapper; exact identity with the integration copy.",
+      "reviewer": "/root/h3v2_scientific_b_v3",
+      "byte_identical": true,
+      "already_present": true
+    }
+  ],
+  "original_reports": [
+    {
+      "path": "studies/observable_hierarchy/H3_v2_scientific_a_v3.md",
+      "sha256": "b71ffc512de13794f32b3c9b5f8474a4b95472e237592a327de524ff44c89309",
+      "bytes": 48123,
+      "historical_report_digest_available": false
+    },
+    {
+      "path": "studies/observable_hierarchy/H3_v2_scientific_b_v3.md",
+      "sha256": "7b54689374a160bc91139c063c03d79ad35995653ce96ffb1a85d80b2b4c3dc9",
+      "bytes": 33174,
+      "historical_report_digest_available": true
+    },
+    {
+      "path": "studies/observable_hierarchy/H3_v2_integration_v3.md",
+      "sha256": "be103bcfe1e2fc6287349c7cb34214203d33273fb3678f1f419065dcc0b365eb",
+      "bytes": 19380,
+      "historical_report_digest_available": false
+    }
+  ],
+  "historical_command_outcomes": [
+    {
+      "reviewer": "scientific_a",
+      "record": "data/generated/observable_hierarchy/H3_v2_scientific_a_v3/tests_result.json",
+      "exit_code": 0,
+      "stopped": null,
+      "cpu_seconds": 4.386799
+    },
+    {
+      "reviewer": "scientific_b",
+      "record": "data/generated/observable_hierarchy/H3_v2_scientific_b_v3/independent_result.json",
+      "exit_code": 1,
+      "stopped": null,
+      "cpu_seconds": 0.212238
+    },
+    {
+      "reviewer": "scientific_b",
+      "record": "data/generated/observable_hierarchy/H3_v2_scientific_b_v3/independent_retry_result.json",
+      "exit_code": 0,
+      "stopped": null,
+      "cpu_seconds": 1.7396379999999998
+    },
+    {
+      "reviewer": "scientific_b",
+      "record": "data/generated/observable_hierarchy/H3_v2_scientific_b_v3/tests_result.json",
+      "exit_code": 0,
+      "stopped": null,
+      "cpu_seconds": 4.366543
+    },
+    {
+      "reviewer": "integration",
+      "record": "data/generated/observable_hierarchy/H3_v2_integration_v3/analysis_result.json",
+      "exit_code": 0,
+      "stopped": null,
+      "cpu_seconds": 0.482037
+    },
+    {
+      "reviewer": "integration",
+      "record": "data/generated/observable_hierarchy/H3_v2_integration_v3/render_check_result.json",
+      "exit_code": 0,
+      "stopped": null,
+      "cpu_seconds": 0.09129699999999999
+    },
+    {
+      "reviewer": "integration",
+      "record": "data/generated/observable_hierarchy/H3_v2_integration_v3/static_complete_result.json",
+      "exit_code": 0,
+      "stopped": null,
+      "cpu_seconds": 0.931385
+    },
+    {
+      "reviewer": "integration",
+      "record": "data/generated/observable_hierarchy/H3_v2_integration_v3/static_evidence_corrected_result.json",
+      "exit_code": 1,
+      "stopped": null,
+      "cpu_seconds": 0.15452
+    },
+    {
+      "reviewer": "integration",
+      "record": "data/generated/observable_hierarchy/H3_v2_integration_v3/static_evidence_final_result.json",
+      "exit_code": 1,
+      "stopped": null,
+      "cpu_seconds": 0.166042
+    },
+    {
+      "reviewer": "integration",
+      "record": "data/generated/observable_hierarchy/H3_v2_integration_v3/static_evidence_pass_result.json",
+      "exit_code": 1,
+      "stopped": null,
+      "cpu_seconds": 0.16838599999999998
+    },
+    {
+      "reviewer": "integration",
+      "record": "data/generated/observable_hierarchy/H3_v2_integration_v3/static_evidence_result.json",
+      "exit_code": 1,
+      "stopped": null,
+      "cpu_seconds": 0.161327
+    },
+    {
+      "reviewer": "integration",
+      "record": "data/generated/observable_hierarchy/H3_v2_integration_v3/tests_result.json",
+      "exit_code": 0,
+      "stopped": null,
+      "cpu_seconds": 4.4311229999999995
+    }
+  ],
+  "limitations": [
+    "Only B has a separate contemporaneous completion record of the original report digest; A and integration report digests are newly recorded here.",
+    "B records an initial failed relative-path wrapper-copy setup in its report as transcript-only; no separate local command/result file for that prelaunch setup failure is present in the allowed scratch.",
+    "Some ledger construction and source-correspondence operations were inline reviewer commands. No separate handwritten source file is present for those operations; retained ledgers/results and report descriptions are preserved, not reconstructed.",
+    "The integration attempt commands all name static_evidence_audit.py; preserved attempt1 through attempt4 snapshots and tracebacks identify the variants, but the commands do not contain contemporaneous source digests.",
+    "A preregistrations are embedded in the unchanged original flat scientific A report; there is no separate scratch preregistration file to copy.",
+    "Byte identity verifies retained records and current inputs; it does not independently establish historical execution, complete scientific reading, reviewer isolation, or scientific correctness."
+  ],
+  "resource_usage": {
+    "cpu_seconds": 0.09574590900000002,
+    "peak_rss_bytes": 18960384
+  },
+  "verification": {
+    "ledger_counts": {
+      "scientific_a_entry": 122,
+      "scientific_a_exit": 122,
+      "scientific_b_entry": 121,
+      "scientific_b_exit": 121,
+      "integration_entry": 126,
+      "integration_exit": 126
+    },
+    "unique_frozen_paths": 127,
+    "report_hash_occurrences": {
+      "scientific_a": 138,
+      "scientific_b": 11,
+      "integration": 6
+    },
+    "comparisons": 1908,
+    "failed_comparisons": 0,
+    "all_originals_unchanged": true,
+    "original_artifact_count": 76
+  },
+  "raw_result": {
+    "path": "data/generated/observable_hierarchy/H3_v2_review_provenance_v3/verification_20260913T163715644889Z.json",
+    "sha256": "55326af5a8b4c32f2ef2ed19a5060be7c13a64fa7e6e21f2d29620f4b4c394b7",
+    "bytes": 1005651,
+    "byte_identical_to_original_full_result": true
+  },
+  "archival_sources": [
+    {
+      "path": "studies/observable_hierarchy/H3_v2_review_provenance_check_v3.py",
+      "sha256": "ba6d07318f2ef70895e61e719956a8a514a73d7cba7652dd264c3fe1e61d8dad"
+    },
+    {
+      "path": "studies/observable_hierarchy/H3_v2_review_provenance_compact_v3.py",
+      "sha256": "16bc06ad244407b3630b5649b3b13cf25df1318a21b4052bf9325467bba52195"
+    }
+  ]
+}

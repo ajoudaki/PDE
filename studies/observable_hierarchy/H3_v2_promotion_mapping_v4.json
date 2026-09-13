@@ -1,5 +1,5 @@
 {
-  "status": "scientific reviews pass; final integration and approval pending",
+  "status": "all required reviews and independent reproduction pass; ready for user approval; not applied",
   "edition_manifest_sha256": "e5a829f7f714f1999fafc1575c6b4a19b468b5846f04f064c2f84d244357faa7",
   "files": {
     "code/pde/observable_fixed.py": {
@@ -105,5 +105,6 @@
       "candidate_path": "data/generated/observable_hierarchy/H3_v2_edition_v3/docs/README.md"
     }
   },
-  "patch_sha256": "33f24d8bccb422faaaa9aac7b1944a919902783d9a4ddf38f65edb00e6be2acd"
+  "patch_sha256": "33f24d8bccb422faaaa9aac7b1944a919902783d9a4ddf38f65edb00e6be2acd",
+  "review_disposition": "studies/observable_hierarchy/H3_v2_review_acceptance_v4.md"
 }

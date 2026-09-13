@@ -1,7 +1,8 @@
 # Revised C-H3: concrete promotion proposal
 
-Status: complete candidate, independent reproduction and two complete scientific
-reviews pass; final integration review is pending. This is not promotion approval.
+Status: complete candidate, independent reproduction, two complete scientific
+reviews and the fresh complete integration review pass. Ready for user approval.
+Recommendation: approve this exact seventeen-file addition.
 
 ## Concrete addition
 
@@ -75,10 +76,15 @@ mathematical numerical refinement, while practical runs include float64,
 Decimal40 and small rational24/rational36 comparisons.
 
 Relevance selection accepts the addition beside H2. Both complete fresh
-scientific reviews of packet v3 pass without required corrections. A required
-integration presentation correction displays one existing bound properly;
-all mathematics, code and execution inputs are preserved. A fresh complete
-integration review of the corrected edition v3, packet v4, is pending. Original source editions, internal corrections, incomplete
+[scientific A](H3_v2_scientific_a_v3.md) and
+[scientific B](H3_v2_scientific_b_v3.md) reviews pass without required corrections.
+A required integration presentation correction displays one existing bound
+properly; all mathematics, code and execution inputs are preserved. The fresh
+complete [integration review](H3_v2_integration_v4.md) of the corrected edition
+v3 passes without required corrections. The coordinator read all reports in
+full and verified their provenance; [review disposition](H3_v2_review_acceptance_v4.md)
+records the exact bindings and correction history.
+Original source editions, internal corrections, incomplete
 review contexts, all run failures/corrections and evidence are retained.
 The complete packet includes all auxiliary reproduction source bytes.
 
@@ -89,8 +95,8 @@ broad sweep, training campaign or new certificate campaign was launched.
 
 ## Approval boundary
 
-After all required reviews pass, the coordinator will present their exact
-outcomes and recommendation and request approval of this concrete package.
+All required reviews pass. The coordinator recommends approval of this exact
+reviewed package and requests that approval before its established integration.
 RESEARCH_WORKFLOW.md Part 2, step 5 requires approval before established edits.
 Following approval, current dependencies/base hashes must be rechecked,
 concurrent changes preserved, the reviewed addition applied, and affected
