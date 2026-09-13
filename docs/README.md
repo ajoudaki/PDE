@@ -219,8 +219,8 @@ flowchart TD
     F["F · Advantage of depth<br/>Separation from trained shallow models"]:::theory
     CH1["C-H1 · Predictive observable state<br/>Exact current-state hierarchy"]:::compute
     CH2["C-H2 · Convergent finite closure<br/>Fixed nonlinear interval"]:::compute
-    CH3["C-H3 · Useful certified solver<br/>Accuracy, cost + broader exploration"]:::compute
-    CH4["C-H4 · Substantial learning<br/>Certified horizon without growing state"]:::compute
+    CH3["C-H3 · Efficient numerical implementation<br/>Qualitative convergence + broader exploration"]:::compute
+    CH4["C-H4 · Computation through substantial training<br/>Time 40 without growing state"]:::compute
     J["Common-family completion<br/>G only if extending the solver requires new mathematics"]:::join
     M --> A
     M --> CH1
@@ -252,8 +252,8 @@ directions empirically without being a prerequisite for their initial proofs.
 | B | A and the established sampling calculus | Useful generalization of that selection |
 | C-H1 | Established 1–3 and the exact population equations | A sufficient current observable state with exact evolution identities |
 | C-H2 | C-H1 | One convergent finite autonomous closure on a fixed nonlinear interval |
-| C-H3 | C-H2; prototype during C-H2 | A useful certified solver and controlled broader exploration |
-| C-H4 | C-H3 and the established learning-horizon bounds | Certified substantial training with no accumulating state |
+| C-H3 | C-H2; prototype during C-H2 | Efficient finite computation with qualitative population convergence and broader exploratory use |
+| C-H4 | C-H3 and the established learning-horizon bounds | The same convergent computation through time 40 with no accumulating state |
 | D | B | An explanation of activation-dependent bias |
 | E | B | Efficient discovery of unknown structure |
 | F | E | A genuine advantage over trained shallow models |
@@ -314,7 +314,7 @@ Section C.4.10 supplies B at a finite-episode scope for a declared full-circle r
 
 Construct a fundamentally different finite causal system approximating the
 same population GF, with one physical time, explicit initialization and
-prediction reconstruction. The certified target includes enough internal
+prediction reconstruction. The convergence target includes enough internal
 observations to identify the evolution and support its claimed restartability,
 including the effects of both Gaussian action directions and their reuse.
 An autonomous ODE, PDE or integro-differential hierarchy is admissible; a fitted
@@ -323,17 +323,22 @@ the single C package by the four hierarchy milestones below. Its finite state
 consists of current observable populations and their required joint statistics,
 including differentiated fields where justified. At a chosen order, state size
 stays fixed during the run; elapsed steps cannot add history slots. The chosen
-order may depend on the requested accuracy and declared horizon.
+order and numerical resolution may increase between runs and depend on the
+declared horizon; a certified accuracy-to-resolution rule is not required.
 
 Account for total storage, computation, precision, quadrature, field count and
 memory cost. A collection of low-dimensional fields can qualify. A hidden
 high-dimensional density, unevaluated Gaussian-action oracle or renamed
 trainable fully connected matrix does not establish manageable computation.
 The completed route should cover an explicitly represented family of laws,
-including nonatomic examples, through the established learning horizon, with
-useful accuracy within a concrete resource bound. Earlier milestones isolate
-information sufficiency, convergence and numerical usefulness so each is a
-substantial result even if the later horizon extension fails.
+including nonorthogonal and nonatomic examples, through the established
+learning horizon, with qualitative convergence and efficient computation at
+declared finite resolutions. Evaluate initialization and runtime costs; do not
+equate efficiency at a retained resolution with a bound on cost per target
+accuracy. Earlier milestones isolate information sufficiency, closure,
+numerical consistency and continuation so each remains valuable if later work
+fails. Quantitative convergence rates and numerical accuracy certificates are
+later extensions, not completion requirements for C-H3 or C-H4.
 
 **C-H1: a predictively sufficient current observable hierarchy.** Give an
 explicit nested dictionary, its exact finite-order evolution and initialization,
@@ -378,29 +383,67 @@ state. Its exact population integrals are not a certified practical solver;
 the accompanying prototype exposes initialization, evolution and observations
 with separate quadrature and arithmetic limitations.
 
-**C-H3: useful certified computation.** Make that same closure independently
-computable, with separate control of hierarchy, population/input quadrature,
-time-integration and arithmetic errors. Evaluate resource and conditioning
-bounds and resolve a predetermined prediction change and hidden-learning
-signal within the proved regime. Verify restart using only the saved current
-state. Count the required joint correlations, not merely separate marginal
-populations. The equations should also admit broader exploratory use without
-fitting to a known population trajectory.
+**C-H3: efficient computation with qualitative population convergence.**
+Implement C-H2's autonomous closure, or a mathematically justified compatible
+variant, on the fixed interval `[0,1/200]` and a fixed supported represented
+law family including nonorthogonal and nonatomic examples. The family and
+horizon must not shrink with refinement. Preserve the actual model, Gaussian
+action reuse, whole-circle prediction and declared internal observations,
+including paired initial/current activations of both hidden layers.
 
-**C-H4: substantial learning without accumulating state.** Extend the same
-solver and its certified useful accuracy through the established physical
-time 40 on a fixed supported family, retaining prediction and paired internal
-observations. Carry errors across every continuation interval; do not import
-exact intermediate states or grow the history. Accumulated-training-force
-estimates are a possible analysis tool, with their control-tube hypotheses
-preserved; they are not a source of prescribed reference forcing for the
-solver. If C-H3 already proves this horizon, merge these two packages. A shorter
-certified interval alone does not complete C-H4.
+For each fixed closure order N, prove that a specified numerical refinement J
+converges to that exact population closure. J accounts for initialization,
+population/input integration, time discretization and finite arithmetic;
+state their limit order or a justified joint refinement. Combine this with
+C-H2's closure-order convergence. In prediction notation the target is
+
+\[
+\widehat f_{N,J}\longrightarrow f_N\quad(J\to\infty),
+\qquad f_N\longrightarrow f_\mu\quad(N\to\infty),
+\]
+
+uniformly over the fixed time interval and input circle, with the corresponding
+declared internal-observation convergence. State the probability mode for
+randomized methods. An iterated limit is acceptable; arbitrary simultaneous
+refinement and a certified rule selecting N or J from a tolerance do not follow.
+
+Deliver a reusable implementation and bounded, reproducible runs at several
+resolutions, measuring initialization, runtime, memory and conditioning.
+Account for complete joint populations, both action directions, precision and
+workspace. Demonstrate feasible computation and own-state restart without
+accumulating history. Numerical refinement comparisons are diagnostics, not
+error certificates or substitutes for the convergence proof. A fixed-order
+reference formula with an irreducible dynamical remainder alone does not meet
+this target. The same equations should permit broader exploratory use without
+fitting a known trajectory. Per-truncation accuracy certificates, explicit
+convergence rates and an automatic tolerance selector are not required.
+
+**C-H4: convergent computation through substantial training.** Extend the
+same hierarchy and numerical-consistency proof through physical time 40 on a
+fixed supported family where the established GF has substantial learning.
+Retain whole-circle predictions and paired internal observations, and
+demonstrate feasible operation at declared resolutions on this longer horizon.
+The target flow's existence alone does not establish this approximation result.
+Carry the approximation and numerical consistency across the entire interval;
+do not import exact intermediate states, reset approximation errors at restart,
+or grow stored history. At a chosen resolution the working state stays fixed
+in size during training. No quantitative error rate, finite-run accuracy
+certificate or cost-to-accuracy bound is required. If C-H3 already establishes
+this horizon and implementation scope, merge the two packages; otherwise
+reassess the actual remaining work before launching a separate task.
+
+These two milestones complete this computational branch at the qualitative
+level when their respective proofs and implementations pass review. Later
+extensions may establish asymptotic error rates, nonasymptotic certificates,
+automatic tolerance selection and cost-to-accuracy bounds. Those extensions
+must include the numerical and closure errors they claim to control; they
+are not implied by qualitative convergence. C-H3 and C-H4 remain research
+targets until fulfilled; changing their scope asserts no new theorem.
 
 The strategic separation is between information, truncation, useful cost and
 continuation. C-H2's qualitative finite closure resolves the truncation step
-on its stated small nonlinear interval; useful certified cost and later
-continuation remain C-H3 and C-H4. Existing fixed-order Gaussian-source
+on its stated small nonlinear interval; efficient numerical consistency and
+later continuation remain C-H3 and C-H4. Existing fixed-order Gaussian-source
 derivatives are not temporal-jet tail estimates.
 The Stieltjes representation disproved in *Gaussian and flow calculus*,
 Sections 7.2 and 10.2, is not a premise of this route. Rational or Padé-type
@@ -419,7 +462,7 @@ predictions and risks. Such observations may reveal that a theorem's small
 admissible neighborhood reflects its estimates rather than actual failure of
 learning. This is a hypothesis to test, not a conclusion supplied by the plan.
 
-Outside the certified regime, label results exploratory. Check refinement of
+Outside the proved convergence regime, label results exploratory. Check refinement of
 time discretization, resolution and truncation, relevant numerical errors,
 and agreement with independently simulated finite networks as width increases
 under stated step conditions. Finite networks already provide a simulation
@@ -481,11 +524,15 @@ research obligations, not assumptions secured by the roadmap.
 
 The final learning, activation, depth and computational results must have
 substantial overlap in task families, models and learning regimes. C's solver
-must cover the relevant horizons with error smaller than the claimed learning
-and comparison margins. If C's approximation and complexity theorem already
-provides this, completion is integration and verification. If extending it
-requires new mathematics, that is a separate milestone G; its count is not
-fixed in advance for presentation symmetry.
+must approximate the same objects on the relevant horizons, with qualitative
+convergence and feasible operation at declared resolutions. If the results
+already have this compatibility, completion is integration and verification.
+If extending their scope requires new mathematics, that is a separate
+milestone G; its count is not fixed in advance for presentation symmetry.
+A claim that a particular numerical run resolves a learning or comparison
+margin still requires its own sufficient error control. Such quantitative
+certification remains a later extension and is not inferred from C-H3/C-H4
+or made a prerequisite for their qualitative completion.
 
 A possible missing obligation is controlling the necessary source modes or
 memory using the learned structure. Low-dimensional structure in a target

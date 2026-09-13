@@ -1,5 +1,10 @@
 # Observable hierarchy — milestone C-H1
 
+Current planning scope (2026-09-13): C-H3 and C-H4 now target efficient numerical
+implementation with qualitative population convergence; quantitative error
+certification is deferred. See the final revision entry below and
+[the revised H3 task prompt](H3_prompt_v2.md). Neither milestone is yet complete.
+
 **C-H1 promoted with user approval.** The exact reviewed theorem is established
 in `docs/global_nonlinear.md` C.4.7.8, and `docs/README.md` records its scope.
 Two fresh complete scientific reviews and the independent integration review
@@ -287,3 +292,50 @@ The assessment contains fresh-path reproduction commands and exact scope.
 All H3 study sources, original corrections/reports and generated evidence are
 preserved. Scoped commits use the shared writer lock and exclude concurrent
 changes. Full promotion remains held; C-H4 and training campaigns were not run.
+
+## C-H3/C-H4 scope revision — 2026-09-13
+
+The user explicitly requested the book roadmap be revised to require efficient
+computation with qualitative population convergence, leaving quantitative error
+bounds for later. This is authorized roadmap maintenance, not promotion of a
+new theorem. Coordinator `/root` owns this revision and is its sole Git writer.
+
+The live `docs/README.md` now states numerical consistency at every fixed
+closure order, followed by closure-order convergence, through `[0,1/200]` for
+C-H3 and through `[0,40]` for C-H4. Limit order and probability mode must be
+proved; approximation and numerical errors cannot be reset at a restart.
+Efficiency concerns evaluated initialization/runtime/storage at declared
+resolutions. It does not promise cost per true-error tolerance. The DAG,
+dependency table, C-branch introduction and common-family paragraph use the
+same scope. Quantitative rates, finite-run certificates and automatic tolerance
+selection are optional later extensions.
+
+[H3_prompt_v2.md](H3_prompt_v2.md) is the proposed next task, not a launched
+research campaign. It preserves the actual model, fixed nonlinear interval,
+supported nonorthogonal/nonatomic family, paired hidden observations, full
+joint initialization and own-state restart. It permits alternative consistent
+numerical representations with the required compatibility proofs.
+
+The original `H3_contract.md`, `H3_assessment.md`, proofs, code, reports and
+numerical evidence remain unchanged and describe the stronger earlier task.
+Its bounded reference certificate is useful but does not complete this revised
+task either: numerical consistency and an efficient implementation of a
+convergent nonlinear hierarchy remain outstanding. No new scientific claim,
+training run or promotion is asserted. Earlier frozen guide hashes remain
+historical review inputs; this authorized planning edit changes the live guide,
+not the approved H2 theorem or maintained implementation.
+
+Validation: `git diff --check` on the assigned paths passed. Comparison with
+the pre-edit HEAD verified that all guide text outside the strategic roadmap,
+the H1/H2 blocks, other milestones, GD fallback and DAG edges are unchanged.
+Both frozen H3 manifests still match every scientific/code input; their only
+changed input is the intentionally revised live guide. The original study
+README is preserved verbatim between these new current-scope notes. No training
+run or scientific test suite was needed for this planning-only edit.
+
+The fresh scoped editorial reviewer `/root/h3_h4_roadmap_revision_check` found
+no material mathematical or scope defect in the roadmap, prompt and revision
+notes. This is not a new scientific promotion review. Reviewed content hashes:
+
+- `docs/README.md`: `6daf2439bc725d63b0764967c20c980a6ef0361abec0c14bf29d396d87807fca`.
+- `H3_prompt_v2.md`: `7f3da50dd3962c661103b6017fa3e92cbe7bc4a720411dd0bb1d7ffd719e08ea`.
