@@ -1,5 +1,15 @@
 # Observable hierarchy — milestone C-H1
 
+## Revised C-H3 implementation in progress — 2026-09-13
+
+Task `01a09b51-6f6c-7371-9726-159b9402da2b` is executing the revised
+qualitative target in [H3_v2_contract.md](H3_v2_contract.md). Coordinator
+`/root` owns this current entry and is the sole study Git writer; its fresh
+scoped agents own only the three route files listed in that contract.
+All original H3 findings and the stronger old contract are preserved below.
+No revised C-H3 result or promotion is yet claimed. The next action is complete
+foundation recovery, independent route comparison, and bounded implementation.
+
 Current planning scope (2026-09-13): C-H3 and C-H4 now target efficient numerical
 implementation with qualitative population convergence; quantitative error
 certification is deferred. See the final revision entry below and
