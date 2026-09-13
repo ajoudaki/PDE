@@ -14,7 +14,7 @@ def load_candidate():
         sys.path.insert(0, str(code))
     import pde
     modules = {}
-    for suffix in ("fixed", "arithmetic", "compiler", "initialization", "solver"):
+    for suffix in ("fixed", "arithmetic", "words", "compiler", "initialization", "solver"):
         name = "pde.observable_"+suffix
         spec = importlib.util.spec_from_file_location(name, here/("H3_v2_"+suffix+".py"))
         module = importlib.util.module_from_spec(spec)

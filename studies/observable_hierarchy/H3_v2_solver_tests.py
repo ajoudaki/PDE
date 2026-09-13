@@ -67,7 +67,7 @@ def example(ar=None):
                   A([[.24, -.79], [.69, .48], [-.37, .27]]), A([.2, .3, .5]),
                   A([[1., .4], [1., -.7]]), A([.08, -.05]), A([.4, .6]),
                   A([[.4, .2], [-.1, .3]]), A([[.39, .21], [-.11, .29]]), ar)
-    data = DataLaw(A([[1, 0], [Fraction(3, 5), Fraction(4, 5)]]), A([1, -1]), A([.3, .7]))
+    data = DataLaw(A([[1, 0], [Fraction(3, 5), Fraction(4, 5)]]), A([1, -1]), A([Fraction(3, 10), Fraction(7, 10)]))
     return state.validate(), data.validate(ar)
 
 

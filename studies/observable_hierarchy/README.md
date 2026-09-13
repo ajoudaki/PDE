@@ -4,11 +4,53 @@
 
 Task `01a09b51-6f6c-7371-9726-159b9402da2b` is executing the revised
 qualitative target in [H3_v2_contract.md](H3_v2_contract.md). Coordinator
-`/root` owns this current entry and is the sole study Git writer; its fresh
-scoped agents own only the three route files listed in that contract.
+`/root` owns this current entry and is the sole study Git writer. Fresh
+scoped route agents froze their candidates before author synthesis and
+implementation assignments; their exact scopes remain in the study records.
 All original H3 findings and the stronger old contract are preserved below.
-No revised C-H3 result or promotion is yet claimed. The next action is complete
-foundation recovery, independent route comparison, and bounded implementation.
+No revised C-H3 completion or promotion is yet claimed.
+
+Foundation correspondence passed: the maintained H2 theorem matches its frozen
+source, all seven dependency excerpts match current maintained proof bodies,
+and its implementation/tests/guide match their approved hashes. See
+[recovery source](H3_v2_recovery.py) and generated
+`H3_v2_recovery_20260913/recovery.json`.
+
+The author candidate uses a tanh polynomial core with operational odd-degree
+dimensions (5,3), (35,10), (128,21), an exhaustive initialized-word tail and an
+explicit two-arc family at fixed T=1/200. Proof sources are
+[short-time scope](H3_v2_scope_proof.md),
+[changed hierarchy compatibility](H3_v2_hierarchy_proof.md), and
+[Gaussian cubature](H3_v2_cubature_proof.md). The complete
+[numerical proof](H3_v2_numerical_proof.md) covers joint initialization,
+population/input integration, time and arithmetic in a specified iterated limit.
+Library candidates provide initialization,
+nonlinear Heun evolution, circle prediction, paired hidden observations,
+restart and float64/Decimal/rational arithmetic; see
+[the candidate guide](H3_v2_guide.md).
+
+All twelve configurations in [the predeclared plan](H3_v2_run_plan.json)
+completed operational checks, including exact own-state restart, in
+`data/generated/observable_hierarchy/H3_v2_author_validation_20260913/`.
+The supervisor recorded 19.49 CPU seconds total and peak sampled RSS
+55,635,968 bytes. Refinement agreement is evidence, not an error certificate.
+Post-run internal corrections and limitations are preserved in
+[H3_v2_corrections.md](H3_v2_corrections.md); original sources are retained
+in commit `bb78603`. The source-word and precision-boundary checks are part
+of completing the candidate, not a new certification task.
+
+[Independent relevance selection](H3_v2_relevance_review.md) accepts assembly
+beside H2. The standalone edition v1 passed all 46 deterministic tests, but
+its equation-reference formatting was found defective before external review;
+it is preserved and superseded by the corrected assembly under preparation.
+The original run degrees 1,2,3 and their source edition remain historical
+operational evidence; the corrected candidate will be independently reproduced
+at degrees 1,3,5 under its own predeclared twelve-configuration budget.
+
+Remaining authorized work: freeze the complete canonical addition, fresh
+isolated complete scientific reviews, independent reproduction and separate
+integration review. Present the
+concrete reviewed edition for user approval before any established edits.
 
 Current planning scope (2026-09-13): C-H3 and C-H4 now target efficient numerical
 implementation with qualitative population convergence; quantitative error

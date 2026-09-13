@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 import unittest
 from dataclasses import replace
+from fractions import Fraction
 from unittest.mock import patch
 
 import numpy as np
@@ -23,9 +24,88 @@ def load_candidate(name, filename):
 
 
 load_candidate("pde.observable_fixed", "H3_v2_fixed.py")
+words = load_candidate("pde.observable_words", "H3_v2_words.py")
 arithmetic = load_candidate("pde.observable_arithmetic", "H3_v2_arithmetic.py")
 compiler = load_candidate("pde.observable_compiler", "H3_v2_compiler.py")
 initialization = load_candidate("pde.observable_initialization", "H3_v2_initialization.py")
+
+
+class ExactWordChecks(unittest.TestCase):
+    @staticmethod
+    def literal_tree_signature(word):
+        if word is None:
+            return None
+        result, pending = [], [word]
+        while pending:
+            node = pending.pop()
+            result.append((node.op, node.population, node.scalar, node.bounded, len(node.args)))
+            pending.extend(reversed(node.args))
+        return result
+
+    def test_natural_code_mapping_matches_maintained_prefix_2048(self):
+        from pde.observable_closure import decode_word as maintained_decode
+        for code in range(2049):
+            exact, previous = words.decode_word(code), maintained_decode(code)
+            self.assertEqual(self.literal_tree_signature(exact),
+                             self.literal_tree_signature(previous), msg=f"code {code}")
+            if exact is not None and exact.bounded:
+                self.assertIsInstance(exact.envelope, Fraction)
+
+    def test_large_and_small_rational_envelopes_are_exact(self):
+        huge, tiny = Fraction(1 << 20000, 3), Fraction(1, 1 << 20000)
+        scaled = words.scale(huge, words.constant(1))
+        self.assertEqual(scaled.scalar, huge)
+        self.assertEqual(scaled.envelope, huge)
+        self.assertEqual(words.scale(tiny, scaled).envelope, Fraction(1, 3))
+        self.assertEqual(words.multiply(scaled, scaled).envelope, huge*huge)
+        self.assertFalse(words.action(scaled).bounded)
+        self.assertEqual(words.unary("tanh", words.action(scaled)).envelope, Fraction(1))
+        self.assertIn("bounded=True", repr(scaled))
+        with self.assertRaises(ValueError):
+            words.scale(0.5, words.constant(1))
+
+    def test_typing_and_literal_duplicates(self):
+        self.assertEqual(words.constant(1), words.constant(1))
+        self.assertNotEqual(words.constant(1), words.scale(1, words.constant(1)))
+        self.assertEqual(words.scale(Fraction(2, 4), words.constant(1)),
+                         words.scale(Fraction(1, 2), words.constant(1)))
+        self.assertFalse(words.scale(0, words.seed("g1")).bounded)
+        self.assertEqual(words.scale(0, words.constant(1)).envelope, Fraction(0))
+        with self.assertRaises(ValueError):
+            words.action(words.seed("g1"))
+        with self.assertRaises(ValueError):
+            words.multiply(words.seed("g1"), words.constant(1))
+        with self.assertRaises(ValueError):
+            words.add(words.constant(1), words.constant(2))
+        with self.assertRaises(AttributeError):
+            words.constant(1).envelope = Fraction(4)
+
+    def test_deep_shared_dag_hash_equality_and_exact_growth(self):
+        left, right = words.constant(1), words.constant(1)
+        for _ in range(2500):
+            left, right = words.add(left, left), words.add(right, right)
+        self.assertEqual(left, right)
+        self.assertEqual(hash(left), hash(right))
+        self.assertEqual(len({left, right}), 1)
+        self.assertEqual(left.envelope, Fraction(1 << 2500))
+        self.assertNotEqual(left, words.scale(1, right))
+
+    def test_deep_natural_decoder_uses_an_explicit_stack(self):
+        code, expected = 2, words.seed("g1")
+        for _ in range(2200):
+            code = 4+8*code
+            expected = words.unary("sin", expected)
+        self.assertEqual(words.decode_word(code), expected)
+        self.assertIs(words.decode_word(code), words.decode_word(code))
+
+    def test_deep_chebyshev_dag_has_exact_syntax_envelope(self):
+        degree = 1500
+        coordinate = words.unary("tanh", words.seed("g1"))
+        polynomial = initialization._polynomial_words((coordinate,), ((degree,),), degree)[0]
+        self.assertTrue(polynomial.bounded)
+        self.assertIsInstance(polynomial.envelope, Fraction)
+        self.assertGreater(polynomial.envelope.numerator.bit_length(), 1024)
+        self.assertIsInstance(hash(polynomial), int)
 
 
 class InitializerChecks(unittest.TestCase):

@@ -16,7 +16,7 @@ import time
 import traceback
 
 import numpy as np
-from pde import observable_fixed, observable_arithmetic, observable_compiler, observable_initialization, observable_solver
+from pde import observable_fixed, observable_arithmetic, observable_words, observable_compiler, observable_initialization, observable_solver
 from pde.observable_solver import (initialize, ArcLaw, evolve, predict, circle_inputs,
     paired_observations, loss, save_restart, load_restart, state_bytes)
 
@@ -35,7 +35,7 @@ def run(plan_path, run_id, output):
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
     resource.setrlimit(resource.RLIMIT_CPU, (plan["budget"]["cpu_seconds_per_configuration"],)*2)
-    modules = (observable_fixed, observable_arithmetic, observable_compiler, observable_initialization, observable_solver)
+    modules = (observable_fixed, observable_arithmetic, observable_words, observable_compiler, observable_initialization, observable_solver)
     record = dict(id=run_id, configuration=config, plan_sha256=digest(plan_path),
                   plan_version=plan["version"], status="running", command=sys.argv,
                   cwd=str(Path.cwd()), source_hashes={Path(m.__file__).name: digest(m.__file__) for m in modules},
@@ -54,6 +54,14 @@ def run(plan_path, run_id, output):
         data = ArcLaw(**plan["law_parameters"][config["law"]]).quadrature(config["nodes_per_arc"], ar)
         record["state_bytes_initial"] = state_bytes(state)
         record["initialization_metadata"] = state.metadata
+        b1, b2 = np.asarray(state.b1, float), np.asarray(state.b2, float)
+        record["conditioning_diagnostics"] = dict(
+            scope="float64 diagnostics of the retained P-node feature Grams; not Q-node raw Grams or error certificates",
+            first_feature_gram_condition=float(np.linalg.cond(b1.T @ (np.asarray(state.p1, float)[:, None]*b1))),
+            second_feature_gram_condition=float(np.linalg.cond(b2.T @ (np.asarray(state.p2, float)[:, None]*b2))),
+            initialized_matrix_norm=float(np.linalg.norm(np.asarray(state.D, float), ord=2)),
+            first_feature_max_abs=float(np.max(np.abs(b1))), second_feature_max_abs=float(np.max(np.abs(b2))))
+        del b1, b2
         record["dimensions"] = dict(first_features=state.b1.shape[1], second_features=state.b2.shape[1],
                                     first_nodes=len(state.b1), second_nodes=len(state.b2), input_nodes=len(data.inputs),
                                     action_matrix=list(state.M.shape))

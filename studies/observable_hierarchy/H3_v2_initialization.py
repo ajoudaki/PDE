@@ -11,7 +11,7 @@ from typing import Any
 
 import numpy as np
 
-from pde.observable_closure import (
+from pde.observable_words import (
     action, add, constant, decode_word, multiply, scale, seed, unary,
 )
 

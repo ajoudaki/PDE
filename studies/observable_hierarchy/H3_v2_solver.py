@@ -29,9 +29,11 @@ def _probabilities(values, count, ar):
     if values.shape != (count,) or not ar.finite(values) or any(x < 0 for x in values):
         raise ValueError("invalid probability vector")
     total = sum(values, ar.real(0))
-    if total <= 0:
-        raise ValueError("probabilities must have positive mass")
-    return values / total
+    tolerance = ar.real("2e-12" if ar.digits is None else "1e-" + str(ar.digits-5))*max(1, count)
+    if total <= 0 or abs(total-1) > tolerance:
+        raise ValueError("probabilities must have unit positive mass at working precision")
+    # Validation never evolves the data law through repeated renormalization.
+    return values
 
 
 def _unit_inputs(values, ar):
@@ -138,7 +140,7 @@ class State:
         with ar.context():
             tolerance = ar.real("2e-12" if ar.digits is None else "1e-" + str(ar.digits-5))
             for p in (self.p1, self.p2):
-                if any(x < 0 for x in p) or abs(sum(p, ar.real(0))-1) > tolerance:
+                if any(x < 0 for x in p) or abs(sum(p, ar.real(0))-1) > tolerance*len(p):
                     raise ValueError("population weights must have unit positive mass")
         return self
 
@@ -167,12 +169,12 @@ def _fields(state, inputs, backward=True):
     ar = state.arithmetic
     h1 = ar.tanh(state.w @ inputs.T)
     a = state.b1.T @ (state.p1[:, None]*h1)
-    h2 = ar.tanh(state.b2 @ state.M @ a)
+    h2 = ar.tanh(state.b2 @ (state.M @ a))
     f = state.p2 @ (state.c[:, None]*h2)
     result = dict(h1=h1, a=a, h2=h2, f=f)
     if backward:
         d = state.b2.T @ (state.p2[:, None]*state.c[:, None]*(1-h2*h2))
-        result.update(d=d, q=state.b1 @ state.M.T @ d)
+        result.update(d=d, q=state.b1 @ (state.M.T @ d))
     return result
 
 
@@ -280,7 +282,7 @@ def paired_observations(state, data, *, block_size=16, include_pairs=True):
             u = data.inputs[start:stop]
             current = _fields(state, u, False)
             initial1 = ar.tanh(state.g @ u.T)
-            initial2 = ar.tanh(state.b2 @ state.D @ (state.b1.T @ (state.p1[:, None]*initial1)))
+            initial2 = ar.tanh(state.b2 @ (state.D @ (state.b1.T @ (state.p1[:, None]*initial1))))
             for layer, initial, actual, p in ((0, initial1, current["h1"], state.p1),
                                                (1, initial2, current["h2"], state.p2)):
                 sums[layer] += p @ ((actual-initial)**2) @ data.probabilities[start:stop]
@@ -309,6 +311,7 @@ def state_bytes(state):
         result += a.nbytes
         if a.dtype == object:
             result += sum(sys.getsizeof(x) for x in a.flat)
+            result += sum(sys.getsizeof(x.units)+sys.getsizeof(x.scale) for x in a.flat if isinstance(x, Fixed))
     return dict(arrays=result, metadata_utf8=len(json.dumps(state.metadata).encode()))
 
 
@@ -343,8 +346,5 @@ def load_restart(path):
         raise ValueError("invalid restart fields")
     state = State(*(decode(record["state"][k]) for k in keys), ar, record["metadata"]).validate()
     data = DataLaw(*(decode(record["data"][k]) for k in ("inputs", "labels", "probabilities")), record["data_metadata"])
-    # Validation normalizes probabilities; preserve their exact saved values.
-    saved_probabilities = data.probabilities.copy()
     data.validate(ar)
-    data.probabilities = saved_probabilities
     return state, data
