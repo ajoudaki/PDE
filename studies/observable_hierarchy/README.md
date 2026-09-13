@@ -34,9 +34,13 @@ passed. All 14 declared time-40 runs passed operation and exact own-state
 restart; worker CPU totaled 506.291 seconds and peak RSS was 56,119,296 bytes.
 The supported perturbations collapse at these working precisions; wider
 resolved arcs are explicitly exploratory. No numerical comparison is an
-accuracy certificate. Independent reproduction is running, and the next gates
-are two fresh complete isolated scientific reviews and a separate integration
-review. The result is still a study candidate, not established material.
+accuracy certificate. The [fresh independent reproduction](H4_reproduction_v1.md) passed all
+14 configurations and 67 tests; its 84 exact observation archives were decoded
+independently. All 112 exact observation/checkpoint files match the author run
+byte for byte in a later coordinator comparison. The original code-only
+reproduction edition was then supplemented with the six complete candidate
+documents, preserving every executed input and original manifest. Two fresh
+complete scientific reviews and the separate integration review are underway. The result is still a study candidate, not established material.
 Established-book/code changes require approval of the concrete reviewed addition.
 
 ## Revised C-H3 promoted with user approval — 2026-09-13
