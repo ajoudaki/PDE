@@ -1,0 +1,187 @@
+{
+  "version": "2026-09-13-independent-odd-orders-v2",
+  "status": "predeclared independent reproduction of the corrected canonical candidate",
+  "purpose": "Bounded operational checks of enriched closure orders, separate refinements, paired observations, arithmetic and own-state restart; no true-error certificate. Operational odd degrees 1,3,5 add initialized action information; original author records remain separate.",
+  "horizon": "1/200",
+  "method": "explicit Heun, uniform steps, linear interpolation convention",
+  "initialization": "deterministic joint prime-Halton Box-Muller; no random seeds",
+  "law_parameters": {
+    "atom": {
+      "p": "1/2",
+      "a": "0",
+      "b": "0",
+      "c": "0",
+      "d": "0"
+    },
+    "arc": {
+      "p": "1/2",
+      "a": "-1/20",
+      "b": "1/20",
+      "c": "-1/20",
+      "d": "1/20"
+    }
+  },
+  "common": {
+    "epsilon_cov": "0.001",
+    "block_size": 16,
+    "circle_directions": 128
+  },
+  "configurations": [
+    {
+      "id": "atom_n1",
+      "law": "atom",
+      "order": 1,
+      "initialization_nodes": 2048,
+      "population_nodes": 1024,
+      "nodes_per_arc": 1,
+      "steps": 32,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "atom_n3",
+      "law": "atom",
+      "order": 3,
+      "initialization_nodes": 2048,
+      "population_nodes": 1024,
+      "nodes_per_arc": 1,
+      "steps": 32,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "atom_n5",
+      "law": "atom",
+      "order": 5,
+      "initialization_nodes": 2048,
+      "population_nodes": 1024,
+      "nodes_per_arc": 1,
+      "steps": 32,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "arc_n1",
+      "law": "arc",
+      "order": 1,
+      "initialization_nodes": 2048,
+      "population_nodes": 1024,
+      "nodes_per_arc": 8,
+      "steps": 32,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "arc_n3",
+      "law": "arc",
+      "order": 3,
+      "initialization_nodes": 2048,
+      "population_nodes": 1024,
+      "nodes_per_arc": 8,
+      "steps": 32,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "arc_n5",
+      "law": "arc",
+      "order": 5,
+      "initialization_nodes": 2048,
+      "population_nodes": 1024,
+      "nodes_per_arc": 8,
+      "steps": 32,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "arc_n3_joint_refine",
+      "law": "arc",
+      "order": 3,
+      "initialization_nodes": 8192,
+      "population_nodes": 4096,
+      "nodes_per_arc": 16,
+      "steps": 64,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "arc_n3_time_refine",
+      "law": "arc",
+      "order": 3,
+      "initialization_nodes": 2048,
+      "population_nodes": 1024,
+      "nodes_per_arc": 8,
+      "steps": 64,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "tiny_float",
+      "law": "arc",
+      "order": 1,
+      "initialization_nodes": 32,
+      "population_nodes": 16,
+      "nodes_per_arc": 2,
+      "steps": 4,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "tiny_decimal40",
+      "law": "arc",
+      "order": 1,
+      "initialization_nodes": 32,
+      "population_nodes": 16,
+      "nodes_per_arc": 2,
+      "steps": 4,
+      "digits": 40,
+      "backend": "decimal"
+    },
+    {
+      "id": "tiny_rational24",
+      "law": "arc",
+      "order": 1,
+      "initialization_nodes": 32,
+      "population_nodes": 16,
+      "nodes_per_arc": 2,
+      "steps": 4,
+      "digits": 24,
+      "backend": "rational"
+    },
+    {
+      "id": "tiny_rational36",
+      "law": "arc",
+      "order": 1,
+      "initialization_nodes": 32,
+      "population_nodes": 16,
+      "nodes_per_arc": 2,
+      "steps": 4,
+      "digits": 36,
+      "backend": "rational"
+    }
+  ],
+  "checks": [
+    "Record all configurations, source hashes, environment, CPU and wall timings, peak RSS, retained array and metadata bytes.",
+    "Restart each run from its midpoint: save/load the exact working values and compare continuation with the in-memory midpoint continuation using the identical steps.",
+    "Record initial/final loss, prediction on the same 128-direction circle panel, paired same-population RMS motions and changes of all dynamical blocks.",
+    "Record feature counts and matrix dimensions, initialization condition diagnostics, memory before/after and maximum solver stage storage estimate.",
+    "Compare declared orders and refinements without requiring monotone agreement or interpreting a difference as an error bound.",
+    "Save paired activation arrays at the final state; these are generated diagnostics, not runtime state or target inputs."
+  ],
+  "interpretation": {
+    "operational_pass": "Run reaches the declared horizon within budget with finite outputs, declared dimensions, complete joint-state restart matching exactly, and bounded workspace.",
+    "failure": "Budget exhaustion, nonfinite state, unresolved algebra/pivot, broken dimensions, missing required retained joint information, or mismatched restart values.",
+    "inconclusive": "Refinement differences or weak motion may not establish useful accuracy; they are reported without a numerical signal threshold. Loss change is diagnostic, not an acceptance certificate.",
+    "precision": "Float64 is the fast backend; Decimal40 is a practical comparison; rational24 and rational36 exercise the actual unbounded-precision algorithm."
+  },
+  "budget": {
+    "maximum_configurations": 12,
+    "cpu_seconds_per_configuration": 1200,
+    "wall_seconds_per_configuration": 1200,
+    "total_cpu_seconds": 3600,
+    "rss_bytes_per_process": 4294967296,
+    "threads_per_process": 1,
+    "parallel_trajectory_processes": 1
+  },
+  "stopping": "Stop a configuration on its first failure or resource cap, record it, and continue only the remaining listed configurations. No adaptive parameter search or extra configurations. Failed records are never overwritten; corrected reruns require a new predeclared record and explicit residual budget accounting."
+}

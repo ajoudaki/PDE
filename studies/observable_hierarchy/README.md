@@ -1,6 +1,6 @@
 # Observable hierarchy — milestone C-H1
 
-## Revised C-H3 complete as a reviewed candidate; promotion approval pending — 2026-09-13
+## Revised C-H3 promoted with user approval — 2026-09-13
 
 Task `01a09b51-6f6c-7371-9726-159b9402da2b` has completed the revised
 qualitative target in [H3_v2_contract.md](H3_v2_contract.md). Coordinator
@@ -8,9 +8,13 @@ qualitative target in [H3_v2_contract.md](H3_v2_contract.md). Coordinator
 scoped route agents froze their candidates before author synthesis and
 implementation assignments; their exact scopes remain in the study records.
 All original H3 findings and the stronger old contract are preserved below.
-The revised qualitative C-H3 target is met by the complete reviewed candidate.
-Established promotion remains pending explicit user approval of the concrete
-addition. All preceding failed/partial stronger-scope results remain historical.
+The user approved the exact seventeen-file package with “yes I approve.” It is
+now incorporated without scientific or implementation changes in maintained
+[C.4.7.10](../../docs/global_nonlinear.md#c4710-finite-numerical-autonomous-observable-closure),
+the [solver](../../code/pde/observable_solver.py) and its complete code guide,
+tests and reproduction commands. The [promotion record](H3_v2_promotion_record_v4.json)
+retains approval, reviewed-to-live hashes, validation and the integration commit.
+All preceding failed/partial stronger-scope results remain historical.
 
 Foundation correspondence passed: the maintained H2 theorem matches its frozen
 source, all seven dependency excerpts match current maintained proof bodies,
@@ -26,10 +30,10 @@ explicit two-arc family at fixed T=1/200. Proof sources are
 [Gaussian cubature](H3_v2_cubature_proof.md). The complete
 [numerical proof](H3_v2_numerical_proof.md) covers joint initialization,
 population/input integration, time and arithmetic in a specified iterated limit.
-Library candidates provide initialization,
+The maintained library provides initialization,
 nonlinear Heun evolution, circle prediction, paired hidden observations,
 restart and float64/Decimal/rational arithmetic; see
-[the candidate guide](H3_v2_guide.md).
+[the retained reviewed guide](H3_v2_guide.md).
 
 All twelve configurations in [the predeclared plan](H3_v2_run_plan.json)
 completed operational checks, including exact own-state restart, in
@@ -85,15 +89,30 @@ and [final integration sources](H3_v2_review_sources_v4.json).
 The [H4 scope note](H3_v2_H4_scope.md) records the remaining long-horizon
 implication; no extension work was launched.
 
-Next action: obtain user approval of [the concrete 17-file addition](H3_v2_promotion_proposal_v4.md)
-before established edits. All required scientific, reproduction, relevance and
-integration gates pass. After approval, recheck current dependencies and base
-hashes, apply the reviewed patch, verify exact correspondence and run affected
-tests under the shared writer discipline. Every original edition and earlier
-finding is retained. The proposed patch passes a dry application check against
-current files; it has not been applied. The final
-[preapproval checker](H3_v2_check_preapproval_v4.py) passed all 361 comparisons;
-its fresh output and exact invocation are recorded in the review disposition.
+All required scientific, reproduction, relevance and integration gates pass.
+After approval, a fresh preflight passed all 361 comparisons before applying
+[the exact package](H3_v2_promotion_proposal_v4.md). All seventeen promoted
+destinations and all seven unchanged established dependencies match the reviewed
+edition byte for byte. The complete live 54-test suite and published guide
+example pass, including exact disk restart on all state/data arrays. They used
+4.426405 and 0.521293 CPU seconds, respectively; results are retained in
+`data/generated/observable_hierarchy/H3_v2_live_promotion_v4/`. The separate
+[archival integrity check](H3_v2_promotion_integrity.md) confirms the frozen
+patch, candidates and accepted reports; it is not another scientific review.
+
+Use the [live checker](H3_v2_check_promoted_v4.py), with a fresh output path:
+
+```sh
+python -B studies/observable_hierarchy/H3_v2_check_promoted_v4.py \
+  --output data/generated/observable_hierarchy/H3_v2_live_recheck_new
+```
+
+Its [fixed validation scope and budgets](H3_v2_promotion_plan_v4.md) include
+only the affected tests and the existing guide configuration. The preapproval
+checker and earlier H2 whole-file hash checkers deliberately retain older base
+hashes; use this H3 live checker for the incorporated edition. Original proposal,
+mapping and acceptance files remain immutable preapproval snapshots; the promotion
+record is current. No further campaign is running, and H4 remains separate.
 
 Current planning scope (2026-09-13): C-H3 and C-H4 now target efficient numerical
 implementation with qualitative population convergence; quantitative error

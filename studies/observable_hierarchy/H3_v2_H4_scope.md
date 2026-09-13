@@ -3,7 +3,8 @@
 This is a scope assessment of the accepted H3 proof, scientifically reviewed in
 edition v2 and preserved without mathematical change in edition v3. Both complete
 scientific reviews and the fresh complete integration review pass; established
-promotion awaits user approval. This is not a time-40 theorem or authorization
+promotion has been applied with explicit user approval, as recorded in
+`H3_v2_promotion_record_v4.json`. This is not a time-40 theorem or authorization
 to start that extension.
 No long-horizon computation or finite-network training was performed.
 

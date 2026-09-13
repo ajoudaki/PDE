@@ -1,0 +1,145 @@
+{
+  "status": "approved exact package incorporated; live checks pass",
+  "approval": {
+    "verbatim_user_message": "yes I approve",
+    "date": "2026-09-13",
+    "task_id": "01a09b51-6f6c-7371-9726-159b9402da2b",
+    "scope": "exact seventeen-file H3_v2_promotion_proposal_v4.md package; no scientific or implementation changes"
+  },
+  "prepared_commit": "8e0d9f1efd80cc8d46d3cf6c161669060bb299e6",
+  "approved_artifact_hashes": {
+    "H3_v2_promotion_proposal_v4.md": "5bb166f6510fdcdc0728a325829c0127ea9617bf71a7ead2922af231a8323991",
+    "H3_v2_promotion_mapping_v4.json": "e93d4b2a73e0a9a05cea6cde9e8bf48b8f24836717202a72a37881eaf6255fca",
+    "H3_v2_proposed_changes_v4.patch": "33f24d8bccb422faaaa9aac7b1944a919902783d9a4ddf38f65edb00e6be2acd",
+    "H3_v2_edition_v3_manifest.json": "e5a829f7f714f1999fafc1575c6b4a19b468b5846f04f064c2f84d244357faa7",
+    "H3_v2_review_acceptance_v4.md": "8dad5977a68ae0efe6def9ba1044e20ba8ae17b4c5a11e20f4f7a06d009d4864",
+    "H3_v2_scientific_a_v3.md": "b71ffc512de13794f32b3c9b5f8474a4b95472e237592a327de524ff44c89309",
+    "H3_v2_scientific_b_v3.md": "7b54689374a160bc91139c063c03d79ad35995653ce96ffb1a85d80b2b4c3dc9",
+    "H3_v2_integration_v4.md": "1269a5e66a407876c4c48dfaf6d44b949114377ecaeb7a8fe8c33dbbdf2e037d"
+  },
+  "preflight": {
+    "result": "data/generated/observable_hierarchy/H3_v2_approved_preflight/result.json",
+    "sha256": "a8179d5a7892e7107207d11579d43e639c61e9e5acc46f4b9d48dd536e073eb6",
+    "status": "pass",
+    "hash_comparisons": 361
+  },
+  "candidate_to_live": {
+    "code/pde/observable_fixed.py": {
+      "reviewed_sha256": "75c5b6a4478e5365d008bd7ad134cf1c2b6cd6942c68358e0a2d4137207c1225",
+      "live_sha256": "75c5b6a4478e5365d008bd7ad134cf1c2b6cd6942c68358e0a2d4137207c1225",
+      "byte_identical": true
+    },
+    "code/pde/observable_arithmetic.py": {
+      "reviewed_sha256": "2181b9e47e1c765e440feff582b34208651ff4687e19ce8a96db7752402a6edb",
+      "live_sha256": "2181b9e47e1c765e440feff582b34208651ff4687e19ce8a96db7752402a6edb",
+      "byte_identical": true
+    },
+    "code/pde/observable_words.py": {
+      "reviewed_sha256": "b12ed6021dfa8b8409b56793c88334d303f4c2cffeb7aa0a2d460311ba3e41b5",
+      "live_sha256": "b12ed6021dfa8b8409b56793c88334d303f4c2cffeb7aa0a2d460311ba3e41b5",
+      "byte_identical": true
+    },
+    "code/pde/observable_compiler.py": {
+      "reviewed_sha256": "1add30410ee2e8de05fffca225643dbbbeab7ab8d6420382014bb8c9cceca7ac",
+      "live_sha256": "1add30410ee2e8de05fffca225643dbbbeab7ab8d6420382014bb8c9cceca7ac",
+      "byte_identical": true
+    },
+    "code/pde/observable_initialization.py": {
+      "reviewed_sha256": "6dafe3b5906c8762c7b6e0782c535b0031bbcf206359d384ef0911853ce131d2",
+      "live_sha256": "6dafe3b5906c8762c7b6e0782c535b0031bbcf206359d384ef0911853ce131d2",
+      "byte_identical": true
+    },
+    "code/pde/observable_solver.py": {
+      "reviewed_sha256": "711a648df33e587591d35bd709e3b1c052b1a6f7dc6513afe636b2acf7031605",
+      "live_sha256": "711a648df33e587591d35bd709e3b1c052b1a6f7dc6513afe636b2acf7031605",
+      "byte_identical": true
+    },
+    "code/tests/test_observable_compiler.py": {
+      "reviewed_sha256": "8a5955ad47df01a6110e8b5f3b64264b414e8ee70696e7f93250dcdf9dbb17cb",
+      "live_sha256": "8a5955ad47df01a6110e8b5f3b64264b414e8ee70696e7f93250dcdf9dbb17cb",
+      "byte_identical": true
+    },
+    "code/tests/test_observable_initialization.py": {
+      "reviewed_sha256": "9e36f4c120013d58bb082bd521ea683a574bdf5a3652058fc0479a0e665e6e68",
+      "live_sha256": "9e36f4c120013d58bb082bd521ea683a574bdf5a3652058fc0479a0e665e6e68",
+      "byte_identical": true
+    },
+    "code/tests/test_observable_solver.py": {
+      "reviewed_sha256": "9bb806d59a0d3c0261261d342d83ce97dddb2eb41645894e6a2f2393ecced7f1",
+      "live_sha256": "9bb806d59a0d3c0261261d342d83ce97dddb2eb41645894e6a2f2393ecced7f1",
+      "byte_identical": true
+    },
+    "code/tests/test_observable_validation.py": {
+      "reviewed_sha256": "e1ee08c217ce6f39e64801f1c2b64f71482fe6efe5ee8924fe36c6bacc0201c1",
+      "live_sha256": "e1ee08c217ce6f39e64801f1c2b64f71482fe6efe5ee8924fe36c6bacc0201c1",
+      "byte_identical": true
+    },
+    "code/scripts/validate_observable_solver.py": {
+      "reviewed_sha256": "54a8c5dbe8ffa0c105a54a2bc2b6969b83fe56f6f78ef9bdbc19c4b689e7f265",
+      "live_sha256": "54a8c5dbe8ffa0c105a54a2bc2b6969b83fe56f6f78ef9bdbc19c4b689e7f265",
+      "byte_identical": true
+    },
+    "code/scripts/analyze_observable_solver.py": {
+      "reviewed_sha256": "6c0ae411f567a94ff51e286a09c8f2fec2b90c5d73055ee083c6699f65e75347",
+      "live_sha256": "6c0ae411f567a94ff51e286a09c8f2fec2b90c5d73055ee083c6699f65e75347",
+      "byte_identical": true
+    },
+    "code/scripts/run_observable_validation.py": {
+      "reviewed_sha256": "3ac1b85367416d0b744daf56233ae8d9f97123971cd5cc0c46ee8b1694fcde73",
+      "live_sha256": "3ac1b85367416d0b744daf56233ae8d9f97123971cd5cc0c46ee8b1694fcde73",
+      "byte_identical": true
+    },
+    "code/validation/observable_solver_plan.json": {
+      "reviewed_sha256": "92bf0cdd9cc5dc0147881ffc07c8235ed8e0480fd91631e7276c3e2e0b856e92",
+      "live_sha256": "92bf0cdd9cc5dc0147881ffc07c8235ed8e0480fd91631e7276c3e2e0b856e92",
+      "byte_identical": true
+    },
+    "docs/global_nonlinear.md": {
+      "reviewed_sha256": "77e0f2b9a2ecd337c1a47b8f6c2025c72122e28512ca7481377418fe3f235932",
+      "live_sha256": "77e0f2b9a2ecd337c1a47b8f6c2025c72122e28512ca7481377418fe3f235932",
+      "byte_identical": true
+    },
+    "code/README.md": {
+      "reviewed_sha256": "30135209fc7bfba9125078cf12efeb1c46471da8979dc0893d59cb8a5691658b",
+      "live_sha256": "30135209fc7bfba9125078cf12efeb1c46471da8979dc0893d59cb8a5691658b",
+      "byte_identical": true
+    },
+    "docs/README.md": {
+      "reviewed_sha256": "03187fb939b6f8ab457107b3a3b45c3fa0332633f62741a1d13b5f278bbfa6e3",
+      "live_sha256": "03187fb939b6f8ab457107b3a3b45c3fa0332633f62741a1d13b5f278bbfa6e3",
+      "byte_identical": true
+    }
+  },
+  "live_validation": {
+    "result": "data/generated/observable_hierarchy/H3_v2_live_promotion_v4/result.json",
+    "sha256": "5c94888db9b9adc7c2816b0c5d972a667d86b84b529d3772935dbc10a1e87b7b",
+    "status": "pass",
+    "matched_established_files": 24,
+    "tests_passed": 54,
+    "guide_exact_restart": true,
+    "tests_cpu_seconds": 4.426405,
+    "guide_cpu_seconds": 0.521293,
+    "checker_sha256": "11186ecdba3dbc6661c9299c442ad1ec444b767f6ee03daf4db3167c9891905f",
+    "artifacts": {
+      "entry_hashes.json": "445889598fb03b888614bb75c11e01d172a51ff536af7b3e341c6898cbe3e432",
+      "exit_hashes.json": "445889598fb03b888614bb75c11e01d172a51ff536af7b3e341c6898cbe3e432",
+      "guide.log": "9d05705a90e6f389bfc3497a67b138234ae27ef05717fc63e670cb2c465eab13",
+      "guide_command.json": "f905f195b9f78bc8d3ded1aa38aa6097d19295a899bbf0eab5d98ee482b7d9d5",
+      "guide_example.py": "b5c6c60ed50c1fa9c6d2e67d8323d9f5d4e345338c77dd69ef90c924948f3f12",
+      "guide_example_checks.json": "0d774cb991a5e2c7c6b6d693856dc0f7d623aca09d9659411bc3d6c94deea43f",
+      "guide_result.json": "7fbff492a2dcba41bb7f192d917e09334894912a6838103074a09753422b54a7",
+      "result.json": "5c94888db9b9adc7c2816b0c5d972a667d86b84b529d3772935dbc10a1e87b7b",
+      "tests.log": "c2ada8679f459b717771ac9ddee19642a68f42777b8d56c6108bf4811faa77f4",
+      "tests_command.json": "05a5fab4d6fe2f8edcca5f37de2f8dcf288c13c780f1d405725cf2692e844cc8",
+      "tests_result.json": "3f8ad9c7eb594bd48771302de6a34e2979dc51a085291546208a468d6c898d13"
+    }
+  },
+  "archival_integrity": {
+    "report": "studies/observable_hierarchy/H3_v2_promotion_integrity.md",
+    "report_sha256": "45b50b58ec59a4db2eb88011ef1e4f05e465c27f229bdde016ef5273e175c5d1",
+    "result": "data/generated/observable_hierarchy/H3_v2_promotion_integrity/result.json",
+    "result_sha256": "ec4c0e16a8f08fa6b98b2bd6b18bbd7b0f49717c9bab24d64d47c60aa5e83b89",
+    "scope": "frozen package byte/scope check; not a new scientific review"
+  },
+  "limits": "Fixed rational two-arc family, physical T=1/200, ordered numerical/closure limits; H4 remains open. Original independent reproduction supplies declared-resolution performance evidence; live checks repeat existing tests and guide configuration."
+}

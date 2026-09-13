@@ -383,6 +383,14 @@ state. Its exact population integrals are not a certified practical solver;
 the accompanying prototype exposes initialization, evolution and observations
 with separate quadrature and arithmetic limitations.
 
+**C-H3 established scope.** [C.4.7.10](global_nonlinear.md#c4710-finite-numerical-autonomous-observable-closure)
+supplies the finite autonomous numerical closure on `[0,1/200]` for a fixed
+rational two-arc family, including nonorthogonal atomic and nonatomic laws.
+It proves iterated numerical and closure-order convergence to the same
+nonlinear GF, whole-circle prediction, paired hidden observations and own-state
+restart. The reusable solver has bounded workspace and separate declared
+resolution checks; it supplies no true-error certificate or tolerance selector.
+
 **C-H3: efficient computation with qualitative population convergence.**
 Implement C-H2's autonomous closure, or a mathematically justified compatible
 variant, on the fixed interval `[0,1/200]` and a fixed supported represented
@@ -437,22 +445,22 @@ level when their respective proofs and implementations pass review. Later
 extensions may establish asymptotic error rates, nonasymptotic certificates,
 automatic tolerance selection and cost-to-accuracy bounds. Those extensions
 must include the numerical and closure errors they claim to control; they
-are not implied by qualitative convergence. C-H3 and C-H4 remain research
-targets until fulfilled; changing their scope asserts no new theorem.
+are not implied by qualitative convergence. C-H3 has the stated short-time scope; C-H4 remains a research target.
+Changing a roadmap's scope alone asserts no new theorem.
 
 The strategic separation is between information, truncation, useful cost and
 continuation. C-H2's qualitative finite closure resolves the truncation step
-on its stated small nonlinear interval; efficient numerical consistency and
-later continuation remain C-H3 and C-H4. Existing fixed-order Gaussian-source
+on its stated small nonlinear interval. C-H3 supplies numerical consistency
+and bounded declared computations through time 1/200; time-40 continuation
+and practical operation remain C-H4. Existing fixed-order Gaussian-source
 derivatives are not temporal-jet tail estimates.
 The Stieltjes representation disproved in *Gaussian and flow calculus*,
 Sections 7.2 and 10.2, is not a premise of this route. Rational or Padé-type
 closures remain options requiring their own justification. The same chapter's
 Section 6 excludes certain unrestricted same-norm algebra/jet estimates, and
 Section 10.4 excludes its specified Taylor closure; neither supplies a general
-impossibility theorem for current observable hierarchies. Beyond the C.4.7.9
-closure, no alternative closure or success of the later numerical-computation
-milestones is asserted here.
+impossibility theorem for current observable hierarchies. The compatible C.4.7.10 implementation has the explicit short-time scope
+above; no time-40 numerical result is asserted here.
 
 The second purpose is reliable empirical investigation beyond conservative
 proof bounds. Make the construction reusable wherever its equations and
