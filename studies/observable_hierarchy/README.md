@@ -9,10 +9,15 @@ claim status, source boundaries and predeclared resource envelope are in
 files and is the sole Git writer; fresh agents own the named separate route
 reports. Existing H1–H3 source and review records remain unchanged.
 
-Foundation recovery and the two mathematical obligations—an executable fixed
-supported law family and closure convergence over the full horizon—are in
-progress. No H4 trajectory has run, and no time-40 computational theorem is
-yet claimed. The next authorized action is completion of those arguments and
+The [foundation recovery](H4_foundation.md) passed exact correspondence for
+all 17 H3 installed files and 24 dependency destinations. The frozen
+[horizon route](H4_route_horizon.md) supplies a candidate closure extension;
+the [family route](H4_route_family.md) identified the precise missing
+explicit support bound, now under further derivation. The separate
+[implementation assessment](H4_solver_design.md) records storage, arithmetic
+and observation requirements. These author routes are not independent reviews.
+No H4 trajectory has run, and no complete time-40 computational theorem is
+yet claimed. The next authorized action is completion of the support proof and
 a frozen bounded numerical plan, followed by implementation, reproduction,
 two fresh complete scientific reviews and a separate integration review.
 Established-book/code changes require approval of the concrete reviewed addition.
