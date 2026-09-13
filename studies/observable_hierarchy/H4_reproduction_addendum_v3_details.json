@@ -1,0 +1,82 @@
+{
+  "format": "H4-independent-reproduction-correspondence-details-v3",
+  "command": [
+    "studies/observable_hierarchy/H4_reproduction_addendum_v3_details.py"
+  ],
+  "cwd": "/home/amir/Codes/PDE",
+  "changed_tests": [
+    {
+      "path": "code/tests/test_observable_laws.py",
+      "ast_identical_except_docstrings_and_fail_messages": true,
+      "original_fail_messages": [
+        {
+          "line": 224,
+          "value": "set H4_LAW_TEST_SCRATCH to the fresh study-owned run directory"
+        }
+      ],
+      "final_fail_messages": [
+        {
+          "line": 225,
+          "value": "set H4_LAW_TEST_SCRATCH to a fresh test output directory; see code/README.md"
+        }
+      ]
+    },
+    {
+      "path": "code/tests/test_observable_horizon_validation.py",
+      "ast_identical_except_docstrings_and_fail_messages": true,
+      "original_fail_messages": [
+        {
+          "line": 65,
+          "value": "H4_VALIDATION_TEST_SCRATCH must name fresh study-owned generated scratch"
+        }
+      ],
+      "final_fail_messages": [
+        {
+          "line": 67,
+          "value": "H4_VALIDATION_TEST_SCRATCH must name fresh test scratch; see code/README.md"
+        }
+      ]
+    }
+  ],
+  "review_identity_bound_files": [
+    "code/README.md",
+    "code/pde/__init__.py",
+    "code/pde/finite_network.py",
+    "code/pde/gaussian_moments.py",
+    "code/pde/observable_arithmetic.py",
+    "code/pde/observable_closure.py",
+    "code/pde/observable_compiler.py",
+    "code/pde/observable_fixed.py",
+    "code/pde/observable_initialization.py",
+    "code/pde/observable_laws.py",
+    "code/pde/observable_solver.py",
+    "code/pde/observable_words.py",
+    "code/scripts/analyze_observable_horizon.py",
+    "code/scripts/analyze_observable_solver.py",
+    "code/scripts/run_observable_validation.py",
+    "code/scripts/validate_observable_horizon.py",
+    "code/scripts/validate_observable_solver.py",
+    "code/tests/test_observable_compiler.py",
+    "code/tests/test_observable_horizon_analysis.py",
+    "code/tests/test_observable_horizon_validation.py",
+    "code/tests/test_observable_initialization.py",
+    "code/tests/test_observable_laws.py",
+    "code/tests/test_observable_solver.py",
+    "code/tests/test_observable_validation.py",
+    "code/validation/observable_horizon_plan.json",
+    "code/validation/observable_solver_plan.json",
+    "edition_manifest.json"
+  ],
+  "producer_guide_line": 1040,
+  "producer_guide_command": "python -B code/scripts/run_observable_validation.py --plan code/validation/observable_horizon_plan.json --worker validate_observable_horizon.py --output-dir data/established/observable_horizon_check",
+  "analyzer_guide_line": 1041,
+  "analyzer_guide_command": "python -B code/scripts/analyze_observable_horizon.py --plan code/validation/observable_horizon_plan.json --runs data/established/observable_horizon_check --output data/established/observable_horizon_analysis",
+  "commands_correspond_after_fresh_namespace_substitution": true,
+  "original_execution_had_explicit_thread_and_import_environment": true,
+  "no_tests_or_trajectories_executed": true,
+  "final_inputs_unchanged": true,
+  "cpu_seconds": 0.054185171000000004,
+  "wall_seconds": 0.0557359904050827,
+  "peak_rss_bytes": 17031168,
+  "status": "pass"
+}

@@ -1,6 +1,6 @@
 # Observable hierarchy — milestone C-H1
 
-## C-H4 active continuation — 2026-09-13
+## C-H4 complete, reviewed, pending promotion approval — 2026-09-13
 
 Task `01a09bce-f91d-73c3-9127-0fbe5fb00386` is extending the installed H3
 observable computation to physical time 40. The exact scope, ownership,
@@ -50,10 +50,19 @@ placement and Markdown repairs. The corrected
 repairs the earlier general test command. All three published discovery
 setups were checked; the literal clean-environment recipe passes all 67
 supplied tests. The stopped v2 scientific C/D and integration reports are
-explicitly incomplete and do not count as promotion reviews. Two fresh
-complete scientific reviews E/F and a fresh integration review v3 are underway.
-Original packets/reports/evidence remain unchanged. The result is still a study candidate, not established material.
-Established-book/code changes require approval of the concrete reviewed addition.
+explicitly incomplete and do not count as promotion reviews. The fresh complete
+[scientific E](H4_scientific_E_v3.md), [scientific F](H4_scientific_F_v3.md)
+and separate [integration v3](H4_integration_v3.md) reviews all returned PASS
+with no required corrections or missing inputs in their assigned scopes.
+The coordinator read all reports and checking sources and verified provenance;
+the [acceptance record](H4_acceptance_v3.md) records the full gates and limits.
+The independent reproducer's [final addendum](H4_reproduction_addendum_v3.md)
+confirms exact runtime/plan correspondence and the later guide/test-documentation
+differences without repeating the campaign. Original packets/reports/evidence
+remain unchanged. The complete result is ready for approval of the exact
+[eleven-destination proposal](H4_promotion_proposal_v3.md) and
+[mapped edition](H4_promotion_mapping_v3_final.json). Established material has
+not changed; promotion requires the user's approval of that concrete package.
 
 ## Revised C-H3 promoted with user approval — 2026-09-13
 

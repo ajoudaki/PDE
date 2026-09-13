@@ -1,0 +1,59 @@
+--- original/code/tests/test_observable_laws.py
++++ final-v3/code/tests/test_observable_laws.py
+@@ -5,11 +5,12 @@
+ 600 CPU seconds per frozen edition; these checks consume part of it. A failed
+ or timed-out test remains failure and never authorizes a training experiment.
+ 
+-Command from repository root (fresh study-owned H4_TEST_RUN directory):
++Command from repository root, after setting H4_TEST_RUN to a fresh existing
++directory under data/established (see code/README.md):
+   timeout 180s env PYTHONPATH=code PYTHONDONTWRITEBYTECODE=1 \
+     OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+     H4_LAW_TEST_SCRATCH=$H4_TEST_RUN python -B \
+-    studies/observable_hierarchy/H4_laws_tests.py
++    code/tests/test_observable_laws.py
+ 
+ Checks: bounded symbolic integer evaluation and resource rejection; exact
+ quarter-turn parametrization and nonatomic/atomic distinction; midpoint
+@@ -221,7 +222,7 @@
+     def test_exact_law_and_collapse_metadata_survive_all_backend_restart(self):
+         scratch = os.environ.get("H4_LAW_TEST_SCRATCH")
+         if not scratch:
+-            self.fail("set H4_LAW_TEST_SCRATCH to the fresh study-owned run directory")
++            self.fail("set H4_LAW_TEST_SCRATCH to a fresh test output directory; see code/README.md")
+         Path(scratch).mkdir(parents=True, exist_ok=True)
+         for arithmetic in (Arithmetic(), Arithmetic(40), Arithmetic(24, "rational")):
+             law = OrthogonalArcLaw(DyadicRadius(E.pow2(E.pow2(16))))
+
+--- original/code/tests/test_observable_horizon_validation.py
++++ final-v3/code/tests/test_observable_horizon_validation.py
+@@ -2,14 +2,16 @@
+ 
+ Predeclared local cap before tests: 120 CPU seconds and 180 wall seconds, one
+ numerical thread; generated scratch only in H4_VALIDATION_TEST_SCRATCH. This is
+-part of the 600-CPU-second H4 frozen-edition allowance. Prior law checks used
+-less than one CPU second. The only solver steps use a small manufactured state
++part of the 600-CPU-second observable-test allowance. The only solver steps
++use a small manufactured state
+ and four steps of length 1/100. No Gaussian initialization is run.
+ 
+-Install as code/tests/test_observable_horizon_validation.py, then run with
++Run code/tests/test_observable_horizon_validation.py from the edition root with
+ PYTHONPATH=code, PYTHONDONTWRITEBYTECODE=1 and the three BLAS/OMP thread variables
+ set to one. Execute under timeout 180s; keep command/environment/source hashes,
+-exit status and output log in a fresh study-owned H4 generated directory.
++exit status and output log in a fresh directory under data/established.
++Set H4_VALIDATION_TEST_SCRATCH and TMPDIR to that directory; the complete
++setup for the full suite is in code/README.md.
+ """
+ from decimal import Decimal
+ from fractions import Fraction
+@@ -62,7 +64,7 @@
+     def setUp(self):
+         scratch = os.environ.get("H4_VALIDATION_TEST_SCRATCH")
+         if not scratch:
+-            self.fail("H4_VALIDATION_TEST_SCRATCH must name fresh study-owned generated scratch")
++            self.fail("H4_VALIDATION_TEST_SCRATCH must name fresh test scratch; see code/README.md")
+         Path(scratch).mkdir(parents=True, exist_ok=True)
+         self.temporary = tempfile.TemporaryDirectory(prefix="deterministic_", dir=scratch)
+         self.addCleanup(self.temporary.cleanup)

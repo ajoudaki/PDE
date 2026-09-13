@@ -1,0 +1,62 @@
+{
+  "status": "preview_only_not_applied",
+  "mapping_sha256": "ccf4996495c152e77dc40c37fc1e54b9e59f4521baa3ce44555eb9acbd42e947",
+  "patch_sha256": "325dabedbc2110ce77ef3c448e79af2cac02e1ad5f1d4fe246664b3624f243ae",
+  "destinations": [
+    {
+      "destination": "code/pde/observable_laws.py",
+      "added_lines": 472,
+      "removed_lines": 0
+    },
+    {
+      "destination": "code/tests/test_observable_laws.py",
+      "added_lines": 248,
+      "removed_lines": 0
+    },
+    {
+      "destination": "code/scripts/validate_observable_horizon.py",
+      "added_lines": 402,
+      "removed_lines": 0
+    },
+    {
+      "destination": "code/scripts/run_observable_validation.py",
+      "added_lines": 12,
+      "removed_lines": 6
+    },
+    {
+      "destination": "code/tests/test_observable_horizon_validation.py",
+      "added_lines": 265,
+      "removed_lines": 0
+    },
+    {
+      "destination": "code/scripts/analyze_observable_horizon.py",
+      "added_lines": 233,
+      "removed_lines": 0
+    },
+    {
+      "destination": "code/tests/test_observable_horizon_analysis.py",
+      "added_lines": 75,
+      "removed_lines": 0
+    },
+    {
+      "destination": "code/validation/observable_horizon_plan.json",
+      "added_lines": 299,
+      "removed_lines": 0
+    },
+    {
+      "destination": "docs/global_nonlinear.md",
+      "added_lines": 1755,
+      "removed_lines": 0
+    },
+    {
+      "destination": "code/README.md",
+      "added_lines": 183,
+      "removed_lines": 4
+    },
+    {
+      "destination": "docs/README.md",
+      "added_lines": 17,
+      "removed_lines": 4
+    }
+  ]
+}

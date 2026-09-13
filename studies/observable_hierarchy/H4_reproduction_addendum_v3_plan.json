@@ -1,0 +1,29 @@
+{
+  "format": "H4-independent-reproduction-correspondence-plan-v3",
+  "role": "Original independent reproducer; reproduction-interface correspondence only",
+  "original_edition": "data/generated/observable_hierarchy/H4_author_edition_v1",
+  "final_edition": "data/generated/observable_hierarchy/H4_candidate_v3",
+  "allowed_inputs": [
+    "Original executed edition, original reproduction report and independent outputs",
+    "Final v3 edition code, full code/README.md and edition_manifest.json",
+    "studies/observable_hierarchy/H4_review_manifest_v3.json for identity only",
+    "Shared instructions for changed-instruction checking"
+  ],
+  "operations": [
+    "Read final full code guide and edition manifest",
+    "Directly hash and compare every originally executed manifest-listed code/test/plan file",
+    "Inspect every difference and all three printed discovery setups",
+    "Check correspondence of final producer, analyzer, law interface and plan to independent execution evidence",
+    "Record original/final identities, exact commands, differences, limits and completion"
+  ],
+  "budget": {
+    "combined_cpu_seconds": 60,
+    "rss_bytes": 4294967296
+  },
+  "prohibited": [
+    "No tests, evolution, trajectories or new experiments",
+    "No scientific or integration review, author disposition or other history access",
+    "No edits to original evidence, candidate, established material or Git"
+  ],
+  "outputs": "Only flat studies/observable_hierarchy/H4_reproduction_addendum_v3.md and H4_reproduction_addendum_v3_* source/check records; optional fresh data/generated/observable_hierarchy/H4_reproduction_addendum_v3 scratch"
+}

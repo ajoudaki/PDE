@@ -1,0 +1,352 @@
+{
+  "format": "H4-independent-reproduction-correspondence-check-v3",
+  "command": [
+    "studies/observable_hierarchy/H4_reproduction_addendum_v3_check.py"
+  ],
+  "cwd": "/home/amir/Codes/PDE",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "original_report_sha256": "547c2b6658428a9a738670d900912c9b3e2aeaaf4e51085041e322998fad7ab4",
+  "original_edition_manifest_sha256": "2dc8397c71332e0d6b9683ce6357bedf34650a857da607190aa827b96718241a",
+  "original_evidence_manifest_sha256": "c471d9899f413ff38a5e6594b807ad41a2368bf62b8846789ecdca7c9bb7c9eb",
+  "original_generated_files_verified": 237,
+  "final_edition_manifest_sha256": "64bd43d30e11e1f591b12f9c07c76d192c5fa7dcd8f22c1c0e3fd313c27e8250",
+  "final_code_readme_sha256": "b25c0ad7be0a770881c7ae75446a1718d4217ceec5576bdc14864790daffc91e",
+  "final_code_readme_lines": 1113,
+  "final_review_manifest_sha256": "06132871ed70c3c13651a3fbb1f8e76d13582301237acb811f50756bdb223d02",
+  "final_review_identity": {
+    "format": "H4-complete-scientific-packet-v3",
+    "edition": "data/generated/observable_hierarchy/H4_candidate_v3"
+  },
+  "final_review_manifest_top_level_keys": [
+    "format",
+    "assignment",
+    "edition",
+    "files"
+  ],
+  "comparisons": [
+    {
+      "path": "code/pde/__init__.py",
+      "original_sha256": "65eb96a5dd455041d2ad1f32652e3e26e8c15192eb41bdffba27980f0f69e8c3",
+      "final_sha256": "65eb96a5dd455041d2ad1f32652e3e26e8c15192eb41bdffba27980f0f69e8c3",
+      "original_lines": 26,
+      "final_lines": 26,
+      "byte_identical": true
+    },
+    {
+      "path": "code/pde/finite_network.py",
+      "original_sha256": "efe694b200b8af2603cbf1bb9d0249f49636e874088c2bafd98f402b5bfbe551",
+      "final_sha256": "efe694b200b8af2603cbf1bb9d0249f49636e874088c2bafd98f402b5bfbe551",
+      "original_lines": 363,
+      "final_lines": 363,
+      "byte_identical": true
+    },
+    {
+      "path": "code/pde/gaussian_moments.py",
+      "original_sha256": "6c2a21a9f3d101c433b5f06cb3f6e1dcdeca23a814891ea7bd81e73960e854ae",
+      "final_sha256": "6c2a21a9f3d101c433b5f06cb3f6e1dcdeca23a814891ea7bd81e73960e854ae",
+      "original_lines": 114,
+      "final_lines": 114,
+      "byte_identical": true
+    },
+    {
+      "path": "code/pde/observable_closure.py",
+      "original_sha256": "f8dc5d16e5de1737444c44aae737ee1c9b4d664188d72f59acd0bb92f457c137",
+      "final_sha256": "f8dc5d16e5de1737444c44aae737ee1c9b4d664188d72f59acd0bb92f457c137",
+      "original_lines": 697,
+      "final_lines": 697,
+      "byte_identical": true
+    },
+    {
+      "path": "code/pde/observable_words.py",
+      "original_sha256": "b12ed6021dfa8b8409b56793c88334d303f4c2cffeb7aa0a2d460311ba3e41b5",
+      "final_sha256": "b12ed6021dfa8b8409b56793c88334d303f4c2cffeb7aa0a2d460311ba3e41b5",
+      "original_lines": 217,
+      "final_lines": 217,
+      "byte_identical": true
+    },
+    {
+      "path": "code/pde/observable_fixed.py",
+      "original_sha256": "75c5b6a4478e5365d008bd7ad134cf1c2b6cd6942c68358e0a2d4137207c1225",
+      "final_sha256": "75c5b6a4478e5365d008bd7ad134cf1c2b6cd6942c68358e0a2d4137207c1225",
+      "original_lines": 223,
+      "final_lines": 223,
+      "byte_identical": true
+    },
+    {
+      "path": "code/pde/observable_arithmetic.py",
+      "original_sha256": "2181b9e47e1c765e440feff582b34208651ff4687e19ce8a96db7752402a6edb",
+      "final_sha256": "2181b9e47e1c765e440feff582b34208651ff4687e19ce8a96db7752402a6edb",
+      "original_lines": 230,
+      "final_lines": 230,
+      "byte_identical": true
+    },
+    {
+      "path": "code/pde/observable_compiler.py",
+      "original_sha256": "1add30410ee2e8de05fffca225643dbbbeab7ab8d6420382014bb8c9cceca7ac",
+      "final_sha256": "1add30410ee2e8de05fffca225643dbbbeab7ab8d6420382014bb8c9cceca7ac",
+      "original_lines": 528,
+      "final_lines": 528,
+      "byte_identical": true
+    },
+    {
+      "path": "code/pde/observable_initialization.py",
+      "original_sha256": "6dafe3b5906c8762c7b6e0782c535b0031bbcf206359d384ef0911853ce131d2",
+      "final_sha256": "6dafe3b5906c8762c7b6e0782c535b0031bbcf206359d384ef0911853ce131d2",
+      "original_lines": 397,
+      "final_lines": 397,
+      "byte_identical": true
+    },
+    {
+      "path": "code/pde/observable_solver.py",
+      "original_sha256": "711a648df33e587591d35bd709e3b1c052b1a6f7dc6513afe636b2acf7031605",
+      "final_sha256": "711a648df33e587591d35bd709e3b1c052b1a6f7dc6513afe636b2acf7031605",
+      "original_lines": 350,
+      "final_lines": 350,
+      "byte_identical": true
+    },
+    {
+      "path": "code/scripts/validate_observable_solver.py",
+      "original_sha256": "54a8c5dbe8ffa0c105a54a2bc2b6969b83fe56f6f78ef9bdbc19c4b689e7f265",
+      "final_sha256": "54a8c5dbe8ffa0c105a54a2bc2b6969b83fe56f6f78ef9bdbc19c4b689e7f265",
+      "original_lines": 123,
+      "final_lines": 123,
+      "byte_identical": true
+    },
+    {
+      "path": "code/scripts/analyze_observable_solver.py",
+      "original_sha256": "6c0ae411f567a94ff51e286a09c8f2fec2b90c5d73055ee083c6699f65e75347",
+      "final_sha256": "6c0ae411f567a94ff51e286a09c8f2fec2b90c5d73055ee083c6699f65e75347",
+      "original_lines": 293,
+      "final_lines": 293,
+      "byte_identical": true
+    },
+    {
+      "path": "code/validation/observable_solver_plan.json",
+      "original_sha256": "92bf0cdd9cc5dc0147881ffc07c8235ed8e0480fd91631e7276c3e2e0b856e92",
+      "final_sha256": "92bf0cdd9cc5dc0147881ffc07c8235ed8e0480fd91631e7276c3e2e0b856e92",
+      "original_lines": 187,
+      "final_lines": 187,
+      "byte_identical": true
+    },
+    {
+      "path": "code/tests/test_observable_compiler.py",
+      "original_sha256": "8a5955ad47df01a6110e8b5f3b64264b414e8ee70696e7f93250dcdf9dbb17cb",
+      "final_sha256": "8a5955ad47df01a6110e8b5f3b64264b414e8ee70696e7f93250dcdf9dbb17cb",
+      "original_lines": 157,
+      "final_lines": 157,
+      "byte_identical": true
+    },
+    {
+      "path": "code/tests/test_observable_initialization.py",
+      "original_sha256": "9e36f4c120013d58bb082bd521ea683a574bdf5a3652058fc0479a0e665e6e68",
+      "final_sha256": "9e36f4c120013d58bb082bd521ea683a574bdf5a3652058fc0479a0e665e6e68",
+      "original_lines": 243,
+      "final_lines": 243,
+      "byte_identical": true
+    },
+    {
+      "path": "code/tests/test_observable_solver.py",
+      "original_sha256": "9bb806d59a0d3c0261261d342d83ce97dddb2eb41645894e6a2f2393ecced7f1",
+      "final_sha256": "9bb806d59a0d3c0261261d342d83ce97dddb2eb41645894e6a2f2393ecced7f1",
+      "original_lines": 133,
+      "final_lines": 133,
+      "byte_identical": true
+    },
+    {
+      "path": "code/tests/test_observable_validation.py",
+      "original_sha256": "e1ee08c217ce6f39e64801f1c2b64f71482fe6efe5ee8924fe36c6bacc0201c1",
+      "final_sha256": "e1ee08c217ce6f39e64801f1c2b64f71482fe6efe5ee8924fe36c6bacc0201c1",
+      "original_lines": 223,
+      "final_lines": 223,
+      "byte_identical": true
+    },
+    {
+      "path": "code/pde/observable_laws.py",
+      "original_sha256": "6fb38416ce02ca77aae0392201927eb9aeba5c672ebe774181822dfb805d0503",
+      "final_sha256": "6fb38416ce02ca77aae0392201927eb9aeba5c672ebe774181822dfb805d0503",
+      "original_lines": 472,
+      "final_lines": 472,
+      "byte_identical": true
+    },
+    {
+      "path": "code/tests/test_observable_laws.py",
+      "original_sha256": "5558ff724339be2b74d4ff0f162aed5e59344bbca2de45d4cc86534ca5092ef9",
+      "final_sha256": "96c3b788a11f721a95daa8f4e86088ee2974be93795c2b910fe58b47936f872b",
+      "original_lines": 247,
+      "final_lines": 248,
+      "byte_identical": false,
+      "executable_ast_identical_after_removing_docstrings": false
+    },
+    {
+      "path": "code/scripts/validate_observable_horizon.py",
+      "original_sha256": "3e1704a460a87e6e9f221ecfb73c15c05627f0a864fd4df01337f65a88ce5cb2",
+      "final_sha256": "3e1704a460a87e6e9f221ecfb73c15c05627f0a864fd4df01337f65a88ce5cb2",
+      "original_lines": 402,
+      "final_lines": 402,
+      "byte_identical": true
+    },
+    {
+      "path": "code/scripts/run_observable_validation.py",
+      "original_sha256": "d8a66b9a7c16802acc80602f233d76095ed32fcfcdc8a28df321faf9f3d3e0e5",
+      "final_sha256": "d8a66b9a7c16802acc80602f233d76095ed32fcfcdc8a28df321faf9f3d3e0e5",
+      "original_lines": 302,
+      "final_lines": 302,
+      "byte_identical": true
+    },
+    {
+      "path": "code/tests/test_observable_horizon_validation.py",
+      "original_sha256": "5b1f198e038e64dff07cd252e5d6b2b53ec7c385ac8d42cf2d268dade014107f",
+      "final_sha256": "5e49bb2b17ff8225287179714ba855f0b901cc246f389795afb965ea75837ca7",
+      "original_lines": 263,
+      "final_lines": 265,
+      "byte_identical": false,
+      "executable_ast_identical_after_removing_docstrings": false
+    },
+    {
+      "path": "code/scripts/analyze_observable_horizon.py",
+      "original_sha256": "742ea5a7f46d0f7afb279195d33631a350984280ad7c9a86e70f550657499e14",
+      "final_sha256": "742ea5a7f46d0f7afb279195d33631a350984280ad7c9a86e70f550657499e14",
+      "original_lines": 233,
+      "final_lines": 233,
+      "byte_identical": true
+    },
+    {
+      "path": "code/tests/test_observable_horizon_analysis.py",
+      "original_sha256": "13419bb449f03bfb6db540156602e49b20719ff852778d031c45202af22a0314",
+      "final_sha256": "13419bb449f03bfb6db540156602e49b20719ff852778d031c45202af22a0314",
+      "original_lines": 75,
+      "final_lines": 75,
+      "byte_identical": true
+    },
+    {
+      "path": "code/validation/observable_horizon_plan.json",
+      "original_sha256": "b89c4a1ff7b8ed335e551f1ff553e7d3aefbe1acdfa914e19444901f080f08e7",
+      "final_sha256": "b89c4a1ff7b8ed335e551f1ff553e7d3aefbe1acdfa914e19444901f080f08e7",
+      "original_lines": 299,
+      "final_lines": 299,
+      "byte_identical": true
+    }
+  ],
+  "discovery_setups": [
+    {
+      "start_line": 120,
+      "command_line": 122,
+      "lines": [
+        "mkdir -p data/established",
+        "observable_test_scratch=$(mktemp -d \"$PWD/data/established/observable_tests.XXXXXX\")",
+        "env PYTHONPATH=code PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 H4_LAW_TEST_SCRATCH=\"$observable_test_scratch\" H4_VALIDATION_TEST_SCRATCH=\"$observable_test_scratch\" TMPDIR=\"$observable_test_scratch\" python -B -m unittest discover -s code/tests -p 'test_*.py' -v"
+      ],
+      "required_settings_present": true
+    },
+    {
+      "start_line": 911,
+      "command_line": 913,
+      "lines": [
+        "mkdir -p data/established",
+        "observable_test_scratch=$(mktemp -d \"$PWD/data/established/observable_tests.XXXXXX\")",
+        "env PYTHONPATH=code PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 H4_LAW_TEST_SCRATCH=\"$observable_test_scratch\" H4_VALIDATION_TEST_SCRATCH=\"$observable_test_scratch\" TMPDIR=\"$observable_test_scratch\" python -B -m unittest discover -s code/tests -p 'test_observable*.py' -v"
+      ],
+      "required_settings_present": true
+    },
+    {
+      "start_line": 1037,
+      "command_line": 1039,
+      "lines": [
+        "mkdir -p data/established",
+        "observable_test_scratch=$(mktemp -d \"$PWD/data/established/observable_tests.XXXXXX\")",
+        "env PYTHONPATH=code PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 H4_LAW_TEST_SCRATCH=\"$observable_test_scratch\" H4_VALIDATION_TEST_SCRATCH=\"$observable_test_scratch\" TMPDIR=\"$observable_test_scratch\" python -B -m unittest discover -s code/tests -p 'test_observable*.py' -v"
+      ],
+      "required_settings_present": true
+    }
+  ],
+  "worker_correspondence": [
+    {
+      "id": "atom_n1",
+      "status": "operational_pass",
+      "all_recorded_runtime_hashes_match_final": true
+    },
+    {
+      "id": "atom_n3",
+      "status": "operational_pass",
+      "all_recorded_runtime_hashes_match_final": true
+    },
+    {
+      "id": "atom_n5",
+      "status": "operational_pass",
+      "all_recorded_runtime_hashes_match_final": true
+    },
+    {
+      "id": "arc_n1",
+      "status": "operational_pass",
+      "all_recorded_runtime_hashes_match_final": true
+    },
+    {
+      "id": "arc_n3",
+      "status": "operational_pass",
+      "all_recorded_runtime_hashes_match_final": true
+    },
+    {
+      "id": "arc_n5",
+      "status": "operational_pass",
+      "all_recorded_runtime_hashes_match_final": true
+    },
+    {
+      "id": "arc_n3_time",
+      "status": "operational_pass",
+      "all_recorded_runtime_hashes_match_final": true
+    },
+    {
+      "id": "arc_n3_initialization",
+      "status": "operational_pass",
+      "all_recorded_runtime_hashes_match_final": true
+    },
+    {
+      "id": "arc_n3_population",
+      "status": "operational_pass",
+      "all_recorded_runtime_hashes_match_final": true
+    },
+    {
+      "id": "arc_n3_law",
+      "status": "operational_pass",
+      "all_recorded_runtime_hashes_match_final": true
+    },
+    {
+      "id": "exploratory_arc_n3",
+      "status": "operational_pass",
+      "all_recorded_runtime_hashes_match_final": true
+    },
+    {
+      "id": "exploratory_arc_n3_law",
+      "status": "operational_pass",
+      "all_recorded_runtime_hashes_match_final": true
+    },
+    {
+      "id": "tiny_rational24",
+      "status": "operational_pass",
+      "all_recorded_runtime_hashes_match_final": true
+    },
+    {
+      "id": "tiny_rational36",
+      "status": "operational_pass",
+      "all_recorded_runtime_hashes_match_final": true
+    }
+  ],
+  "original_guide_absent": false,
+  "original_instruction_hashes": {
+    "/home/amir/Codes/PDE/AGENTS.md": "7778b7073a02de3e94f8ae9aefe940ebc9eddea7467816662e5cce1020cd98ba",
+    "/home/amir/Codes/PDE/RESEARCH_WORKFLOW.md": "8b36d7dfc1ad881fcb6bfe32274a5e50c5125b33d68dbcf7c3937f7f6c21ce12"
+  },
+  "current_instruction_hashes": {
+    "/home/amir/Codes/PDE/AGENTS.md": "7778b7073a02de3e94f8ae9aefe940ebc9eddea7467816662e5cce1020cd98ba",
+    "/home/amir/Codes/PDE/RESEARCH_WORKFLOW.md": "8b36d7dfc1ad881fcb6bfe32274a5e50c5125b33d68dbcf7c3937f7f6c21ce12"
+  },
+  "budget": {
+    "cpu_seconds": 60,
+    "address_space_bytes": 4294967296
+  },
+  "no_tests_or_trajectories_executed": true,
+  "status": "pass",
+  "cpu_seconds": 0.123285846,
+  "wall_seconds": 0.12444720417261124,
+  "peak_rss_bytes": 18477056
+}
