@@ -39,8 +39,16 @@ accuracy certificate. The [fresh independent reproduction](H4_reproduction_v1.md
 independently. All 112 exact observation/checkpoint files match the author run
 byte for byte in a later coordinator comparison. The original code-only
 reproduction edition was then supplemented with the six complete candidate
-documents, preserving every executed input and original manifest. Two fresh
-complete scientific reviews and the separate integration review are underway. The result is still a study candidate, not established material.
+documents, preserving every executed input and original manifest. The original [scientific A](H4_scientific_A_v1.md),
+[scientific B](H4_scientific_B_v1.md), and [integration](H4_integration_v1.md)
+reports are complete and require corrections. They found no substantive proof
+gap; the [disposition](H4_corrections_v2.md) records the exact constant, recipe,
+placement and Markdown repairs. The corrected
+[complete theorem](H4_proposed_section_v2.md) and
+[271-input packet](H4_review_manifest_v2.json) are frozen in generated
+`H4_candidate_v2b`. Its literal documented setup passes all 67 tests. Two fresh
+complete scientific reviews C/D and a fresh integration review are underway.
+Original packets/reports/evidence remain unchanged. The result is still a study candidate, not established material.
 Established-book/code changes require approval of the concrete reviewed addition.
 
 ## Revised C-H3 promoted with user approval — 2026-09-13

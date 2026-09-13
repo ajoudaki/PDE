@@ -1,0 +1,109 @@
+# Independent H4 integration review — frozen edition v1
+
+Reviewer: `/root/h4_integration_v1`. Date: 2026-09-13.
+
+**Verdict: corrections required; do not integrate this edition.** The scoped implementation works when its undocumented test scratch settings are supplied, and the new scientific scopes and numerical interfaces are substantially consistent. The assembled chapter placement is wrong, the maintained test recipe fails as written, three subsection labels render incorrectly, and one displayed strict inequality is false. This report is the original complete independent integration report, not a scientific or reproduction review verdict.
+
+## Required corrections
+
+1. **Place D inside C.4.7.10 and repair its heading hierarchy.** The assembled `docs/global_nonlinear.md` has C.4.7.10 at line 12555; its complete A–C unit ends at 13981, immediately before C.4.8 at 13982. D begins at **21296**, after the later C.5 material (C.5 starts at 19559). The assembler appends the proposal to the end of the entire chapter. Moreover its first line is `##### D. ...`, the same heading level as C.4.7.10, rather than a subordinate part. Thus a reader or document tree encounters D in C.5's hierarchy, despite both guides and the law API identifying it as C.4.7.10.D. Insert it immediately after the existing C.4.7.10 material, before C.4.8, and use a heading/label structure that actually places D under that subsection. Preserve the intervening later sections byte-for-byte. This is a blocking assembly/editorial correction, not a request to alter the theorem.
+
+2. **Make the maintained deterministic-test recipe self-contained.** Candidate `code/README.md`'s time-40 recipe (line 1032) invokes discovery with only the import path and numerical thread settings. It does not supply `H4_LAW_TEST_SCRATCH` or `H4_VALIDATION_TEST_SCRATCH`. In a clean environment, its command runs 67 tests and fails **10**: nine fail in `test_observable_horizon_validation.py:65`, one at `test_observable_laws.py:224`. Supplying those two settings produces 67 passes with identical frozen code. The new tests also retain author instructions demanding “study-owned” scratch, and the law-test docstring still points to `studies/observable_hierarchy/H4_laws_tests.py` rather than the installed test. Give the installed tests a portable temporary-directory default or document and create their required fresh directory and settings in every affected maintained discovery recipe; replace the obsolete source-test path and study-only wording. This is a blocking packaging correction. It affects the older guide's generic/full observable discovery commands too, because discovery now includes these new tests.
+
+3. **Close three Markdown emphasis delimiters.** `H4_proposed_section.md` lines **204, 277, 384** begin respectively `**3.1 Field and gate constants`, `**3.2 Lower pulse difference`, and `**3.3 Upper row difference` without closing `**`. They remain literal leading asterisks under the installed Markdown renderer. These correspond to assembled lines 21499, 21572, 21679 in this edition. Close or replace the delimiters consistently. This is an editorial correction.
+
+4. **Correct the false strict bound in H40.D7.** `H4_proposed_section.md:109` defines `R=e^{80}`; line **766** states `C,R<e^{80}`. The assertion for R is false. Write the actual equality/bound, for example `C<e^{80}, R=e^{80}`, and check the downstream substitutions. The subsequent loose bounds have enough slack and this appears to be a local mathematical typo, rather than evidence against the claimed radius domination, but the displayed mathematical assertion must be corrected. It is a change in scientific text and must receive the workflow's applicable renewed scientific checking; an integration approval cannot waive that gate.
+
+## Complete read coverage and isolation
+
+I received the neutral integration assignment and no inherited author discussion. I read `AGENTS.md` as supplied, all of `RESEARCH_WORKFLOW.md` (including Part 2), and `/etc/codex/skills/solve-math-rigorously/SKILL.md`. I did not read the study README, selection findings, author development histories, scientific review reports, reproduction report, or other studies' research. No review verdict was provided to me. A metadata-only `git status --short` revealed concurrent filenames; their contents were not opened, and no Git write was made. The root's only subsequent instructions were to preserve handwritten check sources and to continue the assigned review while keeping inputs frozen.
+
+Read completely:
+
+- The neutral integration assignment; the edition manifest; the complete review manifest as machine-parsed path/hash/byte records; dependency manifest; and the assembly program `H4_assemble.py`.
+- All 1755 lines of `H4_proposed_section.md`, including every displayed derivation in D.1–D.5, the radius domination table, numerical-limit argument, empirical statements and complete work/storage qualifications. Exact equality to the assembled chapter addition was checked. The truncated beginning of the initial 901–1380 read was repaired by rereading 901–954; the remaining section reads covered 1–430, 431–900, 955–1380 and 1381–1755 completely.
+- The entire assembled `docs/NOTATION.md`, `docs/README.md` and `code/README.md`. Source `H4_docs_readme.md` is byte-identical to the first assembled guide. Source `H4_code_guide.md` is the exact complete append to the second; the full append was read in the assembled guide. The old guide texts were recovered by the exact prefix correspondence and complete four-hunk book-guide diff, so removed/replaced sentences were read too.
+- Every new/replaced implementation, test and configuration in the edition manifest: `observable_laws.py`; `validate_observable_horizon.py`; `run_observable_validation.py`; `analyze_observable_horizon.py`; the three `test_observable_laws`, `test_observable_horizon_validation`, `test_observable_horizon_analysis` modules; and `observable_horizon_plan.json` including its complete common settings, fourteen configurations, interpretation and budgets.
+- Complete unchanged H3 modules `observable_solver.py`, `observable_initialization.py`, `observable_compiler.py`, `observable_arithmetic.py`, `observable_fixed.py`, `observable_words.py`, and complete interacting tests `test_observable_solver.py`, `test_observable_initialization.py`, `test_observable_compiler.py`, `test_observable_validation.py`.
+- The old supervisor's complete API/body through the completely read proposed supervisor and its exact diff against the old file: only the documented worker-selection extension, selected-worker record field and related messages/signature differ. Additional frozen dependency content read: `pde/__init__.py` completely; `observable_closure.py:1–235`, including its original word decoder used by the compatibility test. No other unchanged code body was needed for the new imports or tests.
+
+The older scientific scope was the dependency packet's complete C.4.7.8–10 (packet lines **5989–8531**, including full A–C of C.4.7.10) and these precise interface excerpts: **4374–4615** (C.4.7.1 theorem/domain/observations and initial C.4.7.2 raw/finite-energy bounds), **4681–4735** (C.4.7.3 domain, source-row definition and cap statement), **5692–5750** (C.4.7.4 completion hypotheses, comparison and strong-equation interface), **5810–5843** (C.4.7.5 finite proxy/source interface), **5946–5988** (C.4.7.7 risk/activity statement and passage). The short explanatory arguments lying inside these interface excerpts were read as well. I used the frozen chapter's heading metadata outside those ranges solely to locate the addition and next section; I did not read the intervening scientific bodies.
+
+**Unread complement:** the rest of the older proof bodies of C.4.7.1–5, C.4.7.6, earlier dependency-packet units (including C.4.5's complete proof), other global-chapter sections and other book chapters were not scientifically audited. Unchanged H2 runtime beyond line 235, `finite_network.py`, `gaussian_moments.py`, old H3 producer/analyzer bodies and old plan were hash/import dependencies, not independently reviewed scientific implementations. Author `H4_full_tests_v1` artifacts were hash-checked only; I did not use their verdicts. The guide's historical statement that the inherited rational reference certificate passed was not independently rerun, since its older proof body is outside this integration scope. This is not a fresh whole-book or whole-repository proof audit.
+
+Empirical input handling: I read the complete time-40 plan and author analysis Markdown. The checker machine-read all fourteen producer records, verified their complete configurations and plan hashes against that plan, and retained the exact law/resource/restart/source metadata in `producer_records.json`. I inspected the resulting operational table and aggregate. It independently read all **84** exact observation JSONs and corresponding NPZs, decoded all working values by backend and matched their float views. The maintained analyzer independently recomputed loss, paired RMS/moments, provenance and every comparable pair in fresh scratch. No archived trajectory was used as an initial condition and no new research trajectory was executed.
+
+## Interface and scientific integration findings
+
+The new law is genuinely a separately fixed exact description: eleven exponent syntax nodes, rational endpoints, fixed equal label masses and quarter-turn maps. Its supported constructor retains the same radius across input/node/precision refinements. Degenerate and nondegenerate intervals have the stated atomic/nonatomic meanings. The normalized direction is consistently `u=x/sqrt(2)` and the transport metric is direction distance plus label distance. The nonorthogonal atomic example and midpoint transport factor agree with the map and masses. The deliberate radius replacement is separately bounded and reported; ordinary coordinate rounding can also collapse a nonreference exact midpoint, and that is independently flagged. The worker refuses a different exponent carrying the canonical supported tag. Arbitrary rational radii carry exploratory scope.
+
+The addition preserves the unhalved loss, residual sign, mobilities `(n,1,n)`, two tanh layers and actual initialized Gaussian action/adjoint. It distinguishes limiting zero readout from the actual finite random readout. Its normalized features use the unchanged inverse lower Cholesky convention, ridge `1/[1024(N+1)^2]` and contraction `L2^-1 C L1^-T`. Runtime backward actions use the same `M.T`; no independent reverse map, neuron-by-neuron middle matrix or action service enters evolution. Both core contraction terms, complete generic named-source path, literal duplicates and positive regularization survive unchanged.
+
+The runtime state and counts agree: nine arrays `b1,g,w,p1,b2,c,p2,M,D` contribute `P1(d1+5)+P2(d2+2)+2d1d2` scalars; three data arrays contribute `4A`. The source compiler is initialization-only. The characteristic values `w,c` remain unrestricted moving coordinates on complete joint marks, rather than feature expansions. The stage and input-block accounting is independent of elapsed steps, with separate counters/output/checkpoint/precision/metadata qualifications. D's generic cost expressions should be read together with retained C.6's Gaussian-point digit-generation and syntax costs; the new formulas explicitly describe table/contraction/source work, not a measured peak-bit certificate.
+
+Initial/current pair arrays use the same neuron and input. The initial upper field reconstructs with frozen `g,D` and the same lower weights. Probabilities are not silently renormalized in dynamics; probability-law interpretation, literal RMS and mass defects are distinguished. Off-mesh observations interpolate adjacent actual states and do not feed back. Endpoint checkpoint comparison covers every state/data array, both metadata dictionaries, arithmetic and final prediction. The actual serializer stores state/data/arithmetic; physical time, intended step, remaining step count and block size are retained in the accompanying plan/worker record, as the guide explicitly states. Continuing with those identical settings is the precise restart claim.
+
+The long-time statements are attached to a separately supplied supported time-40 domain, not silently to the old short-time ArcLaw. The hierarchy/initializer do not select order or coefficients using the target path; compact-target errors occur only in the proof. Both guides retain the precision-first iterated order, reached-restart domain, whole-circle versus finite-panel distinction, and separate finite-width probability mode. They do not infer raw-GD extension, arbitrary diagonal, numerical error certificate, practical resolution of the radius, or activity at time 40. Subject to correction 4 and the separate paired scientific gate, I found no further integration-level mismatch in these interfaces.
+
+The new section repeats some compatible-closure and numerical arguments from A–C, but here states and checks their changed horizon/domain and additional exact-radius/rounding inputs. This duplication has a clear purpose. Placement next to A–C is essential precisely because references such as “part B” and “part C.4” otherwise point across later unrelated material.
+
+## Preservation, Markdown and links
+
+All **31** edition source/destination mappings pass source hash, destination hash and exact declared transform checks. For unchanged entries this is identity. For the current assembler, the complete old chapter and code guide survive as exact prefixes after its documented trailing-whitespace trim. The proposed book guide changes only the C-H4 scope paragraph and three related roadmap passages; unrelated material is preserved. This confirms faithful assembly but does not excuse its wrong insertion location.
+
+All **79** new H40 equation tags are unique in the assembled chapter, with no collisions against old tags. The local E/D/C/N/I reference prefixes are sufficiently scoped for interpretation; the reused scalar E is explicitly distinguished in the radius proof. The new ATX hierarchy and malformed emphasis defects are listed above. Python Markdown 3.3.6 rendering, retained as `section_structure.html`, confirms the three literal unmatched markers. This was a structural Markdown check, not a TeX/PDF typesetting audit.
+
+The two complete guides contain **26 local links**; H4 adds no new link target. All supplied-target fragments checked successfully. Six inherited paths are absent from this deliberately partial edition: `docs/gaussian_calculus.md`, `docs/arctan_limits.md`, `docs/linear_dynamics.md`, `docs/continuous_depth.md`, `docs/finite_optimization_and_controls.md`, and `code/tools/two_layer_risk/README.md`. Metadata-only existence checks confirm all six are present in the established checkout. They are an explicit limitation on calling this snapshot a complete standalone book; they are not H4-introduced broken links. The H4 import/example/producer/analyzer scope works from the edition alone, while unrelated older guide examples depending on omitted modules were not executed.
+
+## Executed bounded checks
+
+The predeclaration is `data/generated/observable_hierarchy/H4_integration_v1/plan.md`, saved before testing: at most **600 CPU seconds**, **4 GiB**, **one numerical thread**, **zero research trajectories**. Test subprocesses additionally had at most 120 CPU seconds each and bounded wall time, with all scratch beneath that directory. The synthetic four-step fixture and fake supervisor workers are deterministic tests, not a time-40 or finite-network campaign.
+
+The handwritten main source is `studies/observable_hierarchy/H4_integration_v1_checks.py`, executed from its identical scratch copy `data/generated/observable_hierarchy/H4_integration_v1/checks.py`. The supplementary source is similarly preserved as `H4_integration_v1_supplement.py` and executed as scratch `supplement.py`. Neither modifies frozen inputs.
+
+Main launch from `/home/amir/Codes/PDE`:
+
+```sh
+env OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 python -B data/generated/observable_hierarchy/H4_integration_v1/checks.py
+```
+
+Supplement launch used the identical environment and `.../supplement.py`. Exact child argument lists, working directories, environmental settings, exit codes, timings and log hashes are in `commands.json`; all child commands ran from the frozen edition root with its own `code` as the sole explicit package path and scratch as TMPDIR.
+
+| Check | Result | Child CPU seconds |
+|---|---|---:|
+| Exact new public law example extracted from the guide, no initialization/training | Exit 0 | 0.116 |
+| `python -B -m unittest discover -s code/tests -p 'test_observable*.py' -v`, no H4 scratch variables | Exit 1; 67 tests, 10 scratch-setting failures | 4.253 |
+| Same suite with both required scratch settings | Exit 0; **67 passed** | 4.685 |
+| New supervisor, horizon worker and horizon analyzer `--help` | Three exits 0 | 0.296 total |
+| Maintained horizon analyzer on retained author inputs, fresh scratch output | Exit 0; 14 runs, 12 comparisons, no problems | 0.463 |
+| Source correspondence, hashes, links, exact JSON-to-NPZ decoding and structural rendering | Pass except reported packaging findings | Main total below |
+
+The main harness records **11.068963 CPU seconds** including child work and its own measured work; the supplement records **0.079635 CPU seconds**, with small interpreter-startup/read-only metadata overhead outside those counters. Recorded child peak RSS was **59,314,176 bytes**. No resource limit was approached. Python was 3.10.12; NumPy was 1.26.4. No dependency installation or network access was used.
+
+The executed deterministic checks cover bounded integer-expression evaluation/rejection, exact quarter-turn/transport algebra, all-backend law and state restart, resolution versus deliberate/rounding collapse, independent weighted gradient-energy identity, actual adjunction, nonsymmetric whitening, complete source Grams/named derivatives, zero/dependent source retention, initializer replay/dispatch and resource rejection, exact observation encoding, manufactured off-mesh behavior, full worker record generation, old/default and new/selected supervisor protocols, CPU/RSS/wall/total-cap/interruption/failure handling. These provide meaningful integration evidence independently of author test outcomes.
+
+The archive audit independently recovers **14 operational records**, **12 comparisons**, **506.290977526 worker CPU seconds**, and **56,119,296 bytes** maximum recorded producer peak RSS. Source hashes for all producer modules and the worker match the frozen candidate. Reported panel differences are reproduced: time refinement `1.20492086e-6`, initializer refinement `0.00327381488`, population refinement `0.0123995644`, supported input refinement `4.4408921e-16`, exploratory input refinement `0.000225187904`, and zero in the rational 24/36 float view. Every exact observation float view agrees with its companion NPZ. This validates archived algebra/provenance and guide numbers; **it is not an independently regenerated trajectory reproduction** and supplies no population-error or continuum-supremum bound.
+
+## Hashes and completion evidence
+
+The input review manifest SHA-256 is `8b5808b02fb14e6f134b3c188cdd540aff09b557213779e716fbd011217c5648` (**270 entries**). Every listed file matched before and after testing. The edition manifest is `5ee1cd84862fa15d7cccb622d52c497fa2c4f89c592960befc1f7fe93a5a67a9`. The neutral integration assignment is `7e5cb6ca6d6baba94c1911a9ba95684c4ec339aa0a46ec72babb13c1ce544a42`. The exact scientific section is `7a085daf55b275ea75cdcabd06892f6006e42a8e88681b2fb03f2b38745428f7`; assembled chapter `6e4db5dd1c1ccd220f6892703685c34302be5c0c449474a26f8f4c3d509b46aa`.
+
+Evidence hashes (all scratch paths relative to `data/generated/observable_hierarchy/H4_integration_v1/`):
+
+| Artifact | SHA-256 |
+|---|---|
+| `plan.md` | `f7071fd27a310c0f385287b4d078171ca0008b9b020a582125309a4b7dd10756` |
+| `checks.py` and preserved source | `1c85d5cc44d4ad66b8ac9c9f24e0e977abde76d8f7fceba907021e533fdb4f94` |
+| `supplement.py` and preserved source | `07b051722021d70e9b97df12d37ca3b4209b39281a8c3f53bea6583cd7b2a60c` |
+| `hashes_before.json`, `hashes_after.json` | `2a4744308199c5760d1b3d1ea0826177cbfeb9bcd6654d49c06f1df8a18b9ca3` |
+| `mapping.json` | `c6f41089d165b88dcb5ee3d6b69d81875e8abb6da0336099b2c40fce01d7a9d0` |
+| `commands.json` | `5d442689c822d403db344a9a41e1df6649fc252ee5b3d26e7af741f662426fd1` |
+| `execution_summary.json` | `a6ce944709c49d79e0e333ada3f332a81fd5d8d6ad3e60a2815853885f2ee028` |
+| `markdown_checks.json` | `2a24f162ce46d0b4dc1a3a74174f6022795ab800dc8dc4fe67406d1a825d9539` |
+| `links.json` | `089ce55282376edeed292638e444fcd393e69e410e4146e80b23de460965875e` |
+| `supplement.json` | `a6c5d25c8fbfe4f77a003ce2a7afd4505266fa78006538ad0bcfff9e23db4792` |
+| `archive_analysis/summary.json` | `0e41f0ad79c7b4124894d09af0d5eff6dae7b2dafdaa032e9074817a41eb8288` |
+| `producer_records.json` | `20e18d1dfae9d5fcf8e80e4e517e5a009f265b33a966fb3de6ddd233d8ada2bc` |
+| `exact_observation_checks.json` | `b3bbcf2d17a4d1400e01a195445f5de093a455d3449ef6dd07394f3ddf7ccdff` |
+
+The assigned reading, applicable deterministic integration tests, public example, correspondence and empirical archive audits are complete. No missing scientific input was silently obtained elsewhere. No candidate correction, research trajectory, Git operation or promotion was performed. All four required corrections above remain unresolved in frozen v1. A corrected edition needs a fresh complete integration review; scientific text changes also remain subject to the paired scientific-review gate.
