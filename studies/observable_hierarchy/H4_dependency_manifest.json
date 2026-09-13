@@ -1,0 +1,84 @@
+{
+  "format": "H4-complete-proof-dependencies-v1",
+  "units": [
+    {
+      "source": "docs/finite_dynamics.md",
+      "source_sha256": "a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca5545bc0012a",
+      "first_line": 1,
+      "last_line": 227,
+      "scope": "Finite model, exact metric, energy and finite existence: sections1\u20134",
+      "excerpt_sha256": "bd10bbff9d16f60c63d26b06e793510fa19958e1ec91dbdd85709caff7d96980"
+    },
+    {
+      "source": "docs/special_data_limits.md",
+      "source_sha256": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489",
+      "first_line": 3785,
+      "last_line": 4286,
+      "scope": "III.F.1\u201310: complete finite Gaussian programs, common actions, strong scalar differentiation",
+      "excerpt_sha256": "43704820690a545e42673b93791a679985376351df9f349c39b4282bdef85b2f"
+    },
+    {
+      "source": "docs/global_nonlinear.md",
+      "source_sha256": "77e0f2b9a2ecd337c1a47b8f6c2025c72122e28512ca7481377418fe3f235932",
+      "first_line": 1840,
+      "last_line": 1898,
+      "scope": "A.1\u20134: value/product extensions, initialized action norm and scalar chain rule",
+      "excerpt_sha256": "aabbc3ef3a044c2303e1566562bb8c4fda57e300fc1ae34b47cb214bee63c6bb"
+    },
+    {
+      "source": "docs/global_nonlinear.md",
+      "source_sha256": "77e0f2b9a2ecd337c1a47b8f6c2025c72122e28512ca7481377418fe3f235932",
+      "first_line": 1903,
+      "last_line": 2453,
+      "scope": "B.1: complete two-hidden-layer transformed reference and actual finite-GF identification",
+      "excerpt_sha256": "5b4f6dee554fe2adba885c4154c81b06b13cb1759dc266cc17853541658371ff"
+    },
+    {
+      "source": "docs/global_nonlinear.md",
+      "source_sha256": "77e0f2b9a2ecd337c1a47b8f6c2025c72122e28512ca7481377418fe3f235932",
+      "first_line": 2924,
+      "last_line": 3440,
+      "scope": "C.2: complete weighted named-source response proof",
+      "excerpt_sha256": "cf223a3eed88b3755d0379948316534fb44febc9fa1d6f0bb5d282ff8be4ac94"
+    },
+    {
+      "source": "docs/global_nonlinear.md",
+      "source_sha256": "77e0f2b9a2ecd337c1a47b8f6c2025c72122e28512ca7481377418fe3f235932",
+      "first_line": 3982,
+      "last_line": 4815,
+      "scope": "C.4.1, C.4.2.1\u20136, C.4.3.1\u20133: full-row comparison, common carrier, completion and finite proxy",
+      "excerpt_sha256": "57b4b7d2c382ea463acc89752d7f4904e5264cc66aa23d567d83b574fe90ae49"
+    },
+    {
+      "source": "docs/global_nonlinear.md",
+      "source_sha256": "77e0f2b9a2ecd337c1a47b8f6c2025c72122e28512ca7481377418fe3f235932",
+      "first_line": 5270,
+      "last_line": 6903,
+      "scope": "C.4.5 including .1\u20133: complete substantial-learning statement, reference, tails, exact certificate and actual-GF comparison",
+      "excerpt_sha256": "4e35f6b1dc336083aaefc4cc8ad15a40e42af1e6b93eadc37da0a32a32b00933"
+    },
+    {
+      "source": "docs/global_nonlinear.md",
+      "source_sha256": "77e0f2b9a2ecd337c1a47b8f6c2025c72122e28512ca7481377418fe3f235932",
+      "first_line": 8989,
+      "last_line": 10554,
+      "scope": "C.4.7.1\u20135: complete time40 strong construction, coefficient bootstrap, completion, finite-GF and observations",
+      "excerpt_sha256": "3cbc2ccc6eeef601e78af6d8c34ecfcec66937551b20a7c48009d575e42f377a"
+    },
+    {
+      "source": "docs/global_nonlinear.md",
+      "source_sha256": "77e0f2b9a2ecd337c1a47b8f6c2025c72122e28512ca7481377418fe3f235932",
+      "first_line": 11398,
+      "last_line": 13981,
+      "scope": "C.4.7.7\u201310: binary learning passage, complete H1/H2/H3 foundations and numerical contract",
+      "excerpt_sha256": "f487a044703dacd526019f6849d72d24e706b8f394e9dcd31ef68dbe6fba728e"
+    }
+  ],
+  "output": "H4_dependencies.md",
+  "sha256": "4099bc462040ad9df526f5ef63eef6e1c5462eb3325418354c6120d1fd44af50",
+  "guides": {
+    "docs/README.md": "03187fb939b6f8ab457107b3a3b45c3fa0332633f62741a1d13b5f278bbfa6e3",
+    "docs/NOTATION.md": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "code/README.md": "30135209fc7bfba9125078cf12efeb1c46471da8979dc0893d59cb8a5691658b"
+  }
+}

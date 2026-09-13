@@ -13,13 +13,30 @@ The [foundation recovery](H4_foundation.md) passed exact correspondence for
 all 17 H3 installed files and 24 dependency destinations. The frozen
 [horizon route](H4_route_horizon.md) supplies a candidate closure extension;
 the [family route](H4_route_family.md) identified the precise missing
-explicit support bound, now under further derivation. The separate
+explicit support bound. The new [cap proof](H4_family_explicit_cap.md) and
+[dyadic dominance proof](H4_family_dyadic.md) now provide a candidate fixed
+supported family, with ten fixed power-of-two exponent steps from 8192.
+The [numerical stability audit](H4_horizon_audit.md) verifies the weighted
+metric, rounded mass defects and paired-law input integration. The separate
 [implementation assessment](H4_solver_design.md) records storage, arithmetic
 and observation requirements. These author routes are not independent reviews.
-No H4 trajectory has run, and no complete time-40 computational theorem is
-yet claimed. The next authorized action is completion of the support proof and
-a frozen bounded numerical plan, followed by implementation, reproduction,
-two fresh complete scientific reviews and a separate integration review.
+The [law interface](H4_laws.py) passed all 13 [deterministic checks](H4_laws_tests.py)
+in generated `H4_law_tests_20260913T175201_546281Z`; no trajectories were used.
+An independent [selector](H4_selection.md) accepted the narrow result for
+assembly as C.4.7.10 part D, subject to the complete gates. The fixed
+[14-configuration plan](H4_validation_plan.json) was recorded before driver
+implementation; it includes supported and resolved exploratory law interfaces,
+orders 1/3/5, separate refinements, and rational precision comparisons.
+The complete [canonical candidate](H4_proposed_section.md) and reusable code
+are frozen in [scientific packet v1](H4_review_manifest_v1.json). All 67
+deterministic tests and the inherited exact rational reference-constant check
+passed. All 14 declared time-40 runs passed operation and exact own-state
+restart; worker CPU totaled 506.291 seconds and peak RSS was 56,119,296 bytes.
+The supported perturbations collapse at these working precisions; wider
+resolved arcs are explicitly exploratory. No numerical comparison is an
+accuracy certificate. Independent reproduction is running, and the next gates
+are two fresh complete isolated scientific reviews and a separate integration
+review. The result is still a study candidate, not established material.
 Established-book/code changes require approval of the concrete reviewed addition.
 
 ## Revised C-H3 promoted with user approval — 2026-09-13

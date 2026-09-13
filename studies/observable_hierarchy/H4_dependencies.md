@@ -1,0 +1,8531 @@
+# Complete frozen established proof inputs for H4
+
+These are exact complete selected source units, with their original local notation and scopes. They are dependencies, not newly proposed text. The manifest records every source hash and interval. The complete notation and required guides are supplied separately. No author history or prior verdict is an input.
+
+
+<!-- BEGIN EXACT DEPENDENCY: Finite model, exact metric, energy and finite existence: sections1–4 -->
+
+# Exact finite dynamics and the energy estimate
+
+The conventions are those of [the shared notation](NOTATION.md). This chapter
+proves finite identities for arbitrary depth and a fixed dataset. Sections 1–4
+prove global finite-width gradient-flow existence and width-independent
+finite-horizon norm bounds under their smoothness assumptions. These statements
+do not by themselves identify an infinite-width
+trajectory. No empirical assertion or population approximation is used here.
+
+Sections 5–7 give separate one-sample, two-hidden-layer quadratic/identity
+and differentiated RMS models: exact gradients, kernels, Lax identities,
+balance laws and finite physical-flow continuation. Their state matrices
+retain width; no population or spectrum-only closure is asserted.
+
+Sections 8–9 use separate order-one-readout, half-square-loss models. They
+prove a frozen-bottom quadratic joint initial layer, a reached finite ReLU
+classical-flow obstruction, and positive local compactness of actual ReLU
+Euler outputs. Frozen, fully trained, classical and subsequential statements
+retain their distinct scopes.
+
+## 1. Model and learning metric
+
+Fix positive integers `L,m,d,n`, data `(x_a,y_a)` for `1<=a<=m`, and positive
+constants `kappa_1,...,kappa_(L+1)`. Use the forward equations in NOTATION.md and
+the mean squared loss
+
+\[
+\mathcal L_n=\frac1m\sum_{a=1}^m r_{n,a}^2,
+\qquad r_{n,a}=f_{n,a}-y_a.
+\]
+
+Each activation is a real `C^2` function. The finite state consists of all raw
+weight entries. Its gradient flow is `dot theta=-D grad mathcal L_n`, where
+the constant diagonal operator `D` multiplies the first and last blocks by
+`n kappa_1` and `n kappa_(L+1)`, respectively, and middle block `ell` by
+`kappa_ell`. Gradients of matrix functions use the ordinary Frobenius pairing.
+
+Backpropagation gives the exact derivatives
+
+\[
+\nabla_{W^{(1)}} f_{n,a}
+=\frac{\delta_a^{(1)}x_a^T}{n\sqrt d},\qquad
+\nabla_{W^{(\ell)}} f_{n,a}
+=\frac{\delta_a^{(\ell)}(h_a^{(\ell-1)})^T}{n}\quad(2\le\ell\le L),
+\qquad
+\nabla_{W^{(L+1)}} f_{n,a}=\frac{h_a^{(L)}}n.
+\tag{1}
+\]
+
+To verify (1), differentiate the readout first. Its derivative with respect to
+`z_a^(L)` is `delta_a^(L)/n`. At a lower layer, differentiating
+`z_a^(ell+1)=W^(ell+1) phi^(ell)(z_a^(ell))` multiplies this derivative by
+`diag((phi^(ell))'(z_a^(ell))) (W^(ell+1))^T`, giving the stated backward
+recursion. A variation of `W^(ell)` produces
+`d z_a^(ell)=d W^(ell) h_a^(ell-1)`; at the first layer it produces
+`d W^(1) x_a/sqrt(d)`. Taking their scalar products with `delta_a^(ell)/n`
+proves all three formulas.
+
+Consequently the exact physical flow is
+
+\[
+\begin{aligned}
+\dot W^{(1)}&=-\frac{2\kappa_1}{m\sqrt d}
+  \sum_a r_{n,a}\delta_a^{(1)}x_a^T,\\
+\dot W^{(\ell)}&=-\frac{2\kappa_\ell}{mn}
+  \sum_a r_{n,a}\delta_a^{(\ell)}(h_a^{(\ell-1)})^T
+  &&(2\le\ell\le L),\\
+\dot W^{(L+1)}&=-\frac{2\kappa_{L+1}}m
+  \sum_a r_{n,a}h_a^{(L)}.
+\end{aligned}
+\tag{2}
+\]
+
+Exact GD of step `eta` adds `eta` times the right side of (2), with every
+quantity evaluated at the same pre-update state. Recomputing one block before
+updating the next would be a different algorithm.
+
+## 2. Raw kernel blocks and dissipation
+
+Define the mobility-weighted block kernel by
+`K_(n,ab)^(ell)=<grad_(W^(ell)) f_(n,a),D_ell grad_(W^(ell)) f_(n,b)>`.
+The identity `<u v^T,p q^T>_F=(u^T p)(v^T q)` and (1) give
+
+\[
+\begin{aligned}
+K_{n,ab}^{(1)}&=\kappa_1\frac{x_a^Tx_b}{d}
+                   \frac{(\delta_a^{(1)})^T\delta_b^{(1)}}n,\\
+K_{n,ab}^{(\ell)}&=\kappa_\ell
+ \frac{(h_a^{(\ell-1)})^T h_b^{(\ell-1)}}n
+ \frac{(\delta_a^{(\ell)})^T\delta_b^{(\ell)}}n
+ &&(2\le\ell\le L),\\
+K_{n,ab}^{(L+1)}&=\kappa_{L+1}
+                    \frac{(h_a^{(L)})^T h_b^{(L)}}n.
+\end{aligned}
+\tag{3}
+\]
+
+Each block is positive semidefinite: for any real sample coefficients `c_a`,
+its quadratic form is the squared norm of
+`D_ell^(1/2) sum_a c_a grad_(W^(ell)) f_(n,a)`.
+With `K_n=sum_ell K_n^(ell)`, the chain rule now gives
+
+\[
+\dot f_{n,a}=-\frac2m\sum_b K_{n,ab}r_{n,b},\qquad
+\frac{d}{dt}\mathcal L_n=-\frac4{m^2}r_n^T K_n r_n
+=-\|D^{-1/2}\dot\theta\|_2^2.
+\tag{4}
+\]
+
+In particular the last equality is the exact weighted energy identity
+
+\[
+\mathcal L_n(t)+\int_0^t\left[
+ \frac{\|\dot W^{(1)}\|_F^2}{n\kappa_1}
+ +\sum_{\ell=2}^{L}\frac{\|\dot W^{(\ell)}\|_F^2}{\kappa_\ell}
+ +\frac{\|\dot W^{(L+1)}\|_2^2}{n\kappa_{L+1}}
+\right]du=\mathcal L_n(0).
+\tag{5}
+\]
+
+There is no factor of the residual inside `delta` or inside (3).
+
+## 3. Global finite-width existence
+
+For every finite initial state the flow (2) has a unique solution for all
+`t>=0`. Indeed its vector field is locally Lipschitz: the finite composition
+defining the loss is `C^2`. The local existence argument is the contraction
+mapping for the integral equation on a closed ball of continuous curves, with
+time small enough that the locally bounded Lipschitz field maps the ball into
+itself and has contraction constant less than one. This also gives uniqueness.
+
+On any interval of this solution, (5) and Cauchy–Schwarz imply
+
+\[
+\|D^{-1/2}(\theta(t)-\theta(s))\|_2
+\le\sqrt{t-s}\left(\int_s^t
+             \|D^{-1/2}\dot\theta(u)\|_2^2du\right)^{1/2}
+\le\sqrt{(t-s)\mathcal L_n(0)}.
+\tag{6}
+\]
+
+If its maximal forward endpoint were a finite `T`, (6) would make `theta(t)`
+Cauchy as `t` tends to `T`. The metric in (6) is equivalent to the Euclidean
+metric at fixed `n`, since all mobilities are positive. Its limit is a finite
+state. The same local contraction construction at that state extends the
+solution past `T`, a contradiction. This proves global existence without a
+bounded-activation assumption. It does not assert global stability of GD.
+
+For each `t<=T`, applying (6) blockwise gives
+
+\[
+\frac{\|W^{(1)}(t)-W^{(1)}(0)\|_F}{\sqrt n}
+\le\sqrt{\kappa_1T\mathcal L_n(0)},\quad
+\|W^{(\ell)}(t)-W^{(\ell)}(0)\|_F
+\le\sqrt{\kappa_\ell T\mathcal L_n(0)},\quad
+\frac{\|W^{(L+1)}(t)-W^{(L+1)}(0)\|_2}{\sqrt n}
+\le\sqrt{\kappa_{L+1}T\mathcal L_n(0)}.
+\tag{7}
+\]
+
+The middle inequality applies to `2<=ell<=L`. It also bounds the operator
+norm of each trained middle increment, since operator norm is at most
+Frobenius norm. For arbitrary `s<t`, the corresponding bounds hold with
+`T` replaced by `t-s`; thus these parameter paths have a uniform square-root
+modulus when initial loss is uniformly bounded.
+
+## 4. What is uniform in width
+
+Suppose now the first derivatives of all activations are bounded, the fixed
+inputs have bounded RMS norm, and the initial first/readout RMS norms and
+middle operator norms are at most a constant independent of `n`. Assume also
+`mathcal L_n(0)<=C`. Then on every finite `[0,T]` all preactivation,
+activation and backward-vector RMS norms, and every entry of (3), are bounded
+by a finite constant independent of `n`.
+
+Here is the complete induction. From (7) the first Frobenius norm divided by
+`sqrt(n)`, readout RMS and middle operator norms are bounded. Therefore
+
+\[
+\frac{\|z_a^{(1)}\|_2}{\sqrt n}
+\le\frac{\|W^{(1)}\|_F}{\sqrt n}\frac{\|x_a\|_2}{\sqrt d},\qquad
+\frac{\|z_a^{(\ell)}\|_2}{\sqrt n}
+\le\|W^{(\ell)}\|_{\rm op}
+       \frac{\|h_a^{(\ell-1)}\|_2}{\sqrt n}.
+\]
+
+If `b_ell=sup |(phi^(ell))'|`, the fundamental theorem of calculus gives
+`|phi^(ell)(z)|<=|phi^(ell)(0)|+b_ell |z|`. The triangle inequality transfers
+each preactivation RMS bound to an activation RMS bound and closes the forward
+induction. The reverse induction is
+
+\[
+\frac{\|\delta_a^{(L)}\|_2}{\sqrt n}
+\le b_L\frac{\|W^{(L+1)}\|_2}{\sqrt n},\qquad
+\frac{\|\delta_a^{(\ell)}\|_2}{\sqrt n}
+\le b_\ell\|W^{(\ell+1)}\|_{\rm op}
+               \frac{\|\delta_a^{(\ell+1)}\|_2}{\sqrt n}.
+\]
+
+Cauchy–Schwarz in each pairing in (3) proves the kernel-entry bounds. The
+depth is fixed; this argument supplies no depth-uniform constants.
+
+These initial bounds hold with probability tending to one for the independent
+Gaussian initialization in NOTATION.md. First-block squared RMS is a sum of
+`nd` Gaussian squares divided by `n` and tends to `d` by the elementary law
+of large numbers; stored-readout squared RMS tends to zero. For a middle
+matrix, a `1/4`-net of the unit sphere has at most `9^n` points, by disjoint
+radius-`1/8` balls and a volume comparison. Approximating both vectors in a
+bilinear form by net points bounds the operator norm by twice the largest net
+bilinear form. Each fixed form is `N(0,1/n)`. The Gaussian exponential bound
+and a union bound give
+
+\[
+\mathbb P(\|W^{(\ell)}(0)\|_{\rm op}>M)
+\le 2\,9^{2n}e^{-nM^2/8}.
+\]
+
+Choose fixed sufficiently large `M` and use a union bound over the fixed depth.
+The forward induction at time zero then bounds the initial activations, and
+`|f_(n,a)(0)|<=||W^(L+1)(0)||_2 ||h_a^(L)(0)||_2/n` bounds initial loss.
+This supplies the claimed high-probability initial event.
+
+Uniform RMS bounds do not control multiplication by an unbounded coordinate
+function in the population space. Thus (5)–(7) establish useful a priori
+estimates but do not replace the source-identification and response-stability
+proofs needed for a nonlinear population theorem.
+
+
+<!-- END EXACT DEPENDENCY -->
+
+
+<!-- BEGIN EXACT DEPENDENCY: III.F.1–10: complete finite Gaussian programs, common actions, strong scalar differentiation -->
+
+### III.F. Fixed finite Gaussian programs, common actions and strong differentiation
+
+This part treats every fixed finite hidden depth L. All instruction lists and the number of initialized matrices are fixed before width tends to infinity. Its elementary proofs do not assert uniformity for a depth or transcript length growing with width.
+
+#### III.F.1. Finite programs and convergence of their empirical laws
+
+There are \(L\) types of length-\(n\) vectors, one for each hidden layer. Operations combining coordinates may combine only vectors of the same type. For each \(2\le\ell\le L\), let
+\[
+ W^{(\ell)}_n:\mathbb R^n_{\ell-1}\longrightarrow\mathbb R^n_\ell
+\]
+be mutually independent matrices with independent \(N(0,1/n)\) entries.
+Their transposes are reused as the reverse actions of these same matrices.
+
+Each layer may have a fixed finite tuple of root vectors. Its coordinate tuples are independent and identically distributed, have finite second moment, and are independent of all matrices. Tuples in different layers are independent. Constants are also allowed. In the network application, the first-layer root is a Gaussian vector \(w_0\in\mathbb R^d\) with covariance \(I_d\); the three root preactivations are \(u_i^T w_0\). Here \(w_0=\sqrt d V^{(1)}(0)\) in the isometric bottom coordinates of Part III.M. Additional independent Gaussian roots may be added to any layer when a proof requires probes or regularization.
+
+A deterministic-coefficient program is a fixed finite ordered list of instructions of the following forms:
+
+1. apply a fixed \(C^1\) function \(F:\mathbb R^m\to\mathbb R\) with bounded first partial derivatives, coordinate by coordinate, to previously available vectors of one layer;
+2. multiply a previously available vector by \(W^{(\ell)}_n\) or \(W^{(\ell)}_n^T\) for any \(2\le\ell\le L\), with the appropriate types;
+3. form a fixed real linear combination of previous same-layer vectors.
+
+The first condition implies a global Lipschitz bound and at most linear growth for each coordinate instruction. The bound may depend on that instruction. Root tuples themselves need not be generated by such functions.
+
+Write
+\[
+\frac{1}{n}\langle u,v\rangle_{\mathbb R^n}=\frac1n\sum_{\alpha=1}^n u_\alpha v_\alpha,
+\qquad \frac{\|u\|_2^2}{n}=\frac{1}{n}\langle u,u\rangle_{\mathbb R^n}.
+\]
+For same-layer nodes \(v^1_n,\ldots,v^m_n\), their empirical law is
+\[
+\widehat\mu_n=\frac1n\sum_{\alpha=1}^n
+ \delta_{(v^1_{n,\alpha},\ldots,v^m_{n,\alpha})}.
+\]
+Here \(\mathcal W_2\) uses the Euclidean distance on \(\mathbb R^m\).
+
+**Theorem III.F.1 (fixed finite Gaussian program).** Every such program has deterministic joint limiting laws of all its same-layer node tuples, and
+\[
+\mathcal W_2(\widehat\mu_n,\mu)\longrightarrow0
+\quad\hbox{in probability}
+\tag{III.F.2}
+\]
+along the full width sequence. In particular every within-layer pairwise contraction converges to the corresponding limiting second moment. The scalar laws are given by the source rule in Section III.F.4. Query Grams may be singular. Finite collections of programs sharing the same matrices and roots converge jointly by applying the assertion to their finite union.
+
+We prove this theorem in Sections III.F.2–III.F.5. The following elementary facts make explicit the probabilistic mode of convergence used in its proof.
+
+If \(X_\alpha\) are iid and \(E|X_1|<\infty\), their averages converge in probability to their expectation: truncate \(X_\alpha\) at level \(M\), use the variance bound \(O(M^2/n)\) for the bounded variables, and bound the mean absolute truncation error by \(E[|X_1|1_{|X_1|>M}]\). First send \(n\) to infinity and then \(M\) to infinity. This proves the required initial weak convergence and second-moment convergence of root empirical laws.
+
+For probability measures on a finite-dimensional Euclidean space, weak convergence together with convergence of second moments implies \(\mathcal W_2\) convergence. One direct proof is as follows. Continuous truncations of \(|x|^2\) show that the second moments outside sufficiently large balls are uniformly small. Inside a ball partition space into finitely many sets of diameter at most \(\eta\), choosing boundaries of zero limiting measure. Weak convergence makes their masses converge. Couple the common mass within each partition cell, at cost at most \(\eta^2\), and couple the remaining masses arbitrarily. The unmatched mass inside the ball vanishes; its cost is bounded by the squared diameter of the ball times that mass. The tails have arbitrarily small cost by \(|x-y|^2\le2|x|^2+2|y|^2\). Sending the ball radius and then the partition resolution to their limits proves the claim. A countable family of bounded Lipschitz tests determines weak convergence, by approximation on compact balls and tightness. For random measures the same argument applies in probability, or along an almost surely convergent subsubsequence of every subsequence.
+
+Two arrays on the same neuron indices satisfy
+\[
+\mathcal W_2^2(\widehat\mu_n,\widehat\nu_n)
+\le\frac1n\sum_\alpha |X_{n,\alpha}-Y_{n,\alpha}|^2,
+\tag{III.F.3}
+\]
+using the coupling that pairs equal indices. These facts require no assertion that trained coordinates are independent.
+
+#### III.F.2. An explicit Gaussian operator norm bound
+
+**Lemma III.F.2.** For an \(n\times n\) matrix \(W_n\) with independent \(N(0,1/n)\) entries,
+\[
+\Pr(\|W_n\|_{\rm op}>10)
+\le 2\,9^{2n}e^{-100n/8}\longrightarrow0.
+\tag{III.F.4}
+\]
+
+**Proof.** A maximal \(1/4\)-separated subset \(\mathcal N\) of the Euclidean unit sphere is a \(1/4\)-net. Balls of radius \(1/8\) about its points are disjoint and lie in the ball of radius \(9/8\), so volume comparison gives \(|\mathcal N|\le9^n\). For unit \(u,v\), choose \(u_0,v_0\in\mathcal N\) within \(1/4\). Then
+\[
+|u^TW_nv-u_0^TW_nv_0|
+\le\tfrac12\|W_n\|_{\rm op}.
+\]
+Taking the supremum gives \(\|W_n\|_{\rm op}\le2\max_{u_0,v_0\in\mathcal N}|u_0^TW_nv_0|\). For a fixed pair the displayed scalar is \(N(0,1/n)\). Its exponential moment is \(Ee^{t u_0^TW_nv_0}=e^{t^2/(2n)}\); Markov's inequality optimized at \(t=ns\) yields \(\Pr(|u_0^TW_nv_0|>s)\le2e^{-ns^2/2}\). A union bound at \(s=5\) proves (III.F.4). The exponent is negative since \(2\log9<12.5\). The same bound applies to transposes, and a finite union bound handles all matrices. ∎
+
+The same argument for a threshold \(t\ge10\) gives
+\[
+\Pr(\|W_n\|_{\rm op}>t)
+\le2\exp\{n(2\log9-t^2/8)\}
+\le2e^{-nt^2/16}\le2e^{-t^2/16}.
+\tag{III.F.4a}
+\]
+Consequently every fixed positive moment is bounded uniformly in width:
+\[
+\sup_{n\ge1}E\|W_n\|_{\rm op}^p
+\le10^p+2p\int_{10}^\infty t^{p-1}e^{-t^2/16}\,dt<\infty.
+\tag{III.F.4b}
+\]
+The integration formula follows by writing \(X^p=\int_0^Xpt^{p-1}dt\) for nonnegative \(X\) and interchanging nonnegative integrals. Hölder's inequality then gives uniform fixed-order moments for every fixed polynomial in finitely many such operator norms. For a standard Gaussian vector \(g_n\), Jensen's inequality also gives \(E\frac{\|g_n\|_2^p}{n^{p/2}}\le E|G|^p\) when \(p\ge2\).
+
+A useful consequence identifies normalized traces without a concentration theorem for functions of matrix entries. Let \(T_n\) be any random real \(n\times n\) matrix independent of \(g_n\sim N(0,I_n)\), with \(\sup_nE\|T_n\|_{\rm op}^2<\infty\). Conditional on \(T_n\),
+\[
+E_g\frac{1}{n}\langle g_n,T_ng_n\rangle_{\mathbb R^n}=\frac1n\operatorname{tr}T_n,
+\quad
+\operatorname{Var}_g\!\left(\frac{1}{n}\langle g_n,T_ng_n\rangle_{\mathbb R^n}\right)
+=\frac{2}{n^2}\left\|\frac{T_n+T_n^T}{2}\right\|_F^2
+\le\frac{2}{n}\|T_n\|_{\rm op}^2.
+\tag{III.F.4c}
+\]
+To verify the variance, replace \(T_n\) by its symmetric part, diagonalize it orthogonally, and use that the transformed Gaussian coordinates are independent with \(\operatorname{Var}(G^2)=2\). Therefore the difference between this probe and the normalized trace tends to zero in \(L^2\). If the probe is a fixed finite program, Theorem III.F.1 identifies its deterministic limit and hence the trace limit in probability. A fixed polynomial in the initialized actions and their adjoints satisfies the operator moment hypothesis by (III.F.4b), and its application to the probe is such a program. Uniform moments of order greater than one upgrade convergence of these normalized traces to convergence of their expectations: split at a large absolute threshold and use the higher-moment bound to make the first-moment tails uniformly small. The same observation supplies uniform integrability of every fixed polynomial expression needed for finite-degree moment calculations.
+
+#### III.F.3. Exact adaptive Gaussian conditioning
+
+Let the current transcript consist of all revealed roots and all previously computed vectors. For one matrix \(W\), collect its earlier forward and reverse observations as
+\[
+WV=Y,\qquad W^TU=Q.
+\tag{III.F.5}
+\]
+The columns of \(V\) and \(U\) are the respective query inputs, with output columns in \(Y\) and \(Q\). Conditioned on the transcript they are fixed. Empty column lists are allowed; terms involving them are omitted.
+
+It is necessary to justify this conditioning for adaptive inputs. Initially the conditional laws of the matrices are independent Gaussian laws. Suppose this is true, with the linear constraints already observed, at a particular instruction. A coordinate operation is measurable from the transcript and reveals no new randomness. At a matrix call its input is also measurable from the transcript. Conditional on the transcript, the new answer is a linear observation of only the queried matrix. Conditioning a product of the current conditional laws on this observation leaves the other factors unchanged and conditions only the queried factor. Thus induction preserves independence of the residual matrix factors and adds exactly the indicated linear constraint. A freshly revealed independent root likewise does not alter these residual laws. This argument conditions successively, and does not assume that an adaptive input was independent of the matrix before the transcript was fixed.
+
+Suppose first that \(V^TV\) and \(U^TU\) are invertible. Let \(P_V=V(V^TV)^{-1}V^T\), and similarly define \(P_U\). Then
+\[
+W\mid\mathcal H\ \overset d=
+M+P_{U^\perp}\widetilde W P_{V^\perp},
+\quad
+M=Y(V^TV)^{-1}V^T
+ +U(U^TU)^{-1}Q^TP_{V^\perp},
+\tag{III.F.6}
+\]
+where \(\widetilde W\) is an independent copy of the original matrix.
+
+Here is a direct verification of the Gaussian projection behind (III.F.6). The compatibility relation is \(U^TY=Q^TV\), because both sides equal \(U^TWV\). It gives \(MV=Y\) and \(M^TU=Q\). The homogeneous solutions of (III.F.5) are exactly matrices \(K=P_{U^\perp}KP_{V^\perp}\). Both summands defining \(M\) are orthogonal in Frobenius inner product to that subspace. Hence \(M\) is the unique minimum-Frobenius-norm solution. Vectorize \(W\), whose law is an isotropic Gaussian in \(\mathbb R^{n^2}\). In an orthonormal basis adapted to the homogeneous solution subspace its coordinates are independent Gaussians; conditioning on the orthogonal coordinates leaves independent Gaussians on the homogeneous subspace and fixes the other coordinates to those of \(M\). This proves (III.F.6). It also proves the same assertion with orthogonal projections and minimum-norm solutions when column lists are linearly dependent; the nonsingular formula is the only one whose coefficients we take to a width limit.
+
+For a new forward input \(h\), put
+\[
+\alpha_n=(V^TV)^{-1}V^Th,
+\quad h_\perp=h-V\alpha_n,
+\quad
+\beta_n=(U^TU/n)^{-1}(Q^Th_\perp/n).
+\]
+Equation (III.F.6) becomes
+\[
+Wh=Y\alpha_n+U\beta_n
+ +\frac{\|h_\perp\|_2}{\sqrt n}P_{U^\perp}g
+\quad\hbox{in conditional law},
+\tag{III.F.7}
+\]
+with \(g\sim N(0,I_n)\) independent of the transcript. The reverse formula follows by interchanging the two sides.
+
+Assume provisionally that every query Gram has a positive definite limit. Inductively all contractions of old nodes converge. Thus the coefficients in (III.F.7), and \(\frac{\|h_\perp\|_2}{\sqrt n}\), converge in probability to deterministic limits. Inverting a positive definite fixed-size matrix is continuous, for instance by a Neumann-series expansion about its invertible limit.
+
+The projection removed from the fresh noise is negligible:
+\[
+E[\frac{\|P_Ug\|_2^2}{n}\mid\mathcal H]
+=\frac{\operatorname{rank}U}{n}.
+\tag{III.F.8}
+\]
+The multiplying variance factor is bounded in probability, so conditional Markov's inequality makes its contribution vanish in normalized mean square. After this removal and replacement of convergent coefficients by their limits, the new coordinate is a deterministic linear combination \(m_\alpha\) of old same-layer nodes plus \(\sigma g_\alpha\).
+
+For a bounded Lipschitz test \(\psi\) of the old tuple and this new coordinate, conditional independence of \(g_\alpha\) gives variance at most \(4\|\psi\|_\infty^2/n\) for its empirical average. Its conditional mean is the old empirical average of the bounded continuous function
+\[
+x\longmapsto E_G\psi(x,m(x)+\sigma G),
+\]
+which converges by the induction hypothesis. For the new second moment expand
+\[
+\frac1n\sum_\alpha(m_\alpha+\sigma g_\alpha)^2
+=\frac{\|m\|_2^2}{n}+\frac{2\sigma}{n}\sum_\alpha m_\alpha g_\alpha
+ +\frac{\sigma^2}{n}\sum_\alpha g_\alpha^2.
+\]
+The middle term has conditional variance \(4\sigma^2\frac{\|m\|_2^2}{n}/n\), and the last average has variance \(2/n\). All relevant norms are bounded in probability. We obtain weak convergence and second-moment convergence, hence (III.F.2). Coordinate instructions preserve this convergence because their Lipschitz constants bound the transport cost. This completes the induction under the provisional positive-definiteness assumption.
+
+#### III.F.4. Source-response identity and formal derivatives
+
+For every oriented initialized matrix introduce a centered Gaussian source group indexed by its calls. Sources for different orientations, including a matrix and its transpose, are independent groups; they are also independent of the root tuples. Within a forward group for \(W\), the source attached to input \(h\) has covariance with the source attached to input \(v\) equal to \(E[hv]\). Within the reverse group the analogous covariance is \(E[uv]\) for the corresponding reverse inputs. These are uncentered second moments of inputs and centered covariances of sources.
+
+The scalar node of a new forward call is
+\[
+\mathscr W h=\xi_h+\sum_{s:\,W^Tu_s\text{ already called}}
+ u_s\,E[\partial_{\zeta_s}h].
+\tag{III.F.9}
+\]
+The scalar node of a reverse call is
+\[
+\mathscr W^*u=\zeta_u+\sum_{r:\,Wv_r\text{ already called}}
+ v_r\,E[\partial_{\xi_r}u].
+\tag{III.F.10}
+\]
+An input is its explicit expression in named source coordinates and roots, obtained by unrolling previous scalar instructions. A derivative in (III.F.9) or (III.F.10) differentiates that expression. Previously computed expectations, coefficients, covariance entries, mesh sizes, and any deterministic control values are held fixed. Each named source remains a separate formal argument, including when the joint source covariance is singular. An unavailable source has derivative zero. Derivative paths through other matrices' earlier calls remain part of the expression.
+
+The recursion is causal. At a call, its input and its source derivatives are already defined; their expectations determine the response coefficients. The source covariance extension is the Gram extension of the corresponding input list and is therefore positive semidefinite. A Gaussian group with that extended covariance exists: if the old covariance is \(K\), the new cross-covariance is \(b\), and the new variance is \(v\), positivity implies \(b\in\operatorname{ran}K\) and \(v-b^TK^+b\ge0\). To see the range assertion, test positivity on \((tu,1)\) with \(Ku=0\) and arbitrary \(t\). Completing the square on \(\operatorname{ran}K\) gives the second assertion. Consequently the new coordinate can be represented as \(b^TK^+\xi+\sqrt{v-b^TK^+b}\,G\), with a fresh standard normal \(G\). Here a pseudoinverse is used only to construct one fixed finite Gaussian law; no continuity of pseudoinverses is asserted.
+
+**Lemma III.F.3 (source rule).** Under the positive-definiteness assumption of Section III.F.3, (III.F.9) and (III.F.10) give exactly the scalar laws obtained there.
+
+**Proof.** Consider a forward call and use the notation of (III.F.7). Write old forward inputs as \(v_r\), old reverse inputs as \(u_s\), and their scalar outputs, by induction, as
+\[
+y_r=\xi_r+\sum_s D_{rs}u_s,
+\qquad D_{rs}=E[\partial_{\zeta_s}v_r],
+\]
+\[
+q_s=\zeta_s+\text{a deterministic linear combination of old }v_r.
+\]
+All old source lists are padded by zeros for unavailable indices. Let \(\alpha\) be the limiting least-squares coefficient from (III.F.7), and let \(h_\perp=h-\sum_r\alpha_rv_r\). Orthogonality gives \(E[v_rh_\perp]=0\). Therefore
+\[
+E[q_sh_\perp]=E[\zeta_sh_\perp].
+\tag{III.F.11}
+\]
+Let \(G_U=(E[u_su_t])_{st}\), the covariance matrix of \(\zeta\). Gaussian integration by parts gives
+\[
+E[\zeta h_\perp]=G_U E[\nabla_\zeta h_\perp].
+\tag{III.F.12}
+\]
+For completeness, the one-dimensional identity \(E[Gf(G)]=E[f'(G)]\) follows by integration by parts against the standard normal density. The boundary term vanishes for a function of at most linear growth with bounded derivative. Represent a possibly singular Gaussian vector as \(\zeta=T G\), apply this identity in each independent standard normal coordinate of \(G\), and sum using \(TT^T=G_U\). Conditioning on independent roots and the other source groups proves (III.F.12) in the present setting. Every derivative is integrable: at a fixed finite instruction, its norm is bounded by a deterministic finite expression in earlier coefficients and the bounded derivatives of coordinate maps.
+
+The limiting coefficient of \(U\) in (III.F.7) is consequently
+\[
+\beta=E[\nabla_\zeta h]-\sum_r\alpha_r E[\nabla_\zeta v_r].
+\]
+Substitution of the old \(y_r\) decompositions in (III.F.7) cancels the second term exactly. The answer becomes
+\[
+\xi_h+\sum_su_sE[\partial_{\zeta_s}h],
+\qquad
+\xi_h=\sum_r\alpha_r\xi_r+\sigma G,
+\quad \sigma^2=E[h_\perp^2].
+\]
+Since the old \(\xi\) covariance is the Gram of the \(v_r\),
+\[
+E[\xi_h\xi_r]=E[hv_r],
+\quad
+E[\xi_h^2]=E\Big(\sum_r\alpha_rv_r\Big)^2+E[h_\perp^2]=E[h^2].
+\]
+The fresh normal is independent of all old roots and source groups. Thus adjoining it preserves independence of distinct oriented source groups. The reverse calculation is the same after interchanging the two layers. Interleaving calls of different matrices does not alter this calculation, because Section III.F.3 established the conditional independence of their residual factors. ∎
+
+Independence of source groups does not assert that the answers of a matrix and its transpose are independent. Their response terms encode their dependence. Nor does it assert that a source is independent of all later inputs; later scalar inputs can be functions of that source.
+
+#### III.F.5. Singular queries without a rank-stability assumption
+
+**Lemma III.F.4 (regularization of a fixed program).** The conclusions of Theorem III.F.1 and the formulas (III.F.9)–(III.F.10) hold when any of the limiting input Grams is singular.
+
+**Proof.** For every matrix call introduce a new independent standard Gaussian input vector \(\chi\), revealed immediately before that call, and replace its input \(h\) by \(h+\varepsilon\chi\). Each call has a distinct noise vector. The other instructions are unchanged.
+
+At fixed \(\varepsilon>0\), the new noise is independent of the old transcript and of the unperturbed part of the current input. If \(V\) is the list of prior same-orientation inputs, the normalized squared distance from \(h+\varepsilon\chi\) to \(\operatorname{span}V\) is
+\[
+\frac{\|P_{V^\perp}h\|_2^2}{n}
+ +2\varepsilon\frac{1}{n}\langle P_{V^\perp}h,\chi\rangle_{\mathbb R^n}
+ +\varepsilon^2\frac{\|P_{V^\perp}\chi\|_2^2}{n}.
+\]
+Conditionally, the cross term has variance \(4\varepsilon^2\frac{\|P_{V^\perp}h\|_2^2}{n}/n\). The last norm squared has mean \(1-\operatorname{rank}V/n\) and variance at most \(2/n\). Thus every limiting new squared distance is at least \(\varepsilon^2\). Induction gives positive definite limiting query Grams, so Sections III.F.3–III.F.4 apply to the perturbed program. Equivalently, in its scalar law the new independent root adds \(\varepsilon^2\) to the Schur complement of the old input Gram.
+
+Couple the perturbed and original finite programs with the same matrices and roots. On the event that all initialized matrix norms are at most 10 and that all of the finitely many fresh noise vectors have normalized norms at most 2, propagate errors instruction by instruction. A coordinate instruction multiplies the previous error by its fixed Lipschitz constant; a linear combination contributes the sum of coefficient magnitudes times previous errors; a matrix call contributes at most ten times the input error plus \(20\varepsilon\). Consequently
+\[
+\max_{\text{nodes }v}\frac{\|v_n^\varepsilon-v_n\|_2}{\sqrt n}
+\le C\varepsilon,
+\tag{III.F.13}
+\]
+where \(C\) is finite and independent of \(n\) and \(0<\varepsilon\le1\). The event has probability tending to one by Lemma III.F.2 and the elementary second-moment calculation for Gaussian noise norms.
+
+We next show that the scalar recursion itself is continuous at \(\varepsilon=0\); this step concerns covariances and derivatives, not inverses of empirical Grams. Induct on its finitely many instructions. Each scalar node is a \(C^1\) expression in the finite named source list and roots. If earlier deterministic coefficients remain in a compact set, the expression and its first source derivatives have uniform bounds: the expression has at most linear growth in the root and source coordinates, and its derivatives have a finite deterministic bound. This follows directly by applying the coordinate derivative bounds and the linear response formulas in the previous instructions. The values and first derivatives are continuous in their arguments and in the earlier coefficient list.
+
+By induction, the covariance entries for the next source, which are second moments of old scalar inputs, converge as \(\varepsilon\downarrow0\). If positive semidefinite matrices \(K_j\to K\) have fixed size, then \(K_j^{1/2}\to K^{1/2}\). To verify this without a regularity assumption on eigenvalues, their positive square roots are bounded. Every convergent subsequence of these square roots has a positive semidefinite limit \(T\) with \(T^2=K\). A positive semidefinite matrix has a unique positive semidefinite square root: diagonalize it, observe that any such \(T\) commutes with \(K=T^2\), and restrict to its eigenspaces. Hence every subsequential limit is \(K^{1/2}\), which proves convergence.
+
+Represent the full finite source prefix for each \(\varepsilon\) as \(K_\varepsilon^{1/2}G\) using one standard Gaussian vector for each oriented group, independently of the roots. This couples the source prefixes in \(L^2\). The uniform linear-growth bounds and Lipschitz constants for node expressions then give their \(L^2\) convergence. More explicitly, split the node difference into a change of arguments at fixed coefficients, bounded by the common Lipschitz constant, and a change of coefficients at fixed arguments. The latter converges pointwise and is bounded by a constant times one plus the norm of the finite root/source list, an \(L^2\) dominator. First source derivatives converge in probability and are uniformly bounded, so their expectations converge. This proves convergence of the next response coefficient and closes the induction. At zero noise the resulting expression is exactly (III.F.9)–(III.F.10) for the original formal program.
+
+Let \(\mu^\varepsilon\) be the perturbed scalar law of a selected tuple and \(\mu^0\) the zero-noise law just constructed. We have \(\mathcal W_2(\mu^\varepsilon,\mu^0)\to0\). By (III.F.3), (III.F.13), and the proved fixed-\(\varepsilon\) limit,
+\[
+\mathcal W_2(\widehat\mu_n,\mu^0)
+\le C_m\varepsilon
+ +\mathcal W_2(\widehat\mu_n^\varepsilon,\mu^\varepsilon)
+ +\mathcal W_2(\mu^\varepsilon,\mu^0)
+\]
+on an event of probability tending to one. Choose \(\varepsilon\) first, let \(n\to\infty\), and then let \(\varepsilon\downarrow0\). This proves the full-sequence convergence in probability, including singular Grams, and finishes Theorem III.F.1. ∎
+
+The derivative convention has a precise invariant meaning on singular supports. If a source vector \(\zeta\) has covariance \(G\), and \(u\) is the vector of the associated reverse inputs with \(E[uu^T]=G\), then
+\[
+E[\zeta f]=G E[\nabla f],\qquad
+u^Tv=0\text{ a.s. for every }v\in\ker G.
+\tag{III.F.14}
+\]
+The second identity follows from \(E[(u^Tv)^2]=v^TGv=0\). If two admissible smooth formal expressions agree on the Gaussian support, their expected derivative vectors differ by an element of \(\ker G\), by the first identity. Their contracted corrections therefore agree. Individual derivative coefficients need not agree. None of this implies that pseudoinverses converge at rank loss.
+
+#### III.F.6. Causal scalar feedback
+
+The deterministic-coefficient theorem also identifies programs with the following causal scalar feedback. At finitely many stages, compute inner products of already available same-layer nodes, apply locally Lipschitz functions to the resulting finite scalar list, and use the resulting numbers as coefficients of subsequent linear combinations. Assume all scalar operations are defined on a neighborhood of their deterministic limiting arguments; divisions require a nonzero limiting denominator. Require the actual finite operation to be defined everywhere it is used, or assign an arbitrary measurable fallback outside that neighborhood. Convergence of its arguments makes the exceptional event have probability tending to zero. The physical algorithms themselves use no division. Coefficients may multiply unbounded vector nodes, because their perturbations can be estimated by the vector's normalized \(L^2\) norm.
+
+To prove this extension, construct an oracle program by replacing each scalar feedback value by its limiting deterministic value, computed from earlier scalar nodes. The construction is causal and therefore not an implicit fixed-point definition. Theorem III.F.1 identifies this oracle. At the next scalar step use
+\[
+|\frac{1}{n}\langle u,v\rangle_{\mathbb R^n}-\frac{1}{n}\langle\bar u,\bar v\rangle_{\mathbb R^n}|
+\le\frac{\|u-\bar u\|_2}{\sqrt n}\frac{\|v\|_2}{\sqrt n}
+ +\frac{\|\bar u\|_2}{\sqrt n}\frac{\|v-\bar v\|_2}{\sqrt n}.
+\tag{III.F.15}
+\]
+At the next scalar multiplication use
+\[
+\frac{\|c u-\bar c\bar u\|_2}{\sqrt n}
+\le |c|\frac{\|u-\bar u\|_2}{\sqrt n}+|c-\bar c|\frac{\|\bar u\|_2}{\sqrt n}.
+\]
+All oracle norms and finitely many oracle coefficients are bounded in probability; initial operator norms are bounded with probability tending to one. Inductively, these inequalities show that actual coefficients converge to oracle coefficients, actual node errors vanish in normalized \(L^2\), and actual norms remain bounded in probability. Local Lipschitzness of scalar operations suffices by restricting to a compact neighborhood of their deterministic limiting arguments. Equation (III.F.3) transfers every oracle empirical law to the actual program.
+
+#### III.F.7. Common generated probability spaces and actual adjoints
+
+We now fix the data and activation parameters. Construct a countable language of finite deterministic-coefficient programs. Include every root coordinate required by the model; constants; rational linear combinations; applications of the initialized matrices in both directions; the finitely many layer activations and fixed integer-level clips; and, for each arity, a countable family of bounded smooth globally Lipschitz functions dense among continuous functions on compact sets. One explicit such family is obtained by taking piecewise polynomial approximations on rational grids, multiplying by smooth compactly supported cutoffs, smoothing with fixed rational-scale mollifiers, and retaining rational coefficients and rational scales. Clipped products may be included in the same family. Close the language under finite composition. Additional countable lists of fixed programs, probes, caps, time meshes, or coefficient values can be included at the start.
+
+This language is countable and admits a causal enumeration with finite stages. Enumerate its root slots, functions, and numerical coefficients first; at stage \(m\), add the finitely many expressions with at most \(m\) instructions using only the first \(m\) listed items, in dependency order. Every finite expression occurs at some stage. Repeated instructions may be treated as separate named copies. Running the scalar construction on this list realizes all its nodes on a product probability space with countably many independent standard Gaussian coordinates, together with the root tuples. Section III.F.4 gives the successive Gaussian extensions, including zero conditional variance. At each layer retain only the sigma-field generated by that layer's node coordinates; call the resulting probability space \((\Omega_\ell,\mu_\ell)\) and put
+\[
+\mathcal H_\ell=L^2(\Omega_\ell,\mu_\ell).
+\tag{III.F.24}
+\]
+One can equivalently take the law of the countable tuple of generated coordinates. Its finite-dimensional marginal laws are those from Theorem III.F.1: any finite family is part of a finite program, and unused computations change none of the finite-width vectors. Thus different causal enumerations produce the same generated laws up to the coordinate identification. No arbitrary extra Gaussian directions are added to \(\mathcal H_\ell\).
+
+For every rational combination \(u\) of generated nodes, include its forward and reverse answer nodes. The finite inequality \(\frac{\|W^{(\ell)}_nu_n\|_2}{\sqrt n}\le10\frac{\|u_n\|_2}{\sqrt n}\) holds with probability tending to one. Both squared norms have deterministic limits by Theorem III.F.1, so
+\[
+\|\mathscr W^{(\ell)}_0u\|_{\mathcal H_\ell}\le10\|u\|_{\mathcal H_{\ell-1}}.
+\tag{III.F.25}
+\]
+The same holds for every other action orientation. Linearity of the finite matrices and convergence of squared differences give linearity of the assignments: for example the limiting squared norm of the difference between the answer to \(u+v\) and the sum of answers is zero. If two expressions represent the same \(L^2\) input, (III.F.25) shows that their answers represent the same output. Real linearity on the real span follows either from finite real-coefficient probes or from rational approximation.
+
+The span of generated nodes is dense in \(\mathcal H_\ell\). Here are the measure-theoretic details. Cylinder sets depending on finitely many coordinates generate its sigma-field. The sets whose indicators can be approximated in \(L^2\) by finite linear combinations of cylinder indicators form a monotone class: under increasing unions or decreasing intersections, indicator convergence in \(L^2\) follows from the continuity of probability measures. They contain the cylinder algebra, hence all generated measurable sets. Simple functions and truncation then approximate every \(L^2\) variable by functions of finitely many coordinates. For a finite Borel probability law on \(\mathbb R^m\), bounded continuous functions are dense in \(L^2\): approximate an indicator by a compact subset inside an open superset whose probability difference is small, and use the continuous distance-ratio function that is one on the compact set and zero outside the open set. Such compact/open approximations follow by first restricting to large boxes and then approximating Borel sets using finite unions of rational boxes; their class is again a monotone class. Finally approximate bounded continuous functions on compact boxes by the included smooth family and control the complement by boundedness and its small probability. All approximants are generated nodes or linear combinations of them.
+
+Consequently (III.F.25) extends uniquely by \(L^2\) completion to a bounded linear map
+\[
+W^{(\ell)}_0:\mathcal H_{\ell-1}\to \mathcal H_\ell,\qquad
+\|W^{(\ell)}_0\|\le10,\qquad 2\le\ell\le L.
+\tag{III.F.26}
+\]
+The reverse assignments extend in the same way. At finite width,
+\(\frac{1}{n}\langle v_n,W^{(\ell)}_nu_n\rangle_{\mathbb R^n}=\frac{1}{n}\langle W^{(\ell)}_n^Tv_n,u_n\rangle_{\mathbb R^n}\).
+Pass to the limiting pairwise contractions for generated \(u,v\); then use their density and the bounds (III.F.26). This gives
+\[
+\langle v,W^{(\ell)}_0u\rangle_{\mathcal H_\ell}
+=\langle (W^{(\ell)}_0)^*v,u\rangle_{\mathcal H_{\ell-1}},\qquad 2\le\ell\le L.
+\tag{III.F.27}
+\]
+The starred maps are therefore exactly the Hilbert-space adjoints. They are not resampled reverse matrices.
+
+There is no contradiction between these bounded actions and Gaussian initialization. The actions describe all finite generated probes and their joint laws, including adaptive probes. They are not an assertion that every random \(L^2\) input is independent of an initialized action. An adaptive input generally has the response correction in (III.F.9).
+
+Fixed programs with arbitrary real coefficients and arbitrary globally Lipschitz coordinate instructions are represented on these same spaces. Approximate their coefficients by rationals and their coordinate functions on larger compact sets by the dense family. For a Lipschitz target \(g\), select bounded smooth approximants \(g_m\) with accuracy \(1/m\) on the radius-\(m\) ball and a common envelope \(|g_m(x)|\le C(1+|x|)\). Cutting off \(g\) on the radius-\(2m\) ball, mollifying at a sufficiently small scale, and rationally approximating on that ball gives such a sequence with a slightly enlarged fixed envelope. Choose the countable dense family to include these rational cutoff approximants. At a fixed scalar input, the approximation error tends to zero in \(L^2\) by linear growth and the input's finite second moment. Inductively propagate these errors: every matrix call uses the norm bound 10, and each target coordinate instruction uses its Lipschitz bound to control a change of input before approximating the instruction at the limiting input. The identical finite-array error argument holds in probability by Theorem III.F.1 and convergence of the required tail second moments. This proves the agreement of the common-space calculation with its fixed-program width limit.
+
+#### III.F.8. Hilbert–Schmidt increments and the raw state space
+
+For Hilbert spaces \(H,K\), the Hilbert–Schmidt norm of an operator \(T:H\to K\) is
+\[
+\|T\|_{\rm HS}^2=\sum_j\|Te_j\|_K^2,
+\tag{III.F.28}
+\]
+where \((e_j)\) is an orthonormal basis. This value does not depend on the basis: expand each scalar coefficient \(\langle Te_j,f_k\rangle\) in a basis \((f_k)\) of \(K\), use Parseval twice, and interchange the nonnegative double sum. In particular \(\|T\|_{\rm op}\le\|T\|_{\rm HS}\), since for a unit vector completed to an orthonormal basis its image squared norm is one summand of (III.F.28). The normed space of such operators is complete: a Cauchy sequence has Cauchy matrix coefficients in \(\ell^2\) of two basis indices, whose limit defines an operator by Cauchy–Schwarz and has the limiting Hilbert–Schmidt norm.
+
+For \(u\in K,v\in H\), define
+\[
+(u\otimes v)q=u\langle v,q\rangle_H.
+\]
+Parseval gives
+\[
+\|u\otimes v\|_{\rm HS}=\|u\|_K\|v\|_H,
+\quad
+(u\otimes v)^*=v\otimes u,
+\tag{III.F.29}
+\]
+and
+\[
+\|u\otimes v-\tilde u\otimes\tilde v\|_{\rm HS}
+\le\|u-\tilde u\|\|v\|+\|\tilde u\|\|v-\tilde v\|.
+\tag{III.F.30}
+\]
+For a Hilbert–Schmidt \(T\), expansion in an orthonormal basis also gives
+\[
+\langle u\otimes v,T\rangle_{\rm HS}=\langle u,Tv\rangle_K.
+\tag{III.F.31}
+\]
+At width \(n\), using the normalized inner product on both layers, the orthonormal basis is \((\sqrt n\,e_j)_{j=1}^n\); (III.F.28) is then the ordinary Frobenius norm of the matrix. The rank-one action is \(uv^T/n\). Thus this is the exact population counterpart of the raw matrix metric.
+
+The affine raw parameter space in the isometric first coordinates is
+\[
+ \mathcal P=L^2(\Omega_1;\mathbb R^d)
+ \times\prod_{\ell=2}^L
+ (W^{(\ell)}_0+\mathcal S_2(\mathcal H_{\ell-1},\mathcal H_\ell))\times \mathcal H_L,
+                                                        \tag{III.F.32}
+\]
+with increment norm
+\[
+ \|\Delta\theta\|_{\rm raw}^2
+ =\|\Delta w\|_2^2+\sum_{\ell=2}^L\|\Delta W^{(\ell)}\|_{\rm HS}^2
+                                  +\|\Delta W^{(L+1)}\|_2^2.     \tag{III.F.33}
+\]
+Only the learned action increments are Hilbert--Schmidt. This is
+isometric to the original raw metric because \(w=\sqrt d V^{(1)}\).
+Continuous rank-one velocities have strong integrals: their Riemann
+sums are Cauchy by uniform continuity on compact intervals and
+completeness. The norm of the integral is bounded by the integral of
+the norm, and its derivative is the continuous integrand. Formula
+(III.F.30) passes uniform factor convergence to HS velocity and integral
+convergence. For measurable integrable velocities the same statements
+follow by approximation by step functions. Thus learned forward and
+reverse increments are actual adjoints throughout.
+
+#### III.F.9. Strong multiplier continuity and the chain rule
+
+**Lemma III.F.5 (bounded multiplier).** Suppose \(z_m\to z\) in probability, \(v_m\to v\) in \(L^2\), and \(b\) is bounded and continuous. Then
+\[
+b(z_m)v_m\longrightarrow b(z)v\quad\hbox{in }L^2.
+\tag{III.F.34}
+\]
+
+**Proof.** The term \(b(z_m)(v_m-v)\) has norm at most \(\|b\|_\infty\|v_m-v\|_2\). For the remaining term first restrict to \(|v|\le M\); bounded convergence in probability implies convergence in \(L^2\) of the bounded multiplier difference there. The complement has squared norm at most \(4\|b\|_\infty^2E[|v|^2 1_{|v|>M}]\). Send \(m\) to infinity and then \(M\) to infinity. Bounded convergence in probability used here follows from the elementary estimate \(E|X_m|^2\le\eta^2+K^2\Pr(|X_m|>\eta)\) when \(|X_m|\le K\). ∎
+
+**Lemma III.F.6 (strong chain rule along curves).** Let \(z:I\to L^2(\Omega)\) be strongly \(C^1\), and let \(\phi\in C^1(\mathbb R)\) have bounded derivative. Then \(\phi(z(t))\) is strongly \(C^1\), with
+\[
+\frac d{dt}\phi(z(t))=\phi'(z(t))\dot z(t).
+\tag{III.F.35}
+\]
+
+**Proof.** Set \(v_h=(z(t+h)-z(t))/h\to\dot z(t)\) in \(L^2\). The scalar fundamental theorem of calculus gives
+\[
+\frac{\phi(z(t+h))-\phi(z(t))}{h}
+=v_h\int_0^1\phi'(z(t)+rh v_h)\,dr.
+\]
+The multiplier is bounded by \(\|\phi'\|_\infty\). It converges in probability to \(\phi'(z(t))\): \(|hv_h|\to0\) in probability; restrict \(z(t)\) to a large compact interval and use uniform continuity of \(\phi'\) on a slightly larger interval. The proof of Lemma III.F.5 applies to this bounded convergent multiplier, and yields the derivative. Lemma III.F.5 applied to \(z(t),\dot z(t)\) also proves continuity of the resulting velocity. ∎
+
+This conclusion is a curve chain rule, and makes no claim that the pointwise nonlinear map is Fréchet differentiable from all of \(L^2\) to \(L^2\). Bounded \(\phi'\) is sufficient for the curve result. A jointly measurable velocity may also be integrated coordinatewise: Fubini and \(E\int_I|v(t)|^2dt<\infty\) give absolutely continuous coordinate paths almost surely, agreeing with the \(L^2\) integral. This permits the ordinary scalar chain rule almost everywhere for an absolutely continuous \(L^2\) curve with integrable squared speed.
+
+For bounded-operator curves \(A(t)\) differentiable in Hilbert–Schmidt or operator norm and strongly differentiable \(h(t)\in H\),
+\[
+\frac d{dt}[A(t)h(t)]=\dot A(t)h(t)+A(t)\dot h(t).
+\tag{III.F.36}
+\]
+Subtract the proposed derivative from the difference quotient. The first error is the operator derivative error applied to fixed \(h(t)\); the second is a uniformly bounded operator applied to the strong derivative error of \(h\); and the cross product is bounded by \(\|A(t+h)-A(t)\|\,\|(h(t+h)-h(t))/h\|\), which tends to zero. This proves (III.F.36).
+
+#### III.F.10. Scalar prediction and feature energy are continuously differentiable
+
+Let \(\rho_\ell\in C^2(\mathbb R)\) have bounded first and second
+derivatives for each of the finitely many layers. They may have
+nonzero offsets and different bounds at different layers. Define
+\(Y_i^1=w\cdot u_i\), \(X_i^\ell=\rho_\ell(Y_i^\ell)\),
+\(Y_i^\ell=W^{(\ell)} X_i^{\ell-1}\) for \(\ell\ge2\), and
+\(F_i=\langle W^{(L+1)},X_i^L\rangle_L\). Put
+\[
+ q_i^L=W^{(L+1)},\quad d_i^\ell=\rho_\ell'(Y_i^\ell)q_i^\ell,
+ \quad q_i^\ell=(W^{(\ell+1)})^*d_i^{\ell+1}\ (\ell<L).
+                                                        \tag{III.F.38}
+\]
+**Theorem III.F.7.** The scalar map \(F_i:\mathcal P\to\mathbb R\)
+is continuously Fréchet differentiable, with
+\[
+ dF_i[\Delta\theta]
+ =\langle d_i^1,u_i\cdot\Delta w\rangle_1
+  +\sum_{\ell=2}^L\langle d_i^\ell,
+                         \Delta W^{(\ell)} X_i^{\ell-1}\rangle_\ell
+  +\langle X_i^L,\Delta W^{(L+1)}\rangle_L,                       \tag{III.F.39}
+\]
+and raw gradient blocks
+\[
+ \nabla_w F_i=d_i^1u_i,\qquad
+ \nabla_{W^{(\ell)}}F_i=d_i^\ell\otimes X_i^{\ell-1},\qquad
+ \nabla_{W^{(L+1)}} F_i=X_i^L.                            \tag{III.F.40}
+\]
+**Proof.** For a fixed \(v,z\in L^2\), a function \(\rho\) with
+\(L_1=\|\rho'\|_\infty,L_2=\|\rho''\|_\infty<\infty\), and
+an increment \(q\in L^2\), its scalar Taylor remainder obeys both
+\(L_2|q|^2/2\) and \(2L_1|q|\) bounds. Hence
+\[
+ |E[v\{\rho(z+q)-\rho(z)-\rho'(z)q\}]|
+ \le \tfrac12L_2M\|q\|_2^2
+   +2L_1\|v\mathbf1_{|v|>M}\|_2\|q\|_2
+                         =o(\|q\|_2),                   \tag{III.F.41}
+\]
+where first \(q\to0\) at fixed \(M\), then \(M\to\infty\).
+
+On a raw neighborhood, forward induction bounds every field
+increment by \(O(\eta)\), with \(\eta=\|\Delta\theta\|_{\rm raw}\):
+the bottom is linear, every activation is Lipschitz, and
+\(\Delta(A X)=\Delta A X+A\Delta X+\Delta A\Delta X\),
+with \(\|\Delta A\|_{\rm op}\le\eta\). Start from
+\(\Delta F_i=\langle\Delta W^{(L+1)},X_i^L\rangle+
+\langle W^{(L+1)},\Delta X_i^L\rangle+O(\eta^2)\).
+At level \(\ell\), apply (III.F.41) with fixed incoming weight
+\(q_i^\ell\) to replace its weighted feature difference by
+\(\langle d_i^\ell,\Delta Y_i^\ell\rangle\), at cost
+\(o(\eta)\). If \(\ell\ge2\), expand its action difference;
+its mixed term is \(O(\eta^2)\), and adjunction changes the
+remaining propagated term to
+\(\langle q_i^{\ell-1},\Delta X_i^{\ell-1}\rangle\).
+This is the induction invariant for the next lower level. At
+\(\ell=1\) the bottom projection is exactly linear. Summing the
+finitely many remainders proves (III.F.39). The rank-one identity
+(III.F.31) proves (III.F.40). Forward continuity, Lemma III.F.5 at each backward
+gate, bounded action continuity and (III.F.30) prove continuity of every
+gradient block. This proves the assertion. \(\square\)
+
+For \(H(\theta_h)=\sum_i p_i X_i^L\), the scalar functional
+\(\mathcal E=\|H\|^2/2\) is also continuously Fréchet differentiable.
+Indeed \(\Delta H=O(\eta)\), so
+\(\Delta\mathcal E=\langle H,\Delta H\rangle+O(\eta^2)\).
+Apply the same downward weighted expansion with fixed top weight
+\(H\) and coefficients \(p_i\). Its gradient is precisely the
+backward rank-one expression with readout replaced by \(H\).
+The same multiplier continuity proves continuity of this gradient.
+No Fréchet derivative of an \(L^2\)-valued Nemytskii map is used.
+
+In the network of Part III.M, take \(\rho_\ell=\chi_\ell\).
+The original predictors are \(f_i=a^LF_i\), so their raw gradients
+are exactly \(a^L\nabla F_i\). Thus a strong solution of the stated
+uncut equations is the raw Hilbert gradient flow of
+\(\mathcal L=\tfrac12\sum_i(f_i-y_i)^2\), and
+\[
+ \dot f=-Kr,\qquad
+ \dot{\mathcal L}=-\left\|\sum_i r_i\nabla f_i\right\|_{\rm raw}^2
+                =-r^TKr,\quad
+ K_{ij}=\langle\nabla f_i,\nabla f_j\rangle_{\rm raw}.
+                                                        \tag{III.F.43}
+\]
+This establishes the true gradient/kernel identities; existence
+of the uncut flow is a separate conclusion of Parts III.G and III.V.
+
+
+<!-- END EXACT DEPENDENCY -->
+
+
+<!-- BEGIN EXACT DEPENDENCY: A.1–4: value/product extensions, initialized action norm and scalar chain rule -->
+
+## A. Contained probability and continuity specializations
+
+### A.1. Continuous, at-most-linear value instructions
+
+**Lemma.** Extend the finite-program value conclusion of Section III.F to a fixed finite program whose coordinate maps are continuous and satisfy \(|F(x)|\le C(1+|x|)\). Roots are iid finite-second-moment tuples, independent of the initialized Gaussian matrices. Every fixed same-layer tuple converges in probability in \(\mathcal W_2\). The action interpretation is the continuous extension of the actions already constructed in Section III.F. This assertion gives values and second moments, without asserting a formal-derivative formula for these extra instructions.
+
+**Proof.** If \(X_j\to X\) in \(L^2\), continuity and the linear envelope imply \(F(X_j)\to F(X)\) in \(L^2\). Indeed \(|X_j|^2\) is uniformly integrable; uniform continuity on compact balls gives convergence in probability, and the linear envelope supplies uniform integrability of the squared outputs. The same argument proves continuity of pushforward in \(\mathcal W_2\).
+
+Choose smooth compactly supported \(F_R\) converging locally uniformly to \(F\), with a common envelope \(C'(1+|x|)\). Such maps follow by a cutoff on the radius-\(2R\) ball, mollification, and increasing \(R\); each has a finite bounded first derivative. At a fixed limiting input \(X\), \(\|F_R(X)-F(X)\|_2\to0\). Once a prefix has its joint \(\mathcal W_2\) law, its empirical squared approximation error also converges, because \(|F_R-F|^2\) is continuous with at most quadratic growth.
+
+Induct through the finite instructions. Coordinate instructions pass by the pushforward argument. For a matrix instruction, approximate its entire already constructed input prefix by bounded-derivative programs. At finite width the output RMS error is at most the initialized operator bound times the input RMS error; the identical bound holds on the generated population spaces. Thus the matrix outputs are Cauchy in the required law and agree with the extended action. To construct prefix approximants, first choose the current smooth map to achieve its desired limiting error, and only then choose the preceding-prefix tolerance smaller than that error divided by the smooth map's Lipschitz constant. This order avoids any assumption that cutoff Lipschitz constants are uniform. Finite unions of the approximant programs give joint laws, so the induction retains all desired same-layer tuples and both orientations. Let width tend to infinity at each fixed approximant and then remove its approximation. The finite number of instructions completes the proof. \(\square\)
+
+For the activation flow \(J(s,z)\) below, \(|J(s,z)|\le|z|+M|s|\) and joint continuity are sufficient for this lemma. Its possible \(\exp(L|s|)\) sensitivity to the frozen root is not assumed bounded. No response derivative of \(J\) is used. Feedback in that application is transferred separately by the same-root clock stability estimate proved in the two-layer fragment.
+
+### A.2. Fixed neural programs with unbounded backward products
+
+For a **fixed** program with subGaussian root marginals, C2 activations with bounded first and second derivatives, and products \(b(z)q\) with bounded C1 \(b,b'\), the values in A.1 also have the ordinary named-source response formulas obtained by truncating each such product. This is a fixed-program specialization, not an all-moment theorem for arbitrary scalar-feedback programs.
+
+Here are the derivative details. Freeze deterministic coefficients and covariance parameters. Replace each product by \(b(z)\tau_R(q)\), where \(|\tau_R(q)|\le|q|\), \(|\tau_R'|\le1\), and the clip equals the identity on larger and larger compact intervals. At fixed \(R\), every coordinate instruction meets Section III.F's bounded-derivative hypotheses. In the finite scalar recursion, every value has a linear envelope in the finite root/source list, uniformly in the clips while earlier coefficients stay in a compact set. Each first named-source derivative has a polynomial envelope in that list: the only extra factor introduced by differentiating a product is \(|q|\), and there are only finitely many instructions. The clip derivative is bounded by one.
+
+Proceed chronologically in this scalar recursion. Second moments of earlier inputs converge; hence the next finite covariance matrix converges. Couple its Gaussian sources by their positive-semidefinite square roots. The square roots converge even at rank loss, as proved in Section III.F. On this coupling the roots have all moments, and the Gaussian sources have uniformly bounded moments of every fixed order. Local C1 convergence of the clipped expressions and the polynomial derivative envelopes imply convergence in probability and uniform integrability of their first derivatives. Their expectations therefore converge. This identifies the next response coefficient, keeps it bounded, and closes the finite induction. Values agree with A.1 by its same-array RMS approximation and bounded actions. Roots are never differentiated; arbitrary subGaussian iid root tuples are admitted directly as roots. This proves the stated derivative specialization without a quantile-map differentiation or a claim about empirical higher moments.
+
+Locally Lipschitz scalar contractions can be replaced causally by their deterministic limiting values. In the local theorem below their actual finite feedback is recovered by the separately proved one-reference tail comparison. In capped training programs Section III.F already proves this feedback passage directly. No assertion concerning an increasing transcript is needed.
+
+### A.3. Sharp initialized action constant with a contained proof
+
+For an \(n\times n\) matrix \(G\) of independent standard Gaussians,
+\[
+ E\|G\|_{op}\le2\sqrt n,\qquad
+ \Pr\{\|G/\sqrt n\|_{op}>2+\varepsilon\}
+ \le (\varepsilon^2n)^{-1}.
+\]
+Thus every fixed collection of finite initialized actions has norm at most three with probability tending to one, and their canonical generated actions have norm at most two. This supplies the constants used in the odd-gain and fixed-depth affine arguments.
+
+For completeness, compare Gaussian processes \(X_{u,v}=u^TGv\) and \(Y_{u,v}=g^Tu+h^Tv\) on pairs of unit vectors. If \(\alpha=u^Tu'\), \(\beta=v^Tv'\), their increment-variance difference is \(2(1-\alpha)(1-\beta)\ge0\). On a finite net, the Gaussian comparison follows by interpolating the independent processes in \(E[b^{-1}\log\sum_i\exp(bZ_i)]\). Gaussian integration by parts makes the derivative equal to
+\(\frac b4 E\sum_{i,j}p_ip_j(d_Y(i,j)^2-d_X(i,j)^2)\ge0\), where the \(p_i\) are softmax weights. Let \(b\to\infty\), then increase the finite nets. Continuity and integrability give \(E\sup X\le E\sup Y=E\|g\|+E\|h\|\le2\sqrt n\).
+
+The Gaussian Poincare inequality needed for the probability bound also has a short proof. For smooth bounded \(f\), let \(P_tf(x)=E f(e^{-t}x+\sqrt{1-e^{-2t}}Z)\). Integration by parts against the Gaussian density gives
+\[
+ -\frac d{dt}E(P_tf)^2=2E|\nabla P_tf|^2,
+ \qquad \nabla P_tf=e^{-t}P_t\nabla f.
+\]
+Integrate from zero to infinity and apply Jensen and Gaussian invariance to obtain \(\operatorname{Var}f\le E|\nabla f|^2\). Smooth cutoff approximations extend it to Lipschitz \(f\). The spectral norm is one-Lipschitz in the Frobenius coordinates, so \(\operatorname{Var}\|G\|_{op}\le1\); Chebyshev proves the displayed bound. Finite norm inequalities pass to each generated input, then to their countable dense span. Taking rational \(\varepsilon\downarrow0\) gives the canonical constant two. No exponential matrix-concentration theorem is imported.
+
+### A.4. Scalar gradient and strong-chain rules
+
+For bounded continuous \(b\), if \(Z_j\to Z\), \(Q_j\to Q\) in \(L^2\), then
+\[
+ \|b(Z_j)Q_j-b(Z)Q\|_2\to0.
+\]
+Subtract the varying \(Q\) first; for the other term truncate the fixed \(Q\) and use bounded convergence. The same proof is uniform over a compact \(L^2\) family using a finite net. Hence bounded activation derivatives give the strong chain rule along C1 \(L^2\) curves, and bounded actions with Hilbert--Schmidt derivatives obey \((WH)'=W'H+WH'\). This does not assert Frechet differentiability of a nonlinear activation map on the whole \(L^2\) space.
+
+For a scalar prediction, Frechet differentiability in the raw Hilbert metric does hold under the bounded-derivative hypotheses used below. For a fixed reverse factor \(q\), the scalar Taylor remainder is bounded by
+\[
+ \tfrac12 L M\|h\|_2^2+2D\|q\mathbf1_{|q|>M}\|_2\|h\|_2.
+\]
+Here \(D\) bounds the derivative and \(L\) its Lipschitz constant. First take \(\|h\|_2\downarrow0\), then \(M\to\infty\). Expand the finite number of action/activation products and use \(\|\Delta W\|_{op}\le\|\Delta W\|_{HS}\). This proves the true scalar derivative, its backward-adjoint formula, and continuity of that gradient. Every energy identity below consequently belongs to the specified raw metric.
+
+
+
+<!-- END EXACT DEPENDENCY -->
+
+
+<!-- BEGIN EXACT DEPENDENCY: B.1: complete two-hidden-layer transformed reference and actual finite-GF identification -->
+
+### B.1. Global two-hidden-layer activation transform
+
+Within this proof unit, unqualified section and equation numbers are local.
+
+#### The theorem and the network
+
+Fix \(m<\infty\) inputs \(x_a\in\mathbb R^d\) satisfying
+\[
+\frac{x_a^\top x_b}{d}=\mathbf 1_{\{a=b\}},
+\qquad 1\le a,b\le m.
+\]
+Fix labels \(y_a\in\mathbb R\) and positive constants \(\kappa_1,\kappa_2,\kappa_3\), independent of width and step size. Allow different activations in the two hidden layers:
+
+- \(\phi^{(1)}\) is continuously differentiable, and \((\phi^{(1)})'\) is bounded and globally Lipschitz. The activation itself need not be bounded, monotone, or odd.
+- \(\phi^{(2)}\) is bounded and continuously differentiable, and \((\phi^{(2)})'\) is bounded and globally Lipschitz.
+
+The dimensions are \(W^{(1)}\in\mathbb R^{n\times d}\), \(W^{(2)}\in\mathbb R^{n\times n}\), and \(W^{(3)}\in\mathbb R^n\). The readout \(W^{(3)}\) is the rescaled readout throughout. Define
+\[
+\begin{aligned}
+z_a^{(1)}&=\frac{W^{(1)}x_a}{\sqrt d},
+&
+h_a^{(1)}&=\phi^{(1)}(z_a^{(1)}),\\
+z_a^{(2)}&=W^{(2)}h_a^{(1)},
+&
+h_a^{(2)}&=\phi^{(2)}(z_a^{(2)}),\\
+f_{n,a}&=\frac{(W^{(3)})^\top h_a^{(2)}}{n},
+&
+r_{n,a}&=f_{n,a}-y_a,
+\qquad L_n=\sum_{a=1}^m r_{n,a}^2.
+\end{aligned}
+\]
+The residual-free backpropagated derivatives are
+\[
+\delta_a^{(2)}
+=
+W^{(3)}\odot(\phi^{(2)})'(z_a^{(2)}),
+\qquad
+\delta_a^{(1)}
+=
+(\phi^{(1)})'(z_a^{(1)})
+\odot(W^{(2)})^\top\delta_a^{(2)}.
+\]
+Thus \(\delta_a^{(\ell)}=n\,\partial f_{n,a}/\partial z_a^{(\ell)}\). The exact updates are
+\[
+\begin{aligned}
+z_{a,k+1}^{(1)}
+&=
+z_{a,k}^{(1)}
+-2\kappa_1\eta_n r_{n,a,k}\delta_{a,k}^{(1)},\\
+W_{k+1}^{(2)}
+&=
+W_k^{(2)}
+-\frac{2\kappa_2\eta_n}{n}
+\sum_{a=1}^m
+r_{n,a,k}\delta_{a,k}^{(2)}(h_{a,k}^{(1)})^\top,\\
+W_{k+1}^{(3)}
+&=
+W_k^{(3)}
+-2\kappa_3\eta_n
+\sum_{a=1}^m r_{n,a,k}h_{a,k}^{(2)}.
+\end{aligned} \tag{1}
+\]
+The first equation uses orthogonality. In the original first weights, it follows from
+\[
+W_{k+1}^{(1)}
+=
+W_k^{(1)}
+-\frac{2\kappa_1\eta_n}{\sqrt d}
+\sum_{a=1}^m r_{n,a,k}\delta_{a,k}^{(1)}x_a^\top.
+\]
+
+Initialize independently by
+\[
+W_{0,ij}^{(1)}\sim N(0,\sigma_1^2),
+\qquad
+W_{0,ji}^{(2)}\sim N(0,\sigma_2^2/n),
+\]
+where the variances are fixed and finite. The following readout initializations are allowed:
+
+- A vanishing Gaussian readout
+  \[
+  W_{0,j}^{(3)}\sim N(0,\sigma_3^2n^{-2\beta}),
+  \qquad \beta>0.
+  \]
+  Here \(\beta\) describes the decay of the standard deviation. Gaussian tail bounds give
+  \[
+  \|W_0^{(3)}\|_\infty
+  =
+  O_{\mathbb P}(n^{-\beta}\sqrt{\log n})
+  \longrightarrow0.
+  \]
+  The original initialization has \(\beta=1\).
+- More generally, an independent readout whose coordinate supremum tends to zero in probability. Its population initialization is zero.
+- A fixed bounded readout law: the coordinates are iid with a law supported on \([-B_0,B_0]\), independently of the other initialization. The population starts from that law. A perturbation whose coordinate supremum tends to zero may also be added, giving a finite initial supremum at most \(B_0+o_{\mathbb P}(1)\).
+
+An arbitrary bounded iid law is admitted directly as a root tuple in A.1. The bounded nonvanishing option does **not** include an untruncated \(O(1)\) Gaussian readout: that initialization lacks the population supremum bound used in this proof.
+
+For every fixed \(T<\infty\), the population equations have a unique autonomous gradient-flow solution on \([0,T]\). For every sequence
+\[
+\eta_n>0,
+\qquad
+\eta_n\sqrt n\longrightarrow0,
+\]
+the exact GD trajectories on the clock \(t=k\eta_n\) converge to that solution. Interpolate the finite parameters linearly and recompute the forward pass between steps.
+
+The conclusion includes predictions, summed loss, all kernel-block entries, same-layer joint hidden path laws with their second moments, and fixed finite collections of continuous globally Lipschitz forward/adjoint measurements. Products in these measurement constructions must have bounded varying factors; the unbounded backward fields and their quadratic measurements are included through the tail argument below. Integrated squared hidden speeds converge as well. Convergence is in probability, uniformly in time for the stated pointwise measurements. No claim about arbitrary higher-growth measurements is needed.
+
+The step condition is sufficient, not claimed necessary. These activation assumptions alone do not force nonlinearity or motion: they intentionally include a constant or affine first activation. Additional assumptions for strict feature learning appear at the end.
+
+#### A scalar coordinate that removes the first-layer gate
+
+Let \(J(s,z)\) solve
+\[
+\frac{\partial J(s,z)}{\partial s}
+=
+(\phi^{(1)})'(J(s,z)),
+\qquad
+J(0,z)=z,
+\qquad s\in\mathbb R.
+\tag{2}
+\]
+Write
+\[
+M_1=\|(\phi^{(1)})'\|_\infty,
+\qquad
+L_1=\operatorname{Lip}((\phi^{(1)})').
+\]
+The bounded Lipschitz scalar vector field has a unique global solution in both time directions. Integration and the scalar difference inequality give
+\[
+|J(s,z)-J(t,z)|\le M_1|s-t|,
+\qquad
+|J(s,z)|\le |z|+M_1|s|,
+\tag{3}
+\]
+\[
+|J(s,z)-J(s,w)|
+\le e^{L_1|s|}|z-w|.
+\]
+In particular, \(J\) is jointly continuous. Uniqueness gives the flow identity
+\[
+J(s,J(t,z))=J(s+t,z),
+\]
+because both sides solve the same scalar equation as functions of \(s\), with the same value at \(s=0\). Also,
+\[
+|\phi^{(1)}(J(s,z))-\phi^{(1)}(J(t,z))|
+\le M_1^2|s-t|. \tag{4}
+\]
+
+For each input introduce a clock displacement \(X_a^{(1)}(0)=0\), keeping the fixed Gaussian root \(Z_{0,a}^{(1)}\), and set
+\[
+Z_a^{(1)}(t)
+=
+J(X_a^{(1)}(t),Z_{0,a}^{(1)}).
+\tag{5}
+\]
+The population network is
+\[
+\begin{aligned}
+H_a^{(1)}&=\phi^{(1)}(Z_a^{(1)}),
+&
+Z_a^{(2)}&=W^{(2)}H_a^{(1)},\\
+H_a^{(2)}&=\phi^{(2)}(Z_a^{(2)}),
+&
+f_a&=\mathbb E[W^{(3)}H_a^{(2)}],
+\qquad r_a=f_a-y_a,\\
+\delta_a^{(2)}
+&=
+W^{(3)}(\phi^{(2)})'(Z_a^{(2)}),
+&
+\delta_a^{(1)}
+&=
+(\phi^{(1)})'(Z_a^{(1)})
+(W^{(2)})^*\delta_a^{(2)}.
+\end{aligned}
+\]
+Its transformed equations are
+\[
+\begin{aligned}
+\dot X_a^{(1)}
+&=-2\kappa_1 r_a(W^{(2)})^*\delta_a^{(2)},\\
+\dot W^{(2)}
+&=-2\kappa_2\sum_{a=1}^m
+r_a\delta_a^{(2)}\otimes H_a^{(1)},\\
+\dot W^{(3)}
+&=-2\kappa_3\sum_{a=1}^m r_aH_a^{(2)}.
+\end{aligned} \tag{6}
+\]
+Here the rank-one action is explicitly
+\[
+(u\otimes v)V=u\,\mathbb E[vV].
+\]
+Every expectation pairs coordinates of the same layer. The first-layer and second-layer populations are separate.
+
+The initial \(W_0^{(2)}\) is the bounded forward-and-adjoint action obtained from the joint limits of finite Gaussian matrix calculations, as described below. It is **not** an ordinary continuum matrix or integral kernel with iid Gaussian entries. The notation records its action on generated population fields, together with its adjoint.
+
+The scalar chain rule converts (6) into the ordinary first-layer equation
+\[
+\dot Z_a^{(1)}=-2\kappa_1 r_a\delta_a^{(1)}.
+\tag{7}
+\]
+Conversely, any solution of (7) in the bounded state class used below has representation (5). Indeed, Cauchy–Schwarz and Fubini make its backward coefficient integrable in time at almost every coordinate. For an integrable scalar coefficient \(b(t)\), the equation
+\[
+\dot z(t)=b(t)(\phi^{(1)})'(z(t))
+\]
+has the solution
+\[
+z(t)=J\!\left(\int_0^t b(s)\,ds,z(0)\right).
+\]
+Differentiation verifies the equation, and the Lipschitz difference inequality with integrable coefficient \(|b(t)|L_1\) proves uniqueness. Thus the scalar coordinate changes neither the original gradient flow nor its possible solutions.
+
+When \((\phi^{(1)})'>0\), one can use
+\[
+F'(z)=\frac1{(\phi^{(1)})'(z)},
+\qquad
+J(s,z)=F^{-1}(F(z)+s).
+\]
+But the displacement formulation does not require
+\(\mathbb E[F(Z_0^{(1)})^2]<\infty\). The rapid growth of this integral for an erf activation therefore places no restriction on its Gaussian initialization variance.
+
+#### Global existence, uniqueness, and autonomy
+
+For a population variable \(U\), write
+\[
+\|U\|_{L^2}:=\sqrt{\mathbb E[U^2]}.
+\]
+The operator norm is its largest amplification of this root-mean-square size. Compare two states with the same fixed first-layer roots using
+\[
+\begin{aligned}
+d={}&
+\sum_{a=1}^m
+\|X_a^{(1)}-\widetilde X_a^{(1)}\|_{L^2}\\
+&+\|W^{(2)}-\widetilde W^{(2)}\|_{\mathrm{op}}
++\|W^{(3)}-\widetilde W^{(3)}\|_{L^2}.
+\end{aligned} \tag{8}
+\]
+At finite width replace every population \(L^2\) norm by the ordinary Euclidean norm divided by \(\sqrt n\); denote this distance by \(d_n\).
+
+On sets with bounded clock \(L^2\) norms, matrix operator norms, and readout suprema, the transformed vector field is Lipschitz in (8), with a constant independent of width. The key bounds are as follows. Equation (4) controls first-activation differences, and
+\[
+\|H_a^{(1)}\|_{L^2}
+\le
+|\phi^{(1)}(0)|
++M_1\|Z_{0,a}^{(1)}\|_{L^2}
++M_1^2\|X_a^{(1)}\|_{L^2}.
+\tag{9}
+\]
+Adding and subtracting one factor bounds the forward matrix difference. The second-layer backward difference satisfies
+\[
+\begin{aligned}
+\|\delta_a^{(2)}-\widetilde\delta_a^{(2)}\|_{L^2}
+\le{}&
+\|(\phi^{(2)})'\|_\infty
+\|W^{(3)}-\widetilde W^{(3)}\|_{L^2}\\
+&+
+\|\widetilde W^{(3)}\|_\infty
+\operatorname{Lip}((\phi^{(2)})')
+\|Z_a^{(2)}-\widetilde Z_a^{(2)}\|_{L^2}.
+\end{aligned}
+\tag{10}
+\]
+Its adjoint response is Lipschitz by the operator bound. The output uses boundedness and Lipschitz continuity of \(\phi^{(2)}\). Finally,
+\[
+\|u\otimes v-\widetilde u\otimes\widetilde v\|_{\mathrm{op}}
+\le
+\|u-\widetilde u\|_{L^2}\|v\|_{L^2}
++
+\|\widetilde u\|_{L^2}\|v-\widetilde v\|_{L^2}.
+\]
+These estimates prove local existence and uniqueness by contracting the integrated equations on a short interval. A common readout supremum bound defines a closed complete set under (8), and its integral update preserves that bound after the interval is made short enough.
+
+The chain rule and the adjoint identity give
+\[
+\dot f=-2Kr,
+\qquad
+\dot L=-4r^\top Kr\le0,
+\tag{11}
+\]
+where
+\[
+K=\kappa_1K^{(1)}+\kappa_2K^{(2)}+\kappa_3K^{(3)}
+\]
+and
+\[
+\begin{aligned}
+K_{ab}^{(1)}
+&=\mathbf1_{\{a=b\}}\,
+\mathbb E[\delta_a^{(1)}\delta_b^{(1)}],\\
+K_{ab}^{(2)}
+&=\mathbb E[H_a^{(1)}H_b^{(1)}]\,
+  \mathbb E[\delta_a^{(2)}\delta_b^{(2)}],\\
+K_{ab}^{(3)}
+&=\mathbb E[H_a^{(2)}H_b^{(2)}].
+\end{aligned}
+\tag{12}
+\]
+Each block is the Gram matrix of the corresponding parameter gradients. Thus \(\|r(t)\|_2\le\|r(0)\|_2\).
+
+Let \(B_2=\|\phi^{(2)}\|_\infty\). The readout equation yields
+\[
+\|W^{(3)}(t)\|_\infty
+\le
+\|W^{(3)}(0)\|_\infty
++
+2\kappa_3B_2\sqrt m\,\|r(0)\|_2t.
+\tag{13}
+\]
+On any prescribed finite horizon \(T\), this bounds every \(\delta_a^{(2)}\), both in mean square and in supremum. Equations (6) and (9) then give
+\[
+\|\dot X_a^{(1)}\|_{L^2}
+\le C_T\|W^{(2)}\|_{\mathrm{op}},
+\qquad
+\|\dot W^{(2)}\|_{\mathrm{op}}
+\le C_T\left(1+\sum_a\|X_a^{(1)}\|_{L^2}\right).
+\tag{14}
+\]
+The fixed initial root norms are absorbed into \(C_T\). Adding and integrating these inequalities gives a linear Gronwall bound on the clock norms and matrix operator norm throughout \([0,T]\). No finite-time blow-up or loss of the bounded-state conditions is possible. The solution therefore extends uniquely to every finite horizon.
+
+The original state is autonomous as well. At a restart time, take the current \(Z_a^{(1)}\) as the new roots in (5), set the new clocks to zero, and repeat the same argument. The original equations require only current fields and the current matrix action and adjoint. More formally, the closed spaces generated from current fields by the bounded coordinate operations and these actions contain the future integral construction. Equal current joint action laws give an isometry of these spaces that preserves the equations. Uniqueness then gives equal future action laws. Earlier clock values and the original initialization are not additional information needed for the future.
+
+###### Identifying the population action and passing to the width limit
+
+Use A.1 for the fixed finite value programs, jointly for both matrix orientations. The transform is continuous with at most linear growth in (clock, root). Its exponential root sensitivity is not a bounded-derivative hypothesis and no response derivative of that transform is taken. Empirical residual/contraction feedback is identified by the same-root oracle comparison below.
+
+For clarity, the common initial action is constructed before solving the flow. Collect the finite calculations for rational meshes, their finite unions, and a countable closure under the coordinate operations and bounded continuous measurements used here. The fixed-program theorem gives consistent finite joint laws, realized on one coordinate space for each layer. Exact finite linear identities pass to these laws. A Gaussian matrix operator bound implies, with a fixed sufficiently large \(M\),
+\[
+\|W_0^{(2)}V\|_{L^2}
+\le M\|V\|_{L^2}
+\]
+for every generated \(V\); the same holds for the transpose action. For example the finite bound follows from two \(1/4\)-nets and a union bound,
+\[
+\mathbb P\!\left(\|W_0^{(2)}\|_{\mathrm{op}}>M\right)
+\le
+2\,9^{2n}
+\exp\!\left(-\frac{nM^2}{8\sigma_2^2}\right)
+\longrightarrow0
+\]
+when \(\sigma_2>0\); the action is zero when \(\sigma_2=0\).
+Hence the actions are well-defined on variables equal in mean square and extend to the closures of the generated spans. The finite transpose identity passes to
+\[
+\mathbb E[U\,W_0^{(2)}V]
+=
+\mathbb E[((W_0^{(2)})^*U)V].
+\tag{15}
+\]
+This identifies the forward and backward actions as adjoints on the same two fixed spaces. It is the initial object used in (6).
+
+For a proof mesh \(\Delta\), Euler applied to (6) has error \(O_T(\Delta)\), uniformly in width and also in the population space. The bounded vector field and its Lipschitz constant give a one-step error \(C_T\Delta^2\), so
+\[
+e_{k+1}\le(1+C_T\Delta)e_k+C_T\Delta^2.
+\]
+Summation gives the stated error. A first-exit argument keeps the clock and matrix inside slightly larger bounds; the readout supremum is controlled separately by its update, as in (13).
+
+At fixed \(\Delta\), expand the trained matrix as its initialization plus finitely many rank-one updates. Construct the oracle using the population residuals and every population contraction in those expansions. The fixed-program theorem identifies all its joint node laws and quadratic contractions. Applying its proxy matrix to an oracle vector differs from the prescribed node by finitely many terms of the form
+\[
+-2\kappa_2\Delta r_{b,s}\,
+\delta_{b,s,\mathrm{oracle}}^{(2)}
+\left[
+\frac{
+(h_{b,s,\mathrm{oracle}}^{(1)})^\top
+h_{a,k,\mathrm{oracle}}^{(1)}
+}{n}
+-
+\mathbb E[H_{b,s}^{(1)}H_{a,k}^{(1)}]
+\right].
+\tag{16}
+\]
+Each scalar discrepancy vanishes and each vector has bounded root-mean-square norm. The corresponding transpose discrepancies use contractions of two second-layer backward fields. Thus recomputed proxy quantities approach the oracle nodes.
+
+The state estimate (8) transfers this identification to finite Euler with empirical feedback. All factors involving the readout can be clipped beyond its proven supremum bound without changing any oracle value. For comparisons the roots stay fixed: \(J\) and its first activation are uniformly Lipschitz in their changing clock arguments. A joint global Lipschitz bound in the frozen root is neither asserted nor needed.
+
+Consequently, taking \(n\to\infty\) at fixed \(\Delta\), and then \(\Delta\to0\), proves the population limit of the finite continuous flow on every \([0,T]\).
+
+#### The bridge from exact GD
+
+A scalar estimate makes the discrete argument work even when the first derivative vanishes or changes sign. In the following calculation only, write
+\[
+A=(\phi^{(1)})',
+\qquad L=\operatorname{Lip}(A),
+\qquad
+z^+=z+\eta A(z)b.
+\]
+If \(L\eta|b|\le1/2\) and \(A(z)\ne0\), then for \(0\le s\le1\),
+\[
+|A(z+s\eta A(z)b)-A(z)|
+\le L\eta|A(z)b|
+\le \frac{|A(z)|}{2}.
+\]
+The whole segment stays in the same interval where \(A\ne0\). Define its exact scalar-flow clock increment by
+\[
+\Delta X=\int_z^{z^+}\frac{du}{A(u)}.
+\]
+Then \(z^+=J(\Delta X,z)\). Substitution in the integral gives
+\[
+\begin{aligned}
+|\Delta X-\eta b|
+&\le
+\eta|b|\int_0^1
+\left|
+\frac{A(z)}{A(z+s\eta A(z)b)}-1
+\right|\,ds\\
+&\le L\eta^2b^2.
+\end{aligned} \tag{17}
+\]
+If \(A(z)=0\), the raw step fixes \(z\). Set \(\Delta X=\eta b\); the same exact representation holds because \(J(s,z)=z\) at an equilibrium. If \(L=0\), the derivative is constant and there is no coordinate defect or step restriction.
+
+Apply (17) to each coordinate with
+\[
+b_a
+=
+-2\kappa_1r_{n,a}
+(W^{(2)})^\top\delta_a^{(2)}.
+\tag{18}
+\]
+The raw GD trajectories themselves have width-independent bounds on \([0,T]\). First,
+\[
+|r_{n,a}|
+\le |y_a|+B_2\|W^{(3)}\|_\infty
+\]
+and the readout update give a discrete Gronwall bound on its supremum. This bounds \(\delta_a^{(2)}\). The first raw update then has root-mean-square increment at most \(C_T\eta_n\|W^{(2)}\|_{\mathrm{op}}\), while the matrix operator increment is at most
+\[
+C_T\eta_n
+\left(
+1+\sum_a\frac{\|z_a^{(1)}\|_2}{\sqrt n}
+\right).
+\]
+Adding these bounds gives a second discrete linear Gronwall estimate. The initial root RMS and matrix operator norm are bounded with probability tending to one, and the allowed readout initializations have the requisite high-probability uniform supremum bound. On these events,
+\[
+\frac{\|b_a\|_2}{\sqrt n}\le C_T,
+\qquad
+\|b_a\|_\infty\le C_T\sqrt n.
+\tag{19}
+\]
+Thus \(\eta_n\sqrt n\to0\) enforces the scalar step condition throughout the interval.
+
+Lift the raw iterates recursively by these exact clock increments, starting from \(x_{a,0}^{(1)}=0\). The scalar flow identity ensures
+\[
+z_{a,k}^{(1)}
+=
+J(x_{a,k}^{(1)},z_{a,0}^{(1)})
+\]
+exactly at every step. The lifted first update differs from transformed Euler by at most
+\[
+\begin{aligned}
+L\eta_n^2
+\left(\frac1n\sum_i b_{a,i}^4\right)^{1/2}
+&\le
+L\eta_n^2\|b_a\|_\infty
+\frac{\|b_a\|_2}{\sqrt n}\\
+&\le C_T\eta_n^2\sqrt n
+\end{aligned}
+\tag{20}
+\]
+in root-mean-square norm.
+
+It is important that the clocks themselves stay in the common Lipschitz region, including when \(J\) has equilibria and cannot be inverted. Summing their exact increments gives
+\[
+\begin{aligned}
+\frac{\|x_{a,k}^{(1)}\|_2}{\sqrt n}
+&\le
+\sum_{j<k}
+\left[
+\eta_n\frac{\|b_{a,j}\|_2}{\sqrt n}
++
+L\eta_n^2\|b_{a,j}\|_\infty
+\frac{\|b_{a,j}\|_2}{\sqrt n}
+\right]\\
+&\le C_T(1+\eta_n\sqrt n),
+\qquad k\eta_n\le T.
+\end{aligned}
+\tag{21}
+\]
+Thus the transformed stability constant remains width-independent.
+
+The other parameter updates are already Euler updates for (6). Add their ordinary \(O_T(\eta_n^2)\) local flow error and sum the stable recurrence:
+\[
+\sup_{t\le T}
+d_n\!\left(
+\text{lifted GD}(t),\text{finite flow}(t)
+\right)
+\le
+C_T(\eta_n+\eta_n\sqrt n).
+\tag{22}
+\]
+At interpolation times, the scalar flow segment and the linear raw segment differ by the same vanishing bound; the state movement inside one step is \(O_T(\eta_n)\). This proves the raw GD bridge without a moment assumption on an unshifted scalar transform.
+
+Combining (22), the fixed-mesh oracle limit, and the two \(O_T(\Delta)\) mesh errors proves the joint width/step conclusion.
+
+For the remaining quadratic measurements, the backward fields
+\[
+(W^{(2)}(t))^*\delta_a^{(2)}(t)
+\]
+form a compact time-indexed family in \(L^2\). Their squared tails therefore vanish uniformly as the clipping threshold grows. Clip before multiplying by \((\phi^{(1)})'(Z_a^{(1)})\), pass the resulting bounded Lipschitz measurements through the proved limit, and remove clipping. Fixed-grid second-moment convergence and state continuity give the corresponding finite empirical tail control. This supplies kernel entries and squared hidden velocities without assuming sub-Gaussian tails.
+
+For completeness, uniform velocity-energy bounds also supply the path-law assertion. For a time grid of spacing \(h\), let \(\pi_h t\) be its preceding grid point. Cauchy–Schwarz on each coordinate gives
+\[
+\frac1n\sum_i
+\sup_{t\le T}
+|z_i(t)-z_i(\pi_h t)|^2
+\le
+h\int_0^T
+\frac{\|\dot z(t)\|_2^2}{n}\,dt.
+\tag{23}
+\]
+The population counterpart replaces the empirical average by expectation. The parameter bounds above and the bounded activation derivatives bound these integrals uniformly for each hidden layer. Piecewise-linear reconstruction from the same grid satisfies an analogous estimate with a fixed additional factor. At fixed grid size the joint laws converge with second moments; letting \(h\to0\) gives convergence of the hidden path laws with their second moments in the uniform path norm. The clipped backward-field argument likewise identifies the integrated squared speeds.
+
+#### Examples and the input-geometry boundary
+
+Either layer may use arctan, tanh, logistic sigmoid, erf with fixed nonzero input scaling, softsign \(z/(1+|z|)\), or the smooth saturation \(z/\sqrt{1+z^2}\). Sine and cosine also qualify, despite derivative zeros and sign changes. Softsign is not twice continuously differentiable at zero, but
+\[
+\frac{d}{dz}\frac{z}{1+|z|}
+=
+\frac1{(1+|z|)^2}
+\]
+is continuous, bounded, and globally Lipschitz, which is enough.
+
+In the first layer only, affine functions, softplus, GELU, and SiLU also qualify: their derivatives are bounded and globally Lipschitz although the activations are unbounded. ReLU, leaky ReLU, hard tanh, and derivative-jump activations are not covered by this theorem.
+
+For a general input Gram matrix
+\[
+G_{ab}=\frac{x_a^\top x_b}{d},
+\]
+the first-layer equation becomes
+\[
+\dot Z_a^{(1)}
+=
+-2\kappa_1\sum_b
+G_{ab}r_b
+(\phi^{(1)})'(Z_b^{(1)})
+(W^{(2)})^*\delta_b^{(2)}.
+\tag{24}
+\]
+With a nonlinear first activation, the right side is not the \(a\)-th activation derivative times one scalar backward coefficient. The scalar-coordinate proof therefore does not give a global-time arbitrary-angle theorem.
+
+There is a verified exception. If
+\[
+\phi^{(1)}(z)=cz+d_0,
+\]
+then
+\[
+\dot Z_a^{(1)}
+=
+-2\kappa_1c\sum_b
+G_{ab}r_b(W^{(2)})^*\delta_b^{(2)}.
+\tag{25}
+\]
+The troublesome multiplication by a varying first-layer derivative has disappeared. In the raw state
+\((Z_1^{(1)},\ldots,Z_m^{(1)},W^{(2)},W^{(3)})\),
+the vector field is Lipschitz on the same bounded sets. The bounds (13)–(14) hold with raw first-layer norms and constants depending on the fixed \(G\). The fixed-program initialization allows the possibly singular Gaussian covariance \(\sigma_1^2G\). The same oracle and mesh proof therefore gives a global population limit for **any fixed finite normalized input configuration**, including singular Gram matrices.
+
+In this affine case, raw GD is already ordinary Euler for the Lipschitz raw vector field, so the sufficient step condition improves to \(\eta_n\to0\). All the preceding readout restrictions remain. This exception does not give a nonlinear first layer: its best affine-fit error is exactly zero.
+
+
+<!-- END EXACT DEPENDENCY -->
+
+
+<!-- BEGIN EXACT DEPENDENCY: C.2: complete weighted named-source response proof -->
+
+### C.2. Complete weighted response and tail proof
+
+Within this proof unit, unqualified section and equation numbers are local.
+
+Fix a finite number \(L\ge2\) of hidden layers and a finite dataset with
+weights \(\omega_a>0\), \(\sum_a\omega_a=1\). Suppose
+\(|G_{ab}|\le g\). No inverse Gram matrix is used. Each activation
+\(\phi^{(\ell)}\) is \(C^2\), with
+
+\[
+\max_\ell\bigl(|\phi^{(\ell)}(0)|+
+\|\phi^{(\ell)\prime}\|_\infty+
+\|\phi^{(\ell)\prime\prime}\|_\infty\bigr)<\infty.
+\]
+
+The first-layer root vector has uniformly subGaussian scalar marginals.
+The readout root \(W_0^{(L+1)}\) is subGaussian. Roots and initial middle
+matrices are independent, and the middle matrices have independent
+Gaussian entries with variance \(\sigma_\ell^2/n\).
+The lemma below only uses the marginal subGaussian bounds on the resulting
+first preactivations and readout.
+
+All constants are independent of the Euler mesh, the number of mesh points,
+the number of inputs, the individual weights, and covariance ranks. They
+can depend on fixed depth, activation bounds, \(g\), initialization bounds,
+learning constants, and the preliminary RMS/residual bounds. A common
+existence time across datasets does not imply a width limit for a dataset
+whose size increases with width.
+
+#### Exact recursions and hypotheses
+
+For mesh \(\Delta\), write the population forward and backward operations
+as
+
+\[
+H_{a,k}^{(\ell)}=\phi^{(\ell)}(Z_{a,k}^{(\ell)}),\qquad
+P_{a,k}^{(L)}=W_k^{(L+1)},\qquad
+\delta_{a,k}^{(\ell)}=
+\phi^{(\ell)\prime}(Z_{a,k}^{(\ell)})P_{a,k}^{(\ell)}.
+\tag{1}
+\]
+
+For \(\ell<L\), \(P_{a,k}^{(\ell)}=
+(W_k^{(\ell+1)})^*\delta_{a,k}^{(\ell+1)}\). The Euler updates at the
+two ends are
+
+\[
+Z_{a,k+1}^{(1)}=Z_{a,k}^{(1)}
+-2\kappa_1\Delta\sum_b\omega_bG_{ab}r_{b,k}
+\delta_{b,k}^{(1)},
+\tag{2}
+\]
+\[
+W_{k+1}^{(L+1)}=W_k^{(L+1)}
+-2\kappa_{L+1}\Delta\sum_b\omega_b r_{b,k}H_{b,k}^{(L)}.
+\tag{3}
+\]
+
+For every middle layer the update is
+
+\[
+W_{k+1}^{(\ell)}=W_k^{(\ell)}
+-2\kappa_\ell\Delta\sum_b\omega_b r_{b,k}
+\delta_{b,k}^{(\ell)}\otimes H_{b,k}^{(\ell-1)}.
+\tag{4}
+\]
+
+For the lemma, the residuals in these recursions can be any deterministic
+numbers with \(|r_{a,k}|\le R\). All deterministic residuals, contractions,
+response coefficients, and Gaussian covariance laws are frozen in every
+derivative below. There is no derivative through expectations.
+
+Assume on a preliminary time interval \([0,T_{\rm ball}]\) that all source
+RMS norms \(\|H_{a,k}^{(\ell)}\|_{L^2}\) and
+\(\|\delta_{a,k}^{(\ell)}\|_{L^2}\) are at most \(S\), uniformly in mesh.
+In particular the training-memory coefficient bound is
+
+\[
+J=2\max_\ell\kappa_\ell R S^2,
+\tag{5}
+\]
+
+and all Gaussian innovations below have standard deviations at most
+\(S\max_\ell\sigma_\ell\).
+
+For each initial middle matrix introduce forward slots
+\(\xi_{a,k}^{(\ell)}\) and backward slots
+\(\eta_{a,k}^{(\ell)}\). Their covariances are
+
+\[
+\mathbb E[\xi_{a,k}^{(\ell)}\xi_{b,s}^{(\ell)}]
+=\sigma_\ell^2\mathbb E[H_{a,k}^{(\ell-1)}H_{b,s}^{(\ell-1)}],
+\quad
+\mathbb E[\eta_{a,k}^{(\ell)}\eta_{b,s}^{(\ell)}]
+=\sigma_\ell^2\mathbb E[\delta_{a,k}^{(\ell)}\delta_{b,s}^{(\ell)}].
+\tag{6}
+\]
+
+Different matrix/orientation families are independent Gaussian families;
+each family's own times and inputs are generally dependent. The
+coordinate space of hidden population \(\ell\) uses its adjacent slots
+\(\xi^{(\ell)}\) and \(\eta^{(\ell+1)}\), with the appropriate root at
+the first/last layer. These are distinct neuron populations, not paired
+finite-width coordinates.
+
+Define unscaled expected derivatives
+
+\[
+A_{ak,bs}^{(\ell)}=
+\mathbb E\frac{\partial\delta_{a,k}^{(\ell)}}
+{\partial\xi_{b,s}^{(\ell)}},\qquad s\le k,
+\quad
+C_{ak,bs}^{(\ell)}=
+\mathbb E\frac{\partial H_{a,k}^{(\ell-1)}}
+{\partial\eta_{b,s}^{(\ell)}},\qquad s<k.
+\tag{7}
+\]
+
+The exact local response representation is
+
+\[
+Z_{a,k}^{(\ell)}=\xi_{a,k}^{(\ell)}+
+\sum_{b,s<k}F_{ak,bs}^{(\ell)}\delta_{b,s}^{(\ell)},
+\tag{8}
+\]
+\[
+P_{a,k}^{(\ell-1)}=\eta_{a,k}^{(\ell)}+
+\sum_{b,s\le k}D_{ak,bs}^{(\ell)}H_{b,s}^{(\ell-1)},
+\tag{9}
+\]
+
+where
+
+\[
+F_{ak,bs}^{(\ell)}=
+\sigma_\ell^2 C_{ak,bs}^{(\ell)}
+-2\kappa_\ell\Delta\omega_b r_{b,s}
+\mathbb E[H_{b,s}^{(\ell-1)}H_{a,k}^{(\ell-1)}],
+\tag{10}
+\]
+\[
+D_{ak,bs}^{(\ell)}=
+\sigma_\ell^2 A_{ak,bs}^{(\ell)}
+-\mathbf1_{s<k}2\kappa_\ell\Delta\omega_b r_{b,s}
+\mathbb E[\delta_{b,s}^{(\ell)}\delta_{a,k}^{(\ell)}].
+\tag{11}
+\]
+
+For compact cap notation only, put
+\(\widetilde A^{(\ell)}=\sigma_\ell^2 A^{(\ell)}\) and
+\(\widetilde C^{(\ell)}=\sigma_\ell^2 C^{(\ell)}\).
+Thus the sigma factors never enter the trained terms.
+
+#### SubGaussian sums without maxima of Gaussian histories
+
+For a scalar random variable define
+
+\[
+\mathcal N(U)=\sup_{p\ge2}\frac{\|U\|_{L^p}}{\sqrt p}.
+\tag{12}
+\]
+
+It is a norm, and \(\mathcal N(U)\le B\) implies
+
+\[
+\mathbb E\exp\bigl(U^2/(8eB^2)\bigr)\le4/3,
+\quad
+\mathbb E e^{\lambda|U|}\le(4/3)e^{2e\lambda^2B^2}.
+\tag{13}
+\]
+
+Indeed the \(r\)-th term in the first exponential series is at most
+\((2r)^r/((8e)^rr!)\le4^{-r}\); the second inequality follows by
+\(\lambda|U|\le U^2/(8eB^2)+2e\lambda^2B^2\). The case \(B=0\) is
+understood as \(U=0\).
+
+If each \(U_{b,s}\) has \(\mathcal N(U_{b,s})\le B\), Jensen applied
+with weights \(\Delta\omega_b/(k\Delta)\) gives
+
+\[
+\mathbb E\exp\left(\lambda\Delta
+\sum_{s<k}\sum_b\omega_b|U_{b,s}|\right)
+\le(4/3)\exp(2e\lambda^2T^2B^2),\qquad k\Delta\le T.
+\tag{14}
+\]
+
+This requires no independence over time or inputs. The maximum of Gaussian
+coordinates or of a Gaussian history is never bounded in this argument.
+
+#### The simultaneous field and response bounds
+
+We prove that there exist fixed finite caps \(a_\ell,c_\ell\), constants
+\(B_H,B_{P,\ell}\), and \(T_0>0\), with \(T_0\le T_{\rm ball}\), such
+that at every mesh point up to \(T_0\)
+
+\[
+\sum_{b,s\le k}|\widetilde A_{ak,bs}^{(\ell)}|\le a_\ell,
+\qquad
+|\widetilde C_{ak,bs}^{(\ell)}|\le c_\ell\Delta\omega_b,
+\tag{15}
+\]
+\[
+\mathcal N(H_{a,k}^{(\ell)})\le B_H,
+\qquad
+\mathcal N(P_{a,k}^{(\ell)})\le B_{P,\ell}.
+\tag{16}
+\]
+
+Set \(f_\ell=c_\ell+J\) for \(\ell\ge2\), and \(f_1=1\).
+Under the response caps,
+
+\[
+|F_{ak,bs}^{(\ell)}|\le f_\ell\Delta\omega_b,
+\qquad
+\sum_{b,s\le k}|D_{ak,bs}^{(\ell)}|\le a_\ell+JT.
+\tag{17}
+\]
+
+Choose a constant \(K\ge2\), depending only on the fixed bounds in the
+lemma, large enough to dominate every root/innovation \(\mathcal N\)-norm
+after applying an activation and every coefficient in (2)--(3). Fix this
+\(K\) once. The triangle inequality for \(\mathcal N\), (1)--(3), and
+(8)--(9) give the following bounds using only already constructed fields:
+
+\[
+\mathcal N(H_{a,k}^{(1)})\le K+KT\sup_{b,s<k}
+\mathcal N(P_{b,s}^{(1)}),
+\tag{18}
+\]
+\[
+\mathcal N(H_{a,k}^{(\ell)})\le K+Kf_\ell T
+\sup_{b,s<k}\mathcal N(P_{b,s}^{(\ell)}),\quad 2\le\ell\le L,
+\tag{19}
+\]
+\[
+\mathcal N(P_{a,k}^{(\ell)})\le K+(a_{\ell+1}+JT)
+\sup_{b,s\le k}\mathcal N(H_{b,s}^{(\ell)}),\quad\ell<L,
+\tag{20}
+\]
+\[
+\mathcal N(W_k^{(L+1)})\le K+KT
+\sup_{b,s<k}\mathcal N(H_{b,s}^{(L)}).
+\tag{21}
+\]
+
+Take
+
+\[
+B_H=2K,\qquad B_{P,L}=2K,\qquad
+B_{P,\ell}=4K(1+a_{\ell+1})\quad(\ell<L).
+\tag{22}
+\]
+
+Once response caps have been chosen, (18)--(21) preserve these field caps
+if \(JT\le1\), \(2KT\le1\), and
+\(f_\ell T B_{P,\ell}\le1\) for every \(1\le\ell\le L\).
+For (20), its right side is at most
+\(K+2K(a_{\ell+1}+1)\le4K(1+a_{\ell+1})\).
+For each finite mesh all \(\mathcal N\)-norms are finite before this
+estimate: the causal magnitude recursions bound each field by a finite
+deterministic linear combination of absolute roots/innovations, since
+\(|\phi(z)|\le M(1+|z|)\) and \(|\delta|\le M|P|\).
+
+#### Full forward-slot derivative rows
+
+Fix a layer \(2\le\ell\le L\). Differentiate only with respect to its
+own forward slots \(\xi^{(\ell)}\); hold the adjacent backward slots and
+roots fixed. Let
+
+\[
+v_{a,k}^{(\ell)}=
+\sum_{b,s\le k}\left|
+\frac{\partial Z_{a,k}^{(\ell)}}{\partial\xi_{b,s}^{(\ell)}}
+\right|,\qquad
+V_k^{(\ell)}=\max_{a,u\le k}v_{a,u}^{(\ell)}.
+\tag{23}
+\]
+
+The maximum here is a maximum of derivative row sums, not of random
+backward fields. Write \(d_\ell=1+a_{\ell+1}\) if \(\ell<L\), and
+\(d_L=1\). Let \(M\ge1\) dominate all activation bounds.
+
+For \(\ell<L\), direct differentiation of (9) gives
+
+\[
+\sum_{b,s}\left|
+\frac{\partial P_{a,u}^{(\ell)}}{\partial\xi_{b,s}^{(\ell)}}
+\right|
+\le M(a_{\ell+1}+JT)V_u^{(\ell)}.
+\tag{24}
+\]
+
+For the last layer, differentiating the integrated readout update (3)
+instead gives a bound \(2\kappa_{L+1}RMTV_u^{(L)}\).
+The product rule in (1), with these bounds, proves for a fixed constant
+\(C\) depending only on the lemma's data that
+
+\[
+\sum_{b,s}\left|
+\frac{\partial\delta_{a,u}^{(\ell)}}
+{\partial\xi_{b,s}^{(\ell)}}\right|
+\le C\bigl(|P_{a,u}^{(\ell)}|+d_\ell\bigr)V_u^{(\ell)}.
+\tag{25}
+\]
+
+The first term in (8) has derivative row sum exactly one. Its memory has
+only earlier times. By the entrywise estimate (17),
+
+\[
+V_k^{(\ell)}\le1+Cf_\ell\Delta\sum_{u<k}
+\left(d_\ell+\sum_b\omega_b|P_{b,u}^{(\ell)}|\right)V_u^{(\ell)}.
+\tag{26}
+\]
+
+To justify the prefix maximum, the bound for every earlier time is no
+larger than the displayed right side because every summand is nonnegative.
+Discrete Gronwall gives
+
+\[
+V_k^{(\ell)}\le
+\exp\left(Cf_\ell T d_\ell+
+Cf_\ell\Delta\sum_{u<k}\sum_b\omega_b|P_{b,u}^{(\ell)}|\right).
+\tag{27}
+\]
+
+Using (14), then Cauchy--Schwarz in (25), yields
+
+\[
+\sum_{b,s\le k}|\widetilde A_{ak,bs}^{(\ell)}|
+\le C(B_{P,\ell}+d_\ell)
+\exp\left(Cf_\ell T d_\ell+
+Cf_\ell^2T^2B_{P,\ell}^2\right).
+\tag{28}
+\]
+
+Here and in the remaining estimates choose one \(C\ge1\) large enough
+for all displayed inequalities, and fix it before choosing response caps.
+There are finitely many algebraic bound types; neither \(C\) nor \(K\)
+depends on a response cap. Notice that (28) uses
+\(\|P_{a,k}^{(\ell)}\|_{L^2}\|V_k^{(\ell)}\|_{L^2}\), not the
+\(L^2\)-norm of a maximum over the input index or time.
+
+#### A single backward-slot pulse
+
+Fix \(\ell\ge2\), one input \(b\), one time \(s\), and differentiate
+the local coordinate functions of layer \(\ell-1\) with respect to the
+single slot \(\eta_{b,s}^{(\ell)}\). Put
+
+\[
+D_k=\max_{a,u\le k}\left|
+\frac{\partial Z_{a,u}^{(\ell-1)}}
+{\partial\eta_{b,s}^{(\ell)}}\right|.
+\tag{29}
+\]
+
+It vanishes for \(k\le s\). Differentiating (9) and (1) gives, pointwise,
+
+\[
+\left|\frac{\partial\delta_{a,u}^{(\ell-1)}}
+{\partial\eta_{b,s}^{(\ell)}}\right|
+\le M\mathbf1_{a=b,u=s}
++C\bigl(|P_{a,u}^{(\ell-1)}|+d_{\ell-1}\bigr)D_u.
+\tag{30}
+\]
+
+Indeed the derivative of the direct Gaussian term in (9) is precisely
+\(\mathbf1_{a=b,u=s}\); the derivative of its response has magnitude
+at most \(M(a_\ell+JT)D_u\). The other product-rule term is bounded by
+\(M|P_{a,u}^{(\ell-1)}|D_u\).
+
+For \(\ell=2\), insert (30) in the accumulated update (2). Its direct
+pulse has magnitude at most \(2\kappa_1gRM\Delta\omega_b\).
+For \(\ell\ge3\), insert it in (8) for layer \(\ell-1\); the direct
+pulse has magnitude at most \(Mf_{\ell-1}\Delta\omega_b\).
+Both cases therefore obey, for \(k>s\),
+
+\[
+D_k\le Cf_{\ell-1}\Delta\omega_b+
+Cf_{\ell-1}\Delta\sum_{u<k}
+\left(d_{\ell-1}+\sum_a\omega_a|P_{a,u}^{(\ell-1)}|\right)D_u.
+\tag{31}
+\]
+
+Here \(f_1=1\). Gronwall, (14), and the bounded activation derivative
+give
+
+\[
+\frac{|\widetilde C_{ak,bs}^{(\ell)}|}{\Delta\omega_b}
+\le Cf_{\ell-1}
+\exp\left(Cf_{\ell-1}T d_{\ell-1}+
+Cf_{\ell-1}^2T^2B_{P,\ell-1}^2\right).
+\tag{32}
+\]
+
+The factor \(\Delta\omega_b\) is retained from one source pulse. There
+is no factor \(1/\omega_b\) in any constant and no sum of unweighted
+Gaussian absolute values.
+
+#### Cap selection and literal construction order
+
+First choose the forward-response caps from bottom to top:
+
+\[
+c_2=4C,\qquad c_\ell=4C(c_{\ell-1}+J),\quad3\le\ell\le L.
+\tag{33}
+\]
+
+These use only the \(T=0\) prefactors in (32), which do not contain any
+backward cap. Next choose the backward-response caps from top to bottom:
+
+\[
+a_L=4C(2K+1),\qquad
+a_\ell=4C(4K+1)(1+a_{\ell+1}),\quad 2\le\ell<L.
+\tag{34}
+\]
+
+These dominate four times the \(T=0\) prefactors of (28), using (22).
+All caps are now fixed finite numbers. Choose \(T_0>0\) satisfying
+
+\[
+T_0\le\min(T_{\rm ball},1),\quad JT_0\le1,\quad2KT_0\le1,
+\quad f_\ell T_0 B_{P,\ell}\le1\quad(1\le\ell\le L),
+\tag{35}
+\]
+
+and such that every exponent on the right sides of (28) and (32) is at
+most \(\log2\) when \(T=T_0\). Each exponent tends to zero with \(T\)
+after the caps have been fixed; there are finitely many of them. Thus this
+choice gives a strictly positive time depending only on the stated data.
+Equations (28) and (32) then improve their respective response caps by a
+factor of two.
+
+For completeness, this is an induction on the actual causal construction,
+not a bootstrap that assumes all future tails:
+
+1. At time \(k\), \(W_k^{(L+1)}\) and \(Z_{a,k}^{(1)}\) use only
+   histories before \(k\). Verify their bounds from (18), (21).
+2. Construct the current forward layers in order \(2,\ldots,L\).
+   Before constructing layer \(\ell\), its coefficient
+   \(\widetilde C^{(\ell)}\) is computed from the already constructed
+   \(H^{(\ell-1)}\). Estimate (32) uses only past
+   \(P^{(\ell-1)}\), whose tails and backward response caps are known,
+   and the current lower-layer forward cap, which is already known.
+   Equation (19) then verifies the current \(H^{(\ell)}\) bound using
+   only past \(P^{(\ell)}\). This constructs the current innovations'
+   source covariances too.
+3. Construct the current backward layers in order \(L,\ldots,2\).
+   At the top \(P^{(L)}=W^{(L+1)}\) is already bounded. At a lower
+   layer \(\ell\), the current \(P^{(\ell)}\) was just constructed
+   using the current higher response \(\widetilde A^{(\ell+1)}\);
+   (20) verifies its cap. Hence (25)--(28) use known current
+   \(P^{(\ell)}\) tails and known upper response coefficients. They
+   verify the current \(\widetilde A^{(\ell)}\) cap, after which (9)
+   constructs \(P^{(\ell-1)}\).
+4. Apply (2)--(3) for the next step and repeat.
+
+At \(k=0\) there is no forward response memory. The same top-down
+backward construction starts from the readout root; (28) has \(V_0=1\).
+Thus the induction starts without zero-readout or centered-readout
+assumptions. Neither a current forward coefficient nor a current backward
+coefficient needs its own unconstructed value. This proves (15)--(16).
+
+In particular, for some fixed \(c_*,C_*>0\),
+
+\[
+\sup_\Delta\sup_{k\Delta\le T_0}\max_{a,\ell}
+\mathbb E\exp\left(c_*|P_{a,k}^{(\ell)}|^2\right)\le C_*.
+\tag{36}
+\]
+
+The same statement holds for every hidden activation and, by (2) and
+(8), every preactivation. It implies the uniform RMS cutoff-tail bound
+\(\|P\mathbf1_{|P|>R}\|_{L^2}\le C e^{-cR^2}\), after decreasing
+\(c\). No bound on a maximum over neurons, dataset elements, or time was
+proved or needed.
+
+The proof also holds for arbitrary deterministic positive step lengths
+\(\Delta_s\) with total time at most \(T_0\): replace every source factor
+\(\Delta\omega_b\) at time \(s\) by \(\Delta_s\omega_b\), and replace
+\(k\Delta\) by \(\sum_{s<k}\Delta_s\). The Jensen weights in (14) become
+\(\Delta_s\omega_b/\sum_{u<k}\Delta_u\); the single-slot pulse in (31) is
+exactly \(\Delta_s\omega_b\); every Gronwall estimate uses only total
+time. Nothing else changes. Consequently (36) also holds for fields
+recomputed at an affine Euler-state interpolation time: append one final
+Euler update of length \(\theta\Delta\), \(0<\theta<1\), to the preceding
+full steps, and evaluate the full forward/backward network there. The
+constants are independent of \(\theta\). This bounds each interpolation
+time; it is not a tail bound for a supremum of the path.
+
+#### Consequences and boundaries
+
+The depth extension therefore supplies the required Gaussian-tail part of
+the reference comparison for smooth globally Lipschitz activations,
+including when their values and the initial readout are unbounded. The
+remaining proof must provide the preliminary RMS/operator ball, the
+common operator realization, the oracle interpolation comparison, and its
+order of limits. This proof unit does not certify those separate steps.
+
+The exact same lemma holds when each \(2r_{a,k}\) in (2)--(4) is replaced
+by any deterministic coefficient uniformly bounded on the preliminary
+ball. This permits a general-loss theorem once that theorem proves the
+required boundedness and feedback Lipschitz estimate for the loss
+derivative.
+
+The constants only use uniform bounds on \(\phi\)'s value at zero and
+its first two derivatives. Thus this lemma is uniform under smooth
+mollifications of globally Lipschitz \(C^{1,1}\) activations. Passing from
+the mollified flows to the original activation still requires the
+separate stability argument. ReLU has discontinuous derivative and is not
+covered by this lemma or this mollification statement.
+
+The proof is for every fixed finite depth; its constants can grow rapidly
+with depth. It proves neither a depth-uniform interval nor arbitrary-depth
+strict feature activity. Those are different claims.
+
+The response rule in (6)–(11) follows from A.2 at each fixed finite C2 program. Named sources and deterministic coefficients are frozen when differentiating. This handles singular covariances and does not invoke an all-moment scalar-feedback theorem.
+
+
+<!-- END EXACT DEPENDENCY -->
+
+
+<!-- BEGIN EXACT DEPENDENCY: C.4.1, C.4.2.1–6, C.4.3.1–3: full-row comparison, common carrier, completion and finite proxy -->
+
+#### C.4.1. Full-row transport comparison
+
+##### 1. State, finite interpretation, and exact field
+
+Write `u=x/sqrt(2)`, so `|u|=1`, and put `phi=tanh`. Let
+`H_1=L2(Omega_1)` and `H_2=L2(Omega_2)` be real probability Hilbert spaces
+with their coordinate operations. A population state is
+
+\[
+ \theta=(w,A,c)\in L^2(\Omega_1;\mathbb R^2)
+       \times\mathcal B(H_1,H_2)\times H_2.
+\]
+
+The vector field preserves the affine class `A=A_0+K` where `K` is a
+norm-limit of finite-rank operators: the rank-one integrand in (T2) is
+continuous on the compact data support, so finite simple approximations
+converge in operator norm, as do their time integrals. Define
+
+\[
+\begin{aligned}
+ Z^1_\theta(u)&=w\cdot u,& H^1_\theta(u)&=\phi(Z^1_\theta(u)),\\
+ Z^2_\theta(u)&=A H^1_\theta(u),& H^2_\theta(u)&=\phi(Z^2_\theta(u)),\\
+ f_\theta(u)&=\langle c,H^2_\theta(u)\rangle_{H_2},&
+ r_\theta(u,y)&=f_\theta(u)-y,\\
+ P^2_\theta(u)&=c,&\delta^2_\theta(u)&=\phi'(Z^2_\theta(u))c,\\
+ P^1_\theta(u)&=A^*\delta^2_\theta(u),&
+ \delta^1_\theta(u)&=\phi'(Z^1_\theta(u))P^1_\theta(u).
+\end{aligned}                                                   \tag{T1}
+\]
+
+All pairings use a single neuron population. The population rank-one
+operator is `(a tensor b)v=a E_1[bv]`. For a probability law `mu` of `(u,y)`
+on `S^1 x [-Y,Y]`, the exact mean-square-loss physical vector field is
+
+\[
+ F_\mu(\theta)=\left(
+ -2\int r_\theta\delta^1_\theta u\,d\mu,
+ -2\int r_\theta\delta^2_\theta\otimes H^1_\theta\,d\mu,
+ -2\int r_\theta H^2_\theta\,d\mu\right).                         \tag{T2}
+\]
+
+In the first integral the scalar field multiplies the explicit input
+vector `u`, producing a two-component row. For a finite network, take
+`w=W^(1)`, `A=W^(2)`, `c=W^(3)`, replace field norms by the Euclidean or
+Frobenius norm divided by `sqrt(n)`, inner products by `a^T b/n`, and
+rank-one actions by `a b^T/n`. Formula (T2) then gives exactly the raw
+stored-weight mobilities `(n,1,n)`, as follows from
+`docs/finite_dynamics.md` §§1–2. Raw GD is
+`theta_(j+1)=theta_j+eta F_mu(theta_j)` with all three blocks evaluated at
+the preceding state. Parameter interpolation does not interpolate hidden
+features: (T1) is recomputed at the interpolated parameters.
+
+On a common carrier define
+
+\[
+ D(\theta,\bar\theta)=\|w-\bar w\|_{L^2(\Omega_1;\mathbb R^2)}
+                  +\|A-\bar A\|_{\rm op}+\|c-\bar c\|_{L^2(\Omega_2)}. \tag{T3}
+\]
+
+For two networks of the same width, its finite counterpart is
+
+\[
+ D_n(\theta,\bar\theta)
+ =\frac{\|W^{(1)}-\bar W^{(1)}\|_F}{\sqrt n}
+  +\|W^{(2)}-\bar W^{(2)}\|_{\rm op}
+  +\frac{\|W^{(3)}-\bar W^{(3)}\|_2}{\sqrt n}.       \tag{T3a}
+\]
+
+The finite norms in (T3a) are ordinary Frobenius, operator and Euclidean
+norms. This distance controls the full first matrix. No cross-width or
+finite-to-population operator distance is used anywhere in this proof.
+
+The bound `|phi|<=1`, `|phi'|<=1`, and `Lip(phi')<=2` will be used throughout.
+If every individual state norm is at most `B>=1`, then, for every input,
+
+\[
+ \|H^1\|_2,\|H^2\|_2\le1,\quad
+ \|\delta^2\|_2\le B,\quad \|P^1\|_2,\|\delta^1\|_2\le B^2,
+ \quad |f|\le B,\quad |r|\le B+Y.                                \tag{T4}
+\]
+
+Consequently the sum of the three velocity norms is at most
+`V=2(B+Y)(B^2+B+1)`. If initial individual norms are at most `S_0`, choose
+`B=2S_0+2` and
+
+\[
+ T_{\rm ball}=\min\{1,(B-S_0)/(4V)\}>0.                          \tag{T5}
+\]
+
+The integral-flow first-exit argument and the sum of Euler increments show
+that both stay inside this ball up to `2T_ball` for Euler mesh at most
+`T_ball`: before a putative first exit the increment of each norm is at most
+`2T_ball V<(B-S_0)`. Piecewise affine interpolants have speed bounded by
+`V`. These bounds hold for every probability law and every finite empirical
+law, regardless of its cardinality.
+
+For the specified initialization, `||W^(1)_0||_F^2/n` tends in probability
+to `2`, and `||W^(3)_0||_2^2/n` has expectation `n^(-2)`. The initialized
+middle operator is bounded with probability tending to one by the elementary
+sphere-net argument in finite dynamics §4. Thus a fixed `S_0` gives a common
+high-probability finite ball, independent of the training data. The population
+root is the full row `w_0=(g_1,g_2)` with independent standard normals and
+`c_0=0`. Retaining the second root coordinate remains necessary even if a
+reference training law sees only the first coordinate.
+
+##### 2. The one-reference transport estimate
+
+For a field `P`, write `tau_R(P)=||P 1_{|P|>R}||_2`. If the reference
+state is `bar theta`, set
+
+\[
+ \mathfrak T_{\nu,R}(\bar\theta)
+ =\tau_R(\bar c)+\int\tau_R(P^1_{\bar\theta}(u'))\,
+                                  \nu(du',dy').                    \tag{T6}
+\]
+
+At finite width these are individual empirical neuron RMS tails. In
+particular, for a finite reference law with weights `omega_b`, the second
+term is the weighted sum of the individual reference tails, not a tail of a
+maximum over the reference inputs or over the actual dataset.
+
+**Transport lemma.** On the ball above, for every `R>=1`, every two laws
+`mu,nu`, and every two states on the same carrier,
+
+\[
+ \|F_\mu(\theta)-F_\nu(\bar\theta)\|_{T3}
+ \le C(1+R)\bigl(D(\theta,\bar\theta)+\mathcal W_1(\mu,\nu)\bigr)
+       +C\mathfrak T_{\nu,R}(\bar\theta).                           \tag{T7}
+\]
+
+Here `W1` uses `|u-u'|+|y-y'|`, and `C` depends only on `B,Y`. The same
+constant works for the normalized finite-network norms and actions. Only
+the reference state requires tails.
+
+**Proof.** Fix any coupling `pi` of the two laws, and abbreviate
+`h=|u-u'|`, `D=D(theta,bar theta)`. Keeping the full first row gives
+
+\[
+ \|Z^1_\theta(u)-Z^1_{\bar\theta}(u')\|_2
+ \le\|w-\bar w\|_2+\|\bar w\|_2 h\le D+Bh.
+\]
+
+The activation is 1-Lipschitz. Expanding
+`A H^1-bar A bar H^1=(A-bar A)H^1+bar A(H^1-bar H^1)` therefore gives
+
+\[
+ \max_{\ell=1,2}\bigl(\|Z^\ell_\theta(u)-Z^\ell_{\bar\theta}(u')\|_2
+          +\|H^\ell_\theta(u)-H^\ell_{\bar\theta}(u')\|_2\bigr)
+       \le C(D+h),                                                   \tag{T8}
+\]
+\[
+ |f_\theta(u)-f_{\bar\theta}(u')|\le C(D+h),\qquad
+ |r_\theta(u,y)-r_{\bar\theta}(u',y')|
+                         \le C(D+h)+|y-y'|.                         \tag{T9}
+\]
+
+For any two preactivations and any reference field `bar P`, pointwise
+splitting at `|bar P|=R` gives
+
+\[
+ \|[\phi'(Z)-\phi'(\bar Z)]\bar P\|_2
+       \le2R\|Z-\bar Z\|_2+2\tau_R(\bar P).                        \tag{T10}
+\]
+
+For the top backward field, split its difference as
+`phi'(Z^2)(c-bar c)+[phi'(Z^2)-phi'(bar Z^2)]bar c`. Thus
+
+\[
+ \|\delta^2_\theta(u)-\delta^2_{\bar\theta}(u')\|_2
+       \le C(1+R)(D+h)+2\tau_R(\bar c).                             \tag{T11}
+\]
+
+Expanding the adjoint difference, and using (T4), bounds the corresponding
+`P^1` difference by `B` times (T11) plus `BD`. Split the first backward
+field in the same way, now applying (T10) to `P^1_bar theta(u')`. The result is
+
+\[
+ \|\delta^1_\theta(u)-\delta^1_{\bar\theta}(u')\|_2
+ \le C(1+R)(D+h)
+       +C\tau_R(\bar c)+2\tau_R(P^1_{\bar\theta}(u')).                \tag{T12}
+\]
+
+There is one power of `R`: the earlier backward error is multiplied only
+by a bounded operator and bounded activation derivative. The new gate
+cutoff adds an `R` term and does not multiply that earlier error by `R`.
+
+For the first-weight integral the exact decomposition is
+
+\[
+\begin{aligned}
+ r\delta^1u-\bar r\bar\delta^1u'
+  &=(r-\bar r)\delta^1u
+    +\bar r(\delta^1-\bar\delta^1)u
+    +\bar r\bar\delta^1(u-u').
+\end{aligned}
+\]
+
+The row-field norm of a product `P u` equals `||P||_2 |u|`. Therefore
+(T4), (T9), and (T12) bound this difference by
+`C(1+R)(D+h+|y-y'|)` plus the two reference tails. This verifies the
+explicit changing-input factor in the first-weight gradient.
+
+For the middle integral use the identity
+
+\[
+ r\delta^2\otimes H^1-\bar r\bar\delta^2\otimes\bar H^1
+ =(r-\bar r)\delta^2\otimes H^1
+ +\bar r(\delta^2-\bar\delta^2)\otimes H^1
+ +\bar r\bar\delta^2\otimes(H^1-\bar H^1)
+\]
+
+and `||a tensor b||_op=||a||_2||b||_2`. Equations (T4), (T8), (T9),
+and (T11) give the same bound. The readout integral uses
+`rH^2-bar r bar H^2=(r-bar r)H^2+bar r(H^2-bar H^2)` and needs no tail.
+Integrate these three estimates against `pi`. Every tail depends only
+on the second marginal, so its integral is exactly (T6). Taking the
+infimum of the coupling costs proves (T7); existence of an optimal
+coupling is unnecessary. All the norm inequalities also hold under the
+finite normalized pairings, proving the finite assertion. ∎
+
+The full Gaussian first-row root is not multiplied by a backward field
+in this argument. It enters (T8) only through its RMS norm. In particular,
+no unproved Gaussian estimate for products of root and backward fields,
+no Gaussian maximum over observations, and no Gram inverse is hidden in
+(T7).
+
+#### C.4.2. Canonical strong population evolution
+
+##### 1. Initial state and strong equation
+
+Use the fields, exact vector field and full-state topology (T1)–(T3).
+Write \(\mathcal H_i=L^2(\Omega_i)\) for the two layer spaces and
+\(\mathcal E=L^2(\Omega_1;\mathbb R^2)\times
+\mathcal B(\mathcal H_1,\mathcal H_2)\times\mathcal H_2\)
+for the complete state space with the sum norm (T3).
+Section 2 constructs the two probability spaces, the full first-row Gaussian
+root `w_0=(g_1,g_2)~N(0,I_2)`, and the initialized middle action A_0 with
+its actual adjoint. Put `theta_0=(w_0,A_0,0)`. The strong equation is
+
+\[
+ \theta_\mu(t)=\theta_0+\int_0^t F_\mu(\theta_\mu(s))\,ds.
+\tag{P5}
+\]
+
+The integral is in full-row L2, middle operator norm and readout L2.
+Section 3 proves the required strong integrability and continuity. These
+are the same unhalved mean-loss equations and physical clock as (T2).
+
+##### 2. One compatible initialized Gaussian action space
+
+Start the countable language of III.F.7 with the full independent Gaussian
+pair \((g_1,g_2)\) at population 1, a zero readout at population 2, constants,
+both orientations of one initialized matrix, rational linear combinations,
+tanh, smooth clipped products, and a countable family of smooth bounded
+globally Lipschitz coordinate functions dense on each finite compact box.
+Close under finite composition. The actual finite roots are the two columns
+of \(W^{(1)}_0\), and the actual finite action is the same matrix
+\(W^{(2)}_0\) in both orientations. They have the required independent laws.
+
+The deterministic finite-program theorem III.F.1, including the proof of
+singular-query regularization in III.F.5, identifies the joint limiting law
+of every finite collection of these programs. Finite unions share the same
+initialized arrays; deleting unused instructions changes no finite vector.
+Consequently these joint laws are compatible. The chronological Gaussian
+extension construction of III.F.4 and III.F.7 realizes the countable language
+on two generated probability spaces. It does not sample a fresh independent
+backward answer: independent oriented *source groups* acquire the response
+corrections in equations (III.F.9)–(III.F.10).
+
+For clarity, the operator-completion step uses three concrete facts from that
+proof. The finite initialized norm obeys
+
+\[
+ \mathbb P(\|W^{(2)}_0\|_{\rm op}>10)
+ \le2\,9^{2n}e^{-100n/8}\longrightarrow0.
+\]
+
+Second-moment convergence passes the inequality
+\(\|W^{(2)}_0v\|_2/\sqrt n\le10\|v\|_2/\sqrt n\)
+to every rational combination of generated nodes. Exact finite linear
+identities and zero squared differences make the limiting assignment
+linear and well-defined on its \(L^2\) classes. Generated smooth cylinder
+functions are dense in each generated \(L^2\) space: cylinder simple
+functions approximate measurable functions, bounded continuous functions
+approximate finite-dimensional Borel functions in \(L^2\), and the included
+smooth functions approximate those on compact boxes, with tails removed by
+truncation. Thus the assignment extends to a bounded map \(A_0\), of norm
+at most 10. The reverse assignments extend in the same way. Passing the
+exact finite normalized identity
+
+\[
+ v^TW^{(2)}_0h/n=((W^{(2)}_0)^Tv)^Th/n
+\]
+
+through the finite-program theorem and then through density identifies the
+reverse map with \(A_0^*\).
+
+This language can be fixed independently of the training law. Arbitrary
+real directions \(u\in S^1\) are limits of rational linear combinations of
+the retained root pair; their initial projections have the joint law
+\(\mathbb E[(w_0\cdot u)(w_0\cdot v)]=u\cdot v\).
+Arbitrary real coefficients in each separately fixed program are obtained
+by rational approximation. For continuous coordinate instructions of at
+most linear growth, including the backward products in (T1), A.1 supplies
+the extension by smooth clipping and \(L^2\) completion. Its proof chooses
+one fixed approximation before taking width to infinity and then removes
+the approximation, so no growing-program assertion is introduced here.
+The response formulas for these fixed neural programs are those in A.2:
+bounded derivatives of tanh and its derivative meet the stated hypotheses.
+
+As a result all rational finite laws and rational-mesh Euler calculations,
+their finite unions and full first-row updates belong to one common action
+realization. A countable list of additional finite laws may equally be
+included. Alternatively the preceding completion represents each of their
+fixed calculations directly. This construction also includes any finite
+list of passive input directions. There is no data-law-dependent arbitrary
+extension of the initialized operator and no comparison of a finite matrix
+to a population operator in operator norm.
+
+Different causal enumerations have the same finite generated laws because
+their finite arrays agree. Their generated spaces are therefore identified
+by the \(L^2\) isometry sending each named coordinate expression to its
+counterpart. The isometry preserves coordinate operations and intertwines
+the actions and adjoints. This is the precise canonical-realization claim.
+
+##### 3. Continuity of the field and integration against a law
+
+Use the common ball B=24, velocity bound V and first-exit interval (T4)–(T5).
+The forward state/input comparison, including predictions, is (T8)–(T9).
+These estimates hold for all laws and do not involve Gram inverses.
+
+The backward fields are jointly continuous in \((\theta,x)\) with values
+in the corresponding \(L^2\) spaces. Here is the necessary product detail.
+For \(Z_j\to Z\), \(Q_j\to Q\) in \(L^2\), and bounded continuous \(b\),
+
+\[
+ b(Z_j)Q_j-b(Z)Q=b(Z_j)(Q_j-Q)+(b(Z_j)-b(Z))Q.
+\]
+
+The first term tends to zero in \(L^2\). For the second, restrict to
+\(|Q|\le M\), use bounded convergence in probability there, and bound the
+complement by \(2\|b\|_\infty\|Q1_{|Q|>M}\|_2\).
+Let \(j\to\infty\) and then \(M\to\infty\). Apply this first to
+\(\delta^2\), then use operator/adjoint continuity for \(P^1\), and then
+apply it to \(\delta^1\). The same argument works when \(x_j\to x\).
+Compactness of the circle shows that for \(\theta_j\to\theta\) this
+continuity is uniform over \(x\): a contrary sequence has a subsequence of
+inputs converging to one input, contradicting joint continuity.
+
+Each integrand in (T2) is therefore continuous as a Banach-valued function
+of \(z=(x,y)\) on the compact data space. Its range is compact and hence
+separable; uniform boundedness makes it Bochner integrable. This argument
+also resolves measurability despite the possibly nonseparable ambient
+operator space. The middle integrand can in fact be integrated in the
+Hilbert–Schmidt norm, since
+\(\|v\otimes h\|_{\rm HS}=\|v\|_2\|h\|_2\) and the corresponding
+rank-one difference bound is the same in that norm. Thus every learned
+increment of a strong solution constructed below is Hilbert–Schmidt;
+\(A_0\) itself need not be.
+
+We shall use joint continuity
+
+\[
+ \theta_j\to\theta,\quad\mathcal W_1(\mu_j,\mu)\to0
+ \quad\Longrightarrow\quad
+ F_{\mu_j}(\theta_j)\to F_\mu(\theta)\text{ in }\mathcal E.
+\tag{P9}
+\]
+
+To prove it, uniform continuity just established makes the change in the
+integrand caused by \(\theta_j\to\theta\) uniformly small on \(\mathcal Z\).
+For the remaining fixed continuous Banach-valued function \(g\), take a
+coupling with mean distance \(q_j+o(1)\to0\). If
+\(\omega_g(a)=\sup_{d(z,z')\le a}\|g(z)-g(z')\|\), then
+
+\[
+ \left\|\int g\,d\mu_j-\int g\,d\mu\right\|
+ \le\omega_g(a)+2\|g\|_\infty(q_j+o(1))/a.
+\]
+
+First let \(j\to\infty\) and then \(a\downarrow0\). This proves (P9)
+without invoking differentiability of a nonlinear map on all of \(L^2\).
+
+##### 4. Finite reference flows and the comparison estimate
+
+For a fixed finite probability law
+\(\nu=\sum_{a=1}^m\omega_a\delta_{(x_a,y_a)}\), discard zero weights
+and combine identical atoms if desired. For each rational mesh \(\Delta>0\)
+construct the full-state Euler recursion
+
+\[
+ \theta^\Delta_{\nu,k+1}=\theta^\Delta_{\nu,k}
+                 +\Delta F_\nu(\theta^\Delta_{\nu,k}),\qquad
+ \theta^\Delta_{\nu,0}=\theta_0,
+\tag{P10}
+\]
+
+and interpolate the three parameters linearly between its grid points.
+At every separately fixed mesh there are finitely many calls. Expanding
+the learned middle action as a finite sum of rank-one increments rewrites
+these calls using only \(A_0,A_0^*\), coordinate maps and deterministic
+population contractions. These are the fixed neural programs represented
+in Section 2. Each contraction is computed from earlier generated nodes;
+no prospective trajectory value is supplied. The full first-row update
+is included literally in this recursion. Projection on \(u_b\) gives
+the first equation of C.2, since \(u_a\cdot u_b=G_{ab}\). Thus its
+active fields obey precisely the equations to which that lemma applies,
+without requiring the active directions to span \(\mathbb R^2\).
+All full-row Euler velocities have the bound (T4)–(T5).
+
+The C.2 response bound applies here with \(L=d=2\),
+\(|G_{ab}|\le1\), marginal first preactivation variance one, zero population
+readout, bounded tanh and its first two derivatives, and all mobilities one.
+The preliminary source RMS and residual bounds are (T4). Its complete
+weighted argument supplies numbers \(\gamma_0,C_0,T_{\rm response}>0\), depending
+only on these bounds and \(Y\), for which every separately fixed finite law
+and all its Euler mesh states satisfy
+
+\[
+ \sup_{\Delta}\sup_{k\Delta\le T_*}\max_a
+ \mathbb E_1 e^{\gamma_0|P^1_{\theta^\Delta_{\nu,k}}(x_a)|^2}\le C_0,
+ \qquad \sup_{\Delta}\sup_{k\Delta\le T_*}
+ \mathbb E_2 e^{\gamma_0|c^\Delta_{\nu,k}|^2}\le C_0,
+\tag{P11}
+\]
+
+where
+\(0<T_*\le\min(T_{\rm ball},T_{\rm response})\).
+The constants do not depend on \(m\), the atom weights or Gram rank.
+The C.2 proof uses weighted sums of individual subGaussian marginal bounds;
+it makes no estimate of a maximum over a data set or Gaussian history.
+The full-row updates change none of its active projected recursions.
+C.2's hypotheses therefore remain exactly verified.
+
+For later use, define the *integrated individual tail norm*
+
+\[
+ \tau_\nu(\bar\theta,R)=
+ \|\bar c1_{|\bar c|>R}\|_2+
+ \int\|P^1_{\bar\theta}(x)1_{|P^1_{\bar\theta}(x)|>R}\|_2\,d\nu(x,y).
+\tag{P12}
+\]
+
+Section C.4.1 proves, at finite width and on these population spaces,
+
+\[
+ \|F_\mu(\theta)-F_\nu(\bar\theta)\|_{\mathcal E}
+ \le C(1+R)\bigl(D(\theta,\bar\theta)+\mathcal W_1(\mu,\nu)\bigr)
+       +C\tau_\nu(\bar\theta,R).
+\tag{P13}
+\]
+
+Its proof couples \((x,y)\) with \((x',y')\), uses (T8)–(T9), cuts off only
+the reference backward factors, and includes the explicit changed input
+factor in \(\delta^1(x)u-\bar\delta^1(x')u'\).
+In particular no Gaussian tail bound for \(\theta\) is a hypothesis.
+From (P11) the Euler-grid reference tails are bounded by
+\(C e^{-cR^2}\). Compare two Euler interpolants for the same finite law.
+At time \(t\), each assigned velocity uses its preceding grid state.
+Their grid-state distance is at most their interpolant distance plus
+\(V(\Delta+\Delta')\), by (T4)–(T5). Apply (P13) at these grid states,
+integrate, and use scalar Gronwall. With fixed \(a,c,C>0\),
+
+\[
+ \sup_{t\le T_*}D(\theta^\Delta_\nu(t),\theta^{\Delta'}_\nu(t))
+ \le Ce^{aR}\bigl((1+R)(\Delta+\Delta')+e^{-cR^2}\bigr).
+\tag{P13a}
+\]
+
+Fix \(R\), send the meshes to zero, and then send \(R\to\infty\).
+The paths are Cauchy in the complete full-state path space. Their limit
+\(\theta_\nu\) satisfies the strong integral equation (P5): the
+preceding grid states converge uniformly to this continuous path, and
+continuity of \(F_\nu\), uniformly on this convergent family of compact
+path ranges, passes their integrated assigned velocities to
+\(\int_0^t F_\nu(\theta_\nu(s))ds\). This also proves strong \(C^1\)
+regularity. At a fixed time, the reference backward fields at preceding
+grid states converge in \(L^2\) by Section 3. Taking an almost surely
+convergent subsequence and applying Fatou to (P11) transfers its bounds
+to the finite-law flow. Hence
+\(\tau_\nu(\theta_\nu(t),R)\le C e^{-cR^2}\), uniformly in time.
+
+Integrating (P13) for two resulting finite-law solutions from their common
+initial state now gives
+
+\[
+ \sup_{t\le T_*}D(\theta_\lambda(t),\theta_\nu(t))
+ \le C e^{aR}\bigl((1+R)\mathcal W_1(\lambda,\nu)+e^{-cR^2}\bigr),
+ \qquad R\ge1.
+\tag{P14}
+\]
+
+For completeness, set \(L_R=C(1+R)\) and
+\(b_R=C(1+R)q+C e^{-cR^2}\). The integral inequality is
+\(D(t)\le\int_0^t(L_RD(s)+b_R)ds\).
+Iterating it, or differentiating its scalar upper comparison, gives
+\(D(t)\le b_R t e^{L_Rt}\), which is (P14).
+
+##### 5. Completion in the training law and identification of the equation
+
+Every probability measure on the compact \(\mathcal Z\) admits finitely
+supported approximations \(\nu_j\) with \(\mathcal W_1(\nu_j,\mu)\le1/j\):
+take a finite \(1/j\)-net, partition measurably by the first nearest eligible
+net point, and move the measure in each cell to that point. The transport
+cost is at most \(1/j\); no boundary-zero assumption is needed. One may
+choose the net points from a fixed countable dense set of input angles and
+labels. The finite laws' weights need not be rational.
+
+For fixed \(R\), (P14) bounds the limiting Cauchy error by
+\(C e^{aR-cR^2}\). Let \(R\to\infty\). Thus \(\theta_{\nu_j}\) is
+Cauchy in \(C([0,T_*];\mathcal E)\), which is complete. Let
+\(\theta_\mu\) be its limit. It stays in the common ball and its forward
+fields converge uniformly in time and input by (T8)–(T9).
+
+The vector fields converge uniformly in time:
+
+\[
+ \sup_{t\le T_*}\|F_{\nu_j}(\theta_{\nu_j}(t))-
+                         F_\mu(\theta_\mu(t))\|_{\mathcal E}\to0.
+\tag{P15}
+\]
+
+Indeed a contrary subsequence has times \(t_j\to t\). Uniform state
+convergence and continuity of the limiting curve give
+\(\theta_{\nu_j}(t_j)\to\theta_\mu(t)\), so (P9) contradicts the
+nonvanishing field difference. Equation (P15) passes the finite-law integral
+equations to (P5). The field there is continuous in time, so the result is
+a strongly \(C^1\) solution. This proves existence of the autonomous
+equation, rather than only Cauchy convergence of its scalar predictions.
+
+It remains to transfer the tails in exactly the strength needed for
+uniqueness. For fixed \(t\), backward continuity in Section 3 gives
+
+\[
+ \sup_x\|P^1_{\nu_j}(t,x)-P^1_\mu(t,x)\|_2\to0,
+ \qquad \|c_{\nu_j}(t)-c_\mu(t)\|_2\to0.
+\tag{P16}
+\]
+
+For \(M<\infty\), the function
+\(b_M(s)=\min\{e^{\gamma_0s^2},M\}\) is bounded and globally Lipschitz.
+Equation (P16) therefore shows uniform-in-input convergence of its
+expectations. The function
+\(x\mapsto\mathbb E_1 b_M(P^1_\mu(t,x))\) is continuous, so weak
+convergence of \(\nu_j\) passes its integral to \(\mu\). From (P11),
+
+\[
+ \int\mathbb E_1 b_M(P^1_\mu(t,x))\,d\mu(x,y)\le C_0.
+\]
+
+Let \(M\uparrow\infty\) by monotone convergence. The same argument for
+the readout proves
+
+\[
+ \sup_{t\le T_*}\int\mathbb E_1 e^{\gamma_0|P^1_\mu(t,x)|^2}\,d\mu(x,y)
+ \le C_0,
+ \qquad
+ \sup_{t\le T_*}\mathbb E_2 e^{\gamma_0|c_\mu(t)|^2}\le C_0.
+\tag{P17}
+\]
+
+The supremum is legitimate because the preceding argument holds separately
+for every \(t\) with the same constants. No common almost-sure bound on
+all times or inputs is asserted. In particular (P17) is an *integrated*
+input-law bound, not a pointwise continuum-wide subGaussian statement.
+
+The elementary bound
+\(s^2 1_{|s|>R}\le C e^{-\gamma_0R^2/2}e^{\gamma_0s^2}\), followed by
+Cauchy–Schwarz over \(\mu\), implies
+
+\[
+ \sup_{t\le T_*}\tau_\mu(\theta_\mu(t),R)\le C e^{-cR^2}.
+\tag{P18}
+\]
+
+This is precisely the reference-tail estimate used by (P13).
+
+##### 6. Uniqueness, restart and quantitative law continuity
+
+Let \(\widetilde\theta\) be any other strong solution of (P5) on the
+same initialized spaces with initial state \(\theta_0\). Its components
+are continuous in the topology (T3), its integrals have the meaning in (T2),
+and no tail condition is imposed on it. The first-exit bound (T5)
+keeps it in the common ball. Apply (P13) with \(\mu=\nu\), constructed
+\(\theta_\mu\) as reference, and (P18). Gronwall gives
+
+\[
+ \sup_{t\le T_*}D(\widetilde\theta(t),\theta_\mu(t))
+ \le C e^{aR-cR^2}\quad\hbox{for every }R\ge1.
+\]
+
+Sending \(R\to\infty\) proves equality. It also proves independence of
+the chosen finite-law approximating sequence: (P14) applied across two
+approximating sequences gives the same conclusion directly.
+
+For any two arbitrary laws, (P13) and (P18) prove (P14) with
+\((\lambda,\nu)\) replaced by \((\mu,\nu)\). For
+\(0<q=\mathcal W_1(\mu,\nu)\le1\), choose
+
+\[
+ R=K\sqrt{\log(e/q)},\qquad K\ge1,\qquad cK^2\ge2.
+\]
+
+Then \(e^{-cR^2}\le q^2\), while
+\(1+K\sqrt{\log(e/q)}\le C e^{C\sqrt{\log(e/q)}}\).
+Substitution yields
+
+\[
+ \sup_{t\le T_*}D(\theta_\mu(t),\theta_\nu(t))
+ \le Cq\exp\bigl(C\sqrt{\log(e/q)}\bigr).
+\tag{P19}
+\]
+
+Constants depend only on \(Y\) and the frozen model and support bounds.
+For \(q=0\), the laws coincide and the solutions are identical; the right
+side is interpreted as its zero limit. For \(q>1\), the common ball gives
+\(D\le6B\), and in particular \(D\le6Bq\). The training-law distance \(\mathcal W_1\) is at most \(2+2Y\).
+
+Equation (T8)–(T9) now proves the requested whole-input prediction bound and,
+more strongly, the same modulus for the \(L^2\) displacement between
+the two forward hidden fields, uniformly over time and the circle.
+For \(q>1\) the prediction difference is at most \(2B\).
+
+The equation depends only on the current \((w,A,c)\), its coordinate
+functions and the fixed training law. At a time \(s<T_*\), restrict the
+constructed path to \([s,T_*]\). The preceding uniqueness argument applied
+on this interval, with initial distance zero and this path as reference,
+gives unique restart among strong solutions staying on the common ball.
+No extra response history must be supplied. More intrinsically, close the
+current full-row coordinates, readout, actions and adjoints under the same
+coordinate operations; their generated \(L^2\) spaces contain their
+subsequent Euler constructions and limits. To justify this last statement
+without presupposing Gaussian tails for restarted Euler trajectories,
+compare such an Euler trajectory directly against the existing solution
+as reference. At each time its preceding grid state differs from its
+interpolated state by at most \(V\Delta\). Equation (P13), with reference
+tails (P18) at that time, gives the upper error
+\(Ce^{aR}((1+R)\Delta+e^{-cR^2})\). Sending \(\Delta\to0\) and then
+\(R\to\infty\) proves convergence to the reference continuation. The
+Euler law integrals also stay in the generated spaces: their continuous
+integrands are limits of finite weighted sums using a dense countable
+set of input directions, and the generated spaces are closed.
+Equal current generated joint laws define the isometry described in
+Section 2 and intertwine the equation. Uniqueness identifies their future
+laws. This is a restart claim
+on the constructed local interval, not global-time well-posedness from
+every arbitrary operator state.
+
+
+
+#### C.4.3. Actual GD, simultaneous limits and statistics
+
+##### 1. Uniform finite initialization and the common ball
+
+Use `S0=11`, `B=24`, the velocity bound V and the first-exit interval
+(T5) from Section C.4.1. The event bounding all initialized block norms
+has probability tending to one and depends only on the initialization.
+In particular the actual finite readout satisfies
+
+\[
+ \mathbb E\frac{\|W^{(3)}_{n,0}\|_2^2}{n}=n^{-2}.
+\tag{A1}
+\]
+
+The bounds (T4)–(T5) apply to every training law and every sufficiently
+small actual GD mesh. Use a fixed enlarged comparison ball for the proxy
+below, reducing the common T_* if needed. This keeps every constant
+independent of the actual dataset, width and step; no finite-GD energy
+inequality is assumed.
+
+##### 2. The fixed finite reference proxy
+
+Fix a finite probability law
+`nu=sum_(b=1)^J omega_b delta_(u_b,y_b)`, positive weights summing to one,
+and a positive rational proof mesh Delta. These remain fixed as n tends
+to infinity. Let the population Euler states for nu and Delta be denoted
+`Theta^(nu,Delta)_s`. They use zero initial population readout.
+
+Use the same initialized first and middle arrays as actual GD. Construct
+the following finite deterministic-coefficient oracle: replace its scalar
+residuals and within-layer contractions by the corresponding population
+Euler values, expand the trained middle matrix into initialized action
+plus accumulated rank-one updates, and perform the resulting finite list
+of actions and coordinate operations. Denote its nodes by superscript o.
+The oracle readout root is zero. Define actual finite proxy parameters by
+
+\[
+\begin{split}
+ \bar W^1_{n,k}&=W^1_{n,0}
+ -2\Delta\sum_{s<k,b}\omega_b r_{b,s}
+               \delta^{1,o}_{b,s}u_b^T,\\
+ \bar W^2_{n,k}&=W^2_{n,0}
+ -\frac{2\Delta}{n}\sum_{s<k,b}\omega_b r_{b,s}
+               \delta^{2,o}_{b,s}(h^{1,o}_{b,s})^T,\\
+ \bar W^3_{n,k}&=W^3_{n,0}
+ -2\Delta\sum_{s<k,b}\omega_b r_{b,s}h^{2,o}_{b,s}.
+\end{split}\tag{A3}
+\]
+
+Interpolate these parameters linearly. In particular the proxy and actual
+network have exactly the same initial arrays, including the random readout.
+The small readout in (A3) is an additive parameter term, and not a change to
+the actual algorithm. Its RMS tends to zero by (A1) and Markov's inequality.
+
+At fixed `(nu,Delta)` the program has finitely many instructions. The
+fixed-program theorem III.F.1–7 and global-nonlinear A.1–2 apply: tanh is
+smooth with bounded first two derivatives, the gates are bounded smooth
+functions times L2 fields, and the roots are Gaussian. Every same-layer
+tuple and second moment of oracle nodes converges in probability. For a
+proxy middle action applied to an oracle node, its discrepancy from the
+prescribed oracle action is a finite sum of terms
+
+\[
+ -2\Delta\omega_b r_{b,s}\delta^{2,o}_{b,s}
+ \left[\frac{(h^{1,o}_{b,s})^Th^{1,o}_{a,k}}n
+             -\mathbb E_1(H^1_{b,s}H^1_{a,k})\right].
+\tag{A4}
+\]
+
+Each bracket tends to zero; each multiplying node has bounded RMS in
+probability. The transpose expansion has the same form with the corresponding
+backward contraction. First-row oracle consistency is exact for its input
+projections, since (A3) retains the whole root row and exact factors u_b.
+Forward induction and (A4) give consistency of recomputed proxy forward
+fields. Recomputed proxy backward fields converge by descending induction:
+for any reference oracle field p, with the fixed activation phi=tanh,
+
+\[
+ \|[\phi'(z)-\phi'(\bar z)]p\|_2
+ \le 2R\|z-\bar z\|_2+2\|p\mathbf1_{|p|>R}\|_2.
+\tag{A5}
+\]
+
+For each fixed cutoff take n to infinity using oracle cutoff second moments;
+then remove that cutoff. This controls the only unbounded multiplier. The
+readout discrepancy in this step includes exactly the vanishing RMS in (A1).
+Thus assigned proxy velocities differ from `F_nu(barTheta_n,k)` by o_P(1)
+uniformly over the fixed finite coarse grid in D_n's block norm.
+
+More precisely, for each fixed cutoff R, the reference tail sum satisfies
+
+\[
+ \max_k\sum_b\omega_b\sum_{\ell=1}^2
+ \frac{\|\bar P^\ell_{b,k}
+             \mathbf1_{|\bar P^\ell_{b,k}|>R}\|_2}{\sqrt n}
+ \le C e^{-cR^2}+o_{\mathbb P}(1).
+\tag{A6}
+\]
+
+Here and subsequently an inequality with o_P(1) means its positive excess
+over the deterministic bound tends to zero in probability. To verify (A6)
+without a discontinuous-test assertion, use
+`||v 1_|v|>R|| <= 2||v-p|| + 2||p 1_|p|>R/2||`, and dominate the latter
+by a continuous positive-part cutoff at R/4. The oracle cutoff moments
+converge; C.2 bounds their population values by a Gaussian tail. Constants
+are enlarged and c reduced once. These are individual weighted tails.
+
+The proxy full-row and readout norms and its rank-one velocity norms are
+bounded, with limiting upper bounds uniform in Delta and nu. For the middle
+block use its initial norm plus the sum of the normalized rank-one norms
+in (A3); their limiting total is bounded by the integral velocity bound.
+For first rows and readout use the same triangle inequality and the full
+root-row second moment. These observations place the proxy in a fixed
+enlarged comparison ball and bound its interpolation speed independently
+of Delta, with probability tending to one at fixed `(nu,Delta)`.
+
+##### 3. Direct comparison with arbitrary growing data and every vanishing step
+
+Let lambda_k be arbitrary deterministic finite probability laws such that
+`W1(lambda_k,mu)->0`, let `n_k->infinity`, and let `eta_k->0`. The atom count
+and weights of lambda_k are unrestricted. Choose the fixed reference nu above
+so that `W1(mu,nu)<=delta`. At each time compare actual GD's preceding fine
+state with the proxy's preceding coarse state. Their D_n distance is bounded
+by their interpolant distance plus `C(eta_k+Delta)`. The transport estimate
+of Section C.4.1, (A6), and the assigned-velocity error give
+
+\[
+\begin{split}
+\sup_{t\le T_*}D_{n_k}(\Theta^{GD}_{k}(t),\bar\Theta^{nu,\Delta}_{n_k}(t))
+\le C e^{aR}\bigl[(1+R)
+ \{\eta_k+\Delta+\mathcal W_1(\lambda_k,\nu)\}
+ +e^{-cR^2}+o_{\mathbb P}(1)\bigr].
+\end{split}\tag{A7}
+\]
+
+This follows by integrating assigned velocities and iterating
+`E(t)<=C(1+R) integral_0^t E(s)ds + b`; the exponential series bounds E by
+`b exp(C(1+R)T_*)`. Initial discrepancy is zero. The o_P(1) is at fixed
+`(nu,Delta,R)`. The first-exit ball in section 1 already bounds actual GD
+using only initialized arrays; no Gaussian tail theorem is applied to it.
+In particular no maximum over lambda_k's observations or fine GD history
+occurs. The same proof would cover GF with eta_k=0.
+
+On the comparison ball, all forward fields in RMS and scalar predictions
+are uniformly Lipschitz in the full state and in u, and uniformly Lipschitz
+in time along parameter interpolants of bounded speed. For instance
+`||z1(u)-z1(v)||<=B|u-v|`,
+`||z2(u)-z2(v)||<=B²|u-v|`, and `|f(u)-f(v)|<=B³|u-v|`.
+The normalized finite versions are identical. A fixed finite input net,
+then a fixed finite time net, therefore transfers fixed-program proxy
+prediction convergence to
+
+\[
+ \sup_{t\le T_*,u\in S^1}
+ |\bar f^{nu,\Delta}_n(t,u)-f^{nu,\Delta}(t,u)|
+ \longrightarrow0\quad\hbox{in probability}.
+\tag{A8}
+\]
+
+At each chosen time and passive input, append its forward evaluation to the
+same fixed oracle program. Proxy recomputation follows (A4); at an interior
+coarse time the parameters have the affine coefficients from (A3). This
+identifies precisely the prediction of the population parameter interpolant,
+rather than interpolation of predictions. Its Lipschitz bounds justify the
+two nets and remove them after the fixed-program width limit.
+
+The population comparison gives
+
+\[
+ \sup_t D(\Theta^{nu,\Delta}(t),\Theta_\mu(t))
+ \le C e^{aR}\{(1+R)(\Delta+\delta)+e^{-cR^2}\}.
+\tag{A9}
+\]
+
+Combining (A7)–(A9), `W1(lambda_k,nu)<=W1(lambda_k,mu)+delta`, and forward
+Lipschitz continuity proves the required convergence. The order is explicit:
+take k to infinity at fixed delta, fixed finite nu, fixed Delta and R;
+send Delta to zero; send delta to zero through finite reference laws;
+then send R to infinity. Equivalently, for a desired positive error choose
+R first sufficiently large for the Gaussian remainder, then delta and Delta
+small enough, and only afterwards take k large. No program whose length
+grows with k is passed through a fixed-program theorem. There is no
+comparison in operator norm between different spaces or different widths.
+
+
+<!-- END EXACT DEPENDENCY -->
+
+
+<!-- BEGIN EXACT DEPENDENCY: C.4.5 including .1–3: complete substantial-learning statement, reference, tails, exact certificate and actual-GF comparison -->
+
+#### C.4.5. Robust whole-circle prediction after substantial learning
+
+This theorem extends the prediction and risk scope of the local C.4 result by comparison with one fitted reference. It does not extend the local population-flow theorem for arbitrary laws. Section [C.4.7](#c47-nonlinear-training-near-the-fitted-tanh-reference) separately constructs nonlinear changed-law population dynamics near the fitted reference through T=40. The raw-GD conclusion below retains its stated step condition and endpoint scope. Equation numbers are local to each of the statement and three proof units below.
+
+##### Exact statement
+
+Use two tanh hidden layers of common width n, input dimension two, no biases,
+and the stored-weight forward map
+\[
+ z^1=W^1x/\sqrt2,\quad h^1=\tanh z^1,\quad
+ z^2=W^2h^1,\quad h^2=\tanh z^2,\quad f_n=(W^3)^Th^2/n.
+\]
+Initialize all entries/blocks independently, centered Gaussian with variances
+(1,1/n,1/n²). Train all blocks with mobilities (n,1,n), unhalved mean squared
+loss and physical time. Raw GD updates all stored blocks from the preceding
+state; interpolate raw weights linearly and recompute activations.
+The actual finite initial readout is retained.
+
+Let Z=sqrt(2)S¹ x {-1,+1}, with joint transport cost
+|x-x'|/sqrt(2)+|y-y'|, and set
+\[
+ \nu_*=\tfrac12\delta_{(\sqrt2e_1,1)}
+       +\tfrac12\delta_{(\sqrt2e_2,-1)},\qquad
+ T=40,\qquad \delta=\exp\{-\exp(3000)\}.                         \tag{1}
+\]
+
+The population reference has a unique global autonomous flow on its canonical
+Gaussian action spaces. Its whole-circle predictor tends to a continuous
+limit f_*^infinity. To characterize this endpoint, solve the autonomous
+feature equation in Section C.4.5.1 (R4)–(R5), starting from the full independent
+standard Gaussian first row, the actual initialized middle Gaussian action
+and its adjoint, and zero limiting readout. Stop at the unique first feature
+time s_dagger at which b=<c,(H2_1-H2_2)/2>=1; evaluate that state on every
+circle input. Then 0<s_dagger<=10, and
+\[
+ \sup_x|f_*(t,x)-f_*^\infty(x)|\le17\sqrt{10}e^{-t/5},\qquad
+ R_{\nu_*}(f_*(t))\le e^{-2t/5}.                               \tag{2}
+\]
+The endpoint interpolates the reference labels, is odd under x->-x, and
+satisfies f∞(Px)=-f∞(x) when P swaps input coordinates. Its input Lipschitz
+constant in x/sqrt(2) is less than 76. This specifies the selected prediction
+through the actual dynamics; it asserts no uniqueness among interpolants.
+
+For every fixed law mu with W1(mu,nu_*)<delta, let lambda_k be any deterministic
+empirical laws converging to mu in W1. Their observation counts, support
+degeneracies and atom weights have no further restrictions. Take n_k->infinity
+and eta_k>0 with eta_k sqrt(n_k)->0; put t_k=floor(T/eta_k)eta_k. Then
+\[
+ \Pr\left\{
+ \sup_{x\in\sqrt2S^1}|f_{n_k,\eta_k,\lambda_k}(t_k,x)-f_*^\infty(x)|\le1/4,\
+ R_\mu(f_{n_k,\eta_k,\lambda_k}(t_k))\le1/4,\
+ R_{\lambda_k}(f_{n_k,\eta_k,\lambda_k}(t_k))\le1/4
+ \right\}\longrightarrow1.                                   \tag{3}
+\]
+Probability here is over initialization. The same conclusion holds for iid
+samples of any sizes m_k->infinity from the fixed mu, independent of
+initialization, with probability over both samples and initialization.
+There is no relative sample/width growth restriction or finite-width rate.
+The displayed GD condition is sufficient; no removal is required.
+
+At the fixed physical time t_act=1/200 define the paired, training-averaged
+squared RMS displacement
+\[
+ J_{\ell,k}(t)=\int_Z\frac1{n_k}
+ \|h^\ell_{n_k,\eta_k,\lambda_k}(t,x)
+                 -h^\ell_{n_k,\lambda_k}(0,x)\|_2^2\,d\lambda_k(x,y).
+                                                                    \tag{4}
+\]
+The two times use the same network and neuron indices, not a coupling chosen
+between marginal laws. In both deterministic and iid settings,
+\[
+ \Pr\{J_{1,k}(t_{\rm act})\ge10^{-13},\
+       J_{2,k}(t_{\rm act})\ge10^{-13}\}\longrightarrow1.        \tag{5}
+\]
+Thus both paired RMS norms exceed sqrt(10^-13) independently of width/sample
+count. This holds jointly with (3). One may replace t_act by its preceding
+GD node, by the same bounded-velocity estimate. No displacement at T is
+claimed. The opposite-label reference itself has each averaged paired RMS
+strictly greater than 1/2500000 at t_act.
+
+##### Strict numerical margins and transfer
+
+The exact rational Gaussian certificate gives m>=1/10. The reference proof
+gives
+\[
+ 17\sqrt{10}e^{-8}<.019<1/32,\qquad e^{-16}<1/1024.             \tag{6}
+\]
+In Section C.4.5.3 choose
+\[
+ B=12,\quad K=40000000,\quad d_0=10^{-18},\quad R=e^{2900},\quad
+ M_Q=225400e^{2880}+180,\quad H=16(4+M_Q).                     \tag{7}
+\]
+The elementary bounds M_Q<e^2893, H<e^2897, K<e^18,
+1+R<e^2901 and R²/4096>e^5791 give R>4M_Q+20 and R>101. Therefore
+\[
+ \log\{KH e^{K(1+R)-R^2/4096}\}
+ <2915+e^{2919}-e^{5791}<-100,
+\]
+\[
+ \log\{K(1+R)e^{K(1+R)}\delta\}
+ <2919+e^{2919}-e^{3000}<-100.                                \tag{8}
+\]
+For example e>2 already separates the last exponentials by far more than
+3019. Also e^-100<10^-18/4, using the single positive term 100^16/16! in
+the series for e^100. These are the two strict bounds in Section C.4.5.3 (15).
+The same estimates give
+\[
+ L_{\rm risk}\delta<1/256,\quad 8B^2\delta<10^{-18},
+ \qquad L_{\rm risk}=44928.                                  \tag{9}
+\]
+
+Compare actual GD to actual finite GF on nu_* with the same initialized
+arrays. Since limsup W1(lambda_k,nu_*)<delta, the stopped comparison gives
+\[
+ \left(\sup_{t\le40}D_{n_k}(\theta_{GD,k}(t),\bar\theta_{n_k}(t))
+                                       -d_0/2\right)_+
+ \longrightarrow0\quad\hbox{in probability}.                 \tag{10}
+\]
+Its complete proof, including the finite actual-state bounds, initial
+readout, reference tails, auxiliary-mesh order and stopping argument, is
+Section C.4.5.3. The reference is raw GF, so its raw-field defect is zero.
+Transformed Euler is used only as an auxiliary width-identification tool.
+
+Whole-circle reference convergence and the full-state estimates imply
+\[
+ \left(\sup_x|f_k(T,x)-f_*^\infty(x)|-1/16\right)_+
+ \longrightarrow0\quad\hbox{in probability},                 \tag{11}
+\]
+because the deterministic bound is .019+B²d0<1/16. The circle extension uses
+the full first row and uniform input Lipschitz bounds. Replacing T by t_k
+costs at most a fixed state-speed/prediction constant times eta_k.
+The finite predictor is bounded by 12 and Lipschitz in normalized input
+with constant 1728 on the comparison event. Its squared-loss integrand has
+joint Lipschitz constant Lrisk. At the reference atoms f∞ equals the label.
+Thus (9),(11) give
+\[
+ (R_\mu(f_k(t_k))-1/128)_+\longrightarrow0,\quad
+ (R_{\lambda_k}(f_k(t_k))-1/128)_+\longrightarrow0
+                      \quad\hbox{in probability}.            \tag{12}
+\]
+The two deterministic contributions are (1/16)² and Lrisk delta<1/256;
+for the empirical risk use W1(lambda_k,nu_*)<=delta+o(1). These strict
+bounds prove (3), not just convergence to its thresholds. Both limiting
+initial binary-label risks are one, because the initial predictor is
+uniformly bounded by the vanishing readout RMS.
+
+For activity, changing the evolved state with initialization fixed changes
+the paired squared-displacement integrand by at most 4(B+1)D_n. Changing
+its input changes it by at most 8B²|u-v|. These follow from displacement
+RMS<=2 and the forward input/state bounds in Section C.4.5.3. Coupling lambda_k
+to nu_*, retaining the separate paired-observable reference convergence,
+and using its strict RMS margin gives
+\[
+ J_{\ell,k}(t_{\rm act})\ge(1/2500000)^2-2(B+1)d_0-8B^2\delta
+                                            -o_{\mathbb P}(1).       \tag{13}
+\]
+The deterministic right side exceeds 1.59*10^-13, proving (5) with slack.
+The opposite-label activity computation is proved anew in Section C.4.5.1;
+C.4's equal-label example is not substituted for it.
+
+For iid samples, compact Borel partitions and the variance bound for each
+empirical cell mass prove W1(lambda_k,mu)->0 in probability, as detailed
+in Section C.4.5.3. Its other random events involve only the fixed reference
+and initialization. Union bounds give (3),(5) in joint probability.
+Each claim is for every fixed mu and sequence. No uniform failure probability
+over laws, almost-sure joint limit, global population flow for mu or endpoint
+for mu is asserted.
+
+##### Geometric meaning, scale and limitations
+
+An admitted nonorthogonal law moves the second reference input by the angle
+a=delta/2, retaining its label and the first atom. Its cost is at most
+a/2=delta/4; the off-diagonal input Gram is -sin(a), which is nonzero.
+
+For an admitted nonatomic law replace each input atom by uniform arc length
+on the arc of angular radius a=delta/4 around it, retaining its associated
+label, and then flip each binary label independently with probability
+p=delta/8. The coupling costs at most a+2p=delta/2<delta. More generally
+a+2p<delta suffices; arbitrary extra contamination of mass rho costs at most
+4rho. Thus no orthogonality, two-atom, Gram-inverse or weight-lower-bound
+condition is imposed on perturbed laws.
+
+The explicit radius is mathematically positive, but extremely small:
+\[
+ \log_{10}(1/\delta)=e^{3000}/\log 10,\qquad
+ \log_{10}\log_{10}(1/\delta)
+ =3000/\log 10-\log_{10}(\log10)\approx1302.52.
+\]
+This is far below a practically useful neighborhood. The dominant loss is
+the fresh-root stability exponential followed by a cutoff comparison.
+A bounded targeted improvement used the reference energy path length and
+integrated a time-dependent coefficient, reducing the response exponent
+to 2880. Its conservatism is likely substantial; its sharpness is not
+assessed by this proof. No training experiment or parameter sweep was run.
+
+The theorem establishes whole-circle robustness after substantial risk
+reduction for an open family with nonlinear moving hidden features. It
+does not show that feature motion causes that reduction, superiority to
+linear or frozen-feature learning, or useful risk on a uniform-circle
+teacher distribution. It gives no arbitrary-accuracy guarantee for one
+fixed perturbed law. A radius shrinking with accuracy would not give that
+stronger conclusion.
+
+
+
+##### C.4.5.1. The opposite-label reference and its endpoint
+
+###### 1. Full state and exact feature equation
+
+Put `u=x/sqrt(2)`. Work on the canonical generated probability spaces
+`H_1=L2(Omega_1)` and `H_2=L2(Omega_2)` with the initialized bounded
+Gaussian action `A_0:H_1->H_2` and its actual adjoint. Its operator norm is
+at most two, by A.3. The full first row is `w=(w_1,w_2)`, initially
+`(g_1,g_2)` with independent standard normal coordinates. The population
+readout is `c(0)=0`; this is the limit of the specified finite random
+readout, not a modification of finite initialization. Write `A=A_0+K`.
+The increment metric is
+
+\[
+ \|(v,B,d)\|_{\rm raw}^2
+ =\|v\|_{L^2(\Omega_1;\mathbb R^2)}^2+\|B\|_{\rm HS}^2+\|d\|_2^2.       \tag{R1}
+\]
+
+Only the increment `K` is Hilbert–Schmidt. Its finite counterpart is exactly
+`||dW1||F²/n+||dW2||F²+||dW3||²/n`. This follows because rank-one population
+operators have finite representative `uv^T/n` and HS norm `||u||2||v||2`.
+
+Let `phi=tanh`, and, for `a=1,2`, write
+
+\[
+ Z_a^1=w_a,\quad H_a^1=\phi(w_a),\quad Z_a^2=AH_a^1,\quad
+ H_a^2=\phi(Z_a^2).
+\]
+\[
+ y_1=1,\ y_2=-1,\qquad h=\frac12(H_1^2-H_2^2),\quad
+ b=\langle c,h\rangle=\frac12(f_1-f_2).
+\]
+
+For hidden increments `(v,B)`, define the bounded linear map into `H_2`
+
+\[
+ J(v,B)=\frac12\sum_{a=1}^2y_a \phi'(Z_a^2)
+              \{BH_a^1+A(\phi'(Z_a^1)v_a)\}.                          \tag{R2}
+\]
+
+This is the directional differential of `h`; an unrestricted Frechet
+statement for an L2-valued Nemytskii map is neither used nor true in general.
+Pairing each term with a fixed `c` and using the actual adjoint gives
+
+\[
+ J^*c=\left(
+  (\tfrac12y_a \phi'(Z_a^1)A^*(\phi'(Z_a^2)c))_{a=1,2},\quad
+  \tfrac12\sum_a y_a(\phi'(Z_a^2)c)\otimes H_a^1\right).               \tag{R3}
+\]
+
+The HS adjunction is
+`<q tensor v,B>HS=<q,Bv>2`; thus (R3) uses exactly (R1).
+Consider the autonomous feature equation
+
+\[
+                 c_s=h,\qquad (w,K)_s=J^*c.                  \tag{R4}
+\]
+
+It has a unique global solution for every finite feature horizon. Here is
+the necessary specialization of B.1, including the change from its sum loss.
+Let `j(X,g)` solve `j_X=phi'(j)`, `j(0,g)=g`. Its scalar vector field is
+bounded by one and Lipschitz, so it exists for all real `X`. It obeys
+`|j(X,g)-j(Y,g)|<=|X-Y|`. Set `w_a=j(X_a,g_a)` and solve
+
+\[
+ (X_a)_s=\tfrac12y_a A^*(\phi'(Z_a^2)c),\quad
+ K_s=\tfrac12\sum_a y_a(\phi'(Z_a^2)c)\otimes H_a^1,\quad c_s=h.       \tag{R5}
+\]
+
+On bounded clock-L2/operator/readout-supremum sets these equations are
+Lipschitz in the sum of clock L2, operator norm, and readout L2 distances:
+`H1` is Lipschitz in the clock with constant one; `H2` is Lipschitz in its
+preactivation; and
+`||phi'(Z2)c-phi'(Z2bar)cbar||2<=||c-cbar||2+2||cbar||infty||Z2-Z2bar||2`.
+The rank-one difference estimate and bounded action/adjoint then control
+all three right sides. The closed readout-supremum condition is complete
+in L2 and its integral update preserves an enlarged bound on a short
+interval. Contraction of that integral map gives local existence and
+uniqueness. Moreover, directly from (R5),
+
+\[
+ \|c(s)\|_\infty\le s,\quad \|K(s)\|_{\rm HS}\le s^2/2,
+ \quad \|A(s)\|_{\rm op}\le2+s^2/2,
+\]
+\[
+ \|w(s)-w(0)\|_2
+ \le {1\over\sqrt2}\int_0^s(2+v^2/2)v\,dv.                  \tag{R6}
+\]
+
+The same bound holds for the clock norm in the last display. These
+polynomials prevent escape from the required bounded sets on every finite
+horizon; the integrated equations give a strong limit at a finite proposed
+endpoint and the same local construction extends it. Rank-one continuity
+upgrades `K` to a strongly C1 HS curve. Bounded-multiplier continuity
+upgrades `w` to a strongly C1 L2 curve and proves (R4). Conversely, the
+scalar equation `w_s=B(s)phi'(w)` has the unique representation
+`j(integral B,g)`: Fubini makes `B` integrable at almost every coordinate,
+and the scalar integral Lipschitz inequality gives uniqueness. Thus these
+are the actual raw feature equations, not an alternative optimizer.
+
+The Gaussian action used here is the canonical common action of B.1:
+countably many finite generated programs, their finite unions, both matrix
+orientations, and passive input probes are realized jointly before
+completion. Continuous at-most-linear value instructions `j` are admitted
+by A.1. The same-root Lipschitz estimate just given supplies the empirical
+feedback passage. No bounded derivative with respect to the Gaussian root
+is required. At a current state, resetting clock zero and retaining the
+current raw fields/action gives the same unique continuation, so the raw
+reference is autonomous and restartable. This construction supplies a
+complete actual-state endpoint characterization below; it encodes no
+future trained trajectory in its coefficients.
+
+###### 2. Symmetry, fitting, and the two clocks
+
+Let `P(u_1,u_2)=(u_2,u_1)`. The raw transformation
+`(w,A,c)->(wP,A,-c)` maps predictions to `-f(Pu)`. Direct substitution in
+(R3)–(R4) shows that it preserves the feature vector field, since `h`
+changes sign and the two labels exchange signs. It also preserves the
+physical vector field for the probability law
+`nu_*=1/2 delta_(e1,+1)+1/2 delta_(e2,-1)` in normalized inputs.
+The initial full-row Gaussian law is invariant under swapping its two
+coordinates; the independent initialized matrix law is unchanged and
+`c0=0` changes to itself. At the generated-action level this statement is
+obtained by adjoining the swapped version of every finite program to the
+same countable construction. Finite joint laws are invariant; hence the
+coordinate swap is a probability-space isometry that respects coordinate
+operations, the action and its adjoint. The unique integral construction
+commutes with it. Therefore the deterministic predictions satisfy
+
+\[
+                 f(Pu)=-f(u),\qquad f_1=b=-f_2.                \tag{R7}
+\]
+
+This is symmetry of the population action law, not pointwise symmetry of a
+particular finite initialized network. No such finite symmetry is assumed.
+Oddness of both activations also gives `f(-u)=-f(u)`.
+
+For the mean squared loss the reference residuals are `(b-1,1-b)`.
+The exact physical equations of C.4.1 therefore equal `2(1-b)` times
+(R4). The correct clock is
+
+\[
+                 {ds\over dt}=2(1-b),\qquad s(0)=0.           \tag{R8}
+\]
+
+To prove that this clock is legitimate through all physical times, first
+work with the globally defined feature equation. The strong curve chain
+rule gives `h_s=J(w,K)_s`. Indeed bounded continuous multiplication is
+strongly continuous on a fixed L2 vector after truncating that vector;
+the scalar fundamental theorem of calculus then proves
+`(phi(z))_s=phi'(z)z_s` for strongly C1 L2 curves. Differentiating a bounded
+operator times a strongly C1 vector by adding and subtracting its factors
+gives the ordinary product rule. Applied successively to (R2) this gives
+
+\[
+ c_{ss}=JJ^*c,\qquad
+ b_s=\|h\|_2^2+\|J^*c\|_{\rm hidden}^2
+                  =\|\theta_s\|_{\rm raw}^2.                 \tag{R9}
+\]
+
+The metric in the second term is the row-L2 plus HS hidden metric from
+(R1). No derivative of `J` is taken in (R9).
+
+Set `m=||h(0)||2²`. Initially the two first features are independent odd
+functions of independent standard normals, so their Gram is `q I_2`, where
+
+\[
+ q=E\tanh^2G,\qquad v=E\tanh^2(\sqrt qG),\qquad m=v/2.        \tag{R10}
+\]
+
+The initial second preactivations are independent `N(0,q)` by the initial
+forward Gaussian law. The elementary certificate in §5 proves
+
+\[
+                         m\ge m_0:=1/10.                     \tag{R11}
+\]
+
+On every interval where `g=||c||2>0`, differentiating its scalar norm gives
+
+\[
+ g_s=b/g,\qquad
+ g_{ss}=\frac{\|h\|_2^2-(g_s)^2+\|J^*c\|_{\rm hidden}^2}{g}
+                                                          \ge0.\tag{R12}
+\]
+
+Cauchy–Schwarz gives the inequality. Since `c(s)=s h(0)+o_L2(s)` and
+`h(s)->h(0)`, one has `g_s(0+)=sqrt(m)`. Consequently on its first
+positive interval `g_s>=sqrt(m)` and `g>=s sqrt(m)`. It cannot reach zero
+again at a positive endpoint, so this interval is all positive feature
+times. Again by Cauchy–Schwarz, `||h||2>=g_s`, and (R9) gives
+
+\[
+                         b_s\ge m\ge m_0.                    \tag{R13}
+\]
+
+Hence there is exactly one first feature time `s_dagger` with `b=1`, and
+`0<s_dagger<=1/m<=10`. On `[0,s_dagger)`, define
+
+\[
+ t(s)=\int_0^s\frac{dv}{2(1-b(v))}.                           \tag{R14}
+\]
+
+Its integrand is positive. Since `b_s` is continuous and bounded on the
+compact feature interval `[0,s_dagger]`, say by `K`,
+`1-b(s)<=K(s_dagger-s)`; thus the integral diverges as
+`s->s_dagger`. Its inverse is defined for every `t>=0` and obeys (R8).
+It is the unique B.1 physical reference by uniqueness of the original raw
+equation. Writing `e(t)=1-b(s(t))`, differentiation gives
+
+\[
+ e_t=-2b_s e,\quad 0<e(t)\le e^{-2m t}\le e^{-t/5},\qquad
+ R_{\nu_*}(f_*(t))=e(t)^2\le e^{-2t/5}.                       \tag{R15}
+\]
+
+There is no finite physical time at which the residual first vanishes:
+the displayed linear scalar equation with locally bounded coefficient
+and initial value one keeps it positive. This also checks the clock sign.
+
+###### 3. Actual endpoint and uniform prediction convergence
+
+By (R9) and Cauchy–Schwarz, for `0<=s_1<=s_2<=s_dagger`,
+
+\[
+ \|\theta(s_2)-\theta(s_1)\|_{\rm raw}
+ \le\sqrt{(s_2-s_1)(b(s_2)-b(s_1))}.                          \tag{R16}
+\]
+
+The state is already globally defined in feature time. Its endpoint is
+precisely the solution of (R4)–(R5) stopped at the uniquely characterized
+first level `b=1`; denote it `(w_dagger,A_dagger,c_dagger)`. Define on the
+whole circle
+
+\[
+ f_*^\infty(\sqrt2u)
+ =\langle c_\dagger,\tanh(A_\dagger\tanh(w_\dagger\cdot u))\rangle.
+                                                                  \tag{R17}
+\]
+
+Thus (R17) is a characterization through the actual autonomous dynamics,
+including its initialized Gaussian action and adjoint. It is not merely a
+name for an unknown prediction limit. It gives `f∞(sqrt2 e1)=1`,
+`f∞(sqrt2 e2)=-1` and the two symmetries in (R7).
+
+Equations (R13),(R16) imply
+
+\[
+ s_\dagger-s(t)\le e(t)/m,\qquad
+ \|\theta(s(t))-\theta(s_\dagger)\|_{\rm raw}\le e(t)/\sqrt m.
+                                                                  \tag{R18}
+\]
+
+In particular throughout this interval
+
+\[
+ \|c\|_2\le\sqrt{10},\quad \|A\|_{op}\le2+\sqrt{10},\quad
+ \|w\|_2\le\sqrt2+\sqrt{10},\quad \|c\|_\infty\le10.           \tag{R19}
+\]
+
+For any `|u|=1`, strong directional differentiation and the same
+adjunction as above give three raw gradient blocks for `f(u)` with norms
+at most `||A||op||c||2`, `||c||2`, and one, respectively. Equivalently,
+add and subtract the three endpoint factors and use the one-Lipschitz
+activations. The straight segment between two reference states retains
+(R19). Integrating the scalar derivative along this segment proves
+
+\[
+ \sup_{|u|=1}|f_\theta(u)-f_{\bar\theta}(u)|
+ \le C\|\theta-\bar\theta\|_{\rm raw},\quad
+ C=\sqrt{1+10\{1+(2+\sqrt{10})^2\}}<17.                       \tag{R20}
+\]
+
+This holds simultaneously for all inputs; no finite grid substitutes for
+the circle. Combining it with (R15),(R18),
+
+\[
+ \sup_{x\in\sqrt2S^1}|f_*(t,x)-f_*^\infty(x)|
+ \le 17\sqrt{10}\,e^{-t/5}.                                  \tag{R21}
+\]
+
+The explicit choice
+
+\[
+                              T=40                           \tag{R22}
+\]
+
+therefore has endpoint error less than `1/32`: `17 sqrt(10)e^-8<.019<1/32`.
+Its reference risk is at most `e^-16<1/1024`. These are strict margins.
+For example the elementary Taylor lower sum for `e^8` already proves the
+stated inequalities, so no numerical solver for the trained flow is used.
+
+Input regularity also follows directly from the full-row norm:
+
+\[
+ |f_\theta(\sqrt2u)-f_\theta(\sqrt2v)|
+ \le\sqrt{10}(2+\sqrt{10})(\sqrt2+\sqrt{10})|u-v|<76|u-v|.    \tag{R23}
+\]
+
+The endpoint satisfies the same estimate. Also `||f||infty<=sqrt10`.
+For binary labels, `(f(u)-y)^2` is therefore Lipschitz in the prescribed
+joint transport cost with constant at most
+`2(sqrt10+1) max(76,1)<633`; use
+`|(a-y)^2-(b-z)^2|<=2(sqrt10+1)(|a-b|+|y-z|)`.
+This proves the exact input regularity needed for risk transport.
+
+For a general target error `epsilon>0`, the same reference component gives
+`T(epsilon)=max(0,5 log(17 sqrt10/epsilon))`. Changed-law radii for this
+choice remain a separate comparison conclusion and may shrink with epsilon.
+
+###### 4. Both hidden activations move at the fixed time 1/200
+
+This section uses the actual opposite-label reference and retains paired
+initial/current observations. Put `Y_a=A0 H0_a^1`; let
+
+\[
+ h_0=(\tanh Y_1-\tanh Y_2)/2,\quad
+ U_a=h_0\phi'(Y_a),\quad P_a=A_0^*U_a,\quad
+ V_a=\phi'(g_a)^2P_a,
+\]
+\[
+ R_a=qU_a+A_0V_a,\qquad
+ a_0=E\phi'(G)^4,\quad r_0=E\phi'(\sqrt qG)^2.                \tag{R24}
+\]
+
+All fields are typed: `U,R` live in layer two, and `P,V` in layer one.
+The Gaussian integration certificate proves `q>.39`, `q<.4`,
+`v>.2`, `a0>.3`, and `r0>.6`.
+
+Here is a complete fixed initial reuse calculation establishing positivity
+and the needed moments. Let `C_ab=E[U_a U_b]`. Gaussian conditioning on
+the first two forward calls gives
+
+\[
+ P_a=\sum_{b=1}^2p_{ab}\tanh g_b+\Gamma_a,\quad
+ p_{ab}=E[Y_bU_a]/q,\quad \Gamma\sim N(0,C),                  \tag{R25}
+\]
+
+independently of `(g1,g2)`. This is the actual transpose response, not a
+fresh-matrix replacement. For completeness, the finite conditional
+Gaussian matrix has its mean fixed on the two forward query directions
+and independent Gaussian randomness on their orthogonal complement.
+Applying its transpose to `U` gives the first term in (R25) and a Gaussian
+with covariance `E[UU^T]`; projections onto the finitely many old first
+query directions have expected squared RMS `O(1/n)` and disappear.
+The joint initial forward Gram is `q I`, so no inverse at a degeneracy is
+involved here. Bounded smooth `U(Y)` permits the fixed-program law and
+contractions. Truncating the products by bounded gates and using their
+fixed Gaussian moment envelopes permits the same conclusion for `V`.
+
+The matrix `C` is positive definite. If `z1 U1+z2 U2=0` almost surely,
+Gaussian full support and continuity give
+`(tanh Y1-tanh Y2)(z1 phi'(Y1)+z2 phi'(Y2))=0` everywhere.
+On the dense open set `Y1!=Y2` the second factor vanishes and continuity
+extends this identity everywhere. Varying each coordinate and using the
+nonconstant function `phi'` forces `z1=z2=0`.
+
+Let `alpha_b=E[H0_b^1 V_a]/q`,
+`V_a^perp=V_a-sum alpha_b H0_b^1`, and
+`sigma_a²=E[(V_a^perp)²]`. Conditioning the same Gaussian matrix on the
+forward calls and the reverse calls in (R25) gives
+
+\[
+ A_0 V_a=\sum_b\alpha_bY_b+\bar d\,U_a+\sigma_a\gamma_a,
+ \quad \bar d=E\phi'(G)^2,                                  \tag{R26}
+\]
+
+where `gamma_a` is standard normal independent of the old layer-two
+coordinates, for each fixed `a`. Independence between `gamma1,gamma2`
+is not claimed. To verify the response coefficient, the conditional
+matrix formula gives `C^-1 E[P V_a^perp]` for the coefficient of `U`.
+The deterministic part of each `P_b` is in the span of the first forward
+inputs and pairs to zero with `V_a^perp`. The remaining pairing is
+`E[Gamma_b Gamma_a] E phi'(G)^2=C_ba bar d`; multiplication by `C^-1`
+gives `bar d` in coordinate `a`. The unused Gaussian input variance is
+`sigma_a²`. Its finite output projection off the two old reverse input
+directions again has vanishing RMS. These calculations prove (R26)
+without suppressing either reused response term.
+
+Conditional variance in (R25) and projection off functions of the roots
+give
+
+\[
+ \|V_a\|_2^2\ge C_{aa}a_0,\qquad
+ \sigma_a^2\ge C_{aa}a_0,\qquad
+ \|\phi'(Y_a)R_a\|_2^2\ge C_{aa}a_0 r_0.                    \tag{R27}
+\]
+
+The last inequality conditions on the old second-layer coordinates in
+(R26); all its other terms are functions of those coordinates. By
+independence and oddness of the initial `Y1,Y2`,
+
+\[
+ C_{aa}=\tfrac14 E[(\tanh^2Y_a+v)\phi'(Y_a)^2]
+                          \ge vr_0/4>3/100.                  \tag{R28}
+\]
+
+Thus each of the two first-order-in-`s²` coefficients has norm at least
+
+\[
+ \tfrac14\|V_a\|_2>1/100,\qquad
+ \tfrac14\|\phi'(Y_a)R_a\|_2>1/100.                          \tag{R29}
+\]
+
+For explicit remainder bounds, (R25) gives `sum_b|p_ab|<=2/sqrt q<4`
+and `Caa<=1`. It can be coupled so that `|P_a|<=4+|G|`, and hence
+`||P_a||4<6`. For `R>=8` and `z=R-4`, the elementary Gaussian tail
+integration yields
+
+\[
+ \tau_R(P_a):=\|P_a1_{|P_a|>R}\|_2
+ \le\{(4z+68/z)e^{-z^2/2}\}^{1/2}.                           \tag{R30}
+\]
+
+Indeed `(|G|+4)^2<=2G²+32`,
+`Pr(|G|>z)<=2phi_G(z)/z`, and
+`E[G²1_|G|>z]<=2(z+1/z)phi_G(z)`; then drop the density factor
+`1/sqrt(2pi)<1`. At `R=10`, the right side is less than `1/1000`.
+By bounded action `||V_a||2<=||P_a||2<=2`.
+In (R26), the Gaussian linear term has L4 norm at most
+`3^(1/4)||V_a||2<3`, the fresh Gaussian term has L4 norm below three,
+and `(q+bar d)U_a` has supremum at most two. Therefore `||R_a||4<8`.
+
+We now prove an explicit small-feature-time expansion using only these
+fixed initial tails. For `0<=s<=1`, (R6) gives
+
+\[
+ \|A\|_{op}\le5/2,\quad \|c\|_\infty\le s,\quad
+ \|K\|_{HS}\le s^2/2,\quad
+ \|w_a-g_a\|_2\le5s^2/8,
+\]
+\[
+ \|Z_a^2-Y_a\|_2\le7s^2/4,\quad
+ \|c-sh_0\|_2\le7s^3/12,\quad
+ \|\phi'(Z_a^2)c-sU_a\|_2\le5s^3,
+\]
+\[
+                  \|A^*(\phi'(Z_a^2)c)-sP_a\|_2\le11s^3.           \tag{R31}
+\]
+
+For the middle line, `H1` and `H2` are one-Lipschitz, so
+`||h(s)-h0||2<=7s²/4`; integrate and then use the two-Lipschitz
+second gate. The last line uses `||A||<=5/2`, `||K||<=s²/2`
+and the sharper `49s³/12` bound preceding the rounded `5s³`.
+
+Truncate the *fixed initial* `P_a` at `R`. Then
+
+\[
+ \|(\phi'(Z_a^1(s))-\phi'(g_a))P_a\|_2
+ \le(5R/4)s^2+2\tau_R(P_a).
+\]
+
+Subtract `y_a s phi'(g_a)P_a/2` from the first raw feature velocity in
+(R3), integrate, and use (R31). The preactivation remainder is bounded by
+`(44+5R)s^4/32+tau_R(P_a)s²/2`. For the activation, compare first with
+the artificial increment `y_a s² phi'(g_a)P_a/4`; its scalar tanh Taylor
+remainder has L2 norm at most `s^4||P_a||4²/16`, since `|phi''|<=2`.
+Consequently
+
+\[
+ \|H_a^1(s)-H_a^1(0)-y_as^2V_a/4\|_2
+ \le\tfrac12\tau_R(P_a)s^2+{116+5R\over32}s^4.                \tag{R32}
+\]
+
+The middle velocity differs from
+`(s/2)sum y_a U_a tensor H_a^1(0)` by at most `45s³/8` in HS norm:
+use (R31), `||U||2<=1`, and `||H1-H10||2<=5s²/8`.
+After integration its remainder is at most `45s^4/32`.
+Expanding `(A0+K)(H10+Delta H1)` now gives
+`Z2_a-Y_a=y_as²(q U_a+A0V_a)/4` with remainder at most
+`tau_R(P_a)s²+[2(116+5R)/32+55/32]s^4`. The `55/32` consists of
+`45/32` from the middle increment and `5/16` from `K Delta H1`.
+The scalar tanh remainder adds `s^4||R_a||4²/16<=4s^4`. Thus
+
+\[
+ \|H_a^2(s)-H_a^2(0)-y_as^2\phi'(Y_a)R_a/4\|_2
+ \le\tau_R(P_a)s^2+{415+10R\over32}s^4.                      \tag{R33}
+\]
+
+At `R=10` and `s<=1/100`, (R29)–(R33) show, for both layers and each
+reference input,
+
+\[
+           \|H_a^\ell(s)-H_a^\ell(0)\|_2\ge s^2/200.         \tag{R34}
+\]
+
+In fact the error coefficient is at most
+`.001+(515/32)10^-4<.003<.005`, strictly below half the coefficient
+lower bound `.01`.
+
+Choose the fixed **physical** time
+
+\[
+                       t_{\rm act}=1/200.                   \tag{R35}
+\]
+
+Since `||c(s)||2<=s` and `||h||2<=1`, one has `0<=b(s)<=s`
+before the level `b=1`. The clock therefore satisfies
+`1-e^-2t<=s(t)<=2t`. At (R35),
+`199/20000<=s(t_act)<=1/100`; the lower bound uses
+`1-e^-a>=a-a²/2`. Hence the paired RMS averaged over the reference law,
+
+\[
+ D_{\ell,*}(t)=\left\{\frac12\sum_{a=1}^2
+ E_\ell|H_a^\ell(t)-H_a^\ell(0)|^2\right\}^{1/2},
+\]
+
+obeys the explicit strict margin
+
+\[
+              D_{\ell,*}(t_{\rm act})>1/2{,}500{,}000,
+              \qquad \ell=1,2.                              \tag{R36}
+\]
+
+The average uses paired initial and current coordinates on the same layer
+population. It is not the Wasserstein distance between separate marginals.
+By B.1 the reference finite networks retain this paired observable:
+with their actual random initial readout, widths tending to infinity and
+actual steps satisfying `eta sqrt(n)->0`, its finite squared value
+`(2n)^-1 sum_(a,i)|h_ai^ell(t)-h_ai^ell(0)|²` converges in probability
+to `D_(ell,*)²` at this physical time. In particular its RMS exceeds half
+(R36) with probability tending to one. Whole-circle law perturbation and
+averaging under a nearby `mu`, or its empirical laws, require the separate
+transport component; (R36) supplies the positive reference margin for it.
+No claim of displacement at time `T=40` is needed or made here.
+
+###### 5. Reproducible rational Gaussian certificate
+
+This is deterministic constant evaluation, not a training experiment.
+For `0<=x<=18`, put `S80(x)=sum_(j=0)^80 x^j/j!`. Then
+
+\[
+ S_{80}(x)\le e^x\le S_{80}(x)
+       +{x^{81}/81!\over1-x/82}.                             \tag{R37}
+\]
+
+The upper remainder follows because every subsequent term ratio is at
+most `x/82<1`. Quadrature arguments are at most eight; the separate
+initial-tail verification uses argument eighteen. Partition `[0,4]` into 1,000 intervals of width `1/250`.
+The Gaussian density decreases there and its value at zero lies between
+`.3988` and `.3990`; the program certifies the two squared inequalities
+using rational alternating bounds for
+`pi=16 arctan(1/5)-4 arctan(1/239)`. This identity follows from the tangent
+addition formula: `tan(4 arctan(1/5))=120/119`, so subtracting
+`arctan(1/239)` gives tangent one at an angle in `(0,pi/2)`.
+The alternating arctangent remainder bounds follow by integrating the
+finite geometric identity for `1/(1+x²)` from zero to each positive
+argument. Use tanh at left endpoints and density at right
+endpoints for lower bounds on increasing squared tanh. For decreasing
+powers of sech, both right endpoints give lower bounds. For the upper
+bound on `q`, use the opposite endpoints and add `1/10000`; the missing
+two-sided Gaussian tail beyond four is at most `2phi_G(4)/4<1/10000`.
+The function `(E-1)/(E+1)` increases for `E>=1`, whereas
+`4E/(E+1)^2` decreases there. Thus (R37) supplies rational bounds for
+all required gates. Since `.624²<.39` and `.633²>.4`, the resulting lower
+bounds imply the exact `v,a0,r0` bounds used above.
+
+The following complete Python program uses exact rational arithmetic,
+rounding each summand outward to denominator `10^12` to prevent growth of
+unneeded common denominators. Its assertions are exact integer/rational
+comparisons. Decimal output is only a readable summary.
+
+```python
+from fractions import Fraction as F
+N = 1000
+cache = {}
+def expb(x):
+    if x in cache:
+        return cache[x]
+    t = S = F(1)
+    for j in range(1, 81):
+        t = t*x/j
+        S += t
+    upper = S + t*x/81/(1-x/82)
+    cache[x] = (S, upper)
+    return S, upper
+# Density bounds, with no floating point pi dependency.
+def atanb(x):
+    lo = sum((-1)**j*x**(2*j+1)/F(2*j+1) for j in range(20))
+    return lo, lo+x**41/41
+a, b = atanb(F(1,5))
+c, d = atanb(F(1,239))
+pi_lo, pi_hi = 16*a-4*d, 16*b-4*c
+assert 2*pi_hi*F(3988,10000)**2 < 1
+assert 2*pi_lo*F(399,1000)**2 > 1
+# Two-sided Gaussian tail beyond four is at most phi_G(4)/2.
+e8_lo, _ = expb(F(8))
+assert F(399,1000)/(2*e8_lo) < F(1,10000)
+# Verify the two additional elementary margins used in the proof.
+assert F(35334,1000)/expb(F(18))[0] < F(1,1000000)
+assert 17*F(3163,1000)/e8_lo < F(1,32)
+D = 10**12
+def low(z):
+    v = z*D
+    return F(v.numerator//v.denominator, D)
+def high(z):
+    return -low(-z)
+qlo = qhi = vlo = alo = rlo = F(0)
+for j in range(N):
+    l, r = F(j,250), F(j+1,250)
+    el, _ = expb(2*l)
+    _, er = expb(2*r)
+    _, dr = expb(r*r/2)
+    dl, _ = expb(l*l/2)
+    tl, tr = (el-1)/(el+1), (er-1)/(er+1)
+    wl = 2*F(3988,10000)/250/dr
+    wu = 2*F(399,1000)/250/dl
+    qlo += low(wl*tl**2)
+    qhi += high(wu*tr**2)
+    ev, _ = expb(2*F(624,1000)*l)
+    _, ee = expb(2*F(633,1000)*r)
+    tv = (ev-1)/(ev+1)
+    sa, sr = 4*er/(er+1)**2, 4*ee/(ee+1)**2
+    vlo += low(wl*tv**2)
+    alo += low(wl*sa**4)
+    rlo += low(wl*sr**2)
+print([float(z) for z in (qlo, qhi+F(1,10000), vlo, alo, rlo)])
+assert qlo > F(39,100) and qhi+F(1,10000) < F(2,5)
+assert vlo > F(1,5) and alo > F(3,10) and rlo > F(3,5)
+```
+
+Executed with Python 3.10.12, exit zero. Output:
+
+```text
+[0.392108947877, 0.396376711612, 0.233120735618,
+ 0.339792209687, 0.631761866359]
+```
+
+The displayed standard-library Python program is the complete reproduction procedure. Its exact rational comparisons certify the weaker bounds m>=.1, a0>.3 and r0>.6 used above. No numerical training solver is needed.
+
+
+##### C.4.5.2. Quantitative reference response tails
+
+###### 1. Exact feature equations and the bounded reference interval
+
+Put `sigma_1=1`, `sigma_2=-1`, and `phi=tanh`. Let `J` be the global
+scalar solution
+
+\[
+ J_X(X,g)=\operatorname{sech}^2 J(X,g),\qquad J(0,g)=g,
+ \quad H(X,g)=\tanh J(X,g).                                      \tag{R1}
+\]
+
+Here `X` is a clock argument; `g` is a fixed Gaussian first-row root.
+For each fixed `g`, scalar existence and uniqueness follow from boundedness
+and global Lipschitz continuity of `sech²`. In particular
+`|J(X,g)|<=|g|+|X|`, `|J(X,g)-J(Y,g)|<=|X-Y|`, and
+`H_X=sech⁴ J`, so `|H_X|<=1`. There is no globally bounded derivative
+assumption in the root `g`.
+
+The feature equations on the two separate neuron probability spaces are
+
+\[
+\begin{aligned}
+ H_a^1&=H(X_a,g_a),& Z_a^2&=A H_a^1,&H_a^2&=\phi(Z_a^2),\\
+ \delta_a&=c\phi'(Z_a^2),& Q_a&=A^*\delta_a,\\
+ X_{a,s}&=\tfrac12\sigma_a Q_a,&
+ A_s&=\tfrac12\sum_a\sigma_a\delta_a\otimes H_a^1,&
+ c_s&=\tfrac12\sum_a\sigma_a H_a^2 .
+\end{aligned}                                                     \tag{R2}
+\]
+
+The initialized action and its adjoint are the common Gaussian action,
+and `X(0)=0,c(0)=0`. The rank action is
+`(v tensor h)z=v E_1[hz]`. At finite width it is `v h^T/n`.
+These equations are the actual reference flow under
+`ds/dt=2(1-b)`, up to its feature endpoint `s_infty`. They are also a
+well-defined auxiliary autonomous feature system beyond that endpoint,
+but no estimate below requires that extension.
+
+Write `m=|| (H_1^2(0)-H_2^2(0))/2 ||_2²`. The reference fitting proof
+establishes
+
+\[
+ m\ge1/10,\quad 0<s_\infty\le1/m\le10,\quad
+ \|\theta(s)-\theta(0)\|_{\rm raw}\le\sqrt{s\,b(s)}\le\sqrt{10}
+ \quad(0\le s\le s_\infty).                                      \tag{R3}
+\]
+
+The raw increment norm is the square sum of the full first-row L2 norm,
+the middle Hilbert–Schmidt norm and the readout L2 norm. Therefore
+`||A-A_0||HS<=sqrt(10)`, `||c||2<=sqrt(10)`, and (R2) independently gives
+`||c(s)||infinity<=s`. The canonical initialized action has norm at most
+two; its finite counterpart has norm at most three with probability
+tending to one, by the contained proof in global nonlinear A.3.
+
+Only meshes with terminal point at most `s_infty` will be used. For all
+sufficiently fine such meshes, their population Euler paths have
+`||A-A_0||HS<sqrt(10)+1/10`, `||c||2<sqrt(10)+1/10`.
+Here is why the Hilbert–Schmidt assertion follows from the clock proof.
+Replace the action difference in B.1's metric by the Hilbert–Schmidt norm
+of its learned increment. The forward and adjoint difference bounds still
+hold because `||K||op<=||K||HS`; the rank difference bound is identical in
+these two norms. The same integrated contraction argument and Euler
+recurrence give convergence in this stronger metric on each bounded
+interval. This argument applies to (R2), whose controls are fixed signs
+instead of residual feedback. Its elementary global finite-feature bounds
+are `||c||infinity<=s`, `||A||op<=||A_0||op+s²/2`, and
+`sum_a ||X_a||2<=integral_0^s ||A(v)||op v dv`. They provide the bounded
+sets needed before using (R3).
+
+At each fixed mesh the finite-program value theorem identifies every
+contraction in the finitely many learned ranks. Their HS norm squared is
+the finite double sum of the corresponding two Gram entries. Thus the
+finite learned increments have the same HS bounds, with an arbitrarily
+small slack, with probability tending to one. The finite unforced mesh
+therefore lies strictly inside
+
+\[
+ \|A\|_{\rm op}<7,\qquad \|c\|_2<4,\qquad
+ \|c(s_k)\|_\infty\le s_k .                                      \tag{R4}
+\]
+
+The finite initial readout is set to zero only for these auxiliary source
+programs. The actual-network reference bridge at the end retains the
+specified finite Gaussian readout.
+
+###### 2. The source rule for the tanh clock, including zero forcing
+
+At a fixed mesh with steps `h_k`, set `gamma_ka=h_k sigma_a/2` and make
+both forward calls before both reverse calls, followed by simultaneous
+updates (R2). On population 1 retain the entire root `(g_1,g_2)`. The scalar
+source recursion is
+
+\[
+\begin{aligned}
+ X_{ka}&=\sum_{r<k}\gamma_{ra} Q_{ra},&H^1_{ka}&=H(X_{ka},g_a),\\
+ Z^2_{ka}&=\xi_{ka}+\sum_{r<k,b}a_{ka,rb}\delta_{rb},&
+ c_k&=\sum_{r<k,b}\gamma_{rb}\phi(Z^2_{rb}),\\
+ \delta_{ka}&=c_k\phi'(Z^2_{ka}),&
+ Q_{ka}&=\zeta_{ka}+\sum_{r\le k,b}b_{ka,rb}H^1_{rb},\\
+ a_{ka,rb}&=\alpha_{ka,rb}+\gamma_{rb}E_1[H^1_{ka}H^1_{rb}],&
+ \alpha_{ka,rb}&=E_1[\partial_{\zeta_{rb}}H^1_{ka}],\\
+ b_{ka,rb}&=\beta_{ka,rb}+1_{r<k}\gamma_{rb}E_2[\delta_{ka}\delta_{rb}],&
+ \beta_{ka,rb}&=E_2[\partial_{\xi_{rb}}\delta_{ka}].
+\end{aligned}                                                     \tag{R5}
+\]
+
+The centered source covariances, also between programs sharing the initial
+matrix, are
+
+\[
+ E_2[\xi_{ka}\xi_{vb}]=E_1[H^1_{ka}H^1_{vb}],\qquad
+ E_1[\zeta_{ka}\zeta_{vb}]=E_2[\delta_{ka}\delta_{vb}].             \tag{R6}
+\]
+
+The reverse Gaussian group is independent of the full first-row root.
+Sources in different orientations belong to independent groups; the actual
+matrix answers are dependent through their response terms. Formal
+derivatives hold selected expectations, contraction coefficients and
+covariances fixed. All named slots are retained even at zero variance.
+Their complete chain rules include
+
+\[
+\begin{aligned}
+ \partial X_{ka}&=\sum_{r<k}\gamma_{ra}\partial Q_{ra},&
+ \partial H^1_{ka}&=\operatorname{sech}^4 J(X_{ka},g_a)\partial X_{ka},\\
+ \partial c_k&=\sum_{r<k,b}\gamma_{rb}\phi'(Z^2_{rb})\partial Z^2_{rb},&
+ \partial\delta_{ka}&=\phi'(Z^2_{ka})\partial c_k
+             +c_k\phi''(Z^2_{ka})\partial Z^2_{ka},\\
+ \beta_{ka,kb}&=1_{a=b}E_2[c_k\phi''(Z^2_{ka})].
+\end{aligned}                                                     \tag{R7}
+\]
+
+We justify this source statement, rather than inferring it from values.
+Choose a smooth root clipping function `chi_R` equal to the identity on
+`[-R,R]`, with bounded image and `|chi_R'|<=1`, and replace `H(X,g)` by
+`H(X,chi_R(g))`. Positivity of the scalar gate gives the exact identity
+
+\[
+ J_g(X,g)=\frac{\operatorname{sech}^2 J(X,g)}{
+                         \operatorname{sech}^2 g}.
+\]
+
+One may derive it by differentiating the scalar ODE and solving its scalar
+linear variational equation, or by differentiating
+`F(J)=F(g)+X`, where `F(z)=z/2+sinh(2z)/4`.
+Thus the clipped-root map has bounded first derivatives in both arguments.
+Its `X` derivative stays bounded by one uniformly in `R`. Clip the readout
+factor smoothly, with the clipping map equal to the identity on an open
+neighborhood of the deterministic interval `[-10,10]`; since
+`||c||infinity<=s_k<=10`, this changes no program value. All resulting
+coordinate instructions now have bounded first derivatives, so III.F.1–5
+applies, including its complete Gaussian conditioning proof and its
+zero-query-noise argument. Expanding the learned ranks gives exactly (R5).
+
+There is a uniform bound on every first *source* derivative of every fixed
+scalar graph while earlier selected coefficients lie in a compact set.
+Indeed the recursion has finitely many steps, `H_X` is bounded by one,
+`|phi'|<=1`, `|phi''|<=2`, the readout is bounded, and every matrix node
+is a source plus a finite linear combination of earlier nodes. Induction
+through (R7) gives a finite deterministic bound. This bound is independent
+of `R`: derivatives with respect to the root are never taken.
+
+Now remove the root clipping chronologically. A convergent finite
+covariance matrix has convergent positive-semidefinite square roots:
+boundedness gives subsequential limits, each limit is a nonnegative square
+root of the same matrix, and diagonalization gives its uniqueness. Couple
+source prefixes using these square roots and fixed standard Gaussians.
+At each finite instruction the expressions converge in probability.
+The source derivative bound just proved gives uniform integrability of
+their derivatives, so expected derivatives converge. Values are bounded or
+have a common linear envelope in the finite source/root list, yielding L2
+convergence. This closes the chronological induction for both coefficients
+and values, even at a singular covariance. In particular the limit of (R7)
+is precisely its displayed uncut expression.
+
+These scalar values are the actual finite-program limits. For completeness,
+on the same finite arrays the direct change of a first activation caused
+by root clipping, at a fixed clock, has RMS at most
+`2 [n^(-1) sum_i 1_{|g_ai|>R}]^(1/2)`. The rest of its change is bounded
+by the clock RMS change because `|H_X|<=1`. Initial operator bounds and
+finite graph subtraction then propagate these errors through every node.
+The empirical Gaussian tail frequency converges by the elementary iid
+law of large numbers. At each fixed clipping level the finite-program
+theorem already applies; first let width grow, then remove clipping.
+This identifies the scalar limit above with the uncut value limit.
+Scalar contractions are treated in their causal order: their difference
+is bounded by the two RMS errors times the bounded RMS factors, so the
+same finite induction includes their actual empirical feedback. No
+all-moment finite-width theorem or derivative in `g` is used.
+
+Exactly the same argument covers a fresh root added with coefficient
+`epsilon` to one complete query answer. For a fixed finite graph its
+coefficients and expected source derivatives are continuous as
+`epsilon->0`: the causal induction, covariance square-root coupling and
+uniform source derivative bounds apply unchanged for `|epsilon|<=1`.
+The expression convention fixes derivatives of variance-zero slots.
+This continuity is what permits the final zero-forcing limit below.
+
+###### 3. Explicit fresh-root pulse estimates
+
+For two states with the same first roots, use
+
+\[
+ d=x+a+z,\quad x=\sum_{a=1}^2\|X_a-\bar X_a\|_2,\quad
+ a=\|A-\bar A\|_{\rm op},\quad z=\|c-\bar c\|_2 .              \tag{R8}
+\]
+
+At finite width use explicitly
+`x_n=sum_a ||X_na-bar X_na||_2/sqrt(n)`,
+`a_n=||A_n-bar A_n||op`, and
+`z_n=||c_n-bar c_n||_2/sqrt(n)`.
+All finite Euclidean norms retain their ordinary meaning.
+
+Suppose both states satisfy `||A||op<=M`, `||c||2<=C`, and
+`||c||infinity<=s`. At a feature time `s`, factor subtraction gives
+
+\[
+\begin{aligned}
+ \sum_a\|\Delta Z_a^2\|_2&\le2a+Mx,\\
+ \sum_a\|\Delta\delta_a\|_2&\le2z+4sa+2sMx,\\
+ \sum_a\|\Delta Q_a\|_2&\le2Ca+M(2z+4sa+2sMx).
+\end{aligned}                                                     \tag{R9}
+\]
+
+For example the first term in the final line is the change of action
+applied to a backward field of norm at most `C`; both such fields occur.
+The three velocity differences, in the order of (R8), are consequently
+bounded by
+
+\[
+\begin{aligned}
+ \Delta F_X&\le sM^2x+(C+2sM)a+Mz,\\
+ \Delta F_A&\le(sM+C/2)x+2sa+z,\\
+ \Delta F_c&\le(M/2)x+a.
+\end{aligned}                                                     \tag{R10}
+\]
+
+In the middle line the rank-one difference has norm at most
+`||Delta delta||2+C||Delta H^1||2`. This verifies the estimate in
+operator norm and also for a HS action difference. With `M=7,C=4`, the
+sum is at most `L(s)d`, where
+
+\[
+ L(s)=\max\{8,5+16s,11/2+56s\}\le8+56s,
+ \qquad E:=\exp(8S+28S^2),\quad S=10.                           \tag{R11}
+\]
+
+For a mesh ending by `S`, the subsequent Euler amplification is at most
+`prod_k(1+h_k L(s_k))<=exp(sum_k h_k(8+56s_k))<=E`, since the
+left Riemann sum of the increasing integrand is no larger than its
+integral. Thus `E=exp(2880)`.
+
+The required ball is legitimate for forcing. First choose the unforced
+mesh sufficiently fine for (R4). At that fixed mesh and sufficiently
+large width, all its state bounds hold with positive slack on an event
+whose probability tends to one. Finite same-array subtraction, initially
+using the crude global feature bounds, shows that the forced graph stays
+within the ball `M=7,C=4` for all sufficiently small fixed `|epsilon|`
+on this event and on `||e||2/sqrt(n)<=2`. The permitted epsilon may depend
+on the fixed mesh but not on width. All later estimates therefore use
+the uniform constants (R11). The readout supremum bound survives every
+forcing exactly, because every readout increment is still a difference
+of two bounded tanh activations. This is a local forcing argument at
+zero, not a claim that arbitrary forcing preserves the energy identity.
+
+Insert `epsilon e` into the complete reverse answer `Q_jb`, keeping all
+earlier answers and the matrix fixed and recomputing its descendants.
+The only immediate state increment is `h_j sigma_b epsilon e/2` in its
+clock. Therefore, for `k>j`,
+
+\[
+ \frac{\|H^{1,\epsilon}_{n,ka}-H^{1,0}_{n,ka}\|_2}{\sqrt n}
+       \le\tfrac12h_j E|\epsilon|\frac{\|e_n\|_2}{\sqrt n} .     \tag{R12}
+\]
+
+Instead insert the fresh root into one complete forward answer `Z^2_jb`.
+Its activation changes in RMS by at most
+`|epsilon| ||e_n||2/sqrt(n)`, its delta by at most
+`2s_j |epsilon| ||e_n||2/sqrt(n)`, and its reverse answer by at most
+`2Ms_j |epsilon| ||e_n||2/sqrt(n)`. The three immediate state changes have
+total distance at most `h_j P |epsilon| ||e_n||2/sqrt(n)`, where
+
+\[
+ P=(M+1)S+1/2=161/2.
+\]
+
+At a later node a single delta difference is at most
+`z+2s(a+M x)<=K d`, with
+
+\[
+ K=\max\{1,2SM\}=140.
+\]
+
+Consequently, for `k>j`,
+
+\[
+ \frac{\|\delta^\epsilon_{n,ka}-\delta^0_{n,ka}\|_2}{\sqrt n}
+           \le h_j P K E |\epsilon|\frac{\|e_n\|_2}{\sqrt n} .  \tag{R13}
+\]
+
+We now extract the named coefficients with the precise order of limits.
+Fix the mesh and a sufficiently small nonzero epsilon; apply the proved
+joint value/source theorem to the forced and unforced graphs and the root,
+letting width tend to infinity first. In its own population the new root
+enters the complete scalar expression only through replacement of the
+specified named source slot by that slot plus `epsilon e`. All Gaussian
+source groups are independent of this local root. Their selected
+covariances and all selected coefficients may depend on epsilon, but
+are deterministic, and are held fixed under coordinate differentiation.
+Induction through the expression gives
+
+\[
+ \partial_e V^\epsilon=\epsilon\partial_{\rm slot}V^\epsilon,
+ \qquad E[eV^\epsilon]=\epsilon E[\partial_{\rm slot}V^\epsilon].  \tag{R14}
+\]
+
+The second identity is one-dimensional Gaussian integration by parts
+conditional on the other roots and source groups. Its boundary term
+vanishes, since these output values and first derivatives are bounded
+at a fixed graph. The unused root is independent of the unforced graph,
+so `E[eV^0]=0`. Passing the finite Cauchy–Schwarz pairing inequality to
+the joint W2 limit in (R12) or (R13), and using `E[e²]=1`, bounds (R14)
+after division by `|epsilon|`. Only then let epsilon tend to zero. The
+coefficient and derivative continuity proved in Section 2 gives exactly
+
+\[
+ |\alpha_{ka,jb}|\le h_j E/2\ (j<k),\qquad
+ |\beta_{ka,jb}|\le h_j P K E\ (j<k),\qquad
+ |\beta_{ka,kb}|\le2S\,1_{a=b}.                                 \tag{R15}
+\]
+
+This order does not infer a derivative transverse to an unforced singular
+support from its value law. The fresh root, the finite forcing estimate,
+the source-form identity and the zero-forcing continuity each have a
+separate role.
+
+###### 4. Explicit Gaussian remainders and their passage to the flow
+
+The two source variances in (R6) are at most `1` and `C²=16`. The
+forward response remainder is bounded by
+`S²(E+1)`, using (R15), `|delta|<=S` and `|E[H^1 H^1]|<=1`.
+For a reverse answer, all past response coefficients have total absolute
+sum at most `2S P K E`. Its learned coefficients have total absolute sum
+at most `S C²`, since `|E[delta delta']|<=C²`. The two current
+source coefficients contribute at most `2S` in total (only the matching
+current sample occurs). Since `|H^1|<=1`,
+
+\[
+ Z^2_{ka}=\xi_{ka}+B_{ka},\quad |B_{ka}|\le100(E+1),\qquad
+ Q_{ka}=\zeta_{ka}+D_{ka},\quad |D_{ka}|\le B_Q,
+ \quad B_Q:=225400e^{2880}+180 .                                 \tag{R16}
+\]
+
+All constants are independent of the mesh, its number of nodes and width.
+Their statements for mesh scalar laws require only sufficiently fine
+meshes ending by `s_infty`, as already specified.
+
+For clarity this decomposition passes to the already constructed common
+flow, not merely to marginal subsequences. Adjoin a countable refining
+mesh family to the common Gaussian language. Cross-program covariance
+(R6) gives
+`||xi_H-xi_H'||2=||H-H'||2` and
+`||zeta_delta-zeta_delta'||2=||delta-delta'||2`.
+These Gaussian source assignments extend by isometry to the closures of
+their input spans. The transformed Euler convergence, strong multiplier
+continuity and the bounded readout give uniform-in-time L2 convergence of
+`H` and `delta`; therefore the sources converge too. Subtracting them
+from the convergent actual fields shows that the remainders converge in
+L2. An L2 limit of variables bounded in absolute value by `B_Q` has that
+same bound: take an almost surely convergent subsequence, obtained by
+choosing summable squared errors and applying Markov's inequality.
+The analogous statement applies to the forward remainder. Hence at every
+deterministic `s<=s_infty`,
+
+\[
+ Q_a(s)=\zeta_a(s)+D_a(s),\quad |D_a(s)|\le B_Q,\quad
+ \operatorname{Var}\zeta_a(s)=\|\delta_a(s)\|_2^2\le10.            \tag{R17}
+\]
+
+The final variance improves from 16 to 10 by (R3). The Gaussian process
+retains all cross-time/sample covariances and is independent of the whole
+first-row root. No independence of the bounded remainder and the Gaussian
+part is asserted. Jointly measurable representatives follow from the L2
+continuous approximations; Fubini suffices for all time integrals.
+
+For `R>=B_Q`, (R17) yields the explicit tail estimate
+
+\[
+ \sup_{s\le s_\infty,a}
+ \|Q_a(s)1_{|Q_a(s)|>R}\|_2
+ \le 4(\sqrt{10}+B_Q)
+          \exp\!\left(-\frac{(R-B_Q)^2}{80}\right).               \tag{R18}
+\]
+
+To verify it, put `sigma=sqrt(10)` and write a standard normal `G`.
+The relevant second moment is at most
+`E[(sigma |G|+B_Q)² 1_{|G|>(R-B_Q)/sigma}]`.
+Use `(u+v)²<=2u²+2v²`,
+`1_{|G|>a}<=exp((G²-a²)/4)`,
+`E exp(G²/4)=sqrt(2)` and
+`E G² exp(G²/4)=2sqrt(2)`; these two Gaussian integrals follow by
+completing the square and differentiating its elementary integral.
+Taking square roots gives a bound no larger than the right-hand side
+of (R18). A smaller actual source variance only decreases the original
+dominating second moment under the coupling `zeta=sigma_actual G`.
+If `R>=10` the readout tail is zero. Thus (R18) supplies the precise
+individual reference tails in C.4.1 (T6); no maximum over training data
+or whole circle is needed there.
+
+These constants record a bounded targeted improvement. The elementary
+global feature estimate `||A||<=3+S²/2` in the same argument gives a
+far larger exponent. Restricting to the proved reference feature endpoint,
+using its raw energy path length to obtain (R4), and integrating the
+time-dependent stability coefficient reduces it to 2880. The resulting
+remainder is still enormous: `log B_Q<2893`. This is a mathematical
+certificate, with no claim of a useful-size empirical neighborhood.
+
+###### 5. Using actual finite reference GF rather than transformed raw GD
+
+Let `bar theta_n(t)` be the actual finite reference GF, from the stated
+Gaussian initialization, including the random readout of variance `1/n²`.
+B.1 applies with sum-loss mobilities `kappa_1=kappa_2=kappa_3=1/2`,
+which gives exactly the present mean-loss physical equations. Its GF
+width conclusion identifies the two active projections, the action
+measurements and the readout. The two orthogonal projections determine
+the full first row. No infinite-width input-law limit is used here.
+
+For each fixed physical horizon `T`, reference finite GF has a
+high-probability bound on the readout supremum, action norm, and all
+three raw velocity norms, uniformly on `[0,T]`. One direct source is
+finite risk dissipation followed by
+`||c'||infinity<=2sqrt(R_n(0))` and the bounded-activation velocity
+inequalities. These imply uniform L2 time-Lipschitz bounds for the two
+reference backward answers. Indeed
+
+\[
+ \dot Q_a=\dot A^*\delta_a+A^*\dot\delta_a,\qquad
+ \dot\delta_a=\dot c\,\phi'(Z_a^2)
+                    +c\phi''(Z_a^2)\dot Z_a^2,
+\]
+
+and
+`dot Z_a²=dot A H_a¹+A[phi'(Z_a¹)dot Z_a¹]`.
+Every right-hand side has bounded L2 norm using only the stated finite
+state and readout-supremum bounds. The population path has the same
+continuity. This step needs no Gaussian tail estimate for an input
+derivative or root derivative.
+
+Here is a detailed uniform-time tail transfer. Define
+`v_R(q)=q-clip_R(q)`; it is 1-Lipschitz. For `R>0`,
+
+\[
+ |q|1_{|q|>2R}\le2|v_R(q)|\le2|q|1_{|q|>R}.                    \tag{R19}
+\]
+
+At a fixed finite time grid, B.1 gives convergence of the empirical
+averages of `|v_R(Q_a)|²`, which are continuous at-most-quadratic
+measurements. One may obtain them equally by truncation and the backward
+quadratic observable conclusion of that theorem. The time-Lipschitz
+estimate extends their RMS norms from the finite grid to every time,
+since `| ||v_R(Q(t))||2-||v_R(Q(t_j))||2 |<=||Q(t)-Q(t_j)||2`.
+First let width grow at the fixed grid, then refine the grid. From (R18)
+and (R19), for every fixed `R>=B_Q` and every positive `epsilon`,
+
+\[
+ \Pr\left\{\sup_{t\le T,a}\tau_{2R}(Q_{n,a}(t))
+   >8(\sqrt{10}+B_Q)e^{-(R-B_Q)^2/80}+\epsilon\right\}\longrightarrow0.
+                                                                    \tag{R20}
+\]
+
+The top readout tail vanishes on a high-probability event once its fixed
+finite-horizon supremum bound is exceeded. This supplies finite empirical
+reference tails for C.4's comparison with arbitrary actual networks.
+
+Using this actual GF reference avoids treating transformed Euler as
+exact raw GD. The reference derivative is the raw vector field exactly.
+In a comparison with the piecewise affine actual GD path, the sole
+algorithmic discrepancy is replacing its preceding state by its current
+interpolated state; the raw finite-horizon velocity bound controls that
+change. The reference construction's auxiliary meshes are fixed before
+width tends to infinity, and removed afterwards. Actual GD steps remain
+separate. A sufficient actual-step condition may be retained as
+`eta_k sqrt(n_k)->0`, as in B.1; this response component alone claims
+neither a rate nor removal of that restriction.
+
+The component concludes a quantitatively bounded Gaussian response tail
+for the fixed fitted reference and its finite-GF approximation. It does
+not construct a global population flow for perturbed laws, and it does
+not claim that whole-circle input derivatives have Gaussian tails.
+
+
+##### C.4.5.3. Transfer to actual raw GD
+
+###### 1. Exact fields and comparison constants
+
+Put `u=x/sqrt(2)` and `phi=tanh`. On the canonical two population spaces use
+the full state `theta=(w,A,c)`, where `w in L2(Omega_1;R2)`,
+`A:L2(Omega_1)->L2(Omega_2)` is bounded and `c in L2(Omega_2)`. Set
+
+\[
+ Z^1(u)=w\cdot u,\quad H^1(u)=\phi(Z^1(u)),\quad
+ Z^2(u)=AH^1(u),\quad H^2(u)=\phi(Z^2(u)),\quad
+ f(u)=\langle c,H^2(u)\rangle,
+\]
+\[
+ r(u,y)=f(u)-y,\quad \delta^2(u)=c\phi'(Z^2(u)),\quad
+ Q(u)=A^*\delta^2(u),\quad \delta^1(u)=\phi'(Z^1(u))Q(u).
+\]
+
+The unhalved mean-loss field, with exactly the prescribed mobilities, is
+
+\[
+ F_\lambda(\theta)=-2\left(
+ \int r\delta^1u\,d\lambda,
+ \int r\delta^2\otimes H^1\,d\lambda,
+ \int rH^2\,d\lambda\right).                                      \tag{1}
+\]
+
+The rank-one action is `(v tensor h)g=v E_1[hg]`. The distance is
+
+\[
+ D(\theta,\bar\theta)=\|w-\bar w\|_{L^2(\Omega_1;\mathbb R^2)}
+ +\|A-\bar A\|_{op}+\|c-\bar c\|_{L^2(\Omega_2)}.                 \tag{2}
+\]
+
+For two networks of the same width replace the three norms respectively by
+`||W1-W1bar||F/sqrt(n)`, `||W2-W2bar||op`, and
+`||W3-W3bar||2/sqrt(n)`; call this `D_n`. The finite rank is `v h^T/n`.
+There is no comparison in operator norm across widths or carriers.
+
+Here is an explicit version of the maintained C.4 transport lemma. Suppose
+each individual state norm in (2) is at most `B=12`; the norms in this premise
+are of each state component, not of a difference. Define
+`tau_R(v)=||v 1_(|v|>R)||2` and
+
+\[
+ \mathcal T_R(\bar\theta)
+ =\tau_R(\bar c)+\tfrac12\sum_{a=1}^2\tau_R(\bar Q(e_a)).
+\]
+
+For any probability law lambda on the binary observation space, any `R>=1`,
+and the fixed reference nu_* of the question,
+
+\[
+ \|F_\lambda(\theta)-F_{\nu_*}(\bar\theta)\|_{(2)}
+ \le 10^6\{(1+R)[D(\theta,\bar\theta)+W_1(\lambda,\nu_*)]
+                         +\mathcal T_R(\bar\theta)\}.             \tag{3}
+\]
+
+This holds also in the normalized finite norms, with the same constant.
+Here are arithmetic details making the constant checkable. For a coupling
+pair `(u,y),(v,z)`, set `h=|u-v|`, `d=D`, and `l=|y-z|`. Then
+
+\[
+ \|Z^1-\bar Z^1\|_2\le B(d+h),\quad
+ \|Z^2-\bar Z^2\|_2\le B(B+1)(d+h),\quad
+ |r-\bar r|\le B^3(d+h)+l.                                      \tag{4}
+\]
+
+The bounds use `|phi|,|phi'|<=1` and `Lip(phi')<=2`. For any fixed reference
+field v, splitting at `|v|=R` gives
+`||[phi'(z)-phi'(zbar)]v||2 <=2R||z-zbar||2+2tau_R(v)`.
+Writing `a=B(B+1)=156`, successive subtraction therefore gives
+
+\[
+ \|\delta^2-\bar\delta^2\|_2
+ \le313(1+R)(d+h)+2\tau_R(\bar c),
+\]
+\[
+ \|\delta^1-\bar\delta^1\|_2
+ \le3792(1+R)(d+h)+24\tau_R(\bar c)+2\tau_R(\bar Q(v)).           \tag{5}
+\]
+
+For the lower, middle and readout integrands, respectively, the coefficients
+of `(1+R)(d+h+l)` before the overall factor 2 are at most
+
+\[
+ B^2(B^3+1)+(B+1)3792+(B+1)B^2,
+\]
+\[
+ B(B^3+1)+(B+1)313+(B+1)B^2,
+ \qquad B^3+1+(B+1)a.
+\]
+
+Twice their sum is less than `10^6`. The total reference-tail coefficient
+is at most `4(B+1)(B+1)=676`, also below `10^6`. These decompositions include
+the explicit changed input vector in `r delta^1 u`. Integrating the estimates
+against a coupling and taking the infimum of its cost proves (3).
+No maximum over actual observations, positive Gram eigenvalue or atom-weight
+bound occurs. The full Gaussian row enters (4) only through its L2 norm.
+
+For same-input prediction and activation comparisons on this ball,
+
+\[
+ \sup_u|f_\theta(u)-f_{\bar\theta}(u)|\le2B^2D,
+ \quad\sup_u\|H^\ell_\theta(u)-H^\ell_{\bar\theta}(u)\|_2
+ \le(B+1)D\quad(\ell=1,2).                                    \tag{6}
+\]
+
+Every such predictor has `|f|<=B` and Lipschitz constant at most `B^3` in u.
+Thus its binary squared-loss integrand has joint Lipschitz constant
+
+\[
+ L_{risk}=2(B+1)B^3=44928,\qquad
+ |R_\lambda(f)-R_\rho(f)|\le L_{risk}W_1(\lambda,\rho).           \tag{7}
+\]
+
+###### 2. Actual finite reference GF and uniform observable passage
+
+Let `bar theta_n(t)` be the actual finite gradient flow on nu_*, started from
+exactly the same three initialized arrays as the network to be compared.
+In particular its finite readout is not zero. Finite dynamics §§1–4 gives
+global existence and the exact raw-metric energy identity. With probability
+tending to one, initialization satisfies
+
+\[
+ \|W^1_0\|_F/\sqrt n\le2,\quad\|W^2_0\|_{op}\le3,\quad
+ \|W^3_0\|_2/\sqrt n\le1/4,\quad\|W^3_0\|_\infty\le1.
+                                                                    \tag{8}
+\]
+
+The first/readout assertions follow from Gaussian second moments and the
+Gaussian union bound; the sharp matrix bound is proved in global-nonlinear
+A.3. Initial loss is at most `25/16`. Up to `T=40`, every block displacement
+in its raw metric is at most `sqrt(40*25/16)<8`, by energy and Cauchy–Schwarz.
+Consequently each reference component norm is strictly below 11. Its readout
+coordinate bound is at most `1+2T sqrt(25/16)=101`, because the mean absolute
+residual is bounded by the square root of the nonincreasing loss. These
+bounds apply to the actual finite flow, including its nonzero readout.
+
+For this particular reference, B.1 applies with two orthogonal inputs,
+sigma_1=sigma_2=1, beta=1, both activations tanh and kappa_i=1/2 to convert
+its sum loss into the present mean loss. Its construction uses the same
+fixed first Gaussian pair and initialized action with its actual adjoint.
+Its unique population flow is the one in Section C.4.5.1. The two active lower
+projections determine the full first row since they are precisely its two
+columns. Thus all passive circle inputs are evaluated using the same trained
+row, without creating extra training observations.
+
+We spell out the additional uniform observations needed here. At fixed
+auxiliary transformed mesh Delta, append finitely many passive forward
+evaluations and the active queries `Q_a=A* [c phi'(Z2_a)]` to B.1's oracle
+program. Its value theorem A.1 and complete III.F fixed-program construction
+give the joint node laws and second moments. The readout product can be
+clipped beyond its proven coordinate bound, so it is globally Lipschitz in
+its varying arguments. The transformed same-root comparison bounds the
+finite-flow/mesh error uniformly in width; learned action differences use
+operator norm. Its forward estimates also control the passive directions.
+The Q difference is bounded in L2 by
+
+\[
+ \|A-\widetilde A\|_{op}\|c\|_2+
+ \|\widetilde A\|_{op}
+ (\|c-\widetilde c\|_2+2\|\widetilde c\|_\infty
+                                  \|Z^2-\widetilde Z^2\|_2).
+                                                                    \tag{9}
+\]
+
+First take width to infinity with Delta fixed, then remove Delta. This proves
+the fixed-time joint second-moment limits for Q, the forward fields and paired
+initial/current activations. It does not apply a finite-program theorem to
+the growing actual GD transcript.
+
+The passage is uniform in physical time. On (8), the reference has uniformly
+bounded raw velocities on `[0,40]`, by (1) and the preceding bounds. Strong
+curve differentiation gives `dot Z2=dot A H1+A phi'(Z1)dot Z1`, and
+`dot delta2=dot c phi'(Z2)+c phi''(Z2)dot Z2`. Their L2 norms are uniformly
+bounded using `|c|<=101`. Differentiating `Q=A*delta2` then bounds its L2
+time-Lipschitz constant independently of width. The population proof is
+identical. Norms of positive-part cutoffs of Q inherit this Lipschitz constant.
+A fixed finite time grid followed by its refinement therefore extends every
+needed cutoff second-moment comparison uniformly in time. Forward evaluations
+are Lipschitz in input with constants bounded by the state norms. A fixed
+finite input net, after the time net, proves
+
+\[
+ \sup_{t\le40,u\in S^1}|\bar f_n(t,u)-f_*(t,u)|\longrightarrow0
+                         \quad\text{in probability}.              \tag{10}
+\]
+
+The same argument for the bounded squared displacement integrand, retaining
+the same neuron at time zero and current time in the fixed programs, gives
+
+\[
+ \sup_{t\le40,u}\left|\frac1n
+ \|\bar h^\ell_n(t,u)-h^\ell_n(0,u)\|_2^2
+ -\mathbb E_\ell|H^\ell_*(t,u)-H^\ell_0(u)|^2\right|
+ \longrightarrow0\quad\text{in probability}.                       \tag{11}
+\]
+
+Here no individual finite neuron is coupled with an invented population neuron.
+
+The response proof supplies, on the reference feature segment through its
+interpolating endpoint, `Q_a=G_a+E_a`, with `G_a` centered Gaussian of variance
+at most 16, `|E_a|<=M_Q`, and
+
+\[
+ M_Q=225400e^{2880}+180<e^{2893}.                                  \tag{12}
+\]
+
+Also `|c_*|<=10`. For `R>=4M_Q+20`, elementary Gaussian integration gives
+
+\[
+ \sup_{t\le40}\mathcal T_R(\bar\theta_n(t))
+ \le H e^{-R^2/4096}+o_{\mathbb P}(1),\qquad H=16(4+M_Q).          \tag{13}
+\]
+
+Every `o_P(1)` here is at fixed R and on one fixed reference. To check the
+constants, if `G` has variance at most `sigma²`, then
+`E exp(G²/(4sigma²))<=sqrt(2)`. Splitting `Q=G+E` and using
+`x²<=8sigma² exp(x²/(8sigma²))` bounds
+`tau_r(Q)<=8(sigma+M_Q)exp(-r²/(64sigma²))` for `r>=2M_Q`.
+At finite width `tau_R(Q_n)<=2||(|Q_n|-R/2)_+||2` and this latter norm
+converges uniformly in time to its population counterpart by (9) and the
+time-grid argument. Take sigma=4 and r=R/2. The readout has no tail at
+R>101 at finite width on (8). Our final R is much larger. This proves (13).
+
+###### 3. Raw GD comparison, stopping, and limit order
+
+Actual finite raw GD is exactly
+`theta_(j+1)=theta_j+eta F_lambda(theta_j)` for (1). It does not update a
+transformed clock. For completeness its states have a width-independent
+bound on every fixed horizon, for any probability law. If c_j is its readout
+RMS, then `1+c_(j+1)<=(1+2eta)(1+c_j)`. Hence `c_j<=2e^(2(T+1))` for
+initial c_0<=1 and nodes through T+eta, eta<=1. Writing this bound as C_T,
+the middle norm is at most `3+2(T+1)(C_T+1)C_T=:A_T`, and the full-row RMS
+is at most `2+2(T+1)(C_T+1)A_T C_T`. These estimates follow directly from
+successive raw increments, not a GD energy inequality.
+
+Sharper constants in the comparison come from stopping at the first time
+`D_n(theta_GD(t),bar theta_n(t))=1`. Before that time both states have
+individual norms at most B=12. The GD preceding-node state also lies there:
+its preceding time has not exited. Both interpolant speeds on this prefix
+are bounded by
+
+\[
+ V=2(B+1)(B^2+B+1)=4082.
+\]
+
+At time t the GD preceding state differs from its interpolant by at most
+V eta. Apply (3) against the actual reference GF at t, integrate the velocity
+difference, and use (13). Initial distance is exactly zero. With
+`K=40*10^6=40000000` and `q=W1(lambda,nu_*)`, Gronwall gives, on the stopped
+interval,
+
+\[
+ \sup_{t\le40}D_n(\theta_{GD}(t),\bar\theta_n(t))
+ \le K e^{K(1+R)}\{(1+R)(q+V\eta)
+                           +H e^{-R^2/4096}+o_{\mathbb P}(1)\}.   \tag{14}
+\]
+
+The supremum in (14) is first understood up to the stopping time. If its
+right side is strictly less than one, continuity excludes that stopping
+time, and the estimate holds through 40. All probabilities in (14) come from
+initialization and the one fixed reference; the bound otherwise applies to
+every actual law with the displayed q. A stochastic actual law is therefore
+handled on its event controlling q, without any law-dependent width theorem.
+
+The limit order is: fix T, the reference, the cutoff R and an auxiliary
+accuracy; establish the reference GF observations by fixed transformed mesh,
+width limit, then mesh removal; use those resulting reference statements in
+(14) and send the actual width to infinity and its step to zero. Auxiliary
+proof meshes never become actual GD steps. No transformed Euler increment is
+claimed to equal a raw GD increment; (14) compares actual raw GD directly to
+actual raw GF. The sufficient condition `eta_k sqrt(n_k)->0` requested in
+the primary theorem is permissible. In fact this particular final comparison
+uses only `eta_k->0`, because B.1 is used for the reference GF, not for an
+actual reference GD sequence.
+
+###### 4. Remaining assembly interface
+
+The numerical error tolerance, the exact certified radius, activity time and
+positive activity margin are fixed in the theorem above using Section C.4.5.1 and
+Section C.4.5.2. For any tolerance d0<1, it suffices to choose R and delta with
+
+\[
+ K H\exp(K(1+R)-R^2/4096)\le d_0/4,\qquad
+ K(1+R)\exp(K(1+R))\delta\le d_0/4.                             \tag{15}
+\]
+
+Then for any deterministic empirical sequence lambda_k with
+`W1(lambda_k,mu)->0`, `W1(mu,nu_*)<delta`, the positive excess of the full
+time-uniform same-width state distance over d0/2 tends to zero in probability.
+There is no assertion that perturbed trajectories converge to a unique global
+population trajectory. Equations (6), (7), (10), (11) transfer the observable
+conclusions without that assertion.
+
+For iid empirical laws of sizes m_k->infinity, independent of initialization,
+`W1(lambda_k,mu)->0` in probability. A direct proof partitions the compact
+observation space into finitely many Borel cells of diameter epsilon, moves
+each law to the same representatives at cost at most epsilon, and bounds the
+remaining transport by half the diameter (at most 4) times the sum of cell
+mass discrepancies. Each empirical cell mass has variance at most 1/(4m_k).
+First send m_k to infinity at fixed partition, then epsilon to zero. A union
+bound with the initialization/reference events proves the same joint limits
+for arbitrary width/sample growth rates. This gives probability tending to
+one for every fixed mu and sequence. No numerical finite-width rate, almost
+sure joint convergence or uniform failure probability over laws is asserted.
+
+
+<!-- END EXACT DEPENDENCY -->
+
+
+<!-- BEGIN EXACT DEPENDENCY: C.4.7.1–5: complete time40 strong construction, coefficient bootstrap, completion, finite-GF and observations -->
+
+##### C.4.7.1. Model, theorem and observation contract
+
+Fix \(Y\ge1\), \(T=40\), and
+\[
+ \mathcal Z=\sqrt2S^1\times[-Y,Y],\qquad
+ d_{\mathcal Z}((x,y),(x',y'))=|x-x'|/\sqrt2+|y-y'|.
+\]
+Write \(\mathcal W_1\) for this Wasserstein distance and \(u=x/\sqrt2\).
+Use exactly the two-hidden-layer tanh model of C.4: no biases, equal hidden
+widths, stored independent centered Gaussian variances \((1,1/n,1/n^2)\),
+and mobilities \((n,1,n)\) for the unhalved loss
+\(\mathcal L_\mu=\int(f_n(x)-y)^2\,d\mu(x,y)\). Thus
+\[
+ h_n^{(1)}=\tanh(W_n^{(1)}u),\quad
+ h_n^{(2)}=\tanh(W_n^{(2)}h_n^{(1)}),\quad
+ f_n(x)=(W_n^{(3)})^Th_n^{(2)}/n.
+\]
+Every finite Borel-law loss integral is exact. The actual finite initial
+readout is retained. The opposite-label reference is
+\[
+ \nu_*=\tfrac12\delta_{(\sqrt2e_1,+1)}
+             +\tfrac12\delta_{(\sqrt2e_2,-1)}.
+\]
+
+On the common canonical Gaussian carrier of III.F and C.4, use the typed
+aliases \(w=W^{(1)}\), \(A=W^{(2)}=A_0+K\), \(c=W^{(3)}\), and put
+\(H_\ell=L^2(\Omega_\ell)\) for the two layer Hilbert spaces. Define
+\[
+ \mathcal E=L^2(\Omega_1;\mathbb R^2)
+       \oplus\mathcal S_2(L^2(\Omega_1),L^2(\Omega_2))
+       \oplus L^2(\Omega_2),\qquad \theta=(w,K,c),
+\]
+\[
+ \|\theta-\bar\theta\|_{\rm raw}^2
+   =\|w-\bar w\|_2^2+\|K-\bar K\|_{\rm HS}^2+\|c-\bar c\|_2^2.
+\]
+Only the learned increment K is Hilbert–Schmidt. Retain the initialized
+Gaussian action \(A_0\) and its actual Hilbert adjoint, both with their
+joint coordinate realization. The prescribed initialization is
+\(\theta(0)=(g,0,0)\), \(g\sim N(0,I_2)\).
+For \(\phi=\tanh\), define at each state
+\[
+ H^{(1)}(u)=\phi(w\cdot u),\quad Z^{(2)}(u)=AH^{(1)}(u),\quad
+ H^{(2)}(u)=\phi(Z^{(2)}(u)),\quad f(u)=\langle c,H^{(2)}(u)\rangle,
+\]
+\[
+ \Delta^{(2)}(u)=c\phi'(Z^{(2)}(u)),\quad Q(u)=A^*\Delta^{(2)}(u),
+ \quad r(u,y)=f(u)-y.
+\]
+All population pairings contract within the indicated layer. A rank
+\(a\otimes b\) sends \(v\) to \(a\langle b,v\rangle\).
+
+**Theorem.** There is \(\delta_Y>0\), independent of width and sample
+count, such that the following hold on
+\[
+ U_Y=\{\mu\in\mathcal P(\mathcal Z):
+                         \mathcal W_1(\mu,\nu_*)<\delta_Y\}.
+\]
+This neighborhood is relative to all probability laws on \(\mathcal Z\).
+It imposes no atom-count, minimum-weight, angle, Gram-rank or prescribed
+label-function condition.
+
+1. **Strong autonomous training and reached restart.** Each \(\mu\in U_Y\)
+   has a solution \(\theta_\mu\in C^1([0,40];\mathcal E)\), with one-sided
+   endpoint derivatives, of
+   \[
+   \theta'_\mu=\mathcal F_\mu(\theta_\mu)
+   =-2\left(\int r\phi'(w\cdot u)Q(u)u\,d\mu,
+       \int r\Delta^{(2)}(u)\otimes H^{(1)}(u)\,d\mu,
+       \int rH^{(2)}(u)\,d\mu\right).
+   \tag{C.4.7.NF}
+   \]
+   These are Bochner integrals in the three raw spaces. The solution is
+   unique among strong raw solutions on the same prescribed carrier with
+   the same initialization and retained Gaussian primitives. For every
+   \(s\in[0,40]\), its restriction to \([s,40]\) is the unique strong
+   continuation from its reached state under the same law and primitives.
+   No well-posedness from an arbitrary ambient operator state is asserted.
+   The constructed path satisfies
+   \[
+   \mathcal L_\mu(t)+\int_0^t\|\theta'_\mu(v)\|_{\rm raw}^2\,dv
+         =\mathcal L_\mu(0)\le Y^2,\qquad
+   \|c_\mu(t)\|_\infty\le2Yt.
+   \tag{C.4.7.NG}
+   \]
+   Query tails and weighted moments used below are proved for these
+   trajectories; they are not conditions imposed on competing solutions.
+
+2. **Law continuity.** There are \(C_Y,a_Y,q_Y>0\) such that, for
+   \(q=\mathcal W_1(\mu,\rho)\le q_Y\) and \(\mu,\rho\in U_Y\),
+   \[
+   \sup_{t\le40}\|\theta_\mu(t)-\theta_\rho(t)\|_{\rm raw}
+             \le C_Yq^{a_Y}.
+   \tag{C.4.7.NL}
+   \]
+   In particular \(\sup_{t\le40,x}|f_\mu(t,x)-f_\rho(t,x)|
+   \le\Omega_Y(q)\), where \(\Omega_Y(q)=C_Yq^{a_Y}\) at small q and
+   a sufficiently large constant at larger q. Thus \(\Omega_Y(q)\to0\).
+
+3. **Actual finite GF and arbitrary sampling/width limits.** For each
+   fixed Borel \(\mu\in U_Y\), actual finite GF exists globally and
+   \[
+   \sup_{t\le40,x}|f_{n,\mu}(t,x)-f_\mu(t,x)|\longrightarrow0
+                                    \quad\hbox{in probability}.
+   \tag{C.4.7.NW1}
+   \]
+   More generally, for every deterministic sequence of empirical laws
+   \(\lambda_k\to\mu\) in \(\mathcal W_1\) and every \(n_k\to\infty\),
+   \[
+   \sup_{t\le40,x}|f_{n_k,\lambda_k}(t,x)-f_\mu(t,x)|
+       \longrightarrow0\quad\hbox{in probability}.
+   \tag{C.4.7.NW2}
+   \]
+   The same holds in joint probability for iid samples of any sizes
+   \(m_k\to\infty\), independent of initialization. No relative
+   sample-count/width rate is required. State and action identification
+   has the precise approximation and observation meaning below.
+
+4. **Nonlinear approximation by the C.4.6 response.** For any probability
+   law \(\nu\) on \(\mathcal Z\), put \(\sigma=\nu-\nu_*\) and
+   \(\mu_\epsilon=(1-\epsilon)\nu_*+\epsilon\nu\). Take
+   \[
+   \epsilon_Y=\min\{1/2,\delta_Y/[2(2+2Y)]\}.
+   \]
+   Then \(\mu_\epsilon\in U_Y\) for \(0\le\epsilon\le\epsilon_Y\).
+   With exactly the finite-first response
+   \(D_\sigma f=\mathscr D_\sigma f\) of C.4.6,
+   there is a deterministic modulus \(\omega_Y(\epsilon)\to0\),
+   uniform over all \(\nu\), such that
+   \[
+   \sup_{t\le40,x}|f_{\mu_\epsilon}(t,x)-f_{\nu_*}(t,x)
+                       -\epsilon D_\sigma f(t,x)|
+                \le\epsilon\omega_Y(\epsilon).
+   \tag{C.4.7.NR}
+   \]
+   The analogous raw-state remainder holds with the raw variation
+   obtained from C.4.6's clock tangent. With common initialization across
+   epsilon, let \(D_\sigma f_n=\partial_{\epsilon+}
+   f_{n,\mu_\epsilon}|_{\epsilon=0}\) be the actual finite GF derivative.
+   For every separately fixed \(\nu\) and every \(a>0\),
+   \[
+   \lim_{\epsilon\downarrow0}\limsup_{n\to\infty}
+   \Pr\!\left[
+    \frac{\sup_{t\le40,x}|f_{n,\mu_\epsilon}-f_{n,\nu_*}
+                         -\epsilon D_\sigma f_n|}{\epsilon}>a
+   \right]=0.
+   \tag{C.4.7.NB}
+   \]
+   Width is taken first at fixed positive epsilon. Neither a
+   width-uniform finite-n remainder nor an arbitrary simultaneous
+   epsilon/width rate is asserted.
+
+For the state assertion, fix a target law and required accuracy. Choose a
+finite comparison law and a finite raw Euler mesh, and hence one finite
+oracle program, before taking width to infinity. The population program
+approximates the path in the raw norm. Its realization on the actual
+initialized arrays, including the actual initial readout additively,
+approximates actual finite GF in the same-carrier distance
+\[
+ \|w_n-\bar w_n\|_F/\sqrt n+\|K_n-\bar K_n\|_F
+                         +\|c_n-\bar c_n\|_2/\sqrt n.
+\]
+The approximation error can be made arbitrarily small, uniformly through
+40, in probability in the stated order of choices. Learned increments
+are finite sums of ranks at each oracle. Their HS norms and pairings are
+identified by the finite double sums of the two same-layer Gram
+contractions. A finite matrix is never subtracted from a population
+operator on a different carrier.
+
+An admitted observation starts with a finite list of raw w,c and named
+\(H^{(1)},Z^{(2)},H^{(2)},\Delta^{(2)},Q\) fields at specified times
+and inputs, together with identified initialized generated fields. It
+uses finitely many correctly typed \(A_0,A_0^*,A(t),A(t)^*,K(t),K(t)^*\)
+actions, continuous globally Lipschitz coordinate operations, and fixed
+bounded continuous gates multiplying named \(L^2\) fields. Its joint
+same-layer empirical law converges with second moments, equivalently in
+\(\mathcal W_2\) for each finite tuple. Quadratic contractions and paired
+initialized/current hidden observations are included. Arbitrary unbounded
+coordinate products, nonlinear clocks and inverse-gate fields require
+their own moment and approximation proofs. No cross-carrier operator-norm
+convergence is claimed.
+
+##### C.4.7.2. Raw bounds and the comparison estimate
+
+Use the equivalent sum distance
+\(d(\theta,\bar\theta)=\|w-\bar w\|_2+\|K-\bar K\|_{\rm HS}
++\|c-\bar c\|_2\). It lies between the raw norm and \(\sqrt3\) times
+that norm. At finite width use the explicit normalized distance just
+displayed. All comparisons share the same initialized primitives.
+
+Every separately finite-law raw Euler program exists by recursion on the
+canonical action spaces. Bounded gates preserve \(L^2\), and each middle
+update is a Hilbert–Schmidt rank. For any mesh with nonnegative steps
+\(\Delta_k\) summing to at most T, let \(C_k=\|c_k\|_\infty\). The
+readout update gives
+\(C_{k+1}+Y\le(1+2\Delta_k)(C_k+Y)\). Consequently, for
+\(C_T=Y(e^{2T}-1)\), \(R_T=Y+C_T\), and a fixed
+\(M_0\ge\|A_0\|_{\rm op}\),
+\[
+ \|c_k\|_\infty\le C_T,\quad
+ \|K_k\|_{\rm HS}\le2TR_TC_T=:K_T,\quad
+ \|A_k\|_{\rm op}\le M_0+K_T=:A_T,
+\]
+\[
+ \|w_k\|_2\le\sqrt2+2TR_TA_TC_T,
+ \qquad \|\mathcal F_\mu(\theta_k)\|_{(1)}
+       \le2R_T(A_TC_T+C_T+1)=:V_T.
+ \tag{C.4.7.NE}
+\]
+Here \(\|\cdot\|_{(1)}\) is the sum of the three raw component norms.
+The affine interpolants obey the same bounds. Their crude constants are
+finite at T=40 and independent of atom counts, weights and meshes; no
+discrete energy inequality is used. The same calculation on finite arrays
+works when the initial readout supremum is at most one and the initial
+row RMS is at most two, with the corresponding enlarged constants.
+
+At fixed width the exact Borel-law vector field is smooth: on each
+finite-dimensional compact parameter set every derivative of its
+integrand is bounded uniformly in the compact data domain, so
+differentiation under the integral follows from the mean-value formula.
+The field is the negative gradient in the metric with squared norm
+\(\|v\|_F^2/n+\|B\|_F^2+\|d\|_2^2/n\). Thus
+\[
+ \mathcal L_\mu(t)+\int_0^t
+ \bigl(\|\dot w_n\|_F^2/n+\|\dot K_n\|_F^2
+                              +\|\dot c_n\|_2^2/n\bigr)\,ds
+       =\mathcal L_\mu(0).
+ \tag{C.4.7.NEF}
+\]
+On a finite maximal interval this bounds each parameter displacement by
+\(\sqrt{t\mathcal L_\mu(0)}\), and bounds a terminal Cauchy increment
+by \(\sqrt{|t-s|\mathcal L_\mu(0)}\). The finite endpoint and local
+smoothness extend the solution, proving global finite existence and
+uniqueness. On the initialization event
+\(\|A_{0,n}\|_{\rm op}\le10\),
+\(\|w_{0,n}\|_F/\sqrt n\le2\), \(\|c_{0,n}\|_\infty\le1\),
+which has probability tending to one by the Gaussian estimates in C.4.6,
+\(\mathcal L_\mu(0)\le(Y+1)^2\) for all laws. The finite raw states
+through40 then lie on a common deterministic ball, and
+\(\|c_n(t)\|_\infty\le1+2t(Y+1)\).
+
+The same energy calculation gives (C.4.7.NG) for any already existing strong
+population solution. For precision, the scalar prediction differential
+has the three raw gradient blocks
+\(\phi'(w\cdot u)Q(u)u\),
+\(\Delta^{(2)}(u)\otimes H^{(1)}(u)\), and \(H^{(2)}(u)\).
+The weighted Taylor argument in III.F.10 gives this scalar differential
+without asserting Fréchet differentiability of an ambient activation map.
+Bounded multiplier continuity, bounded actions and the rank norm identity
+make this gradient jointly continuous in state and input. Compactness of
+the input domain makes the continuity uniform near any fixed state: a
+contrary sequence has a convergent input subsequence. The law integral is
+therefore continuously differentiable, with gradient
+\(2\int r\nabla f\,d\mu\). Pair it with (C.4.7.NF) and integrate to obtain
+(C.4.7.NG). The readout bound follows pointwise from
+\(\int|r|\,d\mu\le\sqrt{\mathcal L_\mu(t)}\le Y\).
+These are a priori estimates for an existing path, not an existence
+theorem from every raw endpoint.
+
+For \(\tau_R(v)=\|v\mathbf1_{|v|>R}\|_2\), C.4.1's full-row
+comparison strengthens to
+\[
+ \|\mathcal F_\mu(\theta)-\mathcal F_\rho(\bar\theta)\|_{(1)}
+ \le C(1+R)\{d(\theta,\bar\theta)+\mathcal W_1(\mu,\rho)\}
+       +C\left[\tau_R(\bar c)+\int\tau_R(\bar Q(u))\,d\rho\right]
+ \quad(R\ge1).
+ \tag{C.4.7.NC}
+\]
+The constant depends only on the common raw/action bounds and Y. Here is
+the complete norm upgrade needed from that proof. Every action difference
+uses \(\|K-\bar K\|_{\rm op}\le\|K-\bar K\|_{\rm HS}\). Every
+middle-velocity difference is a sum of ranks, and
+\[
+ \|a\otimes b-\bar a\otimes\bar b\|_{\rm HS}
+ \le\|a-\bar a\|_2\|b\|_2+\|\bar a\|_2\|b-\bar b\|_2.
+\]
+This is the same bound used for its operator norm in C.4.1. The only
+unbounded gate products there use
+\[
+ \|[\phi'(z)-\phi'(\bar z)]P\|_2
+                 \le2R\|z-\bar z\|_2+2\tau_R(P).
+ \tag{C.4.7.NT}
+\]
+Split \(|P|\le R\) and its complement and use respectively
+\(\operatorname{Lip}(\phi')\le2\) and bounded gates. The upper backward
+subtraction applies (C.4.7.NT) to \(P=\bar c\); its error subsequently passes
+through a bounded adjoint and bounded first gate. The additional lower
+gate difference applies (C.4.7.NT) to \(P=\bar Q\). These errors add, so there
+is one cutoff factor, not its square. Changing u costs
+\(\|\bar w\|_2|u-v|\), as well as the explicit change of the first
+gradient's final vector u. Coupling the laws and integrating gives (C.4.7.NC),
+with tails only under the comparison marginal. This accounts for every
+norm change in the complete C.4.1 proof. The identical normalized
+finite-array calculation gives its same-width form.
+
+Finally \(\mathcal F_\mu(\theta)\) is jointly continuous in raw state
+and \(\mathcal W_1\) law. A bounded continuous multiplier converging in
+measure converges strongly when applied to one fixed \(L^2\) field, by
+truncating that field. This proves each backward-field continuity; the
+forward actions and rank identity handle the other factors. Compactness
+of the data domain again gives uniformity in data. A continuous
+Banach-valued integrand G on that domain has compact separable range and
+is Bochner integrable. Coupling at mean distance q gives the bound
+\(\omega_G(b)+2\|G\|_\infty q/b\) for a law change: split transport
+distances at b and use Markov's inequality. Send q to zero and then b to
+zero. These facts justify the joint continuity claim and its use below.
+
+##### C.4.7.3. Uniform passive-query tails for raw Euler programs
+
+Fix \(Y\ge1\), \(T=40\), the raw state \(\theta=(w,K,c)\),
+\(A=A_0+K\), and the initialization \((g,0,0)\) stated above.
+The aliases \(w=W^{(1)}\), \(A=W^{(2)}\), and \(c=W^{(3)}\)
+retain their stated population types. Let
+\(\lambda=\sum_a p_a\delta_{(\sqrt2u_a,y_a)}\), where
+\(p_a>0\), \(\sum_a p_a=1\), \(|u_a|=1\), and \(|y_a|\le Y\).
+Consider any finite raw Euler program with deterministic positive steps
+\(h_k\), nodes \(t_k=\sum_{j<k}h_j\), and total length at most \(T\).
+All residuals are its actual population residuals. Every named-source
+derivative below freezes residuals, contractions, covariance laws, and
+deterministic response coefficients; it differentiates only the named
+coordinate expression. Throughout, \(\phi=\tanh\); unqualified \(L^p\)
+norms use the population of their argument. Generic constants \(C\),
+\(C_B\), and \(C_{B,p}\) may increase from one estimate to the next and
+depend only on \(Y,T\), the fixed model, and the displayed cap and moment
+order. The constants \(C_0,R_0\) defined in (C.4.7.N9) remain fixed.
+
+For a passive query \(u\in S^1\), distinguish its one current forward
+slot from the earlier training slots, and define
+\[
+ \mathcal B_k=\sup_{u\in S^1}
+ \left\{|\beta_{ku,ku}|+\sum_{s<k,b}|\beta_{ku,sb}|\right\}.
+ \tag{C.4.7.N1}
+\]
+The coefficients are defined below. Each row is obtained by appending a
+fresh unused query to a finite program; earlier unused queries contribute
+zero response coefficients. The deterministic row functions extend
+continuously to the whole circle. The supremum in (C.4.7.N1) is outside every
+expectation.
+
+We prove that there are \(\rho>0\), \(h_0>0\), and \(B<\infty\),
+depending only on \(Y,T\) and the fixed model, such that
+\[
+ \mathcal W_1(\lambda,\nu_*)<\rho,\qquad
+ h_{\max}:=\max_k h_k\le h_0
+ \quad\Longrightarrow\quad
+ \sup_{k:t_k\le T}\mathcal B_k\le B.
+ \tag{C.4.7.N-cap}
+\]
+The same constants work for every finite support cardinality, every
+positive set of atom weights, every covariance rank, and every admitted
+mesh. They will give constants \(a,M>0\) such that every recomputed
+passive reverse query, including at affine Euler interpolation times,
+satisfies \(\tau_R(Q(u))\le M e^{-aR^2}\) for \(R\ge1\).
+
+The proof first obtains all moment and transport estimates under a
+temporary cap. It reduces (C.4.7.N-cap) to a uniform coefficient bound for
+reference raw Euler programs. A fresh-query estimate proves a cap for
+the reference physical-clock Euler programs; differentiated consistency
+transfers it to reference raw Euler. A second causal induction then
+transfers that raw reference cap to all nearby finite laws. All constants
+are finite; no useful numerical lower bound on \(\rho\) is asserted.
+
+###### 1. Exact source equations and construction order
+
+Set
+
+\[
+ m_{ka}=h_kp_a,\qquad \gamma_{ka}=-2m_{ka}r_{ka}.
+\]
+
+Use \(H^{(1)}_{ka}=\phi(w_k\cdot u_a)\), \(Z^{(2)}_{ka}=A_kH^{(1)}_{ka}\),
+\(H^{(2)}_{ka}=\phi(Z^{(2)}_{ka})\), \(\Delta^{(2)}_{ka}=c_k\phi'(Z^{(2)}_{ka})\), and
+\(Q_{ka}=A_k^*\Delta^{(2)}_{ka}\). A subscript ku denotes an arbitrary passive
+query at the current node. The exact Euler updates are
+
+\[
+ \begin{split}
+ w_{k+1}&=w_k+\sum_a\gamma_{ka}\phi'(w_k\cdot u_a)Q_{ka}u_a,\\
+ c_{k+1}&=c_k+\sum_a\gamma_{ka}\phi(Z^{(2)}_{ka}),\\
+ K_{k+1}&=K_k+\sum_a\gamma_{ka}\Delta^{(2)}_{ka}\otimes H^{(1)}_{ka}.
+ \end{split}                                                   \tag{C.4.7.N2}
+\]
+
+The two centered Gaussian orientation families are \(\xi\) on population 2
+and \(\zeta\) on population 1. Their exact
+source covariances are
+
+\[
+ \mathbb E_2[\xi_{ka}\xi_{sb}]=\mathbb E_1[H^{(1)}_{ka}H^{(1)}_{sb}],\qquad
+ \mathbb E_1[\zeta_{ka}\zeta_{sb}]=\mathbb E_2[\Delta^{(2)}_{ka}\Delta^{(2)}_{sb}].                  \tag{C.4.7.N3}
+\]
+
+The orientation families are independent; the lower population uses \(g\)
+and \(\zeta\), and the upper population uses \(\xi\). Within each family, times and inputs
+need not be independent. Singular covariance is allowed. The two populations
+are not paired finite-neuron coordinates.
+
+With all deterministic objects frozen as above, define
+
+\[
+ \alpha_{ka,sb}=\mathbb E_1[\partial_{\zeta_{sb}}H^{(1)}_{ka}]\quad(s<k),\qquad
+ \beta_{ka,sb}=\mathbb E_2[\partial_{\xi_{sb}}\Delta^{(2)}_{ka}]\quad(s\le k).
+ \tag{C.4.7.N4}
+\]
+
+Specializing C.2 (6)–(11), with unit initialized variance and unit mobilities, gives
+
+\[
+ \begin{split}
+ F_{ka,sb}&=\alpha_{ka,sb}+\gamma_{sb}\mathbb E_1[H^{(1)}_{ka}H^{(1)}_{sb}],\quad s<k,\\
+ D_{ka,sb}&=\beta_{ka,sb}
+              +\mathbf1_{s<k}\gamma_{sb}\mathbb E_2[\Delta^{(2)}_{ka}\Delta^{(2)}_{sb}],\\
+ Z^{(2)}_{ka}&=\xi_{ka}+\sum_{s<k,b}F_{ka,sb}\Delta^{(2)}_{sb},\\
+ Q_{ka}&=\zeta_{ka}+\sum_{s\le k,b}D_{ka,sb}H^{(1)}_{sb}.
+ \end{split}                                                   \tag{C.4.7.N5}
+\]
+
+Here \(F,D\) are scalar coefficient arrays representing the displayed
+answers of the retained action \(A\) and its actual adjoint \(A^*\).
+All current forward calls precede the current reverse calls. In particular
+
+\[
+ \beta_{ka,kb}=\mathbf1_{a=b}\mathbb E_2[c_k \phi''(Z^{(2)}_{ka})].                  \tag{C.4.7.N6}
+\]
+
+For a freshly appended passive query replace the right side by its one
+distinguished current slot. The current \(c,w\) use only earlier steps;
+current \(Z^{(2)}\) has only its own direct current \(\xi\). This proves (C.4.7.N6), including at a
+singular or duplicated query. There is no sum of unweighted current
+coefficients over all the other inputs.
+
+For a fixed past backward pulse \(p=(s,b)\), put
+\(v_{k;p}=\partial_{\zeta_p}w_k\). It is zero for \(k\le s\). Differentiating (C.4.7.N2)
+and (C.4.7.N5) gives exactly
+
+\[
+ \begin{split}
+ v_{k+1;p}=v_{k;p}+\sum_a\gamma_{ka}u_a\bigg[
+ &\phi''(w_k\cdot u_a)Q_{ka}(u_a\cdot v_{k;p})\\
+ &+\phi'(w_k\cdot u_a)\bigg\{\mathbf1_{(k,a)=p}
+       +\sum_{q\le k}D_{ka,q}\phi'(w_{t(q)}\cdot u_q)
+                         (u_q\cdot v_{t(q);p})\bigg\}\bigg],\\
+ \alpha_{ku,p}&=\mathbb E_1[\phi'(w_k\cdot u)\,u\cdot v_{k;p}].
+ \end{split}                                                   \tag{C.4.7.N7}
+\]
+
+The notation \(q\le k\) sums named training slots through time \(k\);
+\(t(q)\) is the time index of the slot, and \(u_q\) is its input.
+The direct pulse at step \(s\) has magnitude at most \(2R_0m_p\);
+this is where both its atom mass and its step enter.
+
+For an upper forward pulse \(p\), define
+
+\[
+ U_{ku;p}=\partial_{\xi_p}Z^{(2)}_{ku},\quad
+ C_{k;p}=\partial_{\xi_p}c_k,\quad
+ V_{ku;p}=\partial_{\xi_p}\Delta^{(2)}_{ku}.
+\]
+
+The exact upper equations are
+
+\[
+ \begin{split}
+ C_{k;p}&=\sum_{q<k}\gamma_q \phi'(Z^{(2)}_q)U_{q;p},\\
+ U_{ku;p}&=\mathbf1_{(k,u)=p}+\sum_{q<k}F_{ku,q}V_{q;p},\\
+ V_{ku;p}&=\phi'(Z^{(2)}_{ku})C_{k;p}+c_k \phi''(Z^{(2)}_{ku})U_{ku;p},\\
+ \beta_{ku,p}&=\mathbb E_2V_{ku;p}.
+ \end{split}                                                   \tag{C.4.7.N8}
+\]
+
+These are finite causal derivative equations, not a derivative of an
+ambient \(L^2\) vector field. No covariance, contraction, residual, \(\alpha\), or
+\(\beta\) is differentiated.
+
+Every fixed finite graph is defined before a uniform cap is sought.
+Chronological construction gives a finite Gaussian innovation list;
+Q is a Gaussian plus finitely many bounded first features with already
+finite coefficients. Lower source derivatives at the next instruction
+have a finite polynomial envelope in that finite Gaussian list, and the
+bounded upper gates/readout preserve their finite moments. This inductive
+argument supplies the finite coefficients in (C.4.7.N4), even on a long graph;
+it asserts no bound uniform in its number of instructions.
+
+###### 2. Consequences of a temporary backward coefficient cap
+
+The following bounds are useful without assuming an infinite-horizon
+bootstrap. They hold for every prefix on which the already constructed
+backward rows have a specified cap B. At a new node the lower estimates
+use only past rows; the upper estimates then construct the current row.
+
+For all raw Euler programs through T, independently of a coefficient cap,
+
+\[
+ \|c_k\|_\infty\le C_0:=Y(e^{2T}-1),\qquad |r_{ka}|\le R_0:=Y+C_0.
+ \tag{C.4.7.N9}
+\]
+
+Indeed \(\|c_{k+1}\|_\infty\le(1+2h_k)\|c_k\|_\infty+2h_kY\), since
+\(|\phi|\le1\) and \(|f|\le\|c\|_2\le\|c\|_\infty\); the product bound
+\(\prod_k(1+2h_k)\le e^{2T}\) proves (C.4.7.N9). Together with (C.4.7.NE), this bounds the raw row, Hilbert–Schmidt increment,
+action norm, and raw speed on every prefix, without a coefficient cap.
+
+Suppose the \(\beta\) row cap is B. Define
+
+\[
+ D_0=B+2R_0C_0^2T.
+\]
+
+Then (C.4.7.N5) gives \(\sum_q|D_{ku,q}|\le D_0\), and hence
+
+\[
+ Q_{ku}=\zeta_{ku}+J_{ku},\qquad |J_{ku}|\le D_0,
+ \qquad \mathbb E_1\zeta_{ku}^2\le C_0^2.                                \tag{C.4.7.N10}
+\]
+
+The J in this display includes both response and learned contributions.
+For every \(\lambda\ge0\) and every prefix,
+
+\[
+ \mathbb E_1\exp\left(\lambda\sum_{j<k,a}h_jp_a|Q_{ja}|\right)
+ \le 2\exp\{\lambda TD_0+\lambda^2T^2C_0^2/2\}.                 \tag{C.4.7.N11}
+\]
+
+To verify this, use (C.4.7.N10), the scalar bound
+\(\mathbb E e^{\lambda|G|}\le2e^{\lambda^2\operatorname{Var}(G)/2}\), and Jensen with weights
+\(h_jp_a/\sum_{i<k}h_i\). No temporal or input independence and no maximum of
+a Gaussian history is used.
+
+Put \(M_{k;p}=\max_{s<j\le k}|v_{j;p}|\). Since \(|\phi'|\le1\), \(|\phi''|\le2\), (C.4.7.N7)
+and discrete Gronwall give
+
+\[
+ {M_{k;p}\over m_p}
+ \le2R_0\exp\left\{2R_0D_0T+
+                      4R_0\sum_{j<k,a}h_jp_a|Q_{ja}|\right\}.
+ \tag{C.4.7.N12}
+\]
+
+The direct source appears only once, at time s; every later term is
+bounded by \(2R_0h_j(D_0+2\sum_a p_a|Q_{ja}|)M_{j;p}\). Iterating this
+scalar inequality proves (C.4.7.N12). Thus, for each \(p\ge1\),
+
+\[
+ \|M_{k;p_0}/m_{p_0}\|_{L^p}
+ \le L_p(B):=4R_0\exp\{6R_0D_0T+8R_0^2pT^2C_0^2\}.                 \tag{C.4.7.N13}
+\]
+
+Here \(p_0\) denotes the slot and p the moment order. In particular
+
+\[
+ |\alpha_{ku,sb}|\le A_B h_sp_b,\qquad
+ |F_{ku,sb}|\le f_Bh_sp_b,\quad
+ A_B=L_1(B),\quad f_B=A_B+2R_0.                                \tag{C.4.7.N14}
+\]
+
+There is also a **past-source density bound for \(\beta\)**, stronger than its
+row bound for handling law transport. Put \(d_0=2R_0T+2C_0\). From (C.4.7.N8), the
+full derivative row sum of c is at most
+\(2R_0\sum_{j<k}h_j\mathcal U_j\), where
+\(\mathcal U_j=\max_{i\le j,a}\sum_p|U_{ia;p}|\). Hence the row sum of V is at most
+\(d_0\mathcal U_k\), and
+
+\[
+ \mathcal U_k\le1+f_Bd_0\sum_{j<k}h_j\mathcal U_j
+       \le e^{f_Bd_0T}.                                    \tag{C.4.7.N15}
+\]
+
+These inequalities hold pointwise. Consequently
+
+\[
+ \sum_{p\le k}|\beta_{ku,p}|\le d_0e^{f_Bd_0T}.              \tag{C.4.7.N16}
+\]
+
+For completeness fix a single past forward slot \(p_0=(s,b)\). At time s
+only \(U_{sb;p_0}=1\) is nonzero, so only \(V_{sb;p_0}=c_s\phi''(Z^{(2)}_{sb})\) is
+nonzero and its magnitude is at most \(2C_0\). For k>s, (C.4.7.N8) then yields
+
+\[
+ |C_{k;p_0}|\le2R_0m_{p_0}
+       +2R_0\sum_{s<j<k}h_j\max_a|U_{ja;p_0}|,
+\]
+\[
+ \max_a|U_{ka;p_0}|
+ \le f_Bd_0m_{p_0}
+       +f_Bd_0\sum_{s<j<k}h_j\max_a|U_{ja;p_0}|.
+\]
+
+In the second inequality the c-memory double sum is bounded by T times
+the single sum. Thus
+
+\[
+ |\beta_{ku,sb}|\le b_Bh_sp_b\quad(s<k),\qquad
+ b_B=2R_0+d_0^2f_Be^{f_Bd_0T},\qquad
+ |\beta_{ku,ku}|\le2C_0.                                     \tag{C.4.7.N17}
+\]
+
+All constants in (C.4.7.N10)--(C.4.7.N17) are independent of the number of atoms,
+minimum atom weight, number of steps, and covariance rank. The equations
+also give, for each fixed finite p,
+
+\[
+ \|\sup_{j\le k}|w_j|\|_{L^p}+\sup_{j,a}\|Q_{ja}\|_{L^p}
+       +\sup_{j,a}\|Z^{(2)}_{ja}\|_{L^p}\le C_{B,p}.               \tag{C.4.7.N18}
+\]
+
+For \(w\) use its accumulated update, (C.4.7.N10), and Minkowski with weights
+\(h_jp_a\). For \(Z^{(2)}\) use \(|\Delta^{(2)}|\le C_0\), (C.4.7.N14), and the forward innovation of
+variance at most one. This does not claim a moment bound for a supremum
+of \(Q\) or \(Z^{(2)}\) over all times and inputs. All higher moments here
+come from named-field decompositions and source recursions; actions and
+adjoints are used only with their stated \(L^2\) bounds.
+
+The absolute estimates alone do not continue the C.2 cap to T. For example
+they offer only the sufficient inequality
+
+\[
+ B\ \ge\ \Psi_T(B):=d_0\exp\{d_0T(L_1(B)+2R_0)\}.             \tag{C.4.7.N19}
+\]
+
+With the overestimates (C.4.7.N9) at T=40 the right side already grows faster
+than B with a larger positive value at zero; (C.4.7.N19) cannot select a cap.
+This is a failure of this absolute estimate, not a demonstration that
+the actual coefficients diverge.
+
+###### 3. Weighted law transport of the coefficients
+
+Assume temporarily that some \(h_*>0\) and \(B_*<\infty\) bound
+\(\mathcal B_k\le B_*\) for every two-atom reference raw Euler program
+through \(T\) with \(h_{\max}\le h_*\). The reference clock argument
+below will prove this bound. We first prove its implication for nearby laws,
+retaining all source weights and comparing the same passive input.
+
+Take a finite optimal coupling of a finite \(\lambda\) and the two-atom
+reference. Split atoms according to its nonzero pairs and write it as
+\(p_a,(u_a,y_a),(v_a,z_a)\). Then
+
+\[
+ q=\mathcal W_1(\lambda,\nu_*)=\sum_ap_ae_a,\qquad
+ e_a=|u_a-v_a|+|y_a-z_a|.                                   \tag{C.4.7.N20}
+\]
+
+Both programs now have the same source names and masses. Splitting a
+reference atom does not enlarge its \(\beta\) row cap: for every old slot,
+its \(\alpha\), F, and \(\beta\) coefficients split in proportion to the new atom
+mass, while the current coefficient remains its one distinguished direct
+coefficient (C.4.7.N6). To check this claim, the lower pulse in (C.4.7.N7) is linear in
+its initial \(\gamma_{sb}\) and identical repeated reference queries have
+identical scalar values. Its normalized derivative is therefore unchanged
+by splitting. Equation (C.4.7.N5) then splits F in the same proportion. The
+single upper pulse equations (C.4.7.N8), starting with its one current impulse,
+split every later coefficient in that proportion as well. Induction in
+time proves the claim. Zero coupling weights are discarded.
+
+Run both programs on the same mesh and on their joint Gaussian-source
+realization. Theorem III.F.1, the source rule (III.F.9)–(III.F.10), and the
+fixed neural-product extension A.2, applied to their finite union
+gives, for matched slots,
+
+\[
+ \|\xi_i-\bar\xi_i\|_{L^p}
+      =\|N(0,1)\|_{L^p}\|H^{(1)}_i-\bar H^{(1)}_i\|_2,
+\quad
+ \|\zeta_i-\bar\zeta_i\|_{L^p}
+      =\|N(0,1)\|_{L^p}\|\Delta^{(2)}_i-\bar\Delta^{(2)}_i\|_2.          \tag{C.4.7.N21}
+\]
+
+Indeed the cross covariances are the corresponding cross contractions;
+subtracting them gives the squared source difference in (C.4.7.N21). This is a
+coupling by the source covariance rule, not a Lipschitz claim for an
+arbitrary matrix square root or an inverse Gram matrix.
+
+Write \(\mathrm d V=V-\bar V\) for a comparison difference, and let
+\(\eta\) bound the maximum raw distance between the two programs through
+the prefix. The elementary forward/action subtractions on their common
+ball give
+
+\[
+ |r_{ka}-\bar r_{ka}|
+ +\|H^{(1)}_{ka}-\bar H^{(1)}_{ka}\|_2+\|Z^{(2)}_{ka}-\bar Z^{(2)}_{ka}\|_2
+ +\|\Delta^{(2)}_{ka}-\bar\Delta^{(2)}_{ka}\|_2+\|Q_{ka}-\bar Q_{ka}\|_2
+ \le C(\eta+e_a),
+\]
+\[
+ |\gamma_{ka}-\bar\gamma_{ka}|
+                  \le C h_kp_a(\eta+e_a).                  \tag{C.4.7.N22}
+\]
+
+For Q subtract \(A^*\Delta^{(2)}\) directly; c is uniformly bounded pointwise,
+so the upper gate difference is \(L^2\) Lipschitz. No first-layer multiplier
+occurs in Q itself. At the same passive input u replace \(e_a\) by zero.
+
+Define the coefficient discrepancy at a common passive query by
+
+\[
+ E_k=\sup_u\left\{|\beta_{ku,ku}-\bar\beta_{ku,ku}|
+          +\sum_{s<k,b}|\beta_{ku,sb}-\bar\beta_{ku,sb}|\right\}.
+ \tag{C.4.7.N23}
+\]
+
+The current slots are paired as distinguished query slots. Earlier
+training slots use the coupling (C.4.7.N20). Comparing the current coefficient
+of a far contaminant with a reference *axis* current coefficient would
+give an O(1) difference even at arbitrarily small contamination mass.
+The same-passive-input convention in (C.4.7.N23) avoids that invalid norm.
+
+Here is the quantitative comparison needed for the bootstrap. If both
+programs' previously constructed \(\beta\) rows are at most B, then
+
+\[
+ E_k\le C_B\left\{(\eta+q)^{1/16}
+                              +\sum_{j<k}h_jE_j\right\}.
+ \tag{C.4.7.N24}
+\]
+
+Constants can be enlarged to cover \(\eta+q\ge1\); only its approach to zero
+matters. The current bound in (C.4.7.N24) uses only past nearby-law \(\beta\) caps.
+The rest of this section gives the derivative estimates proving (C.4.7.N24).
+
+First, within either capped program the \(\beta\) row is Lipschitz in its
+current passive input, with a constant depending only on B. For \(\alpha\),
+differentiate only the displayed input in (C.4.7.N7), or use the mean-value
+bound
+\(|\phi'(w\cdot u)u-\phi'(w\cdot v)v|\le C(1+|w|)|u-v|\) and (C.4.7.N13). This gives
+\(|\alpha_{ku,p}-\alpha_{kv,p}|\le C_Bm_p|u-v|\).
+The same estimate holds for F by its contraction formula. For the
+upper rows, all past V and the row C are identical at the two passive
+queries. In (C.4.7.N8), the past part of U differs by at most
+\(\sum_p|F_{ku,p}-F_{kv,p}|\sum_l|V_{p;l}|\), which is bounded by
+\(C_B|u-v|\) using (C.4.7.N15). The current \(\phi'(Z^{(2)}),\phi''(Z^{(2)})\) factors differ in \(L^2\) by
+\(C\|Z^{(2)}(u)-Z^{(2)}(v)\|_2\le C_B|u-v|\); tanh has bounded third derivative.
+Multiplying by the pointwise derivative row bound (C.4.7.N15) proves the
+asserted \(\beta\) row bound. Thus a matched active-output row costs at most
+\(E_k+C_Be_a\), in addition to the learned contraction discrepancy in
+(C.4.7.N22).
+
+Second, subtraction of (C.4.7.N7) has a causal linear propagation part using
+the nearby-law coefficients and a source part. The propagation coefficient
+for the maximum norm of a pulse difference is bounded by
+
+\[
+ 2R_0h_k\left(D_0+2\sum_ap_a|Q_{ka}|\right).                 \tag{C.4.7.N25}
+\]
+
+The source part consists exactly of the differences of \(\gamma\), the two
+input vectors, the gates \(\phi',\phi''\), \(Q\), and \(D\), each multiplied by an
+unchanged reference pulse. In particular there is no derivative of D in
+this subtraction. The D difference is
+
+\[
+ \mathrm d  D_{i,p}=\mathrm d \beta_{i,p}
+ +\mathbf1_{t(p)<t(i)}\left[
+  \mathrm d \gamma_p \mathbb E_2[\bar\Delta^{(2)}_i\bar\Delta^{(2)}_p]
+       +\gamma_p\mathrm d  \mathbb E_2[\Delta^{(2)}_i\Delta^{(2)}_p]\right],          \tag{C.4.7.N26}
+\]
+
+where unbarred \(\gamma\) is used in the second term. This also verifies that
+learned-memory errors retain \(m_p\).
+
+All unchanged normalized pulses have every fixed finite moment by (C.4.7.N13).
+Gate and field differences needed in the source part have an \(L^{12}\) bound
+\(C_B(\eta+e_a)^{1/16}\). For bounded gates interpolate the \(L^2\) bound (C.4.7.N22)
+with their pointwise bound. For w or Q interpolate their \(L^2\) difference
+with the uniform \(L^{24}\) bounds (C.4.7.N18); interpolation gives exponent 1/11,
+which implies the weaker displayed exponent on a bounded distance range.
+For the input factors themselves use \(|u_a-v_a|\le e_a\).
+Products of up to three factors are bounded in \(L^4\) by Hölder with \(L^{12}\)
+norms. The random integrating factor obtained from (C.4.7.N25) has every fixed
+moment by (C.4.7.N11); Cauchy--Schwarz bounds its product with each forcing
+term. Minkowski sums the time/atom masses. Discrete Gronwall therefore
+gives, for every past pulse p=(s,b),
+
+\[
+ {\|\max_{j\le k}|v_{j;p}-\bar v_{j;p}|\|_2\over m_p}
+ \le C_B\left\{(\eta+e_b)^{1/16}+q^{1/16}
+                              +\sum_{j<k}h_jE_j\right\}.   \tag{C.4.7.N27}
+\]
+
+One way to verify the averaging in this estimate is to retain each
+\(e_a^{1/16}\) until the last step and use
+\(\sum_ap_ae_a^{1/16}\le q^{1/16}\). The direct pulse uses (C.4.7.N22) and has
+the same factor \(m_p\); dividing by it does not leave \(1/p_b\).
+In the D term, its row variation multiplies the reference maximum pulse
+norm from (C.4.7.N13); its active-output discrepancy is bounded just above.
+There is also a term in which D is unchanged and a *past source's* gate
+or input changes. This is where (C.4.7.N17) is essential: its old-source
+coefficient satisfies \(|D_{ka,sb}|\le C_Bh_sp_b\), so
+
+\[
+ \sum_{s<k,b}|D_{ka,sb}|e_b^{1/16}
+             \le C_BT\sum_bp_be_b^{1/16}\le C_BTq^{1/16}.
+ \tag{C.4.7.N27a}
+\]
+
+The one current coefficient costs \(C_Be_a^{1/16}\) and is averaged
+with the outside update weight \(p_a\). A row bound without the past-source
+density bound would not justify this step.
+These account for every term from the two sums in (C.4.7.N7). No
+maximum of the \(e_a\) and no unweighted sum over source indices is taken.
+
+By the second line of (C.4.7.N7), (C.4.7.N27), and Hölder for the difference of its
+outside gate, at a common passive input
+
+\[
+ \sum_{p<k}|\mathrm d \alpha_{ku,p}|
+ \le C_B\left\{(\eta+q)^{1/16}
+                              +\sum_{j<k}h_jE_j\right\}.   \tag{C.4.7.N28}
+\]
+
+Here \(\sum_{p<k}m_p\le T\); the contribution depending on the source
+\(e_b\) averages as in (C.4.7.N27). The identical estimate holds for the F-row
+difference by (C.4.7.N5) and (C.4.7.N22). For a matched active output add
+\(C_Be_a\) using the passive-input estimate. Entrywise versions keep the
+factor \(m_p\) and its \(e_b\) term.
+
+For a current output slot \(i=(k,u)\), write \(q<i\) for
+\(t(q)<k\); the symbols \(k,i\) in the next display have this relation.
+The exact upper differences are
+
+\[
+ \begin{split}
+ \mathrm d  U_{i;p}
+    &=\sum_{q<i}\mathrm d  F_{i,q}\bar V_{q;p}
+                       +\sum_{q<i}F_{i,q}\mathrm d  V_{q;p},\\
+ \mathrm d  C_{k;p}
+    &=\sum_{q<k}\{\mathrm d \gamma_q \phi'(\bar Z^{(2)}_q)\bar U_{q;p}
+             +\gamma_q\mathrm d  \phi'(Z^{(2)}_q)\bar U_{q;p}
+             +\gamma_q \phi'(Z^{(2)}_q)\mathrm d  U_{q;p}\},\\
+ \mathrm d  V_{i;p}
+    &=\phi'(Z^{(2)}_i)\mathrm d  C_{k;p}+\mathrm d  \phi'(Z^{(2)}_i)\bar C_{k;p}
+          +c_k\phi''(Z^{(2)}_i)\mathrm d  U_{i;p}
+          +\{\mathrm d  c_k \phi''(\bar Z^{(2)}_i)+c_k\mathrm d  \phi''(Z^{(2)}_i)\}
+                                                        \bar U_{i;p}.
+ \end{split}                                               \tag{C.4.7.N29}
+\]
+
+The direct U impulses cancel after pairing the distinguished current
+slots. To keep output errors weighted, set
+
+\[
+ G_k=(\eta+q)^{1/16}+\sum_{j<k}h_jE_j,\qquad
+ L_k=\sum_ap_a\left\|\sum_p|\mathrm d  V_{ka;p}|\right\|_2.
+\]
+
+Every barred upper derivative row is bounded pointwise by (C.4.7.N15).
+The F propagation coefficients have density \(f_Bh_jp_a\), and \(\gamma\)
+retains its original mass. Summing (C.4.7.N29) over source indices, taking \(L^2\),
+then averaging its active output index gives
+
+\[
+ L_k\le C_BG_k+C_B\sum_{j<k}h_jL_j.                         \tag{C.4.7.N29a}
+\]
+
+In this estimate the F-row forcing at a matched active output is at most
+\(C_B(G_k+e_a)\) by (C.4.7.N28); the field factors at that output cost
+\(C_B(\eta+e_a)\) by (C.4.7.N22). Both are averaged with \(p_a\). In the C-row,
+which does not depend on the output query, the same factors are already
+multiplied by \(h_jp_a\). These are all appearances of an output transport
+cost in (C.4.7.N29). Since \(G_k\) is nondecreasing, discrete Gronwall yields
+\(L_k\le C_BG_k\) after increasing \(C_B\). For a common passive output there
+is no \(e_a\) term, and the same equations give
+
+\[
+ \left\|\sum_p|\mathrm d  V_{ku;p}|\right\|_2
+                 \le C_BG_k+C_B\sum_{j<k}h_jL_j\le C_BG_k.
+ \tag{C.4.7.N29b}
+\]
+
+Taking expected absolute values proves (C.4.7.N24). The current diagonal
+contributes at most \(C\eta\) directly from (C.4.7.N6). There is no current
+unknown \(E_k\) on the right: (C.4.7.N28) uses only earlier lower updates, and all
+upper memory terms in (C.4.7.N29) are strictly earlier. No supremum over the
+matched active-output costs \(e_a\) was used.
+
+The raw discrepancy \(\eta\) used above is available before the
+reference raw coefficient bound has been proved. The raw bound (C.4.7.NE), the Hilbert–Schmidt transport estimate (C.4.7.NC), and
+the actual reference tails of C.4.5.2 (R17)–(R18) give, for every finite
+raw Euler program with training law \(\lambda\),
+
+\[
+ \sup_{k:t_k\le T}d(\theta_{\lambda,k},\theta_*(t_k))
+       \le \omega_T(q+h_{\max}),\qquad \omega_T(s)\to0.     \tag{C.4.7.N30}
+\]
+
+To see the mesh term, interpolate the Euler path affinely; its speed is
+uniformly bounded by the crude raw ball. Apply the transport estimate
+with the actual reference as its tail-bearing endpoint. The distance
+from the interpolated Euler state to its left endpoint is at most
+\(V_Th_{\max}\), so the cutoff inequality acquires
+\(C(1+R_{\rm cut})h_{\max}\). Integrating gives
+\(C e^{CR_{\rm cut}}\{(1+R_{\rm cut})(q+h_{\max})+e^{-cR_{\rm cut}^2}\}\). Taking the cutoff to be a sufficiently large constant times
+\(\sqrt{\log(e/(q+h_{\max}))}\) proves (C.4.7.N30) for small
+\(q+h_{\max}>0\); define the modulus to be zero at zero and enlarge
+it using the common raw bound outside that range. This is a comparison to one
+existing flow, not a construction of a changed-law flow.
+Applying (C.4.7.N30) to \(\lambda\) and to the reference raw Euler program gives a
+valid \(\eta\) tending to zero with \(q+h_{\max}\) in (C.4.7.N24).
+
+Assume the reference raw coefficient bound stated at the start of this part. Its reference Euler Q tails are Gaussian by (C.4.7.N10).
+For the two raw programs on the **same** mesh, the transport estimate
+therefore gives, at a fixed cutoff \(R_{\rm cut}\), the recurrence
+
+\[
+ d_{k+1}\le[1+Ch_k(1+R_{\rm cut})]d_k
+          +Ch_k\{(1+R_{\rm cut})q+e^{-cR_{\rm cut}^2}\}.
+\]
+
+Both start at the same state. Iteration and cutoff choice give
+
+\[
+ \sup_k d_k\le\Phi_{B_*}(q),\qquad
+ \Phi_{B_*}(q)\longrightarrow0\quad(q\downarrow0),          \tag{C.4.7.N30a}
+\]
+
+uniformly over admitted meshes; there is no mesh defect in this
+comparison. One can take \(\Phi(q)=Cq e^{C\sqrt{\log(e/q)}}\) for small q
+after enlarging constants. The crude ball for the nearby program
+suffices; only the reference endpoint of the transport estimate
+requires tails.
+
+Set \(B=B_*+1\) and use its invariant duplication property.
+At the first potential failed row, all prior nearby-law rows are at
+most B. Estimates (C.4.7.N10)--(C.4.7.N29) apply in their causal order. Discrete
+Gronwall in (C.4.7.N24) gives
+
+\[
+ E_k\le C_B e^{C_BT}
+                 \{\Phi_{B_*}(q)+q\}^{1/16}.                \tag{C.4.7.N31}
+\]
+
+Choose positive \(\rho\) small enough that the right side is at most 1/2
+whenever \(q<\rho\), and put \(h_0=h_*\).
+The current row is then at most \(B_*+1/2<B\), contradicting first failure.
+The zero-readout initialization has \(\beta=0\), so induction starts.
+This proves (C.4.7.N-cap), conditional on that reference bound.
+Formula (C.4.7.N10) gives a uniform Gaussian marginal tail for every passive
+\(Q\), and (C.4.7.N9) controls the readout. This argument has not inferred
+convergence of changed-law paths from their fixed positive proximity to
+the reference.
+
+More explicitly, once the cap is fixed, \(Q=G+J\), \(\operatorname{Var}(G)\le C_0^2\),
+\(|J|\le D_0\). For \(R_{\rm cut}\ge2D_0\), the event \(|Q|>R_{\rm cut}\) implies
+\(|G|>R_{\rm cut}/2\). Integrating the scalar Gaussian tail and absorbing its
+polynomial prefactor gives \(\tau_{R_{\rm cut}}(Q)\le M e^{-aR_{\rm cut}^2}\) with finite
+positive a,M depending only on the fixed caps. Enlarge M to cover the
+remaining \(R_{\rm cut}\ge1\) and the bounded readout. Averaging these individual tail bounds over any admitted training law
+preserves the same constants, as does restriction to a smaller radius. A state
+on an affine Euler segment is obtained by appending one shorter final
+step; the same bound applies to its recomputed fields. This is a
+marginal-in-time statement, not an exponential bound for a path maximum.
+
+###### 4. Raw-to-clock mesh errors and their named derivatives
+
+The clock change is exact for continuous reference flow. Its raw Euler
+defect and the named derivatives of that defect must still be summed;
+the following bounds do so under the temporary cap.
+
+Let
+
+\[
+ \mathcal F(w)=w/2+\sinh(2w)/4,\quad \mathcal F'(w)=1/\phi'(w),
+\quad R_h(w,b_0)=\mathcal F(w+hb_0\phi'(w))-\mathcal F(w)-hb_0.
+\]
+
+Here \(b_0\) is a scalar velocity coefficient.
+Put \(\vartheta=hb_0\phi'(w)\). Taylor's integral identity gives
+
+\[
+ R_h=h^2b_0^2\phi'(w)^2
+                \int_0^1(1-s)\mathcal F''(w+s\vartheta)\,ds.
+ \tag{C.4.7.N32}
+\]
+
+The elementary hyperbolic identities imply
+
+\[
+ \phi'(w)^2|\mathcal F''(w+z)|\le2e^{2|z|},\qquad
+ \phi'(w)^2|\mathcal F'''(w+z)|\le4e^{2|z|},\qquad |\phi''|\le2\phi'.
+\]
+
+For example \(|\sinh(2(w+z))|\le e^{2|z|}\cosh(2w)\) and
+\(\phi'(w)^2\cosh(2w)\le2\); the bound for the third derivative follows in
+the same way. Differentiating the explicit integral (C.4.7.N32), rather than
+separately estimating the large terms before cancellation, yields
+
+\[
+ |R_h|\le Ch^2 b_0^2e^{2h|b_0|},
+\]
+\[
+ |\partial_wR_h|\le Ch^2b_0^2(1+h|b_0|)e^{2h|b_0|},\qquad
+ |\partial_{b_0}R_h|\le Ch^2|b_0|(1+h|b_0|)e^{2h|b_0|}.
+ \tag{C.4.7.N33}
+\]
+
+Every named derivative consequently obeys
+
+\[
+ |\partial_p R_h|
+ \le Ch^2e^{2h|b_0|}(1+h|b_0|)
+                \{b_0^2|\partial_p w|+|b_0||\partial_p b_0|\}.
+ \tag{C.4.7.N34}
+\]
+
+On the reference, including any split representation, the row-coordinate
+update has precisely this form with
+
+\[
+ b_{0,a,k}=-2\sum_{j:v_j=e_a}p_jr_{kj}Q_{kj}.
+ \tag{C.4.7.N35}
+\]
+
+Under the temporary cap its scalar marginals have uniformly bounded
+Gaussian norms, by (C.4.7.N10) and the total atom mass. Formula (C.4.7.N11) or the
+scalar Gaussian exponential moment controls the factor in (C.4.7.N33)--(C.4.7.N34).
+Therefore \(\sum_k\|R_{h_k}\|_{L^p}\le C_{B,p}h_{\max}\) for every fixed finite p.
+
+For a backward source \(p_0\)=(s,j), at the direct injection step
+\(|\partial_{p_0}b_0|\le2R_0p_j\) and \(\partial_{p_0}w_s=0\).
+Dividing that step's estimate (C.4.7.N34) by \(m_{p_0}=h_sp_j\) costs at most
+\(C_{B,p}h_s\). At every later step, (C.4.7.N7), (C.4.7.N13), and the D-row cap give
+
+\[
+ \|\partial_{p_0}w_k/m_{p_0}\|_{L^p}
+ +\|\partial_{p_0}b_{0,a,k}/m_{p_0}\|_{L^p}\le C_{B,p}.
+\]
+
+Using Hölder in (C.4.7.N34) and \(\sum_kh_k^2\le Th_{\max}\) now proves
+
+\[
+ {1\over m_{p_0}}\sum_{k\ge s}
+               \|\partial_{p_0}R_{h_k}\|_{L^p}
+                                  \le C_{B,p}h_{\max}.     \tag{C.4.7.N36}
+\]
+
+This proves summability of the named backward-pulse clock defect with
+its correct mass normalization. A local lower-population function is
+independent of the upper \(\xi\) slots when deterministic coefficients are
+frozen; there is no additional \(\xi\) derivative of its clock defect.
+The c/K updates are the same in raw and clock formulations.
+
+###### 5. The physical reference source anchor and its transfer
+
+**The reference clock coefficient bound.**
+
+Use the two reference clocks \(X_a=\mathcal F(w_a)-\mathcal F(g_a)\) and the scalar solution
+\(w_a=J(X_a,g_a)\) of \(J_X=\operatorname{sech}^2J\), \(J(0,g)=g\). Thus
+\(|J_X|\le1\). Its active first features have \(|\partial_X\phi(J)|=\operatorname{sech}^4J\le1\).
+The physical reference clock equations are
+
+\[
+ \dot X_a=-r_aQ_a,\qquad
+ \dot K=-\sum_{a=1}^2r_a\Delta^{(2)}_a\otimes H^{(1)}_a,\qquad
+ \dot c=-\sum_{a=1}^2r_aH^{(2)}_a.                                \tag{C.4.7.N37}
+\]
+
+Their raw fields are the reference flow of C.4.5.1 (R4)–(R8).
+The factor \(-r_a\) in (C.4.7.N37) is \(-2p_ar_a\) with \(p_a=1/2\).
+On the common
+carrier these equations are Lipschitz on the bounded sets used below,
+by the explicit subtractions that follow; Euler convergence here needs
+no raw first-gate estimate.
+
+For the auxiliary source extraction use finite initialized matrices
+with \(\|A_0\|_{\rm op}\le10\) and **zero readout**. This auxiliary fixed program identifies the zero-readout population
+coefficients. The actual finite-network initialization in the theorem
+retains its specified random readout. In the finite calculation every
+field norm is \(\|v_n\|_2/\sqrt n\), and the increment norm is the
+ordinary Frobenius norm \(\|K_n\|_F\). These are the finite versions of
+population \(L^2\) and Hilbert–Schmidt norms by III.F.8
+(III.F.28)–(III.F.31). By (C.4.7.N9) and bounded activations, at all nodes,
+
+\[
+ \|c_k\|_\infty\le C_0,\quad |r_{ka}|\le R_0,\quad
+ \|K_k\|_{HS}\le2TR_0C_0,\quad \|A_k\|_{op}\le M:=10+2TR_0C_0.
+ \tag{C.4.7.N38}
+\]
+
+These bounds also hold if a fresh root is added to one forward or
+reverse query and all descendants, including residuals, are recomputed.
+Forward tanh and its gate remain bounded, so every subsequent c and K
+increment obeys the same estimate. Reverse forcing changes only the
+clock increment directly. Thus there is no assumption that a forced
+program retains a gradient-flow energy identity.
+
+For two unforced subsequent clock states on this ball set
+\(x=\sum_a\|\mathrm d  X_a\|_2\), \(\varkappa=\|\mathrm d  K\|_{\rm HS}\), \(z=\|\mathrm d  c\|_2\),
+and \(d=x+\varkappa+z\). The same-root scalar bound for J gives
+
+\[
+ \begin{split}
+ \sum_a\|\mathrm d  H^{(1)}_a\|_2&\le x,\qquad
+ V:=\sum_a\|\mathrm d  Z^{(2)}_a\|_2\le Mx+2\varkappa,\\
+ D:=\sum_a\|\mathrm d \Delta^{(2)}_a\|_2&\le2z+2C_0V,\qquad
+ P:=\sum_a\|\mathrm d  Q_a\|_2\le MD+2C_0\varkappa,\\
+ S:=\sum_a|\mathrm d  r_a|&\le2z+C_0V.
+ \end{split}                                               \tag{C.4.7.N39}
+\]
+
+The three velocity differences in (C.4.7.N37) are at most
+
+\[
+ MC_0 S+R_0P,\qquad C_0S+R_0(D+C_0x),\qquad S+R_0V.                    \tag{C.4.7.N40}
+\]
+
+For example subtract \(r\Delta^{(2)}\otimes H^{(1)}\) into its residual, upper
+field, and lower feature differences; the rank norm is the product of
+its \(L^2\) factors. Equations (C.4.7.N39)--(C.4.7.N40) give a bound \(Ld\) with the fixed
+overestimate
+
+\[
+ L=100(1+M+C_0+R_0)^4,
+ \qquad E=\exp(LT).                                        \tag{C.4.7.N41}
+\]
+
+Hence any post-pulse Euler difference is amplified by at most E,
+independently of width, step count, and step sizes. Splitting an atom
+retains these equations after summing its identical descendants.
+
+Insert \(\varepsilon e\), with \(e\) a fresh standard Gaussian root of
+the answer's population, into the complete reverse answer at slot \((s,b)\).
+Its only immediate state change is in the clock corresponding to
+\(v_b=e_a\), with norm at most
+
+\[
+ 2R_0 h_sp_b|\varepsilon|\|e\|_2.                               \tag{C.4.7.N42}
+\]
+
+For a passive first feature
+\(H^{(1)}(u)=\phi(u_1J(X_1,g_1)+u_2J(X_2,g_2))\), the difference is at most x.
+The subsequent passive feature difference is therefore bounded by
+\(2R_0Eh_sp_b|\varepsilon|\|e\|_2\).
+
+Instead insert the root into one complete forward answer \(Z^{(2)}_{sb}\).
+At that node its activation, \(\Delta^{(2)}\), residual, and reverse answer change
+by at most, respectively,
+
+\[
+ |\varepsilon|\|e\|_2,\quad 2C_0|\varepsilon|\|e\|_2,\quad
+ C_0|\varepsilon|\|e\|_2,\quad 2MC_0|\varepsilon|\|e\|_2.
+\]
+
+Use the old Q and the bounded new residual when subtracting the clock
+update. The three immediate state increments have total norm at most
+\(P_0h_sp_b|\varepsilon|\|e\|_2\), where
+
+\[
+ P_0=2\{MC_0^2+2R_0MC_0+C_0^2+2R_0C_0+C_0+R_0\}.                          \tag{C.4.7.N43}
+\]
+
+The terms arise from \(\mathrm d (rQ)\), \(\mathrm d (r\Delta^{(2)}\otimes H^{(1)})\), and
+\(\mathrm d (rH^{(2)})\), respectively. A passive later \(\Delta^{(2)}\) satisfies
+
+\[
+ \|\mathrm d \Delta^{(2)}(u)\|_2\le z+2C_0(Mx+\varkappa)\le K_0d,
+ \qquad K_0=1+2C_0(M+1).                                    \tag{C.4.7.N44}
+\]
+
+Thus its post-pulse change is at most
+\(P_0K_0Eh_sp_b|\varepsilon|\|e\|_2\).
+
+Extract the named coefficients by the full mechanism of C.4.5.2
+(R5)--(R15). Here are the hypotheses and the order of limits needed
+for this application. At each fixed graph clip the Gaussian first
+roots smoothly. The passive feature's derivatives with respect to X
+are bounded uniformly in the root clipping level; its root
+derivatives are bounded at each fixed level. A readout clip equal to
+the identity on a neighborhood of \([-C_0,C_0]\) is inactive. Thus the
+fixed-program theorem and its complete source extension apply to
+forced and unforced graphs, including singular covariance and
+variance-zero slots. At a fixed graph all source derivatives have a
+finite deterministic bound independent of root clipping: the clock
+derivatives are bounded, the readout is bounded, and every matrix
+answer is a source plus a finite sum with fixed coefficients.
+Chronological convergence and this derivative bound remove root
+clipping and make all coefficients continuous as \(\varepsilon\) tends to
+zero, exactly as proved in C.4.5.2, proof part 2, (R5)–(R7). No mesh-uniform source cap was
+used in this fixed-graph step.
+
+Fix the mesh and nonzero \(\varepsilon\) and first let width tend to infinity.
+The initialization operator event and \(\|e_n\|_2/\sqrt n\to1\) have
+probability tending to one, by III.F.2 (III.F.4) and the Gaussian
+second-moment calculation. Theorem III.F.1 and its extension just checked transfer
+(C.4.7.N42)--(C.4.7.N44) and their pairing with the fresh Gaussian root. In the
+source coordinate expression that root enters only in the specified
+slot as \(\mathrm{slot}+\varepsilon e\). The selected residuals and covariance laws
+may depend on \(\varepsilon\) but are deterministic, and all Gaussian source
+groups are independent of this local new root. Conditional
+one-dimensional Gaussian integration by parts therefore gives
+
+\[
+ \mathbb E[eV^\varepsilon]=\varepsilon\mathbb E[\partial_{\rm slot}V^\varepsilon].
+ \tag{C.4.7.N45}
+\]
+
+The expectation in (C.4.7.N45) is in the population of the observed field.
+The unforced expression is independent of \(e\). Cauchy--Schwarz in the
+joint limit, division by \(|\varepsilon|\), then the fixed-graph
+zero-forcing continuity just proved yield
+
+\[
+ |\alpha^{\rm cl}_{ku,sb}|\le2R_0Eh_sp_b,
+ \qquad |\beta^{\rm cl}_{ku,sb}|\le P_0K_0Eh_sp_b\quad(s<k),
+ \qquad |\beta^{\rm cl}_{ku,ku}|\le2C_0.                     \tag{C.4.7.N46}
+\]
+
+The argument works for each passive u with the same constants.
+Consequently every reference physical clock Euler program through T
+has the cap
+
+\[
+ B_{\rm cl}=2C_0+TP_0K_0E.                                   \tag{C.4.7.N47}
+\]
+
+This proves a bound for the specified named coefficients. It does
+not infer a derivative transverse to a singular source support from
+the unforced value law. The fresh root and the width-first,
+forcing-second order in (C.4.7.N45) are essential.
+
+**Transfer from clock Euler to raw reference Euler.**
+
+Compare the reference raw and clock Euler programs on the same mesh
+and common Gaussian source carrier. Write
+\(X^r_a=\mathcal F(w^r_a)-\mathcal F(g_a)\) for the transformed raw program and \(X^c\)
+for clock Euler. The raw program satisfies the exact clock update
+with the extra vector of defects (C.4.7.N32). Its lower first-feature
+expression is the same function of X and g as in the clock program.
+
+Define \(E_k\) by (C.4.7.N23) for this raw/clock pair, with no change of data
+law, and assume a temporary cap B on all preceding raw \(\beta\) rows.
+Let \(\eta_h\) bound the raw discrepancy of their fields. There is an
+\(\eta_h\) tending to zero with \(h_{\max}\) independently of that cap: (C.4.7.N30)
+compares raw Euler with the actual reference, while (C.4.7.N39)--(C.4.7.N41), the
+bounded clock speed, and the integrated Euler error compare clock
+Euler with the same reference in clock/HS/\(L^2\) norm. The scalar bound
+\(|J_X|\le1\) converts the latter distance to raw distance. In particular
+all the field differences in (C.4.7.N22) are \(O(\eta_h)\).
+
+For a backward pulse \(p_0\)=(s,b), put
+\(\chi^r_{k;p_0}=\partial_{\zeta_{p_0}}X^r_k\), and define \(\chi^c\) similarly.
+For a lower first feature let \(J_q^r\) and \(J_q^c\) denote its two
+clock derivatives. Each has norm at most two, and their difference
+in \(L^2\) is at most \(C\eta_h\), since each is a product of bounded tanh
+gates with bounded derivatives. At reference active slots one can
+use the sharper bound one. Differentiating the two clock recursions
+gives the exact pair
+
+\[
+ \chi^r_{k+1;p_0}=\chi^r_{k;p_0}
+   +\sum_a\gamma^r_{ka}v_a\left\{\mathbf1_{(k,a)=p_0}
+             +\sum_{q\le k}D^r_{ka,q}J_q^r\chi^r_{t(q);p_0}\right\}
+   +\partial_{p_0}R_k,
+\]
+\[
+ \chi^c_{k+1;p_0}=\chi^c_{k;p_0}
+   +\sum_a\gamma^c_{ka}v_a\left\{\mathbf1_{(k,a)=p_0}
+             +\sum_{q\le k}D^c_{ka,q}J_q^c\chi^c_{t(q);p_0}\right\}.
+ \tag{C.4.7.N48}
+\]
+
+Here \(v_a\) is the reference axis of that atom, and the lower feature
+derivative is a row vector applied to \(\chi\). The clock reference cap
+(C.4.7.N47) bounds its D rows by \(D_{\rm cl}=B_{\rm cl}+2R_0C_0^2T\). Since the clock gates
+are bounded, its pulses satisfy the **pointwise** bound
+
+\[
+ \max_{j\le k}|\chi^c_{j;p_0}|/m_{p_0}
+                        \le2R_0\exp(4R_0D_{\rm cl}T).         \tag{C.4.7.N49}
+\]
+
+Subtract (C.4.7.N48). Its raw propagation coefficients have a deterministic
+bound depending only on B and (C.4.7.N9); there is no random Q multiplier.
+Differences of \(\gamma\) and the clock gates cost \(C\eta_h\), multiplied
+by the bounded normalized reference pulse (C.4.7.N49). The D-row difference
+is at most \(E_j+C\eta_h\) by (C.4.7.N26). Finally (C.4.7.N36) bounds the sum of
+the normalized defect derivatives in \(L^2\) by \(C_Bh_{\max}\). Discrete
+Gronwall gives
+
+\[
+ {\|\max_{j\le k}|\chi^r_{j;p_0}-\chi^c_{j;p_0}|\|_2\over m_{p_0}}
+    \le C_B\left\{\eta_h+h_{\max}
+                                  +\sum_{j<k}h_jE_j\right\}.
+ \tag{C.4.7.N50}
+\]
+
+The maximum on the left is controlled by the sum of the forcing
+norms and a deterministic integrating factor. It does not require
+an \(L^2\) bound on a supremum of the raw field discrepancy.
+
+Take expected first-feature derivatives to obtain the same bound for
+the \(\alpha\) row difference, after summing its source masses. For a
+passive output its derivative outside chi differs in \(L^2\) by
+\(C\eta_h\) and is bounded, so the statement remains uniform in u.
+The upper source equations (C.4.7.N8) are identical in the two schemes;
+subtracting them as in (C.4.7.N29), using the source density bounds and
+discrete Gronwall, proves
+
+\[
+ E_k\le C_B\left\{\eta_h+h_{\max}
+                                  +\sum_{j<k}h_jE_j\right\}.
+ \tag{C.4.7.N51}
+\]
+
+Set \(B=B_{\rm cl}+1\). At any first potentially failed raw row, all previous
+rows obey this cap. The defect estimate (C.4.7.N36) uses only those previous
+raw Q fields. The current \(\alpha\) then obeys (C.4.7.N50), and the current
+\(\beta\) obeys (C.4.7.N51), whose right side has no current \(\beta\). Gronwall
+yields \(E_k\le C_Be^{C_BT}(\eta_h+h_{\max})\). Choose \(h_*\) positive and
+small enough that this is at most 1/2 whenever \(h_{\max}\le h_*\).
+Then the current raw row is at most \(B_{\rm cl}+1/2<B\), so induction cannot
+fail. Both zero-readout initial programs have \(\beta=0\). This proves the reference raw coefficient bound with \(B_*=B_{\rm cl}+1\).
+The weighted law-transport induction above now proves (C.4.7.N-cap) and its
+uniform passive Gaussian-tail consequence through physical time \(T=40\).
+
+The two bootstraps are separate: the first uses one fixed, independently
+proved clock anchor to control reference raw Euler; the second uses
+that raw anchor and weighted law transport to control all nearby finite
+laws. Neither bootstrap takes a supremum of far-atom transport costs
+or assumes the tails of the not-yet-controlled current query.
+
+##### C.4.7.4. Strong completion, law continuity and reached uniqueness
+
+The preceding source argument supplies a radius \(\rho>0\), a mesh
+threshold and constants \(a,M>0\) such that all sufficiently fine
+finite-law raw Euler programs in \(U_\rho\) satisfy
+\[
+ \tau_R(c_k)+\int\tau_R(Q_k(u))\,d\mu(u,y)
+                      \le M e^{-aR}\quad(R\ge1).
+ \tag{C.4.7.NH}
+\]
+It actually supplies Gaussian tails for every passive query. The weaker
+exponential estimate (C.4.7.NH) is enough for the remaining construction.
+All constants are uniform on a fixed smaller neighborhood. Choose
+\(0<\delta_Y<\rho/4\); further decreases do not affect the argument.
+
+For two Euler interpolants on meshes of maximal steps \(h,h'\), with
+laws \(\mu,\nu\) in that smaller neighborhood, put
+\[
+ s(t)=d(\theta^h_\mu(t),\theta^{h'}_\nu(t))
+                     +q+V_T(h+h'),\qquad q=\mathcal W_1(\mu,\nu).
+\]
+The preceding-node distance is at most the current distance plus
+\(V_T(h+h')\). Apply (C.4.7.NC) at these nodes and (C.4.7.NH), and choose
+\(R=1+a^{-1}\log(1/s)\). For \(0<s\le1\) this gives almost everywhere
+\[
+ s'(t)\le Ls(t)\log(e/s(t)),\qquad
+ s(t)\le e^{1-\alpha(t)}s(0)^{\alpha(t)},\quad
+                         \alpha(t)=e^{-Lt}>0.
+ \tag{C.4.7.NO}
+\]
+To verify the integration, set \(z=\log(e/s)\); then \(z'\ge-Lz\).
+Multiplication by \(e^{Lt}\) and integration prove the displayed bound.
+At a zero value use \(s+\eta\), the monotonicity of
+\(v\log(e/v)\) on \((0,1)\), and then \(\eta\downarrow0\).
+For sufficiently small initial s the bound remains below one through T,
+so a first-exit argument validates its use on the whole interval. For
+larger errors the common raw bound (C.4.7.NE) suffices. No lower bound on the
+tail exponent relative to T is needed.
+
+Finite probability laws are dense in \(\mathcal W_1\) on the compact
+data domain: partition it into finitely many Borel cells of diameter at
+most b, move each cell's mass to a representative, and pay at most b.
+For any \(\mu\in U_Y\), take such finite laws \(\nu_j\to\mu\) and
+meshes \(h_j\to0\). They eventually lie in a fixed smaller neighborhood
+where (C.4.7.NH) is uniform. Formula (C.4.7.NO) makes the Euler paths Cauchy in
+\(C([0,T];\mathcal E)\), including the HS component. The same estimate
+between any two families makes the limit independent of both choices.
+Their preceding-node states have the same limit. Joint field continuity
+proved after (C.4.7.NC) now passes their integral equations to
+\[
+ \theta_\mu(t)=(g,0,0)+\int_0^t\mathcal F_\mu(\theta_\mu(s))\,ds.
+ \tag{C.4.7.NI}
+\]
+The convergence of the integrands is uniform in time. Otherwise a sequence
+of discrepant times has a convergent subsequence, and joint continuity at
+the corresponding limiting state and law gives a contradiction. Thus
+(C.4.7.NI) is a strong \(C^1\) equation in all three raw components, and every
+coefficient is computed from the current state and the fixed law. Its
+energy and readout bounds are (C.4.7.NG).
+
+The needed tails pass to the constructed paths without a coordinate
+supremum assumption. For fixed R the map
+\(v\mapsto(|v|-R)_+\) is 1-Lipschitz on \(L^2\), and
+\[
+ \|v\mathbf1_{|v|>2R}\|_2
+                \le2\|(|v|-R)_+\|_2\le2\tau_R(v).
+ \tag{C.4.7.NP}
+\]
+Uniform state convergence and bounded multiplier continuity imply
+uniform-in-input Q convergence at a fixed time. The resulting continuous
+positive-part norms pass also through the converging law integral.
+Consequently (C.4.7.NH), with an enlarged M and exponent \(a/2\), holds for
+the constructed path, at every time with the same constants.
+
+Comparing two such paths by (C.4.7.NC), their tails and (C.4.7.NO) proves (C.4.7.NL), with
+\(a_Y=e^{-LT}\) after changing constants. The forward formulas give
+\[
+ \sup_u\|H^{(1)}_\theta(u)-H^{(1)}_{\bar\theta}(u)\|_2
+          \le\|w-\bar w\|_2,
+\]
+\[
+ \sup_u\|Z^{(2)}_\theta(u)-Z^{(2)}_{\bar\theta}(u)\|_2
+          \le\|A\|_{\rm op}\|w-\bar w\|_2+\|K-\bar K\|_{\rm HS}.
+\]
+Together with bounded c these give the same type of uniform prediction
+modulus. Common raw bounds give its constant large-q branch.
+
+An arbitrary competing strong raw solution on the prescribed carrier
+has a bounded path on a compact interval. Apply (C.4.7.NC) with that competitor
+as its first endpoint and the constructed solution as its tail-bearing
+second endpoint. Only the latter's tails enter. Formula (C.4.7.NO) at zero
+initial discrepancy proves equality. Applying this argument on
+\([s,40]\) proves the reached-state uniqueness and restart assertion.
+Existence for this restart is furnished by the restriction of (C.4.7.NI);
+neither new Gaussian roots nor a local theorem from every ambient state
+is needed. No extra tail or weighted regularity is imposed on a
+competitor.
+
+We will also need the law comparison on one common Euler mesh with no
+mesh-error floor. Subtract the two recursions at the same node and use
+(C.4.7.NC) and (C.4.7.NH). If \(s_k=d(\theta^h_\mu(t_k),\theta^h_\nu(t_k))+q\),
+then
+\(s_{k+1}\le s_k+L\Delta_k s_k\log(e/s_k)\) below one. Compare each
+step with the scalar increasing solution of
+\(v'=Lv\log(e/v)\): its derivative increases while \(v<1\), so its
+exact increment dominates the Euler increment. Induction and the same
+first-exit bound give
+\[
+ \sup_k d(\theta^h_\mu(t_k),\theta^h_\nu(t_k))
+                      \le Cq^{a_Y}.
+ \tag{C.4.7.NLM}
+\]
+All constants remain uniform on the smaller neighborhood. Bounded c and
+the displayed forward inequalities also give
+\(\sup_u\|Q_\theta(u)-Q_{\bar\theta}(u)\|_2\le C d(\theta,\bar\theta)\)
+for these Euler states: subtract \(A^*\Delta^{(2)}\) and use the
+uniform pointwise bound on the comparison readout in its gate product.
+
+##### C.4.7.5. Actual finite GF and the observation limits
+
+The population tail estimate does not by itself assert a finite-width
+moment theorem. We therefore give the approximation order explicitly.
+Fix one finite comparison law \(\nu\) in the neighborhood and one fine
+raw Euler mesh h. The resulting population program has finitely many
+instructions. Expand K as its finite sum of ranks, and realize this
+program on the actual initialized finite arrays using its deterministic
+population residuals and contractions. Include the actual finite initial
+readout additively in the proxy parameters, as in C.4.3 (A3). Its assigned
+increments are the oracle increments. Actual GF and proxy therefore start
+at the same finite arrays.
+
+The complete fixed-program theorem III.F.1–7 and A.1 applies to this
+fixed graph. Its roots are the two first-row Gaussians, the two queried
+orientations are \(A_0\) and its actual adjoint, and the coordinate
+instructions are continuous of at most linear growth. A backward product
+is a bounded gate times a named \(L^2\) field. To recover the recomputed
+proxy feedback from the oracle instructions, subtract each gate product,
+truncate its fixed oracle field as in (C.4.7.NT), take width to infinity and
+remove that cutoff using its joint second-moment limit. Scalar
+contractions converge by the two-factor RMS inequality. The finite rank
+expansion handles learned actions in both orientations. The finite
+initial readout RMS and supremum tend to zero; the same finite induction
+propagates this additive discrepancy while preserving the actual finite
+initialization.
+
+At this fixed \((\nu,h)\), recomputed proxy fields and assigned
+velocities consequently differ from their oracle versions by
+\(o_{\mathbb P}(1)\). The proxy lies on a deterministic enlargement
+of the ball (C.4.7.NE) with probability tending to one. Its increment norm and
+pairings have exactly their HS interpretation: if
+\(K=\sum_i a_i\otimes b_i\) and
+\(\widetilde K=\sum_j\tilde a_j\otimes\tilde b_j\), then
+\[
+ \langle K,\widetilde K\rangle_{\rm HS}
+       =\sum_{i,j}\langle a_i,\tilde a_j\rangle
+                    \langle b_i,\tilde b_j\rangle.
+ \tag{C.4.7.NK}
+\]
+The finite Frobenius contraction of ranks \(a_ib_i^T/n\) is the same
+sum of normalized pairings. Each is an identified same-layer second
+moment, so (C.4.7.NK) involves no cross-carrier subtraction.
+
+For any fixed cutoff R, positive-part second-moment convergence, (C.4.7.NP)
+and (C.4.7.NH) imply at the finitely many proxy nodes
+\[
+ \tau_R(\bar c_n(t_k))+
+       \int\tau_R(\bar Q_n(t_k,u))\,d\nu
+                         \le M'e^{-a'R}+o_{\mathbb P}(1).
+ \tag{C.4.7.NPT}
+\]
+These are normalized finite RMS tails. The constants \(M',a'>0\) are
+independent of the chosen law and mesh in the smaller neighborhood;
+fixed cutoff rescaling changes only these constants. No growing
+transcript has been submitted to a fixed-program theorem.
+
+Let \(\lambda_j\to\mu\) in \(\mathcal W_1\), with
+\(n_j\to\infty\). The actual laws may here be arbitrary Borel laws;
+only the proxy law is finite. Compare actual GF with the proxy on their
+common finite carrier, using the law-independent finite energy bounds
+and (C.4.7.NC). A proxy interpolant differs from its preceding node by at most
+\(V'h+o_{\mathbb P}(1)\). On any interval \([b_0,b_1]\) of length
+at most \(\ell\), the sum distance E obeys
+\[
+ \sup_{b_0\le t\le b_1}E(t)
+ \le e^{C(1+R)\ell}E(b_0)
+   +C\ell e^{C(1+R)\ell}
+    \{(1+R)(\mathcal W_1(\lambda_j,\nu)+h)
+                     +M'e^{-a'R}+o_{\mathbb P}(1)\}.
+ \tag{C.4.7.NAP}
+\]
+The proxy velocity defect is included in the fixed-program probability
+error. Every random error here is for fixed \(\nu,h,R\).
+
+Choose a finite time partition with \(C\ell<a'/2\). On each interval
+the amplified tail in (C.4.7.NAP) tends to zero as R increases. For a required
+final accuracy, choose the last interval's cutoff and its required
+incoming accuracy, then the preceding interval's cutoff and incoming
+accuracy, and continue backwards over the finite partition. This produces
+finitely many fixed cutoffs and positive tolerances. Next choose the
+finite law \(\nu\) close enough to \(\mu\), and h small enough, so
+all their deterministic errors meet these tolerances. Finally take
+\(j\to\infty\). The finitely many fixed-program probability errors
+and \(\mathcal W_1(\lambda_j,\mu)\) vanish together. Forward induction
+in (C.4.7.NAP) gives arbitrarily small finite GF/proxy raw error through40.
+This choice order is why an arbitrarily small positive tail exponent
+suffices. It neither asserts a finite moment bound uniform over all laws
+nor requires a relation between sample count and width.
+
+The population proxy converges in raw norm to (C.4.7.NI), while each fixed
+proxy's joint node laws, action tests, and pairings converge by the
+fixed-program theorem. These two comparisons prove the stated state
+identification. Forward/prediction formulas are Lipschitz on the bounded
+raw balls, uniformly in u. Full row bounds give input continuity, and
+the velocity bound gives the needed time continuity. Finite time/input
+nets, with the fixed-program limit at their nodes, yield (C.4.7.NW2).
+Holding \(\lambda_j=\mu\) for all j in precisely the same comparison
+proves (C.4.7.NW1), including for a nonatomic Borel law with exact loss
+integration. No empirical total-variation approximation has been used.
+
+Here are the further observation passages. In any same-carrier
+comparison, applying a named bounded action costs its norm times the
+input error, plus the input norm times the HS increment error if the
+learned action changes. A globally Lipschitz coordinate operation
+preserves \(L^2\) approximation. For a fixed bounded continuous gate
+times a named \(L^2\) field, first truncate that field and restrict the
+gate arguments to a compact box. On the box uniform continuity applies;
+off it the joint second-moment limits give tightness and uniform
+integrability. Remove the restrictions after the fixed approximation
+limit. Induction over a finite observation program proves the joint
+same-layer \(\mathcal W_2\) limit and all quadratic contractions in
+the theorem. Keeping the initialized and current hidden fields in the
+same tuple gives the paired observations. This argument admits no
+arbitrary unbounded product and makes no operator-norm comparison
+between carriers.
+
+For iid data of size m, the compact partition proof is elementary.
+Move both \(\mu\) and its empirical law to the representatives of a
+partition with cell diameter b. The two moves cost at most \(2b\).
+The remaining distance is at most half the data diameter times the sum
+of cell-mass discrepancies. Each empirical cell frequency has variance
+at most \(1/(4m)\), so this remaining term tends to zero in probability
+for the fixed finite partition. First let m increase, then b decrease.
+Thus empirical \(\mathcal W_1\) converges in probability. All proxy
+events in (C.4.7.NAP) concern its fixed law and initialization, independent of
+the observations. Combining these events and the data-distance event
+by a finite union bound proves the iid conclusion for arbitrary
+\(m_j,n_j\to\infty\).
+
+
+<!-- END EXACT DEPENDENCY -->
+
+
+<!-- BEGIN EXACT DEPENDENCY: C.4.7.7–10: binary learning passage, complete H1/H2/H3 foundations and numerical contract -->
+
+##### C.4.7.7. Inherited risk and paired hidden activity
+
+On the binary-label subclass and the intersection with the C.4.5 ball
+\(\mathcal W_1(\mu,\nu_*)<\exp\{-\exp(3000)\}\), the new population
+flow has risk at time40 at most \(1/4\), and both training-averaged
+paired squared hidden displacements at time \(1/200\) at least
+\(10^{-13}\). These are the existing subclass and times, now attached
+to the constructed changed-law population trajectories.
+
+Indeed the complete comparison in C.4.5.3 applies to actual finite GF
+with zero discretization defect and gives its strict margins. If f,g
+are uniformly bounded in absolute value by B, then
+\[
+ |\mathcal L_\mu(f)-\mathcal L_\mu(g)|
+                  \le2(B+Y)\|f-g\|_\infty.
+\]
+The fixed-state loss integrand is Lipschitz in the joint normalized
+input/label metric, with constant
+\(2(B+Y)\max\{\operatorname{Lip}f,1\}\). Thus (C.4.7.NW1)–(C.4.7.NW2) pass
+the finite risks to the population risk, including the empirical-law
+limit. For a hidden field bounded by one, keeping the same initialized
+field in each comparison gives
+\[
+ \left|\|H-H_0\|_2^2-\|\bar H-H_0\|_2^2\right|
+                           \le4\|H-\bar H\|_2.
+\]
+The paired observation contract retains \(H,H_0\) jointly on their
+own carrier; its fixed-program limit identifies the displayed norms.
+Uniform input continuity passes their training-law integrals. This
+therefore passes the strict finite hidden-activity margins as well.
+
+The new nonlinear theorem concerns the one physical GF interval
+\([0,40]\). It gives no all-time changed-law dynamics, endpoint selection
+or continuity, universal fitting, activity for every bounded-label law,
+activity at time40, or comparison with frozen-feature learning. It does
+not extend the earlier raw-GD theorem to this interval. The neighborhood
+radius is positive but has no claimed useful numerical size. The
+population remainder is uniform over contamination laws; the finite
+nonlinear statement takes width first for each fixed contamination law
+and fixed positive epsilon, and asserts no simultaneous epsilon/width
+rate or uniform finite failure probability over all laws.
+
+
+##### C.4.7.8. Current bounded-probe hierarchy
+
+This subsection makes C.4.2's generated-current-state sufficiency explicit as a
+finite-alphabet joint population hierarchy with a finite upward weak-evolution
+rule. It uses the established Gaussian action and reached-flow theorems.
+Finite autonomous closure and effective computation remain separate obligations.
+
+###### 1. Model, fixed family, and statement
+
+Fix Y≥1. Put u=x/√2 and equip
+Z=√2 S¹×[-Y,Y] with d((x,y),(x',y'))=|u-u'|+|y-y'|.
+All Wasserstein distances between training laws below use this metric.
+The finite model is exactly
+
+    f_n(x)=n⁻¹ (W^(3))ᵀ tanh(W^(2) tanh(W^(1)u)),
+
+with no biases, independent stored Gaussian variances (1,1/n,1/n²), block
+mobilities (n,1,n), residual f-y, and unhalved mean-square-loss physical GF.
+Its canonical population aliases are w=W^(1), A=W^(2)=A₀+K, c=W^(3).
+Here w∈L²(Ω₁;R²), c∈L²(Ω₂), A:L²(Ω₁)→L²(Ω₂) is bounded, K is
+Hilbert–Schmidt, and the reverse action is the actual adjoint. Initially
+w=g=(g₁,g₂)∼N(0,I₂), K=0, c=0. The zero limiting readout does not replace
+the finite random initialization.
+
+Write E₁,E₂ for the separate population expectations. For u∈S¹ define
+
+    z₁(u)=w·u,             h₁(u)=tanh(z₁(u)),
+    z₂(u)=A h₁(u),         h₂(u)=tanh(z₂(u)),
+    d₂(u)=c[1-h₂(u)²],     q(u)=A* d₂(u),
+    d₁(u)=[1-h₁(u)²]q(u),  f(u)=E₂[c h₂(u)],  r(u,y)=f(u)-y.       (H1)
+
+Lowercase aliases in (H1) stand for the canonical capitalized population
+fields Z^(ℓ),H^(ℓ),Δ^(ℓ); q is the first reverse query. They are scalar
+random variables, not finite-width coordinates. Every product is within one
+population. A rank a⊗b acts as v↦a E₁[bv]. The physical equations are
+
+    w'=-2∫r d₁(u)u dμ,  A'=-2∫r d₂(u)⊗h₁(u) dμ,
+    c'=-2∫r h₂(u) dμ.                                         (H2)
+
+Let δ_Y>0 be a fixed radius supplied by C.4.7.1–5,
+including the uniform passive-query tails of C.4.7.3. Fix T₀=1/200.
+Part 8 below defines a positive δ_act,Y from explicit nonzero Gaussian
+expressions and continuity, independent of hierarchy order. Fix once and for all
+
+    δ=min(δ_Y/4, δ_act,Y, 1/4),
+    U={μ∈P(Z): W₁(μ,ν*)<δ},
+    ν*=½δ_(√2 e₁,+1)+½δ_(√2 e₂,-1).                           (H3)
+
+Neither δ nor T₀ depends on the level. Constants here need not have useful
+numerical size. The theorem also gives exact identities on the entire established
+[0,40]; the stated C-H1 interval is [0,T₀].
+
+**Theorem.** There is an explicit nested hierarchy H_j, j≥1, with finitely
+many population types at each level, each a probability law on R^m with m≤j,
+and finite-dimensional real/input marks, having the following properties.
+
+(a) Its observation maps, within-population joints, Gaussian initialization,
+and exact continuum-law integration interface are given in parts 2–3 below.
+It retains all current fields (H1), whole-circle prediction, and joint initial/
+current hidden observations. Every separately fixed finite tuple has the actual
+finite-network interpretation in probability in W₂. No all-moment determinacy
+assumption is used.
+
+(b) For every fixed level, each characteristic-function coordinate is C¹ in
+physical time, including one-sided endpoint derivatives. Its exact weak evolution
+is (H8), evaluated by the finite compiler in part 4 below. The right side uses only
+H_N with N=10⁶(j+1)⁶, current scalar contractions, one training-law integral,
+and a specified limit in one real cutoff mark R→∞. This is a finite higher-level
+dependency; the cutoff does not add coordinates or increase level. Finite levels
+are not asserted to be closed or to have an effective cutoff error bound.
+
+(c) Let S be any state reached at time s≤T₀ on a canonical trajectory for
+μ∈U. Let S̃ be any realization on two probability spaces with square-integrable
+row and frozen seed fields, bounded readout, and a bounded middle action with
+its actual adjoint. If H_j(S̃)=H_j(S) for every j, there exists a unique strong
+continuation from S̃ under the same law μ on [0,T₀-s], in the affine raw space
+with Hilbert–Schmidt middle increments. Throughout this interval its complete
+hierarchy equals that of S's continuation. Consequently predictions agree at
+every input on the circle, and every declared same-population joint hidden,
+initial/current, and action observation agrees. Competing strong continuations
+need no independently imposed tail assumption. The proof reconstructs the
+observable probability algebras and their dynamically relevant action, proves
+invariance, and transports (H2); it does not infer sufficiency solely from
+uniqueness of a prescribed initialized path.
+
+In particular the assertion compares two reached states, including states
+obtained from different training laws or different reached times, whenever their
+complete hierarchies agree; the continuation law in the theorem is μ. Existence
+under that law for the matching realization is part of the conclusion. No
+existence assertion is made for switching an arbitrary unmatched reached state
+to an arbitrary law. There is no uniqueness claim for arbitrary formal moment
+or characteristic-function sequences.
+
+###### 2. A finite alphabet and finite-dimensional populations
+
+Keep frozen seed fields g₁,g₂ on population 1 and
+
+    z₂⁰(v)=A₀ tanh(g·v), v∈S¹,
+
+on population 2. These are initial observations, retained jointly with current
+observations; their time derivative is zero. They are not previous training states.
+In particular h₁⁰(u)=tanh(g·u) and h₂⁰(u)=tanh(z₂⁰(u)) are reconstructible.
+
+Use two sorts, B (bounded) and L (square integrable), on each population;
+B is also an L expression. The following finite instruction alphabet defines
+acyclic scalar observation programs. Each instruction creates one node.
+
+1. Seeds: w₁,w₂,g₁,g₂ on population 1; c and z₂⁰(v) on population 2;
+   the constant 1 on either population. The seed c has sort B, all other
+   nonconstant seeds have sort L. Its bound on canonical paths is 80Y on [0,40].
+2. Affine node aV+bW+d on one population, a,b,d∈R. It has sort B if its
+   parents are B, otherwise sort L. Unary affine nodes use a zero coefficient.
+3. sin(V), cos(V), tanh(V), for V of sort L, giving sort B.
+4. VW when both parents have sort B, giving sort B.
+5. A V from population 1 to 2, or A*V from population 2 to 1, with V of
+   sort B, giving sort L.
+
+No product of unrestricted L nodes is a coordinate instruction. Every B node
+has a deterministic finite bound computed from its syntax, marks, and the
+readout bound. In particular products have bounded partial derivatives on the
+actual parent range; their ordinary global product extension is never invoked
+as an L² algebra bound. The smooth saturation
+
+    T_R(V)=R tanh(V/R), R≥1,                                  (H4)
+
+is a three-node B expression. It satisfies |T_R(V)|≤|V|, is 1-Lipschitz,
+and converges to V in L² for each V∈L². Its parameter R is an observation mark.
+
+A level-j population type consists of: a correctly typed acyclic program with
+at most j nodes; an ordered list of m≤j nodes of one population, repetitions
+allowed; and its graph shape, with all real coefficients and all seed directions
+left as marks. The corresponding population is the *joint law*
+
+    Law_ℓ(V₁(α),...,V_m(α)) ∈P₂(R^m).                         (H5)
+
+All combinations of marked programs with total union size at most j are included.
+Thus two inputs, or two different choices of the same probe's marks, are placed
+in one same-neuron tuple by taking their finite union. They are never sampled
+independently within that tuple. Every finite joint collection appears at some
+level. Independent neuron replicas, if desired, are products of these laws:
+no cross-layer pairing of neuron indices is asserted or needed. Products of
+expectations in (H8) use independent population sampling, not a missing mixed
+same-neuron correlation.
+
+For fixed j the graph/type list is finite: every node chooses from the finite
+alphabet and from at most j earlier node positions. A crude upper bound on the
+number of graph and output-list choices is (20(j+1)²)^(3(j+1)). Mark space is a
+finite union of products R^p×(S¹)^q with p≤3j and q≤j. Each population dimension
+is m≤j. To read its characteristic function add a frequency λ∈R^m and record
+both E cos(λ·V) and E sin(λ·V). Thus real coefficients and test frequencies
+together have dimension at most 4j, in addition to at most j circle marks.
+These are bounded determining tests, not a power-moment sequence. Restrictions from level j+1 to j are literal marginals
+and repeated program evaluations. H_j is the whole such finite-type family.
+
+The word 'finite' here counts types, replicas, and dimensions, not scalar
+storage after quadrature: each law and each finite-dimensional mark domain is
+an unevaluated field. C-H1 permits population fields and does not prove their
+manageable discretization. No mark is an arbitrary function, an L² vector, a
+matrix, or a code for a parameter distribution. To request more arguments or
+more joint replicas requires a higher level. In particular an action coordinate
+means the law index of a specified finite B program, not an interface accepting
+an arbitrary vector and returning A times that vector. Infinite-order recovery
+of the relevant action is proved only in part 5 below.
+
+Observation recovery is explicit. Binary affine nodes give w·u and g·u;
+(H1) except d₁ uses only this alphabet since c is bounded and φ'=1-tanh².
+The joint law of d₁ with any finite declared tuple is the pushforward of the
+joint law including q,z₁ by (q,z₁)↦q(1-tanh²z₁); this is an L² field because
+the gate is bounded. Prediction is the integral E₂[c h₂(u)] of its joint law.
+Likewise all quadratic pairings of L² fields are integrals of their joint law,
+finite by Cauchy–Schwarz. Initial/current displacements use the joint tuple
+(h_ℓ,h_ℓ⁰), not a coupling chosen from its separate marginal distributions.
+
+These declarations include arbitrary finitely nested action observations in
+this alphabet and their bounded-gate pushforwards and quadratic contractions.
+They do not include arbitrary unbounded products followed by another action.
+All circle inputs are available as marks; full-row L² bounds make h₁,h₂ and f
+continuous uniformly in input on each compact trajectory interval. Thus dense
+input marks also determine their entire continuous versions.
+
+###### 3. Exact finite Gaussian initialization and the law interface
+
+At initialization replace w by g, c by zero, and every A,A* in the program
+by the two orientations of the *same* initialized Gaussian action. First
+construct every requested seed z₂⁰(v) by three instructions: the affine
+projection g·v, tanh, and A₀ applied to that bounded result. Take a finite union
+before computing any joint law. There are
+at most 3j extra instructions and no dependence on training duration or width.
+
+Here is the complete scalar initialization rule for that finite program.
+On population 1 retain g∼N(0,I₂). Maintain two independent centered Gaussian
+source groups ξ (population 2 forward sources) and ζ (population 1 reverse
+sources), independent of g. At a forward call with already constructed input b,
+set
+
+    A₀ b = ξ_b + Σ_(earlier reverse calls j) d_j E₁[∂_(ζ_j)b].
+
+At a reverse call with input d, set
+
+    A₀* d = ζ_d + Σ_(earlier forward calls i) b_i E₂[∂_(ξ_i)d].   (H6)
+
+The source covariance extensions are E[ξ_b ξ_b']=E₁[bb'] and
+E[ζ_d ζ_d']=E₂[dd']. Every named derivative in (H6) differentiates the full
+finite coordinate expression with all already selected deterministic
+coefficients and covariances frozen; unavailable sources have derivative zero.
+This is a source derivative used only for initialization, not a temporal derivative.
+Previous reverse inputs d_j and forward inputs b_i are coordinate expressions
+on the output population of the relevant formula. The full uncentered input
+Grams supply the centered source covariances.
+
+For an old covariance C, new covariance vector b and variance v, realize the
+next source by bᵀC†ξ+sqrt(v-bᵀC†b)G. The input Gram is positive semidefinite;
+testing its quadratic form on (tz,1) for z∈ker C proves b⊥ker C, and completing
+the square proves the nonnegative radicand. Thus this is a finite construction
+also at duplicated or zero-variance queries. All expectations in (H6), in the
+Grams, and finally in (H5) are finite-dimensional Gaussian expectations using
+these covariance matrices. No inverse-continuity or empirical minimum-eigenvalue
+assumption is made.
+
+The initialization program's B operands have finite deterministic bounds.
+Replace each bounded product, for applying the finite-program theorem, by a
+smooth globally Lipschitz product equal to it on its parent ranges. Induction
+shows that every fixed expression has a linear growth envelope in its finite
+Gaussian source list and bounded first named-source derivatives: action outputs
+are sources plus finite linear combinations of bounded inputs, and every
+coordinate derivative has bounded factors and previously fixed finite coefficients.
+Consequently all expectations in (H6) exist. [Special-data III.F.1–7](special_data_limits.md) proves the
+joint W₂ limit from the actual Gaussian matrices, source rule, singular-query
+passage, and common bounded action/adjoint realization. All its hypotheses
+have just been checked; its probability and conditioning proofs are given in those sections. In particular the reverse answer in (H6) has its
+own surviving Gaussian source as well as the response correction. Replacing it
+by only an adjoint of an isonormal embedding would give the wrong model.
+
+The finite stored readout has RMS and supremum tending to zero in probability.
+For the supremum, the union bound is P(max_i|W_i^(3)|>ε)≤2n exp(-n²ε²/2).
+At every fixed observation program, a same-array finite induction on the
+operator-norm event, bounded parent ranges, and Lipschitz gates transfers this
+vanishing discrepancy to every node. Thus the population c=0 initialization
+is the actual limit of the prescribed finite random readout.
+
+For a Borel training law μ the integration interface is exact evaluation of
+∫_Z G(u,y)dμ for the continuous scalar integrands specified in (H2),(H8), and
+finite products of such integrals if an observation requires them. Alternatively
+one may supply a sequence of finite atomic laws with certified W₁ distance
+→0 and evaluate finite sums, followed by that limit. Compactness gives such a
+sequence by partitioning Z into cells of vanishing diameter and assigning each
+cell mass to a representative. No label-function or atom-count assumption is
+needed. This is an integration interface, not a claimed quadrature algorithm
+with computable rates. Scalar continuity and boundedness justify all these
+limits. Initialization itself is independent of μ.
+
+Along learned paths, C.4.7.5 supplies the finite-network interpretation for
+our fixed observation programs: continuous globally Lipschitz maps, finite
+bounded actions, and bounded gates are within its scope, and our products
+have globally Lipschitz extensions on their bounded parent ranges. Frozen and
+current observations occur in the same tuple. Fix the level, marks and finite
+tuple first, then take width→∞. Law approximation and proof meshes are removed
+in the order in that theorem; there is no growing-program invocation and no
+claim uniform over all marks at once. Physical-time derivatives below are proved
+directly on the strong population path, not by exchanging finite-width derivatives.
+
+###### 4. Exact weak evolution by a finite reverse compiler
+
+Fix a level-j tuple and either test Ψ(V)=cos(λ·V) or sin(λ·V), and put
+J(t)=E_ℓ Ψ(V(t)). All marks remain fixed. Each L node is C¹ in L² along a
+strong raw solution with bounded readout on a compact interval. For sin, cos,
+tanh this follows from the scalar mean-value identity and the following
+bounded-multiplier fact: if z_j→z in probability, v_j→v in L², and b is bounded
+continuous, then b(z_j)v_j→b(z)v in L². Subtract the varying v; truncate the
+remaining fixed v at |v|≤M and then send M→∞. Products of two B nodes follow
+by subtraction using their uniform bounds and that same fact. Action nodes use
+(Ab)'=A'b+Ab' in L², obtained by expanding the difference quotient; the cross
+increment is bounded by the product of operator and L² increments. This proves
+the induction and J∈C¹. It does not assert ambient L² Fréchet differentiability
+or take a second temporal derivative.
+
+Use reverse differentiation of this finite graph for the scalar J. Seed each
+output covector by ∂_iΨ(V), sum multiple contributions at shared nodes, and
+process nodes in reverse topological order. Covectors p_v lie in L² of their
+node's population. The exact rules are:
+
+- aV+bW+d sends a p to V and b p to W;
+- sin(V), cos(V), tanh(V) send respectively p cos(V), -p sin(V),
+  p[1-tanh²(V)] to V;
+- bounded product VW sends pW to V and pV to W;
+- A b sends A* p to b and records the action occurrence (p,b,+);
+- A* b sends A p to b and records the action occurrence (p,b,-).
+
+Freeze derivatives of g,z₂⁰ and the constant seeds at zero. Let p_w₁,p_w₂,p_c
+be the total covectors at moving seeds. Integration of the ordinary curve
+chain rules and actual adjunction gives
+
+    J'=Σ_i E₁[p_wi w_i']+E₂[p_c c']
+          +Σ_+ E₂[p A'b]+Σ_- E₁[p A'*b].                   (H7)
+
+To verify reverse differentiation, maintain the pairing of each unprocessed
+node's covector with its velocity. The coordinate rules replace that pairing
+by its parent pairings; an action rule uses adjunction for its Ab' term and
+records its A'b term. The scalar pairing sum is unchanged at each step. There
+are finitely many steps, all products have one bounded multiplier or two L²
+factors, and Cauchy–Schwarz justifies every expectation. At the leaves this
+invariant is (H7).
+
+Substituting (H2) and using the rank formula yields the exact identity
+
+    J'=-2 ∫ r(u,y) {
+       E₁[(u₁p_w₁+u₂p_w₂)(1-h₁(u)²)q(u)]
+       +E₂[p_c h₂(u)]
+       +Σ_+ E₂[p d₂(u)] E₁[b h₁(u)]
+       +Σ_- E₁[p h₁(u)] E₂[b d₂(u)] } dμ.                  (H8)
+
+This formula includes both orientations and every occurrence of the current
+moving action. Residuals, readout, gates and contractions are recomputed from
+the current hierarchy. They are not frozen coefficients in time. Source
+coefficients from (H6) are never used to evolve a learned state.
+
+The covectors in (H7) are a *proof device*, not extra unbounded response fields
+silently added to the state. To evaluate (H8) from H_N, perform the following
+finite current-probe compilation at a fixed R≥1. Replace each action on a
+covector p by an action on T_R(p). Replace each multiplication b p, where b is
+a bounded derivative/gate factor, by b T_R(p). Leave finite sums and scalar
+multiplications unchanged. Seed covectors are already bounded. Every resulting
+covector p^R is an allowed L observation program: inputs to actions are B,
+and products have two B operands. Derivatives of sin, cos and tanh use the
+same alphabet, as do derivatives of affine or B-product nodes. Evaluate the
+right side of (H8) using p^R and then let R→∞.
+
+Here are the convergence and complexity details. For any v_R→v in L²,
+
+    ||T_R(v_R)-v||₂ ≤ ||v_R-v||₂+||T_R(v)-v||₂ →0.
+
+Reverse induction therefore gives p^R→p in L² at every node. The same induction,
+using ||T_R(v)||₂≤||v||₂, gives sup_R||p^R||₂<∞, with a bound depending on the
+fixed graph, marks, action norm and bounded-node envelopes. No higher moment
+of an arbitrary action output is required. In (H8) the error of each pairing
+is at most the L² covector error times a fixed L² norm. The fields h₁,h₂,d₂,q
+have uniformly bounded L² norms in u on the path, and r is bounded. Thus the
+integrand errors tend uniformly to zero in u,y for this fixed graph, permitting
+the law integral and R limit. The same proof is locally uniform in t: all
+exact covectors form compact L² curves, saturation converges uniformly on a
+compact L² set by a finite net and its 1-Lipschitz property, and reverse
+induction preserves this uniform convergence. Equation (H8) has the stated
+continuous derivative, or equivalently its integrated weak identity.
+
+For a literal bound, build λ·V with at most j affine nodes and its terminal
+sine/cosine with one node. The resulting forward graph has at most 2j+1 nodes
+and at most 4j+2 edges. Each processed edge needs at most 20 nodes for its
+bounded local derivative, saturation, propagated contribution and addition
+into an accumulated covector. Shared forward nodes are retained. This uses
+fewer than 200(j+1)² nodes. Formula (H1) at one new training input needs fewer
+than 40 nodes. Each scalar pairing in (H8) uses at most three further nodes
+as an integrand outside the law or is an integral of the corresponding joint
+law; collect all forward and covector nodes and the fields at that one input
+in a finite union. Even duplicating whole graphs for each of at most 4j+2
+terms stays below 10⁶(j+1)⁶ nodes and tuple dimension. This bound is deliberately
+loose and independent of R, μ, elapsed time, and quadrature support size.
+The one law integral is outside the hierarchy population: its input u is a
+mark, not a growing list of simultaneous training coordinates.
+
+Thus (H8), with the explicit finite compiler and R limit, reads only H_N.
+It does not apply a retained operator to an arbitrary new vector. Evaluating
+an individual law integral of p^R q times a bounded gate uses its at-most-
+quadratic joint statistic, not an unbounded multiplication instruction followed
+by an action. Computing the limit effectively or uniformly in level is a
+separate C-H2/C-H3 problem.
+
+###### 5. What the complete hierarchy determines
+
+Let S be any realization of the alphabet with w,g,z₂⁰ square integrable,
+c bounded, and A bounded with its actual adjoint. Let G_ℓ be the sigma-field
+generated by *all finite current word values* on population ℓ, and put
+H_ℓ^obs=L²(G_ℓ). This is a proof reconstruction from the complete hierarchy,
+not a stored finite-level space or an additional finite-state coordinate.
+
+Bounded word values span a dense subspace of H_ℓ^obs. To see this explicitly,
+finite-coordinate cylinders approximate any measurable L² variable: the class
+of measurable sets whose indicators admit such approximation contains the
+cylinder algebra and is closed under monotone limits, by continuity of probability;
+then use simple functions and truncation. On each finite coordinate tuple,
+linear combinations of sine/cosine affine tests are dense in L² of its law.
+Here is a proof avoiding a moment assumption. A function orthogonal to these
+tests defines a finite signed measure η with zero Fourier transform. Convolve
+η with a centered Gaussian of variance ε>0. The Gaussian Fourier integral,
+obtained by completing the square one coordinate at a time, and Fubini show
+that its continuous density is zero. Integration against bounded Lipschitz
+functions and ε↓0 then gives ∫b dη=0 for every bounded Lipschitz b. Approximate
+indicators of compact subsets of open sets with distance functions and then
+Borel sets by countable rational boxes to obtain η=0. Orthogonality therefore
+forces the original function to vanish. The affine sine/cosine tests of every
+finite tuple are finite words at some level, proving density.
+
+If S and S̃ have equal complete hierarchies, the map sending each bounded
+Borel function of any finite named word tuple to that same function of its
+counterpart is well defined and isometric in L². Equality of their *joint laws*
+proves this assertion even when two different expressions agree almost surely.
+The maps extend to surjective real unital isometries
+
+    U_ℓ:H_ℓ^obs → H̃_ℓ^obs.                                  (H9)
+
+They preserve expectation, bounded Borel coordinate operations, multiplication
+by bounded measurable functions, and positive cones. For instance approximate
+in L² by bounded cylinders, extract almost-surely convergent subsequences, and
+use bounded convergence for bounded continuous compositions; indicators and
+bounded Borel functions follow by the same finite-measure approximation used
+above. For a bounded multiplier b and arbitrary v∈L², approximate v by bounded
+cylinders and use ||bv||₂≤||b||∞||v||₂. Unbounded seeds are mapped by applying
+this argument to T_R(seed), then R→∞.
+
+For a bounded word b, its action output is another word. Hence
+
+    U₂ A b = Ã U₁ b,    U₁ A* d = Ã* U₂ d                   (H10)
+
+for bounded words of the appropriate populations. Density and boundedness
+extend these identities to every member of the corresponding observable
+Hilbert spaces. Moreover A H₁^obs⊂H₂^obs and A*H₂^obs⊂H₁^obs. If P_ℓ is the
+orthogonal projection onto H_ℓ^obs, adjunction proves
+
+    A P₁=P₂ A,                                               (H11)
+
+since <Av,z>=<v,A*z>=0 for v⊥H₁^obs,z∈H₂^obs, and the first invariance
+handles v∈H₁^obs. Thus the two observable spaces are a reducing pair for A;
+its complementary block cannot feed them. The same holds for Ã. Equations
+(H9)–(H11), not a uniqueness assumption about a moment sequence, are the state
+information extracted from equality of H_∞.
+
+###### 6. Invariance, reached restart, and uniqueness
+
+We give the argument on any remaining interval of a reached canonical path
+under its law μ. On [0,40] that path has bounded raw/action norms, bounded c,
+and, by C.4.7.3–4, uniform constants a,M>0 with
+
+    τ_R(c(t))+∫τ_R(q(t,u))dμ ≤ M exp(-aR), R≥1,               (H12)
+
+where τ_R(v)=||v 1_|v|>R||₂. The established theorem in fact gives stronger
+passive Gaussian tails; (H12) is enough. We use its complete one-reference
+comparison, valid on any two common bounded raw balls,
+
+    ||F_μ(θ)-F_μ(θ̄)||_sum
+      ≤C(1+R)||θ-θ̄||_sum+C[τ_R(c̄)+∫τ_R(q̄(u))dμ].          (H13)
+
+Only θ̄ needs tails. The sum norm is row L² + HS increment + readout L².
+For completeness, forward differences are L²-Lipschitz on bounded balls.
+For a backward product split the difference into a changed vector and a
+changed gate times the reference vector; the latter is bounded by
+2R||z-z̄||₂+2τ_R(reference vector). Apply first to d₂, then its adjoint
+q, then d₁. The cutoff errors add rather than multiply, so the dependence is
+linear in R. Middle differences use the rank norm identity and the same
+subtractions. Integrate with bounded residuals to get (H13). Its proof is
+carrier-independent and requires no Gaussian hypothesis on the first endpoint.
+
+Fix s and generate H_ℓ^obs from S=θ_μ(s). Ordinary Euler steps for (H2), starting
+at S, stay within these fixed spaces in row and readout and change A only by
+ranks between them. Indeed coordinate operations preserve the generated
+sigma-fields, A and A* preserve the spaces by (H11), and a law integral stays
+in a closed space by approximation with finite sums. The updated action has
+the same invariant subspaces. This proves the assertion by induction for every
+separately fixed Euler mesh, including continuum μ with exact integration.
+
+These restarted Euler paths converge to the reference restriction. This step
+must be proved: invariance of an Euler sequence alone would not imply flow
+invariance without its convergence. Bounded activations give common crude
+Euler bounds on the fixed remaining interval: if C_k=||c_k||∞, then
+C_(k+1)+Y≤(1+2h_k)(C_k+Y); summing rank and row increments then bounds A,w
+and all raw speeds independently of the mesh. Compare its interpolant to
+θ_μ(s+t) in (H13) with the latter as the tail-bearing reference. Its node/current
+discrepancy is at most Vh. For e equal to their sum distance, set v=e+Vh
+(and add ε>0 when needed). Choose R=1+a⁻¹log(1/v) for 0<v≤1. Increasing constants,
+
+    v'≤L v [1+log(1/v)],
+    v(t)≤exp(1-α(t)) v(0)^α(t),  α(t)=exp(-Lt).               (H14)
+
+The distance is absolutely continuous and satisfies this inequality almost
+everywhere where positive. To integrate, let z=1+log(1/v), so z'≥-Lz.
+A positive ε regularization and its zero limit handle initial zero. For small
+h, the displayed bound stays below 1 on the fixed interval, justifying the
+cutoff by first exit. Thus e→0 uniformly. This proves the required Euler
+convergence without a tail assumption on restarted Euler states.
+
+Closedness of the observable spaces and of the subspace of HS operators
+supported between them proves that the actual future w,c stay in H^obs and
+A(t)-A(s) has only that block. Frozen g,z₂⁰ are unchanged. This proves flow
+invariance from retained current information and actual evolution.
+
+Now take any matching realization S̃ as in Theorem (c), and its isometries
+(H9). Write B(t)=A(s+t)-A(s) restricted between the observable spaces. Transport
+w(s+t), c(s+t), and B(t) by U₁,U₂; extend U₂ B(t)U₁⁻¹ by zero on the orthogonal
+complement, and add it to S̃'s original full action Ã(s). Because HS norm is
+preserved under unitary maps on these subspaces, these transported increments
+are strongly C¹ in the raw metric. Isometries preserve bounded coordinate
+operations, pairings, and Bochner integrals. Equations (H10)–(H11) and invariance
+therefore give exactly (H1)–(H2) for this transported path. This constructs a
+strong continuation from S̃; its complementary action stays constant. It also
+proves equality of every future word and joint law under U, by finite induction
+on the observation graph. Bounds on c and (H12) transfer as distributional
+properties of their joint observations.
+
+Finally let another strong continuation from S̃ be given in the same affine
+raw space. Its continuous raw path has bounded norms on each compact interval.
+Apply (H13) with the transported continuation as reference and zero initial
+difference. Formula (H14), obtained by adding ε and then sending it to zero,
+forces their distance to vanish. This proves uniqueness with no tail condition
+on the competitor. The complement cannot create an alternative solution.
+Prediction equality is pointwise for all u; continuity makes it equality of
+the continuous whole-circle maps, hence zero uniform norm difference. Equality
+of population observations means equality of all finite-dimensional same-layer
+joint laws, with their second moments and the declared pushforward/contraction
+observations, not a cross-layer neuron pairing or equality of finite matrices.
+
+This is the precise restart domain: any canonical reached state for μ∈U at
+s≤T₀, and every bounded-action, bounded-readout L² realization having its
+complete current hierarchy. The remaining horizon is T₀-s (or 40-s if using
+the larger established interval). Time s is a validity bound in the theorem,
+not a saved coordinate queried by the hierarchy equations. The equations are
+autonomous in their current hierarchy and the continuation law. No existence
+or uniqueness on arbitrary unrealizable formal hierarchy sequences is claimed.
+
+###### 7. Determinacy, limiting interpretation, and information audit
+
+Characteristic tests determine each finite law by the Gaussian convolution
+argument in part 5. Thus the hierarchy records laws themselves; equality
+of all power moments is neither assumed nor substituted. Second moments are
+used for integrability and W₂ interpretation, not to determine distributions.
+Every initial/current pairing and every pair of input marks enters a common
+finite tuple at some explicitly finite level. Separate marginals would not
+support (H9), (H10), or even E[c h₂(u)].
+
+All limits have distinct roles. Fixed finite Gaussian constructions initialize
+a level before width tends to infinity. The canonical strong flow is then the
+established population limit. At a learned current state the R limit in (H8)
+only evaluates a derivative using a family of current marked probes at one
+higher fixed level. It is not a new time coordinate, a Taylor summation, a
+source-to-time derivative identification, or a trajectory reconstruction from
+future samples. The only infinite completion used in predictive sufficiency
+is over current observation levels and their L² generated spaces.
+
+Finite states contain neither A nor K as an operator-valued coordinate. No
+entrywise parameter law, full row of the middle matrix, arbitrary query vector,
+or stored elapsed transcript is admitted. First row w is a two-dimensional
+neuronal observable (recoverable from two passive first preactivations), and c
+is a scalar neuronal observable; the remaining seeds are specified initial
+observations. Real marks have fixed finite dimension at a level. The complete
+hierarchy may determine an infinite dynamically relevant action, as allowed by
+C-H1; no assertion of finite scalar compression follows from this fact.
+
+###### 8. A fixed genuinely nonlinear learned family
+
+We supply a qualitative self-contained choice of δ_act,Y, so that no numerical
+training or numeric Gaussian certificate is needed for C-H1. Work first at ν*.
+Let h_a=tanh(g_a), q₀=E tanh²G>0, and ξ_a=A₀h_a. The initial forward rule gives
+independent ξ₁,ξ₂∼N(0,q₀). Put y₁=1,y₂=-1 and define
+
+    S=y₁tanh ξ₁+y₂tanh ξ₂,
+    U_a=S φ'(ξ_a), P_a=A₀*U_a, V_a=φ'(g_a)²P_a,
+    R_a=q₀U_a+A₀V_a, E_a=φ'(ξ_a)R_a,  φ=tanh.                (H15)
+
+All products have bounded multipliers and all fields are L². From (H2), the
+strong multiplier rule, and integration of a field converging in L²,
+
+    c(t)=t S+o_L²(t),        d₂(t,e_a)=t U_a+o_L²(t),
+    w_a(t)-g_a=(y_a/2)t² φ'(g_a)P_a+o_L²(t²),
+    K(t)=(t²/2)Σ_b y_b U_b⊗h_b+o_HS(t²),
+    h₁(t,e_a)-h_a=(y_a/2)t² V_a+o_L²(t²),
+    h₂(t,e_a)-tanh ξ_a=(y_a/2)t² E_a+o_L²(t²).               (H16)
+
+Here r(0,e_a,y_a)=-y_a and the atom weights are 1/2, fixing every factor.
+For example divide the readout equation by t to get S, propagate the upper
+gate and adjoint limits, and integrate the first velocity t y_aφ'(g_a)P_a.
+For an activation use its mean-value identity on the L² convergent normalized
+increment. In z₂ expand K h_a+A₀(h₁-h_a)+K(h₁-h_a); the last term is O_L²(t⁴)
+and E[h_bh_a]=q₀1_a=b, giving (H16). No temporal analyticity is used.
+
+Actual adjunction gives
+
+    E₁[h_a P_a]=E₂[ξ_a U_a]
+      = y_a E[ξ_a tanh ξ_a φ'(ξ_a)] ≠0.                     (H17)
+
+The other coordinate contributes zero by independence and oddness; the final
+integrand is strictly positive except at zero and bounded by |ξ_a|. Thus each
+P_a, and each V_a since φ'>0, is nonzero. Also
+
+    Σ_a E₂[U_a R_a]
+      =q₀Σ_a||U_a||₂²+Σ_a E₁[φ'(g_a)²P_a²]>0.              (H18)
+
+Hence the R_a, and therefore the E_a, cannot all vanish. Define
+b₁²=(1/8)Σ_a||V_a||₂²>0 and b₂²=(1/8)Σ_a||E_a||₂²>0.
+The paired training-averaged squared displacements satisfy
+
+    J_ℓ(ν*,t):=½Σ_a||h_ℓ(t,e_a)-h_ℓ(0,e_a)||₂²
+                =b_ℓ²t⁴+o(t⁴), ℓ=1,2.                    (H19)
+
+To check nonlinearity on visited distributions as well, set for a real L²
+preactivation Z with positive variance
+
+    N(Z)=inf_(a,b∈R) E|tanh Z-aZ-b|².
+
+This equals Var(tanh Z)-Cov(Z,tanh Z)²/Var(Z). The formula follows by first
+minimizing over b and then completing the square in a. It is continuous under
+L² convergence while the denominator stays positive. At either initial
+nondegenerate Gaussian Z, N(Z)>0: otherwise continuity and Gaussian full support
+would make tanh(z) affine for every real z, which is false (it is bounded and
+nonconstant). Consequently there is t_a∈(0,T₀) such that (H19) gives
+J_ℓ(ν*,t_a)>0 and N(z_ℓ(ν*,t_a,e₁))>0 for both layers. This is an existential
+constant fixed from the specified reference and its proved continuity, not a
+coefficient supplied to the hierarchy equations.
+
+For μ near ν*, the law-continuity theorem gives uniform-in-time raw continuity.
+The forward bounds give uniform-in-u L² convergence of hidden and preactivation
+fields. Their initialized fields are held on the same carrier. Since hidden
+values are bounded by one, a paired squared-displacement change is at most
+4 times the hidden L² change. For the remaining change of the law integral,
+the fixed reference paired integrand is continuous on compact Z and bounded,
+so its integrals are W₁-continuous. Thus J_ℓ(μ,t_a)→J_ℓ(ν*,t_a).
+The same L² continuity and the explicit formula above give continuity of N at
+the two reference preactivation laws. Choose δ_act,Y>0 so that all four
+positive quantities exceed half their reference values whenever W₁(μ,ν*) is
+less than δ_act,Y within the C.4.7 ball. This proves the positivity required
+in (H3) for every μ∈U. Both hidden layers learn and remain nonaffine at the
+same positive time, in the actual canonical population dynamics.
+
+The ball includes nonorthogonal laws: rotate the second reference input by a
+small nonzero angle toward the first, keeping its label and mass. Its W₁ cost
+is half the displacement in normalized input. It includes nonatomic laws:
+replace each reference input atom by normalized uniform measure on a small
+circle arc around it, retaining the respective label ±1. Transport each arc
+to its center; the cost is bounded by its radius and tends to zero. These laws
+have no joint atoms, include nonorthogonal input pairs, and satisfy the same
+fixed bounds. Labels ±1 are admitted for every Y≥1; the full ball also includes
+other bounded labels and noise. No orthogonality restriction is imposed on U.
+
+###### 9. What remains for C-H2
+
+C-H1 supplies a sufficient observable state, explicit Gaussian initialization,
+exact weak identities, a finite upward dependency rule, and reached restart
+without history. It supplies no autonomous finite closure, no quantitative
+control of the R cutoff or missing higher levels, no order-uniform stability,
+no population/input quadrature cost, and no certified solver. In particular
+(H8)'s explicit limit is an exact information interface, not a finite numerical
+algorithm. C-H2 must produce finite autonomous equations and prove that their
+omitted information has vanishing effect on one fixed positive nonlinear
+interval and fixed law family. The present construction leaves that theoretical
+risk open. The Stieltjes proposition and unrestricted same-norm product/jet
+bounds excluded by Gaussian calculus §§6,10 play no role.
+
+##### C.4.7.9. Finite autonomous observable closure
+
+The preceding subsection separates exact hierarchy information from finite
+closure. This subsection supplies a convergent finite population construction
+on a fixed smaller ball within that nonlinear family, with the same time
+interval; useful numerical error and cost certification remain separate.
+
+###### 1. Statement and dependency scope
+
+Use precisely C.4.7.8's model (H1)–(H3), loss, mobilities, canonical Gaussian
+initialization, two separate population expectations, and joint observation
+alphabet. Fix Y>=1, T=1/200 and rho=delta/2, where delta is its fixed positive
+radius (H3). Let U_rho={mu: W1(mu,nu*)<rho}, with normalized-input-plus-label
+cost on sqrt(2) S1 × [-Y,Y]. These constants never depend on approximation
+order. Lowercase fields below are aliases for the notation contract's typed
+population fields. All times are physical unhalved-loss GF times.
+
+**Theorem.** The construction below gives an increasing sequence of
+finite-type autonomous population systems (increasing means nested retained
+feature spans; the ridge-normalized coordinates themselves need not be nested), initialized from finite canonical
+Gaussian observable programs. Each system is uniquely well posed through T
+and restartable from its own saved current population state. For each
+separately fixed mu in U_rho, its predictions converge uniformly in time and
+on the whole input circle to canonical nonlinear population GF. Every
+separately fixed finite admissible C-H1 same-layer joint observation tuple
+converges uniformly in time in Euclidean W2, including frozen/current pairs,
+both action directions, bounded-gate pushforwards and quadratic contractions.
+No numerical accuracy or resource rate is asserted.
+
+The dependencies are III.F.1–7 in *Population limits and correlated-data
+geometry* for finite Gaussian laws and common actions, III.F.8–10 there for
+Hilbert–Schmidt and scalar gradient calculus, C.4.7.1–5 here for the actual
+GF and its uniform tails, and C.4.7.8 parts 2–3,5–6,8 for the observation
+language, initialized generated space, invariance and fixed activity family.
+Their proved conclusions are applied below on precisely their stated domains.
+No uniqueness assertion for arbitrary formal hierarchy solutions is used.
+The obstructions in Gaussian calculus §§6,7.2,10 supply no positive premise.
+
+The proof first builds bounded initialized observable feature lists. It evolves two
+current populations and a finite block of action contractions, derives uniform
+energy bounds, and compares directly on the canonical carrier against the
+already identified actual GF. Strong approximation of compact sets controls
+the omitted action and learned-increment sources; the reference tail estimate
+controls error propagation. No infinite formal hierarchy is solved.
+
+###### 2. A deterministic finite dictionary and its joint initialization
+
+Consider C-H1's alphabet at initialization: w=g, c=0 and A=A0. The
+following concrete countable tree encoding avoids an enormous graph catalog.
+Code 0 is population-1 constant one, 1 is population-2 constant one, 2 is g1,
+and 3 is g2. For code n>=4 write n-4=8k+j, 0<=j<8. Codes j=0,1,2 mean
+sin,cos,tanh of code k; j=3 applies A0 or A0* to code k according to its
+population, and is valid only for a bounded operand. Let (a,b) be the Cantor
+unpairing of k, the inverse of pi(a,b)=(a+b)(a+b+1)/2+b. Codes j=4,7 add
+codes a,b and are valid only on the same population; j=5 multiplies those
+codes and additionally requires both bounded; j=6 multiplies code b by the
+rational number r(a). Here if (p,q) is the Cantor unpairing of a, let
+r(a)=s(p)/(q+1), with s(0)=0,s(2h-1)=h,s(2h)=-h for h>=1. Invalid codes
+are skipped, together with their use by later codes. Every dependency has a
+strictly smaller code, so decoding a finite prefix terminates. Bounds and
+population/sort types are inferred by the C-H1 rules.
+
+Every finite tree using this grammar has a code: compose the indicated
+pairing formula upward. Rational linear combinations, elementary bounded
+functions, bounded products and both actions are therefore exhausted. DAGs
+can be unfolded into finite trees. Arbitrary real marks are reached by L2
+completion as proved below; frozen z20(v) is A0 tanh(g·v). No discrete input
+restriction is imposed on the evolution or its observation maps.
+
+To expose both orientations already in the small prototype, start with a fixed
+pilot list: population-1 constant, g1,g2, h_i=sin(g_i), z_i=A0 h_i,
+s_i=sin(z_i), p_i=A0* s_i, and t_i=tanh(p_i), i=1,2, plus population-2
+constant. All are finite initialization words. At order N>=1 take their
+finite union with every valid code 0<=n<=N and all dependencies. Retain all
+bounded outputs on each population in that fixed pilot-then-code order;
+duplicates are retained. There are at most N+15 retained outputs altogether,
+and every union needed to compute their actions has finitely many additional
+nodes. The population dimensions therefore have this explicit finite bound.
+Nothing depends on a time mesh, target trajectory, training law or width.
+
+Let psi_l,N be the column vector of all bounded outputs included at
+order N, with duplicates allowed, in their fixed causal order. Its length is
+d_l(N). These finite lists are nested and contain constants. Define
+
+  G_l,N = E_l[psi_l,N psi_l,N^T], eta_N=2^(-N),
+  b_l,N = (G_l,N+eta_N I)^(-1/2) psi_l,N.                    (H2.0)
+
+The positive inverse square root is uniquely specified by diagonalization of
+the strictly positive finite symmetric matrix. No rank decision, Gram inverse
+at zero or adaptive tolerance is required. Every b_l,i is a finite linear
+combination of bounded initialized words. Its explicit finite supremum envelope
+is obtained from that matrix and the word envelopes. The lists and eta_N depend
+only on N and initialization, not on mu, the target path, time mesh or width.
+Their spans V_l,N are nested. Let U_l,N:R^d_l -> H_l be the map
+v -> b_l^T v. Its Gram satisfies
+
+  U_l,N* U_l,N = G_l,N(G_l,N+eta_N I)^(-1) <= I.
+
+Thus U_l,N and its adjoint are contractions. Put Q_l,N=U_l,N U_l,N*.
+This is a finite-rank positive contraction, not an orthogonal projection.
+Its formula on a field v is b_l^T E_l[b_l v].
+
+Write b_l for the column vector of feature functions and use the operators just defined only in the proof. Record the two finite **joint** initial laws
+
+  lambda_1,N = Law_1(b_1,g_1,g_2) on R^(d_1+2),
+  lambda_2,N = Law_2(b_2) on R^d_2,
+
+and the fixed contraction matrix
+
+  D_N[i,j] = E_2[b_2,i (A0 b_1,j)].                         (H2.1)
+
+Compute all of these in one finite union of initialization programs, including
+the calls A0 b_1,j and the reverse calls used inside the bases. The complete
+rule is C-H1 (H6): each new oriented Gaussian source has the uncentered input
+Gram as covariance, and its answer adds all earlier opposite-orientation
+input fields times their expected frozen named-source derivative. Extend
+singular Gaussian Grams by C-dagger and a nonnegative Schur complement as
+proved there. Every integral here is a finite-dimensional Gaussian integral.
+The normalization (H2.0) is performed after those joint laws are computed; (H2.1) uses the
+same joint law, not an independently sampled second population coordinate.
+The transpose D_N^T is the contraction matrix of the actual reverse action.
+No independent reverse Gaussian matrix is introduced. In particular
+D_N=U_2,N* A0 U_1,N gives ||D_N||op<=2 by the two contraction bounds.
+
+This is an exact-real population construction. It permits defined Gaussian
+integrals and finite positive-definite linear algebra. The ridge eta_N is
+explicit and strictly positive. A floating prototype exposes quadrature and
+floating square-root errors as additional approximations; they cannot silently
+change the mathematical order or discard eigenmodes. No useful conditioning
+or quadrature cost is claimed.
+
+**Density and the retained Gaussian action.**
+
+Let H_l^obs be the initialized observable L2 spaces of C-H1 part 5. Rational
+marks give the same spaces: approximate a fixed real marked graph inductively
+in L2 using bounded action norms, Lipschitz elementary gates, locally bounded
+syntax envelopes for products, and continuity of g·v and A0 tanh(g·v).
+Thus every real finite word is measurable in the completed countable algebra.
+Conversely its rational words are among the original words. Bounded word
+spans are dense by the bounded Fourier-cylinder proof in C-H1 part 5; hence
+Q_l,N v -> v for every v in H_l^obs. Here is a proof for these filters.
+Write S_l,N a=psi_l,N^T a, so Q=S(G+eta I)^(-1)S*. For v=S a,
+(I-Q)v=eta S(G+eta I)^(-1)a; diagonalization gives
+||(I-Q)v||2<=sqrt(eta)||a||/2 because
+eta sqrt(lambda)/(lambda+eta)<=sqrt(eta)/2. A vector in an earlier finite
+span keeps the same coefficient norm by zero-padding as N increases. Hence
+its error tends to zero. Approximate an arbitrary v by that dense span and
+use ||I-Q||<=1 to conclude. This proof needs no lower Gram eigenvalue bound.
+
+These spaces reduce A0 with its adjoint, and the canonical GF starting at
+initialization stays in them, with K(t) supported between them, by C-H1
+(H11) and part 6's restarted-Euler comparison at s=0. This application uses
+mu in U_rho and the complete initialized hierarchy, exactly within that
+proved domain. It imposes no admissibility condition on a formal hierarchy.
+
+On these spaces define only for analysis
+
+  B_N = Q_2,N A0 Q_1,N = b_2^T D_N E_1[b_1 (·)].           (H2.2)
+
+Then ||B_N||<=2 and B_N->A0, B_N*->A0* strongly. For example
+||B_N v-A0 v|| <=2||(Q_1,N-I)v||+||(Q_2,N-I)A0 v|| ->0.
+The reverse proof uses adjunction. The bounds are uniform in N.
+For any compact L2 set this convergence is uniform: choose a finite epsilon
+net and use the uniform operator bound on the distance to that net.
+
+###### 3. The complete saved finite state and autonomous equations
+
+The saved state is a real matrix M in R^(d_2 × d_1), and two current
+probability populations
+
+  Gamma_1 on R^(d_1+4), coordinates (b,g,w), w,g in R2,
+  Gamma_2 on R^(d_2+1), coordinates (b,c), c in R.            (H2.3)
+
+Their static mark marginals are lambda_1,N and lambda_2,N. Initially
+M=D_N, Gamma_1=Law(b_1,g,g), Gamma_2=Law(b_2,0). All entries of b and g
+are frozen coordinates, not history. Their dimensions, every joint
+correlation with current w or c, and d_1*d_2 matrix entries are counted in
+(H2.3). Each population is an actual finite-dimensional joint law, not separate
+marginals. Static D_N and dictionary definitions are also saved fixed inputs.
+There are two evolving law-field types and one evolving matrix. Including
+the fixed D_N requires 2d_1*d_2 scalar matrix entries. Its static population
+mark laws are already the marginals of (H2.3), so no further joint population
+is omitted from this count. Initialization-only Gram and normalization arrays
+may be discarded after initialization. No field takes an arbitrary
+function, raw matrix or unbounded vector as a mark. The input mark is u in
+S1; the label y belongs to [-Y,Y].
+
+For each input u compute from the current state
+
+  a(u) = integral b tanh(w·u) dGamma_1 in R^d_1,
+  z(u,b) = b^T M a(u),  h(u,b)=tanh z(u,b),
+  d(u) = integral b c [1-h(u,b)^2] dGamma_2 in R^d_2,
+  q(u,b) = b^T M^T d(u),
+  f_N(u) = integral c h(u,b) dGamma_2, r_N(u,y)=f_N(u)-y.   (H2.4)
+
+The law velocities act only on their moving coordinates:
+
+  v_w(b,w) = -2 integral r_N(u,y)[1-tanh(w·u)^2]q(u,b)u dmu,
+  v_c(b)   = -2 integral r_N(u,y)h(u,b) dmu,
+  M'       = -2 integral r_N(u,y)d(u)a(u)^T dmu.            (H2.5)
+
+The population equations are the continuity equations
+
+  partial_t Gamma_1 + div_w(v_w Gamma_1)=0,
+  partial_t Gamma_2 + partial_c(v_c Gamma_2)=0.             (H2.6)
+
+Equivalently push the initial joint laws along the characteristics (H2.5).
+All integrals in (H2.4)–(H2.6) are declared finite population/data integrals, using
+only the saved current state and fixed mu. No Gaussian action is queried
+operationally: multiplying the explicitly stored finite M and taking the
+specified b-contractions is the full action rule. No omitted hierarchy level,
+cutoff limit, elapsed-time list or target path is in (H2.4)–(H2.6).
+
+The mathematical role of M is the matrix of current action coefficients in
+fixed **initialized observable feature lists**. In the common-carrier interpretation
+it represents B_N+K_N with K_N=b_2^T(M-D_N)E_1[b_1(·)]. It is a finite
+compression of a population action, and its evolution is the two-sided positive
+filtering of the exact learned rank increment. It is not an initialized
+n-by-n trainable middle array in new coordinates: N is unrelated to neuron
+width, D_N is deterministic and built from limiting observable contractions,
+and the two populations remain continuum laws with nonlinear coordinates
+outside the basis spans. Neither population is a full parameter law; no
+middle row or original matrix entries occur in its coordinate domain.
+Quadrature of these fields is a separate numerical approximation, not a
+replacement finite-network theorem.
+
+###### 4. Well-posedness, energy and own-state restart
+
+For fixed N the feature envelopes L_l=(sum_i ||b_l,i||_infty^2)^(1/2) are finite.
+Use characteristics on the fixed mark probability spaces lambda_l,N. Their
+unknowns are w=g+v with v in L-infinity(lambda_1;R2), c in
+L-infinity(lambda_2), and M in a finite Euclidean matrix space. The base g
+is unbounded but fixed and square-integrable. On bounded sets of (v,c,M),
+(H2.4)–(H2.5) are locally Lipschitz in these supremum/Euclidean norms. To verify
+this, |tanh s-tanh t|<=|s-t| and Lip(1-tanh²)<=2 control every gate;
+|b|<=L_l controls evaluation and integration; |u|=1; all remaining
+operations are finite sums, products of bounded factors and probability
+integrals. No estimate multiplies two unrestricted L2 variables. The local
+Lipschitz constant may depend on N and these bounds but is finite.
+
+Picard existence here needs no black box: on a closed radius-R ball of
+continuous paths, integrate (H2.5). If h times the local speed bound is smaller
+than R and h times its Lipschitz constant is less than one, this integral
+map preserves the ball and is a contraction. Successive iterates are Cauchy,
+the complete Banach space supplies their limit, and the integral identity
+and the same contraction prove existence and uniqueness. Repetition extends
+until a bounded set could be left. Measurability follows from the continuous
+operations and integration. Pushforward gives (H2.6). Conversely in the declared
+characteristic solution class (H2.6) is exactly this construction; no claim of
+uniqueness for pathological distributional solutions with uncontrolled moments
+is needed.
+
+There are bounds independent of N that prevent finite-time escape in the raw
+norm. Because U_l,N are contractions, the coefficient representation obeys
+||K_N||HS<=||M-D_N||F. Let L_N=integral(f_N-y)^2 dmu. The scalar gradient
+calculus gives precisely (H2.5), with the ordinary Euclidean gradient in the M coefficients and
+unrestricted w,c gradients. The induced K velocity has the two Q filters. Direct differentiation
+under these bounded characteristic integrands and adjunction yields
+
+  L_N' = -||w_N'||2² - ||M'||F² - ||c_N'||2².               (H2.7)
+
+For the middle block, variation delta M gives
+  delta f = d(u)^T delta M a(u),
+so its loss gradient is 2 integral r_N d a^T. For w, propagating this
+scalar pairing back through M gives the q and lower gate in (H2.5); for c it
+gives h. These derivations also verify the factors and the actual transpose.
+Initially L_N=integral y² dmu<=Y². Thus integral|r_N| dmu<=Y, and
+
+  ||c_N(t)||infty <=2Yt,
+  ||M-D_N||F <=2Y²t², ||B_N+K_N||op <=2+2Y²t²,
+  ||w_N(t)||2 <=sqrt(2)+4Y²t²+2Y⁴t⁴.                       (H2.8)
+
+Indeed ||a||<=||tanh(w·u)||2<=1, ||d||<=||c_N||2<=2Yt.
+The M speed is at most 4Y²t. The row L2 speed is at most
+4Y²t(2+2Y²t²); integrate for (H2.8). On a fixed finite interval the row
+supremum increment speed is at most 4Y²t L_1 ||M||op, since
+|q|<=L_1||M||op||d||, and ||M||op<=2+2Y²t². Thus v,c,M remain bounded
+in the local-existence norms on each finite interval. Their bounded speeds
+give Cauchy endpoints there and the local argument extends them. In particular
+the system exists uniquely through T.
+
+At any reached time, save (H2.3), M and its fixed marks. Restart the same
+characteristic equation using that current joint law: w and c may be treated
+as initial coordinate labels for the characteristic proof, but no extra
+saved field is needed. Their current conditional distributions are already
+in (H2.3). The row drift is uniformly Lipschitz in w on the bounded M,c region,
+and the readout drift is independent of its individual c coordinate, so
+couple equal current coordinates and repeat the preceding estimates. Uniqueness
+identifies the continuation with the original restriction. Bounds use the
+remaining horizon and the saved finite energy/readout bound, with no query
+of the original path or elapsed history. Initial g is retained solely to
+reconstruct initial/current observations. Both equations and observation maps
+are autonomous, and field domains do not grow at a restart.
+
+###### 5. Direct convergence and identification with actual GF
+
+Fix one admitted mu. Realize every finite initialization dictionary on the
+canonical carrier. Solve the characteristic equations there; by uniqueness
+their laws are exactly (H2.3)–(H2.6). The finite fields are measurable functions of
+their finite marks and initial g. Compare with the canonical established
+solution (w,K,c) for this same mu, whose readout, energy and exponential
+backward tails are supplied by C.4.7. Let A=A0+K and A_N=B_N+K_N.
+Use the sum error
+
+  e_N(t)=||w_N-w||2+||K_N-K||HS+||c_N-c||2.                 (H2.9)
+
+The operator difference A_N-A need not go to zero in operator norm; it is
+never included as a small term in (H2.9). Define the following **proof errors**
+from the existing target, not inputs to (H2.4)–(H2.6):
+
+  eps_N = sup_(t<=T,u) ||(B_N-A0)H1(t,u)||2
+        + sup_(t<=T,u) ||(B_N*-A0*)Delta2(t,u)||2
+        + sup_(t<=T) ||Q_2,N K'(t)Q_1,N-K'(t)||HS.          (H2.10)
+
+Then eps_N->0. The first two target argument sets are compact in L2 because
+their fields are jointly continuous on [0,T]×S1; bounded multiplier
+continuity proves this also for Delta2. Uniform strong approximation from
+(H2.2) applies. For the last term, K' is a continuous HS curve supported
+between H_l^obs. Finite-rank tensors are dense in HS by its square-summable
+matrix coefficients. Q_l,N converges strongly, so it approximates every
+such tensor and then every HS operator, using its contraction norm. A finite
+net of the compact K' curve makes this uniform. This proves small **error
+production**, not a hypothesis of small unknown hierarchy tails. The actual
+scheme uses every integer N with no schedule selected from (H2.10).
+
+Here are the complete comparison subtractions. Bounds (H2.8) and the target
+energy bounds give one common raw/action ball, depending only on Y,T.
+The forward differences obey, uniformly in u,
+
+  ||H1_N-H1||2 <=e_N,
+  ||Z2_N-Z2||2 <=C e_N+eps_N,
+  ||H2_N-H2||2+|f_N-f| <=C(e_N+eps_N).                      (H2.11)
+
+In the second line write A_N(H1_N-H1)+(K_N-K)H1+(B_N-A0)H1.
+In the last line subtract c_N-c first and multiply the hidden difference
+by the bounded reference c. The upper backward subtraction gives
+
+  ||Delta2_N-Delta2||2 <=C(e_N+eps_N),
+  ||Q_N-Q||2 <=C(e_N+eps_N),                               (H2.12)
+
+because c is bounded and
+Q_N-Q=A_N*(Delta2_N-Delta2)+(K_N-K)*Delta2
+                         +(B_N*-A0*)Delta2.
+For the first backward gate at every R>=1,
+
+ ||phi'(w_N·u)Q_N-phi'(w·u)Q||2
+ <= C(e_N+eps_N)+2R e_N+2 tau_R(Q(t,u)).                   (H2.13)
+
+This splits the unchanged target Q at |Q|=R. Only the target needs tails;
+no moment bound for arbitrary approximate action outputs has been assumed.
+
+The row velocity difference follows by subtracting residual and then the
+backward field in (H2.5). Residuals are bounded on the common raw ball and
+||Q_N||2 is bounded, so its norm is bounded by
+C(1+R)(e_N+eps_N)+C integral tau_R(Q(t,u)) dmu.
+The readout difference uses (H2.11). For the middle difference use
+
+ K_N' - K' = Q_2,N(F_K(w_N,A_N,c_N)-F_K(w,A,c))Q_1,N
+                         +(Q_2,N K'Q_1,N-K').            (H2.14)
+
+The filtered exact rank is precisely (H2.5), since its two coefficients
+are d(u) and a(u). HS contraction by Q_l,N and the two-factor rank difference
+bound reduce its first term to (H2.11)–(H2.12) and residual differences; its
+second is bounded by eps_N. Thus almost everywhere
+
+ e_N' <= C(1+R)(e_N+eps_N)+C M_tail exp(-aR), R>=1, e_N(0)=0.  (H2.15)
+
+The constants a,M_tail are the established target tails, uniform on the fixed
+family; the constants C use only (H2.8), Y,T. Norms of C1 Hilbert curves are
+absolutely continuous and their upper derivatives are bounded by the norm
+of the derivative, which justifies (H2.15) even at a zero component norm.
+
+Set v=e_N+eps_N+eta for eta>0. While 0<v<=1 choose
+R=1+a^(-1)log(1/v), giving v'<=L v log(e/v) with one finite L independent
+of N. Integrate exactly: z=log(e/v) satisfies z'>=-Lz, hence
+
+ e_N(t)+eps_N+eta <=exp(1-alpha(t))(eps_N+eta)^alpha(t),
+ alpha(t)=exp(-Lt)>0.                                    (H2.16)
+
+For small eps_N+eta the bound stays below one through T, so first exit
+validates its use. Send eta to zero. Since eps_N->0, sup_t e_N(t)->0.
+The case eps_N=0 follows by the same positive eta argument. This comparison
+identifies the limiting dynamics **with the existing canonical GF itself**;
+it does not appeal to uniqueness for arbitrary formal hierarchy solutions.
+Although (H2.10) is useful for the proof, none of its target-dependent errors or
+constants is used to initialize, select, or evolve any approximation order.
+Equation (H2.11) proves the required uniform-in-time whole-circle prediction
+convergence on the same fixed law ball and interval.
+
+###### 6. All declared observation maps and second moments
+
+On (H2.3), seeds w,g,c are the displayed current/frozen coordinates. The frozen
+upper seed at any v is reconstructed by
+
+  z20_N(v,b_2)=b_2^T D_N integral b_1 tanh(g·v) dlambda_1,N. (H2.17)
+
+Its time derivative is zero. Use the original affine, sin,cos,tanh and bounded
+product instructions on the appropriate population. For an action input V
+on population 1 define its output on population 2 to be
+b_2^T M integral b_1 V dGamma_1; the reverse output is
+b_1^T M^T integral b_2 V dGamma_2. The marks and any required current
+coordinates are evaluated in the **same** population joint law at every
+occurrence. These are finite integrals with a declared kernel, not an action
+oracle receiving an undeclared external vector. A separately fixed graph
+may use its finite scalar/input marks and a finite union of outputs. Its
+joint law is the pushforward of (H2.3); requesting more output coordinates
+does not enlarge the evolving state.
+
+We prove convergence inductively on any such fixed graph, uniformly in time.
+The seed convergence is (H2.9), exact g, and the strong-compact argument for
+(H2.17). The readout is bounded by 2YT at all orders, as is the target.
+Every bounded node consequently has a common finite syntax envelope across
+N and t at its fixed marks. Affine and Lipschitz unary operations preserve
+L2 convergence. A bounded product uses
+||V_N W_N-VW||2<=||V_N||infty||W_N-W||2+||W||infty||V_N-V||2.
+For an action node use
+
+ A_N V_N-A V=A_N(V_N-V)+(K_N-K)V+(B_N-A0)V.                (H2.18)
+
+The first two terms vanish by the uniform action bounds and (H2.9). The
+last vanishes uniformly on the compact target L2 curve V(t), by (H2.2).
+The identical proof with actual adjoints handles every reverse node.
+Frozen upper inputs use (H2.17). All target node curves are L2 continuous
+by the same finite induction. A bounded continuous gate times a named L2
+field converges uniformly on these compact curves: truncate that target
+field, use bounded convergence on the bounded part, and control the tail
+uniformly by a finite L2 net. This is the established strong multiplier
+lemma, not an L2 algebra assertion.
+
+For a tuple (V1,...,Vk) on one population, pair the approximate and target
+values on that same canonical carrier. Then
+
+ W2(Law(V_N),Law(V))² <=sum_i ||V_i,N-V_i||2²,             (H2.19)
+
+uniformly in t. This is the stated C-H1 Euclidean W2 interpretation, not
+independently coupled marginals. For each quadratic contraction
+|E U_N V_N-E UV|<=||U_N-U||2||V_N||2+||U||2||V_N-V||2,
+so its convergence and the needed second moments follow as well. Initial
+and current hidden fields in the same tuple give the correct paired
+observations and displacements. Arbitrarily nested but separately fixed
+admitted actions are covered by (H2.18), without a growing-program theorem.
+
+The canonical limit has the actual finite-network interpretation from
+C.4.7.5 and C-H1. That theorem retains the actual finite Gaussian readout:
+its RMS tends to zero and its supremum satisfies
+P(max_i|W3_i|>epsilon)<=2n exp(-n²epsilon²/2). No finite network is initialized
+with zero readout here. Our population initialization c=0 is precisely its
+limit. The closure order limit is a population approximation; no joint
+order/width rate or cross-carrier operator-norm convergence is asserted.
+
+###### 7. Nontrivial family, activity, and limitations
+
+Because rho<delta and T is unchanged, C-H1 part 8 supplies the same common
+positive activity time t_a in (0,T). Its positive paired hidden squared
+displacements and nonaffinity bounds persist throughout U_rho. The ball
+contains the explicit small rotated two-atom laws and the small-arc nonatomic
+laws constructed there. Equations (H2.19) and the bounded hidden gates make the
+paired displacements converge to those positive values for every fixed law.
+The interval and radius never shrink with order, and no reference prediction
+or fitted coefficient appears in the vector field.
+
+The equations make sense for every bounded-label data law, with the same
+initialization, and the fixed-order population well-posedness proof is not
+restricted to the small ball. Only convergence to canonical nonlinear GF and
+the activity guarantee are asserted on the declared family and interval.
+We assert asymptotic convergence, not monotonic error reduction at every
+successive order, a uniform rate over the law ball, practical quadrature,
+useful accuracy, or a time-40 certified solver. The exact population fields
+are allowed at C-H2; their dimension, joint dependence, feature conditioning,
+quadrature and finite precision remain serious C-H3 costs.
+
+##### C.4.7.10. Finite numerical autonomous observable closure
+
+This section gives a finite numerical implementation of the same nonlinear
+population physical gradient flow. Its exact model is C.4.7.8: no biases,
+two tanh hidden layers, stored Gaussian variances (1,1/n,1/n²), mobilities
+(n,1,n), unhalved squared loss, and both orientations of one reused initialized
+Gaussian action. The finite-network interpretation retains its actual random
+initial readout.
+
+Fix T=1/200 and one rational two-arc law defined in part A. Part B specifies
+a compatible dense closure, with exact prediction f_N at order N. Write
+\(\mathfrak j=(\varepsilon,Q,P,m,J,p)\) for the numerical resolution
+of part C: source regularization, initializer and population cubature, input
+quadrature, number of time steps and arithmetic precision. Its finite
+prediction is \(\widehat f_{N,\mathfrak j}\). Then
+
+\[
+ \widehat f_{N,\mathfrak j}\longrightarrow f_N,
+ \qquad f_N\longrightarrow f_\mu
+ \quad\hbox{in }C([0,T]\times S^1),
+\]
+
+with the iterated numerical order in part C.1. The same limits preserve
+training-averaged initial/current activation pair laws in W2 and their RMS
+displacements in both layers. Neither horizon nor law family shrinks. The
+numerical state restarts from its own complete finite marks and coefficients;
+at fixed resolution its working storage is independent of elapsed step count.
+
+Part A proves the required explicit short-time population domain; it is not
+an assertion that the represented laws belong to the older time-40 neighborhood.
+Part B verifies density, both action directions and nonredundant odd-degree
+enrichment. Part C proves every numerical limit and accounts for initialization,
+evolution, precision and workspace. No rate, per-run error certificate, arbitrary
+diagonal refinement or tolerance-to-resolution rule is asserted. Feasible
+declared computations are a separate reproducible library validation.
+
+Unqualified equation references within parts A and C carry their displayed
+H3.S and H3.N prefixes. Part B uses H3.1–H3.3.
+
+###### A.1. Statement and the executable family
+
+Let `Z = sqrt(2) S^1 × [-1,1]`, write `u=x/sqrt(2)`, and use the transport cost
+`|u-v|+|y-z|`. Set `T=1/200`. Use precisely the C.4 finite model
+
+\[
+ f_n(x)=n^{-1}(W^{(3)})^T\tanh(W^{(2)}\tanh(W^{(1)}u)),
+\]
+
+with no biases, independent stored centered Gaussian variances
+`(1,1/n,1/n²)`, mobilities `(n,1,n)`, and unhalved mean squared loss. All
+times here are physical GF times. The finite initial readout is retained.
+
+**Proposition.** Every Borel probability law `mu` on `Z` has a canonical
+strong `C¹` population GF on `[0,T]`, unique among strong raw solutions on
+the same canonical initialized action carrier. It is uniquely restartable
+from each reached state for the remaining interval. The initial state is
+`(w,K,c)=(g,0,0)`, with `g~N(0,I₂)`, retained initialized Gaussian action
+`A0`, and its actual adjoint. The state space is
+
+\[
+ \mathcal E=L^2(\Omega_1;\mathbb R^2)\oplus
+ \mathcal S_2(L^2(\Omega_1),L^2(\Omega_2))\oplus L^2(\Omega_2),
+ \qquad A=A_0+K.
+\]
+
+It has the exact energy identity, the explicit tails in part A.3, and
+law-continuity in the sum of row `L²`, increment HS, and readout `L²` norms.
+Actual finite GF for each fixed Borel law converges to it in the C.4.7.5
+observation sense, including whole-circle predictions and finite same-layer
+joint observations with second moments. The same conclusion holds for any
+deterministic laws `lambda_j→mu` in `W1` and any widths `n_j→∞`; actual laws
+may be Borel and need not be atomic. For iid empirical laws the convergence
+holds in joint probability for arbitrary sample-count/width growth.
+
+Here is a fixed finite-input subfamily, independent of order or accuracy.
+Define
+
+\[
+ U(s)=\left(\frac{1-s^2}{1+s^2},\frac{2s}{1+s^2}\right),\qquad
+ R_* =\begin{pmatrix}3/5&-4/5\\4/5&3/5\end{pmatrix}.
+\]
+
+The input consists of five rational numbers `(p,a,b,c,d)` satisfying
+
+\[
+ 1/3\le p\le2/3,\qquad
+ -1/20\le a\le b\le1/20,\qquad -1/20\le c\le d\le1/20.
+\]
+
+Let `V_[a,b]` be uniform probability on `[a,b]` when `a<b` and `delta_a`
+when `a=b`. Define
+
+\[
+ \mu=p\,\operatorname{Law}(\sqrt2 U(S),+1)
+ +(1-p)\,\operatorname{Law}(\sqrt2 R_*U(V),-1),
+ \quad S\sim V_{[a,b]},\ V\sim V_{[c,d]}.
+ \tag{H3.S1}
+\]
+
+Only this mixture law is intended; no pairing between its two components is
+used. Each nondegenerate component is nonatomic since `U` is injective on
+these intervals. Both degenerate intervals give an explicit two-atom law.
+Moreover `|U(s)-e1|=2|s|/sqrt(1+s²)≤1/10`; hence every cross-component pair
+satisfies
+
+\[
+ 2/5\le U(s)\cdot R_*U(v)\le4/5.                 \tag{H3.S2}
+\]
+
+Indeed its difference from `e1·R_*e1=3/5` is bounded by
+`|U(s)-e1|+|U(v)-e1|≤1/5`. Thus this fixed family has nonorthogonal,
+noncollinear inputs without invoking an unknown small radius.
+
+
+
+For a cell of length `ell=(b-a)/m`, uniform-to-midpoint coupling has
+`E|S-midpoint|=ell/4`. Since `|U'(s)|=2/(1+s²)≤2`, its input transport cost
+is at most `ell/2`; rotation preserves distance and labels are unchanged.
+Mixture coupling proves the returned error, which is at most `1/(20m)`.
+Every atom's normalized coordinates and mass are rational; the original
+input is `sqrt(2)` times its normalized coordinate. Thus this is a certified
+law representation, not an exact-integration oracle. For example
+`p=1/2,a=c=-1/20,b=d=1/20` is a specific nonatomic admissible law, while
+`a=b=c=d=0` gives the nonorthogonal two-atom law.
+
+###### A.2. Finite Euler programs and an unconditional source cap
+
+Put `phi=tanh`. For every state define the typed fields
+
+\[
+ H^1(u)=\phi(w\cdot u),\quad Z^2(u)=AH^1(u),\quad H^2(u)=\phi(Z^2(u)),
+ \quad f(u)=\langle c,H^2(u)\rangle_2,
+\]
+\[
+ \Delta^2(u)=c\phi'(Z^2(u)),\quad Q(u)=A^*\Delta^2(u),
+ \quad r(u,y)=f(u)-y.
+\]
+
+The exact vector field is
+
+\[
+ \mathcal F_\mu(w,K,c)=-2\left(
+ \int r\phi'(w\cdot u)Q(u)u\,d\mu,
+ \int r\Delta^2(u)\otimes H^1(u)\,d\mu,
+ \int rH^2(u)\,d\mu\right).                         \tag{H3.S3}
+\]
+
+Each rank has HS norm equal to the product of its two `L²` norms. No
+Hilbert–Schmidt assumption is made on `A0`; its operator norm is at most two
+by the proved A.3 Gaussian bound.
+
+For a finite law `sum_a p_a delta_(u_a,y_a)` and any positive finite mesh
+`h_k` of total length at most `T`, define Euler directly by (H3.S3). Bounded gates
+and bounded actions make every step a legitimate raw state. The fixed-program
+theorem applies after expanding the learned increment into its finite sum
+of ranks: the roots are Gaussian, both action orientations are of the same
+initialized matrix, gates are smooth with bounded derivatives, and the only
+unbounded products are bounded gates times named `L²` fields. A.1–2 supplies
+their fixed-program value and named-source extension, with finite polynomial
+derivative envelopes. Causal contractions use their earlier deterministic
+population values. The program is finite before any width limit is used.
+Zero or duplicated query covariances are covered by III.F.5. Thus neither an
+inverse-Gram lower bound nor a minimum atom mass is required.
+
+Fix the exact constants
+
+\[
+ T=1/200,\quad C=101/10000,\quad R=10101/10000=1+C,
+ \quad B=1/32,
+\]
+\[
+ D=B+2RC^2T,\quad
+ A_B=4R\exp(6RDT+8R^2T^2C^2),\quad
+ d_0=2RT+2C,\quad \Psi=d_0\exp\{d_0T(A_B+2R)\}.       \tag{H3.S4}
+\]
+
+The readout recurrence gives `||c_{k+1}||∞+1≤(1+2h_k)(||c_k||∞+1)`;
+therefore `||c_k||∞≤e^(2T)-1<C`, `|r|≤R`. Summing rank and row updates gives
+
+\[
+ \|K_k\|_{\rm HS}\le2TRC<1/1000,\quad
+ \|A_k\|_{\rm op}<201/100,\quad \|w_k\|_2<2,
+ \quad\|\mathcal F_\mu(\theta_k)\|_{\rm sum}<3.        \tag{H3.S5}
+\]
+
+The row estimate uses `sqrt(2)+2TR(2+2TRC)C<2`; the speed bound uses
+`2R((2+2TRC)C+C+1)<3`. All affine interpolants obey these bounds.
+
+For completeness, the exact source calculation giving the cap is as follows.
+At a training slot `(k,a)` put `m_ka=h_k p_a`, `gamma_ka=-2m_ka r_ka`.
+Forward centered sources `xi` have covariance `E1[H1_i H1_j]`; reverse
+centered sources `zeta` have covariance `E2[Delta2_i Delta2_j]`. Distinct
+orientations are independent source groups. Answers include their response
+terms, so this does not make the action and its adjoint independent.
+For frozen deterministic contractions, residuals, covariances and previously
+computed response coefficients, let
+
+\[
+ \alpha_{i,p}=E_1[\partial_{\zeta_p}H^1_i],\qquad
+ \beta_{i,p}=E_2[\partial_{\xi_p}\Delta^2_i].
+\]
+
+III.F.4's source rule plus the finite learned-rank sum gives exactly
+
+\[
+ Z^2_i=\xi_i+\sum_{p<i}F_{i,p}\Delta^2_p,
+ \quad F_{i,p}=\alpha_{i,p}+\gamma_p E_1[H^1_iH^1_p],
+\]
+\[
+ Q_i=\zeta_i+\sum_{p\le i}D_{i,p}H^1_p,
+ \quad D_{i,p}=\beta_{i,p}+\mathbf1_{p<i}\gamma_p E_2[\Delta^2_i\Delta^2_p].
+                                                        \tag{H3.S6}
+\]
+
+Here `p<i` means a strictly earlier time for a memory term. There is only
+one distinguished current forward source for each new output query. Its
+current coefficient is `E2[c_k phi''(Z2_i)]`; all other current coefficients
+are zero. Append a passive query after the active calls; unused previous
+queries have zero derivatives. Formal sources remain separate names even
+when covariance is singular.
+
+Assume previous beta-row absolute sums are at most `B`. Then the corresponding
+`D`-row sums are at most `D`, and
+
+\[
+ Q_i=\zeta_i+J_i,\qquad |J_i|\le D,\qquad E\zeta_i^2\le C^2. \tag{H3.S7}
+\]
+
+For any nonnegative `lambda`, Jensen with the time/atom weights and the scalar
+Gaussian exponential integral gives
+
+\[
+ E\exp\left(\lambda\sum_{j<k,a}h_jp_a|Q_{ja}|\right)
+ \le2\exp(\lambda TD+\lambda^2T^2C^2/2).                    \tag{H3.S8}
+\]
+
+The sum of weights is at most `T`; add a zero term if it is smaller. This
+estimate needs no independence among times or inputs.
+
+For a past reverse pulse `p=(s,b)`, let `v_{k;p}=partial_(zeta_p) w_k` and
+`M_{k;p}=max_{s<j≤k}|v_{j;p}|`. Differentiating (H3.S3),(H3.S6) gives a direct pulse
+of magnitude at most `2R m_p`, followed by a multiplicative increment bounded
+by
+
+\[
+ 2Rh_j\left(D+2\sum_a p_a|Q_{ja}|\right)M_{j;p}.
+\]
+
+Indeed the derivative of the lower gate contributes `2|Q||v|`, while each
+old first-feature derivative in the `D` sum is bounded by the past pulse
+maximum. The current feature derivative uses `w_j`, which is already fixed
+before that update. Iteration with `1+x≤exp(x)` therefore gives
+
+\[
+ M_{k;p}/m_p\le2R\exp\left(2RDT+4R\sum_{j<k,a}h_jp_a|Q_{ja}|\right).
+\]
+
+Applying (H3.S8) yields
+
+\[
+ E M_{k;p}/m_p\le A_B,
+ \quad |\alpha_{ku,p}|\le A_Bm_p,
+ \quad |F_{ku,p}|\le(A_B+2R)m_p.                           \tag{H3.S9}
+\]
+
+For forward pulses write `U_i;p=partial_(xi_p) Z2_i`,
+`C_k;p=partial_(xi_p)c_k`, `V_i;p=partial_(xi_p)Delta2_i`. Their exact
+finite equations are
+
+\[
+ C_{k;p}=\sum_{q<k}\gamma_q\phi'(Z^2_q)U_{q;p},\quad
+ U_{ku;p}=\mathbf1_{(k,u)=p}+\sum_{q<k}F_{ku,q}V_{q;p},
+\]
+\[
+ V_{ku;p}=\phi'(Z^2_{ku})C_{k;p}+c_k\phi''(Z^2_{ku})U_{ku;p}.
+\]
+
+Let `mathcal U_k` be the largest absolute `U` derivative-row sum through
+step `k`. Then the absolute `C` row is at most `2RT mathcal U_k`, and the
+absolute `V` row is at most `d0 mathcal U_k`. Consequently
+
+\[
+ \mathcal U_k\le1+(A_B+2R)d_0\sum_{j<k}h_j\mathcal U_j
+ \le\exp((A_B+2R)d_0T),\quad
+ \sum_p|\beta_{ku,p}|\le\Psi.                             \tag{H3.S10}
+\]
+
+All right-hand memory terms are earlier ones. Lower pulses at the new node
+use only previous beta rows; (H3.S9) then constructs its forward coefficients;
+(H3.S10) constructs its current beta row. This is the causal induction which
+makes a strict `Psi<B` sufficient without a circular current-row hypothesis.
+
+Here is an elementary rational verification of that strict inequality.
+For `0≤x<1`, `e^x≤1/(1-x)`. Also
+
+\[
+ e^{1/100}\le1+1/100+
+ \frac{(1/100)^2}{2(1-(1/100)/3)}=60401/59800<R,
+\]
+
+because successive ratios after the quadratic term are at most `x/3`.
+Direct rational substitutions in (H3.S4) give
+
+\[
+ D<1/31,\quad6RDT+8R^2T^2C^2<1/1000,
+ \quad A_B<4R(1000/999)<41/10,
+\]
+\[
+ A_B+2R<31/5,\quad d_0T(31/5)<1/1000,
+ \quad\Psi<d_0(1000/999)<1/32=B.                         \tag{H3.S11}
+\]
+
+At initialization beta is zero. Equations (H3.S9)–(H3.S11) prove its cap for all
+finite laws, all finite positive meshes of total length at most `T`, and all
+passive directions. Zero atom masses may be discarded. There is no bound on
+the number of atoms, covariance rank, or number of steps.
+
+###### A.3. Individual tails, strong existence, and uniqueness
+
+For `s≥D` define the explicit scalar majorant
+
+\[
+ \tau(s)=4(C+D)\exp\left(-\frac{(s-D)^2}{8C^2}\right).     \tag{H3.S12}
+\]
+
+Equation (H3.S7) implies `||Q 1_(|Q|>s)||2≤tau(s)`. To verify this without
+assuming `zeta` and `J` independent, use `|Q|≤|zeta|+D` and put
+`a=(s-D)/C`. Scalar Gaussian domination reduces to
+`C|G|+D`, `G~N(0,1)`. On `|G|>a`, use
+`1≤exp((G²-a²)/4)`. Completing the square gives
+`E exp(G²/4)=sqrt(2)` and `E G² exp(G²/4)=2sqrt(2)`.
+The squared tail is at most
+`2 exp(-a²/4)(2sqrt(2) C²+sqrt(2)D²)`, below the square of (H3.S12).
+The readout is bounded by `C`. These are uniform marginal estimates; they
+make no assertion about the tail of a supremum over inputs or time.
+An affine Euler state is an Euler prefix with one shorter final step, so the
+same bounds hold for every recomputed interpolant query.
+
+We give the completion rather than inferring existence from this cap. First,
+the field (H3.S3) is jointly continuous in raw state and input. The only
+non-Lipschitz-looking operation needed is a bounded continuous multiplier
+times an `L²` field. If `z_j→z` in probability and `v_j→v` in `L²`, subtract
+the varying vector first. For the remaining term, truncate fixed `v` at
+`|v|≤M`, use bounded convergence in probability there, and control the
+complement by `2||b||∞ ||v 1_(|v|>M)||2`. This proves
+`b(z_j)v_j→b(z)v` in `L²`. Apply it at both backward gates; bounded actions
+and the rank norm identity handle the other operations. Compactness of the
+data domain makes convergence uniform in the input. Each integrand has
+compact separable range and is bounded, hence is Bochner integrable in the
+raw spaces. For fixed continuous Banach-valued `G`, coupling laws at mean
+distance `q` bounds its integral difference by
+`omega_G(a)+2||G||∞q/a`. First `q→0`, then `a→0`, proves joint field/law
+continuity. No ambient `L²` algebra or locally Lipschitz population-ODE
+assertion has been used.
+
+Here is a quantitative one-reference comparison adequate for completion.
+For the Euler ball (H3.S5), and `s≥1`, let `e` be sum raw state distance and
+`q=W1(mu,nu)`. Subtracting the fields yields
+
+\[
+ \|\mathcal F_\mu(\theta)-\mathcal F_\nu(\bar\theta)\|_{\rm sum}
+ \le L_s(e+q)+16\int\tau_s(\bar Q(u))\,d\nu,
+ \qquad L_s=3000(1+s),                                  \tag{H3.S13}
+\]
+
+where `tau_s(v)=||v 1_(|v|>s)||2`; only the reference needs tails. One can
+check the constant with bounds three on row norm, action norm, both readout
+`L²` norms and the reference readout supremum, and residual bound four.
+For a coupled input pair at distance `h=|u-v|`, the first preactivation,
+second preactivation, prediction, upper backward field, and reverse query
+differences are bounded respectively by
+`3(e+h),9(e+h),28(e+h),55(e+h),168(e+h)`. Add `|y-z|` to the residual
+difference. The lower gate difference is at most
+`(168+6s)(e+h)+2 tau_s(Qbar)`, by splitting its reference factor at `s`.
+The row, middle, and readout velocity differences are consequently bounded
+by `(1920+48s)(e+h+|y-z|)+16 tau_s(Qbar)`,
+`680(e+h+|y-z|)`, and `128(e+h+|y-z|)`, respectively. Their sum is below
+(H3.S13), after coupling and taking the infimum of transport costs. For the
+middle field the HS rank-difference bound is used. This verifies (H3.S13)
+without substituting operator norm for HS distance.
+
+Take finite laws `mu_j`, meshes of maximal step `h_j`, and their affine
+Euler paths, all on the fixed common carrier. A preceding-node state differs
+from its interpolant by at most `3h_j`. For two such paths, (H3.S13), (H3.S12), and
+scalar integration of `e'≤L_s e+b` give
+
+\[
+ \sup_{t\le T}e_{ij}(t)
+ \le T e^{L_sT}\left[
+ L_s\{W_1(\mu_i,\mu_j)+3h_i+3h_j\}+16\tau(s)\right].     \tag{H3.S14}
+\]
+
+For every Borel `mu`, finite laws with `W1(mu_j,mu)→0` exist by partitioning
+the compact data space into cells of shrinking diameter and moving each
+cell's exact mass to a representative. Choose any meshes `h_j→0`. For fixed
+`s`, the first term in (H3.S14) vanishes as `i,j→∞`; then
+`e^(L_sT)tau(s)→0` as `s→∞`, since its exponent has a negative quadratic
+term in `s` and only a positive linear term. Thus the paths are Cauchy in
+the complete space `C([0,T];E)`. The same calculation between two choices
+proves independence of all approximations.
+
+Let their limit be `theta_mu`. Their preceding-node paths converge to the
+same limit. Joint field continuity just proved passes the integrated Euler
+equations to
+
+\[
+ \theta_\mu(t)=(g,0,0)+\int_0^t\mathcal F_\mu(\theta_\mu(v))\,dv. \tag{H3.S15}
+\]
+
+The field convergence is uniform in time: any allegedly discrepant times
+have a convergent subsequence, and uniform state convergence gives the
+same limiting state there, contradicting joint continuity. Thus the integral
+in (H3.S15) is strongly `C¹`, with one-sided endpoint derivatives. This constructs
+the full state equation, including its HS increment, not just predictions.
+
+The source decomposition itself passes to this limit. Fix a time and input,
+and append that passive query to the convergent finite programs. For their
+joint union, the source covariance rule gives
+
+\[
+ \|\zeta_i-\zeta_j\|_2^2
+ =\|\Delta^2_i-\Delta^2_j\|_2^2\longrightarrow0.           \tag{H3.S16}
+\]
+
+This identity uses the cross contractions of their actual common-carrier
+upper fields. The joint centered sources are Gaussian, so their `L²` limit
+is centered Gaussian with variance at most `C²`. The corresponding `Q_i`
+converge in `L²` by field continuity; hence `J_i=Q_i-zeta_i` converge in
+`L²`. An almost-sure subsequence retains `|J|≤D`. A fixed real passive input
+can also be obtained by a sequence of rational directions, using joint
+continuity and the same covariance identity. Thus (H3.S7),(H3.S12) hold at every
+time/input of (H3.S15), with the same constants. They hold separately at each
+such pair, which suffices for the law-averaged tails in (H3.S13).
+
+The strong chain rule along `C¹ L²` curves follows directly from the scalar
+mean-value identity and the bounded-multiplier argument above. Apply it to
+the two activations, and the action product rule, to differentiate `f(u)`.
+The three gradient blocks are `phi'(w·u)Q(u)u`,
+`Delta2(u) tensor H1(u)`, and `H2(u)`. Their joint continuity on the compact
+input/time domain justifies differentiating the law integral. Pairing with
+(H3.S3) proves
+
+\[
+ \mathcal L_\mu(t)+\int_0^t\|\theta'_\mu(v)\|_{\rm raw}^2dv
+ =\int y^2d\mu\le1.                                     \tag{H3.S17}
+\]
+
+The readout equation and `int|r|dmu≤sqrt(L)≤1` give `||c(t)||∞≤2t`.
+Coordinatewise integration is justified by Fubini for the bounded readout
+velocity. The remaining rank and row integrals then give
+
+\[
+ \|K(t)\|_{\rm HS}\le2t^2,\quad
+ \|A(t)\|_{\rm op}\le2+2t^2,\quad
+ \|w(t)\|_2\le\sqrt2+4t^2+2t^4.                         \tag{H3.S18}
+\]
+
+For law continuity, apply (H3.S13) to two constructed paths and integrate as in
+(H3.S14), with the mesh terms absent. Its infimum over integer `s≥1` is a
+deterministic common modulus tending to zero as `q→0` (first fix `s`, then
+send `q→0`, then `s→∞`). In particular this controls the whole-circle
+predictions and both forward hidden fields.
+
+For uniqueness, any competing strong raw solution on `[0,T]` has bounded
+raw and action norms by continuity on this compact interval. Repeat the
+subtractions of (H3.S13) with their finite common bound, yielding
+`C_*(1+s)e+C_*tau(s)`; its reference is the constructed solution, with
+bounded readout and (H3.S12). There is no tail assumption on the competitor.
+Zero initial error and Gronwall give
+`sup e≤C_*T exp(C_*(1+s)T)tau(s)→0`. Applying the same argument on
+`[b,T]` proves uniqueness from any reached state at time `b`. Its existence
+is the restriction of (H3.S15); no statement about arbitrary ambient endpoints
+or switched training laws is needed.
+
+###### A.4. Identification with actual finite GF
+
+This step requires finite-program identification in addition to population
+tails. At finite width, compactness of the data domain makes the exact
+Borel-law vector field smooth on every bounded parameter set: all derivatives
+of its integrand are uniformly bounded there, so difference quotients pass
+under the integral. Local existence needs only the following contraction:
+on a closed parameter ball, fix bounds for the field and its derivative;
+choose a time interval so that integrating the speed stays inside the ball
+and its length times the derivative bound is below one. Integration maps
+continuous paths into that ball contractively. Its successive iterates
+converge uniformly to the integral solution, and the contraction proves
+uniqueness. The field is the negative loss gradient for squared metric
+
+\[
+ \|\dot w_n\|_F^2/n+\|\dot K_n\|_F^2+\|\dot c_n\|_2^2/n.
+\]
+
+The chain rule gives the finite counterpart of (H3.S17). On any finite maximal
+interval, displacement is at most `sqrt(t L_n(0))`, and a terminal increment
+is at most `sqrt(|t-s| L_n(0))`. Thus a finite endpoint exists, and local
+smooth finite-dimensional existence extends the solution. This proves global
+finite GF existence and uniqueness for every fixed Borel law.
+
+The event `||A0,n||op≤10`, `||w0,n||F/sqrt(n)≤2`,
+`||c0,n||∞≤1` has probability tending to one, independently of the law.
+Here the Gaussian readout satisfies
+`P(max_i|W3_i|>epsilon)≤2n exp(-n²epsilon²/2)`. On this event
+`L_n(0)≤4`; energy gives law-independent raw/action bounds through `T` and
+`||c_n(t)||∞≤1+4t`. This supplies a common deterministic comparison ball.
+
+Fix a finite comparison law `nu` and a finite mesh `h`, before taking width
+to infinity. Its population Euler program has a finite number of instructions.
+Realize those instructions on the actual finite initialized arrays, retaining
+the deterministic population residuals and contractions in its assigned
+increments. Expand `K` into its finite rank sum. Include the actual finite
+initial readout **additively in the proxy parameters**. Thus GF and proxy
+start at exactly the same arrays. The proxy's assigned increments come from
+the zero-population-readout program; its recomputed feedback is compared to
+those assigned increments next.
+
+III.F.1–7 and A.1–2 apply to that fixed graph with precisely the root, gate,
+and source hypotheses checked in part A.2. They give all same-layer joint
+second moments and hence scalar-contraction convergence. A finite induction
+recovers the proxy's recomputed feedback: for a gate times an unbounded named
+field, subtract the field error first and split the fixed reference field at
+a cutoff in the gate error. Its joint second-moment convergence controls the
+tail; let width increase at fixed cutoff, then remove the cutoff. Bounded
+actions propagate the field errors. Additive initial-readout error tends to
+zero in both RMS and supremum, so the same induction covers it. Hence all
+recomputed proxy velocity defects at its finitely many nodes are `o_P(1)`.
+
+The middle metric is identified exactly, not by a cross-carrier operator
+comparison. If `K=sum_i a_i tensor b_i`, then
+
+\[
+ \|K\|_{\rm HS}^2=\sum_{i,j}\langle a_i,a_j\rangle_2
+                                      \langle b_i,b_j\rangle_1.
+\]
+
+For finite ranks `a_i b_i^T/n` their ordinary Frobenius contraction is the
+same finite double sum of normalized pairings, which converges by the
+fixed-program theorem. The proxy consequently stays on a deterministic
+enlargement of (H3.S5), with probability tending to one, and has bounded assigned
+speed uniformly between its finitely many nodes.
+
+For a fixed cutoff `s≥1`, second-moment convergence gives finite proxy tails.
+The continuous map `v↦(|v|-s/2)_+` satisfies
+
+\[
+ \|v1_{|v|>s}\|_2\le2\|(|v|-s/2)_+\|_2\le2\tau_{s/2}(v).
+\]
+
+Since `s/2>D`, (H3.S12) and the finite-program limit therefore bound every
+law-averaged proxy-node reverse tail by `2tau(s/2)+o_P(1)`. The proxy readout
+has no tail at sufficiently large fixed `s`, since it is bounded by `C` plus
+the vanishing initial-readout supremum. There are only finitely many such
+nodes and training inputs for fixed `(nu,h)`. In particular this reasoning
+does not claim finite tails uniform in a growing transcript.
+
+Now let `lambda_j→mu` in `W1` and `n_j→∞`. The same finite-array subtractions
+as in (H3.S13), with their common finite ball, compare actual GF for `lambda_j`
+to the proxy, both on their common width-`n_j` carrier. The actual law may
+be nonatomic; only the comparison law is finite. For a fixed cutoff `s` the
+sum distance obeys, uniformly through `T`,
+
+\[
+ E_j\le C_*T e^{C_*(1+s)T}
+ \left[(1+s)(W_1(\lambda_j,\nu)+h)
+                    +2\tau(s/2)+o_{\mathbb P}(1)\right].  \tag{H3.S19}
+\]
+
+The mesh term comes from the proxy's bounded node/interpolant displacement;
+the probability error includes the fixed-program velocity defects. Constants
+are independent of the finite comparison law and its mesh. They need only
+be finite, since the available tail is Gaussian in `s`.
+
+For any desired error, first choose fixed `s` so that the amplified tail in
+(H3.S19) is small. This is possible because its negative quadratic exponent
+dominates the linear Gronwall exponent on the entire fixed interval. Next
+choose finite `nu` close enough to `mu` and a small fixed mesh `h` so that
+their amplified deterministic errors are small and their population Euler
+path is close to (H3.S15). Only then let `j→∞`. Each random error in (H3.S19) concerns
+this fixed finite graph and fixed cutoff; `W1(lambda_j,mu)→0`. This proves
+arbitrarily accurate same-carrier proxy approximation to actual finite GF.
+Taking `lambda_j=mu` gives the assertion for each exact Borel-law loss.
+
+Forward/prediction formulas are Lipschitz on these balls, uniformly in input.
+Fixed time/input nets, the finite-program limits on their nodes, the full-row
+input Lipschitz bounds, and the bounded raw speeds give convergence uniform
+in `t∈[0,T]` and `u∈S1` for predictions and the declared forward observations.
+For a further fixed observation graph, each bounded action costs its operator
+bound times the input error, plus HS increment error times the target input
+norm. Globally Lipschitz gates preserve `L²` approximation. For a bounded
+continuous gate times a fixed named `L²` field, use its cutoff, bounded
+uniform continuity on a compact box, and the fixed-program second-moment
+tails before removing the cutoff. Induction proves same-layer joint `W2`
+convergence and quadratic contractions. Initial/current observations use a
+single same-neuron tuple. No arbitrary unbounded products or cross-carrier
+operator-norm convergence have been asserted.
+
+For iid empirical laws, move the empirical and true law to a common finite
+partition of diameter `b`. These moves cost at most `2b`. On that fixed
+partition, the expected sum of cell-frequency errors tends to zero, since
+each has variance at most `1/(4m)`. The remaining transport cost is bounded
+by the data diameter times the total mass error. First `m→∞`, then `b→0`,
+proves `W1` convergence in probability. The finitely many proxy events
+depend only on initialization and its fixed comparison law; combine their
+probability bounds with the data-distance event. No relative growth rate
+between width and sample count is required.
+
+
+###### B. Dense compatible hierarchy and relevant enrichments
+
+Use the exact bias-free tanh model of C.4.7.8. Part C proves its finite numerical realization. Set T=1/200 and fix
+one represented two-arc law from the short-time proposition. The proposition
+constructs its canonical population GF (w,K,c), with A=A0+K, by finite common
+Gaussian programs, proves its individual reverse-query tails and identifies
+it with the actual finite-network GF retaining its random initial readout.
+No finite-network approximation is used to run the closure.
+
+The bounded initialized-word grammar consists of the constants on both
+populations, first-population Gaussian seeds g1,g2, rational linear
+combinations, sin/cos/tanh of permitted words, products of bounded words on
+one population, and A0 or its actual adjoint on bounded operands. The
+population type determines the orientation. Let the natural-number coding
+be exactly C.4.7.9's coding: 0,1 are the two constants; 2,3 are g1,g2; for
+n=4+8k+j, j=0,1,2,3 applies sin,cos,tanh,action to code k; for j=4,5,7,
+unpair k by Cantor pairing and use addition, bounded product, addition;
+for j=6, the first unpaired integer specifies a rational coefficient and the
+second its operand. Type-invalid expressions are rejected. If the rational
+index unpairs as (a,b), its numerator is 0 for a=0, (a+1)/2 for odd a,
+and -a/2 for even positive a, and its denominator is b+1. This enumerates
+every permitted finite word. Envelopes are exact rational metadata, never
+rounded to float to decide boundedness. Literal syntax duplicates are shared;
+no numerical or algebraic rank deletion is used.
+
+Use h_i=tanh(g_i), xi_i=A0 h_i, H_i=tanh(xi_i), p_i=A0* H_i, for i=1,2.
+With G a standard scalar Gaussian, set
+
+\[
+ v=E\tanh^2G,\quad \alpha=E[1-\tanh^2(\sqrt vG)],
+ \quad \tau_0=E\tanh^2(\sqrt vG).
+\]
+
+All three constants are strictly positive. Oddness and independence give
+E[h_i h_j]=v delta_ij. The complete finite-source rule of C.4.7.8 therefore
+realizes the forward sources as independent N(0,v) variables and gives
+
+\[
+ p_i=\zeta_i+\alpha\tanh g_i,
+ \qquad (\zeta_1,\zeta_2)\sim N(0,\tau_0 I_2),
+\]
+
+independently of g. Here E[partial_(xi_j)H_i]=alpha delta_ij; this is the
+response term from the same reused action. The two population measures are
+separate, and their quadrature indices are not paired across populations.
+
+Put X1=(tanh g1,tanh g2,tanh p1,tanh p2) and X2=(tanh xi1,tanh xi2).
+For order N>=1 retain all products of Chebyshev polynomials
+
+\[
+ \prod_{j=1}^{d_\ell}T_{a_j}(X_{\ell,j}),\quad
+ a_j\ge0,\quad\sum_j a_j\le N,\qquad d_1=4,\ d_2=2,
+\]
+
+and append every bounded valid code through N not already present literally.
+Use total degree followed by descending lexicographic exponent order for the
+polynomial list, then increasing code order. Compiling a dependency does not
+make it a retained feature. The recurrence T0=1,T1=x,T_(k+1)=2xT_k-T_(k-1)
+expresses each polynomial as a bounded word. The identity T_k(cos theta)=
+cos(k theta), obtained by induction from the cosine addition formula, proves
+its absolute bound one on [-1,1].
+
+The conditional Gaussian density of (g,p) is positive everywhere on R4.
+The coordinatewise tanh diffeomorphism gives X1 a positive density on the
+open four-cube; X2 similarly has a positive density on the open two-cube.
+A polynomial zero almost surely is zero on that cube by continuity, and
+is the zero polynomial by successively applying the one-variable root
+property to every variable. The listed products have distinct leading
+monomials and span all polynomials of total degree at most N. Their exact
+span dimensions are binomial(N+4,4) and binomial(N+2,2). At N=1,2,3 the
+appended code prefix contributes no new bounded word. The dimensions are
+therefore (5,3), (15,6), (35,10), with strict enrichment in both populations.
+
+Strict raw-span enrichment alone need not add a direction used by a particular
+trajectory. For example, the new quadratic core features are even under the
+joint core sign reversal, whereas the initialized hidden fields are odd.
+Operational comparisons can therefore use the odd degrees N=1,3,5. Their
+full retained counts are (5,3), (35,10), (128,21): the last first-population
+list has 126 polynomial features and also the two syntactically distinct
+constant tail words sin(1),cos(1). Those harmless duplicate functions are
+retained according to the declared rule, rather than deleted by rank.
+
+These odd degrees add initialized action information beyond the previous
+upper span. To verify this exactly, let H=tanh(xi_1) and, for k=3 or 5,
+let P_k be the monic degree-k polynomial orthogonal to lower-degree
+polynomials for the law of H. The positive density on (-1,1) makes its
+moment Gram positive definite, so it exists uniquely. Symmetry makes P_k
+odd. It has k distinct roots in (-1,1): otherwise multiply it by the
+product of its fewer-than-k sign-changing interior roots. The resulting
+function has a fixed nonzero sign off finitely many points, contradicting
+orthogonality to that lower-degree product. Interpolate artanh at those
+k roots by a polynomial L of degree at most k-1. Repeated Rolle's theorem
+gives, at every other x in (-1,1),
+
+\[
+ P_k(x)[\operatorname{artanh}(x)-L(x)]
+ =\frac{\operatorname{artanh}^{(k)}(\xi_x)}{k!}P_k(x)^2>0,
+\]
+
+because for odd k,
+artanh^(k)(x)=(k-1)![(1-x)^(-k)+(1+x)^(-k)]/2>0.
+The product is integrable, since artanh(H)=xi_1 is Gaussian and P_k is
+bounded. Orthogonality to L therefore gives E[P_k(H)xi_1]>0. Independence
+of H1,H2 also makes P_k(H1) orthogonal to every previous upper polynomial
+of total degree at most k-2. Nevertheless
+
+\[
+ E_2[P_k(H_1)A_0h_1]=E[P_k(H_1)\xi_1]>0.
+\]
+
+The same quantity is E1[(A0*P_k(H1))h1] by actual adjunction. Thus the
+newly retained directions carry nonzero action information in the very
+coupling used by the closure. This is a structural enrichment claim; it
+does not assert an accuracy ordering between two finite degrees.
+
+For polynomial-core features F(X1),B(X2), all initialized action contractions
+reduce to bounded integrals in four and two independent scalar Gaussians:
+
+\[
+ E_2[B A_0F]=\sum_{i=1}^2
+ E_1[Fh_i]E_2[\partial_{\xi_i}B]
+ +\sum_{i=1}^2 E_1[\partial_{\zeta_i}F]E_2[BH_i].       \tag{H3.1}
+\]
+
+Indeed append A0F after the two reverse probes. Its source response is
+sum_i E1[partial_(zeta_i)F]H_i, and its centered source has covariance
+E1[Fh_i] with xi_i. Subtracting sum_i(E1[Fh_i]/v)xi_i leaves a centered
+Gaussian independent of the old forward pair, including when its variance
+is zero. Its product with B has expectation zero. Finally Gaussian
+integration by parts gives E[B xi_i]=v E[partial_(xi_i)B]: the Gaussian
+density derivative is -xi_i/v, the bounded B makes the boundary term zero,
+and its derivative is bounded at fixed degree. Fubini applies. These steps
+prove (H3.1). An innovation is integrated out of this contraction, not
+deleted from a joint action law. The formula also applies to a retained
+bounded smooth tail depending only on the same core coordinates. A new
+action requires the full finite-source compiler, as in the numerical proof.
+
+Let psi_l,N be the entire raw feature column, G_l,N=E[psi psi^T], and set
+eta_N=1/[1024(N+1)^2]. Define lower Cholesky L_l,N by
+G_l,N+eta_N I=L_l,N L_l,N^T, and b_l,N=L_l,N^-1 psi_l,N. If U_l,N
+maps a coefficient vector to b_l,N^T times that vector, then
+
+\[
+ U_{\ell,N}^*U_{\ell,N}
+ =I-\eta_N L_{\ell,N}^{-1}L_{\ell,N}^{-T}\le I,
+ \qquad
+ Q_{\ell,N}=U_{\ell,N}U_{\ell,N}^*
+ =S_{\ell,N}(G_{\ell,N}+\eta_NI)^{-1}S_{\ell,N}^*,      \tag{H3.2}
+\]
+
+where S maps raw coefficients to psi^T times the vector. In particular Q is
+a positive contraction. Its raw spans are nested and dense in the initialized
+observable spaces: every bounded code eventually appears, and the rational
+word/Fourier-cylinder density argument of C.4.7.9 applies without alteration.
+For completeness the only filter estimate needed is, for a fixed raw-span
+vector S a embedded at all later orders,
+
+\[
+ \|(I-Q_N)S_N a\|^2
+ =\sum_j\frac{\eta_N^2\lambda_j}{(\lambda_j+\eta_N)^2}|a_j|^2
+ \le\frac{\eta_N}{4}|a|^2.
+\]
+
+Here diagonalize the positive raw Gram and use
+lambda/(lambda+eta)^2<=1/(4eta). Approximate any initialized observable-space
+vector by a fixed raw-span vector and use ||I-Q_N||<=1. This proves Q_N→I
+strongly. The initialized observable spaces contain the exact trajectory.
+The sine/cosine cylinder argument of C.4.7.8 makes the bounded initialized
+words dense in their generated L2 spaces. Both A0 and its adjoint take these
+spaces into each other; adjointness makes the pair reducing. The initial
+Gaussian coordinates belong to them by bounded truncation. Every finite-law
+Euler step in part A preserves the generated sigma fields, and its learned
+increment is a finite sum of ranks between the two spaces. Closedness in L2
+and in the corresponding HS operator block passes this property to the strong
+completion in part A. No assumption that the finite Gaussian core alone
+generates these full spaces is made.
+
+Set D_N=U_2,N* A0 U_1,N. The raw contraction C from (H3.1) or the full
+source program gives D_N=L_2,N^-1 C L_1,N^-T; the right transpose is required.
+Use the complete nonlinear equations of C.4.7.9 with these features and D_N.
+This inverse-Cholesky choice is equivalent to symmetric whitening: if
+R=G+eta I and O=L^-1 R^(1/2), then OO^T=I and b=O b^s. Transform
+M=O2 M^s O1^T, a=O1 a^s, d=O2 d^s. Predictions, both action orientations,
+row/readout equations and the Frobenius middle gradient all agree.
+
+Here is the compatibility with the identical population GF, including the
+change in dictionary and ridge. Lift the exact finite-order equations to the
+fixed canonical carrier and put
+
+\[
+ B_N=Q_{2,N}A_0Q_{1,N},\qquad
+ K_N=U_{2,N}(M_N-D_N)U_{1,N}^*.
+\]
+
+Their current action is B_N+K_N. The middle equation is exactly the rank
+equation with Q2 and Q1 on its two factors. Energy differentiation uses the
+same population pairings as the dynamics, so the unhalved loss is at most
+one, ||c_N||_infty<=2t, ||M_N-D_N||_F<=2t^2, and ||K_N||_HS<=2t^2.
+The operator bound on A0 and (H3.2) give ||B_N||<=2, uniformly in N.
+
+Both B_N and its adjoint converge strongly to A0 and its adjoint. For example,
+subtract Q2 A0(Q1 v-v)+(Q2-I)A0v and use boundedness and strong convergence.
+Strong convergence of uniformly bounded operators is uniform on a compact
+set, by a finite epsilon-net and the triangle inequality. Applied to the
+continuous exact trajectory's compact (t,u) images h1 and delta2, this gives
+the first two vanishing terms in
+
+\[
+ \epsilon_N=\sup_{t,u}\|(B_N-A_0)h^1(t,u)\|_2
+ +\sup_{t,u}\|(B_N^*-A_0^*)\delta^2(t,u)\|_2
+ +\sup_t\|Q_{2,N}\dot K(t)Q_{1,N}-\dot K(t)\|_{\rm HS}\to0. \tag{H3.3}
+\]
+
+For the last term approximate each HS operator by a finite sum of rank-one
+operators. Strong convergence handles their finitely many factors; contractions
+bound the discarded HS remainder. The same finite-net argument makes this
+uniform on the compact image of the continuous exact derivative dot K.
+
+Let e_N be the sum of row L2, middle HS and readout L2 distances. The
+one-reference comparison in C.4.7.9 applies: its derivation uses precisely
+the uniform bounds just checked, both strong action directions, and the
+HS projection source in (H3.3). Splitting the exact reference reverse query
+at magnitude s controls its multiplier, giving
+
+\[
+ D^+e_N(t)\le C(1+s)(e_N(t)+\epsilon_N)+C\tau(s),\qquad e_N(0)=0,
+\]
+
+where C is independent of N,s and the short-time proposition gives
+tau(s)<=C0 exp[-c0(s-D0)^2]. This is the same estimate proved there for the
+filtered closure; no tail bound on numerical or projected trajectories is
+inserted as an assumption. Integrating the scalar inequality yields
+\[
+\sup_{t} e_N\le CT\,\exp\!\bigl(C(1+s)T\bigr)
+\bigl((1+s)\epsilon_N+\tau(s)\bigr).
+\] First N→infinity at
+fixed s and then s→infinity proves raw convergence, since a negative
+quadratic dominates the positive linear exponent.
+
+Direct subtraction of f=E[c tanh(A tanh(w·u))], using the action/row/readout
+bounds and |tanh'|<=1, now proves sup_(t,u)|f_N-f_mu|→0. The same
+subtraction for the initial and current hidden activations gives uniform
+(t,u) L2 convergence in each population; initial upper activations use
+B_N tanh(g·u) and converge by compact-target strong convergence. Keeping
+initial and current values on the same carrier gives joint-pair W2 convergence.
+Integrating against the fixed training law preserves it. RMS displacement
+converges because it is the L2 norm of the difference of the two paired
+activations and the reverse triangle inequality bounds changes of that norm.
+The supported family and T have remained fixed throughout all limits.
+
+Fix \(T=1/200\), write \(u=x/\sqrt2\in S^1\), and fix one represented
+law \(\mu=\mathrm{ArcLaw}(\omega,a,b,c,d)\). Its rational parameters satisfy
+\(1/3\le\omega\le2/3\), \(-1/20\le a\le b\le1/20\), and
+\(-1/20\le c\le d\le1/20\). The first component has mass \(\omega\),
+label \(+1\), and direction
+\[
+ U(s)=((1-s^2)/(1+s^2),2s/(1+s^2)),\qquad s\sim\mathrm{Unif}[a,b].
+\]
+The second has mass \(1-\omega\), label \(-1\), and direction \(RU(s)\)
+with \(s\sim\mathrm{Unif}[c,d]\), where
+\(R=\left(\begin{smallmatrix}3/5&-4/5\\4/5&3/5\end{smallmatrix}\right)\).
+A degenerate interval denotes an atom. The family contains nonorthogonal
+atomic and nonatomic laws, with exact finite input descriptions.
+
+Part A supplies its unique canonical strong
+Gaussian population gradient flow through \(T\), and identifies that flow
+with the actual finite-network gradient-flow limit. The fixed conventions
+are the bias-free two-hidden-layer tanh model, mobilities \((n,1,n)\),
+unhalved squared loss, and physical time.
+
+###### C.1. Finite equations and assertion
+
+At order \(N\ge1\), retain all total-degree-at-most-\(N\) Chebyshev products
+in the lower coordinates
+\[
+ (\tanh g_1,\tanh g_2,\tanh p_1,\tanh p_2),\qquad
+ p_i=A_0^*\tanh(A_0\tanh g_i),
+\]
+and the upper coordinates \((\tanh\xi_1,\tanh\xi_2)\),
+\(\xi_i=A_0\tanh g_i\). Append every bounded valid initialized-word code
+through \(N\) not already present literally, in the exact coding and order
+of part B. Word scalars and envelopes are exact
+rationals; there is no empirical-rank test. Denote the raw columns by
+\(\psi_\ell\), their lengths by \(d_\ell\), and set
+\[
+ \eta_N=\frac1{1024(N+1)^2},\quad G_\ell=E[\psi_\ell\psi_\ell^T],
+ \quad L_\ell L_\ell^T=G_\ell+\eta_NI,\quad
+ b_\ell=L_\ell^{-1}\psi_\ell,\quad
+ D=L_2^{-1}CL_1^{-T},\quad C=E_2[\psi_2(A_0\psi_1)^T].       \tag{H3.N1}
+\]
+The joint marks are \(\lambda_1=\operatorname{Law}(b_1,g)\) and
+\(\lambda_2=\operatorname{Law}(b_2)\). With \(w(0)=g,c(0)=0,M(0)=D\), put
+\[
+\begin{aligned}
+ h_1(u)&=\tanh(w\cdot u),&a(u)&=E_1[b_1h_1(u)],\\
+ h_2(u)&=\tanh(b_2^TMa(u)),&f(u)&=E_2[ch_2(u)],\\
+ d(u)&=E_2[b_2c(1-h_2(u)^2)],&q(u)&=b_1^TM^Td(u).
+\end{aligned}
+\]
+For \(r(u,y)=f(u)-y\), the finite equations are
+\[
+ \dot w=-2\int r(1-h_1^2)q\,u\,d\mu,\qquad
+ \dot c=-2\int rh_2\,d\mu,\qquad
+ \dot M=-2\int rda^T\,d\mu.                                \tag{H3.N2}
+\]
+These are exactly the contractions in the implementation. Both action
+orientations use the one evolving \(M\) and its actual transpose.
+
+The independent numerical parameters are as follows. A positive rational
+\(\varepsilon\) adds \(\varepsilon I\) to generic source Grams; \(Q\)
+Halton points compute initializer coefficients, Grams and \(C\); \(P\)
+points replay the resulting complete joint mark laws with those coefficients
+frozen. The two-arc midpoint rule has at most \(A=2m\) data points. Explicit
+Heun uses \(J\) steps of intended length \(h=T/J\). Linear interpolation
+of successive states defines all intermediate times; nonlinear activations
+are evaluated on that state. The rational backend has precision \(p\ge20\)
+and grid \(10^{-p}\mathbb Z\). All law parameters, \(\varepsilon\), and
+the intended step are declared exactly. Resource allowances are adjustable
+and must admit each requested finite computation.
+
+**Theorem.** For every fixed represented law, \(N,\varepsilon,Q,P,m,J\),
+the rational implementation, with adequate resource allowances, succeeds
+for all sufficiently large \(p\) and converges to the corresponding exact
+finite computation. Successive limits
+\[
+ p\to\infty,\quad J\to\infty,\quad m\to\infty,\quad
+ P\to\infty,\quad Q\to\infty,\quad\varepsilon\downarrow0       \tag{H3.N3}
+\]
+give (H3.N1)–(H3.N2). The outer limit \(N\to\infty\) gives the canonical flow
+through the same fixed \(T\). Convergence includes predictions uniformly
+in \(t\in[0,T]\) and \(u\in S^1\), and, uniformly in time, the laws
+\[
+ \mathcal P_\ell(t)
+ =\operatorname{Law}_{\lambda_\ell\otimes\mu}
+       (h_\ell(0,u),h_\ell(t,u))                            \tag{H3.N4}
+\]
+in \(W_2\), and their RMS displacements
+\[
+ R_\ell(t)=\left(\int|z_2-z_1|^2\,d\mathcal P_\ell(t)(z)\right)^{1/2}.
+                                                                  \tag{H3.N5}
+\]
+The upper initial coordinate uses the same \(g,b_1,b_2,D\) as the current
+coordinate. At finite precision, normalize returned nonnegative product
+weights only when interpreting (H3.N4) as a probability law; their total
+mass tends to one in the first limit. The reported RMS, which uses the
+actual returned weights, has the same limit. No vector-field weights
+are changed by this convention.
+
+Thus the limiting error is zero in the nested order
+\[
+ \lim_{N\to\infty}\lim_{\varepsilon\downarrow0}\lim_{Q\to\infty}
+ \lim_{P\to\infty}\lim_{m\to\infty}\lim_{J\to\infty}\lim_{p\to\infty}.
+                                                                  \tag{H3.N6}
+\]
+Each intermediate target exists in the stated observation metrics. The
+\(\varepsilon\) limit is vacuous for the core implementation. This is
+an iterated assertion: it gives neither an arbitrary diagonal nor a
+universal computable tolerance schedule, affordable computation at every
+order, or a broader family/horizon. The unbounded precision statement
+uses the integer/rational backend; float64 and Decimal are additional
+executable options.
+
+###### C.2. Gaussian integration and adaptive initialization
+
+We include the integration facts needed for adaptively chosen finite
+coefficients. For the base-\(b\) radical inverse \(U_{k,b}\) of
+\(1\le k\le Q\),
+\[
+ \frac1{bQ}\le U_{k,b}\le1-\frac1{bQ},\qquad
+ D_{Q,b}\le\frac{1+(b-1)(\lfloor\log_bQ\rfloor+1)}Q.         \tag{H3.N7}
+\]
+An index has at most \(\lfloor\log_bQ\rfloor+1\) digits, giving the endpoint
+bounds. Split \(0\le k<Q\) into base-\(b\) aligned blocks: there are
+at most \((b-1)(\lfloor\log_bQ\rfloor+1)\) blocks, and a block of length
+\(b^j\) has one point in each interval of length \(b^{-j}\), with
+unnormalized interval discrepancy at most one. Replacing its index zero
+by index \(Q\) changes any interval count by at most one, proving (H3.N7).
+For distinct prime bases, fixing leading digit strings fixes residues
+modulo coprime prime powers. The Chinese remainder bijection gives one
+residue modulo their product and frequency error at most \(1/Q\).
+Approximating rectangles by digit cylinders proves joint equidistribution.
+
+Write \(X_k=-\log U_{k,b}\), \(M_Q=\log(bQ)\). Layer cake gives, for \(r>0\),
+\[
+ Q^{-1}\sum_{k\le Q}X_k^r1_{X_k>L}
+ \le I_r(L)+D_{Q,b}M_Q^r,\quad
+ I_r(L)=L^re^{-L}+\int_L^\infty rt^{r-1}e^{-t}\,dt.          \tag{H3.N8}
+\]
+When \(M_Q\le L\) the left side is zero. Otherwise, using
+\(D_{Q,b}\le b\log(bQ)/(Q\log b)\), it is at most
+\[
+ I_r(L)+(b^2/\log b)L^{r+1}e^{-L}\quad(L\ge r+1),
+\]
+because \(z^{r+1}e^{-z}\) decreases there. This is uniform in \(Q\).
+Pairwise Box–Muller pushes uniform Lebesgue measure to the joint standard
+Gaussian, by the polar change of variables. Its singular endpoints have
+measure zero, so truncation away from them proves weak convergence of
+its Halton rules. With \(s\) pairs, their output satisfies
+\[
+ |z|^r1_{|z|>R}\le(2s)^{r/2}
+       \sum_{j=1}^s X_j^{r/2}1_{X_j>R^2/(2s)},             \tag{H3.N9}
+\]
+since \(|z|^2\le2s\max_jX_j\). Hence all polynomial moments and their
+uniform tails converge. Weak convergence and these tails imply \(W_r\)
+convergence for every finite \(r\ge1\): couple common masses in small
+cells of a bounded box with Gaussian-null boundaries; bound the remaining
+transport by tail \(r\)-moments; enlarge the box and shrink the cells.
+
+If \(\theta_Q\to\theta\) is a finite coefficient vector, and
+\(F(\theta,z)\) is continuous with a common bound \(C(1+|z|^k)\) for
+\(\theta\) near its limit, then
+\[
+ Q^{-1}\sum_{j\le Q}F(\theta_Q,z_j)\longrightarrow EF(\theta,Z). \tag{H3.N10}
+\]
+On a ball this follows from uniform continuity and weak convergence;
+off it use a moment larger than \(k\) in (H3.N9). Applied to joint maps,
+the same argument gives their \(W_r\) convergence when the required
+moments are bounded. Crucially, \(\theta_Q\) may have been computed using
+earlier integrals on the same cloud.
+
+The generic compiler processes the complete typed union of retained words,
+forward actions on each lower word, reverse actions on each upper word,
+and their dependencies. Each literal action has a named source. Literal
+duplicates share a node; empirical equality never identifies nodes. Each
+population uses one joint Gaussian cloud, on separate probability spaces.
+When a new action operand is \(v\), its source cross covariance with an
+older operand \(v_j\) is \(E_Q[vv_j]\), and its variance is
+\(E_Q[v^2]+\varepsilon\). Every older operand table and old Cholesky row
+is preserved. Thus the entire covariance prefix is exactly its empirical
+operand Gram plus \(\varepsilon I\), which is positive definite even
+for dependent or zero operands. Appending one Cholesky row realizes the
+new joint Gaussian without replacing old values.
+
+An action equals its named Gaussian source plus
+\(\sum_j E_Q[\partial_jv]v_j\) over old opposite-orientation actions.
+The derivative is that of the explicit expression in named sources,
+with covariance and response coefficients frozen. At an action the
+reverse traversal adds its direct source derivative and propagates
+through frozen response links. It does not differentiate the
+opposite-population graph operand, Gaussian roots or estimated coefficients.
+Coordinate nodes obey the usual chain/product rules. This is the formal
+AD rule of the canonical finite Gaussian program, including nested responses.
+
+Induct over the finite causal ordering. Each value and formal derivative
+is continuous in finitely many Gaussian coordinates and earlier
+coefficients, with a uniform polynomial Gaussian envelope on compact
+coefficient sets. Bounded gates and derivatives, finite products and
+response sums preserve these properties. Equation (H3.N10) applies to every
+new coefficient/covariance. For fixed positive \(\varepsilon\), Cholesky
+is continuous at every positive definite prefix. This proves convergence
+as \(Q\to\infty\) of all coefficients, joint outputs, raw Grams and
+the forward contraction \(C\). The reverse contraction is a diagnostic
+from the same full program; it is not substituted into the dynamics.
+
+For fixed \(Q,\varepsilon\), replay on \(P\) points uses exactly these
+frozen factors and coefficients. It refits none of them. Equation (H3.N10)
+therefore gives joint \(W_2\) convergence as \(P\to\infty\), including
+the retained \(g\) coordinate. Reusing the existing cloud at \(P=Q\)
+is the same rule and changes no limit.
+
+After \(Q\to\infty\), remove \(\varepsilon\). Induct over the sources
+again. New coefficients and covariances are expectations of continuous,
+polynomially bounded functions of preceding jointly Gaussian sources.
+Represent each complete source vector by its covariance's positive
+semidefinite square root times a standard Gaussian. Such square roots
+are continuous: every subsequence has a convergent subsubsequence of
+bounded positive square roots; its limit squares to the limiting matrix,
+and uniqueness identifies that limit. The uniform moment argument proves
+continuity of all new expectations. This coupling is for the proof only;
+it leaves all named sources and formal derivatives intact. Consequently
+the limit is the canonical source recursion even for singular covariances.
+Neither continuity of singular Cholesky factors nor deletion of a
+zero-variance derivative slot is assumed.
+
+The core calculation has the same limiting contractions. Set
+\[
+ v=E\tanh^2G>0,\quad \tau=E\tanh^2(\sqrt vG)>0,\quad
+ \alpha=E[1-\tanh^2(\sqrt vG)]>0.
+\]
+Its lower joint law is \(g\sim N(0,I_2)\),
+\(p=\sqrt\tau Z+\alpha\tanh g\), with \(Z\) independent, and its upper
+law is \(\xi\sim N(0,vI_2)\). For bounded retained smooth functions
+\(F(g,p),B(\xi)\),
+\[
+ E_2[BA_0F]=
+ \sum_i E_1[F\tanh g_i]E_2[\partial_{\xi_i}B]
+ +\sum_i E_1[\partial_{\zeta_i}F]E_2[B\tanh\xi_i],\quad
+ \zeta=\sqrt\tau Z.                                      \tag{H3.N11}
+\]
+Append \(A_0F\) in the full source rule: its response gives the second
+term, while its centered source has covariance \(E_1[F\tanh g_i]\)
+with \(\xi_i\). Subtract Gaussian regression on \(\xi\); the remainder
+is centered and independent of \(B\). Integration by parts
+\(E[B\xi_i]=vE[\partial_{\xi_i}B]\) proves the first term. Boundedness
+of \(B\) and its fixed-word derivatives justifies the Gaussian boundary
+limit. This integrates out an innovation in one contraction without
+replacing a joint action law.
+
+The code computes both terms of (H3.N11), with the chain factors
+\(1-\tanh^2p_i\) and \(1-\tanh^2\xi_i\). Its finite \(Q\) versions of
+\(v,\tau,\alpha\) are strictly positive: the first Halton Gaussian
+coordinate is nonzero, and exact finite \(\operatorname{sech}^2\) is
+positive. Equation (H3.N10) proves their convergence, that of (H3.N11), and
+that of the raw Grams. A tail using only these core actions uses the
+same coordinates and derivatives; any new action triggers the generic
+compiler. Source regularization is unused in the core calculation.
+
+Each raw retained coordinate has a deterministic finite bound \(B_{\ell,j}\).
+Chebyshev products have bound one, from \(T_k(\cos\theta)=\cos(k\theta)\).
+Let \(B_\ell^2=\sum_jB_{\ell,j}^2\). For exact or empirical raw Grams,
+\[
+ |b_\ell|\le B_\ell/\sqrt{\eta_N}=:K_\ell,                 \tag{H3.N12}
+\]
+since \(L_\ell L_\ell^T\ge\eta_NI\). Ridge normalization is continuous
+at fixed \(N\). The three transposes in (H3.N1) agree with inverse-lower
+Cholesky normalization in the code. Every successive joint mark law
+therefore converges in \(W_2\), and \(D\) converges in Frobenius norm.
+The relevant \(D\)'s and second moments of \(g\) are bounded along
+each such convergence. No contraction property of empirical marks
+is needed for the next argument.
+
+###### C.3. Fixed-dimensional existence and stability
+
+Consider any probability mark laws with \(|b_\ell|\le K_\ell\),
+\(E|g|^2<\infty\), and finite \(D\), and data with \(|y|\le1\).
+On the Banach space of bounded increments \(w-g\), bounded \(c\), and
+finite \(M\), (H3.N2) is locally Lipschitz: gates have bounded derivatives,
+input norms are one, and other operations are bounded integrals and
+finite products. The unbounded fixed \(g\) appears only inside gates.
+Picard iteration is therefore a contraction on a sufficiently small
+closed time-space ball and gives a unique local solution.
+
+For \(\mathcal L=\int(f-y)^2d\mu\), differentiation under the bounded
+integrals gives
+\[
+ \dot{\mathcal L}=-\|\dot w\|_2^2-\|\dot c\|_2^2-\|\dot M\|_F^2,
+ \qquad\mathcal L(0)\le1.
+\]
+Indeed the negatives of (H3.N2) are respectively its population \(L^2\),
+population \(L^2\), and Frobenius gradients. Thus \(\int|r|d\mu\le1\),
+and
+\[
+ \|c(t)\|_\infty\le2t,\quad |a|\le K_1,\quad |d|\le2K_2t,\quad
+ \|M(t)-D\|_F\le2K_1K_2t^2,\quad
+ \|\dot w(t)\|_\infty\le4K_1K_2t\|M(t)\|_F.                \tag{H3.N13}
+\]
+These bounds prevent escape from a bounded Banach ball on \([0,T]\).
+Local continuation gives existence and uniqueness there for general
+or atomic mark laws, and an autonomous solution map.
+
+Couple two lower joint laws and two upper mark laws. On these couplings,
+define
+\[
+ e=\|w-\widetilde w\|_2+\|c-\widetilde c\|_2
+                         +\|M-\widetilde M\|_F,\qquad
+ \rho_b=\|b_1-\widetilde b_1\|_2+\|b_2-\widetilde b_2\|_2.
+\]
+For the same \(u\),
+\[
+ |a-\widetilde a|\le\|b_1-\widetilde b_1\|_2+
+                                      K_1\|w-\widetilde w\|_2.
+\]
+Splitting the three factors of \(b_2^TMa\), then the factors of \(f,d,q\),
+and using (H3.N13), bounds
+\(\|h_2-\widetilde h_2\|_2,|f-\widetilde f|,|d-\widetilde d|,
+\|q-\widetilde q\|_2\) by \(C(e+\rho_b)\). In particular the lower
+gate product is controlled by
+\[
+ \|(h_1^2-\widetilde h_1^2)\widetilde q\|_2
+ \le2\|\widetilde q\|_\infty\|w-\widetilde w\|_2,
+\]
+and the multiplier is bounded by (H3.N12)–(H3.N13).
+For distinct directions,
+\(\|h_1(u)-h_1(v)\|_2\le\|w\|_2|u-v|\); all other fields inherit a
+bound \(C|u-v|\). Labels enter affinely, and the explicit \(u\) factor
+is Lipschitz. Integrating a coupling of the data therefore bounds
+the drift change by \(CW_1(\mu,\widetilde\mu)\). All constants use
+only common \(K_\ell,\|D\|_F,\|g\|_2,T\) bounds. Subtracting (H3.N2),
+integrating and summing the geometric series for its integral
+inequality gives
+\[
+ \sup_{t\le T}e(t)\le e^{CT}
+ \bigl(\|g-\widetilde g\|_2+\|D-\widetilde D\|_F+
+              CT[\rho_b+W_1(\mu,\widetilde\mu)]\bigr).      \tag{H3.N14}
+\]
+This verifies both the existence and the stability hypotheses needed
+by every numerical mark-law limit.
+
+For the arc midpoint rule, mean parameter error is at most interval
+length divided by \(4m\). Since \(|U'(s)|=2/(1+s^2)\le2\), mean direction
+error is at most \(1/(20m)\). Couple mixture components identically;
+labels then agree, and degenerate intervals have zero error.
+The data rules converge in \(W_1\). Equation (H3.N14) first removes \(m\),
+then \(P\), then the initializer errors \(Q,\varepsilon\) proved above.
+
+###### C.4. Time and arithmetic limits
+
+Fix \(N,\varepsilon,Q,P,m\) and first use exact arithmetic. The finite
+ODE is smooth. Its Heun nodes and stages are bounded independently of
+\(J\), without assuming a discrete energy inequality. Set
+\(B_k=1+\|c_k\|_\infty\). Since \(|f-y|\le B_k\), its first stage
+satisfies \(B_k^*\le(1+2h)B_k\), and
+\[
+ B_{k+1}\le(1+2h+2h^2)B_k\le e^{(2+2T)h}B_k.
+\]
+Thus all stages have bound \(B_*=(1+2T)e^{(2+2T)T}\). Their matrix
+velocity is at most \(V_M=2B_*K_1K_2(B_*-1)\), hence
+\(\|M\|_F\le\|D\|_F+2TV_M\). Their row velocity is then at most
+\(2B_*K_1K_2(\|D\|_F+2TV_M)(B_*-1)\), also bounding \(w-g\).
+On a slightly larger bounded set the vector field is Lipschitz.
+The exact solution has one-step Euler defect \(O(h^2)\), since its
+velocity is Lipschitz in time; Heun differs from Euler by \(O(h^2)\).
+Consequently \(e_{k+1}\le(1+Ch)e_k+Ch^2\), and summing gives
+\(\max_ke_k\le C_Th\). Linear interpolation adds \(O(h)\).
+This proves uniform-time consistency; a stronger order is unnecessary.
+
+Now fix all finite parameters including \(J\) and let \(p\to\infty\).
+Put \(\delta=10^{-p}\). The rational backend retains integer units
+over scale \(10^p\). Nearest rounding, including negative ties, has
+error at most \(\delta/2\). Addition/subtraction of represented
+values are exact; multiplication and division round once. These
+operations are locally uniformly consistent, with a nonzero
+denominator margin for division. Integer powers terminate by repeated
+squaring. Integer square root has error less than \(\delta\);
+consistency at zero uses
+\(|\sqrt x-\sqrt y|\le\sqrt{|x-y|}\).
+
+The elementary functions are finite algorithms. Exact power-of-two
+reduction puts a positive logarithm argument in \([1,2)\). Its series
+\(2\sum_{k\ge0}z^{2k+1}/(2k+1)\), \(0\le z\le1/3\), has a geometric
+tail; the implemented tolerances give total log error at most
+\(\delta/2+\delta/(4\cdot10^5)\), including the multiple of \(\log2\).
+For exponential, reduce \(|x|/2^s\le1/2\), sum Taylor terms, and square
+exactly. The amplification of the omitted tail is at most
+\(2^se^{2|x|}\); the guard \(\lceil2|x|\rceil+s+5\) decimal places
+dominates it. The pre-rounding error is at most \(10^{-5}\delta\).
+Reciprocation for negative arguments cannot amplify the discrepancy
+because both positive exponentials are at least one.
+
+Pi is computed by the alternating series for
+\(16\arctan(1/5)-4\arctan(1/239)\); the tangent addition identity
+identifies pi, and the error is at most \(20\,10^{-p-5}\).
+Exact rational reduction modulo its computed \(2\pi\) places trig
+arguments inside \((-16/5,16/5)\). After the first generated term,
+Taylor terms decrease absolutely, so the alternating tail at stopping
+is at most \(10^{-p-5}\). With pi computed at precision \(p+5\),
+the sine/cosine error on \(|x|\le M\) is at most
+\[
+ \delta/2+10^{-p-5}+40(M/6+1)10^{-p-10}.                  \tag{H3.N15}
+\]
+Periodicity handles changes in the reduction quotient. Tanh uses
+\(e=e^{-2|x|}\), \(\pm(1-e)/(1+e)\), with denominator at least one.
+Thus every elementary routine terminates and is locally uniformly
+consistent on its continuous domain.
+
+For fixed finite Gaussian clouds, exact Halton uniforms are strictly
+between zero and one and eventually round positive. If the rounded
+uniform is below one, it is at most \(1-\delta\); the log bound above
+ensures a negative computed logarithm. If it rounds to one, its
+radius is zero. All Box–Muller points eventually exist and converge.
+Every exact source Gram plus \(\varepsilon I\) and feature Gram plus
+\(\eta_N I\) is positive definite. Induction over finite Cholesky
+operations proves convergence, and each exact positive pivot supplies
+a margin ensuring eventual success. The core variances/response
+have the same strict-margin property. Matrix inputs in this pipeline
+are already converted to the chosen arithmetic, as required by the
+Cholesky helper.
+
+Dictionary decisions use exact words/rationals. Skipping a numerically
+zero response coefficient is equivalent to multiplying by zero, so
+it preserves consistency even at a limiting zero. Weight rounding
+has total error at most the number of weights times \(\delta/2\);
+validators permit that number times \(10^5\delta\). Each exact arc
+coordinate rounds with error at most \(\delta/2\), so two squarings
+and addition perturb its unit squared norm by less than \(4\delta\),
+inside the \(10^5\delta\) allowance. Repeated validation does not
+renormalize the data. Thus the shrinking-tolerance validation checks
+also eventually pass; continuity alone would not establish this.
+
+All remaining fixed computations are finite compositions of these
+consistent operations. Induction proves convergence of the state
+and observations at each of the finitely many steps. It is uniform
+over input direction and interpolation fraction: their domains
+are compact, intermediate values bounded, and primitive convergence
+locally uniform. For evaluating all \(u\in S^1\), take their directly
+rounded coordinates; the same unit-norm bound applies. Intended
+time \(J(T/J)\) and represented time differ by at most \(J\delta/2\).
+This proves the first limit of (H3.N3), including eventual precision
+success, before removing the time step. It does not cover a diagonal
+with positive pivots shrinking faster than precision resolves.
+
+###### C.5. Observations, composition and own-state restart
+
+part C.3 bounds prediction errors and both current activation errors
+in \(L^2\), uniformly in \(u,t\), by \(C(e+\rho_b)\).
+Initial lower error is at most \(\|g-\widetilde g\|_2\), and initial
+upper error has the same product bound with \(M=D,w=g\).
+Keeping both coordinates on the same mark coupling therefore proves
+joint-pair \(W_2\) convergence. For data-law changes the additional
+squared transport cost is at most \(CE|u-v|^2\le C'E|u-v|\), by the
+input estimates and bounded circle diameter. This proves convergence
+of the training averages in (H3.N4); \(u,y\) may also be retained in the
+coupled law. The reverse triangle inequality in \(L^2\) bounds the
+change of (H3.N5) by the \(L^2\) error of its displacement coordinate.
+Rounded RMS converges too, by square-root continuity including zero.
+
+Parts C.2–C.4 remove every inner error in (H3.N6). Part B supplies the final outer limit for exactly (H3.N1): its
+positive filters converge strongly to identity, both directions of
+\(Q_{2,N}A_0Q_{1,N}\) converge strongly, and projected middle
+Hilbert–Schmidt sources converge on the exact trajectory's compact
+targets. Part A supplies the strong reference
+and Gaussian reverse-query tails. Their one-reference comparison
+therefore gives strong trajectory convergence and precisely these
+uniform-circle, pair-law and RMS observations. The family, horizon,
+dictionary, ridge and GF conventions agree, proving (H3.N6).
+
+The equations are autonomous. A checkpoint stores
+\(b_1,g,w,p_1,b_2,c,p_2,M,D\), finite data and arithmetic metadata.
+Rational values use hexadecimal integer units and precision;
+Decimal uses exact strings and float64 hexadecimal values. Loading
+recovers the same working values and validates without changing
+weights. Thus, at a step endpoint, identical arithmetic, data,
+step sizes and block size reproduce the same subsequent working
+states. No source tape, clock, previous velocity or growing history
+enters the step map. The limiting population solution has its own
+restart property by uniqueness in part C.3; (H3.N14), with restart
+state error included in \(e(0)\), proves convergence to that restart.
+Interpolating an interior observation does not assert that a fresh
+Heun mesh from that time equals the previous finite mesh.
+
+###### C.6. Work, storage and scalar bits
+
+The following bounds count scalar operations; scalar bit cost is
+additional. With equal population counts \(P\), the retained state
+contains
+\[
+ S=P(d_1+d_2+7)+2d_1d_2                                  \tag{H3.N16}
+\]
+scalars, and data contain \(4A\). Metadata and exact input/syntax
+descriptions have additional finite bit size. Each retained pair
+array has \(2PA\) scalars; the streamed RMS option avoids those arrays.
+The coefficient-first products \(b_2(Ma)\), \(b_1(M^Td)\), and
+\(b_2(Da_0)\) give right-side work
+\[
+ O\bigl(A[P(d_1+d_2+1)+d_1d_2]+S+A\bigr).                 \tag{H3.N17}
+\]
+Heun multiplies this by \(O(J)\). At block size \(B\le A\), workspace is
+\[
+ O(S+A+PB+B(d_1+d_2)+d_1d_2).                             \tag{H3.N18}
+\]
+A constant number of stages or endpoints changes only the constant;
+memory need not grow with elapsed steps. Forward prediction on \(V\)
+directions has the corresponding forward-only cost with \(A=V\).
+A finite panel is not a certificate for a continuum supremum.
+
+Let \(K\) be the full typed compiler DAG node count, \(s\) its number
+of named sources, and \(d=d_1+d_2\). At most \(E=2K+s^2\) coordinate
+and response edges occur. A conservative generic initializer work bound is
+\[
+ O\bigl(QsE+Qs^2+s^3+(Q+P)E+(Q+P)d^2+d^3\bigr),           \tag{H3.N19}
+\]
+plus generation of finitely many prime bases and
+\(O((Q+P)(s+2)\log(Q+P+1))\) digit operations and elementary Gaussian
+transforms. Each AD walk visits at most \(E\) edges on \(Q\) entries,
+at most \(s\) times; pair covariances, new Cholesky rows, replay,
+Grams, contractions and normalization give the other terms.
+Its workspace is \(O((Q+P)(K+s+d)+s^2+d^2)\) scalars.
+The core has fixed Gaussian dimensions four and two, work
+\(O((Q+P)(N+1)d+(Q+P)d^2+d^3)\), and workspace
+\(O((Q+P)(d+N+1)+d^2)\). Releasing coefficient tables before replay
+improves constants.
+
+Exact word construction adds finite integer/DAG work. Every natural
+code has strictly smaller dependency codes, so the iterative decoder
+terminates. Cached child hashes and iterative syntax equality avoid
+expanding shared polynomial trees. Prefix memoization uses
+\(O(N+K)\) syntax nodes, with exact scalar/envelope bit sizes counted.
+Syntax caches can persist between initializer calls; they are not
+source coefficient tables or training history. The small recursive
+core-tail evaluator does not impose an order ceiling: code
+\(62=\tanh(A_0 1)\) already introduces a non-core action, after
+which the dispatch uses the iterative full compiler.
+
+For a retained rational scalar bounded by \(M_*\), the maximum units
+and scale bit size is
+\[
+ \beta=O(p+\log(1+M_*)).                                 \tag{H3.N20}
+\]
+Thus retained numerical storage is \(O((S+A)\beta)\) bits plus
+metadata. Workspace scalar counts above likewise require their
+maximum scalar bit size. Gaussian endpoint bounds give
+\(|z|\le C_s\sqrt{\log(b_{\max}\max(P,Q))}\); finite coefficient
+induction, bounded marks and (H3.N13) bound remaining magnitudes.
+At fixed outer parameters they are uniform for sufficiently large
+precision. The retained-byte diagnostic includes rational units
+and scales; it is not a process-wide peak memory measurement.
+
+Basic-operation work must be weighted by integer arithmetic cost.
+Elementary calls additionally hold exact temporary Fractions. On
+fixed bounded operand sets, away from zero for logarithm/division,
+a conservative bound is \(O(p^2\log(p+2))\) bits per temporary rational
+and \(O(p)\) series iterations, with operand-dependent constants.
+For log/exp, term denominators divide a power of one \(O(p)\)-bit
+base denominator times the product of \(O(p)\) small integer factors;
+the common denominator therefore has \(O(p^2+p\log(p+2))\) bits.
+The computed pi has \(O(p\log(p+2))\) denominator bits; reduction
+and \(O(p)\) trig powers enlarge this to \(O(p^2\log(p+2))\).
+Geometric and Taylor tails give \(O(p)\) iterations.
+Exact squaring has a fixed operand-dependent
+number of stages. Weighting (H3.N17)–(H3.N19) by these integer costs and
+adding temporary Fraction storage yields finite bit-work/space
+bounds. Large operands can make the constants large.
+API byte/work estimates are adjustable resource guards, not certified
+peak-bit bounds, and must grow as required along all refinements,
+including precision. There is no fixed precision ceiling in the
+integer/rational algorithm under the usual unbounded-resource
+interpretation of these finite computations.
+
+This proves all stated numerical limits and resource assertions.
+
+
+
+<!-- END EXACT DEPENDENCY -->
