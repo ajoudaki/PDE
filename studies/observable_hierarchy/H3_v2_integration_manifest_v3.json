@@ -1,0 +1,19 @@
+{
+  "edition_manifest_sha256": "13a21f2c652ac583243ae4f680bebfaca4576147a14ea557c0d6610336e38dc8",
+  "evidence_manifest_sha256": "a2673a062eac3f86559d6e811d877b4b1cd7c14bc99f61f7c9b31b9096919ea8",
+  "base_files": {
+    "data/generated/observable_hierarchy/H3_v2_integration_inputs_v3/base_docs_README.md": {
+      "source": "docs/README.md",
+      "sha256": "6daf2439bc725d63b0764967c20c980a6ef0361abec0c14bf29d396d87807fca"
+    },
+    "data/generated/observable_hierarchy/H3_v2_integration_inputs_v3/base_code_README.md": {
+      "source": "code/README.md",
+      "sha256": "3ffc27a58e8e090828fbac3f7d4b86c9e33f4ff5cdd7b0690e086364e8e82731"
+    },
+    "data/generated/observable_hierarchy/H3_v2_integration_inputs_v3/base_global_nonlinear.md": {
+      "source": "docs/global_nonlinear.md",
+      "sha256": "947eb52f10a8ebcd4970fa2acb1d26cba25dc5d73e8839893d5d2f4e3f688161"
+    }
+  },
+  "role": "frozen integration comparison inputs; no prior review verdicts"
+}

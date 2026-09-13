@@ -76,3 +76,14 @@ remain preserved as edition v1; it was not sent for scientific review.
 The assembler now excludes TeX-brace contexts from reference rewriting and
 shifts all guide headings consistently. A portable budget supervisor and
 canonical reproduction recipe are included before the next freeze.
+
+## 2026-09-13: complete reproduction input packaging
+
+Edition v2 and its twelve independent runs are unchanged. The first execution
+evidence manifest omitted the independent reproducer's auxiliary guide-example,
+budget-wrapper and read-only audit sources. The coordinator caught the omission
+after launching scientific contexts A/B but before either produced a verdict.
+Both were stopped and their incomplete read records preserved. They do not count
+as complete reviews. The exact auxiliary sources are preserved separately, and
+a replacement complete evidence packet will be reviewed in two fresh contexts.
+No numerical run, proof or library equation is changed by this packaging fix.

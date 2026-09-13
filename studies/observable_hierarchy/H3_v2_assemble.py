@@ -64,6 +64,7 @@ generates these full spaces is made."""
     numerical = local_labels(numerical, "H3.N")
     numerical = re.sub(r"^## (\d+)\. (.*)$", r"###### C.\1. \2", numerical, flags=re.M)
     numerical = re.sub(r"[Ss]ections? (\d)", lambda m: "part C."+m[1], numerical)
+    numerical = numerical.replace("part C.2–4 remove", "Parts C.2–C.4 remove")
     numerical = numerical.replace("The dense-closure\nproposition", "Part B")
     numerical = numerical.replace("the dense-closure proposition", "part B")
     numerical = numerical.replace("the short-time proposition", "part A")
@@ -80,13 +81,14 @@ Gaussian action. The finite-network interpretation retains its actual random
 initial readout.
 
 Fix T=1/200 and one rational two-arc law defined in part A. Part B specifies
-a compatible dense closure, with exact prediction f_N at order N. Let
-fhat_(N,J) be the finite numerical prediction of part C, where J includes
-source regularization, initializer and population cubature, input quadrature,
-time step and arithmetic. Then
+a compatible dense closure, with exact prediction f_N at order N. Write
+\\(\\mathfrak j=(\\varepsilon,Q,P,m,J,p)\\) for the numerical resolution
+of part C: source regularization, initializer and population cubature, input
+quadrature, number of time steps and arithmetic precision. Its finite
+prediction is \\(\\widehat f_{N,\\mathfrak j}\\). Then
 
 \\[
- \\widehat f_{N,J}\\longrightarrow f_N,
+ \\widehat f_{N,\\mathfrak j}\\longrightarrow f_N,
  \\qquad f_N\\longrightarrow f_\\mu
  \\quad\\hbox{in }C([0,T]\\times S^1),
 \\]
@@ -149,6 +151,7 @@ def main(version, output):
         add(relative, (ROOT/relative).read_text(), ROOT/relative)
     for kind in ("compiler", "initialization", "solver"):
         add("code/tests/test_observable_"+kind+".py", canonical_tests(kind), STUDY/("H3_v2_"+kind+"_tests.py"))
+    add("code/tests/test_observable_validation.py", read("H3_v2_supervise_tests.py"), STUDY/"H3_v2_supervise_tests.py")
     for kind in ("validate", "analyze"):
         add("code/scripts/"+kind+"_observable_solver.py", read("H3_v2_"+kind+".py"), STUDY/("H3_v2_"+kind+".py"))
     add("code/scripts/run_observable_validation.py", read("H3_v2_supervise.py"), STUDY/"H3_v2_supervise.py")
@@ -191,6 +194,8 @@ resolution checks; it supplies no true-error certificate or tolerance selector.
                               "C-H3 has the stated short-time scope; C-H4 remains a research target.\nChanging a roadmap's scope alone asserts no new theorem.")
     roadmap = roadmap.replace("on its stated small nonlinear interval; efficient numerical consistency and\nlater continuation remain C-H3 and C-H4.",
                               "on its stated small nonlinear interval. C-H3 supplies numerical consistency\nand bounded declared computations through time 1/200; time-40 continuation\nand practical operation remain C-H4.")
+    roadmap = roadmap.replace("Beyond the C.4.7.9\nclosure, no alternative closure or success of the later numerical-computation\nmilestones is asserted here.",
+                              "The compatible C.4.7.10 implementation has the explicit short-time scope\nabove; no time-40 numerical result is asserted here.")
     add("docs/README.md", roadmap, ROOT/"docs/README.md")
     add("review/dependencies.md", read("H3_v2_dependencies.md"), STUDY/"H3_v2_dependencies.md")
     add("review/proposed_section.md", section, section_path)

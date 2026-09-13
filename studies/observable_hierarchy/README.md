@@ -42,14 +42,28 @@ of completing the candidate, not a new certification task.
 [Independent relevance selection](H3_v2_relevance_review.md) accepts assembly
 beside H2. The standalone edition v1 passed all 46 deterministic tests, but
 its equation-reference formatting was found defective before external review;
-it is preserved and superseded by the corrected assembly under preparation.
-The original run degrees 1,2,3 and their source edition remain historical
-operational evidence; the corrected candidate will be independently reproduced
-at degrees 1,3,5 under its own predeclared twelve-configuration budget.
+it is preserved and superseded by
+[edition v2](H3_v2_edition_v2_manifest.json). The original author-run degrees
+1,2,3 and their source edition remain separate historical operational evidence.
 
-Remaining authorized work: freeze the complete canonical addition, fresh
-isolated complete scientific reviews, independent reproduction and separate
-integration review. Present the
+[Independent reproduction](H3_v2_reproduction_v2.md) of edition v2 passed all
+twelve predeclared configurations at degrees 1,3,5, all 54 tests, the guide
+example and exact disk restart checks. Charged worker CPU was 21.083589 seconds;
+peak worker RSS was 76,480,512 bytes (72.9375 MiB). All 16 declared comparisons
+are retained without error-certificate or monotone-convergence claims. The
+three auxiliary reproduction sources are preserved as flat study files.
+
+The first scientific contexts A/B were stopped incomplete after the coordinator
+found omitted auxiliary-source hashes in their evidence manifest. Their exact
+partial reads and the unchanged scientific edition are preserved; neither
+context issued a verdict or counts as a completed review. Two fresh complete
+scientific reviewers and a separate fresh integration reviewer are now reading
+the complete [packet-v3 evidence](H3_v2_evidence_v3.json), with no inherited
+discussion or prior verdicts. The [H4 scope note](H3_v2_H4_scope.md) records the
+remaining long-horizon implication; no extension work was launched.
+
+Remaining authorized work: complete both isolated scientific reviews and the
+separate integration review, resolve any required corrections, and present the
 concrete reviewed edition for user approval before any established edits.
 
 Current planning scope (2026-09-13): C-H3 and C-H4 now target efficient numerical
