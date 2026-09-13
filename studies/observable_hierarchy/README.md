@@ -1,5 +1,22 @@
 # Observable hierarchy — milestone C-H1
 
+## C-H4 active continuation — 2026-09-13
+
+Task `01a09bce-f91d-73c3-9127-0fbe5fb00386` is extending the installed H3
+observable computation to physical time 40. The exact scope, ownership,
+claim status, source boundaries and predeclared resource envelope are in
+[H4_contract.md](H4_contract.md). Root owns this entry and coordinator H4
+files and is the sole Git writer; fresh agents own the named separate route
+reports. Existing H1–H3 source and review records remain unchanged.
+
+Foundation recovery and the two mathematical obligations—an executable fixed
+supported law family and closure convergence over the full horizon—are in
+progress. No H4 trajectory has run, and no time-40 computational theorem is
+yet claimed. The next authorized action is completion of those arguments and
+a frozen bounded numerical plan, followed by implementation, reproduction,
+two fresh complete scientific reviews and a separate integration review.
+Established-book/code changes require approval of the concrete reviewed addition.
+
 ## Revised C-H3 promoted with user approval — 2026-09-13
 
 Task `01a09b51-6f6c-7371-9726-159b9402da2b` has completed the revised
