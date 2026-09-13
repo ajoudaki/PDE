@@ -1,6 +1,6 @@
 # Observable hierarchy — milestone C-H1
 
-## Revised C-H3 implementation in progress — 2026-09-13
+## Revised C-H3: scientific reviews passed, final integration pending — 2026-09-13
 
 Task `01a09b51-6f6c-7371-9726-159b9402da2b` is executing the revised
 qualitative target in [H3_v2_contract.md](H3_v2_contract.md). Coordinator
@@ -56,15 +56,30 @@ three auxiliary reproduction sources are preserved as flat study files.
 The first scientific contexts A/B were stopped incomplete after the coordinator
 found omitted auxiliary-source hashes in their evidence manifest. Their exact
 partial reads and the unchanged scientific edition are preserved; neither
-context issued a verdict or counts as a completed review. Two fresh complete
-scientific reviewers and a separate fresh integration reviewer are now reading
-the complete [packet-v3 evidence](H3_v2_evidence_v3.json), with no inherited
-discussion or prior verdicts. The [H4 scope note](H3_v2_H4_scope.md) records the
-remaining long-horizon implication; no extension work was launched.
+context issued a verdict or counts as a completed review. The fresh complete
+[scientific A](H3_v2_scientific_a_v3.md) and
+[scientific B](H3_v2_scientific_b_v3.md) reviews of edition v2 pass without
+required corrections. Both read the complete proof/dependency/code/guide and
+[packet-v3 evidence](H3_v2_evidence_v3.json), without inherited discussion or
+prior verdicts. The coordinator read their full reports and original attacks.
 
-Remaining authorized work: complete both isolated scientific reviews and the
-separate integration review, resolve any required corrections, and present the
-concrete reviewed edition for user approval before any established edits.
+The original complete [integration review](H3_v2_integration_v3.md) requires
+one presentation correction: Markdown hid a factor in a bare ASCII bound.
+[Edition v3](H3_v2_edition_v3_manifest.json) changes only that bound's display;
+all other 25 frozen files, including the exact executed plan, are byte-identical.
+The [correction record](H3_v2_presentation_correction.md) preserves its scope.
+A fresh isolated reviewer is checking the entire corrected integration scope
+under [packet v4](H3_v2_integration_assignment_v4.md); no earlier verdict is
+an input. The scientific reviews remain attached to their original inputs;
+this presentation-only change invokes Part 2 step 4's fresh integration gate.
+The [H4 scope note](H3_v2_H4_scope.md) records the remaining long-horizon
+implication; no extension work was launched.
+
+Remaining authorized work: complete the fresh integration review, resolve any
+required corrections, and present [the concrete 17-file addition](H3_v2_promotion_proposal_v4.md)
+for user approval before any established edits. Both original editions and all
+earlier findings are retained. The exact proposed patch passes a dry application
+check against current files; it has not been applied.
 
 Current planning scope (2026-09-13): C-H3 and C-H4 now target efficient numerical
 implementation with qualitative population convergence; quantitative error

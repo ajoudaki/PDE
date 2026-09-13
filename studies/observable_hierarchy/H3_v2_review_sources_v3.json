@@ -1,0 +1,22 @@
+{
+  "sources": [
+    {
+      "reviewer": "/root/h3v2_scientific_b_v3",
+      "executed_or_recorded_source": "data/generated/observable_hierarchy/H3_v2_scientific_b_v3/independent_checks.py",
+      "retained_source": "studies/observable_hierarchy/H3_v2_review_b_checks_v3.py",
+      "sha256": "ba8c426ac3c75afaa408907237da09b62fc86c434f44ae20b339c4a27cd036b0"
+    },
+    {
+      "reviewer": "/root/h3v2_scientific_b_v3",
+      "executed_or_recorded_source": "data/generated/observable_hierarchy/H3_v2_scientific_b_v3/independent_checks_attempt1.py",
+      "retained_source": "studies/observable_hierarchy/H3_v2_review_b_checks_attempt1_v3.py",
+      "sha256": "3ded98ea5ecd0afb68278cd6b6edd00f9eb8f44103caccc0eb623eeadcce03af"
+    },
+    {
+      "reviewer": "/root/h3v2_scientific_b_v3",
+      "executed_or_recorded_source": "data/generated/observable_hierarchy/H3_v2_scientific_b_v3/preregistrations.md",
+      "retained_source": "studies/observable_hierarchy/H3_v2_review_b_preregistrations_v3.md",
+      "sha256": "af88188a0f1bcd5e7fc3b87dbef396843e62c0a3eea8a0013cb758d0772908f7"
+    }
+  ]
+}

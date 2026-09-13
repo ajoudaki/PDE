@@ -1,0 +1,34 @@
+{
+  "role": "complete neutral integration packet; no prior verdicts",
+  "edition_root": "data/generated/observable_hierarchy/H3_v2_edition_v3",
+  "edition_manifest_sha256": "e5a829f7f714f1999fafc1575c6b4a19b468b5846f04f064c2f84d244357faa7",
+  "reproduced_edition_root": "data/generated/observable_hierarchy/H3_v2_edition_v2",
+  "reproduced_edition_manifest_sha256": "13a21f2c652ac583243ae4f680bebfaca4576147a14ea557c0d6610336e38dc8",
+  "evidence_manifest": "studies/observable_hierarchy/H3_v2_evidence_v3.json",
+  "evidence_manifest_sha256": "a2673a062eac3f86559d6e811d877b4b1cd7c14bc99f61f7c9b31b9096919ea8",
+  "base_files": {
+    "data/generated/observable_hierarchy/H3_v2_integration_inputs_v3/base_docs_README.md": {
+      "source": "docs/README.md",
+      "sha256": "6daf2439bc725d63b0764967c20c980a6ef0361abec0c14bf29d396d87807fca"
+    },
+    "data/generated/observable_hierarchy/H3_v2_integration_inputs_v3/base_code_README.md": {
+      "source": "code/README.md",
+      "sha256": "3ffc27a58e8e090828fbac3f7d4b86c9e33f4ff5cdd7b0690e086364e8e82731"
+    },
+    "data/generated/observable_hierarchy/H3_v2_integration_inputs_v3/base_global_nonlinear.md": {
+      "source": "docs/global_nonlinear.md",
+      "sha256": "947eb52f10a8ebcd4970fa2acb1d26cba25dc5d73e8839893d5d2f4e3f688161"
+    }
+  },
+  "presentation_correspondence": {
+    "changed_files": [
+      "docs/global_nonlinear.md",
+      "review/proposed_section.md"
+    ],
+    "before": "sup_t e_N<=CT exp[C(1+s)T]((1+s)epsilon_N+tau(s)).",
+    "after": "\\[\n\\sup_{t} e_N\\le CT\\,\\exp\\!\\bigl(C(1+s)T\\bigr)\n\\bigl((1+s)\\epsilon_N+\\tau(s)\\bigr).\n\\]",
+    "other_25_files_byte_identical": true,
+    "verification_source": "studies/observable_hierarchy/H3_v2_prepare_integration_v4.py",
+    "verification_source_sha256": "108bc56bafecab42876d76383b094fbf42c0356731537dc821b5550a074cd78f"
+  }
+}

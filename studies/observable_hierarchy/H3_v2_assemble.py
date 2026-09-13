@@ -58,6 +58,16 @@ generates these full spaces is made."""
     if old not in hierarchy:
         raise ValueError("hierarchy invariance source changed")
     hierarchy = hierarchy.replace(old, new)
+    # Presentation only: bare Markdown interprets [exponent](factor) as a link.
+    # Preserve the complete reviewed bound, now in display-math notation.
+    old_bound = "sup_t e_N<=CT exp[C(1+s)T]((1+s)epsilon_N+tau(s))."
+    new_bound = r"""\[
+\sup_{t} e_N\le CT\,\exp\!\bigl(C(1+s)T\bigr)
+\bigl((1+s)\epsilon_N+\tau(s)\bigr).
+\]"""
+    if hierarchy.count(old_bound) != 1:
+        raise ValueError("reviewed hierarchy bound changed")
+    hierarchy = hierarchy.replace(old_bound, new_bound)
 
     numerical = read("H3_v2_numerical_proof.md")
     numerical = numerical[numerical.index("Fix "):numerical.index("\n---\n\n## Author provenance")]
@@ -127,7 +137,7 @@ def canonical_tests(kind):
     return text
 
 
-def main(version, output):
+def main(version, output, plan_source=None):
     if not re.fullmatch(r"v[0-9]+", version):
         raise ValueError("version must be v followed by digits")
     output.mkdir(parents=True, exist_ok=False)
@@ -166,9 +176,11 @@ def main(version, output):
         config["order"] = {1: 1, 2: 3, 3: 5}[old]
         config["id"] = config["id"].replace("_n"+str(old), "_n"+str(config["order"]))
     plan["budget"]["total_cpu_seconds"] = 3600
-    add("code/validation/observable_solver_plan.json", json.dumps(plan, indent=2)+"\n")
+    plan_text = (plan_source.read_text() if plan_source is not None
+                 else json.dumps(plan, indent=2)+"\n")
+    add("code/validation/observable_solver_plan.json", plan_text, plan_source)
     flat_plan = STUDY/("H3_v2_reproduction_plan_"+version+".json")
-    flat_plan.write_text(json.dumps(plan, indent=2)+"\n")
+    flat_plan.write_text(plan_text)
     book = (ROOT/"docs/global_nonlinear.md").read_text()
     anchor = "#### C.4.8. Sampling fluctuations of the trained prediction"
     if book.count(anchor) != 1:
@@ -215,5 +227,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--version", required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--plan-source", type=Path,
+                        help="preserve an already executed plan byte for byte")
     args = parser.parse_args()
-    main(args.version, args.output.resolve())
+    main(args.version, args.output.resolve(),
+         args.plan_source.resolve() if args.plan_source is not None else None)
