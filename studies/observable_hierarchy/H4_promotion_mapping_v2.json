@@ -1,0 +1,118 @@
+{
+  "format": "H4-proposed-promotion-mapping-v2",
+  "status": "candidate_pending_complete_reviews_and_user_approval",
+  "edition": "data/generated/observable_hierarchy/H4_candidate_v2b",
+  "review_manifest_sha256": "873de70c02d4d198613688791b0f430c3d92ee7f4dfd3fcecc26eeaa6c6187c5",
+  "destinations": [
+    {
+      "source": "studies/observable_hierarchy/H4_laws.py",
+      "source_sha256": "6fb38416ce02ca77aae0392201927eb9aeba5c672ebe774181822dfb805d0503",
+      "destination": "code/pde/observable_laws.py",
+      "destination_sha256": "6fb38416ce02ca77aae0392201927eb9aeba5c672ebe774181822dfb805d0503",
+      "kind": "proposed",
+      "transform": "identity",
+      "current_live_sha256": null,
+      "action": "add"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_laws_tests_v2.py",
+      "source_sha256": "2c7ec2025172d346ceb5eb4423353e7c55383dd16b26ac37c5d61898a65f52ff",
+      "destination": "code/tests/test_observable_laws.py",
+      "destination_sha256": "96c3b788a11f721a95daa8f4e86088ee2974be93795c2b910fe58b47936f872b",
+      "kind": "proposed",
+      "transform": "canonical import rename only",
+      "current_live_sha256": null,
+      "action": "add"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_validate.py",
+      "source_sha256": "3e1704a460a87e6e9f221ecfb73c15c05627f0a864fd4df01337f65a88ce5cb2",
+      "destination": "code/scripts/validate_observable_horizon.py",
+      "destination_sha256": "3e1704a460a87e6e9f221ecfb73c15c05627f0a864fd4df01337f65a88ce5cb2",
+      "kind": "proposed",
+      "transform": "identity",
+      "current_live_sha256": null,
+      "action": "add"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_run_validation.py",
+      "source_sha256": "d8a66b9a7c16802acc80602f233d76095ed32fcfcdc8a28df321faf9f3d3e0e5",
+      "destination": "code/scripts/run_observable_validation.py",
+      "destination_sha256": "d8a66b9a7c16802acc80602f233d76095ed32fcfcdc8a28df321faf9f3d3e0e5",
+      "kind": "proposed",
+      "transform": "identity",
+      "current_live_sha256": "3ac1b85367416d0b744daf56233ae8d9f97123971cd5cc0c46ee8b1694fcde73",
+      "action": "replace"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_validation_tests_v2.py",
+      "source_sha256": "5e49bb2b17ff8225287179714ba855f0b901cc246f389795afb965ea75837ca7",
+      "destination": "code/tests/test_observable_horizon_validation.py",
+      "destination_sha256": "5e49bb2b17ff8225287179714ba855f0b901cc246f389795afb965ea75837ca7",
+      "kind": "proposed",
+      "transform": "identity",
+      "current_live_sha256": null,
+      "action": "add"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_analyze.py",
+      "source_sha256": "742ea5a7f46d0f7afb279195d33631a350984280ad7c9a86e70f550657499e14",
+      "destination": "code/scripts/analyze_observable_horizon.py",
+      "destination_sha256": "742ea5a7f46d0f7afb279195d33631a350984280ad7c9a86e70f550657499e14",
+      "kind": "proposed",
+      "transform": "identity",
+      "current_live_sha256": null,
+      "action": "add"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_analysis_tests.py",
+      "source_sha256": "13419bb449f03bfb6db540156602e49b20719ff852778d031c45202af22a0314",
+      "destination": "code/tests/test_observable_horizon_analysis.py",
+      "destination_sha256": "13419bb449f03bfb6db540156602e49b20719ff852778d031c45202af22a0314",
+      "kind": "proposed",
+      "transform": "identity",
+      "current_live_sha256": null,
+      "action": "add"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_validation_plan.json",
+      "source_sha256": "b89c4a1ff7b8ed335e551f1ff553e7d3aefbe1acdfa914e19444901f080f08e7",
+      "destination": "code/validation/observable_horizon_plan.json",
+      "destination_sha256": "b89c4a1ff7b8ed335e551f1ff553e7d3aefbe1acdfa914e19444901f080f08e7",
+      "kind": "proposed",
+      "transform": "identity",
+      "current_live_sha256": null,
+      "action": "add"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_proposed_section_v2.md",
+      "source_sha256": "b755c3d05eacc0ef20df6d0499f73dcc6fbf46abdcf4a04084c346ce6b4ad432",
+      "destination": "docs/global_nonlinear.md",
+      "destination_sha256": "cbcf00fd705a9a938a6a3fd0d2bbc2f1c2dd3ab4303d848740a549dbb169f629",
+      "kind": "insert after C.4.7.10",
+      "transform": "insert complete part D at C.4.7.10 end; preserve every existing chapter byte",
+      "current_live_sha256": "77e0f2b9a2ecd337c1a47b8f6c2025c72122e28512ca7481377418fe3f235932",
+      "action": "replace"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_code_readme_v2.md",
+      "source_sha256": "fab52ac206ff7b97fef77016d98cc3ace4828280900e418b8817a07ed37042fb",
+      "destination": "code/README.md",
+      "destination_sha256": "fab52ac206ff7b97fef77016d98cc3ace4828280900e418b8817a07ed37042fb",
+      "kind": "complete proposed guide",
+      "transform": "identity",
+      "current_live_sha256": "30135209fc7bfba9125078cf12efeb1c46471da8979dc0893d59cb8a5691658b",
+      "action": "replace"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_docs_readme.md",
+      "source_sha256": "0a27a6bc697c65b290bbe6d16c9992575c6221115b992efaef1a78ad983ae13e",
+      "destination": "docs/README.md",
+      "destination_sha256": "0a27a6bc697c65b290bbe6d16c9992575c6221115b992efaef1a78ad983ae13e",
+      "kind": "complete proposed guide",
+      "transform": "identity",
+      "current_live_sha256": "03187fb939b6f8ab457107b3a3b45c3fa0332633f62741a1d13b5f278bbfa6e3",
+      "action": "replace"
+    }
+  ]
+}
