@@ -15,6 +15,7 @@ the [solver](../../code/pde/observable_solver.py) and its complete code guide,
 tests and reproduction commands. The [promotion record](H3_v2_promotion_record_v4.json)
 retains approval, reviewed-to-live hashes, validation and the integration commit.
 All preceding failed/partial stronger-scope results remain historical.
+Promotion commit: `95e02b5374248fdf561e903db9c2ea06c32fdad4`.
 
 Foundation correspondence passed: the maintained H2 theorem matches its frozen
 source, all seven dependency excerpts match current maintained proof bodies,
