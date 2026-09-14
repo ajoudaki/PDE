@@ -1,0 +1,299 @@
+{
+  "version": "H4-2026-09-13-time40-v1",
+  "status": "Predeclared before driver implementation and before any H4 trajectory",
+  "purpose": "Bounded operation and separate numerical comparisons, not a trajectory accuracy certificate or a test of a theorem threshold.",
+  "horizon": "40",
+  "method": "H3 explicit Heun; uniform h=40/J; recomputed observations on affine adjacent-state interpolants",
+  "initialization": "H3 complete hierarchy, unchanged ridge and both initialized action directions; deterministic joint prime-Halton Box-Muller, no random seeds",
+  "supported_radius": {
+    "kind": "dyadic",
+    "exponent": {
+      "op": "pow2",
+      "args": [
+        {
+          "op": "pow2",
+          "args": [
+            {
+              "op": "pow2",
+              "args": [
+                {
+                  "op": "pow2",
+                  "args": [
+                    {
+                      "op": "pow2",
+                      "args": [
+                        {
+                          "op": "pow2",
+                          "args": [
+                            {
+                              "op": "pow2",
+                              "args": [
+                                {
+                                  "op": "pow2",
+                                  "args": [
+                                    {
+                                      "op": "pow2",
+                                      "args": [
+                                        {
+                                          "op": "pow2",
+                                          "args": [
+                                            {
+                                              "op": "integer",
+                                              "value": "0x2000"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "law_parameters": {
+    "supported_atom": {
+      "radius": "supported_radius",
+      "a": "0",
+      "b": "0",
+      "c": "1",
+      "d": "1",
+      "scope_tag": "H4_explicit_supported_T40"
+    },
+    "supported_arc": {
+      "radius": "supported_radius",
+      "a": "-1",
+      "b": "1",
+      "c": "-1",
+      "d": "1",
+      "scope_tag": "H4_explicit_supported_T40"
+    },
+    "exploratory_arc": {
+      "radius": {
+        "kind": "rational",
+        "value": "1/20"
+      },
+      "a": "-1",
+      "b": "1",
+      "c": "-1",
+      "d": "1",
+      "scope_tag": "exploratory_rational_radius_no_T40_guarantee"
+    }
+  },
+  "common": {
+    "epsilon_cov": "0.001",
+    "block_size": 16,
+    "circle_directions": 128,
+    "observation_times": [
+      "0",
+      "1/200",
+      "1",
+      "10",
+      "20",
+      "40"
+    ],
+    "restart_time": "20",
+    "allow_radius_collapse": true,
+    "law_limits": {
+      "max_expression_nodes": 1024,
+      "max_expression_depth": 64,
+      "max_literal_bits": 16384,
+      "max_exact_scalar_bits": 65536,
+      "max_rule_nodes": 100000
+    }
+  },
+  "configurations": [
+    {
+      "id": "atom_n1",
+      "law": "supported_atom",
+      "order": 1,
+      "initialization_nodes": 1024,
+      "population_nodes": 512,
+      "nodes_per_arc": 1,
+      "steps": 8000,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "atom_n3",
+      "law": "supported_atom",
+      "order": 3,
+      "initialization_nodes": 1024,
+      "population_nodes": 512,
+      "nodes_per_arc": 1,
+      "steps": 8000,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "atom_n5",
+      "law": "supported_atom",
+      "order": 5,
+      "initialization_nodes": 1024,
+      "population_nodes": 512,
+      "nodes_per_arc": 1,
+      "steps": 8000,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "arc_n1",
+      "law": "supported_arc",
+      "order": 1,
+      "initialization_nodes": 1024,
+      "population_nodes": 512,
+      "nodes_per_arc": 8,
+      "steps": 8000,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "arc_n3",
+      "law": "supported_arc",
+      "order": 3,
+      "initialization_nodes": 1024,
+      "population_nodes": 512,
+      "nodes_per_arc": 8,
+      "steps": 8000,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "arc_n5",
+      "law": "supported_arc",
+      "order": 5,
+      "initialization_nodes": 1024,
+      "population_nodes": 512,
+      "nodes_per_arc": 8,
+      "steps": 8000,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "arc_n3_time",
+      "law": "supported_arc",
+      "order": 3,
+      "initialization_nodes": 1024,
+      "population_nodes": 512,
+      "nodes_per_arc": 8,
+      "steps": 16000,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "arc_n3_initialization",
+      "law": "supported_arc",
+      "order": 3,
+      "initialization_nodes": 2048,
+      "population_nodes": 512,
+      "nodes_per_arc": 8,
+      "steps": 8000,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "arc_n3_population",
+      "law": "supported_arc",
+      "order": 3,
+      "initialization_nodes": 1024,
+      "population_nodes": 1024,
+      "nodes_per_arc": 8,
+      "steps": 8000,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "arc_n3_law",
+      "law": "supported_arc",
+      "order": 3,
+      "initialization_nodes": 1024,
+      "population_nodes": 512,
+      "nodes_per_arc": 16,
+      "steps": 8000,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "exploratory_arc_n3",
+      "law": "exploratory_arc",
+      "order": 3,
+      "initialization_nodes": 1024,
+      "population_nodes": 512,
+      "nodes_per_arc": 8,
+      "steps": 8000,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "exploratory_arc_n3_law",
+      "law": "exploratory_arc",
+      "order": 3,
+      "initialization_nodes": 1024,
+      "population_nodes": 512,
+      "nodes_per_arc": 16,
+      "steps": 8000,
+      "digits": null,
+      "backend": "decimal"
+    },
+    {
+      "id": "tiny_rational24",
+      "law": "supported_arc",
+      "order": 1,
+      "initialization_nodes": 16,
+      "population_nodes": 4,
+      "nodes_per_arc": 2,
+      "steps": 800,
+      "digits": 24,
+      "backend": "rational"
+    },
+    {
+      "id": "tiny_rational36",
+      "law": "supported_arc",
+      "order": 1,
+      "initialization_nodes": 16,
+      "population_nodes": 4,
+      "nodes_per_arc": 2,
+      "steps": 800,
+      "digits": 36,
+      "backend": "rational"
+    }
+  ],
+  "checks": [
+    "Every configuration starts with its own prescribed initializer and evolves through physical time40 without imported states or resets.",
+    "Retain exact law descriptions and report both deliberate radius replacement and coordinate-rounding collapse. Supported runs at these precisions demonstrate operation for the declared discretization; they do not resolve the positive perturbation.",
+    "Record source/config hashes, all precision/backend settings, environment, one numerical thread, timings, peakRSS, state/data/description bytes, exact checkpoint bytes and constant-stage workspace estimate.",
+    "Save/load the own current joint state at t20. Continue it with the same arithmetic and mesh to40 and compare every retained array, law array and metadata against in-memory continuation.",
+    "Observe fixed times only, recording loss, both paired RMS displacements, full initial/current pair arrays and the common128direction prediction panel. These diagnostics do not enter evolution.",
+    "Preserve exact working observations in addition to any float64 analysis views. Recompute paired RMS and loss from saved observations as an independent algebra check.",
+    "Compare all predeclared matching pairs: closure orders, each single numerical axis, and rational24/rational36. No monotonicity, accuracy or target-threshold acceptance criterion.",
+    "Resolved exploratory arcs exercise actual nonatomic input integration at the same equations; their time40 population theorem is not asserted.",
+    "Do not prune redundant features. Record normalized P-node Gram singular values/condition status and D norm without interpreting them as Q-Gram condition numbers or error bounds."
+  ],
+  "interpretation": {
+    "operational_pass": "Reaches40 with finite values, correct dimensions and exact own-state restart within budget.",
+    "failure": "Nonfinite state, unresolved required pivot, invalid law/state, resource cap, output failure or restart mismatch; preserve artifacts.",
+    "comparisons": "Fixed saved times and finite circle panel only, not time-uniform/full-circle error bounds.",
+    "precision": "Arithmetic refinement here compares two rational finite algorithms at fixed outer resolutions; the theoretical p limit permits increasing resource ceilings."
+  },
+  "budget": {
+    "maximum_configurations": 14,
+    "cpu_seconds_per_configuration": 1200,
+    "wall_seconds_per_configuration": 1200,
+    "total_cpu_seconds": 7200,
+    "rss_bytes_per_process": 4294967296,
+    "threads_per_process": 1,
+    "parallel_trajectory_processes": 1
+  },
+  "stopping": "Execute only these14 configurations serially. Stop each on its first failure/cap and record unstarted configurations if the total cap is exhausted. No adaptive search or retry. Independent reproduction uses the identical frozen plan with its separate2CPUhour allowance in a fresh assembled-edition namespace. No pilots are included in this plan."
+}

@@ -1,7 +1,8 @@
 """Run a predeclared observable-solver validation plan serially on Linux.
 
-Install beside validate_observable_solver.py in code/scripts. Each worker
-keeps its existing --plan/--id/--output record and artifact protocol.
+Install beside validate_observable_solver.py in code/scripts. An optional
+--worker selects another worker with the same --plan/--id/--output protocol.
+Without that option the existing H3 worker and behavior are unchanged.
 """
 import argparse
 import hashlib
@@ -183,7 +184,7 @@ def _emit(entry):
     print(json.dumps({key: entry[key] for key in fields if key in entry}), flush=True)
 
 
-def run(plan_path, output_dir):
+def run(plan_path, output_dir, *, worker=None):
     """Execute precisely the listed configurations; return 0 only if all pass."""
     if sys.platform != "linux":
         raise RuntimeError("the validation resource monitor requires Linux")
@@ -191,9 +192,11 @@ def run(plan_path, output_dir):
     plan, plan_hash = _read_json(plan_path, MAX_PLAN_BYTES)
     _validate_plan(plan)
     here = Path(__file__).resolve().parent
-    worker, code_root = here / "validate_observable_solver.py", here.parent
+    selected = Path("validate_observable_solver.py") if worker is None else Path(worker)
+    worker = (selected if selected.is_absolute() else here / selected).resolve()
+    code_root = here.parent
     if not worker.is_file():
-        raise FileNotFoundError("install the supervisor beside validate_observable_solver.py")
+        raise FileNotFoundError("selected validation worker is not a file: " + str(worker))
     environment = dict(os.environ)
     environment.update({name: "1" for name in THREAD_VARIABLES})
     environment.update(OMP_DYNAMIC="FALSE", MKL_DYNAMIC="FALSE", PYTHONDONTWRITEBYTECODE="1")
@@ -203,6 +206,7 @@ def run(plan_path, output_dir):
     result = dict(format="observable-validation-supervisor-v1", status="running",
                   plan_sha256=plan_hash, supervisor_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                   worker_sha256=hashlib.sha256(worker.read_bytes()).hexdigest(),
+                  worker=str(worker),
                   plan=str(plan_path), output_dir=str(output), budget=budget,
                   log_limit_bytes_per_configuration=MAX_LOG_BYTES, poll_seconds=POLL_SECONDS,
                   cpu_accounting="Maximum of reaped-child OS CPU, sampled CPU and worker-reported CPU; includes interpreter startup. Parent CPU is separate.",
@@ -280,6 +284,8 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--plan", type=Path, required=True, help="predeclared JSON validation plan")
     parser.add_argument("--output-dir", type=Path, required=True, help="fresh directory for records and capped logs")
+    parser.add_argument("--worker", type=Path,
+                        help="worker filename relative to this script, or absolute path; default validate_observable_solver.py")
     args = parser.parse_args(argv)
 
     def interrupted(signum, frame):
@@ -287,7 +293,7 @@ def main(argv=None):
 
     previous = signal.signal(signal.SIGTERM, interrupted)
     try:
-        return run(args.plan, args.output_dir)
+        return run(args.plan, args.output_dir, worker=args.worker)
     finally:
         signal.signal(signal.SIGTERM, previous)
 

@@ -426,6 +426,19 @@ this target. The same equations should permit broader exploratory use without
 fitting a known trajectory. Per-truncation accuracy certificates, explicit
 convergence rates and an automatic tolerance selector are not required.
 
+**C-H4 established scope.** C.4.7.10 part D extends the same autonomous
+hierarchy and numerical implementation through physical time 40 on a fixed
+explicit rational-endpoint family around the binary orthogonal reference.
+It includes nonorthogonal atomic and nonatomic laws. The proof supplies its
+own positive supported radius, time-40 canonical identification, closure-order
+convergence and iterated numerical limits, uniformly in time and whole-circle
+prediction, with paired hidden laws in W2, RMS motion and risk. The target has
+risk at most 1/4 at time 40 and both squared paired motions at least 10^-13
+at time 1/200. The bounded implementation retains complete current populations
+and coefficients, with no accumulating history. Its very small supported
+perturbations collapse to the reference at the declared working precisions;
+resolved wider arcs are explicitly exploratory.
+
 **C-H4: convergent computation through substantial training.** Extend the
 same hierarchy and numerical-consistency proof through physical time 40 on a
 fixed supported family where the established GF has substantial learning.
@@ -445,14 +458,14 @@ level when their respective proofs and implementations pass review. Later
 extensions may establish asymptotic error rates, nonasymptotic certificates,
 automatic tolerance selection and cost-to-accuracy bounds. Those extensions
 must include the numerical and closure errors they claim to control; they
-are not implied by qualitative convergence. C-H3 has the stated short-time scope; C-H4 remains a research target.
+are not implied by qualitative convergence. C-H3 has the stated short-time scope; part D supplies the distinct fixed-family C-H4 extension through time 40.
 Changing a roadmap's scope alone asserts no new theorem.
 
 The strategic separation is between information, truncation, useful cost and
 continuation. C-H2's qualitative finite closure resolves the truncation step
 on its stated small nonlinear interval. C-H3 supplies numerical consistency
-and bounded declared computations through time 1/200; time-40 continuation
-and practical operation remain C-H4. Existing fixed-order Gaussian-source
+and bounded declared computations through time 1/200; part D supplies
+time-40 continuation and declared operation on its explicitly supported family. Existing fixed-order Gaussian-source
 derivatives are not temporal-jet tail estimates.
 The Stieltjes representation disproved in *Gaussian and flow calculus*,
 Sections 7.2 and 10.2, is not a premise of this route. Rational or Padé-type
@@ -460,7 +473,7 @@ closures remain options requiring their own justification. The same chapter's
 Section 6 excludes certain unrestricted same-norm algebra/jet estimates, and
 Section 10.4 excludes its specified Taylor closure; neither supplies a general
 impossibility theorem for current observable hierarchies. The compatible C.4.7.10 implementation has the explicit short-time scope
-above; no time-40 numerical result is asserted here.
+of parts A–C and the separate time-40 family and limit order of part D.
 
 The second purpose is reliable empirical investigation beyond conservative
 proof bounds. Make the construction reusable wherever its equations and
