@@ -1,0 +1,414 @@
+{
+  "status": "promoted",
+  "task": "01a09bce-f91d-73c3-9127-0fbe5fb00386",
+  "approval": {
+    "user_text": "yes I approve",
+    "user_context_local_date": "2026-09-14",
+    "scope": "The exact eleven-file H4 v3 addition requested in the preceding assistant final response",
+    "proposal_sha256": "4480094b5001f3ead5f20adc79275901cc98349b2b8d8c9a7724c0860fee6bfb",
+    "mapping_sha256": "3aac433611215b6af76e4d699c85b79bcf322a9643c15520e5b072441dedb5dd"
+  },
+  "recorded_utc": "2026-09-14T08:37:03.327117+00:00",
+  "preinstallation_head": "207cf63f4db88fce2e804d98bbfb5291a8ca692a",
+  "reviewed_manifest_sha256": "06132871ed70c3c13651a3fbb1f8e76d13582301237acb811f50756bdb223d02",
+  "verified_frozen_inputs": 271,
+  "verified_edition_files": 31,
+  "review_reports": [
+    {
+      "role": "scientific_E",
+      "path": "studies/observable_hierarchy/H4_scientific_E_v3.md",
+      "sha256": "2c8c71790c2cfd91cf247bbf8138299eea069b04c8d592d8543ddb178ee40980",
+      "verdict": "PASS"
+    },
+    {
+      "role": "scientific_F",
+      "path": "studies/observable_hierarchy/H4_scientific_F_v3.md",
+      "sha256": "3148721488be5f6e2e167596ef415ae4eb62d8ebd650ef38828ff16596abfbcc",
+      "verdict": "PASS"
+    },
+    {
+      "role": "integration",
+      "path": "studies/observable_hierarchy/H4_integration_v3.md",
+      "sha256": "f347fb537bcf14cd51946f49c9168f5c678a97ffa75616b117c471eda6af059f",
+      "verdict": "PASS"
+    }
+  ],
+  "approved_destinations": [
+    {
+      "source": "studies/observable_hierarchy/H4_laws.py",
+      "source_sha256": "6fb38416ce02ca77aae0392201927eb9aeba5c672ebe774181822dfb805d0503",
+      "destination": "code/pde/observable_laws.py",
+      "destination_sha256": "6fb38416ce02ca77aae0392201927eb9aeba5c672ebe774181822dfb805d0503",
+      "kind": "proposed",
+      "transform": "identity",
+      "current_live_sha256": null,
+      "action": "add"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_laws_tests_v2.py",
+      "source_sha256": "2c7ec2025172d346ceb5eb4423353e7c55383dd16b26ac37c5d61898a65f52ff",
+      "destination": "code/tests/test_observable_laws.py",
+      "destination_sha256": "96c3b788a11f721a95daa8f4e86088ee2974be93795c2b910fe58b47936f872b",
+      "kind": "proposed",
+      "transform": "canonical import rename only",
+      "current_live_sha256": null,
+      "action": "add"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_validate.py",
+      "source_sha256": "3e1704a460a87e6e9f221ecfb73c15c05627f0a864fd4df01337f65a88ce5cb2",
+      "destination": "code/scripts/validate_observable_horizon.py",
+      "destination_sha256": "3e1704a460a87e6e9f221ecfb73c15c05627f0a864fd4df01337f65a88ce5cb2",
+      "kind": "proposed",
+      "transform": "identity",
+      "current_live_sha256": null,
+      "action": "add"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_run_validation.py",
+      "source_sha256": "d8a66b9a7c16802acc80602f233d76095ed32fcfcdc8a28df321faf9f3d3e0e5",
+      "destination": "code/scripts/run_observable_validation.py",
+      "destination_sha256": "d8a66b9a7c16802acc80602f233d76095ed32fcfcdc8a28df321faf9f3d3e0e5",
+      "kind": "proposed",
+      "transform": "identity",
+      "current_live_sha256": "3ac1b85367416d0b744daf56233ae8d9f97123971cd5cc0c46ee8b1694fcde73",
+      "action": "replace"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_validation_tests_v2.py",
+      "source_sha256": "5e49bb2b17ff8225287179714ba855f0b901cc246f389795afb965ea75837ca7",
+      "destination": "code/tests/test_observable_horizon_validation.py",
+      "destination_sha256": "5e49bb2b17ff8225287179714ba855f0b901cc246f389795afb965ea75837ca7",
+      "kind": "proposed",
+      "transform": "identity",
+      "current_live_sha256": null,
+      "action": "add"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_analyze.py",
+      "source_sha256": "742ea5a7f46d0f7afb279195d33631a350984280ad7c9a86e70f550657499e14",
+      "destination": "code/scripts/analyze_observable_horizon.py",
+      "destination_sha256": "742ea5a7f46d0f7afb279195d33631a350984280ad7c9a86e70f550657499e14",
+      "kind": "proposed",
+      "transform": "identity",
+      "current_live_sha256": null,
+      "action": "add"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_analysis_tests.py",
+      "source_sha256": "13419bb449f03bfb6db540156602e49b20719ff852778d031c45202af22a0314",
+      "destination": "code/tests/test_observable_horizon_analysis.py",
+      "destination_sha256": "13419bb449f03bfb6db540156602e49b20719ff852778d031c45202af22a0314",
+      "kind": "proposed",
+      "transform": "identity",
+      "current_live_sha256": null,
+      "action": "add"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_validation_plan.json",
+      "source_sha256": "b89c4a1ff7b8ed335e551f1ff553e7d3aefbe1acdfa914e19444901f080f08e7",
+      "destination": "code/validation/observable_horizon_plan.json",
+      "destination_sha256": "b89c4a1ff7b8ed335e551f1ff553e7d3aefbe1acdfa914e19444901f080f08e7",
+      "kind": "proposed",
+      "transform": "identity",
+      "current_live_sha256": null,
+      "action": "add"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_proposed_section_v2.md",
+      "source_sha256": "b755c3d05eacc0ef20df6d0499f73dcc6fbf46abdcf4a04084c346ce6b4ad432",
+      "destination": "docs/global_nonlinear.md",
+      "destination_sha256": "cbcf00fd705a9a938a6a3fd0d2bbc2f1c2dd3ab4303d848740a549dbb169f629",
+      "kind": "insert after C.4.7.10",
+      "transform": "insert complete part D at C.4.7.10 end; preserve every existing chapter byte",
+      "current_live_sha256": "77e0f2b9a2ecd337c1a47b8f6c2025c72122e28512ca7481377418fe3f235932",
+      "action": "replace"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_code_readme_v3.md",
+      "source_sha256": "b25c0ad7be0a770881c7ae75446a1718d4217ceec5576bdc14864790daffc91e",
+      "destination": "code/README.md",
+      "destination_sha256": "b25c0ad7be0a770881c7ae75446a1718d4217ceec5576bdc14864790daffc91e",
+      "kind": "complete proposed guide",
+      "transform": "identity",
+      "current_live_sha256": "30135209fc7bfba9125078cf12efeb1c46471da8979dc0893d59cb8a5691658b",
+      "action": "replace"
+    },
+    {
+      "source": "studies/observable_hierarchy/H4_docs_readme.md",
+      "source_sha256": "0a27a6bc697c65b290bbe6d16c9992575c6221115b992efaef1a78ad983ae13e",
+      "destination": "docs/README.md",
+      "destination_sha256": "0a27a6bc697c65b290bbe6d16c9992575c6221115b992efaef1a78ad983ae13e",
+      "kind": "complete proposed guide",
+      "transform": "identity",
+      "current_live_sha256": "03187fb939b6f8ab457107b3a3b45c3fa0332633f62741a1d13b5f278bbfa6e3",
+      "action": "replace"
+    }
+  ],
+  "script_sha256": "0faf2df939641909cec9e6b748a73603e64e893966d3ff078c45af09f6f24581",
+  "budget": {
+    "cpu_seconds": 600,
+    "wall_seconds_per_command": 660,
+    "address_space_bytes": 4294967296,
+    "numerical_threads": 1,
+    "research_trajectories": 0
+  },
+  "checks": [
+    {
+      "command": [
+        "/usr/bin/python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "code/tests",
+        "-p",
+        "test_observable*.py",
+        "-v"
+      ],
+      "cwd": "/home/amir/Codes/PDE",
+      "exit_code": 0,
+      "cpu_seconds": 4.848012000000001,
+      "wall_seconds": 5.224618159234524,
+      "peak_child_rss_bytes": 57036800,
+      "log": "data/generated/observable_hierarchy/H4_promotion_checks_v3/check_0.log",
+      "log_sha256": "c14f265b138da54ccc6bbc84625165b49b041374fb3ac2309f901e77684850f6"
+    },
+    {
+      "command": [
+        "/usr/bin/python",
+        "-B",
+        "/home/amir/Codes/PDE/data/generated/observable_hierarchy/H4_promotion_checks_v3/public_example.py"
+      ],
+      "cwd": "/home/amir/Codes/PDE",
+      "exit_code": 0,
+      "cpu_seconds": 0.11391299999999971,
+      "wall_seconds": 0.11631014943122864,
+      "peak_child_rss_bytes": 57036800,
+      "log": "data/generated/observable_hierarchy/H4_promotion_checks_v3/check_1.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/usr/bin/python",
+        "-B",
+        "code/scripts/run_observable_validation.py",
+        "--help"
+      ],
+      "cwd": "/home/amir/Codes/PDE",
+      "exit_code": 0,
+      "cpu_seconds": 0.06988700000000048,
+      "wall_seconds": 0.11633739247918129,
+      "peak_child_rss_bytes": 57036800,
+      "log": "data/generated/observable_hierarchy/H4_promotion_checks_v3/check_2.log",
+      "log_sha256": "f3481ac70df9e16c6509c7544a993c6d69e0973fd4ada9287e4cef381a5e9cd4"
+    },
+    {
+      "command": [
+        "/usr/bin/python",
+        "-B",
+        "code/scripts/validate_observable_horizon.py",
+        "--help"
+      ],
+      "cwd": "/home/amir/Codes/PDE",
+      "exit_code": 0,
+      "cpu_seconds": 0.1238300000000001,
+      "wall_seconds": 0.1664867214858532,
+      "peak_child_rss_bytes": 57036800,
+      "log": "data/generated/observable_hierarchy/H4_promotion_checks_v3/check_3.log",
+      "log_sha256": "3abb4f3d0f1a2f745148df8fbe28467e4d30eb3ead23d4c8d5f59d86c3a09310"
+    },
+    {
+      "command": [
+        "/usr/bin/python",
+        "-B",
+        "code/scripts/analyze_observable_horizon.py",
+        "--help"
+      ],
+      "cwd": "/home/amir/Codes/PDE",
+      "exit_code": 0,
+      "cpu_seconds": 0.09587700000000021,
+      "wall_seconds": 0.11649186164140701,
+      "peak_child_rss_bytes": 57036800,
+      "log": "data/generated/observable_hierarchy/H4_promotion_checks_v3/check_4.log",
+      "log_sha256": "272715ea0cf66dc362a40fa22f1de7581aac4bed5f9c17d229e50df40d8e6aba"
+    }
+  ],
+  "integration_commit": "a76bf38d62bd3c242c9db778bfc53a04aeccc961",
+  "installed_files": [
+    {
+      "path": "code/pde/__init__.py",
+      "sha256": "65eb96a5dd455041d2ad1f32652e3e26e8c15192eb41bdffba27980f0f69e8c3"
+    },
+    {
+      "path": "code/pde/finite_network.py",
+      "sha256": "efe694b200b8af2603cbf1bb9d0249f49636e874088c2bafd98f402b5bfbe551"
+    },
+    {
+      "path": "code/pde/gaussian_moments.py",
+      "sha256": "6c2a21a9f3d101c433b5f06cb3f6e1dcdeca23a814891ea7bd81e73960e854ae"
+    },
+    {
+      "path": "code/pde/observable_closure.py",
+      "sha256": "f8dc5d16e5de1737444c44aae737ee1c9b4d664188d72f59acd0bb92f457c137"
+    },
+    {
+      "path": "code/pde/observable_words.py",
+      "sha256": "b12ed6021dfa8b8409b56793c88334d303f4c2cffeb7aa0a2d460311ba3e41b5"
+    },
+    {
+      "path": "code/pde/observable_fixed.py",
+      "sha256": "75c5b6a4478e5365d008bd7ad134cf1c2b6cd6942c68358e0a2d4137207c1225"
+    },
+    {
+      "path": "code/pde/observable_arithmetic.py",
+      "sha256": "2181b9e47e1c765e440feff582b34208651ff4687e19ce8a96db7752402a6edb"
+    },
+    {
+      "path": "code/pde/observable_compiler.py",
+      "sha256": "1add30410ee2e8de05fffca225643dbbbeab7ab8d6420382014bb8c9cceca7ac"
+    },
+    {
+      "path": "code/pde/observable_initialization.py",
+      "sha256": "6dafe3b5906c8762c7b6e0782c535b0031bbcf206359d384ef0911853ce131d2"
+    },
+    {
+      "path": "code/pde/observable_solver.py",
+      "sha256": "711a648df33e587591d35bd709e3b1c052b1a6f7dc6513afe636b2acf7031605"
+    },
+    {
+      "path": "code/scripts/validate_observable_solver.py",
+      "sha256": "54a8c5dbe8ffa0c105a54a2bc2b6969b83fe56f6f78ef9bdbc19c4b689e7f265"
+    },
+    {
+      "path": "code/scripts/analyze_observable_solver.py",
+      "sha256": "6c0ae411f567a94ff51e286a09c8f2fec2b90c5d73055ee083c6699f65e75347"
+    },
+    {
+      "path": "code/validation/observable_solver_plan.json",
+      "sha256": "92bf0cdd9cc5dc0147881ffc07c8235ed8e0480fd91631e7276c3e2e0b856e92"
+    },
+    {
+      "path": "code/tests/test_observable_compiler.py",
+      "sha256": "8a5955ad47df01a6110e8b5f3b64264b414e8ee70696e7f93250dcdf9dbb17cb"
+    },
+    {
+      "path": "code/tests/test_observable_initialization.py",
+      "sha256": "9e36f4c120013d58bb082bd521ea683a574bdf5a3652058fc0479a0e665e6e68"
+    },
+    {
+      "path": "code/tests/test_observable_solver.py",
+      "sha256": "9bb806d59a0d3c0261261d342d83ce97dddb2eb41645894e6a2f2393ecced7f1"
+    },
+    {
+      "path": "code/tests/test_observable_validation.py",
+      "sha256": "e1ee08c217ce6f39e64801f1c2b64f71482fe6efe5ee8924fe36c6bacc0201c1"
+    },
+    {
+      "path": "code/pde/observable_laws.py",
+      "sha256": "6fb38416ce02ca77aae0392201927eb9aeba5c672ebe774181822dfb805d0503"
+    },
+    {
+      "path": "code/tests/test_observable_laws.py",
+      "sha256": "96c3b788a11f721a95daa8f4e86088ee2974be93795c2b910fe58b47936f872b"
+    },
+    {
+      "path": "code/scripts/validate_observable_horizon.py",
+      "sha256": "3e1704a460a87e6e9f221ecfb73c15c05627f0a864fd4df01337f65a88ce5cb2"
+    },
+    {
+      "path": "code/scripts/run_observable_validation.py",
+      "sha256": "d8a66b9a7c16802acc80602f233d76095ed32fcfcdc8a28df321faf9f3d3e0e5"
+    },
+    {
+      "path": "code/tests/test_observable_horizon_validation.py",
+      "sha256": "5e49bb2b17ff8225287179714ba855f0b901cc246f389795afb965ea75837ca7"
+    },
+    {
+      "path": "code/scripts/analyze_observable_horizon.py",
+      "sha256": "742ea5a7f46d0f7afb279195d33631a350984280ad7c9a86e70f550657499e14"
+    },
+    {
+      "path": "code/tests/test_observable_horizon_analysis.py",
+      "sha256": "13419bb449f03bfb6db540156602e49b20719ff852778d031c45202af22a0314"
+    },
+    {
+      "path": "code/validation/observable_horizon_plan.json",
+      "sha256": "b89c4a1ff7b8ed335e551f1ff553e7d3aefbe1acdfa914e19444901f080f08e7"
+    },
+    {
+      "path": "docs/NOTATION.md",
+      "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b"
+    },
+    {
+      "path": "docs/finite_dynamics.md",
+      "sha256": "a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca5545bc0012a"
+    },
+    {
+      "path": "docs/special_data_limits.md",
+      "sha256": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489"
+    },
+    {
+      "path": "docs/global_nonlinear.md",
+      "sha256": "cbcf00fd705a9a938a6a3fd0d2bbc2f1c2dd3ab4303d848740a549dbb169f629"
+    },
+    {
+      "path": "code/README.md",
+      "sha256": "b25c0ad7be0a770881c7ae75446a1718d4217ceec5576bdc14864790daffc91e"
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "0a27a6bc697c65b290bbe6d16c9992575c6221115b992efaef1a78ad983ae13e"
+    }
+  ],
+  "check_cpu_seconds": 5.251519000000002,
+  "test_environment": {
+    "PYTHONPATH": "/home/amir/Codes/PDE/code",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "H4_LAW_TEST_SCRATCH": "/home/amir/Codes/PDE/data/generated/observable_hierarchy/H4_promotion_checks_v3/scratch",
+    "H4_VALIDATION_TEST_SCRATCH": "/home/amir/Codes/PDE/data/generated/observable_hierarchy/H4_promotion_checks_v3/scratch",
+    "TMPDIR": "/home/amir/Codes/PDE/data/generated/observable_hierarchy/H4_promotion_checks_v3/scratch",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "BLIS_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1"
+  },
+  "actual_test_count": 81,
+  "test_discovery_scope": "The declared live test_observable*.py command selected the 67 frozen-edition tests plus 14 existing H2 static tests from test_observable_closure.py; all 81 passed. No additional research trajectories ran.",
+  "test_sources": {
+    "code/tests/test_observable_closure.py": "ecc60bfd7eec882c8ae05140d756f6ec8cf90909b6317aab2c126b3c27439635",
+    "code/tests/test_observable_compiler.py": "8a5955ad47df01a6110e8b5f3b64264b414e8ee70696e7f93250dcdf9dbb17cb",
+    "code/tests/test_observable_horizon_analysis.py": "13419bb449f03bfb6db540156602e49b20719ff852778d031c45202af22a0314",
+    "code/tests/test_observable_horizon_validation.py": "5e49bb2b17ff8225287179714ba855f0b901cc246f389795afb965ea75837ca7",
+    "code/tests/test_observable_initialization.py": "9e36f4c120013d58bb082bd521ea683a574bdf5a3652058fc0479a0e665e6e68",
+    "code/tests/test_observable_laws.py": "96c3b788a11f721a95daa8f4e86088ee2974be93795c2b910fe58b47936f872b",
+    "code/tests/test_observable_solver.py": "9bb806d59a0d3c0261261d342d83ce97dddb2eb41645894e6a2f2393ecced7f1",
+    "code/tests/test_observable_validation.py": "e1ee08c217ce6f39e64801f1c2b64f71482fe6efe5ee8924fe36c6bacc0201c1"
+  },
+  "additional_test_environment": {
+    "H2_PROTOTYPE_MODULE": null,
+    "H2_TEST_SCRATCH": null
+  },
+  "additional_test_scratch_note": "The two older H2 serialization tests used their unchanged default study-owned H2_prototype scratch with TemporaryDirectory cleanup; they left no retained H4 output there. H4 outputs and logs use the fresh H4_promotion_checks_v3 directory.",
+  "committed_destination_hashes_verified": true,
+  "independent_installed_correspondence": {
+    "status": "PASS",
+    "report_and_source_hashes": {
+      "H4_promoted_correspondence_v1.md": "d02713980aa485aa2ba3b12ef09a2c15d3ab71723ff7e117ef212c5716f537c2",
+      "H4_promoted_correspondence_v1_checks.json": "729da12ff4986179f80094a90cf3729b25e95275b657b3c59286a528efbc6470",
+      "H4_promoted_correspondence_v1_check.py": "2605579a1c18762f4e698939689756fad0367c3a3b917fc3c644182d5c296561"
+    },
+    "coordinator_full_report_and_checker_read": true,
+    "coordinator_all_recorded_source_hashes_rechecked": true,
+    "resources": {
+      "cpu_limit_seconds": 60,
+      "address_space_limit_bytes": 4294967296,
+      "checker_cpu_seconds": 0.243782346,
+      "peak_rss_bytes": 28401664
+    }
+  },
+  "remaining_authorized_work": "none",
+  "scope_note": "Exact approved qualitative time-40 fixed-family addition, including paired observations and risks. Precision collapse and all deferred quantitative claims remain as reviewed."
+}

@@ -1,8 +1,8 @@
 # Observable hierarchy — milestone C-H1
 
-## C-H4 complete, reviewed, pending promotion approval — 2026-09-13
+## C-H4 promoted with user approval — 2026-09-14
 
-Task `01a09bce-f91d-73c3-9127-0fbe5fb00386` is extending the installed H3
+Task `01a09bce-f91d-73c3-9127-0fbe5fb00386` has extended the installed H3
 observable computation to physical time 40. The exact scope, ownership,
 claim status, source boundaries and predeclared resource envelope are in
 [H4_contract.md](H4_contract.md). Root owns this entry and coordinator H4
@@ -59,10 +59,27 @@ the [acceptance record](H4_acceptance_v3.md) records the full gates and limits.
 The independent reproducer's [final addendum](H4_reproduction_addendum_v3.md)
 confirms exact runtime/plan correspondence and the later guide/test-documentation
 differences without repeating the campaign. Original packets/reports/evidence
-remain unchanged. The complete result is ready for approval of the exact
+remain unchanged. The user approved the exact
 [eleven-destination proposal](H4_promotion_proposal_v3.md) and
-[mapped edition](H4_promotion_mapping_v3_final.json). Established material has
-not changed; promotion requires the user's approval of that concrete package.
+[mapped edition](H4_promotion_mapping_v3_final.json) with “yes I approve”.
+The exact reviewed addition is now installed in
+[C.4.7.10 part D](../../docs/global_nonlinear.md#d1-computation-through-physical-time-40-fixed-family-and-target),
+the [law library](../../code/pde/observable_laws.py), maintained time-40
+producer/analyzer and [reproduction guide](../../code/README.md#observable-computation-through-physical-time-40).
+Integration commit: `a76bf38d62bd3c242c9db778bfc53a04aeccc961`.
+The [promotion record](H4_promotion_record_v3.json) retains the exact approval,
+preflight, reviewed-to-live hashes, committed hashes and post-install checks.
+All 31 edition files match the reviewed bytes. The live observable suite
+passed all 81 tests: the frozen edition's 67 plus 14 older H2 static tests.
+The public law example and three affected CLI checks passed; these five checks
+used 5.252 CPU seconds and peak child RSS 57,036,800 bytes. No new research
+trajectory or empirical campaign ran during promotion. The qualitative
+fixed-family scope, disclosed precision collapse and deferred quantitative
+claims are unchanged. Original proposals and acceptance files remain immutable
+preapproval snapshots; the promotion record gives the current status.
+The separate [installation correspondence check](H4_promoted_correspondence_v1.md)
+also passed all 31 hashes, exact old-chapter preservation, placement, runtime
+import/path checks and 20 in-scope guide links. No promotion work remains.
 
 ## Revised C-H3 promoted with user approval — 2026-09-13
 
