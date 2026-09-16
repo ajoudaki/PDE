@@ -736,3 +736,7 @@ inputs, initialization, mobilities, observables, topology and horizons it covers
 whether learning remains nonlinear and nonlazy; and exactly what restartability
 means. Numerical evidence requires its full generation commands, configurations
 and seeds. No theorem relies on an empirical figure or an unreproducible coefficient table. C.5 explicitly includes its computer-assisted certificate, complete analytic error bounds, and maintained reproduction source.
+
+## General-dimension first-order implementation
+
+[General-d p=1 coefficients and finite computation](observable_p1.md) gives exact initialized coefficient and antithetic identities, a finite GPU backend and an actual-network comparator. It supplies no general-d trained-network convergence theorem or MNIST/PCA empirical conclusion.

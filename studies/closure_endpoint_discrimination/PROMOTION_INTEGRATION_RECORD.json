@@ -1,0 +1,121 @@
+{
+  "approval": {
+    "quote": "yes I approve",
+    "date": "2026-09-16",
+    "scope": "Exact integrated05 package presented in PROMOTION_PROPOSAL.md"
+  },
+  "edition_manifest_sha256": "83e0e4b3c1238880e7a8d87fdb251233a41b491462c8fa3e14a0fa3443c6ff3e",
+  "diff_sha256": "2e4c771fe56ef90901ec150a7f13219153b5e52c433b3820a6252b258d1612a9",
+  "parent_head": "04b61a12795734cbfc93830bf0a164bab7d101c4",
+  "mapping": [
+    {
+      "origin": "closure_endpoint_discrimination",
+      "source": "data/generated/closure_endpoint_discrimination/promotion_20260916/candidate04/code/pde/observable_torch_circle.py",
+      "destination": "code/pde/observable_torch_circle.py",
+      "sha256": "4fa63eb6abdd1c8573abfa1a7dc0a107d13ec669ae078659e8298cd517000430"
+    },
+    {
+      "origin": "closure_endpoint_discrimination",
+      "source": "data/generated/closure_endpoint_discrimination/promotion_20260916/candidate04/code/tests/test_observable_torch_circle.py",
+      "destination": "code/tests/test_observable_torch_circle.py",
+      "sha256": "437b9f577621d854afc62171c285129fe424e1eb3ef406b680d8ddd3a72a1181"
+    },
+    {
+      "origin": "closure_endpoint_discrimination",
+      "source": "data/generated/closure_endpoint_discrimination/promotion_20260916/candidate04/code/scripts/validate_torch_circle.py",
+      "destination": "code/scripts/validate_torch_circle.py",
+      "sha256": "edb42a5bb72b28f96f484a54ddc2f65043329ab0c8539ff3aa415923f5a885e0"
+    },
+    {
+      "origin": "closure_endpoint_discrimination",
+      "source": "data/generated/closure_endpoint_discrimination/promotion_20260916/candidate04/code/tools/check_library.py",
+      "destination": "code/tools/check_library.py",
+      "sha256": "4b0ec381caee28f8768ac7bc6e2d4af04e7860abdff73c75e7bc75af3067a018"
+    },
+    {
+      "origin": "first_order_dimension_mnist",
+      "source": "data/generated/first_order_dimension_mnist/promotion_20260916/frozen_v4/code/pde/observable_p1_initialization.py",
+      "destination": "code/pde/observable_p1_initialization.py",
+      "sha256": "65ded7e9faa352612fb833735d3075cbe41c0b24a535bf742d1fc86849aded6d"
+    },
+    {
+      "origin": "first_order_dimension_mnist",
+      "source": "data/generated/first_order_dimension_mnist/promotion_20260916/frozen_v4/code/pde/observable_torch_p1.py",
+      "destination": "code/pde/observable_torch_p1.py",
+      "sha256": "d67f0d832d265e75925f0020c42ab4d8e1dd3387e7e485412eff946ae5d20f1f"
+    },
+    {
+      "origin": "first_order_dimension_mnist",
+      "source": "data/generated/first_order_dimension_mnist/promotion_20260916/frozen_v4/code/pde/finite_torch.py",
+      "destination": "code/pde/finite_torch.py",
+      "sha256": "76d87cb0ddd25e974acf85935dc8fbfc8bc4a9eb829d5e60782e64d20e4f55a8"
+    },
+    {
+      "origin": "first_order_dimension_mnist",
+      "source": "data/generated/first_order_dimension_mnist/promotion_20260916/frozen_v4/code/pde/closure_comparison.py",
+      "destination": "code/pde/closure_comparison.py",
+      "sha256": "f715624c7d81116fd24d888ab5bce1afc3e8b353406b23553e6a6ff8b4f0a89e"
+    },
+    {
+      "origin": "first_order_dimension_mnist",
+      "source": "studies/first_order_dimension_mnist/PROMOTION_test_general_p1_optional.py",
+      "destination": "code/tests/test_general_p1.py",
+      "sha256": "895ff58b2e348ec7733534c9e969d2cd1579e25b33cc3f3d08525d32aff37215",
+      "operation": "optional Torch discovery adapter; all 16 test bodies unchanged",
+      "scientific_base_sha256": "99de6d99818d022002e432021f0e86f14b263c382ea6caedb2f4c7351ecafb03"
+    },
+    {
+      "origin": "first_order_dimension_mnist",
+      "source": "data/generated/first_order_dimension_mnist/promotion_20260916/frozen_v4/code/scripts/example_general_p1.py",
+      "destination": "code/scripts/example_general_p1.py",
+      "sha256": "c288ef22b9cb5f167cff37931d35dc9c5b149ca1bb9d1805fcb0145afa2dae41"
+    },
+    {
+      "origin": "first_order_dimension_mnist",
+      "source": "data/generated/first_order_dimension_mnist/promotion_20260916/frozen_v4/code/scripts/analyze_general_p1.py",
+      "destination": "code/scripts/analyze_general_p1.py",
+      "sha256": "e09242bd75dcabd1f6bdc759fd8b0a6c669db158ff93285c659ef63856ceca8b"
+    },
+    {
+      "origin": "first_order_dimension_mnist",
+      "source": "data/generated/first_order_dimension_mnist/promotion_20260916/frozen_v4/docs/observable_p1.md",
+      "destination": "docs/observable_p1.md",
+      "sha256": "0f9c0ab9d1bcd6acd844cfce52e00d94c063843fcf80d27e7ba2b7ea6ebdfbba"
+    },
+    {
+      "origin": "first_order_dimension_mnist",
+      "source": "data/generated/first_order_dimension_mnist/promotion_20260916/frozen_v4/code/GENERAL_P1.md",
+      "destination": "code/GENERAL_P1.md",
+      "sha256": "97709c4e525e05f57cb42e250be13d3e1f9c9f8788aeaf280623f8d89b771a47"
+    },
+    {
+      "destination": "code/README.md",
+      "sha256": "7aa3bc9700a75294f9f209a34e05af4033cd35dd5edb736846ff8bdfdc4bdbb6",
+      "operation": "exact frozen append or insertion"
+    },
+    {
+      "destination": "docs/README.md",
+      "sha256": "60816cf89cf93abc9d752b7d56a66b3302cd9ca0caff4b247991647dfb49b3ad",
+      "operation": "exact frozen append or insertion"
+    },
+    {
+      "destination": "docs/global_nonlinear.md",
+      "sha256": "81d969a531fc6daee26dbee2041fad8a3425a4b01580351387c5fc376cef412c",
+      "operation": "exact frozen append or insertion"
+    }
+  ],
+  "accepted_reports": {
+    "studies/first_order_dimension_mnist/PROMOTION_REVIEW_A5.md": "a15c1fd7a8ca02df49df8ee7f1aca752aafa74b7bb339088859e06f82fc4f1ea",
+    "studies/first_order_dimension_mnist/PROMOTION_REVIEW_A6.md": "6024a7ca784436ba69dfeb4056af3014463dd2acd2e69f92e4e33911f64be9e7",
+    "studies/closure_circle_spectral_mechanism/PROMOTION_REVIEW_C1_20260916.md": "5223a50a2b40bbfa2b9b3b208779034f35a71cde137c1aadca09fa82ec0a0928",
+    "studies/closure_circle_spectral_mechanism/PROMOTION_REVIEW_C2_20260916.md": "78a19439b24d198d0b83bcb847c43f2cb131ae9e57f91755325a99423074b263",
+    "studies/closure_endpoint_discrimination/PROMOTION_REVIEW_GPU1.md": "5e5d964e7dde9ab24720c995dbf7d91e656e94f83fcb5746d79b935477084192",
+    "studies/closure_endpoint_discrimination/PROMOTION_REVIEW_GPU2.md": "974914a581169144e4764ac9c79603b595087c706fa2eb4c2dd3ff787dbc55fb",
+    "studies/closure_endpoint_discrimination/PROMOTION_INTEGRATION_REVIEW_05.md": "3a19eab8cfa97258342ff6ee0aa9ac96210028d86ce71f13188d18f170d335fe"
+  },
+  "checks": {
+    "cpu": "5ec81d7625f76eb7e63c54ba331bc9d06b3b3e4a88bb3d3a6338b78fe69dd5e4",
+    "cuda_0": "0b3f317e85ec178b39f5421ea40a09c57a85ce1f9c4585bbfe6b478a124436f0"
+  },
+  "commit_receipt": "../../data/generated/closure_endpoint_discrimination/promotion_20260916/live_integration/commit.json"
+}

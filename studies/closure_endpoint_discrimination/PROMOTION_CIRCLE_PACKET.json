@@ -1,0 +1,20 @@
+{
+  "edition": "data/generated/closure_endpoint_discrimination/promotion_20260916/candidate04",
+  "manifest_sha256": "ae6caf4643cb10b109e98f58828541e44943153216f0ac09b1f22277054a06cc",
+  "assignment_sha256": "d9652f6e2079f188a43e8503a0cb34a832064fbcc45381a81ecfa22a07352c46",
+  "authors_assemblers": [
+    "/root",
+    "endpoint_gpu_runner",
+    "closure_order_design",
+    "endpoint_design_audit"
+  ],
+  "selector": "/root/select_circle",
+  "source_mapping": {
+    "PROMOTION_observable_torch_circle.py": "code/pde/observable_torch_circle.py",
+    "PROMOTION_test_observable_torch_circle.py": "code/tests/test_observable_torch_circle.py",
+    "PROMOTION_validate_torch_circle.py": "code/scripts/validate_torch_circle.py",
+    "PROMOTION_CIRCLE_GUIDE.md": "appended code/README.md section",
+    "PROMOTION_check_library.py": "code/tools/check_library.py"
+  },
+  "status": "frozen_for_two_fresh_scientific_reviews"
+}

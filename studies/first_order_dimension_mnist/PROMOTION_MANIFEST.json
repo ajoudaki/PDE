@@ -1,0 +1,78 @@
+{
+  "format": "general-p1-promotion-candidate-v4",
+  "frozen_root": "/home/amir/Codes/PDE/data/generated/first_order_dimension_mnist/promotion_20260916/frozen_v4",
+  "edition_root": "/home/amir/Codes/PDE/data/generated/first_order_dimension_mnist/promotion_20260916/edition_v6",
+  "authors": [
+    "/root/author_a",
+    "/root",
+    "historical study root author",
+    "historical scoped initializer author",
+    "historical scoped engine contributor"
+  ],
+  "selector": "/root/select_a",
+  "mapping": {
+    "PROMOTION_observable_p1_initialization.py": "code/pde/observable_p1_initialization.py",
+    "PROMOTION_observable_torch_p1.py": "code/pde/observable_torch_p1.py",
+    "PROMOTION_finite_torch.py": "code/pde/finite_torch.py",
+    "PROMOTION_closure_comparison.py": "code/pde/closure_comparison.py",
+    "PROMOTION_test_general_p1.py": "code/tests/test_general_p1.py",
+    "PROMOTION_example_general_p1.py": "code/scripts/example_general_p1.py",
+    "PROMOTION_analyze_general_p1.py": "code/scripts/analyze_general_p1.py",
+    "PROMOTION_THEORY.md": "docs/observable_p1.md",
+    "PROMOTION_GUIDE.md": "code/GENERAL_P1.md"
+  },
+  "files": {
+    "PROMOTION_PLACEMENT.md": "b3ca29eb03eaacf95b7b06410bf50bdb8141d2ca343881ce33fc9d34b3a26db6",
+    "PROMOTION_REVIEW_ASSIGNMENT.md": "841e1d470d3328f74c7554bee987c214168c8f9a6e7b7370099b7e4da4797c3e",
+    "PROMOTION_assemble.py": "9afd22e391e517a741a12b3c1752732acc8c8efe0c3d0e692b9f5241bca16bf2",
+    "code/GENERAL_P1.md": "97709c4e525e05f57cb42e250be13d3e1f9c9f8788aeaf280623f8d89b771a47",
+    "code/README.md": "ff5a89effef3fc1bc86a2bcc699453731c50bebffd9fd5ff0844f690717dc237",
+    "code/pde/__init__.py": "65eb96a5dd455041d2ad1f32652e3e26e8c15192eb41bdffba27980f0f69e8c3",
+    "code/pde/closure_comparison.py": "f715624c7d81116fd24d888ab5bce1afc3e8b353406b23553e6a6ff8b4f0a89e",
+    "code/pde/finite_network.py": "efe694b200b8af2603cbf1bb9d0249f49636e874088c2bafd98f402b5bfbe551",
+    "code/pde/finite_torch.py": "76d87cb0ddd25e974acf85935dc8fbfc8bc4a9eb829d5e60782e64d20e4f55a8",
+    "code/pde/gaussian_moments.py": "6c2a21a9f3d101c433b5f06cb3f6e1dcdeca23a814891ea7bd81e73960e854ae",
+    "code/pde/observable_arithmetic.py": "2181b9e47e1c765e440feff582b34208651ff4687e19ce8a96db7752402a6edb",
+    "code/pde/observable_fixed.py": "75c5b6a4478e5365d008bd7ad134cf1c2b6cd6942c68358e0a2d4137207c1225",
+    "code/pde/observable_initialization.py": "6dafe3b5906c8762c7b6e0782c535b0031bbcf206359d384ef0911853ce131d2",
+    "code/pde/observable_p1_initialization.py": "65ded7e9faa352612fb833735d3075cbe41c0b24a535bf742d1fc86849aded6d",
+    "code/pde/observable_torch_p1.py": "d67f0d832d265e75925f0020c42ab4d8e1dd3387e7e485412eff946ae5d20f1f",
+    "code/pde/observable_words.py": "b12ed6021dfa8b8409b56793c88334d303f4c2cffeb7aa0a2d460311ba3e41b5",
+    "code/scripts/analyze_general_p1.py": "e09242bd75dcabd1f6bdc759fd8b0a6c669db158ff93285c659ef63856ceca8b",
+    "code/scripts/example_general_p1.py": "c288ef22b9cb5f167cff37931d35dc9c5b149ca1bb9d1805fcb0145afa2dae41",
+    "code/tests/test_general_p1.py": "99de6d99818d022002e432021f0e86f14b263c382ea6caedb2f4c7351ecafb03",
+    "dependencies/global_nonlinear_source_units.md": "4363b0710431373d92d6c4957eba139b752fcc74ddf4979b3a756487db283766",
+    "dependencies/original_code_README.md": "b25c0ad7be0a770881c7ae75446a1718d4217ceec5576bdc14864790daffc91e",
+    "dependencies/original_docs_README.md": "0a27a6bc697c65b290bbe6d16c9992575c6221115b992efaef1a78ad983ae13e",
+    "docs/NOTATION.md": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "docs/README.md": "60816cf89cf93abc9d752b7d56a66b3302cd9ca0caff4b247991647dfb49b3ad",
+    "docs/observable_p1.md": "0f9c0ab9d1bcd6acd844cfce52e00d94c063843fcf80d27e7ba2b7ea6ebdfbba",
+    "instructions/AGENTS.md": "7b3e384e1a627903835fa91c7396da7e399add57987334e07fc0168682b09747",
+    "instructions/RESEARCH_WORKFLOW.md": "0906284c80dced0b2ee1beaf7c5f160a12d17f41afd060a536eeac0903406f85",
+    "instructions/investigate-conjectures/SKILL.md": "a0fafd639f54834c58fb05ed30adb0e7fe09e2845ff12aba4395845b7d9528de",
+    "instructions/investigate-conjectures/agents/openai.yaml": "ba8e39aba0463d706c4fa49375b90d0b9ce4d0ce436875e6d35ca61bcf387d02",
+    "instructions/investigate-conjectures/references/adversarial-audit.md": "8609b420aa8b5cbd405521bcd9acfdbfd719dfaa3962a23496aac4b3e2de4501",
+    "instructions/investigate-conjectures/references/decisive-experiments.md": "6abdb4d2d850ec7a40a34dd0461af70952ef097ee3629b7c62a3449d221768e9",
+    "instructions/investigate-conjectures/references/evidence-ledger.md": "9e7573b37cbd954432236bdcb13f6b83b6325e0ff2653a198939842bc81c3a2e",
+    "instructions/investigate-conjectures/references/proof-search-orchestration.md": "6f288341eb90f9618ab9fa6fc8c37225f41230de6a40285761c17cc257edecdd",
+    "instructions/investigate-conjectures/references/research-contract.md": "7641d9418ab0065f29e6f25d6e78dd0005e436b0d1ab3970de4b1982bc95338e",
+    "instructions/solve-math-rigorously/SKILL.md": "9be5cb903f8957c5da9e2acfb1302eba4ba45e3ef9d45e30b9740ad7dbc8cff7",
+    "instructions/solve-math-rigorously/agents/openai.yaml": "13e1679d378e917628b9f7d58c687e78e0442df8b6ad9089a4720a87f6bb3d1c"
+  },
+  "original_global_nonlinear_sha256": "cbcf00fd705a9a938a6a3fd0d2bbc2f1c2dd3ab4303d848740a549dbb169f629",
+  "scientific_dependency_sections": [
+    [
+      185,
+      504
+    ],
+    [
+      13276,
+      13297
+    ],
+    [
+      13431,
+      13468
+    ]
+  ],
+  "excluded": "other studies, study history/verdicts, historical numerical outputs, general-d trained-network theorem, MNIST/PCA numerical conclusions"
+}

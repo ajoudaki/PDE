@@ -1,0 +1,41 @@
+{
+  "package": "C",
+  "date": "2026-09-16",
+  "status": "frozen for two fresh complete scientific reviews",
+  "destination": "docs/global_nonlinear.md, C.4.7.10 C.1 immediately after H3.N2",
+  "insertion_after": "These are exactly the contractions in the implementation. Both action\norientations use the one evolving \\(M\\) and its actual transpose.",
+  "baseline_head": "04b61a12795734cbfc93830bf0a164bab7d101c4",
+  "frozen_inputs": {
+    "PROMOTION_BASE_CHAPTER_20260916.md": "cbcf00fd705a9a938a6a3fd0d2bbc2f1c2dd3ab4303d848740a549dbb169f629",
+    "PROMOTION_DOCS_GUIDE_20260916.md": "0a27a6bc697c65b290bbe6d16c9992575c6221115b992efaef1a78ad983ae13e",
+    "PROMOTION_NOTATION_20260916.md": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "PROMOTION_AGENTS_20260916.md": "7b3e384e1a627903835fa91c7396da7e399add57987334e07fc0168682b09747",
+    "PROMOTION_WORKFLOW_20260916.md": "0906284c80dced0b2ee1beaf7c5f160a12d17f41afd060a536eeac0903406f85",
+    "PROMOTION_INSERTION_20260916.md": "55c9bead5e4db8fc84913f4b78cdd8fc25b3d3c0123fcea8ccc2ee326a0550a3",
+    "PROMOTION_ASSIGNMENT_20260916.md": "4a27eb8f5186aabe068d098e2280709d5ac2fb0f61cc096b6c588bcb40ef32b8",
+    "PROMOTION_BUILD_20260916.py": "1e826f115674182068fa3c107ef92feee66f76889e550d73b09ae766d8613691"
+  },
+  "changed_maintained_paths": [
+    "docs/global_nonlinear.md"
+  ],
+  "guide_additions": "none; existing guide already covers the closure and its separate numerical/theorem scopes",
+  "components": [
+    "finite-node metric and exact three-block tangent kernel",
+    "all-state antipodal oddness and fixed-order non-cutoff representability",
+    "conditional sign-symmetric matched-ridge order-one/order-two equivalence"
+  ],
+  "excluded": [
+    "stationary Gaussian opposite-label pair example",
+    "empirical claims or campaigns",
+    "maintained code/API additions",
+    "new neural or closure convergence scope",
+    "accuracy ordering, learned shape law, nonlinear endpoint theorem"
+  ],
+  "scientific_dependency_scope": "All new mathematical claims are self-contained in PROMOTION_INSERTION_20260916.md; older equation numbers are orientation references with their needed definitions restated. Full guides are scope/notation inputs. The unchanged base chapter is an assembly input, not a proof dependency.",
+  "source_provenance": {
+    "studies/closure_circle_spectral_mechanism/THEORY.md": "a7686b0155bd34eb01ac8431fd187c42ac235d3d1703b269cdc789f9f8c92414",
+    "code/pde/observable_initialization.py": "6dafe3b5906c8762c7b6e0782c535b0031bbcf206359d384ef0911853ce131d2",
+    "code/pde/observable_solver.py": "711a648df33e587591d35bd709e3b1c052b1a6f7dc6513afe636b2acf7031605"
+  },
+  "contributors_and_exclusions": "Recorded in full in PROMOTION_ASSIGNMENT_20260916.md"
+}

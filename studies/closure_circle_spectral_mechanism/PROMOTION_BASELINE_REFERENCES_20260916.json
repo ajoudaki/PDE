@@ -1,0 +1,18 @@
+{
+  "PROMOTION_BASE_CHAPTER_20260916.md": {
+    "git_object": "04b61a12795734cbfc93830bf0a164bab7d101c4:docs/global_nonlinear.md",
+    "sha256": "cbcf00fd705a9a938a6a3fd0d2bbc2f1c2dd3ab4303d848740a549dbb169f629"
+  },
+  "PROMOTION_DOCS_GUIDE_20260916.md": {
+    "git_object": "04b61a12795734cbfc93830bf0a164bab7d101c4:docs/README.md",
+    "sha256": "0a27a6bc697c65b290bbe6d16c9992575c6221115b992efaef1a78ad983ae13e"
+  },
+  "PROMOTION_CODE_GUIDE_INTEGRATION_20260916.md": {
+    "git_object": "04b61a12795734cbfc93830bf0a164bab7d101c4:code/README.md",
+    "sha256": "b25c0ad7be0a770881c7ae75446a1718d4217ceec5576bdc14864790daffc91e"
+  },
+  "PROMOTION_NOTATION_20260916.md": {
+    "git_object": "04b61a12795734cbfc93830bf0a164bab7d101c4:docs/NOTATION.md",
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b"
+  }
+}
