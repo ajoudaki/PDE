@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Standalone exporter: no writes to the PDE repository, no global installs.
+# Standalone exporter: private build, checked PDF/receipt output, no global installs.
 set -euo pipefail
 PDE_EXPORT_ENTRY="${BASH_SOURCE[0]}"
 while [[ -L "$PDE_EXPORT_ENTRY" ]]; do

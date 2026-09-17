@@ -21,7 +21,7 @@ import xml.etree.ElementTree as ET
 BUNDLE = Path(__file__).resolve().parent
 ARCHIVE_HASH = "5def6e1ff535e397becce292ee97767a947306150b9fb1488003b67ac3417c5e"
 DEFAULT_REPO = BUNDLE.parents[2]
-DEFAULT_OUTPUT = Path("/tmp/PDE-book-latest.pdf")
+DEFAULT_OUTPUT_NAME = "PDE-book.pdf"
 DEFAULT_ARCHIVE = Path.home() / ".cache/pde-book-pdf/pandoc-3.6.4-linux-amd64.tar.gz"
 
 
@@ -96,8 +96,8 @@ def snapshot(repo, work):
 def validate_output(repo, output):
     if output.suffix.lower() != ".pdf":
         raise ValueError("The output filename must end in .pdf")
-    if output.is_relative_to(repo):
-        raise ValueError("Choose an output outside the repository; this exporter deliberately never writes inside it.")
+    if output.is_relative_to(repo) and output != repo / DEFAULT_OUTPUT_NAME:
+        raise ValueError(f"Inside the repository, use only {repo / DEFAULT_OUTPUT_NAME}; choose an output outside it for other filenames.")
     if output.exists() and not output.is_file():
         raise ValueError(f"Output is not a regular file: {output}")
 
@@ -183,14 +183,14 @@ def atomic_copy(source, destination):
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="Build the current PDE book PDF without changing the repository.", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument("output", nargs="?", type=Path, default=DEFAULT_OUTPUT, help="PDF destination, outside the repository")
+    parser = argparse.ArgumentParser(description="Build the current PDE book PDF without changing book sources.", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument("output", nargs="?", type=Path, help="PDF destination (default: PDE-book.pdf in the selected repository root)")
     parser.add_argument("--repo", type=Path, default=DEFAULT_REPO, help="Repository to read")
     parser.add_argument("--pandoc-archive", type=Path, help="Verified Pandoc 3.6.4 Linux x86-64 release archive; overrides installed Pandoc and the user cache")
     parser.add_argument("--keep-build", action="store_true", help="Keep the temporary snapshot, generated TeX and logs after success")
     args = parser.parse_args(argv)
     repo = args.repo.expanduser().resolve()
-    output = args.output.expanduser().absolute()
+    output = (args.output or repo / DEFAULT_OUTPUT_NAME).expanduser().absolute()
     # Resolving the parent also catches paths through symlinked source folders.
     output = output.parent.resolve() / output.name
     if output.is_symlink():
@@ -243,7 +243,7 @@ def main(argv=None):
             "source_manifest": json.loads((work / "source-manifest.json").read_text()),
             "coverage": json.loads((work / "coverage.json").read_text()), "render_checks": checks,
             "concurrent_source_changes": changed, "concurrent_inventory_change": changed_inventory,
-            "scope": "PDF rendering checks only, not mathematical proof validation; no repository writes.",
+            "scope": "PDF rendering checks only, not mathematical proof validation; book sources unchanged, only the PDF and build receipt are published.",
         }
         (work / "build-receipt.json").write_text(json.dumps(receipt, indent=2) + "\n")
         # A failed conversion/check never touches an earlier successful PDF.
@@ -257,7 +257,7 @@ def main(argv=None):
             print(f"Build files: {work}", flush=True)
         return 0
     except (OSError, ValueError, RuntimeError, subprocess.TimeoutExpired) as error:
-        print(f"PDF export stopped: {error}\nDiagnostics retained: {work}\nThe exporter made no repository writes.", file=sys.stderr)
+        print(f"PDF export stopped: {error}\nDiagnostics retained: {work}\nThe exporter did not modify book sources.", file=sys.stderr)
         return 1
     finally:
         if succeeded and not args.keep_build:

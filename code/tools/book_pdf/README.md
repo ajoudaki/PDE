@@ -14,16 +14,18 @@ From the repository root:
 ./code/tools/book_pdf/build-pdf.sh --keep-build
 ```
 
-The default output is `/tmp/PDE-book-latest.pdf`. Choose a persistent destination
-outside the repository if you want to keep it longer. A neighboring `.build.json`
-receipt records source hashes, coverage, and rendering checks. Output paths inside
-the source repository are rejected, keeping generated artifacts out of the book
-and code. A previously successful PDF is replaced only after the new PDF passes
-the rendering checks.
+The default output is `PDE-book.pdf` in the repository root, beside `docs/`
+and `code/`. A neighboring `PDE-book.build.json` receipt records source hashes,
+coverage, and rendering checks. Both generated files are ignored by Git.
+Other output filenames must be outside the repository, keeping generated
+artifacts out of the book and code directories. A previously successful PDF
+is replaced only after the new PDF passes the rendering checks.
 
 The script locates the repository from its own location, so it also works when
 called by absolute path from another directory. `--repo /path/to/PDE` overrides
-the source checkout. Keep the shell script, Python helpers, and layout together.
+the source checkout and default output location. Keep the shell script, Python
+helpers, and layout together. If the script is not executable under your account,
+run it as `bash code/tools/book_pdf/build-pdf.sh`.
 
 ## Dependencies
 

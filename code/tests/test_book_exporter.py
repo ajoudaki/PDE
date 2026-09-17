@@ -59,9 +59,11 @@ class ExporterTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "symlink"):
             exporter.discover(self.repo)
 
-    def test_rejects_output_inside_repo(self):
-        with self.assertRaisesRegex(ValueError, "outside"):
-            exporter.validate_output(self.repo, self.repo / "book.pdf")
+    def test_only_designated_root_pdf_is_allowed_inside_repo(self):
+        exporter.validate_output(self.repo, self.repo / "PDE-book.pdf")
+        for name in ("book.pdf", "docs/PDE-book.pdf", "code/PDE-book.pdf"):
+            with self.subTest(name=name), self.assertRaisesRegex(ValueError, "outside"):
+                exporter.validate_output(self.repo, self.repo / name)
 
     def test_rejects_non_pdf_output(self):
         with self.assertRaisesRegex(ValueError, "end in"):
@@ -97,18 +99,20 @@ class ExporterTests(unittest.TestCase):
         self.assertEqual(list(destination.parent.iterdir()), [destination])
 
     def test_failed_conversion_preserves_previous_pdf_and_sources(self):
-        destination = self.root / "book.pdf"
+        destination = self.repo / "PDE-book.pdf"
         destination.write_bytes(b"previous successful PDF")
         before = {p: p.read_bytes() for p in self.repo.rglob("*.md")}
         work = self.root / "failed-build"
         work.mkdir()
         # Inject a converter failure without installing or running any tools.
-        with patch.object(exporter.tempfile, "mkdtemp", return_value=str(work)), \
+        with patch.object(exporter, "validate_output", wraps=exporter.validate_output) as validate, \
+             patch.object(exporter.tempfile, "mkdtemp", return_value=str(work)), \
              patch.object(exporter.shutil, "which", return_value="installed"), \
              patch.object(exporter, "install_private_converter"), \
              patch.object(exporter, "run", side_effect=RuntimeError("injected conversion failure")), \
              redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
-            result = exporter.main([str(destination), "--repo", str(self.repo)])
+            result = exporter.main(["--repo", str(self.repo)])
+        validate.assert_called_once_with(self.repo, destination)
         self.assertEqual(result, 1)
         self.assertEqual(destination.read_bytes(), b"previous successful PDF")
         self.assertFalse(destination.with_suffix(".build.json").exists())

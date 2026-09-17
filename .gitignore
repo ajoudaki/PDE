@@ -11,6 +11,10 @@ build/
 dist/
 .backups/
 
+# Local book export and its rendering receipt.
+/PDE-book.pdf
+/PDE-book.build.json
+
 # Generated artifacts are physically separate from source.
 /data/*
 !/data/README.md
