@@ -1,0 +1,226 @@
+% Reading copy of the assistant's C-route explanation, 2026-09-13.
+% This is an explanatory conversation snapshot, not a new promotion or proof.
+% Reproduce into a fresh data/generated/observable_hierarchy/<run>/ directory:
+% xelatex -no-shell-escape -interaction=nonstopmode -halt-on-error \
+%   -jobname=C-route-explained -output-directory=<run> <this-file>
+% Run twice to settle PDF bookmarks. Generated files do not belong in Git.
+\documentclass[11pt,a4paper]{scrartcl}
+\usepackage[margin=22mm,top=20mm,bottom=22mm]{geometry}
+\usepackage{fontspec}
+\usepackage{mathtools}
+\usepackage{unicode-math}
+\setmainfont{TeX Gyre Pagella}
+\setsansfont{TeX Gyre Heros}
+\setmathfont{TeX Gyre Pagella Math}
+\usepackage{microtype}
+\usepackage{xcolor}
+\definecolor{inkblue}{HTML}{224D68}
+\usepackage{enumitem}
+\setlist{leftmargin=1.4em,itemsep=2pt,topsep=4pt,parsep=0pt}
+\usepackage{needspace}
+\usepackage{scrlayer-scrpage}
+\clearpairofpagestyles
+\ifoot{\small C-route · Reading note}
+\ofoot{\small\pagemark}
+\usepackage[unicode,colorlinks=true,linkcolor=inkblue,urlcolor=inkblue]{hyperref}
+\hypersetup{pdftitle={The C-route: from the canonical network to an autonomous numerical closure},pdfauthor={PDE project},pdfsubject={Offline reading copy of the C-route explanation, 13 September 2026}}
+\setcounter{secnumdepth}{0}
+\setkomafont{section}{\sffamily\bfseries\large\color{inkblue}}
+\RedeclareSectionCommand[beforeskip=1.1\baselineskip,afterskip=.45\baselineskip]{section}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\emergencystretch}{2em}
+\linespread{1.035}
+\raggedbottom
+\begin{document}
+\begin{center}
+{\sffamily\bfseries\LARGE\color{inkblue} The C-route}\par\vspace{5pt}
+{\sffamily\large From the canonical network to an autonomous numerical closure}\par\vspace{7pt}
+{\small Offline reading copy · 13 September 2026}
+\end{center}
+
+\textbf{The central construction approximates the operator using a growing collection of neuron observables. It does not reconstruct the past from time derivatives.} My earlier explanations failed to make that distinction—and the actual retained state—clear.
+
+I’ll use \(\phi=\tanh\). The only additional names needed for the approximation are \(b^{(1)},b^{(2)}\), the two lists of retained observables, and \(M\), their interaction matrix.
+
+\section{1. The network we are approximating}
+
+Inputs \(x\in\mathbb R^2\) lie on the circle of radius \(\sqrt2\). The canonical network has two hidden layers of width \(n\):
+\[
+\begin{aligned}
+z^{(1)}(t,x)&=W^{(1)}(t)x/\sqrt2,
+&h^{(1)}(t,x)&=\phi(z^{(1)}(t,x)),\\
+z^{(2)}(t,x)&=W^{(2)}(t)h^{(1)}(t,x),
+&h^{(2)}(t,x)&=\phi(z^{(2)}(t,x)),\\
+f_n(t,x)&=\frac1n(W^{(3)}(t))^\top h^{(2)}(t,x).
+\end{aligned}
+\]
+
+The shapes are \(n\times2,\ n\times n,\ n\). Initialization is independent Gaussian with entry variances \(1,\ 1/n,\ 1/n^2\). All weights train, with mobilities \((n,1,n)\), on unhalved mean squared loss.
+
+In the established population limit:
+\begin{itemize}
+\item A first-population member carries a \textbf{two-component input-weight row}.
+\item A second-population member carries a \textbf{scalar readout weight}.
+\item \(W^{(2)}(t)\) becomes an \textbf{operator mapping first-population signals to second-population signals}.
+\end{itemize}
+
+Capitalized \(Z,H\) denote population preactivations and activations. Expectations \(\mathbb E_1,\mathbb E_2\) replace neuron averages.
+
+The obstacle is the middle operator. Keeping separate distributions of activations does not tell us how that operator couples them or how its adjoint sends signals backward.
+
+\section{2. H1: establish what information is sufficient}
+
+H1 considers increasingly rich \textbf{joint distributions of current observables}. These observables are built from the current weights and fields using bounded nonlinear functions, products, the current \(W^{(2)}(t)\), and its actual adjoint.
+
+For example, one joint observation could retain, on the same first-population member,
+\[
+\left(
+H^{(1)}(t,x),\
+H^{(1)}(t,x'),\
+\phi\!\left((W^{(2)}(t))^*H^{(2)}(t,x)\right)
+\right).
+\]
+
+Knowing this joint distribution gives correlations between these quantities. Knowing their separate distributions would not.
+
+H1 proves two things:
+\begin{itemize}
+\item Differentiating any fixed observation produces an expression involving finitely many more \textbf{current} observables.
+\item The complete hierarchy determines the observable future from an admitted reached state, under the specified training law.
+\end{itemize}
+
+The mathematical reason for sufficiency is that the complete collection captures both operator directions on all observable functions relevant to the dynamics. Those functions remain closed under subsequent evolution; an invisible complementary part cannot feed back into them.
+
+\textbf{But H1 does not close any finite level.} It identifies sufficient information and its exact evolution. Also, it records joint laws—not merely a sequence of power moments, whose determinacy would require another argument.\footnote{Established H1: \textit{Global nonlinear dynamics}, Section C.4.7.8, in \texttt{docs/global\_nonlinear.md}.}
+
+\section{3. H2: construct an actual closed approximation}
+
+H2 takes a different, computationally useful step: choose finite lists of \textbf{fixed observables of the initialization}, \(b^{(1)}\) and \(b^{(2)}\).
+
+These are functions across neuron-population members. They are not functions forming a time expansion, and they are not an expansion over input \(x\).
+
+After a regularized normalization, approximate the middle action by
+\[
+Z^{(2)}(t,x)
+=
+(b^{(2)})^\top M(t)\,
+\mathbb E_1[b^{(1)}H^{(1)}(t,x)].
+\]
+
+This has three explicit operations:
+\begin{enumerate}
+\item Average the current first-layer activation against each retained first-population observable.
+\item Multiply the resulting vector by \(M(t)\).
+\item Combine the resulting coefficients with each second-population member’s observable values.
+\end{enumerate}
+
+The first-layer rows and readout still evolve as population fields. \textbf{They are not forced to be linear combinations of the retained observables.}
+
+The saved state is therefore:
+\begin{itemize}
+\item The joint first-population distribution of fixed observables, initial input weights and current input weights.
+\item The joint second-population distribution of fixed observables and current readout.
+\item The finite matrix \(M(t)\), plus its fixed initialization.
+\end{itemize}
+
+\textbf{This is not merely a finite vector of moments: two population distributions remain.}
+
+\section{4. The closed dynamics}
+
+In the following equations, all activations and residuals are computed from the approximation’s own current state. Write \(r(x,y)=f(x)-y\), and let \(\mathbb E_{\mathrm{data}}\) average over training examples or their law.
+
+Forward evaluation uses
+\[
+\begin{aligned}
+Z^{(1)}(x)&=W^{(1)}\cdot x/\sqrt2,
+& H^{(1)}(x)&=\phi(Z^{(1)}(x)),\\
+Z^{(2)}(x)&=(b^{(2)})^\top M\,\mathbb E_1[b^{(1)}H^{(1)}(x)],
+& H^{(2)}(x)&=\phi(Z^{(2)}(x)),\\
+f(x)&=\mathbb E_2[W^{(3)}H^{(2)}(x)].
+\end{aligned}
+\]
+
+Using \(\delta^{(1)},\delta^{(2)}\) for the population backward fields,
+\[
+\begin{aligned}
+\delta^{(2)}(x)
+&=W^{(3)}\phi'(Z^{(2)}(x)),\\
+\delta^{(1)}(x)
+&=\phi'(Z^{(1)}(x))(b^{(1)})^\top M^\top
+       \mathbb E_2[b^{(2)}\delta^{(2)}(x)].
+\end{aligned}
+\]
+
+Then evolve
+\[
+\begin{aligned}
+\frac{dW^{(1)}}{dt}
+&=-2\mathbb E_{\mathrm{data}}
+   \left[r\,\delta^{(1)}(x)\frac{x}{\sqrt2}\right],\\[4pt]
+\frac{dW^{(3)}}{dt}
+&=-2\mathbb E_{\mathrm{data}}[r\,H^{(2)}(x)],\\[4pt]
+\frac{dM}{dt}
+&=-2\mathbb E_{\mathrm{data}}\!\left[
+r\,\mathbb E_2[b^{(2)}\delta^{(2)}(x)]
+\bigl(\mathbb E_1[b^{(1)}H^{(1)}(x)]\bigr)^\top
+\right].
+\end{aligned}
+\]
+
+The matrix update is the outer product of a backward-moment vector and a forward-moment vector. Every quantity comes from the saved current state.
+
+Thus the system is autonomous and both hidden representations can move. Restart requires the current joint populations and matrix, without training history.
+
+\section{5. What the simplest current approximation retains}
+
+The current H3 order-1 implementation uses the two axis inputs \((\sqrt2,0)\) and \((0,\sqrt2)\) as initialization probes.
+
+For each axis input \(x\), the first-population list includes
+\[
+H^{(1)}(0,x)
+\quad\text{and}\quad
+\phi\!\left((W^{(2)}(0))^*H^{(2)}(0,x)\right).
+\]
+
+Adding the constant gives \textbf{five observables}. The second-population list contains \(H^{(2)}(0,x)\) for those two inputs and the constant: \textbf{three observables}.
+
+Consequently, \(M(t)\) is \(3\times5\).
+
+For the first axis, \(H^{(1)}(0,(\sqrt2,0))\) is simply \(\phi\) applied to the first coordinate of the initial input-weight row. The backward observables are explicit transpose probes, not unexplained new variables.
+
+Higher orders add products and more complicated nested forward/backward initialization observables. \textbf{Higher powers of the same small initial list alone are not the full convergence construction.}
+
+\section{6. Why increasing the order converges: the core mathematical argument}
+
+There are two separate issues.
+
+\textbf{First: does the retained information eventually approximate the necessary signals?} H1 identifies the observable function spaces containing the actual evolution. H2 builds dictionaries whose spans become dense in those spaces. Increasing the order therefore captures each required signal increasingly well.
+
+Importantly, H2 does \textbf{not} require a finite matrix to approximate the entire Gaussian operator uniformly on every possible vector. It needs approximation on the forward and backward signals reached during the fixed training interval. Continuity makes those sets compact, allowing the approximation to hold uniformly over time and input.
+
+\textbf{Second: can small discarded contributions cause a large trajectory error?} H2 compares the closed approximation directly with the established population GF. Energy bounds control the evolving state, and backward-field tail estimates control error amplification. Together they show that the vanishing omitted contributions produce vanishing trajectory errors.
+
+\Needspace{6\baselineskip}
+This proves convergence of whole-circle predictions and the declared joint hidden observations on a fixed positive interval and fixed nonlinear family. It does not supply an effective order-to-error rate.\footnote{Established H2: \textit{Global nonlinear dynamics}, Section C.4.7.9, in \texttt{docs/global\_nonlinear.md}.}
+
+\section{7. What H3 adds, and where the route currently stops}
+
+H2’s equations still contain exact population integrals. H3 makes them executable:
+\begin{itemize}
+\item Compute the joint initialization using finite Gaussian integration.
+\item Represent the two populations by integration points carrying their associated fixed and moving values.
+\item Replace population/data integrals by weighted sums.
+\item Advance the closed equations with a numerical ODE method.
+\end{itemize}
+
+For each fixed closure order, H3 proves convergence as these numerical approximations are removed in the specified order. Closure-order convergence then identifies the final limit with the canonical GF.
+
+At order 1, four Gaussian coordinates generate the first-population initialization and two generate the second. These are integration dimensions, not the dimensions of a neuron-to-neuron interaction matrix. Higher orders can require more coordinates.
+
+The current H3 package has two passed scientific reviews and an independently reproduced implementation, according to its review record.\footnote{Conversation-time status source: \texttt{H3\_v2\_review\_acceptance\_v4.md}, in \texttt{studies/observable\_hierarchy/}. This PDF preserves the status stated in the explanation; it is not a live status report.} It covers a fixed short interval and an explicit correlated family including continuous input distributions. It does not establish affordable arbitrary accuracy. Final integration was still pending in the record I read.
+
+H4 remains the extension of this same convergent computation through substantial training.
+
+\textbf{Relative to your original idea:} the successful route retains your principle of finite current information, closed approximate evolution, and convergence under enrichment. It realizes that principle through \textbf{observable function spaces and an evolving operator-coefficient matrix}. It has not proved that temporal jets suffice, that the past can be reconstructed from them, or that Padé reconstruction provides the closure.
+\end{document}
