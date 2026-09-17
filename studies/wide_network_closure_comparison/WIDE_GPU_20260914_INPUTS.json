@@ -1,0 +1,1187 @@
+{
+  "format": "wide-gpu-20260914-inputs-v1",
+  "created_utc": "2026-09-14T11:02:47.708454+00:00",
+  "plan_sha256": "a6f94fad625e31e94cfdb98ea09a72b79786294292243698060ca8fe8b5ed7e1",
+  "producer_sha256": "d0cb0f294af04adfcc8080ef0c052551233cdc3865590cba69a668a6febabd54",
+  "cases": {
+    "axis": {
+      "original_run": "atom_n3",
+      "source_record": {
+        "path": "/home/amir/Codes/PDE/data/generated/observable_hierarchy/H4_author_edition_v1/data/established/H4_independent_runs_v1/atom_n3/record.json",
+        "sha256": "3c29cdae3904ea9645de085aef3040ac9533806e97f3a1513bddb9ae5503bb7f"
+      },
+      "source_observation": {
+        "path": "/home/amir/Codes/PDE/data/generated/observable_hierarchy/H4_author_edition_v1/data/established/H4_independent_runs_v1/atom_n3/observation_00.json",
+        "sha256": "e23d0538a7b19ab5b72d88aaaab71b2ba7844ad53bc52c35d3af8f2373c12e9b"
+      },
+      "law_metadata": {
+        "exact_law": {
+          "format": "h4-orthogonal-arcs-v1",
+          "radius": {
+            "kind": "dyadic",
+            "exponent": {
+              "op": "pow2",
+              "args": [
+                {
+                  "op": "pow2",
+                  "args": [
+                    {
+                      "op": "pow2",
+                      "args": [
+                        {
+                          "op": "pow2",
+                          "args": [
+                            {
+                              "op": "pow2",
+                              "args": [
+                                {
+                                  "op": "pow2",
+                                  "args": [
+                                    {
+                                      "op": "pow2",
+                                      "args": [
+                                        {
+                                          "op": "pow2",
+                                          "args": [
+                                            {
+                                              "op": "pow2",
+                                              "args": [
+                                                {
+                                                  "op": "pow2",
+                                                  "args": [
+                                                    {
+                                                      "op": "integer",
+                                                      "value": "0x2000"
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "endpoints": {
+            "a": {
+              "numerator": "0x0",
+              "denominator": "0x1"
+            },
+            "b": {
+              "numerator": "0x0",
+              "denominator": "0x1"
+            },
+            "c": {
+              "numerator": "0x1",
+              "denominator": "0x1"
+            },
+            "d": {
+              "numerator": "0x1",
+              "denominator": "0x1"
+            }
+          },
+          "mass_per_component": {
+            "numerator": "0x1",
+            "denominator": "0x2"
+          },
+          "labels": [
+            1,
+            -1
+          ],
+          "second_rotation": [
+            [
+              0,
+              -1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "scope_tag": "H4_explicit_supported_T40"
+        },
+        "quadrature_rule": "componentwise_uniform_midpoints-v1",
+        "nodes_per_arc": 1,
+        "returned_component_node_counts": [
+          1,
+          1
+        ],
+        "component_is_nonatomic": [
+          false,
+          false
+        ],
+        "collapsed_to_reference": true,
+        "collapse_reason": "radius below declared precision cutoff",
+        "radius_replaced_by_zero": true,
+        "exact_midpoint_rule_collapsed_by_rounding": false,
+        "all_working_inputs_are_reference": true,
+        "reference_coordinate_rounding_count": 0,
+        "collapse_binary_cutoff": 102,
+        "collapse_is_explicit_approximation": true,
+        "radius_used_in_coordinate_arithmetic": false,
+        "dyadic_denominator_materialized": false,
+        "exact_midpoint_transport_coefficient": {
+          "numerator": "0x0",
+          "denominator": "0x1"
+        },
+        "radius_replacement_transport_coefficient": {
+          "numerator": "0x1",
+          "denominator": "0x1"
+        },
+        "exact_rule_transport_bound": {
+          "kind": "coefficient_times_exact_radius",
+          "radius": {
+            "kind": "dyadic",
+            "exponent": {
+              "op": "pow2",
+              "args": [
+                {
+                  "op": "pow2",
+                  "args": [
+                    {
+                      "op": "pow2",
+                      "args": [
+                        {
+                          "op": "pow2",
+                          "args": [
+                            {
+                              "op": "pow2",
+                              "args": [
+                                {
+                                  "op": "pow2",
+                                  "args": [
+                                    {
+                                      "op": "pow2",
+                                      "args": [
+                                        {
+                                          "op": "pow2",
+                                          "args": [
+                                            {
+                                              "op": "pow2",
+                                              "args": [
+                                                {
+                                                  "op": "pow2",
+                                                  "args": [
+                                                    {
+                                                      "op": "integer",
+                                                      "value": "0x2000"
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "coefficient": {
+            "numerator": "0x1",
+            "denominator": "0x1"
+          }
+        },
+        "transport_metric": "Euclidean normalized direction plus absolute label difference",
+        "transport_bound_scope": "Exact rational midpoint/reference rule before scalar rounding; not flow error",
+        "maximum_coordinate_rounding_l1": {
+          "numerator": "0x0",
+          "denominator": "0x1"
+        },
+        "total_probability_rounding_l1": {
+          "numerator": "0x0",
+          "denominator": "0x1"
+        },
+        "rounded_rule_normalized_transport_addition": {
+          "numerator": "0x0",
+          "denominator": "0x1"
+        },
+        "rounded_transport_scope": "After normalizing returned weights only for probability-law interpretation; weights in the dynamics remain unchanged",
+        "scientific_scope": "H4_explicit_supported_T40",
+        "scope_authority": "caller-supplied provenance label; this module verifies no population theorem",
+        "arithmetic_backend": "float64",
+        "arithmetic_digits": null,
+        "exact_description_utf8_bytes": 676,
+        "estimated_exact_coordinate_working_bits": 0,
+        "estimated_precision_scalar_bits": 132,
+        "resource_limits": {
+          "max_expression_nodes": 1024,
+          "max_expression_depth": 64,
+          "max_literal_bits": 16384,
+          "max_exact_scalar_bits": 65536,
+          "max_rule_nodes": 100000
+        }
+      },
+      "scientific_scope": "Collapsed supported working law; positive radius unresolved."
+    },
+    "arcs": {
+      "original_run": "exploratory_arc_n3",
+      "source_record": {
+        "path": "/home/amir/Codes/PDE/data/generated/observable_hierarchy/H4_author_edition_v1/data/established/H4_independent_runs_v1/exploratory_arc_n3/record.json",
+        "sha256": "cc1aec59fa050af908e73881c6a36be3385d0906ccb86bbab8a2ac7bd18a3257"
+      },
+      "source_observation": {
+        "path": "/home/amir/Codes/PDE/data/generated/observable_hierarchy/H4_author_edition_v1/data/established/H4_independent_runs_v1/exploratory_arc_n3/observation_00.json",
+        "sha256": "8ac57954d1974f53a3b2c8fec1f6fb0b4262305bdcfb49ccd95429447fe0032b"
+      },
+      "law_metadata": {
+        "exact_law": {
+          "format": "h4-orthogonal-arcs-v1",
+          "radius": {
+            "kind": "rational",
+            "value": {
+              "numerator": "0x1",
+              "denominator": "0x14"
+            }
+          },
+          "endpoints": {
+            "a": {
+              "numerator": "-0x1",
+              "denominator": "0x1"
+            },
+            "b": {
+              "numerator": "0x1",
+              "denominator": "0x1"
+            },
+            "c": {
+              "numerator": "-0x1",
+              "denominator": "0x1"
+            },
+            "d": {
+              "numerator": "0x1",
+              "denominator": "0x1"
+            }
+          },
+          "mass_per_component": {
+            "numerator": "0x1",
+            "denominator": "0x2"
+          },
+          "labels": [
+            1,
+            -1
+          ],
+          "second_rotation": [
+            [
+              0,
+              -1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "scope_tag": "exploratory_rational_radius_no_T40_guarantee"
+        },
+        "quadrature_rule": "componentwise_uniform_midpoints-v1",
+        "nodes_per_arc": 8,
+        "returned_component_node_counts": [
+          8,
+          8
+        ],
+        "component_is_nonatomic": [
+          true,
+          true
+        ],
+        "collapsed_to_reference": false,
+        "collapse_reason": null,
+        "radius_replaced_by_zero": false,
+        "exact_midpoint_rule_collapsed_by_rounding": false,
+        "all_working_inputs_are_reference": false,
+        "reference_coordinate_rounding_count": 0,
+        "collapse_binary_cutoff": null,
+        "collapse_is_explicit_approximation": false,
+        "radius_used_in_coordinate_arithmetic": true,
+        "dyadic_denominator_materialized": null,
+        "exact_midpoint_transport_coefficient": {
+          "numerator": "0x1",
+          "denominator": "0x8"
+        },
+        "radius_replacement_transport_coefficient": {
+          "numerator": "0x0",
+          "denominator": "0x1"
+        },
+        "exact_rule_transport_bound": {
+          "kind": "coefficient_times_exact_radius",
+          "radius": {
+            "kind": "rational",
+            "value": {
+              "numerator": "0x1",
+              "denominator": "0x14"
+            }
+          },
+          "coefficient": {
+            "numerator": "0x1",
+            "denominator": "0x8"
+          }
+        },
+        "transport_metric": "Euclidean normalized direction plus absolute label difference",
+        "transport_bound_scope": "Exact rational midpoint/reference rule before scalar rounding; not flow error",
+        "maximum_coordinate_rounding_l1": {
+          "numerator": "0x14a4d",
+          "denominator": "0x643100000000000000"
+        },
+        "total_probability_rounding_l1": {
+          "numerator": "0x0",
+          "denominator": "0x1"
+        },
+        "rounded_rule_normalized_transport_addition": {
+          "numerator": "0x14a4d",
+          "denominator": "0x643100000000000000"
+        },
+        "rounded_transport_scope": "After normalizing returned weights only for probability-law interpretation; weights in the dynamics remain unchanged",
+        "scientific_scope": "exploratory_rational_radius_no_T40_guarantee",
+        "scope_authority": "caller-supplied provenance label; this module verifies no population theorem",
+        "arithmetic_backend": "float64",
+        "arithmetic_digits": null,
+        "exact_description_utf8_bytes": 473,
+        "estimated_exact_coordinate_working_bits": 224,
+        "estimated_precision_scalar_bits": 132,
+        "resource_limits": {
+          "max_expression_nodes": 1024,
+          "max_expression_depth": 64,
+          "max_literal_bits": 16384,
+          "max_exact_scalar_bits": 65536,
+          "max_rule_nodes": 100000
+        }
+      },
+      "scientific_scope": "Resolved radius-1/20 finite rule; exploratory at T=40."
+    }
+  },
+  "time_fractions": [
+    "0",
+    "1/200",
+    "1/100",
+    "1/50",
+    "1/20",
+    "1/10",
+    "1/5",
+    "2/5",
+    "3/5",
+    "4/5",
+    "1",
+    "6/5",
+    "7/5",
+    "8/5",
+    "9/5",
+    "2",
+    "11/5",
+    "12/5",
+    "13/5",
+    "14/5",
+    "3",
+    "16/5",
+    "17/5",
+    "18/5",
+    "19/5",
+    "4",
+    "21/5",
+    "22/5",
+    "23/5",
+    "24/5",
+    "5",
+    "26/5",
+    "27/5",
+    "28/5",
+    "29/5",
+    "6",
+    "31/5",
+    "32/5",
+    "33/5",
+    "34/5",
+    "7",
+    "36/5",
+    "37/5",
+    "38/5",
+    "39/5",
+    "8",
+    "41/5",
+    "42/5",
+    "43/5",
+    "44/5",
+    "9",
+    "46/5",
+    "47/5",
+    "48/5",
+    "49/5",
+    "10",
+    "51/5",
+    "52/5",
+    "53/5",
+    "54/5",
+    "11",
+    "56/5",
+    "57/5",
+    "58/5",
+    "59/5",
+    "12",
+    "61/5",
+    "62/5",
+    "63/5",
+    "64/5",
+    "13",
+    "66/5",
+    "67/5",
+    "68/5",
+    "69/5",
+    "14",
+    "71/5",
+    "72/5",
+    "73/5",
+    "74/5",
+    "15",
+    "76/5",
+    "77/5",
+    "78/5",
+    "79/5",
+    "16",
+    "81/5",
+    "82/5",
+    "83/5",
+    "84/5",
+    "17",
+    "86/5",
+    "87/5",
+    "88/5",
+    "89/5",
+    "18",
+    "91/5",
+    "92/5",
+    "93/5",
+    "94/5",
+    "19",
+    "96/5",
+    "97/5",
+    "98/5",
+    "99/5",
+    "20",
+    "101/5",
+    "102/5",
+    "103/5",
+    "104/5",
+    "21",
+    "106/5",
+    "107/5",
+    "108/5",
+    "109/5",
+    "22",
+    "111/5",
+    "112/5",
+    "113/5",
+    "114/5",
+    "23",
+    "116/5",
+    "117/5",
+    "118/5",
+    "119/5",
+    "24",
+    "121/5",
+    "122/5",
+    "123/5",
+    "124/5",
+    "25",
+    "126/5",
+    "127/5",
+    "128/5",
+    "129/5",
+    "26",
+    "131/5",
+    "132/5",
+    "133/5",
+    "134/5",
+    "27",
+    "136/5",
+    "137/5",
+    "138/5",
+    "139/5",
+    "28",
+    "141/5",
+    "142/5",
+    "143/5",
+    "144/5",
+    "29",
+    "146/5",
+    "147/5",
+    "148/5",
+    "149/5",
+    "30",
+    "151/5",
+    "152/5",
+    "153/5",
+    "154/5",
+    "31",
+    "156/5",
+    "157/5",
+    "158/5",
+    "159/5",
+    "32",
+    "161/5",
+    "162/5",
+    "163/5",
+    "164/5",
+    "33",
+    "166/5",
+    "167/5",
+    "168/5",
+    "169/5",
+    "34",
+    "171/5",
+    "172/5",
+    "173/5",
+    "174/5",
+    "35",
+    "176/5",
+    "177/5",
+    "178/5",
+    "179/5",
+    "36",
+    "181/5",
+    "182/5",
+    "183/5",
+    "184/5",
+    "37",
+    "186/5",
+    "187/5",
+    "188/5",
+    "189/5",
+    "38",
+    "191/5",
+    "192/5",
+    "193/5",
+    "194/5",
+    "39",
+    "196/5",
+    "197/5",
+    "198/5",
+    "199/5",
+    "40"
+  ],
+  "input_convention": "All inputs and circle contain normalized u=x/sqrt(2), rows are samples.",
+  "array_sha256": {
+    "times": "0016b8a6ffe2412f865b84fcd428d893c57106a3c96cee4a510afade74f4a776",
+    "axis_inputs": "503941015901d7c700937876cac9ef5018b00614ee20078866066b19da2acf40",
+    "axis_labels": "6cea4d2928db4a396ef2fdac950bdf49c42873e73a27eb756fa2295d4d185fbb",
+    "axis_probabilities": "2f12b52fe8044a5f6a8706795ea68023c6998a079897412e1b3f4c52185d1f79",
+    "circle": "642081bc61d800b0af1bd635337875d3bbb38a6c128aa9cdb2aba8c732a586b6",
+    "arcs_inputs": "fcfbb5ea48fa60a81781fc78bb73cec3a98ba3edbb84a868172cf1fab88c38a1",
+    "arcs_labels": "9d9aa0059664fde63a19ec12786d0a260abe6479e64a9bc5801ddf24f82e5ef8",
+    "arcs_probabilities": "18642fcb13e8e21e18f1712110b97eeb35a9dd6e10accbbc26e062ac71741039"
+  },
+  "exact_arrays": {
+    "times": {
+      "shape": [
+        206
+      ],
+      "values": [
+        "0x0.0p+0",
+        "0x1.47ae147ae147bp-8",
+        "0x1.47ae147ae147bp-7",
+        "0x1.47ae147ae147bp-6",
+        "0x1.999999999999ap-5",
+        "0x1.999999999999ap-4",
+        "0x1.999999999999ap-3",
+        "0x1.999999999999ap-2",
+        "0x1.3333333333333p-1",
+        "0x1.999999999999ap-1",
+        "0x1.0000000000000p+0",
+        "0x1.3333333333333p+0",
+        "0x1.6666666666666p+0",
+        "0x1.999999999999ap+0",
+        "0x1.ccccccccccccdp+0",
+        "0x1.0000000000000p+1",
+        "0x1.199999999999ap+1",
+        "0x1.3333333333333p+1",
+        "0x1.4cccccccccccdp+1",
+        "0x1.6666666666666p+1",
+        "0x1.8000000000000p+1",
+        "0x1.999999999999ap+1",
+        "0x1.b333333333333p+1",
+        "0x1.ccccccccccccdp+1",
+        "0x1.e666666666666p+1",
+        "0x1.0000000000000p+2",
+        "0x1.0cccccccccccdp+2",
+        "0x1.199999999999ap+2",
+        "0x1.2666666666666p+2",
+        "0x1.3333333333333p+2",
+        "0x1.4000000000000p+2",
+        "0x1.4cccccccccccdp+2",
+        "0x1.599999999999ap+2",
+        "0x1.6666666666666p+2",
+        "0x1.7333333333333p+2",
+        "0x1.8000000000000p+2",
+        "0x1.8cccccccccccdp+2",
+        "0x1.999999999999ap+2",
+        "0x1.a666666666666p+2",
+        "0x1.b333333333333p+2",
+        "0x1.c000000000000p+2",
+        "0x1.ccccccccccccdp+2",
+        "0x1.d99999999999ap+2",
+        "0x1.e666666666666p+2",
+        "0x1.f333333333333p+2",
+        "0x1.0000000000000p+3",
+        "0x1.0666666666666p+3",
+        "0x1.0cccccccccccdp+3",
+        "0x1.1333333333333p+3",
+        "0x1.199999999999ap+3",
+        "0x1.2000000000000p+3",
+        "0x1.2666666666666p+3",
+        "0x1.2cccccccccccdp+3",
+        "0x1.3333333333333p+3",
+        "0x1.399999999999ap+3",
+        "0x1.4000000000000p+3",
+        "0x1.4666666666666p+3",
+        "0x1.4cccccccccccdp+3",
+        "0x1.5333333333333p+3",
+        "0x1.599999999999ap+3",
+        "0x1.6000000000000p+3",
+        "0x1.6666666666666p+3",
+        "0x1.6cccccccccccdp+3",
+        "0x1.7333333333333p+3",
+        "0x1.799999999999ap+3",
+        "0x1.8000000000000p+3",
+        "0x1.8666666666666p+3",
+        "0x1.8cccccccccccdp+3",
+        "0x1.9333333333333p+3",
+        "0x1.999999999999ap+3",
+        "0x1.a000000000000p+3",
+        "0x1.a666666666666p+3",
+        "0x1.acccccccccccdp+3",
+        "0x1.b333333333333p+3",
+        "0x1.b99999999999ap+3",
+        "0x1.c000000000000p+3",
+        "0x1.c666666666666p+3",
+        "0x1.ccccccccccccdp+3",
+        "0x1.d333333333333p+3",
+        "0x1.d99999999999ap+3",
+        "0x1.e000000000000p+3",
+        "0x1.e666666666666p+3",
+        "0x1.ecccccccccccdp+3",
+        "0x1.f333333333333p+3",
+        "0x1.f99999999999ap+3",
+        "0x1.0000000000000p+4",
+        "0x1.0333333333333p+4",
+        "0x1.0666666666666p+4",
+        "0x1.099999999999ap+4",
+        "0x1.0cccccccccccdp+4",
+        "0x1.1000000000000p+4",
+        "0x1.1333333333333p+4",
+        "0x1.1666666666666p+4",
+        "0x1.199999999999ap+4",
+        "0x1.1cccccccccccdp+4",
+        "0x1.2000000000000p+4",
+        "0x1.2333333333333p+4",
+        "0x1.2666666666666p+4",
+        "0x1.299999999999ap+4",
+        "0x1.2cccccccccccdp+4",
+        "0x1.3000000000000p+4",
+        "0x1.3333333333333p+4",
+        "0x1.3666666666666p+4",
+        "0x1.399999999999ap+4",
+        "0x1.3cccccccccccdp+4",
+        "0x1.4000000000000p+4",
+        "0x1.4333333333333p+4",
+        "0x1.4666666666666p+4",
+        "0x1.499999999999ap+4",
+        "0x1.4cccccccccccdp+4",
+        "0x1.5000000000000p+4",
+        "0x1.5333333333333p+4",
+        "0x1.5666666666666p+4",
+        "0x1.599999999999ap+4",
+        "0x1.5cccccccccccdp+4",
+        "0x1.6000000000000p+4",
+        "0x1.6333333333333p+4",
+        "0x1.6666666666666p+4",
+        "0x1.699999999999ap+4",
+        "0x1.6cccccccccccdp+4",
+        "0x1.7000000000000p+4",
+        "0x1.7333333333333p+4",
+        "0x1.7666666666666p+4",
+        "0x1.799999999999ap+4",
+        "0x1.7cccccccccccdp+4",
+        "0x1.8000000000000p+4",
+        "0x1.8333333333333p+4",
+        "0x1.8666666666666p+4",
+        "0x1.899999999999ap+4",
+        "0x1.8cccccccccccdp+4",
+        "0x1.9000000000000p+4",
+        "0x1.9333333333333p+4",
+        "0x1.9666666666666p+4",
+        "0x1.999999999999ap+4",
+        "0x1.9cccccccccccdp+4",
+        "0x1.a000000000000p+4",
+        "0x1.a333333333333p+4",
+        "0x1.a666666666666p+4",
+        "0x1.a99999999999ap+4",
+        "0x1.acccccccccccdp+4",
+        "0x1.b000000000000p+4",
+        "0x1.b333333333333p+4",
+        "0x1.b666666666666p+4",
+        "0x1.b99999999999ap+4",
+        "0x1.bcccccccccccdp+4",
+        "0x1.c000000000000p+4",
+        "0x1.c333333333333p+4",
+        "0x1.c666666666666p+4",
+        "0x1.c99999999999ap+4",
+        "0x1.ccccccccccccdp+4",
+        "0x1.d000000000000p+4",
+        "0x1.d333333333333p+4",
+        "0x1.d666666666666p+4",
+        "0x1.d99999999999ap+4",
+        "0x1.dcccccccccccdp+4",
+        "0x1.e000000000000p+4",
+        "0x1.e333333333333p+4",
+        "0x1.e666666666666p+4",
+        "0x1.e99999999999ap+4",
+        "0x1.ecccccccccccdp+4",
+        "0x1.f000000000000p+4",
+        "0x1.f333333333333p+4",
+        "0x1.f666666666666p+4",
+        "0x1.f99999999999ap+4",
+        "0x1.fcccccccccccdp+4",
+        "0x1.0000000000000p+5",
+        "0x1.019999999999ap+5",
+        "0x1.0333333333333p+5",
+        "0x1.04ccccccccccdp+5",
+        "0x1.0666666666666p+5",
+        "0x1.0800000000000p+5",
+        "0x1.099999999999ap+5",
+        "0x1.0b33333333333p+5",
+        "0x1.0cccccccccccdp+5",
+        "0x1.0e66666666666p+5",
+        "0x1.1000000000000p+5",
+        "0x1.119999999999ap+5",
+        "0x1.1333333333333p+5",
+        "0x1.14ccccccccccdp+5",
+        "0x1.1666666666666p+5",
+        "0x1.1800000000000p+5",
+        "0x1.199999999999ap+5",
+        "0x1.1b33333333333p+5",
+        "0x1.1cccccccccccdp+5",
+        "0x1.1e66666666666p+5",
+        "0x1.2000000000000p+5",
+        "0x1.219999999999ap+5",
+        "0x1.2333333333333p+5",
+        "0x1.24ccccccccccdp+5",
+        "0x1.2666666666666p+5",
+        "0x1.2800000000000p+5",
+        "0x1.299999999999ap+5",
+        "0x1.2b33333333333p+5",
+        "0x1.2cccccccccccdp+5",
+        "0x1.2e66666666666p+5",
+        "0x1.3000000000000p+5",
+        "0x1.319999999999ap+5",
+        "0x1.3333333333333p+5",
+        "0x1.34ccccccccccdp+5",
+        "0x1.3666666666666p+5",
+        "0x1.3800000000000p+5",
+        "0x1.399999999999ap+5",
+        "0x1.3b33333333333p+5",
+        "0x1.3cccccccccccdp+5",
+        "0x1.3e66666666666p+5",
+        "0x1.4000000000000p+5"
+      ]
+    },
+    "axis_inputs": {
+      "shape": [
+        2,
+        2
+      ],
+      "values": [
+        "0x1.0000000000000p+0",
+        "0x0.0p+0",
+        "0x0.0p+0",
+        "0x1.0000000000000p+0"
+      ]
+    },
+    "axis_labels": {
+      "shape": [
+        2
+      ],
+      "values": [
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0"
+      ]
+    },
+    "axis_probabilities": {
+      "shape": [
+        2
+      ],
+      "values": [
+        "0x1.0000000000000p-1",
+        "0x1.0000000000000p-1"
+      ]
+    },
+    "circle": {
+      "shape": [
+        128,
+        2
+      ],
+      "values": [
+        "0x1.0000000000000p+0",
+        "0x0.0p+0",
+        "0x1.ff621e3796d7ep-1",
+        "0x1.91f65f10dd814p-5",
+        "0x1.fd88da3d12526p-1",
+        "0x1.917a6bc29b42cp-4",
+        "0x1.fa7557f08a517p-1",
+        "0x1.2c8106e8e613ap-3",
+        "0x1.f6297cff75cb0p-1",
+        "0x1.8f8b83c69a60ap-3",
+        "0x1.f0a7efb9230d7p-1",
+        "0x1.f19f97b215f1ap-3",
+        "0x1.e9f4156c62ddap-1",
+        "0x1.294062ed59f05p-2",
+        "0x1.e212104f686e5p-1",
+        "0x1.58f9a75ab1fddp-2",
+        "0x1.d906bcf328d46p-1",
+        "0x1.87de2a6aea963p-2",
+        "0x1.ced7af43cc773p-1",
+        "0x1.b5d1009e15cc0p-2",
+        "0x1.c38b2f180bdb1p-1",
+        "0x1.e2b5d3806f63bp-2",
+        "0x1.b728345196e3ep-1",
+        "0x1.073879922ffedp-1",
+        "0x1.a9b66290ea1a3p-1",
+        "0x1.1c73b39ae68c8p-1",
+        "0x1.9b3e047f38741p-1",
+        "0x1.30ff7fce17035p-1",
+        "0x1.8bc806b151741p-1",
+        "0x1.44cf325091dd6p-1",
+        "0x1.7b5df226aafafp-1",
+        "0x1.57d69348cec9fp-1",
+        "0x1.6a09e667f3bcdp-1",
+        "0x1.6a09e667f3bccp-1",
+        "0x1.57d69348cec9fp-1",
+        "0x1.7b5df226aafafp-1",
+        "0x1.44cf325091dd6p-1",
+        "0x1.8bc806b151741p-1",
+        "0x1.30ff7fce17036p-1",
+        "0x1.9b3e047f38740p-1",
+        "0x1.1c73b39ae68c9p-1",
+        "0x1.a9b66290ea1a3p-1",
+        "0x1.073879922ffedp-1",
+        "0x1.b728345196e3ep-1",
+        "0x1.e2b5d3806f63ep-2",
+        "0x1.c38b2f180bdb0p-1",
+        "0x1.b5d1009e15cc2p-2",
+        "0x1.ced7af43cc773p-1",
+        "0x1.87de2a6aea964p-2",
+        "0x1.d906bcf328d46p-1",
+        "0x1.58f9a75ab1fddp-2",
+        "0x1.e212104f686e5p-1",
+        "0x1.294062ed59f05p-2",
+        "0x1.e9f4156c62ddbp-1",
+        "0x1.f19f97b215f1ep-3",
+        "0x1.f0a7efb9230d7p-1",
+        "0x1.8f8b83c69a60dp-3",
+        "0x1.f6297cff75cb0p-1",
+        "0x1.2c8106e8e613ap-3",
+        "0x1.fa7557f08a517p-1",
+        "0x1.917a6bc29b438p-4",
+        "0x1.fd88da3d12525p-1",
+        "0x1.91f65f10dd824p-5",
+        "0x1.ff621e3796d7ep-1",
+        "0x1.1a62633145c07p-54",
+        "0x1.0000000000000p+0",
+        "-0x1.91f65f10dd813p-5",
+        "0x1.ff621e3796d7ep-1",
+        "-0x1.917a6bc29b42fp-4",
+        "0x1.fd88da3d12526p-1",
+        "-0x1.2c8106e8e6136p-3",
+        "0x1.fa7557f08a517p-1",
+        "-0x1.8f8b83c69a608p-3",
+        "0x1.f6297cff75cb0p-1",
+        "-0x1.f19f97b215f1ap-3",
+        "0x1.f0a7efb9230d7p-1",
+        "-0x1.294062ed59f02p-2",
+        "0x1.e9f4156c62ddbp-1",
+        "-0x1.58f9a75ab1fdbp-2",
+        "0x1.e212104f686e5p-1",
+        "-0x1.87de2a6aea962p-2",
+        "0x1.d906bcf328d46p-1",
+        "-0x1.b5d1009e15cbcp-2",
+        "0x1.ced7af43cc774p-1",
+        "-0x1.e2b5d3806f63cp-2",
+        "0x1.c38b2f180bdb1p-1",
+        "-0x1.073879922ffedp-1",
+        "0x1.b728345196e3ep-1",
+        "-0x1.1c73b39ae68c6p-1",
+        "0x1.a9b66290ea1a5p-1",
+        "-0x1.30ff7fce17035p-1",
+        "0x1.9b3e047f38741p-1",
+        "-0x1.44cf325091dd5p-1",
+        "0x1.8bc806b151742p-1",
+        "-0x1.57d69348ceca0p-1",
+        "0x1.7b5df226aafaep-1",
+        "-0x1.6a09e667f3bccp-1",
+        "0x1.6a09e667f3bcdp-1",
+        "-0x1.7b5df226aafadp-1",
+        "0x1.57d69348ceca1p-1",
+        "-0x1.8bc806b151741p-1",
+        "0x1.44cf325091dd6p-1",
+        "-0x1.9b3e047f38740p-1",
+        "0x1.30ff7fce17036p-1",
+        "-0x1.a9b66290ea1a4p-1",
+        "0x1.1c73b39ae68c8p-1",
+        "-0x1.b728345196e3dp-1",
+        "0x1.073879922ffeep-1",
+        "-0x1.c38b2f180bdb0p-1",
+        "0x1.e2b5d3806f63fp-2",
+        "-0x1.ced7af43cc773p-1",
+        "0x1.b5d1009e15cbfp-2",
+        "-0x1.d906bcf328d46p-1",
+        "0x1.87de2a6aea965p-2",
+        "-0x1.e212104f686e4p-1",
+        "0x1.58f9a75ab1fe2p-2",
+        "-0x1.e9f4156c62ddap-1",
+        "0x1.294062ed59f06p-2",
+        "-0x1.f0a7efb9230d7p-1",
+        "0x1.f19f97b215f21p-3",
+        "-0x1.f6297cff75cb0p-1",
+        "0x1.8f8b83c69a617p-3",
+        "-0x1.fa7557f08a517p-1",
+        "0x1.2c8106e8e613cp-3",
+        "-0x1.fd88da3d12525p-1",
+        "0x1.917a6bc29b43cp-4",
+        "-0x1.ff621e3796d7ep-1",
+        "0x1.91f65f10dd80dp-5",
+        "-0x1.0000000000000p+0",
+        "0x1.1a62633145c07p-53",
+        "-0x1.ff621e3796d7ep-1",
+        "-0x1.91f65f10dd7eap-5",
+        "-0x1.fd88da3d12526p-1",
+        "-0x1.917a6bc29b42bp-4",
+        "-0x1.fa7557f08a517p-1",
+        "-0x1.2c8106e8e6134p-3",
+        "-0x1.f6297cff75cb0p-1",
+        "-0x1.8f8b83c69a60ep-3",
+        "-0x1.f0a7efb9230d7p-1",
+        "-0x1.f19f97b215f18p-3",
+        "-0x1.e9f4156c62ddbp-1",
+        "-0x1.294062ed59f01p-2",
+        "-0x1.e212104f686e5p-1",
+        "-0x1.58f9a75ab1fdep-2",
+        "-0x1.d906bcf328d47p-1",
+        "-0x1.87de2a6aea961p-2",
+        "-0x1.ced7af43cc774p-1",
+        "-0x1.b5d1009e15cbbp-2",
+        "-0x1.c38b2f180bdb1p-1",
+        "-0x1.e2b5d3806f63bp-2",
+        "-0x1.b728345196e3ep-1",
+        "-0x1.073879922ffecp-1",
+        "-0x1.a9b66290ea1a5p-1",
+        "-0x1.1c73b39ae68c6p-1",
+        "-0x1.9b3e047f38741p-1",
+        "-0x1.30ff7fce17034p-1",
+        "-0x1.8bc806b151742p-1",
+        "-0x1.44cf325091dd4p-1",
+        "-0x1.7b5df226aafafp-1",
+        "-0x1.57d69348ceca0p-1",
+        "-0x1.6a09e667f3bcep-1",
+        "-0x1.6a09e667f3bccp-1",
+        "-0x1.57d69348ceca2p-1",
+        "-0x1.7b5df226aafadp-1",
+        "-0x1.44cf325091ddap-1",
+        "-0x1.8bc806b15173ep-1",
+        "-0x1.30ff7fce17033p-1",
+        "-0x1.9b3e047f38742p-1",
+        "-0x1.1c73b39ae68c8p-1",
+        "-0x1.a9b66290ea1a3p-1",
+        "-0x1.073879922ffeep-1",
+        "-0x1.b728345196e3dp-1",
+        "-0x1.e2b5d3806f63fp-2",
+        "-0x1.c38b2f180bdb0p-1",
+        "-0x1.b5d1009e15cc7p-2",
+        "-0x1.ced7af43cc771p-1",
+        "-0x1.87de2a6aea96dp-2",
+        "-0x1.d906bcf328d44p-1",
+        "-0x1.58f9a75ab1fdbp-2",
+        "-0x1.e212104f686e5p-1",
+        "-0x1.294062ed59f07p-2",
+        "-0x1.e9f4156c62ddap-1",
+        "-0x1.f19f97b215f23p-3",
+        "-0x1.f0a7efb9230d7p-1",
+        "-0x1.8f8b83c69a619p-3",
+        "-0x1.f6297cff75cafp-1",
+        "-0x1.2c8106e8e614ep-3",
+        "-0x1.fa7557f08a516p-1",
+        "-0x1.917a6bc29b421p-4",
+        "-0x1.fd88da3d12526p-1",
+        "-0x1.91f65f10dd816p-5",
+        "-0x1.ff621e3796d7ep-1",
+        "-0x1.a79394c9e8a0ap-53",
+        "-0x1.0000000000000p+0",
+        "0x1.91f65f10dd7e1p-5",
+        "-0x1.ff621e3796d7ep-1",
+        "0x1.917a6bc29b407p-4",
+        "-0x1.fd88da3d12526p-1",
+        "0x1.2c8106e8e6141p-3",
+        "-0x1.fa7557f08a516p-1",
+        "0x1.8f8b83c69a60cp-3",
+        "-0x1.f6297cff75cb0p-1",
+        "0x1.f19f97b215f16p-3",
+        "-0x1.f0a7efb9230d7p-1",
+        "0x1.294062ed59f00p-2",
+        "-0x1.e9f4156c62ddbp-1",
+        "0x1.58f9a75ab1fd5p-2",
+        "-0x1.e212104f686e6p-1",
+        "0x1.87de2a6aea967p-2",
+        "-0x1.d906bcf328d45p-1",
+        "0x1.b5d1009e15cc1p-2",
+        "-0x1.ced7af43cc773p-1",
+        "0x1.e2b5d3806f63ap-2",
+        "-0x1.c38b2f180bdb1p-1",
+        "0x1.073879922ffecp-1",
+        "-0x1.b728345196e3fp-1",
+        "0x1.1c73b39ae68c5p-1",
+        "-0x1.a9b66290ea1a5p-1",
+        "0x1.30ff7fce17031p-1",
+        "-0x1.9b3e047f38744p-1",
+        "0x1.44cf325091dd7p-1",
+        "-0x1.8bc806b151740p-1",
+        "0x1.57d69348cec9fp-1",
+        "-0x1.7b5df226aafafp-1",
+        "0x1.6a09e667f3bcbp-1",
+        "-0x1.6a09e667f3bcep-1",
+        "0x1.7b5df226aafadp-1",
+        "-0x1.57d69348ceca2p-1",
+        "0x1.8bc806b15173ep-1",
+        "-0x1.44cf325091ddap-1",
+        "0x1.9b3e047f38742p-1",
+        "-0x1.30ff7fce17034p-1",
+        "0x1.a9b66290ea1a3p-1",
+        "-0x1.1c73b39ae68c8p-1",
+        "0x1.b728345196e3dp-1",
+        "-0x1.073879922ffefp-1",
+        "0x1.c38b2f180bdafp-1",
+        "-0x1.e2b5d3806f640p-2",
+        "0x1.ced7af43cc771p-1",
+        "-0x1.b5d1009e15cc8p-2",
+        "0x1.d906bcf328d44p-1",
+        "-0x1.87de2a6aea96ep-2",
+        "0x1.e212104f686e5p-1",
+        "-0x1.58f9a75ab1fdcp-2",
+        "0x1.e9f4156c62ddap-1",
+        "-0x1.294062ed59f08p-2",
+        "0x1.f0a7efb9230d7p-1",
+        "-0x1.f19f97b215f25p-3",
+        "0x1.f6297cff75cafp-1",
+        "-0x1.8f8b83c69a61bp-3",
+        "0x1.fa7557f08a516p-1",
+        "-0x1.2c8106e8e6151p-3",
+        "0x1.fd88da3d12526p-1",
+        "-0x1.917a6bc29b425p-4",
+        "0x1.ff621e3796d7ep-1",
+        "-0x1.91f65f10dd81fp-5"
+      ]
+    },
+    "arcs_inputs": {
+      "shape": [
+        16,
+        2
+      ],
+      "values": [
+        "0x1.fe0b32d52c069p-1",
+        "-0x1.65b71e9769025p-4",
+        "0x1.ff003ff003ff0p-1",
+        "-0x1.ff801ff801ff8p-5",
+        "0x1.ffa3df54dc33ep-1",
+        "-0x1.33178fcca875fp-5",
+        "0x1.fff5c2a992c8cp-1",
+        "-0x1.99958110a11d2p-7",
+        "0x1.fff5c2a992c8cp-1",
+        "0x1.99958110a11d2p-7",
+        "0x1.ffa3df54dc33ep-1",
+        "0x1.33178fcca875fp-5",
+        "0x1.ff003ff003ff0p-1",
+        "0x1.ff801ff801ff8p-5",
+        "0x1.fe0b32d52c069p-1",
+        "0x1.65b71e9769025p-4",
+        "0x1.65b71e9769025p-4",
+        "0x1.fe0b32d52c069p-1",
+        "0x1.ff801ff801ff8p-5",
+        "0x1.ff003ff003ff0p-1",
+        "0x1.33178fcca875fp-5",
+        "0x1.ffa3df54dc33ep-1",
+        "0x1.99958110a11d2p-7",
+        "0x1.fff5c2a992c8cp-1",
+        "-0x1.99958110a11d2p-7",
+        "0x1.fff5c2a992c8cp-1",
+        "-0x1.33178fcca875fp-5",
+        "0x1.ffa3df54dc33ep-1",
+        "-0x1.ff801ff801ff8p-5",
+        "0x1.ff003ff003ff0p-1",
+        "-0x1.65b71e9769025p-4",
+        "0x1.fe0b32d52c069p-1"
+      ]
+    },
+    "arcs_labels": {
+      "shape": [
+        16
+      ],
+      "values": [
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0"
+      ]
+    },
+    "arcs_probabilities": {
+      "shape": [
+        16
+      ],
+      "values": [
+        "0x1.0000000000000p-4",
+        "0x1.0000000000000p-4",
+        "0x1.0000000000000p-4",
+        "0x1.0000000000000p-4",
+        "0x1.0000000000000p-4",
+        "0x1.0000000000000p-4",
+        "0x1.0000000000000p-4",
+        "0x1.0000000000000p-4",
+        "0x1.0000000000000p-4",
+        "0x1.0000000000000p-4",
+        "0x1.0000000000000p-4",
+        "0x1.0000000000000p-4",
+        "0x1.0000000000000p-4",
+        "0x1.0000000000000p-4",
+        "0x1.0000000000000p-4",
+        "0x1.0000000000000p-4"
+      ]
+    }
+  },
+  "npz_sha256": "7833fae1371391987845315f76904900c7f1d3c01e6cc27ace709a270651104d"
+}
