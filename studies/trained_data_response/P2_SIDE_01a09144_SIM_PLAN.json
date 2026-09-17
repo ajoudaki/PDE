@@ -1,0 +1,95 @@
+{
+  "task": "Side conversation 01a09144-dece-7bb2-a33d-bf568e98c926; lightweight exploratory simulation",
+  "authorization": "User explicitly requested: can you run a tiny simulation to see if you get anything? This authorizes only this bounded experiment, superseding earlier no-training restriction for this side task.",
+  "ownership": "Only P2_SIDE_01a09144_SIM_* files and data/generated/trained_data_response/p2_side_01a09144_tiny_01/. No main records, frozen inputs, maintained files, Git state or agents are touched.",
+  "decision_question": "Does this one finite reference network show visible hidden activation displacement at physical t=40, compared with the tiny proven early-time lower bound?",
+  "model": {
+    "hidden_layers": 2,
+    "width": 128,
+    "activation": "tanh",
+    "bias": false,
+    "normalized_inputs": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "labels": [
+      1.0,
+      -1.0
+    ],
+    "probabilities": [
+      0.5,
+      0.5
+    ],
+    "stored_variances": [
+      "1",
+      "1/n",
+      "1/n^2"
+    ],
+    "mobilities": [
+      "n",
+      "1",
+      "n"
+    ],
+    "loss": "unhalved exact two-atom mean squared loss",
+    "horizon": 40.0,
+    "initial_readout": "actual independent finite Gaussian, not zero"
+  },
+  "seed": 20260911,
+  "primary_metric": "sqrt(mean_{neuron,training atom} (h_l(t)-h_l(0))^2), l=1,2, with original neuron pairing",
+  "secondary_metrics": [
+    "training loss",
+    "training predictions",
+    "displacement/initial activation RMS",
+    "raw weight displacements Frobenius/sqrt(n), Frobenius, Euclidean/sqrt(n)",
+    "raw dissipation integral"
+  ],
+  "comparison": "Same network at t=0 is the matched displacement baseline. No causal or frozen-feature superiority claim is tested.",
+  "diagnostic_thresholds": {
+    "visible_both_layers": "both final activation RMS displacements >=0.05 on tanh output scale",
+    "tiny_both_layers": "both <=0.005",
+    "otherwise": "mixed/intermediate; report values without a broad conclusion"
+  },
+  "solver": {
+    "method": "DOP853",
+    "primary_rtol": 1e-07,
+    "primary_atol": 1e-10,
+    "refinement_rtol": 1e-09,
+    "refinement_atol": 1e-12,
+    "max_step": 0.5,
+    "precision": "float64",
+    "threads": 1
+  },
+  "validity": {
+    "RHS_loss_complex_step_relative_error_max": 1e-08,
+    "normalized_energy_balance_error_max": 1e-06,
+    "sampled_loss_increase_max": 1e-08,
+    "refinement_max_abs_metric_difference": 1e-05,
+    "all_states_finite": true
+  },
+  "budget": {
+    "initializations": 1,
+    "widths": 1,
+    "trajectories": 2,
+    "reason_second": "same initialization tighter solver tolerance, not replication or a width sweep",
+    "wall_seconds": 180,
+    "memory_MiB": 768,
+    "branch_rule": "No further runs; invalid checks make result inconclusive."
+  },
+  "claim_scope": "Exploratory finite width, one seed. No population limit, probability estimate, generic law claim, theorem correction or necessity/superiority of feature learning is inferred.",
+  "source_hashes": {
+    "AGENTS.md": "7778b7073a02de3e94f8ae9aefe940ebc9eddea7467816662e5cce1020cd98ba",
+    "RESEARCH_WORKFLOW.md": "8b36d7dfc1ad881fcb6bfe32274a5e50c5125b33d68dbcf7c3937f7f6c21ce12",
+    "docs/README.md": "88757537ae600ebf79cf265288d6ca3034254caba236b4dcb055a21dd568c721",
+    "docs/NOTATION.md": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "docs/finite_dynamics.md": "a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca5545bc0012a",
+    "docs/global_nonlinear.md": "3f32122dea7915e25e4abc7abe9d74017d535badfa5abbe1939e84fe2b100bdf"
+  },
+  "head_at_plan": "0f78a673fab74e6dc9d9e34bc25e282e3c25a8b0",
+  "run": "data/generated/trained_data_response/p2_side_01a09144_tiny_01"
+}
