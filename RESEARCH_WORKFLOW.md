@@ -3,7 +3,8 @@
 This shared guide applies to PDE and PDE-2 in the same checkout. Root `AGENTS.md`
 is the automatic entry point. Read Part 1 for research; read Part 2 as well when
 proposing promotion. A read-only question needs only its relevant sources.
-Studies remain flat: one folder per research direction, with no task-count limit.
+Studies remain flat: one folder per investigation. Reuse across tasks follows
+the study-selection rule in AGENTS.md.
 A task may coordinate several studies through separate research contexts;
 several tasks may share one. Study boundaries also apply to read-only research.
 
@@ -12,10 +13,10 @@ several tasks may share one. Study boundaries also apply to read-only research.
 ### Start and keep one useful record
 
 Check current HEAD, index and status before edits; preserve concurrent work.
-Use the assigned study, or identify its folder from names/ownership metadata;
-do not browse other studies to recover a research state. Reuse the appropriate
-folder rather than creating one for every task or lemma. Do not move old studies
-or rewrite their history.
+Select the study under AGENTS.md's default-new rule, using current-task
+context and names/ownership metadata. Do not browse other studies to choose
+a study or recover research state. Do not move old studies or rewrite
+their history.
 Keep each study's research source, proofs, configurations, tests and review reports
 in `studies/<name>/`; generated arrays, figures, logs, caches and scratch belong
 in its own `data/generated/<name>/<run>/`. Agree on file ownership when tasks share

@@ -3,6 +3,21 @@
 PDE and PDE-2 use this same `/home/amir/Codes/PDE` checkout and Git index.
 Do not clone, move or copy it, create parallel worktrees, or reset others' work.
 
+For lead-author research, default to a new study. Reuse an existing study
+only when the user explicitly directs the current work to that study, or
+when the current task created it and the request clearly continues the
+same investigation.
+
+A materially different research question or direction requires a new study,
+even within the task that created the earlier study, unless the user
+explicitly directs otherwise. Related topics, shared data or conversation
+continuity alone do not justify reuse. Routine implementation, corrections
+and validation of the same investigation count as continuation; when
+continuation is unclear, default to a new study.
+
+Read-only tasks, scoped subagents and isolated reviewers retain their
+existing scope rules.
+
 Before acting, select the appropriate reading scope:
 
 - **Research:** read Part 1 of `RESEARCH_WORKFLOW.md` and your study's README.
