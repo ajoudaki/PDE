@@ -1,0 +1,348 @@
+<div id="circle-closure-explorer">
+  <style>
+    #circle-closure-explorer { position: relative; width: 100%; }
+    #circle-closure-explorer .ce-block { margin-bottom: 16px; }
+    #circle-closure-explorer .ce-heading { margin-bottom: 4px; }
+    #circle-closure-explorer .ce-status { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 12px 0; }
+    #circle-closure-explorer .ce-status-item { display: grid; gap: 2px; }
+    #circle-closure-explorer .ce-legend { display: flex; flex-wrap: wrap; gap: 10px 20px; margin: 12px 0; }
+    #circle-closure-explorer .ce-series { display: inline-flex; gap: 8px; align-items: center; border: 0; background: transparent; color: var(--foreground); padding: 4px 0; cursor: pointer; font: inherit; }
+    #circle-closure-explorer .ce-series[aria-pressed="false"] { opacity: .45; }
+    #circle-closure-explorer .ce-swatch { display: inline-block; width: 26px; border-top: 3px solid; }
+    #circle-closure-explorer .ce-symbols { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-bottom: 12px; }
+    #circle-closure-explorer .ce-plot { width: 100%; }
+    #circle-closure-explorer .ce-chart { display: block; width: 100%; overflow: visible; }
+    #circle-closure-explorer .ce-chart text { fill: var(--foreground); font-size: 12px; font-weight: 400; }
+    #circle-closure-explorer .ce-chart .domain, #circle-closure-explorer .ce-chart .tick line { stroke: var(--border); }
+    #circle-closure-explorer .ce-tooltip { position: absolute; pointer-events: none; z-index: 5; background: var(--popover); color: var(--popover-foreground); padding: 10px 12px; border: 1px solid var(--border); }
+    #circle-closure-explorer .ce-tooltip-row { display: flex; justify-content: space-between; gap: 20px; }
+    #circle-closure-explorer .ce-foot { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; }
+    #circle-closure-explorer [hidden] { display: none !important; }
+    @media (pointer: coarse) { #circle-closure-explorer .ce-series { min-height: 44px; } }
+  </style>
+  <h3 class="ce-heading">Learned shapes around the circle</h3>
+  <div data-role="subtitle" class="text-small text-muted ce-block">Loading saved experiments…</div>
+  <div class="viz-controls ce-block">
+    <label class="form-label">Experiment
+      <select data-role="experiment" class="form-select" aria-label="Experiment"></select>
+    </label>
+    <label class="form-label">View
+      <select data-role="view" class="form-select" aria-label="View">
+        <option value="radial">Radial output</option>
+        <option value="angle">Output versus angle</option>
+      </select>
+    </label>
+  </div>
+  <div class="viz-controls ce-block" data-role="network-controls" hidden>
+    <label class="form-label">Network width
+      <select data-role="width" class="form-select" aria-label="Network width"><option value="4096">4,096 neurons per layer</option><option value="1024">1,024 neurons per layer</option></select>
+    </label>
+    <label class="form-label">Network realization
+      <select data-role="seed" class="form-select" aria-label="Network realization"><option value="mean">Mean of three seeds</option><option value="1729">Seed 1729</option><option value="2718">Seed 2718</option><option value="3141">Seed 3141</option></select>
+    </label>
+  </div>
+  <div class="viz-row ce-block">
+    <label class="form-label">Align by
+      <select data-role="alignment" class="form-select" aria-label="Align by">
+        <option value="settled">Recorded endpoints</option><option value="time">Physical time</option><option value="loss">Training loss</option>
+      </select>
+    </label>
+    <button type="button" class="btn" data-role="play" disabled>Play</button>
+  </div>
+  <div data-role="slider-wrap" hidden>
+    <label class="form-label" for="circle-closure-progress"><span data-role="slider-label" class="tabular-nums">Physical time</span></label>
+    <input id="circle-closure-progress" data-role="progress" class="form-range" type="range" min="0" max="1000" step="1" value="1000">
+  </div>
+  <div data-role="status" class="ce-status tabular-nums text-small"></div>
+  <div data-role="legend" class="ce-legend" aria-label="Visible models"></div>
+  <div class="ce-symbols text-small text-muted"><span>◯ Training inputs at zero output</span><span>● Positive labels · ◆ Negative labels</span><span>Dashed ring: zero output</span></div>
+  <div data-role="plot" class="ce-plot"></div>
+  <div class="ce-foot text-small text-muted"><span data-role="scale-note"></span><span data-role="sampling-note"></span></div>
+  <div data-role="case-note" class="text-small text-muted"></div>
+  <div data-role="announce" class="sr-only" aria-live="polite"></div>
+  <div data-role="error" role="alert" hidden></div>
+  <div data-role="tooltip" class="tooltip ce-tooltip text-small tabular-nums" role="tooltip" hidden></div>
+  <script type="application/octet-stream" data-role="payload">__COMPRESSED_VIEWER_DATA__</script>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script>
+(async function () {
+  const root = document.getElementById('circle-closure-explorer');
+  const el = role => root.querySelector('[data-role="' + role + '"]');
+  try {
+    if (typeof d3 === 'undefined') throw new Error('The chart library could not load. Please reopen this visualization.');
+    const bytes = Uint8Array.from(atob(el('payload').textContent.trim()), c => c.charCodeAt(0));
+    const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+    const data = JSON.parse(await new Response(stream).text());
+    const TAU = 2 * Math.PI;
+    const color = { network: 'var(--foreground)', N1: 'var(--viz-series-1)', N2: 'var(--viz-series-4)', N3: 'var(--viz-series-2)', N5: 'var(--viz-series-3)', ntk: 'var(--viz-series-5)' };
+    const dash = { network: '', N1: '', N2: '3 4', N3: '9 2', N5: '3 1', ntk: '6 4' };
+    const visible = { network: true, N1: true, N2: false, N3: true, N5: true, ntk: false };
+    let current, models = [], states = [], bound = 2, radius = 2, horizon = 100, lossHigh = 1, lossLow = 1e-6;
+    let playing = false, raf = 0, lastTick = 0, hoverAngle = null, pinned = false, chartInfo;
+    let lastWidth = 0;
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    const fmt = x => !Number.isFinite(x) ? '∞' : Math.abs(x) < 0.0001 && x !== 0 ? x.toExponential(2) : Number(x.toPrecision(4)).toString();
+    const scalar = x => Number(x).toLocaleString(undefined, { maximumFractionDigits: 1 });
+    const mix = (a, b, t) => a.map((v, i) => v + t * (b[i] - v));
+    const mse = (p, labels, weights) => p.reduce((s, v, i) => s + weights[i] * (v - labels[i]) ** 2, 0);
+    const lossArrays = m => ({ p: m.lossTrainPredictions || m.trainPredictions, y: m.lossLabels || current.labels, w: m.lossWeights || current.weights });
+    const atAngle = (curve, degrees) => {
+      const z = ((degrees % 360 + 360) % 360) * curve.length / 360;
+      const i = Math.floor(z), a = z - i;
+      return curve[i] * (1 - a) + curve[(i + 1) % curve.length] * a;
+    };
+    function ntkAt(t, endpoint = false) {
+      const n = current.ntk;
+      const coeff = n.lambda.map(v => endpoint ? 1 : -Math.expm1(-2 * v * t));
+      const apply = rows => rows.map(row => row.reduce((s, v, j) => s + v * coeff[j], 0));
+      const curve = endpoint ? n.endpoint : apply(n.basis);
+      const train = apply(n.trainBasis);
+      return { curve, time: endpoint ? Infinity : t, loss: mse(train, current.labels, current.weights), interpolated: false };
+    }
+    function sample(m, t) {
+      const ts = m.times;
+      let i = Math.max(0, Math.min(ts.length - 2, d3.bisectRight(ts, t) - 1));
+      const a = Math.max(0, Math.min(1, (t - ts[i]) / (ts[i + 1] - ts[i])));
+      const l = lossArrays(m);
+      return { curve: mix(m.curves[i], m.curves[i + 1], a), time: t, loss: mse(mix(l.p[i], l.p[i + 1], a), l.y, l.w), interpolated: a > 1e-9 && a < 1 - 1e-9 };
+    }
+    function matched(m, target) {
+      if (m.key === 'ntk') {
+        let hi = 1;
+        for (let k = 0; k < 80 && ntkAt(hi).loss > target; k++) hi *= 2;
+        let lo = 0;
+        for (let k = 0; k < 60; k++) { const mid = (lo + hi) / 2; if (ntkAt(mid).loss > target) lo = mid; else hi = mid; }
+        return ntkAt((lo + hi) / 2);
+      }
+      const l = lossArrays(m);
+      for (let i = 0; i < m.times.length - 1; i++) {
+        const start = mse(l.p[i], l.y, l.w), finish = mse(l.p[i + 1], l.y, l.w);
+        if (Math.abs(start - target) <= 1e-13 * Math.max(1, target)) return sample(m, m.times[i]);
+        if (start >= target && finish <= target) {
+          let lo = 0, hi = 1;
+          for (let k = 0; k < 50; k++) { const a = (lo + hi) / 2; if (mse(mix(l.p[i], l.p[i + 1], a), l.y, l.w) > target) lo = a; else hi = a; }
+          return sample(m, m.times[i] + (lo + hi) / 2 * (m.times[i + 1] - m.times[i]));
+        }
+      }
+      throw new Error('The selected training loss is outside the recorded range.');
+    }
+    function stop() { playing = false; cancelAnimationFrame(raf); el('play').textContent = 'Play'; }
+    function configure() {
+      stop(); pinned = false; hoverAngle = null;
+      models = [];
+      const network = current.models.find(m => m.width === Number(el('width').value) && (el('seed').value === 'mean' ? m.kind === 'network-mean' : m.kind === 'network' && m.seed === Number(el('seed').value)));
+      if (network) models.push({ ...network, key: 'network', name: 'Network' });
+      current.models.filter(m => m.kind === 'closure').sort((a,b) => a.order - b.order).forEach(m => models.push({ ...m, key: 'N' + m.order, name: 'N = ' + m.order }));
+      models.push({ key: 'ntk', name: 'Frozen NTK', kind: 'ntk' });
+      if (!models.some(m => visible[m.key])) visible.N1 = true;
+      el('network-controls').hidden = !network;
+      el('subtitle').textContent = current.anglesDegrees.length + ' training inputs · ' + (network ? 'network width ' + scalar(network.width) + ' · ' + (network.kind === 'network-mean' ? 'three-seed mean' : 'seed ' + network.seed) : 'closure experiments; no network run');
+      const note = current.id === 'triple_d40' ? 'N = 1 and N = 5 comparisons here remain provisional: quadrature controls exceed the preset tolerance.' : '';
+      el('case-note').textContent = note;
+      const legend = el('legend'); legend.replaceChildren();
+      models.forEach(m => {
+        const button = document.createElement('button'); button.type = 'button'; button.className = 'ce-series'; button.dataset.model = m.key;
+        button.setAttribute('aria-pressed', String(visible[m.key]));
+        const swatch = document.createElement('span'); swatch.className = 'ce-swatch'; swatch.style.borderColor = color[m.key]; swatch.style.borderTopStyle = dash[m.key] ? 'dashed' : 'solid'; swatch.setAttribute('aria-hidden','true');
+        button.append(swatch, document.createTextNode(m.name));
+        if (m.key === 'ntk') button.setAttribute('data-tooltip', 'Frozen initial tangent kernel. Endpoint view shows its fully fitted limit; time view shows its finite-time output.');
+        if (m.key === 'N2') button.setAttribute('data-tooltip', 'Available for the unit-amplitude two-point sweep.');
+        button.addEventListener('click', () => {
+          if (visible[m.key] && models.filter(x => visible[x.key]).length === 1) return;
+          visible[m.key] = !visible[m.key]; button.setAttribute('aria-pressed', String(visible[m.key]));
+          stop(); setDomain(); render();
+        });
+        legend.append(button);
+      });
+      setDomain(); render();
+    }
+    function setDomain() {
+      const active = models.filter(m => visible[m.key]);
+      let extent = Math.max(...current.labels.map(Math.abs), current.amplitude);
+      for (const m of active) {
+        if (m.key === 'ntk') {
+          for (const row of current.ntk.basis) extent = Math.max(extent, row.reduce((s,v) => s + Math.abs(v), 0));
+        } else {
+          for (const curve of [...m.curves, m.finalCurve]) for (const value of curve) extent = Math.max(extent, Math.abs(value));
+        }
+      }
+      bound = extent * 1.08; radius = Math.max(2 * current.amplitude, 1.05 * bound);
+      const recorded = active.filter(m => m.key !== 'ntk');
+      const allRecorded = models.filter(m => m.key !== 'ntk');
+      horizon = Math.min(...(recorded.length ? recorded : allRecorded).map(m => m.times.at(-1)));
+      const starts = active.map(m => m.key === 'ntk' ? ntkAt(0).loss : sample(m, m.times[0]).loss);
+      const ends = active.map(m => m.key === 'ntk' ? 0 : sample(m, m.times.at(-1)).loss);
+      lossHigh = Math.min(...starts) * (1 - 1e-10);
+      lossLow = Math.max(current.amplitude ** 2 * 1e-6, ...ends.map(x => x * 1.01));
+      if (!(lossHigh > lossLow)) throw new Error('No shared loss range is available for these curves.');
+    }
+    function render() {
+      const mode = el('alignment').value, u = Number(el('progress').value) / 1000;
+      el('slider-wrap').hidden = mode === 'settled'; el('play').disabled = mode === 'settled';
+      const time = u * horizon, target = Math.exp(Math.log(lossHigh) + u * Math.log(lossLow / lossHigh));
+      el('slider-label').textContent = mode === 'time' ? 'Physical time · ' + scalar(time) : 'Training MSE · ' + fmt(target);
+      el('progress').setAttribute('aria-valuetext', el('slider-label').textContent);
+      states = models.filter(m => visible[m.key]).map(m => {
+        let state;
+        if (mode === 'settled') state = m.key === 'ntk' ? ntkAt(0, true) : { curve: m.finalCurve, time: m.finalTime, loss: m.finalLoss, interpolated: false };
+        else if (mode === 'loss') state = matched(m, target);
+        else state = m.key === 'ntk' ? ntkAt(time) : sample(m, time);
+        return { ...state, key: m.key, name: m.name, kind: m.kind, settled: m.settled };
+      });
+      const networkState = states.find(s => s.key === 'network');
+      const networkModel = models.find(m => m.key === 'network');
+      states.forEach(s => {
+        if (!networkState || s.key === 'network') return;
+        const model = models.find(m => m.key === s.key);
+        const exact = (s.key === 'ntk' ? current.ntk : model).endpointNetworkErrors?.[networkModel.id];
+        if (mode === 'settled' && Number.isFinite(exact)) s.networkError = exact;
+        else {
+          const reference = networkState.curve;
+          const energy = reference.reduce((sum, v) => sum + v * v, 0);
+          s.networkError = energy > 1e-20 ? Math.sqrt(reference.reduce((sum, v, i) => sum + (atAngle(s.curve, 360 * i / reference.length) - v) ** 2, 0) / energy) : null;
+        }
+      });
+      const status = el('status'); status.replaceChildren();
+      states.forEach(s => {
+        const item = document.createElement('div'); item.className = 'ce-status-item'; item.dataset.state = s.key; item.dataset.loss = s.loss; item.dataset.time = s.time;
+        const title = document.createElement('span'); title.textContent = s.name + ' · ' + (s.time === Infinity ? 'fitted limit' : 't = ' + scalar(s.time));
+        const detail = document.createElement('span'); detail.className = 'text-muted'; detail.textContent = 'MSE ' + fmt(s.loss);
+        item.append(title, detail);
+        if (s.key !== 'network' && networkState) {
+          const difference = document.createElement('span');
+          difference.textContent = 'Circle error ' + (s.networkError == null ? '—' : fmt(100 * s.networkError) + '%');
+          difference.setAttribute('data-tooltip', 'RMS difference from the selected actual network over the full circle, divided by its RMS output. Lower means a closer approximation. Endpoint values use the dense saved curves; playback uses displayed interpolations.');
+          item.dataset.networkError = s.networkError;
+          item.append(difference);
+        }
+        status.append(item);
+      });
+      el('sampling-note').textContent = mode === 'settled' ? (states.some(s => s.key !== 'ntk' && !s.settled) ? 'Recorded endpoints · some runs have not met the settling check' : 'Recorded endpoints · all displayed runs passed mild settling') + (visible.ntk ? ' · NTK fitted limit' : '') : states.some(s => s.interpolated) ? 'Interpolated between saved times (10-unit spacing)' : 'Saved times · NTK evaluated analytically';
+      el('sampling-note').setAttribute('data-tooltip', 'Playback interpolates saved output and training-prediction arrays. Matched loss is computed from those interpolated predictions, averaging per-seed MSE for the network mean. Sub-10-unit dynamics were not saved.');
+      el('scale-note').textContent = el('view').value === 'radial' ? 'Reference outputs −' + fmt(current.amplitude) + ', 0, +' + fmt(current.amplitude) + ' · zero-output radius ' + fmt(radius) : 'Output scale fixed during playback';
+      draw();
+    }
+    function draw() {
+      const container = el('plot'), w = Math.max(280, container.getBoundingClientRect().width);
+      const radial = el('view').value === 'radial', h = radial ? Math.min(670, w + 12) : Math.max(300, Math.min(440, w * .65));
+      const svg = d3.select(container).selectAll('svg').data([0]).join('svg').attr('class','ce-chart').attr('viewBox',`0 0 ${w} ${h}`).attr('width',w).attr('height',h).attr('role','img').attr('aria-label', current.label + ', ' + (radial ? 'radial output' : 'output versus angle'));
+      svg.selectAll('*').remove();
+      svg.append('title').text(current.label + ' — ' + el('alignment').selectedOptions[0].textContent);
+      svg.append('desc').text('Compare ' + states.map(s => s.name).join(', ') + '. Training inputs are hollow circles; positive labels are filled circles and negative labels are diamonds. Hover or tap for model values at any angle.');
+      svg.append('rect').attr('data-chart-frame','').attr('x',.5).attr('y',.5).attr('width',w-1).attr('height',h-1).attr('fill','none').attr('stroke','var(--border)');
+      let point, guide, plotBox;
+      const addText = (x,y,text,anchor='middle') => svg.append('text').attr('x',x).attr('y',y).attr('text-anchor',anchor).text(text);
+      if (radial) {
+        const cx = w / 2, cy = h / 2, outer = Math.min(w,h) / 2 - 56;
+        const rscale = d3.scaleLinear().domain([0, radius + bound]).range([0, outer]);
+        point = (angle,value) => { const a = angle * Math.PI / 180, r = rscale(radius + value); return [cx + r * Math.cos(a), cy - r * Math.sin(a)]; };
+        const directions = w < 450 ? [0,90,180,270] : [0,45,90,135,180,225,270,315];
+        directions.forEach(a => {
+          const p = point(a, bound);
+          svg.append('line').attr('x1',cx).attr('y1',cy).attr('x2',p[0]).attr('y2',p[1]).attr('stroke','var(--border)');
+          const t = a * Math.PI / 180;
+          addText(cx + (outer + 21) * Math.cos(t), cy - (outer + 21) * Math.sin(t) + 4, a + '°', a === 0 ? 'start' : a === 180 ? 'end' : 'middle');
+        });
+        [-current.amplitude, 0, current.amplitude].forEach(v => svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',rscale(radius+v)).attr('fill','none').attr('stroke',v===0?'var(--muted-foreground)':'var(--border)').attr('stroke-dasharray',v===0?'5 5':null));
+        guide = deg => { const p = point(deg,bound); return [[cx,cy],p]; };
+        plotBox = { x: 1, y: 1, width: w-2, height: h-2 };
+        chartInfo = { radial, cx, cy, w, h, point, guide, svg };
+      } else {
+        const margin = { left: 66, right: 18, top: 22, bottom: 56 };
+        const x = d3.scaleLinear().domain([0,360]).range([margin.left,w-margin.right]);
+        const y = d3.scaleLinear().domain([-bound,bound]).range([h-margin.bottom,margin.top]);
+        svg.append('g').attr('transform',`translate(0,${h-margin.bottom})`).call(d3.axisBottom(x).tickValues(w<450?[0,120,240,360]:[0,60,120,180,240,300,360]).tickFormat(d=>d+'°')).call(g=>g.selectAll('text').attr('text-anchor',d=>d===0?'start':d===360?'end':'middle'));
+        svg.append('g').attr('transform',`translate(${margin.left},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(d3.format('.3~g')));
+        svg.append('line').attr('x1',x(0)).attr('x2',x(360)).attr('y1',y(0)).attr('y2',y(0)).attr('stroke','var(--muted-foreground)').attr('stroke-dasharray','5 5');
+        addText((margin.left+w-margin.right)/2,h-12,'Input angle (degrees)').attr('class','axis-title').attr('data-axis','x');
+        addText(16,(margin.top+h-margin.bottom)/2,'Output f').attr('transform',`rotate(-90,16,${(margin.top+h-margin.bottom)/2})`).attr('class','axis-title').attr('data-axis','y');
+        point = (angle,value) => [x(angle),y(value)];
+        guide = deg => [[x(deg),margin.top],[x(deg),h-margin.bottom]];
+        plotBox = { x: margin.left, y: margin.top, width: w-margin.left-margin.right, height: h-margin.top-margin.bottom };
+        chartInfo = { radial, x, w, h, point, guide, svg };
+      }
+      const line = d3.line();
+      states.forEach(s => {
+        const coords = s.curve.map((v,i) => point(360*i/s.curve.length,v)); coords.push(point(radial ? 0 : 360,s.curve[0]));
+        svg.append('path').attr('data-curve',s.key).attr('d',line(coords)).attr('fill','none').attr('stroke',color[s.key]).attr('stroke-width',s.key==='network'?2.9:2.3).attr('stroke-dasharray',dash[s.key]).attr('stroke-linejoin','round');
+      });
+      current.anglesDegrees.forEach((angle,i) => {
+        const a = (angle % 360 + 360) % 360, input = point(a,0), target = point(a,current.labels[i]);
+        svg.append('line').attr('x1',input[0]).attr('y1',input[1]).attr('x2',target[0]).attr('y2',target[1]).attr('stroke','var(--muted-foreground)').attr('stroke-dasharray','2 4');
+        svg.append('circle').attr('cx',input[0]).attr('cy',input[1]).attr('r',4.1).attr('fill','var(--background)').attr('stroke','var(--foreground)').attr('stroke-width',1.3);
+        svg.append('path').attr('transform',`translate(${target[0]},${target[1]})`).attr('d',d3.symbol().type(current.labels[i]>=0?d3.symbolCircle:d3.symbolDiamond).size(48)()).attr('fill','var(--foreground)');
+      });
+      svg.append('g').attr('data-hover-layer','').attr('pointer-events','none');
+      svg.append('rect').attr('data-chart-hit','').attr('data-chart-hover-overlay','cross-series').attr('x',plotBox.x).attr('y',plotBox.y).attr('width',plotBox.width).attr('height',plotBox.height).attr('fill','transparent')
+        .on('pointermove', function(event) { if (pinned || event.pointerType==='touch') return; setHover(event); })
+        .on('pointerleave', function() { if (!pinned) { hoverAngle=null; showHover(); } })
+        .on('click', function(event) { if (pinned) { pinned=false; hoverAngle=null; showHover(); } else { setHover(event); pinned=true; } });
+      showHover();
+    }
+    function setHover(event) {
+      const p = d3.pointer(event, chartInfo.svg.node());
+      hoverAngle = chartInfo.radial ? (Math.atan2(chartInfo.cy-p[1],p[0]-chartInfo.cx)*180/Math.PI+360)%360 : Math.max(0,Math.min(360,chartInfo.x.invert(p[0])));
+      showHover();
+    }
+    function showHover() {
+      const tip = el('tooltip');
+      if (!chartInfo) return;
+      const g = chartInfo.svg.select('[data-hover-layer]'); g.selectAll('*').remove();
+      tip.hidden = hoverAngle === null;
+      if (hoverAngle === null) return;
+      const guide = chartInfo.guide(hoverAngle);
+      g.append('path').attr('data-chart-hover-guide','').attr('d',d3.line()(guide)).attr('fill','none').attr('stroke','var(--muted-foreground)').attr('stroke-width',1);
+      tip.replaceChildren();
+      const heading = document.createElement('div'); heading.textContent = 'Angle ' + scalar(hoverAngle) + '°'; tip.append(heading);
+      states.forEach(s => {
+        const v = atAngle(s.curve,hoverAngle), p = chartInfo.point(hoverAngle,v);
+        g.append('circle').attr('data-chart-hover-marker',s.key).attr('cx',p[0]).attr('cy',p[1]).attr('r',3.5).attr('fill','var(--background)').attr('stroke',color[s.key]).attr('stroke-width',2);
+        const row = document.createElement('div'); row.className='ce-tooltip-row';
+        const label = document.createElement('span'); label.textContent=s.name;
+        const value = document.createElement('span'); value.textContent=fmt(v); row.append(label,value); tip.append(row);
+      });
+      const nearest = current.anglesDegrees.map((a,i)=>({i,d:Math.abs(((a-hoverAngle+540)%360)-180)})).sort((a,b)=>a.d-b.d)[0];
+      if(nearest.d < 3) { const label=document.createElement('div'); label.textContent='Training label '+fmt(current.labels[nearest.i])+' at '+scalar((current.anglesDegrees[nearest.i]+360)%360)+'°'; tip.append(label); }
+      const rootBox=root.getBoundingClientRect(), plotBox=el('plot').getBoundingClientRect();
+      tip.style.left=Math.max(4,Math.min(rootBox.width-tip.offsetWidth-4,8))+'px'; tip.style.top=(plotBox.top-rootBox.top+8)+'px';
+    }
+    const groups = new Map();
+    data.cases.forEach(c => {
+      const groupLabel = c.anglesDegrees.length + ' training points';
+      if(!groups.has(groupLabel)) { const group=document.createElement('optgroup'); group.label=groupLabel; el('experiment').append(group); groups.set(groupLabel,group); }
+      const option=document.createElement('option'); option.value=c.id; option.textContent=c.label; groups.get(groupLabel).append(option);
+    });
+    el('experiment').value=data.defaultCase || 'quad_d15';
+    function changeCase() { current=data.cases.find(c=>c.id===el('experiment').value); configure(); el('announce').textContent=current.label; }
+    el('experiment').addEventListener('change',changeCase);
+    el('width').addEventListener('change',configure); el('seed').addEventListener('change',configure);
+    el('view').addEventListener('change',()=>{ pinned=false; hoverAngle=null; render(); });
+    el('alignment').addEventListener('change',()=>{ stop(); pinned=false; hoverAngle=null; render(); });
+    el('progress').addEventListener('input',()=>{ stop(); render(); });
+    el('play').addEventListener('click',()=>{
+      if(playing) { stop(); return; }
+      if(Number(el('progress').value)>=1000) el('progress').value=0;
+      playing=true; el('play').textContent='Pause'; lastTick=0;
+      function tick(now) {
+        if(!playing) return;
+        if(!lastTick) lastTick=now;
+        const elapsed=now-lastTick;
+        if(elapsed>=(reducedMotion.matches?800:60)) {
+          el('progress').value=Math.min(1000,Number(el('progress').value)+Math.max(1,Math.round(elapsed/16)));
+          lastTick=now; render();
+        }
+        if(Number(el('progress').value)>=1000) stop(); else raf=requestAnimationFrame(tick);
+      }
+      render(); raf=requestAnimationFrame(tick);
+    });
+    const observer=new ResizeObserver(entries=>{ const width=entries[0].contentRect.width; if(Math.abs(width-lastWidth)>.5) { lastWidth=width; if(current) draw(); } }); observer.observe(el('plot'));
+    document.addEventListener('visibilitychange',()=>{ if(document.hidden) stop(); });
+    changeCase();
+    root.dataset.ready='true'; root.dataset.experimentCount=data.cases.length;
+    // Read-only hooks for numerical and interaction checks of the displayed states.
+    root.__viewerCheck=()=>({ caseId:current.id, mode:el('alignment').value, networkId:networkModelId(), radius,bound,horizon,lossHigh,lossLow,states:states.map(s=>({key:s.key,time:s.time,loss:s.loss,curve:s.curve,interpolated:s.interpolated,networkError:s.networkError})) });
+    function networkModelId() { return models.find(m => m.key === 'network')?.id || null; }
+  } catch(error) { el('error').hidden=false; el('error').textContent=error.message; el('subtitle').textContent='The saved comparison could not load.'; console.error(error); }
+})();
+</script>
