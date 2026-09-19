@@ -133,12 +133,12 @@ unresolved implication. Complete candidates require fresh isolated reviews.
 Maintained book/code files remain unchanged without the separate promotion
 gate and explicit user approval.
 
-## Revised-contract candidate and complete audits
+## Revised contract resolved: exact scope and complete audits
 
 The assembled result is [REVISED_RESULT.md](REVISED_RESULT.md). Complete new
 arguments are in [ONSET_EXTENSION.md](ONSET_EXTENSION.md),
 [COMMUTATOR_RESPONSE.md](COMMUTATOR_RESPONSE.md), and
-[BOUNDED_EXTENSION.md](BOUNDED_EXTENSION.md). They claim:
+[BOUNDED_EXTENSION.md](BOUNDED_EXTENSION.md). The reviewed conclusions are:
 
 - Full A, every Borel circle/bounded-label training law, on a common positive
   activation-dependent onset interval; the full C-H3 represented family is
@@ -149,8 +149,17 @@ arguments are in [ONSET_EXTENSION.md](ONSET_EXTENSION.md),
 - Bounded C2 with bounded second derivative, additionally supported Borel
   and nonatomic near-orthogonal input families through that horizon.
 
-These are author candidates pending two complete isolated audits, not accepted
-results. The neutral assignment is [EXTENSION_R1_ASSIGNMENT.md](EXTENSION_R1_ASSIGNMENT.md);
+Both complete isolated internal audits accepted this exact scope without
+required corrections: [review A](EXTENSION_REVIEW_R1_A.md) and
+[review B](EXTENSION_REVIEW_R1_B.md). The supervisor personally read both full
+reports and verified every input hash, before/after check, evidence hash,
+test record and exact correspondence with the live proofs and dependencies.
+The complete decision and reproducibility record is
+[EXTENSION_REVIEW_RESOLUTION.md](EXTENSION_REVIEW_RESOLUTION.md).
+The frozen manuscripts retain their pre-audit candidate headers byte-for-byte;
+this README and that record state the subsequent review outcome.
+
+The neutral assignment is [EXTENSION_R1_ASSIGNMENT.md](EXTENSION_R1_ASSIGNMENT.md);
 the complete frozen input manifest is [EXTENSION_R1_INPUTS.json](EXTENSION_R1_INPUTS.json).
 The packet contains thirty files and 16,155 lines. The supervisor verified
 all hashes, exact live correspondence and complete excerpt boundaries before
@@ -159,20 +168,30 @@ launching both reviewers. Scoped author checks are retained separately in
 [TANGENT_PARITY_CHECK.md](TANGENT_PARITY_CHECK.md); reviewers do not receive
 these checks or prior verdicts.
 
-The implementation and its numerical consistency argument are now in
+The reviewed implementation and its numerical consistency argument are in
 [NUMERICAL_EXTENSION.md](NUMERICAL_EXTENSION.md), with source
 [activation_closure.py](activation_closure.py). All eight preregistered
 supplied-state checks passed; the plan, exact commands and evidence are
 linked there. No training experiment ran. This implementation alone supplies
 neither a target-existence theorem nor fitting-neighborhood tails; those are
-separate obligations of the new mathematical manuscripts.
-New proof candidates require their own complete reviews; the earlier review
-verdicts below do not cover the extension by association.
+separate conclusions of the new mathematical manuscripts. Each fresh reviewer
+independently reproduced the same eight checks from the frozen implementation.
+The earlier reviews below were not used to accept the extension by association.
+
+The revised primary contract is complete. General unbounded-activation fitting
+and bounded-C1,1 nonatomic fitting remain open, separately from the proved
+bounded-C1,1 pair and bounded-C2 supported-law results. The changed-law theorem
+is through a fixed finite substantial-training horizon; only the orthogonal
+reference is global in time. No hierarchy-order rate or practical accuracy
+certificate is supplied. Established book/code promotion remains on standby,
+and no maintained file has been edited. Do not reopen the excluded extensions
+without a new user direction.
 
 ## Earlier partial result and exact gap (before the revised contract)
 
-The full requested C-X2 package is **not resolved**. The current author
-candidate is [PARTIAL_RESULT.md](PARTIAL_RESULT.md), with complete new
+The original full-class substantial-training package was **not resolved** at
+this earlier checkpoint. Its reviewed partial result is
+[PARTIAL_RESULT.md](PARTIAL_RESULT.md), with complete
 arguments in [REFERENCE_PROOF.md](REFERENCE_PROOF.md),
 [CLOSURE_PROOF.md](CLOSURE_PROOF.md), and
 [SOURCE_PROOF.md](SOURCE_PROOF.md).
@@ -215,18 +234,15 @@ The supplied-state validation [check_identities.py](check_identities.py)
 passed both tests (each across four activation choices), checking exact
 symmetry and the radial feature-ascent metric identities against the finite
 reference API and independent directional differences. No training experiment
-was run. A general-activation executable closure solver has not been built;
-the numerical consistency theorem specifies the necessary activation
+was run. At this checkpoint a general-activation executable closure solver
+had not been built; the numerical consistency theorem specified the necessary activation
 evaluation interface rather than claiming an implementation for arbitrary
 noncomputable functions.
 
-Remaining substantive requirements are unbounded reference continuation,
-uniform reached-tail construction, transfer to a positive correlated-input
-neighborhood through fitting, and the general-activation implementation.
-Neither a conditional theorem nor a documented deferral completes C-X2.
-The review corrections and preservation of the proved partials are complete;
-the full research contract remains unresolved. Further progress requires a
-mathematically new route to the identified continuation/source estimate, or
-an explicitly agreed change of the target. Repeating the failed ambient
-Lipschitz, energy-only or uncontrolled reinsertion inferences is not a new
-route. No established promotion is authorized by the current research request.
+The outstanding obligations then were unbounded reference continuation,
+uniform reached tails, a positive correlated-input fitting neighborhood and
+the executable implementation. The later revised-contract result above supplies
+the bounded-activation fitting neighborhood and general executable hierarchy;
+it does not settle unbounded substantial training. The failed ambient
+Lipschitz, energy-only and uncontrolled reinsertion inferences remain invalid.
+No established promotion is authorized by the current research request.
