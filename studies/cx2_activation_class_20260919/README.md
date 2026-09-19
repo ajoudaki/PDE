@@ -119,7 +119,10 @@ arguments in [REFERENCE_PROOF.md](REFERENCE_PROOF.md),
 Two complete isolated internal scientific reviews of the frozen partial
 package supported its principal conclusions with two narrow corrections.
 Those corrections are applied; two fresh complete reviews of the corrected
-packet are in progress. Assignments, manifests, full reports, objections
+packet both accept the exact partial and conditional results, with no
+required corrections. The supervisor read both complete reports, verified
+all input and evidence hashes, and checked exact live-file correspondence.
+Assignments, manifests, full reports, objections
 and verified evidence are indexed in [REVIEW_RESOLUTION.md](REVIEW_RESOLUTION.md).
 The additional prompt-only route is outside the frozen review scope and
 must not acquire these verdicts by association. The first scoped commit is
@@ -138,7 +141,9 @@ Remaining substantive requirements are unbounded reference continuation,
 uniform reached-tail construction, transfer to a positive correlated-input
 neighborhood through fitting, and the general-activation implementation.
 Neither a conditional theorem nor a documented deferral completes C-X2.
-The next authorized work is to resolve review objections and preserve the
-proved partials, then pursue the explicitly identified source estimate only
-if a mathematically new route is available. No established promotion is
-authorized by the current research request.
+The review corrections and preservation of the proved partials are complete;
+the full research contract remains unresolved. Further progress requires a
+mathematically new route to the identified continuation/source estimate, or
+an explicitly agreed change of the target. Repeating the failed ambient
+Lipschitz, energy-only or uncontrolled reinsertion inferences is not a new
+route. No established promotion is authorized by the current research request.

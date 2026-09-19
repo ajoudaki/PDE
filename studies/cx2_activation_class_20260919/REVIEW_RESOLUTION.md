@@ -59,7 +59,40 @@ current maintained sources. Machine-readable evidence is
 
 Two new isolated reviewers received only their neutral assignments and
 the complete second packet. These reviews inspect the whole result rather
-than only the corrections. Completion and evidence verification are pending.
+than only the corrections. Both completed all 5,643 input lines, repaired
+truncated reads, reproduced the supplied identity tests, and accepted the
+expressly partial and conditional conclusions without required corrections:
+
+- `INTERNAL_REVIEW_R2_A.md`, reviewer `cx2_partial_review_r2_a`;
+- `INTERNAL_REVIEW_R2_B.md`, reviewer `cx2_partial_review_r2_b`.
+
+The supervisor personally read both full reports and verified their hashes,
+all thirteen input hashes, reported coverage, retained before/after checks,
+test logs, and exact correspondence with the current author files and
+maintained dependencies. The R2-A initial check was originally displayed
+in the reviewer's tool output. At the supervisor's request, the reviewer
+preserved that original command/output with its tool-response identifier;
+it was not recomputed and relabeled as an earlier check. No original wall
+timestamp was supplied, and none is invented.
+
+R2-A additionally checked every raw gradient, mobility-weighted velocity
+and kernel block by independent finite differences on twelve supplied-state
+activation/geometry combinations. Its source is preserved byte-for-byte as
+`review_r2_a_checks.py`; outputs remain in the generated namespace.
+These checks and the single guide API update are not training experiments.
+
+The final manifest SHA256 is
+`e157377112c43577948b3a90c8966ff929ebc5c8154d29fc98416898a5e7bf37`.
+Final report SHA256 values are:
+
+- R2-A: `1a681f4d5e52bd0734a36460d11eb6e7b08e976b7a84f258eda5365dc9942599`;
+- R2-B: `6fe6b7cc22b3ffc5a58a09d80feab78aa7e5497e0b8b66b13f73927d4de27c8a`.
+
+Machine-readable supervisor verification is retained as
+`data/generated/cx2_activation_class_20260919/supervisor_r2_verification.json`.
+The source corrections and R1 records were committed in
+`5d88ee2f34c82da750b97c76507a07cffea3f5d9` before these final reports.
+No reviewed scientific input changed during or after the R2 audits.
 
 ## What no review can supply
 
