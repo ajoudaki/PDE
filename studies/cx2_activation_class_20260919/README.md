@@ -133,7 +133,24 @@ unresolved implication. Complete candidates require fresh isolated reviews.
 Maintained book/code files remain unchanged without the separate promotion
 gate and explicit user approval.
 
-## Current result and exact gap
+## Revised-contract work in progress
+
+Three fresh, scoped routes are assembling the all-law onset extension,
+the bounded near-orthogonal training extension, and the executable general-
+activation closure. Their scientific inputs are the preceding C-X2 proofs
+and explicitly assigned maintained dependencies. A fourth fresh route checks
+the control-commutator response argument after the numerical route finishes.
+
+The implementation and its numerical consistency argument are now in
+[NUMERICAL_EXTENSION.md](NUMERICAL_EXTENSION.md), with source
+[activation_closure.py](activation_closure.py). All eight preregistered
+supplied-state checks passed; the plan, exact commands and evidence are
+linked there. No training experiment ran. This implementation alone supplies
+neither a target-existence theorem nor the missing fitting-neighborhood tails.
+New proof candidates require their own complete reviews; the earlier review
+verdicts below do not cover the extension by association.
+
+## Earlier partial result and exact gap (before the revised contract)
 
 The full requested C-X2 package is **not resolved**. The current author
 candidate is [PARTIAL_RESULT.md](PARTIAL_RESULT.md), with complete new
