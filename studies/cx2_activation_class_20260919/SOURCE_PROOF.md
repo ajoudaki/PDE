@@ -185,8 +185,10 @@ graph. It does not assert uniformity in graph length.
 
 ## 3. A deterministic lower pulse bound
 
-Suppose every previously constructed full backward row has absolute sum at
-most \(B\). Define the known constants
+Suppose every previously constructed backward **source-response** row
+satisfies \(\sum_q|\beta_{i,q}|\le B\). This cap is on \(\beta\),
+not on \(D\), which additionally contains the learned Gram term.
+Define the known constants
 
 \[
  D_*=B+VS^2T,\qquad
@@ -239,9 +241,14 @@ For a passive unit input \(u\), write its full first projection as
              +w_{0,\perp}\cdot u.
 \]
 
-Its named clock derivative is bounded by \(M^2\sqrt m\) times the maximum
-clock pulse. Thus the same proof supplies passive \(\alpha,F\) bounds, with
-the explicit harmless factor \(\sqrt m\) in \(a_*\). Full-row passive queries
+Its derivative in a named reverse source is bounded by
+\(M\sqrt m\) times the maximum clock pulse: use
+\(|\partial_XJ|\le M\) and
+\(\sum_a|u\cdot u_a|\le\sqrt m\).
+The corresponding passive activation \(\phi(z_k(u))\) has derivative
+bounded by \(M^2\sqrt m\) times that pulse after the outer chain rule.
+It is this activation derivative that supplies passive \(\alpha,F\)
+bounds, with the factor \(\sqrt m\) in \(a_*\). Full-row passive queries
 therefore do not require freezing or dropping the untrained perpendicular
 coordinates.
 

@@ -117,10 +117,13 @@ arguments in [REFERENCE_PROOF.md](REFERENCE_PROOF.md),
   not a counterexample to the requested neural theorem.
 
 Two complete isolated internal scientific reviews of the frozen partial
-package are in progress. Their assignments and input hashes are retained in
-`REVIEW_R1_ASSIGNMENT_A.txt`, `REVIEW_R1_ASSIGNMENT_B.txt`, and
-`REVIEW_R1_INPUTS.json`. The additional prompt-only route is outside that
-frozen review scope and must not acquire their verdict by association.
+package supported its principal conclusions with two narrow corrections.
+Those corrections are applied; two fresh complete reviews of the corrected
+packet are in progress. Assignments, manifests, full reports, objections
+and verified evidence are indexed in [REVIEW_RESOLUTION.md](REVIEW_RESOLUTION.md).
+The additional prompt-only route is outside the frozen review scope and
+must not acquire these verdicts by association. The first scoped commit is
+`6a39978fd161a12de3ae410bfaefad878251ea7b`.
 
 The supplied-state validation [check_identities.py](check_identities.py)
 passed both tests (each across four activation choices), checking exact
