@@ -1,0 +1,90 @@
+{
+  "created_utc": "2026-09-19T13:19:41.273384+00:00",
+  "scope": "Internal complete scientific audit of exact partial and conditional claims; no full C-X2 completion or promotion requested.",
+  "authors": [
+    "root",
+    "cx2_reference",
+    "cx2_source",
+    "cx2_closure"
+  ],
+  "files": [
+    {
+      "file": "PARTIAL_RESULT.md",
+      "sha256": "a47d85ca451bfe1d70e44fad4cb695d5011445a19b0ab9f182e8b5bf4293cd1b",
+      "source": "studies/cx2_activation_class_20260919/PARTIAL_RESULT.md",
+      "lines": 230
+    },
+    {
+      "file": "REFERENCE_PROOF.md",
+      "sha256": "535d4576ac2de2711bcacbed64d5864d2207a54eb1b7bc84bc668e8402395be7",
+      "source": "studies/cx2_activation_class_20260919/REFERENCE_PROOF.md",
+      "lines": 430
+    },
+    {
+      "file": "CLOSURE_PROOF.md",
+      "sha256": "15270cb49004fe359c49722508ad0c96695d8ddb2f939a66b84939a3be0f0d6c",
+      "source": "studies/cx2_activation_class_20260919/CLOSURE_PROOF.md",
+      "lines": 741
+    },
+    {
+      "file": "SOURCE_PROOF.md",
+      "sha256": "1d057268b0910d9e2ddc9dbe0d2587c5829ef57d3b08d78127f4a504e18aa362",
+      "source": "studies/cx2_activation_class_20260919/SOURCE_PROOF.md",
+      "lines": 644
+    },
+    {
+      "file": "check_identities.py",
+      "sha256": "22e441ce52e0e3efab6aa91708c5ff5a0460fa876660c0e812c450eca0982f44",
+      "source": "studies/cx2_activation_class_20260919/check_identities.py",
+      "lines": 90
+    },
+    {
+      "file": "NOTATION.md",
+      "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+      "source": "docs/NOTATION.md",
+      "lines": 98
+    },
+    {
+      "file": "global_A_B_C.md",
+      "sha256": "58e7dc1d8cf7abd991fcba7e305d084bfb522795cc5b9aee443c183fe4fa1c03",
+      "source": "docs/global_nonlinear.md: complete A.1-A.4, B.1, C.1-C.3 including weighted correction",
+      "lines": 1996
+    },
+    {
+      "file": "gaussian_foundation.md",
+      "sha256": "8a8dbe6a31a51d3f73c999b75c75dcade76b3d533c8901a062c66587776cdd0a",
+      "source": "docs/special_data_limits.md: complete III.F.1-III.F.11",
+      "lines": 542
+    },
+    {
+      "file": "finite_energy.md",
+      "sha256": "bd10bbff9d16f60c63d26b06e793510fa19958e1ec91dbdd85709caff7d96980",
+      "source": "docs/finite_dynamics.md: introduction and complete sections 1-4",
+      "lines": 227
+    },
+    {
+      "file": "finite_code_guide.md",
+      "sha256": "3737d8f30a80aa3b14cfcb67cdffed160c5a98507ee95a151adac385e33ed9d2",
+      "source": "code/README.md: complete finite-network guide",
+      "lines": 135
+    },
+    {
+      "file": "code/pde/finite_network.py",
+      "sha256": "efe694b200b8af2603cbf1bb9d0249f49636e874088c2bafd98f402b5bfbe551",
+      "source": "code/pde/finite_network.py",
+      "lines": 363
+    },
+    {
+      "file": "code/pde/__init__.py",
+      "sha256": "65eb96a5dd455041d2ad1f32652e3e26e8c15192eb41bdffba27980f0f69e8c3",
+      "source": "code/pde/__init__.py",
+      "lines": 26
+    },
+    {
+      "file": "code/pde/gaussian_moments.py",
+      "sha256": "6c2a21a9f3d101c433b5f06cb3f6e1dcdeca23a814891ea7bd81e73960e854ae",
+      "source": "code/pde/gaussian_moments.py",
+      "lines": 114
+    }
+  ]
+}
