@@ -43,14 +43,18 @@ are not inputs. Required skills are `solve-math-rigorously` and
 the package established; promotion additionally requires explicit approval
 of the concrete reviewed book/code addition.
 
-Current status: complete author candidate, frozen for two fresh complete
-scientific reviews and a separate integration/reproduction review. No new
-theorem is yet independently accepted or promoted. THEOREM.md states the
+Current status: C-X1 resolved as an independently reviewed study. Both fresh
+complete scientific reviews accepted every theorem conclusion, and the separate
+integration/reproduction review passed its assigned scope. No scientific
+correction remains required; no book/code promotion has occurred. THEOREM.md states the
 assembled result: T=5m, explicit positive geometric radius, risk below 9/64,
 both-layer paired motion and visited-law nonaffinity, actual finite GF and
 raw GD with eta_n->0, and the dense hierarchy's qualitative numerical limits.
-The perturbed source/tail obligation is proved in the candidate rather than
-left as an assumption. Review may still identify errors or missing steps.
+The perturbed source/tail obligation is proved rather than left as an
+assumption. REVIEW_COMPLETION.md records complete reports, hash verification,
+validation and precise acceptance limits. Pre-review status sentences in the
+frozen theorem/proof units are retained as historical packet metadata; this
+README and the completion record give their current review status.
 
 No training campaign is authorized by this record. Deterministic verification
 of the construction and code is within scope. Any bounded numerical validation
@@ -74,14 +78,21 @@ directory before execution. Generated files belong exclusively to
   other's outputs until frozen. Reviewers receive complete frozen inputs
   without author history or earlier verdicts.
 
-## Next work
+## Frozen inputs and next gate
 
 REVIEW_INPUTS_R1.json freezes all scientific inputs for the complete reviews.
-Do not edit them until those reviews finish. Resolve objections, retain the
-original reports, and obtain fresh complete reviews of any corrected version.
-Maintained book/code changes still require a concrete reviewed promotion
-package and explicit user approval. Other axes (activation, depth, architecture)
-are not part of this study.
+REVIEW_DEPENDENCY_SUPPLEMENT_R1.json additionally freezes the package initializer
+and its two eager imports, completing the runtime dependency inventory without
+changing the original candidate. Both manifests are supplied to all reviewers.
+These inputs remain unchanged after review. Any later scientific correction
+requires a new frozen edition and fresh complete review. Maintained book/code
+changes still require a concrete reviewed promotion package and explicit user
+approval. Such a package has not been applied by this task. Other axes
+(activation, depth, architecture) are not part of this study.
+
+Notation clarification: the normalized prediction written f_n(u) in THEOREM.md
+is the physical-input prediction f_n(sqrt(d)u) in the reference and finite-capture
+units. The executable always receives normalized unit directions u.
 
 ## Proof and executable map
 
@@ -105,8 +116,18 @@ These prior reports are excluded from fresh reviewers' inputs. Seven semantic
 tests and the five bounded operational runs pass on the corrected module;
 no finite-resolution accuracy or practical radius claim follows from them.
 
+Final reviews: SCIENTIFIC_REVIEW_R1_A.md, SCIENTIFIC_REVIEW_R1_B.md and
+INTEGRATION_REVIEW_R1.md. Review A independently reran all seven semantic tests;
+review B independently checked the exact certificate, all 43 moving-coordinate
+gradients of a supplied state, energy and weighted adjunction. The integration
+review reran the five declared operational configurations, reproducing every
+reported numerical value and all ten checkpoint/observation hashes exactly.
+The final-source fresh-directory initialization check in standalone_02 also
+passed and fingerprints every loaded project module against the two manifests.
+
 Scoped commits so far: 60ba365 (contract), 4c4bef5 (conditional closure and
-validation). Generated outputs remain separate and are not committed.
+validation), 07e627a (complete frozen candidate). Generated outputs remain
+separate and are not committed.
 
 ## Checks completed during authoring
 
