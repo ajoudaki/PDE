@@ -15,7 +15,54 @@ Git index was empty. Pre-existing modifications and other untracked studies
 are unrelated and must be preserved. The supervisor is this study's sole
 Git writer and uses the common writer lock for scoped commits.
 
-## Contract and selected data scope
+## Revised contract: activation extensions of C-H3 and C-H4
+
+On 2026-09-19 the user explicitly resumed this study with a revised target.
+The original full-class substantial-training target below remains preserved,
+but its unbounded long-horizon requirement is no longer a completion condition
+for this revised package. Current work starts from commit
+`78119b1f32cb472e86ebc446b31d5dc6a62172ed` with this study and the index clean;
+unrelated existing checkout changes remain untouched.
+
+The common exact model, initialization, loss, physical metric, Gaussian action,
+finite random readout and observable conventions below are retained. Complete
+the following two separate results, without changing activation or data with
+width, hierarchy order or numerical resolution:
+
+1. **C-H3 extension.** For every separately fixed phi in A, prove a positive
+   physical interval `[0,T_phi^local]` independent of resolution and data within
+   the stated bounded-label domain. Include at least the entire represented
+   C-H3 rational two-arc family (normalized cross-component inner products
+   between 2/5 and 4/5, weights between 1/3 and 2/3), not only a near-orthogonal
+   family. Seek the underlying population construction for every Borel law
+   on `sqrt(2) S^1 x [-1,1]`, as in C-H3. Prove the compatible hierarchy and
+   separate numerical limits, whole-circle predictions and paired observations.
+   This assertion requires no substantial loss reduction or universal activity
+   for arbitrary laws (for example, zero-label laws can be stationary).
+2. **C-H4 extension.** For every bounded phi in A, prove a fixed positive
+   perturbation radius around the opposite-label orthogonal pair and a finite
+   activation-dependent substantial-training horizon. The family must contain
+   nonorthogonal pairs; retain supported represented two-arc/nonatomic laws
+   where the same construction permits, to preserve C-H4's computational scope.
+   Prove strong actual population construction, loss at most 1/4 from initial
+   loss one, early positive paired hidden activity/nonaffinity, and hierarchy
+   and numerical convergence through the whole learning interval. Boundedness
+   does not impose oddness, monotonicity, analyticity or nonzero gates. A global
+   exactly orthogonal reference alone does not complete this assertion.
+
+Both parts require an executable reusable closure under explicit locally
+consistent activation/derivative evaluation interfaces; arbitrary C1,1 functions
+need not be computable. Any narrower required regularity must be reported as a
+gap, not silently substituted. Qualitative iterated limits suffice; no rate,
+arbitrary diagonal, tolerance selector or cost-to-accuracy theorem is required.
+No new neural training campaign or established-book/code promotion is authorized.
+
+The supervisor has read C-X1 only to answer the user's separate read-only
+question about its scope. That exposure is not authority to import its
+unpromoted proofs or code here. All new delegated routes start fresh and use
+only the permitted C-X2 and maintained inputs specified in their assignments.
+
+## Original contract and selected data scope
 
 Retain the bias-free two-hidden-layer model, independent stored Gaussian
 variances `(1,1/n,1/n^2)`, physical mobilities `(n,1,n)`, output `c^T h2/n`,
