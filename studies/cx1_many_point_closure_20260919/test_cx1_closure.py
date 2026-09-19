@@ -1,10 +1,12 @@
 """Deterministic algebra/initializer/restart checks; no training experiment.
 
-Precommitted scope: dimensions 1,2,3,7; orders 1 and 3; finite supplied
+Declared scope: dimensions 1,2,3,7; orders 1 and 3; finite supplied
 states and at most two Heun steps. One process/thread, <120 s, no refinement
 search. Pass thresholds: exact shape/restart; 2e-12 source/adapter identities;
 3e-6 relative finite-difference gradients; 2e-12 rational/float agreement.
 Results validate implementation identities, not order convergence or fitting.
+Enumeration regressions use small degrees
+and construction of the d=600/order=1 dictionary without initialization.
 """
 from fractions import Fraction
 import hashlib
@@ -18,6 +20,7 @@ import numpy as np
 import cx1_closure as c
 from pde.observable_compiler import GaussianCompiler
 from pde.observable_arithmetic import Arithmetic, gaussian_points
+from pde.observable_initialization import _all_exponents as reference_exponents
 
 OUTPUT = Path(os.environ.get("CX1_CLOSURE_CHECK_OUTPUT",
     "data/generated/cx1_many_point_closure_20260919/closure/deterministic_v1"))
@@ -43,6 +46,15 @@ class ClosureChecks(unittest.TestCase):
         self.assertEqual(self.base.M.shape, (21,85))
         self.assertGreater(self.base.metadata['source_counts'][0], 3)
         self.assertGreater(self.base.metadata['source_counts'][1], 3)
+
+    def test_iterative_exponents_have_no_recursion_dimension_ceiling(self):
+        for dimension in (1,2,3,4):
+            for order in range(5):
+                self.assertEqual(tuple(c._all_exponents(order,dimension)),
+                                 reference_exponents(order,dimension))
+        high = c.build_dictionary(600,1)
+        self.assertEqual(high.core_dimensions,(1201,601))
+        self.assertEqual((len(high.first_words),len(high.second_words)),(1202,602))
 
     def test_dimension_adapter_matches_maintained_compiler(self):
         dictionary = c.build_dictionary(2,3)

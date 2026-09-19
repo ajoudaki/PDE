@@ -1,8 +1,8 @@
 # Assembly of the C-X1 learning and approximation conclusions
 
-Author proof unit; conditional until the three named input units have been
-completed and independently checked. No input estimate below is inferred
-from successful numerical runs.
+Complete author proof unit, using the three named interfaces proved in the
+companion units. Independent review of the assembled candidate is pending.
+No input estimate below is inferred from successful numerical runs.
 
 ## Exact interfaces
 
@@ -103,6 +103,73 @@ choosing width, dictionary order or numerical resolution. Then
 Thus the prescribed learning and nonlazy-motion conclusions have strict
 margins. They do not assert improvement on an unrelated unseen data law
 or superiority to any other learning algorithm.
+
+## Nonaffinity at the same activity time
+
+The reference proof also supplies, at t_a and every training anchor, positive
+preactivation variance at least q/4 and best-affine tanh error at least
+nu_*/2. Here q=E tanh(G)^2 and nu_*=min(N(G),N(sqrt(q)G))>0, where
+N(Z)=inf_(a,b) E|tanh(Z)-aZ-b|^2. Its preactivations are within epsilon_*
+of the corresponding initial Gaussians, so their standard deviations are
+also at most two. These are facts about reached laws, separate from motion.
+
+For completeness the covariance argument in reference (7.10d--f) does not
+require the comparison variable X to be Gaussian. If its standard deviation
+sigma lies in (0,2] and ||Z-X||2=epsilon<=sigma/2, centering and the bounded
+one-Lipschitz tanh give
+
+  Var(Z)>=(sigma-epsilon)^2,
+  |N(Z)-N(X)| <= 2epsilon
+       +(2sigma+epsilon)(2+sigma)epsilon/(sigma-epsilon)^2
+       <=64epsilon/sigma.
+
+This follows by subtracting Var(tanh Z) and Cov(Z,tanh Z)^2/Var(Z), as in
+that displayed argument; the final bound uses
+2sigma+10(2+sigma)<=44 for sigma<=2. No higher moment is needed.
+Set delta_N=nu_*sqrt(q)/512. Shrink the fixed rho further so that
+
+  e+Ws<=delta_N,  (M+1)e+MWs<=delta_N  for s<rho.
+
+These are also the preactivation differences before the outer tanh. For
+either reference preactivation sigma>=sqrt(q)/2; delta_N<=sigma/2. The
+preceding inequality therefore gives, on every perturbed training anchor,
+
+  Var(Z_l,u(t_a,u_a))>=q/16,
+  N(Z_l,u(t_a,u_a))>=nu_*/4>0,  l=1,2.
+
+The variance/covariance formula is continuous under the declared joint W2
+limits with these positive denominators. Thus finite networks and the
+successively refined closures inherit strictly positive margins as well.
+This is not a uniform relative-strength or superiority claim.
+
+## An explicit choice of the final geometric radius
+
+The preceding shrinkages need not leave an unnamed continuity neighborhood.
+Let a=a_m and delta_N be as above, and put
+
+  F=1+C(M+1)+CMW,
+  zeta=min{1, 1/(8F), a/[2(W+2)], a/[2(M+1+MW+2)],
+                   delta_N/(W+1), delta_N/(M+1+MW)} >0.
+
+All required inequalities follow whenever the raw error e and input
+displacement s are at most zeta. Take the explicit reference-tail constants
+Gamma,H,S,D_*,C from PERTURBATION_PROOF (P37)--(P38); in this paragraph these
+names have exactly that proof's meaning, distinct from the energy constants
+used to form zeta. Define
+
+  Z_L=max{1,log(4/zeta)}, A_L=1+Gamma+H+Z_L,
+  b_L=4S A_L, X_L=Gamma(1+b_L),
+  r_L=exp(-Z_L-4-2X_L),
+  rho_final=min{rho_cap/2,r_L},
+
+where rho_cap is the explicit (P39) radius at T=5m. The elementary bounds
+following (P39), with Z replaced by Z_L, show that each of the two terms
+on the right of (P38) is below exp(-Z_L)/4 when s<=r_L. Thus
+e<exp(-Z_L)/2<=zeta/8 and s<zeta/8. The same estimate passes to strong
+flow limits. This proves all loss, motion and nonaffinity inequalities for
+s<rho_final. Every constant is defined by fixed elementary expressions and
+initial one-dimensional Gaussian integrals. A numerical evaluation or a
+useful lower bound for this very conservative radius is not asserted.
 
 ## Whole-sphere observations and the two distinct approximation limits
 

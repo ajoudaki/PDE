@@ -4,6 +4,23 @@ These checks accompany the proof; none replaces its continuation or closure
 convergence arguments. Generated evidence is under the study's separate
 `data/generated/cx1_many_point_closure_20260919/` namespace.
 
+The corrected implementation adds an iterative dimension-independent exponent
+enumerator. All seven semantic tests passed in 14.753 seconds in
+`closure/deterministic_v3/`, including a d=600/order=1 regression. A subsequent
+test-docstring cleanup changed the test source hash but no executable test;
+the final-source run is separately retained as `closure/deterministic_v4/`.
+All seven tests passed there in 14.705 seconds with matching final source
+hashes, zero errors and zero failures under the 120-second/512-MiB cap.
+The first v3 launch failed before importing the test module because its runpy
+wrapper omitted the study from PYTHONPATH; the corrected command included it.
+This was a launch error, not a scientific or implementation test failure.
+
+The corrected module also repeated exactly the five operational configurations
+in `operational_02/`. They passed in 15.477 seconds, with every recorded loss,
+paired RMS and passive prediction bitwise equal to the original values below.
+Only timings and measured resource peaks differ. These reruns validate the
+corrected executable; they do not strengthen the numerical-accuracy claim.
+
 ## Deterministic semantics
 
 `test_cx1_closure.py` checks six obligations: genuine dictionary enrichment
@@ -16,6 +33,13 @@ resource/domain failures. All six passed in 14.87 seconds, recorded in
 
 The independent exact rational initialization certificate also passed; see
 `reference_constants_01/record.json` and `check_reference_constants.py`.
+
+A separate fresh-working-directory check imported the solver, initialized
+d=3/order=1, and evaluated its initial zero prediction. It passed using only
+this study's module and maintained `code/`, without a historical array or
+trained trajectory. `standalone_01/record.json` preserves the exact command;
+its stdout hashes every loaded project module. `DEPENDENCY_HASHES.json`
+records the maintained proof and implementation dependencies separately.
 
 ## Bounded operational run
 

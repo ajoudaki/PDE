@@ -538,6 +538,17 @@ fixed-graph observations obey the same finite product/action subtractions as
 This covers all declared fixed action observations, not just prediction.
 The outer limit is §5 on the same horizon and data family.
 
+At finite arithmetic precision, an observation law means the normalized
+pushforward of its returned nonnegative population weights (and normalized
+data weights when an input mark is included). The operational prediction,
+risk and RMS formulas retain their literal working weights. At fixed array
+sizes their total masses tend to one as b tends to infinity. Dividing by
+these masses therefore changes the joint laws by a vanishing amount, and
+raw squared RMS differs from its normalized counterpart by the product of
+the relevant masses. Precision is removed first, so the subsequent ODE and
+W2 limits use probability laws exactly. No normalization is silently inserted
+into the numerical dynamics or used to infer a finite-resolution certificate.
+
 Saved numerical state consists of b₁,g,w,p₁,b₂,c,p₂,M,D, the finite data law,
 and arithmetic metadata. The source compiler is discarded after initialization.
 Checkpoints preserve hexadecimal floats, exact decimals or rational integer
@@ -607,7 +618,15 @@ prefix entries. A direct bound is
     V₀ = O(d(N+1)+d[binom(N+2d,2d)+binom(N+d,d)]+N+d).
 
 Constructing exponent tuples and the polynomial products uses the displayed
-O(d times feature count) work; each new prefix code uses a bounded number of
+O(d times feature count) work. The executable exponent iterator is iterative:
+start a fixed total degree with (total,0,...,0), reduce its rightmost nonzero
+nonterminal coordinate by one, and place one plus its former suffix sum in
+the next coordinate, zeroing the rest. This is exactly the next descending
+lexicographic weak composition: later coordinates were already minimal under
+the preserved prefix, and the new suffix is the maximal one for its total.
+It stops when only the final coordinate is nonzero. Thus it exhausts each
+degree once, with O(d) work and storage per emitted tuple and no recursive
+dimension ceiling. Each new prefix code uses a bounded number of
 Cantor-unpairing and exact rational operations. Compiling each object once and
 canonicalizing by its operation and child node indices gives O(V₀) dictionary
 operations with ordinary amortized hash-table accounting. Integer indices and
@@ -725,7 +744,7 @@ accuracy-versus-cost guarantee.
 
 ## 7. Deterministic checks and unresolved obligations
 
-The executable checks were fixed before their run: d∈{1,2,3,7}, N∈{1,3};
+The original executable checks were fixed before their run: d∈{1,2,3,7}, N∈{1,3};
 source identities and the d=2 adapter against the maintained compiler;
 nontrivial odd enrichment counts; supplied-state adjunction, coordinate loss
 gradients and full energy directional derivative; joint observation evaluation;
@@ -737,6 +756,14 @@ campaign. Exact results and source hashes are saved in
 The v2 run supersedes v1 after a data-validation and metadata cleanup; v1 is retained.
 These checks verify implementation identities; they do not certify neural
 approximation accuracy, source-tail bounds, fitting, or an order error.
+
+The iterative enumerator described in §6.1 has an additional deterministic
+regression: exact agreement with the inherited
+enumeration at dimensions 1--4/degrees 0--4, and construction of the
+d=600/order=1 dictionary without initialization or trajectory evolution.
+The seven-test suite is run under the same resource cap in the
+fresh `closure/deterministic_v4/` namespace. Its final observed result is
+recorded in VALIDATION.md.
 
 The read scope was this study README; required mathematics/research skills;
 `docs/NOTATION.md`, `docs/observable_p1.md`; complete relevant H1,H2,dictionary,

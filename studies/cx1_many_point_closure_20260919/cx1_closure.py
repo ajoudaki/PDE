@@ -17,7 +17,6 @@ from pde.observable_fixed import Fixed
 from pde.observable_compiler import (GaussianCompiler, CompilerLimits,
     CompilerNumericalError, CompilerResourceLimit, Source, _Node)
 from pde.observable_words import unpair, rational_code
-from pde.observable_initialization import _all_exponents
 from pde import observable_solver as _solver
 
 
@@ -84,6 +83,28 @@ class Dictionary:
     second_words: tuple
     core_dimensions: tuple
     tail_codes: tuple
+
+
+def _all_exponents(order, dimension):
+    """Total degree then descending lexicographic order, without recursion.
+
+    Move one unit from the rightmost nonzero nonterminal coordinate into
+    its successor, gathering the old suffix there. Each yield costs O(d)
+    work/storage; there is no Python call-stack dimension ceiling.
+    """
+    for total in range(order+1):
+        powers = [total]+[0]*(dimension-1)
+        while True:
+            yield tuple(powers)
+            index = dimension-2
+            while index >= 0 and powers[index] == 0:
+                index -= 1
+            if index < 0:
+                break
+            suffix = 1+sum(powers[index+1:])
+            powers[index] -= 1
+            powers[index+1] = suffix
+            powers[index+2:] = [0]*(dimension-index-2)
 
 
 def build_dictionary(dimension, order, *, max_features=4096, max_codes=100000):

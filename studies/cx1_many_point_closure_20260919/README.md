@@ -43,11 +43,14 @@ are not inputs. Required skills are `solve-math-rigorously` and
 the package established; promotion additionally requires explicit approval
 of the concrete reviewed book/code addition.
 
-Current status: research in progress; no new theorem accepted. The principal
-obligations are a many-anchor fitted reference, reached active/passive query
-control for perturbed configurations, and compatible dimension-general
-hierarchy and numerical implementation. They will be proved or recorded as
-gaps separately; reference fitting does not establish the perturbed theorem.
+Current status: complete author candidate, frozen for two fresh complete
+scientific reviews and a separate integration/reproduction review. No new
+theorem is yet independently accepted or promoted. THEOREM.md states the
+assembled result: T=5m, explicit positive geometric radius, risk below 9/64,
+both-layer paired motion and visited-law nonaffinity, actual finite GF and
+raw GD with eta_n->0, and the dense hierarchy's qualitative numerical limits.
+The perturbed source/tail obligation is proved in the candidate rather than
+left as an assumption. Review may still identify errors or missing steps.
 
 No training campaign is authorized by this record. Deterministic verification
 of the construction and code is within scope. Any bounded numerical validation
@@ -58,7 +61,7 @@ directory before execution. Generated files belong exclusively to
 ## Ownership and routes
 
 - Supervisor owns this README, THEOREM.md, ASSEMBLY_PROOF.md, validation,
-  final theorem assembly, integration and Git.
+  FINITE_CAPTURE_PROOF.md, final theorem assembly, integration and Git.
 - `cx1_reference` owns REFERENCE_PROOF.md. Its isolated scope is the exact
   orthogonal reference and positive paired activity.
 - `cx1_perturbation` owns PERTURBATION_PROOF.md. Its isolated scope is
@@ -73,9 +76,37 @@ directory before execution. Generated files belong exclusively to
 
 ## Next work
 
-Read complete relevant maintained proofs; develop and check the reference,
-perturbation, and closure obligations; run appropriate deterministic checks;
-then assemble and independently audit a complete candidate, if obtained.
+REVIEW_INPUTS_R1.json freezes all scientific inputs for the complete reviews.
+Do not edit them until those reviews finish. Resolve objections, retain the
+original reports, and obtain fresh complete reviews of any corrected version.
+Maintained book/code changes still require a concrete reviewed promotion
+package and explicit user approval. Other axes (activation, depth, architecture)
+are not part of this study.
+
+## Proof and executable map
+
+- REFERENCE_PROOF.md: mixed-label signed symmetry, autonomous global reference,
+  strict learning at 5m, specified paired activity/nonaffinity time and finite
+  reference comparison.
+- PERTURBATION_PROOF.md: independent clock source anchor, raw-reference transfer,
+  supported-input source bootstrap, explicit radius and strong continuation.
+- FINITE_CAPTURE_PROOF.md: fixed-proxy identification of actual finite GF/GD,
+  including the random readout and precise order of probability/mesh limits.
+- CX1_CLOSURE_PROOF.md and cx1_closure.py: full current hierarchy, dense finite
+  closures, numerical consistency, restart and operation/bit/storage accounting.
+- ASSEMBLY_PROOF.md: explicit final radius and transfer of all strict margins.
+- VALIDATION.md and VALIDATION_PLAN.md: exact checks, bounded numerical runs,
+  reproducibility and their accuracy limitations.
+
+Earlier component screening is preserved in RELEVANCE_REVIEW.md and
+IMPLEMENTATION_AUDIT.md. The latter identified an executable recursion ceiling;
+REVIEW_CORRECTIONS.md records its iterative repair and required fresh review.
+These prior reports are excluded from fresh reviewers' inputs. Seven semantic
+tests and the five bounded operational runs pass on the corrected module;
+no finite-resolution accuracy or practical radius claim follows from them.
+
+Scoped commits so far: 60ba365 (contract), 4c4bef5 (conditional closure and
+validation). Generated outputs remain separate and are not committed.
 
 ## Checks completed during authoring
 
