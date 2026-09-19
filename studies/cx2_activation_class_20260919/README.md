@@ -133,20 +133,39 @@ unresolved implication. Complete candidates require fresh isolated reviews.
 Maintained book/code files remain unchanged without the separate promotion
 gate and explicit user approval.
 
-## Revised-contract work in progress
+## Revised-contract candidate and complete audits
 
-Three fresh, scoped routes are assembling the all-law onset extension,
-the bounded near-orthogonal training extension, and the executable general-
-activation closure. Their scientific inputs are the preceding C-X2 proofs
-and explicitly assigned maintained dependencies. A fourth fresh route checks
-the control-commutator response argument after the numerical route finishes.
+The assembled result is [REVISED_RESULT.md](REVISED_RESULT.md). Complete new
+arguments are in [ONSET_EXTENSION.md](ONSET_EXTENSION.md),
+[COMMUTATOR_RESPONSE.md](COMMUTATOR_RESPONSE.md), and
+[BOUNDED_EXTENSION.md](BOUNDED_EXTENSION.md). They claim:
+
+- Full A, every Borel circle/bounded-label training law, on a common positive
+  activation-dependent onset interval; the full C-H3 represented family is
+  included.
+- Bounded A, opposite-label two-point data in a fixed positive neighborhood
+  of the orthogonal pair, through substantial training and a whole-circle
+  reference-endpoint comparison. The neighborhood is fixed before all limits.
+- Bounded C2 with bounded second derivative, additionally supported Borel
+  and nonatomic near-orthogonal input families through that horizon.
+
+These are author candidates pending two complete isolated audits, not accepted
+results. The neutral assignment is [EXTENSION_R1_ASSIGNMENT.md](EXTENSION_R1_ASSIGNMENT.md);
+the complete frozen input manifest is [EXTENSION_R1_INPUTS.json](EXTENSION_R1_INPUTS.json).
+The packet contains thirty files and 16,155 lines. The supervisor verified
+all hashes, exact live correspondence and complete excerpt boundaries before
+launching both reviewers. Scoped author checks are retained separately in
+[ONSET_AUTHOR_CHECK.md](ONSET_AUTHOR_CHECK.md) and
+[TANGENT_PARITY_CHECK.md](TANGENT_PARITY_CHECK.md); reviewers do not receive
+these checks or prior verdicts.
 
 The implementation and its numerical consistency argument are now in
 [NUMERICAL_EXTENSION.md](NUMERICAL_EXTENSION.md), with source
 [activation_closure.py](activation_closure.py). All eight preregistered
 supplied-state checks passed; the plan, exact commands and evidence are
 linked there. No training experiment ran. This implementation alone supplies
-neither a target-existence theorem nor the missing fitting-neighborhood tails.
+neither a target-existence theorem nor fitting-neighborhood tails; those are
+separate obligations of the new mathematical manuscripts.
 New proof candidates require their own complete reviews; the earlier review
 verdicts below do not cover the extension by association.
 

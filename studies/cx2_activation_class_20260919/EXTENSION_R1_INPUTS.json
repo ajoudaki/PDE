@@ -1,0 +1,259 @@
+{
+  "created_utc": "2026-09-19T14:54:35.564745+00:00",
+  "round": "extension_r1",
+  "scope": "Complete internal scientific and implementation review; no promotion",
+  "files": [
+    {
+      "file": "code/pde/__init__.py",
+      "sha256": "65eb96a5dd455041d2ad1f32652e3e26e8c15192eb41bdffba27980f0f69e8c3",
+      "lines": 26,
+      "source": "code/pde/__init__.py",
+      "source_sha256": "65eb96a5dd455041d2ad1f32652e3e26e8c15192eb41bdffba27980f0f69e8c3"
+    },
+    {
+      "file": "code/pde/finite_network.py",
+      "sha256": "efe694b200b8af2603cbf1bb9d0249f49636e874088c2bafd98f402b5bfbe551",
+      "lines": 363,
+      "source": "code/pde/finite_network.py",
+      "source_sha256": "efe694b200b8af2603cbf1bb9d0249f49636e874088c2bafd98f402b5bfbe551"
+    },
+    {
+      "file": "code/pde/gaussian_moments.py",
+      "sha256": "6c2a21a9f3d101c433b5f06cb3f6e1dcdeca23a814891ea7bd81e73960e854ae",
+      "lines": 114,
+      "source": "code/pde/gaussian_moments.py",
+      "source_sha256": "6c2a21a9f3d101c433b5f06cb3f6e1dcdeca23a814891ea7bd81e73960e854ae"
+    },
+    {
+      "file": "code/pde/observable_arithmetic.py",
+      "sha256": "2181b9e47e1c765e440feff582b34208651ff4687e19ce8a96db7752402a6edb",
+      "lines": 230,
+      "source": "code/pde/observable_arithmetic.py",
+      "source_sha256": "2181b9e47e1c765e440feff582b34208651ff4687e19ce8a96db7752402a6edb"
+    },
+    {
+      "file": "code/pde/observable_compiler.py",
+      "sha256": "1add30410ee2e8de05fffca225643dbbbeab7ab8d6420382014bb8c9cceca7ac",
+      "lines": 528,
+      "source": "code/pde/observable_compiler.py",
+      "source_sha256": "1add30410ee2e8de05fffca225643dbbbeab7ab8d6420382014bb8c9cceca7ac"
+    },
+    {
+      "file": "code/pde/observable_fixed.py",
+      "sha256": "75c5b6a4478e5365d008bd7ad134cf1c2b6cd6942c68358e0a2d4137207c1225",
+      "lines": 223,
+      "source": "code/pde/observable_fixed.py",
+      "source_sha256": "75c5b6a4478e5365d008bd7ad134cf1c2b6cd6942c68358e0a2d4137207c1225"
+    },
+    {
+      "file": "code/pde/observable_initialization.py",
+      "sha256": "6dafe3b5906c8762c7b6e0782c535b0031bbcf206359d384ef0911853ce131d2",
+      "lines": 397,
+      "source": "code/pde/observable_initialization.py",
+      "source_sha256": "6dafe3b5906c8762c7b6e0782c535b0031bbcf206359d384ef0911853ce131d2"
+    },
+    {
+      "file": "code/pde/observable_laws.py",
+      "sha256": "6fb38416ce02ca77aae0392201927eb9aeba5c672ebe774181822dfb805d0503",
+      "lines": 472,
+      "source": "code/pde/observable_laws.py",
+      "source_sha256": "6fb38416ce02ca77aae0392201927eb9aeba5c672ebe774181822dfb805d0503"
+    },
+    {
+      "file": "code/pde/observable_solver.py",
+      "sha256": "711a648df33e587591d35bd709e3b1c052b1a6f7dc6513afe636b2acf7031605",
+      "lines": 350,
+      "source": "code/pde/observable_solver.py",
+      "source_sha256": "711a648df33e587591d35bd709e3b1c052b1a6f7dc6513afe636b2acf7031605"
+    },
+    {
+      "file": "code/pde/observable_words.py",
+      "sha256": "b12ed6021dfa8b8409b56793c88334d303f4c2cffeb7aa0a2d460311ba3e41b5",
+      "lines": 217,
+      "source": "code/pde/observable_words.py",
+      "source_sha256": "b12ed6021dfa8b8409b56793c88334d303f4c2cffeb7aa0a2d460311ba3e41b5"
+    },
+    {
+      "file": "dependencies/activation_foundation.md",
+      "sha256": "58e7dc1d8cf7abd991fcba7e305d084bfb522795cc5b9aee443c183fe4fa1c03",
+      "lines": 1996,
+      "source": "docs/global_nonlinear.md",
+      "source_sha256": "81d969a531fc6daee26dbee2041fad8a3425a4b01580351387c5fc376cef412c",
+      "start_heading": "## A. Contained probability",
+      "stop_before_heading": "### C.4. Training-law",
+      "first_line": 1840,
+      "last_line": 3835
+    },
+    {
+      "file": "dependencies/gaussian_foundation.md",
+      "sha256": "8a8dbe6a31a51d3f73c999b75c75dcade76b3d533c8901a062c66587776cdd0a",
+      "lines": 542,
+      "source": "docs/special_data_limits.md",
+      "source_sha256": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489",
+      "start_heading": "### III.F. Fixed finite Gaussian programs",
+      "stop_before_heading": "### III.S. Direct controlled source",
+      "first_line": 3785,
+      "last_line": 4326
+    },
+    {
+      "file": "dependencies/law_construction.md",
+      "sha256": "87e17770daea404d80da2c8a3e45cb5925f8110527660f2d7e70b08d3a92e0a1",
+      "lines": 1288,
+      "source": "docs/global_nonlinear.md",
+      "source_sha256": "81d969a531fc6daee26dbee2041fad8a3425a4b01580351387c5fc376cef412c",
+      "start_heading": "#### C.4.1. Full-row",
+      "stop_before_heading": "#### C.4.5. Robust",
+      "first_line": 3982,
+      "last_line": 5269
+    },
+    {
+      "file": "dependencies/numerical_proof.md",
+      "sha256": "ac29b96116d1e6069b0eee190e07359b8fe156567e8fc21abbf7d2dfdc1d4e83",
+      "lines": 815,
+      "source": "docs/global_nonlinear.md",
+      "source_sha256": "81d969a531fc6daee26dbee2041fad8a3425a4b01580351387c5fc376cef412c",
+      "start_heading": "###### C.1. Finite equations and assertion",
+      "stop_before_heading": "###### D.1. Computation through physical time 40",
+      "first_line": 13431,
+      "last_line": 14245
+    },
+    {
+      "file": "dependencies/onset_law_proof.md",
+      "sha256": "d205fbd13d1fe8dd97876d0a7ffa4f502380216a15a29bd4e2d016a2622c90b1",
+      "lines": 567,
+      "source": "docs/global_nonlinear.md",
+      "source_sha256": "81d969a531fc6daee26dbee2041fad8a3425a4b01580351387c5fc376cef412c",
+      "start_heading": "###### A.1. Statement and the executable family",
+      "stop_before_heading": "###### B. Dense compatible hierarchy",
+      "first_line": 12594,
+      "last_line": 13160
+    },
+    {
+      "file": "dependencies/source_and_completion.md",
+      "sha256": "10851308aa9a132214f828df24a99225b15f5d1798e187fbddc207fae08ff411",
+      "lines": 1384,
+      "source": "docs/global_nonlinear.md",
+      "source_sha256": "81d969a531fc6daee26dbee2041fad8a3425a4b01580351387c5fc376cef412c",
+      "start_heading": "##### C.4.7.2. Raw bounds",
+      "stop_before_heading": "##### C.4.7.6. Nonlinear variation",
+      "first_line": 9171,
+      "last_line": 10554
+    },
+    {
+      "file": "dependencies/supported_law_proof.md",
+      "sha256": "1046d356e89e34c829354eb633e246594ed65910b03c9ec43f88a7dc1bdc2e8e",
+      "lines": 1283,
+      "source": "docs/global_nonlinear.md",
+      "source_sha256": "81d969a531fc6daee26dbee2041fad8a3425a4b01580351387c5fc376cef412c",
+      "start_heading": "###### D.1. Computation through physical time 40",
+      "stop_before_heading": "###### D.4. Finite numerical limits",
+      "first_line": 14246,
+      "last_line": 15528
+    },
+    {
+      "file": "docs/NOTATION.md",
+      "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+      "lines": 98,
+      "source": "docs/NOTATION.md",
+      "source_sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b"
+    },
+    {
+      "file": "studies/cx2_activation_class_20260919/BOUNDED_EXTENSION.md",
+      "sha256": "4cf3bce600d5518defd67225329d0f52720babd15e3d86984aab47a5187e09a2",
+      "lines": 690,
+      "source": "studies/cx2_activation_class_20260919/BOUNDED_EXTENSION.md",
+      "source_sha256": "4cf3bce600d5518defd67225329d0f52720babd15e3d86984aab47a5187e09a2"
+    },
+    {
+      "file": "studies/cx2_activation_class_20260919/CLOSURE_PROOF.md",
+      "sha256": "15270cb49004fe359c49722508ad0c96695d8ddb2f939a66b84939a3be0f0d6c",
+      "lines": 741,
+      "source": "studies/cx2_activation_class_20260919/CLOSURE_PROOF.md",
+      "source_sha256": "15270cb49004fe359c49722508ad0c96695d8ddb2f939a66b84939a3be0f0d6c"
+    },
+    {
+      "file": "studies/cx2_activation_class_20260919/COMMUTATOR_RESPONSE.md",
+      "sha256": "632a158323c53dfaa50034a08855c9b51cc19c29af889e3176d160a101005625",
+      "lines": 887,
+      "source": "studies/cx2_activation_class_20260919/COMMUTATOR_RESPONSE.md",
+      "source_sha256": "632a158323c53dfaa50034a08855c9b51cc19c29af889e3176d160a101005625"
+    },
+    {
+      "file": "studies/cx2_activation_class_20260919/NUMERICAL_EXTENSION.md",
+      "sha256": "dd3dfeeedbec2381d1d33a8fc80a8e5086e7d3cd08243b399754a64f03c23dd3",
+      "lines": 276,
+      "source": "studies/cx2_activation_class_20260919/NUMERICAL_EXTENSION.md",
+      "source_sha256": "dd3dfeeedbec2381d1d33a8fc80a8e5086e7d3cd08243b399754a64f03c23dd3"
+    },
+    {
+      "file": "studies/cx2_activation_class_20260919/NUMERICAL_VALIDATION_PLAN.md",
+      "sha256": "edb4e15ff0b079ac356556460cd44765a440fcacd7a24a9810c36ba4436954fb",
+      "lines": 68,
+      "source": "studies/cx2_activation_class_20260919/NUMERICAL_VALIDATION_PLAN.md",
+      "source_sha256": "edb4e15ff0b079ac356556460cd44765a440fcacd7a24a9810c36ba4436954fb"
+    },
+    {
+      "file": "studies/cx2_activation_class_20260919/ONSET_EXTENSION.md",
+      "sha256": "d5853c29a24e3075053ce0629e5aed63ea7f259107118f36d97f5805684b4593",
+      "lines": 394,
+      "source": "studies/cx2_activation_class_20260919/ONSET_EXTENSION.md",
+      "source_sha256": "d5853c29a24e3075053ce0629e5aed63ea7f259107118f36d97f5805684b4593"
+    },
+    {
+      "file": "studies/cx2_activation_class_20260919/PARTIAL_RESULT.md",
+      "sha256": "a47d85ca451bfe1d70e44fad4cb695d5011445a19b0ab9f182e8b5bf4293cd1b",
+      "lines": 230,
+      "source": "studies/cx2_activation_class_20260919/PARTIAL_RESULT.md",
+      "source_sha256": "a47d85ca451bfe1d70e44fad4cb695d5011445a19b0ab9f182e8b5bf4293cd1b"
+    },
+    {
+      "file": "studies/cx2_activation_class_20260919/REFERENCE_PROOF.md",
+      "sha256": "535d4576ac2de2711bcacbed64d5864d2207a54eb1b7bc84bc668e8402395be7",
+      "lines": 430,
+      "source": "studies/cx2_activation_class_20260919/REFERENCE_PROOF.md",
+      "source_sha256": "535d4576ac2de2711bcacbed64d5864d2207a54eb1b7bc84bc668e8402395be7"
+    },
+    {
+      "file": "studies/cx2_activation_class_20260919/REVISED_RESULT.md",
+      "sha256": "c7fbacd698236a800e737d0732d6a183f8cd96314a510df72d4e9aa218c5128d",
+      "lines": 252,
+      "source": "studies/cx2_activation_class_20260919/REVISED_RESULT.md",
+      "source_sha256": "c7fbacd698236a800e737d0732d6a183f8cd96314a510df72d4e9aa218c5128d"
+    },
+    {
+      "file": "studies/cx2_activation_class_20260919/SOURCE_PROOF.md",
+      "sha256": "4b944a9c4bfe290a4b294a3586d1c67607ac776926482beeb8fa832c2613ceff",
+      "lines": 651,
+      "source": "studies/cx2_activation_class_20260919/SOURCE_PROOF.md",
+      "source_sha256": "4b944a9c4bfe290a4b294a3586d1c67607ac776926482beeb8fa832c2613ceff"
+    },
+    {
+      "file": "studies/cx2_activation_class_20260919/activation_closure.py",
+      "sha256": "49b385deb1d1d700a168f5d17025037bf647a9f6e03b0f6dd85ede10284ccec3",
+      "lines": 395,
+      "source": "studies/cx2_activation_class_20260919/activation_closure.py",
+      "source_sha256": "49b385deb1d1d700a168f5d17025037bf647a9f6e03b0f6dd85ede10284ccec3"
+    },
+    {
+      "file": "studies/cx2_activation_class_20260919/test_activation_closure.py",
+      "sha256": "6cc53274173f8bd376a5da904070eb5066843980bb04a84de0bc131f2f16deb3",
+      "lines": 248,
+      "source": "studies/cx2_activation_class_20260919/test_activation_closure.py",
+      "source_sha256": "6cc53274173f8bd376a5da904070eb5066843980bb04a84de0bc131f2f16deb3"
+    }
+  ],
+  "repository_python_import_closure": [
+    "code/pde/__init__.py",
+    "code/pde/finite_network.py",
+    "code/pde/gaussian_moments.py",
+    "code/pde/observable_arithmetic.py",
+    "code/pde/observable_compiler.py",
+    "code/pde/observable_fixed.py",
+    "code/pde/observable_initialization.py",
+    "code/pde/observable_laws.py",
+    "code/pde/observable_solver.py",
+    "code/pde/observable_words.py",
+    "studies/cx2_activation_class_20260919/activation_closure.py",
+    "studies/cx2_activation_class_20260919/test_activation_closure.py"
+  ]
+}
