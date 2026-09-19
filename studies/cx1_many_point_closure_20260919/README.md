@@ -57,8 +57,16 @@ directory before execution. Generated files belong exclusively to
 
 ## Ownership and routes
 
-- Supervisor owns this README, final theorem assembly, integration and Git.
-- Scoped contributors receive disjoint flat output files and explicit inputs.
+- Supervisor owns this README, THEOREM.md, ASSEMBLY_PROOF.md, validation,
+  final theorem assembly, integration and Git.
+- `cx1_reference` owns REFERENCE_PROOF.md. Its isolated scope is the exact
+  orthogonal reference and positive paired activity.
+- `cx1_perturbation` owns PERTURBATION_PROOF.md. Its isolated scope is
+  reached-source control, perturbation continuation and finite capture.
+- `cx1_closure` owns CX1_CLOSURE_PROOF.md, cx1_closure.py and
+  test_cx1_closure.py. Its isolated scope is general-dimensional closure,
+  numerical consistency and implementation, conditional on the named target
+  flow/tail interface until that interface is independently proved.
 - Independent proof routes start in fresh contexts and do not read each
   other's outputs until frozen. Reviewers receive complete frozen inputs
   without author history or earlier verdicts.
@@ -68,3 +76,20 @@ directory before execution. Generated files belong exclusively to
 Read complete relevant maintained proofs; develop and check the reference,
 perturbation, and closure obligations; run appropriate deterministic checks;
 then assemble and independently audit a complete candidate, if obtained.
+
+## Checks completed during authoring
+
+The unchanged exact rational Gaussian certificate from maintained C.4.5.1
+was extracted as `check_reference_constants.py` and executed with Python
+3.10.12, exit zero, in 3.272 seconds. Its exact assertions give
+`0.39 < E tanh(G)^2 < 0.4`, the needed upper-feature variance `v>1/5`,
+and the two positive gate-moment bounds. It is constant verification, not a
+training experiment or a check of the new continuation proof.
+
+Reproduce: `python -B studies/cx1_many_point_closure_20260919/check_reference_constants.py`
+from the repository root. Source SHA256:
+`1dd6ae76d2b20d3878658d5fb1b5e0d3e94bbed91ea3a855134a536cc5073867`.
+The command, output and environment record are in
+`data/generated/cx1_many_point_closure_20260919/reference_constants_01/`.
+The source and complete maintained analytic certificate, not these generated
+outputs, carry the proof dependency.

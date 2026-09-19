@@ -1,0 +1,19 @@
+{
+  "docs/README.md": "60816cf89cf93abc9d752b7d56a66b3302cd9ca0caff4b247991647dfb49b3ad",
+  "docs/NOTATION.md": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+  "docs/global_nonlinear.md": "81d969a531fc6daee26dbee2041fad8a3425a4b01580351387c5fc376cef412c",
+  "docs/special_data_limits.md": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489",
+  "docs/observable_p1.md": "0f9c0ab9d1bcd6acd844cfce52e00d94c063843fcf80d27e7ba2b7ea6ebdfbba",
+  "code/README.md": "7aa3bc9700a75294f9f209a34e05af4033cd35dd5edb736846ff8bdfdc4bdbb6",
+  "code/pde/observable_arithmetic.py": "2181b9e47e1c765e440feff582b34208651ff4687e19ce8a96db7752402a6edb",
+  "code/pde/observable_closure.py": "f8dc5d16e5de1737444c44aae737ee1c9b4d664188d72f59acd0bb92f457c137",
+  "code/pde/observable_compiler.py": "1add30410ee2e8de05fffca225643dbbbeab7ab8d6420382014bb8c9cceca7ac",
+  "code/pde/observable_fixed.py": "75c5b6a4478e5365d008bd7ad134cf1c2b6cd6942c68358e0a2d4137207c1225",
+  "code/pde/observable_initialization.py": "6dafe3b5906c8762c7b6e0782c535b0031bbcf206359d384ef0911853ce131d2",
+  "code/pde/observable_laws.py": "6fb38416ce02ca77aae0392201927eb9aeba5c672ebe774181822dfb805d0503",
+  "code/pde/observable_p1_initialization.py": "65ded7e9faa352612fb833735d3075cbe41c0b24a535bf742d1fc86849aded6d",
+  "code/pde/observable_solver.py": "711a648df33e587591d35bd709e3b1c052b1a6f7dc6513afe636b2acf7031605",
+  "code/pde/observable_torch_circle.py": "4fa63eb6abdd1c8573abfa1a7dc0a107d13ec669ae078659e8298cd517000430",
+  "code/pde/observable_torch_p1.py": "d67f0d832d265e75925f0020c42ab4d8e1dd3387e7e485412eff946ae5d20f1f",
+  "code/pde/observable_words.py": "b12ed6021dfa8b8409b56793c88334d303f4c2cffeb7aa0a2d460311ba3e41b5"
+}
