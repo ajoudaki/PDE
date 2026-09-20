@@ -351,3 +351,11 @@ All original levels, failed checks and selection evidence remain available;
 remaining unresolved cells are excluded transparently. No new scientific target
 or outcome-based selection is introduced. No further levels or budget extension
 will follow. The analyzer records original and selected-level inventories.
+
+Reporting clarification before comparative method errors are inspected: also
+retain a clearly labeled descriptive aggregate over the common cases where all
+ten predictors fit and pass replay at both selected levels, even if numerical
+refinement remains unresolved. This supplement answers the requested whole-suite
+summary without hiding difficult configurations. It does not replace the main
+numerically validated common-set aggregate, and explicitly names the cases that
+fail the unchanged0.01 discrepancy gate.

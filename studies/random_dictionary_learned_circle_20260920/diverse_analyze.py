@@ -1,7 +1,7 @@
 """GPU analysis of all declared width-2048 cells, including failed trajectories.
 
 Primary aggregates use one common configuration set for all nine models. A case
-is included only when its full network and all nine closures fit in both suites,
+is included only when its full network and all nine closures fit at both selected levels,
 pass checkpoint/loss replay, and change by at most 0.01 under refinement.
 """
 import argparse
@@ -53,10 +53,11 @@ def csv_file(path, rows):
                          for k, v in row.items()} for row in rows)
 
 
-def validate_configs(primary, refined):
+def validate_configs(primary, refined, extra=()):
     """Workers share flat result directories but retain separate producer records."""
     configs = {}
-    for suite, folder in (("primary", primary), ("refined", refined)):
+    folders = [("primary", primary), ("refined", refined)] + [(f"extra_{i}", p) for i, p in enumerate(extra, 1)]
+    for suite, folder in folders:
         paths = sorted(folder.glob("config*.json"))
         if not paths:
             raise ValueError(f"No producer configurations found in {folder}")
@@ -86,12 +87,63 @@ def validate_configs(primary, refined):
             for key in ("rtol", "atol", "step", "max_step"):
                 if config.get(key) != entries[0][1].get(key):
                     raise ValueError(f"Worker solver settings differ: {suite} {key}")
-    pc, rc = configs["primary"][0][1], configs["refined"][0][1]
-    for key in ("rtol", "atol"):
-        if not 0 < rc[key] < pc[key]:
-            raise ValueError(f"Refinement must tighten {key}")
+    ordered = [entries[0][1] for entries in configs.values()]
+    for index, (pc, rc) in enumerate(zip(ordered, ordered[1:])):
+        for key in ("rtol", "atol"):
+            if not 0 < rc[key] <= pc[key] or (index == 0 and rc[key] == pc[key]):
+                raise ValueError(f"Roots must have nonincreasing {key}; the original refinement must strictly tighten it")
     return {suite: {str(path): {"sha256": sha256(path), "config": config}
                     for path, config in entries} for suite, entries in configs.items()}
+
+
+def numerical_levels(primary, refined, extra, provenance):
+    folders = [("primary", primary), ("refined", refined)] + [(f"extra_{i}", p) for i, p in enumerate(extra, 1)]
+    levels = []
+    for name, folder in folders:
+        config = next(iter(provenance[name].values()))["config"]
+        levels.append({"name": name, "root": str(folder.resolve()),
+                       "rtol": config["rtol"], "atol": config["atol"],
+                       "config_paths": list(provenance[name])})
+    return levels
+
+
+def available_levels(levels, key):
+    """An attempted extra cell is retained even if its outputs are incomplete."""
+    available = [level for i, level in enumerate(levels) if i < 2 or (Path(level["root"]) / key).exists()]
+    if len(available) > 4:
+        raise ValueError(f"More than two additional numerical levels for {key}")
+    for coarser, finer in zip(available, available[1:]):
+        if not all(finer[name] < coarser[name] for name in ("rtol", "atol")):
+            raise ValueError(f"Each available level must strictly tighten both tolerances for {key}; equal-tolerance cohorts must be disjoint")
+    return available
+
+
+def endpoint_discrepancy(first, second):
+    if first is None or second is None:
+        return None
+    if not np.array_equal(first["angles"], second["angles"]) or not np.array_equal(first["inputs"], second["inputs"]):
+        return None
+    return finite((first["prediction"] - second["prediction"]).abs().max())
+
+
+def level_table(levels, selections):
+    text = "| Level | Root | rtol | atol |\n|---|---|---:|---:|\n"
+    for level in levels:
+        text += f"| {level['name']} | `{level['root']}` | {level['rtol']:.7g} | {level['atol']:.7g} |\n"
+    text += ("\nFor each cell, the latest two available generated levels are the reported primary and refinement. "
+             "Selection uses numerical level order only, including failed or incomplete attempts. "
+             "Equal-tolerance roots are disjoint execution cohorts; each cell has strictly tighter successive levels "
+             "and at most two extra levels. "
+             "Untouched cells retain the original pair. Different cells may use different tolerance levels. "
+             "Original failures and losses remain in trajectories.csv and validation.json; exact selected paths "
+             "and tolerances are in selected_levels.csv.\n\n")
+    names = ["full"] + MODELS
+    text += "| Configuration | " + " | ".join(names) + " |\n|---|" + "---|" * len(names) + "\n"
+    for case in CASES_V2:
+        text += "| " + case + " | " + " | ".join(
+            selections[f"{case}_{model}"]["primary_level"] + " → " +
+            selections[f"{case}_{model}"]["refined_level"] for model in names) + " |\n"
+    return text
 
 
 @torch.no_grad()
@@ -103,6 +155,7 @@ def audit_cell(folder, case, model, suite, device):
     summary = json.loads(summary_path.read_text()) if summary_path.exists() else {}
     record = {
         "suite": suite, "case": case, "model": model,
+        "directory": str(directory.resolve()),
         "status": summary.get("status", "missing_summary"),
         "loss": finite(summary.get("loss")), "time": finite(summary.get("time")),
         "seconds": finite(summary.get("seconds")), "steps": summary.get("steps"),
@@ -219,6 +272,14 @@ def number(value):
     return "—" if value is None else f"{value:.5f}"
 
 
+def fitted_for_descriptive_summary(row):
+    """Retain fit/replay/grid/finite-output gates; omit only the discrepancy cutoff."""
+    fields = [prefix + field for prefix in ("", "refined_") for field in ("l1", "l2", "mse", "max_abs")]
+    fields += ["step_refinement_endpoint_max", "full_step_refinement_endpoint_max"]
+    return bool(row["eligible"] and row["refined_eligible"] and
+                all(row[name] is not None and math.isfinite(row[name]) for name in fields))
+
+
 def metric_table(rows, field):
     table = "| Configuration | " + " | ".join(MODELS) + " |\n|---|" + "---:|" * len(MODELS) + "\n"
     for case in CASES_V2:
@@ -311,37 +372,56 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--primary", type=Path, required=True)
     parser.add_argument("--refined", type=Path, required=True)
+    parser.add_argument("--extra", type=Path, action="append", default=[],
+                        help="Targeted root; repeat in nonincreasing tolerance order (at most two extra levels per cell)")
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--device", default="cuda:0")
     args = parser.parse_args()
-    provenance = validate_configs(args.primary, args.refined)
+    provenance = validate_configs(args.primary, args.refined, args.extra)
+    levels = numerical_levels(args.primary, args.refined, args.extra, provenance)
+    for case in CASES_V2:
+        for model in ["full"] + MODELS:
+            available_levels(levels, f"{case}_{model}")
     device = setup(args.device)
     args.out.mkdir(parents=True, exist_ok=False)
-    rows, trajectories, validations, pointwise, plots = [], [], {}, {}, {}
+    rows, trajectories, validations, pointwise, plots, selections = [], [], {}, {}, {}, {}
     for case in CASES_V2:
         cells = {}
         plots[case] = {}
         for model in ["full"] + MODELS:
             key = f"{case}_{model}"
-            pr, pa = audit_cell(args.primary, case, model, "primary", device)
-            rr, ra = audit_cell(args.refined, case, model, "refined", device)
-            trajectories.extend((pr, rr))
-            refinement = None
+            audited = []
+            for level in available_levels(levels, key):
+                record, arrays = audit_cell(Path(level["root"]), case, model, level["name"], device)
+                record.update(rtol=level["rtol"], atol=level["atol"], selected_as="superseded")
+                audited.append((record, arrays))
+                trajectories.append(record)
+            (pr, pa), (rr, ra) = audited[-2:]
+            pr["selected_as"], rr["selected_as"] = "reported_primary", "refinement"
+            refinement = endpoint_discrepancy(pa, ra)
+            original_refinement = endpoint_discrepancy(audited[0][1], audited[1][1])
+            selections[key] = {"case": case, "model": model,
+                "primary_level": pr["suite"], "refined_level": rr["suite"],
+                "primary_directory": pr["directory"], "refined_directory": rr["directory"],
+                "primary_rtol": pr["rtol"], "primary_atol": pr["atol"],
+                "refined_rtol": rr["rtol"], "refined_atol": rr["atol"],
+                "original_primary_status": audited[0][0]["status"],
+                "original_refined_status": audited[1][0]["status"],
+                "original_primary_loss": audited[0][0]["loss"],
+                "original_refined_loss": audited[1][0]["loss"],
+                "original_step_refinement_endpoint_max": original_refinement}
             reasons = [f"{suite}: {reason}" for suite, record in (("primary", pr), ("refined", rr))
                        for reason in record["reasons"]]
-            aligned = pa is not None and ra is not None
-            if aligned:
-                aligned = np.array_equal(pa["angles"], ra["angles"]) and np.array_equal(pa["inputs"], ra["inputs"])
-                if aligned:
-                    refinement = finite((pa["prediction"] - ra["prediction"]).abs().max())
-                else:
-                    reasons.append("primary/refined angle grids differ")
+            if pa is not None and ra is not None and refinement is None:
+                reasons.append("selected primary/refinement grids differ or outputs are nonfinite")
             if refinement is None or refinement > REFINEMENT_LIMIT:
                 reasons.append(f"refinement maximum {refinement} exceeds/misses {REFINEMENT_LIMIT}")
             valid = bool(pr["fitted"] and rr["fitted"] and pr["replay_valid"] and rr["replay_valid"] and
                          refinement is not None and refinement <= REFINEMENT_LIMIT)
             validations[key] = {"primary": pr, "refined": rr, "step_refinement_endpoint_max": refinement,
-                                "valid": valid, "reasons": reasons}
+                                "valid": valid, "reasons": reasons,
+                                "original_step_refinement_endpoint_max": original_refinement,
+                                "all_levels": [record for record, _ in audited], "selection": selections[key]}
             cells[model] = (pr, pa, rr, ra, valid)
             if pa is not None:
                 plots[case][model] = {"angles": pa["angles"], "prediction": pa["prediction"].cpu().numpy(), "valid": valid}
@@ -364,6 +444,11 @@ def main():
                    "refined_loss": rr["loss"], "refined_full_loss": fr["loss"],
                    "refined_time": rr["time"], "refined_full_time": fr["time"],
                    "refined_seconds": rr["seconds"],
+                   "primary_directory": pr["directory"], "refined_directory": rr["directory"],
+                   "full_primary_directory": fp["directory"], "full_refined_directory": fr["directory"],
+                   "primary_rtol": pr["rtol"], "primary_atol": pr["atol"],
+                   "refined_rtol": rr["rtol"], "refined_atol": rr["atol"],
+                   "full_primary_rtol": fp["rtol"], "full_refined_rtol": fr["rtol"],
                    "step_refinement_endpoint_max": validations[key]["step_refinement_endpoint_max"],
                    "full_step_refinement_endpoint_max": validations[case + "_full"]["step_refinement_endpoint_max"],
                    "rms1": finite(pr["summary"].get("rms_hidden1")),
@@ -397,6 +482,11 @@ def main():
     for row in rows:
         row["common_case"] = row["case"] in common
     common_summary = [aggregate(rows, model, common, device) for model in MODELS]
+    all_fitted = [case for case in CASES_V2 if all(fitted_for_descriptive_summary(row)
+                  for row in rows if row["case"] == case)]
+    unresolved = [case for case in all_fitted if case not in common]
+    all_fitted_summary = [{**aggregate(rows, model, all_fitted, device),
+                          "accuracy_validated": False, "unresolved_cases": unresolved} for model in MODELS]
     method_summary = [aggregate(rows, model, [r["case"] for r in rows if r["model"] == model and r["valid"]], device)
                       for model in MODELS]
     coverage = [{"model": model, "declared_cases": len(CASES_V2), "common_valid_cases": len(common),
@@ -411,18 +501,28 @@ def main():
         "Case RMS is sqrt(mean(error^2)); "
         "case maxabs is max(abs(error)); case L1 is mean(abs(error)), on 8192 uniform circle angles. "
         "The primary nine-row summary takes the arithmetic mean and maximum of each case metric over the SAME "
-        "common configuration set: full plus all nine models fitted in both suites, passed replay, and each "
+        "common configuration set: full plus all nine models fitted at both selected numerical levels, passed replay, and each "
         "primary/refined endpoint difference was <=0.01. Mean case RMS is not pooled RMS. Separate method-specific "
         "summaries may cover different cases and must not be read as a matched cross-method ranking. "
         "Terminal diagnostics for unfitted runs are retained separately and excluded from learned-function summaries.")
     save_json(args.out / "metrics.json", rows)
     save_json(args.out / "trajectories.json", trajectories)
     save_json(args.out / "validation.json", validations)
+    save_json(args.out / "selected_levels.json", {"levels": levels, "cells": selections})
+    save_json(args.out / "all_fitted_summary.json", {
+        "description": "Descriptive all-fitted-case aggregate; NOT ACCURACY-VALIDATED. Only the 0.01 numerical discrepancy cutoff is omitted.",
+        "accuracy_validated": False, "case_count": len(all_fitted), "cases": all_fitted,
+        "unresolved_cases": unresolved, "unresolved_details": {case: exclusions[case] for case in unresolved},
+        "excluded_cases": [case for case in CASES_V2 if case not in all_fitted], "summary": all_fitted_summary})
     save_json(args.out / "summary.json", {"definitions": definitions, "declared_cases": list(CASES_V2),
         "common_case_count": len(common), "common_cases": common, "exclusions": exclusions,
-        "common_summary": common_summary, "method_specific_summary": method_summary, "coverage": coverage})
+        "common_summary": common_summary, "method_specific_summary": method_summary, "coverage": coverage,
+        "all_fitted_descriptive_summary_file": "all_fitted_summary.json",
+        "numerical_levels": levels, "selected_levels_file": "selected_levels.json"})
     for name, data in (("metrics", rows), ("trajectories", trajectories), ("common_summary", common_summary),
-                       ("method_specific_summary", method_summary), ("coverage", coverage)):
+                       ("method_specific_summary", method_summary), ("coverage", coverage),
+                       ("all_fitted_summary", all_fitted_summary),
+                       ("selected_levels", list(selections.values()))):
         csv_file(args.out / f"{name}.csv", data)
     for name, field in (("rms", "l2"), ("max_abs", "max_abs")):
         csv_file(args.out / f"per_case_{name}.csv", [{"case": case, **{model:
@@ -432,7 +532,16 @@ def main():
     report = "# Twelve-configuration learned-circle comparison\n\n" + definitions + "\n\n"
     report += f"Common valid configurations: **{len(common)}/{len(CASES_V2)}**. "
     report += "Included: " + (", ".join(common) or "none") + ".\n\n"
-    report += "## Primary matched summary\n\n" + aggregate_table(common_summary)
+    report += "## Numerical levels and cell selection\n\n" + level_table(levels, selections)
+    report += "\n## Reported-primary matched summary\n\n" + aggregate_table(common_summary)
+    report += "\n## Descriptive all-fitted-case aggregate — NOT ACCURACY-VALIDATED\n\n"
+    report += (f"All ten models fit and pass checkpoint/loss replay at both selected levels for **{len(all_fitted)}/{len(CASES_V2)}** configurations. "
+               "This supplement uses the same included configurations for all nine methods and the same mean/max definitions. "
+               "It omits only the 0.01 numerical discrepancy cutoff; fitting, replay, aligned-grid, and finite-output gates remain. "
+               "These descriptive values include numerically unresolved cases and must not be interpreted as accuracy-validated comparisons.\n\n")
+    report += "Included configurations: " + (", ".join(all_fitted) or "none") + ".\n\n"
+    report += "Numerically unresolved included configurations: **" + (", ".join(unresolved) or "none") + "**.\n\n"
+    report += aggregate_table(all_fitted_summary)
     report += "\n## Per-configuration RMS\n\n" + metric_table(rows, "l2")
     report += "\n## Per-configuration maximum absolute error\n\n" + metric_table(rows, "max_abs")
     report += "\n† Primary fitted comparison failing refinement or replay; excluded from validated aggregates. "
@@ -453,9 +562,10 @@ def main():
     save_json(args.out / "analysis_provenance.json", {"command": sys.argv, "device": device,
         "analysis_sha256": sha256(Path(__file__)), "checkpoint_replay_source_sha256": sha256(Path(__file__).with_name("analyze.py")),
         "producer_configs": provenance, "simulation_source_correspondence": True,
+        "numerical_levels": levels, "selected_cell_levels": selections,
         "summary_source": "per-cell summary.json; root results.json is not used",
         "refinement_endpoint_max_limit": REFINEMENT_LIMIT, "replay_tolerance": REPLAY_TOLERANCE})
-    files = sorted(p for root in (args.primary, args.refined, args.out) for p in root.rglob("*") if p.is_file())
+    files = sorted({p for root in (args.primary, args.refined, *args.extra, args.out) for p in root.rglob("*") if p.is_file()})
     save_json(args.out / "artifact_hashes.json", {str(p): sha256(p) for p in files})
     print(aggregate_table(common_summary), flush=True)
     print(f"Common valid cases: {len(common)}/{len(CASES_V2)}; exclusions: {', '.join(exclusions) or 'none'}", flush=True)
