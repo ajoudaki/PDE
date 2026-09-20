@@ -704,3 +704,44 @@ Reproduce into a fresh output directory:
 ```sh
 PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/home/amir/Codes/PDE/data/generated/random_dictionary_learned_circle_20260920/scaling_rms_plot_cache /home/amir/miniconda3/bin/python -B studies/random_dictionary_learned_circle_20260920/scaling_plot_all_rms.py --data-root data/generated/random_dictionary_learned_circle_20260920 --out data/generated/random_dictionary_learned_circle_20260920/scaling_all_configurations_rms02
 ```
+
+## Interactive radial viewer of all eight scaling configurations
+
+`scaling_radial_export.py` and `scaling_radial_template.html` render the saved
+selected-finer endpoints as an interactive circle plot with experiment and p
+selectors. The requested visual reference was the user-supplied
+`/home/amir/.codex/visualizations/2026/09/14/01a09f0d-694c-70f3-b27e-4c9b0e1d774a/circle-experiments.html`;
+only its presentation was consulted, with no scientific data imported.
+
+The viewer shows the full network, ours, Gaussian and orthogonal separately.
+Only actual tested orders appear: discovery1,3,5,6,7,8,9 and fresh1,5,9.
+Each predictor is at its own detected training-MSE0.001 crossing. Signed outputs
+are displacements from a positive zero-output radius, with the scale fixed
+across all p values and visibility choices within each case. The eight labeled
+training inputs are marked; no target function between those inputs is implied.
+
+The104 curves are sampled every eighth entry of the8192-angle saved predictions
+and rounded to six decimal places for display. The96 shown RMS values are exact
+copies of `refined_l2` from the final metrics, not values computed from the display
+samples. Each case uses its common current `full_refined_prediction`, including
+the discovery cases; historical full references are excluded. Selected finer
+tolerances differ between some cells. No training or scientific metric was
+recomputed, and the campaign remains closed.
+
+Generated products are in `scaling_radial_viewer01`: `viewer_data.json`, the
+compressed inline `scaling-circle-experiments.html`, and `provenance.json` with
+source/input/output hashes and sampling rules. The displayed copy is under
+`/home/amir/.codex/visualizations/2026/09/20/01a0bfa6-860d-7cb0-8db0-a2a8ae066c64/scaling-circle-experiments.html`.
+
+A scoped independent check verified every curve, RMS value, geometry, order,
+dimension, endpoint metadata field, the compressed payload and all15 hashes.
+Browser checks exercised all32 experiment/order selections, curve and tooltip
+toggles, saved-state restoration and widths736/360/320 without JavaScript errors
+or horizontal overflow. Desktop/mobile images were visually inspected. Preview
+and browser-check products are retained in `scaling_radial_preview01`.
+
+Reproduce into a fresh generated directory:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 /home/amir/miniconda3/bin/python -B studies/random_dictionary_learned_circle_20260920/scaling_radial_export.py --out data/generated/random_dictionary_learned_circle_20260920/scaling_radial_viewer02
+```

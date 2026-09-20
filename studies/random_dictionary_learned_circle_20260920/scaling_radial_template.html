@@ -1,0 +1,234 @@
+<div id="scaling-circle-explorer">
+  <style>
+    #scaling-circle-explorer { position: relative; width: 100%; }
+    #scaling-circle-explorer .sc-block { margin-bottom: 12px; }
+    #scaling-circle-explorer .sc-legend { display: flex; flex-wrap: wrap; gap: 10px 24px; margin: 12px 0; }
+    #scaling-circle-explorer .sc-series { display: inline-flex; align-items: center; gap: 8px; border: 0; background: transparent; color: var(--foreground); padding: 4px 0; cursor: pointer; font: inherit; }
+    #scaling-circle-explorer .sc-series[aria-pressed="false"] { opacity: .45; }
+    #scaling-circle-explorer .sc-series-label { display: grid; gap: 2px; text-align: left; }
+    #scaling-circle-explorer .sc-swatch { width: 24px; border-top: 3px solid; }
+    #scaling-circle-explorer .sc-chart { display: block; width: 100%; }
+    #scaling-circle-explorer .sc-chart text { fill: var(--foreground); font-size: 12px; font-weight: 400; }
+    #scaling-circle-explorer .sc-foot { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; }
+    #scaling-circle-explorer .sc-tip { position: absolute; pointer-events: none; z-index: 5; background: var(--popover); color: var(--popover-foreground); padding: 10px 12px; border: 1px solid var(--border); }
+    #scaling-circle-explorer .sc-tip-row { display: flex; justify-content: space-between; gap: 20px; }
+    #scaling-circle-explorer [hidden] { display: none !important; }
+    @media (pointer: coarse) { #scaling-circle-explorer .sc-series { min-height: 44px; } }
+  </style>
+  <h3>Learned shapes around the circle</h3>
+  <div class="viz-controls sc-block">
+    <label class="form-label">Experiment
+      <select data-role="experiment" class="form-select" aria-label="Experiment"></select>
+    </label>
+    <label class="form-label">Dictionary order p
+      <select data-role="order" class="form-select" aria-label="Dictionary order p"></select>
+    </label>
+  </div>
+  <div data-role="detail" class="text-small tabular-nums sc-block" aria-live="polite">Loading saved curves…</div>
+  <div data-role="legend" class="sc-legend" aria-label="Visible methods and RMS error from the full network"></div>
+  <div class="text-small text-muted sc-block">○ Training inputs · ● Label +1 · ◆ Label −1 · Dashed ring: zero output</div>
+  <div data-role="plot"></div>
+  <div class="sc-foot text-small text-muted"><span data-role="scale"></span><span>Selected finer endpoints · 1,024 display angles · RMS: 8,192 angles</span></div>
+  <div data-role="tooltip" class="tooltip sc-tip text-small tabular-nums" role="tooltip" hidden></div>
+  <div data-role="error" role="alert" hidden></div>
+  <script data-role="payload" type="application/octet-stream">__SCALING_PAYLOAD__</script>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script>
+(async function () {
+  const root = document.getElementById('scaling-circle-explorer');
+  const el = role => root.querySelector('[data-role="' + role + '"]');
+  try {
+    if (typeof d3 === 'undefined') throw new Error('The chart library could not load. Please reopen the visualization.');
+    const bytes = Uint8Array.from(atob(el('payload').textContent.trim()), c => c.charCodeAt(0));
+    const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+    const data = JSON.parse(await new Response(stream).text());
+    const names = { full: 'Full network', ours: 'Ours', gaussian: 'Gaussian', orthogonal: 'Orthogonal' };
+    const colors = { full: 'var(--foreground)', ours: 'var(--viz-series-1)', gaussian: 'var(--viz-series-2)', orthogonal: 'var(--viz-series-3)' };
+    const dashes = { full: '', ours: '', gaussian: '7 4', orthogonal: '2 4' };
+    const keys = Object.keys(names), visible = Object.fromEntries(keys.map(k => [k, true]));
+    const fmt = x => Number(x.toPrecision(4)).toString();
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    let current = data.cases[0], order = current.orders[0], states, chart;
+    let hoverAngle = null, pinned = false, lastWidth = 0;
+
+    function save() {
+      if (!window.openai?.setWidgetState) return;
+      window.openai.setWidgetState({
+        modelContent: { experiment: current.label, caseId: current.id, p: order.p, dictionaryVectors: order.columns,
+          visibleMethods: keys.filter(k => visible[k]).map(k => names[k]), numericalLevel: data.level },
+        privateContent: { visible: { ...visible } }
+      }).catch(() => {});
+    }
+    function restore(snapshot) {
+      const value = snapshot?.modelContent || {};
+      current = data.cases.find(c => c.id === value.caseId) || current;
+      order = current.orders.find(o => o.p === value.p) || current.orders[0];
+      const saved = snapshot?.privateContent?.visible;
+      if (saved) keys.forEach(k => { if (typeof saved[k] === 'boolean') visible[k] = saved[k]; });
+      if (!keys.some(k => visible[k])) visible.full = true;
+      el('experiment').value = current.id;
+      configureOrders();
+      render(false);
+    }
+    function configureOrders() {
+      const select = el('order'); select.replaceChildren();
+      current.orders.forEach(o => {
+        const option = document.createElement('option'); option.value = o.p;
+        option.textContent = 'p = ' + o.p + ' · ' + o.columns + ' vectors'; select.append(option);
+      });
+      select.value = order.p;
+    }
+    function render(animate) {
+      hoverAngle = null; pinned = false;
+      states = keys.map(key => ({ key, ...(key === 'full' ? current.reference : order.models[key]) }));
+      el('detail').textContent = 'Width ' + current.width.toLocaleString() + ' · Training MSE ' + current.threshold +
+        ' · Dictionary: ' + order.k1 + ' + ' + order.k2 + ' = ' + order.columns + ' vectors';
+      el('scale').textContent = 'Output rings: −1, 0, +1 · Scale fixed across p';
+      const legend = el('legend'); legend.replaceChildren();
+      states.forEach(state => {
+        const button = document.createElement('button'); button.type = 'button'; button.className = 'sc-series';
+        button.dataset.method = state.key; button.setAttribute('aria-pressed', String(visible[state.key]));
+        button.setAttribute('aria-label', names[state.key] + (state.key === 'full' ? ', reference' : ', RMS error ' + fmt(state.rms)));
+        const swatch = document.createElement('span'); swatch.className = 'sc-swatch';
+        swatch.style.borderColor = colors[state.key]; swatch.style.borderTopStyle = dashes[state.key] ? (state.key === 'gaussian' ? 'dashed' : 'dotted') : 'solid';
+        swatch.setAttribute('aria-hidden', 'true');
+        const label = document.createElement('span'); label.className = 'sc-series-label';
+        const title = document.createElement('span'); title.textContent = names[state.key];
+        const metric = document.createElement('span'); metric.className = 'text-small tabular-nums';
+        metric.textContent = state.key === 'full' ? 'Reference' : 'RMS ' + fmt(state.rms);
+        label.append(title, metric); button.append(swatch, label);
+        button.addEventListener('click', () => {
+          if (visible[state.key] && keys.filter(k => visible[k]).length === 1) return;
+          visible[state.key] = !visible[state.key]; button.setAttribute('aria-pressed', String(visible[state.key]));
+          hoverAngle = null; pinned = false; draw(false); save();
+        });
+        legend.append(button);
+      });
+      draw(animate);
+    }
+    function atAngle(curve, degrees) {
+      const f = ((degrees % 360 + 360) % 360) * curve.length / 360;
+      const i = Math.floor(f), t = f - i;
+      return curve[i] * (1 - t) + curve[(i + 1) % curve.length] * t;
+    }
+    function draw(animate = false) {
+      const width = el('plot').getBoundingClientRect().width;
+      if (width <= 0) return;
+      const height = Math.min(640, width), cx = width / 2, cy = height / 2;
+      const outer = Math.min(width, height) / 2 - 43;
+      const bound = current.extent * 1.08, radius = Math.max(2, 1.05 * bound);
+      const radial = d3.scaleLinear().domain([0, radius + bound]).range([0, outer]);
+      const point = (angle, value) => {
+        const a = angle * Math.PI / 180, r = radial(radius + value);
+        return [cx + r * Math.cos(a), cy - r * Math.sin(a)];
+      };
+      const svg = d3.select(el('plot')).selectAll('svg').data([0]).join('svg').attr('class', 'sc-chart')
+        .attr('width', width).attr('height', height).attr('viewBox', `0 0 ${width} ${height}`).attr('role', 'img')
+        .attr('aria-label', current.label + ', p = ' + order.p + ', radial network outputs');
+      svg.selectAll('title').data([0]).join('title').text(current.label + ' · p = ' + order.p);
+      svg.selectAll('desc').data([0]).join('desc').text('Radial displacement from the dashed zero-output ring represents output. Positive output points outward; negative output points inward. Four curves compare the full network with three dictionaries at each model’s own training-MSE 0.001 endpoint. Hollow circles mark training inputs, filled circles positive targets, diamonds negative targets.');
+      svg.selectAll('rect[data-chart-frame]').data([0]).join('rect').attr('data-chart-frame', '')
+        .attr('x', .5).attr('y', .5).attr('width', width - 1).attr('height', height - 1).attr('fill', 'none').attr('stroke', 'var(--border)');
+      const grid = svg.selectAll('g[data-grid]').data([0]).join('g').attr('data-grid', ''); grid.selectAll('*').remove();
+      const directions = width < 450 ? [0, 90, 180, 270] : [0, 45, 90, 135, 180, 225, 270, 315];
+      directions.forEach(angle => {
+        const [x, y] = point(angle, bound), a = angle * Math.PI / 180;
+        grid.append('line').attr('x1', cx).attr('y1', cy).attr('x2', x).attr('y2', y).attr('stroke', 'var(--border)');
+        grid.append('text').attr('x', cx + (outer + 14) * Math.cos(a)).attr('y', cy - (outer + 14) * Math.sin(a) + 4)
+          .attr('text-anchor', angle === 0 ? 'start' : angle === 180 ? 'end' : 'middle').text(angle + '°');
+      });
+      [-1, 0, 1].forEach(value => {
+        grid.append('circle').attr('cx', cx).attr('cy', cy).attr('r', radial(radius + value)).attr('fill', 'none')
+          .attr('stroke', value === 0 ? 'var(--muted-foreground)' : 'var(--border)').attr('stroke-dasharray', value === 0 ? '5 5' : null);
+      });
+      const curves = svg.selectAll('g[data-curves]').data([0]).join('g').attr('data-curves', '');
+      const line = d3.line();
+      const pathFor = state => line([...state.curve.map((v, i) => point(360 * i / state.curve.length, v)), point(0, state.curve[0])]);
+      const paths = curves.selectAll('path').data(states.filter(s => visible[s.key]), s => s.key);
+      paths.exit().interrupt().remove();
+      const entered = paths.enter().append('path').attr('fill', 'none').attr('d', pathFor);
+      const merged = entered.merge(paths).attr('data-curve', s => s.key).attr('stroke', s => colors[s.key])
+        .attr('stroke-width', s => s.key === 'full' ? 2.8 : 2.2).attr('stroke-dasharray', s => dashes[s.key])
+        .attr('stroke-linejoin', 'round');
+      merged.interrupt();
+      if (animate && !reducedMotion.matches) merged.transition().duration(220).attr('d', pathFor);
+      else merged.attr('d', pathFor);
+      const marks = svg.selectAll('g[data-training]').data([0]).join('g').attr('data-training', ''); marks.selectAll('*').remove();
+      current.anglesDegrees.forEach((angle, i) => {
+        const input = point(angle, 0), target = point(angle, current.labels[i]);
+        marks.append('line').attr('x1', input[0]).attr('y1', input[1]).attr('x2', target[0]).attr('y2', target[1])
+          .attr('stroke', 'var(--muted-foreground)').attr('stroke-dasharray', '2 4');
+        marks.append('circle').attr('cx', input[0]).attr('cy', input[1]).attr('r', 3.8)
+          .attr('fill', 'var(--background)').attr('stroke', 'var(--foreground)').attr('stroke-width', 1.3);
+        marks.append('path').attr('transform', `translate(${target[0]},${target[1]})`)
+          .attr('d', d3.symbol().type(current.labels[i] > 0 ? d3.symbolCircle : d3.symbolDiamond).size(42)()).attr('fill', 'var(--foreground)');
+      });
+      svg.selectAll('g[data-hover-layer]').data([0]).join('g').attr('data-hover-layer', '').attr('pointer-events', 'none');
+      svg.selectAll('rect[data-chart-hit]').data([0]).join('rect').attr('data-chart-hit', '').attr('data-chart-hover-overlay', 'cross-series')
+        .attr('x', 1).attr('y', 1).attr('width', width - 2).attr('height', height - 2).attr('fill', 'transparent')
+        .on('pointermove', event => { if (!pinned && event.pointerType !== 'touch') setHover(event); })
+        .on('pointerleave', () => { if (!pinned) { hoverAngle = null; showHover(); } })
+        .on('click', event => { if (pinned) { pinned = false; hoverAngle = null; showHover(); } else { setHover(event); pinned = true; } });
+      chart = { svg, cx, cy, point, bound, radius, width, height };
+      showHover();
+    }
+    function setHover(event) {
+      const [x, y] = d3.pointer(event, chart.svg.node());
+      hoverAngle = (Math.atan2(chart.cy - y, x - chart.cx) * 180 / Math.PI + 360) % 360;
+      showHover();
+    }
+    function showHover() {
+      if (!chart) return;
+      const tip = el('tooltip'), layer = chart.svg.select('[data-hover-layer]'); layer.selectAll('*').remove();
+      tip.hidden = hoverAngle === null;
+      if (hoverAngle === null) return;
+      const end = chart.point(hoverAngle, chart.bound);
+      layer.append('line').attr('data-chart-hover-guide', '').attr('x1', chart.cx).attr('y1', chart.cy)
+        .attr('x2', end[0]).attr('y2', end[1]).attr('stroke', 'var(--muted-foreground)');
+      tip.replaceChildren();
+      const heading = document.createElement('div'); heading.textContent = 'Angle ' + fmt(hoverAngle) + '°'; tip.append(heading);
+      states.filter(s => visible[s.key]).forEach(state => {
+        const value = atAngle(state.curve, hoverAngle), point = chart.point(hoverAngle, value);
+        layer.append('circle').attr('data-chart-hover-marker', state.key).attr('cx', point[0]).attr('cy', point[1]).attr('r', 3.5)
+          .attr('fill', 'var(--background)').attr('stroke', colors[state.key]).attr('stroke-width', 2);
+        const row = document.createElement('div'); row.className = 'sc-tip-row'; row.dataset.method = state.key;
+        const name = document.createElement('span'); name.textContent = names[state.key];
+        const number = document.createElement('span'); number.textContent = fmt(value); row.append(name, number); tip.append(row);
+      });
+      const rootBox = root.getBoundingClientRect(), plotBox = el('plot').getBoundingClientRect();
+      tip.style.left = Math.max(4, Math.min(8, rootBox.width - tip.offsetWidth - 4)) + 'px';
+      tip.style.top = (plotBox.top - rootBox.top + 8) + 'px';
+    }
+    data.cases.forEach(c => {
+      const option = document.createElement('option'); option.value = c.id; option.textContent = c.label;
+      el('experiment').append(option);
+    });
+    el('experiment').addEventListener('change', () => {
+      const previous = order.p;
+      current = data.cases.find(c => c.id === el('experiment').value);
+      order = current.orders.find(o => o.p === previous) || current.orders.reduce((a, b) => Math.abs(a.p - previous) <= Math.abs(b.p - previous) ? a : b);
+      configureOrders(); render(true); save();
+    });
+    el('order').addEventListener('change', () => {
+      order = current.orders.find(o => o.p === Number(el('order').value)); render(true); save();
+    });
+    window.addEventListener('openai:set_globals', event => {
+      if (event.detail?.globals && 'widgetState' in event.detail.globals) restore(event.detail.globals.widgetState);
+    });
+    const observer = new ResizeObserver(entries => {
+      const width = entries[0].contentRect.width;
+      if (Math.abs(width - lastWidth) > .5) { lastWidth = width; draw(false); }
+    });
+    restore(window.openai?.widgetState);
+    observer.observe(el('plot'));
+    root.dataset.ready = 'true'; root.dataset.experimentCount = data.cases.length;
+    root.__viewerCheck = () => ({ caseId: current.id, p: order.p, columns: order.columns,
+      radius: chart?.radius, bound: chart?.bound, visible: { ...visible },
+      states: states.map(s => ({ key: s.key, rms: s.rms, mse: s.mse, time: s.time, curve: s.curve })) });
+  } catch (error) {
+    el('error').hidden = false; el('error').textContent = error.message;
+    el('detail').textContent = 'Saved curves could not load.'; console.error(error);
+  }
+})();
+</script>
