@@ -30,7 +30,7 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def draw(rows, out, horizontal, cases):
+def draw(rows, out, horizontal, cases, columns_scale):
     by_p = horizontal == "order"
     single = len(cases) == 1
     fig, panels = plt.subplots(1, len(cases), figsize=(9.2, 6.3) if single else (12.8, 5.8),
@@ -60,12 +60,12 @@ def draw(rows, out, horizontal, cases):
             ax.set_xticks(ORDERS)
             ax.set_xlabel("Dictionary order p", labelpad=8)
         else:
-            ax.set_xscale("log")
-            ax.set_xlim(6, 1000)
-            ax.xaxis.set_major_locator(FixedLocator(COLUMNS))
+            ax.set_xscale(columns_scale)
+            ax.set_xlim((6, 1000) if columns_scale == "log" else (0, 800))
+            ax.xaxis.set_major_locator(FixedLocator(COLUMNS if columns_scale == "log" else range(0, 801, 100)))
             ax.xaxis.set_major_formatter(FuncFormatter(lambda value, _: f"{int(value)}"))
             ax.xaxis.set_minor_locator(NullLocator())
-            ax.set_xlabel("Number of dictionary vectors K₁ + K₂ (log scale)", labelpad=8)
+            ax.set_xlabel(f"Number of dictionary vectors K₁ + K₂ ({columns_scale} scale)", labelpad=8)
         ax.grid(axis="y", color="#dddddd", linewidth=.7)
         ax.grid(axis="x", color="#eeeeee", linewidth=.6)
         ax.spines[["top", "right"]].set_visible(False)
@@ -107,6 +107,7 @@ def main():
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--case", choices=tuple(CASES), help="Render only one original configuration")
     parser.add_argument("--axis", choices=("order", "dictionary_columns", "both"), default="both")
+    parser.add_argument("--columns-scale", choices=("linear", "log"), default="log")
     args = parser.parse_args()
     rows = json.loads((args.analysis / "metrics.json").read_text())
     summary = json.loads((args.analysis / "summary.json").read_text())
@@ -130,7 +131,7 @@ def main():
         writer.writerows({key: row[key] for key in fields} for row in rows)
     outputs = [plotted]
     for axis in (("order", "dictionary_columns") if args.axis == "both" else (args.axis,)):
-        outputs.extend(draw(rows, args.out, axis, cases))
+        outputs.extend(draw(rows, args.out, axis, cases, args.columns_scale))
     provenance = {
         "command": [sys.executable, "-B", *sys.argv], "cwd": str(Path.cwd()),
         "source_sha256": digest(Path(__file__)),
@@ -139,6 +140,7 @@ def main():
         "output_hashes": {path.name: digest(path) for path in outputs},
         "python": sys.version, "matplotlib": matplotlib.__version__,
         "cases": list(cases), "axis": args.axis,
+        "dictionary_column_scale": args.columns_scale, "y_scale": "log",
         "scope": "Plot saved RMS values only; no new numerical metric, baseline selection, rate fit or training.",
         "numerical_levels": "Both selected levels per cell; solid=finer, dashed=coarser. Not a seed uncertainty band.",
     }

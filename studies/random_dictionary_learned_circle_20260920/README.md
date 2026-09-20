@@ -671,3 +671,11 @@ The `scaling_paired_discovery_rms01` directory retains the21 plotted records,
 SVG, and source/input/output hashes. Both numerical levels and all three methods
 remain separate. The image was visually checked; no scientific values changed
 and no new training was run.
+
+A requested variant keeps the paired-discovery RMS y-axis logarithmic and makes
+the dictionary-count x-axis linear:
+[PNG](../../data/generated/random_dictionary_learned_circle_20260920/scaling_paired_discovery_rms_linear01/rms_vs_dictionary_columns.png).
+Use the same paired-only command with `--columns-scale linear` and a fresh
+output root. `scaling_paired_discovery_rms_linear01` retains unchanged plotted
+values, PDF/SVG exports, and exact invocation/hash provenance. Only axis
+presentation changes; the previous logarithmic-x figure is preserved.
