@@ -24,13 +24,23 @@ METHODS = {
     "gaussian": ("Gaussian", "#c96519", "s"),
     "orthogonal": ("Orthogonal", "#7944a0", "^"),
 }
+CASE_TITLES = {
+    "quadrant_pairs": "Paired discovery",
+    "two_outliers_alternating": "Outlier discovery",
+    "pairs_confirm1": "Paired fresh 1",
+    "pairs_confirm2": "Paired fresh 2",
+    "outliers_confirm1": "Outlier fresh 1",
+    "outliers_confirm2": "Outlier fresh 2",
+    "negative_confirm1": "Negative control — fresh 1",
+    "negative_confirm2": "Negative control — fresh 2",
+}
 
 
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def draw(rows, out, horizontal, cases, columns_scale):
+def draw(rows, out, horizontal, cases, columns_scale, y_limits=(.02, 2), pdf_bundle=None):
     by_p = horizontal == "order"
     single = len(cases) == 1
     fig, panels = plt.subplots(1, len(cases), figsize=(9.2, 6.3) if single else (12.8, 5.8),
@@ -51,8 +61,9 @@ def draw(rows, out, horizontal, cases, columns_scale):
         if not single:
             ax.set_title(title, fontsize=13, pad=13)
         ax.set_yscale("log")
-        ax.set_ylim(.02, 2)
-        ax.yaxis.set_major_locator(FixedLocator([.02, .05, .1, .2, .5, 1, 2]))
+        ax.set_ylim(*y_limits)
+        ax.yaxis.set_major_locator(FixedLocator([v for v in [.005, .01, .02, .05, .1, .2, .5, 1, 2]
+                                                if y_limits[0] <= v <= y_limits[1]]))
         ax.yaxis.set_major_formatter(FuncFormatter(lambda value, _: f"{value:g}"))
         ax.yaxis.set_minor_locator(NullLocator())
         if by_p:
@@ -77,7 +88,7 @@ def draw(rows, out, horizontal, cases, columns_scale):
                       for label, color, marker in METHODS.values()]
     fig.legend(handles=method_handles, loc="upper center", bbox_to_anchor=(.5, .925),
                ncol=3, frameon=False, fontsize=11, handlelength=2.5, columnspacing=2.5)
-    heading = ("Paired discovery" if "quadrant_pairs" in cases else "Outlier discovery") if single else (
+    heading = CASE_TITLES[next(iter(cases))] if single else (
         "Dictionary approximation on the two original configurations")
     fig.suptitle(heading, y=.985, fontsize=16)
     fig.text(.5, .075,
@@ -86,8 +97,10 @@ def draw(rows, out, horizontal, cases, columns_scale):
              "Solid / filled: selected finer tolerance   ·   Dashed / open: selected coarser tolerance\n"
              "The two numerical levels nearly overlap. Width 2,048 · 8,192 circle points · own training-MSE 0.001 crossings",
              ha="center", va="center", fontsize=9, color="#444444", linespacing=1.6)
+    tested_orders = sorted({r["order"] for r in rows if r["case"] in cases})
+    tested_columns = [dict(zip(ORDERS, COLUMNS))[p] for p in tested_orders]
     fig.text(.5, .018,
-             "Tested p: 1, 3, 5, 6, 7, 8, 9   →   columns: 8, 45, 149, 241, 369, 544, 775.  Lines connect tested points.",
+             f"Tested p: {', '.join(map(str, tested_orders))}   →   columns: {', '.join(map(str, tested_columns))}.  Lines connect tested points.",
              ha="center", fontsize=9, color="#444444")
     fig.subplots_adjust(left=.115 if single else .082, right=.978, bottom=.23,
                         top=.84 if single else .78, wspace=.2)
@@ -97,6 +110,8 @@ def draw(rows, out, horizontal, cases, columns_scale):
         path = out / (stem + "." + extension)
         fig.savefig(path, dpi=180, facecolor="white")
         outputs.append(path)
+    if pdf_bundle is not None:
+        pdf_bundle.savefig(fig, facecolor="white")
     plt.close(fig)
     return outputs
 

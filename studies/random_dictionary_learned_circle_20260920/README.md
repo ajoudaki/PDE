@@ -679,3 +679,28 @@ Use the same paired-only command with `--columns-scale linear` and a fresh
 output root. `scaling_paired_discovery_rms_linear01` retains unchanged plotted
 values, PDF/SVG exports, and exact invocation/hash provenance. Only axis
 presentation changes; the previous logarithmic-x figure is preserved.
+
+## All eight scaling configurations: individual RMS plots
+
+At the user's request, `scaling_plot_all_rms.py` renders the96 existing final
+comparisons as eight separate figures, grouped in display order by paired,
+outlier and negative-control family. Every figure uses a linear dictionary-count
+axis and logarithmic RMS axis, separate ours/Gaussian/orthogonal curves and both
+selected numerical levels. Discovery figures have seven measured sizes; fresh
+figures have only8,149,775 columns. Connecting segments do not supply untested
+observations. Negative-control figures use y limits0.005–0.05 to show their
+smaller errors; all other figures retain0.02–2. Allx limits are0–800.
+
+[All eight plots, PDF](../../data/generated/random_dictionary_learned_circle_20260920/scaling_all_configurations_rms01/all_configurations.pdf).
+Each case-named subdirectory in `scaling_all_configurations_rms01` contains
+PNG/PDF/SVG versions. `plotted_rms.csv` preserves all96 source rows and both RMS
+levels, while `provenance.json` records the exact command, source/input/output
+hashes, case inventory and axis limits. The shared renderer labels each case
+and its actual tested orders. Representative figures were visually inspected;
+no training or scientific metric was recomputed. Prior figures are retained.
+
+Reproduce into a fresh output directory:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/home/amir/Codes/PDE/data/generated/random_dictionary_learned_circle_20260920/scaling_rms_plot_cache /home/amir/miniconda3/bin/python -B studies/random_dictionary_learned_circle_20260920/scaling_plot_all_rms.py --data-root data/generated/random_dictionary_learned_circle_20260920 --out data/generated/random_dictionary_learned_circle_20260920/scaling_all_configurations_rms02
+```
