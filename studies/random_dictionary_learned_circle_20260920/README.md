@@ -571,3 +571,11 @@ are reproduced exactly; actual initialized triangular residuals are checked
 per run. Earlier validation01 remains intact. Runner corrections preserve the
 fixed scientific vector field and enforce budget stops before starting new
 cells. This is internal implementation validation, not promotion review.
+
+## Paused for account handoff
+
+See [complete resumption instructions](HANDOFF_SCALING.md) and
+[execution/budget record](SCALING_RUN_RECORD.md). Both Stage A primary workers
+finished normally:14/14 fitted,144.512475784868 summed worker seconds.
+No training remains running. Stage A refinement and all later conditional
+stages remain unrun; no new scaling conclusion has yet been validated.

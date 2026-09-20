@@ -77,3 +77,56 @@ dictionary
 `4945a2d4705159cec938fcd585b0d366cc4c75311728bf2ed00824f677bf0520`;
 protocol
 `a75939d69f4b5db961fab1d6ab1b9a66bdfee0ab9d69b11c9e4d02fb62418e7b`.
+
+## Follow-up: aggregate correction and analyzer review
+
+The supervisor's final runner **does** save `results_<suffix>.json` immediately
+after an initialization failure (line 118). The minor reporting issue above is
+therefore resolved. Verified runner SHA256:
+`fce49cb577e89e1bed1a043277fd786af52b37ddac5b55a2ccfd861f9f637a9a`.
+The earlier hash capture occurred after this edit; the earlier line inspection
+occurred before it.
+
+Read `scaling_analyze.py` completely and its directly used `evaluate_saved`,
+`tensor`, `finite`, `sha256`, and `metrics` helpers. No analyzer changes, GPU
+calls, or training were performed. Analyzer SHA256 inspected:
+`b093e58e329172d408136ffe56aea74b40f8b219247305b81603ccb006f2d28f`.
+
+**No immediate analyzer execution blocker found for the intended inputs.**
+Checked the actual `scaling_discovery_primary01` producer configurations and
+`diverse_analysis01/selected_levels.json`. Because the refined root did not yet
+exist, selection used an in-memory copy of the primary configurations with
+rtol/atol divided by four. Selection yielded 32 cells across both discovery
+cases and orders 1,3,5,6,7. Full references select the new primary/refined roots
+at rtol 6.25e-5/1.5625e-5. Historical cells retain their original selected
+tolerances, including the outlier p1/p3 late-refinement selections. Declared
+geometry, width, seeds, and shared maintained-source hashes matched. This is a
+configuration-selection check, not a check of absent refined outputs.
+
+Two CPU-only, in-memory toy pipeline checks passed with all filesystem writes
+and CUDA calls mocked: primary/refined closure errors subtract their respective
+fresh full endpoints; failed refined p7 cells are excluded from ratios and
+target-budget claims; the smallest valid tested target budget is selected; and
+a full-reference refinement discrepancy above .01 invalidates every comparison.
+The source also preserves failed extra attempts as the latest selected levels,
+replays initial/terminal predictions and losses, checks the circle/training
+grids, and requires fitted, replay-valid full and closure endpoints at both
+levels. No scientific outcome was inferred from these toy checks.
+
+Two audit-hardening gaps remain in the inspected analyzer:
+
+- It retains dictionary metadata but does not independently reject missing or
+  failed metadata, condition >1e10, or algebra residual >1e-8. The current
+  runner enforces these before training; analyzer `valid` alone does not
+  independently establish that part of the protocol. Require applicable
+  metadata gates for fresh scaling cells, while treating historical metadata
+  according to the documented legacy-equivalence checks.
+- `declared_executed=False` is recorded but does not invalidate a checkpoint.
+  When a producer has an explicit `selected_cells` list, reject a saved cell
+  that it does not declare. Current intended selection finds the correct
+  explicit worker entries, so this did not block the actual selection check.
+
+User-directed graceful pause: this review stops here. The supervisor reported
+that only already running primary Stage A workers would finish; no refinement
+or new training was authorized after the pause. Consequently this report does
+not certify Stage A numerical validity or authorize a later scientific branch.
