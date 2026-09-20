@@ -82,3 +82,14 @@ postprocessing. Initial A01 audit remains adverse for its old p7 pair.
    scaling_discovery_primary01, stage B, orders8,9, all-orders6,7,8,9,
    no include-full, level0. Unreserved balance4843.928404327482s.
    This branch follows A validity irrespective of which method wins.
+
+5. Reserve another800 (400each) for Stage B refinement workers0/1 on
+   cuda:0/1 in scaling_discovery_refined01, stage B, orders8,9,
+   all-orders6,7,8,9, no include-full, level1. These launch only after each
+   corresponding primary worker frees its device. With both B reservations
+   outstanding the unreserved balance is4043.928404327482s.
+
+Both B primary workers exited0,6/6 fitted each:37.201980061829s and
+70.896819494665s. B primary sum108.098799556494s. Cumulative actual
+464.170395229012s; remaining5535.829604770988s, of which800 reserved
+for B refinement. Both refinement workers launched on their freed devices.
