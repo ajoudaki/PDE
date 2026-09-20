@@ -5,6 +5,58 @@ Status: original two-dataset experiment completed and internally checked;
 user-authorized twelve-case width-2048 continuation is completed (see below).
 Established files are unchanged. Preregistered protocol/source commit: 627ce4b.
 
+## Current authorized addition: parameter-matched exact networks
+
+The user requested an additional finite-approximation baseline at n=1024 and
+p=1,3,5 on the complex existing configurations, then explicitly chose both
+trained-parameter and total-model-size matches. This continues the same
+dictionary-efficiency investigation. The frozen design is in
+[MATCHED_NETWORK_PROTOCOL.md](MATCHED_NETWORK_PROTOCOL.md): original tight-arc
+alternating labels and alternating labels with two outliers, our dictionary,
+two separately reported small exact networks, and one common full reference.
+No new geometry or negative control is introduced.
+
+The trained closure count is 3n+K1*K2; including its frozen dictionaries gives
+n(K1+K2)+3n+K1*K2. Ceiling matching against m*m+3m yields widths55,58,75 and
+105,221,397 respectively. Counts include nominal redundant columns, while
+diagnostic copies and implementation caches are separate from model size.
+Small networks use fixed prefix coupling to full-network initialization,
+canonically rescaled for their own width, with no outcome-dependent selection.
+All predictors use their own training-MSE0.001 endpoint.
+
+Pretraining scope:40 base trajectories at two tolerances, at most12 prescribed
+resolution trajectories, and at most3000 new summed worker seconds within the
+existing6000-second scaling budget. Prior spend2894.574399381876 leaves
+3105.425600618124. Root owns protocol, producer, current record and Git writing;
+scoped agents own matched_network_analyze.py, matched_network_check.py/report,
+and matched_network_* visualization sources. Fresh generated roots use the
+matched_network_* prefix in this study's existing generated namespace.
+**Completed:** [MATCHED_NETWORK_RESULTS.md](MATCHED_NETWORK_RESULTS.md).
+Both smaller-network matches have lower circle RMS than ours at every tested
+p in both configurations, at both numerical levels: all12 comparisons favor
+small networks. All40 trajectories fitted; all18 model rows and all20 endpoint
+refinement pairs pass. Independent raw replay and metric reconstruction agree;
+see [matched_network_check.md](matched_network_check.md). The largest own
+endpoint refinement discrepancy is0.00386491<0.01, so no extra run is eligible.
+This does not support the proposed superiority over parameter-matched small
+networks on these instances. It leaves earlier random-dictionary observations
+intact, without converting them into a broader efficiency claim.
+
+Actual new worker time496.17049358040094 seconds; cumulative3390.744892962277
+of6000, remaining2609.255107037723, no reservations or further training.
+Both budgets, raw/finer RMS tables, exact commands and source hashes are in
+[MATCHED_NETWORK_RUN_RECORD.md](MATCHED_NETWORK_RUN_RECORD.md) and the results.
+Generated roots: matched_network_primary01/refined01, matched_network_analysis01,
+matched_network_independent01, matched_network_preflight01/02,
+matched_network_logs01, matched_network_plots01 and matched_network_radial01.
+The inline radial display is
+/home/amir/.codex/visualizations/2026/09/20/01a0bfa6-860d-7cb0-8db0-a2a8ae066c64/matched-network-width1024.html.
+Export checks match all 20 curves, 18 RMS rows, 40 selected traces and 76,237
+loss samples. Browser checks pass all six selections and responsive light/dark
+layouts. Evidence: matched_network_preview01; reusable verification sources:
+matched_network_display_audit.py and matched_network_browser_check.cjs.
+Prior campaigns remain closed and preserved; no established promotion occurs.
+
 ## Question and fixed protocol
 
 At matched retained feature counts, does the initialized-observable dictionary
