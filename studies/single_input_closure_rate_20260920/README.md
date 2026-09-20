@@ -23,7 +23,19 @@ may silently replace the maintained autonomous closure.
 ## Inputs and ownership
 
 Permitted scientific inputs are this study and maintained `docs/`, `code/`
-with their designated reproduction inputs. Other studies are excluded.
+with their designated reproduction inputs. The user's 2026-09-20 follow-up
+explicitly additionally authorizes consulting the studies nominated in the
+attached 39-item accounting for a surgical closure-error investigation. This
+scoped exception does not establish those studies' claims or authorize unrelated
+cross-study retrieval. The follow-up uses the original-gradient-flow scalar
+residual argument in `closure_lyapunov_p1_20260916/all_angles_result.md`, the
+current full-kernel identity in
+`closure_gaussian_reduction_p1_20260917/exact_reduction.md`, and the
+state-to-passive-prediction distinctions in
+`fixed_p_predictor_uniqueness_20260919/PASSIVE_LIMITS.md`. Necessary arguments
+are rederived in the new result; no modified optimizer is identified
+with the canonical flow. The previously frozen result and its checks retain
+their original narrower input scope.
 The supervising task owns this README and final synthesis. Independent route
 agents receive explicit scopes and own separate flat route files. Generated
 checks and scratch, if needed, belong in
@@ -104,7 +116,54 @@ not used as scientific inputs. A metadata-only agent-list call unexpectedly
 returned an unrelated completed status summary; it was not used in this
 study's arguments, and the component review records the exposure.
 
-The next substantive research question, if requested, is a useful rate in
-the retained action information, rather than the current exhaustive-code
-worst-case bound. No new experiment or extension is automatically authorized
-by this completed result.
+## Bounded endpoint follow-up (2026-09-20)
+
+The user subsequently requested a surgical attempt using the nominated newer
+long-horizon studies, explicitly allowing comparison of the fitted whole-circle
+predictors. [ENDPOINT_ROUTE.md](ENDPOINT_ROUTE.md) proves two complementary
+statements for the unchanged canonical single-input tanh GF and H3 closure:
+
+- The endpoint difference is the signed integral, over training prediction
+  from zero to one, of their normalized current full tangent-kernel columns.
+  A common kernel rescaling cancels. The actual coefficient Frobenius metric
+  and all three trained gradient blocks are retained.
+- A residual of size `alpha` leaves at most `T(m) alpha` whole-circle output
+  travel, where `m` is the initial upper-feature squared norm and `T` is explicit.
+  It is less than `22 alpha` for the exact flow and less than `25 alpha`
+  for any closure with `m_N>=9/50`. Consequently, for that closure,
+
+      endpoint whole-circle error <= error at physical time 40 + 1.7e-5.
+
+This is a finite-horizon-to-endpoint transfer, not a computation of its unknown
+finite-horizon discrepancy. The normalized-kernel identity isolates a sharper
+quantity for understanding order than raw state error, but no new useful
+algebraic/geometric rate in order, finite-width endpoint convergence, or numerical
+quadrature certificate is claimed. A further exact identity selects the component
+of the omitted middle-update source affecting normalized passive motion; its
+effect on subsequent feature motion remains unbounded at a useful scale.
+
+The most relevant nominated results concern the original GF's finite remaining
+travel and its full evolving kernel. Landscape/fitting results alone do not
+compare passive predictors, and modified optimizers need not select the same
+endpoint. The single-input scope avoids transferring a p=1 reflection symmetry
+to an arbitrary hierarchy dictionary or nonsymmetric two-input law.
+
+Agent `endpoint_error_surgical` authored the route. The supervisor read its
+complete proof and independently reconstructed the gradient metric and bounds;
+fresh scoped agent `endpoint_internal_check` owns the internal check report.
+Its [complete internal check](ENDPOINT_INTERNAL_CHECK.md) accepts the final
+candidate, including the time-40 corollary; the supervisor read the complete
+report and verified its final input hashes. This is internal research checking,
+not the promotion gate. [ENDPOINT_INPUTS.json](ENDPOINT_INPUTS.json) records
+the follow-up's source and deterministic-output versions.
+No training experiment or established-file edit was made. Exact arithmetic:
+
+```text
+python -B studies/single_input_closure_rate_20260920/validate_endpoint.py > data/generated/single_input_closure_rate_20260920/endpoint_check_01/exact_bounds_v2.log
+```
+
+Exit zero; checks cover the two tail constants, the time-40 exponential bound,
+the positive nonprojector filter identity and cancellation of speed errors.
+The earlier `exact_bounds.log` is preserved; the v2 output includes the added
+time-40 check. The old `CHECK_INPUTS.json` describes the prior frozen result,
+not this expanded README or the follow-up. Promotion remains unattempted.

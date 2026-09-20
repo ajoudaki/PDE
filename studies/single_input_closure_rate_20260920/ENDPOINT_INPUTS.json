@@ -1,0 +1,22 @@
+{
+  "date": "2026-09-20",
+  "scope": "Surgical endpoint follow-up; internal research, not promotion.",
+  "hashes": {
+    "studies/single_input_closure_rate_20260920/ENDPOINT_ROUTE.md": "e57fb40981905bdbcd7cf632f7a71761b2016bebe440fae8b59289ce4e5cea52",
+    "studies/single_input_closure_rate_20260920/ROUTE_DYNAMICS.md": "f84da8b5a840079a239ae8b2ffd4c12359f8abab08f27d831e0534f2ac2fa755",
+    "studies/single_input_closure_rate_20260920/validate_endpoint.py": "b999fc58208cfd14283607332af7e472b1ead2d19db6e49c4b630737eb7cb1d8",
+    "docs/global_nonlinear.md": "81d969a531fc6daee26dbee2041fad8a3425a4b01580351387c5fc376cef412c",
+    "docs/NOTATION.md": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "studies/closure_lyapunov_p1_20260916/all_angles_result.md": "33ce17ba0be80836ba13862eb3ba76b579cabfe2bba1cb4f076be4e2f9de9ec7",
+    "studies/closure_lyapunov_p1_20260916/resolution_open_family.md": "6c949bdec4e78fb895ae71281edd328623a662cba433fba618d65e82055fe337",
+    "studies/closure_gaussian_reduction_p1_20260917/exact_reduction.md": "9ca6ad3d9eea0ccefd912e594379a7b93be1b6a4518f641ff7aefb3213e83782",
+    "studies/fixed_p_predictor_uniqueness_20260919/PASSIVE_LIMITS.md": "957af4f8276a3a597c97d4fef63eaef749bb1cd55251490198e91a327b9619a9",
+    "data/generated/single_input_closure_rate_20260920/endpoint_check_01/exact_bounds_v2.log": "910947356ad0fe54a22792b6587f163421aad348914fdc3bdc014d9c930fc294"
+  },
+  "source_note": "Cross-study consultation explicitly authorized by the user. These whole-file version markers do not certify every claim in the consulted studies. Complete input coverage is described in ENDPOINT_INTERNAL_CHECK.md and ENDPOINT_ROUTE.md.",
+  "validation": {
+    "command": "python -B studies/single_input_closure_rate_20260920/validate_endpoint.py",
+    "exit_status": 0,
+    "training_experiments": false
+  }
+}
