@@ -33,3 +33,52 @@ Next task starts with Stage A refinement (two400-second reservations), then
 replay/refinement analysis and protocol branch decisions.
 Read HANDOFF_SCALING.md for exact commands, scope and remaining obligations.
 New output independent-audit implementation was deferred without creating a file.
+
+## Resumption from 22d2ed0
+
+2026-09-20: root resumed as lead and sole Git writer. No prior scaling worker
+is running; both RTX3090 devices are available. Scientific producer/dependency
+hashes match the primary configurations (14 files); the pause-manifest hash
+matches the handoff. Unrelated untracked studies are preserved.
+
+2. Stage A refinement, scaling_discovery_refined01, workers0/1 on cuda:0/1,
+   orders6,7, planned6,7,8,9, include-full, level1,400 seconds each.
+   Reserve800 from5855.487524215132 before launch; unreserved balance
+   5055.487524215132. Return unused allocations after completion.
+
+Scoped independent checker owns scaling_independent_check.py/.md only and its
+generated audit roots. It has no analyzer source or author findings as inputs;
+root coordinates GPU availability. All other study reporting remains root-owned.
+
+Stage A refinement completed: both processes exited0, each7/7 fitted. Worker0
+70.737427301705s; worker1 114.503111045808s. Refinement sum185.240538347512s;
+campaign sum329.753014132381s; remaining5670.246985867620s. Unused allocation
+returned. Stage A analysis launched with the exact handoff command into
+scaling_discovery_A_analysis01 on cuda:0; scientific gate awaits replay/audit.
+
+Stage A initial analysis exited0:29/30 closure comparisons valid; the sole
+resolution candidate is two_outliers_alternating_gaussian_p7, both endpoints
+fitted, own discrepancy0.012985499879930806>0.01. No Stage B yet.
+
+3. Reserve180 seconds for this ONE level2 cell in scaling_discovery_extra01,
+   group discovery, stage extra, orders7, all-orders6,7,8,9, worker1/workers2
+   on cuda:0, level2, budget180, --only-cells
+   two_outliers_alternating_gaussian_p7. Remaining unreserved5490.246985867620.
+   This is resolution cell1/12; no cell may receive a second extra attempt.
+
+The resolution worker exited0,1/1 fitted,26.318581540138s. Campaign
+sum356.071595672518s; balance5643.928404327482s. Analysis rerun in a NEW
+root scaling_discovery_A_analysis02 with --orders6 7 and --extra
+scaling_discovery_extra01; latest two attempts retained. Earlier analysis01
+remains unchanged.
+
+Resolved A is accepted for the B gate: all32 selected endpoint pairs and30
+closure/reference comparisons pass; dictionary metadata/executed-set audit
+also passes. Independent CUDA1 audit scaling_independent_check_A02/checks.json
+passes technical and numerical checks,60 metric rows within1e-11,6.564021911472s
+postprocessing. Initial A01 audit remains adverse for its old p7 pair.
+
+4. Reserve800 (400each) for Stage B primary workers0/1 on cuda:0/1 in
+   scaling_discovery_primary01, stage B, orders8,9, all-orders6,7,8,9,
+   no include-full, level0. Unreserved balance4843.928404327482s.
+   This branch follows A validity irrespective of which method wins.

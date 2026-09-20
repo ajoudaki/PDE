@@ -572,10 +572,31 @@ per run. Earlier validation01 remains intact. Runner corrections preserve the
 fixed scientific vector field and enforce budget stops before starting new
 cells. This is internal implementation validation, not promotion review.
 
-## Paused for account handoff
+## Account-handoff checkpoint (superseded by resumption below)
 
 See [complete resumption instructions](HANDOFF_SCALING.md) and
 [execution/budget record](SCALING_RUN_RECORD.md). Both Stage A primary workers
 finished normally:14/14 fitted,144.512475784868 summed worker seconds.
 No training remains running. Stage A refinement and all later conditional
 stages remain unrun; no new scaling conclusion has yet been validated.
+
+## Scaling resumption from 22d2ed0
+
+The same checkout/study resumed at the user's explicit instruction. Stage A's
+14 tighter-tolerance trajectories all fitted; the completed primary runs were
+reused. One predeclared extra-resolution cell (outlier Gaussian p7) lowered its
+endpoint discrepancy from0.0129855 to0.00683494. The resolved analysis
+`scaling_discovery_A_analysis02` has30/30 valid comparisons; the full references
+are newly tightened and historical p1/3/5 errors are recomputed against them.
+The paired case improves through p7 while the outlier case worsens beyond p5.
+No asymptotic inference is made. Branches and actual remaining allowance are
+recorded in [SCALING_RUN_RECORD.md](SCALING_RUN_RECORD.md).
+
+The new `scaling_decisions.py` persists the frozen15%/20% discriminator and
+supplements the analyzer's dictionary/declared-execution gates. A separate
+agent implements raw saved-state checks in `scaling_independent_check.py`,
+without importing the analyzer; a second checks protocol/metadata compliance
+in [scaling_gate_audit.md](scaling_gate_audit.md). Neither is a promotion review.
+Root owns the README, run record, reports and Git; checker and gate auditor own
+their explicitly named files only. Established code/book and concurrent studies
+remain unchanged. Later stages await the full stated gates and budget.
