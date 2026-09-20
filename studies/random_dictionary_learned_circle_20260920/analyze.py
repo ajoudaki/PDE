@@ -16,9 +16,10 @@ def tensor(x, device):
 
 
 @torch.no_grad()
-def evaluate_saved(saved, device):
-    w, c, M = [tensor(saved[k][-1], device) for k in ("w", "c", "M")]
-    u = tensor(saved["endpoint_inputs"], device)
+def evaluate_saved(saved, device, inputs=None, snapshot=-1):
+    """Evaluate any stored snapshot at arbitrary normalized circle inputs."""
+    w, c, M = [tensor(saved[k][snapshot], device) for k in ("w", "c", "M")]
+    u = tensor(saved["endpoint_inputs"] if inputs is None else inputs, device)
     result = []
     if "b1" in saved:
         b1, b2 = [tensor(saved[k], device) for k in ("b1", "b2")]
@@ -49,6 +50,13 @@ def main():
     args = parser.parse_args()
     device = setup()
     args.out.mkdir(parents=True, exist_ok=False)
+    pc = json.loads((args.primary / "config.json").read_text())
+    rc = json.loads((args.refined / "config.json").read_text())
+    for key in ("cases", "width", "network_seed", "dictionary_seed", "threshold", "orders", "dtype"):
+        assert pc[key] == rc[key], ("mismatched reproduction input", key)
+    for path, digest in pc["source_hashes"].items():
+        if path.startswith("code/") or path.endswith("/benchmark.py"):
+            assert digest == rc["source_hashes"][path], ("changed simulation source", path)
     primary = json.loads((args.primary / "results.json").read_text())
     refined = json.loads((args.refined / "results.json").read_text())
     rows, validation, error_arrays = [], {}, {}
@@ -63,8 +71,20 @@ def main():
             replay = evaluate_saved(pa, device)
             replay_error = float((f - replay).abs().max())
             assert replay_error < 1e-10, (key, replay_error)
+            initial_replay = evaluate_saved(pa, device, pa["circle_inputs"], snapshot=0)
+            initial_error = float((initial_replay-tensor(pa["circle_predictions"][0], device)).abs().max())
+            assert initial_error < 1e-10, (key, initial_error)
+            training = evaluate_saved(pa, device, pa["training_inputs"])
+            actual_loss = float((training-tensor(pa["labels"], device)).square().mean())
+            assert abs(actual_loss-primary[key]["loss"]) < 1e-10, (key, "loss mismatch")
+            training_refined = evaluate_saved(ra, device, ra["training_inputs"])
+            actual_refined_loss = float((training_refined-tensor(ra["labels"], device)).square().mean())
+            assert abs(actual_refined_loss-refined[key]["loss"]) < 1e-10, (key, "refined loss mismatch")
             validation[key] = {
                 "checkpoint_replay_max": replay_error,
+                "initial_checkpoint_replay_max": initial_error,
+                "recomputed_training_loss": actual_loss,
+                "recomputed_refined_training_loss": actual_refined_loss,
                 "step_refinement_endpoint_max": float((f-fr).abs().max()),
                 "primary_fit": primary[key]["status"], "refined_fit": refined[key]["status"],
                 "refined_loss": refined[key]["loss"], "refined_time": refined[key]["time"],
@@ -94,6 +114,13 @@ def main():
             error_arrays[key + "_absolute_error"] = eabs.cpu().numpy()
     save_json(args.out / "metrics.json", rows)
     save_json(args.out / "validation.json", validation)
+    save_json(args.out / "analysis_provenance.json", {
+        "command": __import__("sys").argv,
+        "analysis_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "input_config_sha256": {str(p): hashlib.sha256(p.read_bytes()).hexdigest()
+                                for p in (args.primary / "config.json", args.refined / "config.json")},
+        "simulation_source_correspondence": True,
+    })
     np.savez(args.out / "circle_errors.npz", **error_arrays)
     with (args.out / "metrics.csv").open("w", newline="") as stream:
         writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
