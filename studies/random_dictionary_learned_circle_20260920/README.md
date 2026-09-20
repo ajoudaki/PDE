@@ -661,3 +661,13 @@ A scoped independent read-only check confirmed exact equality of all42 exported
 CSV records to the source metrics, with no missing/extra/duplicate rows, and
 matching hashes for both inputs and all7 exported products. It did not recompute
 metrics or rerun training.
+
+Standalone **Paired discovery** log-log plot requested subsequently:
+[PNG](../../data/generated/random_dictionary_learned_circle_20260920/scaling_paired_discovery_rms01/rms_vs_dictionary_columns.png),
+[PDF](../../data/generated/random_dictionary_learned_circle_20260920/scaling_paired_discovery_rms01/rms_vs_dictionary_columns.pdf).
+The same renderer now accepts `--case quadrant_pairs --axis dictionary_columns`;
+use those flags with the command above and a fresh output path to reproduce it.
+The `scaling_paired_discovery_rms01` directory retains the21 plotted records,
+SVG, and source/input/output hashes. Both numerical levels and all three methods
+remain separate. The image was visually checked; no scientific values changed
+and no new training was run.
