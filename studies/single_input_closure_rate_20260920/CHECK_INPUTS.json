@@ -1,0 +1,41 @@
+{
+  "status": "internally checked; not promoted",
+  "base_commit": "bcee9782651c34ae1204d37186e5c57e9282b273",
+  "scientific_files_and_reports": {
+    "studies/single_input_closure_rate_20260920/ASSEMBLY_INTERNAL_CHECK.md": "6e0830c9da599460a657d57a35f90819d52770ad3c4c7f725b5fdfd268853ef7",
+    "studies/single_input_closure_rate_20260920/CORE_INTERNAL_CHECK.md": "bafe9015fcf5a1d544ae748dfe2d828d2882f614ce0b963bd987a841d359fca6",
+    "studies/single_input_closure_rate_20260920/CORE_OBSTRUCTION.md": "21e9b0804525d30d64f7b20dc217db147b3db8c5f26653e1d735ae90b96b0bff",
+    "studies/single_input_closure_rate_20260920/DICTIONARY_INTERNAL_CHECK.md": "f7643681b98538f772e706adafaea4193a046be8d9f42e6f382bf1a0be4dd9d0",
+    "studies/single_input_closure_rate_20260920/DYNAMICS_INTERNAL_CHECK.md": "9d638960fcf1c7d11e84034d59189b79fc9d1840510a0a20ca45e4dae2a03e1f",
+    "studies/single_input_closure_rate_20260920/README.md": "a2895273595419141e8804a91ca3b27fe4862085904e56ad4edd5edec8444817",
+    "studies/single_input_closure_rate_20260920/RESULT.md": "0ec5197dc1a92d16226ffefc0c1df0bae00405a674b38f6db03a51b3810fa43a",
+    "studies/single_input_closure_rate_20260920/ROUTE_DICTIONARY.md": "c894744d37cd0e2eb5adcf2524dce26507748a23fed84b69ef8fd0645902ea1c",
+    "studies/single_input_closure_rate_20260920/ROUTE_DYNAMICS.md": "f84da8b5a840079a239ae8b2ffd4c12359f8abab08f27d831e0534f2ac2fa755",
+    "studies/single_input_closure_rate_20260920/validate_bounds.py": "c16cd772f9663becce80d42013ddbf50475f441860cd8f4b759db803c04b8b49"
+  },
+  "maintained_inputs": {
+    "AGENTS.md": "7b3e384e1a627903835fa91c7396da7e399add57987334e07fc0168682b09747",
+    "RESEARCH_WORKFLOW.md": "0906284c80dced0b2ee1beaf7c5f160a12d17f41afd060a536eeac0903406f85",
+    "docs/README.md": "60816cf89cf93abc9d752b7d56a66b3302cd9ca0caff4b247991647dfb49b3ad",
+    "docs/NOTATION.md": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "docs/global_nonlinear.md": "81d969a531fc6daee26dbee2041fad8a3425a4b01580351387c5fc376cef412c",
+    "docs/observable_p1.md": "0f9c0ab9d1bcd6acd844cfce52e00d94c063843fcf80d27e7ba2b7ea6ebdfbba",
+    "code/README.md": "7aa3bc9700a75294f9f209a34e05af4033cd35dd5edb736846ff8bdfdc4bdbb6",
+    "code/pde/observable_initialization.py": "6dafe3b5906c8762c7b6e0782c535b0031bbcf206359d384ef0911853ce131d2"
+  },
+  "validation": {
+    "command": "python -B studies/single_input_closure_rate_20260920/validate_bounds.py > data/generated/single_input_closure_rate_20260920/validation_01/exact_bounds.log",
+    "exit_code": 0,
+    "output": "data/generated/single_input_closure_rate_20260920/validation_01/exact_bounds.log",
+    "sha256": "9c2a5bbc6bf6274ad733919e34bacb0046e148149383e62947a22d6d0e6a1815",
+    "python": "3.10.12",
+    "scope": "exact rational maintained constant certificate and comparison constants; no training experiments"
+  },
+  "review_scope": "independent internal component reconstructions plus author cross-check; not fresh paired blind promotion review",
+  "limits": [
+    "astronomical full-hierarchy order thresholds",
+    "no practical low-order or numerical-run certificate",
+    "no finite-width rate or all-time finite-width theorem",
+    "polynomial-core-only refinement is not the full hierarchy"
+  ]
+}
