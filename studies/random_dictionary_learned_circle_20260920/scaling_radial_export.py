@@ -1,4 +1,4 @@
-"""Render the eight validated scaling configurations from saved endpoint curves.
+"""Render validated scaling configurations from saved endpoint curves.
 
 Only display sampling/rounding is performed. RMS values are copied unchanged
 from the final analysis, never recomputed from the downsampled display curves.
@@ -42,23 +42,34 @@ def sha256(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def export(out):
+def export(out, analysis=None, allow_unresolved=False):
     out = out.resolve()
     if not out.is_relative_to(DATA_ROOT.resolve()) or out == DATA_ROOT.resolve():
         raise ValueError("Output must be a new directory within this study's generated data")
     cases, inputs = {}, {}
+    sources, titles = SOURCES, TITLES
+    if analysis is not None:
+        analysis = analysis.resolve()
+        if not analysis.is_relative_to(DATA_ROOT.resolve()):
+            raise ValueError("Analysis must be within this study's generated data")
+        sources = ((str(analysis), DISCOVERY),)
+        titles = {"quadrant_pairs": "Paired labels", "two_outliers_alternating": "Alternating labels + outliers"}
     sample_count, grid_count, decimals = 1024, 8192, 6
     stride = grid_count // sample_count
-    for analysis_name, geometries in SOURCES:
+    for analysis_name, geometries in sources:
         analysis = DATA_ROOT / analysis_name
         for name in ("metrics.json", "summary.json", "circle_errors.npz"):
             path = analysis / name
             inputs[str(path)] = sha256(path)
         rows = json.loads((analysis / "metrics.json").read_text())
         summary = json.loads((analysis / "summary.json").read_text())
+        if sources is not SOURCES:
+            assert summary["width"] == 4096 and summary["orders"] == [1, 3, 5, 7]
+            assert set(summary["cases"]) == set(DISCOVERY)
         expected = {(case, method, p) for case in geometries for p in summary["orders"] for method in METHODS}
         assert {(r["case"], r["method"], r["order"]) for r in rows} == expected
-        assert len(rows) == len(expected) and all(r["valid"] and r["refined_eligible"] for r in rows)
+        assert len(rows) == len(expected) and all(r["refined_eligible"] and r["eligible"] for r in rows)
+        assert allow_unresolved or all(r["valid"] for r in rows)
         with np.load(analysis / "circle_errors.npz", allow_pickle=False) as arrays:
             for case, geometry in geometries.items():
                 case_rows = [r for r in rows if r["case"] == case]
@@ -80,7 +91,8 @@ def export(out):
 
                 reference = {"curve": curve(ref_key), "time": first["full_refined_time"],
                              "mse": first["full_refined_loss"], "rtol": first["full_refined_rtol"],
-                             "atol": first["full_refined_atol"]}
+                             "atol": first["full_refined_atol"],
+                             "valid": first["full_step_refinement_endpoint_max"] <= summary["refinement_gate"]}
                 orders = []
                 for p in sorted(summary["orders"]):
                     selected = {r["method"]: r for r in case_rows if r["order"] == p}
@@ -96,16 +108,17 @@ def export(out):
                             "curve": curve(f"{case}_{method}_p{p}_refined"),
                             "rms": row["refined_l2"], "time": row["refined_time"],
                             "mse": row["refined_loss"], "rtol": row["refined_rtol"], "atol": row["refined_atol"],
+                            "valid": row["valid"], "refinementMax": row["step_refinement_endpoint_max"],
                         }
                     orders.append(item)
-                cases[case] = {"id": case, "label": TITLES[case],
+                cases[case] = {"id": case, "label": titles[case],
                                "anglesDegrees": geometry["angles_degrees"], "labels": geometry["labels"],
                                "width": summary["width"], "threshold": summary["threshold"],
                                "networkSeed": summary["network_seed"], "dictionarySeed": summary["dictionary_seed"],
                                "extent": extent, "reference": reference, "orders": orders}
     data = {"schema": 1, "level": "selected finer", "gridCount": grid_count,
             "sampleCount": sample_count, "sampleStride": stride, "roundDecimals": decimals,
-            "cases": [cases[key] for key in TITLES]}
+            "cases": [cases[key] for key in titles]}
     encoded = json.dumps(data, separators=(",", ":"), allow_nan=False).encode()
     template = HERE / "scaling_radial_template.html"
     markup = template.read_text()
@@ -115,20 +128,28 @@ def export(out):
     out.mkdir(parents=True, exist_ok=False)
     (out / "viewer_data.json").write_bytes(encoded)
     (out / "scaling-circle-experiments.html").write_text(markup)
-    sources = [Path(__file__).resolve(), template, HERE / "scaling_cases.py", HERE / "diverse_cases.py"]
-    provenance = {"command": sys.argv, "sources": {str(p): sha256(p) for p in sources},
+    source_files = [Path(__file__).resolve(), template, HERE / "scaling_cases.py", HERE / "diverse_cases.py"]
+    comparisons = sum(len(c["orders"]) * len(METHODS) for c in cases.values())
+    curves = len(cases) + comparisons
+    provenance = {"command": sys.argv, "sources": {str(p): sha256(p) for p in source_files},
                   "inputs": inputs, "outputs": {p.name: sha256(p) for p in out.iterdir()},
-                  "cases": list(TITLES), "curves": 104, "comparisons": 96,
+                  "cases": list(titles), "curves": curves, "comparisons": comparisons,
                   "display": {"angles": sample_count, "stride": stride, "round_decimals": decimals},
                   "metrics": "Exact saved refined_l2 from 8192 angles; no metric recomputation or training",
                   "reference": "Each case's shared current full_refined_prediction; not historical_full",
+                  "unresolved": {c["id"] + "_" + method + "_p" + str(o["p"]): model["refinementMax"]
+                                 for c in cases.values() for o in c["orders"] for method, model in o["models"].items()
+                                 if not model["valid"]},
                   "endpoints": "Each predictor's own first detected training-MSE threshold crossing",
                   "scale": "Fixed across p and visible methods within each case, using all full-grid curve extents"}
     (out / "provenance.json").write_text(json.dumps(provenance, indent=2) + "\n")
-    print(json.dumps({"out": str(out), "fragment_bytes": len(markup.encode()), "cases": len(cases), "curves": 104}))
+    print(json.dumps({"out": str(out), "fragment_bytes": len(markup.encode()), "cases": len(cases), "curves": curves}))
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", type=Path, required=True)
-    export(parser.parse_args().out)
+    parser.add_argument("--analysis", type=Path, help="Optional final two-case width4096 analysis; otherwise the original eight configurations")
+    parser.add_argument("--allow-unresolved", action="store_true", help="Retain fitted but tolerance-unresolved curves with explicit visible flags")
+    args = parser.parse_args()
+    export(args.out, args.analysis, args.allow_unresolved)

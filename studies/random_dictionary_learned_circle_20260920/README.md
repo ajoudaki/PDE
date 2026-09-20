@@ -705,6 +705,61 @@ Reproduce into a fresh output directory:
 PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/home/amir/Codes/PDE/data/generated/random_dictionary_learned_circle_20260920/scaling_rms_plot_cache /home/amir/miniconda3/bin/python -B studies/random_dictionary_learned_circle_20260920/scaling_plot_all_rms.py --data-root data/generated/random_dictionary_learned_circle_20260920 --out data/generated/random_dictionary_learned_circle_20260920/scaling_all_configurations_rms02
 ```
 
+## User-requested width4096 continuation (authorized after campaign closure)
+
+The user now explicitly requests only the two original discovery configurations,
+p1,3,5,7 at n4096, plus training-loss/RMS plots and an interactive radial viewer.
+[SCALING_WIDTH4096_PROTOCOL.md](SCALING_WIDTH4096_PROTOCOL.md) freezes this exact
+extension, separate from the earlier failed conditional StageD gate. Original
+geometry/seeds, all three methods and full references are retained. No fresh or
+negative configurations are run. Root owns the producer/protocol/records/radial
+adapter and Git writing; scoped plot agent owns`scaling_width4096_plots.py`.
+
+Before launch reserve2400 seconds (four600s worker caps) from the previously
+unused3991.7843979373574 seconds. Keep the total6000-second training ceiling,
+180-second trajectory cap and numerical gates. Base scope52 trajectories;
+at most8 predeclared numerical-resolution attempts, only for fitted cells whose
+refinement discrepancy exceeds0.01. No new outcomes are available at this entry.
+
+The reporting distinction is explicit: comparison against each separate random
+control and growth of that advantage with p are different questions. The earlier
+conditional gate addressed growth; it must not obscure favorable direct error
+comparisons on the positive configurations. Earlier reports/data are preserved.
+
+**Completed:** [SCALING_WIDTH4096_RESULTS.md](SCALING_WIDTH4096_RESULTS.md) gives
+the requested two-case p1/3/5/7 result. Ours has lower measured RMS than both
+controls at every tested order and both selected numerical levels. At p7 the
+Gaussian/ours and orthogonal/ours ratios are11.05/12.76 for paired labels and
+2.159/2.086 for outliers. The paired error decreases at each tested p; outlier
+error is nonmonotone and nearly unchanged from p3 to p7. No rate is inferred.
+
+All55 trajectories fitted. Independent replay/metric/source/metadata checks
+pass, and23/24 comparisons pass endpoint tolerance checks. Outlier orthogonalp5
+remains unresolved after its single allowed extra attempt (endpoint change
+0.0537>0.01); it is shown and marked in every relevant display. Final analysis
+is`scaling_width4096_analysis02`; original and adverse attempts remain preserved.
+The independent report is`scaling_width4096_independent_check.md`.
+
+Extension worker time886.3587973192334 seconds; earlier+new2894.574399381876 of
+6000, with3105.425600618124 unused and no reservations. The requested training
+is complete, including the bounded resolution branch; no further cell is queued.
+Exact progress/commands are in SCALING_WIDTH4096_RUN_RECORD.md.
+
+Static plots/CSV/provenance:`scaling_width4096_plots01`; radial data and fragment:
+`scaling_width4096_radial01`. The current displayed viewer is
+`/home/amir/.codex/visualizations/2026/09/20/01a0bfa6-860d-7cb0-8db0-a2a8ae066c64/scaling-circle-width4096.html`.
+Independent export checking confirmed all24 RMS rows,52 selected trajectories,
+111776 saved loss samples,26 radial curves, exact unresolved flags, all hashes
+and four PDF pages. Browser checks passed all eight selections, toggles, state
+restoration, unresolved annotation and736/360/320px layouts; retained preview
+evidence is in`scaling_width4096_preview01`. Representative images were inspected.
+Reproduce saved-data rendering into new directories:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/home/amir/Codes/PDE/data/generated/random_dictionary_learned_circle_20260920/scaling_rms_plot_cache /home/amir/miniconda3/bin/python -B studies/random_dictionary_learned_circle_20260920/scaling_width4096_plots.py --analysis data/generated/random_dictionary_learned_circle_20260920/scaling_width4096_analysis02 --out data/generated/random_dictionary_learned_circle_20260920/scaling_width4096_plots02 --allow-unresolved
+PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 /home/amir/miniconda3/bin/python -B studies/random_dictionary_learned_circle_20260920/scaling_radial_export.py --analysis data/generated/random_dictionary_learned_circle_20260920/scaling_width4096_analysis02 --out data/generated/random_dictionary_learned_circle_20260920/scaling_width4096_radial02 --allow-unresolved
+```
+
 ## Interactive radial viewer of all eight scaling configurations
 
 `scaling_radial_export.py` and `scaling_radial_template.html` render the saved

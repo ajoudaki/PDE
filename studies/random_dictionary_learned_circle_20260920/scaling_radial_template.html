@@ -26,6 +26,7 @@
   </div>
   <div data-role="detail" class="text-small tabular-nums sc-block" aria-live="polite">Loading saved curves…</div>
   <div data-role="legend" class="sc-legend" aria-label="Visible methods and RMS error from the full network"></div>
+  <div data-role="qualification" class="text-small sc-block" aria-live="polite" hidden></div>
   <div class="text-small text-muted sc-block">○ Training inputs · ● Label +1 · ◆ Label −1 · Dashed ring: zero output</div>
   <div data-role="plot"></div>
   <div class="sc-foot text-small text-muted"><span data-role="scale"></span><span>Selected finer endpoints · 1,024 display angles · RMS: 8,192 angles</span></div>
@@ -86,6 +87,9 @@
         ' · Dictionary: ' + order.k1 + ' + ' + order.k2 + ' = ' + order.columns + ' vectors';
       el('scale').textContent = 'Output rings: −1, 0, +1 · Scale fixed across p';
       const legend = el('legend'); legend.replaceChildren();
+      const unresolved = states.filter(s => s.valid === false);
+      el('qualification').hidden = unresolved.length === 0;
+      el('qualification').textContent = unresolved.length ? '† Tolerance check unresolved: ' + unresolved.map(s => names[s.key]).join(', ') + '.' : '';
       states.forEach(state => {
         const button = document.createElement('button'); button.type = 'button'; button.className = 'sc-series';
         button.dataset.method = state.key; button.setAttribute('aria-pressed', String(visible[state.key]));
@@ -94,7 +98,7 @@
         swatch.style.borderColor = colors[state.key]; swatch.style.borderTopStyle = dashes[state.key] ? (state.key === 'gaussian' ? 'dashed' : 'dotted') : 'solid';
         swatch.setAttribute('aria-hidden', 'true');
         const label = document.createElement('span'); label.className = 'sc-series-label';
-        const title = document.createElement('span'); title.textContent = names[state.key];
+        const title = document.createElement('span'); title.textContent = names[state.key] + (state.valid === false ? ' †' : '');
         const metric = document.createElement('span'); metric.className = 'text-small tabular-nums';
         metric.textContent = state.key === 'full' ? 'Reference' : 'RMS ' + fmt(state.rms);
         label.append(title, metric); button.append(swatch, label);
@@ -193,7 +197,7 @@
         layer.append('circle').attr('data-chart-hover-marker', state.key).attr('cx', point[0]).attr('cy', point[1]).attr('r', 3.5)
           .attr('fill', 'var(--background)').attr('stroke', colors[state.key]).attr('stroke-width', 2);
         const row = document.createElement('div'); row.className = 'sc-tip-row'; row.dataset.method = state.key;
-        const name = document.createElement('span'); name.textContent = names[state.key];
+        const name = document.createElement('span'); name.textContent = names[state.key] + (state.valid === false ? ' †' : '');
         const number = document.createElement('span'); number.textContent = fmt(value); row.append(name, number); tip.append(row);
       });
       const rootBox = root.getBoundingClientRect(), plotBox = el('plot').getBoundingClientRect();
@@ -225,7 +229,8 @@
     root.dataset.ready = 'true'; root.dataset.experimentCount = data.cases.length;
     root.__viewerCheck = () => ({ caseId: current.id, p: order.p, columns: order.columns,
       radius: chart?.radius, bound: chart?.bound, visible: { ...visible },
-      states: states.map(s => ({ key: s.key, rms: s.rms, mse: s.mse, time: s.time, curve: s.curve })) });
+      states: states.map(s => ({ key: s.key, rms: s.rms, mse: s.mse, time: s.time, valid: s.valid,
+        refinementMax: s.refinementMax, curve: s.curve })) });
   } catch (error) {
     el('error').hidden = false; el('error').textContent = error.message;
     el('detail').textContent = 'Saved curves could not load.'; console.error(error);

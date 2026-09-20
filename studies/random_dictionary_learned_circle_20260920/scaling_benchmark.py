@@ -17,7 +17,8 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--out',type=Path,required=True)
     p.add_argument('--group',choices=('discovery','confirm1','confirm2','width'),required=True)
-    p.add_argument('--stage',choices=('A','B','C','D','extra'),required=True)
+    p.add_argument('--stage',choices=('A','B','C','D','extra','user_width4096'),required=True)
+    p.add_argument('--protocol',type=Path,default=Path(__file__).with_name('SCALING_PROTOCOL.md'))
     p.add_argument('--orders',type=int,nargs='+',required=True)
     p.add_argument('--all-orders',type=int,nargs='+')
     p.add_argument('--include-full',action='store_true')
@@ -40,12 +41,16 @@ def main():
             raise ValueError('unknown predeclared case')
         cases={c:cases[c] for c in args.cases}
     width=4096 if args.group=='width' else 2048
-    if args.group=='width' and len(cases)!=1:
+    if args.group=='width' and len(cases)!=1 and args.stage not in ('user_width4096','extra'):
         raise ValueError('width branch requires one selected original case')
     network_seed,dictionary_seed=SEEDS[seed_index]
     planned=args.all_orders or args.orders
     if len(set(planned))!=len(planned) or not set(args.orders)<=set(planned):
         raise ValueError('invalid planned/actual orders')
+    if args.stage=='user_width4096' and (args.group!='width' or set(cases)!=set(DISCOVERY)
+            or planned!=[1,3,5,7] or args.orders!=planned or not args.include_full
+            or args.protocol.resolve()!=Path(__file__).with_name('SCALING_WIDTH4096_PROTOCOL.md').resolve()):
+        raise ValueError('user width suite requires both discovery cases, full, p1/3/5/7 and its recorded protocol')
     rtol,atol=6.25e-5/4**args.level,6.25e-7/4**args.level
     device=setup(args.device)
     args.out.mkdir(parents=True,exist_ok=True)
@@ -72,7 +77,8 @@ def main():
         training_run=True,device=device,gpu=torch.cuda.get_device_name(device),
         torch=str(torch.__version__),numpy=np.__version__,python=sys.version,
         command=sys.argv,cwd=str(Path.cwd()),source_hashes=source_hashes(),
-        protocol_sha256=hashlib.sha256(Path(__file__).with_name('SCALING_PROTOCOL.md').read_bytes()).hexdigest(),
+        protocol_path=str(args.protocol.resolve()),
+        protocol_sha256=hashlib.sha256(args.protocol.read_bytes()).hexdigest(),
         head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         started_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
         target_accuracies=[1.,.5,.3,.2,.1,.05,.02,.01])

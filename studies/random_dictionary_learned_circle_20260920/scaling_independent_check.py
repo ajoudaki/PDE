@@ -113,8 +113,11 @@ class Audit:
                            expected=expected, actual=record["actual"])
             self.source_records.append(record)
         if "protocol_sha256" in config:
+            protocol_path = Path(config.get("protocol_path", STUDY / "SCALING_PROTOCOL.md")).resolve()
+            if protocol_path.parent != STUDY:
+                raise ValueError("Protocol path outside assigned study: " + str(protocol_path))
             self.check(relative(config_path) + ":protocol_hash",
-                       self.hashed(STUDY / "SCALING_PROTOCOL.md") == config["protocol_sha256"])
+                       self.hashed(protocol_path) == config["protocol_sha256"])
 
     def collect(self):
         attempts = defaultdict(list)
