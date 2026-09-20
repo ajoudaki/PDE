@@ -93,3 +93,64 @@ Both B primary workers exited0,6/6 fitted each:37.201980061829s and
 70.896819494665s. B primary sum108.098799556494s. Cumulative actual
 464.170395229012s; remaining5535.829604770988s, of which800 reserved
 for B refinement. Both refinement workers launched on their freed devices.
+
+Both B refined workers exited0,6/6 fitted each:54.399530295283s and
+85.918584611267s. B total248.416914463043s. Campaign total604.488510135561s;
+remaining5395.511489864439s; no outstanding training reservation.
+Complete A+B analysis launched into scaling_discovery_analysis01 using existing
+extra01 and historical selection; no --orders override. Its inherited summary
+stage label may read A; selected configs/orders define its actual A+B scope.
+
+B is validated:42/42 comparisons, no new resolution candidates; independent
+B01 CUDA1 audit passes84 metric records and all numerical/source checks,
+exit0,10.234403058887s. B.json records p_high9: paired-case RMS reductions
+72.4038%/72.4883% and ratio gains51.3186%/51.4124% trigger C; outliers fail.
+All6 fixed fresh conditions must run, retaining negatives. No D decision yet.
+
+6. Reserve4800 seconds for all8 Stage C worker invocations,600seconds each,
+   against5395.511489864439 remaining; initial unreserved595.511489864439.
+   Groups confirm1/confirm2, separate scaling_confirm1_primary01,
+   scaling_confirm1_refined01, scaling_confirm2_primary01,
+   scaling_confirm2_refined01 roots; stage C, orders1 5 9, include-full,
+   workers0/1 on cuda:0/1, level0/1 for primary/refined respectively.
+   Each group/level has20 cells onworker0 and10 onworker1;120 trajectories.
+   Worker allocations are released individually on completion; physical GPU
+   scheduling follows free devices only, never relative errors.
+
+C confirm1 primaryworker0 completed exit0,20/20 fitted,104.336970284581s;
+its600s reservation released. Confirm1 refinedworker0 launched oncuda:0
+while primaryworker1 continues oncuda:1. No scientific selection involved.
+
+C confirm1 primaryworker1 completed exit0,10/10 fitted,200.134291801602s;
+its600s reservation released. Confirm1 refinedworker1 launched oncuda:1.
+
+C confirm1 refinedworker0 completed exit0,20/20 fitted,166.215858481824s;
+its600s reservation released. Confirm2 primaryworker0 launched oncuda:0
+while confirm1 refinedworker1 continues. All cases/seeds were predeclared.
+
+C confirm2 primaryworker0 completed exit0,20/20 fitted,97.763658646494s;
+its600s reservation released. Confirm1 refinedworker1 completed exit0,10/10
+fitted,234.308919709176s; its600s reservation released. Confirm2 refinedworker0
+launched oncuda:0. First confirmation analysis runs on temporarily freecuda:1.
+The discovery summary-only independent audit completed before that GPU reuse:
+6327/6327 checks passed, all ratios/target/budget-ratio JSON and CSV rows agree.
+
+C1 initial analysis26/27 comparisons valid. C1_initial.json identifies one
+eligible resolution cell: outliers_confirm1_orthogonal_p5, both fitted and own
+endpoint discrepancy0.010847879157941165. Initial analysis remains preserved.
+
+7. Reserve180 seconds for this ONE level2 cell, campaign resolution2/12,
+   in scaling_confirm1_extra01: group confirm1, stage extra, orders5,
+   all-orders1,5,9, worker1/workers2 oncuda:1, level2, budget180,
+   --only-cells outliers_confirm1_orthogonal_p5. Launch after initial independent
+   audit frees device, before confirm2 primaryworker1. Actual campaign total
+   1407.248209059238s, remaining4592.751790940762; three outstanding C caps
+   total1800, plus this180 leaves2612.751790940762 unreserved. This selection
+   uses numerical discrepancy only; all fresh conditions remain included.
+
+C1 initial independent raw/summary audits exited0:3639 technical checks and
+8762 summary checks pass; the sole invalid numerical pair is independently
+confirmed. The reserved extra cell launched oncuda:1. Confirm2 refinedworker0
+completed exit0,20/20 fitted,167.267456240952s, releasing its600s reservation.
+Confirm2 primaryworker1 launches on the newly freecuda:0 (worker partition is
+unchanged; device scheduling only). Its pre-reserved600s cap remains in force.
