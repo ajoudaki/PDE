@@ -75,3 +75,42 @@ discrepancy of 0.2 is admitted, either false fitting/replay flag rejects the
 row, and `None`, infinity, or NaN in any required metric or discrepancy rejects
 the row. No GPU work, generated-result reads, or source/Git changes occurred.
 No defect was found in this narrow addition.
+
+## Final independent numerical aggregation check
+
+After the final analysis arrays and tables were available, an independent
+CUDA 1 audit reconstructed all **108** closure/full pointwise errors at both
+selected numerical levels from the saved endpoint predictions. It checked
+the stored signed and absolute error arrays, then independently reduced L1,
+RMS, MSE, and maximum error. It also independently recomputed the mean and
+maximum of each case metric for all nine models in both the common-valid and
+descriptive summaries. **All 2,496 scalar comparisons passed; the maximum
+absolute difference was zero in every category.** No producer simulation or
+training was run.
+
+Evidence is retained in
+`data/generated/random_dictionary_learned_circle_20260920/diverse_independent_analysis_check01/checks.json`
+with a short README in that directory. The JSON contains input hashes, GPU
+and library information, recomputed aggregates, exact exclusions, and the
+checked analysis-source hash. CUDA required the authorized elevated execution;
+the numerical audit and report creation took approximately 0.81 seconds after
+Python imports.
+
+The independent selection check examined all 120 full/closure cells, compared
+selected producer summaries with their retained validation records, verified
+strictly decreasing per-cell tolerances, and confirmed the latest-two rule.
+There are 101 cells with two available levels, 11 with three, and 8 with four;
+all available attempts remain in their validation histories.
+
+The validated common set has **11 cases**. Its sole excluded configuration is
+`quadrant_alternating`, because the selected endpoint discrepancies are
+**0.010127009631221817** for `gaussian_p1` and **0.04146386790700052** for
+`orthogonal_p5`, exceeding the fixed 0.01 cutoff. Both otherwise pass the
+retained fit/replay gates. The descriptive common set correctly contains all
+**12 cases** and remains explicitly not accuracy-validated.
+
+This final audit independently validates the numerical reductions, selection,
+and exclusions. It inherits the previously completed neural checkpoint-replay
+records rather than repeating that replay. Sampled-circle maxima remain grid
+statistics, and the all-fitted descriptive summary does not resolve the two
+remaining refinement failures.

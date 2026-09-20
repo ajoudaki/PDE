@@ -2,7 +2,7 @@
 
 Owner: this task; new investigation, 2026-09-20. Other studies are not inputs.
 Status: original two-dataset experiment completed and internally checked;
-user-authorized twelve-case width-2048 continuation is in progress (see below).
+user-authorized twelve-case width-2048 continuation is completed (see below).
 Established files are unchanged. Preregistered protocol/source commit: 627ce4b.
 
 ## Question and fixed protocol
@@ -359,3 +359,186 @@ refinement remains unresolved. This supplement answers the requested whole-suite
 summary without hiding difficult configurations. It does not replace the main
 numerically validated common-set aggregate, and explicitly names the cases that
 fail the unchanged0.01 discrepancy gate.
+
+## Phase 2 completed results (2026-09-20)
+
+All 120 primary trajectories, all 120 regenerated tighter-tolerance trajectories,
+and all 27 targeted accuracy trajectories reached training MSE <= 1e-3.
+There were no training failures or resource-cap stops. Both RTX3090 GPUs were
+used; all neural evolution, dictionary contractions, circle evaluation and
+error calculations used CUDA float64. The recorded worker elapsed totals are
+2927.316 seconds, including 754.707 seconds for targeted checks, below the
+6000/1200-second limits. These are summed worker times, not elapsed user time
+or a controlled speed benchmark.
+
+The two requested 12-by-9 per-configuration tables are in
+`data/generated/random_dictionary_learned_circle_20260920/diverse_analysis01/tables.md`
+and `per_case_rms.csv` / `per_case_max_abs.csv` in that same output directory.
+All errors compare fitted functions on8192 uniform circle angles. RMS is
+sqrt(mean(error^2)); the other metric is max(abs(error)). Each aggregate below
+is the arithmetic mean or maximum over the indicated configuration set.
+L1, MSE, signed/absolute pointwise errors and both selected numerical levels
+remain in the CSV/JSON/NPZ outputs. This is finite-width GF integration at each
+model's own loss threshold, not an analytically exact trajectory or an
+infinite-training endpoint.
+
+### Descriptive aggregate over all twelve configurations
+
+This full-suite summary includes one numerically unresolved configuration and
+is NOT wholly accuracy-validated. It is retained so that the hardest case is
+not hidden. The independent11-case common-set summary follows below.
+
+| Model | Mean case RMS | Maximum case RMS | Mean case maximum | Maximum case maximum |
+|---|---:|---:|---:|---:|
+| ours_p1 | 0.39165 | 2.28517 | 0.68052 | 3.11832 |
+| gaussian_p1 | 0.51939 | 2.95928 | 0.87723 | 4.01926 |
+| orthogonal_p1 | 0.51251 | 2.89593 | 0.86773 | 3.95419 |
+| ours_p3 | 0.23128 | 1.28976 | 0.42525 | 1.83459 |
+| gaussian_p3 | 0.44534 | 2.46012 | 0.75206 | 3.44692 |
+| orthogonal_p3 | 0.44513 | 2.47847 | 0.75770 | 3.48395 |
+| ours_p5 | 0.16786 | 1.11331 | 0.29250 | 1.53909 |
+| gaussian_p5 | 0.38817 | 2.33100 | 0.64895 | 3.24034 |
+| orthogonal_p5 | 0.40427 | 2.33753 | 0.68609 | 3.26323 |
+
+### Common numerical-consistency set: eleven configurations
+
+All ten predictors fit and replay correctly at both selected levels in all12
+cases. The only remaining discrepancy-gate failures are on
+`quadrant_alternating`: Gaussian p=1 changes by0.0101270 and orthogonal p=5 by
+0.0414639 between their final two levels, against the fixed0.01 cutoff. This
+case is excluded from EVERY model's following aggregate. Its full-network
+reference and our three orders pass the check; the actual full12 figures and
+per-case tables remain visible. No extra level beyond the recorded two-level
+allowance was run. A passed refinement check is numerical evidence, not a
+certified bound on exact-flow integration error.
+
+| Model | Mean case RMS | Maximum case RMS | Mean case maximum | Maximum case maximum |
+|---|---:|---:|---:|---:|
+| ours_p1 | 0.21951 | 1.03824 | 0.45890 | 1.86385 |
+| gaussian_p1 | 0.29758 | 1.56292 | 0.59159 | 2.90413 |
+| orthogonal_p1 | 0.29583 | 1.58670 | 0.58715 | 2.94314 |
+| ours_p3 | 0.13505 | 0.54986 | 0.29713 | 1.17370 |
+| gaussian_p3 | 0.26218 | 1.37997 | 0.50707 | 2.48290 |
+| orthogonal_p3 | 0.26028 | 1.30339 | 0.50986 | 2.44356 |
+| ours_p5 | 0.08191 | 0.37820 | 0.17917 | 0.73692 |
+| gaussian_p5 | 0.21155 | 1.20440 | 0.41337 | 2.12093 |
+| orthogonal_p5 | 0.22852 | 1.17742 | 0.45180 | 2.16842 |
+
+### Interpretation and limitations
+
+Our average and worst-case errors decrease from p=1 to3 to5 in both summaries.
+At p=5 our mean case RMS is0.16786 over all12, versus0.38817 and0.40427 for
+Gaussian and orthogonal; on the common11 it is0.08191 versus0.21155 and0.22852.
+The p=5 observed RMS and maximum are lower than both controls in10/12 cases
+(9/11 in the fully checked common set). This is not uniform superiority:
+both random controls outperform ours on `equal_semicircles` and
+`near_equal_grouped` at all three orders. At lower orders there are additional
+reversals. Nor is orderwise improvement pointwise across all cases: for example,
+our RMS on `quadrant_grouped` slightly increases with order.
+
+The biggest absolute errors occur in the narrow-arc alternating-sign case:
+our p=5 RMS is1.11331 and maximum1.53909, versus approximately2.33 and3.24–3.26
+for the controls. Thus higher order helps substantially here but p=5 does not
+yet give a uniformly small global approximation. The two-outlier alternating
+case also exposes a large gap: p=5 RMS0.37820 for ours versus1.20440/1.17742.
+The full learned-function plots show that the large discrepancies are between
+training angles, despite every predictor fitting its eight labels.
+
+This is one fixed network seed and one paired random-dictionary draw, with12
+predeclared stress cases, not a random-law or multi-seed statistical study.
+It supports efficiency of the tested observable dictionaries on many of these
+geometries, while showing concrete cases where generic dictionaries suffice
+or perform better. It does not establish a closure-order error rate, native
+population-solver accuracy, universal dictionary superiority or a speedup.
+Nominal lower/upper counts are(5,3),(35,10),(128,21); the p=5 lower observable
+rank is126 because two retained constant tails are dependent, while random
+controls have full rank128. Gaussian and orthogonal controls share their
+random spans and differ in frame conditioning.
+
+### Internal verification and retained artifacts
+
+`diverse_runner_check.md` and `diverse_analysis_check.md` contain separate
+internal checks, not promotion reviews. The GPU dictionary validation passed
+156 numerical comparisons plus24 rank checks, including agreement with the
+maintained word interpreter, full-basis exact-network reduction, both action
+directions and simultaneous updates. The runner bookkeeping and stopping
+contract were checked separately.
+
+A final independent CUDA1 reconstruction checked all108 comparisons at both
+selected numerical levels and both common-set summaries:2496 scalar checks
+matched exactly. Evidence and input hashes are in
+`data/generated/random_dictionary_learned_circle_20260920/diverse_independent_analysis_check01/checks.json`;
+the persistent check account is in `diverse_analysis_check.md`.
+Its generated evidence SHA256 is
+`2f1efa136f8ad3e20299d5594babea0d35573e8b6feb18ee83efbd17463d181c`.
+
+All267 saved trajectories pass initial/terminal prediction replay and loss
+recalculation. Maximum terminal replay discrepancy is5.78e-15, and maximum
+loss replay discrepancy3.04e-17. Doubling the endpoint angle grid from4096
+to8192 changes the sampled maximum by at most4.50e-5 and RMS by at most
+4.45e-16. These angular checks do not certify a continuous-circle supremum.
+
+`diverse_analysis01` contains:
+
+- `configuration_geometry.png`: all twelve geometries and labels;
+- `learned_functions_p1.png`, `learned_functions_p3.png`, `learned_functions_p5.png`
+  and the corresponding `absolute_errors_p*.png`;
+- `metrics.csv/json`, both requested per-case tables, `common_summary.csv`,
+  `all_fitted_summary.csv/json`, and explicitly unmatched method-specific summaries;
+- `circle_errors.npz`: all endpoint predictions and signed/absolute errors;
+- `trajectories.csv/json`, `validation.json`, `selected_levels.csv/json`:
+  original and targeted runs, exact selected paths/tolerances and all checks;
+- `analysis_provenance.json` and `artifact_hashes.json`: commands, hashes and
+  correspondence to the unchanged scientific simulation source.
+
+Each producer root contains original8192-angle endpoint fields, complete
+2048-angle snapshots and full reconstructible states/dictionaries as described
+above. No generated arrays are committed to Git. Established code/book files
+and concurrent studies remain unchanged.
+
+Operational exit record: the analyzer wrote every artifact and hash manifest,
+printed its final tables, and passed the independent numerical audit, but its
+process remained alive in `futex_wait_queue_me` after main-program completion.
+The supervisor terminated that completed analysis process with SIGTERM to
+release resources (exit143). The shutdown cause was not diagnosed. No producer
+was terminated and no numerical output was overwritten. This is a process-exit
+limitation, not an unresolved arithmetic check; a clean analyzer exit is not
+claimed.
+
+### Phase 2 reproduction
+
+Run from `/home/amir/Codes/PDE` with the existing CUDA environment. Set
+`PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1`.
+The exact retained producer commands are below; replace the output root suffix
+`01` consistently by a fresh suffix to regenerate rather than overwrite.
+Worker0/1 of a primary suite can run concurrently on their recorded distinct
+GPUs. The two refinement workers were sequential onGPU0, overlapping primary
+work onGPU1. Targeted cohorts start only after their input files finish; their
+membership is determined solely by the fixed numerical discrepancy gate.
+Maintain the combined1200-second extra-check and6000-second total bounds.
+
+```sh
+/home/amir/miniconda3/bin/python -B studies/random_dictionary_learned_circle_20260920/diverse_benchmark.py --out data/generated/random_dictionary_learned_circle_20260920/diverse_primary01 --worker 0 --device cuda:0
+/home/amir/miniconda3/bin/python -B studies/random_dictionary_learned_circle_20260920/diverse_benchmark.py --out data/generated/random_dictionary_learned_circle_20260920/diverse_primary01 --worker 1 --device cuda:1
+/home/amir/miniconda3/bin/python -B studies/random_dictionary_learned_circle_20260920/diverse_benchmark.py --out data/generated/random_dictionary_learned_circle_20260920/diverse_refined01 --worker 0 --device cuda:0 --refined
+/home/amir/miniconda3/bin/python -B studies/random_dictionary_learned_circle_20260920/diverse_benchmark.py --out data/generated/random_dictionary_learned_circle_20260920/diverse_refined01 --worker 1 --device cuda:0 --refined
+/home/amir/miniconda3/bin/python -B studies/random_dictionary_learned_circle_20260920/diverse_refine.py --older data/generated/random_dictionary_learned_circle_20260920/diverse_primary01 --newer data/generated/random_dictionary_learned_circle_20260920/diverse_refined01 --out data/generated/random_dictionary_learned_circle_20260920/diverse_fine_early01 --worker 0 --workers 1 --device cuda:1 --level 1 --budget 300
+/home/amir/miniconda3/bin/python -B studies/random_dictionary_learned_circle_20260920/diverse_refine.py --older data/generated/random_dictionary_learned_circle_20260920/diverse_primary01 --newer data/generated/random_dictionary_learned_circle_20260920/diverse_refined01 --out data/generated/random_dictionary_learned_circle_20260920/diverse_fine_late01 --exclude data/generated/random_dictionary_learned_circle_20260920/diverse_fine_early01 --worker 0 --workers 1 --device cuda:0 --level 1 --budget 300
+/home/amir/miniconda3/bin/python -B studies/random_dictionary_learned_circle_20260920/diverse_refine.py --older data/generated/random_dictionary_learned_circle_20260920/diverse_refined01 --newer data/generated/random_dictionary_learned_circle_20260920/diverse_fine_early01 --out data/generated/random_dictionary_learned_circle_20260920/diverse_finer_early01 --worker 0 --workers 1 --device cuda:1 --level 2 --budget 300
+/home/amir/miniconda3/bin/python -B studies/random_dictionary_learned_circle_20260920/diverse_refine.py --older data/generated/random_dictionary_learned_circle_20260920/diverse_refined01 --newer data/generated/random_dictionary_learned_circle_20260920/diverse_fine_late01 --out data/generated/random_dictionary_learned_circle_20260920/diverse_finer_late01 --worker 0 --workers 1 --device cuda:0 --level 2 --budget 300
+```
+
+Analyze with the recorded command (again using fresh output suffixes):
+
+```sh
+/home/amir/miniconda3/bin/python -B studies/random_dictionary_learned_circle_20260920/diverse_analyze.py --primary data/generated/random_dictionary_learned_circle_20260920/diverse_primary01 --refined data/generated/random_dictionary_learned_circle_20260920/diverse_refined01 --extra data/generated/random_dictionary_learned_circle_20260920/diverse_fine_early01 --extra data/generated/random_dictionary_learned_circle_20260920/diverse_fine_late01 --extra data/generated/random_dictionary_learned_circle_20260920/diverse_finer_early01 --extra data/generated/random_dictionary_learned_circle_20260920/diverse_finer_late01 --out data/generated/random_dictionary_learned_circle_20260920/diverse_analysis01 --device cuda:0
+```
+
+Frozen source/validation hashes:
+
+- `studies/random_dictionary_learned_circle_20260920/diverse_benchmark.py`: `9556b9baaa89643a6dc474873b6536f6dda7a4e3cad0bd3fbba9fee2a9a3b43e`
+- `studies/random_dictionary_learned_circle_20260920/diverse_dictionary.py`: `969064679b7a386915b202885a8a81f0e503011d6fa4eee1cc3b06082f27c27d`
+- `studies/random_dictionary_learned_circle_20260920/diverse_analyze.py`: `d2e7361dfc4143623220a4262e72f27b491abd0f0917aff5aa4f713711107ebc`
+- `data/generated/random_dictionary_learned_circle_20260920/diverse_validation01/checks.json`: `c9d5946c8470055cc613dfdac79c3abb6440d1b7054529c006e8fcf7f688aaaa`
+- `data/generated/random_dictionary_learned_circle_20260920/diverse_analysis01/analysis_provenance.json`: `5d27aa95296019a53eee2b327ca82d20afcebb01fecc738f36aae1e9d83f2e0d`
+- `data/generated/random_dictionary_learned_circle_20260920/diverse_analysis01/artifact_hashes.json`: `189d5ad98a37f2bdb60103f9fe0866fdfe57af6f0bd9f47e184df216d778a907`
