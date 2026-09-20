@@ -314,3 +314,40 @@ scoped case-design agent owns diverse_cases.py and runner-check artifacts;
 scoped dictionary agent owns diverse_dictionary.py and its deterministic checks;
 scoped analysis agent owns diverse_analyze.py. All scientific inputs are this
 study and established book/code only. These internal checks are not promotion.
+
+Operational scheduling note, recorded before launching the odd-case refinement:
+GPU0 completed its60 primary and60 refinement trajectories while GPU1 was still
+running the harder odd-indexed primary cases. To use both GPUs as requested,
+worker1's refinement is launched on the now-free GPU0. Case partition, frozen
+simulation source, data, seeds, tolerances and per-worker budgets are unchanged.
+Only the refinement worker's physical device assignment changes; both devices
+are RTX3090s and each actual assignment is retained in its config. This decision
+uses completion/runtime information, before comparative endpoint errors are read.
+
+Numerical-quality amendment (before any comparative method errors are analyzed):
+the first62 completed primary/refinement pairs include three endpoint differences
+above0.01 (maximum0.01913). Merely excluding difficult cases would weaken the
+requested benchmark. Within the original total6000 GPU-second training budget,
+reserve at most1200 additional GPU-seconds for targeted numerical checks, rather
+than enlarging datasets, methods or seeds. `diverse_refine.py` selects EVERY
+both-fitted cell whose preceding two endpoint fields differ by more than0.01,
+independently of which dictionary is more accurate. Regenerate it from the same
+initialization at (rtol,atol) divided by another4, at most two additional levels;
+each of two workers/level has at most300 integration seconds. The original
+producer/vector field and its per-trajectory limits remain unchanged. This
+amends the initial no-extra-check plan solely to resolve demonstrated numerical
+uncertainty; it is not claimed to have been planned before those checks.
+
+Quality checks may start on a free GPU for already completed pairs, followed
+by a disjoint later cohort once the remaining pairs finish. The `--exclude`
+option prevents repeating cells at the same tolerance. Cohorts share the same
+1200 GPU-second combined allowance, at most300 per worker invocation; no cell
+receives more than two extra accuracy levels. Cohort membership depends only
+on completion and the fixed numerical-discrepancy test.
+
+The reported per-cell pair becomes its latest two available accuracy levels,
+with exact paths/tolerances disclosed. The0.01 validity threshold is unchanged.
+All original levels, failed checks and selection evidence remain available;
+remaining unresolved cells are excluded transparently. No new scientific target
+or outcome-based selection is introduced. No further levels or budget extension
+will follow. The analyzer records original and selected-level inventories.
