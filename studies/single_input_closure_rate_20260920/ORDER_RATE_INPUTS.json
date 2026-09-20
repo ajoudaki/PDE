@@ -1,0 +1,23 @@
+{
+  "date": "2026-09-20",
+  "scope": "Asymptotic order follow-up; actual finite H3 order distinguished from auxiliary infinite-resolution action depth; no promotion.",
+  "hashes": {
+    "studies/single_input_closure_rate_20260920/TAME_GATE_RATE.md": "b26b6974cade34a960b67336256c769708aaf0b8d082b7a0de8c2624a4a605e7",
+    "studies/single_input_closure_rate_20260920/ORDER_RATE_INVERSION.md": "f5a3815931965128f63b4c619d7579bfd5cb16fea34475b002722803fc959491",
+    "studies/single_input_closure_rate_20260920/ORDER_TAIL_STRUCTURE.md": "d52fa09837ff1db78cbf6eea5dc5a3ef6d45222835eab3ee710cdc084db584dd",
+    "studies/single_input_closure_rate_20260920/ROUTE_DICTIONARY.md": "c894744d37cd0e2eb5adcf2524dce26507748a23fed84b69ef8fd0645902ea1c",
+    "studies/single_input_closure_rate_20260920/ROUTE_DYNAMICS.md": "f84da8b5a840079a239ae8b2ffd4c12359f8abab08f27d831e0534f2ac2fa755",
+    "studies/single_input_closure_rate_20260920/RESULT.md": "0ec5197dc1a92d16226ffefc0c1df0bae00405a674b38f6db03a51b3810fa43a",
+    "studies/single_input_closure_rate_20260920/validate_order_rates.py": "5f275651e2a4d200eecd5289a42b61238ccab876f7269be465a1b65e01da86d2",
+    "docs/global_nonlinear.md": "81d969a531fc6daee26dbee2041fad8a3425a4b01580351387c5fc376cef412c",
+    "docs/NOTATION.md": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+    "data/generated/single_input_closure_rate_20260920/order_rate_check_01/exact_bounds.log": "07936f34652e9e156dcabdf8b45477fae1d1e30b3d09e57732603c777ad18a70"
+  },
+  "validation": {
+    "command": "python -B studies/single_input_closure_rate_20260920/validate_order_rates.py",
+    "exit_status": 0,
+    "training_experiments": false
+  },
+  "review_record": "ORDER_RATE_INTERNAL_CHECK.md",
+  "note": "Whole-file hashes are version records; the review describes actual read coverage and inherited dependency limits."
+}

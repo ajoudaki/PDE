@@ -167,3 +167,66 @@ the positive nonprojector filter identity and cancellation of speed errors.
 The earlier `exact_bounds.log` is preserved; the v2 output includes the added
 time-40 check. The old `CHECK_INPUTS.json` describes the prior frozen result,
 not this expanded README or the follow-up. Promotion remains unattempted.
+
+## Quantitative order follow-up (2026-09-20)
+
+The user correctly distinguished endpoint transfer from a rate in order and
+requested an actual asymptotic insight. The continuation therefore targets
+error production as retained information increases, in the same single-input
+investigation. No additional empirical campaign or promotion is authorized.
+
+The new candidate results are:
+
+- [TAME_GATE_RATE.md](TAME_GATE_RATE.md) proves the global sensitivity bound
+  `0<partial_g J(g,V)<=1+2|V|` for the exact inverse gate. It replaces the
+  old exponential-in-cutoff compiler bound by a polynomial one, while leaving
+  the canonical closure and its numeric order unchanged.
+- [ORDER_RATE_INVERSION.md](ORDER_RATE_INVERSION.md) consequently proves
+  `sup_(t>=0,u)|f_N-f| <= 2^433448 (log2 log2 N)^(-1/28)` whenever
+  `log2 log2 log2 N>=28*433448`. This is a named asymptotic upper bound in
+  the **actual finite maintained order**, including the whole circle and
+  fitted endpoints. Constants are impractical and the exponent is not sharp.
+  Raw retained counts grow as `N^4/24` in total, and coefficient-matrix size
+  as `N^6/48`, so these conventions for size preserve the same rate class.
+- [ORDER_TAIL_STRUCTURE.md](ORDER_TAIL_STRUCTURE.md) proves that projecting
+  onto r successive forward/reverse action generations omits a source bounded
+  by a fixed constant times `A^r/r!`. The corresponding autonomous projected
+  flow has the same all-time prediction bound. This auxiliary result retains
+  a whole sigma-field at each generation; it is **not** a factorial error
+  bound for finite maintained order N. Its proof uses Picard integral
+  iterations, not convergence of time Taylor series.
+
+Together these separate the dynamical suppression of deep action generations
+from the cost of approximating functions in them by a finite dictionary.
+Polynomial refinement of the fixed initial Gaussian core alone still has the
+previously proved nonzero global error floor. No sharp low-order accuracy,
+monotonic error ordering, finite quadrature guarantee or finite-width all-time
+limit follows from any of these statements.
+
+The supervising task owns `TAME_GATE_RATE.md` and the validation script.
+Fresh scoped routes `order_rate_inversion` and `order_tail_structure` own
+their respective proofs. They began from separate assigned inputs; the root's
+concrete inverse-gate lemma was then shared with both, and the rate route used
+it. Agent `order_rate_internal_check` owns the independent internal check.
+All work stays in this study and its generated namespace. Exact arithmetic:
+
+```text
+python -B studies/single_input_closure_rate_20260920/validate_order_rates.py > data/generated/single_input_closure_rate_20260920/order_rate_check_01/exact_bounds.log
+```
+
+Exit zero. The script checks the Bernstein margin, constant exponents,
+squaring-recurrence majorants and Picard constants without allocating the
+astronomical thresholds. These checks support, rather than replace, the
+analytic proofs. No training experiments were run.
+
+The [independent internal check](ORDER_RATE_INTERNAL_CHECK.md) passes the new
+gate, finite-order inversion and factorial action-generation chain. The
+supervisor read all three complete proofs and the complete report, checked
+their composition, and verified the version hashes recorded in
+[ORDER_RATE_INPUTS.json](ORDER_RATE_INPUTS.json). The report explicitly
+preserves the inherited canonical Gaussian source rule and rational fitting
+certificate as dependencies; this is not a fresh whole-book or numerical-code
+audit. It also records an incidental read of a neighboring maintained section.
+These are internally checked study results, not promoted material. The old
+proofs and their original threshold formula remain preserved; the new compiler
+and inversion give a strictly improved sufficient order bound.
