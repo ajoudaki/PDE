@@ -633,3 +633,31 @@ No training was rerun to repair a file or retry an analyzer. Canonical theory,
 maintained code and concurrent studies were untouched; no promotion is implied.
 The earlier handoff/resumption notes above are historical and do not reopen the
 closed protocol. Any new experiment or promotion requires a new instruction.
+
+## Requested RMS plots for the two original configurations
+
+`scaling_plot_rms.py` renders the existing independently checked discovery RMS
+values for ours, Gaussian and orthogonal separately. It makes no minimum-of-two
+curve. Plots cover the seven tested orders1,3,5,6,7,8,9 and both selected
+numerical levels; there are no p2/p4 observations. Solid/filled marks show the
+finer level, dashed/open marks the coarser; they are not seed error bars.
+
+Outputs in `data/generated/random_dictionary_learned_circle_20260920/scaling_discovery_rms01/`:
+[rms_vs_p.png](../../data/generated/random_dictionary_learned_circle_20260920/scaling_discovery_rms01/rms_vs_p.png),
+[rms_vs_dictionary_columns.png](../../data/generated/random_dictionary_learned_circle_20260920/scaling_discovery_rms01/rms_vs_dictionary_columns.png),
+PDF/SVG versions, all42 plotted records in `plotted_rms.csv`, and exact source,
+input/output hashes and invocation in `provenance.json`. RMS has a common log
+scale in both panels; dictionary-size axes also use log scale. The figures were
+visually checked and the original metrics hash matches the independent raw audit.
+This is requested rendering of saved results; the training campaign stays closed.
+
+Reproduce into a fresh output directory:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/home/amir/Codes/PDE/data/generated/random_dictionary_learned_circle_20260920/scaling_rms_plot_cache /home/amir/miniconda3/bin/python -B studies/random_dictionary_learned_circle_20260920/scaling_plot_rms.py --analysis data/generated/random_dictionary_learned_circle_20260920/scaling_discovery_analysis01 --out data/generated/random_dictionary_learned_circle_20260920/scaling_discovery_rms02
+```
+
+A scoped independent read-only check confirmed exact equality of all42 exported
+CSV records to the source metrics, with no missing/extra/duplicate rows, and
+matching hashes for both inputs and all7 exported products. It did not recompute
+metrics or rerun training.
