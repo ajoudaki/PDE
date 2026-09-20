@@ -1,9 +1,14 @@
-"""CPU-only protocol metadata checks; no model import, arrays, or training."""
+"""CPU-only protocol metadata checks; no model import, arrays, or training.
+
+Budget totals cover only the explicitly supplied roots. Pass every training root
+for a campaign balance; a subset reports only that subset's execution subtotal.
+"""
 import argparse
 import hashlib
 import json
 import math
 from pathlib import Path
+import sys
 
 DIMENSIONS = {1: (5, 3), 3: (35, 10), 5: (128, 21), 6: (213, 28),
               7: (333, 36), 8: (499, 45), 9: (720, 55)}
@@ -13,6 +18,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--root', type=Path, action='append', required=True)
     parser.add_argument('--out', type=Path, required=True)
+    parser.add_argument('--confirmation-decision', type=Path, action='append', default=[],
+                        help='Exactly two final C-group decision JSON files for the optional D gate')
     args = parser.parse_args()
     hashes, workers, dictionaries, problems = {}, [], [], []
 
@@ -103,10 +110,76 @@ def main():
                                  'width': record['width'], 'populations': populations, 'pass': not failures})
     completed = [worker for worker in workers if worker['completion'] is not None]
     total_seconds = sum(worker['completion']['seconds'] for worker in completed)
-    output = {'scope': 'Saved producer metadata, not independent raw arithmetic or ODE certification',
+    d_gate = None
+    if args.confirmation_decision:
+        if len(args.confirmation_decision) != 2:
+            raise ValueError('The D gate requires exactly two final confirmation decision files')
+        group_decisions, input_failures = {}, []
+        for path in args.confirmation_decision:
+            decision = read(path)
+            analysis = Path(decision['analysis'])
+            for name, expected_hash in decision['input_hashes'].items():
+                source = analysis / name
+                read(source)
+                if hashes[str(source.resolve())] != expected_hash:
+                    input_failures.append(f'{path}: changed decision input {name}')
+            names = set(decision['discriminators'])
+            group = next((i for i in (1, 2) if names == {
+                f'pairs_confirm{i}', f'outliers_confirm{i}', f'negative_confirm{i}'}), None)
+            if group is None or group in group_decisions:
+                raise ValueError('Confirmation group missing, duplicated, or contains unexpected cases')
+            group_decisions[group] = decision
+        family_checks = {}
+        for family in ('pairs', 'outliers'):
+            members = {}
+            for group in (1, 2):
+                case = f'{family}_confirm{group}'
+                item = group_decisions[group]['discriminators'][case]
+                levels = item['levels']
+                scalar_pass = (len(levels) == 2 and all(
+                    level.get('passes') and
+                    math.isfinite(level.get('ours_rms_reduction_fraction', math.nan)) and
+                    math.isfinite(level.get('ratio_increase_fraction', math.nan)) and
+                    level['ours_rms_reduction_fraction'] >= .15 and
+                    level['ratio_increase_fraction'] >= .20 for level in levels.values()))
+                members[case] = {
+                    'passes': bool(item['high_order'] == 9 and item['all_involved_valid'] and
+                                   item['passes_both_levels'] and scalar_pass),
+                    'reported_discriminator': item}
+            family_checks[family] = {'members': members,
+                                     'qualifies_in_both_groups': all(x['passes'] for x in members.values())}
+        selected_family = next((family for family in ('pairs', 'outliers')
+                                if family_checks[family]['qualifies_in_both_groups']), None)
+        expected_c = {f'{case}_{model}' for i in (1, 2)
+                      for case in (f'pairs_confirm{i}', f'outliers_confirm{i}', f'negative_confirm{i}')
+                      for model in ['full'] + [f'{method}_p{order}' for order in (1, 5, 9) for method in METHODS]}
+        c_workers = [worker for worker in workers if worker['stage'] == 'C']
+        c_counts = {cell: sum(cell in worker['selected'] for worker in c_workers) for cell in expected_c}
+        c_complete = (len(c_workers) == 8 and all(worker['completion'] is not None for worker in c_workers)
+                      and all(count == 2 for count in c_counts.values())
+                      and sum(len(worker['selected']) for worker in c_workers) == 120)
+        problems.extend(input_failures)
+        d_gate = {
+            'scope': 'Decision-JSON, metadata, and protocol checks; raw numerical correctness is independently assigned',
+            'family_checks': family_checks, 'negative_controls_ignored_for_selection': True,
+            'C_120_planned_trajectories_complete': c_complete,
+            'all_confirmation_comparisons_valid': all(x['all_comparisons_and_metadata_valid'] for x in group_decisions.values()),
+            'selected_family': selected_family,
+            'original_case': {'pairs': 'quadrant_pairs', 'outliers': 'two_outliers_alternating'}.get(selected_family),
+            'width': 4096, 'orders': [5, 9], 'network_seed': 20260920, 'dictionary_seed': 7319,
+            'required_trajectories': 14,
+            'protocol_metadata_gate_passes': bool(c_complete and selected_family and not problems),
+            'remaining_worker_seconds_before_reservation': 6000-total_seconds,
+            'can_reserve_two_maximum_600_second_workers': 6000-total_seconds >= 1200,
+            'qualification': 'Root must verify numerical-audit completion and reserve actual worker caps before launch.'}
+    output = {'scope': 'Saved producer metadata, not independent raw arithmetic or ODE certification; budget totals cover supplied roots only',
+              'command': [sys.executable, '-B', *sys.argv], 'cwd': str(Path.cwd()),
+              'audit_source_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+              'audited_roots': [str(root.resolve()) for root in args.root],
               'workers': workers, 'dictionaries': dictionaries, 'problems': problems,
               'completed_worker_seconds': total_seconds, 'remaining_6000_seconds': 6000-total_seconds,
               'completed_selected_count': sum(len(worker['selected']) for worker in completed),
+              'D_gate': d_gate,
               'input_hashes': hashes}
     args.out.write_text(json.dumps(output, indent=2, allow_nan=False) + '\n')
     print(json.dumps({key: output[key] for key in ('problems', 'completed_worker_seconds', 'remaining_6000_seconds', 'completed_selected_count')}))

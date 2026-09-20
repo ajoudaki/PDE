@@ -154,3 +154,97 @@ confirmed. The reserved extra cell launched oncuda:1. Confirm2 refinedworker0
 completed exit0,20/20 fitted,167.267456240952s, releasing its600s reservation.
 Confirm2 primaryworker1 launches on the newly freecuda:0 (worker partition is
 unchanged; device scheduling only). Its pre-reserved600s cap remains in force.
+
+C1 resolution cell completed exit0,1/1 fitted,25.647439431399s; its180s
+reservation released. Analysis02 retains the latest two attempts and has27/27
+valid comparisons. C1's sole resolution cell used campaign extra2/12. Initial
+adverse output remains intact. Scoped checkpoint caa9a5e records discovery
+results and independent C1 initial checks; scientific producers remain frozen.
+
+C1 final independent raw and summary audits both exited0, all technical and
+numerical checks passed, including8763 summary checks. Repaired discrepancy
+0.0015607632979275365; all27 comparisons valid. C1_resolved.json records paired
+RMS reductions62.8562%/62.8260% and ratio growth49.4969%/49.3818%; outlier and
+negative controls fail the discriminator. Confirm2 refinedworker1 launches on
+cuda:1 under its pre-reserved600s allowance; primaryworker1 continues cuda:0.
+
+Confirm2 primaryworker1 completed exit0,10/10 fitted,172.933287106454s;
+its600s reservation released. Only final C2 refinedworker1 remains running;
+its600s reservation is the only outstanding training cap.
+
+Confirm2 refinedworker1 completed exit0,10/10 fitted,189.120324198157s;
+its600s reservation released. All120 predeclared C trajectories fitted, plus
+one C1 resolution trajectory. Campaign now174 training trajectories,
+1962.216716036201s spent,4037.783283963799s remaining, zero outstanding caps.
+Second confirmation analysis launches oncuda:0 in scaling_confirm2_analysis01.
+
+C2 analysis01 exited1 during saved-array loading: CRC failure in b1.npy of
+scaling_confirm2_refined01/outliers_confirm2_ours_p9/arrays.npz. No scientific
+gate used this partial analysis. Root and independent checker separately scanned
+all60 C2 archives: exactly this archive/member failed. All five other C2 ours_p9
+saved basis members are byte-identical, SHA256
+7f0780eaafeca12c34b9143204566f88120a3f0f94ea8b5173e16680f282ab97, and match the
+bad member's original declared CRC2899841163 and size11796608 bytes. All other
+members pass CRC; companion frozen b2,g,D,p1,p2 agree across the six copies.
+
+The study-owned scaling_repair_archive.py preserves the entire damaged original
+in scaling_archive_repair01/original_corrupt_arrays.npz and restores only the
+uncompressed b1.npy payload from five unanimous saved copies. It retains all
+other archive bytes and headers exactly and requires the original CRC to match.
+Full command, original/repaired/member/donor hashes and byte/bit changes are in
+scaling_archive_repair01/repair.json. No training, trajectory changes or numerical
+basis recomputation is performed. Cause of corruption is unknown. Independent
+byte verification and raw replay are required before any interpretation; failed
+analysis01 remains preserved. Fresh analysis will use analysis02.
+
+C2 analysis02 exited0 after the one-bit repair;26/27 comparisons valid. Its
+sole numerical-resolution candidate is outliers_confirm2_orthogonal_p1, both
+fitted, own endpoint discrepancy0.01878879938778244. This is unrelated to the
+repaired ours_p9 dictionary member. C2_initial.json records the branch values.
+
+8. Reserve180 seconds for ONE level2 trajectory, campaign resolution3/12,
+   in scaling_confirm2_extra01: group confirm2, stage extra, orders1,
+   all-orders1,5,9, worker1/workers2 oncuda:0, level2, budget180,
+   --only-cells outliers_confirm2_orthogonal_p1. Against remaining
+   4037.7832839637995s and no other training caps this leaves3857.7832839637995s
+   unreserved. Retain all three attempts and select latest two; no further
+   extra for this cell even if discrepancy remains too large.
+
+C2 resolution cell completed exit0,1/1 fitted,45.998886026442s;180s reservation
+released. Campaign actual2008.2156020626426s,3991.7843979373574s remaining,
+175 trajectories,3/12 resolution cells, zero outstanding training reservations.
+Final C2 analysis03 uses extra01; original failed refinement remains preserved.
+Independent repair verification passed20 structural checks, including exactly
+one bit changed and all other bytes identical. Initial independent C2 raw audit
+exited139 before producing metrics; failed launch is retained and a bounded
+postprocessing retry is authorized. No training is repeated for this failure.
+
+C2 final analysis03 and C2_resolved.json:27/27 valid, no unresolved numerical
+cell; orthogonalp1 discrepancy now0.001856237740659461. Independent final raw
+and summary audits exited0 and passed3660/3660 and8763/8763 checks. The earlier
+audit crash did not recur on a diagnostic retry or final audit. All96 final
+comparisons (42discovery+27C1+27C2) independently checked.
+
+Terminal scientific decision: NO StageD. C2 pairs reduce our RMS34.500%/34.516%
+but their better-random/ours ratio contracts31.921%/31.872%; C2 outliers reduce
+RMS18.518%/18.538% but ratios contract27.187%/27.157%. Neither positive family
+qualifies in both fresh groups. Negative2's generic discriminator pass is not
+an eligible family and never triggers the width branch. The14 width trajectories
+are unrun due to the scientific gate, not resource shortage. No further training
+is authorized by this protocol, regardless of unused balance.
+
+Final process check: no study training/analyzer/checker process remains. Both
+study GPU slots released; unrelated existing Jupyter/speech/service processes
+were preserved. Final training balance remains2008.2156020626426 used,
+3991.7843979373574 unused,175 trajectories,3/12 extra cells, no reservations.
+Generated data remain outside Git; source/reports are scoped to this study.
+
+Final independent metadata audit scaling_gate_audit01/D_gate.json has zero
+problems,175 completed trajectories, matching worker totals, all120 C cells
+complete, valid confirmation comparisons, and selected_family=null. The
+scientific D gate isfalse while budget suffices, explicitly distinguishing the
+reason for not running width4096. Final prose/table consistency was separately
+checked against only protocol/metrics/summary/validation/decision inputs. Two
+transcription/wording corrections were applied: discoveryoutlier Gaussianp7
+RMS1.01656, and negative conclusions refer to the better random control (Gaussian
+is slightly worse than ours at negative2p9). No source metric or training change.

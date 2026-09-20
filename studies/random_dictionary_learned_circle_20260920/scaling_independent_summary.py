@@ -211,6 +211,29 @@ class SummaryAudit:
                             dictionary_columns_ratio=self.divide(other["dictionary_columns"], ours["dictionary_columns"]) if both else None,
                             middle_coefficients_ratio=self.divide(other["middle_coefficients"], ours["middle_coefficients"]) if both else None))
         expected_tables = dict(random_over_ours=ratios, target_accuracy=targets, tested_budget_ratios=budget_ratios)
+        discriminators = []
+        if 5 in orders and 9 in orders:
+            for case in cases:
+                valid = all(validity.get((case, method, p), False) for method in METHODS for p in (5, 9))
+                for level in (0, 1):
+                    record = dict(case=case, level=level, valid=valid)
+                    if valid:
+                        ours5 = self.scalar(metrics[(case, "ours", 5, level)]["rms"])
+                        ours9 = self.scalar(metrics[(case, "ours", 9, level)]["rms"])
+                        best5 = torch.minimum(*(self.scalar(metrics[(case, method, 5, level)]["rms"]) for method in METHODS[1:]))
+                        best9 = torch.minimum(*(self.scalar(metrics[(case, method, 9, level)]["rms"]) for method in METHODS[1:]))
+                        reduction = self.scalar(1) - ours9 / ours5
+                        ratio5, ratio9 = best5 / ours5, best9 / ours9
+                        increase = ratio9 / ratio5 - self.scalar(1)
+                        record.update(ours_rms_reduction=float(reduction.item()),
+                                      better_random_over_ours_p5=float(ratio5.item()),
+                                      better_random_over_ours_p9=float(ratio9.item()),
+                                      ratio_increase=float(increase.item()),
+                                      passes=bool((reduction >= self.scalar(0.15)) & (increase >= self.scalar(0.20))))
+                    else:
+                        record.update(ours_rms_reduction=None, better_random_over_ours_p5=None,
+                                      better_random_over_ours_p9=None, ratio_increase=None, passes=False)
+                    discriminators.append(record)
         for name, rows in expected_tables.items():
             self.compare_rows("summary:" + name, rows, summary[name], ROW_KEYS[name])
             path = self.args.analysis / CSV_NAMES[name]
@@ -223,6 +246,7 @@ class SummaryAudit:
             command=sys.argv, cwd=str(Path.cwd()), source_sha256=sha256(__file__), input_hashes=self.hashes,
             device=str(self.device), gpu=torch.cuda.get_device_name(self.device), dtype="float64", torch=torch.__version__,
             wall_seconds=time.monotonic() - started, checks=self.checks, boundary_p7_rms_005=boundary,
+            p5_to_p9_discriminators=discriminators,
             tables=expected_tables, passed=all(c["passed"] for c in self.checks),
             limitations=["Depends on the recorded independent raw-output audit; no new training or replay.",
                          "Budgets are tested nominal feature counts and middle coefficients, not untested or whole-model guarantees."])

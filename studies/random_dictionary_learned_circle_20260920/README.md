@@ -600,3 +600,36 @@ in [scaling_gate_audit.md](scaling_gate_audit.md). Neither is a promotion review
 Root owns the README, run record, reports and Git; checker and gate auditor own
 their explicitly named files only. Established code/book and concurrent studies
 remain unchanged. Later stages await the full stated gates and budget.
+
+
+## Completed bounded scaling campaign (2026-09-20)
+
+See [SCALING_RESULTS.md](SCALING_RESULTS.md) for the final error/budget tables,
+all fresh conditions, qualifications and linked complete numerical evidence.
+The campaign is closed: Stages A/B/C and three eligible resolution cells are
+complete; all175 training trajectories fitted, and all96 final comparisons
+passed independent raw/summary checks. StageD is deliberately not run: neither
+positive family meets the same15%/20% discriminator in both fresh groups.
+
+Our p5-to-p9 RMS improves on all six fresh conditions, but a consistently
+growing advantage over matched random dictionaries is not confirmed. Paired
+ratio growth is about49% in fresh group1 and minus32% in group2; outlier ratios
+contract in both groups, and the better random control wins both negatives.
+There is useful finite approximation efficiency on selected families, with
+nonmonotonic discovery behavior and no universal or asymptotic claim.
+
+Actual training-worker time is2008.215602062643s of6000, leaving
+3991.784397937357s unused, with no outstanding reservation or authorized next
+experiment. This includes the144.512476s StageA primary work from checkpoint
+22d2ed0. No completed primary trajectory was repeated. Preflight was reused.
+Source/configuration/data hashes and exactcommands are retained in producer and
+analysis provenance, independent checks, and [SCALING_RUN_RECORD.md](SCALING_RUN_RECORD.md).
+
+A single-bit saved-basis corruption was restored from five identical redundant
+copies matching its originalCRC; the damaged original is preserved. Independent
+byte verification and raw predictor replay passed. The failed analyzer and one
+failed audit process are documented, followed by successful postprocessing.
+No training was rerun to repair a file or retry an analyzer. Canonical theory,
+maintained code and concurrent studies were untouched; no promotion is implied.
+The earlier handoff/resumption notes above are historical and do not reopen the
+closed protocol. Any new experiment or promotion requires a new instruction.

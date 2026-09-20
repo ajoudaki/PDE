@@ -357,7 +357,7 @@ class Audit:
         torch.backends.cuda.matmul.allow_tf32 = False
         selected, declared = self.collect()
         historical_path = DATA / "diverse_analysis01/selected_levels.json"
-        needs_historical = any(records[0]["case"] in DISCOVERY and records[0]["method"] != "full" and
+        needs_historical = any(records[0]["case"] in DISCOVERY and records[0]["config"]["width"] == 2048 and records[0]["method"] != "full" and
                                records[0]["order"] in (1, 3, 5) for records in selected.values())
         if needs_historical and historical_path.exists():
             historical = read_json(historical_path)["cells"]
