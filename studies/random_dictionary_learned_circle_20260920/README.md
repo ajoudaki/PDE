@@ -1,7 +1,8 @@
 # Learned-circle dictionary benchmark
 
 Owner: this task; new investigation, 2026-09-20. Other studies are not inputs.
-Status: completed; empirical results internally checked at the scope below.
+Status: original two-dataset experiment completed and internally checked;
+user-authorized twelve-case width-2048 continuation is in progress (see below).
 Established files are unchanged. Preregistered protocol/source commit: 627ce4b.
 
 ## Question and fixed protocol
@@ -218,3 +219,98 @@ There was no independent promotion review and no established-library edit.
 The bounded experiment is closed; broader seeds, widths, datasets and methods
 are not part of this run. Source and retained states enable later authorized
 post hoc analyses without rerunning training.
+
+## Phase 2: twelve qualitative eight-input configurations (preregistered)
+
+User authorization: expand this same comparison to roughly 10–15 diverse m=8
+configurations, p=1,3,5 with matched random controls, n=2048 and both GPUs.
+This is continuation of the same investigation; the original sources, outputs
+and conclusions above are preserved. No established files change.
+
+The complete fixed inputs are in `diverse_cases.py`, selected by geometry/labels
+without running or selecting on outcomes. There are exactly twelve datasets:
+
+| Configuration | Geometry and signs in angular order |
+|---|---|
+| quadrant_grouped | 10:10:80 degrees; ++++---- |
+| quadrant_alternating | same 70-degree arc; +-+-+-+- |
+| quadrant_pairs | same 70-degree arc; ++--++-- |
+| quadrant_center_edges | 45-degree covering arc; --++++-- |
+| equal_semicircles | regular octagon; ++++---- |
+| equal_mixed_odd | regular octagon; ++-+--+- |
+| near_equal_grouped | near-regular circle; ++++---- |
+| two_clusters_grouped | two 36-degree clusters of four; ++++---- |
+| two_clusters_split | same two clusters; ++--++-- |
+| three_clusters_mixed | clusters of sizes 3,2,3; +++--+-- |
+| one_outlier_grouped | seven points in a 60-degree arc, one outlier; ++++---- |
+| two_outliers_alternating | six points in a 60-degree arc, two outliers; +-+-+-+- |
+
+All contain four labels of each sign and have minimum angular spacing at least
+6 degrees. Exact antipodes have opposite labels, as required by the odd model;
+pure alternation on a regular eight-point circle would be impossible to fit.
+The suite is a fixed stress benchmark, not a random sample of data laws.
+
+Model, initialization, mobilities, threshold, own-first-crossing comparison and
+full-circle observables are unchanged, except n=2048. Same network seed20260920
+for every dataset/method. Dictionary nominal counts are (5,3), (35,10),
+(128,21). All p=5 tail words are retained: two lower constant tails cause
+rank126 rather than128 for ours; random controls keep full nominal counts.
+New random arrays have maximal size2048x128 and2048x21, seed7319 (+layer index),
+with prefixes for each order. This deliberately differs from Phase1's smaller
+maximal draw; Gaussian and orthogonal controls still share their random spans.
+
+There are 120 primary trajectories: 12 full networks and108 approximations.
+GPU0 owns even-indexed configurations, GPU1 odd-indexed configurations, in the
+literal order of CASES_V2. Each worker runs one trajectory at a time. Complete
+fresh regeneration with tighter integration tolerances adds120 trajectories.
+No additional methods, seeds or configuration search are authorized here.
+
+To permit different training horizons without excessive uniform small steps,
+`diverse_benchmark.py` uses adaptive simultaneous Heun integration of the SAME
+maintained vector field. The embedded Euler/Heun difference controls RMS errors
+of first weights/readout and Frobenius error of the middle coefficient/matrix.
+The middle scale uses its trained increment, avoiding the large initial bulk.
+Primary (rtol,atol)=(1e-3,1e-5); regenerated refinement=(2.5e-4,2.5e-6).
+Initial step0.05, maximum step2, minimum step1e-7; increasing-loss trials are
+rejected. This is numerical integration, not an exact-flow error certificate.
+First detected accepted-step crossings use parameter-chord interpolation and
+bisection as before, not a certified earliest crossing of the exact GF. All actual
+steps, losses, rejected-step counts, final states and controller settings persist.
+
+Hard bounds per trajectory: physical time10000, 30000 accepted steps or180 wall
+seconds. Per-GPU worker:1200 seconds primary and1800 seconds refinement, with
+checkpoint/output overhead recorded. Thus the planned training budget is at
+most50 minutes elapsed when two workers run in parallel, about100 GPU-minutes.
+After a worker hits its cap, remaining cells are explicitly saved as unfitted
+initial checkpoints, not silently omitted. No changing datasets or dropping
+hard rows in response to results. Failure to fit is a reported limitation,
+not a learned-function comparison or proof of failure of the model. No automated
+budget extension or extra campaign follows an inconclusive outcome.
+
+Save full states and2048-angle output snapshots at0,1,2,5,10,20,40,80,160,300,
+600,1200,2500,5000,10000 up to stopping and at each endpoint. Endpoints use8192
+uniform angles with a nested4096-grid check; states support arbitrary later
+circle evaluation. Every trajectory, including a failure, retains its status,
+actual training loss, source/config hashes and full available output.
+
+For each case i/method j compute L1, RMS e_ij and grid maximum a_ij. Main
+aggregate columns are mean_i e_ij, max_i e_ij, mean_i a_ij and max_i a_ij;
+also retain mean/max L1. Aggregate on one COMMON case set where the reference
+and all nine methods fit in BOTH suites, replay checks pass, and each primary
+vs refined endpoint differs by at most0.01. Report the common-set size and every
+excluded case. Additional per-method-available summaries have their separate
+denominators clearly stated. A missing/unstable cell is never treated as zero.
+Per-case12x9 tables remain available, even if a full-suite ranking is inconclusive.
+
+Existing finite-carrier interpretation remains: this isolates initialized word
+selection versus random dictionaries on a common full-network carrier, not an
+independently sampled population solver or a theorem on closure-order error.
+Question: does the original accuracy advantage survive varied geometry/sign
+ordering? A replicated common-set advantage supports only this tested scope;
+ties, reversals, fit failures and numerical failures are equally retained.
+
+Contributors/write ownership: supervisor owns runner, README and all Git writes;
+scoped case-design agent owns diverse_cases.py and runner-check artifacts;
+scoped dictionary agent owns diverse_dictionary.py and its deterministic checks;
+scoped analysis agent owns diverse_analyze.py. All scientific inputs are this
+study and established book/code only. These internal checks are not promotion.
