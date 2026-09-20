@@ -552,3 +552,22 @@ an increasing three-order advantage, including an8-item versus149-item observed
 comparison, but no asymptotic rate is established. It also records the dictionary
 schedule and finite-width qualifications, and a focused proposed next test.
 No additional training campaign was run; phase2 outputs and conclusions stand.
+
+## Authorized focused scaling continuation
+
+The user authorized proceeding with the recommendation. The prospective
+[scaling protocol](SCALING_PROTOCOL.md) fixes discovery p6/p7, conditional p8/p9,
+fresh nearby-configuration/seed confirmation, a conditional width4096 check,
+unchanged fitted-function metrics, numerical gates and a6000-second summed
+worker allowance. No scientific decision uses a future reference to fit a
+basis. Source files are scaling_cases.py, scaling_dictionary.py,
+scaling_benchmark.py and scaling_analyze.py. The supervisor owns protocol,
+runner, README and Git; scoped agents own dictionary/validation, analysis,
+and the internal runner-check report respectively.
+
+Before new training, scaling_dictionary_validation02/validation.json in this
+study's generated namespace passed385 GPU checks in2.084 seconds. Old orders
+are reproduced exactly; actual initialized triangular residuals are checked
+per run. Earlier validation01 remains intact. Runner corrections preserve the
+fixed scientific vector field and enforce budget stops before starting new
+cells. This is internal implementation validation, not promotion review.
