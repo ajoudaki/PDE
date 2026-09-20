@@ -542,3 +542,13 @@ Frozen source/validation hashes:
 - `data/generated/random_dictionary_learned_circle_20260920/diverse_validation01/checks.json`: `c9d5946c8470055cc613dfdac79c3abb6440d1b7054529c006e8fcf7f688aaaa`
 - `data/generated/random_dictionary_learned_circle_20260920/diverse_analysis01/analysis_provenance.json`: `5d27aa95296019a53eee2b327ca82d20afcebb01fecc738f36aae1e9d83f2e0d`
 - `data/generated/random_dictionary_learned_circle_20260920/diverse_analysis01/artifact_hashes.json`: `189d5ad98a37f2bdb60103f9fe0866fdfe57af6f0bd9f47e184df216d778a907`
+
+## Current scaling question
+
+The follow-up [assessment](SCALING_ASSESSMENT.md) records the user's sharper
+objective: error versus dictionary budget, with a potentially increasing
+advantage over random controls. Existing paired-cluster and outlier cases show
+an increasing three-order advantage, including an8-item versus149-item observed
+comparison, but no asymptotic rate is established. It also records the dictionary
+schedule and finite-width qualifications, and a focused proposed next test.
+No additional training campaign was run; phase2 outputs and conclusions stand.
