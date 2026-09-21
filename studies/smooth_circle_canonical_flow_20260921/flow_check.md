@@ -3,8 +3,9 @@
 Scope: internal implementation checking of this new study, not promotion or a
 population-limit claim. The checker did not author the producer or train any
 trajectory. Its independent derivation and numerical oracles precede outcome
-inspection. The preflight passed; full retained-array replay is pending the
-campaign's completion.
+inspection. The preflight and complete retained-array replay passed. This
+verdict concerns implementation and saved-output consistency; the separate
+analysis controls integration accuracy and the scientific comparison.
 
 ## Inputs and independence
 
@@ -161,3 +162,59 @@ zero accepted steps, status `wall_censored`. Its 45 replay gates passed. This
 was a no-training archive-format check, not a campaign attempt. Evidence is in
 `check_scratch/export_zero_01/` and `check_scratch/audit_zero_01/audit.json` under
 the study's generated-data namespace. External process wall time was 0.27 seconds.
+
+## Complete campaign replay
+
+The checker replayed `data/generated/smooth_circle_canonical_flow_20260921/run01`
+using its frozen source, after verifying that producer, protocol, and checker
+hashes still exactly matched the preflight. The current shared `AGENTS.md`
+was reread; the scoped checking instructions and study boundary were unchanged.
+The fresh command from `/home/amir/Codes/PDE` was:
+
+```sh
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 /usr/bin/time -p /home/amir/miniconda3/bin/python -B studies/smooth_circle_canonical_flow_20260921/flow_check.py replay --campaign data/generated/smooth_circle_canonical_flow_20260921/run01 --output data/generated/smooth_circle_canonical_flow_20260921/check_scratch/replay_01
+```
+
+Result: **PASS, 3661 replay gates, zero failed gates**, exit status zero.
+All 21 distinct retained attempts were replayed: primary/fine for the three
+models and three seeds, plus each model's seed-20260921 fine reproduction.
+Their archives each contained the exact 19 prescribed checkpoints through
+`T=1000`, for 399 checkpoints and 21 final states. Completion was checked from
+the retained archives and individual result records; the supervisor's aggregate
+success flag was not used as numerical evidence. Every archived output-file
+hash checked by replay matched, as did the canonical source arrays, prescribed
+data, dictionaries, and the producer/protocol/maintained-flow source hashes.
+
+Across the 420 replayed checkpoint/final states:
+
+| Recomputed quantity | Maximum absolute discrepancy | Frozen gate |
+|---|---:|---:|
+| Training prediction | `3.886e-15` | `1e-9` absolute |
+| Passive prediction | `1.110e-15` | `1e-9` absolute |
+| Packed physical RHS | `6.717e-16` | `2e-12` absolute + `2e-10` relative |
+| Training loss | `4.441e-16` | `1e-10` absolute |
+| Passive loss | `5.552e-17` | `1e-10` absolute |
+| Physical dissipation | `2.221e-16` | `2e-12` absolute + `2e-10` relative |
+| Hidden RMS displacement | `1.110e-16` | `1e-9` absolute |
+
+Authoritative evidence is
+`data/generated/smooth_circle_canonical_flow_20260921/check_scratch/replay_01/replay.json`;
+its SHA-256 is
+`93147de0a890f447d205746415dcae848f76ccd40788b4d8f81557c85c915dfa`.
+The adjacent `summary.json` reports per-run coverage, gate counts, and the
+maxima above. The original per-gate numerical errors and tolerances remain in
+the full replay JSON.
+
+External replay process wall time was **15.08 seconds**; internal recorded
+wall time was 14.943259 seconds. This brings the supervisor's conservative
+20-second prior checking allocation to 35.08 seconds before final aggregation
+and figures, well within the separate 600-second allowance. No producer,
+protocol, or checker source was modified for this replay, and no trajectory
+was integrated by the checker.
+
+The all-checkpoint replay verifies the saved numerical objects, not a global
+ODE error bound. The independent aggregate analysis must still establish the
+prescribed refinement and reproduction gates and calculate the target errors
+before making a scientific comparison. Saturation diagnostics were inspected
+in the producer source but are not independently recomputed by this replay.
+The result carries no architecture-separation, asymptotic, or promotion claim.
