@@ -1,0 +1,344 @@
+<div id="alternating-radial-rounds">
+  <style>
+    #alternating-radial-rounds { position: relative; width: 100%; }
+    #alternating-radial-rounds .ar-space { margin-bottom: 12px; }
+    #alternating-radial-rounds .ar-legend { display: flex; flex-wrap: wrap; gap: 12px 22px; margin: 12px 0; }
+    #alternating-radial-rounds .ar-method { display: inline-flex; align-items: flex-start; gap: 8px; border: 0; background: transparent; color: var(--foreground); padding: 4px 0; cursor: pointer; font: inherit; text-align: left; }
+    #alternating-radial-rounds .ar-method[aria-pressed="false"] { opacity: .5; }
+    #alternating-radial-rounds .ar-method:disabled { cursor: default; }
+    #alternating-radial-rounds .ar-label { display: grid; gap: 2px; }
+    #alternating-radial-rounds .ar-swatch { width: 22px; flex-shrink: 0; border-top: 3px solid; margin-top: 8px; }
+    #alternating-radial-rounds .ar-chart { display: block; width: 100%; }
+    #alternating-radial-rounds .ar-chart text { fill: var(--foreground); font-size: 12px; font-weight: 400; }
+    #alternating-radial-rounds .ar-foot { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; }
+    #alternating-radial-rounds .ar-tip { position: absolute; pointer-events: none; z-index: 5; background: var(--popover); color: var(--popover-foreground); border: 1px solid var(--border); padding: 10px 12px; }
+    #alternating-radial-rounds .ar-tip-row { display: flex; justify-content: space-between; gap: 18px; }
+    #alternating-radial-rounds [hidden] { display: none !important; }
+    @media (pointer: coarse) { #alternating-radial-rounds .ar-method { min-height: 44px; } }
+  </style>
+  <h3>Alternating labels: Adam and gradient descent</h3>
+  <div class="viz-controls ar-space">
+    <label class="form-label">Experiment round
+      <select data-role="round" class="form-select" aria-label="Experiment round"></select>
+    </label>
+    <label class="form-label">Number of samples
+      <select data-role="samples" class="form-select" aria-label="Number of samples"></select>
+    </label>
+  </div>
+  <div class="viz-controls ar-space">
+    <label class="form-label">Initialization
+      <select data-role="gain" class="form-select" aria-label="Initialization"></select>
+    </label>
+    <label class="form-label">Random seed
+      <select data-role="seed" class="form-select" aria-label="Random seed"></select>
+    </label>
+    <label data-role="eta-field" class="form-label">Maximum GD step
+      <select data-role="eta" class="form-select" aria-label="Maximum GD step"></select>
+    </label>
+  </div>
+  <div data-role="detail" class="text-small tabular-nums ar-space" aria-live="polite">Loading saved predictions…</div>
+  <div data-role="legend" class="ar-legend" aria-label="Visible methods and training error"></div>
+  <div class="text-small text-muted ar-space">● Target +1 · ◆ Target −1 · Colored dots: predictions at samples · Dashed ring: output 0</div>
+  <div class="viz-controls ar-space">
+    <label class="form-label">Radial spread · <output data-role="spread-value" class="tabular-nums">35%</output>
+      <input data-role="spread" class="form-range" type="range" min="0.1" max="1" step="0.05" value="0.35" aria-label="Radial spread">
+    </label>
+  </div>
+  <div data-role="plot"></div>
+  <div data-role="precision" class="text-small ar-space" aria-live="polite" hidden></div>
+  <div class="ar-foot text-small text-muted">
+    <span data-role="scale"></span>
+    <span>RMS: training samples · Lines: predictions between samples</span>
+    <span data-role="display-error"></span>
+  </div>
+  <div data-role="tooltip" class="tooltip ar-tip text-small tabular-nums" role="tooltip" hidden></div>
+  <div data-role="error" role="alert" hidden></div>
+  <script data-role="payload" type="application/octet-stream"><!--RADIAL_PAYLOAD--></script>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script>
+(async function () {
+  const root = document.getElementById('alternating-radial-rounds');
+  const el = role => root.querySelector('[data-role="' + role + '"]');
+  try {
+    if (typeof d3 === 'undefined') throw new Error('The chart library could not load. Please reopen the visualization.');
+    const bytes = Uint8Array.from(atob(el('payload').textContent.trim()), c => c.charCodeAt(0));
+    const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+    const data = JSON.parse(await new Response(stream).text());
+    const ids = ['closure1024', 'width55', 'width105'];
+    const names = { closure1024: 'Ours · n=1024, p=1', width55: 'Network · width 55', width105: 'Network · width 105' };
+    const descriptions = { closure1024: '3,087 trainable · 11,279 including dictionary', width55: '3,190 trainable · trainable-count match', width105: '11,340 trainable · total-count match' };
+    const colors = { closure1024: 'var(--viz-series-1)', width55: 'var(--viz-series-2)', width105: 'var(--viz-series-3)' };
+    const dashes = { closure1024: '', width55: '6 3', width105: '2 3' };
+    const visible = Object.fromEntries(ids.map(k => [k, true]));
+    const fmt = x => Number(x.toPrecision(4)).toString();
+    const unique = xs => [...new Set(xs)];
+    const phaseNames = { adam: 'Adam', lbfgs: 'L-BFGS', readout: 'readout solve', readout_polish: 'readout solve', least_squares: 'readout solve', gd: 'GD', initial: 'initial state' };
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    let round = 'gd', m = 126, gain = 'high', seed = 20260921, eta = 1, radialSpread = .35;
+    let selected = [], chart = null, hoverAngle = null, pinned = false, lastWidth = 0;
+
+    function unpack(text, kind) {
+      if (!text) return null;
+      const raw = Uint8Array.from(atob(text), c => c.charCodeAt(0)), view = new DataView(raw.buffer);
+      const size = kind === 'f64' ? 8 : kind === 'f32' ? 4 : 2;
+      return Array.from({ length: raw.length / size }, (_, i) => kind === 'f64' ? view.getFloat64(i * size, true) : kind === 'f32' ? view.getFloat32(i * size, true) : view.getUint16(i * size, true));
+    }
+    data.records.forEach(record => {
+      record.samples = unpack(record.samples64, 'f64');
+      const values = unpack(record.circle32, 'f32'), indices = unpack(record.indices16, 'u16');
+      record.curve = values ? values.map((y, i) => ({ x: 360 * indices[i] / data.circleGrid, y })) : null;
+      record.maxAbs = Math.max(1, record.circleMaxAbs || 0, ...record.samples.map(Math.abs), ...(values || []).map(Math.abs));
+    });
+    function options(role, values, label, current) {
+      const select = el(role); select.replaceChildren();
+      values.forEach(value => {
+        const option = document.createElement('option'); option.value = value;
+        option.textContent = label(value); select.append(option);
+      });
+      select.value = current;
+    }
+    function configure() {
+      if (!data.rounds.some(r => r.id === round)) round = 'gd';
+      options('round', data.rounds.map(r => r.id), id => id === 'adam' ? 'Round 1 · Adam + polishing' : 'Round 2 · Full-batch GD', round);
+      let records = data.records.filter(r => r.round === round);
+      const sizes = unique(records.map(r => r.m)).sort((a, b) => a - b);
+      if (!sizes.includes(m)) m = data.rounds.find(r => r.id === round).selectedM;
+      options('samples', sizes, n => n + ' alternating points', m);
+      records = records.filter(r => r.m === m);
+      const gains = ['high', 'canonical'].filter(g => records.some(r => r.gain === g));
+      if (!gains.includes(gain)) gain = gains[0];
+      options('gain', gains, g => g === 'high' ? 'High gain · ' + m / 2 + '× first layer' : 'Ordinary · 1× first layer', gain);
+      records = records.filter(r => r.gain === gain);
+      const caps = unique(records.map(r => r.etaMax)).sort((a, b) => (b || 0) - (a || 0));
+      if (!caps.includes(eta)) eta = caps[0];
+      el('eta-field').hidden = round !== 'gd' || caps.length === 1;
+      options('eta', caps, value => String(value), eta);
+      records = records.filter(r => r.etaMax === eta);
+      const seeds = unique(records.map(r => r.seed)).sort((a, b) => a - b);
+      if (!seeds.includes(seed)) seed = seeds[0];
+      options('seed', seeds, value => 'Seed ' + (value - 20260920) + ' · ' + value, seed);
+      selected = records.filter(r => r.seed === seed);
+      if (!selected.some(r => visible[r.model])) visible[selected[0].model] = true;
+    }
+    function save() {
+      if (!window.openai?.setWidgetState) return;
+      window.openai.setWidgetState({
+        modelContent: { study: 'alternating_circle_fit_capacity_20260921', round, samples: m, initialization: gain,
+          seed, maximumGdStep: eta, p: 1, populationWidth: 1024,
+          visibleMethods: ids.filter(id => visible[id] && selected.some(r => r.model === id)).map(id => names[id]),
+          checkpoint: 'best saved fitting state', radialSpread },
+        privateContent: { visible: { ...visible } }
+      }).catch(() => {});
+    }
+    function restore(snapshot) {
+      const value = snapshot?.modelContent || {};
+      if (['adam', 'gd'].includes(value.round)) round = value.round;
+      if (Number.isInteger(value.samples)) m = value.samples;
+      if (['high', 'canonical'].includes(value.initialization)) gain = value.initialization;
+      if (Number.isInteger(value.seed)) seed = value.seed;
+      if ([null, 1, .5].includes(value.maximumGdStep)) eta = value.maximumGdStep;
+      if (Number.isFinite(value.radialSpread) && value.radialSpread >= .1 && value.radialSpread <= 1) radialSpread = value.radialSpread;
+      const saved = snapshot?.privateContent?.visible;
+      if (saved) ids.forEach(id => { if (typeof saved[id] === 'boolean') visible[id] = saved[id]; });
+      configure(); render(false);
+    }
+    function render(animate) {
+      hoverAngle = null; pinned = false;
+      el('detail').textContent = 'Best saved states · Closure p=1 · ' + (round === 'gd' ? 'GD step cap ' + eta : 'Adam; dense runs may also use L-BFGS and a readout solve') + ' · Fit: MSE ≤ 0.001 and all signs correct';
+      const legend = el('legend'); legend.replaceChildren();
+      ids.forEach(id => {
+        const record = selected.find(r => r.model === id);
+        const button = document.createElement('button'); button.type = 'button'; button.className = 'ar-method';
+        button.dataset.method = id; button.disabled = !record;
+        button.setAttribute('aria-pressed', String(Boolean(record && visible[id])));
+        const swatch = document.createElement('span'); swatch.className = 'ar-swatch';
+        swatch.style.borderColor = colors[id]; swatch.style.borderTopStyle = id === 'width55' ? 'dashed' : id === 'width105' ? 'dotted' : 'solid';
+        swatch.setAttribute('aria-hidden', 'true');
+        const label = document.createElement('span'); label.className = 'ar-label';
+        const name = document.createElement('span'); name.textContent = names[id];
+        const metric = document.createElement('span'); metric.className = 'text-small tabular-nums';
+        metric.textContent = record ? 'RMS ' + fmt(record.rmse) + ' · ' + record.signErrors + '/' + m + ' wrong signs' : 'Not run at this setting';
+        const stage = document.createElement('span'); stage.className = 'text-small';
+        stage.textContent = record ? 'Best: ' + (phaseNames[record.bestPhase] || record.bestPhase || 'saved state') + (record.circleAvailable ? '' : ' · sample markers only') : '';
+        button.dataset.tooltip = descriptions[id];
+        button.setAttribute('aria-label', names[id] + ', ' + metric.textContent + ', ' + stage.textContent);
+        label.append(name, metric, stage); button.append(swatch, label);
+        button.addEventListener('click', () => {
+          if (!record || (visible[id] && selected.filter(r => visible[r.model]).length === 1)) return;
+          visible[id] = !visible[id]; button.setAttribute('aria-pressed', String(visible[id]));
+          hoverAngle = null; pinned = false; draw(false); updatePrecision(); save();
+        });
+        legend.append(button);
+      });
+      updatePrecision(); draw(animate);
+    }
+    function updatePrecision() {
+      const missing = selected.filter(r => visible[r.model] && !r.circleAvailable);
+      el('precision').hidden = !missing.length;
+      el('precision').textContent = missing.length ? 'Sample markers use checked high-precision predictions. Between-sample curves are unavailable for these numerically sensitive Adam fits.' : '';
+    }
+    function curveAt(record, degrees) {
+      if (!record.curve) return null;
+      const points = record.curve, angle = (degrees % 360 + 360) % 360;
+      let i = d3.bisector(d => d.x).right(points, angle) - 1;
+      if (i < 0) i = points.length - 1;
+      const a = points[i], b = points[(i + 1) % points.length];
+      const bx = i === points.length - 1 ? b.x + 360 : b.x;
+      const ax = a.x, at = angle < ax ? angle + 360 : angle, t = (at - ax) / (bx - ax);
+      return a.y * (1 - t) + b.y * t;
+    }
+    function draw(animate) {
+      const width = el('plot').getBoundingClientRect().width;
+      if (width <= 0) return;
+      const height = Math.min(620, width), cx = width / 2, cy = height / 2;
+      const outer = Math.min(width, height) / 2 - 43;
+      const peers = data.records.filter(r => r.round === round && r.m === m && r.gain === gain);
+      const bound = Math.max(1, ...peers.map(r => r.maxAbs)) * 1.06;
+      const displayError = Math.max(0, ...selected.filter(r => visible[r.model] && r.circleAvailable).map(r => r.circleInterpolationError || 0));
+      el('display-error').textContent = 'Line simplification: max saved-grid discrepancy ' + fmt(displayError);
+      const displacement = outer * radialSpread / 2.12;
+      const radial = d3.scaleLinear().domain([-bound, bound]).range([outer - 2 * displacement, outer]);
+      el('spread').value = radialSpread;
+      el('spread-value').textContent = Math.round(radialSpread * 100) + '%';
+      const point = (angle, value) => {
+        const a = angle * Math.PI / 180, r = radial(value);
+        return [cx + r * Math.cos(a), cy - r * Math.sin(a)];
+      };
+      const svg = d3.select(el('plot')).selectAll('svg').data([0]).join('svg').attr('class', 'ar-chart')
+        .attr('width', width).attr('height', height).attr('viewBox', '0 0 ' + width + ' ' + height)
+        .attr('role', 'img').attr('aria-label', (round === 'adam' ? 'Adam' : 'Full-batch GD') + ', ' + m + ' alternating circle points, seed ' + seed);
+      svg.selectAll('title').data([0]).join('title').text('Radial predictions: ' + m + ' samples');
+      svg.selectAll('desc').data([0]).join('desc').text('Radial displacement from the dashed zero ring is predicted output. Positive goes outward, negative inward. Black or white target circles show plus one; diamonds show minus one. Colored dots are exact saved predictions at the samples. Lines show the model between samples; no target curve is assumed there. Toggle methods in the legend.');
+      svg.selectAll('rect[data-chart-frame]').data([0]).join('rect').attr('data-chart-frame', '')
+        .attr('x', .5).attr('y', .5).attr('width', width - 1).attr('height', height - 1).attr('fill', 'none').attr('stroke', 'var(--border)');
+      const grid = svg.selectAll('g[data-grid]').data([0]).join('g').attr('data-grid', ''); grid.selectAll('*').remove();
+      const directions = [0, 90, 180, 270];
+      directions.forEach(angle => {
+        const a = angle * Math.PI / 180, end = point(angle, bound);
+        grid.append('line').attr('x1', cx).attr('y1', cy).attr('x2', end[0]).attr('y2', end[1]).attr('stroke', 'var(--border)');
+        grid.append('text').attr('x', cx + (outer + 14) * Math.cos(a)).attr('y', cy - (outer + 14) * Math.sin(a) + 4)
+          .attr('text-anchor', angle === 0 ? 'start' : angle === 180 ? 'end' : 'middle').text(angle + '°');
+      });
+      [-1, 0, 1].forEach(value => {
+        grid.append('circle').attr('cx', cx).attr('cy', cy).attr('r', radial(value)).attr('fill', 'none')
+          .attr('stroke', value === 0 ? 'var(--muted-foreground)' : 'var(--border)').attr('stroke-dasharray', value === 0 ? '5 5' : null);
+      });
+      el('scale').textContent = 'Output range ±' + fmt(bound) + ' · Rings −1, 0, +1 · Scale fixed across seeds, methods and step caps';
+      const line = d3.line(), active = selected.filter(r => visible[r.model]);
+      const curves = svg.selectAll('g[data-curves]').data([0]).join('g').attr('data-curves', '');
+      function pathFor(record) {
+        const points = record.curve.map(p => point(p.x, p.y));
+        points.push(point(record.curve[0].x + 360, record.curve[0].y));
+        return line(points);
+      }
+      const paths = curves.selectAll('path').data(active.filter(r => r.curve), r => r.model);
+      paths.exit().interrupt().remove();
+      const entered = paths.enter().append('path').attr('fill', 'none').attr('d', pathFor);
+      const merged = entered.merge(paths).attr('data-curve', r => r.model).attr('stroke', r => colors[r.model])
+        .attr('stroke-width', r => r.model === 'closure1024' ? 2 : 1.6).attr('stroke-dasharray', r => dashes[r.model]).attr('stroke-linejoin', 'round');
+      merged.interrupt();
+      if (animate && !reducedMotion.matches) merged.transition().duration(180).attrTween('d', function (record) {
+        const next = pathFor(record);
+        const target = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        target.setAttribute('d', next);
+        const oldLength = this.getTotalLength(), newLength = target.getTotalLength();
+        const interpolators = Array.from({ length: 257 }, (_, i) => {
+          const a = this.getPointAtLength(oldLength * i / 256), b = target.getPointAtLength(newLength * i / 256);
+          return d3.interpolate([a.x, a.y], [b.x, b.y]);
+        });
+        return t => t === 1 ? next : line(interpolators.map(interpolate => interpolate(t)));
+      });
+      else merged.attr('d', pathFor);
+      const targets = svg.selectAll('g[data-targets]').data([0]).join('g').attr('data-targets', ''); targets.selectAll('*').remove();
+      for (let j = 0; j < m; j++) {
+        const y = j % 2 === 0 ? 1 : -1, xy = point(360 * j / m, y);
+        targets.append('path').attr('data-target', j).attr('transform', 'translate(' + xy[0] + ',' + xy[1] + ')')
+          .attr('d', d3.symbol().type(y > 0 ? d3.symbolCircle : d3.symbolDiamond).size(width < 420 ? 15 : 23)())
+          .attr('fill', 'var(--foreground)').attr('opacity', .65);
+      }
+      const samples = svg.selectAll('g[data-samples]').data([0]).join('g').attr('data-samples', ''); samples.selectAll('*').remove();
+      active.forEach(record => record.samples.forEach((value, j) => {
+        const xy = point(360 * j / m, value);
+        samples.append('circle').attr('data-sample-method', record.model).attr('data-sample-index', j)
+          .attr('cx', xy[0]).attr('cy', xy[1]).attr('r', record.model === 'closure1024' ? 2.2 : 1.8)
+          .attr('fill', colors[record.model]).attr('stroke', 'var(--background)').attr('stroke-width', .45);
+      }));
+      svg.selectAll('g[data-hover-layer]').data([0]).join('g').attr('data-hover-layer', '').attr('pointer-events', 'none');
+      svg.selectAll('rect[data-chart-hit]').data([0]).join('rect').attr('data-chart-hit', '').attr('data-chart-hover-overlay', 'cross-series')
+        .attr('x', 1).attr('y', 1).attr('width', width - 2).attr('height', height - 2).attr('fill', 'transparent')
+        .on('pointermove', event => { if (!pinned && event.pointerType !== 'touch') setHover(event); })
+        .on('pointerleave', () => { if (!pinned) { hoverAngle = null; showHover(); } })
+        .on('click', event => { if (pinned) { pinned = false; hoverAngle = null; showHover(); } else { setHover(event); pinned = true; } });
+      chart = { svg, cx, cy, point, bound, width, height };
+      showHover();
+    }
+    function setHover(event) {
+      const xy = d3.pointer(event, chart.svg.node());
+      hoverAngle = (Math.atan2(chart.cy - xy[1], xy[0] - chart.cx) * 180 / Math.PI + 360) % 360; showHover();
+    }
+    function showHover() {
+      if (!chart) return;
+      const tip = el('tooltip'), layer = chart.svg.select('[data-hover-layer]'); layer.selectAll('*').remove();
+      tip.hidden = hoverAngle === null;
+      if (hoverAngle === null) return;
+      const end = chart.point(hoverAngle, chart.bound);
+      layer.append('line').attr('data-chart-hover-guide', '').attr('x1', chart.cx).attr('y1', chart.cy)
+        .attr('x2', end[0]).attr('y2', end[1]).attr('stroke', 'var(--muted-foreground)');
+      tip.replaceChildren();
+      const heading = document.createElement('div'); heading.textContent = 'Angle ' + fmt(hoverAngle) + '°'; tip.append(heading);
+      selected.filter(r => visible[r.model]).forEach(record => {
+        const value = curveAt(record, hoverAngle);
+        if (value !== null) {
+          const xy = chart.point(hoverAngle, value);
+          layer.append('circle').attr('data-chart-hover-marker', record.model).attr('cx', xy[0]).attr('cy', xy[1]).attr('r', 3.2)
+            .attr('fill', 'var(--background)').attr('stroke', colors[record.model]).attr('stroke-width', 1.8);
+        }
+        const row = document.createElement('div'); row.className = 'ar-tip-row'; row.dataset.method = record.model;
+        const name = document.createElement('span'); name.textContent = names[record.model];
+        const number = document.createElement('span'); number.textContent = value === null ? 'samples only' : fmt(value);
+        row.append(name, number); tip.append(row);
+      });
+      const j = Math.round(hoverAngle / 360 * m) % m;
+      const sample = document.createElement('div'); sample.textContent = 'Nearest sample ' + (j + 1) + ': target ' + (j % 2 === 0 ? '+1' : '−1'); tip.append(sample);
+      selected.filter(r => visible[r.model]).forEach(record => {
+        const row = document.createElement('div'); row.className = 'ar-tip-row';
+        const name = document.createElement('span'); name.textContent = names[record.model] + ' at sample';
+        const number = document.createElement('span'); number.textContent = fmt(record.samples[j]); row.append(name, number); tip.append(row);
+      });
+      const rootBox = root.getBoundingClientRect(), plotBox = el('plot').getBoundingClientRect();
+      tip.style.maxWidth = Math.max(220, rootBox.width - 24) + 'px';
+      tip.style.left = Math.max(4, Math.min(8, rootBox.width - tip.offsetWidth - 4)) + 'px';
+      tip.style.top = (plotBox.top - rootBox.top + 8) + 'px';
+    }
+    ['round', 'samples', 'gain', 'seed', 'eta'].forEach(role => el(role).addEventListener('change', () => {
+      if (role === 'round') { round = el(role).value; m = data.rounds.find(r => r.id === round).selectedM; gain = 'high'; eta = round === 'gd' ? 1 : null; }
+      if (role === 'samples') m = Number(el(role).value);
+      if (role === 'gain') gain = el(role).value;
+      if (role === 'seed') seed = Number(el(role).value);
+      if (role === 'eta') eta = Number(el(role).value);
+      configure(); render(true); save();
+    }));
+    el('spread').addEventListener('input', () => {
+      radialSpread = Number(el('spread').value); hoverAngle = null; pinned = false; draw(false);
+    });
+    el('spread').addEventListener('change', save);
+    window.addEventListener('openai:set_globals', event => {
+      if (event.detail?.globals && 'widgetState' in event.detail.globals) restore(event.detail.globals.widgetState);
+    });
+    const observer = new ResizeObserver(entries => {
+      const width = entries[0].contentRect.width;
+      if (Math.abs(width - lastWidth) > .5) { lastWidth = width; draw(false); }
+    });
+    restore(window.openai?.widgetState); observer.observe(el('plot'));
+    root.dataset.ready = 'true'; root.dataset.recordCount = data.records.length;
+    root.__viewerCheck = () => ({ round, m, gain, seed, eta, radialSpread, visible: { ...visible },
+      selected: selected.map(r => ({ id: r.id, model: r.model, mse: r.mse, rmse: r.rmse, signErrors: r.signErrors,
+        fit: r.fit, samples: r.samples, circleAvailable: r.circleAvailable, curve: r.curve, phase: r.bestPhase })),
+      bound: chart?.bound, recordCount: data.records.length });
+  } catch (error) {
+    el('error').hidden = false; el('error').textContent = error.message;
+    el('detail').textContent = 'Saved predictions could not load.'; console.error(error);
+  }
+})();
+</script>

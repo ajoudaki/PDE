@@ -16,6 +16,69 @@ network, then test the comparable closure if the smaller network does not fit.
 This study directly fits labels. It does not approximate an earlier trained
 full-network endpoint, and no other study supplied research inputs.
 
+## Interactive radial viewer: both completed rounds
+
+The user subsequently requested a shared radial visualization of the Adam and
+GD rounds. This is a plotting continuation, with no new optimization. The
+[interactive fragment](../../data/generated/alternating_circle_fit_capacity_20260921/radial_view01/final/alternating-circle-adam-gd.html)
+also appears in the current task's visualization directory as
+`alternating-circle-adam-gd.html`.
+
+The controls select round, sample count, initialization, seed and available GD
+step cap. Following the user's display preference, radial spread defaults to
+35% of the original displacement and can be adjusted from10% to100%;
+this leaves predictions, sign decisions and reported errors unchanged.
+Model toggles compare closure n1024,p1, trainable-count-matched width55
+and total-retained-count-matched width105. The closure order is fixed at p1;
+unrun configurations are labelled rather than invented. The viewer includes
+all69 original attempts (30 Adam and39 GD), excluding reproductions. Each
+model shows its best saved parameter witness, training RMS/sign errors and
+actual best optimizer phase. Adam is explicitly labelled as allowing polishing.
+
+Target marks appear only at labelled inputs. Colored markers preserve checked
+sample predictions in binary64; lines show predicted values between samples,
+where no target is supplied. There are65 independently replayed circle curves.
+The four previously precision-adjudicated Adam cases show their existing
+60/90-digit checked sample predictions only; unavailable reliable circle
+curves are omitted and labelled. The radial extent includes the full saved
+grid's extrema, including large Adam overshoots, and remains fixed across
+seeds, methods and step caps at a given round/sample-count/initialization.
+
+Display curves retain128–2048 adaptive vertices from8192 saved angles,
+including their global extrema, and use float32 values. The largest actual
+interpolation discrepancy on the saved grid is0.0585252 (Adam) and0.00749136
+(GD); the viewer displays the current discrepancy. These are sampled-grid
+checks, not continuous-angle or pixel-error bounds. Thirty curves reached
+the vertex cap before the nominal0.002 simplification target; the viewer
+makes no universal0.002 claim. Training errors are never computed from these
+display-only curves.
+
+The final [export audit](../../data/generated/alternating_circle_fit_capacity_20260921/radial_view01/final/audit.json)
+and [independent data check](../../data/generated/alternating_circle_fit_capacity_20260921/radial_browser01/data_check.json)
+passed all69 records, best-state/phase bindings, sample metrics, all65 curve
+subsets/extrema, and the four high-precision sample-only arrays. Browser checks
+cover all33 selectable combinations and69 records, missing-model states,
+method toggles, tooltips, saved-state restoration, 320/360/736px layouts,
+dark mode, animated transitions and exact radial-spread scaling without
+metric changes. The final browser report is
+[check04/browser_check.json](../../data/generated/alternating_circle_fit_capacity_20260921/radial_browser01/check04/browser_check.json).
+Browser evidence is stored under
+`data/generated/alternating_circle_fit_capacity_20260921/radial_browser01/`.
+
+Rebuild only the presentation, without training:
+
+```bash
+python -B studies/alternating_circle_fit_capacity_20260921/radial_data.py --out data/generated/alternating_circle_fit_capacity_20260921/NEW_RADIAL_EXPORT
+python -B studies/alternating_circle_fit_capacity_20260921/radial_view.py --data data/generated/alternating_circle_fit_capacity_20260921/NEW_RADIAL_EXPORT --output data/generated/alternating_circle_fit_capacity_20260921/NEW_RADIAL_EXPORT/alternating-circle-adam-gd.html
+```
+
+The first compression draft remains at `radial_view01/`; the consumed,
+validated final payload is `radial_view01/final/`. Root owns `radial_view.html`,
+`radial_view.py`, `radial_view_check.cjs`, integration and README; the scoped
+analyst owns `radial_data.py`; the independent checker owns `radial_data_check.py`
+and its data audit.
+Scientific sources, training records and previous reports remain unchanged.
+
 ## GD-only continuation
 
 The full-batch GD ladder fitted both width55 and the closure in3/3 seeds at
