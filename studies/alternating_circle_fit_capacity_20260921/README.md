@@ -1,16 +1,102 @@
 # Alternating-circle fitting at a matched training budget
 
-Status: completed and internally checked, 2026-09-21. This is an empirical
+Status: the Adam campaign and its subsequently authorized GD-only continuation
+are completed and internally checked, 2026-09-21. The separately frozen
+[GD_PROTOCOL.md](GD_PROTOCOL.md) governed the new runs and their own budget;
+the previous Adam protocol and results remain unchanged. The GD experiment
+started from commit `ed00a1ad0a98d7e0fd5abb9382f2c3c130bfe5d4`.
+
+The completed Adam result below is an empirical
 fitting result within a declared optimization budget, not an established
 capacity theorem or a promotion. The bounded campaign is closed; no further
-training remains authorized by this protocol.
+training remains authorized by the original Adam protocol.
 
 The user requested alternating labels on a circle: first test the width-55
 network, then test the comparable closure if the smaller network does not fit.
 This study directly fits labels. It does not approximate an earlier trained
 full-network endpoint, and no other study supplied research inputs.
 
-## Result
+## GD-only continuation
+
+The full-batch GD ladder fitted both width55 and the closure in3/3 seeds at
+m30 and m62. At m126 the primary closure fitted2/3 seeds and both dense
+networks fitted0/3, so126 was the first candidate and254 was not run.
+Halving the maximum scalar step reduced the closure fit count to1/3; both
+dense controls remained0/3. Thus the registered requirement of at least2/3
+closure fits at both step caps was not met.
+
+A fit retains the threshold MSE<=0.001 plus all label signs correct. All six
+original high-gain closure attempts at126 classified every point correctly,
+including the three that stopped just above the loss threshold. These are
+three fixed seeds under two step caps, not six independent seeds.
+
+| Model at m126 | Trainable scalars | Fits, maximum step1 | Fits, maximum step0.5 | RMS error, both caps | Incorrect signs per seed, both caps |
+|---|---:|---:|---:|---:|---|
+| Dense width55 | 3190 | 0/3 | 0/3 | 0.54429–0.57477 | 22,14,22 |
+| Closure n1024,p1 | 3087 | 2/3 | 1/3 | 0.031621–0.040749 | 0,0,0 |
+| Dense width105 | 11340 | 0/3 | 0/3 | 0.18535–0.34359 | 4,8,4 |
+
+The initialization multiplies W by m/2=63 before dictionary construction,
+for every architecture. With ordinary gain1, all three models fitted0/3 and
+ended near MSE1 at physical clock10000. The error advantage therefore concerns
+the high-gain initialization. Width55 approximately matches trainable scalars;
+width105 separately matches total retained predictor scalars, including the
+closure dictionaries:11340 versus11279.
+
+The optimizer is simultaneous full-batch GD with the maintained model
+scaling, canonical mobilities(n,1,n), and one scalar Armijo backtracking step.
+It uses no Adam, momentum, readout solve or quasi-Newton stage. Every attempt
+is capped at30000 accepted updates,90000 training forward evaluations,
+physical clock10000 and75 seconds including initialization/export. The
+primary dense runs reached30000 updates at physical clocks921–1306; closure
+endpoints reached clocks3302–3454 and stopped on fit or wall time. These
+unequal physical clocks matter when interpreting the common finite budgets.
+
+The result is a large empirical training-error advantage and perfect sampled
+sign classification for the closure. The stricter fitting separation is
+sensitive to the declared step-cap/wall-time protocol. No nonrepresentation,
+converged-minimum, continuous-flow, asymptotic-rate or generalization claim
+follows. No additional training is authorized by this closed GD protocol.
+
+GD evidence and final checks are recorded in [GD_RESULTS.md](GD_RESULTS.md),
+[gd_check.md](gd_check.md), [gd_audit.md](gd_audit.md), and the
+[raw manifest](../../data/generated/alternating_circle_fit_capacity_20260921/gd_run01/run_record.json).
+The exact training command was:
+
+```bash
+env PYTHONPATH=code PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 /home/amir/miniconda3/bin/python -B studies/alternating_circle_fit_capacity_20260921/gd_runner.py --output data/generated/alternating_circle_fit_capacity_20260921/gd_run01
+```
+
+The45 attempts comprise39 originals and6 prescribed reproductions. Every
+reproduction exactly matched its original endpoint MSE and fit status. Summed
+worker-process time was1771.514387s of2500s; the maximum attempt time was
+71.022697s of75s. The frozen protocol and producer remained unchanged,
+with hashes bound in every record and the campaign manifest.
+
+Independent NumPy replay passed all45 attempts, all815613 accepted-step trace
+entries and220 retained full GD update pairs. Maximum prediction discrepancy
+was3.153e-14; maximum parameter-update discrepancy was1.732e-14. All sources,
+datasets, dictionaries, configurations, gate decisions and budgets passed.
+Separate analysis also passed every prediction/gradient/trace/reproduction
+check, with no unresolved numerical conditions. Valid evidence does not turn
+the failed scientific separation criterion into a pass.
+
+The combined no-training checking/analysis accounting is170.44s of300s:
+a conservative20s for earlier preflights,92.32s external final replay and
+58.12s external final analysis including plots. The evidence and products are:
+
+- [Independent replay](../../data/generated/alternating_circle_fit_capacity_20260921/gd_check_scratch/replay.json).
+- [Final analysis](../../data/generated/alternating_circle_fit_capacity_20260921/gd_analysis01/analysis.json) and [timing](../../data/generated/alternating_circle_fit_capacity_20260921/gd_analysis01/timing.json).
+- [Loss curves versus GD updates](../../data/generated/alternating_circle_fit_capacity_20260921/gd_analysis01/gd_selected_m126_accepted_steps.png).
+- [Loss curves versus physical clock](../../data/generated/alternating_circle_fit_capacity_20260921/gd_analysis01/gd_selected_m126_physical_clock.png).
+- [Sample-size ladder](../../data/generated/alternating_circle_fit_capacity_20260921/gd_analysis01/gd_sample_ladder.png).
+
+Root owns the GD protocol, runner, GPU preflight, README and Git transaction;
+scoped producer owns `gd_benchmark.py`; independent checker owns `gd_check.py`,
+`gd_check.md`, `gd_replay.py` and `gd_audit.md`; scoped analyst owns
+`gd_analyze.py` and `GD_RESULTS.md`. All generated data remain outside Git.
+
+## Completed Adam campaign
 
 At 254 equally spaced circle points with alternating labels ±1, the n=1024,
 p=1 finite closure fitted in all three prescribed high-gain runs. Neither
