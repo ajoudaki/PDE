@@ -1,0 +1,1787 @@
+[
+  {
+    "id": "sec-docs-global-nonlinear-l2454",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 2454,
+    "end": 2454
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l2466",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 2466,
+    "end": 2466
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l2573",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 2573,
+    "end": 2573
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l2667",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 2667,
+    "end": 2667
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l2692",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 2692,
+    "end": 2692
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l2765",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 2765,
+    "end": 2765
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l2879",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 2879,
+    "end": 2879
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l2924",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 2924,
+    "end": 2924
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l2953",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 2953,
+    "end": 2953
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l3077",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 3077,
+    "end": 3077
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l3113",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 3113,
+    "end": 3113
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l3187",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 3187,
+    "end": 3187
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l3266",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 3266,
+    "end": 3266
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l3322",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 3322,
+    "end": 3322
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l3413",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 3413,
+    "end": 3413
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l3449",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 3449,
+    "end": 3449
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l3510",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 3510,
+    "end": 3510
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l3554",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 3554,
+    "end": 3554
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l3613",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 3613,
+    "end": 3613
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l3725",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 3725,
+    "end": 3725
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l3804",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 3804,
+    "end": 3804
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l3818",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 3818,
+    "end": 3818
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l3984",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 3984,
+    "end": 3984
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l4087",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 4087,
+    "end": 4087
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l4208",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 4208,
+    "end": 4208
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l4210",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 4210,
+    "end": 4210
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l4230",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 4230,
+    "end": 4230
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l4307",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 4307,
+    "end": 4307
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l4365",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 4365,
+    "end": 4365
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l4480",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 4480,
+    "end": 4480
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l4559",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 4559,
+    "end": 4559
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l4632",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 4632,
+    "end": 4632
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l4634",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 4634,
+    "end": 4634
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l4652",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 4652,
+    "end": 4652
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l4748",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 4748,
+    "end": 4748
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l4816",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 4816,
+    "end": 4816
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l4860",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 4860,
+    "end": 4860
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l4917",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 4917,
+    "end": 4917
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l4951",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 4951,
+    "end": 4951
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l4985",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 4985,
+    "end": 4985
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l5089",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 5089,
+    "end": 5089
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l5156",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 5156,
+    "end": 5156
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l5223",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 5223,
+    "end": 5223
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l5274",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 5274,
+    "end": 5274
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l5350",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 5350,
+    "end": 5350
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l5438",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 5438,
+    "end": 5438
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l5475",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 5475,
+    "end": 5475
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l5477",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 5477,
+    "end": 5477
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l5587",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 5587,
+    "end": 5587
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l5693",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 5693,
+    "end": 5693
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l5783",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 5783,
+    "end": 5783
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l5999",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 5999,
+    "end": 5999
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l6104",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 6104,
+    "end": 6104
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l6106",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 6106,
+    "end": 6106
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l6190",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 6190,
+    "end": 6190
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l6303",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 6303,
+    "end": 6303
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l2958",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 2958,
+    "end": 2964
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l2970",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 2970,
+    "end": 2975
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l2976",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 2976,
+    "end": 2980
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l2984",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 2984,
+    "end": 2989
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3001",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3001,
+    "end": 3004
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3013",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3013,
+    "end": 3020
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3031",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3031,
+    "end": 3040
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3044",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3044,
+    "end": 3048
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3049",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3049,
+    "end": 3053
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3057",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3057,
+    "end": 3063
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3064",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3064,
+    "end": 3070
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3081",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3081,
+    "end": 3084
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3088",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3088,
+    "end": 3093
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3103",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3103,
+    "end": 3108
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3119",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3119,
+    "end": 3124
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3125",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3125,
+    "end": 3130
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3135",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3135,
+    "end": 3140
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3148",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3148,
+    "end": 3152
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3153",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3153,
+    "end": 3157
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3158",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3158,
+    "end": 3162
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3163",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3163,
+    "end": 3167
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3171",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3171,
+    "end": 3175
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3193",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3193,
+    "end": 3200
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3208",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3208,
+    "end": 3214
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3221",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3221,
+    "end": 3227
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3232",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3232,
+    "end": 3236
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3242",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3242,
+    "end": 3247
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3251",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3251,
+    "end": 3257
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3272",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3272,
+    "end": 3277
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3281",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3281,
+    "end": 3287
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3300",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3300,
+    "end": 3305
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3310",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3310,
+    "end": 3316
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3326",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3326,
+    "end": 3329
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3334",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3334,
+    "end": 3338
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3343",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3343,
+    "end": 3347
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3388",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3388,
+    "end": 3392
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3488",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3488,
+    "end": 3497
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3538",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3538,
+    "end": 3542
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3546",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3546,
+    "end": 3549
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3561",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3561,
+    "end": 3570
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3573",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3573,
+    "end": 3577
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3588",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3588,
+    "end": 3597
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3601",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3601,
+    "end": 3610
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3621",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3621,
+    "end": 3627
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3631",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3631,
+    "end": 3637
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3650",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3650,
+    "end": 3656
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3665",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3665,
+    "end": 3674
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3678",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3678,
+    "end": 3684
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3688",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3688,
+    "end": 3700
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3704",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3704,
+    "end": 3712
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3718",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3718,
+    "end": 3722
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3731",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3731,
+    "end": 3738
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3740",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3740,
+    "end": 3747
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3749",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3749,
+    "end": 3754
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3756",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3756,
+    "end": 3760
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3762",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3762,
+    "end": 3775
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3785",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3785,
+    "end": 3789
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l3793",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 3793,
+    "end": 3801
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4000",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4000,
+    "end": 4010
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4016",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4016,
+    "end": 4021
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4036",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4036,
+    "end": 4039
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4043",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4043,
+    "end": 4048
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4057",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4057,
+    "end": 4061
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4067",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4067,
+    "end": 4069
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4092",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4092,
+    "end": 4096
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4106",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4106,
+    "end": 4110
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4127",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4127,
+    "end": 4131
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4132",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4132,
+    "end": 4136
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4141",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4141,
+    "end": 4144
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4149",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4149,
+    "end": 4152
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4158",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4158,
+    "end": 4162
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4221",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4221,
+    "end": 4224
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4344",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4344,
+    "end": 4349
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4372",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4372,
+    "end": 4377
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4400",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4400,
+    "end": 4406
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4418",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4418,
+    "end": 4423
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4427",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4427,
+    "end": 4432
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4445",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4445,
+    "end": 4449
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4467",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4467,
+    "end": 4472
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4498",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4498,
+    "end": 4502
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4515",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4515,
+    "end": 4519
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4535",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4535,
+    "end": 4541
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4552",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4552,
+    "end": 4555
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4589",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4589,
+    "end": 4593
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4641",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4641,
+    "end": 4644
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4668",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4668,
+    "end": 4679
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4694",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4694,
+    "end": 4699
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4709",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4709,
+    "end": 4713
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4723",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4723,
+    "end": 4729
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4758",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4758,
+    "end": 4765
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4784",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4784,
+    "end": 4789
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4800",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4800,
+    "end": 4804
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4820",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4820,
+    "end": 4824
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4869",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4869,
+    "end": 4873
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4890",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4890,
+    "end": 4898
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4906",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4906,
+    "end": 4911
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4921",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4921,
+    "end": 4925
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4937",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4937,
+    "end": 4941
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4959",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4959,
+    "end": 4964
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4975",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4975,
+    "end": 4979
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l4989",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 4989,
+    "end": 4993
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5026",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5026,
+    "end": 5030
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5036",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5036,
+    "end": 5040
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5048",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5048,
+    "end": 5060
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5094",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5094,
+    "end": 5098
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5107",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5107,
+    "end": 5109
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5113",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5113,
+    "end": 5121
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5126",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5126,
+    "end": 5128
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5137",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5137,
+    "end": 5139
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5160",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5160,
+    "end": 5165
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5170",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5170,
+    "end": 5174
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5189",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5189,
+    "end": 5192
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5203",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5203,
+    "end": 5206
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5210",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5210,
+    "end": 5214
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5228",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5228,
+    "end": 5233
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5239",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5239,
+    "end": 5242
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5252",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5252,
+    "end": 5255
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5290",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5290,
+    "end": 5294
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5304",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5304,
+    "end": 5307
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5317",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5317,
+    "end": 5323
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5332",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5332,
+    "end": 5337
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5340",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5340,
+    "end": 5343
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5354",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5354,
+    "end": 5356
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5358",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5358,
+    "end": 5361
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5368",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5368,
+    "end": 5371
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5376",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5376,
+    "end": 5379
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5383",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5383,
+    "end": 5387
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5394",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5394,
+    "end": 5397
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5405",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5405,
+    "end": 5409
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5422",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5422,
+    "end": 5425
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5488",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5488,
+    "end": 5491
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5510",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5510,
+    "end": 5513
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5519",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5519,
+    "end": 5523
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5529",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5529,
+    "end": 5531
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5539",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5539,
+    "end": 5542
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5559",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5559,
+    "end": 5562
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5604",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5604,
+    "end": 5606
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5616",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5616,
+    "end": 5618
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5629",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5629,
+    "end": 5633
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5641",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5641,
+    "end": 5643
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5648",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5648,
+    "end": 5650
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5654",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5654,
+    "end": 5658
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5666",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5666,
+    "end": 5668
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5673",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5673,
+    "end": 5675
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5684",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5684,
+    "end": 5687
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5697",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5697,
+    "end": 5700
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5707",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5707,
+    "end": 5711
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5720",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5720,
+    "end": 5724
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5728",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5728,
+    "end": 5731
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5740",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5740,
+    "end": 5744
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5749",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5749,
+    "end": 5752
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5756",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5756,
+    "end": 5758
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5767",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5767,
+    "end": 5770
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5793",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5793,
+    "end": 5796
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5806",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5806,
+    "end": 5809
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5835",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5835,
+    "end": 5838
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5855",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5855,
+    "end": 5859
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5865",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5865,
+    "end": 5868
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5872",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5872,
+    "end": 5875
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5882",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5882,
+    "end": 5885
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5909",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5909,
+    "end": 5911
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5932",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5932,
+    "end": 5935
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5947",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5947,
+    "end": 5950
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5955",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5955,
+    "end": 5957
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5965",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5965,
+    "end": 5967
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l5982",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 5982,
+    "end": 5985
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l6004",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 6004,
+    "end": 6007
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l6111",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 6111,
+    "end": 6114
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l6125",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 6125,
+    "end": 6133
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l6146",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 6146,
+    "end": 6150
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l6181",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 6181,
+    "end": 6184
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l6197",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 6197,
+    "end": 6209
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l6214",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 6214,
+    "end": 6217
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l6226",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 6226,
+    "end": 6235
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l6307",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 6307,
+    "end": 6310
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l6321",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 6321,
+    "end": 6327
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l6334",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 6334,
+    "end": 6340
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l2537",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 2537,
+    "end": 2545
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l2594",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 2594,
+    "end": 2597
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l2619",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 2619,
+    "end": 2620
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l2632",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 2632,
+    "end": 2634
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l2659",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 2659,
+    "end": 2659
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l2672",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 2672,
+    "end": 2673
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l2701",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 2701,
+    "end": 2703
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l2724",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 2724,
+    "end": 2725
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l2735",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 2735,
+    "end": 2737
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l2769",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 2769,
+    "end": 2770
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l2785",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 2785,
+    "end": 2787
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l2815",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 2815,
+    "end": 2817
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l2841",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 2841,
+    "end": 2841
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l2849",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 2849,
+    "end": 2850
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l6596",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 6596,
+    "end": 6596
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l6880",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 6880,
+    "end": 6883
+  },
+  {
+    "id": "sec-docs-special-data-limits-l3789",
+    "kind": "sec",
+    "source": "docs/special_data_limits.md",
+    "start": 3789,
+    "end": 3789
+  },
+  {
+    "id": "sec-docs-special-data-limits-l3946",
+    "kind": "sec",
+    "source": "docs/special_data_limits.md",
+    "start": 3946,
+    "end": 3946
+  },
+  {
+    "id": "sec-docs-special-data-limits-l4009",
+    "kind": "sec",
+    "source": "docs/special_data_limits.md",
+    "start": 4009,
+    "end": 4009
+  },
+  {
+    "id": "sec-docs-special-data-limits-l4072",
+    "kind": "sec",
+    "source": "docs/special_data_limits.md",
+    "start": 4072,
+    "end": 4072
+  },
+  {
+    "id": "sec-docs-special-data-limits-l4169",
+    "kind": "sec",
+    "source": "docs/special_data_limits.md",
+    "start": 4169,
+    "end": 4169
+  },
+  {
+    "id": "sec-docs-special-data-limits-l4201",
+    "kind": "sec",
+    "source": "docs/special_data_limits.md",
+    "start": 4201,
+    "end": 4201
+  }
+]

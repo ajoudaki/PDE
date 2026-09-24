@@ -1,0 +1,114 @@
+[
+  {
+    "id": "sec-docs-readme-l1",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-readme-l8",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 8,
+    "end": 8
+  },
+  {
+    "id": "sec-docs-readme-l52",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 52,
+    "end": 52
+  },
+  {
+    "id": "sec-docs-readme-l89",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 89,
+    "end": 89
+  },
+  {
+    "id": "sec-docs-readme-l124",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 124,
+    "end": 124
+  },
+  {
+    "id": "sec-docs-readme-l148",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 148,
+    "end": 148
+  },
+  {
+    "id": "sec-docs-readme-l163",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 163,
+    "end": 163
+  },
+  {
+    "id": "sec-docs-readme-l198",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 198,
+    "end": 198
+  },
+  {
+    "id": "sec-docs-notation-l1",
+    "kind": "sec",
+    "source": "docs/NOTATION.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l1",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l5270",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 5270,
+    "end": 5270
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l6904",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 6904,
+    "end": 6904
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l8978",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 8978,
+    "end": 8978
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l16001",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 16001,
+    "end": 16001
+  },
+  {
+    "id": "sec-docs-linear-dynamics-l1",
+    "kind": "sec",
+    "source": "docs/linear_dynamics.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-continuous-depth-l1",
+    "kind": "sec",
+    "source": "docs/continuous_depth.md",
+    "start": 1,
+    "end": 1
+  }
+]

@@ -1,0 +1,11 @@
+# Packet 004: independent full preservation audit
+
+Read only this neutral assignment, required shared isolation instructions, the frozen inputs listed in hashes.json, and original source files via the frozen manifest. No author report, prior verdict or study history. Maintenance only; no mathematical reproof.
+
+Read ALL frozen docs/NOTATION.md lines1–98, linear_004.qmd, edits and target proposals. Verify every word/formula/code span, heading/order, legitimate reference omissions and reused title reservation. Established docs/code and Git remain untouched. The earlier001–003 candidates are supplied for mechanical identity/assembly only; do not reread their prose or prior audits.
+
+The renderer now groups contiguous packets into ordinary Quarto chapter files following the frozen manifest; inspect the bounded renderer/gate changes and their source-order checks. Prior versions and a focused diff are supplied solely as code dependencies, without verdicts. Existing syntax/checker/print adapter are unchanged. Do not repeat old capability investigations or add a test campaign; one targeted negative check and the relevant existing assembly tests suffice.
+
+Run the copied source checker with repo_root=/home/amir/Codes/PDE. Final actual render is data/generated/quarto_capability_pilot_20260921/linear004-render/ (may still be building). Verify exact component/file hashes, source order, fulfilled notation links from the earlier introduction, current labels and exact remaining reservations; use check_linear_render.py. Inspect only new chapter PDF pages, both displayed formulas, corresponding HTML/TeX and relevant diagnostics. Earlier chapter content needs byte identity, not another full visual/content audit. No cosmetic revisions.
+
+Write only studies/quarto_capability_pilot_20260921/linear_004_astra_review.md and data/generated/quarto_capability_pilot_20260921/packet004-audit/ scratch. Report <=250 words plus a linked machine-generated hash inventory, coverage, actual checks, verdict, material limitations and isolation. No duplicated hash tables or intermediate reports. Report any defect once, with minimal repro; do not fix sources. Budget-conscious: one complete review, no repeated full reads or idle status polling.

@@ -1,0 +1,14 @@
+# Pilot scope {.unnumbered}
+
+This candidate edition reformats only the opening of **Linear dynamics and
+exact-capture comparisons**, through its original Section 4. It is a publishing
+pilot, not a new scientific result or a replacement for the maintained book.
+
+The chapter's order, mathematical content and heading hierarchy are preserved.
+Displayed section, theorem and equation numbers are generated automatically and
+can differ from the original. The source mapping retains the original identities.
+
+Two introductory references, **Sections 1–7** and **Sections 8–12**, extend beyond
+this excerpt and remain explicitly pending. The original **NOTATION.md** is
+supplied as a resource, not claimed as migrated content. No bibliography entries
+occur in this excerpt. The previous artificial fixture separately tests citations.

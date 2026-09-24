@@ -1,0 +1,27 @@
+# Second toy chapter {#sec-second}
+
+The backward references @thm-included, @thm-seed, and @eq-seed point into
+@sec-first. The ordinary [item (a)](first.qmd#seed-item-a) link targets a theorem item.
+
+::: {#cor-return}
+## Return corollary
+
+For $u_n=n$, @thm-included gives $u_2-u_1=1$.
+:::
+
+::: {#cnj-future}
+## Future conjecture
+
+Every artificial example in this fixture remains artificial.
+:::
+
+$$
+z-(x+y)=0.
+$$ {#eq-return}
+
+::: {#rem-return}
+## Return remark
+
+The aligned calculation @eq-balance and matrix display @eq-forms occur in the
+first chapter.
+:::

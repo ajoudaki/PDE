@@ -1,0 +1,2468 @@
+[
+  {
+    "offset": 57,
+    "old": "",
+    "new": " {#sec-docs-global-nonlinear-l505}",
+    "kind": "label",
+    "target": "sec-docs-global-nonlinear-l505"
+  },
+  {
+    "offset": 64,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 67,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 90,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 100,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 154,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 165,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 188,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 195,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 249,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 255,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 379,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 387,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 432,
+    "old": "Section 9",
+    "new": "@sec-docs-global-nonlinear-l1136",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l1136"
+  },
+  {
+    "offset": 520,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 527,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 554,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 644,
+    "old": "\\tag{4.1}",
+    "new": "",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l516"
+  },
+  {
+    "offset": 654,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 656,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l516}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l516"
+  },
+  {
+    "offset": 717,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 725,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 745,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 755,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 774,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 781,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 875,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1127,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1134,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1180,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1184,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1266,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1274,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1320,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1348,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1362,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1427,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1461,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1468,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1491,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1692,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1695,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1754,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1929,
+    "old": "\\tag{4.2}",
+    "new": "",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l543"
+  },
+  {
+    "offset": 1939,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1941,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l543}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l543"
+  },
+  {
+    "offset": 2075,
+    "old": "Section 3",
+    "new": "@sec-docs-global-nonlinear-l281",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l281"
+  },
+  {
+    "offset": 2096,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 2110,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 2155,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 2182,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 2186,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 2219,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 2242,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 2274,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 2368,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 2373,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 2466,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 2492,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 2580,
+    "old": "Section 3",
+    "new": "@sec-docs-global-nonlinear-l281",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l281"
+  },
+  {
+    "offset": 2651,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 2858,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3109,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3118,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3227,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3236,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3351,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3354,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3385,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3472,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3475,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3623,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3626,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3719,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3722,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3980,
+    "old": "\\tag{4.3}",
+    "new": "",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l589"
+  },
+  {
+    "offset": 3990,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3992,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l589}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l589"
+  },
+  {
+    "offset": 3997,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 4005,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 4136,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 4401,
+    "old": "\\tag{4.4}",
+    "new": "%",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l599"
+  },
+  {
+    "offset": 4411,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 4413,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l599}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l599"
+  },
+  {
+    "offset": 4487,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 4661,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 4664,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 4977,
+    "old": "\\tag{4.5}",
+    "new": "%",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l613"
+  },
+  {
+    "offset": 4987,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 4989,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l613}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l613"
+  },
+  {
+    "offset": 5228,
+    "old": "Sections 3.3",
+    "new": "@sec-docs-global-nonlinear-l398 ",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l398"
+  },
+  {
+    "offset": 5242,
+    "old": "3.4",
+    "new": " @sec-docs-global-nonlinear-l457",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l457"
+  },
+  {
+    "offset": 5300,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 5312,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 5329,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 5341,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 5448,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 5506,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 5509,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 5717,
+    "old": "\\tag{4.6}",
+    "new": "",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l632"
+  },
+  {
+    "offset": 5727,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 5729,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l632}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l632"
+  },
+  {
+    "offset": 5926,
+    "old": "",
+    "new": " {#sec-docs-global-nonlinear-l642}",
+    "kind": "label",
+    "target": "sec-docs-global-nonlinear-l642"
+  },
+  {
+    "offset": 6296,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 6322,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 6390,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 6393,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 6422,
+    "old": "Section 3",
+    "new": "@sec-docs-global-nonlinear-l281",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l281"
+  },
+  {
+    "offset": 6784,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 6797,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 6921,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 6939,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 7035,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 7040,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 7401,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 7406,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 7727,
+    "old": "(2.2)",
+    "new": "@eq-docs-global-nonlinear-l209",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l209"
+  },
+  {
+    "offset": 7809,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 8008,
+    "old": "\\tag{5.1}",
+    "new": "%",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l675"
+  },
+  {
+    "offset": 8018,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 8020,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l675}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l675"
+  },
+  {
+    "offset": 8026,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 8031,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 8587,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 8638,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 8646,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 8838,
+    "old": "\\tag{5.2}",
+    "new": "",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l692"
+  },
+  {
+    "offset": 8848,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 8850,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l692}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l692"
+  },
+  {
+    "offset": 8963,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 8972,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 8983,
+    "old": "(1.7)",
+    "new": "@eq-docs-global-nonlinear-l158",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l158"
+  },
+  {
+    "offset": 9019,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9162,
+    "old": "\\tag{5.3}",
+    "new": "",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l701"
+  },
+  {
+    "offset": 9172,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9174,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l701}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l701"
+  },
+  {
+    "offset": 9321,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9324,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9362,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9389,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9396,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9430,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9487,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9518,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9554,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9605,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9629,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9639,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9652,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9747,
+    "old": "\\tag{5.4}",
+    "new": "",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l718"
+  },
+  {
+    "offset": 9757,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9759,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l718}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l718"
+  },
+  {
+    "offset": 9795,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9800,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9825,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9830,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9869,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9888,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9936,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9968,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 9972,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 10015,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 10023,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 10058,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 10139,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 10196,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 10230,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 10269,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 10310,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 10341,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 10427,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 10436,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 10470,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 10473,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 10549,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 10608,
+    "old": "\\tag{5.5}",
+    "new": "",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l736"
+  },
+  {
+    "offset": 10618,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 10620,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l736}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l736"
+  },
+  {
+    "offset": 10688,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 10809,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 10812,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 11020,
+    "old": "\\tag{5.6}",
+    "new": "%",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l746"
+  },
+  {
+    "offset": 11030,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 11032,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l746}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l746"
+  },
+  {
+    "offset": 11074,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 11089,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 11142,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 11155,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 11178,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 11183,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 11227,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 11448,
+    "old": "\\tag{5.7}",
+    "new": "%",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l755"
+  },
+  {
+    "offset": 11458,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 11460,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l755}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l755"
+  },
+  {
+    "offset": 11538,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 11711,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 11731,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 11965,
+    "old": "\\tag{5.8}",
+    "new": "%",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l769"
+  },
+  {
+    "offset": 11975,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 11977,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l769}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l769"
+  },
+  {
+    "offset": 12045,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 12048,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 12056,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 12059,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 12121,
+    "old": "(5.6)",
+    "new": "@eq-docs-global-nonlinear-l746",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l746"
+  },
+  {
+    "offset": 12171,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 12191,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 12199,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 12214,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 12284,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 12450,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 12466,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 12480,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 12657,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 12660,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 12802,
+    "old": "(5.5)",
+    "new": "@eq-docs-global-nonlinear-l736",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l736"
+  },
+  {
+    "offset": 12832,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 12837,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 13199,
+    "old": "(5.4)",
+    "new": "@eq-docs-global-nonlinear-l718",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l718"
+  },
+  {
+    "offset": 13396,
+    "old": "(5.4)",
+    "new": "@eq-docs-global-nonlinear-l718",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l718"
+  },
+  {
+    "offset": 13539,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 13558,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 13580,
+    "old": "(2.5)",
+    "new": "@eq-docs-global-nonlinear-l269",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l269"
+  },
+  {
+    "offset": 13636,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 13743,
+    "old": "\\tag{5.9}",
+    "new": "",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l805"
+  },
+  {
+    "offset": 13753,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 13755,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l805}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l805"
+  },
+  {
+    "offset": 13849,
+    "old": "Section 4",
+    "new": "@sec-docs-global-nonlinear-l505",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l505"
+  },
+  {
+    "offset": 14189,
+    "old": "",
+    "new": " {#sec-docs-global-nonlinear-l816}",
+    "kind": "label",
+    "target": "sec-docs-global-nonlinear-l816"
+  },
+  {
+    "offset": 14221,
+    "old": "(4.3)",
+    "new": "@eq-docs-global-nonlinear-l589 ",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l589"
+  },
+  {
+    "offset": 14228,
+    "old": "(4.5)",
+    "new": " @eq-docs-global-nonlinear-l613",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l613"
+  },
+  {
+    "offset": 14239,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 14359,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 14445,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 14674,
+    "old": "\\tag{6.1}",
+    "new": "%",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l825"
+  },
+  {
+    "offset": 14684,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 14686,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l825}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l825"
+  },
+  {
+    "offset": 14724,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 14744,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15042,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15055,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15232,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15235,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15257,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15273,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15277,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15313,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15446,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15461,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15518,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15698,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15704,
+    "old": "(2.5)",
+    "new": "@eq-docs-global-nonlinear-l269",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l269"
+  },
+  {
+    "offset": 15715,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15725,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15729,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15879,
+    "old": "\\tag{6.2}",
+    "new": "",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l856"
+  },
+  {
+    "offset": 15889,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15891,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l856}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l856"
+  },
+  {
+    "offset": 15899,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15912,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15919,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15935,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15967,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 15979,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 16025,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 16055,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 16062,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 16070,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 16142,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 16327,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 16368,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 16508,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 16544,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 16682,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 16726,
+    "old": "(2.5)",
+    "new": "@eq-docs-global-nonlinear-l269",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l269"
+  },
+  {
+    "offset": 16739,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 16939,
+    "old": "\\tag{6.3}",
+    "new": "",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l887"
+  },
+  {
+    "offset": 16949,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 16951,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l887}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l887"
+  },
+  {
+    "offset": 16977,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 16993,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17052,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17070,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17098,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17112,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17118,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17134,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17186,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17198,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17229,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17331,
+    "old": "\\tag{6.4}",
+    "new": "",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l899"
+  },
+  {
+    "offset": 17341,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17343,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l899}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l899"
+  },
+  {
+    "offset": 17364,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17382,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17399,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17413,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17422,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17432,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17467,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17606,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17635,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17640,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17655,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17658,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17662,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17710,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17730,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17733,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17800,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17807,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17810,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17964,
+    "old": "\\tag{6.5}",
+    "new": "",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l915"
+  },
+  {
+    "offset": 17974,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17976,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l915}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l915"
+  },
+  {
+    "offset": 17980,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 17985,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18013,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18020,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18054,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18057,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18081,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18086,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18096,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18101,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18108,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18117,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18121,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18132,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18146,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18306,
+    "old": "\\tag{6.6}",
+    "new": "",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l924"
+  },
+  {
+    "offset": 18316,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18318,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l924}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l924"
+  },
+  {
+    "offset": 18392,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18401,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18500,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18552,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18607,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18746,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18790,
+    "old": "(6.6)",
+    "new": "@eq-docs-global-nonlinear-l924",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l924"
+  },
+  {
+    "offset": 18802,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18883,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18911,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18924,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18931,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18952,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18962,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 18975,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 19017,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 19031,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 19072,
+    "old": "(4.5)",
+    "new": "@eq-docs-global-nonlinear-l613",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l613"
+  },
+  {
+    "offset": 19085,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 19179,
+    "old": "\\tag{6.7}",
+    "new": "",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l950"
+  },
+  {
+    "offset": 19189,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 19191,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l950}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l950"
+  },
+  {
+    "offset": 19209,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 19215,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 19285,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 19288,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 19295,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 19301,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 19352,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 19358,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 19362,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 19517,
+    "old": "\\tag{6.8}",
+    "new": "",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l958"
+  },
+  {
+    "offset": 19527,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 19529,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l958}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l958"
+  },
+  {
+    "offset": 19638,
+    "old": "(4.6)",
+    "new": "@eq-docs-global-nonlinear-l632",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l632"
+  },
+  {
+    "offset": 19645,
+    "old": "(6.3)",
+    "new": "@eq-docs-global-nonlinear-l887",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l887"
+  },
+  {
+    "offset": 19657,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 19771,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 19791,
+    "old": "(6.5)",
+    "new": "@eq-docs-global-nonlinear-l915",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l915"
+  },
+  {
+    "offset": 19798,
+    "old": "(6.8)",
+    "new": "@eq-docs-global-nonlinear-l958",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l958"
+  },
+  {
+    "offset": 19842,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 19962,
+    "old": "\\tag{6.9}",
+    "new": "",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l971"
+  },
+  {
+    "offset": 19972,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 19974,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l971}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l971"
+  },
+  {
+    "offset": 20113,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 20118,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 20158,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 20168,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 20183,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 20193,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 20328,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 20340,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 20344,
+    "old": "(6.1)",
+    "new": "@eq-docs-global-nonlinear-l825",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l825"
+  },
+  {
+    "offset": 20358,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 20493,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 20551,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 20572,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 20616,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 20759,
+    "old": "\\tag{6.10}",
+    "new": "",
+    "kind": "equation-tag",
+    "target": "eq-docs-global-nonlinear-l991"
+  },
+  {
+    "offset": 20770,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 20772,
+    "old": "",
+    "new": " {#eq-docs-global-nonlinear-l991}",
+    "kind": "equation-label",
+    "target": "eq-docs-global-nonlinear-l991"
+  },
+  {
+    "offset": 20780,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 20806,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 20847,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 20852,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  }
+]

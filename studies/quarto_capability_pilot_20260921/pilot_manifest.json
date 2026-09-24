@@ -1,0 +1,340 @@
+{
+  "packet": "linear-opening-v1",
+  "instruction_version": 1,
+  "source_path": "docs/linear_dynamics.md",
+  "source_full_sha256": "8de3beaca0cd6f970c27a25eb8c2bc4a1fefa2e7840bd97e7bccfc4f41281c1d",
+  "source_excerpt_sha256": "3217f65ee957581085b6152c5ab6d59b1a62b3c9470bc48003908cbae55b1db7",
+  "source_lines": [
+    1,
+    907
+  ],
+  "blocks": [
+    {
+      "id": "intro",
+      "start": 1,
+      "end": 19,
+      "sha256": "4199bae8d7132791ae56799c22a68ed3af7ec8f0603650e7429950a042fa3b81"
+    },
+    {
+      "id": "model",
+      "start": 20,
+      "end": 150,
+      "sha256": "10334845e518a7ed4f81763bd8f70bd28f5b33ffa7e297ae2d0636966190f2cd"
+    },
+    {
+      "id": "cyclic",
+      "start": 151,
+      "end": 375,
+      "sha256": "5919ee10a2f11d4ada1603da43cf6d0fcf831af397963dc76f16e3b7d4ff7ed2"
+    },
+    {
+      "id": "trace-class",
+      "start": 376,
+      "end": 557,
+      "sha256": "e3dc49d9e78c1c7a8b45d3072a5f1e3a1ba6ceb156ef55927a603626f060e94f"
+    },
+    {
+      "id": "flow",
+      "start": 558,
+      "end": 734,
+      "sha256": "cf3647262606492eb85eaac3360a88648516d16124168e8f5ce58ce614fcff4d"
+    },
+    {
+      "id": "finite-gd",
+      "start": 735,
+      "end": 907,
+      "sha256": "cb4867b163341cd5e2a4f4ef45cdc718b443a91598eb9be6eac64443d5308a98"
+    }
+  ],
+  "sections": [
+    {
+      "line": 1,
+      "old": "# Linear dynamics and exact-capture comparisons",
+      "id": "sec-linear"
+    },
+    {
+      "line": 20,
+      "old": "## 1. Model and population theorem",
+      "id": "sec-linear-model"
+    },
+    {
+      "line": 151,
+      "old": "## 2. Cyclic algebra and the Gaussian source",
+      "id": "sec-linear-cyclic"
+    },
+    {
+      "line": 376,
+      "old": "### 2.A. Compact operators and the complete trace-norm space",
+      "id": "sec-linear-trace-class"
+    },
+    {
+      "line": 558,
+      "old": "## 3. Global flow and fitting",
+      "id": "sec-linear-flow"
+    },
+    {
+      "line": 735,
+      "old": "## 4. Finite gradient flow and exact GD",
+      "id": "sec-linear-finite-gd"
+    }
+  ],
+  "equations": [
+    {
+      "tag": "1.1",
+      "id": "eq-linear-1-1"
+    },
+    {
+      "tag": "1.2",
+      "id": "eq-linear-1-2"
+    },
+    {
+      "tag": "1.3",
+      "id": "eq-linear-1-3"
+    },
+    {
+      "tag": "1.4",
+      "id": "eq-linear-1-4"
+    },
+    {
+      "tag": "1.5",
+      "id": "eq-linear-1-5"
+    },
+    {
+      "tag": "1.6",
+      "id": "eq-linear-1-6"
+    },
+    {
+      "tag": "1.7",
+      "id": "eq-linear-1-7"
+    },
+    {
+      "tag": "2.1",
+      "id": "eq-linear-2-1"
+    },
+    {
+      "tag": "2.2",
+      "id": "eq-linear-2-2"
+    },
+    {
+      "tag": "2.3",
+      "id": "eq-linear-2-3"
+    },
+    {
+      "tag": "2.4",
+      "id": "eq-linear-2-4"
+    },
+    {
+      "tag": "2.5",
+      "id": "eq-linear-2-5"
+    },
+    {
+      "tag": "2.6",
+      "id": "eq-linear-2-6"
+    },
+    {
+      "tag": "2.7",
+      "id": "eq-linear-2-7"
+    },
+    {
+      "tag": "2.8",
+      "id": "eq-linear-2-8"
+    },
+    {
+      "tag": "2.9",
+      "id": "eq-linear-2-9"
+    },
+    {
+      "tag": "2.10",
+      "id": "eq-linear-2-10"
+    },
+    {
+      "tag": "2.11",
+      "id": "eq-linear-2-11"
+    },
+    {
+      "tag": "2.12",
+      "id": "eq-linear-2-12"
+    },
+    {
+      "tag": "2.13",
+      "id": "eq-linear-2-13"
+    },
+    {
+      "tag": "2.14",
+      "id": "eq-linear-2-14"
+    },
+    {
+      "tag": "2.A.1",
+      "id": "eq-linear-2-a-1"
+    },
+    {
+      "tag": "2.A.2",
+      "id": "eq-linear-2-a-2"
+    },
+    {
+      "tag": "2.A.3",
+      "id": "eq-linear-2-a-3"
+    },
+    {
+      "tag": "2.A.4",
+      "id": "eq-linear-2-a-4"
+    },
+    {
+      "tag": "2.A.5",
+      "id": "eq-linear-2-a-5"
+    },
+    {
+      "tag": "2.A.6",
+      "id": "eq-linear-2-a-6"
+    },
+    {
+      "tag": "3.1",
+      "id": "eq-linear-3-1"
+    },
+    {
+      "tag": "3.2",
+      "id": "eq-linear-3-2"
+    },
+    {
+      "tag": "3.3",
+      "id": "eq-linear-3-3"
+    },
+    {
+      "tag": "3.4",
+      "id": "eq-linear-3-4"
+    },
+    {
+      "tag": "3.5",
+      "id": "eq-linear-3-5"
+    },
+    {
+      "tag": "3.6",
+      "id": "eq-linear-3-6"
+    },
+    {
+      "tag": "3.7",
+      "id": "eq-linear-3-7"
+    },
+    {
+      "tag": "3.8",
+      "id": "eq-linear-3-8"
+    },
+    {
+      "tag": "3.9",
+      "id": "eq-linear-3-9"
+    },
+    {
+      "tag": "3.10",
+      "id": "eq-linear-3-10"
+    },
+    {
+      "tag": "4.1",
+      "id": "eq-linear-4-1"
+    },
+    {
+      "tag": "4.2",
+      "id": "eq-linear-4-2"
+    },
+    {
+      "tag": "4.3",
+      "id": "eq-linear-4-3"
+    },
+    {
+      "tag": "4.4",
+      "id": "eq-linear-4-4"
+    },
+    {
+      "tag": "4.5",
+      "id": "eq-linear-4-5"
+    },
+    {
+      "tag": "4.6",
+      "id": "eq-linear-4-6"
+    },
+    {
+      "tag": "4.7",
+      "id": "eq-linear-4-7"
+    },
+    {
+      "tag": "4.8",
+      "id": "eq-linear-4-8"
+    }
+  ],
+  "statements": [
+    {
+      "id": "thm-linear-population",
+      "old": "Theorem 1",
+      "title": "global population and joint limit",
+      "start": 91,
+      "end": 143,
+      "prefix": "**Theorem 1 (global population and joint limit).** "
+    },
+    {
+      "id": "lem-linear-gaussian-words",
+      "old": "Lemma 2",
+      "title": "Gaussian fixed words and rooted Gram matrices",
+      "start": 237,
+      "end": 256,
+      "prefix": "**Lemma 2 (Gaussian fixed words and rooted Gram matrices).** "
+    },
+    {
+      "id": "lem-linear-trace-class",
+      "old": "Lemma 2.A",
+      "title": "",
+      "start": 386,
+      "end": 409,
+      "prefix": "**Lemma 2.A.** "
+    },
+    {
+      "id": "cor-linear-fitting",
+      "old": "Corollary 3",
+      "title": "fitting",
+      "start": 691,
+      "end": 692,
+      "prefix": "**Corollary 3 (fitting).** "
+    }
+  ],
+  "proofs": [
+    {
+      "start": 258,
+      "end": 341,
+      "prefix": "**Proof.** ",
+      "name": ""
+    },
+    {
+      "start": 411,
+      "end": 556,
+      "prefix": "**Proof of the singular expansion.** ",
+      "name": "of the singular expansion"
+    },
+    {
+      "start": 694,
+      "end": 733,
+      "prefix": "**Proof.** ",
+      "name": ""
+    }
+  ],
+  "pending": [
+    {
+      "line": 3,
+      "text": "Sections 1\u20137",
+      "reason": "Range includes original Sections 5\u20137, outside pilot"
+    },
+    {
+      "line": 10,
+      "text": "Sections 8\u201312",
+      "reason": "Entire range is outside pilot"
+    }
+  ],
+  "resource": {
+    "source": "docs/NOTATION.md",
+    "snapshot": "pilot_notation_resource.md",
+    "render_name": "NOTATION.md",
+    "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b"
+  },
+  "worker": {
+    "model": "gpt-5.6-terra",
+    "reasoning_effort": "medium",
+    "isolation": "fresh context; only named inputs"
+  }
+}

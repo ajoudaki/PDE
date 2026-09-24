@@ -1,0 +1,69 @@
+---
+title: "Quarto native edge-feature probe"
+number-sections: true
+crossref:
+  thm-title: Assumption
+  thm-prefix: Assumption
+format:
+  html: default
+  pdf:
+    pdf-engine: xelatex
+    keep-tex: true
+    latex-auto-install: false
+    latex-tinytex: false
+---
+
+# Edge cases
+
+## LaTeX-native subequations
+
+The parent is \eqref{eq:subgroup}; its two lines are \eqref{eq:sub-a} and
+\eqref{eq:sub-b}.
+
+$$
+\begin{subequations}\label{eq:subgroup}
+\begin{align}
+  a+b &= c, \label{eq:sub-a}\\
+  a-b &= d. \label{eq:sub-b}
+\end{align}
+\end{subequations}
+$$
+
+## LaTeX-native separately numbered aligned lines
+
+The two aligned lines are \eqref{eq:line-one} and \eqref{eq:line-two}.
+
+$$
+\begin{align}
+  x+1 &= 2, \label{eq:line-one}\\
+  y+2 &= 4. \label{eq:line-two}
+\end{align}
+$$
+
+## Document-wide theorem relabelling as Assumption
+
+::: {#thm-bounded}
+## Boundedness
+
+Assume $|x|\leq 1$.
+:::
+
+The documented theorem title/prefix override renders @thm-bounded as an
+Assumption, but the underlying cross-reference type remains `thm`.
+
+## Built-in theorem and lemma counters
+
+::: {#thm-counter}
+## Counter theorem
+
+This block uses the built-in theorem type.
+:::
+
+::: {#lem-counter}
+## Counter lemma
+
+This block uses the built-in lemma type.
+:::
+
+References are @thm-counter and @lem-counter. Under this document's relabelling,
+the theorem reference is displayed as an Assumption; the lemma remains a Lemma.

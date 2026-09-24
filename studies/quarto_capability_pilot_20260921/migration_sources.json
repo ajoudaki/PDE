@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "git_commit": "ab6dd76987007b925b4d9559a936234e224ef6e9",
+  "order_basis": "code/tools/book_pdf/export_book.py discover() at frozen revision",
+  "files": [
+    {
+      "source": "docs/README.md",
+      "key": "docs-readme",
+      "qmd": "index.qmd",
+      "sha256": "60816cf89cf93abc9d752b7d56a66b3302cd9ca0caff4b247991647dfb49b3ad",
+      "lines": 742,
+      "frozen": "data/generated/quarto_capability_pilot_20260921/linear_frozen/snapshot/docs/README.md"
+    },
+    {
+      "source": "docs/NOTATION.md",
+      "key": "docs-notation",
+      "qmd": "notation.qmd",
+      "sha256": "199bb0786f632198a071d220544dd61ad54b24643f07f8232254c75b6f81500b",
+      "lines": 98,
+      "frozen": "data/generated/quarto_capability_pilot_20260921/linear_frozen/snapshot/docs/NOTATION.md"
+    },
+    {
+      "source": "docs/global_nonlinear.md",
+      "key": "docs-global-nonlinear",
+      "qmd": "global-nonlinear.qmd",
+      "sha256": "81d969a531fc6daee26dbee2041fad8a3425a4b01580351387c5fc376cef412c",
+      "lines": 23313,
+      "frozen": "data/generated/quarto_capability_pilot_20260921/linear_frozen/snapshot/docs/global_nonlinear.md"
+    },
+    {
+      "source": "docs/finite_dynamics.md",
+      "key": "docs-finite-dynamics",
+      "qmd": "finite-dynamics.qmd",
+      "sha256": "a57d832a0ce0ad2bf40fa1ec574af787d05bade3264b619a8faca5545bc0012a",
+      "lines": 1275,
+      "frozen": "data/generated/quarto_capability_pilot_20260921/linear_frozen/snapshot/docs/finite_dynamics.md"
+    },
+    {
+      "source": "docs/gaussian_calculus.md",
+      "key": "docs-gaussian-calculus",
+      "qmd": "gaussian-calculus.qmd",
+      "sha256": "d2f6a065432b5dadc7a1973f11b335cbd0f180caa29a81f863c58fff3ac5ef5e",
+      "lines": 9580,
+      "frozen": "data/generated/quarto_capability_pilot_20260921/linear_frozen/snapshot/docs/gaussian_calculus.md"
+    },
+    {
+      "source": "docs/arctan_limits.md",
+      "key": "docs-arctan-limits",
+      "qmd": "arctan-limits.qmd",
+      "sha256": "19f01b6112949f4d186ef17ff94415804830ed51a519b155ed45343c26cbbead",
+      "lines": 3117,
+      "frozen": "data/generated/quarto_capability_pilot_20260921/linear_frozen/snapshot/docs/arctan_limits.md"
+    },
+    {
+      "source": "docs/special_data_limits.md",
+      "key": "docs-special-data-limits",
+      "qmd": "special-data-limits.qmd",
+      "sha256": "5b7b48aa5deab320042217a6f284002366a683bf0f7f0b63c05d8167c526a489",
+      "lines": 27274,
+      "frozen": "data/generated/quarto_capability_pilot_20260921/linear_frozen/snapshot/docs/special_data_limits.md"
+    },
+    {
+      "source": "docs/linear_dynamics.md",
+      "key": "docs-linear-dynamics",
+      "qmd": "linear-dynamics.qmd",
+      "sha256": "8de3beaca0cd6f970c27a25eb8c2bc4a1fefa2e7840bd97e7bccfc4f41281c1d",
+      "lines": 2803,
+      "frozen": "data/generated/quarto_capability_pilot_20260921/linear_frozen/snapshot/docs/linear_dynamics.md"
+    },
+    {
+      "source": "docs/continuous_depth.md",
+      "key": "docs-continuous-depth",
+      "qmd": "continuous-depth.qmd",
+      "sha256": "12be7aafbf37cb3651facdcac9c5333281b793c96b96a8a52a1232cd86ca006d",
+      "lines": 2825,
+      "frozen": "data/generated/quarto_capability_pilot_20260921/linear_frozen/snapshot/docs/continuous_depth.md"
+    },
+    {
+      "source": "docs/finite_optimization_and_controls.md",
+      "key": "docs-finite-optimization-and-controls",
+      "qmd": "finite-optimization-and-controls.qmd",
+      "sha256": "80dcce91ed3cd8313654523725e28b312ab925376cd7a28d71323bed648a5628",
+      "lines": 5112,
+      "frozen": "data/generated/quarto_capability_pilot_20260921/linear_frozen/snapshot/docs/finite_optimization_and_controls.md"
+    },
+    {
+      "source": "docs/observable_p1.md",
+      "key": "docs-observable-p1",
+      "qmd": "observable-p1.qmd",
+      "sha256": "0f9c0ab9d1bcd6acd844cfce52e00d94c063843fcf80d27e7ba2b7ea6ebdfbba",
+      "lines": 332,
+      "frozen": "data/generated/quarto_capability_pilot_20260921/linear_frozen/snapshot/docs/observable_p1.md"
+    },
+    {
+      "source": "code/README.md",
+      "key": "code-readme",
+      "qmd": "implementation-guide.qmd",
+      "sha256": "7aa3bc9700a75294f9f209a34e05af4033cd35dd5edb736846ff8bdfdc4bdbb6",
+      "lines": 1240,
+      "frozen": "data/generated/quarto_capability_pilot_20260921/linear_frozen/snapshot/code/README.md"
+    }
+  ]
+}

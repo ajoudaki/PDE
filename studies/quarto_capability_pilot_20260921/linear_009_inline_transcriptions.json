@@ -1,0 +1,4046 @@
+[
+  {
+    "offset": 770,
+    "old": "C2",
+    "new": "$C^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 1086,
+    "old": "C1,1",
+    "new": "$C^{1,1}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 2160,
+    "old": "d,m",
+    "new": "$d,m$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 2168,
+    "old": "L>=2",
+    "new": "$L\\ge2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 2231,
+    "old": "x_a in R^d",
+    "new": "$x_a\\in\\mathbb R^d$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 2258,
+    "old": "||x_a||_2/sqrt(d)<=X",
+    "new": "$\\lVert x_a\\rVert_2/\\sqrt{d}\\le X$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 2283,
+    "old": "G_ab=x_a^top x_b/d",
+    "new": "$G_{ab}=x_a^\\top x_b/d$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 2386,
+    "old": "|y_a|<=Y",
+    "new": "$\\lvert y_a\\rvert\\le Y$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 2420,
+    "old": "omega_a",
+    "new": "$\\omega_a$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 2433,
+    "old": "sum_a omega_a=1",
+    "new": "$\\sum_a\\omega_a=1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 2675,
+    "old": "phi^(ell):R->R",
+    "new": "$\\phi^{(\\ell)}:\\mathbb R\\to\\mathbb R$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 2693,
+    "old": "C^1",
+    "new": "$C^1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 3164,
+    "old": "phi'=s",
+    "new": "$\\phi'=s$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 3175,
+    "old": "phi''=s(1-s)",
+    "new": "$\\phi''(s)=s(1-s)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 3263,
+    "old": "phi(t)=t Phi(t)",
+    "new": "$\\phi(t)=t\\Phi(t)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 3280,
+    "old": "phi'(t)=Phi(t)+t varphi(t)",
+    "new": "$\\phi'(t)=\\Phi(t)+t\\varphi(t)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 3311,
+    "old": "phi''(t)=(2-t^2)varphi(t)",
+    "new": "$\\phi''(t)=(2-t^2)\\varphi(t)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 3428,
+    "old": "phi(t)=t s(t)",
+    "new": "$\\phi(t)=t s(t)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 3443,
+    "old": "phi'(t)=s(t)+t s(t)(1-s(t))",
+    "new": "$\\phi'(t)=s(t)+t s(t)(1-s(t))$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 3475,
+    "old": "phi''(t)=2s(t)(1-s(t))+t s(t)(1-s(t))(1-2s(t))",
+    "new": "$\\phi''(t)=2s(t)(1-s(t))+t s(t)(1-s(t))(1-2s(t))$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 3636,
+    "old": "C1,1",
+    "new": "$C^{1,1}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 3701,
+    "old": "t<=0",
+    "new": "$t\\le0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 3707,
+    "old": "t^2/2",
+    "new": "$t^2/2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 3717,
+    "old": "0<=t<=1",
+    "new": "$0\\le t\\le1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 3730,
+    "old": "t-1/2",
+    "new": "$t-1/2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 3740,
+    "old": "t>=1",
+    "new": "$t\\ge1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 3927,
+    "old": "W^(1)_0,ij~N(0,sigma_1^2)",
+    "new": "$W^{(1)}_{0,ij}\\sim\\mathcal N(0,\\sigma_1^2)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 3982,
+    "old": "W^(ell)_0,ji~N(0,sigma_ell^2/n)",
+    "new": "$W^{(\\ell)}_{0,ji}\\sim\\mathcal N(0,\\sigma_\\ell^2/n)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 4015,
+    "old": "2<=ell<=L",
+    "new": "$2\\le\\ell\\le L$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 4058,
+    "old": "W^(L+1)_0,j",
+    "new": "$W^{(L+1)}_{0,j}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 4119,
+    "old": "sup_(p>=2) (E|W^(L+1)_0,j|^p)^(1/p)/sqrt(p) <= B_out < infinity",
+    "new": "$\\sup_{p\\ge2}(\\mathbb E\\lvert W^{(L+1)}_{0,j}\\rvert^p)^{1/p}/\\sqrt{p}\\le B_{\\mathrm{out}}<\\infty$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 4358,
+    "old": "B_in",
+    "new": "$B_{\\mathrm{in}}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 4505,
+    "old": "Sigma",
+    "new": "$\\Sigma$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 4840,
+    "old": "L=2",
+    "new": "$L=2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 4850,
+    "old": "W^(3)",
+    "new": "$W^{(3)}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 4861,
+    "old": "f_n,a=(W^(3))^top h^(2)_a/n",
+    "new": "$f_{n,a}=(W^{(3)})^\\top h^{(2)}_a/n$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 5098,
+    "old": "delta^(ell)_a=n partial f_n,a/partial z^(ell)_a",
+    "new": "$\\delta^{(\\ell)}_a=n\\,\\partial f_{n,a}/\\partial z^{(\\ell)}_a$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 5167,
+    "old": "kappa_ell>=0",
+    "new": "$\\kappa_\\ell\\ge0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 5792,
+    "old": "t=k eta_n",
+    "new": "$t=k\\eta_n$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 6017,
+    "old": "eta_n>0",
+    "new": "$\\eta_n>0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 6075,
+    "old": "[0,T_*]",
+    "new": "$[0,T_*]$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 6986,
+    "old": "n, eta_n, m, d",
+    "new": "$n,\\eta_n,m,d$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 7074,
+    "old": "m,d",
+    "new": "$m,d$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 7477,
+    "old": "Z^(1)_a",
+    "new": "$Z^{(1)}_a$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 7507,
+    "old": "W^(L+1)",
+    "new": "$W^{(L+1)}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 7532,
+    "old": "2<=ell<=L",
+    "new": "$2\\le\\ell\\le L$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 7543,
+    "old": "W^(ell)",
+    "new": "$W^{(\\ell)}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 7611,
+    "old": "ell-1",
+    "new": "$\\ell-1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 7665,
+    "old": "(W^(ell))^*",
+    "new": "$(W^{(\\ell)})^*$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 7828,
+    "old": "u v^top/n",
+    "new": "$uv^\\top/n$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 7915,
+    "old": "Z,H",
+    "new": "$Z,H$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 7944,
+    "old": "b^top c/n",
+    "new": "$b^\\top c/n$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 8502,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 8621,
+    "old": "(W^(1)_0 x_a/sqrt(d))_a",
+    "new": "$(W^{(1)}_0x_a/\\sqrt{d})_a$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 8692,
+    "old": "N(0,sigma_1^2 G)",
+    "new": "$\\mathcal N(0,\\sigma_1^2G)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 8944,
+    "old": "E exp(t W_ij)<=exp(C B_in^2 t^2)",
+    "new": "$\\mathbb E\\exp(tW_{ij})\\le\\exp(CB_{\\mathrm{in}}^2t^2)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 9002,
+    "old": "E exp(t sum_j u_j W_ij)<=exp(C B_in^2 t^2 sum_j u_j^2)",
+    "new": "$\\mathbb E\\exp(t\\sum_j u_jW_{ij})\\le\\exp(CB_{\\mathrm{in}}^2t^2\\sum_ju_j^2)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 9076,
+    "old": "Z^(1)_a",
+    "new": "$Z^{(1)}_a$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 9135,
+    "old": "B_in X",
+    "new": "$B_{\\mathrm{in}}X$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 9574,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 9901,
+    "old": "||W^(ell)_0 v||_2/sqrt(n)<=M ||v||_2/sqrt(n)",
+    "new": "$\\lVert W^{(\\ell)}_0v\\rVert_2/\\sqrt{n}\\le M\\lVert v\\rVert_2/\\sqrt{n}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 9979,
+    "old": "||W^(ell)_0 V||_L2<=M||V||_L2",
+    "new": "$\\lVert W^{(\\ell)}_0V\\rVert_{L^2}\\le M\\lVert V\\rVert_{L^2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 10251,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 10674,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 10685,
+    "old": "||b||_2/sqrt(n)",
+    "new": "$\\lVert b\\rVert_2/\\sqrt{n}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 10867,
+    "old": "S",
+    "new": "$S$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 10954,
+    "old": "S0",
+    "new": "$S_0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 10982,
+    "old": "<=S0",
+    "new": "$\\le S_0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 11065,
+    "old": "S0",
+    "new": "$S_0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 11140,
+    "old": "m",
+    "new": "$m$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 11147,
+    "old": "B=2S0+2",
+    "new": "$B=2S_0+2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 11264,
+    "old": "S<=B",
+    "new": "$S\\le B$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 11274,
+    "old": "||H^(ell)_a||_L2<=h_ell",
+    "new": "$\\lVert H^{(\\ell)}_a\\rVert_{L^2}\\le h_\\ell$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 11299,
+    "old": "||delta^(ell)_a||_L2<=d_ell",
+    "new": "$\\lVert\\delta^{(\\ell)}_a\\rVert_{L^2}\\le d_\\ell$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 11332,
+    "old": "|r_a|<=R0",
+    "new": "$\\lvert r_a\\rvert\\le R_0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 11577,
+    "old": "V0>=1",
+    "new": "$V_0\\ge1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 11709,
+    "old": "<=T_ball",
+    "new": "$\\le T_{\\mathrm{ball}}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 11728,
+    "old": "S<=B",
+    "new": "$S\\le B$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 11746,
+    "old": "2 T_ball",
+    "new": "$2T_{\\mathrm{ball}}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 11822,
+    "old": "2T_ball V0",
+    "new": "$2T_{\\mathrm{ball}}V_0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 11853,
+    "old": "B-S0",
+    "new": "$B-S_0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 11984,
+    "old": "L",
+    "new": "$L$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 12019,
+    "old": "RMS",
+    "new": "$\\mathrm{RMS}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 12192,
+    "old": "T_response>0",
+    "new": "$T_{\\mathrm{response}}>0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 12238,
+    "old": "Delta",
+    "new": "$\\Delta$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 12657,
+    "old": "|C^(ell)_(ak,bs)|<=c_ell Delta omega_b",
+    "new": "$\\lvert C^{(\\ell)}_{(ak,bs)}\\rvert\\le c_\\ell\\Delta\\omega_b$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 12968,
+    "old": "Delta sum_(s,b) omega_b |P^(ell)_b,s|",
+    "new": "$\\Delta\\sum_{s,b}\\omega_b\\lvert P^{(\\ell)}_{b,s}\\rvert$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 13189,
+    "old": "T_*<=min(T_ball,T_response)",
+    "new": "$T_*\\le\\min(T_{\\mathrm{ball}},T_{\\mathrm{response}})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 13365,
+    "old": "Delta",
+    "new": "$\\Delta$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 13374,
+    "old": "m",
+    "new": "$m$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 13488,
+    "old": "S<=B",
+    "new": "$S\\le B$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 13583,
+    "old": "W H-Wtilde Htilde=(W-Wtilde)H+Wtilde(H-Htilde)",
+    "new": "$WH-\\widetilde W\\widetilde H=(W-\\widetilde W)H+\\widetilde W(H-\\widetilde H)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 13641,
+    "old": "||phi(Z)-phi(Ztilde)||_L2<=D1||Z-Ztilde||_L2",
+    "new": "$\\lVert\\phi(Z)-\\phi(\\widetilde Z)\\rVert_{L^2}\\le D_1\\lVert Z-\\widetilde Z\\rVert_{L^2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 13746,
+    "old": "Ptilde",
+    "new": "$\\widetilde P$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 13990,
+    "old": "ell<L",
+    "new": "$\\ell<L$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 14011,
+    "old": "P^(ell)-Ptilde^(ell)",
+    "new": "$P^{(\\ell)}-\\widetilde P^{(\\ell)}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 14046,
+    "old": "B||delta^(ell+1)-deltatilde^(ell+1)||_L2+C d",
+    "new": "$B\\lVert\\delta^{(\\ell+1)}-\\widetilde\\delta^{(\\ell+1)}\\rVert_{L^2}+Cd$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 14095,
+    "old": "ell=L",
+    "new": "$\\ell=L$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 14482,
+    "old": "R^L",
+    "new": "$R^L$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 14563,
+    "old": "||u-utilde||_L2 ||v||_L2+||utilde||_L2 ||v-vtilde||_L2",
+    "new": "$\\lVert u-\\widetilde u\\rVert_{L^2}\\lVert v\\rVert_{L^2}+\\lVert\\widetilde u\\rVert_{L^2}\\lVert v-\\widetilde v\\rVert_{L^2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 15348,
+    "old": "R",
+    "new": "$R$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 15411,
+    "old": "exp(CRT_*-cR^2)->0",
+    "new": "$\\exp(CRT_*-cR^2)\\to0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 15595,
+    "old": "Z_j->Z",
+    "new": "$Z_j\\to Z$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 15606,
+    "old": "P_j->P",
+    "new": "$P_j\\to P$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 15616,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 15626,
+    "old": "phi'(Z_j)P_j-phi'(Z)P",
+    "new": "$\\phi'(Z_j)P_j-\\phi'(Z)P$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 15738,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 16311,
+    "old": "<=C exp(CRT_*-cR^2)",
+    "new": "$\\le C\\exp(CRT_*-cR^2)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 17038,
+    "old": "Delta",
+    "new": "$\\Delta$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 17062,
+    "old": "eta_n",
+    "new": "$\\eta_n$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 17860,
+    "old": "u v^top/n",
+    "new": "$uv^\\top/n$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 18930,
+    "old": "||v-u||_2/sqrt(n)=e_n",
+    "new": "$\\lVert v-u\\rVert_2/\\sqrt{n}=e_n$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 19129,
+    "old": "(5), (10)",
+    "new": "$(5),(10)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 19448,
+    "old": "C(eta_n+Delta)",
+    "new": "$C(\\eta_n+\\Delta)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 19753,
+    "old": "o_P(1)",
+    "new": "$o_P(1)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 20093,
+    "old": "n->infinity",
+    "new": "$n\\to\\infty$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 20110,
+    "old": "R,Delta",
+    "new": "$R,\\Delta$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 20130,
+    "old": "Delta->0",
+    "new": "$\\Delta\\to0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 20279,
+    "old": "eta_n sqrt(n)->0",
+    "new": "$\\eta_n\\sqrt{n}\\to0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 20637,
+    "old": "b^top c/n",
+    "new": "$b^\\top c/n$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 20761,
+    "old": "Omega=diag(omega_1,...,omega_m)",
+    "new": "$\\Omega=\\operatorname{diag}(\\omega_1,\\ldots,\\omega_m)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 21129,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 22051,
+    "old": "epsilon",
+    "new": "$\\epsilon$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 22275,
+    "old": "n",
+    "new": "$n$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 22318,
+    "old": "<=C epsilon",
+    "new": "$\\le C\\epsilon$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 22977,
+    "old": "C2",
+    "new": "$C^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 23034,
+    "old": "C1",
+    "new": "$C^1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 23367,
+    "old": "T_*",
+    "new": "$T_*$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 23413,
+    "old": "epsilon",
+    "new": "$\\epsilon$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 23552,
+    "old": "C(1+R)(epsilon+epsilon')",
+    "new": "$C(1+R)(\\epsilon+\\epsilon')$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 23608,
+    "old": "O(epsilon)",
+    "new": "$O(\\epsilon)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 23918,
+    "old": "C(1+R)epsilon",
+    "new": "$C(1+R)\\epsilon$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 23952,
+    "old": "n,Delta,epsilon,R",
+    "new": "$n,\\Delta,\\epsilon,R$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 24016,
+    "old": "C1,1",
+    "new": "$C^{1,1}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 24146,
+    "old": "sum_a omega_a ell_a(f_a)",
+    "new": "$\\sum_a\\omega_a\\ell_a(f_a)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 24184,
+    "old": "ell_a",
+    "new": "$\\ell_a$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 24193,
+    "old": "C1",
+    "new": "$C^1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 24334,
+    "old": "2r_b",
+    "new": "$2r_b$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 24342,
+    "old": "(1),(2),(10)--(12)",
+    "new": "$(1),(2),(10)--(12)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 24364,
+    "old": "ell_b'(f_b)",
+    "new": "$\\ell_b'(f_b)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 24403,
+    "old": "sup_(a,|f|<=B h_L)|ell_a'(f)|",
+    "new": "$\\sup_{a,\\lvert f\\rvert\\le Bh_L}\\lvert\\ell_a'(f)\\rvert$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 24445,
+    "old": "2R0",
+    "new": "$2R_0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 24838,
+    "old": "dot f_a=-sum_b K_ab omega_b ell_b'(f_b)",
+    "new": "$\\dot f_a=-\\sum_bK_{ab}\\omega_b\\ell_b'(f_b)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 24883,
+    "old": "dot L=-sum_ab omega_a ell_a'(f_a) K_ab omega_b ell_b'(f_b)",
+    "new": "$\\dot L=-\\sum_{a,b}\\omega_a\\ell_a'(f_a)K_{ab}\\omega_b\\ell_b'(f_b)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 25258,
+    "old": "sigma_out n^(-beta) g",
+    "new": "$\\sigma_{\\mathrm{out}}n^{-\\beta}g$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 25290,
+    "old": "beta>0",
+    "new": "$\\beta>0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 25339,
+    "old": "||W^(L+1)_0||_2/sqrt(n)->0",
+    "new": "$\\lVert W^{(L+1)}_0\\rVert_2/\\sqrt{n}\\to0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 64773,
+    "old": "`x(alpha)=sqrt(2)(cos(alpha),sin(alpha))`",
+    "new": "$x(\\alpha)=\\sqrt{2}(\\cos(\\alpha),\\sin(\\alpha))$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 64822,
+    "old": "`u=x/sqrt(2)`",
+    "new": "$u=\\frac{x}{\\sqrt{2}}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 64840,
+    "old": "`G(x,x')=u·u'`",
+    "new": "$G(x,x^{\\prime})=u\\cdot u^{\\prime}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 64881,
+    "old": "`Z=sqrt(2) S^1 x [-Y,Y]`",
+    "new": "$Z=\\sqrt{2}\\,S^1\\times[-Y,Y]$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 64919,
+    "old": "`d_Z((x,y),(x',y'))=|x-x'|/sqrt(2)+|y-y'|`",
+    "new": "$d_Z((x,y),(x^{\\prime},y^{\\prime}))=\\frac{|x-x^{\\prime}|}{\\sqrt{2}}+|y-y^{\\prime}|$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 64988,
+    "old": "`W1(mu,nu)`",
+    "new": "$\\mathcal W_{1}(\\mu,\\nu)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 65471,
+    "old": "`W^(1):1`",
+    "new": "$W^{(1)}:1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 65482,
+    "old": "`W^(2):1/n`",
+    "new": "$W^{(2)}:1/n$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 65495,
+    "old": "`W^(3):1/n²`",
+    "new": "$W^{(3)}:1/n^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 65603,
+    "old": "`(n,1,n)`",
+    "new": "$(n,1,n)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 65860,
+    "old": "`T_*>0`",
+    "new": "$T_*>0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 65869,
+    "old": "`C<infinity`",
+    "new": "$C<\\infty$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 66107,
+    "old": "`w in L²(Omega_1;R²)`",
+    "new": "$w\\in L^2(\\Omega_1;\\mathbb R^2)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 66150,
+    "old": "`A: L²(Omega_1)->L²(Omega_2)`",
+    "new": "$A:L^2(\\Omega_1)\\to L^2(\\Omega_2)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 66199,
+    "old": "`c in L²(Omega_2)`",
+    "new": "$c\\in L^2(\\Omega_2)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 66383,
+    "old": "`(g,A_0,0)`",
+    "new": "$(g,A_{0},0)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 66400,
+    "old": "`g~N(0,I_2)`",
+    "new": "$g\\sim \\mathcal N(0,I_{2})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 66959,
+    "old": "`0<q=W1(mu,nu)<=1`",
+    "new": "$0<q=\\mathcal W_{1}(\\mu,\\nu)\\le 1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 67046,
+    "old": "`Cq exp(C sqrt(log(e/q)))`",
+    "new": "$Cq\\exp\\!\\left(C\\sqrt{\\log(e/q)}\\right)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 67501,
+    "old": "`mu_S=m^(-1) sum_i delta_(x_i,y_i)`",
+    "new": "$\\mu_S=m^{-1}\\sum_i\\delta_{(x_i,y_i)}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 67541,
+    "old": "`f_S=f_mu_S`",
+    "new": "$f_{S}=f_\\mu_{S}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 67709,
+    "old": "`R_mu(g)=int (g(x)-y)² dmu`",
+    "new": "$R_\\mu(g)=\\int (g(x)-y)^2\\,d\\mu$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 67744,
+    "old": "`Rhat_S(g)=m^(-1)sum_i(g(x_i)-y_i)²`",
+    "new": "$\\widehat R_S(g)=m^{-1}\\sum_i(g(x_i)-y_i)^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 68107,
+    "old": "`n_k->infinity`",
+    "new": "$n_{k}\\to \\infty$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 68134,
+    "old": "`eta_k->0`",
+    "new": "$\\eta_{k}\\to 0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 68603,
+    "old": "`R_mu(f_mu(t))`",
+    "new": "$R_\\mu(f_\\mu(t))$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 68878,
+    "old": "`mu_0=½ delta_(sqrt(2)e1,Y/2)+½ delta_(sqrt(2)e2,Y/2)`",
+    "new": "$\\mu_0=\\frac12\\delta_{(\\sqrt{2}e_1,Y/2)}+\\frac12\\delta_{(\\sqrt{2}e_2,Y/2)}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 69071,
+    "old": "`J_ell(mu,t_0)>=j_0/2`",
+    "new": "$J_\\ell(\\mu,t_{0})\\ge j_{0}/2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 69122,
+    "old": "`W1(mu,mu_0)<r_0`",
+    "new": "$\\mathcal W_{1}(\\mu,\\mu_{0})<r_{0}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 70704,
+    "old": "`u=x/sqrt(2)`",
+    "new": "$u=\\frac{x}{\\sqrt{2}}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 70722,
+    "old": "`|u|=1`",
+    "new": "$\\lvert u\\rvert=1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 70739,
+    "old": "`phi=tanh`",
+    "new": "$\\phi=\\tanh$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 70755,
+    "old": "`H_1=L2(Omega_1)`",
+    "new": "$H_{1}=L^{2}(\\Omega_{1})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 70777,
+    "old": "`H_2=L2(Omega_2)`",
+    "new": "$H_{2}=L^{2}(\\Omega_{2})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 71027,
+    "old": "`A=A_0+K`",
+    "new": "$A=A_{0}+K$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 71043,
+    "old": "`K`",
+    "new": "$K$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 71818,
+    "old": "`(a tensor b)v=a E_1[bv]`",
+    "new": "$(a \\otimes b)v=a \\mathbb E_{1}[bv]$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 71867,
+    "old": "`mu`",
+    "new": "$\\mu$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 71875,
+    "old": "`(u,y)`",
+    "new": "$(u,y)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 71886,
+    "old": "`S^1 x [-Y,Y]`",
+    "new": "$S^{1}\\times[-Y,Y]$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 72233,
+    "old": "`u`",
+    "new": "$u$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 72296,
+    "old": "`w=W^(1)`",
+    "new": "$w=W^{(1)}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 72307,
+    "old": "`A=W^(2)`",
+    "new": "$A=W^{(2)}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 72318,
+    "old": "`c=W^(3)`",
+    "new": "$c=W^{(3)}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 72395,
+    "old": "`sqrt(n)`",
+    "new": "$\\sqrt{n}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 72424,
+    "old": "`a^T b/n`",
+    "new": "$a^\\top b/n$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 72459,
+    "old": "`a b^T/n`",
+    "new": "$a b^\\top/n$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 72535,
+    "old": "`(n,1,n)`",
+    "new": "$(n,1,n)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 72605,
+    "old": "`theta_(j+1)=theta_j+eta F_mu(theta_j)`",
+    "new": "$\\theta_{j+1}=\\theta_{j}+\\eta F_\\mu(\\theta_{j})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 73458,
+    "old": "`|phi|<=1`",
+    "new": "$\\lvert \\phi\\rvert\\le 1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 73470,
+    "old": "`|phi'|<=1`",
+    "new": "$\\lvert \\phi^{\\prime}\\rvert\\le 1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 73487,
+    "old": "`Lip(phi')<=2`",
+    "new": "$\\operatorname{\\operatorname{Lip}}{\\phi^{\\prime}}\\le 2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 73569,
+    "old": "`B>=1`",
+    "new": "$B\\ge 1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 73833,
+    "old": "`V=2(B+Y)(B^2+B+1)`",
+    "new": "$V=2(B+Y)(B^{2}+B+1)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 73894,
+    "old": "`S_0`",
+    "new": "$S_{0}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 73908,
+    "old": "`B=2S_0+2`",
+    "new": "$B=2S_{0}+2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 74118,
+    "old": "`2T_ball`",
+    "new": "$2T_{ball}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 74151,
+    "old": "`T_ball`",
+    "new": "$T_{ball}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 74228,
+    "old": "`2T_ball V<(B-S_0)`",
+    "new": "$2T_{ball} V<(B-S_{0})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 74301,
+    "old": "`V`",
+    "new": "$V$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 74448,
+    "old": "`||W^(1)_0||_F^2/n`",
+    "new": "$\\lVert W^{(1)}_{0}\\rVert_{F}^{2}/n$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 74492,
+    "old": "`2`",
+    "new": "$2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 74501,
+    "old": "`||W^(3)_0||_2^2/n`",
+    "new": "$\\lVert W^{(3)}_{0}\\rVert_{2}^{2}/n$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 74537,
+    "old": "`n^(-2)`",
+    "new": "$n^{-2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 74696,
+    "old": "`S_0`",
+    "new": "$S_{0}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 74817,
+    "old": "`w_0=(g_1,g_2)`",
+    "new": "$w_{0}=(g_{1},g_{2})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 74871,
+    "old": "`c_0=0`",
+    "new": "$c_{0}=0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 75060,
+    "old": "`P`",
+    "new": "$P$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 75071,
+    "old": "`tau_R(P)=||P 1_{|P|>R}||_2`",
+    "new": "$\\tau_{R}(P)=\\lVert P \\mathbf 1_{\\{\\lvert P\\rvert>R\\}}\\rVert_{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 75127,
+    "old": "`bar theta`",
+    "new": "$\\bar{\\theta}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 75433,
+    "old": "`omega_b`",
+    "new": "$\\omega_{b}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 75644,
+    "old": "`R>=1`",
+    "new": "$R\\ge 1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 75667,
+    "old": "`mu,nu`",
+    "new": "$\\mu,\\nu$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 75916,
+    "old": "`W1`",
+    "new": "$\\mathcal W_{1}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 75926,
+    "old": "`|u-u'|+|y-y'|`",
+    "new": "$\\lvert u-u^{\\prime}\\rvert+\\lvert y-y^{\\prime}\\rvert$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 75947,
+    "old": "`C`",
+    "new": "$C$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 75967,
+    "old": "`B,Y`",
+    "new": "$B,Y$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 76121,
+    "old": "`pi`",
+    "new": "$\\pi$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 76158,
+    "old": "`h=|u-u'|`",
+    "new": "$h=\\lvert u-u^{\\prime}\\rvert$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 76170,
+    "old": "`D=D(theta,bar theta)`",
+    "new": "$D=D(\\theta,\\bar{\\theta})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 76361,
+    "old": "`A H^1-bar A bar H^1=(A-bar A)H^1+bar A(H^1-bar H^1)`",
+    "new": "$A H^{1}-\\bar{A} \\bar{H}^{1}=(A-\\bar{A})H^{1}+\\bar{A}(H^{1}-\\bar{H}^{1})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 76874,
+    "old": "`bar P`",
+    "new": "$\\bar{P}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 76906,
+    "old": "`|bar P|=R`",
+    "new": "$\\lvert \\bar{P}\\rvert=R$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 77099,
+    "old": "`phi'(Z^2)(c-bar c)+[phi'(Z^2)-phi'(bar Z^2)]bar c`",
+    "new": "$\\phi^{\\prime}(Z^{2})(c-\\bar{c})+[\\phi^{\\prime}(Z^{2})-\\phi^{\\prime}(\\bar{Z}^{2})]\\bar{c}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 77370,
+    "old": "`P^1`",
+    "new": "$P^{1}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 77390,
+    "old": "`B`",
+    "new": "$B$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 77411,
+    "old": "`BD`",
+    "new": "$BD$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 77487,
+    "old": "`P^1_bar theta(u')`",
+    "new": "$P^{1}_{\\bar\\theta}(u^{\\prime})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 77701,
+    "old": "`R`",
+    "new": "$R$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 77837,
+    "old": "`R`",
+    "new": "$R$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 77890,
+    "old": "`R`",
+    "new": "$R$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 78147,
+    "old": "`P u`",
+    "new": "$P u$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 78160,
+    "old": "`||P||_2 |u|`",
+    "new": "$\\lVert P\\rVert_{2} \\lvert u\\rvert$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 78232,
+    "old": "`C(1+R)(D+h+|y-y'|)`",
+    "new": "$C(1+R)(D+h+\\lvert y-y^{\\prime}\\rvert)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 78589,
+    "old": "`||a tensor b||_op=||a||_2||b||_2`",
+    "new": "$\\lVert a \\otimes b\\rVert_{\\mathrm{op}}=\\lVert a\\rVert_{2}\\lVert b\\rVert_{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 78710,
+    "old": "`rH^2-bar r bar H^2=(r-bar r)H^2+bar r(H^2-bar H^2)`",
+    "new": "$rH^{2}-\\bar{r} \\bar{H}^{2}=(r-\\bar{r})H^{2}+\\bar{r}(H^{2}-\\bar{H}^{2})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 78822,
+    "old": "`pi`",
+    "new": "$\\pi$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 79885,
+    "old": "`w_0=(g_1,g_2)~N(0,I_2)`",
+    "new": "$w_{0}=(g_{1},g_{2})\\sim \\mathcal N(0,I_{2})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 79978,
+    "old": "`theta_0=(w_0,A_0,0)`",
+    "new": "$\\theta_{0}=(w_{0},A_{0},0)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 98512,
+    "old": "`S0=11`",
+    "new": "$S_0=11$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 98521,
+    "old": "`B=24`",
+    "new": "$B=24$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 99218,
+    "old": "`nu=sum_(b=1)^J omega_b delta_(u_b,y_b)`",
+    "new": "$\\nu=\\sum_{b=1}^{J}\\omega_b\\delta_{(u_b,y_b)}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 99438,
+    "old": "`Theta^(nu,Delta)_s`",
+    "new": "$\\Theta^{(\\nu,\\Delta)}_{s}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 100684,
+    "old": "`(nu,Delta)`",
+    "new": "$(\\nu,\\Delta)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 102199,
+    "old": "`F_nu(barTheta_n,k)`",
+    "new": "$F_\\nu(barTheta_{n},k)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 102738,
+    "old": "`||v 1_|v|>R|| <= 2||v-p|| + 2||p 1_|p|>R/2||`",
+    "new": "$\\lVert v\\mathbf 1_{\\{|v|>R\\}}\\rVert\\le2\\lVert v-p\\rVert+2\\lVert p\\mathbf 1_{\\{|p|>R/2\\}}\\rVert$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 103589,
+    "old": "`(nu,Delta)`",
+    "new": "$(\\nu,\\Delta)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 103759,
+    "old": "`W1(lambda_k,mu)->0`",
+    "new": "$\\mathcal W_{1}(\\lambda_{k},\\mu)\\to 0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 103785,
+    "old": "`n_k->infinity`",
+    "new": "$n_{k}\\to \\infty$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 103810,
+    "old": "`eta_k->0`",
+    "new": "$\\eta_{k}\\to 0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 103923,
+    "old": "`W1(mu,nu)<=delta`",
+    "new": "$\\mathcal W_{1}(\\mu,\\nu)\\le \\delta$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 104103,
+    "old": "`C(eta_k+Delta)`",
+    "new": "$C(\\eta_{k}+\\Delta)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 104491,
+    "old": "`E(t)<=C(1+R) integral_0^t E(s)ds + b`",
+    "new": "$E(t)\\le C(1+R)\\int_0^tE(s)\\,ds+b$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 104566,
+    "old": "`b exp(C(1+R)T_*)`",
+    "new": "$b \\exp(C(1+R)T_*)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 104638,
+    "old": "`(nu,Delta,R)`",
+    "new": "$(\\nu,\\Delta,R)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 105129,
+    "old": "`||z1(u)-z1(v)||<=B|u-v|`",
+    "new": "$\\lVert z_{1}(u)-z_{1}(v)\\rVert\\le B\\lvert u-v\\rvert$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 105156,
+    "old": "`||z2(u)-z2(v)||<=B²|u-v|`",
+    "new": "$\\lVert z_{2}(u)-z_{2}(v)\\rVert\\le B^{2}\\lvert u-v\\rvert$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 105188,
+    "old": "`|f(u)-f(v)|<=B³|u-v|`",
+    "new": "$\\lvert f(u)-f(v)\\rvert\\le B^{3}\\lvert u-v\\rvert$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 106121,
+    "old": "`W1(lambda_k,nu)<=W1(lambda_k,mu)+delta`",
+    "new": "$\\mathcal W_{1}(\\lambda_{k},\\nu)\\le \\mathcal W_{1}(\\lambda_{k},\\mu)+\\delta$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 107102,
+    "old": "`|g|<=B`",
+    "new": "$\\lvert g\\rvert\\le B$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 107201,
+    "old": "`2(B+Y)(L|u-v|+|y-z|)`",
+    "new": "$2(B+Y)(L\\lvert u-v\\rvert+\\lvert y-z\\rvert)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 107280,
+    "old": "`[0,T_*]`",
+    "new": "$[0,T_*]$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 107331,
+    "old": "`R_lambda_k(f_(n_k,eta_k,lambda_k)(t))`",
+    "new": "$R_\\lambda_{k}(f_{n_{k},\\eta_{k},\\lambda_{k}}(t))$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 107431,
+    "old": "`R_mu(f_mu(t))`",
+    "new": "$R_\\mu(f_\\mu(t))$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 107510,
+    "old": "`2(B+Y)`",
+    "new": "$2(B+Y)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 107639,
+    "old": "`C W1(lambda_k,mu)`",
+    "new": "$C \\mathcal W_{1}(\\lambda_{k},\\mu)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 107665,
+    "old": "`R_lambda_k(f_lambda_k(t)) -> R_mu(f_mu(t))`",
+    "new": "$R_\\lambda_{k}(f_\\lambda_{k}(t)) \\to R_\\mu(f_\\mu(t))$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 107714,
+    "old": "`R_mu(f_lambda_k(t)) -> R_mu(f_mu(t))`",
+    "new": "$R_\\mu(f_\\lambda_{k}(t)) \\to R_\\mu(f_\\mu(t))$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 107830,
+    "old": "`W1(mu_S,mu)->0`",
+    "new": "$\\mathcal W_{1}(\\mu_{S},\\mu)\\to 0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 108260,
+    "old": "`(diam Z)/2 sum_j |p_hat_j-p_j|`",
+    "new": "$(diam Z)/2 \\sum_{j} \\lvert p_{hat}_{j}-p_{j}\\rvert$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 108728,
+    "old": "`W1(mu_S,mu)<=epsilon`",
+    "new": "$\\mathcal W_{1}(\\mu_{S},\\mu)\\le \\epsilon$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 109053,
+    "old": "`n_k,m_k->infinity`",
+    "new": "$n_{k},m_{k}\\to \\infty$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 109074,
+    "old": "`eta_k->0`",
+    "new": "$\\eta_{k}\\to 0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 109238,
+    "old": "`rho(q)=C q exp(C sqrt(log(e/q)))`",
+    "new": "$\\rho(q)=Cq\\exp\\!\\left(C\\sqrt{\\log(e/q)}\\right)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 109277,
+    "old": "`0<q<=1`",
+    "new": "$0<q\\le 1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 109430,
+    "old": "`L_Z=2+2Y`",
+    "new": "$L_{Z}=2+2Y$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 109552,
+    "old": "`W1(mu_S,mu_S')<=L_Z/m`",
+    "new": "$\\mathcal W_{1}(\\mu_{S},\\mu_{S}^{\\prime})\\le L_{Z}/m$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 109820,
+    "old": "`q<=L_Z/m`",
+    "new": "$q\\le L_{Z}/m$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 109839,
+    "old": "`R=K sqrt(log(em))`",
+    "new": "$R=K\\sqrt{\\log(em)}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 110051,
+    "old": "`f_S=f_mu_S`",
+    "new": "$f_{S}=f_\\mu_{S}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 110217,
+    "old": "`2(B+Y) beta_m`",
+    "new": "$2(B+Y) \\beta_{m}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 110263,
+    "old": "`S=(Z_1,...,Z_m)`",
+    "new": "$S=(Z_{1},...,Z_{m})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 110304,
+    "old": "`Z_i'`",
+    "new": "$Z_{i}^{\\prime}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 110341,
+    "old": "`S^(i)`",
+    "new": "$S^{(i)}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 110385,
+    "old": "`Z_i'`",
+    "new": "$Z_{i}^{\\prime}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 110606,
+    "old": "`ell(g,z)=(g(x)-y)^2`",
+    "new": "$\\ell(g,z)=(g(x)-y)^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 110980,
+    "old": "`(Z_i,Z_i')`",
+    "new": "$(Z_{i},Z_{i}^{\\prime})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 111173,
+    "old": "`2(B+Y) beta_m`",
+    "new": "$2(B+Y) \\beta_{m}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 112006,
+    "old": "`| ||v||²-||w||² | <= (||v||+||w||)||v-w||`",
+    "new": "$\\lvert \\lVert v\\rVert^{2}-\\lVert w\\rVert^{2} \\rvert \\le (\\lVert v\\rVert+\\lVert w\\rVert)\\lVert v-w\\rVert$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 112907,
+    "old": "`H_0^(ell)(x)`",
+    "new": "$H_{0}^{(\\ell)}(x)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 112988,
+    "old": "`W^(2)=A`",
+    "new": "$W^{(2)}=A$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 112999,
+    "old": "`W^(3)=c`",
+    "new": "$W^{(3)}=c$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 113033,
+    "old": "`ell=1,2`",
+    "new": "$\\ell=1,2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 113475,
+    "old": "`0<=J_ell<=4`",
+    "new": "$0\\le J_\\ell\\le 4$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 113550,
+    "old": "`B>=1`",
+    "new": "$B\\ge 1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 113567,
+    "old": "`||w_mu(t)||_2<=B`",
+    "new": "$\\lVert w_\\mu(t)\\rVert_{2}\\le B$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 113590,
+    "old": "`||W_mu^(2)(t)||_op<=B`",
+    "new": "$\\lVert W_\\mu^{(2)}(t)\\rVert_{\\mathrm{op}}\\le B$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 113734,
+    "old": "`rho(x,x')=|x-x'|/sqrt(2)`",
+    "new": "$\\rho(x,x^{\\prime})=\\lvert x-x^{\\prime}\\rvert/\\sqrt{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 113923,
+    "old": "`K=B^2`",
+    "new": "$K=B^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 114178,
+    "old": "`y_0=Y/2>0`",
+    "new": "$y_{0}=Y/2>0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 114367,
+    "old": "`G=I_2`",
+    "new": "$G=I_{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 114380,
+    "old": "`p`",
+    "new": "$p$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 114484,
+    "old": "`Y`",
+    "new": "$Y$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 114498,
+    "old": "`mu_0`",
+    "new": "$\\mu_{0}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 114683,
+    "old": "`E[h_a h_b]=q_0 1_(a=b)`",
+    "new": "$\\mathbb E[h_a h_b]=q_0\\mathbf 1_{\\{a=b\\}}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 114766,
+    "old": "`xi_1,xi_2~N(0,q_0)`",
+    "new": "$\\xi_{1},\\xi_{2}\\sim \\mathcal N(0,q_{0})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 114956,
+    "old": "`(h_a^T h_b/n)_(a,b)`",
+    "new": "$(h_{a}^\\top h_{b}/n)_{a,b}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 114998,
+    "old": "`q_0 I_2`",
+    "new": "$q_{0} I_{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 115227,
+    "old": "`phi=tanh`",
+    "new": "$\\phi=\\tanh$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 115242,
+    "old": "`phi'(s)=sech^2(s)`",
+    "new": "$\\phi^{\\prime}(s)=\\operatorname{sech}^{2}(s)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 115719,
+    "old": "`S,U_a`",
+    "new": "$S,U_{a}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 115804,
+    "old": "`L2`",
+    "new": "$L^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 116096,
+    "old": "`r_b=f_b-y_0`",
+    "new": "$r_{b}=f_{b}-y_{0}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 116111,
+    "old": "`delta_b^(2)=W^(3)phi'(Z_b^(2))`",
+    "new": "$\\delta_{b}^{(2)}=W^{(3)}\\phi^{\\prime}(Z_{b}^{(2)})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 116148,
+    "old": "`delta_b^(1)=phi'(Z_b^(1))(W^(2))*delta_b^(2)`",
+    "new": "$\\delta_{b}^{(1)}=\\phi^{\\prime}(Z_{b}^{(1)})(W^{(2)})^*\\delta_{b}^{(2)}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 116219,
+    "old": "`-2 omega_b=-1`",
+    "new": "$-2 \\omega_{b}=-1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 116895,
+    "old": "`t`",
+    "new": "$t$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 116907,
+    "old": "`r_b(0)=-y_0`",
+    "new": "$r_{b}(0)=-y_{0}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 116937,
+    "old": "`H_b^(2)(0)=tanh xi_b`",
+    "new": "$H_{b}^{(2)}(0)=\\tanh \\xi_{b}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 116974,
+    "old": "`y_0 sum_b tanh xi_b=2S`",
+    "new": "$y_{0} \\sum_{b} \\tanh \\xi_{b}=2S$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117003,
+    "old": "`V_t->V`",
+    "new": "$V_{t}\\to V$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117015,
+    "old": "`L2`",
+    "new": "$L^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117024,
+    "old": "`a_t->a`",
+    "new": "$a_{t}\\to a$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117071,
+    "old": "`a_t`",
+    "new": "$a_{t}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117083,
+    "old": "`a_t V_t->a V`",
+    "new": "$a_{t} V_{t}\\to a V$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117101,
+    "old": "`L2`",
+    "new": "$L^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117134,
+    "old": "`V_t-V`",
+    "new": "$V_{t}-V$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117206,
+    "old": "`V`",
+    "new": "$V$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117213,
+    "old": "`|V|<=M`",
+    "new": "$\\lvert V\\rvert\\le M$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117232,
+    "old": "`M`",
+    "new": "$M$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117265,
+    "old": "`phi'(Z_a^(2)(t))`",
+    "new": "$\\phi^{\\prime}(Z_{a}^{(2)}(t))$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117389,
+    "old": "`s`",
+    "new": "$s$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117421,
+    "old": "`L2`",
+    "new": "$L^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117431,
+    "old": "`integral_0^t s ds=t^2/2`",
+    "new": "$\\int_{0}^{t} s ds=t^{2}/2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117538,
+    "old": "`2p`",
+    "new": "$2p$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117686,
+    "old": "`v_t/t^2`",
+    "new": "$v_{t}/t^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117709,
+    "old": "`L2`",
+    "new": "$L^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117767,
+    "old": "`phi'(z)`",
+    "new": "$\\phi^{\\prime}(z)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117829,
+    "old": "`W(t)H_a(t)-W_0h_a`",
+    "new": "$W(t)H_{a}(t)-W_{0h}_{a}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117852,
+    "old": "`(W(t)-W_0)h_a+W_0(H_a(t)-h_a)`",
+    "new": "$(W(t)-W_{0})h_{a}+W_{0}(H_{a}(t)-h_{a})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117938,
+    "old": "`O_L2(t^4)`",
+    "new": "$O_{L^2}(t^4)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 117970,
+    "old": "`2t^2 sum_b p U_b E[h_bh_a]=2t^2 M_a`",
+    "new": "$2t^2\\sum_b pU_b\\mathbb E[h_bh_a]=2t^2M_a$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 118302,
+    "old": "`a`",
+    "new": "$a$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 118459,
+    "old": "`S`",
+    "new": "$S$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 118532,
+    "old": "`xi_a`",
+    "new": "$\\xi_{a}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 118613,
+    "old": "`xi_a!=0`",
+    "new": "$\\xi_{a}\\ne 0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 118727,
+    "old": "`|xi_a|`",
+    "new": "$\\lvert \\xi_{a}\\rvert$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 118742,
+    "old": "`P_a`",
+    "new": "$P_{a}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 118762,
+    "old": "`L2`",
+    "new": "$L^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 118774,
+    "old": "`p>0`",
+    "new": "$p>0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 118784,
+    "old": "`phi'(g_a)>0`",
+    "new": "$\\phi^{\\prime}(g_{a})>0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 118813,
+    "old": "`C_a=p phi'(g_a)^2 P_a`",
+    "new": "$C_{a}=p \\phi^{\\prime}(g_{a})^{2} P_{a}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 119252,
+    "old": "`p sum_a E[S E_a]`",
+    "new": "$p \\sum_{a} \\mathbb E[S \\mathbb E_{a}]$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 119289,
+    "old": "`E_a`",
+    "new": "$\\mathbb E_{a}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 119316,
+    "old": "`L2`",
+    "new": "$L^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 119777,
+    "old": "`tau in (0,T_*]`",
+    "new": "$\\tau \\in (0,T_*]$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 119804,
+    "old": "`A_ell(mu_0,t)>=c_ell t^2`",
+    "new": "$A_\\ell(\\mu_{0},t)\\ge c_\\ell t^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 119855,
+    "old": "`0<t<=tau`",
+    "new": "$0<t\\le \\tau$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 119941,
+    "old": "`s_0`",
+    "new": "$s_{0}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 119966,
+    "old": "`s in (0,T_*]`",
+    "new": "$s \\in (0,T_*]$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 120102,
+    "old": "`s_0>0`",
+    "new": "$s_{0}>0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 120116,
+    "old": "`tau=s_0/2`",
+    "new": "$\\tau=s_{0}/2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 120168,
+    "old": "`t_0=tau/2`",
+    "new": "$t_{0}=\\tau/2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 120216,
+    "old": "`t_0`",
+    "new": "$t_{0}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 120248,
+    "old": "`c_ell`",
+    "new": "$c_\\ell$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 120512,
+    "old": "`q=W_1(mu,nu)<=1`",
+    "new": "$q=\\mathcal W_1(\\mu,\\nu)\\le1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 121138,
+    "old": "`||H_mu^(1)||_2<=1`",
+    "new": "$\\lVert H_\\mu^{(1)}\\rVert_{2}\\le 1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 121164,
+    "old": "`B`",
+    "new": "$B$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 121405,
+    "old": "`4C_H omega(q)`",
+    "new": "$4C_{H} \\omega(q)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 121442,
+    "old": "`nu`",
+    "new": "$\\nu$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 121544,
+    "old": "`x,x'`",
+    "new": "$x,x^{\\prime}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 121554,
+    "old": "`2K rho(x,x')`",
+    "new": "$2K \\rho(x,x^{\\prime})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 121618,
+    "old": "`8K rho(x,x')`",
+    "new": "$8K \\rho(x,x^{\\prime})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 121670,
+    "old": "`mu,nu`",
+    "new": "$\\mu,\\nu$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 121861,
+    "old": "`rho`",
+    "new": "$\\rho$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 122107,
+    "old": "`j_0=min(c_1^2,c_2^2)t_0^4>0`",
+    "new": "$j_{0}=\\min{c_{1}^{2},c_{2}^{2}}t_{0}^{4}>0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 122154,
+    "old": "`r_0 in (0,1)`",
+    "new": "$r_{0} \\in (0,1)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 122179,
+    "old": "`4C_H omega(q)+8Kq<j_0/2`",
+    "new": "$4C_{H} \\omega(q)+8Kq<j_{0}/2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 122213,
+    "old": "`0<q<r_0`",
+    "new": "$0<q<r_{0}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 122471,
+    "old": "`t_0`",
+    "new": "$t_{0}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 122679,
+    "old": "`(0,tau]`",
+    "new": "$(0,\\tau]$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 123143,
+    "old": "`lambda_n`",
+    "new": "$\\lambda_{n}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 124057,
+    "old": "`mu in U`",
+    "new": "$\\mu \\in U$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 124537,
+    "old": "`1/n^2`",
+    "new": "$1/n^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 127246,
+    "old": "x->-x",
+    "new": "$x\\to-x$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 127506,
+    "old": "mu",
+    "new": "$\\mu$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 127514,
+    "old": "W1(mu,nu_*)<delta",
+    "new": "$\\mathcal W_1(\\mu,\\nu_*)<\\delta$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 127602,
+    "old": "W1",
+    "new": "$\\mathcal W_1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 127705,
+    "old": "n_k->infinity",
+    "new": "$n_k\\to\\infty$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 127723,
+    "old": "eta_k>0",
+    "new": "$\\eta_k>0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 127736,
+    "old": "eta_k sqrt(n_k)->0",
+    "new": "$\\eta_k\\sqrt{n_k}\\to0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 128148,
+    "old": "m_k->infinity",
+    "new": "$m_k\\to\\infty$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 129424,
+    "old": "m>=1/10",
+    "new": "$m\\ge1/10$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 131947,
+    "old": "W1(lambda_k,nu_*)<=delta+o(1)",
+    "new": "$\\mathcal W_1(\\lambda_k,\\nu_*)\\le\\delta+o(1)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 133042,
+    "old": "W1(lambda_k,mu)->0",
+    "new": "$\\mathcal W_1(\\lambda_k,\\mu)\\to0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 133535,
+    "old": "a=delta/2",
+    "new": "$a=\\delta/2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 133783,
+    "old": "a=delta/4",
+    "new": "$a=\\delta/4$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 133899,
+    "old": "p=delta/8",
+    "new": "$p=\\delta/8$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 133937,
+    "old": "a+2p=delta/2<delta",
+    "new": "$a+2p=\\delta/2<\\delta$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 135365,
+    "old": "`u=x/sqrt(2)`",
+    "new": "$u=\\frac{x}{\\sqrt{2}}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 135431,
+    "old": "`H_1=L2(Omega_1)`",
+    "new": "$H_{1}=L^{2}(\\Omega_{1})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 135453,
+    "old": "`H_2=L2(Omega_2)`",
+    "new": "$H_{2}=L^{2}(\\Omega_{2})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 135516,
+    "old": "`A_0:H_1->H_2`",
+    "new": "$A_{0}:H_{1}\\to H_{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 135619,
+    "old": "`w=(w_1,w_2)`",
+    "new": "$w=(w_{1},w_{2})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 135644,
+    "old": "`(g_1,g_2)`",
+    "new": "$(g_{1},g_{2})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 135728,
+    "old": "`c(0)=0`",
+    "new": "$c(0)=0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 135847,
+    "old": "`A=A_0+K`",
+    "new": "$A=A_{0}+K$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 136015,
+    "old": "`K`",
+    "new": "$K$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 136073,
+    "old": "`||dW1||F²/n+||dW2||F²+||dW3||²/n`",
+    "new": "$\\lVert dW^{(1)}\\rVert_F^2/n+\\lVert dW^{(2)}\\rVert_F^2+\\lVert dW^{(3)}\\rVert_2^2/n$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 136187,
+    "old": "`uv^T/n`",
+    "new": "$uv^\\top/n$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 136208,
+    "old": "`||u||2||v||2`",
+    "new": "$\\lVert u\\rVert_2\\lVert v\\rVert_2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 136229,
+    "old": "`phi=tanh`",
+    "new": "$\\phi=\\tanh$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 136250,
+    "old": "`a=1,2`",
+    "new": "$a=1,2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 136471,
+    "old": "`(v,B)`",
+    "new": "$(v,B)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 136515,
+    "old": "`H_2`",
+    "new": "$H_{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 136692,
+    "old": "`h`",
+    "new": "$h$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 136830,
+    "old": "`c`",
+    "new": "$c$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 137052,
+    "old": "`<q tensor v,B>HS=<q,Bv>2`",
+    "new": "$<q \\otimes v,B>HS=<q,Bv>2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 137383,
+    "old": "`j(X,g)`",
+    "new": "$j(X,g)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 137398,
+    "old": "`j_X=phi'(j)`",
+    "new": "$j_{X}=\\phi^{\\prime}(j)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 137413,
+    "old": "`j(0,g)=g`",
+    "new": "$j(0,g)=g$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 137508,
+    "old": "`X`",
+    "new": "$X$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 137522,
+    "old": "`|j(X,g)-j(Y,g)|<=|X-Y|`",
+    "new": "$\\lvert j(X,g)-j(Y,g)\\rvert\\le \\lvert X-Y\\rvert$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 137552,
+    "old": "`w_a=j(X_a,g_a)`",
+    "new": "$w_{a}=j(X_{a},g_{a})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 137859,
+    "old": "`H1`",
+    "new": "$H_{1}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 137909,
+    "old": "`H2`",
+    "new": "$H_{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 137953,
+    "old": "`||phi'(Z2)c-phi'(Z2bar)cbar||2<=||c-cbar||2+2||cbar||infty||Z2-Z2bar||2`",
+    "new": "$\\lVert \\phi^{\\prime}(Z_{2})c-\\phi^{\\prime}(Z_{2}bar)cbar\\rVert_2\\le \\lVert c-cbar\\rVert_2+2\\lVert cbar\\rVert_{\\infty}\\lVert Z_{2}-Z_{2}bar\\rVert_2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 138844,
+    "old": "`K`",
+    "new": "$K$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 138914,
+    "old": "`w`",
+    "new": "$w$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 138993,
+    "old": "`w_s=B(s)phi'(w)`",
+    "new": "$w_{s}=B(s)\\phi^{\\prime}(w)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 139041,
+    "old": "`j(integral B,g)`",
+    "new": "$j(\\int B,g)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 139073,
+    "old": "`B`",
+    "new": "$B$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 139527,
+    "old": "`j`",
+    "new": "$j$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 140078,
+    "old": "`P(u_1,u_2)=(u_2,u_1)`",
+    "new": "$P(u_{1},u_{2})=(u_{2},u_{1})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 140125,
+    "old": "`(w,A,c)->(wP,A,-c)`",
+    "new": "$(w,A,c)\\to (wP,A,-c)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 140166,
+    "old": "`-f(Pu)`",
+    "new": "$-f(Pu)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 140265,
+    "old": "`h`",
+    "new": "$h$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 140385,
+    "old": "`nu_*=1/2 delta_(e1,+1)+1/2 delta_(e2,-1)`",
+    "new": "$\\nu_*=1/2 \\delta_{e_{1},+1}+1/2 \\delta_{e_{2},-1}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 140589,
+    "old": "`c0=0`",
+    "new": "$c_{0}=0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 141289,
+    "old": "`f(-u)=-f(u)`",
+    "new": "$f(-u)=-f(u)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 141359,
+    "old": "`(b-1,1-b)`",
+    "new": "$(b-1,1-b)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 141426,
+    "old": "`2(1-b)`",
+    "new": "$2(1-b)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 141703,
+    "old": "`h_s=J(w,K)_s`",
+    "new": "$h_{s}=J(w,K)_{s}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 141889,
+    "old": "`(phi(z))_s=phi'(z)z_s`",
+    "new": "$(\\phi(z))_{s}=\\phi^{\\prime}(z)z_{s}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 142345,
+    "old": "`J`",
+    "new": "$J$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 142372,
+    "old": "`m=||h(0)||2²`",
+    "new": "$m=\\lVert h(0)\\rVert_2^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 142501,
+    "old": "`q I_2`",
+    "new": "$q I_{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 142646,
+    "old": "`N(0,q)`",
+    "new": "$\\mathcal N(0,q)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 142835,
+    "old": "`g=||c||2>0`",
+    "new": "$g=\\lVert c\\rVert_2>0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 143087,
+    "old": "`c(s)=s h(0)+o_L2(s)`",
+    "new": "$c(s)=s h(0)+o_{L}^{2}(s)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 143113,
+    "old": "`h(s)->h(0)`",
+    "new": "$h(s)\\to h(0)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 143135,
+    "old": "`g_s(0+)=sqrt(m)`",
+    "new": "$g_{s}(0+)=\\sqrt{m}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 143198,
+    "old": "`g_s>=sqrt(m)`",
+    "new": "$g_{s}\\ge \\sqrt{m}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 143217,
+    "old": "`g>=s sqrt(m)`",
+    "new": "$g\\ge s \\sqrt{m}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 143357,
+    "old": "`||h||2>=g_s`",
+    "new": "$\\lVert h\\rVert_2\\ge g_{s}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 143512,
+    "old": "`s_dagger`",
+    "new": "$s_{dagger}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 143528,
+    "old": "`b=1`",
+    "new": "$b=1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 143539,
+    "old": "`0<s_dagger<=1/m<=10`",
+    "new": "$0<s_{dagger}\\le 1/m\\le 10$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 143565,
+    "old": "`[0,s_dagger)`",
+    "new": "$[0,s_{dagger})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 143701,
+    "old": "`b_s`",
+    "new": "$b_{s}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 143765,
+    "old": "`[0,s_dagger]`",
+    "new": "$[0,s_{dagger}]$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 143788,
+    "old": "`K`",
+    "new": "$K$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 143793,
+    "old": "`1-b(s)<=K(s_dagger-s)`",
+    "new": "$1-b(s)\\le K(s_{dagger}-s)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 143848,
+    "old": "`s->s_dagger`",
+    "new": "$s\\to s_{dagger}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 143896,
+    "old": "`t>=0`",
+    "new": "$t\\ge 0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 144011,
+    "old": "`e(t)=1-b(s(t))`",
+    "new": "$e(t)=1-b(s(t))$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 144499,
+    "old": "`0<=s_1<=s_2<=s_dagger`",
+    "new": "$0\\le s_{1}\\le s_{2}\\le s_{dagger}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 144800,
+    "old": "`b=1`",
+    "new": "$b=1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 144817,
+    "old": "`(w_dagger,A_dagger,c_dagger)`",
+    "new": "$(w_{dagger},A_{dagger},c_{dagger})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 145243,
+    "old": "`f∞(sqrt2 e1)=1`",
+    "new": "$f_{\\infty}(\\sqrt{2}e_1)=1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 145261,
+    "old": "`f∞(sqrt2 e2)=-1`",
+    "new": "$f_{\\infty}(\\sqrt{2}e_2)=-1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 145706,
+    "old": "`|u|=1`",
+    "new": "$\\lvert u\\rvert=1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 145818,
+    "old": "`f(u)`",
+    "new": "$f(u)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 145844,
+    "old": "`||A||op||c||2`",
+    "new": "$\\lVert A\\rVert_{\\mathrm{op}}\\lVert c\\rVert_2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 145861,
+    "old": "`||c||2`",
+    "new": "$\\lVert c\\rVert_2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 146664,
+    "old": "`1/32`",
+    "new": "$1/32$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 146672,
+    "old": "`17 sqrt(10)e^-8<.019<1/32`",
+    "new": "$17\\sqrt{10}e^{-8}<.019<\\frac1{32}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 146731,
+    "old": "`e^-16<1/1024`",
+    "new": "$e^{-16}<1/1024$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 146821,
+    "old": "`e^8`",
+    "new": "$e^{8}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 147150,
+    "old": "`||f||infty<=sqrt10`",
+    "new": "$\\lVert f\\rVert_\\infty\\le\\sqrt{10}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 147191,
+    "old": "`(f(u)-y)^2`",
+    "new": "$(f(u)-y)^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 147288,
+    "old": "`2(sqrt10+1) max(76,1)<633`",
+    "new": "$2(\\sqrt{10}+1)\\max(76,1)<633$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 147321,
+    "old": "`|(a-y)^2-(b-z)^2|<=2(sqrt10+1)(|a-b|+|y-z|)`",
+    "new": "$\\lvert(a-y)^2-(b-z)^2\\rvert\\le2(\\sqrt{10}+1)(|a-b|+|y-z|)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 147462,
+    "old": "`epsilon>0`",
+    "new": "$\\epsilon>0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 147510,
+    "old": "`T(epsilon)=max(0,5 log(17 sqrt10/epsilon))`",
+    "new": "$T(\\epsilon)=\\max\\!\\left(0,5\\log\\frac{17\\sqrt{10}}{\\epsilon}\\right)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 147831,
+    "old": "`Y_a=A0 H0_a^1`",
+    "new": "$Y_a=A_0H_{0,a}^{1}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 148085,
+    "old": "`U,R`",
+    "new": "$U,R$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 148114,
+    "old": "`P,V`",
+    "new": "$P,V$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 148178,
+    "old": "`q>.39`",
+    "new": "$q>.39$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 148187,
+    "old": "`q<.4`",
+    "new": "$q<.4$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 148195,
+    "old": "`v>.2`",
+    "new": "$v>.2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 148203,
+    "old": "`a0>.3`",
+    "new": "$a_0>.3$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 148216,
+    "old": "`r0>.6`",
+    "new": "$r_0>.6$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 148329,
+    "old": "`C_ab=E[U_a U_b]`",
+    "new": "$C_{ab}=\\mathbb E[U_{a} U_{b}]$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 148552,
+    "old": "`(g1,g2)`",
+    "new": "$(g_{1},g_{2})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 148840,
+    "old": "`U`",
+    "new": "$U$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 148905,
+    "old": "`E[UU^T]`",
+    "new": "$\\mathbb E[UU^\\top]$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 149004,
+    "old": "`O(1/n)`",
+    "new": "$O(1/n)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 149062,
+    "old": "`q I`",
+    "new": "$q I$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 149132,
+    "old": "`U(Y)`",
+    "new": "$U(Y)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 149308,
+    "old": "`V`",
+    "new": "$V$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 149325,
+    "old": "`C`",
+    "new": "$C$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 149354,
+    "old": "`z1 U1+z2 U2=0`",
+    "new": "$z_{1} U_{1}+z_{2} U_{2}=0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 149427,
+    "old": "`(tanh Y1-tanh Y2)(z1 phi'(Y1)+z2 phi'(Y2))=0`",
+    "new": "$(\\tanh Y_{1}-\\tanh Y_{2})(z_{1} \\phi^{\\prime}(Y_{1})+z_{2} \\phi^{\\prime}(Y_{2}))=0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 149508,
+    "old": "`Y1!=Y2`",
+    "new": "$Y_{1}\\ne Y_{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 149652,
+    "old": "`phi'`",
+    "new": "$\\phi^{\\prime}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 149666,
+    "old": "`z1=z2=0`",
+    "new": "$z_{1}=z_{2}=0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 149682,
+    "old": "`alpha_b=E[H0_b^1 V_a]/q`",
+    "new": "$\\alpha_b=\\mathbb E[H_{0,b}^{1}V_a]/q$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 149709,
+    "old": "`V_a^perp=V_a-sum alpha_b H0_b^1`",
+    "new": "$V_{a}^{perp}=V_{a}-\\sum \\alpha_{b} H_{0}_{b}^{1}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 149748,
+    "old": "`sigma_a²=E[(V_a^perp)²]`",
+    "new": "$\\sigma_{a}^{2}=\\mathbb E[(V_{a}^{perp})^{2}]$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 150012,
+    "old": "`gamma_a`",
+    "new": "$\\gamma_{a}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 150102,
+    "old": "`a`",
+    "new": "$a$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 150128,
+    "old": "`gamma1,gamma2`",
+    "new": "$\\gamma_1,\\gamma_2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 150233,
+    "old": "`C^-1 E[P V_a^perp]`",
+    "new": "$C^{-1} \\mathbb E[P V_{a}^{perp}]$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 150277,
+    "old": "`U`",
+    "new": "$U$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 150313,
+    "old": "`P_b`",
+    "new": "$P_{b}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 150385,
+    "old": "`V_a^perp`",
+    "new": "$V_{a}^{perp}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 150422,
+    "old": "`E[Gamma_b Gamma_a] E phi'(G)^2=C_ba bar d`",
+    "new": "$\\mathbb E[\\Gamma_{b} \\Gamma_{a}] \\mathbb E \\phi^{\\prime}(G)^{2}=C_{ba} \\bar{d}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 150485,
+    "old": "`C^-1`",
+    "new": "$C^{-1}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 150498,
+    "old": "`bar d`",
+    "new": "$\\bar{d}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 150520,
+    "old": "`a`",
+    "new": "$a$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 150563,
+    "old": "`sigma_a²`",
+    "new": "$\\sigma_{a}^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 151147,
+    "old": "`Y1,Y2`",
+    "new": "$Y_{1},Y_{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 151318,
+    "old": "`s²`",
+    "new": "$s^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 151508,
+    "old": "`sum_b|p_ab|<=2/sqrt q<4`",
+    "new": "$\\sum_b|p_{ab}|\\le\\frac{2}{\\sqrt{q}}<4$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 151538,
+    "old": "`Caa<=1`",
+    "new": "$C_{aa}\\le1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 151574,
+    "old": "`|P_a|<=4+|G|`",
+    "new": "$\\lvert P_{a}\\rvert\\le 4+\\lvert G\\rvert$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 151600,
+    "old": "`||P_a||4<6`",
+    "new": "$\\lVert P_a\\rVert_4<6$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 151618,
+    "old": "`R>=8`",
+    "new": "$R\\ge 8$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 151629,
+    "old": "`z=R-4`",
+    "new": "$z=R-4$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 151807,
+    "old": "`(|G|+4)^2<=2G²+32`",
+    "new": "$(\\lvert G\\rvert+4)^{2}\\le 2G^{2}+32$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 151828,
+    "old": "`Pr(|G|>z)<=2phi_G(z)/z`",
+    "new": "$\\Pr\\{|G|>z\\}\\le2\\phi_G(z)/z$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 151858,
+    "old": "`E[G²1_|G|>z]<=2(z+1/z)phi_G(z)`",
+    "new": "$\\mathbb E[G^2\\mathbf 1_{\\{|G|>z\\}}]\\le2(z+z^{-1})\\phi_G(z)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 151921,
+    "old": "`1/sqrt(2pi)<1`",
+    "new": "$1/\\sqrt{2\\pi}<1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 151941,
+    "old": "`R=10`",
+    "new": "$R=10$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 151977,
+    "old": "`1/1000`",
+    "new": "$1/1000$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 152005,
+    "old": "`||V_a||2<=||P_a||2<=2`",
+    "new": "$\\lVert V_a\\rVert_2\\le\\lVert P_a\\rVert_2\\le2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 152085,
+    "old": "`3^(1/4)||V_a||2<3`",
+    "new": "$3^{1/4}\\lVert V_a\\rVert_2<3$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 152159,
+    "old": "`(q+bar d)U_a`",
+    "new": "$(q+\\bar{d})U_{a}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 152210,
+    "old": "`||R_a||4<8`",
+    "new": "$\\lVert R_a\\rVert_4<8$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 152321,
+    "old": "`0<=s<=1`",
+    "new": "$0\\le s\\le 1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 152657,
+    "old": "`H1`",
+    "new": "$H_{1}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 152666,
+    "old": "`H2`",
+    "new": "$H_{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 152693,
+    "old": "`||h(s)-h0||2<=7s²/4`",
+    "new": "$\\lVert h(s)-h_0\\rVert_2\\le\\frac{7s^2}{4}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 152789,
+    "old": "`||A||<=5/2`",
+    "new": "$\\lVert A\\rVert\\le 5/2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 152803,
+    "old": "`||K||<=s²/2`",
+    "new": "$\\lVert K\\rVert\\le s^{2}/2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 152833,
+    "old": "`49s³/12`",
+    "new": "$49s^{3}/12$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 152871,
+    "old": "`5s³`",
+    "new": "$5s^{3}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 152908,
+    "old": "`P_a`",
+    "new": "$P_{a}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 152917,
+    "old": "`R`",
+    "new": "$R$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 153011,
+    "old": "`y_a s phi'(g_a)P_a/2`",
+    "new": "$y_{a} s \\phi^{\\prime}(g_{a})P_{a}/2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 153147,
+    "old": "`(44+5R)s^4/32+tau_R(P_a)s²/2`",
+    "new": "$(44+5R)s^{4}/32+\\tau_{R}(P_{a})s^{2}/2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 153243,
+    "old": "`y_a s² phi'(g_a)P_a/4`",
+    "new": "$y_{a} s^{2} \\phi^{\\prime}(g_{a})P_{a}/4$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 153321,
+    "old": "`s^4||P_a||4²/16`",
+    "new": "$s^4\\lVert P_a\\rVert_4^2/16$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 153346,
+    "old": "`|phi''|<=2`",
+    "new": "$\\lvert \\phi^{\\prime}'\\rvert\\le 2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 153523,
+    "old": "`(s/2)sum y_a U_a tensor H_a^1(0)`",
+    "new": "$(s/2)\\sum y_{a} U_{a} \\otimes H_{a}^{1}(0)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 153569,
+    "old": "`45s³/8`",
+    "new": "$45s^{3}/8$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 153601,
+    "old": "`||U||2<=1`",
+    "new": "$\\lVert U\\rVert_2\\le1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 153618,
+    "old": "`||H1-H10||2<=5s²/8`",
+    "new": "$\\lVert H_1-H_{1,0}\\rVert_2\\le\\frac{5s^2}{8}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 153683,
+    "old": "`45s^4/32`",
+    "new": "$45s^{4}/32$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 153705,
+    "old": "`(A0+K)(H10+Delta H1)`",
+    "new": "$(A_0+K)(H_{1,0}+\\Delta H_1)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 153738,
+    "old": "`Z2_a-Y_a=y_as²(q U_a+A0V_a)/4`",
+    "new": "$Z_a^2-Y_a=\\frac{y_as^2}{4}(qU_a+A_0V_a)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 153793,
+    "old": "`tau_R(P_a)s²+[2(116+5R)/32+55/32]s^4`",
+    "new": "$\\tau_{R}(P_{a})s^{2}+[2(116+5R)/32+55/32]s^{4}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 153837,
+    "old": "`55/32`",
+    "new": "$55/32$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 153857,
+    "old": "`45/32`",
+    "new": "$45/32$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 153895,
+    "old": "`5/16`",
+    "new": "$5/16$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 153907,
+    "old": "`K Delta H1`",
+    "new": "$K \\Delta H_{1}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 153952,
+    "old": "`s^4||R_a||4²/16<=4s^4`",
+    "new": "$s^4\\lVert R_a\\rVert_4^2/16\\le4s^4$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 154111,
+    "old": "`R=10`",
+    "new": "$R=10$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 154122,
+    "old": "`s<=1/100`",
+    "new": "$s\\le 1/100$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 154314,
+    "old": "`.001+(515/32)10^-4<.003<.005`",
+    "new": "$.001+(515/32)10^{-4}<.003<.005$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 154394,
+    "old": "`.01`",
+    "new": "$.01$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 154521,
+    "old": "`||c(s)||2<=s`",
+    "new": "$\\lVert c(s)\\rVert_2\\le s$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 154540,
+    "old": "`||h||2<=1`",
+    "new": "$\\lVert h\\rVert_2\\le1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 154561,
+    "old": "`0<=b(s)<=s`",
+    "new": "$0\\le b(s)\\le s$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 154591,
+    "old": "`b=1`",
+    "new": "$b=1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 154628,
+    "old": "`1-e^-2t<=s(t)<=2t`",
+    "new": "$1-e^{-2t}\\le s(t)\\le 2t$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 154659,
+    "old": "`199/20000<=s(t_act)<=1/100`",
+    "new": "$199/20000\\le s(t_{act})\\le 1/100$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 154710,
+    "old": "`1-e^-a>=a-a²/2`",
+    "new": "$1-e^{-a}\\ge a-a^{2}/2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 155362,
+    "old": "`eta sqrt(n)->0`",
+    "new": "$\\eta \\sqrt{n}\\to 0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 155405,
+    "old": "`(2n)^-1 sum_(a,i)|h_ai^ell(t)-h_ai^ell(0)|²`",
+    "new": "$(2n)^{-1} \\sum_{a,i}\\lvert h_{ai}^\\ell(t)-h_{ai}^\\ell(0)\\rvert^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 155479,
+    "old": "`D_(ell,*)²`",
+    "new": "$D_{\\ell,*}^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 155648,
+    "old": "`mu`",
+    "new": "$\\mu$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 155805,
+    "old": "`T=40`",
+    "new": "$T=40$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 155965,
+    "old": "`0<=x<=18`",
+    "new": "$0\\le x\\le 18$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 155981,
+    "old": "`S80(x)=sum_(j=0)^80 x^j/j!`",
+    "new": "$S_{80}(x)=\\sum_{j=0}^{80} x^{j}/j!$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 156201,
+    "old": "`x/82<1`",
+    "new": "$x/82<1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 156324,
+    "old": "`[0,4]`",
+    "new": "$[0,4]$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 156362,
+    "old": "`1/250`",
+    "new": "$1/250$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 156443,
+    "old": "`.3988`",
+    "new": "$.3988$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 156455,
+    "old": "`.3990`",
+    "new": "$.3990$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 156553,
+    "old": "`pi=16 arctan(1/5)-4 arctan(1/239)`",
+    "new": "$\\pi=16 \\arctan{1/5}-4 \\arctan{1/239}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 156647,
+    "old": "`tan(4 arctan(1/5))=120/119`",
+    "new": "$\\tan{4 \\arctan{1/5}}=120/119$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 156692,
+    "old": "`arctan(1/239)`",
+    "new": "$\\arctan{1/239}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 156741,
+    "old": "`(0,pi/2)`",
+    "new": "$(0,\\pi/2)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 156853,
+    "old": "`1/(1+x²)`",
+    "new": "$1/(1+x^{2})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 157098,
+    "old": "`q`",
+    "new": "$q$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 157138,
+    "old": "`1/10000`",
+    "new": "$1/10000$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 157208,
+    "old": "`2phi_G(4)/4<1/10000`",
+    "new": "$2\\phi_{G}(4)/4<1/10000$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 157244,
+    "old": "`(E-1)/(E+1)`",
+    "new": "$(E-1)/(E+1)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 157272,
+    "old": "`E>=1`",
+    "new": "$E\\ge 1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 157288,
+    "old": "`4E/(E+1)^2`",
+    "new": "$4E/(E+1)^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 157384,
+    "old": "`.624²<.39`",
+    "new": "$.624^{2}<.39$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 157400,
+    "old": "`.633²>.4`",
+    "new": "$.633^{2}>.4$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 157455,
+    "old": "`v,a0,r0`",
+    "new": "$v,a_{0},r_{0}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 157600,
+    "old": "`10^12`",
+    "new": "$10^{12}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 159945,
+    "old": "`sigma_1=1`",
+    "new": "$\\sigma_{1}=1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 159958,
+    "old": "`sigma_2=-1`",
+    "new": "$\\sigma_{2}=-1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 159976,
+    "old": "`phi=tanh`",
+    "new": "$\\phi=\\tanh$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 159992,
+    "old": "`J`",
+    "new": "$J$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 160169,
+    "old": "`X`",
+    "new": "$X$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 160194,
+    "old": "`g`",
+    "new": "$g$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 160249,
+    "old": "`g`",
+    "new": "$g$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 160345,
+    "old": "`sech²`",
+    "new": "$\\operatorname{sech}^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 160368,
+    "old": "`|J(X,g)|<=|g|+|X|`",
+    "new": "$\\lvert J(X,g)\\rvert\\le \\lvert g\\rvert+\\lvert X\\rvert$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 160389,
+    "old": "`|J(X,g)-J(Y,g)|<=|X-Y|`",
+    "new": "$\\lvert J(X,g)-J(Y,g)\\rvert\\le \\lvert X-Y\\rvert$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 160419,
+    "old": "`H_X=sech⁴ J`",
+    "new": "$H_{X}=\\operatorname{sech}^{4} J$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 160437,
+    "old": "`|H_X|<=1`",
+    "new": "$\\lvert H_{X}\\rvert\\le 1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 160512,
+    "old": "`g`",
+    "new": "$g$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 160992,
+    "old": "`X(0)=0,c(0)=0`",
+    "new": "$X(0)=0,c(0)=0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 161028,
+    "old": "`(v tensor h)z=v E_1[hz]`",
+    "new": "$(v \\otimes h)z=v \\mathbb E_{1}[hz]$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 161077,
+    "old": "`v h^T/n`",
+    "new": "$v h^\\top/n$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 161140,
+    "old": "`ds/dt=2(1-b)`",
+    "new": "$ds/dt=2(1-b)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 161183,
+    "old": "`s_infty`",
+    "new": "$s_{infty}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 161335,
+    "old": "`m=|| (H_1^2(0)-H_2^2(0))/2 ||_2²`",
+    "new": "$m=\\lVert (H_{1}^{2}(0)-H_{2}^{2}(0))/2 \\rVert_{2}^{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 161740,
+    "old": "`||A-A_0||HS<=sqrt(10)`",
+    "new": "$\\lVert A-A_0\\rVert_{\\mathrm{HS}}\\le\\sqrt{10}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 161765,
+    "old": "`||c||2<=sqrt(10)`",
+    "new": "$\\lVert c\\rVert_2\\le\\sqrt{10}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 161814,
+    "old": "`||c(s)||infinity<=s`",
+    "new": "$\\lVert c(s)\\rVert_\\infty\\le s$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 162060,
+    "old": "`s_infty`",
+    "new": "$s_{infty}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 162157,
+    "old": "`||A-A_0||HS<sqrt(10)+1/10`",
+    "new": "$\\lVert A-A_0\\rVert_{\\mathrm{HS}}<\\sqrt{10}+\\frac{1}{10}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 162186,
+    "old": "`||c||2<sqrt(10)+1/10`",
+    "new": "$\\lVert c\\rVert_2<\\sqrt{10}+\\frac{1}{10}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 162443,
+    "old": "`||K||op<=||K||HS`",
+    "new": "$\\lVert K\\rVert_{\\mathrm{op}}\\le\\lVert K\\rVert_{\\mathrm{HS}}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 162791,
+    "old": "`||c||infinity<=s`",
+    "new": "$\\lVert c\\rVert_\\infty\\le s$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 162811,
+    "old": "`||A||op<=||A_0||op+s²/2`",
+    "new": "$\\lVert A\\rVert_{\\mathrm{op}}\\le\\lVert A_0\\rVert_{\\mathrm{op}}+\\frac{s^2}{2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 162842,
+    "old": "`sum_a ||X_a||2<=integral_0^s ||A(v)||op v dv`",
+    "new": "$\\sum_{a} \\lVert X_{a}\\rVert_2\\le \\int_{0}^{s} \\lVert A(v)\\rVert_{\\mathrm{op}} v dv$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 163732,
+    "old": "`h_k`",
+    "new": "$h_{k}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 163743,
+    "old": "`gamma_ka=h_k sigma_a/2`",
+    "new": "$\\gamma_{ka}=h_{k} \\sigma_{a}/2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 163901,
+    "old": "`(g_1,g_2)`",
+    "new": "$(g_{1},g_{2})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 165724,
+    "old": "`chi_R`",
+    "new": "$\\chi_{R}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 165757,
+    "old": "`[-R,R]`",
+    "new": "$[-R,R]$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 165790,
+    "old": "`|chi_R'|<=1`",
+    "new": "$\\lvert \\chi_{R}^{\\prime}\\rvert\\le 1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 165817,
+    "old": "`H(X,g)`",
+    "new": "$H(X,g)$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 165829,
+    "old": "`H(X,chi_R(g))`",
+    "new": "$H(X,\\chi_{R}(g))$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 166133,
+    "old": "`F(J)=F(g)+X`",
+    "new": "$F(J)=F(g)+X$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 166154,
+    "old": "`F(z)=z/2+sinh(2z)/4`",
+    "new": "$F(z)=z/2+\\sinh{2z}/4$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 166256,
+    "old": "`X`",
+    "new": "$X$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 166305,
+    "old": "`R`",
+    "new": "$R$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 166442,
+    "old": "`[-10,10]`",
+    "new": "$[-10,10]$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 166460,
+    "old": "`||c||infinity<=s_k<=10`",
+    "new": "$\\lVert c\\rVert_\\infty\\le s_k\\le10$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 166940,
+    "old": "`H_X`",
+    "new": "$H_{X}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 166965,
+    "old": "`|phi'|<=1`",
+    "new": "$\\lvert \\phi^{\\prime}\\rvert\\le 1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 166978,
+    "old": "`|phi''|<=2`",
+    "new": "$\\lvert \\phi^{\\prime}'\\rvert\\le 2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 167189,
+    "old": "`R`",
+    "new": "$R$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 168289,
+    "old": "`2 [n^(-1) sum_i 1_{|g_ai|>R}]^(1/2)`",
+    "new": "$2\\left[n^{-1}\\sum_i\\mathbf 1_{\\{|g_{ai}|>R\\}}\\right]^{1/2}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 168394,
+    "old": "`|H_X|<=1`",
+    "new": "$\\lvert H_{X}\\rvert\\le 1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 169042,
+    "old": "`g`",
+    "new": "$g$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 169125,
+    "old": "`epsilon`",
+    "new": "$\\epsilon$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 169257,
+    "old": "`epsilon->0`",
+    "new": "$\\epsilon\\to 0$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 169382,
+    "old": "`|epsilon|<=1`",
+    "new": "$\\lvert \\epsilon\\rvert\\le 1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 169793,
+    "old": "`x_n=sum_a ||X_na-bar X_na||_2/sqrt(n)`",
+    "new": "$x_{n}=\\sum_{a} \\lVert X_{na}-\\bar{X}_{na}\\rVert_{2}/\\sqrt{n}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 169834,
+    "old": "`a_n=||A_n-bar A_n||op`",
+    "new": "$a_{n}=\\lVert A_{n}-\\bar{A}_{n}\\rVert_{\\mathrm{op}}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 169863,
+    "old": "`z_n=||c_n-bar c_n||_2/sqrt(n)`",
+    "new": "$z_{n}=\\lVert c_{n}-\\bar{c}_{n}\\rVert_{2}/\\sqrt{n}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 169983,
+    "old": "`||A||op<=M`",
+    "new": "$\\lVert A\\rVert_{\\mathrm{op}}\\le M$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 169997,
+    "old": "`||c||2<=C`",
+    "new": "$\\lVert c\\rVert_2\\le C$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 170014,
+    "old": "`||c||infinity<=s`",
+    "new": "$\\lVert c\\rVert_\\infty\\le s$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 170052,
+    "old": "`s`",
+    "new": "$s$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 170425,
+    "old": "`C`",
+    "new": "$C$",
+    "kind": "inline-transcription"
+  }
+]

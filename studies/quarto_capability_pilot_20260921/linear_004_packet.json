@@ -1,0 +1,12 @@
+{
+  "id": "linear_004",
+  "source": "docs/NOTATION.md",
+  "start": 1,
+  "end": 98,
+  "candidate": "linear_004.qmd",
+  "edits": "linear_004_edits.json",
+  "targets": "linear_004_targets.json",
+  "sources": "migration_sources.json",
+  "registry": "linear_004_registry_before.json",
+  "progress": "linear_004_progress_before.json"
+}

@@ -1,0 +1,92 @@
+# Advanced artificial chapter {#sec-advanced}
+
+This chapter is additional TEST DATA. It points backward to the grouped theorem
+references [@thm-seed; @thm-included] and forward to @sec-extra-appendix.
+
+## Deep test section {#sec-deep}
+
+The hierarchy continues through @sec-nested to @sec-leaf. The grouped section
+references [@sec-nested; @sec-leaf] exercise references at different depths.
+
+### Nested test subsection {#sec-nested}
+
+@sec-deep contains this subsection, while @sec-leaf is one level deeper.
+
+#### Leaf test subsubsection {#sec-leaf}
+
+The leaf points back to @sec-advanced and @sec-deep.
+
+::: {#thm-advanced-parts}
+## Manually linked parts
+
+For every real $x$:
+
+(a) []{#advanced-item-a} $x+0=x$;
+
+(b) []{#advanced-item-b} $0+x=x$.
+:::
+
+The labels on [part (a)](#advanced-item-a) and [part (b)](#advanced-item-b)
+are ordinary manual anchors. They are not automatically numbered theorem-subpart
+references and their displayed letters must be maintained by hand.
+
+::: {.proof}
+Both identities follow from the additive identity law, so their difference is
+zero. This proof deliberately ends in a display.
+
+$$
+(x+0)-(0+x)=0.
+$$
+:::
+
+::: {#alg-toy-update}
+## Toy update
+
+1. Start with an artificial scalar $x$.
+2. Form $y=x+0$.
+3. Return $y$.
+:::
+
+The native @alg-toy-update returns the input unchanged.
+
+::: {#exr-toy-update}
+## Update exercise
+
+Apply @alg-toy-update to $x=3$.
+:::
+
+::: {#sol-toy-update}
+## Update solution
+
+The output is $3+0=3$.
+:::
+
+Thus @sol-toy-update answers @exr-toy-update.
+
+## Representative display {#sec-long-display}
+
+The next display defines one simple macro inside mathematics and combines
+expectation, a linear operator, an inner product, a norm, and a finite sum.
+
+$$
+\newcommand{\toyE}{\mathbb{E}}
+\begin{aligned}
+\toyE\!\left[\left\langle v,\mathcal{L}
+  \left(\frac{1}{N}\sum_{i=1}^{N}\phi(X_i)\right)\right\rangle\right]
+&=\frac{1}{N}\sum_{i=1}^{N}
+  \toyE\!\left[\left\langle\mathcal{L}^{*}v,\phi(X_i)\right\rangle\right],\\
+\left\|\toyE\!\left[\mathcal{L}
+  \left(\frac{1}{N}\sum_{i=1}^{N}\phi(X_i)\right)\right]\right\|_{
+  \mathsf H}
+&\le \|\mathcal{L}\|_{\mathsf H\to\mathsf H}\,
+  \frac{1}{N}\sum_{i=1}^{N}\toyE\!\left[\|\phi(X_i)\|_{\mathsf H}\right].
+\end{aligned}
+$$ {#eq-representative-long}
+
+Equation @eq-representative-long is artificial notation for rendering only.
+
+![Artificial TEST DATA curve generated from the companion standalone TeX source.](extra_figure.png){#fig-extra-curve}
+
+@fig-extra-curve is a native labelled figure. The two clearly fictitious records
+may be cited together [@toy2025; @toy2026] and with pages
+[@toy2025, pp. 4--5; @toy2026, p. 7].

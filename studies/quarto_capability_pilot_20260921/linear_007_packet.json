@@ -1,0 +1,12 @@
+{
+  "id": "linear_007",
+  "source": "docs/global_nonlinear.md",
+  "start": 1000,
+  "end": 1898,
+  "candidate": "linear_007.qmd",
+  "edits": "linear_007_edits.json",
+  "targets": "linear_007_targets.json",
+  "sources": "migration_sources.json",
+  "registry": "linear_007_registry_before.json",
+  "progress": "linear_007_progress_before.json"
+}

@@ -1,0 +1,245 @@
+### D. Activation-dependent inductive bias {#sec-docs-readme-l497}
+
+Explain which task characteristics favor one activation over another through
+the actual trained selection mechanism. Seek two genuinely different
+activations and robust regimes with a meaningful crossover, including sampling
+sensitivity where relevant. Initial kernel spectra can guide a proof but do
+not replace analysis of trained nonlinear predictions.
+
+Control initialization and output scales, training time and tuning opportunities.
+Avoid manufacturing the comparison through scalar gain alone or a symmetry
+mismatch that prevents one model from representing the task. Each activation
+requires its own justified dynamical scope. B makes the comparison interpretable
+in terms of task structure and risk. A successful D explains activation choice
+even if efficient unknown-structure discovery remains open.
+
+### E. Efficient discovery of unknown structure {#sec-docs-readme-l512}
+
+Show how useful representations emerge without being supplied in the
+initialization. On a substantial structured task family with unknown directions,
+components or interactions, prove discovery and exploitation by the actual
+jointly trained network, with explicit sample, training-time and finite-network
+requirements. Finite GD claims retain their proved step conditions.
+
+Establish class-level advantages over deep linear training and precisely
+specified frozen-feature and initialized tangent-kernel alternatives. The
+advantage may concern sample, parameter or computational scaling; it need not
+exclude approximation by a much more expensive competitor. State resource
+constraints and tuning opportunities fairly. A and B explain selection and
+its usefulness; emergence from the original Gaussian initialization is E's
+additional obligation. Response around a fitted reference alone does not
+establish it.
+
+### F. A genuine advantage of depth {#sec-docs-readme-l529}
+
+Find a robust task class for which the actual deep training algorithm has a
+learning guarantee that a trained one-hidden-layer alternative cannot match
+under clearly stated resource or training constraints. Combine the deep upper
+bound with an appropriate shallow approximation, statistical or optimization
+lower bound. The explanation must identify useful nonlinear composition across
+layers. Feature motion, sequential discovery or superiority over a frozen
+kernel alone does not establish the shallow comparison.
+
+E supplies actual discovery of unknown structure; F identifies structures for
+which depth makes its exploitation substantially more efficient. A suitable
+common task family and the required exact-model shallow obstruction remain
+research obligations, not assumptions secured by the roadmap.
+
+### Common-family completion and the possible milestone G {#sec-docs-readme-l544}
+
+The final learning, activation, depth and computational results must have
+substantial overlap in task families, models and learning regimes. C's solver
+must approximate the same objects on the relevant horizons, with qualitative
+convergence and feasible operation at declared resolutions. If the results
+already have this compatibility, completion is integration and verification.
+If extending their scope requires new mathematics, that is a separate
+milestone G; its count is not fixed in advance for presentation symmetry.
+A claim that a particular numerical run resolves a learning or comparison
+margin still requires its own sufficient error control. Such quantitative
+certification remains a later extension and is not inferred from C-H3/C-H4
+or made a prerequisite for their qualitative completion.
+
+A possible missing obligation is controlling the necessary source modes or
+memory using the learned structure. Low-dimensional structure in a target
+does not automatically imply a small representation of the trained Gaussian
+evolution. This computational compatibility and the exact-model shallow
+separation are substantial uncertainties. Screen candidate families early
+for compatibility rather than accumulating results that cannot be combined.
+
+### Conditional GD fallback and recalibration {#sec-docs-readme-l565}
+
+The current route uses the established GF foundation. Reconsider direct GD
+when a milestone encounters a persistent, precisely identified obstacle that
+a discrete formulation might remove. A failed calculation or one unsuccessful
+proof route is not evidence against the target itself.
+
+First distinguish a route failure, a missing estimate and an obstruction to
+the claim. Then compare concrete GF and GD formulations with the same learning
+objective, initialization, nonlinear mechanism and observations. Tensor-program
+identification makes each admissible fixed GD computation available in the
+width limit; the number of steps may be large and depend on the dataset or
+desired accuracy if chosen before width. It does not itself prove that those
+steps achieve useful loss, hidden adaptation or generalization. A discrete
+route can therefore avoid continuous-time existence while retaining a hard
+long-training problem. The exact clocks and endpoint geometry already
+available for GF are reasons to assess the particular obstacle before switching.
+
+Adopt a GD route only when this comparison identifies a documented, concrete
+advantage in addressing the named obstacle while preserving the stated target,
+or explicitly agreeing a revised target. Availability of tensor-program limits
+alone is insufficient reason for a switch.
+
+A fixed-step GD result must be stated as such: its learning-rate-dependent
+prediction is not automatically the GF prediction. If a branch adopts GD,
+common-family completion with C requires a proved dynamics comparison,
+controlled discretization bias or a separately formulated computational theorem
+for GD. Numerically discretizing GF is also distinct from changing the learning
+algorithm to fixed-step GD.
+
+Recalibrate after successes as well as persistent blockages, using the actual
+proved statements and dependencies. The intended order is A, then B, followed
+by D and E, with F after E; C can proceed independently from the established
+starting point. Each claimed win retains independent scientific review and
+the existing promotion requirements. The roadmap does not authorize importing
+unreviewed findings across study boundaries or treating exploratory evidence
+as established theory.
+
+## Chapters and their exact roles {#sec-docs-readme-l603}
+
+| Chapter | Established content and scope |
+|---|---|
+| [Finite dynamics and energy](finite-dynamics.qmd#sec-docs-finite-dynamics-l1) | Exact all-depth, finite-batch gradients, raw kernel blocks and dissipation; global finite-width GF for `C^2` activations; finite-horizon norm bounds under bounded slopes. Separate L2 one-sample QI/IQ/QQ and differentiated RMS identities include full gradients/kernels, Lax operators, an orientation witness and balance laws. Separate half-square-loss, order-one-readout results give a frozen quadratic joint initial layer, a reached finite ReLU classical obstruction, and local compactness of actual ReLU Euler outputs. |
+| [Gaussian and flow calculus](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l1) | Exact conditioning, empirical transpose laws, rational Gaussian moments and fixed-program width identification with order-one stored readout. Also finite moving physical-flow jets at arbitrary fixed depth/batch through order five, typed held-fixed preactivation Hessians, exact weighted contraction trees and Gaussian forests with all-moment concentration, polynomial Gaussian fourth-order heads, simultaneous fixed-program quadratic loss-GD closure, a width-first quadratic initial layer, exact shallow identity GD and positive Stieltjes measure, a regenerated frozen-first-block Stieltjes certificate, and exact-compiler cubic step-doubling coefficients with explicit fifth-order remainders for fixed depth/update count. Finite loss-GD pullback words and a separate convex-region comparison bound retain the moving residual. An explicit forest proof extends the Stieltjes witness to an existential interval of positive metrics; canonical factorial growth rules out uniform convergence of a prescribed Taylor-loss family. These annealed formal results remain distinct from positive-time network convergence. A sharp shallow feature-step bound is uniform in update count, with a restricted dyadic expected-output limit. No growing reused-matrix program or physical-loss GF inference. An identity-only theorem at every separately fixed depth proves an explicit update-uniform fifth-order remainder and local operator-state flow after the fixed-program width limit; its separate deterministic energy-ball witness refutes a proposed activation-stability bound. A separate exact three-query law proves failure of uniform higher-moment bounds, conditional on a common action realization for the corresponding operator conclusion. Exact integrated-query perturbation and adaptive transcript results include a contained matrix-concentration proof, causal filtering, own-history rank bounds, and same-cap comparison for R_n=o(log n). They do not remove caps or supply a common varying-cap population limit. |
+| [Arctangent operator limits](arctan-limits.qmd#sec-docs-arctan-limits-l1) | One input and label one, small stored readout: global joint L=2 limit and complete local L=3 limit, with their own step conditions and observable contracts. Also contains a global auxiliary population/width theorem at each fixed backward-query cap, on finite feature-time horizons. This is not the uncut optimizer. |
+| [Global nonlinear learning](global-nonlinear.qmd#sec-docs-global-nonlinear-l1) | The same activation `1+arctan(z)/10`, every separately fixed hidden depth `L>=3`, one input and label one: global compact-time joint limit, fitting, persistent nonaffinity and hidden activity. Broad two-layer activation-transform limits allow orthogonal data, with an affine-first arbitrary-data exception and distinct GD step conditions. A separate fixed-depth C1,1 theorem is local for arbitrary fixed data and subGaussian roots; its strict-activity corollary keeps extra Gaussian and nondegeneracy hypotheses. A separate local two-hidden-tanh theorem admits every bounded-label law on the normalized input circle: quantitative training-law and replacement stability, a precisely ordered expected generalization-gap bound, simultaneous sampling/width/raw-GD consistency without relative growth restrictions, and an open nonlazy family. A separate fitted-reference transfer gives whole-circle endpoint approximation and risk at most 1/4 at T=40 for an explicit, extremely small binary-law neighborhood, with early paired hidden activity; it does not construct global perturbed-law population dynamics. At that fitted reference, a separate response theorem captures actual finite-GF data derivatives on each fixed horizon and the whole circle, with uniformly bounded population homogeneous propagation and total-variation forcing control. @sec-docs-global-nonlinear-l8978 separately constructs nonlinear changed-law population flows in a sufficiently small neighborhood of that reference through physical time 40, captures actual finite GF there, and gives a finite-contamination remainder with a width-first bridge to the response. @sec-docs-global-nonlinear-l16001 gives the actual centered influence and an L2(circle) Gaussian sampling limit at T=40 for every separately fixed Borel law in a smaller neighborhood, with spatial covariance, a mean-square remainder and a width-first finite-GF bridge. @sec-docs-global-nonlinear-l17554 characterizes a finite nonlinear added-data episode for an open single-atom family admitting nonorthogonal inputs: original fixed-mixture GF selects a constrained whole-circle prediction at physical times of order 1/epsilon, with positive added-atom risk improvement, paired second-hidden adaptation and width-first finite-GF capture. It does not assert a final changed-law endpoint or an out-of-sample risk guarantee. @sec-docs-global-nonlinear-l19884 gives finite-episode generalization for an independently specified odd Fourier regression family with full-circle input densities and bounded centered noise. It combines finite-mode nonlinear approximation, separate input/noise sampling bounds and a class-determined positive stop, with robust unseen-risk improvement, paired circle-plus-anchor second-hidden motion, and ordered width/contamination/sample limits for actual GF; conditioning constants remain unevaluated. @sec-docs-global-nonlinear-l21578 separately proves a small early-time test-risk advantage over frozen initial hidden features at matched training loss for one prescribed three-point tanh design and the uniform-circle target `cos(3 alpha)`. Its computer-assisted positive cubic coefficient has a controlled actual-flow remainder; neither the time interval nor the remainder constant is numerically evaluated. The frozen population kernel equals the full initial tangent kernel under this initialization; the finite comparator freezes hidden layers and trains only the readout. This is no class-level or later-time superiority theorem. |
+| [Population limits and correlated-data geometry](special-data-limits.qmd#sec-docs-special-data-limits-l1) | Opposite-label L2 arctangent at orthogonal/antipodal inputs; equal-label shifted-arctangent L3 at all admitted correlations; and a three-sample bounded-shape/gain family at every fixed depth. A separate generic-correlation L2 arctangent theorem proves strong first-layer GF/raw-GD compactness and no kinetic defect, not a unique population limit. Initialization comparisons separately prove sharp odd-mixture conditioning, convex-offset collapse despite scalar nonaffinity, and calibrated sequential width/depth geometry. Separate plateau proofs give a protected Gram, continuous-time row confinement, selected conditional path-law compactness, and finite fitting/restart obstructions. A near-identity family has conditional necessary fitting-distance and time bounds. Further complete global families include separated two-sample offset activations, the odd delta-squared scale and its normalization variants, general-shape and every-fixed-depth perturbations with their own cutoffs, and a three-sample odd large-gain theorem. Moderate sine has exact initialization, a local limit, finite controls and conditional continuation. Further sections contain order-one Gaussian-readout L2 natural-gate GF limits, equal-label sech-gate L3 transfer, order-one-readout tanh short-time/zero-label results, unit-mobility sin-plus-cosine formal coefficients, global given-space affine references with qualified fitting, conditional Osgood continuation, and same-array response estimates. Reached local sech-gradient irregularity, ambient metric/response obstructions and the separate auxiliary first-Euler obstruction retain their distinct scopes. |
+| [Linear dynamics and exact-capture comparisons](linear-dynamics.qmd#sec-docs-linear-dynamics-l1) | Existing L3 one-input operator/GF/GD theorem, fitting and restricted nonclosure; plus shallow nonlinear characteristics with compact-time output/loss error rates and bounded-activation particle coupling, a contained L2 linear spectral GF system with fitting, and the operator GF limit at every separately fixed linear depth, including trace-norm increment control. These added one-input, order-one-readout GF theorems have no raw-GD or arbitrary-data extension. |
+| [Continuous depth](continuous-depth.qmd#sec-docs-continuous-depth-l1) | A different, scalar-particle residual architecture: global characteristic GF and joint width/depth convergence under explicit parameter regularity. A separate section derives finite dense-ResNet gradient/energy/response identities and supplied-trajectory factorial tails, retaining the actual matrices and a separate source-error term. A coherent dense `W/n` kernel model also has a complete global strong-carrier flow with fixed endpoints. A distinct finite-source conditional transport model has complete adjoint, variational, kernel, energy and parity identities, with its regularity and uniqueness premises explicit. These dense and finite-source results supply no width/depth approximation or joint GD-step theorem. |
+| [Finite optimization and controls](finite-optimization-and-controls.qmd#sec-docs-finite-optimization-and-controls-l1) | Canonical L=3 arctangent finite GF and exact GD fitting with finite endpoints on proved Gaussian events; a separate energy-compatible finite projection, integrated L1 defect and exactness at a sufficient cap C sqrt(n). Also mixed-activation L2 finite-GF fitting at every interior correlation with opposite labels, and permanent first-gate mass on an augmented event. A separate prescribed-Hilbert-space capped flow has conditional exponential-tail continuation; its Gaussian action construction and finite-network identification are not supplied. Exact integrated-query memories and supplied-path time covers are also included, with causal stability and derivative/kernel gaps explicit. Full finite tangent geometry adds intrinsic-volume control and its Gaussian expectation, an exact hidden-projection factor, and a deterministic reachable signed-Hessian obstruction. Further squared-log response bounds, a complete reused-Gaussian initialization law and actual small-time positive-curvature estimates have their own finite scopes. Moderate sine has raw-GD energy bounds, weak path tightness and strong endpoints conditional on an existing population path. No population/GD extension for the projection or mixed-activation results. |
+
+Read the first two chapters as common mathematical foundations. The nonlinear
+chapters carry their complete source-identification and stability proofs; a
+reader need not reconstruct a probability argument from an earlier report.
+The [linear](linear-dynamics.qmd#sec-docs-linear-dynamics-l1) and [continuous-depth](continuous-depth.qmd#sec-docs-continuous-depth-l1) chapters clarify what an operator representation
+can retain and which conclusions are architecture-dependent. The [finite-controls](finite-optimization-and-controls.qmd#sec-docs-finite-optimization-and-controls-l1)
+chapter separates optimization from population identification. The accompanying
+[implementation guide](implementation-guide.qmd#sec-code-readme-l1) describes the finite reference, moving
+jets, quadratic/RMS state evaluators, a frozen-quadratic half-loss step, and exact Gaussian/certificate/Euler
+arithmetic. @sec-docs-global-nonlinear-l21578 additionally includes a computer-assisted sign proof: its analytic error bounds and executed finite arithmetic jointly establish the coefficient enclosure. The optional certificate tool regenerates its inputs and exact intervals from source, with independent checking routes and no archived-array dependency.
+
+## Comparison of mathematical targets {#sec-docs-readme-l626}
+
+Several distinct targets are often conflated:
+
+- A fixed finite Gaussian computation identifies finitely many matrix calls;
+  it does not automatically control a growing number of GD steps.
+- A formal self-consistency equation identifies a candidate; its well-posedness
+  and convergence from actual networks are additional obligations.
+- A fixed-kernel approximation does not establish learned hidden features.
+- A finite number of function or operator fields is not a finite number of
+  scalar moments. Restricted nonclosure can coexist with an operator limit.
+- Compact-time convergence and optimization are separate. If population loss
+  tends to zero, choose a finite `T` for a desired loss accuracy first; uniform
+  approximation on `[0,T]` then transfers that accuracy to sufficiently wide
+  networks with sufficiently small steps. This does not give a bound uniform
+  over arbitrary growing `T_n` or convergence of final parameter endpoints.
+
+These are distinctions between mathematical claims, not an assertion that an
+entire literature lacks a particular theorem or that the library establishes
+priority over all prior work. No such novelty claim is needed by any proof here.
+
+The same care applies to the value of intermediate results. Exact finite
+identities, Gaussian-response calculus, correct computational recurrences,
+initialization bounds and scoped representation obstructions are substantive
+results even when they do not deliver a global nonlinear limit. An auxiliary
+clipped flow can isolate the estimate that is missing for the uncut system.
+However, a comparison for caps increasing with width does not alone construct
+one common population limit. An obstruction to a specified scalar encoding
+does not forbid an operator representation. These distinctions guide what is
+worth proving and incorporating, not merely how finished theorems are named.
+
+## Orientation to prior work {#sec-docs-readme-l657}
+
+The following primary sources provide non-exhaustive context, not theorem
+dependencies of the chapters. Their hypotheses are not imported to complete
+any proof in this library. The useful comparison is between precise models and
+limits, rather than labels such as “mean field,” “DMFT” or “deep.”
+
+Yang and Hu's *Tensor Programs IV* studies infinite-width feature-learning
+parameterizations and gives discrete-training limit formulas. It is directly
+relevant to retaining nonlinear hidden learning under matrix reuse. A
+fixed-program identification result must still be supplemented by estimates
+uniform in a refining time mesh to obtain the particular joint GF target here;
+this is an additional obligation, not a claim that tensor-program methods
+cannot contribute to optimization theory.
+[Tensor Programs IV](https://proceedings.mlr.press/v139/yang21c/yang21c.pdf).
+
+Rigorous nonlinear multilayer mean-field theory is not absent from the
+literature. Nguyen and Pham develop a neuronal-embedding framework with
+trajectory approximation and optimization results in specified setups; their
+all-depth optimization conclusions include special correlated initializations.
+Comparing such a result with this book requires matching the hidden-sum
+normalization, initial laws, training metric and surviving Gaussian actions,
+not merely counting hidden layers or observing that both limits are nonlinear.
+[A Rigorous Framework for the Mean Field Limit of Multilayer Neural Networks](https://arxiv.org/pdf/2001.11443v3).
+
+Nor is every DMFT result only a formal physics calculation. Celentano, Cheng
+and Montanari prove bounded-time high-dimensional trajectory limits described
+by DMFT for a class of random-design flows. Their applications include shallow
+networks with a fixed number of hidden units while input and sample dimensions
+grow. This is a rigorous, relevant comparison, but a different limit from
+training all hidden Gaussian matrices at diverging width and fixed input data.
+[The high-dimensional asymptotics of first order methods with random data](https://web.stanford.edu/~chen96/papers/fom_dynamics.pdf).
+
+For particle/measure descriptions, Chizat and Bach connect a many-particle
+gradient flow to optimization under explicit structural and initialization
+conditions, including single-hidden-layer applications. This is a useful
+precedent for combining approximation and fitting; the logical strategy is
+not itself a novelty claim. Extending exact capture to nested learned matrix
+actions requires additional structure beyond a shallow particle description.
+[On the Global Convergence of Gradient Descent for Over-parameterized Models using Optimal Transport](https://arxiv.org/pdf/1805.09545v2).
+
+Linear and kernel descriptions remain informative comparisons, but neither
+alone explains nonlinear feature learning. Conversely, a nonlinear population
+equation does not by itself prove optimization or generalization. A serious
+comparison records architecture, initialization, data model, parameterization,
+optimizer, horizon, topology and observable scope side by side. This book
+makes no comprehensive literature-exclusion or priority claim.
+
+## Scope and future development {#sec-docs-readme-l705}
+
+The global uncut dense L=3 arctangent population theorem for general correlated
+datasets is not asserted. The local two-hidden-tanh result in
+Global nonlinear learning, @sec-docs-global-nonlinear-l3836
+proves a local input-population limit and bounds the absolute value of the expected
+train–test gap, with the time supremum outside the expectation. Its local theorem
+does not bound the expected absolute gap or excess risk. @sec-docs-global-nonlinear-l5270 separately
+proves useful-risk reduction and whole-circle robustness at a fixed time near
+one fitted opposite-label reference. Its certified neighborhood is extraordinarily
+small; it supplies neither a global perturbed-law population flow nor evidence
+that feature learning outperforms frozen or linear models. @sec-docs-global-nonlinear-l6904
+separately captures actual finite-GF data derivatives at this trained reference
+on each fixed horizon, with a population homogeneous propagator bounded
+uniformly in time. Its total-variation forcing bound gives response control
+linear in the horizon; @sec-docs-global-nonlinear-l6904 itself constructs neither nonlinear changed-law
+population flows nor a finite-contamination remainder. @sec-docs-global-nonlinear-l8978
+separately constructs nonlinear changed-law population flows in a sufficiently
+small neighborhood of that fitted reference through physical time 40, captures
+actual finite GF on this interval, and gives a finite-contamination remainder
+with a width-first bridge to the infinitesimal response. Its nonlinear claims
+have the stated neighborhood and fixed horizon. @sec-docs-global-nonlinear-l16001 gives the actual centered influence and an L2(circle) Gaussian sampling limit at T=40 for every separately fixed Borel law in a smaller neighborhood, with spatial covariance, a mean-square remainder and a width-first finite-GF bridge.
+@sec-docs-global-nonlinear-l17554 characterizes a finite nonlinear added-data episode for an open single-atom family admitting nonorthogonal inputs: original fixed-mixture GF selects a constrained whole-circle prediction at physical times of order 1/epsilon, with positive added-atom risk improvement, paired second-hidden adaptation and width-first finite-GF capture. It does not assert a final changed-law endpoint or an out-of-sample risk guarantee. @sec-docs-global-nonlinear-l19884 gives finite-episode generalization for an independently specified odd Fourier regression family with full-circle input densities and bounded centered noise. It combines finite-mode nonlinear approximation, separate input/noise sampling bounds and a class-determined positive stop, with robust unseen-risk improvement, paired circle-plus-anchor second-hidden motion, and ordered width/contamination/sample limits for actual GF; conditioning constants remain unevaluated.
+@sec-docs-global-nonlinear-l21578 separately proves a small early-time test-risk advantage over frozen initial hidden features at matched training loss for one prescribed three-point tanh design and the uniform-circle target `cos(3 alpha)`. Its computer-assisted positive cubic coefficient has a controlled actual-flow remainder; neither the time interval nor the remainder constant is numerically evaluated. The frozen population kernel equals the full initial tangent kernel under this initialization; the finite comparator freezes hidden layers and trains only the readout. This is no class-level or later-time superiority theorem.
+A global input-population theorem and a dense Gaussian joint depth/width/time
+theorem remain outside the established scope; this is not an impossibility result.
+
+Future additions should enlarge this library through proved statements with
+explicit dependencies and consistent notation. Each result should say which
+inputs, initialization, mobilities, observables, topology and horizons it covers;
+whether learning remains nonlinear and nonlazy; and exactly what restartability
+means. Numerical evidence requires its full generation commands, configurations
+and seeds. No theorem relies on an empirical figure or an unreproducible coefficient table. @sec-docs-global-nonlinear-l21578 explicitly includes its computer-assisted certificate, complete analytic error bounds, and maintained reproduction source.
+
+## General-dimension first-order implementation {#sec-docs-readme-l740}
+
+[General-d p=1 coefficients and finite computation](observable-p1.qmd#sec-docs-observable-p1-l1) gives exact initialized coefficient and antithetic identities, a finite GPU backend and an actual-network comparator. It supplies no general-d trained-network convergence theorem or MNIST/PCA empirical conclusion.

@@ -1,0 +1,555 @@
+# Global nonlinear learning at every fixed hidden depth {#sec-docs-global-nonlinear-l1}
+
+This chapter proves a global population limit for one training sample and
+every separately fixed number of hidden layers $L\ge3$, with the activation
+
+$$
+\phi(z)=1+\frac{\arctan z}{10}
+$$
+
+in every hidden layer. The same activation is used independently of depth,
+width and physical time. The result includes finite gradient flow, exact
+gradient descent, every parameter-gradient kernel block, current operator
+actions and adjoints, hidden path laws, and hidden velocities.
+
+We use the [shared notation](notation.qmd#sec-docs-notation-l1). Finite hidden vectors are
+$z^{(\ell)},h^{(\ell)}$; population random variables are
+$Z^{(\ell)},H^{(\ell)}$. Finite and population weights both use
+$W^{(\ell)}$, with their types stated below. Finite transposes are $T$;
+population adjoints are $*$. Every finite vector norm is the ordinary
+Euclidean norm, with any factor $1/\sqrt n$ or $1/n$ displayed explicitly.
+
+The argument constructs its Gaussian actions and proves the required
+finite-program limits, response estimates and continuum comparisons here.
+Its general background is elementary probability and Gaussian integration,
+basic measure theory, and Hilbert and Banach space analysis. Auxiliary clips,
+query perturbations and oracle programs are removed before stating the
+limiting dynamics. The main theorem concerns each fixed depth and each finite
+physical horizon; it does not take a simultaneous depth and width limit.
+@sec-docs-global-nonlinear-l3982–@sec-docs-global-nonlinear-l4949 separately prove local training-law stability and an
+input-population limit for two hidden tanh layers on the normalized input
+circle. @sec-docs-global-nonlinear-l5270 proves fixed-time risk reduction and whole-circle
+robustness near one fitted reference, with an explicit extremely small radius.
+
+## 1. Exact model and theorem {#sec-docs-global-nonlinear-l32}
+
+There is one sample, with $m=d=1$ and $x_1=y_1=1$; its sample
+index is suppressed. Every hidden layer has width $n$. The first weight
+$W^{(1)}\in\mathbb R^{n\times1}$ is identified with its column vector,
+so $z^{(1)}=W^{(1)}$. The stored readout
+$W^{(L+1)}\in\mathbb R^n$ is a vector, and each
+$W^{(\ell)}\in\mathbb R^{n\times n}$, $2\le\ell\le L$, is a
+hidden matrix. All fixed mobility multipliers are
+$\kappa_\ell=1$: the Euclidean block mobilities are
+$n,1,\ldots,1,n$. Define
+
+$$
+ \phi(z)=1+\arctan(z)/10,\qquad h^{(\ell)}=\phi(z^{(\ell)}),\qquad
+ z^{(\ell)}=W^{(\ell)}h^{(\ell-1)}\quad(2\le\ell\le L),
+$$
+
+$$
+ f_n=(W^{(L+1)})^Th^{(L)}/n,\quad r_n=f_n-1,\quad \mathcal L_n=r_n^2.
+$$
+
+Products and nonlinearities are coordinatewise. Define backwards,
+without including the residual,
+
+$$
+ \delta^{(L)}=W^{(L+1)}\phi'(z^{(L)}),\quad
+ q^{(\ell)}=(W^{(\ell+1)})^T\delta^{(\ell+1)},\quad
+ \delta^{(\ell)}=\phi'(z^{(\ell)})q^{(\ell)}
+       \quad(\ell=L-1,\ldots,1).                       
+$$ {#eq-docs-global-nonlinear-l52}
+
+All entries and parameter blocks at initialization are independent:
+
+$$
+ z^{(1)}_{0,i}\sim N(0,1),\quad
+ W^{(\ell)}_{0,ij}\sim N(0,1/n)\ (2\le\ell\le L),\quad
+ W^{(L+1)}_{0,i}\sim N(0,n^{-2}).                       
+$$ {#eq-docs-global-nonlinear-l59}
+
+Exact raw GD, with $\eta_n=n^{-2}$, is
+
+$$
+ z^{(1)}_{k+1}=z^{(1)}_k-2\eta_n r_{n,k}\delta^{(1)}_k,\quad
+ W^{(\ell)}_{k+1}=W^{(\ell)}_k-
+       \frac{2\eta_n r_{n,k}}n
+                   \delta^{(\ell)}_k(h^{(\ell-1)}_k)^T
+                \quad(2\le\ell\le L),
+$$
+
+$$
+ W^{(L+1)}_{k+1}=W^{(L+1)}_k-2\eta_n r_{n,k}h^{(L)}_k. 
+$$ {#eq-docs-global-nonlinear-l72}
+
+Physical time is $t=k\eta_n$. Raw parameters are linearly interpolated,
+and hidden preactivations/features are recomputed. At interior mesh
+nodes velocities mean right derivatives, and at a terminal mesh node
+they mean left derivatives. Finite GF has the corresponding continuous
+raw equations.
+
+::: {#thm-docs-global-nonlinear-l81}
+## global joint limit
+
+For every fixed integer $L\ge3$, there are $L$ fixed neuron
+probability spaces $(\Omega_\ell,\mathcal F_\ell,\mathbb P_\ell)$.
+Write $E_\ell$ for expectation and
+$\mathcal H_\ell=L^2(\Omega_\ell,\mathbb P_\ell)$.
+There are bounded initial Gaussian matrix actions
+$W^{(\ell)}_0:\mathcal H_{\ell-1}\to\mathcal H_\ell$,
+$2\le\ell\le L$, with their actual Hilbert-space adjoints. On these spaces, the
+$L+1$ present objects
+
+$$
+ X^{(1)},\quad W^{(2)},\ldots,W^{(L)},\quad W^{(L+1)},
+ \qquad Z^{(1)}=F^{-1}(X^{(1)}),\quad F(z)=10(z+z^3/3) 
+$$ {#eq-docs-global-nonlinear-l89}
+
+define an autonomous population gradient flow, where
+$X^{(1)}\in\mathcal H_1$, $W^{(L+1)}\in\mathcal H_L$, and
+$W^{(\ell)}:\mathcal H_{\ell-1}\to\mathcal H_\ell$ is bounded.
+Each $Z^{(\ell)},H^{(\ell)},\delta^{(\ell)}$ belongs to
+$\mathcal H_\ell$; each incoming query $q^{(\ell)}$ belongs to
+$\mathcal H_\ell$, for $1\le\ell<L$. The backward symbol
+$\delta^{(\ell)}$ is used in both settings with these explicit types.
+Initial $Z^{(1)}$ is standard Gaussian and the initial population readout is zero.
+Forward and backward equations are @eq-docs-global-nonlinear-l52 with capital $Z,H$ and
+population adjoints $^{*}$ replacing finite transposes $^{T}$.
+Expectations always refer to the population containing the scalar
+integrand. For $U\in\mathcal H_\ell$, $V,g\in\mathcal H_{\ell-1}$,
+the rank-one action is
+$(U\otimes V)g=U E_{\ell-1}[Vg]$.
+In generic probability identities below, $\mathbb E$ denotes expectation
+on the stated probability space; for a typed layer integrand it means
+$E_\ell$ on that layer. We abbreviate
+$\|U\|_{L^p(\Omega_\ell)}$ by $\|U\|_{L^p}$ when the type of
+$U$ fixes the layer. These are population norms, never normalized finite
+norms. The equations are
+
+$$
+ f=E_L[W^{(L+1)}H^{(L)}],\quad r=f-1,\quad \mathcal L=r^2,\quad
+ \dot X^{(1)}=-2r q^{(1)},\quad
+ \dot W^{(\ell)}=-2r\delta^{(\ell)}\otimes H^{(\ell-1)}
+                  \ (2\le\ell\le L),\quad
+ \dot W^{(L+1)}=-2rH^{(L)}.                            
+$$ {#eq-docs-global-nonlinear-l113}
+
+For every finite $T$ there is a solution, unique among continuous
+integral solutions on the same spaces with bounded vector $L^2$ norms
+and matrix operator norms on compact intervals. Uniqueness includes
+the raw first-coordinate equations. From every reached state the
+solution is uniquely restartable for every finite remaining physical
+interval. Matrices have Hilbert--Schmidt trained increments, and the
+raw equations are the gradient flow of $(f-1)^2$ for the Hilbert
+metric specified in @sec-docs-global-nonlinear-l1136. The number of fields/operators is finite;
+their state spaces need not be finite-dimensional.
+
+For every fixed $T$, the full width sequence of exact GD and its
+corresponding finite GF converges jointly in probability to this flow,
+uniformly on $[0,T]$, as follows. For any fixed finite same-layer
+list of current fields and probe outputs, the joint empirical law
+converges in $\mathcal W_2$ to its population law. Probes may use real
+linear combinations, globally Lipschitz coordinate maps, products of
+bounded factors, and either direction of any current matrix.
+The class additionally contains every backward field @eq-docs-global-nonlinear-l52 and every
+hidden preactivation/feature velocity. Finitely many time arguments
+may be included jointly, with convergence uniform over those arguments.
+There is no artificial coordinate pairing between different populations.
+Equivalently, all continuous tests of at most quadratic growth on each
+such finite list converge in empirical average. Here $\mathcal W_2$
+is the infimum square root of expected squared distance over couplings.
+
+In particular prediction, residual, loss, and all $L+1$ raw kernel
+blocks converge uniformly:
+
+$$
+ K_n^{(1)}=\|\delta^{(1)}\|_2^2/n,\quad
+ K_n^{(\ell)}=\|\delta^{(\ell)}\|_2^2\|h^{(\ell-1)}\|_2^2/n^2
+                       \ (2\le\ell\le L),\quad
+ K_n^{(L+1)}=\|h^{(L)}\|_2^2/n.                        
+$$ {#eq-docs-global-nonlinear-l147}
+
+Every hidden preactivation and feature whole-path empirical law
+converges in $\mathcal W_2(C([0,T]))$ for the supremum norm;
+integrated squared velocities converge. If finite GD and GF have the
+same initialization, their same-width state distance, uniformly in time,
+tends to zero in probability, where
+
+$$
+ d_n(\Theta,\widetilde\Theta)=
+ \frac{\|F(z^{(1)})-F(\widetilde z^{(1)})\|_2}{\sqrt n}
+ +\sum_{\ell=2}^L\|W^{(\ell)}-\widetilde W^{(\ell)}\|_{\rm op}
+ +\frac{\|W^{(L+1)}-\widetilde W^{(L+1)}\|_2}{\sqrt n}. 
+$$ {#eq-docs-global-nonlinear-l158}
+
+Across widths, convergence concerns empirical/action laws, not
+operator-norm convergence between different spaces.
+
+The population fits the label, with
+$\mathcal L(t)\le \exp(-25t/9)$.
+Every hidden law has strictly positive best affine-approximation error
+for $\phi$, uniformly on each compact physical interval including
+initialization. Every hidden feature velocity has nonzero $L^2$ norm
+at every positive finite physical time. All trained blocks move, hidden
+motion begins at second order, and the total kernel is nonconstant.
+The coefficient $1/10$ is fixed independently of depth, width, and time.
+
+:::
+
+Proof architecture. Finite Gaussian calculations identify clipped Euler
+laws and fixed-space bounded actions. @sec-docs-global-nonlinear-l816 proves a response bound
+by a time induction whose forward pass goes up the layers and backward
+pass goes down. The same numerical bounds hold at every interior layer.
+A comparison linear in the clipping level then removes all clips.
+The positive activation floor keeps every finite physical horizon inside
+one feature-time interval. Raw GD and all nontriviality obligations are
+treated separately.
+
+## 2. Elementary bounds and limiting tools {#sec-docs-global-nonlinear-l185}
+
+Let $c_-=5/6$ and $a=7/6$ be fixed lower and upper activation
+bounds; $m=1$ continues to denote the sample count. The letter $a$
+in these bounds is a scalar constant, distinct from a suppressed sample
+index. Since $\pi<10/3$,
+
+$$
+ c_-<\phi<a,\quad 0<\phi'(z)=\frac1{10(1+z^2)}\le1/10,
+ \quad \phi''(z)=-\frac{z}{5(1+z^2)^2},\quad|\phi''|\le1/5.
+$$
+
+The increasing bijection $F$ has $F'=1/\phi'$. Its inverse is
+$1/10$-Lipschitz. For $\chi=\phi\circ F^{-1}$,
+
+$$
+ \chi'(F(z))=(\phi'(z))^2\le1/100.                    
+$$ {#eq-docs-global-nonlinear-l197}
+
+The pair $(G,F(G))$, $G\sim N(0,1)$, has every finite moment.
+We will treat it as an initial root pair; $F$ is not globally Lipschitz.
+
+For an $n\times n$ matrix with independent $N(0,1/n)$ entries,
+a $1/4$-net of the unit sphere has at most $9^n$ points (compare
+volumes of disjoint balls of radius $1/8$ in a ball of radius $9/8$).
+Approximating both unit vectors in a bilinear form gives
+$\|W\|_{\rm op}\le2\max_{u,v\text{ in net}}|u^TWv|$.
+Every such bilinear form is $N(0,1/n)$. Therefore
+
+$$
+ \mathbb P(\|W\|_{\rm op}>10)
+ \le2\,9^{2n}e^{-100n/8}\longrightarrow0.               
+$$ {#eq-docs-global-nonlinear-l209}
+
+We use this simultaneously for the finitely many initial matrices. Also
+$\mathbb E\|W^{(L+1)}_0\|_2^2/n=n^{-2}$, so its vector norm
+divided by $\sqrt n$ is $O_{\mathbb P}(n^{-1})$.
+
+We record the precise elementary convergence facts used later.
+
+(a) Laws on a fixed finite-dimensional Euclidean space converge in
+$\mathcal W_2$ if and only if they converge weakly and their second
+moments converge. Here is the implication needed in our proofs. Weak
+convergence and convergence of second moments imply uniformly small
+squared tails: subtract the convergent expectations of
+$\min(\|x\|^2,R^2)$ from the second moments, then let $R\to\infty$.
+Restrict to a large ball and partition it into finitely many cells of
+diameter at most $\epsilon$, with boundaries of limiting measure zero.
+Weak convergence gives convergence of cell masses. Couple common mass
+within matching cells; the unmatched mass on the ball costs at most its
+mass times the squared diameter. Couple the tails through the origin,
+using $\|x-y\|^2\le2\|x\|^2+2\|y\|^2$.
+First take the sequence limit, then $\epsilon\to0$ and the ball radius
+to infinity. This gives a coupling cost tending to zero. Conversely,
+a coupling with mean squared difference tending to zero gives weak
+convergence for bounded Lipschitz tests, and convergence of second
+moments by the triangle inequality in $L^2$.
+
+(b) Such convergence implies convergence of continuous tests bounded
+in absolute value by $C(1+\|x\|^2)$. On a large ball approximate
+the test uniformly by a bounded Lipschitz function; control the rest
+by the squared tails just proved. The same argument gives uniformity
+over a compact set of laws in $\mathcal W_2$. A continuous $L^2$
+path has compact image and uniformly integrable squared coordinate
+tails: approximate that image by finitely many $L^2$ balls, then
+use a squared-triangle tail bound with their finitely many centers.
+
+(c) For two finite lists coupled by their neuron indices,
+
+$$
+ \mathcal W_2\left(\frac1n\sum_i\delta_{u_i},
+                  \frac1n\sum_i\delta_{v_i}\right)
+ \le\left(\frac1n\sum_i\|u_i-v_i\|^2\right)^{1/2}.     
+$$ {#eq-docs-global-nonlinear-l247}
+
+Lipschitz coordinate maps preserve this comparison. Products of bounded
+factors can be smoothly extended outside their bounds to globally
+Lipschitz maps. If $x_j\to x$ in probability, $v_j\to v$ in
+$L^2$, and $g$ is bounded continuous, then
+
+$$
+ g(x_j)v_j\longrightarrow g(x)v\quad\hbox{in }L^2.     
+$$ {#eq-docs-global-nonlinear-l256}
+
+Separate the part containing $v_j-v$; for the rest first restrict
+to $|v|\le R$ and use bounded convergence in probability, then let
+$R\to\infty$. This also proves the chain rule for $\phi$ along
+an $L^2$-differentiable curve: divide its difference by the time
+increment and write the activation difference as the increment times
+the integral of $\phi'$ along the connecting segment. It is not a
+claim of Frechet differentiability of every nonlinear map $L^2\to L^2$.
+
+(d) If $b,c_i\ge0$ and
+$u_j\le b+\sum_{i<j}c_i\max_{v\le i}u_v$, then
+
+$$
+ \max_{v\le j}u_v\le b\prod_{i<j}(1+c_i)
+                  \le b\exp\left(\sum_{i<j}c_i\right). 
+$$ {#eq-docs-global-nonlinear-l269}
+
+The product is a nondecreasing comparison sequence satisfying equality
+in the preceding summation recursion. Induction proves the assertion.
+For the continuous version, iteration of
+$u(t)\le b+C\int_0^t u$ gives the exponential series and hence
+$u(t)\le be^{Ct}$; the same argument includes an integrable forcing
+by first bounding its accumulated integral. These are the precise
+Gronwall comparisons used below.
+
+## 3. Finite Gaussian calculations with adaptive reuse {#sec-docs-global-nonlinear-l281}
+
+We prove the law required for a fixed finite sequence of instructions.
+There are finitely many neuron populations, finitely many iid root tuples in
+each, independent of the finitely many Gaussian matrices, and coordinate
+instructions that are $C^1$, globally Lipschitz, with bounded first
+derivatives. Deterministic real linear combinations are allowed. A
+matrix can be queried in either direction, and inputs may depend on
+the complete earlier transcript through these instructions. No instruction
+mixes coordinates from different populations except through matrix
+actions or a separately specified scalar contraction.
+Initially the root empirical laws converge with second moments by the
+ordinary law of large numbers; our roots have all finite moments.
+Scalar contractions will first be deterministic and later restored to
+their empirical values.
+
+### 3.1 One forward call, then a transpose {#sec-docs-global-nonlinear-l297}
+
+For this introductory calculation assume $h\ne0$ almost surely.
+The zero-query and vanishing-limiting-norm cases for the permitted
+programs are covered by @sec-docs-global-nonlinear-l457.
+For an independent input $h$, the coordinates of $Wh$ conditioned
+on $h$ are independent centered Gaussians with variance
+$\|h\|_2^2/n$. A nonzero mean of $h$ is not subtracted. If
+$y=Wh$, rowwise Gaussian orthogonal projection gives
+
+$$
+ W\mid(h,y)\ \overset d=\frac{yh^T}{\|h\|_2^2}
+                  +\widetilde W P_{h^\perp},           
+$$ {#eq-docs-global-nonlinear-l306}
+
+where $\widetilde W$ is independent with the original entry law.
+If $u$ is known without observing this residual, then
+
+$$
+ W^Tu=h\frac{y^Tu/n}{\|h\|_2^2/n}
+       +\frac{\|u\|_2}{\sqrt n}P_{h^\perp}g             
+$$ {#eq-docs-global-nonlinear-l312}
+
+in conditional law, with fresh standard Gaussian vector $g$.
+The removed projection satisfies
+$\mathbb E\|P_{\operatorname{span}(h)}g\|_2^2/n=1/n$.
+Suppose a fixed finite input-population tuple containing $h$, known
+without observing the residual in @eq-docs-global-nonlinear-l306, has a joint empirical
+$\mathcal W_2$ limit. Write $H$ for its limiting $h$ field and
+assume $\mathbb E[H^2]>0$. Suppose separately that the output-population
+pair $(y,u)$ converges empirically in $\mathcal W_2$ to $(Y,U)$.
+@eq-docs-global-nonlinear-l312 and conditional Gaussian averaging then give the joint
+limit of the old input-population tuple and the new answer
+$cH+\sigma G$. Here $G$ is independent of that old input-population
+tuple, and
+$c=\mathbb E[YU]/\mathbb E[H^2]$ and
+$\sigma^2=\mathbb E[U^2]$. The innovation variance is the full
+second moment, not that moment minus the response variance. The new
+answer equals the response forced by the old use plus unexplored
+Gaussian randomness. It is not a fresh iid replacement of the old matrix.
+
+### 3.2 General conditional projection and empirical induction {#sec-docs-global-nonlinear-l334}
+
+For one matrix, collect old observations as
+$WV=Y$, $W^TU=Q$. Suppose first that the input Gram matrices
+are invertible. Let $\mathcal F$ denote the preceding transcript,
+including the initial roots and all preceding inputs and answers.
+The exact conditional law is
+
+$$
+ W\mid\mathcal F\ \overset d=Y(V^TV)^{-1}V^T
+   +U(U^TU)^{-1}Q^TP_{V^\perp}
+   +P_{U^\perp}\widetilde W P_{V^\perp}.               
+$$ {#eq-docs-global-nonlinear-l341}
+
+Here $\widetilde W$ is independent of $\mathcal F$, with the
+original Gaussian entry law.
+To verify it, vectorize the Gaussian matrix in its Euclidean entry
+space. The constraints are linear. Its component orthogonal to both
+constraint spaces is exactly the last term. The first two terms
+satisfy both constraints: $U^TY=Q^TV$ gives the compatibility for
+the overlapping component. Gaussian orthogonal components are independent,
+which proves the conditional formula.
+
+Adaptation and additional independent matrices cause no change to this argument.
+Conditional on the preceding transcript, the next query input is known.
+The next answer constrains only the queried matrix by a new linear
+observation. Inductively the conditional residual matrices remain
+independent. Coordinate instructions reveal no further randomness.
+
+For a new forward input put
+$\alpha_n=(V^TV)^{-1}V^Th$, $h_\perp=h-V\alpha_n$. Then
+
+$$
+ (Wh)\mid\mathcal F\ \overset d=Y\alpha_n+U\beta_n+
+           \frac{\|h_\perp\|_2}{\sqrt n}P_{U^\perp}g,
+ \quad
+ \beta_n=(U^TU/n)^{-1}(Q^Th_\perp/n).                  
+$$ {#eq-docs-global-nonlinear-l363}
+
+The vector $g$ here is a fresh standard Gaussian independent of
+$\mathcal F$; the new input $h$ is $\mathcal F$-measurable.
+The reverse formula interchanges the two sides. For a fixed number of
+queries the discarded Gaussian projection has expected squared norm
+after division by $n$ at most the fixed rank divided by $n$.
+Its variance multiplier is bounded in probability by earlier second
+moments. When all limiting input Grams are positive definite, their
+inverses and the coefficients in @eq-docs-global-nonlinear-l363 converge.
+
+This proves joint empirical convergence by finite induction. Here are
+the averaging details, so independence is not being asserted for reused
+coordinates. After dropping the projection, a new coordinate is a known
+linear combination of old coordinates plus $\sigma_n g_i$, with
+$g_i$ independent conditionally on the transcript. For a bounded
+Lipschitz test on the old tuple and this coordinate, conditional variance
+of its empirical average is at most its squared bound divided by $n$.
+Its conditional expectation is the old empirical average of the test
+integrated against a one-dimensional Gaussian. This integrated test is
+bounded Lipschitz in the old tuple and continuous in the converging
+coefficients and $\sigma_n$. It converges by the induction hypothesis.
+For second moments, conditional Gaussian averaging gives the known
+squared mean plus $\sigma_n^2$; the cross-term variance is bounded
+by $4\sigma_n^2\|\text{mean vector}\|_2^2/n^2$, and the centered
+Gaussian-square average has variance $2\sigma_n^4/n$.
+Both vanish on bounded-norm events. Old second moments converge by
+induction. @sec-docs-global-nonlinear-l185(a) gives joint $\mathcal W_2$ convergence.
+Lipschitz coordinate instructions preserve it. Every contraction is
+a continuous quadratic-growth test and converges too.
+
+### 3.3 The exact Gaussian source/response rule {#sec-docs-global-nonlinear-l398}
+
+There is a useful representation of those limits. Each oriented initial
+matrix has a centered Gaussian source group; the $2(L-1)$ groups are
+mutually independent and independent of roots. Different times within
+one group need not be independent. A forward input $h$ has source
+$\xi_h$, a reverse input $u_s$ has source $\zeta_s$, and the
+source covariances equal the uncentered second moments of their inputs.
+The limiting forward answer is
+
+$$
+ \xi_h+\sum_s u_s\,\mathbb E\frac{\partial h}{\partial\zeta_s}.
+                                                               %
+$$ {#eq-docs-global-nonlinear-l407}
+
+Only previously available reverse inputs occur. The transpose rule is
+the identical formula with orientations interchanged. Derivatives in
+@eq-docs-global-nonlinear-l407 are derivatives of the complete explicit coordinate expression,
+with all previously selected deterministic coefficients and covariance
+parameters held fixed.
+
+We derive the rule in the limiting scalar coordinates. Here
+$h,v_i,u_s,y_i,q_s$ are square-integrable scalar coordinate expressions
+on the input or output population dictated by the queried orientation;
+they are not finite vectors. The coefficients $\alpha_i$ are
+deterministic coefficients of the $L^2$ projection onto the old forward
+inputs. Let old forward inputs be $v_i$, old reverse
+inputs $u_s$, and $\Gamma_U=(\mathbb E[u_su_t])_{st}$.
+Inductively old forward answers are
+$y_i=\xi_i+\sum_s D_{is}u_s$, with
+$D_{is}=\mathbb E\partial_{\zeta_s}v_i$, and old reverse answers
+are $q_s=\zeta_s+$ a linear combination of old forward inputs.
+Unavailable source derivatives are zero. Put
+$h_\perp=h-\sum_i\alpha_i v_i$ for the limiting least-squares
+projection. Since $\mathbb E[v_i h_\perp]=0$,
+
+$$
+ \mathbb E[q_s h_\perp]=\mathbb E[\zeta_s h_\perp].
+$$
+
+For a centered Gaussian vector of covariance $\Gamma$, integration
+of a differentiable function against its Gaussian density gives
+$\mathbb E[\zeta f]=\Gamma\mathbb E\nabla f$.
+For a singular covariance write $\zeta=AG$ and apply the
+one-dimensional integration-by-parts identity to each component of
+the standard Gaussian $G$. Bounded derivatives and integrable
+roots justify conditioning on the other groups and integration here.
+Thus the limit of $\beta_n$ in @eq-docs-global-nonlinear-l363 is
+
+$$
+ \beta=\mathbb E\nabla_\zeta h
+                  -\sum_i\alpha_i\mathbb E\nabla_\zeta v_i.
+$$
+
+Substituting the old forward decompositions in @eq-docs-global-nonlinear-l363 cancels the second
+term and proves @eq-docs-global-nonlinear-l407. The new source is
+$\xi_h=\sum_i\alpha_i\xi_i+\sigma G$, where
+$\sigma^2=\mathbb E h_\perp^2$ and the new scalar Gaussian is
+independent of all old sources. Direct expansion gives
+$\mathbb E[\xi_h\xi_i]=\mathbb E[hv_i]$ and
+$\mathbb E\xi_h^2=\mathbb E h^2$.
+This also proves the asserted independence of distinct source groups.
+The proof includes derivatives passing through previous uses of the
+other matrices; it does not differentiate the coefficient selection itself.
+
+### 3.4 Singular Grams without an inverse-limit assumption {#sec-docs-global-nonlinear-l457}
+
+Before each matrix call, add to its input $\epsilon g^{\rm in}$,
+where $g^{\rm in}$ is a new independent standard Gaussian vector,
+revealed immediately before that call. It is a root instruction, not
+new persistent noise in the final model. At fixed $\epsilon>0$,
+the limiting squared distance of a query from the old same-direction
+input span has the additional term $\epsilon^2$: the fresh root
+is independent of that span and of the original new input, so its
+cross contractions vanish by conditional averaging. Every limiting
+Gram Schur complement is positive. @sec-docs-global-nonlinear-l334 -- @sec-docs-global-nonlinear-l398 apply.
+
+For this fixed finite program, couple the perturbed and unperturbed
+calculations with the same original matrices and roots. On the event
+that @eq-docs-global-nonlinear-l209 holds and the finitely many noise norms divided by
+$\sqrt n$ are bounded, Lipschitz induction through the finite
+instructions bounds every node discrepancy divided by $\sqrt n$
+by $C\epsilon$. The constant can depend on the fixed program, but
+not on width or $\epsilon\le1$.
+
+The scalar source recursion converges as $\epsilon\to0$ as well.
+To see this without pseudoinverses, use the causal recursion @eq-docs-global-nonlinear-l407.
+At each instruction the preceding deterministic coefficients and their
+formal source derivatives are bounded on a compact coefficient set.
+Composition of the finitely many bounded-derivative coordinate maps
+gives a deterministic bound for each formal derivative. Covariance
+entries are second moments of already constructed inputs and converge
+by induction. Positive-semidefinite covariance square roots are
+continuous: uniformly approximate $\sqrt x$ by polynomials on a
+common compact eigenvalue interval and use the spectral decomposition
+for each matrix. Couple the finite Gaussian source vectors by these
+square roots and common standard Gaussian roots. Coordinate expressions
+converge in $L^2$; their bounded formal derivatives converge by
+dominated convergence. Hence the next expected derivative, covariance,
+and coordinate law converge. This proves the induction even at a rank
+drop. At zero noise the auxiliary input-root coefficients are zero,
+leaving exactly the original explicit expression.
+
+Combining the $C\epsilon$ finite comparison with these limiting laws,
+then sending $\epsilon\to0$, proves the unperturbed joint empirical
+limit. Formally distinct source slots remain distinct when their Gaussian
+law is singular. Their derivative convention is the displayed expression.
+There is no ambiguity in the contracted answer: if the source covariance
+$\Gamma$ also equals $\mathbb E[uu^T]$, then every deterministic
+$v\in\ker\Gamma$ obeys $u^Tv=0$ almost surely, since its squared
+expectation is zero. A change of derivative coefficients in this null
+space cannot change @eq-docs-global-nonlinear-l407.
+

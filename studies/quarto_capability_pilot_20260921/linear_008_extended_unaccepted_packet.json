@@ -1,0 +1,12 @@
+{
+  "id": "linear_008_extended_unaccepted",
+  "source": "docs/global_nonlinear.md",
+  "start": 1899,
+  "end": 3440,
+  "candidate": "linear_008_extended_unaccepted.qmd",
+  "edits": "linear_008_extended_unaccepted_edits.json",
+  "targets": "linear_008_extended_unaccepted_targets.json",
+  "sources": "migration_sources.json",
+  "registry": "linear_008_registry_before.json",
+  "progress": "linear_008_progress_before.json"
+}

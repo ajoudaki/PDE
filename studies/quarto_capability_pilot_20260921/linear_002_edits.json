@@ -1,0 +1,264 @@
+[
+  {
+    "offset": 0,
+    "old": "```mermaid",
+    "new": "```{mermaid}",
+    "kind": "mermaid-fence"
+  },
+  {
+    "offset": 2914,
+    "old": "",
+    "new": " {#sec-docs-readme-l262}",
+    "kind": "label",
+    "target": "sec-docs-readme-l262"
+  },
+  {
+    "offset": 3115,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3174,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3184,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3256,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3263,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3268,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3306,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3329,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3344,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3351,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3360,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3369,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3590,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3602,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3645,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3652,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3709,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3748,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3758,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3794,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3956,
+    "old": "\\(",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 3969,
+    "old": "\\)",
+    "new": "$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 4897,
+    "old": "",
+    "new": " {#sec-docs-readme-l295}",
+    "kind": "label",
+    "target": "sec-docs-readme-l295"
+  },
+  {
+    "offset": 5336,
+    "old": "C.4.8",
+    "new": "@sec-docs-global-nonlinear-l16001",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l16001"
+  },
+  {
+    "offset": 5716,
+    "old": "Section C.4.10",
+    "new": "@sec-docs-global-nonlinear-l19884",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l19884"
+  },
+  {
+    "offset": 6024,
+    "old": "",
+    "new": " {#sec-docs-readme-l313}",
+    "kind": "label",
+    "target": "sec-docs-readme-l313"
+  },
+  {
+    "offset": 8691,
+    "old": "Section C.4.7.8",
+    "new": "@sec-docs-global-nonlinear-l11441",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l11441"
+  },
+  {
+    "offset": 9188,
+    "old": "Section C.4.7.9",
+    "new": "@sec-docs-global-nonlinear-l12084",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l12084"
+  },
+  {
+    "offset": 10202,
+    "old": "Section C.4.7.9",
+    "new": "@sec-docs-global-nonlinear-l12084",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l12084"
+  },
+  {
+    "offset": 10974,
+    "old": "[C.4.7.10](global_nonlinear.md#c4710-finite-numerical-autonomous-observable-closure)",
+    "new": "@sec-docs-global-nonlinear-l12555",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l12555"
+  },
+  {
+    "offset": 12411,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 12518,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 13618,
+    "old": "C.4.7.10",
+    "new": "@sec-docs-global-nonlinear-l12555",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l12555"
+  },
+  {
+    "offset": 16558,
+    "old": "*Gaussian and flow calculus*",
+    "new": "[*Gaussian and flow calculus*](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l1)",
+    "kind": "reference",
+    "target": "sec-docs-gaussian-calculus-l1"
+  },
+  {
+    "offset": 16588,
+    "old": "Sections 7.2",
+    "new": "@sec-docs-gaussian-calculus-l2156",
+    "kind": "reference",
+    "target": "sec-docs-gaussian-calculus-l2156"
+  },
+  {
+    "offset": 16605,
+    "old": "10.2",
+    "new": "@sec-docs-gaussian-calculus-l3838",
+    "kind": "reference",
+    "target": "sec-docs-gaussian-calculus-l3838"
+  },
+  {
+    "offset": 16743,
+    "old": "Section 6",
+    "new": "@sec-docs-gaussian-calculus-l1749",
+    "kind": "reference",
+    "target": "sec-docs-gaussian-calculus-l1749"
+  },
+  {
+    "offset": 16820,
+    "old": "Section 10.4",
+    "new": "@sec-docs-gaussian-calculus-l4050",
+    "kind": "reference",
+    "target": "sec-docs-gaussian-calculus-l4050"
+  },
+  {
+    "offset": 16972,
+    "old": "C.4.7.10",
+    "new": "@sec-docs-global-nonlinear-l12555",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l12555"
+  }
+]

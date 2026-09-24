@@ -1,0 +1,47 @@
+{
+  "status": "accepted-formatting-only",
+  "date": "2026-09-21",
+  "scope": {
+    "packet": "linear_001",
+    "source": "docs/README.md",
+    "start": 1,
+    "end": 211,
+    "candidate": "linear_001.qmd",
+    "candidate_sha256": "fa9cedbbbf62ec21ea6252f2c7dbdf99fedb18b0fc26fc1eef644acebdf4bfe3",
+    "registry_sha256": "4931debb31ac382bc3407c230dc3bc187b05ed0da0c5e25805e830e00134d8e5"
+  },
+  "source_revision": "ab6dd76987007b925b4d9559a936234e224ef6e9",
+  "review": "linear_001_astra_review.md",
+  "review_sha256": "1bd3d489e499a86268d29967af1ac163f20d524477f21c7ef076490d03e8ed3e",
+  "audit_inputs": "data/generated/quarto_capability_pilot_20260921/linear001-audit-inputs",
+  "audit_manifest_sha256": "948d906d57c00a9af39f2a5691489aab4eb4ffcdac8640a3312c7f08176564f8",
+  "review_inventory_hashes_verified": 47,
+  "progress_sha256": "a8d0179d9a839851991f083916f2a181368768b86ecba0060aaec5b625a43ff8",
+  "sources_sha256": "189f4d7619a804b80da4cbc6f6342fb0a69da995d3ef72d62584dd3a32c5d3b8",
+  "defined": [
+    "sec-docs-readme-l1",
+    "sec-docs-readme-l124",
+    "sec-docs-readme-l148",
+    "sec-docs-readme-l163",
+    "sec-docs-readme-l198",
+    "sec-docs-readme-l52",
+    "sec-docs-readme-l8",
+    "sec-docs-readme-l89"
+  ],
+  "reserved": [
+    "sec-docs-continuous-depth-l1",
+    "sec-docs-global-nonlinear-l1",
+    "sec-docs-global-nonlinear-l16001",
+    "sec-docs-global-nonlinear-l5270",
+    "sec-docs-global-nonlinear-l6904",
+    "sec-docs-global-nonlinear-l8978",
+    "sec-docs-linear-dynamics-l1",
+    "sec-docs-notation-l1"
+  ],
+  "next_source": {
+    "source": "docs/README.md",
+    "line": 212
+  },
+  "established_sources_unchanged": true,
+  "complete_edition": false
+}

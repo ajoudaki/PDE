@@ -1,0 +1,135 @@
+[
+  {
+    "id": "sec-docs-readme-l497",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 497,
+    "end": 497
+  },
+  {
+    "id": "sec-docs-readme-l512",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 512,
+    "end": 512
+  },
+  {
+    "id": "sec-docs-readme-l529",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 529,
+    "end": 529
+  },
+  {
+    "id": "sec-docs-readme-l544",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 544,
+    "end": 544
+  },
+  {
+    "id": "sec-docs-readme-l565",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 565,
+    "end": 565
+  },
+  {
+    "id": "sec-docs-readme-l603",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 603,
+    "end": 603
+  },
+  {
+    "id": "sec-docs-readme-l626",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 626,
+    "end": 626
+  },
+  {
+    "id": "sec-docs-readme-l657",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 657,
+    "end": 657
+  },
+  {
+    "id": "sec-docs-readme-l705",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 705,
+    "end": 705
+  },
+  {
+    "id": "sec-docs-readme-l740",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 740,
+    "end": 740
+  },
+  {
+    "id": "sec-docs-finite-dynamics-l1",
+    "kind": "sec",
+    "source": "docs/finite_dynamics.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-arctan-limits-l1",
+    "kind": "sec",
+    "source": "docs/arctan_limits.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-special-data-limits-l1",
+    "kind": "sec",
+    "source": "docs/special_data_limits.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-finite-optimization-and-controls-l1",
+    "kind": "sec",
+    "source": "docs/finite_optimization_and_controls.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-observable-p1-l1",
+    "kind": "sec",
+    "source": "docs/observable_p1.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-code-readme-l1",
+    "kind": "sec",
+    "source": "code/README.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l3836",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 3836,
+    "end": 3836
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l17554",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 17554,
+    "end": 17554
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l21578",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 21578,
+    "end": 21578
+  }
+]

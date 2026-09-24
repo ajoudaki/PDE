@@ -1,0 +1,495 @@
+## 4. The actual clipped Euler program and its scalar law {#sec-docs-global-nonlinear-l505}
+
+Here $s$ is feature time and $\Delta>0$ is an auxiliary Euler
+mesh. Query and step indices $i,j,k,u,v$ below are integers; $r=f-1$
+is reserved for the residual. Primes on paths
+mean $d/ds$, dots mean physical derivatives, and primes on scalar
+functions mean scalar derivatives. The uncut feature field removes
+$2(1-f)$ and transforms only the first coordinate. @sec-docs-global-nonlinear-l1136 verifies
+its raw gradient structure and the physical clock.
+
+For each integer $R\ge1$ choose a smooth odd map
+$$
+ \tau_R(q)=q\ (|q|\le R),\quad
+ |\tau_R(q)|\le\min(|q|,2R),\quad0\le\tau'_R\le1.       
+$$ {#eq-docs-global-nonlinear-l516}
+For example integrate a smooth even cutoff, equal to one on $[-R,R]$
+and zero outside $[-2R,2R]$, with values in $[0,1]$.
+Clip every interior backwards query, but not the bottom transformed
+query or the readout:
+$$
+ \delta_R^{(L)}=W^{(L+1)}\phi'(Z^{(L)}),\quad
+ q_R^{(\ell)}=(W^{(\ell+1)})^*\delta_R^{(\ell+1)},\quad
+ \delta_R^{(\ell)}=\phi'(Z^{(\ell)})\tau_R(q_R^{(\ell)})
+                    \quad(\ell=L-1,\ldots,2),
+ \quad q_R^{(1)}=(W^{(2)})^*\delta_R^{(2)}.
+$$
+Set $X^{(1)}_{k+1}=X^{(1)}_k+\Delta q^{(1)}_{R,k}$,
+$W^{(\ell)}_{k+1}=W^{(\ell)}_k+
+\Delta\delta^{(\ell)}_{R,k}\otimes H^{(\ell-1)}_k$,
+and $W^{(L+1)}_{k+1}=W^{(L+1)}_k+\Delta H^{(L)}_k$.
+The finite version uses $\delta h^T/n$, the same forward equations,
+and the typed transformed vector $x^{(1)}=F(z^{(1)})\in\mathbb R^n$,
+so $h^{(1)}=\chi(x^{(1)})$.
+These are transformed Euler approximations, not exact rewrites of raw
+GD. In proof programs the initial readout is zero.
+
+Unroll each matrix into its initial action plus its rank memories.
+At time $k$, its extra forward and reverse terms are, respectively,
+$$
+ \Delta\sum_{j<k}\delta^{(\ell)}_j
+       (h^{(\ell-1)}_j)^Th^{(\ell-1)}_k/n,\qquad
+ \Delta\sum_{j<k}h^{(\ell-1)}_j
+       (\delta^{(\ell)}_j)^T\delta^{(\ell)}_k/n.        
+$$ {#eq-docs-global-nonlinear-l543}
+First freeze these finitely many scalar contractions at their limiting
+expectations, constructed in causal forward/backward order by @sec-docs-global-nonlinear-l281.
+For fixed $M,\Delta,R,L$ this oracle program meets its hypotheses:
+$|W^{(L+1)}_k|\le aM\Delta$, $|\delta^{(L)}_k|\le aM\Delta/10$,
+and every interior $|\delta_{R,k}^{(\ell)}|\le R/5$.
+Extend the top product smoothly outside a larger readout interval to a
+globally Lipschitz $C^1$ map, unchanged with its derivatives on all
+attained values. Include the initial root pair $(Z^{(1)}_0,F(Z^{(1)}_0))$.
+Clipped products already have bounded derivatives.
+
+Oracle contractions converge by @sec-docs-global-nonlinear-l281. Restore actual feedback
+using, at every finite instruction,
+$$
+ |(u^Tv-\widetilde u^T\widetilde v)/n|
+ \le \frac{\|u-\widetilde u\|_2}{\sqrt n}\frac{\|v\|_2}{\sqrt n}
+   +\frac{\|\widetilde u\|_2}{\sqrt n}
+                       \frac{\|v-\widetilde v\|_2}{\sqrt n}.
+$$
+On the initial matrix norm event, finite induction through the Lipschitz
+instructions bounds actual/oracle node differences by constants times
+previous differences and the finitely many oracle contraction errors.
+All oracle vector norms divided by $\sqrt n$, and all oracle matrix
+operator norms, are bounded in probability. Thus the vector differences
+divided by $\sqrt n$ vanish. This is a fixed-program result, not a mesh-uniform induction.
+
+The exact resulting scalar law, omitting $R$ on its backwards fields,
+is
+$$
+ X^{(1)}_k=F(Z^{(1)}_0)+\Delta\sum_{i<k}q^{(1)}_i,\quad
+ H^{(1)}_k=\chi(X^{(1)}_k),
+$$
+$$
+ Z^{(\ell)}_k=\xi^{(\ell)}_k+
+            \sum_{i<k}a^{(\ell)}_{ki}\delta^{(\ell)}_i,\quad
+ H^{(\ell)}_k=\phi(Z^{(\ell)}_k)\quad(2\le\ell\le L),
+$$
+$$
+ W^{(L+1)}_k=\Delta\sum_{i<k}H^{(L)}_i,\quad
+ \delta^{(L)}_k=W^{(L+1)}_k\phi'(Z^{(L)}_k),
+$$
+$$
+ q^{(\ell)}_k=\zeta^{(\ell)}_k+
+       \sum_{v\le k}b^{(\ell+1)}_{kv}H^{(\ell)}_v
+                                  \quad(1\le\ell<L),
+ \quad
+ \delta^{(\ell)}_k=\phi'(Z^{(\ell)}_k)\tau_R(q^{(\ell)}_k)
+                                  \quad(2\le\ell<L).  
+$$ {#eq-docs-global-nonlinear-l589}
+The $2(L-1)$ centered Gaussian source groups are mutually independent
+and independent of the root, with full uncentered input second moments
+$$
+ \mathbb E[\xi^{(\ell)}_k\xi^{(\ell)}_i]
+       =\mathbb E[H^{(\ell-1)}_kH^{(\ell-1)}_i],\quad
+ \mathbb E[\zeta^{(\ell-1)}_k\zeta^{(\ell-1)}_i]
+       =\mathbb E[\delta^{(\ell)}_k\delta^{(\ell)}_i].
+                                                               %
+$$ {#eq-docs-global-nonlinear-l599}
+Temporal covariances may be singular. The deterministic coefficients are
+$$
+ a^{(\ell)}_{ki}=
+ \mathbb E\frac{\partial H^{(\ell-1)}_k}
+                  {\partial\zeta^{(\ell-1)}_i}
+       +\Delta\mathbb E[H^{(\ell-1)}_kH^{(\ell-1)}_i]\quad(i<k),
+$$
+$$
+ b^{(\ell)}_{ki}=
+ \mathbb E\frac{\partial\delta^{(\ell)}_k}{\partial\xi^{(\ell)}_i}
+       +\Delta\mathbf1_{i<k}
+                   \mathbb E[\delta^{(\ell)}_k\delta^{(\ell)}_i]
+                                                     \quad(i\le k).
+                                                               %
+$$ {#eq-docs-global-nonlinear-l613}
+Formal differentiation holds the already selected deterministic
+coefficients and covariances fixed, and differentiates the complete
+explicit expression. Distinct source slots stay formally distinct even
+when their covariance is singular. @sec-docs-global-nonlinear-l398 -- @sec-docs-global-nonlinear-l457 justify this rule.
+
+At each time the order is forward $2,\ldots,L$, then reverse
+$L,\ldots,2$. All forward memories are strictly past-time; reverse
+memories include the current time. In particular,
+$$
+ b^{(L)}_{kk}=\mathbb E[W^{(L+1)}_k\phi''(Z^{(L)}_k)],
+$$
+$$
+ b^{(\ell)}_{kk}
+ =\mathbb E[\phi''(Z^{(\ell)}_k)\tau_R(q^{(\ell)}_k)]
+ +b^{(\ell+1)}_{kk}
+     \mathbb E[(\phi'(Z^{(\ell)}_k))^2\tau'_R(q^{(\ell)}_k)]
+                      \quad(2\le\ell<L).             
+$$ {#eq-docs-global-nonlinear-l632}
+Thus the current return through every upper layer is retained,
+recursively. There is no missing current response in the depth induction.
+
+## 5. Common spaces, bounded actions, and fixed-clip flows {#sec-docs-global-nonlinear-l642}
+
+Take a countable family of finite programs closed under finite unions,
+rational linear combinations, constants in each population, both
+directions of all initial matrices, the coordinate maps used above, and
+a countable smooth bounded Lipschitz family dense among continuous
+functions on compact sets in each finite-dimensional coordinate space.
+Include the root pair $(Z^{(1)}_0,F(Z^{(1)}_0))$, but not arbitrary
+later applications of the non-Lipschitz cubic $F$.
+The finite joint laws of @sec-docs-global-nonlinear-l281 are consistent because every finite
+union is the limit of the same finite-width calculations. The elementary
+countable probability-measure extension principle gives a measure on
+the countable coordinate product for each layer. Equivalently, sample
+successive coordinates from their conditional distributions, whose
+finite marginals are consistent. Let $\Omega_\ell$ carry this measure
+and the sigma field generated by its slots.
+
+Generated coordinate functions have dense linear span in
+$L^2(\Omega_\ell)$. To verify this, conditional expectations onto the
+first finitely many slots approximate any $L^2$ function: orthogonal
+projection onto increasing subspaces converges to projection onto their
+closed union, which contains indicators and then simple functions of
+the generated sigma field. Truncate the resulting finite-slot function.
+In a finite-dimensional Borel probability measure, bounded continuous
+functions approximate bounded measurable functions in $L^2$:
+approximate measurable sets between compact subsets and open supersets,
+then use continuous distance cutoffs. The included Lipschitz family
+approximates those continuous functions on compact sets; tails are
+removed by truncation.
+
+For rational combinations of generated inputs, pass the high-probability
+finite bound @eq-docs-global-nonlinear-l209 and the exact transpose pairing to their limiting
+second moments. They give
+$$
+ \|W^{(\ell)}_0U\|_{L^2}\le10\|U\|_{L^2},\quad
+ \mathbb E[VW^{(\ell)}_0U]
+       =\mathbb E[U(W^{(\ell)}_0)^*V]\quad(2\le\ell\le L).
+                                                               %
+$$ {#eq-docs-global-nonlinear-l675}
+Zero $L^2$ input difference has zero output difference; hence each
+action is well-defined on equivalence classes. Extend by density.
+Construct reverse actions identically; the displayed pairing proves
+they are the adjoints. Real coefficients and other fixed Lipschitz
+maps follow by compact approximation and propagation with the bounded
+actions. All real-step Euler programs therefore live on these same
+spaces. No independent transpose resampling or growing number of
+state operators is used. The entire trained rank memory remains in
+the current operator.
+
+For $\Theta=(X^{(1)},W^{(2)},\ldots,W^{(L)},W^{(L+1)})$, use
+$$
+ d(\Theta,\widetilde\Theta)=
+ \|X^{(1)}-\widetilde X^{(1)}\|_{L^2}+
+ \sum_{\ell=2}^L\|W^{(\ell)}-\widetilde W^{(\ell)}\|_{\rm op}
+ +\|W^{(L+1)}-\widetilde W^{(L+1)}\|_{L^2}.                
+$$ {#eq-docs-global-nonlinear-l692}
+The corresponding vector-field norm is the sum of its block norms.
+At finite width, vector norms are divided by $\sqrt n$, giving @eq-docs-global-nonlinear-l158.
+The clipped feature field is
+$$
+ \mathcal V_R(\Theta)=
+ (q_R^{(1)},(\delta_R^{(\ell)}\otimes H^{(\ell-1)})_{\ell=2}^L,
+ H^{(L)}).                                           
+$$ {#eq-docs-global-nonlinear-l701}
+
+Here are explicit coarse primal bounds, independent of cap and width,
+for any feature flow or positive-step Euler prefix of total length
+at most $S$. The population initial bounds are
+$\|W^{(L+1)}_0\|_{L^2}\le1$ and
+$\|W^{(\ell)}_0\|_{\rm op}\le M_0$.
+At finite width the readout assumption is explicitly
+$\|W^{(L+1)}_0\|_2/\sqrt n\le1$, with the same matrix bound. Set
+$$
+ Q_0=1+aS,\quad D_L=Q_0/10,\quad R_L=M_0+aSD_L,
+$$
+and, going down from $\ell=L-1$ to 2, set
+$$
+ D_\ell=R_{\ell+1}D_{\ell+1}/10,\qquad
+ R_\ell=M_0+aSD_\ell.                                
+$$ {#eq-docs-global-nonlinear-l718}
+These bound the population readout $L^2$ norm, backwards-field
+$L^2$ norms, and matrix operator norms by $Q_0,D_\ell,R_\ell$,
+respectively. Their finite counterparts are
+$\|W^{(L+1)}\|_2/\sqrt n\le Q_0$,
+$\|\delta_R^{(\ell)}\|_2/\sqrt n\le D_\ell$, and
+$\|W^{(\ell)}\|_{\rm op}\le R_\ell$.
+To prove the bounds, integrate or sum the bounded readout velocity, then use
+$\|\delta_R^{(\ell)}\|_{L^2}\le\|q_R^{(\ell)}\|_{L^2}/10$
+and the rank-one norm identity $\|U\otimes V\|=\|U\|_{L^2}\|V\|_{L^2}$
+successively down the layers. Finally
+$\|q_R^{(1)}\|_{L^2}\le R_2D_2$ bounds the first-coordinate velocity.
+All state velocities are bounded by a finite $C_{L,S}$.
+These constants may grow with $L$, which is fixed.
+From zero readout there is the stronger pointwise bound
+$$
+ c_-s\le W^{(L+1)}(s)\le as.                            
+$$ {#eq-docs-global-nonlinear-l736}
+
+We spell out cap dependence in stability. Forward induction gives
+$$
+ \|Z_A^{(2)}-Z_B^{(2)}\|_{L^2}
+ \le a\|W_A^{(2)}-W_B^{(2)}\|_{\rm op}
+       +(R_2/100)\|X_A^{(1)}-X_B^{(1)}\|_{L^2},
+$$
+$$
+ \|Z_A^{(\ell)}-Z_B^{(\ell)}\|_{L^2}
+ \le a\|W_A^{(\ell)}-W_B^{(\ell)}\|_{\rm op}
+       +(R_\ell/10)\|Z_A^{(\ell-1)}-Z_B^{(\ell-1)}\|_{L^2}.
+                                                               %
+$$ {#eq-docs-global-nonlinear-l746}
+Thus all forward differences are at most $C_{L,S}d(A,B)$,
+independent of the cap. If the reference readout $W_B^{(L+1)}$
+has pointwise bound $B_0$, the top backwards difference is at most
+$$
+ \|\delta_A^{(L)}-\delta_B^{(L)}\|_{L^2}
+ \le \tfrac1{10}\|W_A^{(L+1)}-W_B^{(L+1)}\|_{L^2}
+                  +\tfrac{B_0}{5}\|Z_A^{(L)}-Z_B^{(L)}\|_{L^2}.
+                                                               %
+$$ {#eq-docs-global-nonlinear-l755}
+No pointwise bound on the competitor readout is needed.
+For any lower query,
+$$
+ \|q_A^{(\ell)}-q_B^{(\ell)}\|_{L^2}
+ \le R_{\ell+1}\|\delta_A^{(\ell+1)}-\delta_B^{(\ell+1)}\|_{L^2}
+             +D_{\ell+1}\|W_A^{(\ell+1)}-W_B^{(\ell+1)}\|_{\rm op}.
+$$
+At a common cap,
+$$
+ \|\delta_R^{(\ell)}(A)-\delta_R^{(\ell)}(B)\|_{L^2}
+ \le\tfrac1{10}\|q_A^{(\ell)}-q_B^{(\ell)}\|_{L^2}
+             +\tfrac{2R}{5}\|Z_A^{(\ell)}-Z_B^{(\ell)}\|_{L^2}.
+                                                               %
+$$ {#eq-docs-global-nonlinear-l769}
+The coefficient of the preceding backwards error is independent of
+$R$; the $R$ term multiplies a forward difference already controlled
+by @eq-docs-global-nonlinear-l746. Downward induction therefore gives a bound
+$C_{L,S}(1+R)d(A,B)$, not $R^{L-2}d(A,B)$, for every backwards
+field and query. Rank-one differences satisfy
+$$
+ \|U\otimes V-\widetilde U\otimes\widetilde V\|
+ \le\|U-\widetilde U\|_{L^2}\|V\|_{L^2}+
+                          \|\widetilde U\|_{L^2}\|V-\widetilde V\|_{L^2}.
+$$
+Consequently $\mathcal V_R$ has the same Lipschitz bound on these
+bounded-primal, bounded-reference-readout sets. Every inequality also
+holds at finite width with the specified norm factors.
+
+For fixed $R$, iterate the integral equations in continuous paths on
+a short interval, with slightly enlarged primal bounds and pointwise
+readout bounds @eq-docs-global-nonlinear-l736. This set is closed: an $L^2$-convergent sequence
+has an almost-everywhere convergent subsequence preserving a common
+pointwise bound. The readout integral preserves its bounds; the velocity
+bound preserves the remaining bounds on a short enough interval, and
+the Lipschitz estimate makes the integral map a contraction. Its
+iterates converge geometrically to a unique fixed point. Bounds @eq-docs-global-nonlinear-l718
+allow finitely many restarts on every fixed interval, hence global
+fixed-clip feature flows. Finite-dimensional uncut flows also exist
+globally in feature time, since the field is smooth and @eq-docs-global-nonlinear-l718 prevents
+finite-time escape.
+
+Along a fixed-clip flow, integrate its Lipschitz velocity over one
+Euler step. The local defect is at most $C_{R,L,S}\Delta^2$.
+Discrete Gronwall @eq-docs-global-nonlinear-l269 gives, in both finite and population state norms,
+$$
+ \sup_{s\le S}d(\Theta_{R,\Delta}(s),\Theta_R(s))
+                       \le C_{R,L,S}\Delta.           
+$$ {#eq-docs-global-nonlinear-l805}
+The finite bound holds on the initial norm event. Fixing a mesh, taking
+width to infinity by @sec-docs-global-nonlinear-l505, and then refining the mesh proves the
+fixed-clip width limit. Finite probe instructions preserve the
+comparison by bounded operator and Lipschitz bounds. A finite time net,
+using uniform time continuity at fixed cap, proves convergence uniform
+in finitely many joint time arguments.
+
+## 6. The depth-independent response estimate {#sec-docs-global-nonlinear-l816}
+
+For the exact scalar programs @eq-docs-global-nonlinear-l589 -- @eq-docs-global-nonlinear-l613, put
+$$
+ B_{\ell,k}=\sum_{i\le k}|b^{(\ell)}_{ki}|\quad(2\le\ell\le L),
+ \qquad S=M\Delta\le3/2,\quad A=3/2,\quad Q=161/120.
+$$
+We prove simultaneously at every time index, for every finite depth,
+mesh and cap,
+$$
+ |a^{(\ell)}_{ki}|\le A\Delta\ (i<k),\quad
+ B_{L,k}\le3067/3200<1,\quad
+ B_{\ell,k}<9/10\ (2\le\ell<L),\quad
+ \|\delta^{(\ell)}_k\|_{L^2}\le7/40\ (2\le\ell\le L).
+                                                               %
+$$ {#eq-docs-global-nonlinear-l825}
+The interior norm actually satisfies $Q/10=161/1200<7/40$.
+Bounds are on the actual identified response, not an arbitrary
+Gaussian action on all bounded inputs.
+
+At zero, the readout and top delta vanish identically as formal
+expressions, so its reverse variance and response row vanish. Downward
+induction gives the same for all deltas and rows, using $\tau_R(0)=0$.
+This does not discard derivatives in a degenerate Gaussian source
+direction merely because that source happens to be zero.
+
+Suppose all rows and delta norms strictly before $k$ satisfy the
+bounds $B_{\ell,i}\le1$, $\|\delta^{(\ell)}_i\|_{L^2}\le7/40$.
+The following forward pass constructs all current forward coefficients
+using only those past bounds.
+
+For a single bottom source $\zeta^{(1)}_i$, differentiating the
+complete bottom expression gives
+$$
+ |\partial_{\zeta^{(1)}_i}X^{(1)}_j|
+ \le\Delta\mathbf1_{i<j}
+ +\frac{\Delta}{100}\sum_{u<j}\sum_{v\le u}|b^{(2)}_{uv}|
+                    |\partial_{\zeta^{(1)}_i}X^{(1)}_v|.
+$$
+By @eq-docs-global-nonlinear-l269, for $i<j\le k$,
+$$
+ |\partial_{\zeta^{(1)}_i}H^{(1)}_j|
+       \le(\Delta/100)e^{S/100},\quad
+ |a^{(2)}_{ji}|
+       \le\Delta[a^2+e^{S/100}/100]<A\Delta.            
+$$ {#eq-docs-global-nonlinear-l856}
+Indeed $e^{3/200}<2$ and $49/36+1/50<3/2$.
+
+Consider an interior layer $2\le\ell<L$, assuming the forward pass
+has established $|a^{(\ell)}_{ji}|\le A\Delta$ for $j\le k$.
+Define its forward derivative row and its nondecreasing envelope by
+$$
+ \mathcal R_{\ell,j}
+ =\sum_{i\le j}|\partial_{\xi^{(\ell)}_i}Z^{(\ell)}_j|,
+ \quad
+ E_{\ell,j}=\exp\left\{A\Delta\sum_{u<j}
+            (|q^{(\ell)}_u|/5+B_{\ell+1,u}/100)\right\}.
+$$
+For either kind of source derivative,
+$$
+ |\partial\delta^{(\ell)}_u|
+ \le |q^{(\ell)}_u||\partial Z^{(\ell)}_u|/5
+                                  +|\partial q^{(\ell)}_u|/10.
+$$
+For a forward-source derivative,
+$$
+ |\partial q^{(\ell)}_u|
+ \le\frac1{10}\sum_{v\le u}|b^{(\ell+1)}_{uv}|
+                                      |\partial Z^{(\ell)}_v|.
+$$
+Summing over the source row and applying @eq-docs-global-nonlinear-l269 proves
+$$
+ \mathcal R_{\ell,j}
+ \le1+A\Delta\sum_{u<j}
+ (|q^{(\ell)}_u|/5+B_{\ell+1,u}/100)
+                         \max_{v\le u}\mathcal R_{\ell,v},
+ \qquad \max_{v\le j}\mathcal R_{\ell,v}\le E_{\ell,j}. 
+$$ {#eq-docs-global-nonlinear-l887}
+The direct derivative of $\xi^{(\ell)}_j$ contributes one in the row.
+For a single reverse source $\zeta^{(\ell)}_i$, the extra derivative
+of $q^{(\ell)}_u$ is $\mathbf1_{u=i}$.
+Its first forward contribution has size at most $A\Delta/10$.
+The same comparison yields
+$$
+ |\partial_{\zeta^{(\ell)}_i}H^{(\ell)}_j|
+       \le(A\Delta/100)E_{\ell,j}\quad(i<j\le k).       
+$$ {#eq-docs-global-nonlinear-l899}
+There is no current $\zeta^{(\ell)}_j$ dependence in $Z^{(\ell)}_j$.
+
+For $u<j\le k$, the induction hypotheses imply
+$$
+ |q^{(\ell)}_u|\le|\zeta^{(\ell)}_u|+a,\qquad
+ \operatorname{Var}(\zeta^{(\ell)}_u)
+       =\|\delta^{(\ell+1)}_u\|_{L^2}^2\le(7/40)^2.
+$$
+For any centered Gaussian $G_v$ of variance $v$,
+$\mathbb E e^{\lambda|G_v|}\le2e^{\lambda^2v/2}$.
+Jensen over the $j$ time slots, with no temporal independence
+assumption, gives for $p\ge1$
+$$
+ \mathbb E E_{\ell,j}^p
+ \le2\exp\{pAS(a/5+1/100)
+                 +\tfrac12(pAS/5)^2(7/40)^2\}
+ \le2\exp\{219p/400+3969p^2/1280000\}.                 
+$$ {#eq-docs-global-nonlinear-l915}
+At $j=0$ the envelope is one. For $p=1,2$, the exponent after
+taking the $p$-th root is less than $3/5$.
+Since $e<3$ and $3^3<2^5$, $e^{3/5}<2$. Therefore
+$$
+ \|E_{\ell,j}\|_{L^1}<4,\quad\|E_{\ell,j}\|_{L^2}<3,\qquad
+ |a^{(\ell+1)}_{ji}|
+ \le\Delta(a^2+4A/100)
+ =\Delta(49/36+3/50)<A\Delta.                         
+$$ {#eq-docs-global-nonlinear-l924}
+This completes the forward induction through every interior layer,
+up to $a^{(L)}$, without using any current backwards row or delta.
+
+Now start the backward pass at the top.
+Let $T_j=\sum_{i\le j}|\partial_{\xi^{(L)}_i}Z^{(L)}_j|$.
+Differentiating the readout sum and top gate gives
+$$
+ \sum_{i\le j}|\partial_{\xi^{(L)}_i}\delta^{(L)}_j|
+ \le\frac{\Delta}{100}\sum_{u<j}T_u+\frac{aS}{5}T_j
+ \le(73/300)S\max_{v\le j}T_v.
+$$
+The strictly past-time top recursion and @eq-docs-global-nonlinear-l924 imply
+$$
+ \max_{v\le j}T_v\le\exp\{A(73/300)S^2\}
+                \le e^{657/800}<5/2.
+$$
+For the last comparison, $657/800<5/6$ and
+$e^{5/6}<3^{5/6}<5/2$, since $3^5 2^6<5^6$.
+The top delta is pointwise bounded by $aS/10\le7/40$.
+Adding its learned covariance row in @eq-docs-global-nonlinear-l613 proves
+$$
+ B_{L,k}\le(73/300)S(5/2)+a^2S^3/100
+          \le73/80+147/3200=3067/3200<1.              
+$$ {#eq-docs-global-nonlinear-l950}
+
+For an interior $\ell$, suppose the current upper row and delta have
+just been bounded by $1$ and $7/40$.
+Then, before bounding the current row at layer $\ell$,
+$$
+ \|q^{(\ell)}_k\|_{L^2}
+ \le\|\delta^{(\ell+1)}_k\|_{L^2}+aB_{\ell+1,k}
+ \le7/40+7/6=Q,\qquad
+ \|\delta^{(\ell)}_k\|_{L^2}\le Q/10<7/40.                
+$$ {#eq-docs-global-nonlinear-l958}
+This also holds at past indices by their already completed backward
+passes. Including the current return in @eq-docs-global-nonlinear-l632, @eq-docs-global-nonlinear-l887 gives
+$$
+ \sum_{i\le k}|\partial_{\xi^{(\ell)}_i}\delta^{(\ell)}_k|
+ \le (|q^{(\ell)}_k|/5+B_{\ell+1,k}/100)E_{\ell,k}.
+$$
+Cauchy--Schwarz, @eq-docs-global-nonlinear-l915, @eq-docs-global-nonlinear-l958, and the learned covariance term give
+$$
+ B_{\ell,k}
+ \le3(Q/5+1/100)+SQ^2/100
+ \le167/200+77763/2880000
+ =2482563/2880000<9/10.                              
+$$ {#eq-docs-global-nonlinear-l971}
+Thus the backward pass proceeds all the way to layer 2, reproducing
+the same bounds at each new layer. This closes the time induction.
+At $L=4$, the two interior passes are exactly $\ell=2,3$
+forward and $\ell=3,2$ backward; there is no new inequality at either.
+The argument is identical for any fixed number of inserted layers.
+
+For every query $1\le\ell<L$, @eq-docs-global-nonlinear-l825 implies
+$$
+ q^{(\ell)}_k=\zeta^{(\ell)}_k+\beta_{\ell,k},\quad
+ |\beta_{\ell,k}|\le7/6,\quad
+ \operatorname{Var}(\zeta^{(\ell)}_k)\le(7/40)^2.
+$$
+The shift need not be independent of its source.
+Using $(u+v)^2\le2u^2+2v^2$ and a one-dimensional Gaussian integral,
+$$
+ \mathbb E e^{(q^{(\ell)}_k)^2/16}
+ \le e^{49/288}\mathbb E e^{(\zeta^{(\ell)}_k)^2/8}
+ \le e^{49/288}(1-49/6400)^{-1/2}<2.                 
+$$ {#eq-docs-global-nonlinear-l991}
+Indeed $e^{49/288}<e^{1/5}\le5/4$ and the remaining factor is
+less than $4/3$. This bound is independent of depth, mesh, time index,
+and cap. It is not a Gaussian path-supremum claim.
+

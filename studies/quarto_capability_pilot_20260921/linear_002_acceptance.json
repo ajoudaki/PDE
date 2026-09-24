@@ -1,0 +1,60 @@
+{
+  "status": "accepted-formatting-only",
+  "date": "2026-09-21",
+  "scope": {
+    "packet": "linear_002",
+    "source": "docs/README.md",
+    "start": 212,
+    "end": 496,
+    "candidate": "linear_002.qmd",
+    "candidate_sha256": "b83e594beaed582b6079c0e1f08689efa5eff6956bbfa794bce15b4d67f05141",
+    "registry_sha256": "a77c11f2ac7eeac61dae7b1309225a01751d9d60a3669f26b3404cefd7a8d748"
+  },
+  "source_revision": "ab6dd76987007b925b4d9559a936234e224ef6e9",
+  "review": "linear_002_astra_review.md",
+  "review_sha256": "c3e8caae4a0d23b39cdbd090b4947ee7989900b735925d48a708f9f87cb3d35b",
+  "audit_inputs": "data/generated/quarto_capability_pilot_20260921/linear_002-audit-final-v5",
+  "audit_manifest_sha256": "b14629ef08f2696ebdedd5901b7be2332abc88efc87a1f61d22cb4ed21eed70d",
+  "review_inventory_hashes_verified": 36,
+  "progress_sha256": "275582a9a2c07824b0657362b6974ecd5a5aeb9f4936c2831584dc7663a95d10",
+  "sources_sha256": "189f4d7619a804b80da4cbc6f6342fb0a69da995d3ef72d62584dd3a32c5d3b8",
+  "render": "data/generated/quarto_capability_pilot_20260921/batch02-render-tooling/linear002-render-repaired-v5",
+  "defined": [
+    "sec-docs-readme-l1",
+    "sec-docs-readme-l124",
+    "sec-docs-readme-l148",
+    "sec-docs-readme-l163",
+    "sec-docs-readme-l198",
+    "sec-docs-readme-l262",
+    "sec-docs-readme-l295",
+    "sec-docs-readme-l313",
+    "sec-docs-readme-l52",
+    "sec-docs-readme-l8",
+    "sec-docs-readme-l89"
+  ],
+  "reserved": [
+    "sec-docs-continuous-depth-l1",
+    "sec-docs-gaussian-calculus-l1",
+    "sec-docs-gaussian-calculus-l1749",
+    "sec-docs-gaussian-calculus-l2156",
+    "sec-docs-gaussian-calculus-l3838",
+    "sec-docs-gaussian-calculus-l4050",
+    "sec-docs-global-nonlinear-l1",
+    "sec-docs-global-nonlinear-l11441",
+    "sec-docs-global-nonlinear-l12084",
+    "sec-docs-global-nonlinear-l12555",
+    "sec-docs-global-nonlinear-l16001",
+    "sec-docs-global-nonlinear-l19884",
+    "sec-docs-global-nonlinear-l5270",
+    "sec-docs-global-nonlinear-l6904",
+    "sec-docs-global-nonlinear-l8978",
+    "sec-docs-linear-dynamics-l1",
+    "sec-docs-notation-l1"
+  ],
+  "next_source": {
+    "source": "docs/README.md",
+    "line": 497
+  },
+  "established_sources_unchanged": true,
+  "complete_edition": false
+}

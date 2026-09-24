@@ -1,0 +1,205 @@
+[
+  {
+    "id": "sec-docs-global-nonlinear-l32",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 32,
+    "end": 32
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l185",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 185,
+    "end": 185
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l281",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 281,
+    "end": 281
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l297",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 297,
+    "end": 297
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l334",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 334,
+    "end": 334
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l398",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 398,
+    "end": 398
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l457",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 457,
+    "end": 457
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l816",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 816,
+    "end": 816
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l1136",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 1136,
+    "end": 1136
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l3982",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 3982,
+    "end": 3982
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l4949",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 4949,
+    "end": 4949
+  },
+  {
+    "id": "thm-docs-global-nonlinear-l81",
+    "kind": "thm",
+    "source": "docs/global_nonlinear.md",
+    "start": 81,
+    "end": 174
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l52",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 52,
+    "end": 57
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l59",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 59,
+    "end": 63
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l72",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 72,
+    "end": 74
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l89",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 89,
+    "end": 92
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l113",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 113,
+    "end": 119
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l147",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 147,
+    "end": 152
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l158",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 158,
+    "end": 163
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l197",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 197,
+    "end": 199
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l209",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 209,
+    "end": 212
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l247",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 247,
+    "end": 251
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l256",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 256,
+    "end": 258
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l269",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 269,
+    "end": 272
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l306",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 306,
+    "end": 309
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l312",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 312,
+    "end": 315
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l341",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 341,
+    "end": 345
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l363",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 363,
+    "end": 368
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l407",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 407,
+    "end": 410
+  }
+]

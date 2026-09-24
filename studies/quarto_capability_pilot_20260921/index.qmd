@@ -1,0 +1,8 @@
+# Preface {.unnumbered}
+
+This is artificial TEST DATA for checking Quarto book mechanics. It makes no
+scientific claim. The chapters exercise native theorem types, equations, links,
+an include, a table, a footnote, and citations.
+
+Begin with @thm-seed and compare it with the later @cor-return.
+

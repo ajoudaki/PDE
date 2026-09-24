@@ -1,0 +1,275 @@
+[
+  {
+    "offset": 42,
+    "old": "",
+    "new": " {#sec-docs-readme-l497}",
+    "kind": "label",
+    "target": "sec-docs-readme-l497"
+  },
+  {
+    "offset": 903,
+    "old": "",
+    "new": " {#sec-docs-readme-l512}",
+    "kind": "label",
+    "target": "sec-docs-readme-l512"
+  },
+  {
+    "offset": 1851,
+    "old": "",
+    "new": " {#sec-docs-readme-l529}",
+    "kind": "label",
+    "target": "sec-docs-readme-l529"
+  },
+  {
+    "offset": 2719,
+    "old": "",
+    "new": " {#sec-docs-readme-l544}",
+    "kind": "label",
+    "target": "sec-docs-readme-l544"
+  },
+  {
+    "offset": 4020,
+    "old": "",
+    "new": " {#sec-docs-readme-l565}",
+    "kind": "label",
+    "target": "sec-docs-readme-l565"
+  },
+  {
+    "offset": 6280,
+    "old": "",
+    "new": " {#sec-docs-readme-l603}",
+    "kind": "label",
+    "target": "sec-docs-readme-l603"
+  },
+  {
+    "offset": 6338,
+    "old": "[Finite dynamics and energy](finite_dynamics.md)",
+    "new": "[Finite dynamics and energy](finite-dynamics.qmd#sec-docs-finite-dynamics-l1)",
+    "kind": "reference",
+    "target": "sec-docs-finite-dynamics-l1"
+  },
+  {
+    "offset": 6913,
+    "old": "[Gaussian and flow calculus](gaussian_calculus.md)",
+    "new": "[Gaussian and flow calculus](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l1)",
+    "kind": "reference",
+    "target": "sec-docs-gaussian-calculus-l1"
+  },
+  {
+    "offset": 8969,
+    "old": "[Arctangent operator limits](arctan_limits.md)",
+    "new": "[Arctangent operator limits](arctan-limits.qmd#sec-docs-arctan-limits-l1)",
+    "kind": "reference",
+    "target": "sec-docs-arctan-limits-l1"
+  },
+  {
+    "offset": 9337,
+    "old": "[Global nonlinear learning](global_nonlinear.md)",
+    "new": "[Global nonlinear learning](global-nonlinear.qmd#sec-docs-global-nonlinear-l1)",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l1"
+  },
+  {
+    "offset": 10727,
+    "old": "[Section C.4.7](global_nonlinear.md#c47-nonlinear-training-near-the-fitted-tanh-reference)",
+    "new": "@sec-docs-global-nonlinear-l8978",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l8978"
+  },
+  {
+    "offset": 11079,
+    "old": "[Section C.4.8](global_nonlinear.md#c48-sampling-fluctuations-of-the-trained-prediction)",
+    "new": "@sec-docs-global-nonlinear-l16001",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l16001"
+  },
+  {
+    "offset": 11403,
+    "old": "[Section C.4.9](global_nonlinear.md#c49-nonlinear-prediction-selection-during-a-finite-added-data-episode)",
+    "new": "@sec-docs-global-nonlinear-l17554",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l17554"
+  },
+  {
+    "offset": 11929,
+    "old": "[Section C.4.10](global_nonlinear.md#c410-generalization-during-a-finite-added-data-episode)",
+    "new": "@sec-docs-global-nonlinear-l19884",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l19884"
+  },
+  {
+    "offset": 12493,
+    "old": "[Section C.5](global_nonlinear.md#c5-early-test-risk-advantage-over-frozen-features-at-matched-training-loss)",
+    "new": "@sec-docs-global-nonlinear-l21578",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l21578"
+  },
+  {
+    "offset": 13208,
+    "old": "[Population limits and correlated-data geometry](special_data_limits.md)",
+    "new": "[Population limits and correlated-data geometry](special-data-limits.qmd#sec-docs-special-data-limits-l1)",
+    "kind": "reference",
+    "target": "sec-docs-special-data-limits-l1"
+  },
+  {
+    "offset": 14924,
+    "old": "[Linear dynamics and exact-capture comparisons](linear_dynamics.md)",
+    "new": "[Linear dynamics and exact-capture comparisons](linear-dynamics.qmd#sec-docs-linear-dynamics-l1)",
+    "kind": "reference",
+    "target": "sec-docs-linear-dynamics-l1"
+  },
+  {
+    "offset": 15460,
+    "old": "[Continuous depth](continuous_depth.md)",
+    "new": "[Continuous depth](continuous-depth.qmd#sec-docs-continuous-depth-l1)",
+    "kind": "reference",
+    "target": "sec-docs-continuous-depth-l1"
+  },
+  {
+    "offset": 16227,
+    "old": "[Finite optimization and controls](finite_optimization_and_controls.md)",
+    "new": "[Finite optimization and controls](finite-optimization-and-controls.qmd#sec-docs-finite-optimization-and-controls-l1)",
+    "kind": "reference",
+    "target": "sec-docs-finite-optimization-and-controls-l1"
+  },
+  {
+    "offset": 17770,
+    "old": "linear",
+    "new": "[linear](linear-dynamics.qmd#sec-docs-linear-dynamics-l1)",
+    "kind": "reference",
+    "target": "sec-docs-linear-dynamics-l1"
+  },
+  {
+    "offset": 17781,
+    "old": "continuous-depth",
+    "new": "[continuous-depth](continuous-depth.qmd#sec-docs-continuous-depth-l1)",
+    "kind": "reference",
+    "target": "sec-docs-continuous-depth-l1"
+  },
+  {
+    "offset": 17912,
+    "old": "finite-controls",
+    "new": "[finite-controls](finite-optimization-and-controls.qmd#sec-docs-finite-optimization-and-controls-l1)",
+    "kind": "reference",
+    "target": "sec-docs-finite-optimization-and-controls-l1"
+  },
+  {
+    "offset": 18008,
+    "old": "[implementation guide](../code/README.md)",
+    "new": "[implementation guide](implementation-guide.qmd#sec-code-readme-l1)",
+    "kind": "reference",
+    "target": "sec-code-readme-l1"
+  },
+  {
+    "offset": 18211,
+    "old": "Section C.5",
+    "new": "@sec-docs-global-nonlinear-l21578",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l21578"
+  },
+  {
+    "offset": 18570,
+    "old": "",
+    "new": " {#sec-docs-readme-l626}",
+    "kind": "label",
+    "target": "sec-docs-readme-l626"
+  },
+  {
+    "offset": 20473,
+    "old": "",
+    "new": " {#sec-docs-readme-l657}",
+    "kind": "label",
+    "target": "sec-docs-readme-l657"
+  },
+  {
+    "offset": 23657,
+    "old": "",
+    "new": " {#sec-docs-readme-l705}",
+    "kind": "label",
+    "target": "sec-docs-readme-l705"
+  },
+  {
+    "offset": 23801,
+    "old": "[Global nonlinear learning, Section C.4](global_nonlinear.md#c4-training-law-stability-for-two-hidden-tanh-layers)",
+    "new": "Global nonlinear learning, @sec-docs-global-nonlinear-l3836",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l3836"
+  },
+  {
+    "offset": 24139,
+    "old": "Section C.4.5",
+    "new": "@sec-docs-global-nonlinear-l5270",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l5270"
+  },
+  {
+    "offset": 24463,
+    "old": "Section C.4.6",
+    "new": "@sec-docs-global-nonlinear-l6904",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l6904"
+  },
+  {
+    "offset": 24728,
+    "old": "C.4.6",
+    "new": "@sec-docs-global-nonlinear-l6904",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l6904"
+  },
+  {
+    "offset": 24837,
+    "old": "Section\n[C.4.7](global_nonlinear.md#c47-nonlinear-training-near-the-fitted-tanh-reference)",
+    "new": "@sec-docs-global-nonlinear-l8978",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l8978"
+  },
+  {
+    "offset": 25290,
+    "old": "Section C.4.8",
+    "new": "@sec-docs-global-nonlinear-l16001",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l16001"
+  },
+  {
+    "offset": 25539,
+    "old": "[Section C.4.9](global_nonlinear.md#c49-nonlinear-prediction-selection-during-a-finite-added-data-episode)",
+    "new": "@sec-docs-global-nonlinear-l17554",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l17554"
+  },
+  {
+    "offset": 26065,
+    "old": "[Section C.4.10](global_nonlinear.md#c410-generalization-during-a-finite-added-data-episode)",
+    "new": "@sec-docs-global-nonlinear-l19884",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l19884"
+  },
+  {
+    "offset": 26629,
+    "old": "[Section C.5](global_nonlinear.md#c5-early-test-risk-advantage-over-frozen-features-at-matched-training-loss)",
+    "new": "@sec-docs-global-nonlinear-l21578",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l21578"
+  },
+  {
+    "offset": 27988,
+    "old": "C.5",
+    "new": "@sec-docs-global-nonlinear-l21578",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l21578"
+  },
+  {
+    "offset": 28163,
+    "old": "",
+    "new": " {#sec-docs-readme-l740}",
+    "kind": "label",
+    "target": "sec-docs-readme-l740"
+  },
+  {
+    "offset": 28165,
+    "old": "[General-d p=1 coefficients and finite computation](observable_p1.md)",
+    "new": "[General-d p=1 coefficients and finite computation](observable-p1.qmd#sec-docs-observable-p1-l1)",
+    "kind": "reference",
+    "target": "sec-docs-observable-p1-l1"
+  }
+]

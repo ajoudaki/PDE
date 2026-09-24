@@ -1,0 +1,9 @@
+\documentclass[tikz,border=4pt]{standalone}
+\begin{document}
+\begin{tikzpicture}
+  \draw[->] (-0.2,0) -- (3.2,0) node[right] {$x$};
+  \draw[->] (0,-0.2) -- (0,2.2) node[above] {$y$};
+  \draw[thick,blue] plot[smooth] coordinates {(0,0.2) (1,0.7) (2,1.2) (3,1.7)};
+  \node[above left] at (3,1.7) {TEST DATA};
+\end{tikzpicture}
+\end{document}

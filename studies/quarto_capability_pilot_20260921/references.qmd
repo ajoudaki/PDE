@@ -1,0 +1,7 @@
+# References {.unnumbered}
+
+The entry below is fictitious TEST DATA used only to exercise bibliography
+generation.
+
+::: {#refs}
+:::

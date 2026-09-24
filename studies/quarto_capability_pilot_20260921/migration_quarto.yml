@@ -1,0 +1,21 @@
+project:
+  type: book
+book:
+  title: "PDE book — partial formatting migration"
+  chapters:
+    - index.qmd
+number-sections: true
+number-depth: 6
+classoption: enabledeprecatedfontcommands
+format:
+  html: default
+  pdf:
+    pdf-engine: xelatex
+    keep-tex: true
+    latex-auto-install: false
+    latex-tinytex: false
+    filters:
+      - pdf_breakable_tables.lua
+  latex:
+    filters:
+      - pdf_breakable_tables.lua

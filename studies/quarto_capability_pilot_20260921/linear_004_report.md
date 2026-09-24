@@ -1,0 +1,3 @@
+# linear_004 migration report
+
+Migrated all 98 frozen `docs/NOTATION.md` lines. Reused the reserved title target `sec-docs-notation-l1`; proposed targets for the four remaining headings. Converted both display pairs from `\[`/`\]` to `$$` without changing payloads. Inventory found no existing internal Markdown links, raw numbered references, or explicit named chapter/section references. Uses of “chapter,” “models,” “theorem,” and related terms are generic model-contract prose, not identifiable book destinations. No candidate reference was left unresolved or ambiguous. All backtick expressions and prose remain byte-identical. The prescribed migration checker passes.

@@ -1,0 +1,196 @@
+[
+  {
+    "offset": 2458,
+    "old": "    L_n = sum_a omega_a (f_n,a-y_a)^2,       r_n,a=f_n,a-y_a.",
+    "new": "$$\nL_n=\\sum_a\\omega_a(f_{n,a}-y_a)^2,\\qquad r_{n,a}=f_{n,a}-y_a.\n$$",
+    "kind": "display-transcription"
+  },
+  {
+    "offset": 2783,
+    "old": "    |phi^(ell)(0)|<=D0,\n    |phi^(ell)'(s)|<=D1,\n    |phi^(ell)'(s)-phi^(ell)'(t)|<=D2 |s-t|.",
+    "new": "$$\n\\begin{aligned}\n|\\phi^{(\\ell)}(0)|&\\le D_0,\\\\\n|\\phi^{(\\ell)\\prime}(s)|&\\le D_1,\\\\\n|\\phi^{(\\ell)\\prime}(s)-\\phi^{(\\ell)\\prime}(t)|&\\le D_2|s-t|.\n\\end{aligned}\n$$",
+    "kind": "display-transcription"
+  },
+  {
+    "offset": 4115,
+    "old": "    sup_(p>=2) (E|W^(L+1)_0,j|^p)^(1/p)/sqrt(p) <= B_out < infinity.",
+    "new": "$$\n\\sup_{p\\ge2}\\frac{(\\mathbb E|W^{(L+1)}_{0,j}|^p)^{1/p}}{\\sqrt p}\n\\le B_{\\mathrm{out}}<\\infty.\n$$",
+    "kind": "display-transcription"
+  },
+  {
+    "offset": 4598,
+    "old": "    z^(1)_a=W^(1)x_a/sqrt(d),       h^(1)_a=phi^(1)(z^(1)_a),\n    z^(ell)_a=W^(ell)h^(ell-1)_a,  h^(ell)_a=phi^(ell)(z^(ell)_a), 2<=ell<=L,\n    f_n,a=(W^(L+1))^top h^(L)_a/n.",
+    "new": "$$\n\\begin{aligned}\nz^{(1)}_a&=W^{(1)}x_a/\\sqrt d,\\qquad\nh^{(1)}_a=\\phi^{(1)}(z^{(1)}_a),\\\\\nz^{(\\ell)}_a&=W^{(\\ell)}h^{(\\ell-1)}_a,\\qquad\nh^{(\\ell)}_a=\\phi^{(\\ell)}(z^{(\\ell)}_a),\\quad 2\\le\\ell\\le L,\\\\\nf_{n,a}&=(W^{(L+1)})^\\top h^{(L)}_a/n.\n\\end{aligned}\n$$",
+    "kind": "display-transcription"
+  },
+  {
+    "offset": 4944,
+    "old": "    delta^(L)_a=W^(L+1) phi^(L)'(z^(L)_a),\n    delta^(ell)_a=phi^(ell)'(z^(ell)_a)\n                       [(W^(ell+1))^top delta^(ell+1)_a], ell<L.",
+    "new": "$$\n\\begin{aligned}\n\\delta^{(L)}_a&=W^{(L+1)}\\phi^{(L)\\prime}(z^{(L)}_a),\\\\\n\\delta^{(\\ell)}_a&=\\phi^{(\\ell)\\prime}(z^{(\\ell)}_a)\n\\bigl[(W^{(\\ell+1)})^\\top\\delta^{(\\ell+1)}_a\\bigr],\\quad \\ell<L.\n\\end{aligned}\n$$",
+    "kind": "display-transcription"
+  },
+  {
+    "offset": 5223,
+    "old": "    eta_n (n kappa_1, kappa_2, ..., kappa_L, n kappa_(L+1)).",
+    "new": "$$\n\\eta_n\\bigl(n\\kappa_1,\\kappa_2,\\ldots,\\kappa_L,n\\kappa_{L+1}\\bigr).\n$$",
+    "kind": "display-transcription"
+  },
+  {
+    "offset": 5308,
+    "old": "    W^(1)_(k+1)=W^(1)_k\n        -(2 eta_n kappa_1/sqrt(d)) sum_b omega_b r_n,b,k delta^(1)_b,k x_b^top,\n    z^(1)_a,k+1=z^(1)_a,k\n        -2 eta_n kappa_1 sum_b omega_b G_ab r_n,b,k delta^(1)_b,k,\n    W^(ell)_(k+1)=W^(ell)_k\n        -(2 eta_n kappa_ell/n) sum_b omega_b r_n,b,k\n                             delta^(ell)_b,k (h^(ell-1)_b,k)^top, 2<=ell<=L,\n    W^(L+1)_(k+1)=W^(L+1)_k\n        -2 eta_n kappa_(L+1) sum_b omega_b r_n,b,k h^(L)_b,k.                 (1)",
+    "new": "$$\n\\begin{aligned}\nW^{(1)}_{k+1}&=W^{(1)}_k\n-\\frac{2\\eta_n\\kappa_1}{\\sqrt d}\\sum_b\\omega_b r_{n,b,k}\\delta^{(1)}_{b,k}x_b^\\top,\\\\\nz^{(1)}_{a,k+1}&=z^{(1)}_{a,k}\n-2\\eta_n\\kappa_1\\sum_b\\omega_bG_{ab}r_{n,b,k}\\delta^{(1)}_{b,k},\\\\\nW^{(\\ell)}_{k+1}&=W^{(\\ell)}_k\n-\\frac{2\\eta_n\\kappa_\\ell}{n}\\sum_b\\omega_b r_{n,b,k}\n\\delta^{(\\ell)}_{b,k}(h^{(\\ell-1)}_{b,k})^\\top,\\quad 2\\le\\ell\\le L,\\\\\nW^{(L+1)}_{k+1}&=W^{(L+1)}_k\n-2\\eta_n\\kappa_{L+1}\\sum_b\\omega_b r_{n,b,k}h^{(L)}_{b,k}.\n\\end{aligned}\n$$ {#eq-docs-global-nonlinear-l2537}",
+    "kind": "display-transcription",
+    "target": "eq-docs-global-nonlinear-l2537"
+  },
+  {
+    "offset": 7748,
+    "old": "    (u tensor v)V = u E[v V].",
+    "new": "$$\n(u\\otimes v)V=u\\,\\mathbb E[vV].\n$$",
+    "kind": "display-transcription"
+  },
+  {
+    "offset": 7993,
+    "old": "    f_a=E[W^(L+1) H^(L)_a],\n    P^(L)_a=W^(L+1),\n    P^(ell)_a=(W^(ell+1))^* delta^(ell+1)_a, ell<L,\n    delta^(ell)_a=phi^(ell)'(Z^(ell)_a) P^(ell)_a.",
+    "new": "$$\n\\begin{aligned}\nf_a&=\\mathbb E[W^{(L+1)}H^{(L)}_a],\\\\\nP^{(L)}_a&=W^{(L+1)},\\\\\nP^{(\\ell)}_a&=(W^{(\\ell+1)})^*\\delta^{(\\ell+1)}_a,\\quad \\ell<L,\\\\\n\\delta^{(\\ell)}_a&=\\phi^{(\\ell)\\prime}(Z^{(\\ell)}_a)P^{(\\ell)}_a.\n\\end{aligned}\n$$",
+    "kind": "display-transcription"
+  },
+  {
+    "offset": 8174,
+    "old": "    dot Z^(1)_a=-2 kappa_1 sum_b omega_b G_ab r_b delta^(1)_b,\n    dot W^(ell)=-2 kappa_ell sum_b omega_b r_b\n                                  delta^(ell)_b tensor H^(ell-1)_b, 2<=ell<=L,\n    dot W^(L+1)=-2 kappa_(L+1) sum_b omega_b r_b H^(L)_b.                    (2)",
+    "new": "$$\n\\begin{aligned}\n\\dot Z^{(1)}_a&=-2\\kappa_1\\sum_b\\omega_bG_{ab}r_b\\delta^{(1)}_b,\\\\\n\\dot W^{(\\ell)}&=-2\\kappa_\\ell\\sum_b\\omega_b r_b\n\\delta^{(\\ell)}_b\\otimes H^{(\\ell-1)}_b,\\quad 2\\le\\ell\\le L,\\\\\n\\dot W^{(L+1)}&=-2\\kappa_{L+1}\\sum_b\\omega_b r_bH^{(L)}_b.\n\\end{aligned}\n$$ {#eq-docs-global-nonlinear-l2594}",
+    "kind": "display-transcription",
+    "target": "eq-docs-global-nonlinear-l2594"
+  },
+  {
+    "offset": 9726,
+    "old": "    P(||W^(ell)_0||_op>M)\n       <=2*9^(2n)*exp[-n M^2/(8 sigma_ell^2)] -> 0                       (3)",
+    "new": "$$\n\\mathbb P\\bigl(\\|W^{(\\ell)}_0\\|_{\\mathrm{op}}>M\\bigr)\n\\le2\\cdot9^{2n}\\exp\\left[-\\frac{nM^2}{8\\sigma_\\ell^2}\\right]\\longrightarrow0.\n$$ {#eq-docs-global-nonlinear-l2619}",
+    "kind": "display-transcription",
+    "target": "eq-docs-global-nonlinear-l2619"
+  },
+  {
+    "offset": 10452,
+    "old": "    d(theta,theta_tilde)=max_a ||Z^(1)_a-Ztilde^(1)_a||_L2\n       +sum_(ell=2)^L ||W^(ell)-Wtilde^(ell)||_op\n       +||W^(L+1)-Wtilde^(L+1)||_L2.                                    (4)",
+    "new": "$$\n\\begin{aligned}\nd(\\theta,\\widetilde\\theta)\n&=\\max_a\\|Z^{(1)}_a-\\widetilde Z^{(1)}_a\\|_{L^2}\n+\\sum_{\\ell=2}^L\\|W^{(\\ell)}-\\widetilde W^{(\\ell)}\\|_{\\mathrm{op}}\\\\\n&\\quad+\\|W^{(L+1)}-\\widetilde W^{(L+1)}\\|_{L^2}.\n\\end{aligned}\n$$ {#eq-docs-global-nonlinear-l2632}",
+    "kind": "display-transcription",
+    "target": "eq-docs-global-nonlinear-l2632"
+  },
+  {
+    "offset": 11160,
+    "old": "    h_1=D0+D1 B,       h_ell=D0+D1 B h_(ell-1),\n    d_ell=D1^(L-ell+1) B^(L-ell+1),\n    R0=B h_L+Y.",
+    "new": "$$\n\\begin{aligned}\nh_1&=D_0+D_1B,\\qquad h_\\ell=D_0+D_1Bh_{\\ell-1},\\\\\nd_\\ell&=D_1^{L-\\ell+1}B^{L-\\ell+1},\\\\\nR_0&=Bh_L+Y.\n\\end{aligned}\n$$",
+    "kind": "display-transcription"
+  },
+  {
+    "offset": 11472,
+    "old": "    2 kappa_1 X^2 R0 d_1,\n    2 kappa_ell R0 d_ell h_(ell-1) (2<=ell<=L),\n    2 kappa_(L+1) R0 h_L.",
+    "new": "$$\n\\begin{aligned}\n&2\\kappa_1X^2R_0d_1,\\\\\n&2\\kappa_\\ell R_0d_\\ell h_{\\ell-1},\\quad 2\\le\\ell\\le L,\\\\\n&2\\kappa_{L+1}R_0h_L.\n\\end{aligned}\n$$",
+    "kind": "display-transcription"
+  },
+  {
+    "offset": 11604,
+    "old": "    T_ball=min(1,(B-S0)/(4 V0)),                                       (5)",
+    "new": "$$\nT_{\\mathrm{ball}}=\\min\\left(1,\\frac{B-S_0}{4V_0}\\right).\n$$ {#eq-docs-global-nonlinear-l2659}",
+    "kind": "display-transcription",
+    "target": "eq-docs-global-nonlinear-l2659"
+  },
+  {
+    "offset": 12246,
+    "old": "    sup_(k Delta<=T_response) max_(a,ell)\n          E exp(c |P^(ell)_a,k|^2) <= C.                                (6)",
+    "new": "$$\n\\sup_{k\\Delta\\le T_{\\mathrm{response}}}\\max_{a,\\ell}\n\\mathbb E\\exp\\bigl(c|P^{(\\ell)}_{a,k}|^2\\bigr)\\le C.\n$$ {#eq-docs-global-nonlinear-l2672}",
+    "kind": "display-transcription",
+    "target": "eq-docs-global-nonlinear-l2672"
+  },
+  {
+    "offset": 13755,
+    "old": "    ||[phi'(Z)-phi'(Ztilde)] Ptilde||_L2\n       <=D2 R ||Z-Ztilde||_L2\n           +2D1 ||Ptilde 1_(|Ptilde|>R)||_L2.                            (7)",
+    "new": "$$\n\\begin{aligned}\n\\|[\\phi'(Z)-\\phi'(\\widetilde Z)]\\widetilde P\\|_{L^2}\n&\\le D_2R\\|Z-\\widetilde Z\\|_{L^2}\\\\\n&\\quad+2D_1\\|\\widetilde P\\mathbf 1_{\\{|\\widetilde P|>R\\}}\\|_{L^2}.\n\\end{aligned}\n$$ {#eq-docs-global-nonlinear-l2701}",
+    "kind": "display-transcription",
+    "target": "eq-docs-global-nonlinear-l2701"
+  },
+  {
+    "offset": 13933,
+    "old": "    phi'(Z)(P-Ptilde)+[phi'(Z)-phi'(Ztilde)]Ptilde.",
+    "new": "$$\n\\phi'(Z)(P-\\widetilde P)+[\\phi'(Z)-\\phi'(\\widetilde Z)]\\widetilde P.\n$$",
+    "kind": "display-transcription"
+  },
+  {
+    "offset": 14159,
+    "old": "    max_(a,ell)||delta^(ell)_a-deltatilde^(ell)_a||_L2\n       <=C(1+R)d+C sum_(ell=1)^L max_a\n                  ||Ptilde^(ell)_a 1_(|Ptilde^(ell)_a|>R)||_L2.",
+    "new": "$$\n\\begin{aligned}\n\\max_{a,\\ell}\\|\\delta^{(\\ell)}_a-\\widetilde\\delta^{(\\ell)}_a\\|_{L^2}\n&\\le C(1+R)d+C\\sum_{\\ell=1}^L\\max_a\n\\|\\widetilde P^{(\\ell)}_a\\mathbf 1_{\\{|\\widetilde P^{(\\ell)}_a|>R\\}}\\|_{L^2}.\n\\end{aligned}\n$$",
+    "kind": "display-transcription"
+  },
+  {
+    "offset": 14679,
+    "old": "    ||F(theta)-F(theta_reference)||\n       <=C(1+R)d(theta,theta_reference)+C exp(-c R^2),                    (8)",
+    "new": "$$\n\\|F(\\theta)-F(\\theta_{\\mathrm{reference}})\\|\n\\le C(1+R)d(\\theta,\\theta_{\\mathrm{reference}})+C\\exp(-cR^2).\n$$ {#eq-docs-global-nonlinear-l2724}",
+    "kind": "display-transcription",
+    "target": "eq-docs-global-nonlinear-l2724"
+  },
+  {
+    "offset": 15183,
+    "old": "    sup_(t<=T_*) d(theta^Delta(t),theta^Delta'(t))\n       <=C exp[C(1+R)T_*]\n           ((1+R)(Delta+Delta')+exp(-cR^2)).                             (9)",
+    "new": "$$\n\\begin{aligned}\n\\sup_{t\\le T_*}d(\\theta^\\Delta(t),\\theta^{\\Delta'}(t))\n&\\le C\\exp\\bigl[C(1+R)T_*\\bigr]\\\\\n&\\quad\\times\\bigl((1+R)(\\Delta+\\Delta')+\\exp(-cR^2)\\bigr).\n\\end{aligned}\n$$ {#eq-docs-global-nonlinear-l2735}",
+    "kind": "display-transcription",
+    "target": "eq-docs-global-nonlinear-l2735"
+  },
+  {
+    "offset": 17077,
+    "old": "    W^(ell)_k=W^(ell)_0-2 kappa_ell Delta\n          sum_(s<k,b) omega_b r_b,s delta^(ell)_b,s tensor H^(ell-1)_b,s.   (10)",
+    "new": "$$\nW^{(\\ell)}_k=W^{(\\ell)}_0-2\\kappa_\\ell\\Delta\n\\sum_{s<k,b}\\omega_b r_{b,s}\\delta^{(\\ell)}_{b,s}\\otimes H^{(\\ell-1)}_{b,s}.\n$$ {#eq-docs-global-nonlinear-l2769}",
+    "kind": "display-transcription",
+    "target": "eq-docs-global-nonlinear-l2769"
+  },
+  {
+    "offset": 17991,
+    "old": "    -2 kappa_ell Delta omega_b r_b,s delta^(ell)_b,s,oracle\n       ((h^(ell-1)_b,s,oracle)^top h^(ell-1)_a,k,oracle/n\n                         -E[H^(ell-1)_b,s H^(ell-1)_a,k]),               (11)",
+    "new": "$$\n-2\\kappa_\\ell\\Delta\\omega_b r_{b,s}\\delta^{(\\ell),\\mathrm{oracle}}_{b,s}\n\\left(\\frac{(h^{(\\ell-1),\\mathrm{oracle}}_{b,s})^\\top\nh^{(\\ell-1),\\mathrm{oracle}}_{a,k}}{n}\n-\\mathbb E[H^{(\\ell-1)}_{b,s}H^{(\\ell-1)}_{a,k}]\\right).\n$$ {#eq-docs-global-nonlinear-l2785}",
+    "kind": "display-transcription",
+    "target": "eq-docs-global-nonlinear-l2785"
+  },
+  {
+    "offset": 18958,
+    "old": "    ||v 1_(|v|>2R)||_2/sqrt(n)\n       <=2 e_n+2||u 1_(|u|>R)||_2/sqrt(n).",
+    "new": "$$\n\\frac{\\|v\\mathbf 1_{\\{|v|>2R\\}}\\|_2}{\\sqrt n}\n\\le2e_n+2\\frac{\\|u\\mathbf 1_{\\{|u|>R\\}}\\|_2}{\\sqrt n}.\n$$",
+    "kind": "display-transcription"
+  },
+  {
+    "offset": 19583,
+    "old": "    sup_(t<=T_*) d_n(theta_n^GD(t),theta_n^proxy,Delta(t))\n       <=C exp[C(1+R)T_*]\n          ((1+R)(eta_n+Delta)+exp(-cR^2)+o_P(1)).                         (12)",
+    "new": "$$\n\\begin{aligned}\n\\sup_{t\\le T_*}d_n(\\theta_n^{\\mathrm{GD}}(t),\\theta_n^{\\mathrm{proxy},\\Delta}(t))\n&\\le C\\exp\\bigl[C(1+R)T_*\\bigr]\\\\\n&\\quad\\times\\bigl((1+R)(\\eta_n+\\Delta)+\\exp(-cR^2)+o_{\\mathbb P}(1)\\bigr).\n\\end{aligned}\n$$ {#eq-docs-global-nonlinear-l2815}",
+    "kind": "display-transcription",
+    "target": "eq-docs-global-nonlinear-l2815"
+  },
+  {
+    "offset": 20375,
+    "old": "    K^(1)_ab=G_ab E[delta^(1)_a delta^(1)_b],\n    K^(ell)_ab=E[H^(ell-1)_a H^(ell-1)_b]\n                      E[delta^(ell)_a delta^(ell)_b], 2<=ell<=L,\n    K^(L+1)_ab=E[H^(L)_a H^(L)_b],\n    K=sum_(ell=1)^(L+1) kappa_ell K^(ell).",
+    "new": "$$\n\\begin{aligned}\nK^{(1)}_{ab}&=G_{ab}\\mathbb E[\\delta^{(1)}_a\\delta^{(1)}_b],\\\\\nK^{(\\ell)}_{ab}&=\\mathbb E[H^{(\\ell-1)}_aH^{(\\ell-1)}_b]\n\\mathbb E[\\delta^{(\\ell)}_a\\delta^{(\\ell)}_b],\\quad 2\\le\\ell\\le L,\\\\\nK^{(L+1)}_{ab}&=\\mathbb E[H^{(L)}_aH^{(L)}_b],\\\\\nK&=\\sum_{\\ell=1}^{L+1}\\kappa_\\ell K^{(\\ell)}.\n\\end{aligned}\n$$",
+    "kind": "display-transcription"
+  },
+  {
+    "offset": 20824,
+    "old": "    dot f=-2 K Omega r,        dot L=-4 (Omega r)^top K (Omega r).         (13)",
+    "new": "$$\n\\dot f=-2K\\Omega r,\\qquad \\dot L=-4(\\Omega r)^\\top K(\\Omega r).\n$$ {#eq-docs-global-nonlinear-l2841}",
+    "kind": "display-transcription",
+    "target": "eq-docs-global-nonlinear-l2841"
+  },
+  {
+    "offset": 21172,
+    "old": "    dot Z^(ell)_a=dot W^(ell) H^(ell-1)_a\n                    +W^(ell)[phi^(ell-1)'(Z^(ell-1)_a) dot Z^(ell-1)_a]   (14)",
+    "new": "$$\n\\dot Z^{(\\ell)}_a=\\dot W^{(\\ell)}H^{(\\ell-1)}_a\n+W^{(\\ell)}\\bigl[\\phi^{(\\ell-1)\\prime}(Z^{(\\ell-1)}_a)\n\\dot Z^{(\\ell-1)}_a\\bigr].\n$$ {#eq-docs-global-nonlinear-l2849}",
+    "kind": "display-transcription",
+    "target": "eq-docs-global-nonlinear-l2849"
+  },
+  {
+    "offset": 22110,
+    "old": "    sup_(s,t in one cell)|z(t)-z(s)|^2\n         <=epsilon integral_cell |dot z(u)|^2 du.",
+    "new": "$$\n\\sup_{s,t\\text{ in one cell}}|z(t)-z(s)|^2\n\\le\\varepsilon\\int_{\\mathrm{cell}}|\\dot z(u)|^2\\,du.\n$$",
+    "kind": "display-transcription"
+  },
+  {
+    "offset": 23175,
+    "old": "    ||phi_epsilon-phi||_infinity<=C D1 epsilon,\n    ||phi_epsilon'-phi'||_infinity<=C D2 epsilon,\n    ||phi_epsilon'||_infinity<=D1,    ||phi_epsilon''||_infinity<=D2.",
+    "new": "$$\n\\begin{aligned}\n\\|\\phi_\\varepsilon-\\phi\\|_\\infty&\\le CD_1\\varepsilon,\\\\\n\\|\\phi_\\varepsilon'-\\phi'\\|_\\infty&\\le CD_2\\varepsilon,\\\\\n\\|\\phi_\\varepsilon'\\|_\\infty&\\le D_1,\\qquad\n\\|\\phi_\\varepsilon''\\|_\\infty\\le D_2.\n\\end{aligned}\n$$",
+    "kind": "display-transcription"
+  }
+]

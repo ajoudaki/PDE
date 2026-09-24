@@ -1,0 +1,12 @@
+{
+  "id": "linear_006",
+  "source": "docs/global_nonlinear.md",
+  "start": 505,
+  "end": 999,
+  "candidate": "linear_006.qmd",
+  "edits": "linear_006_edits.json",
+  "targets": "linear_006_targets.json",
+  "sources": "migration_sources.json",
+  "registry": "linear_006_registry_before.json",
+  "progress": "linear_006_progress_before.json"
+}

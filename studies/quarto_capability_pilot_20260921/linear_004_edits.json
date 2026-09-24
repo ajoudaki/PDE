@@ -1,0 +1,61 @@
+[
+  {
+    "offset": 39,
+    "old": "",
+    "new": " {#sec-docs-notation-l1}",
+    "kind": "label",
+    "target": "sec-docs-notation-l1"
+  },
+  {
+    "offset": 366,
+    "old": "",
+    "new": " {#sec-docs-notation-l8}",
+    "kind": "label",
+    "target": "sec-docs-notation-l8"
+  },
+  {
+    "offset": 895,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1089,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1512,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1667,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 1944,
+    "old": "",
+    "new": " {#sec-docs-notation-l44}",
+    "kind": "label",
+    "target": "sec-docs-notation-l44"
+  },
+  {
+    "offset": 3468,
+    "old": "",
+    "new": " {#sec-docs-notation-l70}",
+    "kind": "label",
+    "target": "sec-docs-notation-l70"
+  },
+  {
+    "offset": 4609,
+    "old": "",
+    "new": " {#sec-docs-notation-l90}",
+    "kind": "label",
+    "target": "sec-docs-notation-l90"
+  }
+]

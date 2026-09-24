@@ -1,0 +1,10 @@
+# Artificial cross-link appendix {#sec-extra-appendix}
+
+This appendix is TEST DATA. It returns to @sec-advanced, the deep hierarchy
+[@sec-deep; @sec-leaf], and the representative @eq-representative-long.
+
+The native objects @alg-toy-update, @exr-toy-update, and @sol-toy-update all occur
+in the advanced chapter. The theorem's [manually labelled part (a)](extra_advanced.qmd#advanced-item-a)
+is an ordinary link whose text and letter are maintained by hand.
+
+@fig-extra-curve provides the figure cross-reference back to the advanced chapter.

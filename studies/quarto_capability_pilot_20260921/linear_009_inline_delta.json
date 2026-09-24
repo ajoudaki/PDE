@@ -1,0 +1,218 @@
+[
+  {
+    "offset": 2017,
+    "old": "C1,1",
+    "new": "$C^{1,1}$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 5939,
+    "old": "D0,D1,D2",
+    "new": "$D_0,D_1,D_2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 6792,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 16731,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 21552,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 21594,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 22668,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 22781,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 42570,
+    "old": "C2",
+    "new": "$C^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 63979,
+    "old": "L2(circle)",
+    "new": "$L^2(\\mathrm{circle})$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 68091,
+    "old": "W1",
+    "new": "$\\mathcal W_1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 80128,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 80165,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 100907,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 108237,
+    "old": "W1",
+    "new": "$\\mathcal W_1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 109163,
+    "old": "W1",
+    "new": "$\\mathcal W_1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 130471,
+    "old": "W1(lambda_k,nu_*)<delta",
+    "new": "$\\mathcal W_1(\\lambda_k,\\nu_*)<\\delta$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 136738,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 137730,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 137814,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 137845,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 138177,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 138862,
+    "old": "C1",
+    "new": "$C^1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 138932,
+    "old": "C1",
+    "new": "$C^1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 138935,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 141794,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 141926,
+    "old": "C1",
+    "new": "$C^1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 141929,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 141992,
+    "old": "C1",
+    "new": "$C^1$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 142292,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 152069,
+    "old": "L4",
+    "new": "$L^4$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 152134,
+    "old": "L4",
+    "new": "$L^4$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 153305,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 161664,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 161721,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  },
+  {
+    "offset": 167889,
+    "old": "L2",
+    "new": "$L^2$",
+    "kind": "inline-transcription"
+  }
+]

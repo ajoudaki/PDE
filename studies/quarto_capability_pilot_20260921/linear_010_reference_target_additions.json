@@ -1,0 +1,37 @@
+[
+  {
+    "id": "sec-docs-finite-dynamics-l21",
+    "kind": "sec",
+    "source": "docs/finite_dynamics.md",
+    "start": 21,
+    "end": 21
+  },
+  {
+    "id": "sec-docs-finite-dynamics-l167",
+    "kind": "sec",
+    "source": "docs/finite_dynamics.md",
+    "start": 167,
+    "end": 167
+  },
+  {
+    "id": "sec-docs-special-data-limits-l3842",
+    "kind": "sec",
+    "source": "docs/special_data_limits.md",
+    "start": 3842,
+    "end": 3842
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l8339",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 8339,
+    "end": 8339
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l8427",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 8427,
+    "end": 8427
+  }
+]

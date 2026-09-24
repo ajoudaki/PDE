@@ -1,0 +1,1080 @@
+[
+  {
+    "offset": 679,
+    "old": "(R4)",
+    "new": "@eq-docs-global-nonlinear-l6181",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6181"
+  },
+  {
+    "offset": 1176,
+    "old": "(R11)",
+    "new": "@eq-docs-global-nonlinear-l6347",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6347"
+  },
+  {
+    "offset": 3702,
+    "old": "(R12)",
+    "new": "@eq-docs-global-nonlinear-l6375",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6375"
+  },
+  {
+    "offset": 3711,
+    "old": "(R13)",
+    "new": "@eq-docs-global-nonlinear-l6400",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6400"
+  },
+  {
+    "offset": 3746,
+    "old": "(R14)",
+    "new": "@eq-docs-global-nonlinear-l6416",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6416"
+  },
+  {
+    "offset": 3871,
+    "old": "Section 2",
+    "new": "@sec-docs-global-nonlinear-l6190",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l6190"
+  },
+  {
+    "offset": 4394,
+    "old": "(R6)",
+    "new": "@eq-docs-global-nonlinear-l6214",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6214"
+  },
+  {
+    "offset": 4490,
+    "old": "(R15)",
+    "new": "@eq-docs-global-nonlinear-l6430",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6430"
+  },
+  {
+    "offset": 5454,
+    "old": "(R6)",
+    "new": "@eq-docs-global-nonlinear-l6214",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6214"
+  },
+  {
+    "offset": 6401,
+    "old": "(R3)",
+    "new": "@eq-docs-global-nonlinear-l6146",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6146"
+  },
+  {
+    "offset": 6730,
+    "old": "(R17)",
+    "new": "@eq-docs-global-nonlinear-l6479",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6479"
+  },
+  {
+    "offset": 7362,
+    "old": "(R18)",
+    "new": "@eq-docs-global-nonlinear-l6492",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6492"
+  },
+  {
+    "offset": 7539,
+    "old": "(R18)",
+    "new": "@eq-docs-global-nonlinear-l6492",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6492"
+  },
+  {
+    "offset": 7596,
+    "old": "C.4.1",
+    "new": "@sec-docs-global-nonlinear-l3982",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l3982"
+  },
+  {
+    "offset": 7602,
+    "old": "(T6)",
+    "new": "@eq-docs-global-nonlinear-l4092",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l4092"
+  },
+  {
+    "offset": 7929,
+    "old": "(R4)",
+    "new": "@eq-docs-global-nonlinear-l6181",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6181"
+  },
+  {
+    "offset": 8384,
+    "old": "B.1",
+    "new": "@sec-docs-global-nonlinear-l1903",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l1903"
+  },
+  {
+    "offset": 9782,
+    "old": "B.1",
+    "new": "@sec-docs-global-nonlinear-l1903",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l1903"
+  },
+  {
+    "offset": 10227,
+    "old": "(R18)",
+    "new": "@eq-docs-global-nonlinear-l6492",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6492"
+  },
+  {
+    "offset": 10237,
+    "old": "(R19)",
+    "new": "@eq-docs-global-nonlinear-l6556",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6556"
+  },
+  {
+    "offset": 10672,
+    "old": "C.4",
+    "new": "@sec-docs-global-nonlinear-l3836",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l3836"
+  },
+  {
+    "offset": 11308,
+    "old": "B.1",
+    "new": "@sec-docs-global-nonlinear-l1903",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l1903"
+  },
+  {
+    "offset": 13002,
+    "old": "C.4",
+    "new": "@sec-docs-global-nonlinear-l3836",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l3836"
+  },
+  {
+    "offset": 13061,
+    "old": "(2)",
+    "new": "@eq-docs-global-nonlinear-l6625",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6625"
+  },
+  {
+    "offset": 14905,
+    "old": "(3)",
+    "new": "@eq-docs-global-nonlinear-l6648",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6648"
+  },
+  {
+    "offset": 15030,
+    "old": "(4)",
+    "new": "@eq-docs-global-nonlinear-l6658",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6658"
+  },
+  {
+    "offset": 15854,
+    "old": "\u00a7\u00a71",
+    "new": "@sec-docs-finite-dynamics-l21",
+    "kind": "reference",
+    "target": "sec-docs-finite-dynamics-l21"
+  },
+  {
+    "offset": 15858,
+    "old": "4",
+    "new": "@sec-docs-finite-dynamics-l167",
+    "kind": "reference",
+    "target": "sec-docs-finite-dynamics-l167"
+  },
+  {
+    "offset": 16324,
+    "old": "A.3",
+    "new": "@sec-docs-global-nonlinear-l1864",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l1864"
+  },
+  {
+    "offset": 16810,
+    "old": "B.1",
+    "new": "@sec-docs-global-nonlinear-l1903",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l1903"
+  },
+  {
+    "offset": 17113,
+    "old": "Section C.4.5.1",
+    "new": "@sec-docs-global-nonlinear-l5475",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l5475"
+  },
+  {
+    "offset": 17558,
+    "old": "B.1",
+    "new": "@sec-docs-global-nonlinear-l1903",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l1903"
+  },
+  {
+    "offset": 17598,
+    "old": "A.1",
+    "new": "@sec-docs-global-nonlinear-l1842",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l1842"
+  },
+  {
+    "offset": 17615,
+    "old": "III.F",
+    "new": "@sec-docs-special-data-limits-l3785",
+    "kind": "reference",
+    "target": "sec-docs-special-data-limits-l3785"
+  },
+  {
+    "offset": 18611,
+    "old": "(8)",
+    "new": "@eq-docs-global-nonlinear-l6720",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6720"
+  },
+  {
+    "offset": 18683,
+    "old": "(1)",
+    "new": "@eq-docs-global-nonlinear-l6616",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6616"
+  },
+  {
+    "offset": 20840,
+    "old": "(9)",
+    "new": "@eq-docs-global-nonlinear-l6755",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6755"
+  },
+  {
+    "offset": 20948,
+    "old": "(8)",
+    "new": "@eq-docs-global-nonlinear-l6720",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6720"
+  },
+  {
+    "offset": 20993,
+    "old": "(13)",
+    "new": "@eq-docs-global-nonlinear-l6807",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6807"
+  },
+  {
+    "offset": 21136,
+    "old": "(1)",
+    "new": "@eq-docs-global-nonlinear-l6616",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6616"
+  },
+  {
+    "offset": 22088,
+    "old": "(3)",
+    "new": "@eq-docs-global-nonlinear-l6648",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6648"
+  },
+  {
+    "offset": 22173,
+    "old": "(13)",
+    "new": "@eq-docs-global-nonlinear-l6807",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6807"
+  },
+  {
+    "offset": 22488,
+    "old": "(14)",
+    "new": "@eq-docs-global-nonlinear-l6850",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6850"
+  },
+  {
+    "offset": 22679,
+    "old": "(14)",
+    "new": "@eq-docs-global-nonlinear-l6850",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6850"
+  },
+  {
+    "offset": 23148,
+    "old": "(14)",
+    "new": "@eq-docs-global-nonlinear-l6850",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6850"
+  },
+  {
+    "offset": 23337,
+    "old": "(14)",
+    "new": "@eq-docs-global-nonlinear-l6850",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6850"
+  },
+  {
+    "offset": 23558,
+    "old": "B.1",
+    "new": "@sec-docs-global-nonlinear-l1903",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l1903"
+  },
+  {
+    "offset": 23813,
+    "old": "Section C.4.5.1",
+    "new": "@sec-docs-global-nonlinear-l5475",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l5475"
+  },
+  {
+    "offset": 23833,
+    "old": "Section C.4.5.2",
+    "new": "@sec-docs-global-nonlinear-l6104",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l6104"
+  },
+  {
+    "offset": 24351,
+    "old": "Equations (6)",
+    "new": "@eq-docs-global-nonlinear-l6698",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6698"
+  },
+  {
+    "offset": 24366,
+    "old": "(7)",
+    "new": "@eq-docs-global-nonlinear-l6707",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6707"
+  },
+  {
+    "offset": 24371,
+    "old": "(10)",
+    "new": "@eq-docs-global-nonlinear-l6780",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6780"
+  },
+  {
+    "offset": 24377,
+    "old": "(11)",
+    "new": "@eq-docs-global-nonlinear-l6788",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6788"
+  },
+  {
+    "offset": 25458,
+    "old": "C.4.5",
+    "new": "@sec-docs-global-nonlinear-l5270",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l5270"
+  },
+  {
+    "offset": 25809,
+    "old": "Section [C.4.7](#c47-nonlinear-training-near-the-fitted-tanh-reference)",
+    "new": "@sec-docs-global-nonlinear-l8978",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l8978"
+  },
+  {
+    "offset": 28975,
+    "old": "(C.4.6.T2)",
+    "new": "@eq-docs-global-nonlinear-l6975",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6975"
+  },
+  {
+    "offset": 29002,
+    "old": "(C.4.6.T3)",
+    "new": "@eq-docs-global-nonlinear-l6981",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6981"
+  },
+  {
+    "offset": 29829,
+    "old": "Formula (C.4.6.T5)",
+    "new": "@eq-docs-global-nonlinear-l7004",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7004"
+  },
+  {
+    "offset": 30083,
+    "old": "C.4.6.2",
+    "new": "@sec-docs-global-nonlinear-l7170",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l7170"
+  },
+  {
+    "offset": 30092,
+    "old": "(C.4.6.P8)",
+    "new": "@eq-docs-global-nonlinear-l7246",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7246"
+  },
+  {
+    "offset": 30103,
+    "old": "(C.4.6.P11)",
+    "new": "@eq-docs-global-nonlinear-l7277",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7277"
+  },
+  {
+    "offset": 30456,
+    "old": "(C.4.6.T2)",
+    "new": "@eq-docs-global-nonlinear-l6975",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6975"
+  },
+  {
+    "offset": 31130,
+    "old": "(C.4.6.T14)",
+    "new": "@eq-docs-global-nonlinear-l7034",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7034"
+  },
+  {
+    "offset": 31363,
+    "old": "(C.4.6.T6)",
+    "new": "@eq-docs-global-nonlinear-l7021",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7021"
+  },
+  {
+    "offset": 31837,
+    "old": "C.4.6.2",
+    "new": "@sec-docs-global-nonlinear-l7170",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l7170"
+  },
+  {
+    "offset": 31846,
+    "old": "(C.4.6.P12)",
+    "new": "@eq-docs-global-nonlinear-l7294",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7294"
+  },
+  {
+    "offset": 31930,
+    "old": "C.4.6.2",
+    "new": "@sec-docs-global-nonlinear-l7170",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l7170"
+  },
+  {
+    "offset": 31938,
+    "old": "C.4.6.4",
+    "new": "@sec-docs-global-nonlinear-l8427",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l8427"
+  },
+  {
+    "offset": 31988,
+    "old": "B.1",
+    "new": "@sec-docs-global-nonlinear-l1903",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l1903"
+  },
+  {
+    "offset": 31996,
+    "old": "C.4.5.1",
+    "new": "@sec-docs-global-nonlinear-l5475",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l5475"
+  },
+  {
+    "offset": 32060,
+    "old": "III.F",
+    "new": "@sec-docs-special-data-limits-l3785",
+    "kind": "reference",
+    "target": "sec-docs-special-data-limits-l3785"
+  },
+  {
+    "offset": 32119,
+    "old": "A.1",
+    "new": "@sec-docs-global-nonlinear-l1842",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l1842"
+  },
+  {
+    "offset": 32123,
+    "old": "A.2",
+    "new": "@sec-docs-global-nonlinear-l1854",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l1854"
+  },
+  {
+    "offset": 32427,
+    "old": "(C.4.6.T5)",
+    "new": "@eq-docs-global-nonlinear-l7004",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7004"
+  },
+  {
+    "offset": 32579,
+    "old": "(C.4.6.T5)",
+    "new": "@eq-docs-global-nonlinear-l7004",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7004"
+  },
+  {
+    "offset": 32644,
+    "old": "Equation (C.4.6.T6)",
+    "new": "@eq-docs-global-nonlinear-l7021",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7021"
+  },
+  {
+    "offset": 33362,
+    "old": "(C.4.6.T8)",
+    "new": "@eq-docs-global-nonlinear-l7084",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7084"
+  },
+  {
+    "offset": 33851,
+    "old": "(C.4.6.T3)",
+    "new": "@eq-docs-global-nonlinear-l6981",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6981"
+  },
+  {
+    "offset": 33904,
+    "old": "(C.4.6.T2)",
+    "new": "@eq-docs-global-nonlinear-l6975",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6975"
+  },
+  {
+    "offset": 34135,
+    "old": "Section C.4.6.4",
+    "new": "@sec-docs-global-nonlinear-l8427",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l8427"
+  },
+  {
+    "offset": 34228,
+    "old": "(C.4.6.T10)",
+    "new": "@eq-docs-global-nonlinear-l7108",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7108"
+  },
+  {
+    "offset": 34595,
+    "old": "(C.4.6.T10)",
+    "new": "@eq-docs-global-nonlinear-l7108",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7108"
+  },
+  {
+    "offset": 34709,
+    "old": "(C.4.6.T6)",
+    "new": "@eq-docs-global-nonlinear-l7021",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7021"
+  },
+  {
+    "offset": 34721,
+    "old": "Section C.4.6.2",
+    "new": "@sec-docs-global-nonlinear-l7170",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l7170"
+  },
+  {
+    "offset": 35353,
+    "old": "(C.4.6.T11)",
+    "new": "@eq-docs-global-nonlinear-l7132",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7132"
+  },
+  {
+    "offset": 35408,
+    "old": "(C.4.6.T12)",
+    "new": "@eq-docs-global-nonlinear-l7137",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7137"
+  },
+  {
+    "offset": 36052,
+    "old": "C.4.6.2",
+    "new": "@sec-docs-global-nonlinear-l7170",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l7170"
+  },
+  {
+    "offset": 36061,
+    "old": "(C.4.6.P22)",
+    "new": "@eq-docs-global-nonlinear-l7486",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7486"
+  },
+  {
+    "offset": 36380,
+    "old": "(C.4.6.T10)",
+    "new": "@eq-docs-global-nonlinear-l7108",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7108"
+  },
+  {
+    "offset": 37436,
+    "old": "C.4.5.2",
+    "new": "@sec-docs-global-nonlinear-l6104",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l6104"
+  },
+  {
+    "offset": 37445,
+    "old": "(R17)",
+    "new": "@eq-docs-global-nonlinear-l6479",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6479"
+  },
+  {
+    "offset": 38095,
+    "old": "(C.4.6.T2)",
+    "new": "@eq-docs-global-nonlinear-l6975",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6975"
+  },
+  {
+    "offset": 38110,
+    "old": "(C.4.6.T0)",
+    "new": "@eq-docs-global-nonlinear-l6969",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6969"
+  },
+  {
+    "offset": 38307,
+    "old": "(C.4.6.T2)",
+    "new": "@eq-docs-global-nonlinear-l6975",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l6975"
+  },
+  {
+    "offset": 39542,
+    "old": "(C.4.6.P10)",
+    "new": "@eq-docs-global-nonlinear-l7268",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7268"
+  },
+  {
+    "offset": 39555,
+    "old": "Equations (C.4.6.P8)",
+    "new": "@eq-docs-global-nonlinear-l7246",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7246"
+  },
+  {
+    "offset": 39888,
+    "old": "(C.4.6.P10)",
+    "new": "@eq-docs-global-nonlinear-l7268",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7268"
+  },
+  {
+    "offset": 39923,
+    "old": "(C.4.6.P8)",
+    "new": "@eq-docs-global-nonlinear-l7246",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7246"
+  },
+  {
+    "offset": 39934,
+    "old": "(C.4.6.P11)",
+    "new": "@eq-docs-global-nonlinear-l7277",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7277"
+  },
+  {
+    "offset": 40135,
+    "old": "(C.4.6.P3)",
+    "new": "@eq-docs-global-nonlinear-l7195",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7195"
+  },
+  {
+    "offset": 40753,
+    "old": "(C.4.6.P14)",
+    "new": "@eq-docs-global-nonlinear-l7344",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7344"
+  },
+  {
+    "offset": 41323,
+    "old": "(C.4.6.P8)",
+    "new": "@eq-docs-global-nonlinear-l7246",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7246"
+  },
+  {
+    "offset": 41430,
+    "old": "(C.4.6.P10)",
+    "new": "@eq-docs-global-nonlinear-l7268",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7268"
+  },
+  {
+    "offset": 41471,
+    "old": "(C.4.6.P9)",
+    "new": "@eq-docs-global-nonlinear-l7256",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7256"
+  },
+  {
+    "offset": 41882,
+    "old": "(C.4.6.P8)",
+    "new": "@eq-docs-global-nonlinear-l7246",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7246"
+  },
+  {
+    "offset": 43009,
+    "old": "(C.4.6.P15)",
+    "new": "@eq-docs-global-nonlinear-l7365",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7365"
+  },
+  {
+    "offset": 43158,
+    "old": "(C.4.6.P14)",
+    "new": "@eq-docs-global-nonlinear-l7344",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7344"
+  },
+  {
+    "offset": 43170,
+    "old": "(C.4.6.P15)",
+    "new": "@eq-docs-global-nonlinear-l7365",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7365"
+  },
+  {
+    "offset": 43726,
+    "old": "(C.4.6.P15)",
+    "new": "@eq-docs-global-nonlinear-l7365",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7365"
+  },
+  {
+    "offset": 43844,
+    "old": "(C.4.6.P16)",
+    "new": "@eq-docs-global-nonlinear-l7383",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7383"
+  },
+  {
+    "offset": 43917,
+    "old": "(C.4.6.P15)",
+    "new": "@eq-docs-global-nonlinear-l7365",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7365"
+  },
+  {
+    "offset": 44699,
+    "old": "(C.4.6.P2)",
+    "new": "@eq-docs-global-nonlinear-l7189",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7189"
+  },
+  {
+    "offset": 44710,
+    "old": "(C.4.6.P3)",
+    "new": "@eq-docs-global-nonlinear-l7195",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7195"
+  },
+  {
+    "offset": 45590,
+    "old": "(C.4.6.P5)",
+    "new": "@eq-docs-global-nonlinear-l7215",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7215"
+  },
+  {
+    "offset": 46019,
+    "old": "(C.4.6.P20)",
+    "new": "@eq-docs-global-nonlinear-l7457",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7457"
+  },
+  {
+    "offset": 46192,
+    "old": "Equations (C.4.6.P13)",
+    "new": "@eq-docs-global-nonlinear-l7312",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7312"
+  },
+  {
+    "offset": 46215,
+    "old": "(C.4.6.P19)",
+    "new": "@eq-docs-global-nonlinear-l7434",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7434"
+  },
+  {
+    "offset": 46228,
+    "old": "(C.4.6.P20)",
+    "new": "@eq-docs-global-nonlinear-l7457",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7457"
+  },
+  {
+    "offset": 46565,
+    "old": "(C.4.6.P21)",
+    "new": "@eq-docs-global-nonlinear-l7475",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7475"
+  },
+  {
+    "offset": 46584,
+    "old": "(C.4.6.P2)",
+    "new": "@eq-docs-global-nonlinear-l7189",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7189"
+  },
+  {
+    "offset": 47407,
+    "old": "(C.4.6.P13)",
+    "new": "@eq-docs-global-nonlinear-l7312",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7312"
+  },
+  {
+    "offset": 47520,
+    "old": "(C.4.6.P23)",
+    "new": "@eq-docs-global-nonlinear-l7502",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7502"
+  },
+  {
+    "offset": 47937,
+    "old": "(C.4.6.P16)",
+    "new": "@eq-docs-global-nonlinear-l7383",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7383"
+  },
+  {
+    "offset": 47966,
+    "old": "(C.4.6.P23)",
+    "new": "@eq-docs-global-nonlinear-l7502",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7502"
+  },
+  {
+    "offset": 49358,
+    "old": "(C.4.6.P25)",
+    "new": "@eq-docs-global-nonlinear-l7532",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7532"
+  },
+  {
+    "offset": 49549,
+    "old": "C.4.6.3",
+    "new": "@sec-docs-global-nonlinear-l7652",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l7652"
+  },
+  {
+    "offset": 49624,
+    "old": "(C.4.6.P27)",
+    "new": "@eq-docs-global-nonlinear-l7558",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7558"
+  },
+  {
+    "offset": 49642,
+    "old": "(C.4.6.T12)",
+    "new": "@eq-docs-global-nonlinear-l7137",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7137"
+  },
+  {
+    "offset": 50332,
+    "old": "(C.4.6.P7)",
+    "new": "@eq-docs-global-nonlinear-l7231",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7231"
+  },
+  {
+    "offset": 50858,
+    "old": "(C.4.6.P13)",
+    "new": "@eq-docs-global-nonlinear-l7312",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7312"
+  },
+  {
+    "offset": 50904,
+    "old": "Formula (C.4.6.P28)",
+    "new": "@eq-docs-global-nonlinear-l7583",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7583"
+  },
+  {
+    "offset": 51066,
+    "old": "(C.4.6.P27)",
+    "new": "@eq-docs-global-nonlinear-l7558",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7558"
+  },
+  {
+    "offset": 51082,
+    "old": "(C.4.6.P29)",
+    "new": "@eq-docs-global-nonlinear-l7599",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7599"
+  },
+  {
+    "offset": 51536,
+    "old": "(C.4.6.P15)",
+    "new": "@eq-docs-global-nonlinear-l7365",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7365"
+  },
+  {
+    "offset": 52033,
+    "old": "(C.4.6.P15)",
+    "new": "@eq-docs-global-nonlinear-l7365",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7365"
+  },
+  {
+    "offset": 52209,
+    "old": "(C.4.6.P31)",
+    "new": "@eq-docs-global-nonlinear-l7633",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7633"
+  },
+  {
+    "offset": 52267,
+    "old": "(C.4.6.P30)",
+    "new": "@eq-docs-global-nonlinear-l7614",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7614"
+  },
+  {
+    "offset": 52573,
+    "old": "(C.4.6.P30)",
+    "new": "@eq-docs-global-nonlinear-l7614",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7614"
+  },
+  {
+    "offset": 52792,
+    "old": "C.4.6.1",
+    "new": "@sec-docs-global-nonlinear-l6921",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l6921"
+  },
+  {
+    "offset": 53343,
+    "old": "III.F.2",
+    "new": "@sec-docs-special-data-limits-l3842",
+    "kind": "reference",
+    "target": "sec-docs-special-data-limits-l3842"
+  },
+  {
+    "offset": 53455,
+    "old": "(C.4.6.S3)",
+    "new": "@eq-docs-global-nonlinear-l7663",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7663"
+  },
+  {
+    "offset": 54706,
+    "old": "C.4.5",
+    "new": "@sec-docs-global-nonlinear-l5270",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l5270"
+  },
+  {
+    "offset": 55035,
+    "old": "(C.4.6.S7)",
+    "new": "@eq-docs-global-nonlinear-l7711",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7711"
+  },
+  {
+    "offset": 55207,
+    "old": "(C.4.6.T5)",
+    "new": "@eq-docs-global-nonlinear-l7004",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7004"
+  },
+  {
+    "offset": 55951,
+    "old": "Section C.4.6.3",
+    "new": "@sec-docs-global-nonlinear-l7652",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l7652"
+  },
+  {
+    "offset": 55968,
+    "old": "\u00a78",
+    "new": "@sec-docs-global-nonlinear-l8339",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l8339"
+  },
+  {
+    "offset": 56117,
+    "old": "C.4.6.4",
+    "new": "@sec-docs-global-nonlinear-l8427",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l8427"
+  },
+  {
+    "offset": 56662,
+    "old": "(C.4.6.S11)",
+    "new": "@eq-docs-global-nonlinear-l7750",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7750"
+  },
+  {
+    "offset": 56798,
+    "old": "(C.4.6.T5)",
+    "new": "@eq-docs-global-nonlinear-l7004",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7004"
+  },
+  {
+    "offset": 56926,
+    "old": "(C.4.6.S3)",
+    "new": "@eq-docs-global-nonlinear-l7663",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7663"
+  },
+  {
+    "offset": 57939,
+    "old": "(C.4.6.S11)",
+    "new": "@eq-docs-global-nonlinear-l7750",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7750"
+  },
+  {
+    "offset": 58474,
+    "old": "(C.4.6.S3)",
+    "new": "@eq-docs-global-nonlinear-l7663",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7663"
+  },
+  {
+    "offset": 58523,
+    "old": "(C.4.6.S16)",
+    "new": "@eq-docs-global-nonlinear-l7809",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7809"
+  },
+  {
+    "offset": 59668,
+    "old": "(C.4.6.S18)",
+    "new": "@eq-docs-global-nonlinear-l7838",
+    "kind": "reference",
+    "target": "eq-docs-global-nonlinear-l7838"
+  }
+]

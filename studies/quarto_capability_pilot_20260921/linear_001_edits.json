@@ -1,0 +1,133 @@
+[
+  {
+    "offset": 37,
+    "old": "",
+    "new": " {#sec-docs-readme-l1}",
+    "kind": "label",
+    "target": "sec-docs-readme-l1"
+  },
+  {
+    "offset": 126,
+    "old": "[shared notation](NOTATION.md)",
+    "new": "[shared notation](notation.qmd#sec-docs-notation-l1)",
+    "kind": "reference",
+    "target": "sec-docs-notation-l1"
+  },
+  {
+    "offset": 366,
+    "old": "",
+    "new": " {#sec-docs-readme-l8}",
+    "kind": "label",
+    "target": "sec-docs-readme-l8"
+  },
+  {
+    "offset": 3232,
+    "old": "",
+    "new": " {#sec-docs-readme-l52}",
+    "kind": "label",
+    "target": "sec-docs-readme-l52"
+  },
+  {
+    "offset": 3542,
+    "old": "linear",
+    "new": "[linear](linear-dynamics.qmd#sec-docs-linear-dynamics-l1)",
+    "kind": "reference",
+    "target": "sec-docs-linear-dynamics-l1"
+  },
+  {
+    "offset": 3553,
+    "old": "residual-particle",
+    "new": "[residual-particle](continuous-depth.qmd#sec-docs-continuous-depth-l1)",
+    "kind": "reference",
+    "target": "sec-docs-continuous-depth-l1"
+  },
+  {
+    "offset": 5566,
+    "old": "",
+    "new": " {#sec-docs-readme-l89}",
+    "kind": "label",
+    "target": "sec-docs-readme-l89"
+  },
+  {
+    "offset": 6517,
+    "old": "\\[",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 6714,
+    "old": "\\]",
+    "new": "$$",
+    "kind": "math-delimiter"
+  },
+  {
+    "offset": 7444,
+    "old": "",
+    "new": " {#sec-docs-readme-l124}",
+    "kind": "label",
+    "target": "sec-docs-readme-l124"
+  },
+  {
+    "offset": 8061,
+    "old": "The continuous-depth chapter",
+    "new": "[The continuous-depth chapter](continuous-depth.qmd#sec-docs-continuous-depth-l1)",
+    "kind": "reference",
+    "target": "sec-docs-continuous-depth-l1"
+  },
+  {
+    "offset": 8941,
+    "old": "",
+    "new": " {#sec-docs-readme-l148}",
+    "kind": "label",
+    "target": "sec-docs-readme-l148"
+  },
+  {
+    "offset": 9799,
+    "old": "",
+    "new": " {#sec-docs-readme-l163}",
+    "kind": "label",
+    "target": "sec-docs-readme-l163"
+  },
+  {
+    "offset": 12020,
+    "old": "",
+    "new": " {#sec-docs-readme-l198}",
+    "kind": "label",
+    "target": "sec-docs-readme-l198"
+  },
+  {
+    "offset": 12025,
+    "old": "*Global nonlinear learning*",
+    "new": "[*Global nonlinear learning*](global-nonlinear.qmd#sec-docs-global-nonlinear-l1)",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l1"
+  },
+  {
+    "offset": 12054,
+    "old": "C.4.5",
+    "new": "@sec-docs-global-nonlinear-l5270",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l5270"
+  },
+  {
+    "offset": 12211,
+    "old": "C.4.6",
+    "new": "@sec-docs-global-nonlinear-l6904",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l6904"
+  },
+  {
+    "offset": 12376,
+    "old": "C.4.7",
+    "new": "@sec-docs-global-nonlinear-l8978",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l8978"
+  },
+  {
+    "offset": 12491,
+    "old": "C.4.8",
+    "new": "@sec-docs-global-nonlinear-l16001",
+    "kind": "reference",
+    "target": "sec-docs-global-nonlinear-l16001"
+  }
+]

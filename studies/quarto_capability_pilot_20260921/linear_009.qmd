@@ -1,0 +1,3984 @@
+## C. A local fixed-depth theorem and strict Gaussian activity {#sec-docs-global-nonlinear-l2454}
+
+The local theorem @sec-docs-global-nonlinear-l2462 permits subGaussian first weights and readout, arbitrary fixed data, zero middle variances and frozen blocks as stated. The separate strict-activity corollary @sec-docs-global-nonlinear-l3441 requires Gaussian first weights, positive variances and mobilities, zero population readout, nonzero labels and pairwise nonparallel unit inputs. These are additional hypotheses of that corollary. @sec-docs-global-nonlinear-l3836 instead fixes two hidden tanh layers and Gaussian initialization, extends the learning law to every bounded-label law on the normalized input circle, and proves quantitative stability and a simultaneous sampling/width/GD-step limit. Its activity conclusion applies to a specified open family of laws.
+
+For fixed $C^2$ Euler programs, @sec-docs-global-nonlinear-l1842–@sec-docs-global-nonlinear-l1854 prove their value and named-source response formulas. Direct iid subGaussian tuples are roots. No Gaussian quantile representation is needed. The response estimates below are uniform over meshes; this uniformity is proved separately from the fixed-program result. Mollification then gives $C^{1,1}$ activations.
+
+For squared loss, the theorem for every deterministic vanishing GD mesh also gives finite GF: for each fixed width, smooth finite-dimensional Euler convergence allows a deterministic mesh smaller than $1/n$ with probability of GF/GD discrepancy exceeding $1/n$ smaller than $1/n$. Apply the every-mesh theorem to this diagonal sequence. The finite squared-loss flow exists globally: at fixed width, energy controls its Euclidean parameter length on every finite interval, even with frozen blocks, and its locally Lipschitz field extends from a finite endpoint. The diagonal yields the same local population GF limit, in exactly the observable topologies @sec-docs-global-nonlinear-l2462 states. For the separate general separable-loss extension, use the preliminary local ball on its high-probability initialization event, with stopping outside that event; no global finite-GF claim follows for a loss unbounded below.
+
+### C.1. Local fixed-depth $C^{1,1}$ theorem {#sec-docs-global-nonlinear-l2462}
+
+Within this proof unit, unqualified section and equation numbers are local.
+
+#### Statement and exact finite model {#sec-docs-global-nonlinear-l2466}
+
+Fix integers $d,m$ and $L\ge2$. There are $L$ hidden layers, each of width $n$. The $m$
+inputs $x_a\in\mathbb R^d$ are fixed, with $\lVert x_a\rVert_2/\sqrt{d}\le X$ and
+$G_{ab}=x_a^\top x_b/d$. Their Gram matrix may be singular and inputs may coincide.
+For squared loss assume $\lvert y_a\rvert\le Y$. Choose positive weights $\omega_a$ with
+$\sum_a\omega_a=1$ and use
+
+$$
+L_n=\sum_a\omega_a(f_{n,a}-y_a)^2,\qquad r_{n,a}=f_{n,a}-y_a.
+$$
+
+This declares a change from summed loss. For summed loss on $m$ examples, the
+same statement applies after multiplying physical time by $m$.
+
+Each activation $\phi^{(\ell)}:\mathbb R\to\mathbb R$ is $C^1$, with bounded derivative and globally
+Lipschitz derivative. Fix common finite bounds
+
+$$
+\begin{aligned}
+|\phi^{(\ell)}(0)|&\le D_0,\\
+|\phi^{(\ell)\prime}(s)|&\le D_1,\\
+|\phi^{(\ell)\prime}(s)-\phi^{(\ell)\prime}(t)|&\le D_2|s-t|.
+\end{aligned}
+$$
+
+The activations themselves need not be bounded. In particular their growth is
+at most linear. Nonaffinity is not required for existence.
+
+Concrete examples include arctan, tanh, logistic sigmoid, softplus, exact GELU,
+and SiLU, with different choices in different layers. For softplus,
+$\phi'=s$ and $\phi''(s)=s(1-s)$, where $s$ is the logistic sigmoid evaluated at the
+argument. For exact GELU $\phi(t)=t\Phi(t)$,
+$\phi'(t)=\Phi(t)+t\varphi(t)$ and $\phi''(t)=(2-t^2)\varphi(t)$, where Phi and
+varphi are the standard normal distribution function and density. For SiLU,
+$\phi(t)=t s(t)$, $\phi'(t)=s(t)+t s(t)(1-s(t))$ and
+$\phi''(t)=2s(t)(1-s(t))+t s(t)(1-s(t))(1-2s(t))$. These derivatives are bounded
+because Gaussian and logistic tails dominate the displayed polynomial
+factors. The $C^{1,1}$ class also contains a quadratic smoothing of ReLU: zero for
+$t\le0$, $t^2/2$ for $0\le t\le1$, and $t-1/2$ for $t\ge1$. Its derivative is bounded and
+1-Lipschitz although its second derivative does not exist at both junctions.
+
+For the principal initialization take independent Gaussian first weights
+$W^{(1)}_{0,ij}\sim\mathcal N(0,\sigma_1^2)$, independent middle matrices
+$W^{(\ell)}_{0,ji}\sim\mathcal N(0,\sigma_\ell^2/n)$, $2\le\ell\le L$, and independent readout entries
+$W^{(L+1)}_{0,j}$ distributed as a fixed random variable with
+
+$$
+\sup_{p\ge2}\frac{(\mathbb E|W^{(L+1)}_{0,j}|^p)^{1/p}}{\sqrt p}
+\le B_{\mathrm{out}}<\infty.
+$$
+
+Zero, bounded, and nonvanishing Gaussian readout are all allowed. The first
+weights may more generally be iid centered subGaussian variables, with a fixed
+subGaussian bound $B_{\mathrm{in}}$. This extension is justified below; the strict-activity
+corollary will use Gaussian first weights. All initialization groups are
+independent. $\Sigma$ values may be zero in the existence theorem.
+
+Define, with coordinatewise activation,
+
+$$
+\begin{aligned}
+z^{(1)}_a&=W^{(1)}x_a/\sqrt d,\qquad
+h^{(1)}_a=\phi^{(1)}(z^{(1)}_a),\\
+z^{(\ell)}_a&=W^{(\ell)}h^{(\ell-1)}_a,\qquad
+h^{(\ell)}_a=\phi^{(\ell)}(z^{(\ell)}_a),\quad 2\le\ell\le L,\\
+f_{n,a}&=(W^{(L+1)})^\top h^{(L)}_a/n.
+\end{aligned}
+$$
+
+$W^{(L+1)}$ is always the stored rescaled readout. In particular, for $L=2$ it is
+$W^{(3)}$, and $f_{n,a}=(W^{(3)})^\top h^{(2)}_a/n$.
+
+The backpropagated fields omit the loss derivative:
+
+$$
+\begin{aligned}
+\delta^{(L)}_a&=W^{(L+1)}\phi^{(L)\prime}(z^{(L)}_a),\\
+\delta^{(\ell)}_a&=\phi^{(\ell)\prime}(z^{(\ell)}_a)
+\bigl[(W^{(\ell+1)})^\top\delta^{(\ell+1)}_a\bigr],\quad \ell<L.
+\end{aligned}
+$$
+
+Thus $\delta^{(\ell)}_a=n\,\partial f_{n,a}/\partial z^{(\ell)}_a$. Choose fixed finite
+$\kappa_\ell\ge0$. Stored-weight gradient-descent rates are
+
+$$
+\eta_n\bigl(n\kappa_1,\kappa_2,\ldots,\kappa_L,n\kappa_{L+1}\bigr).
+$$
+
+The exact updates are
+
+$$
+\begin{aligned}
+W^{(1)}_{k+1}&=W^{(1)}_k
+-\frac{2\eta_n\kappa_1}{\sqrt d}\sum_b\omega_b r_{n,b,k}\delta^{(1)}_{b,k}x_b^\top,\\
+z^{(1)}_{a,k+1}&=z^{(1)}_{a,k}
+-2\eta_n\kappa_1\sum_b\omega_bG_{ab}r_{n,b,k}\delta^{(1)}_{b,k},\\
+W^{(\ell)}_{k+1}&=W^{(\ell)}_k
+-\frac{2\eta_n\kappa_\ell}{n}\sum_b\omega_b r_{n,b,k}
+\delta^{(\ell)}_{b,k}(h^{(\ell-1)}_{b,k})^\top,\quad 2\le\ell\le L,\\
+W^{(L+1)}_{k+1}&=W^{(L+1)}_k
+-2\eta_n\kappa_{L+1}\sum_b\omega_b r_{n,b,k}h^{(L)}_{b,k}.
+\end{aligned}
+$$ {#eq-docs-global-nonlinear-l2537}
+
+Use physical time $t=k\eta_n$, interpolate these parameters linearly, and
+recompute forward quantities between grid points.
+
+There is $T_*>0$ depending only on $L$, $X$, $Y$, $D_0,D_1,D_2$, the initialization bounds
+and the $\kappa$ values, such that for EVERY $\eta_n>0$ tending to zero the following
+conclusions hold on $[0,T_*]$:
+
+1. A unique strong population flow exists in the field/operator state described
+   below. It is autonomous and retains each matrix together with its adjoint.
+2. Predictions, loss, and all kernel entries converge in probability uniformly
+   in time to their population values.
+3. Separately for each neuron population, empirical laws of the joint $m$-input
+   hidden paths converge in Wasserstein distance of order two for the uniform
+   path norm. This applies to both preactivations and activations.
+4. Integrated squared hidden speeds converge. Fixed finite, correctly typed
+   forward/adjoint probes assembled from Lipschitz coordinate maps, linear
+   combinations, and products of a bounded factor and an $L^2$ field also have
+   their joint continuous quadratic-growth measurements converge, provided
+   the bounded factors are continuous functions of their arguments.
+
+The constants do not depend on $n,\eta_n,m,d$, or a smallest Gram eigenvalue
+when the stated bounds remain fixed. Here $m,d$ and the inputs are nevertheless
+fixed in the convergence assertion: no uniform convergence rate for growing
+datasets or dimension is claimed. Probe length is fixed; arbitrary products of
+two unbounded factors are not part of the probe assertion.
+
+#### Population state, construction, and preliminary norm bounds {#sec-docs-global-nonlinear-l2573}
+
+There is a separate probability space for coordinates in each hidden layer.
+The field $Z^{(1)}_a$ belongs to the first, $W^{(L+1)}$ to the last. For $2\le\ell\le L$,
+$W^{(\ell)}$ is a bounded linear map from the mean-square space at layer $\ell-1$ to
+the one at layer $\ell$. Its adjoint is denoted $(W^{(\ell)})^*$. Expectations pair
+variables belonging to the same population. Define
+
+$$
+(u\otimes v)V=u\,\mathbb E[vV].
+$$
+
+This is the population version of the finite map $uv^\top/n$. The population
+forward and backward formulas are those above with uppercase $Z,H$, expectation
+in place of $b^\top c/n$, and * in place of top. In particular
+
+$$
+\begin{aligned}
+f_a&=\mathbb E[W^{(L+1)}H^{(L)}_a],\\
+P^{(L)}_a&=W^{(L+1)},\\
+P^{(\ell)}_a&=(W^{(\ell+1)})^*\delta^{(\ell+1)}_a,\quad \ell<L,\\
+\delta^{(\ell)}_a&=\phi^{(\ell)\prime}(Z^{(\ell)}_a)P^{(\ell)}_a.
+\end{aligned}
+$$
+
+The limiting equations are
+
+$$
+\begin{aligned}
+\dot Z^{(1)}_a&=-2\kappa_1\sum_b\omega_bG_{ab}r_b\delta^{(1)}_b,\\
+\dot W^{(\ell)}&=-2\kappa_\ell\sum_b\omega_b r_b
+\delta^{(\ell)}_b\otimes H^{(\ell-1)}_b,\quad 2\le\ell\le L,\\
+\dot W^{(L+1)}&=-2\kappa_{L+1}\sum_b\omega_b r_bH^{(L)}_b.
+\end{aligned}
+$$ {#eq-docs-global-nonlinear-l2594}
+
+A strong solution means these integral equations hold in $L^2$ for the fields
+and in operator norm for the matrices, continuously in time. The initial first
+roots have the law of $(W^{(1)}_0x_a/\sqrt{d})_a$ for a single row. For Gaussian
+weights this is $\mathcal N(0,\sigma_1^2G)$. The initial operators are constructed from
+the joint matrix/transpose limits, not replaced by independent backward maps.
+
+Centered independent subGaussian first entries have uniformly subGaussian projections:
+their moment bounds give $\mathbb E\exp(tW_{ij})\le\exp(CB_{\mathrm{in}}^2t^2)$; independence then
+gives $\mathbb E\exp(t\sum_j u_jW_{ij})\le\exp(CB_{\mathrm{in}}^2t^2\sum_ju_j^2)$.
+Thus each initial $Z^{(1)}_a$ has a marginal subGaussian bound depending only on
+$B_{\mathrm{in}}X$. No assumption of iid neuron coordinates after matrix reuse is made.
+
+To obtain common spaces for different meshes, take the countable union of the
+programs for rational meshes, their finite unions, rational linear
+combinations and the coordinate operations needed here (including clipped
+products). Their laws are consistent under deletion of instructions. Realize
+these countably many laws jointly on each population and take the $L^2$ closure
+of the resulting fields. Operator inequalities pass from finite width to each
+finite collection. Indeed a 1/4-net in each unit sphere gives
+
+$$
+\mathbb P\bigl(\|W^{(\ell)}_0\|_{\mathrm{op}}>M\bigr)
+\le2\cdot9^{2n}\exp\left[-\frac{nM^2}{8\sigma_\ell^2}\right]\longrightarrow0.
+$$ {#eq-docs-global-nonlinear-l2619}
+
+for a sufficiently large fixed M (zero variance needs no bound). Since
+$\lVert W^{(\ell)}_0v\rVert_2/\sqrt{n}\le M\lVert v\rVert_2/\sqrt{n}$, second-moment convergence gives
+$\lVert W^{(\ell)}_0V\rVert_{L^2}\le M\lVert V\rVert_{L^2}$ on the generated span, hence on its closure.
+The same argument gives the transpose map. The exact finite adjunction
+identity passes to the limit and identifies it with the adjoint. Coordinate
+operations extend wherever needed by clipping and $L^2$ limits.
+
+For the following fixed-computation response statements use @sec-docs-global-nonlinear-l1842–@sec-docs-global-nonlinear-l1854, with arbitrary iid subGaussian tuples admitted directly as roots.
+For two states on these same spaces use the distance
+
+$$
+\begin{aligned}
+d(\theta,\widetilde\theta)
+&=\max_a\|Z^{(1)}_a-\widetilde Z^{(1)}_a\|_{L^2}
++\sum_{\ell=2}^L\|W^{(\ell)}-\widetilde W^{(\ell)}\|_{\mathrm{op}}\\
+&\quad+\|W^{(L+1)}-\widetilde W^{(L+1)}\|_{L^2}.
+\end{aligned}
+$$ {#eq-docs-global-nonlinear-l2632}
+
+At finite width replace every field $L^2$ norm by $\lVert b\rVert_2/\sqrt{n}$. No operator
+distance between a finite matrix and a population operator is asserted.
+
+Here is an explicit preliminary interval on which these norms stay bounded.
+Let $S$ be the maximum of the individual norms entering the state (not the
+distance). Choose $S_0$ so the initial norms are $\le S_0$ with probability tending to
+one, uniformly in the bound parameters, and are $\le S_0$ in the population.
+First-weight concentration is needed only over fixed $m$. Set $B=2S_0+2$ and
+
+$$
+\begin{aligned}
+h_1&=D_0+D_1B,\qquad h_\ell=D_0+D_1Bh_{\ell-1},\\
+d_\ell&=D_1^{L-\ell+1}B^{L-\ell+1},\\
+R_0&=Bh_L+Y.
+\end{aligned}
+$$
+
+On $S\le B$, all $\lVert H^{(\ell)}_a\rVert_{L^2}\le h_\ell$, $\lVert\delta^{(\ell)}_a\rVert_{L^2}\le d_\ell$,
+and $\lvert r_a\rvert\le R_0$. The same inequalities hold at finite width. The norm of each
+state velocity is therefore bounded by the corresponding member of
+
+$$
+\begin{aligned}
+&2\kappa_1X^2R_0d_1,\\
+&2\kappa_\ell R_0d_\ell h_{\ell-1},\quad 2\le\ell\le L,\\
+&2\kappa_{L+1}R_0h_L.
+\end{aligned}
+$$
+
+Let $V_0\ge1$ bound their sum. On
+
+$$
+T_{\mathrm{ball}}=\min\left(1,\frac{B-S_0}{4V_0}\right).
+$$ {#eq-docs-global-nonlinear-l2659}
+
+Euler trajectories with mesh $\le T_{\mathrm{ball}}$ remain in $S\le B$ through time $2T_{\mathrm{ball}}$:
+up to the first possible exit the cumulative increment is at most $2T_{\mathrm{ball}}V_0$,
+strictly less than $B-S_0$. The same first-exit argument works for integral
+solutions. It also bounds interpolation speeds, with a constant depending on
+$L$. This requires only operator and $\mathrm{RMS}$ bounds, including for the readout.
+
+#### The additional estimate uniform in the time mesh {#sec-docs-global-nonlinear-l2667}
+
+The fixed-depth response lemma in Fragment @sec-docs-global-nonlinear-l2924 derives,
+on a further interval $T_{\mathrm{response}}>0$, for every population Euler mesh $\Delta$,
+
+$$
+\sup_{k\Delta\le T_{\mathrm{response}}}\max_{a,\ell}
+\mathbb E\exp\bigl(c|P^{(\ell)}_{a,k}|^2\bigr)\le C.
+$$ {#eq-docs-global-nonlinear-l2672}
+
+It proves this for unbounded activations as well as nonvanishing subGaussian
+readout. Its precise recurrences and noncircular choice of constants are part
+of this proof, not an additional hypothesis of the theorem.
+
+The important bounds in that derivation are entrywise response coefficients
+$\lvert C^{(\ell)}_{(ak,bs)}\rvert\le c_\ell\Delta\omega_b$ and bounded row sums of $A^{(\ell)}$.
+SubGaussian norms of the forward fields and backward fields are bootstrapped
+together. A derivative in a single backward slot starts with a pulse carrying
+$\Delta\omega_b$. Every later random growth coefficient appears in a weighted
+time sum $\Delta\sum_{s,b}\omega_b\lvert P^{(\ell)}_{b,s}\rvert$. Jensen's inequality bounds its
+exponential using marginal subGaussian estimates; independence over time is
+not assumed and no maximum of Gaussian fields over the mesh is taken.
+
+Set $T_*\le\min(T_{\mathrm{ball}},T_{\mathrm{response}})$, with any additional reductions specified in
+the lemma. The constants are functions of the displayed bounds only. In
+particular they do not contain $\Delta$ or $m$.
+
+#### Localization, existence, and uniqueness {#sec-docs-global-nonlinear-l2692}
+
+Forward fields and predictions are Lipschitz in @eq-docs-global-nonlinear-l2632 on the ball $S\le B$, with
+a constant depending on fixed depth and bound parameters. This follows by
+expanding $WH-\widetilde W\widetilde H=(W-\widetilde W)H+\widetilde W(H-\widetilde H)$, and using
+$\lVert\phi(Z)-\phi(\widetilde Z)\rVert_{L^2}\le D_1\lVert Z-\widetilde Z\rVert_{L^2}$.
+
+Backward fields require a cutoff. For any reference field $\widetilde P$,
+
+$$
+\begin{aligned}
+\|[\phi'(Z)-\phi'(\widetilde Z)]\widetilde P\|_{L^2}
+&\le D_2R\|Z-\widetilde Z\|_{L^2}\\
+&\quad+2D_1\|\widetilde P\mathbf 1_{\{|\widetilde P|>R\}}\|_{L^2}.
+\end{aligned}
+$$ {#eq-docs-global-nonlinear-l2701}
+
+Write a delta difference as
+
+$$
+\phi'(Z)(P-\widetilde P)+[\phi'(Z)-\phi'(\widetilde Z)]\widetilde P.
+$$
+
+For $\ell<L$ the difference $P^{(\ell)}-\widetilde P^{(\ell)}$ is bounded by
+$B\lVert\delta^{(\ell+1)}-\widetilde\delta^{(\ell+1)}\rVert_{L^2}+Cd$; at $\ell=L$ it is a readout
+difference. Downward substitution yields
+
+$$
+\begin{aligned}
+\max_{a,\ell}\|\delta^{(\ell)}_a-\widetilde\delta^{(\ell)}_a\|_{L^2}
+&\le C(1+R)d+C\sum_{\ell=1}^L\max_a
+\|\widetilde P^{(\ell)}_a\mathbf 1_{\{|\widetilde P^{(\ell)}_a|>R\}}\|_{L^2}.
+\end{aligned}
+$$
+
+Each backward step multiplies the previous difference only by bounded
+activation derivatives and bounded operators. The new cutoff term is added;
+there is no power $R^L$. Outer-product differences satisfy
+$\|u\otimes v-\widetilde u\otimes\widetilde v\|_{\mathrm{op}}\le\|u-\widetilde u\|_{L^2}\|v\|_{L^2}+\|\widetilde u\|_{L^2}\|v-\widetilde v\|_{L^2}$.
+Together with @eq-docs-global-nonlinear-l2672, this proves for the vector field in @eq-docs-global-nonlinear-l2594
+
+$$
+\|F(\theta)-F(\theta_{\mathrm{reference}})\|
+\le C(1+R)d(\theta,\theta_{\mathrm{reference}})+C\exp(-cR^2).
+$$ {#eq-docs-global-nonlinear-l2724}
+
+when the reference is a population Euler grid state. Only the reference needs
+the tail estimate.
+
+Compare two piecewise linear population Euler interpolants. At time $t$ their
+assigned velocities are $F$ evaluated at their respective preceding grid
+states. These states differ by at most their interpolant distance plus
+$C(\Delta+\Delta')$. Apply @eq-docs-global-nonlinear-l2724 directly to these grid states and integrate:
+
+$$
+\begin{aligned}
+\sup_{t\le T_*}d(\theta^\Delta(t),\theta^{\Delta'}(t))
+&\le C\exp\bigl[C(1+R)T_*\bigr]\\
+&\quad\times\bigl((1+R)(\Delta+\Delta')+\exp(-cR^2)\bigr).
+\end{aligned}
+$$ {#eq-docs-global-nonlinear-l2735}
+
+First fix $R$ and send both meshes to zero; then send $R$ to infinity. Since
+$\exp(CRT_*-cR^2)\to0$, the paths are Cauchy in the complete field/operator spaces.
+
+All coordinate products occurring in $F$ are continuous on these spaces.
+For the only subtle product, if $Z_j\to Z$ and $P_j\to P$ in $L^2$, split
+$\phi'(Z_j)P_j-\phi'(Z)P$ into the bounded multiplier times $P_j-P$ and
+$[\phi'(Z_j)-\phi'(Z)]P$. The latter converges in $L^2$ by convergence in probability,
+boundedness of $\phi'$, and uniform integrability against the single integrable
+variable $P^2$. Thus $F$ is continuous; on the compact range of a convergent
+sequence of continuous paths this continuity is uniform. The Euler integral
+equations pass to @eq-docs-global-nonlinear-l2594, giving a strong solution. All $P$ fields converge at
+fixed times; Fatou transfers @eq-docs-global-nonlinear-l2672 to the solution uniformly in time.
+
+For any other strong solution with the same initial state, @eq-docs-global-nonlinear-l2659 bounds its
+norms on this interval. Apply @eq-docs-global-nonlinear-l2724 with the constructed solution as reference.
+Their distance is $\le C\exp(CRT_*-cR^2)$ for every $R$, hence zero. This proves
+uniqueness without assuming tails of the competing solution.
+
+@eq-docs-global-nonlinear-l2594 use only the current fields, operators, and adjoints. More
+precisely, the closed spaces generated by a current state under these
+operations and clipped products contain all its subsequent Euler
+approximations and their limits. Equal current joint action laws identify
+these spaces by an $L^2$ isometry intertwining the operators and coordinate
+operations. Uniqueness identifies their subsequent laws. This is autonomy
+and restartability on the constructed interval, not a finite scalar closure.
+
+#### From the population flow to every vanishing-step finite GD sequence {#sec-docs-global-nonlinear-l2765}
+
+Fix a rational coarse mesh $\Delta$, independently of $\eta_n$. Expand
+
+$$
+W^{(\ell)}_k=W^{(\ell)}_0-2\kappa_\ell\Delta
+\sum_{s<k,b}\omega_b r_{b,s}\delta^{(\ell)}_{b,s}\otimes H^{(\ell-1)}_{b,s}.
+$$ {#eq-docs-global-nonlinear-l2769}
+
+Build a finite oracle computation using the same sampled initial arrays as
+actual GD. In its expanded matrix actions replace all scalar contractions
+and residuals by their deterministic population Euler values. This is a
+fixed finite program, so the stated theorem gives joint empirical convergence
+of every needed node, contraction, second moment, and continuous quadratic
+tail cutoff. Its coefficients are a proof device determined by the population
+Euler equations; they are not the coefficients of the final autonomous flow.
+
+Construct proxy parameters from the oracle's first-layer/readout nodes and
+the finite rank expansion corresponding to @eq-docs-global-nonlinear-l2769, with $uv^\top/n$. Applying a
+proxy matrix to an oracle node differs from its prescribed oracle action by
+finitely many terms of the form
+
+$$
+-2\kappa_\ell\Delta\omega_b r_{b,s}\delta^{(\ell),\mathrm{oracle}}_{b,s}
+\left(\frac{(h^{(\ell-1),\mathrm{oracle}}_{b,s})^\top
+h^{(\ell-1),\mathrm{oracle}}_{a,k}}{n}
+-\mathbb E[H^{(\ell-1)}_{b,s}H^{(\ell-1)}_{a,k}]\right).
+$$ {#eq-docs-global-nonlinear-l2785}
+
+and transpose actions have the corresponding delta contractions. At fixed
+$\Delta$, their scalar errors vanish and their vector RMS norms are bounded.
+Consequently all proxy forward quantities are consistent in RMS. To transfer
+backpropagation with an unbounded readout, use @eq-docs-global-nonlinear-l2701 against oracle $P$ nodes and
+proceed downward through layers. At any fixed cutoff the errors vanish, and
+the empirical oracle tails converge to the tails in @eq-docs-global-nonlinear-l2672; sending that cutoff
+to infinity proves the recomputed proxy delta fields are consistent in RMS.
+This also proves consistency of its vector field and residuals.
+
+The proxy grid fields therefore have reference tails with limiting upper
+bound $C\exp(-cR^2)$, after harmless changes in constants. For example if
+$\lVert v-u\rVert_2/\sqrt{n}=e_n$ then
+
+$$
+\frac{\|v\mathbf 1_{\{|v|>2R\}}\|_2}{\sqrt n}
+\le2e_n+2\frac{\|u\mathbf 1_{\{|u|>R\}}\|_2}{\sqrt n}.
+$$
+
+Its grid and interpolated norm/speed bounds have limiting upper bounds
+independent of $\Delta$, by @eq-docs-global-nonlinear-l2659, @eq-docs-global-nonlinear-l2769, and the fixed-mesh consistency. Enlarge
+the comparison ball by a fixed amount if necessary.
+
+Compare actual GD and the proxy interpolant using their assigned grid
+velocities. The actual preceding fine-grid state and reference preceding
+coarse-grid state are at distance at most the interpolant distance plus
+$C(\eta_n+\Delta)$. The actual-to-proxy vector-field difference obeys @eq-docs-global-nonlinear-l2724, now
+with empirical reference tails and fixed-mesh errors. Thus
+
+$$
+\begin{aligned}
+\sup_{t\le T_*}d_n(\theta_n^{\mathrm{GD}}(t),\theta_n^{\mathrm{proxy},\Delta}(t))
+&\le C\exp\bigl[C(1+R)T_*\bigr]\\
+&\quad\times\bigl((1+R)(\eta_n+\Delta)+\exp(-cR^2)+o_{\mathbb P}(1)\bigr).
+\end{aligned}
+$$ {#eq-docs-global-nonlinear-l2815}
+
+Here $o_{\mathbb P}(1)$ is at fixed $R,\Delta$. Initial distance is zero because the oracle
+uses the same roots. A vanishing initialization perturbation contributes its
+distance to the right side. The actual GD requires only its RMS/operator
+ball, not a maximum coordinate bound or an empirical tail theorem for a
+growing number of steps.
+
+The limit order is: $n\to\infty$ with $R,\Delta$ fixed, then $\Delta\to0$, then
+$R\to\infty$. @eq-docs-global-nonlinear-l2815, @eq-docs-global-nonlinear-l2735, and fixed-mesh empirical convergence prove
+the joint width/step limit. There is no condition such as $\eta_n\sqrt{n}\to0$.
+
+Predictions follow by the forward Lipschitz bound. Define the kernel blocks
+
+$$
+\begin{aligned}
+K^{(1)}_{ab}&=G_{ab}\mathbb E[\delta^{(1)}_a\delta^{(1)}_b],\\
+K^{(\ell)}_{ab}&=\mathbb E[H^{(\ell-1)}_aH^{(\ell-1)}_b]
+\mathbb E[\delta^{(\ell)}_a\delta^{(\ell)}_b],\quad 2\le\ell\le L,\\
+K^{(L+1)}_{ab}&=\mathbb E[H^{(L)}_aH^{(L)}_b],\\
+K&=\sum_{\ell=1}^{L+1}\kappa_\ell K^{(\ell)}.
+\end{aligned}
+$$
+
+Their finite counterparts use $b^\top c/n$ in every contraction. Backward RMS
+consistency and Cauchy--Schwarz give uniform convergence of these entries.
+For $\Omega=\operatorname{diag}(\omega_1,\ldots,\omega_m)$, direct differentiation gives
+
+$$
+\dot f=-2K\Omega r,\qquad \dot L=-4(\Omega r)^\top K(\Omega r).
+$$ {#eq-docs-global-nonlinear-l2841}
+
+Each block is positive semidefinite, being a parameter-gradient Gram matrix.
+
+For completeness, the extra observable steps do not demand higher moments
+of actual GD. The population parameter velocities converge uniformly in $L^2$
+and operator norm by @eq-docs-global-nonlinear-l2724. Recursively,
+
+$$
+\dot Z^{(\ell)}_a=\dot W^{(\ell)}H^{(\ell-1)}_a
++W^{(\ell)}\bigl[\phi^{(\ell-1)\prime}(Z^{(\ell-1)}_a)
+\dot Z^{(\ell-1)}_a\bigr].
+$$ {#eq-docs-global-nonlinear-l2849}
+
+is continuous in the state and parameter velocity in the stated norms.
+The bounded-multiplier product is justified by the same fixed-reference
+uniform-integrability argument used after @eq-docs-global-nonlinear-l2735. On the compact population
+time path these velocities form a compact $L^2$ family, hence have uniformly
+vanishing $L^2$ tails. For each fixed $\Delta$, oracle evaluations of these
+velocities are fixed finite programs and have convergent empirical cutoff
+moments. Localizing their bounded-multiplier products, first using @eq-docs-global-nonlinear-l2815,
+then passing $\Delta$ to zero, proves convergence of the integrated squared
+hidden speeds. No exponential estimate for these derived velocities is
+needed; cutoffs here occur after state stability, outside Gronwall.
+
+At any grid with cell length at most $\epsilon$, each absolutely continuous
+coordinate path obeys
+
+$$
+\sup_{s,t\text{ in one cell}}|z(t)-z(s)|^2
+\le\varepsilon\int_{\mathrm{cell}}|\dot z(u)|^2\,du.
+$$
+
+After averaging over neurons and summing over cells, the error of grid
+reconstruction in squared uniform path norm is $\le C\epsilon$, uniformly in $n$
+on the ball. Fixed-time empirical joint laws converge in Wasserstein distance
+of order two by fixed-program convergence and their second moments. Combining
+this with grid reconstruction proves assertion 3. Activations follow from
+their Lipschitz bounds. The same cutoff induction proves assertion 4: an
+operator amplifies $L^2$ errors by at most $B$, Lipschitz functions preserve them,
+and bounded-factor products use the compact reference $L^2$ family's uniform
+integrability. This explains the stated restriction on products.
+
+#### Removing second differentiability; losses and initialization perturbations {#sec-docs-global-nonlinear-l2879}
+
+First the proof above is for $C^2$ activations with bounded first two
+derivatives. For a $C^1$ activation whose derivative is globally Lipschitz,
+convolve with a smooth compactly supported probability density of scale
+$\epsilon$. Then
+
+$$
+\begin{aligned}
+\|\phi_\varepsilon-\phi\|_\infty&\le CD_1\varepsilon,\\
+\|\phi_\varepsilon'-\phi'\|_\infty&\le CD_2\varepsilon,\\
+\|\phi_\varepsilon'\|_\infty&\le D_1,\qquad
+\|\phi_\varepsilon''\|_\infty\le D_2.
+\end{aligned}
+$$
+
+The response lemma and $T_*$ depend only on these bounds, uniformly in
+$\epsilon$. Include rational smoothing scales in the common program family.
+The comparison @eq-docs-global-nonlinear-l2724 between different smoothings has an additional
+$C(1+R)(\epsilon+\epsilon')$ term: forward differences gain $O(\epsilon)$, and
+backward differences use @eq-docs-global-nonlinear-l2701 plus the uniform difference of derivatives.
+The same ordered limits construct a strong flow for the original activation,
+inherit @eq-docs-global-nonlinear-l2672, and prove uniqueness. Compare finite GD for the original
+activation with the fixed smooth oracle by the identical estimate, adding
+$C(1+R)\epsilon$ inside @eq-docs-global-nonlinear-l2815. Taking $n,\Delta,\epsilon,R$ in that order proves the
+same joint limit for $C^{1,1}$ activations. ReLU's discontinuous derivative does
+not satisfy this argument.
+
+More general separable losses are allowed: use $\sum_a\omega_a\ell_a(f_a)$,
+where every $\ell_a$ is $C^1$ and its derivative is locally Lipschitz, with common
+finite bounds and Lipschitz constants on bounded prediction intervals.
+Replace every $2r_b$ in @eq-docs-global-nonlinear-l2537,@eq-docs-global-nonlinear-l2594,@eq-docs-global-nonlinear-l2769 --@eq-docs-global-nonlinear-l2815 by $\ell_b'(f_b)$. The preliminary ball
+uses $\sup_{a,\lvert f\rvert\le Bh_L}\lvert\ell_a'(f)\rvert$ in place of $2R_0$; prediction stability uses
+the corresponding local Lipschitz constant. In response differentiation these
+oracle coefficients are frozen, so every response estimate uses only their
+bound and the pulse still carries $\Delta\omega_b$. The proof is unchanged
+with exactly these replacements. No convexity or global growth assumption
+on the loss is required on this short interval. For this loss,
+$\dot f_a=-\sum_bK_{ab}\omega_b\ell_b'(f_b)$, and
+$\dot L=-\sum_{a,b}\omega_a\ell_a'(f_a)K_{ab}\omega_b\ell_b'(f_b)$.
+
+Finally @eq-docs-global-nonlinear-l2815 also allows perturbing the sampled initial arrays by an amount
+tending to zero in probability in @eq-docs-global-nonlinear-l2632, and changing the $\kappa$ constants by
+vanishing amounts. The actual initial arrays need only the resulting RMS
+and operator bounds. In particular zero population readout covers finite
+Gaussian readout $\sigma_{\mathrm{out}}n^{-\beta}g$ for EVERY $\beta>0$, and indeed any
+readout perturbation with $\lVert W^{(L+1)}_0\rVert_2/\sqrt{n}\to0$ in probability. This
+does not assert universality for different $O(1)$ non-Gaussian middle matrices:
+such a replacement need not be small in operator norm.
+
+### C.2. Complete weighted response and tail proof {#sec-docs-global-nonlinear-l2924}
+
+Within this proof unit, unqualified section and equation numbers are local.
+
+Fix a finite number $L\ge2$ of hidden layers and a finite dataset with
+weights $\omega_a>0$, $\sum_a\omega_a=1$. Suppose
+$|G_{ab}|\le g$. No inverse Gram matrix is used. Each activation
+$\phi^{(\ell)}$ is $C^2$, with
+
+$$
+\max_\ell\bigl(|\phi^{(\ell)}(0)|+
+\|\phi^{(\ell)\prime}\|_\infty+
+\|\phi^{(\ell)\prime\prime}\|_\infty\bigr)<\infty.
+$$
+
+The first-layer root vector has uniformly subGaussian scalar marginals.
+The readout root $W_0^{(L+1)}$ is subGaussian. Roots and initial middle
+matrices are independent, and the middle matrices have independent
+Gaussian entries with variance $\sigma_\ell^2/n$.
+The lemma below only uses the marginal subGaussian bounds on the resulting
+first preactivations and readout.
+
+All constants are independent of the Euler mesh, the number of mesh points,
+the number of inputs, the individual weights, and covariance ranks. They
+can depend on fixed depth, activation bounds, $g$, initialization bounds,
+learning constants, and the preliminary RMS/residual bounds. A common
+existence time across datasets does not imply a width limit for a dataset
+whose size increases with width.
+
+#### Exact recursions and hypotheses {#sec-docs-global-nonlinear-l2953}
+
+For mesh $\Delta$, write the population forward and backward operations
+as
+
+$$
+H_{a,k}^{(\ell)}=\phi^{(\ell)}(Z_{a,k}^{(\ell)}),\qquad
+P_{a,k}^{(L)}=W_k^{(L+1)},\qquad
+\delta_{a,k}^{(\ell)}=
+\phi^{(\ell)\prime}(Z_{a,k}^{(\ell)})P_{a,k}^{(\ell)}.
+%
+$$ {#eq-docs-global-nonlinear-l2958}
+
+For $\ell<L$, $P_{a,k}^{(\ell)}=
+(W_k^{(\ell+1)})^*\delta_{a,k}^{(\ell+1)}$. The Euler updates at the
+two ends are
+
+$$
+Z_{a,k+1}^{(1)}=Z_{a,k}^{(1)}
+-2\kappa_1\Delta\sum_b\omega_bG_{ab}r_{b,k}
+\delta_{b,k}^{(1)},
+%
+$$ {#eq-docs-global-nonlinear-l2970}
+$$
+W_{k+1}^{(L+1)}=W_k^{(L+1)}
+-2\kappa_{L+1}\Delta\sum_b\omega_b r_{b,k}H_{b,k}^{(L)}.
+%
+$$ {#eq-docs-global-nonlinear-l2976}
+
+For every middle layer the update is
+
+$$
+W_{k+1}^{(\ell)}=W_k^{(\ell)}
+-2\kappa_\ell\Delta\sum_b\omega_b r_{b,k}
+\delta_{b,k}^{(\ell)}\otimes H_{b,k}^{(\ell-1)}.
+%
+$$ {#eq-docs-global-nonlinear-l2984}
+
+For the lemma, the residuals in these recursions can be any deterministic
+numbers with $|r_{a,k}|\le R$. All deterministic residuals, contractions,
+response coefficients, and Gaussian covariance laws are frozen in every
+derivative below. There is no derivative through expectations.
+
+Assume on a preliminary time interval $[0,T_{\rm ball}]$ that all source
+RMS norms $\|H_{a,k}^{(\ell)}\|_{L^2}$ and
+$\|\delta_{a,k}^{(\ell)}\|_{L^2}$ are at most $S$, uniformly in mesh.
+In particular the training-memory coefficient bound is
+
+$$
+J=2\max_\ell\kappa_\ell R S^2,
+%
+$$ {#eq-docs-global-nonlinear-l3001}
+
+and all Gaussian innovations below have standard deviations at most
+$S\max_\ell\sigma_\ell$.
+
+For each initial middle matrix introduce forward slots
+$\xi_{a,k}^{(\ell)}$ and backward slots
+$\eta_{a,k}^{(\ell)}$. Their covariances are
+
+$$
+\mathbb E[\xi_{a,k}^{(\ell)}\xi_{b,s}^{(\ell)}]
+=\sigma_\ell^2\mathbb E[H_{a,k}^{(\ell-1)}H_{b,s}^{(\ell-1)}],
+\quad
+\mathbb E[\eta_{a,k}^{(\ell)}\eta_{b,s}^{(\ell)}]
+=\sigma_\ell^2\mathbb E[\delta_{a,k}^{(\ell)}\delta_{b,s}^{(\ell)}].
+%
+$$ {#eq-docs-global-nonlinear-l3013}
+
+Different matrix/orientation families are independent Gaussian families;
+each family's own times and inputs are generally dependent. The
+coordinate space of hidden population $\ell$ uses its adjacent slots
+$\xi^{(\ell)}$ and $\eta^{(\ell+1)}$, with the appropriate root at
+the first/last layer. These are distinct neuron populations, not paired
+finite-width coordinates.
+
+Define unscaled expected derivatives
+
+$$
+A_{ak,bs}^{(\ell)}=
+\mathbb E\frac{\partial\delta_{a,k}^{(\ell)}}
+{\partial\xi_{b,s}^{(\ell)}},\qquad s\le k,
+\quad
+C_{ak,bs}^{(\ell)}=
+\mathbb E\frac{\partial H_{a,k}^{(\ell-1)}}
+{\partial\eta_{b,s}^{(\ell)}},\qquad s<k.
+%
+$$ {#eq-docs-global-nonlinear-l3031}
+
+The exact local response representation is
+
+$$
+Z_{a,k}^{(\ell)}=\xi_{a,k}^{(\ell)}+
+\sum_{b,s<k}F_{ak,bs}^{(\ell)}\delta_{b,s}^{(\ell)},
+%
+$$ {#eq-docs-global-nonlinear-l3044}
+$$
+P_{a,k}^{(\ell-1)}=\eta_{a,k}^{(\ell)}+
+\sum_{b,s\le k}D_{ak,bs}^{(\ell)}H_{b,s}^{(\ell-1)},
+%
+$$ {#eq-docs-global-nonlinear-l3049}
+
+where
+
+$$
+F_{ak,bs}^{(\ell)}=
+\sigma_\ell^2 C_{ak,bs}^{(\ell)}
+-2\kappa_\ell\Delta\omega_b r_{b,s}
+\mathbb E[H_{b,s}^{(\ell-1)}H_{a,k}^{(\ell-1)}],
+%
+$$ {#eq-docs-global-nonlinear-l3057}
+$$
+D_{ak,bs}^{(\ell)}=
+\sigma_\ell^2 A_{ak,bs}^{(\ell)}
+-\mathbf1_{s<k}2\kappa_\ell\Delta\omega_b r_{b,s}
+\mathbb E[\delta_{b,s}^{(\ell)}\delta_{a,k}^{(\ell)}].
+%
+$$ {#eq-docs-global-nonlinear-l3064}
+
+For compact cap notation only, put
+$\widetilde A^{(\ell)}=\sigma_\ell^2 A^{(\ell)}$ and
+$\widetilde C^{(\ell)}=\sigma_\ell^2 C^{(\ell)}$.
+Thus the $\sigma$ factors never enter the trained terms.
+
+#### SubGaussian sums without maxima of Gaussian histories {#sec-docs-global-nonlinear-l3077}
+
+For a scalar random variable define
+
+$$
+\mathcal N(U)=\sup_{p\ge2}\frac{\|U\|_{L^p}}{\sqrt p}.
+%
+$$ {#eq-docs-global-nonlinear-l3081}
+
+It is a norm, and $\mathcal N(U)\le B$ implies
+
+$$
+\mathbb E\exp\bigl(U^2/(8eB^2)\bigr)\le4/3,
+\quad
+\mathbb E e^{\lambda|U|}\le(4/3)e^{2e\lambda^2B^2}.
+%
+$$ {#eq-docs-global-nonlinear-l3088}
+
+Indeed the $r$-th term in the first exponential series is at most
+$(2r)^r/((8e)^rr!)\le4^{-r}$; the second inequality follows by
+$\lambda|U|\le U^2/(8eB^2)+2e\lambda^2B^2$. The case $B=0$ is
+understood as $U=0$.
+
+If each $U_{b,s}$ has $\mathcal N(U_{b,s})\le B$, Jensen applied
+with weights $\Delta\omega_b/(k\Delta)$ gives
+
+$$
+\mathbb E\exp\left(\lambda\Delta
+\sum_{s<k}\sum_b\omega_b|U_{b,s}|\right)
+\le(4/3)\exp(2e\lambda^2T^2B^2),\qquad k\Delta\le T.
+%
+$$ {#eq-docs-global-nonlinear-l3103}
+
+This requires no independence over time or inputs. The maximum of Gaussian
+coordinates or of a Gaussian history is never bounded in this argument.
+
+#### The simultaneous field and response bounds {#sec-docs-global-nonlinear-l3113}
+
+We prove that there exist fixed finite caps $a_\ell,c_\ell$, constants
+$B_H,B_{P,\ell}$, and $T_0>0$, with $T_0\le T_{\rm ball}$, such
+that at every mesh point up to $T_0$
+
+$$
+\sum_{b,s\le k}|\widetilde A_{ak,bs}^{(\ell)}|\le a_\ell,
+\qquad
+|\widetilde C_{ak,bs}^{(\ell)}|\le c_\ell\Delta\omega_b,
+%
+$$ {#eq-docs-global-nonlinear-l3119}
+$$
+\mathcal N(H_{a,k}^{(\ell)})\le B_H,
+\qquad
+\mathcal N(P_{a,k}^{(\ell)})\le B_{P,\ell}.
+%
+$$ {#eq-docs-global-nonlinear-l3125}
+
+Set $f_\ell=c_\ell+J$ for $\ell\ge2$, and $f_1=1$.
+Under the response caps,
+
+$$
+|F_{ak,bs}^{(\ell)}|\le f_\ell\Delta\omega_b,
+\qquad
+\sum_{b,s\le k}|D_{ak,bs}^{(\ell)}|\le a_\ell+JT.
+%
+$$ {#eq-docs-global-nonlinear-l3135}
+
+Choose a constant $K\ge2$, depending only on the fixed bounds in the
+lemma, large enough to dominate every root/innovation $\mathcal N$-norm
+after applying an activation and every coefficient in @eq-docs-global-nonlinear-l2970 --@eq-docs-global-nonlinear-l2976. Fix this
+$K$ once. The triangle inequality for $\mathcal N$, @eq-docs-global-nonlinear-l2958 --@eq-docs-global-nonlinear-l2976, and
+@eq-docs-global-nonlinear-l3044 --@eq-docs-global-nonlinear-l3049 give the following bounds using only already constructed fields:
+
+$$
+\mathcal N(H_{a,k}^{(1)})\le K+KT\sup_{b,s<k}
+\mathcal N(P_{b,s}^{(1)}),
+%
+$$ {#eq-docs-global-nonlinear-l3148}
+$$
+\mathcal N(H_{a,k}^{(\ell)})\le K+Kf_\ell T
+\sup_{b,s<k}\mathcal N(P_{b,s}^{(\ell)}),\quad 2\le\ell\le L,
+%
+$$ {#eq-docs-global-nonlinear-l3153}
+$$
+\mathcal N(P_{a,k}^{(\ell)})\le K+(a_{\ell+1}+JT)
+\sup_{b,s\le k}\mathcal N(H_{b,s}^{(\ell)}),\quad\ell<L,
+%
+$$ {#eq-docs-global-nonlinear-l3158}
+$$
+\mathcal N(W_k^{(L+1)})\le K+KT
+\sup_{b,s<k}\mathcal N(H_{b,s}^{(L)}).
+%
+$$ {#eq-docs-global-nonlinear-l3163}
+
+Take
+
+$$
+B_H=2K,\qquad B_{P,L}=2K,\qquad
+B_{P,\ell}=4K(1+a_{\ell+1})\quad(\ell<L).
+%
+$$ {#eq-docs-global-nonlinear-l3171}
+
+Once response caps have been chosen, @eq-docs-global-nonlinear-l3148 --@eq-docs-global-nonlinear-l3163 preserve these field caps
+if $JT\le1$, $2KT\le1$, and
+$f_\ell T B_{P,\ell}\le1$ for every $1\le\ell\le L$.
+For @eq-docs-global-nonlinear-l3158, its right side is at most
+$K+2K(a_{\ell+1}+1)\le4K(1+a_{\ell+1})$.
+For each finite mesh all $\mathcal N$-norms are finite before this
+estimate: the causal magnitude recursions bound each field by a finite
+deterministic linear combination of absolute roots/innovations, since
+$|\phi(z)|\le M(1+|z|)$ and $|\delta|\le M|P|$.
+
+#### Full forward-slot derivative rows {#sec-docs-global-nonlinear-l3187}
+
+Fix a layer $2\le\ell\le L$. Differentiate only with respect to its
+own forward slots $\xi^{(\ell)}$; hold the adjacent backward slots and
+roots fixed. Let
+
+$$
+v_{a,k}^{(\ell)}=
+\sum_{b,s\le k}\left|
+\frac{\partial Z_{a,k}^{(\ell)}}{\partial\xi_{b,s}^{(\ell)}}
+\right|,\qquad
+V_k^{(\ell)}=\max_{a,u\le k}v_{a,u}^{(\ell)}.
+%
+$$ {#eq-docs-global-nonlinear-l3193}
+
+The maximum here is a maximum of derivative row sums, not of random
+backward fields. Write $d_\ell=1+a_{\ell+1}$ if $\ell<L$, and
+$d_L=1$. Let $M\ge1$ dominate all activation bounds.
+
+For $\ell<L$, direct differentiation of @eq-docs-global-nonlinear-l3049 gives
+
+$$
+\sum_{b,s}\left|
+\frac{\partial P_{a,u}^{(\ell)}}{\partial\xi_{b,s}^{(\ell)}}
+\right|
+\le M(a_{\ell+1}+JT)V_u^{(\ell)}.
+%
+$$ {#eq-docs-global-nonlinear-l3208}
+
+For the last layer, differentiating the integrated readout update @eq-docs-global-nonlinear-l2976
+instead gives a bound $2\kappa_{L+1}RMTV_u^{(L)}$.
+The product rule in @eq-docs-global-nonlinear-l2958, with these bounds, proves for a fixed constant
+$C$ depending only on the lemma's data that
+
+$$
+\sum_{b,s}\left|
+\frac{\partial\delta_{a,u}^{(\ell)}}
+{\partial\xi_{b,s}^{(\ell)}}\right|
+\le C\bigl(|P_{a,u}^{(\ell)}|+d_\ell\bigr)V_u^{(\ell)}.
+%
+$$ {#eq-docs-global-nonlinear-l3221}
+
+The first term in @eq-docs-global-nonlinear-l3044 has derivative row sum exactly one. Its memory has
+only earlier times. By the entrywise estimate @eq-docs-global-nonlinear-l3135,
+
+$$
+V_k^{(\ell)}\le1+Cf_\ell\Delta\sum_{u<k}
+\left(d_\ell+\sum_b\omega_b|P_{b,u}^{(\ell)}|\right)V_u^{(\ell)}.
+%
+$$ {#eq-docs-global-nonlinear-l3232}
+
+To justify the prefix maximum, the bound for every earlier time is no
+larger than the displayed right side because every summand is nonnegative.
+Discrete Gronwall gives
+
+$$
+V_k^{(\ell)}\le
+\exp\left(Cf_\ell T d_\ell+
+Cf_\ell\Delta\sum_{u<k}\sum_b\omega_b|P_{b,u}^{(\ell)}|\right).
+%
+$$ {#eq-docs-global-nonlinear-l3242}
+
+Using @eq-docs-global-nonlinear-l3103, then Cauchy--Schwarz in @eq-docs-global-nonlinear-l3221, yields
+
+$$
+\sum_{b,s\le k}|\widetilde A_{ak,bs}^{(\ell)}|
+\le C(B_{P,\ell}+d_\ell)
+\exp\left(Cf_\ell T d_\ell+
+Cf_\ell^2T^2B_{P,\ell}^2\right).
+%
+$$ {#eq-docs-global-nonlinear-l3251}
+
+Here and in the remaining estimates choose one $C\ge1$ large enough
+for all displayed inequalities, and fix it before choosing response caps.
+There are finitely many algebraic bound types; neither $C$ nor $K$
+depends on a response cap. Notice that @eq-docs-global-nonlinear-l3251 uses
+$\|P_{a,k}^{(\ell)}\|_{L^2}\|V_k^{(\ell)}\|_{L^2}$, not the
+$L^2$-norm of a maximum over the input index or time.
+
+#### A single backward-slot pulse {#sec-docs-global-nonlinear-l3266}
+
+Fix $\ell\ge2$, one input $b$, one time $s$, and differentiate
+the local coordinate functions of layer $\ell-1$ with respect to the
+single slot $\eta_{b,s}^{(\ell)}$. Put
+
+$$
+D_k=\max_{a,u\le k}\left|
+\frac{\partial Z_{a,u}^{(\ell-1)}}
+{\partial\eta_{b,s}^{(\ell)}}\right|.
+%
+$$ {#eq-docs-global-nonlinear-l3272}
+
+It vanishes for $k\le s$. Differentiating @eq-docs-global-nonlinear-l3049 and @eq-docs-global-nonlinear-l2958 gives, pointwise,
+
+$$
+\left|\frac{\partial\delta_{a,u}^{(\ell-1)}}
+{\partial\eta_{b,s}^{(\ell)}}\right|
+\le M\mathbf1_{a=b,u=s}
++C\bigl(|P_{a,u}^{(\ell-1)}|+d_{\ell-1}\bigr)D_u.
+%
+$$ {#eq-docs-global-nonlinear-l3281}
+
+Indeed the derivative of the direct Gaussian term in @eq-docs-global-nonlinear-l3049 is precisely
+$\mathbf1_{a=b,u=s}$; the derivative of its response has magnitude
+at most $M(a_\ell+JT)D_u$. The other product-rule term is bounded by
+$M|P_{a,u}^{(\ell-1)}|D_u$.
+
+For $\ell=2$, insert @eq-docs-global-nonlinear-l3281 in the accumulated update @eq-docs-global-nonlinear-l2970. Its direct
+pulse has magnitude at most $2\kappa_1gRM\Delta\omega_b$.
+For $\ell\ge3$, insert it in @eq-docs-global-nonlinear-l3044 for layer $\ell-1$; the direct
+pulse has magnitude at most $Mf_{\ell-1}\Delta\omega_b$.
+Both cases therefore obey, for $k>s$,
+
+$$
+D_k\le Cf_{\ell-1}\Delta\omega_b+
+Cf_{\ell-1}\Delta\sum_{u<k}
+\left(d_{\ell-1}+\sum_a\omega_a|P_{a,u}^{(\ell-1)}|\right)D_u.
+%
+$$ {#eq-docs-global-nonlinear-l3300}
+
+Here $f_1=1$. Gronwall, @eq-docs-global-nonlinear-l3103, and the bounded activation derivative
+give
+
+$$
+\frac{|\widetilde C_{ak,bs}^{(\ell)}|}{\Delta\omega_b}
+\le Cf_{\ell-1}
+\exp\left(Cf_{\ell-1}T d_{\ell-1}+
+Cf_{\ell-1}^2T^2B_{P,\ell-1}^2\right).
+%
+$$ {#eq-docs-global-nonlinear-l3310}
+
+The factor $\Delta\omega_b$ is retained from one source pulse. There
+is no factor $1/\omega_b$ in any constant and no sum of unweighted
+Gaussian absolute values.
+
+#### Cap selection and literal construction order {#sec-docs-global-nonlinear-l3322}
+
+First choose the forward-response caps from bottom to top:
+
+$$
+c_2=4C,\qquad c_\ell=4C(c_{\ell-1}+J),\quad3\le\ell\le L.
+%
+$$ {#eq-docs-global-nonlinear-l3326}
+
+These use only the $T=0$ prefactors in @eq-docs-global-nonlinear-l3310, which do not contain any
+backward cap. Next choose the backward-response caps from top to bottom:
+
+$$
+a_L=4C(2K+1),\qquad
+a_\ell=4C(4K+1)(1+a_{\ell+1}),\quad 2\le\ell<L.
+%
+$$ {#eq-docs-global-nonlinear-l3334}
+
+These dominate four times the $T=0$ prefactors of @eq-docs-global-nonlinear-l3251, using @eq-docs-global-nonlinear-l3171.
+All caps are now fixed finite numbers. Choose $T_0>0$ satisfying
+
+$$
+T_0\le\min(T_{\rm ball},1),\quad JT_0\le1,\quad2KT_0\le1,
+\quad f_\ell T_0 B_{P,\ell}\le1\quad(1\le\ell\le L),
+%
+$$ {#eq-docs-global-nonlinear-l3343}
+
+and such that every exponent on the right sides of @eq-docs-global-nonlinear-l3251 and @eq-docs-global-nonlinear-l3310 is at
+most $\log2$ when $T=T_0$. Each exponent tends to zero with $T$
+after the caps have been fixed; there are finitely many of them. Thus this
+choice gives a strictly positive time depending only on the stated data.
+@eq-docs-global-nonlinear-l3251 and @eq-docs-global-nonlinear-l3310 then improve their respective response caps by a
+factor of two.
+
+For completeness, this is an induction on the actual causal construction,
+not a bootstrap that assumes all future tails:
+
+1. At time $k$, $W_k^{(L+1)}$ and $Z_{a,k}^{(1)}$ use only
+   histories before $k$. Verify their bounds from @eq-docs-global-nonlinear-l3148, @eq-docs-global-nonlinear-l3163.
+2. Construct the current forward layers in order $2,\ldots,L$.
+   Before constructing layer $\ell$, its coefficient
+   $\widetilde C^{(\ell)}$ is computed from the already constructed
+   $H^{(\ell-1)}$. Estimate @eq-docs-global-nonlinear-l3310 uses only past
+   $P^{(\ell-1)}$, whose tails and backward response caps are known,
+   and the current lower-layer forward cap, which is already known.
+   @eq-docs-global-nonlinear-l3153 then verifies the current $H^{(\ell)}$ bound using
+   only past $P^{(\ell)}$. This constructs the current innovations'
+   source covariances too.
+3. Construct the current backward layers in order $L,\ldots,2$.
+   At the top $P^{(L)}=W^{(L+1)}$ is already bounded. At a lower
+   layer $\ell$, the current $P^{(\ell)}$ was just constructed
+   using the current higher response $\widetilde A^{(\ell+1)}$;
+   @eq-docs-global-nonlinear-l3158 verifies its cap. Hence @eq-docs-global-nonlinear-l3221 --@eq-docs-global-nonlinear-l3251 use known current
+   $P^{(\ell)}$ tails and known upper response coefficients. They
+   verify the current $\widetilde A^{(\ell)}$ cap, after which @eq-docs-global-nonlinear-l3049
+   constructs $P^{(\ell-1)}$.
+4. Apply @eq-docs-global-nonlinear-l2970 --@eq-docs-global-nonlinear-l2976 for the next step and repeat.
+
+At $k=0$ there is no forward response memory. The same top-down
+backward construction starts from the readout root; @eq-docs-global-nonlinear-l3251 has $V_0=1$.
+Thus the induction starts without zero-readout or centered-readout
+assumptions. Neither a current forward coefficient nor a current backward
+coefficient needs its own unconstructed value. This proves @eq-docs-global-nonlinear-l3119 --@eq-docs-global-nonlinear-l3125.
+
+In particular, for some fixed $c_*,C_*>0$,
+
+$$
+\sup_\Delta\sup_{k\Delta\le T_0}\max_{a,\ell}
+\mathbb E\exp\left(c_*|P_{a,k}^{(\ell)}|^2\right)\le C_*.
+%
+$$ {#eq-docs-global-nonlinear-l3388}
+
+The same statement holds for every hidden activation and, by @eq-docs-global-nonlinear-l2970 and
+@eq-docs-global-nonlinear-l3044, every preactivation. It implies the uniform RMS cutoff-tail bound
+$\|P\mathbf1_{|P|>R}\|_{L^2}\le C e^{-cR^2}$, after decreasing
+$c$. No bound on a maximum over neurons, dataset elements, or time was
+proved or needed.
+
+The proof also holds for arbitrary deterministic positive step lengths
+$\Delta_s$ with total time at most $T_0$: replace every source factor
+$\Delta\omega_b$ at time $s$ by $\Delta_s\omega_b$, and replace
+$k\Delta$ by $\sum_{s<k}\Delta_s$. The Jensen weights in @eq-docs-global-nonlinear-l3103 become
+$\Delta_s\omega_b/\sum_{u<k}\Delta_u$; the single-slot pulse in @eq-docs-global-nonlinear-l3300 is
+exactly $\Delta_s\omega_b$; every Gronwall estimate uses only total
+time. Nothing else changes. Consequently @eq-docs-global-nonlinear-l3388 also holds for fields
+recomputed at an affine Euler-state interpolation time: append one final
+Euler update of length $\theta\Delta$, $0<\theta<1$, to the preceding
+full steps, and evaluate the full forward/backward network there. The
+constants are independent of $\theta$. This bounds each interpolation
+time; it is not a tail bound for a supremum of the path.
+
+#### Consequences and boundaries {#sec-docs-global-nonlinear-l3413}
+
+The depth extension therefore supplies the required Gaussian-tail part of
+the reference comparison for smooth globally Lipschitz activations,
+including when their values and the initial readout are unbounded. The
+remaining proof must provide the preliminary RMS/operator ball, the
+common operator realization, the oracle interpolation comparison, and its
+order of limits. This proof unit does not certify those separate steps.
+
+The exact same lemma holds when each $2r_{a,k}$ in @eq-docs-global-nonlinear-l2970 --@eq-docs-global-nonlinear-l2984 is replaced
+by any deterministic coefficient uniformly bounded on the preliminary
+ball. This permits a general-loss theorem once that theorem proves the
+required boundedness and feedback Lipschitz estimate for the loss
+derivative.
+
+The constants only use uniform bounds on $\phi$'s value at zero and
+its first two derivatives. Thus this lemma is uniform under smooth
+mollifications of globally Lipschitz $C^{1,1}$ activations. Passing from
+the mollified flows to the original activation still requires the
+separate stability argument. ReLU has discontinuous derivative and is not
+covered by this lemma or this mollification statement.
+
+The proof is for every fixed finite depth; its constants can grow rapidly
+with depth. It proves neither a depth-uniform interval nor arbitrary-depth
+strict feature activity. Those are different claims.
+
+The response rule in @eq-docs-global-nonlinear-l3013–@eq-docs-global-nonlinear-l3064 follows from @sec-docs-global-nonlinear-l1854 at each fixed finite $C^2$ program. Named sources and deterministic coefficients are frozen when differentiating. This handles singular covariances and does not invoke an all-moment scalar-feedback theorem.
+
+### C.3. Gaussian strict-activity corollary {#sec-docs-global-nonlinear-l3441}
+
+Within this proof unit, unqualified section and equation numbers are local.
+
+This proof unit proves the strict nontriviality part of the two-hidden-layer population result. It is conditional on existence of the population gradient flow with the mean-square continuity specified below. It does not, by itself, establish an existence theorem or a width limit for its whole activation class.
+
+The useful conclusion is broad: **bounded, nonconstant, continuously differentiable activations with bounded derivatives are sufficient**, in both hidden layers. Neither activation needs to be odd, analytic, monotone, or strictly monotone. Derivatives may change sign and may vanish on intervals. Thus bounded nonconstant $C^2$ activations with bounded derivatives certainly qualify. A broader conditional version allows unbounded activations with bounded continuous derivatives, provided both activations are nonaffine.
+
+#### Setup and conclusion {#sec-docs-global-nonlinear-l3449}
+
+Fix $m<\infty$ inputs $x_a\in\mathbb R^d$ with
+$$
+\frac{\|x_a\|_2^2}{d}=1,
+\qquad
+G_{ab}=\frac{x_a^\top x_b}{d},
+\qquad |G_{ab}|<1\quad(a\ne b).
+$$
+The Gram matrix $G$ may be singular. Let every label $y_a$ be a nonzero real number; arbitrary sign labels are included. Fix $\sigma_1,\sigma_2,\kappa_1,\kappa_2,\kappa_3>0$.
+
+Use $\phi^{(1)}$ and $\phi^{(2)}$ for the two activations. In the simple sufficient class both are bounded, nonconstant, continuously differentiable, with bounded derivatives. Initialize the first-layer population roots by
+$$
+Z_{0,a}^{(1)}
+=\frac{\sigma_1 g^\top x_a}{\sqrt d},
+\qquad g\sim N(0,I_d),
+$$
+the middle action by the joint forward/adjoint limit of an independent matrix with entries $N(0,\sigma_2^2/n)$, and the rescaled population readout by $W_0^{(3)}=0$.
+
+The network quantities are
+$$
+H_a^{(1)}=\phi^{(1)}(Z_a^{(1)}),
+\qquad
+Z_a^{(2)}=W^{(2)}H_a^{(1)},
+\qquad
+H_a^{(2)}=\phi^{(2)}(Z_a^{(2)}),
+$$
+$$
+f_a=\mathbb E[W^{(3)}H_a^{(2)}],
+\qquad r_a=f_a-y_a,
+\qquad L=\sum_a r_a^2,
+$$
+$$
+\delta_a^{(2)}=W^{(3)}(\phi^{(2)})'(Z_a^{(2)}),
+\qquad
+\delta_a^{(1)}
+=(\phi^{(1)})'(Z_a^{(1)})(W^{(2)})^*\delta_a^{(2)}.
+$$
+Suppose the limiting flow satisfies
+$$
+\begin{aligned}
+\dot Z_a^{(1)}
+&=-2\kappa_1\sum_bG_{ab}r_b\delta_b^{(1)},\\
+\dot W^{(2)}
+&=-2\kappa_2\sum_b r_b\delta_b^{(2)}\otimes H_b^{(1)},\\
+\dot W^{(3)}
+&=-2\kappa_3\sum_b r_bH_b^{(2)},
+\end{aligned}
+$$ {#eq-docs-global-nonlinear-l3488}
+where $(u\otimes v)V=u\mathbb E[vV]$. Write $\|U\|_{L^2}=\sqrt{\mathbb E[U^2]}$ for root-mean-square size; the operator norm measures its largest amplification. Require continuity of the field variables in mean square and of the middle action in operator norm, with the corresponding integral equations valid in those norms. The bounded continuous activation derivatives then justify the directional chain rules used below. The two neuron populations remain separate; every expectation pairs coordinates of the same layer.
+
+There is a fixed $T_*>0$ on which the following hold:
+
+- For every input, both hidden preactivations move nontrivially. Their RMS speeds are positive for every $0<t\le T_*$, of order $t$; their squared displacements are of order $t^4$.
+- The trained middle matrix moves nontrivially when applied to each fixed initial first-layer activation.
+- All three kernel blocks are positive definite for $0<t\le T_*$, and each block is nonconstant.
+- The summed loss has a uniformly negative slope, including at initialization.
+- Every hidden marginal has variance and best-affine-fit error for its activation bounded below by positive constants on $[0,T_*]$.
+
+The time and constants depend on the fixed data, activations, labels, and positive parameters, but not on width or learning rate. Strict positivity is not claimed uniformly as the inputs become parallel, labels approach zero, or other nondegeneracy parameters approach their boundaries.
+
+#### Why the first activation Gram matrix is positive definite {#sec-docs-global-nonlinear-l3510}
+
+The key geometric fact needs no high derivatives or analyticity.
+
+**Bounded ridge-function independence.** If $\phi$ is bounded, continuous, and nonconstant, then the functions
+$$
+w\longmapsto\phi\!\left(\frac{w^\top x_a}{\sqrt d}\right),
+\qquad a=1,\ldots,m,
+$$
+are linearly independent whenever the inputs are pairwise nonparallel.
+
+To prove it, suppose a linear combination with coefficients $c_a$ is zero for every $w$, and select $a$ with $c_a\ne0$. For every $b\ne a$, set
+$$
+\xi_{ab}
+=
+\frac{x_a/\sqrt d-G_{ab}x_b/\sqrt d}{1-G_{ab}^2}.
+$$
+Then
+$$
+\frac{x_a^\top\xi_{ab}}{\sqrt d}=1,
+\qquad
+\frac{x_b^\top\xi_{ab}}{\sqrt d}=0.
+$$
+For a vector $v$, let $\Delta_v F(w)=F(w+v)-F(w)$. Apply the commuting differences
+$$
+\prod_{b\ne a}\Delta_{h\xi_{ab}}
+$$
+to the proposed linear identity. Every term other than the $a$-th is killed by one of these differences. Each difference shifts the $a$-th scalar argument by $h$. Therefore
+$$
+\Delta_h^{m-1}\phi(s)=0
+\qquad\text{for every }s,h\in\mathbb R.
+%
+$$ {#eq-docs-global-nonlinear-l3538}
+For fixed $s,h$, the bounded sequence $a_j=\phi(s+jh)$, $j\ge0$, has vanishing $(m-1)$-st differences. This forces it to be constant: its $(m-2)$-nd difference is constant; if that constant were nonzero, the next lower difference would grow linearly, contradicting boundedness of every difference of a bounded sequence. Repeating gives $a_{j+1}=a_j$. For $m=2$ this is immediate from @eq-docs-global-nonlinear-l3538, and $m=1$ is immediate from nonconstancy. Consequently $\phi(s+h)=\phi(s)$ for every $s,h$, contradicting nonconstancy. This proves the claim.
+
+Now define
+$$
+Q_{ab}=\mathbb E[H_{0,a}^{(1)}H_{0,b}^{(1)}].
+%
+$$ {#eq-docs-global-nonlinear-l3546}
+If $c^\top Qc=0$, then $\sum_a c_a\phi^{(1)}(\sigma_1g^\top x_a/\sqrt d)=0$ almost surely. Continuity and the full support of $\sigma_1g$ make this an identity for all $w$. The preceding argument forces $c=0$. Hence $Q$ is positive definite, even when $G$ is singular.
+
+There is a useful broader version. If $\phi^{(1)}$ is nonaffine and continuously differentiable with bounded derivative, then its derivative is bounded, continuous, and nonconstant. Differentiate a putative ridge identity in a direction $v$ with $v^\top x_a\ne0$ for all $a$; such a direction avoids finitely many proper hyperplanes. It gives a linear identity among the ridge functions of $(\phi^{(1)})'$, with coefficients $c_a v^\top x_a/\sqrt d$. Bounded ridge-function independence again makes every $c_a=0$. Thus $Q\succ0$ also holds for unbounded nonaffine first activations with bounded continuous derivative.
+
+#### Positive response covariances, including activation flat parts {#sec-docs-global-nonlinear-l3554}
+
+Write
+$$
+Y_a:=Z_{0,a}^{(2)}.
+$$
+The tuple $Y$ is centered Gaussian with covariance $\sigma_2^2Q$, so it has full support in $\mathbb R^m$. Define the following recurring quantities:
+$$
+\begin{aligned}
+S&=\sum_a y_a\phi^{(2)}(Y_a),
+&U_a&=S(\phi^{(2)})'(Y_a),\\
+P_a&=(W_0^{(2)})^*U_a,
+&B_a&=(\phi^{(1)})'(Z_{0,a}^{(1)})P_a,\\
+V_{ab}&=\mathbb E[U_aU_b],
+&D_{ab}&=\mathbb E[B_aB_b].
+\end{aligned}
+$$ {#eq-docs-global-nonlinear-l3561}
+
+The matrix $V$ is positive definite. Suppose $\sum_a c_aU_a=0$ almost surely. Continuity and Gaussian full support imply, for every $s\in\mathbb R^m$,
+$$
+\left(\sum_a y_a\phi^{(2)}(s_a)\right)
+\left(\sum_a c_a(\phi^{(2)})'(s_a)\right)=0.
+%
+$$ {#eq-docs-global-nonlinear-l3573}
+Where the first factor is nonzero, the second is zero. If the first factor is zero and some $(\phi^{(2)})'(s_a)\ne0$, its corresponding partial derivative $y_a(\phi^{(2)})'(s_a)$ is nonzero; arbitrarily close points have a nonzero first factor, so continuity again makes the second factor zero. If all activation derivatives at that point vanish, the second factor is already zero. Consequently
+$$
+\sum_a c_a(\phi^{(2)})'(s_a)=0
+\qquad\text{for every }s.
+$$
+The derivative $(\phi^{(2)})'$ is nonconstant, because a bounded nonconstant activation cannot have constant derivative. Varying one coordinate forces each $c_a=0$. No division by $S$ was used: $S$ is allowed to vanish on a set of positive probability.
+
+For the broader conditional class, boundedness of $\phi^{(2)}$ can be replaced here by nonaffinity and a bounded continuous derivative. The derivative remains nonconstant, and all the necessary moments exist because $\phi^{(2)}$ has at most linear growth on the Gaussian input.
+
+Conditioning the initial Gaussian matrix on its initial forward calls gives
+$$
+P_a
+=
+\sum_c H_{0,c}^{(1)}
+\left[Q^{-1}\mathbb E[YU_a]\right]_c
++\Gamma_a,
+\qquad
+\Gamma\sim N(0,\sigma_2^2V),
+%
+$$ {#eq-docs-global-nonlinear-l3588}
+where $\Gamma$ is independent of the first-layer roots. This is the reused-transpose response, not a replacement of the transpose by an independent matrix. The deterministic response in @eq-docs-global-nonlinear-l3588 retains the information from the initial forward uses.
+
+For any deterministic $c\ne0$, the conditional Gaussian covariance gives
+$$
+\begin{aligned}
+\mathbb E\left[\left(\sum_a c_aB_a\right)^2\right]
+&\ge
+\sigma_2^2\lambda_{\min}(V)
+\sum_a c_a^2
+\mathbb E[((\phi^{(1)})'(Z_{0,a}^{(1)}))^2]\\
+&>0.
+\end{aligned}
+$$ {#eq-docs-global-nonlinear-l3601}
+Each final expectation is positive: a continuously differentiable nonconstant function has a nonzero derivative on an interval, and every first-layer Gaussian marginal has full support. Therefore $D\succ0$, even if the derivative is zero on large sets or changes sign.
+
+#### Each input moves in both hidden layers {#sec-docs-global-nonlinear-l3613}
+
+Set
+$$
+T_a=\sum_bG_{ab}y_bB_b,
+\qquad
+M_a=\sum_b y_bQ_{ab}U_b,
+$$
+$$
+A_a=(\phi^{(1)})'(Z_{0,a}^{(1)})T_a,
+\qquad
+R_a^\kappa
+=\kappa_2M_a+\kappa_1W_0^{(2)}A_a.
+%
+$$ {#eq-docs-global-nonlinear-l3621}
+Each $T_a$ is nonzero in mean square. Its coefficient vector against $B$ has $a$-th entry $G_{aa}y_a=y_a\ne0$, and $D\succ0$.
+
+Each $R_a^\kappa$ is also nonzero, but this requires more than positivity of an aggregate sum. Subtract the mean-square projection of $A_a$ onto $\operatorname{span}\{H_{0,b}^{(1)}\}$:
+$$
+\alpha_a=Q^{-1}\mathbb E[H_0^{(1)}A_a],
+\qquad
+A_a^\perp
+=A_a-\sum_b\alpha_{a,b}H_{0,b}^{(1)}.
+%
+$$ {#eq-docs-global-nonlinear-l3631}
+Conditional on the first-layer roots, $A_a$ is linear in $\Gamma$ with coefficients
+$$
+c_b
+=(\phi^{(1)})'(Z_{0,a}^{(1)})
+G_{ab}y_b
+(\phi^{(1)})'(Z_{0,b}^{(1)}).
+$$
+Its $a$-th coefficient is
+$$
+c_a=y_a((\phi^{(1)})'(Z_{0,a}^{(1)}))^2,
+$$
+which is nonzero with positive probability. Since $V\succ0$,
+$$
+\mathbb E[(A_a^\perp)^2]
+\ge
+\mathbb E\operatorname{Var}(A_a\mid Z_0^{(1)})
+=\sigma_2^2\mathbb E[c^\top Vc]>0.
+%
+$$ {#eq-docs-global-nonlinear-l3650}
+
+Conditioning the same initial matrix on both sets of known calls,
+$$
+W_0^{(2)}H_{0,b}^{(1)}=Y_b,
+\qquad
+(W_0^{(2)})^*U_b=P_b,
+$$
+gives the next forward response
+$$
+W_0^{(2)}A_a
+=
+\sum_b\alpha_{a,b}Y_b
++\sum_b\beta_{a,b}U_b
++\sigma_2\sqrt{\mathbb E[(A_a^\perp)^2]}\,\gamma_a,
+\qquad
+\beta_a=V^{-1}\mathbb E[PA_a^\perp].
+%
+$$ {#eq-docs-global-nonlinear-l3665}
+Here $\gamma_a$ is standard Gaussian independent of the previous second-layer coordinates. The formula is the finite Gaussian conditional mean plus the unused matrix randomness: the input component in @eq-docs-global-nonlinear-l3631 has the displayed squared norm, while projection of the fresh output off finitely many previous output directions disappears in normalized mean square. Positive definiteness of $Q,V$ justifies both inverses. A separate marginal calculation for each $a$ is sufficient; independence between the different $\gamma_a$ is not claimed.
+
+The term $M_a$ depends only on $Y$, and hence cannot cancel this independent Gaussian component. Therefore
+$$
+\mathbb E[(R_a^\kappa)^2]
+\ge
+\kappa_1^2\sigma_2^2\mathbb E[(A_a^\perp)^2]
+>0.
+%
+$$ {#eq-docs-global-nonlinear-l3678}
+The learned-matrix contribution $M_a$ is separately nonzero: its coefficient vector $(y_bQ_{ab})_b$ against $U$ has nonzero $a$-th entry $y_aQ_{aa}$, and $V\succ0$.
+
+At initialization $r_a(0)=-y_a$ and $W^{(3)}(0)=0$. Dividing the integral equations by the indicated powers of $t$ gives
+$$
+\begin{aligned}
+W^{(3)}(t)&=2\kappa_3tS+o_{L^2}(t),\\
+\delta_a^{(2)}(t)&=2\kappa_3tU_a+o_{L^2}(t),\\
+Z_a^{(1)}(t)-Z_{0,a}^{(1)}
+&=2\kappa_1\kappa_3t^2T_a+o_{L^2}(t^2),\\
+W^{(2)}(t)-W_0^{(2)}
+&=2\kappa_2\kappa_3t^2
+\sum_b y_bU_b\otimes H_{0,b}^{(1)}+o_{\mathrm{op}}(t^2),\\
+Z_a^{(2)}(t)-Y_a
+&=2\kappa_3t^2R_a^\kappa+o_{L^2}(t^2).
+\end{aligned}
+$$ {#eq-docs-global-nonlinear-l3688}
+For example the readout equation first gives its $t$-coefficient. Multiplication by the bounded continuous derivative gives the backward $t$-coefficient. The first-layer and middle-matrix integrals then start at order $t^2$. In the last equation, the learned-matrix term is $\kappa_2M_a$, while the moving first activation gives $\kappa_1W_0^{(2)}A_a$. Bounded derivatives justify these activation difference quotients by dominated convergence along mean-square converging increments.
+
+Direct substitution in @eq-docs-global-nonlinear-l3488 also gives
+$$
+\frac{\dot Z_a^{(1)}(t)}t
+\longrightarrow 4\kappa_1\kappa_3T_a,
+\qquad
+\frac{\dot Z_a^{(2)}(t)}t
+\longrightarrow 4\kappa_3R_a^\kappa
+\quad\text{in }L^2.
+%
+$$ {#eq-docs-global-nonlinear-l3704}
+Thus every hidden RMS speed is bounded above and below by positive constants times $t$, on a fixed sufficiently short interval. For the first layer,
+$$
+\mathbb E[(Z_a^{(1)}(t)-Z_{0,a}^{(1)})^2]
+=4\kappa_1^2\kappa_3^2\mathbb E[T_a^2]t^4+o(t^4),
+$$
+$$
+\int_0^t\mathbb E[|\dot Z_a^{(1)}(s)|^2]\,ds
+=\frac{16}{3}\kappa_1^2\kappa_3^2\mathbb E[T_a^2]t^3+o(t^3).
+%
+$$ {#eq-docs-global-nonlinear-l3718}
+For the second layer replace $\kappa_1^2\mathbb E[T_a^2]$ by $\mathbb E[(R_a^\kappa)^2]$. In particular the speed is zero initially, not bounded below by a positive constant as $t\downarrow0$. It is nonzero at every fixed positive time in the asserted interval.
+
+#### The kernel, loss, and surviving nonlinearity {#sec-docs-global-nonlinear-l3725}
+
+The physical kernel is $K=\kappa_1K^{(1)}+\kappa_2K^{(2)}+\kappa_3K^{(3)}$, with
+$$
+K_{ab}^{(1)}=G_{ab}\mathbb E[\delta_a^{(1)}\delta_b^{(1)}],
+$$
+$$
+K_{ab}^{(2)}
+=\mathbb E[H_a^{(1)}H_b^{(1)}]
+\mathbb E[\delta_a^{(2)}\delta_b^{(2)}],
+\qquad
+K_{ab}^{(3)}=\mathbb E[H_a^{(2)}H_b^{(2)}].
+%
+$$ {#eq-docs-global-nonlinear-l3731}
+Let $\circ$ denote entrywise matrix multiplication. Although $G$ may be singular, $G\circ D$ is positive definite. Decompose $G=\sum_j v_jv_j^\top$. Then
+$$
+G\circ D
+=\sum_j\operatorname{diag}(v_j)D\operatorname{diag}(v_j)
+\succeq
+\lambda_{\min}(D)\operatorname{diag}(G_{11},\ldots,G_{mm})
+=\lambda_{\min}(D)I.
+%
+$$ {#eq-docs-global-nonlinear-l3740}
+The same argument makes $Q\circ V$ positive definite, since its diagonal entries $Q_{aa}$ are positive. Define
+$$
+A_1=y^\top(G\circ D)y>0,
+\qquad
+A_2=y^\top(Q\circ V)y>0.
+%
+$$ {#eq-docs-global-nonlinear-l3749}
+Adjunction yields
+$$
+\sum_a y_a\mathbb E[U_aR_a^\kappa]
+=\kappa_1A_1+\kappa_2A_2.
+%
+$$ {#eq-docs-global-nonlinear-l3756}
+The kernel expansions are therefore
+$$
+\begin{aligned}
+\kappa_1K^{(1)}(t)
+&=4\kappa_1\kappa_3^2t^2(G\circ D)+o(t^2),\\
+\kappa_2K^{(2)}(t)
+&=4\kappa_2\kappa_3^2t^2(Q\circ V)+o(t^2),\\
+y^\top K^{(3)}(t)y
+&=\mathbb E[S^2]
++4\kappa_3(\kappa_1A_1+\kappa_2A_2)t^2+o(t^2),\\
+y^\top K(t)y
+&=\kappa_3\mathbb E[S^2]
++8\kappa_3^2(\kappa_1A_1+\kappa_2A_2)t^2+o(t^2).
+\end{aligned}
+$$ {#eq-docs-global-nonlinear-l3762}
+The initial readout block is positive definite: a linear dependence among $\phi^{(2)}(Y_a)$ would hold for all $Y$ by full support, and varying one coordinate forces its coefficient to zero. All three blocks are therefore positive definite for sufficiently small positive time. The first two start at zero with positive definite $t^2$ coefficients, and the third increases in the label direction. Each block, and the total kernel, is nonconstant.
+
+The summed loss satisfies
+$$
+L(0)=\sum_a y_a^2,
+\qquad
+-\dot L(0)=4\kappa_3\mathbb E[S^2]>0.
+$$
+Continuity allows the time interval to be shortened so that
+$$
+-\dot L(t)\ge2\kappa_3\mathbb E[S^2]>0
+\qquad(0\le t\le T_*).
+%
+$$ {#eq-docs-global-nonlinear-l3785}
+This does not assert that every individual residual magnitude decreases.
+
+Every initial hidden marginal is a nondegenerate Gaussian. A bounded nonconstant continuous activation cannot agree with an affine function on its full support. Thus the best-affine-fit error
+$$
+\inf_{\alpha,\beta}
+\mathbb E[(\phi^{(\ell)}(Z)-\alpha Z-\beta)^2]
+=
+\operatorname{Var}(\phi^{(\ell)}(Z))
+-\frac{\operatorname{Cov}(Z,\phi^{(\ell)}(Z))^2}
+{\operatorname{Var}(Z)}
+%
+$$ {#eq-docs-global-nonlinear-l3793}
+is initially positive. The same is true for the broader nonaffine activation class. Bounded derivatives make both activations globally Lipschitz, so these moments vary continuously along the mean-square continuous paths. All $2m$ variances and all $2m$ affine-fit errors retain common positive lower bounds on a possibly shorter $[0,T_*]$.
+
+#### Sufficient checks beyond the simple activation class {#sec-docs-global-nonlinear-l3804}
+
+The positivity argument uses the following concrete sufficient conditions, rather than monotonicity or analyticity:
+
+1. The initial first-activation Gram matrix $Q$ is positive definite.
+2. On the full-support second-layer Gaussian tuple, the Gram matrix $V$ of $U_a=S(\phi^{(2)})'(Y_a)$ is positive definite.
+3. For every input, $\mathbb E[((\phi^{(1)})'(Z_{0,a}^{(1)}))^2]>0$.
+4. For the separate nonlinear-fit conclusion, each activation is nonaffine on its initial Gaussian support.
+
+These checks are sufficient, not necessary. In conjunction with bounded continuous derivatives and the assumed strong flow, they yield the calculations above. The bounded nonconstant activation class guarantees all of them automatically for pairwise nonparallel inputs and nonzero labels. More broadly, both activations may be unbounded but nonaffine with bounded continuous derivatives: the differentiated ridge argument proves the first check, the proof of @eq-docs-global-nonlinear-l3573 proves the second, and Gaussian initialization plus linear growth supplies the required initial moments. This broader statement concerns strict activity conditional on existence; it must not be used to enlarge an independently proved existence theorem without checking that theorem's hypotheses.
+
+Some excluded cases show why nondegeneracy matters. Identical inputs with opposite labels can give $S=0$ identically and a frozen zero-readout system. Antiparallel inputs with odd activations and equal labels can do the same. A constant first activation has zero first-layer derivative; a constant second activation has zero backward derivative. An affine first activation can make $Q$ singular when there are more inputs than their linear span dimension. An affine second activation has identical derivative functions, so $V$ has rank at most one for $m>1$. Such cases can still have some learning, but the full collection of strict conclusions above is not automatic. Finally, allowing a zero label can invalidate the per-input initial activity assertion, for example for an orthogonal input decoupled from the other labeled inputs.
+
+
+#### Weighted-loss activity and the exact kernel direction {#sec-docs-global-nonlinear-l3818}
+
+For the weighted loss in @sec-docs-global-nonlinear-l2462, $\mathcal L=\sum_a\omega_a(f_a-y_a)^2$, put $p_a=\omega_a y_a$ in this paragraph. Retain every hypothesis of @sec-docs-global-nonlinear-l3441, including Gaussian first weights, zero population readout and nonzero labels. The unweighted kernel blocks in @sec-docs-global-nonlinear-l3441 are unchanged, and
+$$
+ \dot f_a=-2\sum_bK_{ab}\omega_b r_b,\qquad
+ \dot{\mathcal L}=-4\sum_{a,b}\omega_a r_aK_{ab}\omega_b r_b.
+$$
+In @sec-docs-global-nonlinear-l3441's definitions of $S$,$U$,$B$,$T$,$M$,$A$ and $R$, and its onset expansions, replace each training label $y_b$ by $p_b$. Then, with $D_{ab}=E[B_aB_b]$, $V_{ab}=E[U_aU_b]$,
+$$
+ A_1=p^\top(G\circ D)p>0,\qquad A_2=p^\top(Q\circ V)p>0,
+$$
+$$
+ p^\top K(t)p=\kappa_3 ES^2+
+ 8\kappa_3^2(\kappa_1A_1+\kappa_2A_2)t^2+o(t^2),
+ \qquad-\dot{\mathcal L}(0)=4\kappa_3 ES^2>0.
+$$
+This substitution is justified directly in the raw equations: the factor at initialization is $-\omega_b r_b(0)=\omega_b y_b$; every first nonzero hidden term is obtained by integrating that factor against the first readout term. All positive-definiteness arguments only require the corresponding $p_a$ to be nonzero, which follows from positive weights and nonzero labels. In the upper-layer acceleration the learned term is a function of the original upper forward tuple, while the forward image of the lower-layer increment has an independent Gaussian component of positive variance. Multiplying by the upper activation derivative preserves a positive squared norm because that derivative is nonzero with positive Gaussian probability. Thus every sample's activation, as well as its preactivation, has nonzero order-$t^2$ displacement and order-$t$ speed. The quadratic kernel direction is $p$, not $y$, for this weighted statement. No initialization variance is inserted in the trained rank-one terms.
+
+### C.4. Training-law stability for two hidden tanh layers {#sec-docs-global-nonlinear-l3836}
+
+Within each @sec-docs-global-nonlinear-l3982–@sec-docs-global-nonlinear-l4949 proof unit, unqualified section and equation numbers are
+local. The typed abbreviations $w,A,c$ denote the full first row, $W^{(2)}$,
+and $W^{(3)}$, respectively; they do not change the canonical normalization.
+
+@sec-docs-global-nonlinear-l3982–@sec-docs-global-nonlinear-l4949 prove a local quantitative statement about the actual nonlinear
+learning algorithm. The separate fixed-accuracy extension is in @sec-docs-global-nonlinear-l5270.
+@sec-docs-global-nonlinear-l6904 identifies actual finite-GF data derivatives at that fitted
+reference on each fixed horizon and bounds the population homogeneous
+propagator uniformly in time. @sec-docs-global-nonlinear-l8978
+constructs nonlinear changed-law population flows in a sufficiently small
+neighborhood of that reference through physical time 40, captures actual
+finite GF on this interval, and gives a finite-contamination remainder with
+a width-first bridge to @sec-docs-global-nonlinear-l6904. @sec-docs-global-nonlinear-l16001 gives the actual centered influence and an $L^2(\mathrm{circle})$ Gaussian sampling limit at $T=40$ for every separately fixed Borel law in a smaller neighborhood, with spatial covariance, a mean-square remainder and a width-first finite-GF bridge.
+@sec-docs-global-nonlinear-l17554 constructs a finite nonlinear slow-time episode for an open one-added-atom family, selected from original fixed-mixture training at $t=\tau/\epsilon$. It determines the whole-circle prediction, proves positive added-atom risk improvement and paired second-hidden adaptation, and captures actual finite GF with width taken first at each fixed $\epsilon$.
+The local @sec-docs-global-nonlinear-l3982–@sec-docs-global-nonlinear-l4949 theorem retains the
+Gaussian matrix action and its adjoint and permits every training law on
+the compact observation space.
+
+Fix $Y>0$. Inputs are $x(\alpha)=\sqrt{2}(\cos(\alpha),\sin(\alpha))$ in $\mathbb R^2$;
+$u=\frac{x}{\sqrt{2}}$ and $G(x,x^{\prime})=u\cdot u^{\prime}$. The observation space is
+$Z=\sqrt{2}\,S^1\times[-Y,Y]$, with metric
+$d_Z((x,y),(x^{\prime},y^{\prime}))=\frac{|x-x^{\prime}|}{\sqrt{2}}+|y-y^{\prime}|$. The Wasserstein distance
+$\mathcal W_{1}(\mu,\nu)$ is the infimum over couplings of the expectation of this metric.
+No restriction is imposed on atom counts, atom weights, correlations,
+coincident inputs, labels conditional on input, or Gram ranks.
+
+The finite network has equal hidden width $n$, no biases, and
+
+$$
+ z^1(x)=W^{(1)}x/\sqrt2,\quad h^1(x)=\tanh z^1(x),\quad
+ z^2(x)=W^{(2)}h^1(x),\quad h^2(x)=\tanh z^2(x),\quad
+ f_n(x)=(W^{(3)})^Th^2(x)/n.
+$$
+
+All entries and blocks are independent initially, with variances
+$W^{(1)}:1$, $W^{(2)}:1/n$, $W^{(3)}:1/n^2$, and zero Gaussian means. All blocks
+train by mean squared loss, with stored-weight mobilities $(n,1,n)$.
+Raw GD updates all blocks from the same preceding state, with physical
+step $\eta$. Parameters are interpolated linearly and forward quantities are
+recomputed. Initialization is independent of random training observations.
+
+**Theorem.** There exist $T_*>0$, $C<\infty$ depending only on $Y$ and this
+fixed model, with the following properties.
+
+1. On common canonical Gaussian action spaces there is a strong autonomous
+   population flow for every law $\mu$. Its state is a full first-row field
+   $w\in L^2(\Omega_1;\mathbb R^2)$, a bounded action
+   $A:L^2(\Omega_1)\to L^2(\Omega_2)$ and stored readout $c\in L^2(\Omega_2)$.
+   Its initialized action is the actual joint forward/transpose limit of
+   the Gaussian middle matrix, and its reverse is the Hilbert adjoint.
+   Initial state is $(g,A_{0},0)$ with $g\sim \mathcal N(0,I_{2})$; the finite random
+   readout is retained and has vanishing normalized $\mathrm{RMS}$. The integral
+   equations are @eq-docs-global-nonlinear-l4000–@eq-docs-global-nonlinear-l4016 and @eq-docs-global-nonlinear-l4221 below. The state is continuously differentiable
+   in the sum of full-row $L^2$, action operator norm and readout $L^2$; it is
+   unique among strong continuous integral solutions on these initialized
+   spaces. At reached states it is uniquely restartable on the remaining
+   local interval in the stated bounded-state class. Learned action
+   increments are Hilbert–Schmidt, while the initialized action need not be.
+
+2. For $0<q=\mathcal W_{1}(\mu,\nu)\le 1$, the entire state and all forward hidden fields
+   obey the modulus $Cq\exp\!\left(C\sqrt{\log(e/q)}\right)$ in their stated norms,
+   uniformly in time, and the forward fields uniformly in input. In
+   particular
+
+   $$
+   \sup_{t\le T_*,\,x\in\sqrt2S^1}|f_\mu(t,x)-f_\nu(t,x)|
+   \le Cq\exp(C\sqrt{\log(e/q)}).
+   $$
+
+   For $q=0$ the flows agree. For $q>1$ their predictions differ by at most
+   $2B$, where $B$ is the fixed common state bound defined in the proof. No
+   logarithmic expression is evaluated beyond its stated domain.
+
+3. Let $\mu_S=m^{-1}\sum_i\delta_{(x_i,y_i)}$ and $f_{S}=f_\mu_{S}$. Samples
+   differing in one observation satisfy
+
+   $$
+   \sup_{t\le T_*,x}|f_S(t,x)-f_{S'}(t,x)|
+   \le\frac C m\exp(C\sqrt{\log(em)}).
+   $$
+
+   Define $R_\mu(g)=\int (g(x)-y)^2\,d\mu$ and
+   $\widehat R_S(g)=m^{-1}\sum_i(g(x_i)-y_i)^2$. For iid observations from $\mu$,
+
+   $$
+   \sup_{t\le T_*}\left|\mathbb E_S
+   [R_\mu(f_S(t))-\widehat R_S(f_S(t))]\right|
+   \le\frac C m\exp(C\sqrt{\log(em)}).
+   $$
+
+   The expectation and time supremum have exactly this order.
+
+4. For every deterministic sequence of empirical laws $\lambda_k$ converging
+   in $\mathcal W_1$ to $\mu$, every $n_{k}\to \infty$, and every $\eta_{k}\to 0$, actual finite
+   GD satisfies
+
+   $$
+   \sup_{t\le T_*,x}|f_{n_k,\eta_k,\lambda_k}(t,x)-f_\mu(t,x)|
+     \longrightarrow0\quad\hbox{in probability}.
+   $$
+
+   In particular this holds for iid samples of any sizes $m_k$ tending to
+   infinity, independent of initialization. No relative growth restriction
+   is required among $n_k,m_k,\eta_k$. The finite empirical training loss
+   and population risk both converge uniformly in time, in probability,
+   to $R_\mu(f_\mu(t))$. This assertion also retains the paired initial/current
+   activation displacement observations described next.
+
+5. Define
+
+   $$
+   J_\ell(\mu,t)=\int\mathbb E_\ell
+   |H^\ell_\mu(t,x)-H^\ell_0(x)|^2\,d\mu(x,y),\qquad\ell=1,2.
+   $$
+
+   For the reference
+   $\mu_0=\frac12\delta_{(\sqrt{2}e_1,Y/2)}+\frac12\delta_{(\sqrt{2}e_2,Y/2)}$ there are a
+   specified positive time $t_0\le T_*$, a radius $r_0>0$ and $j_0>0$, defined
+   from its actual flow in @sec-docs-global-nonlinear-l4949, such that
+   $J_\ell(\mu,t_{0})\ge j_{0}/2$ for both layers whenever
+   $\mathcal W_{1}(\mu,\mu_{0})<r_{0}$. For the finite networks in assertion 4 converging
+   to any such $\mu$, both corresponding training-averaged squared RMS
+   displacements exceed $j_0/4$ with probability tending to one. The family
+   is open relative to all admissible laws and contains correlated and
+   nonatomic laws.
+
+The preceding local theorem concerns finite-time training-law stability with genuine
+nonlinear hidden learning. It does not assert activity for every law,
+fitting, endpoint selection, a risk reduction, excess-risk control,
+feature-learning superiority, global-time control, or quantitative
+finite-width replacement or approximation rates.
+
+The proof first compares changed-law vector fields using only weighted
+individual reference tails. It builds the common strong flow by completing
+finite training laws in the full state topology, then compares actual GD
+directly to a fixed finite reference oracle. A ghost-sample exchange proves
+the precise statistical assertion. Finally an actual-flow expansion and
+positive adjunction identity give nonzero representation displacement,
+which state continuity transfers to an open family. The dependencies are the complete [Gaussian-program proofs](special-data-limits.qmd#sec-docs-special-data-limits-l3785)
+in special-data III.@sec-docs-special-data-limits-l3789–@sec-docs-special-data-limits-l4169, the value/response extensions @sec-docs-global-nonlinear-l1842–@sec-docs-global-nonlinear-l1854 and weighted
+response proof @sec-docs-global-nonlinear-l2924 above, and [finite dynamics §§1–4](finite-dynamics.qmd#sec-docs-finite-dynamics-l1)
+for the exact raw equations.
+
+
+#### C.4.1. Full-row transport comparison {#sec-docs-global-nonlinear-l3982}
+
+##### 1. State, finite interpretation, and exact field {#sec-docs-global-nonlinear-l3984}
+
+Write $u=\frac{x}{\sqrt{2}}$, so $\lvert u\rvert=1$, and put $\phi=\tanh$. Let
+$H_{1}=L^{2}(\Omega_{1})$ and $H_{2}=L^{2}(\Omega_{2})$ be real probability Hilbert spaces
+with their coordinate operations. A population state is
+
+$$
+ \theta=(w,A,c)\in L^2(\Omega_1;\mathbb R^2)
+       \times\mathcal B(H_1,H_2)\times H_2.
+$$
+
+The vector field preserves the affine class $A=A_{0}+K$ where $K$ is a
+norm-limit of finite-rank operators: the rank-one integrand in @eq-docs-global-nonlinear-l4016 is
+continuous on the compact data support, so finite simple approximations
+converge in operator norm, as do their time integrals. Define
+
+$$
+\begin{aligned}
+ Z^1_\theta(u)&=w\cdot u,& H^1_\theta(u)&=\phi(Z^1_\theta(u)),\\
+ Z^2_\theta(u)&=A H^1_\theta(u),& H^2_\theta(u)&=\phi(Z^2_\theta(u)),\\
+ f_\theta(u)&=\langle c,H^2_\theta(u)\rangle_{H_2},&
+ r_\theta(u,y)&=f_\theta(u)-y,\\
+ P^2_\theta(u)&=c,&\delta^2_\theta(u)&=\phi'(Z^2_\theta(u))c,\\
+ P^1_\theta(u)&=A^*\delta^2_\theta(u),&
+ \delta^1_\theta(u)&=\phi'(Z^1_\theta(u))P^1_\theta(u).
+\end{aligned}                                                   
+$$ {#eq-docs-global-nonlinear-l4000}
+
+All pairings use a single neuron population. The population rank-one
+operator is $(a \otimes b)v=a \mathbb E_{1}[bv]$. For a probability law $\mu$ of $(u,y)$
+on $S^{1}\times[-Y,Y]$, the exact mean-square-loss physical vector field is
+
+$$
+ F_\mu(\theta)=\left(
+ -2\int r_\theta\delta^1_\theta u\,d\mu,
+ -2\int r_\theta\delta^2_\theta\otimes H^1_\theta\,d\mu,
+ -2\int r_\theta H^2_\theta\,d\mu\right).                         
+$$ {#eq-docs-global-nonlinear-l4016}
+
+In the first integral the scalar field multiplies the explicit input
+vector $u$, producing a two-component row. For a finite network, take
+$w=W^{(1)}$, $A=W^{(2)}$, $c=W^{(3)}$, replace field norms by the Euclidean or
+Frobenius norm divided by $\sqrt{n}$, inner products by $a^\top b/n$, and
+rank-one actions by $a b^\top/n$. @eq-docs-global-nonlinear-l4016 then gives exactly the raw
+stored-weight mobilities $(n,1,n)$, as follows from
+`docs/finite_dynamics.md` §§1–2. Raw GD is
+$\theta_{j+1}=\theta_{j}+\eta F_\mu(\theta_{j})$ with all three blocks evaluated at
+the preceding state. Parameter interpolation does not interpolate hidden
+features: @eq-docs-global-nonlinear-l4000 is recomputed at the interpolated parameters.
+
+On a common carrier define
+
+$$
+ D(\theta,\bar\theta)=\|w-\bar w\|_{L^2(\Omega_1;\mathbb R^2)}
+                  +\|A-\bar A\|_{\rm op}+\|c-\bar c\|_{L^2(\Omega_2)}. 
+$$ {#eq-docs-global-nonlinear-l4036}
+
+For two networks of the same width, its finite counterpart is
+
+$$
+ D_n(\theta,\bar\theta)
+ =\frac{\|W^{(1)}-\bar W^{(1)}\|_F}{\sqrt n}
+  +\|W^{(2)}-\bar W^{(2)}\|_{\rm op}
+  +\frac{\|W^{(3)}-\bar W^{(3)}\|_2}{\sqrt n}.       
+$$ {#eq-docs-global-nonlinear-l4043}
+
+The finite norms in @eq-docs-global-nonlinear-l4043 are ordinary Frobenius, operator and Euclidean
+norms. This distance controls the full first matrix. No cross-width or
+finite-to-population operator distance is used anywhere in this proof.
+
+The bound $\lvert \phi\rvert\le 1$, $\lvert \phi^{\prime}\rvert\le 1$, and $\operatorname{Lip}(\phi')\le2$ will be used throughout.
+If every individual state norm is at most $B\ge 1$, then, for every input,
+
+$$
+ \|H^1\|_2,\|H^2\|_2\le1,\quad
+ \|\delta^2\|_2\le B,\quad \|P^1\|_2,\|\delta^1\|_2\le B^2,
+ \quad |f|\le B,\quad |r|\le B+Y.                                
+$$ {#eq-docs-global-nonlinear-l4057}
+
+Consequently the sum of the three velocity norms is at most
+$V=2(B+Y)(B^{2}+B+1)$. If initial individual norms are at most $S_{0}$, choose
+$B=2S_{0}+2$ and
+
+$$
+ T_{\rm ball}=\min\{1,(B-S_0)/(4V)\}>0.                          
+$$ {#eq-docs-global-nonlinear-l4067}
+
+The integral-flow first-exit argument and the sum of Euler increments show
+that both stay inside this ball up to $2T_{\mathrm{ball}}$ for Euler mesh at most
+$T_{\mathrm{ball}}$: before a putative first exit the increment of each norm is at most
+$2T_{\mathrm{ball}} V<(B-S_0)$. Piecewise affine interpolants have speed bounded by
+$V$. These bounds hold for every probability law and every finite empirical
+law, regardless of its cardinality.
+
+For the specified initialization, $\lVert W^{(1)}_{0}\rVert_{F}^{2}/n$ tends in probability
+to $2$, and $\lVert W^{(3)}_{0}\rVert_{2}^{2}/n$ has expectation $n^{-2}$. The initialized
+middle operator is bounded with probability tending to one by the elementary
+sphere-net argument in finite dynamics §4. Thus a fixed $S_{0}$ gives a common
+high-probability finite ball, independent of the training data. The population
+root is the full row $w_{0}=(g_{1},g_{2})$ with independent standard normals and
+$c_{0}=0$. Retaining the second root coordinate remains necessary even if a
+reference training law sees only the first coordinate.
+
+##### 2. The one-reference transport estimate {#sec-docs-global-nonlinear-l4087}
+
+For a field $P$, write $\tau_{R}(P)=\lVert P \mathbf 1_{\{\lvert P\rvert>R\}}\rVert_{2}$. If the reference
+state is $\bar{\theta}$, set
+
+$$
+ \mathfrak T_{\nu,R}(\bar\theta)
+ =\tau_R(\bar c)+\int\tau_R(P^1_{\bar\theta}(u'))\,
+                                  \nu(du',dy').                    
+$$ {#eq-docs-global-nonlinear-l4092}
+
+At finite width these are individual empirical neuron RMS tails. In
+particular, for a finite reference law with weights $\omega_{b}$, the second
+term is the weighted sum of the individual reference tails, not a tail of a
+maximum over the reference inputs or over the actual dataset.
+
+**Transport lemma.** On the ball above, for every $R\ge 1$, every two laws
+$\mu,\nu$, and every two states on the same carrier,
+
+$$
+ \|F_\mu(\theta)-F_\nu(\bar\theta)\|_{T3}
+ \le C(1+R)\bigl(D(\theta,\bar\theta)+\mathcal W_1(\mu,\nu)\bigr)
+       +C\mathfrak T_{\nu,R}(\bar\theta).                           
+$$ {#eq-docs-global-nonlinear-l4106}
+
+Here $\mathcal W_{1}$ uses $\lvert u-u^{\prime}\rvert+\lvert y-y^{\prime}\rvert$, and $C$ depends only on $B,Y$. The same
+constant works for the normalized finite-network norms and actions. Only
+the reference state requires tails.
+
+**Proof.** Fix any coupling $\pi$ of the two laws, and abbreviate
+$h=\lvert u-u^{\prime}\rvert$, $D=D(\theta,\bar{\theta})$. Keeping the full first row gives
+
+$$
+ \|Z^1_\theta(u)-Z^1_{\bar\theta}(u')\|_2
+ \le\|w-\bar w\|_2+\|\bar w\|_2 h\le D+Bh.
+$$
+
+The activation is 1-Lipschitz. Expanding
+$A H^{1}-\bar{A} \bar{H}^{1}=(A-\bar{A})H^{1}+\bar{A}(H^{1}-\bar{H}^{1})$ therefore gives
+
+$$
+ \max_{\ell=1,2}\bigl(\|Z^\ell_\theta(u)-Z^\ell_{\bar\theta}(u')\|_2
+          +\|H^\ell_\theta(u)-H^\ell_{\bar\theta}(u')\|_2\bigr)
+       \le C(D+h),                                                   
+$$ {#eq-docs-global-nonlinear-l4127}
+$$
+ |f_\theta(u)-f_{\bar\theta}(u')|\le C(D+h),\qquad
+ |r_\theta(u,y)-r_{\bar\theta}(u',y')|
+                         \le C(D+h)+|y-y'|.                         
+$$ {#eq-docs-global-nonlinear-l4132}
+
+For any two preactivations and any reference field $\bar{P}$, pointwise
+splitting at $\lvert \bar{P}\rvert=R$ gives
+
+$$
+ \|[\phi'(Z)-\phi'(\bar Z)]\bar P\|_2
+       \le2R\|Z-\bar Z\|_2+2\tau_R(\bar P).                        
+$$ {#eq-docs-global-nonlinear-l4141}
+
+For the top backward field, split its difference as
+$\phi^{\prime}(Z^{2})(c-\bar{c})+[\phi^{\prime}(Z^{2})-\phi^{\prime}(\bar{Z}^{2})]\bar{c}$. Thus
+
+$$
+ \|\delta^2_\theta(u)-\delta^2_{\bar\theta}(u')\|_2
+       \le C(1+R)(D+h)+2\tau_R(\bar c).                             
+$$ {#eq-docs-global-nonlinear-l4149}
+
+Expanding the adjoint difference, and using @eq-docs-global-nonlinear-l4057, bounds the corresponding
+$P^{1}$ difference by $B$ times @eq-docs-global-nonlinear-l4149 plus $BD$. Split the first backward
+field in the same way, now applying @eq-docs-global-nonlinear-l4141 to $P^{1}_{\bar\theta}(u^{\prime})$. The result is
+
+$$
+ \|\delta^1_\theta(u)-\delta^1_{\bar\theta}(u')\|_2
+ \le C(1+R)(D+h)
+       +C\tau_R(\bar c)+2\tau_R(P^1_{\bar\theta}(u')).                
+$$ {#eq-docs-global-nonlinear-l4158}
+
+There is one power of $R$: the earlier backward error is multiplied only
+by a bounded operator and bounded activation derivative. The new gate
+cutoff adds an $R$ term and does not multiply that earlier error by $R$.
+
+For the first-weight integral the exact decomposition is
+
+$$
+\begin{aligned}
+ r\delta^1u-\bar r\bar\delta^1u'
+  &=(r-\bar r)\delta^1u
+    +\bar r(\delta^1-\bar\delta^1)u
+    +\bar r\bar\delta^1(u-u').
+\end{aligned}
+$$
+
+The row-field norm of a product $P u$ equals $\lVert P\rVert_{2} \lvert u\rvert$. Therefore
+@eq-docs-global-nonlinear-l4057, @eq-docs-global-nonlinear-l4132, and @eq-docs-global-nonlinear-l4158 bound this difference by
+$C(1+R)(D+h+\lvert y-y^{\prime}\rvert)$ plus the two reference tails. This verifies the
+explicit changing-input factor in the first-weight gradient.
+
+For the middle integral use the identity
+
+$$
+ r\delta^2\otimes H^1-\bar r\bar\delta^2\otimes\bar H^1
+ =(r-\bar r)\delta^2\otimes H^1
+ +\bar r(\delta^2-\bar\delta^2)\otimes H^1
+ +\bar r\bar\delta^2\otimes(H^1-\bar H^1)
+$$
+
+and $\lVert a \otimes b\rVert_{\mathrm{op}}=\lVert a\rVert_{2}\lVert b\rVert_{2}$. @eq-docs-global-nonlinear-l4057, @eq-docs-global-nonlinear-l4127, @eq-docs-global-nonlinear-l4132,
+and @eq-docs-global-nonlinear-l4149 give the same bound. The readout integral uses
+$rH^{2}-\bar{r} \bar{H}^{2}=(r-\bar{r})H^{2}+\bar{r}(H^{2}-\bar{H}^{2})$ and needs no tail.
+Integrate these three estimates against $\pi$. Every tail depends only
+on the second marginal, so its integral is exactly @eq-docs-global-nonlinear-l4092. Taking the
+infimum of the coupling costs proves @eq-docs-global-nonlinear-l4106; existence of an optimal
+coupling is unnecessary. All the norm inequalities also hold under the
+finite normalized pairings, proving the finite assertion. ∎
+
+The full Gaussian first-row root is not multiplied by a backward field
+in this argument. It enters @eq-docs-global-nonlinear-l4127 only through its RMS norm. In particular,
+no unproved Gaussian estimate for products of root and backward fields,
+no Gaussian maximum over observations, and no Gram inverse is hidden in
+@eq-docs-global-nonlinear-l4106.
+
+#### C.4.2. Canonical strong population evolution {#sec-docs-global-nonlinear-l4208}
+
+##### 1. Initial state and strong equation {#sec-docs-global-nonlinear-l4210}
+
+Use the fields, exact vector field and full-state topology @eq-docs-global-nonlinear-l4000–@eq-docs-global-nonlinear-l4036.
+Write $\mathcal H_i=L^2(\Omega_i)$ for the two layer spaces and
+$\mathcal E=L^2(\Omega_1;\mathbb R^2)\times
+\mathcal B(\mathcal H_1,\mathcal H_2)\times\mathcal H_2$
+for the complete state space with the sum norm @eq-docs-global-nonlinear-l4036.
+@sec-docs-global-nonlinear-l4230 constructs the two probability spaces, the full first-row Gaussian
+root $w_{0}=(g_{1},g_{2})\sim \mathcal N(0,I_{2})$, and the initialized middle action $A_0$ with
+its actual adjoint. Put $\theta_{0}=(w_{0},A_{0},0)$. The strong equation is
+
+$$
+ \theta_\mu(t)=\theta_0+\int_0^t F_\mu(\theta_\mu(s))\,ds.
+%
+$$ {#eq-docs-global-nonlinear-l4221}
+
+The integral is in full-row $L^2$, middle operator norm and readout $L^2$.
+@sec-docs-global-nonlinear-l4307 proves the required strong integrability and continuity. These
+are the same unhalved mean-loss equations and physical clock as @eq-docs-global-nonlinear-l4016.
+
+##### 2. One compatible initialized Gaussian action space {#sec-docs-global-nonlinear-l4230}
+
+Start the countable language of III.@sec-docs-special-data-limits-l4072 with the full independent Gaussian
+pair $(g_1,g_2)$ at population 1, a zero readout at population 2, constants,
+both orientations of one initialized matrix, rational linear combinations,
+tanh, smooth clipped products, and a countable family of smooth bounded
+globally Lipschitz coordinate functions dense on each finite compact box.
+Close under finite composition. The actual finite roots are the two columns
+of $W^{(1)}_0$, and the actual finite action is the same matrix
+$W^{(2)}_0$ in both orientations. They have the required independent laws.
+
+The deterministic finite-program theorem III.@sec-docs-special-data-limits-l3789, including the proof of
+singular-query regularization in III.@sec-docs-special-data-limits-l4009, identifies the joint limiting law
+of every finite collection of these programs. Finite unions share the same
+initialized arrays; deleting unused instructions changes no finite vector.
+Consequently these joint laws are compatible. The chronological Gaussian
+extension construction of III.@sec-docs-special-data-limits-l3946 and III.@sec-docs-special-data-limits-l4072 realizes the countable language
+on two generated probability spaces. It does not sample a fresh independent
+backward answer: independent oriented *source groups* acquire the response
+corrections in equations (III.@sec-docs-special-data-limits-l4169)–(III.@sec-docs-special-data-limits-l4201).
+
+For clarity, the operator-completion step uses three concrete facts from that
+proof. The finite initialized norm obeys
+
+$$
+ \mathbb P(\|W^{(2)}_0\|_{\rm op}>10)
+ \le2\,9^{2n}e^{-100n/8}\longrightarrow0.
+$$
+
+Second-moment convergence passes the inequality
+$\|W^{(2)}_0v\|_2/\sqrt n\le10\|v\|_2/\sqrt n$
+to every rational combination of generated nodes. Exact finite linear
+identities and zero squared differences make the limiting assignment
+linear and well-defined on its $L^2$ classes. Generated smooth cylinder
+functions are dense in each generated $L^2$ space: cylinder simple
+functions approximate measurable functions, bounded continuous functions
+approximate finite-dimensional Borel functions in $L^2$, and the included
+smooth functions approximate those on compact boxes, with tails removed by
+truncation. Thus the assignment extends to a bounded map $A_0$, of norm
+at most 10. The reverse assignments extend in the same way. Passing the
+exact finite normalized identity
+
+$$
+ v^TW^{(2)}_0h/n=((W^{(2)}_0)^Tv)^Th/n
+$$
+
+through the finite-program theorem and then through density identifies the
+reverse map with $A_0^*$.
+
+This language can be fixed independently of the training law. Arbitrary
+real directions $u\in S^1$ are limits of rational linear combinations of
+the retained root pair; their initial projections have the joint law
+$\mathbb E[(w_0\cdot u)(w_0\cdot v)]=u\cdot v$.
+Arbitrary real coefficients in each separately fixed program are obtained
+by rational approximation. For continuous coordinate instructions of at
+most linear growth, including the backward products in @eq-docs-global-nonlinear-l4000, @sec-docs-global-nonlinear-l1842 supplies
+the extension by smooth clipping and $L^2$ completion. Its proof chooses
+one fixed approximation before taking width to infinity and then removes
+the approximation, so no growing-program assertion is introduced here.
+The response formulas for these fixed neural programs are those in @sec-docs-global-nonlinear-l1854:
+bounded derivatives of tanh and its derivative meet the stated hypotheses.
+
+As a result all rational finite laws and rational-mesh Euler calculations,
+their finite unions and full first-row updates belong to one common action
+realization. A countable list of additional finite laws may equally be
+included. Alternatively the preceding completion represents each of their
+fixed calculations directly. This construction also includes any finite
+list of passive input directions. There is no data-law-dependent arbitrary
+extension of the initialized operator and no comparison of a finite matrix
+to a population operator in operator norm.
+
+Different causal enumerations have the same finite generated laws because
+their finite arrays agree. Their generated spaces are therefore identified
+by the $L^2$ isometry sending each named coordinate expression to its
+counterpart. The isometry preserves coordinate operations and intertwines
+the actions and adjoints. This is the precise canonical-realization claim.
+
+##### 3. Continuity of the field and integration against a law {#sec-docs-global-nonlinear-l4307}
+
+Use the common ball $B=24$, velocity bound $V$ and first-exit interval @eq-docs-global-nonlinear-l4057–@eq-docs-global-nonlinear-l4067.
+The forward state/input comparison, including predictions, is @eq-docs-global-nonlinear-l4127–@eq-docs-global-nonlinear-l4132.
+These estimates hold for all laws and do not involve Gram inverses.
+
+The backward fields are jointly continuous in $(\theta,x)$ with values
+in the corresponding $L^2$ spaces. Here is the necessary product detail.
+For $Z_j\to Z$, $Q_j\to Q$ in $L^2$, and bounded continuous $b$,
+
+$$
+ b(Z_j)Q_j-b(Z)Q=b(Z_j)(Q_j-Q)+(b(Z_j)-b(Z))Q.
+$$
+
+The first term tends to zero in $L^2$. For the second, restrict to
+$|Q|\le M$, use bounded convergence in probability there, and bound the
+complement by $2\|b\|_\infty\|Q1_{|Q|>M}\|_2$.
+Let $j\to\infty$ and then $M\to\infty$. Apply this first to
+$\delta^2$, then use operator/adjoint continuity for $P^1$, and then
+apply it to $\delta^1$. The same argument works when $x_j\to x$.
+Compactness of the circle shows that for $\theta_j\to\theta$ this
+continuity is uniform over $x$: a contrary sequence has a subsequence of
+inputs converging to one input, contradicting joint continuity.
+
+Each integrand in @eq-docs-global-nonlinear-l4016 is therefore continuous as a Banach-valued function
+of $z=(x,y)$ on the compact data space. Its range is compact and hence
+separable; uniform boundedness makes it Bochner integrable. This argument
+also resolves measurability despite the possibly nonseparable ambient
+operator space. The middle integrand can in fact be integrated in the
+Hilbert–Schmidt norm, since
+$\|v\otimes h\|_{\rm HS}=\|v\|_2\|h\|_2$ and the corresponding
+rank-one difference bound is the same in that norm. Thus every learned
+increment of a strong solution constructed below is Hilbert–Schmidt;
+$A_0$ itself need not be.
+
+We shall use joint continuity
+
+$$
+ \theta_j\to\theta,\quad\mathcal W_1(\mu_j,\mu)\to0
+ \quad\Longrightarrow\quad
+ F_{\mu_j}(\theta_j)\to F_\mu(\theta)\text{ in }\mathcal E.
+%
+$$ {#eq-docs-global-nonlinear-l4344}
+
+To prove it, uniform continuity just established makes the change in the
+integrand caused by $\theta_j\to\theta$ uniformly small on $\mathcal Z$.
+For the remaining fixed continuous Banach-valued function $g$, take a
+coupling with mean distance $q_j+o(1)\to0$. If
+$\omega_g(a)=\sup_{d(z,z')\le a}\|g(z)-g(z')\|$, then
+
+$$
+ \left\|\int g\,d\mu_j-\int g\,d\mu\right\|
+ \le\omega_g(a)+2\|g\|_\infty(q_j+o(1))/a.
+$$
+
+First let $j\to\infty$ and then $a\downarrow0$. This proves @eq-docs-global-nonlinear-l4344
+without invoking differentiability of a nonlinear map on all of $L^2$.
+
+##### 4. Finite reference flows and the comparison estimate {#sec-docs-global-nonlinear-l4365}
+
+For a fixed finite probability law
+$\nu=\sum_{a=1}^m\omega_a\delta_{(x_a,y_a)}$, discard zero weights
+and combine identical atoms if desired. For each rational mesh $\Delta>0$
+construct the full-state Euler recursion
+
+$$
+ \theta^\Delta_{\nu,k+1}=\theta^\Delta_{\nu,k}
+                 +\Delta F_\nu(\theta^\Delta_{\nu,k}),\qquad
+ \theta^\Delta_{\nu,0}=\theta_0,
+%
+$$ {#eq-docs-global-nonlinear-l4372}
+
+and interpolate the three parameters linearly between its grid points.
+At every separately fixed mesh there are finitely many calls. Expanding
+the learned middle action as a finite sum of rank-one increments rewrites
+these calls using only $A_0,A_0^*$, coordinate maps and deterministic
+population contractions. These are the fixed neural programs represented
+in @sec-docs-global-nonlinear-l4230. Each contraction is computed from earlier generated nodes;
+no prospective trajectory value is supplied. The full first-row update
+is included literally in this recursion. Projection on $u_b$ gives
+the first equation of @sec-docs-global-nonlinear-l2924, since $u_a\cdot u_b=G_{ab}$. Thus its
+active fields obey precisely the equations to which that lemma applies,
+without requiring the active directions to span $\mathbb R^2$.
+All full-row Euler velocities have the bound @eq-docs-global-nonlinear-l4057–@eq-docs-global-nonlinear-l4067.
+
+The @sec-docs-global-nonlinear-l2924 response bound applies here with $L=d=2$,
+$|G_{ab}|\le1$, marginal first preactivation variance one, zero population
+readout, bounded tanh and its first two derivatives, and all mobilities one.
+The preliminary source RMS and residual bounds are @eq-docs-global-nonlinear-l4057. Its complete
+weighted argument supplies numbers $\gamma_0,C_0,T_{\rm response}>0$, depending
+only on these bounds and $Y$, for which every separately fixed finite law
+and all its Euler mesh states satisfy
+
+$$
+ \sup_{\Delta}\sup_{k\Delta\le T_*}\max_a
+ \mathbb E_1 e^{\gamma_0|P^1_{\theta^\Delta_{\nu,k}}(x_a)|^2}\le C_0,
+ \qquad \sup_{\Delta}\sup_{k\Delta\le T_*}
+ \mathbb E_2 e^{\gamma_0|c^\Delta_{\nu,k}|^2}\le C_0,
+%
+$$ {#eq-docs-global-nonlinear-l4400}
+
+where
+$0<T_*\le\min(T_{\rm ball},T_{\rm response})$.
+The constants do not depend on $m$, the atom weights or Gram rank.
+The @sec-docs-global-nonlinear-l2924 proof uses weighted sums of individual subGaussian marginal bounds;
+it makes no estimate of a maximum over a data set or Gaussian history.
+The full-row updates change none of its active projected recursions.
+@sec-docs-global-nonlinear-l2924's hypotheses therefore remain exactly verified.
+
+For later use, define the *integrated individual tail norm*
+
+$$
+ \tau_\nu(\bar\theta,R)=
+ \|\bar c1_{|\bar c|>R}\|_2+
+ \int\|P^1_{\bar\theta}(x)1_{|P^1_{\bar\theta}(x)|>R}\|_2\,d\nu(x,y).
+%
+$$ {#eq-docs-global-nonlinear-l4418}
+
+@sec-docs-global-nonlinear-l3982 proves, at finite width and on these population spaces,
+
+$$
+ \|F_\mu(\theta)-F_\nu(\bar\theta)\|_{\mathcal E}
+ \le C(1+R)\bigl(D(\theta,\bar\theta)+\mathcal W_1(\mu,\nu)\bigr)
+       +C\tau_\nu(\bar\theta,R).
+%
+$$ {#eq-docs-global-nonlinear-l4427}
+
+Its proof couples $(x,y)$ with $(x',y')$, uses @eq-docs-global-nonlinear-l4127–@eq-docs-global-nonlinear-l4132, cuts off only
+the reference backward factors, and includes the explicit changed input
+factor in $\delta^1(x)u-\bar\delta^1(x')u'$.
+In particular no Gaussian tail bound for $\theta$ is a hypothesis.
+From @eq-docs-global-nonlinear-l4400 the Euler-grid reference tails are bounded by
+$C e^{-cR^2}$. Compare two Euler interpolants for the same finite law.
+At time $t$, each assigned velocity uses its preceding grid state.
+Their grid-state distance is at most their interpolant distance plus
+$V(\Delta+\Delta')$, by @eq-docs-global-nonlinear-l4057–@eq-docs-global-nonlinear-l4067. Apply @eq-docs-global-nonlinear-l4427 at these grid states,
+integrate, and use scalar Gronwall. With fixed $a,c,C>0$,
+
+$$
+ \sup_{t\le T_*}D(\theta^\Delta_\nu(t),\theta^{\Delta'}_\nu(t))
+ \le Ce^{aR}\bigl((1+R)(\Delta+\Delta')+e^{-cR^2}\bigr).
+%
+$$ {#eq-docs-global-nonlinear-l4445}
+
+Fix $R$, send the meshes to zero, and then send $R\to\infty$.
+The paths are Cauchy in the complete full-state path space. Their limit
+$\theta_\nu$ satisfies the strong integral equation @eq-docs-global-nonlinear-l4221: the
+preceding grid states converge uniformly to this continuous path, and
+continuity of $F_\nu$, uniformly on this convergent family of compact
+path ranges, passes their integrated assigned velocities to
+$\int_0^t F_\nu(\theta_\nu(s))ds$. This also proves strong $C^1$
+regularity. At a fixed time, the reference backward fields at preceding
+grid states converge in $L^2$ by @sec-docs-global-nonlinear-l4307. Taking an almost surely
+convergent subsequence and applying Fatou to @eq-docs-global-nonlinear-l4400 transfers its bounds
+to the finite-law flow. Hence
+$\tau_\nu(\theta_\nu(t),R)\le C e^{-cR^2}$, uniformly in time.
+
+Integrating @eq-docs-global-nonlinear-l4427 for two resulting finite-law solutions from their common
+initial state now gives
+
+$$
+ \sup_{t\le T_*}D(\theta_\lambda(t),\theta_\nu(t))
+ \le C e^{aR}\bigl((1+R)\mathcal W_1(\lambda,\nu)+e^{-cR^2}\bigr),
+ \qquad R\ge1.
+%
+$$ {#eq-docs-global-nonlinear-l4467}
+
+For completeness, set $L_R=C(1+R)$ and
+$b_R=C(1+R)q+C e^{-cR^2}$. The integral inequality is
+$D(t)\le\int_0^t(L_RD(s)+b_R)ds$.
+Iterating it, or differentiating its scalar upper comparison, gives
+$D(t)\le b_R t e^{L_Rt}$, which is @eq-docs-global-nonlinear-l4467.
+
+##### 5. Completion in the training law and identification of the equation {#sec-docs-global-nonlinear-l4480}
+
+Every probability measure on the compact $\mathcal Z$ admits finitely
+supported approximations $\nu_j$ with $\mathcal W_1(\nu_j,\mu)\le1/j$:
+take a finite $1/j$-net, partition measurably by the first nearest eligible
+net point, and move the measure in each cell to that point. The transport
+cost is at most $1/j$; no boundary-zero assumption is needed. One may
+choose the net points from a fixed countable dense set of input angles and
+labels. The finite laws' weights need not be rational.
+
+For fixed $R$, @eq-docs-global-nonlinear-l4467 bounds the limiting Cauchy error by
+$C e^{aR-cR^2}$. Let $R\to\infty$. Thus $\theta_{\nu_j}$ is
+Cauchy in $C([0,T_*];\mathcal E)$, which is complete. Let
+$\theta_\mu$ be its limit. It stays in the common ball and its forward
+fields converge uniformly in time and input by @eq-docs-global-nonlinear-l4127–@eq-docs-global-nonlinear-l4132.
+
+The vector fields converge uniformly in time:
+
+$$
+ \sup_{t\le T_*}\|F_{\nu_j}(\theta_{\nu_j}(t))-
+                         F_\mu(\theta_\mu(t))\|_{\mathcal E}\to0.
+%
+$$ {#eq-docs-global-nonlinear-l4498}
+
+Indeed a contrary subsequence has times $t_j\to t$. Uniform state
+convergence and continuity of the limiting curve give
+$\theta_{\nu_j}(t_j)\to\theta_\mu(t)$, so @eq-docs-global-nonlinear-l4344 contradicts the
+nonvanishing field difference. @eq-docs-global-nonlinear-l4498 passes the finite-law integral
+equations to @eq-docs-global-nonlinear-l4221. The field there is continuous in time, so the result is
+a strongly $C^1$ solution. This proves existence of the autonomous
+equation, rather than only Cauchy convergence of its scalar predictions.
+
+It remains to transfer the tails in exactly the strength needed for
+uniqueness. For fixed $t$, backward continuity in @sec-docs-global-nonlinear-l4307 gives
+
+$$
+ \sup_x\|P^1_{\nu_j}(t,x)-P^1_\mu(t,x)\|_2\to0,
+ \qquad \|c_{\nu_j}(t)-c_\mu(t)\|_2\to0.
+%
+$$ {#eq-docs-global-nonlinear-l4515}
+
+For $M<\infty$, the function
+$b_M(s)=\min\{e^{\gamma_0s^2},M\}$ is bounded and globally Lipschitz.
+@eq-docs-global-nonlinear-l4515 therefore shows uniform-in-input convergence of its
+expectations. The function
+$x\mapsto\mathbb E_1 b_M(P^1_\mu(t,x))$ is continuous, so weak
+convergence of $\nu_j$ passes its integral to $\mu$. From @eq-docs-global-nonlinear-l4400,
+
+$$
+ \int\mathbb E_1 b_M(P^1_\mu(t,x))\,d\mu(x,y)\le C_0.
+$$
+
+Let $M\uparrow\infty$ by monotone convergence. The same argument for
+the readout proves
+
+$$
+ \sup_{t\le T_*}\int\mathbb E_1 e^{\gamma_0|P^1_\mu(t,x)|^2}\,d\mu(x,y)
+ \le C_0,
+ \qquad
+ \sup_{t\le T_*}\mathbb E_2 e^{\gamma_0|c_\mu(t)|^2}\le C_0.
+%
+$$ {#eq-docs-global-nonlinear-l4535}
+
+The supremum is legitimate because the preceding argument holds separately
+for every $t$ with the same constants. No common almost-sure bound on
+all times or inputs is asserted. In particular @eq-docs-global-nonlinear-l4535 is an *integrated*
+input-law bound, not a pointwise continuum-wide subGaussian statement.
+
+The elementary bound
+$s^2 1_{|s|>R}\le C e^{-\gamma_0R^2/2}e^{\gamma_0s^2}$, followed by
+Cauchy–Schwarz over $\mu$, implies
+
+$$
+ \sup_{t\le T_*}\tau_\mu(\theta_\mu(t),R)\le C e^{-cR^2}.
+%
+$$ {#eq-docs-global-nonlinear-l4552}
+
+This is precisely the reference-tail estimate used by @eq-docs-global-nonlinear-l4427.
+
+##### 6. Uniqueness, restart and quantitative law continuity {#sec-docs-global-nonlinear-l4559}
+
+Let $\widetilde\theta$ be any other strong solution of @eq-docs-global-nonlinear-l4221 on the
+same initialized spaces with initial state $\theta_0$. Its components
+are continuous in the topology @eq-docs-global-nonlinear-l4036, its integrals have the meaning in @eq-docs-global-nonlinear-l4016,
+and no tail condition is imposed on it. The first-exit bound @eq-docs-global-nonlinear-l4067
+keeps it in the common ball. Apply @eq-docs-global-nonlinear-l4427 with $\mu=\nu$, constructed
+$\theta_\mu$ as reference, and @eq-docs-global-nonlinear-l4552. Gronwall gives
+
+$$
+ \sup_{t\le T_*}D(\widetilde\theta(t),\theta_\mu(t))
+ \le C e^{aR-cR^2}\quad\hbox{for every }R\ge1.
+$$
+
+Sending $R\to\infty$ proves equality. It also proves independence of
+the chosen finite-law approximating sequence: @eq-docs-global-nonlinear-l4467 applied across two
+approximating sequences gives the same conclusion directly.
+
+For any two arbitrary laws, @eq-docs-global-nonlinear-l4427 and @eq-docs-global-nonlinear-l4552 prove @eq-docs-global-nonlinear-l4467 with
+$(\lambda,\nu)$ replaced by $(\mu,\nu)$. For
+$0<q=\mathcal W_1(\mu,\nu)\le1$, choose
+
+$$
+ R=K\sqrt{\log(e/q)},\qquad K\ge1,\qquad cK^2\ge2.
+$$
+
+Then $e^{-cR^2}\le q^2$, while
+$1+K\sqrt{\log(e/q)}\le C e^{C\sqrt{\log(e/q)}}$.
+Substitution yields
+
+$$
+ \sup_{t\le T_*}D(\theta_\mu(t),\theta_\nu(t))
+ \le Cq\exp\bigl(C\sqrt{\log(e/q)}\bigr).
+%
+$$ {#eq-docs-global-nonlinear-l4589}
+
+Constants depend only on $Y$ and the frozen model and support bounds.
+For $q=0$, the laws coincide and the solutions are identical; the right
+side is interpreted as its zero limit. For $q>1$, the common ball gives
+$D\le6B$, and in particular $D\le6Bq$. The training-law distance $\mathcal W_1$ is at most $2+2Y$.
+
+@eq-docs-global-nonlinear-l4127–@eq-docs-global-nonlinear-l4132 now proves the requested whole-input prediction bound and,
+more strongly, the same modulus for the $L^2$ displacement between
+the two forward hidden fields, uniformly over time and the circle.
+For $q>1$ the prediction difference is at most $2B$.
+
+The equation depends only on the current $(w,A,c)$, its coordinate
+functions and the fixed training law. At a time $s<T_*$, restrict the
+constructed path to $[s,T_*]$. The preceding uniqueness argument applied
+on this interval, with initial distance zero and this path as reference,
+gives unique restart among strong solutions staying on the common ball.
+No extra response history must be supplied. More intrinsically, close the
+current full-row coordinates, readout, actions and adjoints under the same
+coordinate operations; their generated $L^2$ spaces contain their
+subsequent Euler constructions and limits. To justify this last statement
+without presupposing Gaussian tails for restarted Euler trajectories,
+compare such an Euler trajectory directly against the existing solution
+as reference. At each time its preceding grid state differs from its
+interpolated state by at most $V\Delta$. @eq-docs-global-nonlinear-l4427, with reference
+tails @eq-docs-global-nonlinear-l4552 at that time, gives the upper error
+$Ce^{aR}((1+R)\Delta+e^{-cR^2})$. Sending $\Delta\to0$ and then
+$R\to\infty$ proves convergence to the reference continuation. The
+Euler law integrals also stay in the generated spaces: their continuous
+integrands are limits of finite weighted sums using a dense countable
+set of input directions, and the generated spaces are closed.
+Equal current generated joint laws define the isometry described in
+@sec-docs-global-nonlinear-l4230 and intertwine the equation. Uniqueness identifies their future
+laws. This is a restart claim
+on the constructed local interval, not global-time well-posedness from
+every arbitrary operator state.
+
+
+
+#### C.4.3. Actual GD, simultaneous limits and statistics {#sec-docs-global-nonlinear-l4632}
+
+##### 1. Uniform finite initialization and the common ball {#sec-docs-global-nonlinear-l4634}
+
+Use $S_0=11$, $B=24$, the velocity bound $V$ and the first-exit interval
+@eq-docs-global-nonlinear-l4067 from @sec-docs-global-nonlinear-l3982. The event bounding all initialized block norms
+has probability tending to one and depends only on the initialization.
+In particular the actual finite readout satisfies
+
+$$
+ \mathbb E\frac{\|W^{(3)}_{n,0}\|_2^2}{n}=n^{-2}.
+%
+$$ {#eq-docs-global-nonlinear-l4641}
+
+The bounds @eq-docs-global-nonlinear-l4057–@eq-docs-global-nonlinear-l4067 apply to every training law and every sufficiently
+small actual GD mesh. Use a fixed enlarged comparison ball for the proxy
+below, reducing the common $T_*$ if needed. This keeps every constant
+independent of the actual dataset, width and step; no finite-GD energy
+inequality is assumed.
+
+##### 2. The fixed finite reference proxy {#sec-docs-global-nonlinear-l4652}
+
+Fix a finite probability law
+$\nu=\sum_{b=1}^{J}\omega_b\delta_{(u_b,y_b)}$, positive weights summing to one,
+and a positive rational proof mesh $\Delta$. These remain fixed as $n$ tends
+to infinity. Let the population Euler states for $\nu$ and $\Delta$ be denoted
+$\Theta^{(\nu,\Delta)}_{s}$. They use zero initial population readout.
+
+Use the same initialized first and middle arrays as actual GD. Construct
+the following finite deterministic-coefficient oracle: replace its scalar
+residuals and within-layer contractions by the corresponding population
+Euler values, expand the trained middle matrix into initialized action
+plus accumulated rank-one updates, and perform the resulting finite list
+of actions and coordinate operations. Denote its nodes by superscript o.
+The oracle readout root is zero. Define actual finite proxy parameters by
+
+$$
+\begin{split}
+ \bar W^1_{n,k}&=W^1_{n,0}
+ -2\Delta\sum_{s<k,b}\omega_b r_{b,s}
+               \delta^{1,o}_{b,s}u_b^T,\\
+ \bar W^2_{n,k}&=W^2_{n,0}
+ -\frac{2\Delta}{n}\sum_{s<k,b}\omega_b r_{b,s}
+               \delta^{2,o}_{b,s}(h^{1,o}_{b,s})^T,\\
+ \bar W^3_{n,k}&=W^3_{n,0}
+ -2\Delta\sum_{s<k,b}\omega_b r_{b,s}h^{2,o}_{b,s}.
+\end{split}
+$$ {#eq-docs-global-nonlinear-l4668}
+
+Interpolate these parameters linearly. In particular the proxy and actual
+network have exactly the same initial arrays, including the random readout.
+The small readout in @eq-docs-global-nonlinear-l4668 is an additive parameter term, and not a change to
+the actual algorithm. Its RMS tends to zero by @eq-docs-global-nonlinear-l4641 and Markov's inequality.
+
+At fixed $(\nu,\Delta)$ the program has finitely many instructions. The
+fixed-program theorem III.@sec-docs-special-data-limits-l3789–@sec-docs-special-data-limits-l4072 and global-nonlinear @sec-docs-global-nonlinear-l1842–2 apply: tanh is
+smooth with bounded first two derivatives, the gates are bounded smooth
+functions times $L^2$ fields, and the roots are Gaussian. Every same-layer
+tuple and second moment of oracle nodes converges in probability. For a
+proxy middle action applied to an oracle node, its discrepancy from the
+prescribed oracle action is a finite sum of terms
+
+$$
+ -2\Delta\omega_b r_{b,s}\delta^{2,o}_{b,s}
+ \left[\frac{(h^{1,o}_{b,s})^Th^{1,o}_{a,k}}n
+             -\mathbb E_1(H^1_{b,s}H^1_{a,k})\right].
+%
+$$ {#eq-docs-global-nonlinear-l4694}
+
+Each bracket tends to zero; each multiplying node has bounded RMS in
+probability. The transpose expansion has the same form with the corresponding
+backward contraction. First-row oracle consistency is exact for its input
+projections, since @eq-docs-global-nonlinear-l4668 retains the whole root row and exact factors $u_b$.
+Forward induction and @eq-docs-global-nonlinear-l4694 give consistency of recomputed proxy forward
+fields. Recomputed proxy backward fields converge by descending induction:
+for any reference oracle field $p$, with the fixed activation $\phi$=tanh,
+
+$$
+ \|[\phi'(z)-\phi'(\bar z)]p\|_2
+ \le 2R\|z-\bar z\|_2+2\|p\mathbf1_{|p|>R}\|_2.
+%
+$$ {#eq-docs-global-nonlinear-l4709}
+
+For each fixed cutoff take $n$ to infinity using oracle cutoff second moments;
+then remove that cutoff. This controls the only unbounded multiplier. The
+readout discrepancy in this step includes exactly the vanishing RMS in @eq-docs-global-nonlinear-l4641.
+Thus assigned proxy velocities differ from $F_\nu(\bar\Theta_{n,k})$ by $o_{\mathbb P}(1)$
+uniformly over the fixed finite coarse grid in $D_n$'s block norm.
+
+More precisely, for each fixed cutoff $R$, the reference tail sum satisfies
+
+$$
+ \max_k\sum_b\omega_b\sum_{\ell=1}^2
+ \frac{\|\bar P^\ell_{b,k}
+             \mathbf1_{|\bar P^\ell_{b,k}|>R}\|_2}{\sqrt n}
+ \le C e^{-cR^2}+o_{\mathbb P}(1).
+%
+$$ {#eq-docs-global-nonlinear-l4723}
+
+Here and subsequently an inequality with $o_{\mathbb P}(1)$ means its positive excess
+over the deterministic bound tends to zero in probability. To verify @eq-docs-global-nonlinear-l4723
+without a discontinuous-test assertion, use
+$\lVert v\mathbf 1_{\{|v|>R\}}\rVert\le2\lVert v-p\rVert+2\lVert p\mathbf 1_{\{|p|>R/2\}}\rVert$, and dominate the latter
+by a continuous positive-part cutoff at $R/4$. The oracle cutoff moments
+converge; @sec-docs-global-nonlinear-l2924 bounds their population values by a Gaussian tail. Constants
+are enlarged and $c$ reduced once. These are individual weighted tails.
+
+The proxy full-row and readout norms and its rank-one velocity norms are
+bounded, with limiting upper bounds uniform in $\Delta$ and $\nu$. For the middle
+block use its initial norm plus the sum of the normalized rank-one norms
+in @eq-docs-global-nonlinear-l4668; their limiting total is bounded by the integral velocity bound.
+For first rows and readout use the same triangle inequality and the full
+root-row second moment. These observations place the proxy in a fixed
+enlarged comparison ball and bound its interpolation speed independently
+of $\Delta$, with probability tending to one at fixed $(\nu,\Delta)$.
+
+##### 3. Direct comparison with arbitrary growing data and every vanishing step {#sec-docs-global-nonlinear-l4748}
+
+Let $\lambda_k$ be arbitrary deterministic finite probability laws such that
+$\mathcal W_{1}(\lambda_{k},\mu)\to 0$, let $n_{k}\to \infty$, and let $\eta_{k}\to 0$. The atom count
+and weights of $\lambda_k$ are unrestricted. Choose the fixed reference $\nu$ above
+so that $\mathcal W_{1}(\mu,\nu)\le \delta$. At each time compare actual GD's preceding fine
+state with the proxy's preceding coarse state. Their $D_n$ distance is bounded
+by their interpolant distance plus $C(\eta_{k}+\Delta)$. The transport estimate
+of @sec-docs-global-nonlinear-l3982, @eq-docs-global-nonlinear-l4723, and the assigned-velocity error give
+
+$$
+\begin{split}
+\sup_{t\le T_*}D_{n_k}(\Theta^{GD}_{k}(t),\bar\Theta^{nu,\Delta}_{n_k}(t))
+\le C e^{aR}\bigl[(1+R)
+ \{\eta_k+\Delta+\mathcal W_1(\lambda_k,\nu)\}
+ +e^{-cR^2}+o_{\mathbb P}(1)\bigr].
+\end{split}
+$$ {#eq-docs-global-nonlinear-l4758}
+
+This follows by integrating assigned velocities and iterating
+$E(t)\le C(1+R)\int_0^tE(s)\,ds+b$; the exponential series bounds $E$ by
+$b \exp(C(1+R)T_*)$. Initial discrepancy is zero. The $o_{\mathbb P}(1)$ is at fixed
+$(\nu,\Delta,R)$. The first-exit ball in @sec-docs-global-nonlinear-l3984 already bounds actual GD
+using only initialized arrays; no Gaussian tail theorem is applied to it.
+In particular no maximum over $\lambda_k$'s observations or fine GD history
+occurs. The same proof would cover GF with $\eta_k=0$.
+
+On the comparison ball, all forward fields in RMS and scalar predictions
+are uniformly Lipschitz in the full state and in $u$, and uniformly Lipschitz
+in time along parameter interpolants of bounded speed. For instance
+$\lVert z_{1}(u)-z_{1}(v)\rVert\le B\lvert u-v\rvert$,
+$\lVert z_{2}(u)-z_{2}(v)\rVert\le B^{2}\lvert u-v\rvert$, and $\lvert f(u)-f(v)\rvert\le B^{3}\lvert u-v\rvert$.
+The normalized finite versions are identical. A fixed finite input net,
+then a fixed finite time net, therefore transfers fixed-program proxy
+prediction convergence to
+
+$$
+ \sup_{t\le T_*,u\in S^1}
+ |\bar f^{nu,\Delta}_n(t,u)-f^{nu,\Delta}(t,u)|
+ \longrightarrow0\quad\hbox{in probability}.
+%
+$$ {#eq-docs-global-nonlinear-l4784}
+
+At each chosen time and passive input, append its forward evaluation to the
+same fixed oracle program. Proxy recomputation follows @eq-docs-global-nonlinear-l4694; at an interior
+coarse time the parameters have the affine coefficients from @eq-docs-global-nonlinear-l4668. This
+identifies precisely the prediction of the population parameter interpolant,
+rather than interpolation of predictions. Its Lipschitz bounds justify the
+two nets and remove them after the fixed-program width limit.
+
+The population comparison gives
+
+$$
+ \sup_t D(\Theta^{nu,\Delta}(t),\Theta_\mu(t))
+ \le C e^{aR}\{(1+R)(\Delta+\delta)+e^{-cR^2}\}.
+%
+$$ {#eq-docs-global-nonlinear-l4800}
+
+Combining @eq-docs-global-nonlinear-l4758–@eq-docs-global-nonlinear-l4800, $\mathcal W_{1}(\lambda_{k},\nu)\le \mathcal W_{1}(\lambda_{k},\mu)+\delta$, and forward
+Lipschitz continuity proves the required convergence. The order is explicit:
+take $k$ to infinity at fixed $\delta$, fixed finite $\nu$, fixed $\Delta$ and $R$;
+send $\Delta$ to zero; send $\delta$ to zero through finite reference laws;
+then send $R$ to infinity. Equivalently, for a desired positive error choose
+$R$ first sufficiently large for the Gaussian remainder, then $\delta$ and $\Delta$
+small enough, and only afterwards take $k$ large. No program whose length
+grows with $k$ is passed through a fixed-program theorem. There is no
+comparison in operator norm between different spaces or different widths.
+
+##### 4. Random observations, the two risks, and their limits {#sec-docs-global-nonlinear-l4816}
+
+For a law $\rho$ and bounded predictor $g$ define
+
+$$
+ R_\rho(g)=\int(g(x)-y)^2\,\rho(dx,dy),\qquad
+ \widehat R_S(g)=\frac1m\sum_{i=1}^m(g(x_i)-y_i)^2.
+%
+$$ {#eq-docs-global-nonlinear-l4820}
+
+For any fixed bounded state ball these integrands have a uniform Lipschitz
+constant on the joint observation space: if $\lvert g\rvert\le B$ and g has input
+Lipschitz constant $L$ in $u$, the difference of squared residuals is at most
+$2(B+Y)(L\lvert u-v\rvert+\lvert y-z\rvert)$. Thus for deterministic $\lambda_k$ as above, uniformly
+on $[0,T_*]$, both the actual empirical training loss
+$R_\lambda_{k}(f_{n_{k},\eta_{k},\lambda_{k}}(t))$ and its population risk under $\mu$
+converge in probability to $R_\mu(f_\mu(t))$. Indeed predictor uniform error
+changes either risk by at most $2(B+Y)$ times that error on the initial
+high-probability ball; changing $\lambda_k$ to $\mu$ for the limiting predictor
+costs at most $C \mathcal W_{1}(\lambda_{k},\mu)$. Also
+$R_\lambda_{k}(f_\lambda_{k}(t)) \to R_\mu(f_\mu(t))$ and
+$R_\mu(f_\lambda_{k}(t)) \to R_\mu(f_\mu(t))$ uniformly in time by law stability.
+
+For iid observations of size $m$ from $\mu$, $\mathcal W_{1}(\mu_{S},\mu)\to 0$ in probability.
+Here is an elementary proof sufficient for arbitrary atomic or singular $\mu$.
+Partition the compact observation space into finitely many Borel cells of
+diameter at most $\epsilon$, and choose a representative in each nonempty cell.
+Push both laws to these representatives. Each push costs at most $\epsilon$.
+If $p_j$ are true cell masses and $\widehat p_j$ empirical masses, their discrete
+$\mathcal W_1$ distance is at most $(\operatorname{diam}\mathcal Z/2)\sum_j|\widehat p_j-p_j|$: match the common
+mass at each representative and couple remaining masses arbitrarily.
+Each empirical cell mass has variance at most $1/(4m)$, so this finite sum
+tends to zero in probability (even in mean). Then let $\epsilon$ go to zero.
+No boundary-zero partition is needed, since the observations are iid and
+the same fixed Borel cells are used for their indicators.
+
+The proof of @eq-docs-global-nonlinear-l4758 is uniform in the actual training law on the event
+$\mathcal W_{1}(\mu_{S},\mu)\le \epsilon$: its remaining random errors involve only the fixed
+reference program and initialized arrays. Initialization independent of $S$
+has the required unconditional Gaussian law for this reference and the
+required joint model. A union bound with the event just proved therefore
+extends @eq-docs-global-nonlinear-l4758–@eq-docs-global-nonlinear-l4820 to arbitrary $n_{k},m_{k}\to \infty$, $\eta_{k}\to 0$. This does
+not require a uniform-in-data fixed-program theorem, or a rate for $\mathcal W_1$.
+
+##### 5. Sample replacement and the exactly ordered expected gap {#sec-docs-global-nonlinear-l4860}
+
+Let $\rho(q)=Cq\exp\!\left(C\sqrt{\log(e/q)}\right)$ for $0<q\le 1$, with constants enlarged
+as in @sec-docs-global-nonlinear-l4208, and $\rho(0)=0$. For $q>1$ use the uniform predictor bound.
+The observation space has diameter at most $L_{Z}=2+2Y$. If $S$ and $S^{\prime}$ differ
+in one observation, match their other $m-1$ observations and couple the last
+two. This gives $\mathcal W_{1}(\mu_{S},\mu_{S}^{\prime})\le L_{Z}/m$. Law stability and the uniform
+predictor bound imply, for every $m\ge1$,
+
+$$
+ \sup_{t\le T_*,x\in\sqrt2S^1}|f_S(t,x)-f_{S'}(t,x)|
+ \le \beta_m:=\frac{C}{m}\exp(C\sqrt{\log(em)}).
+%
+$$ {#eq-docs-global-nonlinear-l4869}
+
+For $m\ge L_Z$ use the unspecialized cutoff estimate with $q\le L_{Z}/m$.
+Taking $R=K\sqrt{\log(em)}$ gives @eq-docs-global-nonlinear-l4869 directly. Finitely many smaller $m$ are
+covered by enlarging $C$. Coincident data, identical replacement and $q=0$
+are included. These are the deterministic infinite-width learning maps
+$f_{S}=f_\mu_{S}$; no quantitative finite-width replacement estimate follows.
+
+For any observation $z=(x,y)$, the squared-loss difference for two such
+predictors is at most $2(B+Y) \beta_{m}$, uniformly in $z$ and time. Let
+$S=(Z_{1},...,Z_{m})$ be iid from $\mu$ and let $Z_{i}^{\prime}$ be an independent copy.
+Write $S^{(i)}$ for $S$ with coordinate $i$ replaced by $Z_{i}^{\prime}$. All quantities
+are measurable: the law-to-predictor map is continuous by law stability,
+empirical-law formation is continuous in each observation, and the risks
+are integrals of bounded continuous functions. With
+$\ell(g,z)=(g(x)-y)^{2}$, independence gives, at each fixed deterministic $t$,
+
+$$
+\begin{split}
+\mathbb E_S[R_\mu(f_S(t))-\widehat R_S(f_S(t))]
+ &=\frac1m\sum_i\mathbb E_{S,Z_i'}
+      [\ell(f_S(t),Z_i')-\ell(f_S(t),Z_i)]\\
+ &=\frac1m\sum_i\mathbb E_{S,Z_i'}
+      [\ell(f_{S^{(i)}}(t),Z_i)-\ell(f_S(t),Z_i)].
+\end{split}
+$$ {#eq-docs-global-nonlinear-l4890}
+
+The second equality exchanges the iid pair $(Z_{i},Z_{i}^{\prime})$ while leaving all
+other observations fixed. It uses the fact that the algorithm is the same
+measurable empirical-law map for both samples. Every summand has absolute
+value at most $2(B+Y) \beta_{m}$ by @eq-docs-global-nonlinear-l4869. Taking absolute value of the
+expectation and then the supremum over deterministic $t$ yields
+
+$$
+ \sup_{t\le T_*}\left|\mathbb E_S
+  [R_\mu(f_S(t))-\widehat R_S(f_S(t))]\right|
+ \le\frac{C}{m}\exp(C\sqrt{\log(em)}).
+%
+$$ {#eq-docs-global-nonlinear-l4906}
+
+No expectation of an absolute gap or a time supremum has been taken.
+This conclusion gives neither excess risk, useful risk reduction,
+endpoint selection, nor superiority over another learning model.
+
+##### 6. Representation observables in the joint limit {#sec-docs-global-nonlinear-l4917}
+
+For $\ell=1,2$ let
+
+$$
+ J_{\ell,n}(t;\lambda)=\int
+ \frac{\|h^\ell_n(t,x)-h^\ell_n(0,x)\|_2^2}{n}\,\lambda(dx,dy).
+%
+$$ {#eq-docs-global-nonlinear-l4921}
+
+The integrand is bounded by 4, is uniformly Lipschitz in input on the ball,
+and its change between two same-width states with the same initialization
+is at most $CD_n$ by the forward estimates and
+$\lvert \lVert v\rVert^{2}-\lVert w\rVert^{2} \rvert \le (\lVert v\rVert+\lVert w\rVert)\lVert v-w\rVert$.
+For the fixed proxy its value at finitely many inputs and times converges
+by joint oracle second moments including time zero. Input and time nets
+then give uniform convergence of the whole integrand to the population
+Euler integrand, just as in @eq-docs-global-nonlinear-l4784. Coupling the input laws and using @eq-docs-global-nonlinear-l4758
+therefore proves
+
+$$
+ \sup_{t\le T_*}|J_{\ell,n_k}(t;\lambda_k)-J_{\ell}(t;\mu)|
+ \longrightarrow0\quad\hbox{in probability}.
+%
+$$ {#eq-docs-global-nonlinear-l4937}
+
+This holds for the deterministic and independent iid cases above. It
+supplies the width-persistent representation displacement required by
+@sec-docs-global-nonlinear-l4949. It asserts no convergence of individual finite neurons to
+population coordinates and requires no such artificial coupling.
+
+
+#### C.4.4. An open family with hidden representation motion {#sec-docs-global-nonlinear-l4949}
+
+##### 1. State and observables {#sec-docs-global-nonlinear-l4951}
+
+Use the common fields @eq-docs-global-nonlinear-l4000 from @sec-docs-global-nonlinear-l3982. Write
+$H_{0}^{(\ell)}(x)$ for their common initialized activations, and retain the
+notation $W^{(2)}=A$, $W^{(3)}=c$ in this proof unit.
+For $\ell=1,2$ define the training-input averaged squared displacement and RMS
+displacement
+
+$$
+ J_\ell(\mu,t)=\int_{\mathcal Z}
+ \|H_\mu^{(\ell)}(t,x)-H_0^{(\ell)}(x)\|_{L^2(\Omega_\ell)}^2
+ \,\mu(dx,dy),\qquad
+ A_\ell(\mu,t)=\sqrt{J_\ell(\mu,t)}.                       
+$$ {#eq-docs-global-nonlinear-l4959}
+
+The coordinate pairing at the two times is the same neuron population,
+not an arbitrary coupling of the two activation marginal laws. Since tanh
+is bounded by one, $0\le J_\ell\le 4$.
+
+The common bounded-state interval supplies a deterministic $B\ge 1$ such that
+$\lVert w_\mu(t)\rVert_{2}\le B$ and $\lVert W_\mu^{(2)}(t)\rVert_{\mathrm{op}}\le B$ for all laws and times under
+consideration, including initialization. The 1-Lipschitz property of tanh
+then gives, with $\rho(x,x^{\prime})=\lvert x-x^{\prime}\rvert/\sqrt{2}$,
+
+$$
+ \|H_\mu^{(1)}(t,x)-H_\mu^{(1)}(t,x')\|_2\le B\rho(x,x'),
+ \qquad
+ \|H_\mu^{(2)}(t,x)-H_\mu^{(2)}(t,x')\|_2\le B^2\rho(x,x').   
+$$ {#eq-docs-global-nonlinear-l4975}
+
+Thus one may use $K=B^{2}$ in both layers, for all laws, times and initialization.
+These estimates use the full first-row field; controlling only projections
+on a fixed training list would not justify them.
+
+##### 2. An explicit reference law and actual-flow expansion {#sec-docs-global-nonlinear-l4985}
+
+Fix $y_{0}=Y/2>0$ and
+
+$$
+ x_1=\sqrt2(1,0),\qquad x_2=\sqrt2(0,1),\qquad
+ \mu_0=\tfrac12\delta_{(x_1,y_0)}+
+       \tfrac12\delta_{(x_2,y_0)},\qquad p=y_0/2=Y/4.          
+$$ {#eq-docs-global-nonlinear-l4989}
+
+The Gram is $G=I_{2}$, and $p$ is the label multiplied by its atom weight.
+All constants below may depend on this reference and on $Y$.
+Suppress $\mu_{0}$ in the notation. Set
+
+$$
+ h_a=\tanh g_a,\qquad q_0=\mathbb E\tanh^2 g_1>0,
+ \qquad \xi_a=W_0^{(2)}h_a\quad (a=1,2).
+$$
+
+Oddness and independence of the lower Gaussian roots give
+$\mathbb E[h_a h_b]=q_0\mathbf 1_{\{a=b\}}$. The first forward Gaussian calculation gives
+independent $\xi_{1},\xi_{2}\sim \mathcal N(0,q_{0})$ in the second population. This calculation
+can also be read directly at finite width: conditioned on the first-layer
+arrays, each row output is Gaussian with covariance
+$(h_{a}^\top h_{b}/n)_{a,b}$, which converges to $q_{0} I_{2}$; row averages of bounded
+continuous functions concentrate conditionally, and Gaussian second moments
+give the same conclusion for quadratic-growth tests. No trained matrix has
+been replaced by an independent map.
+
+With $\phi=\tanh$ and $\phi^{\prime}(s)=\operatorname{sech}^{2}(s)$, define the following fields,
+each in its displayed layer:
+
+$$
+ S=p(\tanh\xi_1+\tanh\xi_2),\qquad U_a=S \phi'(\xi_a)
+       \quad\hbox{in }L^2(\Omega_2),
+$$
+$$
+ P_a=(W_0^{(2)})^*U_a,\qquad
+ T_a=p \phi'(g_a)P_a,\qquad C_a=p \phi'(g_a)^2P_a
+       \quad\hbox{in }L^2(\Omega_1),
+$$
+$$
+ M_a=pq_0U_a,\qquad R_a=M_a+W_0^{(2)}C_a,\qquad
+ E_a=\phi'(\xi_a)R_a
+       \quad\hbox{in }L^2(\Omega_2).                       
+$$ {#eq-docs-global-nonlinear-l5026}
+
+All these fields are well defined: $S,U_{a}$ are bounded, the initial action
+and its adjoint are bounded on the generated $L^{2}$ spaces, and every remaining
+multiplier is bounded. The exact weighted physical equations are
+
+$$
+ \dot Z_a^{(1)}=-\sum_b G_{ab}r_b\delta_b^{(1)},\qquad
+ \dot W^{(2)}=-\sum_b r_b\delta_b^{(2)}\otimes H_b^{(1)},
+ \qquad \dot W^{(3)}=-\sum_b r_bH_b^{(2)},                 
+$$ {#eq-docs-global-nonlinear-l5036}
+
+where $r_{b}=f_{b}-y_{0}$, $\delta_{b}^{(2)}=W^{(3)}\phi^{\prime}(Z_{b}^{(2)})$ and
+$\delta_{b}^{(1)}=\phi^{\prime}(Z_{b}^{(1)})(W^{(2)})^*\delta_{b}^{(2)}$. The factors in @eq-docs-global-nonlinear-l5036 are
+$-2 \omega_{b}=-1$, since this is a two-point mean loss.
+
+The strong integral equations and continuity give
+
+$$
+ \begin{aligned}
+ W^{(3)}(t)&=2tS+o_{L^2}(t),&
+ \delta_a^{(2)}(t)&=2tU_a+o_{L^2}(t),\\
+ \delta_a^{(1)}(t)&=2t \phi'(g_a)P_a+o_{L^2}(t),&
+ Z_a^{(1)}(t)-g_a&=2t^2T_a+o_{L^2}(t^2),\\
+ H_a^{(1)}(t)-h_a&=2t^2C_a+o_{L^2}(t^2),&
+ W^{(2)}(t)-W_0^{(2)}
+   &=2t^2\sum_b p U_b\otimes h_b+o_{\rm op}(t^2),\\
+ Z_a^{(2)}(t)-\xi_a&=2t^2R_a+o_{L^2}(t^2),&
+ H_a^{(2)}(t)-\tanh\xi_a&=2t^2E_a+o_{L^2}(t^2).
+ \end{aligned}                                                        
+$$ {#eq-docs-global-nonlinear-l5048}
+
+Here is the justification of every passage needed for @eq-docs-global-nonlinear-l5048. Divide the
+readout integral in @eq-docs-global-nonlinear-l5036 by $t$ and use $r_{b}(0)=-y_{0}$, continuity and
+$H_{b}^{(2)}(0)=\tanh \xi_{b}$. The limit is $y_{0} \sum_{b} \tanh \xi_{b}=2S$.
+If $V_{t}\to V$ in $L^{2}$ and $a_{t}\to a$ in probability with uniformly bounded
+$a_{t}$, then $a_{t} V_{t}\to a V$ in $L^{2}$: bound the part multiplying $V_{t}-V$
+by the uniform multiplier bound, and split the part multiplying $V$ at
+$\lvert V\rvert\le M$, then let $M$ increase. Apply this fact to $\phi^{\prime}(Z_{a}^{(2)}(t))$, and
+then to the continuous adjoint and lower gate. It gives the two backward
+limits in @eq-docs-global-nonlinear-l5048. Integrating $s$ times a field converging in $L^{2}$ uses
+$\int_{0}^{t} s ds=t^{2}/2$, which proves the lower preactivation and matrix
+limits, including their factors $2p$.
+
+For either activation difference use the identity
+
+$$
+ \frac{\tanh(z+v_t)-\tanh z}{t^2}
+ =\frac{v_t}{t^2}\int_0^1 \phi'(z+s v_t)\,ds.
+$$
+
+If $v_{t}/t^{2}$ converges in $L^{2}$, its right side converges to the limit
+multiplied by $\phi^{\prime}(z)$, by the bounded-multiplier argument. Finally expand
+$W(t)H_a(t)-W_0h_a$ as $(W(t)-W_{0})h_{a}+W_{0}(H_{a}(t)-h_{a})$ plus the product of
+the two increments; the latter is $O_{L^2}(t^4)$. The matrix term is
+$2t^2\sum_b pU_b\mathbb E[h_bh_a]=2t^2M_a$. This gives the upper two limits.
+These steps derive @eq-docs-global-nonlinear-l5048 along the existing actual flow; no formal power-series
+existence argument is used.
+
+##### 3. Strict positivity of both activation displacements {#sec-docs-global-nonlinear-l5089}
+
+Actual adjunction and independence of the upper initial Gaussian coordinates
+give, for each $a$,
+
+$$
+ \langle h_a,P_a\rangle_1
+ =\langle\xi_a,U_a\rangle_2
+ =p\,\mathbb E[\xi_a\tanh\xi_a\,\phi'(\xi_a)]>0.             
+$$ {#eq-docs-global-nonlinear-l5094}
+
+The other summand in $S$ contributes zero, since its tanh has mean zero and
+is independent of $\xi_{a}$. In the remaining expectation the integrand is
+strictly positive whenever $\xi_{a}\ne 0$; the nondegenerate Gaussian gives
+probability one to that event. It is integrable because it is at most
+$\lvert \xi_{a}\rvert$. Thus $P_{a}$ is nonzero in $L^{2}$. Since $p>0$ and $\phi^{\prime}(g_{a})>0$ almost
+surely, $C_{a}=p \phi^{\prime}(g_{a})^{2} P_{a}$ is also nonzero. In particular
+
+$$
+ c_1^2=\tfrac12\sum_{a=1}^2\|C_a\|_2^2>0.               
+$$ {#eq-docs-global-nonlinear-l5107}
+
+For the upper layer, adjunction yields the positive identity
+
+$$
+ \begin{aligned}
+ p\sum_a\langle U_a,R_a\rangle_2
+ &=p^2q_0\sum_a\|U_a\|_2^2
+   +p\sum_a\langle P_a,C_a\rangle_1\\
+ &=p^2q_0\sum_a\|U_a\|_2^2
+   +p^2\sum_a\mathbb E[\phi'(g_a)^2 P_a^2]>0.                
+ \end{aligned}
+$$ {#eq-docs-global-nonlinear-l5113}
+
+Its left side is $p\sum_a\mathbb E[SE_a]$. Consequently the $E_a$ cannot all
+vanish in $L^{2}$, and
+
+$$
+ c_2^2=\tfrac12\sum_{a=1}^2\|E_a\|_2^2>0.               
+$$ {#eq-docs-global-nonlinear-l5126}
+
+This proves precisely the averaged upper-layer assertion needed here; an
+individual upper-input activity assertion is unnecessary. @eq-docs-global-nonlinear-l5113 also
+retains both upper-preactivation contributions, from the moving middle
+matrix and from the moving lower representation.
+
+By @eq-docs-global-nonlinear-l5048, @eq-docs-global-nonlinear-l5107 and @eq-docs-global-nonlinear-l5126,
+
+$$
+ A_\ell(\mu_0,t)=2c_\ell t^2+o(t^2),\qquad \ell=1,2.     
+$$ {#eq-docs-global-nonlinear-l5137}
+
+There exists $\tau \in (0,T_*]$ such that
+$A_\ell(\mu_{0},t)\ge c_\ell t^{2}$ for both layers and all $0<t\le \tau$.
+For a completely specified choice from the actual reference solution, let
+$s_{0}$ be the supremum of $s \in (0,T_*]$ such that
+
+$$
+ \left|t^{-2}A_\ell(\mu_0,t)-2c_\ell\right|\le c_\ell
+ \quad(\ell=1,2;\ 0<t\le s).
+$$
+
+@eq-docs-global-nonlinear-l5137 gives $s_{0}>0$; take $\tau=s_{0}/2$ and the fixed positive
+observation time $t_{0}=\tau/2$. No explicit numeric lower bound on $t_{0}$ is
+claimed. The constants $c_\ell$ are the positive Gaussian-action expressions
+@eq-docs-global-nonlinear-l5107, @eq-docs-global-nonlinear-l5126, rather than fitted or numerically selected quantities.
+
+##### 4. Transport continuity and the open family {#sec-docs-global-nonlinear-l5156}
+
+@sec-docs-global-nonlinear-l4208 proves this precise state conclusion: on common generated Gaussian spaces, for $q=\mathcal W_1(\mu,\nu)\le1$,
+
+$$
+ \sup_{t\le T_*}\bigl(\|w_\mu(t)-w_\nu(t)\|_2+
+ \|W_\mu^{(2)}(t)-W_\nu^{(2)}(t)\|_{\rm op}\bigr)
+ \le C\,\omega(q),\qquad
+ \omega(q)=q\exp(C\sqrt{\log(e/q)}),\quad\omega(0)=0.       
+$$ {#eq-docs-global-nonlinear-l5160}
+
+It suffices equally to use any established modulus tending to zero in @eq-docs-global-nonlinear-l5160.
+The forward formulas on the bounded state ball imply
+
+$$
+ \sup_{t,x,\ell}
+ \|H_\mu^{(\ell)}(t,x)-H_\nu^{(\ell)}(t,x)\|_2
+ \le C_H\omega(q).                                      
+$$ {#eq-docs-global-nonlinear-l5170}
+
+Indeed the lower difference is bounded by the first-row difference; the
+upper preactivation difference is at most the matrix difference times
+$\lVert H_\mu^{(1)}\rVert_{2}\le 1$, plus $B$ times the lower difference. Applying tanh
+preserves these bounds.
+
+To compare @eq-docs-global-nonlinear-l4959, first hold the training law fixed and change the evolved
+state. Each activation displacement has norm at most two, so its squared
+norm changes by at most $4C_{H} \omega(q)$. Next hold the state $\nu$ fixed
+and change the averaging law. @eq-docs-global-nonlinear-l4975 bounds the difference of
+displacement fields at $x,x^{\prime}$ by $2K \rho(x,x^{\prime})$; therefore their squared
+norms differ by at most $8K \rho(x,x^{\prime})$. Integrating against any coupling
+of $\mu,\nu$ and taking the infimum gives
+
+$$
+ \sup_{t\le T_*}|J_\ell(\mu,t)-J_\ell(\nu,t)|
+ \le 4C_H\omega(q)+8Kq,\qquad\ell=1,2.                  
+$$ {#eq-docs-global-nonlinear-l5189}
+
+The joint transport cost dominates $\rho$; labels need not be deterministic
+functions of inputs for this argument. Approximate minimizers suffice, so
+existence of an optimal coupling need not be invoked. The same proof is
+valid for atoms, coincident inputs and singular Grams.
+
+Set $j_{0}=\min{c_{1}^{2},c_{2}^{2}}t_{0}^{4}>0$. Choose a radius $r_{0} \in (0,1)$ such
+that $4C_{H} \omega(q)+8Kq<j_{0}/2$ for all $0<q<r_{0}$; such a radius exists
+because the displayed expression tends to zero. Then the relative open set
+
+$$
+ \mathcal U=\{\mu\in\mathcal P(\mathcal Z):
+                  \mathcal W_1(\mu,\mu_0)<r_0\}          
+$$ {#eq-docs-global-nonlinear-l5203}
+
+satisfies, at the specified time $t_{0}$,
+
+$$
+ J_\ell(\mu,t_0)\ge j_0/2,
+ \qquad A_\ell(\mu,t_0)\ge\sqrt{j_0/2}>0,
+ \quad\mu\in\mathcal U,\quad\ell=1,2.                  
+$$ {#eq-docs-global-nonlinear-l5210}
+
+The same construction works at any chosen reference time in $(0,\tau]$,
+with its own neighborhood and positive margin. For example, spreading each
+reference atom over a sufficiently short input arc and a sufficiently short
+label interval preserves membership in @eq-docs-global-nonlinear-l5203, so the open family contains
+nonatomic laws. Moving the second reference input through a sufficiently
+small nonzero angle gives correlated two-input laws in @eq-docs-global-nonlinear-l5203.
+
+##### 5. Transfer to actual finite networks {#sec-docs-global-nonlinear-l5223}
+
+For a finite network trained on an empirical law $\lambda_{n}$, with its actual
+random initial readout, define
+
+$$
+ J_{n,\eta,\ell}(t)=\int_{\mathcal Z}\frac1n
+ \|h_{n,\eta,\lambda_n}^{(\ell)}(t,x)
+       -h_{n,\lambda_n}^{(\ell)}(0,x)\|_2^2\,\lambda_n(dx,dy).
+                                                               %
+$$ {#eq-docs-global-nonlinear-l5228}
+
+@sec-docs-global-nonlinear-l4632, @eq-docs-global-nonlinear-l4921–@eq-docs-global-nonlinear-l4937, proves the paired initial/current activation
+observable limit, for every deterministic empirical approximation and every
+independent iid sample sequence in the theorem:
+
+$$
+ \sup_{t\le T_*}|J_{n,\eta_n,\ell}(t)-J_\ell(\mu,t)|
+       \longrightarrow0\quad\hbox{in probability}.       
+$$ {#eq-docs-global-nonlinear-l5239}
+
+That proof explicitly retains both times in the fixed oracle's joint
+second moments; it does not infer @eq-docs-global-nonlinear-l5239 from predictor convergence.
+
+For iid empirical laws independent of initialization, use the corresponding
+in-probability joint-limit statement with these same observations. In
+particular, for every $\mu \in U$ and either deterministic empirical
+approximation or iid sampling, @eq-docs-global-nonlinear-l5210, @eq-docs-global-nonlinear-l5239 imply
+
+$$
+ \Pr\{J_{n,\eta_n,\ell}(t_0)\ge j_0/4
+                 \text{ for both }\ell=1,2\}\longrightarrow1. 
+$$ {#eq-docs-global-nonlinear-l5252}
+
+Thus both hidden activation displacements stay bounded away from zero as
+width increases, at a physical time and activity margin independent of
+width, sample count and GD step. The finite initialization is the one in
+the theorem: its readout RMS has squared expectation $1/n^{2}$, hence tends
+to zero in probability and is covered by the initialization-perturbation
+comparison. It has not been set to zero in @eq-docs-global-nonlinear-l5228.
+
+This result asserts finite-time motion of both hidden representations on an
+open family. It asserts no activity for every law, no fitting, no risk
+improvement, no endpoint selection and no global-time property. In
+particular a law with zero conditional label mean can have the stationary
+zero-readout population solution, consistently with the stated scope.
+
+#### C.4.5. Robust whole-circle prediction after substantial learning {#sec-docs-global-nonlinear-l5270}
+
+This theorem extends the prediction and risk scope of the local @sec-docs-global-nonlinear-l3836 result by comparison with one fitted reference. It does not extend the local population-flow theorem for arbitrary laws. @sec-docs-global-nonlinear-l8978 separately constructs nonlinear changed-law population dynamics near the fitted reference through $T=40$. The raw-GD conclusion below retains its stated step condition and endpoint scope. Equation numbers are local to each of the statement and three proof units below.
+
+##### Exact statement {#sec-docs-global-nonlinear-l5274}
+
+Use two tanh hidden layers of common width $n$, input dimension two, no biases,
+and the stored-weight forward map
+$$
+ z^1=W^1x/\sqrt2,\quad h^1=\tanh z^1,\quad
+ z^2=W^2h^1,\quad h^2=\tanh z^2,\quad f_n=(W^3)^Th^2/n.
+$$
+Initialize all entries/blocks independently, centered Gaussian with variances
+$(1,1/n,1/n^2)$. Train all blocks with mobilities $(n,1,n)$, unhalved mean squared
+loss and physical time. Raw GD updates all stored blocks from the preceding
+state; interpolate raw weights linearly and recompute activations.
+The actual finite initial readout is retained.
+
+Let $Z=\sqrt{2}S^1\times\{-1,+1\}$, with joint transport cost
+$|x-x^{\prime}|/\sqrt{2}+|y-y^{\prime}|$, and set
+$$
+ \nu_*=\tfrac12\delta_{(\sqrt2e_1,1)}
+       +\tfrac12\delta_{(\sqrt2e_2,-1)},\qquad
+ T=40,\qquad \delta=\exp\{-\exp(3000)\}.                         
+$$ {#eq-docs-global-nonlinear-l5290}
+
+The population reference has a unique global autonomous flow on its canonical
+Gaussian action spaces. Its whole-circle predictor tends to a continuous
+limit $f_*^\infty$. To characterize this endpoint, solve the autonomous
+feature equation in @sec-docs-global-nonlinear-l5475 @eq-docs-global-nonlinear-l6181–@eq-docs-global-nonlinear-l6197, starting from the full independent
+standard Gaussian first row, the actual initialized middle Gaussian action
+and its adjoint, and zero limiting readout. Stop at the unique first feature
+time $s_{\dagger}$ at which $b=\langle c,(H^2_1-H^2_2)/2\rangle=1$; evaluate that state on every
+circle input. Then $0<s_{\dagger}\le10$, and
+$$
+ \sup_x|f_*(t,x)-f_*^\infty(x)|\le17\sqrt{10}e^{-t/5},\qquad
+ R_{\nu_*}(f_*(t))\le e^{-2t/5}.                               
+$$ {#eq-docs-global-nonlinear-l5304}
+The endpoint interpolates the reference labels, is odd under $x\to-x$, and
+satisfies $f_\infty(Px)=-f_\infty(x)$ when $P$ swaps input coordinates. Its input Lipschitz
+constant in $x/\sqrt{2}$ is less than $76$. This specifies the selected prediction
+through the actual dynamics; it asserts no uniqueness among interpolants.
+
+For every fixed law $\mu$ with $\mathcal W_1(\mu,\nu_*)<\delta$, let $\lambda_k$ be any deterministic
+empirical laws converging to $\mu$ in $\mathcal W_1$. Their observation counts, support
+degeneracies and atom weights have no further restrictions. Take $n_k\to\infty$
+and $\eta_k>0$ with $\eta_k\sqrt{n_k}\to0$; put $t_k=\lfloor T/\eta_k\rfloor\eta_k$. Then
+$$
+ \Pr\left\{
+ \sup_{x\in\sqrt2S^1}|f_{n_k,\eta_k,\lambda_k}(t_k,x)-f_*^\infty(x)|\le1/4,\
+ R_\mu(f_{n_k,\eta_k,\lambda_k}(t_k))\le1/4,\
+ R_{\lambda_k}(f_{n_k,\eta_k,\lambda_k}(t_k))\le1/4
+ \right\}\longrightarrow1.                                   
+$$ {#eq-docs-global-nonlinear-l5317}
+Probability here is over initialization. The same conclusion holds for iid
+samples of any sizes $m_k\to\infty$ from the fixed $\mu$, independent of
+initialization, with probability over both samples and initialization.
+There is no relative sample/width growth restriction or finite-width rate.
+The displayed GD condition is sufficient; no removal is required.
+
+At the fixed physical time $t_{\mathrm{act}}=1/200$ define the paired, training-averaged
+squared RMS displacement
+$$
+ J_{\ell,k}(t)=\int_Z\frac1{n_k}
+ \|h^\ell_{n_k,\eta_k,\lambda_k}(t,x)
+                 -h^\ell_{n_k,\lambda_k}(0,x)\|_2^2\,d\lambda_k(x,y).
+                                                                    %
+$$ {#eq-docs-global-nonlinear-l5332}
+The two times use the same network and neuron indices, not a coupling chosen
+between marginal laws. In both deterministic and iid settings,
+$$
+ \Pr\{J_{1,k}(t_{\rm act})\ge10^{-13},\
+       J_{2,k}(t_{\rm act})\ge10^{-13}\}\longrightarrow1.        
+$$ {#eq-docs-global-nonlinear-l5340}
+Thus both paired RMS norms exceed $\sqrt{10^{-13}}$ independently of width/sample
+count. This holds jointly with @eq-docs-global-nonlinear-l5317. One may replace $t_{\mathrm{act}}$ by its preceding
+GD node, by the same bounded-velocity estimate. No displacement at $T$ is
+claimed. The opposite-label reference itself has each averaged paired $\mathrm{RMS}$
+strictly greater than $1/2500000$ at $t_{\mathrm{act}}$.
+
+##### Strict numerical margins and transfer {#sec-docs-global-nonlinear-l5350}
+
+The exact rational Gaussian certificate gives $m\ge1/10$. The reference proof
+gives
+$$
+ 17\sqrt{10}e^{-8}<.019<1/32,\qquad e^{-16}<1/1024.             
+$$ {#eq-docs-global-nonlinear-l5354}
+In @sec-docs-global-nonlinear-l6596 choose
+$$
+ B=12,\quad K=40000000,\quad d_0=10^{-18},\quad R=e^{2900},\quad
+ M_Q=225400e^{2880}+180,\quad H=16(4+M_Q).                     
+$$ {#eq-docs-global-nonlinear-l5358}
+The elementary bounds $M_Q<e^{2893}$, $H<e^{2897}$, $K<e^{18}$,
+$1+R<e^{2901}$ and $R^2/4096>e^{5791}$ give $R>4M_Q+20$ and $R>101$. Therefore
+$$
+ \log\{KH e^{K(1+R)-R^2/4096}\}
+ <2915+e^{2919}-e^{5791}<-100,
+$$
+$$
+ \log\{K(1+R)e^{K(1+R)}\delta\}
+ <2919+e^{2919}-e^{3000}<-100.                                
+$$ {#eq-docs-global-nonlinear-l5368}
+For example $e>2$ already separates the last exponentials by far more than
+$3019$. Also $e^{-100}<10^{-18}/4$, using the single positive term $100^{16}/16!$ in
+the series for $e^{100}$. These are the two strict bounds in @sec-docs-global-nonlinear-l6596 @eq-docs-global-nonlinear-l6880.
+The same estimates give
+$$
+ L_{\rm risk}\delta<1/256,\quad 8B^2\delta<10^{-18},
+ \qquad L_{\rm risk}=44928.                                  
+$$ {#eq-docs-global-nonlinear-l5376}
+
+Compare actual GD to actual finite GF on $\nu_*$ with the same initialized
+arrays. Since limsup $\mathcal W_1(\lambda_k,\nu_*)<\delta$, the stopped comparison gives
+$$
+ \left(\sup_{t\le40}D_{n_k}(\theta_{GD,k}(t),\bar\theta_{n_k}(t))
+                                       -d_0/2\right)_+
+ \longrightarrow0\quad\hbox{in probability}.                 
+$$ {#eq-docs-global-nonlinear-l5383}
+Its complete proof, including the finite actual-state bounds, initial
+readout, reference tails, auxiliary-mesh order and stopping argument, is
+@sec-docs-global-nonlinear-l6596. The reference is raw GF, so its raw-field defect is zero.
+Transformed Euler is used only as an auxiliary width-identification tool.
+
+Whole-circle reference convergence and the full-state estimates imply
+$$
+ \left(\sup_x|f_k(T,x)-f_*^\infty(x)|-1/16\right)_+
+ \longrightarrow0\quad\hbox{in probability},                 
+$$ {#eq-docs-global-nonlinear-l5394}
+because the deterministic bound is $0.019+B^2d_0<1/16$. The circle extension uses
+the full first row and uniform input Lipschitz bounds. Replacing $T$ by $t_k$
+costs at most a fixed state-speed/prediction constant times $\eta_k$.
+The finite predictor is bounded by 12 and Lipschitz in normalized input
+with constant 1728 on the comparison event. Its squared-loss integrand has
+joint Lipschitz constant $L_{\mathrm{risk}}$. At the reference atoms $f_\infty$ equals the label.
+Thus @eq-docs-global-nonlinear-l5376,@eq-docs-global-nonlinear-l5394 give
+$$
+ (R_\mu(f_k(t_k))-1/128)_+\longrightarrow0,\quad
+ (R_{\lambda_k}(f_k(t_k))-1/128)_+\longrightarrow0
+                      \quad\hbox{in probability}.            
+$$ {#eq-docs-global-nonlinear-l5405}
+The two deterministic contributions are $(1/16)^2$ and $L_{\mathrm{risk}}\delta<1/256$;
+for the empirical risk use $\mathcal W_1(\lambda_k,\nu_*)\le\delta+o(1)$. These strict
+bounds prove @eq-docs-global-nonlinear-l5317, not just convergence to its thresholds. Both limiting
+initial binary-label risks are one, because the initial predictor is
+uniformly bounded by the vanishing readout RMS.
+
+For activity, changing the evolved state with initialization fixed changes
+the paired squared-displacement integrand by at most $4(B+1)D_n$. Changing
+its input changes it by at most $8B^2|u-v|$. These follow from displacement
+$\mathrm{RMS}\le2$ and the forward input/state bounds in @sec-docs-global-nonlinear-l6596. Coupling $\lambda_k$
+to $\nu_*$, retaining the separate paired-observable reference convergence,
+and using its strict RMS margin gives
+$$
+ J_{\ell,k}(t_{\rm act})\ge(1/2500000)^2-2(B+1)d_0-8B^2\delta
+                                            -o_{\mathbb P}(1).       
+$$ {#eq-docs-global-nonlinear-l5422}
+The deterministic right side exceeds $1.59\cdot10^{-13}$, proving @eq-docs-global-nonlinear-l5340 with slack.
+The opposite-label activity computation is proved anew in @sec-docs-global-nonlinear-l5475;
+@sec-docs-global-nonlinear-l3836's equal-label example is not substituted for it.
+
+For iid samples, compact Borel partitions and the variance bound for each
+empirical cell mass prove $\mathcal W_1(\lambda_k,\mu)\to0$ in probability, as detailed
+in @sec-docs-global-nonlinear-l6596. Its other random events involve only the fixed reference
+and initialization. Union bounds give @eq-docs-global-nonlinear-l5317,@eq-docs-global-nonlinear-l5340 in joint probability.
+Each claim is for every fixed $\mu$ and sequence. No uniform failure probability
+over laws, almost-sure joint limit, global population flow for $\mu$ or endpoint
+for $\mu$ is asserted.
+
+##### Geometric meaning, scale and limitations {#sec-docs-global-nonlinear-l5438}
+
+An admitted nonorthogonal law moves the second reference input by the angle
+$a=\delta/2$, retaining its label and the first atom. Its cost is at most
+$a/2=\delta/4$; the off-diagonal input Gram is $-\sin(a)$, which is nonzero.
+
+For an admitted nonatomic law replace each input atom by uniform arc length
+on the arc of angular radius $a=\delta/4$ around it, retaining its associated
+label, and then flip each binary label independently with probability
+$p=\delta/8$. The coupling costs at most $a+2p=\delta/2<\delta$. More generally
+$a+2p<\delta$ suffices; arbitrary extra contamination of mass $\rho$ costs at most
+4rho. Thus no orthogonality, two-atom, Gram-inverse or weight-lower-bound
+condition is imposed on perturbed laws.
+
+The explicit radius is mathematically positive, but extremely small:
+$$
+ \log_{10}(1/\delta)=e^{3000}/\log 10,\qquad
+ \log_{10}\log_{10}(1/\delta)
+ =3000/\log 10-\log_{10}(\log10)\approx1302.52.
+$$
+This is far below a practically useful neighborhood. The dominant loss is
+the fresh-root stability exponential followed by a cutoff comparison.
+A bounded targeted improvement used the reference energy path length and
+integrated a time-dependent coefficient, reducing the response exponent
+to 2880. Its conservatism is likely substantial; its sharpness is not
+assessed by this proof. No training experiment or parameter sweep was run.
+
+The theorem establishes whole-circle robustness after substantial risk
+reduction for an open family with nonlinear moving hidden features. It
+does not show that feature motion causes that reduction, superiority to
+linear or frozen-feature learning, or useful risk on a uniform-circle
+teacher distribution. It gives no arbitrary-accuracy guarantee for one
+fixed perturbed law. A radius shrinking with accuracy would not give that
+stronger conclusion.
+
+
+
+##### C.4.5.1. The opposite-label reference and its endpoint {#sec-docs-global-nonlinear-l5475}
+
+###### 1. Full state and exact feature equation {#sec-docs-global-nonlinear-l5477}
+
+Put $u=\frac{x}{\sqrt{2}}$. Work on the canonical generated probability spaces
+$H_{1}=L^{2}(\Omega_{1})$ and $H_{2}=L^{2}(\Omega_{2})$ with the initialized bounded
+Gaussian action $A_{0}:H_{1}\to H_{2}$ and its actual adjoint. Its operator norm is
+at most two, by @sec-docs-global-nonlinear-l1864. The full first row is $w=(w_{1},w_{2})$, initially
+$(g_{1},g_{2})$ with independent standard normal coordinates. The population
+readout is $c(0)=0$; this is the limit of the specified finite random
+readout, not a modification of finite initialization. Write $A=A_{0}+K$.
+The increment metric is
+
+$$
+ \|(v,B,d)\|_{\rm raw}^2
+ =\|v\|_{L^2(\Omega_1;\mathbb R^2)}^2+\|B\|_{\rm HS}^2+\|d\|_2^2.       
+$$ {#eq-docs-global-nonlinear-l5488}
+
+Only the increment $K$ is Hilbert–Schmidt. Its finite counterpart is exactly
+$\lVert dW^{(1)}\rVert_F^2/n+\lVert dW^{(2)}\rVert_F^2+\lVert dW^{(3)}\rVert_2^2/n$. This follows because rank-one population
+operators have finite representative $uv^\top/n$ and HS norm $\lVert u\rVert_2\lVert v\rVert_2$.
+
+Let $\phi=\tanh$, and, for $a=1,2$, write
+
+$$
+ Z_a^1=w_a,\quad H_a^1=\phi(w_a),\quad Z_a^2=AH_a^1,\quad
+ H_a^2=\phi(Z_a^2).
+$$
+$$
+ y_1=1,\ y_2=-1,\qquad h=\frac12(H_1^2-H_2^2),\quad
+ b=\langle c,h\rangle=\frac12(f_1-f_2).
+$$
+
+For hidden increments $(v,B)$, define the bounded linear map into $H_{2}$
+
+$$
+ J(v,B)=\frac12\sum_{a=1}^2y_a \phi'(Z_a^2)
+              \{BH_a^1+A(\phi'(Z_a^1)v_a)\}.                          
+$$ {#eq-docs-global-nonlinear-l5510}
+
+This is the directional differential of $h$; an unrestricted Frechet
+statement for an $L^2$-valued Nemytskii map is neither used nor true in general.
+Pairing each term with a fixed $c$ and using the actual adjoint gives
+
+$$
+ J^*c=\left(
+  (\tfrac12y_a \phi'(Z_a^1)A^*(\phi'(Z_a^2)c))_{a=1,2},\quad
+  \tfrac12\sum_a y_a(\phi'(Z_a^2)c)\otimes H_a^1\right).               
+$$ {#eq-docs-global-nonlinear-l5519}
+
+The HS adjunction is
+$\langle q\otimes v,B\rangle_{\mathrm{HS}}=\langle q,Bv\rangle_2$; thus @eq-docs-global-nonlinear-l6146 uses exactly @eq-docs-global-nonlinear-l6111.
+Consider the autonomous feature equation
+
+$$
+                 c_s=h,\qquad (w,K)_s=J^*c.                  
+$$ {#eq-docs-global-nonlinear-l5529}
+
+It has a unique global solution for every finite feature horizon. Here is
+the necessary specialization of @sec-docs-global-nonlinear-l1903, including the change from its sum loss.
+Let $j(X,g)$ solve $j_{X}=\phi^{\prime}(j)$, $j(0,g)=g$. Its scalar vector field is
+bounded by one and Lipschitz, so it exists for all real $X$. It obeys
+$\lvert j(X,g)-j(Y,g)\rvert\le \lvert X-Y\rvert$. Set $w_{a}=j(X_{a},g_{a})$ and solve
+
+$$
+ (X_a)_s=\tfrac12y_a A^*(\phi'(Z_a^2)c),\quad
+ K_s=\tfrac12\sum_a y_a(\phi'(Z_a^2)c)\otimes H_a^1,\quad c_s=h.       
+$$ {#eq-docs-global-nonlinear-l5539}
+
+On bounded clock-$L^2$/operator/readout-supremum sets these equations are
+Lipschitz in the sum of clock $L^2$, operator norm, and readout $L^2$ distances:
+$H_{1}$ is Lipschitz in the clock with constant one; $H_{2}$ is Lipschitz in its
+preactivation; and
+$\|\phi'(Z^2)c-\phi'(\bar Z^2)\bar c\|_2\le\|c-\bar c\|_2+2\|\bar c\|_\infty\|Z^2-\bar Z^2\|_2$.
+The rank-one difference estimate and bounded action/adjoint then control
+all three right sides. The closed readout-supremum condition is complete
+in $L^2$ and its integral update preserves an enlarged bound on a short
+interval. Contraction of that integral map gives local existence and
+uniqueness. Moreover, directly from @eq-docs-global-nonlinear-l6197,
+
+$$
+ \|c(s)\|_\infty\le s,\quad \|K(s)\|_{\rm HS}\le s^2/2,
+ \quad \|A(s)\|_{\rm op}\le2+s^2/2,
+$$
+$$
+ \|w(s)-w(0)\|_2
+ \le {1\over\sqrt2}\int_0^s(2+v^2/2)v\,dv.                  
+$$ {#eq-docs-global-nonlinear-l5559}
+
+The same bound holds for the clock norm in the last display. These
+polynomials prevent escape from the required bounded sets on every finite
+horizon; the integrated equations give a strong limit at a finite proposed
+endpoint and the same local construction extends it. Rank-one continuity
+upgrades $K$ to a strongly $C^1$ HS curve. Bounded-multiplier continuity
+upgrades $w$ to a strongly $C^1$ $L^2$ curve and proves @eq-docs-global-nonlinear-l6181. Conversely, the
+scalar equation $w_{s}=B(s)\phi^{\prime}(w)$ has the unique representation
+$j(\int B,g)$: Fubini makes $B$ integrable at almost every coordinate,
+and the scalar integral Lipschitz inequality gives uniqueness. Thus these
+are the actual raw feature equations, not an alternative optimizer.
+
+The Gaussian action used here is the canonical common action of @sec-docs-global-nonlinear-l1903:
+countably many finite generated programs, their finite unions, both matrix
+orientations, and passive input probes are realized jointly before
+completion. Continuous at-most-linear value instructions $j$ are admitted
+by @sec-docs-global-nonlinear-l1842. The same-root Lipschitz estimate just given supplies the empirical
+feedback passage. No bounded derivative with respect to the Gaussian root
+is required. At a current state, resetting clock zero and retaining the
+current raw fields/action gives the same unique continuation, so the raw
+reference is autonomous and restartable. This construction supplies a
+complete actual-state endpoint characterization below; it encodes no
+future trained trajectory in its coefficients.
+
+###### 2. Symmetry, fitting, and the two clocks {#sec-docs-global-nonlinear-l5587}
+
+Let $P(u_{1},u_{2})=(u_{2},u_{1})$. The raw transformation
+$(w,A,c)\to (wP,A,-c)$ maps predictions to $-f(Pu)$. Direct substitution in
+@eq-docs-global-nonlinear-l6146–@eq-docs-global-nonlinear-l6181 shows that it preserves the feature vector field, since $h$
+changes sign and the two labels exchange signs. It also preserves the
+physical vector field for the probability law
+$\nu_*=\tfrac12\delta_{(e_1,+1)}+\tfrac12\delta_{(e_2,-1)}$ in normalized inputs.
+The initial full-row Gaussian law is invariant under swapping its two
+coordinates; the independent initialized matrix law is unchanged and
+$c_{0}=0$ changes to itself. At the generated-action level this statement is
+obtained by adjoining the swapped version of every finite program to the
+same countable construction. Finite joint laws are invariant; hence the
+coordinate swap is a probability-space isometry that respects coordinate
+operations, the action and its adjoint. The unique integral construction
+commutes with it. Therefore the deterministic predictions satisfy
+
+$$
+                 f(Pu)=-f(u),\qquad f_1=b=-f_2.                
+$$ {#eq-docs-global-nonlinear-l5604}
+
+This is symmetry of the population action law, not pointwise symmetry of a
+particular finite initialized network. No such finite symmetry is assumed.
+Oddness of both activations also gives $f(-u)=-f(u)$.
+
+For the mean squared loss the reference residuals are $(b-1,1-b)$.
+The exact physical equations of @sec-docs-global-nonlinear-l3982 therefore equal $2(1-b)$ times
+@eq-docs-global-nonlinear-l6181. The correct clock is
+
+$$
+                 {ds\over dt}=2(1-b),\qquad s(0)=0.           
+$$ {#eq-docs-global-nonlinear-l5616}
+
+To prove that this clock is legitimate through all physical times, first
+work with the globally defined feature equation. The strong curve chain
+rule gives $h_{s}=J(w,K)_{s}$. Indeed bounded continuous multiplication is
+strongly continuous on a fixed $L^2$ vector after truncating that vector;
+the scalar fundamental theorem of calculus then proves
+$(\phi(z))_{s}=\phi^{\prime}(z)z_{s}$ for strongly $C^1$ $L^2$ curves. Differentiating a bounded
+operator times a strongly $C^1$ vector by adding and subtracting its factors
+gives the ordinary product rule. Applied successively to @eq-docs-global-nonlinear-l6125 this gives
+
+$$
+ c_{ss}=JJ^*c,\qquad
+ b_s=\|h\|_2^2+\|J^*c\|_{\rm hidden}^2
+                  =\|\theta_s\|_{\rm raw}^2.                 
+$$ {#eq-docs-global-nonlinear-l5629}
+
+The metric in the second term is the row-$L^2$ plus HS hidden metric from
+@eq-docs-global-nonlinear-l6111. No derivative of $J$ is taken in @eq-docs-global-nonlinear-l6321.
+
+Set $m=\lVert h(0)\rVert_2^{2}$. Initially the two first features are independent odd
+functions of independent standard normals, so their Gram is $q I_{2}$, where
+
+$$
+ q=E\tanh^2G,\qquad v=E\tanh^2(\sqrt qG),\qquad m=v/2.        
+$$ {#eq-docs-global-nonlinear-l5641}
+
+The initial second preactivations are independent $\mathcal N(0,q)$ by the initial
+forward Gaussian law. The elementary certificate in §5 proves
+
+$$
+                         m\ge m_0:=1/10.                     
+$$ {#eq-docs-global-nonlinear-l5648}
+
+On every interval where $g=\lVert c\rVert_2>0$, differentiating its scalar norm gives
+
+$$
+ g_s=b/g,\qquad
+ g_{ss}=\frac{\|h\|_2^2-(g_s)^2+\|J^*c\|_{\rm hidden}^2}{g}
+                                                          \ge0.
+$$ {#eq-docs-global-nonlinear-l5654}
+
+Cauchy–Schwarz gives the inequality. Since $c(s)=s h(0)+o_{L^2}(s)$ and
+$h(s)\to h(0)$, one has $g_{s}(0+)=\sqrt{m}$. Consequently on its first
+positive interval $g_{s}\ge \sqrt{m}$ and $g\ge s \sqrt{m}$. It cannot reach zero
+again at a positive endpoint, so this interval is all positive feature
+times. Again by Cauchy–Schwarz, $\lVert h\rVert_2\ge g_{s}$, and @eq-docs-global-nonlinear-l6321 gives
+
+$$
+                         b_s\ge m\ge m_0.                    
+$$ {#eq-docs-global-nonlinear-l5666}
+
+Hence there is exactly one first feature time $s_{\dagger}$ with $b=1$, and
+$0<s_{\dagger}\le1/m\le10$. On $[0,s_{\dagger})$, define
+
+$$
+ t(s)=\int_0^s\frac{dv}{2(1-b(v))}.                           
+$$ {#eq-docs-global-nonlinear-l5673}
+
+Its integrand is positive. Since $b_{s}$ is continuous and bounded on the
+compact feature interval $[0,s_{\dagger}]$, say by $K$,
+$1-b(s)\le K(s_{\dagger}-s)$; thus the integral diverges as
+$s\to s_{\dagger}$. Its inverse is defined for every $t\ge 0$ and obeys @eq-docs-global-nonlinear-l6307.
+It is the unique @sec-docs-global-nonlinear-l1903 physical reference by uniqueness of the original raw
+equation. Writing $e(t)=1-b(s(t))$, differentiation gives
+
+$$
+ e_t=-2b_s e,\quad 0<e(t)\le e^{-2m t}\le e^{-t/5},\qquad
+ R_{\nu_*}(f_*(t))=e(t)^2\le e^{-2t/5}.                       
+$$ {#eq-docs-global-nonlinear-l5684}
+
+There is no finite physical time at which the residual first vanishes:
+the displayed linear scalar equation with locally bounded coefficient
+and initial value one keeps it positive. This also checks the clock sign.
+
+###### 3. Actual endpoint and uniform prediction convergence {#sec-docs-global-nonlinear-l5693}
+
+By @eq-docs-global-nonlinear-l6321 and Cauchy–Schwarz, for $0\le s_1\le s_2\le s_{\dagger}$,
+
+$$
+ \|\theta(s_2)-\theta(s_1)\|_{\rm raw}
+ \le\sqrt{(s_2-s_1)(b(s_2)-b(s_1))}.                          
+$$ {#eq-docs-global-nonlinear-l5697}
+
+The state is already globally defined in feature time. Its endpoint is
+precisely the solution of @eq-docs-global-nonlinear-l6181–@eq-docs-global-nonlinear-l6197 stopped at the uniquely characterized
+first level $b=1$; denote it $(w_{\dagger},A_{\dagger},c_{\dagger})$. Define on the
+whole circle
+
+$$
+ f_*^\infty(\sqrt2u)
+ =\langle c_\dagger,\tanh(A_\dagger\tanh(w_\dagger\cdot u))\rangle.
+                                                                  %
+$$ {#eq-docs-global-nonlinear-l5707}
+
+Thus @eq-docs-global-nonlinear-l5707 is a characterization through the actual autonomous dynamics,
+including its initialized Gaussian action and adjoint. It is not merely a
+name for an unknown prediction limit. It gives $f_{\infty}(\sqrt{2}e_1)=1$,
+$f_{\infty}(\sqrt{2}e_2)=-1$ and the two symmetries in @eq-docs-global-nonlinear-l6226.
+
+@eq-docs-global-nonlinear-l5666,@eq-docs-global-nonlinear-l5697 imply
+
+$$
+ s_\dagger-s(t)\le e(t)/m,\qquad
+ \|\theta(s(t))-\theta(s_\dagger)\|_{\rm raw}\le e(t)/\sqrt m.
+                                                                  %
+$$ {#eq-docs-global-nonlinear-l5720}
+
+In particular throughout this interval
+
+$$
+ \|c\|_2\le\sqrt{10},\quad \|A\|_{op}\le2+\sqrt{10},\quad
+ \|w\|_2\le\sqrt2+\sqrt{10},\quad \|c\|_\infty\le10.           
+$$ {#eq-docs-global-nonlinear-l5728}
+
+For any $\lvert u\rvert=1$, strong directional differentiation and the same
+adjunction as above give three raw gradient blocks for $f(u)$ with norms
+at most $\lVert A\rVert_{\mathrm{op}}\lVert c\rVert_2$, $\lVert c\rVert_2$, and one, respectively. Equivalently,
+add and subtract the three endpoint factors and use the one-Lipschitz
+activations. The straight segment between two reference states retains
+@eq-docs-global-nonlinear-l5728. Integrating the scalar derivative along this segment proves
+
+$$
+ \sup_{|u|=1}|f_\theta(u)-f_{\bar\theta}(u)|
+ \le C\|\theta-\bar\theta\|_{\rm raw},\quad
+ C=\sqrt{1+10\{1+(2+\sqrt{10})^2\}}<17.                       
+$$ {#eq-docs-global-nonlinear-l5740}
+
+This holds simultaneously for all inputs; no finite grid substitutes for
+the circle. Combining it with @eq-docs-global-nonlinear-l5684,@eq-docs-global-nonlinear-l5720,
+
+$$
+ \sup_{x\in\sqrt2S^1}|f_*(t,x)-f_*^\infty(x)|
+ \le 17\sqrt{10}\,e^{-t/5}.                                  
+$$ {#eq-docs-global-nonlinear-l5749}
+
+The explicit choice
+
+$$
+                              T=40                           
+$$ {#eq-docs-global-nonlinear-l5756}
+
+therefore has endpoint error less than $1/32$: $17\sqrt{10}e^{-8}<.019<\frac1{32}$.
+Its reference risk is at most $e^{-16}<1/1024$. These are strict margins.
+For example the elementary Taylor lower sum for $e^{8}$ already proves the
+stated inequalities, so no numerical solver for the trained flow is used.
+
+Input regularity also follows directly from the full-row norm:
+
+$$
+ |f_\theta(\sqrt2u)-f_\theta(\sqrt2v)|
+ \le\sqrt{10}(2+\sqrt{10})(\sqrt2+\sqrt{10})|u-v|<76|u-v|.    
+$$ {#eq-docs-global-nonlinear-l5767}
+
+The endpoint satisfies the same estimate. Also $\lVert f\rVert_\infty\le\sqrt{10}$.
+For binary labels, $(f(u)-y)^{2}$ is therefore Lipschitz in the prescribed
+joint transport cost with constant at most
+$2(\sqrt{10}+1)\max(76,1)<633$; use
+$\lvert(a-y)^2-(b-z)^2\rvert\le2(\sqrt{10}+1)(|a-b|+|y-z|)$.
+This proves the exact input regularity needed for risk transport.
+
+For a general target error $\epsilon>0$, the same reference component gives
+$T(\epsilon)=\max\!\left(0,5\log\frac{17\sqrt{10}}{\epsilon}\right)$. Changed-law radii for this
+choice remain a separate comparison conclusion and may shrink with $\epsilon$.
+
+###### 4. Both hidden activations move at the fixed time 1/200 {#sec-docs-global-nonlinear-l5783}
+
+This section uses the actual opposite-label reference and retains paired
+initial/current observations. Put $Y_a=A_0H_{0,a}^{1}$; let
+
+$$
+ h_0=(\tanh Y_1-\tanh Y_2)/2,\quad
+ U_a=h_0\phi'(Y_a),\quad P_a=A_0^*U_a,\quad
+ V_a=\phi'(g_a)^2P_a,
+$$
+$$
+ R_a=qU_a+A_0V_a,\qquad
+ a_0=E\phi'(G)^4,\quad r_0=E\phi'(\sqrt qG)^2.                
+$$ {#eq-docs-global-nonlinear-l5793}
+
+All fields are typed: $U,R$ live in layer two, and $P,V$ in layer one.
+The Gaussian integration certificate proves $q>.39$, $q<.4$,
+$v>.2$, $a_0>.3$, and $r_0>.6$.
+
+Here is a complete fixed initial reuse calculation establishing positivity
+and the needed moments. Let $C_{ab}=\mathbb E[U_{a} U_{b}]$. Gaussian conditioning on
+the first two forward calls gives
+
+$$
+ P_a=\sum_{b=1}^2p_{ab}\tanh g_b+\Gamma_a,\quad
+ p_{ab}=E[Y_bU_a]/q,\quad \Gamma\sim N(0,C),                  
+$$ {#eq-docs-global-nonlinear-l5806}
+
+independently of $(g_{1},g_{2})$. This is the actual transpose response, not a
+fresh-matrix replacement. For completeness, the finite conditional
+Gaussian matrix has its mean fixed on the two forward query directions
+and independent Gaussian randomness on their orthogonal complement.
+Applying its transpose to $U$ gives the first term in @eq-docs-global-nonlinear-l5806 and a Gaussian
+with covariance $\mathbb E[UU^\top]$; projections onto the finitely many old first
+query directions have expected squared RMS $O(1/n)$ and disappear.
+The joint initial forward Gram is $q I$, so no inverse at a degeneracy is
+involved here. Bounded smooth $U(Y)$ permits the fixed-program law and
+contractions. Truncating the products by bounded gates and using their
+fixed Gaussian moment envelopes permits the same conclusion for $V$.
+
+The matrix $C$ is positive definite. If $z_{1} U_{1}+z_{2} U_{2}=0$ almost surely,
+Gaussian full support and continuity give
+$(\tanh Y_{1}-\tanh Y_{2})(z_{1} \phi^{\prime}(Y_{1})+z_{2} \phi^{\prime}(Y_{2}))=0$ everywhere.
+On the dense open set $Y_{1}\ne Y_{2}$ the second factor vanishes and continuity
+extends this identity everywhere. Varying each coordinate and using the
+nonconstant function $\phi^{\prime}$ forces $z_{1}=z_{2}=0$.
+
+Let $\alpha_b=\mathbb E[H_{0,b}^{1}V_a]/q$,
+$V_{a}^{perp}=V_{a}-\sum \alpha_{b} H_{0}_{b}^{1}$, and
+$\sigma_{a}^{2}=\mathbb E[(V_{a}^{perp})^{2}]$. Conditioning the same Gaussian matrix on the
+forward calls and the reverse calls in @eq-docs-global-nonlinear-l5806 gives
+
+$$
+ A_0 V_a=\sum_b\alpha_bY_b+\bar d\,U_a+\sigma_a\gamma_a,
+ \quad \bar d=E\phi'(G)^2,                                  
+$$ {#eq-docs-global-nonlinear-l5835}
+
+where $\gamma_{a}$ is standard normal independent of the old layer-two
+coordinates, for each fixed $a$. Independence between $\gamma_1,\gamma_2$
+is not claimed. To verify the response coefficient, the conditional
+matrix formula gives $C^{-1} \mathbb E[P V_{a}^{perp}]$ for the coefficient of $U$.
+The deterministic part of each $P_{b}$ is in the span of the first forward
+inputs and pairs to zero with $V_{a}^{perp}$. The remaining pairing is
+$\mathbb E[\Gamma_{b} \Gamma_{a}] \mathbb E \phi^{\prime}(G)^{2}=C_{ba} \bar{d}$; multiplication by $C^{-1}$
+gives $\bar{d}$ in coordinate $a$. The unused Gaussian input variance is
+$\sigma_{a}^{2}$. Its finite output projection off the two old reverse input
+directions again has vanishing RMS. These calculations prove @eq-docs-global-nonlinear-l5835
+without suppressing either reused response term.
+
+Conditional variance in @eq-docs-global-nonlinear-l5806 and projection off functions of the roots
+give
+
+$$
+ \|V_a\|_2^2\ge C_{aa}a_0,\qquad
+ \sigma_a^2\ge C_{aa}a_0,\qquad
+ \|\phi'(Y_a)R_a\|_2^2\ge C_{aa}a_0 r_0.                    
+$$ {#eq-docs-global-nonlinear-l5855}
+
+The last inequality conditions on the old second-layer coordinates in
+@eq-docs-global-nonlinear-l5835; all its other terms are functions of those coordinates. By
+independence and oddness of the initial $Y_{1},Y_{2}$,
+
+$$
+ C_{aa}=\tfrac14 E[(\tanh^2Y_a+v)\phi'(Y_a)^2]
+                          \ge vr_0/4>3/100.                  
+$$ {#eq-docs-global-nonlinear-l5865}
+
+Thus each of the two first-order-in-$s^{2}$ coefficients has norm at least
+
+$$
+ \tfrac14\|V_a\|_2>1/100,\qquad
+ \tfrac14\|\phi'(Y_a)R_a\|_2>1/100.                          
+$$ {#eq-docs-global-nonlinear-l5872}
+
+For explicit remainder bounds, @eq-docs-global-nonlinear-l5806 gives $\sum_b|p_{ab}|\le\frac{2}{\sqrt{q}}<4$
+and $C_{aa}\le1$. It can be coupled so that $\lvert P_{a}\rvert\le 4+\lvert G\rvert$, and hence
+$\lVert P_a\rVert_4<6$. For $R\ge 8$ and $z=R-4$, the elementary Gaussian tail
+integration yields
+
+$$
+ \tau_R(P_a):=\|P_a1_{|P_a|>R}\|_2
+ \le\{(4z+68/z)e^{-z^2/2}\}^{1/2}.                           
+$$ {#eq-docs-global-nonlinear-l5882}
+
+Indeed $(\lvert G\rvert+4)^{2}\le 2G^{2}+32$,
+$\Pr\{|G|>z\}\le2\phi_G(z)/z$, and
+$\mathbb E[G^2\mathbf 1_{\{|G|>z\}}]\le2(z+z^{-1})\phi_G(z)$; then drop the density factor
+$1/\sqrt{2\pi}<1$. At $R=10$, the right side is less than $1/1000$.
+By bounded action $\lVert V_a\rVert_2\le\lVert P_a\rVert_2\le2$.
+In @eq-docs-global-nonlinear-l5835, the Gaussian linear term has $L^4$ norm at most
+$3^{1/4}\lVert V_a\rVert_2<3$, the fresh Gaussian term has $L^4$ norm below three,
+and $(q+\bar{d})U_{a}$ has supremum at most two. Therefore $\lVert R_a\rVert_4<8$.
+
+We now prove an explicit small-feature-time expansion using only these
+fixed initial tails. For $0\le s\le 1$, @eq-docs-global-nonlinear-l6214 gives
+
+$$
+ \|A\|_{op}\le5/2,\quad \|c\|_\infty\le s,\quad
+ \|K\|_{HS}\le s^2/2,\quad
+ \|w_a-g_a\|_2\le5s^2/8,
+$$
+$$
+ \|Z_a^2-Y_a\|_2\le7s^2/4,\quad
+ \|c-sh_0\|_2\le7s^3/12,\quad
+ \|\phi'(Z_a^2)c-sU_a\|_2\le5s^3,
+$$
+$$
+                  \|A^*(\phi'(Z_a^2)c)-sP_a\|_2\le11s^3.           
+$$ {#eq-docs-global-nonlinear-l5909}
+
+For the middle line, $H_{1}$ and $H_{2}$ are one-Lipschitz, so
+$\lVert h(s)-h_0\rVert_2\le\frac{7s^2}{4}$; integrate and then use the two-Lipschitz
+second gate. The last line uses $\lVert A\rVert\le 5/2$, $\lVert K\rVert\le s^{2}/2$
+and the sharper $49s^{3}/12$ bound preceding the rounded $5s^{3}$.
+
+Truncate the *fixed initial* $P_{a}$ at $R$. Then
+
+$$
+ \|(\phi'(Z_a^1(s))-\phi'(g_a))P_a\|_2
+ \le(5R/4)s^2+2\tau_R(P_a).
+$$
+
+Subtract $y_{a} s \phi^{\prime}(g_{a})P_{a}/2$ from the first raw feature velocity in
+@eq-docs-global-nonlinear-l6146, integrate, and use @eq-docs-global-nonlinear-l5909. The preactivation remainder is bounded by
+$(44+5R)s^{4}/32+\tau_{R}(P_{a})s^{2}/2$. For the activation, compare first with
+the artificial increment $y_{a} s^{2} \phi^{\prime}(g_{a})P_{a}/4$; its scalar tanh Taylor
+remainder has $L^2$ norm at most $s^4\lVert P_a\rVert_4^2/16$, since $|\phi^{\prime\prime}|\le2$.
+Consequently
+
+$$
+ \|H_a^1(s)-H_a^1(0)-y_as^2V_a/4\|_2
+ \le\tfrac12\tau_R(P_a)s^2+{116+5R\over32}s^4.                
+$$ {#eq-docs-global-nonlinear-l5932}
+
+The middle velocity differs from
+$(s/2)\sum y_{a} U_{a} \otimes H_{a}^{1}(0)$ by at most $45s^{3}/8$ in HS norm:
+use @eq-docs-global-nonlinear-l5909, $\lVert U\rVert_2\le1$, and $\lVert H_1-H_{1,0}\rVert_2\le\frac{5s^2}{8}$.
+After integration its remainder is at most $45s^{4}/32$.
+Expanding $(A_0+K)(H_{1,0}+\Delta H_1)$ now gives
+$Z_a^2-Y_a=\frac{y_as^2}{4}(qU_a+A_0V_a)$ with remainder at most
+$\tau_{R}(P_{a})s^{2}+[2(116+5R)/32+55/32]s^{4}$. The $55/32$ consists of
+$45/32$ from the middle increment and $5/16$ from $K \Delta H_{1}$.
+The scalar tanh remainder adds $s^4\lVert R_a\rVert_4^2/16\le4s^4$. Thus
+
+$$
+ \|H_a^2(s)-H_a^2(0)-y_as^2\phi'(Y_a)R_a/4\|_2
+ \le\tau_R(P_a)s^2+{415+10R\over32}s^4.                      
+$$ {#eq-docs-global-nonlinear-l5947}
+
+At $R=10$ and $s\le 1/100$, @eq-docs-global-nonlinear-l5872–@eq-docs-global-nonlinear-l5947 show, for both layers and each
+reference input,
+
+$$
+           \|H_a^\ell(s)-H_a^\ell(0)\|_2\ge s^2/200.         
+$$ {#eq-docs-global-nonlinear-l5955}
+
+In fact the error coefficient is at most
+$.001+(515/32)10^{-4}<.003<.005$, strictly below half the coefficient
+lower bound $.01$.
+
+Choose the fixed **physical** time
+
+$$
+                       t_{\rm act}=1/200.                   
+$$ {#eq-docs-global-nonlinear-l5965}
+
+Since $\lVert c(s)\rVert_2\le s$ and $\lVert h\rVert_2\le1$, one has $0\le b(s)\le s$
+before the level $b=1$. The clock therefore satisfies
+$1-e^{-2t}\le s(t)\le 2t$. At @eq-docs-global-nonlinear-l5965,
+$199/20000\le s(t_{\mathrm{act}})\le1/100$; the lower bound uses
+$1-e^{-a}\ge a-a^{2}/2$. Hence the paired RMS averaged over the reference law,
+
+$$
+ D_{\ell,*}(t)=\left\{\frac12\sum_{a=1}^2
+ E_\ell|H_a^\ell(t)-H_a^\ell(0)|^2\right\}^{1/2},
+$$
+
+obeys the explicit strict margin
+
+$$
+              D_{\ell,*}(t_{\rm act})>1/2{,}500{,}000,
+              \qquad \ell=1,2.                              
+$$ {#eq-docs-global-nonlinear-l5982}
+
+The average uses paired initial and current coordinates on the same layer
+population. It is not the Wasserstein distance between separate marginals.
+By @sec-docs-global-nonlinear-l1903 the reference finite networks retain this paired observable:
+with their actual random initial readout, widths tending to infinity and
+actual steps satisfying $\eta \sqrt{n}\to 0$, its finite squared value
+$(2n)^{-1} \sum_{a,i}\lvert h_{ai}^\ell(t)-h_{ai}^\ell(0)\rvert^{2}$ converges in probability
+to $D_{\ell,*}^{2}$ at this physical time. In particular its RMS exceeds half
+@eq-docs-global-nonlinear-l5982 with probability tending to one. Whole-circle law perturbation and
+averaging under a nearby $\mu$, or its empirical laws, require the separate
+transport component; @eq-docs-global-nonlinear-l5982 supplies the positive reference margin for it.
+No claim of displacement at time $T=40$ is needed or made here.
+
+###### 5. Reproducible rational Gaussian certificate {#sec-docs-global-nonlinear-l5999}
+
+This is deterministic constant evaluation, not a training experiment.
+For $0\le x\le 18$, put $S_{80}(x)=\sum_{j=0}^{80} x^{j}/j!$. Then
+
+$$
+ S_{80}(x)\le e^x\le S_{80}(x)
+       +{x^{81}/81!\over1-x/82}.                             
+$$ {#eq-docs-global-nonlinear-l6004}
+
+The upper remainder follows because every subsequent term ratio is at
+most $x/82<1$. Quadrature arguments are at most eight; the separate
+initial-tail verification uses argument eighteen. Partition $[0,4]$ into 1,000 intervals of width $1/250$.
+The Gaussian density decreases there and its value at zero lies between
+$.3988$ and $.3990$; the program certifies the two squared inequalities
+using rational alternating bounds for
+$\pi=16\arctan(1/5)-4\arctan(1/239)$. This identity follows from the tangent
+addition formula: $\tan(4\arctan(1/5))=120/119$, so subtracting
+$\arctan(1/239)$ gives tangent one at an angle in $(0,\pi/2)$.
+The alternating arctangent remainder bounds follow by integrating the
+finite geometric identity for $1/(1+x^{2})$ from zero to each positive
+argument. Use tanh at left endpoints and density at right
+endpoints for lower bounds on increasing squared tanh. For decreasing
+powers of sech, both right endpoints give lower bounds. For the upper
+bound on $q$, use the opposite endpoints and add $1/10000$; the missing
+two-sided Gaussian tail beyond four is at most $2\phi_{G}(4)/4<1/10000$.
+The function $(E-1)/(E+1)$ increases for $E\ge 1$, whereas
+$4E/(E+1)^{2}$ decreases there. Thus @eq-docs-global-nonlinear-l6004 supplies rational bounds for
+all required gates. Since $.624^{2}<.39$ and $.633^{2}>.4$, the resulting lower
+bounds imply the exact $v,a_{0},r_{0}$ bounds used above.
+
+The following complete Python program uses exact rational arithmetic,
+rounding each summand outward to denominator $10^{12}$ to prevent growth of
+unneeded common denominators. Its assertions are exact integer/rational
+comparisons. Decimal output is only a readable summary.
+
+```python
+from fractions import Fraction as F
+N = 1000
+cache = {}
+def expb(x):
+    if x in cache:
+        return cache[x]
+    t = S = F(1)
+    for j in range(1, 81):
+        t = t*x/j
+        S += t
+    upper = S + t*x/81/(1-x/82)
+    cache[x] = (S, upper)
+    return S, upper
+# Density bounds, with no floating point pi dependency.
+def atanb(x):
+    lo = sum((-1)**j*x**(2*j+1)/F(2*j+1) for j in range(20))
+    return lo, lo+x**41/41
+a, b = atanb(F(1,5))
+c, d = atanb(F(1,239))
+pi_lo, pi_hi = 16*a-4*d, 16*b-4*c
+assert 2*pi_hi*F(3988,10000)**2 < 1
+assert 2*pi_lo*F(399,1000)**2 > 1
+# Two-sided Gaussian tail beyond four is at most phi_G(4)/2.
+e8_lo, _ = expb(F(8))
+assert F(399,1000)/(2*e8_lo) < F(1,10000)
+# Verify the two additional elementary margins used in the proof.
+assert F(35334,1000)/expb(F(18))[0] < F(1,1000000)
+assert 17*F(3163,1000)/e8_lo < F(1,32)
+D = 10**12
+def low(z):
+    v = z*D
+    return F(v.numerator//v.denominator, D)
+def high(z):
+    return -low(-z)
+qlo = qhi = vlo = alo = rlo = F(0)
+for j in range(N):
+    l, r = F(j,250), F(j+1,250)
+    el, _ = expb(2*l)
+    _, er = expb(2*r)
+    _, dr = expb(r*r/2)
+    dl, _ = expb(l*l/2)
+    tl, tr = (el-1)/(el+1), (er-1)/(er+1)
+    wl = 2*F(3988,10000)/250/dr
+    wu = 2*F(399,1000)/250/dl
+    qlo += low(wl*tl**2)
+    qhi += high(wu*tr**2)
+    ev, _ = expb(2*F(624,1000)*l)
+    _, ee = expb(2*F(633,1000)*r)
+    tv = (ev-1)/(ev+1)
+    sa, sr = 4*er/(er+1)**2, 4*ee/(ee+1)**2
+    vlo += low(wl*tv**2)
+    alo += low(wl*sa**4)
+    rlo += low(wl*sr**2)
+print([float(z) for z in (qlo, qhi+F(1,10000), vlo, alo, rlo)])
+assert qlo > F(39,100) and qhi+F(1,10000) < F(2,5)
+assert vlo > F(1,5) and alo > F(3,10) and rlo > F(3,5)
+```
+
+Executed with Python 3.10.12, exit zero. Output:
+
+```text
+[0.392108947877, 0.396376711612, 0.233120735618,
+ 0.339792209687, 0.631761866359]
+```
+
+The displayed standard-library Python program is the complete reproduction procedure. Its exact rational comparisons certify the weaker bounds $m\ge.1$, $a_0>.3$ and $r_0>.6$ used above. No numerical training solver is needed.
+
+
+##### C.4.5.2. Quantitative reference response tails {#sec-docs-global-nonlinear-l6104}
+
+###### 1. Exact feature equations and the bounded reference interval {#sec-docs-global-nonlinear-l6106}
+
+Put $\sigma_{1}=1$, $\sigma_{2}=-1$, and $\phi=\tanh$. Let $J$ be the global
+scalar solution
+
+$$
+ J_X(X,g)=\operatorname{sech}^2 J(X,g),\qquad J(0,g)=g,
+ \quad H(X,g)=\tanh J(X,g).                                      
+$$ {#eq-docs-global-nonlinear-l6111}
+
+Here $X$ is a clock argument; $g$ is a fixed Gaussian first-row root.
+For each fixed $g$, scalar existence and uniqueness follow from boundedness
+and global Lipschitz continuity of $\operatorname{sech}^{2}$. In particular
+$\lvert J(X,g)\rvert\le \lvert g\rvert+\lvert X\rvert$, $\lvert J(X,g)-J(Y,g)\rvert\le \lvert X-Y\rvert$, and
+$H_{X}=\operatorname{sech}^{4} J$, so $\lvert H_{X}\rvert\le 1$. There is no globally bounded derivative
+assumption in the root $g$.
+
+The feature equations on the two separate neuron probability spaces are
+
+$$
+\begin{aligned}
+ H_a^1&=H(X_a,g_a),& Z_a^2&=A H_a^1,&H_a^2&=\phi(Z_a^2),\\
+ \delta_a&=c\phi'(Z_a^2),& Q_a&=A^*\delta_a,\\
+ X_{a,s}&=\tfrac12\sigma_a Q_a,&
+ A_s&=\tfrac12\sum_a\sigma_a\delta_a\otimes H_a^1,&
+ c_s&=\tfrac12\sum_a\sigma_a H_a^2 .
+\end{aligned}                                                     
+$$ {#eq-docs-global-nonlinear-l6125}
+
+The initialized action and its adjoint are the common Gaussian action,
+and $X(0)=0,c(0)=0$. The rank action is
+$(v \otimes h)z=v \mathbb E_{1}[hz]$. At finite width it is $v h^\top/n$.
+These equations are the actual reference flow under
+$ds/dt=2(1-b)$, up to its feature endpoint $s_\infty$. They are also a
+well-defined auxiliary autonomous feature system beyond that endpoint,
+but no estimate below requires that extension.
+
+Write $m=\lVert (H_{1}^{2}(0)-H_{2}^{2}(0))/2 \rVert_{2}^{2}$. The reference fitting proof
+establishes
+
+$$
+ m\ge1/10,\quad 0<s_\infty\le1/m\le10,\quad
+ \|\theta(s)-\theta(0)\|_{\rm raw}\le\sqrt{s\,b(s)}\le\sqrt{10}
+ \quad(0\le s\le s_\infty).                                      
+$$ {#eq-docs-global-nonlinear-l6146}
+
+The raw increment norm is the square sum of the full first-row $L^2$ norm,
+the middle Hilbert–Schmidt norm and the readout $L^2$ norm. Therefore
+$\lVert A-A_0\rVert_{\mathrm{HS}}\le\sqrt{10}$, $\lVert c\rVert_2\le\sqrt{10}$, and @eq-docs-global-nonlinear-l6125 independently gives
+$\lVert c(s)\rVert_\infty\le s$. The canonical initialized action has norm at most
+two; its finite counterpart has norm at most three with probability
+tending to one, by the contained proof in global nonlinear @sec-docs-global-nonlinear-l1864.
+
+Only meshes with terminal point at most $s_\infty$ will be used. For all
+sufficiently fine such meshes, their population Euler paths have
+$\lVert A-A_0\rVert_{\mathrm{HS}}<\sqrt{10}+\frac{1}{10}$, $\lVert c\rVert_2<\sqrt{10}+\frac{1}{10}$.
+Here is why the Hilbert–Schmidt assertion follows from the clock proof.
+Replace the action difference in @sec-docs-global-nonlinear-l1903's metric by the Hilbert–Schmidt norm
+of its learned increment. The forward and adjoint difference bounds still
+hold because $\lVert K\rVert_{\mathrm{op}}\le\lVert K\rVert_{\mathrm{HS}}$; the rank difference bound is identical in
+these two norms. The same integrated contraction argument and Euler
+recurrence give convergence in this stronger metric on each bounded
+interval. This argument applies to @eq-docs-global-nonlinear-l6125, whose controls are fixed signs
+instead of residual feedback. Its elementary global finite-feature bounds
+are $\lVert c\rVert_\infty\le s$, $\lVert A\rVert_{\mathrm{op}}\le\lVert A_0\rVert_{\mathrm{op}}+\frac{s^2}{2}$, and
+$\sum_{a} \lVert X_{a}\rVert_2\le \int_{0}^{s} \lVert A(v)\rVert_{\mathrm{op}} v dv$. They provide the bounded
+sets needed before using @eq-docs-global-nonlinear-l6146.
+
+At each fixed mesh the finite-program value theorem identifies every
+contraction in the finitely many learned ranks. Their HS norm squared is
+the finite double sum of the corresponding two Gram entries. Thus the
+finite learned increments have the same HS bounds, with an arbitrarily
+small slack, with probability tending to one. The finite unforced mesh
+therefore lies strictly inside
+
+$$
+ \|A\|_{\rm op}<7,\qquad \|c\|_2<4,\qquad
+ \|c(s_k)\|_\infty\le s_k .                                      
+$$ {#eq-docs-global-nonlinear-l6181}
+
+The finite initial readout is set to zero only for these auxiliary source
+programs. The actual-network reference bridge at the end retains the
+specified finite Gaussian readout.
+
+###### 2. The source rule for the tanh clock, including zero forcing {#sec-docs-global-nonlinear-l6190}
+
+At a fixed mesh with steps $h_{k}$, set $\gamma_{ka}=h_{k} \sigma_{a}/2$ and make
+both forward calls before both reverse calls, followed by simultaneous
+updates @eq-docs-global-nonlinear-l6125. On population 1 retain the entire root $(g_{1},g_{2})$. The scalar
+source recursion is
+
+$$
+\begin{aligned}
+ X_{ka}&=\sum_{r<k}\gamma_{ra} Q_{ra},&H^1_{ka}&=H(X_{ka},g_a),\\
+ Z^2_{ka}&=\xi_{ka}+\sum_{r<k,b}a_{ka,rb}\delta_{rb},&
+ c_k&=\sum_{r<k,b}\gamma_{rb}\phi(Z^2_{rb}),\\
+ \delta_{ka}&=c_k\phi'(Z^2_{ka}),&
+ Q_{ka}&=\zeta_{ka}+\sum_{r\le k,b}b_{ka,rb}H^1_{rb},\\
+ a_{ka,rb}&=\alpha_{ka,rb}+\gamma_{rb}E_1[H^1_{ka}H^1_{rb}],&
+ \alpha_{ka,rb}&=E_1[\partial_{\zeta_{rb}}H^1_{ka}],\\
+ b_{ka,rb}&=\beta_{ka,rb}+1_{r<k}\gamma_{rb}E_2[\delta_{ka}\delta_{rb}],&
+ \beta_{ka,rb}&=E_2[\partial_{\xi_{rb}}\delta_{ka}].
+\end{aligned}                                                     
+$$ {#eq-docs-global-nonlinear-l6197}
+
+The centered source covariances, also between programs sharing the initial
+matrix, are
+
+$$
+ E_2[\xi_{ka}\xi_{vb}]=E_1[H^1_{ka}H^1_{vb}],\qquad
+ E_1[\zeta_{ka}\zeta_{vb}]=E_2[\delta_{ka}\delta_{vb}].             
+$$ {#eq-docs-global-nonlinear-l6214}
+
+The reverse Gaussian group is independent of the full first-row root.
+Sources in different orientations belong to independent groups; the actual
+matrix answers are dependent through their response terms. Formal
+derivatives hold selected expectations, contraction coefficients and
+covariances fixed. All named slots are retained even at zero variance.
+Their complete chain rules include
+
+$$
+\begin{aligned}
+ \partial X_{ka}&=\sum_{r<k}\gamma_{ra}\partial Q_{ra},&
+ \partial H^1_{ka}&=\operatorname{sech}^4 J(X_{ka},g_a)\partial X_{ka},\\
+ \partial c_k&=\sum_{r<k,b}\gamma_{rb}\phi'(Z^2_{rb})\partial Z^2_{rb},&
+ \partial\delta_{ka}&=\phi'(Z^2_{ka})\partial c_k
+             +c_k\phi''(Z^2_{ka})\partial Z^2_{ka},\\
+ \beta_{ka,kb}&=1_{a=b}E_2[c_k\phi''(Z^2_{ka})].
+\end{aligned}                                                     
+$$ {#eq-docs-global-nonlinear-l6226}
+
+We justify this source statement, rather than inferring it from values.
+Choose a smooth root clipping function $\chi_{R}$ equal to the identity on
+$[-R,R]$, with bounded image and $\lvert \chi_{R}^{\prime}\rvert\le 1$, and replace $H(X,g)$ by
+$H(X,\chi_{R}(g))$. Positivity of the scalar gate gives the exact identity
+
+$$
+ J_g(X,g)=\frac{\operatorname{sech}^2 J(X,g)}{
+                         \operatorname{sech}^2 g}.
+$$
+
+One may derive it by differentiating the scalar ODE and solving its scalar
+linear variational equation, or by differentiating
+$F(J)=F(g)+X$, where $F(z)=z/2+\sinh(2z)/4$.
+Thus the clipped-root map has bounded first derivatives in both arguments.
+Its $X$ derivative stays bounded by one uniformly in $R$. Clip the readout
+factor smoothly, with the clipping map equal to the identity on an open
+neighborhood of the deterministic interval $[-10,10]$; since
+$\lVert c\rVert_\infty\le s_k\le10$, this changes no program value. All resulting
+coordinate instructions now have bounded first derivatives, so III.@sec-docs-special-data-limits-l3789–@sec-docs-special-data-limits-l4009
+applies, including its complete Gaussian conditioning proof and its
+zero-query-noise argument. Expanding the learned ranks gives exactly @eq-docs-global-nonlinear-l6197.
+
+There is a uniform bound on every first *source* derivative of every fixed
+scalar graph while earlier selected coefficients lie in a compact set.
+Indeed the recursion has finitely many steps, $H_{X}$ is bounded by one,
+$\lvert \phi^{\prime}\rvert\le 1$, $|\phi^{\prime\prime}|\le2$, the readout is bounded, and every matrix node
+is a source plus a finite linear combination of earlier nodes. Induction
+through @eq-docs-global-nonlinear-l6226 gives a finite deterministic bound. This bound is independent
+of $R$: derivatives with respect to the root are never taken.
+
+Now remove the root clipping chronologically. A convergent finite
+covariance matrix has convergent positive-semidefinite square roots:
+boundedness gives subsequential limits, each limit is a nonnegative square
+root of the same matrix, and diagonalization gives its uniqueness. Couple
+source prefixes using these square roots and fixed standard Gaussians.
+At each finite instruction the expressions converge in probability.
+The source derivative bound just proved gives uniform integrability of
+their derivatives, so expected derivatives converge. Values are bounded or
+have a common linear envelope in the finite source/root list, yielding $L^2$
+convergence. This closes the chronological induction for both coefficients
+and values, even at a singular covariance. In particular the limit of @eq-docs-global-nonlinear-l6226
+is precisely its displayed uncut expression.
+
+These scalar values are the actual finite-program limits. For completeness,
+on the same finite arrays the direct change of a first activation caused
+by root clipping, at a fixed clock, has RMS at most
+$2\left[n^{-1}\sum_i\mathbf 1_{\{|g_{ai}|>R\}}\right]^{1/2}$. The rest of its change is bounded
+by the clock RMS change because $\lvert H_{X}\rvert\le 1$. Initial operator bounds and
+finite graph subtraction then propagate these errors through every node.
+The empirical Gaussian tail frequency converges by the elementary iid
+law of large numbers. At each fixed clipping level the finite-program
+theorem already applies; first let width grow, then remove clipping.
+This identifies the scalar limit above with the uncut value limit.
+Scalar contractions are treated in their causal order: their difference
+is bounded by the two RMS errors times the bounded RMS factors, so the
+same finite induction includes their actual empirical feedback. No
+all-moment finite-width theorem or derivative in $g$ is used.
+
+Exactly the same argument covers a fresh root added with coefficient
+$\epsilon$ to one complete query answer. For a fixed finite graph its
+coefficients and expected source derivatives are continuous as
+$\epsilon\to 0$: the causal induction, covariance square-root coupling and
+uniform source derivative bounds apply unchanged for $\lvert \epsilon\rvert\le 1$.
+The expression convention fixes derivatives of variance-zero slots.
+This continuity is what permits the final zero-forcing limit below.
+
+###### 3. Explicit fresh-root pulse estimates {#sec-docs-global-nonlinear-l6303}
+
+For two states with the same first roots, use
+
+$$
+ d=x+a+z,\quad x=\sum_{a=1}^2\|X_a-\bar X_a\|_2,\quad
+ a=\|A-\bar A\|_{\rm op},\quad z=\|c-\bar c\|_2 .              
+$$ {#eq-docs-global-nonlinear-l6307}
+
+At finite width use explicitly
+$x_{n}=\sum_{a} \lVert X_{na}-\bar{X}_{na}\rVert_{2}/\sqrt{n}$,
+$a_{n}=\lVert A_{n}-\bar{A}_{n}\rVert_{\mathrm{op}}$, and
+$z_{n}=\lVert c_{n}-\bar{c}_{n}\rVert_{2}/\sqrt{n}$.
+All finite Euclidean norms retain their ordinary meaning.
+
+Suppose both states satisfy $\lVert A\rVert_{\mathrm{op}}\le M$, $\lVert c\rVert_2\le C$, and
+$\lVert c\rVert_\infty\le s$. At a feature time $s$, factor subtraction gives
+
+$$
+\begin{aligned}
+ \sum_a\|\Delta Z_a^2\|_2&\le2a+Mx,\\
+ \sum_a\|\Delta\delta_a\|_2&\le2z+4sa+2sMx,\\
+ \sum_a\|\Delta Q_a\|_2&\le2Ca+M(2z+4sa+2sMx).
+\end{aligned}                                                     
+$$ {#eq-docs-global-nonlinear-l6321}
+
+For example the first term in the final line is the change of action
+applied to a backward field of norm at most $C$; both such fields occur.
+The three velocity differences, in the order of @eq-docs-global-nonlinear-l6307, are consequently
+bounded by
+
+$$
+\begin{aligned}
+ \Delta F_X&\le sM^2x+(C+2sM)a+Mz,\\
+ \Delta F_A&\le(sM+C/2)x+2sa+z,\\
+ \Delta F_c&\le(M/2)x+a.
+\end{aligned}                                                     
+$$ {#eq-docs-global-nonlinear-l6334}
+

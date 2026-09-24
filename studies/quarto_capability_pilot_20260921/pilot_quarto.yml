@@ -1,0 +1,18 @@
+project:
+  type: book
+  resources:
+    - NOTATION.md
+book:
+  title: "PDE book — isolated migration pilot"
+  chapters:
+    - index.qmd
+    - pilot_linear.qmd
+number-sections: true
+number-depth: 3
+format:
+  html: default
+  pdf:
+    pdf-engine: xelatex
+    keep-tex: true
+    latex-auto-install: false
+    latex-tinytex: false

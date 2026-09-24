@@ -1,0 +1,22 @@
+{
+  "accepted": [
+    {
+      "packet": "linear_001",
+      "source": "docs/README.md",
+      "start": 1,
+      "end": 211,
+      "candidate": "linear_001.qmd",
+      "candidate_sha256": "fa9cedbbbf62ec21ea6252f2c7dbdf99fedb18b0fc26fc1eef644acebdf4bfe3",
+      "registry_sha256": "4931debb31ac382bc3407c230dc3bc187b05ed0da0c5e25805e830e00134d8e5"
+    },
+    {
+      "packet": "linear_002",
+      "source": "docs/README.md",
+      "start": 212,
+      "end": 496,
+      "candidate": "linear_002.qmd",
+      "candidate_sha256": "b83e594beaed582b6079c0e1f08689efa5eff6956bbfa794bce15b4d67f05141",
+      "registry_sha256": "a77c11f2ac7eeac61dae7b1309225a01751d9d60a3669f26b3404cefd7a8d748"
+    }
+  ]
+}

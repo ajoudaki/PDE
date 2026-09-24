@@ -1,0 +1,12 @@
+{
+  "id": "linear_003",
+  "source": "docs/README.md",
+  "start": 497,
+  "end": 742,
+  "candidate": "linear_003.qmd",
+  "edits": "linear_003_edits.json",
+  "targets": "linear_003_targets.json",
+  "sources": "migration_sources.json",
+  "registry": "linear_003_registry_before.json",
+  "progress": "linear_003_progress_before.json"
+}

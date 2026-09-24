@@ -1,0 +1,13 @@
+{
+  "accepted": [
+    {
+      "packet": "linear_001",
+      "source": "docs/README.md",
+      "start": 1,
+      "end": 211,
+      "candidate": "linear_001.qmd",
+      "candidate_sha256": "fa9cedbbbf62ec21ea6252f2c7dbdf99fedb18b0fc26fc1eef644acebdf4bfe3",
+      "registry_sha256": "4931debb31ac382bc3407c230dc3bc187b05ed0da0c5e25805e830e00134d8e5"
+    }
+  ]
+}

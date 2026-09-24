@@ -1,0 +1,40 @@
+{
+  "accepted": [
+    {
+      "packet": "linear_001",
+      "source": "docs/README.md",
+      "start": 1,
+      "end": 211,
+      "candidate": "linear_001.qmd",
+      "candidate_sha256": "fa9cedbbbf62ec21ea6252f2c7dbdf99fedb18b0fc26fc1eef644acebdf4bfe3",
+      "registry_sha256": "4931debb31ac382bc3407c230dc3bc187b05ed0da0c5e25805e830e00134d8e5"
+    },
+    {
+      "packet": "linear_002",
+      "source": "docs/README.md",
+      "start": 212,
+      "end": 496,
+      "candidate": "linear_002.qmd",
+      "candidate_sha256": "b83e594beaed582b6079c0e1f08689efa5eff6956bbfa794bce15b4d67f05141",
+      "registry_sha256": "a77c11f2ac7eeac61dae7b1309225a01751d9d60a3669f26b3404cefd7a8d748"
+    },
+    {
+      "packet": "linear_003",
+      "source": "docs/README.md",
+      "start": 497,
+      "end": 742,
+      "candidate": "linear_003.qmd",
+      "candidate_sha256": "fdbbe6cdd2498e46e597f18023c9d9b3914441b100aba1b0fa22e1eaa4557800",
+      "registry_sha256": "227931914c88aedf6d2eac21570b997dddcc898a198044895868e9e933d916f4"
+    },
+    {
+      "packet": "linear_004",
+      "source": "docs/NOTATION.md",
+      "start": 1,
+      "end": 98,
+      "candidate": "linear_004.qmd",
+      "candidate_sha256": "3b0118a096ac8782cb7657d160ea5b1433b4f42c03036df9724a90c356610182",
+      "registry_sha256": "c607a2324dcb28a5212d01ef9681e7b5fbc1dad5c35b393a5eaeb4d63327555d"
+    }
+  ]
+}

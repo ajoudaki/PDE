@@ -1,0 +1,13 @@
+# Packet 005 independent preservation review
+
+**Verdict: PASS for the partial edition**, using `linear005-audit-final` and the corrected `linear005-render-wrapped` outputs. The original `linear005-render-final` PDF fails because page 31 clips the final readout equation in native equation (3.5), corresponding to frozen source lines 113–119. That evidence is retained; the reviewed print-only delta resolves it.
+
+Coverage: read all 504 original lines, the complete candidate, all 558 edits, all 29 target proposals, reused targets and actual reference-target contexts. Checked every formula, qualifier, heading, explicit reference and theorem boundary. The theorem spans lines 81–174; proof-architecture commentary remains outside it, without an invented proof environment. Seventeen numbered displays, seven unnumbered displays and 199 inline formulas preserve their payloads. Section 2(a) retains its locator; both range endpoints remain represented. No omitted explicit destination was found.
+
+The frozen checker passes with an explicit repository root. Reviewed its complete bounded extension and focused tests; all eight math tests pass. Independently changing a replayed reference from original (1.1) to the target tagged (1.2) is rejected. Verified frozen hashes, earlier accepted candidate identities, prefix continuity and exact assembled-source concatenation.
+
+Reviewed the frozen filter/rule delta and focused structural evidence. Four packet005 displays receive only `gathered` wrappers and row breaks at eligible existing separators; removing those insertions restores every mathematical payload. Packets001–004 have zero matching displays. Candidate, edits, targets and checker remain unchanged. Inspected original PDF pages29–38 and corrected reflowed pages30–38: the full readout law and all changed displays are readable, with no remaining observed clipping. Native equation numbers, theorem boundaries and references agree across static HTML, PDF and exported LaTeX.
+
+All three corrected render commands succeed. The independently rerun exact-reservation gate passes: 52 defined targets and 28 explicit future reservations. This is not a complete edition. Cosmetic duplicated heading numbering remains deferred. Browser MathJax runtime behavior was not tested; no scientific reproof was attempted.
+
+Isolation was maintained: no study history, worker reports, earlier verdicts or other pending candidate content was read. Evidence and exact identities are recorded in the [machine-generated hash inventory](../../data/generated/quarto_capability_pilot_20260921/packet005-audit/hash_inventory.json).

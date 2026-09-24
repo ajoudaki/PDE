@@ -1,0 +1,9 @@
+# Packet 004 independent preservation audit
+
+**PASS for partial-edition acceptance.** Reviewed all 98 frozen NOTATION lines, the complete candidate, all nine edits, four proposed targets, and the reused title reservation. Every word, code span, formula payload, heading level and order is preserved. The edits add five heading labels and replace four display delimiters. Generic mentions of chapters, theorems and constructions identify no unique destination; there are no omitted explicit references. Both unreferenced displays correctly remain unnumbered.
+
+Inspected the complete bounded assembly/gate diff. Source checking with explicit repository root passed; all five existing assembly tests passed. Component hashes, accepted introduction bytes, manifest order, assembled chapter bytes and generated chapter configuration agree. HTML, PDF and LaTeX builds succeeded. Inspected the entire new HTML/TeX chapter and PDF pages 25–27, including both formulas: no content loss or clipping observed. The introduction’s notation link resolves, and all five notation labels occur exactly once. Removing the rendered title anchor in scratch correctly fails the gate.
+
+The render gate passes with exactly 25 future reservations, enumerated in [render-check.json](../../data/generated/quarto_capability_pilot_20260921/packet004-audit/render-check.json); this is not a complete edition. [Machine hash inventory](../../data/generated/quarto_capability_pilot_20260921/packet004-audit/hash_inventory.json) records the frozen inputs and actual outputs.
+
+Isolation: no author reports, prior verdicts or study history read; earlier candidates received mechanical identity/assembly checks only. This audit establishes formatting preservation, not mathematical validity. No established sources, implementation or Git state changed.

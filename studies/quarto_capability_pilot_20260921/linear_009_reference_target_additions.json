@@ -1,0 +1,58 @@
+[
+  {
+    "id": "sec-docs-global-nonlinear-l6596",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 6596,
+    "end": 6596
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l6880",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 6880,
+    "end": 6883
+  },
+  {
+    "id": "sec-docs-special-data-limits-l3789",
+    "kind": "sec",
+    "source": "docs/special_data_limits.md",
+    "start": 3789,
+    "end": 3789
+  },
+  {
+    "id": "sec-docs-special-data-limits-l3946",
+    "kind": "sec",
+    "source": "docs/special_data_limits.md",
+    "start": 3946,
+    "end": 3946
+  },
+  {
+    "id": "sec-docs-special-data-limits-l4009",
+    "kind": "sec",
+    "source": "docs/special_data_limits.md",
+    "start": 4009,
+    "end": 4009
+  },
+  {
+    "id": "sec-docs-special-data-limits-l4072",
+    "kind": "sec",
+    "source": "docs/special_data_limits.md",
+    "start": 4072,
+    "end": 4072
+  },
+  {
+    "id": "sec-docs-special-data-limits-l4169",
+    "kind": "sec",
+    "source": "docs/special_data_limits.md",
+    "start": 4169,
+    "end": 4169
+  },
+  {
+    "id": "sec-docs-special-data-limits-l4201",
+    "kind": "sec",
+    "source": "docs/special_data_limits.md",
+    "start": 4201,
+    "end": 4201
+  }
+]

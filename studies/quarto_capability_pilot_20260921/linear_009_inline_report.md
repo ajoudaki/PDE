@@ -1,0 +1,1 @@
+Packet 009 inline transcription: 674 proposals (162 ordinary-prose additions; 512 rebuilt code-span expressions). Exact excerpt SHA-256: `87d64b6ab4d7fa19458bd896af25791d79b3ccc89fc7e54b6f040139dd1dbca6`. Existing path-like code was excluded. Source offsets and non-transcription overlap guards were checked.

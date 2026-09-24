@@ -1,0 +1,2877 @@
+# Continuous depth and dense residual models {#sec-docs-continuous-depth-l1}
+
+Sections [1](continuous-depth.qmd#sec-docs-continuous-depth-l41)–[13](continuous-depth.qmd#sec-docs-continuous-depth-l1487) prove global characteristic well-posedness and joint width and
+depth convergence of exact gradient flow for a scalar residual particle
+architecture, with a general fixed finite batch and the parameter regularity
+assumptions A1--A2 below. It is a separate architecture benchmark. It is not a
+dense Gaussian-matrix ResNet and does not establish the correlated dense
+feature-learning theorem. It is neither an admissible substitution for that
+architecture nor a recommendation to replace it.
+
+[Section 14](continuous-depth.qmd#sec-docs-continuous-depth-l1505) separately derives exact finite dense-ResNet gradients, kernels,
+energy and training-response identities, with chronological factorial tails
+along a supplied trajectory. It retains the dense matrices and distinguishes
+exact backward sources from recomputed ones. It establishes no dense width
+or continuous-depth limit, autonomous compressed flow, or fitting theorem.
+
+[Section 15](continuous-depth.qmd#sec-docs-continuous-depth-l1886) proves global existence, uniqueness and restart for a coherent
+dense kernel model with normalization `W/n`, fixed bounded endpoints and
+a strong row/column kernel space, with exact gradient and energy identities.
+Finite-network approximation and the Gaussian
+`W/sqrt(n)` model remain separate questions.
+
+In the scalar-particle architecture there is one scalar hidden state per
+sample at each depth. Width counts
+parameter particles whose scalar residual features are averaged within a
+layer; there are no trainable dense hidden matrices or separate readout
+weights. The continuous model stores one current probability-measure field
+over depth. Its forward states, backward sensitivities, outputs, kernel, and
+loss are determined by that current field. A fixed number of field types
+does not mean a finite-dimensional scalar state, and resolving the depth
+coordinate still requires work proportional to the chosen depth resolution.
+
+The scalar-particle proof first bounds all forward states and backward sensitivities
+independently of width and depth. Coupling estimates then give a global
+characteristic flow on a complete space of measure profiles. Constant
+initialization in depth selects a canonical continuous representative and
+gives a first-order depth discretization error. Combining this error with
+stability in the depth-averaged Wasserstein distance proves convergence along
+arbitrary joint width and depth sequences.
+
+## 1. Architecture, notation, and assumptions {#sec-docs-continuous-depth-l41}
+
+Fix a batch $(x_a,y_a)_{a=1}^m\in(\mathbb R\times\mathbb R)^m$, with
+$1\le m<\infty$ independent of width and depth. Inputs are scalar in this
+architecture, so $d=1$. No distinctness, orthogonality, Gram-matrix
+nondegeneracy, or realizability condition is imposed on the batch. Let
+$n\ge1$ be the number of particles per layer, $L\ge1$ the residual depth,
+$h=1/L$ its architectural mesh, and $p\ge1$ the parameter dimension.
+Each raw parameter $\theta_{\ell i}$ belongs to $\mathbb R^p$, for
+$0\le\ell<L$ and $1\le i\le n$.
+
+The residual feature is a specified map
+
+$$
+\Phi:\mathbb R^p\times\mathbb R\longrightarrow\mathbb R,
+\qquad (\theta,z)\longmapsto\Phi(\theta,z).
+
+$$ {#eq-docs-continuous-depth-l54}
+
+Here $\Phi$ denotes the entire parameterized particle feature. It is not
+the coordinatewise activation $\phi$ of a dense matrix network. Finite
+hidden states are $z_{a,\ell}^{n,L}$; population hidden states are
+capitalized $Z_a$, or $Z_{a,\ell}^{L,\boldsymbol\mu}$ for a discrete
+depth population. Backward sensitivities are $p_{a,\ell}^{n,L}$ and
+$P_a$, respectively. The symbol $r$ is reserved for output residuals
+$f-y$; sensitivities do not include a residual factor.
+
+Assume $\Phi\in C^1(\mathbb R^p\times\mathbb R)$ and the following.
+
+**A1 (uniform forward growth).** There are nonnegative finite constants
+$c_0,c_1$ such that
+
+$$
+\sup_\theta|\Phi(\theta,0)|\le c_0,
+\qquad
+\sup_{\theta,z}|\partial_z\Phi(\theta,z)|\le c_1.
+
+$$ {#eq-docs-continuous-depth-l73}
+
+In particular, $|\Phi(\theta,z)|\le c_0+c_1|z|$.
+
+**A2 (uniform parameter regularity on bounded state strips).** For every
+finite $R\ge0$ there is a finite $C_R$ such that
+
+$$
+\sup_{\theta,\,|z|\le R}\|\nabla_\theta\Phi(\theta,z)\|\le C_R,
+
+$$ {#eq-docs-continuous-depth-l85}
+
+and, for all $\theta,\widetilde\theta\in\mathbb R^p$ and
+$|z|,|\widetilde z|\le R$,
+
+$$
+\begin{aligned}
+&|\partial_z\Phi(\theta,z)
+       -\partial_z\Phi(\widetilde\theta,\widetilde z)|\\
+&\quad+\|\nabla_\theta\Phi(\theta,z)
+       -\nabla_\theta\Phi(\widetilde\theta,\widetilde z)\|
+\le C_R\bigl(\|\theta-\widetilde\theta\|+|z-\widetilde z|\bigr).
+\end{aligned}
+
+$$ {#eq-docs-continuous-depth-l93}
+
+These assumptions apply to the chosen raw parameterization; an arbitrary
+nonlinear change of parameter coordinates need not preserve them. They
+allow features with linear growth in the state and do not require a bounded
+parameter support.
+
+The training clock $t$ is physical time and $\kappa>0$ is a fixed
+mobility multiplier. The loss in this chapter is explicitly the half mean
+squared loss $\mathcal L=(2m)^{-1}\sum_a r_a^2$. Relative to the convention
+$m^{-1}\sum_a r_a^2$, this halves the gradient velocity at a fixed mobility.
+The notation $\eta_n$ is reserved for an actual gradient-descent step.
+The results below concern exact continuous training time and impose no
+gradient-descent step condition or joint width/depth/GD conclusion.
+
+## 2. Exact finite network and gradient identities {#sec-docs-continuous-depth-l117}
+
+For time-dependent parameters define
+
+$$
+z_{a,0}^{n,L}=x_a,
+\qquad
+z_{a,\ell+1}^{n,L}
+=z_{a,\ell}^{n,L}
++\frac1{nL}\sum_{i=1}^n
+  \Phi(\theta_{\ell i},z_{a,\ell}^{n,L}),
+\qquad 0\le\ell<L.
+
+$$ {#eq-docs-continuous-depth-l121}
+
+Set
+
+$$
+f_a^{n,L}=z_{a,L}^{n,L},
+\qquad r_a^{n,L}=f_a^{n,L}-y_a,
+\qquad
+\mathcal L^{n,L}=\frac1{2m}\sum_{a=1}^m(r_a^{n,L})^2.
+
+$$ {#eq-docs-continuous-depth-l134}
+
+All raw parameters train with block mobility $\kappa nL$:
+
+$$
+\dot\theta_{\ell i}
+=-\kappa nL\nabla_{\theta_{\ell i}}\mathcal L^{n,L}.
+
+$$ {#eq-docs-continuous-depth-l144}
+
+The initialization variables are independent over $(\ell,i)$, each with
+law $\rho_0\in\mathcal P_1(\mathbb R^p)$. Deterministic finite initial
+parameters are also allowed in the pathwise statements.
+
+Define the exact downstream sensitivities by
+
+$$
+p_{a,L}^{n,L}=1,
+\qquad
+p_{a,\ell}^{n,L}
+=p_{a,\ell+1}^{n,L}
+ \left(1+\frac1{nL}\sum_{i=1}^n
+ \partial_z\Phi(\theta_{\ell i},z_{a,\ell}^{n,L})\right).
+
+$$ {#eq-docs-continuous-depth-l156}
+
+Thus $p_{a,\ell}^{n,L}$ is the derivative of the output with respect to
+the hidden state at depth $\ell$, holding downstream parameters fixed.
+The factor contributed by a parameter in layer $\ell$ enters the next
+hidden state, so the chain rule gives the index $\ell+1$:
+
+$$
+\nabla_{\theta_{\ell i}}f_a^{n,L}
+=\frac1{nL}p_{a,\ell+1}^{n,L}
+ \nabla_\theta\Phi(\theta_{\ell i},z_{a,\ell}^{n,L}).
+
+$$ {#eq-docs-continuous-depth-l171}
+
+Consequently the finite flow is exactly
+
+$$
+\dot\theta_{\ell i}=-\kappa q_{\ell i}^{n,L},
+\qquad
+q_{\ell i}^{n,L}
+=\frac1m\sum_{a=1}^m r_a^{n,L}p_{a,\ell+1}^{n,L}
+ \nabla_\theta\Phi(\theta_{\ell i},z_{a,\ell}^{n,L})
+\in\mathbb R^p.
+
+$$ {#eq-docs-continuous-depth-l180}
+
+The scaled tangent kernel is
+
+$$
+\begin{aligned}
+K_{ab}^{n,L}
+={}&\frac1L\sum_{\ell=0}^{L-1}
+p_{a,\ell+1}^{n,L}p_{b,\ell+1}^{n,L}\frac1n\sum_{i=1}^n
+\nabla_\theta\Phi(\theta_{\ell i},z_{a,\ell}^{n,L})
+\cdot\nabla_\theta\Phi(\theta_{\ell i},z_{b,\ell}^{n,L})\\
+={}&nL\sum_{\ell,i}
+\nabla_{\theta_{\ell i}}f_a^{n,L}
+\cdot\nabla_{\theta_{\ell i}}f_b^{n,L}.
+\end{aligned}
+
+$$ {#eq-docs-continuous-depth-l192}
+
+It is positive semidefinite, as is seen by inserting an arbitrary vector
+of sample coefficients into the final Gram expression. Differentiating
+outputs and loss along ([-@eq-docs-continuous-depth-l144]) gives
+
+$$
+\dot f_a^{n,L}=-\frac\kappa m\sum_{b=1}^mK_{ab}^{n,L}r_b^{n,L},
+
+$$ {#eq-docs-continuous-depth-l210}
+
+$$
+\frac d{dt}\mathcal L^{n,L}
+=-\kappa nL\sum_{\ell,i}
+ \|\nabla_{\theta_{\ell i}}\mathcal L^{n,L}\|^2
+=-\frac\kappa L\sum_{\ell=0}^{L-1}\frac1n\sum_{i=1}^n
+ \|q_{\ell i}^{n,L}\|^2\le0.
+
+$$ {#eq-docs-continuous-depth-l215}
+
+No independence approximation enters these identities, including after
+training has coupled particles and layers.
+
+## 3. Current-state continuous-depth equation {#sec-docs-continuous-depth-l227}
+
+Let $\mathcal P_1(\mathbb R^p)$ be the Borel probability laws with finite
+first Euclidean moment. The Wasserstein distance used throughout is
+
+$$
+\mathcal W_1(\mu,\nu)
+=\inf_{\pi\in\Pi(\mu,\nu)}
+ \int\|\theta-\widetilde\theta\|\,\pi(d\theta,d\widetilde\theta),
+
+$$ {#eq-docs-continuous-depth-l232}
+
+where $\Pi(\mu,\nu)$ is the set of couplings. For Borel depth profiles put
+
+$$
+\mathcal D(\mu,\nu)=\int_0^1\mathcal W_1(\mu(s),\nu(s))\,ds.
+
+$$ {#eq-docs-continuous-depth-l241}
+
+The state space $\mathfrak M$ consists of profiles
+$\mu:[0,1]\to\mathcal P_1(\mathbb R^p)$ with
+
+$$
+\int_0^1\int\|\theta\|\,\mu(s,d\theta)\,ds<\infty,
+
+$$ {#eq-docs-continuous-depth-l249}
+
+modulo equality for almost every depth. The distance $\mathcal D$ is
+therefore a metric on $\mathfrak M$. It averages over depth; it is not the
+maximum discrepancy of the individual layer laws.
+
+For any current profile $\mu\in\mathfrak M$, define the absolutely
+continuous forward state and sensitivity by
+
+$$
+\partial_s Z_a^\mu(s)
+=\int\Phi(\theta,Z_a^\mu(s))\,\mu(s,d\theta),
+\qquad Z_a^\mu(0)=x_a,
+
+$$ {#eq-docs-continuous-depth-l261}
+
+$$
+-\partial_s P_a^\mu(s)
+=P_a^\mu(s)\int\partial_z\Phi(\theta,Z_a^\mu(s))\,\mu(s,d\theta),
+\qquad P_a^\mu(1)=1.
+
+$$ {#eq-docs-continuous-depth-l268}
+
+These equations initially hold for almost every $s$; their integral
+forms define unique continuous representatives. Set
+
+$$
+f_a^\mu=Z_a^\mu(1),\qquad r_a^\mu=f_a^\mu-y_a,
+\qquad
+Q[\mu](s,\theta)=\frac1m\sum_{a=1}^m
+ r_a^\mu P_a^\mu(s)\nabla_\theta\Phi(\theta,Z_a^\mu(s)),
+
+$$ {#eq-docs-continuous-depth-l278}
+
+where $Q[\mu](s,\theta)\in\mathbb R^p$, and define
+$v[\mu]= -\kappa Q[\mu]$. The evolution is
+
+$$
+\partial_t\rho_t(s)
++\nabla_\theta\cdot\bigl(\rho_t(s)v[\rho_t](s,\cdot)\bigr)=0,
+\qquad \rho_{t=0}(s)=\rho_0.
+
+$$ {#eq-docs-continuous-depth-l289}
+
+A characteristic solution means that the maps
+$\Theta_t(s,\vartheta)\in\mathbb R^p$ solve
+
+$$
+\partial_t\Theta_t(s,\vartheta)
+=v[\rho_t](s,\Theta_t(s,\vartheta)),\qquad
+\Theta_0(s,\vartheta)=\vartheta,
+\qquad
+\rho_t(s)=(\Theta_t(s,\cdot))_\#\rho_0.
+
+$$ {#eq-docs-continuous-depth-l299}
+
+For a general initial profile $\mu_{\rm in}$, replace $\rho_0$ on the
+right side of ([-@eq-docs-continuous-depth-l299]) by $\mu_{\rm in}(s)$, for almost every depth.
+Pushforward means the law of the image under the indicated map. In particular, for every
+$\zeta\in C_c^1(\mathbb R^p)$ the characteristic solution satisfies
+
+$$
+\int\zeta\,d\rho_t(s)-\int\zeta\,d\rho_u(s)
+=\int_u^t\int\nabla\zeta(\theta)\cdot
+ v[\rho_\tau](s,\theta)\,\rho_\tau(s,d\theta)\,d\tau.
+
+$$ {#eq-docs-continuous-depth-l313}
+
+The sole evolution time is $t$. The coordinate $s\in[0,1]$ is depth;
+at each training time, (3.4)--(3.6) are forward and backward depth readouts
+of the current measure field. The state equation is autonomous. Exposing
+its solver variables uses one measure-field type, $2m$ scalar depth
+fields, and $m$ output or residual scalars, a count independent of
+$n,L,t$. Eliminating readouts leaves one evolving measure field, without
+a claim of minimality among arbitrary encodings.
+
+For the solution write $Z_a(s,t)=Z_a^{\rho_t}(s)$,
+$P_a(s,t)=P_a^{\rho_t}(s)$, $f_a(t)=Z_a(1,t)$, and
+$r_a(t)=f_a(t)-y_a$. Its current kernel is
+
+$$
+\begin{aligned}
+K_{ab}(t)=\int_0^1 P_a(s,t)P_b(s,t)
+\int &\nabla_\theta\Phi(\theta,Z_a(s,t))\\[-1mm]
+&\cdot\nabla_\theta\Phi(\theta,Z_b(s,t))
+\,\rho_t(s,d\theta)\,ds.
+\end{aligned}
+
+$$ {#eq-docs-continuous-depth-l332}
+
+## 4. Global flow and joint limit theorem {#sec-docs-continuous-depth-l342}
+
+Let $s_\ell=\ell/L$, and define the empirical layer laws and initial
+average error by
+
+$$
+\widehat\mu_{\ell,t}^{n,L}
+=\frac1n\sum_{i=1}^n\delta_{\theta_{\ell i}(t)},
+\qquad
+\varepsilon_{n,L}
+=\frac1L\sum_{\ell=0}^{L-1}
+ \mathcal W_1(\widehat\mu_{\ell,0}^{n,L},\rho_0).
+
+$$ {#eq-docs-continuous-depth-l347}
+
+::: {#thm-docs-continuous-depth-l357}
+Under A1--A2, for every fixed finite scalar batch,
+$\kappa>0$, and $\rho_0\in\mathcal P_1(\mathbb R^p)$, the following
+statements hold.
+
+1. Every finite flow ([-@eq-docs-continuous-depth-l144]), from any finite initial parameters, has a unique
+   solution for all $t\ge0$.
+2. Equation ([-@eq-docs-continuous-depth-l289]) has a unique global characteristic solution in
+   $C([0,\infty);\mathfrak M)$. More generally this holds from every
+   initial profile in $\mathfrak M$, and the resulting autonomous maps
+   form a semigroup on $\mathfrak M$. Thus the exact restart domain is
+   the current profile space $\mathfrak M$.
+3. For the constant initial profile $\rho_0$, the solution has a unique
+   $\mathcal W_1$-continuous depth representative, constructed in Section
+   8. For every $T<\infty$, a deterministic constant $C_T<\infty$,
+   independent of $n,L$ and of the realized finite initial parameters,
+   gives the pathwise estimate
+
+$$
+\begin{aligned}
+\sup_{0\le t\le T}\Bigg[&
+\frac1L\sum_{\ell=0}^{L-1}
+ \mathcal W_1(\widehat\mu_{\ell,t}^{n,L},\rho_t(s_\ell))\\
+&+\max_{a,\,0\le\ell\le L}
+ |z_{a,\ell}^{n,L}(t)-Z_a(s_\ell,t)|\\
+&+\max_{a,\,0\le\ell\le L}
+ |p_{a,\ell}^{n,L}(t)-P_a(s_\ell,t)|
+ +\max_{a,b}|K_{ab}^{n,L}(t)-K_{ab}(t)|\Bigg]
+\le C_T\bigl(\varepsilon_{n,L}+L^{-1}\bigr).
+\end{aligned}
+
+$$ {#eq-docs-continuous-depth-l374}
+
+Every grid value $\rho_t(s_\ell)$ in this estimate refers to that canonical
+representative, not to arbitrary values assigned to an almost-everywhere
+equivalence class.
+
+4. For the independent initialization specified in [Section 2](continuous-depth.qmd#sec-docs-continuous-depth-l117), the left
+   side of ([-@eq-docs-continuous-depth-l374]) tends to zero in probability along every deterministic
+   sequence $n_k,L_k\to\infty$, with no relation between the two rates.
+   Outputs, residuals, half mean squared losses, and scaled tangent kernels
+   therefore converge uniformly on each fixed compact training-time
+   interval.
+
+The constants may depend on the batch, $\Phi$, $\kappa$, and $T$.
+No assertion is made for growing horizons $T=T_{n,L}$, for a discrete
+training algorithm, or for convergence to a fitted batch as
+$t\to\infty$.
+
+:::
+
+## 5. Bounds and elementary comparison facts {#sec-docs-continuous-depth-l405}
+
+Write
+
+$$
+x_* =\max_a|x_a|,\qquad y_* =\max_a|y_a|,
+\qquad Z_*=e^{c_1}(x_*+c_0),\qquad P_*=e^{c_1}.
+
+$$ {#eq-docs-continuous-depth-l409}
+
+Throughout the proof $C$ denotes a finite constant depending only on the
+fixed batch, A1--A2 on the strip $[-Z_*,Z_*]$, and $\kappa$; it can
+increase from line to line. A subscript $T$ permits dependence on the
+finite training horizon. Neither constant depends on width, depth, or
+parameter support.
+
+The integral Gronwall estimate used here is the following specialization:
+if a nonnegative continuous $u$ satisfies
+$u(s)\le A+\int_0^s(bu(v)+g(v))\,dv$, where $A,b\ge0$ and
+$g\ge0$ is integrable, then
+
+$$
+u(s)\le e^{bs}\left(A+\int_0^s g(v)\,dv\right).
+
+$$ {#eq-docs-continuous-depth-l426}
+
+Indeed the right side of the original inequality defines an absolutely
+continuous majorant $U$ with $U'\le bU+g$; multiply by $e^{-bs}$
+and integrate. Its discrete counterpart, obtained by iterating
+$u_{\ell+1}\le(1+bh)u_\ell+h g_\ell$, is
+
+$$
+u_\ell\le e^{b\ell h}
+ \left(u_0+h\sum_{j<\ell}g_j\right).
+
+$$ {#eq-docs-continuous-depth-l436}
+
+Reversing the depth index gives the same backward estimate.
+
+A1 and these inequalities imply, for every parameter configuration or
+current probability profile,
+
+$$
+|z_{a,\ell}^{n,L}|\le Z_*,\qquad
+|Z_a^\mu(s)|\le Z_*,\qquad
+|r_a^{n,L}|,|r_a^\mu|\le Z_*+y_*.
+
+$$ {#eq-docs-continuous-depth-l447}
+
+For example,
+$|z_{a,\ell+1}^{n,L}|\le(1+c_1h)|z_{a,\ell}^{n,L}|+c_0h$,
+which yields ([-@eq-docs-continuous-depth-l447]); the continuous equation has the corresponding integral
+inequality. The forward depth equation is well-defined even for a merely
+Borel profile: its right side is measurable in depth, globally
+$c_1$-Lipschitz in state, and bounded at state zero by $c_0$. Picard
+iteration of the integral equation on an interval with $c_1$ times its
+length less than one is a contraction on continuous paths. Successive
+intervals and ([-@eq-docs-continuous-depth-l447]) give its unique absolutely continuous solution on
+$[0,1]$. If $c_1=0$, the same construction has no interval restriction.
+
+The sensitivity bounds are
+
+$$
+|p_{a,\ell}^{n,L}|\le(1+c_1/L)^L\le P_*,
+\qquad
+P_a^\mu(s)=\exp\left(
+ \int_s^1\int\partial_z\Phi(\theta,Z_a^\mu(u))
+ \,\mu(u,d\theta)\,du\right),
+
+$$ {#eq-docs-continuous-depth-l467}
+
+and hence $P_*^{-1}\le P_a^\mu(s)\le P_*$. The continuous sensitivity
+is positive. The discrete bound uses absolute values and does not require
+$L>c_1$ or positivity of each discrete factor.
+
+By A2 and (5.4)--(5.5), all parameter velocities are bounded by $C$,
+uniformly over current profiles, and the velocity at a fixed profile is
+globally $C$-Lipschitz in its parameter argument. Thus
+$\|\theta_{\ell i}(t)-\theta_{\ell i}(0)\|\le Ct$ on any finite
+solution interval. The finite vector field is locally Lipschitz in the
+full collection of parameters: the forward recursion is $C^1$, and
+A2 makes the sensitivity and parameter-gradient compositions locally
+Lipschitz. Picard iteration therefore gives a unique local solution.
+If a maximal finite endpoint existed, bounded velocity would make the
+parameter vector Cauchy at that endpoint; restarting local existence from
+its finite limit would extend it. This proves the finite global assertion.
+
+We will repeatedly use the coupling inequality
+
+$$
+\left\|\int g\,d\mu-\int g\,d\nu\right\|
+\le \operatorname{Lip}(g)\,\mathcal W_1(\mu,\nu)
+
+$$ {#eq-docs-continuous-depth-l494}
+
+for a Lipschitz scalar or vector function $g$ with defined integrals.
+For any coupling, subtract the two integrands and bound by
+$\operatorname{Lip}(g)\|\theta-\widetilde\theta\|$; taking the infimum
+proves ([-@eq-docs-continuous-depth-l494]). On our state strip, A2 and integration along parameter line
+segments give
+
+$$
+|\Phi(\theta,z)-\Phi(\widetilde\theta,\widetilde z)|
+\le C\|\theta-\widetilde\theta\|+c_1|z-\widetilde z|.
+
+$$ {#eq-docs-continuous-depth-l506}
+
+The functions $\partial_z\Phi$, $\nabla_\theta\Phi$, and the pairwise
+products
+$\nabla_\theta\Phi(\theta,z)\cdot\nabla_\theta\Phi(\theta,\widetilde z)$
+are bounded and jointly Lipschitz on this strip. For the products this
+follows by adding and subtracting one mixed product and using the bounded
+gradient factors. These are all the transport estimates needed below.
+
+## 6. Population stability at a fixed discrete depth {#sec-docs-continuous-depth-l519}
+
+For a probability profile
+$\boldsymbol\mu=(\mu_0,\ldots,\mu_{L-1})\in\mathcal P_1(\mathbb R^p)^L$,
+define population quantities by
+
+$$
+Z_{a,0}^{L,\boldsymbol\mu}=x_a,
+\quad
+Z_{a,\ell+1}^{L,\boldsymbol\mu}
+=Z_{a,\ell}^{L,\boldsymbol\mu}
++h\int\Phi(\theta,Z_{a,\ell}^{L,\boldsymbol\mu})\,\mu_\ell(d\theta),
+
+$$ {#eq-docs-continuous-depth-l525}
+
+$$
+P_{a,L}^{L,\boldsymbol\mu}=1,
+\quad
+P_{a,\ell}^{L,\boldsymbol\mu}
+=P_{a,\ell+1}^{L,\boldsymbol\mu}
+ \left(1+h\int\partial_z\Phi(\theta,Z_{a,\ell}^{L,\boldsymbol\mu})
+ \,\mu_\ell(d\theta)\right).
+
+$$ {#eq-docs-continuous-depth-l534}
+
+Write $r_a^{L,\boldsymbol\mu}=Z_{a,L}^{L,\boldsymbol\mu}-y_a$ and
+
+$$
+V_\ell^L[\boldsymbol\mu](\theta)
+=-\frac\kappa m\sum_a r_a^{L,\boldsymbol\mu}
+ P_{a,\ell+1}^{L,\boldsymbol\mu}
+ \nabla_\theta\Phi(\theta,Z_{a,\ell}^{L,\boldsymbol\mu}).
+
+$$ {#eq-docs-continuous-depth-l546}
+
+The kernel $K^{L,\boldsymbol\mu}$ is defined by ([-@eq-docs-continuous-depth-l192]) with these
+population states and sensitivities and with the empirical integral
+replaced by $\mu_\ell$. All bounds of [Section 5](continuous-depth.qmd#sec-docs-continuous-depth-l405) apply to these objects.
+
+For two such profiles let
+
+$$
+w_\ell=\mathcal W_1(\mu_\ell,\nu_\ell),
+\qquad d_L(\boldsymbol\mu,\boldsymbol\nu)=h\sum_{\ell=0}^{L-1}w_\ell.
+
+$$ {#eq-docs-continuous-depth-l560}
+
+Put $e_\ell=\max_a|Z_{a,\ell}^{L,\boldsymbol\mu}
+-Z_{a,\ell}^{L,\boldsymbol\nu}|$. Subtract ([-@eq-docs-continuous-depth-l525]), first compare state
+arguments at a common law, and then use (5.6)--(5.7). This gives
+
+$$
+e_0=0,\qquad
+e_{\ell+1}\le(1+c_1h)e_\ell+Chw_\ell,
+\qquad
+\max_\ell e_\ell\le C d_L(\boldsymbol\mu,\boldsymbol\nu).
+
+$$ {#eq-docs-continuous-depth-l570}
+
+For $b_\ell=\max_a|P_{a,\ell}^{L,\boldsymbol\mu}
+-P_{a,\ell}^{L,\boldsymbol\nu}|$, subtract ([-@eq-docs-continuous-depth-l534]). The coefficient
+difference is at most $C(e_\ell+w_\ell)$, while the other sensitivity
+factor is at most $P_*$. Consequently
+
+$$
+b_L=0,\qquad
+b_\ell\le(1+c_1h)b_{\ell+1}+Ch(e_\ell+w_\ell),
+\qquad
+\max_\ell b_\ell\le C d_L(\boldsymbol\mu,\boldsymbol\nu).
+
+$$ {#eq-docs-continuous-depth-l583}
+
+The output residual difference is bounded by $e_L$. Substituting these
+estimates into ([-@eq-docs-continuous-depth-l546]) yields the uniform velocity estimate
+
+$$
+\|V_\ell^L[\boldsymbol\mu](\theta)
+-V_\ell^L[\boldsymbol\nu](\widetilde\theta)\|
+\le C\bigl(\|\theta-\widetilde\theta\|
+             +d_L(\boldsymbol\mu,\boldsymbol\nu)\bigr).
+
+$$ {#eq-docs-continuous-depth-l594}
+
+Similarly, each kernel summand differs by at most
+$C(e_\ell+b_{\ell+1}+w_\ell)$, by the product estimate in [Section 5](continuous-depth.qmd#sec-docs-continuous-depth-l405).
+Averaging gives
+
+$$
+\max_{a,b}|K_{ab}^{L,\boldsymbol\mu}
+-K_{ab}^{L,\boldsymbol\nu}|
+\le C d_L(\boldsymbol\mu,\boldsymbol\nu).
+
+$$ {#eq-docs-continuous-depth-l606}
+
+Consider the characteristic population equations
+
+$$
+\partial_t\mu_{\ell,t}^L+
+\nabla_\theta\cdot
+ \bigl(\mu_{\ell,t}^L V_\ell^L[\boldsymbol\mu_t^L]\bigr)=0.
+
+$$ {#eq-docs-continuous-depth-l615}
+
+For two solutions, take at each layer an initial coupling with expected
+distance at most $w_\ell(0)+\epsilon$, and transport it by their
+characteristic flows. Denote the resulting expected distances by
+$H_\ell(t)$. Equation ([-@eq-docs-continuous-depth-l594]) implies
+
+$$
+H_\ell(t)\le H_\ell(0)+C\int_0^t
+ \bigl(H_\ell(u)+d_L(\boldsymbol\mu_u^L,\boldsymbol\nu_u^L)\bigr)\,du.
+
+$$ {#eq-docs-continuous-depth-l627}
+
+Since $d_L(\boldsymbol\mu_t^L,\boldsymbol\nu_t^L)
+\le h\sum_\ell H_\ell(t)$, averaging, applying ([-@eq-docs-continuous-depth-l426]), and letting
+$\epsilon\downarrow0$ gives
+
+$$
+d_L(\boldsymbol\mu_t^L,\boldsymbol\nu_t^L)
+\le e^{Ct}d_L(\boldsymbol\mu_0^L,\boldsymbol\nu_0^L).
+
+$$ {#eq-docs-continuous-depth-l637}
+
+Existence and uniqueness of ([-@eq-docs-continuous-depth-l615]) follow by the characteristic contraction
+construction in [Section 7](continuous-depth.qmd#sec-docs-continuous-depth-l652), applied to the complete finite product space
+with metric $d_L$, velocity bound $C$, and estimate ([-@eq-docs-continuous-depth-l594]). The
+contraction interval is independent of $L$. Empirical laws solve ([-@eq-docs-continuous-depth-l615])
+exactly: their readouts equal ([-@eq-docs-continuous-depth-l121]) and ([-@eq-docs-continuous-depth-l156]), and differentiating a compactly
+supported $C^1$ test function along each atom gives ([-@eq-docs-continuous-depth-l615]) in weak form.
+Uniqueness of the characteristic solution identifies them with that
+population flow from their empirical initial profiles.
+
+## 7. Complete profile space, global characteristics, and restart {#sec-docs-continuous-depth-l652}
+
+We first justify the metric framework. The space
+$(\mathcal P_1(\mathbb R^p),\mathcal W_1)$ is complete and separable.
+For completeness, from a Cauchy sequence choose a subsequence whose
+successive distances are summable. Choose couplings of successive laws
+with summable expected distances. These couplings can be put on one
+probability space using the following form of disintegration: a Borel
+probability $\pi$ on $\mathbb R^p\times\mathbb R^p$ with first
+marginal $\mu$ admits a Borel probability kernel $k$ such that
+$\pi(d\theta,d\widetilde\theta)=\mu(d\theta)k(\theta,d\widetilde\theta)$.
+Apply this to each successive coupling and sample the next coordinate
+from its kernel. The consistent finite-dimensional products of these
+kernels define a countable joint law. Each adjacent pair has the chosen
+coupling by construction. The resulting random variables satisfy
+$\sum_j\mathbb E\|U_{j+1}-U_j\|<\infty$, so their successive distances
+are summable almost surely, and they converge in the complete space
+$\mathbb R^p$ to an integrable random variable $U$. The tail bound gives
+$\mathbb E\|U_j-U\|\to0$, hence convergence of the laws in
+$\mathcal W_1$. The original Cauchy sequence has the same limit.
+Separability follows by truncating a law, moving its mass to a finite
+rational grid, and approximating those masses by rational probabilities;
+the coupling costs of these operations tend to zero.
+
+Now let $(\mu_j)$ be $\mathcal D$-Cauchy in $\mathfrak M$. Choose
+a subsequence, relabeled $(\mu_j)$, with
+$\sum_j\mathcal D(\mu_j,\mu_{j+1})<\infty$. Fubini gives a full-measure
+set of depths where the successive $\mathcal W_1$ distances are summable.
+Pointwise completeness yields a limit law $\mu(s)$ there; assign a fixed
+law on the exceptional set. The convergence set is Borel, and a pointwise
+limit of Borel maps into a metric space is Borel. The triangle inequality
+and Fatou give
+
+$$
+\mathcal D(\mu_j,\mu)
+\le\sum_{k\ge j}\mathcal D(\mu_k,\mu_{k+1})\longrightarrow0.
+
+$$ {#eq-docs-continuous-depth-l685}
+
+Also $\mathcal D(\mu,\delta_0)<\infty$, because it is bounded by the
+distance to one $\mu_j$ plus its finite first moment. Here $\delta_0$
+denotes the constant profile of point masses at zero, and
+$\mathcal W_1(\mu(s),\delta_0)=\int\|\theta\|\,d\mu(s)$.
+Thus $\mu\in\mathfrak M$, and the full Cauchy sequence converges to it.
+The same facts prove completeness of the finite product used in [Section 6](continuous-depth.qmd#sec-docs-continuous-depth-l519).
+
+For $\mu,\nu\in\mathfrak M$, the continuous version of ([-@eq-docs-continuous-depth-l570]) is
+
+$$
+|Z_a^\mu(s)-Z_a^\nu(s)|
+\le\int_0^s\left(c_1|Z_a^\mu(u)-Z_a^\nu(u)|
++C\mathcal W_1(\mu(u),\nu(u))\right)\,du.
+
+$$ {#eq-docs-continuous-depth-l700}
+
+It gives $\max_a\|Z_a^\mu-Z_a^\nu\|_\infty\le C\mathcal D(\mu,\nu)$.
+In the exponential formula ([-@eq-docs-continuous-depth-l467]), the exponents lie in $[-c_1,c_1]$.
+Their difference is bounded, using A2 and ([-@eq-docs-continuous-depth-l494]), by
+$C\int_0^1(|Z_a^\mu-Z_a^\nu|+\mathcal W_1(\mu(u),\nu(u)))\,du$.
+The exponential is $e^{c_1}$-Lipschitz on this interval. Therefore
+
+$$
+\max_a\|Z_a^\mu-Z_a^\nu\|_\infty
++\max_a\|P_a^\mu-P_a^\nu\|_\infty
++\max_a|r_a^\mu-r_a^\nu|
+\le C\mathcal D(\mu,\nu).
+
+$$ {#eq-docs-continuous-depth-l713}
+
+This implies
+
+$$
+\|v[\mu](s,\theta)-v[\nu](s,\widetilde\theta)\|
+\le C\bigl(\|\theta-\widetilde\theta\|+\mathcal D(\mu,\nu)\bigr).
+
+$$ {#eq-docs-continuous-depth-l723}
+
+Furthermore, (3.4)--(3.5) and the uniform bounds imply for every current
+profile, without assuming its depth continuity,
+
+$$
+|Z_a^\mu(s)-Z_a^\mu(u)|+|P_a^\mu(s)-P_a^\mu(u)|
+\le C|s-u|,
+\qquad
+\sup_\theta\|v[\mu](s,\theta)-v[\mu](u,\theta)\|
+\le C|s-u|.
+
+$$ {#eq-docs-continuous-depth-l732}
+
+Thus $v[\mu]$ has a bounded jointly continuous representative on
+$[0,1]\times\mathbb R^p$, and $\mu\mapsto v[\mu]$ is Lipschitz
+from $\mathfrak M$ into that space with the supremum norm. This map is
+well-defined on equivalence classes: null-set changes in a profile leave
+the depth integrals, hence their continuous readouts, unchanged.
+
+Fix $\mu_{\rm in}\in\mathfrak M$, and a continuous trial curve
+$\bar\mu\in C([t_0,t_0+\tau];\mathfrak M)$. Its velocity is jointly
+continuous in time, depth, and parameter, bounded by $C$, and globally
+$C$-Lipschitz in parameter. For each $(s,\vartheta)$, solve
+
+$$
+\Theta_t(s,\vartheta)=\vartheta+
+ \int_{t_0}^t v[\bar\mu_u](s,\Theta_u(s,\vartheta))\,du.
+
+$$ {#eq-docs-continuous-depth-l752}
+
+The exact ODE fact needed is that a continuous bounded vector field,
+globally Lipschitz in the state with one uniform constant, has a unique
+global solution from every initial point, with continuous dependence on
+parameters for which the field is continuous. To see it here, iterate the
+right side of ([-@eq-docs-continuous-depth-l752]) on continuous paths; it contracts when $C\tau<1$.
+Uniform limits of the iterates preserve joint continuity in
+$(t,s,\vartheta)$, and bounded velocity permits successive intervals of
+the same length. Applying ([-@eq-docs-continuous-depth-l426]) to two integral equations proves uniqueness
+and the required dependence estimates.
+
+Define
+
+$$
+(\Gamma\bar\mu)_t(s)
+=(\Theta_t(s,\cdot))_\#\mu_{\rm in}(s).
+
+$$ {#eq-docs-continuous-depth-l770}
+
+These are Borel profiles: integration of a bounded Borel function of
+$(s,\vartheta)$ against a Borel probability kernel is Borel, as follows
+first for indicator rectangles and then for bounded functions by simple
+approximation. Apply this to test functions of the continuous map
+$\Theta_t$; truncation also gives measurability of its first moment.
+To check Borel measurability specifically in the $\mathcal W_1$ topology,
+quantize any such kernel on a fixed finite grid in a ball of radius $N$,
+with mesh tending to zero, and send the exterior to zero. The resulting
+laws have Borel masses on a fixed finite support, hence are Borel as
+$\mathcal W_1$-valued maps. At each depth they converge in
+$\mathcal W_1$ to the original law: the coupling cost is bounded by
+the mesh error plus its first-moment tail outside that ball. Their
+pointwise limit is therefore Borel in the required topology.
+The displacement estimate $\|\Theta_t-\vartheta\|\le C(t-t_0)$ proves
+that ([-@eq-docs-continuous-depth-l770]) lies in $\mathfrak M$. Coupling two times by the same initial
+parameter gives continuity, indeed a $C$-Lipschitz bound, in
+$\mathcal D$.
+
+For two trial curves with the same starting profile, couple characteristics
+using exactly the same initial parameter. Equation ([-@eq-docs-continuous-depth-l723]) and ([-@eq-docs-continuous-depth-l426]) give,
+uniformly in $s,\vartheta,t$,
+
+$$
+\|\Theta_t^{\bar\mu}(s,\vartheta)
+-\Theta_t^{\bar\nu}(s,\vartheta)\|
+\le C\tau e^{C\tau}
+\sup_{u\in[t_0,t_0+\tau]}\mathcal D(\bar\mu_u,\bar\nu_u).
+
+$$ {#eq-docs-continuous-depth-l798}
+
+Push forward the common law and integrate in depth. The map $\Gamma$
+is a contraction on the complete space of continuous curves when
+$C\tau e^{C\tau}<1$. For completeness, iterating a contraction of
+factor $q<1$ gives successive distances bounded by a geometric series;
+completeness supplies a limit, continuity of the map makes it a fixed
+point, and $d(u,v)\le qd(u,v)$ proves uniqueness. Applied to $\Gamma$,
+this constructs the characteristic solution. Differentiating a test
+function along each characteristic, using bounded velocity, proves ([-@eq-docs-continuous-depth-l313]).
+
+The constants do not depend on $\mu_{\rm in}$, and
+
+$$
+\mathcal D(\rho_t,\rho_u)\le C|t-u|,
+\qquad
+\int_0^1\int\|\theta\|\,\rho_t(s,d\theta)\,ds
+\le\int_0^1\int\|\theta\|\,\mu_{\rm in}(s,d\theta)\,ds+Ct.
+
+$$ {#eq-docs-continuous-depth-l817}
+
+The construction therefore iterates for all nonnegative times, from every
+initial profile in $\mathfrak M$. Uniqueness is in the characteristic
+class specified in ([-@eq-docs-continuous-depth-l299]); no larger class of unspecified distributional
+solutions is needed.
+
+One can obtain stability on all of $\mathfrak M$ without selecting a
+measurable family of optimal couplings. Let $\rho,\widetilde\rho$ start
+from $\mu_{\rm in},\nu_{\rm in}$, respectively. At each individual
+depth and for any coupling of those initial laws, let $H_s(t)$ be the
+expected distance after transporting the coupling by the two flows.
+Their integral equations and ([-@eq-docs-continuous-depth-l723]) bound $H_s(t)$ by its initial value plus
+$C\int_0^t\bigl(H_s(u)+\mathcal D(\rho_u,\widetilde\rho_u)\bigr)\,du$.
+Gronwall and an infimum over that depth's initial couplings yield
+
+$$
+\mathcal W_1(\rho_t(s),\widetilde\rho_t(s))
+\le e^{Ct}\mathcal W_1(\mu_{\rm in}(s),\nu_{\rm in}(s))
++C\int_0^t e^{C(t-u)}\mathcal D(\rho_u,\widetilde\rho_u)\,du.
+
+$$ {#eq-docs-continuous-depth-l839}
+
+Both sides are measurable in depth. Integrating and applying Gronwall
+again gives
+$\mathcal D(\rho_t,\widetilde\rho_t)
+\le e^{Ct}\mathcal D(\mu_{\rm in},\nu_{\rm in})$, with a possibly larger
+$C$. Finally the velocity depends only on the current state. Restarting
+at time $u$ with $\rho_u\in\mathfrak M$ yields its unique
+continuation. If $S_t$ is the resulting map on profiles, uniqueness
+gives $S_0=\mathrm{id}$ and $S_{t+u}=S_tS_u$.
+
+## 8. Canonical depth representative and depth consistency {#sec-docs-continuous-depth-l855}
+
+Return to the constant initial profile $\rho_0$. The continuous velocity
+constructed in [Section 7](continuous-depth.qmd#sec-docs-continuous-depth-l652) defines $\Theta_t(s,\vartheta)$ at every
+$s\in[0,1]$. Use ([-@eq-docs-continuous-depth-l299]) to define $\rho_t(s)$ at every depth, including
+the endpoints. This agrees almost everywhere with the profile solution.
+At two depths couple characteristics with the same
+$\vartheta\sim\rho_0$. By (7.4)--(7.5),
+
+$$
+\|\Theta_t(s,\vartheta)-\Theta_t(u,\vartheta)\|
+\le C\int_0^t
+ \bigl(\|\Theta_\tau(s,\vartheta)-\Theta_\tau(u,\vartheta)\|
+       +|s-u|\bigr)\,d\tau.
+
+$$ {#eq-docs-continuous-depth-l864}
+
+Thus, on every $[0,T]$,
+
+$$
+\mathcal W_1(\rho_t(s),\rho_t(u))\le C_T|s-u|,
+\qquad
+\mathcal W_1(\rho_t(s),\rho_v(s))\le C|t-v|.
+
+$$ {#eq-docs-continuous-depth-l874}
+
+This is the canonical continuous depth representative. Any other
+continuous representative agreeing almost everywhere agrees everywhere:
+its distance from this one is a continuous nonnegative function, which
+cannot be positive at one point while zero almost everywhere. The
+construction uses constant initialization; arbitrary profiles in
+$\mathfrak M$ need not acquire a continuous depth representative.
+
+For clarity set, in this section only,
+
+$$
+F_a(s,t)=\int\Phi(\theta,Z_a(s,t))\,\rho_t(s,d\theta),
+\qquad
+B_a(s,t)=\int\partial_z\Phi(\theta,Z_a(s,t))\,\rho_t(s,d\theta).
+
+$$ {#eq-docs-continuous-depth-l890}
+
+These are scalar depth coefficients, not outputs or matrices. By
+(5.6)--(5.7), A2, and ([-@eq-docs-continuous-depth-l874]), both are uniformly $C_T$-Lipschitz in
+depth. The forward integral equation consequently has the local defect
+
+$$
+Z_a(s_{\ell+1},t)
+=Z_a(s_\ell,t)+h F_a(s_\ell,t)+d_{a,\ell}^{Z}(t),
+\qquad |d_{a,\ell}^{Z}(t)|\le C_T h^2.
+
+$$ {#eq-docs-continuous-depth-l901}
+
+The exact backward integral equation is
+$P_a(s_\ell,t)=P_a(s_{\ell+1},t)
++\int_{s_\ell}^{s_{\ell+1}}P_a(u,t)B_a(u,t)\,du$.
+Replacing its integrand by
+$P_a(s_{\ell+1},t)B_a(s_\ell,t)$ costs at most $C_T h^2$, since
+both factors are bounded and depth-Lipschitz. Hence the precise discrete
+adjoint convention has defect
+
+$$
+P_a(s_\ell,t)
+=P_a(s_{\ell+1},t)(1+h B_a(s_\ell,t))
++d_{a,\ell}^{P}(t),
+\qquad |d_{a,\ell}^{P}(t)|\le C_T h^2.
+
+$$ {#eq-docs-continuous-depth-l916}
+
+Let $\boldsymbol\mu_t^L$ solve ([-@eq-docs-continuous-depth-l615]) from
+$\mu_{\ell,0}^L=\rho_0$ at every layer, and abbreviate its readouts by
+$Z_{a,\ell}^{L},P_{a,\ell}^{L},V_\ell^L,K_{ab}^{L}$. Define
+
+$$
+E_L(t)=\max_{0\le\ell<L}
+ \mathcal W_1(\mu_{\ell,t}^L,\rho_t(s_\ell)).
+
+$$ {#eq-docs-continuous-depth-l928}
+
+Subtract ([-@eq-docs-continuous-depth-l901]) from ([-@eq-docs-continuous-depth-l525]). The resulting state errors obey ([-@eq-docs-continuous-depth-l570]) with
+$w_\ell\le E_L(t)$ and an added $C_T h^2$ at each step. Subtracting
+([-@eq-docs-continuous-depth-l916]) from ([-@eq-docs-continuous-depth-l534]) gives ([-@eq-docs-continuous-depth-l583]) with the same extra defect. Applying ([-@eq-docs-continuous-depth-l436])
+in each direction yields
+
+$$
+\max_{a,\ell}|Z_{a,\ell}^{L}(t)-Z_a(s_\ell,t)|
++\max_{a,\ell}|P_{a,\ell}^{L}(t)-P_a(s_\ell,t)|
+\le C_T\bigl(E_L(t)+h\bigr).
+
+$$ {#eq-docs-continuous-depth-l939}
+
+In comparing velocities, the finite-depth velocity uses
+$P_{a,\ell+1}^{L}$ and the continuous one uses $P_a(s_\ell,t)$.
+Their difference is bounded by ([-@eq-docs-continuous-depth-l939]) plus
+$|P_a(s_{\ell+1},t)-P_a(s_\ell,t)|\le Ch$. Residual and feature-gradient
+differences are bounded by ([-@eq-docs-continuous-depth-l939]) and A2. Consequently
+
+$$
+\sup_{\ell,\theta}
+ \|V_\ell^L(\theta,t)-v[\rho_t](s_\ell,\theta)\|
+\le C_T\bigl(E_L(t)+h\bigr).
+
+$$ {#eq-docs-continuous-depth-l952}
+
+Let $\Theta_{\ell,t}^L(\vartheta)$ be the characteristic of
+$V_\ell^L$. Couple it with $\Theta_t(s_\ell,\vartheta)$ from the same
+$\vartheta\sim\rho_0$, and write
+
+$$
+H_L(t)=\max_{\ell<L}\int
+ \|\Theta_{\ell,t}^L(\vartheta)-\Theta_t(s_\ell,\vartheta)\|
+ \,\rho_0(d\vartheta).
+
+$$ {#eq-docs-continuous-depth-l963}
+
+Then $E_L\le H_L$, $H_L(0)=0$, and parameter Lipschitzness together
+with ([-@eq-docs-continuous-depth-l952]) gives
+
+$$
+H_L(t)\le C_T\int_0^t(H_L(u)+h)\,du.
+
+$$ {#eq-docs-continuous-depth-l973}
+
+There is no maximum over random empirical layer errors here: these are
+deterministic population solutions from the common law. Gronwall proves
+
+$$
+\sup_{t\le T}\left[
+E_L(t)+\max_{a,\ell}|Z_{a,\ell}^{L}(t)-Z_a(s_\ell,t)|
++\max_{a,\ell}|P_{a,\ell}^{L}(t)-P_a(s_\ell,t)|\right]
+\le C_T L^{-1}.
+
+$$ {#eq-docs-continuous-depth-l981}
+
+For the kernel, the continuous integrand in ([-@eq-docs-continuous-depth-l332]), after integrating in
+parameter, is bounded and $C_T$-Lipschitz in depth. Comparing a discrete
+summand with its value at $s_\ell$ costs at most
+$C_T(E_L(t)+h)$, by ([-@eq-docs-continuous-depth-l939]), the sensitivity index shift, and the
+coupling estimate for the gradient product. A Lipschitz scalar function
+$g$ satisfies
+
+$$
+\left|h\sum_{\ell=0}^{L-1}g(s_\ell)-\int_0^1g(s)\,ds\right|
+\le\sum_\ell\int_{s_\ell}^{s_{\ell+1}}
+ \operatorname{Lip}(g)|s-s_\ell|\,ds
+\le\tfrac12\operatorname{Lip}(g)h.
+
+$$ {#eq-docs-continuous-depth-l996}
+
+Using ([-@eq-docs-continuous-depth-l981]) and this Riemann-sum bound proves
+
+$$
+\sup_{t\le T}\max_{a,b}|K_{ab}^{L}(t)-K_{ab}(t)|\le C_T L^{-1}.
+
+$$ {#eq-docs-continuous-depth-l1006}
+
+## 9. Width convergence and completion of the joint theorem {#sec-docs-continuous-depth-l1011}
+
+The exact empirical flow and the discrete-depth population flow are two
+solutions of ([-@eq-docs-continuous-depth-l615]). Their initial distance is $\varepsilon_{n,L}$.
+Equations (6.5)--(6.8) and ([-@eq-docs-continuous-depth-l637]) imply pathwise
+
+$$
+\begin{aligned}
+\sup_{t\le T}\Big[&
+d_L(\widehat{\boldsymbol\mu}_t^{n,L},\boldsymbol\mu_t^L)
++\max_{a,\ell}|z_{a,\ell}^{n,L}(t)-Z_{a,\ell}^{L}(t)|\\
+&+\max_{a,\ell}|p_{a,\ell}^{n,L}(t)-P_{a,\ell}^{L}(t)|
++\max_{a,b}|K_{ab}^{n,L}(t)-K_{ab}^{L}(t)|\Big]
+\le C_T\varepsilon_{n,L}.
+\end{aligned}
+
+$$ {#eq-docs-continuous-depth-l1017}
+
+The triangle inequality with ([-@eq-docs-continuous-depth-l981]) and ([-@eq-docs-continuous-depth-l1006]) proves ([-@eq-docs-continuous-depth-l374]).
+In particular, only the average of the empirical initialization errors
+appears. Replacing it by a layer maximum would impose an unnecessary
+restriction on how fast depth could grow.
+
+We prove the initialization convergence under exactly the first-moment
+assumption. For independent $\vartheta_i\sim\rho_0$, put
+
+$$
+\alpha_n=\mathbb E\mathcal W_1\left(
+ \frac1n\sum_{i=1}^n\delta_{\vartheta_i},\rho_0\right).
+
+$$ {#eq-docs-continuous-depth-l1037}
+
+Let $T_R$ be radial projection onto the closed Euclidean ball of radius
+$R>0$. Coupling each point to its projection and using the triangle
+inequality gives
+
+$$
+\alpha_n\le
+\mathbb E\mathcal W_1\left(
+ \frac1n\sum_i\delta_{T_R\vartheta_i},(T_R)_\#\rho_0\right)
++2\mathbb E\|\vartheta_1-T_R\vartheta_1\|.
+
+$$ {#eq-docs-continuous-depth-l1047}
+
+Here is a direct finite-partition proof that the first term tends to zero
+for fixed $R$. Cover the ball by finitely many sets of diameter at most
+$\epsilon$, form a Borel partition subordinate to that cover, and send
+each nonempty cell to a representative point in that cell. Denote its
+$J$ cell probabilities by $\pi_j$ and the empirical frequencies by
+$\widehat\pi_j$. Quantizing both measures costs at most
+$2\epsilon$. The unmatched mass of the quantized measures is
+$\tfrac12\sum_j|\widehat\pi_j-\pi_j|$, and it can be moved within
+diameter $2R$. Independence gives
+$\mathbb E|\widehat\pi_j-\pi_j|
+\le\sqrt{\pi_j(1-\pi_j)/n}$ by the variance formula and Cauchy--Schwarz.
+Therefore
+
+$$
+\mathbb E\mathcal W_1\left(
+ \frac1n\sum_i\delta_{T_R\vartheta_i},(T_R)_\#\rho_0\right)
+\le2\epsilon+R\sum_{j=1}^J
+ \sqrt{\frac{\pi_j(1-\pi_j)}n}.
+
+$$ {#eq-docs-continuous-depth-l1068}
+
+First let $n\to\infty$, then $\epsilon\downarrow0$. Finally the tail
+term in ([-@eq-docs-continuous-depth-l1047]) tends to zero as $R\to\infty$, since
+$\|\vartheta-T_R\vartheta\|=(\|\vartheta\|-R)_+\le\|\vartheta\|$
+and the first moment is finite. This proves $\alpha_n\to0$, without
+a dimension-dependent rate claim.
+
+Every layer has the same initialization distribution, so linearity of
+expectation gives, for every $L$,
+
+$$
+\mathbb E\varepsilon_{n,L}=\alpha_n.
+
+$$ {#eq-docs-continuous-depth-l1085}
+
+Independence across layers is part of the specified initialization but is
+not needed for this expectation identity. If $\mathscr E_{n,L}(T)$
+denotes the nonnegative left side of ([-@eq-docs-continuous-depth-l374]), then for $\epsilon>0$,
+
+$$
+\mathbb P\{\mathscr E_{n,L}(T)>\epsilon\}
+\le\frac{\mathbb E\mathscr E_{n,L}(T)}\epsilon
+\le\frac{C_T}{\epsilon}(\alpha_n+L^{-1})\longrightarrow0
+
+$$ {#eq-docs-continuous-depth-l1094}
+
+along every deterministic joint sequence in the theorem. Taking the
+terminal forward state gives output and residual convergence. Since all
+residuals have absolute value at most $Z_*+y_*$,
+
+$$
+|\mathcal L^{n,L}(t)-\mathcal L(t)|
+\le (Z_*+y_*)\max_a|f_a^{n,L}(t)-f_a(t)|,
+\qquad \mathcal L(t)=\frac1{2m}\sum_a r_a(t)^2.
+
+$$ {#eq-docs-continuous-depth-l1105}
+
+This proves the stated loss convergence and completes @thm-docs-continuous-depth-l357.
+
+Equivalently, make the empirical profile piecewise constant on the depth
+cells. Its distance $\mathcal D$ to $\rho_t$ is at most the first
+term in ([-@eq-docs-continuous-depth-l374]) plus $C_T/L$, by ([-@eq-docs-continuous-depth-l874]). Thus the measure convergence is
+also convergence in the specified profile metric, uniformly on compact
+training intervals. No training-time Euler discretization has been used;
+the Euler defects above are solely the architectural depth discretization.
+
+## 10. Differentiable output and dissipation readouts {#sec-docs-continuous-depth-l1121}
+
+The kernel ([-@eq-docs-continuous-depth-l332]) is positive semidefinite: for every $c\in\mathbb R^m$,
+
+$$
+c^T K(t)c
+=\int_0^1\int
+ \left\|\sum_{a=1}^m c_a P_a(s,t)
+ \nabla_\theta\Phi(\theta,Z_a(s,t))\right\|^2
+ \,\rho_t(s,d\theta)\,ds\ge0.
+
+$$ {#eq-docs-continuous-depth-l1125}
+
+We justify differentiating the output using characteristics. By ([-@eq-docs-continuous-depth-l713]) and
+([-@eq-docs-continuous-depth-l817]), $Z_a$, $P_a$, and $r_a$ are Lipschitz in training time,
+uniformly in depth. In the characteristic forward integral equation,
+
+$$
+Z_a(s,t)=x_a+\int_0^s\int
+ \Phi(\Theta_t(u,\vartheta),Z_a(u,t))
+ \,\rho_0(d\vartheta)\,du,
+
+$$ {#eq-docs-continuous-depth-l1138}
+
+both arguments change by at most a constant times the training-time
+increment. The derivatives of $\Phi$ on the state strip are bounded
+and Lipschitz by A1--A2. The fundamental theorem of calculus along the
+segment between two argument pairs therefore writes the difference
+quotient of the integrand as its current derivatives times the argument
+difference quotients, with a uniformly vanishing remainder. The parameter
+quotient converges uniformly to
+$v[\rho_t](u,\Theta_t(u,\vartheta))$, by the characteristic equation
+and continuity of the velocity. Subtraction of the resulting linear
+Volterra equation and ([-@eq-docs-continuous-depth-l426]) then makes the state quotient converge
+uniformly in depth. Boundedness permits integration over
+$\rho_0$ and depth. Thus $U_a(s,t)=\partial_t Z_a(s,t)$ exists and
+satisfies
+
+$$
+\partial_s U_a(s,t)=B_a(s,t)U_a(s,t)+J_a(s,t),
+\qquad U_a(0,t)=0,
+
+$$ {#eq-docs-continuous-depth-l1159}
+
+where the scalar coefficients are
+
+$$
+B_a(s,t)=\int\partial_z\Phi(\theta,Z_a(s,t))\,\rho_t(s,d\theta),
+\qquad
+J_a(s,t)=\int\nabla_\theta\Phi(\theta,Z_a(s,t))\cdot
+ v[\rho_t](s,\theta)\,\rho_t(s,d\theta).
+
+$$ {#eq-docs-continuous-depth-l1167}
+
+The coefficients depend continuously on training time, so this derivative
+is continuous as well; at $t=0$ take the right derivative. Multiplying
+([-@eq-docs-continuous-depth-l1159]) by $P_a$, and using $\partial_sP_a=-B_aP_a$, gives
+$\partial_s(P_aU_a)=P_aJ_a$. Integrate in depth, use
+$P_a(1,t)=1$, and substitute ([-@eq-docs-continuous-depth-l278]):
+
+$$
+\dot f_a(t)=\int_0^1P_a(s,t)J_a(s,t)\,ds
+=-\frac\kappa m\sum_{b=1}^mK_{ab}(t)r_b(t).
+
+$$ {#eq-docs-continuous-depth-l1181}
+
+It follows that
+
+$$
+\frac d{dt}\mathcal L(t)
+=-\frac\kappa{m^2}r(t)^T K(t)r(t)
+=-\kappa\int_0^1\int\|Q[\rho_t](s,\theta)\|^2
+ \,\rho_t(s,d\theta)\,ds\le0.
+
+$$ {#eq-docs-continuous-depth-l1189}
+
+For a general initial profile $\mu_{\rm in}\in\mathfrak M$, the same
+proof replaces $\rho_0(d\vartheta)$ in ([-@eq-docs-continuous-depth-l1138]) by
+$\mu_{\rm in}(u,d\vartheta)$; bounded derivatives and velocities give
+the same domination, with depth equations understood almost everywhere.
+Thus these formulas remain current-profile readouts on the entire restart
+domain. Positive dissipation energy is the precise condition
+for strictly decreasing loss at an instant. For a batch, a nonzero
+residual vector and nonzero individual gradients can still cancel in
+$Q$; positivity of the full energy in ([-@eq-docs-continuous-depth-l1189]) is required. A1--A2 do not
+give a positive lower kernel bound or eventual zero loss. For example,
+$\Phi\equiv0$ satisfies both assumptions and leaves any unmatched input
+and label unchanged for all training times.
+
+## 11. A concrete general activation class {#sec-docs-continuous-depth-l1210}
+
+Take $p=3$ and the explicitly typed scalar maps
+$A,U,B:\mathbb R\to\mathbb R$. Suppose each map and its first
+derivative are bounded and each first derivative is globally Lipschitz;
+write this condition as $A,U,B\in C_b^{1,1}(\mathbb R)$. Let
+$\sigma:\mathbb R\to\mathbb R$ be continuously differentiable with
+bounded, globally Lipschitz derivative. Define the particle feature by
+
+$$
+\Phi((\alpha,\omega,\beta),z)
+=A(\alpha)\,\sigma\bigl(U(\omega)z+B(\beta)\bigr).
+
+$$ {#eq-docs-continuous-depth-l1219}
+
+The scalar nonlinearity $\sigma$ is only a component of $\Phi$; the
+bounded maps specify the raw parameterization to which the theorem applies.
+Let $u=U(\omega)z+B(\beta)$. Direct differentiation gives
+
+$$
+\begin{aligned}
+\partial_z\Phi&=A(\alpha)\sigma'(u)U(\omega),\\
+\partial_\alpha\Phi&=A'(\alpha)\sigma(u),\\
+\partial_\omega\Phi&=A(\alpha)\sigma'(u)U'(\omega)z,\\
+\partial_\beta\Phi&=A(\alpha)\sigma'(u)B'(\beta).
+\end{aligned}
+
+$$ {#eq-docs-continuous-depth-l1229}
+
+Because $\sigma'$ is bounded,
+$|\sigma(u)|\le|\sigma(0)|+\|\sigma'\|_\infty|u|$.
+At $z=0$, the argument $B(\beta)$ is bounded; this bounds
+$\Phi(\theta,0)$. The first line of ([-@eq-docs-continuous-depth-l1229]) is bounded on all parameter
+and state space, proving A1. On any bounded state strip, $u$ and
+$\sigma(u)$ are bounded. The argument map is Lipschitz jointly in raw
+parameters and state there, and each factor in ([-@eq-docs-continuous-depth-l1229]) is bounded and
+Lipschitz there. Expanding differences of these products proves all of A2.
+
+Examples of $\sigma$ include tanh, arctangent, logistic sigmoid, erf,
+sine, softsign, identity, affine functions, softplus, and GELU, as well as
+positive rescalings and affine recenterings. For the smooth bounded
+examples, bounded first and second derivatives verify the conditions.
+Softsign $\sigma(u)=u/(1+|u|)$ has continuous derivative
+$(1+|u|)^{-2}$, which is bounded and globally Lipschitz even at zero.
+Softplus $\log(1+e^u)$ has a bounded logistic derivative with bounded
+derivative. For exact GELU, write
+$\sigma(u)=u\mathcal N(u)$, where $\mathcal N$ is the standard
+normal distribution function and $\gamma$ its density. Then
+$\sigma'(u)=\mathcal N(u)+u\gamma(u)$ and
+$\sigma''(u)=(2-u^2)\gamma(u)$ are bounded. These checks allow linear
+growth of $\sigma$.
+
+For instance, choosing $A(\alpha)=\tanh\alpha$,
+$U(\omega)=\tanh\omega$, $B(\beta)=\tanh\beta$, and
+$\sigma=\tanh$ gives a nonlinear admissible feature. Nonaffinity is
+not needed for the convergence theorem. Nontrivial motion is possible
+whenever there is a pair $(\theta_*,z_*)$ with
+$\nabla_\theta\Phi(\theta_*,z_*)\ne0$: take one input $x_1=z_*$,
+the constant atomic initialization $\rho_0=\delta_{\theta_*}$, and a
+label different from its initial output. By continuity, the gradient is
+nonzero on a positive interval of depths near zero, and $P_1>0$, so
+the energy in ([-@eq-docs-continuous-depth-l1189]) is positive initially. In contrast, nonaffinity and
+an unmatched label alone do not ensure motion at a specified
+initialization.
+
+Exact ReLU is outside the differentiability assumptions. Treating its
+kinks through a differential inclusion or a crossing argument would
+require a different result. An untruncated superlinear feature is not
+covered by A1. If only stripwise forward regularity is available, the
+comparison estimates have a local version on an independently controlled
+state strip, with constants depending on that control; this does not
+establish global existence without a separate bound. Unbounded effective
+raw weights generally also violate A1 or A2. Extending the global result
+to those parameterizations would require additional propagated moment or
+coercivity estimates and an appropriate weighted transport metric.
+
+## 12. Limits of finite linear-moment closure {#sec-docs-continuous-depth-l1286}
+
+A measure field can sometimes have a shorter special representation. The
+following exact obstruction specifies what fails for general fixed moment
+lists; it is not a claim about every possible nonlinear encoding.
+
+::: {#prp-docs-continuous-depth-l1292}
+Fix an integer $J\ge0$ and real-valued functions
+$\psi_1,\ldots,\psi_J$ on $\mathbb R^p$. Fix a scalar state $z$.
+Suppose that any two finitely supported probability laws with equal
+values of all $\int\psi_j\,d\mu$ also have equal values of
+$\int\Phi(\theta,z)\,\mu(d\theta)$. Then
+
+$$
+\Phi(\cdot,z)\in\operatorname{span}\{1,\psi_1,\ldots,\psi_J\}.
+
+$$ {#eq-docs-continuous-depth-l1298}
+
+Conversely, this span condition makes that integral a function of the
+declared moments for every finitely supported probability law.
+
+:::
+
+[]{#proof-docs-continuous-depth-l1306}
+
+::: {.proof}
+Put $b(\theta)=(1,\psi_1(\theta),\ldots,\psi_J(\theta))$.
+If every finite relation $\sum_i c_i b(\theta_i)=0$ also satisfied
+$\sum_i c_i\Phi(\theta_i,z)=0$, the assignment
+
+$$
+\sum_i c_i b(\theta_i)\longmapsto
+\sum_i c_i\Phi(\theta_i,z)
+
+$$ {#eq-docs-continuous-depth-l1310}
+
+would define a well-defined linear functional on the span of the vectors
+$b(\theta)$ in $\mathbb R^{J+1}$. Extending a basis to that of
+$\mathbb R^{J+1}$ would represent it by a coefficient vector, expressing
+$\Phi(\cdot,z)$ in the span in ([-@eq-docs-continuous-depth-l1298]). Thus, if ([-@eq-docs-continuous-depth-l1298]) fails, there
+exist finitely many points and coefficients with
+
+$$
+\sum_i c_i=0,\qquad
+\sum_i c_i\psi_j(\theta_i)=0\quad(1\le j\le J),\qquad
+\sum_i c_i\Phi(\theta_i,z)\ne0.
+
+$$ {#eq-docs-continuous-depth-l1322}
+
+The positive and negative parts of $(c_i)$ have equal total mass
+$M>0$. Define probability laws
+$\mu_+=M^{-1}\sum_i(c_i)_+\delta_{\theta_i}$ and
+$\mu_-=M^{-1}\sum_i(-c_i)_+\delta_{\theta_i}$. Their declared moments
+are identical, while their forward-feature integrals differ by the
+nonzero last quantity in ([-@eq-docs-continuous-depth-l1322]) divided by $M$. This contradicts the
+hypothesis. The converse follows by integrating the linear combination
+in ([-@eq-docs-continuous-depth-l1298]). $\square$
+
+:::
+
+It follows that if
+
+$$
+\operatorname{span}\{\Phi(\cdot,z):z\in I\}
+\quad\hbox{is infinite-dimensional}
+
+$$ {#eq-docs-continuous-depth-l1340}
+
+on a state interval $I$, no fixed finite list of state-independent
+linear moments recovers the forward coefficient for every finitely
+supported law and every $z\in I$. Such moments cannot give a universal
+exact closure of the training equation with those readouts.
+
+Here are sufficient nondegeneracy conditions for ([-@eq-docs-continuous-depth-l1340]) in ([-@eq-docs-continuous-depth-l1219]).
+Suppose $A(\alpha_0)\ne0$, fix $B(\beta_0)=b_0$, assume the range
+of $U$ contains a neighborhood of zero, and assume $\sigma$ is real
+analytic near $b_0$ with infinitely many nonzero Taylor coefficients
+there. Let $I$ contain a nonzero open subinterval. Choose arbitrarily
+many distinct states of one sign in a smaller subinterval. On the fixed
+parameter slice the functions of the effective slope $w$ are
+$\sigma(b_0+wz)$, with $w$ ranging over a neighborhood of zero.
+An identity among $N$ such functions, with coefficients $c_j$, would
+force
+
+$$
+\sum_{j=1}^N c_j z_j^{k_i}=0,\qquad 1\le i\le N,
+
+$$ {#eq-docs-continuous-depth-l1362}
+
+for any $N$ distinct orders $0\le k_1<\cdots<k_N$ with nonzero
+Taylor coefficients. The matrix in ([-@eq-docs-continuous-depth-l1362]) is nonsingular for
+distinct positive $z_j$. To prove this, a nonzero linear combination
+of $N$ monomials with increasing real exponents has at most $N-1$
+distinct positive zeros. Divide by the smallest power. If there were
+$N$ distinct zeros, Rolle's theorem would give at least $N-1$ zeros
+of the derivative, which has at most $N-1$ nonzero monomial terms and
+therefore at most $N-2$ zeros by induction. The one-term base case has
+no positive zero; omitted zero coefficients only reduce the term count.
+A singular matrix would supply a nonzero combination vanishing at all
+$N$ positive points, a contradiction. For negative $z_j$, each row
+differs from the corresponding matrix for $|z_j|$ by the nonzero sign
+$(-1)^{k_i}$, giving the same result. Thus all the coefficients in the
+putative identity vanish. Since $N$ was arbitrary, ([-@eq-docs-continuous-depth-l1340]) holds.
+
+These hypotheses cover nondegenerate variable-slope parameterizations
+using analytic nonpolynomial nonlinearities such as tanh, arctangent,
+sine, and logistic sigmoid. The activation name alone does not establish
+the hypotheses: for example,
+$\Phi(\theta,z)=A(\theta)\sigma(w_0z+b_0)$ with fixed slope and bias
+has forward feature span of dimension at most one.
+
+The proposition concerns exact recovery by fixed linear moments,
+uniformly over all finitely supported laws and a continuum of state
+values. It does not exclude approximate truncations, moments adapted to
+the current depth or state, closure along a single specially reachable
+orbit, a finite set of sampled state values, or a nonlinear encoding of
+an entire law. If an initialization has $J$ atoms, deterministic
+characteristics preserve those atom masses and give an exact description
+by $J$ parameter-valued depth fields. These fields are still functions
+of depth, rather than a fixed finite-dimensional scalar state for the
+whole continuous-depth system.
+
+Finite forward feature span is only a necessary first condition for a
+universal moment closure. For $C^1$ moment functions and finitely
+supported characteristic laws, differentiate the finite sums. Writing
+$M_j(s,t)=\int\psi_j(\theta)\,\rho_t(s,d\theta)$ gives
+
+$$
+\partial_t M_j(s,t)
+=-\frac\kappa m\sum_a r_a(t)P_a(s,t)
+\int \nabla\psi_j(\theta)\cdot
+ \nabla_\theta\Phi(\theta,Z_a(s,t))\,\rho_t(s,d\theta).
+
+$$ {#eq-docs-continuous-depth-l1405}
+
+For a general initial law the same identity holds on $[0,T]$, at each
+depth under consideration, provided $\psi_j$ is initially integrable
+and
+$\int\sup_{t\le T}\|\nabla\psi_j(\Theta_t(s,\vartheta))\|
+\,\mu_{\rm in}(s,d\vartheta)<\infty$.
+Indeed the bounded velocity then supplies an integrable bound for the
+time derivative of $\psi_j$ along each characteristic, justifying
+differentiation under the integral.
+
+For a closure required uniformly over laws, data, and residual
+coefficients that can isolate each relevant state value, the readouts
+must also recover the sensitivity coefficients
+$\partial_z\Phi(\cdot,z)$, and the moment span must be invariant under
+the relevant generators
+
+$$
+\psi\longmapsto\nabla\psi(\cdot)\cdot\nabla_\theta\Phi(\cdot,z).
+
+$$ {#eq-docs-continuous-depth-l1428}
+
+This follows by applying @prp-docs-continuous-depth-l1292 to each integral that must be
+recovered. Kernel readouts additionally require the gradient-product
+integrals. For one fixed batch and reachable trajectory, only the
+combinations that actually occur must be recoverable; if the velocity
+vanishes, there is no dynamic moment requirement. The proposition is
+therefore an obstruction to universal fixed linear-moment closure, not
+a classification of every special orbit.
+
+There are nonlinear special closures outside the global theorem. To make
+that boundary explicit, formally take a scalar parameter $\vartheta$,
+a nonzero $C^1$ function $\chi:\mathbb R\to\mathbb R$, and
+
+$$
+\Phi(\vartheta,z)=\tfrac12\vartheta^2\chi(z),
+\qquad M_2(s,t)=\int\vartheta^2\,\rho_t(s,d\vartheta).
+
+$$ {#eq-docs-continuous-depth-l1445}
+
+On any interval where a classical solution exists with finite second
+moment and the following coefficients locally integrable, its readouts
+and characteristic velocity are
+
+$$
+\partial_s Z_a=\tfrac12 M_2\chi(Z_a),\qquad
+-\partial_s P_a=\tfrac12 P_aM_2\chi'(Z_a),\qquad
+v_t(s,\vartheta)=-b(s,t)\vartheta,
+
+$$ {#eq-docs-continuous-depth-l1455}
+
+where
+$b(s,t)=(\kappa/m)\sum_a r_a(t)P_a(s,t)\chi(Z_a(s,t))$.
+Its characteristic is
+$\Theta_t(s,\vartheta)=\vartheta\exp(-\int_0^t b(s,u)\,du)$.
+Consequently, exactly on such an interval,
+
+$$
+\partial_t M_2(s,t)
+=-\frac{2\kappa}{m}M_2(s,t)
+ \sum_a r_a(t)P_a(s,t)\chi(Z_a(s,t)),
+
+$$ {#eq-docs-continuous-depth-l1468}
+
+and the kernel is
+$K_{ab}=\int_0^1P_aP_bM_2\chi(Z_a)\chi(Z_b)\,ds$.
+This gives a formal single-moment-field closure wherever it is defined.
+It satisfies neither A1 nor A2: if $\chi'$ is nonzero anywhere,
+$\partial_z\Phi=\tfrac12\vartheta^2\chi'$ violates A1; if
+$\chi$ is a nonzero constant, $\Phi(\vartheta,0)$ violates A1.
+Also $\partial_\vartheta\Phi=\vartheta\chi(z)$ violates A2 on any strip
+containing a point with $\chi(z)\ne0$. The example supplies no global
+existence, joint-limit, or fitting claim. It demonstrates only that
+nonlinearity alone cannot imply an unconditional need for a full measure
+state.
+
+## 13. Scope of the established conclusions {#sec-docs-continuous-depth-l1487}
+
+The finite identities are exact, and A1--A2 give global characteristic
+existence and restart on $\mathfrak M$. For constant depth initialization
+with a finite first moment, the continuous-depth error is $O_T(L^{-1})$,
+and width errors propagate in the depth-averaged $\mathcal W_1$ metric
+with constants independent of depth. These statements combine into
+arbitrary joint width and depth convergence in probability, uniformly on
+each fixed compact interval of exact gradient-flow time, including the
+displayed hidden states, sensitivities, outputs, losses, and scaled kernels.
+
+Loss is nonincreasing, but eventual fitting and convergence to a minimizer
+are not established. No joint gradient-descent limit, nonsmooth ReLU
+extension, unbounded-weight polynomial extension, or dense Gaussian-matrix
+width/depth limit follows from Sections [1](continuous-depth.qmd#sec-docs-continuous-depth-l41)–[13](continuous-depth.qmd#sec-docs-continuous-depth-l1487). The scalar particle architecture
+remains a separate benchmark and cannot substitute for the correlated
+dense feature-learning architecture or its theorem.
+
+## 14. Exact dense residual-network identities and response tails {#sec-docs-continuous-depth-l1505}
+
+This section concerns a separate, fully dense residual architecture. All
+identities and existence statements are at fixed finite width and depth.
+The response estimate approximates derivatives along a supplied trajectory;
+its matrices and vectors retain their original dimensions. It supplies no
+width limit, continuous-depth limit, or autonomous compressed training model.
+The scalar particle results of Sections [1](continuous-depth.qmd#sec-docs-continuous-depth-l41)–[13](continuous-depth.qmd#sec-docs-continuous-depth-l1487) are not assumptions here.
+
+### 14.1 Architecture, initialization, and physical clock {#sec-docs-continuous-depth-l1514}
+
+Fix integers $n,L,d,m\ge1$, a finite batch
+$(x_a,y_a)_{a=1}^m\in(\mathbb R^d\times\mathbb R)^m$, and a real
+residual strength $\gamma$. Inputs may be correlated, singular, or
+coincident. The trainable parameters are $B\in\mathbb R^{n\times d}$,
+$W_\ell\in\mathbb R^{n\times n}$ for $0\le\ell<L$, and the stored
+readout $\mathbf a\in\mathbb R^n$. Define
+
+$$
+h_a^0=Bx_a,\qquad z_a^\ell=W_\ell h_a^\ell,\qquad
+h_a^{\ell+1}=h_a^\ell+\frac\gamma L\phi(z_a^\ell),\qquad
+\phi(z)=\tanh z,
+\quad f_a=\frac{\mathbf a^T h_a^L}{n}.
+
+$$ {#eq-docs-continuous-depth-l1523}
+
+Activation is coordinatewise. Here $L$ counts residual blocks, and the
+linear input map has **no** $1/\sqrt d$ factor. In particular the input
+pairing in the formulas below is $x_a^Tx_b=dG_{ab}$, with the canonical
+$G_{ab}=x_a^Tx_b/d$. The Gaussian initialization for this architecture is
+independent entries and blocks with
+
+$$
+(W_\ell(0))_{ij}\sim N(0,\sigma_w^2/n),\quad
+B_{ij}(0)\sim N(0,1),\quad
+\mathbf a_i(0)\sim N(0,A^2),
+
+$$ {#eq-docs-continuous-depth-l1537}
+
+where $\sigma_w,A>0$ are fixed. This is an order-one stored readout,
+distinct from the small-readout initialization elsewhere in the book.
+Every result below holds for every finite initial parameter state, so no
+probability estimate or Gaussian theorem is needed to obtain it.
+
+Use residuals $r_a=f_a-y_a$, full mean loss
+$\mathcal L=m^{-1}\sum_a r_a^2$, and physical gradient flow
+
+$$
+\dot W_\ell=-L\nabla_{W_\ell}\mathcal L,\qquad
+\dot B=-n\nabla_B\mathcal L,\qquad
+\dot{\mathbf a}=-n\nabla_{\mathbf a}\mathcal L.
+
+$$ {#eq-docs-continuous-depth-l1552}
+
+All matrices remain unconstrained and all blocks train. If a half-sum loss
+$E=\tfrac12\sum_a r_a^2$ is used with the same mobilities, its vector
+field must be multiplied by $2/m$ to obtain ([-@eq-docs-continuous-depth-l1552]): a half-sum trajectory
+$\theta_E$ yields $\theta(t)=\theta_E(2t/m)$. The depth factor
+$1/L$ in ([-@eq-docs-continuous-depth-l1523]) is architectural, not a physical training step.
+
+### 14.2 Adjoint, gradient, kernel, and finite global flow {#sec-docs-continuous-depth-l1565}
+
+Define unit-output adjoints and gated adjoints by
+
+$$
+p_a^L=\mathbf a,\qquad
+D_a^\ell=\operatorname{diag}(\phi'(z_a^\ell)),\qquad
+\beta_a^\ell=D_a^\ell p_a^{\ell+1},\qquad
+p_a^\ell=\left(I+\frac\gamma L W_\ell^TD_a^\ell\right)p_a^{\ell+1}.
+
+$$ {#eq-docs-continuous-depth-l1569}
+
+Indeed the Jacobian of one forward block is
+$I+(\gamma/L)D_a^\ell W_\ell$, so the chain rule gives
+$p_a^\ell=n\,\partial f_a/\partial h_a^\ell$. A variation of each
+parameter block therefore gives the three output gradients
+
+$$
+\nabla_{\mathbf a}f_a=\frac{h_a^L}{n},\qquad
+\nabla_Bf_a=\frac{p_a^0x_a^T}{n},\qquad
+\nabla_{W_\ell}f_a=\frac\gamma{nL}\beta_a^\ell(h_a^\ell)^T.
+
+$$ {#eq-docs-continuous-depth-l1582}
+
+Substituting $\nabla\mathcal L=(2/m)\sum_b r_b\nabla f_b$ yields
+
+$$
+\dot{\mathbf a}=-\frac2m\sum_b r_bh_b^L,\qquad
+\dot B=-\frac2m\sum_b r_bp_b^0x_b^T,\qquad
+\dot W_\ell=-\frac{2\gamma}{mn}\sum_b
+r_b\beta_b^\ell(h_b^\ell)^T.
+
+$$ {#eq-docs-continuous-depth-l1591}
+
+For any one of these vector families write its sample Gram as
+$G^{u,\ell}_{ab}=(u_a^\ell)^Tu_b^\ell/n$. The scaled tangent kernel is
+
+$$
+K_{ab}=G^{h,L}_{ab}+(x_a^Tx_b)G^{p,0}_{ab}
++\frac{\gamma^2}{L}\sum_{\ell=0}^{L-1}
+G^{h,\ell}_{ab}G^{\beta,\ell}_{ab},\qquad
+\dot f=-\frac2m Kr.
+
+$$ {#eq-docs-continuous-depth-l1602}
+
+To check every factor, the metric kernel is the sum of output-gradient
+pairings weighted by the mobilities in ([-@eq-docs-continuous-depth-l1552]). For the middle blocks the
+Frobenius pairing of the rank-one gradients in ([-@eq-docs-continuous-depth-l1582]), multiplied by $L$,
+is $\gamma^2G^{h,\ell}_{ab}G^{\beta,\ell}_{ab}/L$; the other two
+blocks give the first two terms. It is positive semidefinite directly:
+these terms are the Euclidean Gram matrices of
+$h_a^L/\sqrt n$, $x_a\otimes p_a^0/\sqrt n$, and
+$\gamma h_a^\ell\otimes\beta_a^\ell/(n\sqrt L)$, respectively.
+The tensor identity
+$(u\otimes v)^T(\widetilde u\otimes\widetilde v)
+=(u^T\widetilde u)(v^T\widetilde v)$ follows by summing the two indices.
+Thus $c^TKc$ is a sum of squared norms for every $c\in\mathbb R^m$.
+
+Consequently
+
+$$
+-\dot{\mathcal L}=\frac4{m^2}r^TKr
+=\frac{\|\dot{\mathbf a}\|_2^2}{n}
++\frac{\|\dot B\|_F^2}{n}
++\frac1L\sum_\ell\|\dot W_\ell\|_F^2.
+
+$$ {#eq-docs-continuous-depth-l1625}
+
+These equations have a unique solution for every $t\ge0$, from every
+finite initial state. Here is the continuation argument. At fixed $n,L$
+the parameter vector field is smooth. On a small closed parameter ball it
+has a bound $M$ and a Lipschitz constant $C$. On a time interval of
+length $\tau$ with $\tau M$ smaller than the ball radius and
+$\tau C<1$, the map $u\mapsto\theta_0+\int_0^t F(u(s))\,ds$
+preserves that closed ball of continuous paths and contracts distances by
+$\tau C$. Its iterations are uniformly Cauchy by a geometric-series
+bound and give a unique local solution. Flatten the parameters into
+$\theta=(\mathbf a,B,W_0,\ldots,W_{L-1})$, and let
+$D_{\rm res}$ be the diagonal matrix with entry $n$ on readout and
+input coordinates and $L$ on every residual-matrix coordinate. Then
+$\|D_{\rm res}^{-1/2}\dot\theta\|_2^2$ is the last expression in
+([-@eq-docs-continuous-depth-l1625]). For $s<t$, Cauchy–Schwarz and ([-@eq-docs-continuous-depth-l1625]) give
+
+$$
+\|D_{\rm res}^{-1/2}(\theta(t)-\theta(s))\|_2
+\le\sqrt{(t-s)\,[\mathcal L(s)-\mathcal L(t)]}
+\le\sqrt{(t-s)\mathcal L(0)}.
+
+$$ {#eq-docs-continuous-depth-l1648}
+
+If a maximal interval had finite endpoint, ([-@eq-docs-continuous-depth-l1648]) would give a finite
+parameter limit there. The local construction at that limit extends the
+solution, a contradiction. This proves finite-dimensional global flow;
+loss monotonicity alone supplies no eventual fitting conclusion.
+
+For later bounds put $E_0=\mathcal L(0)$. On $[0,T]$, ([-@eq-docs-continuous-depth-l1648]) gives
+
+$$
+\begin{split}
+\frac{\|\mathbf a(t)\|_2}{\sqrt n}
+&\le\frac{\|\mathbf a(0)\|_2}{\sqrt n}+\sqrt{TE_0},\qquad
+\frac{\|B(t)\|_F}{\sqrt n}
+\le\frac{\|B(0)\|_F}{\sqrt n}+\sqrt{TE_0},\\
+\frac1L\sum_\ell\|W_\ell(t)\|_{\rm op}
+&\le\frac1L\sum_\ell\|W_\ell(0)\|_{\rm op}+\sqrt{TE_0}.
+\end{split}
+
+$$ {#eq-docs-continuous-depth-l1662}
+
+For the last inequality, bound each operator norm by its Frobenius norm,
+apply Cauchy–Schwarz to the average over layers, and then use ([-@eq-docs-continuous-depth-l1648]).
+Since $|\tanh|\le1$, the forward recurrence also gives
+
+$$
+\frac{\|h_a^\ell(t)\|_2}{\sqrt n}
+\le\left(\frac{\|B(0)\|_F}{\sqrt n}+\sqrt{TE_0}\right)\|x_a\|_2
++|\gamma|.
+
+$$ {#eq-docs-continuous-depth-l1678}
+
+This bound retains the linear input map of ([-@eq-docs-continuous-depth-l1523]).
+
+### 14.3 Exact training-time responses {#sec-docs-continuous-depth-l1687}
+
+All derivatives here are in physical training time. Set
+$v_a^\ell=\dot h_a^\ell$, $w_a^\ell=\dot p_a^\ell$, and
+$\mathsf A_a^\ell=\gamma D_a^\ell W_\ell$. Differentiating the
+forward and adjoint recurrences gives
+
+$$
+\begin{split}
+v_a^0&=-\frac2m\sum_b r_b(x_b^Tx_a)p_b^0,\\
+v_a^{\ell+1}&=(I+\mathsf A_a^\ell/L)v_a^\ell+F_a^\ell/L,\qquad
+F_a^\ell=-\frac{2\gamma^2}{m}\sum_b
+r_bD_a^\ell\beta_b^\ell G^{h,\ell}_{ba},\\
+w_a^L&=-\frac2m\sum_b r_bh_b^L,\\
+w_a^\ell&=(I+(\mathsf A_a^\ell)^T/L)w_a^{\ell+1}+S_a^\ell/L,
+\qquad S_a^\ell=(\dot{\mathsf A}_a^\ell)^Tp_a^{\ell+1}.
+\end{split}
+
+$$ {#eq-docs-continuous-depth-l1694}
+
+The exact backward source is determined without an extra assumption by
+
+$$
+\begin{split}
+\dot z_a^\ell&=W_\ell v_a^\ell
+-\frac{2\gamma}{m}\sum_b r_b\beta_b^\ell G^{h,\ell}_{ba},\\
+\dot D_a^\ell&=\operatorname{diag}
+  (\phi''(z_a^\ell)\odot\dot z_a^\ell),\\
+\dot{\mathsf A}_a^\ell
+&=\gamma(\dot D_a^\ell W_\ell+D_a^\ell\dot W_\ell),\qquad
+\dot\beta_a^\ell=\dot D_a^\ell p_a^{\ell+1}+D_a^\ell w_a^{\ell+1}.
+\end{split}
+
+$$ {#eq-docs-continuous-depth-l1709}
+
+For example $\dot W_\ell h_a^\ell$ in ([-@eq-docs-continuous-depth-l1591]) is the second term of
+$\dot z_a^\ell$; multiplying it by $\gamma D_a^\ell$ gives
+$F_a^\ell$. The product rule gives every remaining term in
+(14.12)–(14.13), including the transpose in $S$. For any vector family,
+$\dot G^{u,\ell}_{ab}=[(\dot u_a^\ell)^Tu_b^\ell
++(u_a^\ell)^T\dot u_b^\ell]/n$, so hidden Gram derivatives are also
+determined. These formulas retain both directions of each same dense matrix.
+
+### 14.4 Chronological products and exact-source tails {#sec-docs-continuous-depth-l1730}
+
+Fix a training time and sample for the next algebra, suppress their indices,
+and set
+
+$$
+P(\ell,b)=(I+\mathsf A^{\ell-1}/L)\cdots(I+\mathsf A^b/L),
+\quad P(b,b)=I.
+
+$$ {#eq-docs-continuous-depth-l1735}
+
+Later-depth matrices stand on the left. Repeated substitution in ([-@eq-docs-continuous-depth-l1694])
+gives exactly
+
+$$
+v^\ell=P(\ell,0)v^0+\frac1L\sum_{b<\ell}P(\ell,b+1)F^b.
+
+$$ {#eq-docs-continuous-depth-l1744}
+
+Each degree-$j$ part of $P(\ell,b)$ is the sum
+$L^{-j}\mathsf A^{i_j}\cdots\mathsf A^{i_1}$ over strictly ordered
+indices $b\le i_1<\cdots<i_j<\ell$. With
+$c_i=\|\mathsf A^i\|_{\rm op}/L$, its norm is at most
+$\sum_{i_1<\cdots<i_j}c_{i_1}\cdots c_{i_j}\le(\sum_i c_i)^j/j!$.
+The last inequality follows by expanding the scalar power: each product
+with distinct indices occurs $j!$ times, and all repeated-index terms
+are nonnegative. This proof neither commutes matrices nor uses eigenvalues.
+
+The same grading can be generated without explicitly forming products:
+
+$$
+\begin{array}{ll}
+v^{[0],\ell}=v^0+L^{-1}\sum_{b<\ell}F^b,&
+v^{[j],0}=0\quad(j\ge1),\\
+v^{[j],\ell+1}=v^{[j],\ell}
++L^{-1}\mathsf A^\ell v^{[j-1],\ell}&(j\ge1),\\[2pt]
+w^{[0],\ell}=w^L+L^{-1}\sum_{b\ge\ell}S^b,&
+w^{[j],L}=0\quad(j\ge1),\\
+w^{[j],\ell}=w^{[j],\ell+1}
++L^{-1}(\mathsf A^\ell)^Tw^{[j-1],\ell+1}&(j\ge1).
+\end{array}
+
+$$ {#eq-docs-continuous-depth-l1760}
+
+Thus $v^\ell=\sum_{j=0}^L v^{[j],\ell}$ and
+$w^\ell=\sum_{j=0}^L w^{[j],\ell}$. To verify this, sum the recurrences
+over grades; no grade above $L$ survives the strictly ordered indices.
+The sums have the same boundary values and inhomogeneous recurrences as
+([-@eq-docs-continuous-depth-l1694]), whose solution is unique by successive substitution.
+The source itself has grade zero: the grade counts only additional
+propagator factors, not every matrix or nonlinear factor inside $F,S$.
+
+For a fixed $T<\infty$, define the actual trajectory bounds
+
+$$
+\begin{split}
+\Lambda_T&=\sup_{a,t\le T}\frac1L\sum_\ell
+                 \|\mathsf A_a^\ell(t)\|_{\rm op},\\
+B_{v,T}&=\sup_{a,t\le T}\left(
+  \frac{\|v_a^0\|_2}{\sqrt n}
+  +\frac1L\sum_\ell\frac{\|F_a^\ell\|_2}{\sqrt n}\right),\\
+B_{w,T}&=\sup_{a,t\le T}\left(
+  \frac{\|w_a^L\|_2}{\sqrt n}
+  +\frac1L\sum_\ell\frac{\|S_a^\ell\|_2}{\sqrt n}\right).
+\end{split}
+
+$$ {#eq-docs-continuous-depth-l1784}
+
+They are finite at fixed $n,L,T$ by global existence and continuity.
+In particular ([-@eq-docs-continuous-depth-l1662]) and $\|D\|_{\rm op}\le1$ give
+$\Lambda_T\le|\gamma|[L^{-1}\sum_\ell\|W_\ell(0)\|_{\rm op}
++\sqrt{TE_0}]$; ([-@eq-docs-continuous-depth-l1569]) gives
+$\|p_a^\ell\|_2/\sqrt n\le e^{\Lambda_T}
+[\|\mathbf a(0)\|_2/\sqrt n+\sqrt{TE_0}]$.
+For integer $K\ge0$ set
+$R_K(\Lambda)=\sum_{j>K}\Lambda^j/j!$. The ordered-product bound in
+([-@eq-docs-continuous-depth-l1744]), applied separately to the boundary and every forcing insertion,
+proves
+
+$$
+\begin{split}
+\sup_{a,\ell,t\le T}
+\frac{\|v_a^\ell-\sum_{j=0}^K v_a^{[j],\ell}\|_2}{\sqrt n}
+&\le B_{v,T}R_K(\Lambda_T),\\
+\sup_{a,\ell,t\le T}
+\frac{\|w_a^\ell-\sum_{j=0}^K w_a^{[j],\ell}\|_2}{\sqrt n}
+&\le B_{w,T}R_K(\Lambda_T),\qquad
+R_K(\Lambda)\le e^\Lambda\frac{\Lambda^{K+1}}{(K+1)!}.
+\end{split}
+
+$$ {#eq-docs-continuous-depth-l1809}
+
+For the backward equation reverse depth and transpose each generator;
+their norms and the counting argument are unchanged. The scalar tail bound
+uses $(K+1+j)!\ge(K+1)!j!$ term by term. Both actual errors vanish for
+$K\ge L$. Uniform constants for a family of widths or depths require
+uniform bounds in ([-@eq-docs-continuous-depth-l1784]); no such probabilistic or limiting assertion is
+made here. The factorial is a count of depth orderings, not a claim of
+analyticity in training time.
+
+### 14.5 Recomputed backward sources {#sec-docs-continuous-depth-l1830}
+
+Keep the supplied trajectory, generators, and terminal $w^L$ fixed, but
+replace $S$ in the grade-$K$ backward recursion by a source
+$\widetilde S$. Let $\widetilde w_K$ denote the resulting truncated
+sum and put
+$E_{S,T}=\sup_{a,t\le T}L^{-1}\sum_\ell
+\|S_a^\ell-\widetilde S_a^\ell\|_2/\sqrt n$.
+Linearity of the source-to-response map and the sum of its degree bounds
+give
+
+$$
+\sup_{a,\ell,t\le T}
+\frac{\|w_a^\ell-\widetilde w_{K,a}^\ell\|_2}{\sqrt n}
+\le B_{w,T}R_K(\Lambda_T)+e^{\Lambda_T}E_{S,T}.
+
+$$ {#eq-docs-continuous-depth-l1841}
+
+For clarity, subtract the two truncated recursions with sources
+$S,\widetilde S$; their boundary difference is zero. Each source
+difference is propagated by the sum of degrees $0,\ldots,K$ of the
+appropriate ordered product, of norm at most
+$\sum_{j=0}^K\Lambda_T^j/j!\le e^{\Lambda_T}$. Summing its
+$1/L$-weighted norms proves the second term of ([-@eq-docs-continuous-depth-l1841]); ([-@eq-docs-continuous-depth-l1809])
+supplies the first.
+
+For the particular replacement obtained by using
+$v_K=\sum_{j=0}^K v^{[j]}$ in ([-@eq-docs-continuous-depth-l1709]), while keeping
+$W,\dot W,h,p,z,D,r$ exact, the source difference is exactly
+
+$$
+S_a^\ell-\widetilde S_a^\ell
+=\gamma W_\ell^T\left[
+\phi''(z_a^\ell)\odot p_a^{\ell+1}
+\odot W_\ell(v_a^\ell-v_{K,a}^\ell)\right].
+
+$$ {#eq-docs-continuous-depth-l1860}
+
+Consequently $E_{S,T}\le C_T B_{v,T}R_K(\Lambda_T)$, where
+
+$$
+C_T=\sup_{a,t\le T}\frac{|\gamma|}{L}\sum_\ell
+\|W_\ell\|_{\rm op}^2
+\|\phi''(z_a^\ell)\odot p_a^{\ell+1}\|_\infty.
+
+$$ {#eq-docs-continuous-depth-l1870}
+
+Indeed multiply the two operator-norm bounds and the coordinate multiplier
+bound in ([-@eq-docs-continuous-depth-l1860]), then use ([-@eq-docs-continuous-depth-l1809]). This finite-state constant is finite;
+the normalized adjoint bound above does not give a width-independent
+coordinate maximum. If the approximate dynamics also change the trajectory
+or $\dot W$, ([-@eq-docs-continuous-depth-l1860]) is no longer its entire source error. Establishing
+an autonomous response approximation would require control of those changes
+and of their full nonlinear feedback. The identities and supplied-trajectory
+tail estimates do not provide that theorem, fitting, or nonlazy limit claims.
+
+## 15. Global training flow for a coherent dense residual kernel {#sec-docs-continuous-depth-l1886}
+
+This section treats a separate residual architecture: its dense, untied
+trunk has the coherent normalization $W/n$, and its input features and
+readout are fixed and bounded. The continuum state is an actual kernel on
+a neuron label space. It is not the Gaussian $W/\sqrt n$ construction,
+and it is not the scalar particle model. We prove existence and uniqueness
+of the kernel training flow, including its exact gradient and energy
+identity. No width or depth limit is assumed in this existence theorem.
+
+### 15.1 Finite calculus and the metric being continued {#sec-docs-continuous-depth-l1896}
+
+Here $L$ counts residual blocks, $n$ is their common width, and
+$m$ is a fixed positive finite number of samples. Use the activation
+and loss regularity specified in [Section 15.3](continuous-depth.qmd#sec-docs-continuous-depth-l2065). Fix $\alpha>0$. For fixed
+input vectors $x_a^{[n]}\in\mathbb R^n$ and a fixed readout
+$c^{[n]}\in\mathbb R^n$, set
+
+$$
+h_a^{(0)}=x_a^{[n]},\qquad
+z_a^{(\ell)}=\frac{W_\ell h_a^{(\ell-1)}}n,\qquad
+h_a^{(\ell)}=h_a^{(\ell-1)}+
+\frac{\alpha}{L}\phi(z_a^{(\ell)}),\qquad
+f_{n,a}=\frac{(c^{[n]})^T h_a^{(L)}}n.
+
+$$ {#eq-docs-continuous-depth-l1904}
+
+All $Ln^2$ trunk entries are independent parameter coordinates; no
+diagonality, low rank, symmetry, or tying of different blocks is imposed.
+Only these trunk matrices are trained. Let
+$\mathcal E_n=\mathcal R(f_{n,1},\ldots,f_{n,m})$, and write
+$q_a=\partial_a\mathcal R(f_n)$. For the library's mean full squared
+loss, $q_a=2r_{n,a}/m$, where $r_{n,a}=f_{n,a}-y_a$. The mean half
+squared loss instead has $q_a=r_{n,a}/m$; at the same mobility it runs
+at half the physical speed.
+
+Use the residual-free adjoint
+
+$$
+p_a^{(L)}=c^{[n]},\qquad
+b_a^{(\ell)}=p_a^{(\ell)}\odot\phi'(z_a^{(\ell)}),\qquad
+p_a^{(\ell-1)}=p_a^{(\ell)}+
+\frac{\alpha}{Ln}W_\ell^T b_a^{(\ell)}.
+
+$$ {#eq-docs-continuous-depth-l1924}
+
+Indeed $p_a^{(\ell)}=n\,\partial f_{n,a}/\partial h_a^{(\ell)}$,
+so the transpose in ([-@eq-docs-continuous-depth-l1924]) is that of the same forward matrix. Varying
+one matrix gives
+
+$$
+\nabla_{W_\ell}f_{n,a}
+=\frac{\alpha}{Ln^2}b_a^{(\ell)}(h_a^{(\ell-1)})^T,
+\qquad
+\nabla_{W_\ell}\mathcal E_n
+=\frac{\alpha}{Ln^2}\sum_{a=1}^m
+q_a b_a^{(\ell)}(h_a^{(\ell-1)})^T.
+
+$$ {#eq-docs-continuous-depth-l1936}
+
+Thus mobility $Ln^2$ for every raw matrix gives
+
+$$
+\dot W_\ell=-\alpha\sum_{a=1}^m
+q_a b_a^{(\ell)}(h_a^{(\ell-1)})^T,
+\qquad
+\frac{d\mathcal E_n}{dt}
+=-\frac1{Ln^2}\sum_{\ell=1}^L\|\dot W_\ell\|_F^2.
+
+$$ {#eq-docs-continuous-depth-l1948}
+
+These are exact finite identities. In particular, full-batch dissipation
+uses the squared norm of the sum in ([-@eq-docs-continuous-depth-l1948]). If
+$\mathcal R\ge E_*$, integration and Cauchy--Schwarz give
+
+$$
+\left(\frac1{Ln^2}\sum_\ell
+\|W_\ell(t)-W_\ell(0)\|_F^2\right)^{1/2}
+\le\sqrt{t\,[\mathcal E_n(0)-E_*]}.
+
+$$ {#eq-docs-continuous-depth-l1961}
+
+At fixed $n,L$, the right side bounds every parameter displacement
+on a finite time interval. The locally Lipschitz finite vector field
+therefore extends globally. This observation makes no assertion uniform
+in $n,L$.
+
+To identify the continuum metric, embed a matrix as a kernel constant on
+the $n^2$ equal neuron cells, and embed the blocks on the $L$ equal
+depth cells. Its squared $L^2(ds\,du\,dv)$ norm is exactly
+$(Ln^2)^{-1}\sum_\ell\|W_\ell\|_F^2$. The corresponding integral
+operator acts as $W_\ell/n$, and the integral readout as
+$(c^{[n]})^Th/n$. This identifies the normalization and metric; it
+does not prove that discretized training converges.
+
+### 15.2 A strong kernel carrier {#sec-docs-continuous-depth-l1981}
+
+Put $U=(0,1)$, with Lebesgue measure. For a measurable real kernel
+$k$ on $U^2$, define its row and column bounds by
+
+$$
+\rho(k)=\operatorname*{ess\,sup}_{u\in U}
+\left(\int_U|k(u,v)|^2\,dv\right)^{1/2},\qquad
+\chi(k)=\operatorname*{ess\,sup}_{v\in U}
+\left(\int_U|k(u,v)|^2\,du\right)^{1/2}.
+
+$$ {#eq-docs-continuous-depth-l1986}
+
+Let $\mathcal K$ be the space of such kernels, modulo almost-everywhere
+equality, for which both bounds are finite, with norm
+
+$$
+\|k\|_{\mathcal K}=
+\bigl(\rho(k)^2+\chi(k)^2\bigr)^{1/2}.
+$$
+
+This is a Banach space. To see completeness, a Cauchy sequence in this
+norm converges in each of the Banach mixed spaces
+$L^\infty_u(L^2_v)$ and $L^\infty_v(L^2_u)$. Both limits have the
+same $L^2(U^2)$ representative, since both embeddings into that space
+are continuous. Hence they define one element of $\mathcal K$, and
+convergence holds in both components of its norm.
+
+The depth carrier and the energy space are
+
+$$
+\mathbb K=L^2\bigl((0,1)_s;\mathcal K\bigr),\qquad
+\mathbb H=L^2\bigl((0,1)_s\times U^2\bigr),\qquad
+\|w\|_{\mathbb K}^2=
+\int_0^1[\rho(w(s))^2+\chi(w(s))^2]\,ds.
+
+$$ {#eq-docs-continuous-depth-l2011}
+
+The first space is the **Bochner** $L^2$ space: its elements are
+strongly measurable $\mathcal K$-valued depth profiles, represented
+by almost-everywhere limits of simple profiles, with the displayed finite
+norm. Joint scalar measurability of $w(s,u,v)$ and the displayed norm
+alone are not substituted for this requirement. Bochner $L^2$ of a
+Banach space is complete: for example, a subsequence of a Cauchy sequence
+whose successive $L^2$ differences have summable norms has an
+almost-everywhere absolutely convergent series of differences, yielding
+a strongly measurable limit and convergence in $L^2$. There is a
+continuous embedding $\mathbb K\hookrightarrow\mathbb H$.
+
+For $g\in L^2(U)$, define
+
+$$
+(T_kg)(u)=\int_Uk(u,v)g(v)\,dv,\qquad
+(T_k^*g)(v)=\int_Uk(u,v)g(u)\,du.
+$$
+
+Cauchy--Schwarz and Fubini give
+
+$$
+\|T_kg\|_\infty\le\rho(k)\|g\|_2,\qquad
+\|T_k^*g\|_\infty\le\chi(k)\|g\|_2,\qquad
+\|T_k\|_{2\to2}\le\|k\|_{L^2(U^2)}
+\le\min\{\rho(k),\chi(k)\}.
+
+$$ {#eq-docs-continuous-depth-l2039}
+
+Here $T_k^*$ is the actual Hilbert-space adjoint of $T_k$.
+For bounded functions $b,x$, the kernel
+$(b\otimes x)(u,v)=b(u)x(v)$ satisfies
+
+$$
+\rho(b\otimes x)=\|b\|_\infty\|x\|_2,
+\qquad
+\chi(b\otimes x)=\|x\|_\infty\|b\|_2.
+
+$$ {#eq-docs-continuous-depth-l2051}
+
+The actions $\mathcal K\times L^\infty\to L^\infty$ in ([-@eq-docs-continuous-depth-l2039])
+and the outer product $L^\infty\times L^\infty\to\mathcal K$ in
+([-@eq-docs-continuous-depth-l2051]) are continuous bilinear maps. They therefore preserve strong
+measurability when applied to strongly measurable arguments: approximate
+the arguments by simple functions and use continuity. These facts will
+ensure that all depth and training integrals below are Bochner integrals.
+
+### 15.3 The global theorem {#sec-docs-continuous-depth-l2065}
+
+Assume throughout this section that
+
+* $1\le m<\infty$, $\alpha>0$, and the input profiles
+  $X_a^0\in L^\infty(U)$ and readout $c\in L^\infty(U)$ are
+  fixed and untrained;
+* $\phi\in C_b^2(\mathbb R)$: the function and its first two
+  continuous derivatives are bounded; write
+  $M_j=\|\phi^{(j)}\|_\infty$, $j=0,1,2$;
+* $\mathcal R\in C^2(\mathbb R^m)$ and
+  $\mathcal R\ge E_*$ for some finite real $E_*$;
+* $w_0\in\mathbb K$.
+
+The profiles $X_a^0$ are the inputs of this kernel model. A fixed
+bounded feature map applied to finite-dimensional data is one way to
+specify them. No orthogonality, normalization, or nonsingularity of the
+sample Gram matrix is assumed, and there is no population-of-data limit.
+In particular, arbitrary fixed labels are allowed in squared loss.
+
+At each training state $w$, solve the depth equations
+
+$$
+\begin{aligned}
+\partial_sX_a(s)&=\alpha\phi(Z_a(s)),&
+Z_a(s)&=T_{w(s)}X_a(s),&X_a(0)&=X_a^0,\\
+-\partial_sP_a(s)&=\alpha T_{w(s)}^*B_a(s),&
+B_a(s)&=P_a(s)\phi'(Z_a(s)),&P_a(1)&=c.
+\end{aligned}
+
+$$ {#eq-docs-continuous-depth-l2087}
+
+Products and activations of functions on $U$ are pointwise. Define
+
+$$
+f_a(w)=\int_Uc(u)X_a(1,u)\,du,\quad
+q_a(w)=\partial_a\mathcal R(f(w)),\quad
+\mathcal E(w)=\mathcal R(f(w)),
+$$
+
+$$
+\mathcal G(w)(s)=\alpha\sum_{a=1}^m
+q_a(w)B_a(s)\otimes X_a(s).
+
+$$ {#eq-docs-continuous-depth-l2105}
+
+The adjoint $P_a$ is residual-free: all loss factors occur in
+$q_a$. The training equation is
+
+$$
+\partial_tw(t)=-\mathcal G(w(t)),\qquad w(0)=w_0.
+
+$$ {#eq-docs-continuous-depth-l2114}
+
+::: {#thm-docs-continuous-depth-l2119}
+## global strong kernel flow
+
+Under the stated assumptions,
+(15.10)--(15.12) have a unique solution
+$w\in C^1([0,\infty);\mathbb K)$. For each $w\in\mathbb K$,
+the forward and adjoint depth solutions in ([-@eq-docs-continuous-depth-l2087]) are unique Bochner
+absolutely continuous $L^\infty(U)$-valued curves, with derivatives
+in $L^1((0,1);L^\infty(U))$. The map
+$\mathcal G:\mathbb K\to\mathbb K$ is Lipschitz on each bounded
+ball. The loss is Fréchet differentiable on $\mathbb K$, with
+
+$$
+D\mathcal E(w)[v]=\langle\mathcal G(w),v\rangle_{\mathbb H}
+\quad(v\in\mathbb K),\qquad
+\frac{d}{dt}\mathcal E(w(t))
+=-\|\partial_tw(t)\|_{\mathbb H}^2.
+
+$$ {#eq-docs-continuous-depth-l2128}
+
+Consequently, for every finite $T$,
+
+$$
+\int_0^T\|\partial_tw(t)\|_{\mathbb H}^2\,dt
+=\mathcal E(w_0)-\mathcal E(w(T))
+\le\mathcal E(w_0)-E_*,
+\qquad
+\|w(t)-w_0\|_{\mathbb H}
+\le\sqrt{t\,[\mathcal E(w_0)-E_*]}.
+
+$$ {#eq-docs-continuous-depth-l2138}
+
+The solution can restart uniquely from every point of $\mathbb K$,
+with the fixed data, readout, activation, and loss retained. Thus its
+autonomous solution maps form a semigroup on this carrier. The theorem
+does not assert well-posedness for arbitrary initial kernels in
+$\mathbb H$ alone.
+
+:::
+
+[]{#proof-docs-continuous-depth-l2154}
+
+::: {.proof}
+## depth existence and estimates
+
+Write
+$C_X=\max_a\|X_a^0\|_\infty+\alpha M_0$. For any fixed
+$w\in\mathbb K$, the forward integral equation is a contraction
+on a depth interval on which
+$\alpha M_1\int\rho(w(s))\,ds<1$, since $U$ has measure one
+and ([-@eq-docs-continuous-depth-l2039]) applies. The integral of $\rho(w)$ is finite, so finitely
+many such intervals cover $[0,1]$. Boundedness of $\phi$ gives,
+at every depth,
+
+$$
+\|X_a(s)\|_\infty\le C_X.
+
+$$ {#eq-docs-continuous-depth-l2163}
+
+The resulting curve is continuous into $L^\infty$; its integrand is
+strongly measurable by ([-@eq-docs-continuous-depth-l2039]) and the Lipschitz Nemytskii map for
+$\phi$, and is bounded by $\alpha M_0$. It is therefore a
+Bochner absolutely continuous solution. The same local contraction
+argument backwards in depth constructs $P_a$, now with contraction
+constant $\alpha M_1\int\chi(w(s))\,ds$. It yields
+
+$$
+\sup_s\|P_a(s)\|_\infty
+\le\|c\|_\infty
+\exp\!\left(\alpha M_1\int_0^1\chi(w(s))\,ds\right).
+
+$$ {#eq-docs-continuous-depth-l2175}
+
+Uniqueness follows from the same integral inequalities and Gronwall.
+All arguments remain in $L^\infty$; the adjoint integrand has an
+integrable norm, so it too gives the asserted Bochner derivative.
+In contrast to the bounded states and adjoints, the local field has only
+the depth bound
+
+$$
+\|Z_a\|_{L^2_sL^\infty_u}
+\le C_X\|\rho(w)\|_{L^2_s}.
+
+$$ {#eq-docs-continuous-depth-l2188}
+
+An essential supremum of $Z_a$ over depth is not required.
+
+:::
+
+[]{#proof-docs-continuous-depth-l2196}
+
+::: {.proof}
+## local Lipschitzness in the strong carrier
+
+Fix $A<\infty$
+and two kernels $w,\widetilde w$ with carrier norms at most $A$.
+In this paragraph constants denoted $C_A$ depend only on $A$ and
+the fixed problem data. Write $d=w-\widetilde w$, and use a tilde
+for the depth fields of $\widetilde w$. Subtracting the forward
+integral equations, applying ([-@eq-docs-continuous-depth-l2039]), and then Gronwall gives
+
+$$
+\sup_s\|X_a(s)-\widetilde X_a(s)\|_\infty
+\le C_A\|d\|_{\mathbb K}.
+
+$$ {#eq-docs-continuous-depth-l2203}
+
+For completeness, the two terms in the integral inequality are
+$\alpha M_1\rho(w(s))\|X_a-\widetilde X_a\|_\infty$ and
+$\alpha M_1C_X\rho(d(s))$. Their depth integrals are controlled
+by the $L^2$ row bounds in ([-@eq-docs-continuous-depth-l2011]). Hence
+
+$$
+\|Z_a-\widetilde Z_a\|_{L^2_sL^\infty_u}
+\le C_X\|\rho(d)\|_{L^2_s}
++\|\rho(w)\|_{L^2_s}
+\sup_s\|X_a-\widetilde X_a\|_\infty
+\le C_A\|d\|_{\mathbb K}.
+
+$$ {#eq-docs-continuous-depth-l2214}
+
+To compare adjoints, expand the difference of their integrands as
+
+$$
+\begin{split}
+T_w^*B_a-T_{\widetilde w}^*\widetilde B_a
+={}&T_w^*\bigl(\phi'(Z_a)(P_a-\widetilde P_a)\bigr)\\
+&+T_w^*\bigl(\widetilde P_a
+ [\phi'(Z_a)-\phi'(\widetilde Z_a)]\bigr)
++T_d^*\widetilde B_a.
+\end{split}
+
+$$ {#eq-docs-continuous-depth-l2225}
+
+The first term has $L^\infty$ norm at most
+$M_1\chi(w)\|P_a-\widetilde P_a\|_\infty$. By ([-@eq-docs-continuous-depth-l2175]), the
+second term is bounded by
+$C_A M_2\chi(w)\|Z_a-\widetilde Z_a\|_\infty$, whose depth
+integral is controlled by Cauchy--Schwarz and ([-@eq-docs-continuous-depth-l2214]). The third term
+is bounded by $C_A M_1\chi(d)$. Backward Gronwall therefore gives
+
+$$
+\sup_s\|P_a-\widetilde P_a\|_\infty
++\|B_a-\widetilde B_a\|_{L^2_sL^\infty_u}
+\le C_A\|d\|_{\mathbb K}.
+
+$$ {#eq-docs-continuous-depth-l2243}
+
+For the second term in ([-@eq-docs-continuous-depth-l2243]), use
+$B_a-\widetilde B_a
+=\phi'(Z_a)(P_a-\widetilde P_a)
++\widetilde P_a[\phi'(Z_a)-\phi'(\widetilde Z_a)]$.
+This estimate uses two square-integrable depth factors in ([-@eq-docs-continuous-depth-l2225]),
+not a bound on the maximum local field over depth.
+
+All outputs lie in the fixed compact cube
+$[-\|c\|_1C_X,\|c\|_1C_X]^m$. The gradient and Hessian of
+$\mathcal R$ are bounded there. Equation ([-@eq-docs-continuous-depth-l2203]) thus also bounds
+$|q(w)-q(\widetilde w)|$ by $C_A\|d\|_{\mathbb K}$.
+For each sample, the outer-product difference in ([-@eq-docs-continuous-depth-l2105]) expands as
+
+$$
+q_aB_a\otimes X_a-\widetilde q_a\widetilde B_a\otimes\widetilde X_a
+=(q_a-\widetilde q_a)B_a\otimes X_a
++\widetilde q_a(B_a-\widetilde B_a)\otimes X_a
++\widetilde q_a\widetilde B_a\otimes(X_a-\widetilde X_a).
+$$
+
+By ([-@eq-docs-continuous-depth-l2051]), $\|b\otimes x\|_{\mathcal K}
+\le\sqrt2\|b\|_\infty\|x\|_\infty$. Applying this inequality
+pointwise in depth and then taking its $L^2$ norm, using ([-@eq-docs-continuous-depth-l2163]),
+([-@eq-docs-continuous-depth-l2175]), ([-@eq-docs-continuous-depth-l2203]), and ([-@eq-docs-continuous-depth-l2243]), proves
+
+$$
+\|\mathcal G(w)\|_{\mathbb K}\le C_A,\qquad
+\|\mathcal G(w)-\mathcal G(\widetilde w)\|_{\mathbb K}
+\le C_A\|w-\widetilde w\|_{\mathbb K}.
+
+$$ {#eq-docs-continuous-depth-l2273}
+
+Strong measurability of $\mathcal G(w)(s)$ follows from the
+continuous bilinear maps following ([-@eq-docs-continuous-depth-l2051]) and from strong measurability
+of $X_a,P_a,Z_a$ as $L^\infty$-valued profiles. In particular
+([-@eq-docs-continuous-depth-l2273]) concerns the Bochner carrier itself.
+
+The training integral map
+$v(t)\mapsto w_0-\int_0^t\mathcal G(v(\tau))\,d\tau$
+is a contraction on a sufficiently short interval in a closed ball of
+$C([0,\varepsilon];\mathbb K)$: choose $\varepsilon$ so that
+the first bound in ([-@eq-docs-continuous-depth-l2273]) keeps the image in the ball and the second
+makes the contraction constant less than one. This constructs a unique
+local $C^1$ solution and, by successive restarts, a unique maximal
+solution on $[0,T_*)$.
+
+:::
+
+[]{#proof-docs-continuous-depth-l2294}
+
+::: {.proof}
+## differentiation and the exact gradient
+
+Fix $w\in\mathbb K$
+and a variation $v\in\mathbb K$. The proposed derivative of the
+forward field is the unique solution of
+
+$$
+\partial_sY_a=\alpha\phi'(Z_a)
+  (T_wY_a+T_vX_a),\qquad Y_a(0)=0.
+
+$$ {#eq-docs-continuous-depth-l2298}
+
+The forward contraction argument, or its linear integral inequality,
+shows that $v\mapsto Y_a$ is bounded and linear from $\mathbb K$
+to $C([0,1];L^\infty(U))$. We verify that it is the Fréchet
+derivative, since only a depth $L^2$ bound for the local field is
+available. Let $e_a=X_a(w+v)-X_a(w)$ and
+$\zeta_a=Z_a(w+v)-Z_a(w)$. On a fixed ball, (15.18)--(15.19) give
+$\|e_a\|_{C_sL^\infty_u}=O(\|v\|_{\mathbb K})$ and
+$\|\zeta_a\|_{L^2_sL^\infty_u}=O(\|v\|_{\mathbb K})$.
+Taylor's theorem gives the pointwise remainder
+
+$$
+|\phi(Z_a+\zeta_a)-\phi(Z_a)-\phi'(Z_a)\zeta_a|
+\le\frac{M_2}{2}|\zeta_a|^2.
+$$
+
+Since
+$\zeta_a=T_we_a+T_vX_a+T_ve_a$, subtraction of ([-@eq-docs-continuous-depth-l2298])
+shows that $e_a-Y_a$ solves the same linear homogeneous integral
+equation as $Y_a$, with forcing equal to
+$\alpha\phi'(Z_a)T_ve_a$ plus the Taylor remainder. The integral
+of the forcing norm is at most
+
+$$
+\alpha M_1\|\rho(v)\|_{L^1_s}\|e_a\|_{C_sL^\infty_u}
++\frac{\alpha M_2}{2}
+\|\zeta_a\|_{L^2_sL^\infty_u}^2
+=O(\|v\|_{\mathbb K}^2).
+$$
+
+Gronwall then proves
+$\|e_a-Y_a\|_{C_sL^\infty_u}=O(\|v\|_{\mathbb K}^2)$,
+which establishes the asserted Fréchet derivative.
+
+Both $P_a$ and $Y_a$ are absolutely continuous into $L^2(U)$.
+The product rule for their pairing is valid: their derivatives have
+integrable $L^2$ norms, and the curves have bounded $L^2$ norms.
+Using the adjoint of the same operator in ([-@eq-docs-continuous-depth-l2087]), the homogeneous
+terms cancel and leave
+
+$$
+\frac{d}{ds}\langle P_a,Y_a\rangle_{L^2(U)}
+=\alpha\langle B_a,T_vX_a\rangle_{L^2(U)}.
+$$
+
+Integrating, using $Y_a(0)=0$ and $P_a(1)=c$, and applying
+Fubini gives
+
+$$
+Df_a(w)[v]
+=\alpha\int_0^1\langle B_a(s)\otimes X_a(s),v(s)\rangle_{L^2(U^2)}\,ds.
+
+$$ {#eq-docs-continuous-depth-l2351}
+
+All terms are integrable by the preceding bounds. The finite-dimensional
+chain rule for $\mathcal R$ proves the first identity in ([-@eq-docs-continuous-depth-l2128]).
+The representer $\mathcal G(w)$ belongs to $\mathbb K\subset\mathbb H$,
+and ([-@eq-docs-continuous-depth-l2273]) makes the derivative continuous. Thus it is precisely the
+gradient in the $\mathbb H$ pairing, for the functional defined on
+the strong carrier. This statement does not extend the functional or its
+Fréchet differentiability to an open set of bare $\mathbb H$.
+Along the local $C^1$ training curve, the chain rule and ([-@eq-docs-continuous-depth-l2114])
+now yield the energy identity in ([-@eq-docs-continuous-depth-l2128]). Its integral and
+Cauchy--Schwarz give ([-@eq-docs-continuous-depth-l2138]) on every interval of local existence.
+
+:::
+
+[]{#proof-docs-continuous-depth-l2368}
+
+::: {.proof}
+## global continuation in the strong carrier
+
+Fix a finite
+$T>0$, and consider $0\le t<\min\{T,T_*\}$. All constants in
+this paragraph are independent of $t$ in that interval. Define
+
+$$
+D=\mathcal E(w_0)-E_*\ge0,\qquad
+H_T=\|w_0\|_{\mathbb H}+\sqrt{TD},\qquad
+Q=\max_{z\in[-\|c\|_1C_X,\|c\|_1C_X]^m}\max_a|\partial_a\mathcal R(z)|.
+
+$$ {#eq-docs-continuous-depth-l2372}
+
+Equations (15.14)--(15.15) give
+$\|w(t)\|_{\mathbb H}\le H_T$ and $|q_a(t)|\le Q$.
+Using the $L^2$-operator bound in ([-@eq-docs-continuous-depth-l2039]) in the backward equation,
+and then Gronwall and Cauchy--Schwarz in depth, gives
+
+$$
+\sup_s\|P_a(s,t)\|_2
+\le\|c\|_2
+\exp\!\left(\alpha M_1\int_0^1\|w(s,t)\|_{L^2(U^2)}\,ds\right)
+\le\|c\|_2e^{\alpha M_1H_T}=:P_{2,T}.
+
+$$ {#eq-docs-continuous-depth-l2384}
+
+Set
+$C_w(t)=\|\chi(w(\cdot,t))\|_{L^2_s}$ and
+$R_w(t)=\|\rho(w(\cdot,t))\|_{L^2_s}$. The column estimate
+in ([-@eq-docs-continuous-depth-l2051]) now closes without an $L^\infty$ adjoint bound:
+
+$$
+\chi(\partial_tw(s,t))
+\le\alpha\sum_a|q_a(t)|\|X_a(s,t)\|_\infty\|B_a(s,t)\|_2
+\le\alpha mQ C_XM_1P_{2,T}=:A_T.
+$$
+
+Taking the depth $L^2$ norm and integrating in training time, using
+the triangle inequality for the column seminorm, yields
+
+$$
+C_w(t)\le C_w(0)+A_Tt.
+
+$$ {#eq-docs-continuous-depth-l2406}
+
+Next integrate the backward equation directly in $L^\infty$,
+using its column operator bound and ([-@eq-docs-continuous-depth-l2384]):
+
+$$
+\sup_s\|P_a(s,t)\|_\infty
+\le\|c\|_\infty+
+\alpha M_1P_{2,T}\int_0^1\chi(w(s,t))\,ds
+\le\|c\|_\infty+
+\alpha M_1P_{2,T}[C_w(0)+A_Tt].
+
+$$ {#eq-docs-continuous-depth-l2414}
+
+Finally ([-@eq-docs-continuous-depth-l2051]) gives
+
+$$
+\rho(\partial_tw(s,t))
+\le\alpha mQM_1C_X
+\bigl(\|c\|_\infty+\alpha M_1P_{2,T}[C_w(0)+A_Tt]\bigr)
+=:B_{0,T}+B_{1,T}t.
+$$
+
+Consequently,
+
+$$
+R_w(t)\le R_w(0)+B_{0,T}t+\tfrac12B_{1,T}t^2.
+
+$$ {#eq-docs-continuous-depth-l2434}
+
+Equations ([-@eq-docs-continuous-depth-l2406]) and ([-@eq-docs-continuous-depth-l2434]) bound the full $\mathbb K$ norm on
+every finite interval of existence. This separate argument is necessary:
+the kernels $k_N(u,v)=\sqrt N\,\mathbf1_{\{u<1/N\}}$ have
+$\|k_N\|_2=1$ but $\rho(k_N)=\sqrt N$, so an energy bound
+alone would not control the carrier.
+
+If $T_*<\infty$, take $T=T_*$ in these bounds. The first estimate
+in ([-@eq-docs-continuous-depth-l2273]) then bounds $\|\partial_tw\|_{\mathbb K}$ uniformly
+on $[0,T_*)$. Hence $w(t)$ is Cauchy in the Banach carrier as
+$t\uparrow T_*$, and has a limit there. Local existence from that
+limit extends the solution past $T_*$, a contradiction. Thus
+$T_*=\infty$. Local uniqueness at each restart proves global
+uniqueness and the semigroup assertion. This completes the proof.
+
+:::
+
+### 15.4 What the theorem supplies {#sec-docs-continuous-depth-l2453}
+
+The theorem applies, in particular, to $\phi=\tanh$, to arbitrary
+fixed bounded input profiles and readout, and to every initial coherent
+kernel in the Bochner carrier ([-@eq-docs-continuous-depth-l2011]). It supplies a global autonomous
+training flow in physical time, an exact loss gradient, and the exact
+energy law. The state remains an infinite-dimensional depth-indexed
+kernel; no finite scalar closure or Gaussian initialization is imposed.
+
+The bounded activation is material to the uniform forward bound, compact
+output set, and ordered continuation proof. The result does not
+automatically extend to ReLU, to trained endpoints, or to other metrics
+and clocks. Nor does the energy identity by itself imply fitting,
+nonzero feature motion, a training-time limit, or a finite-width
+approximation theorem.
+
+In particular, adding microscopic centered Gaussian matrices to a finite
+coherent initialization raises a separate discrete-to-continuum problem.
+The present proof asserts no noisy joint width/depth convergence rate,
+no raw-kernel convergence for such noise, and no maximum-over-depth
+control of local preactivations. It also makes no assertion about the
+surviving Gaussian bulk at the different $W/\sqrt n$ normalization.
+
+## Finite-source operator transport: exact conditional geometry {#sec-docs-continuous-depth-l2476}
+
+This section defines a separate operator-transport model and proves its
+internal variational and parity identities for supplied regular solutions.
+It does not identify a dense-network limit or assert general existence,
+uniqueness, source-cutoff convergence, or a numerical accuracy result.
+The state retains a continuous residual-depth coordinate $s\in[0,1]$.
+The integer $P$ counts source modes, not neurons or residual layers.
+
+### G.1 Sources, state and admissibility {#sec-docs-continuous-depth-l2485}
+
+Fix finite data $(x_a,y_a)_{a=1}^m$, $x_a\in\mathbb R^d$, and
+$\gamma,\sigma_w,A>0$. The input map in this separate residual model
+acts as $W^{\rm in}\cdot x_a$, without an additional input factor;
+thus its sample factor below is $x_a^Tx_b$. No normalization or
+orthogonality of these data is imposed. Use half-sum loss
+$\mathcal E=\tfrac12\sum_a(f_a-y_a)^2$, residual $r_a=f_a-y_a$.
+
+Let $\theta\sim\mu=N(0,I_{d+1})$. Fix a finite orthonormal family
+$(\varphi_j)_{j=1}^P$ in $L^2(\mu)$, each a polynomial; the
+complete-degree normalized Hermite families are one choice. Let
+$\epsilon\sim\nu=N(0,I_P)$, independent of $\theta$.
+The characteristic state consists of endpoint fields
+$W^{\rm in}(t,\theta)\in\mathbb R^d$,
+$W^{\rm out}(t,\theta)\in\mathbb R$, and learned row coefficients
+$c(s,t,\theta,\epsilon)\in\mathbb R^P$. Set
+
+$$
+ w=\sigma_w\epsilon+c,\qquad
+ W^{\rm in}(0,\theta)=(\theta_1,\ldots,\theta_d),\quad
+ W^{\rm out}(0,\theta)=A\theta_{d+1},\quad c(s,0)=0.
+
+$$ {#eq-docs-continuous-depth-l2503}
+
+All Gaussian labels are fixed during training. The same $\epsilon$
+space may couple different depths; no joint physical depth-disorder law
+is inferred from this convenient characteristic representation. The
+conditional row law is $\rho_{s,t}^\theta=w(s,t,\theta,\cdot)_\#\nu$.
+
+The identities below hold on any supplied interval $[0,T]$ on which
+these fields and the forward/adjoint fields defined next solve their integral
+equations, are continuously differentiable in training time and absolutely
+continuous in depth, and admit the following sufficient domination: each
+field, each first time derivative used below, each depth derivative, and
+the mixed depth/time derivative of the forward field is bounded in absolute
+value by $C(1+|\theta|+|\epsilon|)^q$, with finite $C,q$ uniform
+in $s,t$. Slow fields are independent of $\epsilon$. The same
+condition is required for variations when a variational derivative is used.
+These are explicit sufficient hypotheses for the stated identities, not an
+existence theorem or a claim that all $L^2$ states have this regularity.
+Gaussian polynomial moments make every product and limit below integrable.
+
+Write $\mathbb E_\mu$ for slow-field pairing and
+$\mathbb E_{\mu\otimes\nu}$ for row pairing. Define
+
+$$
+ H_{ja}(s,t)=\mathbb E_\mu[\varphi_j H_a(s,t)],\qquad
+ Z_a=w\cdot H_{\cdot a},\qquad
+ \Delta_a=\phi'(Z_a)P_a(s,t,\theta),\quad \phi(z)=\tanh z.
+
+$$ {#eq-docs-continuous-depth-l2531}
+
+The forward and adjoint equations are
+
+$$
+ \partial_s H_a=\gamma\mathbb E_\nu[\phi(Z_a)],\qquad
+ H_a(0,\theta)=W^{\rm in}\cdot x_a,
+$$
+
+
+$$
+ -\partial_s P_a=\gamma\sum_j\varphi_j(\theta)
+                      \mathbb E_{\mu\otimes\nu}[w_j\Delta_a],
+ \qquad P_a(1,\theta)=W^{\rm out}(\theta),
+$$
+
+
+$$
+ f_a=\mathbb E_\mu[W^{\rm out}H_a(1)].
+
+$$ {#eq-docs-continuous-depth-l2549}
+
+Here $P_a$ is a residual-depth adjoint field, distinct from the mode
+count $P$ and the orthogonal projection $\Pi_P$ used below.
+For a supplied row state of finite second moment these depth equations are
+well defined as linear growth/Lipschitz integral equations in $L^2(\mu)$.
+Indeed, for $u\in L^2(\mu)$, set
+
+$$
+ (W_Pu)(\theta,\epsilon)=\sum_jw_j\mathbb E_\mu[\varphi_j u],\qquad
+ (W_P^*v)(\theta)=\sum_j\varphi_j(\theta)
+                         \mathbb E_{\mu\otimes\nu}[w_jv].
+
+$$ {#eq-docs-continuous-depth-l2560}
+
+Cauchy–Schwarz and orthonormality give
+$\|W_Pu\|_{L^2(\mu\otimes\nu)}\le
+\|w\|_{L^2(\mu\otimes\nu)}\|u\|_{L^2(\mu)}$, and the same bound
+for its adjoint. The forward depth map has Lipschitz coefficient
+$\gamma\|w(s)\|_{L^2}$, and value bounded by $\gamma$ because
+$|\tanh|\le1$. Picard's integral iterates converge on short depth
+intervals where the integrated coefficient is less than one, and their
+differences satisfy the iterated integral bound
+$C(\int b)^k/k!$. A finite subdivision and this bound give uniqueness
+and continuation across $[0,1]$ whenever the coefficient is integrable.
+The adjoint is a linear integral equation with the same bound, solved from
+$s=1$. This verifies depth solvability only; training-time solvability
+in a full state class remains separate.
+
+The training equations in this model are
+
+$$
+ \dot c_j=-\gamma\sum_a r_a\Delta_a H_{ja},\qquad
+ \dot W^{\rm in}=-\sum_a r_a P_a(0)x_a,\qquad
+ \dot W^{\rm out}=-\sum_a r_a H_a(1).
+
+$$ {#eq-docs-continuous-depth-l2583}
+
+The state and fixed data determine the right-hand side; no external curve
+or unretained history appears. A unique solution, if it exists in a declared
+class, can therefore be restarted from this full state. Autonomy alone
+supplies no uniqueness theorem.
+
+### G.2 Shared adjoint, weak transport and gradient {#sec-docs-continuous-depth-l2595}
+
+Expand the finite sum in ([-@eq-docs-continuous-depth-l2560]) and apply Fubini. It gives exactly
+
+$$
+ \mathbb E_{\mu\otimes\nu}[(W_Pu)v]
+ =\sum_j\mathbb E_\mu[\varphi_j u]
+                    \mathbb E_{\mu\otimes\nu}[w_jv]
+ =\mathbb E_\mu[uW_P^*v].
+
+$$ {#eq-docs-continuous-depth-l2599}
+
+Both directions use the same current coefficients. At initialization,
+for a smooth scalar function $g$ with bounded value and derivative,
+Gaussian integration by parts in $\epsilon_j$ gives
+
+$$
+ W_P^*g(W_Pu)=\sigma_w^2\Pi_Pu\,
+      \mathbb E_\nu[g'(\sigma_w\epsilon\cdot H[u])],
+ \qquad H[u]_j=\mathbb E_\mu[\varphi_j u].
+
+$$ {#eq-docs-continuous-depth-l2611}
+
+The boundary term vanishes by Gaussian decay. This identity is an
+initial-law statement; training does not preserve Gaussian row laws.
+
+For a smooth compactly supported test $\chi:\mathbb R^P\to\mathbb R$,
+the characteristic chain rule yields
+$\partial_t\int\chi\,d\rho_{s,t}^\theta
+=\int\nabla\chi\cdot V\,d\rho_{s,t}^\theta$, where
+$V_j=-\gamma\sum_a r_a\phi'(w\cdot H_{\cdot a})P_a H_{ja}$.
+Domination justifies differentiation under the integral. This is precisely
+the distributional conditional transport equation
+
+$$
+ \partial_t\rho_{s,t}^\theta+\nabla_w\cdot(\rho_{s,t}^\theta V)=0.
+
+$$ {#eq-docs-continuous-depth-l2629}
+
+To derive the gradient, vary the current state by
+$(\delta W^{\rm in},\delta W^{\rm out},\delta c)$.
+Differentiation of the forward equation gives
+
+$$
+ \partial_s\delta H_a
+ =\gamma\mathbb E_\nu\!\left[\phi'(Z_a)
+      \left(\delta c\cdot H_{\cdot a}
+               +w\cdot\mathbb E_\mu[\varphi\delta H_a]\right)\right].
+$$
+
+Take its slow pairing with $P_a$ and integrate in depth. The part
+containing $w$ cancels $\langle\partial_sP_a,\delta H_a\rangle$
+by ([-@eq-docs-continuous-depth-l2549]) and ([-@eq-docs-continuous-depth-l2599]). The two boundary conditions therefore give the full
+variation
+
+$$
+ \delta f_a=\mathbb E_\mu[H_a(1)\delta W^{\rm out}]
+ +\mathbb E_\mu[P_a(0)x_a\cdot\delta W^{\rm in}]
+ +\gamma\int_0^1\mathbb E_{\mu\otimes\nu}
+       [\Delta_a H_{\cdot a}\cdot\delta c]ds.
+
+$$ {#eq-docs-continuous-depth-l2650}
+
+Every exchange is justified by the stated polynomial domination. For
+example a product of finitely many polynomial envelopes is integrable
+under $\mu\otimes\nu$, and the depth interval has finite measure.
+Thus ([-@eq-docs-continuous-depth-l2650]) is a valid directional variational identity in this class;
+it is not an unproved Fréchet differentiability assertion on a bare
+$L^2$ ball.
+
+In the product characteristic metric
+
+$$
+ \|\delta\Theta\|_{\mathcal X}^2=
+ \mathbb E_\mu|\delta W^{\rm in}|^2+
+ \mathbb E_\mu|\delta W^{\rm out}|^2+
+ \int_0^1\mathbb E_{\mu\otimes\nu}|\delta c|^2ds,
+$$
+
+the three functions in ([-@eq-docs-continuous-depth-l2650]) are the represented output derivatives.
+Consequently ([-@eq-docs-continuous-depth-l2583]) is the negative represented gradient of the half-sum
+loss. Substitution into ([-@eq-docs-continuous-depth-l2650]) proves
+
+$$
+ \dot f_a=-\sum_b K_{ab}r_b,
+$$
+
+
+$$
+ K_{ab}=\mathbb E_\mu[H_a(1)H_b(1)]
+ +(x_a^Tx_b)\mathbb E_\mu[P_a(0)P_b(0)]
+ +\gamma^2\int_0^1\left(\sum_j H_{ja}H_{jb}\right)
+                  \mathbb E_{\mu\otimes\nu}[\Delta_a\Delta_b]ds.
+
+$$ {#eq-docs-continuous-depth-l2681}
+
+For any real coefficients $v_a$, the three quadratic forms are the
+squared norms of $\sum_a v_aH_a(1)$,
+$\sum_a v_aP_a(0)x_a$, and
+$\gamma\sum_a v_a\Delta_a H_{\cdot a}$, respectively, with the
+last integrated over depth. Hence $K\succeq0$ and
+
+$$
+ -\dot{\mathcal E}=r^TKr=\|\dot\Theta\|_{\mathcal X}^2.
+
+$$ {#eq-docs-continuous-depth-l2695}
+
+Cauchy–Schwarz now gives displacement at most
+$\sqrt{t\mathcal E(0)}$ and increments at most
+$\sqrt{|t-s|\mathcal E(0)}$ in $\mathcal X$ on this supplied
+path. Replacing the projected pairing $\sum_jH_{ja}H_{jb}$ in
+([-@eq-docs-continuous-depth-l2681]) by the full hidden pairing changes the kernel and loses the proved
+identity. For full mean-square loss let $\lambda=2/m$, replace ([-@eq-docs-continuous-depth-l2583]) by
+$\dot\Theta=-\lambda\sum_a r_a\nabla f_a$, and keep $K$ as in
+([-@eq-docs-continuous-depth-l2681]). Then $\dot f=-\lambda Kr$ and
+$\dot{\mathcal L}=-\lambda^2r^TKr=-\|\dot\Theta\|_{\mathcal X}^2$,
+where $\mathcal L=\lambda\mathcal E$.
+
+### G.3 Exact parity and the active mode counts {#sec-docs-continuous-depth-l2711}
+
+For this subsection take complete multivariate Hermite polynomials through
+a degree $D$, orthonormal under $\mu$. Their parity is
+$\varphi_j(-\theta)=J_{jj}\varphi_j(\theta)$,
+$J_{jj}=(-1)^{\deg\varphi_j}$. This follows directly from the
+one-variable generating identity
+$e^{tx-t^2/2}=\sum_{k\ge0}H_k(x)t^k/k!$: replacing $x,t$ by
+$-x,-t$ gives $H_k(-x)=(-1)^kH_k(x)$. Products give the
+multivariate formula; normalization leaves it unchanged.
+
+The conditional equations are equivariant under
+
+$$
+ (W^{\rm in},W^{\rm out},\rho^\theta)
+ \mapsto(-W^{\rm in}(-\theta),-W^{\rm out}(-\theta),
+                       J_\#\rho^{-\theta}).
+
+$$ {#eq-docs-continuous-depth-l2724}
+
+Indeed the transformed forward field is $-H_a(-\theta)$, so its
+mode coefficients are $-JH_{\cdot a}$. With $w\mapsto Jw$,
+the preactivation changes sign. Oddness of $\tanh$ and evenness of
+its derivative then transform $P_a,\Delta_a$ into their negatives
+at $-\theta$. In the adjoint expression the extra coefficient signs
+combine with $\varphi_j(-\theta)=J_{jj}\varphi_j(\theta)$, giving
+the transformed depth equation. The product $W^{\rm out}H_a(1)$
+is invariant after the change of variable $\theta\mapsto-\theta$,
+so predictions and residuals are unchanged for arbitrary labels. Finally
+$-\gamma\sum_a r_a\Delta_a H_{ja}$ transforms to $J_{jj}$
+times its old value at $-\theta$, as required by row transport.
+The endpoint velocities transform in the same way.
+
+Initialization ([-@eq-docs-continuous-depth-l2503]) is fixed by ([-@eq-docs-continuous-depth-l2724]). If the conditional initial-value
+problem is unique in a class preserved by this transformation, its solution
+is fixed by ([-@eq-docs-continuous-depth-l2724]). Thus the slow fields are odd in $\theta$, and
+$H_{ja}=0$ for even-degree $j$. Their coefficient velocities are
+zero. In the characteristic description these even coordinates remain
+$\sigma_w\epsilon_j$. The odd-coordinate ODE has no dependence on
+the even coordinates, since they are absent from $Z_a$. With supplied
+slow fields its finite-dimensional ODE is locally Lipschitz; its unique
+solution consequently depends only on $\theta$ and the odd Gaussian
+coordinates. Independence and centering then imply
+$\mathbb E_{\mu\otimes\nu}[w_j\Delta_a]=0$ for even $j$.
+The even modes make no forward or transpose contribution.
+
+Adding a complete even-degree shell to an odd-degree cutoff therefore
+leaves the exact symmetric physical solution unchanged, conditional on
+existence and uniqueness in compatible classes. No uniqueness is inferred
+from parity. For $d+1=4$, the total degree-$k$ multiplicity is
+$\binom{k+3}{3}$: choosing the four nonnegative exponents summing to
+$k$ is equivalent to positioning three separators among $k+3$
+slots. Summing gives:
+
+| Maximum degree | Full modes | Active odd modes |
+|---:|---:|---:|
+| 1 | 5 | 4 |
+| 2 | 15 | 4 |
+| 3 | 35 | 24 |
+| 4 | 70 | 24 |
+| 5 | 126 | 80 |
+
+These exact counts describe the model, without a cubature or training claim.
+
+### G.4 Bounded transpose, noncompactness and the remaining bridge {#sec-docs-continuous-depth-l2775}
+
+The infinite-source comparison already has a useful exact Hilbert fact.
+Let $(e_j)$ be an orthonormal basis of a separable real Hilbert space
+$\mathcal H$, and $(\epsilon_j)$ independent standard Gaussians.
+Define $Iu=\sum_j\langle u,e_j\rangle\epsilon_j$ in $L^2$.
+The partial sums are Cauchy and
+$\|Iu\|_{L^2}^2=\sum_j\langle u,e_j\rangle^2=\|u\|^2$.
+For $v\in L^2$, Bessel's inequality gives
+$\sum_j|\mathbb E[\epsilon_jv]|^2\le\|v\|_{L^2}^2$.
+It follows that
+
+$$
+ I^*v=\sum_j e_j\mathbb E[\epsilon_jv],\qquad\|I^*v\|\le\|v\|_{L^2}.
+$$
+
+Extra target labels may be included in the expectation independently.
+No derivative of $v$ is required for this adjoint formula. A learned
+row $c\in L^2(\mathcal H)$ defines
+$R_cu=\langle c,u\rangle$, with
+$R_c^*v=\mathbb E[cv]$ and operator norm at most
+$\|c\|_{L^2(\mathcal H)}$; these assertions follow by
+Cauchy–Schwarz and pairing with arbitrary unit $u$.
+Thus $\sigma_wI+R_c$ and its adjoint are bounded.
+
+Nevertheless $I^*\epsilon_j=e_j$. For every finite basis projection
+$\Pi_K$,
+$\sup_{\|v\|_{L^2}\le1}\|(1-\Pi_K)I^*v\|=1$, by choosing an
+omitted $\epsilon_j$. Hence bounded energy alone gives no uniform
+source-tail decay. Projection convergence is uniform on a fixed compact
+set: choose a finite $\epsilon$-net there, apply pointwise convergence
+to its centers, and use $\|1-\Pi_K\|\le1$ on the remaining errors.
+An energy ball is not that compact set.
+
+There is also an explicit failure of a useful ambient Lipschitz shortcut.
+For a standard Gaussian $a$, the map $(z,p)\mapsto\phi'(z)p$
+on $L^2\times L^2$ is not locally Lipschitz at $(0,a)$.
+Let $E_N=\{|a|>N\}$, $z_N=\mathbf1_{E_N}$, and keep $p=a$.
+Then $\|z_N\|_2\to0$, whereas
+
+$$
+ \frac{\|[\phi'(z_N)-\phi'(0)]a\|_2}{\|z_N\|_2}
+ \ge |\operatorname{sech}^2(1)-1|N\longrightarrow\infty.
+$$
+
+This is an ambient multiplier counterexample, not a statement that these
+perturbations are reached by the source-transport dynamics.
+The internal identities above leave distinct obligations for general
+well-posedness, collective source tails, stability of nonlinear truncation
+errors, and identification with trained iid dense depth slices. Neither
+an exact projected kernel nor conditional parity supplies those proofs.

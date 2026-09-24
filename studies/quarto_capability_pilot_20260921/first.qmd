@@ -1,0 +1,91 @@
+# First toy chapter {#sec-first}
+
+For inline mathematics, let $z=x+y$. The labelled display
+
+$$
+x+y=z
+$$ {#eq-seed}
+
+will be cited from the next chapter.
+
+::: {#def-seed}
+## Seed definition
+
+A *toy seed* is a pair $(x,y)\in\mathbb{R}^2$.
+:::
+
+::: {#thm-seed}
+## Seed theorem
+
+Every toy seed satisfies:
+
+(a) []{#seed-item-a} $x+0=x$;
+
+(b) []{#seed-item-b} $y+0=y$.
+:::
+
+[]{#proof-seed}
+
+::: {.proof}
+Both statements are the additive identity law. This proof has an explicit
+ordinary identifier, so it can be reached by this [proof link](#proof-seed).
+:::
+
+::: {#lem-balance}
+## Balance lemma
+
+The following aligned identity holds:
+
+$$
+\begin{aligned}
+(x+y)^2 &= x^2+2xy+y^2,\\
+(x-y)^2 &= x^2-2xy+y^2.
+\end{aligned}
+$$ {#eq-balance}
+:::
+
+::: {#prp-forms}
+## Forms proposition
+
+Matrix and cases notation render together:
+
+$$
+A=\begin{pmatrix}1&0\\0&1\end{pmatrix},\qquad
+f(t)=\begin{cases}t,&t\ge 0,\\-t,&t<0.\end{cases}
+$$ {#eq-forms}
+:::
+
+::: {#exm-seed}
+## Seed example
+
+The pair $(1,2)$ is a toy seed.
+:::
+
+::: {#rem-forward}
+## Forward-reference remark
+
+The future @cnj-future and @eq-return are in @sec-second.
+:::
+
+{{< include _included.md >}}
+
+::: {#assumption-boundedness}
+**Assumption (toy boundedness).** Suppose $|x|+|y|\le 10$.
+:::
+
+The [toy boundedness assumption](#assumption-boundedness) uses an ordinary
+anchor: Quarto does not assign it native theorem numbering in this fixture.
+
+@tbl-test is deliberately tiny.[^toy-footnote]
+
+| symbol | TEST DATA value |
+|:--|--:|
+| $x$ | 1 |
+| $y$ | 2 |
+
+: Artificial values {#tbl-test}
+
+The fictitious record @toy2026 is TEST DATA; a page-specific citation is
+[@toy2026, p. 7].
+
+[^toy-footnote]: This footnote is part of the rendering fixture.

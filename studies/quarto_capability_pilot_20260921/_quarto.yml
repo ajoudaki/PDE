@@ -1,0 +1,27 @@
+project:
+  type: book
+
+book:
+  title: "Artificial Quarto Mathematics Fixture"
+  chapters:
+    - index.qmd
+    - part: "Toy Part I"
+      chapters:
+        - first.qmd
+    - part: "Toy Part II"
+      chapters:
+        - second.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    number-sections: true
+  pdf:
+    pdf-engine: xelatex
+    keep-tex: true
+    cite-method: biblatex
+    latex-auto-install: false
+    latex-tinytex: false
+

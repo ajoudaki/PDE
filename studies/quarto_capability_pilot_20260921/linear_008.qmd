@@ -1,0 +1,555 @@
+## B. Global two-layer limits beyond one activation {#sec-docs-global-nonlinear-l1899}
+
+The theorem below uses the unhalved sum loss and the displayed positive block constants. Orthogonal input projections are essential to its nonlinear first-layer coordinate proof. Its affine-first corollary admits every fixed Gram matrix, including singular matrices. Width identification uses the value lemma @sec-docs-global-nonlinear-l1842; no formal sensitivity formula for the activation transform is invoked.
+
+### B.1. Global two-hidden-layer activation transform {#sec-docs-global-nonlinear-l1903}
+
+Within this proof unit, unqualified section and equation numbers are local.
+
+#### The theorem and the network {#sec-docs-global-nonlinear-l1907}
+
+Fix $m<\infty$ inputs $x_a\in\mathbb R^d$ satisfying
+$$
+\frac{x_a^\top x_b}{d}=\mathbf 1_{\{a=b\}},
+\qquad 1\le a,b\le m.
+$$
+Fix labels $y_a\in\mathbb R$ and positive constants $\kappa_1,\kappa_2,\kappa_3$, independent of width and step size. Allow different activations in the two hidden layers:
+
+- $\phi^{(1)}$ is continuously differentiable, and $(\phi^{(1)})'$ is bounded and globally Lipschitz. The activation itself need not be bounded, monotone, or odd.
+- $\phi^{(2)}$ is bounded and continuously differentiable, and $(\phi^{(2)})'$ is bounded and globally Lipschitz.
+
+The dimensions are $W^{(1)}\in\mathbb R^{n\times d}$, $W^{(2)}\in\mathbb R^{n\times n}$, and $W^{(3)}\in\mathbb R^n$. The readout $W^{(3)}$ is the rescaled readout throughout. Define
+$$
+\begin{aligned}
+z_a^{(1)}&=\frac{W^{(1)}x_a}{\sqrt d},
+&
+h_a^{(1)}&=\phi^{(1)}(z_a^{(1)}),\\
+z_a^{(2)}&=W^{(2)}h_a^{(1)},
+&
+h_a^{(2)}&=\phi^{(2)}(z_a^{(2)}),\\
+f_{n,a}&=\frac{(W^{(3)})^\top h_a^{(2)}}{n},
+&
+r_{n,a}&=f_{n,a}-y_a,
+\qquad L_n=\sum_{a=1}^m r_{n,a}^2.
+\end{aligned}
+$$
+The residual-free backpropagated derivatives are
+$$
+\delta_a^{(2)}
+=
+W^{(3)}\odot(\phi^{(2)})'(z_a^{(2)}),
+\qquad
+\delta_a^{(1)}
+=
+(\phi^{(1)})'(z_a^{(1)})
+\odot(W^{(2)})^\top\delta_a^{(2)}.
+$$
+Thus $\delta_a^{(\ell)}=n\,\partial f_{n,a}/\partial z_a^{(\ell)}$. The exact updates are
+$$
+\begin{aligned}
+z_{a,k+1}^{(1)}
+&=
+z_{a,k}^{(1)}
+-2\kappa_1\eta_n r_{n,a,k}\delta_{a,k}^{(1)},\\
+W_{k+1}^{(2)}
+&=
+W_k^{(2)}
+-\frac{2\kappa_2\eta_n}{n}
+\sum_{a=1}^m
+r_{n,a,k}\delta_{a,k}^{(2)}(h_{a,k}^{(1)})^\top,\\
+W_{k+1}^{(3)}
+&=
+W_k^{(3)}
+-2\kappa_3\eta_n
+\sum_{a=1}^m r_{n,a,k}h_{a,k}^{(2)}.
+\end{aligned} 
+$$ {#eq-docs-global-nonlinear-l1946}
+The first equation uses orthogonality. In the original first weights, it follows from
+$$
+W_{k+1}^{(1)}
+=
+W_k^{(1)}
+-\frac{2\kappa_1\eta_n}{\sqrt d}
+\sum_{a=1}^m r_{n,a,k}\delta_{a,k}^{(1)}x_a^\top.
+$$
+
+Initialize independently by
+$$
+W_{0,ij}^{(1)}\sim N(0,\sigma_1^2),
+\qquad
+W_{0,ji}^{(2)}\sim N(0,\sigma_2^2/n),
+$$
+where the variances are fixed and finite. The following readout initializations are allowed:
+
+- A vanishing Gaussian readout
+  $$
+  W_{0,j}^{(3)}\sim N(0,\sigma_3^2n^{-2\beta}),
+  \qquad \beta>0.
+  $$
+  Here $\beta$ describes the decay of the standard deviation. Gaussian tail bounds give
+  $$
+  \|W_0^{(3)}\|_\infty
+  =
+  O_{\mathbb P}(n^{-\beta}\sqrt{\log n})
+  \longrightarrow0.
+  $$
+  The original initialization has $\beta=1$.
+- More generally, an independent readout whose coordinate supremum tends to zero in probability. Its population initialization is zero.
+- A fixed bounded readout law: the coordinates are iid with a law supported on $[-B_0,B_0]$, independently of the other initialization. The population starts from that law. A perturbation whose coordinate supremum tends to zero may also be added, giving a finite initial supremum at most $B_0+o_{\mathbb P}(1)$.
+
+An arbitrary bounded iid law is admitted directly as a root tuple in @sec-docs-global-nonlinear-l1842. The bounded nonvanishing option does **not** include an untruncated $O(1)$ Gaussian readout: that initialization lacks the population supremum bound used in this proof.
+
+For every fixed $T<\infty$, the population equations have a unique autonomous gradient-flow solution on $[0,T]$. For every sequence
+$$
+\eta_n>0,
+\qquad
+\eta_n\sqrt n\longrightarrow0,
+$$
+the exact GD trajectories on the clock $t=k\eta_n$ converge to that solution. Interpolate the finite parameters linearly and recompute the forward pass between steps.
+
+The conclusion includes predictions, summed loss, all kernel-block entries, same-layer joint hidden path laws with their second moments, and fixed finite collections of continuous globally Lipschitz forward/adjoint measurements. Products in these measurement constructions must have bounded varying factors; the unbounded backward fields and their quadratic measurements are included through the tail argument below. Integrated squared hidden speeds converge as well. Convergence is in probability, uniformly in time for the stated pointwise measurements. No claim about arbitrary higher-growth measurements is needed.
+
+The step condition is sufficient, not claimed necessary. These activation assumptions alone do not force nonlinearity or motion: they intentionally include a constant or affine first activation. Additional assumptions for strict feature learning appear at the end.
+
+#### A scalar coordinate that removes the first-layer gate {#sec-docs-global-nonlinear-l2012}
+
+Let $J(s,z)$ solve
+$$
+\frac{\partial J(s,z)}{\partial s}
+=
+(\phi^{(1)})'(J(s,z)),
+\qquad
+J(0,z)=z,
+\qquad s\in\mathbb R.
+%
+$$ {#eq-docs-global-nonlinear-l2015}
+Write
+$$
+M_1=\|(\phi^{(1)})'\|_\infty,
+\qquad
+L_1=\operatorname{Lip}((\phi^{(1)})').
+$$
+The bounded Lipschitz scalar vector field has a unique global solution in both time directions. Integration and the scalar difference inequality give
+$$
+|J(s,z)-J(t,z)|\le M_1|s-t|,
+\qquad
+|J(s,z)|\le |z|+M_1|s|,
+%
+$$ {#eq-docs-global-nonlinear-l2031}
+$$
+|J(s,z)-J(s,w)|
+\le e^{L_1|s|}|z-w|.
+$$
+In particular, $J$ is jointly continuous. Uniqueness gives the flow identity
+$$
+J(s,J(t,z))=J(s+t,z),
+$$
+because both sides solve the same scalar equation as functions of $s$, with the same value at $s=0$. Also,
+$$
+|\phi^{(1)}(J(s,z))-\phi^{(1)}(J(t,z))|
+\le M_1^2|s-t|. 
+$$ {#eq-docs-global-nonlinear-l2046}
+
+For each input introduce a clock displacement $X_a^{(1)}(0)=0$, keeping the fixed Gaussian root $Z_{0,a}^{(1)}$, and set
+$$
+Z_a^{(1)}(t)
+=
+J(X_a^{(1)}(t),Z_{0,a}^{(1)}).
+%
+$$ {#eq-docs-global-nonlinear-l2052}
+The population network is
+$$
+\begin{aligned}
+H_a^{(1)}&=\phi^{(1)}(Z_a^{(1)}),
+&
+Z_a^{(2)}&=W^{(2)}H_a^{(1)},\\
+H_a^{(2)}&=\phi^{(2)}(Z_a^{(2)}),
+&
+f_a&=\mathbb E[W^{(3)}H_a^{(2)}],
+\qquad r_a=f_a-y_a,\\
+\delta_a^{(2)}
+&=
+W^{(3)}(\phi^{(2)})'(Z_a^{(2)}),
+&
+\delta_a^{(1)}
+&=
+(\phi^{(1)})'(Z_a^{(1)})
+(W^{(2)})^*\delta_a^{(2)}.
+\end{aligned}
+$$
+Its transformed equations are
+$$
+\begin{aligned}
+\dot X_a^{(1)}
+&=-2\kappa_1 r_a(W^{(2)})^*\delta_a^{(2)},\\
+\dot W^{(2)}
+&=-2\kappa_2\sum_{a=1}^m
+r_a\delta_a^{(2)}\otimes H_a^{(1)},\\
+\dot W^{(3)}
+&=-2\kappa_3\sum_{a=1}^m r_aH_a^{(2)}.
+\end{aligned} 
+$$ {#eq-docs-global-nonlinear-l2079}
+Here the rank-one action is explicitly
+$$
+(u\otimes v)V=u\,\mathbb E[vV].
+$$
+Every expectation pairs coordinates of the same layer. The first-layer and second-layer populations are separate.
+
+The initial $W_0^{(2)}$ is the bounded forward-and-adjoint action obtained from the joint limits of finite Gaussian matrix calculations, as described below. It is **not** an ordinary continuum matrix or integral kernel with iid Gaussian entries. The notation records its action on generated population fields, together with its adjoint.
+
+The scalar chain rule converts @eq-docs-global-nonlinear-l2079 into the ordinary first-layer equation
+$$
+\dot Z_a^{(1)}=-2\kappa_1 r_a\delta_a^{(1)}.
+%
+$$ {#eq-docs-global-nonlinear-l2099}
+Conversely, any solution of @eq-docs-global-nonlinear-l2099 in the bounded state class used below has representation @eq-docs-global-nonlinear-l2052. Indeed, Cauchy–Schwarz and Fubini make its backward coefficient integrable in time at almost every coordinate. For an integrable scalar coefficient $b(t)$, the equation
+$$
+\dot z(t)=b(t)(\phi^{(1)})'(z(t))
+$$
+has the solution
+$$
+z(t)=J\!\left(\int_0^t b(s)\,ds,z(0)\right).
+$$
+Differentiation verifies the equation, and the Lipschitz difference inequality with integrable coefficient $|b(t)|L_1$ proves uniqueness. Thus the scalar coordinate changes neither the original gradient flow nor its possible solutions.
+
+When $(\phi^{(1)})'>0$, one can use
+$$
+F'(z)=\frac1{(\phi^{(1)})'(z)},
+\qquad
+J(s,z)=F^{-1}(F(z)+s).
+$$
+But the displacement formulation does not require
+$\mathbb E[F(Z_0^{(1)})^2]<\infty$. The rapid growth of this integral for an erf activation therefore places no restriction on its Gaussian initialization variance.
+
+#### Global existence, uniqueness, and autonomy {#sec-docs-global-nonlinear-l2122}
+
+For a population variable $U$, write
+$$
+\|U\|_{L^2}:=\sqrt{\mathbb E[U^2]}.
+$$
+The operator norm is its largest amplification of this root-mean-square size. Compare two states with the same fixed first-layer roots using
+$$
+\begin{aligned}
+d={}&
+\sum_{a=1}^m
+\|X_a^{(1)}-\widetilde X_a^{(1)}\|_{L^2}\\
+&+\|W^{(2)}-\widetilde W^{(2)}\|_{\mathrm{op}}
++\|W^{(3)}-\widetilde W^{(3)}\|_{L^2}.
+\end{aligned} 
+$$ {#eq-docs-global-nonlinear-l2129}
+At finite width replace every population $L^2$ norm by the ordinary Euclidean norm divided by $\sqrt n$; denote this distance by $d_n$.
+
+On sets with bounded clock $L^2$ norms, matrix operator norms, and readout suprema, the transformed vector field is Lipschitz in @eq-docs-global-nonlinear-l2129, with a constant independent of width. The key bounds are as follows. @eq-docs-global-nonlinear-l2046 controls first-activation differences, and
+$$
+\|H_a^{(1)}\|_{L^2}
+\le
+|\phi^{(1)}(0)|
++M_1\|Z_{0,a}^{(1)}\|_{L^2}
++M_1^2\|X_a^{(1)}\|_{L^2}.
+%
+$$ {#eq-docs-global-nonlinear-l2141}
+Adding and subtracting one factor bounds the forward matrix difference. The second-layer backward difference satisfies
+$$
+\begin{aligned}
+\|\delta_a^{(2)}-\widetilde\delta_a^{(2)}\|_{L^2}
+\le{}&
+\|(\phi^{(2)})'\|_\infty
+\|W^{(3)}-\widetilde W^{(3)}\|_{L^2}\\
+&+
+\|\widetilde W^{(3)}\|_\infty
+\operatorname{Lip}((\phi^{(2)})')
+\|Z_a^{(2)}-\widetilde Z_a^{(2)}\|_{L^2}.
+\end{aligned}
+%
+$$ {#eq-docs-global-nonlinear-l2150}
+Its adjoint response is Lipschitz by the operator bound. The output uses boundedness and Lipschitz continuity of $\phi^{(2)}$. Finally,
+$$
+\|u\otimes v-\widetilde u\otimes\widetilde v\|_{\mathrm{op}}
+\le
+\|u-\widetilde u\|_{L^2}\|v\|_{L^2}
++
+\|\widetilde u\|_{L^2}\|v-\widetilde v\|_{L^2}.
+$$
+These estimates prove local existence and uniqueness by contracting the integrated equations on a short interval. A common readout supremum bound defines a closed complete set under @eq-docs-global-nonlinear-l2129, and its integral update preserves that bound after the interval is made short enough.
+
+The chain rule and the adjoint identity give
+$$
+\dot f=-2Kr,
+\qquad
+\dot L=-4r^\top Kr\le0,
+%
+$$ {#eq-docs-global-nonlinear-l2174}
+where
+$$
+K=\kappa_1K^{(1)}+\kappa_2K^{(2)}+\kappa_3K^{(3)}
+$$
+and
+$$
+\begin{aligned}
+K_{ab}^{(1)}
+&=\mathbf1_{\{a=b\}}\,
+\mathbb E[\delta_a^{(1)}\delta_b^{(1)}],\\
+K_{ab}^{(2)}
+&=\mathbb E[H_a^{(1)}H_b^{(1)}]\,
+  \mathbb E[\delta_a^{(2)}\delta_b^{(2)}],\\
+K_{ab}^{(3)}
+&=\mathbb E[H_a^{(2)}H_b^{(2)}].
+\end{aligned}
+%
+$$ {#eq-docs-global-nonlinear-l2185}
+Each block is the Gram matrix of the corresponding parameter gradients. Thus $\|r(t)\|_2\le\|r(0)\|_2$.
+
+Let $B_2=\|\phi^{(2)}\|_\infty$. The readout equation yields
+$$
+\|W^{(3)}(t)\|_\infty
+\le
+\|W^{(3)}(0)\|_\infty
++
+2\kappa_3B_2\sqrt m\,\|r(0)\|_2t.
+%
+$$ {#eq-docs-global-nonlinear-l2201}
+On any prescribed finite horizon $T$, this bounds every $\delta_a^{(2)}$, both in mean square and in supremum. @eq-docs-global-nonlinear-l2079 and @eq-docs-global-nonlinear-l2141 then give
+$$
+\|\dot X_a^{(1)}\|_{L^2}
+\le C_T\|W^{(2)}\|_{\mathrm{op}},
+\qquad
+\|\dot W^{(2)}\|_{\mathrm{op}}
+\le C_T\left(1+\sum_a\|X_a^{(1)}\|_{L^2}\right).
+%
+$$ {#eq-docs-global-nonlinear-l2210}
+The fixed initial root norms are absorbed into $C_T$. Adding and integrating these inequalities gives a linear Gronwall bound on the clock norms and matrix operator norm throughout $[0,T]$. No finite-time blow-up or loss of the bounded-state conditions is possible. The solution therefore extends uniquely to every finite horizon.
+
+The original state is autonomous as well. At a restart time, take the current $Z_a^{(1)}$ as the new roots in @eq-docs-global-nonlinear-l2052, set the new clocks to zero, and repeat the same argument. The original equations require only current fields and the current matrix action and adjoint. More formally, the closed spaces generated from current fields by the bounded coordinate operations and these actions contain the future integral construction. Equal current joint action laws give an isometry of these spaces that preserves the equations. Uniqueness then gives equal future action laws. Earlier clock values and the original initialization are not additional information needed for the future.
+
+###### Identifying the population action and passing to the width limit {#sec-docs-global-nonlinear-l2222}
+
+Use @sec-docs-global-nonlinear-l1842 for the fixed finite value programs, jointly for both matrix orientations. The transform is continuous with at most linear growth in (clock, root). Its exponential root sensitivity is not a bounded-derivative hypothesis and no response derivative of that transform is taken. Empirical residual/contraction feedback is identified by the same-root oracle comparison below.
+
+For clarity, the common initial action is constructed before solving the flow. Collect the finite calculations for rational meshes, their finite unions, and a countable closure under the coordinate operations and bounded continuous measurements used here. The fixed-program theorem gives consistent finite joint laws, realized on one coordinate space for each layer. Exact finite linear identities pass to these laws. A Gaussian matrix operator bound implies, with a fixed sufficiently large $M$,
+$$
+\|W_0^{(2)}V\|_{L^2}
+\le M\|V\|_{L^2}
+$$
+for every generated $V$; the same holds for the transpose action. For example the finite bound follows from two $1/4$-nets and a union bound,
+$$
+\mathbb P\!\left(\|W_0^{(2)}\|_{\mathrm{op}}>M\right)
+\le
+2\,9^{2n}
+\exp\!\left(-\frac{nM^2}{8\sigma_2^2}\right)
+\longrightarrow0
+$$
+when $\sigma_2>0$; the action is zero when $\sigma_2=0$.
+Hence the actions are well-defined on variables equal in mean square and extend to the closures of the generated spans. The finite transpose identity passes to
+$$
+\mathbb E[U\,W_0^{(2)}V]
+=
+\mathbb E[((W_0^{(2)})^*U)V].
+%
+$$ {#eq-docs-global-nonlinear-l2241}
+This identifies the forward and backward actions as adjoints on the same two fixed spaces. It is the initial object used in @eq-docs-global-nonlinear-l2079.
+
+For a proof mesh $\Delta$, Euler applied to @eq-docs-global-nonlinear-l2079 has error $O_T(\Delta)$, uniformly in width and also in the population space. The bounded vector field and its Lipschitz constant give a one-step error $C_T\Delta^2$, so
+$$
+e_{k+1}\le(1+C_T\Delta)e_k+C_T\Delta^2.
+$$
+Summation gives the stated error. A first-exit argument keeps the clock and matrix inside slightly larger bounds; the readout supremum is controlled separately by its update, as in @eq-docs-global-nonlinear-l2201.
+
+At fixed $\Delta$, expand the trained matrix as its initialization plus finitely many rank-one updates. Construct the oracle using the population residuals and every population contraction in those expansions. The fixed-program theorem identifies all its joint node laws and quadratic contractions. Applying its proxy matrix to an oracle vector differs from the prescribed node by finitely many terms of the form
+$$
+-2\kappa_2\Delta r_{b,s}\,
+\delta_{b,s,\mathrm{oracle}}^{(2)}
+\left[
+\frac{
+(h_{b,s,\mathrm{oracle}}^{(1)})^\top
+h_{a,k,\mathrm{oracle}}^{(1)}
+}{n}
+-
+\mathbb E[H_{b,s}^{(1)}H_{a,k}^{(1)}]
+\right].
+%
+$$ {#eq-docs-global-nonlinear-l2256}
+Each scalar discrepancy vanishes and each vector has bounded root-mean-square norm. The corresponding transpose discrepancies use contractions of two second-layer backward fields. Thus recomputed proxy quantities approach the oracle nodes.
+
+The state estimate @eq-docs-global-nonlinear-l2129 transfers this identification to finite Euler with empirical feedback. All factors involving the readout can be clipped beyond its proven supremum bound without changing any oracle value. For comparisons the roots stay fixed: $J$ and its first activation are uniformly Lipschitz in their changing clock arguments. A joint global Lipschitz bound in the frozen root is neither asserted nor needed.
+
+Consequently, taking $n\to\infty$ at fixed $\Delta$, and then $\Delta\to0$, proves the population limit of the finite continuous flow on every $[0,T]$.
+
+#### The bridge from exact GD {#sec-docs-global-nonlinear-l2275}
+
+A scalar estimate makes the discrete argument work even when the first derivative vanishes or changes sign. In the following calculation only, write
+$$
+A=(\phi^{(1)})',
+\qquad L=\operatorname{Lip}(A),
+\qquad
+z^+=z+\eta A(z)b.
+$$
+If $L\eta|b|\le1/2$ and $A(z)\ne0$, then for $0\le s\le1$,
+$$
+|A(z+s\eta A(z)b)-A(z)|
+\le L\eta|A(z)b|
+\le \frac{|A(z)|}{2}.
+$$
+The whole segment stays in the same interval where $A\ne0$. Define its exact scalar-flow clock increment by
+$$
+\Delta X=\int_z^{z^+}\frac{du}{A(u)}.
+$$
+Then $z^+=J(\Delta X,z)$. Substitution in the integral gives
+$$
+\begin{aligned}
+|\Delta X-\eta b|
+&\le
+\eta|b|\int_0^1
+\left|
+\frac{A(z)}{A(z+s\eta A(z)b)}-1
+\right|\,ds\\
+&\le L\eta^2b^2.
+\end{aligned} 
+$$ {#eq-docs-global-nonlinear-l2295}
+If $A(z)=0$, the raw step fixes $z$. Set $\Delta X=\eta b$; the same exact representation holds because $J(s,z)=z$ at an equilibrium. If $L=0$, the derivative is constant and there is no coordinate defect or step restriction.
+
+Apply @eq-docs-global-nonlinear-l2295 to each coordinate with
+$$
+b_a
+=
+-2\kappa_1r_{n,a}
+(W^{(2)})^\top\delta_a^{(2)}.
+%
+$$ {#eq-docs-global-nonlinear-l2309}
+The raw GD trajectories themselves have width-independent bounds on $[0,T]$. First,
+$$
+|r_{n,a}|
+\le |y_a|+B_2\|W^{(3)}\|_\infty
+$$
+and the readout update give a discrete Gronwall bound on its supremum. This bounds $\delta_a^{(2)}$. The first raw update then has root-mean-square increment at most $C_T\eta_n\|W^{(2)}\|_{\mathrm{op}}$, while the matrix operator increment is at most
+$$
+C_T\eta_n
+\left(
+1+\sum_a\frac{\|z_a^{(1)}\|_2}{\sqrt n}
+\right).
+$$
+Adding these bounds gives a second discrete linear Gronwall estimate. The initial root RMS and matrix operator norm are bounded with probability tending to one, and the allowed readout initializations have the requisite high-probability uniform supremum bound. On these events,
+$$
+\frac{\|b_a\|_2}{\sqrt n}\le C_T,
+\qquad
+\|b_a\|_\infty\le C_T\sqrt n.
+%
+$$ {#eq-docs-global-nonlinear-l2329}
+Thus $\eta_n\sqrt n\to0$ enforces the scalar step condition throughout the interval.
+
+Lift the raw iterates recursively by these exact clock increments, starting from $x_{a,0}^{(1)}=0$. The scalar flow identity ensures
+$$
+z_{a,k}^{(1)}
+=
+J(x_{a,k}^{(1)},z_{a,0}^{(1)})
+$$
+exactly at every step. The lifted first update differs from transformed Euler by at most
+$$
+\begin{aligned}
+L\eta_n^2
+\left(\frac1n\sum_i b_{a,i}^4\right)^{1/2}
+&\le
+L\eta_n^2\|b_a\|_\infty
+\frac{\|b_a\|_2}{\sqrt n}\\
+&\le C_T\eta_n^2\sqrt n
+\end{aligned}
+%
+$$ {#eq-docs-global-nonlinear-l2344}
+in root-mean-square norm.
+
+It is important that the clocks themselves stay in the common Lipschitz region, including when $J$ has equilibria and cannot be inverted. Summing their exact increments gives
+$$
+\begin{aligned}
+\frac{\|x_{a,k}^{(1)}\|_2}{\sqrt n}
+&\le
+\sum_{j<k}
+\left[
+\eta_n\frac{\|b_{a,j}\|_2}{\sqrt n}
++
+L\eta_n^2\|b_{a,j}\|_\infty
+\frac{\|b_{a,j}\|_2}{\sqrt n}
+\right]\\
+&\le C_T(1+\eta_n\sqrt n),
+\qquad k\eta_n\le T.
+\end{aligned}
+%
+$$ {#eq-docs-global-nonlinear-l2358}
+Thus the transformed stability constant remains width-independent.
+
+The other parameter updates are already Euler updates for @eq-docs-global-nonlinear-l2079. Add their ordinary $O_T(\eta_n^2)$ local flow error and sum the stable recurrence:
+$$
+\sup_{t\le T}
+d_n\!\left(
+\text{lifted GD}(t),\text{finite flow}(t)
+\right)
+\le
+C_T(\eta_n+\eta_n\sqrt n).
+%
+$$ {#eq-docs-global-nonlinear-l2377}
+At interpolation times, the scalar flow segment and the linear raw segment differ by the same vanishing bound; the state movement inside one step is $O_T(\eta_n)$. This proves the raw GD bridge without a moment assumption on an unshifted scalar transform.
+
+Combining @eq-docs-global-nonlinear-l2377, the fixed-mesh oracle limit, and the two $O_T(\Delta)$ mesh errors proves the joint width/step conclusion.
+
+For the remaining quadratic measurements, the backward fields
+$$
+(W^{(2)}(t))^*\delta_a^{(2)}(t)
+$$
+form a compact time-indexed family in $L^2$. Their squared tails therefore vanish uniformly as the clipping threshold grows. Clip before multiplying by $(\phi^{(1)})'(Z_a^{(1)})$, pass the resulting bounded Lipschitz measurements through the proved limit, and remove clipping. Fixed-grid second-moment convergence and state continuity give the corresponding finite empirical tail control. This supplies kernel entries and squared hidden velocities without assuming sub-Gaussian tails.
+
+For completeness, uniform velocity-energy bounds also supply the path-law assertion. For a time grid of spacing $h$, let $\pi_h t$ be its preceding grid point. Cauchy–Schwarz on each coordinate gives
+$$
+\frac1n\sum_i
+\sup_{t\le T}
+|z_i(t)-z_i(\pi_h t)|^2
+\le
+h\int_0^T
+\frac{\|\dot z(t)\|_2^2}{n}\,dt.
+%
+$$ {#eq-docs-global-nonlinear-l2397}
+The population counterpart replaces the empirical average by expectation. The parameter bounds above and the bounded activation derivatives bound these integrals uniformly for each hidden layer. Piecewise-linear reconstruction from the same grid satisfies an analogous estimate with a fixed additional factor. At fixed grid size the joint laws converge with second moments; letting $h\to0$ gives convergence of the hidden path laws with their second moments in the uniform path norm. The clipped backward-field argument likewise identifies the integrated squared speeds.
+
+#### Examples and the input-geometry boundary {#sec-docs-global-nonlinear-l2408}
+
+Either layer may use arctan, tanh, logistic sigmoid, erf with fixed nonzero input scaling, softsign $z/(1+|z|)$, or the smooth saturation $z/\sqrt{1+z^2}$. Sine and cosine also qualify, despite derivative zeros and sign changes. Softsign is not twice continuously differentiable at zero, but
+$$
+\frac{d}{dz}\frac{z}{1+|z|}
+=
+\frac1{(1+|z|)^2}
+$$
+is continuous, bounded, and globally Lipschitz, which is enough.
+
+In the first layer only, affine functions, softplus, GELU, and SiLU also qualify: their derivatives are bounded and globally Lipschitz although the activations are unbounded. ReLU, leaky ReLU, hard tanh, and derivative-jump activations are not covered by this theorem.
+
+For a general input Gram matrix
+$$
+G_{ab}=\frac{x_a^\top x_b}{d},
+$$
+the first-layer equation becomes
+$$
+\dot Z_a^{(1)}
+=
+-2\kappa_1\sum_b
+G_{ab}r_b
+(\phi^{(1)})'(Z_b^{(1)})
+(W^{(2)})^*\delta_b^{(2)}.
+%
+$$ {#eq-docs-global-nonlinear-l2425}
+With a nonlinear first activation, the right side is not the $a$-th activation derivative times one scalar backward coefficient. The scalar-coordinate proof therefore does not give a global-time arbitrary-angle theorem.
+
+There is a verified exception. If
+$$
+\phi^{(1)}(z)=cz+d_0,
+$$
+then
+$$
+\dot Z_a^{(1)}
+=
+-2\kappa_1c\sum_b
+G_{ab}r_b(W^{(2)})^*\delta_b^{(2)}.
+%
+$$ {#eq-docs-global-nonlinear-l2441}
+The troublesome multiplication by a varying first-layer derivative has disappeared. In the raw state
+$(Z_1^{(1)},\ldots,Z_m^{(1)},W^{(2)},W^{(3)})$,
+the vector field is Lipschitz on the same bounded sets. The bounds @eq-docs-global-nonlinear-l2201–@eq-docs-global-nonlinear-l2210 hold with raw first-layer norms and constants depending on the fixed $G$. The fixed-program initialization allows the possibly singular Gaussian covariance $\sigma_1^2G$. The same oracle and mesh proof therefore gives a global population limit for **any fixed finite normalized input configuration**, including singular Gram matrices.
+
+In this affine case, raw GD is already ordinary Euler for the Lipschitz raw vector field, so the sufficient step condition improves to $\eta_n\to0$. All the preceding readout restrictions remain. This exception does not give a nonlinear first layer: its best affine-fit error is exactly zero.
+

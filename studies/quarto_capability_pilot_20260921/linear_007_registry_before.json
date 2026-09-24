@@ -1,0 +1,751 @@
+[
+  {
+    "id": "sec-docs-readme-l1",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-readme-l8",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 8,
+    "end": 8
+  },
+  {
+    "id": "sec-docs-readme-l52",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 52,
+    "end": 52
+  },
+  {
+    "id": "sec-docs-readme-l89",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 89,
+    "end": 89
+  },
+  {
+    "id": "sec-docs-readme-l124",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 124,
+    "end": 124
+  },
+  {
+    "id": "sec-docs-readme-l148",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 148,
+    "end": 148
+  },
+  {
+    "id": "sec-docs-readme-l163",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 163,
+    "end": 163
+  },
+  {
+    "id": "sec-docs-readme-l198",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 198,
+    "end": 198
+  },
+  {
+    "id": "sec-docs-notation-l1",
+    "kind": "sec",
+    "source": "docs/NOTATION.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l1",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l5270",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 5270,
+    "end": 5270
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l6904",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 6904,
+    "end": 6904
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l8978",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 8978,
+    "end": 8978
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l16001",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 16001,
+    "end": 16001
+  },
+  {
+    "id": "sec-docs-linear-dynamics-l1",
+    "kind": "sec",
+    "source": "docs/linear_dynamics.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-continuous-depth-l1",
+    "kind": "sec",
+    "source": "docs/continuous_depth.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-readme-l262",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 262,
+    "end": 262
+  },
+  {
+    "id": "sec-docs-readme-l295",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 295,
+    "end": 295
+  },
+  {
+    "id": "sec-docs-readme-l313",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 313,
+    "end": 313
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l11441",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 11441,
+    "end": 11441
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l12084",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 12084,
+    "end": 12084
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l12555",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 12555,
+    "end": 12555
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l19884",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 19884,
+    "end": 19884
+  },
+  {
+    "id": "sec-docs-gaussian-calculus-l1",
+    "kind": "sec",
+    "source": "docs/gaussian_calculus.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-gaussian-calculus-l1749",
+    "kind": "sec",
+    "source": "docs/gaussian_calculus.md",
+    "start": 1749,
+    "end": 1749
+  },
+  {
+    "id": "sec-docs-gaussian-calculus-l2156",
+    "kind": "sec",
+    "source": "docs/gaussian_calculus.md",
+    "start": 2156,
+    "end": 2156
+  },
+  {
+    "id": "sec-docs-gaussian-calculus-l3838",
+    "kind": "sec",
+    "source": "docs/gaussian_calculus.md",
+    "start": 3838,
+    "end": 3838
+  },
+  {
+    "id": "sec-docs-gaussian-calculus-l4050",
+    "kind": "sec",
+    "source": "docs/gaussian_calculus.md",
+    "start": 4050,
+    "end": 4050
+  },
+  {
+    "id": "sec-docs-readme-l497",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 497,
+    "end": 497
+  },
+  {
+    "id": "sec-docs-readme-l512",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 512,
+    "end": 512
+  },
+  {
+    "id": "sec-docs-readme-l529",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 529,
+    "end": 529
+  },
+  {
+    "id": "sec-docs-readme-l544",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 544,
+    "end": 544
+  },
+  {
+    "id": "sec-docs-readme-l565",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 565,
+    "end": 565
+  },
+  {
+    "id": "sec-docs-readme-l603",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 603,
+    "end": 603
+  },
+  {
+    "id": "sec-docs-readme-l626",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 626,
+    "end": 626
+  },
+  {
+    "id": "sec-docs-readme-l657",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 657,
+    "end": 657
+  },
+  {
+    "id": "sec-docs-readme-l705",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 705,
+    "end": 705
+  },
+  {
+    "id": "sec-docs-readme-l740",
+    "kind": "sec",
+    "source": "docs/README.md",
+    "start": 740,
+    "end": 740
+  },
+  {
+    "id": "sec-docs-finite-dynamics-l1",
+    "kind": "sec",
+    "source": "docs/finite_dynamics.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-arctan-limits-l1",
+    "kind": "sec",
+    "source": "docs/arctan_limits.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-special-data-limits-l1",
+    "kind": "sec",
+    "source": "docs/special_data_limits.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-finite-optimization-and-controls-l1",
+    "kind": "sec",
+    "source": "docs/finite_optimization_and_controls.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-observable-p1-l1",
+    "kind": "sec",
+    "source": "docs/observable_p1.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-code-readme-l1",
+    "kind": "sec",
+    "source": "code/README.md",
+    "start": 1,
+    "end": 1
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l3836",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 3836,
+    "end": 3836
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l17554",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 17554,
+    "end": 17554
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l21578",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 21578,
+    "end": 21578
+  },
+  {
+    "id": "sec-docs-notation-l8",
+    "kind": "sec",
+    "source": "docs/NOTATION.md",
+    "start": 8,
+    "end": 8
+  },
+  {
+    "id": "sec-docs-notation-l44",
+    "kind": "sec",
+    "source": "docs/NOTATION.md",
+    "start": 44,
+    "end": 44
+  },
+  {
+    "id": "sec-docs-notation-l70",
+    "kind": "sec",
+    "source": "docs/NOTATION.md",
+    "start": 70,
+    "end": 70
+  },
+  {
+    "id": "sec-docs-notation-l90",
+    "kind": "sec",
+    "source": "docs/NOTATION.md",
+    "start": 90,
+    "end": 90
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l32",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 32,
+    "end": 32
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l185",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 185,
+    "end": 185
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l281",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 281,
+    "end": 281
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l297",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 297,
+    "end": 297
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l334",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 334,
+    "end": 334
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l398",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 398,
+    "end": 398
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l457",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 457,
+    "end": 457
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l816",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 816,
+    "end": 816
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l1136",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 1136,
+    "end": 1136
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l3982",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 3982,
+    "end": 3982
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l4949",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 4949,
+    "end": 4949
+  },
+  {
+    "id": "thm-docs-global-nonlinear-l81",
+    "kind": "thm",
+    "source": "docs/global_nonlinear.md",
+    "start": 81,
+    "end": 174
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l52",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 52,
+    "end": 57
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l59",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 59,
+    "end": 63
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l72",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 72,
+    "end": 74
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l89",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 89,
+    "end": 92
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l113",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 113,
+    "end": 119
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l147",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 147,
+    "end": 152
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l158",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 158,
+    "end": 163
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l197",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 197,
+    "end": 199
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l209",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 209,
+    "end": 212
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l247",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 247,
+    "end": 251
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l256",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 256,
+    "end": 258
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l269",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 269,
+    "end": 272
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l306",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 306,
+    "end": 309
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l312",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 312,
+    "end": 315
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l341",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 341,
+    "end": 345
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l363",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 363,
+    "end": 368
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l407",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 407,
+    "end": 410
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l505",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 505,
+    "end": 505
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l516",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 516,
+    "end": 519
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l543",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 543,
+    "end": 548
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l589",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 589,
+    "end": 596
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l599",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 599,
+    "end": 605
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l613",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 613,
+    "end": 620
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l632",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 632,
+    "end": 638
+  },
+  {
+    "id": "sec-docs-global-nonlinear-l642",
+    "kind": "sec",
+    "source": "docs/global_nonlinear.md",
+    "start": 642,
+    "end": 642
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l675",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 675,
+    "end": 680
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l692",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 692,
+    "end": 697
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l701",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 701,
+    "end": 705
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l718",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 718,
+    "end": 721
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l736",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 736,
+    "end": 738
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l746",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 746,
+    "end": 751
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l755",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 755,
+    "end": 760
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l769",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 769,
+    "end": 774
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l805",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 805,
+    "end": 808
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l825",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 825,
+    "end": 831
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l856",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 856,
+    "end": 861
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l887",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 887,
+    "end": 893
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l899",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 899,
+    "end": 902
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l915",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 915,
+    "end": 920
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l924",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 924,
+    "end": 929
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l950",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 950,
+    "end": 953
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l958",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 958,
+    "end": 963
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l971",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 971,
+    "end": 976
+  },
+  {
+    "id": "eq-docs-global-nonlinear-l991",
+    "kind": "eq",
+    "source": "docs/global_nonlinear.md",
+    "start": 991,
+    "end": 995
+  }
+]

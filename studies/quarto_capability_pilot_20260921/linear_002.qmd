@@ -1,0 +1,285 @@
+```{mermaid}
+flowchart TD
+    M["Established milestones 1–3<br/>Trained response · nonlinear law dependence<br/>Sampling fluctuations"]:::done
+    A["A · Nonlinear prediction selection<br/>What substantial additional training selects"]:::theory
+    B["B · Generalization<br/>When the selected prediction is useful"]:::theory
+    D["D · Activation-dependent bias<br/>Which activation helps which tasks"]:::theory
+    E["E · Unknown-structure discovery<br/>Learning beyond linear and frozen models"]:::theory
+    F["F · Advantage of depth<br/>Separation from trained shallow models"]:::theory
+    CH1["C-H1 · Predictive observable state<br/>Exact current-state hierarchy"]:::compute
+    CH2["C-H2 · Convergent finite closure<br/>Fixed nonlinear interval"]:::compute
+    CH3["C-H3 · Efficient numerical implementation<br/>Qualitative convergence + broader exploration"]:::compute
+    CH4["C-H4 · Computation through substantial training<br/>Time 40 without growing state"]:::compute
+    J["Common-family completion<br/>G only if extending the solver requires new mathematics"]:::join
+    M --> A
+    M --> CH1
+    CH1 --> CH2
+    CH2 --> CH3
+    CH3 --> CH4
+    A --> B
+    B --> D
+    B --> E
+    E --> F
+    CH4 --> J
+    D --> J
+    E --> J
+    F --> J
+    classDef done fill:#e3f3e7,stroke:#43865b,color:#163d23
+    classDef theory fill:#e8f0fc,stroke:#527bb6,color:#17365e
+    classDef compute fill:#f0e8fa,stroke:#8862ad,color:#42245f
+    classDef join fill:#fff0d6,stroke:#b48835,color:#614710
+```
+
+The arrows express the intended mathematical dependencies, not implications
+already proved. The same dependency map is recorded in the table for readers
+whose renderer does not display Mermaid diagrams. C-H3 can inform the other
+directions empirically without being a prerequisite for their initial proofs.
+
+| Milestone | Starting dependency | Scientific result sought |
+|---|---|---|
+| A | Established 1–3 | Nonlinear selection of the whole-input prediction |
+| B | A and the established sampling calculus | Useful generalization of that selection |
+| C-H1 | Established 1–3 and the exact population equations | A sufficient current observable state with exact evolution identities |
+| C-H2 | C-H1 | One convergent finite autonomous closure on a fixed nonlinear interval |
+| C-H3 | C-H2; prototype during C-H2 | Efficient finite computation with qualitative population convergence and broader exploratory use |
+| C-H4 | C-H3 and the established learning-horizon bounds | The same convergent computation through time 40 with no accumulating state |
+| D | B | An explanation of activation-dependent bias |
+| E | B | Efficient discovery of unknown structure |
+| F | E | A genuine advantage over trained shallow models |
+| Common-family completion; G only if needed | C-H4, D, E and F | Compatible conclusions and computation at the learning scales |
+
+### A. Nonlinear prediction selection after substantial learning {#sec-docs-readme-l262}
+
+Determine the whole-input prediction selected after finite, nonvanishing
+adaptation to additional data, starting from the original initialization and
+actual training law. A representative setting is
+$\mu_{\varepsilon,\nu}=(1-\varepsilon)\nu_*+\varepsilon\nu$, where
+$\nu_*=\tfrac12\delta_{(\sqrt2e_1,+1)}+
+\tfrac12\delta_{(\sqrt2e_2,-1)}$ and $\nu$ ranges over a nontrivial
+family on $\sqrt2S^1\times[-Y,Y]$, with fixed $Y\ge1$.
+Here $e_1,e_2$ are the input coordinate unit vectors. Inputs outside the
+reference pair need not be orthogonal.
+
+The target is a determining characterization with controlled whole-circle
+error and additional hidden adaptation. Write $f_*^\infty$ for the fitted
+reference prediction and $P_\nu$ for the selected prediction. Seek a fixed
+improvement $R_\nu(f_*^\infty)-R_\nu(P_\nu)\ge a>0$, where
+$R_\nu(f)=\int(f(x)-y)^2\,d\nu(x,y)$. The margin must survive
+the small-contamination and width limits on a specified robust subfamily;
+it cannot disappear merely because the component has weight $\varepsilon$.
+Measure additional hidden motion against the matched reference evolution or
+its justified hidden endpoint, rather than against initialization alone.
+The original finite Gaussian readout, both orientations of the reused middle
+action, and the exact model and training metric are retained. Population
+continuation and actual finite-GF capture must be justified through the chosen
+learning horizon, with explicit limit order.
+
+One finite adaptation episode can suffice. A first derivative, formal jet,
+restatement of the original parameter equations or small mixture loss alone
+does not determine the requested nonlinear selection. The fitted endpoint,
+response geometry and source estimates provide a concrete starting point;
+control of accumulated adaptation remains the new obligation. This yields an
+independent explanation of substantial nonlinear learning even if B fails.
+
+### B. Generalization of the selected predictor {#sec-docs-readme-l295}
+
+For a task family defined independently of the network's eventual answer,
+connect the selected whole-input prediction to the regression target. Derive
+population approximation error, sampling and noise control, and a justified
+training horizon or stopping rule. The guarantee should improve with available
+information or computational effort in a stated regime; finite-network
+transfer must keep its proved scope.
+
+The sampling limit in @sec-docs-global-nonlinear-l16001 describes fluctuations around the population
+predictor. It does not establish that this predictor is close to the desired
+target, nor does its prediction-variance formula automatically identify excess
+risk. A supplies the selection mechanism to analyze; B supplies the connection
+to useful unseen predictions. This is valuable without an architectural
+superiority theorem.
+
+@sec-docs-global-nonlinear-l19884 supplies B at a finite-episode scope for a declared full-circle regression family. Its approximation floor and unevaluated conditioning constants leave arbitrary-accuracy learning and practical computation as further questions.
+
+### C. Independent computation and broader empirical exploration {#sec-docs-readme-l313}
+
+Construct a fundamentally different finite causal system approximating the
+same population GF, with one physical time, explicit initialization and
+prediction reconstruction. The convergence target includes enough internal
+observations to identify the evolution and support its claimed restartability,
+including the effects of both Gaussian action directions and their reuse.
+An autonomous ODE, PDE or integro-differential hierarchy is admissible; a fitted
+surrogate or replay of the target trajectory is not. The current route replaces
+the single C package by the four hierarchy milestones below. Its finite state
+consists of current observable populations and their required joint statistics,
+including differentiated fields where justified. At a chosen order, state size
+stays fixed during the run; elapsed steps cannot add history slots. The chosen
+order and numerical resolution may increase between runs and depend on the
+declared horizon; a certified accuracy-to-resolution rule is not required.
+
+Account for total storage, computation, precision, quadrature, field count and
+memory cost. A collection of low-dimensional fields can qualify. A hidden
+high-dimensional density, unevaluated Gaussian-action oracle or renamed
+trainable fully connected matrix does not establish manageable computation.
+The completed route should cover an explicitly represented family of laws,
+including nonorthogonal and nonatomic examples, through the established
+learning horizon, with qualitative convergence and efficient computation at
+declared finite resolutions. Evaluate initialization and runtime costs; do not
+equate efficiency at a retained resolution with a bound on cost per target
+accuracy. Earlier milestones isolate information sufficiency, closure,
+numerical consistency and continuation so each remains valuable if later work
+fails. Quantitative convergence rates and numerical accuracy certificates are
+later extensions, not completion requirements for C-H3 or C-H4.
+
+**C-H1: a predictively sufficient current observable hierarchy.** Give an
+explicit nested dictionary, its exact finite-order evolution and initialization,
+and its typed joint-law or mixed-statistic state. Prove that equal complete
+hierarchy states at admissible reached restarts determine equal subsequent
+whole-circle predictions and the declared internal/action observations under
+the same training law. Preserve both directions of matrix reuse; a list of
+formal initialization derivatives is insufficient. Bounded determining tests
+may replace raw moments when moment determinacy is unavailable. This package
+does not require a closed finite truncation or a numerical efficiency theorem.
+
+@sec-docs-global-nonlinear-l11441 establishes this information milestone for the canonical
+two-hidden-layer tanh model on a fixed positive law neighborhood and physical
+interval `[0,1/200]`. Its finite-alphabet joint populations have exact weak
+evolution through a finite higher level and an explicit cutoff limit within
+that level. Equal complete hierarchies at a reached state give equal future
+whole-circle predictions and the declared joint observations, including for
+matching realizations on another carrier. @sec-docs-global-nonlinear-l12084 now supplies a separate finite autonomous population closure
+with qualitative convergence on a fixed smaller ball within that family,
+with the same time interval. Effective
+quadrature, finite-precision certification and useful solver cost remain open.
+
+**C-H2: one convergent finite autonomous closure.** Construct actual finite
+equations initialized from the canonical model, and prove their convergence in
+prediction and internal observations on a fixed positive nonlinear interval
+and a fixed nontrivial correlated-law family. Neither may shrink with order.
+Highest-order equations may be modified, provided their effects are controlled.
+Develop a small prototype during this work. Fixed-order bounds, compatible
+joint laws, compactness and identification may provide a route to convergence
+without a single all-order weighted norm; realizability and identification of
+the limiting dynamics must be proved. A conditional estimate assuming a small
+omitted tail does not complete this milestone.
+
+@sec-docs-global-nonlinear-l12084 establishes C-H2 on a fixed positive law ball and physical
+interval `[0,1/200]`. It retains two current joint populations and a finite
+matrix of initialized-observable coefficients, uses an explicit ridge schedule,
+and proves convergence directly to canonical GF. The convergence is uniform
+in time and input for predictions and uniform in time in `W2` for each fixed
+C-H1 observation tuple, including both action directions and paired hidden
+observations. The construction is autonomous and restarts from its own saved
+state. Its exact population integrals are not a certified practical solver;
+the accompanying prototype exposes initialization, evolution and observations
+with separate quadrature and arithmetic limitations.
+
+**C-H3 established scope.** @sec-docs-global-nonlinear-l12555
+supplies the finite autonomous numerical closure on `[0,1/200]` for a fixed
+rational two-arc family, including nonorthogonal atomic and nonatomic laws.
+It proves iterated numerical and closure-order convergence to the same
+nonlinear GF, whole-circle prediction, paired hidden observations and own-state
+restart. The reusable solver has bounded workspace and separate declared
+resolution checks; it supplies no true-error certificate or tolerance selector.
+
+**C-H3: efficient computation with qualitative population convergence.**
+Implement C-H2's autonomous closure, or a mathematically justified compatible
+variant, on the fixed interval `[0,1/200]` and a fixed supported represented
+law family including nonorthogonal and nonatomic examples. The family and
+horizon must not shrink with refinement. Preserve the actual model, Gaussian
+action reuse, whole-circle prediction and declared internal observations,
+including paired initial/current activations of both hidden layers.
+
+For each fixed closure order N, prove that a specified numerical refinement J
+converges to that exact population closure. J accounts for initialization,
+population/input integration, time discretization and finite arithmetic;
+state their limit order or a justified joint refinement. Combine this with
+C-H2's closure-order convergence. In prediction notation the target is
+
+$$
+\widehat f_{N,J}\longrightarrow f_N\quad(J\to\infty),
+\qquad f_N\longrightarrow f_\mu\quad(N\to\infty),
+$$
+
+uniformly over the fixed time interval and input circle, with the corresponding
+declared internal-observation convergence. State the probability mode for
+randomized methods. An iterated limit is acceptable; arbitrary simultaneous
+refinement and a certified rule selecting N or J from a tolerance do not follow.
+
+Deliver a reusable implementation and bounded, reproducible runs at several
+resolutions, measuring initialization, runtime, memory and conditioning.
+Account for complete joint populations, both action directions, precision and
+workspace. Demonstrate feasible computation and own-state restart without
+accumulating history. Numerical refinement comparisons are diagnostics, not
+error certificates or substitutes for the convergence proof. A fixed-order
+reference formula with an irreducible dynamical remainder alone does not meet
+this target. The same equations should permit broader exploratory use without
+fitting a known trajectory. Per-truncation accuracy certificates, explicit
+convergence rates and an automatic tolerance selector are not required.
+
+**C-H4 established scope.** @sec-docs-global-nonlinear-l12555 part D extends the same autonomous
+hierarchy and numerical implementation through physical time 40 on a fixed
+explicit rational-endpoint family around the binary orthogonal reference.
+It includes nonorthogonal atomic and nonatomic laws. The proof supplies its
+own positive supported radius, time-40 canonical identification, closure-order
+convergence and iterated numerical limits, uniformly in time and whole-circle
+prediction, with paired hidden laws in W2, RMS motion and risk. The target has
+risk at most 1/4 at time 40 and both squared paired motions at least 10^-13
+at time 1/200. The bounded implementation retains complete current populations
+and coefficients, with no accumulating history. Its very small supported
+perturbations collapse to the reference at the declared working precisions;
+resolved wider arcs are explicitly exploratory.
+
+**C-H4: convergent computation through substantial training.** Extend the
+same hierarchy and numerical-consistency proof through physical time 40 on a
+fixed supported family where the established GF has substantial learning.
+Retain whole-circle predictions and paired internal observations, and
+demonstrate feasible operation at declared resolutions on this longer horizon.
+The target flow's existence alone does not establish this approximation result.
+Carry the approximation and numerical consistency across the entire interval;
+do not import exact intermediate states, reset approximation errors at restart,
+or grow stored history. At a chosen resolution the working state stays fixed
+in size during training. No quantitative error rate, finite-run accuracy
+certificate or cost-to-accuracy bound is required. If C-H3 already establishes
+this horizon and implementation scope, merge the two packages; otherwise
+reassess the actual remaining work before launching a separate task.
+
+These two milestones complete this computational branch at the qualitative
+level when their respective proofs and implementations pass review. Later
+extensions may establish asymptotic error rates, nonasymptotic certificates,
+automatic tolerance selection and cost-to-accuracy bounds. Those extensions
+must include the numerical and closure errors they claim to control; they
+are not implied by qualitative convergence. C-H3 has the stated short-time scope; part D supplies the distinct fixed-family C-H4 extension through time 40.
+Changing a roadmap's scope alone asserts no new theorem.
+
+The strategic separation is between information, truncation, useful cost and
+continuation. C-H2's qualitative finite closure resolves the truncation step
+on its stated small nonlinear interval. C-H3 supplies numerical consistency
+and bounded declared computations through time 1/200; part D supplies
+time-40 continuation and declared operation on its explicitly supported family. Existing fixed-order Gaussian-source
+derivatives are not temporal-jet tail estimates.
+The Stieltjes representation disproved in [*Gaussian and flow calculus*](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l1),
+@sec-docs-gaussian-calculus-l2156 and @sec-docs-gaussian-calculus-l3838, is not a premise of this route. Rational or Padé-type
+closures remain options requiring their own justification. The same chapter's
+@sec-docs-gaussian-calculus-l1749 excludes certain unrestricted same-norm algebra/jet estimates, and
+@sec-docs-gaussian-calculus-l4050 excludes its specified Taylor closure; neither supplies a general
+impossibility theorem for current observable hierarchies. The compatible @sec-docs-global-nonlinear-l12555 implementation has the explicit short-time scope
+of parts A–C and the separate time-40 family and limit order of part D.
+
+The second purpose is reliable empirical investigation beyond conservative
+proof bounds. Make the construction reusable wherever its equations and
+approximations remain meaningful, to investigate larger law perturbations,
+broader input correlations, longer training and the resulting whole-input
+predictions and risks. Such observations may reveal that a theorem's small
+admissible neighborhood reflects its estimates rather than actual failure of
+learning. This is a hypothesis to test, not a conclusion supplied by the plan.
+
+Outside the proved convergence regime, label results exploratory. Check refinement of
+time discretization, resolution and truncation, relevant numerical errors,
+and agreement with independently simulated finite networks as width increases
+under stated step conditions. Finite networks already provide a simulation
+route; C supplies an independent approximation to help separate population
+behavior from finite-width and numerical effects. A stable-looking curve at
+one resolution is insufficient. Broader empirical evidence does not prove
+existence, convergence or generalization theorems, and changed depth or
+architecture may require different equations. Experiments retain their own
+authorization, reproducibility and review requirements.
+
