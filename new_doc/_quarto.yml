@@ -16,10 +16,27 @@ book:
     - finite-optimization-and-controls.qmd
     - observable-p1.qmd
 
+bibliography: references.bib
+
 number-sections: false
 crossref:
-  chapters: true
+  chapters: false
 
+classoption: enabledeprecatedfontcommands
+header-includes:
+  - \usepackage{mathtools}
+  - \usepackage{fvextra}
+  - \RecustomVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true}
+  - \AtBeginDocument{\counterwithout{equation}{chapter}\counterwithout{theorem}{section}\counterwithout{lemma}{section}\counterwithout{proposition}{section}\counterwithout{corollary}{section}}
 format:
   html: default
-  pdf: default
+  pdf:
+    pdf-engine: xelatex
+    keep-tex: true
+    latex-auto-install: false
+    latex-tinytex: false
+    filters:
+      - pdf_breakable_tables.lua
+  latex:
+    filters:
+      - pdf_breakable_tables.lua

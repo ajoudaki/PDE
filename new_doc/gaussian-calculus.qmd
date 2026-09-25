@@ -18,9 +18,9 @@ of adaptive matrix calls.
 
 ## 1. One forward call followed by a transpose {#sec-docs-gaussian-calculus-l19}
 
-Let `W=W^(2)(0)` have independent `N(0,1/n)` entries and let `1` be the
-length-`n` vector of ones. Put `y=W 1`. Its entries are independent standard
-Gaussians. Take a continuous real function `g` of polynomial growth and define
+Let $W=W^{(2)}(0)$ have independent $\mathcal{N}(0,1/n)$ entries and let $1$ be the
+length-$n$ vector of ones. Put $y=W\mathbf{1}$. Its entries are independent standard
+Gaussians. Take a continuous real function $g$ of polynomial growth and define
 
 $$
 q=W^T g(y),\qquad
@@ -29,54 +29,50 @@ a_n=\frac1n\sum_i y_i g(y_i),\qquad
 P=I-\frac{\mathbf1\mathbf1^T}{n}.
 $$
 
-Conditional on `y`, the exact matrix law is
+Conditional on $y$, the exact matrix law is
 
 $$
 W\ \overset{d}{=}\ \frac{y\mathbf1^T}{n}+\widetilde W P,
 \qquad
 q\ \overset{d}{=}\ a_n\mathbf1+\sigma_n P\gamma,
-
 $$ {#eq-docs-gaussian-calculus-l34}
 
-where `tilde W` has the original Gaussian matrix law and `gamma` is a standard
-Gaussian vector, each independent of `y` in its corresponding representation.
+where $\widetilde W$ has the original Gaussian matrix law and $\gamma$ is a standard
+Gaussian vector, each independent of $y$ in its corresponding representation.
 For the first equality, decompose each Gaussian row into its component along
-`1` and its perpendicular component. Their covariance vanishes, so they are
+$1$ and its perpendicular component. Their covariance vanishes, so they are
 independent; the first component is determined by the observed row sum.
-Multiplying the conditional matrix by `g(y)` on the left gives the second
-equality, because `tilde W^T g(y)` has conditional covariance `sigma_n^2 I`.
+Multiplying the conditional matrix by $g(y)$ on the left gives the second
+equality, because $\widetilde W^{\top}g(y)$ has conditional covariance $\sigma_n^2I$.
 In particular
 
 $$
 \mathbb E[q\mid y]=a_n\mathbf1,\qquad
 \operatorname{Cov}(q\mid y)=\sigma_n^2P.
-
 $$ {#eq-docs-gaussian-calculus-l50}
 
-The random coefficient `a_n` is not replaced by its expectation at finite
-width. If `G` is a standard scalar Gaussian, the elementary law of large
+The random coefficient $a_n$ is not replaced by its expectation at finite
+width. If $G$ is a standard scalar Gaussian, the elementary law of large
 numbers gives
 
 $$
 a_n\longrightarrow a=\mathbb E[Gg(G)],\qquad
 \sigma_n^2\longrightarrow\sigma^2=\mathbb E[g(G)^2]
 \quad\text{in probability}.
-
 $$ {#eq-docs-gaussian-calculus-l60}
 
 All moments used here are finite by polynomial growth and Gaussian tails.
-On the coupling in ([-@eq-docs-gaussian-calculus-l34]), compare `q` with `a 1+sigma gamma`. Their RMS distance
+On the coupling in ([-@eq-docs-gaussian-calculus-l34]), compare $q$ with $a\mathbf{1}+\sigma\gamma$. Their RMS distance
 is at most
 
 $$
 |a_n-a|+|\sigma_n-\sigma|\frac{\|\gamma\|_2}{\sqrt n}
 +\sigma_n\left|\frac1n\sum_i\gamma_i\right|,
-
 $$ {#eq-docs-gaussian-calculus-l71}
 
-which tends to zero in probability. This remains valid when `sigma=0`.
-The empirical law of `a+sigma gamma_i` converges in quadratic Wasserstein
-distance to the law of `a+sigma G`: weak convergence follows by applying the
+which tends to zero in probability. This remains valid when $\sigma=0$.
+The empirical law of $a+\sigma\gamma_i$ converges in quadratic Wasserstein
+distance to the law of $a+\sigma G$: weak convergence follows by applying the
 law of large numbers to a countable dense family of bounded Lipschitz tests,
 and the second moment converges by the same law. On the real line, weak
 convergence together with convergence of second moments yields quadratic
@@ -84,28 +80,27 @@ Wasserstein convergence. One direct verification truncates at a fixed radius,
 couples the bounded laws using their quantiles, and lets the radius grow;
 convergence of second moments makes the two squared-tail contributions vanish.
 Matching corresponding coordinates and using ([-@eq-docs-gaussian-calculus-l71]) proves the same convergence
-for the empirical law of `q_i`.
+for the empirical law of $q_i$.
 
-If `g` is also continuously differentiable and `g'` has polynomial growth,
+If $g$ is also continuously differentiable and $g'$ has polynomial growth,
 integration by parts in the Gaussian density gives
 
 $$
 a=\frac1{\sqrt{2\pi}}\int xg(x)e^{-x^2/2}dx
 =\frac1{\sqrt{2\pi}}\int g'(x)e^{-x^2/2}dx.
-
 $$ {#eq-docs-gaussian-calculus-l92}
 
 The boundary term is zero because a polynomial times the Gaussian density
 tends to zero. The transpose output therefore contains a response
-`E[g'(G)]` forced by the preceding forward call, in addition to fresh Gaussian
+$\mathbb{E}[g'(G)]$ forced by the preceding forward call, in addition to fresh Gaussian
 randomness. Treating the transpose as a new independent matrix would erase
-that response. The two neuron populations remain distinct; pairing row `i`
-with column `i` is not part of this empirical-law statement.
+that response. The two neuron populations remain distinct; pairing row $i$
+with column $i$ is not part of this empirical-law statement.
 
 ## 2. Exact conditioning after both directions have been used {#sec-docs-gaussian-calculus-l105}
 
-Suppose past calls have revealed `W V=Y` and `W^T U=R`. Columns of `V` are
-input vectors in the first population; columns of `U` are input vectors in the
+Suppose past calls have revealed $WV=Y$ and $W^{\top}U=R$. Columns of $V$ are
+input vectors in the first population; columns of $U$ are input vectors in the
 second. Assume both lists are linearly independent, allowing either list to be
 empty. All matrix dimensions are finite. Define
 
@@ -122,28 +117,27 @@ Conditional on the complete transcript, the exact remaining matrix law is
 
 $$
 W\ \overset d=\ M+(I-P_U)\widetilde W(I-P_V).
-
 $$ {#eq-docs-gaussian-calculus-l121}
 
-To verify the mean, use the compatibility identity `U^T Y=R^T V`, which
+To verify the mean, use the compatibility identity $U^{\top}Y=R^{\top}V$, which
 holds because both lists were observed from the same matrix. It gives
-`MV=Y` and `M^T U=R`. A homogeneous perturbation preserves both observations
-exactly when `A V=0` and `A^T U=0`, equivalently
-`A=(I-P_U)A(I-P_V)`. The displayed `M` is Frobenius-orthogonal to every such
-perturbation: its first summand has right support in `span(V)`, and its second
-has left support in `span(U)`. Thus it is the minimum-norm point of the affine
+$MV=Y$ and $M^{\top}U=R$. A homogeneous perturbation preserves both observations
+exactly when $AV=0$ and $A^{\top}U=0$, equivalently
+$A=(I-P_U)A(I-P_V)$. The displayed $M$ is Frobenius-orthogonal to every such
+perturbation: its first summand has right support in $\operatorname{span}(V)$, and its second
+has left support in $\operatorname{span}(U)$. Thus it is the minimum-norm point of the affine
 constraint set. Orthogonal components of an isotropic finite Gaussian vector
 are independent. Applying this fact to the vector of all matrix entries proves
-([-@eq-docs-gaussian-calculus-l121]), including the scale `1/n` of the remaining covariance.
+([-@eq-docs-gaussian-calculus-l121]), including the scale $1/n$ of the remaining covariance.
 
 This reasoning also holds for a finite adaptive transcript when every new input
-is a measurable function of roots independent of `W` and of earlier answers,
+is a measurable function of roots independent of $W$ and of earlier answers,
 and is chosen before its own answer is seen. Condition on the roots first.
 Inductively, the next query is fixed by the past, and conditioning its Gaussian
 answer adds a linear constraint to the remaining Gaussian subspace. The
 orthogonal-decomposition argument applies there. Derived variables measurable
 from these recorded roots and answers add no further information. This induction
-does not allow an unrecorded observation of `W` or an input chosen using its
+does not allow an unrecorded observation of $W$ or an input chosen using its
 future answer.
 
 Dependent query columns can be discarded: each is an exactly known linear
@@ -152,7 +146,7 @@ retained answers. This does not justify taking limits of ill-conditioned Gram
 inverses. Infinite-width arguments with nearly dependent directions require an
 additional stability argument.
 
-For a new input `v`, ([-@eq-docs-gaussian-calculus-l121]) explicitly yields
+For a new input $v$, ([-@eq-docs-gaussian-calculus-l121]) explicitly yields
 
 $$
 Wv\ \overset d=\ Y\alpha+U\beta+
@@ -160,7 +154,6 @@ Wv\ \overset d=\ Y\alpha+U\beta+
 \quad
 \alpha=(V^TV)^{-1}V^Tv,\quad
 \beta=(U^TU)^{-1}R^T(I-P_V)v.
-
 $$ {#eq-docs-gaussian-calculus-l155}
 
 The first response preserves previous forward answers, the second restores
@@ -171,32 +164,31 @@ coordinates after reuse.
 
 ## 3. Derivatives along the gradient direction {#sec-docs-gaussian-calculus-l170}
 
-Let `F:R^p->R` be `C^3` on an open set. At a point write `g=grad F`,
-`H=grad^2 F` and `T=grad^3 F`. For a differentiable scalar function `u`, define
-the directional differential operator `mathcal D_F u=<g,grad u>`.
+Let $F:\mathbb{R}^p\to\mathbb{R}$ be $C^3$ on an open set. At a point write $g=\nabla F$,
+$H=\nabla^2F$ and $T=\nabla^3F$. For a differentiable scalar function $u$, define
+the directional differential operator $\mathcal{D}_Fu=\langle g,\nabla u\rangle$.
 Repeated application gives
 
 $$
 \mathcal D_F F=\|g\|_2^2,\qquad
 \mathcal D_F^2F=2\langle g,Hg\rangle,\qquad
 \mathcal D_F^3F=2T[g,g,g]+4\|Hg\|_2^2.
-
 $$ {#eq-docs-gaussian-calculus-l177}
 
-The first formula is the definition. Differentiating `||g||^2` in direction
-`g` uses `d g[g]=Hg` and gives the second formula. To differentiate
-`<g,Hg>`, differentiate its three factors. The derivative of `H` contributes
-`T[g,g,g]`. The two derivatives of `g` contribute
-`<Hg,Hg>` and `<g,H^2g>`, both equal to `||Hg||^2` because the Hessian is
+The first formula is the definition. Differentiating $\lVert g\rVert^2$ in direction
+$g$ uses $dg[g]=Hg$ and gives the second formula. To differentiate
+$\langle g,Hg\rangle$, differentiate its three factors. The derivative of $H$ contributes
+$T[g,g,g]$. The two derivatives of $g$ contribute
+$\langle Hg,Hg\rangle$ and $\langle g,H^2g\rangle$, both equal to $\lVert Hg\rVert^2$ because the Hessian is
 symmetric. Multiplication by two gives the last identity.
 
-For a constant positive definite learning metric `D`, change coordinates to
-`theta=D^(1/2) q` and apply ([-@eq-docs-gaussian-calculus-l177]) to `F(D^(1/2) q)`. Its Euclidean gradient
-flow in `q` is exactly the metric gradient flow in `theta`. This supplies the
+For a constant positive definite learning metric $D$, change coordinates to
+$\theta=D^{1/2}q$ and apply ([-@eq-docs-gaussian-calculus-l177]) to $F(D^{1/2}q)$. Its Euclidean gradient
+flow in $q$ is exactly the metric gradient flow in $\theta$. This supplies the
 metric version without confusing raw gradients, mobilities and residuals.
 
-If `theta(s)` follows `theta'=grad F(theta)`, the chain rule identifies
-`d^j F(theta(s))/ds^j` with `mathcal D_F^j F` whenever the stated derivatives
+If $\theta(s)$ follows $\theta'=\nabla F(\theta)$, the chain rule identifies
+$d^jF(\theta(s))/ds^j$ with $\mathcal{D}_F^jF$ whenever the stated derivatives
 exist. For squared loss the physical velocity has the additional residual
 factor, so conversion to physical derivatives also differentiates that factor.
 Finite-order identities alone provide neither an analytic Taylor expansion
@@ -204,23 +196,22 @@ nor permission to exchange width limits and time differentiation.
 
 ## 4. Exact polynomial Gaussian expectations {#sec-docs-gaussian-calculus-l203}
 
-Let `Sigma` be a finite symmetric positive semidefinite matrix and `X` a
-centered Gaussian vector with that covariance. For a vector `alpha` of
-nonnegative integer powers, put `M(alpha)=E[prod_j X_j^(alpha_j)]`.
+Let $\Sigma$ be a finite symmetric positive semidefinite matrix and $X$ a
+centered Gaussian vector with that covariance. For a vector $\alpha$ of
+nonnegative integer powers, put $M(\alpha)=\mathbb{E}[\prod_jX_j^{\alpha_j}]$.
 The zero-degree moment is one; every odd-total-degree moment is zero by the
-symmetry `X` and `-X`. If `alpha_i>0`, Gaussian integration by parts gives
+symmetry $X$ and $-X$. If $\alpha_i>0$, Gaussian integration by parts gives
 
 $$
 M(\alpha)=\sum_{j=1}^p(\alpha_j-\mathbf1_{j=i})\Sigma_{ij}
  M(\alpha-e_i-e_j),
-
 $$ {#eq-docs-gaussian-calculus-l211}
 
 where terms with zero coefficient are omitted, so negative exponents never
 occur. To prove the integration-by-parts identity even for singular covariance,
-write `X=A G`, where `G` is a standard Gaussian vector and `A A^T=Sigma`.
+write $X=AG$, where $G$ is a standard Gaussian vector and $AA^{\top}=\Sigma$.
 Such a square root exists by diagonalizing the finite symmetric matrix.
-For any polynomial `P`, integrate each component of `G` against its Gaussian
+For any polynomial $P$, integrate each component of $G$ against its Gaussian
 density. Polynomial growth makes all boundary terms zero, and the chain rule
 gives
 
@@ -230,12 +221,12 @@ $$
 =\sum_j\Sigma_{ij}\mathbb E[\partial_jP(X)].
 $$
 
-Apply this identity to `P(X)=prod_j X_j^(alpha_j-1_(j=i))` to obtain ([-@eq-docs-gaussian-calculus-l211]).
+Apply this identity to $P(X)=\prod_jX_j^{\alpha_j-\mathbf{1}_{j=i}}$ to obtain ([-@eq-docs-gaussian-calculus-l211]).
 Every nonzero summand reduces total degree by two. Induction therefore proves
 termination and correctness of the moment recurrence. With rational covariance
 all its arithmetic is rational, and linearity evaluates every polynomial with
 rational coefficients. The exact API `pde.gaussian_moment` implements this
-recurrence using integer and `Fraction` inputs; it does not approximate a
+recurrence using integer and $\mathrm{Fraction}$ inputs; it does not approximate a
 nonpolynomial activation by a polynomial or identify a training limit.
 
 For completeness, its covariance validation also has an exact finite proof.
@@ -245,11 +236,11 @@ $$
 \begin{pmatrix}a&b^T\\ b&C\end{pmatrix},
 $$
 
-a negative `a` contradicts nonnegativity on the first basis vector. If `a=0`,
-positive semidefiniteness forces `b=0`: otherwise the quadratic form on
-`(t,v)` with `b^T v` nonzero changes sign for a suitable large positive or
-negative `t`. The remaining condition is then exactly that `C` is positive
-semidefinite. If `a>0`, completing the square gives
+a negative $a$ contradicts nonnegativity on the first basis vector. If $a=0$,
+positive semidefiniteness forces $b=0$: otherwise the quadratic form on
+$(t,v)$ with $b^{\top}v$ nonzero changes sign for a suitable large positive or
+negative $t$. The remaining condition is then exactly that $C$ is positive
+semidefinite. If $a>0$, completing the square gives
 
 $$
 a t^2+2t b^Tv+v^TCv
@@ -291,6 +282,7 @@ $$
 $$ {#eq-docs-gaussian-calculus-l285}
 
 ::: {#thm-docs-gaussian-calculus-l289}
+
 ## fixed-program width limit
 
 For the exact network in
@@ -398,8 +390,7 @@ The explicitly related unscaled middle matrices are
 $\mathsf A^{(\ell)}_k=\sqrt n\,W^{(\ell)}_k$; their initial
 entries are $N(0,1)$. Thus the two exactly equivalent forward
 expressions are
-$W^{(\ell)}_kh^{(\ell-1)}_k
-=\mathsf A^{(\ell)}_kh^{(\ell-1)}_k/\sqrt n$.
+$W^{(\ell)}_kh^{(\ell-1)}_k =\mathsf A^{(\ell)}_kh^{(\ell-1)}_k/\sqrt n$.
 All network formulas below use the stored $W^{(\ell)}$ convention.
 
 At step $k$, recompute
@@ -484,7 +475,6 @@ current preactivation and backsignal. Define the finite history moments
 $$
  Q_{\ell,jk}^{(n)}=\frac1n(h^{(\ell)}_j)^Th^{(\ell)}_k,\qquad
  K_{\ell,jk}^{(n)}=\frac1n(\delta^{(\ell)}_j)^T\delta^{(\ell)}_k.
-                                                              
 $$ {#eq-docs-gaussian-calculus-l446}
 
 Here $Q,K$ are auxiliary history Grams, not parameter-gradient kernel
@@ -581,10 +571,11 @@ Empty blocks at $k=0$ are omitted.
 ### 5.4. Adaptive conditioning for all reused matrices {#sec-docs-gaussian-calculus-l536}
 
 ::: {#lem-docs-gaussian-calculus-l538}
+
 ## predictable multi-matrix Gaussian conditioning
 
 Let $M_2,\ldots,M_L$ be independent $n\times n$ standard Gaussian
-matrices, independent of an external sigma-field.  Consider any finite
+matrices, independent of an external $\sigma$-field.  Consider any finite
 interlacing of actions $M_\ell q/\sqrt n$ and
 $M_\ell^Tc/\sqrt n$, where the matrix label and the next query are
 measurable with respect to all preceding queries and actions.  For a fixed
@@ -675,7 +666,7 @@ $$ {#eq-docs-gaussian-calculus-l618}
 fresh and independent of every other matrix residual.  If $q_\perp=0$,
 no residual is revealed.  A transpose action is the same argument with
 left and right projections exchanged.  This proves ([-@eq-docs-gaussian-calculus-l552]) after every
-adaptive, cross-matrix-dependent action in (5.3.1)--(5.3.3).
+adaptive, cross-matrix-dependent action in ([-@eq-docs-gaussian-calculus-l474])--([-@eq-docs-gaussian-calculus-l488]).
 
 For ([-@eq-docs-gaussian-calculus-l569]), write $c_*=UK^{-1}k+c_\perp$.  The first term contributes
 $DK^{-1}k$.  The projection of $M^Tc_\perp/\sqrt n$ onto
@@ -687,8 +678,8 @@ $$
 $$ {#eq-docs-gaussian-calculus-l632}
 
 and its remaining conditional covariance is
-$\tau_c^2P_V^\perp$.  This proves (5.4.4)--(5.4.5).
-Transposition proves (5.4.6)--(5.4.7). For the network, apply this
+$\tau_c^2P_V^\perp$.  This proves ([-@eq-docs-gaussian-calculus-l569])--([-@eq-docs-gaussian-calculus-l575]).
+Transposition proves ([-@eq-docs-gaussian-calculus-l582])--([-@eq-docs-gaussian-calculus-l588]). For the network, apply this
 lemma with $M_\ell=\mathsf A^{(\ell)}_0=\sqrt n\,W^{(\ell)}_0$;
 then its scaled actions are exactly ([-@eq-docs-gaussian-calculus-l439]). $\square$
 
@@ -888,7 +879,7 @@ $$
  +\text{orthogonal innovation}.                         
 $$ {#eq-docs-gaussian-calculus-l831}
 
-Equations (5.6.4)--(5.6.6) imply
+Equations ([-@eq-docs-gaussian-calculus-l812])--([-@eq-docs-gaussian-calculus-l825]) imply
 
 $$
  K^{-1}(v-\mathcal RQ^{-1}q)
@@ -942,9 +933,9 @@ $$
                                   H^{(\ell-1)}_{j}.          
 $$ {#eq-docs-gaussian-calculus-l885}
 
-Adding the exact learned terms (5.2.11)--(5.2.12) gives ([-@eq-docs-gaussian-calculus-l707]) and ([-@eq-docs-gaussian-calculus-l728]).
+Adding the exact learned terms ([-@eq-docs-gaussian-calculus-l454])--([-@eq-docs-gaussian-calculus-l459]) gives ([-@eq-docs-gaussian-calculus-l707]) and ([-@eq-docs-gaussian-calculus-l728]).
 @lem-docs-gaussian-calculus-l538 allows every query here to depend on all earlier actions of all
-connectors.  Thus (5.6.9)--(5.6.14) include, rather than discard, the dependence
+connectors.  Thus ([-@eq-docs-gaussian-calculus-l849])--([-@eq-docs-gaussian-calculus-l885]) include, rather than discard, the dependence
 of $h^{(\ell-1)}_{k}$ on every reused column of $W^{(\ell)}_0$.
 
 ### 5.7. Strict rank for every finite history {#sec-docs-gaussian-calculus-l896}
@@ -955,7 +946,6 @@ $$
  Q_\ell^{[k]}=(\mathbb E H^{(\ell)}_{j}H^{(\ell)}_{q})_{0\le j,q\le k},
  \qquad
  K_\ell^{[k]}=(\mathbb E \Delta^{(\ell)}_{j}\Delta^{(\ell)}_{q})_{0\le j,q\le k}.
-                                                                   
 $$ {#eq-docs-gaussian-calculus-l900}
 
 At a forward action, the inverted old-query Grams are
@@ -1045,7 +1035,7 @@ $$
  \mathbb P\{\phi'(Z^{(1)}_{k})\ne0\}>0.                       
 $$ {#eq-docs-gaussian-calculus-l990}
 
-For $k=0$, these are (5.7.7)--(5.7.9), with the old $K$-condition empty.
+For $k=0$, these are ([-@eq-docs-gaussian-calculus-l965])--([-@eq-docs-gaussian-calculus-l979]), with the old $K$-condition empty.
 
 Ascend through $\ell=2,\ldots,L$.  Once
 $Q_{\ell-1}^{[k]}>0$, Gaussian regression realizes
@@ -1061,13 +1051,13 @@ of every source revealed earlier, and $\mu_{\ell,k}$ is the
 deterministic linear Gaussian regression map.
 All terms in ([-@eq-docs-gaussian-calculus-l707]) other than $\tau_{\ell,k}G^{F}_{\ell,k}$ are measurable
 without this innovation.  All older $H^{(\ell)}_{j}$, $j<k$, are measurable
-there as well.  Conditional on that sigma-field,
+there as well.  Conditional on that $\sigma$-field,
 
 $$
  H^{(\ell)}_{k}=\phi(x+\tau_{\ell,k}G^{F}_{\ell,k}).               
 $$ {#eq-docs-gaussian-calculus-l1012}
 
-Equations (5.7.4)--(5.7.5) prove $Q_\ell^{[k]}>0$.  This ascending induction
+Equations ([-@eq-docs-gaussian-calculus-l933])--([-@eq-docs-gaussian-calculus-l945]) prove $Q_\ell^{[k]}>0$.  This ascending induction
 establishes ([-@eq-docs-gaussian-calculus-l918]) at time $k$ for every layer.  It also shows, for every
 $\ell\ge2$,
 
@@ -1093,7 +1083,7 @@ $$
 $$ {#eq-docs-gaussian-calculus-l1037}
 
 For $k=0$, $W^{(L+1)}_{0}=A$.  For $k\ge1$, condition on the chronological
-sigma-field immediately before the fresh $\xi_{L,k-1}$ innovation is
+$\sigma$-field immediately before the fresh $\xi_{L,k-1}$ innovation is
 adjoined.  Then
 
 $$
@@ -1160,11 +1150,10 @@ $Z^{(1)}_{k+1}=Z^{(1)}_{k}+h\Delta^{(1)}_{k}$.  Without that innovation,
 $$
  H^{(1)}_{k+1}
  =\phi\!\left(x+h\upsilon_{1,k}\phi'(Z^{(1)}_{k})G_{1,k}\right).
-                                                                   
 $$ {#eq-docs-gaussian-calculus-l1105}
 
 On the event in ([-@eq-docs-gaussian-calculus-l990]), the Gaussian coefficient is nonzero.  Equations
-(5.7.4)--(5.7.5) give $Q_1^{[k+1]}>0$.  On the same event the argument of
+([-@eq-docs-gaussian-calculus-l933])--([-@eq-docs-gaussian-calculus-l945]) give $Q_1^{[k+1]}>0$.  On the same event the argument of
 $\phi$ in ([-@eq-docs-gaussian-calculus-l1105]) has full support, so the nonempty open set
 $\{x:\phi'(x)\ne0\}$ is hit with positive conditional probability.
 Hence
@@ -1174,7 +1163,7 @@ $$
 $$ {#eq-docs-gaussian-calculus-l1117}
 
 This supplies the induction hypotheses at time $k+1$.  Starting from
-[Section 5.7.2](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l954) and iterating for $k=0,\ldots,N-1$ proves (5.7.2)--(5.7.3).
+[Section 5.7.2](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l954) and iterating for $k=0,\ldots,N-1$ proves ([-@eq-docs-gaussian-calculus-l918])--([-@eq-docs-gaussian-calculus-l922]).
 Every Schur complement used to create a new source coordinate is therefore
 strictly positive.  The proof is pointwise on the entire punctured
 $h$-line and uses no small-step expansion.
@@ -1229,8 +1218,8 @@ $$
 $$ {#eq-docs-gaussian-calculus-l1169}
 
 together with $Q_{\ell-1}^{[k]}$ and $K_\ell^{[k-1]}$.  Equations
-(5.8.2)--(5.8.3), over precisely the index set (5.3.1)--(5.3.3), contain every
-empirical quantity in (5.4.4)--(5.4.7).  No mixed-connector Gram is inverted.
+([-@eq-docs-gaussian-calculus-l1159])--([-@eq-docs-gaussian-calculus-l1169]), over precisely the index set ([-@eq-docs-gaussian-calculus-l474])--([-@eq-docs-gaussian-calculus-l488]), contain every
+empirical quantity in ([-@eq-docs-gaussian-calculus-l569])--([-@eq-docs-gaussian-calculus-l588]).  No mixed-connector Gram is inverted.
 
 ### 5.9. Joint coupling, concentration, and stopping {#sec-docs-gaussian-calculus-l1180}
 
@@ -1249,7 +1238,7 @@ moments.  For each action in ([-@eq-docs-gaussian-calculus-l500]), in order:
    the top cotangent after $\mathsf F_{k,L}$, the lower update after
    $\mathsf B_{k,2}$, and the terminal output after
    $\mathsf F_{N,L}$);
-3. form every pair moment in (5.8.2)--(5.8.3) needed by the next action.
+3. form every pair moment in ([-@eq-docs-gaussian-calculus-l1159])--([-@eq-docs-gaussian-calculus-l1169]) needed by the next action.
 
 Empty bundles count as one harmless entry.  Thus there are at most one
 initial entry plus three for each of the exactly $\mathcal A$ actions,
@@ -1272,7 +1261,7 @@ $$ {#eq-docs-gaussian-calculus-l1208}
 
 Arrays belonging to different physical layers are independent.  Within a
 layer, the same coordinate is reused through time with the covariance in
-(5.5.2)--(5.5.3).  This retains every within-coordinate temporal dependence,
+([-@eq-docs-gaussian-calculus-l673])--([-@eq-docs-gaussian-calculus-l678]).  This retains every within-coordinate temporal dependence,
 while coordinates within one physical population are iid.
 
 Here is the action-by-action extension, including the alternating physical
@@ -1376,7 +1365,6 @@ $x\in\mathbb R^n$ and $p\ge1$, its explicitly scaled value is
 
 $$
  \frac{\|x\|_{p}}{n^{1/(p)}}=\left(\frac1n\sum_{i=1}^n|x_i|^p\right)^{1/p}.
-
 $$ {#eq-docs-gaussian-calculus-l1322}
 
 We need only even integer moment orders. Let $\nu\ge2$ be even,
@@ -1425,7 +1413,7 @@ $$
 $$ {#eq-docs-gaussian-calculus-l1356}
 
 Thus field errors $O(n^{-1/2})$ at order $2\nu$ imply the same rate for
-every empirical entry in (5.8.2)--(5.8.3) at order $\nu$.
+every empirical entry in ([-@eq-docs-gaussian-calculus-l1159])--([-@eq-docs-gaussian-calculus-l1169]) at order $\nu$.
 
 For a matrix action, on the good event the inverse identity
 
@@ -1533,7 +1521,6 @@ $\nu_*\ge2$ at least as large as that order, and set
 
 $$
  R_\Lambda=\nu_*,\qquad R_{j-1}=8R_j\quad(1\le j\le\Lambda).
-                                                                   
 $$ {#eq-docs-gaussian-calculus-l1477}
 
 Thus $R_0=8^\Lambda \nu_*<\infty$, and every order in the tower is
@@ -1550,8 +1537,7 @@ $$
 
 the coordinate $u$ here is either a readout or an incoming backsignal,
 not a separate network parameter. For an empirical-scalar product use
-$cv-\widetilde c\widetilde v
-=c(v-\widetilde v)+(c-\widetilde c)\widetilde v$.
+$cv-\widetilde c\widetilde v =c(v-\widetilde v)+(c-\widetilde c)\widetilde v$.
 Holder bounds these products using the preceding moments at order
 $4\nu$; the remaining activation assignments are Lipschitz by ([-@eq-docs-gaussian-calculus-l280]).
 The terminal readout-times-feature average is also a pair product and is
@@ -1582,15 +1568,15 @@ Choosing $\nu_*\ge\max\{p,P,2\}$ therefore controls every requested
 mixed order $p,P$.
 
 On the good branch every empirical regression coefficient is one of the
-finite rational expressions (5.4.4)--(5.4.7); off it the extended coefficient
-is its population value.  Equations (5.9.6)--(5.9.11), at arbitrary finite
+finite rational expressions ([-@eq-docs-gaussian-calculus-l569])--([-@eq-docs-gaussian-calculus-l588]); off it the extended coefficient
+is its population value.  Equations ([-@eq-docs-gaussian-calculus-l1375])--([-@eq-docs-gaussian-calculus-l1510]), at arbitrary finite
 moment order, therefore also prove convergence of every extended
 coefficient in every finite $L^\nu$.  Taking any larger order than one
 gives its uniform integrability.
 
 For a requested integer failure exponent $b\ge1$, run ([-@eq-docs-gaussian-calculus-l1477]) with
 $\nu_*=2b$. For symmetric finite matrices,
-$|\lambda_{\min}(A)-\lambda_{\min}(B)|\le\|A-B\|_{\rm op}$:
+$|\lambda_{\min}(A)-\lambda_{\min}(B)|\le\|A-B\|_{\mathrm{op}}$:
 write the least eigenvalue as the minimum of the quadratic form over
 unit vectors and bound each difference by the operator norm.
 The matrix dimensions in the history list are fixed, so entry errors
@@ -1624,10 +1610,10 @@ will satisfy
 $$
  \frac{\|W^{(L+1)}_k\|_2}{\sqrt n}\le\widehat a_k,\qquad
  \frac{\|z^{(1)}_k\|_2}{\sqrt n}\le\widehat u_k,\qquad
- \|W^{(\ell)}_k\|_{\rm op}\le\widehat m_{\ell,k}.       
+ \|W^{(\ell)}_k\|_{\mathrm{op}}\le\widehat m_{\ell,k}.       
 $$ {#eq-docs-gaussian-calculus-l1564}
 
-Put $h_{\rm abs}=|h|$. Form the following finite deterministic
+Put $h_{\mathrm{abs}}=|h|$. Form the following finite deterministic
 majorant recursion for $0\le k<N$:
 
 $$
@@ -1654,10 +1640,10 @@ $$ {#eq-docs-gaussian-calculus-l1587}
 
 $$
  \begin{aligned}
- \widehat a_{k+1}&=\widehat a_k+h_{\rm abs}\widehat h_{L,k},\\
- \widehat u_{k+1}&=\widehat u_k+h_{\rm abs}\widehat c_{1,k},\\
+ \widehat a_{k+1}&=\widehat a_k+h_{\mathrm{abs}}\widehat h_{L,k},\\
+ \widehat u_{k+1}&=\widehat u_k+h_{\mathrm{abs}}\widehat c_{1,k},\\
  \widehat m_{\ell,k+1}&=\widehat m_{\ell,k}
-      +h_{\rm abs}\widehat c_{\ell,k}\widehat h_{\ell-1,k}.
+      +h_{\mathrm{abs}}\widehat c_{\ell,k}\widehat h_{\ell-1,k}.
  \end{aligned}                                            
 $$ {#eq-docs-gaussian-calculus-l1594}
 
@@ -1676,23 +1662,22 @@ $$
 $$ {#eq-docs-gaussian-calculus-l1612}
 
 and after the last update perform only the terminal forward recursion
-(5.10.2)--(5.10.3) at $k=N$.  Let $P_{L,N,h,M}(\mathfrak R_n)$ be one plus
+([-@eq-docs-gaussian-calculus-l1572])--([-@eq-docs-gaussian-calculus-l1576]) at $k=N$.  Let $P_{L,N,h,M}(\mathfrak R_n)$ be one plus
 the sum of every hatted variable in this finite list.  It is an explicitly
 constructed polynomial with nonnegative coefficients.  Direct use of
 Cauchy--Schwarz, $\frac{\|\phi(x)\|_{2}}{\sqrt n}\le M(1+\frac{\|x\|_{2}}{\sqrt n})$, and
 
 $$
  \left\|{h\over n}xy^T\right\|_{\mathrm{op}}
- \le h_{\rm abs}\frac{\|x\|_{2}}{\sqrt n}\frac{\|y\|_{2}}{\sqrt n}                            
+ \le h_{\mathrm{abs}}\frac{\|x\|_{2}}{\sqrt n}\frac{\|y\|_{2}}{\sqrt n}                            
 $$ {#eq-docs-gaussian-calculus-l1623}
 
 proves, inductively in the displayed order, that
-$\widehat h_{\ell,k},\widehat z_{\ell,k},
-\widehat c_{\ell,k},\widehat b_{\ell,k}$
+$\widehat h_{\ell,k},\widehat z_{\ell,k}, \widehat c_{\ell,k},\widehat b_{\ell,k}$
 bound the corresponding finite field's ordinary Euclidean norm divided
 by $\sqrt n$. The weight bounds are ([-@eq-docs-gaussian-calculus-l1564]).
 The same polynomial bounds the initialization actions ([-@eq-docs-gaussian-calculus-l439]):
-$\|W^{(\ell)}_0\|_{\rm op}\le\widehat m_{\ell,k}$,
+$\|W^{(\ell)}_0\|_{\mathrm{op}}\le\widehat m_{\ell,k}$,
 so the forward and backward action bounds are already dominated by
 $\widehat z_{\ell,k}$ and $\widehat b_{\ell-1,k}$.
 
@@ -1707,7 +1692,7 @@ $N(0,1)$ entries. A maximal $1/4$-separated subset of the unit sphere
 is a $1/4$-net with at most $9^n$ points: its disjoint radius-$1/8$
 balls lie in a radius-$9/8$ ball, and comparison of volumes gives the
 bound. Approximating both unit vectors in a bilinear form yields
-$\|G_n\|_{\rm op}\le2\max_{u,v\text{ in the net}}|u^TG_nv|$.
+$\|G_n\|_{\mathrm{op}}\le2\max_{u,v\text{ in the net}}|u^TG_nv|$.
 Each fixed bilinear form is a standard Gaussian. Its tail is bounded
 by $2e^{-t^2/2}$, obtained from
 $\mathbb E e^{\lambda G}=e^{\lambda^2/2}$, Markov's inequality and
@@ -1743,7 +1728,7 @@ instead gives $\|x\|_p/n^{1/p}\le\|x\|_2/\sqrt n$.
 Fix desired mixed orders $1\le p,P<\infty$, choose an even integer
 $\nu\ge\max\{p,P,2\}$, and use ([-@eq-docs-gaussian-calculus-l1547]) with the integer
 $b=2\nu$. Holder,
-(5.10.10)--(5.10.11), and $1/2-1/p\le1/2$ give, for every raw field,
+([-@eq-docs-gaussian-calculus-l1667])--([-@eq-docs-gaussian-calculus-l1676]), and $1/2-1/p\le1/2$ give, for every raw field,
 
 $$
  \begin{aligned}
@@ -1756,12 +1741,12 @@ $$
 $$ {#eq-docs-gaussian-calculus-l1687}
 
 On the complement, raw and extended fields agree.  Extended and ideal
-fields have the required moments by (5.9.10)--(5.9.11), so their stopped-event
+fields have the required moments by ([-@eq-docs-gaussian-calculus-l1477])--([-@eq-docs-gaussian-calculus-l1510]), so their stopped-event
 pieces also vanish by Holder and the vanishing event probability.
 This removes stopping from every field. The finite inequality
 $|x^Ty|/n\le(\|x\|_2/\sqrt n)(\|y\|_2/\sqrt n)$
 and the same polynomial majorant remove it from all Grams
-and cross-moments in (5.8.2)--(5.8.3).
+and cross-moments in ([-@eq-docs-gaussian-calculus-l1159])--([-@eq-docs-gaussian-calculus-l1169]).
 
 Finally,
 
@@ -1801,7 +1786,7 @@ For every fixed finite $(L,N)$ and every fixed $h\ne0$, Sections
    affine top-cotangent branch treated separately;
 5. convergence and uniform integrability of every empirical conditioning
    quantity and terminal output, with the explicit finite moment tower
-   (5.9.10)--(5.9.13);
+   ([-@eq-docs-gaussian-calculus-l1477])--([-@eq-docs-gaussian-calculus-l1554]);
 6. pointwise fixed-$h$ identification with the inverse-free Gaussian program.
 
 The proof uses no finite-width Taylor expansion, no interchange of the
@@ -1926,7 +1911,6 @@ The residual-free backward fields are
 $$
 \delta_i^{(2)}=W_i^{(3)}\phi'(z_i^{(2)}),\qquad
 \delta_j^{(1)}=\phi'(z_j^{(1)})\sum_{i=1}^n W_{ij}^{(2)}\delta_i^{(2)}.
-                                                              
 $$ {#eq-docs-gaussian-calculus-l1857}
 
 The same entry $W_{ij}^{(2)}$ in ([-@eq-docs-gaussian-calculus-l1843]) appears in ([-@eq-docs-gaussian-calculus-l1857]); the two actions
@@ -1992,8 +1976,7 @@ $$
 $$ {#eq-docs-gaussian-calculus-l1913}
 
 To verify ([-@eq-docs-gaussian-calculus-l1913]), put $e(t)=z(t)-z_0$. Scalar Taylor expansion gives
-$\psi(z_0+e)=\psi(z_0)+\psi'(z_0)e+\psi''(z_0)e^2/2
-+\psi'''(z_0)e^3/6+o(|e|^3)$. At positive truncation order,
+$\psi(z_0+e)=\psi(z_0)+\psi'(z_0)e+\psi''(z_0)e^2/2 +\psi'''(z_0)e^3/6+o(|e|^3)$. At positive truncation order,
 $e=O(|t|)$. The degree-two and degree-three terms of $e^2$ are
 $z_1^{\odot2}$ and $2z_1\odot z_2$, and the degree-three term of
 $e^3$ is $z_1^{\odot3}$. Substitution proves each line, including
@@ -2060,7 +2043,6 @@ $$
 (\delta_k^{(1)})_j
 =\sum_{a+b+c=k}\mathcal C_a(\phi',z^{(1)})_j
                     \sum_{i=1}^n (W_b^{(2)})_{ij}(\delta_c^{(2)})_i.
-                                                              
 $$ {#eq-docs-gaussian-calculus-l1990}
 
 Terms with $b>0$ retain trained-weight contributions. Replacing this
@@ -2070,8 +2052,7 @@ positive-degree residual coefficients changes the recurrence.
 #### Proof that these are moving physical-flow coefficients {#sec-docs-gaussian-calculus-l2001}
 
 First verify ([-@eq-docs-gaussian-calculus-l1872]). Differentiating ([-@eq-docs-gaussian-calculus-l1843]) with respect to the final
-preactivation gives $\partial f_{n,1}/\partial z_i^{(2)}
-=\delta_i^{(2)}/n$. Differentiating through the second layer gives
+preactivation gives $\partial f_{n,1}/\partial z_i^{(2)} =\delta_i^{(2)}/n$. Differentiating through the second layer gives
 $\partial f_{n,1}/\partial z_j^{(1)}=\delta_j^{(1)}/n$ by ([-@eq-docs-gaussian-calculus-l1857]).
 Consequently the ordinary matrix and vector gradients are
 
@@ -2140,7 +2121,6 @@ $$
 \frac{dW^{(1)}}{ds}=\kappa_1\delta^{(1)}x_1^T/\sqrt d,\quad
 \frac{dW^{(2)}}{ds}=\kappa_2\delta^{(2)}(h^{(1)})^T/n,\quad
 \frac{dW^{(3)}}{ds}=\kappa_3h^{(2)}.
-                                                              
 $$ {#eq-docs-gaussian-calculus-l2070}
 
 The scalarized first coordinate obeys
@@ -2184,17 +2164,17 @@ line $\theta_0+t\dot\theta_0$ would discard them.
 #### Numerical interface and claim boundary {#sec-docs-gaussian-calculus-l2115}
 
 `pde.finite_jets.flow_jet(parameters, inputs, labels,
-activation_derivative, order=R, kappas=...)` implements (J6)--(J8).
-`inputs` has shape `(d,1)` and `labels` has shape `(1,)`. Its result has
-`parameter_coefficients[k]` in raw `Parameters` storage; each array in
-`preactivation_coefficients` and `hidden_coefficients` has shape
-`(R+1,n,1)`, with tuple positions zero and one corresponding to layers
-one and two. `output_coefficients[k,0]` is $f_{n,1;k}$, and
-`output_derivatives[k,0]` is its factorial multiple.
+activation_derivative, order=R, kappas=...)` implements ([-@eq-docs-gaussian-calculus-l1940])--([-@eq-docs-gaussian-calculus-l1966]).
+$\mathrm{inputs}$ has shape $(d,1)$ and $\mathrm{labels}$ has shape $(1,)$. Its result has
+$\mathrm{parameter\_coefficients}[k]$ in raw $\mathrm{Parameters}$ storage; each array in
+$\mathrm{preactivation\_coefficients}$ and $\mathrm{hidden\_coefficients}$ has shape
+$(R+1,n,1)$, with tuple positions zero and one corresponding to layers
+one and two. $\mathrm{output\_coefficients}[k,0]$ is $f_{n,1;k}$, and
+$\mathrm{output\_derivatives}[k,0]$ is its factorial multiple.
 
-The derivative callback receives `(j,z)` with $0\le j\le R$, and
+The derivative callback receives $(j,z)$ with $0\le j\le R$, and
 must return the true coordinatewise $\phi^{(j)}(z)$ as a real finite
-array of the same shape `(n,1)`. Each call receives a private copy of
+array of the same shape $(n,1)$. Each call receives a private copy of
 the initial preactivation; its returned array is copied immediately.
 This permits in-place callbacks and reusable output buffers without
 altering the initial coordinates or earlier derivatives. Consistency,
@@ -2261,7 +2241,6 @@ edge each time the reachable vertex set grows. Consequently
 
 $$
  v\le p+c,\qquad c\le r.
-
 $$ {#eq-docs-gaussian-calculus-l2192}
 
 For this fixed pairing, labelings with no extra equality among distinct
@@ -2314,7 +2293,7 @@ a caller's memoization of any genuinely isomorphism-invariant calculation.
 It does not by itself compute that calculation or certify a coefficient
 generator. Edge validation by successively merging connected components
 rejects a duplicate or cycle exactly when its two endpoints were already
-connected. This proves the validation and key logic in `forest_key`.
+connected. This proves the validation and key logic in $\mathrm{forest\_key}$.
 
 #### A fully specified quadratic initialization-jet obstruction {#sec-docs-gaussian-calculus-l2248}
 
@@ -2328,7 +2307,6 @@ $$
  \quad W^{(3)}_i=a_i,\qquad
  z_i^{(2)}=\frac1{\sqrt n}\sum_j g_{ij}u_j^2,
  \quad f_n=\frac1n\sum_i a_i(z_i^{(2)})^2.
-
 $$ {#eq-docs-gaussian-calculus-l2254}
 
 All the displayed initialization Gaussians are independent standard normals;
@@ -2340,7 +2318,6 @@ $$
  \frac{da_i}{ds}=(z_i^{(2)})^2,\qquad
  \frac{dg_{ij}}{ds}=\frac2{\sqrt n}a_i z_i^{(2)}u_j^2,
  \qquad \frac{du_j}{ds}=0.
-
 $$ {#eq-docs-gaussian-calculus-l2265}
 
 These equations follow by differentiating ([-@eq-docs-gaussian-calculus-l2254]); they are not loss GD or
@@ -2352,7 +2329,6 @@ $$
  \left.\frac{d^k f_n}{ds^k}\right|_{s=0}
  =\frac1n\sum_i \mathscr D_{q_n}^{k}(a_i(z_i^{(2)})^2),
  \quad \mathscr D_q=z^2\partial_a+2qaz\partial_z.
-
 $$ {#eq-docs-gaussian-calculus-l2275}
 
 Here $a,z$ are the two scalar arguments of a polynomial; the superscript
@@ -2381,7 +2357,6 @@ $$
  d_k=E\mathscr D^k(AZ^2),\qquad
  \mathscr D=z^2\partial_a+6az\partial_z,\quad
  A\sim N(0,1),\ Z\sim N(0,3)\text{ independent}.
-
 $$ {#eq-docs-gaussian-calculus-l2302}
 
 The expectation is of the polynomial after substitution $(a,z)=(A,Z)$.
@@ -2395,7 +2370,6 @@ $$
  \qquad E[A^pZ^q]=
  \begin{cases}(p-1)!!(q-1)!!3^{q/2},&p,q\text{ even},\\0,&\text{otherwise}.
  \end{cases}
-
 $$ {#eq-docs-gaussian-calculus-l2313}
 
 Use $(-1)!!=1$. The moment rule follows by integrating the Gaussian
@@ -2409,7 +2383,6 @@ $$
  (d_1,d_3,d_5,d_7,d_9,d_{11},d_{13})=
  (63,77760,274547232,2141006515200,31149221916487680,
  759035131220036321280,28719223368439752070594560).
-
 $$ {#eq-docs-gaussian-calculus-l2326}
 
 For instance the first differentiated polynomial is $z^4+12a^2z^2$,
@@ -2424,7 +2397,6 @@ odd and $K$ even. Define the coefficients $\mu_j$ by
 
 $$
  K(y)=63+y^2\sum_{j\ge0}(-1)^j\mu_j y^{2j}.
-
 $$ {#eq-docs-gaussian-calculus-l2341}
 
 Only ([-@eq-docs-gaussian-calculus-l2326]) is needed for $\mu_0,\ldots,\mu_5$. There is no use
@@ -2434,7 +2406,6 @@ $b_1=1/a_1$, and successively set
 $$
  b_k=-\frac1{a_1}[y^k]\sum_{j=2}^k a_j
                   \left(\sum_{i=1}^{k-1}b_i y^i\right)^j.
-
 $$ {#eq-docs-gaussian-calculus-l2348}
 
 The only degree-$k$ term involving the unknown $b_k$ in $F(B(y))$
@@ -2448,7 +2419,6 @@ $$
  \frac{12545175968}{2402451992745},
  \frac{171752915595136}{200241971143303005},
  \frac{2199776554157960896}{14570607030242443158825}\right).
-
 $$ {#eq-docs-gaussian-calculus-l2357}
 
 These six coefficients cannot be moments of a nonnegative measure on
@@ -2458,7 +2428,6 @@ $M_{ij}=\mu_{i+j+1}$, $0\le i,j\le2$, satisfies
 $$
  \det M=-\frac{86245462994269879146938487857152}
  {200150589172828762588730609071155193161975}<0.
-
 $$ {#eq-docs-gaussian-calculus-l2369}
 
 There is also a direct polynomial witness, avoiding a definiteness criterion.
@@ -2476,7 +2445,6 @@ $$
  =-\frac{673792679642733430835456936384}
  {329714727520793070279653295504327135}<0,
  \qquad v_2=1.
-
 $$ {#eq-docs-gaussian-calculus-l2381}
 
 If such a representing measure $\nu$ existed, this finite sum would
@@ -2490,11 +2458,11 @@ nonexistence of a nonlinear feature-learning limit.
 
 #### Implementation and independent checking routes {#sec-docs-gaussian-calculus-l2397}
 
-`revert_series` accepts ordinary rational coefficients and implements ([-@eq-docs-gaussian-calculus-l2348])
+$\mathrm{revert\_series}$ accepts ordinary rational coefficients and implements ([-@eq-docs-gaussian-calculus-l2348])
 by truncated composition in Horner order. Multiplication is the finite
 convolution $(ab)_k=\sum_{i=0}^k a_i b_{k-i}$. It returns all inverse
 coefficients to the same length, without mutating its input. A nonzero
-constant or zero linear coefficient is rejected. `determinant` eliminates
+constant or zero linear coefficient is rejected. $\mathrm{determinant}$ eliminates
 successive columns using a nonzero pivot, swapping rows when necessary and
 tracking the determinant sign. Subtracting multiples of one row from another
 preserves the determinant; each pivot multiplies the remaining triangular
@@ -2518,7 +2486,7 @@ Series tests compose both directions of reversion, and forest tests check
 relabelling, edge order, component multiplicity, invalid graphs and changed
 decorations. They do not validate an unimplemented general-depth generator.
 
-All scalar arithmetic in this module is integer or `fractions.Fraction`;
+All scalar arithmetic in this module is integer or $\mathrm{fractions.Fraction}$;
 floating values and booleans are rejected by its rational interfaces.
 Graph indices and colors are nonnegative Python integers, with layer one or
 two. Inputs are finite lists or tuples. Results are freshly constructed;
@@ -2530,7 +2498,7 @@ limits still apply to the recursive tree key.
 The established unit-test command in the code guide regenerates all displayed
 coefficient and witness checks. No generated data, historical coefficient
 array, symbolic package or external source is required. Exact arithmetic
-certifies these finite computations, while (7.C1)--(7.C5) supply the separate
+certifies these finite computations, while ([-@eq-docs-gaussian-calculus-l2254])--([-@eq-docs-gaussian-calculus-l2313]) supply the separate
 initialization-jet interpretation. Neither part supplies a positive-time
 identification bridge.
 
@@ -2547,7 +2515,7 @@ remainder. The number of steps does not grow in any limit here.
 ### 8.1. Model, coefficient, and quantitative statement {#sec-docs-gaussian-calculus-l2451}
 
 Use exactly the one-input, one-sample network, independent initialization,
-and simultaneous stored-parameter updates (5.2.1)--(5.2.8). In particular,
+and simultaneous stored-parameter updates ([-@eq-docs-gaussian-calculus-l369])--([-@eq-docs-gaussian-calculus-l429]). In particular,
 $m=d=1$, $x_1=1$, the stored readout has independent $N(0,1)$
 coordinates, and the mobility matrix in stored coordinates is
 $D_n=\operatorname{diag}(nI,I,\ldots,I,nI)$. There is no residual or
@@ -2588,13 +2556,14 @@ $$
 $$ {#eq-docs-gaussian-calculus-l2483}
 
 This notation leaves $\kappa_\ell$ reserved for mobility multipliers.
-The integer $E_{L,N}$ is explicitly defined in (8.5.1)--(8.5.4),
+The integer $E_{L,N}$ is explicitly defined in ([-@eq-docs-gaussian-calculus-l2908])--([-@eq-docs-gaussian-calculus-l2928]),
 ([-@eq-docs-gaussian-calculus-l3075]); it depends only on $L,N$.
 
 ::: {#thm-docs-gaussian-calculus-l2492}
+
 ## fixed-depth, fixed-step-count quantitative doubling
 
-Under (8.1.1)--(8.1.2), for every fixed $L,N\ge1$,
+Under ([-@eq-docs-gaussian-calculus-l2465])--([-@eq-docs-gaussian-calculus-l2469]), for every fixed $L,N\ge1$,
 
 $$
  F_{N,L}\in C^5([-1,1]),\qquad
@@ -2639,10 +2608,8 @@ only width-limit input is the theorem already proved in [Section 5](gaussian-cal
 
 ### 8.2. Layerwise calls and their exact chronology {#sec-docs-gaussian-calculus-l2528}
 
-Keep $Z^{(\ell)}_k,H^{(\ell)}_k,\Delta^{(\ell)}_k,
-q^{(\ell)}_k,W^{(L+1)}_k,Q_{\ell,jk},K_{\ell,jk},
-\rho_{\ell,kj},\sigma_{\ell,kj},\xi_{\ell,k},\chi_{\ell,k}$
-with precisely the types and definitions in (5.5.1)--(5.5.13).
+Keep $Z^{(\ell)}_k,H^{(\ell)}_k,\Delta^{(\ell)}_k, q^{(\ell)}_k,W^{(L+1)}_k,Q_{\ell,jk},K_{\ell,jk}, \rho_{\ell,kj},\sigma_{\ell,kj},\xi_{\ell,k},\chi_{\ell,k}$
+with precisely the types and definitions in ([-@eq-docs-gaussian-calculus-l664])--([-@eq-docs-gaussian-calculus-l759]).
 In particular, $q^{(\ell)}_k$ is the incoming population backsignal,
 $H^{(\ell)}_k=\phi(Z^{(\ell)}_k)$ is the feature, and source
 derivatives hold every deterministic covariance and response coefficient
@@ -2654,7 +2621,6 @@ coefficients
 
 $$
  R_{\ell,kj}=\rho_{\ell,kj}+hQ_{\ell-1,jk}\quad(j<k),
-                                                              
 $$ {#eq-docs-gaussian-calculus-l2542}
 
 
@@ -2680,7 +2646,7 @@ $$
  \Delta^{(\ell-1)}_k=q^{(\ell-1)}_k\phi'(Z^{(\ell-1)}_k).
 $$ {#eq-docs-gaussian-calculus-l2557}
 
-The bottom update and readout are still ([-@eq-docs-gaussian-calculus-l715]), (5.5.11)--(5.5.12).
+The bottom update and readout are still ([-@eq-docs-gaussian-calculus-l715]), ([-@eq-docs-gaussian-calculus-l740])--([-@eq-docs-gaussian-calculus-l746]).
 Every sum proportional to an update uses strictly earlier steps.
 
 Write $Q_\ell^{[k]}=(Q_{\ell,ij})_{0\le i,j\le k}$ and similarly
@@ -2804,7 +2770,6 @@ satisfies, by differentiating its determinant and quadratic exponent,
 $$
  \partial_h p_h(x)=\tfrac12
   \left(x^TC^{-1}C'C^{-1}x-\operatorname{tr}(C^{-1}C')\right)p_h(x).
-                                                              
 $$ {#eq-docs-gaussian-calculus-l2669}
 
 On the other hand,
@@ -2821,7 +2786,6 @@ give
 $$
  \frac{d}{dh}\int\psi(h,x)p_h(x)\,dx
  =\int\left(\partial_h\psi+\tfrac12 C':D_x^2\psi\right)p_h\,dx.
-                                                              
 $$ {#eq-docs-gaussian-calculus-l2682}
 
 On a compact parameter interval with positive minimum covariance
@@ -2853,7 +2817,7 @@ $$
 Consequently
 
 $$
- \sup_{h\in I}\|C_\epsilon(h)^{1/2}-C(h)^{1/2}\|_{\rm op}
+ \sup_{h\in I}\|C_\epsilon(h)^{1/2}-C(h)^{1/2}\|_{\mathrm{op}}
        \le\sqrt\epsilon.                                 
 $$ {#eq-docs-gaussian-calculus-l2712}
 
@@ -2972,7 +2936,7 @@ $(1+\sqrt v\|G_b\|_2)^p$ proves ([-@eq-docs-gaussian-calculus-l2796]). At $v=0$,
 $q=0$ term is one and its positive-order terms are zero.
 
 Assemble each covariance by summing the bounds on its entries. For the
-full coefficients (8.2.1)--(8.2.2), use
+full coefficients ([-@eq-docs-gaussian-calculus-l2542])--([-@eq-docs-gaussian-calculus-l2546]), use
 
 $$
  \bar R_j=\bar\rho_j+\bar Q_j+j\bar Q_{j-1},\qquad
@@ -2999,7 +2963,7 @@ $$ {#eq-docs-gaussian-calculus-l2827}
 Exact coefficient assembly uses
 $\mathcal J_j(R)=\mathcal J_j(\rho)+j\mathcal J_{j-1}(Q)$
 at zero, and the corresponding formula for $T$, with zero
-negative-index jets. Equations (8.2.1)--(8.2.6), ([-@eq-docs-gaussian-calculus-l2656]), and ([-@eq-docs-gaussian-calculus-l2827])
+negative-index jets. Equations ([-@eq-docs-gaussian-calculus-l2542])--([-@eq-docs-gaussian-calculus-l2626]), ([-@eq-docs-gaussian-calculus-l2656]), and ([-@eq-docs-gaussian-calculus-l2827])
 therefore determine the terminal numbers
 $\mathcal J^{\mathrm{cmp}}_{r,N,L}$ without referring to an unknown
 output derivative.
@@ -3025,7 +2989,7 @@ spatial derivatives do not differentiate scalar tokens.
 At the first call, all coefficient and covariance inputs are constant
 functions of $h$. Suppose all earlier scalar outputs have continuous
 derivatives and bounds through order five. Finite local syntax, the
-chain and product rules, and (8.4.1)--(8.4.3) then supply jointly
+chain and product rules, and ([-@eq-docs-gaussian-calculus-l2746])--([-@eq-docs-gaussian-calculus-l2760]) then supply jointly
 continuous mixed derivatives ([-@eq-docs-gaussian-calculus-l2649]) with one common polynomial
 envelope. Its covariance is $C^5$, by the earlier scalar outputs,
 and is positive semidefinite by its Gram construction. @lem-docs-gaussian-calculus-l2645 applies
@@ -3111,6 +3075,7 @@ $$
 $$ {#eq-docs-gaussian-calculus-l2928}
 
 ::: {#lem-docs-gaussian-calculus-l2933}
+
 ## one-call bound
 
 Suppose every incoming scalar token and
@@ -3238,7 +3203,7 @@ $$
   =S^{C_N/2}\nu_N.\end{aligned}                         
 $$ {#eq-docs-gaussian-calculus-l3035}
 
-Combining (8.5.8)--(8.5.9), enlarging
+Combining ([-@eq-docs-gaussian-calculus-l3012])--([-@eq-docs-gaussian-calculus-l3035]), enlarging
 $S^{3C_N/2}$ to $S^{2C_N}$, and using
 
 $$
@@ -3307,7 +3272,7 @@ The following symmetry holds without any parity assumption on $\phi$.
 Change $h$ to $-h$, change the top root $A$ and every
 backward source $\chi_{\ell,k}$ to their negatives, and leave
 $U$ and every $\xi_{\ell,k}$ fixed. Chronological induction
-in (5.5.4)--(5.5.12) gives even transformation for
+in ([-@eq-docs-gaussian-calculus-l694])--([-@eq-docs-gaussian-calculus-l746]) gives even transformation for
 $Z^{(\ell)},H^{(\ell)},Q_\ell,K_\ell$, and odd transformation
 for $W^{(L+1)},q^{(\ell)},\Delta^{(\ell)},\rho,\sigma,R,T$.
 For a response, differentiating an even transformed feature with
@@ -3339,7 +3304,6 @@ layer $\ell$ by
 $$
  V_L=A,\qquad
  V_\ell=\mu_{\phi'}^{(L-\ell)/2}B_\ell\quad(\ell<L).
-                                                              
 $$ {#eq-docs-gaussian-calculus-l3125}
 
 It is independent of $G_\ell$, has second moment
@@ -3394,7 +3358,6 @@ Together with ([-@eq-docs-gaussian-calculus-l3147]), this finite layer induction
 
 $$
  b_{\ell,kj}=\sum_{a=1}^{\ell-1}\mu_{\phi'}^a.
-                                                              
 $$ {#eq-docs-gaussian-calculus-l3173}
 
 The result is independent of $j,k$; no derivative of a backward
@@ -3464,7 +3427,7 @@ Monotonicity of $E_{L,N}$, ([-@eq-docs-gaussian-calculus-l3071]), and $33/120<1$
 ([-@eq-docs-gaussian-calculus-l2499]). Equations ([-@eq-docs-gaussian-calculus-l2867]) and ([-@eq-docs-gaussian-calculus-l3071]) prove ([-@eq-docs-gaussian-calculus-l2494]).
 
 It remains to verify the network interpretation at exactly the scope
-available internally. Conditions (8.1.1)--(8.1.2) imply (5.1.1)--(5.1.2),
+available internally. Conditions ([-@eq-docs-gaussian-calculus-l2465])--([-@eq-docs-gaussian-calculus-l2469]) imply ([-@eq-docs-gaussian-calculus-l280])--([-@eq-docs-gaussian-calculus-l285]),
 for example with $M=2M_\phi$. For each separately fixed
 $h\ne0$, apply the fixed-program theorem of [Section 5.1](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l270) once to
 $(L,N,2h)$ and once to $(L,2N,h)$. Its initialization and
@@ -3513,7 +3476,6 @@ For every $\varepsilon>0$, a fully explicit cubic comparison is
 $$
  |F_{N,L}(2h)-F_{2N,L}(h)|
        \le (|\mathcal C^{\mathrm{cmp}}_{\phi,L,N}|+\varepsilon)|h|^3
-                                                              
 $$ {#eq-docs-gaussian-calculus-l3278}
 
 whenever
@@ -3521,7 +3483,6 @@ whenever
 $$
  |h|\le\min\left\{\tfrac12,
            \sqrt{\frac{\varepsilon}{1+B_\phi^{E_{L,2N}}}}\right\}.
-                                                              
 $$ {#eq-docs-gaussian-calculus-l3284}
 
 Indeed the fifth-order error divided by $|h|^3$, for $h\ne0$,
@@ -3569,7 +3530,6 @@ For one sample with arbitrary label $y$, use exactly the shared convention
 $$
  r(x)=f(x)-y,\qquad \mathcal L(x)=r(x)^2,
  \qquad P(x)=-\mathcal L(x),\qquad v(x)=\nabla P(x).
-                                                              
 $$ {#eq-docs-gaussian-calculus-l3328}
 
 The chain rule gives
@@ -3705,7 +3665,7 @@ The rows of ([-@eq-docs-gaussian-calculus-l3430]), in increasing $q$, are
 
 $$
 \begin{array}{c|lllll}
-j\backslash q&1&2&3&4&5\\ \hline
+j\smallsetminus q&1&2&3&4&5\\ \hline
 2&-2N&N\\
 3&-6N&-2N^2+3N&2N(N-1)\\
 4&-14N&-6N^2+7N&-\frac43N^3+6N^2-\frac{14}3N
@@ -3718,7 +3678,7 @@ $$ {#eq-docs-gaussian-calculus-l3443}
 
 Each entry is obtained by multiplying the finite factors in
 $\binom Nq=N(N-1)\cdots(N-q+1)/q!$ and applying ([-@eq-docs-gaussian-calculus-l3430]).
-Thus (9.P7)--(9.P8) and ([-@eq-docs-gaussian-calculus-l3443]) specify every coefficient through order five,
+Thus ([-@eq-docs-gaussian-calculus-l3379])--([-@eq-docs-gaussian-calculus-l3390]) and ([-@eq-docs-gaussian-calculus-l3443]) specify every coefficient through order five,
 including every operator ordering, without a stored neural coefficient
 table or an unspecified derivative compiler.
 
@@ -3797,7 +3757,7 @@ and $\langle b,D^2(\nabla P)[b,b]\rangle=D^3P[b,b,b]$.
 Substitution proves ([-@eq-docs-gaussian-calculus-l3484]).
 
 For the one-sample full square loss in ([-@eq-docs-gaussian-calculus-l3328]), additionally assume that
-the predictor $f$ is $C^3$ near the supplied state for (9.P18)–(9.P21).
+the predictor $f$ is $C^3$ near the supplied state for ([-@eq-docs-gaussian-calculus-l3528])–([-@eq-docs-gaussian-calculus-l3552]).
 This is separate from the loss-field regularity used for the remainder:
 a smooth squared loss alone need not make its predictor $C^3$. Define
 at the same arbitrary state
@@ -3860,8 +3820,8 @@ Assume separately that a convex set $C$ lies in the open domain of
 $C^1$ functions $v,u$, with
 
 $$
- \|v(x)\|_2\le M_T,\qquad \|Dv(x)\|_{\rm op}\le L_T,
- \qquad \|Du(x)\|_{\rm op}\le R_T\quad(x\in C).      
+ \|v(x)\|_2\le M_T,\qquad \|Dv(x)\|_{\mathrm{op}}\le L_T,
+ \qquad \|Du(x)\|_{\mathrm{op}}\le R_T\quad(x\in C).      
 $$ {#eq-docs-gaussian-calculus-l3573}
 
 Take $\eta\ge0$, $2N\eta\le T$. Write
@@ -3927,18 +3887,18 @@ a width-uniform estimate or identification of a common population state.
 
 The existing `pde.exact_calculus` module supplies two small operations:
 
-- `euler_pullback_words(order, steps)` returns a fresh dictionary from
-  positive composition tuples `(k1,...,kq)` of `order` to the exact
-  `Fraction` weight `binom(steps,q)`. Products act right to left as in
-  ([-@eq-docs-gaussian-calculus-l3379]). Zero weights are omitted. Order zero returns `{(): Fraction(1)}`;
-  a positive order with zero steps returns `{}`.
-- `paired_euler_weights(order)` returns the `order` rows in ([-@eq-docs-gaussian-calculus-l3430]), each
-  an immutable tuple of `order` rational coefficients in increasing powers
-  of `N`. The degree-`order` coefficient cancels and is omitted. Order zero
-  returns `()`; order one returns `((Fraction(0),),)`.
+- $\mathrm{euler\_pullback\_words}(\mathrm{order},\mathrm{steps})$ returns a fresh dictionary from
+  positive composition tuples $(k_1,\ldots,k_q)$ of $\mathrm{order}$ to the exact
+  $\mathrm{Fraction}$ weight $\binom{\mathrm{steps}}q$. Products act right to left as in
+  ([-@eq-docs-gaussian-calculus-l3379]). Zero weights are omitted. Order zero returns $\{():\mathrm{Fraction}(1)\}$;
+  a positive order with zero steps returns $\{\}$.
+- $\mathrm{paired\_euler\_weights}(\mathrm{order})$ returns the $\mathrm{order}$ rows in ([-@eq-docs-gaussian-calculus-l3430]), each
+  an immutable tuple of $\mathrm{order}$ rational coefficients in increasing powers
+  of $N$. The degree-$\mathrm{order}$ coefficient cancels and is omitted. Order zero
+  returns $()$; order one returns $((\mathrm{Fraction}(0),),)$.
 
 Both inputs must be nonnegative Python integers; booleans, floats and
-`Fraction` inputs are rejected. No derivatives, network states, activation
+$\mathrm{Fraction}$ inputs are rejected. No derivatives, network states, activation
 moments or Gaussian expectations are evaluated by either operation.
 
 For the first operation, a finite stack appends every possible positive
@@ -3992,7 +3952,6 @@ $$
  z_i=\frac1{\sqrt n}\sum_j g_{ij}u_j^2,\qquad
  f_n=\frac1n\sum_i a_i z_i^2
      =\frac1{n^2}\sum_{i,j,l}a_i g_{ij}g_{il}u_j^2u_l^2.
-
 $$ {#eq-docs-gaussian-calculus-l3692}
 
 The mobility multipliers in the stored first, second, and readout blocks
@@ -4005,7 +3964,6 @@ $$
        +\alpha\nabla_u f_n\cdot\nabla_u
        +\beta\nabla_g f_n\cdot\nabla_g\right),
  \qquad \alpha,\beta\ge0.
-
 $$ {#eq-docs-gaussian-calculus-l3701}
 
 Indeed $\partial_{W^{(2)}}=\sqrt n\,\partial_g$ and
@@ -4024,7 +3982,6 @@ $$
  D_{\alpha,\beta,n}g_{ij}
    &=\frac{2\beta}{n}\sum_l a_i g_{il}u_j^2u_l^2.
 \end{aligned}
-
 $$ {#eq-docs-gaussian-calculus-l3715}
 
 No trained variables have been replaced by independent copies in these
@@ -4044,7 +4001,6 @@ $$
  \prod_{v\in R}a_{i(v)}^{p_v}
  \prod_{w\in C}u_{j(w)}^{2q_w}
  \prod_{(v,w)\in E}g_{i(v),j(w)}.
-
 $$ {#eq-docs-gaussian-calculus-l3735}
 
 Both maps in these sums are unrestricted. Distinct abstract vertices may
@@ -4099,7 +4055,6 @@ edge for each new vertex. Summing this bound over components gives
 
 $$
  v\le b+c\le b+r.
-
 $$ {#eq-docs-gaussian-calculus-l3793}
 
 If its two populations have $v_R,v_C$ vertices, labelings with no further
@@ -4133,7 +4088,6 @@ $$
  d_k(\alpha,\beta)
  :=\lim_{n\to\infty}E[D_{\alpha,\beta,n}^k f_n],
  \qquad k\text{ fixed}.
-
 $$ {#eq-docs-gaussian-calculus-l3821}
 
 Each $d_k$ is a polynomial of total degree at most $k$ in the two
@@ -4164,7 +4118,6 @@ by the formal identity
 $$
  F_\alpha'(B_\alpha(y))
  =d_1(\alpha,1)+y^2\sum_{j\ge0}(-1)^j\mu_j(\alpha)y^{2j}.
-
 $$ {#eq-docs-gaussian-calculus-l3849}
 
 Oddness of $F_\alpha$ and uniqueness of its inverse make $B_\alpha$
@@ -4179,7 +4132,6 @@ $$
  b_1=1/a_1,\qquad
  b_k=-\frac1{a_1}[y^k]\sum_{j=2}^k a_j
                \left(\sum_{l=1}^{k-1}b_l y^l\right)^j\quad(k\ge2).
-
 $$ {#eq-docs-gaussian-calculus-l3861}
 
 Only the linear term can involve the unknown $b_k$, proving this formula
@@ -4189,14 +4141,13 @@ finitely many $a_k$, whose possible denominators are powers of $a_1$.
 In particular $\mu_1,\ldots,\mu_5$ are continuous near $\alpha=0$,
 using only the jet through $d_{13}$.
 
-The exact boundary calculation in [Section 7.2](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l2156), equations (7.C3)--(7.C11),
+The exact boundary calculation in [Section 7.2](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l2156), equations ([-@eq-docs-gaussian-calculus-l2275])--([-@eq-docs-gaussian-calculus-l2381]),
 supplies the fixed polynomial
 
 $$
  p(\lambda)=v_0+v_1\lambda+\lambda^2,\qquad
  v_0=\frac{40042013405871059816}{2310453239160606810795},\quad
  v_1=-\frac{14165989123115588}{49896409440894219}.
-
 $$ {#eq-docs-gaussian-calculus-l3876}
 
 If $L_\alpha(\lambda^j)=\mu_j(\alpha)$, its boundary value is
@@ -4205,7 +4156,6 @@ $$
  L_0(\lambda p(\lambda)^2)
  =-\frac{673792679642733430835456936384}
  {329714727520793070279653295504327135}<0.
-
 $$ {#eq-docs-gaussian-calculus-l3883}
 
 This is the sole finite numeric certificate used here. The complete
@@ -4222,7 +4172,6 @@ with $v_2=1$, is continuous at zero. Its strictly negative value in
 
 $$
  L_\alpha(\lambda p^2)<0\qquad(0\le\alpha<\varepsilon).
-
 $$ {#eq-docs-gaussian-calculus-l3900}
 
 For any nonnegative measure $\nu$ on $[0,\infty)$ representing all
@@ -4243,7 +4192,6 @@ Now fix $(\alpha,\beta)=(1,1)$ and set
 
 $$
  c_k=\frac{d_k(1,1)}{k!}.
-
 $$ {#eq-docs-gaussian-calculus-l3919}
 
 These coefficients exist by ([-@eq-docs-gaussian-calculus-l3821]), are nonnegative, and vanish for even
@@ -4251,7 +4199,6 @@ $k$. We will prove, for odd $k\ge1$ and $m=(k+3)/2$,
 
 $$
  c_k\ge m!\,4^{-m}6^{k+1}\binom{k+2}{2}.
-
 $$ {#eq-docs-gaussian-calculus-l3925}
 
 This is derived directly in the raw-square coordinates ([-@eq-docs-gaussian-calculus-l3692]); there is no
@@ -4271,7 +4218,6 @@ nonnegative expectation to every monomial in the cone. Consequently
 
 $$
  E[D_{1,1,n}^k f_n]\ge E[D_{0,1,n}^k f_n].
-
 $$ {#eq-docs-gaussian-calculus-l3943}
 
 This is an expectation comparison of polynomial histories, not a
@@ -4289,7 +4235,6 @@ For fixed $q\ge0$, let
 $$
  \mathscr D_q=z^2\partial_a+2qaz\partial_z,\qquad
  P_k(a,z;q)=\frac1{k!}\mathscr D_q^k(az^2).
-
 $$ {#eq-docs-gaussian-calculus-l3956}
 
 Repeated chain rule gives
@@ -4317,7 +4262,6 @@ $$
  \lim_{n\to\infty}\frac{E[D_{0,1,n}^k f_n]}{k!}
  =E[P_k(A,Z;3)],\qquad
  A\sim N(0,1),\quad Z\sim N(0,3),\quad A\perp Z.
-
 $$ {#eq-docs-gaussian-calculus-l3979}
 
 Together with ([-@eq-docs-gaussian-calculus-l3943]) and existence of ([-@eq-docs-gaussian-calculus-l3919]), this gives
@@ -4328,7 +4272,6 @@ For fixed $q>0$, the monomial rule
 $$
  \mathscr D_q(a^p z^l)
  =p a^{p-1}z^{l+2}+2ql a^{p+1}z^l
-
 $$ {#eq-docs-gaussian-calculus-l3989}
 
 shows that $P_k$ has nonnegative coefficients and total degree $k+3$
@@ -4338,7 +4281,6 @@ the parity of the exponent of $a$. For odd $k$,
 $$
  P_k(a,z;q)=\sum_{u+v=m}p_{uv}(q)a^{2u}z^{2v},
  \qquad p_{uv}(q)\ge0.
-
 $$ {#eq-docs-gaussian-calculus-l3997}
 
 The ray $z=\sqrt{2q}\,a$ is invariant under ([-@eq-docs-gaussian-calculus-l3956]): both equations
@@ -4352,7 +4294,6 @@ $$
  \sum_{u+v=m}p_{uv}(q)(2q)^v
  =P_k(1,\sqrt{2q};q)
  =(2q)^{k+1}\binom{k+2}{2}.
-
 $$ {#eq-docs-gaussian-calculus-l4008}
 
 This scalar solution is used only to evaluate a polynomial identity at
@@ -4373,18 +4314,16 @@ $$
  \ge m!4^{-m}(2q)^v,
  \qquad u+v=m.
 \end{aligned}
-
 $$ {#eq-docs-gaussian-calculus-l4023}
 
 The last inequality uses $v\le m$. Multiply ([-@eq-docs-gaussian-calculus-l4023]) by the
 nonnegative $p_{uv}(q)$, sum, and use ([-@eq-docs-gaussian-calculus-l4008]) at $q=3$. Equations
-(10.14)--(10.16) give exactly ([-@eq-docs-gaussian-calculus-l3925]).
+([-@eq-docs-gaussian-calculus-l3943])--([-@eq-docs-gaussian-calculus-l3979]) give exactly ([-@eq-docs-gaussian-calculus-l3925]).
 
 The factorial lower bound implies
 
 $$
  \limsup_{k\to\infty}c_k^{1/k}=\infty.
-
 $$ {#eq-docs-gaussian-calculus-l4038}
 
 No asymptotic factorial formula is needed: for $m\ge2$, the last
@@ -4409,7 +4348,6 @@ For $M\ge1$, define the deterministic polynomial
 
 $$
  F_M(s)=\sum_{k=0}^M c_k s^k.
-
 $$ {#eq-docs-gaussian-calculus-l4061}
 
 Here $c_0=0$, and $c_1\ge63>0$: the frozen first derivative has
@@ -4424,7 +4362,6 @@ $$
  \tau_M'=2(1-F_M(\tau_M)),\quad \tau_M(0)=0,
  \qquad f_M(t)=F_M(\tau_M(t)),\quad
  \mathcal L_M(t)=(1-f_M(t))^2.
-
 $$ {#eq-docs-gaussian-calculus-l4072}
 
 These define a global continuous loss. To establish this directly, put
@@ -4449,7 +4386,6 @@ Equivalently this is precisely the polynomial source model
 $$
  \partial_tU_M(t,s)=2(1-U_M(t,0))\partial_sU_M(t,s),\qquad
  U_M(0,s)=F_M(s),\qquad U_M(t,s)=F_M(s+\tau_M(t)).
-
 $$ {#eq-docs-gaussian-calculus-l4094}
 
 Substitution proves the PDE and its trace $U_M(t,0)=f_M(t)$. Within
@@ -4469,7 +4405,6 @@ By positivity and ([-@eq-docs-gaussian-calculus-l4038]), for every fixed $s>0$,
 
 $$
  F_M(s)\longrightarrow+\infty\quad(M\to\infty).
-
 $$ {#eq-docs-gaussian-calculus-l4113}
 
 Indeed the partial sums are nondecreasing in $M$, and some individual
@@ -4482,7 +4417,6 @@ The physical time at which ([-@eq-docs-gaussian-calculus-l4072]) reaches $y$ is
 $$
  t_M(y)=T_M(r_M(y))
  \le\frac{r_M(y)}{2(1-y)}\longrightarrow0.
-
 $$ {#eq-docs-gaussian-calculus-l4123}
 
 The inequality uses $F_M(v)\le y$ on that integration interval. For
@@ -4493,7 +4427,6 @@ proves
 $$
  \mathcal L_M(0)=1,\qquad
  \lim_{M\to\infty}\mathcal L_M(t)=0\quad(t>0).
-
 $$ {#eq-docs-gaussian-calculus-l4132}
 
 For every $T>0$, these continuous losses are not uniformly Cauchy on
@@ -4550,7 +4483,6 @@ $$
  a_i^{j+1}=a_i^j+h\phi(u_i^j),\qquad
  u_i^{j+1}=u_i^j+ha_i^j\phi'(u_i^j),\qquad
  f_{n,1}^j=\frac1n\sum_{i=1}^na_i^j\phi(u_i^j).
-
 $$ {#eq-docs-gaussian-calculus-l4184}
 
 The index $j$ counts steps. The scalar $h$ is neither physical time
@@ -4562,7 +4494,6 @@ $$
  M=\max\left\{1,\sup_z\frac{|\phi(z)|}{1+|z|},
                 \max_{1\le q\le12}\|\phi^{(q)}\|_\infty\right\}<\infty,
  \qquad G\sim N(0,1).
-
 $$ {#eq-docs-gaussian-calculus-l4195}
 
 On the single mark space $\Omega_1=(\mathbb R^2,\gamma_2)$, let
@@ -4576,15 +4507,15 @@ $$
        +11\phi(G)\phi'(G)^2\phi''(G)
        +4\phi'(G)^4+4\phi(G)^2\phi'(G)^2
        +12\phi'(G)^2\phi''(G)^2\right].
-
 $$ {#eq-docs-gaussian-calculus-l4208}
 
 The one-dimensional expectation in $J_\phi$ uses the displayed $G$;
 $E_1$ contracts the mark population. Set $c_\phi=(16M)^{-1}$.
-[Section 11.2](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l4244) defines a finite, explicit constant $B_\phi^{\rm sh}$
+[Section 11.2](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l4244) defines a finite, explicit constant $B_\phi^{\mathrm{sh}}$
 using only $M$ and two Gaussian integrals.
 
 ::: {#thm-docs-gaussian-calculus-l4222}
+
 ## SD
 
 For every integer $k\ge1$ and every
@@ -4593,8 +4524,7 @@ $|h|\le c_\phi/k$,
 $$
  \left|F_{k,1}(2h)-F_{2k,1}(h)
         +\frac{k(2k-1)}2J_\phi h^3\right|
- \le B_\phi^{\rm sh}k^4|h|^5.
-
+ \le B_\phi^{\mathrm{sh}}k^4|h|^5.
 $$ {#eq-docs-gaussian-calculus-l4225}
 
 For each fixed finite $N,h$, $E f_{n,1}^N(h)=F_{N,1}(h)$ at
@@ -4619,7 +4549,6 @@ network coordinates or kernels. For a real $R\ge1$, set
 $$
  c=c_\phi,\qquad \Lambda=12MR,\qquad
  P=\exp(4c\Lambda)=e^{3R}.
-
 $$ {#eq-docs-gaussian-calculus-l4249}
 
 In the following order define
@@ -4631,7 +4560,6 @@ $$
  X_3&=P\{12\Lambda(X_1^2+X_2)
                   +4c\Lambda(X_1^3+3X_1X_2)\},
  \end{aligned}
-
 $$ {#eq-docs-gaussian-calculus-l4257}
 
 $$
@@ -4642,7 +4570,6 @@ $$
  \mathcal B_q&=\sum_{v=0}^q\binom qv\mathcal G_v\mathcal G_{q-v}
        &&(0\le q\le3).
  \end{aligned}
-
 $$ {#eq-docs-gaussian-calculus-l4267}
 
 With $\mathcal B_{-1}=\mathcal B_{-2}=0$, put
@@ -4650,7 +4577,6 @@ With $\mathcal B_{-1}=\mathcal B_{-2}=0$, put
 $$
  \mathcal Z_q=X_q+c^2\mathcal B_q+2qc\mathcal B_{q-1}
                          +q(q-1)\mathcal B_{q-2}\quad(1\le q\le3),
-
 $$ {#eq-docs-gaussian-calculus-l4280}
 
 $$
@@ -4660,7 +4586,6 @@ $$
  T_3&=P\{\mathcal Z_3+6\Lambda(T_1^2+T_2)
                          +2c\Lambda(T_1^3+3T_1T_2)\}.
  \end{aligned}
-
 $$ {#eq-docs-gaussian-calculus-l4286}
 
 Next define
@@ -4671,7 +4596,6 @@ $$
  \mathcal H_2&=\Lambda(T_2+T_1^2),&
  \mathcal H_3&=\Lambda(T_3+3T_1T_2+T_1^3).
  \end{aligned}
-
 $$ {#eq-docs-gaussian-calculus-l4298}
 
 Finally, starting at $V_0=P\mathcal B_0$, define successively for
@@ -4683,14 +4607,12 @@ $$
       +2q\sum_{v=0}^{q-1}\binom{q-1}v\mathcal H_vV_{q-1-v}\right\},
  \qquad
  \mathcal C_M(R)=\frac16\sum_{v=0}^3\binom3v\mathcal H_vV_{3-v}.
-
 $$ {#eq-docs-gaussian-calculus-l4310}
 
 The claimed constant is
 
 $$
- B_\phi^{\rm sh}=E_1\mathcal C_M(1+|a_0|+|u_0|).
-
+ B_\phi^{\mathrm{sh}}=E_1\mathcal C_M(1+|a_0|+|u_0|).
 $$ {#eq-docs-gaussian-calculus-l4321}
 
 Every sum has at most four terms, and all right sides use previously
@@ -4705,7 +4627,6 @@ $$
  \psi(z)=a\phi(u),\quad
  g(z)=(\phi(u),a\phi'(u))=\nabla\psi(z),\quad
  E_hz=z+hg(z),\quad R(z)=1+|a|+|u|.
-
 $$ {#eq-docs-gaussian-calculus-l4334}
 
 All derivative operator norms below are induced by ordinary Euclidean
@@ -4713,7 +4634,6 @@ norms. $R(z)$ is a scalar growth envelope. Direct substitution gives
 
 $$
  R(E_{\alpha h}z)\le(1+\alpha M|h|)R(z),\qquad 0\le\alpha\le2.
-
 $$ {#eq-docs-gaussian-calculus-l4344}
 
 For fixed $N,h$, this bounds the terminal summand in ([-@eq-docs-gaussian-calculus-l4184]) by
@@ -4729,7 +4649,6 @@ calculus gives
 $$
  B_hz=C_hz+h^2b_h(z),\qquad
  b_h(z)=\int_0^1Dg(z+\tau hg(z))[g(z)]\,d\tau.
-
 $$ {#eq-docs-gaussian-calculus-l4359}
 
 For $q=0,\ldots,k-1$, put $x_q=C_h^{k-1-q}z$ and
@@ -4743,7 +4662,6 @@ $$
  \qquad
  Q_k(h,z)=-\sum_{q=0}^{k-1}\int_0^1
  Dv_q(C_hx_q+\tau h^2b_h(x_q))[b_h(x_q)]\,d\tau.
-
 $$ {#eq-docs-gaussian-calculus-l4371}
 
 This uses no commutation of the two Euler maps.
@@ -4757,7 +4675,6 @@ The interpolation point is
 
 $$
  C_hx+\tau h^2b_h(x)=(1-\tau)C_hx+\tau B_hx.
-
 $$ {#eq-docs-gaussian-calculus-l4388}
 
 Both endpoints obey ([-@eq-docs-gaussian-calculus-l4344]). Convexity of $R(z)$ bounds their
@@ -4766,7 +4683,6 @@ $2k$ further fine steps remain. Thus every relevant point obeys
 
 $$
  R(z)\le e^{6M|h|k}R\le e^{3/8}R<2R.
-
 $$ {#eq-docs-gaussian-calculus-l4397}
 
 The interpolation has not been treated as an Euler step. The larger
@@ -4778,7 +4694,6 @@ For $0\le q\le4$ and $1\le j\le4$, respectively,
 $$
  \|D^qg(z)\|\le6MR(z),\qquad
  \|D^j\psi(z)\|\le5MR(z).
-
 $$ {#eq-docs-gaussian-calculus-l4408}
 
 For $q\ge1$, the second coordinate of $D^qg$ consists of
@@ -4799,7 +4714,6 @@ at most
 $$
  \prod_j(1+\alpha_j|h|\Lambda)
  \le e^{\Lambda|h|\sum_j\alpha_j}\le P.
-
 $$ {#eq-docs-gaussian-calculus-l4429}
 
 A prime denotes $d/dh$. Differentiating one step gives
@@ -4814,14 +4728,12 @@ $$
        &\quad+\alpha_jh\{D^3g[y_j',y_j',y_j']
                                   +3D^2g[y_j',y_j'']\}.
  \end{aligned}
-
 $$ {#eq-docs-gaussian-calculus-l4437}
 
 Iterating in $j$ and summing the inhomogeneous terms gives
 
 $$
  \|y_j^{(q)}\|_2\le X_qk^q,\qquad q=1,2,3.
-
 $$ {#eq-docs-gaussian-calculus-l4452}
 
 In detail, the first recurrence gives $4P\Lambda k=X_1k$.
@@ -4843,7 +4755,6 @@ which explains $\mathcal G_3$. Leibniz's rule inside ([-@eq-docs-gaussian-calcul
 $$
  \|\partial_h^jb_h(x_q)\|_2\le\mathcal B_jk^j,
  \qquad 0\le j\le3.
-
 $$ {#eq-docs-gaussian-calculus-l4473}
 
 Since
@@ -4852,7 +4763,6 @@ $$
  \partial_h^j(h^2b_h)
  =h^2\partial_h^jb_h+2jh\partial_h^{j-1}b_h
                          +j(j-1)\partial_h^{j-2}b_h,
-
 $$ {#eq-docs-gaussian-calculus-l4481}
 
 Terms with negative derivative order are omitted. For $j=1,2,3$,
@@ -4877,7 +4787,6 @@ $$
  (\omega^+)^{(j)}=\omega^{(j)}
   +h\sum_{v=0}^j\binom jv(Dg(z))^{(v)}\omega^{(j-v)}
   +j\sum_{v=0}^{j-1}\binom{j-1}v(Dg(z))^{(v)}\omega^{(j-1-v)}.
-
 $$ {#eq-docs-gaussian-calculus-l4504}
 
 The $v=0$ term in the first sum is the homogeneous tangent factor.
@@ -4893,7 +4802,6 @@ most
 
 $$
  k^j\sum_{v=0}^j\binom jv\mathcal H_vV_{j-v}.
-
 $$ {#eq-docs-gaussian-calculus-l4524}
 
 Integration in $\tau$ has mass one and there are $k$ summands.
@@ -4902,10 +4810,9 @@ In particular,
 $$
  \sup_{|h|\le c/k}|\partial_h^3Q_k(h,z_0)|
  \le6\mathcal C_M(R)k^4.
-
 $$ {#eq-docs-gaussian-calculus-l4532}
 
-All envelopes (SD6)--(SD11) are finite polynomials with nonnegative
+All envelopes ([-@eq-docs-gaussian-calculus-l4257])--([-@eq-docs-gaussian-calculus-l4310]) are finite polynomials with nonnegative
 coefficients in $c,\Lambda,P$. Since $c\le1,\Lambda=12MR$,
 $P=e^{3R}$, each is bounded by a polynomial in $R$ times
 $e^{C R}$, with finite constants depending only on the displayed
@@ -4914,7 +4821,6 @@ $R=1+|a_0|+|u_0|$: for any finite $p,\lambda\ge0$,
 
 $$
  E[(1+|G|)^pe^{\lambda|G|}]<\infty,
-
 $$ {#eq-docs-gaussian-calculus-l4545}
 
 because $\lambda|x|-x^2/2\le -x^2/4$ outside a finite interval.
@@ -4933,8 +4839,7 @@ $$
  D_k(h):=F_{k,1}(2h)-F_{2k,1}(h)=h^2\overline Q_k(h),
  \qquad
  \sup_{|h|\le c/k}|\overline Q_k'''(h)|
- \le6B_\phi^{\rm sh}k^4.
-
+ \le6B_\phi^{\mathrm{sh}}k^4.
 $$ {#eq-docs-gaussian-calculus-l4562}
 
 Replacing $(h,a_0,u_0)$ by $(-h,-a_0,u_0)$ preserves the law,
@@ -4947,12 +4852,11 @@ integration of its third derivative gives
 $$
  \overline Q_k(h)-h\overline Q_k'(0)
    =\frac12\int_0^h(h-v)^2\overline Q_k'''(v)\,dv.
-
 $$ {#eq-docs-gaussian-calculus-l4577}
 
 The same estimate applies to negative $h$ by reversing orientation.
 Multiplication by $h^2$ proves a remainder at most
-$B_\phi^{\rm sh}k^4|h|^5$.
+$B_\phi^{\mathrm{sh}}k^4|h|^5$.
 
 To identify its coefficient without any Gaussian compiler input, evaluate
 all derivatives at the initial $z$ and write
@@ -4962,7 +4866,6 @@ $z_{j+1}=z_j+hg(z_j)$ at $h=0$ and summation give
 $$
  z_N'(0)=Ng,\quad z_N''(0)=N(N-1)b,\quad
  z_N'''(0)=6\binom N3c_1+\frac{N(N-1)(2N-1)}2c_2.
-
 $$ {#eq-docs-gaussian-calculus-l4592}
 
 Indeed the third-derivative increment is
@@ -4973,22 +4876,19 @@ symmetry of the Hessian gives
 $$
  D\psi[c_1]=D^2\psi[g,b]=\|b\|_2^2,\qquad
  D\psi[c_2]=D^3\psi[g,g,g].
-
 $$ {#eq-docs-gaussian-calculus-l4603}
 
 Define $\mathsf S=E_1D^3\psi[g,g,g]$ and
 $\mathsf H=E_1\|Dg[g]\|_2^2$. The third derivative of the
 observable in ([-@eq-docs-gaussian-calculus-l4592]) has the three terms
-$D\psi[z_N''']+3D^2\psi[z_N',z_N'']+
-D^3\psi[z_N',z_N',z_N']$, and consequently
+$D\psi[z_N''']+3D^2\psi[z_N',z_N'']+ D^3\psi[z_N',z_N',z_N']$, and consequently
 
 $$
  F_{N,1}^{(3)}(0)=\frac{N(4N^2-3N+1)}2\mathsf S
                   +2N(N-1)(2N-1)\mathsf H.
-
 $$ {#eq-docs-gaussian-calculus-l4615}
 
-These derivatives may be averaged: for fixed $N$, (SD18)--(SD22)
+These derivatives may be averaged: for fixed $N$, ([-@eq-docs-gaussian-calculus-l4397])--([-@eq-docs-gaussian-calculus-l4452])
 apply in a neighborhood of zero, and the chain rule for $\psi$
 gives the same polynomial-times-linear-exponential Gaussian envelope.
 
@@ -4997,12 +4897,10 @@ At $z=(a_0,u_0)$, put $p=\phi'(u_0),q=\phi''(u_0)$. Then
 $$
  g=(\phi(u_0),a_0p),\qquad
  Dg[g]=(a_0p^2,\phi(u_0)p+a_0^2pq),
-
 $$ {#eq-docs-gaussian-calculus-l4627}
 
 and
-$D^3\psi[g,g,g]=3a_0^2\phi(u_0)p^2q+
-a_0^4p^3\phi'''(u_0)$.
+$D^3\psi[g,g,g]=3a_0^2\phi(u_0)p^2q+ a_0^4p^3\phi'''(u_0)$.
 Independence and $E a_0^2=1,E a_0^4=3$ give
 
 $$
@@ -5011,7 +4909,6 @@ $$
  \mathsf H&=E[\phi'^4+\phi^2\phi'^2
                           +2\phi\phi'^2\phi''+3\phi'^2\phi''^2],
  \end{aligned}
-
 $$ {#eq-docs-gaussian-calculus-l4638}
 
 where all activation factors are evaluated at $G\sim N(0,1)$.
@@ -5022,10 +4919,9 @@ $$
  \overline Q_k'(0)
  =\frac{8F_{k,1}^{(3)}(0)-F_{2k,1}^{(3)}(0)}6
  =-\frac{k(2k-1)}2J_\phi.
-
 $$ {#eq-docs-gaussian-calculus-l4651}
 
-Together with (SD29)--(SD30), this proves ([-@eq-docs-gaussian-calculus-l4225]).
+Together with ([-@eq-docs-gaussian-calculus-l4562])--([-@eq-docs-gaussian-calculus-l4577]), this proves ([-@eq-docs-gaussian-calculus-l4225]).
 
 For the constant branch $\phi\equiv\pm1$, one has
 $F_{N,1}(h)=Nh,J_\phi=0$, and the discrepancy vanishes exactly.
@@ -5035,7 +4931,6 @@ Both initial coordinates have variance one, so
 
 $$
  F_{N,1}(h)=\frac{(1+h)^{2N}-(1-h)^{2N}}2,\qquad J_\phi=8.
-
 $$ {#eq-docs-gaussian-calculus-l4666}
 
 Its discrepancy has cubic coefficient $-4k(2k-1)$ and fifth
@@ -5044,7 +4939,6 @@ coefficient
 $$
  32\binom{2k}5-\binom{4k}5
  =-\frac43k(k-1)(2k-1)(8k-9).
-
 $$ {#eq-docs-gaussian-calculus-l4674}
 
 If ([-@eq-docs-gaussian-calculus-l4225]) held with $Ck^p|h|^5$ for some fixed $p<4$ and
@@ -5062,8 +4956,7 @@ $h=s/(2k)$ in ([-@eq-docs-gaussian-calculus-l4225]) gives
 $$
  \sup_{|s|\le S}|G_{2k}(s)-G_k(s)|
  \le\frac{|J_\phi|S^3}{8k}
-                   +\frac{B_\phi^{\rm sh}S^5}{32k}.
-
+                   +\frac{B_\phi^{\mathrm{sh}}S^5}{32k}.
 $$ {#eq-docs-gaussian-calculus-l4692}
 
 For $k=2^j$, the right side is summable in $j$. Telescoping,
@@ -5074,8 +4967,7 @@ $G_\infty$ on $[-S,S]$, with
 $$
  \sup_{|s|\le S}|G_\infty(s)-G_{2^p}(s)|
  \le2^{-p}\left(\frac{|J_\phi|S^3}{4}
-                         +\frac{B_\phi^{\rm sh}S^5}{16}\right).
-
+                         +\frac{B_\phi^{\mathrm{sh}}S^5}{16}\right).
 $$ {#eq-docs-gaussian-calculus-l4704}
 
 Each fixed $G_N$ is continuous by its finite smooth recursion and
@@ -5105,7 +4997,6 @@ $$
  c=\mathbb E\operatorname{sech}^2G>0,\qquad
  \sigma^2=\mathbb E\tanh^2G>0,
  \quad G\sim N(0,1).
-
 $$ {#eq-docs-gaussian-calculus-l4733}
 
 For $W_n$ with independent $N(0,1/n)$ entries, perform exactly
@@ -5114,7 +5005,6 @@ three calls:
 $$
  y=W_n\mathbf1,\quad e=\psi(y/\epsilon),\quad
  q=W_n^Te,\quad h=\tanh(q/\sqrt{v_\epsilon}),\quad T=W_nh.
-
 $$ {#eq-docs-gaussian-calculus-l4744}
 
 The scalar constant $v_\epsilon$ is fixed before the calculation.
@@ -5129,7 +5019,6 @@ $$
  \left(Y,\psi(Y/\epsilon),
          \sigma H+\frac{c}{\sqrt{v_\epsilon}}\psi(Y/\epsilon)\right),
  \qquad Y,H\text{ independent standard Gaussians}.
-
 $$ {#eq-docs-gaussian-calculus-l4758}
 
 The row and column populations are separate; no neuron pairing between them
@@ -5147,7 +5036,6 @@ original law. Consequently
 $$
  q\mid y\ \overset d=\ a_n\mathbf1+\sqrt{v_n}P_0g,
  \qquad g\sim N(0,I_n),\quad g\text{ independent of }y.
-
 $$ {#eq-docs-gaussian-calculus-l4777}
 
 On $v_n>0$, conditioning again on $q$ gives
@@ -5158,7 +5046,6 @@ $$
  \frac{e(q-a_n\mathbf1)^T}{nv_n}+
  P_{e^\perp}\widetilde W_nP_0,
  \quad P_{e^\perp}=I-\frac{ee^T}{nv_n}.
-
 $$ {#eq-docs-gaussian-calculus-l4785}
 
 To verify the law, the first two terms obey the two observed linear
@@ -5182,7 +5069,6 @@ $b_n=(q-a_n\mathbf1)^Th/(nv_n)$. Multiplying ([-@eq-docs-gaussian-calculus-l4785
 $$
  T\mid(y,q)\ \overset d=\ m_n y+b_n e+s_nP_{e^\perp}g',
  \qquad g'\sim N(0,I_n)\text{ independent of the transcript}.
-
 $$ {#eq-docs-gaussian-calculus-l4812}
 
 ### A.2 Joint empirical laws {#sec-docs-gaussian-calculus-l4818}
@@ -5194,7 +5080,6 @@ $$
  \frac{\|q-\sqrt{v_\epsilon}g\|_2}{\sqrt n}
  \le |a_n|+|\sqrt{v_n}-\sqrt{v_\epsilon}|\frac{\|g\|_2}{\sqrt n}
               +\sqrt{v_n}|\mathbf1^Tg/n|\longrightarrow0.
-
 $$ {#eq-docs-gaussian-calculus-l4823}
 
 The Lipschitz constant $v_\epsilon^{-1/2}$ transfers this to
@@ -5207,8 +5092,7 @@ $$
 $$
 
 by
-$\|q-a_n\mathbf1-\sqrt{v_\epsilon}g\|_2\|h\|_2/n+
-\sqrt{v_\epsilon}\|g\|_2\|h-\tanh g\|_2/n$, which tends to zero.
+$\|q-a_n\mathbf1-\sqrt{v_\epsilon}g\|_2\|h\|_2/n+ \sqrt{v_\epsilon}\|g\|_2\|h-\tanh g\|_2/n$, which tends to zero.
 Gaussian integration by parts gives
 $\mathbb E[G\tanh G]=\mathbb E\operatorname{sech}^2G=c$: the
 boundary term is zero because $\tanh$ is bounded. Therefore
@@ -5260,7 +5144,6 @@ $$
  \|T_\epsilon\|_{L^p}\ge
  \frac{c\gamma_0(1)^{1/p}}{\sqrt{2\gamma_0(0)}}
                 \epsilon^{1/p-1/2}\longrightarrow\infty.
-
 $$ {#eq-docs-gaussian-calculus-l4885}
 
 Meanwhile the input law is always $h_\epsilon\overset d=\tanh G$,
@@ -5462,8 +5345,7 @@ $$
 
 Use feature ascent with block mobilities $n\alpha,\beta,n$, where
 $\alpha,\beta\ge0$. In the auxiliary coordinates $(u,g,a)$,
-$D=n(\alpha\nabla_u f_n\cdot\nabla_u+
-\beta\nabla_g f_n\cdot\nabla_g+\nabla_a f_n\cdot\nabla_a)$.
+$D=n(\alpha\nabla_u f_n\cdot\nabla_u+ \beta\nabla_g f_n\cdot\nabla_g+\nabla_a f_n\cdot\nabla_a)$.
 The primitive identities are
 
 $$
@@ -5561,8 +5443,8 @@ The same compiler accepts independent observable roots:
 $$
  Q_{1,n}=n^{-1}\sum_j u_j^2,\quad
  Q_{2,n}=n^{-1}\sum_i z_i^2,\quad
- Q^{\rm act}_{1,n}=n^{-1}\sum_j u_j^4,\quad
- Q^{\rm act}_{2,n}=n^{-1}\sum_i z_i^4.                    
+ Q^{\mathrm{act}}_{1,n}=n^{-1}\sum_j u_j^4,\quad
+ Q^{\mathrm{act}}_{2,n}=n^{-1}\sum_i z_i^4.                    
 $$ {#eq-docs-gaussian-calculus-l5161}
 
 They are respectively an isolated column of decoration two; a two-edge
@@ -5602,8 +5484,7 @@ $\eta_0,\ldots,\eta_{N-1}$, the output, squared loss, the four hidden
 observables ([-@eq-docs-gaussian-calculus-l5161]) with their actual $c$ factors, and the mobility-weighted
 kernel converge in probability and every finite $L^p$ to deterministic
 scalars. Explicitly these four observables are
-$n^{-1}\sum u_j^2,\ n^{-1}\sum z_i^2,\ c^2n^{-1}\sum u_j^4,\
-c^2n^{-1}\sum z_i^4$, where
+$n^{-1}\sum u_j^2,\ n^{-1}\sum z_i^2,\ c^2n^{-1}\sum u_j^4,\ c^2n^{-1}\sum z_i^4$, where
 $z_i=c n^{-1/2}\sum_jg_{ij}u_j^2$.
 The limit is computed by finite simultaneous substitution in
 forests followed by $\chi$. The same holds for any fixed finite list of
@@ -5630,7 +5511,7 @@ is simultaneous Euler, not sequential block updating.
 Thus the feature-step pullback of any forest scalar is a finite sum
 
 $$
- S_H\circ E_s^{\rm feat}=\sum_{j=0}^{J}s^j P_{H,j},       
+ S_H\circ E_s^{\mathrm{feat}}=\sum_{j=0}^{J}s^j P_{H,j},       
 $$ {#eq-docs-gaussian-calculus-l5228}
 
 where each $P_{H,j}$ is a width-independent finite linear combination
@@ -5670,7 +5551,6 @@ $\eta_N=T/N$, define
 
 $$
  \tau_N(\delta)=\eta_N\min\{k:F_k^{\eta_N}\ge\delta\}.
-                                                              
 $$ {#eq-docs-gaussian-calculus-l5263}
 
 Then $\tau_N(\delta)\to0$. Width is taken first separately for each
@@ -5800,7 +5680,7 @@ $$
  \end{aligned}                                                  
 $$ {#eq-docs-gaussian-calculus-l5373}
 
-Equations (E1)–(E3) form a triangular finite derivative algorithm through
+Equations ([-@eq-docs-gaussian-calculus-l5345])–([-@eq-docs-gaussian-calculus-l5373]) form a triangular finite derivative algorithm through
 any prescribed positive integer order $q$, provided every activation is $C^{q+1}$ near
 the supplied finite state. For example one may restrict the implementation
 to $q\le5$; order zero simply returns the supplied state.
@@ -5859,7 +5739,7 @@ $$ {#eq-docs-gaussian-calculus-l5428}
 Each product here is coordinatewise. A straight parameter line freezes the
 direction and sets its higher parameter derivatives to zero; the moving
 flow generally does neither. Thus its fourth contraction must be computed
-by (E2)–(E6), not borrowed from a straight-line fourth derivative.
+by ([-@eq-docs-gaussian-calculus-l5353])–([-@eq-docs-gaussian-calculus-l5428]), not borrowed from a straight-line fourth derivative.
 
 For feature ascent of one scalar predictor with constant block metric,
 readout reflection $S$ satisfies $f(S\theta)=-f(\theta)$ and
@@ -5887,8 +5767,7 @@ exchange of square root with annealed expectation of finite-width jets.
 If $F$ is an odd deterministic germ with $F'(0)=A,F'''(0)=B$, define
 the label-one full-loss formal clock $s'=2(1-F(s)),s(0)=0$.
 With a general constant $c_0$ in place of $2$, substitution gives
-$s_1=c_0,s_2=-c_0^2A,s_3=c_0^3A^2,
-s_4=-c_0^4(A^3+B)$. Inserting these into $Q(s(t))$ gives
+$s_1=c_0,s_2=-c_0^2A,s_3=c_0^3A^2, s_4=-c_0^4(A^3+B)$. Inserting these into $Q(s(t))$ gives
 
 $$
  Q_t''=c_0^2q_2,\quad Q_t'''=-3c_0^3Aq_2,\quad
@@ -5908,8 +5787,7 @@ Supply a centered jointly Gaussian vector $(Z,U_1,U_2,U_3,U_4)$,
 with $\mathbb EZ^2=1$, a centered jointly Gaussian vector
 $(V_0,V_1,V_2,V_3)$ independent of the first, and their full positive
 semidefinite covariance matrices. Degenerate matrices are allowed.
-Supply constants $\lambda_1,\lambda_2,\lambda_{30},\lambda_{32},
-\lambda_{41},\lambda_{43},c_{10},d_{21},d_{30},d_{32}$.
+Supply constants $\lambda_1,\lambda_2,\lambda_{30},\lambda_{32}, \lambda_{41},\lambda_{43},c_{10},d_{21},d_{30},d_{32}$.
 For an actual expectation assume $\phi$ is polynomial, or smooth with
 polynomial bounds for all derivatives used below. The polynomial case
 already gives a complete exact finite contract. Put $p_j=\phi^{(j)}(Z)$
@@ -5943,15 +5821,15 @@ their origin in a trained network is not presumed.
 The observable and response outputs are
 
 $$
- \gamma_{\rm out}=\mathbb E[h_0h_4],\qquad
- A_{41,\rm out}=\mathbb E[\partial_{V_1}h_4],\qquad
- A_{43,\rm out}=\mathbb E[\partial_{V_3}h_4].              
+ \gamma_{\mathrm{out}}=\mathbb E[h_0h_4],\qquad
+ A_{41,\mathrm{out}}=\mathbb E[\partial_{V_1}h_4],\qquad
+ A_{43,\mathrm{out}}=\mathbb E[\partial_{V_3}h_4].              
 $$ {#eq-docs-gaussian-calculus-l5511}
 
 These partial derivatives hold all other Gaussian coordinates and supplied
 constants fixed, before expectation. They are not derivatives of covariance
 data or of a trained trajectory. The additional Gram outputs
-$\mathbb Eh_1h_3,\mathbb Eh_2^2$ combine with $\gamma_{\rm out}$
+$\mathbb Eh_1h_3,\mathbb Eh_2^2$ combine with $\gamma_{\mathrm{out}}$
 by ([-@eq-docs-gaussian-calculus-l5416]) to give the local fourth squared-RMS head.
 
 All Gaussian eliminations have a finite constructive proof. For a
@@ -5989,7 +5867,7 @@ Only $r_3$ contains $V_3$, so ([-@eq-docs-gaussian-calculus-l5486]) directly giv
 
 $$
  \partial_{V_3}h_4=\lambda_{43}p_1^2,\qquad
- A_{43,\rm out}=d\lambda_{43},\quad d=\mathbb E\phi'(Z)^2. 
+ A_{43,\mathrm{out}}=d\lambda_{43},\quad d=\mathbb E\phi'(Z)^2. 
 $$ {#eq-docs-gaussian-calculus-l5550}
 
 For a layer iteration with constant $d$,
@@ -6020,7 +5898,6 @@ $$
  \delta_\ell=n_L\nabla_zF_\ell(z^{(\ell)}),\quad
  R_\ell=n_L\nabla_z^2F_\ell(z^{(\ell)}),\quad
  D_\ell=\operatorname{diag}(\phi_\ell'(z^{(\ell)})).
-                                                              
 $$ {#eq-docs-gaussian-calculus-l5577}
 
 Thus $R_\ell:\mathbb R^{n_\ell}\to\mathbb R^{n_\ell}$ is symmetric.
@@ -6030,7 +5907,6 @@ $\ell<L$, and the actual local Hessian source
 $$
  E_\ell=\operatorname{diag}\bigl(\phi_\ell''(z^{(\ell)})
                                                     \odot b_\ell\bigr).
-                                                              
 $$ {#eq-docs-gaussian-calculus-l5586}
 
 The exact recursions are
@@ -6207,8 +6083,7 @@ To verify without a special-function import, set $t=\sin^2\theta$.
 The $j$-th moment is
 $(4/\pi)\int_0^{\pi/2}\sin^{2j}\theta\cos^2\theta\,d\theta$.
 Integration by parts gives
-$I_j=\int_0^{\pi/2}\sin^{2j}\theta\,d\theta
-=(2j-1)I_{j-1}/(2j)$,
+$I_j=\int_0^{\pi/2}\sin^{2j}\theta\,d\theta =(2j-1)I_{j-1}/(2j)$,
 $I_0=\pi/2$; subtracting $I_{j+1}$ from $I_j$ yields exactly ([-@eq-docs-gaussian-calculus-l5728]).
 For any nonzero polynomial $p$, both
 $\int p(t)^2d\nu(t)$ and $\int t p(t)^2d\nu(t)$ are strictly positive,
@@ -6257,7 +6132,7 @@ $a_i'=q_nv_i^2,v_i'=2q_na_iv_i$. Since $q_n\to3$ with every finite
 moment, every fixed derivative has the limiting scaling
 
 $$
- F_{\rm red}^{(k)}(0)=3^{k+1}F_{\rm sh}^{(k)}(0).          
+ F_{\mathrm{red}}^{(k)}(0)=3^{k+1}F_{\mathrm{sh}}^{(k)}(0).          
 $$ {#eq-docs-gaussian-calculus-l5785}
 
 For example the conditional derivative expectation is exactly a constant
@@ -6353,7 +6228,6 @@ $N(y)=Q_1(G(y))$. Formal chain differentiation gives
 
 $$
  \frac{d}{dx}N(\sqrt x)=\frac{4\alpha}{K(\sqrt x)}.
-                                                              
 $$ {#eq-docs-gaussian-calculus-l5868}
 
 If $1/K(\sqrt x)=\sum_{r\ge0}(-1)^rh_rx^r$, integration in the
@@ -6411,17 +6285,17 @@ limits and deterministic checks:
 
 | Operation | Input and output contract |
 |---|---|
-| `gradient_tree_terms(order)` | Nonnegative integer order; exact integer weights and canonical unrooted parameter-contraction trees from A. |
-| `forest_expectation(forest, width=None)` | Explicit nonnegative integer row/column decorations and simple acyclic edges; exact Gaussian value from ([-@eq-docs-gaussian-calculus-l4995]) at positive integer width, or leading value from B when omitted. For odd edge count the expectation is zero. |
-| `quadratic_forest_derivatives(root, order, alpha, beta)` | A root forest, finite order and nonnegative rational block multipliers; finite derivative polynomial from C, with grades and normalizations retained. |
-| `quadratic_euler_pullback(root, step, loss=False, label=1)` | One simultaneous substitution ([-@eq-docs-gaussian-calculus-l5228]) restricted to raw squares $c=1$ and unit block multipliers, or the full-squared-loss substitution with an explicit label; exact forest polynomial, never a population trajectory. |
-| `finite_flow_jets(state, inputs, labels, activations, order, kappas)` | Supplied finite raw state and derivative callbacks through the declared ceiling; ordinary parameter/forward coefficients through order five and reverse coefficients through one lower order from E and an explicit `clock="physical_full_mean_loss"` tag. |
-| `hidden_gram_jet(jets, layer, kind)` | One-based layer and explicit activation/preactivation choice; float64 ordinary same-layer Gram coefficients. |
-| `gaussian_hidden_head(covariance, responses, activation)` | Actual-Gaussian polynomial case of (E9)–(E13), complete rational covariance data, fixed-coordinate partials, and polynomial activation derivatives zero through four. No formal-symbolic or nonpolynomial integration mode is implemented. |
-| `preactivation_hessian_words(layer_shapes, affine_flags)` | Typed factors in ([-@eq-docs-gaussian-calculus-l5613]), shapes, orientation and local source layer; valid source elimination only for declared identically affine activations. |
-| `preactivation_hessians(state, inputs, activations)` | Numeric $R_\ell,E_\ell$ and fixed-variable contract (F1)–(F3), with actual transpose checks; no full-parameter-Hessian label. |
-| `identity_shallow_step(f, q, d, label, mobility, step)` | Exact scalar update ([-@eq-docs-gaussian-calculus-l5651]), with stated full-loss convention and supplied finite scalar state. |
-| `next_hankel_threshold(A,b)` / `bernstein_coefficients(P,a,b)` | Exact finite matrix/polynomial operations (H4)–(H5), with explicit singular-range and interval validation. |
+| $\mathrm{gradient\_tree\_terms}(\mathrm{order})$ | Nonnegative integer order; exact integer weights and canonical unrooted parameter-contraction trees from A. |
+| $\mathrm{forest\_expectation}(\mathrm{forest},\mathrm{width}=\mathrm{None})$ | Explicit nonnegative integer row/column decorations and simple acyclic edges; exact Gaussian value from ([-@eq-docs-gaussian-calculus-l4995]) at positive integer width, or leading value from B when omitted. For odd edge count the expectation is zero. |
+| $\mathrm{quadratic\_forest\_derivatives}(\mathrm{root},\mathrm{order},\alpha,\beta)$ | A root forest, finite order and nonnegative rational block multipliers; finite derivative polynomial from C, with grades and normalizations retained. |
+| $\mathrm{quadratic\_euler\_pullback}(\mathrm{root},\mathrm{step},\mathrm{loss}=\mathrm{False},\mathrm{label}=1)$ | One simultaneous substitution ([-@eq-docs-gaussian-calculus-l5228]) restricted to raw squares $c=1$ and unit block multipliers, or the full-squared-loss substitution with an explicit label; exact forest polynomial, never a population trajectory. |
+| $\mathrm{finite\_flow\_jets}(\mathrm{state},\mathrm{inputs},\mathrm{labels},\mathrm{activations},\mathrm{order},\mathrm{kappas})$ | Supplied finite raw state and derivative callbacks through the declared ceiling; ordinary parameter/forward coefficients through order five and reverse coefficients through one lower order from E and an explicit $\mathrm{clock}=\text{"physical\_full\_mean\_loss"}$ tag. |
+| $\mathrm{hidden\_gram\_jet}(\mathrm{jets},\mathrm{layer},\mathrm{kind})$ | One-based layer and explicit activation/preactivation choice; float64 ordinary same-layer Gram coefficients. |
+| $\mathrm{gaussian\_hidden\_head}(\mathrm{covariance},\mathrm{responses},\mathrm{activation})$ | Actual-Gaussian polynomial case of ([-@eq-docs-gaussian-calculus-l5486])–([-@eq-docs-gaussian-calculus-l5550]), complete rational covariance data, fixed-coordinate partials, and polynomial activation derivatives zero through four. No formal-symbolic or nonpolynomial integration mode is implemented. |
+| $\mathrm{preactivation\_hessian\_words}(\mathrm{layer\_shapes},\mathrm{affine\_flags})$ | Typed factors in ([-@eq-docs-gaussian-calculus-l5613]), shapes, orientation and local source layer; valid source elimination only for declared identically affine activations. |
+| $\mathrm{preactivation\_hessians}(\mathrm{state},\mathrm{inputs},\mathrm{activations})$ | Numeric $R_\ell,E_\ell$ and fixed-variable contract ([-@eq-docs-gaussian-calculus-l5577])–([-@eq-docs-gaussian-calculus-l5592]), with actual transpose checks; no full-parameter-Hessian label. |
+| $\mathrm{identity\_shallow\_step}(f,q,d,\mathrm{label},\mathrm{mobility},\mathrm{step})$ | Exact scalar update ([-@eq-docs-gaussian-calculus-l5651]), with stated full-loss convention and supplied finite scalar state. |
+| $\mathrm{next\_hankel\_threshold}(A,b)$ / $\mathrm{bernstein\_coefficients}(P,a,b)$ | Exact finite matrix/polynomial operations ([-@eq-docs-gaussian-calculus-l5882])–([-@eq-docs-gaussian-calculus-l5901]), with explicit singular-range and interval validation. |
 
 Integers used as counts must reject booleans and nonintegral types rather
 than coercing them silently. Floating implementations must state that
@@ -6435,7 +6309,7 @@ finite size; no efficient general high-order promise is made.
 
 ## Integrated queries and adaptive Gaussian comparison {#sec-docs-gaussian-calculus-l5945}
 
-The exact integrated-query memories called Section 13 in these fragments
+The exact integrated-query memories called [Section 13](finite-optimization-and-controls.qmd#sec-docs-finite-optimization-and-controls-l2167) in these fragments
 are proved in [finite controls](finite-optimization-and-controls.qmd#sec-docs-finite-optimization-and-controls-l1).
 That chapter also contains the associated response and physical-control
 fragments S, I, C and E. The local prefixes Q2–Q7 and G below refer only
@@ -6450,6 +6324,7 @@ Consider the following completely specified triangular Gaussian perturbations,
 with no mixture or complex parameter.
 
 ::: {#lem-docs-gaussian-calculus-l5961}
+
 ## Exact frozen-history
 
 Let $n,m,K$ be positive integers,
@@ -6500,6 +6375,7 @@ $$ {#eq-docs-gaussian-calculus-l5990}
 []{#proof-docs-gaussian-calculus-l5996}
 
 ::: {.proof}
+
 ## of the identities
 
 Group each independent $\Gamma_{ij}$ in ([-@eq-docs-gaussian-calculus-l5984]):
@@ -6553,17 +6429,17 @@ More generally, with $\|\omega_l\|/\sqrt m\le B$, ([-@eq-docs-gaussian-calculus-
 
 $$
 \frac{T^2B^2+\sigma^2T\eta}{m}\,
-r_{\rm eff}(\Theta,\sigma),\qquad
-r_{\rm eff}=\operatorname{tr}\!\left[
+r_{\mathrm{eff}}(\Theta,\sigma),\qquad
+r_{\mathrm{eff}}=\operatorname{tr}\!\left[
 \Theta^T\Theta(\Theta^T\Theta+\sigma^2I)^{-1}\right].          
 $$ {#eq-docs-gaussian-calculus-l6038}
 
 A deterministic finite-rank path has bounded effective rank, including
 an affine slowly changing history. This follows because
-$\sum_i\|t_i\|^2=r_{\rm eff}$, by cyclicity of the trace and
+$\sum_i\|t_i\|^2=r_{\mathrm{eff}}$, by cyclicity of the trace and
 $A_\theta^{-1}A_\theta^{-T}=(\Theta^T\Theta+\sigma^2I)^{-1}$.
 The reverse orientation has the analogous estimate with
-$r_{\rm eff}(\Omega/\sqrt m,\sigma)$ and
+$r_{\mathrm{eff}}(\Omega/\sqrt m,\sigma)$ and
 $A=\max_l\|\theta_l\|$.
 
 These estimates also give convergence in the supremum norm of the
@@ -6572,22 +6448,21 @@ integrated path, not merely convergence at its last time. Specifically,
 $$
 \mathbb E\max_{1\le j\le K}
  \left\|\eta\sum_{l=1}^j g_l\right\|^2
-\le \frac{T^2(B^2+\sigma^2)}m\,r_{\rm eff}(\Theta,\sigma),     
+\le \frac{T^2(B^2+\sigma^2)}m\,r_{\mathrm{eff}}(\Theta,\sigma),     
 $$ {#eq-docs-gaussian-calculus-l6054}
 
 and the reverse orientation has bound
-$T^2(A^2+\sigma^2)r_{\rm eff}(\Omega/\sqrt m,\sigma)/m$.
+$T^2(A^2+\sigma^2)r_{\mathrm{eff}}(\Omega/\sqrt m,\sigma)/m$.
 Indeed, pathwise Cauchy–Schwarz bounds the maximum by
 $T\eta\sum_l\|g_l\|^2$, while Gaussian isometry gives
-$\mathbb E\|g_l\|^2=(\|\omega_l\|^2/m+\sigma^2)
- \sum_{i\le l}\|t_i\|^2/m$.
+$\mathbb E\|g_l\|^2=(\|\omega_l\|^2/m+\sigma^2)  \sum_{i\le l}\|t_i\|^2/m$.
 
 The unintegrated frozen queries also admit a uniform maximum bound:
 
 $$
 \mathbb E\max_{1\le l\le K}\|g_l\|^2
 \le\frac{4(B^2+\sigma^2)}m\,
- r_{\rm eff}(\Theta,\sigma)\log(2K),                          
+ r_{\mathrm{eff}}(\Theta,\sigma)\log(2K),                          
 $$ {#eq-docs-gaussian-calculus-l6067}
 
 with the analogous reverse-orientation estimate. To verify this without
@@ -6604,7 +6479,7 @@ Here $-\log(1-x)\le2x$ for $0\le x\le1/2$ was used.
 Jensen's inequality and $\max_l e^{x_l}\le\sum_l e^{x_l}$
 give $\mathbb E\max_l\|Z_l\|^2\le4v^2\log(2K)$.
 The case $v=0$ is immediate. Apply this with
-$v^2=(B^2+\sigma^2)r_{\rm eff}/m$, using the per-query identity
+$v^2=(B^2+\sigma^2)r_{\mathrm{eff}}/m$, using the per-query identity
 above. Thus ([-@eq-docs-gaussian-calculus-l6067]) also includes arbitrarily correlated frozen query times.
 
 **Slow-history bound, including integer choices.** Assume only the discrete
@@ -6612,7 +6487,7 @@ Lipschitz estimate
 $\|\theta_l-\theta_j\|\le M\eta|l-j|$. Then
 
 $$
-r_{\rm eff}\le r+\frac{KM^2T^2}{\sigma^2r^2}\quad(1\le r\le K).
+r_{\mathrm{eff}}\le r+\frac{KM^2T^2}{\sigma^2r^2}\quad(1\le r\le K).
 $$
 
 To prove this, partition the indices into the nonempty blocks
@@ -6629,14 +6504,14 @@ $\sigma^2$. This proves the estimate.
 Set $x=(KM^2T^2/\sigma^2)^{1/3}$ and choose
 $r=\min\{K,\max\{1,\lceil x\rceil\}\}$. If $x\le K$,
 the estimate is at most $1+2x$; if $x>K$, use
-$r_{\rm eff}\le K$ directly. Thus
+$r_{\mathrm{eff}}\le K$ directly. Thus
 
 $$
-r_{\rm eff}\le\min\{K,1+2(KM^2T^2/\sigma^2)^{1/3}\}.
+r_{\mathrm{eff}}\le\min\{K,1+2(KM^2T^2/\sigma^2)^{1/3}\}.
 $$
 
 For $K=O(m^2)$, uniformly bounded $M,T$, and
-$\sigma\gg m^{-1/2}$, this proves $r_{\rm eff}/m\to0$.
+$\sigma\gg m^{-1/2}$, this proves $r_{\mathrm{eff}}/m\to0$.
 Choosing additionally $\sigma\to0$, for example
 $\sigma=m^{-\beta}$, $0<\beta<1/2$, removes the added
 regularization forcing below. The reverse orientation needs the same
@@ -6648,8 +6523,8 @@ independent across calls and also independent of $\Gamma$ and the fixed
 histories. In the two normalized output spaces define
 
 $$
- u_l^{\rm add}=\sigma U_l/\sqrt m,\qquad
- v_l^{\rm add}=\sigma V_l/\sqrt m.
+ u_l^{\mathrm{add}}=\sigma U_l/\sqrt m,\qquad
+ v_l^{\mathrm{add}}=\sigma V_l/\sqrt m.
 $$
 
 The second is the raw reverse noise $\sigma V_l$ divided by $\sqrt m$,
@@ -6657,17 +6532,16 @@ just as in the definition of $k_l$. Independence gives the exact
 Euler-integrated mean-square norms
 
 $$
- E\left\|\eta\sum_{l=1}^K u_l^{\rm add}\right\|^2
+ E\left\|\eta\sum_{l=1}^K u_l^{\mathrm{add}}\right\|^2
    =\sigma^2(n/m)T\eta,\qquad
- E\left\|\eta\sum_{l=1}^K v_l^{\rm add}\right\|^2
+ E\left\|\eta\sum_{l=1}^K v_l^{\mathrm{add}}\right\|^2
    =\sigma^2T\eta.
 $$
 
 Their partial sums are square-integrable vector martingales. Their expected
 squared maxima are at most four times the displayed terminal moments.
 Indeed the first-crossing inequality for the norm submartingale gives
-$\lambda\Pr\{M_*\ge\lambda\}\le
- E[\|M_K\|\mathbf1_{M_*\ge\lambda}]$. Integrating in $\lambda$
+$\lambda\Pr\{M_*\ge\lambda\}\le  E[\|M_K\|\mathbf1_{M_*\ge\lambda}]$. Integrating in $\lambda$
 and applying Cauchy--Schwarz yields
 $EM_*^2\le2E[\|M_K\|M_*]\le2\|M_K\|_{L^2}\|M_*\|_{L^2}$,
 which proves the factor four (or first truncate the maximum and then pass
@@ -6693,7 +6567,7 @@ The implication is scoped. Simple deterministic histories resolve the
 raw Gaussian-matrix-size concern, even with $K\asymp m^2$.
 However, in the actual comparison dynamics the Cholesky factors and
 queries depend on $\Gamma$; conditioning on those histories does not
-preserve the independent Gaussian law used in (Q2.A)–(Q2.B) or ([-@eq-docs-gaussian-calculus-l6067]). The actual
+preserve the independent Gaussian law used in ([-@eq-docs-gaussian-calculus-l5984])–([-@eq-docs-gaussian-calculus-l5990]) or ([-@eq-docs-gaussian-calculus-l6067]). The actual
 preactivation/backprop perturbations enter nonlinear queries before their
 effect reaches an Euler update. An actual causal covariance estimate and
 propagation bound are still required. The canonical middle multiplier
@@ -6855,13 +6729,12 @@ Here $\mathbb E_{i-1}$ denotes conditional expectation. Then for $x>0$,
 $$
  \mathbb P\{\max_{k\le J}\|Y_k\|_{op}\ge x\}
  \le(d_1+d_2)\exp\!\left(-\frac{x^2}{2(v+cx/3)}\right).
-
 $$ {#eq-docs-gaussian-calculus-l6297}
 
 If the denominator vanishes the probability is zero. This is the finite-horizon
 rectangular Freedman inequality. The full proof, including the matrix
 trace-concavity step, follows. The statement agrees with
-[Tropp, Corollary 1.3](https://tropp.caltech.edu/papers/Tro11-Freedmans-Inequality.pdf).
+[Tropp, Corollary 1.3](https://tropp.caltech.edu/papers/Tro11-Freedmans-Inequality.pdf) [@tropp2011freedman].
 
 **Inverse Jensen and logarithms.** For positive definite self-adjoint operators
 $T_i$ on a finite-dimensional Hilbert space and linear maps $U_i$ satisfying
@@ -6960,8 +6833,8 @@ $$
 $$ {#eq-docs-gaussian-calculus-l6379}
 
 This entropy-to-trace step follows the variational argument in
-[Tropp, Theorem 1 and Lemma 6](https://tropp.caltech.edu/papers/Tro12-Joint-Convexity.pdf);
-(Q3.2)–(Q3.3) provide its joint-convexity dependency explicitly.
+[Tropp, Theorem 1 and Lemma 6](https://tropp.caltech.edu/papers/Tro12-Joint-Convexity.pdf) [@tropp2012jointconvexity];
+([-@eq-docs-gaussian-calculus-l6324])–([-@eq-docs-gaussian-calculus-l6353]) provide its joint-convexity dependency explicitly.
 
 **Conditional exponential estimate.** First consider self-adjoint increments
 $X_k$ of size $d$, with $\|X_k\|_{op}\le c$ and
@@ -6985,12 +6858,12 @@ Set $W_k=\sum_{i\le k}V_i$. Conditional Jensen using ([-@eq-docs-gaussian-calcul
 predictable matrix $H=\theta Y_{k-1}-gW_k$, gives
 
 $$
- \begin{split}
+ \begin{aligned}
  \mathbb E_{k-1}\operatorname{tr}e^{\theta Y_k-gW_k}
  &\le\operatorname{tr}\exp\left(H+
               \log\mathbb E_{k-1}e^{\theta X_k}\right)\\
  &\le\operatorname{tr}e^{\theta Y_{k-1}-gW_{k-1}}.
- \end{split}                                                  
+ \end{aligned}                                                  
 $$ {#eq-docs-gaussian-calculus-l6405}
 
 Jensen is legitimate for these bounded positive definite random matrices;
@@ -7029,8 +6902,7 @@ each of its two interacting initial matrices and proves the rank premise.
 
 ### 1. Causal setup and exact identities {#sec-docs-gaussian-calculus-l6445}
 
-Fix $n,m,K\ge1$ and $\sigma>0$. Let $\Gamma\in
-\mathbb R^{K\times K}$ have independent standard Gaussian entries.
+Fix $n,m,K\ge1$ and $\sigma>0$. Let $\Gamma\in \mathbb R^{K\times K}$ have independent standard Gaussian entries.
 Let $\mathcal H$ contain all other random arrays and seeds, jointly
 independent of $\Gamma$. In the perturbed-original process these
 include the original Gaussian matrix and its direct-noise arrays;
@@ -7084,8 +6956,7 @@ $$
 \quad \rho_{\omega,l}=\operatorname{tr}\mathsf S_l.             
 $$ {#eq-docs-gaussian-calculus-l6488}
 
-Indeed $\mathsf T_l=\Theta_l(\Theta_l^T\Theta_l+
-\sigma^2I)^{-1}\Theta_l^T$, and the singular-value decomposition
+Indeed $\mathsf T_l=\Theta_l(\Theta_l^T\Theta_l+ \sigma^2I)^{-1}\Theta_l^T$, and the singular-value decomposition
 gives eigenvalues $d_j^2/(d_j^2+\sigma^2)\le1$; the same
 calculation applies to $\Omega_l/\sqrt m$. These traces are the
 regularized effective ranks. They increase with the prefix, and
@@ -7145,8 +7016,7 @@ The same identity holds for $A_\theta$. Substitution into the two
 triangular terms just displayed proves ([-@eq-docs-gaussian-calculus-l6528]), including the strict reverse sum.
 Furthermore, each diagonal obeys $A_{ll}\ge\sigma$: its squared
 Schur complement is
-$\sigma^2+x_l^T[I-X_{l-1}(X_{l-1}^TX_{l-1}+
-\sigma^2I)^{-1}X_{l-1}^T]x_l\ge\sigma^2$.
+$\sigma^2+x_l^T[I-X_{l-1}(X_{l-1}^TX_{l-1}+ \sigma^2I)^{-1}X_{l-1}^T]x_l\ge\sigma^2$.
 Thus both residual coefficients in ([-@eq-docs-gaussian-calculus-l6528]), apart from $m^{-1/2}$,
 are at most $\sigma$.
 
@@ -7167,7 +7037,7 @@ Then
 
 $$
 \mathbb P\left(E_R\cap
- \left\{\max_h\|B_h\|_{\rm op}>L
+ \left\{\max_h\|B_h\|_{\mathrm{op}}>L
  \ \text{or}\ \max_l(\|a_l\|\vee\|b_l\|)>c\right\}\right)
 \le\alpha,                                                 
 $$ {#eq-docs-gaussian-calculus-l6562}
@@ -7221,17 +7091,17 @@ $$
 Summing along each realized path, ([-@eq-docs-gaussian-calculus-l6488]) and the threshold rule imply
 
 $$
-W_{\rm left}\preceq
- R_\omega\sum_{\rm accepted\ rows}t_lt_l^T
- +\sum_{\rm accepted\ columns}\|s_l\|^2I_n
+W_{\mathrm{left}}\preceq
+ R_\omega\sum_{\mathrm{accepted}\ rows}t_lt_l^T
+ +\sum_{\mathrm{accepted}\ columns}\|s_l\|^2I_n
  \preceq2R_\omega I_n,
 $$
 
 
 $$
-W_{\rm right}\preceq
- \sum_{\rm accepted\ rows}\|t_l\|^2I_m
- +R_\theta\sum_{\rm accepted\ columns}s_ls_l^T
+W_{\mathrm{right}}\preceq
+ \sum_{\mathrm{accepted}\ rows}\|t_l\|^2I_m
+ +R_\theta\sum_{\mathrm{accepted}\ columns}s_ls_l^T
  \preceq2R_\theta I_m.                                     
 $$ {#eq-docs-gaussian-calculus-l6615}
 
@@ -7299,7 +7169,6 @@ $$
  T=N\eta\le S+1,\qquad K=N+1,
  \qquad \sigma=n^{-1/4},\qquad \gamma=1/8,\qquad \epsilon=n^{-\gamma},
  \qquad \ell_n=\log(e+n).
-
 $$ {#eq-docs-gaussian-calculus-l6675}
 
 Here $N$ counts updates and $K$ counts query pairs **per matrix**, including
@@ -7309,7 +7178,6 @@ satisfying
 
 $$
  |\tau(u)|\le |u|,\qquad |\tau(u)-\tau(v)|\le |u-v|.
-
 $$ {#eq-docs-gaussian-calculus-l6686}
 
 Apply it coordinatewise. Identity and any fixed clipping map satisfying
@@ -7326,7 +7194,6 @@ matrix $X\in\mathbb R^{n\times k}$, define
 $$
  \rho(X)=\operatorname{tr}\!\left[
  XX^T(XX^T+\sigma^2I_n)^{-1}\right].
-
 $$ {#eq-docs-gaussian-calculus-l6700}
 
 This equals the effective-rank expression using $X^TX$, including when
@@ -7335,6 +7202,7 @@ divided by $\sqrt n$, and the lower and upper forward arguments divided
 by $\sqrt n$, including their warmups.
 
 ::: {#thm-docs-gaussian-calculus-l6710}
+
 ## Auxiliary
 
 The recursion in Sections [1](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l19)--[2](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l105) is finite and
@@ -7344,7 +7212,6 @@ constants $C_S<\infty$ and events $\mathcal E_n^\tau$ such that
 $$
  \mathbb P(\mathcal E_n^\tau)
  \ge 1-4e^{-(8-2\log9)n}-2n e^{-n^2/2}-5n^{-2},
-
 $$ {#eq-docs-gaussian-calculus-l6713}
 
 and, on these events, every prefix of every one of the four actual
@@ -7352,7 +7219,6 @@ histories satisfies
 
 $$
  \rho\le C_S n^{11/12}\ell_n^{4/3}.
-
 $$ {#eq-docs-gaussian-calculus-l6720}
 
 For both matrices and both orientations, including warmups, let $e_l$
@@ -7362,7 +7228,6 @@ that same actual query argument. Then, on the same event,
 $$
  \max_l \frac{\|e_l\|_2}{\sqrt n}
  \le C_S n^{-1/24}\ell_n^{8/3}+C_S n^{-1/4}.
-
 $$ {#eq-docs-gaussian-calculus-l6727}
 
 Both terms tend to zero. This comparison is on the auxiliary algorithm's
@@ -7389,7 +7254,6 @@ $$
  |\phi|\le c_\phi:=\pi/2,\quad 0<\phi'\le1,\quad
  \|\phi''\|_\infty\le2,\quad
  \psi'(x)=\frac{1}{(1+(F^{-1}x)^2)^2}\le1.
-
 $$ {#eq-docs-gaussian-calculus-l6749}
 
 Sample the independent canonical initial blocks
@@ -7398,7 +7262,6 @@ $$
  z^{(1)}_{0,i}\sim N(0,1),\quad
  W^{(2)}_{0,ij},W^{(3)}_{0,ij}\sim N(0,1/n),\quad
  W^{(4)}_{0,i}\sim N(0,n^{-2}).
-
 $$ {#eq-docs-gaussian-calculus-l6757}
 
 Set $x^{(1)}_0=F(z^{(1)}_0)$ and $h^{(1)}_0=\phi(z^{(1)}_0)$.
@@ -7409,7 +7272,6 @@ sample independent arrays
 $$
  \Gamma^{(b)}\in\mathbb R^{K\times K},\qquad
  U^{(b)}_l,V^{(b)}_l\in\mathbb R^n\quad(1\le l\le K),
-
 $$ {#eq-docs-gaussian-calculus-l6767}
 
 all with independent standard Gaussian entries. These two collections
@@ -7422,9 +7284,8 @@ are
 
 $$
  \theta_l=v_l/\sqrt n,\qquad\omega_l=h_l,\qquad
- p_l^{\rm src}=G^T\theta_l=W_0^Tv_l,\qquad
- q_l^{\rm src}=G\omega_l/n=W_0h_l/\sqrt n.
-
+ p_l^{\mathrm{src}}=G^T\theta_l=W_0^Tv_l,\qquad
+ q_l^{\mathrm{src}}=G\omega_l/n=W_0h_l/\sqrt n.
 $$ {#eq-docs-gaussian-calculus-l6779}
 
 For each leading history $\Theta_l=[\theta_1,\ldots,\theta_l]$,
@@ -7435,7 +7296,6 @@ $$
  A_{\theta,l}^TA_{\theta,l}=\Theta_l^T\Theta_l+\sigma^2I_l,
  \qquad
  A_{\omega,l}^TA_{\omega,l}=\Omega_l^T\Omega_l/n+\sigma^2I_l.
-
 $$ {#eq-docs-gaussian-calculus-l6788}
 
 Their leading blocks, including inverse leading blocks, agree as calls
@@ -7444,49 +7304,44 @@ are appended. Define the permanent columns
 $$
  t_i=(\Theta_l A_{\theta,l}^{-1})_i,\qquad
  s_i=(\Omega_l A_{\omega,l}^{-1})_i/\sqrt n\quad(i\le l).
-
 $$ {#eq-docs-gaussian-calculus-l6796}
 
-The exact Gamma perturbations are
+The exact $\Gamma$ perturbations are
 
 $$
- \begin{split}
+ \begin{aligned}
  g_l&=\frac1{\sqrt n}\sum_{i\le l}
  t_i(\Gamma_{[l]\times[l]}A_{\omega,l})_{il},\\
  k_l&=\frac1{\sqrt n}\sum_{i<l}
  s_i(\Gamma_{[l]\times[l]}^T A_{\theta,l})_{il}.
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l6802}
 
 In particular, the reverse sum is strict. Define the raw outputs, which
 are the quantities actually used by the recursion, by
 
 $$
- \begin{split}
+ \begin{aligned}
  \mathcal R_l&=W_0^Tv_l+\sqrt n\,k_l+\sigma U_l,\\
  \mathcal F_l&=W_0h_l+\sqrt n\,g_l+\sigma V_l.
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l6813}
 
 Thus the perturbed reverse output is $\widehat p_l=\mathcal R_l$,
 while its perturbed normalized forward output is
-$\widehat q_l=\mathcal F_l/\sqrt n=q_l^{\rm src}+g_l+\sigma V_l/\sqrt n$.
+$\widehat q_l=\mathcal F_l/\sqrt n=q_l^{\mathrm{src}}+g_l+\sigma V_l/\sqrt n$.
 The raw query errors and their normalized sizes are consequently
 
 $$
- e_l^{\rm rev}=\sqrt n\,k_l+\sigma U_l,\qquad
- e_l^{\rm for}=\sqrt n\,g_l+\sigma V_l,
-
+ e_l^{\mathrm{rev}}=\sqrt n\,k_l+\sigma U_l,\qquad
+ e_l^{\mathrm{for}}=\sqrt n\,g_l+\sigma V_l,
 $$ {#eq-docs-gaussian-calculus-l6824}
 
 
 $$
- \frac{\|e_l^{\rm rev}\|_2}{\sqrt n}\le\|k_l\|_2+\sigma\frac{\|U_l\|_2}{\sqrt n},
+ \frac{\|e_l^{\mathrm{rev}}\|_2}{\sqrt n}\le\|k_l\|_2+\sigma\frac{\|U_l\|_2}{\sqrt n},
  \qquad
- \frac{\|e_l^{\rm for}\|_2}{\sqrt n}\le\|g_l\|_2+\sigma\frac{\|V_l\|_2}{\sqrt n}.
-
+ \frac{\|e_l^{\mathrm{for}}\|_2}{\sqrt n}\le\|g_l\|_2+\sigma\frac{\|V_l\|_2}{\sqrt n}.
 $$ {#eq-docs-gaussian-calculus-l6829}
 
 Both raw direct noises in ([-@eq-docs-gaussian-calculus-l6813]) have coordinate variance $\sigma^2$.
@@ -7499,7 +7354,6 @@ $$
  a^{(2)}_0=R^{(1)}_0=0,\qquad
  M^{(2)}_0=M^{(3)}_0=0,\qquad
  x^{(1)}_0=F(z^{(1)}_0),\qquad W^{(4)}_0\text{ as in (Q5.8)}.
-
 $$ {#eq-docs-gaussian-calculus-l6840}
 
 Here $a^{(2)},R^{(1)},x^{(1)},W^{(4)},z^{(2)},z^{(3)}$ are vectors of
@@ -7523,7 +7377,6 @@ $$
  z^{(2)}_0=W^{(2)}_0h^{(1)}_0+\sigma V^{(2)}_1,
  \qquad
  z^{(3)}_0=W^{(3)}_0\phi(z^{(2)}_0)+\sigma V^{(3)}_1.
-
 $$ {#eq-docs-gaussian-calculus-l6862}
 
 There are no other initial-matrix calls in initialization. Formula ([-@eq-docs-gaussian-calculus-l6862])
@@ -7541,7 +7394,6 @@ $$
  h^{(2)}_j=\phi(z^{(2)}_j),\qquad
  h^{(3)}_j=\phi(z^{(3)}_j),\qquad
  \delta^{(3)}_j=W^{(4)}_j\odot\phi'(z^{(3)}_j).
-
 $$ {#eq-docs-gaussian-calculus-l6877}
 
 At call index $l=j+2$, use
@@ -7552,7 +7404,6 @@ $$
  \text{lower }(b=2)&a^{(2)}_j/\sqrt n&h^{(1)}_j\\
  \text{upper }(b=3)&\delta^{(3)}_j/\sqrt n&h^{(2)}_j.
  \end{array}
-
 $$ {#eq-docs-gaussian-calculus-l6885}
 
 Execute the lower reverse/forward pair and then the upper reverse/forward
@@ -7564,14 +7415,13 @@ $$
              +(M^{(3)}_j)^T\delta^{(3)}_j,
  \qquad
  \delta^{(2)}_j=\phi'(z^{(2)}_j)\odot\tau(q^{(2)}_j).
-
 $$ {#eq-docs-gaussian-calculus-l6896}
 
 Now update all registers simultaneously, using exactly the old factors
 displayed on the right:
 
 $$
- \begin{split}
+ \begin{aligned}
  a^{(2)}_{j+1}&=a^{(2)}_j+\eta\delta^{(2)}_j,\\
  M^{(2)}_{j+1}&=M^{(2)}_j+
        \frac\eta n\delta^{(2)}_j(h^{(1)}_j)^T,\\
@@ -7588,19 +7438,17 @@ $$
  z^{(3)}_{j+1}&=z^{(3)}_j+
     \frac\eta\epsilon
       [\mathcal F^{(3)}_{j+2}+M^{(3)}_j h^{(2)}_j-z^{(3)}_j].
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l6905}
 
 The memories retain every earlier increment. In particular, $R^{(1)}$
 uses pre-step $M^{(2)}_j$, not $M^{(2)}_{j+1}$. The histories in the
-theorem are the matrices $\Theta^{(2)}_l,\Omega^{(2)}_l/\sqrt n,
-\Theta^{(3)}_l,\Omega^{(3)}_l/\sqrt n$ actually generated by (Q5.17)--(Q5.22).
+theorem are the matrices $\Theta^{(2)}_l,\Omega^{(2)}_l/\sqrt n, \Theta^{(3)}_l,\Omega^{(3)}_l/\sqrt n$ actually generated by ([-@eq-docs-gaussian-calculus-l6840])--([-@eq-docs-gaussian-calculus-l6905]).
 
 More explicitly, the finite-step memory identities are
 
 $$
- \begin{split}
+ \begin{aligned}
  M^{(2)}_j&=\frac\eta n\sum_{i<j}
                     \delta^{(2)}_i(h^{(1)}_i)^T,\\
  M^{(3)}_j&=\frac\eta n\sum_{i<j}
@@ -7610,8 +7458,7 @@ $$
            h^{(1)}_u(\delta^{(2)}_u)^T\delta^{(2)}_i\\
        &=\frac\eta n\sum_{u<j}h^{(1)}_u(\delta^{(2)}_u)^T
                          [a^{(2)}_j-a^{(2)}_{u+1}].
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l6932}
 
 The last identity uses
@@ -7636,7 +7483,7 @@ perform this induction.
 For completeness, the adaptive filtration applies separately to each
 matrix despite their interaction. For matrix $b$, let
 $\mathcal H^{(b)}$ contain all canonical initial blocks, all $U,V$,
-and the other matrix's whole Gamma array. These primitive arrays are
+and the other matrix's whole $\Gamma$ array. These primitive arrays are
 jointly independent of $\Gamma^{(b)}$. Set
 
 $$
@@ -7644,7 +7491,6 @@ $$
   \sigma(\Gamma^{(b)}_{ij}:i,j\le l),\qquad
  \mathscr F^{(b)}_{l-1/2}=\mathscr F^{(b)}_{l-1}\vee
   \sigma(\Gamma^{(b)}_{lj}:j<l).
-
 $$ {#eq-docs-gaussian-calculus-l6970}
 
 In the warmup, the upper forward argument depends only on the lower
@@ -7660,12 +7506,11 @@ the own fresh row. The reverse formula ([-@eq-docs-gaussian-calculus-l6802]) use
 old prefix. The forward formula then uses the own fresh column,
 including the diagonal. The lower current call, when viewed in the
 upper filtration, is also measurable before the upper fresh row,
-because its arguments were pre-step arguments and its Gamma array is
+because its arguments were pre-step arguments and its $\Gamma$ array is
 in $\mathcal H^{(3)}$. Thus the prescribed
 $\theta\to\widehat p\to\omega\to\widehat q$ order is valid.
 
-The algorithm's query maps themselves need only its initial $z^{(1)}_0,
-W^{(4)}_0$ and its finite transcript of declared outputs. The larger
+The algorithm's query maps themselves need only its initial $z^{(1)}_0, W^{(4)}_0$ and its finite transcript of declared outputs. The larger
 $\mathcal H^{(b)}$ is a device for proving the adaptive estimate; it
 does not authorize unrecorded matrix calls or supply an external network
 trajectory. Nor does it include the other matrix's realized adaptive
@@ -7678,29 +7523,27 @@ Here is the specialization of [fragment Q4](gaussian-calculus.qmd#sec-docs-gauss
 either matrix set
 
 $$
- \begin{split}
+ \begin{aligned}
  B_{l-1/2}&=\sum_{i\le l,\,j<l}t_i\Gamma_{ij}s_j^T,
  &B_l&=\sum_{i,j\le l}t_i\Gamma_{ij}s_j^T,\\
  \mathfrak a_l&=\sum_{j<l}s_j\Gamma_{lj},
  &\mathfrak b_l&=\sum_{i\le l}t_i\Gamma_{il}.
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l7006}
 
 The different font distinguishes these fresh Gaussian residual vectors
 from the primitive register $a^{(2)}$. The exact identities are
 
 $$
- \begin{split}
+ \begin{aligned}
  g_l&=B_l\omega_l/n+
        \frac{\sigma^2}{\sqrt n A_{\omega,ll}}\mathfrak b_l,\\
  k_l&=B_{l-1/2}^T\theta_l/\sqrt n+
        \frac{\sigma^2}{\sqrt n A_{\theta,ll}}\mathfrak a_l.
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l7017}
 
-For example, (Q5.11)--(Q5.12) give
+For example, ([-@eq-docs-gaussian-calculus-l6788])--([-@eq-docs-gaussian-calculus-l6796]) give
 
 $$
  s_i^T\omega_l/\sqrt n
@@ -7728,7 +7571,6 @@ $$
  u=\log(4K/\alpha),\quad v=\log(4n/\alpha),\quad
  c(r)=\sqrt{2r+4u},\quad
  L(r)=2\sqrt{rv}+\tfrac23c(r)v.
-
 $$ {#eq-docs-gaussian-calculus-l7045}
 
 Let $E_r^{(b)}$ be the event that both final effective ranks for matrix
@@ -7736,12 +7578,11 @@ $b$ are at most $r$. The adaptive theorem states
 
 $$
  \mathbb P\left(E_r^{(b)}\cap\left\{
-    \max_h\|B^{(b)}_h\|_{\rm op}>L(r)
+    \max_h\|B^{(b)}_h\|_{\mathrm{op}}>L(r)
     \ \text{or}\
     \max_l(\|\mathfrak a^{(b)}_l\|_2\vee
            \|\mathfrak b^{(b)}_l\|_2)>c(r)
  \right\}\right)\le\alpha.
-
 $$ {#eq-docs-gaussian-calculus-l7053}
 
 Here $h$ ranges over all half and full steps, so no additional union
@@ -7749,20 +7590,19 @@ over query times is necessary. On $E_r^{(b)}$, outside that exceptional
 event, ([-@eq-docs-gaussian-calculus-l7017]) implies for every call
 
 $$
- \begin{split}
+ \begin{aligned}
  \|g_l\|_2&\le
        \frac{L(r)\|h_l\|_2}{n}+\frac{\sigma c(r)}{\sqrt n},\\
  \|k_l\|_2&\le
        \frac{L(r)\|v_l\|_2}{n}+\frac{\sigma c(r)}{\sqrt n}.
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l7065}
 
 These are pointwise inequalities; the query norms can subsequently be
 bounded on an intersected event.
 
 All hypotheses are satisfied: dimensions and horizon are deterministic
-and finite, $\sigma>0$, ([-@eq-docs-gaussian-calculus-l6767]) supplies independent standard Gamma
+and finite, $\sigma>0$, ([-@eq-docs-gaussian-calculus-l6767]) supplies independent standard $\Gamma$
 entries and an independent $\mathcal H^{(b)}$, ([-@eq-docs-gaussian-calculus-l6970]) supplies the
 required causal order, and ([-@eq-docs-gaussian-calculus-l6788]) uses the required consistent Cholesky
 choice. In [fragment Q4](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l6440), localization uses the actual histories and
@@ -7779,9 +7619,8 @@ ceiling proved for these very histories.
 Let
 
 $$
- E_0=\{\|W^{(2)}_0\|_{\rm op},\|W^{(3)}_0\|_{\rm op}\le8,
+ E_0=\{\|W^{(2)}_0\|_{\mathrm{op}},\|W^{(3)}_0\|_{\mathrm{op}}\le8,
                    \ \|W^{(4)}_0\|_\infty\le1\}.
-
 $$ {#eq-docs-gaussian-calculus-l7093}
 
 We record elementary bounds for its probability instead of assuming a
@@ -7796,13 +7635,13 @@ a maximal separated set, whose disjoint radius-$1/8$ balls lie in the
 radius-$9/8$ ball, and compare volumes. Maximality gives the net
 property. For unit $x,y$, approximate both by net points $x_0,y_0$.
 The error in $x^TWy-x_0^TWy_0$ is at most
-$\frac12\|W\|_{\rm op}$, so
-$\|W\|_{\rm op}\le2\max_{x_0,y_0}|x_0^TWy_0|$.
+$\frac12\|W\|_{\mathrm{op}}$, so
+$\|W\|_{\mathrm{op}}\le2\max_{x_0,y_0}|x_0^TWy_0|$.
 For fixed net points and a matrix from ([-@eq-docs-gaussian-calculus-l6757]), this bilinear form is a
 Gaussian of variance $1/n$. A union bound gives
 
 $$
- \mathbb P(\|W\|_{\rm op}>8)
+ \mathbb P(\|W\|_{\mathrm{op}}>8)
  \le2\,9^{2n}e^{-8n}.
 $$
 
@@ -7811,7 +7650,6 @@ Applying it to both initial hidden matrices proves
 $$
  \mathbb P(E_0^c)\le
  p_0(n):=4e^{-(8-2\log9)n}+2n e^{-n^2/2}.
-
 $$ {#eq-docs-gaussian-calculus-l7119}
 
 The first-layer Gaussian vector is finite almost surely. No norm bound
@@ -7823,7 +7661,6 @@ From now on choose $\alpha=n^{-2}$ in ([-@eq-docs-gaussian-calculus-l7045]), so
 $$
  u=\log(4Kn^2),\qquad v=\log(4n^3),\qquad
  D_n=\sqrt{2+4u/n}=c(n)/\sqrt n.
-
 $$ {#eq-docs-gaussian-calculus-l7129}
 
 For a standard Gaussian vector $Z\in\mathbb R^n$, integrating its
@@ -7840,7 +7677,6 @@ and two matrices. The event
 $$
  E_D=\left\{\max_{b,l}
    \frac{\|U^{(b)}_l\|_2\vee\|V^{(b)}_l\|_2}{\sqrt n}\le D_n\right\}
-
 $$ {#eq-docs-gaussian-calculus-l7142}
 
 satisfies $\mathbb P(E_D^c)\le4Ke^{-u}=\alpha$, without any assumption
@@ -7852,11 +7688,10 @@ $\mathbb P((E_C^{(b)})^c)\le\alpha$. Define
 
 $$
  E_C=E_0\cap E_D\cap E_C^{(2)}\cap E_C^{(3)}.
-
 $$ {#eq-docs-gaussian-calculus-l7153}
 
 No independence between these events is asserted or needed. Equations
-(Q5.30)--(Q5.33) give $\mathbb P(E_C^c)\le p_0(n)+3\alpha$.
+([-@eq-docs-gaussian-calculus-l7119])--([-@eq-docs-gaussian-calculus-l7153]) give $\mathbb P(E_C^c)\le p_0(n)+3\alpha$.
 
 The deterministic inequalities $K\le(S+2)n^2$ and $n\ge2$ imply
 
@@ -7865,7 +7700,6 @@ $$
  D_n\le C_S,\qquad
  c(n)\le C_S\sqrt n,\qquad
  L(n)/\sqrt n\le C_S\ell_n.
-
 $$ {#eq-docs-gaussian-calculus-l7161}
 
 For example, $\ell_n/n$ is bounded for $n\ge2$, and the two terms
@@ -7877,15 +7711,13 @@ $$
  \frac{\|\mathcal R_l\|_2}{\sqrt n}\le C_S\ell_n\frac{\|v_l\|_2}{\sqrt n}+C_S\sigma,
  \qquad
  \frac{\|\mathcal F_l\|_2}{\sqrt n}\le C_S\ell_n\frac{\|h_l\|_2}{\sqrt n}+C_S\sigma.
-
 $$ {#eq-docs-gaussian-calculus-l7172}
 
 This conclusion does not presuppose any bound on $v_l$.
 
 In particular, the warmup identities ([-@eq-docs-gaussian-calculus-l6862]) and $|\phi|\le c_\phi$
 give
-$\|z^{(2)}_0\|_2/\sqrt n,\|z^{(3)}_0\|_2/\sqrt n
-  \le8c_\phi+\sigma D_n\le C_S$.
+$\|z^{(2)}_0\|_2/\sqrt n,\|z^{(3)}_0\|_2/\sqrt n   \le8c_\phi+\sigma D_n\le C_S$.
 For orientation only, define the mathematical reference values
 $z^{(2),\mathrm{can}}_0=W^{(2)}_0h^{(1)}_0$ and
 $z^{(3),\mathrm{can}}_0=W^{(3)}_0\phi(z^{(2),\mathrm{can}}_0)$.
@@ -7895,7 +7727,6 @@ $$
  \frac{\|z^{(2)}_0-z^{(2),\mathrm{can}}_0\|_2}{\sqrt n}\le\sigma D_n,
  \qquad
  \frac{\|z^{(3)}_0-z^{(3),\mathrm{can}}_0\|_2}{\sqrt n}\le9\sigma D_n,
-
 $$ {#eq-docs-gaussian-calculus-l7188}
 
 because the upper initial operator norm is at most eight and $\phi$
@@ -7910,8 +7741,7 @@ increase from line to line. For a rank-one increment,
 
 $$
  \left\|uv^T/n\right\|_F=\frac{\|u\|_2\|v\|_2}{n},\qquad
- \frac{\|Av\|_2}{\sqrt n}\le\|A\|_{\rm op}\frac{\|v\|_2}{\sqrt n}\le\|A\|_F\frac{\|v\|_2}{\sqrt n}.
-
+ \frac{\|Av\|_2}{\sqrt n}\le\|A\|_{\mathrm{op}}\frac{\|v\|_2}{\sqrt n}\le\|A\|_F\frac{\|v\|_2}{\sqrt n}.
 $$ {#eq-docs-gaussian-calculus-l7203}
 
 First the readout update alone, independent of every other bound, gives
@@ -7920,7 +7750,6 @@ $$
  \|W^{(4)}_j\|_\infty\le1+j\eta c_\phi
         \le B_4:=1+(S+1)c_\phi,
  \qquad \frac{\|\delta^{(3)}_j\|_2}{\sqrt n}\le B_4.
-
 $$ {#eq-docs-gaussian-calculus-l7210}
 
 The upper matrix memory therefore satisfies
@@ -7929,7 +7758,6 @@ $$
  \|M^{(3)}_j\|_F
  \le\eta\sum_{i<j}\frac{\|\delta^{(3)}_i\|_2\|h^{(2)}_i\|_2}{n}
  \le T B_4c_\phi\le C_S.
-
 $$ {#eq-docs-gaussian-calculus-l7217}
 
 The upper reverse query in ([-@eq-docs-gaussian-calculus-l6885]) has raw argument $\delta^{(3)}_j$.
@@ -7941,7 +7769,6 @@ $$
           \|M^{(3)}_j\|_F B_4
  \le C_S\ell_n,
  \qquad \frac{\|\delta^{(2)}_j\|_2}{\sqrt n}\le\frac{\|q^{(2)}_j\|_2}{\sqrt n}\le C_S\ell_n.
-
 $$ {#eq-docs-gaussian-calculus-l7225}
 
 The last inequality uses just ([-@eq-docs-gaussian-calculus-l6686]) and $\phi'\le1$. Summing the first
@@ -7951,7 +7778,6 @@ $$
  \frac{\|a^{(2)}_j\|_2}{\sqrt n}\le C_ST\ell_n\le C_S\ell_n,
  \qquad
  \|M^{(2)}_j\|_F\le C_STc_\phi\ell_n\le C_S\ell_n.
-
 $$ {#eq-docs-gaussian-calculus-l7235}
 
 The pre-step memory formula for $R^{(1)}$ then yields
@@ -7960,7 +7786,6 @@ $$
  \frac{\|R^{(1)}_j\|_2}{\sqrt n}
  \le\eta\sum_{i<j}\|M^{(2)}_i\|_F\frac{\|\delta^{(2)}_i\|_2}{\sqrt n}
  \le C_S\ell_n^2.
-
 $$ {#eq-docs-gaussian-calculus-l7242}
 
 In particular, the lower reverse output and the two forward outputs
@@ -7971,7 +7796,6 @@ $$
  \qquad
  \frac{\|\mathcal F^{(2)}_{j+2}\|_2}{\sqrt n},
  \frac{\|\mathcal F^{(3)}_{j+2}\|_2}{\sqrt n}\le C_S\ell_n,
-
 $$ {#eq-docs-gaussian-calculus-l7250}
 
 by ([-@eq-docs-gaussian-calculus-l7172]), ([-@eq-docs-gaussian-calculus-l7235]), and the uniform bound on every activation.
@@ -7981,19 +7805,17 @@ $\lambda=\eta/\epsilon=n^{-15/8}\in(0,1]$. The last three updates
 in ([-@eq-docs-gaussian-calculus-l6905]) are convex combinations of the current register and its target:
 
 $$
- \begin{split}
+ \begin{aligned}
  y_{j+1}&=(1-\lambda)y_j+
      \lambda[\mathcal R^{(2)}_{j+2}+R^{(1)}_j],\\
  z^{(2)}_{j+1}&=(1-\lambda)z^{(2)}_j+
      \lambda[\mathcal F^{(2)}_{j+2}+M^{(2)}_jh^{(1)}_j],\\
  z^{(3)}_{j+1}&=(1-\lambda)z^{(3)}_j+
      \lambda[\mathcal F^{(3)}_{j+2}+M^{(3)}_jh^{(2)}_j].
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l7262}
 
-The targets have normalized norms at most $C_S\ell_n^2,C_S\ell_n,
-C_S\ell_n$, respectively, by (Q5.39)--(Q5.43). Since $y_0=0$ and the
+The targets have normalized norms at most $C_S\ell_n^2,C_S\ell_n, C_S\ell_n$, respectively, by ([-@eq-docs-gaussian-calculus-l7217])--([-@eq-docs-gaussian-calculus-l7250]). Since $y_0=0$ and the
 warmup preactivations are bounded, the triangle inequality and induction
 in ([-@eq-docs-gaussian-calculus-l7262]) give
 
@@ -8002,7 +7824,6 @@ $$
  \qquad
  \max_{j\le N}
  \frac{\|z^{(2)}_j\|_2\vee\|z^{(3)}_j\|_2}{\sqrt n}\le C_S\ell_n.
-
 $$ {#eq-docs-gaussian-calculus-l7277}
 
 There was no feedback bootstrap in this chain: bounded activations give
@@ -8017,14 +7838,13 @@ Taking differences in ([-@eq-docs-gaussian-calculus-l7262]), and using both the 
 gives
 
 $$
- \begin{split}
+ \begin{aligned}
  \frac{\|x^{(1)}_{j+1}-x^{(1)}_j\|_2}{\sqrt n}
       &\le C_S\eta\ell_n^2/\epsilon,\\
  \frac{\|z^{(2)}_{j+1}-z^{(2)}_j\|_2}{\sqrt n}
   \vee \frac{\|z^{(3)}_{j+1}-z^{(3)}_j\|_2}{\sqrt n}
       &\le C_S\eta\ell_n/\epsilon.
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l7294}
 
 The Lipschitz bounds in ([-@eq-docs-gaussian-calculus-l6749]) transfer these estimates to the first two
@@ -8032,12 +7852,12 @@ activation histories. For the upper reverse history, use the exact
 difference identity
 
 $$
- \begin{split}
+ \begin{aligned}
  \delta^{(3)}_{j+1}-\delta^{(3)}_j
  ={}&(W^{(4)}_{j+1}-W^{(4)}_j)\odot\phi'(z^{(3)}_{j+1})\\
  &+W^{(4)}_j\odot
        [\phi'(z^{(3)}_{j+1})-\phi'(z^{(3)}_j)].
- \end{split}
+ \end{aligned}
 $$
 
 It and ([-@eq-docs-gaussian-calculus-l7210]), ([-@eq-docs-gaussian-calculus-l7294]) imply
@@ -8060,14 +7880,12 @@ $$
  \delta^{(3)}_j/\sqrt n&C_S\ell_n/\epsilon\\
  a^{(2)}_j/\sqrt n&C_S\ell_n.
  \end{array}
-
 $$ {#eq-docs-gaussian-calculus-l7324}
 
 Choose once a deterministic constant $C_*(S)\ge1$ large enough that
 
 $$
  M_*:=C_*(S)\ell_n^2/\epsilon
-
 $$ {#eq-docs-gaussian-calculus-l7335}
 
 dominates all four constants in ([-@eq-docs-gaussian-calculus-l7324]), for all $n\ge2$. Such a choice
@@ -8100,12 +7918,11 @@ warmup exactly, to obtain $Y$. Then
 $$
  \operatorname{rank}Y\le d+1,\qquad
  \|X-Y\|_F^2\le N(M_*T/d)^2.
-
 $$ {#eq-docs-gaussian-calculus-l7363}
 
 Indeed, each block spans at most
 $\eta(\lceil N/d\rceil-1)\le\eta N/d=T/d$ in feature time,
-and (Q5.47)--(Q5.48) bound each column error by $M_*T/d$.
+and ([-@eq-docs-gaussian-calculus-l7324])--([-@eq-docs-gaussian-calculus-l7335]) bound each column error by $M_*T/d$.
 
 To verify the effective-rank implication without a spectral-tail
 assumption, let $P$ be the orthogonal projection onto the column space
@@ -8113,12 +7930,11 @@ of $Y$, and let $Q=XX^T(XX^T+\sigma^2I)^{-1}$. Eigenvalues give
 $0\preceq Q\preceq I$ and $Q\preceq XX^T/\sigma^2$. Consequently
 
 $$
- \begin{split}
+ \begin{aligned}
  \rho(X)&=\operatorname{tr}(PQ)+\operatorname{tr}((I-P)Q)\\
  &\le d+1+\sigma^{-2}\|(I-P)X\|_F^2\\
  &\le d+1+\frac{NM_*^2T^2}{\sigma^2d^2}.
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l7376}
 
 The last line uses $(I-P)Y=0$. Independently $\rho(X)\le\min(n,K)$.
@@ -8128,7 +7944,6 @@ Put
 $$
  x_*=(NM_*^2T^2/\sigma^2)^{1/3},\qquad
  d=\min\{N,\max\{1,\lceil x_*\rceil\}\}.
-
 $$ {#eq-docs-gaussian-calculus-l7387}
 
 If $0<x_*\le N$, then $d\le x_*+1$, $d\ge x_*$, and ([-@eq-docs-gaussian-calculus-l7376]) is
@@ -8138,7 +7953,6 @@ $K=N+1\le2+2x_*$. Thus, in every case,
 
 $$
  \rho(X)\le r_n:=\min\{n,K,2+2x_*\}.
-
 $$ {#eq-docs-gaussian-calculus-l7396}
 
 The ceiling $r_n>0$ is deterministic; the adaptive theorem permits real
@@ -8146,20 +7960,19 @@ ceilings. The integer $d$ used to prove it has been specified in ([-@eq-docs-gau
 For the chosen parameters,
 
 $$
- \begin{split}
+ \begin{aligned}
  x_*&=C_*(S)^{2/3}
   (NT^2\epsilon^{-2}\sigma^{-2})^{1/3}\ell_n^{4/3}\\
  &\le C_S\big(n^2 n^{1/4}n^{1/2}\big)^{1/3}\ell_n^{4/3}
   =C_S n^{11/12}\ell_n^{4/3}.
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l7403}
 
 This proves ([-@eq-docs-gaussian-calculus-l6720]) for final histories on $E_C$, with the extra two
 absorbed in $C_S$. Prefix effective ranks cannot exceed the final
 rank: the consistent Cholesky columns express them as
 $\sum_{i\le l}\|t_i\|_2^2$ or $\sum_{i\le l}\|s_i\|_2^2$.
-This also proves ([-@eq-docs-gaussian-calculus-l6720]) for every prefix. Every matrix in (Q5.49)--(Q5.53) is
+This also proves ([-@eq-docs-gaussian-calculus-l6720]) for every prefix. Every matrix in ([-@eq-docs-gaussian-calculus-l7363])--([-@eq-docs-gaussian-calculus-l7403]) is
 the realized perturbed history; no frozen-history probabilistic
 calculation was used.
 
@@ -8171,20 +7984,18 @@ For $b=2,3$, let
 
 $$
  F_b=E_{r_n}^{(b)}\cap\left\{
-    \max_h\|B^{(b)}_h\|_{\rm op}>L(r_n)
+    \max_h\|B^{(b)}_h\|_{\mathrm{op}}>L(r_n)
     \ \text{or}\
     \max_l(\|\mathfrak a^{(b)}_l\|_2\vee
            \|\mathfrak b^{(b)}_l\|_2)>c(r_n)
  \right\}.
-
 $$ {#eq-docs-gaussian-calculus-l7425}
 
 The theorem gives $\mathbb P(F_b)\le\alpha$ unconditionally. [Section 6](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l7290)
 proved $E_C\subseteq E_{r_n}^{(2)}\cap E_{r_n}^{(3)}$. Therefore on
 
 $$
- \mathcal E_n^\tau=E_C\setminus(F_2\cup F_3)
-
+ \mathcal E_n^\tau=E_C\smallsetminus(F_2\cup F_3)
 $$ {#eq-docs-gaussian-calculus-l7436}
 
 all the refined bounds hold for both matrices. The union bound gives
@@ -8198,7 +8009,6 @@ $$
  \frac{L(r_n)}{\sqrt n}
  \le C_S\left(\sqrt{r_n/n}\,\ell_n+
                   n^{-1/2}\ell_n^{3/2}\right).
-
 $$ {#eq-docs-gaussian-calculus-l7446}
 
 Here $\sqrt{r_nv}/\sqrt n\le C_S\sqrt{r_n/n}\ell_n$, and
@@ -8209,14 +8019,12 @@ $$
  \frac{L(r_n)}{\sqrt n}
  \le C_S n^{-1/24}\ell_n^{5/3}
        +C_S n^{-1/2}\ell_n^{3/2}.
-
 $$ {#eq-docs-gaussian-calculus-l7455}
 
 Also $r_n\le n$ implies
 
 $$
  \sigma c(r_n)/\sqrt n\le\sigma c(n)/\sqrt n\le C_S\sigma.
-
 $$ {#eq-docs-gaussian-calculus-l7462}
 
 All forward raw arguments obey $\frac{\|h_l\|_2}{\sqrt n}\le c_\phi$, including
@@ -8224,14 +8032,13 @@ warmups. All upper reverse raw arguments have normalized norm at most
 $B_4$, including the zero warmup. All lower reverse raw arguments have
 normalized norm at most $C_S\ell_n$ by ([-@eq-docs-gaussian-calculus-l7235]), again including the zero
 warmup. Thus a common upper bound for every query norm occurring in
-([-@eq-docs-gaussian-calculus-l7065]) is $C_S\ell_n$. Combining ([-@eq-docs-gaussian-calculus-l6829]), ([-@eq-docs-gaussian-calculus-l7065]), ([-@eq-docs-gaussian-calculus-l7142]), and (Q5.57)--(Q5.58) gives
+([-@eq-docs-gaussian-calculus-l7065]) is $C_S\ell_n$. Combining ([-@eq-docs-gaussian-calculus-l6829]), ([-@eq-docs-gaussian-calculus-l7065]), ([-@eq-docs-gaussian-calculus-l7142]), and ([-@eq-docs-gaussian-calculus-l7455])--([-@eq-docs-gaussian-calculus-l7462]) gives
 
 $$
  \max_{b,l}
- \frac{\|e_l^{(b),\rm rev}\|_2\vee\|e_l^{(b),\rm for}\|_2}{\sqrt n}
+ \frac{\|e_l^{(b),\mathrm{rev}}\|_2\vee\|e_l^{(b),\mathrm{for}}\|_2}{\sqrt n}
  \le C_S n^{-1/24}\ell_n^{8/3}
     +C_S n^{-1/2}\ell_n^{5/2}+C_S\sigma.
-
 $$ {#eq-docs-gaussian-calculus-l7472}
 
 For $n\ge2$, the middle term is bounded by the first after enlarging
@@ -8246,7 +8053,6 @@ its mesh primitive satisfies the purely deterministic bound
 $$
  \max_{j\le N}\frac{\left\|\eta\sum_{i<j}e_{i+2}\right\|_2}{\sqrt n}
        \le T\max_{l\ge2}\frac{\|e_l\|_2}{\sqrt n}.
-
 $$ {#eq-docs-gaussian-calculus-l7487}
 
 Neither ([-@eq-docs-gaussian-calculus-l7472]) nor ([-@eq-docs-gaussian-calculus-l7487]) is a nonlinear trajectory comparison. The theorem
@@ -8256,7 +8062,7 @@ depend on $\tau$. No union over all clipping maps has been taken.
 
 For the degenerate horizon $S=0$, there are no updates and $K=1$:
 the reverse histories are zero, each forward history has effective rank
-at most one, the Gamma terms vanish, and the same asymptotic claims
+at most one, the $\Gamma$ terms vanish, and the same asymptotic claims
 follow directly from the Gaussian maximum for the four warmup noise
 vectors. The main proof above treats the nonempty-update case $S>0$.
 
@@ -8275,7 +8081,6 @@ Fix $S,M\ge1$, $R\ge1$, $n\ge1$, and a scalar map $\tau$ with
 $$
  |\tau(v)|\le |v|,\qquad |\tau(v)|\le R,\qquad
  |\tau(v)-\tau(w)|\le |v-w|.
-
 $$ {#eq-docs-gaussian-calculus-l7514}
 
 Take $0<\eta\le1$, an integer $N\ge1$ with $N\eta\le S+1$,
@@ -8305,7 +8110,6 @@ $$
  \quad (W^{(2)})'=\delta^{(2)}(h^{(1)})^{\mathsf T}/n,
  \quad (W^{(3)})'=\delta^{(3)}(h^{(2)})^{\mathsf T}/n,
  \quad (W^{(4)})'=h^{(3)}.
-
 $$ {#eq-docs-gaussian-calculus-l7536}
 
 All initial parameters equal the stated initial values. A prime in
@@ -8316,14 +8120,12 @@ $$
  a^{(2)}(s)=\int_0^s\delta^{(2)}(t)\,dt,\qquad
  M^{(\ell)}=W^{(\ell)}-W^{(\ell)}_0\quad(\ell=2,3),\qquad
  R^{(1)}(s)=\int_0^s (M^{(2)}(t))^{\mathsf T}\delta^{(2)}(t)\,dt.
-
 $$ {#eq-docs-gaussian-calculus-l7546}
 
 These identities retain every learned matrix term. Exactly,
 
 $$
  x^{(1)}=x^{(1)}_0+(W^{(2)}_0)^{\mathsf T}a^{(2)}+R^{(1)}.
-
 $$ {#eq-docs-gaussian-calculus-l7553}
 
 Indeed $F'=1/\phi'$ turns the first equation in ([-@eq-docs-gaussian-calculus-l7536]) into
@@ -8358,7 +8160,6 @@ $$
  \qquad
  \widehat F_k^{(3)}
   =W^{(3)}_0\widehat h_k^{(2)}+e_{F,k}^{(3)}.
-
 $$ {#eq-docs-gaussian-calculus-l7578}
 
 Here the query errors may depend arbitrarily on all previous states.
@@ -8368,13 +8169,10 @@ $$
  \max_{\ell=2,3;\,0\le k<N}
  \frac{\|e_{T,k}^{(\ell)}\|_2+\|e_{F,k}^{(\ell)}\|_2}{\sqrt n}
  \le b,\qquad 0\le b\le1.
-
 $$ {#eq-docs-gaussian-calculus-l7588}
 
-Form $\widehat q_k^{(2)}=\widehat T_k^{(3)}
-       +(\widehat M_k^{(3)})^{\mathsf T}\widehat\delta_k^{(3)}$
-and $\widehat\delta_k^{(2)}
-       =\phi'(\widehat z_k^{(2)})\odot\tau(\widehat q_k^{(2)})$.
+Form $\widehat q_k^{(2)}=\widehat T_k^{(3)}        +(\widehat M_k^{(3)})^{\mathsf T}\widehat\delta_k^{(3)}$
+and $\widehat\delta_k^{(2)}        =\phi'(\widehat z_k^{(2)})\odot\tau(\widehat q_k^{(2)})$.
 Every right side in the following simultaneous updates uses step $k$:
 
 $$
@@ -8405,11 +8203,9 @@ $$
        +(\eta/\varepsilon)
        [\widehat F_k^{(3)}+\widehat M_k^{(3)}\widehat h_k^{(2)}].
 \end{aligned}
-
 $$ {#eq-docs-gaussian-calculus-l7599}
 
-Initially $\widehat a^{(2)},\widehat R^{(1)},\widehat M^{(2)},
-\widehat M^{(3)}$ are zero,
+Initially $\widehat a^{(2)},\widehat R^{(1)},\widehat M^{(2)}, \widehat M^{(3)}$ are zero,
 $\widehat x_0^{(1)}=x_0^{(1)}$, and
 $\widehat W_0^{(4)}=W_0^{(4)}$.
 Allow warmup errors satisfying
@@ -8417,14 +8213,13 @@ Allow warmup errors satisfying
 $$
  d_0:=\frac{\|\widehat z_0^{(2)}-z_0^{(2)}\|_2+
                  \|\widehat z_0^{(3)}-z_0^{(3)}\|_2}{\sqrt n}\le1.
-
 $$ {#eq-docs-gaussian-calculus-l7634}
 
 Then a constant $C_{S,M,R}$, independent of $n,\eta,\varepsilon,b,d_0$
 and of the particular map in ([-@eq-docs-gaussian-calculus-l7514]), satisfies
 
 $$
-\begin{split}
+\begin{aligned}
  \max_{0\le k\le N}\bigg\{
  &\frac{\|\widehat x_k^{(1)}-x^{(1)}(s_k)\|_2+
           \|\widehat z_k^{(2)}-z^{(2)}(s_k)\|_2+
@@ -8432,11 +8227,10 @@ $$
  &+\frac{\|\widehat a_k^{(2)}-a^{(2)}(s_k)\|_2+
           \|\widehat R_k^{(1)}-R^{(1)}(s_k)\|_2+
           \|\widehat W_k^{(4)}-W^{(4)}(s_k)\|_2}{\sqrt n}\\
- &+\|\widehat M_k^{(2)}-M^{(2)}(s_k)\|_{\rm F}
-   +\|\widehat M_k^{(3)}-M^{(3)}(s_k)\|_{\rm F}\bigg\}
+ &+\|\widehat M_k^{(2)}-M^{(2)}(s_k)\|_{\mathrm{F}}
+   +\|\widehat M_k^{(3)}-M^{(3)}(s_k)\|_{\mathrm{F}}\bigg\}
  \le C_{S,M,R}(\varepsilon+\eta+b+d_0).
-\end{split}
-
+\end{aligned}
 $$ {#eq-docs-gaussian-calculus-l7641}
 
 Thus there is no $\exp(C/\varepsilon)$ stability loss here.
@@ -8449,8 +8243,8 @@ recursion, the readout coordinate bound is $1+cT$, since each
 readout derivative or increment is bounded by $c$.
 Consequently the normalized size of $\delta^{(3)}$ is bounded
 by $1+cT$. The rank-one inequality
-$\|uv^{\mathsf T}/n\|_{\rm F}=\|u\|_2\|v\|_2/n$
-bounds $\|M^{(3)}\|_{\rm F}$ and $\|\widehat M^{(3)}\|_{\rm F}$
+$\|uv^{\mathsf T}/n\|_{\mathrm{F}}=\|u\|_2\|v\|_2/n$
+bounds $\|M^{(3)}\|_{\mathrm{F}}$ and $\|\widehat M^{(3)}\|_{\mathrm{F}}$
 by $cT(1+cT)$.
 Equation ([-@eq-docs-gaussian-calculus-l7578]), ([-@eq-docs-gaussian-calculus-l7588]), and the initial operator bound give
 $\|\widehat q_k^{(2)}\|_2/\sqrt n\le C_{S,M}$;
@@ -8474,12 +8268,11 @@ $\tau$ is Lipschitz, the other coordinate functions are smooth,
 and its products are locally Lipschitz in finitely many parameters.
 The preceding polynomial readout and trained-matrix bounds prevent
 escape. Its bottom derivative has normalized size at most
-$\|W^{(2)}\|_{\rm op}\|\delta^{(2)}\|_2/\sqrt n$,
+$\|W^{(2)}\|_{\mathrm{op}}\|\delta^{(2)}\|_2/\sqrt n$,
 which also prevents bottom escape. Hence its unique local solution
 continues throughout $[0,T]$.
 
-The reference velocities $x^{(1)\prime},z^{(2)\prime},
-z^{(3)\prime},h^{(1)\prime},h^{(2)\prime},h^{(3)\prime}$
+The reference velocities $x^{(1)\prime},z^{(2)\prime}, z^{(3)\prime},h^{(1)\prime},h^{(2)\prime},h^{(3)\prime}$
 have normalized size bounded by $C_{S,M}$.
 For example,
 
@@ -8497,7 +8290,6 @@ $$
  z^{(3)\prime}
  =\frac{\|h^{(2)}\|_2^2}{n}\delta^{(3)}
        +W^{(3)}h^{(2)\prime}.
-
 $$ {#eq-docs-gaussian-calculus-l7704}
 
 Use $|\phi'|\le1$ and the established bounds.
@@ -8514,20 +8306,18 @@ $$
  q^{(2)\prime}
  =h^{(2)}\frac{\|\delta^{(3)}\|_2^2}{n}
        +(W^{(3)})^{\mathsf T}\delta^{(3)\prime}.
-
 $$ {#eq-docs-gaussian-calculus-l7720}
 
 These have the same normalized bounds because $|\phi''|\le2$
 and the readout coordinates are bounded.
 For the possibly nondifferentiable clipping, the difference quotient
-bound from ([-@eq-docs-gaussian-calculus-l7514]), followed by (Q6.10)--(Q6.11), gives
+bound from ([-@eq-docs-gaussian-calculus-l7514]), followed by ([-@eq-docs-gaussian-calculus-l7704])--([-@eq-docs-gaussian-calculus-l7720]), gives
 
 $$
  \frac{\|\delta^{(2)}(s)-\delta^{(2)}(t)\|_2}{\sqrt n}
  \le \frac{\|q^{(2)}(s)-q^{(2)}(t)\|_2}{\sqrt n}
        +2R\frac{\|z^{(2)}(s)-z^{(2)}(t)\|_2}{\sqrt n}
  \le C_{S,M,R}|s-t|.
-
 $$ {#eq-docs-gaussian-calculus-l7730}
 
 All five reference slow right sides
@@ -8537,7 +8327,6 @@ $$
  \delta^{(2)}(h^{(1)})^{\mathsf T}/n,\quad
  \delta^{(3)}(h^{(2)})^{\mathsf T}/n,\quad
  (M^{(2)})^{\mathsf T}\delta^{(2)},\quad h^{(3)}
-
 $$ {#eq-docs-gaussian-calculus-l7738}
 
 are therefore time-Lipschitz with constant $C_{S,M,R}$ in their
@@ -8559,12 +8348,11 @@ The maps $F^{-1}$ and $\phi\circ F^{-1}$ are 1-Lipschitz,
 because $F'\ge1$ and
 $(\phi\circ F^{-1})'=(\phi'\circ F^{-1})^2\le1$.
 
-For $p=\eta/\varepsilon$, (Q6.4)--(Q6.7) and the reference velocity
+For $p=\eta/\varepsilon$, ([-@eq-docs-gaussian-calculus-l7553])--([-@eq-docs-gaussian-calculus-l7599]) and the reference velocity
 bound give
 
 $$
  A_{k+1}\le(1-p)A_k+p(ME_k+E_k+b)+C_{S,M}\eta.
-
 $$ {#eq-docs-gaussian-calculus-l7766}
 
 The last term is the reference increment
@@ -8575,7 +8363,6 @@ $\sum_{j=0}^{k-1}p(1-p)^j\le1$ gives
 
 $$
  \max_{j\le k}A_j\le C_{S,M}(D_k+b+\varepsilon).
-
 $$ {#eq-docs-gaussian-calculus-l7775}
 
 Here $\eta\sum_{j\ge0}(1-p)^j=\eta/p=\varepsilon$;
@@ -8585,8 +8372,8 @@ Subtract the two layer-two targets. Their normalized difference is
 at most
 
 $$
- (M+\|\widehat M_k^{(2)}\|_{\rm op})A_k
-       +c\|\widehat M_k^{(2)}-M^{(2)}(s_k)\|_{\rm F}+b.
+ (M+\|\widehat M_k^{(2)}\|_{\mathrm{op}})A_k
+       +c\|\widehat M_k^{(2)}-M^{(2)}(s_k)\|_{\mathrm{F}}+b.
 $$
 
 In this expression use the decomposition with the hatted matrix on
@@ -8596,7 +8383,6 @@ difference. The same geometric-sum argument and ([-@eq-docs-gaussian-calculus-l7
 $$
  \max_{j\le k}B_j
  \le B_0+C_{S,M}\big(\max_{j\le k}A_j+D_k+b+\varepsilon\big).
-
 $$ {#eq-docs-gaussian-calculus-l7791}
 
 For layer three replace $A_k,M^{(2)}$ by $B_k,M^{(3)}$:
@@ -8604,16 +8390,14 @@ For layer three replace $A_k,M^{(2)}$ by $B_k,M^{(3)}$:
 $$
  \max_{j\le k}C_j
  \le C_0+C_{S,M}\big(\max_{j\le k}B_j+D_k+b+\varepsilon\big).
-
 $$ {#eq-docs-gaussian-calculus-l7797}
 
-The feedforward order of (Q6.15)--(Q6.17) gives, without a circular
+The feedforward order of ([-@eq-docs-gaussian-calculus-l7775])--([-@eq-docs-gaussian-calculus-l7797]) gives, without a circular
 instantaneous estimate,
 
 $$
  \max_{j\le k}(A_j+B_j+C_j)
  \le C_{S,M}(D_k+b+\varepsilon+d_0).
-
 $$ {#eq-docs-gaussian-calculus-l7804}
 
 The ordinary top query difference is bounded by
@@ -8621,7 +8405,6 @@ The ordinary top query difference is bounded by
 $$
  \frac{\|\widehat q_k^{(2)}-q^{(2)}(s_k)\|_2}{\sqrt n}
  \le C_{S,M}(E_k+C_k)+b.
-
 $$ {#eq-docs-gaussian-calculus-l7811}
 
 Indeed the top backward difference is at most the readout error
@@ -8632,7 +8415,6 @@ and then add the reverse query error. The bounded clipping gives
 $$
  \frac{\|\widehat\delta_k^{(2)}-\delta^{(2)}(s_k)\|_2}{\sqrt n}
  \le C_{S,M}(E_k+C_k)+b+2RB_k.
-
 $$ {#eq-docs-gaussian-calculus-l7820}
 
 Subtracting each slow right side in ([-@eq-docs-gaussian-calculus-l7738]), one factor at a time,
@@ -8644,11 +8426,10 @@ $$
  \frac{\|(\widehat M_k^{(2)})^{\mathsf T}\widehat\delta_k^{(2)}
               -(M^{(2)}(s_k))^{\mathsf T}\delta^{(2)}(s_k)\|_2}{\sqrt n}
  \le
- \|\widehat M_k^{(2)}-M^{(2)}(s_k)\|_{\rm F}
+ \|\widehat M_k^{(2)}-M^{(2)}(s_k)\|_{\mathrm{F}}
        \frac{\|\widehat\delta_k^{(2)}\|_2}{\sqrt n}
- +\|M^{(2)}(s_k)\|_{\rm op}
+ +\|M^{(2)}(s_k)\|_{\mathrm{op}}
        \frac{\|\widehat\delta_k^{(2)}-\delta^{(2)}(s_k)\|_2}{\sqrt n}.
-
 $$ {#eq-docs-gaussian-calculus-l7829}
 
 Thus the full returned memory is included.
@@ -8658,7 +8439,6 @@ The quadrature estimate after ([-@eq-docs-gaussian-calculus-l7738]) and ([-@eq-d
 $$
  E_{k+1}\le E_k+
  C_{S,M,R}\eta(D_k+b+\varepsilon+d_0+\eta).
-
 $$ {#eq-docs-gaussian-calculus-l7842}
 
 Summing and maximizing,
@@ -8666,7 +8446,6 @@ Summing and maximizing,
 $$
  D_k\le C_{S,M,R}(S+1)(b+\varepsilon+d_0+\eta)
        +C_{S,M,R}\eta\sum_{j<k}D_j.
-
 $$ {#eq-docs-gaussian-calculus-l7848}
 
 If $H=C_{S,M,R}(S+1)(b+\varepsilon+d_0+\eta)$ and
@@ -8683,8 +8462,7 @@ $$
  \widehat z_0^{(3)}=W_0^{(3)}\phi(\widehat z_0^{(2)})+e_0^{(3)},
 $$
 
-one has $d_0\le (1+M)\|e_0^{(2)}\|_2/\sqrt n+
-\|e_0^{(3)}\|_2/\sqrt n$. Thus vanishing warmup errors are
+one has $d_0\le (1+M)\|e_0^{(2)}\|_2/\sqrt n+ \|e_0^{(3)}\|_2/\sqrt n$. Thus vanishing warmup errors are
 covered, without pretending the noisy initial fields equal the
 canonical fields. On any events where [fragment Q5](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l6667) establishes
 $b\to0$, its vanishing $\varepsilon,\eta$ gives ([-@eq-docs-gaussian-calculus-l7641]) for every
@@ -8701,7 +8479,6 @@ $$
  -(W_0^{(2)}+\widehat M_k^{(2)})
       \phi(F^{-1}(\widehat x_k^{(1)}))\|_2}{\sqrt n}
  \le B_k+C_{S,M}(A_k+E_k).
-
 $$ {#eq-docs-gaussian-calculus-l7877}
 
 The layer-three discrepancy then follows using ([-@eq-docs-gaussian-calculus-l7877]) and the bounded
@@ -8714,7 +8491,6 @@ constant $R$. Its exact replacement retains
 $$
  [\phi'(\widehat z_k^{(2)})-\phi'(z^{(2)}(s_k))]
        \odot q^{(2)}(s_k).
-
 $$ {#eq-docs-gaussian-calculus-l7890}
 
 The normalized Euclidean bound on $q^{(2)}$ alone does not control
@@ -8725,7 +8501,7 @@ population existence, restartability, or exact raw-GD convergence is
 proved here.
 
 The estimate concerns states and the explicitly bounded clipped
-queries in (Q6.19)--(Q6.20). Derivatives of the filter registers have a
+queries in ([-@eq-docs-gaussian-calculus-l7811])--([-@eq-docs-gaussian-calculus-l7820]). Derivatives of the filter registers have a
 factor $1/\varepsilon$; ([-@eq-docs-gaussian-calculus-l7641]) alone does not imply convergence of
 those derivatives. All hidden velocity/kernel and physical-clock
 convergence claims must still be justified separately.
@@ -8743,7 +8519,6 @@ $R_n\ge1$ and one deterministic scalar map $\tau_n$ such that
 $$
  |\tau_n(v)|\le\min\{|v|,R_n\},\qquad
  |\tau_n(v)-\tau_n(w)|\le|v-w|,\qquad R_n=o(\log n).
-
 $$ {#eq-docs-gaussian-calculus-l7917}
 
 In particular, $R_n\to\infty$ is permitted. The identity map is
@@ -8767,7 +8542,6 @@ sequence $d_n(S)\to0$ such that
 
 $$
  E_n(S)\le n^{-1/24+d_n(S)}.
-
 $$ {#eq-docs-gaussian-calculus-l7940}
 
 The events have the same lower probability bound as equation ([-@eq-docs-gaussian-calculus-l6713]) of
@@ -8796,7 +8570,6 @@ factor in the middle backward difference is
 
 $$
  2R\,\frac{\|\widehat z_k^{(2)}-z^{(2)}(s_k)\|_2}{\sqrt n}.
-
 $$ {#eq-docs-gaussian-calculus-l7967}
 
 Each of the five slow right-side differences is thus bounded by
@@ -8808,7 +8581,6 @@ In the notation of that proof, filter contraction gives
 $$
  \max_{j\le k}(A_j+B_j+C_j)
  \le C_4(D_k+b+\varepsilon+d_0),
-
 $$ {#eq-docs-gaussian-calculus-l7976}
 
 with $C_4$ independent of $R$. Substitution into its slow-state
@@ -8817,18 +8589,16 @@ inequality therefore yields
 $$
  E_{k+1}\le E_k+
  C_5(1+R)\eta(D_k+b+\varepsilon+d_0+\eta).
-
 $$ {#eq-docs-gaussian-calculus-l7983}
 
 Here $E_k,D_k$ are respectively the slow-state error and its
 running maximum; they are not $E_n(S)$.
 Summing and using the same elementary discrete Gronwall calculation
-as in the [fragment Q6](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l7504) gives, after combining (Q7.4)--(Q7.5),
+as in the [fragment Q6](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l7504) gives, after combining ([-@eq-docs-gaussian-calculus-l7976])--([-@eq-docs-gaussian-calculus-l7983]),
 
 $$
  E_n(S)\le C_6(1+R)\exp(C_6(1+R))
                     (b+\varepsilon+d_0+\eta),
-
 $$ {#eq-docs-gaussian-calculus-l7992}
 
 whenever the hypotheses of that deterministic theorem hold.
@@ -8845,7 +8615,7 @@ constants and probability allowances are uniform in that deterministic
 choice. It supplies a single event for this choice on which
 
 $$
- \|W^{(2)}_0\|_{\rm op},\|W^{(3)}_0\|_{\rm op}\le8,\qquad
+ \|W^{(2)}_0\|_{\mathrm{op}},\|W^{(3)}_0\|_{\mathrm{op}}\le8,\qquad
  \|W^{(4)}_0\|_\infty\le1,
 $$
 
@@ -8853,7 +8623,6 @@ and every raw query error, divided by $\sqrt n$, is at most
 
 $$
  B_n=C_S n^{-1/24}\log(e+n)^{8/3}+C_S n^{-1/4}.
-
 $$ {#eq-docs-gaussian-calculus-l8014}
 
 The [fragment Q6](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l7504) uses a sum of two orientation errors at each
@@ -8874,7 +8643,6 @@ $$
  E_n(S)\le
  C_S(1+R_n)\exp(C_S(1+R_n))
  n^{-1/24}\log(e+n)^{8/3}.
-
 $$ {#eq-docs-gaussian-calculus-l8031}
 
 The logarithm of the prefactor on the right, divided by $\log n$,
@@ -8928,7 +8696,6 @@ Use the positive-diagonal upper Cholesky factors
 $$
  A_{\theta,l}^TA_{\theta,l}=\Theta_l^T\Theta_l+\sigma^2I_l,\qquad
  A_{\omega,l}^TA_{\omega,l}=\Omega_l^T\Omega_l/n+\sigma^2I_l.
-
 $$ {#eq-docs-gaussian-calculus-l8082}
 
 Leading blocks agree across prefixes. The columns
@@ -8937,7 +8704,6 @@ $$
  t_i=(\Theta_l A_{\theta,l}^{-1})_i,\qquad
  s_i=(\Omega_l A_{\omega,l}^{-1})_i/\sqrt n
  \quad(i\le l)
-
 $$ {#eq-docs-gaussian-calculus-l8088}
 
 therefore do not change with later calls. In particular
@@ -8945,7 +8711,6 @@ therefore do not change with later calls. In particular
 $$
  \sum_{i\le l}t_it_i^T\preceq I_n,\qquad
  \sum_{i\le l}s_is_i^T\preceq I_n.
-
 $$ {#eq-docs-gaussian-calculus-l8095}
 
 For example the first sum equals
@@ -8959,39 +8724,37 @@ All entries and arrays are independent. With $W_0=G_0/\sqrt n$,
 the two raw outputs are
 
 $$
- \begin{split}
+ \begin{aligned}
  {\cal R}_l&=G_0^T\theta_l+
        \sum_{i<l}s_i(\Gamma^TA_\theta)_{il}+\sigma U_l,\\
  {\cal F}_l&=G_0\omega_l/\sqrt n+
        \sum_{i\le l}t_i(\Gamma A_\omega)_{il}+\sigma V_l.
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l8109}
 
 Each product at call $l$ uses its leading $l$-by-$l$ blocks.
 These are exactly the raw outputs of [fragment Q5](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l6667): in its notation
-the two displayed Gamma sums are $\sqrt n\,k_l,\sqrt n\,g_l$.
+the two displayed $\Gamma$ sums are $\sqrt n\,k_l,\sqrt n\,g_l$.
 The reverse sum is strict.
 
 For the replacement rule, sample mutually independent standard
-Gaussian matrices $Z^{\rm for},Z^{\rm rev}\in\mathbb R^{n\times K}$
-and $\Lambda\in\mathbb R^{K\times K}$. Write $Z_i^{\rm for}$ and
-$Z_i^{\rm rev}$ for their columns. With the same query maps and the
-same factors (G.1)--(G.2), but evaluated on this rule's own transcript,
+Gaussian matrices $Z^{\mathrm{for}},Z^{\mathrm{rev}}\in\mathbb R^{n\times K}$
+and $\Lambda\in\mathbb R^{K\times K}$. Write $Z_i^{\mathrm{for}}$ and
+$Z_i^{\mathrm{rev}}$ for their columns. With the same query maps and the
+same factors ([-@eq-docs-gaussian-calculus-l8082])--([-@eq-docs-gaussian-calculus-l8088]), but evaluated on this rule's own transcript,
 set
 
 $$
- \begin{split}
- {\cal R}_l^{\rm alt}
- &=\sum_{i\le l}Z_i^{\rm rev}A_{\theta,il}
-       +\sum_{i<l}s_i\big((Z_i^{\rm for})^T\theta_l+
+ \begin{aligned}
+ {\cal R}_l^{\mathrm{alt}}
+ &=\sum_{i\le l}Z_i^{\mathrm{rev}}A_{\theta,il}
+       +\sum_{i<l}s_i\big((Z_i^{\mathrm{for}})^T\theta_l+
                                       \sigma\Lambda_{li}\big),\\
- {\cal F}_l^{\rm alt}
- &=\sum_{i\le l}Z_i^{\rm for}A_{\omega,il}
-       +\sum_{i\le l}t_i\big((Z_i^{\rm rev})^T\omega_l/\sqrt n+
+ {\cal F}_l^{\mathrm{alt}}
+ &=\sum_{i\le l}Z_i^{\mathrm{for}}A_{\omega,il}
+       +\sum_{i\le l}t_i\big((Z_i^{\mathrm{rev}})^T\omega_l/\sqrt n+
                                       \sigma\Lambda_{il}\big).
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l8129}
 
 All vector/matrix dimensions and raw width factors are explicit.
@@ -9036,29 +8799,25 @@ $$
  \quad
  \sum_{i\le \min(l,k)}A_{\omega,il}A_{\omega,ik}
        =V_\omega(l,k).
-
 $$ {#eq-docs-gaussian-calculus-l8175}
 
 For ([-@eq-docs-gaussian-calculus-l8109]), independence and equality of the two indices of a common
-Gamma entry give
+$\Gamma$ entry give
 
 $$
  \operatorname{Cov}({\cal F}_l,{\cal F}_k)
        =V_\omega(l,k)(I_n+T_{\min(l,k)}),
-
 $$ {#eq-docs-gaussian-calculus-l8186}
 
 
 $$
  \operatorname{Cov}({\cal R}_l,{\cal R}_k)
        =V_\theta(l,k)(I_n+S_{\min(l,k)-1}).
-
 $$ {#eq-docs-gaussian-calculus-l8191}
 
 For ([-@eq-docs-gaussian-calculus-l8186]), the $G_0$ contribution plus the direct noise is
-$V_\omega(l,k)I_n$; the Gamma contribution is
-$\sum_{i\le\min(l,k)}t_it_i^T
-  \sum_{j\le\min(l,k)}A_{\omega,jl}A_{\omega,jk}$.
+$V_\omega(l,k)I_n$; the $\Gamma$ contribution is
+$\sum_{i\le\min(l,k)}t_it_i^T   \sum_{j\le\min(l,k)}A_{\omega,jl}A_{\omega,jk}$.
 For ([-@eq-docs-gaussian-calculus-l8191]), the outer-product sum is over $i<\min(l,k)$
 while the $A_\theta$ sum includes the diagonal. This proves both
 identities and their strict/inclusive endpoints.
@@ -9075,16 +8834,15 @@ Then direct index matching in ([-@eq-docs-gaussian-calculus-l8109]) gives
 $$
  \operatorname{Cov}({\cal F}_l,{\cal R}_k)
        =\theta_k\omega_l^T/\sqrt n+a_{l,k}b_{l,k}^T.
-
 $$ {#eq-docs-gaussian-calculus-l8210}
 
 The first term comes from $G_0$, and the second uses precisely the
 common entries $\Gamma_{ij}$ with
 $i\le\min(l,k)$, $j\le\min(l,k-1)$.
 
-For ([-@eq-docs-gaussian-calculus-l8129]), the forward-forward covariance of the $Z^{\rm for}$
-parts is $V_\omega(l,k)I_n$. The $Z^{\rm rev}$ parts give
-$(\omega_l^T\omega_k/n)T_{\min(l,k)}$, and the Lambda parts give
+For ([-@eq-docs-gaussian-calculus-l8129]), the forward-forward covariance of the $Z^{\mathrm{for}}$
+parts is $V_\omega(l,k)I_n$. The $Z^{\mathrm{rev}}$ parts give
+$(\omega_l^T\omega_k/n)T_{\min(l,k)}$, and the $\Lambda$ parts give
 $\sigma^2{\bf1}_{\{l=k\}}T_l$. The three arrays are independent,
 so their sum is ([-@eq-docs-gaussian-calculus-l8186]). The same calculation in reverse, with its
 strict sums, gives ([-@eq-docs-gaussian-calculus-l8191]).
@@ -9094,12 +8852,11 @@ the first forward term against the second reverse term, and the
 second forward term against the first reverse term. Their sum is
 
 $$
- \operatorname{Cov}({\cal F}_l^{\rm alt},{\cal R}_k^{\rm alt})
+ \operatorname{Cov}({\cal F}_l^{\mathrm{alt}},{\cal R}_k^{\mathrm{alt}})
        =\theta_k b_{l,k}^T+a_{l,k}\omega_l^T/\sqrt n.
-
 $$ {#eq-docs-gaussian-calculus-l8229}
 
-There is no Lambda cross term: matching $\Lambda_{il}$ with
+There is no $\Lambda$ cross term: matching $\Lambda_{il}$ with
 $\Lambda_{kj}$ would require $i=k\le l=j<k$, an impossibility.
 For $l<k$, ([-@eq-docs-gaussian-calculus-l8088]) implies $b_{l,k}=\omega_l/\sqrt n$.
 For $l\ge k$, it implies $a_{l,k}=\theta_k$.
@@ -9124,7 +8881,6 @@ successive vector observations have the form
 
 $$
  y_j=L_j(y_1,\ldots,y_{j-1})g,\qquad 1\le j\le m,
-
 $$ {#eq-docs-gaussian-calculus-l8256}
 
 where all coefficient matrices are finite measurable functions.
@@ -9141,7 +8897,6 @@ $$
  K_{j,<j}(y)K_{<j,<j}(y)^{-1}y_{<j},
  \quad
  K_{j,j}(y)-K_{j,<j}(y)K_{<j,<j}(y)^{-1}K_{<j,j}(y).
-
 $$ {#eq-docs-gaussian-calculus-l8269}
 
 For $j=1$, the mean is zero.
@@ -9223,7 +8978,7 @@ depending only on preceding blocks. For ([-@eq-docs-gaussian-calculus-l8109]), t
 has coefficient $\sigma I_n$; for ([-@eq-docs-gaussian-calculus-l8129]), expand the displayed linear
 sums. The two matrices' cross covariances are zero at that fixed
 argument because their primitive arrays are independent.
-Within either matrix, equations (G.7)--(G.10) give identical covariances.
+Within either matrix, equations ([-@eq-docs-gaussian-calculus-l8186])--([-@eq-docs-gaussian-calculus-l8229]) give identical covariances.
 These equalities persist for every leading chronological prefix.
 
 The stacked covariance of the original perturbed rule is at least
@@ -9250,7 +9005,7 @@ level, without asserting its uncut stability.
 ### 5. The actual conditional innovation in the middle query {#sec-docs-gaussian-calculus-l8374}
 
 Now work in the all-replacement realization. Use matrix label three
-in (G.1)--(G.5). At a mesh step $j$, its call is $l=j+2$, and
+in ([-@eq-docs-gaussian-calculus-l8082])--([-@eq-docs-gaussian-calculus-l8129]). At a mesh step $j$, its call is $l=j+2$, and
 $\theta_l=\delta_j^{(3)}/\sqrt n$,
 $\omega_l=h_j^{(2)}$, exactly as in [fragment Q5](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l6667).
 
@@ -9258,8 +9013,8 @@ Let the past immediately before this upper reverse call contain the
 non-matrix seeds, both matrices' earlier revealed primitives, and
 the already computed current lower pair. The current upper queries
 were pre-step queries. Reveal upper primitives at each reverse call
-by taking $Z_l^{\rm rev}$ and the row entries $\Lambda_{li},i<l$;
-at each forward call reveal $Z_l^{\rm for}$ and
+by taking $Z_l^{\mathrm{rev}}$ and the row entries $\Lambda_{li},i<l$;
+at each forward call reveal $Z_l^{\mathrm{for}}$ and
 $\Lambda_{il},i\le l$. This is an acyclic reveal order.
 The current lower pair depends on upper primitives only through
 earlier upper outputs, so it reveals no fresh upper primitive.
@@ -9267,16 +9022,15 @@ earlier upper outputs, so it reveals no fresh upper primitive.
 Set
 
 $$
- \begin{split}
+ \begin{aligned}
  m_l^{(2)}
- &=\sum_{i<l}Z_i^{{\rm rev},(3)}A_{\theta,il}^{(3)}
+ &=\sum_{i<l}Z_i^{{\mathrm{rev}},(3)}A_{\theta,il}^{(3)}
        +\sum_{i<l}s_i^{(3)}
-                  (Z_i^{{\rm for},(3)})^T\theta_l^{(3)},\\
+                  (Z_i^{{\mathrm{for}},(3)})^T\theta_l^{(3)},\\
  \nu_l^{(2)}
- &=A_{\theta,ll}^{(3)}Z_l^{{\rm rev},(3)}
+ &=A_{\theta,ll}^{(3)}Z_l^{{\mathrm{rev}},(3)}
                  +\sigma\sum_{i<l}s_i^{(3)}\Lambda_{li}^{(3)}.
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l8392}
 
 All coefficients and the first vector in ([-@eq-docs-gaussian-calculus-l8392]) are measurable from
@@ -9286,7 +9040,6 @@ $$
  \operatorname{Cov}(\nu_l^{(2)}\mid\text{past})
  =(A_{\theta,ll}^{(3)})^2 I_n
              +\sigma^2\sum_{i<l}s_i^{(3)}(s_i^{(3)})^T.
-
 $$ {#eq-docs-gaussian-calculus-l8406}
 
 This is a statement about joint conditional covariance, not iid
@@ -9299,7 +9052,6 @@ $$
  q_j^{(2)}
  =m_{j+2}^{(2)}+(M_j^{(3)})^T\delta_j^{(3)}
                     +\nu_{j+2}^{(2)}.
-
 $$ {#eq-docs-gaussian-calculus-l8417}
 
 There is no omission of the trained part of $W^{(3)}$.
@@ -9310,7 +9062,6 @@ $\|W^{(4)}_0\|_\infty\le1$, bounded activation alone gives
 $$
  \|W^{(4)}_j\|_\infty\le B_4:=1+(S+1)\pi/2,\qquad
  \|\delta_j^{(3)}\|_2/\sqrt n\le B_4.
-
 $$ {#eq-docs-gaussian-calculus-l8427}
 
 The Schur-complement diagonal satisfies
@@ -9325,7 +9076,6 @@ Together with ([-@eq-docs-gaussian-calculus-l8095]), this gives the actual innov
 $$
  \operatorname{Cov}(\nu_l^{(2)}\mid\text{past})
        \preceq(B_4^2+2\sigma^2)I_n.
-
 $$ {#eq-docs-gaussian-calculus-l8438}
 
 For every coordinate $i$, every real $\lambda$, and every such
@@ -9334,7 +9084,6 @@ past, the Gaussian characteristic/density calculation therefore yields
 $$
  \mathbb E[e^{\lambda\nu_{l,i}^{(2)}}\mid\text{past}]
  \le\exp\!\big((B_4^2+2\sigma^2)\lambda^2/2\big),
-
 $$ {#eq-docs-gaussian-calculus-l8445}
 
 and Markov's inequality optimized in $\lambda$ gives, for $x\ge0$,
@@ -9342,7 +9091,6 @@ and Markov's inequality optimized in $\lambda$ gives, for $x\ge0$,
 $$
  \mathbb P(|\nu_{l,i}^{(2)}|>x\mid\text{past})
  \le2\exp\!\left(-\frac{x^2}{2(B_4^2+2\sigma^2)}\right).
-
 $$ {#eq-docs-gaussian-calculus-l8451}
 
 The constants are independent of clipping, mesh, filter scale and
@@ -9362,7 +9110,6 @@ so, for every coordinate,
 $$
  \left|[(M_j^{(3)})^T\delta_j^{(3)}]_i\right|
  \le (S+1)(\pi/2)B_4^2.
-
 $$ {#eq-docs-gaussian-calculus-l8467}
 
 This uses the actual trained update and actual bounded top backward
@@ -9372,7 +9119,7 @@ Conditional on the enlarged primitive past used in ([-@eq-docs-gaussian-calculus
 ([-@eq-docs-gaussian-calculus-l8417]) is Gaussian with the displayed mean, including its learned term, and
 innovation covariance ([-@eq-docs-gaussian-calculus-l8406]). After averaging over that past it need not be
 Gaussian. The mean $m_l^{(2)}$ has no bound here: its coefficients depend on
-earlier Gaussian outputs. Therefore (G.17)–(G.20) give neither unconditional
+earlier Gaussian outputs. Therefore ([-@eq-docs-gaussian-calculus-l8438])–([-@eq-docs-gaussian-calculus-l8467]) give neither unconditional
 Gaussianity nor coordinate independence nor a clipping-uniform tail bound for
 the complete query.
 A union bound over all calls would also introduce the growing call
@@ -9395,7 +9142,6 @@ The deterministic stability proof also gives, at each $0\le j<N$,
 $$
  \frac{\|\widehat q_j^{(2)}-q^{(2)}(s_j)\|_2}{\sqrt n}
  \le C_S\big(E_j+C_j\big)+b,
-
 $$ {#eq-docs-gaussian-calculus-l8498}
 
 where $E_j$ is its slow-state error, $C_j$ its layer-three error,
@@ -9419,7 +9165,6 @@ is at most
 $$
  n^{-1/24+o(1)}
  +2\big(4e^{-(8-2\log9)n}+2ne^{-n^2/2}+5n^{-2}\big).
-
 $$ {#eq-docs-gaussian-calculus-l8520}
 
 Indeed compare reference and all-original paths on the proved coupling.
@@ -9452,15 +9197,12 @@ Sections [1](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l19)–[8](gaussia
 
 Fix an integer $L\ge1$, independently of width and step count. There is
 one input, $d=m=1,x_1=1$, and every activation is the identity. All
-blocks are trained. Write the stored endpoint vectors as $U_n,A_n\in
-\mathbb R^n$, and the stored connectors as $B_{a,n}\in\mathbb
-R^{n\times n}$, $2\le a\le L$. Initially the endpoint entries are
+blocks are trained. Write the stored endpoint vectors as $U_n,A_n\in \mathbb R^n$, and the stored connectors as $B_{a,n}\in\mathbb R^{n\times n}$, $2\le a\le L$. Initially the endpoint entries are
 independent $N(0,1)$, the connector entries are independent
 $N(0,1/n)$, and all blocks are independent. The output is
 
 $$
  f_n=\frac1n A_n^TB_{L,n}\cdots B_{2,n}U_n.
-
 $$ {#eq-docs-gaussian-calculus-l8561}
 
 An empty connector product is the identity. The raw parameter metric is
@@ -9470,7 +9212,6 @@ $$
  +\frac{dU_n^Td\widetilde U_n}{n}
  +\sum_{a=2}^L\operatorname{Tr}
        (dB_{a,n}^Td\widetilde B_{a,n}).
-
 $$ {#eq-docs-gaussian-calculus-l8568}
 
 Thus its mobilities in stored coordinates are
@@ -9484,20 +9225,18 @@ $u_n=U_n/\sqrt n, a_n=A_n/\sqrt n$. Define
 $$
  x_{1,n}=u_n,\quad x_{a,n}=B_{a,n}x_{a-1,n},\qquad
  r_{L,n}=a_n,\quad r_{a-1,n}=B_{a,n}^Tr_{a,n}.
-
 $$ {#eq-docs-gaussian-calculus-l8584}
 
 All finite vector norms and pairings in this representation are ordinary
 Euclidean ones. The exact Euler update is
 
 $$
- \begin{split}
+ \begin{aligned}
  a_n^+&=a_n+h x_{L,n},\\
  u_n^+&=u_n+h r_{1,n},\\
  B_{a,n}^+&=B_{a,n}+h r_{a,n}x_{a-1,n}^T,
                   \qquad 2\le a\le L.
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l8593}
 
 All fields on the right are evaluated before any block is changed.
@@ -9520,7 +9259,6 @@ $$
  K_L=\max\left\{1,\quad
   \max_{0\le r\le4}(L+1)(L)_r3^{L-r},\quad
   \max_{1\le r\le4}(L+1)_r3^{L+1-r}\right\}.
-
 $$ {#eq-docs-gaussian-calculus-l8619}
 
 Terms with zero falling factorial mean zero. In particular
@@ -9528,6 +9266,7 @@ $K_1=6, K_2=27, K_3=108$. The explicit finite recurrence in
 [Section 5](gaussian-calculus.qmd#sec-docs-gaussian-calculus-l9093) defines $C_K$ for every $K\ge1$.
 
 ::: {#thm-docs-gaussian-calculus-l8630}
+
 ## IU
 
 For every integer $t\ge1$ and
@@ -9537,7 +9276,6 @@ $$
  \left|F_{t,L}(2h)-F_{2t,L}(h)
  +\frac{t(2t-1)L(L+1)^2(L+2)}{3}h^3\right|
  \le C_{K_L}t^4|h|^5.
-
 $$ {#eq-docs-gaussian-calculus-l8633}
 
 The fixed-program limits are Euler iterates of the trace-class operator
@@ -9570,7 +9308,6 @@ returns zero. On
 $$
  \mathcal H=\mathcal F\oplus\mathcal F,
  \qquad U=(\Omega,0),\qquad A=(0,\Omega),
-
 $$ {#eq-docs-gaussian-calculus-l8665}
 
 put
@@ -9578,7 +9315,6 @@ put
 $$
  \Gamma_a=(\ell_{a,+}+\ell_{a,-}^*)
                \oplus(\ell_{a,+}+\ell_{a,-}^*).
-
 $$ {#eq-docs-gaussian-calculus-l8673}
 
 Both roots have norm one; $\|\Gamma_a\|\le2$, because a creation
@@ -9598,7 +9334,6 @@ $$
  \longrightarrow
  \langle P(\Gamma)g_i,Q(\Gamma)g_j\rangle
  \quad\hbox{in probability},
-
 $$ {#eq-docs-gaussian-calculus-l8691}
 
 where $g_{1,n}=u_n(0),g_{2,n}=a_n(0)$ and $g_1=U,g_2=A$.
@@ -9619,7 +9354,6 @@ $$
  \|P\|\le\|P\|_{\mathfrak S_2}\le\|P\|_{\mathfrak S_1},
  \qquad
  \|v\otimes w\|_{\mathfrak S_1}=\|v\|\|w\|,
-
 $$ {#eq-docs-gaussian-calculus-l8713}
 
 and the operator ideal inequalities. The tensor convention is
@@ -9636,7 +9370,6 @@ $$
  \quad
  \|\theta\|_{\mathcal X_L}
  =\|a\|+\|u\|+\sum_{a'=2}^L\|P_{a'}\|_{\mathfrak S_1}.
-
 $$ {#eq-docs-gaussian-calculus-l8727}
 
 Its initial state is $\theta_0=(A,U,0,\ldots,0)$. Define
@@ -9648,7 +9381,6 @@ $$
  f(\theta)&=\langle a,x_L\rangle,&
  g(\theta)&=(x_L,r_1,(r_a\otimes x_{a-1})_{a=2}^L).
  \end{aligned}
-
 $$ {#eq-docs-gaussian-calculus-l8739}
 
 The notation $a$ for the endpoint in this formula is distinct from
@@ -9670,7 +9402,6 @@ It follows, in the multilinear operator norms induced by ([-@eq-docs-gaussian-ca
 $$
  \|D^rg(\theta)\|\le(L+1)(L)_r3^{L-r},\qquad
  \|D^rf(\theta)\|\le(L+1)_r3^{L+1-r}.
-
 $$ {#eq-docs-gaussian-calculus-l8765}
 
 The first bound is for $0\le r\le4$, the second for $1\le r\le4$.
@@ -9684,7 +9415,6 @@ bounded by Hilbert--Schmidt norm. The reverse chain rule gives
 
 $$
  Df(\theta)[v]=\langle g(\theta),v\rangle_{\mathcal Y_L}.
-
 $$ {#eq-docs-gaussian-calculus-l8780}
 
 For example, the connector derivative is
@@ -9699,7 +9429,6 @@ Let $E_h\theta=\theta+h g(\theta)$. We prove
 
 $$
  F_{N,L}(h)=f(E_h^N\theta_0).
-
 $$ {#eq-docs-gaussian-calculus-l8795}
 
 At every fixed finite step, expand each learned connector into its
@@ -9724,7 +9453,6 @@ threshold left variable, gives
 $$
  \mathbb P\{\|B_{a,n}(0)\|>y\}
  \le2\exp(n\log81-ny^2/8).
-
 $$ {#eq-docs-gaussian-calculus-l8819}
 
 Indeed the same $1/4$-net has at most $9^n$ points, the norm is
@@ -9740,7 +9468,6 @@ $$
  =\mathbb E\left(\frac1n\sum_{i=1}^n U_{n,i}^2\right)^p
  \le\mathbb E|G|^{2p}<\infty,
  \qquad G\sim N(0,1).
-
 $$ {#eq-docs-gaussian-calculus-l8833}
 
 The same holds for $a_n(0)$. At a finite step put
@@ -9755,11 +9482,10 @@ The rank-one norm formula and ([-@eq-docs-gaussian-calculus-l8593]) imply
 $$
  M_{k+1}\le M_k+|h|(L+1)M_k^L,
  \qquad |f_{n,k}|\le M_k^{L+1}.
-
 $$ {#eq-docs-gaussian-calculus-l8850}
 
 At fixed $N,h$, iteration gives a finite polynomial bound in $M_0$
-with nonnegative coefficients. Equations (IU16)--(IU18) consequently
+with nonnegative coefficients. Equations ([-@eq-docs-gaussian-calculus-l8819])--([-@eq-docs-gaussian-calculus-l8850]) consequently
 bound every finite moment of the output uniformly in width. Convergence
 in probability to ([-@eq-docs-gaussian-calculus-l8795]), followed by truncation and a higher moment
 bound for the tails, proves convergence in every finite $L^p$, in
@@ -9785,7 +9511,6 @@ $$
  f(S\theta)=-f(\theta),\qquad
  Sg(\theta)=-g(S\theta),\qquad
  SE_h=E_{-h}S.
-
 $$ {#eq-docs-gaussian-calculus-l8879}
 
 The law of the finite initial state is invariant under $S$; its
@@ -9794,7 +9519,6 @@ just proved yields
 
 $$
  F_{N,L}(-h)=-F_{N,L}(h).
-
 $$ {#eq-docs-gaussian-calculus-l8890}
 
 This argument uses symmetry of the initial law; it does not assert
@@ -9806,13 +9530,12 @@ All quantities in this section are evaluated at $\theta_0$ unless an
 argument is displayed. Write $g_0=g(\theta_0)$,
 
 $$
- H_0^{\rm vec}=Dg[g_0],\qquad
- K_0^{\rm vec}=Dg[H_0^{\rm vec}],\qquad
- R_0^{\rm vec}=D^2g[g_0,g_0],
+ H_0^{\mathrm{vec}}=Dg[g_0],\qquad
+ K_0^{\mathrm{vec}}=Dg[H_0^{\mathrm{vec}}],\qquad
+ R_0^{\mathrm{vec}}=D^2g[g_0,g_0],
  \quad
  S_0=D^3f[g_0,g_0,g_0],\quad
- H_0^{\rm sc}=\|H_0^{\rm vec}\|_{\mathcal Y_L}^2.
-
+ H_0^{\mathrm{sc}}=\|H_0^{\mathrm{vec}}\|_{\mathcal Y_L}^2.
 $$ {#eq-docs-gaussian-calculus-l8903}
 
 These temporary scalar and vector names will not be used for the
@@ -9820,15 +9543,13 @@ majorants in the next section. Symmetry of the derivatives of the
 Hilbert gradient ([-@eq-docs-gaussian-calculus-l8780]) gives
 
 $$
- Df[K_0^{\rm vec}]=H_0^{\rm sc},\qquad
- D^2f[H_0^{\rm vec},g_0]=H_0^{\rm sc},\qquad
- Df[R_0^{\rm vec}]=S_0.
-
+ Df[K_0^{\mathrm{vec}}]=H_0^{\mathrm{sc}},\qquad
+ D^2f[H_0^{\mathrm{vec}},g_0]=H_0^{\mathrm{sc}},\qquad
+ Df[R_0^{\mathrm{vec}}]=S_0.
 $$ {#eq-docs-gaussian-calculus-l8917}
 
 For example, the first equality is
-$\langle g_0,Dg[H_0^{\rm vec}]\rangle
-=\langle Dg[g_0],H_0^{\rm vec}\rangle$, since $Dg$ is
+$\langle g_0,Dg[H_0^{\mathrm{vec}}]\rangle =\langle Dg[g_0],H_0^{\mathrm{vec}}\rangle$, since $Dg$ is
 self-adjoint on $\mathcal Y_L$. The third is the differentiated
 gradient identity.
 
@@ -9837,34 +9558,31 @@ states equal $\theta_0$. Differentiating its recurrence successively
 and summing gives
 
 $$
- \begin{split}
+ \begin{aligned}
  \theta_N'(0)&=Ng_0,\\
- \theta_N''(0)&=N(N-1)H_0^{\rm vec},\\
- \theta_N'''(0)&=6\binom N3K_0^{\rm vec}
-       +\frac{N(N-1)(2N-1)}2R_0^{\rm vec}.
- \end{split}
-
+ \theta_N''(0)&=N(N-1)H_0^{\mathrm{vec}},\\
+ \theta_N'''(0)&=6\binom N3K_0^{\mathrm{vec}}
+       +\frac{N(N-1)(2N-1)}2R_0^{\mathrm{vec}}.
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l8934}
 
 To check the last sum, its increment at step $k$ is
-$3k(k-1)K_0^{\rm vec}+3k^2R_0^{\rm vec}$; sum over
+$3k(k-1)K_0^{\mathrm{vec}}+3k^2R_0^{\mathrm{vec}}$; sum over
 $0\le k<N$. The third scalar chain rule and ([-@eq-docs-gaussian-calculus-l8917]) now give
 
 $$
  F_{N,L}'''(0)
  =\frac{N(4N^2-3N+1)}2S_0
-     +2N(N-1)(2N-1)H_0^{\rm sc}.
-
+     +2N(N-1)(2N-1)H_0^{\mathrm{sc}}.
 $$ {#eq-docs-gaussian-calculus-l8948}
 
-It remains to calculate just $S_0,H_0^{\rm sc}$ for the explicit
+It remains to calculate just $S_0,H_0^{\mathrm{sc}}$ for the explicit
 source. At initialization the forward and reverse vectors are unit
 words
 
 $$
  X_a=\ell_{a,+}\cdots\ell_{2,+}U,\qquad
  R_a=\ell_{a+1,-}\cdots\ell_{L,-}A.
-
 $$ {#eq-docs-gaussian-calculus-l8959}
 
 The factors absent at an endpoint are identities. The equality with
@@ -9882,7 +9600,6 @@ also gives zero. The forward state on this line is exactly
 $$
  x_a(s)=X_a+sV_a,\qquad
  V_1=R_1,\quad V_a=\Gamma_aV_{a-1}+R_a,
-
 $$ {#eq-docs-gaussian-calculus-l8977}
 
 where $V_a$ belongs to the $A$-sector. The readout is $A+sX_L$.
@@ -9892,7 +9609,6 @@ Consequently
 
 $$
  S_0=0.
-
 $$ {#eq-docs-gaussian-calculus-l8988}
 
 We next evaluate the norms in ([-@eq-docs-gaussian-calculus-l8977]), retaining the returns created
@@ -9900,7 +9616,6 @@ by reuse of the same connector. For $1\le k\le a$, set
 
 $$
  e_{a,k}=\ell_{a,+}\cdots\ell_{k+1,+}R_k.
-
 $$ {#eq-docs-gaussian-calculus-l8996}
 
 When $k=a$, this is $R_a$. These are distinct unit words in the
@@ -9910,7 +9625,6 @@ $e_{a,k}$. For the last word,
 
 $$
  \Gamma_aR_{a-1}=e_{a,a-1}+R_a,
-
 $$ {#eq-docs-gaussian-calculus-l9006}
 
 because the annihilator deletes its initial $a,-$. Induction in
@@ -9919,14 +9633,12 @@ because the annihilator deletes its initial $a,-$. Induction in
 $$
  V_a=\sum_{k=1}^a k e_{a,k},\qquad
  \|V_a\|^2=\sum_{k=1}^a k^2.
-
 $$ {#eq-docs-gaussian-calculus-l9014}
 
 The reverse variation on the same straight line obeys
 
 $$
  T_L=X_L,\qquad T_{a-1}=\Gamma_a^*T_a+X_{a-1}.
-
 $$ {#eq-docs-gaussian-calculus-l9022}
 
 Indeed the derivative of $B_a^*r_a$ adds
@@ -9947,7 +9659,6 @@ therefore gives
 $$
  T_a=\sum_{j=a}^L(L-j+1)\widetilde e_{a,j},\qquad
  \|T_a\|^2=\sum_{q=1}^{L-a+1}q^2.
-
 $$ {#eq-docs-gaussian-calculus-l9042}
 
 The endpoint components of $Dg[g_0]$ are $V_L,T_1$; its connector
@@ -9955,23 +9666,21 @@ component is
 
 $$
  T_a\otimes X_{a-1}+R_a\otimes V_{a-1}.
-
 $$ {#eq-docs-gaussian-calculus-l9051}
 
 The two terms are Hilbert--Schmidt orthogonal, since their range
 vectors belong to orthogonal root sectors. Their squared norms are
 $\|T_a\|^2$ and $\|V_{a-1}\|^2$, since $X_{a-1},R_a$
-are unit vectors. Equations (IU30)--(IU33) yield
+are unit vectors. Equations ([-@eq-docs-gaussian-calculus-l9014])--([-@eq-docs-gaussian-calculus-l9051]) yield
 
 $$
- \begin{split}
- H_0^{\rm sc}
+ \begin{aligned}
+ H_0^{\mathrm{sc}}
  &=\|V_L\|^2+\|T_1\|^2
       +\sum_{a=2}^L(\|T_a\|^2+\|V_{a-1}\|^2)\\
  &=2\sum_{q=1}^L(L-q+1)q^2
    =\frac{L(L+1)^2(L+2)}6.
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l9061}
 
 For the last equality expand the sum as
@@ -9984,12 +9693,11 @@ Subtracting the two cubic coefficients in ([-@eq-docs-gaussian-calculus-l8948]),
 factor $2^3$ for the coarse step, proves
 
 $$
- \begin{split}
+ \begin{aligned}
  \frac{8F_{t,L}'''(0)-F_{2t,L}'''(0)}6
- &=-\frac{t(2t-1)}2(S_0+4H_0^{\rm sc})\\
+ &=-\frac{t(2t-1)}2(S_0+4H_0^{\mathrm{sc}})\\
  &=-\frac{t(2t-1)L(L+1)^2(L+2)}3.
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l9081}
 
 This derivation is specific to the identity activation and the stated
@@ -10005,7 +9713,6 @@ $\theta_0$ that
 $$
  \|D^rg\|\le K\quad(0\le r\le4),\qquad
  \|D^rf\|\le K\quad(1\le r\le4),\qquad K\ge1.
-
 $$ {#eq-docs-gaussian-calculus-l9100}
 
 It suffices that the maps be defined on a neighborhood of the ball.
@@ -10015,7 +9722,7 @@ For $c=1/(16K)$, the following finite recurrence defines the constant.
 The letters in this recurrence are numerical majorants only:
 
 $$
- \begin{split}
+ \begin{aligned}
  X_1&=8K,\\
  X_2&=2\{8KX_1+4cKX_1^2\},\\
  X_3&=2\{12K(X_1^2+X_2)+4cK(X_1^3+3X_1X_2)\},\\
@@ -10030,8 +9737,7 @@ $$
  T_3&=2\{Z_3+6K(T_1^2+T_2)+2cK(T_1^3+3T_1T_2)\},\\
  H_0&=K,\quad H_1=KT_1,\quad H_2=K(T_2+T_1^2),\\
  H_3&=K(T_3+3T_1T_2+T_1^3).
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l9112}
 
 Starting with $W_0=2A_0$, define successively for $r=1,2,3$,
@@ -10042,7 +9748,6 @@ $$
  +2r\sum_{q=0}^{r-1}\binom{r-1}qH_qW_{r-1-q}\right\},
  \qquad
  C_K=\frac16\sum_{q=0}^3\binom3qH_qW_{3-q}.
-
 $$ {#eq-docs-gaussian-calculus-l9134}
 
 All indices are fixed finite ranges; these formulas terminate and
@@ -10054,7 +9759,6 @@ for $t\ge1, |h|\le c/t$,
 $$
  \left|d_t(h)-\frac{d_t'''(0)}6h^3\right|
  \le C_Kt^4|h|^5.
-
 $$ {#eq-docs-gaussian-calculus-l9149}
 
 []{#proof-docs-gaussian-calculus-l9155}
@@ -10065,7 +9769,6 @@ The exact local defect, with no Taylor truncation, is
 $$
  B_hx=C_hx+h^2a_h(x),\qquad
  a_h(x)=\int_0^1Dg(x+s h g(x))[g(x)]\,ds.
-
 $$ {#eq-docs-gaussian-calculus-l9157}
 
 For a scalar map $v$, write $P_Mv=v\circ M$, and set
@@ -10073,7 +9776,6 @@ For a scalar map $v$, write $P_Mv=v\circ M$, and set
 $$
  R_hv(x)=-\int_0^1
  Dv(C_hx+s h^2a_h(x))[a_h(x)]\,ds.
-
 $$ {#eq-docs-gaussian-calculus-l9165}
 
 Then $P_{C_h}-P_{B_h}=h^2R_h$. The noncommutative telescoping
@@ -10083,7 +9785,6 @@ $$
  d_t(h)=h^2Q_t(h),\qquad
  Q_t(h)=\sum_{j=0}^{t-1}
    (P_{C_h}^{t-1-j}R_hP_{B_h}^jf)(\theta_0).
-
 $$ {#eq-docs-gaussian-calculus-l9174}
 
 For each summand this means: first take $t-1-j$ coarse steps,
@@ -10098,7 +9799,6 @@ Consider any variable-step path from $\theta_0$ of the form
 $$
  x_{m+1}=x_m+\alpha_mh g(x_m),\qquad
  0\le\alpha_m\le2,\qquad \sum_m\alpha_m\le4t.
-
 $$ {#eq-docs-gaussian-calculus-l9190}
 
 As long as it lies in the unit ball its displacement is at most
@@ -10109,13 +9809,13 @@ at most $|h|^2K^2\le c^2K^2=1/256$. The trajectory before that
 point uses at most $2t$ Euler weight and the trajectory after it uses
 at most $2t$; their total displacement is bounded by
 $1/4+1/256<1$. A first-exit argument again justifies using ([-@eq-docs-gaussian-calculus-l9100])
-everywhere in (IU40)--(IU42), also for negative $h$.
+everywhere in ([-@eq-docs-gaussian-calculus-l9157])--([-@eq-docs-gaussian-calculus-l9174]), also for negative $h$.
 
 Primes now denote differentiation in $h$. With all $g$-derivatives
 evaluated at $x_m$, differentiating one step of ([-@eq-docs-gaussian-calculus-l9190]) gives
 
 $$
- \begin{split}
+ \begin{aligned}
  x_{m+1}'&=(I+\alpha_mhDg)x_m'+\alpha_mg,\\
  x_{m+1}''&=(I+\alpha_mhDg)x_m''
        +2\alpha_mDg[x_m']+\alpha_mhD^2g[x_m',x_m'],\\
@@ -10123,8 +9823,7 @@ $$
        +3\alpha_m\{D^2g[x_m',x_m']+Dg[x_m'']\}\\
  &\hspace{18mm}+\alpha_mh\{D^3g[x_m',x_m',x_m']
                                       +3D^2g[x_m',x_m'']\}.
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l9209}
 
 The product of any consecutive homogeneous factors has norm at most
@@ -10132,7 +9831,6 @@ The product of any consecutive homogeneous factors has norm at most
 $$
  \prod_m(1+\alpha_m|h|K)
  \le\exp(K|h|\sum_m\alpha_m)\le e^{4cK}<2.
-
 $$ {#eq-docs-gaussian-calculus-l9224}
 
 Iterating each affine recurrence in ([-@eq-docs-gaussian-calculus-l9209]) bounds it by twice the sum
@@ -10146,7 +9844,6 @@ These are exactly the first three recurrences in ([-@eq-docs-gaussian-calculus-l
 
 $$
  \sup_m\|x_m^{(r)}\|\le X_rt^r\quad(1\le r\le3).
-
 $$ {#eq-docs-gaussian-calculus-l9239}
 
 For $a_h(x(h))$ in ([-@eq-docs-gaussian-calculus-l9157]), both $x(h)$ and
@@ -10161,7 +9858,6 @@ Leibniz's rule, followed by integration over a unit interval, gives
 $$
  \left\|\frac{d^r}{dh^r}a_h(x(h))\right\|
  \le A_rt^r\quad(0\le r\le3).
-
 $$ {#eq-docs-gaussian-calculus-l9253}
 
 For the interpolation in ([-@eq-docs-gaussian-calculus-l9165]), its base $C_hx(h)$ is also a
@@ -10183,7 +9879,6 @@ states $z(h)$ satisfy
 
 $$
  \|z^{(r)}(h)\|\le T_rt^r\quad(1\le r\le3).
-
 $$ {#eq-docs-gaussian-calculus-l9276}
 
 By the chain rule, derivatives through order three of $Dg(z(h))$
@@ -10195,20 +9890,18 @@ $a_h(x(h))$. A fine step has tangent recurrence
 
 $$
  w^+=w+hDg(z)w.
-
 $$ {#eq-docs-gaussian-calculus-l9288}
 
 Writing $Dg(z)^{(q)}$ for its total derivative in $h$, the exact
 Leibniz formula is
 
 $$
- \begin{split}
+ \begin{aligned}
  (w^+)^{(r)}=w^{(r)}
  &+h\sum_{q=0}^r\binom rqDg(z)^{(q)}w^{(r-q)}\\
  &+r\sum_{q=0}^{r-1}\binom{r-1}q
                          Dg(z)^{(q)}w^{(r-1-q)}.
- \end{split}
-
+ \end{aligned}
 $$ {#eq-docs-gaussian-calculus-l9296}
 
 The $q=0$ term in the first sum is the homogeneous factor.
@@ -10224,7 +9917,6 @@ the homogeneous bound two is exactly ([-@eq-docs-gaussian-calculus-l9134]), so
 
 $$
  \|w^{(r)}\|\le W_rt^r\quad(0\le r\le3).
-
 $$ {#eq-docs-gaussian-calculus-l9317}
 
 The scalar integrand of each transported defect is $Df(z)[w]$.
@@ -10233,7 +9925,6 @@ A final Leibniz rule gives
 $$
  \left|\frac{d^3}{dh^3}\bigl(Df(z(h))[w(h)]\bigr)\right|
  \le t^3\sum_{q=0}^3\binom3qH_qW_{3-q}=6C_Kt^3.
-
 $$ {#eq-docs-gaussian-calculus-l9325}
 
 Differentiation under the interpolation integral is justified by these
@@ -10242,7 +9933,6 @@ There are exactly $t$ defects, so
 
 $$
  \sup_{|h|\le c/t}|Q_t'''(h)|\le6C_Kt^4.
-
 $$ {#eq-docs-gaussian-calculus-l9335}
 
 The expression ([-@eq-docs-gaussian-calculus-l9174]) defines $Q_t\in C^3$ also at zero. Because
@@ -10252,7 +9942,6 @@ $Q_t(0)=Q_t''(0)=0$. The integrated third-order Taylor identity is
 $$
  Q_t(h)-Q_t'(0)h
  =\frac12\int_0^h(h-s)^2Q_t'''(s)\,ds.
-
 $$ {#eq-docs-gaussian-calculus-l9344}
 
 Also $Q_t'(0)=d_t'''(0)/6$, directly from $d_t=h^2Q_t$.
@@ -10274,7 +9963,6 @@ Let $K=K_L, T_L=1/(8K)$. We construct the solution of
 $$
  \dot\theta(T)=g(\theta(T)),\qquad \theta(0)=\theta_0,
  \quad |T|\le T_L,
-
 $$ {#eq-docs-gaussian-calculus-l9364}
 
 in the Banach space ([-@eq-docs-gaussian-calculus-l8727]). On continuous paths with
@@ -10283,7 +9971,6 @@ the map
 
 $$
  (\mathcal P\theta)(T)=\theta_0+\int_0^Tg(\theta(s))\,ds
-
 $$ {#eq-docs-gaussian-calculus-l9374}
 
 maps into the radius-$1/8$ path ball. The integral is the Banach
@@ -10305,7 +9992,6 @@ In components this is the autonomous operator system
 $$
  \dot a=x_L,\qquad \dot u=r_1,\qquad
  \dot P_a=r_a\otimes x_{a-1}\quad(2\le a\le L),
-
 $$ {#eq-docs-gaussian-calculus-l9395}
 
 with fields recomputed by ([-@eq-docs-gaussian-calculus-l8739]). In particular its readout satisfies
@@ -10314,7 +10000,6 @@ $$
  \frac{d}{dT}f(\theta(T))
  =\|x_L\|^2+\|r_1\|^2
      +\sum_{a=2}^L\|r_a\|^2\|x_{a-1}\|^2.
-
 $$ {#eq-docs-gaussian-calculus-l9403}
 
 This is feature time for the metric ([-@eq-docs-gaussian-calculus-l8568]); no physical-loss clock is
@@ -10329,7 +10014,6 @@ $$
  \left\|\theta(T+h)-\theta(T)-h g(\theta(T))\right\|
  \le\int_0^h K\|\theta(T+s)-\theta(T)\|\,ds
  \le K^2h^2/2.
-
 $$ {#eq-docs-gaussian-calculus-l9418}
 
 If $e_k=\|E_h^k\theta_0-\theta(kh)\|$, then
@@ -10339,7 +10023,6 @@ $$
  \qquad
  e_k\le\frac{Kh}{2}\{(1+Kh)^k-1\}
        \le\frac{Kh}{2}(e^{KT_L}-1).
-
 $$ {#eq-docs-gaussian-calculus-l9427}
 
 For negative time apply the same argument to the field $-g$, or
@@ -10354,7 +10037,6 @@ $$
  E_{T/m}^m\theta_0\longrightarrow\theta(T)
                   \quad\hbox{in }\mathcal X_L,
              \qquad |T|\le T_L.
-
 $$ {#eq-docs-gaussian-calculus-l9443}
 
 By ([-@eq-docs-gaussian-calculus-l8795]), these are precisely the operator representatives obtained
@@ -10376,7 +10058,6 @@ $$
  |G_{2t}(T)-G_t(T)|
  \le\frac1t\left\{\frac{D_L|T|^3}{12}
                       +\frac{C_{K_L}|T|^5}{32}\right\}.
-
 $$ {#eq-docs-gaussian-calculus-l9465}
 
 The sum over $t,2t,4t,\ldots$ is finite, uniformly for $T$ on the
@@ -10387,7 +10068,6 @@ $$
  \left|f(\theta(T))-G_t(T)\right|
  \le\frac2t\left\{\frac{D_L|T|^3}{12}
                       +\frac{C_{K_L}|T|^5}{32}\right\}.
-
 $$ {#eq-docs-gaussian-calculus-l9476}
 
 The identification of the limit in ([-@eq-docs-gaussian-calculus-l9476]) uses the already proved
@@ -10407,7 +10087,6 @@ activation $\psi$, let
 $$
  H=\psi(u),\qquad z=MH,\qquad
  f_\psi=\frac1n a^T\psi(z).
-
 $$ {#eq-docs-gaussian-calculus-l9497}
 
 Use the same raw metric as ([-@eq-docs-gaussian-calculus-l8568]), so all blocks undergo simultaneous
@@ -10417,7 +10096,6 @@ state, is exactly
 $$
  u^+=u+h\,\psi'(u)\odot
              M^T\bigl(a\odot\psi'(M\psi(u))\bigr).
-
 $$ {#eq-docs-gaussian-calculus-l9507}
 
 Here $\odot$ is coordinatewise multiplication. Define a distance
@@ -10428,7 +10106,6 @@ $$
  =\sup_{x\in\mathbb R}
        \frac{|\psi(x)-\widetilde\psi(x)|}{1+|x|}
        +\|\psi'-\widetilde\psi'\|_\infty.
-
 $$ {#eq-docs-gaussian-calculus-l9516}
 
 Take
@@ -10438,7 +10115,6 @@ $$
  \widetilde\psi_n(x)=\psi(x)+n^{-1/2},\qquad
  u=0,\quad a=\sqrt n\,e_1,\quad
  M=\frac{e_1\mathbf1^T}{\sqrt n}.
-
 $$ {#eq-docs-gaussian-calculus-l9526}
 
 Both activations are smooth with the same positive slope
@@ -10451,7 +10127,6 @@ $$
  \frac{\|a\|_2}{\sqrt n}=1,\qquad
  \|M\|_{\mathrm{op}}=1,\qquad
  1+\frac{\|u\|_2+\|a\|_2}{\sqrt n}+\|M\|_{\mathrm{op}}=3.
-
 $$ {#eq-docs-gaussian-calculus-l9539}
 
 For $\psi$, $H=z=0$; hence
@@ -10466,7 +10141,6 @@ $$
        =\tfrac32\mathbf1,\qquad
  \widetilde u^+=3h\mathbf1,\qquad
  \frac{\|\widetilde u^+-u^+\|_2}{\sqrt n}=|h|.
-
 $$ {#eq-docs-gaussian-calculus-l9554}
 
 Consequently, for any fixed nonzero feature step $h$, no finite

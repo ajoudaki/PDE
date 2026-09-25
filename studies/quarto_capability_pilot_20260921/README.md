@@ -5,40 +5,60 @@ tests were followed by the authorized real-text pilot described below. The
 existing book and publishing code remain unchanged. Source order and structure
 are preserved in the candidate; reorganization is a separate phase.
 
-**Current phase (2026-09-24): deterministic whole-book formatting pass.**
+**Current phase (2026-09-25): deterministic migration finalized.**
 `migration.py` now reads the eleven maintained theory chapters under `docs/`
 and writes the separate candidate under `new_doc/`. The implementation guide
-under `code/` is not a book chapter and is not migrated. The program invokes no
-model and no renderer. The old book and code documentation are unchanged.
+under `code/` is not a book chapter and is not migrated. The program itself
+invokes no model or renderer. The old book and code documentation are unchanged.
 
-The pass defines 4,629 stable targets and reserves another 300 targets for
-unmistakably labelled raw formulas. A reservation records the frozen formula
-coordinates and its intended future ID but emits no link or target before the
-formula is transcribed. The pass converts all 3,360 tagged displays to automatic
-Quarto equation labels without changing their mathematical payloads, converts
+The structural pass defined 4,629 stable targets and reserved 300 more for
+labelled raw formulas. The initial four Terra 5.6/medium responses supplied
+structured replacements for 6,508 exact candidates. The completed source-aware
+scan added 949 previously unflagged records, giving 7,457 records: 3,667
+inline-code spans, 611 indented formula blocks, and 3,179 plain-text formula
+lines. The compact review covered 10,094 atomic replacements, corrected the
+recorded mathematical transcription errors, and rechecked every affected syntax
+class. Its final notation pass corrected 154 mappings in 147 records, including
+indexed symbols, indicator functions, and legacy transpose markers.
+
+The candidate now defines all 4,929 targets. It converts all 3,360 original
+tagged displays to automatic Quarto equation labels without changing their
+mathematical payloads, converts
 legacy inline TeX delimiters, recognizes 130 formal environments, anchors three
 named symbolic statements, and maps the old HTML anchors and bold numbered
 subsections, including the six plain-numbered bold subunits.
 
-The current safety-tightened index renders 4,389 resolved target references and
-records 492 references to reserved formulas without rendering broken links. It
-also preserves and verifies all six links from the book to repository code or
-code documentation. Six literature
-links remain valid hyperlinks and are inventoried without fabricating
-bibliography metadata. Twenty-seven structural references remain textually
-unchanged with explicit reasons: eighteen parenthesized formula references lack
-a unique local outline scope, seven singular references remain absent or
-ambiguous, and two ranges have ambiguous endpoints. The remaining mathematical
-work is an explicit nonoverlapping transcription inventory: 3,667 inline
-code-form spans, 611 indented formula blocks, and 2,230 plain-text formula lines.
-These counts are generated from the current frozen source and may change when
-the source changes.
+The index renders 5,728 target references and preserves all six repository-local
+links. The 27 originally ambiguous references and five additional equation
+ranges have reviewed exact mappings. A reference/math separation check recovered
+35 references that earlier formula spans had hidden and now rejects any such
+overlap. The six literature links retain their original destinations and also
+carry verified citation keys backed by six entries in `new_doc/references.bib`.
 
-The current scope-correction audit checked all 4,629 emitted anchors, all 4,389
-rendered internal references, all six repository-local links, the exact eleven-file
-source/output set, unchanged source hashes, and a byte-identical independent
-rebuild. The earlier fresh random audit supplied the semantic spot checks that
-led to the general cross-kind restriction. No occurrence was patched directly.
+The build reports zero unresolved math, references, links, or equations. Checks
+cover all 7,457 exact applications, every target and reference, source hashes,
+fenced code, display payloads, repository links, bibliography decisions, and
+math/reference separation. Independent residual scans find no legacy delimiters,
+raw mathematical signals, or pseudo-symbol syntax in replacement payloads.
+
+The final publishing run is `data/generated/quarto_capability_pilot_20260921/
+finalization08/`. All 56 migration tests, the synthetic self-test, the complete
+formula preflight, and the whole-book integrity checks pass. All 14 generated
+source/support files reproduce byte-for-byte from frozen inputs. HTML, PDF and
+editable LaTeX render successfully; all 4,929 expected HTML targets occur exactly
+once, with no broken internal links or unresolved citations. The PDF is 1,614
+pages and passes `qpdf`; compiling the exported LaTeX independently produces the
+same PDF byte-for-byte. Eight representative pages covering front matter, long
+and split mathematics, recovered headings, a formal statement and the bibliography
+were inspected visually and pass. The two remaining TeX diagnostics are inherited
+legacy `amsmath` syntax warnings; there are no missing glyphs, undefined references,
+duplicate PDF destinations, or overfull boxes wider than 50 pt.
+
+The first attempted call set was rejected atomically: one prompt exceeded the
+hard character limit, one response stopped after 30 display items, and two
+responses returned empty arrays. No part reached `new_doc/`. The corrected
+schemas required the exact full array lengths; their four responses are the only
+ones represented in `migration_decisions.json`.
 
 The active workflow is [the deterministic migration contract](LIGHTWEIGHT_MIGRATION.md).
 The former packet-by-packet model workflow, including packets 001–010 and their

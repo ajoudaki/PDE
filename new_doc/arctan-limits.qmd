@@ -36,7 +36,7 @@ parameter metric generating the stated mobilities is
 
 $$
 \frac{\|dz^{(1)}\|_2^2}{n}
-+\sum_{\ell=2}^L\|dW^{(\ell)}\|_{\rm F}^2
++\sum_{\ell=2}^L\|dW^{(\ell)}\|_{\mathrm{F}}^2
 +\frac{\|dW^{(L+1)}\|_2^2}{n}.
 $$
 
@@ -98,6 +98,7 @@ We use the clock $t=k\eta_n$, interpolate these three parameters linearly, and r
 We will construct one deterministic population evolution, prove that every fixed finite collection of its forward and backward measurements is the limit of the corresponding finite-network measurements, and prove uniform convergence of predictions, losses, and all three kernel blocks on every finite time interval. We also prove convergence of the two hidden trajectory laws and their integrated squared speeds. At small positive times both hidden layers move, the activation remains non-affine on their distributions, and the kernel changes.
 
 ::: {#thm-docs-arctan-limits-l90}
+
 ## global compact-time joint limit
 
 For every fixed
@@ -163,7 +164,6 @@ The change of coordinates is exact for the flow. Euler with proof mesh $\Delta$ 
 
 $$
 x_{k+1}^{(1)}=x_k^{(1)}-2\Delta r_{n,k}(W_k^{(2)})^T\delta_k^{(2)}.
-
 $$ {#eq-docs-arctan-limits-l144}
 
 This is Euler for the transformed flow; transforming the GD iterates in ([-@eq-docs-arctan-limits-l79]) produces an additional defect, estimated below.
@@ -173,7 +173,6 @@ Iterating the Euler matrix update gives
 $$
 W_k^{(2)}=W_0^{(2)}-\frac{2\Delta}{n}
 \sum_{s<k}r_{n,s}\delta_s^{(2)}(h_s^{(1)})^T.
-
 $$ {#eq-docs-arctan-limits-l151}
 
 Consequently, for any appropriate vectors $v,u$,
@@ -181,19 +180,17 @@ Consequently, for any appropriate vectors $v,u$,
 $$
 W_k^{(2)}v=W_0^{(2)}v-2\Delta\sum_{s<k}r_{n,s}\delta_s^{(2)}
 \frac{(h_s^{(1)})^T v}{n},
-
 $$ {#eq-docs-arctan-limits-l157}
 
 
 $$
 (W_k^{(2)})^T u=(W_0^{(2)})^T u-2\Delta\sum_{s<k}r_{n,s}h_s^{(1)}
 \frac{(\delta_s^{(2)})^T u}{n}.
-
 $$ {#eq-docs-arctan-limits-l162}
 
 Thus training adds a finite sum of rank-one matrices. At fixed $\Delta$ and $T$, only finitely many initial-matrix calls and scalar contractions need to be understood.
 
-There is a logical detail here: the empirical coefficients in (L2.5)–(L2.6) are random. We first analyze an auxiliary finite system, the oracle, using deterministic population residuals and contractions in their place. Those numbers will be constructed below from the initial population action; they are not assumptions about the empirical network. We then prove that its empirical contractions approach the supplied numbers, and compare it with the empirical-feedback Euler system.
+There is a logical detail here: the empirical coefficients in ([-@eq-docs-arctan-limits-l157])–([-@eq-docs-arctan-limits-l162]) are random. We first analyze an auxiliary finite system, the oracle, using deterministic population residuals and contractions in their place. Those numbers will be constructed below from the initial population action; they are not assumptions about the empirical network. We then prove that its empirical contractions approach the supplied numbers, and compare it with the empirical-feedback Euler system.
 
 
 ### 1.2 Adaptive Gaussian actions and singular queries {#sec-docs-arctan-limits-l173}
@@ -209,7 +206,6 @@ Conditional on $h_0^{(1)}$, its coordinates are independent centered Gaussians o
 $$
 Z_0^{(1)}\sim N(0,1),\quad H_0^{(1)}=\phi(Z_0^{(1)}),\quad
 Z_0^{(2)}\sim N(0,\mathbb E_1[(H_0^{(1)})^2]).
-
 $$ {#eq-docs-arctan-limits-l180}
 
 In the oracle, $W_0^{(3)}=0$ and $r_0=-1$. Until the oracle comparison below, the vectors in these first-call examples are oracle vectors. Its first update leaves $h_0^{(1)}$ and $W_0^{(2)}$ unchanged and gives
@@ -232,7 +228,6 @@ $$
 \overset d=
 \frac{(z_0^{(2)})^T\delta_1^{(2)}}{\|h_0^{(1)}\|_2^2}h_0^{(1)}
 +\frac{\|\delta_1^{(2)}\|_2}{\sqrt n}P_{(h_0^{(1)})^\perp}\gamma^{(1)}.
-
 $$ {#eq-docs-arctan-limits-l195}
 
 Here equality is conditional in distribution, and $\gamma^{(1)}\sim N(0,I_n)$ is independent of the preceding history. The first term supplies precisely the overlap required by
@@ -264,7 +259,7 @@ P_{(\delta_1^{(2)})^\perp}\gamma^{(2)}.
 \end{aligned}
 $$ {#eq-docs-arctan-limits-l216}
 
-Here $\gamma^{(2)}\sim N(0,I_n)$ is independent of the previous history. The denominators in (L2.8)–(L2.9) are positive almost surely for $\Delta>0$, because the initial Gaussians are nondegenerate and $\phi'(s)>0$. The first response retains the old forward answer. The second supplies the remaining overlap required by the old transpose answer. The last term disturbs neither observation. Formula ([-@eq-docs-arctan-limits-l157]), with population coefficients for the oracle, then adds the learned rank-one correction to obtain its actual preactivation node.
+Here $\gamma^{(2)}\sim N(0,I_n)$ is independent of the previous history. The denominators in ([-@eq-docs-arctan-limits-l195])–([-@eq-docs-arctan-limits-l216]) are positive almost surely for $\Delta>0$, because the initial Gaussians are nondegenerate and $\phi'(s)>0$. The first response retains the old forward answer. The second supplies the remaining overlap required by the old transpose answer. The last term disturbs neither observation. Formula ([-@eq-docs-arctan-limits-l157]), with population coefficients for the oracle, then adds the learned rank-one correction to obtain its actual preactivation node.
 
 We now prove the finite Gaussian fact needed to repeat this argument, including the case of dependent query directions. The proof below requires only empirical convergence against continuous measurements with at most quadratic growth. It does not claim convergence against arbitrary discontinuous functions.
 
@@ -275,7 +270,6 @@ For precision, the distance between two laws used here is the smallest root-mean
 $$
 \mathcal W_2\!\left(\frac1n\sum_i\delta_{v_i},\frac1n\sum_i\delta_{\widetilde v_i}\right)^2
 \le\frac1n\sum_i\|v_i-\widetilde v_i\|_2^2.
-
 $$ {#eq-docs-arctan-limits-l232}
 
 Convergence in this distance means weak convergence together with convergence of second moments. Thus it includes all dot products of a fixed joint tuple.
@@ -283,9 +277,8 @@ Convergence in this distance means weak convergence together with convergence of
 First, the Gaussian matrix has a uniform operator bound with exponentially high probability. A $1/4$-net of the Euclidean unit sphere has at most $9^n$ elements. Using two such nets,
 
 $$
-\mathbb P(\|W_0^{(2)}\|_{\rm op}>M)
+\mathbb P(\|W_0^{(2)}\|_{\mathrm{op}}>M)
 \le 2\,9^{2n}\exp(-nM^2/8).
-
 $$ {#eq-docs-arctan-limits-l240}
 
 Indeed the operator norm is at most twice the largest bilinear form on these nets, and each bilinear form is $N(0,1/n)$. Choose a fixed sufficiently large $M$.
@@ -305,7 +298,6 @@ W_0^{(2)}\overset d=
 Y(V^T V)^{-1}V^T
 +U(U^T U)^{-1}R^T P_{V^\perp}
 +P_{U^\perp}\widetilde W_0^{(2)}P_{V^\perp}.
-
 $$ {#eq-docs-arctan-limits-l254}
 
 Here $P_{V^\perp}=I-V(V^T V)^{-1}V^T$, and similarly for $U$; terms for an empty column list are zero. The fresh matrix has independent $N(0,1/n)$ entries. The first two terms obey both recorded equations; the remaining Gaussian matrix lies in exactly the directions that leave those equations unchanged. Orthogonal components of a centered isotropic Gaussian are independent, which proves ([-@eq-docs-arctan-limits-l254]), including for adaptive queries: each input is chosen from the earlier answers before its new answer is observed.
@@ -315,7 +307,6 @@ For a new right-side input $v$, multiplication gives
 $$
 W_0^{(2)}v\overset d=Y\alpha_n+U\beta_n+
 \frac{\|P_{V^\perp}v\|_2}{\sqrt n}P_{U^\perp}\gamma,
-
 $$ {#eq-docs-arctan-limits-l264}
 
 where
@@ -338,7 +329,6 @@ converges to its population expectation. The choices $\psi(s)=s^2$ and $\psi(s,t
 $$
 \frac{\|P_{V^\perp}(a+\varepsilon\xi)\|_2^2}{n}
 =\frac{\|P_{V^\perp}a\|_2^2}{n}+\varepsilon^2+o_{\mathbb P}(1).
-
 $$ {#eq-docs-arctan-limits-l281}
 
 The cross term has conditional variance at most $4\varepsilon^2\|a\|_2^2/n^2$, and only a fixed number of Gaussian directions are removed. Its limiting squared distance is at least $\varepsilon^2$. Successive Schur complements therefore stay positive; all the finite Gram inverses in ([-@eq-docs-arctan-limits-l264]) converge.
@@ -348,7 +338,6 @@ Consequently the response coefficients and Gaussian variance converge. Write $P_
 $$
 \mathbb E\!\left[\frac{\|P_{U}\gamma\|_2^2}{n}\,\middle|\,\text{history}\right]
 =\frac{\operatorname{rank}(U)}n\longrightarrow0.
-
 $$ {#eq-docs-arctan-limits-l289}
 
 After removing this negligible projection and replacing coefficients by their limits, the new coordinates are an old coordinate function plus independent scalar Gaussians. For a bounded Lipschitz measurement, conditional empirical variance is at most a constant divided by $n$. Its conditional mean is the old empirical average of the measurement averaged over one scalar Gaussian, which converges by the previous induction step. The conditional variance of the new squared norm is also $O((1+\|Y\alpha_n+U\beta_n\|_2^2/n)/n)$. Thus second moments converge as well. This proves the enlarged joint $\mathcal W_2$ convergence. Lipschitz coordinate operations preserve it, closing the induction at fixed $\varepsilon$.
@@ -358,7 +347,6 @@ Finally couple the perturbed and unperturbed calculations using the same roots a
 $$
 \max_{\text{constructed }v}\frac{\|v^{\varepsilon}-v\|_2}{\sqrt n}
 \le C\varepsilon,
-
 $$ {#eq-docs-arctan-limits-l297}
 
 where $C$ depends on the fixed calculation but not on $n$ or $0<\varepsilon\le1$. Each coordinate map multiplies a difference by its fixed Lipschitz constant, and each matrix call by at most $M$, plus the new perturbation. Both events have probability tending to one. By ([-@eq-docs-arctan-limits-l232]), the deterministic limiting laws for $\varepsilon>0$ form a Cauchy family in $\mathcal W_2$; its limit is also the limit of the unperturbed empirical laws, first taking $n\to\infty$, then $\varepsilon\to0$. This proves the finite Gaussian fact without assuming stability of a singular unperturbed Gram matrix.
@@ -373,7 +361,6 @@ $$
 v\sim\widetilde v\quad\Longleftrightarrow\quad
 \frac{\|v-\widetilde v\|_2^2}{n}\longrightarrow0
 \quad\text{in probability},
-
 $$ {#eq-docs-arctan-limits-l309}
 
 and do the same separately on the second layer. The limiting mean-square distance is $\mathbb E[(V-\widetilde V)^2]$, so these classes are precisely the corresponding population random variables, identified when equal almost surely. Define
@@ -393,7 +380,6 @@ on an event of probability tending to one. Linearity passes from the finite matr
 
 $$
 \mathbb E_2[(W_0^{(2)}V)^2]\le M^2\mathbb E_1[V^2].
-
 $$ {#eq-docs-arctan-limits-l325}
 
 Taking all mean-square limits extends this action uniquely to every square-integrable variable on the first-layer probability space. The density needed here follows from the included bounded coordinate functions: finite-coordinate measurable functions approximate any variable on the generated space, and bounded continuous functions approximate them in mean square. The transpose action extends the same way in the reverse direction. Passing the exact finite identity
@@ -407,7 +393,6 @@ to population expectations shows that this reverse action is precisely the adjoi
 
 $$
 \mathbb E_2[U\,W_0^{(2)}V]=\mathbb E_1[((W_0^{(2)})^*U)V].
-
 $$ {#eq-docs-arctan-limits-l335}
 
 Arbitrary fixed real coefficients are obtained by rational approximation; the same stability estimates identify any finite computation using them with this population construction.
@@ -441,9 +426,8 @@ We next prove that ([-@eq-docs-arctan-limits-l344]) has a unique solution at eve
 
 $$
 \rho=\|X^{(1)}-\widetilde X^{(1)}\|_{L^2}
-+\|W^{(2)}-\widetilde W^{(2)}\|_{\rm op}
++\|W^{(2)}-\widetilde W^{(2)}\|_{\mathrm{op}}
 +\|W^{(3)}-\widetilde W^{(3)}\|_{L^2}.
-
 $$ {#eq-docs-arctan-limits-l363}
 
 At finite width the corresponding distance is explicitly
@@ -451,7 +435,7 @@ At finite width the corresponding distance is explicitly
 $$
 \rho_n(\theta,\widetilde\theta)
 =\frac{\|x^{(1)}-\widetilde x^{(1)}\|_2}{\sqrt n}
-+\|W^{(2)}-\widetilde W^{(2)}\|_{\rm op}
++\|W^{(2)}-\widetilde W^{(2)}\|_{\mathrm{op}}
 +\frac{\|W^{(3)}-\widetilde W^{(3)}\|_2}{\sqrt n}.
 $$
 
@@ -463,13 +447,13 @@ Both $F^{-1}$ and $\phi\circ F^{-1}$ are 1-Lipschitz. The functions $\phi,\phi'$
 $$
 \begin{aligned}
 \|Z^{(2)}-\widetilde Z^{(2)}\|_{L^2}
-&\le (\pi/2)\|W^{(2)}-\widetilde W^{(2)}\|_{\rm op}
+&\le (\pi/2)\|W^{(2)}-\widetilde W^{(2)}\|_{\mathrm{op}}
 +M\|X^{(1)}-\widetilde X^{(1)}\|_{L^2},\\
 \|\delta^{(2)}-\widetilde\delta^{(2)}\|_{L^2}
 &\le\|W^{(3)}-\widetilde W^{(3)}\|_{L^2}
 +B\operatorname{Lip}(\phi')\|Z^{(2)}-\widetilde Z^{(2)}\|_{L^2},\\
 \|(W^{(2)})^*\delta^{(2)}-(\widetilde W^{(2)})^*\widetilde\delta^{(2)}\|_{L^2}
-&\le\|W^{(2)}-\widetilde W^{(2)}\|_{\rm op}\|\delta^{(2)}\|_{L^2}
+&\le\|W^{(2)}-\widetilde W^{(2)}\|_{\mathrm{op}}\|\delta^{(2)}\|_{L^2}
 +M\|\delta^{(2)}-\widetilde\delta^{(2)}\|_{L^2}.
 \end{aligned}
 $$ {#eq-docs-arctan-limits-l380}
@@ -477,7 +461,7 @@ $$ {#eq-docs-arctan-limits-l380}
 The output difference obeys Cauchy–Schwarz with $|H^{(2)}|\le\pi/2$, and
 
 $$
-\|a\otimes b-\widetilde a\otimes\widetilde b\|_{\rm op}
+\|a\otimes b-\widetilde a\otimes\widetilde b\|_{\mathrm{op}}
 \le\|a-\widetilde a\|_{L^2}\|b\|_{L^2}
 +\|\widetilde a\|_{L^2}\|b-\widetilde b\|_{L^2}.
 $$
@@ -491,7 +475,6 @@ To continue the solution, differentiation of the output, using ([-@eq-docs-arcta
 $$
 \dot f=-2rK,\quad \dot{\mathcal L}=-4r^2K,\qquad
 K=K^{(1)}+K^{(2)}+K^{(3)},
-
 $$ {#eq-docs-arctan-limits-l404}
 
 where
@@ -540,9 +523,8 @@ $$
 
 
 $$
-\|\dot W^{(2)}\|_{\rm op}\le\pi|r(0)|\|W^{(3)}\|_{L^2},\qquad
-\|\dot X^{(1)}\|_{L^2}\le2|r(0)|\|W^{(2)}\|_{\rm op}\|W^{(3)}\|_{L^2}.
-
+\|\dot W^{(2)}\|_{\mathrm{op}}\le\pi|r(0)|\|W^{(3)}\|_{L^2},\qquad
+\|\dot X^{(1)}\|_{L^2}\le2|r(0)|\|W^{(2)}\|_{\mathrm{op}}\|W^{(3)}\|_{L^2}.
 $$ {#eq-docs-arctan-limits-l443}
 
 These bounds prevent finite-time blow-up. At finite width, ([-@eq-docs-arctan-limits-l240]), the initial law of large numbers for $F(z_0^{(1)})$, and $\|W_0^{(3)}\|_\infty\to0$ in probability put the same bounds on an event of probability tending to one.
@@ -559,7 +541,6 @@ Consequently the accumulated error satisfies
 $$
 e_{k+1}\le(1+L_T\Delta)e_k+C_T\Delta^2,
 \qquad \max_{k\Delta\le T}e_k\le C_T'\Delta.
-
 $$ {#eq-docs-arctan-limits-l456}
 
 To justify the bounded set for Euler, stop at a first exit. The bound proves that the $X^{(1)}$ and operator components remain inside their margins. Although ([-@eq-docs-arctan-limits-l363]) does not control the output supremum, its update gives
@@ -579,7 +560,6 @@ $$
 r_k=\mathbb E_2[W_k^{(3)}H_k^{(2)}]-1,\quad
 \mathbb E_1[H_s^{(1)}H_k^{(1)}],\quad
 \mathbb E_2[\delta_s^{(2)}\delta_k^{(2)}]
-
 $$ {#eq-docs-arctan-limits-l471}
 
 are deterministic. Start the oracle from the same $z_0^{(1)},W_0^{(2)}$ as the finite network and from $W_{\mathrm{oracle},0}^{(3)}=0$. In order at each step set
@@ -592,7 +572,6 @@ $$
 $$
 z_{\mathrm{oracle},k}^{(2)}=W_0^{(2)}h_{\mathrm{oracle},k}^{(1)}
 -2\Delta\sum_{s<k}r_s\delta_{\mathrm{oracle},s}^{(2)}\mathbb E_1[H_s^{(1)}H_k^{(1)}],
-
 $$ {#eq-docs-arctan-limits-l481}
 
 
@@ -611,7 +590,7 @@ W_{\mathrm{oracle},k+1}^{(3)}=W_{\mathrm{oracle},k}^{(3)}-2\Delta r_kh_{\mathrm{
 \end{aligned}
 $$ {#eq-docs-arctan-limits-l490}
 
-This is a fixed finite Gaussian calculation. Its output weights obey the deterministic coordinate bound $\pi\Delta\sum_{s<k}|r_s|$. Hence the product defining $\delta^{(2)}$ can be replaced, without changing any oracle value, by a globally Lipschitz map that clips its first argument above this bound. All other maps meet the finite Gaussian lemma. Its limiting variables are exactly the population Euler variables: this follows instruction by instruction from (L2.5)–(L2.6) at population level and the already constructed action (L2.18)–(L2.19).
+This is a fixed finite Gaussian calculation. Its output weights obey the deterministic coordinate bound $\pi\Delta\sum_{s<k}|r_s|$. Hence the product defining $\delta^{(2)}$ can be replaced, without changing any oracle value, by a globally Lipschitz map that clips its first argument above this bound. All other maps meet the finite Gaussian lemma. Its limiting variables are exactly the population Euler variables: this follows instruction by instruction from ([-@eq-docs-arctan-limits-l157])–([-@eq-docs-arctan-limits-l162]) at population level and the already constructed action ([-@eq-docs-arctan-limits-l325])–([-@eq-docs-arctan-limits-l335]).
 
 Record its finite matrix memory as
 
@@ -637,7 +616,7 @@ Let $\zeta_n$ be the largest absolute error among the finitely many contractions
 
 $$
 e_{n,k}=\frac{\|x_k^{(1)}-x_{\mathrm{oracle},k}^{(1)}\|_2}{\sqrt n}
-+\|W_k^{(2)}-W_{\mathrm{oracle},k}^{(2)}\|_{\rm op}
++\|W_k^{(2)}-W_{\mathrm{oracle},k}^{(2)}\|_{\mathrm{op}}
 +\frac{\|W_k^{(3)}-W_{\mathrm{oracle},k}^{(3)}\|_2}{\sqrt n}.
 $$
 
@@ -645,7 +624,6 @@ Equations ([-@eq-docs-arctan-limits-l380]) and ([-@eq-docs-arctan-limits-l506]) 
 
 $$
 e_{n,k+1}\le(1+C_{T,\Delta}\Delta)e_{n,k}+C_{T,\Delta}\Delta\zeta_n.
-
 $$ {#eq-docs-arctan-limits-l523}
 
 Initially $e_{n,0}=\|W_0^{(3)}\|_2/\sqrt n=O_{\mathbb P}(n^{-1})$. Since $N=\lceil T/\Delta\rceil$ is fixed, summing this recurrence proves $\max_{k\le N}e_{n,k}\to0$. We have therefore proved the actual finite Euler width limit without feeding random scalar coefficients into the Gaussian lemma.
@@ -660,7 +638,6 @@ Euclidean coordinate space. By ([-@eq-docs-arctan-limits-l456]) and ([-@eq-docs-
 
 $$
 C_T\Delta+o_{\mathbb P,n\to\infty;\,\Delta}(1)+C_T\Delta.
-
 $$ {#eq-docs-arctan-limits-l536}
 
 For any requested accuracy, choose a small fixed $\Delta$, then take $n\to\infty$. Uniform time continuity of each fixed measurement, supplied by ([-@eq-docs-arctan-limits-l380]) and the bounded derivatives, gives uniformity on $[0,T]$. The summable weights extend this to the action-law distance. This statement also holds for any finitely many time points jointly, by appending all those measurements to the same finite oracle calculation before taking the limit.
@@ -676,7 +653,6 @@ F(z^{(1)}+\eta_n\phi'(z^{(1)})\odot b)
 =F(z^{(1)})+\eta_nb
 +\eta_n^2z^{(1)}\odot\phi'(z^{(1)})^2\odot b^2
 +\frac{\eta_n^3}{3}\phi'(z^{(1)})^3\odot b^3.
-
 $$ {#eq-docs-arctan-limits-l547}
 
 On the bounded state set, $\|b\|_2/\sqrt n\le C_T$, hence $\|b\|_\infty\le C_T\sqrt n$. Since $\sup_s|s|\phi'(s)^2<\infty$, the extra terms in root-mean-square norm are at most
@@ -690,7 +666,6 @@ The other two parameter updates already are Euler updates. Adding the $O(\eta_n^
 $$
 \sup_{t\le T}\rho_n(\Theta_n^{\mathrm{GD}}(t),\Theta_n^{\mathrm{flow}}(t))
 \le C_T(\eta_n+\eta_n\sqrt n+\eta_n^2n)\longrightarrow0
-
 $$ {#eq-docs-arctan-limits-l559}
 
 with probability tending to one. Stop first on a larger bounded set, as before. The output supremum is controlled separately by its sum of bounded activation updates and the residual bound transferred from the flow. This closes the stop. At intermediate times ([-@eq-docs-arctan-limits-l547]) with $0\le\eta\le\eta_n$ controls the transformed coordinate of the linearly interpolated raw parameter, so ([-@eq-docs-arctan-limits-l559]) holds for the specified interpolation.
@@ -702,7 +677,6 @@ Consequently the squared tails vanish uniformly:
 $$
 \lim_{A\to\infty}\limsup_{n\to\infty}
 \mathbb P\left(\sup_{t\le T}\frac1n\sum_i p_i(t)^2\mathbf1_{|p_i(t)|>A}>\varepsilon\right)=0.
-
 $$ {#eq-docs-arctan-limits-l569}
 
 For completeness, if $p,P$ are coupled, splitting according to $|P|\le A/2$ gives
@@ -724,7 +698,6 @@ $$
 $$
 \dot Z^{(2)}=-2r\left\{\mathbb E_1[(H^{(1)})^2]\delta^{(2)}
 +W^{(2)}[\phi'(Z^{(1)})^2(W^{(2)})^*\delta^{(2)}]\right\}.
-
 $$ {#eq-docs-arctan-limits-l585}
 
 The prediction and loss converge uniformly as well, directly from bounded activations and the output-weight bound.
@@ -735,7 +708,6 @@ $$
 \int_0^T\frac{\|\partial_tz_n^{(\ell),\mathrm{GD}}(t)\|_2^2}{n}\,dt
 \longrightarrow\int_0^T\mathbb E_\ell[(\dot Z^{(\ell)}(t))^2]\,dt,
 \qquad \ell=1,2.
-
 $$ {#eq-docs-arctan-limits-l593}
 
 These statements are in probability. No fourth-moment assumption on the evolving backward field is needed.
@@ -744,7 +716,6 @@ For the trajectory-law claim, use $\mathcal W_2$ on continuous scalar paths with
 
 $$
 \|z-I_\pi z\|_\infty^2\le4a\int_0^T|\dot z(t)|^2\,dt.
-
 $$ {#eq-docs-arctan-limits-l602}
 
 After coordinate averaging, ([-@eq-docs-arctan-limits-l593]) bounds the empirical distance to this finite-grid representation by $O_{\mathbb P}(\sqrt a)$. The population bound is identical; mean-square continuous velocities admit absolutely continuous sample paths by integrating a jointly measurable version and applying Fubini. At fixed partition, joint grid-law convergence follows from ([-@eq-docs-arctan-limits-l536]) and ([-@eq-docs-arctan-limits-l559]), including second moments. Polygonal interpolation is a continuous linear map of the finite grid vector. Let $n\to\infty$ at fixed partition, then $a\to0$ in ([-@eq-docs-arctan-limits-l602]). This proves, separately for the two layers,
@@ -753,7 +724,6 @@ $$
 \frac1n\sum_i\delta_{z_{n,i}^{(\ell),\mathrm{GD}}(\cdot)}
 \longrightarrow\operatorname{Law}(Z^{(\ell)}(\cdot))
 \quad\text{in }\mathcal W_2(C([0,T])).
-
 $$ {#eq-docs-arctan-limits-l607}
 
 The same statements hold for finite gradient flow. To include hidden
@@ -768,7 +738,7 @@ $$
 $$
 
 The joint preactivation/velocity laws and second moments have already
-been obtained by the truncation argument for (L2.36)–(L2.37).
+been obtained by the truncation argument for ([-@eq-docs-arctan-limits-l585])–([-@eq-docs-arctan-limits-l593]).
 On a fixed velocity truncation these new products are Lipschitz
 measurements. Their squared errors outside it are bounded by the
 velocity's squared tails, uniformly in time. Thus truncation followed
@@ -789,7 +759,6 @@ The row-conditioning calculation ([-@eq-docs-arctan-limits-l195]), without its $
 
 $$
 P_0=\frac{\mathbb E_2[Z_0^{(2)}U]}{\mu_1}H_0^{(1)}+\sqrt\nu\,\Gamma^{(1)},
-
 $$ {#eq-docs-arctan-limits-l639}
 
 where $\Gamma^{(1)}\sim N(0,1)$ is independent of the first-layer root. Put
@@ -803,7 +772,6 @@ The positivity of $\gamma_1$ follows from the positive independent Gaussian vari
 
 $$
 \mathbb E_2[US_0]=\mu_1\nu+\gamma_1>0,
-
 $$ {#eq-docs-arctan-limits-l649}
 
 so $S_0\ne0$ in mean square.
@@ -815,7 +783,7 @@ $$
 W^{(3)}(t)&=2tH_0^{(2)}+O_{L^2}(t^2),&
 \delta^{(2)}(t)&=2tU+O_{L^2}(t^2),\\
 Z^{(1)}(t)-Z_0^{(1)}&=2t^2\phi'(Z_0^{(1)})P_0+o_{L^2}(t^2),\\
-W^{(2)}(t)-W_0^{(2)}&=2t^2U\otimes H_0^{(1)}+o_{\rm op}(t^2),\\
+W^{(2)}(t)-W_0^{(2)}&=2t^2U\otimes H_0^{(1)}+o_{\mathrm{op}}(t^2),\\
 Z^{(2)}(t)-Z_0^{(2)}&=2t^2S_0+o_{L^2}(t^2).
 \end{aligned}
 $$ {#eq-docs-arctan-limits-l656}
@@ -832,7 +800,6 @@ $$
 $$
 K^{(3)}(t)=k_3+4(\mu_1\nu+\gamma_1)t^2+o(t^2),\quad
 K(t)=k_3+8(\mu_1\nu+\gamma_1)t^2+o(t^2).
-
 $$ {#eq-docs-arctan-limits-l671}
 
 The two squared displacements have leading terms $4\gamma_1 t^4$ and $4\mathbb E_2[S_0^2]t^4$; their squared speeds have leading terms $16\gamma_1 t^2$ and $16\mathbb E_2[S_0^2]t^2$. Thus both hidden layers move and every kernel block has a positive integral on sufficiently short nonzero intervals. Also
@@ -846,7 +813,6 @@ Both initial preactivation laws in ([-@eq-docs-arctan-limits-l180]) are nondegen
 $$
 \operatorname{Var}(\phi(Z^{(\ell)}))-
 \frac{\operatorname{Cov}(Z^{(\ell)},\phi(Z^{(\ell)}))^2}{\operatorname{Var}(Z^{(\ell)})}.
-
 $$ {#eq-docs-arctan-limits-l681}
 
 It is initially positive: equality would force $\arctan$ to agree with an affine function on a full-support Gaussian law and hence everywhere by continuity. The moments in ([-@eq-docs-arctan-limits-l681]) are continuous in mean square because $\phi$ is bounded and Lipschitz. This error therefore remains positive for both layers on a common interval $[0,T_*]$. Equations ([-@eq-docs-arctan-limits-l559]), ([-@eq-docs-arctan-limits-l593]), ([-@eq-docs-arctan-limits-l607]), and ([-@eq-docs-arctan-limits-l671]) establish all the asserted convergence and feature-learning claims.
@@ -881,7 +847,6 @@ $$
  \delta^{(3)}=W^{(4)}\odot\phi'(z^{(3)}),\quad
  \delta^{(2)}=\phi'(z^{(2)})\odot(W^{(3)})^T\delta^{(3)},\quad
  \delta^{(1)}=\phi'(z^{(1)})\odot(W^{(2)})^T\delta^{(2)}.
-
 $$ {#eq-docs-arctan-limits-l710}
 
 The initialization blocks are independent, with
@@ -890,7 +855,6 @@ $$
  z^{(1)}_{0,i}\sim N(0,1),\quad
  W^{(2)}_{0,ij},W^{(3)}_{0,ij}\sim N(0,1/n),\quad
  W^{(4)}_{0,i}\sim N(0,n^{-2}).
-
 $$ {#eq-docs-arctan-limits-l717}
 
 Use the exact raw updates, with $\eta_n=n^{-2}$,
@@ -910,7 +874,6 @@ $$
 
 $$
  W^{(4)}_{k+1}=W^{(4)}_k-2\eta_n r_{n,k}h^{(3)}_k.
-
 $$ {#eq-docs-arctan-limits-l733}
 
 Physical time is $t=k\eta_n$. Between these times interpolate the
@@ -939,7 +902,6 @@ $$
  C_2=(2Q+C_3)M_2+Q^2,\qquad
  S_0=\min\{1,(2C_2)^{-1},(2C_3)^{-1}\},\qquad
  T_0=\frac14\min\{S_0,(4a^2)^{-1}\}.
-
 $$ {#eq-docs-arctan-limits-l754}
 
 The constants are deliberately not optimized. They are finite explicit
@@ -957,7 +919,6 @@ local uncut population state
 $$
  X^{(1)}(t),\qquad W^{(2)}(t),\qquad
  W^{(3)}(t),\qquad W^{(4)}(t),\qquad 0\le t\le T_0.
-
 $$ {#eq-docs-arctan-limits-l771}
 
 Here $X^{(1)}=F(Z^{(1)})$, $F(z)=z+z^3/3$;
@@ -1026,7 +987,6 @@ $$
  \frac{\|\delta^{(2)}\|_2^2\|h^{(1)}\|_2^2}{n^2},\qquad
  \frac{\|\delta^{(3)}\|_2^2\|h^{(2)}\|_2^2}{n^2},\qquad
  \frac{\|h^{(3)}\|_2^2}{n}
-
 $$ {#eq-docs-arctan-limits-l830}
 
 converge uniformly to the expectation formulas in
@@ -1042,7 +1002,7 @@ also approach one another uniformly in the state distance
 $$
 \rho_n(\theta,\widetilde\theta)
 =\frac{\|F(z^{(1)})-F(\widetilde z^{(1)})\|_2}{\sqrt n}
-+\sum_{\ell=2}^3\|W^{(\ell)}-\widetilde W^{(\ell)}\|_{\rm op}
++\sum_{\ell=2}^3\|W^{(\ell)}-\widetilde W^{(\ell)}\|_{\mathrm{op}}
 +\frac{\|W^{(4)}-\widetilde W^{(4)}\|_2}{\sqrt n}.
 $$
 
@@ -1057,7 +1017,6 @@ $$
  Z^{(\ell)}(t)-Z^{(\ell)}_0=2t^2V^{(\ell)}+o(t^2),\qquad
  H^{(\ell)}(t)-H^{(\ell)}_0
    =2t^2\phi'(Z^{(\ell)}_0)V^{(\ell)}+o(t^2)
-
 $$ {#eq-docs-arctan-limits-l857}
 
 in mean square, and both displayed leading variables have positive
@@ -1239,7 +1198,6 @@ W\mid\mathcal H\ \overset d=
 Y(V^T V)^{-1}V^T
 +U(U^T U)^{-1}Q^T P_{V^\perp}
 +P_{U^\perp}\widetilde W P_{V^\perp}.
-
 $$ {#eq-docs-arctan-limits-l1022}
 
 For a new input $h$, put
@@ -1251,7 +1209,6 @@ Wh=Y\alpha_n+U\beta_n+
 \frac{\|h_\perp\|_2}{\sqrt n}P_{U^\perp}g,
 \quad
 \beta_n=(U^T U/n)^{-1}(Q^T h_\perp/n),
-
 $$ {#eq-docs-arctan-limits-l1034}
 
 in conditional law, with fresh standard Gaussian $g$. The transpose formula is identical with the two sides interchanged.
@@ -1307,7 +1264,6 @@ After substituting the decompositions of $Y_r$ into ([-@eq-docs-arctan-limits-l1
 $$
 W_0^{(\ell)}H
 =\xi_H+\sum_s U_s\,\mathbb E_{\ell-1}\partial_{\zeta_s}H.
-
 $$ {#eq-docs-arctan-limits-l1090}
 
 The new source is
@@ -1352,7 +1308,6 @@ For the fixed finite program, couple perturbed and unperturbed calculations usin
 
 $$
 \max_v\frac{\|v^\varepsilon-v\|_2}{\sqrt n}\le C\varepsilon,
-
 $$ {#eq-docs-arctan-limits-l1132}
 
 where $C$ depends on the fixed program, but not on $n$ or
@@ -1490,7 +1445,7 @@ probability tending to one. A $1/4$-net on each unit sphere has
 at most $9^n$ points, and the scalar Gaussian bound gives
 
 $$
- \mathbb P(\|W^{(\ell)}_0\|_{\rm op}>10)
+ \mathbb P(\|W^{(\ell)}_0\|_{\mathrm{op}}>10)
  \le 2\,9^{2n}\exp(-100n/8),\qquad \ell=2,3.
 $$
 
@@ -1609,8 +1564,8 @@ $$
  \begin{aligned}
  \rho(\theta,\widetilde\theta)={}&
  \|X^{(1)}-\widetilde X^{(1)}\|_{L^2(\Omega_1)}
- +\|W^{(2)}-\widetilde W^{(2)}\|_{\rm op}\\
- &+\|W^{(3)}-\widetilde W^{(3)}\|_{\rm op}
+ +\|W^{(2)}-\widetilde W^{(2)}\|_{\mathrm{op}}\\
+ &+\|W^{(3)}-\widetilde W^{(3)}\|_{\mathrm{op}}
  +\|W^{(4)}-\widetilde W^{(4)}\|_{L^2(\Omega_3)}.
  \end{aligned}                                        
 $$ {#eq-docs-arctan-limits-l1361}
@@ -1627,21 +1582,20 @@ $$
  |W^{(4)}(s)|\le as\quad\hbox{with probability one}.     
 $$ {#eq-docs-arctan-limits-l1377}
 
-Thus $\|\delta^{(3)}(s)\|_{L^2(\Omega_3)}\le as$. Using (A.3)--(A.5),
+Thus $\|\delta^{(3)}(s)\|_{L^2(\Omega_3)}\le as$. Using ([-@eq-docs-arctan-limits-l1309])--([-@eq-docs-arctan-limits-l1343]),
 
 $$
- \|W^{(3)}(s)\|_{\rm op}\le10+\frac{a^2s^2}{2},
+ \|W^{(3)}(s)\|_{\mathrm{op}}\le10+\frac{a^2s^2}{2},
 $$
 
 
 $$
- \|W^{(2)}(s)\|_{\rm op}
+ \|W^{(2)}(s)\|_{\mathrm{op}}
  \le10+\frac{10a^2s^2}{2}+\frac{a^4s^4}{8}.             
 $$ {#eq-docs-arctan-limits-l1384}
 
 Indeed
-$\|\delta^{(2)}_R\|_{L^2(\Omega_2)}\le
-\|W^{(3)}\|_{\rm op}\|\delta^{(3)}\|_{L^2(\Omega_3)}$.
+$\|\delta^{(2)}_R\|_{L^2(\Omega_2)}\le \|W^{(3)}\|_{\mathrm{op}}\|\delta^{(3)}\|_{L^2(\Omega_3)}$.
 The first equation of ([-@eq-docs-arctan-limits-l1353]) then bounds both the mean-square velocity
 of $X^{(1)}$ and its displacement on every fixed $S$.
 All four velocities in ([-@eq-docs-arctan-limits-l1361]) are bounded by a finite constant depending
@@ -1652,8 +1606,7 @@ Euler with $M\Delta\le S$, and for nonzero readouts with an initial
 coordinate bound at most one: sum the same polynomial estimates.
 No gradient identity is required. The identical bounds hold for
 an uncut finite feature flow, since
-$\|\delta^{(2)}\|_{L^2(\Omega_2)}\le
-\|W^{(3)}\|_{\rm op}\|\delta^{(3)}\|_{L^2(\Omega_3)}$.
+$\|\delta^{(2)}\|_{L^2(\Omega_2)}\le \|W^{(3)}\|_{\mathrm{op}}\|\delta^{(3)}\|_{L^2(\Omega_3)}$.
 
 On these bounded sets, ([-@eq-docs-arctan-limits-l1353]) has Lipschitz constant at most
 $C_S(1+R)$ in ([-@eq-docs-arctan-limits-l1361]). To see the important product estimates, first
@@ -1693,7 +1646,7 @@ and preserves the other enlarged bounds. Its unique fixed point
 is the local solution. No differentiability of every coordinate
 map on an unrestricted $L^2$ ball is asserted.
 
-The bounds (A.8)--(A.9) allow this argument to restart finitely many
+The bounds ([-@eq-docs-arctan-limits-l1377])--([-@eq-docs-arctan-limits-l1384]) allow this argument to restart finitely many
 times on any fixed finite $S$, for fixed $R$. Thus each clipped
 flow exists uniquely for all feature times. Its state velocity is
 bounded and its vector field is Lipschitz, so integrating a one-step
@@ -2026,7 +1979,6 @@ Equation ([-@eq-docs-arctan-limits-l1688]) gives
 
 $$
  \|Q^{(2)}_{k}\|_{L^2(\Omega_2)}\le aS+aV_k\le QS,\qquad Q=a(1+C_3).
-                                                              
 $$ {#eq-docs-arctan-limits-l1702}
 
 These are population norms on $\Omega_2$. The same bound holds at earlier indices under
@@ -2075,7 +2027,7 @@ $$
 $$
 
 a contradiction. For use of the earlier-index bound in ([-@eq-docs-arctan-limits-l1717]), apply
-(B.7)--(B.8) at each $r\le k$; their premises involve only rows strictly
+([-@eq-docs-arctan-limits-l1688])--([-@eq-docs-arctan-limits-l1702]) at each $r\le k$; their premises involve only rows strictly
 earlier than $r$. Equivalently, induct simultaneously on the sharper
 conclusions $U_r\le C_2S$, $V_r\le C_3S$.
 
@@ -2229,6 +2181,7 @@ Its initial hidden matrices have independent $N(0,1/n)$ entries,
 and its first-layer coordinates are iid standard Gaussians.
 
 ::: {#lem-docs-arctan-limits-l1876}
+
 ## representation and uniform exponential moment
 
 For every fixed clipping level $R$
@@ -2242,7 +2195,6 @@ and time index,
 
 $$
 \mathbb E_2\exp\left(\frac{(Q_{R,k}^{(2)})^2}{K^2}\right)\le2.
-                                                              
 $$ {#eq-docs-arctan-limits-l1884}
 
 
@@ -2269,8 +2221,8 @@ $$
 \begin{aligned}
 \rho(\Theta,\widetilde\Theta)
 ={}&\|X^{(1)}-\widetilde X^{(1)}\|_{L^2}
- +\|W^{(2)}-\widetilde W^{(2)}\|_{\rm op}\\
-&+\|W^{(3)}-\widetilde W^{(3)}\|_{\rm op}
+ +\|W^{(2)}-\widetilde W^{(2)}\|_{\mathrm{op}}\\
+&+\|W^{(3)}-\widetilde W^{(3)}\|_{\mathrm{op}}
  +\|W^{(4)}-\widetilde W^{(4)}\|_{L^2}.                
 \end{aligned}
 $$ {#eq-docs-arctan-limits-l1902}
@@ -2298,7 +2250,7 @@ $$
 \|\delta^{(3)}\|_{L^2}\le\|W^{(4)}\|_{L^2},\qquad
 \|\delta_R^{(2)}\|_{L^2}
 \le\|Q^{(2)}\|_{L^2}
-\le\|W^{(3)}\|_{\rm op}\|W^{(4)}\|_{L^2}.
+\le\|W^{(3)}\|_{\mathrm{op}}\|W^{(4)}\|_{L^2}.
 $$
 
 Successively integrating the last three blocks of ([-@eq-docs-arctan-limits-l1858]) gives finite
@@ -2329,7 +2281,7 @@ bound $B$. Successive forward differences give
 
 $$
 \|Z^{(2)}-\widetilde Z^{(2)}\|_{L^2}
-\le a\|W^{(2)}-\widetilde W^{(2)}\|_{\rm op}
+\le a\|W^{(2)}-\widetilde W^{(2)}\|_{\mathrm{op}}
  +R_2\|X^{(1)}-\widetilde X^{(1)}\|_{L^2},
 $$
 
@@ -2368,7 +2320,7 @@ $$
 The rank-one inequality
 
 $$
-\|u\otimes v-\widetilde u\otimes\widetilde v\|_{\rm op}
+\|u\otimes v-\widetilde u\otimes\widetilde v\|_{\mathrm{op}}
 \le\|u-\widetilde u\|_{L^2}\|v\|_{L^2}
  +\|\widetilde u\|_{L^2}\|v-\widetilde v\|_{L^2}
 $$
@@ -2472,7 +2424,6 @@ $$
 \sup_{s\le S}\rho(\Theta_{R'}(s),\Theta_R(s))
 \le e^{C(1+R)S}
 \left[\rho(\Theta_{R'}(0),\Theta_R(0))+CS\varepsilon_R\right].
-                                                              
 $$ {#eq-docs-arctan-limits-l2066}
 
 For common initialization, the right side tends to zero as
@@ -2643,7 +2594,7 @@ to $\Theta_{n,R}$ using the same first-layer roots and matrices,
 but keep the latter's readout initially zero. By ([-@eq-docs-arctan-limits-l2035]),
 
 $$
-\sup_{s\le S}\rho_n(\Theta_n^{\rm flow}(s),\Theta_{n,R}(s))
+\sup_{s\le S}\rho_n(\Theta_n^{\mathrm{flow}}(s),\Theta_{n,R}(s))
 \le e^{C(1+R)S}
 \left[
 \frac{\|W_0^{(4)}\|_2}{\sqrt n}
@@ -2772,7 +2723,7 @@ d_{k+1}\le[1+C(1+R)\alpha_k]d_k
  +C(\alpha_k^2\sqrt n+\alpha_k^3n).                    
 $$ {#eq-docs-arctan-limits-l2332}
 
-Here $d_k=\rho_n(\Theta_n^{\rm GD}(s_k),\Theta_{n,R}(s_k))$.
+Here $d_k=\rho_n(\Theta_n^{\mathrm{GD}}(s_k),\Theta_{n,R}(s_k))$.
 Its initial value is the small normalized readout norm.
 
 The randomness of the partition $(s_k)$ causes no tail issue.
@@ -2852,7 +2803,7 @@ Therefore the two exact finite-width algorithms satisfy
 
 $$
 \sup_{t\le T_0}
-\rho_n\bigl(\Theta_n^{\rm GD}(t),\Theta_n^{\rm flow}(t)\bigr)
+\rho_n\bigl(\Theta_n^{\mathrm{GD}}(t),\Theta_n^{\mathrm{flow}}(t)\bigr)
 \longrightarrow0\quad\text{in probability}.           
 $$ {#eq-docs-arctan-limits-l2409}
 
@@ -2923,7 +2874,6 @@ $$
 \frac{dZ^{(3)}}{ds}
 =\mathbb E_2[(H^{(2)})^2]\delta^{(3)}
  +W^{(3)}\left[\phi'(Z^{(2)})\frac{dZ^{(2)}}{ds}\right].
-                                                              
 $$ {#eq-docs-arctan-limits-l2470}
 
 All are continuous $L^2$ paths by the same truncation argument.
@@ -3030,7 +2980,6 @@ $$
  \delta^{(3)}=W^{(4)}\phi'(Z^{(3)}),\quad
  \delta^{(2)}=\phi'(Z^{(2)})(W^{(3)})^*\delta^{(3)},\quad
  \delta^{(1)}=\phi'(Z^{(1)})(W^{(2)})^*\delta^{(2)}.
-
 $$ {#eq-docs-arctan-limits-l2564}
 
 The derivatives exclude the residual. Each belongs to its layer's
@@ -3042,14 +2991,14 @@ operators, even though the initial Gaussian actions need not be.
 Precisely, the size of a square-summable operator $A$ is
 
 $$
- \|A\|_{\rm HS}^2=\sum_j\|Ae_j\|_{L^2}^2,
+ \|A\|_{\mathrm{HS}}^2=\sum_j\|Ae_j\|_{L^2}^2,
 $$
 
 for any orthonormal basis of its input space; this sum does not
 depend on the basis. This is the population counterpart of a
 matrix's ordinary squared Frobenius norm. For the rank-one action
 $(U\otimes V)B=U E[VB]$, the size is
-$\|U\otimes V\|_{\rm HS}=\|U\|_{L^2}\|V\|_{L^2}$.
+$\|U\otimes V\|_{\mathrm{HS}}=\|U\|_{L^2}\|V\|_{L^2}$.
 An integral of the continuous rank-one velocities therefore has
 finite HS size on a bounded time interval.
 
@@ -3073,8 +3022,8 @@ Its squared length for a variation is
 
 $$
  E_1[(dZ^{(1)})^2]
- +\|dW^{(2)}\|_{\rm HS}^2
- +\|dW^{(3)}\|_{\rm HS}^2
+ +\|dW^{(2)}\|_{\mathrm{HS}}^2
+ +\|dW^{(3)}\|_{\mathrm{HS}}^2
  +E_3[(dW^{(4)})^2].                                  
 $$ {#eq-docs-arctan-limits-l2603}
 
@@ -3103,7 +3052,7 @@ remainder in ([-@eq-docs-arctan-limits-l2617]) is $o(\|e\|_{L^2})$.
 Successive forward differences are $O(\|d\theta\|)$ in mean
 square: use bounded activations, Lipschitz $\phi$, bounded
 matrix actions, and
-$\|dW\|_{\rm op}\le\|dW\|_{\rm HS}$.
+$\|dW\|_{\mathrm{op}}\le\|dW\|_{\mathrm{HS}}$.
 Expand the scalar predictor from the top layer downward.
 At each layer apply ([-@eq-docs-arctan-limits-l2617]) with the fixed backward coefficient at
 the original state. Terms containing both a matrix change and
@@ -3132,7 +3081,7 @@ $$
 $$ {#eq-docs-arctan-limits-l2649}
 
 The rank-one entries follow from the identity
-$\langle U\otimes V,A\rangle_{\rm HS}=E[U\,AV]$.
+$\langle U\otimes V,A\rangle_{\mathrm{HS}}=E[U\,AV]$.
 The gradient is continuous. For example, bounded gates converging
 in probability multiply a fixed $L^2$ variable continuously
 in $L^2$, by truncating that fixed variable; combine this
@@ -3398,12 +3347,10 @@ $$
 $$ {#eq-docs-arctan-limits-l2874}
 
 For example, the first identity uses
-$(\delta^{(2)}\otimes H^{(1)})H^{(1)}
-=\|H^{(1)}\|_{L^2(\Omega_1)}^2\delta^{(2)}$ and
+$(\delta^{(2)}\otimes H^{(1)})H^{(1)} =\|H^{(1)}\|_{L^2(\Omega_1)}^2\delta^{(2)}$ and
 $dH^{(1)}/ds=\phi'(Z^{(1)})^2(W^{(2)})^*\delta^{(2)}$.
 The second follows from
-$dZ^{(3)}/ds=\|H^{(2)}\|_{L^2(\Omega_2)}^2\delta^{(3)}
- +W^{(3)}[\phi'(Z^{(2)})\,dZ^{(2)}/ds]$.
+$dZ^{(3)}/ds=\|H^{(2)}\|_{L^2(\Omega_2)}^2\delta^{(3)}  +W^{(3)}[\phi'(Z^{(2)})\,dZ^{(2)}/ds]$.
 
 The operators in ([-@eq-docs-arctan-limits-l2874]) are uniformly bounded near zero and converge
 strongly on every fixed $L^2$ vector to the operators in ([-@eq-docs-arctan-limits-l2793]).
@@ -3473,7 +3420,6 @@ $$
  \sigma_2^2:=\mathbb E_2[B_2^2]
  =\mathbb E_2\left[\phi'(Z^{(2)}_0)^2
           \bigl(c_3^2\phi(Z^{(2)}_0)^2+\sigma_3^2\bigr)\right]>0.
-                                                                   
 $$ {#eq-docs-arctan-limits-l2945}
 
 For the second application, condition on the bottom initialization,
@@ -3496,14 +3442,14 @@ The factor $c_3$ in ([-@eq-docs-arctan-limits-l2957]) retains the return through
 matrix. Treating $B_2$ as an independent centered multiplier would
 lose this term.
 
-Only initial finite Gaussian queries are involved in (F.10)--(F.13).
+Only initial finite Gaussian queries are involved in ([-@eq-docs-arctan-limits-l2913])--([-@eq-docs-arctan-limits-l2957]).
 Their contractions converge by conditional Gaussian averaging: the
 forward activation averages are bounded; in the transpose step the
 rank-one projection error vanishes in normalized $L^2$; bounded
 gates preserve that convergence. Pairwise contractions then converge
 by Cauchy--Schwarz. This calculation uses no trained-state limit.
 
-By (F.12)--(F.13), $P_1\ne0$, $B_2\ne0$, and $\beta_3\ne0$
+By ([-@eq-docs-arctan-limits-l2945])--([-@eq-docs-arctan-limits-l2957]), $P_1\ne0$, $B_2\ne0$, and $\beta_3\ne0$
 in their $L^2$ spaces. Moreover,
 
 $$
@@ -3619,7 +3565,6 @@ $$
 $$
  \int_0^T\left\|\frac{dH^{(\ell)}}{dt}\right\|_{L^2(\Omega_{\ell})}^2dt
        =\frac{16}{3}\|\phi'(Z^{(\ell)}_0)V^{(\ell)}\|_{L^2(\Omega_{\ell})}^2T^3+o(T^3).
-                                                                   
 $$ {#eq-docs-arctan-limits-l3067}
 
 All six leading coefficients in ([-@eq-docs-arctan-limits-l3067]) are strictly positive. These are local consequences of the established flow and action
@@ -3628,7 +3573,7 @@ construction and hold within its interval.
 ### The kernel changes and the activation remains genuinely nonlinear {#sec-docs-arctan-limits-l3075}
 
 The expansions also prove nonconstancy of the total kernel.
-Equations (F.4)--(F.5) and adjunction give
+Equations ([-@eq-docs-arctan-limits-l2793])--([-@eq-docs-arctan-limits-l2801]) and adjunction give
 
 $$
  \langle\beta_3,\mathcal A^{(3)}_0\beta_3\rangle_{\mathcal H_3}
@@ -3636,8 +3581,7 @@ $$
  =\gamma_1+\gamma_2+\gamma_3>0.
 $$
 
-Since $H^{(3)}(s)=H^{(3)}_0+
-(s^2/2)\phi'(Z^{(3)}_0)V^{(3)}+o(s^2)$, expanding its squared norm gives
+Since $H^{(3)}(s)=H^{(3)}_0+ (s^2/2)\phi'(Z^{(3)}_0)V^{(3)}+o(s^2)$, expanding its squared norm gives
 
 $$
  K^{(4)}(s)=\mu_3+s^2(\gamma_1+\gamma_2+\gamma_3)+o(s^2).

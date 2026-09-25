@@ -44,7 +44,6 @@ $\phi(z)=\arctan z$. Coordinatewise,
 $$
  |\phi|\le c,\qquad \phi(0)=0,\qquad
  \phi'(z)=\frac1{1+z^2},\qquad |\phi'|\le1,\qquad |\phi''|\le2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l43}
 
 The raw state is
@@ -63,7 +62,6 @@ $$
 $$
  f_n=\frac{(W^{(4)})^Th^{(3)}}n,\qquad
  r_n=f_n-1,\qquad \mathcal L_n=r_n^2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l58}
 
 At a fixed width write $f=f_n$, $r=r_n$. The norm $\|\cdot\|_2$ is the
@@ -76,7 +74,6 @@ $$
  \delta^{(3)}=D_3W^{(4)},\qquad q^{(2)}=(W^{(3)})^T\delta^{(3)},\qquad
  \delta^{(2)}=D_2q^{(2)},\qquad
  \delta^{(1)}=D_1(W^{(2)})^T\delta^{(2)}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l68}
 
 These are derivatives of the prediction:
@@ -94,9 +91,8 @@ $\kappa_\ell=1$; their parameter quadratic form is
 
 $$
  \frac{\|dz^{(1)}\|_2^2}{n}
- +\|dW^{(2)}\|_{\rm F}^2+\|dW^{(3)}\|_{\rm F}^2
+ +\|dW^{(2)}\|_{\mathrm{F}}^2+\|dW^{(3)}\|_{\mathrm{F}}^2
  +\frac{\|dW^{(4)}\|_2^2}{n}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l84}
 
 Define the feature vector field
@@ -105,7 +101,6 @@ $$
  \mathcal G(\theta)=\left(
  \delta^{(1)},\ \frac{\delta^{(2)}(h^{(1)})^T}{n},\
  \frac{\delta^{(3)}(h^{(2)})^T}{n},\ h^{(3)}\right).
-
 $$ {#eq-docs-finite-optimization-and-controls-l91}
 
 The canonical physical gradient flow and exact simultaneous raw GD are
@@ -114,7 +109,6 @@ $$
  \frac{d\theta}{dt}=-2r\,\mathcal G(\theta),\qquad
  \theta_{k+1}=\theta_k-2\eta_n r_k\mathcal G(\theta_k),
  \qquad \eta_n=n^{-2},\quad t_k=k\eta_n.
-
 $$ {#eq-docs-finite-optimization-and-controls-l98}
 
 Every block on the right is evaluated before the update. Between GD nodes the
@@ -131,6 +125,7 @@ the continuous identity for $F(z)=z+z^3/3$ is not used as an exact GD rule.
 ## 2. Global feature flow and readout acceleration {#sec-docs-finite-optimization-and-controls-l115}
 
 ::: {#lem-docs-finite-optimization-and-controls-l117}
+
 ## finite feature existence and exact action
 
 For every finite
@@ -145,7 +140,6 @@ $$
  \mathsf A_3=\frac{\|h^{(2)}\|_2^2}{n}I
        +W^{(3)}D_2\mathsf A_2D_2(W^{(3)})^T,
  \qquad P=D_3\mathsf A_3D_3.
-
 $$ {#eq-docs-finite-optimization-and-controls-l122}
 
 All three matrices are positive semidefinite. A prime on a state variable in
@@ -155,7 +149,6 @@ $$
  (z^{(2)})'=\mathsf A_2\delta^{(2)},\qquad
  (z^{(3)})'=\mathsf A_3\delta^{(3)},\qquad
  (W^{(4)})''=(h^{(3)})'=PW^{(4)},
-
 $$ {#eq-docs-finite-optimization-and-controls-l130}
 
 and the exact scalar kernel is
@@ -169,10 +162,9 @@ $$
   +\frac{\|\delta^{(2)}\|_2^2\|h^{(1)}\|_2^2}{n^2}
   +\frac{\|\delta^{(1)}\|_2^2}{n}\\
  &=\frac{\|(z^{(1)})'\|_2^2}{n}
-   +\|(W^{(2)})'\|_{\rm F}^2+\|(W^{(3)})'\|_{\rm F}^2
+   +\|(W^{(2)})'\|_{\mathrm{F}}^2+\|(W^{(3)})'\|_{\mathrm{F}}^2
    +\frac{\|(W^{(4)})'\|_2^2}{n}.
  \end{aligned}
-
 $$ {#eq-docs-finite-optimization-and-controls-l137}
 
 :::
@@ -186,19 +178,19 @@ is smaller than the reciprocal of its Lipschitz constant and its bounded
 speed keeps paths in the ball. This proves local existence and uniqueness.
 To exclude finite escape, set
 $\varepsilon=\|W^{(4)}(0)\|_2/\sqrt n$ and
-$M_j=\|W^{(j)}(0)\|_{\rm op}$, $j=2,3$. Successive integration of
-([-@eq-docs-finite-optimization-and-controls-l91]), using $\|uv^T/n\|_{\rm F}=\|u\|_2\|v\|_2/n$, gives
+$M_j=\|W^{(j)}(0)\|_{\mathrm{op}}$, $j=2,3$. Successive integration of
+([-@eq-docs-finite-optimization-and-controls-l91]), using $\|uv^T/n\|_{\mathrm{F}}=\|u\|_2\|v\|_2/n$, gives
 
 $$
  \frac{\|W^{(4)}(s)\|_2}{\sqrt n}\le\varepsilon+cs,
  \qquad
- \|W^{(3)}(s)\|_{\rm op}
+ \|W^{(3)}(s)\|_{\mathrm{op}}
  \le M_3+c\varepsilon s+\frac{c^2s^2}{2}=:\mathcal M_3(s),
 $$
 
 
 $$
- \|W^{(2)}(s)\|_{\rm op}
+ \|W^{(2)}(s)\|_{\mathrm{op}}
  \le M_2+c\int_0^s\mathcal M_3(u)(\varepsilon+cu)\,du
  =:\mathcal M_2(s),
 $$
@@ -207,7 +199,6 @@ $$
 $$
  \frac{\|z^{(1)}(s)-z^{(1)}(0)\|_2}{\sqrt n}
  \le\int_0^s\mathcal M_2(u)\mathcal M_3(u)(\varepsilon+cu)\,du.
-
 $$ {#eq-docs-finite-optimization-and-controls-l171}
 
 The matrix increment bounds also hold in Frobenius norm. These are finite
@@ -224,7 +215,7 @@ Matrices of the form $BB^T$, nonnegative scalar multiples of the identity,
 and congruences of positive semidefinite matrices are positive semidefinite;
 this verifies the positivity in ([-@eq-docs-finite-optimization-and-controls-l122]). Differentiating ([-@eq-docs-finite-optimization-and-controls-l58]) using ([-@eq-docs-finite-optimization-and-controls-l130])
 proves the first line of ([-@eq-docs-finite-optimization-and-controls-l137]). Expanding ([-@eq-docs-finite-optimization-and-controls-l122]) gives its four kernel blocks.
-The rank-one Frobenius identity above gives its squared-speed expression. ∎
+The rank-one Frobenius identity above gives its squared-speed expression. $\blacksquare$
 
 :::
 
@@ -233,7 +224,6 @@ In particular, wherever $g(s)=\|W^{(4)}(s)\|_2/\sqrt n>0$,
 $$
  g'=\frac f g,\qquad
  g''=\frac{\|h^{(3)}\|_2^2/n-(g')^2+(W^{(4)})^TPW^{(4)}/n}{g}\ge0.
-
 $$ {#eq-docs-finite-optimization-and-controls-l193}
 
 The first two numerator terms have nonnegative sum by Cauchy–Schwarz, and
@@ -243,6 +233,7 @@ its nonzero intervals, with no assertion about individual coordinate signs.
 ## 3. Canonical gradient-flow coercivity, fitting, and endpoints {#sec-docs-finite-optimization-and-controls-l202}
 
 ::: {#thm-docs-finite-optimization-and-controls-l204}
+
 ## zero and small stored readout
 
 There are two deterministic
@@ -255,12 +246,11 @@ $$
  \frac{\|W^{(4)}(s)\|_2}{\sqrt n}\ge s\sqrt\mu,
  \quad \frac{\|h^{(3)}(s)\|_2^2}{n}\ge\mu,
  \quad f(s)\ge\mu s,\quad K_n(s)\ge\mu.
-
 $$ {#eq-docs-finite-optimization-and-controls-l209}
 
 For nonzero readout fix $0<b\le c$ and $M_2,M_3\ge0$, and assume
 $\|h^{(3)}(0)\|_2/\sqrt n\ge b$ and
-$\|W^{(j)}(0)\|_{\rm op}\le M_j$ for $j=2,3$. Define
+$\|W^{(j)}(0)\|_{\mathrm{op}}\le M_j$ for $j=2,3$. Define
 
 $$
  L_3=M_3+c+c^2/2,\qquad L_2=M_2+cL_3(1+c/2),
@@ -270,16 +260,14 @@ $$
 
 $$
  \sigma=\min\{1,\sqrt{b/(8cB)}\},\qquad
- \varepsilon_{\rm GF}=\min\{1,b\sigma/16\}.
-
+ \varepsilon_{\mathrm{GF}}=\min\{1,b\sigma/16\}.
 $$ {#eq-docs-finite-optimization-and-controls-l223}
 
-If $\varepsilon=\|W^{(4)}(0)\|_2/\sqrt n\le\varepsilon_{\rm GF}$, then
+If $\varepsilon=\|W^{(4)}(0)\|_2/\sqrt n\le\varepsilon_{\mathrm{GF}}$, then
 
 $$
  \frac{\|h^{(3)}(s)\|_2^2}{n}\ge\mu:=b^2/4,
  \qquad K_n(s)\ge\mu\qquad(s\ge0).
-
 $$ {#eq-docs-finite-optimization-and-controls-l229}
 
 No coordinatewise initial readout bound is required.
@@ -297,7 +285,6 @@ $$
 $$
  s(t)\le\frac{e_0}{\mu}(1-e^{-2\mu t}),\qquad
  s_*-s(t)\le\frac{e(t)}\mu.
-
 $$ {#eq-docs-finite-optimization-and-controls-l243}
 
 There is a finite endpoint $\theta_\infty=\theta(s_*)$ with prediction one,
@@ -306,15 +293,14 @@ and the following estimates display all four parameter blocks:
 $$
  \begin{aligned}
  &\frac{\|z^{(1)}(s(t))-z^{(1)}(0)\|_2^2}{n}
-  +\sum_{\ell=2}^3\|W^{(\ell)}(s(t))-W^{(\ell)}(0)\|_{\rm F}^2
+  +\sum_{\ell=2}^3\|W^{(\ell)}(s(t))-W^{(\ell)}(0)\|_{\mathrm{F}}^2
   +\frac{\|W^{(4)}(s(t))-W^{(4)}(0)\|_2^2}{n}
   \le\frac{e_0^2}{\mu},\\
  &\left[\frac{\|z^{(1)}(s(t))-z^{(1)}_\infty\|_2^2}{n}
-  +\sum_{\ell=2}^3\|W^{(\ell)}(s(t))-W^{(\ell)}_\infty\|_{\rm F}^2
+  +\sum_{\ell=2}^3\|W^{(\ell)}(s(t))-W^{(\ell)}_\infty\|_{\mathrm{F}}^2
   +\frac{\|W^{(4)}(s(t))-W^{(4)}_\infty\|_2^2}{n}\right]^{1/2}
   \le\frac{e(t)}{\sqrt\mu}.
  \end{aligned}
-
 $$ {#eq-docs-finite-optimization-and-controls-l250}
 
 :::
@@ -331,7 +317,7 @@ If the excluded initial $\mu$ is zero, all four velocities vanish and
 the unique solution is stationary.
 
 For small readout, ([-@eq-docs-finite-optimization-and-controls-l171]) bounds the two matrix norms on $[0,1]$ by
-$L_2,L_3$, and ([-@eq-docs-finite-optimization-and-controls-l122]) gives $\|P\|_{\rm op}\le B$. Integrating
+$L_2,L_3$, and ([-@eq-docs-finite-optimization-and-controls-l122]) gives $\|P\|_{\mathrm{op}}\le B$. Integrating
 $(h^{(3)})'=PW^{(4)}$ once and twice yields
 
 $$
@@ -343,7 +329,6 @@ $$
 $$
  \frac{\|W^{(4)}(s)-W^{(4)}(0)-s h^{(3)}(0)\|_2}{\sqrt n}
  \le B(\varepsilon s^2/2+cs^3/6).
-
 $$ {#eq-docs-finite-optimization-and-controls-l279}
 
 Since $\varepsilon\le b\sigma/16\le c\sigma$ and
@@ -353,7 +338,6 @@ $s\le\sigma$. The second, including the initial readout, gives
 $$
  \frac{\|W^{(4)}(\sigma)-\sigma h^{(3)}(0)\|_2}{\sigma\sqrt n}
  \le b/16+b/12=7b/48.
-
 $$ {#eq-docs-finite-optimization-and-controls-l287}
 
 In particular $W^{(4)}(\sigma)\ne0$. For any nonzero Euclidean vector
@@ -364,7 +348,6 @@ $y=h^{(3)}(0)/\sqrt n$, and then use ([-@eq-docs-finite-optimization-and-control
 
 $$
  g'(\sigma)\ge b-2(7b/48)-3b/16=25b/48>b/2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l297}
 
 Convexity ([-@eq-docs-finite-optimization-and-controls-l193]) preserves this lower bound for later times and prevents a
@@ -391,11 +374,12 @@ computed by integrating the square root of the last line of ([-@eq-docs-finite-o
 $\sqrt{(s_*-s(t))e(t)}\le e(t)/\sqrt\mu$. The initial state determines
 this endpoint; uniqueness among all interpolating network states is not
 asserted. Finally $|W_i^{(4)}(s(t))-W_i^{(4)}(0)|\le cs(t)\le ce_0/\mu$.
-∎
+$\blacksquare$
 
 :::
 
 ::: {#cor-docs-finite-optimization-and-controls-l327}
+
 ## lower-layer moments and backward energy
 
 Let positive
@@ -409,7 +393,6 @@ $$
  \ge\frac\mu{\widehat M_2^2\widehat M_3^2},\qquad
  \int_0^{s_*}\frac{\|q^{(2)}(s)\|_2^2}{n}\,ds
  \le\frac{\widehat M_3^4e_0}{\mu}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l331}
 
 Indeed $|\phi(z)|\le|z|$ propagates the top feature lower bound through
@@ -424,19 +407,19 @@ These are second moments, not empirical variances or coordinate tail bounds.
 ## 4. Exact raw GD: coercivity and a finite endpoint {#sec-docs-finite-optimization-and-controls-l346}
 
 ::: {#thm-docs-finite-optimization-and-controls-l348}
+
 ## exact GD at $\eta_n=n^{-2}$
 
 Fix $M\ge0$ and
-$0<b\le c$. The explicit constants $\varepsilon_{\rm GD}>0$,
-$N<\infty$, and $V<\infty$ in (4.4)–(4.7) depend only on $M,b$.
+$0<b\le c$. The explicit constants $\varepsilon_{\mathrm{GD}}>0$,
+$N<\infty$, and $V<\infty$ in ([-@eq-docs-finite-optimization-and-controls-l398])–([-@eq-docs-finite-optimization-and-controls-l432]) depend only on $M,b$.
 Suppose $n\ge N$ and
 
 $$
- \|W_0^{(2)}\|_{\rm op},\ \|W_0^{(3)}\|_{\rm op},\
+ \|W_0^{(2)}\|_{\mathrm{op}},\ \|W_0^{(3)}\|_{\mathrm{op}},\
  \frac{\|z_0^{(1)}\|_2}{\sqrt n}\le M,\qquad
- \frac{\|W_0^{(4)}\|_2}{\sqrt n}\le\varepsilon_{\rm GD},\qquad
+ \frac{\|W_0^{(4)}\|_2}{\sqrt n}\le\varepsilon_{\mathrm{GD}},\qquad
  \frac{\|h_0^{(3)}\|_2}{\sqrt n}\ge b.
-
 $$ {#eq-docs-finite-optimization-and-controls-l352}
 
 Then every iteration of the simultaneous raw update ([-@eq-docs-finite-optimization-and-controls-l98]) satisfies
@@ -450,7 +433,6 @@ $$
 $$
  0<1-f_k\le(1-f_0)(1-\eta_n b^2/4)^k
  \le(1-f_0)e^{-b^2t_k/4}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l364}
 
 In particular the loss at node $k$ is bounded by
@@ -458,7 +440,6 @@ $(1-f_0)^2e^{-b^2t_k/2}$. With the computational clock from §[1](finite-optimiz
 
 $$
  \sum_{j\ge k}\alpha_j\le\frac{8(1-f_k)}{b^2}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l371}
 
 The raw parameters converge to a finite $\theta_\infty$ with prediction
@@ -466,7 +447,7 @@ one. Each of
 
 $$
  \frac{\|z_k^{(1)}-z_\infty^{(1)}\|_2}{\sqrt n},\qquad
- \|W_k^{(\ell)}-W_\infty^{(\ell)}\|_{\rm F}\ (\ell=2,3),\qquad
+ \|W_k^{(\ell)}-W_\infty^{(\ell)}\|_{\mathrm{F}}\ (\ell=2,3),\qquad
  \frac{\|W_k^{(4)}-W_\infty^{(4)}\|_2}{\sqrt n}
 $$
 
@@ -494,7 +475,6 @@ $$
 $$
  C_P=c^2+R_3^2(c^2+R_2^2),\qquad
  V=\max\{c,cQ,cR_3Q,R_2R_3Q\}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l398}
 
 For derivative estimates set
@@ -519,8 +499,7 @@ $$
 
 $$
  \lambda=b\tau/32,\qquad
- \varepsilon_{\rm GD}=\min\{1,(2c)^{-1},b\tau/32\}.
-
+ \varepsilon_{\mathrm{GD}}=\min\{1,(2c)^{-1},b\tau/32\}.
 $$ {#eq-docs-finite-optimization-and-controls-l416}
 
 Choose $N$ so that, for all $n\ge N$, $A=4n^{-2}$ satisfies
@@ -532,7 +511,6 @@ $$
  B_fA\sqrt n\le\min\{b^2/8,1\},\qquad
  2n^{-2}(K_*+1)\le1/2.
  \end{gathered}
-
 $$ {#eq-docs-finite-optimization-and-controls-l422}
 
 An explicit choice is
@@ -543,7 +521,6 @@ $$
  (512B\tau/b)^{2/3},(16DS/b)^{2/3},
  (32B_f/b^2)^{2/3},(4B_f)^{2/3},2\sqrt{K_*+1}
  \right\}\right\rceil.
-
 $$ {#eq-docs-finite-optimization-and-controls-l432}
 
 These numbers are finite and positive where used in denominators because
@@ -558,14 +535,13 @@ RMS is at most one. The readout increment has RMS at most $c\alpha_j$.
 The third- and second-matrix increments have both operator and Frobenius
 norm at most, respectively,
 $c\alpha_j\|W_j^{(4)}\|_2/\sqrt n$ and
-$c\alpha_j\|W_j^{(3)}\|_{\rm op}\|W_j^{(4)}\|_2/\sqrt n$.
+$c\alpha_j\|W_j^{(3)}\|_{\mathrm{op}}\|W_j^{(4)}\|_2/\sqrt n$.
 Summing in that order gives
 
 $$
  \frac{\|W_j^{(4)}\|_2}{\sqrt n}\le Q,\qquad
- \|W_j^{(3)}\|_{\rm op}\le R_3,\qquad
- \|W_j^{(2)}\|_{\rm op}\le R_2.
-
+ \|W_j^{(3)}\|_{\mathrm{op}}\le R_3,\qquad
+ \|W_j^{(2)}\|_{\mathrm{op}}\le R_2.
 $$ {#eq-docs-finite-optimization-and-controls-l454}
 
 The first-vector increment has RMS at most $R_2R_3Q\alpha_j$.
@@ -580,8 +556,7 @@ identity
 
 $$
  Dh^{(3)}(\theta)\mathcal G(\theta)=P(\theta)W^{(4)},\qquad
- P\succeq0,\qquad \|P\|_{\rm op}\le C_P
-
+ P\succeq0,\qquad \|P\|_{\mathrm{op}}\le C_P
 $$ {#eq-docs-finite-optimization-and-controls-l469}
 
 on the region ([-@eq-docs-finite-optimization-and-controls-l454]). This identity concerns the derivative at the start of a
@@ -596,7 +571,6 @@ $$
  \frac{\|w\odot w\|_2}{\sqrt n}
  \le\frac{\|w\|_2^2}{\sqrt n}
  =\sqrt n\left(\frac{\|w\|_2}{\sqrt n}\right)^2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l481}
 
 Using ([-@eq-docs-finite-optimization-and-controls-l43]), the product rule, and ([-@eq-docs-finite-optimization-and-controls-l454]), successively gives
@@ -612,7 +586,6 @@ $$
  \frac{\|(h^{(2)})''\|_2}{\sqrt n}\le\sqrt n\,u_2,\qquad
  \frac{\|(z^{(3)})'\|_2}{\sqrt n}\le v_3,\qquad
  \frac{\|(h^{(3)})''\|_2}{\sqrt n}\le2B\sqrt n.
-
 $$ {#eq-docs-finite-optimization-and-controls-l493}
 
 For the middle second derivative, explicitly,
@@ -629,7 +602,6 @@ Taylor's formula with integral remainder therefore gives an exact equality
 $$
  h_{j+1}^{(3)}=h_j^{(3)}+\alpha_jP_jW_j^{(4)}+\xi_j,\qquad
  \frac{\|\xi_j\|_2}{\sqrt n}\le B\sqrt n\,\alpha_j^2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l509}
 
 Multiplying this by the exactly updated readout yields
@@ -644,7 +616,6 @@ $$
 $$
  \frac{\|h_j^{(3)}\|_2^2}{n}\le K_{n,j}\le K_*,
  \qquad |\rho_j|\le B_f\sqrt n\,\alpha_j^2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l520}
 
 Indeed the scalar remainder is exactly
@@ -674,7 +645,6 @@ $$
  g''(s)=
  \frac{(\|h_j^{(3)}\|_2^2/n)g(s)^2
        -((W^{(4)}(s))^Th_j^{(3)}/n)^2}{g(s)^3}\ge0.
-
 $$ {#eq-docs-finite-optimization-and-controls-l543}
 
 At a knot the jump in slope is, by ([-@eq-docs-finite-optimization-and-controls-l509]),
@@ -683,7 +653,6 @@ $$
  g'(s_{j+1}+)-g'(s_{j+1}-)
  =\frac{(W_{j+1}^{(4)})^T(\alpha_jP_jW_j^{(4)}+\xi_j)}{n g(s_{j+1})}
  \ge-D\sqrt n\,\alpha_j^2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l550}
 
 To see the inequality, expand $W_{j+1}^{(4)}=W_j^{(4)}+\alpha_jh_j^{(3)}$.
@@ -702,12 +671,11 @@ For nodes with $s_j\le2\tau$, telescoping ([-@eq-docs-finite-optimization-and-co
 
 $$
  \frac{\|h_j^{(3)}-h_0^{(3)}\|_2}{\sqrt n}
- \le C_Ps_j(\varepsilon_{\rm GD}+cs_j)+B\sqrt n A s_j
+ \le C_Ps_j(\varepsilon_{\mathrm{GD}}+cs_j)+B\sqrt n A s_j
  \le6cC_P\tau^2+2B\tau A\sqrt n\le b/32.
-
 $$ {#eq-docs-finite-optimization-and-controls-l567}
 
-Here $\varepsilon_{\rm GD}\le c\tau$, the definition of $\tau$
+Here $\varepsilon_{\mathrm{GD}}\le c\tau$, the definition of $\tau$
 bounds the first term by $b/64$, and ([-@eq-docs-finite-optimization-and-controls-l422]) bounds the second by $b/64$.
 This proves the required feature lower bound at all these nodes.
 
@@ -721,7 +689,6 @@ $$
  h_{j_0}^{(3)}=h_0^{(3)}+w,\quad
  \frac{\|w\|_2}{\sqrt n}\le b/32,
  \qquad \frac\lambda{s_{j_0}}\le b/32.
-
 $$ {#eq-docs-finite-optimization-and-controls-l580}
 
 For $u$, the initial readout contributes at most $b/32$ after division
@@ -734,7 +701,6 @@ $$
  g'(s_{j_0}+)
  \ge\frac{h_*^2-3h_*b/32-b^2/512}{h_*+3b/32}
  \ge\frac{463}{560}h_*\ge3b/4.
-
 $$ {#eq-docs-finite-optimization-and-controls-l593}
 
 Here $h_*\ge b$, so the numerator is at least $(463/512)h_*^2>0$ and
@@ -747,22 +713,20 @@ $$
 $$
 
 On the other hand,
-$g'(s_j+)=(W_j^{(4)})^Th_j^{(3)}/(ng(s_j))
-\le\|h_j^{(3)}\|_2/\sqrt n$.
+$g'(s_j+)=(W_j^{(4)})^Th_j^{(3)}/(ng(s_j)) \le\|h_j^{(3)}\|_2/\sqrt n$.
 Together with ([-@eq-docs-finite-optimization-and-controls-l567]), this proves $\|h_j^{(3)}\|_2/\sqrt n\ge b/2$
 at every node of the path. At its final node the right slope means this
 algebraic expression, so no additional update is assumed.
 
 ### 4.4 Closing the GD induction and taking the endpoint {#sec-docs-finite-optimization-and-controls-l613}
 
-Initially $|f_0|\le c\varepsilon_{\rm GD}\le1/2$. Suppose a finite GD
+Initially $|f_0|\le c\varepsilon_{\mathrm{GD}}\le1/2$. Suppose a finite GD
 prefix satisfies
 
 $$
  f_0\le f_k<1,\qquad
  s_k\le\frac8{b^2}(f_k-f_0)
  \le\frac{8(1-f_0)}{b^2}\le S/2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l617}
 
 This holds at $k=0$. The next raw step has
@@ -773,7 +737,6 @@ The positive-step lemma thus applies to this extended prefix. Equations
 $$
  \frac{b^2}{8}\alpha_k\le f_{k+1}-f_k
  \le\alpha_k(K_*+1)\le\frac{1-f_k}{2}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l627}
 
 For the lower bound, subtract
@@ -796,7 +759,7 @@ Only $\sum_k\eta_n(1-f_k)=\tfrac12\sum_k\alpha_k$ is summable;
 $\sum_k\eta_n=\infty$. The width threshold is part of the theorem:
 the prescription $\eta_n=n^{-2}$ alone does not rule out overshoot at
 arbitrary small widths and arbitrary initial operator bounds. This proof
-does not compare a GD endpoint to a gradient-flow endpoint. ∎
+does not compare a GD endpoint to a gradient-flow endpoint. $\blacksquare$
 
 ## 5. Energy-compatible metric projection {#sec-docs-finite-optimization-and-controls-l654}
 
@@ -808,7 +771,6 @@ Define
 $$
  c_1=\|h^{(1)}\|_2^2/n,\qquad
  \mathsf M=c_1I+W^{(2)}D_1^2(W^{(2)})^T.
-
 $$ {#eq-docs-finite-optimization-and-controls-l660}
 
 For $R>0$ and $c_1>0$, let
@@ -816,7 +778,6 @@ For $R>0$ and $c_1>0$, let
 $$
  u_R=\underset{u\in[-R,R]^n}{\operatorname{argmin}}\,
        \frac12(u-\delta^{(2)})^T\mathsf M(u-\delta^{(2)}).
-
 $$ {#eq-docs-finite-optimization-and-controls-l666}
 
 Thus the vector being projected is the full $\delta^{(2)}$, not
@@ -829,7 +790,6 @@ $$
  (W^{(3)})'&=\delta^{(3)}(h^{(2)})^T/n,&
  (W^{(4)})'&=h^{(3)}.
  \end{aligned}
-
 $$ {#eq-docs-finite-optimization-and-controls-l673}
 
 Since $\mathsf M\succeq c_1I$, it is positive definite on the stated
@@ -838,6 +798,7 @@ uniqueness of ([-@eq-docs-finite-optimization-and-controls-l666]). The metric is
 the first vector and second matrix, as the next calculation verifies.
 
 ::: {#lem-docs-finite-optimization-and-controls-l687}
+
 ## projection inequality, local flow, and energy
 
 The projection
@@ -846,7 +807,6 @@ satisfies
 $$
  (v-u_R)^T\mathsf M(u_R-\delta^{(2)})\ge0
  \quad(v\in[-R,R]^n),
-
 $$ {#eq-docs-finite-optimization-and-controls-l689}
 
 
@@ -854,7 +814,6 @@ $$
  (\delta^{(2)})^T\mathsf M u_R
  \ge u_R^T\mathsf M u_R\ge c_1\|u_R\|_2^2,\qquad
  u_R^T\mathsf M u_R\le(\delta^{(2)})^T\mathsf M\delta^{(2)}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l694}
 
 For each fixed $n,R$, ([-@eq-docs-finite-optimization-and-controls-l673]) has a unique local solution on $c_1>0$.
@@ -866,11 +825,10 @@ $$
        +\frac{\|\delta^{(3)}\|_2^2\|h^{(2)}\|_2^2}{n^2}
        +\frac{\|h^{(3)}\|_2^2}{n}\\
  &=\frac{\|(z^{(1)})'\|_2^2}{n}
-       +\|(W^{(2)})'\|_{\rm F}^2+\|(W^{(3)})'\|_{\rm F}^2
+       +\|(W^{(2)})'\|_{\mathrm{F}}^2+\|(W^{(3)})'\|_{\mathrm{F}}^2
        +\frac{\|(W^{(4)})'\|_2^2}{n}
        +\frac{(\delta^{(2)}-u_R)^T\mathsf M u_R}{n}.
  \end{aligned}
-
 $$ {#eq-docs-finite-optimization-and-controls-l702}
 
 The last term is nonnegative, so $f'\ge0$.
@@ -897,15 +855,14 @@ $(u-v)^T[\mathsf M(u-\zeta)-\mathsf N(v-\widetilde\zeta)]\le0$.
 Expansion yields
 
 $$
- a\|u-v\|_2\le\|\mathsf M\|_{\rm op}\|\zeta-\widetilde\zeta\|_2
-       +\|\mathsf M-\mathsf N\|_{\rm op}\|v-\widetilde\zeta\|_2.
-
+ a\|u-v\|_2\le\|\mathsf M\|_{\mathrm{op}}\|\zeta-\widetilde\zeta\|_2
+       +\|\mathsf M-\mathsf N\|_{\mathrm{op}}\|v-\widetilde\zeta\|_2.
 $$ {#eq-docs-finite-optimization-and-controls-l731}
 
 For $u=v$ no division is needed; otherwise divide the corresponding
 quadratic inequality by $\|u-v\|_2$. On a bounded set of vector and matrix
 arguments the last factor is bounded, since $\|v\|_2\le R\sqrt n$.
-The remaining maps in (5.1)–(5.3) are smooth. Therefore the finite vector
+The remaining maps in ([-@eq-docs-finite-optimization-and-controls-l660])–([-@eq-docs-finite-optimization-and-controls-l673]) are smooth. Therefore the finite vector
 field is locally Lipschitz on the open set $c_1>0$. The integral-map
 contraction construction in @lem-docs-finite-optimization-and-controls-l117 applies there.
 
@@ -922,7 +879,7 @@ The upper blocks are unchanged and give the last two terms on the first
 line of ([-@eq-docs-finite-optimization-and-controls-l702]). The two lower squared speeds sum to
 $u_R^T\mathsf M u_R/n$; the upper squared speeds equal their kernel
 contributions. This proves ([-@eq-docs-finite-optimization-and-controls-l702]), including its work excess and every
-normalization. ∎
+normalization. $\blacksquare$
 
 :::
 
@@ -933,6 +890,7 @@ map $\theta\mapsto\delta^{(2)}$.
 ## 6. Global finite projection theorem and its physical clock {#sec-docs-finite-optimization-and-controls-l760}
 
 ::: {#thm-docs-finite-optimization-and-controls-l762}
+
 ## global auxiliary family
 
 Fix $M_0\ge0$ and
@@ -940,7 +898,7 @@ $\beta_1,\beta_3>0$. Suppose the same finite initial state, for every cap,
 satisfies
 
 $$
- \|W_0^{(2)}\|_{\rm op},\|W_0^{(3)}\|_{\rm op}\le M_0,\qquad
+ \|W_0^{(2)}\|_{\mathrm{op}},\|W_0^{(3)}\|_{\mathrm{op}}\le M_0,\qquad
  \frac{\|z_0^{(1)}\|_2}{\sqrt n}\le2,\qquad \|W_0^{(4)}\|_\infty\le1,
 $$
 
@@ -949,20 +907,18 @@ $$
  \frac{\|h_0^{(1)}\|_2^2}{n}\ge\beta_1,\qquad
  \frac{\|h_0^{(3)}\|_2^2}{n}\ge\beta_3,\qquad
  \frac{\|W_0^{(4)}\|_2}{\sqrt n}\le2/n.
-
 $$ {#eq-docs-finite-optimization-and-controls-l769}
 
 Define the positive constants $a,f_*,k,S_\dagger$ below and suppose
 
 $$
  n\ge\frac{16c}{\beta_3a},\qquad n>2c.
-
 $$ {#eq-docs-finite-optimization-and-controls-l776}
 
 For every $R>0$, ([-@eq-docs-finite-optimization-and-controls-l673]) then has a unique solution for all feature times.
 On every finite feature interval $[0,S]$, all parameter RMS or matrix
 operator bounds, matrix-increment Frobenius bounds, the positive lower bound
-for $c_1$, and all speed bounds (6.3)–(6.9) are independent of $R,n$.
+for $c_1$, and all speed bounds ([-@eq-docs-finite-optimization-and-controls-l802])–([-@eq-docs-finite-optimization-and-controls-l904]) are independent of $R,n$.
 The prediction is strictly increasing and reaches one at a unique
 $s_\dagger\le S_\dagger$.
 
@@ -970,11 +926,11 @@ Its canonical scalar clock $\dot s=2(1-f(s))$, $s(0)=0$, exists for all
 physical times, stays below $s_\dagger$, and increases to it. The auxiliary
 physical trajectory fits the target and converges to its finite endpoint.
 In particular, with the uniform constant
-$\mu_{\rm aux}=\min\{\beta_3/4,k\}>0$,
+$\mu_{\mathrm{aux}}=\min\{\beta_3/4,k\}>0$,
 
 $$
- 0<1-f(s(t))\le(1-f_0)e^{-2\mu_{\rm aux}t},\qquad
- \mathcal L_n(t)\le(1-f_0)^2e^{-4\mu_{\rm aux}t}.
+ 0<1-f(s(t))\le(1-f_0)e^{-2\mu_{\mathrm{aux}}t},\qquad
+ \mathcal L_n(t)\le(1-f_0)^2e^{-4\mu_{\mathrm{aux}}t}.
 $$
 
 This is a physical reparametrization of ([-@eq-docs-finite-optimization-and-controls-l673]). Its lower updates differ from
@@ -992,7 +948,6 @@ clock. For $S>0$ define
 $$
  B(S)=1+cS,\quad D(S)=cB(S)+c,\quad
  A_2(S)=M_0+\sqrt{SD(S)},\quad A_3(S)=M_0+cB(S)S.
-
 $$ {#eq-docs-finite-optimization-and-controls-l802}
 
 On the existing part of a solution with $s\le S$, bounded activation and
@@ -1001,17 +956,16 @@ the two upper equations imply
 $$
  \|W^{(4)}(s)\|_\infty\le B(S),\quad
  \frac{\|\delta^{(3)}(s)\|_2}{\sqrt n}\le B(S),\quad
- \|W^{(3)}(s)\|_{\rm op}\le A_3(S),\quad |f(s)|\le cB(S).
+ \|W^{(3)}(s)\|_{\mathrm{op}}\le A_3(S),\quad |f(s)|\le cB(S).
 $$
 
 Since $f_0\ge-c$, ([-@eq-docs-finite-optimization-and-controls-l702]) bounds the integral of the sum of all four squared
 speeds by $D(S)$. Consequently, for $s\le S$,
 
 $$
- \|W^{(2)}(s)-W_0^{(2)}\|_{\rm F}\le\sqrt{sD(S)},\qquad
+ \|W^{(2)}(s)-W_0^{(2)}\|_{\mathrm{F}}\le\sqrt{sD(S)},\qquad
  \frac{\|z^{(1)}(s)-z_0^{(1)}\|_2}{\sqrt n}\le\sqrt{sD(S)},\qquad
- \|W^{(2)}(s)\|_{\rm op}\le A_2(S).
-
+ \|W^{(2)}(s)\|_{\mathrm{op}}\le A_2(S).
 $$ {#eq-docs-finite-optimization-and-controls-l816}
 
 These estimates hold before any possible exit from $c_1>0$. They do not
@@ -1030,16 +984,13 @@ $$
    &\le A_3(1)[A_2(1)+c]\sqrt{sD(1)}+c^2B(1)s
     \le C_h\sqrt s,
  \end{aligned}
-
 $$ {#eq-docs-finite-optimization-and-controls-l827}
 
 where $C_h=A_3(1)[A_2(1)+c]\sqrt{D(1)}+c^2B(1)$.
 For example, split
-$z^{(2)}(s)-z_0^{(2)}
-=W^{(2)}(s)(h^{(1)}(s)-h_0^{(1)})
- +(W^{(2)}(s)-W_0^{(2)})h_0^{(1)}$.
+$z^{(2)}(s)-z_0^{(2)} =W^{(2)}(s)(h^{(1)}(s)-h_0^{(1)})  +(W^{(2)}(s)-W_0^{(2)})h_0^{(1)}$.
 The third-layer split is the same, using
-$\|W^{(3)}(s)-W_0^{(3)}\|_{\rm op}\le cB(1)s$.
+$\|W^{(3)}(s)-W_0^{(3)}\|_{\mathrm{op}}\le cB(1)s$.
 This proves every bound in ([-@eq-docs-finite-optimization-and-controls-l827]).
 
 Set
@@ -1047,7 +998,6 @@ Set
 $$
  a=\min\{1,\beta_1/[16D(1)],\beta_3/(16C_h^2)\},\qquad
  f_*=\beta_3a/8.
-
 $$ {#eq-docs-finite-optimization-and-controls-l849}
 
 For $s\le a$, the first and third feature RMS changes are at most
@@ -1078,24 +1028,22 @@ $$
  \beta_1/4,&0<S<a,\\
  \min\{\beta_1/4,[f_*/(B(S)A_3(S)A_2(S))]^2\},&S\ge a.
  \end{cases}
-
 $$ {#eq-docs-finite-optimization-and-controls-l871}
 
 Here $A_2(S),A_3(S)>0$ for $S>0$, even if $M_0=0$.
 At any proposed finite maximal endpoint choose $S\ge a$ larger than
-that endpoint. The bounds (6.3)–(6.4), including Frobenius bounds for
+that endpoint. The bounds ([-@eq-docs-finite-optimization-and-controls-l802])–([-@eq-docs-finite-optimization-and-controls-l816]), including Frobenius bounds for
 increments, and ([-@eq-docs-finite-optimization-and-controls-l871]) keep all parameters in a finite-dimensional compact
 subset of the open domain. The locally Lipschitz vector field is bounded
 on this compact set, so the path has a limit there and extends. This
 contradicts maximality and proves global feature existence.
 
 For explicit speed bounds, ([-@eq-docs-finite-optimization-and-controls-l694]), ([-@eq-docs-finite-optimization-and-controls-l871]), and
-$\|\mathsf M\|_{\rm op}\le c^2+A_2(S)^2$ give
+$\|\mathsf M\|_{\mathrm{op}}\le c^2+A_2(S)^2$ give
 
 $$
  \frac{\|u_R(s)\|_2}{\sqrt n}\le
  U(S):=\sqrt{\frac{c^2+A_2(S)^2}{\underline c_1(S)}}\,A_3(S)B(S).
-
 $$ {#eq-docs-finite-optimization-and-controls-l889}
 
 We used $\|\delta^{(2)}\|_2/\sqrt n\le A_3(S)B(S)$.
@@ -1118,7 +1066,6 @@ $$
  \frac{\|(q^{(2)})'\|_2}{\sqrt n}
  &\le cB^2+A_3\{c+2B[c^2B+A_3(c^2+A_2^2)U]\}.
  \end{aligned}
-
 $$ {#eq-docs-finite-optimization-and-controls-l904}
 
 The first bound follows from $(z^{(2)})'=\mathsf M u_R$; the second
@@ -1148,11 +1095,10 @@ Since $v(a)\le B(1)^2$, define
 
 $$
  k=f_*^2/B(1)^2>0,\qquad S_\dagger=a+1/k.
-
 $$ {#eq-docs-finite-optimization-and-controls-l933}
 
 Then $f'(s)\ge k$ for all $s\ge a$. Combined with the initial interval
-bound, this proves $f'\ge\mu_{\rm aux}>0$ on the entire feature half-line.
+bound, this proves $f'\ge\mu_{\mathrm{aux}}>0$ on the entire feature half-line.
 We have $f_0<1$ by ([-@eq-docs-finite-optimization-and-controls-l776]), and $f$ eventually grows at least linearly.
 Thus it crosses one exactly once. If the crossing is after $a$, its
 time is at most $a+(1-f(a))/k\le S_\dagger$; a crossing before $a$
@@ -1166,33 +1112,32 @@ claimed global clock and its limit. Along it,
 
 $$
  \frac{d}{dt}(f-1)^2=-4(f-1)^2f'(s(t)),
-
 $$ {#eq-docs-finite-optimization-and-controls-l949}
 
 and integration gives the stated fitting rate. The feature solution is
 defined at $s_\dagger$, so $\theta_\infty=\theta(s_\dagger)$ is finite.
 More quantitatively, putting $e(t)=1-f(s(t))$, ([-@eq-docs-finite-optimization-and-controls-l702]) gives remaining
-action at most $e(t)$, and $s_\dagger-s(t)\le e(t)/\mu_{\rm aux}$.
+action at most $e(t)$, and $s_\dagger-s(t)\le e(t)/\mu_{\mathrm{aux}}$.
 Cauchy–Schwarz proves
 
 $$
  \left[
  \frac{\|z^{(1)}(s(t))-z_\infty^{(1)}\|_2^2}{n}
- +\sum_{\ell=2}^3\|W^{(\ell)}(s(t))-W_\infty^{(\ell)}\|_{\rm F}^2
+ +\sum_{\ell=2}^3\|W^{(\ell)}(s(t))-W_\infty^{(\ell)}\|_{\mathrm{F}}^2
  +\frac{\|W^{(4)}(s(t))-W_\infty^{(4)}\|_2^2}{n}
- \right]^{1/2}\le\frac{e(t)}{\sqrt{\mu_{\rm aux}}}.
-
+ \right]^{1/2}\le\frac{e(t)}{\sqrt{\mu_{\mathrm{aux}}}}.
 $$ {#eq-docs-finite-optimization-and-controls-l958}
 
 The same argument bounds total squared displacement from time zero by
 $S_\dagger(1-f_0)$. Every constant is common to all caps satisfying the
-same initial conditions. ∎
+same initial conditions. $\blacksquare$
 
 :::
 
 ## 7. Integrated defect and eventual exactness {#sec-docs-finite-optimization-and-controls-l970}
 
 ::: {#thm-docs-finite-optimization-and-controls-l972}
+
 ## integrated $L^1$ middle-equation defect
 
 Under @thm-docs-finite-optimization-and-controls-l762
@@ -1200,7 +1145,6 @@ let
 
 $$
  e_R=\mathsf M(\delta^{(2)}-u_R).
-
 $$ {#eq-docs-finite-optimization-and-controls-l974}
 
 For every $S>0$,
@@ -1208,7 +1152,6 @@ For every $S>0$,
 $$
  (z^{(2)})'=\mathsf M\delta^{(2)}-e_R,\qquad
  \int_0^S\frac1n\sum_{i=1}^n|e_{R,i}(s)|\,ds\le\frac{D(S)}R.
-
 $$ {#eq-docs-finite-optimization-and-controls-l979}
 
 Thus every measurable vector test $a(s)$ with $|a_i(s)|\le1$, including
@@ -1217,7 +1160,6 @@ one chosen from the trajectory, satisfies
 $$
  \left|\int_0^S\frac{a(s)^T[(z^{(2)})'-\mathsf M\delta^{(2)}]}n\,ds\right|
  \le D(S)/R.
-
 $$ {#eq-docs-finite-optimization-and-controls-l986}
 
 The canonical velocity in this formula is evaluated at the current
@@ -1234,7 +1176,6 @@ $$
  e_{R,i}=0\text{ if }|u_{R,i}|<R,\qquad
  e_{R,i}\ge0\text{ if }u_{R,i}=R,\qquad
  e_{R,i}\le0\text{ if }u_{R,i}=-R.
-
 $$ {#eq-docs-finite-optimization-and-controls-l995}
 
 At an upper face the allowed negative variation forces
@@ -1245,7 +1186,6 @@ exactly
 $$
  \frac{(\delta^{(2)}-u_R)^T\mathsf M u_R}{n}
    =\frac{u_R^Te_R}{n}=\frac Rn\sum_i|e_{R,i}|.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1005}
 
 All squared speeds in ([-@eq-docs-finite-optimization-and-controls-l702]) are nonnegative, so integration bounds ([-@eq-docs-finite-optimization-and-controls-l1005])
@@ -1267,7 +1207,6 @@ $$
  -\int_0^S\frac1n\sum_i
        \chi'(z_i^{(2)}(s))[\mathsf M(s)\delta^{(2)}(s)]_i\,ds\right|
  \le D(S)/R.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1021}
 
 In physical time the subtracted defect is $2(1-f)e_R$. Since the clock is
@@ -1278,11 +1217,10 @@ $$
  \left|\frac{dz_i^{(2)}}{dt}
        -2(1-f)[\mathsf M\delta^{(2)}]_i\right|dt
  \le\frac{D(S_\dagger)}R\qquad(T<\infty).
-
 $$ {#eq-docs-finite-optimization-and-controls-l1030}
 
 Monotone convergence of these nonnegative integrals gives the same bound
-over $0\le t<\infty$. ∎
+over $0\le t<\infty$. $\blacksquare$
 
 :::
 
@@ -1298,6 +1236,7 @@ RMS comparison, raw kernel comparison, and a population passage do not
 follow from ([-@eq-docs-finite-optimization-and-controls-l979]).
 
 ::: {#thm-docs-finite-optimization-and-controls-l1051}
+
 ## eventual exactness at fixed width
 
 Under @thm-docs-finite-optimization-and-controls-l762, fix
@@ -1305,7 +1244,6 @@ $S>0$. If
 
 $$
  R\ge C(S)\sqrt n,\qquad C(S)=A_3(S)B(S),
-
 $$ {#eq-docs-finite-optimization-and-controls-l1053}
 
 the entire auxiliary feature trajectory on $[0,S]$ equals the canonical
@@ -1334,7 +1272,7 @@ Thus $u_R=\delta^{(2)}$ throughout the interval; all four equations
 @lem-docs-finite-optimization-and-controls-l117 identifies the whole paths. Their scalar physical clocks are
 then identical by uniqueness. When $S=S_\dagger$, these clocks remain
 below their common first prediction-one time, so equality covers every
-finite physical time and the endpoint. ∎
+finite physical time and the endpoint. $\blacksquare$
 
 :::
 
@@ -1346,6 +1284,7 @@ and width limits. It makes no statement about a projected GD algorithm.
 ## 8. One Gaussian initial event for all finite conclusions {#sec-docs-finite-optimization-and-controls-l1083}
 
 ::: {#thm-docs-finite-optimization-and-controls-l1085}
+
 ## canonical Gaussian initialization
 
 All coordinate entries
@@ -1355,7 +1294,6 @@ $$
  z_{0,i}^{(1)}\sim N(0,1),\qquad
  W_{0,ij}^{(2)},W_{0,ij}^{(3)}\sim N(0,1/n),\qquad
  W_{0,i}^{(4)}\sim N(0,n^{-2}).
-
 $$ {#eq-docs-finite-optimization-and-controls-l1087}
 
 In particular the stored readout has standard deviation $1/n$.
@@ -1365,21 +1303,19 @@ $$
  \nu_1=\mathbb E[\phi(G)^2],\qquad
  \nu_2=\mathbb E[\phi(\sqrt{\nu_1}G)^2],\qquad
  \nu_3=\mathbb E[\phi(\sqrt{\nu_2}G)^2].
-
 $$ {#eq-docs-finite-optimization-and-controls-l1095}
 
 These constants belong to $(0,c^2]$. Let $\mathcal E_n$ be the event
 
 $$
  \begin{gathered}
- \|W_0^{(2)}\|_{\rm op},\|W_0^{(3)}\|_{\rm op}\le10,\qquad
+ \|W_0^{(2)}\|_{\mathrm{op}},\|W_0^{(3)}\|_{\mathrm{op}}\le10,\qquad
  \|z_0^{(1)}\|_2/\sqrt n\le2,\\
  \|W_0^{(4)}\|_2/\sqrt n\le2/n,\qquad
  \|W_0^{(4)}\|_\infty\le1,\\
  \|h_0^{(1)}\|_2^2/n\ge\nu_1/2,\qquad
  \|h_0^{(3)}\|_2^2/n\ge\nu_3/2.
  \end{gathered}
-
 $$ {#eq-docs-finite-optimization-and-controls-l1102}
 
 Then $\mathbb P(\mathcal E_n)\to1$. On this same event, for every
@@ -1406,15 +1342,14 @@ For precision, one sufficient common width threshold is
 $$
  \max\left\{
  N(10,b),\
- \left\lceil2/\varepsilon_{\rm GF}\right\rceil,\
- \left\lceil2/\varepsilon_{\rm GD}\right\rceil,\
+ \left\lceil2/\varepsilon_{\mathrm{GF}}\right\rceil,\
+ \left\lceil2/\varepsilon_{\mathrm{GD}}\right\rceil,\
  \left\lceil16c/(\beta_3a)\right\rceil,\
  \lfloor2c\rfloor+1
  \right\},
-
 $$ {#eq-docs-finite-optimization-and-controls-l1131}
 
-where all constants are given in ([-@eq-docs-finite-optimization-and-controls-l223]), (4.4)–(4.7), and (6.3)–(6.6)
+where all constants are given in ([-@eq-docs-finite-optimization-and-controls-l223]), ([-@eq-docs-finite-optimization-and-controls-l398])–([-@eq-docs-finite-optimization-and-controls-l432]), and ([-@eq-docs-finite-optimization-and-controls-l802])–([-@eq-docs-finite-optimization-and-controls-l849])
 at these parameter values.
 
 :::
@@ -1460,10 +1395,10 @@ of the Euclidean unit sphere is a $1/4$-net. Balls of radius $1/8$
 about its points are disjoint and contained in the radius-$9/8$ ball,
 so volume comparison bounds its size by $9^n$. Approximating the two
 unit vectors in any bilinear form by net points bounds its approximation
-error by $\|W\|_{\rm op}/2$. Consequently
+error by $\|W\|_{\mathrm{op}}/2$. Consequently
 
 $$
- \|W\|_{\rm op}\le2\max_{u,v\ {\rm in\ the\ net}}|u^TWv|.
+ \|W\|_{\mathrm{op}}\le2\max_{u,v\ {\mathrm{in}\ the\ net}}|u^TWv|.
 $$
 
 Each fixed $u^TWv$ is $N(0,1/n)$. For completeness, the identity
@@ -1473,9 +1408,8 @@ $\mathbb P(|G|>x)\le2e^{-x^2/2}$ for $x>0$.
 A union bound therefore gives
 
 $$
- \mathbb P(\|W\|_{\rm op}>M)
+ \mathbb P(\|W\|_{\mathrm{op}}>M)
  \le2\,9^{2n}e^{-nM^2/8}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1189}
 
 This tends to zero at $M=10$; another union bound covers both matrices.
@@ -1505,7 +1439,7 @@ width conditions. The initial first-vector bound two is at most the GD
 bound ten. The projection conditions are exactly ([-@eq-docs-finite-optimization-and-controls-l769]), with the parameters
 specified above. The deterministic theorems therefore apply as claimed.
 Their bounds hold for all indicated times and caps on this one event;
-there is no union over time or over an uncountable set of caps. ∎
+there is no union over time or over an uncountable set of caps. $\blacksquare$
 
 :::
 
@@ -1516,10 +1450,10 @@ finite-dimensional ODE continuation, and the initialization calculation in §[8]
 Their precise dependencies within this chapter are:
 
 1. @lem-docs-finite-optimization-and-controls-l117 derives the canonical action and positive readout acceleration
-   directly from (1.2)–(1.5). @thm-docs-finite-optimization-and-controls-l204 uses this positivity to prove
+   directly from ([-@eq-docs-finite-optimization-and-controls-l58])–([-@eq-docs-finite-optimization-and-controls-l91]). @thm-docs-finite-optimization-and-controls-l204 uses this positivity to prove
    coercivity, fitting, and endpoint bounds; @cor-docs-finite-optimization-and-controls-l327 uses its action.
 2. @thm-docs-finite-optimization-and-controls-l348 uses the directional identity ([-@eq-docs-finite-optimization-and-controls-l130]), the positive matrix
-   ([-@eq-docs-finite-optimization-and-controls-l122]), and its own raw-segment estimates (4.8)–(4.18). It does not use a
+   ([-@eq-docs-finite-optimization-and-controls-l122]), and its own raw-segment estimates ([-@eq-docs-finite-optimization-and-controls-l454])–([-@eq-docs-finite-optimization-and-controls-l593]). It does not use a
    comparison with gradient flow to obtain discrete coercivity.
 3. @lem-docs-finite-optimization-and-controls-l687 proves the projection inequality and the auxiliary energy
    formula. @thm-docs-finite-optimization-and-controls-l762 uses that formula, bounded activation, noncollapse,
@@ -1562,7 +1496,6 @@ $$
  P=\|(\phi^{(1)})'\|_\infty,
  \qquad \phi^{(2)}(z)=z+\varepsilon\arctan z,\quad
  M=1+\varepsilon,\quad \varepsilon>0.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1268}
 
 Thus $|\phi^{(1)}|\le A$, $1\le(\phi^{(2)})'\le M$, and
@@ -1586,7 +1519,6 @@ $$
  \dot W^{(1)}=-\frac2{\sqrt d}\sum_a r_a\delta_a^{(1)}x_a^T,
  \quad \dot W^{(2)}=-\frac2n\sum_a r_a\delta_a^{(2)}(h_a^{(1)})^T,
  \quad \dot W^{(3)}=-2\sum_a r_a h_a^{(2)},
-
 $$ {#eq-docs-finite-optimization-and-controls-l1289}
 
 where
@@ -1615,7 +1547,6 @@ $$
  \frac{(h_a^{(1)})^Th_b^{(1)}}n
  \frac{(\delta_a^{(2)})^T\delta_b^{(2)}}n,
  \quad K^{(3)}=\frac{(\mathbf h^{(2)})^T\mathbf h^{(2)}}n.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1310}
 
 Each is a Gram matrix: the first uses the vectors
@@ -1628,7 +1559,6 @@ $$
  =4r^TKr
  =\frac{\|\dot W^{(1)}\|_F^2}n+
    \|\dot W^{(2)}\|_F^2+\frac{\|\dot W^{(3)}\|^2}n.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1322}
 
 The smooth finite vector field has a unique local solution. Integrating each
@@ -1639,7 +1569,6 @@ $$
  \|W^{(2)}(t)-W^{(2)}(s)\|_F,\quad
  \frac{\|W^{(3)}(t)-W^{(3)}(s)\|}{\sqrt n}
  \ \le\sqrt{(t-s)\mathcal L_\Sigma(0)}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1331}
 
 At fixed width these bounds produce finite parameter limits at any finite
@@ -1659,7 +1588,6 @@ $$
  \begin{pmatrix}N_s+N_o&N_s-N_o\\N_s-N_o&N_s+N_o\end{pmatrix}
  \succeq\gamma_n I_2,
  \quad \gamma_n=\frac{2A^2}n\min(N_s,N_o).
-
 $$ {#eq-docs-finite-optimization-and-controls-l1348}
 
 The other rows add a positive semidefinite Gram. The eigenvectors
@@ -1668,19 +1596,17 @@ $(1,1)$ and $(1,-1)$ give the two displayed eigenvalues.
 ### 10.2 Fitting after an actual loss margin {#sec-docs-finite-optimization-and-controls-l1359}
 
 Assume for now $\gamma_n\ge\gamma>0$ and
-$\|W^{(2)}(0)\|_{\rm op}\le B_0$. Define the scalar quantities
+$\|W^{(2)}(0)\|_{\mathrm{op}}\le B_0$. Define the scalar quantities
 
 $$
  e=\|r\|,\quad M_2=\|W^{(2)}-W^{(2)}(0)\|_F,\quad
  M_3=\|W^{(3)}\|/\sqrt n,\quad b_0=M_3(0),\quad
  S_w(t)=\int_0^t e(u)M_3(u)\,du.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1363}
 
 This weighted residual integral is not a replacement optimizer.
 For each second neuron put
-$D_i=\operatorname{diag}((\phi^{(2)})'(z^{(2)}_{1,i}),
-(\phi^{(2)})'(z^{(2)}_{2,i}))$. By ([-@eq-docs-finite-optimization-and-controls-l1348]), congruence of positive
+$D_i=\operatorname{diag}((\phi^{(2)})'(z^{(2)}_{1,i}), (\phi^{(2)})'(z^{(2)}_{2,i}))$. By ([-@eq-docs-finite-optimization-and-controls-l1348]), congruence of positive
 matrices gives
 
 $$
@@ -1694,7 +1620,6 @@ Therefore
 $$
  \frac{d}{dt}\mathcal L_\Sigma\le-4\gamma M_3^2\mathcal L_\Sigma,
  \qquad e'\le-2\gamma M_3^2e\quad\hbox{where }e>0.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1380}
 
 At zero residual all velocities vanish and the solution stays constant.
@@ -1724,20 +1649,16 @@ $$
  =-\frac4n\sum_a r_a(W^{(3)})^T
  \left[D(z_a^{(2)})-
  (\phi^{(2)})'(z_a^{(2)})\odot W^{(2)}(0)h_a^{(1)}\right].
-
 $$ {#eq-docs-finite-optimization-and-controls-l1402}
 
 For example, the first norm differentiates to
-$-4n^{-1}\sum_a r_a(W^{(3)})^T[
-(\phi^{(2)})'(z_a^{(2)})\odot
-(W^{(2)}-W^{(2)}(0))h_a^{(1)}]$; subtracting the readout norm
+$-4n^{-1}\sum_a r_a(W^{(3)})^T[ (\phi^{(2)})'(z_a^{(2)})\odot (W^{(2)}-W^{(2)}(0))h_a^{(1)}]$; subtracting the readout norm
 derivative supplies ([-@eq-docs-finite-optimization-and-controls-l1402]). Cauchy--Schwarz now proves
 
 $$
  |M_2^2-M_3^2+b_0^2|\le D_0S_w,\quad
  M_2\le M_3+\sqrt{D_0S_w},\quad
  M_3^2\le C^2S_w^2+b_0^2+D_0S_w.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1414}
 
 Only the initial operator norm enters, not an initial Frobenius norm growing
@@ -1746,7 +1667,6 @@ with width. Also, using $\|\mathbf h^{(1)}\|_F\le A\sqrt{2n}$,
 $$
  \|f\|\le \sqrt2MA M_3(B_0+M_2)
  \le C M_3(B_0+M_3+\sqrt{D_0S_w}).
-
 $$ {#eq-docs-finite-optimization-and-controls-l1422}
 
 Suppose the actual flow reaches $\mathcal L_\Sigma(t_0)<2$ at finite
@@ -1770,7 +1690,6 @@ Combining this lower bound with ([-@eq-docs-finite-optimization-and-controls-l13
 
 $$
  e(t)+2\gamma c[F(S_w(t))-F(S_w(t_0))]\le e_0.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1442}
 
 This integrates a time-domain differential inequality; it does not invert
@@ -1784,7 +1703,7 @@ $$
  U=B_0+CS_b,\quad \beta=c/(1+\sqrt{S_b})>0,
 $$
 
-we have $S_w(t)\le S_b$, $\|W^{(2)}(t)\|_{\rm op}\le U$,
+we have $S_w(t)\le S_b$, $\|W^{(2)}(t)\|_{\mathrm{op}}\le U$,
 and an upper bound for $M_3$ from ([-@eq-docs-finite-optimization-and-controls-l1414]), for every $t\ge0$.
 Moreover $M_3(t)\ge\beta$ for $t\ge t_0$. It follows that
 
@@ -1792,7 +1711,6 @@ $$
  \mathcal L_\Sigma(t)\le e_0^2e^{-4\gamma\beta^2(t-t_0)},\qquad
  \int_0^\infty e(t)\,dt
  \le t_0\sqrt{\mathcal L_\Sigma(0)}+e_0/(2\gamma\beta^2).
-
 $$ {#eq-docs-finite-optimization-and-controls-l1458}
 
 The constants are noncircular: ([-@eq-docs-finite-optimization-and-controls-l1331]) already gives
@@ -1808,7 +1726,6 @@ $$
  \|\dot W^{(2)}\|_F\le CeM_3,\quad
  \|\dot W^{(3)}\|/\sqrt n\le CUe,\quad
  \|\dot W^{(1)}\|_F/\sqrt n\le2\sqrt2PMUeM_3.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1470}
 
 All three speeds are integrable. Completeness in each finite-dimensional
@@ -1822,7 +1739,6 @@ Initialize all entries independently with
 $$
  W^{(1)}_{0,ij}\sim N(0,1),\quad W^{(2)}_{0,ij}\sim N(0,1/n),\quad
  W^{(3)}_{0,i}\sim N(0,n^{-2}).
-
 $$ {#eq-docs-finite-optimization-and-controls-l1483}
 
 Let $(U_1,U_2)\sim N(0,G)$. Write $p_s$ and $p_o$ for its
@@ -1836,7 +1752,6 @@ $\gamma_n\ge\gamma$ and satisfies
 $$
  \mathbb P(E_F^c)\le\frac4n
        \left(\frac{1-p_s}{p_s}+\frac{1-p_o}{p_o}\right).
-
 $$ {#eq-docs-finite-optimization-and-controls-l1495}
 
 Each count has variance $np(1-p)$; integrating the squared centered
@@ -1873,7 +1788,6 @@ by $12M^4A^4/n$. At error threshold $\gamma/2$, this gives
 $$
  \mathbb P\{K^{(3)}(0)\not\succeq\kappa I_2\mid W^{(1)}_0\}
  \le48M^4A^4/(n\gamma^2)\quad\hbox{on }E_F.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1526}
 
 The scalar Gaussian fourth moment is three times variance squared; it follows
@@ -1882,14 +1796,13 @@ by twice integrating the Gaussian density derivative by parts.
 Two elementary norm bounds complete the event:
 
 $$
- \mathbb P\{\|W^{(2)}_0\|_{\rm op}>8\}
+ \mathbb P\{\|W^{(2)}_0\|_{\mathrm{op}}>8\}
  \le2e^{-(8-2\log9)n},\quad
  \mathbb P\{b_0>2/n\}\le e^{-(1-(\log2)/2)n}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1535}
 
-For the first, a maximal 1/4-separated unit-sphere set has at most $9^n$
-points by disjoint radius-1/8 ball volumes, and is a 1/4-net. Approximating
+For the first, a maximal $1/4$-separated unit-sphere set has at most $9^n$
+points by disjoint radius-$1/8$ ball volumes, and is a $1/4$-net. Approximating
 both unit test vectors shows that the norm is at most twice the largest
 bilinear form on the two nets. Each form is $N(0,1/n)$, whose tail beyond
 four is at most $2e^{-8n}$ by its exponential moment. The union bound gives
@@ -1907,7 +1820,6 @@ $$
  p_n=\frac4n\left(\frac{1-p_s}{p_s}+\frac{1-p_o}{p_o}\right)
  +\frac{48M^4A^4}{n\gamma^2}
  +2e^{-(8-2\log9)n}+e^{-(1-(\log2)/2)n}\longrightarrow0.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1554}
 
 The conditional failure in ([-@eq-docs-finite-optimization-and-controls-l1526]) is integrated only over $E_F$; no
@@ -1927,12 +1839,10 @@ $$
  \frac{\|\mathbf h^{(2)}(t)-\mathbf h^{(2)}(0)\|_F}{\sqrt n}
  \le M\sqrt{2t\mathcal L_\Sigma(0)}
        [A+P(B_0+\sqrt{t\mathcal L_\Sigma(0)})].
-
 $$ {#eq-docs-finite-optimization-and-controls-l1571}
 
 For the second inequality expand the preactivation difference as
-$(W^{(2)}(t)-W^{(2)}(0))\mathbf h^{(1)}(0)+
-W^{(2)}(t)(\mathbf h^{(1)}(t)-\mathbf h^{(1)}(0))$ and use ([-@eq-docs-finite-optimization-and-controls-l1331]).
+$(W^{(2)}(t)-W^{(2)}(0))\mathbf h^{(1)}(0)+ W^{(2)}(t)(\mathbf h^{(1)}(t)-\mathbf h^{(1)}(0))$ and use ([-@eq-docs-finite-optimization-and-controls-l1331]).
 Choose
 
 $$
@@ -1961,7 +1871,6 @@ satisfies
 
 $$
  \mathcal L_\Sigma(\tau)\le2e^{-\kappa\tau/2}<2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1601}
 
 [Section 10.2](finite-optimization-and-controls.qmd#sec-docs-finite-optimization-and-controls-l1359) now applies. This proves global finite-GF fitting and finite
@@ -1974,23 +1883,22 @@ All bounds can be chosen uniformly in width on $E$, as follows. Set
 $$
  e_* =\sqrt2e^{-\kappa\tau/4},\quad
  c_* =\min\{1,(\sqrt2-e_*)/[C(B_0+1+\sqrt{D_0})]\},\quad
- S_{\rm pre}=2\tau+\tfrac83\tau^{3/2},
+ S_{\mathrm{pre}}=2\tau+\tfrac83\tau^{3/2},
 $$
 
 
 $$
- \overline S=[F(S_{\rm pre})+e_* /(2\gamma c_*)+2\log2]^2,
+ \overline S=[F(S_{\mathrm{pre}})+e_* /(2\gamma c_*)+2\log2]^2,
  \quad \overline U=B_0+C\overline S,
  \quad \beta_* =c_* /(1+\sqrt{\overline S}).
-
 $$ {#eq-docs-finite-optimization-and-controls-l1616}
 
-Since $b_0\le1$, the pre-margin bound gives $S_w(\tau)\le S_{\rm pre}$.
+Since $b_0\le1$, the pre-margin bound gives $S_w(\tau)\le S_{\mathrm{pre}}$.
 Use the fixed lower bound $c_*$ in ([-@eq-docs-finite-optimization-and-controls-l1442]) to obtain
 
 $$
  S_w(\infty)\le\overline S,\quad
- \sup_t\|W^{(2)}(t)\|_{\rm op}\le\overline U,\quad
+ \sup_t\|W^{(2)}(t)\|_{\mathrm{op}}\le\overline U,\quad
  \sup_t M_3(t)^2\le C^2\overline S^2+1+D_0\overline S,
 $$
 
@@ -1999,7 +1907,6 @@ $$
  \mathcal L_\Sigma(t)\le e_*^2e^{-4\gamma\beta_*^2(t-\tau)}
  \quad(t\ge\tau),\qquad
  \int_0^\infty e(t)\,dt\le2\tau+e_* /(2\gamma\beta_*^2).
-
 $$ {#eq-docs-finite-optimization-and-controls-l1629}
 
 These estimates do not bound individual readout coordinates uniformly in
@@ -2018,7 +1925,6 @@ the latter. The first-coordinate equations are
 $$
  \dot z^{(1)}_{a,i}=\sum_{b=1}^2G_{ab}
        (\phi^{(1)})'(z^{(1)}_{b,i})c_b q^{(1)}_{b,i}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1647}
 
 On $E$, define
@@ -2034,7 +1940,6 @@ on each finite interval, followed by the monotone limit, gives
 
 $$
  \frac1n\sum_i V_i^2\le V_*^2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1660}
 
 Every $V_i$ is finite at each fixed width; independence from initialization
@@ -2043,15 +1948,14 @@ is neither assumed nor needed.
 Let $\Phi$ be the standard Gaussian distribution function and define
 
 $$
- p_{\rm strip}=[2\Phi(R/2)-1]\,2[1-\Phi(3R/\sqrt{1-\rho^2})]>0,
+ p_{\mathrm{strip}}=[2\Phi(R/2)-1]\,2[1-\Phi(3R/\sqrt{1-\rho^2})]>0,
 $$
 
 
 $$
- B_* =2V_* /\sqrt{p_{\rm strip}},\quad
+ B_* =2V_* /\sqrt{p_{\mathrm{strip}}},\quad
  \delta_* =(R/2)e^{-\lambda_1B_*},\quad
  p_* =\min_{|z|\le R-\delta_*}(\phi^{(1)})'(z)>0.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1671}
 
 For each ordered pair $a,b$ of distinct samples take the initial strip
@@ -2061,15 +1965,14 @@ $$
  \ |z^{(1)}_{b,i}(0)-\rho z^{(1)}_{a,i}(0)|\ge3R\}.
 $$
 
-Augment $E$ by $E_S=\{|I_1^0|/n,|I_2^0|/n\ge p_{\rm strip}/2\}$.
+Augment $E$ by $E_S=\{|I_1^0|/n,|I_2^0|/n\ge p_{\mathrm{strip}}/2\}$.
 On $E\cap E_S$, each sample has a fixed subset $I_a$, of size at
-least $np_{\rm strip}/4$, for which
+least $np_{\mathrm{strip}}/4$, for which
 
 $$
  |z^{(1)}_{a,i}(t)|\le R-\delta_*\quad(t\ge0,i\in I_a),\qquad
  \inf_{t\ge0}\frac1n\sum_i[(\phi^{(1)})'(z^{(1)}_{a,i}(t))]^2
- \ge(p_{\rm strip}/4)p_*^2.
-
+ \ge(p_{\mathrm{strip}}/4)p_*^2.
 $$ {#eq-docs-finite-optimization-and-controls-l1685}
 
 To prove this, a row in $I_a^0$ starts with its $a$-coordinate interior
@@ -2096,7 +1999,7 @@ $$
 
 Continuity contradicts any finite first exit, and these time-independent
 margins hold for every finite time. By ([-@eq-docs-finite-optimization-and-controls-l1660]), at most fraction
-$p_{\rm strip}/4$ of all rows have $V_i>B_*$. Set
+$p_{\mathrm{strip}}/4$ of all rows have $V_i>B_*$. Set
 $I_a=I_a^0\cap\{V_i\le B_*\}$. Subtraction of this worst-case count
 from each strip count separately proves ([-@eq-docs-finite-optimization-and-controls-l1685]). The subsets may depend on
 the entire trajectory, but are fixed in time; no selection from future data
@@ -2106,16 +2009,16 @@ For Gaussian first rows, $z_a^{(1)}(0)$ and
 $z_b^{(1)}(0)-\rho z_a^{(1)}(0)$ are independent centered Gaussians,
 of variances one and $1-\rho^2$: their joint Gaussian characteristic
 function factors because their covariance is zero. Thus each strip indicator
-has mean $p_{\rm strip}$, independently across neurons. The same count
+has mean $p_{\mathrm{strip}}$, independently across neurons. The same count
 variance argument as ([-@eq-docs-finite-optimization-and-controls-l1495]) gives
 
 $$
- \mathbb P(E_S^c)\le8(1-p_{\rm strip})/(np_{\rm strip}).
+ \mathbb P(E_S^c)\le8(1-p_{\mathrm{strip}})/(np_{\mathrm{strip}}).
 $$
 
 Consequently ([-@eq-docs-finite-optimization-and-controls-l1685]) holds simultaneously for both samples and all time with
 probability at least
-$\max\{0,1-p_n-8(1-p_{\rm strip})/(np_{\rm strip})\}$, for
+$\max\{0,1-p_n-8(1-p_{\mathrm{strip}})/(np_{\mathrm{strip}})\}$, for
 $n\ge n_*$. No independence between the two events is assumed.
 
 The extra event cannot simply be omitted. For even $n\ge n_*$, choose
@@ -2123,7 +2026,7 @@ first rows realizing $n/2$ preactivation pairs $(2R,2R)$ and
 $n/2$ pairs $(2R,-2R)$; the independent inputs permit this under the
 displayed normalization. Choose $W^{(2)}_0=I_n$ and
 $W^{(3)}_{0,i}=1/n$. All first gates vanish forever. Nevertheless
-$N_s=N_o=n/2$, $\|W^{(2)}_0\|_{\rm op}=1<8$, $b_0=1/n<2/n$,
+$N_s=N_o=n/2$, $\|W^{(2)}_0\|_{\mathrm{op}}=1<8$, $b_0=1/n<2/n$,
 and $K^{(3)}(0)=\phi^{(2)}(A)^2I_2\succ\kappa I_2$.
 All defining inequalities of $E$ have strict margins. An open neighborhood
 retains them and keeps every first row saturated; independent Gaussian
@@ -2142,7 +2045,6 @@ normalized inputs and the fixed activation
 
 $$
  \phi(z)=\tfrac34(1+z)+\tfrac14\tanh z.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1753}
 
 It constructs global capped flows on prescribed Hilbert spaces. A separate
@@ -2181,10 +2083,9 @@ $$
 
 $$
  \|\Theta\|_{\mathcal H}^2
- =\mathbb E_1|W^{(1)}|^2+\|U\|_{\rm HS}^2+
+ =\mathbb E_1|W^{(1)}|^2+\|U\|_{\mathrm{HS}}^2+
    \mathbb E_2|W^{(3)}|^2,
  \qquad \Theta_0=(W^{(1)}_0,0,0),
-
 $$ {#eq-docs-finite-optimization-and-controls-l1788}
 
 where $\|W^{(1)}_0\cdot u_a\|_{L^2(\Omega_1)}=1$.
@@ -2193,9 +2094,9 @@ $W^{(2)}=W^{(2)}_0+U$.
 
 For clarity, the Hilbert–Schmidt facts needed here can be obtained directly.
 For an orthonormal basis $(e_j)$ of $\mathcal H_1$, define
-$\|U\|_{\rm HS}^2=\sum_j\|Ue_j\|^2$ and use the corresponding sum
+$\|U\|_{\mathrm{HS}}^2=\sum_j\|Ue_j\|^2$ and use the corresponding sum
 of inner products. Cauchy–Schwarz in the basis expansion of a vector gives
-$\|U\|_{\rm op}\le\|U\|_{\rm HS}$. Conversely any square-summable
+$\|U\|_{\mathrm{op}}\le\|U\|_{\mathrm{HS}}$. Conversely any square-summable
 family $(v_j)$ defines $U\sum_j c_je_j=\sum_jc_jv_j$; this series
 converges by Cauchy–Schwarz. The identification with
 $\ell^2(\mathcal H_2)$ proves completeness. Expanding in an orthonormal
@@ -2203,10 +2104,9 @@ basis of $\mathcal H_2$ and interchanging nonnegative sums proves
 basis independence by Parseval. In particular,
 
 $$
- \|B\otimes H\|_{\rm HS}=\|B\|_{\mathcal H_2}\|H\|_{\mathcal H_1},
+ \|B\otimes H\|_{\mathrm{HS}}=\|B\|_{\mathcal H_2}\|H\|_{\mathcal H_1},
  \qquad
- \langle B\otimes H,U\rangle_{\rm HS}=\langle B,UH\rangle_{\mathcal H_2},
-
+ \langle B\otimes H,U\rangle_{\mathrm{HS}}=\langle B,UH\rangle_{\mathcal H_2},
 $$ {#eq-docs-finite-optimization-and-controls-l1809}
 
 where $(B\otimes H)V=B\mathbb E_1[HV]$.
@@ -2222,7 +2122,6 @@ $$
  Q_a^{(1)}&=(W^{(2)})^*\Delta_a^{(2)},\\
  P_a&=r_aQ_a^{(1)},&P&=\bigl(\textstyle\sum_a P_a^2\bigr)^{1/2}.
  \end{aligned}
-
 $$ {#eq-docs-finite-optimization-and-controls-l1818}
 
 The residual-free backward fields are $\Delta_a^{(2)}$ and
@@ -2235,7 +2134,6 @@ $$
  g_2&=\sum_a r_a\Delta_a^{(2)}\otimes H_a^{(1)},\\
  g_3&=\sum_a r_aH_a^{(2)},\qquad F(\Theta)=-(g_1,g_2,g_3).
  \end{aligned}
-
 $$ {#eq-docs-finite-optimization-and-controls-l1832}
 
 The bounds $|\phi(z)|\le1+|z|$, $3/4\le\phi'(z)\le1$, and
@@ -2243,7 +2141,7 @@ $|\phi''(z)|\le1/2$ follow from the displayed activation. They imply
 that every field in ([-@eq-docs-finite-optimization-and-controls-l1818]) is in its indicated $L^2$ space. On each
 bounded state ball, all these norms, residuals and direction norms are
 bounded by constants depending on the ball, the fixed data and
-$\|W^{(2)}_0\|_{\rm op}$. Forward fields and residuals are Lipschitz
+$\|W^{(2)}_0\|_{\mathrm{op}}$. Forward fields and residuals are Lipschitz
 there: expand each operator product into its operator difference and input
 difference, use ([-@eq-docs-finite-optimization-and-controls-l1809]), and use the scalar activation's Lipschitz bound.
 Backward fields are continuous there; local Lipschitzness is not assumed.
@@ -2253,7 +2151,6 @@ in $L^2$, and $b$ is bounded and continuous, then
 
 $$
  A_jb(V_j)\longrightarrow Ab(V)\quad\hbox{in }L^2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1853}
 
 The part $(A_j-A)b(V_j)$ is bounded by
@@ -2270,9 +2167,8 @@ $C^1$ state curve the loss satisfies
 
 $$
  E'=\langle g_1,\dot W^{(1)}\rangle
-     +\langle g_2,\dot U\rangle_{\rm HS}
+     +\langle g_2,\dot U\rangle_{\mathrm{HS}}
      +\langle g_3,\dot W^{(3)}\rangle.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1868}
 
 To justify the chain rule in $L^2$, the Bochner integral of a continuous
@@ -2300,7 +2196,6 @@ $$
  \tau_R(s)=\operatorname{sgn}(s)R\int_0^{|s|/R}\eta(v)\,dv,
  \quad \chi_R(s)=\begin{cases}\tau_R(s)/s&s\ne0,\\1&s=0,\end{cases}
  \quad C_R(p)=\chi_R(|p|)p\quad(p\in\mathbb R^3).
-
 $$ {#eq-docs-finite-optimization-and-controls-l1894}
 
 Both $\tau_R$ and $C_R$ are smooth and 1-Lipschitz, equal to the
@@ -2314,7 +2209,6 @@ $0<\chi_R\le1$ and
 $$
  |p-C_R(p)|\le|p|\mathbf1_{|p|>R},\qquad
  |s-\tau_R(s)|\le|s|\mathbf1_{|s|>R}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1907}
 
 ::: {#thm-docs-finite-optimization-and-controls-l1913}
@@ -2325,7 +2219,6 @@ $$
                =-\chi_R(P_R)g_{1,R},
  \quad \dot U_R=-g_{2,R},\quad
  \dot W_R^{(3)}=-\tau_R(g_{3,R})
-
 $$ {#eq-docs-finite-optimization-and-controls-l1914}
 
 have a unique global strong solution from $\Theta_0$. They satisfy
@@ -2334,7 +2227,6 @@ $$
  E_R(t)+\int_0^t\|\dot\Theta_R(s)\|_{\mathcal H}^2ds\le E_0=3/2,
  \quad \|\Theta_R(t)-\Theta_0\|_{\mathcal H}\le\sqrt{3t/2},
  \quad |W_R^{(3)}(t)|\le2Rt\quad\hbox{a.e.}
-
 $$ {#eq-docs-finite-optimization-and-controls-l1922}
 
 On every finite horizon, all true field norms and $\|F(\Theta_R)\|$
@@ -2358,19 +2250,17 @@ $$
  \|\tau_M(W^{(3)})\phi'(Z_a^{(2)})
    -\tau_M(\bar W^{(3)})\phi'(\bar Z_a^{(2)})\|_2
  \le\|W^{(3)}-\bar W^{(3)}\|_2+M\|Z_a^{(2)}-\bar Z_a^{(2)}\|_2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1939}
 
 The factor $M$ uses $|\tau_M|\le2M$ and
 $\operatorname{Lip}(\phi')\le1/2$. Apply the genuine adjoints and
-$\|U-\bar U\|_{\rm op}\le\|U-\bar U\|_{\rm HS}$ to compare
+$\|U-\bar U\|_{\mathrm{op}}\le\|U-\bar U\|_{\mathrm{HS}}$ to compare
 the incoming fields. Their residual-weighted differences obey
 
 $$
  \|P_a-\bar P_a\|_2\le
  |r_a|\|Q_a^{(1)}-\bar Q_a^{(1)}\|_2
  +|r_a-\bar r_a|\|\bar Q_a^{(1)}\|_2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1949}
 
 For the lower gate, apply the vector cap before estimating multiplication:
@@ -2380,15 +2270,13 @@ $$
        \phi'(\bar Z_a^{(1)})C_R(\bar p)_a\|_2
  \le\|p-\bar p\|_{L^2(\Omega_1;\mathbb R^3)}
      +R\|Z_a^{(1)}-\bar Z_a^{(1)}\|_2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1956}
 
 Finally expand a rank-one difference and use
 
 $$
- \|B\otimes H-\bar B\otimes\bar H\|_{\rm HS}
+ \|B\otimes H-\bar B\otimes\bar H\|_{\mathrm{HS}}
  \le\|B-\bar B\|_2\|H\|_2+\|\bar B\|_2\|H-\bar H\|_2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1964}
 
 Together with the forward bounds and the readout cap's Lipschitz bound,
@@ -2406,10 +2294,9 @@ the auxiliary top cap is inactive. Substitution into ([-@eq-docs-finite-optimiza
 
 $$
  E_R'=-\mathbb E_1[\chi_R(P_R)|g_{1,R}|^2]
-      -\|g_{2,R}\|_{\rm HS}^2
+      -\|g_{2,R}\|_{\mathrm{HS}}^2
       -\mathbb E_2[\chi_R(g_{3,R})|g_{3,R}|^2]
  \le-\|\dot\Theta_R\|_{\mathcal H}^2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l1981}
 
 The inequality is $\chi_R^2\le\chi_R$. One common nonnegative scalar
@@ -2431,6 +2318,7 @@ uniform true-field bounds follow from the energy ball bounds. $\square$
 ### 12.3. What an exponential-tail premise would give {#sec-docs-finite-optimization-and-controls-l2002}
 
 ::: {#thm-docs-finite-optimization-and-controls-l2004}
+
 ## conditional continuation
 
 In addition to @thm-docs-finite-optimization-and-controls-l1913,
@@ -2441,7 +2329,6 @@ $$
  \left(\|P_R(t)\mathbf1_{P_R(t)>a}\|_{L^2(\Omega_1)}
  +\|g_{3,R}(t)\mathbf1_{|g_{3,R}(t)|>a}\|_{L^2(\Omega_2)}\right)
  \le K_T e^{-c_Ta}\quad(a\ge1).
-
 $$ {#eq-docs-finite-optimization-and-controls-l2006}
 
 Then $\Theta_R$ converges in $C([0,T];\mathcal H)$, for each finite
@@ -2454,7 +2341,6 @@ $$
  K^{(2)}_{ab}=\mathbb E_2[\Delta_a^{(2)}\Delta_b^{(2)}]
                   \mathbb E_1[H_a^{(1)}H_b^{(1)}],\quad
  K^{(3)}_{ab}=\mathbb E_2[H_a^{(2)}H_b^{(2)}].
-
 $$ {#eq-docs-finite-optimization-and-controls-l2017}
 
 The limit has the exact loss energy identity. It is unique against strong
@@ -2495,7 +2381,6 @@ and absorbing polynomial factors into a smaller exponential rate yields
 $$
  \sup_{R,t\le T}\|W_R^{(3)}(t)\mathbf1_{|W_R^{(3)}(t)|>a}\|_2
  \le D'_T e^{-c'_Ta}\quad(a\ge1).
-
 $$ {#eq-docs-finite-optimization-and-controls-l2049}
 
 We need tails only on a reference state. For bounded Lipschitz $b$,
@@ -2505,7 +2390,6 @@ $$
  \|A[b(V)-b(\bar V)]\|_2
  \le\operatorname{Lip}(b)L\|V-\bar V\|_2
       +2\|b\|_\infty\|A\mathbf1_{|A|>L}\|_2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l2057}
 
 For two states in a common bounded ball, split their top-gate difference as
@@ -2534,7 +2418,6 @@ the result is
 
 $$
  \|F(\Theta)-F(\bar\Theta)\|\le K(1+L)s+Ke^{-cL}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l2082}
 
 Constants may depend on the horizon and ball, but not the caps. Choose
@@ -2543,7 +2426,6 @@ norms for larger distances. Enlarging constants gives
 
 $$
  \|F(\Theta)-F(\bar\Theta)\|\le b_Ts\log(B_T/s).
-
 $$ {#eq-docs-finite-optimization-and-controls-l2089}
 
 Take $B_T$ larger than $e$ times the ball's distance range, so this
@@ -2558,7 +2440,6 @@ $$
  \le\sqrt3\|P_R\mathbf1_{P_R>R}\|_2
        +\|g_{3,R}\mathbf1_{|g_{3,R}|>R}\|_2
  \le Ke^{-cR}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l2099}
 
 The factor $\sqrt3$ is Cauchy–Schwarz in the three unit input vectors;
@@ -2569,7 +2450,6 @@ inequality
 $$
  s'\le b_Ts\log(B_T/s)+\delta_R,\quad s(0)=0,
  \qquad \delta_R=K'e^{-cR}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l2110}
 
 One can prove its comparison estimate directly. Start a positive scalar
@@ -2581,7 +2461,6 @@ $\log(B_T/Y)$ gives
 
 $$
  Y(t)\le B_T(\delta_R/B_T)^{\exp(-(b_T+1)t)}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l2121}
 
 The distance is bounded by this majorant: away from zero the scalar right
@@ -2609,7 +2488,7 @@ eventually exceed $a/2$; Fatou bounds its squared tail by the uniform
 approximating tails at $a/2$. Adjust constants for $1\le a<2$.
 Thus the limit inherits ([-@eq-docs-finite-optimization-and-controls-l2006]), ([-@eq-docs-finite-optimization-and-controls-l2049]), uniformly in time, even though the
 subsequence may depend on time. Compare a strong competitor to this reference
-limit using (12.20)–(12.22). Every strong competitor is bounded on its compact
+limit using ([-@eq-docs-finite-optimization-and-controls-l2057])–([-@eq-docs-finite-optimization-and-controls-l2089]). Every strong competitor is bounded on its compact
 time intervals. Its distance has zero initial value and zero forcing in
 ([-@eq-docs-finite-optimization-and-controls-l2110]). A positive initial majorant tending to zero in ([-@eq-docs-finite-optimization-and-controls-l2121]), now without
 forcing, proves equality. The same comparison identifies overlapping horizons
@@ -2653,7 +2532,6 @@ $$
  \delta^3=a\odot\phi'(z^3),\quad q^2=(W^{(3)})^T\delta^3,
  \quad\delta^2=\phi'(z^2)\odot q^2,\quad
  \delta^1=\phi'(z^1)\odot(W^{(2)})^T\delta^2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l2185}
 
 Superscripts on vectors are layer indices. The feature-ascent equations are
@@ -2661,7 +2539,6 @@ Superscripts on vectors are layer indices. The feature-ascent equations are
 $$
  (z^1)'=\delta^1,\qquad (W^{(2)})'=\delta^2(h^1)^T/n,
  \qquad (W^{(3)})'=\delta^3(h^2)^T/n,\qquad a'=h^3.
-
 $$ {#eq-docs-finite-optimization-and-controls-l2192}
 
 The prime means feature time $s$, with block mobilities $(n,1,1,n)$.
@@ -2685,18 +2562,17 @@ $$
  b(s)=\int_0^s\delta^2(u)\,du,\quad
  M_2(s)=\int_0^s b'(u)(h^1(u))^T/n\,du,\quad
  M_3(s)=\int_0^s\delta^3(u)(h^2(u))^T/n\,du.
-
 $$ {#eq-docs-finite-optimization-and-controls-l2213}
 
 The symbol $b$ here denotes a primitive, not a backward sensitivity.
 Then $W^{(\ell)}=W^{(\ell)}_0+M_\ell$ for $\ell=2,3$, and
 
 $$
- \begin{split}
+ \begin{aligned}
  X^1(s)&=X^1_0+(W^{(2)}_0)^Tb(s)+R_1(s),\\
  R_1(s)&=\int_0^s h^1(u)\frac{b'(u)^T[b(s)-b(u)]}{n}\,du,
  \qquad z^1=F^{-1}(X^1).
- \end{split}
+ \end{aligned}
 $$ {#eq-docs-finite-optimization-and-controls-l2221}
 
 Indeed $(X^1)'=(W^{(2)})^T b'$. Substituting the integral for
@@ -2719,7 +2595,7 @@ $$ {#eq-docs-finite-optimization-and-controls-l2232}
 
 Here $h^\ell=\phi(z^\ell)$ and $\delta^3=a\odot\phi'(z^3)$.
 These equations follow by substituting the trained matrices into ([-@eq-docs-finite-optimization-and-controls-l2185]).
-Conversely, a $C^1$ solution of (13.3)–(13.5) with $b(0)=0$
+Conversely, a $C^1$ solution of ([-@eq-docs-finite-optimization-and-controls-l2213])–([-@eq-docs-finite-optimization-and-controls-l2232]) with $b(0)=0$
 and the stated initial data reconstructs ([-@eq-docs-finite-optimization-and-controls-l2192]): differentiation gives
 $R_1'=M_2^Tb'$, hence $(X^1)'=(W^{(2)})^Tb'$, while the
 matrix and readout derivatives follow directly from their integrals.
@@ -2741,7 +2617,7 @@ $b'$. It is its primitive that enters the initial lower transpose.
 Assume, on $[0,S]$,
 
 $$
- \|W^{(2)}\|_{\rm op},\ \|W^{(3)}\|_{\rm op},\ \|a\|_\infty
+ \|W^{(2)}\|_{\mathrm{op}},\ \|W^{(3)}\|_{\mathrm{op}},\ \|a\|_\infty
  \le B,\qquad B\ge1.
 $$ {#eq-docs-finite-optimization-and-controls-l2266}
 
@@ -2767,7 +2643,6 @@ order, are bounded by
 $$
  B^3,\quad Z_2=(c^2+B^2)B^2,\quad Z_2,\quad
  Z_3=c^2B+BZ_2,\quad c+2BZ_3.
-
 $$ {#eq-docs-finite-optimization-and-controls-l2286}
 
 In particular every argument in the table has $\frac{\|v'\|_2}{\sqrt n}\le C$,
@@ -2781,14 +2656,13 @@ last mesh point before $s$, then for each table entry $(A,v)$,
 
 $$
  \sup_{s\le S}\frac{\|A[v(s)-v(\pi(s))]\|_2}{\sqrt n}
- \le\|A\|_{\rm op}\varepsilon\le B\varepsilon.
-
+ \le\|A\|_{\mathrm{op}}\varepsilon\le B\varepsilon.
 $$ {#eq-docs-finite-optimization-and-controls-l2299}
 
 The last bound follows from ([-@eq-docs-finite-optimization-and-controls-l2266]) at time zero and equality of a matrix
 and transpose operator norm. Thus each supplied trajectory admits a number
 of sampled arguments per orientation independent of width. All trained
-memory terms in (13.3)–(13.5) are still retained.
+memory terms in ([-@eq-docs-finite-optimization-and-controls-l2213])–([-@eq-docs-finite-optimization-and-controls-l2232]) are still retained.
 
 ### 13.3. Continuity of the retained rank memories {#sec-docs-finite-optimization-and-controls-l2309}
 
@@ -2807,12 +2681,12 @@ $$
  +\int_0^s\widetilde b'(h-\widetilde h)^T/n\,du.
 $$
 
-The rank-one identity $\|vw^T/n\|_{\rm op}=\|v\|_2\|w\|_2/n$
+The rank-one identity $\|vw^T/n\|_{\mathrm{op}}=\|v\|_2\|w\|_2/n$
 follows by Cauchy–Schwarz, with equality in the direction of $w$ when
 both vectors are nonzero. Therefore
 
 $$
- e_M:=\sup_s\|M-\widetilde M\|_{\rm op}
+ e_M:=\sup_s\|M-\widetilde M\|_{\mathrm{op}}
  \le(B_h+SL_h)e_b+SL_b e_h.
 $$ {#eq-docs-finite-optimization-and-controls-l2327}
 
@@ -2820,8 +2694,8 @@ For $R(s)=\int_0^s M^Tb'\,du$, split its difference into
 $\int(M-\widetilde M)^Tb'$ and
 $\int\widetilde M^T(b'-\widetilde b')$.
 Integrating the second term by parts, and using
-$\|\widetilde M\|_{\rm op}\le SL_bB_h$,
-$\|\widetilde M'\|_{\rm op}\le L_bB_h$, proves
+$\|\widetilde M\|_{\mathrm{op}}\le SL_bB_h$,
+$\|\widetilde M'\|_{\mathrm{op}}\le L_bB_h$, proves
 
 $$
  \sup_s\frac{\|R-\widetilde R\|_2}{\sqrt n}
@@ -2834,12 +2708,12 @@ $\delta^3$ paths satisfy $\|\delta^3\|_2/\sqrt n\le D_3$, the direct difference
 of its two rank-one integrands gives
 
 $$
- \sup_s\|M_3-\widetilde M_3\|_{\rm op}
+ \sup_s\|M_3-\widetilde M_3\|_{\mathrm{op}}
  \le SB_2\sup_s\frac{\|\delta^3-\widetilde\delta^3\|_2}{\sqrt n}
        +SD_3\sup_s\frac{\|h^2-\widetilde h^2\|_2}{\sqrt n}.
 $$ {#eq-docs-finite-optimization-and-controls-l2345}
 
-No convergence of $b'$ was needed for (13.10)–(13.11); its uniform
+No convergence of $b'$ was needed for ([-@eq-docs-finite-optimization-and-controls-l2327])–([-@eq-docs-finite-optimization-and-controls-l2337]); its uniform
 bound and the regularity of $h$ supplied the integration by parts.
 The mesh estimate controls the residuals obtained by changing only the four
 initial responses in the integral equations along the given path. It does
@@ -2861,7 +2735,6 @@ $$
  b(s)-\widetilde b(s)=\int_0^s\!
  \{\phi'(z^2)\odot(q^2-\widetilde q^2)
   +[\phi'(z^2)-\phi'(\widetilde z^2)]\odot\widetilde q^2\}\,du.
-
 $$ {#eq-docs-finite-optimization-and-controls-l2367}
 
 The first summand has Euclidean norm divided by $\sqrt n$ at most $\frac{\|q^2-\widetilde q^2\|_2}{\sqrt n}$.
@@ -2871,7 +2744,6 @@ $$
  \frac{\|[\phi'(z^2)-\phi'(\widetilde z^2)]\odot\widetilde q^2\|_2}{\sqrt n}
  \le 2Q\frac{\|z^2-\widetilde z^2\|_2}{\sqrt n}
     +2\frac{\|\widetilde q^2\mathbf1_{|\widetilde q^2|>Q}\|_2}{\sqrt n}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l2375}
 
 The mean value theorem bounds the first part and $|\phi'|\le1$
@@ -2909,7 +2781,7 @@ observables. Cap removal and autonomous population restart remain separate.
 
 Sections [14.1](finite-optimization-and-controls.qmd#sec-docs-finite-optimization-and-controls-l2432)–[14.5](finite-optimization-and-controls.qmd#sec-docs-finite-optimization-and-controls-l2932) give a deterministic finite-width counterexample to a specific
 pointwise matrix estimate. It uses the original three-hidden-layer arctangent
-network with all blocks trained, one sample `d=m=1`, `x_1=y_1=1`, the full
+network with all blocks trained, one sample $d=m=1$, $x_1=y_1=1$, the full
 loss $\mathcal L_n=(f_n-1)^2$, and stored block mobilities $(n,1,1,n)$.
 The constructed hidden initialization is correlated and deterministic. It is
 not an independent Gaussian initialization or a typical-Gaussian obstruction.
@@ -3003,7 +2875,7 @@ $$ {#eq-docs-finite-optimization-and-controls-l2501}
 
 Here $\mathsf B'=D\mathsf B[b]$ is the material derivative along the
 full feature field, not a coordinatewise activation derivative. Constants
-in (14.5)–(14.6) do not depend on width. The analogous conclusion holds for
+in ([-@eq-docs-finite-optimization-and-controls-l2490])–([-@eq-docs-finite-optimization-and-controls-l2501]) do not depend on width. The analogous conclusion holds for
 the Jacobian of the full physical vector field and its physical material
 derivative, as proved in [Section 14.5](finite-optimization-and-controls.qmd#sec-docs-finite-optimization-and-controls-l2932).
 
@@ -3243,8 +3115,7 @@ $$
 $$
 
 Also
-$\|S_2\|_{\mathrm{op}}\le\|\delta^{(2)}\|_2/\sqrt n
-\le\|W^{(3)}\|_{\mathrm{op}}\varepsilon$ and
+$\|S_2\|_{\mathrm{op}}\le\|\delta^{(2)}\|_2/\sqrt n \le\|W^{(3)}\|_{\mathrm{op}}\varepsilon$ and
 $\|S_3\|_{\mathrm{op}}\le\varepsilon$.
 For a symmetric matrix $A$, its operator norm is the supremum of
 $|u^TAu|$ over unit $u$. Thus ([-@eq-docs-finite-optimization-and-controls-l2552]) and ([-@eq-docs-finite-optimization-and-controls-l2730]) bound $A$, and
@@ -3422,7 +3293,7 @@ satisfies $\tau_n\ge\varepsilon/P$.
 
 Declare this zero-readout endpoint to be feature time zero and run the
 same smooth solution forward. It reaches ([-@eq-docs-finite-optimization-and-controls-l2664]) at $\tau_n$.
-Equations (14.22)–(14.23) prove the claimed whole-segment primal bounds.
+Equations ([-@eq-docs-finite-optimization-and-controls-l2867])–([-@eq-docs-finite-optimization-and-controls-l2899]) prove the claimed whole-segment primal bounds.
 The initial hidden weights are obtained by this deterministic inverse
 flow; no distributional identification with independent Gaussian weights
 is made.
@@ -3462,7 +3333,7 @@ $$
 $$ {#eq-docs-finite-optimization-and-controls-l2960}
 
 At the terminal state, $\|\mathsf B\|_{\mathrm{op}}$ and
-$\|b\|_2/\sqrt n$ are bounded by (14.16)–(14.17). The two correction
+$\|b\|_2/\sqrt n$ are bounded by ([-@eq-docs-finite-optimization-and-controls-l2730])–([-@eq-docs-finite-optimization-and-controls-l2755]). The two correction
 terms in ([-@eq-docs-finite-optimization-and-controls-l2960]) thus have bounded operator norm. The same holds for
 $\mathsf C$ and $\mathsf C^2$. Applying ([-@eq-docs-finite-optimization-and-controls-l2794]) to the same unit
 vector and using $\alpha\ge3/2$ gives, for every fixed real $\kappa$,
@@ -3530,8 +3401,7 @@ $$
 $$ {#eq-docs-finite-optimization-and-controls-l3029}
 
 Under ([-@eq-docs-finite-optimization-and-controls-l2997]), this implies
-$\mathbb E\sup_{|s|\le S}|\log(V_{\mathcal T}(s)/V_{\mathcal T}(0))|
-\le C_S n$. The analogous full physical tangent response has expected
+$\mathbb E\sup_{|s|\le S}|\log(V_{\mathcal T}(s)/V_{\mathcal T}(0))| \le C_S n$. The analogous full physical tangent response has expected
 absolute log-volume change at most $C_Tn$, uniformly over $[0,T]$.
 The constants are independent of width and tangent dimension. Initial
 tangent planes may depend measurably on the initial parameters, since the
@@ -3560,8 +3430,7 @@ $$ {#eq-docs-finite-optimization-and-controls-l3057}
 
 Indeed $\|c'\|_2/\sqrt n\le P$,
 $\|(W^{(3)})'\|_{\mathrm{op}}\le P\|c\|_2/\sqrt n$, and
-$\|(W^{(2)})'\|_{\mathrm{op}}
-\le P\|W^{(3)}\|_{\mathrm{op}}\|c\|_2/\sqrt n$.
+$\|(W^{(2)})'\|_{\mathrm{op}} \le P\|W^{(3)}\|_{\mathrm{op}}\|c\|_2/\sqrt n$.
 These follow from $|\phi'|\le1$ and the rank-one norm formula. Likewise,
 
 $$
@@ -3676,7 +3545,6 @@ $$
  \frac{d}{ds}\log V_{\mathcal T}
    =\operatorname{Tr}(\Pi_{\mathcal T}\mathsf B),\qquad
  \Pi_{\mathcal T}=\mathcal T(\mathcal T^T\mathcal T)^{-1}\mathcal T^T.
-                                                              
 $$ {#eq-docs-finite-optimization-and-controls-l3177}
 
 The displayed $\Pi_{\mathcal T}$ is the orthogonal projector onto the
@@ -3752,7 +3620,7 @@ $$
 $$ {#eq-docs-finite-optimization-and-controls-l3251}
 
 The equality of paths follows first locally by the chain rule and uniqueness.
-The complete feature flow and (14.30)–(14.31) keep the physical state bounded
+The complete feature flow and ([-@eq-docs-finite-optimization-and-controls-l3057])–([-@eq-docs-finite-optimization-and-controls-l3069]) keep the physical state bounded
 on each finite forward interval, extending the physical solution and this
 identity to all $t\ge0$. If $r_n(0)=0$, it is the stationary solution.
 Backward physical completeness is not needed.
@@ -3870,7 +3738,7 @@ This is a derivative at one fixed initial readout. It is not a conditional
 covariance or the derivative of a conditional mean after averaging over
 initial readouts.
 
-The determinant identities (14.41)–(14.42) apply as well at fixed physical
+The determinant identities ([-@eq-docs-finite-optimization-and-controls-l3326])–([-@eq-docs-finite-optimization-and-controls-l3349]) apply as well at fixed physical
 time to its full derivative and the same hidden initial plane. The feature
 Riccati equation ([-@eq-docs-finite-optimization-and-controls-l3367]) must then be replaced by its physical block equation.
 Writing $\mathsf C$ in hidden/readout blocks, it is
@@ -3964,9 +3832,8 @@ $$
 Let $B=Db=D^2\mathcal P$. At any state obeying
 
 $$
-\|W^{(2)}\|_{\rm op},\|W^{(3)}\|_{\rm op}\le M,
+\|W^{(2)}\|_{\mathrm{op}},\|W^{(3)}\|_{\mathrm{op}}\le M,
 \qquad \|c\|_2/\sqrt n\le R,
-
 $$ {#eq-docs-finite-optimization-and-controls-l3466}
 
 put $K_2=a+M$, $K_3=a+MK_2$, and
@@ -3978,8 +3845,7 @@ $$
 Then the full state-space Frobenius norm satisfies
 
 $$
-\|B\|_{\rm F}\le C_B(M,R)\sqrt n.
-
+\|B\|_{\mathrm{F}}\le C_B(M,R)\sqrt n.
 $$ {#eq-docs-finite-optimization-and-controls-l3480}
 
 This needs neither a maximum-coordinate readout bound nor a spatial
@@ -3993,7 +3859,6 @@ $[s_0,s]$, then, for the $k$ positive singular values of $U(s,s_0)E$,
 $$
 \sum_{j=1}^k\bigl(\log\sigma_j(U(s,s_0)E)\bigr)^2
 \le C_B(M,R)^2 n(s-s_0)^2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l3493}
 
 The estimate holds for every embedding on the same pathwise event;
@@ -4003,7 +3868,6 @@ In particular,
 $$
 \#\{j:|\log\sigma_j(U(s,s_0)E)|\ge r\}
 \le C_B(M,R)^2 n(s-s_0)^2/r^2\qquad(r>0).
-
 $$ {#eq-docs-finite-optimization-and-controls-l3503}
 
 The analogous physical-time conclusions are given below.
@@ -4029,10 +3893,10 @@ T_3u=E_3h^{(2)}/\sqrt n+
  W^{(3)}[\phi'(z^{(2)})\odot T_2u].
 $$
 
-Thus $\|T_1\|_{\rm op}=1$, $\|T_2\|_{\rm op}\le K_2$, and
-$\|T_3\|_{\rm op}\le K_3$. The derivative of the output feature
+Thus $\|T_1\|_{\mathrm{op}}=1$, $\|T_2\|_{\mathrm{op}}\le K_2$, and
+$\|T_3\|_{\mathrm{op}}\le K_3$. The derivative of the output feature
 vector is $J=\operatorname{diag}(\phi'(z^{(3)}))T_3$, so
-$\|J\|_{\rm op}\le K_3$ and $\operatorname{rank}J\le n$.
+$\|J\|_{\mathrm{op}}\le K_3$ and $\operatorname{rank}J\le n$.
 
 Also define
 
@@ -4046,22 +3910,20 @@ The norm assumptions give
 $$
 \|q^{(2)}\|_2\le MR\sqrt n,\quad
 \|q^{(1)}\|_2\le M^2R\sqrt n,\quad
-\|S_2\|_{\rm op}\le MR,\quad \|S_3\|_{\rm op}\le R.
-
+\|S_2\|_{\mathrm{op}}\le MR,\quad \|S_3\|_{\mathrm{op}}\le R.
 $$ {#eq-docs-finite-optimization-and-controls-l3542}
 
 Twice differentiating $c^Th^{(3)}$ along the straight hidden
 parameter line gives, with $A=D_x^2[c^Th^{(3)}]$,
 
 $$
-\begin{split}
+\begin{aligned}
 u^TAu={}&(T_1u)^T\operatorname{diag}(\phi''(z^{(1)})\odot q^{(1)})T_1u\\
 &+(T_2u)^T\operatorname{diag}(\phi''(z^{(2)})\odot q^{(2)})T_2u\\
 &+(T_3u)^T\operatorname{diag}(\phi''(z^{(3)})\odot c)T_3u\\
 &+2(S_2u)^T[\phi'(z^{(1)})\odot T_1u]\\
 &+2(S_3u)^T[\phi'(z^{(2)})\odot T_2u].
-\end{split}
-
+\end{aligned}
 $$ {#eq-docs-finite-optimization-and-controls-l3552}
 
 For completeness, the second preactivation variations are
@@ -4082,7 +3944,7 @@ The second derivative of the last activation and contraction with $c$
 give ([-@eq-docs-finite-optimization-and-controls-l3552]), including both trained-matrix cross terms.
 
 For any $T$ and diagonal $D$,
-$\|T^TDT\|_{\rm F}\le\|T\|_{\rm op}^2\|D\|_{\rm F}$.
+$\|T^TDT\|_{\mathrm{F}}\le\|T\|_{\mathrm{op}}^2\|D\|_{\mathrm{F}}$.
 Since $|\phi''|\le2$, ([-@eq-docs-finite-optimization-and-controls-l3542]) bounds the three diagonal terms in ([-@eq-docs-finite-optimization-and-controls-l3552])
 respectively by
 
@@ -4098,8 +3960,8 @@ pair costs at most $2RK_2\sqrt n$. Finally,
 
 $$
 B=\begin{pmatrix}A&J^T\\J&0\end{pmatrix},\qquad
-\left\|\begin{pmatrix}0&J^T\\J&0\end{pmatrix}\right\|_{\rm F}
-=\sqrt2\|J\|_{\rm F}\le\sqrt{2n}K_3.
+\left\|\begin{pmatrix}0&J^T\\J&0\end{pmatrix}\right\|_{\mathrm{F}}
+=\sqrt2\|J\|_{\mathrm{F}}\le\sqrt{2n}K_3.
 $$
 
 The triangle inequality proves exactly ([-@eq-docs-finite-optimization-and-controls-l3480]). This calculation uses
@@ -4135,21 +3997,21 @@ The product rule and cyclicity of trace give
 $\mathcal E'=\tfrac12\operatorname{Tr}[(\log G)D\log G[G']]$.
 Since $\log G$ commutes with its resolvents and
 $\int_0^\infty(G+tI)^{-2}dt=G^{-1}$, this proves the first equality below,
-including repeated eigenvalues. With $D_{\rm sym}=(D+D^T)/2$,
+including repeated eigenvalues. With $D_{\mathrm{sym}}=(D+D^T)/2$,
 
 $$
-\begin{split}
+\begin{aligned}
 \mathcal E'
 &=\tfrac12\operatorname{Tr}[(\log G)G^{-1}G']\\
-&=\operatorname{Tr}[(\log G)Q^TD_{\rm sym}Q].
-\end{split}
+&=\operatorname{Tr}[(\log G)Q^TD_{\mathrm{sym}}Q].
+\end{aligned}
 $$
 
 Cauchy--Schwarz for Frobenius products, together with
-$\|Q^TD_{\rm sym}Q\|_{\rm F}\le\|D_{\rm sym}\|_{\rm F}$, gives
+$\|Q^TD_{\mathrm{sym}}Q\|_{\mathrm{F}}\le\|D_{\mathrm{sym}}\|_{\mathrm{F}}$, gives
 
 $$
-|\mathcal E'|\le2\sqrt{\mathcal E}\,\|D_{\rm sym}\|_{\rm F}.
+|\mathcal E'|\le2\sqrt{\mathcal E}\,\|D_{\mathrm{sym}}\|_{\mathrm{F}}.
 $$
 
 To avoid division at zero, differentiate $\sqrt{\mathcal E+\epsilon}$
@@ -4158,12 +4020,11 @@ Because $\mathcal E(s_0)=0$,
 
 $$
 \left(\sum_j(\log\sigma_j(V(s)))^2\right)^{1/2}
-\le\int_{s_0}^s\|D_{\rm sym}(u)\|_{\rm F}\,du.
-
+\le\int_{s_0}^s\|D_{\mathrm{sym}}(u)\|_{\mathrm{F}}\,du.
 $$ {#eq-docs-finite-optimization-and-controls-l3651}
 
 No normality, commutation in time, or selected smooth eigenbasis is
-required. Taking $D=B$ and $V=U(\cdot,s_0)E$ proves (S.3)--(S.4).
+required. Taking $D=B$ and $V=U(\cdot,s_0)E$ proves ([-@eq-docs-finite-optimization-and-controls-l3493])--([-@eq-docs-finite-optimization-and-controls-l3503]).
 
 ### Physical time and canonical Gaussian initialization {#sec-docs-finite-optimization-and-controls-l3660}
 
@@ -4171,8 +4032,7 @@ The exact physical field is $2(1-f_n)b$. Since
 $\nabla f_n=b/n$, its Jacobian is
 
 $$
-B_{\rm phys}=2(1-f_n)B-(2/n)bb^T.
-
+B_{\mathrm{phys}}=2(1-f_n)B-(2/n)bb^T.
 $$ {#eq-docs-finite-optimization-and-controls-l3665}
 
 All clock derivatives are retained in the second term. The elementary
@@ -4186,13 +4046,12 @@ follows by evaluating its four blocks. Also $|f_n|\le aR$. Thus,
 using $n\ge1$,
 
 $$
-\|B_{\rm phys}\|_{\rm F}
-\le[2(1+aR)C_B(M,R)+2K_b^2]\sqrt n=:C_{\rm phys}(M,R)\sqrt n.
-
+\|B_{\mathrm{phys}}\|_{\mathrm{F}}
+\le[2(1+aR)C_B(M,R)+2K_b^2]\sqrt n=:C_{\mathrm{phys}}(M,R)\sqrt n.
 $$ {#eq-docs-finite-optimization-and-controls-l3680}
 
-Consequently (S.3)--(S.4) apply at fixed physical times with $C_B$
-replaced by $C_{\rm phys}$ and $s-s_0$ by $t-t_0$. These are
+Consequently ([-@eq-docs-finite-optimization-and-controls-l3493])--([-@eq-docs-finite-optimization-and-controls-l3503]) apply at fixed physical times with $C_B$
+replaced by $C_{\mathrm{phys}}$ and $s-s_0$ by $t-t_0$. These are
 derivatives at fixed physical time, not derivatives obtained by
 silently holding a state-dependent feature clock fixed.
 
@@ -4233,7 +4092,7 @@ nonnegative and $0\le s(t)\le3t$. Solving this scalar clock over the
 complete feature solution proves physical existence on every fixed $[0,T]$
 and the asserted bounds with constants obtained at $u=3T$. Their event
 has probability at least
-$1-4e^{(2\log9-100/8)n}-4a^2/n^2$. Substitution into (S.3)--(S.4) and ([-@eq-docs-finite-optimization-and-controls-l3680])
+$1-4e^{(2\log9-100/8)n}-4a^2/n^2$. Substitution into ([-@eq-docs-finite-optimization-and-controls-l3493])--([-@eq-docs-finite-optimization-and-controls-l3503]) and ([-@eq-docs-finite-optimization-and-controls-l3680])
 proves the Gaussian finite-horizon corollary. The deterministic estimates above do not assume a Gaussian
 draw and also allow exactly zero readout. They do not transfer a
 zero-readout population limit to the tiny-readout population limit.
@@ -4264,13 +4123,12 @@ Writing the eigenvalues in decreasing order and using the variational
 characterization of ordered eigenvalues gives
 
 $$
-\begin{split}
+\begin{aligned}
 \sum_{j=1}^n[\log(1+\sigma_j(Z_i)^2)]^2
 &\le\sum_{j=1}^n[\log(3+2\sigma_j(Y_i)^2)]^2\\
 &\le2n(\log5)^2+8\sum_{j=1}^n(\log\sigma_j(Y_i))^2\\
 &\le n[2(\log5)^2+8C_B(M,R)^2s^2].
-
-\end{split}
+\end{aligned}
 $$ {#eq-docs-finite-optimization-and-controls-l3754}
 
 The scalar inequality used is $3+2u^2\le5\max(1,u^2)$.
@@ -4281,11 +4139,11 @@ trace $\operatorname{Tr}(Z_i^TZ_i)/n$, nor on the response energy required
 by the global stability proof. For example,
 the abstract matrix path generated by
 $D_n=\operatorname{diag}(\sqrt n,0,\ldots,0)$ has
-$\|D_n\|_{\rm F}=\sqrt n$ and satisfies ([-@eq-docs-finite-optimization-and-controls-l3651]) with equality, while
+$\|D_n\|_{\mathrm{F}}=\sqrt n$ and satisfies ([-@eq-docs-finite-optimization-and-controls-l3651]) with equality, while
 one singular value is $e^{s\sqrt n}$. Its mean squared amplification
 over $n$ directions diverges at every fixed positive $s$. This
 abstract example is not claimed to be a canonical network trajectory.
-It shows precisely why (S.2)--(S.10) alone do not close the amplitude bound.
+It shows precisely why ([-@eq-docs-finite-optimization-and-controls-l3480])--([-@eq-docs-finite-optimization-and-controls-l3754]) alone do not close the amplitude bound.
 
 The count $O(n/r^2)$ in the stated raw metric is an actual-response
 constraint. No transfer to the nonlinear first-layer coordinate is claimed. It leaves the
@@ -4300,6 +4158,7 @@ The following initialization lemma supplies the joint empirical law used in
 fragment C. It is an initialization result for the same one-input arctangent
 model, with all displayed hidden matrices independent. It does not require a
 readout draw.
+
 ### Statement {#sec-docs-finite-optimization-and-controls-l3791}
 
 For each integer $n\geq1$, let
@@ -4362,7 +4221,6 @@ $$
 \frac1n\sum_{i=1}^n F(z_{0,i}^{(2)},u_{n,i}^{(2)})
 \longrightarrow \mathbb E[F(Z^{(2)},U^{(2)})]
 \quad\text{in probability and in }L^1.
-
 $$ {#eq-docs-finite-optimization-and-controls-l3838}
 
 In particular, with $[a]_+=\max(a,0)$,
@@ -4373,7 +4231,6 @@ c_n=\frac1n\sum_{i=1}^n
 \longrightarrow
 c_*=\mathbb E\!\left[\bigl[U^{(2)}\phi''(Z^{(2)})\bigr]_+\right]>0
 \quad\text{in probability and in }L^1.
-
 $$ {#eq-docs-finite-optimization-and-controls-l3845}
 
 Consequently $\mathbb E c_n\to c_*$.
@@ -4392,7 +4249,6 @@ $$
 |\phi(x)|\leq H,\quad |\phi(x)|\leq|x|,\quad
 0<\phi'(x)=\frac1{1+x^2}\leq1,\quad
 \phi''(x)=-\frac{2x}{(1+x^2)^2},\quad |\phi''(x)|\leq2,
-
 $$ {#eq-docs-finite-optimization-and-controls-l3864}
 
 and
@@ -4400,7 +4256,6 @@ and
 $$
 |g(x)|\leq H,\qquad |g(x)|\leq|x|,\qquad
 0\leq xg(x)\leq x^2,\qquad |xg(x)|\leq H/2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l3871}
 
 For the last bound use $|x|/(1+x^2)\leq1/2$.
@@ -4408,7 +4263,7 @@ The function $g$ vanishes exactly at zero, and $xg(x)>0$ for $x\ne0$.
 Since a nondegenerate Gaussian has probability zero of being zero,
 these facts successively give $m_1>0$, $m_2>0$,
 $\sigma^2>0$, and $\mathbb E[Z^{(3)}g(Z^{(3)})]>0$.
-All expectations are finite by (I.3)--(I.4).
+All expectations are finite by ([-@eq-docs-finite-optimization-and-controls-l3864])--([-@eq-docs-finite-optimization-and-controls-l3871]).
 Also $\mathbb E[Z^{(3)}g(Z^{(3)})]\leq\mathbb E (Z^{(3)})^2=m_2$, proving
 $0<\beta\leq1$.
 
@@ -4472,7 +4327,6 @@ u_n^{(2)}\ \overset{\mathrm{law}}{=}
 \beta_n h_0^{(2)}+\sigma_n(I-P_n^{(2)})\xi,\qquad
 \beta_n=\frac{(z_0^{(3)})^Tg(z_0^{(3)})}{\|h_0^{(2)}\|^2},\qquad
 \sigma_n^2=\frac{\|g(z_0^{(3)})\|^2}{n},
-
 $$ {#eq-docs-finite-optimization-and-controls-l3931}
 
 where $\xi\sim N(0,I_n)$ can be chosen independent of the lower layers
@@ -4508,7 +4362,6 @@ Applied to the bounded first-layer variables it gives
 $$
 m_{1,n}\longrightarrow m_1
 \quad\text{in }L^2\text{ and in probability}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l3965}
 
 Let $G'\sim N(0,1)$ be a dummy variable in expectations and define on
@@ -4521,7 +4374,7 @@ b(q)=\mathbb E[g(\sqrt q\,G')^2].
 $$
 
 Each function is continuous, including at zero: its integrand is
-pointwise continuous in $q$, and (I.3)--(I.4) bound the integrands
+pointwise continuous in $q$, and ([-@eq-docs-finite-optimization-and-controls-l3864])--([-@eq-docs-finite-optimization-and-controls-l3871]) bound the integrands
 respectively by $H^2,H/2,H^2$, so dominated convergence applies.
 Conditionally on the first layer,
 
@@ -4535,7 +4388,6 @@ Continuity of $f$, ([-@eq-docs-finite-optimization-and-controls-l3965]), and thi
 $$
 m_{2,n}\longrightarrow f(m_1)=m_2
 \quad\text{in probability}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l3986}
 
 For example, continuity at $m_1$ says that sufficiently small
@@ -4570,7 +4422,6 @@ $$
 \beta_n=A_n/m_{2,n}\longrightarrow\beta,\qquad
 \sigma_n\longrightarrow\sigma
 \quad\text{in probability}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4014}
 
 The ratio at zero uses the convention in ([-@eq-docs-finite-optimization-and-controls-l3931]). No deterministic lower
@@ -4588,7 +4439,6 @@ z_{0,i}^{(2)}=\sqrt{m_{1,n}}\,\eta_i,\qquad
 h_0^{(2)}=\phi(z_0^{(2)}),\qquad
 z_0^{(3)}=\sqrt{m_{2,n}}\,\zeta,\qquad
 u_n^{(2)}=\beta_n h_0^{(2)}+\sigma_n(I-P_n^{(2)})\xi.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4029}
 
 The coefficients and variances in ([-@eq-docs-finite-optimization-and-controls-l4029]) are computed from the vectors
@@ -4607,7 +4457,6 @@ $$
 =\frac{\sigma_n^2}{n}
 \mathbb E\left[\left.\frac{((h_0^{(2)})^T\xi)^2}{\|h_0^{(2)}\|^2}\right|h_0^{(2)},z_0^{(3)}\right]
 =\frac{\sigma_n^2}{n}\leq\frac{H^2}{n}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4045}
 
 On $h_0^{(2)}=0$ the left side is zero by the stated conventions.
@@ -4627,7 +4476,6 @@ law $(Z^{(2)},U^{(2)})$. Since
 $$
 \frac1n\sum_i|z_{0,i}^{(2)}-\bar z_i^{(2)}|^2
 =(\sqrt{m_{1,n}}-\sqrt{m_1})^2\,\frac1n\sum_i\eta_i^2,
-
 $$ {#eq-docs-finite-optimization-and-controls-l4064}
 
 the left side tends to zero in probability by ([-@eq-docs-finite-optimization-and-controls-l3965]) and
@@ -4641,7 +4489,7 @@ Subtracting the comparison vector from ([-@eq-docs-finite-optimization-and-contr
 inequality consequently gives
 
 $$
-\begin{split}
+\begin{aligned}
 \frac{\|u_n^{(2)}-\bar u^{(2)}\|}{\sqrt n}
 &\leq |\beta_n-\beta|\sqrt{m_{2,n}}
 +|\beta|\frac{\|z_0^{(2)}-\bar z^{(2)}\|}{\sqrt n}\\
@@ -4649,11 +4497,10 @@ $$
 +\frac{\|\sigma_nP_n^{(2)}\xi\|}{\sqrt n}
 \longrightarrow0
 \quad\text{in probability},
-\end{split}
-
+\end{aligned}
 $$ {#eq-docs-finite-optimization-and-controls-l4078}
 
-by (I.8)--(I.11) and $m_{2,n}\leq H^2$.
+by ([-@eq-docs-finite-optimization-and-controls-l4014])--([-@eq-docs-finite-optimization-and-controls-l4064]) and $m_{2,n}\leq H^2$.
 In particular,
 
 $$
@@ -4661,7 +4508,6 @@ D_n^2:=\frac1n\sum_i
 \left(|z_{0,i}^{(2)}-\bar z_i^{(2)}|^2+|u_{n,i}^{(2)}-\bar u_i^{(2)}|^2\right)
 \longrightarrow0
 \quad\text{in probability}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4092}
 
 If $F$ is bounded and uniformly continuous, let
@@ -4674,7 +4520,6 @@ $$
 \left|\frac1n\sum_i F(z_{0,i}^{(2)},u_{n,i}^{(2)})
 -\frac1n\sum_i F(\bar z_i^{(2)},\bar u_i^{(2)})\right|
 \leq\omega_F(\delta)+2\|F\|_\infty D_n^2/\delta^2.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4105}
 
 First choosing $\delta$ so that $\omega_F(\delta)$ is small and then
@@ -4694,7 +4539,6 @@ The forward conditional law gives
 
 $$
 \mathbb E|z_{0,i}^{(2)}|^4=3\mathbb E m_{1,n}^2\leq3H^4.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4125}
 
 On $m_{2,n}>0$, ([-@eq-docs-finite-optimization-and-controls-l3871]) and ([-@eq-docs-finite-optimization-and-controls-l4029]) give
@@ -4711,7 +4555,6 @@ $$
 \mathbb E\beta_n^4
 \leq\mathbb E\left(\frac1n\sum_j\zeta_j^2\right)^4
 \leq\frac1n\sum_j\mathbb E\zeta_j^8=105.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4136}
 
 The null-event convention satisfies the same moment bound.
@@ -4724,7 +4567,6 @@ $|h_{0,i}^{(2)}|\leq H$ and ([-@eq-docs-finite-optimization-and-controls-l4136])
 $$
 \mathbb E|u_{n,i}^{(2)}|^4\leq8H^4\mathbb E\beta_n^4+24H^4
 \leq864H^4.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4148}
 
 This is a direct moment estimate for the reused Gaussian matrix;
@@ -4732,12 +4574,11 @@ it requires no independence between its original output coordinates.
 The population variables likewise have finite fourth moments because
 $Z^{(2)}$ is Gaussian and
 $|U^{(2)}|\leq|\beta|H+\sigma|G|$.
-Since $(z^2+v^2)^2\leq2(z^4+v^4)$, (I.15)--(I.17) in particular imply
+Since $(z^2+v^2)^2\leq2(z^4+v^4)$, ([-@eq-docs-finite-optimization-and-controls-l4125])--([-@eq-docs-finite-optimization-and-controls-l4148]) in particular imply
 
 $$
 \sup_n\mathbb E\left[\frac1n\sum_i
 \bigl((z_{0,i}^{(2)})^2+(u_{n,i}^{(2)})^2\bigr)^2\right]<\infty.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4159}
 
 Now let $F$ have the continuous, at most quadratic growth in ([-@eq-docs-finite-optimization-and-controls-l3838]).
@@ -4752,7 +4593,6 @@ $$
 |F(z,v)-F_R(z,v)|
 \leq C_F(1+r^2)\mathbf1_{\{r>R\}}
 \leq \frac{2C_F}{R^2}r^4.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4172}
 
 By ([-@eq-docs-finite-optimization-and-controls-l4159]), the expectation of the empirical average of ([-@eq-docs-finite-optimization-and-controls-l4172]) is bounded
@@ -4773,7 +4613,6 @@ $$
 \sup_n\mathbb E|X_n|^2
 \leq C_F^2\sup_n\mathbb E\left[\frac1n\sum_i
 \bigl(1+(z_{0,i}^{(2)})^2+(u_{n,i}^{(2)})^2\bigr)^2\right]<\infty.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4191}
 
 Here $(1+r^2)^2\leq2(1+r^4)$. In particular the averages are
@@ -4817,7 +4656,6 @@ Consider the event
 $$
 1\leq Z^{(2)}\leq2,\qquad
 G\leq-\frac{|\beta|H+1}{\sigma}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4228}
 
 On ([-@eq-docs-finite-optimization-and-controls-l4228]), $U^{(2)}=\beta\phi(Z^{(2)})+\sigma G\leq-1$, so
@@ -4832,7 +4670,6 @@ c_*\geq\frac{2}{25}
 \left[\Phi\!\left(\frac2{\sqrt{m_1}}\right)
 -\Phi\!\left(\frac1{\sqrt{m_1}}\right)\right]
 \Phi\!\left(-\frac{|\beta|H+1}{\sigma}\right)>0.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4239}
 
 The bracket is positive because $m_1>0$ and the Gaussian density
@@ -4888,7 +4725,6 @@ $$
 (W^{(3)})'=\delta^{(3)}(h^{(2)})^T/n,\quad
 (W^{(4)})'=h^{(3)}.
 \end{gathered}
-
 $$ {#eq-docs-finite-optimization-and-controls-l4287}
 
 The estimates are in feature time $s$, not physical time. The canonical
@@ -4899,7 +4735,7 @@ No physical-clock or exact-GD convergence assertion is made here.
 For arbitrary finite initial data put
 
 $$
-M=\max_{\ell=2,3}\|W^{(\ell)}(0)\|_{\rm op},\qquad
+M=\max_{\ell=2,3}\|W^{(\ell)}(0)\|_{\mathrm{op}},\qquad
 \varepsilon=\frac{\|W^{(4)}(0)\|_2}{\sqrt n},\qquad
 \alpha=\|W^{(4)}(0)\|_\infty.
 $$
@@ -4914,7 +4750,6 @@ K_3=M+c(\varepsilon S+cS^2/2),\\
 K_2=M+cK_3(\varepsilon S+cS^2/2),\\
 J=K_3(c^2+K_2^2),\qquad K=c^2+K_3J.
 \end{gathered}
-
 $$ {#eq-docs-finite-optimization-and-controls-l4310}
 
 They are polynomials in $M,\varepsilon$, with coefficients depending
@@ -4925,25 +4760,23 @@ $$
 \frac{\|\delta^{(3)}(s)\|_2}{\sqrt n}
 \le\frac{\|W^{(4)}(s)\|_2}{\sqrt n}\le\varepsilon+cs,\qquad
 \|W^{(4)}(s)\|_\infty\le\alpha+cs.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4321}
 
-Using $\|uv^T/n\|_{\rm F}=\|u\|_2\|v\|_2/n$ in ([-@eq-docs-finite-optimization-and-controls-l4287]) yields
+Using $\|uv^T/n\|_{\mathrm{F}}=\|u\|_2\|v\|_2/n$ in ([-@eq-docs-finite-optimization-and-controls-l4287]) yields
 
 $$
-\|W^{(3)}(s)-W^{(3)}(0)\|_{\rm F}
+\|W^{(3)}(s)-W^{(3)}(0)\|_{\mathrm{F}}
 \le c(\varepsilon s+cs^2/2),\quad
-\|W^{(3)}(s)\|_{\rm op}\le K_3,
+\|W^{(3)}(s)\|_{\mathrm{op}}\le K_3,
 $$
 
 
 $$
 \frac{\|\delta^{(2)}(s)\|_2}{\sqrt n}\le K_3(\varepsilon+cs),
 \quad
-\|W^{(2)}(s)-W^{(2)}(0)\|_{\rm F}
+\|W^{(2)}(s)-W^{(2)}(0)\|_{\mathrm{F}}
 \le cK_3(\varepsilon s+cs^2/2),\quad
-\|W^{(2)}(s)\|_{\rm op}\le K_2.
-
+\|W^{(2)}(s)\|_{\mathrm{op}}\le K_2.
 $$ {#eq-docs-finite-optimization-and-controls-l4333}
 
 The first-layer velocity divided by $\sqrt n$ is at most
@@ -4969,7 +4802,6 @@ $$
 $$
 (z^{(3)})'=\frac{\|h^{(2)}\|_2^2}{n}\delta^{(3)}
 +W^{(3)}\operatorname{diag}(\phi'(z^{(2)}))(z^{(2)})'.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4358}
 
 No derivative of $\tau$ is used. Consequently
@@ -4977,7 +4809,6 @@ No derivative of $\tau$ is used. Consequently
 $$
 \frac{\|(z^{(2)})'(s)\|_2}{\sqrt n}\le J(\varepsilon+cs),\qquad
 \frac{\|(z^{(3)})'(s)\|_2}{\sqrt n}\le K(\varepsilon+cs).
-
 $$ {#eq-docs-finite-optimization-and-controls-l4364}
 
 Integration bounds the corresponding displacements by
@@ -4989,7 +4820,6 @@ Let $g(v)=\phi'(v)\phi(v)$ and define the initial hidden-block query
 
 $$
 u_n^{(2)}=(W^{(3)}(0))^T g(z^{(3)}(0)).
-
 $$ {#eq-docs-finite-optimization-and-controls-l4375}
 
 This is a function only of the original hidden initialization, not an
@@ -4999,7 +4829,6 @@ $$
 |g|\le c,\quad |g'|=|(\phi')^2+\phi\phi''|\le1+2c,\quad
 |\phi''|\le2,\quad
 |\phi'''(v)|=\frac{|-2+6v^2|}{(1+v^2)^3}\le8.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4381}
 
 In particular $\|u_n^{(2)}\|_2/\sqrt n\le Mc$.
@@ -5007,20 +4836,18 @@ In particular $\|u_n^{(2)}\|_2/\sqrt n\le Mc$.
 Differentiate the actual query, retaining the trained $W^{(3)}$:
 
 $$
-\begin{split}
+\begin{aligned}
 (q^{(2)})'
 ={}&h^{(2)}\frac{\|\delta^{(3)}\|_2^2}{n}
 +(W^{(3)})^Tg(z^{(3)})\\
 &+(W^{(3)})^T
 \bigl[W^{(4)}\odot\phi''(z^{(3)})\odot(z^{(3)})'\bigr].
-\end{split}
-
+\end{aligned}
 $$ {#eq-docs-finite-optimization-and-controls-l4390}
 
 The first term is exactly $((W^{(3)})')^T\delta^{(3)}$; the other
 terms come from
-$(\delta^{(3)})'=g(z^{(3)})+
-W^{(4)}\odot\phi''(z^{(3)})\odot(z^{(3)})'$.
+$(\delta^{(3)})'=g(z^{(3)})+ W^{(4)}\odot\phi''(z^{(3)})\odot(z^{(3)})'$.
 Thus ([-@eq-docs-finite-optimization-and-controls-l4390]) also holds for merely Lipschitz clipping.
 
 For $A=c^2+M(1+2c)K$, ([-@eq-docs-finite-optimization-and-controls-l4333]), ([-@eq-docs-finite-optimization-and-controls-l4364]), and ([-@eq-docs-finite-optimization-and-controls-l4381]) give
@@ -5028,7 +4855,6 @@ For $A=c^2+M(1+2c)K$, ([-@eq-docs-finite-optimization-and-controls-l4333]), ([-@
 $$
 \frac{\|(W^{(3)}(s))^Tg(z^{(3)}(s))-u_n^{(2)}\|_2}{\sqrt n}
 \le A(\varepsilon s+cs^2/2).
-
 $$ {#eq-docs-finite-optimization-and-controls-l4407}
 
 Indeed the trained-matrix increment contributes at most
@@ -5042,24 +4868,22 @@ c(\varepsilon+cs)^2,\qquad
 $$
 
 Also $\|q^{(2)}(0)\|_2/\sqrt n\le M\varepsilon$.
-Integrating (C.9)--(C.10) therefore proves, for every $0\le s\le S$,
+Integrating ([-@eq-docs-finite-optimization-and-controls-l4390])--([-@eq-docs-finite-optimization-and-controls-l4407]) therefore proves, for every $0\le s\le S$,
 
 $$
 \frac{\|q^{(2)}(s)-s u_n^{(2)}\|_2}{\sqrt n}\le R(s),
-
 $$ {#eq-docs-finite-optimization-and-controls-l4422}
 
 where the explicit nonnegative remainder is
 
 $$
-\begin{split}
+\begin{aligned}
 R(s)={}&M\varepsilon+
 c\left(\varepsilon^2s+\varepsilon c s^2+\frac{c^2s^3}{3}\right)\\
 &+A\left(\frac{\varepsilon s^2}{2}+\frac{cs^3}{6}\right)\\
 &+2K_3K\left(\alpha\varepsilon s+
 \frac{c(\alpha+\varepsilon)s^2}{2}+\frac{c^2s^3}{3}\right).
-\end{split}
-
+\end{aligned}
 $$ {#eq-docs-finite-optimization-and-controls-l4427}
 
 The initial readout has not been set to zero or hidden in a
@@ -5070,32 +4894,29 @@ Define the empirical positive parts
 $$
 B_n(s)=\frac1n\sum_i[q_i^{(2)}(s)\phi''(z_i^{(2)}(s))]_+,\qquad
 c_n=\frac1n\sum_i[(u_n^{(2)})_i\phi''(z_i^{(2)}(0))]_+.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4441}
 
 The map $x\mapsto[x]_+$ is 1-Lipschitz. Separate the query change
 from the change of $\phi''$, then use Cauchy--Schwarz and ([-@eq-docs-finite-optimization-and-controls-l4364]), ([-@eq-docs-finite-optimization-and-controls-l4381]):
 
 $$
-\begin{split}
+\begin{aligned}
 |B_n(s)-s c_n|
 &\le 2\frac{\|q^{(2)}(s)-s u_n^{(2)}\|_2}{\sqrt n}\\
 &\quad+8s\frac{\|u_n^{(2)}\|_2}{\sqrt n}
 \frac{\|z^{(2)}(s)-z^{(2)}(0)\|_2}{\sqrt n}\\
 &\le 2R(s)+8McJ\,s(\varepsilon s+cs^2/2).
-\end{split}
-
+\end{aligned}
 $$ {#eq-docs-finite-optimization-and-controls-l4448}
 
 These inequalities are pathwise, simultaneous in $s$, and use
 constants independent of the choice of allowed fixed clipping.
 For $M\le M_*,\varepsilon\le1,\alpha\le1$, collecting the explicit
-terms in (C.12)--(C.14) yields
+terms in ([-@eq-docs-finite-optimization-and-controls-l4427])--([-@eq-docs-finite-optimization-and-controls-l4448]) yields
 
 $$
 |B_n(s)-s c_n|\le C_{S,M_*}
 (\varepsilon+\alpha s^2+s^3),\qquad 0\le s\le S.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4462}
 
 For example, $\alpha\varepsilon s\le S\varepsilon$,
@@ -5112,7 +4933,6 @@ $$
 z_i^{(1)}(0)\sim N(0,1),\quad
 W_{ij}^{(\ell)}(0)\sim N(0,1/n)\ (\ell=2,3),\quad
 W_i^{(4)}(0)=G_i^{(4)}/n,\quad G_i^{(4)}\sim N(0,1).
-
 $$ {#eq-docs-finite-optimization-and-controls-l4476}
 
 Independence and identical distribution here concern initialization
@@ -5133,7 +4953,6 @@ $$
 \sigma^2=\mathbb E[g(Z^{(3)})^2],\qquad
 c_*=\mathbb E\left[
 \left[\phi''(Z^{(2)})(\beta\phi(Z^{(2)})+\sigma G)\right]_+\right].
-
 $$ {#eq-docs-finite-optimization-and-controls-l4492}
 
 Then $m_1,m_2,\sigma,c_*>0$ and $c_n\to c_*$ in probability
@@ -5148,7 +4967,6 @@ directly to ([-@eq-docs-finite-optimization-and-controls-l4476]). On the initial
 
 $$
 \Omega_n=\{M\le10,\ \|G^{(4)}\|_2/\sqrt n\le2\},
-
 $$ {#eq-docs-finite-optimization-and-controls-l4508}
 
 one has $\varepsilon\le2/n$, $\alpha\le2/\sqrt n$.
@@ -5157,7 +4975,6 @@ For $n\ge4$, ([-@eq-docs-finite-optimization-and-controls-l4462]) therefore give
 $$
 |B_n(s)-s c_n|\le C_S
 (n^{-1}+n^{-1/2}s^2+s^3),\quad 0\le s\le S,
-
 $$ {#eq-docs-finite-optimization-and-controls-l4514}
 
 on the same event for every allowed fixed clipping.
@@ -5166,7 +4983,6 @@ Moreover
 $$
 \mathbb P(\Omega_n^c)\le
 4e^{-(25/2-2\log9)n}+e^{-(1-\frac12\log2)n}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4521}
 
 To check this directly, a maximal $1/4$-separated
@@ -5197,7 +5013,6 @@ $$
 =n^{-3k}\prod_{j=0}^{k-1}(n+2j)\le C_k n^{-2k},\qquad
 \mathbb E\alpha^{2k}\le n^k\mathbb E\varepsilon^{2k}
 \le C_k n^{-k}.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4546}
 
 Differentiation is justified by domination with a squared-norm
@@ -5216,13 +5031,12 @@ $$
 
 Also $\alpha\varepsilon\le\sqrt n\,\varepsilon^2$ gives
 $\mathbb E[|P|\alpha\varepsilon]\le C_S n^{-3/2}$.
-Apply these estimates to the unrestricted (C.12)--(C.14), not just on
+Apply these estimates to the unrestricted ([-@eq-docs-finite-optimization-and-controls-l4427])--([-@eq-docs-finite-optimization-and-controls-l4448]), not just on
 $\Omega_n$, to obtain
 
 $$
 \mathbb E|B_n(s)-s c_n|\le
 C_S(n^{-1}+n^{-1/2}s^2+s^3),\qquad 0\le s\le S.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4569}
 
 This holds uniformly over prescribed clippings, including any
@@ -5250,7 +5064,6 @@ every allowed fixed clipping and every $s\in[a,s_0]$,
 
 $$
 B_n(s)\ge\frac{c_*}{2}s.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4594}
 
 This is an actual common positive interval after the width limit,
@@ -5265,7 +5078,7 @@ D=2(1+c)[10+c(1+c/2)].
 $$
 
 Increasing the deterministic width threshold so that $2/n\le a$,
-(C.3)--(C.4) give for $a\le s\le s_0$
+([-@eq-docs-finite-optimization-and-controls-l4321])--([-@eq-docs-finite-optimization-and-controls-l4333]) give for $a\le s\le s_0$
 
 $$
 \left(\frac1n\sum_i
@@ -5283,7 +5096,6 @@ $$
 \frac{c_*s}{2}\le B_n(s)\le\frac{c_*s}{4}
 +Ds\sqrt{p_n(s)},\qquad
 p_n(s)\ge\left(\frac{c_*}{4D}\right)^2>0.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4619}
 
 This is simultaneous in the same time prefixes and allowed fixed
@@ -5295,7 +5107,6 @@ The expectation version follows with the explicit error:
 $$
 \mathbb E|B_n(s)-s c_*|
 \le C_S(n^{-1}+n^{-1/2}s^2+s^3)+s\,\mathbb E|c_n-c_*|.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4630}
 
 In particular, for each fixed $s>0$,
@@ -5303,7 +5114,6 @@ In particular, for each fixed $s>0$,
 $$
 c_*s-C_Ss^3\le\liminf_{n\to\infty}\mathbb E B_n(s)
 \le\limsup_{n\to\infty}\mathbb E B_n(s)\le c_*s+C_Ss^3.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4636}
 
 The constants are uniform over allowed fixed clippings; ([-@eq-docs-finite-optimization-and-controls-l4636]) also
@@ -5314,7 +5124,6 @@ $$
 \lim_{s\downarrow0}\liminf_{n\to\infty}\frac{\mathbb E B_n(s)}s
 =\lim_{s\downarrow0}\limsup_{n\to\infty}\frac{\mathbb E B_n(s)}s
 =c_*>0.
-
 $$ {#eq-docs-finite-optimization-and-controls-l4644}
 
 Equation ([-@eq-docs-finite-optimization-and-controls-l4636]) alone does not assert convergence in $n$ at fixed
@@ -5378,7 +5187,7 @@ $$
  \Phi''(z)=-4b\sin(2z).
 $$
 
-Since `e^2>4`,
+Since $e^2>4$,
 
 $$
  0<m:=(1/5-4e^{-2}/5)/N\le\Phi'(z)<2,
@@ -5386,7 +5195,7 @@ $$
  \qquad \Phi(0)=0,\quad |\Phi(z)|\le2|z|.      
 $$ {#eq-docs-finite-optimization-and-controls-l4711}
 
-No small coefficient or condition on the observation horizon is used in ([-@eq-docs-finite-optimization-and-controls-l4711]). The lemmas below in fact apply to any C2 activation with `phi(0)=0`, `||phi'||_infinity<=2` and `||phi''||_infinity<=2`; the lower slope is not needed for them. They hold for any input correlation in `[-1,1]`, so in particular for any fixed separated pair.
+No small coefficient or condition on the observation horizon is used in ([-@eq-docs-finite-optimization-and-controls-l4711]). The lemmas below in fact apply to any C2 activation with $\phi(0)=0$, $\lVert\phi'\rVert_\infty\le2$ and $\lVert\phi''\rVert_\infty\le2$; the lower slope is not needed for them. They hold for any input correlation in $[-1,1]$, so in particular for any fixed separated pair.
 
 ### 2. Raw norm and estimates on a primal ball {#sec-docs-finite-optimization-and-controls-l4719}
 
@@ -5449,11 +5258,11 @@ The following bounds follow successively from ([-@eq-docs-finite-optimization-an
 
 | Field | Norm bound |
 |---|---:|
-| `h^{(1)}` | `2B` |
-| `z^{(2)},h^{(2)}` | `2B^2,4B^2` |
-| `z^{(3)},h^{(3)}` | `4B^3,8B^3` |
-| `delta^{(3)},q^{(2)}` | `2B,2B^2` |
-| `delta^{(2)},q^{(1)},delta^{(1)}` | `4B^2,4B^3,8B^3` |
+| $h^{(1)}$ | $2B$ |
+| $z^{(2)},h^{(2)}$ | $2B^2,4B^2$ |
+| $z^{(3)},h^{(3)}$ | $4B^3,8B^3$ |
+| $\delta^{(3)},q^{(2)}$ | $2B,2B^2$ |
+| $\delta^{(2)},q^{(1)},\delta^{(1)}$ | $4B^2,4B^3,8B^3$ |
 
 Each table entry bounds the displayed field’s Euclidean norm divided by $\sqrt n$, maximized over the two samples. Since the labels have modulus one,
 
@@ -5461,7 +5270,7 @@ $$
  \sum_i|r_i|\le16B^4+2\le18B^4.                 
 $$ {#eq-docs-finite-optimization-and-controls-l4780}
 
-Let `V=-grad_raw L` be the actual physical vector field. Each of its four parameter blocks has raw norm at most `144B^7`, and hence
+Let $V=-\nabla_{\mathrm{raw}}L$ be the actual physical vector field. Each of its four parameter blocks has raw norm at most $144B^7$, and hence
 
 $$
  \|V\|_{raw}\le576B^7.                          
@@ -5479,11 +5288,11 @@ $$
  n^{-1/2}\|u x_i^T/\sqrt d\|_F=\|u\|_2/\sqrt n
 $$
 
-because `||x_i||^2=d`. Thus no dimension or width factor enters ([-@eq-docs-finite-optimization-and-controls-l4786]). The same argument applies to population fields, with Hilbert--Schmidt norms of the learned increments.
+because $\lVert x_i\rVert^2=d$. Thus no dimension or width factor enters ([-@eq-docs-finite-optimization-and-controls-l4786]). The same argument applies to population fields, with Hilbert--Schmidt norms of the learned increments.
 
 ### 3. A dimension-explicit raw Lipschitz estimate {#sec-docs-finite-optimization-and-controls-l4804}
 
-At width n, let two states both satisfy ([-@eq-docs-finite-optimization-and-controls-l4763]), and let `d_0` be their raw distance. Forward differences satisfy
+At width n, let two states both satisfy ([-@eq-docs-finite-optimization-and-controls-l4763]), and let $d_0$ be their raw distance. Forward differences satisfy
 
 $$
  \frac{\|\Delta z^{(1)}\|_2}{\sqrt n}\le d_0,\quad
@@ -5501,11 +5310,11 @@ $$ {#eq-docs-finite-optimization-and-controls-l4814}
 
 For example,
 
-`Delta z^{(2)}=W^{(2)} Delta h^{(1)}+Delta W^{(2)} h_tilde^1`,
+$\Delta z^{(2)}=W^{(2)}\Delta h^{(1)}+\Delta W^{(2)}\tilde h^1$,
 
-and `||Delta W^{(2)}||op<=||Delta W^{(2)}||F<=d_0`. The last inequality in ([-@eq-docs-finite-optimization-and-controls-l4814]) uses
+and $\lVert\Delta W^{(2)}\rVert_{\mathrm{op}}\le\lVert\Delta W^{(2)}\rVert_F\le d_0$. The last inequality in ([-@eq-docs-finite-optimization-and-controls-l4814]) uses
 
-`|Delta f_i| <= (||Delta C||_2 ||h_i^{(3)}||_2 + ||C_tilde||_2 ||Delta h_i^{(3)}||_2)/n <=32B^3 d_0`.
+$|\Delta f_i|\le(\lVert\Delta C\rVert_2\lVert h_i^{(3)}\rVert_2+\lVert\tilde C\rVert_2\lVert\Delta h_i^{(3)}\rVert_2)/n\le32B^3d_0$.
 
 For the backward gates, use
 
@@ -5532,7 +5341,7 @@ $$ {#eq-docs-finite-optimization-and-controls-l4844}
 
 For instance the middle gate difference is at most
 
-`2(28 sqrt(n) B^4)d_0 + 2(sqrt(n) 2B^2)(4B)d_0 <=72 sqrt(n) B^4 d_0`.
+$2(28\sqrt nB^4)d_0+2(\sqrt n\,2B^2)(4B)d_0\le72\sqrt nB^4d_0$.
 
 Expanding each rank-one update and its residual then gives respective raw block Lipschitz bounds
 
@@ -5546,8 +5355,7 @@ $512+2880$, $512+2592+144$, $512+1872+288$, and $512+432$:
 the first summand in each case differentiates the residual, the second the
 backward field (or the readout update's feature), and the third, when present,
 the rank-one feature factor. For example the first-block bound is
-$(64B^3)(8B^3)+(18B^4)(160\sqrt n B^5)
- \le3392\sqrt n B^9$.
+$(64B^3)(8B^3)+(18B^4)(160\sqrt n B^5)  \le3392\sqrt n B^9$.
 Their sum is 10256. Consequently the conservative bound
 
 $$
@@ -5555,11 +5363,11 @@ $$
  \le11000\sqrt n B^9\|\Theta-\widetilde\Theta\|_{raw}       
 $$ {#eq-docs-finite-optimization-and-controls-l4869}
 
-holds whenever the two states satisfy ([-@eq-docs-finite-optimization-and-controls-l4763]). The primal set ([-@eq-docs-finite-optimization-and-controls-l4763]) is convex in the raw parameters, so the same bound controls the entire segment joining them. This is a finite-width estimate; its `sqrt(n)` factor is not dropped in a population argument.
+holds whenever the two states satisfy ([-@eq-docs-finite-optimization-and-controls-l4763]). The primal set ([-@eq-docs-finite-optimization-and-controls-l4763]) is convex in the raw parameters, so the same bound controls the entire segment joining them. This is a finite-width estimate; its $\sqrt n$ factor is not dropped in a population argument.
 
 ### 4. Unconditional finite-time raw-GD energy {#sec-docs-finite-optimization-and-controls-l4876}
 
-Fix an observation horizon T and an initialization with primal bounds at most `b_0>=1` and loss `E_0`. Put
+Fix an observation horizon T and an initialization with primal bounds at most $b_0\ge1$ and loss $E_0$. Put
 
 $$
  R=\sqrt{2(T+1)E_0}+2,\qquad B=b_0+R+1,
@@ -5611,7 +5419,7 @@ these hidden fields, independence of $C_0$ gives
 $\mathbb E[f_a(0)^2\mid h_a^{(3)}(0)]=\|h_a^{(3)}(0)\|_2^2/n^4=O(n^{-3})$.
 Thus both predictions converge to zero in probability and $E_0\to1$.
 The initial hidden RMS bounds used below follow from the same field table.
-For each fixed $T$, (E.8)–(E.9) consequently hold with constants uniform in
+For each fixed $T$, ([-@eq-docs-finite-optimization-and-controls-l4887])–([-@eq-docs-finite-optimization-and-controls-l4897]) consequently hold with constants uniform in
 width on events of probability tending to one.
 
 This proves stable finite-horizon raw GD at the prescribed step; it does not identify its strong population limit.
@@ -5630,7 +5438,7 @@ $$ {#eq-docs-finite-optimization-and-controls-l4934}
 
 It therefore cannot escape in finite time and is global. This is finite-dimensional existence only.
 
-On any primal ball B, for a differentiable raw path write `s(t)=||dot Theta(t)||raw`. Successive forward differentiation gives
+On any primal ball B, for a differentiable raw path write $s(t)=\lVert\dot\Theta(t)\rVert_{\mathrm{raw}}$. Successive forward differentiation gives
 
 $$
  \frac{\|\dot z^{(1)}\|_2}{\sqrt n}\le s,\quad\frac{\|\dot h^{(1)}\|_2}{\sqrt n}\le2s,
@@ -5643,21 +5451,20 @@ $$
  \frac{\|\dot h^{(3)}\|_2}{\sqrt n}\le24B^2s.                       
 $$ {#eq-docs-finite-optimization-and-controls-l4948}
 
-These inequalities hold almost everywhere also for linearly interpolated raw GD, with hidden fields recomputed from the interpolated parameters from the interpolated weights. Equations ([-@eq-docs-finite-optimization-and-controls-l4897])-([-@eq-docs-finite-optimization-and-controls-l4948]), together with initialized second-moment bounds, uniformly bound the average squared H1([0,T]) norm of the joint same-layer neuron paths $(z_{1,j}^{(\ell)},h_{1,j}^{(\ell)},z_{2,j}^{(\ell)},h_{2,j}^{(\ell)})$, $j=1,\ldots,n$, for each $\ell=1,2,3$.
+These inequalities hold almost everywhere also for linearly interpolated raw GD, with hidden fields recomputed from the interpolated parameters from the interpolated weights. Equations ([-@eq-docs-finite-optimization-and-controls-l4897])-([-@eq-docs-finite-optimization-and-controls-l4948]), together with initialized second-moment bounds, uniformly bound the average squared $H^{1}([0,T])$ norm of the joint same-layer neuron paths $(z_{1,j}^{(\ell)},h_{1,j}^{(\ell)},z_{2,j}^{(\ell)},h_{2,j}^{(\ell)})$, $j=1,\ldots,n$, for each $\ell=1,2,3$.
 
-Closed bounded H1 balls on a finite one-dimensional time interval have compact images in C([0,T]); this follows directly from the pointwise bound and the modulus `|x(t)-x(s)|<=sqrt(|t-s|)||x'||_L2`, and a diagonal subsequence on rational time points: the common modulus
+Closed bounded H1 balls on a finite one-dimensional time interval have compact images in $C([0,T])$; this follows directly from the pointwise bound and the modulus $|x(t)-x(s)|\le\sqrt{|t-s|}\lVert x'\rVert_{L^2}$, and a diagonal subsequence on rational time points: the common modulus
 upgrades convergence on that dense set to uniform convergence. The weak
 lower-semicontinuity of the $H^1$ norm keeps the limit inside the same ball. Markov's inequality for the empirical average H1 norm therefore gives tightness of the empirical path measures on $C([0,T];\mathbb R^4)$ in
 probability: on the same high-probability events, for every $\varepsilon>0$
 a common compact set carries at least $1-\varepsilon$ of each empirical
 measure.
 
-This is not W2 compactness: a bounded mean squared H1 norm does not by itself make squared path norms uniformly integrable. It does not identify a deterministic subsequential law, kernels, adjoints, or velocity laws.
+This is not $W_{2}$ compactness: a bounded mean squared H1 norm does not by itself make squared path norms uniformly integrable. It does not identify a deterministic subsequential law, kernels, adjoints, or velocity laws.
 
 ### E.6. Strong endpoints on specified population action spaces {#sec-docs-finite-optimization-and-controls-l4964}
 
-For this statement, suppose probability spaces $(\Omega_\ell,\mathcal A_\ell,
-\mathbb P_\ell)$, $\ell=1,2,3$, with separable real
+For this statement, suppose probability spaces $(\Omega_\ell,\mathcal A_\ell, \mathbb P_\ell)$, $\ell=1,2,3$, with separable real
 $\mathcal H_\ell=L^2(\Omega_\ell)$, and bounded initial operators
 $W_0^{(2)}:\mathcal H_1\to\mathcal H_2$,
 $W_0^{(3)}:\mathcal H_2\to\mathcal H_3$, are already specified.
@@ -5747,6 +5554,7 @@ remainder and gives the stated derivative; ([-@eq-docs-finite-optimization-and-c
 The scalar loss is therefore $C^1$ with gradient $-V$.
 
 ::: {#thm-docs-finite-optimization-and-controls-l5044}
+
 ## Strong endpoint
 
 Let $\Theta$ be an already existing strong
@@ -5765,7 +5573,6 @@ Thus for $s<t<T_*$,
 $$
  \|\Theta(t)-\Theta(s)\|_{raw}
  \le\sqrt{(t-s)[\mathcal L(\Theta(s))-\mathcal L(\Theta(t))]}.
-                                                              
 $$ {#eq-docs-finite-optimization-and-controls-l5054}
 
 The nonnegative decreasing loss has a limit; this inequality makes the path
@@ -5799,8 +5606,7 @@ $$ {#eq-docs-finite-optimization-and-controls-l5078}
 
 Indeed cover the compact image by finitely many balls of radius $\varepsilon$
 centered at fields $F$. The inequality
-$\|Q\mathbf1_{|Q|>R}\|_{L^2}
- \le2\|Q-F\|_{L^2}+2\|F\mathbf1_{|F|>R/2}\|_{L^2}$
+$\|Q\mathbf1_{|Q|>R}\|_{L^2}  \le2\|Q-F\|_{L^2}+2\|F\mathbf1_{|F|>R/2}\|_{L^2}$
 follows by splitting at $|F|>R/2$. Send $R\to\infty$ for the finitely
 many centers and then $\varepsilon\to0$. This is a qualitative tail bound
 for this one existing path, with no uniform rate over widths or restarts.

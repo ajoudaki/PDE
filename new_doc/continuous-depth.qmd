@@ -15,10 +15,10 @@ exact backward sources from recomputed ones. It establishes no dense width
 or continuous-depth limit, autonomous compressed flow, or fitting theorem.
 
 [Section 15](continuous-depth.qmd#sec-docs-continuous-depth-l1886) proves global existence, uniqueness and restart for a coherent
-dense kernel model with normalization `W/n`, fixed bounded endpoints and
+dense kernel model with normalization $W/n$, fixed bounded endpoints and
 a strong row/column kernel space, with exact gradient and energy identities.
 Finite-network approximation and the Gaussian
-`W/sqrt(n)` model remain separate questions.
+$W/\sqrt n$ model remain separate questions.
 
 In the scalar-particle architecture there is one scalar hidden state per
 sample at each depth. Width counts
@@ -54,7 +54,6 @@ The residual feature is a specified map
 $$
 \Phi:\mathbb R^p\times\mathbb R\longrightarrow\mathbb R,
 \qquad (\theta,z)\longmapsto\Phi(\theta,z).
-
 $$ {#eq-docs-continuous-depth-l54}
 
 Here $\Phi$ denotes the entire parameterized particle feature. It is not
@@ -74,7 +73,6 @@ $$
 \sup_\theta|\Phi(\theta,0)|\le c_0,
 \qquad
 \sup_{\theta,z}|\partial_z\Phi(\theta,z)|\le c_1.
-
 $$ {#eq-docs-continuous-depth-l73}
 
 In particular, $|\Phi(\theta,z)|\le c_0+c_1|z|$.
@@ -84,7 +82,6 @@ finite $R\ge0$ there is a finite $C_R$ such that
 
 $$
 \sup_{\theta,\,|z|\le R}\|\nabla_\theta\Phi(\theta,z)\|\le C_R,
-
 $$ {#eq-docs-continuous-depth-l85}
 
 and, for all $\theta,\widetilde\theta\in\mathbb R^p$ and
@@ -98,7 +95,6 @@ $$
        -\nabla_\theta\Phi(\widetilde\theta,\widetilde z)\|
 \le C_R\bigl(\|\theta-\widetilde\theta\|+|z-\widetilde z|\bigr).
 \end{aligned}
-
 $$ {#eq-docs-continuous-depth-l93}
 
 These assumptions apply to the chosen raw parameterization; an arbitrary
@@ -126,7 +122,6 @@ z_{a,\ell+1}^{n,L}
 +\frac1{nL}\sum_{i=1}^n
   \Phi(\theta_{\ell i},z_{a,\ell}^{n,L}),
 \qquad 0\le\ell<L.
-
 $$ {#eq-docs-continuous-depth-l121}
 
 Set
@@ -136,7 +131,6 @@ f_a^{n,L}=z_{a,L}^{n,L},
 \qquad r_a^{n,L}=f_a^{n,L}-y_a,
 \qquad
 \mathcal L^{n,L}=\frac1{2m}\sum_{a=1}^m(r_a^{n,L})^2.
-
 $$ {#eq-docs-continuous-depth-l134}
 
 All raw parameters train with block mobility $\kappa nL$:
@@ -144,7 +138,6 @@ All raw parameters train with block mobility $\kappa nL$:
 $$
 \dot\theta_{\ell i}
 =-\kappa nL\nabla_{\theta_{\ell i}}\mathcal L^{n,L}.
-
 $$ {#eq-docs-continuous-depth-l144}
 
 The initialization variables are independent over $(\ell,i)$, each with
@@ -160,7 +153,6 @@ p_{a,\ell}^{n,L}
 =p_{a,\ell+1}^{n,L}
  \left(1+\frac1{nL}\sum_{i=1}^n
  \partial_z\Phi(\theta_{\ell i},z_{a,\ell}^{n,L})\right).
-
 $$ {#eq-docs-continuous-depth-l156}
 
 Thus $p_{a,\ell}^{n,L}$ is the derivative of the output with respect to
@@ -172,7 +164,6 @@ $$
 \nabla_{\theta_{\ell i}}f_a^{n,L}
 =\frac1{nL}p_{a,\ell+1}^{n,L}
  \nabla_\theta\Phi(\theta_{\ell i},z_{a,\ell}^{n,L}).
-
 $$ {#eq-docs-continuous-depth-l171}
 
 Consequently the finite flow is exactly
@@ -184,7 +175,6 @@ q_{\ell i}^{n,L}
 =\frac1m\sum_{a=1}^m r_a^{n,L}p_{a,\ell+1}^{n,L}
  \nabla_\theta\Phi(\theta_{\ell i},z_{a,\ell}^{n,L})
 \in\mathbb R^p.
-
 $$ {#eq-docs-continuous-depth-l180}
 
 The scaled tangent kernel is
@@ -200,7 +190,6 @@ p_{a,\ell+1}^{n,L}p_{b,\ell+1}^{n,L}\frac1n\sum_{i=1}^n
 \nabla_{\theta_{\ell i}}f_a^{n,L}
 \cdot\nabla_{\theta_{\ell i}}f_b^{n,L}.
 \end{aligned}
-
 $$ {#eq-docs-continuous-depth-l192}
 
 It is positive semidefinite, as is seen by inserting an arbitrary vector
@@ -209,7 +198,6 @@ outputs and loss along ([-@eq-docs-continuous-depth-l144]) gives
 
 $$
 \dot f_a^{n,L}=-\frac\kappa m\sum_{b=1}^mK_{ab}^{n,L}r_b^{n,L},
-
 $$ {#eq-docs-continuous-depth-l210}
 
 $$
@@ -218,7 +206,6 @@ $$
  \|\nabla_{\theta_{\ell i}}\mathcal L^{n,L}\|^2
 =-\frac\kappa L\sum_{\ell=0}^{L-1}\frac1n\sum_{i=1}^n
  \|q_{\ell i}^{n,L}\|^2\le0.
-
 $$ {#eq-docs-continuous-depth-l215}
 
 No independence approximation enters these identities, including after
@@ -233,14 +220,12 @@ $$
 \mathcal W_1(\mu,\nu)
 =\inf_{\pi\in\Pi(\mu,\nu)}
  \int\|\theta-\widetilde\theta\|\,\pi(d\theta,d\widetilde\theta),
-
 $$ {#eq-docs-continuous-depth-l232}
 
 where $\Pi(\mu,\nu)$ is the set of couplings. For Borel depth profiles put
 
 $$
 \mathcal D(\mu,\nu)=\int_0^1\mathcal W_1(\mu(s),\nu(s))\,ds.
-
 $$ {#eq-docs-continuous-depth-l241}
 
 The state space $\mathfrak M$ consists of profiles
@@ -248,7 +233,6 @@ $\mu:[0,1]\to\mathcal P_1(\mathbb R^p)$ with
 
 $$
 \int_0^1\int\|\theta\|\,\mu(s,d\theta)\,ds<\infty,
-
 $$ {#eq-docs-continuous-depth-l249}
 
 modulo equality for almost every depth. The distance $\mathcal D$ is
@@ -262,14 +246,12 @@ $$
 \partial_s Z_a^\mu(s)
 =\int\Phi(\theta,Z_a^\mu(s))\,\mu(s,d\theta),
 \qquad Z_a^\mu(0)=x_a,
-
 $$ {#eq-docs-continuous-depth-l261}
 
 $$
 -\partial_s P_a^\mu(s)
 =P_a^\mu(s)\int\partial_z\Phi(\theta,Z_a^\mu(s))\,\mu(s,d\theta),
 \qquad P_a^\mu(1)=1.
-
 $$ {#eq-docs-continuous-depth-l268}
 
 These equations initially hold for almost every $s$; their integral
@@ -280,7 +262,6 @@ f_a^\mu=Z_a^\mu(1),\qquad r_a^\mu=f_a^\mu-y_a,
 \qquad
 Q[\mu](s,\theta)=\frac1m\sum_{a=1}^m
  r_a^\mu P_a^\mu(s)\nabla_\theta\Phi(\theta,Z_a^\mu(s)),
-
 $$ {#eq-docs-continuous-depth-l278}
 
 where $Q[\mu](s,\theta)\in\mathbb R^p$, and define
@@ -290,7 +271,6 @@ $$
 \partial_t\rho_t(s)
 +\nabla_\theta\cdot\bigl(\rho_t(s)v[\rho_t](s,\cdot)\bigr)=0,
 \qquad \rho_{t=0}(s)=\rho_0.
-
 $$ {#eq-docs-continuous-depth-l289}
 
 A characteristic solution means that the maps
@@ -302,11 +282,10 @@ $$
 \Theta_0(s,\vartheta)=\vartheta,
 \qquad
 \rho_t(s)=(\Theta_t(s,\cdot))_\#\rho_0.
-
 $$ {#eq-docs-continuous-depth-l299}
 
-For a general initial profile $\mu_{\rm in}$, replace $\rho_0$ on the
-right side of ([-@eq-docs-continuous-depth-l299]) by $\mu_{\rm in}(s)$, for almost every depth.
+For a general initial profile $\mu_{\mathrm{in}}$, replace $\rho_0$ on the
+right side of ([-@eq-docs-continuous-depth-l299]) by $\mu_{\mathrm{in}}(s)$, for almost every depth.
 Pushforward means the law of the image under the indicated map. In particular, for every
 $\zeta\in C_c^1(\mathbb R^p)$ the characteristic solution satisfies
 
@@ -314,11 +293,10 @@ $$
 \int\zeta\,d\rho_t(s)-\int\zeta\,d\rho_u(s)
 =\int_u^t\int\nabla\zeta(\theta)\cdot
  v[\rho_\tau](s,\theta)\,\rho_\tau(s,d\theta)\,d\tau.
-
 $$ {#eq-docs-continuous-depth-l313}
 
 The sole evolution time is $t$. The coordinate $s\in[0,1]$ is depth;
-at each training time, (3.4)--(3.6) are forward and backward depth readouts
+at each training time, ([-@eq-docs-continuous-depth-l261])--([-@eq-docs-continuous-depth-l278]) are forward and backward depth readouts
 of the current measure field. The state equation is autonomous. Exposing
 its solver variables uses one measure-field type, $2m$ scalar depth
 fields, and $m$ output or residual scalars, a count independent of
@@ -336,7 +314,6 @@ K_{ab}(t)=\int_0^1 P_a(s,t)P_b(s,t)
 &\cdot\nabla_\theta\Phi(\theta,Z_b(s,t))
 \,\rho_t(s,d\theta)\,ds.
 \end{aligned}
-
 $$ {#eq-docs-continuous-depth-l332}
 
 ## 4. Global flow and joint limit theorem {#sec-docs-continuous-depth-l342}
@@ -351,7 +328,6 @@ $$
 \varepsilon_{n,L}
 =\frac1L\sum_{\ell=0}^{L-1}
  \mathcal W_1(\widehat\mu_{\ell,0}^{n,L},\rho_0).
-
 $$ {#eq-docs-continuous-depth-l347}
 
 ::: {#thm-docs-continuous-depth-l357}
@@ -384,7 +360,6 @@ $$
  +\max_{a,b}|K_{ab}^{n,L}(t)-K_{ab}(t)|\Bigg]
 \le C_T\bigl(\varepsilon_{n,L}+L^{-1}\bigr).
 \end{aligned}
-
 $$ {#eq-docs-continuous-depth-l374}
 
 Every grid value $\rho_t(s_\ell)$ in this estimate refers to that canonical
@@ -412,7 +387,6 @@ Write
 $$
 x_* =\max_a|x_a|,\qquad y_* =\max_a|y_a|,
 \qquad Z_*=e^{c_1}(x_*+c_0),\qquad P_*=e^{c_1}.
-
 $$ {#eq-docs-continuous-depth-l409}
 
 Throughout the proof $C$ denotes a finite constant depending only on the
@@ -428,7 +402,6 @@ $g\ge0$ is integrable, then
 
 $$
 u(s)\le e^{bs}\left(A+\int_0^s g(v)\,dv\right).
-
 $$ {#eq-docs-continuous-depth-l426}
 
 Indeed the right side of the original inequality defines an absolutely
@@ -439,7 +412,6 @@ $u_{\ell+1}\le(1+bh)u_\ell+h g_\ell$, is
 $$
 u_\ell\le e^{b\ell h}
  \left(u_0+h\sum_{j<\ell}g_j\right).
-
 $$ {#eq-docs-continuous-depth-l436}
 
 Reversing the depth index gives the same backward estimate.
@@ -451,7 +423,6 @@ $$
 |z_{a,\ell}^{n,L}|\le Z_*,\qquad
 |Z_a^\mu(s)|\le Z_*,\qquad
 |r_a^{n,L}|,|r_a^\mu|\le Z_*+y_*.
-
 $$ {#eq-docs-continuous-depth-l447}
 
 For example,
@@ -473,14 +444,13 @@ $$
 P_a^\mu(s)=\exp\left(
  \int_s^1\int\partial_z\Phi(\theta,Z_a^\mu(u))
  \,\mu(u,d\theta)\,du\right),
-
 $$ {#eq-docs-continuous-depth-l467}
 
 and hence $P_*^{-1}\le P_a^\mu(s)\le P_*$. The continuous sensitivity
 is positive. The discrete bound uses absolute values and does not require
 $L>c_1$ or positivity of each discrete factor.
 
-By A2 and (5.4)--(5.5), all parameter velocities are bounded by $C$,
+By A2 and ([-@eq-docs-continuous-depth-l447])--([-@eq-docs-continuous-depth-l467]), all parameter velocities are bounded by $C$,
 uniformly over current profiles, and the velocity at a fixed profile is
 globally $C$-Lipschitz in its parameter argument. Thus
 $\|\theta_{\ell i}(t)-\theta_{\ell i}(0)\|\le Ct$ on any finite
@@ -497,7 +467,6 @@ We will repeatedly use the coupling inequality
 $$
 \left\|\int g\,d\mu-\int g\,d\nu\right\|
 \le \operatorname{Lip}(g)\,\mathcal W_1(\mu,\nu)
-
 $$ {#eq-docs-continuous-depth-l494}
 
 for a Lipschitz scalar or vector function $g$ with defined integrals.
@@ -509,7 +478,6 @@ segments give
 $$
 |\Phi(\theta,z)-\Phi(\widetilde\theta,\widetilde z)|
 \le C\|\theta-\widetilde\theta\|+c_1|z-\widetilde z|.
-
 $$ {#eq-docs-continuous-depth-l506}
 
 The functions $\partial_z\Phi$, $\nabla_\theta\Phi$, and the pairwise
@@ -531,7 +499,6 @@ Z_{a,0}^{L,\boldsymbol\mu}=x_a,
 Z_{a,\ell+1}^{L,\boldsymbol\mu}
 =Z_{a,\ell}^{L,\boldsymbol\mu}
 +h\int\Phi(\theta,Z_{a,\ell}^{L,\boldsymbol\mu})\,\mu_\ell(d\theta),
-
 $$ {#eq-docs-continuous-depth-l525}
 
 $$
@@ -541,7 +508,6 @@ P_{a,\ell}^{L,\boldsymbol\mu}
 =P_{a,\ell+1}^{L,\boldsymbol\mu}
  \left(1+h\int\partial_z\Phi(\theta,Z_{a,\ell}^{L,\boldsymbol\mu})
  \,\mu_\ell(d\theta)\right).
-
 $$ {#eq-docs-continuous-depth-l534}
 
 Write $r_a^{L,\boldsymbol\mu}=Z_{a,L}^{L,\boldsymbol\mu}-y_a$ and
@@ -551,7 +517,6 @@ V_\ell^L[\boldsymbol\mu](\theta)
 =-\frac\kappa m\sum_a r_a^{L,\boldsymbol\mu}
  P_{a,\ell+1}^{L,\boldsymbol\mu}
  \nabla_\theta\Phi(\theta,Z_{a,\ell}^{L,\boldsymbol\mu}).
-
 $$ {#eq-docs-continuous-depth-l546}
 
 The kernel $K^{L,\boldsymbol\mu}$ is defined by ([-@eq-docs-continuous-depth-l192]) with these
@@ -563,23 +528,19 @@ For two such profiles let
 $$
 w_\ell=\mathcal W_1(\mu_\ell,\nu_\ell),
 \qquad d_L(\boldsymbol\mu,\boldsymbol\nu)=h\sum_{\ell=0}^{L-1}w_\ell.
-
 $$ {#eq-docs-continuous-depth-l560}
 
-Put $e_\ell=\max_a|Z_{a,\ell}^{L,\boldsymbol\mu}
--Z_{a,\ell}^{L,\boldsymbol\nu}|$. Subtract ([-@eq-docs-continuous-depth-l525]), first compare state
-arguments at a common law, and then use (5.6)--(5.7). This gives
+Put $e_\ell=\max_a|Z_{a,\ell}^{L,\boldsymbol\mu} -Z_{a,\ell}^{L,\boldsymbol\nu}|$. Subtract ([-@eq-docs-continuous-depth-l525]), first compare state
+arguments at a common law, and then use ([-@eq-docs-continuous-depth-l494])--([-@eq-docs-continuous-depth-l506]). This gives
 
 $$
 e_0=0,\qquad
 e_{\ell+1}\le(1+c_1h)e_\ell+Chw_\ell,
 \qquad
 \max_\ell e_\ell\le C d_L(\boldsymbol\mu,\boldsymbol\nu).
-
 $$ {#eq-docs-continuous-depth-l570}
 
-For $b_\ell=\max_a|P_{a,\ell}^{L,\boldsymbol\mu}
--P_{a,\ell}^{L,\boldsymbol\nu}|$, subtract ([-@eq-docs-continuous-depth-l534]). The coefficient
+For $b_\ell=\max_a|P_{a,\ell}^{L,\boldsymbol\mu} -P_{a,\ell}^{L,\boldsymbol\nu}|$, subtract ([-@eq-docs-continuous-depth-l534]). The coefficient
 difference is at most $C(e_\ell+w_\ell)$, while the other sensitivity
 factor is at most $P_*$. Consequently
 
@@ -588,7 +549,6 @@ b_L=0,\qquad
 b_\ell\le(1+c_1h)b_{\ell+1}+Ch(e_\ell+w_\ell),
 \qquad
 \max_\ell b_\ell\le C d_L(\boldsymbol\mu,\boldsymbol\nu).
-
 $$ {#eq-docs-continuous-depth-l583}
 
 The output residual difference is bounded by $e_L$. Substituting these
@@ -599,7 +559,6 @@ $$
 -V_\ell^L[\boldsymbol\nu](\widetilde\theta)\|
 \le C\bigl(\|\theta-\widetilde\theta\|
              +d_L(\boldsymbol\mu,\boldsymbol\nu)\bigr).
-
 $$ {#eq-docs-continuous-depth-l594}
 
 Similarly, each kernel summand differs by at most
@@ -610,7 +569,6 @@ $$
 \max_{a,b}|K_{ab}^{L,\boldsymbol\mu}
 -K_{ab}^{L,\boldsymbol\nu}|
 \le C d_L(\boldsymbol\mu,\boldsymbol\nu).
-
 $$ {#eq-docs-continuous-depth-l606}
 
 Consider the characteristic population equations
@@ -619,7 +577,6 @@ $$
 \partial_t\mu_{\ell,t}^L+
 \nabla_\theta\cdot
  \bigl(\mu_{\ell,t}^L V_\ell^L[\boldsymbol\mu_t^L]\bigr)=0.
-
 $$ {#eq-docs-continuous-depth-l615}
 
 For two solutions, take at each layer an initial coupling with expected
@@ -630,17 +587,14 @@ $H_\ell(t)$. Equation ([-@eq-docs-continuous-depth-l594]) implies
 $$
 H_\ell(t)\le H_\ell(0)+C\int_0^t
  \bigl(H_\ell(u)+d_L(\boldsymbol\mu_u^L,\boldsymbol\nu_u^L)\bigr)\,du.
-
 $$ {#eq-docs-continuous-depth-l627}
 
-Since $d_L(\boldsymbol\mu_t^L,\boldsymbol\nu_t^L)
-\le h\sum_\ell H_\ell(t)$, averaging, applying ([-@eq-docs-continuous-depth-l426]), and letting
+Since $d_L(\boldsymbol\mu_t^L,\boldsymbol\nu_t^L) \le h\sum_\ell H_\ell(t)$, averaging, applying ([-@eq-docs-continuous-depth-l426]), and letting
 $\epsilon\downarrow0$ gives
 
 $$
 d_L(\boldsymbol\mu_t^L,\boldsymbol\nu_t^L)
 \le e^{Ct}d_L(\boldsymbol\mu_0^L,\boldsymbol\nu_0^L).
-
 $$ {#eq-docs-continuous-depth-l637}
 
 Existence and uniqueness of ([-@eq-docs-continuous-depth-l615]) follow by the characteristic contraction
@@ -688,7 +642,6 @@ and Fatou give
 $$
 \mathcal D(\mu_j,\mu)
 \le\sum_{k\ge j}\mathcal D(\mu_k,\mu_{k+1})\longrightarrow0.
-
 $$ {#eq-docs-continuous-depth-l685}
 
 Also $\mathcal D(\mu,\delta_0)<\infty$, because it is bounded by the
@@ -704,7 +657,6 @@ $$
 |Z_a^\mu(s)-Z_a^\nu(s)|
 \le\int_0^s\left(c_1|Z_a^\mu(u)-Z_a^\nu(u)|
 +C\mathcal W_1(\mu(u),\nu(u))\right)\,du.
-
 $$ {#eq-docs-continuous-depth-l700}
 
 It gives $\max_a\|Z_a^\mu-Z_a^\nu\|_\infty\le C\mathcal D(\mu,\nu)$.
@@ -718,7 +670,6 @@ $$
 +\max_a\|P_a^\mu-P_a^\nu\|_\infty
 +\max_a|r_a^\mu-r_a^\nu|
 \le C\mathcal D(\mu,\nu).
-
 $$ {#eq-docs-continuous-depth-l713}
 
 This implies
@@ -726,10 +677,9 @@ This implies
 $$
 \|v[\mu](s,\theta)-v[\nu](s,\widetilde\theta)\|
 \le C\bigl(\|\theta-\widetilde\theta\|+\mathcal D(\mu,\nu)\bigr).
-
 $$ {#eq-docs-continuous-depth-l723}
 
-Furthermore, (3.4)--(3.5) and the uniform bounds imply for every current
+Furthermore, ([-@eq-docs-continuous-depth-l261])--([-@eq-docs-continuous-depth-l268]) and the uniform bounds imply for every current
 profile, without assuming its depth continuity,
 
 $$
@@ -738,7 +688,6 @@ $$
 \qquad
 \sup_\theta\|v[\mu](s,\theta)-v[\mu](u,\theta)\|
 \le C|s-u|.
-
 $$ {#eq-docs-continuous-depth-l732}
 
 Thus $v[\mu]$ has a bounded jointly continuous representative on
@@ -747,7 +696,7 @@ from $\mathfrak M$ into that space with the supremum norm. This map is
 well-defined on equivalence classes: null-set changes in a profile leave
 the depth integrals, hence their continuous readouts, unchanged.
 
-Fix $\mu_{\rm in}\in\mathfrak M$, and a continuous trial curve
+Fix $\mu_{\mathrm{in}}\in\mathfrak M$, and a continuous trial curve
 $\bar\mu\in C([t_0,t_0+\tau];\mathfrak M)$. Its velocity is jointly
 continuous in time, depth, and parameter, bounded by $C$, and globally
 $C$-Lipschitz in parameter. For each $(s,\vartheta)$, solve
@@ -755,7 +704,6 @@ $C$-Lipschitz in parameter. For each $(s,\vartheta)$, solve
 $$
 \Theta_t(s,\vartheta)=\vartheta+
  \int_{t_0}^t v[\bar\mu_u](s,\Theta_u(s,\vartheta))\,du.
-
 $$ {#eq-docs-continuous-depth-l752}
 
 The exact ODE fact needed is that a continuous bounded vector field,
@@ -772,8 +720,7 @@ Define
 
 $$
 (\Gamma\bar\mu)_t(s)
-=(\Theta_t(s,\cdot))_\#\mu_{\rm in}(s).
-
+=(\Theta_t(s,\cdot))_\#\mu_{\mathrm{in}}(s).
 $$ {#eq-docs-continuous-depth-l770}
 
 These are Borel profiles: integration of a bounded Borel function of
@@ -803,7 +750,6 @@ $$
 -\Theta_t^{\bar\nu}(s,\vartheta)\|
 \le C\tau e^{C\tau}
 \sup_{u\in[t_0,t_0+\tau]}\mathcal D(\bar\mu_u,\bar\nu_u).
-
 $$ {#eq-docs-continuous-depth-l798}
 
 Push forward the common law and integrate in depth. The map $\Gamma$
@@ -815,14 +761,13 @@ point, and $d(u,v)\le qd(u,v)$ proves uniqueness. Applied to $\Gamma$,
 this constructs the characteristic solution. Differentiating a test
 function along each characteristic, using bounded velocity, proves ([-@eq-docs-continuous-depth-l313]).
 
-The constants do not depend on $\mu_{\rm in}$, and
+The constants do not depend on $\mu_{\mathrm{in}}$, and
 
 $$
 \mathcal D(\rho_t,\rho_u)\le C|t-u|,
 \qquad
 \int_0^1\int\|\theta\|\,\rho_t(s,d\theta)\,ds
-\le\int_0^1\int\|\theta\|\,\mu_{\rm in}(s,d\theta)\,ds+Ct.
-
+\le\int_0^1\int\|\theta\|\,\mu_{\mathrm{in}}(s,d\theta)\,ds+Ct.
 $$ {#eq-docs-continuous-depth-l817}
 
 The construction therefore iterates for all nonnegative times, from every
@@ -832,7 +777,7 @@ solutions is needed.
 
 One can obtain stability on all of $\mathfrak M$ without selecting a
 measurable family of optimal couplings. Let $\rho,\widetilde\rho$ start
-from $\mu_{\rm in},\nu_{\rm in}$, respectively. At each individual
+from $\mu_{\mathrm{in}},\nu_{\mathrm{in}}$, respectively. At each individual
 depth and for any coupling of those initial laws, let $H_s(t)$ be the
 expected distance after transporting the coupling by the two flows.
 Their integral equations and ([-@eq-docs-continuous-depth-l723]) bound $H_s(t)$ by its initial value plus
@@ -841,15 +786,13 @@ Gronwall and an infimum over that depth's initial couplings yield
 
 $$
 \mathcal W_1(\rho_t(s),\widetilde\rho_t(s))
-\le e^{Ct}\mathcal W_1(\mu_{\rm in}(s),\nu_{\rm in}(s))
+\le e^{Ct}\mathcal W_1(\mu_{\mathrm{in}}(s),\nu_{\mathrm{in}}(s))
 +C\int_0^t e^{C(t-u)}\mathcal D(\rho_u,\widetilde\rho_u)\,du.
-
 $$ {#eq-docs-continuous-depth-l839}
 
 Both sides are measurable in depth. Integrating and applying Gronwall
 again gives
-$\mathcal D(\rho_t,\widetilde\rho_t)
-\le e^{Ct}\mathcal D(\mu_{\rm in},\nu_{\rm in})$, with a possibly larger
+$\mathcal D(\rho_t,\widetilde\rho_t) \le e^{Ct}\mathcal D(\mu_{\mathrm{in}},\nu_{\mathrm{in}})$, with a possibly larger
 $C$. Finally the velocity depends only on the current state. Restarting
 at time $u$ with $\rho_u\in\mathfrak M$ yields its unique
 continuation. If $S_t$ is the resulting map on profiles, uniqueness
@@ -862,14 +805,13 @@ constructed in [Section 7](continuous-depth.qmd#sec-docs-continuous-depth-l652) 
 $s\in[0,1]$. Use ([-@eq-docs-continuous-depth-l299]) to define $\rho_t(s)$ at every depth, including
 the endpoints. This agrees almost everywhere with the profile solution.
 At two depths couple characteristics with the same
-$\vartheta\sim\rho_0$. By (7.4)--(7.5),
+$\vartheta\sim\rho_0$. By ([-@eq-docs-continuous-depth-l723])--([-@eq-docs-continuous-depth-l732]),
 
 $$
 \|\Theta_t(s,\vartheta)-\Theta_t(u,\vartheta)\|
 \le C\int_0^t
  \bigl(\|\Theta_\tau(s,\vartheta)-\Theta_\tau(u,\vartheta)\|
        +|s-u|\bigr)\,d\tau.
-
 $$ {#eq-docs-continuous-depth-l864}
 
 Thus, on every $[0,T]$,
@@ -878,7 +820,6 @@ $$
 \mathcal W_1(\rho_t(s),\rho_t(u))\le C_T|s-u|,
 \qquad
 \mathcal W_1(\rho_t(s),\rho_v(s))\le C|t-v|.
-
 $$ {#eq-docs-continuous-depth-l874}
 
 This is the canonical continuous depth representative. Any other
@@ -894,23 +835,20 @@ $$
 F_a(s,t)=\int\Phi(\theta,Z_a(s,t))\,\rho_t(s,d\theta),
 \qquad
 B_a(s,t)=\int\partial_z\Phi(\theta,Z_a(s,t))\,\rho_t(s,d\theta).
-
 $$ {#eq-docs-continuous-depth-l890}
 
 These are scalar depth coefficients, not outputs or matrices. By
-(5.6)--(5.7), A2, and ([-@eq-docs-continuous-depth-l874]), both are uniformly $C_T$-Lipschitz in
+([-@eq-docs-continuous-depth-l494])--([-@eq-docs-continuous-depth-l506]), A2, and ([-@eq-docs-continuous-depth-l874]), both are uniformly $C_T$-Lipschitz in
 depth. The forward integral equation consequently has the local defect
 
 $$
 Z_a(s_{\ell+1},t)
 =Z_a(s_\ell,t)+h F_a(s_\ell,t)+d_{a,\ell}^{Z}(t),
 \qquad |d_{a,\ell}^{Z}(t)|\le C_T h^2.
-
 $$ {#eq-docs-continuous-depth-l901}
 
 The exact backward integral equation is
-$P_a(s_\ell,t)=P_a(s_{\ell+1},t)
-+\int_{s_\ell}^{s_{\ell+1}}P_a(u,t)B_a(u,t)\,du$.
+$P_a(s_\ell,t)=P_a(s_{\ell+1},t) +\int_{s_\ell}^{s_{\ell+1}}P_a(u,t)B_a(u,t)\,du$.
 Replacing its integrand by
 $P_a(s_{\ell+1},t)B_a(s_\ell,t)$ costs at most $C_T h^2$, since
 both factors are bounded and depth-Lipschitz. Hence the precise discrete
@@ -921,7 +859,6 @@ P_a(s_\ell,t)
 =P_a(s_{\ell+1},t)(1+h B_a(s_\ell,t))
 +d_{a,\ell}^{P}(t),
 \qquad |d_{a,\ell}^{P}(t)|\le C_T h^2.
-
 $$ {#eq-docs-continuous-depth-l916}
 
 Let $\boldsymbol\mu_t^L$ solve ([-@eq-docs-continuous-depth-l615]) from
@@ -931,7 +868,6 @@ $Z_{a,\ell}^{L},P_{a,\ell}^{L},V_\ell^L,K_{ab}^{L}$. Define
 $$
 E_L(t)=\max_{0\le\ell<L}
  \mathcal W_1(\mu_{\ell,t}^L,\rho_t(s_\ell)).
-
 $$ {#eq-docs-continuous-depth-l928}
 
 Subtract ([-@eq-docs-continuous-depth-l901]) from ([-@eq-docs-continuous-depth-l525]). The resulting state errors obey ([-@eq-docs-continuous-depth-l570]) with
@@ -943,7 +879,6 @@ $$
 \max_{a,\ell}|Z_{a,\ell}^{L}(t)-Z_a(s_\ell,t)|
 +\max_{a,\ell}|P_{a,\ell}^{L}(t)-P_a(s_\ell,t)|
 \le C_T\bigl(E_L(t)+h\bigr).
-
 $$ {#eq-docs-continuous-depth-l939}
 
 In comparing velocities, the finite-depth velocity uses
@@ -956,7 +891,6 @@ $$
 \sup_{\ell,\theta}
  \|V_\ell^L(\theta,t)-v[\rho_t](s_\ell,\theta)\|
 \le C_T\bigl(E_L(t)+h\bigr).
-
 $$ {#eq-docs-continuous-depth-l952}
 
 Let $\Theta_{\ell,t}^L(\vartheta)$ be the characteristic of
@@ -967,7 +901,6 @@ $$
 H_L(t)=\max_{\ell<L}\int
  \|\Theta_{\ell,t}^L(\vartheta)-\Theta_t(s_\ell,\vartheta)\|
  \,\rho_0(d\vartheta).
-
 $$ {#eq-docs-continuous-depth-l963}
 
 Then $E_L\le H_L$, $H_L(0)=0$, and parameter Lipschitzness together
@@ -975,7 +908,6 @@ with ([-@eq-docs-continuous-depth-l952]) gives
 
 $$
 H_L(t)\le C_T\int_0^t(H_L(u)+h)\,du.
-
 $$ {#eq-docs-continuous-depth-l973}
 
 There is no maximum over random empirical layer errors here: these are
@@ -986,7 +918,6 @@ $$
 E_L(t)+\max_{a,\ell}|Z_{a,\ell}^{L}(t)-Z_a(s_\ell,t)|
 +\max_{a,\ell}|P_{a,\ell}^{L}(t)-P_a(s_\ell,t)|\right]
 \le C_T L^{-1}.
-
 $$ {#eq-docs-continuous-depth-l981}
 
 For the kernel, the continuous integrand in ([-@eq-docs-continuous-depth-l332]), after integrating in
@@ -1001,21 +932,19 @@ $$
 \le\sum_\ell\int_{s_\ell}^{s_{\ell+1}}
  \operatorname{Lip}(g)|s-s_\ell|\,ds
 \le\tfrac12\operatorname{Lip}(g)h.
-
 $$ {#eq-docs-continuous-depth-l996}
 
 Using ([-@eq-docs-continuous-depth-l981]) and this Riemann-sum bound proves
 
 $$
 \sup_{t\le T}\max_{a,b}|K_{ab}^{L}(t)-K_{ab}(t)|\le C_T L^{-1}.
-
 $$ {#eq-docs-continuous-depth-l1006}
 
 ## 9. Width convergence and completion of the joint theorem {#sec-docs-continuous-depth-l1011}
 
 The exact empirical flow and the discrete-depth population flow are two
 solutions of ([-@eq-docs-continuous-depth-l615]). Their initial distance is $\varepsilon_{n,L}$.
-Equations (6.5)--(6.8) and ([-@eq-docs-continuous-depth-l637]) imply pathwise
+Equations ([-@eq-docs-continuous-depth-l570])--([-@eq-docs-continuous-depth-l606]) and ([-@eq-docs-continuous-depth-l637]) imply pathwise
 
 $$
 \begin{aligned}
@@ -1026,7 +955,6 @@ d_L(\widehat{\boldsymbol\mu}_t^{n,L},\boldsymbol\mu_t^L)
 +\max_{a,b}|K_{ab}^{n,L}(t)-K_{ab}^{L}(t)|\Big]
 \le C_T\varepsilon_{n,L}.
 \end{aligned}
-
 $$ {#eq-docs-continuous-depth-l1017}
 
 The triangle inequality with ([-@eq-docs-continuous-depth-l981]) and ([-@eq-docs-continuous-depth-l1006]) proves ([-@eq-docs-continuous-depth-l374]).
@@ -1040,7 +968,6 @@ assumption. For independent $\vartheta_i\sim\rho_0$, put
 $$
 \alpha_n=\mathbb E\mathcal W_1\left(
  \frac1n\sum_{i=1}^n\delta_{\vartheta_i},\rho_0\right).
-
 $$ {#eq-docs-continuous-depth-l1037}
 
 Let $T_R$ be radial projection onto the closed Euclidean ball of radius
@@ -1052,7 +979,6 @@ $$
 \mathbb E\mathcal W_1\left(
  \frac1n\sum_i\delta_{T_R\vartheta_i},(T_R)_\#\rho_0\right)
 +2\mathbb E\|\vartheta_1-T_R\vartheta_1\|.
-
 $$ {#eq-docs-continuous-depth-l1047}
 
 Here is a direct finite-partition proof that the first term tends to zero
@@ -1064,8 +990,7 @@ $\widehat\pi_j$. Quantizing both measures costs at most
 $2\epsilon$. The unmatched mass of the quantized measures is
 $\tfrac12\sum_j|\widehat\pi_j-\pi_j|$, and it can be moved within
 diameter $2R$. Independence gives
-$\mathbb E|\widehat\pi_j-\pi_j|
-\le\sqrt{\pi_j(1-\pi_j)/n}$ by the variance formula and Cauchy--Schwarz.
+$\mathbb E|\widehat\pi_j-\pi_j| \le\sqrt{\pi_j(1-\pi_j)/n}$ by the variance formula and Cauchy--Schwarz.
 Therefore
 
 $$
@@ -1073,7 +998,6 @@ $$
  \frac1n\sum_i\delta_{T_R\vartheta_i},(T_R)_\#\rho_0\right)
 \le2\epsilon+R\sum_{j=1}^J
  \sqrt{\frac{\pi_j(1-\pi_j)}n}.
-
 $$ {#eq-docs-continuous-depth-l1068}
 
 First let $n\to\infty$, then $\epsilon\downarrow0$. Finally the tail
@@ -1087,7 +1011,6 @@ expectation gives, for every $L$,
 
 $$
 \mathbb E\varepsilon_{n,L}=\alpha_n.
-
 $$ {#eq-docs-continuous-depth-l1085}
 
 Independence across layers is part of the specified initialization but is
@@ -1098,7 +1021,6 @@ $$
 \mathbb P\{\mathscr E_{n,L}(T)>\epsilon\}
 \le\frac{\mathbb E\mathscr E_{n,L}(T)}\epsilon
 \le\frac{C_T}{\epsilon}(\alpha_n+L^{-1})\longrightarrow0
-
 $$ {#eq-docs-continuous-depth-l1094}
 
 along every deterministic joint sequence in the theorem. Taking the
@@ -1109,7 +1031,6 @@ $$
 |\mathcal L^{n,L}(t)-\mathcal L(t)|
 \le (Z_*+y_*)\max_a|f_a^{n,L}(t)-f_a(t)|,
 \qquad \mathcal L(t)=\frac1{2m}\sum_a r_a(t)^2.
-
 $$ {#eq-docs-continuous-depth-l1105}
 
 This proves the stated loss convergence and completes @thm-docs-continuous-depth-l357.
@@ -1131,7 +1052,6 @@ c^T K(t)c
  \left\|\sum_{a=1}^m c_a P_a(s,t)
  \nabla_\theta\Phi(\theta,Z_a(s,t))\right\|^2
  \,\rho_t(s,d\theta)\,ds\ge0.
-
 $$ {#eq-docs-continuous-depth-l1125}
 
 We justify differentiating the output using characteristics. By ([-@eq-docs-continuous-depth-l713]) and
@@ -1142,7 +1062,6 @@ $$
 Z_a(s,t)=x_a+\int_0^s\int
  \Phi(\Theta_t(u,\vartheta),Z_a(u,t))
  \,\rho_0(d\vartheta)\,du,
-
 $$ {#eq-docs-continuous-depth-l1138}
 
 both arguments change by at most a constant times the training-time
@@ -1162,7 +1081,6 @@ satisfies
 $$
 \partial_s U_a(s,t)=B_a(s,t)U_a(s,t)+J_a(s,t),
 \qquad U_a(0,t)=0,
-
 $$ {#eq-docs-continuous-depth-l1159}
 
 where the scalar coefficients are
@@ -1172,7 +1090,6 @@ B_a(s,t)=\int\partial_z\Phi(\theta,Z_a(s,t))\,\rho_t(s,d\theta),
 \qquad
 J_a(s,t)=\int\nabla_\theta\Phi(\theta,Z_a(s,t))\cdot
  v[\rho_t](s,\theta)\,\rho_t(s,d\theta).
-
 $$ {#eq-docs-continuous-depth-l1167}
 
 The coefficients depend continuously on training time, so this derivative
@@ -1184,7 +1101,6 @@ $P_a(1,t)=1$, and substitute ([-@eq-docs-continuous-depth-l278]):
 $$
 \dot f_a(t)=\int_0^1P_a(s,t)J_a(s,t)\,ds
 =-\frac\kappa m\sum_{b=1}^mK_{ab}(t)r_b(t).
-
 $$ {#eq-docs-continuous-depth-l1181}
 
 It follows that
@@ -1194,12 +1110,11 @@ $$
 =-\frac\kappa{m^2}r(t)^T K(t)r(t)
 =-\kappa\int_0^1\int\|Q[\rho_t](s,\theta)\|^2
  \,\rho_t(s,d\theta)\,ds\le0.
-
 $$ {#eq-docs-continuous-depth-l1189}
 
-For a general initial profile $\mu_{\rm in}\in\mathfrak M$, the same
+For a general initial profile $\mu_{\mathrm{in}}\in\mathfrak M$, the same
 proof replaces $\rho_0(d\vartheta)$ in ([-@eq-docs-continuous-depth-l1138]) by
-$\mu_{\rm in}(u,d\vartheta)$; bounded derivatives and velocities give
+$\mu_{\mathrm{in}}(u,d\vartheta)$; bounded derivatives and velocities give
 the same domination, with depth equations understood almost everywhere.
 Thus these formulas remain current-profile readouts on the entire restart
 domain. Positive dissipation energy is the precise condition
@@ -1222,7 +1137,6 @@ bounded, globally Lipschitz derivative. Define the particle feature by
 $$
 \Phi((\alpha,\omega,\beta),z)
 =A(\alpha)\,\sigma\bigl(U(\omega)z+B(\beta)\bigr).
-
 $$ {#eq-docs-continuous-depth-l1219}
 
 The scalar nonlinearity $\sigma$ is only a component of $\Phi$; the
@@ -1236,7 +1150,6 @@ $$
 \partial_\omega\Phi&=A(\alpha)\sigma'(u)U'(\omega)z,\\
 \partial_\beta\Phi&=A(\alpha)\sigma'(u)B'(\beta).
 \end{aligned}
-
 $$ {#eq-docs-continuous-depth-l1229}
 
 Because $\sigma'$ is bounded,
@@ -1301,7 +1214,6 @@ $\int\Phi(\theta,z)\,\mu(d\theta)$. Then
 
 $$
 \Phi(\cdot,z)\in\operatorname{span}\{1,\psi_1,\ldots,\psi_J\}.
-
 $$ {#eq-docs-continuous-depth-l1298}
 
 Conversely, this span condition makes that integral a function of the
@@ -1319,7 +1231,6 @@ $\sum_i c_i\Phi(\theta_i,z)=0$, the assignment
 $$
 \sum_i c_i b(\theta_i)\longmapsto
 \sum_i c_i\Phi(\theta_i,z)
-
 $$ {#eq-docs-continuous-depth-l1310}
 
 would define a well-defined linear functional on the span of the vectors
@@ -1332,7 +1243,6 @@ $$
 \sum_i c_i=0,\qquad
 \sum_i c_i\psi_j(\theta_i)=0\quad(1\le j\le J),\qquad
 \sum_i c_i\Phi(\theta_i,z)\ne0.
-
 $$ {#eq-docs-continuous-depth-l1322}
 
 The positive and negative parts of $(c_i)$ have equal total mass
@@ -1351,7 +1261,6 @@ It follows that if
 $$
 \operatorname{span}\{\Phi(\cdot,z):z\in I\}
 \quad\hbox{is infinite-dimensional}
-
 $$ {#eq-docs-continuous-depth-l1340}
 
 on a state interval $I$, no fixed finite list of state-independent
@@ -1372,7 +1281,6 @@ force
 
 $$
 \sum_{j=1}^N c_j z_j^{k_i}=0,\qquad 1\le i\le N,
-
 $$ {#eq-docs-continuous-depth-l1362}
 
 for any $N$ distinct orders $0\le k_1<\cdots<k_N$ with nonzero
@@ -1418,14 +1326,12 @@ $$
 =-\frac\kappa m\sum_a r_a(t)P_a(s,t)
 \int \nabla\psi_j(\theta)\cdot
  \nabla_\theta\Phi(\theta,Z_a(s,t))\,\rho_t(s,d\theta).
-
 $$ {#eq-docs-continuous-depth-l1405}
 
 For a general initial law the same identity holds on $[0,T]$, at each
 depth under consideration, provided $\psi_j$ is initially integrable
 and
-$\int\sup_{t\le T}\|\nabla\psi_j(\Theta_t(s,\vartheta))\|
-\,\mu_{\rm in}(s,d\vartheta)<\infty$.
+$\int\sup_{t\le T}\|\nabla\psi_j(\Theta_t(s,\vartheta))\| \,\mu_{\mathrm{in}}(s,d\vartheta)<\infty$.
 Indeed the bounded velocity then supplies an integrable bound for the
 time derivative of $\psi_j$ along each characteristic, justifying
 differentiation under the integral.
@@ -1438,7 +1344,6 @@ the relevant generators
 
 $$
 \psi\longmapsto\nabla\psi(\cdot)\cdot\nabla_\theta\Phi(\cdot,z).
-
 $$ {#eq-docs-continuous-depth-l1428}
 
 This follows by applying @prp-docs-continuous-depth-l1292 to each integral that must be
@@ -1456,7 +1361,6 @@ a nonzero $C^1$ function $\chi:\mathbb R\to\mathbb R$, and
 $$
 \Phi(\vartheta,z)=\tfrac12\vartheta^2\chi(z),
 \qquad M_2(s,t)=\int\vartheta^2\,\rho_t(s,d\vartheta).
-
 $$ {#eq-docs-continuous-depth-l1445}
 
 On any interval where a classical solution exists with finite second
@@ -1467,7 +1371,6 @@ $$
 \partial_s Z_a=\tfrac12 M_2\chi(Z_a),\qquad
 -\partial_s P_a=\tfrac12 P_aM_2\chi'(Z_a),\qquad
 v_t(s,\vartheta)=-b(s,t)\vartheta,
-
 $$ {#eq-docs-continuous-depth-l1455}
 
 where
@@ -1480,7 +1383,6 @@ $$
 \partial_t M_2(s,t)
 =-\frac{2\kappa}{m}M_2(s,t)
  \sum_a r_a(t)P_a(s,t)\chi(Z_a(s,t)),
-
 $$ {#eq-docs-continuous-depth-l1468}
 
 and the kernel is
@@ -1536,7 +1438,6 @@ h_a^0=Bx_a,\qquad z_a^\ell=W_\ell h_a^\ell,\qquad
 h_a^{\ell+1}=h_a^\ell+\frac\gamma L\phi(z_a^\ell),\qquad
 \phi(z)=\tanh z,
 \quad f_a=\frac{\mathbf a^T h_a^L}{n}.
-
 $$ {#eq-docs-continuous-depth-l1523}
 
 Activation is coordinatewise. Here $L$ counts residual blocks, and the
@@ -1549,7 +1450,6 @@ $$
 (W_\ell(0))_{ij}\sim N(0,\sigma_w^2/n),\quad
 B_{ij}(0)\sim N(0,1),\quad
 \mathbf a_i(0)\sim N(0,A^2),
-
 $$ {#eq-docs-continuous-depth-l1537}
 
 where $\sigma_w,A>0$ are fixed. This is an order-one stored readout,
@@ -1564,7 +1464,6 @@ $$
 \dot W_\ell=-L\nabla_{W_\ell}\mathcal L,\qquad
 \dot B=-n\nabla_B\mathcal L,\qquad
 \dot{\mathbf a}=-n\nabla_{\mathbf a}\mathcal L.
-
 $$ {#eq-docs-continuous-depth-l1552}
 
 All matrices remain unconstrained and all blocks train. If a half-sum loss
@@ -1582,7 +1481,6 @@ p_a^L=\mathbf a,\qquad
 D_a^\ell=\operatorname{diag}(\phi'(z_a^\ell)),\qquad
 \beta_a^\ell=D_a^\ell p_a^{\ell+1},\qquad
 p_a^\ell=\left(I+\frac\gamma L W_\ell^TD_a^\ell\right)p_a^{\ell+1}.
-
 $$ {#eq-docs-continuous-depth-l1569}
 
 Indeed the Jacobian of one forward block is
@@ -1594,7 +1492,6 @@ $$
 \nabla_{\mathbf a}f_a=\frac{h_a^L}{n},\qquad
 \nabla_Bf_a=\frac{p_a^0x_a^T}{n},\qquad
 \nabla_{W_\ell}f_a=\frac\gamma{nL}\beta_a^\ell(h_a^\ell)^T.
-
 $$ {#eq-docs-continuous-depth-l1582}
 
 Substituting $\nabla\mathcal L=(2/m)\sum_b r_b\nabla f_b$ yields
@@ -1604,7 +1501,6 @@ $$
 \dot B=-\frac2m\sum_b r_bp_b^0x_b^T,\qquad
 \dot W_\ell=-\frac{2\gamma}{mn}\sum_b
 r_b\beta_b^\ell(h_b^\ell)^T.
-
 $$ {#eq-docs-continuous-depth-l1591}
 
 For any one of these vector families write its sample Gram as
@@ -1615,7 +1511,6 @@ K_{ab}=G^{h,L}_{ab}+(x_a^Tx_b)G^{p,0}_{ab}
 +\frac{\gamma^2}{L}\sum_{\ell=0}^{L-1}
 G^{h,\ell}_{ab}G^{\beta,\ell}_{ab},\qquad
 \dot f=-\frac2m Kr.
-
 $$ {#eq-docs-continuous-depth-l1602}
 
 To check every factor, the metric kernel is the sum of output-gradient
@@ -1627,8 +1522,7 @@ these terms are the Euclidean Gram matrices of
 $h_a^L/\sqrt n$, $x_a\otimes p_a^0/\sqrt n$, and
 $\gamma h_a^\ell\otimes\beta_a^\ell/(n\sqrt L)$, respectively.
 The tensor identity
-$(u\otimes v)^T(\widetilde u\otimes\widetilde v)
-=(u^T\widetilde u)(v^T\widetilde v)$ follows by summing the two indices.
+$(u\otimes v)^T(\widetilde u\otimes\widetilde v) =(u^T\widetilde u)(v^T\widetilde v)$ follows by summing the two indices.
 Thus $c^TKc$ is a sum of squared norms for every $c\in\mathbb R^m$.
 
 Consequently
@@ -1638,7 +1532,6 @@ $$
 =\frac{\|\dot{\mathbf a}\|_2^2}{n}
 +\frac{\|\dot B\|_F^2}{n}
 +\frac1L\sum_\ell\|\dot W_\ell\|_F^2.
-
 $$ {#eq-docs-continuous-depth-l1625}
 
 These equations have a unique solution for every $t\ge0$, from every
@@ -1651,16 +1544,15 @@ preserves that closed ball of continuous paths and contracts distances by
 $\tau C$. Its iterations are uniformly Cauchy by a geometric-series
 bound and give a unique local solution. Flatten the parameters into
 $\theta=(\mathbf a,B,W_0,\ldots,W_{L-1})$, and let
-$D_{\rm res}$ be the diagonal matrix with entry $n$ on readout and
+$D_{\mathrm{res}}$ be the diagonal matrix with entry $n$ on readout and
 input coordinates and $L$ on every residual-matrix coordinate. Then
-$\|D_{\rm res}^{-1/2}\dot\theta\|_2^2$ is the last expression in
+$\|D_{\mathrm{res}}^{-1/2}\dot\theta\|_2^2$ is the last expression in
 ([-@eq-docs-continuous-depth-l1625]). For $s<t$, Cauchy–Schwarz and ([-@eq-docs-continuous-depth-l1625]) give
 
 $$
-\|D_{\rm res}^{-1/2}(\theta(t)-\theta(s))\|_2
+\|D_{\mathrm{res}}^{-1/2}(\theta(t)-\theta(s))\|_2
 \le\sqrt{(t-s)\,[\mathcal L(s)-\mathcal L(t)]}
 \le\sqrt{(t-s)\mathcal L(0)}.
-
 $$ {#eq-docs-continuous-depth-l1648}
 
 If a maximal interval had finite endpoint, ([-@eq-docs-continuous-depth-l1648]) would give a finite
@@ -1671,15 +1563,14 @@ loss monotonicity alone supplies no eventual fitting conclusion.
 For later bounds put $E_0=\mathcal L(0)$. On $[0,T]$, ([-@eq-docs-continuous-depth-l1648]) gives
 
 $$
-\begin{split}
+\begin{aligned}
 \frac{\|\mathbf a(t)\|_2}{\sqrt n}
 &\le\frac{\|\mathbf a(0)\|_2}{\sqrt n}+\sqrt{TE_0},\qquad
 \frac{\|B(t)\|_F}{\sqrt n}
 \le\frac{\|B(0)\|_F}{\sqrt n}+\sqrt{TE_0},\\
-\frac1L\sum_\ell\|W_\ell(t)\|_{\rm op}
-&\le\frac1L\sum_\ell\|W_\ell(0)\|_{\rm op}+\sqrt{TE_0}.
-\end{split}
-
+\frac1L\sum_\ell\|W_\ell(t)\|_{\mathrm{op}}
+&\le\frac1L\sum_\ell\|W_\ell(0)\|_{\mathrm{op}}+\sqrt{TE_0}.
+\end{aligned}
 $$ {#eq-docs-continuous-depth-l1662}
 
 For the last inequality, bound each operator norm by its Frobenius norm,
@@ -1690,7 +1581,6 @@ $$
 \frac{\|h_a^\ell(t)\|_2}{\sqrt n}
 \le\left(\frac{\|B(0)\|_F}{\sqrt n}+\sqrt{TE_0}\right)\|x_a\|_2
 +|\gamma|.
-
 $$ {#eq-docs-continuous-depth-l1678}
 
 This bound retains the linear input map of ([-@eq-docs-continuous-depth-l1523]).
@@ -1703,7 +1593,7 @@ $\mathsf A_a^\ell=\gamma D_a^\ell W_\ell$. Differentiating the
 forward and adjoint recurrences gives
 
 $$
-\begin{split}
+\begin{aligned}
 v_a^0&=-\frac2m\sum_b r_b(x_b^Tx_a)p_b^0,\\
 v_a^{\ell+1}&=(I+\mathsf A_a^\ell/L)v_a^\ell+F_a^\ell/L,\qquad
 F_a^\ell=-\frac{2\gamma^2}{m}\sum_b
@@ -1711,14 +1601,13 @@ r_bD_a^\ell\beta_b^\ell G^{h,\ell}_{ba},\\
 w_a^L&=-\frac2m\sum_b r_bh_b^L,\\
 w_a^\ell&=(I+(\mathsf A_a^\ell)^T/L)w_a^{\ell+1}+S_a^\ell/L,
 \qquad S_a^\ell=(\dot{\mathsf A}_a^\ell)^Tp_a^{\ell+1}.
-\end{split}
-
+\end{aligned}
 $$ {#eq-docs-continuous-depth-l1694}
 
 The exact backward source is determined without an extra assumption by
 
 $$
-\begin{split}
+\begin{aligned}
 \dot z_a^\ell&=W_\ell v_a^\ell
 -\frac{2\gamma}{m}\sum_b r_b\beta_b^\ell G^{h,\ell}_{ba},\\
 \dot D_a^\ell&=\operatorname{diag}
@@ -1726,16 +1615,14 @@ $$
 \dot{\mathsf A}_a^\ell
 &=\gamma(\dot D_a^\ell W_\ell+D_a^\ell\dot W_\ell),\qquad
 \dot\beta_a^\ell=\dot D_a^\ell p_a^{\ell+1}+D_a^\ell w_a^{\ell+1}.
-\end{split}
-
+\end{aligned}
 $$ {#eq-docs-continuous-depth-l1709}
 
 For example $\dot W_\ell h_a^\ell$ in ([-@eq-docs-continuous-depth-l1591]) is the second term of
 $\dot z_a^\ell$; multiplying it by $\gamma D_a^\ell$ gives
 $F_a^\ell$. The product rule gives every remaining term in
-(14.12)–(14.13), including the transpose in $S$. For any vector family,
-$\dot G^{u,\ell}_{ab}=[(\dot u_a^\ell)^Tu_b^\ell
-+(u_a^\ell)^T\dot u_b^\ell]/n$, so hidden Gram derivatives are also
+([-@eq-docs-continuous-depth-l1694])–([-@eq-docs-continuous-depth-l1709]), including the transpose in $S$. For any vector family,
+$\dot G^{u,\ell}_{ab}=[(\dot u_a^\ell)^Tu_b^\ell +(u_a^\ell)^T\dot u_b^\ell]/n$, so hidden Gram derivatives are also
 determined. These formulas retain both directions of each same dense matrix.
 
 ### 14.4 Chronological products and exact-source tails {#sec-docs-continuous-depth-l1730}
@@ -1746,7 +1633,6 @@ and set
 $$
 P(\ell,b)=(I+\mathsf A^{\ell-1}/L)\cdots(I+\mathsf A^b/L),
 \quad P(b,b)=I.
-
 $$ {#eq-docs-continuous-depth-l1735}
 
 Later-depth matrices stand on the left. Repeated substitution in ([-@eq-docs-continuous-depth-l1694])
@@ -1754,13 +1640,12 @@ gives exactly
 
 $$
 v^\ell=P(\ell,0)v^0+\frac1L\sum_{b<\ell}P(\ell,b+1)F^b.
-
 $$ {#eq-docs-continuous-depth-l1744}
 
 Each degree-$j$ part of $P(\ell,b)$ is the sum
 $L^{-j}\mathsf A^{i_j}\cdots\mathsf A^{i_1}$ over strictly ordered
 indices $b\le i_1<\cdots<i_j<\ell$. With
-$c_i=\|\mathsf A^i\|_{\rm op}/L$, its norm is at most
+$c_i=\|\mathsf A^i\|_{\mathrm{op}}/L$, its norm is at most
 $\sum_{i_1<\cdots<i_j}c_{i_1}\cdots c_{i_j}\le(\sum_i c_i)^j/j!$.
 The last inequality follows by expanding the scalar power: each product
 with distinct indices occurs $j!$ times, and all repeated-index terms
@@ -1779,7 +1664,6 @@ w^{[j],L}=0\quad(j\ge1),\\
 w^{[j],\ell}=w^{[j],\ell+1}
 +L^{-1}(\mathsf A^\ell)^Tw^{[j-1],\ell+1}&(j\ge1).
 \end{array}
-
 $$ {#eq-docs-continuous-depth-l1760}
 
 Thus $v^\ell=\sum_{j=0}^L v^{[j],\ell}$ and
@@ -1793,32 +1677,29 @@ propagator factors, not every matrix or nonlinear factor inside $F,S$.
 For a fixed $T<\infty$, define the actual trajectory bounds
 
 $$
-\begin{split}
+\begin{aligned}
 \Lambda_T&=\sup_{a,t\le T}\frac1L\sum_\ell
-                 \|\mathsf A_a^\ell(t)\|_{\rm op},\\
+                 \|\mathsf A_a^\ell(t)\|_{\mathrm{op}},\\
 B_{v,T}&=\sup_{a,t\le T}\left(
   \frac{\|v_a^0\|_2}{\sqrt n}
   +\frac1L\sum_\ell\frac{\|F_a^\ell\|_2}{\sqrt n}\right),\\
 B_{w,T}&=\sup_{a,t\le T}\left(
   \frac{\|w_a^L\|_2}{\sqrt n}
   +\frac1L\sum_\ell\frac{\|S_a^\ell\|_2}{\sqrt n}\right).
-\end{split}
-
+\end{aligned}
 $$ {#eq-docs-continuous-depth-l1784}
 
 They are finite at fixed $n,L,T$ by global existence and continuity.
-In particular ([-@eq-docs-continuous-depth-l1662]) and $\|D\|_{\rm op}\le1$ give
-$\Lambda_T\le|\gamma|[L^{-1}\sum_\ell\|W_\ell(0)\|_{\rm op}
-+\sqrt{TE_0}]$; ([-@eq-docs-continuous-depth-l1569]) gives
-$\|p_a^\ell\|_2/\sqrt n\le e^{\Lambda_T}
-[\|\mathbf a(0)\|_2/\sqrt n+\sqrt{TE_0}]$.
+In particular ([-@eq-docs-continuous-depth-l1662]) and $\|D\|_{\mathrm{op}}\le1$ give
+$\Lambda_T\le|\gamma|[L^{-1}\sum_\ell\|W_\ell(0)\|_{\mathrm{op}} +\sqrt{TE_0}]$; ([-@eq-docs-continuous-depth-l1569]) gives
+$\|p_a^\ell\|_2/\sqrt n\le e^{\Lambda_T} [\|\mathbf a(0)\|_2/\sqrt n+\sqrt{TE_0}]$.
 For integer $K\ge0$ set
 $R_K(\Lambda)=\sum_{j>K}\Lambda^j/j!$. The ordered-product bound in
 ([-@eq-docs-continuous-depth-l1744]), applied separately to the boundary and every forcing insertion,
 proves
 
 $$
-\begin{split}
+\begin{aligned}
 \sup_{a,\ell,t\le T}
 \frac{\|v_a^\ell-\sum_{j=0}^K v_a^{[j],\ell}\|_2}{\sqrt n}
 &\le B_{v,T}R_K(\Lambda_T),\\
@@ -1826,8 +1707,7 @@ $$
 \frac{\|w_a^\ell-\sum_{j=0}^K w_a^{[j],\ell}\|_2}{\sqrt n}
 &\le B_{w,T}R_K(\Lambda_T),\qquad
 R_K(\Lambda)\le e^\Lambda\frac{\Lambda^{K+1}}{(K+1)!}.
-\end{split}
-
+\end{aligned}
 $$ {#eq-docs-continuous-depth-l1809}
 
 For the backward equation reverse depth and transpose each generator;
@@ -1844,8 +1724,7 @@ Keep the supplied trajectory, generators, and terminal $w^L$ fixed, but
 replace $S$ in the grade-$K$ backward recursion by a source
 $\widetilde S$. Let $\widetilde w_K$ denote the resulting truncated
 sum and put
-$E_{S,T}=\sup_{a,t\le T}L^{-1}\sum_\ell
-\|S_a^\ell-\widetilde S_a^\ell\|_2/\sqrt n$.
+$E_{S,T}=\sup_{a,t\le T}L^{-1}\sum_\ell \|S_a^\ell-\widetilde S_a^\ell\|_2/\sqrt n$.
 Linearity of the source-to-response map and the sum of its degree bounds
 give
 
@@ -1853,7 +1732,6 @@ $$
 \sup_{a,\ell,t\le T}
 \frac{\|w_a^\ell-\widetilde w_{K,a}^\ell\|_2}{\sqrt n}
 \le B_{w,T}R_K(\Lambda_T)+e^{\Lambda_T}E_{S,T}.
-
 $$ {#eq-docs-continuous-depth-l1841}
 
 For clarity, subtract the two truncated recursions with sources
@@ -1873,16 +1751,14 @@ S_a^\ell-\widetilde S_a^\ell
 =\gamma W_\ell^T\left[
 \phi''(z_a^\ell)\odot p_a^{\ell+1}
 \odot W_\ell(v_a^\ell-v_{K,a}^\ell)\right].
-
 $$ {#eq-docs-continuous-depth-l1860}
 
 Consequently $E_{S,T}\le C_T B_{v,T}R_K(\Lambda_T)$, where
 
 $$
 C_T=\sup_{a,t\le T}\frac{|\gamma|}{L}\sum_\ell
-\|W_\ell\|_{\rm op}^2
+\|W_\ell\|_{\mathrm{op}}^2
 \|\phi''(z_a^\ell)\odot p_a^{\ell+1}\|_\infty.
-
 $$ {#eq-docs-continuous-depth-l1870}
 
 Indeed multiply the two operator-norm bounds and the coordinate multiplier
@@ -1918,7 +1794,6 @@ z_a^{(\ell)}=\frac{W_\ell h_a^{(\ell-1)}}n,\qquad
 h_a^{(\ell)}=h_a^{(\ell-1)}+
 \frac{\alpha}{L}\phi(z_a^{(\ell)}),\qquad
 f_{n,a}=\frac{(c^{[n]})^T h_a^{(L)}}n.
-
 $$ {#eq-docs-continuous-depth-l1904}
 
 All $Ln^2$ trunk entries are independent parameter coordinates; no
@@ -1937,7 +1812,6 @@ p_a^{(L)}=c^{[n]},\qquad
 b_a^{(\ell)}=p_a^{(\ell)}\odot\phi'(z_a^{(\ell)}),\qquad
 p_a^{(\ell-1)}=p_a^{(\ell)}+
 \frac{\alpha}{Ln}W_\ell^T b_a^{(\ell)}.
-
 $$ {#eq-docs-continuous-depth-l1924}
 
 Indeed $p_a^{(\ell)}=n\,\partial f_{n,a}/\partial h_a^{(\ell)}$,
@@ -1951,7 +1825,6 @@ $$
 \nabla_{W_\ell}\mathcal E_n
 =\frac{\alpha}{Ln^2}\sum_{a=1}^m
 q_a b_a^{(\ell)}(h_a^{(\ell-1)})^T.
-
 $$ {#eq-docs-continuous-depth-l1936}
 
 Thus mobility $Ln^2$ for every raw matrix gives
@@ -1962,7 +1835,6 @@ q_a b_a^{(\ell)}(h_a^{(\ell-1)})^T,
 \qquad
 \frac{d\mathcal E_n}{dt}
 =-\frac1{Ln^2}\sum_{\ell=1}^L\|\dot W_\ell\|_F^2.
-
 $$ {#eq-docs-continuous-depth-l1948}
 
 These are exact finite identities. In particular, full-batch dissipation
@@ -1973,7 +1845,6 @@ $$
 \left(\frac1{Ln^2}\sum_\ell
 \|W_\ell(t)-W_\ell(0)\|_F^2\right)^{1/2}
 \le\sqrt{t\,[\mathcal E_n(0)-E_*]}.
-
 $$ {#eq-docs-continuous-depth-l1961}
 
 At fixed $n,L$, the right side bounds every parameter displacement
@@ -1999,7 +1870,6 @@ $$
 \left(\int_U|k(u,v)|^2\,dv\right)^{1/2},\qquad
 \chi(k)=\operatorname*{ess\,sup}_{v\in U}
 \left(\int_U|k(u,v)|^2\,du\right)^{1/2}.
-
 $$ {#eq-docs-continuous-depth-l1986}
 
 Let $\mathcal K$ be the space of such kernels, modulo almost-everywhere
@@ -2024,7 +1894,6 @@ $$
 \mathbb H=L^2\bigl((0,1)_s\times U^2\bigr),\qquad
 \|w\|_{\mathbb K}^2=
 \int_0^1[\rho(w(s))^2+\chi(w(s))^2]\,ds.
-
 $$ {#eq-docs-continuous-depth-l2011}
 
 The first space is the **Bochner** $L^2$ space: its elements are
@@ -2052,7 +1921,6 @@ $$
 \|T_k^*g\|_\infty\le\chi(k)\|g\|_2,\qquad
 \|T_k\|_{2\to2}\le\|k\|_{L^2(U^2)}
 \le\min\{\rho(k),\chi(k)\}.
-
 $$ {#eq-docs-continuous-depth-l2039}
 
 Here $T_k^*$ is the actual Hilbert-space adjoint of $T_k$.
@@ -2063,7 +1931,6 @@ $$
 \rho(b\otimes x)=\|b\|_\infty\|x\|_2,
 \qquad
 \chi(b\otimes x)=\|x\|_\infty\|b\|_2.
-
 $$ {#eq-docs-continuous-depth-l2051}
 
 The actions $\mathcal K\times L^\infty\to L^\infty$ in ([-@eq-docs-continuous-depth-l2039])
@@ -2102,7 +1969,6 @@ Z_a(s)&=T_{w(s)}X_a(s),&X_a(0)&=X_a^0,\\
 -\partial_sP_a(s)&=\alpha T_{w(s)}^*B_a(s),&
 B_a(s)&=P_a(s)\phi'(Z_a(s)),&P_a(1)&=c.
 \end{aligned}
-
 $$ {#eq-docs-continuous-depth-l2087}
 
 Products and activations of functions on $U$ are pointwise. Define
@@ -2116,7 +1982,6 @@ $$
 $$
 \mathcal G(w)(s)=\alpha\sum_{a=1}^m
 q_a(w)B_a(s)\otimes X_a(s).
-
 $$ {#eq-docs-continuous-depth-l2105}
 
 The adjoint $P_a$ is residual-free: all loss factors occur in
@@ -2124,14 +1989,14 @@ $q_a$. The training equation is
 
 $$
 \partial_tw(t)=-\mathcal G(w(t)),\qquad w(0)=w_0.
-
 $$ {#eq-docs-continuous-depth-l2114}
 
 ::: {#thm-docs-continuous-depth-l2119}
+
 ## global strong kernel flow
 
 Under the stated assumptions,
-(15.10)--(15.12) have a unique solution
+([-@eq-docs-continuous-depth-l2087])--([-@eq-docs-continuous-depth-l2114]) have a unique solution
 $w\in C^1([0,\infty);\mathbb K)$. For each $w\in\mathbb K$,
 the forward and adjoint depth solutions in ([-@eq-docs-continuous-depth-l2087]) are unique Bochner
 absolutely continuous $L^\infty(U)$-valued curves, with derivatives
@@ -2144,7 +2009,6 @@ D\mathcal E(w)[v]=\langle\mathcal G(w),v\rangle_{\mathbb H}
 \quad(v\in\mathbb K),\qquad
 \frac{d}{dt}\mathcal E(w(t))
 =-\|\partial_tw(t)\|_{\mathbb H}^2.
-
 $$ {#eq-docs-continuous-depth-l2128}
 
 Consequently, for every finite $T$,
@@ -2156,7 +2020,6 @@ $$
 \qquad
 \|w(t)-w_0\|_{\mathbb H}
 \le\sqrt{t\,[\mathcal E(w_0)-E_*]}.
-
 $$ {#eq-docs-continuous-depth-l2138}
 
 The solution can restart uniquely from every point of $\mathbb K$,
@@ -2170,6 +2033,7 @@ $\mathbb H$ alone.
 []{#proof-docs-continuous-depth-l2154}
 
 ::: {.proof}
+
 ## depth existence and estimates
 
 Write
@@ -2183,7 +2047,6 @@ at every depth,
 
 $$
 \|X_a(s)\|_\infty\le C_X.
-
 $$ {#eq-docs-continuous-depth-l2163}
 
 The resulting curve is continuous into $L^\infty$; its integrand is
@@ -2197,7 +2060,6 @@ $$
 \sup_s\|P_a(s)\|_\infty
 \le\|c\|_\infty
 \exp\!\left(\alpha M_1\int_0^1\chi(w(s))\,ds\right).
-
 $$ {#eq-docs-continuous-depth-l2175}
 
 Uniqueness follows from the same integral inequalities and Gronwall.
@@ -2209,7 +2071,6 @@ the depth bound
 $$
 \|Z_a\|_{L^2_sL^\infty_u}
 \le C_X\|\rho(w)\|_{L^2_s}.
-
 $$ {#eq-docs-continuous-depth-l2188}
 
 An essential supremum of $Z_a$ over depth is not required.
@@ -2219,6 +2080,7 @@ An essential supremum of $Z_a$ over depth is not required.
 []{#proof-docs-continuous-depth-l2196}
 
 ::: {.proof}
+
 ## local Lipschitzness in the strong carrier
 
 Fix $A<\infty$
@@ -2231,7 +2093,6 @@ integral equations, applying ([-@eq-docs-continuous-depth-l2039]), and then Gron
 $$
 \sup_s\|X_a(s)-\widetilde X_a(s)\|_\infty
 \le C_A\|d\|_{\mathbb K}.
-
 $$ {#eq-docs-continuous-depth-l2203}
 
 For completeness, the two terms in the integral inequality are
@@ -2245,20 +2106,18 @@ $$
 +\|\rho(w)\|_{L^2_s}
 \sup_s\|X_a-\widetilde X_a\|_\infty
 \le C_A\|d\|_{\mathbb K}.
-
 $$ {#eq-docs-continuous-depth-l2214}
 
 To compare adjoints, expand the difference of their integrands as
 
 $$
-\begin{split}
+\begin{aligned}
 T_w^*B_a-T_{\widetilde w}^*\widetilde B_a
 ={}&T_w^*\bigl(\phi'(Z_a)(P_a-\widetilde P_a)\bigr)\\
 &+T_w^*\bigl(\widetilde P_a
  [\phi'(Z_a)-\phi'(\widetilde Z_a)]\bigr)
 +T_d^*\widetilde B_a.
-\end{split}
-
+\end{aligned}
 $$ {#eq-docs-continuous-depth-l2225}
 
 The first term has $L^\infty$ norm at most
@@ -2272,13 +2131,10 @@ $$
 \sup_s\|P_a-\widetilde P_a\|_\infty
 +\|B_a-\widetilde B_a\|_{L^2_sL^\infty_u}
 \le C_A\|d\|_{\mathbb K}.
-
 $$ {#eq-docs-continuous-depth-l2243}
 
 For the second term in ([-@eq-docs-continuous-depth-l2243]), use
-$B_a-\widetilde B_a
-=\phi'(Z_a)(P_a-\widetilde P_a)
-+\widetilde P_a[\phi'(Z_a)-\phi'(\widetilde Z_a)]$.
+$B_a-\widetilde B_a =\phi'(Z_a)(P_a-\widetilde P_a) +\widetilde P_a[\phi'(Z_a)-\phi'(\widetilde Z_a)]$.
 This estimate uses two square-integrable depth factors in ([-@eq-docs-continuous-depth-l2225]),
 not a bound on the maximum local field over depth.
 
@@ -2295,8 +2151,7 @@ q_aB_a\otimes X_a-\widetilde q_a\widetilde B_a\otimes\widetilde X_a
 +\widetilde q_a\widetilde B_a\otimes(X_a-\widetilde X_a).
 $$
 
-By ([-@eq-docs-continuous-depth-l2051]), $\|b\otimes x\|_{\mathcal K}
-\le\sqrt2\|b\|_\infty\|x\|_\infty$. Applying this inequality
+By ([-@eq-docs-continuous-depth-l2051]), $\|b\otimes x\|_{\mathcal K} \le\sqrt2\|b\|_\infty\|x\|_\infty$. Applying this inequality
 pointwise in depth and then taking its $L^2$ norm, using ([-@eq-docs-continuous-depth-l2163]),
 ([-@eq-docs-continuous-depth-l2175]), ([-@eq-docs-continuous-depth-l2203]), and ([-@eq-docs-continuous-depth-l2243]), proves
 
@@ -2304,7 +2159,6 @@ $$
 \|\mathcal G(w)\|_{\mathbb K}\le C_A,\qquad
 \|\mathcal G(w)-\mathcal G(\widetilde w)\|_{\mathbb K}
 \le C_A\|w-\widetilde w\|_{\mathbb K}.
-
 $$ {#eq-docs-continuous-depth-l2273}
 
 Strong measurability of $\mathcal G(w)(s)$ follows from the
@@ -2326,6 +2180,7 @@ solution on $[0,T_*)$.
 []{#proof-docs-continuous-depth-l2294}
 
 ::: {.proof}
+
 ## differentiation and the exact gradient
 
 Fix $w\in\mathbb K$
@@ -2335,7 +2190,6 @@ forward field is the unique solution of
 $$
 \partial_sY_a=\alpha\phi'(Z_a)
   (T_wY_a+T_vX_a),\qquad Y_a(0)=0.
-
 $$ {#eq-docs-continuous-depth-l2298}
 
 The forward contraction argument, or its linear integral inequality,
@@ -2343,7 +2197,7 @@ shows that $v\mapsto Y_a$ is bounded and linear from $\mathbb K$
 to $C([0,1];L^\infty(U))$. We verify that it is the Fréchet
 derivative, since only a depth $L^2$ bound for the local field is
 available. Let $e_a=X_a(w+v)-X_a(w)$ and
-$\zeta_a=Z_a(w+v)-Z_a(w)$. On a fixed ball, (15.18)--(15.19) give
+$\zeta_a=Z_a(w+v)-Z_a(w)$. On a fixed ball, ([-@eq-docs-continuous-depth-l2203])--([-@eq-docs-continuous-depth-l2214]) give
 $\|e_a\|_{C_sL^\infty_u}=O(\|v\|_{\mathbb K})$ and
 $\|\zeta_a\|_{L^2_sL^\infty_u}=O(\|v\|_{\mathbb K})$.
 Taylor's theorem gives the pointwise remainder
@@ -2388,7 +2242,6 @@ Fubini gives
 $$
 Df_a(w)[v]
 =\alpha\int_0^1\langle B_a(s)\otimes X_a(s),v(s)\rangle_{L^2(U^2)}\,ds.
-
 $$ {#eq-docs-continuous-depth-l2351}
 
 All terms are integrable by the preceding bounds. The finite-dimensional
@@ -2407,6 +2260,7 @@ Cauchy--Schwarz give ([-@eq-docs-continuous-depth-l2138]) on every interval of l
 []{#proof-docs-continuous-depth-l2368}
 
 ::: {.proof}
+
 ## global continuation in the strong carrier
 
 Fix a finite
@@ -2417,10 +2271,9 @@ $$
 D=\mathcal E(w_0)-E_*\ge0,\qquad
 H_T=\|w_0\|_{\mathbb H}+\sqrt{TD},\qquad
 Q=\max_{z\in[-\|c\|_1C_X,\|c\|_1C_X]^m}\max_a|\partial_a\mathcal R(z)|.
-
 $$ {#eq-docs-continuous-depth-l2372}
 
-Equations (15.14)--(15.15) give
+Equations ([-@eq-docs-continuous-depth-l2138])--([-@eq-docs-continuous-depth-l2163]) give
 $\|w(t)\|_{\mathbb H}\le H_T$ and $|q_a(t)|\le Q$.
 Using the $L^2$-operator bound in ([-@eq-docs-continuous-depth-l2039]) in the backward equation,
 and then Gronwall and Cauchy--Schwarz in depth, gives
@@ -2430,7 +2283,6 @@ $$
 \le\|c\|_2
 \exp\!\left(\alpha M_1\int_0^1\|w(s,t)\|_{L^2(U^2)}\,ds\right)
 \le\|c\|_2e^{\alpha M_1H_T}=:P_{2,T}.
-
 $$ {#eq-docs-continuous-depth-l2384}
 
 Set
@@ -2449,7 +2301,6 @@ the triangle inequality for the column seminorm, yields
 
 $$
 C_w(t)\le C_w(0)+A_Tt.
-
 $$ {#eq-docs-continuous-depth-l2406}
 
 Next integrate the backward equation directly in $L^\infty$,
@@ -2461,7 +2312,6 @@ $$
 \alpha M_1P_{2,T}\int_0^1\chi(w(s,t))\,ds
 \le\|c\|_\infty+
 \alpha M_1P_{2,T}[C_w(0)+A_Tt].
-
 $$ {#eq-docs-continuous-depth-l2414}
 
 Finally ([-@eq-docs-continuous-depth-l2051]) gives
@@ -2477,7 +2327,6 @@ Consequently,
 
 $$
 R_w(t)\le R_w(0)+B_{0,T}t+\tfrac12B_{1,T}t^2.
-
 $$ {#eq-docs-continuous-depth-l2434}
 
 Equations ([-@eq-docs-continuous-depth-l2406]) and ([-@eq-docs-continuous-depth-l2434]) bound the full $\mathbb K$ norm on
@@ -2532,7 +2381,7 @@ The integer $P$ counts source modes, not neurons or residual layers.
 
 Fix finite data $(x_a,y_a)_{a=1}^m$, $x_a\in\mathbb R^d$, and
 $\gamma,\sigma_w,A>0$. The input map in this separate residual model
-acts as $W^{\rm in}\cdot x_a$, without an additional input factor;
+acts as $W^{\mathrm{in}}\cdot x_a$, without an additional input factor;
 thus its sample factor below is $x_a^Tx_b$. No normalization or
 orthogonality of these data is imposed. Use half-sum loss
 $\mathcal E=\tfrac12\sum_a(f_a-y_a)^2$, residual $r_a=f_a-y_a$.
@@ -2542,15 +2391,14 @@ $(\varphi_j)_{j=1}^P$ in $L^2(\mu)$, each a polynomial; the
 complete-degree normalized Hermite families are one choice. Let
 $\epsilon\sim\nu=N(0,I_P)$, independent of $\theta$.
 The characteristic state consists of endpoint fields
-$W^{\rm in}(t,\theta)\in\mathbb R^d$,
-$W^{\rm out}(t,\theta)\in\mathbb R$, and learned row coefficients
+$W^{\mathrm{in}}(t,\theta)\in\mathbb R^d$,
+$W^{\mathrm{out}}(t,\theta)\in\mathbb R$, and learned row coefficients
 $c(s,t,\theta,\epsilon)\in\mathbb R^P$. Set
 
 $$
  w=\sigma_w\epsilon+c,\qquad
- W^{\rm in}(0,\theta)=(\theta_1,\ldots,\theta_d),\quad
- W^{\rm out}(0,\theta)=A\theta_{d+1},\quad c(s,0)=0.
-
+ W^{\mathrm{in}}(0,\theta)=(\theta_1,\ldots,\theta_d),\quad
+ W^{\mathrm{out}}(0,\theta)=A\theta_{d+1},\quad c(s,0)=0.
 $$ {#eq-docs-continuous-depth-l2503}
 
 All Gaussian labels are fixed during training. The same $\epsilon$
@@ -2578,27 +2426,25 @@ $$
  H_{ja}(s,t)=\mathbb E_\mu[\varphi_j H_a(s,t)],\qquad
  Z_a=w\cdot H_{\cdot a},\qquad
  \Delta_a=\phi'(Z_a)P_a(s,t,\theta),\quad \phi(z)=\tanh z.
-
 $$ {#eq-docs-continuous-depth-l2531}
 
 The forward and adjoint equations are
 
 $$
  \partial_s H_a=\gamma\mathbb E_\nu[\phi(Z_a)],\qquad
- H_a(0,\theta)=W^{\rm in}\cdot x_a,
+ H_a(0,\theta)=W^{\mathrm{in}}\cdot x_a,
 $$
 
 
 $$
  -\partial_s P_a=\gamma\sum_j\varphi_j(\theta)
                       \mathbb E_{\mu\otimes\nu}[w_j\Delta_a],
- \qquad P_a(1,\theta)=W^{\rm out}(\theta),
+ \qquad P_a(1,\theta)=W^{\mathrm{out}}(\theta),
 $$
 
 
 $$
- f_a=\mathbb E_\mu[W^{\rm out}H_a(1)].
-
+ f_a=\mathbb E_\mu[W^{\mathrm{out}}H_a(1)].
 $$ {#eq-docs-continuous-depth-l2549}
 
 Here $P_a$ is a residual-depth adjoint field, distinct from the mode
@@ -2611,12 +2457,10 @@ $$
  (W_Pu)(\theta,\epsilon)=\sum_jw_j\mathbb E_\mu[\varphi_j u],\qquad
  (W_P^*v)(\theta)=\sum_j\varphi_j(\theta)
                          \mathbb E_{\mu\otimes\nu}[w_jv].
-
 $$ {#eq-docs-continuous-depth-l2560}
 
 Cauchy–Schwarz and orthonormality give
-$\|W_Pu\|_{L^2(\mu\otimes\nu)}\le
-\|w\|_{L^2(\mu\otimes\nu)}\|u\|_{L^2(\mu)}$, and the same bound
+$\|W_Pu\|_{L^2(\mu\otimes\nu)}\le \|w\|_{L^2(\mu\otimes\nu)}\|u\|_{L^2(\mu)}$, and the same bound
 for its adjoint. The forward depth map has Lipschitz coefficient
 $\gamma\|w(s)\|_{L^2}$, and value bounded by $\gamma$ because
 $|\tanh|\le1$. Picard's integral iterates converge on short depth
@@ -2632,9 +2476,8 @@ The training equations in this model are
 
 $$
  \dot c_j=-\gamma\sum_a r_a\Delta_a H_{ja},\qquad
- \dot W^{\rm in}=-\sum_a r_a P_a(0)x_a,\qquad
- \dot W^{\rm out}=-\sum_a r_a H_a(1).
-
+ \dot W^{\mathrm{in}}=-\sum_a r_a P_a(0)x_a,\qquad
+ \dot W^{\mathrm{out}}=-\sum_a r_a H_a(1).
 $$ {#eq-docs-continuous-depth-l2583}
 
 The state and fixed data determine the right-hand side; no external curve
@@ -2651,7 +2494,6 @@ $$
  =\sum_j\mathbb E_\mu[\varphi_j u]
                     \mathbb E_{\mu\otimes\nu}[w_jv]
  =\mathbb E_\mu[uW_P^*v].
-
 $$ {#eq-docs-continuous-depth-l2599}
 
 Both directions use the same current coefficients. At initialization,
@@ -2662,7 +2504,6 @@ $$
  W_P^*g(W_Pu)=\sigma_w^2\Pi_Pu\,
       \mathbb E_\nu[g'(\sigma_w\epsilon\cdot H[u])],
  \qquad H[u]_j=\mathbb E_\mu[\varphi_j u].
-
 $$ {#eq-docs-continuous-depth-l2611}
 
 The boundary term vanishes by Gaussian decay. This identity is an
@@ -2670,19 +2511,17 @@ initial-law statement; training does not preserve Gaussian row laws.
 
 For a smooth compactly supported test $\chi:\mathbb R^P\to\mathbb R$,
 the characteristic chain rule yields
-$\partial_t\int\chi\,d\rho_{s,t}^\theta
-=\int\nabla\chi\cdot V\,d\rho_{s,t}^\theta$, where
+$\partial_t\int\chi\,d\rho_{s,t}^\theta =\int\nabla\chi\cdot V\,d\rho_{s,t}^\theta$, where
 $V_j=-\gamma\sum_a r_a\phi'(w\cdot H_{\cdot a})P_a H_{ja}$.
 Domination justifies differentiation under the integral. This is precisely
 the distributional conditional transport equation
 
 $$
  \partial_t\rho_{s,t}^\theta+\nabla_w\cdot(\rho_{s,t}^\theta V)=0.
-
 $$ {#eq-docs-continuous-depth-l2629}
 
 To derive the gradient, vary the current state by
-$(\delta W^{\rm in},\delta W^{\rm out},\delta c)$.
+$(\delta W^{\mathrm{in}},\delta W^{\mathrm{out}},\delta c)$.
 Differentiation of the forward equation gives
 
 $$
@@ -2698,11 +2537,10 @@ by ([-@eq-docs-continuous-depth-l2549]) and ([-@eq-docs-continuous-depth-l2599])
 variation
 
 $$
- \delta f_a=\mathbb E_\mu[H_a(1)\delta W^{\rm out}]
- +\mathbb E_\mu[P_a(0)x_a\cdot\delta W^{\rm in}]
+ \delta f_a=\mathbb E_\mu[H_a(1)\delta W^{\mathrm{out}}]
+ +\mathbb E_\mu[P_a(0)x_a\cdot\delta W^{\mathrm{in}}]
  +\gamma\int_0^1\mathbb E_{\mu\otimes\nu}
        [\Delta_a H_{\cdot a}\cdot\delta c]ds.
-
 $$ {#eq-docs-continuous-depth-l2650}
 
 Every exchange is justified by the stated polynomial domination. For
@@ -2716,8 +2554,8 @@ In the product characteristic metric
 
 $$
  \|\delta\Theta\|_{\mathcal X}^2=
- \mathbb E_\mu|\delta W^{\rm in}|^2+
- \mathbb E_\mu|\delta W^{\rm out}|^2+
+ \mathbb E_\mu|\delta W^{\mathrm{in}}|^2+
+ \mathbb E_\mu|\delta W^{\mathrm{out}}|^2+
  \int_0^1\mathbb E_{\mu\otimes\nu}|\delta c|^2ds,
 $$
 
@@ -2735,7 +2573,6 @@ $$
  +(x_a^Tx_b)\mathbb E_\mu[P_a(0)P_b(0)]
  +\gamma^2\int_0^1\left(\sum_j H_{ja}H_{jb}\right)
                   \mathbb E_{\mu\otimes\nu}[\Delta_a\Delta_b]ds.
-
 $$ {#eq-docs-continuous-depth-l2681}
 
 For any real coefficients $v_a$, the three quadratic forms are the
@@ -2746,7 +2583,6 @@ last integrated over depth. Hence $K\succeq0$ and
 
 $$
  -\dot{\mathcal E}=r^TKr=\|\dot\Theta\|_{\mathcal X}^2.
-
 $$ {#eq-docs-continuous-depth-l2695}
 
 Cauchy–Schwarz now gives displacement at most
@@ -2774,10 +2610,9 @@ multivariate formula; normalization leaves it unchanged.
 The conditional equations are equivariant under
 
 $$
- (W^{\rm in},W^{\rm out},\rho^\theta)
- \mapsto(-W^{\rm in}(-\theta),-W^{\rm out}(-\theta),
+ (W^{\mathrm{in}},W^{\mathrm{out}},\rho^\theta)
+ \mapsto(-W^{\mathrm{in}}(-\theta),-W^{\mathrm{out}}(-\theta),
                        J_\#\rho^{-\theta}).
-
 $$ {#eq-docs-continuous-depth-l2724}
 
 Indeed the transformed forward field is $-H_a(-\theta)$, so its
@@ -2786,7 +2621,7 @@ the preactivation changes sign. Oddness of $\tanh$ and evenness of
 its derivative then transform $P_a,\Delta_a$ into their negatives
 at $-\theta$. In the adjoint expression the extra coefficient signs
 combine with $\varphi_j(-\theta)=J_{jj}\varphi_j(\theta)$, giving
-the transformed depth equation. The product $W^{\rm out}H_a(1)$
+the transformed depth equation. The product $W^{\mathrm{out}}H_a(1)$
 is invariant after the change of variable $\theta\mapsto-\theta$,
 so predictions and residuals are unchanged for arbitrary labels. Finally
 $-\gamma\sum_a r_a\Delta_a H_{ja}$ transforms to $J_{jj}$

@@ -33,7 +33,6 @@ z^{(1)}=W^{(1)},\qquad z^{(2)}=W^{(2)}z^{(1)},\qquad
 z^{(3)}=W^{(3)}z^{(2)},\qquad
 f_n=\frac{(W^{(4)})^Tz^{(3)}}n,\qquad
 r_n=f_n-y,\qquad \mathcal L_n=r_n^2.
-
 $$ {#eq-docs-linear-dynamics-l31}
 
 At initialization, the endpoint entries $W^{(1)}_i,W^{(4)}_i$ are
@@ -53,7 +52,6 @@ $$
  W^{(4)}(W^{(2)}W^{(1)})^T,\\
 \dot W^{(4)}&=-2\kappa r_nW^{(3)}W^{(2)}W^{(1)}.
 \end{aligned}
-
 $$ {#eq-docs-linear-dynamics-l47}
 
 Exact simultaneous GD replaces these derivatives by increments divided by
@@ -66,7 +64,6 @@ Introduce the normalized proof embeddings and middle-factor aliases
 $$
 u_n=W^{(1)}/\sqrt n,\qquad v_n=W^{(4)}/\sqrt n,\qquad
 B_n=W^{(2)},\qquad R_n=W^{(3)}.
-
 $$ {#eq-docs-linear-dynamics-l66}
 
 Thus $f_n=v_n^TR_nB_nu_n$, and every entry of these four proof factors
@@ -81,7 +78,6 @@ K_n={}&\|R_nB_nu_n\|^2+
  \|R_n^Tv_n\|^2\|u_n\|^2+
  \|B_n^TR_n^Tv_n\|^2.
 \end{aligned}
-
 $$ {#eq-docs-linear-dynamics-l77}
 
 The common mobility $\kappa$ is outside $K_n$. For example its first
@@ -89,6 +85,7 @@ term is $\|z^{(3)}\|_2^2/n$, and its second term is
 $\|W^{(4)}\|_2^2\|z^{(2)}\|_2^2/n^2$.
 
 ::: {#thm-docs-linear-dynamics-l91}
+
 ## global population and joint limit
 
 There are a fixed real
@@ -104,7 +101,6 @@ f(t)=\tfrac14\operatorname{Tr}\mathcal C(t)^4,\qquad r(t)=f(t)-y,\\
 K(t)=\operatorname{Tr}[\mathcal C(t)^3(\mathcal C(t)^*)^3],\qquad
 \mathcal L(t)=r(t)^2.
 \end{gathered}
-
 $$ {#eq-docs-linear-dynamics-l96}
 
 Here $f(0)=0$, $r(0)=-y$, and $K(0)=4$. The solution is
@@ -115,7 +111,6 @@ $$
 \dot r=-2\kappa rK,\qquad
 \dot{\mathcal L}=-4\kappa\mathcal L K,\qquad
 \|Q(t)\|_1\le2|y|\sqrt{\kappa t}.
-
 $$ {#eq-docs-linear-dynamics-l111}
 
 For every fixed $T<\infty$, finite gradient flow obeys
@@ -125,7 +120,6 @@ $$
 \bigl(|f_n(t)-f(t)|+|K_n(t)-K(t)|+
  |\mathcal L_n(t)-\mathcal L(t)|\bigr)
 \xrightarrow{\mathbb P}0.
-
 $$ {#eq-docs-linear-dynamics-l120}
 
 The same conclusion holds for recomputed readouts of exact GD for **every**
@@ -163,7 +157,6 @@ $$
 \mathscr DB=(R^Tv)u^T,\qquad
 \mathscr DR=v(Bu)^T,\qquad
 \mathscr Dv=RBu.
-
 $$ {#eq-docs-linear-dynamics-l156}
 
 The physical derivation is $-2\kappa r\mathscr D$. The feature
@@ -179,7 +172,6 @@ u&0&0&0\\
 0&B&0&0\\
 0&0&R&0
 \end{pmatrix}.
-
 $$ {#eq-docs-linear-dynamics-l169}
 
 Multiplication of the four blocks gives
@@ -188,7 +180,6 @@ $$
 \mathscr D\mathcal C_n=(\mathcal C_n^T)^3,\qquad
 \operatorname{rank}\mathcal C_n^3\le4,\qquad
 f_n=\tfrac14\operatorname{Tr}\mathcal C_n^4,
-
 $$ {#eq-docs-linear-dynamics-l182}
 
 $$
@@ -196,7 +187,6 @@ $$
 \qquad
 \dot f_n=-2\kappa r_nK_n,\qquad
 \dot{\mathcal L}_n=-4\kappa r_n^2K_n.
-
 $$ {#eq-docs-linear-dynamics-l189}
 
 Indeed, each of the four length-three paths crosses an endpoint block of
@@ -210,7 +200,6 @@ For the source construction, use the real full word Hilbert space
 $$
 \mathcal F=\mathbb R\Omega\oplus
  \bigoplus_{j\ge1}(\mathbb R^6)^{\otimes j}.
-
 $$ {#eq-docs-linear-dynamics-l205}
 
 Its orthonormal basis consists of finite words in six letters, including
@@ -221,7 +210,6 @@ otherwise. Define
 $$
 b_2=\ell_1+\ell_2^*,\qquad b_3=\ell_3+\ell_4^*,\qquad
 \xi_u=\ell_5\Omega,\qquad \xi_v=\ell_6\Omega.
-
 $$ {#eq-docs-linear-dynamics-l216}
 
 Every operator here has real matrix entries, and $\|b_2\|,\|b_3\|\le2$.
@@ -233,13 +221,13 @@ $$
 \langle\xi_u,P\xi_u\rangle=\langle\xi_v,P\xi_v\rangle
  =\langle\Omega,P\Omega\rangle,\qquad
 \langle\xi_v,P\xi_u\rangle=0.
-
 $$ {#eq-docs-linear-dynamics-l227}
 
 This is the colored Fock source, given explicitly without an additional
 probabilistic representation theorem.
 
 ::: {#lem-docs-linear-dynamics-l237}
+
 ## Gaussian fixed words and rooted Gram matrices
 
 For the
@@ -250,7 +238,6 @@ $$
 \langle P_i(B_n,R_n)g_{\alpha,n},
  P_j(B_n,R_n)g_{\beta,n}\rangle,
 \qquad g_{u,n}=u_n,\quad g_{v,n}=v_n,
-
 $$ {#eq-docs-linear-dynamics-l241}
 
 where words may contain transposes, converges in probability to the
@@ -260,7 +247,6 @@ such that
 
 $$
 \mathbb P\{\|B_n\|+\|R_n\|+\|u_n\|+\|v_n\|\le M_0\}\longrightarrow1.
-
 $$ {#eq-docs-linear-dynamics-l253}
 
 :::
@@ -314,7 +300,6 @@ pairings, so this bound proves
 $$
 \frac1n\operatorname{Tr}P(B_n,R_n)
 \xrightarrow{L^2}\langle\Omega,P(b_2,b_3)\Omega\rangle.
-
 $$ {#eq-docs-linear-dynamics-l301}
 
 The needed operator-norm bound is elementary. A maximal $1/4$-separated
@@ -327,7 +312,6 @@ The exponential-moment bound for a Gaussian and a union bound imply
 
 $$
 \mathbb P\{\|G\|>12\}\le2\,81^ne^{-18n}\longrightarrow0.
-
 $$ {#eq-docs-linear-dynamics-l315}
 
 For a normalized Gaussian vector, its squared norm has mean one and
@@ -342,7 +326,6 @@ $$
 \operatorname{Var}(g^TTg\mid T)&\le2\|T\|^2/n,\\
 \mathbb E[|g^TTh|^2\mid T]&\le\|T\|^2/n.
 \end{aligned}
-
 $$ {#eq-docs-linear-dynamics-l326}
 
 For the second bound use the symmetric part of $T$ and
@@ -368,7 +351,6 @@ $$
 0&b_2&0&0\\
 0&0&b_3&0
 \end{pmatrix}.
-
 $$ {#eq-docs-linear-dynamics-l346}
 
 Here the middle maps act between the indicated copies, and the endpoint
@@ -379,7 +361,6 @@ $$
 \operatorname{rank}\mathcal C_0^3\le4,\qquad
 \tfrac14\operatorname{Tr}\mathcal C_0^4=0,\qquad
 \|\mathcal C_0^{*3}\|_{\mathrm{HS}}^2=4.
-
 $$ {#eq-docs-linear-dynamics-l363}
 
 For the last equality, the four squared block norms are
@@ -404,7 +385,6 @@ A compact operator $T:H\to K$ has an expansion
 $$
  T=\sum_{j\ge1}s_j u_j\otimes v_j,
  \qquad s_1\ge s_2\ge\cdots>0,
-
 $$ {#eq-docs-linear-dynamics-l387}
 
 with orthonormal vector lists and operator-norm convergence; the list can
@@ -435,6 +415,7 @@ Also $\|T\|_{\mathrm{HS}}=(\sum_j s_j(T)^2)^{1/2}\le\|T\|_1$.
 []{#proof-docs-linear-dynamics-l411}
 
 ::: {.proof}
+
 ## of the singular expansion
 
 A bounded sequence in a separable
@@ -616,7 +597,6 @@ $$
 \|ATB\|_1\le\|A\|\|T\|_1\|B\|,\qquad
 \|T\|_{\mathrm{HS}}\le\|T\|_1,\qquad
 |\operatorname{Tr}T|\le\|T\|_1.
-
 $$ {#eq-docs-linear-dynamics-l572}
 
 For example, expand $T$ into its singular-value rank-one series and
@@ -634,7 +614,6 @@ most four. The vector field
 $$
 V(Q)=-2\kappa\left[\tfrac14\operatorname{Tr}
  (\mathcal C_0+Q)^4-y\right](\mathcal C_0^*+Q^*)^3
-
 $$ {#eq-docs-linear-dynamics-l591}
 
 maps $\mathcal E$ into itself. The cubic has the required cyclic block
@@ -652,14 +631,12 @@ $$
 |f(Q)-f(\widetilde Q)|&\le A^3\|Q-\widetilde Q\|_1,\\
 |K(Q)-K(\widetilde Q)|&\le12A^5\|Q-\widetilde Q\|_1.
 \end{aligned}
-
 $$ {#eq-docs-linear-dynamics-l605}
 
 The first inequality uses, without commutation,
 $A_1^3-A_2^3=A_1^2(A_1-A_2)+A_1(A_1-A_2)A_2+(A_1-A_2)A_2^2$.
 For the last inequality use
-$|\|S\|_{\mathrm{HS}}^2-\|T\|_{\mathrm{HS}}^2|
-\le(\|S\|_{\mathrm{HS}}+\|T\|_{\mathrm{HS}})\|S-T\|_{\mathrm{HS}}$
+$|\|S\|_{\mathrm{HS}}^2-\|T\|_{\mathrm{HS}}^2| \le(\|S\|_{\mathrm{HS}}+\|T\|_{\mathrm{HS}})\|S-T\|_{\mathrm{HS}}$
 and $\|\mathcal C^{*3}\|_{\mathrm{HS}}\le2A^3$.
 Also $|f|\le A^4$, $K\le4A^6$, and
 $\|\mathcal C^{*3}\|_1\le4A^3$. Thus $V$ is bounded and Lipschitz
@@ -680,7 +657,6 @@ $$
 \dot f=\operatorname{Tr}(\mathcal C^3\dot Q)
  =-2\kappa r\operatorname{Tr}[\mathcal C^3(\mathcal C^*)^3]
  =-2\kappa rK.
-
 $$ {#eq-docs-linear-dynamics-l636}
 
 All differentiated terms contain the trace-class factor $\dot Q$, so
@@ -690,7 +666,6 @@ on every existence interval
 $$
 r(t)=r(0)\exp\!\left(-2\kappa\int_0^tK(s)\,ds\right),\qquad
 \int_0^T r(t)^2K(t)\,dt\le\frac{r(0)^2}{4\kappa}.
-
 $$ {#eq-docs-linear-dynamics-l647}
 
 Using the rank-four trace bound and Cauchy--Schwarz in time,
@@ -703,7 +678,6 @@ $$
  \left(\int_0^T r^2K\,dt\right)^{1/2}
 \le2|r(0)|\sqrt{\kappa T}.
 \end{aligned}
-
 $$ {#eq-docs-linear-dynamics-l655}
 
 For the prescribed initialization $r(0)=-y$, this is ([-@eq-docs-linear-dynamics-l111]). A finite
@@ -732,6 +706,7 @@ convergent Hilbert-space summation; its definition does not require
 pointwise absolute summability of arbitrary matrix products.
 
 ::: {#cor-docs-linear-dynamics-l691}
+
 ## fitting
 
 The fitting assertion of @thm-docs-linear-dynamics-l91 holds using
@@ -747,7 +722,6 @@ In $\mathcal F_2$, put
 $$
 z=Bu,\qquad p=R^*v,\qquad
 A=BB^*+\|u\|^2I,\qquad M=R^*R+\|v\|^2I.
-
 $$ {#eq-docs-linear-dynamics-l696}
 
 Here $z,p$ are auxiliary Hilbert vectors. The product rule in ([-@eq-docs-linear-dynamics-l156])
@@ -756,7 +730,6 @@ gives $\mathscr Dz=Ap$, $\mathscr Dp=Mz$, and hence
 $$
 f=\langle z,p\rangle,\qquad
 K=\langle p,Ap\rangle+\langle z,Mz\rangle.
-
 $$ {#eq-docs-linear-dynamics-l705}
 
 Both endpoint squared norms start at one, and their physical derivatives
@@ -766,7 +739,6 @@ squared norm $q(t)$ therefore satisfies $q(t)\ge1$, and
 
 $$
 K\ge q(\|z\|^2+\|p\|^2)\ge2|\langle z,p\rangle|=2|f|.
-
 $$ {#eq-docs-linear-dynamics-l716}
 
 The middle inequality is Cauchy--Schwarz followed by
@@ -777,7 +749,6 @@ Formula ([-@eq-docs-linear-dynamics-l647]) makes $|f(t)|$ nondecreasing. Thus, f
 $$
 |r(t)|\le |r(t_1)|
  \exp[-4\kappa|f(t_1)|(t-t_1)].
-
 $$ {#eq-docs-linear-dynamics-l726}
 
 This proves fitting and loss decay. If $y=0$, then $V(0)=0$;
@@ -800,7 +771,6 @@ $\|\mathcal C_{0,n}\|\le M_0$ and $|f_n(0)|\le1$. On this event,
 $$
 \|Q_n(t)\|_1,\ \|Q(t)\|_1\le
 R_T:=2(|y|+1)\sqrt{\kappa(T+1)}.
-
 $$ {#eq-docs-linear-dynamics-l747}
 
 Choose a Lipschitz function $\chi:[0,\infty)\to[0,1]$ equal to one
@@ -811,7 +781,6 @@ $[R_T+1,R_T+2]$, and zero thereafter. In every dimension use the
 $$
 \widetilde V_n(Q)=\chi(\|Q\|_1)V_n(Q),
 \qquad \widetilde V(Q)=\chi(\|Q\|_1)V(Q).
-
 $$ {#eq-docs-linear-dynamics-l758}
 
 The radius is strictly larger than the energy bound. The estimates ([-@eq-docs-linear-dynamics-l605])
@@ -830,7 +799,6 @@ a finite sum
 $$
 Q_n^{[j]}(t)=\sum_{a,b=1}^{N_j}c_{ab,n}^{[j]}(t)
  |w_{a,n}\rangle\langle w_{b,n}|,
-
 $$ {#eq-docs-linear-dynamics-l777}
 
 with a word list independent of $n,t$. Include the unit vector in the
@@ -852,7 +820,6 @@ root shows that the nonzero singular values of $A_*$ are those of
 
 $$
 G_u^{1/2}(c_{ab})G_v^{1/2}.
-
 $$ {#eq-docs-linear-dynamics-l800}
 
 The coefficient matrix in ([-@eq-docs-linear-dynamics-l800]) acts between the supports of the two Gram
@@ -883,7 +850,6 @@ approximation for a bounded $H_T$-Lipschitz field is
 $$
 \sup_{t\le T}\|Q(t)-Q^{[j]}(t)\|_1
 \le M_TT e^{H_TT}\frac{(H_TT)^j}{(j+1)!}.
-
 $$ {#eq-docs-linear-dynamics-l830}
 
 The first Picard increment has norm at most $M_Tt$. Induction bounds
@@ -913,7 +879,6 @@ Q_{n,k+1}&=Q_{n,k}-2\kappa\eta_n r_{n,k}
  (\mathcal C_{0,n}^T+Q_{n,k}^T)^3,\\
 r_{n,k}&=\tfrac14\operatorname{Tr}(\mathcal C_{0,n}+Q_{n,k})^4-y.
 \end{aligned}
-
 $$ {#eq-docs-linear-dynamics-l857}
 
 This is Euler for $Q$ alone. The residual is recomputed from the new
@@ -928,12 +893,10 @@ solution has one-step defect at most
 $$
 \left\|Q(t+h)-Q(t)-h\widetilde V_n(Q(t))\right\|_1
 \le\tfrac12H_TM_Th^2.
-
 $$ {#eq-docs-linear-dynamics-l875}
 
 This follows by integrating
-$\|\widetilde V_n(Q(t+s))-\widetilde V_n(Q(t))\|_1
-\le H_TM_Ts$. The nodal error of Euler with the same initial state
+$\|\widetilde V_n(Q(t+s))-\widetilde V_n(Q(t))\|_1 \le H_TM_Ts$. The nodal error of Euler with the same initial state
 satisfies
 $E_{k+1}\le(1+H_Th)E_k+\tfrac12H_TM_Th^2$. Summing the geometric
 series yields
@@ -941,7 +904,6 @@ series yields
 $$
 \max_{kh\le T+1}E_k
 \le\tfrac12M_T(e^{H_T(T+1)}-1)h.
-
 $$ {#eq-docs-linear-dynamics-l888}
 
 The case $H_T=0$ follows directly with zero nodal error. Linear
@@ -969,7 +931,6 @@ physical derivations are
 $$
 \mathscr D_n\text{ as in (2.1)},\qquad
 \mathscr X_n=-2\kappa(f_n-y)\mathscr D_n.
-
 $$ {#eq-docs-linear-dynamics-l916}
 
 A typed complete-contraction graph is a scalar tensor network made from
@@ -983,7 +944,6 @@ value one, and multiplication is disjoint union:
 
 $$
 P_G^{(n)}P_H^{(n)}=P_{G\sqcup H}^{(n)}.
-
 $$ {#eq-docs-linear-dynamics-l931}
 
 For each fixed $D$, there are finitely many such graphs of degree at
@@ -1003,7 +963,6 @@ $$
 U_{\alpha,n}(\zeta;\theta)
  =\sum_{G\in\mathcal G_D}c_{\alpha,G,n}(\zeta)P_G^{(n)}(\theta),
 \qquad 1\le\alpha\le q,
-
 $$ {#eq-docs-linear-dynamics-l949}
 
 where the coefficient functions are smooth and may depend on $n$.
@@ -1023,14 +982,12 @@ $$
  =F_\alpha\!\left(\zeta,
  (\partial_\zeta^\beta U_{\gamma,n}(\zeta;\theta))_
  {1\le\gamma\le q,\ |\beta|\le\sigma}\right),
-
 $$ {#eq-docs-linear-dynamics-l968}
 
 $$
 f_n(\theta)=G\!\left(
  (\partial_\zeta^\beta U_{\alpha,n}(\zeta_j;\theta))_
  {\alpha,j,\ |\beta|\le\rho}\right).
-
 $$ {#eq-docs-linear-dynamics-l976}
 
 The expressions $F_\alpha,G$ are independent of width and state. The
@@ -1050,10 +1007,11 @@ because of the empty-graph term. Smoothness here includes the mixed
 derivatives used in finite prolongations.
 
 ::: {#thm-docs-linear-dynamics-l999}
+
 ## restricted scalar and PDE nonclosure
 
 No encoder and
-closure satisfying (5.3)--(5.5) exists for $\mathscr D_n$, either in
+closure satisfying ([-@eq-docs-linear-dynamics-l949])--([-@eq-docs-linear-dynamics-l976]) exists for $\mathscr D_n$, either in
 the polynomial open-state class or in the analytic zero-neighborhood
 class just specified. The same assertions hold for $\mathscr X_n$,
 for every fixed $y\in\mathbb R$ and $\kappa>0$, including $y=0$.
@@ -1076,6 +1034,7 @@ Gaussian-initialized trajectory.
 ## 6. Graph independence and the nonclosure proof {#sec-docs-linear-dynamics-l1018}
 
 ::: {#lem-docs-linear-dynamics-l1020}
+
 ## stable independence
 
 Every fixed finite family of pairwise
@@ -1098,7 +1057,6 @@ index assignments by their equality relation gives
 
 $$
 P_G^{(n)}=\sum_\pi I_{G/\pi}^{(n)}.
-
 $$ {#eq-docs-linear-dynamics-l1033}
 
 The quotient may have index valence greater than two; this is precisely
@@ -1130,7 +1088,6 @@ To produce contractions of unbounded connected complexity, set
 
 $$
 A=RB,\qquad H=A^TA=B^TR^TRB.
-
 $$ {#eq-docs-linear-dynamics-l1063}
 
 Retain only endpoint differentiation in the feature derivation:
@@ -1140,7 +1097,6 @@ $\mathscr D_{0,n}A=0$. For $j\ge0$, put
 $$
 U_j=v^TAH^ju,\qquad X_j=u^TH^{j+1}u,\qquad
 Y_j=v^T(AA^T)^{j+1}v.
-
 $$ {#eq-docs-linear-dynamics-l1072}
 
 These $U_j$ are scalar auxiliary contractions, distinct from the
@@ -1151,7 +1107,6 @@ $(AA^T)^{j+1}A=AH^{j+1}$ give, by differentiating the two endpoints,
 $$
 \mathscr D_{0,n}U_j=X_j+Y_j,\qquad
 \mathscr D_{0,n}X_j=\mathscr D_{0,n}Y_j=2U_{j+1}.
-
 $$ {#eq-docs-linear-dynamics-l1083}
 
 Since $U_0=f_n$, induction yields, for every integer $j\ge1$,
@@ -1159,7 +1114,6 @@ Since $U_0=f_n$, induction yields, for every integer $j\ge1$,
 $$
 \mathscr D_{0,n}^{2j-1}f_n
  =4^{j-1}\bigl[u^TH^ju+v^T(AA^T)^jv\bigr].
-
 $$ {#eq-docs-linear-dynamics-l1091}
 
 Every tensor replacement in the full feature field ([-@eq-docs-linear-dynamics-l156]) is a sum of
@@ -1172,7 +1126,6 @@ $$
 \mathscr D_n^{2j-1}f_n\quad\text{has coefficient at least }4^{j-1}
 \text{ on }\quad
 \Gamma_j=u^T(B^TR^TRB)^ju.
-
 $$ {#eq-docs-linear-dynamics-l1103}
 
 Here $\Gamma_j$ also denotes its graph. It is a connected path of
@@ -1185,7 +1138,6 @@ $$
 \mathcal A_{\mathcal S}^{(n)}
  =\operatorname{span}\{P_H^{(n)}:
  \text{every connected component of }H\text{ lies in }\mathcal S\}.
-
 $$ {#eq-docs-linear-dynamics-l1116}
 
 This is a unital algebra by ([-@eq-docs-linear-dynamics-l931]). Every spatial derivative of ([-@eq-docs-linear-dynamics-l949]), of
@@ -1203,7 +1155,6 @@ D_i^{\mathrm{tot}}=\frac{\partial}{\partial\zeta_i}
  +\sum_{\alpha,\beta}u_{\alpha,\beta+e_i}
    \frac{\partial}{\partial u_{\alpha,\beta}},\qquad
 D_{\mathrm{tot}}^\beta=\prod_i(D_i^{\mathrm{tot}})^{\beta_i}.
-
 $$ {#eq-docs-linear-dynamics-l1133}
 
 Here $e_i$ is the spatial multi-index unit vector. Each expression
@@ -1215,7 +1166,6 @@ $$
 \mathbf T_FJ=\sum_{j,\alpha,\beta}
  \frac{\partial J}{\partial u_{\alpha,\beta}^{(j)}}
  (D_{\mathrm{tot}}^\beta F_\alpha)(\zeta_j,u^{(j)}).
-
 $$ {#eq-docs-linear-dynamics-l1146}
 
 The state derivation and spatial derivatives commute because they act on
@@ -1225,7 +1175,6 @@ $$
 \mathscr Y_nJ(j^\infty U_n)
  =(\mathbf T_FJ)(j^\infty U_n),\qquad
 \mathscr Y_n^kf_n=(\mathbf T_F^kG)(j^\infty U_n).
-
 $$ {#eq-docs-linear-dynamics-l1156}
 
 The symbol $j^\infty U_n$ means substitution of the entire spatial jet;
@@ -1254,7 +1203,6 @@ $\lambda$ and recenter each field jet at its actual zero-state value:
 $$
 \partial^\beta U_{\alpha,n}(\zeta;\lambda\theta)
  -\partial^\beta U_{\alpha,n}(\zeta;0).
-
 $$ {#eq-docs-linear-dynamics-l1186}
 
 Every nonzero centered jet has positive $\lambda$-order. At any fixed
@@ -1276,7 +1224,6 @@ For physical flow with $y\ne0$, decompose
 
 $$
 \mathscr X_n=2\kappa y\mathscr D_n-2\kappa f_n\mathscr D_n.
-
 $$ {#eq-docs-linear-dynamics-l1209}
 
 The first summand raises tensor degree by two and the second by six.
@@ -1285,7 +1232,6 @@ $\mathscr X_n^kf_n$ is exactly
 
 $$
 (2\kappa y)^k\mathscr D_n^kf_n.
-
 $$ {#eq-docs-linear-dynamics-l1218}
 
 Choosing $k=2j-1$ again gives a nonzero $\Gamma_j$ coefficient in
@@ -1297,7 +1243,6 @@ For $y=0$, define homogeneous polynomials $P_k$ by
 $$
 \mathscr X_n^kf_n=(-2\kappa)^kP_k,\qquad
 P_0=f_n,\qquad P_{k+1}=f_n\mathscr D_nP_k.
-
 $$ {#eq-docs-linear-dynamics-l1229}
 
 Every graph coefficient in $P_k$ is nonnegative. Induction shows it
@@ -1324,7 +1269,6 @@ $s=0$ of the output profile of a current state by
 
 $$
 E_n(\theta)(s)=f_n(\Phi_n^s\theta).
-
 $$ {#eq-docs-linear-dynamics-l1257}
 
 The flow property gives, wherever the times are defined,
@@ -1333,7 +1277,6 @@ $$
 U_n(\tau,s)=E_n(\Phi_n^\tau\theta)(s)=f_n(\Phi_n^{\tau+s}\theta),\qquad
 \partial_\tau U_n=\partial_sU_n,\qquad
 U_n(\tau,0)=f_n(\Phi_n^\tau\theta).
-
 $$ {#eq-docs-linear-dynamics-l1264}
 
 There is a common local interval on a common operator-norm neighborhood,
@@ -1348,7 +1291,6 @@ state-universal local output realization. Repeated chain rules give
 
 $$
 \partial_s^kE_n(\theta)(0)=\mathscr D_n^kf_n(\theta).
-
 $$ {#eq-docs-linear-dynamics-l1281}
 
 Its $(2j-1)$-st jet contains $\Gamma_j$. It cannot satisfy ([-@eq-docs-linear-dynamics-l949]),
@@ -1363,7 +1305,6 @@ states, proved by ([-@eq-docs-linear-dynamics-l655]). Define
 $$
 \widehat E_n(\theta)(s)=f_n(\Psi_n^s\theta),\quad s\ge0,\qquad
 (S_tu)(s)=u(s+t).
-
 $$ {#eq-docs-linear-dynamics-l1295}
 
 On $C([0,\infty))$ with the topology of uniform convergence on compact
@@ -1376,7 +1317,6 @@ continuity in the profile. Its output profiles satisfy
 $$
 \widehat E_n(\Psi_n^t\theta)=S_t\widehat E_n(\theta),\qquad
 \partial_tU=\partial_sU,\qquad U(t,0)=f_n(\Psi_n^t\theta).
-
 $$ {#eq-docs-linear-dynamics-l1308}
 
 For $C^1$ initial profiles this PDE has the unique classical solution
@@ -1399,7 +1339,6 @@ width one, the normalized states
 
 $$
 (v,R,B,u)=(1,1,1,1),\qquad (2,1,1,\tfrac12)
-
 $$ {#eq-docs-linear-dynamics-l1332}
 
 have the same output and cyclic characteristic polynomial
@@ -1413,7 +1352,6 @@ $$
 \mathscr D_1a=\mathscr D_1b=\mathscr D_1c=\mathscr D_1d_0=2f_1,
 \qquad
 \mathscr D_1f_1=bcd_0+acd_0+abd_0+abc.
-
 $$ {#eq-docs-linear-dynamics-l1344}
 
 These follow by differentiating the four scalar factors. Multiplication
@@ -1433,7 +1371,6 @@ $$
 \phi\in C^2(\mathbb R),\qquad
 \|\phi'\|_\infty+\|\phi''\|_\infty<\infty,\qquad
 |\phi(z)|\le C(1+|z|).
-
 $$ {#eq-docs-linear-dynamics-l1364}
 
 There is no condition $\mathbb E\phi(G)^2=1$. Write
@@ -1449,7 +1386,6 @@ f_n=\frac1n\sum_i a_i\phi(u_i),\qquad r_n=f_n-y,\\
 K_n=\frac1n\sum_i\{\phi(u_i)^2+a_i^2\phi'(u_i)^2\},\qquad
 \dot r_n=-2\kappa r_nK_n.
 \end{gathered}
-
 $$ {#eq-docs-linear-dynamics-l1376}
 
 On the fixed mark probability space $(\mathbb R^2,\gamma_2)$, let
@@ -1464,7 +1400,6 @@ K&=\mathbb E[\phi(U)^2+A^2\phi'(U)^2],&
 \dot r&=-2\kappa rK,
 \end{aligned}
 \quad (A,U,r)(0)=(a_0,u_0,-y).
-
 $$ {#eq-docs-linear-dynamics-l1392}
 
 ::: {#thm-docs-linear-dynamics-l1402}
@@ -1474,7 +1409,6 @@ physical-time interval, and
 
 $$
 f=\mathbb E[A\phi(U)]=y+r,\qquad \mathcal L=r^2.
-
 $$ {#eq-docs-linear-dynamics-l1406}
 
 For every fixed $T<\infty$,
@@ -1483,7 +1417,6 @@ $$
 \sup_{0\le t\le T}
 \bigl(|f_n-f|+|K_n-K|+|r_n-r|+|r_n^2-r^2|\bigr)
 \xrightarrow{\mathbb P}0.
-
 $$ {#eq-docs-linear-dynamics-l1413}
 
 The two separate block energies in ([-@eq-docs-linear-dynamics-l1376]) also converge uniformly. Under
@@ -1506,7 +1439,6 @@ $$
 \partial_s\widehat A_s=\phi(\widehat U_s),\qquad
 \partial_s\widehat U_s=\widehat A_s\phi'(\widehat U_s),\qquad
 (\widehat A_0,\widehat U_0)=(a_0,u_0).
-
 $$ {#eq-docs-linear-dynamics-l1431}
 
 The vector field is locally Lipschitz on $\mathbb R^2$. The integral
@@ -1516,7 +1448,6 @@ give, for every finite $S$,
 $$
 1+|\widehat A_s|+|\widehat U_s|
 \le e^{C_\phi S}(1+|a_0|+|u_0|),\qquad |s|\le S.
-
 $$ {#eq-docs-linear-dynamics-l1442}
 
 Here the same estimate is applied to the reversed vector field for negative
@@ -1530,7 +1461,6 @@ Set
 $$
 F(s)=\mathbb E[\widehat A_s\phi(\widehat U_s)],\quad
 H_s=\phi(\widehat U_s)^2+\widehat A_s^2\phi'(\widehat U_s)^2.
-
 $$ {#eq-docs-linear-dynamics-l1456}
 
 The integrands in ([-@eq-docs-linear-dynamics-l1456]) have a quadratic envelope in
@@ -1542,7 +1472,6 @@ $$
 \partial_sH_s=4\widehat A_s\phi(\widehat U_s)
                  \phi'(\widehat U_s)^2
  +2\widehat A_s^3\phi'(\widehat U_s)^2\phi''(\widehat U_s).
-
 $$ {#eq-docs-linear-dynamics-l1466}
 
 The last expression is bounded by $C_SJ^3$. Gaussian tails make all
@@ -1555,7 +1484,6 @@ Solve the scalar physical clock
 
 $$
 \dot s=-2\kappa(F(s)-y),\qquad s(0)=0.
-
 $$ {#eq-docs-linear-dynamics-l1482}
 
 Along every local solution,
@@ -1564,13 +1492,12 @@ $r(t)=F(s(t))-y$ obeys
 $$
 r(t)=-y\exp\left(-2\kappa\int_0^tK(s(v))\,dv\right),\qquad
 |s(t)|\le2\kappa|y|t.
-
 $$ {#eq-docs-linear-dynamics-l1490}
 
 These identities follow by differentiating $F(s)-y$ and solving its
 scalar linear equation. They hold also when no root of $F(s)=y$ exists.
 The second bound prevents a finite-time escape of the clock. Setting
-$(A,U)(t)=(\widehat A,\widehat U)_{s(t)}$ proves (EC8.3)--(EC8.4)
+$(A,U)(t)=(\widehat A,\widehat U)_{s(t)}$ proves ([-@eq-docs-linear-dynamics-l1392])--([-@eq-docs-linear-dynamics-l1406])
 and all moment bounds. Conversely, for any classical marked solution in
 this moment class, define $s(t)=-2\kappa\int_0^t r(v)\,dv$.
 For each mark, uniqueness of the nonautonomous equation with this scalar
@@ -1585,8 +1512,7 @@ law of large numbers. For any one of the integrands in ([-@eq-docs-linear-dynami
 summand of $H_s$, there is an integrable random Lipschitz constant
 $C_SJ^3$ on $[-S,S]$. Indeed the derivatives of the two summands are
 $2\widehat A\phi(\widehat U)\phi'(\widehat U)^2$ and
-$2\widehat A\phi(\widehat U)\phi'(\widehat U)^2+
-2\widehat A^3\phi'(\widehat U)^2\phi''(\widehat U)$.
+$2\widehat A\phi(\widehat U)\phi'(\widehat U)^2+ 2\widehat A^3\phi'(\widehat U)^2\phi''(\widehat U)$.
 All these variables have finite fourth moments. For centered iid $X_i$
 with a finite fourth moment,
 
@@ -1594,7 +1520,6 @@ $$
 \mathbb E\left|\frac1n\sum_{i=1}^n X_i\right|^4
 =\frac{n\mathbb E X_1^4+3n(n-1)(\mathbb E X_1^2)^2}{n^4}
 \le\frac{C}{n^2}.
-
 $$ {#eq-docs-linear-dynamics-l1519}
 
 Markov's inequality and the summability of $n^{-2}$ imply almost-sure
@@ -1608,7 +1533,6 @@ $$
 \sup_{|s|\le S}|\mathbb E_n g_s-\mathbb E g_s|
 \le\max_{q\text{ in net}}|\mathbb E_n g_q-\mathbb E g_q|
  +\delta(\mathbb E_n C_SJ^3+\mathbb E C_SJ^3).
-
 $$ {#eq-docs-linear-dynamics-l1533}
 
 Here $\mathbb E_n$ is the ordinary average over the first $n$
@@ -1631,7 +1555,6 @@ integral equations gives
 $$
 \sup_{v\le t}|s_n(v)-s(v)|
 \le2\kappa T\epsilon_n e^{2\kappa M_TT},\qquad t\le T.
-
 $$ {#eq-docs-linear-dynamics-l1557}
 
 The estimate follows by iteration of the inequality
@@ -1661,7 +1584,6 @@ $$
  f_n=\frac1n\sum_i a_i\phi(u_i),\qquad
  \dot a_i=2\kappa(1-f_n)\phi(u_i),\qquad
  \dot u_i=2\kappa(1-f_n)a_i\phi'(u_i).
-
 $$ {#eq-docs-linear-dynamics-l1583}
 
 The effective raw metric is
@@ -1676,7 +1598,6 @@ for every width $n\ge1$,
 $$
  E\sup_{t\le T}|f_n(t)-f(t)|^2\le C_T/n,
  \qquad E\sup_{t\le T}|f_n(t)-f(t)|^4\le C_T/n^2.
-
 $$ {#eq-docs-linear-dynamics-l1596}
 
 Consequently $\sup_{t\le T}\operatorname{Var} f_n(t)\le C_T/n$, and
@@ -1684,7 +1605,6 @@ with $\mathcal L_n=(1-f_n)^2$, $\mathcal L=(1-f)^2$,
 
 $$
  E\sup_{t\le T}|\mathcal L_n(t)-\mathcal L(t)|^2\le C_T/n.
-
 $$ {#eq-docs-linear-dynamics-l1603}
 
 If in addition $\phi$ is bounded, let $\bar X_i$ be the limiting
@@ -1694,7 +1614,6 @@ $X_i^n=(a_i,u_i)$. Then
 $$
  E\left[\frac1n\sum_i\sup_{t\le T}
        |X_i^n(t)-\bar X_i(t)|_{\mathbb R^2}^2\right]\le C_T/n.
-
 $$ {#eq-docs-linear-dynamics-l1610}
 
 The $\bar X_i$ are independent because their common limiting clock is
@@ -1720,7 +1639,6 @@ $$
 $$
  \partial_sY_s=J_s,\qquad
  \sup_{|s|\le S}(|Y_s|+|J_s|)\le C_S(1+|\xi|^2).
-
 $$ {#eq-docs-linear-dynamics-l1632}
 
 Thus all fixed moments of the envelope are finite. Put
@@ -1736,7 +1654,6 @@ in ([-@eq-docs-linear-dynamics-l1632]) gives
 $$
  D_{n,S}\le |(P_n-P)Y_0|
        +\int_{-S}^S|(P_n-P)J_v|\,dv.
-
 $$ {#eq-docs-linear-dynamics-l1646}
 
 For iid centered real $Z_i$, direct expansion and independence give
@@ -1745,7 +1662,6 @@ $$
  E\left|\frac1n\sum_iZ_i\right|^2=EZ_1^2/n,\qquad
  E\left|\frac1n\sum_iZ_i\right|^4
  =\frac{nEZ_1^4+3n(n-1)(EZ_1^2)^2}{n^4}.
-
 $$ {#eq-docs-linear-dynamics-l1652}
 
 The same expansion at even order eight is at most $C n^{-4}$ when
@@ -1757,7 +1673,6 @@ $(\int_{-S}^S|g|)^p\le(2S)^{p-1}\int_{-S}^S|g|^p$, yields
 
 $$
  ED_{n,S}^2\le C_S/n,\qquad ED_{n,S}^4\le C_S/n^2.
-
 $$ {#eq-docs-linear-dynamics-l1664}
 
 Take $S>0$; the zero-length interval is covered by ([-@eq-docs-linear-dynamics-l1652]).
@@ -1773,7 +1688,6 @@ The residual equations and nonnegativity of $F_n',F'$ give
 $$
  |1-f_n(t)|\le |1-F_n(0)|,\quad 0\le f(t)\le1,\quad
  |s_n(t)|\le cT|1-F_n(0)|,\quad 0\le s(t)\le cT.
-
 $$ {#eq-docs-linear-dynamics-l1675}
 
 These also preclude finite physical-time escape. On
@@ -1785,7 +1699,6 @@ equations, using $F$ for the Lipschitz term, and iterating gives
 $$
  \sup_{t\le T}|s_n(t)-s(t)|\le cT e^{cL_ST}D_{n,S},\quad
  \sup_{t\le T}|f_n(t)-f(t)|\le(1+cTL_Se^{cL_ST})D_{n,S}.
-
 $$ {#eq-docs-linear-dynamics-l1685}
 
 The second inequality uses
@@ -1797,7 +1710,7 @@ On $E_n^c$, ([-@eq-docs-linear-dynamics-l1675]) gives
 $\sup_{t\le T}|f_n-f|\le3+|Z_n|\le4|Z_n|$.
 Thus its contributions to the second and fourth powers are bounded by
 $16E|Z_n|^4$ and $256E|Z_n|^4$, respectively, both $O(n^{-2})$.
-Together with (SR.8)–(SR.10) this proves ([-@eq-docs-linear-dynamics-l1596]), including $\kappa=0$.
+Together with ([-@eq-docs-linear-dynamics-l1664])–([-@eq-docs-linear-dynamics-l1685]) this proves ([-@eq-docs-linear-dynamics-l1596]), including $\kappa=0$.
 Variance is bounded by squared error from any deterministic number.
 Finally, if $\Delta=f_n-f$,
 $|\mathcal L_n-\mathcal L|\le2|\Delta|+|\Delta|^2$ by ([-@eq-docs-linear-dynamics-l1675]).
@@ -1809,11 +1722,10 @@ $B=\|\phi'\|_\infty$. Direct integration, for either sign of $s$, gives
 $$
  |A_s-a|\le M|s|,\qquad
  |U_s-u|\le B(|a||s|+Ms^2/2).
-
 $$ {#eq-docs-linear-dynamics-l1707}
 
 On $E_n$, the speed on the fixed clock interval is at most
-$C_T(1+|a_i^0|)$. Equations (SR.10)–(SR.11) imply
+$C_T(1+|a_i^0|)$. Equations ([-@eq-docs-linear-dynamics-l1685])–([-@eq-docs-linear-dynamics-l1707]) imply
 
 $$
  \frac1n\sum_i\sup_{t\le T}|X_i^n-\bar X_i|^2\mathbf1_{E_n}
@@ -1859,7 +1771,6 @@ Take the real full word Hilbert space
 $$
 \mathcal F_q=\mathbb R\Omega\oplus
  \bigoplus_{k\ge1}(\mathbb R^{2q})^{\otimes k}.
-
 $$ {#eq-docs-linear-dynamics-l1750}
 
 For $q=0$ this means $\mathbb R\Omega$. For $q>0$, the left
@@ -1872,7 +1783,6 @@ c_j=\ell_{j,+}+\ell_{j,-}^*,\quad
 \mathcal H=\mathcal F_q\oplus\mathcal F_q,\quad
 \Gamma_j=c_j\oplus c_j,\quad
 g_1=(\Omega,0),\quad g_2=(0,\Omega).
-
 $$ {#eq-docs-linear-dynamics-l1761}
 
 Creation is an isometry, so $\|\Gamma_j\|\le2$; both roots have norm
@@ -1888,7 +1798,6 @@ $$
 \xrightarrow{\mathbb P}
 \langle P(\Gamma)g_i,Q(\Gamma)g_j\rangle
 =\mathbf1_{i=j}\tau(P^*Q).
-
 $$ {#eq-docs-linear-dynamics-l1776}
 
 The assertion also holds for typed compatible words between copies of
@@ -1897,7 +1806,6 @@ $\mathcal H$. Moreover
 $$
 \mathbb P\{\max_j\|B_{j,n}\|\le12,
                  \|g_{1,n}\|\le2,\|g_{2,n}\|\le2\}\longrightarrow1.
-
 $$ {#eq-docs-linear-dynamics-l1787}
 
 :::
@@ -1918,7 +1826,6 @@ $e^{-nu^2/2}$, and symmetry bounds both tails. Therefore
 
 $$
 \mathbb P\{\|B\|>12\}\le2\,81^ne^{-18n}.
-
 $$ {#eq-docs-linear-dynamics-l1804}
 
 For a normalized Gaussian vector its squared norm has mean one and
@@ -1945,7 +1852,6 @@ contribution is exactly
 
 $$
 n^{v-k-1}.
-
 $$ {#eq-docs-linear-dynamics-l1831}
 
 A connected graph with $k$ edges has at most $k+1$ vertices, because
@@ -1987,7 +1893,6 @@ $$
 \operatorname{Var}(g^TTg\mid T)
 =2\|\operatorname{sym}T\|_{\mathrm{HS}}^2/n^2
 \le2\|T\|^2/n,
-
 $$ {#eq-docs-linear-dynamics-l1870}
 
 
@@ -1996,7 +1901,6 @@ $$
 \mathbb E[|g^TTh|^2\mid T]
 =\|T\|_{\mathrm{HS}}^2/n^2\le\|T\|^2/n
 \quad(g,h\text{ independent}).
-
 $$ {#eq-docs-linear-dynamics-l1877}
 
 Use $T=P_n^TQ_n$. On the matrix-measurable event
@@ -2026,7 +1930,6 @@ For the proof embeddings only, write
 $$
 u_n=W^{(1)}/\sqrt n,\qquad a_n=W^{(L+1)}/\sqrt n,\qquad
 B_{\ell,n}=W^{(\ell+1)}\quad(1\le\ell<L).
-
 $$ {#eq-docs-linear-dynamics-l1907}
 
 Let $x_{1,n}=u_n$, $x_{\ell+1,n}=B_{\ell,n}x_{\ell,n}$, and
@@ -2044,7 +1947,6 @@ $$
 \dot B_{\ell,n}&=-2\kappa r_n b_{\ell+1,n}x_{\ell,n}^T,
 &r_n&=f_n-y.
 \end{aligned}
-
 $$ {#eq-docs-linear-dynamics-l1921}
 
 For example, the matrix update in stored coordinates is
@@ -2055,7 +1957,6 @@ representative. The feature kernel is
 $$
 K_n=\|x_{L,n}\|^2+\|b_{1,n}\|^2+
 \sum_{\ell=1}^{L-1}\|b_{\ell+1,n}\|^2\|x_{\ell,n}\|^2.
-
 $$ {#eq-docs-linear-dynamics-l1936}
 
 Use @lem-docs-linear-dynamics-l1774 with $q=L-1$, and let $\mathcal H_\ell$ be typed
@@ -2084,7 +1985,6 @@ K&=\|x_L\|^2+\|b_1\|^2+
  \sum_{\ell=1}^{L-1}\|b_{\ell+1}\|^2\|x_\ell\|^2,&
 \dot r&=-2\kappa rK
 \end{aligned}
-
 $$ {#eq-docs-linear-dynamics-l1958}
 
 with $(a,u,P_1,\ldots,P_{L-1},r)(0)=(a_0,u_0,0,\ldots,0,-y)$
@@ -2094,7 +1994,6 @@ $$
 \mathcal X_L=\mathcal H_L\times\mathcal H_1\times
 \prod_{\ell=1}^{L-1}\mathfrak S_1(\mathcal H_\ell,\mathcal H_{\ell+1})
 \times\mathbb R.
-
 $$ {#eq-docs-linear-dynamics-l1973}
 
 Here $(v\otimes w)z=v\langle w,z\rangle$. The readouts satisfy
@@ -2105,7 +2004,6 @@ $$
 \sup_{0\le t\le T}
 \bigl(|f_n-f|+|K_n-K|+|r_n-r|+|r_n^2-r^2|\bigr)
 \xrightarrow{\mathbb P}0.
-
 $$ {#eq-docs-linear-dynamics-l1984}
 
 This also holds jointly for any fixed finite collection of current typed
@@ -2124,7 +2022,6 @@ $$
 \lim_{N\to\infty}\limsup_{n\to\infty}
 \mathbb P\left\{\max_{\ell<L}\sup_{t\le T}
  \sum_{j>N}s_j(P_{\ell,n}(t))>\varepsilon\right\}=0.
-
 $$ {#eq-docs-linear-dynamics-l2003}
 
 The claim is about separately fixed depth and compact physical time.
@@ -2139,6 +2036,7 @@ with the same immutable source.
 []{#proof-docs-linear-dynamics-l2017}
 
 ::: {.proof}
+
 ## local equations and continuation
 
 Give ([-@eq-docs-linear-dynamics-l1973]) the norm
@@ -2156,7 +2054,6 @@ $$
 \|v\otimes w-\widetilde v\otimes\widetilde w\|_1
 \le\|v-\widetilde v\|\|w\|+
     \|\widetilde v\|\|w-\widetilde w\|.
-
 $$ {#eq-docs-linear-dynamics-l2026}
 
 The first identity follows by computing its sole possible nonzero
@@ -2174,7 +2071,6 @@ $$
 \dot f=-2\kappa rK=\dot r,\qquad
 \frac d{dt}r^2=-4\kappa r^2K,\qquad
 \int_0^T r^2K\,dt\le\frac{r(0)^2}{4\kappa}.
-
 $$ {#eq-docs-linear-dynamics-l2046}
 
 The source sectors in ([-@eq-docs-linear-dynamics-l1761]) give $f(0)=0$, so consistency is
@@ -2192,7 +2088,6 @@ $$
 \int_0^T\|\dot\theta(t)\|\,dt
 \le2\kappa\sqrt T\left(\int_0^T r^2K\,dt\right)^{1/2}
 \le |r(0)|\sqrt{\kappa T}.
-
 $$ {#eq-docs-linear-dynamics-l2064}
 
 The norm for an operator block in this display is the trace norm.
@@ -2210,18 +2105,18 @@ $r_n(0)=f_n(0)-y$, not at $-y$.
 []{#proof-docs-linear-dynamics-l2081}
 
 ::: {.proof}
+
 ## transfer across varying width spaces
 
 @lem-docs-linear-dynamics-l1774 supplies all
 fixed initial rooted Grams and $f_n(0)\to0$. On an event of probability
 tending to one, source operators have norm at most 12, both roots have
-norm at most 2, and $|r_n(0)|\le|y|+1$. Equations (EC10.9)--(EC10.10)
+norm at most 2, and $|r_n(0)|\le|y|+1$. Equations ([-@eq-docs-linear-dynamics-l2046])--([-@eq-docs-linear-dynamics-l2064])
 then give one deterministic state radius $R_T$ for every finite and
 limiting trajectory on $[0,T]$; for example one may use
 
 $$
 R_T=4+(L+1)(|y|+1)\sqrt{\kappa T}+|y|+1.
-
 $$ {#eq-docs-linear-dynamics-l2088}
 
 Choose a scalar Lipschitz cutoff equal to one on $[0,R_T+1]$,
@@ -2253,7 +2148,6 @@ matrices of those lists. The nonzero singular values of $T$ are those of
 
 $$
 G_v^{1/2}(c_{ij})G_w^{1/2}.
-
 $$ {#eq-docs-linear-dynamics-l2120}
 
 This follows by factoring the column maps as a partial isometry times
@@ -2283,7 +2177,6 @@ $h$-th increment by $M_TH_T^{h-1}t^h/h!$. Summing the tail gives
 $$
 \sup_{t\le T}\|S(t)-S^{[j]}(t)\|_{\mathcal X_L}
 \le M_TT e^{H_TT}\frac{(H_TT)^j}{(j+1)!}.
-
 $$ {#eq-docs-linear-dynamics-l2149}
 
 All iterates stay in the common larger ball of radius
@@ -2306,7 +2199,6 @@ $$
  |\Sigma(S_n)-\Sigma(S_n^{[j]})|
  +|\Sigma(S_n^{[j]})-\Sigma(S^{[j]})|
  +|\Sigma(S^{[j]})-\Sigma(S)|.
-
 $$ {#eq-docs-linear-dynamics-l2170}
 
 The outer terms are estimated within their own spaces by ([-@eq-docs-linear-dynamics-l2149]).
@@ -2331,7 +2223,6 @@ $$
 \sup_{t\le T}\|P_{\ell,n}(t)-P_{\ell,n}^{[N]}(t)\|_1
 \le\frac{C_TT^2}{2N},\qquad
 \operatorname{rank}P_{\ell,n}^{[N]}(t)\le N+1.
-
 $$ {#eq-docs-linear-dynamics-l2196}
 
 To see that this controls the nuclear tail, if $R$ has rank at most
@@ -2360,7 +2251,6 @@ Put
 $$
 a_n=W^{(3)}/\sqrt n,\qquad
 u_n=W^{(1)}x_1/\sqrt{dn},\qquad B_n=W^{(2)}.
-
 $$ {#eq-docs-linear-dynamics-l2224}
 
 The initial entries of these three proof factors are independent
@@ -2389,7 +2279,6 @@ d\rho_a(\lambda)&=\frac34\delta_{-1/2}(d\lambda)+
 d\rho_v(\lambda)&=\lambda\,d\rho_0(\lambda),\qquad
 \nu=\rho_a+\rho_v.
 \end{aligned}
-
 $$ {#eq-docs-linear-dynamics-l2245}
 
 In particular its explicit density and atom are
@@ -2411,7 +2300,6 @@ $$
 0<\lambda<4&[2(1+\lambda)]^{-1/2}&
  \bigl[(1+2\lambda)/(2(1+\lambda))\bigr]^{1/2}.
 \end{array}
-
 $$ {#eq-docs-linear-dynamics-l2271}
 
 These satisfy $\alpha^2\nu=\rho_a$, $\beta^2\nu=\rho_v$.
@@ -2421,7 +2309,6 @@ $$
 q=\int|\psi|^2d\nu,\qquad
 F=\operatorname{Re}\int\overline\psi\,\pi\,d\nu,\qquad
 K=\int\bigl\{|\pi|^2+(\lambda+2q)|\psi|^2\bigr\}d\nu.
-
 $$ {#eq-docs-linear-dynamics-l2284}
 
 Here $q$ is a squared-field norm, and $r$ below is always the
@@ -2436,7 +2323,6 @@ $$
 \partial_t\pi=-2\kappa r(\lambda+2q)\psi,\qquad
 \dot r=-2\kappa rK,
 \quad(\psi,\pi,r)(0)=(\alpha,i\beta,-y)
-
 $$ {#eq-docs-linear-dynamics-l2297}
 
 has a unique global solution in
@@ -2447,7 +2333,6 @@ $$
 f=F=y+r,\quad \mathcal L=r^2,\quad q(0)=1,\quad K(0)=3,
 \quad K(t)\ge\tfrac32,
 \quad |r(t)|\le|y|e^{-3\kappa t}.
-
 $$ {#eq-docs-linear-dynamics-l2309}
 
 In particular the limiting loss tends to zero. The physical vector field
@@ -2458,11 +2343,9 @@ finite flow at the initialization above satisfies
 $$
 \sup_{t\le T}\bigl(|f_n-f|+|K_n-K|+|r_n-r|+|r_n^2-r^2|\bigr)
 \xrightarrow{\mathbb P}0,
-
 $$ {#eq-docs-linear-dynamics-l2321}
 
-where $K_n=\|B_nu_n\|^2+\|B_n^Ta_n\|^2+
-\|a_n\|^2\|u_n\|^2$. The proof also identifies its three separate
+where $K_n=\|B_nu_n\|^2+\|B_n^Ta_n\|^2+ \|a_n\|^2\|u_n\|^2$. The proof also identifies its three separate
 block energies. The fitting conclusion concerns the limiting system after
 the width limit; ([-@eq-docs-linear-dynamics-l2321]) has a fixed physical horizon.
 
@@ -2477,7 +2360,6 @@ The product rule shows that
 $$
 C_n=B_nB_n^T-a_na_n^T,\qquad
 \delta_n=\|a_n\|^2-\|u_n\|^2
-
 $$ {#eq-docs-linear-dynamics-l2338}
 
 are time independent: in $\dot C_n$ the two terms
@@ -2489,7 +2371,6 @@ $$
 \dot a_n=g_nv_n,\qquad
 \dot v_n=g_n[C_n+(2q_n-\delta_n)I]a_n,
 \qquad f_n=a_n^Tv_n.
-
 $$ {#eq-docs-linear-dynamics-l2349}
 
 No inverse clock is used in this calculation. The scalar obtained by
@@ -2498,7 +2379,6 @@ differentiating $a_n^Tv_n$ and removing its factor $g_n$ is
 $$
 K_n=\|v_n\|^2+a_n^TC_na_n+(2q_n-\delta_n)q_n
 =\|B_nu_n\|^2+\|B_n^Ta_n\|^2+q_n(q_n-\delta_n).
-
 $$ {#eq-docs-linear-dynamics-l2359}
 
 Let $E_n$ be the spectral resolution of the fixed real symmetric
@@ -2510,7 +2390,6 @@ $$
 a_n(0)^TE_n(S)a_n(0)&a_n(0)^TE_n(S)v_n(0)\\
 v_n(0)^TE_n(S)a_n(0)&v_n(0)^TE_n(S)v_n(0)
 \end{pmatrix}.
-
 $$ {#eq-docs-linear-dynamics-l2368}
 
 For two real vector fields $\mathbf c_n,\mathbf d_n$ of length two,
@@ -2523,7 +2402,6 @@ $$
 \mathbf c_n(\lambda,0)&=(1,0)^T,&
 \mathbf d_n(\lambda,0)&=(0,1)^T.
 \end{aligned}
-
 $$ {#eq-docs-linear-dynamics-l2380}
 
 Functional calculus and uniqueness for ([-@eq-docs-linear-dynamics-l2349]) give
@@ -2539,13 +2417,12 @@ K_n&=\int\mathbf d_n^T\,d\Sigma_n\,\mathbf d_n+
  \int(\lambda+2q_n-\delta_n)\mathbf c_n^T\,d\Sigma_n\,\mathbf c_n,\\
 \dot r_n&=g_nK_n,\qquad r_n(0)=f_n(0)-y.
 \end{aligned}
-
 $$ {#eq-docs-linear-dynamics-l2395}
 
 Conversely, while the displayed mode equations exist, the functional-calculus
 vectors solve ([-@eq-docs-linear-dynamics-l2349]) and have these readouts; local uniqueness identifies
 them with the finite network. Its global physical existence was proved by
-(EC10.9)--(EC10.10), which apply verbatim to these projected equations.
+([-@eq-docs-linear-dynamics-l2046])--([-@eq-docs-linear-dynamics-l2064]), which apply verbatim to these projected equations.
 
 ### 11.2. Derivation of the fixed spectral source {#sec-docs-linear-dynamics-l2411}
 
@@ -2555,7 +2432,6 @@ $$
 \Sigma_n\Longrightarrow
 \Sigma=\begin{pmatrix}\rho_a&0\\0&\rho_v\end{pmatrix}
 \quad\text{entrywise weakly in probability},\qquad \delta_n\to0.
-
 $$ {#eq-docs-linear-dynamics-l2415}
 
 Every nontrivial random-matrix input will be obtained from @lem-docs-linear-dynamics-l1774.
@@ -2570,7 +2446,6 @@ and outside intervals to obtain
 $$
 C_0=1,\qquad C_k=\sum_{j=0}^{k-1}C_jC_{k-1-j},\qquad
 \frac1n\operatorname{Tr}M_n^k\xrightarrow{L^2}C_k.
-
 $$ {#eq-docs-linear-dynamics-l2431}
 
 The density $\rho_0$ in ([-@eq-docs-linear-dynamics-l2245]) has these same moments. In fact the
@@ -2580,7 +2455,6 @@ $$
 \int\lambda^k d\rho_0
 =\frac{4^{k+1}}{2\pi}\int_0^1t^{k-1/2}(1-t)^{1/2}dt
 =\frac{(2k)!}{k!(k+1)!}.
-
 $$ {#eq-docs-linear-dynamics-l2440}
 
 For the last equality, the integral at $k=0$ is $\pi/2$ by
@@ -2603,7 +2477,6 @@ Writing the sum as $\mathbb E h(Z/N)$ for a binomial $Z$ gives
 $$
 \|p_N-h\|_\infty\le\omega_h(\varepsilon)
  +\frac{2\|h\|_\infty}{4N\varepsilon^2},
-
 $$ {#eq-docs-linear-dynamics-l2464}
 
 because $\operatorname{Var}(Z/N)\le1/(4N)$. Choose $\varepsilon$
@@ -2618,7 +2491,6 @@ The moment recursion implies, initially for real $z<-4$,
 $$
 \mathfrak m(z)=\frac{1-\sqrt{1-4/z}}2,\qquad
 z\mathfrak m(z)(1-\mathfrak m(z))=1.
-
 $$ {#eq-docs-linear-dynamics-l2479}
 
 The square root is positive on the negative real axis. Its extension
@@ -2634,10 +2506,8 @@ I_b:=\int_0^{\pi/2}\frac{d\theta}{b+4\sin^2\theta}
 $$
 
 using $u=\tan\theta$. Since
-$\cos^2\theta/(b+4\sin^2\theta)
-=(1+b/4)/(b+4\sin^2\theta)-1/4$, it follows that
-$\mathfrak m(-b)=-(4/\pi)[(1+b/4)I_b-\pi/8]
-=(1-\sqrt{1+4/b})/2$. In particular
+$\cos^2\theta/(b+4\sin^2\theta) =(1+b/4)/(b+4\sin^2\theta)-1/4$, it follows that
+$\mathfrak m(-b)=-(4/\pi)[(1+b/4)I_b-\pi/8] =(1-\sqrt{1+4/b})/2$. In particular
 $\mathfrak m(-1/2)=-1$, with no analytic inversion step.
 
 Let $a=a_n(0)$, independent of $M_n$. For fixed real $z<-4$,
@@ -2650,7 +2520,6 @@ $$
 (z-C_n)^{-1}a=\frac{(z-M_n)^{-1}a}{1+h_n(z)},\qquad
 a^T(z-C_n)^{-1}a\longrightarrow
 \frac{\mathfrak m(z)}{1+\mathfrak m(z)}.
-
 $$ {#eq-docs-linear-dynamics-l2510}
 
 The formula is used where its inverse exists; on ([-@eq-docs-linear-dynamics-l1787]),
@@ -2672,7 +2541,6 @@ $$
 &=\frac{z\mathfrak m(z)+1}{1+2z}
 =\frac{\mathfrak m(z)}{1+\mathfrak m(z)}.
 \end{aligned}
-
 $$ {#eq-docs-linear-dynamics-l2528}
 
 The final equality is exactly $z\mathfrak m(1-\mathfrak m)=1$.
@@ -2687,7 +2555,6 @@ For $|z|>144$, expand
 $$
 \frac1{z-\lambda}=\sum_{j=0}^k\frac{\lambda^j}{z^{j+1}}
  +\frac{\lambda^{k+1}}{z^{k+1}(z-\lambda)}.
-
 $$ {#eq-docs-linear-dynamics-l2548}
 
 After multiplying the integrated remainder by $|z|^{k+1}$, it is
@@ -2706,7 +2573,6 @@ gives
 $$
 v_n(0)^Tp(C_n)v_n(0)-\frac1n\operatorname{Tr}[M_np(C_n)]
 \xrightarrow{\mathbb P}0.
-
 $$ {#eq-docs-linear-dynamics-l2567}
 
 Indeed its conditional variance is bounded by
@@ -2719,10 +2585,9 @@ norms are at most $R$. Therefore
 $$
 \frac1n\operatorname{Tr}[M_np(C_n)]
 -\frac1n\operatorname{Tr}[M_np(M_n)]\longrightarrow0
-
 $$ {#eq-docs-linear-dynamics-l2580}
 
-on that event, with an $O(n^{-1})$ bound. Equations (EC11.15)--(EC11.16)
+on that event, with an $O(n^{-1})$ bound. Equations ([-@eq-docs-linear-dynamics-l2431])--([-@eq-docs-linear-dynamics-l2440])
 identify its limit as $\int\lambda p(\lambda)d\rho_0$, giving
 $\rho_v=\lambda\rho_0$. Conditional centering in $u_n(0)$ also gives
 
@@ -2731,7 +2596,6 @@ $$
 \quad
 \operatorname{Var}[a^Tp(C_n)B_n(0)u_n(0)\mid B_n(0),a]
 \le\frac{\|B_n(0)\|^2\|p(C_n)\|^2\|a\|^2}{n}.
-
 $$ {#eq-docs-linear-dynamics-l2590}
 
 This makes every polynomial test of the cross entry tend to zero. Its
@@ -2768,13 +2632,11 @@ On that solution, differentiation of the Hilbert pairings gives
 $$
 \dot F=-2\kappa rK=\dot r,\qquad F=y+r,\qquad
 \dot q=-4\kappa rF,
-
 $$ {#eq-docs-linear-dynamics-l2629}
 
 
 $$
 K\ge2q^2-\tfrac12q.
-
 $$ {#eq-docs-linear-dynamics-l2634}
 
 The derivatives are justified by differentiability in Hilbert norm and
@@ -2787,7 +2649,6 @@ Consequently $F=y(1-\vartheta)$, and
 
 $$
 0\le\dot q=4\kappa y^2\vartheta(1-\vartheta)\le\kappa y^2.
-
 $$ {#eq-docs-linear-dynamics-l2647}
 
 Starting at $q=1$, it cannot exit through $1/2$. This proves,
@@ -2799,7 +2660,6 @@ $$
 \|\psi(t)\|_{L^2(\nu)}\le\sqrt{1+\kappa y^2T},\qquad
 \|\dot\pi(t)\|_{L^2(\nu)}
 \le2\kappa|y|[4+2(1+\kappa y^2T)]\sqrt{1+\kappa y^2T}.
-
 $$ {#eq-docs-linear-dynamics-l2657}
 
 Together with $\|\pi(0)\|=1$, these bound the entire state on each
@@ -2841,7 +2701,6 @@ c_i(\lambda,t)c_j(\lambda,t),\quad
 c_i(\lambda,t)d_j(\lambda,t),\quad
 d_i(\lambda,t)d_j(\lambda,t),\quad
 \lambda c_i(\lambda,t)c_j(\lambda,t)
-
 $$ {#eq-docs-linear-dynamics-l2698}
 
 tend to zero in probability, uniformly in $t\le T$, for
@@ -2853,15 +2712,13 @@ Let $\varepsilon_n(T)$ be the maximum of these uniform integral
 errors, so $\varepsilon_n(T)\to0$ in probability on the norm event.
 
 Subtract the mode and residual equations, stopping when
-$E_n(t)=\sup_{v\le t}(\|\mathbf c_n-\mathbf c\|_\infty+
-\|\mathbf d_n-\mathbf d\|_\infty+|r_n-r|)$ first reaches one.
+$E_n(t)=\sup_{v\le t}(\|\mathbf c_n-\mathbf c\|_\infty+ \|\mathbf d_n-\mathbf d\|_\infty+|r_n-r|)$ first reaches one.
 Before that time all mode states lie in one fixed ball. Expanding one
 factor at a time in ([-@eq-docs-linear-dynamics-l2395]) gives
 
 $$
 |q_n-q|+|f_n-F|+|K_n-K|
 \le C_T\bigl(E_n(t)+\varepsilon_n(T)+|\delta_n|\bigr).
-
 $$ {#eq-docs-linear-dynamics-l2720}
 
 For example the $q$ difference is the sum of a measure-test error
@@ -2875,7 +2732,6 @@ Subtracting the integral equations therefore yields
 $$
 E_n(t)\le |f_n(0)|+
 C_T\int_0^t\bigl(E_n(v)+\varepsilon_n(T)+|\delta_n|\bigr)dv.
-
 $$ {#eq-docs-linear-dynamics-l2734}
 
 Iteration of this scalar inequality gives
@@ -2893,7 +2749,6 @@ $$
 \|B_n^Ta_n\|^2&=\int\lambda\mathbf c_n^T\,d\Sigma_n\,\mathbf c_n+q_n^2,\\
 \|a_n\|^2\|u_n\|^2&=q_n(q_n-\delta_n).
 \end{aligned}
-
 $$ {#eq-docs-linear-dynamics-l2749}
 
 The middle identity uses $BB^T=C+aa^T$. Their limits are respectively

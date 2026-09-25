@@ -20,8 +20,8 @@ retain their distinct scopes.
 
 ## 1. Model and learning metric {#sec-docs-finite-dynamics-l21}
 
-Fix positive integers `L,m,d,n`, data `(x_a,y_a)` for `1<=a<=m`, and positive
-constants `kappa_1,...,kappa_(L+1)`. Use the forward equations in NOTATION.md and
+Fix positive integers $L,m,d,n$, data $(x_a,y_a)$ for $1\le a\le m$, and positive
+constants $\kappa_1,\ldots,\kappa_{L+1}$. Use the forward equations in NOTATION.md and
 the mean squared loss
 
 $$
@@ -29,11 +29,11 @@ $$
 \qquad r_{n,a}=f_{n,a}-y_a.
 $$
 
-Each activation is a real `C^2` function. The finite state consists of all raw
-weight entries. Its gradient flow is `dot theta=-D grad mathcal L_n`, where
-the constant diagonal operator `D` multiplies the first and last blocks by
-`n kappa_1` and `n kappa_(L+1)`, respectively, and middle block `ell` by
-`kappa_ell`. Gradients of matrix functions use the ordinary Frobenius pairing.
+Each activation is a real $C^2$ function. The finite state consists of all raw
+weight entries. Its gradient flow is $\dot\theta=-D\nabla\mathcal{L}_n$, where
+the constant diagonal operator $D$ multiplies the first and last blocks by
+$n\kappa_1$ and $n\kappa_{L+1}$, respectively, and middle block $\ell$ by
+$\kappa_\ell$. Gradients of matrix functions use the ordinary Frobenius pairing.
 
 Backpropagation gives the exact derivatives
 
@@ -44,16 +44,15 @@ $$
 =\frac{\delta_a^{(\ell)}(h_a^{(\ell-1)})^T}{n}\quad(2\le\ell\le L),
 \qquad
 \nabla_{W^{(L+1)}} f_{n,a}=\frac{h_a^{(L)}}n.
-
 $$ {#eq-docs-finite-dynamics-l40}
 
 To verify ([-@eq-docs-finite-dynamics-l40]), differentiate the readout first. Its derivative with respect to
-`z_a^(L)` is `delta_a^(L)/n`. At a lower layer, differentiating
-`z_a^(ell+1)=W^(ell+1) phi^(ell)(z_a^(ell))` multiplies this derivative by
-`diag((phi^(ell))'(z_a^(ell))) (W^(ell+1))^T`, giving the stated backward
-recursion. A variation of `W^(ell)` produces
-`d z_a^(ell)=d W^(ell) h_a^(ell-1)`; at the first layer it produces
-`d W^(1) x_a/sqrt(d)`. Taking their scalar products with `delta_a^(ell)/n`
+$z_a^{(L)}$ is $\delta_a^{(L)}/n$. At a lower layer, differentiating
+$z_a^{(\ell+1)}=W^{(\ell+1)}\phi^{(\ell)}(z_a^{(\ell)})$ multiplies this derivative by
+$\operatorname{diag}((\phi^{(\ell)})'(z_a^{(\ell)}))(W^{(\ell+1)})^{\top}$, giving the stated backward
+recursion. A variation of $W^{(\ell)}$ produces
+$dz_a^{(\ell)}=dW^{(\ell)}h_a^{(\ell-1)}$; at the first layer it produces
+$dW^{(1)}x_a/\sqrt d$. Taking their scalar products with $\delta_a^{(\ell)}/n$
 proves all three formulas.
 
 Consequently the exact physical flow is
@@ -68,18 +67,17 @@ $$
 \dot W^{(L+1)}&=-\frac{2\kappa_{L+1}}m
   \sum_a r_{n,a}h_a^{(L)}.
 \end{aligned}
-
 $$ {#eq-docs-finite-dynamics-l61}
 
-Exact GD of step `eta` adds `eta` times the right side of ([-@eq-docs-finite-dynamics-l61]), with every
+Exact GD of step $\eta$ adds $\eta$ times the right side of ([-@eq-docs-finite-dynamics-l61]), with every
 quantity evaluated at the same pre-update state. Recomputing one block before
 updating the next would be a different algorithm.
 
 ## 2. Raw kernel blocks and dissipation {#sec-docs-finite-dynamics-l78}
 
 Define the mobility-weighted block kernel by
-`K_(n,ab)^(ell)=<grad_(W^(ell)) f_(n,a),D_ell grad_(W^(ell)) f_(n,b)>`.
-The identity `<u v^T,p q^T>_F=(u^T p)(v^T q)` and ([-@eq-docs-finite-dynamics-l40]) give
+$K_{n,ab}^{(\ell)}=\langle\nabla_{W^{(\ell)}}f_{n,a},D_\ell\nabla_{W^{(\ell)}}f_{n,b}\rangle$.
+The identity $\langle uv^{\top},pq^{\top}\rangle_F=(u^{\top}p)(v^{\top}q)$ and ([-@eq-docs-finite-dynamics-l40]) give
 
 $$
 \begin{aligned}
@@ -92,19 +90,17 @@ K_{n,ab}^{(\ell)}&=\kappa_\ell
 K_{n,ab}^{(L+1)}&=\kappa_{L+1}
                     \frac{(h_a^{(L)})^T h_b^{(L)}}n.
 \end{aligned}
-
 $$ {#eq-docs-finite-dynamics-l84}
 
-Each block is positive semidefinite: for any real sample coefficients `c_a`,
+Each block is positive semidefinite: for any real sample coefficients $c_a$,
 its quadratic form is the squared norm of
-`D_ell^(1/2) sum_a c_a grad_(W^(ell)) f_(n,a)`.
-With `K_n=sum_ell K_n^(ell)`, the chain rule now gives
+$D_\ell^{1/2}\sum_ac_a\nabla_{W^{(\ell)}}f_{n,a}$.
+With $K_n=\sum_\ell K_n^{(\ell)}$, the chain rule now gives
 
 $$
 \dot f_{n,a}=-\frac2m\sum_b K_{n,ab}r_{n,b},\qquad
 \frac{d}{dt}\mathcal L_n=-\frac4{m^2}r_n^T K_n r_n
 =-\|D^{-1/2}\dot\theta\|_2^2.
-
 $$ {#eq-docs-finite-dynamics-l103}
 
 In particular the last equality is the exact weighted energy identity
@@ -115,16 +111,15 @@ $$
  +\sum_{\ell=2}^{L}\frac{\|\dot W^{(\ell)}\|_F^2}{\kappa_\ell}
  +\frac{\|\dot W^{(L+1)}\|_2^2}{n\kappa_{L+1}}
 \right]du=\mathcal L_n(0).
-
 $$ {#eq-docs-finite-dynamics-l112}
 
-There is no factor of the residual inside `delta` or inside ([-@eq-docs-finite-dynamics-l84]).
+There is no factor of the residual inside $\delta$ or inside ([-@eq-docs-finite-dynamics-l84]).
 
 ## 3. Global finite-width existence {#sec-docs-finite-dynamics-l123}
 
-For every finite initial state the flow (2) has a unique solution for all
-`t>=0`. Indeed its vector field is locally Lipschitz: the finite composition
-defining the loss is `C^2`. The local existence argument is the contraction
+For every finite initial state the flow ([-@eq-docs-finite-dynamics-l61]) has a unique solution for all
+$t\ge0$. Indeed its vector field is locally Lipschitz: the finite composition
+defining the loss is $C^2$. The local existence argument is the contraction
 mapping for the integral equation on a closed ball of continuous curves, with
 time small enough that the locally bounded Lipschitz field maps the ball into
 itself and has contraction constant less than one. This also gives uniqueness.
@@ -136,17 +131,16 @@ $$
 \le\sqrt{t-s}\left(\int_s^t
              \|D^{-1/2}\dot\theta(u)\|_2^2du\right)^{1/2}
 \le\sqrt{(t-s)\mathcal L_n(0)}.
-
 $$ {#eq-docs-finite-dynamics-l134}
 
-If its maximal forward endpoint were a finite `T`, ([-@eq-docs-finite-dynamics-l134]) would make `theta(t)`
-Cauchy as `t` tends to `T`. The metric in ([-@eq-docs-finite-dynamics-l134]) is equivalent to the Euclidean
-metric at fixed `n`, since all mobilities are positive. Its limit is a finite
+If its maximal forward endpoint were a finite $T$, ([-@eq-docs-finite-dynamics-l134]) would make $\theta(t)$
+Cauchy as $t$ tends to $T$. The metric in ([-@eq-docs-finite-dynamics-l134]) is equivalent to the Euclidean
+metric at fixed $n$, since all mobilities are positive. Its limit is a finite
 state. The same local contraction construction at that state extends the
-solution past `T`, a contradiction. This proves global existence without a
+solution past $T$, a contradiction. This proves global existence without a
 bounded-activation assumption. It does not assert global stability of GD.
 
-For each `t<=T`, applying ([-@eq-docs-finite-dynamics-l134]) blockwise gives
+For each $t\le T$, applying ([-@eq-docs-finite-dynamics-l134]) blockwise gives
 
 $$
 \frac{\|W^{(1)}(t)-W^{(1)}(0)\|_F}{\sqrt n}
@@ -155,37 +149,36 @@ $$
 \le\sqrt{\kappa_\ell T\mathcal L_n(0)},\quad
 \frac{\|W^{(L+1)}(t)-W^{(L+1)}(0)\|_2}{\sqrt n}
 \le\sqrt{\kappa_{L+1}T\mathcal L_n(0)}.
-
 $$ {#eq-docs-finite-dynamics-l151}
 
-The middle inequality applies to `2<=ell<=L`. It also bounds the operator
+The middle inequality applies to $2\le\ell\le L$. It also bounds the operator
 norm of each trained middle increment, since operator norm is at most
-Frobenius norm. For arbitrary `s<t`, the corresponding bounds hold with
-`T` replaced by `t-s`; thus these parameter paths have a uniform square-root
+Frobenius norm. For arbitrary $s<t$, the corresponding bounds hold with
+$T$ replaced by $t-s$; thus these parameter paths have a uniform square-root
 modulus when initial loss is uniformly bounded.
 
 ## 4. What is uniform in width {#sec-docs-finite-dynamics-l167}
 
 Suppose now the first derivatives of all activations are bounded, the fixed
 inputs have bounded RMS norm, and the initial first/readout RMS norms and
-middle operator norms are at most a constant independent of `n`. Assume also
-`mathcal L_n(0)<=C`. Then on every finite `[0,T]` all preactivation,
-activation and backward-vector RMS norms, and every entry of (3), are bounded
-by a finite constant independent of `n`.
+middle operator norms are at most a constant independent of $n$. Assume also
+$\mathcal{L}_n(0)\le C$. Then on every finite $[0,T]$ all preactivation,
+activation and backward-vector RMS norms, and every entry of ([-@eq-docs-finite-dynamics-l84]), are bounded
+by a finite constant independent of $n$.
 
 Here is the complete induction. From ([-@eq-docs-finite-dynamics-l151]) the first Frobenius norm divided by
-`sqrt(n)`, readout RMS and middle operator norms are bounded. Therefore
+$\sqrt n$, readout RMS and middle operator norms are bounded. Therefore
 
 $$
 \frac{\|z_a^{(1)}\|_2}{\sqrt n}
 \le\frac{\|W^{(1)}\|_F}{\sqrt n}\frac{\|x_a\|_2}{\sqrt d},\qquad
 \frac{\|z_a^{(\ell)}\|_2}{\sqrt n}
-\le\|W^{(\ell)}\|_{\rm op}
+\le\|W^{(\ell)}\|_{\mathrm{op}}
        \frac{\|h_a^{(\ell-1)}\|_2}{\sqrt n}.
 $$
 
-If `b_ell=sup |(phi^(ell))'|`, the fundamental theorem of calculus gives
-`|phi^(ell)(z)|<=|phi^(ell)(0)|+b_ell |z|`. The triangle inequality transfers
+If $b_\ell=\sup|(\phi^{(\ell)})'|$, the fundamental theorem of calculus gives
+$|\phi^{(\ell)}(z)|\le|\phi^{(\ell)}(0)|+b_\ell|z|$. The triangle inequality transfers
 each preactivation RMS bound to an activation RMS bound and closes the forward
 induction. The reverse induction is
 
@@ -193,72 +186,70 @@ $$
 \frac{\|\delta_a^{(L)}\|_2}{\sqrt n}
 \le b_L\frac{\|W^{(L+1)}\|_2}{\sqrt n},\qquad
 \frac{\|\delta_a^{(\ell)}\|_2}{\sqrt n}
-\le b_\ell\|W^{(\ell+1)}\|_{\rm op}
+\le b_\ell\|W^{(\ell+1)}\|_{\mathrm{op}}
                \frac{\|\delta_a^{(\ell+1)}\|_2}{\sqrt n}.
 $$
 
-Cauchy–Schwarz in each pairing in (3) proves the kernel-entry bounds. The
+Cauchy–Schwarz in each pairing in ([-@eq-docs-finite-dynamics-l84]) proves the kernel-entry bounds. The
 depth is fixed; this argument supplies no depth-uniform constants.
 
 These initial bounds hold with probability tending to one for the independent
 Gaussian initialization in NOTATION.md. First-block squared RMS is a sum of
-`nd` Gaussian squares divided by `n` and tends to `d` by the elementary law
+$nd$ Gaussian squares divided by $n$ and tends to $d$ by the elementary law
 of large numbers; stored-readout squared RMS tends to zero. For a middle
-matrix, a `1/4`-net of the unit sphere has at most `9^n` points, by disjoint
-radius-`1/8` balls and a volume comparison. Approximating both vectors in a
+matrix, a $1/4$-net of the unit sphere has at most $9^n$ points, by disjoint
+radius-$1/8$ balls and a volume comparison. Approximating both vectors in a
 bilinear form by net points bounds the operator norm by twice the largest net
-bilinear form. Each fixed form is `N(0,1/n)`. The Gaussian exponential bound
+bilinear form. Each fixed form is $\mathcal{N}(0,1/n)$. The Gaussian exponential bound
 and a union bound give
 
 $$
-\mathbb P(\|W^{(\ell)}(0)\|_{\rm op}>M)
+\mathbb P(\|W^{(\ell)}(0)\|_{\mathrm{op}}>M)
 \le 2\,9^{2n}e^{-nM^2/8}.
 $$
 
-Choose fixed sufficiently large `M` and use a union bound over the fixed depth.
+Choose fixed sufficiently large $M$ and use a union bound over the fixed depth.
 The forward induction at time zero then bounds the initial activations, and
-`|f_(n,a)(0)|<=||W^(L+1)(0)||_2 ||h_a^(L)(0)||_2/n` bounds initial loss.
+$|f_{n,a}(0)|\le\lVert W^{(L+1)}(0)\rVert_2\lVert h_a^{(L)}(0)\rVert_2/n$ bounds initial loss.
 This supplies the claimed high-probability initial event.
 
 Uniform RMS bounds do not control multiplication by an unbounded coordinate
-function in the population space. Thus (5)–(7) establish useful a priori
+function in the population space. Thus ([-@eq-docs-finite-dynamics-l112])–([-@eq-docs-finite-dynamics-l151]) establish useful a priori
 estimates but do not replace the source-identification and response-stability
 proofs needed for a nonlinear population theorem.
 
 ## 5. Two-layer quadratic and identity reductions {#sec-docs-finite-dynamics-l228}
 
-Fix a width `n>=1`, one datum `x=1` in dimension one, a real label `y`, and
+Fix a width $n\ge1$, one datum $x=1$ in dimension one, a real label $y$, and
 two hidden layers. Write the stored parameters as
-`u=W^(1) in R^n`, `B=W^(2) in R^(n by n)`, and
-`a=W^(3) in R^n`; the first matrix is identified with its sole column.
+$u=W^{(1)}\in\mathbb{R}^n$, $B=W^{(2)}\in\mathbb{R}^{n\times n}$, and
+$a=W^{(3)}\in\mathbb{R}^n$; the first matrix is identified with its sole column.
 All three mobility multipliers are one. The parameter metric is
 
 $$
  \frac{\|du\|_2^2}{n}+\|dB\|_F^2+\frac{\|da\|_2^2}{n}.
-
 $$ {#eq-docs-finite-dynamics-l236}
 
-In particular `B` already is the stored, scaled matrix: there is no further
-width factor in `Bh`. If one instead stores `\mathsf W=\sqrt n B`,
-([-@eq-docs-finite-dynamics-l236]) is `n^{-1}` times the Euclidean metric on `(u,\mathsf W,a)`.
-The residual and loss are `r=f-y` and `\mathcal L=r^2`.
+In particular $B$ already is the stored, scaled matrix: there is no further
+width factor in $Bh$. If one instead stores $\mathsf{W}=\sqrt nB$,
+([-@eq-docs-finite-dynamics-l236]) is $n^{-1}$ times the Euclidean metric on $(u,\mathsf{W},a)$.
+The residual and loss are $r=f-y$ and $\mathcal{L}=r^2$.
 A prime below means the metric gradient of the output (unit feature ascent),
 and the physical flow is always
 
 $$
  \dot\theta=-2r\theta'.
-
 $$ {#eq-docs-finite-dynamics-l248}
 
 Thus the prime is an algebraic vector field. Its integral curves need not be
 global, and no positive or invertible feature clock is assumed. The displayed
-physical equations hold also when `r=0` or when the label has either sign.
+physical equations hold also when $r=0$ or when the label has either sign.
 No initialization distribution is assumed; in particular, no readout is reset
 or replaced by its limiting value.
 
-Let `Q(z)=z^2` and `I(z)=z`, coordinatewise. The strings `QI`, `IQ` and `QQ`
+Let $Q(z)=z^2$ and $I(z)=z$, coordinatewise. The strings $QI$, $IQ$ and $QQ$
 specify the first and second hidden activations, in that order. Set
-`h=phi^(1)(u)`, `z=Bh`, `v=phi^(2)(z)`, `f=a^T v/n`.
+$h=\phi^{(1)}(u)$, $z=Bh$, $v=\phi^{(2)}(z)$, $f=a^{\top}v/n$.
 The exact output-ascent fields and scalar kernel blocks are as follows;
 the block order is first layer, middle matrix, readout.
 
@@ -269,7 +260,6 @@ QI&q=B^Ta&2u\odot q&a h^T/n&z\\
 IQ&b=a\odot z,\ q=B^Tb&2q&2b h^T/n&z^2\\
 QQ&b=a\odot z,\ q=B^Tb&4u\odot q&2b h^T/n&z^2
 \end{array}
-
 $$ {#eq-docs-finite-dynamics-l265}
 
 $$
@@ -279,140 +269,131 @@ QI&4(u^2)^Tq^2/n&\|a\|_2^2\|h\|_2^2/n^2&\|z\|_2^2/n\\
 IQ&4\|q\|_2^2/n&4\|b\|_2^2\|h\|_2^2/n^2&\|z^2\|_2^2/n\\
 QQ&16(u^2)^Tq^2/n&4\|b\|_2^2\|h\|_2^2/n^2&\|z^2\|_2^2/n
 \end{array}
-
 $$ {#eq-docs-finite-dynamics-l275}
 
 Squares and products between vectors in these formulas are coordinatewise.
-To verify the first row, differentiate `f=a^TB(u^2)/n` to obtain
-`df=z^T da/n+a^T(dB)h/n+(2u\odot B^Ta)^Tdu/n`.
-The inverse metric ([-@eq-docs-finite-dynamics-l236]) multiplies the `u,a` derivatives by `n` and leaves
+To verify the first row, differentiate $f=a^{\top}B(u^2)/n$ to obtain
+$df=z^{\top}da/n+a^{\top}(dB)h/n+(2u\odot B^{\top}a)^{\top}du/n$.
+The inverse metric ([-@eq-docs-finite-dynamics-l236]) multiplies the $u,a$ derivatives by $n$ and leaves
 the matrix derivative unchanged. For the other two rows,
-`df=(z^2)^Tda/n+2(a\odot z)^T[(dB)h+Bdh]/n`, with
-`dh=du` for `IQ` and `dh=2u\odot du` for `QQ`. This proves ([-@eq-docs-finite-dynamics-l265]).
+$df=(z^2)^{\top}da/n+2(a\odot z)^{\top}[(dB)h+Bdh]/n$, with
+$dh=du$ for $IQ$ and $dh=2u\odot du$ for $QQ$. This proves ([-@eq-docs-finite-dynamics-l265]).
 Taking the squared norm of each block of ([-@eq-docs-finite-dynamics-l265]) in ([-@eq-docs-finite-dynamics-l236]), using
-`\|bc^T/n\|_F^2=\|b\|_2^2\|c\|_2^2/n^2`, proves ([-@eq-docs-finite-dynamics-l275]).
-Consequently, with `K=K_1+K_2+K_3`,
+$\lVert bc^{\top}/n\rVert_F^2=\lVert b\rVert_2^2\lVert c\rVert_2^2/n^2$, proves ([-@eq-docs-finite-dynamics-l275]).
+Consequently, with $K=K_1+K_2+K_3$,
 
 $$
  f'=K,\qquad \dot f=\dot r=-2rK,\qquad
  \dot{\mathcal L}=-4r^2K.
-
 $$ {#eq-docs-finite-dynamics-l296}
 
 ### Isometric block matrices and the two Lax identities {#sec-docs-finite-dynamics-l302}
 
 For block operators, pass each neuron vector to ordinary Euclidean
-coordinates by `\widehat v=v/\sqrt n`. Indeed
-`\widehat v^T\widehat w=v^Tw/n`. A matrix acting between two neuron
+coordinates by $\widehat v=v/\sqrt n$. Indeed
+$\widehat v^{\top}\widehat w=v^{\top}w/n$. A matrix acting between two neuron
 spaces retains its numerical entries under these isometries; a map
-`c\mapsto ca` from a scalar space has column `\widehat a`; and the
-functional `v\mapsto h^Tv/n` has row `\widehat h^T`.
+$c\mapsto ca$ from a scalar space has column $\widehat a$; and the
+functional $v\mapsto h^{\top}v/n$ has row $\widehat h^{\top}$.
 Thus transpose in the following matrices is ordinary Euclidean transpose.
 This specifies all block weights, including the scalar blocks.
 
-For `QI` define
+For $QI$ define
 
 $$
  \mathsf Q=[\widehat a\ \ B],\qquad
  S=\begin{pmatrix}0&\widehat h^T\\\widehat h&0\end{pmatrix},
  \quad J=\operatorname{diag}(-1,I_n),\quad
  \mathsf L=J\mathsf Q^T\mathsf Q.
-
 $$ {#eq-docs-finite-dynamics-l315}
 
-Equation ([-@eq-docs-finite-dynamics-l265]) gives `\mathsf Q'=\mathsf Q S`: its first column is
-`B\widehat h=\widehat z`, and the remaining columns are
-`\widehat a\widehat h^T=a h^T/n`. Since `S^T=S` and `JS=-SJ`,
+Equation ([-@eq-docs-finite-dynamics-l265]) gives $\mathsf{Q}'=\mathsf{Q}S$: its first column is
+$B\widehat h=\widehat z$, and the remaining columns are
+$\widehat a\widehat h^{\top}=ah^{\top}/n$. Since $S^{\top}=S$ and $JS=-SJ$,
 
 $$
  \mathsf L'=J(S\mathsf Q^T\mathsf Q+\mathsf Q^T\mathsf Q S)
             =\mathsf L S-S\mathsf L=[\mathsf L,S].
-
 $$ {#eq-docs-finite-dynamics-l327}
 
-The lower block of `\mathsf L e_0` is `\widehat q`, and
-`h'=4h\odot q`. Hence `(h,\mathsf L)` has an exact autonomous
+The lower block of $\mathsf{L}e_0$ is $\widehat q$, and
+$h'=4h\odot q$. Hence $(h,\mathsf{L})$ has an exact autonomous
 current-state equation on the states obtained from raw parameters. Its
-output is `f=\widehat q^T\widehat h`. Writing
-`g=\|a\|_2^2/n` and `C=B^TB`, which are respectively the top-left and
-bottom-right blocks of `J\mathsf L`, its kernel is
+output is $f=\widehat q^{\top}\widehat h$. Writing
+$g=\lVert a\rVert_2^2/n$ and $C=B^{\top}B$, which are respectively the top-left and
+bottom-right blocks of $J\mathsf{L}$, its kernel is
 
 $$
  K=\frac{h^TCh}{n}+g\frac{\|h\|_2^2}{n}
                   +4\frac{h^Tq^2}{n}.
-
 $$ {#eq-docs-finite-dynamics-l340}
 
-The raw current operator `BB^T-aa^T/n` is also conserved: differentiating
+The raw current operator $BB^{\top}-aa^{\top}/n$ is also conserved: differentiating
 the two products with ([-@eq-docs-finite-dynamics-l265]) gives the same matrix
-`(az^T+za^T)/n` in each case.
+$(az^{\top}+za^{\top})/n$ in each case.
 
-For `IQ` use a scalar as the last block and define
+For $IQ$ use a scalar as the last block and define
 
 $$
  \mathsf P=\begin{pmatrix}B\\\widehat h^T\end{pmatrix},\qquad
  S=\begin{pmatrix}0&\widehat b\\\widehat b^T&0\end{pmatrix},
  \quad J=\operatorname{diag}(I_n,-1),\quad
  \mathsf L=J\mathsf P\mathsf P^T.
-
 $$ {#eq-docs-finite-dynamics-l352}
 
-Here `\mathsf P'=2S\mathsf P`: the top block is
-`2\widehat b\widehat h^T=2b h^T/n`, and the last row is
-`2\widehat b^TB=2\widehat q^T`. Differentiating, and again using
-`JS=-SJ`, gives
+Here $\mathsf{P}'=2S\mathsf{P}$: the top block is
+$2\widehat b\widehat h^{\top}=2bh^{\top}/n$, and the last row is
+$2\widehat b^{\top}B=2\widehat q^{\top}$. Differentiating, and again using
+$JS=-SJ$, gives
 
 $$
  \mathsf L'=2[\mathsf L,S].
-
 $$ {#eq-docs-finite-dynamics-l365}
 
-The upper block of `\mathsf L e_*` is `\widehat z`; the bottom-right
-block of `J\mathsf L` is `\rho_h=\|h\|_2^2/n`, and its top-left block is
-`C=BB^T`. Therefore `(a,\mathsf L)` closes on raw-image states:
-`a'=z^2`, `b=a\odot z`, `f=a^Tz^2/n`, and
+The upper block of $\mathsf{L}e_*$ is $\widehat z$; the bottom-right
+block of $J\mathsf{L}$ is $\rho_h=\lVert h\rVert_2^2/n$, and its top-left block is
+$C=BB^{\top}$. Therefore $(a,\mathsf{L})$ closes on raw-image states:
+$a'=z^2$, $b=a\odot z$, $f=a^{\top}z^2/n$, and
 
 $$
  K=\frac{\|z^2\|_2^2}{n}
        +4\rho_h\frac{\|b\|_2^2}{n}+4\frac{b^TCb}{n}.
-
 $$ {#eq-docs-finite-dynamics-l375}
 
 These claims are exact block identities, not a reduction to a fixed number
-of scalar coordinates. Their block matrices still have size `n+1`.
-Multiplying their entire vector fields by `-2r` returns both systems to
+of scalar coordinates. Their block matrices still have size $n+1$.
+Multiplying their entire vector fields by $-2r$ returns both systems to
 physical time, including their output and kernel readouts.
 
 For completeness the commutator laws do imply isospectrality without
-assuming that `\mathsf L` is self-adjoint. Along a raw solution, either
-physical law has the form `\dot{\mathsf L}=[\mathsf L,F(t)]`, with
-`F=-2rS` for `QI` and `F=-4rS` for `IQ`. On any compact interval where
-the raw solution exists, `F` is continuous and bounded. The integral
-equation for `U'=-FU`, `U(0)=I`, has a unique solution: successive
-integrations have norm bounded by `(Mt)^k/k!` when `\|F\|<=M`, so the
+assuming that $\mathsf{L}$ is self-adjoint. Along a raw solution, either
+physical law has the form $\dot{\mathsf{L}}=[\mathsf{L},F(t)]$, with
+$F=-2rS$ for $QI$ and $F=-4rS$ for $IQ$. On any compact interval where
+the raw solution exists, $F$ is continuous and bounded. The integral
+equation for $U'=-FU$, $U(0)=I$, has a unique solution: successive
+integrations have norm bounded by $(Mt)^k/k!$ when $\lVert F\rVert\le M$, so the
 series converges uniformly, solves the equation, and gives uniqueness by
-the same iterated difference bound. The equation `V'=VF`, `V(0)=I` has
-the same construction. Differentiating `VU` gives zero, hence `VU=I`;
-in finite dimension this also gives `UV=I`. Differentiation now yields
-`(V\mathsf L U)'=0`, so
-`\mathsf L(t)=U(t)\mathsf L(0)U(t)^{-1}`. Similarity preserves the
+the same iterated difference bound. The equation $V'=VF$, $V(0)=I$ has
+the same construction. Differentiating $VU$ gives zero, hence $VU=I$;
+in finite dimension this also gives $UV=I$. Differentiation now yields
+$(V\mathsf{L}U)'=0$, so
+$\mathsf{L}(t)=U(t)\mathsf{L}(0)U(t)^{-1}$. Similarity preserves the
 characteristic polynomial because
-`det(\lambda I-U\mathsf L U^{-1})=det(\lambda I-\mathsf L)`.
+$\det(\lambda I-U\mathsf{L}U^{-1})=\det(\lambda I-\mathsf{L})$.
 The same argument applies to feature ascent on its interval of existence.
 
 ### The spectrum does not determine the instantaneous output velocity {#sec-docs-finite-dynamics-l403}
 
-For `QI` take `n=3`, `u=(1,\sqrt2,\sqrt3)`, `B=I_3`, and either
+For $QI$ take $n=3$, $u=(1,\sqrt2,\sqrt3)$, $B=I_3$, and either
 
 $$
  a_1=(1,0,0),\qquad a_2=(1/3,-2/3,2/3).
-
 $$ {#eq-docs-finite-dynamics-l407}
 
-Both states have `h=(1,2,3)`, `\|a_i\|_2^2=1`, and `a_i^Th=1`.
-Thus their output is `f=1/3`. Put
-`d=(1,1,-1)^T` and `O=I-2dd^T/3`. Since `d^Td=3`, multiplication
-gives `O^TO=I`, `Oa_1=a_2`, and `Oh=h`. In isometric coordinates the
+Both states have $h=(1,2,3)$, $\lVert a_i\rVert_2^2=1$, and $a_i^{\top}h=1$.
+Thus their output is $f=1/3$. Put
+$d=(1,1,-1)^{\top}$ and $O=I-2dd^{\top}/3$. Since $d^{\top}d=3$, multiplication
+gives $O^{\top}O=I$, $Oa_1=a_2$, and $Oh=h$. In isometric coordinates the
 Gram matrix in ([-@eq-docs-finite-dynamics-l315]) is
 
 $$
@@ -420,38 +401,37 @@ $$
  \begin{pmatrix}1/3&a_i^T/\sqrt3\\a_i/\sqrt3&I_3\end{pmatrix}.
 $$
 
-Conjugating the first such Gram by `diag(1,O)` gives the second.
-That conjugating matrix commutes with `J`; hence the two `\mathsf L_i`
+Conjugating the first such Gram by $\operatorname{diag}(1,O)$ gives the second.
+That conjugating matrix commutes with $J$; hence the two $\mathsf{L}_i$
 are orthogonally similar and have the same spectrum. Nevertheless
-`h^Ta_1^2/3=1/3` and `h^Ta_2^2/3=7/9`. Formula ([-@eq-docs-finite-dynamics-l340]) gives
-`K_1=68/9` and `K_2=28/3`, a difference of `16/9`.
-For any common label other than `1/3`, ([-@eq-docs-finite-dynamics-l296]) gives different instantaneous
+$h^{\top}a_1^2/3=1/3$ and $h^{\top}a_2^2/3=7/9$. Formula ([-@eq-docs-finite-dynamics-l340]) gives
+$K_1=68/9$ and $K_2=28/3$, a difference of $16/9$.
+For any common label other than $1/3$, ([-@eq-docs-finite-dynamics-l296]) gives different instantaneous
 physical output speeds. Thus retaining the spectrum, the actual current
-`h`, and the output does not give a restart-sufficient state. This says
+$h$, and the output does not give a restart-sufficient state. This says
 nothing against retaining the full operators in ([-@eq-docs-finite-dynamics-l315]) or ([-@eq-docs-finite-dynamics-l352]).
 
 ### Both squares: row and column balances {#sec-docs-finite-dynamics-l433}
 
-For `QQ`, ([-@eq-docs-finite-dynamics-l265]) gives `h'=8h\odot q`. With the raw auxiliary matrix
-`\mathsf W=\sqrt n B`, each row and column obeys
+For $QQ$, ([-@eq-docs-finite-dynamics-l265]) gives $h'=8h\odot q$. With the raw auxiliary matrix
+$\mathsf{W}=\sqrt nB$, each row and column obeys
 
 $$
  \left(n\sum_jB_{ij}^2-2a_i^2\right)'=0,\qquad
  \left(n\sum_iB_{ij}^2-\tfrac12u_j^2\right)'=0.
-
 $$ {#eq-docs-finite-dynamics-l438}
 
-Indeed the row derivative of `n\sum_j B_{ij}^2` is
-`4b_i\sum_jB_{ij}h_j=4a_i z_i^2`, which cancels `(2a_i^2)'`.
-The column derivative is `4h_j\sum_iB_{ij}b_i=4u_j^2q_j`, which
-cancels `(u_j^2/2)'`. Equation ([-@eq-docs-finite-dynamics-l248]) preserves these zero derivatives in
-physical time. The identities assert no common block-Gram Lax law for `QQ`.
+Indeed the row derivative of $n\sum_jB_{ij}^2$ is
+$4b_i\sum_jB_{ij}h_j=4a_iz_i^2$, which cancels $(2a_i^2)'$.
+The column derivative is $4h_j\sum_iB_{ij}b_i=4u_j^2q_j$, which
+cancels $(u_j^2/2)'$. Equation ([-@eq-docs-finite-dynamics-l248]) preserves these zero derivatives in
+physical time. The identities assert no common block-Gram Lax law for $QQ$.
 
 ## 6. Differentiated RMS normalization at finite width {#sec-docs-finite-dynamics-l450}
 
-Keep exactly the finite metric, data and trained parameters in (8)–(9), but
+Keep exactly the finite metric, data and trained parameters in ([-@eq-docs-finite-dynamics-l236])–([-@eq-docs-finite-dynamics-l248]), but
 now normalize the vector after each coordinatewise square. Fix
-`\varepsilon>0`, and put
+$\varepsilon>0$, and put
 
 $$
  p=u^2,\quad \alpha=\sqrt{\|p\|_2^2/n+\varepsilon},\quad
@@ -459,37 +439,34 @@ $$
  z=Bh,\quad w=z^2,\quad
  \beta=\sqrt{\|w\|_2^2/n+\varepsilon},\quad v=w/\beta,
  \quad f=a^Tv/n.
-
 $$ {#eq-docs-finite-dynamics-l456}
 
 This is a different architecture from applying a scalar activation at each
 coordinate: the denominators depend on all neurons. They are differentiated
 as part of the network. Every parameter block is trained.
 
-For any vector `x`, let
-`N_\varepsilon(x)=x/\sigma`, `\sigma^2=\|x\|_2^2/n+\varepsilon`.
+For any vector $x$, let
+$N_\varepsilon(x)=x/\sigma$, $\sigma^2=\lVert x\rVert_2^2/n+\varepsilon$.
 Direct differentiation gives
 
 $$
  d\sigma=\frac{x^Tdx}{n\sigma},\qquad
  DN_\varepsilon(x)[dx]=\sigma^{-1}
        \left(I-\frac{N_\varepsilon(x)N_\varepsilon(x)^T}{n}\right)dx.
-
 $$ {#eq-docs-finite-dynamics-l473}
 
-Write `\Pi_h=I-hh^T/n` and `\Pi_v=I-vv^T/n`. These symmetric
+Write $\Pi_h=I-hh^{\top}/n$ and $\Pi_v=I-vv^{\top}/n$. These symmetric
 matrices are positive definite, not generally idempotent. For a nonzero
-`x`, the parenthesis in ([-@eq-docs-finite-dynamics-l473]) is the identity perpendicular to `x`, and
-has eigenvalue `1-\|x\|_2^2/(n\sigma^2)=\varepsilon/\sigma^2` on
-its span. At `x=0` it is `I`. In particular both denominators in ([-@eq-docs-finite-dynamics-l456])
-are at least `\sqrt\varepsilon`.
+$x$, the parenthesis in ([-@eq-docs-finite-dynamics-l473]) is the identity perpendicular to $x$, and
+has eigenvalue $1-\lVert x\rVert_2^2/(n\sigma^2)=\varepsilon/\sigma^2$ on
+its span. At $x=0$ it is $I$. In particular both denominators in ([-@eq-docs-finite-dynamics-l456])
+are at least $\sqrt\varepsilon$.
 
 Define the current backward vectors
 
 $$
  c=\Pi_v a=a-fv,\qquad b=\frac2\beta z\odot c,
  \qquad q=B^Tb,\qquad \widetilde q=\Pi_hq.
-
 $$ {#eq-docs-finite-dynamics-l489}
 
 The full differential is
@@ -497,17 +474,15 @@ The full differential is
 $$
  df=\frac{v^Tda}{n}+\frac{b^T(dB)h}{n}
                       +\frac{(2u\odot\widetilde q)^Tdu}{n\alpha}.
-
 $$ {#eq-docs-finite-dynamics-l497}
 
-To obtain it, ([-@eq-docs-finite-dynamics-l473]) first gives `a^Tdv/n=c^Tdw/(n\beta)` and
-`dw=2z\odot dz`; next `dz=(dB)h+Bdh`,
-`dh=\Pi_h dp/\alpha`, and `dp=2u\odot du`.
-Symmetry of `\Pi_h` transfers it to `q`, giving ([-@eq-docs-finite-dynamics-l497]). Therefore
+To obtain it, ([-@eq-docs-finite-dynamics-l473]) first gives $a^{\top}dv/n=c^{\top}dw/(n\beta)$ and
+$dw=2z\odot dz$; next $dz=(dB)h+Bdh$,
+$dh=\Pi_hdp/\alpha$, and $dp=2u\odot du$.
+Symmetry of $\Pi_h$ transfers it to $q$, giving ([-@eq-docs-finite-dynamics-l497]). Therefore
 
 $$
  a'=v,\qquad B'=b h^T/n,\qquad u'=2u\odot\widetilde q/\alpha,
-
 $$ {#eq-docs-finite-dynamics-l508}
 
 
@@ -516,24 +491,22 @@ $$
      =\frac4\alpha\frac{h^T\widetilde q^2}{n},\quad
  K_2=\frac{\|h\|_2^2\|b\|_2^2}{n^2},\quad
  K_3=\frac{\|v\|_2^2}{n}.
-
 $$ {#eq-docs-finite-dynamics-l512}
 
-The first equality and the squared norm of `B'` use exactly ([-@eq-docs-finite-dynamics-l236]).
+The first equality and the squared norm of $B'$ use exactly ([-@eq-docs-finite-dynamics-l236]).
 All terms are nonnegative, and ([-@eq-docs-finite-dynamics-l296]) again holds for their sum. In particular
-`r(t)=r(0)\exp(-2\int_0^tK(s)\,ds)` on every finite physical interval:
-differentiate `r(t)\exp(2\int_0^tK)` to check the identity, including
-`r(0)=0`. The residual keeps its sign.
+$r(t)=r(0)\exp(-2\int_0^tK(s)\,ds)$ on every finite physical interval:
+differentiate $r(t)\exp(2\int_0^tK)$ to check the identity, including
+$r(0)=0$. The residual keeps its sign.
 
 ### Feature equations, balances, and the finite reduced state {#sec-docs-finite-dynamics-l526}
 
-Let `\rho_h=\|h\|_2^2/n`. Differentiating ([-@eq-docs-finite-dynamics-l456]) using ([-@eq-docs-finite-dynamics-l508]) gives
+Let $\rho_h=\lVert h\rVert_2^2/n$. Differentiating ([-@eq-docs-finite-dynamics-l456]) using ([-@eq-docs-finite-dynamics-l508]) gives
 
 $$
  p'=4p\odot\widetilde q/\alpha,\qquad
  \alpha'=4(h^2)^T\widetilde q/n,\qquad
  h'=\frac4\alpha\Pi_h(h\odot\widetilde q),
-
 $$ {#eq-docs-finite-dynamics-l530}
 
 
@@ -541,23 +514,21 @@ $$
  z'=\rho_h b+B h',\qquad w'=2z\odot z',\qquad
  \beta'=\frac{2(z^3)^Tz'}{n\beta},\qquad
  v'=\frac2\beta\Pi_v(z\odot z').
-
 $$ {#eq-docs-finite-dynamics-l536}
 
-For example `\alpha'=h^Tp'/n=4(h^2)^T\widetilde q/n`, and
-`h'=\Pi_h p'/\alpha` gives ([-@eq-docs-finite-dynamics-l530]). The rank-one formula for `B'`
-gives `B'h=\rho_h b`, which proves the first equation of ([-@eq-docs-finite-dynamics-l536]); ([-@eq-docs-finite-dynamics-l473]) proves
+For example $\alpha'=h^{\top}p'/n=4(h^2)^{\top}\widetilde q/n$, and
+$h'=\Pi_hp'/\alpha$ gives ([-@eq-docs-finite-dynamics-l530]). The rank-one formula for $B'$
+gives $B'h=\rho_hb$, which proves the first equation of ([-@eq-docs-finite-dynamics-l536]); ([-@eq-docs-finite-dynamics-l473]) proves
 the remaining ones. One useful exact scalar contraction is
 
 $$
  \frac{h^Tq}{n}=\frac{z^Tb}{n}
    =\frac{2\varepsilon f}{\beta^2},\qquad
  \widetilde q=q-\frac{2\varepsilon f}{\beta^2}h.
-
 $$ {#eq-docs-finite-dynamics-l548}
 
-Indeed `z^Tb/n=(2/\beta)(w^Ta/n-f w^Tv/n)` and
-`w=\beta v`, `\|v\|_2^2/n=1-\varepsilon/\beta^2` give ([-@eq-docs-finite-dynamics-l548]).
+Indeed $z^{\top}b/n=(2/\beta)(w^{\top}a/n-fw^{\top}v/n)$ and
+$w=\beta v$, $\lVert v\rVert_2^2/n=1-\varepsilon/\beta^2$ give ([-@eq-docs-finite-dynamics-l548]).
 The row and column balance laws now have signed drifts:
 
 $$
@@ -565,87 +536,83 @@ $$
  \qquad
  \left(n\sum_iB_{ij}^2-\tfrac12u_j^2\right)'
        =\frac{4\varepsilon f}{\beta^2}h_j^2.
-
 $$ {#eq-docs-finite-dynamics-l559}
 
-For the row, the first derivative is `2b_i z_i=4v_i(a_i-fv_i)`;
-subtract `4a_iv_i`. For the column it is `2h_jq_j`; subtract
-`u_ju'_j=2h_j\widetilde q_j`, and then use ([-@eq-docs-finite-dynamics-l548]). Multiplication by `-2r` converts
+For the row, the first derivative is $2b_iz_i=4v_i(a_i-fv_i)$;
+subtract $4a_iv_i$. For the column it is $2h_jq_j$; subtract
+$u_ju_j'=2h_j\widetilde q_j$, and then use ([-@eq-docs-finite-dynamics-l548]). Multiplication by $-2r$ converts
 both signed drifts to physical time. The row drift does not generally
-vanish when epsilon is set to zero at a state with nonzero denominators.
-No epsilon-zero dynamics is part of the theorem.
+vanish when $\epsilon$ is set to zero at a state with nonzero denominators.
+No $\epsilon$-zero dynamics is part of the theorem.
 
-The output-relevant bottom coordinate can be represented by `h`:
+The output-relevant bottom coordinate can be represented by $h$:
 
 $$
  \rho_h=1-\varepsilon/\alpha^2<1,\qquad
  \alpha(h)=\sqrt{\varepsilon/(1-\rho_h)},\qquad
  \mathcal A_h=\frac4{\alpha(h)}\Pi_h\operatorname{diag}(h)\Pi_h.
-
 $$ {#eq-docs-finite-dynamics-l576}
 
-On a raw-image state `h>=0`; thus `\mathcal A_h` is positive
+On a raw-image state $h\ge0$; thus $\mathcal{A}_h$ is positive
 semidefinite, since
-`x^T\mathcal A_h x=(4/\alpha)\sum_jh_j(\Pi_h x)_j^2>=0`.
-Equations ([-@eq-docs-finite-dynamics-l530]) and ([-@eq-docs-finite-dynamics-l512]) become `h'=\mathcal A_hq` and
-`K_1=q^T\mathcal A_hq/n`.
-With a fixed finite matrix `B_0` and current increment `E=B-B_0`, the
-reduced state `(a,h,E)` evolves by
+$x^{\top}\mathcal{A}_hx=(4/\alpha)\sum_jh_j(\Pi_hx)_j^2\ge0$.
+Equations ([-@eq-docs-finite-dynamics-l530]) and ([-@eq-docs-finite-dynamics-l512]) become $h'=\mathcal{A}_hq$ and
+$K_1=q^{\top}\mathcal{A}_hq/n$.
+With a fixed finite matrix $B_0$ and current increment $E=B-B_0$, the
+reduced state $(a,h,E)$ evolves by
 
 $$
  z=(B_0+E)h,\quad v=N_\varepsilon(z^2),\quad f=a^Tv/n,
  \quad b=\frac2\beta z\odot(a-fv),
  \qquad
  a'=v,\quad E'=b h^T/n,\quad h'=\mathcal A_h(B_0+E)^Tb.
-
 $$ {#eq-docs-finite-dynamics-l591}
 
 This system is autonomous and restartable for states reached from finite
 raw initial parameters. Here is the precise justification. Its vector
-field is smooth on the open set `\|h\|_2^2/n<1`, because `\alpha(h)`
-is smooth there and `\beta>=\sqrt\varepsilon`. A raw solution projects
-to ([-@eq-docs-finite-dynamics-l591]) by ([-@eq-docs-finite-dynamics-l530]). Its reached states have `h>=0` and strict `\rho_h<1`.
-The coordinate sign of `u_j` is preserved along any finite raw physical
-interval: ([-@eq-docs-finite-dynamics-l508]) and ([-@eq-docs-finite-dynamics-l248]) have the form `\dot u_j=c_j(t)u_j` with continuous
-`c_j`, whence `u_j(t)=u_j(t_0)\exp(\int_{t_0}^t c_j)` by
+field is smooth on the open set $\lVert h\rVert_2^2/n<1$, because $\alpha(h)$
+is smooth there and $\beta\ge\sqrt\varepsilon$. A raw solution projects
+to ([-@eq-docs-finite-dynamics-l591]) by ([-@eq-docs-finite-dynamics-l530]). Its reached states have $h\ge0$ and strict $\rho_h<1$.
+The coordinate sign of $u_j$ is preserved along any finite raw physical
+interval: ([-@eq-docs-finite-dynamics-l508]) and ([-@eq-docs-finite-dynamics-l248]) have the form $\dot u_j=c_j(t)u_j$ with continuous
+$c_j$, whence $u_j(t)=u_j(t_0)\exp(\int_{t_0}^tc_j)$ by
 differentiation. In particular zero coordinates remain zero. At a reached
 time, recover a finite raw lift from
-`u_j=\operatorname{sign}(u_j(t_0))\sqrt{\alpha(h)h_j}`,
-with zero when `h_j=0`, and `B=B_0+E`. The recovered squared vector
-indeed has normalizer `\alpha(h)` because
-`\alpha(h)^2\rho_h+\varepsilon=\alpha(h)^2`.
+$u_j=\operatorname{sign}(u_j(t_0))\sqrt{\alpha(h)h_j}$,
+with zero when $h_j=0$, and $B=B_0+E$. The recovered squared vector
+indeed has normalizer $\alpha(h)$ because
+$\alpha(h)^2\rho_h+\varepsilon=\alpha(h)^2$.
 
 Each choice of the nonzero signs gives a raw lift. Any such lift projects
 to the same locally unique reduced solution: local uniqueness follows
 from the smooth reduced vector field by the integral-equation contraction
-on a small closed ball inside `\rho_h<1`. The raw global physical continuation
+on a small closed ball inside $\rho_h<1$. The raw global physical continuation
 proved below provides its continuation at every later finite time and
-preserves `h>=0,\rho_h<1` there. Consequently the reduced future and its output
+preserves $h\ge0,\rho_h<1$ there. Consequently the reduced future and its output
 do not depend on the recovered signs. This argument concerns reached raw
-states; it claims neither a solution on `\rho_h=1` nor global feature-ascent
-existence. The source matrix `B_0` still has size `n` and is not a
+states; it claims neither a solution on $\rho_h=1$ nor global feature-ascent
+existence. The source matrix $B_0$ still has size $n$ and is not a
 width-independent Gaussian operator construction.
 
 ## 7. Global finite physical flow for these models {#sec-docs-finite-dynamics-l625}
 
 For each fixed width and finite initial state, all models above have a
-unique physical solution for every `t>=0`. The mixed polynomial losses are
-smooth, and the normalized loss is smooth because epsilon is positive.
+unique physical solution for every $t\ge0$. The mixed polynomial losses are
+smooth, and the normalized loss is smooth because $\epsilon$ is positive.
 Thus their physical vector fields are locally Lipschitz. Local existence
 and uniqueness follow by contraction for the integral equation on a closed
 ball of continuous paths: choose its time length so the field stays in
 the ball and its Lipschitz constant times that length is less than one.
 No distributional initialization hypothesis enters this argument.
 
-For any solution interval, (8), (9), and `f'=K` give
+For any solution interval, ([-@eq-docs-finite-dynamics-l236]), ([-@eq-docs-finite-dynamics-l248]), and $f'=K$ give
 
 $$
  \frac{\|\dot u\|_2^2}{n}+\|\dot B\|_F^2+
        \frac{\|\dot a\|_2^2}{n}=4r^2K=-\dot{\mathcal L}.
-
 $$ {#eq-docs-finite-dynamics-l638}
 
-After integration, Cauchy–Schwarz in the metric (8) yields, for `s<t`,
+After integration, Cauchy–Schwarz in the metric ([-@eq-docs-finite-dynamics-l236]) yields, for $s<t$,
 
 $$
  \left(\frac{\|u(t)-u(s)\|_2^2}{n}
@@ -653,20 +620,19 @@ $$
        +\frac{\|a(t)-a(s)\|_2^2}{n}\right)^{1/2}
  \le\sqrt{(t-s)(\mathcal L(s)-\mathcal L(t))}
  \le\sqrt{(t-s)\mathcal L(0)}.
-
 $$ {#eq-docs-finite-dynamics-l646}
 
-If a maximal forward solution ended at finite `T`, ([-@eq-docs-finite-dynamics-l646]) would make its
-parameters Cauchy as `t` increased to `T`. For fixed `n` this metric is
+If a maximal forward solution ended at finite $T$, ([-@eq-docs-finite-dynamics-l646]) would make its
+parameters Cauchy as $t$ increased to $T$. For fixed $n$ this metric is
 equivalent to the Euclidean metric, so they have a finite limit. Local
-existence at that limit extends the solution beyond `T`; local uniqueness
+existence at that limit extends the solution beyond $T$; local uniqueness
 joins the extensions. This contradiction proves the assertion. Equation
 ([-@eq-docs-finite-dynamics-l646]) controls normalized parameter displacements, not coordinate maxima,
 kernel uniform integrability, a population limit, or arbitrary-step GD.
 
 ## 8. Frozen quadratic reduction and joint initial layers {#sec-docs-finite-dynamics-l663}
 
-The results in Sections [8](finite-dynamics.qmd#sec-docs-finite-dynamics-l663)–[9](finite-dynamics.qmd#sec-docs-finite-dynamics-l945) concern one sample, `d=m=1`, `x_1=y_1=1`,
+The results in Sections [8](finite-dynamics.qmd#sec-docs-finite-dynamics-l663)–[9](finite-dynamics.qmd#sec-docs-finite-dynamics-l945) concern one sample, $d=m=1$, $x_1=y_1=1$,
 and two hidden layers. They use **order-one stored readout initialization**,
 not the small stored readout used in the nonlinear limit theorems. They
 separate a joint width/step obstruction for a frozen-bottom quadratic model
@@ -674,8 +640,8 @@ from a finite-width classical ReLU obstruction and a positive local
 compactness theorem for actual ReLU Euler outputs. None replaces a theorem
 about genuinely nonlinear training on correlated data.
 
-Write `u=W^(1)`, `W=W^(2)` and `a=W^(3)` for finite arrays of sizes `n`,
-`n` by `n`, and `n`. Thus
+Write $u=W^{(1)}$, $W=W^{(2)}$ and $a=W^{(3)}$ for finite arrays of sizes $n$,
+$n$ by $n$, and $n$. Thus
 
 $$
  h^{(1)}=\phi(u),\qquad z^{(2)}=Wh^{(1)},\qquad
@@ -747,6 +713,7 @@ of laws $N(0,1)$ and $N(0,Q_n)$, where
 $Q_n=n^{-1}\sum_j c^2u_j^4$.
 
 ::: {#thm-docs-finite-dynamics-l745}
+
 ## Frozen-bottom joint-step
 
 Let $\eta_n>0$ be any deterministic
