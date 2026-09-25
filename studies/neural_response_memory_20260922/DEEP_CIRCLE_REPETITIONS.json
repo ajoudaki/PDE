@@ -1,0 +1,4 @@
+[
+  {"case": "two_outliers_alternating", "model": "dense", "order": 1, "rtol": 0.000003125, "device": "cuda:1"},
+  {"case": "two_outliers_alternating", "model": "moment", "order": 3, "rtol": 0.000003125, "device": "cuda:0"}
+]
