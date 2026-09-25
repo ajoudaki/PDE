@@ -1,0 +1,22 @@
+{
+  "quadrant_pairs": {
+    "angles_degrees": [10,20,30,40,50,60,70,80],
+    "labels": [1,1,-1,-1,1,1,-1,-1],
+    "source": "deep_circle_cases.json"
+  },
+  "quadrant_center_edges": {
+    "angles_degrees": [15,21,27,33,39,45,53,60],
+    "labels": [-1,-1,1,1,1,1,-1,-1],
+    "source": "deep_circle_cases.json"
+  },
+  "equal_mixed_odd": {
+    "angles_degrees": [0,45,90,135,180,225,270,315],
+    "labels": [1,1,-1,1,-1,-1,1,-1],
+    "source": "deep_circle_cases.json original_angles_degrees/original_labels; full eight-point task for non-odd activations"
+  },
+  "two_clusters_grouped": {
+    "angles_degrees": [10,22,34,46,125,137,149,161],
+    "labels": [1,1,1,1,-1,-1,-1,-1],
+    "source": "HARD_BENCHMARK_INPUTS.md original-case table"
+  }
+}

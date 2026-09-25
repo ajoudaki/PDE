@@ -982,3 +982,405 @@ certificate. The error-transfer route separately derived and checked the
 saturation theorem and a computable recursive cutoff certificate. Root read
 all original routes, subsequent derivations and version-specific audits.
 These are internal checks, not independent promotion reviews.
+
+### Selected Fourier circle readout for scalar dynamics (2026-09-25)
+
+The user first asks whether the fitted scalar closure can recover a whole
+circle function/RMS without an evolving passive query mesh, then explicitly
+selects the Fourier route. The completed
+[design and derivations](SCALAR_CIRCLE_FUNCTION_READOUT.md) retain angularly
+integrated contraction coordinates with Fourier test weights. Correlations
+sharing the same angle stay inside one integral; only components disconnected
+in both neuron and angle indices factor. This yields a finite-template exact
+hierarchy and a scalar compiler, not a Fourier-coefficients-only closed ODE.
+
+The selected solver has one autonomous training block and 2J+1 passive
+angular blocks. With the same diagram list and a static weight tag in every
+copy, plus pure angular constants as zero-derivative coordinates, every
+unclipped block has the same matrix law Q_w_dot=A_K(q_train,L)Q_w.
+The stabilized version uses clipped inputs in that law, so it is nonlinear
+in the raw angular coordinates. The matrix and coefficient table are shared
+across modes; training residuals still use the original training coordinates,
+with their dictionary and caps unchanged. No angular function, query mesh
+or neuron state is hidden in a runtime scalar.
+
+The preceding saturated finite-horizon proof extends to these integrated
+contractions: normalized angular integration preserves product bounds;
+query replacements have bounded size/factor increase; and row coefficients
+grow at most linearly in grade. Fourier readouts have grade 5 and the tagged
+output-energy readout has grade 8 under the common convention. The explicit
+cutoff bound therefore uses maximum readout grade 8. At fixed n,P,J,T all
+included coefficients and energy converge as K increases.
+
+The finite Fourier sum is an O(J) arbitrary-angle evaluator. Parseval gives
+its whole-circle RMS without a runtime evaluation mesh. A separate energy
+A=integral f_P^2 accounts for the target network's omitted spectral energy:
+A-sum_(|k|<=J)|c_k|^2 is exactly its squared Fourier tail. The approximate
+difference needs the proved coordinate-error margin to become a certificate.
+For a bandlimited reference g, A and only its supported coefficient band
+give the parent network's full RMS without a learned-function tail term.
+No Fourier support is assumed for the actual reference without its definition.
+The RMS of the returned polynomial and the estimated parent-network RMS
+remain distinct finite-cutoff readouts.
+
+Angular H1 bounds yield an explicit inverse-bandwidth error. A further
+elementary complex-tanh argument derives a positive common strip from
+finite-time weight row-sum bounds, giving exponential Fourier tails for this
+finite three-hidden-layer tanh target. Combining these with the scalar K
+error and old history P error gives whole-circle dense-function accuracy on
+a common prescribed finite interval. Strip width and all practical constants
+can be poor and need not be uniform in neural width.
+
+This is a mathematical design, not an implemented or benchmarked solver.
+Preprocessing still needs integrals of initialized contractions and may use
+quadrature. Scalar storage grows with the auxiliary pattern count as well as
+2J+1; no small-state or speedup claim follows. Missing mode blocks cannot be
+initialized at a late training time without additional information or a
+rerun. Training endpoint and unlimited-time accuracy remain separate claims.
+
+The independent [decoder assessment](SCALAR_DECODER_LIMITS.md) also constructs
+an alternative polynomial-to-Fourier terminal readout from sufficiently rich
+training-only contractions. It prevents a blanket claim that every new-angle
+readout requires passive query augmentation, but adds an activation-polynomial
+approximation and does not recover labelled weights. A precise deterministic
+finite-cutoff collision limits exact universal decoding on its stated broad
+family, without asserting a no-go result for the prescribed Gaussian orbit.
+
+Root owns the synthesis and this entry. Fresh scoped routes froze first
+reports before exchange: the decoder assessment,
+[Fourier construction](SCALAR_FOURIER_READOUT.md), and
+[integrated RMS construction](SCALAR_RMS_OBSERVABLE.md). Their full arguments
+and post-freeze checks are retained. The Fourier route read the entire final
+552-line synthesis at SHA256
+c771be0dee6d4672fb9a6db7f3c64295bf63a0760e884285dd04a67ee1918a77,
+with no required mathematical correction. Root read all route arguments and
+the subsequent checks. The integrated-RMS route also read the complete same
+552-line version and recorded no required correction, including the explicit
+complex strip and energy-tail certificate. These are collaborative internal
+checks; no promotion,
+experiment, solver implementation, maintained-code edit or Git-index write
+occurred.
+
+### Compact practical implementation (2026-09-25)
+
+The user requests a short, fast replacement implementation and a quick fitting
+check. The pre-change study source is snapshotted at commit
+`915fdcda684a945ace8024ea77c5ad1fa8a93fa6`; generated evidence remains in data/.
+`compact_flow.py` is the new single study-local entry point for dense dynamics
+and the original residual-activity Legendre population closure at arbitrary
+positive hidden depth, with scalar output and common width. It uses already
+scaled input coordinates, preserving the earlier circle convention.
+The initial practical choice is float32 and fixed simultaneous Euler step
+0.0625 shared across ReLU/GELU/SELU, with complete GPU update blocks and loss
+checks only between blocks. Custom activation/value-derivative pairs and
+float64 remain available. This is a practical finite-step solver, without a
+claim of numerically resolved continuous-gradient-flow predictions.
+
+The quick check uses width 2048, depth 3, seed 20260920, the two existing
+8-sample hard circle tasks, and dense/P1/P2/P3 for all three activations.
+Success means training RMS near 0.05 (0.065 is acceptable per the user).
+Both GPUs are authorized. Each task worker has a 115-second total budget;
+each individual fit has an 8-second budget and at most 12000 updates.
+There are no automatic step refinements or repeat campaigns. Results,
+source hashes and training predictions go into a fresh
+`data/generated/neural_response_memory_20260922/compact_quick01/` directory.
+Root owns the driver and this README section; activation_engine owns the
+module; activation_audit owns a short CPU comparison with the original
+implementation and an independent dense-gradient check. This is study code,
+not a promotion into maintained code/ or established theory.
+
+Quick-check outcome: all **24/24** fits reached RMS <=0.05 using the same
+step 0.0625, with no retries or refinements. Task-worker elapsed times were
+9.42 seconds (outliers) and 11.68 seconds (quadrant), including model
+initialization, capture, fitting and result writes, excluding Python/CUDA
+process startup. Individual model times were 0.59–1.36 seconds.
+SELU/quadrant/P1 reached RMS 0.038735 in 0.997 seconds including initialization.
+
+| Task | Activation | Dense RMS | P1 RMS | P2 RMS | P3 RMS |
+|---|---|---:|---:|---:|---:|
+| two_outliers | relu | 0.03730 | 0.04717 | 0.00857 | 0.04504 |
+| two_outliers | gelu | 0.04413 | 0.04400 | 0.04672 | 0.04695 |
+| two_outliers | selu | 0.04926 | 0.04412 | 0.04682 | 0.03336 |
+| quadrant | relu | 0.02213 | 0.02062 | 0.01392 | 0.01587 |
+| quadrant | gelu | 0.04729 | 0.04755 | 0.04688 | 0.03250 |
+| quadrant | selu | 0.04206 | 0.03873 | 0.04801 | 0.04720 |
+
+The tiny CPU check passed 1122 assertions against the original equations
+and independent autograd gradients (depths 1,2,3,4 and a custom activation);
+maximum absolute discrepancy was 2.22e-16. A separate GPU graph/eager check
+at width 16, depth 4, SELU, dense/P1/P3, float64 and 64 steps of 0.001
+gave exact equality for every stored state tensor. These are implementation
+and fitting checks. Coarse float32 fitted predictors are not certified to
+match the earlier fine-step float64 circle predictions. The default step is
+a useful tested starting point, not a universal stability guarantee for
+arbitrary depth/data/activation. Generated tables, predictions, source hashes
+and check results are in `compact_quick01/`.
+
+Minimal use:
+
+```python
+from compact_flow import Flow
+model = Flow(inputs, labels, width=2048, depth=3, activation="selu",
+             order=1, device="cuda:0")  # order=None selects dense
+result = model.fit()  # step=0.0625, target RMS=0.05
+prediction = model.predict(test_inputs)
+```
+
+Reproduce (use a fresh output directory; the task runs may run concurrently):
+
+```text
+python -B studies/neural_response_memory_20260922/check_compact_flow.py
+python -B studies/neural_response_memory_20260922/quick_compact_flow.py --task two_outliers_alternating --device cuda:0 --out data/generated/neural_response_memory_20260922/compact_quick02/two_outliers
+python -B studies/neural_response_memory_20260922/quick_compact_flow.py --task quadrant_alternating --device cuda:1 --out data/generated/neural_response_memory_20260922/compact_quick02/quadrant
+```
+
+The user next requests closure-versus-dense test RMS over the full circle for
+this fast configuration. Repeat the same 24 short fits, with unchanged seed,
+step, precision, stopping target and budgets; evaluate 8192 equally spaced
+circle angles in batches of 512. Compare each closure with the dense fit of
+its activation/task, at their respective RMS<=0.05 stopping blocks. Save all
+circle predictions and scores under `compact_circle01/`, with no step search
+or extra refinements. This measures finite-step fitted-predictor agreement;
+small training RMS alone does not ensure small circle discrepancy. Root owns
+this small driver extension and reporting.
+
+Whole-circle result: all 24 reproduced training prediction vectors match
+the preceding quick check exactly. Independent rescoring of the saved 8192
+query arrays reproduces every reported RMS. The task workers took 9.52 and
+11.80 seconds including query evaluation and saving (excluding process startup).
+
+| Task | Activation | P1 circle RMS | P2 circle RMS | P3 circle RMS |
+|---|---|---:|---:|---:|
+| two_outliers | relu | 0.223247 | 0.156155 | 0.097738 |
+| two_outliers | gelu | 0.316418 | 0.194117 | 0.146945 |
+| two_outliers | selu | 0.330222 | 0.233538 | 0.210953 |
+| quadrant | relu | 2.678329 | 2.145159 | 1.700237 |
+| quadrant | gelu | 3.905899 | 1.690744 | 1.530945 |
+| quadrant | selu | 2.874368 | 1.647355 | 3.223783 |
+
+The fast configuration fits, but does not preserve close dense/closure
+whole-circle agreement on the quadrant task. Step size, stopping accuracy
+and precision differ from the older fine-flow comparison; this quick check
+does not separate those numerical effects from closure approximation error.
+Reproduce by adding `--circle 8192` to the quick driver commands above, with
+a fresh output directory. Source and configuration hashes, predictions and
+training RMS are in each task’s results.json and NPZ files.
+
+A single bounded practical follow-up tests shared step 1/128 and training
+RMS target 0.01 with the same float32 compact solver and 8192-circle score.
+Purpose: see whether this one cheap adjustment reduces fitted dense/closure
+circle discrepancies while retaining short runtime. All 24 cases are retained;
+no order is selected after observing the scores. Each task worker has 115s,
+each fit at most 12s/40000 updates; two workers run on the two GPUs. No sweep
+or further automatic refinement is authorized by this check. Results go to
+`compact_circle_practical01/`. A failure to improve a cell is retained and
+reported; finite-P error need not improve with numerical refinement. Root
+owns this bounded check and the small driver argument extension.
+
+The one-setting follow-up completed all 24 fits below training RMS 0.01.
+Task-worker elapsed times: 42.86s outliers and 59.92s quadrant, including
+setup, capture, fitting, queries and saving, excluding process startup.
+Independent rescoring from saved circle arrays matches all recorded scores.
+
+| Task | Activation | P1 RMS | P2 RMS | P3 RMS |
+|---|---|---:|---:|---:|
+| two_outliers | relu | 0.179862 | 0.071926 | 0.004553 |
+| two_outliers | gelu | 1.309716 | 0.207878 | 0.031848 |
+| two_outliers | selu | 0.159029 | 0.062084 | 0.053636 |
+| quadrant | relu | 0.609629 | 0.206658 | 0.159418 |
+| quadrant | gelu | 5.665547 | 0.876013 | 0.321156 |
+| quadrant | selu | 0.394943 | 0.412078 | 0.206584 |
+
+15/18 closure scores decreased; all six P3 scores decreased, by factors
+3.93–21.47. The three increases are GELU/outliers/P1 and P2, and
+GELU/quadrant/P1. Thus smaller steps/tighter fitting do not guarantee a
+smaller finite-order closure error. Practical recommendation: keep float32
+and GPU blocks, use step 1/128, target RMS 0.01, and P3 where a single
+useful closure order is wanted. The quadrant P3 discrepancies remain
+0.159/0.321/0.207; these are improvements, not universally tiny errors.
+No further sweep was run. This combined intervention does not isolate
+step-size versus stopping effects or certify the continuous-flow limit.
+Reproduce with the quick driver using --circle 8192 --step .0078125
+--target-rms .01 --fit-seconds 12 --max-steps 40000 and fresh task outputs.
+
+### Four-hidden-layer practical comparison (2026-09-25)
+
+The user requests the same practical batch with one additional hidden layer.
+Use the existing compact solver at depth 4 (three internal dense links), width
+2048, seed 20260920, float32, shared Euler step 1/128, and training RMS target
+0.01. ReLU/GELU/SELU, both literal 8-sample circle tasks, dense and P1/P2/P3
+are unchanged. Compare each closure to its matching independently fitted
+FOUR-layer dense predictor on 8192 circle angles at their own stopping blocks.
+The only driver change exposes --depth; core equations and execution remain
+unchanged and already have small depth-4 CPU and CUDA checks.
+One worker per GPU, each with 115s total, 12s per fit and 40000 updates, without
+sweeps/retries. A capped/nonfinite fit remains labelled and is not presented
+as a successful target-RMS comparison. New results use `compact_depth4_01/`.
+Root owns this continuation, driver and reporting; no promotion or Git write.
+
+Depth-4 outcome: all 24 fits reached training RMS <=0.01. Training RMS
+ranged from 0.006404 to 0.009848. Task-worker elapsed times were 44.19s (outliers)
+and 63.54s (quadrant), including initialization, capture, fitting, 8192-point
+circle evaluation and saving, excluding Python/CUDA process startup.
+Individual model elapsed times were 2.47–9.11s. Independent rescoring from
+the saved circle arrays agrees with all recorded RMS values.
+
+| Task | Activation | P1 circle RMS | P2 circle RMS | P3 circle RMS |
+|---|---|---:|---:|---:|
+| two_outliers | relu | 0.197722 | 0.086208 | 0.028751 |
+| two_outliers | gelu | 2.418437 | 0.733321 | 0.078736 |
+| two_outliers | selu | 0.171561 | 0.095145 | 0.077838 |
+| quadrant | relu | 0.452403 | 0.344536 | 0.260755 |
+| quadrant | gelu | 6.856610 | 1.843187 | 0.166443 |
+| quadrant | selu | 0.289389 | 0.088998 | 0.116327 |
+
+P3 has the smallest observed error in five of the six cases; SELU quadrant
+is best at P2. Relative to the depth-3 practical batch, P3 errors rise on all
+outlier cases and ReLU quadrant, and fall on GELU/SELU quadrant. These are
+one-seed finite-step comparisons, not depth/order monotonicity claims or
+certified continuous-flow errors. The dense reference is depth 4 in every
+new comparison. No retries, changed steps or other extra runs were performed.
+Reproduce using the quick driver with --depth 4 --circle 8192 --step .0078125
+--target-rms .01 --fit-seconds 12 --max-steps 40000, the same task/device
+arguments, and a fresh output directory. Full scores: compact_depth4_01/circle_rms.csv.
+
+### Implemented scalar Fourier closure (2026-09-25)
+
+The user explicitly requests implementation of the selected scalar Fourier
+route and a fitted whole-circle comparison on a small training set. The
+frozen protocol is [SCALAR_FOURIER_EXPERIMENT_PROTOCOL.md](SCALAR_FOURIER_EXPERIMENT_PROTOCOL.md).
+The study-local implementation uses three hidden tanh layers, width 16,
+seed 20260920, the original activity clock and P=1 history order. Training
+angles are 10 and 125 degrees, labels +1 and -1, a two-point subset of the
+study's two_clusters_grouped task. No other study supplied research inputs.
+
+[scalar_fourier_engine.py](scalar_fourier_engine.py) implements exact lifted
+response templates, a reachable tree/shared-angle-forest compiler, finite
+whole-monomial deletion, initialization by contraction evaluation and angular
+quadrature, and a scalar-only runtime with a shared operator for all Fourier
+blocks. This first practical witness is unsaturated and omits the optional
+energy observable. The saturated convergence theorem does not certify it.
+
+**Outcome: the tested K=5 scalar witness fails the prescribed accuracy target.**
+All three solvers reach internal training RMS 0.0316228. Their fitted outputs
+on 4096 circle angles give population-P1 versus dense RMS **0.0182228**, but
+scalar-K5/J8 versus dense RMS **0.2109774** (25.11% relative; maximum sampled
+error 0.3774303). The scalar Fourier function itself has training RMS
+**0.1692530**: finite truncation fails to preserve agreement between passive
+Fourier readout and the separately evolved training-output coordinates.
+
+K=5 has 331 training patterns, 17 angular patterns repeated across 17 real
+weights, and one clock: 621 evolving scalars with 133,358 retained equation
+terms. Dense width-16 training has 560 moving parameters. Scalar compilation
+took 6.69s, initialization 0.009s and integration 3.39s. K=7 stopped at the
+predeclared 200,000-term cap before its dictionary was complete; K=9/11 were
+therefore not attempted. This is a limitation of the tested computation,
+not a claim that higher cutoffs cannot succeed or that Fourier readout is
+intrinsically inadequate.
+
+Tighter integration and doubled initial quadrature change the scalar final
+curve by only 1.36e-8 RMS; dense/population refinement changes are below
+7.2e-10. Dense and parent Fourier tails above J=8 are 0.00531 and 0.00485,
+below the bandwidth-follow-up trigger. The failure is numerically resolved
+for this finite test and predominantly concerns aggregate dynamics.
+
+The independent study algebra audit passes exact primitive and retained-output
+checks to about 2e-15, including nonzero histories, inverse-clock derivatives,
+initialized transposes, same-angle factorization, zero-residual stationarity,
+runtime autonomy and width-independent dictionary counts. See
+[SCALAR_FOURIER_IMPLEMENTATION_AUDIT.md](SCALAR_FOURIER_IMPLEMENTATION_AUDIT.md)
+and [check_scalar_fourier.py](check_scalar_fourier.py). This is collaborative
+internal checking, not promotion review. The numerical refinement reproduces
+the primary failure within the prescribed tolerance.
+
+Full interpretation, method, reproducible commands and cost accounting are in
+[SCALAR_FOURIER_IMPLEMENTATION_REPORT.md](SCALAR_FOURIER_IMPLEMENTATION_REPORT.md).
+[run_scalar_fourier.py](run_scalar_fourier.py) produces matched references,
+scalar fits and analysis; [plot_scalar_fourier.py](plot_scalar_fourier.py)
+plots saved predictions. Raw states, failed compilation metadata, checks,
+scores, source hashes, PNG/PDF comparison and a portable terminal Fourier
+coefficient JSON are under `data/generated/neural_response_memory_20260922/scalar_fourier01/`.
+The returned Fourier model evaluates arbitrary circle angles without network
+weights or a mesh, with the measured error stated above.
+
+Contributors: root owned protocol, experiment runner, plots, synthesis and this
+README append; scalar_compiler owned the compiler; scalar_reference owned the
+independent dense/population reference module; scalar_audit owned the checks
+and audit report. No maintained code/book or Git-index changes were made.
+The bounded implementation/test request is complete. Practical higher-order
+accuracy and more economical aggregate dictionaries remain open; no further
+campaign was launched after the declared stopping condition.
+
+### Four additional circle tasks with the practical depth-4 solver
+
+The user requests four other non-trivial earlier tasks. Select the four with
+literal definitions already retained in this study: quadrant_pairs,
+quadrant_center_edges, equal_mixed_odd, and two_clusters_grouped. The first
+three extend the earlier five-task set; the fourth is the earlier separated-
+cluster task (historically easier, but not the excluded semicircle control).
+Definitions and source references are in compact_extra_circle_cases.json.
+Use all EIGHT original equal_mixed_odd samples: the old four-point antipodal
+quotient was exact for odd tanh and is inapplicable to ReLU/GELU/SELU.
+No labels, angles or initial scales are changed otherwise.
+
+Run the same 48 combinations: four tasks, ReLU/GELU/SELU, dense/P1/P2/P3,
+depth 4, width 2048, seed 20260920, float32, simultaneous Euler step 1/128,
+training RMS target 0.01, 32-update GPU blocks and 8192 uniform circle queries.
+A task has 115s; a fit has 12s and 40000 steps. At most one worker per GPU,
+no automatic retries or refinement; report every cap/failure as such.
+Compare each closure against the matching dense activation/task/depth at
+its own target stopping block. Root owns the small generic-case driver
+extension, task file and report. New products use compact_depth4_extra01/.
+
+Completed all 48 fits. 36 reached training RMS <=0.01; all 48
+were below 0.04 (maximum 0.03971994). Twelve fits hit a time cap;
+no retries were run. The per-task worker times, including prediction, were
+quadrant_pairs: 52.47s, quadrant_center_edges: 115.23s, equal_mixed_odd: 14.27s, two_clusters_grouped: 115.24s.
+These worker times overlap and should not be summed as wall-clock time.
+
+Whole-circle RMS versus each matching dense endpoint, recomputed in float64
+from the saved 8192-point predictions and checked against all 36 saved scores:
+
+| Task | Activation | P=1 | P=2 | P=3 |
+|---|---|---:|---:|---:|
+| Quadrant paired labels | RELU | 0.16761 | 0.05269 | 0.01956 |
+| Quadrant paired labels | GELU | 0.07951 | 0.03174 | 0.01038 |
+| Quadrant paired labels | SELU | 0.06619 | 0.04139 | 0.01445 |
+| Quadrant center/edges | RELU | 0.03281† | 0.01992† | 0.02731† |
+| Quadrant center/edges | GELU | 0.06670 | 0.02315 | 0.01471 |
+| Quadrant center/edges | SELU | 0.16277 | 0.04349 | 0.07252† |
+| Equally spaced mixed labels | RELU | 0.00312 | 0.00397 | 0.00109 |
+| Equally spaced mixed labels | GELU | 0.00782 | 0.01483 | 0.01007 |
+| Equally spaced mixed labels | SELU | 0.02206 | 0.00188 | 0.00065 |
+| Two separated clusters | RELU | 0.01201† | 0.00599† | 0.00348† |
+| Two separated clusters | GELU | 0.00605† | 0.00699† | 0.00666† |
+| Two separated clusters | SELU | 0.00071 | 0.00045 | 0.01582† |
+
+† At least one compared fit stopped at a time cap before the 0.01 target.
+Thus these are achieved endpoint comparisons, not matched-loss or matched-time
+comparisons. In particular, SELU P3 on center/edges and separated clusters had
+only 7.36s and 2.17s integration respectively because of the task-level cap;
+their higher errors cannot establish deterioration with closure order.
+
+Capped endpoints:
+
+- quadrant_center_edges/relu/P1: training RMS 0.01953192, 12.016s integration
+- quadrant_center_edges/relu/P2: training RMS 0.01316301, 12.004s integration
+- quadrant_center_edges/relu/P3: training RMS 0.01248814, 12.006s integration
+- quadrant_center_edges/selu/P3: training RMS 0.03971994, 7.361s integration
+- two_clusters_grouped/relu/P1: training RMS 0.01088928, 12.001s integration
+- two_clusters_grouped/relu/P2: training RMS 0.01064022, 12.013s integration
+- two_clusters_grouped/relu/P3: training RMS 0.01082020, 12.001s integration
+- two_clusters_grouped/gelu/dense: training RMS 0.01509159, 12.005s integration
+- two_clusters_grouped/gelu/P1: training RMS 0.01717422, 12.008s integration
+- two_clusters_grouped/gelu/P2: training RMS 0.01720660, 12.020s integration
+- two_clusters_grouped/gelu/P3: training RMS 0.01714025, 12.006s integration
+- two_clusters_grouped/selu/P3: training RMS 0.01729020, 2.165s integration
+
+All P3 test RMS values are below 0.028 except SELU center/edges (0.07252).
+Order improves agreement strongly on paired labels, but is not uniformly
+monotone across tasks. This is a single-seed practical finite-step comparison,
+not a gradient-flow convergence certificate. No solver equations were changed.
+The full score table, training errors and stopping statuses are in
+`data/generated/neural_response_memory_20260922/compact_depth4_extra01/circle_rms.csv`;
+per-task JSON and NPZ files retain metadata and predictions.

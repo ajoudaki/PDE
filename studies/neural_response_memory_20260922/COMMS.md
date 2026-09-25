@@ -1,5 +1,14 @@
 # Research communications and outreach
 
+**Current communications plan:** see [the 2026-09-25 continuation](#communications-continuation-2026-09-25)
+for reconciled scientific wording, proposed replacement drafts, a three-person
+unsent wave, the two-page brief outline, and the factual contact log. Amir's
+latest report confirms messages to Lorenzo and Orabona and conversations with
+Antonio and, at length, Thomas. The earlier
+record below is preserved, including all historical email text. Its “draft
+ready” labels describe preparation at that time; consult the continuation
+before reusing a scientific claim. Prepared text is never evidence of sending.
+
 Created: 2026-09-25. Owner: Amir; compiled in the outreach side conversation.
 Updated: 2026-09-25, incorporating the ETH/Apple relationships and introduction
 routes reported later in that conversation. A separate
@@ -537,3 +546,429 @@ and agreed next step. A friendly follow-up after roughly 7–14 days is a
 suggestion, not an automatic reminder or authorization to send. No assistant
 messages, introductions, public posts, seminar invitations or automations have
 been sent or created in this conversation.
+
+## Communications continuation: 2026-09-25
+
+This is a proposed communications update, not a scientific review or a record
+of sending. It supersedes the earlier next-wave recommendation and supplies
+new alternatives to the historical drafts without replacing their text.
+Only COMMS.md and its handoff prompt are owned by this communications task.
+
+### Reconciliation with the current scientific record
+
+Read in full for this update: the current README; the five theorem/scope notes
+listed below, including their appended corrections/check descriptions; and
+MNIST100_RESULTS.md. Shared instructions, docs/README.md and docs/NOTATION.md
+were also read. This was a source and wording check. No independent proof audit,
+code audit, experimental reproduction, or new scientific validation was performed.
+“Internally checked” below reports the study's recorded checks; it does not mean
+publication, promotion, or external validation.
+
+The recommended opening is the construction and the scientific question:
+
+> I've been developing an autonomous approximation of nonlinear neural-network
+> training. It summarizes forward and backward response histories in evolving
+> memory vectors per sample, retaining the initialized matrices and their
+> transpose actions exactly. For the specified smooth networks, the theory
+> controls the difference from dense gradient flow on any prescribed finite
+> horizon as the memory order increases, at fixed width and depth.
+
+Use “P memory modes,” rather than implying a small order is guaranteed to work.
+“Population history” in these notes does not itself assert an infinite-width
+limit or a state size independent of the training-sample count.
+
+| Construction | Current source-supported claim | Qualification for messaging |
+| --- | --- | --- |
+| Original activity clock, two hidden tanh layers | Unique existence for every finite time and every P >= 1; full physical-weight trajectory error at most C_T exp(K_T T)/sqrt(P(P+1)). [Complete source](ORACLE_FINITE_HORIZON_BOUND.md). | This remains a valid O_T(P^-1) result. It is the family behind the earlier experiments, not a superseded algorithm. |
+| Matching-prefix, weighted-Gram response clock, two hidden tanh layers | For each finite T, unique regular existence and O_T(P^-2) full physical-weight tracking for all P >= P0(T); zero initial residual uses the specified stationary return. [Complete source](RESPONSE_CLOCK_UNCONDITIONAL_BOUND.md). | The earlier conditional clock-length gap is closed at these quantifiers. Every small order on every horizon is not covered. |
+| Every fixed finite hidden depth H | Old clock: C^{1,1}_loc activations, O_T(P^-1). New clock: C^{1,1}_loc in the first layer and C^{2,1}_loc in layers 2 through H, O_T(P^-2). Generally, existence/tracking is for sufficiently large P at fixed T. [Complete theorem](DEEP_ACTIVATION_ERROR_THEOREM.md). | Tanh, sigmoid and exact GELU satisfy both sets of assumptions. For the old clock, globally bounded activations with bounded slopes additionally give all-P global existence and the finite-horizon bound, including tanh and sigmoid. Unbounded GELU is not in that corollary. |
+| Literal ReLU and SELU | General switching trajectories are outside these smooth tracking theorems. Positive-margin avoidance of kinks gives a conditional transfer. [Complete scope and corrections](DEEP_ACTIVATION_SCOPE.md). | Successful finite-step runs do not establish nonsmooth gradient-flow existence, uniqueness, or the smooth rates. |
+| Scalar aggregate approximation | A second cutoff K approximates the fixed-P, old-clock, three-hidden-layer tanh system. The original deletion rule has local convergence; the separately saturated variant has prescribed-finite-horizon output convergence. [Complete assessment](SCALAR_COMPRESSION_BOUND_ASSESSMENT.md). | Choose P, then K at that fixed P. Do not attach the new-clock P^-2 term to this compiler. No useful small-state or practical-efficiency claim follows. Keep this out of the first email. |
+
+For all physical tracking statements, fix finite width, depth, dataset, finite
+initial arrays and T before increasing P. Constants can depend strongly on all
+of them. The models are bias-free, scalar-output networks with the specified
+unhalved mean-square loss and stored-weight mobilities. No fitting hypothesis
+is required for the smooth finite-horizon comparison, and successful fitting
+does not turn it into an all-time or endpoint theorem. Neither rate is asserted
+optimal; a stronger upper bound for one clock does not prove it is faster or
+more accurate at a given practical order.
+
+Theory and evidence must be named separately. The new deep response-clock
+construction remains unimplemented and untested in the README read here.
+During preparation, the README added outcomes for a compact original-clock
+implementation's quick fitting check and a planned circle comparison. Those
+entries concern a practical finite-step solver; fitting alone does not establish
+agreement with the dense predictor or numerically resolved gradient flow.
+The added README text was read, but its implementation/evidence was not audited
+here. The outreach example remains the completed MNIST100 report below.
+
+For a technical note, history storage is 2MnP(H-1) moving entries, plus nd+n
+outer-weight entries and a clock. The retained initial internal matrices cost
+(H-1)n^2 entries and still require dense matrix/transpose actions. The new clock
+also needs a shared symmetric P-by-P Gram and matching-prefix vectors. These
+are state counts, not whole-implementation memory or time measurements.
+
+### Proposed next wave: three unsent conversations
+
+Amir's update during preparation: “only talked with Antonio and just messaged
+Lorenzo and Francesco Orabona, talked at length with THomas, but no one else
+essentially.” This changes the proposed sequence. Lorenzo and Orabona are
+already contacted; Thomas has already had an extended discussion. The exact
+message text, attachments, discussion outcomes and agreed next steps were not
+specified. Do not assume Amir used any draft in this file.
+
+Start the next unsent wave with Mehrdad, Francis and Aurélien. This is a
+suggested sequence, not a schedule. Let replies from the existing conversations
+inform which introduction or technical follow-up is useful.
+
+| Person | One distinct question | Useful material and intended outcome |
+| --- | --- | --- |
+| Mehrdad Farajtabar | Which diagnostic from the shared plasticity work should a reduced trajectory preserve to be useful for studying approach to frozen or cloned units? | Start from the shared paper; choose one diagnostic or application question. The connection is proposed, not proved. |
+| Francis Bach | How should the contribution be positioned relative to polynomial history projection and existing descriptions of training, and which dependence in the theorem most needs sharpening? | Share the exact theorem box when a brief exists; seek one priority for mathematical positioning. |
+| Aurélien Lucchi | What baseline and resource accounting would make an accuracy-versus-cost comparison convincing? | Use the MNIST example below, including retained initialization and slower runtime; select a fair comparison, without launching it. |
+
+**Chizat is an alternative to Aurélien**, especially if the immediate question
+is trajectory stability rather than computation: which stability property
+beyond finite-horizon tracking would make the approximation more useful?
+Do not automatically add another simultaneous request.
+
+For **Lorenzo's existing thread**, the useful question remains which
+representation-dynamics observation would make the construction informative
+beyond matching a dense trajectory. Wait for his reaction before another ask.
+For **Thomas**, build on the discussion already held; its length does not imply
+that he reviewed a proof, endorsed the claims, or agreed to an introduction.
+
+Keep **Boris** as the first introduction after Lorenzo's reaction; use Lorenzo
+initially, with Blake as a fallback. Keep **Andrea Montanari** explicitly in
+the next wave after the short brief is prepared: the focused question is which
+width/sample/time dependence would make fixed-width history compression useful
+alongside mean-field descriptions. No direct relationship or introduction is
+assumed. Antonio is an existing conversation with unspecified subject, so a
+request about Albert is available below without claiming he has read this work.
+Other EPFL/Apple names remain reserves, not a simultaneous mailing list.
+
+### Proposed replacement drafts — all unsent
+
+“Ready without attachment” means the text is ready for Amir to use; it is not
+authorization for the assistant to send. The Mehrdad, Francis and Aurélien
+drafts and the Chizat alternative need no attachment or additional rate claim.
+The theorem sentence for Francis below has been checked against the sources read here;
+an attachment using it still needs to be assembled and matched to its sources.
+
+**Lorenzo — prepared before Amir's status update; do not use as a new opening.**
+
+Amir has now confirmed messaging him. Preserve this unsent draft as preparation
+history; it is not a copy of the actual message. The next action is to respond
+to Lorenzo's reaction, then consider the separate Boris request below.
+
+~~~text
+Hey Lorenzo,
+
+I'd love to show you where the training-dynamics direction I've been working on has got to. The idea is to summarize forward and backward response histories in evolving memory vectors per sample, keeping the initialized matrices exact. The resulting system supplies its own responses, and I now have finite-horizon approximation guarantees at fixed width and depth for smooth networks.
+
+I'm excited about it and would really value your take: what representation-dynamics question would make this useful beyond matching the dense trajectory?
+
+Up for a chat sometime?
+
+Amir
+~~~
+
+**Mehrdad — ready without attachment; shared plasticity opening.**
+
+~~~text
+Subject: A training-dynamics idea following our plasticity work
+
+Hey Mehrdad,
+
+Our plasticity paper made me think you'd be interested in a direction I've been pursuing for the past 2–3 years. I've developed a way to summarize training histories in evolving memory vectors, with the initialized matrices retained exactly and finite-horizon guarantees for smooth-network gradient flow.
+
+I'd love your take on whether this could help us study approach to the frozen or cloned units from our paper. Which diagnostic would you want such an approximation to preserve? I haven't established that connection yet, but it seems worth discussing.
+
+Would you be up for a chat?
+
+Cheers,
+Amir
+~~~
+
+**Francis — ready without attachment.**
+
+~~~text
+Subject: Some results on approximating neural-network training
+
+Hi Francis,
+
+I wanted to share some results from the training-dynamics direction I've been pursuing over the past 2–3 years. The construction compresses forward and backward response histories into evolving memory vectors while retaining the initialized matrices exactly. It then evolves autonomously from its own responses.
+
+There are now finite-horizon trajectory guarantees at fixed width and depth for smooth networks. I'd especially value your advice on how to position the neural coupling and its error analysis relative to polynomial history projection, and which dependence in the bounds matters most.
+
+Would you have time to discuss it? I can put together a short note beforehand.
+
+Best,
+Amir
+~~~
+
+Optional technical replacement for Francis's first sentence of the third
+paragraph, if Amir wants the rate in the message:
+
+> For bias-free tanh networks of any fixed finite hidden depth and width, with
+> scalar output and mean-square-loss gradient flow in the specified scaling,
+> the response-clock construction has O_T(P^-2) physical-trajectory error for
+> sufficiently large memory order P on each prescribed finite horizon T.
+
+**Aurélien — ready without attachment.**
+
+~~~text
+Hey Aurélien,
+
+I'd love your thoughts on a training-dynamics project. It replaces the learned part of internal dense matrices with evolving response-history moments, keeping the initialized matrices exact. I now have finite-horizon approximation guarantees for smooth networks and some numerical comparisons for the original construction.
+
+I'm trying to make the accuracy-versus-cost story precise, including the retained dense initialization and all the solver state. Which baseline would make the comparison convincing to you?
+
+Would you be up for a chat?
+
+Best,
+Amir
+~~~
+
+**Chizat — ready alternative to Aurélien's message.**
+
+~~~text
+Hi Lénaïc,
+
+I've been working on an autonomous approximation of nonlinear training that summarizes forward and backward response histories in evolving memory vectors, while retaining the initialized matrices exactly. There are now finite-horizon trajectory guarantees at fixed width and depth for smooth networks.
+
+I'd be interested in your perspective on the stability question: what would make this description useful beyond a finite-horizon comparison? I'd love to discuss the construction if you have time.
+
+Best,
+Amir
+~~~
+
+**Andrea Montanari — reserve draft; prepare the brief before using.**
+
+No attachment is claimed below. The brief should be ready to supply if requested.
+This replaces neither the historical draft nor the missing relationship detail.
+
+~~~text
+Subject: Response-history approximation of nonlinear training
+
+Dear Andrea,
+
+I'm Amir Joudaki; Francis Bach was my PhD co-advisor, and I work in Thomas Hofmann's group. I've been developing an autonomous approximation of nonlinear training using evolving response-history moments, while retaining the initialized matrices exactly.
+
+The current guarantees compare with dense gradient flow on prescribed finite horizons at fixed width and depth, for specified smooth networks. I'd value your perspective on which dependence on width, sample count and time would make this useful alongside mean-field descriptions of training.
+
+Would you be interested in a short note?
+
+Best,
+Amir
+~~~
+
+### Introduction requests and a forwardable paragraph
+
+These are separate unsent follow-ups, not extra asks to append to every opening.
+Lorenzo/Boris, Francis/Flammarion and Mehrdad/Abbé requests are best used after
+the recipient has reacted to the work. An initial Etai question may simply
+establish whether a connection exists. No willingness to introduce is inferred.
+
+**Lorenzo → Boris, preferred route:**
+
+> If you think this is a good fit, would you feel comfortable introducing me
+> to Boris? I'd particularly value his view on which dependencies in the
+> approximation bound matter most. I can send a short paragraph to forward.
+
+**Mehrdad → Etai, connection still unverified:**
+
+> Do you happen to know Etai Littwin? I'd be interested in his perspective on
+> the connection to existing descriptions of training dynamics. If you think
+> there's a fit and know him well enough, would an introduction make sense?
+
+**Mehrdad → Emmanuel Abbé, alternative after his reaction:**
+
+> I also wondered whether this would interest Emmanuel Abbé. I'd value his
+> view on what learning question this approximation could help answer. Would
+> you feel comfortable introducing us if you think it's a good fit?
+
+Choose one of those requests initially. Samy remains a possible later route
+for broader framing, not an additional request in the opening message.
+
+**Francis → Nicolas Flammarion:**
+
+> If you think Nicolas would find this interesting, would you be comfortable
+> introducing us? I'd like his view on which consequence of controlled
+> trajectory approximation would be most useful for optimization theory.
+
+**Antonio → Albert, optional continuation without assumptions about the chat:**
+
+> Hey Antonio, I wanted to ask about Albert Gu. I've been working on a
+> response-history approximation of nonlinear training and would value his
+> take on the polynomial-memory construction and its neural feedback. Would
+> you feel comfortable introducing us? I can send a short summary first.
+
+**Forwardable paragraph — text ready; attach a brief only after it exists:**
+
+> Amir Joudaki, who works in Thomas Hofmann's group and was co-advised by
+> Francis Bach, has been developing an autonomous approximation of nonlinear
+> neural-network training. It represents learned internal weight increments
+> through evolving forward/backward history moments while retaining initialized
+> matrices exactly. The work gives finite-horizon approximation guarantees at
+> fixed width and depth for specified smooth networks. He is looking for
+> feedback on the construction, its relation to existing work, and the most
+> useful scientific question to pursue with it.
+
+### Reusable two-page research brief — outline only
+
+Working title: **Approximating nonlinear training with response-history memory**.
+Target about 800–1,000 words including captions, with one compact figure or
+table. Neither a standalone brief nor a new figure has been created here.
+This outline is ready to develop on Amir's subsequent instruction.
+
+**Page 1: construction and exact scope.**
+
+1. **Motivation and construction, about 180 words.** Explain how trained internal
+   matrix increments are integrals of backward/forward outer products, then
+   how P history modes per sample approximate those products. A small diagram
+   should show current responses → memory updates → reconstructed matrix
+   actions → next responses. Initialization and its transpose remain exact;
+   the dense comparison trajectory is not an input. Credit polynomial history
+   projection before identifying the neural coupling and feedback analysis.
+2. **Theorem box, about 200 words plus equations.** Use H for hidden depth and
+   M for samples, explicitly distinguishing them from shared notation where
+   needed. Define x/sqrt(d), h_l=phi_l(W_l h_(l-1)), f=w^T h_H/n,
+   loss M^-1 sum_a(f_a-y_a)^2, no biases, and mobilities (n,1,...,1,n).
+   Let theta collect all physical weights, with squared norm equal to the
+   sum of squared Frobenius norms of matrices and squared Euclidean readout
+   norm. For fixed finite H>=2,n,d,M, finite data/initialization and T, state:
+
+       sup_(0<=t<=T) ||theta_hat_P(t)-theta_dense(t)||
+           <= C_old(T)/sqrt(P(P+1))   [original activity clock],
+           <= C_new(T)/[P(P+1)]      [weighted response clock].
+
+   Each line concerns a different closure. Give the distinct smoothness
+   hypotheses and sufficiently-large-P quantifiers from the reconciliation
+   table; identify the bounded-activation old-clock all-P corollary separately.
+   Constants are independent of P but may depend on all fixed inputs, depth
+   and T. State the stationary zero-residual convention. Cite the complete
+   fixed-depth theorem and say its checks are internal. A short explanatory
+   line can name history-projection error and its feedback into training;
+   do not present a new proof in the brief.
+
+**Page 2: one empirical example, limits and positioning.**
+
+3. **Representative evidence, about 170 words plus a compact table.** Use the
+   completed [100-image MNIST report](MNIST100_RESULTS.md): digits 3/8,
+   two tanh hidden layers, width 4096, M=100, 1,984 held-out images, shared
+   initialization, original activity clock, float64 adaptive Heun/Euler.
+   The finest comparison uses rtol 3.125e-6 and atol 3.125e-8. Each model stops
+   at its own first training-MSE .001 crossing. The score is held-out RMS
+   difference from the dense predictor, not label error.
+
+   | Model | Held-out RMS from dense | Moving + fixed state MiB | Measured CUDA peak MiB | Integration seconds |
+   | --- | ---: | ---: | ---: | ---: |
+   | Dense | 0 by definition | 152.53125 | 1941.88086 | 102.97555 |
+   | P=1 | 0.0032475604 | 158.78127 | 544.26563 | 139.89330 |
+   | P=2 | 0.0010844347 | 165.03127 | 603.14063 | 149.92219 |
+   | P=3 | 0.0011992242 | 171.28128 | 654.39063 | 152.26930 |
+
+   History arrays use 6.25/12.50/18.75 MiB; the fixed W0 adds 128 MiB.
+   The moving-plus-fixed column excludes retained initialization copies,
+   data and solver workspace, whereas measured peak includes GPU allocations.
+   Closures have lower measured peaks but larger minimal totals and longer
+   runtimes here. Include all three orders: P3 is slightly worse than P2.
+   The report records passing numerical gates and cross-GPU repetitions;
+   this task has not rerun them. These are empirical diagnostics, not error
+   certificates or a multi-seed conclusion. Matched-loss endpoints are not
+   the theorem's equal-physical-time comparison. They do not test the new
+   response clock or establish either asymptotic rate.
+4. **Limits, about 100 words.** Retained dense initialization/actions, sample
+   dependence of history storage, conservative constants, numerical error,
+   new-clock Gram conditioning and its unimplemented status. No width/depth
+   uniformity, all-time tracking, optimizer-general guarantee, general ReLU/SELU
+   switching theorem, or demonstrated plasticity explanation. Mention the
+   scalar cutoff K only as a separate theoretical extension with its own
+   stabilization and limitations, if space permits.
+5. **Related work and feedback ask, about 150 words.** Attribute online polynomial
+   history projection to [HiPPO](https://proceedings.neurips.cc/paper/2020/hash/102f0bb6efb3a6128a3c750dd16729be-Abstract.html).
+   Compare the question and limit with [Mei–Misiakiewicz–Montanari](https://arxiv.org/abs/1902.06015)
+   and [Tensor Programs IV](https://arxiv.org/abs/2011.14522); these are suggested
+   comparisons, not a completed novelty review. Separate history-constrained
+   factors from directly optimized factors and gradient-communication
+   compression. Any substantive superiority statement needs its exact
+   comparator and report. End with one recipient-specific scientific question.
+
+Before distributing a technical attachment, assemble the actual two pages,
+read the complete relevant related-work sources for any detailed comparison,
+and match every statement/caption to the selected source version. There is no
+remaining source-read requirement for the narrow rate wording above at the
+recorded versions; this is not an independent certification of its proofs.
+
+### Factual contact log and suggested follow-up timing
+
+Dates below distinguish the report date from an unknown event date. Unknown
+replies are not recorded as “no reply.” A proposed next step is not an agreement.
+
+| Person / event | Event date | Material actually shared | Reply / outcome reported | Agreed next action | Record as of 2026-09-25 |
+| --- | --- | --- | --- | --- | --- |
+| Francesco Orabona: research message sent by Amir | 2026-09-25, described as “just messaged” in the update | Research message; exact final text and attachments not recorded here | Not reported | None reported | Updates the existing sent-message record; do not infer a second message or repeat first contact |
+| Antonio Orvieto: conversation with Amir | Not recorded | Topic and material unspecified | Conversation occurred; substantive outcome not reported | None reported | Do not infer review of this study |
+| Lorenzo Noci: message sent by Amir | 2026-09-25, described as “just messaged” | Exact text, links and attachments not specified | Not reported | None reported | Confirmed by Amir during this continuation; prepared draft is not the sent text |
+| Thomas Hofmann: extended discussion with Amir | Not recorded | Work discussed at length; specific documents not specified | Substantive feedback not recorded | None reported | Confirmed by Amir; no proof review or endorsement inferred |
+| Mehrdad, Francis, Aurélien; Chizat alternative | No sending reported | None confirmed for this outreach | Not reported | None reported | Next unsent wave; Amir reports essentially no other outreach |
+| Boris, Andrea, Albert, Etai, Emmanuel, Nicolas and other introduction ideas | No contact reported | None confirmed | Not reported | None reported | Suggestions/reserve drafts only |
+| Other historical email drafts | No sending reported | None confirmed | Not reported | None reported | Preserve as drafts until Amir reports otherwise |
+
+For a new message, suggest one friendly follow-up after 7–14 days from its
+actual send date if there is no reply. If someone agrees to read by a date,
+follow up a few days after that date; otherwise give roughly two weeks after
+sharing the material. For the Lorenzo/Orabona messages reported just sent on
+September 25, October 2–9 is a reasonable optional follow-up window if no reply
+has arrived. Check the actual message and any subsequent reply first; do not
+send an immediate second opening. No reminders or automations are created.
+
+After each reported interaction, add the actual date, document/version or
+link shared, reply, and any explicitly agreed action. Record a draft date
+separately from a send date. The status question asked during preparation was
+answered by Amir; the quoted update and four confirmed contact events above
+record that answer. Dates or outcomes not supplied remain unknown.
+
+### Source checks for this continuation
+
+Primary public pages rechecked on 2026-09-25:
+
+- [Official ICLR record](https://proceedings.iclr.cc/paper_files/paper/2026/hash/511c7fd69db9f1ce7492a57285975849-Abstract-Conference.html)
+  and [Apple publication page](https://machinelearning.apple.com/research/barriers-for-learning):
+  paper identity, author list and the shared frozen/cloned-unit context.
+- [Depthwise Hyperparameter Transfer](https://arxiv.org/abs/2309.16620):
+  Lorenzo, Blake and Boris are listed coauthors. This supports asking Lorenzo,
+  not an inference about closeness or availability.
+- [LRU paper](https://arxiv.org/abs/2303.06349): Antonio and Albert are coauthors.
+- [Apple rationale paper](https://machinelearning.apple.com/research/rl-for-reasoning):
+  Mehrdad, Emmanuel Abbé and Samy Bengio are coauthors.
+- [Nicolas's official EPFL profile](https://people.epfl.ch/nicolas.flammarion?lang=en):
+  confirms Francis as a PhD advisor. Prefer this direct source over the earlier
+  graph-search summary; no current job-title claim is needed in the draft.
+- [Tensor Programs IIb](https://machinelearning.apple.com/research/tensor-programs):
+  Etai and Greg Yang are coauthors. It does not verify an Apple-collaborator
+  introduction to Etai. No such route has been confirmed.
+- HiPPO, Mei–Misiakiewicz–Montanari and Tensor Programs IV pages linked in the
+  outline were consulted for attribution and broad orientation only, not a
+  full technical comparison or literature-exclusion claim.
+
+Read-version SHA256 values for the local scientific sources:
+
+| File | SHA256 |
+| --- | --- |
+| README.md, initial full read | c485965f0c17f9a3f4b5d0814536bbdcb37e52d3f7bd1165c155b54956ee2d3f |
+| README.md, subsequent appended implementation update read | b36fd1902bcd757a8d5f76a8a70dc3e9a0c832d7c18563370ddfb1d2d37a8ead |
+| ORACLE_FINITE_HORIZON_BOUND.md | bfe32ba200b980f088846f5c9e902f08e6e740219368b6cbbfc19616029f16c1 |
+| RESPONSE_CLOCK_UNCONDITIONAL_BOUND.md | dda4d7b386b13129f30a64e6012b553b6ba783c41ed932874d98a93788ca7027 |
+| DEEP_ACTIVATION_ERROR_THEOREM.md | 57e6e16b9af6ea32dd3cbc266f1c5b9054ae63219ce8e191bffdb3b87f44d8dd |
+| DEEP_ACTIVATION_SCOPE.md | 165d18b1c3d7262c05fcfa84b6a1bf9b88d6350b96547a39c6558bcfb0c447bf |
+| SCALAR_COMPRESSION_BOUND_ASSESSMENT.md | e80540f9052049ee6e805037af99a57a83aa9acd0d98a3ff1f42d2ff39cd5309 |
+| MNIST100_RESULTS.md | 31146d381a143ed01f8be0c2badabac1396cdf9f34a695ec842544fe9e215f49 |
+
+These versions identify what informed the wording, not a freeze on concurrent
+research. Reconcile later scientific changes before reusing technical claims.
+All historical emails remain intact. No message was sent, introduction made,
+material published, scientific artifact edited, experiment run, or Git write
+performed by this communications continuation.

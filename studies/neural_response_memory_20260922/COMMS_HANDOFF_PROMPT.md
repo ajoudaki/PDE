@@ -4,6 +4,21 @@ Copy the text below into a new Codex task in `/home/amir/Codes/PDE`.
 It resumes the outreach work from Amir's side conversation, not the scientific
 research tasks running in the shared checkout.
 
+Communications checkpoint, 2026-09-25: COMMS.md now also contains a dated
+continuation with source-reconciled wording, proposed messages for
+Mehrdad, Francis and Aurélien, a Chizat alternative, a revised reserve
+Montanari message, introduction requests, a two-page brief outline, and a factual
+contact log. Start with that continuation while retaining the earlier history.
+The theorem sources were read for messaging, not independently audited; the
+MNIST100 report was read, not reproduced. No standalone brief or new figure
+has been created. Amir then clarified that he has just messaged Lorenzo and
+Francesco Orabona (2026-09-25), talked with Antonio, and discussed the work at
+length with Thomas, but essentially no one else. The log records those events;
+message contents, attachments, substantive replies and agreements are unknown.
+Lorenzo's opening draft is preserved as preparation history, not the sent text
+or a new message to send. The next unsent wave is Mehrdad, Francis and Aurélien.
+All assistant-prepared messages remain unsent by the assistant.
+
 ---
 
 Help me continue the communications and outreach strategy for my neural-network
@@ -79,8 +94,10 @@ should be precise in a technical note without overwhelming a friendly email.
 - **Francesco Orabona:** former colleague; the initial research message was
   already sent. Do not draft it as a new first contact or send it again.
 - **Francis Bach:** my PhD co-advisor.
-- **Thomas Hofmann:** I work in his group.
-- **Lorenzo Noci:** I am very close to him; first circle.
+- **Thomas Hofmann:** I work in his group; I have now discussed the work at
+  length with him. Date, specific feedback and agreed actions were not supplied.
+- **Lorenzo Noci:** I am very close to him; first circle. I reported just
+  messaging him on 2026-09-25; text, attachments and replies were not supplied.
 - **Aurélien Lucchi:** first circle.
 - **Antonio Orvieto:** I have already chatted with him. Topic, date and outcome
   were not specified; do not infer that he reviewed this study.
@@ -103,9 +120,11 @@ and Fartash Faghri. Official links are in COMMS.md. It provides a natural shared
 context for a message to those collaborators, but the closure is not already
 proved to solve or explain plasticity loss.
 
-Only the Orabona research message and the fact of a conversation with Antonio
-are confirmed outreach events. The other emails, introductions, calls, and
-seminars remain drafts or suggestions. No assistant has sent anything.
+Confirmed outreach now includes the Orabona and Lorenzo messages and the
+conversations with Antonio and Thomas. The latest “just messaged Orabona”
+report updates the existing event; it does not establish a second message.
+Other emails, introductions, calls and seminars remain drafts or suggestions.
+No assistant has sent anything.
 
 ## Most useful introduction routes to consider
 
@@ -129,8 +148,10 @@ and preserve the sources in the record.
 1. Reconcile COMMS.md with the current README for messaging, without taking
    over the scientific investigation or silently rewriting historical emails.
 2. Propose a small next wave (roughly 3–5 people) with a distinct scientific
-   question for each. Lorenzo, Mehrdad, Francis, and Aurélien/Chizat are natural
-   starting points; account for conversations I report as already underway.
+   question for each. The current unsent wave is Mehrdad, Francis and
+   Aurélien, with Chizat as an alternative. Lorenzo is now a follow-up contact;
+   account for his and Orabona's sent messages and the discussions with Thomas
+   and Antonio before suggesting further outreach.
 3. Draft the most useful unsent messages and introduction requests, using the
    shared plasticity work for Apple collaborators. Make clear which are ready
    to send and which require an attachment or a current theorem check.

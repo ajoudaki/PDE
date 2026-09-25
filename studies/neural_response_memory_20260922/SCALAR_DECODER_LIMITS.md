@@ -367,3 +367,138 @@ dictionary. The present analysis does not assert computational savings.
 Only SCALAR_DECODER_LIMITS.md was written by this scoped author. No Git
 mutation or experiment was performed. This is an internal research artifact,
 not an established-book addition or an independent promotion review.
+
+## 8. Post-freeze audit of the selected Fourier route
+
+2026-09-25. The supervisor subsequently selected the direct Fourier route
+and authorized complete reads of SCALAR_FOURIER_READOUT.md and
+SCALAR_CIRCLE_FUNCTION_READOUT.md. This section is a collaborative audit
+after the preceding report was frozen; it is not part of its independent
+first derivation. The versions audited were respectively
+`c9191360c815dea1469ed2a7c060df24216273b988c55477d4c23d1b048a120a`
+and `b09574355d4742cba2e6bc8331dfce8804a3e4b0a80db3836f43b5c0a63c6d32`.
+No scientific input beyond these two additionally assigned reports was read.
+
+### Integrated compiler and convergence check
+
+The Fourier report supplies a valid finite-template extension of the original
+compiler. The necessary distinctions are explicit: a shared angular variable
+keeps disconnected neuron contractions inside one integral; only angle-free
+components may be factored out; query responses use the actual population
+weight velocities; and no query term enters the training residuals. These
+rules preserve the intended target and require no evolving quadrature mesh.
+Angular integration at initialization remains a separate cost and numerical
+error. Exact initial integrals are an assumption of the displayed theorem.
+
+The convergence argument is adequate under the inherited initial-data physical
+bounds. A fixed tagged angular contraction has a product bound B^s because
+the measure has mass one and all sine/cosine factors and Fourier weights are
+bounded by one. A substitution changes only one decoration and uses one of
+finitely many templates. The bounded total-size increment, bounded factors
+per monomial and linear row growth therefore persist. Clipped scalar inputs
+give an explicit envelope on every finite interval, while clipping fixes
+the target and cannot increase its coordinate error. The existing dependency
+iteration consequently applies to each fixed tagged contraction. The proof
+uses subdivisions only for comparison and supplies no intermediate exact
+target values to the solver.
+
+Training autonomy alone does not guarantee exactly the same finite numerical
+training law after augmentation. The original training dictionary, monomial
+deletion decisions and clipping thresholds must be preserved. The root
+synthesis explicitly records this requirement. A larger common bound may be
+used in the proof without changing those existing thresholds. Purely passive
+coordinates may receive their own valid thresholds.
+
+The Fourier reconstruction, Parseval RMS identity, H1 tail bound and direct
+integrated-energy formulas are valid with their stated normalizations. If
+epsilon controls each stored real sine/cosine coordinate, the squared
+coefficient error is at most (4J+1)epsilon^2, as the Fourier report states.
+The root's (2J+1)epsilon^2 formula is valid when epsilon instead bounds the
+complex coefficient error; these two meanings must not be interchanged.
+Likewise its diagram convention counts query-angle incidence links, whereas
+the Fourier report's convention omits that charge. Grade 5 for the Fourier
+output belongs to the latter convention; use the actual grade s_* if the
+former convention is retained.
+
+### A common matrix for passive modes before clipping
+
+The proposed shared-block organization is exact for the family generated
+by the requested Fourier outputs. Restrict its angular coordinates to one
+angle variable with one static Fourier-weight tag w. Use the same list of
+integrand types and the same grade cutoff for every tag. Retain static
+angular integrals, including
+
+    Q_w[p]=integral p(cos(theta),sin(theta)) w(theta) dmu,
+
+as zero-derivative coordinates. Keeping these coordinates matters when a
+derivative term loses all its query decorations: its last angular factor
+is still Q_w[p], rather than a mode-dependent inhomogeneous coefficient.
+
+Every differentiated monomial then has exactly one angular factor with
+the original tag w, times a finite product of training-only contractions.
+No operation differentiates w or depends on its frequency. Collecting the
+coefficient of each angular factor therefore gives
+
+    dot Q_w = A_K(q_train,L) Q_w.                      (16)
+
+Here A_K is a finite matrix whose entries are prescribed polynomial/rational
+expressions in the training contractions, residuals, RMS and L. Residual
+RMS is the same locally Lipschitz scalar function used by the original
+compiler. The matrix is identical for w=1, cos(k theta), sin(k theta).
+Static coordinates have zero rows. Exact initialization, which differs
+between tags, carries their frequency dependence.
+
+This conclusion uses the one-angle generated family, not an arbitrary
+enlargement containing multiple coupled angle variables. The latter is
+unnecessary here and can admit products of multiple angular blocks. It
+also requires keeping the tag symbolic: rewriting products with w as
+frequency shifts is another representation and conceals the common form.
+
+With clipping, the correct passive law is
+
+    dot Z_w=A_K(S_train(Z_train),L) S_angle(Z_w),       (17)
+
+with the autonomous training law and its original thresholds unchanged.
+Using grade-dependent passive thresholds shared across Fourier tags makes
+S_angle identical in every block, since all these weights have sup norm at
+most one. Equation (17) is generally nonlinear in Z_w. It must not be called
+a common linear propagator or treated by unmodified superposition after
+clipping. What is shared is its coefficient matrix and clipping rule.
+
+For each fixed K, omitting passive clipping would still give a globally
+defined linear equation conditional on the bounded-input training law:
+its coefficients are bounded on each finite interval and successive integral
+iteration is bounded by an exponential series. That observation gives no
+envelope uniform in K and does not replace the saturation convergence proof.
+
+The finite-template constants can be chosen independent of the number of
+Fourier tags for this particular organization: every block has identical
+rows, all tags have magnitude at most one, and a row never sums over tags.
+The state count nevertheless grows with the number of modes. Converting a
+uniform per-coordinate error into whole-function error also introduces the
+mode-count factors above. No mode-count-independent runtime or total error
+is inferred.
+
+### Scope correction concerning post-training readouts
+
+Statements that these integrated coordinates must be initialized before
+evolution are correct for the selected direct integrated-observable solver.
+They must not be strengthened to say that every function readout needs a
+query-specific augmented state in advance. Sections 4--5 of this report
+already give an alternative from sufficiently rich existing training-only
+contractions. In particular, its polynomial in U becomes a finite
+trigonometric polynomial when U=u_c cos(theta)+u_s sin(theta): substitute
+cos(theta)=(exp(i theta)+exp(-i theta))/2 and
+sin(theta)=(exp(i theta)-exp(-i theta))/(2i) in each finite monomial.
+All resulting Fourier coefficients are then finite algebraic functions of
+the existing terminal aggregates. No extra mode evolution is needed for
+that alternative, provided all required contractions were retained.
+
+Thus the selected Fourier solver directly evolves its requested coefficients;
+the polynomial decoder can instead derive approximate coefficients after
+training from a sufficiently rich dictionary. An arbitrary insufficient
+terminal dictionary supports neither conclusion automatically. Neither
+method reconstructs actual neural weights. No issue found in this audit
+invalidates the direct Fourier existence theorem under its stated inherited
+bounds; the important corrections concern block linearity after clipping,
+normalization/grade bookkeeping, and the scope of the before-training claim.
