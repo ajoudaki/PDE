@@ -1,0 +1,366 @@
+{
+  "version": 1,
+  "parts": [
+    {
+      "title": "I. Population dynamics of deep networks",
+      "chapters": ["ch01", "ch02", "ch03", "ch04", "ch05", "ch06"]
+    },
+    {
+      "title": "II. Observable closure and approximation theory",
+      "chapters": ["ch07", "ch08"]
+    },
+    {
+      "title": "III. Nonlinear learning and inductive bias",
+      "chapters": ["ch09", "ch10", "ch11", "ch12", "ch13", "ch14"]
+    }
+  ],
+  "chapters": [
+    {
+      "id": "ch01",
+      "number": 1,
+      "file": "01-training-geometry.qmd",
+      "anchor": "ch-training-geometry",
+      "title": "Geometry of network training",
+      "introduction": "The parameterization, initialization and training metric determine the geometry of the evolving network. This chapter collects the exact finite identities, initialized representation geometry, tangent geometry, curvature, and model-specific reductions used by the later population and learning results.",
+      "chunks": [
+        "finite-dynamics.qmd@__start__",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l7982",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l24007",
+        "finite-optimization-and-controls.qmd@sec-docs-finite-optimization-and-controls-l2410",
+        "finite-optimization-and-controls.qmd@sec-docs-finite-optimization-and-controls-l3785",
+        "finite-optimization-and-controls.qmd@sec-docs-finite-optimization-and-controls-l4257"
+      ]
+    },
+    {
+      "id": "ch02",
+      "number": 2,
+      "file": "02-gaussian-reuse.qmd",
+      "anchor": "ch-gaussian-reuse",
+      "title": "Gaussian calculus for reused matrices",
+      "introduction": "A population description must retain the joint dependence created by forward, backward and adaptive reuse of the same matrices. The chapter develops conditioning, fixed-program laws, source-response formulas, trained matrix memories, adaptive transcripts and filtering in one place.",
+      "chunks": [
+        "gaussian-calculus.qmd@__start__",
+        "global-nonlinear.qmd@sec-docs-global-nonlinear-l1840",
+        "finite-optimization-and-controls.qmd@sec-docs-finite-optimization-and-controls-l2167",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l24346",
+        "gaussian-calculus.qmd@sec-docs-gaussian-calculus-l5945"
+      ]
+    },
+    {
+      "id": "ch03",
+      "number": 3,
+      "file": "03-local-population.qmd",
+      "anchor": "ch-local-population",
+      "title": "Local population evolution and exact capture",
+      "introduction": "Under the stated assumptions, actual network training has a unique, restartable population description on a common local interval. The results here combine the fixed-depth local construction, evolution over training laws, finite GF/GD identification, and the complete local three-layer arctangent model.",
+      "chunks": [
+        "global-nonlinear.qmd@sec-docs-global-nonlinear-l1803",
+        "global-nonlinear.qmd@sec-docs-global-nonlinear-l2454",
+        "arctan-limits.qmd@__start__",
+        "arctan-limits.qmd@sec-docs-arctan-limits-l690",
+        "arctan-limits.qmd@sec-docs-arctan-limits-l905",
+        "arctan-limits.qmd@sec-docs-arctan-limits-l1214",
+        "arctan-limits.qmd@sec-docs-arctan-limits-l1487",
+        "arctan-limits.qmd@sec-docs-arctan-limits-l1812",
+        "arctan-limits.qmd@sec-docs-arctan-limits-l2547",
+        "arctan-limits.qmd@sec-docs-arctan-limits-l2716"
+      ]
+    },
+    {
+      "id": "ch04",
+      "number": 4,
+      "file": "04-continuing-flows.qmd",
+      "anchor": "ch-continuing-flows",
+      "title": "Continuing nonlinear population flows",
+      "introduction": "Structural estimates can extend a local population description to global time or to a prescribed learning horizon. The chapter places the two-layer coordinate transformations, special-angle two-input dynamics, changed-law continuation, and the order-one-readout limit side by side while retaining their different contracts.",
+      "chunks": [
+        "global-nonlinear.qmd@sec-docs-global-nonlinear-l1899",
+        "arctan-limits.qmd@sec-docs-arctan-limits-l56",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l134",
+        "global-nonlinear.qmd@sec-docs-global-nonlinear-l8978",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l26290"
+      ]
+    },
+    {
+      "id": "ch05",
+      "number": 5,
+      "file": "05-continuation-boundaries.qmd",
+      "anchor": "ch-continuation-boundaries",
+      "title": "Compactness, regularity and continuation boundaries",
+      "introduction": "The choice of state space and available estimates determines what a continuation argument can establish. This chapter separates positive compactness and continuation results from reached regularity failures, ambient constructions and auxiliary obstructions.",
+      "chunks": [
+        "special-data-limits.qmd@sec-docs-special-data-limits-l6384",
+        "finite-optimization-and-controls.qmd@sec-docs-finite-optimization-and-controls-l1749",
+        "finite-optimization-and-controls.qmd@sec-docs-finite-optimization-and-controls-l3397",
+        "finite-optimization-and-controls.qmd@sec-docs-finite-optimization-and-controls-l4682",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l22783",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l23553",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l23747",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l24545",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l25007",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l26995",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l27133"
+      ]
+    },
+    {
+      "id": "ch06",
+      "number": 6,
+      "file": "06-architectures.qmd",
+      "anchor": "ch-architectures",
+      "title": "Architecture and the form of the population state",
+      "introduction": "Different architectures lead to different operator, characteristic and particle descriptions. Shallow, linear and residual models are presented as distinct mathematical contracts rather than as interchangeable approximations of one architecture.",
+      "chunks": [
+        "linear-dynamics.qmd@sec-docs-linear-dynamics-l1357",
+        "linear-dynamics.qmd@sec-docs-linear-dynamics-l1895",
+        "continuous-depth.qmd@__start__",
+        "continuous-depth.qmd@sec-docs-continuous-depth-l1487",
+        "continuous-depth.qmd@sec-docs-continuous-depth-l1505",
+        "continuous-depth.qmd@sec-docs-continuous-depth-l1886"
+      ]
+    },
+    {
+      "id": "ch07",
+      "number": 7,
+      "file": "07-observable-closure.qmd",
+      "anchor": "ch-observable-closure",
+      "title": "Observable representations and autonomous closure",
+      "introduction": "Suitable current observables can retain the information needed for prediction and support autonomous finite approximations. The chapter moves from information constraints and exact observable calculus through scoped obstructions to a sufficient hierarchy and concrete initialized constructions.",
+      "chunks": [
+        "linear-dynamics.qmd@sec-docs-linear-dynamics-l908",
+        "gaussian-calculus.qmd@sec-docs-gaussian-calculus-l1749",
+        "gaussian-calculus.qmd@sec-docs-gaussian-calculus-l1824",
+        "gaussian-calculus.qmd@sec-docs-gaussian-calculus-l3305",
+        "gaussian-calculus.qmd@sec-docs-gaussian-calculus-l3672",
+        "gaussian-calculus.qmd@sec-docs-gaussian-calculus-l4721",
+        "gaussian-calculus.qmd@sec-docs-gaussian-calculus-l4918",
+        "continuous-depth.qmd@sec-docs-continuous-depth-l1286",
+        "continuous-depth.qmd@sec-docs-continuous-depth-l2476",
+        "global-nonlinear.qmd@sec-docs-global-nonlinear-l11441",
+        "global-nonlinear.qmd@sec-docs-global-nonlinear-l12084",
+        "observable-p1.qmd@__start__",
+        "index.qmd@sec-docs-readme-l740"
+      ]
+    },
+    {
+      "id": "ch08",
+      "number": 8,
+      "file": "08-autonomous-computation.qmd",
+      "anchor": "ch-autonomous-computation",
+      "title": "Convergent autonomous computation",
+      "introduction": "A finite closure becomes a justified computation only after initialization, discretization and limiting operations are controlled. The chapter distinguishes fixed-program refinement, continuous-time approximation, closure-order convergence and computation through the supported learning horizon.",
+      "chunks": [
+        "gaussian-calculus.qmd@sec-docs-gaussian-calculus-l2441",
+        "gaussian-calculus.qmd@sec-docs-gaussian-calculus-l4169",
+        "gaussian-calculus.qmd@sec-docs-gaussian-calculus-l8547",
+        "global-nonlinear.qmd@sec-docs-global-nonlinear-l12555"
+      ]
+    },
+    {
+      "id": "ch09",
+      "number": 9,
+      "file": "09-trainability.qmd",
+      "anchor": "ch-trainability",
+      "title": "Trainability and mechanisms of fitting",
+      "introduction": "Energy dissipation leads to fitting only when the relevant trainability is sustained. Linear and affine benchmarks, finite optimization, a global nonlinear family, protected geometry, confinement and fitting-distance boundaries are collected here with their scopes kept separate.",
+      "chunks": [
+        "linear-dynamics.qmd@__start__",
+        "linear-dynamics.qmd@sec-docs-linear-dynamics-l1734",
+        "linear-dynamics.qmd@sec-docs-linear-dynamics-l2211",
+        "linear-dynamics.qmd@sec-docs-linear-dynamics-l2764",
+        "finite-optimization-and-controls.qmd@__start__",
+        "global-nonlinear.qmd@__start__",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l9326",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l10274",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l24163"
+      ]
+    },
+    {
+      "id": "ch10",
+      "number": 10,
+      "file": "10-correlated-pairs.qmd",
+      "anchor": "ch-correlated-pairs",
+      "title": "Global fitting of correlated input pairs",
+      "introduction": "Label structure and input geometry support complete nonlinear-learning guarantees for the proved pair families. Equal-label, separated-offset and sech-gate results remain individually scoped while sharing one chapter-level comparison.",
+      "chunks": [
+        "special-data-limits.qmd@__start__",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l2095",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l10428",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l26744"
+      ]
+    },
+    {
+      "id": "ch11",
+      "number": 11,
+      "file": "11-shape-and-depth.qmd",
+      "anchor": "ch-shape-and-depth",
+      "title": "Quantitative nonlinear perturbations across shape and depth",
+      "introduction": "The perturbative learning mechanism develops from a specific odd family to broader activation shapes and every separately fixed depth, with the quantitative scales and regularity assumptions kept explicit.",
+      "chunks": [
+        "special-data-limits.qmd@sec-docs-special-data-limits-l14126",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l17692",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l19453"
+      ]
+    },
+    {
+      "id": "ch12",
+      "number": 12,
+      "file": "12-three-sample-learning.qmd",
+      "anchor": "ch-three-sample-learning",
+      "title": "Three-sample learning and activation design",
+      "introduction": "The three-sample constructions reveal how activation design sustains learning across the proved depth regimes. The bounded-shape and large-gain families are presented together so that their mechanisms and restrictions can be compared.",
+      "chunks": [
+        "special-data-limits.qmd@sec-docs-special-data-limits-l3507",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l21612",
+        "special-data-limits.qmd@sec-docs-special-data-limits-l27238"
+      ]
+    },
+    {
+      "id": "ch13",
+      "number": 13,
+      "file": "13-predictor-selection.qmd",
+      "anchor": "ch-predictor-selection",
+      "title": "Selection of the whole-input predictor",
+      "introduction": "Training selects a function beyond its fitted training values. The fitted reference, trained data response and nonlinear added-data episode are assembled here as successive descriptions of that whole-input selection.",
+      "chunks": [
+        "global-nonlinear.qmd@sec-docs-global-nonlinear-l5270",
+        "global-nonlinear.qmd@sec-docs-global-nonlinear-l6904",
+        "global-nonlinear.qmd@sec-docs-global-nonlinear-l17554"
+      ]
+    },
+    {
+      "id": "ch14",
+      "number": 14,
+      "file": "14-generalization.qmd",
+      "anchor": "ch-generalization",
+      "title": "Generalization and the predictive value of feature learning",
+      "introduction": "Statistical usefulness requires additional arguments connecting the learned predictor to unseen risk and meaningful alternatives. Influence, sampling fluctuations, finite-episode generalization and the scoped frozen-feature comparison are kept distinct.",
+      "chunks": [
+        "global-nonlinear.qmd@sec-docs-global-nonlinear-l16001",
+        "global-nonlinear.qmd@sec-docs-global-nonlinear-l19884",
+        "global-nonlinear.qmd@sec-docs-global-nonlinear-l21578"
+      ]
+    }
+  ],
+  "front_matter": {
+    "index_chunks": [
+      "index.qmd@__start__",
+      "index.qmd@sec-docs-readme-l626"
+    ],
+    "outlook_chunks": [
+      "index.qmd@sec-docs-readme-l148",
+      "index.qmd@sec-docs-readme-l705"
+    ],
+    "notation_source": "notation.qmd"
+  },
+  "source_partitions": {
+    "index.qmd": [
+      {"start": "__start__", "target": "index"},
+      {"start": "sec-docs-readme-l148", "target": "outlook"},
+      {"start": "sec-docs-readme-l626", "target": "index"},
+      {"start": "sec-docs-readme-l705", "target": "outlook"},
+      {"start": "sec-docs-readme-l740", "target": "ch07"}
+    ],
+    "finite-dynamics.qmd": [
+      {"start": "__start__", "target": "ch01"}
+    ],
+    "gaussian-calculus.qmd": [
+      {"start": "__start__", "target": "ch02"},
+      {"start": "sec-docs-gaussian-calculus-l1749", "target": "ch07"},
+      {"start": "sec-docs-gaussian-calculus-l1824", "target": "ch07"},
+      {"start": "sec-docs-gaussian-calculus-l2441", "target": "ch08"},
+      {"start": "sec-docs-gaussian-calculus-l3305", "target": "ch07"},
+      {"start": "sec-docs-gaussian-calculus-l3672", "target": "ch07"},
+      {"start": "sec-docs-gaussian-calculus-l4169", "target": "ch08"},
+      {"start": "sec-docs-gaussian-calculus-l4721", "target": "ch07"},
+      {"start": "sec-docs-gaussian-calculus-l4918", "target": "ch07"},
+      {"start": "sec-docs-gaussian-calculus-l5945", "target": "ch02"},
+      {"start": "sec-docs-gaussian-calculus-l8547", "target": "ch08"}
+    ],
+    "finite-optimization-and-controls.qmd": [
+      {"start": "__start__", "target": "ch09"},
+      {"start": "sec-docs-finite-optimization-and-controls-l1749", "target": "ch05"},
+      {"start": "sec-docs-finite-optimization-and-controls-l2167", "target": "ch02"},
+      {"start": "sec-docs-finite-optimization-and-controls-l2410", "target": "ch01"},
+      {"start": "sec-docs-finite-optimization-and-controls-l3397", "target": "ch05"},
+      {"start": "sec-docs-finite-optimization-and-controls-l3785", "target": "ch01"},
+      {"start": "sec-docs-finite-optimization-and-controls-l4257", "target": "ch01"},
+      {"start": "sec-docs-finite-optimization-and-controls-l4682", "target": "ch05"}
+    ],
+    "global-nonlinear.qmd": [
+      {"start": "__start__", "target": "ch09"},
+      {"start": "sec-docs-global-nonlinear-l1803", "target": "ch03"},
+      {"start": "sec-docs-global-nonlinear-l1840", "target": "ch02"},
+      {"start": "sec-docs-global-nonlinear-l1899", "target": "ch04"},
+      {"start": "sec-docs-global-nonlinear-l2454", "target": "ch03"},
+      {"start": "sec-docs-global-nonlinear-l5270", "target": "ch13"},
+      {"start": "sec-docs-global-nonlinear-l6904", "target": "ch13"},
+      {"start": "sec-docs-global-nonlinear-l8978", "target": "ch04"},
+      {"start": "sec-docs-global-nonlinear-l11441", "target": "ch07"},
+      {"start": "sec-docs-global-nonlinear-l12084", "target": "ch07"},
+      {"start": "sec-docs-global-nonlinear-l12555", "target": "ch08"},
+      {"start": "sec-docs-global-nonlinear-l16001", "target": "ch14"},
+      {"start": "sec-docs-global-nonlinear-l17554", "target": "ch13"},
+      {"start": "sec-docs-global-nonlinear-l19884", "target": "ch14"},
+      {"start": "sec-docs-global-nonlinear-l21578", "target": "ch14"}
+    ],
+    "arctan-limits.qmd": [
+      {"start": "__start__", "target": "ch03"},
+      {"start": "sec-docs-arctan-limits-l56", "target": "ch04"},
+      {"start": "sec-docs-arctan-limits-l690", "target": "ch03"},
+      {"start": "sec-docs-arctan-limits-l905", "target": "ch03"},
+      {"start": "sec-docs-arctan-limits-l1214", "target": "ch03"},
+      {"start": "sec-docs-arctan-limits-l1487", "target": "ch03"},
+      {"start": "sec-docs-arctan-limits-l1812", "target": "ch03"},
+      {"start": "sec-docs-arctan-limits-l2547", "target": "ch03"},
+      {"start": "sec-docs-arctan-limits-l2716", "target": "ch03"}
+    ],
+    "special-data-limits.qmd": [
+      {"start": "__start__", "target": "ch10"},
+      {"start": "sec-docs-special-data-limits-l134", "target": "ch04"},
+      {"start": "sec-docs-special-data-limits-l2095", "target": "ch10"},
+      {"start": "sec-docs-special-data-limits-l3507", "target": "ch12"},
+      {"start": "sec-docs-special-data-limits-l6384", "target": "ch05"},
+      {"start": "sec-docs-special-data-limits-l7982", "target": "ch01"},
+      {"start": "sec-docs-special-data-limits-l9326", "target": "ch09"},
+      {"start": "sec-docs-special-data-limits-l10274", "target": "ch09"},
+      {"start": "sec-docs-special-data-limits-l10428", "target": "ch10"},
+      {"start": "sec-docs-special-data-limits-l14126", "target": "ch11"},
+      {"start": "sec-docs-special-data-limits-l17692", "target": "ch11"},
+      {"start": "sec-docs-special-data-limits-l19453", "target": "ch11"},
+      {"start": "sec-docs-special-data-limits-l21612", "target": "ch12"},
+      {"start": "sec-docs-special-data-limits-l22783", "target": "ch05"},
+      {"start": "sec-docs-special-data-limits-l23553", "target": "ch05"},
+      {"start": "sec-docs-special-data-limits-l23747", "target": "ch05"},
+      {"start": "sec-docs-special-data-limits-l24007", "target": "ch01"},
+      {"start": "sec-docs-special-data-limits-l24163", "target": "ch09"},
+      {"start": "sec-docs-special-data-limits-l24346", "target": "ch02"},
+      {"start": "sec-docs-special-data-limits-l24545", "target": "ch05"},
+      {"start": "sec-docs-special-data-limits-l25007", "target": "ch05"},
+      {"start": "sec-docs-special-data-limits-l26290", "target": "ch04"},
+      {"start": "sec-docs-special-data-limits-l26744", "target": "ch10"},
+      {"start": "sec-docs-special-data-limits-l26995", "target": "ch05"},
+      {"start": "sec-docs-special-data-limits-l27133", "target": "ch05"},
+      {"start": "sec-docs-special-data-limits-l27238", "target": "ch12"}
+    ],
+    "linear-dynamics.qmd": [
+      {"start": "__start__", "target": "ch09"},
+      {"start": "sec-docs-linear-dynamics-l908", "target": "ch07"},
+      {"start": "sec-docs-linear-dynamics-l1357", "target": "ch06"},
+      {"start": "sec-docs-linear-dynamics-l1734", "target": "ch09"},
+      {"start": "sec-docs-linear-dynamics-l1895", "target": "ch06"},
+      {"start": "sec-docs-linear-dynamics-l2211", "target": "ch09"},
+      {"start": "sec-docs-linear-dynamics-l2764", "target": "ch09"}
+    ],
+    "continuous-depth.qmd": [
+      {"start": "__start__", "target": "ch06"},
+      {"start": "sec-docs-continuous-depth-l1286", "target": "ch07"},
+      {"start": "sec-docs-continuous-depth-l1487", "target": "ch06"},
+      {"start": "sec-docs-continuous-depth-l1505", "target": "ch06"},
+      {"start": "sec-docs-continuous-depth-l1886", "target": "ch06"},
+      {"start": "sec-docs-continuous-depth-l2476", "target": "ch07"}
+    ],
+    "observable-p1.qmd": [
+      {"start": "__start__", "target": "ch07"}
+    ]
+  }
+}

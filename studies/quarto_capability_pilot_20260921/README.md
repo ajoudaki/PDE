@@ -1,11 +1,50 @@
 # Quarto capability pilot
 
 Repository-maintenance publishing pilot, 2026-09-21. The artificial capability
-tests were followed by the authorized real-text pilot described below. The
-existing book and publishing code remain unchanged. Source order and structure
-are preserved in the candidate; reorganization is a separate phase.
+tests were followed by the authorized real-text migration and reorganization
+described below. The established Markdown book under `docs/` and the publishing
+code remain unchanged.
 
-**Current phase (2026-09-25): deterministic migration finalized.**
+**Current phase (2026-09-26): conceptual reorganization complete.** The migrated
+edition under `new_doc/` now has three substantive parts and fourteen chapters:
+population dynamics, observable closure and approximation theory, and nonlinear
+learning and inductive bias. Front matter contains the philosophy, reading map
+and notation; the strategic roadmap closes the book. No exploratory study was
+promoted during this structural change.
+
+[`book_reorganization.json`](book_reorganization.json) assigns 89 complete,
+stably labelled source units exactly once. [`reorganize_book.py`](reorganize_book.py)
+assembles them deterministically, changes only heading depth and internal link
+destinations inside those units, and adds the chapter wrappers. All 4,929 prior
+targets are preserved and 653 file-qualified links are redirected. Exact
+inventories confirm preservation of all 5,798 display-math payloads, 26,321
+inline-math payloads and six fenced code blocks. Two independent builds and one
+fresh build from `docs/` reproduce the same 20 source/support files byte-for-byte.
+
+The final publishing evidence is under
+`data/generated/quarto_capability_pilot_20260921/reorganization_final01/`.
+HTML contains 17 pages with no broken local links, duplicate targets or reference
+diagnostics. PDF and editable LaTeX render successfully; `qpdf` accepts the
+1,632-page PDF. Representative table-of-contents and chapter-opening pages were
+inspected. The deterministic source check reports 4,929 preserved targets, 16
+new structural targets, six valid repository links and zero unresolved citations
+or cross-references.
+
+Reproduce the structural candidate from a linear migrated source with:
+
+```bash
+python3 studies/quarto_capability_pilot_20260921/reorganize_book.py build \
+  --source reorganization_source_temp \
+  --output reorganization_output_temp \
+  --state data/generated/quarto_capability_pilot_20260921/reorganization-state.json
+```
+
+The source and output must differ. To reproduce the full chain, first invoke
+`migration.py build` from frozen `docs/` into the root-level
+`reorganization_source_temp/`; keeping that temporary directory at repository
+depth preserves the final edition's `../code/...` link contract.
+
+**Migration baseline (2026-09-25): deterministic migration finalized.**
 `migration.py` now reads the eleven maintained theory chapters under `docs/`
 and writes the separate candidate under `new_doc/`. The implementation guide
 under `code/` is not a book chapter and is not migrated. The program itself

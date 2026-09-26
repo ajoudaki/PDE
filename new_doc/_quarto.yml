@@ -6,15 +6,27 @@ book:
   chapters:
     - index.qmd
     - notation.qmd
-    - global-nonlinear.qmd
-    - finite-dynamics.qmd
-    - gaussian-calculus.qmd
-    - arctan-limits.qmd
-    - special-data-limits.qmd
-    - linear-dynamics.qmd
-    - continuous-depth.qmd
-    - finite-optimization-and-controls.qmd
-    - observable-p1.qmd
+    - part: "I. Population dynamics of deep networks"
+      chapters:
+        - 01-training-geometry.qmd
+        - 02-gaussian-reuse.qmd
+        - 03-local-population.qmd
+        - 04-continuing-flows.qmd
+        - 05-continuation-boundaries.qmd
+        - 06-architectures.qmd
+    - part: "II. Observable closure and approximation theory"
+      chapters:
+        - 07-observable-closure.qmd
+        - 08-autonomous-computation.qmd
+    - part: "III. Nonlinear learning and inductive bias"
+      chapters:
+        - 09-trainability.qmd
+        - 10-correlated-pairs.qmd
+        - 11-shape-and-depth.qmd
+        - 12-three-sample-learning.qmd
+        - 13-predictor-selection.qmd
+        - 14-generalization.qmd
+    - outlook.qmd
 
 bibliography: references.bib
 
