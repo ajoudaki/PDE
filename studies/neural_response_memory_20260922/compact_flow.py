@@ -34,8 +34,8 @@ sys.path.insert(0, str(ROOT/'code'))
 from pde.observable_initialization import build_dictionary
 
 MODEL = dict(width=2048, depth=3, activation='relu', seed=20260920,
-             hidden_gain=1., readout_std=None, dtype='float32')
-OPTIMIZER = dict(step=.0625, target_rms=.05, max_seconds=60., max_steps=60000, block=8, adaptive=False)
+             hidden_gain='auto', readout_std=1., dtype='float32')
+OPTIMIZER = dict(step=1/64, target_rms=.05, max_seconds=110., max_steps=200000, block=8, adaptive=True)
 KINDS = ('dense', 'closure', 'dictionary_old', 'dictionary_flow', 'gaussian', 'orthogonal',
          'trainable_dictionary', 'low_rank', 'weighted_closure')
 OLD_RANKS = {1: (5, 3), 3: (35, 10), 5: (128, 21), 6: (213, 28),
@@ -110,7 +110,7 @@ class Flow:
                     raise ValueError("Unknown activation: "+spec)
             elif not (isinstance(spec, tuple) and len(spec) == 2 and all(callable(f) for f in spec)):
                 raise ValueError("Custom activation must be (value, derivative)")
-        if hidden_gain == "unit_moment":
+        if hidden_gain in ("unit_moment","auto"):
             nodes, weights = np.polynomial.hermite.hermgauss(128)
             z = torch.tensor(nodes*math.sqrt(2.), dtype=torch.float64)
             gains = []
@@ -118,7 +118,7 @@ class Flow:
                 moment = float((_activation(spec,z).square()*torch.from_numpy(weights)).sum()/math.sqrt(math.pi))
                 if not math.isfinite(moment) or moment <= 0:
                     raise ValueError("Activation needs a positive finite Gaussian second moment")
-                gains.append(moment**-.5)
+                gains.append(8. if hidden_gain=='auto' and spec=='sigmoid' else moment**-.5)
         else:
             gains = [float(hidden_gain)]*(depth-1)
         if any(not math.isfinite(g) or g <= 0 for g in gains):
@@ -270,6 +270,7 @@ class Flow:
         """
         if any(not math.isfinite(v) or v <= 0 for v in (step,target_rms,max_seconds)):
             raise ValueError("Step, target and seconds must be positive and finite")
+        if not isinstance(adaptive,bool):raise ValueError('adaptive must be boolean')
         if any(isinstance(v,bool) or not isinstance(v,int) or v < 1 for v in (max_steps,block)):
             raise ValueError("max_steps and block must be positive integers")
         started = time.perf_counter(); updates = 0; capture_seconds = 0.; graph = None
@@ -341,6 +342,7 @@ class FrozenFlow(Flow):
     def __init__(self, inputs, labels, *, kind, order=1, ranks=None, basis_seed=7319,
                  train_basis=False, rescale_core=False, **kwargs):
         started = time.perf_counter()
+        if not isinstance(rescale_core,bool):raise ValueError('rescale_core must be boolean')
         if kind in ('dictionary_old', 'dictionary_flow'):
             if (kwargs.get('depth', 3) != 2 or len(np.shape(inputs)) != 2 or np.shape(inputs)[1] != 2
                     or kwargs.get('activation', 'relu') != 'tanh'
@@ -1235,17 +1237,19 @@ def resolve(raw):
     for key, defaults in [('model', MODEL), ('optimizer', OPTIMIZER)]:
         if set(raw.get(key, {}))-set(defaults): raise ValueError('Unknown '+key+' setting')
     config = dict(model={**MODEL, **raw.get('model', {})}, optimizer={**OPTIMIZER, **raw.get('optimizer', {})},
-                  methods=raw.get('methods', [{'kind': 'dense'}, *[dict(kind='closure', order=p) for p in (1, 2, 3)]]),
+                  methods=[dict(m) for m in raw.get('methods', [{'kind': 'dense'}, *[dict(kind='closure', order=p) for p in (1, 2, 3)]])],
                   datasets=raw['datasets'], device=raw.get('device', 'cuda:0'))
     names = []
     for method in config['methods']:
         kind = method['kind']
         if kind not in KINDS: raise ValueError('Unknown method: '+kind)
+        if kind=='weighted_closure':method.setdefault('clock','response_rms')
         allowed={'dense':set(), 'closure':{'order'}, 'weighted_closure':{'order','clock'},
                  'dictionary_old':{'order'}, 'dictionary_flow':{'order'},
                  'gaussian':{'order','ranks','basis_seed','rescale_core'}, 'orthogonal':{'order','ranks','basis_seed','rescale_core'},
                  'trainable_dictionary':{'basis','order','ranks','basis_seed','rescale_core'}, 'low_rank':{'rank','factor_seed'}}
         if set(method)-allowed[kind]-{'kind','id'}: raise ValueError('Unknown setting for '+kind)
+        if not isinstance(method.get('rescale_core',False),bool):raise ValueError('rescale_core must be boolean')
         base=method.get('basis','dictionary_flow') if kind=='trainable_dictionary' else kind
         if kind=='trainable_dictionary' and base not in ('dictionary_old','dictionary_flow','gaussian','orthogonal'):raise ValueError('Unknown dictionary basis')
         if base in ('dictionary_old','dictionary_flow') and ('ranks' in method or 'basis_seed' in method):raise ValueError('Historical dictionary is determined by order')
@@ -1288,7 +1292,7 @@ def resolve(raw):
         if not math.isfinite(o[key]) or o[key] <= 0: raise ValueError('Positive finite '+key+' required')
     activations = m['activation'] if isinstance(m['activation'], list) else [m['activation']]*m['depth']
     if len(activations) != m['depth'] or any(v not in ('relu', 'gelu', 'selu', 'tanh', 'sigmoid', 'silu') for v in activations): raise ValueError('Use a supported activation or one per hidden layer')
-    if m['hidden_gain'] != 'unit_moment' and (not math.isfinite(m['hidden_gain']) or m['hidden_gain'] <= 0): raise ValueError('Invalid hidden_gain')
+    if m['hidden_gain'] not in ('unit_moment','auto') and (not math.isfinite(m['hidden_gain']) or m['hidden_gain'] <= 0): raise ValueError('Invalid hidden_gain')
     if m['readout_std'] is not None and (not math.isfinite(m['readout_std']) or m['readout_std'] <= 0): raise ValueError('Invalid readout_std')
     return config
 
@@ -1300,7 +1304,7 @@ def construct(config, method, data):
     if kind in ('dense', 'closure'):
         return Flow(*args, **model, order=None if kind == 'dense' else order, device=config['device'], normalization='none')
     if kind=='low_rank':return LowRankFlow(*args,**model,rank=method['rank'],factor_seed=method.get('factor_seed',20260924),device=config['device'])
-    if kind=='weighted_closure':return WeightedFlow(*args,**model,order=order,clock=method.get('clock','response'),device=config['device'])
+    if kind=='weighted_closure':return WeightedFlow(*args,**model,order=order,clock=method.get('clock','response_rms'),device=config['device'])
     return FrozenFlow(*args, **model, kind=method.get('basis','dictionary_flow') if kind=='trainable_dictionary' else kind,
                       train_basis=kind=='trainable_dictionary', order=order, ranks=method.get('ranks'),
                       rescale_core=method.get('rescale_core',False),
@@ -1390,6 +1394,7 @@ def run(config, out, base, prepare_only=False):
                           gram_condition=float(np.linalg.cond(model.G.cpu().numpy())) if isinstance(model,WeightedFlow) and bool(torch.isfinite(model.G).all()) else None,
                           integrator='Euler with exact history-coordinate transport' if isinstance(model,WeightedFlow) else 'simultaneous Euler',
                           data_sha256=sha(folder/'data.npz'), predictions_sha256=sha(file), total_seconds=time.perf_counter()-started)
+            if record['gram_condition'] is not None and not math.isfinite(record['gram_condition']):record['gram_condition']=None
             write_json(folder/(name+'.json'), record)
             print(json.dumps(dict(dataset=spec['name'], model=name, train_rms=record['train_rms'], seconds=record['total_seconds'])), flush=True)
             del model
@@ -1429,7 +1434,7 @@ def main():
         if a.experiment: p.error('--experiment requires --config')
         if not a.data: p.error('Supply --config or --data')
         model = {k: getattr(a, k) for k in MODEL if hasattr(a, k) and getattr(a, k) is not None}
-        if 'hidden_gain' in model and model['hidden_gain'] != 'unit_moment': model['hidden_gain'] = float(model['hidden_gain'])
+        if 'hidden_gain' in model and model['hidden_gain'] not in ('unit_moment','auto'): model['hidden_gain'] = float(model['hidden_gain'])
         optimizer = {k: getattr(a, k) for k in ('step', 'target_rms', 'max_steps') if getattr(a, k) is not None}
         if a.seconds is not None: optimizer['max_seconds'] = a.seconds
         methods = [dict(kind='dense') if k == 0 else dict(kind='closure', order=k, id=f'P{k}') for k in (a.orders or [0, 1, 2, 3])]
@@ -1607,7 +1612,7 @@ def check_data():
 def check_runner():
     import contextlib
     import io
-    raw = dict(device='cpu', model=dict(width=12, depth=2, activation='tanh',dtype='float64'),
+    raw = dict(device='cpu', model=dict(width=12, depth=2, activation='tanh',dtype='float64',hidden_gain=1.,readout_std=None),
                optimizer=dict(step=.01,max_steps=3,block=2,max_seconds=10),
                methods=[dict(kind='dense')]+[dict(kind='closure',order=p) for p in (1,2,3)]
                        +[dict(kind=k,order=1) for k in ('dictionary_old','dictionary_flow','gaussian','orthogonal','trainable_dictionary')]
@@ -1652,7 +1657,7 @@ def check_gpu(device):
     cases += [(method,4,activation) for activation in ('relu','gelu','selu') for method in
               (dict(kind='trainable_dictionary',basis='gaussian',ranks=12),dict(kind='low_rank',rank=12),dict(kind='weighted_closure',order=3))]
     for method,depth,activation in cases:
-        config=resolve(dict(device=device,model=dict(width=2048,depth=depth,activation=activation),methods=[method],datasets=[dict(name='circle',kind='circle')]))
+        config=resolve(dict(device=device,model=dict(width=2048,depth=depth,activation=activation,hidden_gain=1.,readout_std=None),methods=[method],datasets=[dict(name='circle',kind='circle')]))
         data=dict(inputs=x if depth==2 else np.column_stack((x,np.full(len(x),.5))),labels=y)
         model=construct(config,method,data); reference=construct(config,method,data)
         before=[b.clone() for b in model.bases] if isinstance(model,FrozenFlow) and not model.train_basis else []
@@ -1836,7 +1841,10 @@ def check_step_guard(gpu=None):
             f=m.fit(step=10,adaptive=True,target_rms=.05,max_steps=1000,max_seconds=10,block=2)
             assert f['rms']<=.05 and f['rejected_blocks']>0,f
             assert abs(f['rms']-float((m.predict(x)-m.labels).square().mean().sqrt()))<1e-12
-            if reference is not None:
+            # Random dictionary draws use each backend's seeded generator, so
+            # CPU/CUDA do not start from the same dictionary. Their capture/eager
+            # equivalence is checked on the same GPU in check_gpu instead.
+            if reference is not None and not isinstance(m,FrozenFlow):
                 for a,b in zip(m.state,reference):torch.testing.assert_close(a.cpu(),b,atol=1e-10,rtol=1e-10)
             reference=[v.cpu().clone() for v in m.state]
             records.append(dict(model=cls.__name__,settings=kw,device=device,fit=f))

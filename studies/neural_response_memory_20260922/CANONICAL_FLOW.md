@@ -22,7 +22,7 @@ compatibility; it is not enabled by this runner.
 | `orthogonal` | Frozen random QR bases, scaled by sqrt(width) | Arbitrary MLP settings; ranks cannot exceed width |
 | `trainable_dictionary` | Same dictionary/core representation, with the bases also trained | Any MLP with Gaussian/orthogonal bases; historical bases retain their original scope |
 | `low_rank` | Directly train factors in `W_l = W0_l + A_l B_l` | Any MLP; explicit positive `rank` per hidden link |
-| `weighted_closure` | Response-adapted clock and weighted Legendre history projection, with matching initialization prefix | Any MLP; positive `order`, `clock="response"` (default) or `"residual"` |
+| `weighted_closure` | Response-adapted clock and weighted Legendre history projection, with matching initialization prefix | Any MLP; positive `order`; config clock defaults to `response_rms`; original `response` and `residual` remain available |
 
 The recovered **old circle dictionary uses Chebyshev polynomials of initialized
 response coordinates and retained action words**. Calling that implementation
@@ -64,29 +64,38 @@ supply a list of activations, one per hidden layer. The Python API additionally
 accepts `(activation, derivative)` callables. Historical dictionaries enforce
 their narrower derivation scope rather than inventing formulas for other MLPs.
 
-Initialization uses a shared seed for matching models. Defaults
-`hidden_gain=1, readout_std=null` preserve the old law, with stored readout
-standard deviation `1/n`. Optional `hidden_gain="unit_moment"` selects the
+Initialization uses a shared seed for matching models. The low-level `Flow`
+constructor retains `hidden_gain=1, readout_std=null` for historical compatibility,
+with stored readout standard deviation `1/n`. The config/CLI defaults now use
+`hidden_gain="auto", readout_std=1` for practical fitting. `auto` uses gain 8
+after sigmoid, and the `unit_moment` rule for other activations. The rule selects the
 hidden-link gain from the preceding activation's Gaussian second moment using
 128-node quadrature. `readout_std=1` supplies a width-independent stored readout
 scale, with the same output and muP mobilities. These are explicit initialization
 choices, not normalization layers. Historical dictionaries require the old law.
 
-All methods share the fixed-step CUDA-graph fitter. Existing methods and the
+All methods share one CUDA-graph fitter. Existing methods and the
 two trainable-factor methods use simultaneous Euler. Weighted history uses
 Euler for network/source velocities and exact polynomial coordinate transport
 for its moments and Gram matrix; see below. There is one host loss read per block.
-There are no adaptive retries,
-line searches, clipping, task-specific optimizer branches or hidden learning-rate
-changes. The solver records the actual step count, physical time, capture time
+The config/CLI default is `step=1/64, adaptive=true, block=8`, with target RMS
+0.05 and a 110-second training cap. A block that increases RMS by more than 5%
+or becomes nonfinite is restored and retried at half the step. Accepted decreases
+regrow the step by 10%, up to the configured maximum. This reuses the existing
+block loss check and one state backup; it is a fitting safeguard, not Euler
+error estimation or a certificate of continuous-flow accuracy. `adaptive=false`
+retains the original fixed stepping. The low-level `fit` API defaults remain fixed
+for compatibility. No momentum, Adam, clipping or task-specific branch is used.
+The solver records accepted steps, rejected blocks, actual physical time, capture time
 and stop reason. Its wall-time cap includes capture but excludes initialization
 and final test prediction. Stopping occurs at block endpoints. Float32 is the
 explicit default; float64 is available; TF32 is disabled by the runner.
 
-This is a fast numerical implementation, not a guarantee that one fixed step
-fits every task or resolves continuous gradient flow. The earlier all-fit
-stress objective remains unachieved; see `CANONICAL_UNNORMALIZED_RESULTS.md`.
-Underfit and nonfinite runs are reported rather than filtered out.
+Use the explicit `fast_*` catalog entries for the fitting benchmark; older entries
+retain their original settings. Per-run caps exclude initialization and final
+query prediction, which are included in each record's `total_seconds`.
+Training results and exceptions are recorded in the README validation block and
+`data/generated/neural_response_memory_20260922/fast_fit01/`.
 
 ## Added methods and their clocks
 
@@ -99,6 +108,16 @@ population basis receives both incoming and outgoing link gradients. These
 are the original trainable-dictionary equations generalized link by link.
 The historical frozen methods remain frozen.
 
+Random Gaussian/orthogonal bases optionally support `rescale_core=true` (also
+with trainable bases). At initialization only, each core is scaled so that its
+preactivations on the supplied training inputs have RMS one. This uses no labels,
+adds no normalization layer and leaves subsequent equations unchanged. It is an
+explicit data-dependent initialization option, not the historical projected-core
+law. Without it, rank-64 random projections nearly erase the signal across ten
+layers; multiplying every core by width/rank instead can amplify it catastrophically
+because intermediate bases are shared by incoming and outgoing links. Historical
+dictionary formulas and their original random controls retain `rescale_core=false`.
+
 `{"kind":"low_rank","rank":12}` retains each initialized dense matrix and
 trains `A_l B_l`, with `A_l=0` and independent Gaussian `B_l` entries of standard
 deviation `1/sqrt(rank)`. An integer rank applies to every hidden link; a list
@@ -106,7 +125,7 @@ specifies each link. Both factor mobilities are `1`; outer mobilities are `n`.
 This preserves the original factor-control parameterization and physical time,
 rather than silently rescaling it to accelerate optimization.
 
-`{"kind":"weighted_closure","order":3}` implements the matching-prefix
+`{"kind":"weighted_closure","order":3,"clock":"response"}` implements the matching-prefix
 construction in [RESPONSE_CLOCK_FULL_CLOSURE.md](RESPONSE_CLOCK_FULL_CLOSURE.md).
 For each link it stores moments `U,H` of the residual-normalized backward field
 `u = residual * delta / rho` and forward field `h`, with weight `rho dt`, where
@@ -117,21 +136,31 @@ The fixed prefix subtraction ensures that
 initial predictions match dense exactly. The response clock is
 `g = rho + ||d(h,u)/dt||_2`, concatenating all compressed links with the source's
 unscaled Euclidean convention. `clock="residual"` selects `g=rho` while keeping
-the same weighted projection. P1's physical model is clock independent.
+the same weighted projection. `clock="response_rms"` instead uses the RMS of
+the response derivative, removing the monitor's explicit square-root dependence
+on the number of neuron/sample/link coordinates. This is a different clock
+configuration, not an unchanged numerical implementation of the unscaled clock.
+It is the config/CLI default, recorded explicitly when the config is resolved;
+the low-level `WeightedFlow` default remains `response` for compatibility.
+P1's physical model is clock independent; the fast P1 examples use `residual`
+to avoid computing a response derivative that cannot affect their predictions.
 
-The response derivative uses one directional derivative of the shared network
-traversal, along its computed weight velocity. It does not construct a Hessian,
-Jacobian or dense weight update. Each traversal solves one small `P x P` Gram
-system for all links; moments use the selected network dtype, while the Gram
-and clock use float64. At exactly zero residual the state is stationary. For
+The response derivative reuses cached forward/backward fields and propagates their
+directional derivatives along the computed weight velocity. Pointwise AD supplies
+activation curvature. It constructs no Hessian, Jacobian or dense weight update.
+The historical normalization API uses the full-traversal AD fallback. Each traversal
+solves only a `P x P` Gram system and applies its inverse by matrix multiplication;
+the solve and those contractions use float64 before casting back to the network
+dtype. At exactly zero residual the state is stationary. For
 ReLU/SELU, derivatives follow the implementation's almost-everywhere convention;
 the smooth-theory assumptions do not automatically extend across their kinks.
 
 The weighted step transports the polynomial coordinates from `L` to `L+dt*g`
 and adds the positive rank-one Gram contribution of the new history sample.
 This avoids the indefinite Gram matrix that plain Euler can produce from basis
-dilation alone. It is a fixed, first-order explicit step with no retries, ridge
-regularizer or adaptive step search; checks verify its stated ODE limit. The
+dilation alone. Each accepted update is a first-order explicit step; the optional
+shared fitting guard chooses its size. There is no ridge regularizer. Checks
+verify the stated ODE limit and physical clock derivative. The
 response clock adds work compared with ordinary memory, and a tiny Gram can
 still become ill-conditioned over a long run. No claim that the new method fits
 faster or improves final RMS is made by these implementation checks. Extension
@@ -143,13 +172,14 @@ not an additional approximation theorem.
 `experiment_configs.json` contains editable examples for all six circle cases,
 smooth sphere tasks with 16/64 samples, the four high-frequency/full/partial
 support tasks, MNIST, and `additional_methods` for the three additions.
-They are starting configurations, not newly validated
-fitting claims. Select the examples you intend to run:
+The `fast_*` entries reproduce the bounded fitting benchmark described in the
+README; the older examples retain their historical settings. Select the examples
+you intend to run:
 
 ```sh
 python -B studies/neural_response_memory_20260922/compact_flow.py \
   --config studies/neural_response_memory_20260922/experiment_configs.json \
-  --experiment circle_baselines \
+  --experiment fast_circle_relu \
   --out data/generated/neural_response_memory_20260922/my_run
 ```
 
@@ -191,7 +221,7 @@ a null comparison. Recompute metrics and verify prediction/data hashes with:
 
 ```sh
 python -B studies/neural_response_memory_20260922/compact_flow.py \
-  --summarize data/generated/neural_response_memory_20260922/my_run/circle_baselines
+  --summarize data/generated/neural_response_memory_20260922/my_run/fast_circle_relu
 ```
 
 Query RMS compares final endpoints over the saved full query grid; it is not
@@ -199,6 +229,34 @@ an exact continuum integral or a same-physical-time trajectory comparison.
 MNIST uses the saved official test panel, not a circle/sphere interpretation.
 
 ## Consolidation checks and historical preservation
+
+The latest check is
+[fast_fit01/final_gpu_check02.json](../../data/generated/neural_response_memory_20260922/fast_fit01/final_gpu_check02.json):
+3,070 CPU assertions (2,136 existing plus 934 added), 72 weighted-history cases,
+CPU/GPU guarded-step checks, 22 CUDA-graph/eager comparisons and historical
+dictionary regressions, in 15.93 seconds. MNIST rows still reproduce bitwise;
+all 35 catalog entries passed dataset preparation. The 266-run fitting benchmark
+and its remaining eight RMS >0.065 cases are documented in the README and
+[benchmark.csv](../../data/generated/neural_response_memory_20260922/fast_fit01/benchmark.csv).
+The benchmark reached training RMS <=0.05 in 254/266 runs and <=0.065 in
+258/266. Median total time was 1.73 seconds, the 90th percentile 17.74 seconds,
+and the maximum 111.25 seconds, including setup and final prediction. Coverage
+includes all six original circle tasks with six activations, selected depths
+2/3/4/10/15/20, smooth sphere tasks and four 64-sample high-frequency tasks.
+The eight larger misses are ordinary SELU depth-20 and weighted ReLU/SELU
+depth-10 closures on the high-frequency arc. This tests representative
+configurations, not a full Cartesian grid or a continuous-flow accuracy bound.
+The aggregate uses exactly `circle_final`, `coverage_gpu0`, `final_gpu0` and
+`final_gpu1` under `fast_fit01`, preserving all their failures. Earlier probes
+remain separate. Source hashes and per-experiment counts are in
+[benchmark_summary.json](../../data/generated/neural_response_memory_20260922/fast_fit01/benchmark_summary.json).
+
+The cached-response/small-Gram optimization was compared for the same 128
+fixed updates of depth-10, width-2048 ReLU weighted P3: 1.55x faster training
+iterations, with zero query prediction RMS difference. See
+[optimization_check.json](../../data/generated/neural_response_memory_20260922/fast_fit01/optimization_check.json).
+This timing comparison is separate from changing initialization, step safeguards
+or the response-clock configuration, which can change fitted trajectories.
 
 Run `python -B studies/neural_response_memory_20260922/compact_flow.py --check`.
 Add `--gpu cuda:0 --out FRESH.json` to check CUDA graphs at width 2048 and all

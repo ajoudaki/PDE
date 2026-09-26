@@ -15,7 +15,8 @@
         "target_rms": 0.05,
         "max_seconds": 12.0,
         "max_steps": 60000,
-        "block": 8
+        "block": 8,
+        "adaptive": false
       },
       "device": "cuda:0",
       "methods": [
@@ -137,7 +138,8 @@
         "target_rms": 0.05,
         "max_seconds": 12.0,
         "max_steps": 60000,
-        "block": 8
+        "block": 8,
+        "adaptive": false
       },
       "device": "cuda:0",
       "methods": [
@@ -211,7 +213,8 @@
         "target_rms": 0.05,
         "max_seconds": 60.0,
         "max_steps": 60000,
-        "block": 8
+        "block": 8,
+        "adaptive": false
       },
       "device": "cuda:0",
       "methods": [
@@ -293,7 +296,8 @@
         "target_rms": 0.05,
         "max_seconds": 12.0,
         "max_steps": 60000,
-        "block": 8
+        "block": 8,
+        "adaptive": false
       },
       "device": "cuda:0",
       "methods": [
@@ -353,7 +357,8 @@
         "target_rms": 0.05,
         "max_seconds": 12.0,
         "max_steps": 60000,
-        "block": 8
+        "block": 8,
+        "adaptive": false
       },
       "device": "cuda:0",
       "methods": [
@@ -396,7 +401,8 @@
         "target_rms": 0.05,
         "max_seconds": 12.0,
         "max_steps": 60000,
-        "block": 8
+        "block": 8,
+        "adaptive": false
       },
       "device": "cuda:0",
       "methods": [
@@ -468,7 +474,8 @@
         "target_rms": 0.05,
         "max_seconds": 8.0,
         "max_steps": 60000,
-        "block": 8
+        "block": 8,
+        "adaptive": false
       },
       "methods": [
         {
@@ -529,7 +536,8 @@
         "target_rms": 0.05,
         "max_seconds": 8.0,
         "max_steps": 60000,
-        "block": 8
+        "block": 8,
+        "adaptive": false
       },
       "methods": [
         {
@@ -590,7 +598,8 @@
         "target_rms": 0.05,
         "max_seconds": 8.0,
         "max_steps": 60000,
-        "block": 8
+        "block": 8,
+        "adaptive": false
       },
       "methods": [
         {
