@@ -345,7 +345,12 @@ class FrozenFlow(Flow):
                          for i, matrix in enumerate(self.matrices)]
         if rescale_core:
             if kind not in ('gaussian','orthogonal'):raise ValueError('Core rescaling applies only to random bases')
-            for i,core in enumerate(self.matrices):core.mul_(self.n/math.sqrt(core.numel()))
+            # One initialization-only calibration, using inputs but no labels.
+            # Shared incoming/outgoing bases make a width/rank-only gain wrong.
+            h=self._layer(self.activations[0],self.w@self.inputs.T)[0]
+            for i,core in enumerate(self.matrices):
+                z=self._apply(i,h,None);scale=z.square().mean().sqrt().clamp_min(1e-12)
+                core.div_(scale);h=self._layer(self.activations[i+1],z/scale)[0]
         self.state = [self.w, *self.matrices, self.c, *(self.bases if train_basis else [])]
         self.setup_seconds = time.perf_counter()-started
 
