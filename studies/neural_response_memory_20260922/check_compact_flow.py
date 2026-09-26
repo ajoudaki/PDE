@@ -82,6 +82,38 @@ def main():
                 close(c[-1], (closure.predict(inputs) - labels).square().mean().sqrt())
                 dense.step(.0003)
                 closure.step(.0003)
+    # Configured initialization must preserve the same muP gradient equations.
+    # Independent PyTorch activations cover deep models and arbitrary input dimension.
+    phis={'relu':torch.relu,'gelu':torch.nn.functional.gelu,
+          'selu':torch.nn.functional.selu,'tanh':torch.tanh,
+          'sigmoid':torch.sigmoid,'silu':torch.nn.functional.silu}
+    x3=torch.randn((8,3),generator=generator,dtype=torch.float64)
+    for depth in (1,4,20):
+        for activation,phi in phis.items():
+            model=Flow(x3,labels,width=7,depth=depth,activation=activation,
+                       hidden_gain='unit_moment',readout_std=1.,seed=773,
+                       device='cpu',dtype=torch.float64)
+            parameters=[v.detach().clone().requires_grad_(True) for v in model.state]
+            h=phi(parameters[0]@x3.T)
+            for matrix in parameters[1:-1]:h=phi(matrix@h)
+            pred=parameters[-1]@h/model.n
+            gradients=torch.autograd.grad((pred-labels).square().mean(),parameters)
+            close(model.predict(x3),pred.detach())
+            for actual,g,mobility in zip(model.rhs(),gradients,[model.n]+[1]*(depth-1)+[model.n]):
+                close(actual,-mobility*g)
+            for order in (1,2,3):
+                closure=Flow(x3,labels,width=7,depth=depth,activation=activation,
+                             order=order,hidden_gain='unit_moment',readout_std=1.,seed=773,
+                             device='cpu',dtype=torch.float64)
+                close(closure.predict(x3),model.predict(x3))
+                for _ in range(2):closure.step(.00001)
+                h=phi(closure.w@x3.T)
+                for i,matrix in enumerate(closure.matrices):
+                    A,B=closure.moments[2*i:2*i+2]
+                    correction=sum((2*k+1)*(A[k]@B[k].T) for k in range(order))
+                    W=matrix-2*correction/(closure.M*closure.n*(1+closure.s))
+                    h=phi(W@h)
+                close(closure.predict(x3),closure.c@h/closure.n)
     print(f'PASS: {checks} CPU assertions; max absolute discrepancy {maximum:.3g}')
 
 

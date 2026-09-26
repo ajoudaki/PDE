@@ -48,7 +48,8 @@ class Flow:
     """
     @torch.no_grad()
     def __init__(self, inputs, labels, width=2048, depth=3, activation="relu",
-                 order=None, seed=20260920, device="cuda:0", dtype=torch.float32):
+                 order=None, seed=20260920, device="cuda:0", dtype=torch.float32,
+                 normalization="none", norm_eps=1e-5, hidden_gain=1., readout_std=None):
         started = time.perf_counter()
         if any(isinstance(v, bool) or not isinstance(v, int) or v < 1 for v in (width, depth)):
             raise ValueError("width and depth must be positive integers")
@@ -56,6 +57,11 @@ class Flow:
             raise ValueError("order must be None or a positive integer")
         if dtype not in (torch.float32, torch.float64): raise ValueError("Use float32 or float64")
         self.n, self.depth, self.order = width, depth, order
+        if normalization not in ("none", "before", "after"):
+            raise ValueError("normalization must be none, before or after activation")
+        if not math.isfinite(norm_eps) or norm_eps <= 0:
+            raise ValueError("Positive finite LayerNorm epsilon required")
+        self.normalization, self.norm_eps = normalization, norm_eps
         self.device, self.dtype = torch.device(device), dtype
         self.inputs = torch.as_tensor(inputs, dtype=dtype, device=device).detach().clone()
         self.labels = torch.as_tensor(labels, dtype=dtype, device=device).detach().clone()
@@ -72,22 +78,40 @@ class Flow:
                     raise ValueError("Unknown activation: "+spec)
             elif not (isinstance(spec, tuple) and len(spec) == 2 and all(callable(f) for f in spec)):
                 raise ValueError("Custom activation must be (value, derivative)")
+        if hidden_gain == "unit_moment":
+            nodes, weights = np.polynomial.hermite.hermgauss(128)
+            z = torch.tensor(nodes*math.sqrt(2.), dtype=torch.float64)
+            gains = []
+            for spec in self.activations[:-1]:
+                moment = float((_activation(spec,z).square()*torch.from_numpy(weights)).sum()/math.sqrt(math.pi))
+                if not math.isfinite(moment) or moment <= 0:
+                    raise ValueError("Activation needs a positive finite Gaussian second moment")
+                gains.append(moment**-.5)
+        else:
+            gains = [float(hidden_gain)]*(depth-1)
+        if any(not math.isfinite(g) or g <= 0 for g in gains):
+            raise ValueError("Positive finite hidden initialization gain required")
+        readout_std = 1/width if readout_std is None else float(readout_std)
+        if not math.isfinite(readout_std) or readout_std <= 0:
+            raise ValueError("Positive finite readout standard deviation required")
+        self.hidden_gains, self.readout_std = gains, readout_std
         rng = np.random.default_rng(seed)
         tensor = lambda value: torch.tensor(value, dtype=dtype, device=device)
         self.w = tensor(rng.standard_normal((width, self.inputs.shape[1])))
-        self.matrices = [tensor(rng.standard_normal((width,width))/math.sqrt(width)) for _ in range(depth-1)]
-        self.c = tensor(rng.standard_normal(width)/width)
+        self.matrices = [tensor(rng.standard_normal((width,width))*g/math.sqrt(width)) for g in gains]
+        draw = rng.standard_normal(width)
+        self.c = tensor(draw/width if readout_std == 1/width else draw*readout_std)
         if order is None:
             self.state = [self.w, *self.matrices, self.c]
         else:
             self.degrees = torch.arange(order, dtype=dtype, device=device)[:,None,None]
             self.weights = 2*self.degrees+1
             self.moments = []
-            h = _activation(self.activations[0], self.w@self.inputs.T)
+            h = self._layer(self.activations[0], self.w@self.inputs.T)[0]
             for i, matrix in enumerate(self.matrices):
                 A = h.new_zeros((order,width,self.M)); B = torch.zeros_like(A); B[0] = h
                 self.moments.extend((A,B))
-                h = _activation(self.activations[i+1], matrix@h)
+                h = self._layer(self.activations[i+1], matrix@h)[0]
             self.s = self.w.new_zeros(())
             self.state = [self.w, self.c, *self.moments, self.s]
         self.setup_seconds = time.perf_counter()-started
@@ -110,14 +134,39 @@ class Flow:
             result = result+left@(right.T@values)
         return result
 
+    def _normalize(self, z):
+        centered = z-z.mean(dim=0, keepdim=True)
+        inverse = (centered.square().mean(dim=0, keepdim=True)+self.norm_eps).rsqrt()
+        return centered*inverse, inverse
+
+    def _layer(self, spec, z, derivatives=False):
+        # LayerNorm is per sample, across neurons, with no affine parameters.
+        if self.normalization == "before":
+            u, inverse = self._normalize(z)
+            result = _activation(spec, u, derivatives)
+        else:
+            result = _activation(spec, z, derivatives)
+        h, d = result if derivatives else (result, None)
+        if self.normalization == "after":
+            h, inverse = self._normalize(h); u = h
+        cache = (d, u, inverse) if derivatives and self.normalization != "none" else d
+        return h, cache
+
+    def _backward_layer(self, cache, gradient):
+        if self.normalization == "none": return cache*gradient
+        d, u, inverse = cache
+        if self.normalization == "before": gradient = d*gradient
+        gradient = inverse*(gradient-gradient.mean(dim=0, keepdim=True)
+                            -u*(u*gradient).mean(dim=0, keepdim=True))
+        return gradient if self.normalization == "before" else d*gradient
+
     def _forward(self, inputs, factors, derivatives=False):
         hidden, slopes = [], []
         z = self.w@inputs.T
         for i, spec in enumerate(self.activations):
             if i: z = self._apply(i-1, hidden[-1], factors)
-            if derivatives:
-                h,d = _activation(spec,z,True); slopes.append(d)
-            else: h = _activation(spec,z)
+            h, cache = self._layer(spec,z,derivatives)
+            if derivatives: slopes.append(cache)
             hidden.append(h)
         return hidden, slopes
 
@@ -141,9 +190,9 @@ class Flow:
         residual = self.c@hidden[-1]/self.n-self.labels
         self.loss = residual.square().mean()
         delta = [None]*self.depth
-        delta[-1] = self.c[:,None]*slopes[-1]
+        delta[-1] = self._backward_layer(slopes[-1],self.c[:,None])
         for i in range(self.depth-2,-1,-1):
-            delta[i] = slopes[i]*self._apply(i,delta[i+1],factors,True)
+            delta[i] = self._backward_layer(slopes[i],self._apply(i,delta[i+1],factors,True))
         dw = (-2/self.M)*(delta[0]*residual)@self.inputs
         dc = (-2/self.M)*(hidden[-1]@residual)
         if self.order is None:

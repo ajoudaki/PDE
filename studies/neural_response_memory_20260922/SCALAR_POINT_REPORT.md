@@ -30,7 +30,7 @@ the predeclared 0.10 failure threshold. At the scalar stopping time, dense and
 population predict 0.5758054250 and 0.5435747815; the matched-time scalar errors
 are therefore 0.3693628213 and 0.3371321779. Different stopping times do not explain
 the result. The largest coordinatewise training-output trajectory discrepancy
-against dense on the fixed temporal panel is 1.03336. Small final training loss
+against dense on the fixed temporal panel [0,2.8239351] is 1.03336. Small final training loss
 does not imply that this scalar closure tracks the network's training path.
 
 ## Exactly what was added
