@@ -2019,3 +2019,29 @@ records passed data/source/archive checks and independent rescoring; the actual
 commands and selected endpoints are saved under canonical_unnormalized01/.
 No normalized model or task-specific exception is adopted. All workers finished;
 no further experiments are queued.
+
+
+### Scalar implementation consolidated; stress campaign cancelled (2026-09-26)
+
+The current response-basis scalar ODE, initialization, passive outputs,
+detached network decoder, bounded fitter, prediction helper, and dense/population
+references now live in [scalar_ode.py](scalar_ode.py), with NumPy/SciPy and no
+local runtime imports. [SCALAR_STANDALONE.md](SCALAR_STANDALONE.md) documents the
+interfaces, preserved three-hidden-layer tanh scope, decoder storage, and checks.
+The old split sources remain historical comparison inputs.
+
+[SCALAR_DICTIONARY_COMPARISON.md](SCALAR_DICTIONARY_COMPARISON.md) establishes the
+fixed-span limitation: changing scalar coefficients cannot create learned
+matrix directions outside the initialized response spaces. Nonlinear motion
+inside those spaces remains possible; this is not a claim that learning is
+impossible. Internal and decoded outputs also need not coincide at reduced rank.
+
+The user explicitly cancelled further experiments once this dictionary
+restriction was identified. No new neural training runs were launched.
+[SCALAR_STANDALONE_PROTOCOL.md](SCALAR_STANDALONE_PROTOCOL.md) is an unexecuted,
+cancelled plan, and no automatic campaign command remains. Both the isolated
+standalone self-check and independent migration/algebra audit passed. Checked
+initializer/coefficient/RHS/decoder migrations agree exactly; full-rank
+identities agree to 1.81e-16. These checks perform no neural integrations and
+provide no new accuracy evidence. Source hashes and results are saved under
+scalar_standalone01/checks/independent_algebra.json in this study's generated data.
