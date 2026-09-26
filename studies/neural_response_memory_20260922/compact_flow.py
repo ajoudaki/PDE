@@ -71,6 +71,19 @@ def _activation(spec, z, derivative=False):
     return (h, d) if derivative else h
 
 
+def _curvature(spec, z, h, slope):
+    """Pointwise second derivative; reuse the primal fields in the clock pass."""
+    if spec == 'tanh': return -2*h*slope
+    if spec == 'sigmoid': return slope*(1-2*h)
+    if spec == 'gelu': return (2-z.square())*torch.exp(-.5*z.square())/math.sqrt(2*math.pi)
+    if spec == 'silu':
+        sigma=z.sigmoid()
+        return sigma*(1-sigma)*(2+z*(1-2*sigma))
+    if spec == 'relu': return torch.zeros_like(z)
+    if spec == 'selu': return torch.where(z<=0,slope,torch.zeros_like(z))
+    return torch.func.jvp(lambda v:_activation(spec,v,True)[1],(z,),(torch.ones_like(z),))[1]
+
+
 class Flow:
     """Common-width, bias-free hidden layers and scalar c@h/n output.
 
@@ -429,7 +442,8 @@ class WeightedFlow(Flow):
 
     Implements RESPONSE_CLOCK_FULL_CLOSURE, layer by layer. One clock/Gram
     serves all links. No dense update, Hessian, numerical ridge or clock solve.
-    The tiny Gram and clock use float64 even with float32 network tensors.
+    History moments, Gram and clock use float64 to protect weighted solves;
+    all width-by-width actions retain the selected network dtype.
     """
     @torch.no_grad()
     def __init__(self, inputs, labels, *, order=1, clock='response', **kwargs):
@@ -438,8 +452,8 @@ class WeightedFlow(Flow):
         super().__init__(inputs, labels, order=order, **kwargs)
         self.clock = clock
         self.G = torch.diag(1/(2*torch.arange(order,device=self.device,dtype=torch.float64)+1))
-        self.identity = torch.eye(order,device=self.device,dtype=torch.float64)
         self.s = self.G.new_zeros(())
+        self.moments = [m.double() for m in self.moments]
         self.prefix = [(a[0].clone(),b[0].clone()) for a,b in zip(self.moments[::2],self.moments[1::2])]
         hidden,delta,residual = self._fields()
         rho = residual.square().mean().sqrt()
@@ -457,13 +471,17 @@ class WeightedFlow(Flow):
         self.setup_seconds = time.perf_counter()-started
 
     def _factors(self):
-        # One small solve, shared by all links and both action orientations.
-        inverse = torch.linalg.solve_ex(self.G,self.identity,check_errors=False).result
-        self._q = inverse.sum(1).to(self.dtype)[:,None,None]
+        # One factorization and batched RHS solve, without an explicit inverse
+        # or a device-to-host error check in the captured training loop.
+        rhs=torch.cat([self.G.new_ones((self.order,1))]+
+                      [a.reshape(self.order,-1) for a in self.moments[::2]],dim=1)
+        solved=torch.linalg.solve_ex(self.G,rhs,check_errors=False).result
+        self._q = solved[:,0,None,None]
         factors=[]; scale=-2/(self.n*self.M)
-        for (a,b),(u0,h0) in zip(zip(self.moments[::2],self.moments[1::2]),self.prefix):
-            u = (inverse@a.reshape(self.order,-1).double()).to(self.dtype).reshape_as(a)
-            factors.append((scale*torch.cat((self._columns(u),-u0),1),torch.cat((self._columns(b),h0),1)))
+        for i,((a,b),(u0,h0)) in enumerate(zip(zip(self.moments[::2],self.moments[1::2]),self.prefix)):
+            u=solved[:,1+i*self.n*self.M:1+(i+1)*self.n*self.M].reshape_as(a)
+            factors.append((scale*torch.cat((self._columns(u),-u0),1).to(self.dtype),
+                            torch.cat((self._columns(b),h0),1).to(self.dtype)))
         return factors
 
     def _weighted_terms(self):
@@ -474,7 +492,7 @@ class WeightedFlow(Flow):
         dc=(-2/self.M)*(hidden[-1]@residual)
         source=[];velocity=[]
         for i,(u,h) in enumerate(zip(self.moments[::2],self.moments[1::2])):
-            hs,us=(h*self._q).sum(0),(u*self._q).sum(0)
+            hs,us=((m*self._q).sum(0).to(self.dtype) for m in (h,u))
             rd=delta[i+1]*residual
             source.extend((rd,rho*hidden[i]))
             velocity.append((-2/(self.n*self.M)*torch.cat((rd,rho*us),1),
@@ -483,7 +501,7 @@ class WeightedFlow(Flow):
         if self.clock!='residual' and self.depth>1:
             if self.normalization=='none':
                 # Differentiate the cached responses, not a second full primal
-                # traversal. Only activation curvature needs pointwise AD.
+                # traversal. Built-in activation curvatures are pointwise formulas.
                 zs,slopes,backs=details; dh=[];curvature=[]
                 dz=dw@self.inputs.T
                 for i,spec in enumerate(self.activations):
@@ -491,7 +509,7 @@ class WeightedFlow(Flow):
                         left,right=velocity[i-1]
                         dz=self._apply(i-1,dh[-1],factors)+left@(right.T@hidden[i-1])
                     dh.append(slopes[i]*dz)
-                    curvature.append(torch.func.jvp(lambda z:_activation(spec,z,True)[1],(zs[i],),(dz,))[1] if i else None)
+                    curvature.append(_curvature(spec,zs[i],hidden[i],slopes[i])*dz if i else None)
                 dd=[None]*self.depth
                 dd[-1]=slopes[-1]*dc[:,None]+curvature[-1]*self.c[:,None]
                 for i in range(self.depth-2,0,-1):
@@ -529,7 +547,7 @@ class WeightedFlow(Flow):
     @torch.no_grad()
     def rhs(self):
         dw,dc,source,rho,g,_=self._weighted_terms()
-        moments=[v[None]-(g/(1+self.s))*(self.T.to(self.dtype)@m.reshape(self.order,-1)).reshape_as(m)
+        moments=[v[None]-(g/(1+self.s))*(self.T@m.reshape(self.order,-1)).reshape_as(m)
                  for m,v in zip(self.moments,source)]
         gram=rho-(g/(1+self.s))*(self.T@self.G+self.G@self.T.T)
         return [dw,dc,*moments,gram,g]
@@ -551,8 +569,8 @@ class WeightedFlow(Flow):
         change=torch.stack(polys)@self.inverse_vander
         endpoint=change.sum(1)
         for m,v in zip(self.moments,source):
-            moved=(change.to(self.dtype)@m.reshape(self.order,-1)).reshape_as(m)
-            m.copy_(moved+dt*endpoint.to(self.dtype)[:,None,None]*v)
+            moved=(change@m.reshape(self.order,-1)).reshape_as(m)
+            m.copy_(moved+dt*endpoint[:,None,None]*v)
         gram=change@self.G@change.T+dt*rho*endpoint[:,None]*endpoint[None,:]
         self.G.copy_((gram+gram.T)/2)
         self.s.add_(dt*g);self.w.add_(dt*dw);self.c.add_(dt*dc)
@@ -1243,7 +1261,7 @@ def resolve(raw):
     for method in config['methods']:
         kind = method['kind']
         if kind not in KINDS: raise ValueError('Unknown method: '+kind)
-        if kind=='weighted_closure':method.setdefault('clock','response_rms')
+        if kind=='weighted_closure':method.setdefault('clock','response')
         allowed={'dense':set(), 'closure':{'order'}, 'weighted_closure':{'order','clock'},
                  'dictionary_old':{'order'}, 'dictionary_flow':{'order'},
                  'gaussian':{'order','ranks','basis_seed','rescale_core'}, 'orthogonal':{'order','ranks','basis_seed','rescale_core'},
@@ -1304,7 +1322,7 @@ def construct(config, method, data):
     if kind in ('dense', 'closure'):
         return Flow(*args, **model, order=None if kind == 'dense' else order, device=config['device'], normalization='none')
     if kind=='low_rank':return LowRankFlow(*args,**model,rank=method['rank'],factor_seed=method.get('factor_seed',20260924),device=config['device'])
-    if kind=='weighted_closure':return WeightedFlow(*args,**model,order=order,clock=method.get('clock','response_rms'),device=config['device'])
+    if kind=='weighted_closure':return WeightedFlow(*args,**model,order=order,clock=method.get('clock','response'),device=config['device'])
     return FrozenFlow(*args, **model, kind=method.get('basis','dictionary_flow') if kind=='trainable_dictionary' else kind,
                       train_basis=kind=='trainable_dictionary', order=order, ranks=method.get('ranks'),
                       rescale_core=method.get('rescale_core',False),
@@ -1336,7 +1354,10 @@ def summarize(root):
                              test_rms_vs_dense=rms(query-reference[2]) if reference else None,
                              test_rms_vs_target=rms(query-data['test_labels']) if 'test_labels' in data else None,
                              fitted_pair=all(v is not None and v <= r['config']['optimizer']['target_rms'] for v in (train_rms, dense_rms)),
-                             status=r['fit']['status'], seconds=r['total_seconds']))
+                             status=r['fit']['status'], seconds=r['total_seconds'],
+                             order=r['method'].get('order'),clock=r['method'].get('clock'),
+                             moving_state_bytes=r.get('moving_state_bytes'),
+                             physical_time=r['fit'].get('physical_time'),gram_condition=r.get('gram_condition')))
             for label, mask in [('region', data.get('region')), ('outside', ~data['region'] if 'region' in data else None)]:
                 rows[-1][label+'_rms_vs_dense'] = rms((query-reference[2])[mask]) if reference and mask is not None and mask.any() else None
     if not rows: raise ValueError('No model records to summarize')
@@ -1392,6 +1413,9 @@ def run(config, out, base, prepare_only=False):
                           basis_ranks=[b.shape[1] for b in model.bases] if isinstance(model, FrozenFlow) else None,
                           correction_ranks=[a.shape[1] for a,b in model.factors] if isinstance(model,LowRankFlow) else None,
                           gram_condition=float(np.linalg.cond(model.G.cpu().numpy())) if isinstance(model,WeightedFlow) and bool(torch.isfinite(model.G).all()) else None,
+                          moving_state_scalars=sum(v.numel() for v in model.state),
+                          moving_state_bytes=sum(v.numel()*v.element_size() for v in model.state),
+                          history_length=float(1+model.s) if model.order is not None else None,
                           integrator='Euler with exact history-coordinate transport' if isinstance(model,WeightedFlow) else 'simultaneous Euler',
                           data_sha256=sha(folder/'data.npz'), predictions_sha256=sha(file), total_seconds=time.perf_counter()-started)
             if record['gram_condition'] is not None and not math.isfinite(record['gram_condition']):record['gram_condition']=None
@@ -1410,8 +1434,15 @@ def main():
         p.add_argument('--'+name, type=kind)
     for name, kind in [('step', float), ('target-rms', float), ('seconds', float), ('max-steps', int)]: p.add_argument('--'+name, type=kind)
     p.add_argument('--orders', type=int, nargs='+')
-    p.add_argument('--check',action='store_true');p.add_argument('--gpu')
+    p.add_argument('--check',action='store_true');p.add_argument('--check-clock',action='store_true');p.add_argument('--gpu')
     a = p.parse_args()
+    if a.check_clock:
+        result=check_weighted()
+        if a.gpu: result['gpu']=check_gpu(a.gpu,only_weighted=True)
+        result.update(source_sha256=SOURCE_SHA256,torch=torch.__version__,numpy=np.__version__)
+        if a.out:
+            with a.out.open('x') as f:json.dump(result,f,indent=2)
+        return
     if a.check:
         self_check(a.gpu,a.out);return
     if a.gpu:p.error('--gpu is only for --check; use --device for experiments')
@@ -1645,7 +1676,7 @@ def check_runner():
     print('PASS: runner, saved metrics, missing dense, corruption and config validation')
 
 
-def check_gpu(device):
+def check_gpu(device,only_weighted=False):
     # Compare captured Euler to eager updates, including a final partial block.
     torch.cuda.set_device(device); torch.backends.cuda.matmul.allow_tf32=False
     records=[]; x=np.array([[1.,0.],[0.,1.],[-1.,0.],[0.,-1.]]);y=np.array([1.,-1.,-1.,1.])
@@ -1656,6 +1687,7 @@ def check_gpu(device):
     cases=[(method,2,'tanh') for method in cases]
     cases += [(method,4,activation) for activation in ('relu','gelu','selu') for method in
               (dict(kind='trainable_dictionary',basis='gaussian',ranks=12),dict(kind='low_rank',rank=12),dict(kind='weighted_closure',order=3))]
+    if only_weighted: cases=[case for case in cases if case[0]['kind']=='weighted_closure']
     for method,depth,activation in cases:
         config=resolve(dict(device=device,model=dict(width=2048,depth=depth,activation=activation,hidden_gain=1.,readout_std=None),methods=[method],datasets=[dict(name='circle',kind='circle')]))
         data=dict(inputs=x if depth==2 else np.column_stack((x,np.full(len(x),.5))),labels=y)
@@ -1673,6 +1705,7 @@ def check_gpu(device):
         records.append(dict(method=method,depth=depth,activation=activation,fit=fit,maximum_state_difference=maximum))
         print('PASS GPU',method,'depth',depth,activation,'fit seconds',round(fit['seconds'],3),'difference',maximum,flush=True)
         del model,reference
+    if only_weighted:return dict(cuda_graph=records,gpu=torch.cuda.get_device_name(device))
     # Original builders use CUDA: compare every supported dictionary order.
     root=HERE.parents[1]
     sys.path.insert(0,str(root/'studies/random_dictionary_learned_circle_20260920'))
@@ -1745,6 +1778,48 @@ def check_added_methods():
                 close(model.predict(x),pred.detach())
                 for actual,g,mobility,param in zip(model.rhs(),gradients,mobilities,p):close(actual,torch.zeros_like(param) if g is None else -mobility*g)
 
+    # Compare the existing two-hidden-layer factor implementations directly.
+    from factor_control_engine import FactorEngine
+    sys.path.insert(0,str(ROOT/'studies/adaptive_response_compression_20260922'))
+    import trainable_dictionary as original
+    x2=x[:,:2]
+    old=FactorEngine(2,7,3,x2,y,seed=625,device='cpu',dtype=torch.float64)
+    old_state=old.initial_state()
+    new=LowRankFlow(x2,y,rank=3,width=7,depth=2,activation='tanh',seed=625,device='cpu',dtype=torch.float64)
+    for _ in range(3):
+        reference=old.rhs(old_state)
+        for a,b in zip(new.rhs(),reference.tensors()):close(a,b)
+        new.step(.001);old_state=old_state.add_scaled(reference,.001)
+    new=FrozenFlow(x2,y,kind='dictionary_flow',order=3,train_basis=True,width=7,depth=2,activation='tanh',seed=625,device='cpu',dtype=torch.float64)
+    old_state=original.State(new.w.clone(),new.c.clone(),new.matrices[0].clone(),*[v.clone() for v in new.bases])
+    for _ in range(3):
+        reference=original.rhs(old_state,new.inputs,new.labels)
+        for a,b in zip(new.rhs(),(reference.w,reference.M,reference.c,reference.b1,reference.b2)):close(a,b)
+        new.step(.001);old_state=original.add(old_state,reference,.001)
+    print('PASS added methods:',checks,'assertions',flush=True)
+    return dict(assertions=checks,maximum_error=maximum)
+
+
+def check_weighted():
+    """Materialized-operator, autograd-response and integration oracles; no external study inputs."""
+    torch.set_num_threads(1)
+    rng=np.random.default_rng(925);x=rng.normal(size=(4,3));y=np.array([1.,-1.,1.,-1.])
+    phis={'tanh':torch.tanh,'relu':torch.relu,'gelu':torch.nn.functional.gelu,
+          'selu':torch.nn.functional.selu,'sigmoid':torch.sigmoid,'silu':torch.nn.functional.silu}
+    checks=0;maximum=0.
+    def close(a,b,atol=3e-11,rtol=3e-11):
+        nonlocal checks,maximum
+        torch.testing.assert_close(a,b,atol=atol,rtol=rtol)
+        assert bool(torch.isfinite(a).all())
+        checks+=1;maximum=max(maximum,float((a-b).abs().max()))
+    args=dict(width=7,device='cpu',dtype=torch.float64,readout_std=1.,seed=625)
+    # Curvature formulas are checked against independent PyTorch activations.
+    for spec,phi in phis.items():
+        z=torch.linspace(-5,5,102,dtype=torch.float64,requires_grad=True)
+        h,d=_activation(spec,z,True)
+        slope=torch.autograd.grad(phi(z).sum(),z,create_graph=True)[0]
+        curvature=torch.autograd.grad(slope.sum(),z)[0]
+        close(_curvature(spec,z,h,d),curvature)
     def explicit(model,state):
         # Dense reconstruction and autograd adjoints; independent of fast factors/JVP.
         with torch.enable_grad():
@@ -1807,25 +1882,12 @@ def check_added_methods():
         model.step(dt)
         errors.append(max(float(((a-b)/dt-v).abs().max()) for a,b,v in zip(model.state,before,rhs)))
     assert 1.8<errors[0]/errors[1]<2.2 and 1.8<errors[1]/errors[2]<2.2,errors
-    # Compare the existing two-hidden-layer factor implementations directly.
-    from factor_control_engine import FactorEngine
-    sys.path.insert(0,str(ROOT/'studies/adaptive_response_compression_20260922'))
-    import trainable_dictionary as original
-    x2=x[:,:2]
-    old=FactorEngine(2,7,3,x2,y,seed=625,device='cpu',dtype=torch.float64)
-    old_state=old.initial_state()
-    new=LowRankFlow(x2,y,rank=3,width=7,depth=2,activation='tanh',seed=625,device='cpu',dtype=torch.float64)
+    # One hidden layer has no compressed link and must reduce to dense Euler.
+    one=WeightedFlow(x,y,depth=1,activation='tanh',order=3,**args)
+    dense=Flow(x,y,depth=1,activation='tanh',**args)
     for _ in range(3):
-        reference=old.rhs(old_state)
-        for a,b in zip(new.rhs(),reference.tensors()):close(a,b)
-        new.step(.001);old_state=old_state.add_scaled(reference,.001)
-    new=FrozenFlow(x2,y,kind='dictionary_flow',order=3,train_basis=True,width=7,depth=2,activation='tanh',seed=625,device='cpu',dtype=torch.float64)
-    old_state=original.State(new.w.clone(),new.c.clone(),new.matrices[0].clone(),*[v.clone() for v in new.bases])
-    for _ in range(3):
-        reference=original.rhs(old_state,new.inputs,new.labels)
-        for a,b in zip(new.rhs(),(reference.w,reference.M,reference.c,reference.b1,reference.b2)):close(a,b)
-        new.step(.001);old_state=original.add(old_state,reference,.001)
-    print('PASS added methods:',checks,'assertions;',weighted_cases,'weighted cases; step errors',errors,flush=True)
+        one.step(.01);dense.step(.01);close(one.predict(x),dense.predict(x))
+    print('PASS weighted clock:',checks,'assertions;',weighted_cases,'cases',flush=True)
     return dict(assertions=checks,weighted_cases=weighted_cases,maximum_error=maximum,step_consistency_errors=errors)
 
 
@@ -1856,7 +1918,7 @@ def self_check(gpu=None,out=None):
     started=time.perf_counter()
     sys.modules.setdefault('compact_flow',sys.modules[__name__])
     sys.path.append(str(HERE/'legacy_experiments.zip'))
-    result=dict(existing=check_equations(),added=check_added_methods(),datasets=check_data())
+    result=dict(existing=check_equations(),added=check_added_methods(),weighted=check_weighted(),datasets=check_data())
     check_runner()
     result['step_guard']=check_step_guard(gpu)
     if gpu:result['gpu']=check_gpu(gpu)

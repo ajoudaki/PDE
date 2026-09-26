@@ -22,7 +22,7 @@ compatibility; it is not enabled by this runner.
 | `orthogonal` | Frozen random QR bases, scaled by sqrt(width) | Arbitrary MLP settings; ranks cannot exceed width |
 | `trainable_dictionary` | Same dictionary/core representation, with the bases also trained | Any MLP with Gaussian/orthogonal bases; historical bases retain their original scope |
 | `low_rank` | Directly train factors in `W_l = W0_l + A_l B_l` | Any MLP; explicit positive `rank` per hidden link |
-| `weighted_closure` | Response-adapted clock and weighted Legendre history projection, with matching initialization prefix | Any MLP; positive `order`; config clock defaults to `response_rms`; original `response` and `residual` remain available |
+| `weighted_closure` | Response-adapted clock and weighted Legendre history projection, with matching initialization prefix | Any MLP; positive `order`; default `response` is the theorem's unscaled clock; `response_rms` and `residual` remain explicit alternatives |
 
 The recovered **old circle dictionary uses Chebyshev polynomials of initialized
 response coordinates and retained action words**. Calling that implementation
@@ -152,18 +152,22 @@ the same weighted projection. `clock="response_rms"` instead uses the RMS of
 the response derivative, removing the monitor's explicit square-root dependence
 on the number of neuron/sample/link coordinates. This is a different clock
 configuration, not an unchanged numerical implementation of the unscaled clock.
-It is the config/CLI default, recorded explicitly when the config is resolved;
-the low-level `WeightedFlow` default remains `response` for compatibility.
+Both config/CLI and low-level defaults are now `response`, the theorem's
+unscaled clock. Historical experiments with explicit `response_rms` retain it.
 P1's physical model is clock independent; the fast P1 examples use `residual`
 to avoid computing a response derivative that cannot affect their predictions.
 
 The response derivative reuses cached forward/backward fields and propagates their
-directional derivatives along the computed weight velocity. Pointwise AD supplies
-activation curvature. It constructs no Hessian, Jacobian or dense weight update.
+directional derivatives along the computed weight velocity. Built-in activation
+curvatures use direct pointwise formulas; custom activations retain a pointwise
+AD fallback. It constructs no Hessian, Jacobian or dense weight update.
 The historical normalization API uses the full-traversal AD fallback. Each traversal
-solves only a `P x P` Gram system and applies its inverse by matrix multiplication;
-the solve and those contractions use float64 before casting back to the network
-dtype. At exactly zero residual the state is stationary. For
+solves one `P x P` Gram system with all right-hand sides batched across links,
+including the endpoint vector. It forms no inverse and performs no host error
+check in the captured update. Moments, Gram and clock use float64; reconstructed
+factors and all initialized-matrix actions use the network dtype. This protects
+the small weighted projection from moment-rounding amplification. At exactly
+zero residual the state is stationary. For
 ReLU/SELU, derivatives follow the implementation's almost-everywhere convention;
 the smooth-theory assumptions do not automatically extend across their kinks.
 
@@ -175,9 +179,88 @@ shared fitting guard chooses its size. There is no ridge regularizer. Checks
 verify the stated ODE limit and physical clock derivative. The
 response clock adds work compared with ordinary memory, and a tiny Gram can
 still become ill-conditioned over a long run. No claim that the new method fits
-faster or improves final RMS is made by these implementation checks. Extension
-of the two-layer construction to multiple links is an implementation choice,
-not an additional approximation theorem.
+faster or improves final RMS is made by these implementation checks. The fixed-depth
+smooth-activation theorem is now given in `DEEP_ACTIVATION_ERROR_THEOREM.md`.
+Run `--check-clock --out FRESH.json` for the isolated response-clock checks.
+
+## Response-clock validation protocol (2026-09-26)
+
+Compare the theorem's unscaled `clock="response"` with ordinary `closure`,
+orders 1,2,3 and a freshly fitted dense reference. Preserve width 2048,
+no normalization, seed 20260920, unit-moment hidden gain and readout std 1.
+Use the existing quadrant-alternating, quadrant-pairs and outlier-alternating
+circle data, 1024 full-circle queries, tanh depth 2 and GELU depth 3.
+Shared maximum step 1/64, block guard, target training RMS 0.05; count
+comparisons as fitted only if both models have RMS <=0.065. Main metrics:
+full-circle RMS versus dense, training RMS, total seconds and moving-state bytes.
+Practical success is fitting in <=120 seconds with test RMS <=0.1; retain all
+failures and order reversals. This tests usefulness, not an asymptotic rate.
+
+Before fitting, verify independent materialized-matrix reconstruction in both
+orientations, response derivatives, zero residual, no internal layer, and the
+step's first-order ODE limit. Run the 42-model panel with a 30-second per-fit
+cap; permit one step-halved comparison for at most two groups with a numerical
+failure or test RMS >0.1. Stop at 56 fits / 30 cumulative compute-minutes.
+GPU execution is intended; any CPU fallback is labelled separately, without
+claiming measured GPU performance. Outputs belong to
+`data/generated/neural_response_memory_20260922/response_clock_validation01/`.
+No test predictions enter training. Preserve initial snapshots and resolved
+configs/source hashes, all capped fits, and actual device information.
+
+### Completed response-clock comparison
+
+All **49 GPU fits** reached training RMS <=0.05 (maximum 0.04998593):
+42 main-panel models and seven models in the single GELU/quadrant step-halving
+check. On two RTX 3090s with PyTorch 2.9.0+cu130 and TF32 off, new-clock total
+model time was **2.07–10.05 seconds** in the main panel (median 3.77), and at
+most **12.46 seconds** including refinement. Total summed model time was 177.89
+seconds. Timings include initialization and queries, but exclude process startup.
+
+Full-circle RMS versus the independently fitted dense network at maximum
+step 1/64 (each entry lists P1 / P2 / P3):
+
+| Activation / hidden depth | Task | Activity clock | Response clock |
+|---|---|---|---|
+| tanh / 2 | Alternating outliers | 0.07250 / 0.04009 / 0.01674 | 0.07018 / 0.04901 / 0.01323 |
+| tanh / 2 | Alternating quadrant | 0.05417 / 0.06186 / 0.02388 | 0.06552 / 0.09918 / 0.01283 |
+| tanh / 2 | Paired quadrant | 0.00566 / 0.00135 / 0.00056 | 0.00833 / 0.00124 / 0.00111 |
+| GELU / 3 | Alternating outliers | 0.44504 / 0.07570 / 0.00549 | 0.45472 / 0.11902 / 0.04500 |
+| GELU / 3 | Alternating quadrant | 2.98734 / 0.20941 / 0.11963 | 3.06966 / 2.69207 / 1.24526 |
+| GELU / 3 | Paired quadrant | 0.08807 / 0.00574 / 0.00443 | 0.11162 / 0.00674 / 0.00157 |
+
+The predeclared half-step check on GELU/alternating quadrant used a fresh dense
+reference and the same data/initialization at 1/128. Old-clock RMS was
+2.99053 / 0.21233 / 0.11999; new-clock RMS was **3.07505 / 2.90895 / 0.11200**.
+Thus P3's large discrepancy is strongly step-sensitive; P1/P2 remain inaccurate
+despite fitting. One refinement does not certify continuous-flow accuracy.
+The new clock fits quickly and gives small P3 error on five main groups, but
+does not uniformly outperform the activity clock or solve every low-order case.
+The theoretical asymptotic rate is not an empirical low-order guarantee.
+
+P3 moving state occupies 811,088 bytes at depth 2 and 1,597,520 at depth 3,
+about 21x less than dense moving state. The initialized dense matrices and fixed
+prefix vectors are retained separately; this is not a total-storage reduction.
+Double-precision moments use more bytes than ordinary float32 history moments.
+
+Validation: 694 CPU oracle assertions across 72 weighted cases, six width-2048
+GPU capture/eager comparisons with zero state discrepancy, and runner/guard
+checks. Tests cover all six built-ins, P1/P2/P3, depth 1/2/4, both matrix
+orientations, exact zero residual, curvature, physical operator/clock derivatives,
+and first-order step consistency. These checks do not prove a convergence rate.
+The interrupted CPU pilot is retained separately and excluded from the GPU table.
+
+Evidence: `response_clock_validation01/comparison.csv`, `summary.json`,
+`check_gpu01.json`, `runner_guard01.json`, and per-run predictions/configs/hashes
+under the study's generated-data directory. Each `--summarize` invocation
+rechecks prediction/data hashes and recomputes RMS, timings and memory columns.
+Reproduction from the repository root (fresh output paths required):
+
+```sh
+python -B studies/neural_response_memory_20260922/compact_flow.py --check-clock --gpu cuda:0 --out FRESH_CHECK.json
+python -B studies/neural_response_memory_20260922/compact_flow.py --config studies/neural_response_memory_20260922/experiment_configs.json --experiment response_clock_tanh response_clock_gelu --device cuda:0 --out FRESH_RUN
+python -B studies/neural_response_memory_20260922/compact_flow.py --config studies/neural_response_memory_20260922/experiment_configs.json --experiment response_clock_gelu_half_step --device cuda:0 --out FRESH_REFINEMENT
+python -B studies/neural_response_memory_20260922/compact_flow.py --summarize FRESH_RUN
+```
 
 ## Saved experiment configs
 
