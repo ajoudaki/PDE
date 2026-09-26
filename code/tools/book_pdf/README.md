@@ -1,8 +1,11 @@
-# Book PDF exporter
+# Archived Markdown book PDF exporter
 
-This optional publishing tool produces the reading-edition PDF from the current
-book without editing its Markdown, running repository research code, or changing
-Git state. It is separate from the numerical library and its required dependencies.
+This optional preservation tool reproduces the pre-Quarto book under `old_docs/`.
+It is not the current scientific book. The maintained edition is the Quarto project
+under `docs/`; render that edition from `docs/` with `quarto render --to pdf`.
+Use this exporter only for archival comparison or diagnosis of a specific migration
+problem, without editing the archived Markdown, running research code, or changing
+Git state.
 
 ## Run
 
@@ -14,8 +17,8 @@ From the repository root:
 ./code/tools/book_pdf/build-pdf.sh --keep-build
 ```
 
-The default output is `PDE-book.pdf` in the repository root, beside `docs/`
-and `code/`. A neighboring `PDE-book.build.json` receipt records source hashes,
+The default output is `PDE-old-book.pdf` in the repository root. A neighboring
+`PDE-old-book.build.json` receipt records source hashes,
 coverage, and rendering checks. Both generated files are ignored by Git.
 Other output filenames must be outside the repository, keeping generated
 artifacts out of the book and code directories. A previously successful PDF
@@ -59,8 +62,8 @@ its JSON syntax tree. An explicit archive overrides the installed converter.
 
 ## Coverage and layout
 
-The exporter includes the full `docs/README.md`, `docs/NOTATION.md` when present,
-all Markdown files under `docs/`, and `code/README.md` when present as an appendix.
+The exporter includes the full `old_docs/README.md`, `old_docs/NOTATION.md` when present,
+and all Markdown files under `old_docs/`.
 Chapters follow the order of links in the introduction; unlisted Markdown files
 are appended and announced, rather than silently omitted.
 

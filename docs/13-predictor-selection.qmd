@@ -2,7 +2,7 @@
 
 Training selects a function beyond its fitted training values. The fitted reference, trained data response and nonlinear added-data episode are assembled here as successive descriptions of that whole-input selection.
 
-<!-- moved verbatim from global-nonlinear.qmd:5691-7364; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from global-nonlinear.qmd:5691-7364; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## C.4.5. Robust whole-circle prediction after substantial learning {#sec-docs-global-nonlinear-l5270}
 
@@ -1678,7 +1678,7 @@ for arbitrary width/sample growth rates. This gives probability tending to
 one for every fixed mu and sequence. No numerical finite-width rate, almost
 sure joint convergence or uniform failure probability over laws is asserted.
 
-<!-- moved verbatim from global-nonlinear.qmd:7365-9394; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from global-nonlinear.qmd:7365-9394; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## C.4.6. Trained data response at the fitted tanh reference {#sec-docs-global-nonlinear-l6904}
 
@@ -3710,7 +3710,7 @@ physical time 40. Its finite-contamination remainder and width-first bridge
 to this response have that fixed horizon. The derivative theorem in C.4.6
 retains its separate scope on every fixed finite physical horizon.
 
-<!-- moved verbatim from global-nonlinear.qmd:18321-20696; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from global-nonlinear.qmd:18321-20696; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## C.4.9. Nonlinear prediction selection during a finite added-data episode {#sec-docs-global-nonlinear-l17554}
 

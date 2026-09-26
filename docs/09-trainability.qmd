@@ -2,7 +2,7 @@
 
 Energy dissipation leads to fitting only when the relevant trainability is sustained. Linear and affine benchmarks, finite optimization, a global nonlinear family, protected geometry, confinement and fitting-distance boundaries are collected here with their scopes kept separate.
 
-<!-- moved verbatim from linear-dynamics.qmd:1-922; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from linear-dynamics.qmd:1-922; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Linear dynamics and exact-capture comparisons {#sec-docs-linear-dynamics-l1}
 
@@ -20,7 +20,7 @@ retain their order-one stored readout and exact observable scopes. The new
 GF statements do not acquire a raw-GD or arbitrary-data extension from the
 three-layer result. @lem-docs-linear-dynamics-l386 provides the operator-space foundations.
 
-The conventions in [NOTATION.md](notation.qmd#sec-docs-notation-l1) apply. All source constructions
+The conventions in [shared notation](notation.qmd#sec-docs-notation-l1) apply. All source constructions
 and proof estimates needed here are given in this chapter.
 
 ### 1. Model and population theorem {#sec-docs-linear-dynamics-l20}
@@ -926,7 +926,7 @@ proves the claimed joint limit for any $\eta_n\to0$. The linear
 embedding of weights into $Q$ commutes with parameter interpolation,
 so the readouts compared are exactly those stipulated in the theorem.
 
-<!-- moved verbatim from linear-dynamics.qmd:1755-1917; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from linear-dynamics.qmd:1755-1917; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 9. A Gaussian source lemma with contained norm and Wick proofs {#sec-docs-linear-dynamics-l1734}
 
@@ -1015,7 +1015,7 @@ an even product of centered Gaussian coordinates has expectation equal
 to the sum over pairings of covariance products; odd products have zero
 mean. This is Wick's identity, including singular finite covariance.
 Equivalently it follows by repeated Gaussian integration by parts, as in
-[Section 4](09-trainability.qmd#sec-docs-linear-dynamics-l735) of `gaussian_calculus.md`.
+[Section 4](09-trainability.qmd#sec-docs-linear-dynamics-l735) of the linear-dynamics material above.
 
 Expand a normalized trace word of length $2k$ into entries. Regard the
 trace indices as vertices of a closed walk, with one side per matrix
@@ -1091,7 +1091,7 @@ $\square$
 
 :::
 
-<!-- moved verbatim from linear-dynamics.qmd:2238-2759; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from linear-dynamics.qmd:2238-2759; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 11. Two hidden linear layers: a single spectral source {#sec-docs-linear-dynamics-l2211}
 
@@ -1615,7 +1615,7 @@ $\int\lambda|\psi|^2d\nu+q^2$, and $q^2$, by the same
 estimates. They sum to ([-@eq-docs-linear-dynamics-l2284]). This finishes the theorem with all
 normalizations and compact-time observables identified. $\square$
 
-<!-- moved verbatim from linear-dynamics.qmd:2760-2799; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from linear-dynamics.qmd:2760-2799; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 12. Exact agreement and the limits of the comparisons {#sec-docs-linear-dynamics-l2764}
 
@@ -1655,10 +1655,10 @@ one-normalized-datum projection stated there. None of these additions
 asserts an arbitrary-data theorem, a raw-GD bridge, a depth-uniform
 estimate, or a joint width/long-time limit. In particular, the GD result
 already present for $L=3$ in [Section 4](09-trainability.qmd#sec-docs-linear-dynamics-l735) is not being attached to these
-new statements, and the fixed-program theorem of `gaussian_calculus.md`
+new statements, and the fixed-program theorem of the Gaussian-calculus chapter
 is not used as a continuous-time theorem.
 
-<!-- moved verbatim from finite-optimization-and-controls.qmd:1-2040; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from finite-optimization-and-controls.qmd:1-2040; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Finite optimization and energy-compatible controls {#sec-docs-finite-optimization-and-controls-l1}
 
@@ -1678,8 +1678,8 @@ events and width-independent bounds on those events. A separately augmented
 event gives permanent positive first-gate mass. These are not population/GD
 results, and gate mass is not a certificate of nonzero feature velocity.
 
-The conventions agree with [NOTATION.md](notation.qmd#sec-docs-notation-l1), the general identities
-in [finite_dynamics.md](01-training-geometry.qmd#sec-docs-finite-dynamics-l1), and the
+The conventions agree with [shared notation](notation.qmd#sec-docs-notation-l1), the general identities
+in the [finite-dynamics material](01-training-geometry.qmd#sec-docs-finite-dynamics-l1), and the
 [three-hidden-layer arctangent model](03-local-population.qmd#sec-docs-arctan-limits-l690).
 Sections [1](09-trainability.qmd#sec-docs-finite-optimization-and-controls-l38)–[11](09-trainability.qmd#sec-docs-finite-optimization-and-controls-l1640) concern finite widths. [Section 12](05-continuation-boundaries.qmd#sec-docs-finite-optimization-and-controls-l1749) separately proves global
 dissipative capped flows on prescribed Hilbert spaces and continuation under
@@ -3700,7 +3700,7 @@ on residuals, reverse queries, hidden velocities or reverse-weighted kernels,
 and no top-layer distributional nonaffinity. These two sections assert neither
 a joint population limit nor a GD result, and do not cover antipodal inputs.
 
-<!-- moved verbatim from global-nonlinear.qmd:1-2037; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from global-nonlinear.qmd:1-2037; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Global nonlinear learning at every fixed hidden depth {#sec-docs-global-nonlinear-l1}
 
@@ -5738,7 +5738,7 @@ The response bound is uniform in depth; other constants can depend on
 the chosen finite depth. No joint $L,n$ limit or unshifted-arctan
 theorem is asserted.
 
-<!-- moved verbatim from special-data-limits.qmd:10244-11196; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:10244-11196; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Plateau features: protected geometry, confinement and selected path laws {#sec-docs-special-data-limits-l9326}
 
@@ -6693,7 +6693,7 @@ states are not claimed to be reached from canonical Gaussian initialization.
 Neither this obstruction nor ([-@eq-docs-special-data-limits-l10120])–([-@eq-docs-special-data-limits-l10183]) closes the reverse-field or
 population-identification gaps.
 
-<!-- moved verbatim from special-data-limits.qmd:11197-11341; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:11197-11341; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Necessary fitting distance and time for a vanishing odd perturbation {#sec-docs-special-data-limits-l10274}
 
@@ -6838,7 +6838,7 @@ They exclude a fitting rate with both a positive rate and a finite prefactor
 uniform in $\theta$ on this data class, while allowing rates that depend
 on $\theta$ or a theorem choosing one fixed positive $\theta$.
 
-<!-- moved verbatim from special-data-limits.qmd:27126-27345; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:27126-27345; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## C. A fixed-offset affine reference: global flow and its fitting boundary {#sec-docs-special-data-limits-l24163}
 

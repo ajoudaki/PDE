@@ -2,7 +2,7 @@
 
 A population description must retain the joint dependence created by forward, backward and adaptive reuse of the same matrices. The chapter develops conditioning, fixed-program laws, source-response formulas, trained matrix memories, adaptive transcripts and filtering in one place.
 
-<!-- moved verbatim from gaussian-calculus.qmd:1-1794; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from gaussian-calculus.qmd:1-1794; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Gaussian reuse and finite-order flow calculus {#sec-docs-gaussian-calculus-l1}
 
@@ -1798,7 +1798,7 @@ For every fixed finite $(L,N)$ and every fixed $h\ne0$, Sections
 The proof uses no finite-width Taylor expansion, no interchange of the
 width and step-size limits, and no unproved state-evolution induction.
 
-<!-- moved verbatim from global-nonlinear.qmd:2077-2151; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from global-nonlinear.qmd:2077-2151; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## A. Contained probability and continuity specializations {#sec-docs-global-nonlinear-l1840}
 
@@ -1874,7 +1874,7 @@ $$
 
 Here $D$ bounds the derivative and $L$ its Lipschitz constant. First take $\|h\|_2\downarrow0$, then $M\to\infty$. Expand the finite number of action/activation products and use $\|\Delta W\|_{op}\le\|\Delta W\|_{HS}$. This proves the true scalar derivative, its backward-adjoint formula, and continuity of that gradient. Every energy identity below consequently belongs to the specified raw metric.
 
-<!-- moved verbatim from finite-optimization-and-controls.qmd:2510-2779; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from finite-optimization-and-controls.qmd:2510-2779; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 13. Integrated initial-matrix queries with exact trained memory {#sec-docs-finite-optimization-and-controls-l2167}
 
@@ -2146,7 +2146,7 @@ counterexample. They identify the exact missing inferences between the finite
 representation, causal approximation, state convergence and derivative
 observables. Cap removal and autonomous population restart remain separate.
 
-<!-- moved verbatim from special-data-limits.qmd:27346-27577; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:27346-27577; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## D. Same-array Gaussian values under causal response bounds {#sec-docs-special-data-limits-l24346}
 
@@ -2380,7 +2380,7 @@ Both the offset and the orthogonal subspace generally depend on hidden
 parameters. Equations ([-@eq-docs-special-data-limits-l24513])–([-@eq-docs-special-data-limits-l24534]) do not supply a positive trained Schur
 lower bound, coupling-variation control or a scalar autonomous closure.
 
-<!-- moved verbatim from gaussian-calculus.qmd:6310-9191; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from gaussian-calculus.qmd:6310-9191; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Integrated queries and adaptive Gaussian comparison {#sec-docs-gaussian-calculus-l5945}
 

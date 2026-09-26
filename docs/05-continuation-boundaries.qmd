@@ -2,7 +2,7 @@
 
 The choice of state space and available estimates determines what a continuation argument can establish. This chapter separates positive compactness and continuation results from reached regularity failures, ambient constructions and auxiliary obstructions.
 
-<!-- moved verbatim from special-data-limits.qmd:7215-8957; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:7215-8957; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## IV. Correlated opposite labels: strong first-layer compactness {#sec-docs-special-data-limits-l6384}
 
@@ -1747,7 +1747,7 @@ the initial orthogonal component in ([-@eq-docs-special-data-limits-l7773]). Non
 conclusions is needed for the actual all-angle, fixed-input, first-layer
 compactness proved above.
 
-<!-- moved verbatim from finite-optimization-and-controls.qmd:2041-2509; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from finite-optimization-and-controls.qmd:2041-2509; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 12. Dissipative caps on given operator spaces {#sec-docs-finite-optimization-and-controls-l1749}
 
@@ -2218,7 +2218,7 @@ these spaces and comparing actual finite GF and simultaneous raw GD, including
 the small random stored readout, remain separate obligations. No fitting or
 persistent nonlinear feature-motion conclusion is supplied by either theorem.
 
-<!-- moved verbatim from finite-optimization-and-controls.qmd:3763-4154; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from finite-optimization-and-controls.qmd:3763-4154; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Further finite response and physical controls {#sec-docs-finite-optimization-and-controls-l3397}
 
@@ -2610,7 +2610,7 @@ constraint. No transfer to the nonlinear first-layer coordinate is claimed. It l
 canonical alignment and amplitude problem open. A complete global
 proof still requires a further estimate controlling those quantities.
 
-<!-- moved verbatim from finite-optimization-and-controls.qmd:5161-5640; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from finite-optimization-and-controls.qmd:5161-5640; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## E. Moderate-sine physical controls {#sec-docs-finite-optimization-and-controls-l4682}
 
@@ -3093,7 +3093,7 @@ identification theorem still needs a quantitative response/tail estimate at
 reached states with the same retained Gaussian histories. Neither ([-@eq-docs-finite-optimization-and-controls-l5078]), the
 finite GD energy inequality, nor weak path-law tightness supplies that estimate.
 
-<!-- moved verbatim from special-data-limits.qmd:25611-26443; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:25611-26443; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## I. Moderate sine: exact identities, local limits and continuation partials {#sec-docs-special-data-limits-l22783}
 
@@ -3928,7 +3928,7 @@ $$
 
 The first term tends to zero because it is bounded by a constant times $E[G^2\mathbf1_{G<-R}]$. Hence no finite lower Hessian bound, and no local semiconvexity constant, holds in this ambient raw norm. This refutes importing a generic locally-Lipschitz or semiconvex Hilbert-gradient theorem merely from positivity of $\Phi'$.
 
-<!-- moved verbatim from special-data-limits.qmd:26444-26642; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:26444-26642; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## J. Exact bounded-memory and coordinate partials {#sec-docs-special-data-limits-l23553}
 
@@ -4128,7 +4128,7 @@ The new sufficient missing lemma is now sharply localized: exploit the actual ca
 
 A successful proof must additionally remove caps for a stopped physical construction, recover enough approximate energy to remove the stop, identify both orientations of the Gaussian actions, and verify the exact raw-GD and hidden-velocity bridges. The existing finite-program/common-action machinery is a dependency for those steps, not an already-discharged conclusion for tanh. No practical positive $\epsilon(\delta)$, global uniqueness, reached-state continuation, or population/raw-GD identification has been proved in this proof unit.
 
-<!-- moved verbatim from special-data-limits.qmd:26643-26943; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:26643-26943; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Initialized, conditional and local dynamics {#sec-docs-special-data-limits-l23747}
 
@@ -4431,7 +4431,7 @@ the continuous balance.
 
 :::
 
-<!-- moved verbatim from special-data-limits.qmd:27578-28217; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:27578-28217; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## E. Actual positive-time failure of raw-Hilbert local Lipschitzness {#sec-docs-special-data-limits-l24545}
 
@@ -5072,7 +5072,7 @@ continuation theorem. Gaussian tails coexist with the unbounded
 multiplication operator, and failure of local Lipschitzness does not
 contradict the strong local existence, uniqueness or restart proved above.
 
-<!-- moved verbatim from special-data-limits.qmd:28218-29503; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:28218-29503; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Gaussian-readout limits and three-input continuation boundaries {#sec-docs-special-data-limits-l25007}
 
@@ -6360,7 +6360,7 @@ Suppose a smooth positive Riemannian metric on the full parameter state space ma
 
 This argument allows metric cross terms between every parameter block. Uniform equivalence to the raw metric is not needed for the eigenvalue contradiction; positivity on each restricted tangent space already suffices. Smoothness is used only for the usual differential one-sided-Lipschitz formulation.
 
-<!-- moved verbatim from special-data-limits.qmd:30282-30440; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:30282-30440; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## H. The sech gate under prescribed controls with fixed signs {#sec-docs-special-data-limits-l26995}
 
@@ -6520,7 +6520,7 @@ and it does not bound variations of the control caused by feedback.
 
 :::
 
-<!-- moved verbatim from special-data-limits.qmd:30441-30579; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:30441-30579; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## I. A first-Euler neighborhood obstruction for tiny-readout arctangent {#sec-docs-special-data-limits-l27133}
 

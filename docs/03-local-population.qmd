@@ -2,7 +2,7 @@
 
 Under the stated assumptions, actual network training has a unique, restartable population description on a common local interval. The results here combine the fixed-depth local construction, evolution over training laws, finite GF/GD identification, and the complete local three-layer arctangent model.
 
-<!-- moved verbatim from global-nonlinear.qmd:2038-2076; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from global-nonlinear.qmd:2038-2076; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Nonlinear activation, separation, and continuation additions {#sec-docs-global-nonlinear-l1803}
 
@@ -43,7 +43,7 @@ Fragments [A](02-gaussian-reuse.qmd#sec-docs-global-nonlinear-l1840)–[C](03-lo
 nonlinear families”. The references to III.F and III.V mean the complete
 proofs in that chapter.
 
-<!-- moved verbatim from global-nonlinear.qmd:2799-5690; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from global-nonlinear.qmd:2799-5690; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## C. A local fixed-depth theorem and strict Gaussian activity {#sec-docs-global-nonlinear-l2454}
 
@@ -1705,7 +1705,7 @@ $w=W^{(1)}$, $A=W^{(2)}$, $c=W^{(3)}$, replace field norms by the Euclidean or
 Frobenius norm divided by $\sqrt{n}$, inner products by $a^{\top}b/n$, and
 rank-one actions by $ab^{\top}/n$. Formula ([-@eq-docs-global-nonlinear-l4016]) then gives exactly the raw
 stored-weight mobilities $(n,1,n)$, as follows from
-`docs/finite_dynamics.md` §§[1](01-training-geometry.qmd#sec-docs-finite-dynamics-l21)–[2](01-training-geometry.qmd#sec-docs-finite-dynamics-l78). Raw GD is
+the finite-dynamics material in §§[1](01-training-geometry.qmd#sec-docs-finite-dynamics-l21)–[2](01-training-geometry.qmd#sec-docs-finite-dynamics-l78). Raw GD is
 $\theta_{j+1}=\theta_j+\eta F_\mu(\theta_j)$ with all three blocks evaluated at
 the preceding state. Parameter interpolation does not interpolate hidden
 features: ([-@eq-docs-global-nonlinear-l4000]) is recomputed at the interpolated parameters.
@@ -2937,7 +2937,7 @@ improvement, no endpoint selection and no global-time property. In
 particular a law with zero conditional label mean can have the stationary
 zero-readout population solution, consistently with the stated scope.
 
-<!-- moved verbatim from arctan-limits.qmd:1-57; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from arctan-limits.qmd:1-57; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Arctangent limits with a tiny stored readout {#sec-docs-arctan-limits-l1}
 
@@ -2995,7 +2995,7 @@ The internal proof dependencies are: [global L2 proof](04-continuing-flows.qmd#s
 [clipping and GD bridge](03-local-population.qmd#sec-docs-arctan-limits-l1812), [gradient structure](03-local-population.qmd#sec-docs-arctan-limits-l2547),
 and [feature learning](03-local-population.qmd#sec-docs-arctan-limits-l2716).
 
-<!-- moved verbatim from arctan-limits.qmd:821-1062; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from arctan-limits.qmd:821-1062; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 2. Local theorem for three hidden layers {#sec-docs-arctan-limits-l690}
 
@@ -3237,7 +3237,7 @@ The proof is the following chain of proved lemmas, with no additional assumption
 The theorem and its restart statement apply only within the interval
 constructed here.
 
-<!-- moved verbatim from arctan-limits.qmd:1063-1390; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from arctan-limits.qmd:1063-1390; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 3. Fixed-mesh source identification {#sec-docs-arctan-limits-l905}
 
@@ -3565,7 +3565,7 @@ $\|W_0^{(4)}\|_2/\sqrt n=O_{\mathbb P}(n^{-1})$, its initial coordinate supremum
 
 The displayed scalar representation, the four independent Gaussian source groups, all current/previous response terms, and singular covariance cases are justified at each fixed clipped finite mesh. Individual off-support derivative coefficients require the stated formal-expression convention. This proof supplies no bound uniform in $N$, $\Delta\downarrow0$, or $R\uparrow\infty$.
 
-<!-- moved verbatim from arctan-limits.qmd:1391-1698; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from arctan-limits.qmd:1391-1698; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 4. Common population actions and clipped flows {#sec-docs-arctan-limits-l1214}
 
@@ -3873,7 +3873,7 @@ mesh-uniform local tail estimate and comparison argument.
 Extending the resulting uncut flow beyond that local interval
 requires a further continuation theorem.
 
-<!-- moved verbatim from arctan-limits.qmd:1699-2104; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from arctan-limits.qmd:1699-2104; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 5. Mesh-uniform local response bootstrap {#sec-docs-arctan-limits-l1487}
 
@@ -4279,7 +4279,7 @@ response representation must be justified for that discretization.
 This distinction does not alter any estimate above, but it matters
 when stating which finite algorithm has been identified.
 
-<!-- moved verbatim from arctan-limits.qmd:2105-2956; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from arctan-limits.qmd:2105-2956; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 6. Removal of clipping, raw GD, and physical time {#sec-docs-arctan-limits-l1812}
 
@@ -5131,7 +5131,7 @@ The tail estimate has been established only up to $S_0$, so these
 arguments assert no population continuation beyond the constructed interval
 and no interchange with an infinite physical-time limit.
 
-<!-- moved verbatim from arctan-limits.qmd:2957-3147; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from arctan-limits.qmd:2957-3147; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 7. Gradient structure of the local limit {#sec-docs-arctan-limits-l2547}
 
@@ -5322,7 +5322,7 @@ that the uncut gradient is locally Lipschitz.
 This gradient identity does not supply the tail and stability estimates
 needed to continue the L3 population solution beyond the local interval.
 
-<!-- moved verbatim from arctan-limits.qmd:3148-3622; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from arctan-limits.qmd:3148-3622; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 8. Feature learning in all three hidden layers {#sec-docs-arctan-limits-l2716}
 

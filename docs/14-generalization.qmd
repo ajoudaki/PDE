@@ -2,7 +2,7 @@
 
 Statistical usefulness requires additional arguments connecting the learned predictor to unseen risk and meaningful alternatives. Influence, sampling fluctuations, finite-episode generalization and the scoped frozen-feature comparison are kept distinct.
 
-<!-- moved verbatim from global-nonlinear.qmd:16617-18320; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from global-nonlinear.qmd:16617-18320; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## C.4.8. Sampling fluctuations of the trained prediction {#sec-docs-global-nonlinear-l16001}
 
@@ -1708,7 +1708,7 @@ inequality, ([-@eq-docs-global-nonlinear-l16074]), and then $m\to\infty$ prove (
 the actual finite random initial readout and invokes no finite-network tangent
 limit, no rate in width, and no simultaneous width/sample scaling.
 
-<!-- moved verbatim from global-nonlinear.qmd:20697-22455; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from global-nonlinear.qmd:20697-22455; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## C.4.10. Generalization during a finite added-data episode {#sec-docs-global-nonlinear-l19884}
 
@@ -3469,7 +3469,7 @@ or superiority over another architecture or training method.
 
 :::
 
-<!-- moved verbatim from global-nonlinear.qmd:22456-24170; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from global-nonlinear.qmd:22456-24170; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## C.5. Early test-risk advantage over frozen features at matched training loss {#sec-docs-global-nonlinear-l21578}
 

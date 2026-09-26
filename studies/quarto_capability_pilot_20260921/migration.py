@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Deterministic Markdown-to-Quarto migration for the PDE book.
+"""Deterministic Markdown-to-Quarto migration for the archived PDE book.
 
-The maintained Markdown is read-only.  This program converts complete chapters,
+The pre-Quarto Markdown in old_docs/ is read-only.  This program converts complete chapters,
 builds stable source-coordinate labels and cross-references, and records anything
 that still needs semantic mathematical transcription.  It uses only the Python
 standard library and never invokes a model or renderer.
@@ -22,7 +22,7 @@ from urllib.parse import unquote, urlsplit
 
 HERE = Path(__file__).resolve().parent
 DEFAULT_REPO = HERE.parents[1]
-DEFAULT_OUTPUT = DEFAULT_REPO / "new_doc"
+DEFAULT_OUTPUT = DEFAULT_REPO / "linear_migration_temp"
 DEFAULT_STATE = HERE / "migration_state.json"
 DEFAULT_DECISIONS = HERE / "migration_decisions.json"
 PRINT_FILTER = HERE / "pdf_breakable_tables.lua"
@@ -114,9 +114,25 @@ def output_name(path: str) -> str:
     return Path(path).stem.replace("_", "-") + ".qmd"
 
 
+def source_root(repo: Path) -> Path:
+    """Locate archived Markdown while preserving historical docs/... keys."""
+    archived = repo / "old_docs"
+    if (archived / "README.md").is_file():
+        return archived
+    return repo / "docs"
+
+
+def source_path(repo: Path, logical_path: str) -> Path:
+    prefix = "docs/"
+    if not logical_path.startswith(prefix):
+        return repo / logical_path
+    return source_root(repo) / logical_path[len(prefix):]
+
+
 def discover(repo: Path) -> list[str]:
-    guide = repo / "docs/README.md"
-    available = {p.relative_to(repo).as_posix() for p in (repo / "docs").glob("*.md")}
+    physical_root = source_root(repo)
+    guide = physical_root / "README.md"
+    available = {"docs/" + p.name for p in physical_root.glob("*.md")}
     order = ["docs/README.md"]
     if "docs/NOTATION.md" in available:
         order.append("docs/NOTATION.md")
@@ -124,9 +140,9 @@ def discover(repo: Path) -> list[str]:
         parsed = urlsplit(destination.strip().strip("<>"))
         if parsed.scheme or not parsed.path:
             continue
-        candidate = (guide.parent / unquote(parsed.path)).resolve()
-        if candidate.is_relative_to(repo):
-            name = candidate.relative_to(repo).as_posix()
+        candidate = (physical_root / unquote(parsed.path)).resolve()
+        if candidate.is_relative_to(physical_root):
+            name = "docs/" + candidate.relative_to(physical_root).as_posix()
             if name in available and name not in order:
                 order.append(name)
     order.extend(sorted(available.difference(order)))
@@ -2520,7 +2536,7 @@ def baseline_reference_intervals(source_records: list[dict]) -> dict[tuple[str, 
     """Locate deterministic pre-transcription references in their source lines."""
     paths = [record["path"] for record in source_records]
     documents = [
-        Document(path, (DEFAULT_REPO / path).read_text(encoding="utf-8"))
+        Document(path, source_path(DEFAULT_REPO, path).read_text(encoding="utf-8"))
         for path in paths
     ]
     expected_hashes = {record["path"]: record["sha256"] for record in source_records}
@@ -2535,7 +2551,7 @@ def baseline_reference_intervals(source_records: list[dict]) -> dict[tuple[str, 
 
 def prepare_math_batches(repo: Path, batch_dir: Path) -> dict:
     paths = discover(repo)
-    payload = {path: (repo / path).read_bytes() for path in paths}
+    payload = {path: source_path(repo, path).read_bytes() for path in paths}
     documents = [Document(path, payload[path].decode("utf-8")) for path in paths]
     by_path = {document.path: document for document in documents}
     records = indexed_math_records(documents)
@@ -4554,7 +4570,7 @@ The scalar derivative m'(2) is not a reference to the display.
 def build(repo: Path, output: Path, state_path: Path,
           decisions_path: Path | None = None) -> dict:
     paths = discover(repo)
-    payload = {path: (repo / path).read_bytes() for path in paths}
+    payload = {path: source_path(repo, path).read_bytes() for path in paths}
     print_filter = PRINT_FILTER.read_bytes()
     documents = [Document(path, payload[path].decode("utf-8")) for path in paths]
     transcriptions = (
@@ -4603,7 +4619,7 @@ def build(repo: Path, output: Path, state_path: Path,
         checks["status"] = "fail"
     if checks["status"] != "pass":
         raise RuntimeError("; ".join(checks["errors"]))
-    if any((repo / path).read_bytes() != data for path, data in payload.items()):
+    if any(source_path(repo, path).read_bytes() != data for path, data in payload.items()):
         raise RuntimeError("book sources changed during migration; retry")
     if PRINT_FILTER.read_bytes() != print_filter:
         raise RuntimeError("print filter changed during migration; retry")

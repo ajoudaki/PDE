@@ -1,4 +1,4 @@
-"""Check the self-contained source-library boundary and Markdown file links.
+"""Check the self-contained source-library boundary and Markdown/Quarto links.
 
 This is a structural check, not a mathematical proof verifier. It runs without
 loading implementation modules and does not inspect historical research files.
@@ -34,11 +34,11 @@ def main(root=None) -> int:
             if source.is_symlink():
                 errors.append(f"symbolic link in source library: {source.relative_to(root)}")
                 continue
-            if not source.is_file() or source.suffix not in (".md", ".py"):
+            if not source.is_file() or source.suffix not in (".md", ".qmd", ".py"):
                 continue
             count += 1
             text = source.read_text(encoding="utf-8")
-            if source.suffix == ".md":
+            if source.suffix in (".md", ".qmd"):
                 prose = prose_only(text)
                 targets = [m.group(2) for m in re.finditer(r"\]\((<?)([^)\n]+?)(>?)\)", prose)]
                 targets += [m.group(1) for m in re.finditer(

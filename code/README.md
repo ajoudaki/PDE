@@ -1,8 +1,8 @@
 # Finite dynamics, moving jets and exact calculus
 
 This NumPy-only package implements the finite equal-width network in
-[the notation contract](../docs/NOTATION.md) and
-[the finite-dynamics chapter](../docs/finite_dynamics.md).
+[the notation contract](../docs/notation.qmd) and
+[the finite-dynamics material](../docs/01-training-geometry.qmd#sec-docs-finite-dynamics-l1).
 It supports any positive number of hidden layers and any nonempty fixed batch.
 It is a finite reference implementation; numerical tests do not establish an
 infinite-width limit. Separate small modules provide exact rational Gaussian
@@ -597,7 +597,7 @@ matrix examples, and rational polynomial identities.
 
 The opt-in [two-layer risk certificate tool](tools/two_layer_risk/README.md)
 supports the computer-assisted sign proof in
-[global-nonlinear C.5](../docs/global_nonlinear.md). It certifies one fixed
+[the scoped comparison in Chapter 14](../docs/14-generalization.qmd#sec-docs-global-nonlinear-l21578). It certifies one fixed
 coefficient for exactly two tanh hidden layers, the canonical Gaussian
 initialization and mobilities, three correlated training inputs, and the
 uniform-circle teacher `cos(3 alpha)`. It includes the training-loss clock
@@ -626,7 +626,7 @@ are both necessary for the sign; a floating positive estimate is insufficient.
 ## Finite autonomous observable population closure
 
 `pde.observable_closure` exposes the finite population/action construction in
-[Global nonlinear learning, C.4.7.9](../docs/global_nonlinear.md#c479-finite-autonomous-observable-closure).
+[the finite autonomous closure](../docs/07-observable-closure.qmd#sec-docs-global-nonlinear-l12084).
 Its exact-real population theorem is qualitative. This module is a minimal
 float64 quadrature prototype, with a finite weighted data-law API and static
 checks; it provides no trajectory solver or certified numerical accuracy.

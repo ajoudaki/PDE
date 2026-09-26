@@ -2,7 +2,7 @@
 
 A finite closure becomes a justified computation only after initialization, discretization and limiting operations are controlled. The chapter distinguishes fixed-program refinement, continuous-time approximation, closure-order convergence and computation through the supported learning horizon.
 
-<!-- moved verbatim from gaussian-calculus.qmd:2505-3503; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from gaussian-calculus.qmd:2505-3503; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 8. Quantitative step doubling for the exact fixed-program limit {#sec-docs-gaussian-calculus-l2441}
 
@@ -1003,7 +1003,7 @@ a growing-step-count width limit, a bound proportional to $N^4|h|^5$
 on a domain proportional to $1/N$, convergence of an infinite Taylor
 series, or a continuous-time limit.
 
-<!-- moved verbatim from gaussian-calculus.qmd:4467-4982; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from gaussian-calculus.qmd:4467-4982; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 11. A sharp uniform shallow feature-step estimate {#sec-docs-gaussian-calculus-l4169}
 
@@ -1521,7 +1521,7 @@ raw step, so it is a different discretization. Neither ([-@eq-docs-gaussian-calc
 ([-@eq-docs-gaussian-calculus-l4704]) establishes its continuous-time limit or any corresponding result
 with reused inter-hidden-layer matrices.
 
-<!-- moved verbatim from gaussian-calculus.qmd:9192-10164; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from gaussian-calculus.qmd:9192-10164; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Every fixed identity depth: uniform step doubling and local feature time {#sec-docs-gaussian-calculus-l8547}
 
@@ -1626,8 +1626,8 @@ existence.
 ### 2. A fixed Hilbert source and a complete parameter space {#sec-docs-gaussian-calculus-l8649}
 
 The maintained dependency for the Gaussian identification is [Section 9](07-observable-closure.qmd#sec-docs-gaussian-calculus-l3305),
-“A Gaussian source lemma with contained norm and Wick proofs,” of
-`linear_dynamics.md`. Its hypotheses are exactly the independent
+“A Gaussian source lemma with contained norm and Wick proofs,” in the
+observable-closure chapter. Its hypotheses are exactly the independent
 $N(0,1/n)$ connectors and two independent $N(0,I_n/n)$ endpoint
 vectors in ([-@eq-docs-gaussian-calculus-l8584]). It applies to any fixed finite number of labels and
 to typed compatible words. We spell out the source it supplies.
@@ -1681,7 +1681,7 @@ Write a current connector as $B_a=\Gamma_a+P_a$, with
 $P_a\in\mathfrak S_1(\mathcal H_{a-1},\mathcal H_a)$. Here
 $\mathfrak S_1$ is the trace-class space: the trace norm is the sum of
 the singular values. [Section 2.A](09-trainability.qmd#sec-docs-linear-dynamics-l376), “Compact operators and the complete
-trace-norm space,” of `linear_dynamics.md` supplies its complete-space
+trace-norm space,” in the trainability chapter supplies its complete-space
 construction, the inequalities
 
 $$
@@ -1781,7 +1781,7 @@ output, to the value in ([-@eq-docs-gaussian-calculus-l8795]).
 
 For completeness this also gives convergence of expected outputs; no
 unjustified passage from probability to expectation is needed. The
-Gaussian net argument in [Section 9](07-observable-closure.qmd#sec-docs-gaussian-calculus-l3305) of `linear_dynamics.md`, with its
+Gaussian net argument in [Section 9](07-observable-closure.qmd#sec-docs-gaussian-calculus-l3305) of the observable-closure chapter, with its
 threshold left variable, gives
 
 $$
@@ -2497,7 +2497,7 @@ about Gaussian-typical initial states, expected-output continuity, or
 a single final bounded-slope activation's uniform time remainder.
 An averaged stability statement needs its own probabilistic argument.
 
-<!-- moved verbatim from global-nonlinear.qmd:13117-16616; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from global-nonlinear.qmd:13117-16616; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## C.4.7.10. Finite numerical autonomous observable closure {#sec-docs-global-nonlinear-l12555}
 

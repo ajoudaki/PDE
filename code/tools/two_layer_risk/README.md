@@ -1,7 +1,7 @@
 # Fixed two-hidden-layer test-risk certificate
 
 This optional tool regenerates the computer-assisted inequality in
-[Global nonlinear learning, C.5](../../../docs/global_nonlinear.md).
+[the scoped comparison in Chapter 14](../../../docs/14-generalization.qmd#sec-docs-global-nonlinear-l21578).
 It encloses one fixed coefficient using exact rational interval propagation
 and a compiled finite-sum kernel. It does not train a network. The chapter
 contains the complete flow, Gaussian, angular and arithmetic arguments;

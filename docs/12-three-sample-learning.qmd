@@ -2,7 +2,7 @@
 
 The three-sample constructions reveal how activation design sustains learning across the proved depth regimes. The bounded-shape and large-gain families are presented together so that their mechanisms and restrictions can be compared.
 
-<!-- moved verbatim from special-data-limits.qmd:3882-7214; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:3882-7214; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## III. Three samples and bounded-shape activations at every fixed depth {#sec-docs-special-data-limits-l3507}
 
@@ -3337,7 +3337,7 @@ For a class with a common finite-interval margin, the same gain and all main-the
 
 The finite-width convergence statements retain their original quantifiers: the function, dataset, finite depth, and observation horizon are fixed before width tends to infinity. Sharing constants across a class does not by itself assert uniform finite-width convergence over that infinite class, simultaneous width/depth limits, or a positive margin independent of $e$ as $e\downarrow0$. The construction uses the original raw metric and the displayed affine-plus-perturbation activation throughout.
 
-<!-- moved verbatim from special-data-limits.qmd:24233-25610; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:24233-25610; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## H. One three-sample odd large-gain activation at all finite depths {#sec-docs-special-data-limits-l21612}
 
@@ -4717,7 +4717,7 @@ $$
 
 Adding the two contributions proves the coefficient 18. Because every hidden block is nonzero, $\|V\|_{\mathrm{hidden}}>0$, and the projected total kernel strictly increases from its initial value at all sufficiently small positive physical times. This is the actual kernel along training, with no scalar-clock or permutation argument.
 
-<!-- moved verbatim from special-data-limits.qmd:30580-30616; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:30580-30616; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Scope of the completed families {#sec-docs-special-data-limits-l27238}
 

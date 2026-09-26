@@ -252,6 +252,74 @@
     ],
     "notation_source": "notation.qmd"
   },
+  "relocation_repairs": [
+    {
+      "file": "01-training-geometry.qmd",
+      "old": "Use the forward equations in NOTATION.md and",
+      "new": "Use the forward equations in the [notation contract](notation.qmd#sec-docs-notation-l1) and",
+      "count": 1
+    },
+    {
+      "file": "01-training-geometry.qmd",
+      "old": "Gaussian initialization in NOTATION.md.",
+      "new": "Gaussian initialization in the [notation contract](notation.qmd#sec-docs-notation-l1).",
+      "count": 1
+    },
+    {
+      "file": "03-local-population.qmd",
+      "old": "`docs/finite_dynamics.md` §§",
+      "new": "the finite-dynamics material in §§",
+      "count": 1
+    },
+    {
+      "file": "07-observable-closure.qmd",
+      "old": "[NOTATION.md](notation.qmd#sec-docs-notation-l1)",
+      "new": "[shared notation](notation.qmd#sec-docs-notation-l1)",
+      "count": 1
+    },
+    {
+      "file": "08-autonomous-computation.qmd",
+      "old": "“A Gaussian source lemma with contained norm and Wick proofs,” of\n`linear_dynamics.md`.",
+      "new": "“A Gaussian source lemma with contained norm and Wick proofs,” in the\nobservable-closure chapter.",
+      "count": 1
+    },
+    {
+      "file": "08-autonomous-computation.qmd",
+      "old": "trace-norm space,” of `linear_dynamics.md` supplies",
+      "new": "trace-norm space,” in the trainability chapter supplies",
+      "count": 1
+    },
+    {
+      "file": "08-autonomous-computation.qmd",
+      "old": "of `linear_dynamics.md`, with its",
+      "new": "of the observable-closure chapter, with its",
+      "count": 1
+    },
+    {
+      "file": "09-trainability.qmd",
+      "old": "[NOTATION.md](notation.qmd#sec-docs-notation-l1)",
+      "new": "[shared notation](notation.qmd#sec-docs-notation-l1)",
+      "count": 2
+    },
+    {
+      "file": "09-trainability.qmd",
+      "old": "of `gaussian_calculus.md`.",
+      "new": "of the linear-dynamics material above.",
+      "count": 1
+    },
+    {
+      "file": "09-trainability.qmd",
+      "old": "the fixed-program theorem of `gaussian_calculus.md`",
+      "new": "the fixed-program theorem of the Gaussian-calculus chapter",
+      "count": 1
+    },
+    {
+      "file": "09-trainability.qmd",
+      "old": "in [finite_dynamics.md](01-training-geometry.qmd#sec-docs-finite-dynamics-l1)",
+      "new": "in the [finite-dynamics material](01-training-geometry.qmd#sec-docs-finite-dynamics-l1)",
+      "count": 1
+    }
+  ],
   "source_partitions": {
     "index.qmd": [
       {"start": "__start__", "target": "index"},

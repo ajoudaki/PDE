@@ -2,7 +2,7 @@
 
 Suitable current observables can retain the information needed for prediction and support autonomous finite approximations. The chapter moves from information constraints and exact observable calculus through scoped obstructions to a sufficient hierarchy and concrete initialized constructions.
 
-<!-- moved verbatim from linear-dynamics.qmd:923-1362; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from linear-dynamics.qmd:923-1362; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 5. The bounded-contraction closure class {#sec-docs-linear-dynamics-l908}
 
@@ -444,7 +444,7 @@ This confirms why @thm-docs-linear-dynamics-l999 requires identities for all suf
 large widths. Neither this example nor the transport profile is a
 bounded-contraction closure in that theorem's width-uniform class.
 
-<!-- moved verbatim from gaussian-calculus.qmd:1795-1877; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from gaussian-calculus.qmd:1795-1877; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 6. Scope and obstructions to stronger calculus claims {#sec-docs-gaussian-calculus-l1749}
 
@@ -529,7 +529,7 @@ finite-dimensional realization. Conversely, this example does not
 supply a network closure, a convergent flow Taylor series, or a
 depth- or time-uniform extension of the fixed-program theorem.
 
-<!-- moved verbatim from gaussian-calculus.qmd:1878-2504; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from gaussian-calculus.qmd:1878-2504; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 7. Reusable finite calculus and exact certificates {#sec-docs-gaussian-calculus-l1824}
 
@@ -1158,7 +1158,7 @@ certifies these finite computations, while ([-@eq-docs-gaussian-calculus-l2254])
 initialization-jet interpretation. Neither part supplies a positive-time
 identification bridge.
 
-<!-- moved verbatim from gaussian-calculus.qmd:3504-3927; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from gaussian-calculus.qmd:3504-3927; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 9. Finite loss-GD pullback calculus {#sec-docs-gaussian-calculus-l3305}
 
@@ -1584,7 +1584,7 @@ $u(x)=2x+x^3$, at $x_0=1/3$ through degree six. That last comparison
 checks moving-field differentiation and operator ordering using a different
 construction. Domain rejection and return ownership are also checked. These checks do not establish a neural width limit or an analytic remainder bound.
 
-<!-- moved verbatim from gaussian-calculus.qmd:3928-4466; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from gaussian-calculus.qmd:3928-4466; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 10. Positive-metric and Taylor obstructions for the quadratic formal jet {#sec-docs-gaussian-calculus-l3672}
 
@@ -2125,7 +2125,7 @@ family and uniform error on intervals containing zero. It does not analyze
 a coupled order $M=M(n)$, establish an actual network step loss, or
 exclude other finite descriptions using signed or non-Taylor constructions.
 
-<!-- moved verbatim from gaussian-calculus.qmd:4983-5174; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from gaussian-calculus.qmd:4983-5174; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Three Gaussian queries and the failure of uniform higher moments {#sec-docs-gaussian-calculus-l4721}
 
@@ -2319,7 +2319,7 @@ to tails on an actual reached training family. Width is sent to infinity
 at fixed $\epsilon$ before ([-@eq-docs-gaussian-calculus-l4885]); no width-dependent bump scale or
 positive-time training limit is asserted.
 
-<!-- moved verbatim from gaussian-calculus.qmd:5175-6309; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from gaussian-calculus.qmd:5175-6309; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Finite contraction, observable and physical-loss calculus {#sec-docs-gaussian-calculus-l4918}
 
@@ -3455,7 +3455,7 @@ load retained coefficients, run a campaign, mutate a supplied state or
 write files. The graph evaluators have combinatorial cost at caller-chosen
 finite size; no efficient general high-order promise is made.
 
-<!-- moved verbatim from continuous-depth.qmd:1202-1399; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from continuous-depth.qmd:1202-1399; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 12. Limits of finite linear-moment closure {#sec-docs-continuous-depth-l1286}
 
@@ -3655,7 +3655,7 @@ existence, joint-limit, or fitting claim. It demonstrates only that
 nonlinearity alone cannot imply an unconditional need for a full measure
 state.
 
-<!-- moved verbatim from continuous-depth.qmd:2371-2712; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from continuous-depth.qmd:2371-2712; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Finite-source operator transport: exact conditional geometry {#sec-docs-continuous-depth-l2476}
 
@@ -4000,7 +4000,7 @@ well-posedness, collective source tails, stability of nonlinear truncation
 errors, and identification with trained iid dense depth slices. Neither
 an exact projected kernel nor conditional parity supplies those proofs.
 
-<!-- moved verbatim from global-nonlinear.qmd:11861-12557; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from global-nonlinear.qmd:11861-12557; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## C.4.7.8. Current bounded-probe hierarchy {#sec-docs-global-nonlinear-l11441}
 
@@ -4699,7 +4699,7 @@ interval and fixed law family. The present construction leaves that theoretical
 risk open. The Stieltjes proposition and unrestricted same-norm product/jet
 bounds excluded by Gaussian calculus §§[6](07-observable-closure.qmd#sec-docs-gaussian-calculus-l1749),[10](07-observable-closure.qmd#sec-docs-gaussian-calculus-l3672) play no role.
 
-<!-- moved verbatim from global-nonlinear.qmd:12558-13116; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from global-nonlinear.qmd:12558-13116; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## C.4.7.9. Finite autonomous observable closure {#sec-docs-global-nonlinear-l12084}
 
@@ -5260,13 +5260,13 @@ useful accuracy, or a time-40 certified solver. The exact population fields
 are allowed at C-H2; their dimension, joint dependence, feature conditioning,
 quadrature and finite precision remain serious C-H3 costs.
 
-<!-- moved verbatim from observable-p1.qmd:1-346; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from observable-p1.qmd:1-346; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## General-dimensional $p=1$ initialized coefficients and finite computation {#sec-docs-observable-p1-l1}
 
 This is a finite initialized-algebra specialization of
 [Global nonlinear learning, C.4.7.10.B](08-autonomous-computation.qmd#sec-docs-global-nonlinear-l12555).
-The notation contract is [NOTATION.md](notation.qmd#sec-docs-notation-l1). Here $p=1$ is closure
+The notation contract is [shared notation](notation.qmd#sec-docs-notation-l1). Here $p=1$ is closure
 order, P is population integration count, n is neural width, d is input
 dimension, and m is sample count. These quantities are independent. The older
 hierarchy uses N for order and p for arithmetic digits; those are not the p
@@ -5609,7 +5609,7 @@ Attained-loss matching alone proves neither equality of maps nor a pure
 change of clock. No MNIST/PCA numerical result or performance ratio is claimed
 by this addition.
 
-<!-- moved verbatim from index.qmd:739-741; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from index.qmd:739-741; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## General-dimension first-order implementation {#sec-docs-readme-l740}
 

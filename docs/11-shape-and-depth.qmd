@@ -2,7 +2,7 @@
 
 The perturbative learning mechanism develops from a specific odd family to broader activation shapes and every separately fixed depth, with the quantitative scales and regularity assumptions kept explicit.
 
-<!-- moved verbatim from special-data-limits.qmd:15443-19461; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:15443-19461; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## E. The two-sample odd family at the second-power scale {#sec-docs-special-data-limits-l14126}
 
@@ -4023,7 +4023,7 @@ The choice $0<r\le\min\{1,e_\delta\}$ gives the desired parameter rectangle and 
 
 If unit Gaussian energy is imposed, every initial layer has scalar preactivation law $N(0,1)$: it holds at the bottom, the feature second moment is one, and each next fresh Gaussian action has that variance. This adds no requirement that trained preactivations remain Gaussian or have unit variance.
 
-<!-- moved verbatim from special-data-limits.qmd:19462-21396; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:19462-21396; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## F. General activation shapes and exact affine positivity {#sec-docs-special-data-limits-l17692}
 
@@ -5960,7 +5960,7 @@ inverse r in addition to the one condition-number factor.
 
 These are coordinate identities and the global-$\delta$ gate bound. For an intrinsic dataset scale M, $e/\sqrt{\delta}$ is not replaced by $eM^4$: inactive variance need not be controlled by M. The direct raw moment proof F.3 supplies the needed bound.
 
-<!-- moved verbatim from special-data-limits.qmd:21397-24232; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:21397-24232; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## G. Two-sample odd perturbations at every fixed finite depth {#sec-docs-special-data-limits-l19453}
 

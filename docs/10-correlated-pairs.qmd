@@ -2,7 +2,7 @@
 
 Label structure and input geometry support complete nonlinear-learning guarantees for the proved pair families. Equal-label, separated-offset and sech-gate results remain individually scoped while sharing one chapter-level comparison.
 
-<!-- moved verbatim from special-data-limits.qmd:1-138; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:1-138; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Population limits and correlated-data geometry {#sec-docs-special-data-limits-l1}
 
@@ -142,7 +142,7 @@ to any fixed finite root tuple and any fixed finite number of the stated
 adjacent matrices. Part II uses exactly this proved scope. Part I retains
 its own stronger all-moment program and path proof.
 
-<!-- moved verbatim from special-data-limits.qmd:2324-3881; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:2324-3881; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## II. Equal labels with three hidden layers {#sec-docs-special-data-limits-l2095}
 
@@ -1702,7 +1702,7 @@ The field and kernel convergence already established in [Section II.C](10-correl
 transfers these nonzero fixed-time feature changes and kernel changes
 to the finite model on each fixed observation horizon.
 
-<!-- moved verbatim from special-data-limits.qmd:11342-15442; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:11342-15442; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Further correlated-data nonlinear families {#sec-docs-special-data-limits-l10428}
 
@@ -5805,7 +5805,7 @@ the affine-baseline nondegeneracy/approximation-error argument in
 [Fragment D.4](10-correlated-pairs.qmd#sec-docs-special-data-limits-l12730) supplies it only after nonlinear comparison
 and continuation have actually been constructed.
 
-<!-- moved verbatim from special-data-limits.qmd:30008-30281; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:30008-30281; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## G. Equal-label global transfer to the sech gate {#sec-docs-special-data-limits-l26744}
 

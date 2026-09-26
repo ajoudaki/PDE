@@ -1,4 +1,4 @@
-"""Standalone, read-only-source PDF exporter for the maintained PDE book.
+"""Standalone, read-only-source PDF exporter for the archived Markdown book.
 
 No repository tools are executed. All conversion and LaTeX work happens in a
 fresh private directory; only a checked PDF and its receipt are published.
@@ -21,7 +21,7 @@ import xml.etree.ElementTree as ET
 BUNDLE = Path(__file__).resolve().parent
 ARCHIVE_HASH = "5def6e1ff535e397becce292ee97767a947306150b9fb1488003b67ac3417c5e"
 DEFAULT_REPO = BUNDLE.parents[2]
-DEFAULT_OUTPUT_NAME = "PDE-book.pdf"
+DEFAULT_OUTPUT_NAME = "PDE-old-book.pdf"
 DEFAULT_ARCHIVE = Path.home() / ".cache/pde-book-pdf/pandoc-3.6.4-linux-amd64.tar.gz"
 
 
@@ -30,17 +30,17 @@ def digest(data):
 
 
 def discover(repo):
-    """Guide-link order first; include and announce other maintained Markdown."""
-    guide = repo / "docs/README.md"
+    """Guide-link order first; include and announce archived Markdown."""
+    guide = repo / "old_docs/README.md"
     if not guide.is_file():
         raise ValueError(f"Missing book introduction: {guide}")
-    available = {p.relative_to(repo).as_posix() for p in (repo / "docs").rglob("*.md") if p.is_file()}
+    available = {p.relative_to(repo).as_posix() for p in (repo / "old_docs").rglob("*.md") if p.is_file()}
     for name in available:
         if not (repo / name).resolve().is_relative_to(repo):
             raise ValueError(f"Source symlink leaves the repository: {name}")
-    order = ["docs/README.md"]
-    if "docs/NOTATION.md" in available:
-        order.append("docs/NOTATION.md")
+    order = ["old_docs/README.md"]
+    if "old_docs/NOTATION.md" in available:
+        order.append("old_docs/NOTATION.md")
     guide_text = guide.read_text(encoding="utf-8")
     for destination in re.findall(r"\[[^\]]*\]\(([^)]+)\)", guide_text):
         parsed = urlsplit(destination.strip().strip("<>"))
@@ -53,19 +53,13 @@ def discover(repo):
                 order.append(name)
     unlisted = sorted(available.difference(order))
     order.extend(unlisted)
-    if (repo / "code/README.md").is_file():
-        if not (repo / "code/README.md").resolve().is_relative_to(repo):
-            raise ValueError("Implementation-guide symlink leaves the repository")
-        order.append("code/README.md")
     chapter = 0
     files = []
     for name in order:
-        if name == "docs/README.md":
+        if name == "old_docs/README.md":
             label = "Introduction"
-        elif name == "docs/NOTATION.md":
+        elif name == "old_docs/NOTATION.md":
             label = "Notation"
-        elif name == "code/README.md":
-            label = "Appendix"
         else:
             chapter += 1
             label = str(chapter)
@@ -184,7 +178,7 @@ def atomic_copy(source, destination):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Build the current PDE book PDF without changing book sources.", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument("output", nargs="?", type=Path, help="PDF destination (default: PDE-book.pdf in the selected repository root)")
+    parser.add_argument("output", nargs="?", type=Path, help="PDF destination (default: PDE-old-book.pdf in the selected repository root)")
     parser.add_argument("--repo", type=Path, default=DEFAULT_REPO, help="Repository to read")
     parser.add_argument("--pandoc-archive", type=Path, help="Verified Pandoc 3.6.4 Linux x86-64 release archive; overrides installed Pandoc and the user cache")
     parser.add_argument("--keep-build", action="store_true", help="Keep the temporary snapshot, generated TeX and logs after success")

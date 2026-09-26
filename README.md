@@ -8,10 +8,10 @@ optimization and, ultimately, generalization.
 ## Start here
 
 This page is the repository gateway, not part of the established theorem book.
-That book begins at `docs/README.md` and never refers back to research studies.
+That Quarto book begins at `docs/index.qmd` and never refers back to research studies.
 
-- [Established theory: reading guide](docs/README.md), with one
-  [notation contract](docs/NOTATION.md) and complete modular proofs.
+- [Established theory: reading guide](docs/index.qmd), with one
+  [notation contract](docs/notation.qmd) and complete modular proofs.
 - [Reusable code and API](code/README.md): finite all-depth network dynamics
   and exact rational Gaussian moments.
 - [Study workflow and promotion gates](RESEARCH_WORKFLOW.md): automatically
@@ -25,6 +25,19 @@ The theory and code libraries stand on their own. Exploratory material can use
 them, but the established library has no dependency in the reverse direction.
 Historical labels and old review verdicts do not automatically confer current
 established status.
+
+The pre-Quarto edition is retained under `old_docs/` only for diagnosing a
+specific migration ambiguity or broken reference. It is not the maintained
+scientific authority and should not be used when the current book is clear.
+
+Render the maintained book with Quarto from its project directory:
+
+```sh
+cd docs
+quarto render --to html
+quarto render --to pdf
+quarto render --to latex
+```
 
 ## Check the library
 

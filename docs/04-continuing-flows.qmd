@@ -2,7 +2,7 @@
 
 Structural estimates can extend a local population description to global time or to a prescribed learning horizon. The chapter places the two-layer coordinate transformations, special-angle two-input dynamics, changed-law continuation, and the order-one-readout limit side by side while retaining their different contracts.
 
-<!-- moved verbatim from global-nonlinear.qmd:2152-2798; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from global-nonlinear.qmd:2152-2798; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## B. Global two-layer limits beyond one activation {#sec-docs-global-nonlinear-l1899}
 
@@ -651,7 +651,7 @@ the vector field is Lipschitz on the same bounded sets. The bounds ([-@eq-docs-g
 
 In this affine case, raw GD is already ordinary Euler for the Lipschitz raw vector field, so the sufficient step condition improves to $\eta_n\to0$. All the preceding readout restrictions remain. This exception does not give a nonlinear first layer: its best affine-fit error is exactly zero.
 
-<!-- moved verbatim from arctan-limits.qmd:58-820; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from arctan-limits.qmd:58-820; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 1. Global theorem for two hidden layers {#sec-docs-arctan-limits-l56}
 
@@ -1415,7 +1415,7 @@ $$ {#eq-docs-arctan-limits-l681}
 
 It is initially positive: equality would force $\arctan$ to agree with an affine function on a full-support Gaussian law and hence everywhere by continuity. The moments in ([-@eq-docs-arctan-limits-l681]) are continuous in mean square because $\phi$ is bounded and Lipschitz. This error therefore remains positive for both layers on a common interval $[0,T_*]$. Equations ([-@eq-docs-arctan-limits-l559]), ([-@eq-docs-arctan-limits-l593]), ([-@eq-docs-arctan-limits-l607]), and ([-@eq-docs-arctan-limits-l671]) establish all the asserted convergence and feature-learning claims.
 
-<!-- moved verbatim from special-data-limits.qmd:139-2323; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:139-2323; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## I. Opposite labels at the orthogonal and antiparallel angles {#sec-docs-special-data-limits-l134}
 
@@ -3602,7 +3602,7 @@ present proof supplies no corresponding estimate. No arbitrary-angle
 completion, other depth, long-time interchange, or independent
 resampling at restart is claimed.
 
-<!-- moved verbatim from global-nonlinear.qmd:9395-11860; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from global-nonlinear.qmd:9395-11860; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## C.4.7. Nonlinear training near the fitted tanh reference {#sec-docs-global-nonlinear-l8978}
 
@@ -6069,7 +6069,7 @@ nonlinear statement takes width first for each fixed contamination law
 and fixed positive $\epsilon$, and asserts no simultaneous $\epsilon$/width
 rate or uniform finite failure probability over all laws.
 
-<!-- moved verbatim from special-data-limits.qmd:29504-30007; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:29504-30007; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## F. Order-one Gaussian readout: a global two-hidden-layer theorem {#sec-docs-special-data-limits-l26290}
 

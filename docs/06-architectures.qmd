@@ -2,7 +2,7 @@
 
 Different architectures lead to different operator, characteristic and particle descriptions. Shallow, linear and residual models are presented as distinct mathematical contracts rather than as interchangeable approximations of one architecture.
 
-<!-- moved verbatim from linear-dynamics.qmd:1363-1754; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from linear-dynamics.qmd:1363-1754; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 8. Comparison: the shallow characteristic population {#sec-docs-linear-dynamics-l1357}
 
@@ -396,7 +396,7 @@ an individual mark has been assumed. $\square$
 
 :::
 
-<!-- moved verbatim from linear-dynamics.qmd:1918-2237; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from linear-dynamics.qmd:1918-2237; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 10. Every separately fixed hidden linear depth in physical time {#sec-docs-linear-dynamics-l1895}
 
@@ -718,7 +718,7 @@ for the limiting increment. $\square$
 
 :::
 
-<!-- moved verbatim from continuous-depth.qmd:1-1201; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from continuous-depth.qmd:1-1201; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Continuous depth and dense residual models {#sec-docs-continuous-depth-l1}
 
@@ -1921,7 +1921,7 @@ raw weights generally also violate A1 or A2. Extending the global result
 to those parameterizations would require additional propagated moment or
 coercivity estimates and an appropriate weighted transport metric.
 
-<!-- moved verbatim from continuous-depth.qmd:1400-1417; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from continuous-depth.qmd:1400-1417; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 13. Scope of the established conclusions {#sec-docs-continuous-depth-l1487}
 
@@ -1941,7 +1941,7 @@ width/depth limit follows from Sections [1](06-architectures.qmd#sec-docs-contin
 remains a separate benchmark and cannot substitute for the correlated
 dense feature-learning architecture or its theorem.
 
-<!-- moved verbatim from continuous-depth.qmd:1418-1772; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from continuous-depth.qmd:1418-1772; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 14. Exact dense residual-network identities and response tails {#sec-docs-continuous-depth-l1505}
 
@@ -2298,7 +2298,7 @@ an autonomous response approximation would require control of those changes
 and of their full nonlinear feedback. The identities and supplied-trajectory
 tail estimates do not provide that theorem, fitting, or nonlazy limit claims.
 
-<!-- moved verbatim from continuous-depth.qmd:1773-2370; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from continuous-depth.qmd:1773-2370; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 15. Global training flow for a coherent dense residual kernel {#sec-docs-continuous-depth-l1886}
 

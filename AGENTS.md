@@ -18,11 +18,21 @@ continuation is unclear, default to a new study.
 Read-only tasks, scoped subagents and isolated reviewers retain their
 existing scope rules.
 
+The established scientific book is the Quarto edition under `docs/`. Its entry
+point is `docs/index.qmd`, and its global notation contract is
+`docs/notation.qmd`. Treat this edition as the maintained authority. The
+pre-Quarto book under `old_docs/` is a frozen diagnostic archive, not an
+alternative source: do not read or search it by default. Only when a specific
+current passage is ambiguous, apparently corrupted, or has a broken reference
+may a task report that defect and inspect the minimum corresponding passage in
+`old_docs/`. Do not silently substitute archived wording for current material;
+repair or escalate the current book instead.
+
 Before acting, select the appropriate reading scope:
 
 - **Research:** read Part 1 of `RESEARCH_WORKFLOW.md` and your study's README.
   Read complete relevant sources and corrections within the study boundary below.
-  Read `docs/README.md` and `docs/NOTATION.md` for scientific work, and
+  Read `docs/index.qmd` and `docs/notation.qmd` for scientific work, and
   `code/README.md` when using or changing maintained APIs.
 - **Promotion:** also read Part 2 of `RESEARCH_WORKFLOW.md` completely.
 - **Repository maintenance:** read the workflow and use only the assigned shared
@@ -40,6 +50,7 @@ Before acting, select the appropriate reading scope:
 
 Each study's repository research inputs are its own artifacts and generated data,
 and the established `docs/` and `code/` with their designated reproduction inputs.
+`old_docs/` is excluded except for the narrow diagnostic fallback above.
 Do not read or search other studies, or obtain their research through links,
 chats, summaries, Git history, or other agents. Shared instructions, required
 skills, and metadata-only coordination remain available. See Part 1 for scoped

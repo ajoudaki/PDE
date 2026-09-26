@@ -4,7 +4,8 @@
 The input is the complete, linearly migrated book.  The manifest partitions each
 scientific source exactly once.  This program moves those frozen chunks, adjusts
 only Markdown heading depth, rewrites file-qualified internal links from stable
-target IDs, and adds chapter wrappers.  It does not alter mathematical payloads.
+target IDs, repairs recorded stale source-filename mentions, and adds chapter
+wrappers.  It does not alter mathematical payloads.
 """
 
 from __future__ import annotations
@@ -22,7 +23,7 @@ from typing import Iterable
 
 HERE = Path(__file__).resolve().parent
 DEFAULT_MANIFEST = HERE / "book_reorganization.json"
-DEFAULT_LOGICAL_ROOT = HERE.parents[1] / "new_doc"
+DEFAULT_LOGICAL_ROOT = HERE.parents[1] / "docs"
 
 ID_RE = re.compile(r"\{#([A-Za-z][A-Za-z0-9_.:-]*)")
 HEADING_RE = re.compile(r"^(#{1,6})([ \t]+)(.*?)(\r?\n)?$")
@@ -403,7 +404,7 @@ def validate_output(
                         target_file = Path(base).name
                     elif base.startswith("../"):
                         # Generated candidates may live below data/generated, but
-                        # repository links are authored for the final new_doc/
+                        # repository links are authored for the final docs/
                         # location.  Validate against that logical location.
                         resolved = (logical_root / base).resolve()
                         if not resolved.exists():
@@ -569,7 +570,8 @@ def build(
             chunk = chunks[key]
             pieces.append(
                 f"<!-- moved verbatim from {chunk.source}:{chunk.start_line}-{chunk.end_line}; "
-                f"only heading depth and internal link destinations may differ -->\n\n"
+                f"only heading depth, internal link destinations and recorded stale "
+                f"source-name repairs may differ -->\n\n"
                 f"{transformed_chunks[key].rstrip()}"
             )
         generated[chapter["file"]] = "\n\n".join(pieces) + "\n"
@@ -583,7 +585,23 @@ def build(
         )
         generated[name] = rewritten
         rewritten_total += count
-        (output_dir / name).write_text(rewritten, encoding="utf-8")
+
+    relocation_repairs = 0
+    for repair in manifest.get("relocation_repairs", []):
+        name = repair["file"]
+        if name not in generated:
+            raise ReorganizationError(f"relocation repair names unknown file: {name}")
+        observed = generated[name].count(repair["old"])
+        if observed != repair["count"]:
+            raise ReorganizationError(
+                f"{name}: relocation repair expected {repair['count']} matches, "
+                f"found {observed}: {repair['old']!r}"
+            )
+        generated[name] = generated[name].replace(repair["old"], repair["new"])
+        relocation_repairs += observed
+
+    for name, text in generated.items():
+        (output_dir / name).write_text(text, encoding="utf-8")
 
     for support in ("references.bib", "pdf_breakable_tables.lua"):
         source = source_dir / support
@@ -594,6 +612,7 @@ def build(
 
     checks = validate_output(output_dir, logical_root, old_ids, manifest, expected_qmd)
     checks["rewritten_internal_links"] = rewritten_total
+    checks["relocation_repairs"] = relocation_repairs
     output_state = []
     for path in sorted(output_dir.iterdir()):
         if path.is_file():

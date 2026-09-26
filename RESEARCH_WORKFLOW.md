@@ -8,6 +8,12 @@ the study-selection rule in AGENTS.md.
 A task may coordinate several studies through separate research contexts;
 several tasks may share one. Study boundaries also apply to read-only research.
 
+The maintained theorem book is the Quarto project under `docs/`, beginning at
+`docs/index.qmd` and using `docs/notation.qmd`. The frozen pre-Quarto edition in
+`old_docs/` is not a routine research input. Use it only after reporting a
+specific ambiguity, corruption or broken reference in the current edition, and
+inspect only the corresponding archived passage needed to diagnose that defect.
+
 ## Part 1: conduct and internally check a study
 
 ### Start and keep one useful record
@@ -37,6 +43,8 @@ structured packet format; its extra records/checks are not prerequisites for res
 A study may use its own source/evidence and generated namespace, the established
 `docs/` and `code/`, and their designated reproduction inputs. Other studies are
 not research inputs, even if linked, apparently relevant, or internally checked.
+The archived `old_docs/` is likewise unavailable except for the diagnostic
+fallback stated above; it cannot replace the maintained book in an argument.
 Do not retrieve their contents through searches, chats, session logs, Git history,
 copied summaries, or another agent. Required instructions/skills and metadata-only
 checks for directory selection, file ownership and Git safety remain available.
@@ -152,6 +160,11 @@ These are scientific requirements, not a requirement for particular JSON forms.
    the result compares it with current book/code coverage. Record distinct value,
    useful scope, duplication, assumptions, maintenance cost and the smallest suitable
    destination. Accept for assembly, merge, narrow, hold for a named gap, or decline.
+   For book material, name the intended part and chapter before assembly. Preserve
+   the book's conceptual arc and chapter-level messages: use an existing section
+   when it naturally belongs there, create a chapter only for a distinct substantial
+   message, and create a part only for a substantial new conceptual component.
+   Placement and proportion are part of the promotion decision, not cleanup after it.
    Exact identities, useful conditional results and scoped obstructions can qualify
    without solving global dynamics. Reject vacuous/oracle assumptions, invalid
    arguments and additions too weak or remote to justify inclusion; retain the
@@ -166,6 +179,18 @@ These are scientific requirements, not a requirement for particular JSON forms.
    Maintained material must work without studies, chats, temporary files, historical
    verdicts or archived arrays. Empirical additions need maintained generation and
    analysis commands, inputs/configurations and a reproduction recipe.
+
+   Book candidates use the existing Quarto `.qmd` structure and
+   `docs/references.bib`. Use stable descriptive identifiers and native cross-references:
+   `sec-` for sections, `eq-` for equations, `thm-`, `lem-`, `prp-`, `cor-`,
+   `def-` and `rem-` for formal statements, and `proof-` for proof anchors. Statements
+   use Quarto fenced theorem-style divisions, proofs use `::: {.proof}`, equations use
+   labelled display blocks, and references/citations use their identifiers or BibTeX
+   keys rather than manually maintained numbers. Follow the nearest established
+   example for exact syntax and render it in the assembled edition. Use the global
+   notation in `docs/notation.qmd`; introduce or change shared notation there only
+   when necessary and include that change in the reviewed candidate. Do not create a
+   local conflicting notation dialect merely to avoid updating the contract.
 
 3. **Two fresh complete adversarial reviews.** Freeze the complete candidate and
    dependency inputs; retain the exact neutral assignment, file hashes and all
@@ -195,6 +220,10 @@ These are scientific requirements, not a requirement for particular JSON forms.
 4. **Validate the proposed edition.** Assemble the final draft with full dependencies
    in a standalone workspace. Test it without studies/history/retained outputs:
    run relevant deterministic tests, guide examples, imports, links and fragments.
+   For book changes, render the complete Quarto project to HTML and PDF and export
+   editable LaTeX; reject broken targets, unresolved references or citations,
+   duplicate identifiers, malformed formal environments and navigation that damages
+   the agreed part/chapter structure.
    Independently reproduce empirical conclusions through maintained producer and
    analysis commands into fresh `data/established/<run>/` within that workspace.
    Record exact inputs, environment, commands, outputs and limitations; unavailable
@@ -223,3 +252,6 @@ These are scientific requirements, not a requirement for particular JSON forms.
    do not silently expand an approved scope. Update the study README with the exact
    incorporated scope and evidence links, or specific exclusions/gaps. Keep original
    reports and hashes as review evidence; no extra administrative ledger is required.
+   Recheck that final placement, headings, formal environments, cross-references and
+   canonical notation match the reviewed Quarto edition; never append promoted
+   material to a convenient file if that degrades the book's conceptual organization.

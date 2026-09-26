@@ -2,7 +2,7 @@
 
 The parameterization, initialization and training metric determine the geometry of the evolving network. This chapter collects the exact finite identities, initialized representation geometry, tangent geometry, curvature, and model-specific reductions used by the later population and learning results.
 
-<!-- moved verbatim from finite-dynamics.qmd:1-1253; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from finite-dynamics.qmd:1-1253; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## Exact finite dynamics and the energy estimate {#sec-docs-finite-dynamics-l1}
 
@@ -27,7 +27,7 @@ retain their distinct scopes.
 ### 1. Model and learning metric {#sec-docs-finite-dynamics-l21}
 
 Fix positive integers $L,m,d,n$, data $(x_a,y_a)$ for $1\le a\le m$, and positive
-constants $\kappa_1,\ldots,\kappa_{L+1}$. Use the forward equations in NOTATION.md and
+constants $\kappa_1,\ldots,\kappa_{L+1}$. Use the forward equations in the [notation contract](notation.qmd#sec-docs-notation-l1) and
 the mean squared loss
 
 $$
@@ -200,7 +200,7 @@ Cauchy–Schwarz in each pairing in ([-@eq-docs-finite-dynamics-l84]) proves the
 depth is fixed; this argument supplies no depth-uniform constants.
 
 These initial bounds hold with probability tending to one for the independent
-Gaussian initialization in NOTATION.md. First-block squared RMS is a sum of
+Gaussian initialization in the [notation contract](notation.qmd#sec-docs-notation-l1). First-block squared RMS is a sum of
 $nd$ Gaussian squares divided by $n$ and tends to $d$ by the elementary law
 of large numbers; stored-readout squared RMS tends to zero. For a middle
 matrix, a $1/4$-net of the unit sphere has at most $9^n$ points, by disjoint
@@ -1258,7 +1258,7 @@ population flow or its loss law uniquely. Conversely, the reached classical
 obstruction does not preclude continuous scalar Euler subsequences. Neither
 statement resolves the fully trained quadratic arbitrary-step problem.
 
-<!-- moved verbatim from special-data-limits.qmd:8958-10243; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:8958-10243; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## V. Initialization geometry: fixed mixtures and calibrated depth limits {#sec-docs-special-data-limits-l7982}
 
@@ -2546,7 +2546,7 @@ feature motion, or fitting. The Gaussian recursion and its cancellation
 identities are justified by fresh independent Gaussian initialization;
 they are not recursions for trained non-Gaussian laws.
 
-<!-- moved verbatim from special-data-limits.qmd:26944-27125; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from special-data-limits.qmd:26944-27125; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## B. Sin-plus-cosine initialization and exact initial coefficient geometry {#sec-docs-special-data-limits-l24007}
 
@@ -2730,7 +2730,7 @@ This disproves that estimate, not a continuous-time limit theorem.
 The broader local construction, when applied with its own hypotheses,
 has its own independent proof; it does not validate this rejected estimate.
 
-<!-- moved verbatim from finite-optimization-and-controls.qmd:2780-3762; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from finite-optimization-and-controls.qmd:2780-3762; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## 14. Exact tangent geometry and a reached signed-Hessian obstruction {#sec-docs-finite-optimization-and-controls-l2410}
 
@@ -3714,7 +3714,7 @@ entropy bound, a response covariance estimate, or control of an adaptive
 Gaussian query. Those require estimates beyond the full tangent-volume
 bound proved here.
 
-<!-- moved verbatim from finite-optimization-and-controls.qmd:4155-4685; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from finite-optimization-and-controls.qmd:4155-4685; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## I. Initial Gaussian middle curvature {#sec-docs-finite-optimization-and-controls-l3785}
 
@@ -4246,7 +4246,7 @@ explicit projection correction and empirical averages were passed to
 their limits. No central limit approximation or independence assertion
 for the original finite coordinate pairs is involved. $\square$
 
-<!-- moved verbatim from finite-optimization-and-controls.qmd:4686-5160; only heading depth and internal link destinations may differ -->
+<!-- moved verbatim from finite-optimization-and-controls.qmd:4686-5160; only heading depth, internal link destinations and recorded stale source-name repairs may differ -->
 
 ## C. Positive middle curvature at small feature times {#sec-docs-finite-optimization-and-controls-l4257}
 

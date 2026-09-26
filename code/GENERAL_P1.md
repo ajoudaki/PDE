@@ -1,7 +1,7 @@
 # General-dimensional p=1 and optional Torch computation
 
 This independent first-order specialization and supplied-state backend accompany
-[the complete coefficient and finite-equation proof](../docs/observable_p1.md).
+[the complete coefficient and finite-equation proof](../docs/07-observable-closure.qmd#sec-docs-observable-p1-l1).
 Use Python 3.10+ and NumPy; tensor operations additionally require PyTorch.
 Ordinary `import pde` stays NumPy-only. Import the optional tensor modules
 explicitly. Validation used NumPy 1.26.4 and Torch 2.9.0+cu130; other versions

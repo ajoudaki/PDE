@@ -6,7 +6,7 @@ described below. The established Markdown book under `docs/` and the publishing
 code remain unchanged.
 
 **Current phase (2026-09-26): conceptual reorganization complete.** The migrated
-edition under `new_doc/` now has three substantive parts and fourteen chapters:
+edition, now maintained under `docs/`, has three substantive parts and fourteen chapters:
 population dynamics, observable closure and approximation theory, and nonlinear
 learning and inductive bias. Front matter contains the philosophy, reading map
 and notation; the strategic roadmap closes the book. No exploratory study was
@@ -14,12 +14,14 @@ promoted during this structural change.
 
 [`book_reorganization.json`](book_reorganization.json) assigns 89 complete,
 stably labelled source units exactly once. [`reorganize_book.py`](reorganize_book.py)
-assembles them deterministically, changes only heading depth and internal link
-destinations inside those units, and adds the chapter wrappers. All 4,929 prior
+assembles them deterministically, changes only heading depth, internal link
+destinations and recorded stale source-filename mentions inside those units, and
+adds the chapter wrappers. All 4,929 prior
 targets are preserved and 653 file-qualified links are redirected. Exact
 inventories confirm preservation of all 5,798 display-math payloads, 26,321
 inline-math payloads and six fenced code blocks. Two independent builds and one
-fresh build from `docs/` reproduce the same 20 source/support files byte-for-byte.
+fresh build from the archived Markdown reproduce the same 20 source/support files
+byte-for-byte.
 
 The final publishing evidence is under
 `data/generated/quarto_capability_pilot_20260921/reorganization_final01/`.
@@ -45,8 +47,9 @@ The source and output must differ. To reproduce the full chain, first invoke
 depth preserves the final edition's `../code/...` link contract.
 
 **Migration baseline (2026-09-25): deterministic migration finalized.**
-`migration.py` now reads the eleven maintained theory chapters under `docs/`
-and writes the separate candidate under `new_doc/`. The implementation guide
+`migration.py` originally read the eleven pre-Quarto theory chapters and wrote
+the separate candidate under `new_doc/`; those trees now live under `old_docs/`
+and `docs/`, respectively. The implementation guide
 under `code/` is not a book chapter and is not migrated. The program itself
 invokes no model or renderer. The old book and code documentation are unchanged.
 
@@ -72,7 +75,7 @@ links. The 27 originally ambiguous references and five additional equation
 ranges have reviewed exact mappings. A reference/math separation check recovered
 35 references that earlier formula spans had hidden and now rejects any such
 overlap. The six literature links retain their original destinations and also
-carry verified citation keys backed by six entries in `new_doc/references.bib`.
+carry verified citation keys backed by six entries in `docs/references.bib`.
 
 The build reports zero unresolved math, references, links, or equations. Checks
 cover all 7,457 exact applications, every target and reference, source hashes,
@@ -307,8 +310,9 @@ those checks change reporting only, not rendering or verification commands.
 The user authorized a separate candidate edition with Terra 5.6 as the base
 migration worker and Astra design/verification. This continues the same publishing
 investigation. Scope is the existing chapter's first 907 lines, through original
-Section 4. The maintained source stays in `docs/linear_dynamics.md`; the candidate
-is `pilot_linear.qmd` in this study, not in the established book.
+Section 4. At that checkpoint the source stayed in `docs/linear_dynamics.md`;
+that frozen source is now `old_docs/linear_dynamics.md`. The candidate is
+`pilot_linear.qmd` in this study, not in the established book.
 
 - `pilot_policy.md`: minimal isolated-packet and fault-recovery policy; complete
   pilot review, later 10% random section sampling plus targeted checks.
