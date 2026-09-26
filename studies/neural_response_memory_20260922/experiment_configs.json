@@ -380,6 +380,80 @@
           "path": "../../data/generated/neural_response_memory_20260922/mnist100_data01/prepared.npz"
         }
       ]
+    },
+    "additional_methods": {
+      "model": {
+        "width": 2048,
+        "depth": 2,
+        "activation": "tanh",
+        "seed": 20260920,
+        "hidden_gain": 1.0,
+        "readout_std": null,
+        "dtype": "float32"
+      },
+      "optimizer": {
+        "step": 0.0009765625,
+        "target_rms": 0.05,
+        "max_seconds": 12.0,
+        "max_steps": 60000,
+        "block": 8
+      },
+      "device": "cuda:0",
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        },
+        {
+          "kind": "trainable_dictionary",
+          "basis": "dictionary_flow",
+          "order": 3
+        },
+        {
+          "kind": "low_rank",
+          "rank": 12
+        },
+        {
+          "kind": "weighted_closure",
+          "order": 1,
+          "clock": "response"
+        },
+        {
+          "kind": "weighted_closure",
+          "order": 2,
+          "clock": "response"
+        },
+        {
+          "kind": "weighted_closure",
+          "order": 3,
+          "clock": "response"
+        }
+      ],
+      "datasets": [
+        {
+          "name": "two_outliers_alternating",
+          "kind": "circle",
+          "case": "two_outliers_alternating",
+          "queries": 8192
+        },
+        {
+          "name": "quadrant_alternating",
+          "kind": "circle",
+          "case": "quadrant_alternating",
+          "queries": 8192
+        }
+      ]
     }
   }
 }
