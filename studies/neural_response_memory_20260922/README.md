@@ -1,5 +1,27 @@
 # Evolving response states for neural memory
 
+## Current code entry points (2026-09-26)
+
+Use [compact_flow.py](compact_flow.py) for the shared dense/Legendre-closure
+engine and [run_compact_flow.py](run_compact_flow.py) for arbitrary supplied
+datasets, model configuration and RMS reporting. Run
+`python -B studies/neural_response_memory_20260922/check_compact_flow.py` for
+the standalone CPU equation checks. The current runner uses no normalization.
+See [CANONICAL_FLOW.md](CANONICAL_FLOW.md) for commands, the code consolidation,
+historical source retrieval and the proposed Markdown cleanup.
+
+Rollback checkpoint before cleanup:
+`87cade22a12323227d076e92f8801a1bdb7c21c0` (all 157 pending non-ignored files).
+The active study now has two dense/closure runtime files, one standalone test,
+and 18 unchanged scalar-research files. The other 65 Python scripts are retained
+at that Git revision. **Older commands and source references below refer to
+historical versions**, not additional current entry points. Saved results and
+scientific reports remain in place. The numerical engine is unchanged; code
+consolidation does not solve the remaining fitting limitations documented in
+[CANONICAL_UNNORMALIZED_RESULTS.md](CANONICAL_UNNORMALIZED_RESULTS.md).
+
+## Research history
+
 New theory-only study, 2026-09-22. The user discards trainable dictionaries and
 asks whether neuron forward/backward histories admit a small evolving state,
 analogous to position and velocity, capable of saturation and compatible with

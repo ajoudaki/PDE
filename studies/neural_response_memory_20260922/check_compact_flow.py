@@ -1,8 +1,7 @@
-"""Small CPU verification; run with python -B check_compact_flow.py."""
+"""Standalone CPU equation checks; run with python -B check_compact_flow.py."""
 import torch
 
 from compact_flow import Flow
-from activation_moment_engine import ActivationDenseEngine, ActivationMomentEngine
 
 
 def main():
@@ -23,31 +22,6 @@ def main():
     def make(depth, activation, order=None):
         return Flow(inputs, labels, width=7, depth=depth, activation=activation,
                     order=order, seed=773, device='cpu', dtype=torch.float64)
-
-    # Same initialization and evolving physical/moment coordinates as the
-    # established three-layer implementation, with three simultaneous steps.
-    for activation in ('relu', 'gelu', 'selu'):
-        for order in (None, 1, 2, 3):
-            new = make(3, activation, order)
-            arguments = (2, 7, inputs, labels) if order is None else (2, 7, order, inputs, labels)
-            kind = ActivationDenseEngine if order is None else ActivationMomentEngine
-            old = kind(*arguments, activation=activation, seed=773, device='cpu', dtype=torch.float64)
-            state = old.initial_state()
-            assert len(new.state) == len(state.tensors())
-            for index in range(4):
-                for actual, expected in zip(new.state, state.tensors()):
-                    assert actual.dtype == torch.float64 and actual.device.type == 'cpu'
-                    close(actual, expected)
-                close(new.predict(inputs), old.predict(state, inputs))
-                before = [value.clone() for value in new.state]
-                velocity, reference = new.rhs(), old.rhs(state)
-                for actual, expected in zip(velocity, reference.tensors()):
-                    close(actual, expected)
-                for actual, expected in zip(new.state, before):
-                    close(actual, expected)
-                if index < 3:
-                    new.step(.0003)
-                    state = state.add_scaled(reference, .0003)
 
     custom = (lambda z: torch.tanh(z) + .05 * z,
               lambda z: 1 - torch.tanh(z).square() + .05)
@@ -107,13 +81,35 @@ def main():
                              device='cpu',dtype=torch.float64)
                 close(closure.predict(x3),model.predict(x3))
                 for _ in range(2):closure.step(.00001)
-                h=phi(closure.w@x3.T)
+                # Reconstruct full physical matrices, then use autograd for
+                # neuron responses: independent of factor actions/manual backprop.
+                w=closure.w.clone().requires_grad_(True)
+                c=closure.c.clone().requires_grad_(True)
+                zs=[w@x3.T]; hs=[phi(zs[0])]
                 for i,matrix in enumerate(closure.matrices):
                     A,B=closure.moments[2*i:2*i+2]
                     correction=sum((2*k+1)*(A[k]@B[k].T) for k in range(order))
                     W=matrix-2*correction/(closure.M*closure.n*(1+closure.s))
-                    h=phi(W@h)
-                close(closure.predict(x3),closure.c@h/closure.n)
+                    zs.append(W@hs[-1]);hs.append(phi(zs[-1]))
+                pred=c@hs[-1]/closure.n
+                close(closure.predict(x3),pred.detach())
+                residual=pred-labels;rho=residual.square().mean().sqrt().detach()
+                gw,gc=torch.autograd.grad(residual.square().mean(),(w,c),retain_graph=True)
+                delta=[d.detach()*closure.n for d in torch.autograd.grad(pred.sum(),zs)]
+                before=[v.clone() for v in closure.state];velocity=closure.rhs()
+                close(velocity[0],-closure.n*gw);close(velocity[1],-closure.n*gc)
+                close(velocity[-1],rho)
+                transport=torch.tensor([[k if j==k else 2*j+1 if j<k else 0
+                                         for j in range(order)] for k in range(order)],dtype=torch.float64)
+                for i in range(depth-1):
+                    sources=(delta[i+1]*residual.detach(),rho*hs[i].detach())
+                    for j,source in enumerate(sources):
+                        moment=closure.moments[2*i+j]
+                        expected=source[None]-rho/(1+closure.s)*torch.einsum('pq,qnm->pnm',transport,moment)
+                        close(velocity[2+2*i+j],expected)
+                for actual,old in zip(closure.state,before):close(actual,old)
+                closure.step(.00001)
+                for actual,old,v in zip(closure.state,before,velocity):close(actual,old+.00001*v)
     print(f'PASS: {checks} CPU assertions; max absolute discrepancy {maximum:.3g}')
 
 

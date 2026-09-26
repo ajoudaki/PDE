@@ -4,6 +4,7 @@ Data NPZ keys: inputs (M,d), labels (M,), test_inputs (Q,d), optionally
 test_labels (Q,). The same supplied configuration is used for every file.
 """
 import argparse
+import csv
 import hashlib
 import json
 import os
@@ -19,10 +20,55 @@ import torch
 from compact_flow import Flow
 
 
+def rms(value):
+    value=float(np.sqrt(np.mean(np.asarray(value,dtype=np.float64)**2)))
+    return value if np.isfinite(value) else None
+
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def summarize(root):
+    """Rescore this runner's saved predictions; no fitting or dataset assumptions."""
+    config=json.loads((root/'config.json').read_text())['config']
+    rows=[]
+    for folder in sorted(p.parent for p in root.glob('*/data.npz')):
+        with np.load(folder/'data.npz') as d: data={k:d[k].copy() for k in d.files}
+        records={}
+        for path in sorted(folder.glob('*.json')):
+            record=json.loads(path.read_text()); name=record['model']
+            if record['config']!=config or record['data_sha256']!=sha(folder/'data.npz'):
+                raise ValueError(f'Mismatched configuration or data: {path}')
+            if record['predictions_sha256']!=sha(folder/(name+'.npz')):
+                raise ValueError(f'Changed predictions: {path}')
+            with np.load(folder/(name+'.npz')) as d:
+                records[name]=(record,d['prediction'].copy(),d['test_prediction'].copy())
+        dense=records.get('dense')
+        dense_train=rms(dense[1]-data['labels']) if dense is not None else None
+        for name,(record,pred,curve) in records.items():
+            train=rms(pred-data['labels'])
+            rows.append(dict(data=folder.name,model=name,train_rms=train,dense_train_rms=dense_train,
+                             test_rms_vs_dense=rms(curve-dense[2]) if dense is not None else None,
+                             test_rms_vs_target=rms(curve-data['test_labels']) if 'test_labels' in data else None,
+                             fitted_pair=all(v is not None and v<=config['target_rms'] for v in (train,dense_train)),
+                             status=record['fit']['status']))
+    if not rows: raise ValueError('No saved model records found')
+    with (root/'rms.csv').open('w',newline='') as f:
+        writer=csv.DictWriter(f,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
+    fmt=lambda v:'—' if v is None else f'{v:.6f}'
+    print('| Data | Model | Train RMS | Test RMS vs dense | Both fitted |')
+    print('|---|---|---:|---:|---|')
+    for r in rows:
+        print(f"| {r['data']} | {r['model']} | {fmt(r['train_rms'])} | {fmt(r['test_rms_vs_dense'])} | {r['fitted_pair']} |")
+    return rows
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--data',type=Path,nargs='+',required=True)
-    p.add_argument('--out',type=Path,required=True)
+    p.add_argument('--data',type=Path,nargs='+')
+    p.add_argument('--out',type=Path)
+    p.add_argument('--summarize',type=Path,help='Rescore an existing run and write rms.csv; no training')
     p.add_argument('--device',default='cuda:0')
     p.add_argument('--width',type=int,default=2048)
     p.add_argument('--depth',type=int,default=3)
@@ -36,6 +82,10 @@ def main():
     p.add_argument('--hidden-gain',default='1',help='A positive number or unit_moment; initialization only')
     p.add_argument('--readout-std',type=float,default=None)
     a=p.parse_args()
+    if a.summarize is not None:
+        if a.data is not None or a.out is not None:p.error('--summarize cannot be combined with --data/--out')
+        summarize(a.summarize);return
+    if not a.data or a.out is None:p.error('Training requires --data and --out')
     if len(set(a.orders))!=len(a.orders) or any(v<0 for v in a.orders):p.error('Use distinct nonnegative orders')
     if len({v.stem for v in a.data})!=len(a.data):p.error('Data filenames must have distinct stems')
     gain=a.hidden_gain if a.hidden_gain=='unit_moment' else float(a.hidden_gain)
@@ -43,7 +93,6 @@ def main():
     if torch.device(a.device).type=='cuda':torch.cuda.set_device(a.device)
     a.out.mkdir(parents=True,exist_ok=False)
     here=Path(__file__).resolve().parent
-    sha=lambda path:hashlib.sha256(path.read_bytes()).hexdigest()
     config=dict(width=a.width,depth=a.depth,activation=a.activation,normalization='none',
                 seed=a.seed,dtype='float32',step=a.step,target_rms=a.target_rms,
                 max_seconds=a.seconds,max_steps=a.max_steps,block=8,hidden_gain=gain,
@@ -54,9 +103,6 @@ def main():
               torch=torch.__version__,numpy=np.__version__,device=a.device,
               gpu=torch.cuda.get_device_name(a.device) if torch.device(a.device).type=='cuda' else None)
     (a.out/'config.json').write_text(json.dumps(meta,indent=2)+'\n')
-    def rms(value):
-        value=float(np.sqrt(np.mean(np.asarray(value,dtype=np.float64)**2)))
-        return value if np.isfinite(value) else None
     for source in a.data:
         with np.load(source) as d: data={k:d[k].copy() for k in d.files}
         x,y,query=(data[k] for k in ['inputs','labels','test_inputs'])
@@ -82,6 +128,7 @@ def main():
             (folder/(name+'.json')).write_text(json.dumps(record,indent=2,allow_nan=False)+'\n')
             print(json.dumps(dict(data=source.stem,**{k:record[k] for k in ['model','train_rms','test_rms_vs_dense','total_seconds']},status=fit['status'])),flush=True)
             del model
+    summarize(a.out)
 
 
 if __name__=='__main__':main()
