@@ -192,15 +192,16 @@ class Flow:
                             -u*(u*gradient).mean(dim=0, keepdim=True))
         return gradient if self.normalization == "before" else d*gradient
 
-    def _forward(self, inputs, factors, derivatives=False, w=None, apply=None):
-        hidden, slopes = [], []
+    def _forward(self, inputs, factors, derivatives=False, w=None, apply=None, details=False):
+        hidden, slopes, preactivations = [], [], []
         z = (self.w if w is None else w)@inputs.T
         for i, spec in enumerate(self.activations):
             if i: z = self._apply(i-1, hidden[-1], factors) if apply is None else apply(i-1, hidden[-1])
             h, cache = self._layer(spec,z,derivatives)
             if derivatives: slopes.append(cache)
+            if details: preactivations.append(z)
             hidden.append(h)
-        return hidden, slopes
+        return (hidden,slopes,preactivations) if details else (hidden,slopes)
 
     @torch.no_grad()
     def predict(self, inputs):
@@ -216,17 +217,22 @@ class Flow:
         return source[None]-(rho/(1+self.s))*(self.degrees*moments+lower)
 
     @torch.no_grad()
-    def _fields(self, w=None, c=None, factors=None, apply=None):
+    def _fields(self, w=None, c=None, factors=None, apply=None, details=False):
         factors = self._factors() if factors is None else factors
         c = self.c if c is None else c
-        hidden, slopes = self._forward(self.inputs,factors,True,w,apply)
+        forward = self._forward(self.inputs,factors,True,w,apply,details)
+        hidden, slopes = forward[:2]
         residual = c@hidden[-1]/self.n-self.labels
         delta = [None]*self.depth
+        backs = [None]*self.depth
+        backs[-1] = c[:,None]
         delta[-1] = self._backward_layer(slopes[-1],c[:,None])
         for i in range(self.depth-2,-1,-1):
             back = self._apply(i,delta[i+1],factors,True) if apply is None else apply(i,delta[i+1],True)
+            if details: backs[i] = back
             delta[i] = self._backward_layer(slopes[i],back)
-        return hidden, delta, residual
+        result = (hidden,delta,residual)
+        return (*result,(forward[2],slopes,backs)) if details else result
 
     @torch.no_grad()
     def rhs(self):
@@ -460,7 +466,7 @@ class WeightedFlow(Flow):
 
     def _weighted_terms(self):
         factors = self._factors()
-        hidden,delta,residual = self._fields(factors=factors)
+        hidden,delta,residual,details = self._fields(factors=factors,details=True)
         self.loss = residual.square().mean();rho = self.loss.sqrt()
         dw=(-2/self.M)*(delta[0]*residual)@self.inputs
         dc=(-2/self.M)*(hidden[-1]@residual)
@@ -473,22 +479,50 @@ class WeightedFlow(Flow):
                              torch.cat((hs,hidden[i]-hs),1)))
         g=rho
         if self.clock!='residual' and self.depth>1:
-            # One scalar forward-mode directional derivative of the existing
-            # network traversal. Weight velocities do not depend on this clock.
-            def responses(eps):
-                def apply(i,values,transpose=False):
+            if self.normalization=='none':
+                # Differentiate the cached responses, not a second full primal
+                # traversal. Only activation curvature needs pointwise AD.
+                zs,slopes,backs=details; dh=[];curvature=[]
+                dz=dw@self.inputs.T
+                for i,spec in enumerate(self.activations):
+                    if i:
+                        left,right=velocity[i-1]
+                        dz=self._apply(i-1,dh[-1],factors)+left@(right.T@hidden[i-1])
+                    dh.append(slopes[i]*dz)
+                    curvature.append(torch.func.jvp(lambda z:_activation(spec,z,True)[1],(zs[i],),(dz,))[1] if i else None)
+                dd=[None]*self.depth
+                dd[-1]=slopes[-1]*dc[:,None]+curvature[-1]*self.c[:,None]
+                for i in range(self.depth-2,0,-1):
                     left,right=velocity[i]
-                    if transpose:left,right=right,left
-                    return self._apply(i,values,factors,transpose)+eps*(left@(right.T@values))
-                h,d,r=self._fields(w=self.w+eps*dw,c=self.c+eps*dc,factors=factors,apply=apply)
-                norm=r.square().mean().sqrt()
-                safe=torch.where(norm>0,norm,torch.ones_like(norm))
-                return torch.cat([v.reshape(-1) for i in range(self.depth-1) for v in (h[i],d[i+1]*(r/safe))])
-            zero=self.w.new_zeros(())
-            _,speed=torch.func.jvp(responses,(zero,),(torch.ones_like(zero),))
+                    db=self._apply(i,dd[i+1],factors,True)+right@(left.T@delta[i+1])
+                    dd[i]=slopes[i]*db+curvature[i]*backs[i]
+                dr=(dc@hidden[-1]+self.c@dh[-1])/self.n
+                safe=torch.where(rho>0,rho,torch.ones_like(rho))
+                drho=(residual*dr).mean()/safe
+                du=dr/safe-residual*drho/safe.square()
+                speed=torch.cat([v.reshape(-1) for i in range(self.depth-1) for v in
+                                 (dh[i],dd[i+1]*(residual/safe)+delta[i+1]*du)])
+            else:
+                speed=self._clock_directional_derivative(dw,dc,factors,velocity)
             speed_norm=(speed.square().mean() if self.clock=='response_rms' else speed.square().sum()).sqrt()
             g=rho+torch.where(rho>0,speed_norm,torch.zeros_like(rho))
         return dw,dc,source,rho,g.double(),velocity
+
+    def _clock_directional_derivative(self,dw,dc,factors,velocity):
+        # One scalar forward-mode directional derivative of the existing
+        # traversal for the historical optional normalization API.
+        def responses(eps):
+            def apply(i,values,transpose=False):
+                left,right=velocity[i]
+                if transpose:left,right=right,left
+                return self._apply(i,values,factors,transpose)+eps*(left@(right.T@values))
+            h,d,r=self._fields(w=self.w+eps*dw,c=self.c+eps*dc,factors=factors,apply=apply)
+            norm=r.square().mean().sqrt()
+            safe=torch.where(norm>0,norm,torch.ones_like(norm))
+            return torch.cat([v.reshape(-1) for i in range(self.depth-1) for v in (h[i],d[i+1]*(r/safe))])
+        zero=self.w.new_zeros(())
+        _,speed=torch.func.jvp(responses,(zero,),(torch.ones_like(zero),))
+        return speed
 
     @torch.no_grad()
     def rhs(self):
@@ -1281,7 +1315,7 @@ def method_name(method):
 
 def summarize(root):
     rows = []
-    for folder in sorted(p.parent for p in root.glob('*/data.npz')):
+    for folder in sorted(p.parent for p in root.rglob('data.npz')):
         data = load_npz(folder/'data.npz'); records = []
         for path in sorted(folder.glob('*.json')):
             if path.name == 'provenance.json': continue
@@ -1292,7 +1326,9 @@ def summarize(root):
         for r, train, query in records:
             if reference is not None and r['config'] != reference[0]['config']: raise ValueError('Mismatched dense configuration')
             train_rms = rms(train-data['labels']); dense_rms = rms(reference[1]-data['labels']) if reference else None
-            rows.append(dict(dataset=folder.name, model=r['model'], train_rms=train_rms, dense_train_rms=dense_rms,
+            rows.append(dict(experiment=str(folder.parent.relative_to(root)),dataset=folder.name, model=r['model'],
+                             depth=r['config']['model']['depth'],activation=r['config']['model']['activation'],
+                             train_rms=train_rms,train_fitted=train_rms is not None and train_rms<=r['config']['optimizer']['target_rms'],dense_train_rms=dense_rms,
                              test_rms_vs_dense=rms(query-reference[2]) if reference else None,
                              test_rms_vs_target=rms(query-data['test_labels']) if 'test_labels' in data else None,
                              fitted_pair=all(v is not None and v <= r['config']['optimizer']['target_rms'] for v in (train_rms, dense_rms)),
@@ -1351,6 +1387,7 @@ def run(config, out, base, prepare_only=False):
                           test_rms_vs_target=rms(curve-data['test_labels']) if 'test_labels' in data else None,
                           basis_ranks=[b.shape[1] for b in model.bases] if isinstance(model, FrozenFlow) else None,
                           correction_ranks=[a.shape[1] for a,b in model.factors] if isinstance(model,LowRankFlow) else None,
+                          gram_condition=float(np.linalg.cond(model.G.cpu().numpy())) if isinstance(model,WeightedFlow) and bool(torch.isfinite(model.G).all()) else None,
                           integrator='Euler with exact history-coordinate transport' if isinstance(model,WeightedFlow) else 'simultaneous Euler',
                           data_sha256=sha(folder/'data.npz'), predictions_sha256=sha(file), total_seconds=time.perf_counter()-started)
             write_json(folder/(name+'.json'), record)
