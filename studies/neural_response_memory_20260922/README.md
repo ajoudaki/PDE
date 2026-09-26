@@ -1,5 +1,18 @@
 # Evolving response states for neural memory
 
+## Fast-fitting validation in progress (2026-09-26)
+
+User authorizes practical training validation and minimal generic fixes, with
+one Python implementation, width 2048, no normalization or task-specific model
+changes. Target training RMS <=0.05; 120 seconds is the per-fit ceiling. Initial
+8-second probes use depth10, ReLU/GELU/SELU, 64-sample high-frequency arc and
+sphere tasks, seed20260920, unit-moment hidden gain and stored readout std1.
+Dense, P1/P3 memory, weighted P3, rank64 direct factors and trainable orthogonal
+rank64 dictionaries share step1/128. Configs are `fit_probe_*` in the existing
+catalog. These probes identify numerical/configuration failures before broader
+coverage; capped/failed runs remain evidence, not successes. At most one worker
+per GPU. Artifacts: `data/generated/neural_response_memory_20260922/fast_fit01/`.
+
 ## Current experiment entry point (2026-09-26)
 
 The suite is now **one Python file**, [compact_flow.py](compact_flow.py), with

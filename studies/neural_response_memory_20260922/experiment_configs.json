@@ -454,6 +454,381 @@
           "queries": 8192
         }
       ]
+    },
+    "fit_probe_relu": {
+      "model": {
+        "width": 2048,
+        "depth": 10,
+        "activation": "relu",
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0
+      },
+      "optimizer": {
+        "step": 0.0078125,
+        "target_rms": 0.05,
+        "max_seconds": 8.0,
+        "max_steps": 60000,
+        "block": 8
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        },
+        {
+          "kind": "weighted_closure",
+          "order": 3
+        },
+        {
+          "kind": "low_rank",
+          "rank": 64
+        },
+        {
+          "kind": "trainable_dictionary",
+          "basis": "orthogonal",
+          "ranks": 64
+        }
+      ],
+      "datasets": [
+        {
+          "name": "circle_patch",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 90,
+          "queries": 512
+        },
+        {
+          "name": "sphere_full",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "seed": 20260926,
+          "queries": 512
+        }
+      ],
+      "device": "cuda:0"
+    },
+    "fit_probe_gelu": {
+      "model": {
+        "width": 2048,
+        "depth": 10,
+        "activation": "gelu",
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0
+      },
+      "optimizer": {
+        "step": 0.0078125,
+        "target_rms": 0.05,
+        "max_seconds": 8.0,
+        "max_steps": 60000,
+        "block": 8
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        },
+        {
+          "kind": "weighted_closure",
+          "order": 3
+        },
+        {
+          "kind": "low_rank",
+          "rank": 64
+        },
+        {
+          "kind": "trainable_dictionary",
+          "basis": "orthogonal",
+          "ranks": 64
+        }
+      ],
+      "datasets": [
+        {
+          "name": "circle_patch",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 90,
+          "queries": 512
+        },
+        {
+          "name": "sphere_full",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "seed": 20260926,
+          "queries": 512
+        }
+      ],
+      "device": "cuda:0"
+    },
+    "fit_probe_selu": {
+      "model": {
+        "width": 2048,
+        "depth": 10,
+        "activation": "selu",
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0
+      },
+      "optimizer": {
+        "step": 0.0078125,
+        "target_rms": 0.05,
+        "max_seconds": 8.0,
+        "max_steps": 60000,
+        "block": 8
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        },
+        {
+          "kind": "weighted_closure",
+          "order": 3
+        },
+        {
+          "kind": "low_rank",
+          "rank": 64
+        },
+        {
+          "kind": "trainable_dictionary",
+          "basis": "orthogonal",
+          "ranks": 64
+        }
+      ],
+      "datasets": [
+        {
+          "name": "circle_patch",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 90,
+          "queries": 512
+        },
+        {
+          "name": "sphere_full",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "seed": 20260926,
+          "queries": 512
+        }
+      ],
+      "device": "cuda:0"
+    },
+    "fit_guard_relu": {
+      "model": {
+        "width": 2048,
+        "depth": 10,
+        "activation": "relu",
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0
+      },
+      "optimizer": {
+        "step": 0.0625,
+        "target_rms": 0.05,
+        "max_seconds": 12.0,
+        "max_steps": 60000,
+        "block": 8,
+        "adaptive": true
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        },
+        {
+          "kind": "weighted_closure",
+          "order": 3,
+          "clock": "response_rms"
+        },
+        {
+          "kind": "low_rank",
+          "rank": 64
+        },
+        {
+          "kind": "trainable_dictionary",
+          "basis": "orthogonal",
+          "ranks": 64,
+          "rescale_core": true
+        }
+      ],
+      "datasets": [
+        {
+          "name": "circle_patch",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 90,
+          "queries": 512
+        },
+        {
+          "name": "sphere_full",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "seed": 20260926,
+          "queries": 512
+        }
+      ],
+      "device": "cuda:0"
+    },
+    "fit_guard_gelu": {
+      "model": {
+        "width": 2048,
+        "depth": 10,
+        "activation": "gelu",
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0
+      },
+      "optimizer": {
+        "step": 0.0625,
+        "target_rms": 0.05,
+        "max_seconds": 12.0,
+        "max_steps": 60000,
+        "block": 8,
+        "adaptive": true
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        },
+        {
+          "kind": "weighted_closure",
+          "order": 3,
+          "clock": "response_rms"
+        },
+        {
+          "kind": "low_rank",
+          "rank": 64
+        },
+        {
+          "kind": "trainable_dictionary",
+          "basis": "orthogonal",
+          "ranks": 64,
+          "rescale_core": true
+        }
+      ],
+      "datasets": [
+        {
+          "name": "circle_patch",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 90,
+          "queries": 512
+        },
+        {
+          "name": "sphere_full",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "seed": 20260926,
+          "queries": 512
+        }
+      ],
+      "device": "cuda:0"
+    },
+    "fit_guard_selu": {
+      "model": {
+        "width": 2048,
+        "depth": 10,
+        "activation": "selu",
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0
+      },
+      "optimizer": {
+        "step": 0.0625,
+        "target_rms": 0.05,
+        "max_seconds": 12.0,
+        "max_steps": 60000,
+        "block": 8,
+        "adaptive": true
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        },
+        {
+          "kind": "weighted_closure",
+          "order": 3,
+          "clock": "response_rms"
+        },
+        {
+          "kind": "low_rank",
+          "rank": 64
+        },
+        {
+          "kind": "trainable_dictionary",
+          "basis": "orthogonal",
+          "ranks": 64,
+          "rescale_core": true
+        }
+      ],
+      "datasets": [
+        {
+          "name": "circle_patch",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 90,
+          "queries": 512
+        },
+        {
+          "name": "sphere_full",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "seed": 20260926,
+          "queries": 512
+        }
+      ],
+      "device": "cuda:0"
     }
   }
 }

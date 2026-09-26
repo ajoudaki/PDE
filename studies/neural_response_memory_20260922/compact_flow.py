@@ -33,7 +33,7 @@ from pde.observable_initialization import build_dictionary
 
 MODEL = dict(width=2048, depth=3, activation='relu', seed=20260920,
              hidden_gain=1., readout_std=None, dtype='float32')
-OPTIMIZER = dict(step=.0625, target_rms=.05, max_seconds=60., max_steps=60000, block=8)
+OPTIMIZER = dict(step=.0625, target_rms=.05, max_seconds=60., max_steps=60000, block=8, adaptive=False)
 KINDS = ('dense', 'closure', 'dictionary_old', 'dictionary_flow', 'gaussian', 'orthogonal',
          'trainable_dictionary', 'low_rank', 'weighted_closure')
 OLD_RANKS = {1: (5, 3), 3: (35, 10), 5: (128, 21), 6: (213, 28),
@@ -245,12 +245,14 @@ class Flow:
 
     @torch.no_grad()
     def step(self, dt):
-        if not math.isfinite(dt) or dt <= 0: raise ValueError("Positive finite step required")
+        if not isinstance(dt,torch.Tensor) and (not math.isfinite(dt) or dt <= 0): raise ValueError("Positive finite step required")
         velocities = self.rhs()
-        for value, velocity in zip(self.state,velocities): value.add_(velocity,alpha=dt)
+        for value, velocity in zip(self.state,velocities):
+            if isinstance(dt,torch.Tensor): value.add_(velocity*dt)
+            else: value.add_(velocity,alpha=dt)
 
     @torch.no_grad()
-    def fit(self, step=.0625, target_rms=.05, max_seconds=120., max_steps=20000, block=32):
+    def fit(self, step=.0625, target_rms=.05, max_seconds=120., max_steps=20000, block=32, adaptive=False):
         """Fixed Euler, one host loss read per block; capture time counts in budget.
 
         CUDA captures full updates, restoring all state after warmup/capture.
@@ -261,11 +263,14 @@ class Flow:
         if any(isinstance(v,bool) or not isinstance(v,int) or v < 1 for v in (max_steps,block)):
             raise ValueError("max_steps and block must be positive integers")
         started = time.perf_counter(); updates = 0; capture_seconds = 0.; graph = None
+        rejected=0; physical_time=0.; current_step=step; minimum_step=step
+        dt=self.w.new_tensor(step) if adaptive else step
+        accepted=[v.clone() for v in self.state] if adaptive else None
         loss = lambda: (self.predict(self.inputs)-self.labels).square().mean()
         rms = float(loss().sqrt().cpu())
         length = min(block,max_steps)
         def advance(count):
-            for _ in range(count): self.step(step)
+            for _ in range(count): self.step(dt)
             return loss()
         if self.device.type == "cuda" and math.isfinite(rms) and rms > target_rms:
             capture_start = time.perf_counter()
@@ -295,9 +300,21 @@ class Flow:
             if graph is not None and count == length:
                 graph.replay(); value = captured_loss
             else: value = advance(count)
-            rms = float(value.sqrt().cpu()); updates += count
+            next_rms = float(value.sqrt().cpu())
+            if adaptive and (not math.isfinite(next_rms) or next_rms>1.05*rms):
+                for v,saved in zip(self.state,accepted):v.copy_(saved)
+                current_step*=.5;dt.fill_(current_step);rejected+=1
+                minimum_step=min(minimum_step,current_step)
+                if current_step<step*2**-24:status='step_floor';break
+                continue
+            physical_time+=count*current_step;updates+=count
+            if adaptive:
+                for saved,v in zip(accepted,self.state):saved.copy_(v)
+                if next_rms<rms:current_step=min(step,current_step*1.1);dt.fill_(current_step)
+            rms=next_rms
         return dict(rms=rms,steps=updates,seconds=time.perf_counter()-started,status=status,
-                    physical_time=updates*step,step=step,block=block,dtype=str(self.dtype),
+                    physical_time=physical_time,step=step,block=block,dtype=str(self.dtype),
+                    adaptive=adaptive,rejected_blocks=rejected,minimum_step=minimum_step,final_step=current_step,
                     capture_seconds=capture_seconds,loop_seconds=time.perf_counter()-loop_start,
                     setup_seconds=self.setup_seconds)
 
@@ -312,7 +329,7 @@ class FrozenFlow(Flow):
     """
     @torch.no_grad()
     def __init__(self, inputs, labels, *, kind, order=1, ranks=None, basis_seed=7319,
-                 train_basis=False, **kwargs):
+                 train_basis=False, rescale_core=False, **kwargs):
         started = time.perf_counter()
         if kind in ('dictionary_old', 'dictionary_flow'):
             if (kwargs.get('depth', 3) != 2 or len(np.shape(inputs)) != 2 or np.shape(inputs)[1] != 2
@@ -326,6 +343,9 @@ class FrozenFlow(Flow):
         self.bases = frozen_bases(self.w, self.matrices, self.c, kind, order, ranks, basis_seed)
         self.matrices = [self.bases[i+1].T @ (matrix @ self.bases[i])/self.n
                          for i, matrix in enumerate(self.matrices)]
+        if rescale_core:
+            if kind not in ('gaussian','orthogonal'):raise ValueError('Core rescaling applies only to random bases')
+            for i,core in enumerate(self.matrices):core.mul_(self.n/math.sqrt(core.numel()))
         self.state = [self.w, *self.matrices, self.c, *(self.bases if train_basis else [])]
         self.setup_seconds = time.perf_counter()-started
 
@@ -397,7 +417,7 @@ class WeightedFlow(Flow):
     @torch.no_grad()
     def __init__(self, inputs, labels, *, order=1, clock='response', **kwargs):
         started = time.perf_counter()
-        if clock not in ('response','residual'): raise ValueError('Unknown history clock')
+        if clock not in ('response','response_rms','residual'): raise ValueError('Unknown history clock')
         super().__init__(inputs, labels, order=order, **kwargs)
         self.clock = clock
         self.G = torch.diag(1/(2*torch.arange(order,device=self.device,dtype=torch.float64)+1))
@@ -444,7 +464,7 @@ class WeightedFlow(Flow):
             velocity.append((-2/(self.n*self.M)*torch.cat((rd,rho*us),1),
                              torch.cat((hs,hidden[i]-hs),1)))
         g=rho
-        if self.clock=='response' and self.depth>1:
+        if self.clock!='residual' and self.depth>1:
             # One scalar forward-mode directional derivative of the existing
             # network traversal. Weight velocities do not depend on this clock.
             def responses(eps):
@@ -458,7 +478,8 @@ class WeightedFlow(Flow):
                 return torch.cat([v.reshape(-1) for i in range(self.depth-1) for v in (h[i],d[i+1]*(r/safe))])
             zero=self.w.new_zeros(())
             _,speed=torch.func.jvp(responses,(zero,),(torch.ones_like(zero),))
-            g=rho+torch.where(rho>0,speed.square().sum().sqrt(),torch.zeros_like(rho))
+            speed_norm=(speed.square().mean() if self.clock=='response_rms' else speed.square().sum()).sqrt()
+            g=rho+torch.where(rho>0,speed_norm,torch.zeros_like(rho))
         return dw,dc,source,rho,g.double(),velocity
 
     @torch.no_grad()
@@ -476,7 +497,7 @@ class WeightedFlow(Flow):
         This avoids Euler making G indefinite solely through basis dilation.
         Network/source velocities remain explicit; there is no retry or tuning.
         """
-        if not math.isfinite(dt) or dt<=0:raise ValueError('Positive finite step required')
+        if not isinstance(dt,torch.Tensor) and (not math.isfinite(dt) or dt<=0):raise ValueError('Positive finite step required')
         dw,dc,source,rho,g,_=self._weighted_terms()
         ratio=(1+self.s)/(1+self.s+dt*g)
         z=2*ratio*self.nodes-1
@@ -490,7 +511,7 @@ class WeightedFlow(Flow):
             m.copy_(moved+dt*endpoint.to(self.dtype)[:,None,None]*v)
         gram=change@self.G@change.T+dt*rho*endpoint[:,None]*endpoint[None,:]
         self.G.copy_((gram+gram.T)/2)
-        self.s.add_(dt*g);self.w.add_(dw,alpha=dt);self.c.add_(dc,alpha=dt)
+        self.s.add_(dt*g);self.w.add_(dt*dw);self.c.add_(dt*dc)
 
 # Frozen initialization formulas (unchanged retained dictionaries).
 
@@ -1180,13 +1201,14 @@ def resolve(raw):
         if kind not in KINDS: raise ValueError('Unknown method: '+kind)
         allowed={'dense':set(), 'closure':{'order'}, 'weighted_closure':{'order','clock'},
                  'dictionary_old':{'order'}, 'dictionary_flow':{'order'},
-                 'gaussian':{'order','ranks','basis_seed'}, 'orthogonal':{'order','ranks','basis_seed'},
-                 'trainable_dictionary':{'basis','order','ranks','basis_seed'}, 'low_rank':{'rank','factor_seed'}}
+                 'gaussian':{'order','ranks','basis_seed','rescale_core'}, 'orthogonal':{'order','ranks','basis_seed','rescale_core'},
+                 'trainable_dictionary':{'basis','order','ranks','basis_seed','rescale_core'}, 'low_rank':{'rank','factor_seed'}}
         if set(method)-allowed[kind]-{'kind','id'}: raise ValueError('Unknown setting for '+kind)
         base=method.get('basis','dictionary_flow') if kind=='trainable_dictionary' else kind
         if kind=='trainable_dictionary' and base not in ('dictionary_old','dictionary_flow','gaussian','orthogonal'):raise ValueError('Unknown dictionary basis')
         if base in ('dictionary_old','dictionary_flow') and ('ranks' in method or 'basis_seed' in method):raise ValueError('Historical dictionary is determined by order')
-        if kind=='weighted_closure' and method.get('clock','response') not in ('response','residual'):raise ValueError('Unknown clock')
+        if method.get('rescale_core',False) and base not in ('gaussian','orthogonal'):raise ValueError('Only random bases support rescale_core')
+        if kind=='weighted_closure' and method.get('clock','response') not in ('response','response_rms','residual'):raise ValueError('Unknown clock')
         if kind=='low_rank':
             rank=method.get('rank')
             ranks=[rank]*(config['model']['depth']-1) if isinstance(rank,int) else rank
@@ -1216,6 +1238,7 @@ def resolve(raw):
         if not isinstance(name, str) or not name or Path(name).name != name or name in ('.', '..'): raise ValueError('Names must be simple path components')
     if config['model']['dtype'] not in ('float32', 'float64'): raise ValueError('dtype must be float32 or float64')
     m, o = config['model'], config['optimizer']
+    if not isinstance(o['adaptive'],bool):raise ValueError('adaptive must be boolean')
     if isinstance(m['seed'], bool) or not isinstance(m['seed'], int) or m['seed'] < 0: raise ValueError('Use a nonnegative integer model seed')
     for key, value in [('width', m['width']), ('depth', m['depth']), ('max_steps', o['max_steps']), ('block', o['block'])]:
         if isinstance(value, bool) or not isinstance(value, int) or value < 1: raise ValueError('Positive integer '+key+' required')
@@ -1238,6 +1261,7 @@ def construct(config, method, data):
     if kind=='weighted_closure':return WeightedFlow(*args,**model,order=order,clock=method.get('clock','response'),device=config['device'])
     return FrozenFlow(*args, **model, kind=method.get('basis','dictionary_flow') if kind=='trainable_dictionary' else kind,
                       train_basis=kind=='trainable_dictionary', order=order, ranks=method.get('ranks'),
+                      rescale_core=method.get('rescale_core',False),
                       basis_seed=method.get('basis_seed', 7319), device=config['device'], normalization='none')
 
 
