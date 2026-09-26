@@ -97,6 +97,18 @@ query prediction, which are included in each record's `total_seconds`.
 Training results and exceptions are recorded in the README validation block and
 `data/generated/neural_response_memory_20260922/fast_fit01/`.
 
+For **dense-versus-memory accuracy comparisons**, the `accuracy_*` catalog
+entries also test maximum step **1/256**, applied to both models with the same
+initialization and target RMS 0.05. This improved P3 on the tested depth-10/15/20
+circle cases at two seeds and on six additional tasks, while shallow results
+were mixed. Tightening the training target to 0.005 did not generally improve
+query agreement. Keep P3 as the practical accuracy choice; low training loss
+does not make P1 reliable on every task. The 82-configuration baseline sweep,
+216 new bounded fits, capped cases and all parameter comparisons are recorded in
+the README and `data/generated/neural_response_memory_20260922/response_accuracy01/`.
+These are configuration results; the canonical implementation and its defaults
+are unchanged by this accuracy sweep.
+
 ## Added methods and their clocks
 
 `{"kind":"trainable_dictionary","basis":"dictionary_flow","order":3}` trains

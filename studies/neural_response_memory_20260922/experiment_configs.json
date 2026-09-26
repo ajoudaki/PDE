@@ -2231,6 +2231,1973 @@
           "queries": 1024
         }
       ]
+    },
+    "accuracy_gelu3_quarter_step": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 3,
+        "activation": "gelu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_gelu3_tight_fit": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 3,
+        "activation": "gelu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.005
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_silu3_quarter_step": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 3,
+        "activation": "silu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_silu3_tight_fit": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 3,
+        "activation": "silu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.005
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_selu2_quarter_step": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 2,
+        "activation": "selu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_selu2_tight_fit": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 2,
+        "activation": "selu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.005
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_relu10_quarter_step": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 10,
+        "activation": "relu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_relu10_tight_fit": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 10,
+        "activation": "relu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.005
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_gelu15_quarter_step": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 15,
+        "activation": "gelu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "two_outliers_alternating",
+          "case": "two_outliers_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_gelu15_tight_fit": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 15,
+        "activation": "gelu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.005
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "two_outliers_alternating",
+          "case": "two_outliers_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_selu20_quarter_step": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 20,
+        "activation": "selu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_selu20_tight_fit": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 20,
+        "activation": "selu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.005
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_sphere_relu2": {
+      "model": {
+        "width": 2048,
+        "depth": 2,
+        "activation": "relu",
+        "seed": 20260920,
+        "hidden_gain": "auto",
+        "readout_std": 1.0,
+        "dtype": "float32"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "target_rms": 0.05,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "adaptive": true
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "name": "sphere_xy",
+          "kind": "sphere",
+          "target": "xy",
+          "sampling": "normal",
+          "seed": 20260925,
+          "samples": 32,
+          "queries": 1024
+        },
+        {
+          "name": "sphere_cap",
+          "kind": "sphere",
+          "samples": 32,
+          "frequency": 3,
+          "z_min": 0.5,
+          "seed": 20260926,
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_sphere_relu6": {
+      "model": {
+        "width": 2048,
+        "depth": 6,
+        "activation": "relu",
+        "seed": 20260920,
+        "hidden_gain": "auto",
+        "readout_std": 1.0,
+        "dtype": "float32"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "target_rms": 0.05,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "adaptive": true
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "name": "sphere_xy",
+          "kind": "sphere",
+          "target": "xy",
+          "sampling": "normal",
+          "seed": 20260925,
+          "samples": 32,
+          "queries": 1024
+        },
+        {
+          "name": "sphere_cap",
+          "kind": "sphere",
+          "samples": 32,
+          "frequency": 3,
+          "z_min": 0.5,
+          "seed": 20260926,
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_sphere_gelu2": {
+      "model": {
+        "width": 2048,
+        "depth": 2,
+        "activation": "gelu",
+        "seed": 20260920,
+        "hidden_gain": "auto",
+        "readout_std": 1.0,
+        "dtype": "float32"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "target_rms": 0.05,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "adaptive": true
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "name": "sphere_xy",
+          "kind": "sphere",
+          "target": "xy",
+          "sampling": "normal",
+          "seed": 20260925,
+          "samples": 32,
+          "queries": 1024
+        },
+        {
+          "name": "sphere_cap",
+          "kind": "sphere",
+          "samples": 32,
+          "frequency": 3,
+          "z_min": 0.5,
+          "seed": 20260926,
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_sphere_gelu6": {
+      "model": {
+        "width": 2048,
+        "depth": 6,
+        "activation": "gelu",
+        "seed": 20260920,
+        "hidden_gain": "auto",
+        "readout_std": 1.0,
+        "dtype": "float32"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "target_rms": 0.05,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "adaptive": true
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "name": "sphere_xy",
+          "kind": "sphere",
+          "target": "xy",
+          "sampling": "normal",
+          "seed": 20260925,
+          "samples": 32,
+          "queries": 1024
+        },
+        {
+          "name": "sphere_cap",
+          "kind": "sphere",
+          "samples": 32,
+          "frequency": 3,
+          "z_min": 0.5,
+          "seed": 20260926,
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_sphere_selu2": {
+      "model": {
+        "width": 2048,
+        "depth": 2,
+        "activation": "selu",
+        "seed": 20260920,
+        "hidden_gain": "auto",
+        "readout_std": 1.0,
+        "dtype": "float32"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "target_rms": 0.05,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "adaptive": true
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "name": "sphere_xy",
+          "kind": "sphere",
+          "target": "xy",
+          "sampling": "normal",
+          "seed": 20260925,
+          "samples": 32,
+          "queries": 1024
+        },
+        {
+          "name": "sphere_cap",
+          "kind": "sphere",
+          "samples": 32,
+          "frequency": 3,
+          "z_min": 0.5,
+          "seed": 20260926,
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_sphere_selu6": {
+      "model": {
+        "width": 2048,
+        "depth": 6,
+        "activation": "selu",
+        "seed": 20260920,
+        "hidden_gain": "auto",
+        "readout_std": 1.0,
+        "dtype": "float32"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "target_rms": 0.05,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "adaptive": true
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "name": "sphere_xy",
+          "kind": "sphere",
+          "target": "xy",
+          "sampling": "normal",
+          "seed": 20260925,
+          "samples": 32,
+          "queries": 1024
+        },
+        {
+          "name": "sphere_cap",
+          "kind": "sphere",
+          "samples": 32,
+          "frequency": 3,
+          "z_min": 0.5,
+          "seed": 20260926,
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_sphere_tanh2": {
+      "model": {
+        "width": 2048,
+        "depth": 2,
+        "activation": "tanh",
+        "seed": 20260920,
+        "hidden_gain": "auto",
+        "readout_std": 1.0,
+        "dtype": "float32"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "target_rms": 0.05,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "adaptive": true
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "name": "sphere_xy",
+          "kind": "sphere",
+          "target": "xy",
+          "sampling": "normal",
+          "seed": 20260925,
+          "samples": 32,
+          "queries": 1024
+        },
+        {
+          "name": "sphere_cap",
+          "kind": "sphere",
+          "samples": 32,
+          "frequency": 3,
+          "z_min": 0.5,
+          "seed": 20260926,
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_sphere_tanh6": {
+      "model": {
+        "width": 2048,
+        "depth": 6,
+        "activation": "tanh",
+        "seed": 20260920,
+        "hidden_gain": "auto",
+        "readout_std": 1.0,
+        "dtype": "float32"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "target_rms": 0.05,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "adaptive": true
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "name": "sphere_xy",
+          "kind": "sphere",
+          "target": "xy",
+          "sampling": "normal",
+          "seed": 20260925,
+          "samples": 32,
+          "queries": 1024
+        },
+        {
+          "name": "sphere_cap",
+          "kind": "sphere",
+          "samples": 32,
+          "frequency": 3,
+          "z_min": 0.5,
+          "seed": 20260926,
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_sphere_silu2": {
+      "model": {
+        "width": 2048,
+        "depth": 2,
+        "activation": "silu",
+        "seed": 20260920,
+        "hidden_gain": "auto",
+        "readout_std": 1.0,
+        "dtype": "float32"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "target_rms": 0.05,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "adaptive": true
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "name": "sphere_xy",
+          "kind": "sphere",
+          "target": "xy",
+          "sampling": "normal",
+          "seed": 20260925,
+          "samples": 32,
+          "queries": 1024
+        },
+        {
+          "name": "sphere_cap",
+          "kind": "sphere",
+          "samples": 32,
+          "frequency": 3,
+          "z_min": 0.5,
+          "seed": 20260926,
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_sphere_silu6": {
+      "model": {
+        "width": 2048,
+        "depth": 6,
+        "activation": "silu",
+        "seed": 20260920,
+        "hidden_gain": "auto",
+        "readout_std": 1.0,
+        "dtype": "float32"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "target_rms": 0.05,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "adaptive": true
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "name": "sphere_xy",
+          "kind": "sphere",
+          "target": "xy",
+          "sampling": "normal",
+          "seed": 20260925,
+          "samples": 32,
+          "queries": 1024
+        },
+        {
+          "name": "sphere_cap",
+          "kind": "sphere",
+          "samples": 32,
+          "frequency": 3,
+          "z_min": 0.5,
+          "seed": 20260926,
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_sphere_sigmoid2": {
+      "model": {
+        "width": 2048,
+        "depth": 2,
+        "activation": "sigmoid",
+        "seed": 20260920,
+        "hidden_gain": "auto",
+        "readout_std": 1.0,
+        "dtype": "float32"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "target_rms": 0.05,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "adaptive": true
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "name": "sphere_xy",
+          "kind": "sphere",
+          "target": "xy",
+          "sampling": "normal",
+          "seed": 20260925,
+          "samples": 32,
+          "queries": 1024
+        },
+        {
+          "name": "sphere_cap",
+          "kind": "sphere",
+          "samples": 32,
+          "frequency": 3,
+          "z_min": 0.5,
+          "seed": 20260926,
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_sphere_sigmoid6": {
+      "model": {
+        "width": 2048,
+        "depth": 6,
+        "activation": "sigmoid",
+        "seed": 20260920,
+        "hidden_gain": "auto",
+        "readout_std": 1.0,
+        "dtype": "float32"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "target_rms": 0.05,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "adaptive": true
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "name": "sphere_xy",
+          "kind": "sphere",
+          "target": "xy",
+          "sampling": "normal",
+          "seed": 20260925,
+          "samples": 32,
+          "queries": 1024
+        },
+        {
+          "name": "sphere_cap",
+          "kind": "sphere",
+          "samples": 32,
+          "frequency": 3,
+          "z_min": 0.5,
+          "seed": 20260926,
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_seed2_gelu3_baseline": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260921,
+        "depth": 3,
+        "activation": "gelu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_seed2_gelu3_quarter_step": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260921,
+        "depth": 3,
+        "activation": "gelu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_seed2_silu3_baseline": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260921,
+        "depth": 3,
+        "activation": "silu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_seed2_silu3_quarter_step": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260921,
+        "depth": 3,
+        "activation": "silu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_seed2_selu2_baseline": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260921,
+        "depth": 2,
+        "activation": "selu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_seed2_selu2_quarter_step": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260921,
+        "depth": 2,
+        "activation": "selu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_seed2_relu10_baseline": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260921,
+        "depth": 10,
+        "activation": "relu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_seed2_relu10_quarter_step": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260921,
+        "depth": 10,
+        "activation": "relu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_seed2_gelu15_baseline": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260921,
+        "depth": 15,
+        "activation": "gelu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "two_outliers_alternating",
+          "case": "two_outliers_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_seed2_gelu15_quarter_step": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260921,
+        "depth": 15,
+        "activation": "gelu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "two_outliers_alternating",
+          "case": "two_outliers_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_seed2_selu20_baseline": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260921,
+        "depth": 20,
+        "activation": "selu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_seed2_selu20_quarter_step": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260921,
+        "depth": 20,
+        "activation": "selu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_transfer_0": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 20,
+        "activation": "selu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "two_outliers_alternating",
+          "case": "two_outliers_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_transfer_1": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 15,
+        "activation": "gelu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_transfer_2": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 15,
+        "activation": "gelu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "name": "circle_patch",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 90,
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_transfer_3": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 15,
+        "activation": "gelu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "name": "sphere_full",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "z_min": -1,
+          "seed": 20260926,
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_transfer_4": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 10,
+        "activation": "relu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "two_outliers_alternating",
+          "case": "two_outliers_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "accuracy_transfer_5": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 2,
+        "activation": "selu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 15.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_center_edges",
+          "case": "quadrant_center_edges",
+          "queries": 1024
+        }
+      ]
     }
   }
 }

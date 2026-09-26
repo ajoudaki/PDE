@@ -74,6 +74,115 @@ The suite remains one active Python file. This bounded validation is complete;
 no further tuning or training is queued. These internally checked results have
 not been promoted to established theory or code.
 
+### Response-memory query-accuracy sweep completed (2026-09-26)
+
+**P3 generally matches the dense predictor well; P1 has substantial exceptions.
+The simplest useful numerical change is maximum step 1/256 instead of 1/64
+for deeper accuracy comparisons, applied to both dense and closure.** No network,
+closure equations, normalization or fitting implementation was changed.
+
+The baseline sweep independently rescored the 58 prior dense/P1/P2/P3 groups
+and added 24 sphere groups: all six activations at depths 2 and 6, 32 samples,
+smooth xy and oscillatory cap targets. Together these cover 82 configurations,
+including the previous six original circle tasks, smooth and high-frequency
+circle/sphere tasks, partial-support tasks, and representative depths
+2/3/4/6/10/15/20. This is not the full Cartesian product. Width is 2048,
+float32 with TF32 off, no normalization, same initialized dense matrices for
+each matched comparison, and seed 20260920 unless explicitly replicated.
+
+The metric is RMS of closure minus dense predictions over the saved 1,024-point
+full-circle or equal-area full-sphere grid. Both models must have training RMS
+<=0.065. Eighty of the 82 groups satisfy that gate for all three orders:
+
+| Ordinary memory order | Median query RMS | 90th percentile | Maximum | Query RMS <=0.05 | Query RMS <=0.1 |
+|---|---:|---:|---:|---:|---:|
+| P1 | 0.04063 | 0.22926 | 3.52703 | 43/80 | 55/80 |
+| P2 | 0.02119 | 0.19127 | 0.47427 | 54/80 | 64/80 |
+| P3 | 0.00993 | 0.12194 | 0.38572 | 60/80 | 69/80 |
+
+On the 23 fitted new sphere groups, P3 median/max are 0.00325/0.08267;
+all 23 have query RMS <=0.1. P2 passes that query threshold in 22/23 and P1
+in 16/23. The excluded groups are the prior SELU depth-20 high-frequency arc
+(closure underfit) and new sigmoid depth-2 sphere cap (dense RMS 0.08946 at
+15 seconds). The latter's P3 training RMS is 0.05258; the dense fit is the
+reason its query comparison is excluded. Exclusions remain in the full table.
+
+**Bounded configuration checks.** On six preselected troublesome, quickly fitted
+circle groups, compare one change at a time: step /4 or training target /10.
+The original target is 0.05 and maximum step 1/64. Lowering the target to 0.005
+did not improve median P3 query error (0.10775 -> 0.11206). Quartering the step
+did (0.10775 -> 0.05475), with all groups remaining fitted. This activated only
+the preregistered branch: six second-seed comparisons (20260921, each with its
+own baseline), plus six additional groups selected by largest remaining P3
+error among prior dense/P3 fits taking <=8 seconds.
+
+| Deep pilot / task | P3 at 1/64, seed 1 | P3 at 1/256, seed 1 | P3 at 1/64, seed 2 | P3 at 1/256, seed 2 |
+|---|---:|---:|---:|---:|
+| ReLU depth 10 / quadrant | 0.05664 | 0.02042 | 0.05356 | 0.02878 |
+| GELU depth 15 / outliers | 0.14698 | 0.05138 | 0.04869 | 0.03100 |
+| SELU depth 20 / quadrant | 0.18458 | 0.05812 | 0.11731 | 0.09645 |
+
+The six additional groups all improved P3, median 0.09200 -> 0.03011. They
+include SELU20/outliers (0.22256 -> 0.02064), GELU15/high-frequency arc
+(0.10494 -> 0.04653), and GELU15/oscillatory sphere (0.07905 -> 0.02676).
+The last added shallow SELU center/edges case capped at P1/P2/P3 training RMS
+0.05208/0.05465/0.05682; it passes the stated 0.065 gate, not the strict target.
+Shallow effects are mixed: on seed 2, SiLU3 P3 worsened 0.13262 -> 0.13828 and
+SELU2 worsened 0.07827 -> 0.09632. Across all six second-seed cases the P3 median
+changed only 0.09779 -> 0.09638, whereas all three deep cases improved.
+Thus the broad first-seed 49% median reduction is not a universal replicated
+claim. Deep-model improvement is the supported practical recommendation.
+
+Small steps do not rescue shallow GELU/SiLU P1 on the quadrant: their first-seed
+query errors remain about 3.00/3.56. Higher memory order is the stronger remedy
+there. Good training fit alone does not establish dense-predictor agreement.
+The dense predictor also changes with step size, so comparisons use a matched
+new dense run; its shift is recorded separately. The experiment supports an
+endpoint numerical improvement, not a continuous-GF accuracy certificate or
+monotone convergence in P. Whole-space matching and target generalization are
+separate metrics. Parameter selection is exploratory; no test predictions
+or target query labels enter model training.
+
+All 216 new fits completed: 211 reached training RMS <=0.05 and 215 <=0.065.
+Median total time was 3.37 seconds, 90th percentile 8.44, maximum 15.084 seconds,
+including initialization and final queries. Summed model runtime was 935.52
+seconds across two GPUs, below the predeclared 24 GPU-minute limit. Each fit
+had a 15-second training cap; capped cases were retained and not retried.
+The 216-fit branch limit is exhausted and no further tuning is queued.
+
+Evidence under `data/generated/neural_response_memory_20260922/response_accuracy01/`:
+
+- [sweep_table.csv](../../data/generated/neural_response_memory_20260922/response_accuracy01/sweep_table.csv): all 82 configurations with dense and P1/P2/P3 training/query RMS and fit flags.
+- [sweep_summary.json](../../data/generated/neural_response_memory_20260922/response_accuracy01/sweep_summary.json): separate existing/new/combined statistics; the two ineligible groups are not silently dropped from the source table.
+- [pilot_comparison.csv](../../data/generated/neural_response_memory_20260922/response_accuracy01/pilot_comparison.csv): both pilot changes, every order and dense-reference movement.
+- [confirmation_comparison.csv](../../data/generated/neural_response_memory_20260922/response_accuracy01/confirmation_comparison.csv): second-seed and additional-task pairs, including regressions and capped fits.
+- [new_runs.csv](../../data/generated/neural_response_memory_20260922/response_accuracy01/new_runs.csv) and [final_summary.json](../../data/generated/neural_response_memory_20260922/response_accuracy01/final_summary.json): all 216 new runs, timings, stop reasons and aggregate checks.
+
+Configs are the 42 `accuracy_*` entries in [experiment_configs.json](experiment_configs.json).
+The source remains unchanged at SHA-256
+`97470496d39813ccb9482ef6cb475d167367526e5654541f0f2a001920f34145`.
+All prediction/data hashes were verified, all new metrics recomputed with the
+canonical summarizer, and every second-seed/additional-task comparison checked
+for identical model settings and bitwise-identical data arrays across step sizes.
+The runner records exact commands, source hashes, device and resolved settings.
+Example reproduction into a fresh output directory:
+
+```sh
+python -B studies/neural_response_memory_20260922/compact_flow.py \
+  --config studies/neural_response_memory_20260922/experiment_configs.json \
+  --experiment accuracy_sphere_relu2 accuracy_sphere_relu6 \
+  --device cuda:0 --out data/generated/neural_response_memory_20260922/response_accuracy_repro
+```
+
+Use `--summarize OUTPUT` to independently recompute each worker's rows. The
+baseline is exactly the 174 ordinary-closure rows from the prior fixed four
+`fast_fit01` groups; the new sphere rows are the 72 ordinary-closure rows in
+`sphere_gpu0/1`. Group their concatenation by P after applying the documented
+0.065 fit gate to reproduce the 80-pair summary. Pilot and confirmation groups
+are separate and never substituted for the baseline sweep. All findings are
+internally checked empirical evidence; no established-code/theory promotion.
+
+
 ## Current experiment entry point (2026-09-26)
 
 The suite is now **one Python file**, [compact_flow.py](compact_flow.py), with
