@@ -1,17 +1,78 @@
 # Evolving response states for neural memory
 
-## Fast-fitting validation in progress (2026-09-26)
+## Fast-fitting validation completed (2026-09-26)
 
-User authorizes practical training validation and minimal generic fixes, with
-one Python implementation, width 2048, no normalization or task-specific model
-changes. Target training RMS <=0.05; 120 seconds is the per-fit ceiling. Initial
-8-second probes use depth10, ReLU/GELU/SELU, 64-sample high-frequency arc and
-sphere tasks, seed20260920, unit-moment hidden gain and stored readout std1.
-Dense, P1/P3 memory, weighted P3, rank64 direct factors and trainable orthogonal
-rank64 dictionaries share step1/128. Configs are `fit_probe_*` in the existing
-catalog. These probes identify numerical/configuration failures before broader
-coverage; capped/failed runs remain evidence, not successes. At most one worker
-per GPU. Artifacts: `data/generated/neural_response_memory_20260922/fast_fit01/`.
+The practical benchmark contains **266 fits at width 2048: 254 reached training
+RMS <=0.05, and 258 reached <=0.065**. Median total time was **1.73 seconds**,
+90th percentile **17.74 seconds**, and maximum **111.25 seconds**. Times include
+model setup and final prediction. All main runs were finite. This is measured
+coverage of the configurations below, not every activation/depth/task combination.
+
+| Tested group | Fits | RMS <=0.05 | RMS <=0.065 | Maximum total seconds |
+|---|---:|---:|---:|---:|
+| Six original circle tasks; ReLU/tanh depth 4, GELU/SiLU depth 3, SELU/sigmoid depth 2; dense and P1/P2/P3 | 144 | 144 | 144 | 18.29 |
+| Two hard circle tasks; ReLU depth 10, GELU depth 15, SELU depth 20; dense and P1/P2/P3 | 24 | 24 | 24 | 6.66 |
+| Smooth sphere xy/xyz, 16/64 samples, GELU depth 4; dense, P1/P2/P3, low-rank and trainable dictionary | 24 | 24 | 24 | 0.95 |
+| Two hard circle tasks, tanh depth 2; historical/random dictionaries, trainable dictionary, low-rank and weighted-history baselines | 20 | 20 | 20 | 13.13 |
+| Four 64-sample high-frequency circle/sphere tasks, full/partial support; ReLU 10, GELU 15, SELU 20; dense and P1/P2/P3 | 48 | 42 | 45 | 111.25 |
+| Weighted P1/P2/P3 on the 64-sample high-frequency arc; ReLU/SELU depth 10 | 6 | 0 | 1 | 110.64 |
+
+All runs use no normalization, float32, TF32 disabled, seed 20260920 and one
+worker per GPU on two RTX 3090s. The `fast_*` entries in
+[experiment_configs.json](experiment_configs.json) contain the exact settings,
+including 1,024 whole-circle/sphere queries. The practical shared maximum step
+is 1/64, with a cheap blockwise loss guard, target RMS 0.05 and 110-second
+training cap. Activation gain uses the Gaussian second-moment rule, except
+sigmoid gain 8; stored readout std is 1. Historical dictionary baselines explicitly
+retain their original initialization. Optional random-core calibration uses
+training inputs only, once at initialization; it adds no normalization layer.
+Weighted P2/P3 use the explicitly configured RMS response clock; this differs
+from the original unscaled response clock. Details and reproduction commands
+are in [CANONICAL_FLOW.md](CANONICAL_FLOW.md).
+
+The remaining exceptions are all on the 64-sample, high-frequency 90-degree
+circle arc. Their training RMS values are:
+
+| Model | Activation / hidden depth | P1 | P2 | P3 |
+|---|---|---:|---:|---:|
+| Ordinary closure | SELU / 20 | 0.10152 | 0.09940 | 0.14021 |
+| Weighted closure | ReLU / 10 | 0.06339 | 0.10418 | 0.10726 |
+| Weighted closure | SELU / 10 | 0.07411 | 0.17800 | 0.13828 |
+
+ReLU depth 10 on that arc also ended slightly above the strict target: dense
+0.05035, ordinary P2 0.05585 and P3 0.05176. These and weighted ReLU P1 count
+as the four relaxed passes, not strict successes. The other eight failures
+remain recorded at the cap; this experiment does not establish a positive
+loss floor or certify continuous-gradient-flow accuracy. Successful fitting
+also does not imply small closure-versus-dense query error or target generalization.
+
+The main evidence is
+[benchmark.csv](../../data/generated/neural_response_memory_20260922/fast_fit01/benchmark.csv)
+and [benchmark_summary.json](../../data/generated/neural_response_memory_20260922/fast_fit01/benchmark_summary.json).
+It includes every run from `circle_final/`, `coverage_gpu0/`, `final_gpu0/` and
+`final_gpu1/`, with no best-run selection. Saved predictions/data hashes were
+verified and all metrics recomputed. Source versions are recorded per run:
+`coverage_gpu0` used `ce58b53`, `final_gpu0/1` used `24fb9ae`, and `circle_final`
+used the final source hash recorded in the summary. Subsequent default/test
+changes leave those explicit experiment settings unchanged. Earlier pilot and
+failed configuration attempts remain separately under `fast_fit01/` and are
+excluded from the 266-run aggregate.
+
+Final implementation verification passed **3,070 CPU assertions**, 72 weighted
+history/clock cases, guarded-step checks on CPU/GPU, 22 width-2048 CUDA-graph
+versus eager cases, and the original dictionary regression checks. MNIST's
+1,000 training and 1,984 test rows reproduced bitwise; MNIST training is not part
+of this toy fitting benchmark. All 35 catalog configurations passed data
+preparation. The full check took 15.93 seconds; see
+[final_gpu_check02.json](../../data/generated/neural_response_memory_20260922/fast_fit01/final_gpu_check02.json).
+Caching existing response fields and solving only the small Gram system gave
+1.55x faster weighted-clock training iterations in a fixed 128-step comparison,
+with query prediction RMS difference exactly zero; see
+[optimization_check.json](../../data/generated/neural_response_memory_20260922/fast_fit01/optimization_check.json).
+
+The suite remains one active Python file. This bounded validation is complete;
+no further tuning or training is queued. These internally checked results have
+not been promoted to established theory or code.
 
 ## Current experiment entry point (2026-09-26)
 
