@@ -1,4 +1,4 @@
-"""Dense gradient flow and the original residual-activity Legendre closure.
+"""Dense, frozen-dictionary and residual-activity Legendre population flows.
 
 Fixed simultaneous Euler; inputs are already scaled as desired. Float32 is
 explicitly the default. A custom activation is (phi, dphi), both acting on z;
@@ -184,7 +184,7 @@ class Flow:
         return source[None]-(rho/(1+self.s))*(self.degrees*moments+lower)
 
     @torch.no_grad()
-    def rhs(self):
+    def _fields(self):
         factors = self._factors()  # Shared by every forward/transpose use this RHS.
         hidden, slopes = self._forward(self.inputs,factors,True)
         residual = self.c@hidden[-1]/self.n-self.labels
@@ -193,6 +193,11 @@ class Flow:
         delta[-1] = self._backward_layer(slopes[-1],self.c[:,None])
         for i in range(self.depth-2,-1,-1):
             delta[i] = self._backward_layer(slopes[i],self._apply(i,delta[i+1],factors,True))
+        return hidden, delta, residual
+
+    @torch.no_grad()
+    def rhs(self):
+        hidden, delta, residual = self._fields()
         dw = (-2/self.M)*(delta[0]*residual)@self.inputs
         dc = (-2/self.M)*(hidden[-1]@residual)
         if self.order is None:
@@ -263,3 +268,46 @@ class Flow:
                     physical_time=updates*step,step=step,block=block,dtype=str(self.dtype),
                     capture_seconds=capture_seconds,loop_seconds=time.perf_counter()-loop_start,
                     setup_seconds=self.setup_seconds)
+
+
+class FrozenFlow(Flow):
+    """Fixed population bases with trainable cores; no retained dense background.
+
+    W_l = B_(l+1) C_l B_l.T / n. Outer mobilities are n; core mobility
+    is 1, exactly as in the historical fixed-dictionary ClosureEngine.
+    The same forward/backward routines, Euler update and CUDA graph fitter
+    serve dense, response-memory and frozen-dictionary models.
+    """
+    @torch.no_grad()
+    def __init__(self, inputs, labels, *, kind, order=1, ranks=None, basis_seed=7319, **kwargs):
+        from frozen_dictionary import frozen_bases
+        started = time.perf_counter()
+        if kind in ('dictionary_old', 'dictionary_flow'):
+            if (kwargs.get('depth', 3) != 2 or len(np.shape(inputs)) != 2 or np.shape(inputs)[1] != 2
+                    or kwargs.get('activation', 'relu') != 'tanh'
+                    or kwargs.get('normalization', 'none') != 'none'
+                    or kwargs.get('hidden_gain', 1.) != 1.
+                    or kwargs.get('readout_std') not in (None, 1/kwargs.get('width', 2048))):
+                raise ValueError('Historical dictionaries require 2D, depth=2, tanh, no normalization, hidden_gain=1 and readout_std=1/width')
+        super().__init__(inputs, labels, order=None, **kwargs)
+        self.kind = kind
+        self.bases = frozen_bases(self.w, self.matrices, self.c, kind, order, ranks, basis_seed)
+        self.matrices = [self.bases[i+1].T @ (matrix @ self.bases[i])/self.n
+                         for i, matrix in enumerate(self.matrices)]
+        self.state = [self.w, *self.matrices, self.c]
+        self.setup_seconds = time.perf_counter()-started
+
+    def _apply(self, index, values, factors, transpose=False):
+        left, right = self.bases[index+1], self.bases[index]
+        core = self.matrices[index]
+        if transpose: left, right, core = right, left, core.T
+        return left @ (core @ (right.T @ values/self.n))
+
+    @torch.no_grad()
+    def rhs(self):
+        hidden, delta, residual = self._fields()
+        dw = (-2/self.M)*(delta[0]*residual) @ self.inputs
+        dc = (-2/self.M)*(hidden[-1] @ residual)
+        cores = [(-2/self.M)*((self.bases[i+1].T @ delta[i+1]/self.n)*residual)
+                 @ (self.bases[i].T @ hidden[i]/self.n).T for i in range(self.depth-1)]
+        return [dw, *cores, dc]

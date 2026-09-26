@@ -1,5 +1,37 @@
 # Evolving response states for neural memory
 
+## Current experiment entry point (2026-09-26)
+
+The requested consolidation is now the three-file suite documented in
+[CANONICAL_FLOW.md](CANONICAL_FLOW.md): `compact_flow.py` supplies the common
+MLP/trainer, `frozen_dictionary.py` supplies frozen initialization bases, and
+`run_compact_flow.py` runs [saved experiment configs](experiment_configs.json).
+Methods are dense flow, evolving response-memory closure, old frozen circle
+dictionary, frozen gradient-flow dictionary, and Gaussian/orthogonal controls.
+Toy circle/sphere tasks, partial-support/high-frequency settings, MNIST and
+arbitrary NPZ data share this interface. No normalization is enabled.
+
+The historical dictionaries retain their two-hidden-layer tanh/2D scope and
+initialization. The old circle implementation is Chebyshev/action-word based;
+it is not renamed Hermite. Other MLP settings use dense, response memory, or
+random bases with explicit ranks. No new dictionary derivation is claimed.
+
+Implementation checks: 2,136 CPU assertions, maximum error 1.33e-15; exact
+reproduction of the original 1,000/1,984-row MNIST panel; width-2048 CUDA graph
+updates identical to eager updates; all supported historical dictionary orders
+and Gaussian/orthogonal controls checked against their original producers.
+Evidence is under `data/generated/neural_response_memory_20260922/unified_suite01/`.
+These are consolidation checks, not a new fitting campaign or proof of closure
+accuracy. The previously reported underfit/divergent cases remain unresolved.
+
+65 retired scripts, plus the previous canonical files, are preserved byte-for-byte
+in `legacy_experiments.zip` with checksums. Historical Markdown commands reference
+that source archive; the Git rollback checkpoint is `87cade22a12323227d076e92f8801a1bdb7c21c0`.
+Scalar compression, including concurrent exploratory work, is untouched. Root owns
+only this consolidation's core/config/check/archive and this README/guide update.
+No established code or theory was changed or promoted. Earlier sections below
+remain the historical research record.
+
 New theory-only study, 2026-09-22. The user discards trainable dictionaries and
 asks whether neuron forward/backward histories admit a small evolving state,
 analogous to position and velocity, capable of saturation and compatible with

@@ -1,0 +1,385 @@
+{
+  "experiments": {
+    "circle_baselines": {
+      "model": {
+        "width": 2048,
+        "depth": 2,
+        "activation": "tanh",
+        "seed": 20260920,
+        "hidden_gain": 1.0,
+        "readout_std": null,
+        "dtype": "float32"
+      },
+      "optimizer": {
+        "step": 0.0078125,
+        "target_rms": 0.05,
+        "max_seconds": 12.0,
+        "max_steps": 60000,
+        "block": 8
+      },
+      "device": "cuda:0",
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        },
+        {
+          "kind": "dictionary_old",
+          "order": 1
+        },
+        {
+          "kind": "dictionary_old",
+          "order": 3
+        },
+        {
+          "kind": "dictionary_old",
+          "order": 5
+        },
+        {
+          "kind": "dictionary_flow",
+          "order": 1
+        },
+        {
+          "kind": "dictionary_flow",
+          "order": 3
+        },
+        {
+          "kind": "dictionary_flow",
+          "order": 5
+        },
+        {
+          "kind": "gaussian",
+          "order": 1
+        },
+        {
+          "kind": "gaussian",
+          "order": 3
+        },
+        {
+          "kind": "gaussian",
+          "order": 5
+        },
+        {
+          "kind": "orthogonal",
+          "order": 1
+        },
+        {
+          "kind": "orthogonal",
+          "order": 3
+        },
+        {
+          "kind": "orthogonal",
+          "order": 5
+        }
+      ],
+      "datasets": [
+        {
+          "name": "two_outliers_alternating",
+          "kind": "circle",
+          "case": "two_outliers_alternating",
+          "queries": 8192
+        },
+        {
+          "name": "quadrant_alternating",
+          "kind": "circle",
+          "case": "quadrant_alternating",
+          "queries": 8192
+        },
+        {
+          "name": "quadrant_pairs",
+          "kind": "circle",
+          "case": "quadrant_pairs",
+          "queries": 8192
+        },
+        {
+          "name": "quadrant_center_edges",
+          "kind": "circle",
+          "case": "quadrant_center_edges",
+          "queries": 8192
+        },
+        {
+          "name": "equal_mixed_odd",
+          "kind": "circle",
+          "case": "equal_mixed_odd",
+          "queries": 8192
+        },
+        {
+          "name": "two_clusters_grouped",
+          "kind": "circle",
+          "case": "two_clusters_grouped",
+          "queries": 8192
+        }
+      ]
+    },
+    "sphere": {
+      "model": {
+        "width": 2048,
+        "depth": 4,
+        "activation": "gelu",
+        "seed": 20260920,
+        "hidden_gain": 1.0,
+        "readout_std": null,
+        "dtype": "float32"
+      },
+      "optimizer": {
+        "step": 0.0078125,
+        "target_rms": 0.05,
+        "max_seconds": 12.0,
+        "max_steps": 60000,
+        "block": 8
+      },
+      "device": "cuda:0",
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "name": "xy_16",
+          "kind": "sphere",
+          "target": "xy",
+          "sampling": "normal",
+          "seed": 20260925,
+          "samples": 16,
+          "queries": 8192
+        },
+        {
+          "name": "xy_64",
+          "kind": "sphere",
+          "target": "xy",
+          "sampling": "normal",
+          "seed": 20260925,
+          "samples": 64,
+          "queries": 8192
+        },
+        {
+          "name": "xyz_16",
+          "kind": "sphere",
+          "target": "xyz",
+          "sampling": "normal",
+          "seed": 20260925,
+          "samples": 16,
+          "queries": 8192
+        },
+        {
+          "name": "xyz_64",
+          "kind": "sphere",
+          "target": "xyz",
+          "sampling": "normal",
+          "seed": 20260925,
+          "samples": 64,
+          "queries": 8192
+        }
+      ]
+    },
+    "deep_stress": {
+      "model": {
+        "width": 2048,
+        "depth": 10,
+        "activation": "selu",
+        "seed": 20260920,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "dtype": "float32"
+      },
+      "optimizer": {
+        "step": 0.0009765625,
+        "target_rms": 0.05,
+        "max_seconds": 60.0,
+        "max_steps": 60000,
+        "block": 8
+      },
+      "device": "cuda:0",
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        },
+        {
+          "kind": "gaussian",
+          "ranks": 16,
+          "id": "gaussian_r16"
+        },
+        {
+          "kind": "orthogonal",
+          "ranks": 16,
+          "id": "orthogonal_r16"
+        }
+      ],
+      "datasets": [
+        {
+          "name": "circle_full",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 360,
+          "queries": 8192
+        },
+        {
+          "name": "circle_patch",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 90,
+          "queries": 8192
+        },
+        {
+          "name": "sphere_full",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "z_min": -1,
+          "seed": 20260926,
+          "queries": 8192
+        },
+        {
+          "name": "sphere_patch",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "z_min": 0.5,
+          "seed": 20260926,
+          "queries": 8192
+        }
+      ]
+    },
+    "mnist": {
+      "model": {
+        "width": 2048,
+        "depth": 3,
+        "activation": "relu",
+        "seed": 20260920,
+        "hidden_gain": 1.0,
+        "readout_std": null,
+        "dtype": "float32"
+      },
+      "optimizer": {
+        "step": 0.0078125,
+        "target_rms": 0.05,
+        "max_seconds": 12.0,
+        "max_steps": 60000,
+        "block": 8
+      },
+      "device": "cuda:0",
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        },
+        {
+          "kind": "gaussian",
+          "ranks": 16,
+          "id": "gaussian_r16"
+        },
+        {
+          "kind": "orthogonal",
+          "ranks": 16,
+          "id": "orthogonal_r16"
+        }
+      ],
+      "datasets": [
+        {
+          "name": "mnist38_100",
+          "kind": "mnist",
+          "cache": "../../data/generated/neural_response_memory_20260922/mnist_data01/raw_cache",
+          "digits": [
+            3,
+            8
+          ],
+          "seed": 20260924,
+          "samples_per_class": 50,
+          "normalization": "l2"
+        }
+      ]
+    },
+    "mnist_historical100": {
+      "model": {
+        "width": 2048,
+        "depth": 3,
+        "activation": "relu",
+        "seed": 20260920,
+        "hidden_gain": 1.0,
+        "readout_std": null,
+        "dtype": "float32"
+      },
+      "optimizer": {
+        "step": 0.0078125,
+        "target_rms": 0.05,
+        "max_seconds": 12.0,
+        "max_steps": 60000,
+        "block": 8
+      },
+      "device": "cuda:0",
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "name": "mnist38_nested100",
+          "kind": "npz",
+          "path": "../../data/generated/neural_response_memory_20260922/mnist100_data01/prepared.npz"
+        }
+      ]
+    }
+  }
+}
