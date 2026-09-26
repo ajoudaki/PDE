@@ -320,6 +320,89 @@ namespace; combine by activation, dataset, step, method and order after verifyin
 the dense-reference equality recorded in `summary.json`. The extension is complete;
 no extra tuning or runs are queued.
 
+### Broad new-clock sweep protocol (2026-09-26)
+
+User-authorized extension to the exact 82 activation/depth/task configurations
+in `response_accuracy01/sweep_table.csv`: ReLU, GELU, SELU, tanh, sigmoid and
+SiLU; depths 2,3,4,6,10,15,20; six original circle tasks, deep circle cases,
+high-frequency circle/sphere full/partial-support cases, and smooth spheres.
+Clone their model and data configs, retain width 2048, seed 20260920, no
+normalization, float32 network / float64 weighted history, TF32 off and 1024
+query points. Compare a fresh dense model with new-clock P1/P2/P3; explicitly
+use `clock="response"`, including for P1. Maximum step remains 1/64, with
+the existing block guard and target training RMS 0.05.
+
+Budget: 328 fits, 20 seconds per fit, 200,000 accepted steps per fit, two
+GPU workers, no retries or tuning. The training cap bounds the total at
+109.34 GPU-minutes plus initialization/query overhead; actual time is reported.
+This shorter cap differs from several historical runs. A capped fit is not
+evidence of a positive-loss floor. Stop after the declared panel.
+
+Primary output: full-circle/full-sphere RMS of closure minus dense predictions
+at their separately fitted/capped endpoints. Retain every numerical result;
+flag `D` when dense train RMS exceeds 0.05 and `C` when closure train RMS
+exceeds 0.05 (both flags may occur). Report actual training RMS, status and
+runtime. Also retain the historical relaxed 0.065 eligibility flag for comparison,
+but do not describe a relaxed pass as reaching the strict target. Rank aggregate
+accuracy only on fitted pairs and disclose their counts; report poor fitted
+comparisons separately from underfitting. P1/P2/P3 are not an asymptotic-rate test.
+
+Configs are the `newclock_sweep_*` entries in the existing JSON catalog.
+Generated outputs belong to `data/generated/neural_response_memory_20260922/newclock_sweep01/`.
+Its schedule records the exact case-to-source mapping and GPU allocation.
+The solver is unchanged from the previous verified implementation. No additional
+Python engine or task-specific optimization is introduced.
+
+Completed: all **82 cases / 328 fits** saved finite results, all 25 experiment
+groups exited successfully, and the unchanged canonical summarizer recomputed
+RMS from every saved prediction and verified the data/prediction hashes. Dense
+reached training RMS <=0.05 in **79/82** cases; P1/P2/P3 in **70/82, 67/82,
+66/82**. The other 46 fits hit the cap; 17 cases contain at least one miss.
+
+| New-clock order | Fitted pairs / 82 | Median test RMS | 90th percentile | Maximum |
+|---:|---:|---:|---:|---:|
+| P1 | 70 | 0.042725 | 0.405369 | 3.661275 |
+| P2 | 67 | 0.018895 | 0.179336 | 3.240721 |
+| P3 | 66 | 0.006795 | 0.161205 | 1.362737 |
+
+On the same 65 cases where all four models fit, the medians are
+0.031467 / 0.013385 / 0.006579. The largest fitted P3 discrepancies are SiLU
+depth3/alternating quadrant (1.362737), GELU depth3/alternating quadrant
+(1.245256), and SELU depth2/alternating quadrant (0.369138). Thus good median
+accuracy does not imply uniformly good low-order compression. This panel uses
+the fixed shared 1/64 maximum step; the earlier GELU step-sensitivity finding
+still applies, and these errors are not diagnosed as intrinsic closure floors.
+
+Dense misses are ReLU depth10/high-frequency full circle (train RMS 0.125699),
+ReLU depth10/high-frequency arc (0.117508), and SELU depth20/high-frequency arc
+(0.116898). Closure misses additionally occur in sigmoid, deep nonsmooth
+high-frequency cases, and two GELU depth15 sphere/order pairs. All are retained
+and flagged in the [complete 82-row report](../../data/generated/neural_response_memory_20260922/newclock_sweep01/report.md).
+The [wide CSV](../../data/generated/neural_response_memory_20260922/newclock_sweep01/sweep_table.csv)
+contains every training/test RMS, D/C flag, stop status and runtime;
+[all_runs.csv](../../data/generated/neural_response_memory_20260922/newclock_sweep01/all_runs.csv)
+contains all 328 model rows, and
+[summary.json](../../data/generated/neural_response_memory_20260922/newclock_sweep01/summary.json)
+contains the aggregate checks and statistics. The relaxed 0.065 gate admits
+only one additional model (SELU depth20/full-sphere P2, train RMS 0.051675).
+
+Median total model time was **3.97 seconds**, range 0.18–22.35 seconds including
+setup/final prediction; summed model time was 37.56 minutes over two concurrent
+RTX 3090 workers (process startup excluded). PyTorch 2.9.0+cu130; solver SHA256
+`e52fd395e26613e4a174b88cb8a9be0f742220c44b8a7d3ae419e556dc2b5a76`.
+Root performed the checks; empirical, internally checked, no independent
+promotion review. No tuning, solver changes or additional training is queued.
+
+Reproduce the catalog entries listed in the run's `worker0_experiments.txt`
+and `worker1_experiments.txt` with the canonical CLI, selecting `--device cuda:0`
+or `cuda:1` and fresh output directories. Rescore each output directory with
+`compact_flow.py --summarize <output/gpu0>` (likewise GPU1). Concatenate the two
+`rms.csv` files; join dense/P1/P2/P3 by experiment/dataset and the frozen
+`schedule.json.coverage`. D/C flags use train RMS >0.05; medians and linearly
+interpolated 90th percentiles use only fitted pairs, with the common-case
+summary requiring all four fits. Full resolved configs, commands, source hashes,
+data and prediction arrays are preserved with each experiment.
+
 ## Saved experiment configs
 
 `experiment_configs.json` contains editable examples for all six circle cases,
