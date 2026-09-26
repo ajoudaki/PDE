@@ -182,6 +182,87 @@ baseline is exactly the 174 ordinary-closure rows from the prior fixed four
 are separate and never substituted for the baseline sweep. All findings are
 internally checked empirical evidence; no established-code/theory promotion.
 
+### Higher-order check of the three P3 failures: results (2026-09-26)
+
+**P5 substantially improved the fitted SELU20/outlier comparison and only
+slightly improved the fitted SELU20/sphere-cap comparison. Fitted higher-order
+comparisons remain unavailable for ReLU10/arc P5/P7 and SELU20/cap P7 within
+the quick-run budget.** Do not treat the underfitted rows as evidence that
+higher memory order improves or worsens dense-predictor accuracy.
+
+At the original maximum step 1/64, with a freshly trained matching dense
+reference, the whole-space query RMS values are:
+
+| Case | P3 test RMS | P5 test RMS | P7 test RMS |
+|---|---:|---:|---:|
+| ReLU depth 10, high-frequency circle arc | 0.37670 | 0.31174 (underfit) | 0.65160 (underfit) |
+| SELU depth 20, high-frequency sphere cap | 0.28132 | 0.26235 | 0.28227 (underfit) |
+| SELU depth 20, circle outliers | 0.22256 | 0.06208 | 0.13643 |
+
+The corresponding training RMS values make eligibility explicit:
+
+| Case | Dense | P3 | P5 | P7 |
+|---|---:|---:|---:|---:|
+| ReLU10 arc | 0.05000 | 0.04997 | 0.07981 | 0.08533 |
+| SELU20 cap | 0.04992 | 0.04999 | 0.04976 | 0.07295 |
+| SELU20 outliers | 0.04631 | 0.04393 | 0.04840 | 0.04771 |
+
+Unrounded dense ReLU RMS is 0.0499972. Thus all unflagged pairs reach the strict
+0.05 target. On outliers, P5 reduces test error by about 72% and P7 by 39%, but
+P7 is worse than P5. The cap's fitted P5 gain is only about 7%; its test error
+remains substantial. This is not monotone convergence in P.
+
+The predeclared fitting fallback reran both hard groups at maximum step 1/256,
+with the same models, data, seed and stopping target. It did not repair fitting:
+
+| Case, smaller step | Dense train | P3 train / test | P5 train / test | P7 train / test |
+|---|---:|---:|---:|---:|
+| ReLU10 arc | 0.08810 | 0.08340 / 0.18666 | 0.09862 / 0.07797 | interrupted; no endpoint |
+| SELU20 cap | 0.04976 | 0.04980 / 0.10968 | 0.07584 / 0.10743 | 0.09094 / 0.12866 |
+
+Only the smaller-step cap P3 comparison passes the <=0.065 training gate.
+The ReLU fallback was terminated once its failed dense/P3 fit gate made the
+matched-reference comparison invalid; P5 had already finished, and P7 was
+interrupted. Its smaller-looking P5 test RMS is not a successful result.
+All completed adverse results remain saved. Dense query predictions shift by
+0.59715 (arc, underfitted reference) and 0.32106 (cap) across step settings;
+results from different step settings must not be attributed solely to P.
+
+Protocol: user-authorized continuation on the three named failures only, width
+2048, original seed 20260920, original data and 1,024-point full-circle/equal-area
+sphere queries, original activation gains/readout, float32, TF32 off, no
+normalization and unchanged canonical equations. Each model targets train RMS
+0.05; require both dense and closure <=0.065 for query-accuracy interpretation.
+The step is the shared guarded-Euler maximum, not a fixed-step/GF accuracy
+certificate. Each fit has a 115-second training cap and 200,000-step cap. Only
+the two underfitted groups activated one smaller-step fallback, with no new
+architecture or task-specific code. No test predictions enter training.
+
+There were 19 completed fits and one interrupted fit, with 11 completed fits
+meeting RMS <=0.05. Maximum completed runtime including setup/query was
+116.26 seconds; the sum of completed model runtimes was 1,553.18 seconds
+(25.89 GPU-minutes). Including the interrupted worker, execution stayed below
+the declared 20-fit / 40-GPU-minute ceiling. No further runs are queued.
+The requested fully fitted higher-P comparison is therefore only partially
+resolved, not silently certified by the small training-loss median elsewhere.
+
+Evidence in `data/generated/neural_response_memory_20260922/response_higher_p01/`:
+
+- [comparison.csv](../../data/generated/neural_response_memory_20260922/response_higher_p01/comparison.csv): every group, step, dense/closure training RMS, test RMS and fit gate.
+- [all_runs.csv](../../data/generated/neural_response_memory_20260922/response_higher_p01/all_runs.csv) and [summary.json](../../data/generated/neural_response_memory_20260922/response_higher_p01/summary.json): all 19 completed models and timings; missing P7 endpoint is null.
+- [aborted_refinement.json](../../data/generated/neural_response_memory_20260922/response_higher_p01/aborted_refinement.json): reason and termination record for the invalid ReLU fallback.
+- [operator_check.json](../../data/generated/neural_response_memory_20260922/response_higher_p01/operator_check.json): eight independent explicit-matrix checks at P5/P7, ReLU/SELU and depths 10/20. Width 9, float64, unit-moment gain, readout std1, six three-dimensional Gaussian samples (data seed981, model seed20260920), after eight steps of 1e-4; maximum prediction discrepancy 2.78e-16.
+
+All prediction/data hashes were verified and RMS values recomputed using the
+canonical summarizer. Data arrays match bitwise across step settings and saved
+configs match the five `higherp_*` entries in the existing catalog. The Python
+implementation is unchanged, SHA-256
+`97470496d39813ccb9482ef6cb475d167367526e5654541f0f2a001920f34145`.
+Reproduce a group with the existing CLI, for example
+`--config studies/neural_response_memory_20260922/experiment_configs.json --experiment higherp_selu20_outliers --device cuda:1 --out FRESH`,
+and rescore with `--summarize OUTPUT`. These are internally checked finite-run
+observations; no order-convergence theorem or established-code promotion.
+
 
 ## Current experiment entry point (2026-09-26)
 

@@ -4198,6 +4198,231 @@
           "queries": 1024
         }
       ]
+    },
+    "higherp_relu10_arc": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 10,
+        "activation": "relu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 115.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        },
+        {
+          "kind": "closure",
+          "order": 5
+        },
+        {
+          "kind": "closure",
+          "order": 7
+        }
+      ],
+      "datasets": [
+        {
+          "name": "circle_patch",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 90,
+          "queries": 1024
+        }
+      ]
+    },
+    "higherp_selu20_cap": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 20,
+        "activation": "selu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 115.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        },
+        {
+          "kind": "closure",
+          "order": 5
+        },
+        {
+          "kind": "closure",
+          "order": 7
+        }
+      ],
+      "datasets": [
+        {
+          "name": "sphere_patch",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "z_min": 0.5,
+          "seed": 20260926,
+          "queries": 1024
+        }
+      ]
+    },
+    "higherp_selu20_outliers": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 20,
+        "activation": "selu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 115.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        },
+        {
+          "kind": "closure",
+          "order": 5
+        },
+        {
+          "kind": "closure",
+          "order": 7
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "two_outliers_alternating",
+          "case": "two_outliers_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "higherp_relu10_arc_small_step": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 10,
+        "activation": "relu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 115.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        },
+        {
+          "kind": "closure",
+          "order": 5
+        },
+        {
+          "kind": "closure",
+          "order": 7
+        }
+      ],
+      "datasets": [
+        {
+          "name": "circle_patch",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 90,
+          "queries": 1024
+        }
+      ]
+    },
+    "higherp_selu20_cap_small_step": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 20,
+        "activation": "selu"
+      },
+      "optimizer": {
+        "step": 0.00390625,
+        "adaptive": true,
+        "max_seconds": 115.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        },
+        {
+          "kind": "closure",
+          "order": 5
+        },
+        {
+          "kind": "closure",
+          "order": 7
+        }
+      ],
+      "datasets": [
+        {
+          "name": "sphere_patch",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "z_min": 0.5,
+          "seed": 20260926,
+          "queries": 1024
+        }
+      ]
     }
   }
 }
