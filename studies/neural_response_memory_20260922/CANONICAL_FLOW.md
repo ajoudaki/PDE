@@ -217,20 +217,32 @@ most **12.46 seconds** including refinement. Total summed model time was 177.89
 seconds. Timings include initialization and queries, but exclude process startup.
 
 Full-circle RMS versus the independently fitted dense network at maximum
-step 1/64 (each entry lists P1 / P2 / P3):
+step 1/64. P1–P3 are from the initial panel; P4/P5 are from the extension below,
+whose fresh dense predictions and data were verified bitwise identical.
 
-| Activation / hidden depth | Task | Activity clock | Response clock |
-|---|---|---|---|
-| tanh / 2 | Alternating outliers | 0.07250 / 0.04009 / 0.01674 | 0.07018 / 0.04901 / 0.01323 |
-| tanh / 2 | Alternating quadrant | 0.05417 / 0.06186 / 0.02388 | 0.06552 / 0.09918 / 0.01283 |
-| tanh / 2 | Paired quadrant | 0.00566 / 0.00135 / 0.00056 | 0.00833 / 0.00124 / 0.00111 |
-| GELU / 3 | Alternating outliers | 0.44504 / 0.07570 / 0.00549 | 0.45472 / 0.11902 / 0.04500 |
-| GELU / 3 | Alternating quadrant | 2.98734 / 0.20941 / 0.11963 | 3.06966 / 2.69207 / 1.24526 |
-| GELU / 3 | Paired quadrant | 0.08807 / 0.00574 / 0.00443 | 0.11162 / 0.00674 / 0.00157 |
+| Activation / depth | Task | Clock | P1 | P2 | P3 | P4 | P5 |
+|---|---|---|---:|---:|---:|---:|---:|
+| tanh / 2 | Alternating outliers | Old | 0.07250 | 0.04009 | 0.01674 | 0.00524 | 0.00123 |
+| tanh / 2 | Alternating outliers | New | 0.07018 | 0.04901 | 0.01323 | 0.00786 | 0.00324 |
+| tanh / 2 | Alternating quadrant | Old | 0.05417 | 0.06186 | 0.02388 | 0.00818 | 0.00658 |
+| tanh / 2 | Alternating quadrant | New | 0.06552 | 0.09918 | 0.01283 | 0.00591 | 0.00346 |
+| tanh / 2 | Paired quadrant | Old | 0.00566 | 0.00135 | 0.00056 | 0.00022 | 0.00007 |
+| tanh / 2 | Paired quadrant | New | 0.00833 | 0.00124 | 0.00111 | 0.00032 | 0.00019 |
+| gelu / 3 | Alternating outliers | Old | 0.44504 | 0.07570 | 0.00549 | 0.00207 | 0.00196 |
+| gelu / 3 | Alternating outliers | New | 0.45472 | 0.11902 | 0.04500 | 0.00679 | 0.00098 |
+| gelu / 3 | Alternating quadrant | Old | 2.98734 | 0.20941 | 0.11963 | 0.01469 | 0.01279 |
+| gelu / 3 | Alternating quadrant | New | 3.06966 | 2.69207 | 1.24526 | 1.21472 | 0.99568 |
+| gelu / 3 | Paired quadrant | Old | 0.08807 | 0.00574 | 0.00443 | 0.00149 | 0.00077 |
+| gelu / 3 | Paired quadrant | New | 0.11162 | 0.00674 | 0.00157 | 0.00206 | 0.00016 |
 
 The predeclared half-step check on GELU/alternating quadrant used a fresh dense
-reference and the same data/initialization at 1/128. Old-clock RMS was
-2.99053 / 0.21233 / 0.11999; new-clock RMS was **3.07505 / 2.90895 / 0.11200**.
+reference and the same data/initialization at 1/128. Including the P4/P5 extension:
+
+| Clock | P1 | P2 | P3 | P4 | P5 |
+|---|---:|---:|---:|---:|---:|
+| Old | 2.99053 | 0.21233 | 0.11999 | 0.02364 | 0.02150 |
+| New | 3.07505 | 2.90895 | 0.11200 | 0.22258 | 0.10313 |
+
 Thus P3's large discrepancy is strongly step-sensitive; P1/P2 remain inaccurate
 despite fitting. One refinement does not certify continuous-flow accuracy.
 The new clock fits quickly and gives small P3 error on five main groups, but
@@ -261,6 +273,52 @@ python -B studies/neural_response_memory_20260922/compact_flow.py --config studi
 python -B studies/neural_response_memory_20260922/compact_flow.py --config studies/neural_response_memory_20260922/experiment_configs.json --experiment response_clock_gelu_half_step --device cuda:0 --out FRESH_REFINEMENT
 python -B studies/neural_response_memory_20260922/compact_flow.py --summarize FRESH_RUN
 ```
+
+### P4/P5 extension protocol (2026-09-26)
+
+User-requested continuation of the preceding table: run ordinary and unscaled
+response-clock P4/P5 on the same six groups at 1/64 and the GELU/alternating
+quadrant group at 1/128. Keep width 2048, architecture, initialization, seed,
+data/query grids, guard and RMS target unchanged. Rerun one dense reference per
+group and verify its predictions agree with the original reference before
+combining P1–P3 and P4–P5. No solver changes or parameter search.
+
+Budget: 35 fits, 30 seconds per fit, <=18 summed GPU-minutes. Stop after this
+panel, retaining capped/nonfinite cases as failures rather than fitted comparisons.
+Interpret fidelity only when both train RMS values are <=0.065; report the
+strict 0.05 fit count too. Main observable remains 1024-query whole-circle RMS
+versus dense, with timings and Gram condition reported. P4/P5 need not improve
+monotonically. Save to `response_clock_p45_01/` under this study's generated data;
+configs are `response_clock_p45_tanh`, `response_clock_p45_gelu` and
+`response_clock_p45_gelu_half_step` in the same catalog. Before training, check
+P4/P5 materialized-operator agreement and CUDA graph/eager consistency.
+
+The extension completed **35/35 fits with training RMS <=0.05** (maximum
+0.04997962). Total time per model was 0.94–11.49 seconds, median 2.53;
+summed model time was 129.00 seconds. At P5, every main-table error is below
+0.013 except the new-clock GELU/alternating quadrant case (0.99568).
+Its smaller-step P5 error is 0.10313, still above the old clock's 0.02150.
+Higher order generally helped, but the new clock does not dominate and has
+order reversals (e.g. GELU paired quadrant at P4 and refined quadrant at P4).
+
+All seven new dense references and all dataset/query arrays matched their
+original counterparts bitwise. Eight P4/P5 operator/capture checks passed;
+maximum explicit-operator discrepancy was 1.12e-16 and all GPU capture/eager
+state discrepancies were zero. The canonical solver was unchanged at SHA-256
+`e52fd395e26613e4a174b88cb8a9be0f742220c44b8a7d3ae419e556dc2b5a76`.
+Evidence under `data/generated/neural_response_memory_20260922/response_clock_p45_01/`:
+`comparison_p1_p5.csv` (70 closure comparisons), `new_runs.csv` (35 new fits),
+`summary.json`, `operator_capture_check.json`, `table.md`, and per-run
+prediction/config/provenance records. Source/data/prediction hashes and RMS
+were checked with the canonical summarizer. These are internally checked
+finite-step endpoint results, not a convergence-rate certificate.
+
+Reproduce with the existing command and catalog, selecting
+`--experiment response_clock_p45_tanh response_clock_p45_gelu response_clock_p45_gelu_half_step --device cuda:0 --out FRESH`.
+Then use `--summarize FRESH` to rescore. P1–P3 remain in the preceding run
+namespace; combine by activation, dataset, step, method and order after verifying
+the dense-reference equality recorded in `summary.json`. The extension is complete;
+no extra tuning or runs are queued.
 
 ## Saved experiment configs
 

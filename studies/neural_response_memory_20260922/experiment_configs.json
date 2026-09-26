@@ -4621,6 +4621,177 @@
           "queries": 1024
         }
       ]
+    },
+    "response_clock_p45_tanh": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 2,
+        "activation": "tanh"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 30.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 4
+        },
+        {
+          "kind": "closure",
+          "order": 5
+        },
+        {
+          "kind": "weighted_closure",
+          "clock": "response",
+          "order": 4
+        },
+        {
+          "kind": "weighted_closure",
+          "clock": "response",
+          "order": 5
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "two_outliers_alternating",
+          "case": "two_outliers_alternating",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_pairs",
+          "case": "quadrant_pairs",
+          "queries": 1024
+        }
+      ]
+    },
+    "response_clock_p45_gelu": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 3,
+        "activation": "gelu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 30.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 4
+        },
+        {
+          "kind": "closure",
+          "order": 5
+        },
+        {
+          "kind": "weighted_closure",
+          "clock": "response",
+          "order": 4
+        },
+        {
+          "kind": "weighted_closure",
+          "clock": "response",
+          "order": 5
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "two_outliers_alternating",
+          "case": "two_outliers_alternating",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_pairs",
+          "case": "quadrant_pairs",
+          "queries": 1024
+        }
+      ]
+    },
+    "response_clock_p45_gelu_half_step": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 3,
+        "activation": "gelu"
+      },
+      "optimizer": {
+        "step": 0.0078125,
+        "adaptive": true,
+        "max_seconds": 30.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 4
+        },
+        {
+          "kind": "closure",
+          "order": 5
+        },
+        {
+          "kind": "weighted_closure",
+          "clock": "response",
+          "order": 4
+        },
+        {
+          "kind": "weighted_closure",
+          "clock": "response",
+          "order": 5
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
     }
   }
 }
