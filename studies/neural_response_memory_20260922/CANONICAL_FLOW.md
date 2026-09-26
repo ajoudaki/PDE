@@ -2,9 +2,8 @@
 
 `compact_flow.Flow` is the single numerical implementation for the full dense
 finite-width flow and the original residual-activity Legendre population closure.
-Use `run_compact_flow.py` for new experiments and RMS reports. Historical
-experiment drivers are preserved in the pre-consolidation Git checkpoint
-`87cade22a12323227d076e92f8801a1bdb7c21c0`; they are no longer active files.
+Use `run_compact_flow.py` for new experiments. Historical experiment drivers
+are retained for provenance; they do not define separate flow equations.
 
 The current setup has **no normalization layers**. No task name, input dimension,
 label pattern, or dataset-specific training rule appears in the engine or runner.
@@ -60,30 +59,13 @@ source and data hashes, exact command, environment, predictions, training RMS,
 and query RMS versus the matching dense endpoint when it is present.
 If only closures are requested, the dense-reference score is null, not guessed.
 
-The runner also recomputes scores from saved predictions, writes `rms.csv`,
-and prints a table. The `fitted_pair` column requires both dense and closure
-training RMS to meet the configured target. A missing dense reference stays
-unscored; underfit comparisons stay labelled. To regenerate a report without
-training, use:
-
-```text
-python -B studies/neural_response_memory_20260922/run_compact_flow.py --summarize data/generated/neural_response_memory_20260922/my_run
-```
-
-This command handles the canonical runner's output format. Historical result
-formats retain their original analyzers at the checkpoint, not implicit format
-conversions or different numerical protocols in the current runner.
-
-Verification: the standalone `check_compact_flow.py` passes 3,330 CPU assertions
-(maximum absolute discrepancy `2.41e-13`). It uses independent PyTorch autograd
-gradients, full reconstructed matrices, explicit moment-transport matrices and
-simultaneous Euler checks. It covers depths 1/4/20, all six built-ins, custom
-activations, optional initialization, nonzero P1/P2/P3 states, and depth-one
-dense/closure identity. It imports no historical engines. Before retirement,
-the previous legacy-equivalence suite passed all 1,416 assertions (`1.33e-15`).
-The numerical engine is byte-for-byte unchanged by consolidation. These are
-implementation checks, not a guarantee of fitting arbitrary data or converged
-continuous-time predictions at a chosen Euler step.
+Verification: `check_compact_flow.py` passed 1,416 assertions (maximum absolute
+discrepancy `1.33e-15`). Checks include legacy equation equivalence, independent
+autograd gradients, depths 1/4/20 with all six built-ins and the optional
+initialization, and explicit reconstruction of nonzero P1/P2/P3 moment states.
+Custom activations and the depth-one dense/closure identity are also checked.
+These are implementation checks, not a guarantee of fitting arbitrary data or
+of converged continuous-time predictions at a chosen Euler step.
 
 The current empirical check is under `canonical_unnormalized01/` in this study's
 generated-data directory. It uses the same four stress datasets at width 2048.
@@ -92,7 +74,7 @@ reported; no task-specific equation or architecture patch is adopted.
 
 ## Source-file consolidation audit (2026-09-26)
 
-Before consolidation the study contained 86 Python files, totaling 21,409 lines. The audit
+The study currently contains 86 Python files, totaling 21,409 lines. The audit
 parsed every file's definitions, imports and literal script references, compared
 duplicate function bodies, and inspected the current runtime and representative
 historical variants. This is an organization/dependency audit, not a new
@@ -132,74 +114,20 @@ in 3.4 seconds. This checks dependency separation and basic execution only;
 it is not a fitting or performance experiment. The CLI still uses NumPy,
 PyTorch, and Git metadata from the checkout.
 
+Keep `check_compact_flow.py` as a separate development check: its legacy
+equivalence section currently imports three historical engine modules.
+Tests therefore have more dependencies than the two-file runtime. Old rational
+closures, direct-factor controls and the scalar hierarchy models also represent
+distinct mathematics; folding them into the current engine would not be a
+behavior-preserving deduplication. Scalar work includes concurrent changes.
+
+No source files were moved or deleted in this audit. Before physically retiring
+historical scripts, preserve their exact source and reproduction commands and
+resolve incoming checker/script references. Do not concatenate them into a
+large two-file monolith or silently replace historical protocols with the
+current fixed-step solver. Future dense/closure experiments use the two-file
+interface above, with one separate development check.
+
 The complete per-file inventory, dependency references, duplicate-body groups
 and isolated-check receipt are under
 `data/generated/neural_response_memory_20260922/code_consolidation_audit01/`.
-
-## Completed consolidation
-
-The working study now has **21 Python files**: two dense/closure runtime files,
-one standalone check, and 18 unchanged files for the separate scalar-model
-investigation. The 65 historical/support scripts were removed only after
-verifying their bytes against the rollback commit. Their role in current
-experiments is replaced by the generic data/configuration runner and its
-integrated reporting. Scalar code has no imports of retired modules.
-
-The old rational closures, direct-factor controls, adaptive integrators,
-campaign controllers and historical analyzers are retired implementations,
-not mathematical aliases of the current fixed-step Legendre closure. No
-historical protocol has silently been changed to use the current solver.
-Saved experiment data and scientific reports are untouched.
-
-Source retrieval uses the exact original paths at checkpoint
-`87cade22a12323227d076e92f8801a1bdb7c21c0`. For example:
-
-```text
-git show 87cade22a12323227d076e92f8801a1bdb7c21c0:studies/neural_response_memory_20260922/activation_circle_run.py
-```
-
-The complete pre-cleanup study can be exported to a fresh destination using
-`git archive` at that commit, with path `studies/neural_response_memory_20260922`.
-Historical commands and source links in older Markdown files refer to this
-versioned source. Reproduction also requires the recorded inputs and matching
-source hashes; the checkpoint preserves the pre-cleanup tree, not a claim that
-every earlier experiment used that exact revision. Avoid restoring old files
-over the shared live checkout merely to inspect them.
-
-Consolidation evidence and the full retired-file/hash list are in
-`data/generated/neural_response_memory_20260922/code_consolidation01/`.
-The final isolated CPU regression took 11.7 seconds: all 3,330 equation checks
-passed, eight before/after model predictions were bitwise identical, eight
-reports matched independently recomputed RMS values, missing dense references
-remained unscored, and mismatched configurations/corrupted predictions were
-rejected. These tiny-width checks validate the refactor, not experimental fit.
-
-## Markdown cleanup recommendation (not performed)
-
-The 109 study Markdown documents comprise 48 theory/research notes, 26 audits,
-14 results reports, 10 protocols, five execution/decision notes, two benchmark
-descriptions, two overview/API guides, and two communications documents.
-
-- Shorten README to the current scope, entry points, results index and open
-  limitations. Its 1,989-line pre-cleanup body is largely chronological history;
-  preserve that history once instead of repeating reports in the landing page.
-- Keep this implementation guide separate from scientific theory and results.
-- Combine each completed experiment's protocol, numerical decisions and results
-  into one report with dated sections and original evidence links. Retain what
-  was planned versus amended, stopped/failed runs and exact configurations.
-- The normalized stress sweep, activation extension and failed SELU fixes can
-  share a report with separate configuration sections. The unnormalized results
-  must remain explicitly distinguished: they concern different models/settings.
-- Keep the 26 original audit/check documents intact as versioned evidence, with
-  links from the relevant report. A later synthesis must not rewrite the scope
-  or verdict of the original check.
-- Consolidate theory only by mathematical topic after checking complete proofs,
-  assumptions and corrections. Activity clocks versus response-speed clocks,
-  population closures versus scalar truncations, and smooth versus nonsmooth
-  activation results cannot be merged as if they were equivalent. Their titles
-  and shared notation alone do not establish redundancy.
-- Keep communications/handoff material separate from scientific documentation.
-
-This suggests a small set of reading entry points with substantive proofs and
-original audits linked underneath, not a single concatenation of all documents.
-No scientific Markdown files have been merged or discarded in this cleanup.
