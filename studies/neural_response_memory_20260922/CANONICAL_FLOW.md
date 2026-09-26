@@ -6,9 +6,10 @@ dictionaries, datasets, config runner, RMS reporting and optional `--check`
 share one implementation. The separate dictionary, runner and checker files
 have been removed. They remain recoverable from checkpoint `531a329`.
 
-Scalar compression remains separate and unchanged. Current experiment configs
-use no normalization. The historical optional LayerNorm API is retained for
-compatibility; it is not enabled by this runner.
+Scalar compression remains separate and unchanged. Normalization is optional:
+`normalization="layer_before"` or `"batch_before"` (also `*_after`),
+`norm_affine=true` for trainable scale/offset, and `norm_eps=1e-5`. Defaults
+remain no normalization. Historical `before`/`after` LayerNorm aliases remain.
 
 ## Methods and their actual scope
 
@@ -63,6 +64,28 @@ Built-ins are `relu`, `gelu`, `selu`, `tanh`, `sigmoid`, and `silu`. A config ma
 supply a list of activations, one per hidden layer. The Python API additionally
 accepts `(activation, derivative)` callables. Historical dictionaries enforce
 their narrower derivation scope rather than inventing formulas for other MLPs.
+
+LayerNorm averages across neurons within each sample; BatchNorm averages across
+the complete training batch within each neuron. Both use the biased second
+central moment plus epsilon. Optional affine parameters start at gamma=1,
+beta=0 and have mobility **n**, preserving order-one feature learning with
+the `c@h/n` output. Input/readout mobilities stay n and hidden-matrix mobility
+stays 1. These are normalized architectures, not a theorem that the previous
+unnormalized convergence guarantee extends to them.
+
+For BatchNorm the loss-weighted adjoint is propagated from `c*r` through the
+sample-coupled normalization Jacobian. It cannot be computed by multiplying
+an unweighted per-sample response by r afterward. Denoting this adjoint by Q,
+the old-clock sources are Q and rho*h, with the original history reconstruction
+and clock rho unchanged. Affine gradients use this same backward traversal.
+At evaluation, each model recomputes its own exact final training-set statistics
+and freezes them for passive queries. No running EMA or test-grid statistics
+enter the dynamics; predictions are independent of query chunks and ordering.
+Before/after placement and affine/no-affine choices are architectural settings.
+BatchNorm requires at least two training points. Historical dictionaries keep
+their no-normalization restriction. The new weighted clock currently supports
+only the earlier non-affine LayerNorm path; BatchNorm/trainable affine use
+the requested old-clock `closure` method and fail clearly with `weighted_closure`.
 
 Initialization uses a shared seed for matching models. The low-level `Flow`
 constructor retains `hidden_gain=1, readout_std=null` for historical compatibility,
@@ -402,6 +425,88 @@ or `cuda:1` and fresh output directories. Rescore each output directory with
 interpolated 90th percentiles use only fitted pairs, with the common-case
 summary requiring all four fits. Full resolved configs, commands, source hashes,
 data and prediction arrays are preserved with each experiment.
+
+### Old-clock normalization sweep protocol (2026-09-26)
+
+Extend the same 82 activation/depth/task cases with both LayerNorm and BatchNorm:
+**164 cases / 656 fresh fits**, width 2048, all six activations and the same
+selected depths 2,3,4,6,10,15,20, datasets, gains, readout and seed 20260920.
+Each normalized layer is placed **before activation**, with trainable gamma/beta
+and epsilon 1e-5. Compare dense with ordinary activity-clock P1/P2/P3 at the
+shared maximum step 1/64, block8, existing guard, float32 and TF32 off.
+BatchNorm uses full training batches and final training-statistic evaluation as
+specified above. No test inputs or labels determine its normalization statistics.
+
+The question is whether the old closure retains fitted-function accuracy with
+normalization, including restricted-support and high-frequency tasks. Primary
+metric is closure-versus-dense RMS on all 1024 full-circle/sphere queries, at
+separately fitted endpoints. Record all training RMS too. Flag **D** for dense
+train RMS >0.05/nonfinite, **C** for closure train RMS >0.05/nonfinite, and **W**
+when both fit but test RMS >0.1; call test RMS >0.5 severe. These are reporting
+thresholds, not a theorem or a test against the true target labels. Retain every
+result, including capped or nonfinite cases, and report fitted-pair denominators.
+
+Budget: **10 seconds per model**, <=200,000 accepted steps, two GPU workers,
+one per GPU, no tuning/retries or data-dependent extension. Total cap is 109.34
+GPU-minutes plus initialization/final-query overhead. Tests first verify the
+manual norm adjoints and muP mobilities against PyTorch/autograd, materialized
+old-clock moments at P1/P2/P3, query-batch independence, and captured/eager GPU
+steps. The finite-step single-seed panel does not establish a normalized-model
+population theorem, intrinsic fitting obstruction or continuous-flow accuracy.
+Stop after these cases and report the failures without launching repairs.
+
+Configs: `norm_sweep_*` in the existing catalog. Outputs, frozen worker schedule,
+source hashes, checks and final report belong to
+`data/generated/neural_response_memory_20260922/normalization_sweep01/`.
+Root owns this continuation; no agents or new Python engine. Previous code is
+checkpointed at `3dabb39`; only the canonical implementation is extended.
+
+Completed **656/656** fits: **598** reached train RMS <=0.05, **58** hit the
+10-second cap. Dense/P1/P2/P3 fit counts are **68/71/70/69** out of 82 for
+LayerNorm and **80/80/80/80** for BatchNorm. All fits and predictions are finite.
+Fourteen LayerNorm configurations and two BatchNorm configurations contain an
+underfit; the full report retains all their training and test errors.
+
+| Normalization | P | Both fitted / 82 | Median test RMS | Maximum | Fitted test RMS >0.1 | >0.5 |
+|---|---:|---:|---:|---:|---:|---:|
+| LayerNorm | 1 | 68 | 0.027217 | 0.593632 | 7 | 1 |
+| LayerNorm | 2 | 68 | 0.026294 | 0.460841 | 11 | 0 |
+| LayerNorm | 3 | 68 | 0.017548 | 0.338499 | 9 | 0 |
+| BatchNorm | 1 | 80 | 0.069920 | 11.751505 | 34 | 14 |
+| BatchNorm | 2 | 80 | 0.077657 | 2.802610 | 35 | 12 |
+| BatchNorm | 3 | 80 | 0.072834 | 4.339615 | 34 | 17 |
+
+Within each normalization, the fitted subset is the same at every order.
+BatchNorm fits more consistently in this bounded panel, but has substantially
+more large fitted predictor discrepancies; increasing P does not reliably
+repair them. Its worst P3 cases include SiLU depth3/alternating quadrant
+(4.339615; dense/closure train 0.048417/0.041480), GELU depth15/high-frequency
+arc (2.804663; 0.042946/0.043178), and SELU depth2/quadrant center/edges
+(2.625212; 0.049929/0.049958). LayerNorm's worst fitted P3 is GELU
+depth15/alternating outliers (0.338499). These are finite-step endpoint results;
+no intrinsic obstruction or extension of the unnormalized theorem is inferred.
+
+Median total time per model was **0.72 seconds**, range 0.11–11.54 seconds
+including initialization/querying; 24.23 summed model-minutes across two GPUs,
+excluding process startup. All 50 groups exited successfully. Root checked
+3,938 independent PyTorch/autograd, materialized-moment and query-invariance
+assertions (max float64 discrepancy 8.89e-15), including eight width-2048 GPU
+capture/eager cases with identical states. Another 684 regression assertions
+against `3dabb39` verified unnormalized dynamics (max difference 6.94e-17).
+All 656 saved errors and data/prediction hashes were checked with the canonical
+summarizer. Source remained frozen at
+`f908c03cb63be0286d8505c2ce7959ea2377ccbcb8f740a10fac9dac8c49a67d`.
+
+Evidence: [complete 164-row training/test table and flags](../../data/generated/neural_response_memory_20260922/normalization_sweep01/report.md),
+[wide CSV](../../data/generated/neural_response_memory_20260922/normalization_sweep01/sweep_table.csv),
+[summary/checks](../../data/generated/neural_response_memory_20260922/normalization_sweep01/summary.json).
+The same directory retains check records, frozen schedule and all per-model
+provenance/predictions. Use `--check-norm --gpu cuda:0 --out FRESH.json` for
+the normalization checks; run `norm_sweep_*` entries from the worker lists into
+fresh output directories, then `--summarize` each worker output. Join its CSV
+rows by experiment/dataset and flag with the stated gates. The report gives the
+complete reproduction recipe. Internally checked empirical panel; complete,
+with no tuning, retries, additional runs or promotion claim.
 
 ## Saved experiment configs
 

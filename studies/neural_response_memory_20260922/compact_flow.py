@@ -34,7 +34,8 @@ sys.path.insert(0, str(ROOT/'code'))
 from pde.observable_initialization import build_dictionary
 
 MODEL = dict(width=2048, depth=3, activation='relu', seed=20260920,
-             hidden_gain='auto', readout_std=1., dtype='float32')
+             hidden_gain='auto', readout_std=1., dtype='float32',
+             normalization='none', norm_affine=False, norm_eps=1e-5)
 OPTIMIZER = dict(step=1/64, target_rms=.05, max_seconds=110., max_steps=200000, block=8, adaptive=True)
 KINDS = ('dense', 'closure', 'dictionary_old', 'dictionary_flow', 'gaussian', 'orthogonal',
          'trainable_dictionary', 'low_rank', 'weighted_closure')
@@ -94,7 +95,7 @@ class Flow:
     @torch.no_grad()
     def __init__(self, inputs, labels, width=2048, depth=3, activation="relu",
                  order=None, seed=20260920, device="cuda:0", dtype=torch.float32,
-                 normalization="none", norm_eps=1e-5, hidden_gain=1., readout_std=None):
+                 normalization="none", norm_eps=1e-5, norm_affine=False, hidden_gain=1., readout_std=None):
         started = time.perf_counter()
         if any(isinstance(v, bool) or not isinstance(v, int) or v < 1 for v in (width, depth)):
             raise ValueError("width and depth must be positive integers")
@@ -102,11 +103,18 @@ class Flow:
             raise ValueError("order must be None or a positive integer")
         if dtype not in (torch.float32, torch.float64): raise ValueError("Use float32 or float64")
         self.n, self.depth, self.order = width, depth, order
-        if normalization not in ("none", "before", "after"):
-            raise ValueError("normalization must be none, before or after activation")
+        normalization = {'before':'layer_before', 'after':'layer_after'}.get(normalization,normalization)
+        if normalization not in ('none','layer_before','layer_after','batch_before','batch_after'):
+            raise ValueError('Use none, layer_before/after or batch_before/after normalization')
         if not math.isfinite(norm_eps) or norm_eps <= 0:
-            raise ValueError("Positive finite LayerNorm epsilon required")
+            raise ValueError("Positive finite normalization epsilon required")
+        if not isinstance(norm_affine,bool) or (norm_affine and normalization=='none'):
+            raise ValueError('norm_affine is boolean and requires normalization')
         self.normalization, self.norm_eps = normalization, norm_eps
+        self.norm_kind = normalization.split('_')[0]
+        self.norm_before = normalization.endswith('before')
+        self.norm_affine = norm_affine
+        self.norm_axis = 1 if self.norm_kind=='batch' else 0
         self.device, self.dtype = torch.device(device), dtype
         self.inputs = torch.as_tensor(inputs, dtype=dtype, device=device).detach().clone()
         self.labels = torch.as_tensor(labels, dtype=dtype, device=device).detach().clone()
@@ -115,6 +123,7 @@ class Flow:
         if not bool(torch.isfinite(self.inputs).all() & torch.isfinite(self.labels).all()):
             raise ValueError("Training data must be finite")
         self.M = len(self.inputs)
+        if self.norm_kind=='batch' and self.M<2:raise ValueError('BatchNorm needs at least two training samples')
         self.activations = list(activation) if isinstance(activation, list) else [activation]*depth
         if len(self.activations) != depth: raise ValueError("One activation per hidden layer required")
         for spec in self.activations:
@@ -146,6 +155,8 @@ class Flow:
         self.matrices = [tensor(rng.standard_normal((width,width))*g/math.sqrt(width)) for g in gains]
         draw = rng.standard_normal(width)
         self.c = tensor(draw/width if readout_std == 1/width else draw*readout_std)
+        self.affine = [v for _ in range(depth) for v in
+                       (self.w.new_ones((width,1)),self.w.new_zeros((width,1)))] if norm_affine else []
         if order is None:
             self.state = [self.w, *self.matrices, self.c]
         else:
@@ -156,9 +167,10 @@ class Flow:
             for i, matrix in enumerate(self.matrices):
                 A = h.new_zeros((order,width,self.M)); B = torch.zeros_like(A); B[0] = h
                 self.moments.extend((A,B))
-                h = self._layer(self.activations[i+1], matrix@h)[0]
+                h = self._layer(self.activations[i+1], matrix@h,index=i+1)[0]
             self.s = self.w.new_zeros(())
             self.state = [self.w, self.c, *self.moments, self.s]
+        self.state.extend(self.affine)
         self.setup_seconds = time.perf_counter()-started
 
     @staticmethod
@@ -179,38 +191,42 @@ class Flow:
             result = result+left@(right.T@values)
         return result
 
-    def _normalize(self, z):
-        centered = z-z.mean(dim=0, keepdim=True)
-        inverse = (centered.square().mean(dim=0, keepdim=True)+self.norm_eps).rsqrt()
+    def _normalize(self, z, statistics=None):
+        mean = z.mean(dim=self.norm_axis,keepdim=True) if statistics is None else statistics[0]
+        centered = z-mean
+        inverse = ((centered.square().mean(dim=self.norm_axis,keepdim=True)+self.norm_eps).rsqrt()
+                   if statistics is None else statistics[1])
+        if self.norm_kind=='batch':self._last_statistics = (mean,inverse)
         return centered*inverse, inverse
 
-    def _layer(self, spec, z, derivatives=False):
-        # LayerNorm is per sample, across neurons, with no affine parameters.
-        if self.normalization == "before":
-            u, inverse = self._normalize(z)
-            result = _activation(spec, u, derivatives)
+    def _layer(self, spec, z, derivatives=False, index=0, statistics=None):
+        gamma,beta = self.affine[2*index:2*index+2] if self.norm_affine else (1,0)
+        if self.norm_before:
+            u, inverse = self._normalize(z,statistics)
+            result = _activation(spec, gamma*u+beta, derivatives)
         else:
             result = _activation(spec, z, derivatives)
         h, d = result if derivatives else (result, None)
-        if self.normalization == "after":
-            h, inverse = self._normalize(h); u = h
-        cache = (d, u, inverse) if derivatives and self.normalization != "none" else d
+        if self.normalization != 'none' and not self.norm_before:
+            u, inverse = self._normalize(h,statistics); h = gamma*u+beta
+        cache = (d, u, inverse, gamma) if derivatives and self.normalization != "none" else d
         return h, cache
 
     def _backward_layer(self, cache, gradient):
         if self.normalization == "none": return cache*gradient
-        d, u, inverse = cache
-        if self.normalization == "before": gradient = d*gradient
-        gradient = inverse*(gradient-gradient.mean(dim=0, keepdim=True)
-                            -u*(u*gradient).mean(dim=0, keepdim=True))
-        return gradient if self.normalization == "before" else d*gradient
+        d, u, inverse, gamma = cache
+        if self.norm_before: gradient = d*gradient
+        gradient = gamma*gradient
+        gradient = inverse*(gradient-gradient.mean(dim=self.norm_axis, keepdim=True)
+                            -u*(u*gradient).mean(dim=self.norm_axis, keepdim=True))
+        return gradient if self.norm_before else d*gradient
 
-    def _forward(self, inputs, factors, derivatives=False, w=None, apply=None, details=False):
+    def _forward(self, inputs, factors, derivatives=False, w=None, apply=None, details=False, statistics=None):
         hidden, slopes, preactivations = [], [], []
         z = (self.w if w is None else w)@inputs.T
         for i, spec in enumerate(self.activations):
             if i: z = self._apply(i-1, hidden[-1], factors) if apply is None else apply(i-1, hidden[-1])
-            h, cache = self._layer(spec,z,derivatives)
+            h, cache = self._layer(spec,z,derivatives,i,statistics[i] if statistics else None)
             if derivatives: slopes.append(cache)
             if details: preactivations.append(z)
             hidden.append(h)
@@ -220,7 +236,17 @@ class Flow:
     def predict(self, inputs):
         inputs = torch.as_tensor(inputs,dtype=self.dtype,device=self.device)
         if inputs.ndim != 2 or inputs.shape[1] != self.w.shape[1]: raise ValueError("Wrong query shape")
-        hidden,_ = self._forward(inputs,self._factors())
+        factors=self._factors()
+        statistics=None
+        if self.norm_kind=='batch' and inputs is not self.inputs:
+            # Exact endpoint calibration on training inputs only. No running
+            # EMA clock, query-batch dependence or held-out information.
+            statistics=[]; h=None
+            for i,spec in enumerate(self.activations):
+                z=self.w@self.inputs.T if i==0 else self._apply(i-1,h,factors)
+                h,_=self._layer(spec,z,index=i)
+                statistics.append(self._last_statistics)
+        hidden,_ = self._forward(inputs,factors,statistics=statistics)
         return self.c@hidden[-1]/self.n
 
     def _transport(self, moments, source, rho):
@@ -230,7 +256,7 @@ class Flow:
         return source[None]-(rho/(1+self.s))*(self.degrees*moments+lower)
 
     @torch.no_grad()
-    def _fields(self, w=None, c=None, factors=None, apply=None, details=False):
+    def _fields(self, w=None, c=None, factors=None, apply=None, details=False, loss_gradients=False):
         factors = self._factors() if factors is None else factors
         c = self.c if c is None else c
         forward = self._forward(self.inputs,factors,True,w,apply,details)
@@ -238,8 +264,8 @@ class Flow:
         residual = c@hidden[-1]/self.n-self.labels
         delta = [None]*self.depth
         backs = [None]*self.depth
-        backs[-1] = c[:,None]
-        delta[-1] = self._backward_layer(slopes[-1],c[:,None])
+        backs[-1] = c[:,None]*residual if loss_gradients else c[:,None]
+        delta[-1] = self._backward_layer(slopes[-1],backs[-1])
         for i in range(self.depth-2,-1,-1):
             back = self._apply(i,delta[i+1],factors,True) if apply is None else apply(i,delta[i+1],True)
             if details: backs[i] = back
@@ -247,22 +273,40 @@ class Flow:
         result = (hidden,delta,residual)
         return (*result,(forward[2],slopes,backs)) if details else result
 
+    def _loss_fields(self):
+        # BatchNorm couples samples: propagate c*r, never factor r outside
+        # its Jacobian. Preserve the original arithmetic for uncoupled models.
+        coupled=self.norm_kind=='batch'
+        values=self._fields(details=self.norm_affine,loss_gradients=coupled)
+        hidden,delta,residual=values[:3]
+        q=delta if coupled else [d*residual for d in delta]
+        affine=[]
+        if self.norm_affine:
+            _,caches,backs=values[3]
+            for cache,back in zip(caches,backs):
+                d,u,_,_=cache
+                g=back if coupled else back*residual
+                if self.norm_before:g=d*g
+                affine.extend(((-2/self.M)*(g*u).sum(1,keepdim=True),
+                               (-2/self.M)*g.sum(1,keepdim=True)))
+        return hidden,q,residual,affine
+
     @torch.no_grad()
     def rhs(self):
-        hidden, delta, residual = self._fields()
+        hidden, q, residual, affine = self._loss_fields()
         self.loss = residual.square().mean()
-        dw = (-2/self.M)*(delta[0]*residual)@self.inputs
+        dw = (-2/self.M)*q[0]@self.inputs
         dc = (-2/self.M)*(hidden[-1]@residual)
         if self.order is None:
-            return [dw, *((-2/(self.M*self.n))*(delta[i+1]*residual)@hidden[i].T
-                          for i in range(self.depth-1)), dc]
+            return [dw, *((-2/(self.M*self.n))*q[i+1]@hidden[i].T
+                          for i in range(self.depth-1)), dc, *affine]
         rho = self.loss.sqrt()
         velocities = [dw,dc]
         for i in range(self.depth-1):
             A,B = self.moments[2*i:2*i+2]
-            velocities.extend((self._transport(A,delta[i+1]*residual,rho),
+            velocities.extend((self._transport(A,q[i+1],rho),
                                self._transport(B,rho*hidden[i],rho)))
-        return [*velocities,rho.clone()]
+        return [*velocities,rho.clone(),*affine]
 
     @torch.no_grad()
     def step(self, dt):
@@ -375,8 +419,8 @@ class FrozenFlow(Flow):
             h=self._layer(self.activations[0],self.w@self.inputs.T)[0]
             for i,core in enumerate(self.matrices):
                 z=self._apply(i,h,None);scale=z.square().mean().sqrt().clamp_min(1e-12)
-                core.div_(scale);h=self._layer(self.activations[i+1],z/scale)[0]
-        self.state = [self.w, *self.matrices, self.c, *(self.bases if train_basis else [])]
+                core.div_(scale);h=self._layer(self.activations[i+1],z/scale,index=i+1)[0]
+        self.state = [self.w, *self.matrices, self.c, *(self.bases if train_basis else []), *self.affine]
         self.setup_seconds = time.perf_counter()-started
 
     def _apply(self, index, values, factors, transpose=False):
@@ -387,11 +431,11 @@ class FrozenFlow(Flow):
 
     @torch.no_grad()
     def rhs(self):
-        hidden, delta, residual = self._fields()
+        hidden, q, residual, affine = self._loss_fields()
         self.loss = residual.square().mean()
-        dw = (-2/self.M)*(delta[0]*residual) @ self.inputs
+        dw = (-2/self.M)*q[0] @ self.inputs
         dc = (-2/self.M)*(hidden[-1] @ residual)
-        cores = [(-2/self.M)*((self.bases[i+1].T @ delta[i+1]/self.n)*residual)
+        cores = [(-2/self.M)*(self.bases[i+1].T @ q[i+1]/self.n)
                  @ (self.bases[i].T @ hidden[i]/self.n).T for i in range(self.depth-1)]
         velocities = [dw, *cores, dc]
         if self.train_basis:
@@ -399,11 +443,11 @@ class FrozenFlow(Flow):
             db = [torch.zeros_like(b) for b in self.bases]
             for i, core in enumerate(self.matrices):
                 a = self.bases[i].T @ hidden[i]/self.n
-                d = self.bases[i+1].T @ delta[i+1]/self.n
-                db[i].add_((-2/self.M)*(hidden[i]*residual) @ (core.T@d).T)
-                db[i+1].add_((-2/self.M)*(delta[i+1]*residual) @ (core@a).T)
+                d = self.bases[i+1].T @ q[i+1]/self.n
+                db[i].add_((-2/self.M)*hidden[i] @ (core.T@d).T)
+                db[i+1].add_((-2/self.M)*q[i+1] @ (core@a).T)
             velocities.extend(db)
-        return velocities
+        return [*velocities,*affine]
 
 
 class LowRankFlow(Flow):
@@ -418,7 +462,7 @@ class LowRankFlow(Flow):
         rng = np.random.default_rng(factor_seed)
         self.factors = [(self.w.new_zeros((self.n,r)), torch.tensor(
             rng.standard_normal((r,self.n))/math.sqrt(r),device=self.device,dtype=self.dtype)) for r in ranks]
-        self.state = [self.w,self.c,*[v for pair in self.factors for v in pair]]
+        self.state = [self.w,self.c,*[v for pair in self.factors for v in pair],*self.affine]
         self.setup_seconds = time.perf_counter()-started
 
     def _factors(self):
@@ -426,15 +470,14 @@ class LowRankFlow(Flow):
 
     @torch.no_grad()
     def rhs(self):
-        hidden,delta,residual = self._fields()
+        hidden,q,residual,affine = self._loss_fields()
         self.loss = residual.square().mean()
-        velocities = [(-2/self.M)*(delta[0]*residual)@self.inputs,
+        velocities = [(-2/self.M)*q[0]@self.inputs,
                       (-2/self.M)*(hidden[-1]@residual)]
         for i,(a,b) in enumerate(self.factors):
-            q = delta[i+1]*residual
             scale = -2/(self.M*self.n)
-            velocities.extend((scale*q@(b@hidden[i]).T,scale*(a.T@q)@hidden[i].T))
-        return velocities
+            velocities.extend((scale*q[i+1]@(b@hidden[i]).T,scale*(a.T@q[i+1])@hidden[i].T))
+        return [*velocities,*affine]
 
 
 class WeightedFlow(Flow):
@@ -449,6 +492,8 @@ class WeightedFlow(Flow):
     def __init__(self, inputs, labels, *, order=1, clock='response', **kwargs):
         started = time.perf_counter()
         if clock not in ('response','response_rms','residual'): raise ValueError('Unknown history clock')
+        if kwargs.get('norm_affine',False) or kwargs.get('normalization','none').startswith('batch'):
+            raise ValueError('New-clock normalization supports non-affine LayerNorm only; use kind=closure for BatchNorm/trainable affine')
         super().__init__(inputs, labels, order=order, **kwargs)
         self.clock = clock
         self.G = torch.diag(1/(2*torch.arange(order,device=self.device,dtype=torch.float64)+1))
@@ -1312,6 +1357,11 @@ def resolve(raw):
     if len(activations) != m['depth'] or any(v not in ('relu', 'gelu', 'selu', 'tanh', 'sigmoid', 'silu') for v in activations): raise ValueError('Use a supported activation or one per hidden layer')
     if m['hidden_gain'] not in ('unit_moment','auto') and (not math.isfinite(m['hidden_gain']) or m['hidden_gain'] <= 0): raise ValueError('Invalid hidden_gain')
     if m['readout_std'] is not None and (not math.isfinite(m['readout_std']) or m['readout_std'] <= 0): raise ValueError('Invalid readout_std')
+    if m['normalization'] not in ('none','before','after','layer_before','layer_after','batch_before','batch_after'):raise ValueError('Invalid normalization')
+    if not isinstance(m['norm_affine'],bool) or (m['norm_affine'] and m['normalization']=='none'):raise ValueError('Invalid norm_affine')
+    if not math.isfinite(m['norm_eps']) or m['norm_eps']<=0:raise ValueError('Invalid norm_eps')
+    if any(v['kind']=='weighted_closure' for v in config['methods']) and (m['norm_affine'] or m['normalization'].startswith('batch')):
+        raise ValueError('BatchNorm/trainable affine currently use the old clock (kind=closure)')
     return config
 
 
@@ -1320,13 +1370,13 @@ def construct(config, method, data):
     kind = method['kind']; order = method.get('order', 1)
     args = (data['inputs'], data['labels'])
     if kind in ('dense', 'closure'):
-        return Flow(*args, **model, order=None if kind == 'dense' else order, device=config['device'], normalization='none')
+        return Flow(*args, **model, order=None if kind == 'dense' else order, device=config['device'])
     if kind=='low_rank':return LowRankFlow(*args,**model,rank=method['rank'],factor_seed=method.get('factor_seed',20260924),device=config['device'])
     if kind=='weighted_closure':return WeightedFlow(*args,**model,order=order,clock=method.get('clock','response'),device=config['device'])
     return FrozenFlow(*args, **model, kind=method.get('basis','dictionary_flow') if kind=='trainable_dictionary' else kind,
                       train_basis=kind=='trainable_dictionary', order=order, ranks=method.get('ranks'),
                       rescale_core=method.get('rescale_core',False),
-                      basis_seed=method.get('basis_seed', 7319), device=config['device'], normalization='none')
+                      basis_seed=method.get('basis_seed', 7319), device=config['device'])
 
 
 def method_name(method):
@@ -1350,6 +1400,7 @@ def summarize(root):
             train_rms = rms(train-data['labels']); dense_rms = rms(reference[1]-data['labels']) if reference else None
             rows.append(dict(experiment=str(folder.parent.relative_to(root)),dataset=folder.name, model=r['model'],
                              depth=r['config']['model']['depth'],activation=r['config']['model']['activation'],
+                             normalization=r['config']['model'].get('normalization','none'),
                              train_rms=train_rms,train_fitted=train_rms is not None and train_rms<=r['config']['optimizer']['target_rms'],dense_train_rms=dense_rms,
                              test_rms_vs_dense=rms(query-reference[2]) if reference else None,
                              test_rms_vs_target=rms(query-data['test_labels']) if 'test_labels' in data else None,
@@ -1434,8 +1485,14 @@ def main():
         p.add_argument('--'+name, type=kind)
     for name, kind in [('step', float), ('target-rms', float), ('seconds', float), ('max-steps', int)]: p.add_argument('--'+name, type=kind)
     p.add_argument('--orders', type=int, nargs='+')
-    p.add_argument('--check',action='store_true');p.add_argument('--check-clock',action='store_true');p.add_argument('--gpu')
+    p.add_argument('--check',action='store_true');p.add_argument('--check-clock',action='store_true');p.add_argument('--check-norm',action='store_true');p.add_argument('--gpu')
     a = p.parse_args()
+    if a.check_norm:
+        result=check_normalization(a.gpu)
+        result.update(source_sha256=SOURCE_SHA256,torch=torch.__version__,numpy=np.__version__)
+        if a.out:
+            with a.out.open('x') as f:json.dump(result,f,indent=2)
+        return
     if a.check_clock:
         result=check_weighted()
         if a.gpu: result['gpu']=check_gpu(a.gpu,only_weighted=True)
@@ -1477,6 +1534,73 @@ def main():
         run(config, out, base, a.prepare_only)
 
 # Optional regression checks; production never imports archived engines.
+
+def check_normalization(gpu=None):
+    """Independent PyTorch normalization/autograd and materialized memory checks."""
+    torch.set_num_threads(1)
+    torch.backends.cuda.matmul.allow_tf32=False
+    rng=np.random.default_rng(926);x=rng.normal(size=(8,3));y=rng.normal(size=8)
+    phis=dict(relu=torch.relu,gelu=torch.nn.functional.gelu,selu=torch.nn.functional.selu,
+              tanh=torch.tanh,sigmoid=torch.sigmoid,silu=torch.nn.functional.silu)
+    checks=0;maximum=0.;gpu_records=[]
+    def close(a,b,atol=2e-10,rtol=2e-10):
+        nonlocal checks,maximum
+        torch.testing.assert_close(a,b,atol=atol,rtol=rtol)
+        assert bool(torch.isfinite(a).all())
+        maximum=max(maximum,float((a-b).abs().max()));checks+=1
+    for norm,depth,spec in product(('layer_before','layer_after','batch_before','batch_after'),(1,3),phis):
+        for order in (None,1,2,3):
+            m=Flow(x,y,width=9,depth=depth,activation=spec,normalization=norm,norm_affine=True,
+                   order=order,device='cpu',dtype=torch.float64,readout_std=1.)
+            m.step(.0001)  # Nonzero learned matrix increment and affine parameters.
+            matrices=m.matrices
+            if order is not None:
+                matrices=[W-2/(m.M*m.n*(1+m.s))*sum((2*k+1)*A[k]@B[k].T for k in range(order))
+                          for W,A,B in zip(m.matrices,m.moments[::2],m.moments[1::2])]
+            parameters=[v.clone().requires_grad_(True) for v in [m.w,*matrices,m.c,*m.affine]]
+            h=m.inputs.T;zs=[];hs=[];c=parameters[depth]
+            for i,W in enumerate(parameters[:depth]):
+                z=W@h;zs.append(z);v=z if m.norm_before else phis[spec](z)
+                gamma,beta=[a[:,0] for a in parameters[depth+1+2*i:depth+3+2*i]]
+                if m.norm_kind=='layer':v=torch.nn.functional.layer_norm(v.T,(m.n,),gamma,beta,m.norm_eps).T
+                else:v=torch.nn.functional.batch_norm(v.T,None,None,gamma,beta,True,0.,m.norm_eps).T
+                h=phis[spec](v) if m.norm_before else v;hs.append(h)
+            pred=c@h/m.n;loss=(pred-m.labels).square().mean()
+            gradients=torch.autograd.grad(loss,[*parameters,*zs],retain_graph=False)
+            q=[v.detach()*(m.M*m.n/2) for v in gradients[len(parameters):]]
+            expected=[-g.detach()*mob for g,mob in zip(gradients,[m.n]+[1]*(depth-1)+[m.n]*(1+2*depth))]
+            actual=m.rhs();close(m.predict(m.inputs),pred.detach())
+            close(actual[0],expected[0])
+            close(actual[depth if order is None else 1],expected[depth])
+            for a,b in zip(actual[-2*depth:],expected[-2*depth:]):close(a,b)
+            if order is None:
+                for a,b in zip(actual[1:depth],expected[1:depth]):close(a,b)
+            else:
+                rho=loss.detach().sqrt();close(actual[-2*depth-1],rho)
+                for i,(A,B) in enumerate(zip(m.moments[::2],m.moments[1::2])):
+                    for moments,source,got in ((A,q[i+1],actual[2+2*i]),(B,rho*hs[i].detach(),actual[3+2*i])):
+                        ref=torch.stack([source-rho/(1+m.s)*(k*moments[k]+sum((2*j+1)*moments[j] for j in range(k))) for k in range(order)])
+                        close(got,ref)
+            # Eval is independent of query batching/order; final training stats
+            # recover training-mode output, without updating any model state.
+            query=torch.tensor(x[::-1].copy(),dtype=torch.float64)
+            saved=[v.clone() for v in m.state]
+            close(m.predict(query),m.predict(m.inputs).flip(0))
+            close(m.predict(query),torch.cat([m.predict(a) for a in query.split(3)]))
+            for a,b in zip(m.state,saved):close(a,b)
+    if gpu:
+        for norm,order in product(('layer_before','batch_before'),(None,1,2,3)):
+            args=dict(width=2048,depth=3,activation='gelu',normalization=norm,norm_affine=True,
+                      order=order,device=gpu,readout_std=1.)
+            eager=Flow(x,y,**args);captured=Flow(x,y,**args)
+            for _ in range(8):eager.step(.0001)
+            fit=captured.fit(step=.0001,target_rms=1e-8,max_steps=8,max_seconds=10,block=8)
+            assert fit['steps']==8,fit
+            for a,b in zip(eager.state,captured.state):close(a,b,atol=0,rtol=0)
+            gpu_records.append(dict(normalization=norm,order=order,steps=fit['steps'],seconds=fit['seconds']))
+            del eager,captured
+    print('PASS normalization:',checks,'assertions; max error',maximum,flush=True)
+    return dict(assertions=checks,maximum_absolute_error=maximum,gpu=gpu_records)
 
 def check_equations():
     from activation_moment_engine import ActivationDenseEngine, ActivationMomentEngine
