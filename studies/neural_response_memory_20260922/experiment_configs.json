@@ -976,6 +976,951 @@
         }
       ],
       "device": "cuda:0"
+    },
+    "fast_circle_relu": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 4,
+        "activation": "relu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 30.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "two_outliers_alternating",
+          "case": "two_outliers_alternating",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_pairs",
+          "case": "quadrant_pairs",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_center_edges",
+          "case": "quadrant_center_edges",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "equal_mixed_odd",
+          "case": "equal_mixed_odd",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "two_clusters_grouped",
+          "case": "two_clusters_grouped",
+          "queries": 1024
+        }
+      ]
+    },
+    "fast_circle_gelu": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 3,
+        "activation": "gelu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 30.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "two_outliers_alternating",
+          "case": "two_outliers_alternating",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_pairs",
+          "case": "quadrant_pairs",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_center_edges",
+          "case": "quadrant_center_edges",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "equal_mixed_odd",
+          "case": "equal_mixed_odd",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "two_clusters_grouped",
+          "case": "two_clusters_grouped",
+          "queries": 1024
+        }
+      ]
+    },
+    "fast_circle_selu": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 2,
+        "activation": "selu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 30.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "two_outliers_alternating",
+          "case": "two_outliers_alternating",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_pairs",
+          "case": "quadrant_pairs",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_center_edges",
+          "case": "quadrant_center_edges",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "equal_mixed_odd",
+          "case": "equal_mixed_odd",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "two_clusters_grouped",
+          "case": "two_clusters_grouped",
+          "queries": 1024
+        }
+      ]
+    },
+    "fast_circle_tanh": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 4,
+        "activation": "tanh"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 30.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "two_outliers_alternating",
+          "case": "two_outliers_alternating",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_pairs",
+          "case": "quadrant_pairs",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_center_edges",
+          "case": "quadrant_center_edges",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "equal_mixed_odd",
+          "case": "equal_mixed_odd",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "two_clusters_grouped",
+          "case": "two_clusters_grouped",
+          "queries": 1024
+        }
+      ]
+    },
+    "fast_circle_silu": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 3,
+        "activation": "silu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 30.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "two_outliers_alternating",
+          "case": "two_outliers_alternating",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_pairs",
+          "case": "quadrant_pairs",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_center_edges",
+          "case": "quadrant_center_edges",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "equal_mixed_odd",
+          "case": "equal_mixed_odd",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "two_clusters_grouped",
+          "case": "two_clusters_grouped",
+          "queries": 1024
+        }
+      ]
+    },
+    "fast_circle_sigmoid": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": 8.0,
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 2,
+        "activation": "sigmoid"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 30.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "two_outliers_alternating",
+          "case": "two_outliers_alternating",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_pairs",
+          "case": "quadrant_pairs",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_center_edges",
+          "case": "quadrant_center_edges",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "equal_mixed_odd",
+          "case": "equal_mixed_odd",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "two_clusters_grouped",
+          "case": "two_clusters_grouped",
+          "queries": 1024
+        }
+      ]
+    },
+    "fast_stress_relu": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 10,
+        "activation": "relu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 120.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "name": "circle_full",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 360,
+          "queries": 1024
+        },
+        {
+          "name": "circle_patch",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 90,
+          "queries": 1024
+        },
+        {
+          "name": "sphere_full",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "z_min": -1,
+          "seed": 20260926,
+          "queries": 1024
+        },
+        {
+          "name": "sphere_patch",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "z_min": 0.5,
+          "seed": 20260926,
+          "queries": 1024
+        }
+      ]
+    },
+    "fast_stress_gelu": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 15,
+        "activation": "gelu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 120.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "name": "circle_full",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 360,
+          "queries": 1024
+        },
+        {
+          "name": "circle_patch",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 90,
+          "queries": 1024
+        },
+        {
+          "name": "sphere_full",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "z_min": -1,
+          "seed": 20260926,
+          "queries": 1024
+        },
+        {
+          "name": "sphere_patch",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "z_min": 0.5,
+          "seed": 20260926,
+          "queries": 1024
+        }
+      ]
+    },
+    "fast_stress_selu": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 20,
+        "activation": "selu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 120.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "name": "circle_full",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 360,
+          "queries": 1024
+        },
+        {
+          "name": "circle_patch",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 90,
+          "queries": 1024
+        },
+        {
+          "name": "sphere_full",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "z_min": -1,
+          "seed": 20260926,
+          "queries": 1024
+        },
+        {
+          "name": "sphere_patch",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "z_min": 0.5,
+          "seed": 20260926,
+          "queries": 1024
+        }
+      ]
+    },
+    "fast_added_relu": {
+      "model": {
+        "width": 2048,
+        "depth": 10,
+        "activation": "relu",
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "target_rms": 0.05,
+        "max_seconds": 120.0,
+        "max_steps": 200000,
+        "block": 8,
+        "adaptive": true
+      },
+      "methods": [
+        {
+          "kind": "weighted_closure",
+          "order": 3,
+          "clock": "response_rms"
+        },
+        {
+          "kind": "trainable_dictionary",
+          "basis": "orthogonal",
+          "ranks": 256,
+          "rescale_core": true
+        }
+      ],
+      "datasets": [
+        {
+          "name": "circle_patch",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 90,
+          "queries": 512
+        },
+        {
+          "name": "sphere_full",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "seed": 20260926,
+          "queries": 512
+        }
+      ],
+      "device": "cuda:0"
+    },
+    "fast_added_gelu": {
+      "model": {
+        "width": 2048,
+        "depth": 10,
+        "activation": "gelu",
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "target_rms": 0.05,
+        "max_seconds": 120.0,
+        "max_steps": 200000,
+        "block": 8,
+        "adaptive": true
+      },
+      "methods": [
+        {
+          "kind": "weighted_closure",
+          "order": 3,
+          "clock": "response_rms"
+        },
+        {
+          "kind": "trainable_dictionary",
+          "basis": "orthogonal",
+          "ranks": 256,
+          "rescale_core": true
+        }
+      ],
+      "datasets": [
+        {
+          "name": "circle_patch",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 90,
+          "queries": 512
+        },
+        {
+          "name": "sphere_full",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "seed": 20260926,
+          "queries": 512
+        }
+      ],
+      "device": "cuda:0"
+    },
+    "fast_added_selu": {
+      "model": {
+        "width": 2048,
+        "depth": 10,
+        "activation": "selu",
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "target_rms": 0.05,
+        "max_seconds": 120.0,
+        "max_steps": 200000,
+        "block": 8,
+        "adaptive": true
+      },
+      "methods": [
+        {
+          "kind": "weighted_closure",
+          "order": 3,
+          "clock": "response_rms"
+        },
+        {
+          "kind": "trainable_dictionary",
+          "basis": "orthogonal",
+          "ranks": 256,
+          "rescale_core": true
+        }
+      ],
+      "datasets": [
+        {
+          "name": "circle_patch",
+          "kind": "circle",
+          "samples": 64,
+          "frequency": 24,
+          "span_degrees": 90,
+          "queries": 512
+        },
+        {
+          "name": "sphere_full",
+          "kind": "sphere",
+          "samples": 64,
+          "frequency": 6,
+          "seed": 20260926,
+          "queries": 512
+        }
+      ],
+      "device": "cuda:0"
+    },
+    "fast_deep_relu": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 10,
+        "activation": "relu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 60.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "two_outliers_alternating",
+          "case": "two_outliers_alternating",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "fast_deep_gelu": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 15,
+        "activation": "gelu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 60.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "two_outliers_alternating",
+          "case": "two_outliers_alternating",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
+    },
+    "fast_deep_selu": {
+      "model": {
+        "width": 2048,
+        "hidden_gain": "unit_moment",
+        "readout_std": 1.0,
+        "seed": 20260920,
+        "depth": 20,
+        "activation": "selu"
+      },
+      "optimizer": {
+        "step": 0.015625,
+        "adaptive": true,
+        "max_seconds": 60.0,
+        "max_steps": 200000,
+        "block": 8,
+        "target_rms": 0.05
+      },
+      "methods": [
+        {
+          "kind": "dense"
+        },
+        {
+          "kind": "closure",
+          "order": 1
+        },
+        {
+          "kind": "closure",
+          "order": 2
+        },
+        {
+          "kind": "closure",
+          "order": 3
+        }
+      ],
+      "datasets": [
+        {
+          "kind": "circle",
+          "name": "two_outliers_alternating",
+          "case": "two_outliers_alternating",
+          "queries": 1024
+        },
+        {
+          "kind": "circle",
+          "name": "quadrant_alternating",
+          "case": "quadrant_alternating",
+          "queries": 1024
+        }
+      ]
     }
   }
 }

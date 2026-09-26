@@ -9,6 +9,7 @@ import csv
 from functools import lru_cache
 import gzip
 import hashlib
+from itertools import product
 import json
 import math
 import os
@@ -28,6 +29,7 @@ import torch
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
+SOURCE_SHA256 = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
 sys.path.insert(0, str(ROOT/'code'))
 from pde.observable_initialization import build_dictionary
 
@@ -253,10 +255,12 @@ class Flow:
 
     @torch.no_grad()
     def fit(self, step=.0625, target_rms=.05, max_seconds=120., max_steps=20000, block=32, adaptive=False):
-        """Fixed Euler, one host loss read per block; capture time counts in budget.
+        """Euler, one host loss read per block; capture time counts in budget.
 
         CUDA captures full updates, restoring all state after warmup/capture.
-        The last partial block runs eagerly. No clipping, retries or adaptation.
+        Optional block guard restores increases >5% and halves the step; accepted
+        decreases regrow it 10% up to the declared step. This is a fitting guard,
+        not an integration-error certificate. Fixed-step behavior is unchanged.
         """
         if any(not math.isfinite(v) or v <= 0 for v in (step,target_rms,max_seconds)):
             raise ValueError("Step, target and seconds must be positive and finite")
@@ -426,6 +430,7 @@ class WeightedFlow(Flow):
         super().__init__(inputs, labels, order=order, **kwargs)
         self.clock = clock
         self.G = torch.diag(1/(2*torch.arange(order,device=self.device,dtype=torch.float64)+1))
+        self.identity = torch.eye(order,device=self.device,dtype=torch.float64)
         self.s = self.G.new_zeros(())
         self.prefix = [(a[0].clone(),b[0].clone()) for a,b in zip(self.moments[::2],self.moments[1::2])]
         hidden,delta,residual = self._fields()
@@ -445,13 +450,11 @@ class WeightedFlow(Flow):
 
     def _factors(self):
         # One small solve, shared by all links and both action orientations.
-        columns = [a.reshape(self.order,-1).double() for a in self.moments[::2]]
-        rhs = torch.cat([*columns,self.G.new_ones((self.order,1))],1)
-        solved = torch.linalg.solve_ex(self.G,rhs,check_errors=False).result
-        self._q = solved[:,-1].to(self.dtype)[:,None,None]
-        factors=[]; offset=0; size=self.n*self.M; scale=-2/(self.n*self.M)
+        inverse = torch.linalg.solve_ex(self.G,self.identity,check_errors=False).result
+        self._q = inverse.sum(1).to(self.dtype)[:,None,None]
+        factors=[]; scale=-2/(self.n*self.M)
         for (a,b),(u0,h0) in zip(zip(self.moments[::2],self.moments[1::2]),self.prefix):
-            u = solved[:,offset:offset+size].to(self.dtype).reshape_as(a);offset+=size
+            u = (inverse@a.reshape(self.order,-1).double()).to(self.dtype).reshape_as(a)
             factors.append((scale*torch.cat((self._columns(u),-u0),1),torch.cat((self._columns(b),h0),1)))
         return factors
 
@@ -1325,7 +1328,7 @@ def run(config, out, base, prepare_only=False):
     head = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True, text=True)
     write_json(out/'config.json', dict(config=config, command=shlex.join([sys.executable, *sys.argv]),
                git_head=head.stdout.strip() if head.returncode == 0 else None, cwd=os.getcwd(),
-               source_sha256={str(p): sha(p) for p in source_paths}, torch=torch.__version__, numpy=np.__version__,
+               source_sha256={str(p): SOURCE_SHA256 if p.name=='compact_flow.py' else sha(p) for p in source_paths}, torch=torch.__version__, numpy=np.__version__,
                gpu=torch.cuda.get_device_name(config['device']) if not prepare_only and torch.device(config['device']).type == 'cuda' else None,
                threads=torch.get_num_threads(), tf32=False))
     for spec, data, hashes in prepared:
@@ -1680,7 +1683,7 @@ def check_added_methods():
     for depth in (1,2,4):
         for activation,phi in phis.items():
             for kind in ('trainable','low_rank'):
-                model=(FrozenFlow(x,y,kind='gaussian',ranks=3,train_basis=True,depth=depth,activation=activation,**args)
+                model=(FrozenFlow(x,y,kind='gaussian',ranks=3,train_basis=True,rescale_core=True,depth=depth,activation=activation,**args)
                        if kind=='trainable' else LowRankFlow(x,y,rank=3,depth=depth,activation=activation,**args))
                 # Move away from zero factors; check incoming+outgoing basis gradients.
                 model.step(.001)
@@ -1720,8 +1723,8 @@ def check_added_methods():
     weighted_cases=0
     for depth in (2,4):
         for activation in phis:
-            for order in (1,2,3):
-                model=WeightedFlow(x,y,depth=depth,activation=activation,order=order,**args)
+            for order,clock in product((1,2,3),('response','response_rms')):
+                model=WeightedFlow(x,y,depth=depth,activation=activation,order=order,clock=clock,**args)
                 dense=Flow(x,y,depth=depth,activation=activation,**args)
                 close(model.predict(x),dense.predict(x))
                 for _ in range(2):model.step(.0001)
@@ -1736,7 +1739,9 @@ def check_added_methods():
                 minus=explicit(model,[a-eps*b for a,b in zip(model.state,velocity)])
                 terms=model._weighted_terms()
                 for Wp,Wm,(left,right) in zip(plus[0],minus[0],terms[-1]):close((Wp-Wm)/(2*eps),left@right.T,atol=3e-7,rtol=3e-6)
-                expected=(pred-model.labels).square().mean().sqrt()+((plus[2]-minus[2])/(2*eps)).norm()
+                speed=((plus[2]-minus[2])/(2*eps)).norm()
+                if clock=='response_rms':speed/=math.sqrt(len(plus[2]))
+                expected=(pred-model.labels).square().mean().sqrt()+speed
                 close(velocity[-1],expected,atol=3e-6,rtol=3e-6)
                 assert float(torch.linalg.eigvalsh(model.G).min())>0
                 weighted_cases+=1
@@ -1782,12 +1787,33 @@ def check_added_methods():
     return dict(assertions=checks,weighted_cases=weighted_cases,maximum_error=maximum,step_consistency_errors=errors)
 
 
+def check_step_guard(gpu=None):
+    records=[];x=np.eye(2);y=np.array([1.,-1.])
+    cases=[(Flow,{}),(Flow,{'order':3}),(LowRankFlow,{'rank':3}),
+           (FrozenFlow,dict(kind='orthogonal',ranks=3,rescale_core=True,train_basis=True)),
+           (WeightedFlow,dict(order=3,clock='response_rms'))]
+    for cls,kw in cases:
+        reference=None
+        for device in (['cpu',gpu] if gpu else ['cpu']):
+            m=cls(x,y,width=12,depth=2,activation='tanh',device=device,dtype=torch.float64,readout_std=1.,**kw)
+            f=m.fit(step=10,adaptive=True,target_rms=.05,max_steps=1000,max_seconds=10,block=2)
+            assert f['rms']<=.05 and f['rejected_blocks']>0,f
+            assert abs(f['rms']-float((m.predict(x)-m.labels).square().mean().sqrt()))<1e-12
+            if reference is not None:
+                for a,b in zip(m.state,reference):torch.testing.assert_close(a.cpu(),b,atol=1e-10,rtol=1e-10)
+            reference=[v.cpu().clone() for v in m.state]
+            records.append(dict(model=cls.__name__,settings=kw,device=device,fit=f))
+    print('PASS step guard: rejected-block restoration and final physical loss',flush=True)
+    return records
+
+
 def self_check(gpu=None,out=None):
     started=time.perf_counter()
     sys.modules.setdefault('compact_flow',sys.modules[__name__])
     sys.path.append(str(HERE/'legacy_experiments.zip'))
     result=dict(existing=check_equations(),added=check_added_methods(),datasets=check_data())
     check_runner()
+    result['step_guard']=check_step_guard(gpu)
     if gpu:result['gpu']=check_gpu(gpu)
     result.update(seconds=time.perf_counter()-started,source_sha256={Path(__file__).name:sha(__file__)},
                   torch=torch.__version__,numpy=np.__version__)
