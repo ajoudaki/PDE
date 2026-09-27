@@ -539,16 +539,17 @@ each added moment corrects what the previous ones miss (\Cref{fig:moments}).
  \includegraphics[width=\textwidth]{figures/moments.pdf}
  \caption{\textbf{What Legendre moments retain of a history.}  A network with
  two hidden tanh layers of width $512$ is trained by gradient descent on eight
- circle points, and the forward responses $h$ and backward responses
- $r\delta/\rho$ of one training input are recorded.  Top: five neurons (one
- lane each) over the whole of training in the learning-speed clock, with their
- projections onto $P=1,2,3$ Legendre modes (mean, linear trend, quadratic
- shape).  These are projections fitted afterwards to the recorded dense
- histories, not trajectories of the closure.  Above each panel, the median over
- all $512$ neurons of the RMS projection error divided by the range of that
- neuron's history.  Bottom: across neurons each moment is a population; its
- distribution for the history up to the midpoint of the learning clock and for
- the whole history, with the five neurons above marked.}
+ circle points, and the forward responses $h$ of one training input are
+ recorded.  Top: three neurons over the whole of training in the
+ learning-speed clock, with their projections onto $P=1,2,3$ Legendre modes
+ (mean, linear trend, quadratic shape).  These are projections fitted
+ afterwards to the recorded dense histories, not trajectories of the closure.
+ Above each panel, the median over all $512$ neurons of the RMS projection
+ error divided by the range of that neuron's history; for the backward
+ histories $r\delta/\rho$ the same numbers are $26\%$, $12\%$ and $10\%$.
+ Bottom: across neurons each moment is a population; its distribution for the
+ history up to the midpoint of the learning clock and for the whole history,
+ with the three neurons above marked.}
  \label{fig:moments}
 \end{figure}
 
