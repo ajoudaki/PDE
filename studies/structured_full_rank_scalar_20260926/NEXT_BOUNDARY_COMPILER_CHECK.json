@@ -1,0 +1,16 @@
+{
+  "complete": true,
+  "moments": 294,
+  "same_tree_order_and_rows_as_existing_exact_family": true,
+  "bitwise_identical_single_template_rhs_including_active_clipping": true,
+  "shared_query_compatible": true,
+  "shared_rhs_checks": [
+    {
+      "max_absolute_error": 0.0,
+      "scaled_error": 0.0,
+      "bitwise_equal": true
+    }
+  ],
+  "early_state_limit_report": "state_limit",
+  "training_executed": false
+}
