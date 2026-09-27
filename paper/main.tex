@@ -68,24 +68,6 @@ neurons, in stored history or in tuples of samples; response memory pays in an
 approximation order.
 \end{abstract}
 
-\begin{figure}[!t]
- \centering
- \includegraphics[width=\textwidth]{figures/mechanism.pdf}
- \caption{\textbf{A learned connection is a paired memory.}  (a)~For each
- hidden link and training sample, the forward response $h_a^{(\ell-1)}$ and the
- residual-weighted backward response $b_a=r_a\delta_a^{(\ell)}/\rho$ are
- recorded in the learning clock and projected onto the first $P$ shifted
- Legendre polynomials ($P=3$ shown).  The polynomial coordinates are fixed; the
- moment vectors $\bar h_{a,k},\bar\delta_{a,k}\in\R^n$ keep moving.  Pairing
- them gives a correction of rank at most $mP$, added to the fixed
- initialization $W_0^{(\ell)}$, and the responses of the reconstructed network
- feed the next memories.  (b)~Splitting each history into its projection
- $\Pi_P$ and remainder, the exact interaction $\int b\,h^\top$ is a sum of four
- pairings; the mixed ones vanish by orthogonality, so the memory misses only
- the product of the two omitted parts.}
- \label{fig:mechanism}
-\end{figure}
-
 \section{Introduction}
 
 \paragraph{A missing model of learning.}
@@ -177,7 +159,7 @@ Whether exact deep nonlinear dynamics admit finitely many population fields
 remains open.
 \item \emph{Training history is compressible in time} (\Cref{sec:memory}).  For
 networks of any fixed finite width and depth, replacing each neuron's forward and backward history by
-$P$ Legendre moments in a learning-speed clock (\Cref{fig:mechanism}) gives an autonomous system whose
+$P$ Legendre moments in a learning-speed clock gives an autonomous system whose
 state is fixed on the chosen horizon and whose trajectory is within
 $O_T(P^{-1})$ of gradient flow, or $O_T(P^{-2})$ with a joint clock
 (\Cref{thm:old,thm:new}).  The difficulty is feedback: the memorized signals
@@ -395,7 +377,7 @@ degree below $P$,
 \end{equation}
 and since cross terms vanish by orthogonality, the error in each matrix update is
 a \emph{product} of a forward and a backward projection error.
-\Cref{fig:mechanism}(b) illustrates this cancellation and distinguishes it from
+\Cref{fig:mechanism}(b) (\Cref{app:supp-figs}) illustrates this cancellation and distinguishes it from
 the separate stability argument that controls feedback.
 
 \paragraph{The joint feature-learning clock.}
@@ -1745,7 +1727,25 @@ Equally spaced, mixed & 0.0124 & 0.00053 & $4\times10^{-6}$ & 0.0150 & 0.00241 &
 \section{Supplementary experimental figures}
 \label{app:supp-figs}
 
-\Cref{fig:moments} shows what Legendre moments retain of recorded response
+\begin{figure}[!htbp]
+ \centering
+ \includegraphics[width=\textwidth]{figures/mechanism.pdf}
+ \caption{\textbf{A learned connection is a paired memory.}  (a)~For each
+ hidden link and training sample, the forward response $h_a^{(\ell-1)}$ and the
+ residual-weighted backward response $b_a=r_a\delta_a^{(\ell)}/\rho$ are
+ recorded in the learning clock and projected onto the first $P$ shifted
+ Legendre polynomials ($P=3$ shown).  The polynomial coordinates are fixed; the
+ moment vectors $\bar h_{a,k},\bar\delta_{a,k}\in\R^n$ keep moving.  Pairing
+ them gives a correction of rank at most $mP$, added to the fixed
+ initialization $W_0^{(\ell)}$, and the responses of the reconstructed network
+ feed the next memories.  (b)~Splitting each history into its projection
+ $\Pi_P$ and remainder, the exact interaction $\int b\,h^\top$ is a sum of four
+ pairings; the mixed ones vanish by orthogonality, so the memory misses only
+ the product of the two omitted parts.}
+ \label{fig:mechanism}
+\end{figure}
+
+\Cref{fig:mechanism} sketches the paired memory and the product form of its defect; \Cref{fig:moments} shows what Legendre moments retain of recorded response
 histories; \Cref{fig:trajectory-rms} shows the RMS discrepancies behind
 \Cref{fig:trajectory} at every shared time; \Cref{fig:order} shows the
 three-hidden-layer order trends of \Cref{tab:circle} next to their numerical
