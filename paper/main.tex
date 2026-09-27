@@ -37,6 +37,11 @@ Compressing Global Dynamics of Deep Nonlinear Feature Learning}}
 \author{Amir Joudaki}
 \date{September 27, 2026}
 
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.6}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.8}
+
 \begin{document}
 \maketitle
 
@@ -672,7 +677,6 @@ universal comparison with kernels or low-rank algorithms.
 \end{figure}
 
 
-\FloatBarrier
 \paragraph{MNIST.}
 With 100 training images and width $4096$, held-out discrepancies are
 $0.00325$, $0.00108$ and $0.00120$ for $q=1,2,3$, retaining the small
@@ -683,7 +687,6 @@ and width $1024$, the discrepancies are $0.019$, $0.0019$ and $0.0012$, with
 $97.5\%$ accuracy for dense, $q=2$ and $q=3$. Prediction fidelity and label
 accuracy are separate observables.
 
-\FloatBarrier
 \paragraph{Two clocks.}
 The joint clock's better rate is asymptotic. At $q=5$ it improved some cases
 (tanh alternating quadrant $0.0066\to0.0035$; GELU outliers $0.0020\to0.0010$)
