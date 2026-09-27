@@ -200,3 +200,14 @@ Earlier exports and manifests retain their original provenance; they have not
 been relabeled as outputs of this consolidated version. Superseded source
 snapshots are retained in the maintenance study's generated audit directory.
 No training or manuscript-placement changes are part of the consolidation.
+
+## Explanatory TikZ figures
+
+`tikz_figures.py` regenerates `mechanism.pdf` and `moments.pdf` in
+`paper/figures/` (TikZ compiled with pdflatex; needs NumPy; `moments` trains a
+small network in a few seconds):
+
+```bash
+python paper/scripts/tikz_figures.py            # both
+python paper/scripts/tikz_figures.py mechanism  # one
+```
