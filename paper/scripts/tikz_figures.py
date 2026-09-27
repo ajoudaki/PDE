@@ -490,34 +490,48 @@ ORDER_STYLE = {0: "ink,line width=1.1pt", 1: "bwd,line width=0.75pt", 2: "gold,l
                3: "lrn,line width=0.8pt", 7: "grn,line width=0.8pt,dash pattern=on 2.4pt off 1.4pt"}
 
 
-def trajectory():
+def _trajectory_data():
     a, meta = _response_bundle()
-    out = [PREAMBLE]
     times = a["common_times"]
+    positive = times > 0
+    rms = {p: a[f"common_rms_{p}"][positive] for p in (1, 3, 7)}
+    sen = {p: a[f"common_sensitivity_{p}"][positive] for p in (1, 3, 7)}
+    if not (np.all(np.diff(times) > 0) and all(np.all(v > 0) for v in rms.values())
+            and all(np.all(v > 0) for v in sen.values())):
+        raise ValueError("Trajectory log axes require increasing times and positive measurements")
+    return a, times, times[positive], rms, sen
+
+
+def trajectory():
+    """Four snapshots at common physical times (main text)."""
+    a, times, shown_times, rms, sen = _trajectory_data()
+    out = [PREAMBLE]
     ang = a["history_angles"]
     train = np.arctan2(a["train_inputs"][:, 1], a["train_inputs"][:, 0])
-    s, W = 0.34, 4.15
+    s, W = 0.36, 4.15
     for j, t in enumerate([0, 5, 20, 80]):
         i = int(np.flatnonzero(times == t)[0])
         cx = 1.75 + j * W
         curves = [(a["common_dense"][i], ORDER_STYLE[0])]
         curves += [(a[f"common_memory_{p}"][i], ORDER_STYLE[p]) for p in (1, 3, 7)]
         polar(out, cx, 0, s, ang, curves, train, a["train_labels"])
-        out.append(r"\node[text=ink] at (%.3f,%.3f) {$t=%d$};" % (cx, 1.95, t))
-    _legend_row(out, 2.3, -1.95, [(ORDER_STYLE[0], "dense", "line"), (ORDER_STYLE[1], "$P=1$", "line"),
-                                  (ORDER_STYLE[3], "$P=3$", "line"), (ORDER_STYLE[7], "$P=7$", "line"),
-                                  ("ink", "training labels", "dot")], [2.2, 2.0, 2.0, 2.0, 2.0])
-    positive = times > 0
-    rms = {p: a[f"common_rms_{p}"][positive] for p in (1, 3, 7)}
-    sen = {p: a[f"common_sensitivity_{p}"][positive] for p in (1, 3, 7)}
-    shown_times = times[positive]
-    if not (np.all(np.diff(times) > 0) and all(np.all(v > 0) for v in rms.values())
-            and all(np.all(v > 0) for v in sen.values())):
-        raise ValueError("Trajectory log axes require increasing times and positive measurements")
+        out.append(r"\node[text=ink] at (%.3f,%.3f) {$t=%d$};" % (cx, 2.0, t))
+    _legend_row(out, 2.3, -2.0, [(ORDER_STYLE[0], "dense", "line"), (ORDER_STYLE[1], "$P=1$", "line"),
+                                 (ORDER_STYLE[3], "$P=3$", "line"), (ORDER_STYLE[7], "$P=7$", "line"),
+                                 ("ink", "training labels", "dot")], [2.2, 2.0, 2.0, 2.0, 2.0])
+    for p in (1, 3, 7):
+        print("trajectory: max RMS difference P=%d: %.2e (sensitivity up to %.1e)" % (p, rms[p].max(), sen[p].max()))
+    out.append(POSTAMBLE)
+    return "\n".join(out)
+
+
+def trajectory_rms():
+    """RMS difference against physical time at all shared checkpoints (appendix)."""
+    a, times, shown_times, rms, sen = _trajectory_data()
+    out = [PREAMBLE]
     lo = 10 ** np.floor(np.log10(min(min(v.min() for v in rms.values()), min(v.min() for v in sen.values()))))
     hi = 10 ** np.ceil(np.log10(max(v.max() for v in rms.values())))
-    ax = Axes(out, 1.2, -6.1, 11.0, 3.0, (shown_times[0], shown_times[-1]),
-              (lo, hi), xlog=True, ylog=True)
+    ax = Axes(out, 1.2, 0, 8.6, 3.4, (shown_times[0], shown_times[-1]), (lo, hi), xlog=True, ylog=True)
     yt = _log_ticks(lo, hi)[::2]
     xticks = [t for t in [.5, 1, 2, 5, 10, 20, 40, 80] if shown_times[0] <= t <= shown_times[-1]]
     ax.frame(xticks=xticks, yticks=yt, ylabels=[_pow_label(t) for t in yt])
@@ -526,22 +540,23 @@ def trajectory():
     for p in (1, 3, 7):
         c = ORDER_COLOR[p]
         boundary = _pts(ax.X(shown_times), ax.Y(np.maximum(sen[p], lo)))
-        out.append(r"\fill[%s,opacity=0.08] (%.3f,%.3f) -- %s -- (%.3f,%.3f) -- cycle;"
+        out.append(r"\fill[%s,opacity=0.06] (%.3f,%.3f) -- %s -- (%.3f,%.3f) -- cycle;"
                    % (c, ax.X(shown_times[0]), ax.y0, boundary, ax.X(shown_times[-1]), ax.y0))
     for p in (1, 3, 7):
         c = ORDER_COLOR[p]
         ax.line(shown_times, rms[p], f"{c},line width=0.45pt")
         ax.marks(shown_times, rms[p], f"{c},draw=white,line width=0.25pt", 1.35)
+        k = int(np.argmax(shown_times))
+        out.append(r"\node[anchor=west,text=%s,font=\scriptsize,inner sep=1.5pt] at (%.3f,%.3f) {$P=%d$};"
+                   % (c, ax.X(shown_times[k]) + 0.05, ax.Y(rms[p][k]), p))
     ax.xlabel("physical training time $t$ (log scale)")
     ax.ylabel("RMS difference from dense", off=0.85)
-    x0 = 12.6
-    out.append(r"\node[anchor=west,text=ink] at (%.3f,-3.35) {%d shared times};" % (x0, len(times)))
-    out.append(r"\filldraw[ink,draw=white,line width=0.25pt] (%.3f,-3.85) circle (1.35pt);" % (x0 + .225))
-    out.append(r"\node[anchor=west,text=ink,font=\scriptsize] at (%.3f,-3.85) {measured on $2048$ angles};" % (x0 + .52))
-    out.append(r"\draw[ink,line width=0.45pt] (%.3f,-4.3) -- ++(0.45,0);" % x0)
-    out.append(r"\node[anchor=west,text=ink,font=\scriptsize] at (%.3f,-4.3) {lines guide the eye};" % (x0 + .52))
-    out.append(r"\fill[ink,opacity=0.12] (%.3f,-4.86) rectangle ++(0.45,0.2);" % x0)
-    out.append(r"\node[anchor=west,text=ink,font=\scriptsize,align=left] at (%.3f,-4.76) {coarse/fine sensitivity\\not an error bound};" % (x0 + .52))
+    x0, y0 = 1.45, 3.15
+    out.append(r"\filldraw[ink,draw=white,line width=0.25pt] (%.3f,%.3f) circle (1.35pt);" % (x0 + .225, y0))
+    out.append(r"\node[anchor=west,text=ink,font=\scriptsize] at (%.3f,%.3f) {measured at %d shared times};" % (x0 + .52, y0, len(shown_times)))
+    out.append(r"\node[anchor=west,text=ink,font=\scriptsize] at (%.3f,%.3f) {lines guide the eye};" % (x0 + .52, y0 - 0.36))
+    out.append(r"\fill[ink,opacity=0.1] (%.3f,%.3f) rectangle ++(0.45,0.2);" % (x0, y0 - 0.82))
+    out.append(r"\node[anchor=west,text=ink,font=\scriptsize] at (%.3f,%.3f) {numerical sensitivity};" % (x0 + .52, y0 - 0.72))
     out.append(POSTAMBLE)
     return "\n".join(out)
 
@@ -1085,6 +1100,7 @@ BUILDERS = {
     "mechanism": lambda: MECHANISM,
     "moments": moments,
     "trajectory": trajectory,
+    "trajectory_rms": trajectory_rms,
     "factors": factors,
     "circles_deep": circles_deep,
     "circles_shallow": circles_shallow,
