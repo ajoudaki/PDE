@@ -1,9 +1,17 @@
-"""Explanatory TikZ figures for the paper.
+"""All TikZ figures of the paper.
 
 Regenerates, from scratch:
 
-    mechanism   response memory as a paired memory, and the product of errors
-    moments     neuron histories as position/velocity/acceleration moments
+    mechanism        response memory as a paired memory; the product of errors
+    moments          neuron histories summarized by Legendre moments
+    trajectory       learning at common physical times       (saved data)
+    same_rank        memory vs trained factors at equal rank  (recorded numbers)
+    factors          detailed same-rank comparison            (saved data)
+    circles_deep     three-hidden-layer circle gallery        (saved data)
+    circles_shallow  two-hidden-layer circle gallery          (saved data)
+    orders           order trends and numerical sensitivity   (saved data)
+    mnist            MNIST agreement and residuals            (saved data)
+    clocks           a toy history in physical time and both clocks
 
 Usage (from the repository root or anywhere):
 
@@ -12,7 +20,9 @@ Usage (from the repository root or anywhere):
 
 Each figure is TikZ, compiled with pdflatex into paper/figures/<name>.pdf.
 Requires numpy and a TeX installation with TikZ.  ``moments`` trains a small
-network (a few seconds).
+network (a few seconds).  Saved data come from response_memory_source.npz and
+radial_source_data.npz in paper/figures; ``same_rank`` uses the numbers in
+studies/neural_response_memory_20260922/FACTOR_CONTROL_RESULTS.md.
 """
 import shutil
 import subprocess
@@ -232,17 +242,15 @@ def moments():
     emit(r"""\begin{document}
     \begin{tikzpicture}[font=\footnotesize,>={Stealth[length=1.6mm]}]""")
 
-    # column headers with particle glyphs
-    heads = ["position", "$+$ velocity", "$+$ acceleration"]
+    # column headers with a sketch of the mode each order adds
+    heads = ["mean", "$+$ linear trend", "$+$ quadratic shape"]
+    modes = [lambda s: 0 * s, lambda s: s, lambda s: 1.5 * s**2 - 0.5]
     for j in range(3):
         x0 = j * (PW + GX)
         cx, cy = x0 + 0.1, PH + 0.62
-        emit(r"\fill[ink] (%.3f,%.3f) circle (1.6pt);" % (cx, cy))
-        if j >= 1:
-            emit(r"\draw[->,ink,line width=0.7pt] (%.3f,%.3f) -- ++(0.42,0.12);" % (cx + 0.06, cy + 0.02))
-        if j >= 2:
-            emit(r"\draw[->,ink,line width=0.6pt] (%.3f,%.3f) arc[start angle=200,end angle=320,radius=0.2];"
-                 % (cx + 0.5, cy + 0.14))
+        ss = np.linspace(-1, 1, 25)
+        emit(r"\draw[ink,line width=0.8pt] " + " -- ".join(
+            "(%.3f,%.3f)" % (cx + 0.35 * (v + 1), cy + 0.13 * modes[j](v)) for v in ss) + ";")
         emit(r"\node[anchor=west,text=ink] at (%.3f,%.3f) {$P=%d$: %s};" % (x0 + 1.05, cy, j + 1, heads[j]))
 
     LANES = len(picks[0])
@@ -269,7 +277,7 @@ def moments():
                 emit(r"\draw[ink!75,line width=0.6pt,dash pattern=on 2.0pt off 1.4pt] " +
                      " -- ".join("(%.3f,%.3f)" % (Xp(k), Yp(f[k, i])) for k in sel) + ";")
             emit(r"\node[anchor=south east,text=mute,font=\scriptsize,inner sep=1pt] "
-                 r"at (%.3f,%.3f) {median error $%.0f\%%$};" % (x0 + PW, y0 + PH + 0.02, 100 * med))
+                 r"at (%.3f,%.3f) {median error $%.0f\%%$ of range};" % (x0 + PW, y0 + PH + 0.02, 100 * med))
             if ri == 1:
                 emit(r"\node[anchor=north,text=mute,font=\scriptsize] at (%.3f,%.3f) {start};" % (x0 + 0.2, y0))
                 emit(r"\node[anchor=north,text=mute,font=\scriptsize] at (%.3f,%.3f) {now};" % (x0 + PW - 0.2, y0))
@@ -323,7 +331,7 @@ def moments():
                      % (x0 + 0.5 * PW, base + RH + 0.02, k))
     yb = R0 - (RH + 0.45) - 0.45
     emit(r"\draw[ink!65,line width=0.7pt] (%.3f,%.3f) -- ++(0.45,0) node[right,text=ink] {now};" % (0.2 + (PW + GX), yb))
-    emit(r"\draw[ink!40,line width=0.6pt,dash pattern=on 1.8pt off 1.3pt] (%.3f,%.3f) -- ++(0.45,0) node[right,text=ink] {halfway};"
+    emit(r"\draw[ink!40,line width=0.6pt,dash pattern=on 1.8pt off 1.3pt] (%.3f,%.3f) -- ++(0.45,0) node[right,text=ink] {halfway, in the clock};"
          % (1.6 + (PW + GX), yb))
     emit(r"\draw[n0,line width=1.2pt] (%.3f,%.3f) -- ++(0,-0.16) node[right=2pt,text=ink,anchor=west] {the five neurons above};"
          % (0.25 + 2 * (PW + GX), yb + 0.08))
@@ -688,49 +696,174 @@ def mnist():
     return "\n".join(out)
 
 
-def clock():
-    t = np.linspace(0, 1, 1601)
-    speed = .035 + 1.4 * np.exp(-((t - .31) / .057) ** 2) + .85 * np.exp(-((t - .77) / .085) ** 2)
-    s_ = np.r_[0, np.cumsum((speed[1:] + speed[:-1]) * np.diff(t) / 2)]
-    s_ = s_ / s_[-1]
-    path = np.stack([1.5 * s_, .46 * np.sin(2 * np.pi * s_ - .6)], axis=1)
-    velocity = np.gradient(path, t, axis=0)
-    rho = .12 + .18 * (1 - t)
-    g = rho + np.linalg.norm(velocity, axis=1)
-    tau = 1 + np.r_[0, np.cumsum((g[1:] + g[:-1]) * np.diff(t) / 2)]
-    out = [PREAMBLE]
-    sel = np.linspace(0, len(t) - 1, 300).astype(int)
-    events = [.24, .34, .65, .83]
-    ecol = ["fwd", "grn", "gold", "lrn"]
-    PW, PH = 8.6, 1.9
-    axes = []
-    for k, (clk, label) in enumerate([(t, "physical time $t$"), (tau, r"joint clock $\tau$")]):
-        y0 = -k * (PH + 1.05)
-        ax = Axes(out, 1.0, y0, PW, PH, (clk[0], clk[-1]), (-0.1, 1.65))
-        ax.frame(yticks=[0, 0.75, 1.5])
-        ax.line(clk[sel], path[sel, 0], "ink,line width=0.9pt")
-        ax.title("one response, in " + label)
-        axes.append((ax, clk))
-    for ev, c in zip(events, ecol):
-        j = int(np.argmin(abs(t - ev)))
-        (a0, c0), (a1, c1) = axes
-        out.append(r"\draw[%s!45,line width=0.45pt,dash pattern=on 1.2pt off 1.2pt] (%.3f,%.3f) -- (%.3f,%.3f);"
-                   % (c, a0.X(c0[j]), a0.y0, a1.X(c1[j]), a1.y0 + a1.h))
-        for ax, clk in axes:
-            out.append(r"\fill[%s] (%.3f,%.3f) circle (1.8pt);" % (c, ax.X(clk[j]), ax.Y(path[j, 0])))
-    # geometric insets: the path sampled uniformly in each coordinate
-    for k, (clk, title, col) in enumerate([(t, "uniform in $t$", "mute"), (tau, r"uniform in $\tau$", "lrn")]):
-        ox, oy, sc = 11.2, -k * (PH + 1.05) + 0.25, 2.6
-        out.append(r"\draw[ink!15,line width=2.2pt,line cap=round] %s;" % _pts(ox + sc * path[sel, 0] / 1.5, oy + 0.7 + sc * path[sel, 1] / 1.5))
-        marks = np.linspace(clk[0], clk[-1], 16)
-        px, py = np.interp(marks, clk, path[:, 0]), np.interp(marks, clk, path[:, 1])
-        for u, v in zip(px, py):
-            out.append(r"\filldraw[%s,draw=white,line width=0.3pt] (%.3f,%.3f) circle (1.7pt);" % (col, ox + sc * u / 1.5, oy + 0.7 + sc * v / 1.5))
-        out.append(r"\node[text=ink,anchor=south] at (%.3f,%.3f) {%s};" % (ox + sc / 2, oy + 1.45, title))
-    out.append(r"\node[anchor=west,text=ink] at (1.0,%.3f) {learning-speed clock: $\dot\tau=\rho$ \qquad joint clock: $\dot\tau=\rho+\|\dot\Psi\|_2$, so that $\|d\Psi/d\tau\|_2\le1$};"
-               % (-(PH + 1.05) - 1.15))
-    out.append(POSTAMBLE)
-    return "\n".join(out)
+
+# ======================================================================
+# same_rank
+
+SAME_RANK = r"""% Same-rank comparison: response memory vs directly trained low-rank factors.
+% Data: studies/neural_response_memory_20260922/FACTOR_CONTROL_RESULTS.md
+% (whole-circle RMS difference from dense; two hidden tanh layers, width 2048).
+\documentclass[tikz,border=2pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usetikzlibrary{arrows.meta,calc}
+
+\definecolor{fwd}{HTML}{2F6DB5}
+\definecolor{bwd}{HTML}{C8553D}
+\definecolor{lrn}{HTML}{6B4C9A}
+\definecolor{ink}{HTML}{2B2B2B}
+\definecolor{mute}{HTML}{8A8A8A}
+
+\tikzset{
+  lab/.style={font=\footnotesize,text=ink},
+  small/.style={font=\scriptsize,text=mute},
+  mem/.style={circle,fill=lrn,inner sep=0pt,minimum size=5.2pt},
+  fac/.style={circle,draw=bwd,fill=white,line width=0.9pt,inner sep=0pt,minimum size=5.2pt},
+}
+
+% x position of a value on a log10 axis: 10^-3.6 -> 0, 10^0.4 -> W
+\def\W{8.2}
+\newcommand{\lx}[1]{{(log10(#1)+3.6)/4.0*\W}}
+
+\begin{document}
+\begin{tikzpicture}[y=-0.62cm]
+
+% grid and axis
+\foreach \e/\t in {-3/{10^{-3}},-2/{10^{-2}},-1/{10^{-1}},0/{1}}{
+  \pgfmathsetmacro{\xx}{(\e+3.6)/4.0*\W}
+  \draw[ink!10,line width=0.4pt] (\xx,0.35) -- (\xx,7.1);
+  \node[small,anchor=north] at (\xx,7.15) {$\t$};
+}
+\node[lab,anchor=north] at ({0.5*\W},7.7)
+  {whole-circle RMS difference from dense training};
+
+% rows: label, rank, memory, factor seed 1, factor seed 2, ratio
+\foreach \name/\rk/\m/\fa/\fb/\ra [count=\i] in {
+  {Two outliers, alternating}/24/0.0729531/0.465456/0.460915/6,
+  {Quadrant, alternating}/24/0.0456113/0.676639/1.54131/15,
+  {Quadrant, paired labels}/24/0.00281761/0.375464/0.203580/72,
+  {Quadrant, center/edges}/24/0.00487776/0.257864/0.249269/51,
+  {Equally spaced, mixed}/12/0.000525665/0.0606940/0.0687051/115}{
+  \pgfmathsetmacro{\xm}{\lx{\m}}
+  \pgfmathsetmacro{\xa}{\lx{\fa}}
+  \pgfmathsetmacro{\xb}{\lx{\fb}}
+  \pgfmathsetmacro{\xlo}{min(\xa,\xb)}
+  \pgfmathsetmacro{\xhi}{max(\xa,\xb)}
+  \draw[ink!18,line width=2.2pt,line cap=round] (\xm,\i) -- (\xlo,\i);
+  \draw[bwd!35,line width=0.8pt] (\xlo,\i) -- (\xhi,\i);
+  \node[fac] at (\xa,\i) {};
+  \node[fac] at (\xb,\i) {};
+  \node[mem] at (\xm,\i) {};
+  \node[lab,anchor=east] at (-0.25,\i) {\name};
+  \node[small,anchor=west] at (-0.2,\i) {};
+  \node[font=\scriptsize,text=ink!70,anchor=south] at ({0.5*(\xm+\xlo)},\i-0.02) {$\times\ra$};
+  \node[small,anchor=west] at (\W+0.15,\i) {rank \rk};
+}
+
+% separated rank-56 row
+\draw[ink!15,line width=0.4pt,dash pattern=on 1.5pt off 1.5pt] (-4.4,5.75) -- (\W+1.2,5.75);
+\pgfmathsetmacro{\xm}{\lx{0.00466307}}
+\pgfmathsetmacro{\xa}{\lx{0.516210}}
+\pgfmathsetmacro{\xb}{\lx{0.251026}}
+\draw[ink!18,line width=2.2pt,line cap=round] (\xm,6.5) -- (\xb,6.5);
+\draw[bwd!35,line width=0.8pt] (\xb,6.5) -- (\xa,6.5);
+\node[fac] at (\xa,6.5) {};
+\node[fac] at (\xb,6.5) {};
+\node[mem] at (\xm,6.5) {};
+\node[lab,anchor=east] at (-0.25,6.5) {Two outliers, alternating};
+\node[font=\scriptsize,text=ink!70,anchor=south] at ({0.5*(\xm+\xb)},6.48) {$\times54$};
+\node[small,anchor=west] at (\W+0.15,6.5) {rank 56};
+
+% legend
+\node[mem] (l1) at (0.2,-0.35) {};
+\node[lab,anchor=west] at (0.35,-0.35) {response memory};
+\node[fac] (l2) at (3.25,-0.35) {};
+\node[lab,anchor=west] at (3.4,-0.35) {trained factors $W_0+AB$ (two seeds)};
+
+\end{tikzpicture}
+\end{document}
+"""
+
+# ======================================================================
+# clocks
+
+def clocks():
+    """Toy two-residual signal drawn in physical time and in both clocks."""
+    T, P = 6.0, 4
+    t = np.linspace(0, T, 60001)
+    r1, r2 = np.exp(-4 * t), 0.05 * np.exp(-0.5 * t)
+    rho = np.sqrt((r1**2 + r2**2) / 2)
+    b1, b2 = r1 / rho, r2 / rho
+    speed = np.hypot(np.gradient(b1, t), np.gradient(b2, t))
+
+
+    def cumulative(f):
+        return np.concatenate([[0.0], np.cumsum(0.5 * (f[1:] + f[:-1]) * np.diff(t))])
+
+
+    rows = [
+        ("physical time $t$", t),
+        (r"learning-speed clock, $\dot\tau=\rho$", cumulative(rho)),
+        (r"joint clock, $\dot\tau=\rho+\|\dot b\|$", cumulative(rho + speed)),
+    ]
+    events = [0.5, 0.86, 1.5]          # physical instants linked across rows
+    W, H, GAP = 8.4, 1.25, 0.45        # panel width, height, vertical gap (cm)
+    ymax = float(b1.max())
+    lo, hi = -0.25, ymax + 0.25          # vertical range incl. fit overshoot
+
+    out = []
+    emit = out.append
+    emit(r"""% Generated by claude_figures.py -- do not edit by hand.
+    \documentclass[tikz,border=2pt]{standalone}
+    \usepackage{amsmath,amssymb}
+    \definecolor{bwd}{HTML}{C8553D}
+    \definecolor{lrn}{HTML}{6B4C9A}
+    \definecolor{ink}{HTML}{2B2B2B}
+    \definecolor{mute}{HTML}{8A8A8A}
+    \begin{document}
+    \begin{tikzpicture}[font=\footnotesize]""")
+
+    event_x = []
+    for i, (name, clock) in enumerate(rows):
+        x = clock / clock[-1]
+        u = np.linspace(0, 1, 2001)
+        y = np.interp(u, x, b1)
+        fit = leg.legval(2 * u - 1, leg.legfit(2 * u - 1, y, P - 1))
+        err = float(np.sqrt(np.mean((fit - y) ** 2)))
+        y0 = -i * (H + GAP)
+        sy = lambda v: y0 + H * (v - lo) / (hi - lo)
+        sel = np.linspace(0, len(u) - 1, 260).astype(int)
+        emit(rf"\draw[ink!20,line width=0.4pt] (0,{y0:.3f}) -- ({W},{y0:.3f});")
+        emit(r"\draw[bwd,line width=0.9pt] " +
+             " -- ".join(f"({W * u[j]:.3f},{sy(y[j]):.3f})" for j in sel) + ";")
+        emit(r"\draw[lrn,line width=0.8pt,dash pattern=on 2.4pt off 1.6pt] " +
+             " -- ".join(f"({W * u[j]:.3f},{sy(fit[j]):.3f})" for j in sel) + ";")
+        emit(rf"\node[anchor=west,text=ink] at ({W + 0.3},{y0 + 0.62 * H:.3f}) {{{name}}};")
+        emit(rf"\node[anchor=west,text=mute,font=\scriptsize] at ({W + 0.3},{y0 + 0.28 * H:.3f}) "
+             rf"{{RMS fit error ${err:.3f}$}};")
+        event_x.append([(W * float(np.interp(e, t, x)), y0) for e in events])
+
+    # faint links between the same physical instants in consecutive rows
+    for k in range(len(events)):
+        for i in range(len(rows) - 1):
+            (xa, ya), (xb, yb) = event_x[i][k], event_x[i + 1][k]
+            emit(rf"\draw[ink!30,line width=0.35pt,dash pattern=on 1pt off 1.2pt] "
+                 rf"({xa:.3f},{ya:.3f}) -- ({xb:.3f},{yb + H:.3f});")
+        for i in range(len(rows)):
+            xa, ya = event_x[i][k]
+            emit(rf"\draw[ink!30,line width=0.35pt,dash pattern=on 1pt off 1.2pt] "
+                 rf"({xa:.3f},{ya:.3f}) -- ({xa:.3f},{ya + H:.3f});")
+
+    yb = -(len(rows) - 1) * (H + GAP)
+    emit(rf"\node[anchor=north,text=mute,font=\scriptsize] at ({0.5 * W},{yb - 0.08:.3f}) "
+         r"{position within each coordinate, rescaled to $[0,1]$};")
+    emit(rf"\draw[bwd,line width=0.9pt] (0,{H + 0.35}) -- ++(0.45,0) "
+         r"node[right,text=ink] {backward history $b_1=r_1/\rho$};")
+    emit(rf"\draw[lrn,line width=0.8pt,dash pattern=on 2.4pt off 1.6pt] (4.3,{H + 0.35}) "
+         rf"-- ++(0.45,0) node[right,text=ink] {{fit with $P={P}$ Legendre modes}};")
+    emit(r"\end{tikzpicture}")
+    emit(r"\end{document}")
+
+    return "\n".join(out) + "\n"
 
 
 # ======================================================================
@@ -745,7 +878,8 @@ BUILDERS = {
     "circles_shallow": circles_shallow,
     "orders": orders,
     "mnist": mnist,
-    "clock": clock,
+    "same_rank": lambda: SAME_RANK,
+    "clocks": clocks,
 }
 
 
