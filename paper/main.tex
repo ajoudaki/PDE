@@ -155,7 +155,7 @@ Tangent Hierarchy in tensors indexed by tuples of training samples.  Response
 memory pays in an approximation order: one order serves a chosen horizon, and
 no coordinates are added merely because more steps elapse.  Its required value
 can depend on that horizon and on the task.  \Cref{sec:notions} makes the
-axis precise, \Cref{tab:axis} places the descriptions on it, and \Cref{app:size}
+axis precise, \Cref{tab:axis,fig:map} place the descriptions on it, and \Cref{app:size}
 works out, under stated hypotheses, what each would cost at a prescribed
 accuracy.
 
@@ -169,7 +169,8 @@ operator closure for a deep linear benchmark and a restricted scalar
 nonclosure result expose information that simple finite summaries can miss.
 Whether exact deep nonlinear dynamics admit finitely many population fields
 remains open.
-\item \emph{Training history is compressible in time} (\Cref{sec:memory}).  For
+\item \emph{Training history is compressible in time} (\Cref{sec:memory},
+\Cref{fig:mechanism}).  For
 networks of any fixed finite width and depth, replacing each neuron's forward and backward history by
 $P$ Legendre moments in a learning-speed clock gives an autonomous system whose
 state is fixed on the chosen horizon and whose trajectory is within
@@ -415,6 +416,26 @@ couplings.
 A finite number of named fields or operators need not contain finitely many
 scalars, so every compression claim below names both the type and the size of
 the retained state.
+\Cref{fig:map} crosses these three classes with the second question of
+\Cref{def:size}, whether the state grows with the number of steps, and places the
+descriptions of \Cref{sec:related} accordingly.
+
+\begin{figure}[!tp]
+ \centering
+ \includegraphics[width=\textwidth]{figures/state_map.pdf}
+ \caption{Descriptions of training by the type of evolving state as width grows
+ (columns) and by whether that state grows with the number of steps (rows).
+ Eliminating the learned weights exactly turns the dense network into a stored
+ history of forward and backward responses; averaging over neurons turns that
+ history into the two-time kernels of Tensor Programs and DMFT; compressing it
+ in time gives response memory, whose moving state is fixed on a chosen horizon
+ while the initialization $W_0$ is kept as a fixed operator.  In the
+ width-free, time-fixed corner, exact closure fails for a restricted class of
+ scalar encoders (\Cref{sec:exact}), and the Neural Tangent Hierarchy is proved
+ only near the lazy limit.  Descriptions that give up depth, nonlinearity or
+ feature learning are exact about a different object and sit off this map.}
+ \label{fig:map}
+\end{figure}
 
 \section{Exact compression: operators and obstacles}
 \label{sec:exact}
@@ -495,6 +516,25 @@ hold: the summary must be
 \emph{closed}, so that it evolves autonomously, and \emph{accurate} over the
 whole of training, which alternates between bursts of learning and plateaus.
 
+\begin{figure}[!tp]
+ \centering
+ \includegraphics[width=\textwidth]{figures/mechanism.pdf}
+ \caption{Response memory.  (a)~For each hidden link and training sample, the
+ forward response $h_a^{(\ell-1)}$ and the residual-weighted backward response
+ $b_a=r_a\delta_a^{(\ell)}/\rho$ are recorded in the learning clock and projected
+ onto the first $P$ shifted Legendre polynomials ($P=3$ shown).  The polynomial
+ coordinates are fixed; the moment vectors $\bar h_{a,k},\bar\delta_{a,k}\in\R^n$
+ keep moving.  Pairing them gives a correction of rank at most $mP$, added to
+ the fixed initialization $W_0^{(\ell)}$, and the responses of the reconstructed
+ network feed the next memories.  (b)~Splitting each history into its projection
+ $\Pi_P$ and remainder, the exact interaction $\int b\,h^\top$ is a sum of four
+ pairings; the mixed ones vanish by orthogonality, so the memory misses only the
+ product of the two omitted parts \eqref{eq:projection-form}.  Turning this
+ defect into a trajectory bound requires controlling the feedback, which is the
+ content of \Cref{thm:old,thm:new}.}
+ \label{fig:mechanism}
+\end{figure}
+
 \subsection{Closure: shifted Legendre moments}
 
 Let $p_k$ be the shifted Legendre polynomials on $[0,1]$, normalized by
@@ -507,6 +547,25 @@ and this is what makes the moment system close exactly.  The identity underlies
 online polynomial memory in HiPPO \citep{gu2020hippo}; the new element is that
 the memorized signals are the network's own forward and backward responses,
 coupled back through the reconstructed network.
+
+Read physically, the first moments of a history are its average position, its
+trend (the first polynomial rises from $-1$ at the start to $1$ now) and its
+curvature; each added moment corrects what the previous ones miss
+(\Cref{fig:moments}).
+
+\begin{figure}[!tp]
+ \centering
+ \includegraphics[width=\textwidth]{figures/moments.pdf}
+ \caption{Moments as position, velocity and acceleration.  Top: forward
+ responses $h$ and backward responses $r\delta/\rho$ of five neurons (one lane
+ each) over the whole of training, in the learning-speed clock, together with
+ what $P=1,2,3$ Legendre moments retain; the median relative error over all
+ $512$ neurons is shown above each panel.  Bottom: across neurons, each moment
+ is a population; its distribution halfway through training and at the end,
+ with the five neurons above marked.  Two hidden tanh layers of width $512$
+ trained by gradient descent on eight circle points; one training input.}
+ \label{fig:moments}
+\end{figure}
 
 \subsection{Accuracy: a clock that follows learning}
 
@@ -572,6 +631,23 @@ $P\times P$ Gram matrix is tracked alongside the moments; the reconstruction use
 its inverse, the defect keeps the product form, and the clock speed can be
 evaluated explicitly by one directional forward and backward pass
 (\Cref{app:proof-new}).
+\Cref{fig:clocks} shows the difference on a toy history.
+
+\begin{figure}[!tp]
+ \centering
+ \includegraphics[width=0.92\textwidth]{figures/clocks.pdf}
+ \caption{Why the clock matters, on a toy signal.  Two residuals decay at
+ different rates, $r_1=e^{-4t}$ and $r_2=0.05\,e^{-t/2}$, so the normalized
+ backward signal $b=r/\rho$ switches direction late, when the loss is already
+ small.  Its first component is drawn in three coordinates, each rescaled to
+ $[0,1]$, with a least-squares fit by four Legendre modes; dotted lines join the
+ same physical instants.  The learning-speed clock compresses the late phase and
+ makes the switch sharper; the joint clock, which also advances with the speed
+ of the responses, spreads it out and the fit becomes accurate.  This is an
+ illustration, not data from a trained network, and the fits are unweighted
+ rather than the residual-weighted projection of the joint closure.}
+ \label{fig:clocks}
+\end{figure}
 
 \subsection{Global guarantees}
 
@@ -826,6 +902,23 @@ directly trained low-rank correction of the middle matrix, with factors of
 matched rank and the same $W_0^{(2)}$, lost in all 29 valid comparisons, 28 of
 them by more than a factor of two; at rank 56 on the outlier task the errors were
 $0.0047$ against $0.52$ and $0.25$ for two factor seeds.
+\Cref{fig:samerank} shows the comparison at the rank used for $P=3$ on all five
+tasks, together with the rank-$56$ outlier comparison.  Both models keep the same
+$W_0$ and both evolve their correction; what differs is the law by which it
+evolves.
+
+\begin{figure}[!tp]
+ \centering
+ \includegraphics[width=0.9\textwidth]{figures/same_rank.pdf}
+ \caption{Same rank, different dynamics.  Whole-circle RMS difference from dense
+ training for response memory and for a directly trained correction
+ $W_0+AB$ of the middle matrix with the same rank (two factor seeds), two
+ hidden tanh layers, width $2048$.  Rank $24$ corresponds to $P=3$, rank $12$ to
+ $P=3$ on the four-point task, and rank $56$ to $P=7$; labels give the smaller of
+ the two ratios.  These are matched-loss endpoint comparisons against this
+ specific factor baseline, not against every low-rank method.}
+ \label{fig:samerank}
+\end{figure}
 
 \begin{figure}[!tp]
  \centering

@@ -200,3 +200,14 @@ Earlier exports and manifests retain their original provenance; they have not
 been relabeled as outputs of this consolidated version. Superseded source
 snapshots are retained in the maintenance study's generated audit directory.
 No training or manuscript-placement changes are part of the consolidation.
+
+## Figures from the `claude` branch
+
+`claude_figures.py` regenerates `mechanism`, `state_map`, `clocks`,
+`same_rank` and `moments` in `paper/figures/` (TikZ compiled with pdflatex;
+needs NumPy and TikZ):
+
+```bash
+python paper/scripts/claude_figures.py            # all five
+python paper/scripts/claude_figures.py moments    # a subset
+```
