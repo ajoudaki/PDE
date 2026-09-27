@@ -163,8 +163,6 @@ We ask whether evolving learned interactions can instead be carried by a fixed
 number of neuron-level coordinates, with a bound on the error of the complete
 training trajectory.
 
-
-
 \paragraph{One axis for every description.}
 The gap suggests a way to place all descriptions of training side by side.  Fix
 a horizon and an accuracy, and ask how much \emph{evolving} state a description
@@ -895,27 +893,14 @@ In two hidden layers, the fitted-function discrepancy falls by 1.5--3 orders
 of magnitude from $P=1$ to $P=7$ on every task. In three hidden layers, $P=2$
 and $P=3$ have RMS differences below $0.06$ on all five tasks, and below
 $0.01$ on three. Order is not monotone at these small values: $P=2$ beats
-$P=3$ on both alternating tasks. \Cref{fig:order} shows the measured errors
-alongside their observed numerical sensitivity, without fitting a power law.
-The hidden features move substantially: the \emph{absolute} activation RMS
+$P=3$ on both alternating tasks; the observed numerical sensitivity is two
+orders of magnitude below these differences, and no power law is fitted
+(\Cref{fig:order}, \Cref{app:supp-figs}).  The hidden features move
+substantially: the \emph{absolute} activation RMS
 changes from initialization are $0.35$--$0.65$, $0.38$--$0.74$ and
 $0.46$--$0.68$ in the three layers, across the 20 finest dense and closure runs.
 The moving state at $P=3$ is about $3$\,MiB against $256$\,MiB for the dense
 learned matrices; retained initialized matrices are additional.
-
-\begin{figure}[!tp]
- \centering
- \includegraphics[width=\textwidth]{figures/orders.pdf}
- \caption{\textbf{Measured order trends and substantial feature movement.}
- Three-hidden-layer circle experiments, width $4096$, at individually fitted
- MSE $0.001$ endpoints. Left: discrepancies on $8192$ angles. Middle: sums of
- dense and closure coarse/fine prediction RMS changes, shown on a separate
- scale; these are numerical diagnostics, not confidence intervals or certified
- bounds. Right: ranges of absolute training-activation RMS changes from
- initialization across the 20 finest runs. Neither the endpoint comparisons
- nor the three tested orders establish a temporal tracking exponent.}
- \label{fig:order}
-\end{figure}
 
 Frozen dictionaries built at initialization are a different alternative:
 on the outlier task they reach RMS $0.55$--$1.38$ with about 45 vectors,
@@ -925,27 +910,14 @@ an evolution law derived from the network's own history.
 
 \FloatBarrier
 \paragraph{MNIST.}
-\Cref{fig:mnist} combines an agreement plot with signed residuals on a
-shared vertical scale. With 100 training images
-and width $4096$, held-out discrepancies are $0.00325$, $0.00108$ and $0.00120$
-for $P=1,2,3$, retaining the small deterioration from $P=2$ to $P=3$.
+With 100 training images and width $4096$, held-out discrepancies are
+$0.00325$, $0.00108$ and $0.00120$ for $P=1,2,3$, retaining the small
+deterioration from $P=2$ to $P=3$; the predictions and their signed residuals
+are shown in \Cref{fig:mnist} (\Cref{app:supp-figs}).
 All models have identical test accuracy ($94.7\%$). With 1000 training images
 and width $1024$, the discrepancies are $0.019$, $0.0019$ and $0.0012$, with
 $97.5\%$ accuracy for dense, $P=2$ and $P=3$. Prediction fidelity and label
 accuracy are separate observables.
-
-\begin{figure}[!tp]
- \centering
- \includegraphics[width=\textwidth]{figures/mnist.pdf}
- \caption{\textbf{Agreement and its residual structure on MNIST.} Digits 3
- versus 8, 100 training images, two hidden tanh layers of width $4096$.
- Left: memory $P=3$ versus dense predictions on all $1984$ held-out images.
- Right: signed differences $f_P-f_{\mathrm{dense}}$, displayed in units of
- $10^{-3}$ with one vertical scale for all orders. RMS differences are
- $0.003248$, $0.001084$ and $0.001199$. Each model is evaluated at its own
- training-MSE $0.001$ endpoint. These are function discrepancies, not label RMSE.}
- \label{fig:mnist}
-\end{figure}
 
 \FloatBarrier
 \paragraph{Two clocks.}
@@ -1363,7 +1335,6 @@ fixed $P$, so the closure continues through $T$ for every $P\ge1$.  Repeating
 Steps 2--4 with these global constants gives \eqref{eq:old-explicit} for every
 $P$.  This completes the proof. \qed
 
-
 \section{\texorpdfstring{The joint feature-learning clock: construction and proof of \Cref{thm:new}}{The joint feature-learning clock: construction and proof}}
 \label{app:proof-new}
 
@@ -1414,7 +1385,6 @@ and $b^{(\ell)*}_a=\bar\delta^{(\ell)}_aG^{-1}e$, differentiating the
 reconstruction cancels every $g/\tau$ term and gives the defect
 $E_\ell=\frac{2\rho}{nm}\sum_a(b^{(\ell)}_a-b^{(\ell)*}_a)(h^{(\ell-1)}_a-h^{(\ell-1)*}_a)^\top$,
 of the same product form as \eqref{eq:defect}.
-
 
 \paragraph{Step 1: a lower bound on the dense residual.}
 Assume $\rho_0>0$ as stated, and use the compact physical ball $\mathcal B$ from
@@ -1561,7 +1531,6 @@ subset of its locally Lipschitz domain.  A finite maximal endpoint therefore
 extends, which proves continuation through $T$ and completes the theorem with
 $C_T=\Gamma_{\mathrm{JF}}$ and $K_T=K$. \qed
 
-
 \subsection*{Implementation of the joint clock}
 \label{app:joint-impl}
 
@@ -1600,10 +1569,8 @@ constants, so changing the coordinate alone leaves the physical constant-mode
 closure unchanged.  Higher orders pay for Gram solves and derivative passes,
 and the theoretical constants can be large.
 
-
 \section{A frozen-span closure of the population flow}
 \label{app:popclosure}
-
 
 This appendix records a closure of the population flow itself, for the smallest
 case allowed by the contract: two hidden layers, $\phi=\tanh$, inputs on
@@ -1865,6 +1832,41 @@ figures distinct roles.
  rings, training labels and RMS values follow \Cref{fig:deep}. RMS is measured
  on $8192$ uniform circle points.}
  \label{fig:shallow}
+\end{figure}
+
+\section{Supplementary experimental figures}
+\label{app:supp-figs}
+
+\Cref{fig:order} shows the three-hidden-layer order trends of \Cref{tab:circle}
+next to their numerical sensitivity and the movement of the hidden features;
+\Cref{fig:mnist} shows the MNIST predictions and residuals summarized in
+\Cref{sec:experiments}.
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphics[width=\textwidth]{figures/orders.pdf}
+ \caption{\textbf{Measured order trends and substantial feature movement.}
+ Three-hidden-layer circle experiments, width $4096$, at individually fitted
+ MSE $0.001$ endpoints. Left: discrepancies on $8192$ angles. Middle: sums of
+ dense and closure coarse/fine prediction RMS changes, shown on a separate
+ scale; these are numerical diagnostics, not confidence intervals or certified
+ bounds. Right: ranges of absolute training-activation RMS changes from
+ initialization across the 20 finest runs. Neither the endpoint comparisons
+ nor the three tested orders establish a temporal tracking exponent.}
+ \label{fig:order}
+\end{figure}
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphics[width=\textwidth]{figures/mnist.pdf}
+ \caption{\textbf{Agreement and its residual structure on MNIST.} Digits 3
+ versus 8, 100 training images, two hidden tanh layers of width $4096$.
+ Left: memory $P=3$ versus dense predictions on all $1984$ held-out images.
+ Right: signed differences $f_P-f_{\mathrm{dense}}$, displayed in units of
+ $10^{-3}$ with one vertical scale for all orders. RMS differences are
+ $0.003248$, $0.001084$ and $0.001199$. Each model is evaluated at its own
+ training-MSE $0.001$ endpoint. These are function discrepancies, not label RMSE.}
+ \label{fig:mnist}
 \end{figure}
 
 \section{Detailed same-rank comparison}
