@@ -3,6 +3,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage{booktabs}
+\usepackage{array}
 \usepackage{graphicx}
 \usepackage{placeins}
 \usepackage[font=small,labelfont=bf]{caption}
@@ -379,44 +380,44 @@ generalizes well.  Uniform angular $Q$ gives whole-circle prediction error.
 The response-memory theorems additionally control the parameters themselves.
 
 Regime changes supply no general guarantee in this common metric, even though
-different regimes can agree on special tasks.  \Cref{tab:axis} places the descriptions of
-\Cref{sec:related} on this axis by what their moving state is indexed by, what
-grows, and against what their error is certified.  The entries are orders of
-magnitude, not a ranking: constants differ between rows, and several rows
-depend on hypotheses named in the last column.  \Cref{sec:size} states what the
+different regimes can agree on special tasks.  \Cref{tab:axis} places one representative work
+from each description of \Cref{sec:related} on this axis: which of the three
+properties it keeps, the size of its moving state, and the error it proves.
+The entries are orders of magnitude, not a ranking: constants differ between
+rows, and the errors are proved against different limit objects.  \Cref{sec:size} states what the
 theorems of this paper give at fixed width, and \Cref{app:size} works out the
 conditional population-level version.
 
 \begin{table}[t]
 \centering
 \footnotesize
-\setlength{\tabcolsep}{4pt}
-\caption{Descriptions of training on a common state--accuracy axis.  $m$ samples,
-$n$ width, $H$ hidden layers, $K$ time steps, $p$ kernel order, $P$ moment
-order.  Moving state excludes fixed sources; the frozen
-$W_0$ ($Hn^2$), NTH's top tensor ($m^p$) and the NTK matrix ($m^2$) are fixed.
-Counts suppress constant factors and lower-order outer weights.  The upper
-block changes the target regime; the lower block compares direct representations.
-``Error reference'' distinguishes existing theorems from the conditional
-population estimates (H1), (H3) of \Cref{app:size}.}
+\setlength{\tabcolsep}{3.5pt}
+\caption{Descriptions of training on a common state--accuracy axis, one
+representative work per row.  Columns: nonlinearity effective in training,
+more than one hidden layer, feature learning at leading order; moving state per
+hidden layer, with constant factors and fixed sources (the initialization
+$W_0$, the NTK matrix, the top NTH tensor) omitted, Tensor Programs counted by the past responses and DMFT by the two-time kernels; and the error the work
+proves, uniform on a fixed horizon, against its own limit object unless stated.
+$m$ samples, $n$ width, $d$ input dimension, $K$ time steps, $p$ kernel order,
+$P$ moment order.  The NTH captures feature learning perturbatively, as a
+$n^{-1/2}$ correction in its scaling.  (H1) and (H3) are the hypotheses of
+\Cref{app:size}.}
 \label{tab:axis}
-\begin{tabular}{@{}llllll@{}}
+\begin{tabular}{@{}lcccll@{}}
 \toprule
-Description & Gives up & Indexed by & Moving state & Grows? & Error reference\\
+ & nonlin. & depth & features & moving state & error\\
 \midrule
-\multicolumn{6}{@{}l}{\emph{Different target regimes}}\\
-Deep linear & nonlinearity & modes & --- & no & its own limit\\
-Shallow mean field & depth & particles & $n$ & no & its own limit\\
-Neural tangent kernel & features & samples & $m$ & no & lazy limit only\\
+Deep linear \citep{saxe2014exact} & & \checkmark & \checkmark & $d$ scalar modes & exact (linear model)\\
+Two-layer mean field \citep{mei2018meanfield} & \checkmark & & \checkmark & $nd$ & $n^{-1/2}$, proved\\
+Neural tangent kernel \citep{jacot2018ntk} & \checkmark & \checkmark & & $m$ & $O(1)$ bias\\
 \midrule
-\multicolumn{6}{@{}l}{\emph{Representations retaining deep nonlinear feature learning}}\\
-Dense network & --- & neurons & $Hn^2$ & no & population, (H1)\\
-Stored history & --- & past steps & $HmnK$ & $\propto K$ & finite net, exact\\
-Tensor Programs & --- & past steps & grows & yes & fixed-step limit\\
-DMFT solver & --- & sample, time pairs & $Hm^2K^2$ & $\propto K^2$ & population, (H3)\\
-NTH, order $p$ & --- & sample tuples & $\sum_{r=1}^{p-1}m^r$ & no & finite net, source scaling\\
-Response memory, speed clock & --- & neuron moments & $HmnP$ & no & finite net, $P^{-1}$\\
-Response memory, joint clock & --- & neuron moments & $HmnP+P^2$ & no & finite net, $P^{-2}$\\
+Multilayer mean field \citep{nguyen2023rigorous} & \checkmark & \checkmark & \checkmark & $n^2$ & $n^{-c}$, $c<\tfrac12$, proved\\
+Tensor Programs \citep{yang2021tensor} & \checkmark & \checkmark & \checkmark & $mnK$ & exact limit, no rate\\
+DMFT \citep{bordelon2022dmft} & \checkmark & \checkmark & \checkmark & $m^2K^2$ & exact limit; solver, (H3)\\
+Tangent hierarchy \citep{huang2020nth} & \checkmark & \checkmark & (\checkmark) & $\sim m^{p-1}$ & $n^{-p/2}$, NTK scaling\\
+\midrule
+Response memory, speed clock & \checkmark & \checkmark & \checkmark & $mnP$ & $O_T(P^{-1})$, \Cref{thm:old}\\
+Response memory, joint clock & \checkmark & \checkmark & \checkmark & $mnP+P^2$ & $O_T(P^{-2})$, \Cref{thm:new}\\
 \bottomrule
 \end{tabular}
 \end{table}
