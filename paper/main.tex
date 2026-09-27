@@ -804,11 +804,11 @@ illustrate tracking; they do not certify the error between observations.
 
 \begin{figure}[!tp]
  \centering
- \includegraphics[width=\textwidth]{figures/learning_in_motion.pdf}
+ \includegraphics[width=\textwidth]{figures/trajectory.pdf}
  \caption{\textbf{Learning at common physical times.} Paired-label task, two
  hidden tanh layers, width $2048$. Top: saved functions at $t=0,5,20,80$;
- radius is $3+f(\theta)$, radial ticks give signed predictions, the dashed ring
- marks zero, and black dots are training labels. Bottom: RMS discrepancies
+ radius is $3+f(\theta)$, the dashed ring marks $f=0$ and the light rings
+ $f=\pm1$, and black dots are training labels. Bottom: RMS discrepancies
  against dense at all eight shared times $0,1,2,5,10,20,40,80$, using $2048$
  circle queries. Lines join observations as visual guides. Initial agreement
  is at roundoff and is omitted from the logarithmic axis. Dotted curves show
@@ -830,7 +830,7 @@ comparison, not a universal claim about low-rank algorithms.
 
 \begin{figure}[!tp]
  \centering
- \includegraphics[width=\textwidth]{figures/same_rank_dynamics.pdf}
+ \includegraphics[width=\textwidth]{figures/factors.pdf}
  \caption{\textbf{Same correction rank, different fitted functions.} Two hidden
  tanh layers of width $2048$. Top: paired-label task, memory $P=3$ and both
  factor seeds at rank $24$, with the dense reference in black. Bottom: all
@@ -857,14 +857,14 @@ A supplementary four-hidden-layer ReLU example on the sphere appears in
 
 \begin{figure}[!tp]
  \centering
- \includegraphics[width=\textwidth]{figures/circle_deep_radial.pdf}
+ \includegraphics[width=\textwidth]{figures/circles_deep.pdf}
  \caption{\textbf{The fitted function across five tasks.} Three hidden tanh
  layers, width $4096$, and memory orders $P=1,2,3$, at each model's training-MSE
  $10^{-3}$ endpoint. Angle represents input direction; radius is $3+f(\theta)$,
- with radial ticks labelled by $f(\theta)$ and a dashed zero-output ring.
- Black curves show dense training, coloured curves show response memory,
- and black dots show training labels. Coloured numbers give RMS prediction
- differences from dense on $8192$ uniform circle points, in legend order.}
+ the dashed ring marks $f=0$ and the light rings $f=\pm1$.
+ The thick grey curve is dense training, coloured curves are response memory,
+ and black dots are training labels. The numbers under each panel are RMS
+ differences from dense on $8192$ uniform circle points.}
  \label{fig:deep}
 \end{figure}
 
@@ -904,7 +904,7 @@ learned matrices; retained initialized matrices are additional.
 
 \begin{figure}[!tp]
  \centering
- \includegraphics[width=\textwidth]{figures/order_sensitivity.pdf}
+ \includegraphics[width=\textwidth]{figures/orders.pdf}
  \caption{\textbf{Measured order trends and substantial feature movement.}
  Three-hidden-layer circle experiments, width $4096$, at individually fitted
  MSE $0.001$ endpoints. Left: discrepancies on $8192$ angles. Middle: sums of
@@ -935,7 +935,7 @@ accuracy are separate observables.
 
 \begin{figure}[!tp]
  \centering
- \includegraphics[width=\textwidth]{figures/mnist_residuals.pdf}
+ \includegraphics[width=\textwidth]{figures/mnist.pdf}
  \caption{\textbf{Agreement and its residual structure on MNIST.} Digits 3
  versus 8, 100 training images, two hidden tanh layers of width $4096$.
  Left: memory $P=3$ versus dense predictions on all $1984$ held-out images.
@@ -1368,7 +1368,7 @@ $P$.  This completes the proof. \qed
 
 \begin{figure}[!htbp]
  \centering
- \includegraphics[width=\textwidth]{figures/learning_clocks.pdf}
+ \includegraphics[width=\textwidth]{figures/clock.pdf}
  \caption{\textbf{The same response path in a different coordinate.}
  Schematic of a smooth response path, not a measured network trajectory.
  The colored events correspond under the change from physical time to the
@@ -1854,13 +1854,12 @@ figures distinct roles.
 
 \begin{figure}[!htbp]
  \centering
- \includegraphics[width=\textwidth]{figures/circle_shallow_radial.pdf}
+ \includegraphics[width=\textwidth]{figures/circles_shallow.pdf}
  \caption{Fitted circle predictions for two hidden tanh layers, width $2048$,
  and response-memory orders $P=1,3,7$, using the dense references in
  \Cref{tab:circle}. Models are evaluated at their individual training-MSE
  $10^{-3}$ endpoints. Angle is input direction and radius is $3+f(\theta)$;
- signed radial ticks, the dashed zero-output ring, black training labels,
- and dense-versus-memory RMS values follow \Cref{fig:deep}. RMS is measured
+ rings, training labels and RMS values follow \Cref{fig:deep}. RMS is measured
  on $8192$ uniform circle points.}
  \label{fig:shallow}
 \end{figure}
