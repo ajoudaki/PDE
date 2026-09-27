@@ -1,0 +1,93 @@
+\section{State, rank, and computational cost}
+\label{sec:computation}
+
+The closures remove growth with elapsed training time.  They do not remove
+every dependence on width or sample count.  Table~\ref{tab:complexity}
+separates moving learned state from retained initialized state.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Leading storage and algebraic cost for $L$ hidden layers of width
+$n$ and a full batch of $m$ samples.  Constants and first/readout-layer terms
+are omitted.  ``Fixed action'' is the multiplication by the retained
+$W_{\ell,0}$ and its transpose.}
+\label{tab:complexity}
+\begin{tabular}{@{}p{0.24\linewidth}p{0.22\linewidth}p{0.22\linewidth}p{0.24\linewidth}@{}}
+\toprule
+Quantity & Dense flow & Activity clock & Response clock\\
+\midrule
+Moving internal state
+& $(L-1)n^2$
+& $2(L-1)nmP$
+& $2(L-1)nmP+P^2$\\
+Fixed initialized state
+& none beyond current weights
+& $(L-1)n^2$
+& $(L-1)n^2$\\
+Learned-correction rank
+& at most $n$
+& at most $mP$
+& at most $m(P+1)$\\
+Fixed forward/backward actions, full batch
+& included in dense actions
+& $O((L-1)n^2m)$
+& $O((L-1)n^2m)$\\
+Learned factor actions, full batch
+& $O((L-1)n^2m)$ total dense work
+& $O((L-1)nm^2P)$
+& $O((L-1)nm^2P)$ plus solves\\
+Small-order algebra
+& ---
+& $O((L-1)nmP)$ with cumulative triangular sums
+& $O(P^3)$ Gram factorization and up to $O((L-1)nmP^2)$ factor solves\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For Variant A, the triangular dilation sums can be evaluated by cumulative
+prefix sums in $O(P)$ per neuron history.  For Variant B, a Cholesky
+factorization of the shared Gram matrix costs $O(P^3)$; solving for all factor
+coordinates can cost $O((L-1)nmP^2)$ in a direct implementation.  The response
+monitor adds directional forward and backward passes.  Conditioning of $G$ can
+deteriorate with $P$ even though the prefix proves it remains positive
+definite at every fixed order.
+
+The dominant fixed-matrix actions remain quadratic in width.  Consequently,
+the present method does not give a subquadratic end-to-end evaluation of a
+generic dense initialization.  It can reduce the cost of storing and applying
+the \emph{learned correction} when $mP\ll n$, and it can avoid materializing a
+dense updated matrix.  A dense implementation that stores only its current
+weights may still use less minimal total memory because the closure stores
+both $W_0$ and its moving history state.
+
+The theorem turns order into a conservative state--accuracy tradeoff.  Ignoring
+constants and thresholds, Variant A requires $P=O(\varepsilon^{-1})$ and hence
+$O((L-1)nm\varepsilon^{-1})$ moving history coordinates.  Variant B requires
+$P=O(\varepsilon^{-1/2})$, giving
+$O((L-1)nm\varepsilon^{-1/2})$ history coordinates plus a
+$P^2=O(\varepsilon^{-1})$ shared Gram matrix.  These are upper-bound scalings,
+not observed asymptotic rates.  At small practical orders the extra clock and
+Gram conditioning can make Variant B less accurate or slower than Variant A.
+
+At large width, each moment column is naturally represented by one value per
+neuron.  This is the particle implementation of a population field.  The
+current canonical implementation evaluates the learned action through neuron
+population averages such as
+\begin{equation}
+ \frac1nH_{\ell,a,:,k}^\top h_{\ell-1,b},
+\end{equation}
+and uses the same factors for the transpose action.  Forward and adjoint reuse
+of one initialized operator is preserved exactly; redrawing or replacing it
+by independent samples would change the training law.
+
+The empirical memory measurements reinforce the distinction.  In the
+width-4096 MNIST100 experiment, history factors occupy
+$6.25$, $12.50$, and $18.75$ MiB for $P=1,2,3$, compared with $128$ MiB for an
+unrestricted learned middle matrix.  The retained $W_0$ adds another
+$128$ MiB, so minimal moving-plus-fixed state is slightly larger than the
+dense current-state baseline.  The tested closures nevertheless had lower
+measured CUDA peaks because their solver workspaces avoided dense evolving
+matrix stages; they were slower at the common tolerances.  These are
+implementation measurements, not an asymptotic speedup.
+

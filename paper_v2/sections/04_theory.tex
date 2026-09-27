@@ -1,0 +1,391 @@
+\section{Finite-horizon approximation theorem}
+\label{sec:theory}
+
+Throughout this section, $n,d,m,L$, the data, and the initialization are fixed.
+The norm of a physical state is the Euclidean product of Frobenius norms for
+all matrices and the Euclidean norm for the readout.  Put
+\(\lambda_P=P(P+1)\).
+
+\subsection{Polynomial approximation and the exact defect}
+
+\begin{lemma}[Shifted-Legendre projection]
+\label{lem:legendre}
+Let $v:[0,\tau]\to\R^q$ be absolutely continuous with
+$v'\in L^2$.  If $\Pi_Pv$ is its ordinary $L^2$ projection onto polynomials
+of degree less than $P$, then
+\begin{equation}
+ \norm{v-\Pi_Pv}_{L^2(0,\tau)}^2
+ \le \frac{\tau^2}{4\lambda_P}\norm{v'}_{L^2(0,\tau)}^2.
+ \label{eq:projection-bound}
+\end{equation}
+If $\mu$ is any measure with $\od\mu\le\od\xi$, the best degree-$(P-1)$
+projection in $L^2(\mu)$ has error no larger than the right-hand side of
+\eqref{eq:projection-bound}.  A degree-$(P-1)$ polynomial $q$ also obeys
+\begin{equation}
+ \norm{q(\tau)}_2\le \frac{P}{\sqrt\tau}\norm{q}_{L^2(0,\tau)}.
+ \label{eq:inverse-endpoint}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The shifted Legendre equation is
+\begin{equation}
+ -\frac\od{\od x}\left[x(1-x)p_k'(x)\right]=k(k+1)p_k(x).
+\end{equation}
+Integration by parts and \eqref{eq:legendre-normalization} give
+\begin{equation}
+ \int_0^1x(1-x)p_k'p_j'\,\od x
+ =\frac{k(k+1)}{2k+1}\mathbf1_{j=k}.
+\end{equation}
+For the Legendre coefficients
+$c_k=(2k+1)\int_0^1v(x)p_k(x)\od x$, Bessel's inequality therefore yields
+\begin{equation}
+ \sum_{k\ge1}\frac{k(k+1)}{2k+1}\norm{c_k}_2^2
+ \le\int_0^1x(1-x)\norm{v'(x)}_2^2\od x.
+\end{equation}
+Parseval's identity, $k(k+1)\ge\lambda_P$ in the omitted tail, and
+$x(1-x)\le1/4$ prove the unit-interval result.  Rescaling
+$x=\xi/\tau$ proves \eqref{eq:projection-bound}.  For a smaller measure,
+the ordinary projection is an admissible comparison polynomial and weighted
+best approximation can only improve its weighted error.  Finally expand
+$q=\sum_{k<P}c_kp_k(\xi/\tau)$, use $p_k(1)=1$, and apply Cauchy--Schwarz with
+$\sum_{k<P}(2k+1)=P^2$ to obtain \eqref{eq:inverse-endpoint}.
+\end{proof}
+
+For either closure let $\Pi_t$ be its current projection in the corresponding
+history measure.  For an inserted vector history $f$, define
+\begin{equation}
+ D_f(t)=\norm{f-\Pi_tf}_{L^2(\mu_t)}^2,qquad
+ f^\star=(\Pi_tf)(\tau(t)).
+ \label{eq:Df}
+\end{equation}
+
+\begin{lemma}[Exact accumulator and projection-energy identities]
+\label{lem:defect}
+Along the closure's own response history,
+\begin{equation}
+ \dot D_f=\rho\norm{f_{\rm current}-f^\star}_2^2,qquad D_f(0)=0.
+ \label{eq:Ddot}
+\end{equation}
+The closure's physical state satisfies
+\begin{equation}
+ \dot{\what\theta}=F(\what\theta)+E,qquad E_1=E_w=0,
+ \label{eq:perturbed-flow}
+\end{equation}
+where, for $2\le\ell\le L$,
+\begin{equation}
+ E_\ell=\frac{2\rho}{nm}\sum_a
+ (b_{\ell,a}-b_{\ell,a}^\star)
+ (h_{\ell-1,a}-h_{\ell-1,a}^\star)^\top .
+ \label{eq:E-block}
+\end{equation}
+Consequently,
+\begin{equation}
+ \int_0^t\norm{E_\ell(s)}_F\od s
+ \le\frac{2}{nm}\sum_a
+ \sqrt{D_{b,\ell,a}(t)D_{h,\ell,a}(t)}.
+ \label{eq:E-integral}
+\end{equation}
+Equivalently, if
+\begin{equation}
+ W_\ell^{\rm acc}(t)=W_{\ell,0}
+ -\frac2{nm}\sum_a\int_0^t
+ \what r_a\what\delta_{\ell,a}\what h_{\ell-1,a}^\top\od s,
+\end{equation}
+then $R_\ell=\what W_\ell-W_\ell^{\rm acc}$ is a proof-only accumulator
+discrepancy with $\dot R_\ell=E_\ell$.
+\end{lemma}
+
+\begin{proof}
+Writing the projection through its moments gives
+$\norm{\Pi_tf}^2=\operatorname{tr}(B_fG^{-1}B_f^\top)$.  Differentiate this
+expression using the moment and Gram equations.  The dilation terms cancel,
+and the insertion terms give
+\begin{equation}
+ \frac\od{\od t}\norm{\Pi_tf}^2
+ =\rho\left[2\ip{f_{\rm current}}{f^\star}-\norm{f^\star}^2\right].
+\end{equation}
+The derivative of the raw history energy is
+$\rho\norm{f_{\rm current}}^2$, proving \eqref{eq:Ddot}.  Differentiating the
+matrix reconstructions and subtracting the dense vector field at the closure
+state gives \eqref{eq:E-block}.  The Frobenius norm of $uv^\top$ is
+$\norm u\norm v$; Cauchy--Schwarz in activity measure and
+\eqref{eq:Ddot} give \eqref{eq:E-integral}.
+
+The same cancellation has a static interpretation.  Orthogonality gives
+\begin{equation}
+ \int bh^\top\od\mu-
+ \int(\Pi_tb)(\Pi_th)^\top\od\mu
+ =\int(b-\Pi_tb)(h-\Pi_th)^\top\od\mu.
+ \label{eq:product-orthogonality}
+\end{equation}
+Both mixed terms vanish.  The error in the learned interaction is therefore a
+product of the two projection residuals.
+\end{proof}
+
+\subsection{Main theorem}
+
+\begin{theorem}[Global finite-horizon response-memory tracking]
+\label{thm:main}
+Let the dense network be defined by
+\eqref{eq:model-forward}--\eqref{eq:dense-gf}, with arbitrary finite data and
+initial weights.  For every finite $T\ge0$:
+\begin{enumerate}[leftmargin=*]
+\item If every $\phi_\ell\in C^{1,1}_{\mathrm{loc}}(\R)$, there are finite
+      $P_A(T)$ and $C_A(T)$, independent of $P$, such that Variant A has a
+      unique solution on $[0,T]$ for every $P\ge P_A(T)$ and
+      \begin{equation}
+       \sup_{t\le T}\norm{\what\theta_P(t)-\theta(t)}
+       \le\frac{C_A(T)}{\sqrt{P(P+1)}}.
+       \label{eq:old-rate}
+      \end{equation}
+\item If $\phi_1\in C^{1,1}_{\mathrm{loc}}(\R)$ and
+      $\phi_\ell\in C^{2,1}_{\mathrm{loc}}(\R)$ for $2\le\ell\le L$, there
+      are finite $P_B(T),C_B(T),\Lambda_T$, independent of $P$, such that
+      Variant B has a unique regular solution on $[0,T]$ for every
+      $P\ge P_B(T)$,
+      \begin{equation}
+       \sup_{t\le T}\tau_P(t)\le\Lambda_T,
+       \qquad
+       \sup_{t\le T}\norm{\what\theta_P(t)-\theta(t)}
+       \le\frac{C_B(T)}{P(P+1)}.
+       \label{eq:new-rate}
+      \end{equation}
+\end{enumerate}
+If the initial residual is zero, both statements use the stationary extension
+and hold exactly.  If all activations and their first derivatives are globally
+bounded, Variant A exists for every physical time at every $P\ge1$, and
+\eqref{eq:old-rate} holds at every order with $P_A(T)=1$.
+\end{theorem}
+
+The activation class in part 1 includes tanh, sigmoid, softplus, exact GELU,
+SiLU, arctangent, and smooth ReLU approximations.  Part 2 requires one more
+derivative in the upper hidden layers because it differentiates the backward
+responses.  Exact ReLU is outside both stated smoothness theorems, even though
+it is included in some numerical tests.
+
+\begin{proof}
+We give the complete argument in four steps.  Explicit finite constants and
+the all-order bounded-activation continuation are collected in
+Appendix~\ref{app:constants}.
+
+\paragraph{1. Dense bounds and a stopped common region.}
+The gradient field is locally Lipschitz under the stated assumptions.  If
+$\mathcal M$ is the block mobility, then
+\begin{equation}
+ \frac\od{\od t}\cL
+ =-\norm{\mathcal M^{-1/2}\dot\theta}^2,qquad
+ \int_0^T\norm{\dot\theta}^2\od t\le n\rho(0)^2.
+ \label{eq:dense-energy}
+\end{equation}
+Thus $\norm{\theta(t)-\theta(0)}\le\sqrt{nT}\rho(0)$.  A finite-time
+maximal endpoint would have a finite parameter limit and could be continued,
+so dense flow exists globally.
+
+Choose a closed physical-state ball $\cB$ whose boundary is distance one from
+the dense path on $[0,T]$, and stop a closure at its first exit.  On $\cB$ all
+responses are bounded.  There are finite constants $q,V,K,c_f$ such that
+\begin{equation}
+ \rho\le q,qquad \norm{F(\vartheta)}\le V\rho(\vartheta),qquad
+ \norm{F(\vartheta)-F(\vartheta')}\le K\norm{\vartheta-\vartheta'},
+ \label{eq:ball-bounds}
+\end{equation}
+and residual RMS is $c_f$-Lipschitz in physical state.  Put
+$S=Tq$ and $\ell_T=1+S$.  Along the dense path, whenever $\rho>0$,
+$|\dot\rho|\le c_fV\rho$, hence
+\begin{equation}
+ \rho(t)\ge\mu:=\rho(0)e^{-c_fVT}>0.
+ \label{eq:rho-lower}
+\end{equation}
+
+\paragraph{2. Variant A.}
+Use activity coordinate $\xi=\tau(t)$ on a regular stopped segment and define
+the mean squared derivative energies
+\begin{equation}
+ Z_j(t)=\frac1m\sum_a\int_0^{\tau(t)}
+ \norm{\partial_\xi h_{j,a}(\xi)}^2\od\xi.
+ \label{eq:Zj}
+\end{equation}
+The prefix is constant.  If $B_\ell$ bounds $\delta_{\ell,a}$ on $\cB$, the
+normalization $m^{-1}\sum_a(r_a/\rho)^2=1$ gives
+\begin{align}
+\frac1m\sum_aD_{h,\ell,a}
+ &\le\frac{\ell_T^2}{4\lambda_P}Z_{\ell-1},
+ \label{eq:A-Dh}\\
+\frac1m\sum_aD_{b,\ell,a}
+ &\le S B_\ell^2.
+ \label{eq:A-Db}
+\end{align}
+Only the forward histories need derivative control.
+
+A nonstationary Variant A trajectory cannot first reach $\rho=0$ at a finite
+regular state.  At zero residual every raw closure velocity vanishes; local
+uniqueness applied backward from that equilibrium would force the preceding
+trajectory to be stationary.  Thus $\xi=\tau(t)$ is a valid coordinate on
+every nonstationary compact segment used here.
+
+It remains to show that $Z_j$ itself does not grow with $P$.  Let
+$e_\ell=E_\ell/\rho$.  Projection contraction, the endpoint estimate
+\eqref{eq:inverse-endpoint}, and \eqref{eq:A-Dh} yield
+\begin{equation}
+ \int_0^t\rho\norm{e_\ell}^2\od s
+ \le C_\ell Z_{\ell-1}(t),
+ \label{eq:A-e}
+\end{equation}
+where $C_\ell$ is finite and independent of $P$: the endpoint factor is
+$(P+1)^2$, while \eqref{eq:A-Dh} contributes
+$1/[P(P+1)]$.  This cancellation is the key old-clock estimate.
+
+For the first layer, $\partial_\xi h_{1,a}$ is uniformly bounded because
+$\dot W_1$ contains the factor $\rho$.  For later layers the chain rule gives
+\begin{equation}
+ \partial_\xi h_{\ell,a}
+ =\phi_\ell'(z_{\ell,a})\odot\left[
+  (F_\ell/\rho+e_\ell)h_{\ell-1,a}
+  +\what W_\ell\partial_\xi h_{\ell-1,a}\right].
+ \label{eq:A-chain}
+\end{equation}
+Squaring, averaging, integrating in $\xi$, and applying
+\eqref{eq:A-e} gives a finite recursion
+$Z_1\le\overline Z_1$ and
+$Z_\ell\le c_\ell(1+\overline Z_{\ell-1})=:\overline Z_\ell$.
+Fixed depth therefore gives $P$-independent bounds for every $Z_j$.
+
+Combining \eqref{eq:E-integral}, \eqref{eq:A-Dh}, and
+\eqref{eq:A-Db} gives a finite $\Gamma_A$, independent of $P$, such that
+\begin{equation}
+ \int_0^t\norm{E(s)}\od s\le\frac{\Gamma_A}{\sqrt{\lambda_P}}.
+ \label{eq:A-defect}
+\end{equation}
+
+\paragraph{3. Variant B.}
+Stop additionally if closure residual reaches $\mu/2$.  On this region the
+current-response map $\theta\mapsto\Psi(\theta)$ has bounded derivative,
+$\norm{D\Psi}_{\mathrm{op}}\le J$.  This follows from compactness and the
+formula
+\begin{equation}
+ D(r/\rho)[v]=\left(I-\frac{q_rq_r^\top}{m}\right)
+ \frac{Dr[v]}{\rho},qquad q_r=r/\rho,quad \norm{q_r}^2=m,
+\end{equation}
+where the parenthesized matrix is an orthogonal projection.
+
+First use a coarse estimate independent of order.  Projection errors are no
+larger than raw history energies, which are bounded on $\cB$ and have total
+mass at most $\ell_T$.  Equations \eqref{eq:E-integral} and
+$2\sqrt{uv}\le u+v$ give
+\begin{equation}
+ \int_0^t\norm E\od s\le C_0,qquad
+ \int_0^t\norm{\dot{\what\theta}}\od s\le VS+C_0.
+\end{equation}
+Therefore the clock has the order-independent bound
+\begin{equation}
+ \tau(t)=1+\int_0^t\left(\rho+\norm{\dot\Psi}\right)\od s
+ \le \ell_T+J(VS+C_0)=:\Lambda_T.
+ \label{eq:clock-bound}
+\end{equation}
+This bound is derived; it is not an imposed clock cap.
+
+The concatenated prefixed history is continuous, absolutely continuous, and
+by \eqref{eq:unit-speed}
+\begin{equation}
+ \int_0^\tau\norm{\partial_\xi\overline\Psi}^2\od\xi\le\tau-1.
+\end{equation}
+Because $\od\mu\le\od\xi$, Lemma~\ref{lem:legendre} gives
+\begin{equation}
+ \sum_{\ell,a}\left(D_{h,\ell,a}+D_{b,\ell,a}\right)
+ \le\frac{\tau^2(\tau-1)}{4\lambda_P}.
+ \label{eq:B-all-D}
+\end{equation}
+Using \eqref{eq:E-integral} and $2\sqrt{uv}\le u+v$ once more,
+\begin{equation}
+ \int_0^t\norm{E(s)}\od s
+ \le\frac{\Gamma_B}{\lambda_P},qquad
+ \Gamma_B=\frac{\Lambda_T^2(\Lambda_T-1)}{4nm}.
+ \label{eq:B-defect}
+\end{equation}
+This is where the quadratic rate enters: both histories are first-order
+accurate and their paired error multiplies.
+
+\paragraph{4. Feedback and continuation.}
+Subtract dense flow from \eqref{eq:perturbed-flow}.  On the stopped interval,
+with $d(t)=\norm{\what\theta(t)-\theta(t)}$,
+\begin{equation}
+ d(t)\le\varepsilon_P+K\int_0^t d(s)\od s,
+\end{equation}
+where $\varepsilon_P=\Gamma_A/\sqrt{\lambda_P}$ for Variant A and
+$\varepsilon_P=\Gamma_B/\lambda_P$ for Variant B.  Gr\"onwall's inequality
+gives
+\begin{equation}
+ d(t)\le\varepsilon_Pe^{KT}.
+ \label{eq:feedback}
+\end{equation}
+Choose $P$ so this is less than $1/2$.  Then the closure cannot reach the
+physical boundary, which is distance one from the dense path.  For Variant B,
+also require $c_f\varepsilon_Pe^{KT}\le\mu/4$; then its residual remains above
+$3\mu/4$ and cannot reach the stopping boundary $\mu/2$.
+
+The prefix makes $G$ positive definite.  At fixed $P$, its least eigenvalue
+has a positive minimum for $1\le\tau\le\Lambda_T$.  Moment integral
+representations bound every internal coordinate on the stopped interval.
+Thus the full finite state stays in a compact subset of its locally Lipschitz
+ODE domain and can be continued to $T$.  This contradicts any earlier stopped
+endpoint and proves \eqref{eq:old-rate}--\eqref{eq:new-rate}.
+
+When activations and first derivatives are globally bounded, a downward
+induction from the readout bounds every internal reconstructed matrix for
+Variant A independently of $P$ and time on each finite interval.  The same
+moment continuation then works at every order.  Appendix~\ref{app:constants}
+gives the induction explicitly.
+\end{proof}
+
+\begin{corollary}[Outputs, losses, and order selection]
+\label{cor:outputs}
+On any bounded passive-input set $\cX$, the same common physical-state region
+has a finite output Lipschitz constant $c_{\rm test}$.  Hence
+\begin{equation}
+ \sup_{x\in\cX,\,t\le T}
+ |\what f_P(t,x)-f(t,x)|
+ \le c_{\rm test}\sup_{t\le T}\norm{\what\theta_P(t)-\theta(t)}.
+\end{equation}
+Training residual and loss discrepancies obey the same order rates.  A
+sufficient order for physical-state tolerance $\varepsilon$ is
+\begin{align}
+\text{Variant A: }&P\ge P_A(T),&
+P(P+1)&\ge[C_A(T)/\varepsilon]^2,\nonumber\\
+\text{Variant B: }&P\ge P_B(T),&
+P(P+1)&\ge C_B(T)/\varepsilon.
+\label{eq:order-selection}
+\end{align}
+\end{corollary}
+
+The constants are certificates, not predictions of an economical practical
+order.  They can grow rapidly with $T$, depth, width, and response bounds.
+The theorem does not establish
+$\sup_{t\ge0}\norm{\what\theta_P(t)-\theta(t)}\to0$.
+
+\subsection{What follows at the population limit}
+\label{sec:population-bridge}
+
+\begin{corollary}[Diagonal population consistency]
+\label{cor:diagonal}
+Suppose a sequence of dense width-$n$ networks satisfying the model above has
+observables $\mathcal O_n$ that converge uniformly on $[0,T]$ in probability
+to a population-flow observable $\mathcal O_\infty$.  Then there exists a
+width-dependent sequence $P(n)\to\infty$ such that the corresponding
+response-memory observables converge to $\mathcal O_\infty$ in probability on
+$[0,T]$.
+\end{corollary}
+
+\begin{proof}
+For each fixed $n$, Theorem~\ref{thm:main} and the observable Lipschitz bound
+allow an order $P(n)\ge n$ large enough that the closure--dense discrepancy is
+at most $1/n$.  Thus $P(n)\to\infty$.  The triangle inequality with
+dense--population convergence proves the claim.
+\end{proof}
+
+This sequential bridge is the population statement presently justified.  It
+does not bound $P(n)$, prove convergence at fixed $P$ as $n\to\infty$, or give
+a width-uniform error constant.  Establishing those properties is a separate
+problem because the closure retains the reused initialized operators and the
+response-clock norm itself scales with the size of the concatenated particle
+state.

@@ -1,0 +1,229 @@
+\section{Autonomous response-memory closures}
+\label{sec:closure}
+
+\subsection{Shifted Legendre coordinates}
+
+Let $p_k$ be the shifted Legendre polynomial of degree $k$ on $[0,1]$,
+normalized by
+\begin{equation}
+ p_k(1)=1,qquad
+ \int_0^1p_j(x)p_k(x)\,\od x=\frac{\mathbf 1_{j=k}}{2k+1}.
+ \label{eq:legendre-normalization}
+\end{equation}
+Their dilation identity is
+\begin{equation}
+ x p_k'(x)=k p_k(x)+\sum_{j<k}(2j+1)p_j(x).
+ \label{eq:legendre-dilation}
+\end{equation}
+For order $P$, let $p=(p_0,\ldots,p_{P-1})^\top$, let
+$e=(1,\ldots,1)^\top\in\R^P$, and define the lower-triangular matrix
+\begin{equation}
+ A_{kk}=k,qquad A_{kj}=2j+1\ (j<k),qquad A_{kj}=0\ (j>k),
+ \label{eq:A-matrix}
+\end{equation}
+with indices starting at zero.  Then $xp'(x)=Ap(x)$.
+
+The same identity that makes online Legendre projection possible in signal
+memory \citep{gu2020hippo} makes our neural closure autonomous.  When the
+history interval expands, differentiating a moment only mixes it with moments
+of the same or lower degree.  No stored past samples are needed.
+
+\subsection{Variant A: residual-activity clock}
+\label{sec:old-clock}
+
+Set
+\begin{equation}
+ \dot\tau=\rho,qquad \tau(0)=1.
+ \label{eq:activity-clock}
+\end{equation}
+The unit prefix $0\le\xi\le1$ carries constant forward history
+$h_{\ell-1,a}(0)$ and zero backward history.  Physical training inserts the
+current pair $(h_{\ell-1,a},b_{\ell,a})$ at
+$\xi=\tau(t)$.  Since $\od\xi=\rho\od t$, the learned integral in
+\eqref{eq:intro-history} is unchanged.
+
+For every internal link $2\le\ell\le L$ and sample $a$, store $n\times P$
+moment matrices $H_{\ell,a}$ and $U_{\ell,a}$ whose $k$th columns are
+\begin{align}
+H_{\ell,a,:,k}&=\int_0^\tau
+ \overline h_{\ell-1,a}(\xi)p_k(\xi/\tau)\,\od\xi,\nonumber\\
+U_{\ell,a,:,k}&=\int_0^\tau
+ \overline b_{\ell,a}(\xi)p_k(\xi/\tau)\,\od\xi .
+\label{eq:old-moments}
+\end{align}
+Differentiation and \eqref{eq:legendre-dilation} give the closed ODE
+\begin{align}
+\dot H_{\ell,a}&=\rho h_{\ell-1,a}e^\top
+             -\frac{\rho}{\tau}H_{\ell,a}A^\top,\nonumber\\
+\dot U_{\ell,a}&=r_a\delta_{\ell,a}e^\top
+             -\frac{\rho}{\tau}U_{\ell,a}A^\top.
+\label{eq:old-moment-ode}
+\end{align}
+Initially, the zeroth column of $H_{\ell,a}$ is $h_{\ell-1,a}(0)$ and
+all other columns of $H_{\ell,a}$ and $U_{\ell,a}$ vanish.
+
+Orthogonal projection on $[0,\tau]$ has diagonal Gram matrix
+$G_A=\tau\,\mathrm{diag}((2k+1)^{-1})$.  The reconstructed physical matrix is
+\begin{equation}
+ \boxed{
+ \what W_\ell=W_{\ell,0}
+ -\frac{2}{nm\tau}\sum_{a=1}^m\sum_{k=0}^{P-1}(2k+1)
+ U_{\ell,a,:,k}H_{\ell,a,:,k}^\top .}
+ \label{eq:old-reconstruction}
+\end{equation}
+All forward and backward responses in \eqref{eq:old-moment-ode} are evaluated
+using the current reconstructed matrices.  The first layer and readout follow
+their canonical dense equations evaluated at the same state.  Equations
+\eqref{eq:model-forward}--\eqref{eq:old-reconstruction} therefore form an
+autonomous finite ODE.  They do not use the future or the dense trajectory.
+
+For one sample and one internal link, the lowest moments make the meaning
+transparent:
+\begin{equation}
+ H_{:,0}(t)=h(0)+\int_0^t\rho(s)h(s)\,\od s,qquad
+ U_{:,0}(t)=\int_0^t r(s)\delta(s)\,\od s.
+\end{equation}
+Higher modes distinguish where and how the responses changed along accumulated
+activity.  They are history projections, not Taylor derivatives at
+initialization.
+
+The learned correction in \eqref{eq:old-reconstruction} has rank at most
+$mP$ per internal layer.  The action on a vector $v$ is evaluated without
+forming a dense learned matrix:
+\begin{equation}
+ (\what W_\ell-W_{\ell,0})v
+ =-\frac{2}{m\tau}\sum_{a,k}\frac{2k+1}{n}
+ U_{\ell,a,:,k}\bigl(H_{\ell,a,:,k}^\top v\bigr).
+ \label{eq:factor-action}
+\end{equation}
+The action of $W_{\ell,0}$ and the corresponding transpose action remain
+present exactly.
+
+\subsection{Variant B: response-arclength clock}
+\label{sec:new-clock}
+
+The activity clock controls the residual factor but does not directly control
+the speed of every stored response.  Concatenate all histories that enter the
+learned internal matrices:
+\begin{equation}
+ \Psi=\operatorname{concat}_{\ell=2}^L
+       \operatorname{concat}_{a=1}^m
+       \bigl(h_{\ell-1,a},b_{\ell,a}\bigr).
+ \label{eq:Psi}
+\end{equation}
+On an interval with $\rho>0$, define
+\begin{equation}
+ \boxed{\dot\tau=g:=\rho+\norm{\dot\Psi}_2,qquad \tau(0)=1.}
+ \label{eq:response-clock}
+\end{equation}
+This is a causal function of the current closure state.  Its key property is
+\begin{equation}
+ \left\lVert\frac{\od\Psi}{\od\tau}\right\rVert_2
+ =\frac{\norm{\dot\Psi}_2}{\rho+\norm{\dot\Psi}_2}\le1.
+ \label{eq:unit-speed}
+\end{equation}
+The clock controls the joint path speed; it does not equalize every neuron and
+is not claimed to minimize finite-order projection error.
+
+Changing coordinates must not change the learning integral.  We therefore
+advance the location of history at speed $g$ but insert mass at speed $\rho$.
+For a test function $v$ define
+\begin{equation}
+ \int v(\xi)\,\od\mu_t(\xi)
+ =\int_0^1v(\xi)\,\od\xi
+  +\int_0^t v(\tau(s))\rho(s)\,\od s .
+ \label{eq:weighted-measure}
+\end{equation}
+On the physical-history portion, $\od\mu_t/\od\xi=\rho/g\le1$.
+Both prefix histories now match their initial values:
+$h(\xi)=h(0)$ and $b(\xi)=b(0)$ for $0\le\xi\le1$.  The known prefix product
+is subtracted from the reconstruction so it causes no artificial learning.
+
+Define weighted moments and one shared $P\times P$ Gram matrix,
+\begin{align}
+H_{\ell,a}&=\int h_{\ell-1,a}(\xi)p(\xi/\tau)^\top\,\od\mu_t(\xi),\nonumber\\
+U_{\ell,a}&=\int b_{\ell,a}(\xi)p(\xi/\tau)^\top\,\od\mu_t(\xi),\nonumber\\
+G&=\int p(\xi/\tau)p(\xi/\tau)^\top\,\od\mu_t(\xi).
+\label{eq:weighted-moments}
+\end{align}
+They satisfy
+\begin{align}
+\dot H_{\ell,a}&=\rho h_{\ell-1,a}e^\top
+                   -\frac g\tau H_{\ell,a}A^\top,\nonumber\\
+\dot U_{\ell,a}&=r_a\delta_{\ell,a}e^\top
+                   -\frac g\tau U_{\ell,a}A^\top,\nonumber\\
+\dot G&=\rho ee^\top-\frac g\tau(AG+GA^\top).
+\label{eq:weighted-ode}
+\end{align}
+At initialization, only the zeroth columns of $H$ and $U$ are nonzero and
+$G=\mathrm{diag}((2k+1)^{-1})$.  The reconstruction is
+\begin{equation}
+ \boxed{
+ \what W_\ell=W_{\ell,0}-\frac{2}{nm}\sum_{a=1}^m
+ \left[U_{\ell,a}G^{-1}H_{\ell,a}^\top
+       -b_{\ell,a}(0)h_{\ell-1,a}(0)^\top\right].}
+ \label{eq:weighted-reconstruction}
+\end{equation}
+The prefix makes $G$ positive definite at every fixed finite order and finite
+clock length.  In computation one solves linear systems with $G$ rather than
+forming $G^{-1}$.  The correction rank is at most $m(P+1)$.
+
+\subsection{Why the new clock is explicit}
+\label{sec:explicit-clock}
+
+At first sight \eqref{eq:response-clock} may appear implicit because
+$\dot\Psi$ depends on matrix velocities.  Differentiating
+\eqref{eq:weighted-reconstruction} resolves the issue.  Set
+\begin{equation}
+ h_{\ell-1,a}^\star=H_{\ell,a}G^{-1}e,qquad
+ b_{\ell,a}^\star=U_{\ell,a}G^{-1}e.
+\end{equation}
+Every dilation term proportional to $g/\tau$ cancels, leaving
+\begin{equation}
+ V_\ell:=\dot{\what W}_\ell
+ =-\frac{2\rho}{nm}\sum_a\left[
+ b_{\ell,a}(h_{\ell-1,a}^\star)^\top
+ +b_{\ell,a}^\star(h_{\ell-1,a}-h_{\ell-1,a}^\star)^\top
+ \right].
+ \label{eq:physical-velocity}
+\end{equation}
+This velocity is known before $g$.  Set $V_1=F_1(\what\theta)$ and
+$V_w=F_w(\what\theta)$ and differentiate the forward pass:
+\begin{align}
+\dot z_{1,a}&=V_1u_a,\nonumber\\
+\dot z_{\ell,a}&=V_\ell h_{\ell-1,a}
+                    +\what W_\ell\dot h_{\ell-1,a},\nonumber\\
+\dot h_{\ell,a}&=\phi_\ell'(z_{\ell,a})\odot\dot z_{\ell,a},\nonumber\\
+\dot r_a&=\frac1n\bigl(V_w^\top h_{L,a}+w^\top\dot h_{L,a}\bigr),
+\qquad
+\dot\rho=\frac1{m\rho}\sum_a r_a\dot r_a.
+\label{eq:directional-forward}
+\end{align}
+Differentiate backpropagation from layer $L$ down to layer two:
+\begin{align}
+\dot\delta_{L,a}
+ &=V_w\odot\phi_L'(z_{L,a})
+  +w\odot\phi_L''(z_{L,a})\odot\dot z_{L,a},\nonumber\\
+\dot\delta_{\ell,a}
+ &=\phi_\ell''(z_{\ell,a})\odot\dot z_{\ell,a}
+       \odot\what W_{\ell+1}^\top\delta_{\ell+1,a}\nonumber\\
+ &\quad+\phi_\ell'(z_{\ell,a})\odot
+  \left(V_{\ell+1}^\top\delta_{\ell+1,a}
+       +\what W_{\ell+1}^\top\dot\delta_{\ell+1,a}\right),\nonumber\\
+\dot b_{\ell,a}
+ &=\frac{\dot r_a\delta_{\ell,a}+r_a\dot\delta_{\ell,a}}{\rho}
+   -b_{\ell,a}\frac{\dot\rho}{\rho}.
+\label{eq:directional-backward}
+\end{align}
+These formulas determine $\dot\Psi$, then $g$, and finally
+\eqref{eq:weighted-ode}.  The algorithm uses directional derivatives, fixed
+matrix actions, moment contractions, and a small Gram solve.  It uses no full
+Jacobian, Hessian, future trajectory, or dense learned matrix.  Notice that
+$\phi_1''$ is unnecessary: the differentiated backward histories begin at
+layer two.
+
+If $\rho(0)=0$, both dense and closure trajectories are stationary; we define
+the closure to remain there without evaluating $r/\rho$.  The theorem below
+also shows that a nonstationary regular trajectory cannot reach zero residual
+at finite time under its hypotheses.
+

@@ -1,0 +1,75 @@
+\section{Supplementary empirical tables}
+\label{app:experiment-tables}
+
+\subsection{Full focused old/new-clock comparison}
+
+Table~\ref{tab:clock-full} reports the focused width-2048 panel at each model's
+own first training-RMS $0.05$ endpoint.  The maximum Euler step is $1/64$,
+TF32 is disabled, and every displayed model reaches the training target.
+
+\begin{table}[h]
+\centering
+\scriptsize
+\caption{Full-circle RMS from a freshly fitted dense reference.  ``Old'' is
+the activity clock and ``New'' is the response-arclength clock.}
+\label{tab:clock-full}
+\begin{tabular}{@{}lllrrrrr@{}}
+\toprule
+Activation/depth & Task & Clock & P1 & P2 & P3 & P4 & P5\\
+\midrule
+tanh/2 & Alternating outliers & Old & .07250 & .04009 & .01674 & .00524 & .00123\\
+tanh/2 & Alternating outliers & New & .07018 & .04901 & .01323 & .00786 & .00324\\
+tanh/2 & Alternating quadrant & Old & .05417 & .06186 & .02388 & .00818 & .00658\\
+tanh/2 & Alternating quadrant & New & .06552 & .09918 & .01283 & .00591 & .00346\\
+tanh/2 & Paired quadrant & Old & .00566 & .00135 & .00056 & .00022 & .00007\\
+tanh/2 & Paired quadrant & New & .00833 & .00124 & .00111 & .00032 & .00019\\
+GELU/3 & Alternating outliers & Old & .44504 & .07570 & .00549 & .00207 & .00196\\
+GELU/3 & Alternating outliers & New & .45472 & .11902 & .04500 & .00679 & .00098\\
+GELU/3 & Alternating quadrant & Old & 2.98734 & .20941 & .11963 & .01469 & .01279\\
+GELU/3 & Alternating quadrant & New & 3.06966 & 2.69207 & 1.24526 & 1.21472 & .99568\\
+GELU/3 & Paired quadrant & Old & .08807 & .00574 & .00443 & .00149 & .00077\\
+GELU/3 & Paired quadrant & New & .11162 & .00674 & .00157 & .00206 & .00016\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For the adverse GELU alternating-quadrant case, halving the maximum step to
+$1/128$ gives
+\begin{align*}
+\text{old clock: }&(2.99053,\ 0.21233,\ 0.11999,\ 0.02364,\ 0.02150),\\
+\text{new clock: }&(3.07505,\ 2.90895,\ 0.11200,\ 0.22258,\ 0.10313).
+\end{align*}
+This is an endpoint numerical sensitivity result, not a
+continuous-gradient-flow certificate.
+
+\subsection{Measured state and runtime examples}
+
+\begin{table}[h]
+\centering
+\scriptsize
+\caption{Representative measured resources.  ``Total'' adds the fixed
+initialized internal matrix or matrices to moving state and excludes solver
+workspace.  CUDA peak includes implementation workspace.}
+\label{tab:resource-full}
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+Experiment & Model & Moving MiB & Moving+fixed MiB & CUDA peak MiB & Integration s\\
+\midrule
+MNIST100, $n=4096$ & Dense & 152.531 & 152.531 & 1941.881 & 102.976\\
+& P1 & 30.781 & 158.781 & 544.266 & 139.893\\
+& P2 & 37.031 & 165.031 & 603.141 & 149.922\\
+& P3 & 43.281 & 171.281 & 654.391 & 152.269\\
+\midrule
+Deep circle, $n=4096$ & Dense & 256.094 & 256.094 & 2592.9--2849.0 & task-dependent\\
+& P1 & 1.094 & 257.094 & 432.063 & slower than dense\\
+& P2 & 2.094 & 258.094 & 432.063 & slower than dense\\
+& P3 & 3.094 & 259.094 & 432.063 & slower than dense\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The measured peak reduction comes from the particular solver representation;
+the mathematical state ledger shows no total-state reduction once $W_0$ is
+counted.  The closure's durable advantage in the present form is that the
+learned moving correction and stored history are low rank and independent of
+elapsed training time.
