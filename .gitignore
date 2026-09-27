@@ -31,6 +31,29 @@ dist/
 *.fdb_latexmk
 *.toc
 *.out
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.synctex*
+*.lof
+*.lot
+*.loa
+*.lol
+*.dvi
+*.xdv
+*.nav
+*.snm
+*.vrb
+*.idx
+*.ind
+*.ilg
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
 
 # Do not reintroduce transient runtime products into a study.
 **/outputs/

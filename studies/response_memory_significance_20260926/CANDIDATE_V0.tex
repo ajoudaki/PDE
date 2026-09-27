@@ -1,0 +1,914 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{placeins}
+\usepackage{microtype}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\ip}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\od}{\mathbin{\odot}}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\diag}{\operatorname{diag}}
+
+\title{How Much Can We Compress Neural Training Dynamics?\\
+\large Response-memory closures for deep nonlinear feature learning}
+\author{Draft research report}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Compressing a trained function is easier than compressing its training dynamics:
+two parameter states can define the same input--output map yet have different
+tangent features and separate as soon as training resumes.  We study a more
+demanding target: an autonomous state whose size does not grow with elapsed
+training time and whose trajectory approximates gradient flow on every prescribed
+finite time interval.  The setting keeps fixed depth, nonlinear activations and
+hidden-feature learning under the canonical width-dependent mobilities.
+
+The exact learned part of every hidden matrix is an integral of a backward
+response against a forward response.  Exact history representations retain all
+past responses and therefore do not compress this integral in time.  Our closure
+stores only the first $P$ shifted-Legendre moments of each response history, while
+retaining the initialized matrices exactly.  Moment differentiation closes because
+the derivative of a Legendre mode is triangular in lower modes.  An ordinary
+residual-activity clock gives a fully autonomous closure with compact-horizon
+trajectory error $O_T(P^{-1})$.  A response-speed clock, which parametrizes the
+joint forward/backward response path by residual mass plus path length, gives
+$O_T(P^{-2})$ under one additional activation derivative.  Both statements hold
+at fixed finite width and data for arbitrary fixed depth; they require neither
+successful fitting nor special input geometry.  The second rate is an asymptotic
+guarantee, not a claim of lower practical cost at small order.
+
+The moving learned state falls from $(H-1)n^2$ dense entries to
+$2(H-1)mnP$ history entries, but every initialized $n\times n$ matrix and its
+forward/transpose actions remain.  Existing circle and MNIST experiments show
+that very small orders can reproduce the dense fitted predictor, including on
+passive inputs.  The report also separates this result from a width-uniform
+population theorem, unrestricted scalar nonclosure, all-time uniform tracking,
+and full compression of the initialized random operator, none of which is proved
+here.
+\end{abstract}
+
+\section{The question is dynamical, not only functional}
+
+The primary question is simple to state:
+\emph{how much can the training dynamics of a neural network be compressed?}
+A snapshot compressor need only reproduce the current function.  A training
+compressor must also reproduce how the function will move.  Equality of
+predictions does not identify the parameter-space Jacobian, the backward
+responses, or the optimizer metric.  Consequently, two exact functional copies
+can acquire different velocities and their errors can accumulate after training
+continues.
+
+This stricter question can be scientifically useful.  A successful compression
+identifies a smaller state that retains the mechanism responsible for learning.
+It may therefore offer a better set of coordinates for studying deep learning,
+rather than only a smaller file format for a trained predictor.
+
+We impose three non-negotiable features: more than one hidden layer, a
+nonlinearity that remains active during the limiting description, and motion of
+hidden representations at leading order.  The canonical mobilities used below
+are of the same feature-learning type emphasized in tensor-program and mean-field
+work \citep{yang2021tensor,nguyen2023rigorous}.  Population descriptions are
+attractive because width becomes a particle approximation and many macroscopic
+observables can become deterministic.  They do not automatically become
+finite-dimensional: reused random matrices can survive as operators, and exact
+descriptions may retain entire one- or two-time response histories.  Such a
+description organizes the limit, but it does not by itself provide state whose
+size is constant in training time.  Particle and measure gradient flows provide
+an important shallow precedent \citep{chizat2018global}.
+
+The motivating analogy is with statistical physics: more particles can permit a
+smoother field description even while the microscopic system grows.  A more
+speculative analogy is with models of computation.  A well-posed population flow
+might play the role of an idealized model of learning, while finite networks
+approximate it with finite width, finite precision and finite time steps.  These
+analogies motivate the problem; they are not mathematical claims of this report.
+
+\subsection{Claim levels and state classes}
+
+We use the following distinctions throughout.
+
+\begin{definition}[Compact-horizon global approximation]
+Let $z(t)$ be a reference flow and $z_P(t)$ an autonomous order-$P$ closure.
+The closure is \emph{globally accurate on compact horizons} if, for every fixed
+$T<\infty$,
+\[
+  \sup_{0\le t\le T} d(z_P(t),z(t))\longrightarrow0
+  \qquad(P\to\infty).
+\]
+The order may depend on $T$.  This does not mean that one fixed order works for
+all $t\ge0$, nor that the constants remain bounded as $T\to\infty$.
+\end{definition}
+
+Three kinds of autonomous state are relevant.
+\begin{enumerate}
+\item A \emph{scalar ODE} evolves finitely many real numbers.  Its dimension is
+independent of width, training time and any discretization of a population.
+\item A \emph{population or field ODE} evolves finitely many functions, random
+variables or densities on fixed source spaces.  It has finitely many fields but
+infinitely many scalar degrees of freedom.
+\item An \emph{operator ODE} evolves maps between population spaces.  A single
+operator retains the row--column incidence that a finite collection of marginal
+populations may lose.  ``One operator'' therefore need not mean low information.
+\end{enumerate}
+Exact and approximate closure are separate questions in each class.  So are a
+local velocity match and uniform trajectory control on $[0,T]$.
+
+Two established comparison results help locate the present contribution.  First,
+for a one-input, three-hidden-layer linear feature-learning system, companion
+theory constructs a fixed Hilbert space, a bounded source $\mathcal C_0$ and a
+unique global trace-class increment $Q$ satisfying
+\[
+ \mathcal C=\mathcal C_0+Q,\qquad
+ f=\tfrac14\operatorname{Tr}\mathcal C^4,\qquad
+ \dot Q=-2\kappa(f-y)(\mathcal C_0^*+Q^*)^3.
+\]
+Finite gradient flow, and raw gradient descent for every step sequence tending to
+zero, converge to its observables on compact horizons.  This is a scoped example
+of exact operator closure, not a general deep nonlinear theorem.
+
+Second, in the same benchmark there is no state-universal, width-uniform encoder
+built from a fixed finite alphabet of bounded-degree contraction graphs that has
+a polynomial autonomous scalar ODE (or a finite-order local polynomial PDE) and
+a polynomial readout.  The proof differentiates the output repeatedly: the
+$(2j-1)$st derivative contains a connected contraction
+\[
+ u^\top(B^\top R^\top RB)^j u
+\]
+of degree $4j+2$.  A fixed bounded-degree alphabet cannot generate these
+pairwise distinct connected graphs.  This is evidence against simple exact
+scalar closures.  It is not an impossibility theorem for arbitrary encoders;
+indeed an unrestricted field can encode a whole future output profile.  We
+therefore treat broad scalar impossibility and exact operator-to-population
+compression as open questions rather than conclusions.
+
+\section{Dense deep gradient flow}
+\label{sec:dense}
+
+Fix a dataset $(x_a,y_a)_{a=1}^m$, $x_a\in\R^d$, a width $n$, and $H\ge2$
+hidden layers.  Set $v_a=x_a/\sqrt d$.  For simplicity every hidden layer has
+width $n$; activations may differ by layer:
+\begin{align}
+ z_a^{(1)}&=W^{(1)}v_a,& h_a^{(1)}&=\phi_1(z_a^{(1)}),\nonumber\\
+ z_a^{(\ell)}&=W^{(\ell)}h_a^{(\ell-1)},&
+ h_a^{(\ell)}&=\phi_\ell(z_a^{(\ell)}),\quad 2\le\ell\le H,\\
+ f_a&=\frac{w^\top h_a^{(H)}}{n},& r_a&=f_a-y_a,\qquad
+ \rho=\left(\frac1m\sum_a r_a^2\right)^{1/2}.\nonumber
+\end{align}
+The loss is $\cL=\rho^2$.  Backward responses exclude the residual:
+\begin{align}
+ \delta_a^{(H)}&=w\od\phi_H'(z_a^{(H)}),\nonumber\\
+ \delta_a^{(\ell)}&=\phi_\ell'(z_a^{(\ell)})\od
+ (W^{(\ell+1)})^\top\delta_a^{(\ell+1)}.
+\end{align}
+With mobilities $(n,1,\ldots,1,n)$, the physical gradient field $F$ is
+\begin{align}
+ F_1&=-\frac2m\sum_a r_a\delta_a^{(1)}v_a^\top,\nonumber\\
+ F_\ell&=-\frac{2}{nm}\sum_a r_a\delta_a^{(\ell)}
+ (h_a^{(\ell-1)})^\top,\quad 2\le\ell\le H,\label{eq:dense-flow}\\
+ F_w&=-\frac2m\sum_a r_a h_a^{(H)}.\nonumber
+\end{align}
+Thus every internal matrix has the exact representation
+\begin{equation}
+ W^{(\ell)}(t)=W_0^{(\ell)}-\frac{2}{nm}\sum_a
+ \int_0^t r_a(s)\delta_a^{(\ell)}(s)
+ (h_a^{(\ell-1)}(s))^\top\dd s.                 \label{eq:exact-history}
+\end{equation}
+The growing history in \eqref{eq:exact-history} is the object we compress.
+The initialized matrices $W_0^{(\ell)}$ are retained exactly.
+
+\section{Variant A: the residual-activity clock}
+\label{sec:old-clock}
+
+Let $p_k$ be shifted Legendre polynomials on $[0,1]$, normalized by
+$p_k(1)=1$ and
+\[
+ \int_0^1p_j(x)p_k(x)\dd x=\frac{\mathbf 1_{j=k}}{2k+1}.
+\]
+They satisfy the triangular identity
+\begin{equation}
+ x p_k'(x)=k p_k(x)+\sum_{j<k}(2j+1)p_j(x).          \label{eq:triangular}
+\end{equation}
+
+Define the activity coordinate
+\begin{equation}
+ \tau(t)=1+\int_0^t\rho(s)\dd s.                    \label{eq:old-clock}
+\end{equation}
+At internal link $\ell$ and sample $a$, define
+\[
+ a_{\ell a}=h_a^{(\ell-1)},\qquad
+ b_{\ell a}=\frac{r_a}{\rho}\delta_a^{(\ell)}\quad(\rho>0).
+\]
+In the coordinate $\xi=\tau(s)$, extend $a_{\ell a}$ constantly over the
+artificial prefix $[0,1]$ and set $b_{\ell a}=0$ there.  Store only
+\begin{align}
+ H_{\ell ak}&=\int_0^\tau \bar a_{\ell a}(\xi)
+ p_k(\xi/\tau)\dd\xi,&
+ U_{\ell ak}&=\int_0^\tau \bar b_{\ell a}(\xi)
+ p_k(\xi/\tau)\dd\xi,\quad 0\le k<P.               \label{eq:old-moments}
+\end{align}
+Differentiating and using \eqref{eq:triangular} gives the closed ODE
+\begin{align}
+ \dot H_{\ell ak}&=\rho a_{\ell a}-\frac{\rho}{\tau}
+ \left[kH_{\ell ak}+\sum_{j<k}(2j+1)H_{\ell aj}\right],\nonumber\\
+ \dot U_{\ell ak}&=r_a\delta_a^{(\ell)}-\frac{\rho}{\tau}
+ \left[kU_{\ell ak}+\sum_{j<k}(2j+1)U_{\ell aj}\right]. \label{eq:old-ode}
+\end{align}
+Initially $H_{\ell a0}=a_{\ell a}(0)$ and all other moments vanish.  The
+reconstructed matrices are
+\begin{equation}
+ \widehat W^{(\ell)}=W_0^{(\ell)}-\frac{2}{nm\tau}
+ \sum_{a=1}^m\sum_{k=0}^{P-1}(2k+1)
+ U_{\ell ak}H_{\ell ak}^\top.                       \label{eq:old-recon}
+\end{equation}
+All responses in \eqref{eq:old-ode} are evaluated in the current reconstructed
+network.  The first matrix and readout evolve by their exact blocks in
+\eqref{eq:dense-flow}.  Equations \eqref{eq:old-clock}--\eqref{eq:old-recon}
+are therefore an autonomous finite ODE.  They never divide by $\rho$; the
+normalized $b$ is only a proof coordinate.
+
+If $\Pi_P$ denotes componentwise $L^2(0,\tau)$ projection onto polynomials of
+degree less than $P$, then \eqref{eq:old-recon} is exactly
+\begin{equation}
+ \widehat W^{(\ell)}=W_0^{(\ell)}-\frac{2}{nm}\sum_a
+ \int_0^\tau(\Pi_P\bar b_{\ell a})(\xi)
+ (\Pi_P\bar a_{\ell a})(\xi)^\top\dd\xi.            \label{eq:projection-form}
+\end{equation}
+Thus closure of the moment ODE is exact; truncating the two history projections
+is the modeling approximation.
+
+\subsection{Compact-horizon convergence}
+
+Let $\theta=(W^{(1)},\ldots,W^{(H)},w)$ and use the Euclidean block norm, with
+Frobenius norms on matrices.
+
+\begin{theorem}[Ordinary-clock response-memory convergence]
+\label{thm:old}
+Fix finite $n,d,m,H$, finite data and finite initialization.  Suppose
+$\phi_\ell\in C^{1,1}_{\mathrm{loc}}(\R)$ for every layer.  For every
+$T<\infty$ there are finite constants $C_{\mathrm{old}}(T)$ and $P_0(T)$,
+independent of $P$, such that the order-$P$ closure exists uniquely through
+$T$ for every $P\ge P_0(T)$ and
+\begin{equation}
+ \sup_{0\le t\le T}\norm{\widehat\theta_P(t)-\theta(t)}
+ \le \frac{C_{\mathrm{old}}(T)}{\sqrt{P(P+1)}}.       \label{eq:old-rate}
+\end{equation}
+The same rate holds for all hidden responses and predictions on the training
+set and on any fixed bounded collection of passive inputs.
+
+If, in addition, every $\phi_\ell$ and $\phi_\ell'$ is globally bounded, then
+the closure exists uniquely for all finite physical times for every $P\ge1$,
+and \eqref{eq:old-rate} holds for every $P\ge1$ after enlarging the constant.
+This includes tanh, logistic sigmoid, arctangent and smooth bounded periodic
+activations.  No fitting, Gaussian initialization, input separation or label
+compatibility assumption is required.
+\end{theorem}
+
+The word ``global'' in this theorem means the whole interval $[0,T]$ for each
+arbitrary finite $T$.  It does not give a $T$-independent constant.
+
+\subsection{Proof of the ordinary-clock theorem}
+
+We give the proof because it shows exactly where history regularity enters and
+why feedback does not invalidate the projection estimate.
+
+\begin{lemma}[Legendre tail]
+\label{lem:legendre}
+For $q\in H^1(0,\tau;\R^N)$,
+\begin{equation}
+ \norm{q-\Pi_Pq}_{L^2(0,\tau)}^2
+ \le\frac{1}{P(P+1)}\int_0^\tau \xi(\tau-\xi)
+ \norm{q'(\xi)}^2\dd\xi
+ \le\frac{\tau^2}{4P(P+1)}\norm{q'}_{L^2(0,\tau)}^2. \label{eq:leg-tail}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+On $[0,1]$, the shifted Legendre equation is
+\[
+ -\frac{\dd}{\dd x}\{x(1-x)p_k'(x)\}=k(k+1)p_k(x).
+\]
+Integration by parts shows that the derivatives are orthogonal in the weight
+$x(1-x)$ and have squared norm $k(k+1)/(2k+1)$.  Bessel's inequality applied
+to $q'$ in this weighted space gives
+\[
+ \sum_{k\ge1}k(k+1)\frac{\norm{c_k}^2}{2k+1}
+ \le\int_0^1x(1-x)\norm{q'(x)}^2\dd x,
+\]
+where $c_k=(2k+1)\int_0^1q(x)p_k(x)\dd x$.  Parseval, polynomial density and
+$k(k+1)\ge P(P+1)$ for $k\ge P$ give the first bound on $[0,1]$.
+Rescaling and $\xi(\tau-\xi)\le\tau^2/4$ give
+\eqref{eq:leg-tail}; summing componentwise proves the vector statement.
+\end{proof}
+
+\paragraph{Step 1: dense existence and a common compact region.}
+The mobility matrix $\mathcal D$ has largest eigenvalue $n$, and
+$F=-\mathcal D\nabla\cL$.  Hence
+\begin{equation}
+ \dot\cL=-\norm{\mathcal D^{-1/2}\dot\theta}^2,
+ \qquad \int_0^t\norm{\dot\theta(s)}^2\dd s\le n\rho(0)^2. \label{eq:energy}
+\end{equation}
+Thus $\norm{\theta(t)-\theta(0)}\le\sqrt{nt}\rho(0)$.  A finite maximal
+endpoint would have a finite limiting state, from which local existence extends
+the solution.  Dense flow is therefore global.
+
+Fix $T$ and let
+\[
+ R=\norm{\theta(0)}+\sqrt{nT}\rho(0)+1,
+ \qquad \mathcal B=\{\vartheta:\norm{\vartheta}\le R\}.
+\]
+The dense path remains distance at least one from $\partial\mathcal B$.  Stop
+the closure at its first exit from $\mathcal B$.  The rest of the proof uses
+constants on this explicit ball and will rule out that exit.
+
+For a concrete choice of constants set $X=\max_a\norm{v_a}$ and
+$\alpha_0=X$.  Recursively choose
+\begin{align}
+ s_\ell&=\sup_{|z|\le R\alpha_{\ell-1}}|\phi_\ell'(z)|,&
+ \alpha_\ell&=\sqrt n\sup_{|z|\le R\alpha_{\ell-1}}|\phi_\ell(z)|,\nonumber\\
+ \beta_H&=R s_H,& \beta_\ell&=s_\ell R\beta_{\ell+1}\quad(\ell<H).
+                                                               \label{eq:response-bounds}
+\end{align}
+Then $\norm{h_a^{(\ell)}}\le\alpha_\ell$ and
+$\norm{\delta_a^{(\ell)}}\le\beta_\ell$ on $\mathcal B$.  Put
+\begin{align}
+ Y&=\left(m^{-1}\sum_a y_a^2\right)^{1/2},&
+ q&=R\alpha_H/n+Y,& S&=Tq,& \mathsf A&=1+S,\nonumber\\
+ v_1&=2\beta_1X,&
+ v_\ell&=2\beta_\ell\alpha_{\ell-1}/n,& v_w&=2\alpha_H,\nonumber\\
+ V&=\left(v_1^2+\sum_{\ell=2}^Hv_\ell^2+v_w^2\right)^{1/2}. \label{eq:compact-constants}
+\end{align}
+On the stopped interval, $\rho\le q$, $\tau\le\mathsf A$ and
+$\norm{F}\le V\rho$.  Since $F$ is locally Lipschitz, it has some finite
+Lipschitz constant $K$ on $\mathcal B$.
+
+\paragraph{Step 2: an exact projection-error energy.}
+For any one forward or backward history $q$ let
+$D_q(t)=\norm{q-\Pi_Pq}_{L^2(0,\tau(t))}^2$ and let $q^*$ be the polynomial
+projection evaluated at the current endpoint.  Differentiating the raw energy
+and the projected energy, using \eqref{eq:old-ode}, cancels every basis-dilation
+term and gives
+\begin{equation}
+ \dot D_q=\rho\norm{q-q^*}^2,
+ \qquad D_q(t)=\int_0^t\rho(s)\norm{q(s)-q^*(s)}^2\dd s. \label{eq:projection-energy}
+\end{equation}
+The backward-prefix jump is harmless: only square integrability and growing
+integrals are used.
+
+Differentiate \eqref{eq:old-recon}.  The physical closure equation is exactly
+\begin{equation}
+ \dot{\widehat\theta}_P=F(\widehat\theta_P)+E,\qquad E_1=E_w=0,
+\end{equation}
+with internal defects
+\begin{equation}
+ E_\ell=\frac{2\rho}{nm}\sum_a
+ (b_{\ell a}-b_{\ell a}^*)(a_{\ell a}-a_{\ell a}^*)^\top. \label{eq:defect}
+\end{equation}
+The two mixed projection terms vanish by orthogonality.  Consequently
+\begin{equation}
+ \int_0^t\norm{E_\ell(s)}_F\dd s
+ \le\frac{2}{nm}\sum_a\sqrt{D_{b,\ell a}(t)D_{a,\ell a}(t)}. \label{eq:defect-energy}
+\end{equation}
+This is the bridge from a same-history approximation to a trajectory theorem.
+
+\paragraph{Step 3: forward histories have a $P$-independent derivative
+bound.}
+Use primes for derivatives in $\xi=\tau(t)$ and define
+\[
+ Z_\ell(t)=\frac1m\sum_a\int_0^{\tau(t)}
+ \norm{(h_a^{(\ell)})'(\xi)}^2\dd\xi.
+\]
+The first layer satisfies
+$\norm{(h_a^{(1)})'}\le s_1v_1X$.  For later layers, the chain rule gives
+\[
+ (h_a^{(\ell)})'=\phi_\ell'(z_a^{(\ell)})\od
+ \left[(F_\ell/\rho+E_\ell/\rho)h_a^{(\ell-1)}
+ +\widehat W^{(\ell)}(h_a^{(\ell-1)})'\right].       \label{eq:forward-chain}
+\]
+Endpoint evaluation of a degree-$(P-1)$ polynomial has operator norm
+$P/\sqrt\tau$ from $L^2(0,\tau)$, because
+$\sum_{k<P}(2k+1)=P^2$.  Projection contraction and
+$m^{-1}\sum_a\norm{b_{\ell a}}^2\le\beta_\ell^2$ imply
+\[
+ \left(m^{-1}\sum_a\norm{b_{\ell a}^*}^2\right)^{1/2}\le P\beta_\ell,
+ \quad
+ \left(m^{-1}\sum_a\norm{b_{\ell a}-b_{\ell a}^*}^2\right)^{1/2}
+ \le(P+1)\beta_\ell.
+\]
+Combining this with \Cref{lem:legendre},
+\eqref{eq:projection-energy} and \eqref{eq:defect} yields
+\begin{equation}
+ \int_0^t\rho\norm{E_\ell/\rho}_F^2\dd s
+ \le\frac{2\beta_\ell^2\mathsf A^2}{n^2}
+ Z_{\ell-1}(t).                                      \label{eq:e-square}
+\end{equation}
+The endpoint factor $P+1$ cancels the $P^{-1}$ projection factor.  This is
+the step that prevents a loss of convergence order with depth.
+
+Define finite, $P$-independent bounds recursively by
+\begin{align}
+ \overline Z_1&=S(s_1v_1X)^2,\nonumber\\
+ \overline Z_\ell&=3s_\ell^2\left[
+ S v_\ell^2\alpha_{\ell-1}^2+
+ \left(R^2+\frac{2\beta_\ell^2\mathsf A^2\alpha_{\ell-1}^2}{n^2}\right)
+ \overline Z_{\ell-1}\right].                       \label{eq:z-recursion}
+\end{align}
+Integrating \eqref{eq:forward-chain}, using
+$\norm{x+y+z}^2\le3(\norm{x}^2+\norm{y}^2+\norm{z}^2)$ and
+\eqref{eq:e-square}, proves inductively that $Z_\ell\le\overline Z_\ell$.
+
+\paragraph{Step 4: accumulated defect and feedback.}
+The zero backward prefix gives
+$m^{-1}\sum_aD_{b,\ell a}\le S\beta_\ell^2$.  By
+\Cref{lem:legendre},
+\[
+ \frac1m\sum_aD_{a,\ell a}
+ \le\frac{\mathsf A^2\overline Z_{\ell-1}}{4P(P+1)}.
+\]
+Summing \eqref{eq:defect-energy} over links gives
+\begin{equation}
+ \int_0^t\norm{E(s)}\dd s
+ \le\frac{B_{\mathrm{old}}}{\sqrt{P(P+1)}},\qquad
+ B_{\mathrm{old}}=\frac{\mathsf A}{n}
+ \sum_{\ell=2}^H\beta_\ell\sqrt{S\overline Z_{\ell-1}}. \label{eq:old-defect-bound}
+\end{equation}
+Subtracting dense flow from the perturbed flow and applying the Lipschitz
+bound on $F$ gives
+\[
+ e(t)\le\frac{B_{\mathrm{old}}}{\sqrt{P(P+1)}}
+ +K\int_0^te(s)\dd s.
+\]
+Gronwall's inequality therefore yields
+\begin{equation}
+ \sup_{t\le T}e(t)\le
+ \frac{B_{\mathrm{old}}e^{KT}}{\sqrt{P(P+1)}}.       \label{eq:old-explicit}
+\end{equation}
+Choose $P_0$ so the right side is less than $1/2$.  The closure then cannot
+reach $\partial\mathcal B$.  Its moment representations, $1\le\tau\le\mathsf A$
+and the response bounds place its whole finite state in a compact subset of the
+locally Lipschitz domain.  A finite maximal endpoint would therefore extend,
+so the closure exists through $T$.  Lipschitz dependence of network responses
+on $\theta$ gives the final prediction statement.
+
+For completeness, suppose every activation and first derivative is globally
+bounded.  Set
+\[
+ \alpha_\ell=\sqrt n\norm{\phi_\ell}_\infty,qquad
+ s_\ell=\norm{\phi_\ell'}_\infty,qquad
+ B_w=\sqrt{\norm{w(0)}^2+nY^2T}.
+\]
+The unchanged readout equation obeys
+\[
+ \frac{\dd}{\dd t}\norm w^2
+ =nY^2-4n\frac1m\sum_a(f_a-y_a/2)^2\le nY^2,
+\]
+for both dense and closure flows.  Therefore
+$\norm w\le B_w$, $\rho\le q:=B_w\alpha_H/n+Y$,
+$S=Tq$ and $\tau\le\mathsf A:=1+S$.  Start with
+$\beta_H=B_ws_H$ and proceed downward.  For $\ell=H,\ldots,2$, define
+\[
+ D_\ell=\norm{W_0^{(\ell)}}_F+
+ \frac{2\mathsf A\beta_\ell\alpha_{\ell-1}}{n},
+ \qquad \beta_{\ell-1}=s_{\ell-1}D_\ell\beta_\ell.
+\]
+Projection contraction in \eqref{eq:projection-form} gives
+$\norm{\widehat W^{(\ell)}}_F\le D_\ell$; the backward recurrence then gives
+$\norm{\delta^{(\ell-1)}}\le\beta_{\ell-1}$.  There is no circularity because
+the descent starts from the bounded readout.  Finally
+\[
+ \norm{W^{(1)}(t)}_F\le\norm{W^{(1)}(0)}_F+2SX\beta_1.
+\]
+These $P$-independent physical bounds, the moment integral representations and
+$1\le\tau\le\mathsf A$ put the order-$P$ state in a compact set for every
+fixed $P$.  Hence the closure continues through $T$ for every $P\ge1$.
+Repeating Steps 2--4 with these global constants gives
+\eqref{eq:old-explicit} for every $P$.  This completes the proof.
+
+\section{Variant B: a joint response-speed clock}
+\label{sec:new-clock}
+
+The activity clock controls the first-layer forward history particularly
+cleanly, but it does not make every backward history smooth.  A more symmetric
+coordinate parametrizes the entire encoded response path.  Concatenate
+\begin{equation}
+ \Psi(\theta)=\operatorname{stack}_{\ell=2,\ldots,H;\,a=1,\ldots,m}
+ (a_{\ell a},b_{\ell a}),\qquad
+ \dot L=g=\rho+\norm{\dot\Psi}_2,\quad L(0)=1.        \label{eq:new-clock}
+\end{equation}
+Then $\norm{\dd\Psi/\dd L}\le1$.  The clock changes where history is placed,
+but the learning integral still carries residual mass.  At time $s$, place a
+point at $\xi=L(s)$ and assign mass $\rho(s)\dd s$.  Give $[0,1]$ Lebesgue
+mass and matching constant prefixes.  Thus
+\[
+ \int q\dd\mu_t=\int_0^1q(\xi)\dd\xi+
+ \int_0^tq(L(s))\rho(s)\dd s,\qquad \dd\mu_t\le\dd\xi.
+\]
+The mass is $A(t)=1+\int_0^t\rho\dd s$, generally different from $L(t)$.
+
+Let $p=(p_0,\ldots,p_{P-1})^\top$, $e=(1,\ldots,1)^\top$, and let
+$\mathsf T_{kk}=k$, $\mathsf T_{kj}=2j+1$ for $j<k$.  Store one shared Gram
+matrix and link/sample moments
+\[
+ H_{\ell a}=\int\bar a_{\ell a}p^\top\dd\mu,\qquad
+ U_{\ell a}=\int\bar b_{\ell a}p^\top\dd\mu,\qquad
+ G=\int pp^\top\dd\mu,
+\]
+where $p$ is evaluated at $\xi/L(t)$.  Put
+$C_{\ell a}=b_{\ell a}(0)a_{\ell a}(0)^\top$.  The reconstruction and exact
+moment equations are
+\begin{align}
+ \widehat W^{(\ell)}&=W_0^{(\ell)}-\frac{2}{nm}\sum_a
+ (U_{\ell a}G^{-1}H_{\ell a}^\top-C_{\ell a}),       \label{eq:new-recon}\\
+ \dot H_{\ell a}&=\rho a_{\ell a}e^\top-(g/L)H_{\ell a}\mathsf T^\top,
+ &\dot U_{\ell a}&=r_a\delta_a^{(\ell)}e^\top-(g/L)U_{\ell a}\mathsf T^\top,
+ \nonumber\\
+ \dot G&=\rho ee^\top-(g/L)(\mathsf TG+G\mathsf T^\top). \label{eq:new-ode}
+\end{align}
+Initially $H_{\ell a}=[a_{\ell a}(0),0,\ldots]$,
+$U_{\ell a}=[b_{\ell a}(0),0,\ldots]$ and
+$G=\diag(1,(1/3),\ldots,(1/(2P-1)))$.  The prefix correction makes
+$\widehat W^{(\ell)}(0)=W_0^{(\ell)}$.
+
+Solve $Gq=e$ and set $a^*_{\ell a}=H_{\ell a}q$ and
+$b^*_{\ell a}=U_{\ell a}q$.  Product differentiation cancels every $g/L$
+term and gives the physical defect
+\begin{equation}
+ E_\ell=\frac{2\rho}{nm}\sum_a
+ (b_{\ell a}-b^*_{\ell a})(a_{\ell a}-a^*_{\ell a})^\top. \label{eq:new-defect}
+\end{equation}
+This has the same product-of-errors form as Variant A, but now both factors
+belong to one path with unit speed in $L$.
+
+\begin{theorem}[Response-clock convergence]
+\label{thm:new}
+Under the finite setup of \Cref{thm:old}, assume
+$\phi_1\in C^{1,1}_{\mathrm{loc}}$ and
+$\phi_\ell\in C^{2,1}_{\mathrm{loc}}$ for $\ell\ge2$.  If $\rho(0)>0$, then
+for every finite $T$ there are $P_0(T)$, $\Lambda_T$ and $C_T$, independent
+of $P$, such that for $P\ge P_0(T)$ the ODE
+\eqref{eq:new-clock}--\eqref{eq:new-ode} has a unique regular solution on
+$[0,T]$, $L_P(t)\le\Lambda_T$, and
+\begin{equation}
+ \int_0^T\norm{E(t)}\dd t\le\frac{C_T}{P(P+1)},\qquad
+ \sup_{t\le T}\norm{\widehat\theta_P(t)-\theta(t)}
+ \le\frac{C_Te^{K_TT}}{P(P+1)}.                      \label{eq:new-rate}
+\end{equation}
+If $\rho(0)=0$, both flows are stationary.  The conclusion is
+$O_T(P^{-2})$ at fixed width, depth and data.  It is not an all-small-order or
+uniform-all-time statement.
+\end{theorem}
+
+\begin{proof}[Proof architecture]
+For a history $q$, let $D_q$ be its weighted least-squares error.  Differentiating
+$\operatorname{tr}(H G^{-1}H^\top)$ with \eqref{eq:new-ode} proves the exact
+identity
+\[
+ \dot D_q=\rho\norm{q-q^*}^2.
+\]
+Consequently, Cauchy--Schwarz in physical time gives the analogue of
+\eqref{eq:defect-energy}.  On a compact physical ball, raw history energies
+give a coarse, order-independent bound on $\int\norm{E}$ and hence on total
+physical path variation.  Dense residual satisfies a finite-horizon lower
+bound $\rho_{\rm dense}\ge\mu_T>0$.  On the region
+$\rho\ge\mu_T/2$, the response map has a finite derivative bound
+$\norm{D\Psi}\le J_T$.  Therefore
+\[
+ L_P(T)\le A_T+J_T\left(\int_0^T\norm{F}\dd t+
+ \int_0^T\norm{E}\dd t\right)=:\Lambda_T,
+\]
+without assuming a clock bound.
+
+The joint extended history is $1$-Lipschitz in $\xi$ and constant on the
+prefix.  Weighted best approximation is no worse than ordinary Legendre
+projection because $\dd\mu\le\dd\xi$.  Applying \Cref{lem:legendre} to the
+whole concatenated path yields
+\[
+ \sum_{\ell,a}(D_{a,\ell a}+D_{b,\ell a})
+ \le\frac{L_P^2(L_P-1)}{4P(P+1)}.
+\]
+The arithmetic--geometric mean inequality in the defect estimate gives
+\[
+ \int_0^T\norm{E}\dd t
+ \le\frac{\Lambda_T^2(\Lambda_T-1)}{4nmP(P+1)}.
+\]
+Gronwall gives \eqref{eq:new-rate}.  For sufficiently large $P$, this keeps
+the closure inside the physical ball and keeps its residual above
+$\mu_T/2$.  The prefix makes $G$ positive definite; bounded $L$ gives a
+positive minimum eigenvalue for each fixed $P$.  All moment variables then
+stay in a compact subset of the locally Lipschitz domain, which proves
+continuation through $T$ and closes the first-exit argument.
+\end{proof}
+
+\subsection{The new clock is fully implementable}
+
+Equation \eqref{eq:new-clock} appears implicit only because $\dot\Psi$ is
+written compactly.  No nonlinear solve for $g$ is needed.  First compute
+$q=G^{-1}e$, endpoint fits $a^*,b^*$, and internal velocities
+\begin{equation}
+ V_\ell=\dot{\widehat W}^{(\ell)}=-\frac{2\rho}{nm}\sum_a
+ \left[b_{\ell a}(a^*_{\ell a})^\top+
+ b^*_{\ell a}(a_{\ell a}-a^*_{\ell a})^\top\right]. \label{eq:internal-velocity}
+\end{equation}
+These expressions contain no $g$.  Compute $V_1=F_1$ and $V_w=F_w$, then a
+directional forward pass
+\[
+ \dot z_a^{(1)}=V_1v_a,\qquad
+ \dot z_a^{(\ell)}=V_\ell h_a^{(\ell-1)}+
+ \widehat W^{(\ell)}\dot h_a^{(\ell-1)},\qquad
+ \dot h_a^{(\ell)}=\phi_\ell'(z_a^{(\ell)})\od\dot z_a^{(\ell)}.
+\]
+This gives $\dot r$ and $\dot\rho$.  A reverse directional pass differentiates
+the backward recurrence, using $\phi_\ell''$ for $\ell\ge2$, and then
+\[
+ \dot b_{\ell a}=\frac{\dot r_a\delta_a^{(\ell)}+
+ r_a\dot\delta_a^{(\ell)}}{\rho}-b_{\ell a}\frac{\dot\rho}{\rho}.
+\]
+Now evaluate $g=\rho+\norm{\dot\Psi}$ and finally
+\eqref{eq:new-ode}.  Matrix and transpose actions use the same reconstructed
+operator.  One factors $G$ and solves linear systems; an explicit inverse is
+unnecessary.
+
+The response clock is more regular in approximation coordinates, but it is not
+automatically better at low order.  At $P=1$ the polynomial space is constant,
+so changing the coordinate alone leaves the physical constant-mode closure
+unchanged.  Higher orders pay for Gram solves and derivative passes, and the
+theoretical constants can be large.
+
+\section{What is compressed?}
+
+Let $H$ be hidden depth, $n$ width, $m$ training samples and $P$ moment order.
+The comparison in \Cref{tab:complexity} separates moving learned state from
+fixed source storage.
+
+\begin{table}[t]
+\centering
+\caption{Leading storage and direct-operation counts.  A full batch applies
+each internal map to $m$ vectors.  Counts omit lower-order activations and
+first/readout layers.}
+\label{tab:complexity}
+\small
+\begin{tabular}{lll}
+\toprule
+ & Dense gradient flow & Response-memory closure \\
+\midrule
+Moving internal state & $(H-1)n^2$ & $2(H-1)mnP$ \\
+Fixed internal source & included above & $(H-1)n^2$ for all $W_0^{(\ell)}$ \\
+Learned rank/link & up to $n$ & $\le mP$ (A), $\le m(P+1)$ (B) \\
+One learned action & $O(n^2)$ & $O(nmP)$ \\
+One full-batch action & $O(mn^2)$ & $O(nm^2P)$ \\
+Moment dilation & --- & $O((H-1)mnP)$ \\
+Variant-B overhead & --- & $O(P^3+(H-1)mnP^2)$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The learned action is matrix-free:
+\[
+ \widehat W^{(\ell)}v=W_0^{(\ell)}v-
+ \frac{2}{nm}\sum_a U_{\ell a}G^{-1}H_{\ell a}^\top v
+ \quad\text{(with the prefix correction in Variant B)},
+\]
+and the transpose uses the same factors in reverse order.  Storage is
+independent of elapsed training steps.  The initialized operator remains
+uncompressed and still costs $O(n^2)$ per vector under a direct dense action.
+The current result is therefore compression of the \emph{learned moving
+increment}, not total elimination of dense operators.  Total stored memory can
+exceed a dense implementation if $W_0$ and all histories are materialized.
+
+Ignoring constants and the order threshold, \Cref{thm:old} gives the sufficient
+scaling $P=O(\varepsilon^{-1})$ for trajectory error $\varepsilon$, while
+\Cref{thm:new} gives $P=O(\varepsilon^{-1/2})$.  Thus the proven moving-state
+scalings are respectively
+\[
+ O(Hmn\varepsilon^{-1})\quad\text{and}\quad
+ O(Hmn\varepsilon^{-1/2}).
+\]
+These are approximation guarantees, not practical speed laws: $C_T$ and
+$P_0(T)$ depend on the task, width, depth and horizon, and Variant B has larger
+per-step overhead.
+
+\subsection{Population interpretation and its precise limit}
+
+For fixed $P$, the neuron-indexed vectors can be viewed as particles sampling
+population fields indexed by the initialization source.  This makes the closure
+a natural Monte Carlo implementation of a hybrid population/operator system:
+the response fields move, while the initialized random operator and its adjoint
+remain exact.  The theorems above, however, keep $n$ fixed and their constants
+may depend on $n$.
+
+There is still a useful diagonal statement.  Suppose an independent theorem
+establishes that dense width-$n$ flows $\theta_n$ converge on $[0,T]$ to a
+population object $\Theta$ in a metric $d$, and suppose the observables entering
+$d$ are controlled by \Cref{thm:old} or \Cref{thm:new}.  Choose any
+$n_j\to\infty$, then choose $P_j$ large enough that the fixed-width closure
+error is at most $1/j$.  The triangle inequality gives
+\[
+ d(\widehat\theta_{n_j,P_j},\Theta)
+ \le d(\widehat\theta_{n_j,P_j},\theta_{n_j})+d(\theta_{n_j},\Theta)
+ \longrightarrow0.
+\]
+This constructs a sequential approximation to the population flow.  It does
+not prove that a fixed $P$ works uniformly in width, that the $W_0$ action has a
+finite-population representation, or that the two limits commute.  Rigorous
+multilayer mean-field and high-dimensional DMFT results exist in other regimes
+\citep{nguyen2023rigorous,celentano2021highdimensional}; matching their
+architectures, initializations and observables is a separate theorem.
+
+\section{Why this is not a frozen dictionary}
+
+A frozen dictionary chooses response directions at initialization and trains
+only their coefficients.  It can be compact, but it cannot rotate its atoms to
+follow newly learned features.  A trainable low-rank factorization allows more
+motion, yet its factor-gradient geometry is still different from the integrated
+rank-one updates of dense gradient flow.
+
+Response memory keeps a low-rank learned correction at every instant, but its
+atoms are moments of the \emph{current closure trajectory}.  The loop is
+\[
+ \text{moments}\longrightarrow\widehat W
+ \longrightarrow\text{current forward/backward responses}
+ \longrightarrow\dot{\text{moments}}.
+\]
+The basis in history coordinate is fixed; the neuron vectors multiplying that
+basis coevolve nonlinearly.  This is why the method can represent substantial
+feature learning without being a frozen tangent model.
+
+On the hard two-outlier circle task at width $2048$, the current study reports
+RMS discrepancies $1.100$ and $0.756$ for frozen derivative dictionaries with
+18 and 72 stored vectors, and $0.896$ for a trainable 18-vector derivative
+dictionary.  Response memory gives $0.07295$ at $P=3$ (48 vectors) and
+$0.00466$ at $P=7$ (112 vectors).  In a more controlled comparison retaining
+the same $W_0$, response moments beat a trained factorization $W_0+AB$ in all
+29 valid task/order/seed cells; on the hard task at rank 56 the errors were
+$0.004663$ versus $0.516210$ and $0.251026$.  These observations isolate a
+mechanistic difference from those baselines.  They do not prove superiority
+over every adaptive dictionary or at matched total memory.
+
+\section{Empirical evidence}
+\label{sec:experiments}
+
+The experiments use finite networks and numerical time integration.  Circle
+scores compare predictors on 8192 passive angles; MNIST scores use held-out
+images.  Most comparisons match each model at its own first training-MSE
+$0.001$ crossing.  They therefore test agreement of fitted functions, while
+the theorems control same-time trajectories.  The panels are selected
+finite-instance studies, generally with one initialization, and do not estimate
+the asymptotic theorem constants.  The three figures below use the ordinary
+activity clock.
+
+Variant B has also been implemented with batched Gram solves and directional
+response derivatives.  In a matched width-$2048$ comparison on three circle
+tasks with tanh depth two and GELU depth three, all 49 dense/closure fits reached
+training RMS at most $0.05$; its $P=3$ predictor discrepancy was below $0.05$ in
+five of six principal groups.  The GELU alternating-quadrant exception improved
+from $1.245$ to $0.112$ after halving the time step.  In a broader 82-case sweep,
+the fitted-pair median whole-query discrepancies for $P=1,2,3$ were
+$0.0427,0.0189,0.00680$, but several fitted alternating-label cases remained
+poor.  These runs establish implementability and useful low-order cases.  They
+do not empirically certify the $O(P^{-2})$ rate or show that Variant B uniformly
+beats Variant A.
+
+\begin{figure}[t]
+ \centering
+ \includegraphics[width=\textwidth]{figures/circle_shallow.pdf}
+ \caption{Two-hidden-layer tanh networks of width $2048$.  The black curve is
+ the dense fitted function on the whole circle; colored curves are ordinary-clock
+ closures.  Training labels are marked by crosses.  Increasing order reproduces
+ the dense predictor between and far away from training inputs.}
+ \label{fig:circle-shallow}
+\end{figure}
+\FloatBarrier
+
+Across the five tasks in \Cref{fig:circle-shallow}, the measured RMS errors are:
+\begin{center}
+\small
+\begin{tabular}{lrrr}
+\toprule
+Task & $P=1$ & $P=3$ & $P=7$\\
+\midrule
+Two outliers, alternating & 0.2363 & 0.0730 & 0.00466\\
+Quadrant, alternating & 0.3414 & 0.0457 & 0.00165\\
+Quadrant, paired & 0.0193 & 0.00282 & $\approx0.00012$\\
+Quadrant, center/edges & 0.0456 & 0.00487 & 0.00130\\
+Equally spaced, mixed odd & 0.0124 & 0.000520 & $\approx0.00001$\\
+\bottomrule
+\end{tabular}
+\end{center}
+These tasks include rapid alternation and large unlabeled arcs, so
+training-point agreement alone would not force the observed whole-circle match.
+
+\begin{figure}[t]
+ \centering
+ \includegraphics[width=0.86\textwidth]{figures/circle_deep.pdf}
+ \caption{Three-hidden-layer tanh networks of width $4096$, compared at matched
+ training loss.  Across the five tasks, $P=3$ whole-circle RMS discrepancy ranges
+ from $2.82\times10^{-4}$ to $5.85\times10^{-2}$.  The order trend is not
+ pointwise monotone: $P=2$ beats $P=3$ on the two alternating tasks.}
+ \label{fig:circle-deep}
+\end{figure}
+\FloatBarrier
+
+The depth-three circle campaign also measures nontrivial hidden-feature motion,
+so the agreement is not explained by a frozen-feature limit.  Experiments with
+GELU and sigmoid show that the construction is not tanh-specific, but accuracy
+is task dependent: the reported GELU hard-outlier $P=3$ error is $0.02485$,
+whereas harder GELU/sigmoid cases are near $0.26$ and $0.24$.  ReLU and SELU
+runs are useful empirical probes but fall outside the smooth ODE theorem at
+their kinks; selected ReLU flows can even be nonunique at exceptional initial
+states.
+
+\begin{figure}[t]
+ \centering
+ \begin{subfigure}[t]{\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{figures/mnist_scatter.pdf}
+  \caption{Closure versus dense predictions on 1984 held-out images.}
+ \end{subfigure}
+ \vspace{0.6em}
+ \begin{subfigure}[t]{0.75\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{figures/mnist_rms.pdf}
+  \caption{RMS discrepancy across several matched-loss endpoints.}
+ \end{subfigure}
+ \caption{MNIST 3-versus-8, 100 training images, width $4096$.  At training MSE
+ $0.001$, $P=1,2,3$ have held-out RMS discrepancies
+ $0.00324756,0.00108443,0.00119922$.  All declared numerical-refinement gates
+ passed; the slight $P=3$ worsening shows that autonomous feedback need not make
+ realized error monotone in $P$.}
+ \label{fig:mnist}
+\end{figure}
+\FloatBarrier
+
+For this MNIST panel the learned rank bounds are $100,200,300$.  The reported
+learned-increment storage is 6.25, 12.5 and 18.75 MiB, versus 128 MiB for the
+unrestricted learned internal correction.  The closure also retains the
+128 MiB initialized matrix, so its minimum total state is not smaller than a
+dense implementation storing only current weights.  The measured adaptive
+closure integration was also slower in this panel.  The empirical achievement
+is fidelity with a compressed moving update, not an end-to-end speedup claim.
+
+\section{Limitations and next questions}
+
+The main positive result is a fixed-order family of autonomous systems whose
+state does not grow with elapsed training time and whose physical trajectories
+converge to dense gradient flow as $P\to\infty$ on every prescribed finite
+horizon.  Several boundaries matter.
+
+\begin{itemize}
+\item The initialized random matrices and their transpose actions are retained.
+Compressing that source while preserving matrix reuse is still open.
+\item Constants are not uniform in width, depth, sample count or horizon.  A
+direct fixed-$P$ population theorem and a CLT-style finite-width error theory
+remain future work.
+\item Neither theorem gives one order valid for all $t\ge0$.  Uniform all-time
+tracking would require bounded accumulated activity and nonlinear stability
+with finite total amplification.
+\item Smooth activations such as tanh, sigmoid, arctangent, GELU, softplus,
+SiLU, sine and polynomials fall within the stated local smoothness classes.
+Literal ReLU and standard SELU do not.  Their discontinuous selected backward
+fields require nonsmooth dynamics and a clock that charges jump variation.
+\item A finite scalar aggregate truncation is a second approximation, beyond
+history truncation.  Differentiating aggregates gives a principled hierarchy,
+but an economical width-uniform scalar closure is not established here.
+\item Matching the dense predictor is different from predicting the target
+well.  Generalization requires an additional argument about the function
+selected by training.
+\end{itemize}
+
+The response-memory construction nevertheless gives a concrete answer to the
+paper's question.  Exact dynamics can hide a growing history inside a formal
+population or operator description.  Approximate dynamics can replace that
+history by finitely many evolving coordinates per neuron, retain nonlinear
+feature feedback, and admit a genuine order-versus-trajectory-error theorem.
+That smaller state is a new lens on the learned part of deep training, even
+before the remaining random operator is compressed.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}
