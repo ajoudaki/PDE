@@ -11,12 +11,15 @@ Build from this directory with:
 latexmk -pdf main.tex
 ```
 
-The current PDF has 34 pages and compiles without warnings or unresolved
-references. The early comparison table is on page 6; the radial circle figures
-are on pages 12 and 13. Appendix E (page 28 onward) gives the common error metric,
-conditional population cost comparisons, NTH and DMFT derivations, and the
-sharper weighted joint-clock estimate. Appendix F (page 34) contains the
-supplementary sphere-order figure.
+This checkout is the experimental figure edition on
+`codex/paper-figure-experiment`; the main branch is unchanged. The current PDF
+has 37 pages and compiles without warnings or unresolved references.
+[FIGURE_EXPERIMENT.md](FIGURE_EXPERIMENT.md) records the placements, evidence,
+source data, rendering commands and limits. All seven new figure scripts/assets
+live in `figures/`. The mechanism opens on page 2, common-time and same-rank
+comparisons appear on page 13, and the revised MNIST plot appears on page 16.
+The clock and projection diagrams accompany their proofs; the sphere and
+broader two-hidden-layer radial gallery are in Appendices F and G.
 
 `main_alternative.tex` and `main_alternative.pdf` retain the attachment as
 originally compiled (28 pages, with only PDF bookmark fixes). They are a
@@ -43,7 +46,11 @@ Figures and reproduction tools:
 - `figures/circle_deep_radial.pdf`: three hidden tanh layers, orders 1/2/3.
 - `figures/circle_shallow_radial.pdf`: two hidden tanh layers, orders 1/3/7.
 - `figures/sphere_orders.pdf`: supplementary four-hidden-layer ReLU case.
-- `figures/order_decay.pdf` and `figures/mnist_scatter.pdf`: existing results.
+- `figures/experimental_figures.py`: renders the new paper figures in place
+  from `figures/response_memory_source.npz`; no training is required.
+- `figures/experimental_gallery.pdf`: all seven new figures in presentation form.
+- `figures/order_decay.pdf` and `figures/mnist_scatter.pdf`: earlier plots,
+  preserved but replaced in this experimental manuscript.
 - [scripts/README.md](scripts/README.md): consolidated renderer, portable bundles,
   provenance, dependencies and reproduction commands.
 

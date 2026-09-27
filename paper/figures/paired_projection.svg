@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="825.12pt" height="405.72pt" viewBox="0 0 825.12 405.72" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-27T18:06:26.453979</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.8.4, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 405.72 
+L 825.12 405.72 
+L 825.12 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 213.95232 205.87392 
+L 379.44288 205.87392 
+Q 387.34848 205.87392 387.34848 202.54752 
+L 387.34848 126.26208 
+Q 387.34848 122.93568 379.44288 122.93568 
+L 213.95232 122.93568 
+Q 206.04672 122.93568 206.04672 126.26208 
+L 206.04672 202.54752 
+Q 206.04672 205.87392 213.95232 205.87392 
+z
+" clip-path="url(#p8c3bff18c9)" style="fill: #e1f1ec"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 403.68672 205.87392 
+L 569.17728 205.87392 
+Q 577.08288 205.87392 577.08288 202.54752 
+L 577.08288 126.26208 
+Q 577.08288 122.93568 569.17728 122.93568 
+L 403.68672 122.93568 
+Q 395.78112 122.93568 395.78112 126.26208 
+L 395.78112 202.54752 
+Q 395.78112 205.87392 403.68672 205.87392 
+z
+" clip-path="url(#p8c3bff18c9)" style="fill: #f1f3f6"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 213.95232 296.79552 
+L 379.44288 296.79552 
+Q 387.34848 296.79552 387.34848 293.46912 
+L 387.34848 217.18368 
+Q 387.34848 213.85728 379.44288 213.85728 
+L 213.95232 213.85728 
+Q 206.04672 213.85728 206.04672 217.18368 
+L 206.04672 293.46912 
+Q 206.04672 296.79552 213.95232 296.79552 
+z
+" clip-path="url(#p8c3bff18c9)" style="fill: #f1f3f6"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 403.68672 296.79552 
+L 569.17728 296.79552 
+Q 577.08288 296.79552 577.08288 293.46912 
+L 577.08288 217.18368 
+Q 577.08288 213.85728 569.17728 213.85728 
+L 403.68672 213.85728 
+Q 395.78112 213.85728 395.78112 217.18368 
+L 395.78112 293.46912 
+Q 395.78112 296.79552 403.68672 296.79552 
+z
+" clip-path="url(#p8c3bff18c9)" style="fill: #faebd8"/>
+   </g>
+   <g id="text_1">
+    <!-- Retained $h_P$ -->
+    <g style="fill: #337eb8" transform="translate(258.4776 92.3328)">
+     <text>
+      <tspan style="font: 13px 'DejaVu Sans'" x="0 9.032715 17.030762 22.12793 30.094238 33.706055 41.945312 49.943359 58.195312" y="-0.125">Retained </tspan>
+      <tspan style="font: oblique 13px 'DejaVu Sans'" x="62.327637" y="-0.125">h</tspan>
+      <tspan style="font: oblique 9.1px 'DejaVu Sans'" x="70.566895" y="2.0078125">P</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_2">
+    <!-- Omitted $h_\perp$ -->
+    <g style="fill: #337eb8" transform="translate(448.602 92.3328)">
+     <text>
+      <tspan style="font: 13px 'DejaVu Sans'" x="0 10.232422 22.895996 26.507812 31.60498 36.702148 44.700195 52.952148" y="-0.125">Omitted </tspan>
+      <tspan style="font: oblique 13px 'DejaVu Sans'" x="57.084473" y="-0.125">h</tspan>
+      <tspan style="font: 9.1px 'STIXGeneral'" x="67.096631" y="2.0078125">⟂</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_3">
+    <!-- Retained $b_P$ -->
+    <g style="fill: #198779" transform="translate(72.7056 166.60725)">
+     <text>
+      <tspan style="font: 12px 'DejaVu Sans'" x="0 8.337891 15.720703 20.425781 27.779297 31.113281 38.71875 46.101562 53.71875" y="-0.875">Retained </tspan>
+      <tspan style="font: oblique 12px 'DejaVu Sans'" x="57.533203" y="-0.875">b</tspan>
+      <tspan style="font: oblique 8.4px 'DejaVu Sans'" x="65.150391" y="1.09375">P</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_4">
+    <!-- Omitted $b_\perp$ -->
+    <g style="fill: #198779" transform="translate(72.7056 257.52885)">
+     <text>
+      <tspan style="font: 12px 'DejaVu Sans'" x="0 9.445312 21.134766 24.46875 29.173828 33.878906 41.261719 48.878906" y="-0.875">Omitted </tspan>
+      <tspan style="font: oblique 12px 'DejaVu Sans'" x="52.693359" y="-0.875">b</tspan>
+      <tspan style="font: 8.4px 'STIXGeneral'" x="61.94707" y="1.09375">⟂</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_5">
+    <text style="fill: #233442; font: 10px 'DejaVu Sans'; text-anchor: middle" x="296.6976" y="146.664" transform="rotate(-0 296.6976 146.664)">kept interaction</text>
+   </g>
+   <g id="text_6">
+    <!-- $\int b_P h_P^\top$ -->
+    <g style="fill: #233442" transform="translate(270.8976 177.7104)">
+     <text>
+      <tspan style="font: 15px 'DejaVu Sans Display'" x="0" y="-0.9375">∫</tspan>
+      <tspan style="font: oblique 15px 'DejaVu Sans'" x="11.044922 27.30835" y="-0.9375">bh</tspan>
+      <tspan style="font: oblique 10.5px 'DejaVu Sans'" x="20.566406 36.815186" y="1.5234375 3.1640625">PP</tspan>
+      <tspan style="font: 10.5px 'DejaVu Sans'" x="39.977012" y="-6.679687500000002">⊤</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_7">
+    <text style="fill: #233442; font: 10px 'DejaVu Sans'; text-anchor: middle" x="486.432" y="146.664" transform="rotate(-0 486.432 146.664)">mixed term = 0</text>
+   </g>
+   <g id="text_8">
+    <!-- $\int b_P h_\perp^\top=0$ -->
+    <g style="fill: #233442" transform="translate(446.607 177.7104)">
+     <text>
+      <tspan style="font: 15px 'DejaVu Sans Display'" x="0" y="-0.9375">∫</tspan>
+      <tspan style="font: oblique 15px 'DejaVu Sans'" x="11.044922 27.30835" y="-0.9375">bh</tspan>
+      <tspan style="font: oblique 10.5px 'DejaVu Sans'" x="20.566406" y="1.5234375">P</tspan>
+      <tspan style="font: 10.5px 'DejaVu Sans'" x="39.977012" y="-6.679687500000002">⊤</tspan>
+      <tspan style="font: 10.5px 'STIXGeneral'" x="38.86084" y="3.1640625">⟂</tspan>
+      <tspan style="font: 15px 'DejaVu Sans'" x="54.50167 69.992393" y="-0.9375">=0</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_9">
+    <text style="fill: #233442; font: 10px 'DejaVu Sans'; text-anchor: middle" x="296.6976" y="237.5856" transform="rotate(-0 296.6976 237.5856)">mixed term = 0</text>
+   </g>
+   <g id="text_10">
+    <!-- $\int b_\perp h_P^\top=0$ -->
+    <g style="fill: #233442" transform="translate(254.3976 268.632)">
+     <text>
+      <tspan style="font: 15px 'DejaVu Sans Display'" x="0" y="-0.9375">∫</tspan>
+      <tspan style="font: oblique 15px 'DejaVu Sans'" x="11.044922 32.344363" y="-0.9375">bh</tspan>
+      <tspan style="font: 10.5px 'STIXGeneral'" x="22.612061" y="1.5234375">⟂</tspan>
+      <tspan style="font: 10.5px 'DejaVu Sans'" x="45.013026" y="-6.679687500000002">⊤</tspan>
+      <tspan style="font: oblique 10.5px 'DejaVu Sans'" x="41.851199" y="3.1640625">P</tspan>
+      <tspan style="font: 15px 'DejaVu Sans'" x="59.537684 75.028406" y="-0.9375">=0</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_11">
+    <text style="fill: #233442; font: 10px 'DejaVu Sans'; text-anchor: middle" x="486.432" y="237.5856" transform="rotate(-0 486.432 237.5856)">entire pairing error</text>
+   </g>
+   <g id="text_12">
+    <!-- $\int b_\perp h_\perp^\top$ -->
+    <g style="fill: #233442" transform="translate(458.082 268.632)">
+     <text>
+      <tspan style="font: 15px 'DejaVu Sans Display'" x="0" y="-0.9375">∫</tspan>
+      <tspan style="font: oblique 15px 'DejaVu Sans'" x="11.044922 32.344363" y="-0.9375">bh</tspan>
+      <tspan style="font: 10.5px 'STIXGeneral'" x="22.612061 43.896854" y="1.5234375 3.1640625">⟂⟂</tspan>
+      <tspan style="font: 10.5px 'DejaVu Sans'" x="45.013026" y="-6.679687500000002">⊤</tspan>
+     </text>
+    </g>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_6">
+    <path d="M 66.92544 394.26912 
+L 275.21856 394.26912 
+Q 285.84576 394.26912 285.84576 393.77772 
+L 285.84576 371.04228 
+Q 285.84576 370.55088 275.21856 370.55088 
+L 66.92544 370.55088 
+Q 56.29824 370.55088 56.29824 371.04228 
+L 56.29824 393.77772 
+Q 56.29824 394.26912 66.92544 394.26912 
+z
+" clip-path="url(#pcba1102f90)" style="fill: #faebd8"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 293.517551 382.41 
+Q 422.58609 382.41 549.865775 382.41 
+" clip-path="url(#pcba1102f90)" style="fill: none; stroke: #198779; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 545.065775 380.01 
+L 549.865775 382.41 
+L 545.065775 384.81 
+z
+" clip-path="url(#pcba1102f90)" style="fill: #198779; stroke: #198779; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 569.94624 394.26912 
+L 764.06976 394.26912 
+Q 774.69696 394.26912 774.69696 393.77772 
+L 774.69696 371.04228 
+Q 774.69696 370.55088 764.06976 370.55088 
+L 569.94624 370.55088 
+Q 559.31904 370.55088 559.31904 371.04228 
+L 559.31904 393.77772 
+Q 559.31904 394.26912 569.94624 394.26912 
+z
+" clip-path="url(#pcba1102f90)" style="fill: #e1f1ec"/>
+   </g>
+   <g id="text_13">
+    <text style="fill: #233442; font: 10px 'DejaVu Sans'; text-anchor: middle" x="171.072" y="385.169375" transform="rotate(-0 171.072 385.169375)">History reconstruction error</text>
+   </g>
+   <g id="text_14">
+    <text style="fill: #198779; font: 10px 'DejaVu Sans'; text-anchor: middle" x="422.5824" y="373.5648" transform="rotate(-0 422.5824 373.5648)">feedback stability</text>
+   </g>
+   <g id="text_15">
+    <text style="fill: #233442; font: 10px 'DejaVu Sans'; text-anchor: middle" x="667.008" y="385.169375" transform="rotate(-0 667.008 385.169375)">Trajectory error</text>
+   </g>
+  </g>
+  <g id="text_16">
+   <!-- $h=h_P+h_\perp$ -->
+   <g style="fill: #337eb8" transform="translate(60.48 45.36)">
+    <text>
+     <tspan style="font: oblique 24px 'DejaVu Sans'" x="0 44.671875 100.130859" y="-0.765625">hhh</tspan>
+     <tspan style="font: 24px 'DejaVu Sans'" x="19.886719 75.345703" y="-0.765625">=+</tspan>
+     <tspan style="font: oblique 16.8px 'DejaVu Sans'" x="59.882812" y="3.171875">P</tspan>
+     <tspan style="font: 16.8px 'STIXGeneral'" x="118.614844" y="3.171875">⟂</tspan>
+    </text>
+   </g>
+  </g>
+  <g id="text_17">
+   <!-- $b=b_P+b_\perp$ -->
+   <g style="fill: #198779" transform="translate(449.28 45.36)">
+    <text>
+     <tspan style="font: oblique 24px 'DejaVu Sans'" x="0 44.695312 100.177734" y="-0.765625">bbb</tspan>
+     <tspan style="font: 24px 'DejaVu Sans'" x="19.910156 75.392578" y="-0.765625">=+</tspan>
+     <tspan style="font: oblique 16.8px 'DejaVu Sans'" x="59.929688" y="3.171875">P</tspan>
+     <tspan style="font: 16.8px 'STIXGeneral'" x="118.685156" y="3.171875">⟂</tspan>
+    </text>
+   </g>
+  </g>
+  <g id="text_18">
+   <text style="fill: #233442; font: 700 13px 'DejaVu Sans'; text-anchor: start" x="639.36" y="136.08" transform="rotate(-0 639.36 136.08)">Orthogonality</text>
+  </g>
+  <g id="text_19">
+   <text style="fill: #233442; font: 10px 'DejaVu Sans'" transform="translate(639.36 157.122812)">kills both mixed terms.</text>
+   <text style="fill: #233442; font: 10px 'DejaVu Sans'" transform="translate(639.36 171.36)">Only omitted × omitted remains.</text>
+  </g>
+  <g id="text_20">
+   <!-- $\left\|\int bh^\top-\int b_Ph_P^\top\right\|_F\leq\|b-b_P\|_{L^2}\,\|h-h_P\|_{L^2}$ -->
+   <g style="fill: #233442" transform="translate(73.44 340.704)">
+    <text>
+     <tspan style="font: 27.40625px 'DejaVu Sans'" x="0 166.813841" y="-1.0625">‖‖</tspan>
+     <tspan style="font: 20px 'DejaVu Sans Display'" x="13.703125 98.039245" y="-0.59375">∫∫</tspan>
+     <tspan style="font: oblique 20px 'DejaVu Sans'" x="28.429688 41.125 112.765807 134.450378 223.858763 261.104857 322.174561 359.401124" y="-0.59375">bhbhbbhh</tspan>
+     <tspan style="font: 14px 'DejaVu Sans'" x="58.018737 151.344115" y="-8.25 -8.249999999999998">⊤⊤</tspan>
+     <tspan style="font: 20px 'DejaVu Sans'" x="77.384948 193.204466 213.858763 240.45056 282.789427 312.174561 338.746827 381.066163" y="-0.59375">−≤‖−‖‖−‖</tspan>
+     <tspan style="font: oblique 14px 'DejaVu Sans'" x="125.46112 147.126159 180.708372 273.800169 292.980833 372.076905 391.257569" y="2.6875 4.875 2.6875 2.6875 2.6875 2.6875 2.6875">PPFPLPL</tspan>
+     <tspan style="font: 9.8px 'DejaVu Sans'" x="301.76268 400.039415" y="-2.671875">22</tspan>
+    </text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p8c3bff18c9">
+   <rect x="64.8" y="85.68" width="527.04" height="221.76"/>
+  </clipPath>
+  <clipPath id="pcba1102f90">
+   <rect x="64.8" y="364.392" width="708.48" height="32.76"/>
+  </clipPath>
+ </defs>
+</svg>

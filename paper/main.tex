@@ -4,6 +4,8 @@
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage{placeins}
+\usepackage[font=small,labelfont=bf]{caption}
 \usepackage{microtype}
 \usepackage{natbib}
 \usepackage[hidelinks]{hyperref}
@@ -64,6 +66,21 @@ against accuracy, existing descriptions of training pay for the limit in
 neurons, in stored history or in tuples of samples; response memory pays in an
 approximation order.
 \end{abstract}
+
+\begin{figure}[!t]
+ \centering
+ \includegraphics[width=\textwidth]{figures/memory_mechanism.pdf}
+ \caption{\textbf{A learned connection is a paired memory.} Schematic of the
+ simple-clock closure for one training sample, with three modes illustrated.
+ Forward and residual-weighted backward histories are compressed into moments
+ $m_1^{(k)}$ and $m_2^{(k)}$ (the $\bar h_k$ and $\bar\delta_k$ of
+ \Cref{sec:memory}). Their paired outer products reconstruct the learned
+ interaction, which changes the responses entering subsequent memory updates.
+ The initialized matrix $W_0$ is retained separately. Polynomial functions
+ of the history coordinate are fixed; the neuron-space moment vectors evolve.
+ Here $r$ is the residual, $\rho=|r|$, and $\delta$ is the backward response.}
+ \label{fig:mechanism}
+\end{figure}
 
 \section{Introduction}
 
@@ -140,6 +157,8 @@ two-time-grid representations grow with the number of retained time points.
 We ask whether evolving learned interactions can instead be carried by a fixed
 number of neuron-level coordinates, with a bound on the error of the complete
 training trajectory.
+
+
 
 \paragraph{One axis for every description.}
 The gap suggests a way to place all descriptions of training side by side.  Fix
@@ -556,6 +575,8 @@ degree below $P$,
 \end{equation}
 and since cross terms vanish by orthogonality, the error in each matrix update is
 a \emph{product} of a forward and a backward projection error.
+\Cref{fig:pairing} illustrates this cancellation and distinguishes it from the
+separate stability argument that controls feedback.
 
 \paragraph{The joint feature-learning clock.}
 The learning-speed clock makes forward histories smooth but not every backward
@@ -572,6 +593,7 @@ $P\times P$ Gram matrix is tracked alongside the moments; the reconstruction use
 its inverse, the defect keeps the product form, and the clock speed can be
 evaluated explicitly by one directional forward and backward pass
 (\Cref{app:proof-new}).
+The coordinate change is illustrated in \Cref{fig:clock}.
 
 \subsection{Global guarantees}
 
@@ -732,55 +754,103 @@ still contribute $O(Hn^2)$ storage.  \Cref{app:size} derives these allocations,
 states the width-uniformity requirements, and places NTH and numerical
 limiting-process solvers in the same error metric.
 
+\FloatBarrier
 \section{Experiments}
 \label{sec:experiments}
 
 We integrate finite networks and compare response memory with dense gradient
 flow from the same initialization, using the learning-speed clock unless stated.
+We first examine the developing function at shared physical times, then compare
+fitted functions at each model's first crossing of training MSE $0.001$.
+These are different observables: shared-time discrepancies address trajectory
+tracking, while individually fitted endpoints test whether the closure reproduces
+the function selected by dense training. All panels reuse saved predictions;
+no intermediate evolution is inferred from endpoints.
+
+\paragraph{Learning in physical time.}
+\Cref{fig:trajectory} follows the paired-label circle task with two hidden tanh
+layers of width $2048$. Dense training and orders $P=1,3,7$ have predictions
+saved at the same eight physical times between $0$ and $80$. Four snapshots
+show the function developing from the common initialization. The discrepancy
+plot uses all shared snapshots, on $2048$ uniform circle queries, against the
+finest fresh dense reference. Dotted curves show the numerical scale obtained
+by summing the dense and closure coarse/fine prediction changes. Some of the
+smallest discrepancies are comparable to that scale. These discrete observations
+illustrate tracking; they do not certify the error between observations.
+
+\begin{figure}[!tp]
+ \centering
+ \includegraphics[width=\textwidth]{figures/learning_in_motion.pdf}
+ \caption{\textbf{Learning at common physical times.} Paired-label task, two
+ hidden tanh layers, width $2048$. Top: saved functions at $t=0,5,20,80$;
+ radius is $3+f(\theta)$, radial ticks give signed predictions, the dashed ring
+ marks zero, and black dots are training labels. Bottom: RMS discrepancies
+ against dense at all eight shared times $0,1,2,5,10,20,40,80$, using $2048$
+ circle queries. Lines join observations as visual guides. Initial agreement
+ is at roundoff and is omitted from the logarithmic axis. Dotted curves show
+ empirical numerical sensitivity, not certified error bounds.}
+ \label{fig:trajectory}
+\end{figure}
+
+\paragraph{The evolution law matters at the same rank.}
+Both response memory and directly trained factors retain the same $W_0^{(2)}$
+and have evolving low-rank learned corrections. Their dynamics differ:
+ordinary Euclidean factor gradient flow does not induce canonical matrix
+gradient flow. \Cref{fig:factors} makes this distinction visible on the
+paired-label task at correction rank bound $24$. Memory has whole-circle RMS
+$0.00282$ from dense, against $0.375$ and $0.204$ for the two factor seeds.
+Across all five tasks and three ranks, memory has smaller discrepancy in all
+29 resolved fitted comparisons; one capped factor run is excluded. Twenty-eight
+wins exceed a factor of two. This supports the specified factor baseline
+comparison, not a universal claim about low-rank algorithms.
+
+\begin{figure}[!tp]
+ \centering
+ \includegraphics[width=\textwidth]{figures/same_rank_dynamics.pdf}
+ \caption{\textbf{Same correction rank, different fitted functions.} Two hidden
+ tanh layers of width $2048$. Top: paired-label task, memory $P=3$ and both
+ factor seeds at rank $24$, with the dense reference in black. Bottom: all
+ five tasks at rank bounds $8,24,56$ (or $4,12,28$ for the exact antipodal
+ quotient). Every model is shown at its own MSE $0.001$ endpoint; RMS uses
+ $8192$ angles. Factors use $W_2=W_0+AB$, $A(0)=0$, independent
+ $B_{ij}(0)\sim N(0,1/\mathrm{rank})$, and unit factor mobilities. Both outer
+ layers have their canonical mobilities. Equal rank matches the factor-array
+ budget, not total state or runtime. One capped comparison is omitted;
+ hollow memory points have limited numerical precision.}
+ \label{fig:factors}
+\end{figure}
+
+\FloatBarrier
+\paragraph{Fitted functions across tasks.}
 With eight labelled points on a circle, many functions fit the labels, so
-agreement at training points says little; we compare the whole function that
-training selects, on 8192 angles, at each model's first crossing of training MSE
-$0.001$.  The five tasks are chosen to be hard: alternating labels, clustered
-points and large unlabelled arcs.  These are comparisons of fitted functions at
-matched loss, with one initialization per task, not same-time trajectory errors:
-they test the closure as an estimator of what dense training produces, not the
-rates of the theorems.  \Cref{fig:deep,fig:shallow} display both depths in
-radial coordinates.  A supplementary four-hidden-layer ReLU example on the
-sphere appears in \Cref{app:sphere-endpoints}.
+agreement at training points says little. We compare the selected function
+on $8192$ angles for five tasks with alternating labels, clustered points and
+large unlabelled arcs. \Cref{fig:deep} displays the three-hidden-layer results;
+the two-hidden-layer gallery is in \Cref{app:circle-gallery}.
+The same initialization is used within each task and architecture.
+A supplementary four-hidden-layer ReLU example on the sphere appears in
+\Cref{app:sphere-endpoints}.
 
 \begin{figure}[!tp]
  \centering
  \includegraphics[width=\textwidth]{figures/circle_deep_radial.pdf}
- \caption{Fitted circle predictions for three hidden tanh layers, width
- $4096$, and response-memory orders $P=1,2,3$, at each model's training-MSE
- $10^{-3}$ endpoint.  Angle represents input direction; radius is $3+f(\theta)$,
+ \caption{\textbf{The fitted function across five tasks.} Three hidden tanh
+ layers, width $4096$, and memory orders $P=1,2,3$, at each model's training-MSE
+ $10^{-3}$ endpoint. Angle represents input direction; radius is $3+f(\theta)$,
  with radial ticks labelled by $f(\theta)$ and a dashed zero-output ring.
  Black curves show dense training, coloured curves show response memory,
- and black dots show training labels.  Coloured numbers give RMS prediction
+ and black dots show training labels. Coloured numbers give RMS prediction
  differences from dense on $8192$ uniform circle points, in legend order.}
  \label{fig:deep}
-\end{figure}
-
-\begin{figure}[!tp]
- \centering
- \includegraphics[width=\textwidth]{figures/circle_shallow_radial.pdf}
- \caption{Fitted circle predictions for two hidden tanh layers, width
- $2048$, and response-memory orders $P=1,3,7$, using the dense references in
- \Cref{tab:circle}.  Models are evaluated at their individual training-MSE
- $10^{-3}$ endpoints.  Angle is input direction and radius is $3+f(\theta)$;
- signed radial ticks, the dashed zero-output ring, black training labels,
- and dense-versus-memory RMS values follow \Cref{fig:deep}.  RMS is measured
- on $8192$ uniform circle points.}
- \label{fig:shallow}
 \end{figure}
 
 \begin{table}[t]
 \centering
 \small
 \caption{Whole-circle RMS difference between response memory and dense
-gradient flow.  Left: two hidden tanh layers, width $2048$ (\Cref{fig:shallow}).
-Right: three hidden
-tanh layers, width $4096$ (\Cref{fig:deep}).}
+training at individually fitted endpoints. Left: two hidden tanh layers,
+width $2048$ (\Cref{fig:shallow}). Right: three hidden tanh layers,
+width $4096$ (\Cref{fig:deep}).}
 \label{tab:circle}
 \begin{tabular}{lrrr@{\qquad}rrr}
 \toprule
@@ -796,59 +866,70 @@ Equally spaced, mixed & 0.0124 & 0.00053 & $4\times10^{-6}$ & 0.0150 & 0.00241 &
 \end{tabular}
 \end{table}
 
+In two hidden layers, the fitted-function discrepancy falls by 1.5--3 orders
+of magnitude from $P=1$ to $P=7$ on every task. In three hidden layers, $P=2$
+and $P=3$ have RMS differences below $0.06$ on all five tasks, and below
+$0.01$ on three. Order is not monotone at these small values: $P=2$ beats
+$P=3$ on both alternating tasks. \Cref{fig:order} shows the measured errors
+alongside their observed numerical sensitivity, without fitting a power law.
+The hidden features move substantially: the \emph{absolute} activation RMS
+changes from initialization are $0.35$--$0.65$, $0.38$--$0.74$ and
+$0.46$--$0.68$ in the three layers, across the 20 finest dense and closure runs.
+The moving state at $P=3$ is about $3$\,MiB against $256$\,MiB for the dense
+learned matrices; retained initialized matrices are additional.
+
 \begin{figure}[!tp]
  \centering
- \includegraphics[width=0.55\textwidth]{figures/order_decay.pdf}
- \caption{Whole-circle difference from dense training against order, two hidden
- tanh layers (left half of \Cref{tab:circle}), with reference slopes.  These are
- matched-loss discrepancies of fitted functions, not the same-time trajectory
- error bounded by \Cref{thm:old}.}
+ \includegraphics[width=\textwidth]{figures/order_sensitivity.pdf}
+ \caption{\textbf{Measured order trends and substantial feature movement.}
+ Three-hidden-layer circle experiments, width $4096$, at individually fitted
+ MSE $0.001$ endpoints. Left: discrepancies on $8192$ angles. Middle: sums of
+ dense and closure coarse/fine prediction RMS changes, shown on a separate
+ scale; these are numerical diagnostics, not confidence intervals or certified
+ bounds. Right: ranges of absolute training-activation RMS changes from
+ initialization across the 20 finest runs. Neither the endpoint comparisons
+ nor the three tested orders establish a temporal tracking exponent.}
  \label{fig:order}
 \end{figure}
 
-\paragraph{Circle tasks.}
-In two layers the error falls by 1.5--3 orders of magnitude from $P=1$ to $P=7$
-on every task, faster than the $P^{-1}$ trajectory bound (\Cref{fig:order}); the
-theorem is an upper bound on a different quantity, and we do not read a rate off
-these five points.  In three layers $P=2$ and $P=3$ have whole-circle RMS
-differences below $0.06$, and below $0.01$ on three tasks, while the hidden layers
-move substantially: relative activation displacement is $0.35$--$0.65$,
-$0.38$--$0.74$ and $0.46$--$0.68$ in the three layers.  Order is not monotone at
-fixed width: $P=2$ beats $P=3$ on both alternating tasks.  The moving state at
-$P=3$ is about $3$\,MiB against $256$\,MiB for the dense learned matrices.
+Frozen dictionaries built at initialization are a different alternative:
+on the outlier task they reach RMS $0.55$--$1.38$ with about 45 vectors,
+against $0.073$ for 48 response moments. Together with the factor control,
+this motivates both parts of the method: evolving response directions and
+an evolution law derived from the network's own history.
 
-\paragraph{Evolving memories versus fixed or trained bases.}
-The corollary says that learned increments are low-rank \emph{in their own
-history}.  The alternatives tested here are less accurate.  Frozen dictionaries
-built at initialization reach RMS $0.55$--$1.38$ on the
-outlier task with about 45 vectors, against $0.073$ for 48 response moments.  A
-directly trained low-rank correction of the middle matrix, with factors of
-matched rank and the same $W_0^{(2)}$, lost in all 29 valid comparisons, 28 of
-them by more than a factor of two; at rank 56 on the outlier task the errors were
-$0.0047$ against $0.52$ and $0.25$ for two factor seeds.
+\FloatBarrier
+\paragraph{MNIST.}
+\Cref{fig:mnist} combines an agreement plot with signed residuals on a
+shared vertical scale. With 100 training images
+and width $4096$, held-out discrepancies are $0.00325$, $0.00108$ and $0.00120$
+for $P=1,2,3$, retaining the small deterioration from $P=2$ to $P=3$.
+All models have identical test accuracy ($94.7\%$). With 1000 training images
+and width $1024$, the discrepancies are $0.019$, $0.0019$ and $0.0012$, with
+$97.5\%$ accuracy for dense, $P=2$ and $P=3$. Prediction fidelity and label
+accuracy are separate observables.
 
 \begin{figure}[!tp]
  \centering
- \includegraphics[width=\textwidth]{figures/mnist_scatter.pdf}
- \caption{MNIST 3 versus 8, 100 training images, width $4096$: response memory
- versus dense predictions on 1984 held-out images.  RMS differences are
- $0.0032$, $0.0011$ and $0.0012$ for $P=1,2,3$.}
+ \includegraphics[width=\textwidth]{figures/mnist_residuals.pdf}
+ \caption{\textbf{Agreement and its residual structure on MNIST.} Digits 3
+ versus 8, 100 training images, two hidden tanh layers of width $4096$.
+ Left: memory $P=3$ versus dense predictions on all $1984$ held-out images.
+ Right: signed differences $f_P-f_{\mathrm{dense}}$, displayed in units of
+ $10^{-3}$ with one vertical scale for all orders. RMS differences are
+ $0.003248$, $0.001084$ and $0.001199$. Each model is evaluated at its own
+ training-MSE $0.001$ endpoint. These are function discrepancies, not label RMSE.}
  \label{fig:mnist}
 \end{figure}
 
-\paragraph{MNIST.}
-Predictions of response memory and dense training on held-out images lie on the
-diagonal (\Cref{fig:mnist}), with identical test accuracy ($94.7\%$).  With 1000
-training images and width $1024$ the differences are $0.019$, $0.0019$ and
-$0.0012$ for $P=1,2,3$, with $97.5\%$ accuracy for dense, $P=2$ and $P=3$.
-
+\FloatBarrier
 \paragraph{Two clocks.}
-The joint clock's better rate is asymptotic.  At $P=5$ it improved some cases
+The joint clock's better rate is asymptotic. At $P=5$ it improved some cases
 (tanh alternating quadrant $0.0066\to0.0035$; GELU outliers $0.0020\to0.0010$)
 and was much worse on another (GELU alternating quadrant $0.013\to1.00$, reduced
-to $0.10$ by halving the step).  Over an 82-configuration sweep, on the 65
+to $0.10$ by halving the step). Over an 82-configuration sweep, on the 65
 configurations where dense and all orders fit, the joint clock's median
-differences were $0.031$, $0.013$ and $0.0066$ for $P=1,2,3$.
+discrepancies were $0.031$, $0.013$ and $0.0066$ for $P=1,2,3$.
 
 \clearpage
 \section{Discussion: toward an idealized model of learning}
@@ -1017,6 +1098,19 @@ Jiawei Zhao, Yifei Zhang, Beidi Chen, Florian Sch{\"a}fer, and Anima
 
 \section{\texorpdfstring{Proof of \Cref{thm:old}}{Proof of the learning-speed clock theorem}}
 \label{app:proof-old}
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphics[width=\textwidth]{figures/paired_projection.pdf}
+ \caption{\textbf{The product-of-errors mechanism.} Write each history as its
+ retained projection plus its orthogonal remainder. The two mixed pairings
+ integrate to zero when both projections use the same measure. Thus the
+ discrepancy of the paired history integral is precisely the pairing of the
+ two omitted histories, bounded by the product of their $L^2$ errors.
+ Transferring this reconstruction discrepancy to network trajectory error
+ requires the separate feedback-stability argument.}
+ \label{fig:pairing}
+\end{figure}
 
 Throughout the appendices we write $b^{(\ell)}_a=r_a\delta^{(\ell)}_a/\rho$ for the
 residual-weighted backward response, $\bar h^{(\ell-1)}_a$ and $\bar b^{(\ell)}_a$
@@ -1260,6 +1354,21 @@ $P$.  This completes the proof. \qed
 
 \section{\texorpdfstring{The joint feature-learning clock: construction and proof of \Cref{thm:new}}{The joint feature-learning clock: construction and proof}}
 \label{app:proof-new}
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphics[width=\textwidth]{figures/learning_clocks.pdf}
+ \caption{\textbf{The same response path in a different coordinate.}
+ Schematic of a smooth response path, not a measured network trajectory.
+ The colored events correspond under the change from physical time to the
+ joint clock; the geometric panels show the same path sampled uniformly in
+ each coordinate. The simple clock integrates residual RMS, not loss-decay
+ rate. The joint clock bounds the speed of the concatenated responses by one
+ in its coordinate; it guarantees neither constant speed nor small-order
+ accuracy. Coordinate placement changes while integration mass remains
+ $\rho\,\dd t$, which requires the shared Gram matrix below.}
+ \label{fig:clock}
+\end{figure}
 
 \paragraph{Construction.}
 Let $\Psi$ be the concatenation over $\ell\ge2$ and $a$ of the forward and
@@ -1722,5 +1831,27 @@ fields, or closures tailored to a single initialized trajectory.
 
 \clearpage
 \input{sphere_appendix}
+
+\clearpage
+\section{Supplementary two-hidden-layer circle gallery}
+\label{app:circle-gallery}
+
+\Cref{fig:shallow} shows the full two-hidden-layer task gallery corresponding
+to the left half of \Cref{tab:circle}. The main text uses the three-hidden-layer
+overview and a two-hidden-layer example at common physical times to give the
+figures distinct roles.
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphics[width=\textwidth]{figures/circle_shallow_radial.pdf}
+ \caption{Fitted circle predictions for two hidden tanh layers, width $2048$,
+ and response-memory orders $P=1,3,7$, using the dense references in
+ \Cref{tab:circle}. Models are evaluated at their individual training-MSE
+ $10^{-3}$ endpoints. Angle is input direction and radius is $3+f(\theta)$;
+ signed radial ticks, the dashed zero-output ring, black training labels,
+ and dense-versus-memory RMS values follow \Cref{fig:deep}. RMS is measured
+ on $8192$ uniform circle points.}
+ \label{fig:shallow}
+\end{figure}
 
 \end{document}

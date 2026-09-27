@@ -30,3 +30,6 @@
 *.glo
 *.gls
 main.txt
+
+# Portable source data for the experimental paper figures.
+!figures/response_memory_source.npz
