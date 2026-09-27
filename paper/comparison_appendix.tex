@@ -1,5 +1,6 @@
 \section{Accuracy and resource comparisons: derivations}
 \label{app:comparison}
+\label{app:size}
 
 We compare approximations to the same population predictor $f_\infty$ of
 \eqref{eq:dense-flow}, assumed to exist on $[0,T]$, with the same data and
@@ -8,8 +9,27 @@ does not match the initial tangent kernel.  Throughout, constants can depend
 on $m,H,T$, the data, initialization and test law; displayed factors in these
 variables do not exhaust that dependence.  Population error estimates below
 are stated hypotheses, whereas the fixed-width response-memory results are
-\Cref{thm:old,thm:new}.  We suppress the $T$ subscripts on the error constants
-of \Cref{sec:resources}.
+\Cref{thm:old,thm:new}.  We suppress the $T$ subscripts on error constants.
+
+\paragraph{Conditional population hypotheses.}
+The quantitative population comparison uses the following assumptions where
+applicable; the derivations below specify their role.
+\begin{enumerate}
+\item[(H1)] A matched width approximation in the common metric
+\eqref{eq:resource-error}: $\mathcal E_Q(f_n;T)\le A/\sqrt n$.
+\item[(H2)] Width-uniform closure constants and sufficient-order thresholds,
+with the moment bounds needed to obtain
+$\mathcal E_Q(\widehat f_{n,P};T)\le A/\sqrt n+B_q/P^q$, for $q=1,2$.
+\item[(H3)] Stable numerical discretization, sampling and self-consistency
+for the specified limiting-response solver, giving
+$A_{\rm D}/\sqrt S+B_{\rm D}(T/K)^r+\eta$.
+\item[(H4)] Matched population tangent kernels satisfying
+$B_j\le UV^{j-2}(j-2)!$ and $\chi=2RVT<1$ as defined below, together with
+access to their initial coefficients and mixed test-input evaluators.
+\end{enumerate}
+These are hypotheses for the stated common target, not additional population
+theorems proved here.  In particular, numerical solver convergence and width
+convergence are distinct approximation problems.
 
 \subsection{Test error, allocations and arithmetic}
 \label{app:comparison-opt}
@@ -281,6 +301,34 @@ $O(Hmn^2+Hm^2nK)$.  A fixed-stage order-$r$ method has the same storage
 order; with error $A/\sqrt n+D_{\rm h}(T/K)^r$, optimizing as above gives
 $M_*\asymp HmA^2T D_{\rm h}^{1/r}\varepsilon^{-(2+1/r)}$.
 This stores finite-network updates and is not Tensor Programs sampling.
+
+\paragraph{The optimized costs together.}
+Suppressing constant factors at fixed task and horizon gives
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Representation & Leading moving state at error $\varepsilon$ & Conditions\\
+\midrule
+Dense & $HA^4\varepsilon^{-4}$ & (H1)\\
+Learning-speed memory & $HmA^2B_1\varepsilon^{-3}$ & (H1), (H2)\\
+Joint response memory & $HmA^2\sqrt{B_2}\varepsilon^{-5/2}$ & (H1), (H2)\\
+NTH, $m\ge2$ & $\sum_{j=1}^{p_\varepsilon-1}m^j$ & (H4)\\
+Streamed DMFT & $Hm^2T^2B_{\rm D}^{2/r}\varepsilon^{-2/r}$ & (H3)\\
+Stored network history & $HmA^2T D_{\rm h}^{1/r}\varepsilon^{-(2+1/r)}$ &
+Matched width/time rates\\
+\bottomrule
+\end{tabular}
+\end{center}
+Response memory separates the cost of sampling width from the cost of
+representing history: an order rate $P^{-q}$ combines with root-width
+sampling to give $\varepsilon^{-2-1/q}$ in this representation.
+The hierarchy pays instead in sample tuples; the streamed solver pays in
+two-time kernels and sampling work.  Explicit powers of $T$ are properties
+of these formulas, not a measure of total horizon dependence: every row's
+constants and admissible resolutions can depend on $T,m,H$ and the task.
+The comparison therefore supplies an organizing principle rather than a
+universal ordering of methods.
 
 \subsection{A sharper estimate for the original joint clock}
 \label{app:comparison-joint}

@@ -47,7 +47,7 @@ approximation order is explicit. These optimize stated error/cost models,
 not universal lower bounds across all possible representations.
 
 The user subsequently authorized incorporation into `paper/`. Before edits,
-commit `1a12bd63e83a48eb5c2638ba1911a60213cab278` checkpointed the manuscript,
+commit `df473babba4849c80db75c2578995011f3450f37` checkpointed the manuscript,
 its current assets and portable figure bundles, and this study's reports.
 The revision updates the introduction, related work, definitions and discussion,
 and adds `paper/comparison.tex` and `paper/comparison_appendix.tex`. It preserves
@@ -72,3 +72,39 @@ data/generated/population_accuracy_complexity_20260927/alternative_manuscript_y_
 A scoped read-only editorial comparison used only the two supplied manuscripts
 and the current draft's included comparison files; no scientific audit or new
 research was undertaken.
+
+The user chose the alternative as the working manuscript. Commit `bbfef82`
+preserves both drafts before adoption. `paper/main.tex` now follows the
+alternative's narrative and retains its early comparison table, low-rank
+corollary and fixed-width cost calculation, with targeted corrections to
+exact-closure claims, horizon/order dependence, and empirical error wording.
+The previous comparison appendix was integrated with its conditional
+population hypotheses and derivations. Both radial circle figures are included.
+A scoped figure coauthor used only the user-designated paper figure bundle,
+manifest, guide and rendered assets, recomputed the three saved sphere RMS
+values, and prepared `paper/sphere_appendix.tex`; the root integrated and
+shortened it into one appendix page. The original alternative snapshot was
+preserved. No training, new literature search or scientific audit was performed.
+
+Validation: the final 34-page manuscript compiles with no warnings, undefined
+references or overflowing boxes. The main comparison table, radial plots,
+sphere page and representative appendix pages were checked visually. The
+sphere results are expressly supplementary fitted-function evidence for
+ReLU, outside the smooth-activation theorems, using individually fitted
+float32 Euler endpoints without a continuous-flow refinement certificate.
+The synthetic training preview and redundant sphere_comparison figure are
+excluded. Build logs, input hashes and PDF previews are in
+`data/generated/population_accuracy_complexity_20260927/alternative_adopted_awm6bb4z/`.
+The final comparison appendix starts on page 28, radial plots are on pages
+12–13, and the sphere appendix is on page 34.
+
+For the user-authorized commit and push, manuscript PDFs are retained and
+LaTeX auxiliary files are excluded. Local auxiliary files were removed for
+both main and alternative manuscripts, and ignore rules were extended.
+Two bibliography build files from the unpublished paper_v2 checkpoint were
+removed from that unpublished commit chain without changing its final tree.
+The checkpoint IDs in this record now refer to the cleaned equivalents;
+the original chain remains on the local branch
+`codex/paper-before-aux-cleanup-20260927`. Other tasks' working changes remain
+untouched. Cleanup metadata is retained in
+`data/generated/population_accuracy_complexity_20260927/git_publication_u_1r0khf/`.

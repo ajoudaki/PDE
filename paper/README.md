@@ -1,65 +1,62 @@
 # Response-memory paper draft
 
-This directory contains the standalone LaTeX report
+The working manuscript is `main.tex`, compiled to `main.pdf`:
 `Compressing Global Dynamics of Deep Nonlinear Feature Learning`.
+It adopts the user's alternative draft, with targeted corrections to claim
+scope, the more detailed comparison derivations, and the updated figures.
 
-Build it with:
+Build from this directory with:
 
 ```bash
 latexmk -pdf main.tex
 ```
 
-An alternative draft from the user's September 27 attachment is saved as
-`main_alternative.tex` and compiled as `main_alternative.pdf` (28 pages).
-Build it with `latexmk -pdf main_alternative.tex`. Its wording and figure
-choices are preserved; only the PDF bookmark text for two appendix headings
-was adjusted to remove hyperref warnings. The current `main.tex` and
-`main.pdf` are unchanged by this alternative build.
+The current PDF has 34 pages and compiles without warnings or unresolved
+references. The early comparison table is on page 6; the radial circle figures
+are on pages 12 and 13. Appendix E (page 28 onward) gives the common error metric,
+conditional population cost comparisons, NTH and DMFT derivations, and the
+sharper weighted joint-clock estimate. Appendix F (page 34) contains the
+supplementary sphere-order figure.
 
-Both circle-function figures now use the full-width radial PDFs
-`figures/circle_deep_radial.pdf` and `figures/circle_shallow_radial.pdf`.
-Their captions explain the radius offset, signed ticks, and matched-loss
-RMS comparisons. The shallow figure uses the dense references in the table.
-The rendering script, compact prediction bundle, and provenance manifest
-are documented in [scripts/README.md](scripts/README.md).
-These figures reuse saved predictions; no training rerun is needed.
+`main_alternative.tex` and `main_alternative.pdf` retain the attachment as
+originally compiled (28 pages, with only PDF bookmark fixes). They are a
+comparison snapshot, not the current working manuscript. Git commit `bbfef82`
+preserves both pre-adoption versions and their sources. The earlier rollback
+checkpoint is `df473babba4849c80db75c2578995011f3450f37`.
 
-The comparison revision is organized in `comparison.tex`, included after
-the population interpretation. It gives a common test-function error target,
-separates regime simplifications from representations of deep feature
-learning, and compares moving state with fixed resources. The conditional
-population memory scalings and their assumptions are stated there;
-`comparison_appendix.tex` provides the self-contained derivations and
-computational accounting. The existing fixed-width response-memory theorems
-remain the main proved results.
+The chosen narrative, early comparison table, low-rank corollary and fixed-width
+size-at-accuracy calculation are retained. Corrections distinguish:
 
-The revised manuscript compiles to 31 pages. Section 7 starts on page 10,
-the comparison table and optimized moving-state laws are on page 11, and
-Appendix E starts on page 27. Both radial circle figures are retained.
-The final latexmk build completed without warnings or unresolved references;
-the new table and representative equation pages were checked visually.
+- prescribed finite horizons from all-time or horizon-independent order;
+- restricted exact nonclosure results from universal impossibility claims;
+- proved fixed-width rates from conditional population comparisons;
+- evolving learned state from fixed initialization and total computational cost;
+- RMS/held-out prediction measurements from uniform pointwise error.
 
-The pre-revision rollback checkpoint is Git commit
-`1a12bd63e83a48eb5c2638ba1911a60213cab278`, which includes the paper,
-its current figure assets and portable bundles, and the comparison report.
+`comparison_appendix.tex` is included for the supporting derivations.
+`sphere_appendix.tex` is included for the supplementary experiment.
+`comparison.tex` is retained from the previous version but is no longer included;
+the chosen draft integrates the main comparison into its own narrative.
 
-The manuscript states the fixed-width theorem proved in
-`studies/neural_response_memory_20260922` and keeps its population-limit
-interpretation separate from the proved claim.  Figures are copied from the
-study's validated generated artifacts; the paper does not rerun experiments.
+Figures and reproduction tools:
 
-Figure sources:
+- `figures/circle_deep_radial.pdf`: three hidden tanh layers, orders 1/2/3.
+- `figures/circle_shallow_radial.pdf`: two hidden tanh layers, orders 1/3/7.
+- `figures/sphere_orders.pdf`: supplementary four-hidden-layer ReLU case.
+- `figures/order_decay.pdf` and `figures/mnist_scatter.pdf`: existing results.
+- [scripts/README.md](scripts/README.md): consolidated renderer, portable bundles,
+  provenance, dependencies and reproduction commands.
 
-- `data/generated/neural_response_memory_20260922/analysis01/endpoint_functions.pdf`
-- `data/generated/neural_response_memory_20260922/deep_circle_analysis01/function_curves.pdf`
-- `data/generated/neural_response_memory_20260922/mnist100_analysis01/scatter_primary.pdf`
-- `data/generated/neural_response_memory_20260922/mnist100_analysis01/rms_vs_order.pdf`
+These figures reuse saved predictions; no training was rerun. Sphere RMS
+values were checked against the saved arrays. The sphere experiment uses one
+seed and float32 Euler steps of 1/128 at individually fitted endpoints. ReLU
+is outside the smooth-activation theorems, and the figure supplies neither
+common-time trajectory evidence nor a continuous-flow refinement certificate.
+The synthetic training-stage preview is not included.
 
-The main scientific boundaries are:
-
-- compact-horizon convergence is not a uniform-all-time estimate;
-- the initialized matrices are retained exactly;
-- theorem constants are not uniform in width;
-- the scalar nonclosure discussion concerns a restricted bounded-contraction
-  encoder class;
-- experimental fitted-function comparisons are not theorem-rate estimates.
+The compiled manuscript PDFs are intentionally versioned for convenient reading.
+LaTeX auxiliary files are ignored by `paper/.gitignore` and were removed locally
+for both manuscript variants. Before publication, two bibliography build files
+were removed from the unpublished history; the checkpoint IDs above refer to
+that cleaned history. The original commits remain available locally on
+`codex/paper-before-aux-cleanup-20260927`.
