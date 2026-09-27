@@ -6,6 +6,10 @@ Regenerates, from scratch:
     moments          neuron histories summarized by Legendre moments
     trajectory       learning at common physical times       (saved data)
     same_rank        memory vs trained factors at equal rank  (recorded numbers)
+    learning_controls_quadrant_alternating  four-method main-text comparison
+    learning_controls_gallery_a/b          five-task appendix in two parts
+    same_rank_radial_preview  proposed radial alternative     (saved data; preview only)
+    frozen_ntk_radial_preview  frozen empirical NTK comparison (saved data; preview only)
     factors          detailed same-rank comparison            (saved data)
     circles_deep     three-hidden-layer circle gallery        (saved data)
     circles_shallow  two-hidden-layer circle gallery          (saved data)
@@ -446,23 +450,26 @@ def _pow_label(t):
     return "$1$" if e == 0 else f"$10^{{{e}}}$"
 
 
-def polar(out, cx, cy, s, angles, curves, train=None, labels=None, ring_labels=False):
-    """A circle function drawn with radius s*(3+f); rings mark f = -1, 0, +1."""
-    for f, st in [(-1, "ink!9"), (1, "ink!9")]:
-        out.append(r"\draw[%s,line width=0.4pt] (%.3f,%.3f) circle (%.3f);" % (st, cx, cy, s * (3 + f)))
-    out.append(r"\draw[ink!28,line width=0.4pt,dash pattern=on 1.2pt off 1.2pt] (%.3f,%.3f) circle (%.3f);" % (cx, cy, 3 * s))
+def polar(out, cx, cy, s, angles, curves, train=None, labels=None, ring_labels=False,
+          offset=3., rings=(-1, 0, 1), value_scale=1.):
+    """Radius s*(offset+f/value_scale); ticks remain in physical output units."""
+    for f in rings:
+        if f != 0:
+            out.append(r"\draw[ink!9,line width=0.4pt] (%.3f,%.3f) circle (%.3f);" % (cx, cy, s * (offset + f/value_scale)))
+    out.append(r"\draw[ink!28,line width=0.4pt,dash pattern=on 1.2pt off 1.2pt] (%.3f,%.3f) circle (%.3f);" % (cx, cy, offset * s))
     if ring_labels:
-        for f, lab in [(-1, r"$-1$"), (0, r"$0$"), (1, r"$+1$")]:
+        for f in rings:
+            lab = f"${f:+g}$" if f else "$0$"
             out.append(r"\node[text=mute,font=\tiny,inner sep=0.5pt,anchor=south west] at (%.3f,%.3f) {%s};"
-                       % (cx + 0.03, cy + s * (3 + f) - 0.02, lab))
+                       % (cx + 0.03, cy + s * (offset + f/value_scale) - 0.02, lab))
     sel = np.linspace(0, len(angles) - 1, 720).astype(int)
     for values, style in curves:
-        r = s * (3 + values[sel])
+        r = s * (offset + values[sel]/value_scale)
         xs, ys = cx + r * np.cos(angles[sel]), cy + r * np.sin(angles[sel])
         out.append(r"\draw[%s] %s -- cycle;" % (style, _pts(xs, ys)))
     if train is not None:
         for ang, lab in zip(train, labels):
-            r = s * (3 + lab)
+            r = s * (offset + lab/value_scale)
             out.append(r"\fill[ink] (%.3f,%.3f) circle (1.3pt);" % (cx + r * np.cos(ang), cy + r * np.sin(ang)))
 
 
@@ -497,25 +504,41 @@ def trajectory():
     _legend_row(out, 2.3, -1.95, [(ORDER_STYLE[0], "dense", "line"), (ORDER_STYLE[1], "$P=1$", "line"),
                                   (ORDER_STYLE[3], "$P=3$", "line"), (ORDER_STYLE[7], "$P=7$", "line"),
                                   ("ink", "training labels", "dot")], [2.2, 2.0, 2.0, 2.0, 2.0])
-    rms = {p: a[f"common_rms_{p}"][1:] for p in (1, 3, 7)}
-    sen = {p: a[f"common_sensitivity_{p}"][1:] for p in (1, 3, 7)}
+    positive = times > 0
+    rms = {p: a[f"common_rms_{p}"][positive] for p in (1, 3, 7)}
+    sen = {p: a[f"common_sensitivity_{p}"][positive] for p in (1, 3, 7)}
+    shown_times = times[positive]
+    if not (np.all(np.diff(times) > 0) and all(np.all(v > 0) for v in rms.values())
+            and all(np.all(v > 0) for v in sen.values())):
+        raise ValueError("Trajectory log axes require increasing times and positive measurements")
     lo = 10 ** np.floor(np.log10(min(min(v.min() for v in rms.values()), min(v.min() for v in sen.values()))))
     hi = 10 ** np.ceil(np.log10(max(v.max() for v in rms.values())))
-    ax = Axes(out, 1.2, -6.1, 11.0, 3.0, (0, 82), (lo, hi), ylog=True)
+    ax = Axes(out, 1.2, -6.1, 11.0, 3.0, (shown_times[0], shown_times[-1]),
+              (lo, hi), xlog=True, ylog=True)
     yt = _log_ticks(lo, hi)[::2]
-    ax.frame(xticks=[0, 10, 20, 40, 80], yticks=yt, ylabels=[_pow_label(t) for t in yt])
+    xticks = [t for t in [.5, 1, 2, 5, 10, 20, 40, 80] if shown_times[0] <= t <= shown_times[-1]]
+    ax.frame(xticks=xticks, yticks=yt, ylabels=[_pow_label(t) for t in yt])
+    # Shading is a numerical sensitivity scale from the axis floor up to the
+    # coarse/fine change, not a confidence band around the measured error.
     for p in (1, 3, 7):
         c = ORDER_COLOR[p]
-        ax.line(times[1:], sen[p], f"{c}!70,line width=0.6pt,dash pattern=on 0.8pt off 1.2pt")
-        ax.line(times[1:], rms[p], f"{c},line width=0.8pt")
-        ax.marks(times[1:], rms[p], f"{c},draw=white,line width=0.3pt", 1.7)
-    ax.xlabel("physical training time $t$")
+        boundary = _pts(ax.X(shown_times), ax.Y(np.maximum(sen[p], lo)))
+        out.append(r"\fill[%s,opacity=0.08] (%.3f,%.3f) -- %s -- (%.3f,%.3f) -- cycle;"
+                   % (c, ax.X(shown_times[0]), ax.y0, boundary, ax.X(shown_times[-1]), ax.y0))
+    for p in (1, 3, 7):
+        c = ORDER_COLOR[p]
+        ax.line(shown_times, rms[p], f"{c},line width=0.45pt")
+        ax.marks(shown_times, rms[p], f"{c},draw=white,line width=0.25pt", 1.35)
+    ax.xlabel("physical training time $t$ (log scale)")
     ax.ylabel("RMS difference from dense", off=0.85)
     x0 = 12.6
-    out.append(r"\draw[ink,line width=0.8pt] (%.3f,-3.6) -- ++(0.45,0); \filldraw[ink,draw=white,line width=0.3pt] (%.3f,-3.6) circle (1.7pt);" % (x0, x0 + 0.225))
-    out.append(r"\node[anchor=west,text=ink] at (%.3f,-3.6) {measured, $2048$ angles};" % (x0 + 0.52))
-    out.append(r"\draw[ink!70,line width=0.6pt,dash pattern=on 0.8pt off 1.2pt] (%.3f,-4.1) -- ++(0.45,0);" % x0)
-    out.append(r"\node[anchor=west,text=ink] at (%.3f,-4.1) {numerical sensitivity};" % (x0 + 0.52))
+    out.append(r"\node[anchor=west,text=ink] at (%.3f,-3.35) {%d shared times};" % (x0, len(times)))
+    out.append(r"\filldraw[ink,draw=white,line width=0.25pt] (%.3f,-3.85) circle (1.35pt);" % (x0 + .225))
+    out.append(r"\node[anchor=west,text=ink,font=\scriptsize] at (%.3f,-3.85) {measured on $2048$ angles};" % (x0 + .52))
+    out.append(r"\draw[ink,line width=0.45pt] (%.3f,-4.3) -- ++(0.45,0);" % x0)
+    out.append(r"\node[anchor=west,text=ink,font=\scriptsize] at (%.3f,-4.3) {lines guide the eye};" % (x0 + .52))
+    out.append(r"\fill[ink,opacity=0.12] (%.3f,-4.86) rectangle ++(0.45,0.2);" % x0)
+    out.append(r"\node[anchor=west,text=ink,font=\scriptsize,align=left] at (%.3f,-4.76) {coarse/fine sensitivity\\not an error bound};" % (x0 + .52))
     out.append(POSTAMBLE)
     return "\n".join(out)
 
@@ -579,6 +602,192 @@ def factors():
                [3.4, 3.0, 3.0])
     out.append(POSTAMBLE)
     return "\n".join(out)
+
+
+def same_rank_radial_preview():
+    """One-task radial alternative to Figure 4; does not change the manuscript."""
+    a, meta = _response_bundle()
+    angles, dense = a["factor_angles"], a["factor_dense"]
+    train = np.arctan2(a["train_inputs"][:, 1], a["train_inputs"][:, 0])
+    labels = a["train_labels"]
+    memory = a["memory_endpoint_3"]
+    factor = [a[f"factor_seed_{seed}"] for seed in (20260924, 20260925)]
+    values = [memory, *factor]
+    measured = [float(np.sqrt(np.mean((v-dense)**2))) for v in values]
+    recorded = [meta["factor_radial_rms"][key] for key in ("P3", "20260924", "20260925")]
+    if not np.allclose(measured, recorded, rtol=1e-12, atol=1e-14):
+        raise ValueError("Radial factor-preview metrics differ from the saved records")
+    if not all(v.shape == angles.shape and np.isfinite(v).all() and np.min(3+v) > 0
+               for v in [dense, *values]):
+        raise ValueError("Radial plots require matching finite arrays and positive radii")
+
+    out = [PREAMBLE]
+    scale, centers = .42, [2.1, 7.7, 13.3]
+    dense_style = "ink,line width=1.15pt"
+    reference_style = "ink!35,line width=1.8pt"
+    memory_style = "lrn,line width=1.0pt"
+    factor_styles = ["bwd,line width=1.0pt",
+                     "bwd,line width=0.9pt,dash pattern=on 3pt off 1.8pt"]
+
+    # Fill between the actual saved prediction and the dense reference using
+    # the same radius and angle mapping. This is a visual gap, not an error band.
+    select = np.linspace(0, len(angles)-1, 720).astype(int)
+    theta = angles[select]
+    def shade_gap(cx, prediction, color, opacity):
+        rr = scale*(3+prediction[select])
+        rd = scale*(3+dense[select])
+        forward = _pts(cx+rr*np.cos(theta), rr*np.sin(theta))
+        backward = _pts((cx+rd*np.cos(theta))[::-1], (rd*np.sin(theta))[::-1])
+        out.append(r"\fill[%s,opacity=%.3f,even odd rule] %s -- %s -- cycle;"
+                   % (color, opacity, forward, backward))
+
+    for f in factor:
+        shade_gap(centers[0], f, "bwd", .10)
+    shade_gap(centers[2], memory, "lrn", .16)
+    panels = [
+        ("Trained factors", "bwd", [(dense, reference_style),
+                                     *zip(factor, factor_styles)], r"$W_0+AB$, rank $24$"),
+        ("Dense network", "ink", [(dense, dense_style)], "reference predictor"),
+        ("Response memory", "lrn", [(dense, reference_style),
+                                      (memory, memory_style)], r"$P=3$, rank bound $24$"),
+    ]
+    for cx, (title, color, curves, detail) in zip(centers, panels):
+        polar(out, cx, 0, scale, angles, curves, train, labels, ring_labels=True)
+        out.append(r"\node[text=%s,font=\small] at (%.3f,2.65) {%s};" % (color,cx,title))
+        out.append(r"\node[text=mute,font=\scriptsize] at (%.3f,2.27) {%s};" % (cx,detail))
+    out.append(r"\node[text=ink,font=\small] at (7.7,3.55) {Same training fit, different predictions between samples};")
+
+    # The two red curves distinguish seeds of the same factor-training baseline.
+    for k, (style, error) in enumerate(zip(factor_styles, measured[1:])):
+        y = -2.28 - .36*k
+        out.append(r"\draw[%s] (0.45,%.3f) -- ++(.45,0);" % (style,y))
+        out.append(r"\node[anchor=west,text=bwd,font=\scriptsize] at (1.0,%.3f) {seed %d: RMS $%.3f$};"
+                   % (y,k+1,error))
+    out.append(r"\node[text=lrn,font=\scriptsize] at (%.3f,-2.28) {RMS $%.5f$};" % (centers[2],measured[0]))
+    out.append(r"\node[text=mute,font=\scriptsize] at (%.3f,-2.64) {almost coincides with dense};" % centers[2])
+    _legend_row(out, 5.7, -2.28, [(reference_style, "dense reference", "line")], [2.])
+    _legend_row(out, 5.7, -2.64, [("ink", "training labels", "dot")], [2.])
+    out.append(r"\node[text=ink,font=\scriptsize,align=center] at (7.7,-3.38) {"
+               r"Every model reaches training MSE $0.001$ on the same eight points.\\"
+               r"RMS compares fitted predictions with dense on $8192$ circle queries; radius is $3+f(\theta)$.};")
+    out.append(POSTAMBLE)
+    return "\n".join(out)
+
+
+def frozen_ntk_radial_preview():
+    """Matched-loss frozen empirical NTK, dense, and memory on a common scale."""
+    import json
+    with np.load(FIGURES_DIR / "frozen_ntk_source.npz", allow_pickle=False) as z:
+        a = {key:z[key] for key in z.files if key != "metadata_json"}
+        meta = json.loads(str(z['metadata_json']))
+    angles, dense, frozen, memory = (a[k] for k in ('angles','dense','frozen_ntk','memory'))
+    errors = meta['full_circle_rms_vs_dense']
+    for key, prediction in [('frozen_ntk',frozen),('memory_P3',memory)]:
+        actual = float(np.sqrt(np.mean((prediction-dense)**2)))
+        if not np.isclose(actual, errors[key], rtol=1e-12, atol=1e-14):
+            raise ValueError('Frozen-NTK preview metric mismatch')
+    train = np.arctan2(a['train_inputs'][:,1],a['train_inputs'][:,0])
+    # The NTK reaches +/-25.3, so the standard radius 3+f would reverse angles.
+    # Use one explicitly labelled larger linear scale for every panel.
+    offset, scale, centers = 30., .035, [2.1,7.7,13.3]
+    if min(float(v.min()) for v in [dense,frozen,memory]) <= -offset:
+        raise ValueError('Increase the common radial offset; never fold negative radii')
+    out=[PREAMBLE]
+    reference_style='ink!35,line width=1.8pt'
+    sel=np.linspace(0,len(angles)-1,720).astype(int)
+    theta=angles[sel]
+    r0=scale*(offset+dense[sel]); rf=scale*(offset+frozen[sel])
+    x0,y0=centers[0]+r0*np.cos(theta),r0*np.sin(theta)
+    xf,yf=centers[0]+rf*np.cos(theta),rf*np.sin(theta)
+    out.append(r"\fill[fwd,opacity=.12,even odd rule] %s -- %s -- cycle;"
+               % (_pts(xf,yf),_pts(x0[::-1],y0[::-1])))
+    panels=[('Frozen NTK','fwd',[(dense,reference_style),(frozen,'fwd,line width=1.0pt')],
+             r'$K(t)=K(0)$, all parameter blocks'),
+            ('Dense network','ink',[(dense,'ink,line width=1.1pt')], 'reference predictor'),
+            ('Response memory','lrn',[(dense,reference_style),(memory,'lrn,line width=1pt')],r'$P=3$')]
+    for cx,(title,color,curves,detail) in zip(centers,panels):
+        polar(out,cx,0,scale,angles,curves,train,a['train_labels'],True,
+              offset=offset,rings=(-20,-10,0,10,20))
+        out.append(r"\node[text=%s,font=\small] at (%.3f,2.65) {%s};" % (color,cx,title))
+        out.append(r"\node[text=mute,font=\scriptsize] at (%.3f,2.27) {%s};" % (cx,detail))
+    out.append(r"\node[text=ink,font=\small] at (7.7,3.55) {The frozen kernel fits the labels but selects a different function};")
+    out.append(r"\node[text=fwd,font=\scriptsize] at (2.1,-2.28) {RMS from dense $%.2f$};" % errors['frozen_ntk'])
+    out.append(r"\node[text=fwd,font=\scriptsize] at (2.1,-2.64) {output range $[-25.34,25.34]$};")
+    out.append(r"\node[text=lrn,font=\scriptsize] at (13.3,-2.28) {RMS from dense $%.5f$};" % errors['memory_P3'])
+    out.append(r"\node[text=mute,font=\scriptsize] at (13.3,-2.64) {dense and memory stay near $\pm1.27$};")
+    _legend_row(out,5.7,-2.28,[(reference_style,'dense reference','line')],[2.])
+    _legend_row(out,5.7,-2.64,[('ink','training labels','dot')],[2.])
+    out.append(r"\node[text=ink,font=\scriptsize,align=center] at (7.7,-3.48) {"
+               r"Same initialization, canonical learning rates, eight training points and training MSE $0.001$.\\"
+               r"All panels use the same linear radial scale: $30+f(\theta)$; ticks show signed output. RMS uses $8192$ queries.};")
+    out.append(POSTAMBLE)
+    return '\n'.join(out)
+
+
+def learning_controls_preview(indices):
+    """Four methods per row, both factor seeds; wider NTK units are explicit."""
+    import json
+    with np.load(FIGURES_DIR/'learning_controls_source.npz',allow_pickle=False) as z:
+        a={k:z[k] for k in z.files if k!='metadata_json'}
+        meta=json.loads(str(z['metadata_json']))
+    out=[PREAMBLE]
+    centers=[2.,6.5,11.,15.5]
+    ref='ink!35,line width=1.7pt'
+    for row,i in enumerate(indices):
+        p=f'case_{i}_'; info=meta['tasks'][i]; cy=-6.35*row
+        angles,dense,ntk,memory,factors=[a[p+k] for k in ['angles','dense','frozen_ntk','memory','factors']]
+        train=np.arctan2(a[p+'train_inputs'][:,1],a[p+'train_inputs'][:,0])
+        labels=a[p+'train_labels']
+        errors=info['rms_vs_dense']
+        for pred,expected in [(ntk,errors['frozen_ntk']),(memory,errors['memory']),
+                              *zip(factors,errors['factors'])]:
+            assert np.isclose(np.sqrt(np.mean((pred-dense)**2)),expected,rtol=1e-12)
+        bound=max(np.abs(dense).max(),np.abs(memory).max(),np.abs(factors).max())
+        offset=max(3.,float(np.ceil(bound+.5)))
+        ntk_bound=np.abs(ntk).max()
+        divisor=next(float(v) for v in (1,2,5,10,20,50,100,200,500,1000,2000)
+                     if ntk_bound/v<offset-.2)
+        scale=1.85/(offset+max(bound,ntk_bound/divisor))
+        panels=[('Dense network','ink',[(dense,'ink,line width=1pt')],1.,'reference predictor'),
+                ('Frozen NTK','fwd',[(dense,ref),(ntk,'fwd,line width=1pt')],divisor,
+                 r'initial kernel, all blocks'),
+                ('Trained factors','bwd',[(dense,ref),(factors[0],'bwd,line width=.95pt'),
+                    (factors[1],'bwd,line width=.85pt,dash pattern=on 2.8pt off 1.6pt')],1.,
+                    r'$W_0+AB$, rank $%d$'%info['rank']),
+                ('Response memory','lrn',[(dense,ref),(memory,'lrn,line width=1pt')],1.,
+                    r'$P=3$, rank bound $%d$'%info['rank'])]
+        for col,(title,color,curves,unit,detail) in enumerate(panels):
+            cx=centers[col]
+            sel=np.linspace(0,len(angles)-1,720).astype(int); theta=angles[sel]
+            if col:
+                for prediction,_ in curves[1:]:
+                    rd=scale*(offset+dense[sel]/unit); rr=scale*(offset+prediction[sel]/unit)
+                    out.append(r'\fill[%s,opacity=.11,even odd rule] %s -- %s -- cycle;'%
+                        (color,_pts(cx+rr*np.cos(theta),cy+rr*np.sin(theta)),
+                         _pts((cx+rd*np.cos(theta))[::-1],(cy+rd*np.sin(theta))[::-1])))
+            polar(out,cx,cy,scale,angles,curves,train,labels,True,offset=offset,
+                  rings=(-unit,0,unit),value_scale=unit)
+            out.append(r'\node[text=%s,font=\small] at (%.3f,%.3f) {%s};'%(color,cx,cy+2.4,title))
+            out.append(r'\node[text=mute,font=\scriptsize] at (%.3f,%.3f) {%s};'%(cx,cy+2.08,detail))
+        out.append(r'\node[anchor=west,text=ink,font=\small\bfseries] at (-.1,%.3f) {%s};'%
+                   (cy+3.12,TASK_NAMES[i]))
+        e=[r'reference',r'RMS $%.4g$'%errors['frozen_ntk'],
+           r'RMS $%.4g\;/\;%.4g$'%tuple(errors['factors']),r'RMS $%.4g$'%errors['memory']]
+        details=['',r'output scale $\times %g$'%divisor if divisor>1 else 'same output scale',
+                 r'two seeds: solid / dashed','']
+        for cx,(title,color,*_),err,detail in zip(centers,panels,e,details):
+            out.append(r'\node[text=%s,font=\scriptsize] at (%.3f,%.3f) {%s};'%(color,cx,cy-2.12,err))
+            if detail:
+                out.append(r'\node[text=%s,font=\scriptsize] at (%.3f,%.3f) {%s};'%(color,cx,cy-2.45,detail))
+        if row<len(indices)-1:
+            out.append(r'\draw[ink!15] (-.1,%.3f) -- (17.6,%.3f);'%(cy-2.95,cy-2.95))
+    bottom=-6.35*(len(indices)-1)-3.04
+    _legend_row(out,3.6,bottom,[(ref,'dense reference','line'),('ink','training labels','dot')],[5.,3.])
+    out.append(r'\node[text=ink,font=\scriptsize,align=center] at (8.75,%.3f) {'
+               r'Same initialized network; each model at training MSE $\simeq0.001$, at its own fitting time.\\'
+               r'RMS differences from dense use $8192$ circle queries. Signed ticks give output values; any wider NTK scale is marked explicitly.};'%(bottom-.62))
+    out.append(POSTAMBLE)
+    return '\n'.join(out)
 
 
 def _circle_gallery(prefix, orders):
@@ -880,11 +1089,21 @@ BUILDERS = {
     "mnist": mnist,
     "same_rank": lambda: SAME_RANK,
     "clocks": clocks,
+    "learning_controls_quadrant_alternating": lambda: learning_controls_preview([1]),
+    "learning_controls_gallery_a": lambda: learning_controls_preview([2,1,3]),
+    "learning_controls_gallery_b": lambda: learning_controls_preview([0,4]),
 }
+
+# Explicit opt-in: do not add candidate artwork to the default paper rebuild.
+PREVIEW_BUILDERS = {"same_rank_radial_preview": same_rank_radial_preview,
+                    "frozen_ntk_radial_preview": frozen_ntk_radial_preview}
+PREVIEW_BUILDERS.update({f'learning_controls_{case}': (lambda i=i: learning_controls_preview([i]))
+                         for i,case in enumerate(TASKS) if i != 1})
+PREVIEW_BUILDERS['learning_controls_gallery']=lambda:learning_controls_preview([2,1,3,0,4])
 
 
 def build(name):
-    tex = BUILDERS[name]()
+    tex = (BUILDERS | PREVIEW_BUILDERS)[name]()
     with tempfile.TemporaryDirectory() as tmp:
         src = Path(tmp) / f"{name}.tex"
         src.write_text(tex)
@@ -899,8 +1118,8 @@ def build(name):
 
 if __name__ == "__main__":
     names = sys.argv[1:] or list(BUILDERS)
-    unknown = [x for x in names if x not in BUILDERS]
+    unknown = [x for x in names if x not in (BUILDERS | PREVIEW_BUILDERS)]
     if unknown:
-        sys.exit(f"unknown figure(s): {', '.join(unknown)}; choose from {', '.join(BUILDERS)}")
+        sys.exit(f"unknown figure(s): {', '.join(unknown)}; choose from {', '.join(BUILDERS | PREVIEW_BUILDERS)}")
     for name in names:
         build(name)

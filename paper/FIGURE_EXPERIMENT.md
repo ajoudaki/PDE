@@ -1,5 +1,11 @@
 # Experimental figure edition
 
+Historical record of the original experimental edition. It has since been
+merged into `main` and combined with the TikZ figures. The current Figure 3
+uses a new 39-checkpoint replay; see [NOTE_fig3_trajectory.md](NOTE_fig3_trajectory.md).
+The descriptions, eight-checkpoint data and manifest below describe the earlier
+exports, whose source bundle remains available in Git history.
+
 This version lives on **`codex/paper-figure-experiment`**. It is a local paper
 experiment; `main` and the GitHub remote are unchanged. No training was run.
 The response-memory study sources are unchanged.

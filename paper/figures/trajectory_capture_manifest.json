@@ -1,0 +1,356 @@
+{
+  "protocol": "One fixed task, four models, two resolutions; no tuning or endpoint stopping",
+  "task": "quadrant_pairs",
+  "width": 2048,
+  "hidden_layers": 2,
+  "activation": "tanh",
+  "seed": 20260920,
+  "dtype": "float64",
+  "query_count": 2048,
+  "common_times": [
+    0.0,
+    0.5,
+    0.5889394534015038,
+    0.6936993595457241,
+    0.817093843271664,
+    0.9624376028682956,
+    1.0,
+    1.1336349515326152,
+    1.3352846974249173,
+    1.5728036796736464,
+    1.8525722788297423,
+    2.0,
+    2.1821058105615334,
+    2.5702564066727094,
+    3.0274508064950783,
+    3.5659704463543065,
+    4.200281371043642,
+    4.947422829589924,
+    5.0,
+    5.82746499400962,
+    6.864048096576848,
+    8.085017468239204,
+    9.52317153697281,
+    10.0,
+    11.217142879267055,
+    13.212435992084215,
+    15.562649662560869,
+    18.330916771495396,
+    20.0,
+    21.591600207505905,
+    25.432290448544652,
+    29.956158471028353,
+    35.28472719187252,
+    40.0,
+    41.56113589160517,
+    48.95398530949515,
+    57.66186669999862,
+    67.9186965128151,
+    80.0
+  ],
+  "solver": "adaptive explicit Heun, original per-model error controllers and lifted closure",
+  "sensitivity": "RMS(dense coarse-fine) + RMS(closure coarse-fine); not an error certificate",
+  "archive_replay_gate": "At old checkpoints, each model RMS change <= 5e-6 + 2 times old combined sensitivity",
+  "per_model_seconds": 300.0,
+  "maximum_model_runs": 8,
+  "python": "3.10.14",
+  "numpy": "1.26.4",
+  "torch": "2.9.0+cu130",
+  "device": "cuda:1",
+  "gpu": "NVIDIA GeForce RTX 3090",
+  "git_head": "5c30c0408bd86723765aa344f88667817e91d889",
+  "command": [
+    "paper/figures/capture_trajectory.py",
+    "--device",
+    "cuda:1",
+    "--out",
+    "/tmp/pde-trajectory-capture-20260927",
+    "--per-run-seconds",
+    "300"
+  ],
+  "base_bundle_sha256": "7f32187f1a7383da3223903c662e493b2e4cf55e728eb51ae90125b114d21a04",
+  "capture_source_sha256": "8c249422ce1a7fd107806bb5694f1f77e34e533cc3a94a105c7035a33f12ecc6",
+  "legacy_sources": {
+    "moment_engine.py": "ebf39cf377f1eb0f5dea64fa1ab946fddcb11a662b2368472017abef9237acd9",
+    "orthogonal_moment_engine.py": "32f80cf35c44b5015821fa8c8726bb8ff3bc6f7eb3e1b7abe9ee62ea8f529909"
+  },
+  "initialization_hashes": {
+    "w": "da24d2b86aed45dfa6e7442e24bfcb968ec28fcfbcfb2f5f07ac066601fffd63",
+    "c": "460ee22d13695cbe3226805bf5b24b124100e32be5717737508c79d8679b0db6",
+    "M": "559c9ad62fd9feab4fb4671e854b86ec975240a12aa8792873824ebe2344b3f9"
+  },
+  "operator_checks": {
+    "independent_gradient_and_matrix_max_abs": 3.8163916471489756e-17
+  },
+  "train_inputs_sha256": "aa3e9720a40b56b98b71ee702ff71d5c41defb43fda59441efe76caec7752844",
+  "train_labels_sha256": "f1dd99a18bae8ca274fce6c05a095676e3d1b37de7f8968db3318b8492a9977f",
+  "history_angles_sha256": "51ed80a69691356f8f37a7503d70165d592d26116756aa42dc6465127a9e4407",
+  "runs": [
+    {
+      "model": "dense_level1",
+      "order": 0,
+      "level": 1,
+      "rtol": 1.5625e-05,
+      "atol": 1.5625e-07,
+      "accepted": 1075,
+      "rejected": 38,
+      "last_time": 80.0,
+      "final_loss": 0.0014948010646745578,
+      "seconds": 7.654407732188702,
+      "prediction_sha256": "ab9d9d3a4a4b991dc85e338f952991caf4e154e416cc700346c639949e220c05",
+      "max_activation_drift": 0.0
+    },
+    {
+      "model": "dense_level2",
+      "order": 0,
+      "level": 2,
+      "rtol": 3.90625e-06,
+      "atol": 3.90625e-08,
+      "accepted": 1998,
+      "rejected": 20,
+      "last_time": 80.0,
+      "final_loss": 0.001494769198543622,
+      "seconds": 11.868245743215084,
+      "prediction_sha256": "d5a9272639747bc563b5e9b81884467276ae27e7574afc27c270f65318cc84da",
+      "max_activation_drift": 0.0
+    },
+    {
+      "model": "memory_1_level0",
+      "order": 1,
+      "level": 0,
+      "rtol": 6.25e-05,
+      "atol": 6.25e-07,
+      "accepted": 668,
+      "rejected": 55,
+      "last_time": 80.0,
+      "final_loss": 0.0021122847325404574,
+      "seconds": 14.025619711726904,
+      "prediction_sha256": "fa2597257295ab4ec311f12b30b7f80909425b79fcef39eb112bc189b934fb51",
+      "max_activation_drift": 0.0005532192974319061
+    },
+    {
+      "model": "memory_1_level1",
+      "order": 1,
+      "level": 1,
+      "rtol": 1.5625e-05,
+      "atol": 1.5625e-07,
+      "accepted": 1171,
+      "rejected": 32,
+      "last_time": 80.0,
+      "final_loss": 0.0021123621460885445,
+      "seconds": 22.06504040583968,
+      "prediction_sha256": "06ed107556c330f9a274074f0f6b310c40bec206b986761979f65bfece396af7",
+      "max_activation_drift": 0.00014282023460404636
+    },
+    {
+      "model": "memory_3_level0",
+      "order": 3,
+      "level": 0,
+      "rtol": 6.25e-05,
+      "atol": 6.25e-07,
+      "accepted": 674,
+      "rejected": 45,
+      "last_time": 80.0,
+      "final_loss": 0.0014792043726574253,
+      "seconds": 10.625073563307524,
+      "prediction_sha256": "3e5fbd65cdff67543b24260cee50fc908f2d3f8ec783085cc9e65438b541fc2f",
+      "max_activation_drift": 0.0007164814084387183
+    },
+    {
+      "model": "memory_3_level1",
+      "order": 3,
+      "level": 1,
+      "rtol": 1.5625e-05,
+      "atol": 1.5625e-07,
+      "accepted": 1189,
+      "rejected": 52,
+      "last_time": 80.0,
+      "final_loss": 0.001479073266667698,
+      "seconds": 16.88691348209977,
+      "prediction_sha256": "1945e2397e9324b8a1d1b05fc48aa612d3014084d3238c66e9d1114e1808d29a",
+      "max_activation_drift": 0.00018380550204155632
+    },
+    {
+      "model": "memory_7_level0",
+      "order": 7,
+      "level": 0,
+      "rtol": 6.25e-05,
+      "atol": 6.25e-07,
+      "accepted": 670,
+      "rejected": 70,
+      "last_time": 80.0,
+      "final_loss": 0.0014935200188196463,
+      "seconds": 10.851194936782122,
+      "prediction_sha256": "c3956155b9b23005ece1d7f796f32ec2e9947d8e7d79fc9d26eae49a9a6141ad",
+      "max_activation_drift": 0.0007504692663449775
+    },
+    {
+      "model": "memory_7_level1",
+      "order": 7,
+      "level": 1,
+      "rtol": 1.5625e-05,
+      "atol": 1.5625e-07,
+      "accepted": 1117,
+      "rejected": 47,
+      "last_time": 80.0,
+      "final_loss": 0.001493412563018934,
+      "seconds": 16.293746534734964,
+      "prediction_sha256": "30a0d79efe53a5ae5ce6156901bde651395af32449cfa3c33e04dc894bc555b4",
+      "max_activation_drift": 0.000193870796286022
+    }
+  ],
+  "archive_replay": {
+    "common_dense": {
+      "times": [
+        0.0,
+        1.0,
+        2.0,
+        5.0,
+        10.0,
+        20.0,
+        40.0,
+        80.0
+      ],
+      "rms_change": [
+        1.3544218067658418e-21,
+        1.1286160183337508e-09,
+        5.9869037279321746e-09,
+        1.3813502788418261e-08,
+        1.8847252730234384e-08,
+        1.0546034089497974e-08,
+        1.3619285621782587e-08,
+        4.229663559564049e-06
+      ],
+      "allowed_change": [
+        5e-06,
+        7.103811821965036e-06,
+        1.0540773207719786e-05,
+        2.5192711726510686e-05,
+        2.55099167519616e-05,
+        3.3433343192663304e-05,
+        6.812127830724188e-05,
+        0.00024326992086717226
+      ],
+      "passed": true
+    },
+    "common_memory_1": {
+      "times": [
+        0.0,
+        1.0,
+        2.0,
+        5.0,
+        10.0,
+        20.0,
+        40.0,
+        80.0
+      ],
+      "rms_change": [
+        1.2313716328091588e-21,
+        4.648531977001446e-09,
+        9.715429310046784e-09,
+        2.8733421065351304e-08,
+        3.40574012723161e-08,
+        4.970753863152441e-08,
+        7.028294868471133e-08,
+        1.1188039660261938e-06
+      ],
+      "allowed_change": [
+        5e-06,
+        6.173820895011832e-06,
+        8.096024807525082e-06,
+        1.6885072111131765e-05,
+        2.2134598830192846e-05,
+        3.3433343192663304e-05,
+        6.812127830724188e-05,
+        0.00024326992086717226
+      ],
+      "passed": true
+    },
+    "common_memory_3": {
+      "times": [
+        0.0,
+        1.0,
+        2.0,
+        5.0,
+        10.0,
+        20.0,
+        40.0,
+        80.0
+      ],
+      "rms_change": [
+        1.2313716328091588e-21,
+        1.1444124477160934e-08,
+        3.1171019058816225e-08,
+        6.365591487215267e-08,
+        6.185208199668043e-08,
+        5.535218889361271e-08,
+        1.1816265941824784e-07,
+        2.7984017055473306e-06
+      ],
+      "allowed_change": [
+        5e-06,
+        6.535350833049035e-06,
+        9.104776077102908e-06,
+        2.012958019668251e-05,
+        2.2848634531084945e-05,
+        3.138599745416067e-05,
+        5.6725892988129815e-05,
+        0.00014588846576582196
+      ],
+      "passed": true
+    },
+    "common_memory_7": {
+      "times": [
+        0.0,
+        1.0,
+        2.0,
+        5.0,
+        10.0,
+        20.0,
+        40.0,
+        80.0
+      ],
+      "rms_change": [
+        1.2313716328091588e-21,
+        1.7587190206709436e-08,
+        3.5214459305874586e-08,
+        6.544626884125938e-08,
+        5.696184670252529e-08,
+        6.607280328905907e-08,
+        5.244356599557631e-08,
+        1.6569311997281019e-06
+      ],
+      "allowed_change": [
+        5e-06,
+        7.103811821965036e-06,
+        1.0540773207719786e-05,
+        2.5192711726510686e-05,
+        2.55099167519616e-05,
+        3.1633141222878335e-05,
+        5.619839263415618e-05,
+        0.00014427680881414504
+      ],
+      "passed": true
+    }
+  },
+  "complete": true,
+  "updated_bundle_sha256": "86fdd60042a8007079b4cfabfb831296fd7a06689948d39e0c669b1e51697e42",
+  "checks": {
+    "common_predictions_shape": [
+      39,
+      2048
+    ],
+    "all_RMS_recomputed": true,
+    "all_sensitivities_recomputed": true,
+    "all_nontrajectory_arrays_unchanged": true
+  },
+  "render": {
+    "script": "paper/scripts/tikz_figures.py",
+    "script_sha256": "2751025520203823ee757bbfa5c3959e30728a769191fbdd06bbd3a356159a1f",
+    "figure": "paper/figures/trajectory.pdf",
+    "figure_sha256": "c72745231ed719dedbdac92e4a8491d4b7f3605e1281f58c1b04e410a48c2b9b",
+    "manuscript_pages": 39,
+    "figure_page": 14,
+    "visual_check": "Standalone figure and manuscript placement checked."
+  }
+}

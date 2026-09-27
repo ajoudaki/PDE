@@ -788,17 +788,22 @@ We first examine the developing function at shared physical times, then compare
 fitted functions at each model's first crossing of training MSE $0.001$.
 These are different observables: shared-time discrepancies address trajectory
 tracking, while individually fitted endpoints test whether the closure reproduces
-the function selected by dense training. All panels reuse saved predictions;
-no intermediate evolution is inferred from endpoints.
+the function selected by dense training. The trajectory panel uses a fresh
+checkpoint replay; frozen-kernel controls are evaluated analytically, and the
+remaining experimental panels reuse saved predictions.
+No intermediate evolution is inferred from endpoints.
 
 \paragraph{Learning in physical time.}
 \Cref{fig:trajectory} follows the paired-label circle task with two hidden tanh
 layers of width $2048$. Dense training and orders $P=1,3,7$ have predictions
-saved at the same eight physical times between $0$ and $80$. Four snapshots
+saved at the same 39 physical times between $0$ and $80$, with denser,
+approximately logarithmic spacing from $0.5$ onward. Four snapshots
 show the function developing from the common initialization. The discrepancy
 plot uses all shared snapshots, on $2048$ uniform circle queries, against the
-finest fresh dense reference. Dotted curves show the numerical scale obtained
-by summing the dense and closure coarse/fine prediction changes. Some of the
+finer dense replay. Light shading marks the numerical sensitivity scale obtained
+by summing the dense and closure coarse/fine prediction changes. The replay
+preserves the original initialization and uses float64 adaptive Heun integration
+at two tolerances for every model. Some of the
 smallest discrepancies are comparable to that scale. These discrete observations
 illustrate tracking; they do not certify the error between observations.
 
@@ -809,37 +814,55 @@ illustrate tracking; they do not certify the error between observations.
  hidden tanh layers, width $2048$. Top: saved functions at $t=0,5,20,80$;
  radius is $3+f(\theta)$, the dashed ring marks $f=0$ and the light rings
  $f=\pm1$, and black dots are training labels. Bottom: RMS discrepancies
- against dense at all eight shared times $0,1,2,5,10,20,40,80$, using $2048$
- circle queries. Lines join observations as visual guides. Initial agreement
- is at roundoff and is omitted from the logarithmic axis. Dotted curves show
- empirical numerical sensitivity, not certified error bounds.}
+ against dense on $2048$ circle queries, with 38 positive shared times on a
+ logarithmic time axis. Dots are measured predictions; thin lines guide the eye.
+ The common initialization at $t=0$ is omitted from the lower panel.
+ Light shading extends from the axis floor to each order's coarse/fine
+ sensitivity scale; it is a numerical diagnostic, not a confidence interval
+ or certified error bound.}
  \label{fig:trajectory}
 \end{figure}
 
-\paragraph{The evolution law matters at the same rank.}
+\paragraph{Capturing the learned function requires the right dynamics.}
+\Cref{fig:samerank} compares dense training with its full initialization-frozen
+empirical tangent kernel, directly trained factors, and response memory.
+All four fit the training labels to MSE approximately $0.001$, yet select
+different functions between those labels. On the alternating-label quadrant
+task, the frozen kernel has whole-circle RMS discrepancy $171.03$ from dense,
+the two factor seeds have discrepancies $0.6766$ and $1.5413$, and memory at
+$P=3$ has discrepancy $0.04561$. The kernel includes every parameter block with
+the canonical mobilities; its construction and all five task comparisons are
+given in \Cref{app:factors,fig:controls-gallery}.
+
 Both response memory and directly trained factors retain the same $W_0^{(2)}$
 and have evolving low-rank learned corrections. Their dynamics differ:
 ordinary Euclidean factor gradient flow does not induce canonical matrix
-gradient flow. \Cref{fig:samerank} shows the consequence on all five tasks,
-and \Cref{fig:factors} (\Cref{app:factors}) shows the fitted functions on the
+gradient flow. \Cref{fig:samerank-summary} summarizes the comparison across tasks,
+and \Cref{fig:factors} shows the fitted functions on the
 paired-label task at correction rank bound $24$. Memory has whole-circle RMS
 $0.00282$ from dense, against $0.375$ and $0.204$ for the two factor seeds.
 Across all five tasks and three ranks, memory has smaller discrepancy in all
 29 resolved fitted comparisons; one capped factor run is excluded. Twenty-eight
-wins exceed a factor of two. This supports the specified factor baseline
-comparison, not a universal claim about low-rank algorithms.
+wins exceed a factor of two. Together, the controls show that the reproduced
+predictor goes beyond the initial tangent model and this rank-matched factor
+flow. They support the response-memory evolution law, without asserting a
+universal comparison with kernels or low-rank algorithms.
 
 \begin{figure}[!tp]
  \centering
- \includegraphics[width=0.9\textwidth]{figures/same_rank.pdf}
- \caption{\textbf{Same rank, different dynamics.}  Whole-circle RMS difference
- from dense training for response memory and for a directly trained correction
- $W_0+AB$ of the middle matrix with the same rank (two factor seeds), two
- hidden tanh layers, width $2048$.  Rank $24$ corresponds to $P=3$, rank $12$
- to $P=3$ on the four-point task, and rank $56$ to $P=7$; labels give the
- smaller of the two ratios.  Matched-loss endpoint comparisons against this
- specific factor baseline, not against every low-rank method; all ranks and
- the fitted functions are in \Cref{fig:factors}.}
+ \includegraphics[width=\textwidth]{figures/learning_controls_quadrant_alternating.pdf}
+ \caption{\textbf{Fitting the labels does not determine the learned function.}
+ Alternating-label quadrant task, eight training inputs, two hidden tanh
+ layers and width $2048$. From left: dense training, the full frozen empirical
+ NTK, directly trained factors at rank $24$ (two seeds), and response memory
+ at $P=3$ with rank bound $24$. All start from the same physical network and
+ are evaluated at their own training-MSE $0.001$ endpoints. Gray curves show
+ the dense reference in each panel; black dots are training labels.
+ Angle is input direction and radius is linear in output. The NTK panel uses
+ a $100$-times wider output scale, including its reference curve and labels;
+ signed ticks show original output units. RMS values are unscaled discrepancies
+ from dense over $8192$ circle queries, not errors against unseen labels.
+ The complete five-task comparison appears in \Cref{fig:controls-gallery}.}
  \label{fig:samerank}
 \end{figure}
 
@@ -1869,8 +1892,52 @@ next to their numerical sensitivity and the movement of the hidden features;
  \label{fig:mnist}
 \end{figure}
 
-\section{Detailed same-rank comparison}
+\clearpage
+\section{Frozen-kernel and same-rank controls}
 \label{app:factors}
+
+The frozen control uses the empirical tangent kernel of the same initialized
+finite network, including the learning-rate metric. If $J_0(x)$ is its row
+parameter Jacobian and $D$ has block mobilities $(n,1,n)$, then
+$K_0(x,x')=J_0(x)D J_0(x')^\top$. For the training list $X$ and unhalved mean
+squared loss, $\dot f(X,t)=-(2/m)K_0(X,X)(f(X,t)-y)$. Writing
+$K_0(X,X)=V\diag(\lambda_j)V^\top$, the test prediction is
+\[
+ f_{\mathrm{NTK}}(x,t)=f_0(x)+K_0(x,X)V
+ \diag\!\left(\frac{1-e^{-2\lambda_jt/m}}{\lambda_j}\right)
+ V^\top(y-f_0(X)).
+\]
+We evaluate this expression directly and locate the training-MSE $0.001$
+crossing by bisection, without ridge regularization or discarded eigenmodes.
+For the equally spaced odd task, the four-representative antipodal quotient
+removes exact redundancy and preserves the original eight-input mean loss.
+Kernel blocks are checked against automatic differentiation, and the spectral
+solution against a matrix exponential and training cross-kernel predictions.
+The center/edges kernel is ill-conditioned (condition number $2.29\times10^9$);
+the two training-prediction formulas agree within $2.1\times10^{-8}$.
+
+\Cref{fig:samerank-summary,fig:factors} retain the compact and detailed
+comparisons with direct factor training. \Cref{fig:controls-gallery} adds
+the frozen kernel on all five tasks, keeping $P=3$ and both factor seeds
+throughout. Memory is closest to the dense endpoint in every row. These are
+fitted-function comparisons at individual stopping times; the kernel is that
+of this feature-learning parameterization, rather than a separately scaled
+infinite-width lazy model. All source predictions, kernel calculations, and
+reproduction commands are retained with the figure scripts.
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphics[width=0.9\textwidth]{figures/same_rank.pdf}
+ \caption{\textbf{Same rank, different dynamics.} Whole-circle RMS difference
+ from dense training for response memory and for a directly trained correction
+ $W_0+AB$ of the middle matrix with the same rank (two factor seeds), two
+ hidden tanh layers, width $2048$. Rank $24$ corresponds to $P=3$, rank $12$
+ to $P=3$ on the four-representative antipodal quotient, and rank $56$ to $P=7$;
+ labels give the smaller of the two ratios. Matched-loss endpoint comparisons
+ against this specific factor baseline, not against every low-rank method;
+ all ranks and the fitted functions are in \Cref{fig:factors}.}
+ \label{fig:samerank-summary}
+\end{figure}
 
 \begin{figure}[!htbp]
  \centering
@@ -1886,6 +1953,34 @@ next to their numerical sensitivity and the movement of the hidden features;
  budget, not total state or runtime. One capped comparison is omitted;
  hollow memory points have limited numerical precision.}
  \label{fig:factors}
+\end{figure}
+
+\clearpage
+\begin{figure}[p]
+ \centering
+ \includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{figures/learning_controls_gallery_a.pdf}
+ \caption{\textbf{Four training descriptions on five circle tasks, part one.}
+ Paired-label, alternating-label, and center/edges quadrant tasks. Columns
+ show dense, frozen NTK, both directly trained factor seeds, and memory
+ $P=3$. The latter two have correction rank bound $24$. Each model is at its
+ own training-MSE $0.001$ endpoint. The NTK output scale is wider by the marked
+ factor; signed ticks and RMS retain original output units. Gray is the dense
+ reference, black dots are training labels, and RMS uses $8192$ circle queries.
+ The next page continues with the remaining two tasks.}
+ \label{fig:controls-gallery}
+\end{figure}
+
+\begin{figure}[p]
+ \ContinuedFloat
+ \centering
+ \includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{figures/learning_controls_gallery_b.pdf}
+ \caption{\textbf{Four training descriptions on five circle tasks, continued.}
+ Two-outlier alternating labels and equally spaced mixed labels. The latter
+ uses four antipodal representatives and correction rank $12$; the former
+ uses rank $24$. All eight physical training inputs are displayed. NTK uses
+ a ten-times wider output scale for the outlier task and the same scale as
+ the other methods for the equally spaced task. Models, endpoints, seeds,
+ colors and RMS definitions follow the preceding page.}
 \end{figure}
 
 \end{document}
