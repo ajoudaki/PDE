@@ -82,9 +82,7 @@ approximation order.
  feed the next memories.  (b)~Splitting each history into its projection
  $\Pi_P$ and remainder, the exact interaction $\int b\,h^\top$ is a sum of four
  pairings; the mixed ones vanish by orthogonality, so the memory misses only
- the product of the two omitted parts.  Turning this defect into a trajectory
- bound requires controlling the feedback, which is the content of
- \Cref{thm:old,thm:new}.}
+ the product of the two omitted parts.}
  \label{fig:mechanism}
 \end{figure}
 
@@ -347,26 +345,7 @@ the memorized signals are the network's own forward and backward responses,
 coupled back through the reconstructed network.
 The first moments of a history are its mean, its linear trend (the first
 polynomial rises from $-1$ at the start to $1$ now) and its quadratic shape;
-each added moment corrects what the previous ones miss (\Cref{fig:moments}).
-
-\begin{figure}[!tp]
- \centering
- \includegraphics[width=\textwidth]{figures/moments.pdf}
- \caption{\textbf{What Legendre moments retain of a history.}  A network with
- two hidden tanh layers of width $512$ is trained by gradient descent on eight
- circle points, and the forward responses $h$ of one training input are
- recorded.  Top: three neurons over the whole of training in the
- learning-speed clock, with their projections onto $P=1,2,3$ Legendre modes
- (mean, linear trend, quadratic shape).  These are projections fitted
- afterwards to the recorded dense histories, not trajectories of the closure.
- Above each panel, the median over all $512$ neurons of the RMS projection
- error divided by the range of that neuron's history; for the backward
- histories $r\delta/\rho$ the same numbers are $26\%$, $12\%$ and $10\%$.
- Bottom: across neurons each moment is a population; its distribution for the
- history up to the midpoint of the learning clock and for the whole history,
- with the three neurons above marked.}
- \label{fig:moments}
-\end{figure}
+each added moment corrects what the previous ones miss (\Cref{fig:moments}, \Cref{app:supp-figs}).
 
 \subsection{Accuracy: a clock that follows learning}
 
@@ -645,29 +624,8 @@ A supplementary four-hidden-layer ReLU example on the sphere appears in
  \label{fig:deep}
 \end{figure}
 
-\begin{table}[t]
-\centering
-\small
-\caption{Whole-circle RMS difference between response memory and dense
-training at individually fitted endpoints. Left: two hidden tanh layers,
-width $2048$ (\Cref{fig:shallow}). Right: three hidden tanh layers,
-width $4096$ (\Cref{fig:deep}).}
-\label{tab:circle}
-\begin{tabular}{lrrr@{\qquad}rrr}
-\toprule
- & \multicolumn{3}{c}{two layers} & \multicolumn{3}{c}{three layers}\\
-Task & $P=1$ & $P=3$ & $P=7$ & $P=1$ & $P=2$ & $P=3$\\
-\midrule
-Two outliers, alternating & 0.236 & 0.0730 & 0.00466 & 0.108 & 0.0238 & 0.0315\\
-Quadrant, alternating & 0.341 & 0.0456 & 0.00155 & 0.275 & 0.0284 & 0.0585\\
-Quadrant, paired & 0.0193 & 0.00282 & 0.00012 & 0.0122 & 0.00371 & 0.00121\\
-Quadrant, center/edges & 0.0456 & 0.00488 & 0.00131 & 0.0790 & 0.0257 & 0.00725\\
-Equally spaced, mixed & 0.0124 & 0.00053 & $4\times10^{-6}$ & 0.0150 & 0.00241 & 0.00028\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-In two hidden layers, the fitted-function discrepancy falls by 1.5--3 orders
+In two hidden layers (\Cref{fig:shallow}, \Cref{tab:circle} in \Cref{app:circle-gallery}),
+the fitted-function discrepancy falls by 1.5--3 orders
 of magnitude from $P=1$ to $P=7$ on every task. In three hidden layers, $P=2$
 and $P=3$ have RMS differences below $0.06$ on all five tasks, and below
 $0.01$ on three. Order is not monotone at these small values: $P=2$ beats
@@ -1746,10 +1704,31 @@ fields, or closures tailored to a single initialized trajectory.
 \section{Supplementary two-hidden-layer circle gallery}
 \label{app:circle-gallery}
 
-\Cref{fig:shallow} shows the full two-hidden-layer task gallery corresponding
-to the left half of \Cref{tab:circle}. The main text uses the three-hidden-layer
-overview and a two-hidden-layer example at common physical times to give the
-figures distinct roles.
+\Cref{fig:shallow} shows the full two-hidden-layer task gallery, and
+\Cref{tab:circle} collects the whole-circle RMS discrepancies of both depths
+(the three-hidden-layer gallery is \Cref{fig:deep} in the main text).
+
+\begin{table}[t]
+\centering
+\small
+\caption{Whole-circle RMS difference between response memory and dense
+training at individually fitted endpoints. Left: two hidden tanh layers,
+width $2048$ (\Cref{fig:shallow}). Right: three hidden tanh layers,
+width $4096$ (\Cref{fig:deep}).}
+\label{tab:circle}
+\begin{tabular}{lrrr@{\qquad}rrr}
+\toprule
+ & \multicolumn{3}{c}{two layers} & \multicolumn{3}{c}{three layers}\\
+Task & $P=1$ & $P=3$ & $P=7$ & $P=1$ & $P=2$ & $P=3$\\
+\midrule
+Two outliers, alternating & 0.236 & 0.0730 & 0.00466 & 0.108 & 0.0238 & 0.0315\\
+Quadrant, alternating & 0.341 & 0.0456 & 0.00155 & 0.275 & 0.0284 & 0.0585\\
+Quadrant, paired & 0.0193 & 0.00282 & 0.00012 & 0.0122 & 0.00371 & 0.00121\\
+Quadrant, center/edges & 0.0456 & 0.00488 & 0.00131 & 0.0790 & 0.0257 & 0.00725\\
+Equally spaced, mixed & 0.0124 & 0.00053 & $4\times10^{-6}$ & 0.0150 & 0.00241 & 0.00028\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \begin{figure}[!htbp]
  \centering
@@ -1766,11 +1745,31 @@ figures distinct roles.
 \section{Supplementary experimental figures}
 \label{app:supp-figs}
 
-\Cref{fig:trajectory-rms} shows the RMS discrepancies behind
+\Cref{fig:moments} shows what Legendre moments retain of recorded response
+histories; \Cref{fig:trajectory-rms} shows the RMS discrepancies behind
 \Cref{fig:trajectory} at every shared time; \Cref{fig:order} shows the
 three-hidden-layer order trends of \Cref{tab:circle} next to their numerical
 sensitivity and the movement of the hidden features; \Cref{fig:mnist} shows
 the MNIST predictions and residuals summarized in \Cref{sec:experiments}.
+
+\begin{figure}[!htbp]
+ \centering
+ \includegraphics[width=\textwidth]{figures/moments.pdf}
+ \caption{\textbf{What Legendre moments retain of a history.}  A network with
+ two hidden tanh layers of width $512$ is trained by gradient descent on eight
+ circle points, and the forward responses $h$ of one training input are
+ recorded.  Top: three neurons over the whole of training in the
+ learning-speed clock, with their projections onto $P=1,2,3$ Legendre modes
+ (mean, linear trend, quadratic shape).  These are projections fitted
+ afterwards to the recorded dense histories, not trajectories of the closure.
+ Above each panel, the median over all $512$ neurons of the RMS projection
+ error divided by the range of that neuron's history; for the backward
+ histories $r\delta/\rho$ the same numbers are $26\%$, $12\%$ and $10\%$.
+ Bottom: across neurons each moment is a population; its distribution for the
+ history up to the midpoint of the learning clock and for the whole history,
+ with the three neurons above marked.}
+ \label{fig:moments}
+\end{figure}
 
 \begin{figure}[!htbp]
  \centering
