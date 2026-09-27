@@ -15,8 +15,10 @@ Inputs: the user-designated current `paper/main.tex`, the maintained Quarto
 book (`docs/03-local-population.qmd`, `docs/04-continuing-flows.qmd`), and full
 primary-source papers. Other studies are not research inputs.
 
-Owner: the main assistant in this task. No agents or training experiments.
-The paper and shared code are not modified by this analysis.
+Owner: the main assistant in this task. The comparison analysis involved no
+training experiments. A later scoped editorial agent advised on placement,
+and a scoped coauthor prepared the technical appendix for the user-authorized
+paper revision. Neither performed a new experimental or literature campaign.
 
 Full primary PDFs and extracted texts are retained in
 `data/generated/population_accuracy_complexity_20260927/full_texts/`, with
@@ -35,7 +37,7 @@ not an unnoticed change to the manuscript's clock.
 
 Status: source-based analysis with explicit conditional derivations; no new
 population-limit theorem or convergence theorem for a TP/DMFT solver is claimed.
-No promotion or repository commit is requested.
+This is not a promotion into the maintained book or code.
 
 The follow-up optimization is in `OPTIMAL_MOVING_MEMORY.md`: exact leading
 error-budget allocations for dense and both clocks, corrected moving-only NTH
@@ -43,3 +45,30 @@ accounting, the conditional NTH order threshold, and the streamed TP/DMFT
 memory optimum. Its dependence on task/horizon constants and numerical time
 approximation order is explicit. These optimize stated error/cost models,
 not universal lower bounds across all possible representations.
+
+The user subsequently authorized incorporation into `paper/`. Before edits,
+commit `1a12bd63e83a48eb5c2638ba1911a60213cab278` checkpointed the manuscript,
+its current assets and portable figure bundles, and this study's reports.
+The revision updates the introduction, related work, definitions and discussion,
+and adds `paper/comparison.tex` and `paper/comparison_appendix.tex`. It preserves
+the distinction between fixed-width theorems and conditional population/solver
+scalings. The root owns the main text and integration; the scoped coauthor owns
+only the new comparison appendix during drafting. Integration is complete:
+the final manuscript has 31 pages and compiles without warnings or unresolved
+references. Section 7 occupies pages 10–11, and Appendix E starts on page 27.
+The new comparison table and representative equation pages were checked
+visually. The build logs and page previews are retained in
+data/generated/population_accuracy_complexity_20260927/paper_revision_zukyd7ar/.
+The existing radial figures are retained; no experiments were rerun.
+
+For the user's subsequent side-by-side manuscript comparison, the supplied
+attachment was saved as paper/main_alternative.tex and compiled to the separate
+28-page paper/main_alternative.pdf. Only two PDF bookmark strings were adjusted;
+the attachment's visible text and figure choices were preserved. The final
+build has no warnings or unresolved references. Representative pages were
+checked visually, and hashes verify that the current main.tex and main.pdf
+were unchanged. Build logs, the attachment hash and page previews are in
+data/generated/population_accuracy_complexity_20260927/alternative_manuscript_y_6wn13y/.
+A scoped read-only editorial comparison used only the two supplied manuscripts
+and the current draft's included comparison files; no scientific audit or new
+research was undertaken.

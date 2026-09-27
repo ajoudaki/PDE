@@ -1,0 +1,135 @@
+\section{Accuracy and state size across descriptions of training}
+\label{sec:resources}
+
+A common resource question connects otherwise different theories: how much
+evolving information suffices to approximate the same learning process?
+The first distinction is between simplifying that process and compressing its
+description.  Linear, shallow and frozen-feature models give tractable accounts
+of important regimes.  Dense training, tangent hierarchies, limiting-response
+solvers and response memory instead provide different representations to compare
+when depth, nonlinearity and feature learning are retained
+(\Cref{tab:resource-comparison}).
+
+\paragraph{A shared target.}
+Fix the architecture, data, initialization law (including the readout), canonical
+scaling and a population flow $f_\infty$ on $[0,T]$.  For a test probability
+measure $Q$, write
+\begin{equation}
+ E_Q(\widehat f;T)=\sup_{t\le T}
+ \norm{\widehat f(t,\cdot)-f_\infty(t,\cdot)}_{L^2(Q)},\qquad
+ \mathcal E_Q=(\E E_Q^2)^{1/2}.
+ \label{eq:resource-error}
+\end{equation}
+The expectation covers initialization or numerical sampling.  Uniform angular
+$Q$ gives whole-circle prediction RMSE.  The reverse triangle inequality bounds
+the difference between the two predictors' test RMSEs by $E_Q$.
+This common observable allows comparison with methods that predict the learned
+function without reconstructing all trained weights; our parameter theorem
+also supplies the latter.
+
+\paragraph{Matched-regime idealizations.}
+The table separates representation counts from conditional population accuracy.
+For the quantitative comparison, assume the specified population target exists,
+the dense error is bounded by $A_T/\sqrt n$, and the closure estimates are
+uniform in width in a normalized prediction-controlling norm.  Then coupling
+the closure and dense network through the same initialization gives
+\begin{equation}
+ \mathcal E_{\rm dense}\le A_Tn^{-1/2},\qquad
+ \mathcal E_q\le A_Tn^{-1/2}+B_{q,T}P^{-q},\quad q=1,2.
+ \label{eq:resource-laws}
+\end{equation}
+Here $q=1$ denotes the learning-speed clock and $q=2$ the joint clock.
+The root-width scale is supported by perturbative fluctuation theory
+\citep{bordelon2023finite}; a general matched rate and width-uniform closure
+constants are additional hypotheses, not conclusions of
+\Cref{thm:old,thm:new}.  All constants can depend on data, $m,H,T$ and $Q$.
+Numerical limiting-process bounds additionally require stable sampling,
+time discretization and self-consistency.  These assumptions are explicit
+because they determine what can be compared, rather than supplying a universal
+ordering of methods.
+
+\begin{table}[!t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\setlength{\belowcaptionskip}{6pt}
+\renewcommand{\arraystretch}{1.18}
+\caption{Descriptions of training on a common state--accuracy axis.
+The upper block changes a property of the target dynamics; its rows are not
+general accuracy refinements of the specified deep feature-learning flow.
+The lower block gives direct representation counts and conditional
+population-prediction laws explained in the text.  Moving state excludes
+fixed resources consistently.  Fixed input dimension and lower-order outer
+weights are suppressed; $m\ge2$ for the direct NTH count.}
+\label{tab:resource-comparison}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.225\linewidth}>{\raggedright\arraybackslash}p{0.205\linewidth}>{\raggedright\arraybackslash}p{0.22\linewidth}>{\raggedright\arraybackslash}p{0.285\linewidth}@{}}
+\toprule
+Description & Moving state & Fixed resources & Error mechanism or regime change\\
+\midrule
+\multicolumn{4}{@{}l}{\emph{Simplifying the training regime}}\\
+Deep linear & --- & --- & Removes nonlinear activations\\
+One-hidden-layer mean field & --- & --- & Removes multilayer hidden interactions\\
+Frozen NTK & $m$ & $m^2$ kernel; test evaluator &
+Feature-freezing bias relative to rich training\\
+\midrule
+\multicolumn{4}{@{}l}{\emph{Representations of deep nonlinear feature learning}}\\
+Dense width $n$ & $O(Hn^2)$ & --- & $A_Tn^{-1/2}$\\
+NTH through $p$ & $\sum_{j=1}^{p-1}m^j$ &
+$m^p$ top tensor; mixed-kernel functions &
+$\eta_p(T)$ from higher-kernel bounds\\
+Sampled TP/DMFT, full grid & $O(Hm^2K^2)$ &
+Model and input covariances &
+$A_{{\rm D},T}S^{-1/2}$\newline
+$+B_{{\rm D},T}(T/K)^r+\eta$\\
+Learning-speed memory & $O(HmnP)$ &
+$O(Hn^2)$ initialization &
+$A_Tn^{-1/2}+B_{1,T}/P$\\
+Joint response memory & $O(HmnP+P^2)$ &
+$O(Hn^2)$ initialization; prefixes &
+$A_Tn^{-1/2}+B_{2,T}/P^2$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{What each refinement buys.}
+NTH evolves features through successively higher tangent kernels.  Its
+same-target truncation error $\eta_p(T)$ depends on their growth; the published
+width-dependent theorem cannot simply be transferred to another scaling.
+\Cref{app:comparison-nth} derives a feedback bound for the canonical hierarchy
+and explains why it is not a time-Taylor truncation.
+For TP/DMFT we specify a sampled full-grid response solver
+\citep{yang2021tensor,bordelon2022dmft}: $K$ is the number of time steps,
+$S$ the number of paths, $r$ the numerical time order and $\eta$ the solver
+error.  Streaming paths leaves $O(Hm^2K^2)$ kernel state while increasing
+sampling work.  Thus $S$ is not a finite-network width, and a numerical
+time grid is not the physical horizon $T$.
+
+\paragraph{Size at prescribed accuracy.}
+Under \eqref{eq:resource-laws}, optimizing width and order at fixed task gives
+the following leading moving-memory scalings:
+\begin{align}
+ M_{\rm dense}^*(\varepsilon)&\asymp
+ HA_T^4\varepsilon^{-4},\nonumber\\
+ M_{\rm old}^*(\varepsilon)&\asymp
+ HmA_T^2B_{1,T}\varepsilon^{-3},\qquad
+ M_{\rm joint}^*(\varepsilon)\asymp
+ HmA_T^2\sqrt{B_{2,T}}\,\varepsilon^{-5/2}.
+ \label{eq:resource-optima}
+\end{align}
+These optimize sufficient error bounds for the stated representations;
+\Cref{app:comparison-opt} gives the allocations and the corresponding
+conditional NTH and numerical TP/DMFT costs.  They are not lower bounds on
+all algorithms within a framework.  Keeping dense initialization leaves a
+leading $\varepsilon^{-4}$ contribution to our total storage and arithmetic.
+The established gain is in the evolving learned state; improving total cost
+also requires treating the fixed environment.
+
+This comparison separates width resolution from history resolution.
+At fixed width the response-memory rates are proved, and the state is linear
+in the number of retained moments.  The population calculation predicts how
+that gain combines with width approximation.  It does not assume equal or
+small horizon constants across methods: one fixed order serves every time
+inside a chosen interval, but increasing that interval may require more
+moments.  \Cref{app:comparison} records the derivations, per-step costs and
+test-function evaluation requirements so that these common-axis comparisons
+can be refined without changing the underlying question.

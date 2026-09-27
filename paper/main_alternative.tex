@@ -2,7 +2,7 @@
 
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb,amsthm,mathtools}
-\usepackage{booktabs,array}
+\usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{microtype}
 \usepackage{natbib}
@@ -38,28 +38,31 @@ Compressing Global Dynamics of Deep Nonlinear Feature Learning}}
 \maketitle
 
 \begin{abstract}
-How much evolving information is needed to reproduce the training of a deep
-network?  Networks that agree on every input can diverge once training resumes,
-so compressing a fitted function does not by itself compress its learning.
-We study this question while retaining depth, effective nonlinearity and feature
-learning.  We organize descriptions of training by the state they retain and
-the accuracy it supports, distinguishing a simpler training regime from a
-compressed description of the same dynamics.  Our main result compresses the
-learned response history: each neuron's forward and backward histories are
-summarized by $P$ shifted-Legendre moments in a clock that follows learning.
-For every fixed width and finite depth, the resulting autonomous system tracks
-the entire parameter trajectory on each prescribed finite horizon with error
-$O_T(P^{-1})$, or $O_T(P^{-2})$ with a joint response clock.  Pairing the two
-memories makes the dynamical defect a product of projection errors, allowing
-control of their feedback through the network.  The evolving internal state has
-$2(H-1)mnP$ history coordinates for $H$ hidden layers and $m$ training samples,
-with an additional $P^2$ Gram state for the joint clock; the initialized
-matrices are retained.  One fixed order serves the whole chosen interval.
-Thus accurate low-rank learned increments are generated online while features
-continue to move.  Circle and MNIST experiments show that small orders closely
-reproduce the dense fitted predictor, including on unseen inputs.  A common
-state--accuracy comparison places this construction alongside finite tangent
-hierarchies and numerical limiting-process descriptions.
+How much can the training dynamics of a deep network be compressed?  A snapshot
+of a trained network is easy to compress; its training is not, because networks
+that agree on every input can drift apart once training resumes.  We ask how
+small a state suffices to reproduce the \emph{whole} training trajectory while
+keeping depth, effective nonlinearity and feature learning, because the state
+that survives is a candidate for the variables that govern learning.  Existing
+exact descriptions of feature learning compress \emph{width} but not
+\emph{time}: Tensor Programs and dynamical mean-field theory keep the full history
+of forward and backward responses, and we collect evidence that exact capture is
+possible only through operator equations that carry the whole learned matrix.
+We show that the history itself is compressible.  Measured in a clock that runs
+at the speed of learning, each neuron's forward and backward response history is
+summarized by $P$ shifted-Legendre moments.  The resulting autonomous system has
+a state that does not grow with training time and, for networks of any depth,
+tracks the whole parameter trajectory with error $O_T(P^{-1})$, or $O_T(P^{-2})$
+with a second, joint clock.  The mechanism is that pairing forward and backward
+memories makes the error in each weight update a product of two projection
+errors.  As a corollary, on any finite horizon every learned weight increment
+lies within $O(1/P)$ of a rank-$mP$ matrix built from the network's own response
+moments.  On circle and MNIST tasks, orders $P=2$--$3$ reproduce the dense
+predictor over the whole input space, while frozen or directly trained low-rank
+bases of the same size do not.  Placed on a common axis of evolving state
+against accuracy, existing descriptions of training pay for the limit in
+neurons, in stored history or in tuples of samples; response memory pays in an
+approximation order.
 \end{abstract}
 
 \section{Introduction}
@@ -92,16 +95,16 @@ with width and becomes infinite in the limit.  Statistical physics resolves the
 paradox in other settings.  A gas of $10^{23}$ molecules is simpler to describe
 than a gas of ten, because its macroscopic behaviour is captured by a few
 collective variables; mean-field theory replaces intricate particle interactions
-by smooth population fields.  In neural training, eliminating explicit neuron
-indices can leave another large object: response histories, correlations
-between pairs of times, or evolving fields and operators.  The question is then
-how much of that information is needed to reproduce learning to a prescribed
-accuracy.  A finite network is Markovian in its weights; historical dependence
-appears when those weights are eliminated from a description.  Compressing the
-resulting histories is one way to find a smaller sufficient state.  We do not
-seek compression for its own sake.  The variables that survive a controlled
-reduction are candidates for the variables that govern learning, and an
-autonomous compressed system offers a new way to study their interactions.
+by smooth population fields.  For training, however, the limit is infinite in
+two directions: in the number of neurons, and in time, because the state of
+training depends on the whole history of how each neuron has responded.
+Mean-field and tensor-program limits tame the first.  Whether the second can be
+tamed as well is the question of whether the limiting training dynamics can be
+\emph{compressed}.  We do not seek compression for its own sake.  A compressed
+description must retain what drives learning and may discard the rest, so the
+state that survives is a candidate for the variables that govern learning, and
+a compressed system that reproduces training would be a step toward the
+idealized model.
 
 \paragraph{Training, not snapshots.}
 Compressing a snapshot is easy: any representation of the current input--output
@@ -111,50 +114,61 @@ discrepancy accumulates.  An idealized model of learning must reproduce the whol
 trajectory.
 
 \paragraph{What the model must keep.}
-Several particularly tractable descriptions specialize to linear, shallow or
-frozen-feature regimes.  Deep linear networks remove nonlinear activations
-\citep{saxe2014exact}; one-hidden-layer mean-field models remove interactions
-between multiple learned hidden layers
-\citep{chizat2018global,mei2018meanfield,sirignano2019lln}; and the neural tangent
-kernel retains nonlinear input features while freezing their leading-order
-evolution \citep{jacot2018ntk,lee2019wide,chizat2019lazy}.  These are
-simplifications of the training process being studied, not claims about an
-inability to represent a complicated final function.  We keep all three:
-\emph{depth} (more than one
+Several idealized models of training already exist, and each gives up one of
+three properties.  Deep linear networks admit exact solutions but lose the
+nonlinearity \citep{saxe2014exact}; mean-field analyses are largely confined to
+one hidden layer \citep{chizat2018global,mei2018meanfield,sirignano2019lln}; and
+the neural tangent kernel keeps depth and nonlinearity but freezes the features
+\citep{jacot2018ntk,lee2019wide,chizat2019lazy}.  Each is simple precisely
+because of what it gives up.  We keep all three: \emph{depth} (more than one
 hidden layer), \emph{nonlinearity} that stays effective during training and in
 the limit, and \emph{feature learning} (hidden representations move at leading
 order).  Together with the population limit, this contract preserves what is
 hardest about deep learning while making it a single well-defined object.
 
-\paragraph{The gap: accuracy versus retained state.}
-Tensor Programs remove explicit width through a limiting recursion that includes
-past responses \citep{yang2021tensor}; nonlinear dynamical mean-field theory
-(DMFT) describes their evolving covariances and responses through two-time
-kernels \citep{bordelon2022dmft}.  The Neural Tangent Hierarchy (NTH) instead
-organizes current outputs and higher tangent kernels, allowing finite
-truncations that evolve features \citep{huang2020nth}.  These descriptions
-economize on different information.  A common question is therefore
-\emph{how much evolving state suffices to approximate a specified training
-trajectory over a complete interval?}
+\paragraph{The gap.}
+Existing exact descriptions of this object do not compress it.  Tensor Programs
+carry variables indexed by every earlier training step \citep{yang2021tensor},
+and feature-learning dynamical mean-field theory (DMFT) evolves two-time kernels
+whose memory grows quadratically with the number of time points
+\citep{bordelon2022dmft}.  Both are remarkable statements about the network's
+behaviour, and both are exact; but they avoid storing the learned matrix only by
+storing the history of forward and backward responses from which it is built.
+The information is moved rather than compressed.  In the terms above, these
+descriptions tame the infinity in \emph{width}---their state does not depend on
+the number of neurons---but not the one in \emph{time}: their state grows with
+the length of training.
+No result we know of shows that deep nonlinear feature learning can be captured
+by a system whose size stays constant throughout training.
 
-We address this question by compressing the learned response history itself.
-The representation uses a fixed number of evolving coordinates per neuron and
-training sample, and reconstructs the network through which those coordinates
-continue to evolve.  Our guarantee concerns the full parameter trajectory at
-fixed width; it does not require small feature movement.  The broader comparison
-in \Cref{sec:resources} puts width, hierarchy order and temporal resolution on
-one state--accuracy axis, while making the assumptions needed to match their
-population targets explicit.
+\paragraph{One axis for every description.}
+The gap suggests a way to place all descriptions of training side by side.  Fix
+a horizon and an accuracy, and ask how much \emph{evolving} state a description
+needs to reproduce the trajectory to that accuracy, and whether that state grows
+with the length of training.  Descriptions that freeze the features, drop depth
+or drop the nonlinearity are not approximations of the object in our contract at
+any size: enlarging their state does not bring them closer to it, so they sit
+off this axis, exact about something else.  The descriptions that keep the
+contract sit on it, and each pays for the limit in a different currency: the
+dense network in neurons, Tensor Programs and DMFT in stored history, the Neural
+Tangent Hierarchy in tensors indexed by tuples of training samples.  Response
+memory pays in an approximation order, which depends neither on the length of
+training nor on the combinatorics of the samples.  \Cref{sec:notions} makes the
+axis precise, \Cref{tab:axis} places the descriptions on it, and \Cref{app:size}
+works out, under stated hypotheses, what each would cost at a prescribed
+accuracy.
 
 \paragraph{Results.}
 \Cref{sec:notions} makes compression of dynamics precise and distinguishes three
 classes of state: scalars, populations and operators.  We then show the
 following.
 \begin{enumerate}
-\item \emph{Exact descriptions expose closure obstacles} (\Cref{sec:exact}).
-An operator description of a deep linear benchmark, a hierarchy of current
-population observations, and a restricted scalar nonclosure result distinguish
-an exact representation from a finite collection of sufficient coordinates.
+\item \emph{Exact capture points to operators} (\Cref{sec:exact}).  Three pieces
+of evidence---an exact operator closure for deep linear networks, an exact but
+never-closing hierarchy of current observations for a two-hidden-layer network,
+and a restricted failure of scalar closures---suggest that
+exact capture of deep nonlinear feature learning requires operator equations,
+which compress nothing.  We do not prove this.
 \item \emph{Training history is compressible in time} (\Cref{sec:memory}).  For
 networks of any depth, replacing each neuron's forward and backward history by
 $P$ Legendre moments in a learning-speed clock gives an autonomous system whose
@@ -166,14 +180,9 @@ depend on the approximation itself.
 increment is, on a finite horizon, within $O(1/P)$ of a rank-$mP$ matrix built
 from the network's own response moments.
 \item \emph{Evolving memories are what matter} (\Cref{sec:experiments}).  Small
-orders reproduce dense fitted predictions around the input circle and on
-held-out MNIST inputs.  In the tested circle comparisons they outperform
-frozen dictionaries and directly trained low-rank corrections of matched size.
-\item \emph{A common resource question} (\Cref{sec:resources}).  We distinguish
-methods that simplify the training regime from representations of deep feature
-learning, and compare the latter by moving state, fixed resources and prediction
-accuracy.  Conditional population scalings make the cost of width and history
-resolution explicit, without identifying them as a single approximation.
+orders reproduce the dense predictor over the whole input space, while, in our
+comparisons, frozen dictionaries and directly trained low-rank corrections of
+the same size fail.
 \end{enumerate}
 The theorems hold at every fixed width.  The population limit is the motivation
 and gives an interpretation of the result (\Cref{sec:population-view}), and a
@@ -186,52 +195,61 @@ a rate, and its limitations motivated the evolving memories of the main result.
 \section{Related work}
 \label{sec:related}
 
-We distinguish the training process described by a theory from the information
-its representation retains.  \Cref{sec:resources} develops the corresponding
-quantitative comparison.
+We organize prior work by where it sits on the axis of the introduction: whether
+it approximates the deep nonlinear feature-learning flow at all, and, if it
+does, in what currency its evolving state is paid.
 
-\paragraph{Regime-specific simplifications.}
+\paragraph{Off the axis: descriptions that give up one property.}
 Exact solutions of deep linear networks keep depth and feature learning but not
-nonlinearity \citep{saxe2014exact}.  Wasserstein and mean-field limits describe
-one-hidden-layer networks as the gradient flow of a measure over neurons
+nonlinearity \citep{saxe2014exact}; their infinite-width limit is a gradient
+flow on $\ell^2$ operators added to the frozen initialization
+\citep{chizat2024linear}, the cleanest example of an operator description.
+Wasserstein and mean-field limits describe one-hidden-layer networks as the
+gradient flow of a measure over neurons
 \citep{chizat2018global,mei2018meanfield,sirignano2019lln}; they keep nonlinear
-feature learning but not depth.  The neural tangent kernel and lazy training keep
-depth and nonlinearity but freeze the features, reducing training to a fixed
-kernel \citep{jacot2018ntk,lee2019wide,chizat2019lazy}.  Each isolates an important
-mechanism, but its accuracy theorem alone does not approximate the deep
-feature-learning flow studied here.
+feature learning but not depth.  The neural tangent kernel and lazy training
+keep depth and nonlinearity but freeze the features, reducing training to a
+fixed kernel \citep{jacot2018ntk,lee2019wide,chizat2019lazy}.  Each is simple
+because of what it sacrifices, and each is exact about a different object.
+None is an approximation of ours whose error can be driven down by enlarging
+its state; for the frozen kernel in particular, the discrepancy from a
+feature-learning flow is a bias that width does not remove.
 
-\paragraph{Descriptions of deep feature learning.}
+\paragraph{On the axis, paying in history.}
 Tensor Programs~IV proves feature-learning limits at each fixed number of steps,
 with a recursion that includes variables indexed by every earlier step
 \citep{yang2021tensor}.  Feature-learning DMFT evolves two-time activation,
-gradient and response kernels; its full-grid implementation has quadratic
-kernel storage in sample count times time-grid length \citep{bordelon2022dmft}.
-The numerical work also depends on sampling, response estimation and
-self-consistency iterations.  Its finite-width extension derives perturbative
-fluctuations \citep{bordelon2023finite}; the general nonlinear field construction
-and its numerical solver have different proof obligations from a rigorous
-finite-width convergence theorem.  Multilayer mean-field
-theory and Neural Feature Flow evolve fields on neuronal ensembles
-\citep{nguyen2023rigorous,fang2020features}.  These keep all three properties and
-provide descriptions of deep feature learning under their respective
-parameterizations and assumptions.  Their state can be independent of explicit
-width while retaining temporal information or infinite-dimensional fields.
-Response memory keeps a finite-width population and compresses its learned
-history; its limiting population interpretation is stated separately.
+gradient and response kernels, with memory quadratic and time cubic in the
+number of time points \citep{bordelon2022dmft}, and its finite-width extension
+adds perturbative fluctuations \citep{bordelon2023finite}.  Its own comparison
+is that DMFT is cheaper than the network only when $n\gg mK$, $K$ the number of
+grid points; a numerical solution further needs Monte Carlo samples of the
+single-site processes and self-consistency sweeps, which that count leaves out.
+Multilayer mean-field theory and Neural Feature Flow evolve fields on neuronal
+ensembles \citep{nguyen2023rigorous,fang2020features}.  These keep all three
+properties and identify the idealized object.  They compress width: DMFT, for
+instance, has a state independent of the number of neurons.  But their state
+grows with the length of training, or consists of infinite-dimensional fields.
+Our result is complementary: it keeps the neurons and compresses time.
 
-\paragraph{Finite hierarchies.}
-The Neural Tangent Hierarchy derives an exact hierarchy of outputs and higher
-tangent kernels and truncates it at order $p$ \citep{huang2020nth}.  Higher
-truncations evolve the tangent kernel and capture feature learning.  In the
-direct implementation, predictions and kernels below order $p$ contribute
-$\sum_{j=1}^{p-1}m^j$ moving scalars, while the $m^p$ entries of the top tensor
-are fixed.  Its published approximation theorem controls a width-dependent
-regime; transfer to canonical feature learning requires bounds on the matched
-higher kernels.  \Cref{app:comparison-nth} gives that hierarchy and a conditional
-finite-horizon comparison.  Response memory provides an alternative refinement
-coordinate: history moments with a polynomial order guarantee for the full
-fixed-width parameter trajectory.
+\paragraph{On the axis, paying in tuples of samples.}
+The Neural Tangent Hierarchy \citep{huang2020nth} evolves the outputs together
+with the tangent kernels of order $2,\dots,p$, the $r$-th a function of $r$
+training points, and closes by freezing the top kernel.  The hierarchy is an
+exact identity in any parametrization, and above order two it captures feature
+learning; the neural tangent kernel is its lowest truncation.  What it pays is
+combinatorial in the samples: the moving state through order $p$ is
+$\sum_{r<p}m^r$ scalars beneath a frozen tensor of $m^p$ entries (a direct
+count rather than a statement of that work), against a state linear in $m$
+here.  Its guarantee is proved in the parametrization where each kernel is
+smaller than the previous by $n^{-1/2}$, so that truncation costs $n^{-p/2}$:
+the error decreases in width, grows polynomially in time, and holds on a
+width-dependent horizon.  It is an expansion around the lazy limit in the small
+parameter $t/\sqrt n$.  In the feature-learning parametrization the kernels move
+at order one, and the truncation error is governed instead by the growth of the
+higher kernels, for which no general bound is available (\Cref{app:size}).
+Response memory controls the full parameter trajectory at fixed width, with a
+state linear in $P$ and an error decreasing polynomially in $P$.
 
 \paragraph{Memory and low rank.}
 HiPPO provides online Legendre projection of a given signal \citep{gu2020hippo};
@@ -305,6 +323,65 @@ The rate in $N$ quantifies the trade-off between the size of the compressed
 state and its accuracy.
 \end{definition}
 
+\paragraph{Size against accuracy.}
+\Cref{def:global} compares one compression with its reference.  To compare
+different descriptions of training with each other we fix the reference and ask
+what each costs.  Call the \emph{moving state} of a description the numbers it
+updates while computing training, excluding fixed sources such as the
+initialization or a frozen kernel.
+
+\begin{definition}[Size at accuracy]
+\label{def:size}
+For a description of training, a horizon $T$ and an accuracy $\varepsilon$, let
+$M(\varepsilon;T)$ be the smallest moving state with which it reproduces the
+reference trajectory on $[0,T]$ to within $\varepsilon$.  The description
+\emph{compresses time} if $M(\varepsilon;T)$ depends on $T$ only through the
+constants of its error bound and not through a count of elapsed steps.
+\end{definition}
+
+A description that does not approximate the reference has
+$M(\varepsilon;T)=\infty$ below some $\varepsilon$; this is how the three
+properties of the contract act, since dropping any one of them leaves a bias
+that no state removes.  \Cref{tab:axis} places the descriptions of
+\Cref{sec:related} on this axis by what their moving state is indexed by, what
+grows, and against what their error is certified.  The entries are orders of
+magnitude, not a ranking: constants differ between rows, and several rows
+depend on hypotheses named in the last column.  \Cref{sec:size} states what the
+theorems of this paper give at fixed width, and \Cref{app:size} works out the
+conditional population-level version.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Descriptions of the same training flow on one axis.  $m$ samples,
+$n$ width, $H$ hidden layers, $K$ time steps, $p$ kernel order, $P$ moment
+order.  Moving state excludes fixed sources; the frozen
+$W_0$ ($Hn^2$), NTH's top tensor ($m^p$) and the NTK matrix ($m^2$) are fixed.
+``Certified against'' names the reference for which an error bound exists;
+(H1), (H3) are the hypotheses of \Cref{app:size}.}
+\label{tab:axis}
+\begin{tabular}{@{}llllll@{}}
+\toprule
+Description & Gives up & Indexed by & Moving state & Grows? & Certified against\\
+\midrule
+\multicolumn{6}{@{}l}{\emph{Off the axis: exact about a different object}}\\
+Deep linear & nonlinearity & modes & --- & no & its own limit\\
+Shallow mean field & depth & particles & $n$ & no & its own limit\\
+Neural tangent kernel & features & samples & $m$ & no & lazy limit only\\
+\midrule
+\multicolumn{6}{@{}l}{\emph{On the axis: pays for the limit in a currency}}\\
+Dense network & --- & neurons & $Hn^2$ & no & population, (H1)\\
+Stored history & --- & past steps & $HmnK$ & $\propto K$ & finite net, exact\\
+Tensor Programs & --- & past steps & grows & yes & population, no rate\\
+DMFT solver & --- & sample, time pairs & $Hm^2K^2$ & $\propto K^2$ & population, (H3)\\
+NTH, order $p$ & --- & sample tuples & $\sum_{r<p}m^r$ & no & finite net, lazy param.\\
+Response memory, speed clock & --- & neuron moments & $2HmnP$ & no & finite net, $P^{-1}$\\
+Response memory, joint clock & --- & neuron moments & $2HmnP+P^2$ & no & finite net, $P^{-2}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \paragraph{Three classes of state.}
 \begin{enumerate}
 \item A \emph{scalar ODE} evolves finitely many real numbers, independently of
@@ -316,38 +393,33 @@ the number of objects is finite, their degrees of freedom are not.
 \item An \emph{operator} ODE evolves operators between population spaces, the
 limits of matrices.  A matrix records how \emph{each} row relates to \emph{each}
 column, and this row--column coupling cannot in general be captured by finitely
-many one-neuron marginal statistics alone.
+many populations.
 \end{enumerate}
 A finite number of named fields or operators need not contain finitely many
 scalars, so every compression claim below names both the type and the size of
-the retained state.  We also distinguish \emph{moving state}, updated during
-training or a numerical solve, from \emph{fixed resources}, such as initialized
-matrices or frozen kernel coefficients.  The same convention applies to every
-method; total storage and arithmetic count both.  For a prescribed horizon and
-accuracy, we ask how much moving state a specified representation needs, rather
-than interpreting a finite list of mathematical objects as a numerical size.
+the retained state.
 
-\section{Exact descriptions and obstacles to finite closure}
+\section{Exact compression: evidence that it lives in the operator class}
 \label{sec:exact}
 
 Before allowing errors we ask what exact capture of the population flow can look
-like.  The following examples show why writing an exact evolution and finding
-a small autonomous state are distinct problems.
+like.  We do not settle this question; we collect three pieces of evidence that
+point the same way.
 
-\paragraph{An exact operator description.}
-A natural description of the population flow is an operator ODE: \eqref{eq:dense-flow}
+\paragraph{An exact operator description exists, and is finite only in name.}
+If we refuse the growing histories of Tensor Programs and DMFT, the natural
+exact description of the population flow is an operator ODE: \eqref{eq:dense-flow}
 read with the hidden matrices $W^{(\ell)}$ as operators.  In a deep linear
 benchmark---one input, three linear hidden layers, order-one initialization---this
 can be proved completely: the learned part of the whole network becomes a single
 trace-class operator that evolves by an explicit autonomous cubic equation
 driven by the residual, and finite gradient flow and gradient descent converge
 to it on every compact horizon (\Cref{app:exact}).  The description is exact and
-consists of one operator.  This identifies an autonomous limiting state, while
-its numerical complexity depends on how that operator is represented.  Dense
-coordinates and stored response histories are two possible implementations;
-operator structure may allow others.
+consists of one operator, but that operator is as rich as the learned matrix:
+any finite approximation of it essentially stores either the dense matrix or the
+responses that built it.
 
-\paragraph{Current observations generate a hierarchy.}
+\paragraph{The past can be dropped, but only for an infinite hierarchy.}
 For a two-hidden-layer population flow on the circle (\Cref{app:popclosure}), one can
 describe the dynamics exactly through \emph{current} observations: joint laws,
 on each neuron population, of finitely many expressions built from the current
@@ -355,11 +427,9 @@ weights, the initialization, $\phi$, bounded products and applications of
 $W^{(2)}$ and its adjoint.  The derivative of each finite level of this
 hierarchy is expressed through a finite higher level, and the complete hierarchy
 determines predictions on the whole input space and a unique continuation from
-every reachable state, without storing the past.  Differentiating a finite
-level introduces higher observations, so the hierarchy alone does not provide
-a finite autonomous closure.
+every reachable state, without storing the past.  But no finite level closes.
 
-\paragraph{A restricted scalar obstruction.}
+\paragraph{Exact scalar closures fail.}
 In the same linear benchmark, no encoder formed from a fixed finite list of
 tensor contractions of the weights with width-independent bounded degree admits
 a polynomial autonomous scalar ODE and polynomial readout that reproduce the
@@ -370,18 +440,19 @@ connected contractions: the $(2j-1)$st derivative contains
  \frac1n\,(W^{(1)})^\top\Bigl((W^{(2)})^\top(W^{(3)})^\top W^{(3)}W^{(2)}\Bigr)^{j}W^{(1)},
 \]
 of degree $4j+2$, which no bounded-degree alphabet can express.  The result is
-restricted to this encoder and readout class.  It shows that even a linear
-network can generate an unbounded hierarchy of interactions under training;
-it does not exclude arbitrary encoders or trajectory-specific reductions.
+restricted to a natural class of encoders, but if exact scalar closure fails for
+three \emph{linear} layers, there is little reason to expect it for nonlinear
+feature learning.
 
 \paragraph{Between the two.}
-Whether the general exact operator can be replaced by finitely many population
-fields remains open.  Instantaneous low-rank updates do not settle the question:
-their directions change, and an integral over time need not have a uniformly
-bounded rank.  Approximation asks a more constructive question: can finitely
-many evolving fields generate the learned action to controlled accuracy even
-when those directions continue to move?  The response memories below do so at
-each fixed width.
+Whether the exact operator can be compressed into finitely many populations is
+open.  We believe not: natural reductions of an operator to populations assume
+structure, such as finite rank, that feature learning does not provide, since
+gradient flow integrates rank-one updates over continuous time.  Taken together,
+the evidence suggests that exact capture of deep nonlinear feature learning is
+possible only in the operator class, which hides a growing complexity in finite
+clothing.  The rest of the paper asks what can be gained by accepting a
+controlled error.
 
 \section{Approximate compression with rates: response memories}
 \label{sec:memory}
@@ -558,10 +629,31 @@ matrices, $(H-1)n^2$ numbers, are kept as a fixed source.  Per step, applying
 $W_0^{(\ell)}$ and its transpose costs $O(mn^2)$ per layer as in dense training,
 the learned correction $O(m^2nP)$ per layer, and the moment update $O(HmnP)$;
 the joint clock adds an $O(P^3)$ Gram factorization and $O(HmnP^2)$ solves.
-At fixed width and horizon, suppressing their constants, trajectory error
-$\varepsilon$ requires $O(Hmn\varepsilon^{-1})$ history numbers
-with the learning-speed clock and $O(Hmn\varepsilon^{-1/2}+\varepsilon^{-1})$
-with the joint clock.
+
+\subsection{Size at accuracy, fixed width}
+\label{sec:size}
+
+\Cref{thm:old,thm:new} answer \Cref{def:size} against the finite network.  For
+a trajectory error $\varepsilon$ on $[0,T]$ they require
+$P\ge C(T)/\varepsilon$ and $P\ge\sqrt{C(T)/\varepsilon}$ respectively, so
+\begin{equation}
+ M_{\rm speed}(\varepsilon;T)=O\Bigl(Hmn\,\frac{C(T)}{\varepsilon}\Bigr),\qquad
+ M_{\rm joint}(\varepsilon;T)=O\Bigl(Hmn\sqrt{\frac{C(T)}{\varepsilon}}
+ +\frac{C(T)}{\varepsilon}\Bigr).
+ \label{eq:size-fixed}
+\end{equation}
+Two comparisons at the same width and on the same network are exact.  The
+learned increment can always be carried by its own history: for gradient
+descent with $K$ steps,
+$W^{(\ell)}_K=W^{(\ell)}_0-\frac{2\Delta t}{nm}\sum_{k<K}\sum_a
+r_{a,k}\delta^{(\ell)}_{a,k}(h^{(\ell-1)}_{a,k})^\top$ is an identity, with
+$HmnK$ moving numbers that grow with the number of steps; and the dense
+increment itself is $Hn^2$ numbers.  Against the first, the order $P$ replaces
+the step count $K$; against the second, $2mP$ replaces $n$.  Both are
+consequences of the theorems, not of a hypothesis.  What
+\eqref{eq:size-fixed} does not say is how $C(T)$ grows with the horizon or the
+width, and this is why the population-level version of the comparison
+(\Cref{app:size}) is conditional.
 
 What is compressed is time, not samples or neurons.  The state grows linearly
 with the number of training samples, and once $2mP\ge n$ it exceeds the dense
@@ -599,8 +691,6 @@ The limit in the conjecture would be a time-local, finite-order description of
 deep nonlinear feature learning in the population limit: the kind of object the
 introduction asks for.
 
-\input{comparison}
-
 \section{Experiments}
 \label{sec:experiments}
 
@@ -613,44 +703,21 @@ $0.001$.  The five tasks are chosen to be hard: alternating labels, clustered
 points and large unlabelled arcs.  These are comparisons of fitted functions at
 matched loss, with one initialization per task, not same-time trajectory errors:
 they test the closure as an estimator of what dense training produces, not the
-rates of the theorems.  \Cref{fig:deep,fig:shallow} show the fitted functions
-for both depths in radial coordinates.
+rates of the theorems.
 
-\begin{figure}[!tp]
+\begin{figure}[t]
  \centering
- \includegraphics[width=\linewidth]{figures/circle_deep_radial.pdf}
- \caption{Fitted circle predictions for three hidden tanh layers, width
- $4096$, and response-memory orders $P=1,2,3$.  Models are evaluated at
- their respective training-MSE $10^{-3}$ endpoints.  Angle represents input
- direction; radius is $3+f(\theta)$, with radial ticks labelled by $f(\theta)$
- and a dashed zero-output ring.  Black curves show dense gradient flow,
- coloured curves show response memory, and black dots show training labels.
- Coloured numbers give RMS prediction differences from the dense network on
- 8192 uniform circle points, in legend order.}
+ \includegraphics[width=0.86\textwidth]{figures/circle_deep.pdf}
+ \caption{Three hidden tanh layers, width $4096$.  Black: dense gradient flow;
+ colours: response memory of order $P=1,2,3$; dots: training labels.}
  \label{fig:deep}
-\end{figure}
-
-\begin{figure}[!tp]
- \centering
- \includegraphics[width=\linewidth]{figures/circle_shallow_radial.pdf}
- \caption{Fitted circle predictions for two hidden tanh layers, width
- $2048$, and response-memory orders $P=1,3,7$, using the dense references
- in \Cref{tab:circle}.  Models are evaluated at their respective
- training-MSE $10^{-3}$ endpoints.  Angle represents input direction;
- radius is $3+f(\theta)$, with radial ticks labelled by $f(\theta)$ and a
- dashed zero-output ring.  Black curves show dense gradient flow,
- coloured curves show response memory, and black dots show training labels.
- Coloured numbers give RMS prediction differences from the dense network on
- 8192 uniform circle points, in legend order.}
- \label{fig:shallow}
 \end{figure}
 
 \begin{table}[t]
 \centering
 \small
 \caption{Whole-circle RMS difference between response memory and dense
-gradient flow.  Left: two hidden tanh layers, width $2048$
-(\Cref{fig:shallow}).  Right: three hidden
+gradient flow.  Left: two hidden tanh layers, width $2048$.  Right: three hidden
 tanh layers, width $4096$ (\Cref{fig:deep}).}
 \label{tab:circle}
 \begin{tabular}{lrrr@{\qquad}rrr}
@@ -681,8 +748,8 @@ Equally spaced, mixed & 0.0124 & 0.00053 & $4\times10^{-6}$ & 0.0150 & 0.00241 &
 In two layers the error falls by 1.5--3 orders of magnitude from $P=1$ to $P=7$
 on every task, faster than the $P^{-1}$ trajectory bound (\Cref{fig:order}); the
 theorem is an upper bound on a different quantity, and we do not read a rate off
-these five points.  In three layers $P=2$ and $P=3$ have whole-circle RMS
-differences below $0.06$, and below $0.01$ on three tasks, while the hidden layers
+these five points.  In three layers $P=2$ and $P=3$ stay within $0.06$ of the dense
+function everywhere, and within $0.01$ on three tasks, while the hidden layers
 move substantially: relative activation displacement is $0.35$--$0.65$,
 $0.38$--$0.74$ and $0.46$--$0.68$ in the three layers.  Order is not monotone at
 fixed width: $P=2$ beats $P=3$ on both alternating tasks.  The moving state at
@@ -722,45 +789,53 @@ differences were $0.031$, $0.013$ and $0.0066$ for $P=1,2,3$.
 
 \section{Discussion: toward an idealized model of learning}
 
-Compression provides a way to ask what a theory regards as the state of learning.
-A parameter description retains connections; a tangent hierarchy retains
-interactions among output derivatives; a dynamical field description retains
-response laws and correlations.  These are different coordinates for asking how
-the present state determines subsequent learning.  Their scientific value can
-be compared through the information retained, the accuracy supported, and the
-mechanisms preserved.  \Cref{sec:resources} makes that comparison quantitative
-for specified representations, rather than assigning one universal numerical
-complexity to an entire framework.
+We asked whether the idealized limit of deep feature learning can be described
+by a small state, in the way a large physical system is described by a few
+collective variables.  Exactly, the evidence says no: autonomous exact
+descriptions appear to require operators or infinite hierarchies, and simple
+scalar closures fail.  Approximately, a different kind of compression appears.
+The known exact descriptions compress width and keep the whole history; we keep
+the neurons and compress the history.  Measured in a clock that follows learning,
+the memory of deep nonlinear feature learning is summarized by a few moments per
+neuron and sample, with an error that decreases polynomially in the number of
+moments and a state that does not grow with training time.  The closest
+historical analogue is the moment closure of kinetic theory, where a few moments
+of a distribution replace its full evolution; such closures are usually adopted
+without convergence guarantees, whereas here the truncation comes with a rate.
 
-Response memory identifies a constructive sufficient state for approximate
-training: summaries of how each neuron has responded forward and backward,
-coupled through the initialized network.  These summaries keep changing with
-the features they help generate.  At every fixed width, the convergence theorem
-controls this feedback over a complete finite interval and supplies a
-state--accuracy trade-off.  It establishes that the entire learned history need
-not be retained literally to reproduce deep nonlinear feature learning.
-The population version would replace the finite vectors by finitely many memory
-fields, as formulated in \Cref{conj:population}.  In that sense the construction
-connects the collective-description motivation of mean-field theory with a
-finite-order dynamical approximation.
+Seen from far enough away, every description of training that keeps depth,
+nonlinearity and feature learning pays for the limit in some currency and buys
+accuracy with the matching knob: the network in neurons, the exact limits in
+stored history, the tangent hierarchy in tensors over tuples of samples, and
+response memory in an approximation order.  Descriptions that give up one of
+the three are not on this axis at all; they are exact about a different object.
+Stated this way, the axis is a definition and a classification
+(\Cref{def:size}, \Cref{tab:axis}), not a ranking.  What the present results
+add to it is one fact: at fixed width, response memory is the only description
+we know of whose evolving state is set by an order rather than by the elapsed
+steps or by the sample combinatorics, and whose error is certified against the
+full trajectory (\Cref{sec:size}).  Whether the same holds against the
+population flow is exactly \Cref{conj:population}.  \Cref{app:size} works out,
+under stated hypotheses, what each description would cost at a prescribed
+accuracy; the reader should take those exponents as the shape of a trade-off
+rather than as a verdict, for three reasons.  The comparison identifies gradient
+descent with gradient flow.  Several of the descriptions, ours included at the
+population level, do not prove existence of the limit they describe.  And our
+constants have no proven growth law in the horizon or the width, so ``constant
+in time'' is a statement about the state, not about the constants.
 
-The circle experiments test a consequence that training loss alone cannot
-resolve.  Many functions interpolate eight labels; the radial comparisons show
-that a small memory state can also follow the fitted function selected away
-from those labels.  Their matched-loss comparisons demonstrate usefulness on
-the tested tasks, while the same-time theorem explains why autonomous
-approximation is possible.  The asymptotic constants do not yet explain the
-small empirical orders or imply a universal efficiency ranking.
-
-The main remaining resources are visible in the representation.  The fixed
-random environment $W_0$ is retained, and preserving its forward and adjoint
-reuse while compressing it is a further problem.  Population error rates need
-width-uniform control, and longer horizons can require higher order even though
-the state formula contains no elapsed-step count.  The theory covers smooth
-activations, and its memory grows with the number of training samples; a
-continuum of training inputs needs an additional representation of input
-dependence.  These questions ask how far the same organizing principle can be
-pushed: which evolving information remains necessary at each desired accuracy?
+The variables that survive are \emph{neuron-level memory variables}: for each
+neuron and sample, compressed summaries of how it has responded forward and
+backward, coupled through a fixed random operator.  They become collective only
+at the population level, and \Cref{conj:population} states what that would
+require.  Other gaps remain.  The initialized random operator $W_0$ is kept
+exactly; it plays the role of a fixed random environment, and compressing it
+while preserving its forward and adjoint reuse is the main open problem.  The
+constants depend on width and horizon, and the small orders that work in
+practice are not explained by the asymptotic rates.  We have not ablated the
+clock against physical time.  Finally, the theory covers smooth activations, and
+the memory grows with the number of training samples, so learning over a
+continuum of inputs needs a further representation of the input dependence.
 
 \begin{thebibliography}{15}
 \providecommand{\natexlab}[1]{#1}
@@ -787,6 +862,14 @@ L{\'e}na{\"i}c Chizat and Francis Bach.
   models using optimal transport.
 \newblock In \emph{Advances in Neural Information Processing Systems},
   volume~31, 2018.
+
+\bibitem[Chizat et~al.(2024)Chizat, Colombo, Fern\'andez-Real, and
+  Figalli]{chizat2024linear}
+L{\'e}na{\"i}c Chizat, Maria Colombo, Xavier Fern\'andez-Real, and Alessio
+  Figalli.
+\newblock Infinite-width limit of deep linear neural networks.
+\newblock \emph{Communications on Pure and Applied Mathematics}, 2024.
+\newblock \doi{10.1002/cpa.22200}.
 
 \bibitem[Chizat et~al.(2019)Chizat, Oyallon, and Bach]{chizat2019lazy}
 L{\'e}na{\"i}c Chizat, Edouard Oyallon, and Francis Bach.
@@ -868,7 +951,7 @@ Jiawei Zhao, Yifei Zhang, Beidi Chen, Florian Sch{\"a}fer, and Anima
 
 \appendix
 
-\section{Proof of the learning-speed clock theorem}
+\section{\texorpdfstring{Proof of \Cref{thm:old}}{Proof of the learning-speed clock theorem}}
 \label{app:proof-old}
 
 Throughout the appendices we write $b^{(\ell)}_a=r_a\delta^{(\ell)}_a/\rho$ for the
@@ -1111,7 +1194,7 @@ Steps 2--4 with these global constants gives \eqref{eq:old-explicit} for every
 $P$.  This completes the proof. \qed
 
 
-\section{The joint feature-learning clock: construction and proof}
+\section{\texorpdfstring{The joint feature-learning clock: construction and proof of \Cref{thm:new}}{The joint feature-learning clock: construction and proof}}
 \label{app:proof-new}
 
 \paragraph{Construction.}
@@ -1571,6 +1654,164 @@ contraction graphs are linearly independent at large width, so this term cannot
 be synthesized.  The theorem does not exclude arbitrary encoders, unrestricted
 fields, or closures tailored to a single initialized trajectory.
 
-\input{comparison_appendix}
+\section{Size at accuracy under a width hypothesis}
+\label{app:size}
+
+\Cref{sec:size} compares descriptions against the finite network, where the
+theorems apply.  This appendix asks the same question against the population
+flow of \Cref{sec:setting}, which is the object the introduction cares about.
+Nothing here is proved for that flow; the point is to make explicit which
+hypotheses each row needs and what follows from them, so that the resulting
+exponents can be read as the shape of a trade-off and not as a ranking.
+
+\paragraph{Common units.}
+The reference is the population predictor $f_\infty(t,x)$ on $[0,T]$, assumed
+to exist.  The error of an approximation $\tilde f$ is
+\[
+ E(\tilde f;T)=\sup_{0\le t\le T}\Bigl(\int|\tilde f(t,x)-f_\infty(t,x)|^2\dd Q(x)\Bigr)^{1/2}
+\]
+for a test law $Q$ on a compact input set (for the circle, the uniform law),
+with the expectation over initialization taken inside the square for random
+approximations.  By the reverse triangle inequality this controls the
+discrepancy in test RMSE against any square-integrable labels; it says nothing
+about whether $f_\infty$ itself generalizes.  Moving state is counted as in
+\Cref{def:size}; work is counted per evaluation of a right-hand side.  Gradient
+descent with $K$ steps on $[0,T]$ is identified with gradient flow up to a
+discretization error of order $(T/K)^r$ for a stable method of order $r$.
+
+\paragraph{Hypotheses.}
+\begin{enumerate}
+\item[(H1)] \emph{Root-width sampling.}  The finite network of width $n$
+satisfies $E(f_n;T)\le A\,n^{-1/2}$.  This is the order predicted by the
+finite-width expansion of DMFT \citep{bordelon2023finite}, whose fluctuations
+are $O(n^{-1/2})$ with an $O(n^{-1})$ bias; rigorous rates exist for
+one-hidden-layer networks \citep{mei2018meanfield} and, with a power slightly
+below $1/2$, for multilayer networks in a different normalization
+\citep{nguyen2023rigorous}.  For the model of \Cref{sec:setting} we state it as
+a hypothesis.
+\item[(H2)] \emph{Width-uniform closure.}  The constants of
+\Cref{thm:old,thm:new} are uniform in width in a population-normalized metric,
+so that $E(\hat f_{n,P};T)\le An^{-1/2}+B_1P^{-1}$ and
+$\le An^{-1/2}+B_2P^{-2}$.  This is \Cref{conj:population}.
+\item[(H3)] \emph{Stable grid methods.}  A grid-based solver with $K$ points
+and $S$ sampled paths has error $A'S^{-1/2}+B'(T/K)^r$ plus its solver
+tolerance, uniformly in $K$.
+\item[(H4)] \emph{Kernel growth for the hierarchy.}  The population kernels of
+the Neural Tangent Hierarchy, in the parametrization of \Cref{sec:setting},
+satisfy $|K^{(r)}_t|\le UV^{r-2}(r-2)!$ on $[0,T]$ with $q=2RVT<1$, where $R$
+bounds the residuals.
+\end{enumerate}
+The constants $A,B_1,B_2,A',B',U,V$ depend on $m$, $H$, $T$, the data and $Q$;
+an explicit factor of $T$ below does not exhaust that dependence, and the
+constants differ between rows.
+
+\paragraph{Dense width.}
+Under (H1), $n=(A/\varepsilon)^2$ and $M_{\rm dense}\asymp HA^4\varepsilon^{-4}$.
+
+\paragraph{Response memory.}
+Under (H1)--(H2), with $q=1$ for the learning-speed clock and $q=2$ for the
+joint clock, minimize $2HmnP$ subject to $A/\sqrt n+B_q/P^q=\varepsilon$.  Writing
+$u=A/\sqrt n$, the objective is proportional to
+$u^{-2}(\varepsilon-u)^{-1/q}$, which is convex on $(0,\varepsilon)$ with
+minimizer $u_*=\frac{2q}{2q+1}\varepsilon$.  Hence
+\[
+ n_*=\Bigl(\frac{(2q+1)A}{2q\,\varepsilon}\Bigr)^2,\qquad
+ P_*=\Bigl(\frac{(2q+1)B_q}{\varepsilon}\Bigr)^{1/q},
+\]
+and
+\[
+ M_{\rm speed}\asymp Hm\,A^2B_1\,\varepsilon^{-3},\qquad
+ M_{\rm joint}\asymp Hm\,A^2\sqrt{B_2}\,\varepsilon^{-5/2},
+\]
+with the joint clock's Gram state $O(B_2/\varepsilon)$ of lower order.  A rate
+$P^{-k}$ would give $\varepsilon^{-2-1/k}$: the $\varepsilon^{-2}$ is the width
+needed to sample the population, the $\varepsilon^{-1/k}$ is the price of
+compressing time.  The frozen $W_0$ is $Hn_*^2\asymp\varepsilon^{-4}$, so total
+storage is not below dense; the reduction is in evolving state.
+
+\paragraph{Neural Tangent Hierarchy.}
+In the parametrization of \Cref{sec:setting} the hierarchy reads
+$\dot f(x)=-\frac2m\sum_ar_aK^{(2)}(x,x_a)$ and
+$\dot K^{(r)}=-\frac2m\sum_ar_aK^{(r+1)}(\cdot,x_a)$, with kernels defined
+through the block mobilities; it is exact at every width and, granting the
+limiting kernels, in the population.  The order-$p$ closure keeps
+$K^{(2)},\dots,K^{(p)}$ with their initial values and sets $\dot K^{(p)}=0$.
+Let $B_r$ bound $|K^{(r)}|$ on $[0,T]$ and $R$ bound the residuals of both
+systems.  Subtracting the two hierarchies and integrating from the top down,
+the closure error at the top is at most $2RB_{p+1}t$, each lower level
+integrates the one above against the residual, and the feedback through the
+predictor enters every level through $K^{(2)}$; Gronwall's inequality then
+gives
+\[
+ \sup_{t\le T}|f-\tilde f_p|\le
+ B_{p+1}\frac{(2RT)^p}{p!}\exp(L_{p,T}T),\qquad
+ L_{p,T}=2\sum_{k=0}^{p-2}B_{k+2}\frac{(2RT)^k}{k!},
+\]
+on the interval before either system leaves the residual bound, which a
+first-exit argument extends to $T$ once the bound is below the margin.  Under
+(H4) this is at most $D\,q^p/p$ with $D=(U/V)\exp(2UT/(1-q))$, and
+$p_\varepsilon=\lceil W(\lambda D/\varepsilon)/\lambda\rceil$ with
+$\lambda=\log(1/q)$ and $W$ the Lambert function, so that
+\[
+ M_{\rm NTH}\asymp m^{p_\varepsilon-1}
+ \asymp\Bigl(\frac{D}{\varepsilon\log(D/\varepsilon)}\Bigr)^{\log m/\log(1/q)}
+ \qquad(m\ge2).
+\]
+Two remarks keep this honest.  First, (H4) is a sufficient regime, not a
+property of trained networks: without a bound on higher-kernel growth the
+required order is simply unknown, which is not the same as infinite.  Second,
+the closure is not a truncated Taylor series in time, even though it matches
+the first $p-1$ time derivatives at zero.  A one-parameter example makes the
+difference decisive: for $f=\theta^2$, target zero and loss $f^2$, one has
+$K^{(r)}=4^{r-1}f$ and $f(t)=f_0/(1+8f_0t)$, whose time series has radius
+$1/(8f_0)$; the order-$p$ closure is equivalent to
+$\tilde f_p=f_0\sum_{k<p}(4s)^k/k!$ with $\dot s=-2\tilde f_p$, and since the
+exact system replaces the sum by $e^{4s}$ along a path confined to a compact
+interval, $\tilde f_p\to f$ uniformly on every finite horizon, beyond the
+Taylor radius.  The exponent above is therefore governed by kernel growth, not
+by analyticity of the trajectory in time.
+
+\paragraph{Grid-based solvers.}
+Under (H3), a DMFT solver storing two-time kernels needs $K=T(B'/\varepsilon)^{1/r}$
+grid points when almost all of the error budget is assigned to time
+discretization, so its moving state is
+$M_{\rm DMFT}\asymp Hm^2T^2B'^{2/r}\varepsilon^{-2/r}$; the sampled paths can be
+streamed, so $S\asymp(A'/\varepsilon)^2$ paths cost work rather than memory.
+The stored-history identity of \Cref{sec:size}, under (H1) and (H3), needs
+$n\asymp(A/\varepsilon)^2$ and $K\asymp T(B'/\varepsilon)^{1/r}$, so
+$M_{\rm history}\asymp HmA^2T\,B'^{1/r}\varepsilon^{-2-1/r}$.  For an Euler
+scheme these are $\varepsilon^{-2}$ and $\varepsilon^{-3}$; the exponents
+reflect the order of the time integrator, and both rows carry the horizon
+explicitly, as $T^2$ and $T$.  There is no universal $\varepsilon^{-2}$ floor
+across descriptions: a solver need not store neurons, and a streamed solver
+need not store its samples.
+
+\paragraph{Reading the table.}
+\begin{center}
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Description & $M(\varepsilon;T)$ & Needs\\
+\midrule
+Dense network & $HA^4\varepsilon^{-4}$ & (H1)\\
+Response memory, speed clock & $HmA^2B_1\varepsilon^{-3}$ & (H1), (H2)\\
+Response memory, joint clock & $HmA^2\sqrt{B_2}\,\varepsilon^{-5/2}$ & (H1), (H2)\\
+NTH, order $p_\varepsilon$ & $[D/(\varepsilon\log(D/\varepsilon))]^{\log m/\log(1/q)}$ & (H4), population kernels\\
+DMFT solver, order-$r$ grid & $Hm^2T^2B'^{2/r}\varepsilon^{-2/r}$ & (H3)\\
+Stored history, order-$r$ grid & $HmA^2T\,B'^{1/r}\varepsilon^{-2-1/r}$ & (H1), (H3)\\
+\bottomrule
+\end{tabular}
+\end{center}
+Three things are visible and defensible.  The response-memory rows are the
+only ones with no explicit $T$ and with linear dependence on $m$; they pay for
+that with one extra power of $\varepsilon^{-1/k}$ over the sampling cost.  The
+hierarchy's cost is polynomial in $1/\varepsilon$ with an exponent set by the
+sample count and by kernel growth, which is the same fact as its
+$m^{p}$ tensors.  The grid solvers keep the bare discretization exponent and
+carry the horizon in their state.  Which row is smallest at a given accuracy
+depends on constants that all depend on $T$, and on hypotheses that are proved
+in none of the rows for the model of \Cref{sec:setting}; the table is an
+organizing principle, and the fixed-width comparison of \Cref{sec:size} is the
+part of it that is a theorem.
 
 \end{document}

@@ -1,0 +1,327 @@
+\section{Accuracy and resource comparisons: derivations}
+\label{app:comparison}
+
+We compare approximations to the same population predictor $f_\infty$ of
+\eqref{eq:dense-flow}, assumed to exist on $[0,T]$, with the same data and
+initialization law, including the readout.  Matching initial predictions alone
+does not match the initial tangent kernel.  Throughout, constants can depend
+on $m,H,T$, the data, initialization and test law; displayed factors in these
+variables do not exhaust that dependence.  Population error estimates below
+are stated hypotheses, whereas the fixed-width response-memory results are
+\Cref{thm:old,thm:new}.  We suppress the $T$ subscripts on the error constants
+of \Cref{sec:resources}.
+
+\subsection{Test error, allocations and arithmetic}
+\label{app:comparison-opt}
+
+For a test probability measure $Q$, define
+\begin{equation}
+ E_Q(g;T)=\sup_{t\le T}\norm{g(t)-f_\infty(t)}_{L^2(Q)},\qquad
+ \mathcal E_Q(g;T)=\bigl(\E E_Q(g;T)^2\bigr)^{1/2}.
+ \label{cmp:test-error}
+\end{equation}
+The reverse triangle inequality bounds the difference between the test RMSEs
+of $g$ and $f_\infty$, against any $y_*\in L^2(Q)$, by $E_Q(g;T)$.
+This measures approximation, without assuming that $f_\infty$ generalizes well.
+Moreover, pointwise estimates
+$\E\sup_{t\le T}|f_n(t,x)-f_\infty(t,x)|^2\le C_T(x)^2/n$
+with $C_T\in L^2(Q)$ give
+$\mathcal E_Q(f_n;T)^2\le n^{-1}\int C_T^2\dd Q$
+by moving the time supremum inside the integral and applying Tonelli.
+An input supremum would require additional spatial control.
+
+For $\phi=\tanh$, set
+$a_\ell=\norm{h^{(\ell)}-h'^{(\ell)}}_2/\sqrt n$ and assume
+$\norm{x}/\sqrt d\le X$.  Boundedness and Lipschitz continuity of $\tanh$ give
+\begin{align*}
+ a_1&\le X\frac{\norm{W^{(1)}-W'^{(1)}}_F}{\sqrt n},\qquad
+ a_\ell\le\norm{W^{(\ell)}-W'^{(\ell)}}_{\rm op}
+             +\norm{W'^{(\ell)}}_{\rm op}a_{\ell-1},\\
+ |f_n-f'_n|&\le\frac{\norm{w-w'}_2}{\sqrt n}
+                    +\frac{\norm{w'}_2}{\sqrt n}a_H.
+\end{align*}
+Induction transfers parameter control to every such test input when operator
+and normalized readout norms are bounded.  Coupling dense and compressed
+networks through their initialization, the triangle inequality and Minkowski give
+\begin{equation}
+ \mathcal E_Q(\widehat f_{n,P};T)
+ \le\mathcal E_Q(f_n;T)
+ +\left(\E\sup_{t\le T}\norm{\widehat f_{n,P}(t)-f_n(t)}_{L^2(Q)}^2\right)^{1/2}.
+ \label{cmp:triangle}
+\end{equation}
+Thus the conditional model $A n^{-1/2}+B_qP^{-q}$, $q=1,2$, needs both a
+matched root-width estimate and closure constants and sufficient-order
+thresholds uniform in width, with appropriate moments.  The perturbative
+fluctuation calculation of \citet{bordelon2023finite} motivates the first
+estimate but is not a general remainder theorem for this model.
+
+Moving memory counts persistent updated scalars; fixed matrices, coefficient
+evaluators and workspace are reported separately.  The leading response-memory
+count is $2(H-1)mnP$.  With $u=A/\sqrt n$, $v=B_q/P^q$ and $u+v=\varepsilon$,
+its minimization reduces to minimizing $u^{-2}(\varepsilon-u)^{-1/q}$.
+The logarithm has derivative $-2/u+1/[q(\varepsilon-u)]$ and positive second
+derivative, and diverges at both endpoints.  Hence the unique continuous optimum is
+\begin{equation}
+ u_*=\frac{2q\varepsilon}{2q+1},\quad v_*=\frac{\varepsilon}{2q+1},\quad
+ n_*=\frac{(2q+1)^2A^2}{4q^2\varepsilon^2},\qquad
+ P_* =\left(\frac{(2q+1)B_q}{\varepsilon}\right)^{1/q}.
+ \label{cmp:allocation}
+\end{equation}
+For $q=1$, $(n_*,P_*)=(9A^2/(4\varepsilon^2),3B_1/\varepsilon)$ and
+$M_*\sim\tfrac{27}{2}(H-1)mA^2B_1\varepsilon^{-3}$.
+For $q=2$, $(n_*,P_*)=(25A^2/(16\varepsilon^2),\sqrt{5B_2/\varepsilon})$ and
+$M_*\sim\tfrac{25\sqrt5}{8}(H-1)mA^2\sqrt{B_2}\varepsilon^{-5/2}$.
+Upward rounding is feasible.  Outer weights, $(d+1)n$, and the joint Gram
+matrix, $O(P^2)$, perturb the finite-tolerance optimum but are lower order.
+Dense training instead takes $n=\lceil(A/\varepsilon)^2\rceil$ and
+$M_*\sim(H-1)A^4\varepsilon^{-4}$.  These optimize sufficient bounds in
+specified representations, not actual errors or all possible algorithms.
+
+For completeness, full-batch arithmetic per right-hand-side evaluation is
+\begin{align}
+ C_{\rm dense}&=O(Hmn^2+mnd),\nonumber\\
+ C_{\rm old}&=O(Hmn^2+Hm^2nP+HmnP+mnd),\nonumber\\
+ C_{\rm joint}&=O(Hmn^2+Hm^2nP+HmnP^2+P^3+mnd).
+ \label{cmp:response-work}
+\end{align}
+The terms respectively account for dense initialized actions, learned factors,
+moment updates or Gram solves, and Gram factorization.  Directional passes for
+the joint clock add a constant number of network passes.  Both closures retain
+$(H-1)n^2$ fixed entries; activation workspace is $O(Hmn)$, and Gram
+conditioning can affect numerical step counts.  Consequently neither their
+total-storage nor their arithmetic exponent improves automatically.
+
+\subsection{A matched tangent hierarchy}
+\label{app:comparison-nth}
+
+With $\mathcal D_n=\diag(nI,I,\ldots,I,nI)$, define recursively
+\begin{align*}
+K^{(2)}(x,z)&=\nabla_\theta f(x)^\top\mathcal D_n\nabla_\theta f(z),\\
+K^{(j+1)}(x_1,\ldots,x_{j+1})&=
+(\nabla_\theta K^{(j)}(x_1,\ldots,x_j))^\top
+\mathcal D_n\nabla_\theta f(x_{j+1}).
+\end{align*}
+The chain rule gives the exact, mobility-matched hierarchy
+\begin{equation}
+ \dot f(x)=-\frac{2}{m}\sum_a r_aK^{(2)}(x,x_a),\qquad
+ \dot K^{(j)}=-\frac{2}{m}\sum_a r_aK^{(j+1)}(\ldots,x_a).
+ \label{cmp:nth-flow}
+\end{equation}
+Truncation through order $p\ge2$ retains exact initial coefficients and freezes
+$K^{(p)}$.  A population version additionally requires limiting coefficients
+and a valid limiting hierarchy.
+
+\paragraph{Feedback bound.}
+Suppose $|K^{(j)}|\le B_j$ along the exact flow, uniformly when the first
+argument is a training or test input and the others are training inputs.
+Let $R=1+\sup_{t,a}|r_a(t)|$ and stop the truncated system at predictor error
+one.  Its residuals are then bounded by $R$.  For supremum predictor error
+$e_f$ and order-$j$ kernel error $e_j$, subtraction, splitting each product
+using the exact kernel and truncated residual, yields
+\begin{align}
+ e_p(t)&\le2RB_{p+1}t,\nonumber\\
+ e_j(t)&\le\int_0^t(2Re_{j+1}+2B_{j+1}e_f)\dd s\quad(2\le j<p),\nonumber\\
+ e_f(t)&\le\int_0^t(2Re_2+2B_2e_f)\dd s.
+ \label{cmp:nth-recursion}
+\end{align}
+Successive substitution integrates the top forcing $p$ times.  Each feedback
+term has convolution kernel $2B_{k+2}(2R(t-s))^k/k!$, $0\le k\le p-2$.
+Bounding these kernels at $T$ and applying Gronwall gives
+\begin{equation}
+ \sup_{t\le T}e_f(t)\le\eta_p(T):=
+ B_{p+1}\frac{(2RT)^p}{p!}\exp(L_{p,T}T),\qquad
+ L_{p,T}=2\sum_{k=0}^{p-2}B_{k+2}\frac{(2RT)^k}{k!}.
+ \label{cmp:nth-bound}
+\end{equation}
+If $\eta_p(T)<1$, first exit is impossible.  The triangular integral equations
+then bound all training tensors, preventing finite-time escape and extending
+the solution through $T$.  The test bound implies $E_Q\le\eta_p$ for $Q$
+supported on the controlled test set.  For random coefficients, the same
+probabilistic convention and coefficient errors must also be controlled.
+
+One sufficient regime is $B_j\le UV^{j-2}(j-2)!$ with $U,V>0$ and
+$\chi=2RVT<1$.  Then $L_{p,T}\le2U/(1-\chi)$ and
+$\eta_p\le D\chi^p/p$, where $D=(U/V)e^{2UT/(1-\chi)}$.
+For $0<\varepsilon<1$, put $\lambda_\chi=\log(1/\chi)$.  The smallest
+certified integer order is
+\begin{equation}
+ p_\varepsilon=\max\left\{2,\left\lceil
+ \frac{W(\lambda_\chi D/\varepsilon)}{\lambda_\chi}\right\rceil\right\},\qquad
+ M_{\rm NTH}=\sum_{j=1}^{p_\varepsilon-1}m^j
+ =\frac{m^{p_\varepsilon}-m}{m-1}\quad(m\ge2).
+ \label{cmp:nth-memory}
+\end{equation}
+Here $W(z)e^{W(z)}=z$: the error inequality is equivalent to
+$(\lambda_\chi p)e^{\lambda_\chi p}\ge\lambda_\chi D/\varepsilon$.
+The top tensor has $m^{p_\varepsilon}$ \emph{fixed} entries, and direct work
+is $O(m^{p_\varepsilon})$ per evaluation.  Depth is already combined into
+these kernels.  For fixed $m\ge2$ and $\chi$, the moving count is
+$\asymp[D/(\varepsilon\log(D/\varepsilon))]^{\log m/\lambda_\chi}$.
+Tanh analyticity alone does not supply these uniform kernel bounds;
+$\chi\ge1$ makes this certificate inconclusive.  Population use requires
+$U,V,R$ independent of the approximation resources.  Finite-width initial
+coefficients also require a width-error allowance; with population
+coefficients, their construction and approximation are fixed-resource costs.
+
+\paragraph{Scope of the published estimate.}
+After exchanging their width/sample symbols, \citet[Theorem~2.6]{huang2020nth}
+give the training RMS bound
+\begin{align}
+ \frac{\norm{f(t)-\widetilde f(t)}_2}{\sqrt m}
+ &\lesssim\frac{(1+t)t^{p-1}}{n^{p/2}}\min\{t,m/\lambda\},\nonumber\\
+ t&\le\min\left\{\frac{c\sqrt{\lambda n/m}}{(\log n)^C},
+ \frac{n^{p/[2(p+1)]}}{(\log n)^{C'}}\right\}.
+\label{cmp:published-nth}
+\end{align}
+Time uses the source loss convention; a factor-two time rescaling changes
+constants, not these powers.
+This uses their high-probability initialization setting and parameterization,
+even $p$, bounded
+activation derivatives through $2p+1$, nondegenerate bounded inputs with
+uniformly independent subsets through size $2p+1$, and an initial kernel
+eigenvalue exceeding $\lambda$.  Three vectors in two dimensions violate the
+subset assumption.  Their small higher-kernel estimates do not establish
+\eqref{cmp:nth-bound}'s population hypotheses for our feature-learning flow;
+their training RMS estimate is not a whole-test-function estimate.
+
+\paragraph{Whole-function evaluation and time analyticity.}
+Set $u_a=-2\widetilde r_a/m$, $I_\varnothing=1$, and
+$\dot I_{a_1\cdots a_k}=u_{a_1}I_{a_2\cdots a_k}$ with zero initial values
+for nonempty words.  Repeated integration of the triangular system gives
+\begin{equation}
+ \widetilde f_p(t,x)=f_0(x)+\sum_{k=1}^{p-1}\sum_{a_1,\ldots,a_k}
+ K_0^{(k+1)}(x,x_{a_1},\ldots,x_{a_k})I_{a_1\cdots a_k}(t).
+ \label{cmp:signature}
+\end{equation}
+This uses the same number of moving coefficients as the direct hierarchy;
+one query needs that many contractions \emph{plus} the cost of the fixed
+mixed-kernel evaluators.  When $m=1$, $I_k=s^k/k!$ and $\dot s=u$, so one
+moving scalar suffices and order dependence remains in fixed coefficients
+and evaluation.  These counts are therefore representation costs, not lower bounds.
+
+Truncation is not a time-Taylor polynomial.  For the scalar model
+$f(\theta)=\theta^2$, loss $f^2$, target zero and unit mobility,
+$f_0>0$ gives $\dot\theta=-4\theta^3$, $f(t)=f_0/(1+8f_0t)$ and
+$K^{(j)}=4^{j-1}f$.  Its time-Taylor radius is $1/(8f_0)$, but
+\eqref{cmp:signature} becomes
+$\widetilde f_p=f_0\sum_{k=0}^{p-1}(4s)^k/k!$, $\dot s=-2\widetilde f_p$.
+The exact scalar field replaces the sum by $e^{4s}$, with solution
+$s=-\tfrac14\log(1+8f_0t)$.  On a compact neighborhood of this path for any
+finite $T$, the polynomial fields and their derivatives converge uniformly.
+Subtracting the ODEs gives a vanishing forcing and a uniform Lipschitz
+coefficient; Gronwall and first exit give convergence on $[0,T]$.
+Thus a finite time-Taylor radius is no universal barrier for NTH.
+
+\subsection{A specified streamed DMFT solver}
+\label{app:comparison-dmft}
+
+The sampled self-consistency algorithm of
+\citet[Appendix~B, Algorithm~1]{bordelon2022dmft} stores layerwise covariance
+and response kernels indexed by input and time pairs.  Each sweep updates
+predictions, factors Gaussian covariances, samples paths, solves their causal
+equations and response Jacobians, and averages products and derivatives.
+Matching its feature-learning scale to ours requires $\gamma=\sqrt n$,
+internal coordinates $U^{(\ell)}=\sqrt nW^{(\ell)}$, and the same readout
+law and loss normalization.  A fixed-program Tensor Programs limit
+\citep[Algorithm~1, Theorem~7.4]{yang2021tensor} does not itself prescribe
+this numerical solver or a uniform numerical error estimate.
+
+For $K$ time steps, $S$ paths and $I$ sweeps, a dense covariance factor costs
+$O((mK)^3)$ per layer.  Dense triangular solves for a full samplewise
+response Jacobian cost at most the same per path.  Streaming one path and
+Jacobian while accumulating kernel averages therefore permits
+\begin{equation}
+ M_{\rm D}=O(Hm^2K^2),\qquad
+ C_{\rm D,total}=O(IH(S+1)m^3K^3),\qquad
+ C_{\rm D,step}=O(IH(S+1)m^3K^2).
+ \label{cmp:dmft-cost}
+\end{equation}
+The last cost is amortized; memory includes kernel and Jacobian workspace.
+These are implementable upper bounds, not framework-wide lower bounds.
+Passive test prediction requires mixed kernels and test paths as well.
+
+To justify an error model, suppose the discrete self-consistency map
+$\mathcal F$ is a $\kappa$-contraction, $\kappa<1$, on a common domain,
+in a norm controlling test outputs, has fixed point $z_*$, and the sampled map
+$\widehat{\mathcal F}$ differs
+uniformly by at most $\zeta$.  For a computed point $\widehat z$ with residual
+$\norm{\widehat z-\widehat{\mathcal F}(\widehat z)}\le\eta_0$, the triangle
+inequality gives
+$\norm{\widehat z-z_*}\le\eta_0+\zeta+\kappa\norm{\widehat z-z_*}$.
+A Lipschitz output map, uniform RMS sampling control and a stable order-$r$
+time approximation would thus yield
+\begin{equation}
+ \mathcal E_Q\le A_{\rm D}S^{-1/2}+B_{\rm D}(T/K)^r+\eta,
+ \qquad \eta\le C\eta_0/(1-\kappa).
+ \label{cmp:dmft-error}
+\end{equation}
+The constants include stability amplification.  The cited papers do not
+establish these hypotheses uniformly as the grid grows for this model.
+Setting $S=n$ matches a sampling exponent, not the covariance of finite-network
+fluctuations \citep{bordelon2023finite}.
+
+Since streaming makes leading memory independent of $S$, its continuous
+memory infimum has $K_{\inf}=T(B_{\rm D}/\varepsilon)^{1/r}$ and
+$M_{\inf}\asymp Hm^2T^2B_{\rm D}^{2/r}\varepsilon^{-2/r}$.
+A finite feasible allocation reserves $\beta\varepsilon$, $0<\beta<1$,
+for sampling and iteration: take
+$K=\lceil T[B_{\rm D}/((1-\beta)\varepsilon)]^{1/r}\rceil$,
+$S\ge(2A_{\rm D}/(\beta\varepsilon))^2$, and
+$\eta\le\beta\varepsilon/2$.  Approaching the infimum increases work.
+Optimizing numerical order requires additional regularity, constants and
+stage costs; there is no intrinsic DMFT accuracy exponent here.
+
+A distinct finite-width baseline stores every Euler update exactly:
+\[
+ W^{(\ell)}_k=W^{(\ell)}_0-\frac{2\Delta}{nm}
+ \sum_{j<k,a}r_{a,j}\delta^{(\ell)}_{a,j}(h^{(\ell-1)}_{a,j})^\top.
+\]
+Its moving memory is $O(HmnK)$, fixed memory $O(Hn^2)$ and late-step work
+$O(Hmn^2+Hm^2nK)$.  A fixed-stage order-$r$ method has the same storage
+order; with error $A/\sqrt n+D_{\rm h}(T/K)^r$, optimizing as above gives
+$M_*\asymp HmA^2T D_{\rm h}^{1/r}\varepsilon^{-(2+1/r)}$.
+This stores finite-network updates and is not Tensor Programs sampling.
+
+\subsection{A sharper estimate for the original joint clock}
+\label{app:comparison-joint}
+
+Keep exactly $\dot\tau=\rho+\norm{\dot\Psi}_2$, with its matching prefix.
+Define
+\[
+M_T=1+\int_0^T\rho\dd t,\qquad
+V_T=\frac{1}{\sqrt{nm}}\int_0^T\norm{\dot\Psi}_2\dd t,\qquad
+\tau_T=M_T+\sqrt{nm}V_T.
+\]
+The insertion measure has mass $M_T$, while the normalized history
+$F(\xi)=\Psi(\xi)/\sqrt{nm}$ is $1/\sqrt{nm}$-Lipschitz.
+
+We need a dimension-independent polynomial approximation fact.  If a
+Hilbert-valued $F$ is $L$-Lipschitz on $[0,\tau]$, then some polynomial
+of degree below $P$ has uniform error at most $C_JL\tau/P$.
+To prove it, extend $G(v)=F(\tau(1+\cos v)/2)$ evenly and periodically and
+convolve with the normalized positive trigonometric polynomial
+$J_N(v)=Z_N^{-1}[\sin(Nv/2)/\sin(v/2)]^4$.
+On $[-\pi,\pi]$ the ratio is bounded by $\min(N,\pi/|v|)$ and is at least
+$cN$ near zero.  Splitting its integrals at $1/N$ gives $Z_N\asymp N^3$
+and $\int|v|J_N(v)\dd v\le C/N$.
+The Hilbert norm triangle inequality bounds convolution error by
+$C L\tau/N$.  The convolution is even, hence a polynomial in $\cos v$
+of degree at most $2N-2$.  Take $N=\lfloor(P+1)/2\rfloor$ for $P\ge2$;
+a constant polynomial handles $P=1$.
+
+The weighted projection is no worse than this uniform approximation in
+$L^2(\mu_T)$.  Using the projection energies and product defect of
+\eqref{eq:defect-energy} therefore gives
+\begin{equation}
+ \int_0^T\sum_{\ell=2}^H\norm{E_\ell}_F\dd t
+ \le \frac{1}{nm}\sum_{\ell,a}(D_{h,\ell,a}+D_{b,\ell,a})
+ \le \frac{C_J^2M_T}{P^2}
+       \left(\frac{M_T}{\sqrt{nm}}+V_T\right)^2.
+ \label{cmp:weighted-jackson}
+\end{equation}
+The first inequality is Cauchy--Schwarz in time followed by
+$2\sqrt{ab}\le a+b$; the second uses the actual insertion mass rather than
+Lebesgue mass $\tau_T$.  No clock or algorithm has changed.  Width-uniform
+history mass, normalized variation, feedback stability and continuation
+thresholds would turn this into a uniform prediction estimate.  Establishing
+those controls, and the matched width rate, remains the population gap.
