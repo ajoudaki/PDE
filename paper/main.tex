@@ -51,14 +51,14 @@ History-based descriptions such as Tensor Programs and dynamical mean-field
 theory remove explicit width dependence while retaining temporal response objects.
 We show that the history itself is compressible.  Measured in a clock that runs
 at the speed of learning, each neuron's forward and backward response history is
-summarized by $P$ shifted-Legendre moments.  The resulting autonomous system has
+summarized by $q$ shifted-Legendre moments.  The resulting autonomous system has
 a fixed number of coordinates throughout a prescribed finite horizon.  At
 every fixed width and finite depth, under the stated activation regularity,
-it tracks the whole parameter trajectory with error $O_T(P^{-1})$, or
-$O_T(P^{-2})$ with a second, joint clock.  Pairing forward and backward
+it tracks the whole parameter trajectory with error $O_T(q^{-1})$, or
+$O_T(q^{-2})$ with a second, joint clock.  Pairing forward and backward
 memories makes the compression defect a product of two projection errors.
 As a corollary, every learned hidden-weight increment on that horizon lies
-within $O_T(P^{-1})$ of a rank-$mP$ matrix generated online from response moments,
+within $O_T(q^{-1})$ of a rank-$mP$ matrix generated online from response moments,
 where $m$ is the sample count.  The initialized matrices are retained.
 Small orders closely reproduce dense fitted predictions in whole-circle RMS
 and on held-out MNIST inputs, and outperform the frozen and directly trained
@@ -159,13 +159,13 @@ Whether exact deep nonlinear dynamics admit finitely many population fields
 remains open.
 \item \emph{Training history is compressible in time} (\Cref{sec:memory}).  For
 networks of any fixed finite width and depth, replacing each neuron's forward and backward history by
-$P$ Legendre moments in a learning-speed clock gives an autonomous system whose
+$q$ Legendre moments in a learning-speed clock gives an autonomous system whose
 state is fixed on the chosen horizon and whose trajectory is within
-$O_T(P^{-1})$ of gradient flow, or $O_T(P^{-2})$ with a joint clock
+$O_T(q^{-1})$ of gradient flow, or $O_T(q^{-2})$ with a joint clock
 (\Cref{thm:old,thm:new}).  The difficulty is feedback: the memorized signals
 depend on the approximation itself.
 \item \emph{A structural consequence} (\Cref{cor:rank}).  Every learned weight
-increment is, on a finite horizon, within $O(1/P)$ of a rank-$mP$ matrix built
+increment is, on a finite horizon, within $O(1/q)$ of a rank-$mP$ matrix built
 from the network's own response moments.
 \item \emph{Evolving memories are what matter} (\Cref{sec:experiments}).  Small
 orders closely reproduce the fitted circle function and held-out MNIST
@@ -230,13 +230,13 @@ trajectories separate; we ask for the stronger, global notion.
 
 \begin{definition}[Global approximation on compact horizons]
 \label{def:global}
-Autonomous systems indexed by an order $P$, with trajectories $\theta_P$,
+Autonomous systems indexed by an order $q$, with trajectories $\theta_q$,
 \emph{globally approximate} a reference flow $\theta$ if for every $T<\infty$
 \[
-  \sup_{0\le t\le T}\norm{\theta_P(t)-\theta(t)}\longrightarrow0
-  \qquad(P\to\infty).
+  \sup_{0\le t\le T}\norm{\theta_q(t)-\theta(t)}\longrightarrow0
+  \qquad(q\to\infty).
 \]
-The rate in $P$ quantifies the trade-off between the size of the compressed
+The rate in $q$ quantifies the trade-off between the size of the compressed
 state and its accuracy.
 \end{definition}
 The size in question is the \emph{moving state} of a description: the numbers
@@ -341,13 +341,13 @@ fast when the residual is large and slow as it approaches zero.  This speed is
 the square root of loss, not its time derivative; it need not stop at a
 positive-loss stationary point.  The unit prefix
 $[0,1]$ carries the initial forward responses and no backward response.  For
-each hidden link $\ell\ge2$ and sample $a$ we store the first $P$ Legendre
+each hidden link $\ell\ge2$ and sample $a$ we store the first $q$ Legendre
 moments, in the clock coordinate, of the forward response $h_a^{(\ell-1)}$ and
 of the residual-weighted backward response $r_a\delta_a^{(\ell)}/\rho$:
 \[
  \bar h^{(\ell-1)}_{a,k}=\int_0^{\tau} h_a^{(\ell-1)}\,p_k(\xi/\tau)\dd\xi,\qquad
  \bar\delta^{(\ell)}_{a,k}=\int_0^{\tau}\frac{r_a\delta_a^{(\ell)}}{\rho}\,
- p_k(\xi/\tau)\dd\xi,\qquad 0\le k<P,
+ p_k(\xi/\tau)\dd\xi,\qquad 0\le k<q,
 \]
 where $\xi$ is the clock value at which each response was recorded.  By
 \eqref{eq:triangular} these moments obey the closed system
@@ -362,17 +362,17 @@ with $\bar h^{(\ell-1)}_{a,0}(0)=h_a^{(\ell-1)}(0)$ and all other moments zero, 
 the hidden matrices are reconstructed as
 \begin{equation}
  \widehat W^{(\ell)}=W_0^{(\ell)}-\frac{2}{nm\tau}
- \sum_{a=1}^m\sum_{k=0}^{P-1}(2k+1)\,
+ \sum_{a=1}^m\sum_{k=0}^{q-1}(2k+1)\,
  \bar\delta^{(\ell)}_{a,k}\,(\bar h^{(\ell-1)}_{a,k})^\top .   \label{eq:old-recon}
 \end{equation}
 All responses in \eqref{eq:old-ode} are evaluated in the current
 \emph{reconstructed} network, and the first layer and readout follow
 \eqref{eq:dense-flow}.  The system is autonomous and never divides by $\rho$.
-Equivalently, with $\Pi_P$ the $L^2(0,\tau)$ projection onto polynomials of
-degree below $P$,
+Equivalently, with $\Pi_q$ the $L^2(0,\tau)$ projection onto polynomials of
+degree below $q$,
 \begin{equation}
  \widehat W^{(\ell)}=W_0^{(\ell)}-\frac{2}{nm}\sum_a
- \int_0^\tau\Bigl(\Pi_P\frac{r_a\delta_a^{(\ell)}}{\rho}\Bigr)
+ \int_0^\tau\Bigl(\Pi_q\frac{r_a\delta_a^{(\ell)}}{\rho}\Bigr)
  \bigl(\Pi_Ph_a^{(\ell-1)}\bigr)^\top\dd\xi,               \label{eq:projection-form}
 \end{equation}
 and since cross terms vanish by orthogonality, the error in each matrix update is
@@ -391,7 +391,7 @@ forward and backward responses,
 so that the whole response path moves at unit speed at most in the clock
 coordinate.  History is placed by this clock but still weighted by the residual
 mass $\rho\dd t$, so the Legendre modes are no longer orthogonal and one shared
-$P\times P$ Gram matrix is tracked alongside the moments; the reconstruction uses
+$q\times q$ Gram matrix is tracked alongside the moments; the reconstruction uses
 its inverse, the defect keeps the product form, and the clock speed can be
 evaluated explicitly by one directional forward and backward pass
 (\Cref{app:proof-new}).
@@ -403,16 +403,16 @@ The coordinate change is illustrated in \Cref{fig:clock} (\Cref{app:proof-new}).
 \label{thm:old}
 Fix finite width, depth $L\ge2$, arbitrary finite data and a finite
 initialization, and let every activation be in $C^{1,1}_{\mathrm{loc}}(\R)$.  For
-every $T<\infty$ and all sufficiently large $P$ the closure exists uniquely on
+every $T<\infty$ and all sufficiently large $q$ the closure exists uniquely on
 $[0,T]$ and
 \[
- \sup_{0\le t\le T}\norm{\widehat\theta_P(t)-\theta(t)}=O_T(P^{-1}),
+ \sup_{0\le t\le T}\norm{\widehat\theta_q(t)-\theta(t)}=O_T(q^{-1}),
 \]
-where the threshold on $P$ and the implied constant depend on $T$, the width,
-depth, data and initialization but not on $P$.
+where the threshold on $q$ and the implied constant depend on $T$, the width,
+depth, data and initialization but not on $q$.
 The rate extends to hidden responses and to predictions on any bounded set of
 unseen inputs.  If $\phi$ and $\phi'$ are bounded (tanh, sigmoid, arctangent,
-sine), it holds for every $P\ge1$.  No assumption of successful fitting, Gaussian
+sine), it holds for every $q\ge1$.  No assumption of successful fitting, Gaussian
 initialization, input geometry or label structure is made.
 \end{theorem}
 
@@ -420,9 +420,9 @@ initialization, input geometry or label structure is made.
 \label{thm:new}
 Under the setting of \Cref{thm:old}, assume the activations of layers $\ell\ge2$
 are in $C^{2,1}_{\mathrm{loc}}$ and $\rho(0)>0$.  For every $T$ and all
-sufficiently large $P$ the closure exists uniquely on $[0,T]$, its clock stays
-bounded independently of $P$, and
-$\sup_{t\le T}\norm{\widehat\theta_P(t)-\theta(t)}=O_T(P^{-2})$.
+sufficiently large $q$ the closure exists uniquely on $[0,T]$, its clock stays
+bounded independently of $q$, and
+$\sup_{t\le T}\norm{\widehat\theta_q(t)-\theta(t)}=O_T(q^{-2})$.
 \end{theorem}
 
 What separates this from approximating a given signal, as in HiPPO, is feedback:
@@ -431,14 +431,14 @@ the memories, so approximation errors change the signals they approximate.  Both
 proofs (\Cref{app:proof-old,app:proof-new}) rest on three facts: an exact
 identity for the growth of the projection error of each history; the product
 structure of the defect; and the Legendre tail bound
-$\norm{v-\Pi_Pv}^2\le\tau^2\norm{v'}^2/(4P(P+1))$.  With the learning-speed clock
-the forward histories have $P$-independent derivative bounds while backward
-histories only need bounded mass, giving $O(P^{-1})$; with the joint clock the
+$\norm{u-\Pi_Pu}^2\le\tau^2\norm{u'}^2/(4q(q+1))$.  With the learning-speed clock
+the forward histories have $q$-independent derivative bounds while backward
+histories only need bounded mass, giving $O(q^{-1})$; with the joint clock the
 whole path is unit speed once the clock is shown to be bounded, both factors
-contribute, and the rate is $O(P^{-2})$.  Two steps carry the difficulty.  In
+contribute, and the rate is $O(q^{-2})$.  Two steps carry the difficulty.  In
 the learning-speed clock, bounding forward histories through the layers
-requires the reconstructed velocity, whose memory endpoint term grows like $P$;
-it is cancelled exactly by the $P^{-1}$ projection factor, which is why the rate
+requires the reconstructed velocity, whose memory endpoint term grows like $q$;
+it is cancelled exactly by the $q^{-1}$ projection factor, which is why the rate
 does not degrade with depth.  In the joint clock, the clock itself must be
 bounded without assuming it, which we do through an order-independent bound on
 the total variation of the trajectory.  Gronwall's inequality and a first-exit
@@ -446,13 +446,13 @@ argument then transfer the accumulated defect to the trajectory.
 
 \begin{corollary}[Learned increments are low-rank in their own history]
 \label{cor:rank}
-Under \Cref{thm:old}, for every $T$ and all sufficiently large $P$, each dense
+Under \Cref{thm:old}, for every $T$ and all sufficiently large $q$, each dense
 learned hidden increment $W^{(\ell)}(t)-W^{(\ell)}_0$, $2\le\ell\le L$ and
-$0\le t\le T$, is within $O_T(P^{-1})$ in Frobenius norm of the matrix
-$-\frac{2}{nm\tau}\sum_{a,k<P}(2k+1)\,\bar\delta^{(\ell)}_{a,k}(\bar h^{(\ell-1)}_{a,k})^\top$,
+$0\le t\le T$, is within $O_T(q^{-1})$ in Frobenius norm of the matrix
+$-\frac{2}{nm\tau}\sum_{a,k<q}(2k+1)\,\bar\delta^{(\ell)}_{a,k}(\bar h^{(\ell-1)}_{a,k})^\top$,
 which has rank at most $mP$ and is built from the moments of the closure's own
 responses.  Under \Cref{thm:new}, the joint-clock reconstruction, of rank at most
-$m(P+1)$, is within $O_T(P^{-2})$.
+$m(q+1)$, is within $O_T(q^{-2})$.
 \end{corollary}
 
 The corollary follows from the theorems because the reconstruction
@@ -468,14 +468,14 @@ $mP<n$, and its constant depends on width.
 \subsection{Cost and size at accuracy}
 \label{sec:size}
 
-With $L$ hidden layers, width $n$, $m$ samples and order $P$, each learned
+With $L$ hidden layers, width $n$, $m$ samples and order $q$, each learned
 $n\times n$ increment is carried by $2mP$ vectors of length $n$.  The moving
 internal state is $2(L-1)mnP$ numbers against $(L-1)n^2$ for the dense learned
 matrices; it does not grow with training time and is smaller whenever $2mP<n$.
 The initialized matrices, $(L-1)n^2$ numbers, are kept as a fixed source.  Per
 step, applying $W_0^{(\ell)}$ and its transpose costs $O(mn^2)$ per layer as in
 dense training, the learned correction $O(m^2nP)$ per layer, and the moment
-update $O(LmnP)$; the joint clock adds an $O(P^3)$ Gram factorization and
+update $O(LmnP)$; the joint clock adds an $O(q^3)$ Gram factorization and
 $O(LmnP^2)$ solves.
 
 Read as a trade-off, \Cref{thm:old,thm:new} say that, at fixed width and
@@ -486,7 +486,7 @@ on the same network are exact.  The learned increment can always be carried
 by its own history, since summing the updates
 $-\frac{2}{nm}r_a\delta^{(\ell)}_a(h^{(\ell-1)}_a)^\top$ over the steps taken
 is an identity; that costs $mn$ numbers per step and grows with training.  And
-the dense increment itself is $n^2$ numbers.  Against the first, the order $P$
+the dense increment itself is $n^2$ numbers.  Against the first, the order $q$
 replaces the number of steps; against the second, $2mP$ replaces $n$.  Both are
 consequences of the theorems, not of a hypothesis.  What they do not say is how
 the constants grow with the horizon or the width, and this is why the
@@ -504,26 +504,26 @@ dense training in our experiments.
 
 The theorems hold at every fixed width, for every realized initialization.  At
 the population level they suggest the following picture, which we state as an
-interpretation, not a result.  For each layer and sample, the $P$ forward and
-$P$ backward moments are random variables over neurons, and the learned action
+interpretation, not a result.  For each layer and sample, the $q$ forward and
+$q$ backward moments are random variables over neurons, and the learned action
 of $W^{(\ell)}$ becomes
 $g\mapsto-\frac{2}{m\tau}\sum_{a,k}(2k+1)\,\bar\delta^{(\ell)}_{a,k}\,
 \E_{\ell-1}[\bar h^{(\ell-1)}_{a,k}\,g]$: finitely many neuron-level memory
 fields, coupled through the initialized operator.  A width-$n$ network would then
 be a Monte Carlo simulation of this system.  What is proved is only a diagonal
 statement: if finite-width flows converge to a population flow on $[0,T]$,
-choosing $n_j\to\infty$ and then $P_j$ large enough at each width yields
+choosing $n_j\to\infty$ and then $q_j$ large enough at each width yields
 systems in the response-memory family converging to it.  This diagonal
 argument alone does not ensure $mP_j<n_j$ or a compression gain.
 The natural next theorem is the following.
 
 \begin{conjecture}[Fixed-order population closure]
 \label{conj:population}
-For each fixed $P$, as $n\to\infty$ the order-$P$ response-memory closure
+For each fixed $q$, as $n\to\infty$ the order-$q$ response-memory closure
 converges on compact horizons to a limiting system consisting of the initialized
 operators and finitely many neuron-level memory fields per layer and sample; and
-this limit tracks population gradient flow with error $O_T(P^{-1})$, or
-$O_T(P^{-2})$ with the joint clock, uniformly in width.
+this limit tracks population gradient flow with error $O_T(q^{-1})$, or
+$O_T(q^{-2})$ with the joint clock, uniformly in width.
 \end{conjecture}
 
 The limit in the conjecture would be a time-local, finite-order description of
@@ -556,13 +556,13 @@ inferred from endpoints.
 
 \paragraph{Learning in physical time.}
 \Cref{fig:trajectory} follows the paired-label circle task with two hidden tanh
-layers of width $2048$. Dense training and orders $P=1,3,7$ have predictions
+layers of width $2048$. Dense training and orders $q=1,3,7$ have predictions
 saved at the same 39 physical times between $0$ and $80$, with denser,
 approximately logarithmic spacing from $0.5$ onward. Four snapshots
 show the function developing from the common initialization.  Over all
 shared snapshots, on $2048$ uniform circle queries against the finer dense
-replay, the RMS discrepancy stays below $0.071$ for $P=1$, $0.0059$ for
-$P=3$ and $0.00018$ for $P=7$; the full curves are in \Cref{fig:trajectory-rms}
+replay, the RMS discrepancy stays below $0.071$ for $q=1$, $0.0059$ for
+$q=3$ and $0.00018$ for $q=7$; the full curves are in \Cref{fig:trajectory-rms}
 (\Cref{app:supp-figs}), together with the numerical sensitivity scale obtained
 by summing the dense and closure coarse/fine prediction changes, which the
 smallest discrepancies approach.  The replay preserves the original
@@ -575,7 +575,7 @@ certify the error between observations.
  \includegraphics[width=\textwidth]{figures/trajectory.pdf}
  \caption{\textbf{Learning at common physical times.} Paired-label task, two
  hidden tanh layers, width $2048$: saved functions of dense training and of
- response memory at orders $P=1,3,7$ at the same physical times $t=0,5,20,80$.
+ response memory at orders $q=1,3,7$ at the same physical times $t=0,5,20,80$.
  Radius is $3+f(\theta)$, the dashed ring marks $f=0$ and the light rings
  $f=\pm1$; black dots are training labels.  The RMS discrepancies at all $39$
  shared times are in \Cref{fig:trajectory-rms}.}
@@ -597,7 +597,7 @@ A supplementary four-hidden-layer ReLU example on the sphere appears in
  \centering
  \includegraphics[width=\textwidth]{figures/circles_deep.pdf}
  \caption{\textbf{The fitted function across five tasks.} Three hidden tanh
- layers, width $4096$, and memory orders $P=1,2,3$, at each model's training-MSE
+ layers, width $4096$, and memory orders $q=1,2,3$, at each model's training-MSE
  $10^{-3}$ endpoint. Angle represents input direction; radius is $3+f(\theta)$,
  the dashed ring marks $f=0$ and the light rings $f=\pm1$.
  The thick grey curve is dense training, coloured curves are response memory,
@@ -608,16 +608,16 @@ A supplementary four-hidden-layer ReLU example on the sphere appears in
 
 In two hidden layers (\Cref{fig:shallow}, \Cref{tab:circle} in \Cref{app:circle-gallery}),
 the fitted-function discrepancy falls by 1.5--3 orders
-of magnitude from $P=1$ to $P=7$ on every task. In three hidden layers, $P=2$
-and $P=3$ have RMS differences below $0.06$ on all five tasks, and below
-$0.01$ on three. Order is not monotone at these small values: $P=2$ beats
-$P=3$ on both alternating tasks; the observed numerical sensitivity is two
+of magnitude from $q=1$ to $q=7$ on every task. In three hidden layers, $q=2$
+and $q=3$ have RMS differences below $0.06$ on all five tasks, and below
+$0.01$ on three. Order is not monotone at these small values: $q=2$ beats
+$q=3$ on both alternating tasks; the observed numerical sensitivity is two
 orders of magnitude below these differences, and no power law is fitted
 (\Cref{fig:order}, \Cref{app:supp-figs}).  The hidden features move
 substantially: the \emph{absolute} activation RMS
 changes from initialization are $0.35$--$0.65$, $0.38$--$0.74$ and
 $0.46$--$0.68$ in the three layers, across the 20 finest dense and closure runs.
-The moving state at $P=3$ is about $3$\,MiB against $256$\,MiB for the dense
+The moving state at $q=3$ is about $3$\,MiB against $256$\,MiB for the dense
 learned matrices; retained initialized matrices are additional.
 
 Frozen dictionaries built at initialization are a different alternative:
@@ -635,7 +635,7 @@ All four fit the training labels to MSE approximately $0.001$, yet select
 different functions between those labels. On the alternating-label quadrant
 task, the frozen kernel has whole-circle RMS discrepancy $171.03$ from dense,
 the two factor seeds have discrepancies $0.6766$ and $1.5413$, and memory at
-$P=3$ has discrepancy $0.04561$. The kernel includes every parameter block with
+$q=3$ has discrepancy $0.04561$. The kernel includes every parameter block with
 the canonical mobilities; its construction and all five task comparisons are
 given in \Cref{app:factors,fig:controls-gallery}.
 
@@ -660,7 +660,7 @@ universal comparison with kernels or low-rank algorithms.
  Alternating-label quadrant task, eight training inputs, two hidden tanh
  layers and width $2048$. From left: dense training, the full frozen empirical
  NTK, directly trained factors at rank $24$ (two seeds), and response memory
- at $P=3$ with rank bound $24$. All start from the same physical network and
+ at $q=3$ with rank bound $24$. All start from the same physical network and
  are evaluated at their own training-MSE $0.001$ endpoints. Gray curves show
  the dense reference in each panel; black dots are training labels.
  Angle is input direction and radius is linear in output. The NTK panel uses
@@ -675,22 +675,22 @@ universal comparison with kernels or low-rank algorithms.
 \FloatBarrier
 \paragraph{MNIST.}
 With 100 training images and width $4096$, held-out discrepancies are
-$0.00325$, $0.00108$ and $0.00120$ for $P=1,2,3$, retaining the small
-deterioration from $P=2$ to $P=3$; the predictions and their signed residuals
+$0.00325$, $0.00108$ and $0.00120$ for $q=1,2,3$, retaining the small
+deterioration from $q=2$ to $q=3$; the predictions and their signed residuals
 are shown in \Cref{fig:mnist} (\Cref{app:supp-figs}).
 All models have identical test accuracy ($94.7\%$). With 1000 training images
 and width $1024$, the discrepancies are $0.019$, $0.0019$ and $0.0012$, with
-$97.5\%$ accuracy for dense, $P=2$ and $P=3$. Prediction fidelity and label
+$97.5\%$ accuracy for dense, $q=2$ and $q=3$. Prediction fidelity and label
 accuracy are separate observables.
 
 \FloatBarrier
 \paragraph{Two clocks.}
-The joint clock's better rate is asymptotic. At $P=5$ it improved some cases
+The joint clock's better rate is asymptotic. At $q=5$ it improved some cases
 (tanh alternating quadrant $0.0066\to0.0035$; GELU outliers $0.0020\to0.0010$)
 and was much worse on another (GELU alternating quadrant $0.013\to1.00$, reduced
 to $0.10$ by halving the step). Over an 82-configuration sweep, on the 65
 configurations where dense and all orders fit, the joint clock's median
-discrepancies were $0.031$, $0.013$ and $0.0066$ for $P=1,2,3$.
+discrepancies were $0.031$, $0.013$ and $0.0066$ for $q=1,2,3$.
 
 \section{Related work and comparison}
 \label{sec:related}
@@ -714,7 +714,7 @@ more than one hidden layer, feature learning at leading order; the order that
 buys accuracy; the moving state per hidden layer, with constant factors and
 fixed sources (the initialization $W_0$, the NTK matrix, the top NTH tensor)
 omitted; and how the error decreases in that order, uniform on a fixed horizon.
-$m$ samples, $n$ width, $d$ input dimension, $P$ the order of each row's own
+$m$ samples, $n$ width, $d$ input dimension, $q$ the order of each row's own
 model.  Tensor Programs are counted by the stored past responses and DMFT by
 its two-time kernels; the tangent hierarchy captures feature learning
 perturbatively, as an $n^{-1/2}$ correction in its own scaling, in which its
@@ -735,10 +735,10 @@ Neural tangent kernel \citep{jacot2018ntk} & \checkmark & \checkmark & & --- & $
 Multilayer mean field \citep{nguyen2023rigorous} & \checkmark & \checkmark & \checkmark & width $n$ & $n^2$ & $n^{-1/2}$\\
 Tensor Programs \citep{yang2021tensor} & \checkmark & \checkmark & \checkmark & steps & $mn\times$steps & exact, no rate\\
 DMFT \citep{bordelon2022dmft} & \checkmark & \checkmark & \checkmark & steps & $m^2\times$steps$^2$ & step size\\
-Tangent hierarchy \citep{huang2020nth} & \checkmark & \checkmark & (\checkmark) & kernels $P$ & $\sim m^{P-1}$ & $n^{-P/2}$\\
+Tangent hierarchy \citep{huang2020nth} & \checkmark & \checkmark & (\checkmark) & kernels $q$ & $\sim m^{q-1}$ & $n^{-q/2}$\\
 \midrule
-Response memory, speed clock & \checkmark & \checkmark & \checkmark & moments $P$ & $mnP$ & $P^{-1}$ (\Cref{thm:old})\\
-Response memory, joint clock & \checkmark & \checkmark & \checkmark & moments $P$ & $mnP+P^2$ & $P^{-2}$ (\Cref{thm:new})\\
+Response memory, speed clock & \checkmark & \checkmark & \checkmark & moments $q$ & $mnP$ & $q^{-1}$ (\Cref{thm:old})\\
+Response memory, joint clock & \checkmark & \checkmark & \checkmark & moments $q$ & $mnP+q^2$ & $q^{-2}$ (\Cref{thm:new})\\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -780,15 +780,15 @@ Our result is complementary: it keeps the neurons and compresses time.
 
 \paragraph{On the axis, paying in tuples of samples.}
 The Neural Tangent Hierarchy \citep{huang2020nth} evolves the outputs together
-with the tangent kernels of order $2,\dots,P$, the $j$-th a function of $j$
+with the tangent kernels of order $2,\dots,q$, the $j$-th a function of $j$
 training points, and closes by freezing the top kernel.  The hierarchy is an
 exact identity in any parametrization, and above order two it captures feature
 learning; the neural tangent kernel is its lowest truncation.  What it pays is
-combinatorial in the samples: the moving state through order $P$ is
-$\sum_{j=1}^{P-1}m^j\sim m^{P-1}$ scalars beneath a frozen tensor of $m^P$
+combinatorial in the samples: the moving state through order $q$ is
+$\sum_{j=1}^{q-1}m^j\sim m^{q-1}$ scalars beneath a frozen tensor of $m^q$
 entries (a direct count rather than a statement of that work), against a state
 linear in $m$ here.  Its published guarantee uses width-suppressed higher
-kernels: for even $P$ it gives an $n^{-P/2}$ factor multiplied by
+kernels: for even $q$ it gives an $n^{-q/2}$ factor multiplied by
 time-dependent terms, on
 a width-dependent horizon and under specified data and regularity assumptions.
 Those estimates cannot simply be transferred to the present scaling, where
@@ -796,7 +796,7 @@ feature and kernel evolution can remain order one.  The matched hierarchy
 still captures feature learning, but its truncation error must be controlled
 through higher-kernel growth (\Cref{app:comparison-nth}).
 Response memory controls the full parameter trajectory at fixed width, with a
-state linear in $P$ and an error decreasing polynomially in $P$.
+state linear in $q$ and an error decreasing polynomially in $q$.
 
 \paragraph{Memory and low rank.}
 HiPPO provides online Legendre projection of a given signal \citep{gu2020hippo};
@@ -966,21 +966,22 @@ Jiawei Zhao, Yifei Zhang, Beidi Chen, Florian Sch{\"a}fer, and Anima
 \label{app:proof-old}
 
 Throughout the appendices we write $b^{(\ell)}_a=r_a\delta^{(\ell)}_a/\rho$ for the
-residual-weighted backward response, $\bar h^{(\ell-1)}_a$ and $\bar b^{(\ell)}_a$
-for its and the forward response's histories in the clock coordinate $\xi$
-(extended over the unit prefix as in the main text), and $h^{(\ell-1)*}_a$,
-$b^{(\ell)*}_a$ for the values at the current endpoint of their degree-$(P-1)$
-Legendre projections.  The only approximation-theoretic input is the following
+residual-weighted backward response, $h^{(\ell-1)}_a(\xi)$ and $b^{(\ell)}_a(\xi)$
+for the forward and backward histories as functions of the clock coordinate
+$\xi$ (extended over the unit prefix as in the main text), $\bar h^{(\ell-1)}_a$
+and $\bar\delta^{(\ell)}_a$ for their moment matrices as in the main text, and
+$h^{(\ell-1)*}_a$, $b^{(\ell)*}_a$ for the values at the current endpoint of the
+degree-$(q-1)$ Legendre projections of the histories.  The only approximation-theoretic input is the following
 Legendre tail bound.
 
 \begin{lemma}[Legendre tail]
 \label{lem:legendre}
-For $q\in H^1(0,\tau;\R^N)$,
+For $u\in H^1(0,\tau;\R^N)$,
 \begin{equation}
- \norm{q-\Pi_Pq}_{L^2(0,\tau)}^2
- \le\frac{1}{P(P+1)}\int_0^\tau \xi(\tau-\xi)
- \norm{q'(\xi)}^2\dd\xi
- \le\frac{\tau^2}{4P(P+1)}\norm{q'}_{L^2(0,\tau)}^2. \label{eq:leg-tail}
+ \norm{u-\Pi_Pq}_{L^2(0,\tau)}^2
+ \le\frac{1}{q(q+1)}\int_0^\tau \xi(\tau-\xi)
+ \norm{u'(\xi)}^2\dd\xi
+ \le\frac{\tau^2}{4q(q+1)}\norm{u'}_{L^2(0,\tau)}^2. \label{eq:leg-tail}
 \end{equation}
 \end{lemma}
 
@@ -991,13 +992,13 @@ On $[0,1]$, the shifted Legendre equation is
 \]
 Integration by parts shows that the derivatives are orthogonal in the weight
 $x(1-x)$ and have squared norm $k(k+1)/(2k+1)$.  Applying Bessel's inequality
-to $q'$ in this weighted space gives
+to $u'$ in this weighted space gives
 \[
  \sum_{k\ge1}k(k+1)\frac{\norm{c_k}^2}{2k+1}
- \le\int_0^1x(1-x)\norm{q'(x)}^2\dd x,
+ \le\int_0^1x(1-x)\norm{u'(x)}^2\dd x,
 \]
-where $c_k=(2k+1)\int_0^1q(x)p_k(x)\dd x$.  Parseval, polynomial density and
-$k(k+1)\ge P(P+1)$ for $k\ge P$ give the first bound on $[0,1]$.
+where $c_k=(2k+1)\int_0^1u(x)p_k(x)\dd x$.  Parseval, polynomial density and
+$k(k+1)\ge q(q+1)$ for $k\ge q$ give the first bound on $[0,1]$.
 Rescaling and $\xi(\tau-\xi)\le\tau^2/4$ give
 \eqref{eq:leg-tail}; summing componentwise proves the vector statement.
 \end{proof}
@@ -1034,24 +1035,24 @@ Then $\norm{h_a^{(\ell)}}\le\alpha_\ell$ and
 $\norm{\delta_a^{(\ell)}}\le\beta_\ell$ on $\mathcal B$.  Put
 \begin{align}
  Y&=\left(m^{-1}\sum_a y_a^2\right)^{1/2},&
- q&=R\alpha_L/n+Y,& S&=Tq,& \mathsf A&=1+S,\nonumber\\
+ \varrho&=R\alpha_L/n+Y,& S&=Tq,& \mathsf A&=1+S,\nonumber\\
  v_1&=2\beta_1X,&
  v_\ell&=2\beta_\ell\alpha_{\ell-1}/n,& v_w&=2\alpha_L,\nonumber\\
- V&=\left(v_1^2+\sum_{\ell=2}^Hv_\ell^2+v_w^2\right)^{1/2}. \label{eq:compact-constants}
+ V&=\left(v_1^2+\sum_{\ell=2}^Lv_\ell^2+v_w^2\right)^{1/2}. \label{eq:compact-constants}
 \end{align}
-On the stopped interval, $\rho\le q$, $\tau\le\mathsf A$ and
+On the stopped interval, $\rho\le \varrho$, $\tau\le\mathsf A$ and
 $\norm{F}\le V\rho$.  Since $F$ is locally Lipschitz, it has some finite
 Lipschitz constant $\Lambda_F$ on $\mathcal B$.
 
 \paragraph{Step 2: an exact projection-error energy.}
-For any single forward or backward history $q$, let
-$D_q(t)=\norm{q-\Pi_Pq}_{L^2(0,\tau(t))}^2$, and let $q^*$ be the polynomial
+For any single forward or backward history $u$, let
+$D_u(t)=\norm{u-\Pi_Pq}_{L^2(0,\tau(t))}^2$, and let $u^*$ be the polynomial
 projection evaluated at the current endpoint.  Differentiating the raw energy
 and the projected energy with \eqref{eq:old-ode}, every basis-dilation term
 cancels, leaving
 \begin{equation}
- \dot D_q=\rho\norm{q-q^*}^2,
- \qquad D_q(t)=\int_0^t\rho(s)\norm{q(s)-q^*(s)}^2\dd s. \label{eq:projection-energy}
+ \dot D_u=\rho\norm{u-u^*}^2,
+ \qquad D_u(t)=\int_0^t\rho(s)\norm{u(s)-u^*(s)}^2\dd s. \label{eq:projection-energy}
 \end{equation}
 The jump at the end of the backward prefix is harmless, since only square
 integrability and growing integrals are used.
@@ -1059,7 +1060,7 @@ integrability and growing integrals are used.
 Next differentiate \eqref{eq:old-recon}.  The physical closure equation is
 exactly
 \begin{equation}
- \dot{\widehat\theta}_P=F(\widehat\theta_P)+E,\qquad E_1=E_w=0,
+ \dot{\widehat\theta}_q=F(\widehat\theta_q)+E,\qquad E_1=E_w=0,
 \end{equation}
 with internal defects
 \begin{equation}
@@ -1085,7 +1086,7 @@ Then $R_\ell(0)=0$ and $\dot R_\ell=E_\ell$, so \eqref{eq:defect-energy}
 controls the accumulated absolute velocity error, not only a signed endpoint
 integral.
 
-\paragraph{Step 3: forward histories have a $P$-independent derivative bound.}
+\paragraph{Step 3: forward histories have a $q$-independent derivative bound.}
 Before changing variables, note that a nonstationary learning-speed solution
 cannot first reach $\rho=0$ at a finite regular state.  Every raw velocity
 vanishes there, and local uniqueness applied backward from that equilibrium
@@ -1106,15 +1107,15 @@ the chain rule gives
  +\widehat W^{(\ell)}(h_a^{(\ell-1)})'\right].       \label{eq:forward-chain}
 \end{equation}
 The delicate term is the defect, because endpoint evaluation of a polynomial
-projection can amplify errors by a factor that grows with $P$.  Endpoint
-evaluation of a degree-$(P-1)$ polynomial has operator norm $P/\sqrt\tau$ from
-$L^2(0,\tau)$, because $\sum_{k<P}(2k+1)=P^2$.  Projection contraction and
+projection can amplify errors by a factor that grows with $q$.  Endpoint
+evaluation of a degree-$(q-1)$ polynomial has operator norm $q/\sqrt\tau$ from
+$L^2(0,\tau)$, because $\sum_{k<q}(2k+1)=q^2$.  Projection contraction and
 $m^{-1}\sum_a\norm{b^{(\ell)}_a}^2\le\beta_\ell^2$ then imply
 \[
- \left(m^{-1}\sum_a\norm{b^{(\ell)*}_a}^2\right)^{1/2}\le P\beta_\ell,
+ \left(m^{-1}\sum_a\norm{b^{(\ell)*}_a}^2\right)^{1/2}\le q\beta_\ell,
  \quad
  \left(m^{-1}\sum_a\norm{b^{(\ell)}_a-b^{(\ell)*}_a}^2\right)^{1/2}
- \le(P+1)\beta_\ell.
+ \le(q+1)\beta_\ell.
 \]
 Combining this with \Cref{lem:legendre}, \eqref{eq:projection-energy} and
 \eqref{eq:defect} yields
@@ -1123,10 +1124,10 @@ Combining this with \Cref{lem:legendre}, \eqref{eq:projection-energy} and
  \le\frac{2\beta_\ell^2\mathsf A^2}{n^2}
  Z_{\ell-1}(t).                                      \label{eq:e-square}
 \end{equation}
-Here the endpoint factor $P+1$ cancels the $P^{-1}$ projection factor.  This
+Here the endpoint factor $q+1$ cancels the $q^{-1}$ projection factor.  This
 cancellation is the step that prevents a loss of convergence order with depth.
 
-Define finite, $P$-independent bounds recursively by
+Define finite, $q$-independent bounds recursively by
 \begin{align}
  \overline Z_1&=S(s_1v_1X)^2,\nonumber\\
  \overline Z_\ell&=3s_\ell^2\left[
@@ -1143,27 +1144,27 @@ The zero backward prefix gives $m^{-1}\sum_aD_{b,\ell,a}\le S\beta_\ell^2$, and
 \Cref{lem:legendre} gives
 \[
  \frac1m\sum_aD_{h,\ell,a}
- \le\frac{\mathsf A^2\overline Z_{\ell-1}}{4P(P+1)}.
+ \le\frac{\mathsf A^2\overline Z_{\ell-1}}{4q(q+1)}.
 \]
 Summing \eqref{eq:defect-energy} over links, we obtain
 \begin{equation}
  \int_0^t\norm{E(s)}\dd s
- \le\frac{B_{\mathrm{LS}}}{\sqrt{P(P+1)}},\qquad
+ \le\frac{B_{\mathrm{LS}}}{\sqrt{q(q+1)}},\qquad
  B_{\mathrm{LS}}=\frac{\mathsf A}{n}
  \sum_{\ell=2}^L\beta_\ell\sqrt{S\overline Z_{\ell-1}}. \label{eq:old-defect-bound}
 \end{equation}
 It remains to account for feedback.  Subtracting the dense flow from the
 perturbed flow and applying the Lipschitz bound on $F$ gives
 \[
- e(t)\le\frac{B_{\mathrm{LS}}}{\sqrt{P(P+1)}}
+ e(t)\le\frac{B_{\mathrm{LS}}}{\sqrt{q(q+1)}}
  +\Lambda_F\int_0^te(s)\dd s,
 \]
 and Gronwall's inequality yields
 \begin{equation}
  \sup_{t\le T}e(t)\le
- \frac{B_{\mathrm{LS}}e^{KT}}{\sqrt{P(P+1)}}.       \label{eq:old-explicit}
+ \frac{B_{\mathrm{LS}}e^{\Lambda_FT}}{\sqrt{q(q+1)}}.       \label{eq:old-explicit}
 \end{equation}
-Choose $P_0$ so that the right side is less than $1/2$.  The closure then
+Choose $q_0$ so that the right side is less than $1/2$.  The closure then
 cannot reach $\partial\mathcal B$.  Its moment representations,
 $1\le\tau\le\mathsf A$ and the response bounds place its whole finite state in a
 compact subset of the locally Lipschitz domain.  A finite maximal endpoint would
@@ -1183,7 +1184,7 @@ For both the dense and the closure flows, the unchanged readout equation obeys
  \frac{\dd}{\dd t}\norm w^2
  =nY^2-4n\frac1m\sum_a(f_a-y_a/2)^2\le nY^2.
 \]
-Therefore $\norm w\le B_w$, $\rho\le q:=B_w\alpha_L/n+Y$, $S=Tq$ and
+Therefore $\norm w\le B_w$, $\rho\le \varrho:=B_w\alpha_L/n+Y$, $S=Tq$ and
 $\tau\le\mathsf A:=1+S$.  Start with $\beta_L=B_ws_L$ and proceed downward: for
 $\ell=L,\ldots,2$, define
 \[
@@ -1198,11 +1199,11 @@ the descent starts from the bounded readout.  Finally,
 \[
  \norm{W^{(1)}(t)}_F\le\norm{W^{(1)}(0)}_F+2SX\beta_1.
 \]
-These $P$-independent physical bounds, the moment integral representations and
-$1\le\tau\le\mathsf A$ place the order-$P$ state in a compact set for every
-fixed $P$, so the closure continues through $T$ for every $P\ge1$.  Repeating
+These $q$-independent physical bounds, the moment integral representations and
+$1\le\tau\le\mathsf A$ place the order-$q$ state in a compact set for every
+fixed $q$, so the closure continues through $T$ for every $q\ge1$.  Repeating
 Steps 2--4 with these global constants gives \eqref{eq:old-explicit} for every
-$P$.  This completes the proof. \qed
+$q$.  This completes the proof. \qed
 
 \section{\texorpdfstring{The joint feature-learning clock: construction and proof of \Cref{thm:new}}{The joint feature-learning clock: construction and proof}}
 \label{app:proof-new}
@@ -1231,11 +1232,11 @@ clock \eqref{eq:new-clock} reads $\dot\tau=g=\rho+\norm{\dot\Psi}_2$ and
 $\norm{\dd\Psi/\dd\tau}\le1$.  History is placed at $\xi=\tau(s)$ with mass
 $\rho(s)\dd s$, while the prefix $[0,1]$ carries Lebesgue mass and constant
 initial responses; the resulting measure $\mu_t$ satisfies $\dd\mu_t\le\dd\xi$.
-With $p=(p_0,\ldots,p_{P-1})^\top$ evaluated at $\xi/\tau$, $e=(1,\ldots,1)^\top$,
+With $p=(p_0,\ldots,p_{q-1})^\top$ evaluated at $\xi/\tau$, $e=(1,\ldots,1)^\top$,
 and the triangular matrix $\mathsf T_{kk}=k$, $\mathsf T_{kj}=2j+1$ for $j<k$
 (zero above the diagonal), the state consists of the moment matrices
-$\bar h^{(\ell-1)}_a=\int\bar h^{(\ell-1)}_a(\xi)\,p^\top\dd\mu_t$,
-$\bar\delta^{(\ell)}_a=\int\bar b^{(\ell)}_a(\xi)\,p^\top\dd\mu_t$ and one shared
+$\bar h^{(\ell-1)}_a=\int h^{(\ell-1)}_a(\xi)\,p^\top\dd\mu_t$,
+$\bar\delta^{(\ell)}_a=\int b^{(\ell)}_a(\xi)\,p^\top\dd\mu_t$ and one shared
 Gram matrix $G=\int pp^\top\dd\mu_t$, which evolve by
 \begin{align}
  \widehat W^{(\ell)}&=W_0^{(\ell)}-\frac{2}{nm}\sum_a
@@ -1247,7 +1248,7 @@ Gram matrix $G=\int pp^\top\dd\mu_t$, which evolve by
  \nonumber\\
  \dot G&=\rho\,ee^\top-(g/\tau)(\mathsf TG+G\mathsf T^\top),     \label{eq:new-ode}
 \end{align}
-with $G(0)=\diag(1,\tfrac13,\ldots,\tfrac1{2P-1})$, only the zeroth moment
+with $G(0)=\diag(1,\tfrac13,\ldots,\tfrac1{2q-1})$, only the zeroth moment
 columns nonzero initially, and the prefix product subtracted so that
 $\widehat W^{(\ell)}(0)=W_0^{(\ell)}$.  With $h^{(\ell-1)*}_a=\bar h^{(\ell-1)}_aG^{-1}e$
 and $b^{(\ell)*}_a=\bar\delta^{(\ell)}_aG^{-1}e$, differentiating the
@@ -1258,7 +1259,7 @@ of the same product form as \eqref{eq:defect}.
 \paragraph{Step 1: a lower bound on the dense residual.}
 Assume $\rho_0>0$ as stated, and use the compact physical ball $\mathcal B$ from
 \Cref{app:proof-old}.  Retain the constants
-$\alpha_\ell,\beta_\ell,q,S,\mathsf A,V,\Lambda_F$ from the proof of \Cref{thm:old}.  On
+$\alpha_\ell,\beta_\ell,\varrho,S,\mathsf A,V,\Lambda_F$ from the proof of \Cref{thm:old}.  On
 this ball the output map has a finite Lipschitz constant $c_f$: prediction and
 residual RMS change by at most $c_f\norm{\theta-\theta'}$.  Along dense flow,
 \[
@@ -1316,17 +1317,17 @@ any clock bound.
 
 \paragraph{Step 4: a clock bound without a cap.}
 It remains to control the derivative of the normalized response map.  Let
-$q_r=r/\rho\in\R^m$.  Then
+$\tilde r=r/\rho\in\R^m$.  Then
 \begin{equation}
- \norm{q_r}^2=m,\qquad
- Dq_r[v]=
- \left(I-\frac{q_rq_r^\top}{m}\right)\frac{Dr[v]}{\rho}. \label{eq:normalized-residual-derivative}
+ \norm{\tilde r}^2=m,\qquad
+ D\tilde r[v]=
+ \left(I-\frac{\tilde r\tilde r^\top}{m}\right)\frac{Dr[v]}{\rho}. \label{eq:normalized-residual-derivative}
 \end{equation}
 The matrix in parentheses is an orthogonal projector, and $\rho\ge\mu/2$ on the
 stopped interval.  Differentiating the forward and backward recurrences uses
 only bounded physical weights and bounded first two activation derivatives on
 compact preactivation intervals; the first layer uses only $\phi'$.  Hence
-there is a finite, $P$-independent constant $J$ such that
+there is a finite, $q$-independent constant $J$ such that
 \[
  \norm{D\Psi(\vartheta)}_{\rm op}\le J
 \]
@@ -1335,7 +1336,7 @@ derivative locally Lipschitz.  Since
 $\dot\Psi=D\Psi(\widehat\theta)\dot{\widehat\theta}$, \eqref{eq:coarse-new}
 now gives
 \begin{equation}
- \tau_P(t)=1+\int_0^t(\rho+\norm{\dot\Psi})\dd s
+ \tau_q(t)=1+\int_0^t(\rho+\norm{\dot\Psi})\dd s
  \le\mathsf A+J(VS+C_0)=:\Lambda_T.                 \label{eq:new-clock-bound}
 \end{equation}
 No clock cap has been assumed or inserted.
@@ -1348,14 +1349,14 @@ and, on the physical history,
  \norm{\partial_\xi\overline\Psi}
  =\frac{\norm{\dot\Psi}}{\rho+\norm{\dot\Psi}}\le1.
 \]
-Therefore $\int_0^{\tau_P}\norm{\overline\Psi'}^2\dd\xi\le \tau_P-1$.  The weighted
+Therefore $\int_0^{\tau_q}\norm{\overline\Psi'}^2\dd\xi\le \tau_q-1$.  The weighted
 projection is a best approximation in $L^2(\mu_t)$, and $\dd\mu_t\le\dd\xi$, so
 comparison with the ordinary Legendre projection and \Cref{lem:legendre} give
 the joint bound
 \begin{equation}
  \sum_{\ell,a}(D_{h,\ell,a}+D_{b,\ell,a})
- \le\frac{\tau_P^2(\tau_P-1)}{4P(P+1)}
- \le\frac{\Lambda_T^2(\Lambda_T-1)}{4P(P+1)}.       \label{eq:new-joint-tail}
+ \le\frac{\tau_q^2(\tau_q-1)}{4q(q+1)}
+ \le\frac{\Lambda_T^2(\Lambda_T-1)}{4q(q+1)}.       \label{eq:new-joint-tail}
 \end{equation}
 This is one estimate for the concatenated path; it does not introduce a
 separate dimension factor per unit or layer.
@@ -1365,40 +1366,40 @@ Combining \eqref{eq:defect-energy}, \eqref{eq:new-clock-bound},
 \eqref{eq:new-joint-tail} and $2\sqrt{uv}\le u+v$ yields
 \begin{equation}
  \int_0^t\norm E\dd s
- \le\frac{\Gamma_{\mathrm{JF}}}{P(P+1)},\qquad
+ \le\frac{\Gamma_{\mathrm{JF}}}{q(q+1)},\qquad
  \Gamma_{\mathrm{JF}}=\frac{\Lambda_T^2(\Lambda_T-1)}{4nm}.     \label{eq:new-sharp-defect}
 \end{equation}
 Subtracting the dense flow and applying the Lipschitz constant $\Lambda_F$ and Gronwall's
 inequality gives
 \begin{equation}
- \norm{\widehat\theta_P(t)-\theta(t)}
- \le\frac{\Gamma_{\mathrm{JF}}e^{KT}}{P(P+1)}.                  \label{eq:new-feedback}
+ \norm{\widehat\theta_q(t)-\theta(t)}
+ \le\frac{\Gamma_{\mathrm{JF}}e^{\Lambda_FT}}{q(q+1)}.                  \label{eq:new-feedback}
 \end{equation}
 
-Choose $P_0(T)$ so that, for every $P\ge P_0(T)$,
+Choose $q_0(T)$ so that, for every $q\ge q_0(T)$,
 \begin{equation}
- \frac{\Gamma_{\mathrm{JF}}e^{KT}}{P(P+1)}\le\frac12,\qquad
- c_f\frac{\Gamma_{\mathrm{JF}}e^{KT}}{P(P+1)}\le\frac\mu4.      \label{eq:new-order-condition}
+ \frac{\Gamma_{\mathrm{JF}}e^{\Lambda_FT}}{q(q+1)}\le\frac12,\qquad
+ c_f\frac{\Gamma_{\mathrm{JF}}e^{\Lambda_FT}}{q(q+1)}\le\frac\mu4.      \label{eq:new-order-condition}
 \end{equation}
 The first inequality rules out physical exit, because the dense path stays at
 distance one from $\partial\mathcal B$.  The second, together with
 \eqref{eq:dense-rho-lower}, gives $\widehat\rho\ge3\mu/4>\mu/2$, ruling out
 residual exit.
 
-Finally, the matching prefix supplies, at every fixed $P$,
+Finally, the matching prefix supplies, at every fixed $q$,
 \begin{equation}
- G(t)\succeq\int_0^1p(\xi/\tau_P(t))p(\xi/\tau_P(t))^\top\dd\xi. \label{eq:prefix-gram}
+ G(t)\succeq\int_0^1p(\xi/\tau_q(t))p(\xi/\tau_q(t))^\top\dd\xi. \label{eq:prefix-gram}
 \end{equation}
 The right side is positive definite, since a zero quadratic form would make a
 nonzero polynomial vanish on an interval.  Its entries vary continuously with
-$\tau_P$, so on $1\le \tau_P\le\Lambda_T$ its least eigenvalue has a positive minimum
-$\gamma_{P,T}$; this minimum need not be uniform in $P$.  The moment integral
+$\tau_q$, so on $1\le \tau_q\le\Lambda_T$ its least eigenvalue has a positive minimum
+$\gamma_{q,T}$; this minimum need not be uniform in $q$.  The moment integral
 representations, finite history mass, bounded responses and bounded
 fixed-order polynomials then bound every raw coordinate.  Together with the
 physical, residual, clock and Gram bounds, the full state lies in a compact
 subset of its locally Lipschitz domain.  A finite maximal endpoint therefore
-extends, which proves continuation through $T$ and completes the theorem with
-$C_T=\Gamma_{\mathrm{JF}}$ and $K_T=\Lambda_F$. \qed
+extends, which proves continuation through $T$ and completes the theorem,
+with implied constant $\Gamma_{\mathrm{JF}}e^{\Lambda_FT}$. \qed
 
 \subsection*{Implementation of the joint clock}
 \label{app:joint-impl}
@@ -1406,7 +1407,7 @@ $C_T=\Gamma_{\mathrm{JF}}$ and $K_T=\Lambda_F$. \qed
 Equation \eqref{eq:new-clock} appears implicit only because $\dot\Psi$ is
 written compactly; no nonlinear solve for $g$ is needed.  The internal
 velocities do not depend on $g$, so they can be computed first.  Begin with
-$q=G^{-1}e$, the endpoint fits $a^*,b^*$, and the internal velocities
+$G^{-1}e$, the endpoint fits $h^*,b^*$, and the internal velocities
 \begin{equation}
  V_\ell=\dot{\widehat W}^{(\ell)}=-\frac{2\rho}{nm}\sum_a
  \left[b^{(\ell)}_a(h^{(\ell-1)*}_a)^\top+
@@ -1433,7 +1434,7 @@ operator.  In practice one factors $G$ and solves linear systems; an explicit
 inverse is unnecessary.
 
 The joint clock is more regular in approximation coordinates, but it is not
-automatically better at low order.  At $P=1$ the polynomial space consists of
+automatically better at low order.  At $q=1$ the polynomial space consists of
 constants, so changing the coordinate alone leaves the physical constant-mode
 closure unchanged.  Higher orders pay for Gram solves and derivative passes,
 and the theoretical constants can be large.
@@ -1701,7 +1702,7 @@ width $4096$ (\Cref{fig:deep}).}
 \begin{tabular}{lrrr@{\qquad}rrr}
 \toprule
  & \multicolumn{3}{c}{two layers} & \multicolumn{3}{c}{three layers}\\
-Task & $P=1$ & $P=3$ & $P=7$ & $P=1$ & $P=2$ & $P=3$\\
+Task & $q=1$ & $q=3$ & $q=7$ & $q=1$ & $q=2$ & $q=3$\\
 \midrule
 Two outliers, alternating & 0.236 & 0.0730 & 0.00466 & 0.108 & 0.0238 & 0.0315\\
 Quadrant, alternating & 0.341 & 0.0456 & 0.00155 & 0.275 & 0.0284 & 0.0585\\
@@ -1716,7 +1717,7 @@ Equally spaced, mixed & 0.0124 & 0.00053 & $4\times10^{-6}$ & 0.0150 & 0.00241 &
  \centering
  \includegraphics[width=\textwidth]{figures/circles_shallow.pdf}
  \caption{Fitted circle predictions for two hidden tanh layers, width $2048$,
- and response-memory orders $P=1,3,7$, using the dense references in
+ and response-memory orders $q=1,3,7$, using the dense references in
  \Cref{tab:circle}. Models are evaluated at their individual training-MSE
  $10^{-3}$ endpoints. Angle is input direction and radius is $3+f(\theta)$;
  rings, training labels and RMS values follow \Cref{fig:deep}. RMS is measured
@@ -1733,13 +1734,13 @@ Equally spaced, mixed & 0.0124 & 0.00053 & $4\times10^{-6}$ & 0.0150 & 0.00241 &
  \caption{\textbf{A learned connection is a paired memory.}  (a)~For each
  hidden link and training sample, the forward response $h_a^{(\ell-1)}$ and the
  residual-weighted backward response $b_a=r_a\delta_a^{(\ell)}/\rho$ are
- recorded in the learning clock and projected onto the first $P$ shifted
- Legendre polynomials ($P=3$ shown).  The polynomial coordinates are fixed; the
+ recorded in the learning clock and projected onto the first $q$ shifted
+ Legendre polynomials ($q=3$ shown).  The polynomial coordinates are fixed; the
  moment vectors $\bar h_{a,k},\bar\delta_{a,k}\in\R^n$ keep moving.  Pairing
  them gives a correction of rank at most $mP$, added to the fixed
  initialization $W_0^{(\ell)}$, and the responses of the reconstructed network
  feed the next memories.  (b)~Splitting each history into its projection
- $\Pi_P$ and remainder, the exact interaction $\int b\,h^\top$ is a sum of four
+ $\Pi_q$ and remainder, the exact interaction $\int b\,h^\top$ is a sum of four
  pairings; the mixed ones vanish by orthogonality, so the memory misses only
  the product of the two omitted parts.}
  \label{fig:mechanism}
@@ -1759,13 +1760,15 @@ the MNIST predictions and residuals summarized in \Cref{sec:experiments}.
  two hidden tanh layers of width $512$ is trained by gradient descent on eight
  circle points, and the forward responses $h$ of one training input are
  recorded.  Top: three neurons over the whole of training in the
- learning-speed clock, with their projections onto $P=1,2,3$ Legendre modes
+ learning-speed clock, with their projections onto $q=1,2,3$ Legendre modes
  (mean, linear trend, quadratic shape).  These are projections fitted
  afterwards to the recorded dense histories, not trajectories of the closure.
  Above each panel, the median over all $512$ neurons of the RMS projection
  error divided by the range of that neuron's history; for the backward
  histories $r\delta/\rho$ the same numbers are $26\%$, $12\%$ and $10\%$.
- Bottom: across neurons each moment is a population; its distribution for the
+ Bottom: the plotted quantities are the normalized Legendre coefficients
+ $(2k+1)\bar h_k/\tau$ of the fitted projection, not the stored moments
+ $\bar h_k$; across neurons each coefficient is a population, shown for the
  history up to the midpoint of the learning clock and for the whole history,
  with the three neurons above marked.}
  \label{fig:moments}
@@ -1783,7 +1786,7 @@ the MNIST predictions and residuals summarized in \Cref{sec:experiments}.
  sensitivity scale, obtained by summing the dense and closure prediction
  changes between the two integration tolerances; it is a numerical
  diagnostic, not a confidence interval or a certified error bound, and the
- smallest discrepancies of $P=3$ and $P=7$ lie at that scale.}
+ smallest discrepancies of $q=3$ and $q=7$ lie at that scale.}
  \label{fig:trajectory-rms}
 \end{figure}
 
@@ -1806,8 +1809,8 @@ the MNIST predictions and residuals summarized in \Cref{sec:experiments}.
  \includegraphics[width=\textwidth]{figures/mnist.pdf}
  \caption{\textbf{Agreement and its residual structure on MNIST.} Digits 3
  versus 8, 100 training images, two hidden tanh layers of width $4096$.
- Left: memory $P=3$ versus dense predictions on all $1984$ held-out images.
- Right: signed differences $f_P-f_{\mathrm{dense}}$, displayed in units of
+ Left: memory $q=3$ versus dense predictions on all $1984$ held-out images.
+ Right: signed differences $f_q-f_{\mathrm{dense}}$, displayed in units of
  $10^{-3}$ with one vertical scale for all orders. RMS differences are
  $0.003248$, $0.001084$ and $0.001199$. Each model is evaluated at its own
  training-MSE $0.001$ endpoint. These are function discrepancies, not label RMSE.}
@@ -1840,7 +1843,7 @@ the two training-prediction formulas agree within $2.1\times10^{-8}$.
 
 \Cref{fig:samerank-summary,fig:factors} retain the compact and detailed
 comparisons with direct factor training. \Cref{fig:controls-gallery} adds
-the frozen kernel on all five tasks, keeping $P=3$ and both factor seeds
+the frozen kernel on all five tasks, keeping $q=3$ and both factor seeds
 throughout. Memory is closest to the dense endpoint in every row. These are
 fitted-function comparisons at individual stopping times; the kernel is that
 of this feature-learning parameterization, rather than a separately scaled
@@ -1853,8 +1856,8 @@ reproduction commands are retained with the figure scripts.
  \caption{\textbf{Same rank, different dynamics.} Whole-circle RMS difference
  from dense training for response memory and for a directly trained correction
  $W_0+AB$ of the middle matrix with the same rank (two factor seeds), two
- hidden tanh layers, width $2048$. Rank $24$ corresponds to $P=3$, rank $12$
- to $P=3$ on the four-representative antipodal quotient, and rank $56$ to $P=7$;
+ hidden tanh layers, width $2048$. Rank $24$ corresponds to $q=3$, rank $12$
+ to $q=3$ on the four-representative antipodal quotient, and rank $56$ to $q=7$;
  labels give the smaller of the two ratios. Matched-loss endpoint comparisons
  against this specific factor baseline, not against every low-rank method;
  all ranks and the fitted functions are in \Cref{fig:factors}.}
@@ -1865,7 +1868,7 @@ reproduction commands are retained with the figure scripts.
  \centering
  \includegraphics[width=\textwidth]{figures/factors.pdf}
  \caption{\textbf{Same correction rank, different fitted functions.} Two hidden
- tanh layers of width $2048$. Top: paired-label task, memory $P=3$ and both
+ tanh layers of width $2048$. Top: paired-label task, memory $q=3$ and both
  factor seeds at rank $24$, with the dense reference in black. Bottom: all
  five tasks at rank bounds $8,24,56$ (or $4,12,28$ for the exact antipodal
  quotient). Every model is shown at its own MSE $0.001$ endpoint; RMS uses
@@ -1884,7 +1887,7 @@ reproduction commands are retained with the figure scripts.
  \caption{\textbf{Four training descriptions on five circle tasks, part one.}
  Paired-label, alternating-label, and center/edges quadrant tasks. Columns
  show dense, frozen NTK, both directly trained factor seeds, and memory
- $P=3$. The latter two have correction rank bound $24$. Each model is at its
+ $q=3$. The latter two have correction rank bound $24$. Each model is at its
  own training-MSE $0.001$ endpoint. The NTK output scale is wider by the marked
  factor; signed ticks and RMS retain original output units. Gray is the dense
  reference, black dots are training labels, and RMS uses $8192$ circle queries.

@@ -3,7 +3,7 @@
 
 Figure~\ref{fig:sphere-orders} adds a three-dimensional-input, four-hidden-layer
 example.  The sphere RMS discrepancies from dense are $0.02193$, $0.01280$,
-and $0.00454$ for $P=1,2,3$.  Dense and the three closures reach training
+and $0.00454$ for $q=1,2,3$.  Dense and the three closures reach training
 RMS $\leq0.01$ at times $60$, $75.5$, $63.25$, and $60$, respectively.
 This is supplementary fitted-function evidence outside the smooth-activation
 theorems: ReLU is nonsmooth, and the endpoints are individually fitted.
@@ -15,7 +15,7 @@ Rendering the saved predictions does not independently reproduce training.
   \caption{Saved fitted functions on the unit sphere for the target
   $\sqrt{105}\,x_1x_2x_3$, with four hidden ReLU layers of width $2048$ and
   $64$ training inputs.  The first column shows the dense output; the remaining
-  columns show signed closure-minus-dense differences for $P=1,2,3$.
+  columns show signed closure-minus-dense differences for $q=1,2,3$.
   Rows show complementary hemispheres, and black dots mark training inputs.
   Output colors use $[-2.5,2.5]$; every error panel uses $[-0.1,0.1]$.
   Surface colors interpolate saved queries on a triangular mesh; RMS values

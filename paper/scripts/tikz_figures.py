@@ -134,7 +134,7 @@ MECHANISM = r"""% Mechanism figure: a learned connection is a paired memory.
     \foreach \a/\o in {0.18/60,0.52/40,0.9/25}{
       \fill[lrn!\o] (0,\a) rectangle (1.4,\a+0.13);
       \fill[lrn!\o,opacity=0.8] (1.2-\a,0) rectangle (1.33-\a,1.4);}
-    \node[small,anchor=north] at (0.7,0) {rank $\le mP$};
+    \node[small,anchor=north] at (0.7,0) {rank $\le mq$};
   \end{scope}
   \node[lab,anchor=south] at (1.65,1.45) {$\widehat W^{(\ell)}$};
 \end{scope}
@@ -155,10 +155,10 @@ MECHANISM = r"""% Mechanism figure: a learned connection is a paired memory.
 \def\cw{1.55}\def\ch{0.95}
 \coordinate (g) at (0.9,2.05);
 % headers
-\node[lab] at ($(g)+(0.5*\cw,2*\ch+0.3)$) {$\Pi_P h$};
-\node[lab] at ($(g)+(1.5*\cw,2*\ch+0.3)$) {$h-\Pi_P h$};
-\node[lab,anchor=east] at ($(g)+(-0.08,1.5*\ch)$) {$\Pi_P b$};
-\node[lab,anchor=east] at ($(g)+(-0.08,0.5*\ch)$) {$b-\Pi_P b$};
+\node[lab] at ($(g)+(0.5*\cw,2*\ch+0.3)$) {$\Pi_q h$};
+\node[lab] at ($(g)+(1.5*\cw,2*\ch+0.3)$) {$h-\Pi_q h$};
+\node[lab,anchor=east] at ($(g)+(-0.08,1.5*\ch)$) {$\Pi_q b$};
+\node[lab,anchor=east] at ($(g)+(-0.08,0.5*\ch)$) {$b-\Pi_q b$};
 % cells
 \fill[lrn!18] ($(g)+(0,\ch)$) rectangle ++(\cw,\ch);
 \fill[bwd!22] (g) ++(\cw,0) rectangle ++(\cw,\ch);
@@ -175,7 +175,7 @@ MECHANISM = r"""% Mechanism figure: a learned connection is a paired memory.
 \draw[flow] ($(g)+(1.5*\cw,-0.45)$) -- ++(0,-0.75)
   node[midway,right,small,align=left] {feedback\\stability};
 \node[lab,draw=ink!25,rounded corners=1.5pt,inner sep=3pt,anchor=north]
-  at ($(g)+(1.5*\cw,-1.25)$) {trajectory error $O_T(P^{-1})$ or $O_T(P^{-2})$};
+  at ($(g)+(1.5*\cw,-1.25)$) {trajectory error $O_T(q^{-1})$ or $O_T(q^{-2})$};
 \end{scope}
 
 \end{tikzpicture}
@@ -186,7 +186,7 @@ MECHANISM = r"""% Mechanism figure: a learned connection is a paired memory.
 # moments
 
 def moments():
-    """Neuron histories of a small trained network, summarized by P moments."""
+    """Neuron histories of a small trained network, summarized by q moments."""
     # ------------------------------------------------------------------ training
     rng = np.random.default_rng(3)
     n, m, d = 512, 8, 2
@@ -260,7 +260,7 @@ def moments():
         ss = np.linspace(-1, 1, 25)
         emit(r"\draw[ink,line width=0.8pt] " + " -- ".join(
             "(%.3f,%.3f)" % (cx + 0.35 * (v + 1), cy + 0.13 * modes[j](v)) for v in ss) + ";")
-        emit(r"\node[anchor=west,text=ink] at (%.3f,%.3f) {$P=%d$: %s};" % (x0 + 1.05, cy, j + 1, heads[j]))
+        emit(r"\node[anchor=west,text=ink] at (%.3f,%.3f) {$q=%d$: %s};" % (x0 + 1.05, cy, j + 1, heads[j]))
 
     LANES = len(picks[0])
     for ri, (rname, Zend, Zmid) in enumerate(rows):
@@ -295,7 +295,7 @@ def moments():
     yl = -0.62
     emit(r"\draw[ink,line width=0.9pt] (%.3f,%.3f) -- ++(0.45,0) node[right,text=ink] {history of three neurons};" % (0.2 + (PW + GX), yl))
     emit(r"\draw[ink!75,line width=0.6pt,dash pattern=on 2.0pt off 1.4pt] (%.3f,%.3f) -- ++(0.45,0) "
-         r"node[right,text=ink] {kept by $P$ moments};" % (0.2 + 2 * (PW + GX), yl))
+         r"node[right,text=ink] {kept by $q$ moments};" % (0.2 + 2 * (PW + GX), yl))
     emit(r"\node[anchor=west,text=mute,font=\scriptsize] at (0,%.3f) {learning clock, start to now};" % yl)
 
     # ------------------------------------------------------------------ populations
@@ -334,7 +334,7 @@ def moments():
                 if grid[0] <= v <= grid[-1]:
                     emit(r"\draw[n%d,line width=1.2pt] (%.3f,%.3f) -- ++(0,-0.16);" % (q, Xg(v), base))
             if ri == 0:
-                emit(r"\node[anchor=south,text=mute,font=\scriptsize] at (%.3f,%.3f) {moment $k=%d$};"
+                emit(r"\node[anchor=south,text=mute,font=\scriptsize] at (%.3f,%.3f) {coefficient $k=%d$};"
                      % (x0 + 0.5 * PW, base + RH + 0.0, k))
     yb = R0 - 0.4
     emit(r"\draw[ink!65,line width=0.7pt] (%.3f,%.3f) -- ++(0.45,0) node[right,text=ink] {now};" % (0.0 + (PW + GX), yb))
@@ -516,11 +516,11 @@ def trajectory():
         curves += [(a[f"common_memory_{p}"][i], ORDER_STYLE[p]) for p in (1, 3, 7)]
         polar(out, cx, 0, s, ang, curves, train, a["train_labels"])
         out.append(r"\node[text=ink] at (%.3f,%.3f) {$t=%d$};" % (cx, 2.0, t))
-    _legend_row(out, 2.3, -2.0, [(ORDER_STYLE[0], "dense", "line"), (ORDER_STYLE[1], "$P=1$", "line"),
-                                 (ORDER_STYLE[3], "$P=3$", "line"), (ORDER_STYLE[7], "$P=7$", "line"),
+    _legend_row(out, 2.3, -2.0, [(ORDER_STYLE[0], "dense", "line"), (ORDER_STYLE[1], "$q=1$", "line"),
+                                 (ORDER_STYLE[3], "$q=3$", "line"), (ORDER_STYLE[7], "$q=7$", "line"),
                                  ("ink", "training labels", "dot")], [2.2, 2.0, 2.0, 2.0, 2.0])
     for p in (1, 3, 7):
-        print("trajectory: max RMS difference P=%d: %.2e (sensitivity up to %.1e)" % (p, rms[p].max(), sen[p].max()))
+        print("trajectory: max RMS difference q=%d: %.2e (sensitivity up to %.1e)" % (p, rms[p].max(), sen[p].max()))
     out.append(POSTAMBLE)
     return "\n".join(out)
 
@@ -547,7 +547,7 @@ def trajectory_rms():
         ax.line(shown_times, rms[p], f"{c},line width=0.45pt")
         ax.marks(shown_times, rms[p], f"{c},draw=white,line width=0.25pt", 1.35)
         k = int(np.argmax(shown_times))
-        out.append(r"\node[anchor=west,text=%s,font=\scriptsize,inner sep=1.5pt] at (%.3f,%.3f) {$P=%d$};"
+        out.append(r"\node[anchor=west,text=%s,font=\scriptsize,inner sep=1.5pt] at (%.3f,%.3f) {$q=%d$};"
                    % (c, ax.X(shown_times[k]) + 0.05, ax.Y(rms[p][k]), p))
     ax.xlabel("physical training time $t$ (log scale)")
     ax.ylabel("RMS difference from dense", off=0.85)
@@ -570,7 +570,7 @@ def factors():
     s, W = 0.34, 5.4
     rr = meta["factor_radial_rms"]
     panels = [("dense training", [(a["factor_dense"], ORDER_STYLE[0])], ""),
-              ("response memory, $P=3$", [(a["factor_dense"], "ink!45,line width=1.4pt"),
+              ("response memory, $q=3$", [(a["factor_dense"], "ink!45,line width=1.4pt"),
                                           (a["memory_endpoint_3"], "lrn,line width=0.8pt")],
                "RMS difference $%.4f$" % rr["P3"]),
               (r"trained factors $W_0+AB$", [(a["factor_dense"], "ink!45,line width=1.4pt"),
@@ -667,7 +667,7 @@ def same_rank_radial_preview():
                                      *zip(factor, factor_styles)], r"$W_0+AB$, rank $24$"),
         ("Dense network", "ink", [(dense, dense_style)], "reference predictor"),
         ("Response memory", "lrn", [(dense, reference_style),
-                                      (memory, memory_style)], r"$P=3$, rank bound $24$"),
+                                      (memory, memory_style)], r"$q=3$, rank bound $24$"),
     ]
     for cx, (title, color, curves, detail) in zip(centers, panels):
         polar(out, cx, 0, scale, angles, curves, train, labels, ring_labels=True)
@@ -722,7 +722,7 @@ def frozen_ntk_radial_preview():
     panels=[('Frozen NTK','fwd',[(dense,reference_style),(frozen,'fwd,line width=1.0pt')],
              r'$K(t)=K(0)$, all parameter blocks'),
             ('Dense network','ink',[(dense,'ink,line width=1.1pt')], 'reference predictor'),
-            ('Response memory','lrn',[(dense,reference_style),(memory,'lrn,line width=1pt')],r'$P=3$')]
+            ('Response memory','lrn',[(dense,reference_style),(memory,'lrn,line width=1pt')],r'$q=3$')]
     for cx,(title,color,curves,detail) in zip(centers,panels):
         polar(out,cx,0,scale,angles,curves,train,a['train_labels'],True,
               offset=offset,rings=(-20,-10,0,10,20))
@@ -773,7 +773,7 @@ def learning_controls_preview(indices):
                     (factors[1],'bwd,line width=.85pt,dash pattern=on 2.8pt off 1.6pt')],1.,
                     r'$W_0+AB$, rank $%d$'%info['rank']),
                 ('Response memory','lrn',[(dense,ref),(memory,'lrn,line width=1pt')],1.,
-                    r'$P=3$, rank bound $%d$'%info['rank'])]
+                    r'$q=3$, rank bound $%d$'%info['rank'])]
         for col,(title,color,curves,unit,detail) in enumerate(panels):
             cx=centers[col]
             sel=np.linspace(0,len(angles)-1,720).astype(int); theta=angles[sel]
@@ -828,11 +828,11 @@ def _circle_gallery(prefix, orders):
             if "e" in txt:
                 mant, ex = txt.split("e")
                 txt = r"%s{\times}10^{%d}" % (mant, int(ex))
-            out.append(r"\node[anchor=east,text=%s,font=\scriptsize] at (%.3f,%.3f) {$P=%d$};"
+            out.append(r"\node[anchor=east,text=%s,font=\scriptsize] at (%.3f,%.3f) {$q=%d$};"
                        % (ORDER_COLOR[p], cx - 0.12, -1.78 - 0.34 * k, p))
             out.append(r"\node[anchor=west,text=%s,font=\scriptsize] at (%.3f,%.3f) {$%s$};"
                        % (ORDER_COLOR[p], cx + 0.02, -1.78 - 0.34 * k, txt))
-    items = [("ink!40,line width=1.5pt", "dense", "line")] + [(ORDER_STYLE[p], f"$P={p}$", "line") for p in orders] \
+    items = [("ink!40,line width=1.5pt", "dense", "line")] + [(ORDER_STYLE[p], f"$q={p}$", "line") for p in orders] \
         + [("ink", "training labels", "dot")]
     _legend_row(out, 3.0, -3.05, items, [2.0] + [1.8] * len(orders) + [2.0])
     out.append(POSTAMBLE)
@@ -864,7 +864,7 @@ def orders():
             ax.line(xs, ys, f"{c},line width=0.8pt" + (",dash pattern=on 0.8pt off 1.2pt" if j else ""))
             ax.marks(xs, ys, f"{c},draw=white,line width=0.3pt", 1.7)
         ax.title(title)
-        ax.xlabel("order $P$")
+        ax.xlabel("order $q$")
     # feature movement
     ranges = meta["feature_ranges"]
     ax = Axes(out, 1.0 + 2 * (PW + GX), 0, 3.2, PH, (0.4, 3.6), (0, 0.9))
@@ -899,7 +899,7 @@ def mnist():
         sel = digits == dg
         for u, v in zip(x[sel], a["mnist_3"][sel]):
             out.append(r"\fill[%s,opacity=0.45] (%.3f,%.3f) circle (0.55pt);" % (c, ax.X(u), ax.Y(v)))
-    ax.title("response memory $P=3$ against dense")
+    ax.title("response memory $q=3$ against dense")
     ax.xlabel("dense prediction")
     ax.ylabel("memory prediction", off=0.8)
     out.append(r"\fill[fwd] (1.15,4.05) circle (1.4pt); \node[anchor=west,text=ink] at (1.25,4.05) {digit 3};")
@@ -915,9 +915,9 @@ def mnist():
         for u, v in zip(x, res[p]):
             out.append(r"\fill[%s,opacity=0.4] (%.3f,%.3f) circle (0.5pt);" % (ORDER_COLOR[p], ax.X(u), ax.Y(v)))
         rm = np.sqrt(np.mean((res[p] / 1e3) ** 2))
-        out.append(r"\node[anchor=north west,text=%s] at (%.3f,%.3f) {$P=%d$};" % (ORDER_COLOR[p], 7.25, y0 + SH, p))
+        out.append(r"\node[anchor=north west,text=%s] at (%.3f,%.3f) {$q=%d$};" % (ORDER_COLOR[p], 7.25, y0 + SH, p))
         out.append(r"\node[anchor=north east,text=mute,font=\scriptsize] at (%.3f,%.3f) {RMS $%.4f$};" % (15.6, y0 + SH, rm))
-    out.append(r"\node[anchor=south west,text=ink,inner sep=1pt] at (7.2,4.48) {residual $(f_P-f_{\mathrm{dense}})\times10^{3}$, one shared scale};")
+    out.append(r"\node[anchor=south west,text=ink,inner sep=1pt] at (7.2,4.48) {residual $(f_q-f_{\mathrm{dense}})\times10^{3}$, one shared scale};")
     out.append(r"\node[anchor=north,text=ink] at (11.4,%.3f) {dense prediction};" % (4.4 - 3 * SH - 2 * GY - 0.38))
     out.append(POSTAMBLE)
     return "\n".join(out)
@@ -1086,7 +1086,7 @@ def clocks():
     emit(rf"\draw[bwd,line width=0.9pt] (0,{H + 0.35}) -- ++(0.45,0) "
          r"node[right,text=ink] {backward history $b_1=r_1/\rho$};")
     emit(rf"\draw[lrn,line width=0.8pt,dash pattern=on 2.4pt off 1.6pt] (4.3,{H + 0.35}) "
-         rf"-- ++(0.45,0) node[right,text=ink] {{fit with $P={P}$ Legendre modes}};")
+         rf"-- ++(0.45,0) node[right,text=ink] {{fit with $q={P}$ Legendre modes}};")
     emit(r"\end{tikzpicture}")
     emit(r"\end{document}")
 

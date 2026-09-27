@@ -376,7 +376,7 @@ def draw_circle_figure(panels, path, depth):
     for i, (data, (cx, cy)) in enumerate(zip(panels, positions)):
         draw_circle_panel(draw, data, cx, cy, letter=chr(ord('a')+i))
     orders = list(panels[0].rms)
-    labels = [(0, 'Dense'), *[(p, f'P = {p}') for p in orders]]
+    labels = [(0, 'Dense'), *[(p, f'q = {p}') for p in orders]]
     for i, (order, label) in enumerate(labels):
         x = 185+225*i
         draw.line(x, 1151, x+47, 1151, COLORS[order], 4.2 if order == 0 else 3)
@@ -568,8 +568,8 @@ def draw_sphere_figure(path, data, metadata, coordinates, kind):
         dense, *[data[f'P{p}']-dense for p in (1, 2, 3)]]
     centers = [245, 735, 1225] if kind == 'comparison' else [210, 560, 910, 1260]
     radius = 158 if kind == 'comparison' else 146
-    titles = ['Dense network', 'Memory closure · P = 3', 'Difference · P = 3'] if kind == 'comparison' else [
-        'Dense network', 'Difference · P = 1', 'Difference · P = 2', 'Difference · P = 3']
+    titles = ['Dense network', 'Memory closure · q = 3', 'Difference · q = 3'] if kind == 'comparison' else [
+        'Dense network', 'Difference · q = 1', 'Difference · q = 2', 'Difference · q = 3']
     heading = 'The fitted function on the sphere' if kind == 'comparison' else 'More memory, smaller discrepancy'
     draw.text(735, 47, heading, size=33, bold=True)
     draw.text(735, 87, 'ReLU · four hidden layers · width 2048 · 64 training inputs', size=23, color=MUTED)
