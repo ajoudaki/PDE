@@ -163,15 +163,14 @@ dense network in neurons, Tensor Programs and DMFT in stored history, the Neural
 Tangent Hierarchy in tensors indexed by tuples of training samples.  Response
 memory pays in an approximation order: one order serves a chosen horizon, and
 no coordinates are added merely because more steps elapse; its required value
-can depend on that horizon and on the task.  \Cref{sec:notions} makes
+can depend on that horizon and on the task.  \Cref{def:global} makes
 the axis precise, \Cref{tab:axis} (\Cref{sec:related}) places the descriptions
 on it once the results are in hand, and \Cref{app:size} works out, under stated
 hypotheses, what each would cost at a prescribed accuracy.
 
 \paragraph{Results.}
-\Cref{sec:notions} makes compression of dynamics precise and distinguishes three
-classes of state: scalars, populations and operators.  We then show the
-following.
+\Cref{sec:setting} fixes the training flow and what it means to compress it
+(\Cref{def:global}).  We then show the following.
 \begin{enumerate}
 \item \emph{Exact descriptions and obstacles} (\Cref{sec:notions}).  An exact
 operator closure for a deep linear benchmark and a restricted scalar
@@ -243,10 +242,7 @@ and globally in special models---with finite-width gradient flow converging to
 them on compact horizons; a global theorem for general data and depth is open.
 Where we need the population flow we state its existence as part of the model.
 
-\section{Compressing a dynamical system}
-\label{sec:notions}
-
-\paragraph{Exact and approximate; local and global.}
+\paragraph{What counts as compression.}
 An exact compression reproduces the reference trajectory; an approximate one
 reproduces it up to a controllable error.  A compression may also match the
 current state and velocity while its small errors compound until the
@@ -267,24 +263,22 @@ The size in question is the \emph{moving state} of a description: the numbers
 it updates while computing training, excluding fixed sources such as the
 initialization or a frozen kernel.
 
-\paragraph{Three classes of state.}
-\begin{enumerate}
-\item A \emph{scalar ODE} evolves finitely many real numbers, independently of
-width and training time.
-\item A \emph{population} (or field) ODE evolves finitely many functions, random
-variables or probability laws on fixed spaces---for example the law of a neuron's
-weights.  Its particle implementation stores one value per particle and field;
-the number of objects is finite, their degrees of freedom are not.
-\item An \emph{operator} ODE evolves operators between population spaces, the
-limits of matrices.  A matrix records how \emph{each} row relates to \emph{each}
-column, and separate one-neuron marginal statistics generally discard these
-couplings.
-\end{enumerate}
-A finite number of named fields or operators need not contain finitely many
-scalars, so every compression claim below names both the type and the size of
-the retained state.
+\section{Closing the training dynamics: exact and approximate}
+\label{sec:memory}
 
-\paragraph{Exact descriptions: operators.}
+\subsection{Exact closure: operators and an obstruction}
+\label{sec:notions}
+
+A closed description of training evolves a state of one of three kinds: finitely
+many \emph{scalars}, independent of width and training time; finitely many
+\emph{populations} (functions, random variables or laws on fixed spaces, such as
+the law of a neuron's weights), whose particle implementation stores one value
+per particle and field; or \emph{operators} between population spaces, the
+limits of matrices, which record how each row relates to each column, a
+coupling that one-neuron marginal statistics discard.  A finite number of named
+fields or operators need not contain finitely many scalars, so every claim below
+names both the type and the size of the retained state.
+
 Before allowing errors we ask what exact capture of the population flow can look
 like.  A natural candidate without growing history is an operator ODE:
 \eqref{eq:dense-flow} read with the hidden matrices $W^{(\ell)}$ as operators.
@@ -304,7 +298,6 @@ derivative of each finite level of this hierarchy introduces higher-level
 observations, and the construction does not supply an exact closure at a fixed
 finite level (\Cref{app:popclosure}).
 
-\paragraph{An obstruction to scalar closure.}
 At the other extreme, in the same linear benchmark no encoder formed from a
 fixed finite list of tensor contractions of the weights with width-independent
 bounded degree admits a polynomial autonomous scalar ODE and polynomial readout
@@ -321,13 +314,7 @@ themselves imply a fixed rank bound on their time integral.  The main result
 takes a constructive route: accepting controlled error gives an explicit
 autonomous system with a quantitative state--accuracy trade-off.
 
-\section{Approximate compression with rates: response memories}
-\label{sec:memory}
-
-We now ask what can be gained by accepting a controlled error, for networks of
-any depth and with explicit order-versus-error rates.
-
-\subsection{The idea}
+\subsection{Approximate closure: the idea}
 
 Integrating \eqref{eq:dense-flow}, every hidden matrix is
 \begin{equation}
@@ -772,7 +759,7 @@ it targets the specified deep nonlinear feature-learning flow and, when it
 does, how its evolving state is represented.  \Cref{tab:axis} places one
 representative work from each description on that axis: which of the three
 properties it keeps, what its order is, how its moving state scales
-(\Cref{sec:notions}), and how its error decreases in the order.  The entries
+(\Cref{sec:setting}), and how its error decreases in the order.  The entries
 are orders of magnitude, not a ranking: constants differ between rows and
 depend on the horizon.  \Cref{sec:size} states what the theorems of this paper
 give at fixed width, and \Cref{app:size} defines the error metric and the
