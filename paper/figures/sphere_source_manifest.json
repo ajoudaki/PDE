@@ -1,0 +1,89 @@
+{
+  "scope": "Replot saved predictions only; no new training or model evaluation",
+  "source_sha256": {
+    "sphere_figures.py": "fc6659c0d7b985e0e6e658f12e91eee3a705b18818a74bf781841d311482b7f6",
+    "radial_figures.py": "1fb3bf16d5d7667f2309cad854ce1499f0ab1e9c95394c50f3252f669baeb63b"
+  },
+  "command": [
+    "paper/scripts/sphere_figures.py",
+    "--out",
+    "data/generated/paper_radial_figures_20260927/sphere_v1"
+  ],
+  "python": "3.10.12",
+  "numpy": "1.26.4",
+  "scipy": "1.13.0",
+  "source_records": {
+    "results.json": "7108e34b0f3fc395d3b8c90e7e363c55426887a740bfe7a3399e33f33dd8a4de",
+    "data.npz": "536df4fb860528965f56f3f2e2b37b57d3e75c2ccca74d01a2a9c2e4a976ac1d",
+    "relu_dense.npz": "63b3a3fe11d677dc23ad0733f1cf073decb39b8af8fc31d24e2a1cb5c5d0ffe2",
+    "relu_P1.npz": "fa1037e8f52afed1fb35fe78c24f5749e603a762af0fa770802ebff151df1966",
+    "relu_P2.npz": "1fbb5c4e831d88fc7a2bc106f274e277b986dd9867112a3bac08f8572d9e0722",
+    "relu_P3.npz": "76aa98c7f7d603a0fbc5b05e40e611152447eb1f95637fb3e399f38a1426315b"
+  },
+  "checks": [
+    {
+      "model": "dense",
+      "train_rms": 0.009947206112823076,
+      "sphere_rms_vs_dense": 0.0,
+      "source_rms_vs_dense": 0.0,
+      "flow_time": 60.0
+    },
+    {
+      "model": "P1",
+      "train_rms": 0.009955145920933817,
+      "sphere_rms_vs_dense": 0.02193416922963825,
+      "source_rms_vs_dense": 0.02193416922963825,
+      "flow_time": 75.5
+    },
+    {
+      "model": "P2",
+      "train_rms": 0.009935605129212965,
+      "sphere_rms_vs_dense": 0.012796097690292536,
+      "source_rms_vs_dense": 0.012796097690292536,
+      "flow_time": 63.25
+    },
+    {
+      "model": "P3",
+      "train_rms": 0.009953274429806964,
+      "sphere_rms_vs_dense": 0.004540127291891318,
+      "source_rms_vs_dense": 0.004540127291891318,
+      "flow_time": 60.0
+    }
+  ],
+  "source_directory": "/home/amir/Codes/PDE/data/generated/neural_response_memory_20260922/compact_sphere01/xyz_m64",
+  "sphere_query_count": 8192,
+  "triangle_count": 16380,
+  "vertex_reconstruction_max_error": 8.881784197001252e-16,
+  "barycentric_weight_sum_max_error": 3.3306690738754696e-16,
+  "camera_front": [
+    0.5491890194536594,
+    -0.7322520259382125,
+    0.40273861426601687
+  ],
+  "camera_back": [
+    -0.5491890194536594,
+    0.7322520259382125,
+    -0.40273861426601687
+  ],
+  "output_color_limits": [
+    -2.5,
+    2.5
+  ],
+  "error_color_limits": [
+    -0.1,
+    0.1
+  ],
+  "texture": "Piecewise-linear triangular interpolation of saved values; no lighting or fitted smoothing",
+  "texture_resolution": 768,
+  "training_points_displayed": 64,
+  "qualification": "One seed; float32 Euler step 1/128; separate endpoint times; no continuous-GF refinement certificate",
+  "outputs": {
+    "sphere_orders.pdf": "292f52db52862ddf2331564663786a3477ac769e140ea0043a3dad61ea283103",
+    "sphere_orders.svg": "3056f62175417cf8e42eabbe69bc35ea8565d5dc0c36902e73e753ccf16fd697",
+    "sphere_orders.png": "9351ebe622d051f12e5eefb5576e916dc98217329ab0a2098e3dd3c0abf061d6",
+    "sphere_comparison.pdf": "29cc0b2ea990316c903e73e5ba40ac2e4d96f74edf93adc63f153e1c6510a17f",
+    "sphere_comparison.svg": "01e89f946f97c26fa26341086e8a8d9b92bedc8fdf452b4bc528646d947ab745",
+    "sphere_comparison.png": "9800dfbfc5a3c4c12fbd047e0c73db47bf6874c2fcddbd9099683cae8b36609f"
+  },
+  "source_bundle_sha256": "026adfca75aef41432b07dd0fd0f69dafe07c03fa66815b98a0c7d2b76490838"
+}

@@ -583,21 +583,44 @@ $0.001$.  The five tasks are chosen to be hard: alternating labels, clustered
 points and large unlabelled arcs.  These are comparisons of fitted functions at
 matched loss, with one initialization per task, not same-time trajectory errors:
 they test the closure as an estimator of what dense training produces, not the
-rates of the theorems.
+rates of the theorems.  \Cref{fig:deep,fig:shallow} show the fitted functions
+for both depths in radial coordinates.
 
-\begin{figure}[t]
+\begin{figure}[!tp]
  \centering
- \includegraphics[width=0.86\textwidth]{figures/circle_deep.pdf}
- \caption{Three hidden tanh layers, width $4096$.  Black: dense gradient flow;
- colours: response memory of order $P=1,2,3$; dots: training labels.}
+ \includegraphics[width=\linewidth]{figures/circle_deep_radial.pdf}
+ \caption{Fitted circle predictions for three hidden tanh layers, width
+ $4096$, and response-memory orders $P=1,2,3$.  Models are evaluated at
+ their respective training-MSE $10^{-3}$ endpoints.  Angle represents input
+ direction; radius is $3+f(\theta)$, with radial ticks labelled by $f(\theta)$
+ and a dashed zero-output ring.  Black curves show dense gradient flow,
+ coloured curves show response memory, and black dots show training labels.
+ Coloured numbers give RMS prediction differences from the dense network on
+ 8192 uniform circle points, in legend order.}
  \label{fig:deep}
+\end{figure}
+
+\begin{figure}[!tp]
+ \centering
+ \includegraphics[width=\linewidth]{figures/circle_shallow_radial.pdf}
+ \caption{Fitted circle predictions for two hidden tanh layers, width
+ $2048$, and response-memory orders $P=1,3,7$, using the dense references
+ in \Cref{tab:circle}.  Models are evaluated at their respective
+ training-MSE $10^{-3}$ endpoints.  Angle represents input direction;
+ radius is $3+f(\theta)$, with radial ticks labelled by $f(\theta)$ and a
+ dashed zero-output ring.  Black curves show dense gradient flow,
+ coloured curves show response memory, and black dots show training labels.
+ Coloured numbers give RMS prediction differences from the dense network on
+ 8192 uniform circle points, in legend order.}
+ \label{fig:shallow}
 \end{figure}
 
 \begin{table}[t]
 \centering
 \small
 \caption{Whole-circle RMS difference between response memory and dense
-gradient flow.  Left: two hidden tanh layers, width $2048$.  Right: three hidden
+gradient flow.  Left: two hidden tanh layers, width $2048$
+(\Cref{fig:shallow}).  Right: three hidden
 tanh layers, width $4096$ (\Cref{fig:deep}).}
 \label{tab:circle}
 \begin{tabular}{lrrr@{\qquad}rrr}

@@ -9,6 +9,14 @@ Build it with:
 latexmk -pdf main.tex
 ```
 
+Both circle-function figures now use the full-width radial PDFs
+`figures/circle_deep_radial.pdf` and `figures/circle_shallow_radial.pdf`.
+Their captions explain the radius offset, signed ticks, and matched-loss
+RMS comparisons. The shallow figure uses the dense references in the table.
+The rendering script, compact prediction bundle, and provenance manifest
+are documented in [scripts/README.md](scripts/README.md).
+These figures reuse saved predictions; no training rerun is needed.
+
 The manuscript states the fixed-width theorem proved in
 `studies/neural_response_memory_20260922` and keeps its population-limit
 interpretation separate from the proved claim.  Figures are copied from the
