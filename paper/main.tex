@@ -245,8 +245,8 @@ with a recursion that includes variables indexed by every earlier step
 gradient and response kernels, with memory quadratic and time cubic in the
 number of time points \citep{bordelon2022dmft}, and its finite-width extension
 adds perturbative fluctuations \citep{bordelon2023finite}.  Direct two-time
-storage is smaller than dense $O(Hn^2)$ weight storage when $mK\ll n$, where
-$K$ is the number of grid points.  Runtime additionally depends on sampled
+storage is smaller than dense $O(n^2)$ weight storage per layer when the
+number of samples times the number of time steps is well below the width.  Runtime additionally depends on sampled
 single-site paths and self-consistency sweeps (\Cref{app:comparison-dmft}).
 Multilayer mean-field theory and Neural Feature Flow evolve fields on neuronal
 ensembles \citep{nguyen2023rigorous,fang2020features}.  These keep all three
@@ -259,15 +259,16 @@ Our result is complementary: it keeps the neurons and compresses time.
 
 \paragraph{On the axis, paying in tuples of samples.}
 The Neural Tangent Hierarchy \citep{huang2020nth} evolves the outputs together
-with the tangent kernels of order $2,\dots,p$, the $r$-th a function of $r$
+with the tangent kernels of order $2,\dots,P$, the $j$-th a function of $j$
 training points, and closes by freezing the top kernel.  The hierarchy is an
 exact identity in any parametrization, and above order two it captures feature
 learning; the neural tangent kernel is its lowest truncation.  What it pays is
-combinatorial in the samples: the moving state through order $p$ is
-$\sum_{r=1}^{p-1}m^r$ scalars beneath a frozen tensor of $m^p$ entries (a direct
-count rather than a statement of that work), against a state linear in $m$
-here.  Its published guarantee uses width-suppressed higher kernels: for
-even $p$ it gives an $n^{-p/2}$ factor multiplied by time-dependent terms, on
+combinatorial in the samples: the moving state through order $P$ is
+$\sum_{j=1}^{P-1}m^j\sim m^{P-1}$ scalars beneath a frozen tensor of $m^P$
+entries (a direct count rather than a statement of that work), against a state
+linear in $m$ here.  Its published guarantee uses width-suppressed higher
+kernels: for even $P$ it gives an $n^{-P/2}$ factor multiplied by
+time-dependent terms, on
 a width-dependent horizon and under specified data and regularity assumptions.
 Those estimates cannot simply be transferred to the present scaling, where
 feature and kernel evolution can remain order one.  The matched hierarchy
@@ -288,27 +289,27 @@ trained factorization of matched rank performs far worse
 \section{Setting}
 \label{sec:setting}
 
-Fix $m$ training pairs $(x_a,y_a)$ with $x_a\in\R^d$, width $n$ and $H\ge2$
+Fix $m$ training pairs $(x_a,y_a)$ with $x_a\in\R^d$, width $n$ and $L\ge2$
 hidden layers:
 \begin{align}
  z_a^{(1)}&=W^{(1)}x_a/\sqrt d,& h_a^{(1)}&=\phi(z_a^{(1)}),\nonumber\\
  z_a^{(\ell)}&=W^{(\ell)}h_a^{(\ell-1)},&
- h_a^{(\ell)}&=\phi(z_a^{(\ell)}),\quad 2\le\ell\le H,\\
- f_a&=\frac{w^\top h_a^{(H)}}{n},& r_a&=f_a-y_a,\qquad
+ h_a^{(\ell)}&=\phi(z_a^{(\ell)}),\quad 2\le\ell\le L,\\
+ f_a&=\frac{w^\top h_a^{(L)}}{n},& r_a&=f_a-y_a,\qquad
  \rho=\Bigl(\frac1m\sum_a r_a^2\Bigr)^{1/2}.\nonumber
 \end{align}
 The activation $\phi$ may differ between layers; the loss is $\cL=\rho^2$.  The
 backward responses, which exclude the residual, are
-$\delta_a^{(H)}=w\od\phi'(z_a^{(H)})$ and
+$\delta_a^{(L)}=w\od\phi'(z_a^{(L)})$ and
 $\delta_a^{(\ell)}=\phi'(z_a^{(\ell)})\od(W^{(\ell+1)})^\top\delta_a^{(\ell+1)}$.
 With block mobilities $(n,1,\ldots,1,n)$, gradient flow reads
 \begin{equation}
  \dot W^{(1)}=-\frac2m\sum_a r_a\delta_a^{(1)}\frac{x_a^\top}{\sqrt d},\quad
  \dot W^{(\ell)}=-\frac{2}{nm}\sum_a r_a\delta_a^{(\ell)}
- (h_a^{(\ell-1)})^\top\ (2\le\ell\le H),\quad
- \dot w=-\frac2m\sum_a r_a h_a^{(H)}.\label{eq:dense-flow}
+ (h_a^{(\ell-1)})^\top\ (2\le\ell\le L),\quad
+ \dot w=-\frac2m\sum_a r_a h_a^{(L)}.\label{eq:dense-flow}
 \end{equation}
-We write $\theta=(W^{(1)},\ldots,W^{(H)},w)$ for all parameters and
+We write $\theta=(W^{(1)},\ldots,W^{(L)},w)$ for all parameters and
 $\dot\theta=F(\theta)$ for \eqref{eq:dense-flow}.  Hidden entries are initialized
 as $\mathcal N(0,1/n)$, first-layer entries as $\mathcal N(0,1)$, and the stored
 readout is small.
@@ -317,7 +318,7 @@ readout is small.
 As $n\to\infty$, the neurons of layer $\ell$ become a probability space
 $\Omega_\ell$ with expectation $\E_\ell$: hidden coordinates $z^{(\ell)},h^{(\ell)}$
 become random variables in $L^2(\Omega_\ell)$, the first-layer weights a random
-row $W^{(1)}\in L^2(\Omega_1;\R^d)$, the readout $w\in L^2(\Omega_H)$, and each
+row $W^{(1)}\in L^2(\Omega_1;\R^d)$, the readout $w\in L^2(\Omega_L)$, and each
 hidden matrix a bounded operator $W^{(\ell)}:L^2(\Omega_{\ell-1})\to L^2(\Omega_\ell)$
 used together with its true adjoint.  The same equations \eqref{eq:dense-flow}
 hold with $\frac1n\sum_i$ replaced by $\E_\ell$ and outer products
@@ -338,86 +339,66 @@ trajectories separate; we ask for the stronger, global notion.
 
 \begin{definition}[Global approximation on compact horizons]
 \label{def:global}
-Autonomous systems indexed by an order $N$, with trajectories $\theta_N$,
+Autonomous systems indexed by an order $P$, with trajectories $\theta_P$,
 \emph{globally approximate} a reference flow $\theta$ if for every $T<\infty$
 \[
-  \sup_{0\le t\le T}\norm{\theta_N(t)-\theta(t)}\longrightarrow0
-  \qquad(N\to\infty).
+  \sup_{0\le t\le T}\norm{\theta_P(t)-\theta(t)}\longrightarrow0
+  \qquad(P\to\infty).
 \]
-The rate in $N$ quantifies the trade-off between the size of the compressed
+The rate in $P$ quantifies the trade-off between the size of the compressed
 state and its accuracy.
 \end{definition}
 
 \paragraph{Size against accuracy.}
 \Cref{def:global} compares one compression with its reference.  To compare
-different descriptions of training with each other we fix the reference and ask
-what each costs.  Call the \emph{moving state} of a description the numbers it
-updates while computing training, excluding fixed sources such as the
-initialization or a frozen kernel.
-
-\begin{definition}[Size at accuracy]
-\label{def:size}
-For a specified family of representations, a horizon $T$ and an accuracy
-$\varepsilon$, let $M(\varepsilon;T)$ be the least moving state obtained by
-choosing its resolution parameters to satisfy a stated sufficient error bound
-on $[0,T]$.  This is a certified representation cost, not a lower bound on
-all algorithms.  A description \emph{compresses history} if, once its
-approximation order is chosen, its autonomous state does not acquire new
-coordinates as additional training steps elapse.
-\end{definition}
-
-For the population comparison, fix the architecture, data, initialization law,
-scaling and a population predictor $f_\infty$ on $[0,T]$.  The common error is
-\begin{equation}
- E_Q(g;T)=\sup_{t\le T}\norm{g(t)-f_\infty(t)}_{L^2(Q)},\qquad
- \mathcal E_Q(g;T)=\bigl(\E E_Q(g;T)^2\bigr)^{1/2},
- \label{eq:resource-error}
-\end{equation}
-where $Q$ is a test probability measure and the expectation covers initialization
-or numerical sampling.  This controls the discrepancy between test RMSEs
-against any fixed target, without assuming that the population predictor
-generalizes well.  Uniform angular $Q$ gives whole-circle prediction error.
-The response-memory theorems additionally control the parameters themselves.
-
-Regime changes supply no general guarantee in this common metric, even though
-different regimes can agree on special tasks.  \Cref{tab:axis} places one representative work
-from each description of \Cref{sec:related} on this axis: which of the three
-properties it keeps, the size of its moving state, and the error it proves.
-The entries are orders of magnitude, not a ranking: constants differ between
-rows, and the errors are proved against different limit objects.  \Cref{sec:size} states what the
-theorems of this paper give at fixed width, and \Cref{app:size} works out the
-conditional population-level version.
+different descriptions of training with each other we ask two things of each:
+how large a state it evolves, and how fast its error falls in the quantity
+that buys it accuracy, its order.  Call the \emph{moving state} of a
+description the numbers it updates while computing training, excluding fixed
+sources such as the initialization or a frozen kernel.  \Cref{tab:axis} places
+one representative work from each description of \Cref{sec:related} on this
+axis: which of the three properties it keeps, what its order is, how its
+moving state scales, and how its error decreases in the order.  The entries
+are orders of magnitude, not a ranking: constants differ between rows and
+depend on the horizon.  \Cref{sec:size} states what the theorems of this paper
+give at fixed width, and \Cref{app:size} defines the error metric, states the
+hypotheses under which the rows can be compared against the population flow,
+and works out the cost of a prescribed accuracy.
 
 \begin{table}[t]
 \centering
 \footnotesize
-\setlength{\tabcolsep}{3.5pt}
+\setlength{\tabcolsep}{3.2pt}
 \caption{Descriptions of training on a common state--accuracy axis, one
 representative work per row.  Columns: nonlinearity effective in training,
-more than one hidden layer, feature learning at leading order; moving state per
-hidden layer, with constant factors and fixed sources (the initialization
-$W_0$, the NTK matrix, the top NTH tensor) omitted, Tensor Programs counted by the past responses and DMFT by the two-time kernels; and the error the work
-proves, uniform on a fixed horizon, against its own limit object unless stated.
-$m$ samples, $n$ width, $d$ input dimension, $K$ time steps, $p$ kernel order,
-$P$ moment order.  The NTH captures feature learning perturbatively, as a
-$n^{-1/2}$ correction in its scaling.  (H1) and (H3) are the hypotheses of
-\Cref{app:size}.}
+more than one hidden layer, feature learning at leading order; the order that
+buys accuracy; the moving state per hidden layer, with constant factors and
+fixed sources (the initialization $W_0$, the NTK matrix, the top NTH tensor)
+omitted; and how the error decreases in that order, uniform on a fixed horizon.
+$m$ samples, $n$ width, $d$ input dimension, $P$ the order of each row's own
+model.  Tensor Programs are counted by the stored past responses and DMFT by
+its two-time kernels; the tangent hierarchy captures feature learning
+perturbatively, as an $n^{-1/2}$ correction in its own scaling, in which its
+rate is proved.  The multilayer mean-field rate is conditional
+(\Cref{app:size}); the proved rate is $n^{-c}$ with $c<\tfrac12$.  The three
+works above the line are exact about a different object and have no order that
+reaches ours.}
 \label{tab:axis}
-\begin{tabular}{@{}lcccll@{}}
+\begin{tabular}{@{}lccclll@{}}
 \toprule
- & nonlin. & depth & features & moving state & error\\
+ & nonlin. & depth & features & order & moving state & error\\
 \midrule
-Deep linear \citep{saxe2014exact} & & \checkmark & \checkmark & $d$ scalar modes & exact (linear model)\\
-Two-layer mean field \citep{mei2018meanfield} & \checkmark & & \checkmark & $nd$ & $n^{-1/2}$, proved\\
-Neural tangent kernel \citep{jacot2018ntk} & \checkmark & \checkmark & & $m$ & $O(1)$ bias\\
+Deep linear \citep{saxe2014exact} & & \checkmark & \checkmark & --- & $d$ scalar modes & ---\\
+Two-layer mean field \citep{mei2018meanfield} & \checkmark & & \checkmark & --- & $nd$ & ---\\
+Neural tangent kernel \citep{jacot2018ntk} & \checkmark & \checkmark & & --- & $m$ & --- ($O(1)$ bias)\\
 \midrule
-Multilayer mean field \citep{nguyen2023rigorous} & \checkmark & \checkmark & \checkmark & $n^2$ & $n^{-c}$, $c<\tfrac12$, proved\\
-Tensor Programs \citep{yang2021tensor} & \checkmark & \checkmark & \checkmark & $mnK$ & exact limit, no rate\\
-DMFT \citep{bordelon2022dmft} & \checkmark & \checkmark & \checkmark & $m^2K^2$ & exact limit; solver, (H3)\\
-Tangent hierarchy \citep{huang2020nth} & \checkmark & \checkmark & (\checkmark) & $\sim m^{p-1}$ & $n^{-p/2}$, NTK scaling\\
+Multilayer mean field \citep{nguyen2023rigorous} & \checkmark & \checkmark & \checkmark & width $n$ & $n^2$ & $n^{-1/2}$\\
+Tensor Programs \citep{yang2021tensor} & \checkmark & \checkmark & \checkmark & steps & $mn\times$steps & exact limit, no rate\\
+DMFT \citep{bordelon2022dmft} & \checkmark & \checkmark & \checkmark & steps & $m^2\times$steps$^2$ & step size\\
+Tangent hierarchy \citep{huang2020nth} & \checkmark & \checkmark & (\checkmark) & kernels $P$ & $\sim m^{P-1}$ & $n^{-P/2}$\\
 \midrule
-Response memory, speed clock & \checkmark & \checkmark & \checkmark & $mnP$ & $O_T(P^{-1})$, \Cref{thm:old}\\
-Response memory, joint clock & \checkmark & \checkmark & \checkmark & $mnP+P^2$ & $O_T(P^{-2})$, \Cref{thm:new}\\
+Response memory, speed clock & \checkmark & \checkmark & \checkmark & moments $P$ & $mnP$ & $P^{-1}$, \Cref{thm:old}\\
+Response memory, joint clock & \checkmark & \checkmark & \checkmark & moments $P$ & $mnP+P^2$ & $P^{-2}$, \Cref{thm:new}\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -625,14 +606,15 @@ The coordinate change is illustrated in \Cref{fig:clock}.
 
 \begin{theorem}[Learning-speed clock]
 \label{thm:old}
-Fix finite width, depth $H\ge2$, arbitrary finite data and a finite
+Fix finite width, depth $L\ge2$, arbitrary finite data and a finite
 initialization, and let every activation be in $C^{1,1}_{\mathrm{loc}}(\R)$.  For
-every $T<\infty$ there are $C(T)$ and $P_0(T)$, independent of $P$, such that for
-$P\ge P_0(T)$ the closure exists uniquely on $[0,T]$ and
+every $T<\infty$ and all sufficiently large $P$ the closure exists uniquely on
+$[0,T]$ and
 \[
- \sup_{0\le t\le T}\norm{\widehat\theta_P(t)-\theta(t)}
- \le \frac{C(T)}{\sqrt{P(P+1)}} .
+ \sup_{0\le t\le T}\norm{\widehat\theta_P(t)-\theta(t)}=O_T(P^{-1}),
 \]
+where the threshold on $P$ and the implied constant depend on $T$, the width,
+depth, data and initialization but not on $P$.
 The rate extends to hidden responses and to predictions on any bounded set of
 unseen inputs.  If $\phi$ and $\phi'$ are bounded (tanh, sigmoid, arctangent,
 sine), it holds for every $P\ge1$.  No assumption of successful fitting, Gaussian
@@ -642,10 +624,10 @@ initialization, input geometry or label structure is made.
 \begin{theorem}[Joint feature-learning clock]
 \label{thm:new}
 Under the setting of \Cref{thm:old}, assume the activations of layers $\ell\ge2$
-are in $C^{2,1}_{\mathrm{loc}}$ and $\rho(0)>0$.  For every $T$ there are $P_0(T)$
-and $C(T)$ such that for $P\ge P_0(T)$ the closure exists uniquely on $[0,T]$,
-its clock stays bounded independently of $P$, and
-$\sup_{t\le T}\norm{\widehat\theta_P(t)-\theta(t)}\le C(T)/[P(P+1)]$.
+are in $C^{2,1}_{\mathrm{loc}}$ and $\rho(0)>0$.  For every $T$ and all
+sufficiently large $P$ the closure exists uniquely on $[0,T]$, its clock stays
+bounded independently of $P$, and
+$\sup_{t\le T}\norm{\widehat\theta_P(t)-\theta(t)}=O_T(P^{-2})$.
 \end{theorem}
 
 What separates this from approximating a given signal, as in HiPPO, is feedback:
@@ -669,13 +651,13 @@ argument then transfer the accumulated defect to the trajectory.
 
 \begin{corollary}[Learned increments are low-rank in their own history]
 \label{cor:rank}
-Under \Cref{thm:old}, for every $T$ and every $P\ge P_0(T)$, each dense learned
-hidden increment $W^{(\ell)}(t)-W^{(\ell)}_0$, $2\le\ell\le H$ and $0\le t\le T$, is within
-$C(T)/\sqrt{P(P+1)}$ in Frobenius norm of the matrix
+Under \Cref{thm:old}, for every $T$ and all sufficiently large $P$, each dense
+learned hidden increment $W^{(\ell)}(t)-W^{(\ell)}_0$, $2\le\ell\le L$ and
+$0\le t\le T$, is within $O_T(P^{-1})$ in Frobenius norm of the matrix
 $-\frac{2}{nm\tau}\sum_{a,k<P}(2k+1)\,\bar\delta^{(\ell)}_{a,k}(\bar h^{(\ell-1)}_{a,k})^\top$,
 which has rank at most $mP$ and is built from the moments of the closure's own
 responses.  Under \Cref{thm:new}, the joint-clock reconstruction, of rank at most
-$m(P+1)$, is within $C(T)/[P(P+1)]$.
+$m(P+1)$, is within $O_T(P^{-2})$.
 \end{corollary}
 
 The corollary follows from the theorems because the reconstruction
@@ -690,41 +672,32 @@ $mP<n$, and its constant depends on width.
 
 \subsection{Cost}
 
-With $H$ layers, width $n$, $m$ samples and order $P$, each learned $n\times n$
-increment is carried by $2mP$ vectors of length $n$.  The moving internal state
-is $2(H-1)mnP$ numbers against $(H-1)n^2$ for the dense learned matrices; it does
-not grow with training time and is smaller whenever $2mP<n$.  The initialized
-matrices, $(H-1)n^2$ numbers, are kept as a fixed source.  Per step, applying
-$W_0^{(\ell)}$ and its transpose costs $O(mn^2)$ per layer as in dense training,
-the learned correction $O(m^2nP)$ per layer, and the moment update $O(HmnP)$;
-the joint clock adds an $O(P^3)$ Gram factorization and $O(HmnP^2)$ solves.
+With $L$ hidden layers, width $n$, $m$ samples and order $P$, each learned
+$n\times n$ increment is carried by $2mP$ vectors of length $n$.  The moving
+internal state is $2(L-1)mnP$ numbers against $(L-1)n^2$ for the dense learned
+matrices; it does not grow with training time and is smaller whenever $2mP<n$.
+The initialized matrices, $(L-1)n^2$ numbers, are kept as a fixed source.  Per
+step, applying $W_0^{(\ell)}$ and its transpose costs $O(mn^2)$ per layer as in
+dense training, the learned correction $O(m^2nP)$ per layer, and the moment
+update $O(LmnP)$; the joint clock adds an $O(P^3)$ Gram factorization and
+$O(LmnP^2)$ solves.
 
 \subsection{Size at accuracy, fixed width}
 \label{sec:size}
 
-\Cref{thm:old,thm:new} answer \Cref{def:size} against the finite network.  For
-a trajectory error $\varepsilon$ on $[0,T]$, sufficient choices are
-$P\ge\max\{P_0(T),C(T)/\varepsilon\}$ and
-$P\ge\max\{P_0(T),\sqrt{C(T)/\varepsilon}\}$ respectively.  At fixed width
-and horizon, as $\varepsilon\downarrow0$, their leading internal state costs are
-\begin{equation}
- M_{\rm speed}(\varepsilon;T)=O\Bigl(Hmn\,\frac{C(T)}{\varepsilon}\Bigr),\qquad
- M_{\rm joint}(\varepsilon;T)=O\Bigl(Hmn\sqrt{\frac{C(T)}{\varepsilon}}
- +\frac{C(T)}{\varepsilon}\Bigr).
- \label{eq:size-fixed}
-\end{equation}
-Two comparisons at the same width and on the same network are exact.  The
-learned increment can always be carried by its own history: for gradient
-descent with $K$ steps,
-$W^{(\ell)}_K=W^{(\ell)}_0-\frac{2\Delta t}{nm}\sum_{k<K}\sum_a
-r_{a,k}\delta^{(\ell)}_{a,k}(h^{(\ell-1)}_{a,k})^\top$ is an identity, with
-$HmnK$ moving numbers that grow with the number of steps; and the dense
-increment itself is $Hn^2$ numbers.  Against the first, the order $P$ replaces
-the step count $K$; against the second, $2mP$ replaces $n$.  Both are
-consequences of the theorems, not of a hypothesis.  What
-\eqref{eq:size-fixed} does not say is how $C(T)$ grows with the horizon or the
-width, and this is why the population-level version of the comparison
-(\Cref{app:size}) is conditional.
+Read as a trade-off, \Cref{thm:old,thm:new} say that, at fixed width and
+horizon, a trajectory error $\varepsilon$ costs $O(mn/\varepsilon)$ moving
+numbers per hidden layer with the learning-speed clock and
+$O(mn/\sqrt{\varepsilon}+1/\varepsilon)$ with the joint clock.  Two comparisons
+on the same network are exact.  The learned increment can always be carried
+by its own history, since summing the updates
+$-\frac{2}{nm}r_a\delta^{(\ell)}_a(h^{(\ell-1)}_a)^\top$ over the steps taken
+is an identity; that costs $mn$ numbers per step and grows with training.  And
+the dense increment itself is $n^2$ numbers.  Against the first, the order $P$
+replaces the number of steps; against the second, $2mP$ replaces $n$.  Both are
+consequences of the theorems, not of a hypothesis.  What they do not say is how
+the constants grow with the horizon or the width, and this is why the
+population-level version of the comparison (\Cref{app:size}) is conditional.
 
 What is compressed is time, not samples or neurons.  The state grows linearly
 with the number of training samples, and once $2mP\ge n$ it exceeds the dense
@@ -765,22 +738,15 @@ deep nonlinear feature learning in the population limit: the kind of object the
 introduction asks for.
 
 \paragraph{Conditional population cost.}
-With a matched root-width estimate and width-uniform closure bounds, the common
-prediction error would satisfy
-$\mathcal E_Q\le A_T/\sqrt n+B_{q,T}/P^q$, with $q=1,2$ for the two clocks.
-Optimizing the allocation of an error budget $\varepsilon$ between width and
-order gives the leading moving-state costs
-\[
- M_{\rm dense}\asymp HA_T^4\varepsilon^{-4},\qquad
- M_q\asymp HmA_T^2B_{q,T}^{1/q}\varepsilon^{-2-1/q}.
-\]
-The exponents are $4$, $3$ and $5/2$: history regularity changes the price of
-accuracy within this conditional model.  The retained initialized matrices
-still contribute $O(Hn^2)$ storage.  \Cref{app:size} derives these allocations,
-states the width-uniformity requirements, and places NTH and numerical
-limiting-process solvers in the same error metric.
+If the finite network approximates the population flow at the root-width rate
+and the constants of \Cref{thm:old,thm:new} are uniform in width, then the
+moving state needed for a population error $\varepsilon$ scales as
+$\varepsilon^{-4}$ for dense training, $\varepsilon^{-3}$ for the
+learning-speed clock and $\varepsilon^{-5/2}$ for the joint clock: history
+regularity changes the price of accuracy.  \Cref{app:size} states the
+hypotheses, derives these allocations, and places the tangent hierarchy and
+numerical DMFT solvers on the same axis.
 
-\FloatBarrier
 \section{Experiments}
 \label{sec:experiments}
 
@@ -954,7 +920,7 @@ accuracy with the matching knob: the network in neurons, the exact limits in
 stored history, the tangent hierarchy in tensors over tuples of samples, and
 response memory in an approximation order.  Regime-changing simplifications
 answer a different question, so enlarging them alone gives no general
-same-target guarantee.  This classification (\Cref{def:size,tab:axis}) makes
+same-target guarantee.  This classification (\Cref{tab:axis}) makes
 the present contribution precise: at fixed width, the evolving learned state
 is linear in sample count and approximation order, and its error is certified
 against the full trajectory (\Cref{sec:size}).  Whether the same holds against the
@@ -1160,21 +1126,21 @@ choose recursively
 \begin{align}
  s_\ell&=\sup_{|z|\le R\alpha_{\ell-1}}|\phi'(z)|,&
  \alpha_\ell&=\sqrt n\sup_{|z|\le R\alpha_{\ell-1}}|\phi(z)|,\nonumber\\
- \beta_H&=R s_H,& \beta_\ell&=s_\ell R\beta_{\ell+1}\quad(\ell<H).
+ \beta_L&=R s_L,& \beta_\ell&=s_\ell R\beta_{\ell+1}\quad(\ell<L).
                                                                \label{eq:response-bounds}
 \end{align}
 Then $\norm{h_a^{(\ell)}}\le\alpha_\ell$ and
 $\norm{\delta_a^{(\ell)}}\le\beta_\ell$ on $\mathcal B$.  Put
 \begin{align}
  Y&=\left(m^{-1}\sum_a y_a^2\right)^{1/2},&
- q&=R\alpha_H/n+Y,& S&=Tq,& \mathsf A&=1+S,\nonumber\\
+ q&=R\alpha_L/n+Y,& S&=Tq,& \mathsf A&=1+S,\nonumber\\
  v_1&=2\beta_1X,&
- v_\ell&=2\beta_\ell\alpha_{\ell-1}/n,& v_w&=2\alpha_H,\nonumber\\
+ v_\ell&=2\beta_\ell\alpha_{\ell-1}/n,& v_w&=2\alpha_L,\nonumber\\
  V&=\left(v_1^2+\sum_{\ell=2}^Hv_\ell^2+v_w^2\right)^{1/2}. \label{eq:compact-constants}
 \end{align}
 On the stopped interval, $\rho\le q$, $\tau\le\mathsf A$ and
 $\norm{F}\le V\rho$.  Since $F$ is locally Lipschitz, it has some finite
-Lipschitz constant $K$ on $\mathcal B$.
+Lipschitz constant $\Lambda_F$ on $\mathcal B$.
 
 \paragraph{Step 2: an exact projection-error energy.}
 For any single forward or backward history $q$, let
@@ -1283,13 +1249,13 @@ Summing \eqref{eq:defect-energy} over links, we obtain
  \int_0^t\norm{E(s)}\dd s
  \le\frac{B_{\mathrm{LS}}}{\sqrt{P(P+1)}},\qquad
  B_{\mathrm{LS}}=\frac{\mathsf A}{n}
- \sum_{\ell=2}^H\beta_\ell\sqrt{S\overline Z_{\ell-1}}. \label{eq:old-defect-bound}
+ \sum_{\ell=2}^L\beta_\ell\sqrt{S\overline Z_{\ell-1}}. \label{eq:old-defect-bound}
 \end{equation}
 It remains to account for feedback.  Subtracting the dense flow from the
 perturbed flow and applying the Lipschitz bound on $F$ gives
 \[
  e(t)\le\frac{B_{\mathrm{LS}}}{\sqrt{P(P+1)}}
- +K\int_0^te(s)\dd s,
+ +\Lambda_F\int_0^te(s)\dd s,
 \]
 and Gronwall's inequality yields
 \begin{equation}
@@ -1316,9 +1282,9 @@ For both the dense and the closure flows, the unchanged readout equation obeys
  \frac{\dd}{\dd t}\norm w^2
  =nY^2-4n\frac1m\sum_a(f_a-y_a/2)^2\le nY^2.
 \]
-Therefore $\norm w\le B_w$, $\rho\le q:=B_w\alpha_H/n+Y$, $S=Tq$ and
-$\tau\le\mathsf A:=1+S$.  Start with $\beta_H=B_ws_H$ and proceed downward: for
-$\ell=H,\ldots,2$, define
+Therefore $\norm w\le B_w$, $\rho\le q:=B_w\alpha_L/n+Y$, $S=Tq$ and
+$\tau\le\mathsf A:=1+S$.  Start with $\beta_L=B_ws_L$ and proceed downward: for
+$\ell=L,\ldots,2$, define
 \[
  D_\ell=\norm{W_0^{(\ell)}}_F+
  \frac{2\mathsf A\beta_\ell\alpha_{\ell-1}}{n},
@@ -1391,7 +1357,7 @@ of the same product form as \eqref{eq:defect}.
 \paragraph{Step 1: a lower bound on the dense residual.}
 Assume $\rho_0>0$ as stated, and use the compact physical ball $\mathcal B$ from
 \Cref{app:proof-old}.  Retain the constants
-$\alpha_\ell,\beta_\ell,q,S,\mathsf A,V,K$ from the proof of \Cref{thm:old}.  On
+$\alpha_\ell,\beta_\ell,q,S,\mathsf A,V,\Lambda_F$ from the proof of \Cref{thm:old}.  On
 this ball the output map has a finite Lipschitz constant $c_f$: prediction and
 residual RMS change by at most $c_f\norm{\theta-\theta'}$.  Along dense flow,
 \[
@@ -1431,7 +1397,7 @@ The initial error is zero because every prefix is constant.  Thus
 \paragraph{Step 3: order-independent coarse bounds.}
 Put
 \[
- Q=m\sum_{\ell=2}^H(\alpha_{\ell-1}^2+\beta_\ell^2),
+ Q=m\sum_{\ell=2}^L(\alpha_{\ell-1}^2+\beta_\ell^2),
  \qquad C_0=\frac{\mathsf A Q}{nm}.
 \]
 The total mass of $\mu_t$ is at most $\mathsf A=1+S$.  Projection error is no
@@ -1501,7 +1467,7 @@ Combining \eqref{eq:defect-energy}, \eqref{eq:new-clock-bound},
  \le\frac{\Gamma_{\mathrm{JF}}}{P(P+1)},\qquad
  \Gamma_{\mathrm{JF}}=\frac{\Lambda_T^2(\Lambda_T-1)}{4nm}.     \label{eq:new-sharp-defect}
 \end{equation}
-Subtracting the dense flow and applying the Lipschitz constant $K$ and Gronwall's
+Subtracting the dense flow and applying the Lipschitz constant $\Lambda_F$ and Gronwall's
 inequality gives
 \begin{equation}
  \norm{\widehat\theta_P(t)-\theta(t)}
@@ -1531,7 +1497,7 @@ fixed-order polynomials then bound every raw coordinate.  Together with the
 physical, residual, clock and Gram bounds, the full state lies in a compact
 subset of its locally Lipschitz domain.  A finite maximal endpoint therefore
 extends, which proves continuation through $T$ and completes the theorem with
-$C_T=\Gamma_{\mathrm{JF}}$ and $K_T=K$. \qed
+$C_T=\Gamma_{\mathrm{JF}}$ and $K_T=\Lambda_F$. \qed
 
 \subsection*{Implementation of the joint clock}
 \label{app:joint-impl}
@@ -1735,10 +1701,10 @@ gives
  e_N'\le C(1+R)(e_N+\varepsilon_N)+C\,e^{-aR}.
 \]
 Choosing $R=1+a^{-1}\log(1/v)$ with $v=e_N+\varepsilon_N+\eta$ yields
-$v'\le Lv\log(e/v)$, hence
+$v'\le \Lambda_0 v\log(e/v)$, hence
 \[
  e_N(t)+\varepsilon_N+\eta\le e^{1-\alpha(t)}(\varepsilon_N+\eta)^{\alpha(t)},
- \qquad\alpha(t)=e^{-Lt}.
+ \qquad\alpha(t)=e^{-\Lambda_0 t}.
 \]
 Letting $\eta\downarrow0$ and $N\to\infty$ gives $\sup_{t\le T}e_N\to0$, and the
 forward bounds give uniform convergence of $f_N$ on $[0,T]\times S^1$.  The same
