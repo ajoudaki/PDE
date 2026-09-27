@@ -11,15 +11,29 @@ Build from this directory with:
 latexmk -pdf main.tex
 ```
 
-This checkout is the experimental figure edition on
-`codex/paper-figure-experiment`; the main branch is unchanged. The current PDF
-has 37 pages and compiles without warnings or unresolved references.
-[FIGURE_EXPERIMENT.md](FIGURE_EXPERIMENT.md) records the placements, evidence,
-source data, rendering commands and limits. All seven new figure scripts/assets
-live in `figures/`. The mechanism opens on page 2, common-time and same-rank
-comparisons appear on page 13, and the revised MNIST plot appears on page 16.
-The clock and projection diagrams accompany their proofs; the sphere and
-broader two-hidden-layer radial gallery are in Appendices F and G.
+The selected figure editions have been merged into `main`. The current TikZ
+renderer is `scripts/tikz_figures.py`; figures and portable source bundles live
+in `figures/`. The main text includes the mechanism, moment-history illustration,
+shared-time evolution, four-method fitted-function comparison and deep radial overview.
+Detailed rank, numerical-sensitivity and MNIST panels are in the appendices.
+[FIGURE_EXPERIMENT.md](FIGURE_EXPERIMENT.md) preserves the earlier edition's
+evidence and rendering record.
+
+[NOTE_fig3_trajectory.md](NOTE_fig3_trajectory.md) documents the completed
+39-checkpoint replay for Figure 3, its checks and reproduction commands.
+It preserves the original task and initialization and adds genuine shared-time
+predictions at two numerical resolutions. `figures/capture_trajectory.py`
+performs that bounded capture; `scripts/tikz_figures.py trajectory` redraws
+the figure from the bundle without training.
+
+Figure 4 uses `figures/learning_controls_quadrant_alternating.pdf` to compare
+dense, frozen NTK, rank-matched factors, and response memory. The previous
+compact factor figure is retained in the appendix, followed by the full
+five-task comparison split into `learning_controls_gallery_a.pdf` and
+`learning_controls_gallery_b.pdf` for readability. The standalone
+`learning_controls_gallery.pdf` contains all five rows together. Individual
+rows, the portable data, and the bounded kernel capture are documented in
+[the figure guide](scripts/README.md#four-method-comparison-across-five-circle-tasks).
 
 `main_alternative.tex` and `main_alternative.pdf` retain the attachment as
 originally compiled (28 pages, with only PDF bookmark fixes). They are a
@@ -54,8 +68,9 @@ Figures and reproduction tools:
 - [scripts/README.md](scripts/README.md): consolidated renderer, portable bundles,
   provenance, dependencies and reproduction commands.
 
-These figures reuse saved predictions; no training was rerun. Sphere RMS
-values were checked against the saved arrays. The sphere experiment uses one
+Figure 3 uses the documented new checkpoint replay; the endpoint, rank, MNIST
+and sphere figures reuse their saved predictions. Sphere RMS values were
+checked against the saved arrays. The sphere experiment uses one
 seed and float32 Euler steps of 1/128 at individually fitted endpoints. ReLU
 is outside the smooth-activation theorems, and the figure supplies neither
 common-time trajectory evidence nor a continuous-flow refinement certificate.

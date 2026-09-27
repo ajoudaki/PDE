@@ -1,0 +1,75 @@
+{
+  "task": "quadrant_pairs",
+  "width": 2048,
+  "hidden_layers": 2,
+  "activation": "tanh",
+  "seed": 20260920,
+  "loss": "unhalved mean squared error",
+  "threshold": 0.001,
+  "parameter_mobilities": [
+    2048,
+    1,
+    2048
+  ],
+  "control": "full initialization-frozen empirical NTK",
+  "protocol": "One preselected task/seed, all three parameter blocks, same initialization and fit threshold; no tuning or ridge",
+  "success": "Positive resolved training spectrum, target MSE reached, finite full-circle predictions and independent formula check",
+  "budget": "One kernel construction and analytic flow; 8192 queries in blocks of 256; 180 wall seconds for kernel construction",
+  "python": "3.10.14",
+  "numpy": "1.26.4",
+  "command": [
+    "paper/figures/frozen_ntk.py",
+    "--out",
+    "/tmp/pde-frozen-ntk-preview-20260927"
+  ],
+  "source_sha256": "9854112fdde0a8e5904f0acce3a852a1792b617904cde8230676887f8e7a4d40",
+  "bundle_sha256": "86fdd60042a8007079b4cfabfb831296fd7a06689948d39e0c669b1e51697e42",
+  "autograd_block_max_abs_error": 5.551115123125783e-17,
+  "fit_time": 885686.0519176552,
+  "training_mse": 0.001,
+  "train_kernel_eigenvalues": [
+    1.839141259481798e-07,
+    2.1055793200433958e-06,
+    2.2693397860147867e-05,
+    0.00015879715453283262,
+    0.0019093400287277268,
+    0.011167940864050586,
+    0.30595579905928116,
+    1.5711221379295477
+  ],
+  "condition": 8542694.204860762,
+  "eigenvalue_screen": 4.572567232912254e-11,
+  "kernel_trace_by_block": [
+    5.74760474939488e-07,
+    4.886400433201488e-07,
+    1.8903379345269284
+  ],
+  "training_prediction_check": 1.3095635686966034e-11,
+  "expm_check": 2.764677375921565e-12,
+  "initial_prediction_check": 2.371692252312041e-20,
+  "full_circle_rms_vs_dense": {
+    "frozen_ntk": 13.690155699699746,
+    "frozen_ntk_infinity": 9.371217201947449,
+    "memory_P3": 0.0028176104270794295
+  },
+  "frozen_range": [
+    -25.34106991085676,
+    25.34106991085767
+  ],
+  "frozen_infinity_range": [
+    -16.728955389532068,
+    16.72895538953025
+  ],
+  "frozen_training_mse_at_t80": 0.7987906349390743,
+  "elapsed_seconds": 3.923840496689081,
+  "initialization_hashes": {
+    "w": "da24d2b86aed45dfa6e7442e24bfcb968ec28fcfbcfb2f5f07ac066601fffd63",
+    "c": "460ee22d13695cbe3226805bf5b24b124100e32be5717737508c79d8679b0db6",
+    "W0": "559c9ad62fd9feab4fb4671e854b86ec975240a12aa8792873824ebe2344b3f9"
+  },
+  "train_inputs_sha256": "aa3e9720a40b56b98b71ee702ff71d5c41defb43fda59441efe76caec7752844",
+  "labels_sha256": "f1dd99a18bae8ca274fce6c05a095676e3d1b37de7f8968db3318b8492a9977f",
+  "angles_sha256": "113076239e12821681e885465c32eda9219f0dadf09e5bd8a122ea8876f23c80",
+  "frozen_prediction_sha256": "ed9274c7bdf485515d0d3b53d7c0be5fc1cf121d5a5a5b579961f2583554d409",
+  "interpretation": "Fidelity to this trained dense network, not error against unknown test labels; same finite-width feature-learning parameterization, not an infinite-width lazy-limit theorem"
+}

@@ -203,11 +203,196 @@ No training or manuscript-placement changes are part of the consolidation.
 
 ## Explanatory TikZ figures
 
-`tikz_figures.py` regenerates `mechanism.pdf` and `moments.pdf` in
-`paper/figures/` (TikZ compiled with pdflatex; needs NumPy; `moments` trains a
-small network in a few seconds):
+`tikz_figures.py` renders the current manuscript's TikZ figures into
+`paper/figures/`. It needs NumPy and pdflatex with TikZ. Pass a figure name
+to rebuild just that figure; with no names it rebuilds all figures, including
+the separate small-network training used by the `moments` illustration.
 
 ```bash
-python paper/scripts/tikz_figures.py            # both
-python paper/scripts/tikz_figures.py mechanism  # one
+python paper/scripts/tikz_figures.py mechanism
+python paper/scripts/tikz_figures.py trajectory  # saved bundle only; no training
 ```
+
+The trajectory bundle now contains 39 actual shared checkpoints and both
+numerical resolutions for dense and P1/P3/P7. The figure displays 38 positive
+times on a log axis, with points, thin connecting guides and light shading
+below the coarse/fine sensitivity scale. Its four radial times remain
+0, 5, 20, 80. Do not regenerate this bundle with the historical eight-checkpoint
+`experimental_figures.py --from-archives` extraction.
+
+The bounded GPU capture script is `../figures/capture_trajectory.py`.
+It writes to a fresh `--out` directory and never replaces the paper bundle.
+Full protocol, numerical checks and commands are in
+[the Figure 3 note](../NOTE_fig3_trajectory.md); provenance and all replay checks
+are in `../figures/trajectory_capture_manifest.json`. Rendering the portable
+bundle does not require the original training archives or a GPU.
+
+### Figure 4 radial preview (not inserted into the manuscript)
+
+```bash
+python -B paper/scripts/tikz_figures.py same_rank_radial_preview
+pdftoppm -png -singlefile -scale-to 2200 \
+  paper/figures/same_rank_radial_preview.pdf \
+  paper/figures/same_rank_radial_preview
+```
+
+This opt-in preview uses the existing `polar` renderer and the saved paired-label
+endpoints in `response_memory_source.npz`. It shows trained factors (both seeds,
+red), dense training (black/gray), and P3 memory (purple). The corrections have
+matched rank bound 24; each model is at its own training-MSE 0.001 endpoint.
+Shading marks the gap from the dense curve. Circle RMS values are recomputed
+from all 8192 saved predictions and checked against the recorded metrics:
+0.375464 / 0.203580 for factors, 0.00281761 for memory. These are prediction
+discrepancies from dense, not errors against unseen labels. No training runs
+or manuscript edits are performed. Default rendering does not build previews.
+
+### Frozen-NTK radial preview (not inserted into the manuscript)
+
+```bash
+python -B paper/scripts/tikz_figures.py frozen_ntk_radial_preview
+pdftoppm -png -singlefile -scale-to 2200 \
+  paper/figures/frozen_ntk_radial_preview.pdf \
+  paper/figures/frozen_ntk_radial_preview
+```
+
+This preview adds a full initialization-frozen empirical NTK control for the
+same paired-label task: eight training inputs, two tanh hidden layers, width
+2048, seed 20260920. The dense and P3 memory endpoints are the existing saved
+predictions. The kernel uses the identical initialization and canonical
+parameter mobilities `(n, 1, n)` for first weights, middle weights, and readout.
+All three parameter blocks are included, without ridge regularization or tuning.
+
+To specify the control completely, let the already normalized input be `u`,
+`h1 = tanh(w u)`, `h2 = tanh(W0 h1)`, and `f0 = cᵀ h2/n`, all at initialization.
+Set `δ2 = c ⊙ (1 − h2²)` and `δ1 = (W0ᵀ δ2) ⊙ (1 − h1²)`. The frozen kernel is
+
+```text
+K(q,x) = [δ1(q)ᵀδ1(x)] [qᵀx]/n
+       + [δ2(q)ᵀδ2(x)] [h1(q)ᵀh1(x)]/n²
+       +  h2(q)ᵀh2(x)/n.
+```
+
+For unhalved mean squared loss on `m = 8` inputs, the exact frozen flow is
+`f(X,t) − y = exp(−2 K(X,X)t/m) (f0(X) − y)`. With
+`K(X,X) = V diag(λ) Vᵀ`, its prediction at any query is
+
+```text
+f(q,t) = f0(q) + K(q,X) V diag((1 − exp(−2λt/m))/λ) Vᵀ (y − f0(X)).
+```
+
+The script evaluates this formula by an 8-by-8 eigendecomposition and locates
+the first training-MSE 0.001 crossing by bisection. Each plotted model is at
+its own fitting time; these are not matched-time trajectories. The frozen
+control reaches this threshold at approximately 885686.05. Its RMS difference
+from dense over 8192 uniform circle queries is **13.69016**, compared with
+**0.00281761** for P3 memory. Its infinite-time interpolating limit still differs
+from the saved dense endpoint by **9.37122** RMS. These are discrepancies from
+the dense predictor, not errors against unknown test labels.
+
+The frozen prediction spans approximately ±25.34, so all three panels use
+the same linear radius `30 + f(θ)`, with signed-output ticks. This avoids both
+clipping the large excursions and folding negative radii onto other angles.
+Blue denotes frozen NTK, black/gray dense, purple memory, and black dots labels.
+The result supports the importance of evolution beyond the initial tangent
+model on this task; it is not a comparison with every possible kernel or a
+claim about the infinite-width NTK regime under a different parameterization.
+
+Rendering only needs `../figures/frozen_ntk_source.npz`. To recompute the
+kernel and its predictions, choose a fresh output directory:
+
+```bash
+OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 \
+  python -B paper/figures/frozen_ntk.py --out /tmp/paper-frozen-ntk-new
+```
+
+Computation requires NumPy, SciPy, and PyTorch (only for a tiny independent
+Jacobian check); it requires no GPU and performs no neural-network training.
+The capture writes its protocol, predictions, and checks to the requested
+directory. Published preview inputs and checks are in
+`../figures/frozen_ntk_source.npz` and `../figures/frozen_ntk_manifest.json`.
+Initial weight hashes and initial predictions match the dense reference.
+Each kernel block is checked against autograd, and the spectral flow is checked
+against a matrix exponential and the independent training cross-kernel formula.
+The smallest training eigenvalue is 1.84e−7; no modes were truncated. This is an
+opt-in preview: neither default figure rendering nor the manuscript is changed.
+
+### Four-method comparison across five circle tasks
+
+The `learning_controls_*` figures place **dense, frozen NTK, rank-matched
+trained factors, and response memory** in four columns. All five tasks from
+the existing factor campaign are included, always at P3 and with both recorded
+factor seeds. Figure 4 now uses `learning_controls_quadrant_alternating.pdf`;
+the old compact factor figure is retained in the appendix. The full five-task
+gallery is included there as `learning_controls_gallery_a.pdf` (three rows)
+and `learning_controls_gallery_b.pdf` (two rows) for readable page layout.
+These three adopted figures are included in the renderer's default build;
+the other task rows and the single-sheet gallery remain optional exports.
+For the clearest visual contrast, use the alternating task; the paired-label
+task is a useful companion showing much smaller memory discrepancy.
+
+| Task | Frozen NTK RMS | Factor seed 1 / seed 2 RMS | Memory P3 RMS |
+|---|---:|---:|---:|
+| Two outliers, alternating | 14.47884 | 0.46546 / 0.46091 | 0.072953 |
+| Quadrant, alternating | 171.03262 | 0.67664 / 1.54131 | 0.045611 |
+| Quadrant, paired labels | 13.69016 | 0.37546 / 0.20358 | 0.002818 |
+| Quadrant, center/edges | 193.55560 | 0.25786 / 0.24927 | 0.004878 |
+| Equally spaced, mixed | 0.14983 | 0.06069 / 0.06871 | 0.000526 |
+
+All RMS values compare with the same dense endpoint within each task, using
+8192 uniform circle queries. Each method reaches training MSE approximately
+0.001 at its own stopping time. This is fitted-function fidelity, not a
+matched-time comparison or an error against unseen ground-truth labels.
+The four-dimensional antipodal quotient for the equally spaced odd task gives
+rank 12; all other rows use rank 24. Its frozen flow also uses the same exact
+quotient, with an additional loss check on the original eight physical inputs.
+
+Dense/factor/memory predictions are reused from the saved experiment; only the
+analytic frozen-kernel flows are new. They use the full kernel and initialization
+specified above. Factors use `W0 + AB`, Euclidean mobility one for A and B,
+`A(0)=0`, and Gaussian B entries with variance `1/rank`; outer weights use
+canonical mobilities. Thus these controls test freezing the initial tangent
+model and changing the evolution law at the same correction rank, respectively.
+The result supports accurate reproduction of the nonlinear-trained predictor
+beyond either simplification. Endpoint agreement alone does not establish
+agreement of every internal representation or superiority to all low-rank methods.
+
+The NTK can make much larger excursions. To keep the factor comparison visible,
+the plots explicitly widen **only the NTK output scale**, including its gray
+dense reference and training dots. The respective factors are 10, 100, 10, 200,
+and 1 in the table's order. All plots are linear in output: radius is
+`s*(b + f/u)`, where `u` is the marked output scale, and `b,s` are common within
+each row. Signed ticks always show original output units, and numerical RMS
+values are never rescaled. There is no clipping, negative-radius folding,
+per-curve normalization, or logarithmic transformation.
+
+Regenerate the full gallery or individual rows from the portable bundle:
+
+```bash
+python -B paper/scripts/tikz_figures.py learning_controls_gallery
+python -B paper/scripts/tikz_figures.py learning_controls_quadrant_alternating
+python -B paper/scripts/tikz_figures.py learning_controls_quadrant_pairs
+python -B paper/scripts/tikz_figures.py learning_controls_gallery_a learning_controls_gallery_b
+```
+
+Other suffixes are `two_outliers_alternating`, `quadrant_center_edges`, and
+`equal_mixed_odd`. Outputs are in `paper/figures/`. Rendering uses only
+`learning_controls_source.npz` and the existing TikZ renderer. The capture
+script `paper/figures/learning_controls.py` can recompute the comparison:
+
+```bash
+OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 \
+  python -B paper/figures/learning_controls.py --out /tmp/paper-controls-new
+```
+
+Capture needs the current paper bundles and this study's saved factor archives;
+it writes to a fresh directory. It verifies their hashes, physical inputs,
+initialization matches, training losses, and all 15 memory/factor RMS scores.
+The five frozen controls are solved analytically and checked with matrix
+exponentials and independent training cross-kernel predictions. The existing
+paired-label frozen prediction is reproduced exactly. The center/edges kernel
+is ill-conditioned (condition number about 2.29e9); its independent training
+prediction checks differ by at most 2.1e-8, much smaller than the reported
+discrepancy. No kernel eigenmodes are discarded. The capture took about 4.2
+seconds with two CPU BLAS threads and performed no neural training.
+`learning_controls_manifest.json` records the protocol, sources and checks,
+all individual fitting times, eigenvalues, and infinite-time kernel comparisons.
