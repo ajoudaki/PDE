@@ -92,7 +92,7 @@ estimate but is not a general remainder theorem for this model.
 
 Moving memory counts persistent updated scalars; fixed matrices, coefficient
 evaluators and workspace are reported separately.  The leading response-memory
-count is $2(L-1)mnP$.  With $u=A/\sqrt n$, $v=B_\omega/q^\omega$ and $u+v=\varepsilon$,
+count is $2(L-1)mnq$.  With $u=A/\sqrt n$, $v=B_\omega/q^\omega$ and $u+v=\varepsilon$,
 its minimization reduces to minimizing $u^{-2}(\varepsilon-u)^{-1/\omega}$.
 The logarithm has derivative $-2/u+1/[\omega(\varepsilon-u)]$ and positive second
 derivative, and diverges at both endpoints.  Hence the unique continuous optimum is
@@ -115,8 +115,8 @@ specified representations, not actual errors or all possible algorithms.
 For completeness, full-batch arithmetic per right-hand-side evaluation is
 \begin{align}
  C_{\rm dense}&=O(Lmn^2+mnd),\nonumber\\
- C_{\rm old}&=O(Lmn^2+Lm^2nP+LmnP+mnd),\nonumber\\
- C_{\rm joint}&=O(Lmn^2+Lm^2nP+LmnP^2+q^3+mnd).
+ C_{\rm old}&=O(Lmn^2+Lm^2nq+Lmnq+mnd),\nonumber\\
+ C_{\rm joint}&=O(Lmn^2+Lm^2nq+Lmnq^2+q^3+mnd).
  \label{cmp:response-work}
 \end{align}
 The terms respectively account for dense initialized actions, learned factors,

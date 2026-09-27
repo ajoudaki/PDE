@@ -63,7 +63,7 @@ it tracks the whole parameter trajectory with error $O_T(q^{-1})$, or
 $O_T(q^{-2})$ with a second, joint clock.  Pairing forward and backward
 memories makes the compression defect a product of two projection errors.
 As a corollary, every learned hidden-weight increment on that horizon lies
-within $O_T(q^{-1})$ of a rank-$mP$ matrix generated online from response moments,
+within $O_T(q^{-1})$ of a rank-$mq$ matrix generated online from response moments,
 where $m$ is the sample count.  The initialized matrices are retained.
 Small orders closely reproduce dense fitted predictions in whole-circle RMS
 and on held-out MNIST inputs, and outperform the frozen and directly trained
@@ -153,37 +153,27 @@ the axis precise, \Cref{tab:axis} (\Cref{sec:related}) places the descriptions
 on it once the results are in hand, and \Cref{app:size} works out, under stated
 hypotheses, what each would cost at a prescribed accuracy.
 
-\paragraph{Results.}
-\Cref{sec:setting} fixes the training flow and what it means to compress it
-(\Cref{def:global}).  We then show the following.
-\begin{enumerate}
-\item \emph{Exact descriptions and obstacles} (\Cref{sec:notions}).  An exact
-operator closure for a deep linear benchmark and a restricted scalar
-nonclosure result expose information that simple finite summaries can miss.
-Whether exact deep nonlinear dynamics admit finitely many population fields
-remains open.
-\item \emph{Training history is compressible in time} (\Cref{sec:memory}).  For
-networks of any fixed finite width and depth, replacing each neuron's forward and backward history by
-$q$ Legendre moments in a learning-speed clock gives an autonomous system whose
-state is fixed on the chosen horizon and whose trajectory is within
-$O_T(q^{-1})$ of gradient flow, or $O_T(q^{-2})$ with a joint clock
-(\Cref{thm:old,thm:new}).  The difficulty is feedback: the memorized signals
-depend on the approximation itself.
-\item \emph{A structural consequence} (\Cref{cor:rank}).  Every learned weight
-increment is, on a finite horizon, within $O(1/q)$ of a rank-$mP$ matrix built
-from the network's own response moments.
-\item \emph{Evolving memories are what matter} (\Cref{sec:experiments}).  Small
-orders closely reproduce the fitted circle function and held-out MNIST
-predictions.  In the circle comparisons, frozen dictionaries and directly
-trained low-rank corrections of comparable size have substantially larger errors.
-\end{enumerate}
-The theorems hold at every fixed width.  The population limit is the motivation
-and gives an interpretation of the result (\Cref{sec:population-view}), and a
-precise conjecture (\Cref{conj:population}) states what a population version
-would be; it is not proved here.  \Cref{app:popclosure} records an earlier,
-weaker closure of the population flow itself, in which the learned middle layer
-is confined to a frozen span of initialization observables; it converges without
-a rate, and its limitations motivated the evolving memories of the main result.
+\paragraph{Key contribution.}
+Compressing the training dynamics of a deep, fully connected network means
+carrying its trajectory with less evolving state than its dense weight
+matrices.  Written without those matrices, gradient flow is exact but its
+state is the entire response history, and exact finite closures of it run
+into a concrete obstruction (\Cref{sec:notions}).  We show that this history
+can nevertheless be compressed \emph{in time}: for a network of any fixed
+width and depth, replacing each neuron's forward and backward history by its
+first $q$ Legendre moments in a clock that runs at the speed of learning
+yields an autonomous system whose state is fixed on the chosen horizon and
+whose trajectory stays within $O_T(q^{-1})$ of gradient flow, or
+$O_T(q^{-2})$ with a joint clock (\Cref{thm:old,thm:new}).  The difficulty is
+feedback---the memorized signals are produced by the approximation
+itself---and controlling it along the whole trajectory is the content of the
+proofs.  As a consequence, every learned weight increment lies within
+$O_T(q^{-1})$ of a rank-$mq$ matrix generated online from the network's own
+response moments (\Cref{cor:rank}), and in experiments small orders reproduce
+the fitted function where frozen kernels and rank-matched trained factors do
+not (\Cref{sec:experiments}).  The theorems are finite-width statements; the
+population version, which would be the idealized model this introduction asks
+for, is stated as \Cref{conj:population}.
 
 \section{Setting}
 \label{sec:setting}
@@ -455,33 +445,33 @@ Under \Cref{thm:old}, for every $T$ and all sufficiently large $q$, each dense
 learned hidden increment $W^{(\ell)}(t)-W^{(\ell)}_0$, $2\le\ell\le L$ and
 $0\le t\le T$, is within $O_T(q^{-1})$ in Frobenius norm of the matrix
 $-\frac{2}{nm\tau}\sum_{a,k<q}(2k+1)\,\bar\delta^{(\ell)}_{a,k}(\bar h^{(\ell-1)}_{a,k})^\top$,
-which has rank at most $mP$ and is built from the moments of the closure's own
+which has rank at most $mq$ and is built from the moments of the closure's own
 responses.  Under \Cref{thm:new}, the joint-clock reconstruction, of rank at most
 $m(q+1)$, is within $O_T(q^{-2})$.
 \end{corollary}
 
 The corollary follows from the theorems because the reconstruction
-\eqref{eq:old-recon} has rank at most $mP$.  An a posteriori singular value
+\eqref{eq:old-recon} has rank at most $mq$.  An a posteriori singular value
 decomposition gives the best approximation at a chosen rank but does not itself
 bound that rank or produce a closed training dynamics.  Here the approximation
 is \emph{generated autonomously and online} from the
 network's own forward and backward history, with a rank that does not grow
 with time: on a given horizon, one fixed order serves every time inside it,
 however much the features have moved.  The statement is informative only while
-$mP<n$, and its constant depends on width.
+$mq<n$, and its constant depends on width.
 
 \subsection{Cost and size at accuracy}
 \label{sec:size}
 
 With $L$ hidden layers, width $n$, $m$ samples and order $q$, each learned
-$n\times n$ increment is carried by $2mP$ vectors of length $n$.  The moving
-internal state is $2(L-1)mnP$ numbers against $(L-1)n^2$ for the dense learned
-matrices; it does not grow with training time and is smaller whenever $2mP<n$.
+$n\times n$ increment is carried by $2mq$ vectors of length $n$.  The moving
+internal state is $2(L-1)mnq$ numbers against $(L-1)n^2$ for the dense learned
+matrices; it does not grow with training time and is smaller whenever $2mq<n$.
 The initialized matrices, $(L-1)n^2$ numbers, are kept as a fixed source.  Per
 step, applying $W_0^{(\ell)}$ and its transpose costs $O(mn^2)$ per layer as in
-dense training, the learned correction $O(m^2nP)$ per layer, and the moment
-update $O(LmnP)$; the joint clock adds an $O(q^3)$ Gram factorization and
-$O(LmnP^2)$ solves.
+dense training, the learned correction $O(m^2nq)$ per layer, and the moment
+update $O(Lmnq)$; the joint clock adds an $O(q^3)$ Gram factorization and
+$O(Lmnq^2)$ solves.
 
 Read as a trade-off, \Cref{thm:old,thm:new} say that, at fixed width and
 horizon, a trajectory error $\varepsilon$ costs $O(mn/\varepsilon)$ moving
@@ -492,13 +482,13 @@ by its own history, since summing the updates
 $-\frac{2}{nm}r_a\delta^{(\ell)}_a(h^{(\ell-1)}_a)^\top$ over the steps taken
 is an identity; that costs $mn$ numbers per step and grows with training.  And
 the dense increment itself is $n^2$ numbers.  Against the first, the order $q$
-replaces the number of steps; against the second, $2mP$ replaces $n$.  Both are
+replaces the number of steps; against the second, $2mq$ replaces $n$.  Both are
 consequences of the theorems, not of a hypothesis.  What they do not say is how
 the constants grow with the horizon or the width, and this is why the
 population-level version of the comparison (\Cref{app:size}) is conditional.
 
 What is compressed is time, not samples or neurons.  The state grows linearly
-with the number of training samples, and once $2mP\ge n$ it exceeds the dense
+with the number of training samples, and once $2mq\ge n$ it exceeds the dense
 learned matrices; learning from a continuum of inputs would need a further
 representation of the input dependence.  Nor is this a runtime improvement:
 because $W_0^{(\ell)}$ still acts densely, the closure ran somewhat slower than
@@ -519,7 +509,7 @@ be a Monte Carlo simulation of this system.  What is proved is only a diagonal
 statement: if finite-width flows converge to a population flow on $[0,T]$,
 choosing $n_j\to\infty$ and then $q_j$ large enough at each width yields
 systems in the response-memory family converging to it.  This diagonal
-argument alone does not ensure $mP_j<n_j$ or a compression gain.
+argument alone does not ensure $mq_j<n_j$ or a compression gain.
 The natural next theorem is the following.
 
 \begin{conjecture}[Fixed-order population closure]
@@ -543,6 +533,11 @@ $\varepsilon^{-3}$ for the learning-speed clock and $\varepsilon^{-5/2}$ for the
 joint clock: history regularity changes the price of accuracy.  \Cref{app:size}
 derives these allocations and places the tangent hierarchy and numerical DMFT
 solvers on the same axis.
+
+\Cref{app:popclosure} records an earlier, weaker closure of the population flow
+itself, in which the learned middle layer is confined to a frozen span of
+initialization observables; it converges without a rate, and its limitations
+motivated the evolving memories of the main result.
 
 \section{Experiments}
 \label{sec:experiments}
@@ -740,8 +735,8 @@ Tensor Programs \citep{yang2021tensor} & \checkmark & \checkmark & \checkmark & 
 DMFT \citep{bordelon2022dmft} & \checkmark & \checkmark & \checkmark & steps & $m^2\times$steps$^2$ & step size\\
 Tangent hierarchy \citep{huang2020nth} & \checkmark & \checkmark & (\checkmark) & kernels $q$ & $\sim m^{q-1}$ & $n^{-q/2}$\\
 \midrule
-Response memory, speed clock & \checkmark & \checkmark & \checkmark & moments $q$ & $mnP$ & $q^{-1}$ (\Cref{thm:old})\\
-Response memory, joint clock & \checkmark & \checkmark & \checkmark & moments $q$ & $mnP+q^2$ & $q^{-2}$ (\Cref{thm:new})\\
+Response memory, speed clock & \checkmark & \checkmark & \checkmark & moments $q$ & $mnq$ & $q^{-1}$ (\Cref{thm:old})\\
+Response memory, joint clock & \checkmark & \checkmark & \checkmark & moments $q$ & $mnq+q^2$ & $q^{-2}$ (\Cref{thm:new})\\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -1740,7 +1735,7 @@ Equally spaced, mixed & 0.0124 & 0.00053 & $4\times10^{-6}$ & 0.0150 & 0.00241 &
  recorded in the learning clock and projected onto the first $q$ shifted
  Legendre polynomials ($q=3$ shown).  The polynomial coordinates are fixed; the
  moment vectors $\bar h_{a,k},\bar\delta_{a,k}\in\R^n$ keep moving.  Pairing
- them gives a correction of rank at most $mP$, added to the fixed
+ them gives a correction of rank at most $mq$, added to the fixed
  initialization $W_0^{(\ell)}$, and the responses of the reconstructed network
  feed the next memories.  (b)~Splitting each history into its projection
  $\Pi_q$ and remainder, the exact interaction $\int b\,h^\top$ is a sum of four
