@@ -1,0 +1,327 @@
+\section{Accuracy and resource comparisons: derivations}
+\label{app:comparison}
+\label{app:size}
+
+All comparisons concern the same dense population predictor $f_\infty$,
+with the canonical mobility, data, Gaussian initialization and exactly zero
+readout of \Cref{thm:alltime}.  Matching initial predictions alone would
+not ensure this agreement.  Moving state means persistent updated scalars;
+fixed initialized matrices, coefficient evaluators and temporary workspace
+are accounted for separately.  Constants may depend on the fixed task,
+including $m,d,L$, the Gram margin, activation bounds and test law.
+
+\begin{definition}[Size at accuracy]
+\label{def:size}
+For a specified representation and a stated sufficient error certificate,
+its size at accuracy $\varepsilon$ is the least moving state obtained by
+choosing the representation's resolution parameters to satisfy that
+certificate, at the specified horizon and confidence level.  This is a
+sufficient representation cost, not an algorithmic lower bound.
+\end{definition}
+
+\subsection{The all-time certificate and its quantitative limits}
+\label{app:comparison-opt}
+
+For $0<T\le\infty$, use the finite-horizon restriction of
+\eqref{eq:test-metric},
+\begin{equation}
+ E_\mu(g,f;T)=\left[\int\sup_{0\le t\le T}
+                  |g(t,x)-f(t,x)|^2\,\mu(\dd x)\right]^{1/2}.
+ \label{cmp:test-error}
+\end{equation}
+The test law has finite second input moment.  This whole-input metric
+controls the difference of test RMSEs against any target in $L^2(\mu)$,
+uniformly in time; it does not assert that $f_\infty$ generalizes well.
+We use $T=\infty$ for the response-memory theorem.  Finite-$T$ certificates
+for other methods below remain finite-$T$ comparisons unless an additional
+tail estimate extends them to this same all-time metric.
+
+Let $D_n=E_\mu(f_n,f_\infty;\infty)$.  Prediction transfer from the
+normalized distance \eqref{eq:normalized-distance}, followed by the
+triangle inequality, gives on the common initialization events
+\begin{equation}
+ E_\mu(\widehat f_{n,q},f_\infty;\infty)
+ \le C_\mu\omega(q)+B_{n,\mu}+D_n,
+ \qquad
+ \omega(q)=q^{-2}\exp\!\left\{K\sqrt{\log(e+q)}\right\}.
+ \label{cmp:triangle}
+\end{equation}
+Here $B_{n,\mu}$ is the closure's dense-carrier transfer remainder after
+prediction transfer.  Both $B_{n,\mu}$ and $D_n$ tend to zero in probability;
+the theorem supplies no numerical width rate for either.  Their sum is the
+order-independent remainder $b_{n,\mu}$ in \Cref{thm:alltime}.
+The events and remainders are common to all $q$, so every deterministic
+$q_n\to\infty$ gives convergence in the all-time metric without an
+interchange of fixed-order limits.
+
+The moving-state counts are
+\begin{equation}
+ M_{\rm dense}(n)=(L-1)n^2+n(d+1),\qquad
+ M_{\rm mem}(n,q)=2(L-1)mnq+n(d+1)+O(1).
+ \label{cmp:moving-counts}
+\end{equation}
+For fixed positive integers $m,d$ and fixed $L\ge2$,
+$q_n\to\infty$ and $q_n=o(n)$ imply
+$M_{\rm mem}/M_{\rm dense}\to0$, proving \Cref{cor:compression}.
+For example, $q_n=\lceil\log\log(e^e+n)\rceil$ already suffices.
+This is a convergence and compression statement along the same width
+sequence, not a comparison of the narrowest networks attaining a tolerance.
+
+\paragraph{Conditional costs at a fixed confidence.}
+An additional quantitative benchmark is
+\begin{equation}
+ D_n=O_{\Pr}(n^{-1/2}),\qquad
+ B_{n,\mu}=O_{\Pr}(n^{-1/2}).
+ \label{cmp:root-width-hypotheses}
+\end{equation}
+The second hypothesis does not follow from the first: controlling dense
+predictions need not quantify the empirical transfer of dense backward
+carriers.  Neither follows merely from a fixed-program population limit or
+the perturbative fluctuation calculation of \citet{bordelon2023finite}.
+These hypotheses are needed in the same all-time metric and probability
+convention.  In particular, convergence in probability in
+\Cref{thm:alltime} is not an unconditional RMS rate.
+
+Under \eqref{cmp:root-width-hypotheses}, at any fixed confidence one may take
+$n=O(\varepsilon^{-2})$ with a sufficiently large constant and choose $q$
+so that $C_\mu\omega(q)\le\varepsilon/2$.  Writing $z=\log q$ gives
+$\log\omega(q)=-2z+K\sqrt z+o(1)$, hence a sufficient order satisfies
+\begin{equation}
+ \log q=\tfrac12\log(1/\varepsilon)
+                  +O\!\left(\sqrt{\log(1/\varepsilon)}\right),\qquad
+ q=\varepsilon^{-1/2+o(1)}.
+ \label{cmp:near-quadratic-order}
+\end{equation}
+The constant in the $O(\sqrt{\log(1/\varepsilon)})$ correction is chosen
+sufficiently large to enforce the error inequality.
+Consequently, for fixed $m,d,L$,
+\begin{equation}
+ M_{\rm mem}=O\!\left(\varepsilon^{-5/2+o(1)}\right),\qquad
+ M_{\rm dense}=O(\varepsilon^{-4}).
+ \label{cmp:conditional-cost}
+\end{equation}
+These are sufficient costs from the two certificates; no optimality or
+lower bound is asserted.  Without \eqref{cmp:root-width-hypotheses},
+\Cref{cor:compression} still holds, but \eqref{cmp:conditional-cost} is
+not a proved accuracy-cost law.
+
+For reference, a pure-power certificate
+$A n^{-1/2}+Bq^{-p}\le\varepsilon$, $p>0$, leads to the continuous
+allocation problem $\min u^{-2}(\varepsilon-u)^{-1/p}$, where
+$u=A/\sqrt n$.  Its logarithmic derivative is
+$-2/u+1/[p(\varepsilon-u)]$, with positive derivative, and its objective
+diverges at both endpoints.  Thus
+\begin{equation}
+ u_*=\frac{2p\varepsilon}{2p+1},\qquad
+ n_*=\frac{(2p+1)^2A^2}{4p^2\varepsilon^2},\qquad
+ q_* =\left(\frac{(2p+1)B}{\varepsilon}\right)^{1/p}.
+ \label{cmp:allocation}
+\end{equation}
+Upward rounding preserves feasibility.  The near-quadratic theorem has a
+subpower correction and an unquantified width remainder, so the exact
+$p=2$ allocation is not its unconditional optimum.
+
+The original residual-speed implementation permits full-batch arithmetic
+per right-hand-side evaluation
+\begin{equation}
+ C_{\rm dense}=O(Lmn^2+mnd),\qquad
+ C_{\rm mem}=O(Lmn^2+Lm^2nq+Lmnq+mnd).
+ \label{cmp:response-work}
+\end{equation}
+The terms account for initialized matrix actions, learned-factor actions,
+moment updates and first-layer work.  The closure also retains
+$(L-1)n^2$ initialized hidden entries as fixed data; activation workspace
+is $O(Lmn)$.
+The theorem therefore compresses evolving state, without an automatic
+improvement of total storage or arithmetic at a prescribed accuracy.
+
+\subsection{A matched tangent hierarchy}
+\label{app:comparison-nth}
+
+For sufficiently differentiable activations, the canonical mobility
+$\mathcal D_n=\diag(nI,I,\ldots,I,nI)$ defines
+\begin{align*}
+ K^{(2)}(x,z)&=\nabla_\theta f(x)^\top\mathcal D_n\nabla_\theta f(z),\\
+ K^{(j+1)}(x_1,\ldots,x_{j+1})&=
+ (\nabla_\theta K^{(j)}(x_1,\ldots,x_j))^\top
+ \mathcal D_n\nabla_\theta f(x_{j+1}).
+\end{align*}
+The chain rule gives the exact matched hierarchy
+\begin{equation}
+ \dot f(x)=-\frac{2}{m}\sum_a r_aK^{(2)}(x,x_a),\qquad
+ \dot K^{(j)}=-\frac{2}{m}\sum_a r_aK^{(j+1)}(\ldots,x_a).
+ \label{cmp:nth-flow}
+\end{equation}
+Truncation through order $q\ge2$ retains exact initial coefficients and
+freezes $K^{(q)}$.  A population implementation additionally needs limiting
+initial coefficients and a valid limiting hierarchy for this mobility.
+The $C^{1,1}$ activation class of \Cref{thm:alltime} alone does not supply
+the higher derivatives needed to define arbitrary orders.
+
+\paragraph{A conditional finite-time certificate.}
+Suppose on $[0,T]$ that $|K^{(j)}|\le B_j$ when the first argument ranges
+over the training inputs and a controlled test set, and all other arguments
+are training inputs.  Set $R=1+\sup_{t,a}|r_a(t)|$ and stop the truncated
+flow at predictor error one.  Its residuals are then bounded by $R$.
+For the corresponding supremum predictor and kernel errors,
+\begin{align}
+ e_q(t)&\le2RB_{q+1}t,\nonumber\\
+ e_j(t)&\le\int_0^t(2Re_{j+1}+2B_{j+1}e_f)\dd s
+                  \quad(2\le j<q),\nonumber\\
+ e_f(t)&\le\int_0^t(2Re_2+2B_2e_f)\dd s.
+ \label{cmp:nth-recursion}
+\end{align}
+Successive substitution integrates the top forcing $q$ times.  The feedback
+kernels are
+\[
+ 2B_{k+2}\frac{(2R(t-s))^k}{k!},\qquad 0\le k\le q-2.
+\]
+Bounding these at $T$ and applying Gronwall yields
+\begin{equation}
+ \sup_{t\le T}e_f(t)\le
+ B_{q+1}\frac{(2RT)^q}{q!}\exp(\Lambda_{q,T}T),\qquad
+ \Lambda_{q,T}=2\sum_{k=0}^{q-2}B_{k+2}\frac{(2RT)^k}{k!}.
+ \label{cmp:nth-bound}
+\end{equation}
+If this bound is below one, it rules out first exit, while the triangular
+integral equations bound all training tensors and ensure continuation.
+It controls \eqref{cmp:test-error} for a test law supported on the controlled
+set; an unbounded test law needs an integrable envelope.  Random coefficients
+and their approximation errors need the same probability convention as the
+compared predictor.
+
+For example, the additional factorial-growth and stability conditions
+$B_j\le UV^{j-2}(j-2)!$ and $\chi=2RVT<1$ give
+$\Lambda_{q,T}\le2U/(1-\chi)$ and error at most $D\chi^q/q$, where
+$D=(U/V)\exp\{2UT/(1-\chi)\}$.  For this certificate, with
+$\lambda_\chi=\log(1/\chi)$,
+\begin{equation}
+ q_\varepsilon=\max\left\{2,\left\lceil
+ \frac{W(\lambda_\chi D/\varepsilon)}{\lambda_\chi}
+ \right\rceil\right\},\qquad
+ M_{\rm NTH}=\sum_{j=1}^{q_\varepsilon-1}m^j
+ =\frac{m^{q_\varepsilon}-m}{m-1}\quad(m\ge2).
+ \label{cmp:nth-memory}
+\end{equation}
+Here $W(z)e^{W(z)}=z$.  The fixed top tensor and direct work each have
+order $m^{q_\varepsilon}$.  At fixed $m\ge2$ and $\chi$ the moving count
+is of order
+$[D/(\varepsilon\log(D/\varepsilon))]^{\log m/\lambda_\chi}$.
+The exponent depends on a certified $\chi$; a universal $\log_2m$ exponent
+does not follow.  Analyticity of $\tanh$ by itself does not establish these
+bounds, and $\chi\ge1$ makes this particular certificate inconclusive.
+Population use needs resource-independent constants and access to the
+initial mixed test-input kernels.  No all-time conclusion follows from
+this finite-$T$ argument.
+
+\paragraph{What the published NTH theorem supplies.}
+In their native NTK parameterization,
+\citet[Theorem~2.6]{huang2020nth} prove, after exchanging width/sample symbols,
+\begin{align}
+ \frac{\norm{f(t)-\widetilde f(t)}_2}{\sqrt m}
+ &\lesssim\frac{(1+t)t^{q-1}}{n^{q/2}}\min\{t,m/\lambda\},\nonumber\\
+ t&\le\min\left\{\frac{c\sqrt{\lambda n/m}}{(\log n)^C},
+ \frac{n^{q/[2(q+1)]}}{(\log n)^{C'}}\right\}.
+ \label{cmp:published-nth}
+\end{align}
+This assumes their initialization, even $q$, bounded activation derivatives
+through $2q+1$, bounded nondegenerate inputs with uniformly independent
+subsets through size $2q+1$, and an initial kernel eigenvalue gap.
+Loss normalization only rescales time by a constant.  The estimate concerns
+training RMS in that parameterization; it supplies neither a whole-input
+all-time bound for the canonical feature-learning target nor the factorial
+and stability hypotheses above.
+
+For whole-function queries the matched hierarchy has a finite coefficient
+representation.  Set $u_a=-2\widetilde r_a/m$, $I_\varnothing=1$ and
+$\dot I_{a_1\cdots a_k}=u_{a_1}I_{a_2\cdots a_k}$, with zero initial
+values for nonempty words.  Repeated integration gives
+\begin{equation}
+ \widetilde f_q(t,x)=f_0(x)+\sum_{k=1}^{q-1}\sum_{a_1,\ldots,a_k}
+ K_0^{(k+1)}(x,x_{a_1},\ldots,x_{a_k})I_{a_1\cdots a_k}(t).
+ \label{cmp:signature}
+\end{equation}
+The moving count agrees with \eqref{cmp:nth-memory}; query work additionally
+includes the fixed mixed-kernel evaluators.  For $m=1$, all coefficients
+are $I_k=s^k/k!$ with $\dot s=u$, so one moving scalar suffices.  Thus the
+direct tensor count is a representation cost, not a universal lower bound.
+
+\subsection{A specified streamed DMFT solver and stored histories}
+\label{app:comparison-dmft}
+
+The self-consistency solver of
+\citet[Appendix~B, Algorithm~1]{bordelon2022dmft} stores covariance and
+response kernels indexed by input and time pairs.  Matching scales requires
+$\gamma=\sqrt n$, internal coordinates $U^{(\ell)}=\sqrt nW^{(\ell)}$,
+and the same readout law and loss normalization.  A fixed-program Tensor
+Programs limit \citep[Algorithm~1, Theorem~7.4]{yang2021tensor} does not
+itself prescribe a convergent numerical solver or quantify its error.
+
+For $N_t$ time steps, $S$ sampled paths and $I$ self-consistency sweeps,
+factoring a dense covariance costs $O((mN_t)^3)$ per layer.  Streaming one
+path and its full response Jacobian while accumulating kernel averages gives
+the implementable upper bounds
+\begin{equation}
+ M_{\rm D}=O(Lm^2N_t^2),\qquad
+ C_{\rm D,total}=O(IL(S+1)m^3N_t^3),\qquad
+ C_{\rm D,step}=O(IL(S+1)m^3N_t^2).
+ \label{cmp:dmft-cost}
+\end{equation}
+Memory includes kernel and Jacobian workspace; the last cost is amortized.
+Mixed kernels and test paths must also be available for test prediction.
+These are costs for this solver, not lower bounds for TP or DMFT.
+
+A sufficient stability certificate would be a discrete self-consistency map
+$\mathcal F$ that is a $\kappa$-contraction, $\kappa<1$, in a norm
+controlling test outputs.  If its sampled approximation differs uniformly
+by $\zeta$ and a computed point has residual at most $\eta_0$, then
+\[
+ \norm{\widehat z-z_*}\le\eta_0+\zeta+
+       \kappa\norm{\widehat z-z_*}
+ \quad\Longrightarrow\quad
+ \norm{\widehat z-z_*}\le\frac{\eta_0+\zeta}{1-\kappa}.
+\]
+With a Lipschitz output map, uniform sampling control and a stable
+order-$\sigma$ time discretization, this would yield, at the specified
+confidence and finite horizon,
+\begin{equation}
+ E_\mu(g_{S,N_t},f_\infty;T)
+ \le A_{\rm D}S^{-1/2}+B_{\rm D}(T/N_t)^\sigma+\eta.
+ \label{cmp:dmft-error}
+\end{equation}
+The constants include stability amplification.  Grid-uniform Monte Carlo
+control, a certified numerical order, self-consistency stability and
+whole-input output control are additional hypotheses, not consequences of
+the cited limiting descriptions.  An all-time comparison further requires
+a certified treatment of the remaining time tail.
+
+Conditionally on \eqref{cmp:dmft-error} for a fixed $\sigma$, assigning fixed
+fractions of $\varepsilon$ to the three terms gives
+$S=O(\varepsilon^{-2})$, $N_t=O(T\varepsilon^{-1/\sigma})$ and
+$M_{\rm D}=O(Lm^2T^2\varepsilon^{-2/\sigma})$.
+Streaming moves the sampling cost into work; it does not eliminate it.
+One cannot improve this exponent by declaring arbitrarily high numerical
+order without the corresponding regularity, stability, constants and stage
+costs.  There is no certified universal DMFT accuracy exponent here.
+
+A separate finite-network baseline stores every Euler update:
+\[
+ W^{(\ell)}_k=W^{(\ell)}_0-\frac{2\Delta}{nm}
+ \sum_{j<k,a}r_{a,j}\delta^{(\ell)}_{a,j}
+                          (h^{(\ell-1)}_{a,j})^\top.
+\]
+Its moving memory is $O(LmnN_t)$, fixed memory $O(Ln^2)$ and late-step
+work $O(Lmn^2+Lm^2nN_t)$.  A specified method with a fixed number of
+stages has the same storage order.  If it also has a matched certificate
+$A/\sqrt n+D_{\rm h}(T/N_t)^\sigma$, \eqref{cmp:allocation} gives
+sufficient moving state
+$O(LmA^2T D_{\rm h}^{1/\sigma}\varepsilon^{-(2+1/\sigma)})$.
+This conditional finite-$T$ calculation stores finite-network updates;
+it is distinct from sampling a population response system.  Its numerical
+order and horizon dependence need their own certificates.
+
+The resource formulas identify what each representation stores and which
+additional estimates would make accuracy comparisons quantitative.  Only
+\Cref{thm:alltime,cor:compression} supply the all-time response-memory
+convergence claim used here; none of the conditional exponents establishes
+a universal ordering or an optimal complexity theorem.

@@ -1,0 +1,233 @@
+\subsection{A uniform approximation of the whole learning process}
+\label{sec:alltime}
+
+The central result concerns the learning-speed closure
+\eqref{eq:old-ode}--\eqref{eq:old-recon}, with its own residual and responses.
+Its accuracy is measured against the function selected by dense training,
+including on inputs never used for training.  For a test-input probability
+law $\mu$, write
+\begin{equation}
+ \mathcal E_\mu(g,f)=
+ \left(\int\sup_{t\ge0}|g(t,x)-f(t,x)|^2\dd\mu(x)\right)^{1/2}.
+ \label{eq:test-metric}
+\end{equation}
+The supremum is inside the integral: the estimate controls the entire
+trajectory at every test input, rather than only a selected stopping time.
+
+\begin{theorem}[All-time response-memory approximation]
+\label{thm:alltime}
+Fix the depth $L\ge2$, input dimension $d$, and $m$ training inputs.  In each
+layer let $\phi_\ell\in C^1(\R)$ have a globally bounded derivative and a
+globally Lipschitz derivative.  Use the independent Gaussian initialization
+of \Cref{sec:setting}, with $w(0)=0$, and the same initialization for dense
+and compressed training.  Assume the limiting initial readout-feature Gram
+has a positive gap:
+\begin{equation}
+ \Gamma_{w,\infty}(0)
+ :=\lim_{n\to\infty}\frac{H^{(L)}(0)^\top H^{(L)}(0)}{mn}
+ \succeq2\lambda I_m,\qquad \lambda>0,
+ \label{eq:initial-gap}
+\end{equation}
+where the columns of $H^{(L)}$ are the training features.
+There is $Y_*>0$, independent of width and order, such that for fixed labels
+with $Y=(m^{-1}\sum_a y_a^2)^{1/2}\le Y_*$ the following hold.
+
+There are constants $C,K,\kappa>0$, independent of $n,q,t$, and common
+initialization events of probability tending to one, on which the dense
+flow and every closure order $q\ge1$ exist for all time and satisfy
+\begin{equation}
+ \rho_n(t),\ \widehat\rho_{n,q}(t)\le Y e^{-\kappa t}.
+ \label{eq:alltime-fit}
+\end{equation}
+Their parameters converge as $t\to\infty$.  Simultaneously for every order,
+\begin{equation}
+ \sup_{t\ge0}d_n(\widehat\theta_{n,q}(t),\theta_n(t))
+ \le C\omega(q)+b_n,\qquad
+ \omega(q)=\frac{\exp\{K\sqrt{\log(e+q)}\}}{q^2},
+ \quad b_n\xrightarrow{\Pr}0,
+ \label{eq:alltime-parameters}
+\end{equation}
+where $b_n$ depends only on the dense reference, not on $q$.
+
+The dense predictors converge to a deterministic population predictor
+$f_\infty$.  For every fixed $\mu$ with
+$\int\|x\|^2\dd\mu(x)<\infty$, there is an order-independent remainder
+$b_{n,\mu}\xrightarrow{\Pr}0$ such that, on the same events,
+\begin{equation}
+ \mathcal E_\mu(\widehat f_{n,q},f_\infty)
+ \le C_\mu\omega(q)+b_{n,\mu}.
+ \label{eq:alltime-predictions}
+\end{equation}
+For every fixed bounded input set $\mathcal X$, the analogous bound holds
+for $\sup_{t\ge0,x\in\mathcal X}|\widehat f_{n,q}(t,x)-f_\infty(t,x)|$.
+Constants may depend on depth, data, activation bounds and the initial Gram
+gap.  The label threshold is fixed as $n,q\to\infty$.
+\end{theorem}
+
+Thus the order error is $q^{-2+o(1)}$: every fixed exponent below two is
+available.  The width remainder is a convergence statement, without an
+asserted numerical rate in $n$.  For any square-integrable target function,
+the difference between the closure's and the dense population's test RMSE
+is at most \eqref{eq:alltime-predictions}, uniformly in time, by the reverse
+triangle inequality.  In particular, a circle or sphere is a whole test
+domain covered by the theorem; a mesh is needed only to display its function.
+
+The activation class includes tanh, softplus, GELU, SiLU and softsign; its
+values need not be bounded.  The Gram condition is an initialization
+condition.  One sufficient input criterion is nonzero, pairwise
+nonproportional inputs, with a nonpolynomial first activation and nonconstant
+subsequent activations in the stated class.  The proof of this criterion and
+the theorem are in \Cref{app:proof-alltime}.
+
+\paragraph{Why the bound survives feedback and infinite time.}
+Small labels first give a short total interval of learning activity.  This
+keeps the initial feature-Gram gap open.  The closure's exact velocity defect
+is the product of its forward and backward endpoint projection errors;
+their opposite powers of $q$ cancel in a coarse bound relative to the
+residual.  This proves exponential fitting for \emph{every} order before
+using any approximation-to-dense argument.  The sharper tracking estimate
+then uses the projection-energy identity to integrate the defect: its two
+history errors multiply.  Gaussian tail control is needed only for the dense
+reference's backward carriers.  Cutting those carriers in the proof and
+balancing the tail against feedback amplification produces the factor
+$\exp\{K\sqrt{\log(e+q)}\}$.  The actual algorithm is unchanged.
+
+\begin{corollary}[Less evolving state for the same population flow]
+\label{cor:compression}
+Under \Cref{thm:alltime}, every deterministic sequence $q_n\to\infty$
+converges to $f_\infty$ in the all-time test metric, in probability.
+If also $q_n=o(n)$, then for fixed $m,d,L$ this convergence uses a vanishing
+fraction of the dense network's evolving state:
+\begin{equation}
+ M_{\rm dense}=(L-1)n^2+n(d+1),\qquad
+ M_{\rm memory}=2(L-1)mnq_n+n(d+1)+O(1),\qquad
+ \frac{M_{\rm memory}}{M_{\rm dense}}\longrightarrow0.
+ \label{eq:moving-state}
+\end{equation}
+Each learned hidden increment has rank at most $mq_n$ and approximates the
+corresponding dense increment with error bounded by
+\eqref{eq:alltime-parameters}, uniformly over all time.
+\label{cor:rank}
+\end{corollary}
+\begin{proof}
+The order term and width remainder in \eqref{eq:alltime-predictions} both
+vanish for every such sequence.  The state count follows directly from the
+two sets of $q_n$ length-$n$ moments per sample and hidden link, together with
+the first matrix, readout and clock.  Reconstruction
+\eqref{eq:old-recon} is a sum of $mq_n$ outer products; its error is a block
+of the normalized parameter distance.
+\end{proof}
+
+The order can therefore grow as slowly as $\lceil\log\log(e^e+n)\rceil$.
+No tuning of order against a hidden width-dependent amplification constant
+is required in this regime.  At a fixed accuracy, one may first choose the
+order and then take width sufficiently large: the learned state is linear
+in width, whereas dense storage is quadratic.  Quantifying the smallest
+sufficient width is a separate concentration question.
+
+\paragraph{A broader finite-time branch.}
+Small labels buy control through arbitrarily long training.  Without that
+condition, arbitrary finite data with $Y\le1$ and bounded initial readout
+RMS admit a different result: on every fixed $[0,T]$, a width-independent
+$C_T/q$ bound holds in a specified joint order--width region
+(\Cref{prop:trial-finite-time}).  For globally Lipschitz derivatives and
+zero readout, a sufficient threshold has the form
+$q\ge C_T\sqrt n\exp(C_T\sqrt n)$.  It requires neither a Gram gap nor
+successful fitting.  Its quantifiers matter: the constant is uniform on
+that joint region, while the order threshold grows with width.  It therefore
+extends the label range but does not supply the compression conclusion of
+\Cref{cor:compression}.  The general fixed-width guarantees, including
+$O_T(q^{-2})$ for the joint clock, remain in
+\Cref{app:proof-old,app:proof-new}.
+
+\begin{corollary}[Feature-learning strength]
+\label{cor:damped}
+Fix $0<\alpha\le1$.  Multiply the learning rates of every hidden weight,
+including $W^{(1)}$, by $\alpha^2$, keeping the readout rate unchanged.
+Use the learning-speed closure with $\dot\tau=\alpha\rho$, forward moment
+source $\alpha\rho h$, and backward moment source $\alpha^2 r\delta$;
+the dilation coefficient is $\alpha\rho/\tau$ and reconstruction is still
+\eqref{eq:old-recon}.  Then \Cref{thm:alltime} applies whenever
+$\alpha Y\le Y_*$, with the prediction bound divided by $\alpha$ and with
+the dense population trained by these same modified rates as reference.
+\end{corollary}
+\begin{proof}
+Run the canonical network on labels $\alpha y$ and denote its readout by
+$\widetilde w$.  Set $w=\widetilde w/\alpha$, leaving hidden weights
+unchanged.  Then $\widetilde f=\alpha f$,
+$\widetilde r=\alpha r$, and $\widetilde\delta=\alpha\delta$.
+Every hidden update acquires the factor $\alpha^2$, while dividing the
+readout update by $\alpha$ restores its original rate.  In
+\eqref{eq:old-ode}, $\widetilde\rho=\alpha\rho$ changes the clock and forward
+source, and $\widetilde r\widetilde\delta=\alpha^2r\delta$ changes the
+backward source.  The moments and hidden reconstruction are exactly those
+of the scaled-label canonical problem.  Its output discrepancy divided by
+$\alpha$ is the discrepancy for the modified problem.  This change of
+variables also transfers fitting and the state count.
+\end{proof}
+
+For fixed positive $\alpha$, hidden features still learn and the constants
+remain independent of width and time.  This is an exact learning-rate
+rescaling, rather than a clipping rule or a theorem for unrestricted-label
+canonical training.
+
+\subsection{Cost and size at accuracy}
+\label{sec:size}
+
+\Cref{eq:moving-state} counts the evolving model.  The initialized hidden
+matrices are retained exactly, requiring another $(L-1)n^2$ fixed numbers.
+One right-hand-side evaluation costs
+\begin{equation}
+ O\bigl(Lmn^2+Lm^2nq+Lmnq+nmd\bigr).
+ \label{eq:rhs-cost}
+\end{equation}
+The terms are, respectively, the forward/adjoint actions of $W_0$, the
+learned low-rank actions on the batch, the moment updates using prefix sums,
+and the first layer.  The joint clock additionally stores $O(q^2)$ numbers
+and costs $O(q^3+Lmnq^2)$ for its Gram factorization and solves.  These are
+costs per evaluation; time discretization has its own accuracy requirement.
+Keeping $W_0$ explains why compressing the learned state does not itself
+reduce the dense matrix--vector runtime.
+
+For the all-time theorem, an order contribution at most $\varepsilon/2$
+is obtained with
+\begin{equation}
+ q_\varepsilon=\varepsilon^{-1/2}
+ \exp\!\bigl(O(\sqrt{\log(1/\varepsilon)})\bigr)
+ =\varepsilon^{-1/2+o(1)}.
+ \label{eq:order-epsilon}
+\end{equation}
+The moving history budget is consequently
+$O(Lmn\varepsilon^{-1/2+o(1)})$.  For full population accuracy at confidence
+$1-\delta$, let $N_\mu(\varepsilon,\delta)$ be a sufficiently large width
+that makes the width remainder at most $\varepsilon/2$ and the common
+event hold with that confidence.  The theorem guarantees that this width
+is finite.  Taking $n=N_\mu(\varepsilon,\delta)$ gives the sufficient
+history budget
+$O(LmN_\mu(\varepsilon,\delta)\varepsilon^{-1/2+o(1)})$ under exactly
+the theorem's hypotheses.  Quantifying $N_\mu$ is needed to turn this into
+an explicit power of $\varepsilon$.  \Cref{app:size} isolates that step
+and the corresponding numerical obligations for history and hierarchy
+solvers; \Cref{cor:compression} already proves the reduction in moving
+state without a width-rate assumption.
+
+\subsection{What the population conclusion identifies}
+\label{sec:population-view}
+
+The result identifies one target function-valued learning process,
+$f_\infty(t,x)$, and a smaller family of evolving approximations to it.
+Every divergent order sequence converges to that target over the whole
+training interval $[0,\infty]$.  At each fixed order, subsequential
+population predictor limits exist and inherit the pure order bound
+$C_\mu\omega(q)$; these limit predictors need not have been shown unique
+or deterministic.  Identifying a unique autonomous population
+\emph{moment-state} equation at fixed $q$ is a finer question than the
+predictor approximation proved here.
+
+The natural interpretation is a finite collection of memory fields for
+each sample and layer, coupled through the initialized operator.  The
+learned action takes the form
+$g\mapsto-\frac{2}{m\tau}\sum_{a,k}(2k+1)\bar\delta^{(\ell)}_{a,k}
+\E_{\ell-1}[\bar h^{(\ell-1)}_{a,k}g]$.
+The theorem establishes the accuracy and compression of its finite-width
+implementations without requiring that stronger identification.

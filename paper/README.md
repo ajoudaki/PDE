@@ -55,6 +55,24 @@ size-at-accuracy calculation are retained. Corrections distinguish:
 `comparison.tex` is retained from the previous version but is no longer included;
 the chosen draft integrates the main comparison into its own narrative.
 
+The population discussion now includes a **conditional learned-state saving**
+corollary. At matched test-prediction accuracy, the explicit hypotheses are a
+root-width dense error estimate and a width-uniform quadratic closure tracking
+estimate, in the same time/probability norm and with uniform order thresholds.
+They give width proportional to epsilon^-2, order proportional to epsilon^-1/2
+(the fourth root of width), and moving-state costs epsilon^-4 versus
+epsilon^-5/2. The appendix derives the factor epsilon^-3/2 saving, the optimal
+error allocation, and the version with a subpolynomial history-rate correction.
+All-time use requires both error hypotheses for the all-time metric; small
+labels alone are not asserted to establish them. These are certified costs,
+not a dense lower bound, and retain the dense fixed initialization and its cost.
+The allocation and subpolynomial correction were checked independently from
+the stated hypotheses, and the resulting typeset argument was inspected.
+The finite-horizon branch with a superpolynomial order threshold was removed
+from the working manuscript at the author's request. The earlier trial files
+remain separate. The restored 41-page manuscript compiles without LaTeX
+warnings; auxiliary build files are kept outside the paper folder.
+
 Figures and reproduction tools:
 
 - `figures/circle_deep_radial.pdf`: three hidden tanh layers, orders 1/2/3.

@@ -32,9 +32,11 @@ applicable; the derivations below specify their role.
 \begin{enumerate}
 \item[(A1)] A matched width approximation in the common metric
 \eqref{cmp:test-error}: $\mathcal E_Q(f_n;T)\le A/\sqrt n$.
-\item[(A2)] Width-uniform closure constants and sufficient-order thresholds,
-with the moment bounds needed to obtain
-$\mathcal E_Q(\widehat f_{n,q};T)\le A/\sqrt n+B_\omega/q^\omega$, for $\omega=1,2$.
+\item[(A2)] A same-initialization tracking estimate
+$\bigl(\E\sup_{t\le T}\norm{\widehat f_{n,q}(t)-f_n(t)}_{L^2(Q)}^2\bigr)^{1/2}
+\le B_\omega/q^\omega$, for $\omega=1,2$, with constants and sufficient-order
+thresholds uniform in width.  Together with (A1), this gives
+$\mathcal E_Q(\widehat f_{n,q};T)\le A/\sqrt n+B_\omega/q^\omega$.
 \item[(A3)] Stable numerical discretization, sampling and self-consistency
 for the specified limiting-response solver, giving
 $A_{\rm D}/\sqrt S+B_{\rm D}(T/N_t)^\sigma+\eta$.
@@ -111,6 +113,62 @@ matrix, $O(q^2)$, perturb the finite-tolerance optimum but are lower order.
 Dense training instead takes $n=\lceil(A/\varepsilon)^2\rceil$ and
 $M_*\sim(L-1)A^4\varepsilon^{-4}$.  These optimize sufficient bounds in
 specified representations, not actual errors or all possible algorithms.
+
+\paragraph{Relative saving with the original dense initialization.}
+For the quadratic rate, the ratio of these optimized certificates is
+\begin{equation}
+ \frac{M_{\rm memory}^*(\varepsilon)}{M_{\rm dense}^*(\varepsilon)}
+ \sim\frac{25\sqrt5}{8}\frac{m\sqrt{B_2}}{A^2}\,
+       \varepsilon^{3/2}.
+ \label{cmp:relative-saving}
+\end{equation}
+This proves \Cref{cor:population-cost}'s asymptotically strict learned-state
+saving under its two error hypotheses.  The optimized closure uses only
+$25/16$ times the dense certificate's width, to leading order; its memory
+order grows as the fourth root of width.  For a first-order tracking estimate
+the corresponding ratio is
+$\tfrac{27}{2}mB_1A^{-2}\varepsilon$.
+Neither ratio compares two upper bounds as though they were lower bounds:
+the denominator is the actual state count of the dense representation sized
+by (A1), and the numerator is the count sized by (A1)--(A2).  A lower bound on
+the width truly necessary for dense prediction would be a separate result.
+
+The same calculation works with a near-quadratic tracking estimate
+$Bq^{-2}\exp(K\sqrt{\log(e+q)})$, for fixed $B>0$, $K\ge0$.
+For any fixed $D>K/(2\sqrt2)$, take, for sufficiently small $\varepsilon$,
+\[
+ n=\left\lceil\frac{25A^2}{16\varepsilon^2}\right\rceil,\qquad
+ q=\left\lceil\varepsilon^{-1/2}
+                   e^{D\sqrt{\log(1/\varepsilon)}}\right\rceil.
+\]
+Writing $s=\log(1/\varepsilon)$, the history error is bounded by
+\[
+ B\varepsilon\exp\!\left[
+       (-2D+K/\sqrt2)\sqrt s+O(1)\right]
+ \le\varepsilon/5.
+\]
+Consequently the achievable moving count and relative count satisfy
+\begin{align*}
+ M_{\rm memory}&=O\!\left(Lm\varepsilon^{-5/2}
+                               e^{D\sqrt{\log(1/\varepsilon)}}\right),\\
+ \frac{M_{\rm memory}}{M_{\rm dense}}
+   &=O\!\left(m\varepsilon^{3/2}
+                               e^{D\sqrt{\log(1/\varepsilon)}}\right)
+     \longrightarrow0.
+\end{align*}
+The first expression has exponent $5/2+o(1)$ in $1/\varepsilon$, approaching
+$5/2$ from above; it need not be $O(\varepsilon^{-5/2})$ itself.
+
+These implications also hold for the all-time metric obtained by replacing
+$t\le T$ with $t\ge0$, provided (A1)--(A2), including their joint admissible
+width/order range, hold in that metric with finite constants independent of
+the horizon.  If the predictors converge at the end of training, their limits
+inherit the same $L^2(Q)$ prediction bound.  For any $y_*\in L^2(Q)$, the
+reverse triangle inequality transfers it to the discrepancy between their
+test RMSEs.  Separate limits at fixed $q$ followed by $q\to\infty$ do not
+justify the simultaneous choice $q\asymp n^{1/4}$; the joint estimate in
+(A2) is essential.  This argument retains exactly the canonical dense
+$W_0$ and does not invoke a block-initialization approximation.
 
 For completeness, full-batch arithmetic per right-hand-side evaluation is
 \begin{align}

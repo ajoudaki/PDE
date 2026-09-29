@@ -1,0 +1,319 @@
+\subsection{Damping and near-quadratic tracking}
+\label{sec:at-tracking}
+
+We now compare the actual autonomous closure to the dense flow.  All
+constants in this subsection are independent of width, order and physical
+time.  Fix an initialization in \eqref{eq:at-good-event}.  Denote the full
+dense backward carriers by
+$k^{(L)}_{D,a}=w_D$ and
+$k^{(\ell)}_{D,a}=(W_D^{(\ell+1)})^\top\delta^{(\ell+1)}_{D,a}$
+for $\ell<L$.  The preceding Gaussian argument gives, simultaneously at
+integer cutoffs $M\ge1$,
+\begin{align}
+ H_n(M,t)&=\sum_{\ell=1}^L\max_a
+ \frac{\|k^{(\ell)}_{D,a}(t)
+                \mathbf1_{|k^{(\ell)}_{D,a}(t)|>M}\|_2}{\sqrt n},\nonumber\\
+ Z_n(M)&=\int_0^\infty\rho_D(t)H_n(M,t)\dd t
+       \le Ce^{-cM^2}+a_n,\qquad a_n\xrightarrow{\Pr}0.
+ \label{eq:at-tracking-tail}
+\end{align}
+Here the indicator acts coordinatewise, and $a_n$ depends only on the dense
+reference.  The physical bounds imply $H_n\le C$.  Put
+\[
+ D=\sup_{t\ge0}d_n(\widehat\theta(t),\theta_D(t)),\qquad
+ \epsilon=\int_0^\infty e_E(t)\dd t,\qquad
+ Q_r=\int_0^\infty\|\widehat r(t)-r_D(t)\|_m\dd t.
+\]
+All three quantities are finite before making any comparison, by the
+all-order fitting and speed bounds.  They depend on $n,q$; this dependence
+is suppressed only in this proof.
+
+\paragraph{One-reference damping.}
+Forward subtraction through the bounded operators and slopes gives
+\[
+ \max_{\ell,a}\frac{\|\widehat z_a^{(\ell)}-z_{D,a}^{(\ell)}\|_2
+                 +\|\widehat h_a^{(\ell)}-h_{D,a}^{(\ell)}\|_2}{\sqrt n}
+ \le C d_n(t).
+\]
+Indeed, at each hidden link subtract as
+$(\widehat W-W_D)h_D+\widehat W(\widehat h-h_D)$ and use the feature
+RMS and operator bounds.  In backward subtraction the only problematic
+product is a changed gate multiplied by a dense carrier.  Splitting at $M$
+gives
+\begin{equation}
+ \frac{\|[g_\ell(\widehat z)-g_\ell(z_D)]\od k_D\|_2}{\sqrt n}
+ \le jM\frac{\|\widehat z-z_D\|_2}{\sqrt n}
+       +2s\frac{\|k_D\mathbf1_{|k_D|>M}\|_2}{\sqrt n}.
+ \label{eq:at-cutoff-product}
+\end{equation}
+The other terms are a bounded gate times
+$\widehat W^\top(\widehat\delta-\delta_D)$ and a bounded gate times
+$(\widehat W-W_D)^\top\delta_D$.  At the top the first term is instead
+the readout difference.  Descending through the fixed depth therefore gives
+\begin{equation}
+ \max_{\ell,a}\frac{\|\widehat\delta_a^{(\ell)}
+                       -\delta_{D,a}^{(\ell)}\|_2}{\sqrt n}
+ \le C[(1+M)d_n(t)+H_n(M,t)].
+ \label{eq:at-backward-difference}
+\end{equation}
+The factor $M$ is added at each layer; it is not multiplied by another
+cutoff when propagating the next backward difference.
+
+Expanding the products in the tangent Gram
+\eqref{eq:at-tangent-gram}, Cauchy--Schwarz yields the same bound for
+$\|\widehat\Gamma-\Gamma_D\|_{\rm op}$.  The sample factor $1/m$
+makes a matrix whose entries are bounded by $B/m$ have operator norm at
+most $B$.  For $u=\widehat r-r_D$ the exact residual difference equation is
+\[
+ \dot u=-2\widehat\Gamma u
+        -2(\widehat\Gamma-\Gamma_D)r_D+\widehat J E.
+\]
+The preserved Gram gap and $\|\widehat J E\|_m\le CY e_E$ imply
+\[
+ D^+\|u\|_m\le-\lambda\|u\|_m
+       +C\rho_D[(1+M)d_n+H_n]+Ce_E.
+\]
+At zeros of $u$ this inequality follows by differentiating
+$\sqrt{\|u\|_m^2+\zeta^2}$ and then letting $\zeta\downarrow0$.
+Integrating and dropping the nonnegative terminal norm gives
+\begin{equation}
+ \int_0^t\|u\|_m\dd s
+ \le C\left[(1+M)\int_0^t\rho_Dd_n\dd s
+                  +Z_n(M;t)+\epsilon(t)\right],
+ \label{eq:at-integrated-residual}
+\end{equation}
+where a final argument $t$ means that an integral stops at $t$.
+
+Subtract the readout updates as
+$u\widehat h+r_D(\widehat h-h_D)$.  In a hidden update use the three
+differences of the residual, backward response and forward response.
+The rank-one Frobenius identity and \eqref{eq:at-backward-difference} give
+\[
+ d_n(t)\le C\epsilon(t)+C\int_0^t\|u\|_m\dd s
+                 +C\int_0^t\rho_D[(1+M)d_n+H_n]\dd s.
+\]
+Insert \eqref{eq:at-integrated-residual}.  On each terminal interval,
+replace its nondecreasing source by its terminal value and apply the
+integrating factor for $C(1+M)\rho_D$.  Since $\int_0^\infty\rho_D\le CY$,
+then taking the supremum gives
+\begin{equation}
+ D\le A_M(\epsilon+Z_n(M)),\qquad A_M=Ce^{KM}\ge1,
+ \qquad Q_r\le C[(1+M)D+Z_n(M)+\epsilon].
+ \label{eq:at-damping}
+\end{equation}
+Only the dense reference supplied the carrier tail in this argument.
+
+\paragraph{A smoother history used only in the proof.}
+Let $\operatorname{clip}_M$ act coordinatewise by truncation to $[-M,M]$.
+At the actual closure state define auxiliary backward fields
+\begin{align}
+ \delta_{a}^{(L),M}
+   &=g_L(\widehat z_a^{(L)})\od\operatorname{clip}_M(\widehat w),\nonumber\\
+ \delta_{a}^{(\ell),M}
+   &=g_\ell(\widehat z_a^{(\ell)})\od
+      \operatorname{clip}_M\bigl((\widehat W^{(\ell+1)})^\top
+                                  \delta_a^{(\ell+1),M}\bigr).
+ \label{eq:at-proof-clipping}
+\end{align}
+These fields are not evolved or used by the closure.  Clipping contracts
+Euclidean distance and decreases magnitudes, so their RMS norms are at
+most $CY$.  At the top, the almost-everywhere chain rule gives
+\[
+ \frac{\|\dot\delta_a^{(L),M}\|_2}{\sqrt n}
+ \le jM\frac{\|\dot{\widehat z}_a^{(L)}\|_2}{\sqrt n}
+       +s\frac{\|\dot{\widehat w}\|_2}{\sqrt n}.
+\]
+At a lower layer the corresponding upper bound is
+\[
+ jM\frac{\|\dot{\widehat z}_a^{(\ell)}\|_2}{\sqrt n}
+ +s\|\dot{\widehat W}^{(\ell+1)}\|_{\rm op}
+                \frac{\|\delta_a^{(\ell+1),M}\|_2}{\sqrt n}
+ +s\|\widehat W^{(\ell+1)}\|_{\rm op}
+                \frac{\|\dot\delta_a^{(\ell+1),M}\|_2}{\sqrt n}.
+\]
+Lipschitz functions composed with absolutely continuous coordinates are
+absolutely continuous, so this calculation also applies when $g_\ell$ or
+clipping is not classically differentiable at every point.  Downward
+induction and \eqref{eq:at-speeds} give
+$\|\dot\delta_a^{(\ell),M}\|_2/\sqrt n\le C(1+M)\widehat\rho$.
+Clipping the readout is essential here: unbounded activations give an RMS
+bound on $w$, not a width-independent coordinate bound.
+
+Set $c=\widehat r/\widehat\rho$ and $b_a^{(\ell),M}=c_a\delta_a^{(\ell),M}$,
+extended by zero over the prefix.  The zero readout makes the join
+continuous.  Since $\|\dot c\|_m\le C$ and $m$ is fixed,
+\begin{equation}
+ \frac{\|\dot b_a^{(\ell),M}(t)\|_2}{\sqrt n}
+ \le C[1+(1+M)\widehat\rho(t)].
+ \label{eq:at-auxiliary-speed}
+\end{equation}
+Freeze this proof history after physical time $T$; denote the frozen history
+by $b_T^M$.  Its difference from $b^M$ has normalized clock $L^2$ norm
+at most $Ce^{-\kappa T/2}$, because its amplitude is bounded and its
+support has length at most $\int_T^\infty\widehat\rho$.
+For any current endpoint $A=\tau(t)$, the weighted derivative energy obeys
+\begin{align}
+ \frac1n\int_0^A\xi(A-\xi)\|(b_T^M)'(\xi)\|_2^2\dd\xi
+ &\le\frac{\sup_t\tau(t)}{\kappa n}
+           \int_0^{\min(t,T)}\|\dot b^M(s)\|_2^2\dd s\nonumber\\
+ &\le C[T+(1+M)^2].
+ \label{eq:at-weighted-auxiliary}
+\end{align}
+Indeed $A-\tau(s)\le\int_s^\infty\widehat\rho
+\le\widehat\rho(s)/\kappa$ cancels the inverse clock speed.
+The remaining integral is bounded using \eqref{eq:at-auxiliary-speed} and
+$\int_0^\infty\widehat\rho^2<\infty$.  On each finite interval before
+freezing the residual is positive, so the frozen history is in $H^1$.
+The weighted Legendre estimate \eqref{eq:at-weighted-tail} and projection
+contraction now give
+\begin{equation}
+ \left[\frac1n\int_0^A\|(I-\Pi_q^A)b_a^{(\ell),M}\|_2^2\dd\xi\right]^{1/2}
+ \le C\left[\frac{1+M+\sqrt T}{q}+e^{-\kappa T/2}\right].
+ \label{eq:at-backward-tail}
+\end{equation}
+
+\paragraph{Returning to the actual backward history.}
+Compare \eqref{eq:at-proof-clipping} with the dense backward recursion.
+At the top, insert the dense clipped readout: clipping contraction controls
+the readout difference, the changed gate costs $CMd_n$, and the omitted
+dense tail is a term of $H_n$.  At every lower layer the clipped-input
+difference is bounded by the next auxiliary/dense backward difference plus
+$CY\|\widehat W-W_D\|_F$.  The changed gate and clipping tail have the
+same bounds as at the top.  Induction, and then
+\eqref{eq:at-backward-difference}, yield
+\[
+ \max_{\ell,a}\frac{\|\widehat\delta_a^{(\ell)}
+                             -\delta_a^{(\ell),M}\|_2}{\sqrt n}
+ \le C[(1+M)d_n+H_n].
+\]
+Multiplying by the same $c_a$ and integrating in the closure's own clock gives
+\begin{equation}
+ \left[\frac1n\int_0^A\|b_a^{(\ell)}-b_a^{(\ell),M}\|_2^2\dd\xi\right]^{1/2}
+ \le C(1+M)D+C\sqrt{Z_n(M)+Q_r}.
+ \label{eq:at-auxiliary-mismatch}
+\end{equation}
+For the tail term, use $H_n\le C$ and
+$|\widehat\rho-\rho_D|\le\|\widehat r-r_D\|_m$ to obtain
+$\int\widehat\rho H_n^2\le C Z_n(M)+C Q_r$.
+There is no assumed bound on the ratio of the two residuals.
+
+The forward history tail is at most $C/q$ by
+\eqref{eq:at-forward-energy} and \eqref{eq:at-weighted-tail}.
+Use this factor, \eqref{eq:at-backward-tail},
+\eqref{eq:at-auxiliary-mismatch}, and the exact absolute-defect inequality
+\eqref{eq:at-defect-product}.  Increasing its terminal time to infinity
+gives
+\begin{equation}
+ \epsilon\le C\left[
+ \frac{1+M+\sqrt T}{q^2}+\frac{e^{-\kappa T/2}}q
+ +\frac{(1+M)D}{q}+\frac{\sqrt{Z_n(M)+Q_r}}q\right].
+ \label{eq:at-quadratic-source}
+\end{equation}
+The bounds are uniform in the terminal time and the accumulated absolute
+defect increases to $\epsilon$, which justifies this limit.
+
+\paragraph{Absorbing the remaining feedback.}
+Put $U=\epsilon+Z_n(M)$.  By \eqref{eq:at-damping},
+$D\le A_MU$ and $Z_n(M)+Q_r\le C(1+M)A_MU$.  Consequently
+\[
+ U\le Z_n(M)+C\left[\frac{1+M+\sqrt T}{q^2}
+                       +\frac{e^{-\kappa T/2}}q\right]
+       +\frac{C(1+M)A_M}{q}U
+       +\frac{C\sqrt{(1+M)A_M}}q\sqrt U.
+\]
+If $C(1+M)A_M/q\le1/4$, absorb the linear term and apply
+$h\sqrt U\le U/4+h^2$ to the last term.  Multiplication by $A_M$ gives
+\begin{equation}
+ D\le CA_MZ_n(M)
+  +CA_M\left[\frac{1+M+\sqrt T}{q^2}
+                              +\frac{e^{-\kappa T/2}}q\right]
+  +\frac{C(1+M)A_M^2}{q^2}.
+ \label{eq:at-cutoff-conclusion}
+\end{equation}
+Set $u=q^{-2}+a_n$.  For small $u$, choose an integer
+$M\le C+C\sqrt{\log(e+1/u)}$ making $Ce^{-cM^2}\le u$, and
+$T\le C\log(e+1/u)$ making $e^{-\kappa T/2}\le\sqrt u$.
+Then $Z_n(M)\le Cu$.  Since $u\ge q^{-2}$, the cutoff is at most
+$C+C\sqrt{\log(e+q)}$, so the absorption condition holds above one
+order threshold independent of width and of $a_n$.  Each term of
+\eqref{eq:at-cutoff-conclusion} is bounded by
+\begin{equation}
+ C\Phi(q^{-2}+a_n),\qquad
+ \Phi(u)=u\exp\{K\sqrt{\log(e+1/u)}\},\qquad\Phi(0)=0.
+ \label{eq:at-phi-bound}
+\end{equation}
+Enlarging $K$ absorbs the logarithmic factors.  The common physical bound
+on $D$ handles the finitely many smaller orders and nonsmall $u$.
+Finally $\Phi(u)/u$ is decreasing, hence
+$\Phi(v+w)\le\Phi(v)+\Phi(w)$: multiply its value at $v+w$ separately
+by $v$ and $w$.  Set $b_n=C\Phi(a_n)$ and enlarge $K$ once more to
+bound $\Phi(q^{-2})$ by $\omega(q)$.  This proves
+\eqref{eq:alltime-parameters}.  Continuity of $\Phi$ at zero gives
+$b_n\to0$ in probability, uniformly in the choice of order.
+
+\subsection{Whole-input prediction and population convergence}
+
+The full first-layer Frobenius bound in \eqref{eq:at-good-event}, together
+with \eqref{eq:at-speeds}, controls $\|W^{(1)}\|_F/\sqrt n$ for both
+paths at every time.  Linear activation growth and forward induction give,
+for any $x\in\R^d$,
+\begin{align}
+ \frac{\|h^{(\ell)}(t,x)\|_2}{\sqrt n}
+       &\le C(1+\|x\|_2/\sqrt d),\nonumber\\
+ |\widehat f(t,x)-f_D(t,x)|
+       &\le C(1+\|x\|_2/\sqrt d)d_n(t).
+ \label{eq:at-whole-input}
+\end{align}
+For the second inequality, subtract the forward recursions as before and
+expand the readout pairing into readout difference and feature difference.
+The constant term is needed for activations with nonzero offsets.
+Taking the time supremum before integrating proves the closure-to-dense
+version of \eqref{eq:alltime-predictions}; taking a supremum on a bounded
+input set proves its absolute-error counterpart.
+
+To identify the dense target on all inputs, add the first-layer Gaussian
+row coordinates and any finite collection of input probes to the dense
+reference programs.  These are passive observations and never enter the
+training residuals.  The finite-program limit and finite-time reference
+comparison already proved give convergence in probability of their
+predictions on every compact time interval.  The global slope and weight
+bounds imply, for both dense and closure predictors,
+\begin{align}
+ |f(t,x)-f(t,x')|&\le C\|x-x'\|_2/\sqrt d,\nonumber\\
+ |\partial_t f(t,x)|&\le Ce^{-\kappa t}(1+\|x\|_2/\sqrt d).
+ \label{eq:at-predictor-equicontinuity}
+\end{align}
+For the second inequality, differentiate the forward recursion using
+\eqref{eq:at-speeds}, then differentiate the final readout pairing.
+The bounds hold uniformly in $n,q$ on the common events.
+
+A finite net of any bounded input set and the first inequality extend
+dense probe convergence to the entire set.  The integrated second
+inequality bounds the remaining variation after time $T$ by
+$Ce^{-\kappa T}(1+\|x\|_2/\sqrt d)$, uniformly in width.  Choose $T$
+large, then take the width limit on $[0,T]$.  This proves all-time dense
+prediction convergence uniformly on bounded input sets to the uniquely
+constructed dense population predictor $f_\infty$.
+For a general fixed test law with finite second moment, truncate to a
+bounded input set.  The complement contributes at most a constant times
+$\int_{\|x\|>R}(1+\|x\|_2/\sqrt d)^2\dd\mu$, which tends to zero.
+Thus $d_{n,\mu}:=\mathcal E_\mu(f_{n,D},f_\infty)\to0$ in probability.
+The triangle inequality and \eqref{eq:at-whole-input} give
+\eqref{eq:alltime-predictions} with
+$b_{n,\mu}=C_\mu b_n+d_{n,\mu}$, independent of $q$.
+This completes the proof of \Cref{thm:alltime}.
+
+For precision about fixed-order limits, compactify time by
+$u=e^{-\kappa t}\in[0,1]$.  Equations
+\eqref{eq:at-whole-input}--\eqref{eq:at-predictor-equicontinuity}
+give uniform boundedness and equicontinuity on every compact input set,
+including the endpoint $u=0$.  Finite nets and a diagonal selection over
+integer input radii prove compactness in local uniform convergence.
+The same second-moment majorant upgrades this to the test norm
+\eqref{eq:test-metric}.  On events of probability tending to one this
+gives tightness of each fixed-order predictor family.  Every subsequential
+limit law inherits $\mathcal E_\mu(F_q,f_\infty)\le C_\mu\omega(q)$
+almost surely: for any positive margin the finite-width violation
+probability tends to zero.  This identifies accuracy of predictor limit
+points, without asserting uniqueness of their law or of a population
+moment-state ODE.

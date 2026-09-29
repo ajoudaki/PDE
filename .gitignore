@@ -58,3 +58,9 @@ dist/
 # Do not reintroduce transient runtime products into a study.
 **/outputs/
 **/runs/
+
+# Local theorem-trial build and disposable paper-review renderings.
+/paper/main_theorem_trial.pdf
+/paper/reviews/**/page-*.png
+/paper/reviews/**/page_*.png
+/paper/reviews/**/contact_*.png
