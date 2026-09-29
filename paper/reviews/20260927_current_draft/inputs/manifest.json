@@ -1,0 +1,130 @@
+{
+  "git_head": "b7b5424bc382e4e8c8cec402cd090f24a9f16a51",
+  "description": "Current author-owned manuscript, included appendices, used figures, and paper-owned code/data. No reviews, author notes or conversation supplied.",
+  "files": {
+    "comparison_appendix.tex": {
+      "sha256": "688ad303f35f0cace7a4db0ca1015ae1bd4b7678fc66049a900790453b0e1c0e",
+      "bytes": 19928
+    },
+    "figures/capture_trajectory.py": {
+      "sha256": "8c249422ce1a7fd107806bb5694f1f77e34e533cc3a94a105c7035a33f12ecc6",
+      "bytes": 16333
+    },
+    "figures/circles_deep.pdf": {
+      "sha256": "0509c79afef5a924d63491df8aa61fea1f4d255d4f5e63fbc351c74691383f5b",
+      "bytes": 130337
+    },
+    "figures/circles_shallow.pdf": {
+      "sha256": "680fd357c01fb6f57966985eed87e28b5e331e5ff2fe7b621b44eee3d89112e0",
+      "bytes": 150696
+    },
+    "figures/clocks.pdf": {
+      "sha256": "fb234b25ffb7352e8e90dbfda5f309d771954e40db3d00aedce53cc01b2e222c",
+      "bytes": 70446
+    },
+    "figures/factors.pdf": {
+      "sha256": "5dd4f1ebab4c573b761f48e92358a4adc84d7e8fa50e8f8f2f50ebe4396f88b3",
+      "bytes": 107627
+    },
+    "figures/frozen_ntk.py": {
+      "sha256": "9854112fdde0a8e5904f0acce3a852a1792b617904cde8230676887f8e7a4d40",
+      "bytes": 9072
+    },
+    "figures/frozen_ntk_manifest.json": {
+      "sha256": "06d4ba6a0439ff2716c572d539cee846953efe205974434951ffd9eb66baaa77",
+      "bytes": 2947
+    },
+    "figures/frozen_ntk_source.npz": {
+      "sha256": "b9a7b324baada600ebc9ea9113d9aabbe55e0696a91a20b350a82ea3888bad1f",
+      "bytes": 845306
+    },
+    "figures/learning_controls.py": {
+      "sha256": "f59475af3559283c8cd17e96b3ee9ccad27c20b5f22b0447bbafe1d72bf3482b",
+      "bytes": 9850
+    },
+    "figures/learning_controls_gallery_a.pdf": {
+      "sha256": "a8b42d90d720f820335257aa9b29e65ddc345b1d26af80248619c6b478e408cb",
+      "bytes": 322704
+    },
+    "figures/learning_controls_gallery_b.pdf": {
+      "sha256": "ecdd708b41139cb0a43c1eaa6af90bd97bb338d681fe7480262ba07c4c5ad120",
+      "bytes": 242100
+    },
+    "figures/learning_controls_manifest.json": {
+      "sha256": "a290cbd6157b4f4d21a92cbe14b31a314fd71b84fff4c1e92aef5764f75b57e6",
+      "bytes": 16606
+    },
+    "figures/learning_controls_quadrant_alternating.pdf": {
+      "sha256": "5326634ecfed02de449ac7d73d58ac909d005e31d724f5d1c74405f9e22411a0",
+      "bytes": 160930
+    },
+    "figures/learning_controls_source.npz": {
+      "sha256": "fefd312a1d0a16994bace29095bb81d32f85dda272b8b14f0f30ced2d8223b74",
+      "bytes": 4355531
+    },
+    "figures/mechanism.pdf": {
+      "sha256": "c71889b293db5734446066556231fdc6c9dd7ded75dfa75d1f08fd62108ad185",
+      "bytes": 150837
+    },
+    "figures/mnist.pdf": {
+      "sha256": "6187f2ede3f55a63c072b61f49c686288fc2ab4069856e2a3f7c553e83d6ab24",
+      "bytes": 739938
+    },
+    "figures/moments.pdf": {
+      "sha256": "10a5bd71d36e5ccad11b8cda6f0bd8538a8659844fd22ed798ef9aeb0190c6b4",
+      "bytes": 73570
+    },
+    "figures/orders.pdf": {
+      "sha256": "051391de49739093448c2cdf218c5c66bf2ccad27786867317cdb9892cab2a29",
+      "bytes": 65585
+    },
+    "figures/radial_source_data.npz": {
+      "sha256": "b7abae22e5513da1233842d9b204c5af9c069949cbc76c5a2c4f05d3dd28684e",
+      "bytes": 2860103
+    },
+    "figures/response_memory_source.npz": {
+      "sha256": "86fdd60042a8007079b4cfabfb831296fd7a06689948d39e0c669b1e51697e42",
+      "bytes": 4836419
+    },
+    "figures/same_rank.pdf": {
+      "sha256": "fe64319ed9a4242252e286c914e2fc7c46327bf4bbf3aebc25525135a76f845b",
+      "bytes": 70626
+    },
+    "figures/sphere_orders.pdf": {
+      "sha256": "292f52db52862ddf2331564663786a3477ac769e140ea0043a3dad61ea283103",
+      "bytes": 1815817
+    },
+    "figures/sphere_source_data.npz": {
+      "sha256": "026adfca75aef41432b07dd0fd0f69dafe07c03fa66815b98a0c7d2b76490838",
+      "bytes": 367027
+    },
+    "figures/trajectory.pdf": {
+      "sha256": "c72745231ed719dedbdac92e4a8491d4b7f3605e1281f58c1b04e410a48c2b9b",
+      "bytes": 119337
+    },
+    "figures/trajectory_capture_manifest.json": {
+      "sha256": "3ebbb59e2f634aa437c35a03e011c1e7c4f231155e37fbb5db2102599bc3afbe",
+      "bytes": 9976
+    },
+    "main.pdf": {
+      "sha256": "5662542e6abbdf4c2228b24352bcde30aad3d4f62eb041187dcb2c91fc5b90fe",
+      "bytes": 3950239
+    },
+    "main.tex": {
+      "sha256": "ca76e3568263db1d219ed80f13fd52006598572e6f4f1a8608f68f9c1a40c4ca",
+      "bytes": 102585
+    },
+    "references.bib": {
+      "sha256": "1a5611e65d89ce20de47c62488c1fa34eb6e80c1777ab310e29723a94a0457a9",
+      "bytes": 5736
+    },
+    "scripts/tikz_figures.py": {
+      "sha256": "52e94b884f29b973a1e13f4279f60223bf7708ee0b1ed6d34ce6d41ad70e485a",
+      "bytes": 57510
+    },
+    "sphere_appendix.tex": {
+      "sha256": "c33e0f47a52382bcc41c14ca928d471d0c8342a7b7061193e3c92870d55a776c",
+      "bytes": 1682
+    }
+  }
+}

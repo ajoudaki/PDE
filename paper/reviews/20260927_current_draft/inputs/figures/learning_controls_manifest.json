@@ -1,0 +1,444 @@
+{
+  "protocol": "All five archived tasks, P3, both recorded factor seeds, no selection or tuning",
+  "purpose": "Four-panel fitted-function previews: dense, frozen NTK, factors, response memory",
+  "controls": "Identical width 2048, two tanh hidden layers, physical initialization seed 20260920; MSE 0.001 endpoints",
+  "metric": "RMS discrepancy from dense on 8192 uniform circle queries; each method at its own fitting time",
+  "success": "Resolved kernel spectrum, same physical data, endpoint metrics match archives, finite predictions",
+  "budget": "One initialization; one analytic kernel fit per task; 180 seconds total; no neural training",
+  "parameter_mobilities": [
+    2048,
+    1,
+    2048
+  ],
+  "factor_seeds": [
+    20260924,
+    20260925
+  ],
+  "command": [
+    "paper/figures/learning_controls.py",
+    "--out",
+    "/tmp/paper-learning-controls-20260927"
+  ],
+  "producer_sha256": "f59475af3559283c8cd17e96b3ee9ccad27c20b5f22b0447bbafe1d72bf3482b",
+  "kernel_source_sha256": "9854112fdde0a8e5904f0acce3a852a1792b617904cde8230676887f8e7a4d40",
+  "numpy": "1.26.4",
+  "sources": {
+    "paper/figures/radial_source_data.npz": "b7abae22e5513da1233842d9b204c5af9c069949cbc76c5a2c4f05d3dd28684e",
+    "data/generated/neural_response_memory_20260922/factor_analysis01/metrics.json": "2d11a1d0e80ba61a064c5db8381601de609472f7bf49b131684c07dc3f39b54c",
+    "data/generated/neural_response_memory_20260922/factor_control01/two_outliers_alternating_factor_P3_seed20260924_level1/arrays.npz": "7ebfe7d58f8ab5f80afdbea5254f446db60b4e1e6636c5a53237b221a3c517ee",
+    "data/generated/neural_response_memory_20260922/factor_control01/two_outliers_alternating_factor_P3_seed20260925_level1/arrays.npz": "88410a3f3ca21e38a51ab710f0bae3fb8c5a8a7714cd2c47d5153ecc6ac732ed",
+    "data/generated/neural_response_memory_20260922/factor_control01/quadrant_alternating_factor_P3_seed20260924_level1/arrays.npz": "74b998ba548e2026a00cd3ccf60dd85a783aad55714494d03509ad50d4197b8c",
+    "data/generated/neural_response_memory_20260922/factor_control01/quadrant_alternating_factor_P3_seed20260925_level1/arrays.npz": "3cac43bd6b0c94b3338db1150757c517540f4448ff8a2fd55a8592a4a1d04150",
+    "data/generated/neural_response_memory_20260922/factor_control01/quadrant_pairs_factor_P3_seed20260924_level1/arrays.npz": "658c1c833306e1b50e30d0d699cb1172efad1158e7415c58ae6d7b1f8d9073a5",
+    "data/generated/neural_response_memory_20260922/factor_control01/quadrant_pairs_factor_P3_seed20260925_level1/arrays.npz": "0ffa1975a7c4c234a39aa2d1502d351e3a42c880a2c6fb7ad8eb963eeeda7e80",
+    "data/generated/neural_response_memory_20260922/factor_control01/quadrant_center_edges_factor_P3_seed20260924_level1/arrays.npz": "0f270da58215e0fdb9b4d87cab2dc5855e347cff20a10016ddfaf39a0847e31a",
+    "data/generated/neural_response_memory_20260922/factor_control01/quadrant_center_edges_factor_P3_seed20260925_level1/arrays.npz": "40ba8314e9d8c68c08a454137261feb67af5b4616af4ffc733f094d6cba2a9e6",
+    "data/generated/neural_response_memory_20260922/factor_control01/equal_mixed_odd_factor_P3_seed20260924_level1/arrays.npz": "b78cc1e843806e39d00ce5bcb915f1f6f96cdf11cd6b23b42c2b0a547b99c7d7",
+    "data/generated/neural_response_memory_20260922/factor_control01/equal_mixed_odd_factor_P3_seed20260925_level1/arrays.npz": "1323c59873bc8ece5963d098704680b355c210f9b86a3ea35cb348ed779750b6",
+    "paper/figures/frozen_ntk_source.npz": "b9a7b324baada600ebc9ea9113d9aabbe55e0696a91a20b350a82ea3888bad1f"
+  },
+  "tasks": [
+    {
+      "case": "two_outliers_alternating",
+      "title": "Two outliers \u00b7 alternating",
+      "P": 3,
+      "rank": 24,
+      "represented_samples": 8,
+      "factors": [
+        {
+          "factor_seed": 20260924,
+          "rank": 24,
+          "circle_rms": 0.4654560633710132,
+          "time": 64.67110360346865,
+          "physical_training_mse": 0.0009999999999994959,
+          "endpoint_refinement_rms": 0.0005061455436121082
+        },
+        {
+          "factor_seed": 20260925,
+          "rank": 24,
+          "circle_rms": 0.4609145644542166,
+          "time": 86.82877563194091,
+          "physical_training_mse": 0.0009999999999999113,
+          "endpoint_refinement_rms": 0.00045572626800749716
+        }
+      ],
+      "memory_mse": 0.0009999793718828583,
+      "memory_fit_time": 159.43740448885873,
+      "frozen": {
+        "fit_time": 5234272.166220637,
+        "training_mse": 0.0009999999999999985,
+        "eigenvalues": [
+          2.4378247031467825e-06,
+          2.419086584945741e-05,
+          0.00025357927102519266,
+          0.0014657057699273193,
+          0.015273327250016372,
+          0.02361298121794157,
+          0.531593198608669,
+          1.3245332045397458
+        ],
+        "condition": 543325.8604812797,
+        "cross_formula_check": 1.48491441365195e-10,
+        "expm_check": 1.2688072814626139e-11
+      },
+      "rms_vs_dense": {
+        "frozen_ntk": 14.478840742409457,
+        "memory": 0.07295306055767206,
+        "factors": [
+          0.4654560633710132,
+          0.4609145644542166
+        ],
+        "frozen_ntk_infinity": 15.06567901882559
+      },
+      "output_ranges": {
+        "dense": [
+          -2.219208412421013,
+          2.2192084124210125
+        ],
+        "memory": [
+          -2.072898448842627,
+          2.0728984488426345
+        ],
+        "frozen_ntk": [
+          -37.33267429878496,
+          37.332674298774045
+        ],
+        "factors": [
+          -3.091057369452682,
+          3.091057369452682
+        ]
+      }
+    },
+    {
+      "case": "quadrant_alternating",
+      "title": "Quadrant \u00b7 alternating",
+      "P": 3,
+      "rank": 24,
+      "represented_samples": 8,
+      "factors": [
+        {
+          "factor_seed": 20260924,
+          "rank": 24,
+          "circle_rms": 0.6766390261664924,
+          "time": 271.9036340381319,
+          "physical_training_mse": 0.0009999999999999159,
+          "endpoint_refinement_rms": 0.0003292038555355819
+        },
+        {
+          "factor_seed": 20260925,
+          "rank": 24,
+          "circle_rms": 1.5413098039923707,
+          "time": 224.5341335795988,
+          "physical_training_mse": 0.0009999999999999217,
+          "endpoint_refinement_rms": 0.000181076164085362
+        }
+      ],
+      "memory_mse": 0.0009999911448361541,
+      "memory_fit_time": 244.23479039361936,
+      "frozen": {
+        "fit_time": 70855764.23943236,
+        "training_mse": 0.0009999999999999994,
+        "eigenvalues": [
+          1.839141259481798e-07,
+          2.1055793200433958e-06,
+          2.2693397860147867e-05,
+          0.00015879715453283262,
+          0.0019093400287277268,
+          0.011167940864050586,
+          0.30595579905928116,
+          1.5711221379295477
+        ],
+        "condition": 8542694.204860762,
+        "cross_formula_check": 1.3912513363578682e-09,
+        "expm_check": 2.361426609809314e-10
+      },
+      "rms_vs_dense": {
+        "frozen_ntk": 171.0326227889506,
+        "memory": 0.04561127769147381,
+        "factors": [
+          0.6766390261664924,
+          1.5413098039923707
+        ],
+        "frozen_ntk_infinity": 177.40131773072997
+      },
+      "output_ranges": {
+        "dense": [
+          -2.106456050628183,
+          2.106456050628183
+        ],
+        "memory": [
+          -2.0489722017366105,
+          2.048972201736609
+        ],
+        "frozen_ntk": [
+          -343.214842960392,
+          343.2148429603338
+        ],
+        "factors": [
+          -4.844360445156193,
+          4.844360445156195
+        ]
+      }
+    },
+    {
+      "case": "quadrant_pairs",
+      "title": "Quadrant \u00b7 paired labels",
+      "P": 3,
+      "rank": 24,
+      "represented_samples": 8,
+      "factors": [
+        {
+          "factor_seed": 20260924,
+          "rank": 24,
+          "circle_rms": 0.3754643514759871,
+          "time": 35.32680557792448,
+          "physical_training_mse": 0.000999999999999735,
+          "endpoint_refinement_rms": 0.00039863712184443225
+        },
+        {
+          "factor_seed": 20260925,
+          "rank": 24,
+          "circle_rms": 0.20358024445835482,
+          "time": 38.69522795030162,
+          "physical_training_mse": 0.0009999999999994336,
+          "endpoint_refinement_rms": 0.00039796576001552666
+        }
+      ],
+      "memory_mse": 0.0009999455842729294,
+      "memory_fit_time": 87.3023919162812,
+      "frozen": {
+        "fit_time": 885686.0519176552,
+        "training_mse": 0.0009999999999999998,
+        "eigenvalues": [
+          1.839141259481798e-07,
+          2.1055793200433958e-06,
+          2.2693397860147867e-05,
+          0.00015879715453283262,
+          0.0019093400287277268,
+          0.011167940864050586,
+          0.30595579905928116,
+          1.5711221379295477
+        ],
+        "condition": 8542694.204860762,
+        "cross_formula_check": 1.3095635686966034e-11,
+        "expm_check": 2.764677375921565e-12
+      },
+      "rms_vs_dense": {
+        "frozen_ntk": 13.690155699699746,
+        "memory": 0.0028176104270794295,
+        "factors": [
+          0.3754643514759871,
+          0.20358024445835482
+        ],
+        "frozen_ntk_infinity": 9.371217201947449
+      },
+      "output_ranges": {
+        "dense": [
+          -1.2743840244636084,
+          1.2743840244636084
+        ],
+        "memory": [
+          -1.2739507115423239,
+          1.273950711542327
+        ],
+        "frozen_ntk": [
+          -25.34106991085676,
+          25.34106991085767
+        ],
+        "factors": [
+          -1.3050824160071732,
+          1.3050824160071737
+        ]
+      }
+    },
+    {
+      "case": "quadrant_center_edges",
+      "title": "Quadrant \u00b7 center / edges",
+      "P": 3,
+      "rank": 24,
+      "represented_samples": 8,
+      "factors": [
+        {
+          "factor_seed": 20260924,
+          "rank": 24,
+          "circle_rms": 0.25786351328324086,
+          "time": 85.31637825016446,
+          "physical_training_mse": 0.0009999999999990134,
+          "endpoint_refinement_rms": 7.796247929943754e-05
+        },
+        {
+          "factor_seed": 20260925,
+          "rank": 24,
+          "circle_rms": 0.2492687264627475,
+          "time": 83.1346851115133,
+          "physical_training_mse": 0.0009999999999999764,
+          "endpoint_refinement_rms": 0.00017449164400922326
+        }
+      ],
+      "memory_mse": 0.0010000018056017445,
+      "memory_fit_time": 264.38840435430734,
+      "frozen": {
+        "fit_time": 3328836404.4661355,
+        "training_mse": 0.0009999999999999994,
+        "eigenvalues": [
+          7.618570515352203e-10,
+          2.9053848309982677e-08,
+          7.782141213598376e-07,
+          1.0319882553565626e-05,
+          0.0002684907602152947,
+          0.0028636309967986244,
+          0.14084593193168582,
+          1.7411844929608606
+        ],
+        "condition": 2285447761.430041,
+        "cross_formula_check": 2.093097395405863e-08,
+        "expm_check": 3.9720504663165457e-10
+      },
+      "rms_vs_dense": {
+        "frozen_ntk": 193.55560488714133,
+        "memory": 0.004877763090555366,
+        "factors": [
+          0.25786351328324086,
+          0.2492687264627475
+        ],
+        "frozen_ntk_infinity": 327.4941078416795
+      },
+      "output_ranges": {
+        "dense": [
+          -1.0552752055271788,
+          1.0552752055271788
+        ],
+        "memory": [
+          -1.0545993590735334,
+          1.0545993590735334
+        ],
+        "frozen_ntk": [
+          -411.608046407164,
+          411.60804641275195
+        ],
+        "factors": [
+          -1.033784371316583,
+          1.033784371316583
+        ]
+      }
+    },
+    {
+      "case": "equal_mixed_odd",
+      "title": "Equally spaced \u00b7 mixed labels",
+      "P": 3,
+      "rank": 12,
+      "represented_samples": 4,
+      "factors": [
+        {
+          "factor_seed": 20260924,
+          "rank": 12,
+          "circle_rms": 0.06069395490769739,
+          "time": 5.907865389499357,
+          "physical_training_mse": 0.0009999999999959085,
+          "endpoint_refinement_rms": 4.447982096332731e-06
+        },
+        {
+          "factor_seed": 20260925,
+          "rank": 12,
+          "circle_rms": 0.06870505986185488,
+          "time": 5.942443407370062,
+          "physical_training_mse": 0.0009999999999984375,
+          "endpoint_refinement_rms": 6.223204829099255e-06
+        }
+      ],
+      "memory_mse": 0.000999863762916843,
+      "memory_fit_time": 17.459680209848162,
+      "frozen": {
+        "fit_time": 553.7093035344609,
+        "training_mse": 0.0009999999999999985,
+        "eigenvalues": [
+          0.012081952737099735,
+          0.01348009139512803,
+          0.4513432536831618,
+          0.4751135148004878
+        ],
+        "condition": 39.32423219481477,
+        "cross_formula_check": 2.6645352591003757e-15,
+        "expm_check": 5.551115123125783e-16
+      },
+      "rms_vs_dense": {
+        "frozen_ntk": 0.1498283152201975,
+        "memory": 0.0005256654312646323,
+        "factors": [
+          0.06069395490769739,
+          0.06870505986185488
+        ],
+        "frozen_ntk_infinity": 0.15543270119551608
+      },
+      "output_ranges": {
+        "dense": [
+          -1.2794421218935443,
+          1.2794421218935443
+        ],
+        "memory": [
+          -1.2789958304282556,
+          1.2789958304282556
+        ],
+        "frozen_ntk": [
+          -1.6320005698868674,
+          1.6320005698868736
+        ],
+        "factors": [
+          -1.187464018002642,
+          1.187464018002642
+        ]
+      }
+    }
+  ],
+  "autograd_block_max_abs_error": 5.551115123125783e-17,
+  "paired_control_max_difference": 0.0,
+  "elapsed_seconds": 4.217453688383102,
+  "initialization_hashes": {
+    "w": "da24d2b86aed45dfa6e7442e24bfcb968ec28fcfbcfb2f5f07ac066601fffd63",
+    "c": "460ee22d13695cbe3226805bf5b24b124100e32be5717737508c79d8679b0db6",
+    "W0": "559c9ad62fd9feab4fb4671e854b86ec975240a12aa8792873824ebe2344b3f9"
+  },
+  "render": {
+    "script": "paper/scripts/tikz_figures.py",
+    "script_sha256": "2003f32f5fae83d4a726463bbf5bd935a811c392001d7012e1c71afd4291d278",
+    "bundle_sha256": "fefd312a1d0a16994bace29095bb81d32f85dda272b8b14f0f30ced2d8223b74",
+    "ntk_output_units_by_case": {
+      "two_outliers_alternating": 10,
+      "quadrant_alternating": 100,
+      "quadrant_pairs": 10,
+      "quadrant_center_edges": 200,
+      "equal_mixed_odd": 1
+    },
+    "manuscript_changed": true,
+    "output_sha256": {
+      "learning_controls_quadrant_pairs.pdf": "f12a492181e9eba24efcd0abe90218dfe82f2b0a8478fd3e8cf2034a31d35d13",
+      "learning_controls_quadrant_pairs.png": "be58a041c23d77bd77dd5eb864f158a33d1494b376d4180be21891aa57d9cea8",
+      "learning_controls_quadrant_alternating.pdf": "5326634ecfed02de449ac7d73d58ac909d005e31d724f5d1c74405f9e22411a0",
+      "learning_controls_quadrant_alternating.png": "f3aa33ac584382a9c682eb68d826cafa8da104634c57f3eb0792f77d29ada546",
+      "learning_controls_quadrant_center_edges.pdf": "1d61d13bbd6f97fa93a360d20dff7f77895aaae066ee03c0d1ab492465f448db",
+      "learning_controls_quadrant_center_edges.png": "4230c3c89dc920310213c238b95a9bc66b7384863b37a4fa671109879ce93970",
+      "learning_controls_two_outliers_alternating.pdf": "e6d38550900c2276c263a7d5114c0ef2bfe0f62361b1d3403f3bfbf6ad2c4bae",
+      "learning_controls_two_outliers_alternating.png": "f3769e7df0ec6db8ce448a446c38d8b0e4b4496feac1bb058cc7efdfed62cf07",
+      "learning_controls_equal_mixed_odd.pdf": "f3f9c93fd1b8bbb08c395ccf14d0ab4df2c9ac605c2fdf847b0442e8bc74b280",
+      "learning_controls_equal_mixed_odd.png": "262ebecfb165fb66763d70177bfa070d559a9e7a83f92b106fa384ac1bd9071e",
+      "learning_controls_gallery.pdf": "f4cc539fae7a598e4928419834234d6ce0cfc3b49b47de4f098d9d0f6e8e4787",
+      "learning_controls_gallery.png": "ef22ecf7ef7c69e2ad396531ada4740c333b35cdaf15c2b7344331a1115bc78b",
+      "learning_controls_gallery_a.pdf": "a8b42d90d720f820335257aa9b29e65ddc345b1d26af80248619c6b478e408cb",
+      "learning_controls_gallery_b.pdf": "ecdd708b41139cb0a43c1eaa6af90bd97bb338d681fe7480262ba07c4c5ad120"
+    }
+  },
+  "manuscript_integration": {
+    "pdf": "paper/main.pdf",
+    "pages": 42,
+    "figure_4_page": 15,
+    "former_figure_4_page": 39,
+    "full_gallery_pages": [
+      41,
+      42
+    ],
+    "main_tex_sha256": "677503a75bbcfc1344783e755a7a539f5f2ba8d5383b254e8ff2a4c23600a87b",
+    "main_pdf_sha256": "7db0ea8f50f46b926cafbd948ec4c0020953309f3c802821f64c5e4a99ec50fa",
+    "build": "latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex",
+    "check": "Final log has no warnings, unresolved references or overfull boxes; pages 15,39,41,42 visually inspected."
+  }
+}
