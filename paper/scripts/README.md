@@ -223,7 +223,7 @@ below the coarse/fine sensitivity scale. Its four radial times remain
 The bounded GPU capture script is `../figures/capture_trajectory.py`.
 It writes to a fresh `--out` directory and never replaces the paper bundle.
 Full protocol, numerical checks and commands are in
-[the Figure 3 note](../NOTE_fig3_trajectory.md); provenance and all replay checks
+the trajectory replay (`figures/capture_trajectory.py`); provenance and all replay checks
 are in `../figures/trajectory_capture_manifest.json`. Rendering the portable
 bundle does not require the original training archives or a GPU.
 

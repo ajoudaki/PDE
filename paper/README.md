@@ -19,9 +19,7 @@ Detailed rank, numerical-sensitivity and MNIST panels are in the appendices.
 [FIGURE_EXPERIMENT.md](FIGURE_EXPERIMENT.md) preserves the earlier edition's
 evidence and rendering record.
 
-[NOTE_fig3_trajectory.md](NOTE_fig3_trajectory.md) documents the completed
-39-checkpoint replay for Figure 3, its checks and reproduction commands.
-It preserves the original task and initialization and adds genuine shared-time
+The 39-checkpoint replay behind the trajectory figure preserves the original task and initialization and adds genuine shared-time
 predictions at two numerical resolutions. `figures/capture_trajectory.py`
 performs that bounded capture; `scripts/tikz_figures.py trajectory` redraws
 the figure from the bundle without training.
@@ -35,12 +33,6 @@ five-task comparison split into `learning_controls_gallery_a.pdf` and
 rows, the portable data, and the bounded kernel capture are documented in
 [the figure guide](scripts/README.md#four-method-comparison-across-five-circle-tasks).
 
-`main_alternative.tex` and `main_alternative.pdf` retain the attachment as
-originally compiled (28 pages, with only PDF bookmark fixes). They are a
-comparison snapshot, not the current working manuscript. Git commit `bbfef82`
-preserves both pre-adoption versions and their sources. The earlier rollback
-checkpoint is `df473babba4849c80db75c2578995011f3450f37`.
-
 The chosen narrative, early comparison table, low-rank corollary and fixed-width
 size-at-accuracy calculation are retained. Corrections distinguish:
 
@@ -50,10 +42,12 @@ size-at-accuracy calculation are retained. Corrections distinguish:
 - evolving learned state from fixed initialization and total computational cost;
 - RMS/held-out prediction measurements from uniform pointwise error.
 
-`comparison_appendix.tex` is included for the supporting derivations.
+`main.tex` is the manuscript; its inputs are `results.tex` (central theorem,
+corollaries, costs), `proof_alltime.tex`, `proof_tracking.tex`,
+`proof_finite_time.tex`, `comparison_appendix.tex` and `sphere_appendix.tex`.
+See [NOTES_alltime_theorem.md](NOTES_alltime_theorem.md) for the status of the
+width-rate obligation.
 `sphere_appendix.tex` is included for the supplementary experiment.
-`comparison.tex` is retained from the previous version but is no longer included;
-the chosen draft integrates the main comparison into its own narrative.
 
 The population discussion now includes a **conditional learned-state saving**
 corollary. At matched test-prediction accuracy, the explicit hypotheses are a

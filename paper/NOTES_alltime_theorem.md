@@ -1,8 +1,10 @@
-# Trial integration of the uniform response-memory results
+# Notes on the all-time (width- and time-uniform) theorem
 
-The comparison manuscript is `main_theorem_trial.tex`, compiled as
-`main_theorem_trial.pdf`. The existing `main.tex`, `main.pdf`, figures and
-original appendix inputs are preserved.
+The manuscript is `main.tex`, compiled as `main.pdf`. It inputs `results.tex`,
+`proof_alltime.tex`, `proof_tracking.tex`, `proof_finite_time.tex`,
+`comparison_appendix.tex` and `sphere_appendix.tex`. The earlier fixed-width
+manuscript and the pre-adoption snapshot are in git history (commits before
+this one; see `git log -- paper/main_theorem_trial.tex paper/main_alternative.tex`).
 
 The main text now has one central theorem for the original residual-speed
 closure: exponential fitting at every order, all-time normalized-parameter
@@ -25,25 +27,21 @@ keep the argument focused. Experiments and figures are unchanged. The
 comparison appendix distinguishes proved compression from conditional
 root-width costs and from uncertified solver accuracy assumptions.
 
-Trial inputs:
+Inputs:
 
-- `trial_core.tex`: central statements, interpretation and costs.
-- `trial_alltime_proof.tex`: the small-label proof and population passage.
-- `trial_tracking_proof.tex`: the sharp tracking estimate and test predictions.
-- `trial_finite_time.tex`: broader-label finite-time proof.
-- `trial_comparison_appendix.tex`: matched accuracy/resource comparisons.
+- `results.tex`: central statements, interpretation and costs.
+- `proof_alltime.tex`: the small-label proof and population passage.
+- `proof_tracking.tex`: the sharp tracking estimate and test predictions.
+- `proof_finite_time.tex`: broader-label finite-time proof.
+- `comparison_appendix.tex`: matched accuracy/resource comparisons.
 
 Compile from the paper directory, keeping auxiliary files outside it:
 
 ```bash
-mkdir -p /tmp/pde-theorem-trial-build
-latexmk -pdf -interaction=nonstopmode -halt-on-error \
-  -outdir=/tmp/pde-theorem-trial-build main_theorem_trial.tex
-cp /tmp/pde-theorem-trial-build/main_theorem_trial.pdf main_theorem_trial.pdf
+mkdir -p /tmp/pde-build
+latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=/tmp/pde-build main.tex
+cp /tmp/pde-build/main.pdf main.pdf
 ```
-
-This is an authoring trial based on the current study derivations, not a
-replacement of the main manuscript or a promotion to the maintained book.
 
 ## Width-rate obligation
 
