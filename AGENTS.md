@@ -28,6 +28,32 @@ may a task report that defect and inspect the minimum corresponding passage in
 `old_docs/`. Do not silently substitute archived wording for current material;
 repair or escalate the current book instead.
 
+## Mathematical communication
+
+Minimize the reader's translation work. Use established domain notation and
+the user's agreed conventions; define symbols before use or alongside their
+first defining formula. Give central objects explicit definitions in already
+defined quantities. Introduce new symbols only when they materially improve
+understanding. Make each mathematical passage self-contained for its requested
+scope, including the setup, assumptions and relations needed to follow it.
+
+Before producing mathematical explanations, derivations, proofs, research notes,
+reviews or scientific interpretations of experiments, read and apply
+`explain-with-canonical-notation` at
+`/home/amir/.codex/skills/explain-with-canonical-notation/SKILL.md`.
+Apply it in conversation and written artifacts, including research that was not
+requested as a lesson. For neural-network material, also read its linked
+neural-network reference. Reuse already-read instructions while current; purely
+operational work with no mathematical content does not require the full skill.
+
+These presentation requirements apply alongside the task's research, proof,
+review or teaching workflow. They do not expand source access or impose a
+lesson pace. Honor the user's requested scope, including complete rewrites.
+Preserve the source mathematics and give exact correspondences when translating
+notation; the maintained book retains its global notation contract.
+
+## Reading and research scope
+
 Before acting, select the appropriate reading scope:
 
 - **Research:** read Part 1 of `RESEARCH_WORKFLOW.md` and your study's README.
