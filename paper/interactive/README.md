@@ -20,4 +20,4 @@ carriers $r_a\delta_a/\rho$) from the same small run as the moments figure in
 `scripts/tikz_figures.py::moments()` (seed 3, width 512, two hidden tanh layers,
 8 inputs, Euler step 0.05), shown up to $t=200$. A segmented control (or the
 space bar) morphs the horizontal axis between physical time $t$ and the learning
-clock $\tau=\int_0^t\rho$. Self-contained: data inlined, no external scripts.
+clock $\tau=\int_0^t\rho$. Traces are stacked electrode-style (forward left, backward right, each at its own gain, no boxes). Self-contained: data inlined, no external scripts.

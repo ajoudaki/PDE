@@ -6,59 +6,53 @@
 <title>Neuron histories in two clocks</title>
 <style>
 :root{
-  --bg:#FCFCFB; --fg:#2B2B2B; --muted:#8A8A8A; --grid:#ECECEA; --axis:#C9C9C6; --panel:#FFFFFF; --border:#E4E4E1;
-  --accent:#2F6DB5; --chip:#F1F1EF; --chip-on:#2B2B2B; --chip-on-fg:#FCFCFB;
-  --s1:#2F6DB5; --s2:#C8553D; --s3:#6B4C9A; --s4:#B08A1E; --s5:#1F8F74;
-  --rho:#6E6E6B;
+  --bg:#FCFCFB; --fg:#2B2B2B; --muted:#8A8A8A; --faint:#E6E6E3; --axis:#C9C9C6; --panel:#FFFFFF;
+  --accent:#2F6DB5; --chip:#F1F1EF; --chip-on:#2B2B2B; --chip-on-fg:#FCFCFB; --border:#E4E4E1;
+  --s1:#2F6DB5; --s2:#C8553D; --s3:#6B4C9A; --s4:#B08A1E; --s5:#1F8F74; --rho:#6E6E6B;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
-  --bg:#161615; --fg:#ECECEA; --muted:#9A9A96; --grid:#262625; --axis:#3A3A38; --panel:#1C1C1B; --border:#2A2A28;
-  --accent:#5B93D8; --chip:#242423; --chip-on:#ECECEA; --chip-on-fg:#161615;
+  --bg:#161615; --fg:#ECECEA; --muted:#9A9A96; --faint:#262625; --axis:#3A3A38; --panel:#1C1C1B;
+  --accent:#5B93D8; --chip:#242423; --chip-on:#ECECEA; --chip-on-fg:#161615; --border:#2A2A28;
   --s1:#5B93D8; --s2:#D86E58; --s3:#9777C4; --s4:#AA8520; --s5:#2A9F86; --rho:#A4A4A0;
 }}
 :root[data-theme="dark"]{
-  --bg:#161615; --fg:#ECECEA; --muted:#9A9A96; --grid:#262625; --axis:#3A3A38; --panel:#1C1C1B; --border:#2A2A28;
-  --accent:#5B93D8; --chip:#242423; --chip-on:#ECECEA; --chip-on-fg:#161615;
+  --bg:#161615; --fg:#ECECEA; --muted:#9A9A96; --faint:#262625; --axis:#3A3A38; --panel:#1C1C1B;
+  --accent:#5B93D8; --chip:#242423; --chip-on:#ECECEA; --chip-on-fg:#161615; --border:#2A2A28;
   --s1:#5B93D8; --s2:#D86E58; --s3:#9777C4; --s4:#AA8520; --s5:#2A9F86; --rho:#A4A4A0;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1080px;margin:0 auto;padding:28px 16px 48px}
+.wrap{max-width:1120px;margin:0 auto;padding:28px 16px 48px}
 h1{font-size:22px;font-weight:600;letter-spacing:-0.01em;margin:0 0 4px}
-.sub{color:var(--muted);margin:0 0 18px;max-width:72ch}
-.sub i{font-style:italic}
-.controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:0 0 14px}
+.sub{color:var(--muted);margin:0 0 18px;max-width:76ch}
+.sub i,.foot i{font-style:italic}
+.controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:0 0 10px}
 .seg{display:inline-flex;background:var(--chip);border-radius:999px;padding:3px;gap:2px}
 .seg button{appearance:none;border:0;background:transparent;color:var(--fg);font:inherit;font-size:14px;padding:7px 14px;border-radius:999px;cursor:pointer;transition:background .18s,color .18s;min-height:34px}
 .seg button[aria-checked="true"]{background:var(--chip-on);color:var(--chip-on-fg)}
 .seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .hint{color:var(--muted);font-size:13px}
 kbd{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;border:1px solid var(--border);border-bottom-width:2px;border-radius:4px;padding:0 5px;color:var(--fg)}
-.panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:12px 14px 6px;margin-bottom:12px;position:relative}
-.panel h2{font-size:13px;font-weight:600;margin:0 0 2px;letter-spacing:.04em;color:var(--muted)}
-.panel .desc{font-size:13px;color:var(--muted);margin:0 0 4px}
+.stage{position:relative}
 svg{display:block;width:100%;height:auto;overflow:visible}
-.grid line{stroke:var(--grid);stroke-width:1}
+.colhead text{fill:var(--fg);font-size:13px;font-weight:600;letter-spacing:.03em}
+.colhead .d{fill:var(--muted);font-weight:400;font-size:12.5px;letter-spacing:0}
+.name text{fill:var(--muted);font-size:11.5px;font-variant-numeric:tabular-nums}
+.base line{stroke:var(--faint);stroke-width:1}
+.trace path{fill:none;stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round}
+.rho path{stroke:var(--rho);stroke-width:1.6;fill:none}
 .axis line,.axis path{stroke:var(--axis);stroke-width:1;fill:none}
 .axis text{fill:var(--muted);font-size:11.5px;font-variant-numeric:tabular-nums}
 .axis .lab{fill:var(--fg);font-size:12px}
-.ruler line{stroke:var(--muted);stroke-width:1;opacity:.55}
+.ruler line{stroke:var(--muted);stroke-width:1;opacity:.5}
 .ruler text{fill:var(--muted);font-size:10px;font-variant-numeric:tabular-nums}
-.series path{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
-.series .halo{stroke:var(--panel);stroke-width:4;opacity:.9}
-.label text{font-size:11.5px;fill:var(--fg);font-variant-numeric:tabular-nums}
-.label rect{fill:var(--panel);opacity:.85}
-.cross line{stroke:var(--fg);stroke-width:1;opacity:.35}
-.cross circle{stroke:var(--panel);stroke-width:2}
+.cross line{stroke:var(--fg);stroke-width:1;opacity:.3}
+.cross circle{stroke:var(--panel);stroke-width:1.5}
 .tip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:12.5px;box-shadow:0 6px 20px rgba(0,0,0,.12);min-width:150px;font-variant-numeric:tabular-nums;z-index:2}
 .tip .h{color:var(--muted);margin-bottom:3px}
 .tip .r{display:flex;justify-content:space-between;gap:12px}
 .tip .sw{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px;vertical-align:-0.5px}
-.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12.5px;color:var(--muted);margin:6px 0 0}
-.legend span{display:inline-flex;align-items:center;gap:6px}
-.legend i{display:inline-block;width:14px;height:3px;border-radius:2px}
-.foot{color:var(--muted);font-size:12.5px;margin-top:14px;max-width:80ch}
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.foot{color:var(--muted);font-size:12.5px;margin-top:14px;max-width:84ch}
 details{margin-top:10px;font-size:13px;color:var(--muted)}
 table{border-collapse:collapse;font-size:12px;font-variant-numeric:tabular-nums}
 td,th{padding:2px 8px;border-bottom:1px solid var(--border);text-align:right}
@@ -68,7 +62,7 @@ td,th{padding:2px 8px;border-bottom:1px solid var(--border);text-align:right}
 <body>
 <div class="wrap">
   <h1>A neuron's history, in two clocks</h1>
-  <p class="sub">Ten histories from one training run (two hidden tanh layers, width 512, 8 training points, gradient flow). Along ordinary time <i>t</i> they are a violent transient followed by a long stretch of nothing. Re-parameterised by the learning clock <i>τ</i>(<i>t</i>) = ∫₀<sup><i>t</i></sup> ρ, with ρ = √loss the residual, the same curves become smooth, slowly varying functions — the kind a handful of moments can store.</p>
+  <p class="sub">Ten traces from one training run (two hidden tanh layers, width 512, 8 training points, gradient flow), read off like electrode recordings: five forward activations on the left, five backward carriers on the right. Along ordinary time <i>t</i> they are a violent transient followed by a long stretch of nothing. Re-parameterised by the learning clock <i>τ</i>(<i>t</i>) = ∫₀<sup><i>t</i></sup> ρ, with ρ = √loss, the same traces become smooth, slowly varying functions — the kind a handful of moments can store.</p>
 
   <div class="controls">
     <div class="seg" role="radiogroup" aria-label="Horizontal coordinate">
@@ -78,27 +72,9 @@ td,th{padding:2px 8px;border-bottom:1px solid var(--border);text-align:right}
     <span class="hint">press <kbd>space</kbd> to flip · hover to read values</span>
   </div>
 
-  <div class="panel" id="p-rho">
-    <h2>RESIDUAL ρ = √LOSS</h2>
-    <p class="desc">The speed of learning. Exponential in <i>t</i>, linear in <i>τ</i> — that is the whole trick.</p>
-    <div class="svgbox"></div>
-  </div>
+  <div class="stage"><svg id="stage" role="img" aria-label="Ten neuron histories, forward on the left and backward on the right, in physical time or the learning clock"></svg><div class="tip" id="tip" style="display:none"></div></div>
 
-  <div class="panel" id="p-fwd">
-    <h2>FORWARD ACTIVITY · 5 NEURONS</h2>
-    <p class="desc">First-layer activation <i>h</i><sub><i>a</i></sub>(<i>t</i>) on one fixed training input <i>a</i>.</p>
-    <div class="svgbox"></div>
-    <div class="legend"></div>
-  </div>
-
-  <div class="panel" id="p-bwd">
-    <h2>BACKWARD CARRIER · 5 NEURONS</h2>
-    <p class="desc">Residual times backward sensitivity, normalised by ρ: <i>r</i><sub><i>a</i></sub> <i>δ</i><sub><i>a</i></sub> / ρ. What the weight update is actually made of.</p>
-    <div class="svgbox"></div>
-    <div class="legend"></div>
-  </div>
-
-  <p class="foot">The small ticks above the axis show where the <em>other</em> clock's round values land: in the <i>τ</i> view, physical times 1, 2, 5, 10, 20, 50, 100, 200 pile up on the right; in the <i>t</i> view, the ten units of <i>τ</i> are crushed into the first few percent of the run. Series are the five neurons with the largest total movement among a random draw; same run as the moments figure in the paper (seed 3, Euler step 0.05). The run is shown up to <i>t</i> = 200; the residual reaches machine precision near <i>t</i> ≈ 133, after which the normalised carrier is numerically undefined.</p>
+  <p class="foot">Each trace is drawn at its own gain, EEG-style; the faint line is its zero. The thin grey trace on top is the residual ρ = √loss, the speed of learning. Small ticks above each column mark where the <em>other</em> clock's round values land: in the <i>τ</i> view, physical times 1, 2, 5, 10, 20, 50, 100, 200 pile up on the right; in the <i>t</i> view the ten units of <i>τ</i> are crushed into the first few percent of the run. Forward = first-layer activation <i>h</i><sub><i>a</i></sub> on one fixed training input; backward = <i>r</i><sub><i>a</i></sub> <i>δ</i><sub><i>a</i></sub> / ρ, the normalised carrier that the weight update is made of. Same run as the moments figure in the paper (seed 3, Euler step 0.05), shown to <i>t</i> = 200; the residual reaches machine precision near <i>t</i> ≈ 133.</p>
 
   <details><summary>Data table (every 100th sample)</summary><div id="table"></div></details>
 </div>
@@ -107,159 +83,166 @@ td,th{padding:2px 8px;border-bottom:1px solid var(--border);text-align:right}
 <script>
 (function(){
 const D = JSON.parse(document.getElementById('data').textContent);
-const N = D.t.length;
+const N = D.t.length, T_END = D.t[N-1], TAU_END = D.tau[N-1];
 const COLORS = ['--s1','--s2','--s3','--s4','--s5'].map(v=>`var(${v})`);
-const css = getComputedStyle(document.documentElement);
-let mode = 't', s = 0, target = 0, raf = null;
+const svg = document.getElementById('stage'), tip = document.getElementById('tip');
+const NS='http://www.w3.org/2000/svg';
+const el=(n,attrs,parent)=>{const e=document.createElementNS(NS,n); for(const k in attrs) e.setAttribute(k,attrs[k]); (parent||svg).appendChild(e); return e;};
 
-const M = {l:46, r:64, t:10, b:30};
-const panels = [];
+let mode='t', s=0, raf=null, W=1000;
+// layout constants
+const PAD_L=16, PAD_R=16, GUT=40, NAME_W=58, TOP=22, RHO_H=56, HEAD_H=58, STRIP_H=66, STRIP_GAP=6, AX_H=40;
+const nF=D.forward.length, nB=D.backward.length;
+const H = TOP + RHO_H + 18 + HEAD_H + Math.max(nF,nB)*(STRIP_H+STRIP_GAP) + AX_H;
 
-function mkPanel(id, series, height, opts){
-  const host = document.querySelector('#'+id+' .svgbox');
-  const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
-  host.appendChild(svg);
-  const g = (cls)=>{const e=document.createElementNS('http://www.w3.org/2000/svg','g'); if(cls) e.setAttribute('class',cls); svg.appendChild(e); return e;};
-  const P = {id, svg, series, height, opts, gGrid:g('grid'), gAxis:g('axis'), gRuler:g('ruler'), gSeries:g('series'), gLabel:g('label'), gCross:g('cross'), width:0};
-  // y domain
-  let lo=Infinity, hi=-Infinity;
-  series.forEach(S=>S.v.forEach(x=>{ if(x<lo)lo=x; if(x>hi)hi=x; }));
-  if(opts.zeroBase){ lo=Math.min(lo,0); }
-  const pad=(hi-lo)*0.06; P.ylo=lo-pad; P.yhi=hi+pad;
-  P.paths = series.map((S,i)=>{
-    const halo=document.createElementNS('http://www.w3.org/2000/svg','path'); halo.setAttribute('class','halo'); P.gSeries.appendChild(halo);
-    const p=document.createElementNS('http://www.w3.org/2000/svg','path'); p.setAttribute('stroke', S.color); P.gSeries.appendChild(p);
-    return {halo,p};
-  });
-  P.cross = {line:document.createElementNS('http://www.w3.org/2000/svg','line'), dots:series.map(S=>{const c=document.createElementNS('http://www.w3.org/2000/svg','circle'); c.setAttribute('r',4); c.setAttribute('fill',S.color); return c;})};
-  P.gCross.appendChild(P.cross.line); P.cross.dots.forEach(c=>P.gCross.appendChild(c)); P.gCross.style.display='none';
-  const tip=document.createElement('div'); tip.className='tip'; tip.style.display='none'; document.querySelector('#'+id).appendChild(tip); P.tip=tip;
-  const legend=document.querySelector('#'+id+' .legend');
-  if(legend){ legend.innerHTML = series.map(S=>`<span><i style="background:${S.color}"></i>${S.name}</span>`).join(''); }
-  panels.push(P);
-  return P;
+// static groups
+const gBase=el('g',{class:'base'}), gRho=el('g',{class:'rho'}), gTrace=el('g',{class:'trace'}), gName=el('g',{class:'name'}),
+      gHead=el('g',{class:'colhead'}), gAxis=el('g',{class:'axis'}), gRuler=el('g',{class:'ruler'}), gCross=el('g',{class:'cross'});
+gCross.style.display='none';
+
+const cols = [
+  {key:'forward', series:D.forward, title:'FORWARD', desc:'activation hₐ', x0:0, w:0},
+  {key:'backward', series:D.backward, title:'BACKWARD', desc:'carrier rₐ δₐ / ρ', x0:0, w:0},
+];
+function colGeom(){
+  const inner = W-PAD_L-PAD_R-GUT; const cw = inner/2;
+  cols[0].x0 = PAD_L; cols[0].w = cw; cols[1].x0 = PAD_L+cw+GUT; cols[1].w = cw;
 }
+function xOf(col,i){ // plot x within column (after name gutter)
+  const x0=col.x0+NAME_W, w=col.w-NAME_W;
+  return x0 + w*((1-s)*D.t[i]/T_END + s*D.tau[i]/TAU_END);
+}
+function xVal(col,v,useTau){ const x0=col.x0+NAME_W, w=col.w-NAME_W; return x0 + w*(useTau? v/TAU_END : v/T_END); }
+function stripY(k){ return TOP+RHO_H+18+HEAD_H + k*(STRIP_H+STRIP_GAP); }
+function rhoY(v){ return TOP + RHO_H*(1 - v/Math.max(...D.rho)) ; }
 
-const T_END = D.t[N-1], TAU_END = D.tau[N-1];
-function xT(P,t){ return M.l + (P.width-M.l-M.r)*t/T_END; }
-function xTau(P,u){ return M.l + (P.width-M.l-M.r)*u/TAU_END; }
-function xMix(P,i){ return (1-s)*xT(P,D.t[i]) + s*xTau(P,D.tau[i]); }
-function y(P,v){ const h=P.height-M.t-M.b; return M.t + h*(1-(v-P.ylo)/(P.yhi-P.ylo)); }
+// per-trace gain: own range -> strip
+const gains = {};
+cols.forEach(col=>col.series.forEach((S,k)=>{
+  let lo=Infinity,hi=-Infinity; S.v.forEach(x=>{if(x<lo)lo=x; if(x>hi)hi=x;});
+  lo=Math.min(lo,0); hi=Math.max(hi,0); const pad=(hi-lo)*0.08; gains[col.key+k]={lo:lo-pad,hi:hi+pad};
+}));
+function yOf(col,k,v){ const g=gains[col.key+k], y0=stripY(k); return y0 + STRIP_H*(1-(v-g.lo)/(g.hi-g.lo)); }
+
+// build static elements
+const paths={}, basel={}, names={};
+cols.forEach(col=>{
+  col.series.forEach((S,k)=>{
+    basel[col.key+k]=el('line',{},gBase);
+    paths[col.key+k]=el('path',{stroke:COLORS[k]},gTrace);
+    names[col.key+k]=el('text',{},gName); names[col.key+k].textContent='n '+S.id;
+  });
+});
+const rhoPath=el('path',{},gRho);
+const rhoName=el('text',{},gName); rhoName.textContent='ρ';
+const rhoBase=[el('line',{},gBase), el('line',{},gBase)];
+const crossLines=cols.map(()=>el('line',{},gCross)); const rhoCrossLine=el('line',{},gCross);
+const dots={}; cols.forEach(col=>col.series.forEach((S,k)=>{ dots[col.key+k]=el('circle',{r:3.5,fill:COLORS[k]},gCross); })); const rhoDot=el('circle',{r:3.5,fill:'var(--rho)'},gCross);
 
 function niceTicks(lo,hi,n){ const span=hi-lo, raw=span/n, mag=Math.pow(10,Math.floor(Math.log10(raw))), f=raw/mag; const step=(f<1.5?1:f<3.5?2:f<7.5?5:10)*mag; const out=[]; for(let v=Math.ceil(lo/step)*step; v<=hi+1e-9; v+=step) out.push(+v.toFixed(10)); return out; }
-function fmt(v,step){ if(step===undefined) step=Math.abs(v); if(Number.isInteger(v)) return String(v); const d=step>=1?0:step>=0.1?1:2; return v.toFixed(d); }
-function fmtT(ticks){ const st=ticks.length>1?ticks[1]-ticks[0]:1; return v=>{ const d=st>=1?0:st>=0.1?1:2; return v.toFixed(d); }; }
-
-function layout(P){
-  P.width = P.svg.parentNode.clientWidth || 800;
-  P.svg.setAttribute('viewBox',`0 0 ${P.width} ${P.height}`);
-  P.svg.setAttribute('height',P.height);
-  // y grid + axis
-  P.gGrid.innerHTML=''; P.gAxis.innerHTML='';
-  const yt = niceTicks(P.ylo,P.yhi,4); const fy=fmtT(yt);
-  yt.forEach(v=>{
-    const l=document.createElementNS('http://www.w3.org/2000/svg','line'); l.setAttribute('x1',M.l); l.setAttribute('x2',P.width-M.r); l.setAttribute('y1',y(P,v)); l.setAttribute('y2',y(P,v)); P.gGrid.appendChild(l);
-    const tx=document.createElementNS('http://www.w3.org/2000/svg','text'); tx.setAttribute('x',M.l-8); tx.setAttribute('y',y(P,v)+4); tx.setAttribute('text-anchor','end'); tx.textContent=fy(v); P.gAxis.appendChild(tx);
-  });
-  if(P.ylo<0 && P.yhi>0){ const z=document.createElementNS('http://www.w3.org/2000/svg','line'); z.setAttribute('x1',M.l); z.setAttribute('x2',P.width-M.r); z.setAttribute('y1',y(P,0)); z.setAttribute('y2',y(P,0)); z.setAttribute('stroke','var(--axis)'); P.gGrid.appendChild(z); }
-  draw(P);
-}
-
-function xAxis(P){
-  // remove old x axis bits
-  Array.from(P.gAxis.querySelectorAll('.x')).forEach(e=>e.remove());
-  P.gRuler.innerHTML='';
-  const yb = P.height-M.b;
-  const base=document.createElementNS('http://www.w3.org/2000/svg','line'); base.setAttribute('class','x'); base.setAttribute('x1',M.l); base.setAttribute('x2',P.width-M.r); base.setAttribute('y1',yb); base.setAttribute('y2',yb); P.gAxis.appendChild(base);
-  const useTau = s>0.5;
-  const ticks = useTau ? niceTicks(0,TAU_END,6) : niceTicks(0,T_END,6); const ft=fmtT(ticks);
-  ticks.forEach(v=>{
-    const x = useTau ? xTau(P,v) : xT(P,v);
-    const l=document.createElementNS('http://www.w3.org/2000/svg','line'); l.setAttribute('class','x'); l.setAttribute('x1',x); l.setAttribute('x2',x); l.setAttribute('y1',yb); l.setAttribute('y2',yb+4); P.gAxis.appendChild(l);
-    const t=document.createElementNS('http://www.w3.org/2000/svg','text'); t.setAttribute('class','x'); t.setAttribute('x',x); t.setAttribute('y',yb+16); t.setAttribute('text-anchor','middle'); t.textContent=ft(v); P.gAxis.appendChild(t);
-  });
-  const lab=document.createElementNS('http://www.w3.org/2000/svg','text'); lab.setAttribute('class','x lab'); lab.setAttribute('x',P.width-M.r); lab.setAttribute('y',yb+28); lab.setAttribute('text-anchor','end');
-  lab.textContent = useTau ? 'learning clock τ' : 'physical time t'; P.gAxis.appendChild(lab);
-  // ruler: the other clock's round values
-  const marks = useTau ? [1,2,5,10,20,50,100,200] : [1,2,3,4,5,6,7,8,9,10]; const labelled = useTau ? [1,10,100,200] : [1,5,10];
-  let lastX=-1e9;
-  marks.forEach(v=>{
-    let x;
-    if(useTau){ const u=interp(D.t,D.tau,v); x=xTau(P,u); } else { const t=interp(D.tau,D.t,v); if(t==null) return; x=xT(P,t); }
-    const l=document.createElementNS('http://www.w3.org/2000/svg','line'); l.setAttribute('x1',x); l.setAttribute('x2',x); l.setAttribute('y1',M.t-6); l.setAttribute('y2',M.t-1); P.gRuler.appendChild(l);
-    if(labelled.includes(v) && x-lastX>22){ const t=document.createElementNS('http://www.w3.org/2000/svg','text'); t.setAttribute('x',x); t.setAttribute('y',M.t-9); t.setAttribute('text-anchor','middle'); t.textContent=(useTau?'t=':'τ=')+v; P.gRuler.appendChild(t); lastX=x; }
-  });
-}
 function interp(xs,ys,x){ if(x<=xs[0]) return ys[0]; if(x>=xs[xs.length-1]) return null; let lo=0,hi=xs.length-1; while(hi-lo>1){const m=(lo+hi)>>1; if(xs[m]<=x) lo=m; else hi=m;} const f=(x-xs[lo])/(xs[hi]-xs[lo]); return ys[lo]+f*(ys[hi]-ys[lo]); }
 
-function draw(P){
-  P.series.forEach((S,k)=>{
-    let d='';
-    for(let i=0;i<N;i++){ d += (i?'L':'M') + xMix(P,i).toFixed(1) + ' ' + y(P,S.v[i]).toFixed(1); }
-    P.paths[k].p.setAttribute('d',d); P.paths[k].halo.setAttribute('d',d);
+function layout(){
+  W = svg.parentNode.clientWidth || 1000; colGeom();
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`); svg.setAttribute('height',H);
+  // headers
+  gHead.innerHTML='';
+  cols.forEach(col=>{
+    const y=TOP+RHO_H+18+16;
+    const t=el('text',{x:col.x0+NAME_W,y},gHead); t.textContent=col.title;
+    const d=el('tspan',{dx:8,class:'d'},t); d.textContent=col.desc;
   });
-  // direct labels at the right end, de-collided
-  P.gLabel.innerHTML='';
-  if(P.opts.labels){
-    const items = P.series.map((S,k)=>({k, y:y(P,S.v[N-1]), name:S.name, color:S.color})).sort((a,b)=>a.y-b.y);
-    for(let i=1;i<items.length;i++){ if(items[i].y-items[i-1].y<13) items[i].y=items[i-1].y+13; }
-    for(let i=items.length-2;i>=0;i--){ if(items[i+1].y-items[i].y<13) items[i].y=items[i+1].y-13; }
-    items.forEach(it=>{
-      const t=document.createElementNS('http://www.w3.org/2000/svg','text'); t.setAttribute('x',P.width-M.r+8); t.setAttribute('y',it.y+4); t.setAttribute('fill',it.color); t.textContent=it.name; P.gLabel.appendChild(t);
-    });
-  }
-  xAxis(P);
+  // names + baselines
+  cols.forEach(col=>col.series.forEach((S,k)=>{
+    const y=yOf(col,k,0); const b=basel[col.key+k];
+    b.setAttribute('x1',col.x0+NAME_W); b.setAttribute('x2',col.x0+col.w); b.setAttribute('y1',y); b.setAttribute('y2',y);
+    const nm=names[col.key+k]; nm.setAttribute('x',col.x0+NAME_W-10); nm.setAttribute('y',stripY(k)+STRIP_H/2+4); nm.setAttribute('text-anchor','end');
+  }));
+  rhoName.setAttribute('x',cols[0].x0+NAME_W-10); rhoName.setAttribute('y',TOP+RHO_H/2+4); rhoName.setAttribute('text-anchor','end');
+  cols.forEach((col,ci)=>{ const b=rhoBase[ci]; b.setAttribute('x1',col.x0+NAME_W); b.setAttribute('x2',col.x0+col.w); b.setAttribute('y1',TOP+RHO_H); b.setAttribute('y2',TOP+RHO_H); });
+  draw();
 }
 
-// --- animation between clocks
+function draw(){
+  cols.forEach(col=>{
+    col.series.forEach((S,k)=>{
+      let d=''; for(let i=0;i<N;i++){ d+=(i?'L':'M')+xOf(col,i).toFixed(1)+' '+yOf(col,k,S.v[i]).toFixed(1); }
+      paths[col.key+k].setAttribute('d',d);
+    });
+  });
+  // rho drawn in both columns (same trace), as a quiet reference
+  let d=''; cols.forEach(col=>{ for(let i=0;i<N;i++){ d+=(i?'L':'M')+xOf(col,i).toFixed(1)+' '+rhoY(D.rho[i]).toFixed(1); } });
+  rhoPath.setAttribute('d',d);
+  axes();
+}
+
+function axes(){
+  gAxis.innerHTML=''; gRuler.innerHTML='';
+  const useTau = s>0.5;
+  const yb = stripY(Math.max(nF,nB)-1)+STRIP_H+10;
+  const ticks = useTau ? niceTicks(0,TAU_END,5) : niceTicks(0,T_END,5);
+  const st = ticks.length>1?ticks[1]-ticks[0]:1, dec = st>=1?0:st>=0.1?1:2;
+  const marks = useTau ? [1,2,5,10,20,50,100,200] : [1,2,3,4,5,6,7,8,9,10];
+  const labelled = useTau ? [1,10,100,200] : [1,5,10];
+  cols.forEach(col=>{
+    const xa=col.x0+NAME_W, xb=col.x0+col.w;
+    el('line',{x1:xa,x2:xb,y1:yb,y2:yb},gAxis);
+    ticks.forEach(v=>{ const x=xVal(col,v,useTau); el('line',{x1:x,x2:x,y1:yb,y2:yb+4},gAxis); const t=el('text',{x,y:yb+16,'text-anchor':'middle'},gAxis); t.textContent=v.toFixed(dec); });
+    const lab=el('text',{x:xb,y:yb+30,'text-anchor':'end',class:'lab'},gAxis); lab.textContent= useTau?'learning clock τ':'physical time t';
+    // ruler above the column (just under rho strip)
+    const yr = TOP+RHO_H+18+HEAD_H-3; let lastX=-1e9;
+    marks.forEach(v=>{
+      let x; if(useTau){ const u=interp(D.t,D.tau,v); if(u==null) return; x=xVal(col,u,true);} else { const t=interp(D.tau,D.t,v); if(t==null) return; x=xVal(col,t,false); }
+      el('line',{x1:x,x2:x,y1:yr-5,y2:yr},gRuler);
+      if(labelled.includes(v) && x-lastX>24){ const t=el('text',{x,y:yr-8,'text-anchor':'middle'},gRuler); t.textContent=(useTau?'t=':'τ=')+v; lastX=x; }
+    });
+  });
+}
+
+// --- animation
 function setMode(m){
-  mode=m; target = m==='tau'?1:0;
+  mode=m; const target=m==='tau'?1:0;
   document.querySelectorAll('.seg button').forEach(b=>b.setAttribute('aria-checked', b.dataset.mode===m?'true':'false'));
   if(raf) cancelAnimationFrame(raf);
-  const start=performance.now(), from=s, dur=700;
-  const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
-  const step=(now)=>{ const u=Math.min(1,(now-start)/dur); s=from+(target-from)*ease(u); panels.forEach(draw); if(u<1) raf=requestAnimationFrame(step); else raf=null; };
+  const start=performance.now(), from=s, dur=750, ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+  const step=(now)=>{ const u=Math.min(1,(now-start)/dur); s=from+(target-from)*ease(u); draw(); if(u<1) raf=requestAnimationFrame(step); else raf=null; };
   raf=requestAnimationFrame(step);
 }
 document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
-document.addEventListener('keydown',e=>{ if(e.code==='Space' && !/input|textarea|button/i.test(e.target.tagName)){ e.preventDefault(); setMode(mode==='t'?'tau':'t'); } });
+document.addEventListener('keydown',e=>{ if(e.code==='Space' && !/input|textarea|button|summary/i.test(e.target.tagName)){ e.preventDefault(); setMode(mode==='t'?'tau':'t'); } });
 
 // --- hover
-function nearest(P,px){ // invert x under current mix via binary search on monotone xMix
-  let lo=0,hi=N-1; while(hi-lo>1){const m=(lo+hi)>>1; if(xMix(P,m)<=px) lo=m; else hi=m;} return (px-xMix(P,lo) < xMix(P,hi)-px)?lo:hi; }
-function hoverAll(i, src){
-  panels.forEach(P=>{
-    const x=xMix(P,i);
-    P.gCross.style.display='';
-    P.cross.line.setAttribute('x1',x); P.cross.line.setAttribute('x2',x); P.cross.line.setAttribute('y1',M.t); P.cross.line.setAttribute('y2',P.height-M.b);
-    P.series.forEach((S,k)=>{ P.cross.dots[k].setAttribute('cx',x); P.cross.dots[k].setAttribute('cy',y(P,S.v[i])); });
-    if(P===src){
-      const rows=P.series.map(S=>`<div class="r"><span><i class="sw" style="background:${S.color}"></i>${S.name}</span><span>${S.v[i].toFixed(3)}</span></div>`).join('');
-      P.tip.innerHTML=`<div class="h">t = ${D.t[i].toFixed(2)} · τ = ${D.tau[i].toFixed(3)} · ρ = ${D.rho[i].toExponential(2)}</div>${rows}`;
-      P.tip.style.display='';
-      const box=P.svg.getBoundingClientRect(), host=P.svg.parentNode.parentNode.getBoundingClientRect();
-      const left = x + (box.left-host.left) + 14; const w=P.tip.offsetWidth;
-      P.tip.style.left = (left + w > host.width-8 ? x+(box.left-host.left)-w-14 : left) + 'px';
-      P.tip.style.top = (box.top-host.top + 8) + 'px';
-    } else P.tip.style.display='none';
+function nearest(col,px){ let lo=0,hi=N-1; while(hi-lo>1){const m=(lo+hi)>>1; if(xOf(col,m)<=px) lo=m; else hi=m;} return (px-xOf(col,lo) < xOf(col,hi)-px)?lo:hi; }
+function hover(i, srcCol, clientX, clientY){
+  gCross.style.display='';
+  const yTop=TOP, yBot=stripY(Math.max(nF,nB)-1)+STRIP_H+10;
+  cols.forEach((col,ci)=>{
+    const x=xOf(col,i); const L=crossLines[ci]; L.setAttribute('x1',x); L.setAttribute('x2',x); L.setAttribute('y1',yTop); L.setAttribute('y2',yBot);
+    col.series.forEach((S,k)=>{ const c=dots[col.key+k]; c.setAttribute('cx',x); c.setAttribute('cy',yOf(col,k,S.v[i])); });
   });
+  rhoCrossLine.style.display='none';
+  rhoDot.setAttribute('cx',xOf(srcCol,i)); rhoDot.setAttribute('cy',rhoY(D.rho[i]));
+  const rows=srcCol.series.map((S,k)=>`<div class="r"><span><i class="sw" style="background:${COLORS[k]}"></i>n ${S.id}</span><span>${S.v[i].toFixed(3)}</span></div>`).join('');
+  tip.innerHTML=`<div class="h">t = ${D.t[i].toFixed(2)} · τ = ${D.tau[i].toFixed(3)} · ρ = ${D.rho[i].toExponential(2)}</div>${rows}`;
+  tip.style.display='';
+  const host=svg.parentNode.getBoundingClientRect(); const w=tip.offsetWidth, h=tip.offsetHeight;
+  let left=clientX-host.left+14, top=clientY-host.top-h/2;
+  if(left+w>host.width-8) left=clientX-host.left-w-14; top=Math.max(4,Math.min(host.height-h-4,top));
+  tip.style.left=left+'px'; tip.style.top=top+'px';
 }
-function unhover(){ panels.forEach(P=>{P.gCross.style.display='none'; P.tip.style.display='none';}); }
-function bindHover(P){
-  P.svg.addEventListener('mousemove',e=>{ const r=P.svg.getBoundingClientRect(); const px=(e.clientX-r.left)*P.width/r.width; if(px<M.l||px>P.width-M.r){unhover();return;} hoverAll(nearest(P,px),P); });
-  P.svg.addEventListener('mouseleave',unhover);
-  P.svg.addEventListener('touchmove',e=>{ const t=e.touches[0]; const r=P.svg.getBoundingClientRect(); const px=(t.clientX-r.left)*P.width/r.width; hoverAll(nearest(P,Math.max(M.l,Math.min(P.width-M.r,px))),P); },{passive:true});
+function unhover(){ gCross.style.display='none'; tip.style.display='none'; }
+function onMove(clientX,clientY){
+  const r=svg.getBoundingClientRect(); const px=(clientX-r.left)*W/r.width;
+  const col = cols.find(c=>px>=c.x0+NAME_W && px<=c.x0+c.w);
+  if(!col){ unhover(); return; }
+  hover(nearest(col,px), col, clientX, clientY);
 }
+svg.addEventListener('mousemove',e=>onMove(e.clientX,e.clientY));
+svg.addEventListener('mouseleave',unhover);
+svg.addEventListener('touchmove',e=>{const t=e.touches[0]; onMove(t.clientX,t.clientY);},{passive:true});
 
-// --- build
-const col=i=>COLORS[i];
-mkPanel('p-rho',[{name:'ρ',v:D.rho,color:'var(--rho)'}],120,{zeroBase:true,labels:false});
-mkPanel('p-fwd',D.forward.map((S,i)=>({name:'neuron '+S.id, v:S.v, color:col(i)})),250,{labels:true});
-mkPanel('p-bwd',D.backward.map((S,i)=>({name:'neuron '+S.id, v:S.v, color:col(i)})),250,{labels:true});
-panels.forEach(bindHover);
-function relayout(){ panels.forEach(layout); }
-relayout();
-if('ResizeObserver' in window){ new ResizeObserver(relayout).observe(document.querySelector('.wrap')); } else window.addEventListener('resize',relayout);
+layout();
+if('ResizeObserver' in window){ new ResizeObserver(layout).observe(svg.parentNode); } else window.addEventListener('resize',layout);
 
 // --- table
 (function(){ const rows=[]; for(let i=0;i<N;i+=100){ rows.push(`<tr><td>${D.t[i]}</td><td>${D.tau[i].toFixed(3)}</td><td>${D.rho[i].toExponential(2)}</td>${D.forward.map(S=>`<td>${S.v[i].toFixed(3)}</td>`).join('')}${D.backward.map(S=>`<td>${S.v[i].toFixed(3)}</td>`).join('')}</tr>`); }
