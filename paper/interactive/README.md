@@ -15,9 +15,14 @@ paper's paired-label 39-checkpoint replay behind the trajectory figure.
 
 ## `neuron_clocks.html`
 
-Ten neuron histories (five forward activations $h_a$, five normalised backward
-carriers $r_a\delta_a/\rho$) from the same small run as the moments figure in
-`scripts/tikz_figures.py::moments()` (seed 3, width 512, two hidden tanh layers,
-8 inputs, Euler step 0.05), shown up to $t=200$. A segmented control (or the
-space bar) morphs the horizontal axis between physical time $t$ and the learning
-clock $\tau=\int_0^t\rho$. Traces are stacked electrode-style (forward left, backward right, each at its own gain, no boxes). Self-contained: data inlined, no external scripts.
+Ten neuron histories, read off like electrode traces: five forward activations
+$h_a$ (left column, one colour) and five normalised backward carriers
+$r_a\delta_a/\rho$ (right column, one colour), each at its own gain with no
+axes or boxes, plus the residual $\rho$ on top. A segmented control (or the
+space bar) morphs the horizontal axis between physical time $t$ and the
+learning clock $\tau=\int_0^t\rho$. The run is the small network of
+`scripts/tikz_figures.py::moments()` (seed 3, width 512, two hidden tanh
+layers, Euler step 0.05) on a harder target — 16 inputs on the circle, labels
+$2(0.9\cos\theta+0.9\sin5\theta)$ — so that features move visibly; the five
+neurons per column are the most active among 512. Shown until $\rho<10^{-6}$.
+Self-contained: data inlined, no external scripts.
