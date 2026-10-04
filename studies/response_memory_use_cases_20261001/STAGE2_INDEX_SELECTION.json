@@ -1,0 +1,50 @@
+{
+  "fashion": {
+    "field": {
+      "kind": "field",
+      "C": 8,
+      "q": 3,
+      "observer": true,
+      "seed": 101,
+      "domain": "fashion"
+    },
+    "factor": {
+      "kind": "factor",
+      "rate": 0.25,
+      "seed": 101,
+      "domain": "fashion"
+    }
+  },
+  "har": {
+    "field": {
+      "kind": "field",
+      "C": 24,
+      "q": 1,
+      "observer": true,
+      "seed": 101,
+      "domain": "har"
+    },
+    "factor": {
+      "kind": "factor",
+      "rate": 4.0,
+      "seed": 101,
+      "domain": "har"
+    }
+  },
+  "housing": {
+    "field": {
+      "kind": "field",
+      "C": 8,
+      "q": 3,
+      "observer": true,
+      "seed": 101,
+      "domain": "housing"
+    },
+    "factor": {
+      "kind": "factor",
+      "rate": 4.0,
+      "seed": 101,
+      "domain": "housing"
+    }
+  }
+}

@@ -1,0 +1,433 @@
+{
+  "status": "frozen for independent review; no promotion",
+  "gpu_released": true,
+  "conservative_inner_solves": 1095,
+  "recorded_compute_minutes": 6.452238746049786,
+  "files": [
+    {
+      "path": "studies/response_memory_use_cases_20261001/HYPERGRADIENT_LITERATURE.md",
+      "sha256": "a9d860b47233960949fb82a441c4156438019b59adc44c8efdf4f42410455c5c",
+      "bytes": 2245
+    },
+    {
+      "path": "studies/response_memory_use_cases_20261001/HYPERGRADIENT_PROTOCOL.md",
+      "sha256": "c92fdb0c2d164eb0c7469c70e676e02952b1019efa609693c73198ff58ebdf6a",
+      "bytes": 8657
+    },
+    {
+      "path": "studies/response_memory_use_cases_20261001/HYPERGRADIENT_REPORT.md",
+      "sha256": "e749fa05657787d227fd20d9f6adfced36bf0b87dd9a41c25e672df012eb4f64",
+      "bytes": 18698
+    },
+    {
+      "path": "studies/response_memory_use_cases_20261001/HYPERGRADIENT_SELECTION.md",
+      "sha256": "b828789b2f872ac9be85d5833e0c4c7664334a6614e9a8361c9a1eb4880a011d",
+      "bytes": 675
+    },
+    {
+      "path": "studies/response_memory_use_cases_20261001/hypergradient.py",
+      "sha256": "a0ce809f7acf4c8e631086ac56a870466fe5199ed00ac1c5f389b046a31a8e59",
+      "bytes": 14788
+    },
+    {
+      "path": "studies/response_memory_use_cases_20261001/hypergradient_audit.py",
+      "sha256": "377b4abafb55aec475a1364c00dbb40c765cf40b34ebb6f949ee2756f82e5a70",
+      "bytes": 4575
+    },
+    {
+      "path": "studies/response_memory_use_cases_20261001/hypergradient_second.py",
+      "sha256": "98ec0fc95e2ba53fb55a5ddc18c1a4b604614664f3324ce1058b04ec06222ad1",
+      "bytes": 1078
+    },
+    {
+      "path": "studies/response_memory_use_cases_20261001/hypergradient_summarize.py",
+      "sha256": "7e1bd0414b10cecb90f0b4c8436f8bd44049d5f994a9a2b5376d353504ec0010",
+      "bytes": 6529
+    },
+    {
+      "path": "studies/response_memory_use_cases_20261001/hypergradient_validation.py",
+      "sha256": "e3e9f6ff3634067f64443dbbffc18f06e026091a971d41cc7a4724afbca021a7",
+      "bytes": 2118
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_check_01/checks.json",
+      "sha256": "a7e5ed8e74f957ba67914a4cd366f40899e801bfa900c24d5844d22f663b2cfb",
+      "bytes": 3030
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_check_01/hypergradient_source.py",
+      "sha256": "f9923e74251cd96fa10ea369ce57111f2432ab53f75421eba782bcc78a20cf62",
+      "bytes": 14663
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/hypergradient_source.py",
+      "sha256": "a0ce809f7acf4c8e631086ac56a870466fe5199ed00ac1c5f389b046a31a8e59",
+      "bytes": 14788
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/run.json",
+      "sha256": "d567ab187509f1a79e9419d229669c1fca16d19871187fa41663b5e1c9ea4a16",
+      "bytes": 1289
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed201_dense.json",
+      "sha256": "e4c6969d8fe633f5518631681e888b598f756dfbe467394732bd51231d65cc9e",
+      "bytes": 2113
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed201_frozen.json",
+      "sha256": "2ad10d526603da33a775a030cb7b1f2abd80efca0f872501f510f8c7b4a4e357",
+      "bytes": 2140
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed201_q1.json",
+      "sha256": "26ccaac8d4308767c4f56294b92b8aea29c13e35f70ea7f3ed1f80b928ec4fe2",
+      "bytes": 2151
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed201_summary.json",
+      "sha256": "9bceec5892b83a987a78278e45f79c93f714a19eafc1b7ba2a6c9ed974ae5a0c",
+      "bytes": 7660
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed202_dense.json",
+      "sha256": "06a31a0937971b479536d665eacf5408f7ce4fa2f2741e35666952d269c1f117",
+      "bytes": 2106
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed202_frozen.json",
+      "sha256": "bc07ed5289cce73cb8a3877df9132c8590fa69e9c3b01d2f8b316e13a463a1ef",
+      "bytes": 2135
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed202_q1.json",
+      "sha256": "eee5c71f1c84c4080e17d6c209346a0894b0615c80573e2c3b7a14422c3d1505",
+      "bytes": 2152
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed202_summary.json",
+      "sha256": "6a17fb0bee63ac03f8a7d0005b371ca966976563b75a08c8de6d90763a2490e6",
+      "bytes": 7649
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed203_dense.json",
+      "sha256": "655676848dcd85d6ec9088e5f24b88325579a2d17996f560b19810ea5fd24d33",
+      "bytes": 2103
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed203_frozen.json",
+      "sha256": "160cb71fdc456f1bea66f771978dc70c8cff97f51fdac768363a5db0dae3e27e",
+      "bytes": 2133
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed203_q1.json",
+      "sha256": "756ff13d75c33600d5720cea641e2d21e95139d7fca6394fc1c12efb8d9e7505",
+      "bytes": 2142
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed203_summary.json",
+      "sha256": "a6f068f9ee5a54d5d160085c2853330b088a84860fd429084bfdb2a05708dbb9",
+      "bytes": 7633
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed204_dense.json",
+      "sha256": "f893f870eec17ea7a57baa69867fc06c6619a92a428f904f94167454027a47e1",
+      "bytes": 2101
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed204_frozen.json",
+      "sha256": "fd9c6a73273a225784f17a209121368fc273f45dcb3c582aa351220a102dd72f",
+      "bytes": 2137
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed204_q1.json",
+      "sha256": "1f8ec3b9a2a48c043557a966bf01f6a8899fb80883e7cda8b54f96ff408e8b46",
+      "bytes": 2146
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed204_summary.json",
+      "sha256": "ef6ffa9b760589302a5c56b42703c05e4b39e414f1e377ae01e9f1523be9a0e4",
+      "bytes": 7639
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed205_dense.json",
+      "sha256": "963ffce096c4fc67343cc976f1e6d297bc932ccea677eddb081f00b474951037",
+      "bytes": 2117
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed205_frozen.json",
+      "sha256": "c3fff1e65e950f95cca8c6cc130be7305d9ff64aec445f6536fb3a019a3c8f6f",
+      "bytes": 2141
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed205_q1.json",
+      "sha256": "563e69edbd09eef5945738788bc3624f0483bdef8e121b1cff5c5de5e1a8f731",
+      "bytes": 2143
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_confirm201_205/seed205_summary.json",
+      "sha256": "7ec310da3133b3fbb3b82d9ee1a5a697c3736ddff14ea32af96f789250016ffb",
+      "bytes": 7657
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_convex128/convex.json",
+      "sha256": "3d708c112d2731cd33f0dd3756d7fc5c37eed2a0565f3eeb07e882a95ef5e621",
+      "bytes": 2696
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_convex128/hypergradient_audit_source.py",
+      "sha256": "3702a3e0af600e9ff83e70bd501ac82573121f59b42a0deaa5dec8280959215c",
+      "bytes": 4215
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_convex512/convex.json",
+      "sha256": "3172d575b79c82cf97e18f6a667b498c18145f80a2a20dfdb60ba7d405b4aa38",
+      "bytes": 4020
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_convex512/hypergradient_audit_source.py",
+      "sha256": "3702a3e0af600e9ff83e70bd501ac82573121f59b42a0deaa5dec8280959215c",
+      "bytes": 4215
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_gate_01/gate.json",
+      "sha256": "042bcf2a9ec63533d3ea4762d37247b0390fa4f347efe8611dc14bce8c3d6b54",
+      "bytes": 2041
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_gate_01/hypergradient_source.py",
+      "sha256": "47d6a4071e2f03c5d87a30e47bf6fd6a6af183d42fc7ef65e22eac38a34cc9a6",
+      "bytes": 14741
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_memory/hypergradient_audit_source.py",
+      "sha256": "3702a3e0af600e9ff83e70bd501ac82573121f59b42a0deaa5dec8280959215c",
+      "bytes": 4215
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_memory/memory.json",
+      "sha256": "2be8b89a987e05a09668391151bda61cfe684e11d495b9b3c7c84d050742d87a",
+      "bytes": 5711
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_memory_warm/hypergradient_audit_source.py",
+      "sha256": "377b4abafb55aec475a1364c00dbb40c765cf40b34ebb6f949ee2756f82e5a70",
+      "bytes": 4575
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_memory_warm/memory.json",
+      "sha256": "fce2e5439ebb635742aa359fad6e90f2bef808323987d97ef69d1a384e884ed5",
+      "bytes": 5720
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot101/hypergradient_source.py",
+      "sha256": "a0ce809f7acf4c8e631086ac56a870466fe5199ed00ac1c5f389b046a31a8e59",
+      "bytes": 14788
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot101/run.json",
+      "sha256": "aa4e70a7fb7a344d1466ac75ad320dc53a3f7221a42ef8ac15b09ae5142389a2",
+      "bytes": 1145
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot101/seed101_dense.json",
+      "sha256": "3e26e76d8eccc6c4caf6f992d9a44fed05730214dced25d8efa5c0f944a3c9b6",
+      "bytes": 2094
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot101/seed101_frozen.json",
+      "sha256": "8701a85e42d476b5e864dbeca48c56b7d9c0bbe257de5cdeeb61929ad3a3a704",
+      "bytes": 2139
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot101/seed101_q1.json",
+      "sha256": "3c26105585fb8810ffcce7a721295061ada047618855977e929bb8a651b83e71",
+      "bytes": 2147
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot101/seed101_q2.json",
+      "sha256": "91fc8458fa5e15218d6e4a12c77d886743ade6b17186c65d6acaf08c0a2c2ace",
+      "bytes": 2152
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot101/seed101_q4.json",
+      "sha256": "56f23e514e42549d56e8baa2ae85062beb52ea752020ac99e3de5b6a7d73b4fa",
+      "bytes": 2151
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot101/seed101_q8.json",
+      "sha256": "4ef82c62652e48bc6680b027a318b9595b7b7eb9e151e9fccbdd9dbaba2902a5",
+      "bytes": 2137
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot101/seed101_summary.json",
+      "sha256": "cbe4282e57c2f067b174f36ddfc03ff2c82c90bda236a135fd05182cd756ce3d",
+      "bytes": 14980
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot102_103/hypergradient_source.py",
+      "sha256": "a0ce809f7acf4c8e631086ac56a870466fe5199ed00ac1c5f389b046a31a8e59",
+      "bytes": 14788
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot102_103/run.json",
+      "sha256": "10a4eb4ae7a3ed9f167f768197c3165eef34d2c855b5b56bc46cc01e37811d5b",
+      "bytes": 1177
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot102_103/seed102_dense.json",
+      "sha256": "30196b9bc4c716c22a35961010c2af02f5f3b32fb80760470ea3279aaa2257f6",
+      "bytes": 2106
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot102_103/seed102_frozen.json",
+      "sha256": "9e49c9566e30bcb675b9eab910eee129136e1908c8884badff49f2cd74aa700d",
+      "bytes": 2125
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot102_103/seed102_q1.json",
+      "sha256": "e835552de68bbdc07eced445836fe1b0e3895a601c929d4447ca39a4388aaf38",
+      "bytes": 2144
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot102_103/seed102_q2.json",
+      "sha256": "b91a211045d969fd34df22bd0a2e82c8ce87ab4b3bb1a4f8eab51beb81094ea8",
+      "bytes": 2149
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot102_103/seed102_q4.json",
+      "sha256": "a5043ce588c79f6923540fb660e3af46af450819370e8ff40c37c8c9c7cf4670",
+      "bytes": 2155
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot102_103/seed102_q8.json",
+      "sha256": "ec2c9b8d002aa86256bec5ecb6a58e5e063d8abbb4ef8a355e0c93df8049a334",
+      "bytes": 2132
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot102_103/seed102_summary.json",
+      "sha256": "b0be03528f8aab73bd230297629bc02dd5b12e2075f2b044db2bc337c8d6d79e",
+      "bytes": 14973
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot102_103/seed103_dense.json",
+      "sha256": "c90dd7f7a03d58367baa19c7ec7bd95a6afbab85b783ee5d2539138fc00e9e09",
+      "bytes": 2116
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot102_103/seed103_frozen.json",
+      "sha256": "461952564f1306a9724b2c5b21e66bd9fdc3f27671f67dbed8bd735b59494244",
+      "bytes": 2134
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot102_103/seed103_q1.json",
+      "sha256": "ac2bc7730cfe152a55aeef7c5ac58968f4b18b4b5c6ec3389e7f27242329c334",
+      "bytes": 2142
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot102_103/seed103_q2.json",
+      "sha256": "8b9f9a08478f8db4999162c17830d067d122593bd002b59e80092a5d4cee0e9c",
+      "bytes": 2156
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot102_103/seed103_q4.json",
+      "sha256": "0c0f3b2d0b1c0996ca02d1c27858c02dfce1afaf6cc2267a3dd1abfd1f6d8b94",
+      "bytes": 2138
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot102_103/seed103_q8.json",
+      "sha256": "bd09ac352bdc6bc5ccb3fa9faec0b9d518962be353677801042be27528f510f9",
+      "bytes": 2150
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_pilot102_103/seed103_summary.json",
+      "sha256": "36fb858ecb563b199c14603d518c497e46724f6c85ef8c6623d39a0a2e2b09a7",
+      "bytes": 14998
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_second301/hypergradient_second_source.py",
+      "sha256": "98ec0fc95e2ba53fb55a5ddc18c1a4b604614664f3324ce1058b04ec06222ad1",
+      "bytes": 1078
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_second301/hypergradient_source.py",
+      "sha256": "a0ce809f7acf4c8e631086ac56a870466fe5199ed00ac1c5f389b046a31a8e59",
+      "bytes": 14788
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_second301/run.json",
+      "sha256": "71a83adb786450d19cef981a75a00789e99c2d4dffa7b25b6c37b9760700d563",
+      "bytes": 1161
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_second301/seed301_dense.json",
+      "sha256": "7db59883e6d1f45584a1a3a847be2e6a94cc2b02b7b6467e5bd068a15cf9d9ce",
+      "bytes": 2104
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_second301/seed301_frozen.json",
+      "sha256": "fdeedde03ed6eee1985aadc868d19cc8505c58b784244ba3241d31ec164c30f9",
+      "bytes": 2135
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_second301/seed301_q1.json",
+      "sha256": "0b8bd399c1c8c595b26849204be69617bd11d20bbfa3ea3bdcc34dfce8f3628f",
+      "bytes": 2152
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_second301/seed301_summary.json",
+      "sha256": "9cd5d9bdce489c408b56de0a0b25bcd27414e2a43157ad5c081ce84be5a4a5b2",
+      "bytes": 7645
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_summary/frozen_conditioning_cpu.json",
+      "sha256": "3068576d1a446a56ba576f2ec7a3557e1abc1515829cb014bbdb3ec5cc457b92",
+      "bytes": 3830
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_summary/hypergradient_results.pdf",
+      "sha256": "83304843d746b9771bef33526af721f55c42b0061f7f229b58f341b43ab3ead4",
+      "bytes": 21436
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_summary/hypergradient_results.png",
+      "sha256": "9002fb9ee74a4a3f1e82349a63a36e4425f9cca9effeae3b9ff4718698ef120a",
+      "bytes": 114215
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_summary/memory_table.md",
+      "sha256": "fe3115b255f3a28d106a151b84d98c5695b20f0baeddf6f93bfff6347a857f86",
+      "bytes": 686
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_summary/optimized_labels.csv",
+      "sha256": "4cb128be9ca7bfcbe51de6033d84d0130adae7d5e5c47b008c63f83a2a35558c",
+      "bytes": 7505
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_summary/results.csv",
+      "sha256": "167698e447ce1e5d0d439ad0b045b680b071c41b03f8f36f591a9edd41987bd1",
+      "bytes": 3208
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_summary/results_table.md",
+      "sha256": "43efed6d9167cc9cd7d36ae8c9bbc9e2593fd2421311f4e61819259f6d884ee8",
+      "bytes": 1166
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_summary/summary.json",
+      "sha256": "25b3caf4065caf93bcf0f103719976e60adefede0ecaf73cc05e2690f22a46c7",
+      "bytes": 8090
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_validation_02/hypergradient_validation_source.py",
+      "sha256": "e3e9f6ff3634067f64443dbbffc18f06e026091a971d41cc7a4724afbca021a7",
+      "bytes": 2118
+    },
+    {
+      "path": "data/generated/response_memory_use_cases_20261001/hypergradient_validation_02/validation.json",
+      "sha256": "9c990898de406d62d3c21fbbf9672952a32f09aae9d7b94ca00431c153027e70",
+      "bytes": 948
+    }
+  ]
+}

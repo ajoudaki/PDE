@@ -1,0 +1,108 @@
+{
+  "stage": "calibration",
+  "protocol": "GPU_RMS_GROWTH_PROTOCOL.md",
+  "samplers": [
+    {
+      "name": "N24_r8",
+      "width": 24,
+      "rank": 8
+    },
+    {
+      "name": "N24_r12",
+      "width": 24,
+      "rank": 12
+    },
+    {
+      "name": "N24_r16",
+      "width": 24,
+      "rank": 16
+    },
+    {
+      "name": "N48_r8",
+      "width": 48,
+      "rank": 8
+    },
+    {
+      "name": "N48_r12",
+      "width": 48,
+      "rank": 12
+    },
+    {
+      "name": "N48_r16",
+      "width": 48,
+      "rank": 16
+    },
+    {
+      "name": "N96_r8",
+      "width": 96,
+      "rank": 8
+    },
+    {
+      "name": "N96_r12",
+      "width": 96,
+      "rank": 12
+    },
+    {
+      "name": "N96_r16",
+      "width": 96,
+      "rank": 16
+    },
+    {
+      "name": "N48_r24",
+      "width": 48,
+      "rank": 24
+    },
+    {
+      "name": "N96_r24",
+      "width": 96,
+      "rank": 24
+    }
+  ],
+  "probe_count": 32,
+  "mass_floor": 0.05,
+  "cases": [
+    {
+      "n": 512,
+      "seed": 8411,
+      "angle": 90,
+      "sign": 1
+    },
+    {
+      "n": 512,
+      "seed": 8411,
+      "angle": 90,
+      "sign": -1
+    },
+    {
+      "n": 1024,
+      "seed": 8411,
+      "angle": 90,
+      "sign": 1
+    },
+    {
+      "n": 1024,
+      "seed": 8411,
+      "angle": 90,
+      "sign": -1
+    },
+    {
+      "n": 2048,
+      "seed": 8411,
+      "angle": 90,
+      "sign": 1
+    },
+    {
+      "n": 2048,
+      "seed": 8411,
+      "angle": 90,
+      "sign": -1
+    }
+  ],
+  "dt": 0.2,
+  "observe_every": 1.0,
+  "panel": 257,
+  "panel_offset": 0.5,
+  "horizon": 120.0,
+  "max_horizon": 240.0,
+  "budget_seconds": 600.0
+}

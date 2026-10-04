@@ -1,0 +1,43 @@
+# Differentiable response-memory inner learning: frozen protocol
+
+Recorded before implementation/experiments, 2026-10-01. Scope is a bounded empirical witness, not a hypergradient theorem or a claim to new dataset distillation. The canonical-notation and investigate-conjectures skills govern this route.
+
+## Decision and exact setting
+
+Can an order-q response-memory learner design eight training labels that improve an independently evaluated dense learner, while preserving nonlinear hidden feature learning better than a frozen-feature control?
+
+Use two hidden tanh layers, width128 pilot and width512 confirmation, Gaussian W1 variance1, W2 variance1/n, exact zero readout, unhalved mean square loss and mobilities (n,1,n). Inputs supplied to Flow are already x/sqrt(d): circle rows (cos theta,sin theta), with no extra normalization. Eight training angles are 2*pi*(a+.13)/8, a=0,...,7. Teacher is sin(3 theta)+0.4*cos(theta). The outer objective uses 32 equispaced angles shifted by .37 grid cells, and evaluation uses a distinct256-angle grid shifted by .71 cells. These deterministic teacher grids contain no measured train/test leakage; the outer grid is a calibration set. Labels initialize at teacher values and are constrained to [-3,3]. There is one fixed initialization per design/retraining pair; transfer to another initialization is a secondary check if budget permits.
+
+Inner training uses physical horizon T=8, Euler dt=1/32 (256 steps), memory orders1,2,4,8. Dense reference is the identical functional Euler implementation of the canonical weight equations. Frozen feature control trains only the readout on the initialized hidden activations; at exact zero readout this equals the initialized tangent-kernel model. All designs use Adam lr=.05 for24 outer steps, fixed horizon, no differentiation through stopping times, and final iterate selection (no test selection). Retain every attempted design. Reverse differentiation may use block checkpointing; the moment initialization and activity clock must be on the graph.
+
+## Hypotheses and primary metrics
+
+H1: some preregistered q <=8 supplies useful label hypergradients whose optimized labels lower dense test MSE by at least20% and retain >=80% of the dense-design improvement. H0: low-order label gradients/designs are inaccurate or useful only when a frozen-feature learner suffices. Primary score is test MSE after dense retraining on each design, divided by dense test MSE with original labels. Secondary: fraction (E_original-E_closure_design)/(E_original-E_dense_design), gradient cosine/error, surrogate-prediction RMS, elapsed time, peak allocation, state and fixed-storage counts. The comparison with frozen-feature-designed labels determines whether utility specifically requires feature-aware dynamics.
+
+For a positive feature-aware result require closure-designed dense test MSE <=.9 times frozen-designed dense test MSE, a dense-original versus frozen-original prediction RMS >=.05, and RMS hidden-activation movement >=.05. Merely improving label calibration without beating frozen is reported separately as a useful adapter witness with no distinctive feature-aware advantage.
+
+Pass: same chosen q meets primary and mechanism gates on all3 pilots, then at least4/5 fresh confirmation seeds with median retained dense improvement>=.8. Fail: all q fail primary improvement or retained-improvement gates on at least2 pilots, or frozen is as good within10%; the latter rejects only distinctive advantage. Inconclusive: numerical gates fail, dense design improves<10%, or effects fall between thresholds.
+
+## Validity and controls
+
+Before optimization compare functional adapter to original Flow at one and32 Euler steps, in float64, n=32, for dense and q=1/2/4/8. Source readout is explicitly set to zero after construction, leaving canonical hidden initialization untouched. Maximum state and prediction error<=1e-10. Central-difference directional outer hypergradient checks at epsilon1e-4 and5e-5 require relative disagreement<=1e-4 in float64, T=1 and q1/4 plus dense. Test direct input derivative through initial prefix moments separately if no label dependence reaches them. Clock dependence is retained, and an ablation may detach it only as a labeled diagnostic. Nonfinite values invalidate that fit and stop it.
+
+Numerical pilot gate compares dt and dt/2 initial-label predictions and gradients; prediction RMS<=.01 and gradient cosine>=.99. If not, use dt/2 for pilot and compare dt/4. Refinement cannot exceed dt1/128. Verify final chosen-q and dense/frozen designs by dense retraining at half the final step; improvement and baseline ordering must survive and dense MSE sensitivity must be <10% of claimed improvement. Float32 main experiments and float64 validity tests; single CPU thread, TF32 disabled, explicit cuda:0.
+
+## Branches, budget and stop
+
+Pilots101,102,103. If T8 misses feature-motion or dense/frozen separation gate, replace the horizon for all main comparisons with T16; no further horizon search. If some q passes primary gates and dense design improves>=10%, select the smallest such q before confirmation on fresh201...205 at n512. Confirmation uses chosen q, dense, frozen, and original labels. If all q fail, finish with those negative results, retaining no broad impossibility claim. One seed201 width512 integration refinement is permitted. If runtime blocks all24 iterations, stop rather than compare unmatched partial designs.
+
+First screen cap20 GPU-minutes, positive confirmation branch up to35 total GPU-minutes; maximum150 complete inner fits for pilots is incompatible with unrolled outer iterations, so accounting distinguishes outer-designed runs from inner solves explicitly (each inner solve remains counted). The root campaign's250 complete-fit ceiling means initial run allocation here is requested as18 designs*24 inner solves; root must reconcile aggregate meaning before all pilots launch. Until then run only validity and first seed six designs (144 inner optimization solves plus replay diagnostics) inside20 GPU-minutes. Every run records UTC timestamps, seed, source hash, exact config/command, device/software, physical horizon, step, status and failures. Stop when allocation exhausted.
+
+Budget amendment before any label fitting: supervisor raised campaign ceiling to1500 inner solves and allocated up to900 here, preserving20 initial /35 positive GPU-minute ceilings. Therefore the planned432 pilot and360 confirmation optimization solves are authorized; all replay/validity solves count toward900 too. No scientific gates changed.
+
+## Authorized strengthening audit, frozen before execution
+
+After the seed101 signal, the supervisor authorized two stronger nuisance controls. Neither replaces the matched24-step Adam result. Solve the frozen-feature outer calibration problem to numerical convex optimality with the same label box[-3,3], no ridge, using scipy.optimize.lsq_linear tolerance1e-12 in float64. Evaluate these labels by dense retraining at the same T8,dt1/32 and refined1/64, for every main seed. This tests whether apparent advantage merely reflects incomplete frozen-label optimization. Record its frozen own-objective optimum and dense transfer separately: optimality in a frozen objective does not imply optimal dense transfer.
+
+Measure dense and selected-q hypergradients at n128 and512 with both full reverse unrolling and block16 non-reentrant checkpointing, original labels, identical T8,dt1/32 and precision. Report setup allocation, peak allocation/increment, runtime and gradient parity, including unchanged initialized matrix storage. This is a small implementation comparison, not an optimal checkpointing or asymptotic wall-time claim.
+
+A second teacher, if main confirmation passes and supervisor extends the solve allocation, is fixed now as sin(3theta)+.4cos(theta)+.3cos(5theta), with the same eight inputs,32 outer points and256 test points. Use fresh seed301,width512, selected q,dense,frozen,24Adam steps and half-step dense replay. This adds an unresolved higher Fourier component while preserving all network equations. It is one fresh task-family stress, not a replicated generalization claim. Test MSE improvement and dense-retained benefit are the same primary metrics. No configuration search follows a failure.
+
+Supervisor allocation amendment before confirmation: up to1100 complete inner solves is now allocated to this route, preserving35 positive-branch GPU-minutes. Counting every main optimization, baseline/replay/refinement, gate and audit leaves room for one second-teacher seed301. Do not silently exceed the solve ceiling to add second-teacher replication.

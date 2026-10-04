@@ -1,0 +1,40 @@
+{
+  "stage": "extrapolation",
+  "protocol": "GPU_RMS_GROWTH_PROTOCOL.md",
+  "samplers": [
+    {
+      "name": "p4",
+      "width": 102,
+      "rank": 16,
+      "p": 4,
+      "budget": 11100.52583447645
+    }
+  ],
+  "cases": [
+    {
+      "n": 8192,
+      "seed": 8611,
+      "angle": 60,
+      "sign": 1
+    },
+    {
+      "n": 8192,
+      "seed": 8611,
+      "angle": 60,
+      "sign": -1
+    }
+  ],
+  "probe_count": 32,
+  "mass_floor": 0.05,
+  "dt": 0.2,
+  "observe_every": 1.0,
+  "panel": 257,
+  "panel_offset": 0.5,
+  "horizon": 120.0,
+  "max_horizon": 240.0,
+  "budget_seconds": 240.0,
+  "source_files": [
+    "studies/closure_sampling_20261003/GPU_RMS_GROWTH_SELECTION.md"
+  ],
+  "description": "Predeclared extra-width stress after p4 meets complete80case performance criterion; numerical acceptance still requires both separately recorded refinements. Only p4 remains eligible, so smallest-p and p4 control coincide."
+}

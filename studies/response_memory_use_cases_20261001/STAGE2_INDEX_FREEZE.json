@@ -1,0 +1,12 @@
+{
+  "studies/response_memory_use_cases_20261001/STAGE2_INDEX_PILOT_DECISION.md": "38d870261023d522c11e4803cbcaeaa56b41c43551e34d6b6eb20bbcdad188c6",
+  "studies/response_memory_use_cases_20261001/STAGE2_INDEX_PROTOCOL.md": "9e7f9bfffbb6c7948eb475a5739a8c4e36ac91f572f6fd6f1cac9499e21c3ff7",
+  "studies/response_memory_use_cases_20261001/STAGE2_INDEX_REPORT.md": "2a50248bcf1c68840b9e18aeb98a87254f5acc009657417316629f648484b075",
+  "studies/response_memory_use_cases_20261001/STAGE2_INDEX_SELECTION.json": "4ee88c7f4e5ca47029a38cde2d6366c1d576029f570f96a5a089820c4361c05e",
+  "studies/response_memory_use_cases_20261001/STAGE2_INDEX_THEORY.md": "985c2cdb31b31429b509e46ef6c54ccd319e319f9f96d9817d84001824033532",
+  "studies/response_memory_use_cases_20261001/stage2_index_analyze.py": "a746ae9ad6f86fcef07858a149015ef30e4d03e85a2bbc176b783a084394deac",
+  "studies/response_memory_use_cases_20261001/stage2_index_checks.py": "ab3f03673548a0f4c2e1c43a4690e646049888bef1c791e99830c1498914145d",
+  "studies/response_memory_use_cases_20261001/stage2_index_data_checks.py": "1e433c2233d833c7274e8d906060a7bc48f11cce888d136d52b7054cafe7d29d",
+  "studies/response_memory_use_cases_20261001/stage2_index_experiment.py": "5b8181551b6793c5c6302caf25d8ebfa2e48c567a16031ec6e8816351aab363f",
+  "studies/response_memory_use_cases_20261001/stage2_index_oracle.py": "70b531c6397e47338857a76269263f87269e5f0efa4dddbb6a7c5ddd0790795f"
+}

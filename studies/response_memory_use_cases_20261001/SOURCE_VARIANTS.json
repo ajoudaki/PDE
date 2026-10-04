@@ -1,0 +1,50 @@
+{
+  "purpose": "Preserve exact historical executable versions in the flat study, alongside frozen generated run snapshots. Do not substitute these for current source.",
+  "variants": [
+    {
+      "sha256": "f9923e74251cd96fa10ea369ce57111f2432ab53f75421eba782bcc78a20cf62",
+      "study_source": "archived_hypergradient_source_f9923e74.py",
+      "snapshot_origin": "data/generated/response_memory_use_cases_20261001/hypergradient_check_01/hypergradient_source.py"
+    },
+    {
+      "sha256": "d714c6b6585427540c3667305824d35c900bce569d643989da3fd828557298de",
+      "study_source": "archived_hypergradient_controls_check_d714c6b6.py",
+      "snapshot_origin": "data/generated/response_memory_use_cases_20261001/hypergradient_controls_check01/hypergradient_controls_check.py"
+    },
+    {
+      "sha256": "3702a3e0af600e9ff83e70bd501ac82573121f59b42a0deaa5dec8280959215c",
+      "study_source": "archived_hypergradient_audit_source_3702a3e0.py",
+      "snapshot_origin": "data/generated/response_memory_use_cases_20261001/hypergradient_convex128/hypergradient_audit_source.py"
+    },
+    {
+      "sha256": "47d6a4071e2f03c5d87a30e47bf6fd6a6af183d42fc7ef65e22eac38a34cc9a6",
+      "study_source": "archived_hypergradient_source_47d6a407.py",
+      "snapshot_origin": "data/generated/response_memory_use_cases_20261001/hypergradient_gate_01/hypergradient_source.py"
+    },
+    {
+      "sha256": "94e440d4199a297ac598ada0540f9f8d3ed92cf97103e5771d30c152628b2e43",
+      "study_source": "archived_hypergradient_review_cpu_source_94e440d4.py",
+      "snapshot_origin": "data/generated/response_memory_use_cases_20261001/hypergradient_review_cpu01/hypergradient_review_cpu_source.py"
+    },
+    {
+      "sha256": "264017c23f7b7d83a3de441944fb9dcb915bf4deb0b8a5483526775035a68fd7",
+      "study_source": "archived_input_field_checks_264017c2.py",
+      "snapshot_origin": "data/generated/response_memory_use_cases_20261001/input_field_checks/input_field_checks.py"
+    },
+    {
+      "sha256": "0d4366790067a5324c9a60823367d995e3732186bafbdc6a671adb1f5819af1f",
+      "study_source": "archived_input_field_experiment_0d436679.py",
+      "snapshot_origin": "data/generated/response_memory_use_cases_20261001/input_field_deterministic/input_field_experiment.py"
+    },
+    {
+      "sha256": "bef69aa46086cb9f7e6d6c6aed8a3b9a75d05980d9a900434ee708644e2c0be5",
+      "study_source": "archived_HYPERGRADIENT_CONTROL_PROTOCOL_bef69aa4.md",
+      "snapshot_origin": "data/generated/response_memory_use_cases_20261001/hypergradient_controls_check01/HYPERGRADIENT_CONTROL_PROTOCOL.md"
+    },
+    {
+      "sha256": "b931836bee1da4d833330d5daa4290049c88ee197c09df1a1acdeb68d6f31ed5",
+      "study_source": "archived_HYPERGRADIENT_CONTROL_PROTOCOL_b931836b.md",
+      "snapshot_origin": "data/generated/response_memory_use_cases_20261001/hypergradient_irregular01/HYPERGRADIENT_CONTROL_PROTOCOL.md"
+    }
+  ]
+}

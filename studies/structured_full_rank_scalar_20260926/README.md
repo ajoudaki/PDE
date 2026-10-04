@@ -5,7 +5,149 @@ replacing the initialization law is a distinct research direction. No source,
 proof or evidence from another study is imported. The mathematical model below
 is a self-contained definition of the object to be compressed.
 
-## Latest reassessment: constructive existence, unresolved useful compression
+## Completed bounded continuation: current correlations, 2026-09-30
+
+The user explicitly authorized taking over this study. Two new autonomous
+current-correlation closures were derived, frozen and tested on the hard
+close pair, hard cluster and smooth-label cluster control. **Neither closes
+the gap.** All models reached training MSE 0.001; raw circle RMS against
+the reused canonical Gaussian n=1024, seed=1 dense outputs was:
+
+| Model | near_pair_sin9 | cluster_triple_cos9 | cluster_triple_cos1 |
+|---|---:|---:|---:|
+| Previous bounded Gram, reused |0.240264|0.252676|0.010079|
+| A: projected current feature/readout gate |0.151161|0.708189|0.014764|
+| B: current Gaussian covariance/transport |0.342895|0.831930|0.008819|
+
+A evolves 6/10 training states and 1038/1305 states with the circle and
+training-alias queries. An exact transport identity reduces B to **m²+m
+total evolving aggregates (6/12 here), with no query ODE states**. Its
+training coefficients are O(m²), query coefficients O(Qm), and initialization
+still uses the full network. This is a useful compact decoder construction,
+but the Gaussian closure is empirically inaccurate on both hard tasks.
+
+The exact weighted-gate evolution was derived, exposing the mixed moments
+needed to close it. Both candidates supply explicit approximations and exact
+surrogate loss/energy/positivity identities; no dense-fidelity theorem follows.
+Saved-state tests reveal a separate substantial defect: even the **exact
+current weighted gate Gram**, combined with the candidates' frozen isotropic
+hidden response, underestimates lower-layer response along the current
+residual by 71% / 84% at the hard dense endpoints. These conditional operator
+errors do not establish trajectory-error lower bounds. Current directional
+hidden response and output-relevant readout dependence remain unresolved.
+
+The [frozen protocol](CURRENT_CORRELATION_PROTOCOL_20260930.md) produced six
+primary fits and two predeclared close-pair refinements, totaling 1.435 seconds
+of scalar integration with one BLAS thread. Tighter integration changes
+close-pair predictions by at most 1.15e-10 RMS. Saved-state replay, aliases,
+passive-query independence and declared invariant checks pass; cluster and
+smooth trajectories were not independently rerun. Neither candidate opened
+the transfer branch. No dense training was repeated and no further runs are
+queued. The previous bounded-Gram model remains the best tested joint repair.
+
+[Full results, equations, cost accounting and reproduction](CURRENT_CORRELATION_RESULTS_20260930.md),
+[current-correlation diagnostic](CURRENT_CORRELATION_DIAGNOSTIC_20260930.md),
+[same-state tests and exact-gate decomposition](CURRENT_CORRELATION_SAME_STATE_20260930.md),
+[scoped internal audit](CURRENT_CORRELATION_RESULT_AUDIT_20260930.md).
+All findings remain study-local. No other study was read, no maintained
+scientific material was changed or promoted, and no Git write occurred.
+
+## Previous: diagnosing and partially repairing scalar feedback
+
+2026-09-30. The user requested a small number of missing feedback terms,
+without restoring population-sized state. A controlled diagnosis and four
+bounded rounds identify two substantive faults: the initial-kernel test
+extension of the positivity completion becomes large, and the finite
+feature expansion leaves the tanh regime. Consistently removing the
+completion reduces but does not fix error. Self-consistent readout feedback
+and bounded moving-Gram evolution improve further.
+
+The best joint model reduces close-pair circle RMS from **1.20563 to
+0.24026**, oscillating-cluster RMS from **1.33777 to 0.25268**, and the
+smooth-label control from **0.04256 to 0.01008**. It improves eight of the
+nine tasks; the mixed quartet slightly worsens. These remain partial
+repairs, not attainment of the frozen 0.05 target on the hard cases.
+All fits use the same n=1024 Gaussian reference and MSE0.001 threshold;
+tighter integration changes focus predictions by at most5.21e-9 RMS.
+
+The bounded-Gram model has m+m(m+1)/2 training states and exact surrogate
+loss, energy, Gram-positivity and saturation identities. Each passive input
+adds m+1 dynamic states: the 256-point circle panel uses779–1861 states,
+so this is **not** a fixed O(m²)-state decoder of the entire function.
+Width-dependent initialization and O(m^4) static training contractions
+remain explicit costs. No dense trajectory supplies its coefficients.
+
+An exact hidden-feature Hessian correction was also derived and tested
+with6–16 dynamic states and no passive query states. It fails the joint
+accuracy gate. At its fitted scalar endpoints, the exact tanh network at
+the same lifted weights has training MSE0.49/1.47 on the hard cases,
+versus the scalar's0.001; the smooth case has no comparable discrepancy.
+This directly exposes failure of the low-order feature map at large
+motion, rather than an integration or clock issue. One additional derived
+readout mode does not resolve it. These results reject the tested repairs
+as general accurate replacements, not scalar compression in principle.
+
+[Full diagnosis, all comparisons, costs, figure and unresolved correlations](CUBIC_FEEDBACK_REPAIR_RESULTS_20260930.md),
+[bounded-Gram equations and exact internal guarantees](CUBIC_ENERGY_REPAIR_ROUTE_20260930.md),
+[quadratic-feature equations and checks](CUBIC_QUADRATIC_FEATURE_ROUTE_20260930.md).
+No new global dense-fidelity theorem is claimed; no further runs are queued.
+
+## Previous experiment: cubic scalar ODE versus dense n=1024
+
+2026-09-30. The proposed response ODE is now implemented and tested on nine
+existing circle tasks against verified fitted dense Gaussian n=1024
+references. Initial aggregate coefficients use the same full Gaussian
+initialization, so this comparison does not also introduce a block replacement.
+All scalar models reach training MSE0.001 with only 13–243 evolving states,
+including shared test-decoder integrals. The whole primary panel takes1.782s.
+
+The test-function outcome is mixed: circle RMS(scalar−dense) is below0.05
+on five tasks, between0.05 and0.15 on two, but1.20563 on the close
+opposite-label pair and1.33777 on the oscillating cluster. The correction
+improves over the frozen initial kernel on seven of eight matched fitted
+controls; the ninth frozen control does not reach the training target. Its stable
+loss and accurate training fit therefore do not establish faithful unseen
+outputs under strong feature learning. This particular low-order model
+fails as a general replacement in the tested regime; arbitrary scalar
+compression is not ruled out.
+
+[Complete results, function plots, costs and numerical controls](CUBIC_SCALAR_CIRCLE_RESULTS_20260930.md)
+include the fixed task panel, saved artifacts and reproduction commands.
+[Implementation](cubic_scalar_ode.py) and
+[independent audit](CUBIC_DECODER_IMPLEMENTATION_AUDIT_20260930.md) retain
+the distinction between dynamic state, static coefficient storage and
+width-dependent coefficient initialization. No neuron states, Fourier modes
+or reference forcing enter the scalar RHS.
+
+## Theory: small response compression and terminal stability
+
+2026-09-30. The [new assessment](ACTIVITY_SCALAR_ASSESSMENT_20260930.md)
+addresses the stronger requirement of useful sub-width scalar state at
+matched accuracy. It contains two internally checked advances. A
+[terminal replacement theorem](TERMINAL_FREEZE_THEOREM_20260930.md) gives
+an all-remaining-time output error proportional to handoff MSE, conditional
+on explicit residual stability and coefficient-variation bounds. A
+[small moving-kernel construction](KERNEL_SCALAR_ROUTE_20260930.md) captures
+the first feature-learning correction with m(m−1)/2+2m training states,
+plus at most m^3 states for an arbitrary-input decoder. Under a positive
+initial Gram and sufficiently small label amplitude a, its P1 output error
+is O(a^5) uniformly over all time and the unit input disk. The decoder
+agrees exactly with training outputs at training inputs.
+The Gaussian population existence proof and bounded-C² activation extension
+are included and separately checked in the linked assessment.
+
+This is a restricted response-expansion result, not a solution for the
+previous unit-label strong-learning tasks or an arbitrary-accuracy family
+at fixed amplitude. Static coefficients cost O(m^4), their initialization
+and query integration costs remain material, and identification with dense
+iid-Gaussian training is separate. The previous selective truncations
+already stopped at zero residual; the new advance is a derived small
+error source plus terminal stability. Complete proofs, independent internal
+audits and a finite-array algebra check are linked in the assessment.
+The theory continuation itself ran no network training experiments; the
+subsequent direct numerical test is reported above.
+
+## Previous reassessment: constructive existence, unresolved useful compression
 
 2026-09-27. The [new assessment](NEXT_AGGREGATE_ASSESSMENT.md) supersedes the
 earlier absence of a Gaussian-block/full-circle existence proof, while

@@ -1,0 +1,71 @@
+{
+  "frozen_utc": "2026-10-02T12:21:33Z",
+  "authors": [
+    "/root/coord_stage2",
+    "/root (requested exact reflection diagnostic)"
+  ],
+  "source_hashes": {
+    "STAGE2_COORD_CURRICULUM_PROTOCOL.md": "e8ffef8e2b850aa70cd00b5ee8b6bde7c99c4be6cbbbcbc8e9a46ac996227f66",
+    "STAGE2_COORD_CURRICULUM_RESULTS.md": "4f8b2f5217218cf4c337b0e2ac70e7fc371a1361a267e6516a4e7bebbb122c9d",
+    "STAGE2_COORD_FIXED_RESULTS.md": "b0c4cd86fb4a8344d127fe17d519c66003e98e4a3680a33fcaebbb25646c7021",
+    "STAGE2_COORD_PROTOCOL.md": "68e1ac594c9dfb9fbee05c25b23199ae8bc8b357fbba769db29956121c317515",
+    "STAGE2_COORD_THEORY.md": "76ef0ba6e93ae9e5d9dd4515d4dac2226f0b01952623c012064f72b3f92b167b",
+    "stage2_coord_analyze.py": "25cf542cd87a50b24a8a630d2e0fb5d4d367ed69d3a7065c8f7f92f58a9fc8b4",
+    "stage2_coord_checks.py": "ab98f8021324d48a61c2ea7785c020196d6c06394ff1598cc0ca5a665ca71fa8",
+    "stage2_coord_checks_v1.py": "567744b3c87e31184b3e8392e439c67e50ff53468df78faa5538725fa6693bf6",
+    "stage2_coord_curriculum.py": "cbeb89dfdb4bbe4e5a3439122d4a92ea6485afd3255ae15a56f646a4c597d3bf",
+    "stage2_coord_curriculum_analyze.py": "a8fe05174f1e228206837e081f210af9f0b6b06236187d1982b6984b4d516a34",
+    "stage2_coord_curriculum_checks.py": "c263bb7147034e769d14b7ba633c41bd23dd3c5a123b5d1ee043fe8226b99e65",
+    "stage2_coord_experiment.py": "bac0cbb3f10f51599a0df8fd6f3138bdca80431a5a6a81db5f13fa552ebc2a8c",
+    "stage2_coord_experiment_v1.py": "59ac29af4e41955f37f06d8a951ff1c2c5cbf00516e607b633c5d8551a032599"
+  },
+  "evidence_verification": {
+    "stage2_coord_pilot01": {
+      "archives_verified": 3,
+      "sources_verified": 5,
+      "manifest_sha256": "d03865fd44aaf3f2d5c29a485bcfa67d307163bf57e02d4188c51ee9b898c2f0",
+      "completion_sha256": "40ad95c6f2199363fe765d949269636da3c7a786f3eb7ebe9ecc1071b0278ca3"
+    },
+    "stage2_coord_confirm01": {
+      "archives_verified": 12,
+      "sources_verified": 5,
+      "manifest_sha256": "29163dd4f7292b1477bebac38bc3a8375481a443afde218bfe60a35d47f86e4f",
+      "completion_sha256": "ed17f3a527123a7118ffc2bf098579fb0296069ea2728d7ddb40e02cf2d62fb8"
+    },
+    "stage2_coord_refine01": {
+      "archives_verified": 3,
+      "sources_verified": 5,
+      "manifest_sha256": "78ebe529c23c7c66372253cd7dc5c1950eef8eb9520011397dba1b5af40ac5d1",
+      "completion_sha256": "f484a717c3aee9e7883878c1eaa3ba815dd8332cb6ecec1b1790b6cffa574b1b"
+    },
+    "stage2_coord_width01": {
+      "archives_verified": 3,
+      "sources_verified": 5,
+      "manifest_sha256": "16b237504493277f4e5c2e66f5db8d08daaeddd467019c256949eb863c87de9a",
+      "completion_sha256": "af59a0afe0a7764e623354e0ea0f3f5cfd6378d03d5f5b10ff5d81dc4e872e09"
+    },
+    "stage2_coord_causal01": {
+      "archives_verified": 0,
+      "sources_verified": 5,
+      "manifest_sha256": "e8a89e0d8512c4d5721ab8680b787499006d29831335752574a7381043683b05",
+      "completion_sha256": "3960f32c2ca0c68336f654a9421f2cc8c6ac5e29ad1353f7b1af7c41866369d5"
+    },
+    "stage2_coord_curriculum01": {
+      "archives_verified": 48,
+      "sources_verified": 6,
+      "manifest_sha256": "ededbe561035f73a0509d4fc29a2b57de29bdb98d8703d955e00bd865a3065af",
+      "completion_sha256": "5d87e98ca3e7f642877f200324a32be427e405b365c4e23f4f0837d916c1a7ba"
+    },
+    "stage2_coord_curriculum_refine01": {
+      "archives_verified": 6,
+      "sources_verified": 6,
+      "manifest_sha256": "bd46809e324d7b2449eb9ed4e5fa8bc3e8b3e5fa750690141dd76e8677b4dcfa",
+      "completion_sha256": "ac056650f33cefe9d1cac5b283e7f6cddf53dbeab467491c05d827d7a979a8c6"
+    }
+  },
+  "solves": 150,
+  "producer_seconds": 484.1861420497298,
+  "scientific_scope": "This study only; baseline source model, prescribed history-route artifacts, current paper Setting/memory construction, established docs index/notation, root-prepared stage2 datasets; no other study or sibling-route outcome read.",
+  "independent_review": "Pending; this hash check is author verification.",
+  "information_contract": "All512 union-support inputs remain available; forward features are observed even for zero-weight phase samples. Not replay-free continual learning."
+}

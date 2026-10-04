@@ -1,0 +1,60 @@
+{
+  "probe_count": 32,
+  "mass_floor": 0.05,
+  "dt": 0.1,
+  "observe_every": 0.5,
+  "panel": 514,
+  "panel_offset": 1.0,
+  "horizon": 120.0,
+  "max_horizon": 120.0,
+  "max_allocation_gib": 8.0,
+  "budget_seconds": 120.0,
+  "dtype": "float64",
+  "include_frozen": true,
+  "stage": "refinement",
+  "protocol": "GPU_RMS_GROWTH_PROTOCOL.md",
+  "samplers_by_n": {
+    "512": [
+      {
+        "name": "p0",
+        "width": 48,
+        "rank": 16,
+        "p": 0,
+        "budget": 2550.0
+      },
+      {
+        "name": "p1",
+        "width": 48,
+        "rank": 16,
+        "p": 1,
+        "budget": 2550.0
+      },
+      {
+        "name": "p2",
+        "width": 48,
+        "rank": 16,
+        "p": 2,
+        "budget": 2550.0
+      },
+      {
+        "name": "p4",
+        "width": 48,
+        "rank": 16,
+        "p": 4,
+        "budget": 2550.0
+      }
+    ]
+  },
+  "cases": [
+    {
+      "n": 512,
+      "seed": 8515,
+      "angle": 60,
+      "sign": -1
+    }
+  ],
+  "source_files": [
+    "studies/closure_sampling_20261003/GPU_RMS_GROWTH_SELECTION.md"
+  ],
+  "description": "Predeclared worst heldout p4 case; half-step and doubled nested query/time panels. Selection fixed by largest primary root-RMS."
+}

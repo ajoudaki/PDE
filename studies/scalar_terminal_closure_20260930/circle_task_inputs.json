@@ -1,0 +1,1137 @@
+{
+  "schema_version": 1,
+  "scope": "Five SHALLOW manuscript circle datasets; read-only extraction, no training and no original study archives accessed.",
+  "source_sha256": {
+    "paper/main.tex": "fa44deda090a456640b64080767511003dc8bc385790ccc49fd039c931a67605",
+    "paper/scripts/README.md": "bd2d5d494b395a76813c7fa7127772abb3b0e4ba64ca47cddc79872c299d11c8",
+    "paper/scripts/figures.py": "2c6e6385fd4add52ae3af2c589bf7f291914aaab6e4eb71a4047f8a484704c0a",
+    "paper/scripts/tikz_figures.py": "852cf19bc08762727655cbbeff2db1926d74cc13c9004c4b1b9d75db21cbdc2b",
+    "paper/figures/radial_source_data.npz": "b7abae22e5513da1233842d9b204c5af9c069949cbc76c5a2c4f05d3dd28684e",
+    "paper/figures/radial_source_manifest.json": "f8bf276fe9ce2c9dba857d585dab9008607a548d47a890525aa1c3d881b40df9",
+    "docs/notation.qmd": "78e11eb3dafc5321a8a3923742993c0bad78df53b0e80b6319f16e48f0131023"
+  },
+  "source_manifest_bundle_hash_verified": true,
+  "extraction_environment": {
+    "python": "3.10.12",
+    "numpy": "1.26.4"
+  },
+  "array_encoding": {
+    "numeric_arrays": "JSON decimal numbers round-trip to binary64; labels converted exactly from bundle int64.",
+    "hex_arrays": "float.hex strings preserve exact binary64 values.",
+    "array_hash": "SHA256 of C-contiguous little-endian binary64 bytes for extracted/derived numeric arrays; original label hash uses bundle int64 bytes."
+  },
+  "model": {
+    "dimension": 2,
+    "hidden_layers": 2,
+    "activation": "tanh",
+    "biases": false,
+    "loss": "mean((f-y)^2), unhalved",
+    "prediction": "w.T @ tanh(B @ tanh(A @ u))/n",
+    "normalized_input": "u=(cos(theta),sin(theta))=x/sqrt(d)",
+    "paper_input": "x=sqrt(2)*u, d=2; do not divide u by sqrt(2) again.",
+    "mobilities": [
+      "n",
+      "1",
+      "n"
+    ],
+    "first_weight_variance": 1.0,
+    "hidden_mixer_variance": "1/n",
+    "mixer_reuse": "One fixed W0 and its true transpose; no resampling on reuse.",
+    "response_memory_order": 1,
+    "clock": "tau(0)=1; tau_dot=sqrt(loss)",
+    "q1_initialization": "v_a=0, k_a=tanh(A @ u_a), tau=1",
+    "study_readout": "identically zero",
+    "historical_small_readout_convention": "Independent N(0,1/n^2) stored entries, per docs/notation.qmd; manuscript says small. Exact historical circle draws and producer settings are absent from this portable bundle.",
+    "historical_shallow_width": 2048,
+    "requested_experiment_width": 1024,
+    "experiment_seed": null,
+    "historical_endpoint": "each model at its own training MSE 0.001; saved endpoint predictions are not equal-time trajectories."
+  },
+  "tasks": [
+    {
+      "case": "two_outliers_alternating",
+      "title": "Two outliers · alternating",
+      "m": 8,
+      "d": 2,
+      "bundle_fields": {
+        "train_angles": "shallow_0_train_angles",
+        "labels": "shallow_0_labels",
+        "query_angles": "shallow_0_angles"
+      },
+      "nominal_angles_degrees": [
+        15,
+        27,
+        39,
+        51,
+        63,
+        75,
+        165,
+        285
+      ],
+      "train_angles_radians": [
+        0.2617993877991494,
+        0.47123889803846897,
+        0.6806784082777885,
+        0.890117918517108,
+        1.0995574287564276,
+        1.3089969389957472,
+        2.8797932657906435,
+        4.974188368183839
+      ],
+      "train_angles_radians_hex": [
+        "0x1.0c152382d7365p-2",
+        "0x1.e28c731eb6950p-2",
+        "0x1.5c81e15d4af9dp-1",
+        "0x1.c7bd892b3aa92p-1",
+        "0x1.197c987c952c4p+0",
+        "0x1.4f1a6c638d03fp+0",
+        "0x1.709d10d3e7eabp+1",
+        "0x1.3e591a2b5f908p+2"
+      ],
+      "labels": [
+        1.0,
+        -1.0,
+        1.0,
+        -1.0,
+        1.0,
+        -1.0,
+        1.0,
+        -1.0
+      ],
+      "labels_hex": [
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0"
+      ],
+      "normalized_inputs_u": [
+        [
+          0.9659258262890683,
+          0.25881904510252074
+        ],
+        [
+          0.8910065241883679,
+          0.45399049973954675
+        ],
+        [
+          0.7771459614569709,
+          0.6293203910498374
+        ],
+        [
+          0.6293203910498375,
+          0.7771459614569708
+        ],
+        [
+          0.4539904997395468,
+          0.8910065241883678
+        ],
+        [
+          0.25881904510252074,
+          0.9659258262890683
+        ],
+        [
+          -0.9659258262890682,
+          0.258819045102521
+        ],
+        [
+          0.2588190451025203,
+          -0.9659258262890684
+        ]
+      ],
+      "normalized_inputs_u_hex": [
+        [
+          "0x1.ee8dd4748bf15p-1",
+          "0x1.0907dc1930690p-2"
+        ],
+        [
+          "0x1.c83201d3d2c6dp-1",
+          "0x1.d0e2e2b44de00p-2"
+        ],
+        [
+          "0x1.8de613515a328p-1",
+          "0x1.4236484487abdp-1"
+        ],
+        [
+          "0x1.4236484487abep-1",
+          "0x1.8de613515a327p-1"
+        ],
+        [
+          "0x1.d0e2e2b44de01p-2",
+          "0x1.c83201d3d2c6cp-1"
+        ],
+        [
+          "0x1.0907dc1930690p-2",
+          "0x1.ee8dd4748bf15p-1"
+        ],
+        [
+          "-0x1.ee8dd4748bf14p-1",
+          "0x1.0907dc1930695p-2"
+        ],
+        [
+          "0x1.0907dc1930688p-2",
+          "-0x1.ee8dd4748bf16p-1"
+        ]
+      ],
+      "paper_inputs_x": [
+        [
+          1.3660254037844388,
+          0.36602540378443865
+        ],
+        [
+          1.260073510670101,
+          0.6420395219202061
+        ],
+        [
+          1.0990503586359268,
+          0.8899934321006199
+        ],
+        [
+          0.88999343210062,
+          1.0990503586359268
+        ],
+        [
+          0.6420395219202062,
+          1.2600735106701009
+        ],
+        [
+          0.36602540378443865,
+          1.3660254037844388
+        ],
+        [
+          -1.3660254037844386,
+          0.36602540378443904
+        ],
+        [
+          0.366025403784438,
+          -1.366025403784439
+        ]
+      ],
+      "paper_inputs_x_hex": [
+        [
+          "0x1.5db3d742c2656p+0",
+          "0x1.76cf5d0b09955p-2"
+        ],
+        [
+          "0x1.42942d76e24d4p+0",
+          "0x1.48b9677ac6057p-1"
+        ],
+        [
+          "0x1.195b5d42ff95ap+0",
+          "0x1.c7ad38190dcd9p-1"
+        ],
+        [
+          "0x1.c7ad38190dcdap-1",
+          "0x1.195b5d42ff95ap+0"
+        ],
+        [
+          "0x1.48b9677ac6058p-1",
+          "0x1.42942d76e24d3p+0"
+        ],
+        [
+          "0x1.76cf5d0b09955p-2",
+          "0x1.5db3d742c2656p+0"
+        ],
+        [
+          "-0x1.5db3d742c2655p+0",
+          "0x1.76cf5d0b0995cp-2"
+        ],
+        [
+          "0x1.76cf5d0b09949p-2",
+          "-0x1.5db3d742c2657p+0"
+        ]
+      ],
+      "array_sha256": {
+        "train_angles_radians_f64": "cea2bb54d5e5946836cb9033a1c95a05d617ed3f9e70ec3ad3b916cb5e43e7da",
+        "labels_f64": "5fbf8b3a7bf2e259c7815091999447f09f4df0e5a3a826dbf16c068bbd593562",
+        "source_labels_int64": "4de1f96623eb0d27ae832f541f5e5ce6975b46ec63469ce913ccf46d689a9877",
+        "normalized_inputs_u_f64": "de87b3a4cc9a25132814556e4f9bd6c5b883a67acd3525bc94a44cbaeba208bc",
+        "paper_inputs_x_f64": "c8bede5e7d73a70cc556e41758355df451aa6951e6963a56914c432234883342"
+      },
+      "cartesian_provenance": {
+        "construction": "numpy float64 cos/sin of exactly copied portable-bundle radians; original Cartesian arrays are not stored in this bundle.",
+        "recorded_original_input_hashes": [
+          "40d60641d20890c846b5b8fe5d8a17a1a9037bd6c72a3b8ae864e8a21def2ebd"
+        ],
+        "derived_u_matches_recorded_original_hash": false
+      },
+      "checks": {
+        "max_unit_norm_squared_error": 1.1102230246251565e-16,
+        "original_label_dtype": "int64",
+        "all_physical_points_retained": true,
+        "query_count": 8192
+      }
+    },
+    {
+      "case": "quadrant_alternating",
+      "title": "Quadrant · alternating",
+      "m": 8,
+      "d": 2,
+      "bundle_fields": {
+        "train_angles": "shallow_1_train_angles",
+        "labels": "shallow_1_labels",
+        "query_angles": "shallow_1_angles"
+      },
+      "nominal_angles_degrees": [
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70,
+        80
+      ],
+      "train_angles_radians": [
+        0.17453292519943295,
+        0.3490658503988659,
+        0.5235987755982988,
+        0.6981317007977318,
+        0.8726646259971648,
+        1.0471975511965976,
+        1.2217304763960306,
+        1.3962634015954636
+      ],
+      "train_angles_radians_hex": [
+        "0x1.657184ae74487p-3",
+        "0x1.657184ae74487p-2",
+        "0x1.0c152382d7365p-1",
+        "0x1.657184ae74487p-1",
+        "0x1.becde5da115a9p-1",
+        "0x1.0c152382d7365p+0",
+        "0x1.38c35418a5bf6p+0",
+        "0x1.657184ae74487p+0"
+      ],
+      "labels": [
+        1.0,
+        -1.0,
+        1.0,
+        -1.0,
+        1.0,
+        -1.0,
+        1.0,
+        -1.0
+      ],
+      "labels_hex": [
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0"
+      ],
+      "normalized_inputs_u": [
+        [
+          0.984807753012208,
+          0.17364817766693033
+        ],
+        [
+          0.9396926207859084,
+          0.3420201433256687
+        ],
+        [
+          0.8660254037844387,
+          0.49999999999999994
+        ],
+        [
+          0.766044443118978,
+          0.6427876096865393
+        ],
+        [
+          0.6427876096865394,
+          0.766044443118978
+        ],
+        [
+          0.5000000000000001,
+          0.8660254037844386
+        ],
+        [
+          0.3420201433256688,
+          0.9396926207859083
+        ],
+        [
+          0.17364817766693041,
+          0.984807753012208
+        ]
+      ],
+      "normalized_inputs_u_hex": [
+        [
+          "0x1.f838b8c811c17p-1",
+          "0x1.63a1a7e0b7389p-3"
+        ],
+        [
+          "0x1.e11f642522d1cp-1",
+          "0x1.5e3a8748a0bf5p-2"
+        ],
+        [
+          "0x1.bb67ae8584cabp-1",
+          "0x1.fffffffffffffp-2"
+        ],
+        [
+          "0x1.8836fa2cf5039p-1",
+          "0x1.491b7523c161cp-1"
+        ],
+        [
+          "0x1.491b7523c161dp-1",
+          "0x1.8836fa2cf5039p-1"
+        ],
+        [
+          "0x1.0000000000001p-1",
+          "0x1.bb67ae8584caap-1"
+        ],
+        [
+          "0x1.5e3a8748a0bf7p-2",
+          "0x1.e11f642522d1bp-1"
+        ],
+        [
+          "0x1.63a1a7e0b738cp-3",
+          "0x1.f838b8c811c17p-1"
+        ]
+      ],
+      "paper_inputs_x": [
+        [
+          1.392728480640038,
+          0.2455756079379457
+        ],
+        [
+          1.3289260487773495,
+          0.48368952529595055
+        ],
+        [
+          1.2247448713915892,
+          0.7071067811865475
+        ],
+        [
+          1.0833504408394037,
+          0.9090389553440873
+        ],
+        [
+          0.9090389553440875,
+          1.0833504408394037
+        ],
+        [
+          0.7071067811865477,
+          1.2247448713915892
+        ],
+        [
+          0.48368952529595066,
+          1.3289260487773493
+        ],
+        [
+          0.2455756079379458,
+          1.392728480640038
+        ]
+      ],
+      "paper_inputs_x_hex": [
+        [
+          "0x1.6489da8c8e860p+0",
+          "0x1.f6f058264f73ap-3"
+        ],
+        [
+          "0x1.54347f5e4d1c9p+0",
+          "0x1.ef4c4e924167cp-2"
+        ],
+        [
+          "0x1.3988e1409212fp+0",
+          "0x1.6a09e667f3bccp-1"
+        ],
+        [
+          "0x1.15567459832e1p+0",
+          "0x1.d16d8dcffc581p-1"
+        ],
+        [
+          "0x1.d16d8dcffc583p-1",
+          "0x1.15567459832e1p+0"
+        ],
+        [
+          "0x1.6a09e667f3bcep-1",
+          "0x1.3988e1409212fp+0"
+        ],
+        [
+          "0x1.ef4c4e924167ep-2",
+          "0x1.54347f5e4d1c8p+0"
+        ],
+        [
+          "0x1.f6f058264f73ep-3",
+          "0x1.6489da8c8e860p+0"
+        ]
+      ],
+      "array_sha256": {
+        "train_angles_radians_f64": "936391892bb4569e7e31e84f45b215f049f5e149cb76069ee3c481e1b963f566",
+        "labels_f64": "5fbf8b3a7bf2e259c7815091999447f09f4df0e5a3a826dbf16c068bbd593562",
+        "source_labels_int64": "4de1f96623eb0d27ae832f541f5e5ce6975b46ec63469ce913ccf46d689a9877",
+        "normalized_inputs_u_f64": "aa3e9720a40b56b98b71ee702ff71d5c41defb43fda59441efe76caec7752844",
+        "paper_inputs_x_f64": "6c21f3a56f3f4ff25a23e6c111b24216848b30645b79d86ab55194f7c74ec110"
+      },
+      "cartesian_provenance": {
+        "construction": "numpy float64 cos/sin of exactly copied portable-bundle radians; original Cartesian arrays are not stored in this bundle.",
+        "recorded_original_input_hashes": [
+          "aa3e9720a40b56b98b71ee702ff71d5c41defb43fda59441efe76caec7752844"
+        ],
+        "derived_u_matches_recorded_original_hash": true
+      },
+      "checks": {
+        "max_unit_norm_squared_error": 1.1102230246251565e-16,
+        "original_label_dtype": "int64",
+        "all_physical_points_retained": true,
+        "query_count": 8192
+      }
+    },
+    {
+      "case": "quadrant_pairs",
+      "title": "Quadrant · paired labels",
+      "m": 8,
+      "d": 2,
+      "bundle_fields": {
+        "train_angles": "shallow_2_train_angles",
+        "labels": "shallow_2_labels",
+        "query_angles": "shallow_2_angles"
+      },
+      "nominal_angles_degrees": [
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70,
+        80
+      ],
+      "train_angles_radians": [
+        0.17453292519943295,
+        0.3490658503988659,
+        0.5235987755982988,
+        0.6981317007977318,
+        0.8726646259971648,
+        1.0471975511965976,
+        1.2217304763960306,
+        1.3962634015954636
+      ],
+      "train_angles_radians_hex": [
+        "0x1.657184ae74487p-3",
+        "0x1.657184ae74487p-2",
+        "0x1.0c152382d7365p-1",
+        "0x1.657184ae74487p-1",
+        "0x1.becde5da115a9p-1",
+        "0x1.0c152382d7365p+0",
+        "0x1.38c35418a5bf6p+0",
+        "0x1.657184ae74487p+0"
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        -1.0,
+        -1.0,
+        1.0,
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "labels_hex": [
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0"
+      ],
+      "normalized_inputs_u": [
+        [
+          0.984807753012208,
+          0.17364817766693033
+        ],
+        [
+          0.9396926207859084,
+          0.3420201433256687
+        ],
+        [
+          0.8660254037844387,
+          0.49999999999999994
+        ],
+        [
+          0.766044443118978,
+          0.6427876096865393
+        ],
+        [
+          0.6427876096865394,
+          0.766044443118978
+        ],
+        [
+          0.5000000000000001,
+          0.8660254037844386
+        ],
+        [
+          0.3420201433256688,
+          0.9396926207859083
+        ],
+        [
+          0.17364817766693041,
+          0.984807753012208
+        ]
+      ],
+      "normalized_inputs_u_hex": [
+        [
+          "0x1.f838b8c811c17p-1",
+          "0x1.63a1a7e0b7389p-3"
+        ],
+        [
+          "0x1.e11f642522d1cp-1",
+          "0x1.5e3a8748a0bf5p-2"
+        ],
+        [
+          "0x1.bb67ae8584cabp-1",
+          "0x1.fffffffffffffp-2"
+        ],
+        [
+          "0x1.8836fa2cf5039p-1",
+          "0x1.491b7523c161cp-1"
+        ],
+        [
+          "0x1.491b7523c161dp-1",
+          "0x1.8836fa2cf5039p-1"
+        ],
+        [
+          "0x1.0000000000001p-1",
+          "0x1.bb67ae8584caap-1"
+        ],
+        [
+          "0x1.5e3a8748a0bf7p-2",
+          "0x1.e11f642522d1bp-1"
+        ],
+        [
+          "0x1.63a1a7e0b738cp-3",
+          "0x1.f838b8c811c17p-1"
+        ]
+      ],
+      "paper_inputs_x": [
+        [
+          1.392728480640038,
+          0.2455756079379457
+        ],
+        [
+          1.3289260487773495,
+          0.48368952529595055
+        ],
+        [
+          1.2247448713915892,
+          0.7071067811865475
+        ],
+        [
+          1.0833504408394037,
+          0.9090389553440873
+        ],
+        [
+          0.9090389553440875,
+          1.0833504408394037
+        ],
+        [
+          0.7071067811865477,
+          1.2247448713915892
+        ],
+        [
+          0.48368952529595066,
+          1.3289260487773493
+        ],
+        [
+          0.2455756079379458,
+          1.392728480640038
+        ]
+      ],
+      "paper_inputs_x_hex": [
+        [
+          "0x1.6489da8c8e860p+0",
+          "0x1.f6f058264f73ap-3"
+        ],
+        [
+          "0x1.54347f5e4d1c9p+0",
+          "0x1.ef4c4e924167cp-2"
+        ],
+        [
+          "0x1.3988e1409212fp+0",
+          "0x1.6a09e667f3bccp-1"
+        ],
+        [
+          "0x1.15567459832e1p+0",
+          "0x1.d16d8dcffc581p-1"
+        ],
+        [
+          "0x1.d16d8dcffc583p-1",
+          "0x1.15567459832e1p+0"
+        ],
+        [
+          "0x1.6a09e667f3bcep-1",
+          "0x1.3988e1409212fp+0"
+        ],
+        [
+          "0x1.ef4c4e924167ep-2",
+          "0x1.54347f5e4d1c8p+0"
+        ],
+        [
+          "0x1.f6f058264f73ep-3",
+          "0x1.6489da8c8e860p+0"
+        ]
+      ],
+      "array_sha256": {
+        "train_angles_radians_f64": "936391892bb4569e7e31e84f45b215f049f5e149cb76069ee3c481e1b963f566",
+        "labels_f64": "dde992517e891f8d792a579d6b2dbcf395ca0cb8b81ba5e897da9c91220114a4",
+        "source_labels_int64": "f1dd99a18bae8ca274fce6c05a095676e3d1b37de7f8968db3318b8492a9977f",
+        "normalized_inputs_u_f64": "aa3e9720a40b56b98b71ee702ff71d5c41defb43fda59441efe76caec7752844",
+        "paper_inputs_x_f64": "6c21f3a56f3f4ff25a23e6c111b24216848b30645b79d86ab55194f7c74ec110"
+      },
+      "cartesian_provenance": {
+        "construction": "numpy float64 cos/sin of exactly copied portable-bundle radians; original Cartesian arrays are not stored in this bundle.",
+        "recorded_original_input_hashes": [
+          "aa3e9720a40b56b98b71ee702ff71d5c41defb43fda59441efe76caec7752844"
+        ],
+        "derived_u_matches_recorded_original_hash": true
+      },
+      "checks": {
+        "max_unit_norm_squared_error": 1.1102230246251565e-16,
+        "original_label_dtype": "int64",
+        "all_physical_points_retained": true,
+        "query_count": 8192
+      }
+    },
+    {
+      "case": "quadrant_center_edges",
+      "title": "Quadrant · center / edges",
+      "m": 8,
+      "d": 2,
+      "bundle_fields": {
+        "train_angles": "shallow_3_train_angles",
+        "labels": "shallow_3_labels",
+        "query_angles": "shallow_3_angles"
+      },
+      "nominal_angles_degrees": [
+        15,
+        21,
+        27,
+        33,
+        39,
+        45,
+        53,
+        60
+      ],
+      "train_angles_radians": [
+        0.2617993877991494,
+        0.3665191429188092,
+        0.47123889803846897,
+        0.5759586531581288,
+        0.6806784082777885,
+        0.7853981633974483,
+        0.9250245035569946,
+        1.0471975511965976
+      ],
+      "train_angles_radians_hex": [
+        "0x1.0c152382d7365p-2",
+        "0x1.7750cb50c6e5bp-2",
+        "0x1.e28c731eb6950p-2",
+        "0x1.26e40d7653223p-1",
+        "0x1.5c81e15d4af9dp-1",
+        "0x1.921fb54442d18p-1",
+        "0x1.d99ccfcd8d466p-1",
+        "0x1.0c152382d7365p+0"
+      ],
+      "labels": [
+        -1.0,
+        -1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        -1.0,
+        -1.0
+      ],
+      "labels_hex": [
+        "-0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0"
+      ],
+      "normalized_inputs_u": [
+        [
+          0.9659258262890683,
+          0.25881904510252074
+        ],
+        [
+          0.9335804264972017,
+          0.35836794954530027
+        ],
+        [
+          0.8910065241883679,
+          0.45399049973954675
+        ],
+        [
+          0.838670567945424,
+          0.5446390350150271
+        ],
+        [
+          0.7771459614569709,
+          0.6293203910498374
+        ],
+        [
+          0.7071067811865476,
+          0.7071067811865475
+        ],
+        [
+          0.6018150231520484,
+          0.7986355100472928
+        ],
+        [
+          0.5000000000000001,
+          0.8660254037844386
+        ]
+      ],
+      "normalized_inputs_u_hex": [
+        [
+          "0x1.ee8dd4748bf15p-1",
+          "0x1.0907dc1930690p-2"
+        ],
+        [
+          "0x1.ddfe40effb805p-1",
+          "0x1.6ef801fced33cp-2"
+        ],
+        [
+          "0x1.c83201d3d2c6dp-1",
+          "0x1.d0e2e2b44de00p-2"
+        ],
+        [
+          "0x1.ad663a8ae2fdcp-1",
+          "0x1.16daed770771dp-1"
+        ],
+        [
+          "0x1.8de613515a328p-1",
+          "0x1.4236484487abdp-1"
+        ],
+        [
+          "0x1.6a09e667f3bcdp-1",
+          "0x1.6a09e667f3bccp-1"
+        ],
+        [
+          "0x1.342119455beb7p-1",
+          "0x1.98e6c0ea27a14p-1"
+        ],
+        [
+          "0x1.0000000000001p-1",
+          "0x1.bb67ae8584caap-1"
+        ]
+      ],
+      "paper_inputs_x": [
+        [
+          1.3660254037844388,
+          0.36602540378443865
+        ],
+        [
+          1.3202821007184011,
+          0.5068088145668007
+        ],
+        [
+          1.260073510670101,
+          0.6420395219202061
+        ],
+        [
+          1.186059291551565,
+          0.7702359099160464
+        ],
+        [
+          1.0990503586359268,
+          0.8899934321006199
+        ],
+        [
+          1.0000000000000002,
+          1.0
+        ],
+        [
+          0.8510949677815051,
+          1.1294411697016358
+        ],
+        [
+          0.7071067811865477,
+          1.2247448713915892
+        ]
+      ],
+      "paper_inputs_x_hex": [
+        [
+          "0x1.5db3d742c2656p+0",
+          "0x1.76cf5d0b09955p-2"
+        ],
+        [
+          "0x1.51fe01fc1467fp+0",
+          "0x1.037c71e7c722dp-1"
+        ],
+        [
+          "0x1.42942d76e24d4p+0",
+          "0x1.48b9677ac6057p-1"
+        ],
+        [
+          "0x1.2fa194ec54b5fp+0",
+          "0x1.8a5c5c7696a43p-1"
+        ],
+        [
+          "0x1.195b5d42ff95ap+0",
+          "0x1.c7ad38190dcd9p-1"
+        ],
+        [
+          "0x1.0000000000001p+0",
+          "0x1.0000000000000p+0"
+        ],
+        [
+          "0x1.b3c2b838d2cf5p-1",
+          "0x1.21230e769fe00p+0"
+        ],
+        [
+          "0x1.6a09e667f3bcep-1",
+          "0x1.3988e1409212fp+0"
+        ]
+      ],
+      "array_sha256": {
+        "train_angles_radians_f64": "097ba5ca8047c4599a43fbfe64ee42c684f1ef4bb2d03bcefcbcc34a4d3ab2a8",
+        "labels_f64": "8a727cd42df6d79343fd3cc3deb3d4b75136fa20e7755c6b9f824abae1fc6178",
+        "source_labels_int64": "3394d5be33c7e37161e35ac10b861397d19dd05af0e05dae342f2ba6c391e1d3",
+        "normalized_inputs_u_f64": "55f3752c53d165fed5f23bb9d064fa5e20c16ff346a6ec8b925744d6c4c2c1b6",
+        "paper_inputs_x_f64": "29fa039ed57257c10f673cf765ee684a48d9a8145c436a525fe274e90574d0e9"
+      },
+      "cartesian_provenance": {
+        "construction": "numpy float64 cos/sin of exactly copied portable-bundle radians; original Cartesian arrays are not stored in this bundle.",
+        "recorded_original_input_hashes": [
+          "7c2c29b3b6b431d70caf59bfbcadee0a3ffe257a4cf87eead0f522aabe3c0b93"
+        ],
+        "derived_u_matches_recorded_original_hash": false
+      },
+      "checks": {
+        "max_unit_norm_squared_error": 0.0,
+        "original_label_dtype": "int64",
+        "all_physical_points_retained": true,
+        "query_count": 8192
+      }
+    },
+    {
+      "case": "equal_mixed_odd",
+      "title": "Equally spaced · mixed labels",
+      "m": 8,
+      "d": 2,
+      "bundle_fields": {
+        "train_angles": "shallow_4_train_angles",
+        "labels": "shallow_4_labels",
+        "query_angles": "shallow_4_angles"
+      },
+      "nominal_angles_degrees": [
+        0,
+        45,
+        90,
+        135,
+        180,
+        225,
+        270,
+        315
+      ],
+      "train_angles_radians": [
+        0.0,
+        0.7853981633974483,
+        1.5707963267948966,
+        2.356194490192345,
+        3.141592653589793,
+        3.926990816987241,
+        4.71238898038469,
+        5.497787143782138
+      ],
+      "train_angles_radians_hex": [
+        "0x0.0p+0",
+        "0x1.921fb54442d18p-1",
+        "0x1.921fb54442d18p+0",
+        "0x1.2d97c7f3321d2p+1",
+        "0x1.921fb54442d18p+1",
+        "0x1.f6a7a2955385dp+1",
+        "0x1.2d97c7f3321d2p+2",
+        "0x1.5fdbbe9bba775p+2"
+      ],
+      "labels": [
+        1.0,
+        1.0,
+        -1.0,
+        1.0,
+        -1.0,
+        -1.0,
+        1.0,
+        -1.0
+      ],
+      "labels_hex": [
+        "0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0",
+        "0x1.0000000000000p+0",
+        "-0x1.0000000000000p+0"
+      ],
+      "normalized_inputs_u": [
+        [
+          1.0,
+          0.0
+        ],
+        [
+          0.7071067811865476,
+          0.7071067811865475
+        ],
+        [
+          6.123233995736766e-17,
+          1.0
+        ],
+        [
+          -0.7071067811865475,
+          0.7071067811865476
+        ],
+        [
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -0.7071067811865479,
+          -0.7071067811865471
+        ],
+        [
+          -1.8369701987210297e-16,
+          -1.0
+        ],
+        [
+          0.7071067811865474,
+          -0.7071067811865477
+        ]
+      ],
+      "normalized_inputs_u_hex": [
+        [
+          "0x1.0000000000000p+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x1.6a09e667f3bcdp-1",
+          "0x1.6a09e667f3bccp-1"
+        ],
+        [
+          "0x1.1a62633145c07p-54",
+          "0x1.0000000000000p+0"
+        ],
+        [
+          "-0x1.6a09e667f3bccp-1",
+          "0x1.6a09e667f3bcdp-1"
+        ],
+        [
+          "-0x1.0000000000000p+0",
+          "0x1.1a62633145c07p-53"
+        ],
+        [
+          "-0x1.6a09e667f3bd0p-1",
+          "-0x1.6a09e667f3bc9p-1"
+        ],
+        [
+          "-0x1.a79394c9e8a0ap-53",
+          "-0x1.0000000000000p+0"
+        ],
+        [
+          "0x1.6a09e667f3bcbp-1",
+          "-0x1.6a09e667f3bcep-1"
+        ]
+      ],
+      "paper_inputs_x": [
+        [
+          1.4142135623730951,
+          0.0
+        ],
+        [
+          1.0000000000000002,
+          1.0
+        ],
+        [
+          8.659560562354934e-17,
+          1.4142135623730951
+        ],
+        [
+          -1.0,
+          1.0000000000000002
+        ],
+        [
+          -1.4142135623730951,
+          1.7319121124709868e-16
+        ],
+        [
+          -1.0000000000000007,
+          -0.9999999999999996
+        ],
+        [
+          -2.59786816870648e-16,
+          -1.4142135623730951
+        ],
+        [
+          0.9999999999999998,
+          -1.0000000000000002
+        ]
+      ],
+      "paper_inputs_x_hex": [
+        [
+          "0x1.6a09e667f3bcdp+0",
+          "0x0.0p+0"
+        ],
+        [
+          "0x1.0000000000001p+0",
+          "0x1.0000000000000p+0"
+        ],
+        [
+          "0x1.8f5a0be038ed7p-54",
+          "0x1.6a09e667f3bcdp+0"
+        ],
+        [
+          "-0x1.0000000000000p+0",
+          "0x1.0000000000001p+0"
+        ],
+        [
+          "-0x1.6a09e667f3bcdp+0",
+          "0x1.8f5a0be038ed7p-53"
+        ],
+        [
+          "-0x1.0000000000003p+0",
+          "-0x1.ffffffffffffcp-1"
+        ],
+        [
+          "-0x1.2b8388e82ab21p-52",
+          "-0x1.6a09e667f3bcdp+0"
+        ],
+        [
+          "0x1.ffffffffffffep-1",
+          "-0x1.0000000000001p+0"
+        ]
+      ],
+      "array_sha256": {
+        "train_angles_radians_f64": "8baa2193a3f565c5ec0c026da62e8f70a962b54f5664517fdb3dc5f9e430dcef",
+        "labels_f64": "ae0da6ba5cea82a5436352abdf5a3bf764bd9a3309344deb80335e01b46738d4",
+        "source_labels_int64": "6a0d63ebbef7b50a799d2a0307edeacdf3a1ad9031a9305123d7c478d01d5323",
+        "normalized_inputs_u_f64": "687a3ec41cae8c37fa0ca6ba5bf0588d82b2a09ffe6fd2575d465adf52622451",
+        "paper_inputs_x_f64": "9b5e90a402a0281019c97143981a105332b6e3f2ba92c836b4d34e60e713d662"
+      },
+      "cartesian_provenance": {
+        "construction": "numpy float64 cos/sin of exactly copied portable-bundle radians; original Cartesian arrays are not stored in this bundle.",
+        "recorded_original_input_hashes": [
+          "f3283f3333c01cf66c037e1298acb3625f35f1ff66b126a9823bf16ac0df5ece"
+        ],
+        "derived_u_matches_recorded_original_hash": false
+      },
+      "checks": {
+        "max_unit_norm_squared_error": 0.0,
+        "original_label_dtype": "int64",
+        "all_physical_points_retained": true,
+        "query_count": 8192
+      }
+    }
+  ]
+}

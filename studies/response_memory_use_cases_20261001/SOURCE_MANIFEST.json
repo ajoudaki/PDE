@@ -1,0 +1,22 @@
+{
+  "started_utc": "2026-10-01T19:21:08.593377+00:00",
+  "head": "4dfa5c1ef2c5b920eda2bbc84316b189b97da92e",
+  "authorized_inputs": [
+    "current paper and included materials",
+    "explicitly user-authorized compact_flow.py and its implementation guide",
+    "established docs and code"
+  ],
+  "sha256": {
+    "paper/main.tex": "60c43aa3a5a53a04a94cec27d72858f1a28b35ee6c17c52001c83612a396aa95",
+    "paper/results.tex": "6e76e83aae3a3e36f588bdf37dddf72ac811bf2644de664fb0b4b83f117704a1",
+    "paper/proof_alltime.tex": "f3f0a0f5d0f553ced7c7334863bc04734033d00ecef48cd2031194dda374035d",
+    "paper/proof_tracking.tex": "e75f8122ab0ed0bc5f8c0b5f979b7e1a1b779c94440367d62d9a98892d3e53be",
+    "paper/proof_finite_time.tex": "07ebf620943f5e8078e4f7647dfa9df893157f16d29c684e758dcd63d33eacd4",
+    "paper/comparison_appendix.tex": "14cfb87d7f4932131c984781fc0bc03b955f883d4fc909c4794c2be4bcc1bedf",
+    "paper/sphere_appendix.tex": "f1a5c87937b1c805faa89edee9fb2ad2809de1f873b4e83888ccf5e5cdf673e2",
+    "studies/neural_response_memory_20260922/compact_flow.py": "f908c03cb63be0286d8505c2ce7959ea2377ccbcb8f740a10fac9dac8c49a67d",
+    "code/pde/observable_initialization.py": "6dafe3b5906c8762c7b6e0782c535b0031bbcf206359d384ef0911853ce131d2",
+    "code/pde/observable_words.py": "b12ed6021dfa8b8409b56793c88334d303f4c2cffeb7aa0a2d460311ba3e41b5"
+  },
+  "baseline_copy": "baseline_compact_flow.py"
+}

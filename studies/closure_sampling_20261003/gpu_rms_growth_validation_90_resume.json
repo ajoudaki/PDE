@@ -1,0 +1,169 @@
+{
+  "stage": "validation",
+  "protocol": "GPU_RMS_GROWTH_PROTOCOL.md",
+  "samplers_by_n": {
+    "512": [
+      {
+        "name": "p0",
+        "width": 48,
+        "rank": 16,
+        "p": 0,
+        "budget": 2550.0
+      },
+      {
+        "name": "p4",
+        "width": 48,
+        "rank": 16,
+        "p": 4,
+        "budget": 2550.0
+      }
+    ],
+    "1024": [
+      {
+        "name": "p0",
+        "width": 48,
+        "rank": 16,
+        "p": 0,
+        "budget": 2550.0
+      },
+      {
+        "name": "p4",
+        "width": 59,
+        "rank": 16,
+        "p": 4,
+        "budget": 3886.6026520347514
+      }
+    ],
+    "2048": [
+      {
+        "name": "p0",
+        "width": 48,
+        "rank": 16,
+        "p": 0,
+        "budget": 2550.0
+      },
+      {
+        "name": "p4",
+        "width": 72,
+        "rank": 16,
+        "p": 4,
+        "budget": 5690.374942844081
+      }
+    ],
+    "4096": [
+      {
+        "name": "p0",
+        "width": 48,
+        "rank": 16,
+        "p": 0,
+        "budget": 2550.0
+      },
+      {
+        "name": "p4",
+        "width": 87,
+        "rank": 16,
+        "p": 4,
+        "budget": 8059.259259259257
+      }
+    ]
+  },
+  "cases": [
+    {
+      "n": 2048,
+      "seed": 8514,
+      "angle": 90,
+      "sign": 1
+    },
+    {
+      "n": 2048,
+      "seed": 8514,
+      "angle": 90,
+      "sign": -1
+    },
+    {
+      "n": 2048,
+      "seed": 8515,
+      "angle": 90,
+      "sign": 1
+    },
+    {
+      "n": 2048,
+      "seed": 8515,
+      "angle": 90,
+      "sign": -1
+    },
+    {
+      "n": 4096,
+      "seed": 8511,
+      "angle": 90,
+      "sign": 1
+    },
+    {
+      "n": 4096,
+      "seed": 8511,
+      "angle": 90,
+      "sign": -1
+    },
+    {
+      "n": 4096,
+      "seed": 8512,
+      "angle": 90,
+      "sign": 1
+    },
+    {
+      "n": 4096,
+      "seed": 8512,
+      "angle": 90,
+      "sign": -1
+    },
+    {
+      "n": 4096,
+      "seed": 8513,
+      "angle": 90,
+      "sign": 1
+    },
+    {
+      "n": 4096,
+      "seed": 8513,
+      "angle": 90,
+      "sign": -1
+    },
+    {
+      "n": 4096,
+      "seed": 8514,
+      "angle": 90,
+      "sign": 1
+    },
+    {
+      "n": 4096,
+      "seed": 8514,
+      "angle": 90,
+      "sign": -1
+    },
+    {
+      "n": 4096,
+      "seed": 8515,
+      "angle": 90,
+      "sign": 1
+    },
+    {
+      "n": 4096,
+      "seed": 8515,
+      "angle": 90,
+      "sign": -1
+    }
+  ],
+  "probe_count": 32,
+  "mass_floor": 0.05,
+  "dt": 0.2,
+  "observe_every": 1.0,
+  "panel": 257,
+  "panel_offset": 0.5,
+  "horizon": 120.0,
+  "max_horizon": 240.0,
+  "budget_seconds": 900.0,
+  "source_files": [
+    "studies/closure_sampling_20261003/GPU_RMS_GROWTH_SELECTION.md"
+  ],
+  "description": "Recovery: p2 N59/r16 failed positive-mass construction at n2048,seed8514,angle90,same signs. p1 already failed elsewhere. Both are globally disqualified; complete unchanged p0,p4 on everyremainingcase. Preserve all failedoriginals."
+}

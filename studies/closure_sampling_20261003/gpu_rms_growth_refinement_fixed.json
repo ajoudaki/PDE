@@ -1,0 +1,53 @@
+{
+  "probe_count": 32,
+  "mass_floor": 0.05,
+  "dt": 0.1,
+  "observe_every": 0.5,
+  "panel": 514,
+  "panel_offset": 1.0,
+  "horizon": 120.0,
+  "max_horizon": 120.0,
+  "max_allocation_gib": 8.0,
+  "budget_seconds": 180.0,
+  "dtype": "float64",
+  "include_frozen": true,
+  "stage": "refinement",
+  "protocol": "GPU_RMS_GROWTH_PROTOCOL.md",
+  "samplers_by_n": {
+    "4096": [
+      {
+        "name": "p0",
+        "width": 48,
+        "rank": 16,
+        "p": 0,
+        "budget": 2550.0
+      },
+      {
+        "name": "p2",
+        "width": 64,
+        "rank": 16,
+        "p": 2,
+        "budget": 4533.333333333333
+      },
+      {
+        "name": "p4",
+        "width": 87,
+        "rank": 16,
+        "p": 4,
+        "budget": 8059.259259259257
+      }
+    ]
+  },
+  "cases": [
+    {
+      "n": 4096,
+      "seed": 8511,
+      "angle": 60,
+      "sign": -1
+    }
+  ],
+  "source_files": [
+    "studies/closure_sampling_20261003/GPU_RMS_GROWTH_SELECTION.md"
+  ],
+  "description": "Predeclared fixed n4096 seed8511 angle60 opposite-sign half-step, doubled nested time/query panels; same model set and physical horizon as coarse case."
+}
