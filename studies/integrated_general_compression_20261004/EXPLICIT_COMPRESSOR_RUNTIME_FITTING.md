@@ -1,6 +1,16 @@
 # Explicit physical fitting for the corrected autonomous compressor
 
-2026-10-04. Coordinator bridge, awaiting separate reconstruction. Inputs:
+**Storage interface (2026-10-05).** In [RESULT.md](RESULT.md), compact
+`q` bounds every selected layer width. The moving arrays in (4) below
+therefore use at most `(L-1)q^2+q(d+1)+m` coordinates. The effective
+readout (2) is computed from the raw readout and residual; it is not a
+second independent learned readout. Fixed metrics, data and stated caches
+are additional and included in the source's all-retained inventory.
+This notation adapter does not alter the corrected optimizer.
+
+2026-10-04. Coordinator bridge, with separate reconstruction recorded in
+[EXPLICIT_COMPRESSOR_RUNTIME_FITTING_CHECK.md](EXPLICIT_COMPRESSOR_RUNTIME_FITTING_CHECK.md).
+Inputs:
 the complete `closure_sampling_20261003/STORAGE_QUADRATIC_IMPROVEMENT.md`,
 `GENERAL_WEIGHTED_COMPARISON.md`, and `ACTIVATION_CLASS_EXTENSION_ROUTE.md`;
 the current study's explicit Gaussian initialization theorem. This note

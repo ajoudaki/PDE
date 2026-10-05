@@ -7,6 +7,12 @@ orthogonal geometry, or bounded-value activation assumption is used here.
 
 ## Frozen scientific inputs and assembled statements
 
+The table preserves the names and hashes of the reviewed snapshots;
+it does not bind the current edited files. The redundant sample-polynomial
+statement has been removed. Its order formula is retained in
+[LEGENDRE_SAMPLE_EXPONENT_REFINEMENT.md](LEGENDRE_SAMPLE_EXPONENT_REFINEMENT.md), (4),
+and the consolidated interface is [RESULT.md](RESULT.md).
+
 | File | SHA-256 |
 |---|---|
 | GENERAL_INNOVATION_LOWER.md | 7d614fbe45b13770b45d314eab9b4f3a5c1c43103060be70c64f13cf7a94c553 |
@@ -15,7 +21,7 @@ orthogonal geometry, or bounded-value activation assumption is used here.
 | GENERAL_TRAJECTORY_LOWER_BRIDGE_CHECK.md | 4c7107e0ad489fbd91f9d961798dfbba2e1d3ecd5831c0f3989fae279ead3737 |
 | GENERAL_VARIABILITY_LOWER_RESULT.md | bd009395a1b5d6c53b798094f80dfeee3d64fdc90de4a14e32c4f9fab1d8ab92 |
 | RESULT.md | eb039b9b9c006a8f68a3b56d8d05d6f2e2ab9fe9010861d6d54076b254218040 |
-| SAMPLE_POLYNOMIAL_STATEMENT.md | 049fa7094ce8d651bc8952fe26ea0fc660da955962552879a91eb1f88bde0900 |
+| SAMPLE_POLYNOMIAL_STATEMENT.md (reviewed snapshot; removed) | 049fa7094ce8d651bc8952fe26ea0fc660da955962552879a91eb1f88bde0900 |
 
 The separate bridge reconstruction reviewed candidate
 c6c53f4b062f29daaf1b7c0eaf427c354e6263a8a48322bf8db22a6777cc36a2.

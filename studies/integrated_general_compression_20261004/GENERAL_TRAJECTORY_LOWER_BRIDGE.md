@@ -4,9 +4,8 @@
 Complete relevant inputs read: EARLY_VARIABILITY_AND_STORAGE.md;
 ONSET_TO_TRAJECTORY_LOWER.md; UNBOUNDED_COMPRESSOR_BRIDGE.md §§1–8 and §13;
 SIMPLE_CONSTANTS_SOURCE_CHECK.md; and EXPLICIT_LEGENDRE_COMPARISON.md.
-The coordinator's final order update also uses the current
-LEGENDRE_SAMPLE_EXPONENT_REFINEMENT.md and its
-SAMPLE_POLYNOMIAL_STATEMENT.md.
+The coordinator's final order update uses
+LEGENDRE_SAMPLE_EXPONENT_REFINEMENT.md, (2)–(5).
 The initialized CLT, fitting, and stopped Gaussian insertion interfaces are
 inherited component results. This note proves a finite-query localization
 of the complex source, retains the physical training timescale in its
@@ -412,7 +411,7 @@ L_n=\frac P{\sqrt n\,\ell_n^{5/2}}.
 The actual labels remain in \(\sigma\), \(Y\), and \(P\).
 
 Under the simple label cap (5), let \(q_0(n)\) be the latest numerical
-order from SAMPLE_POLYNOMIAL_STATEMENT.md (5), and in the next display
+order from LEGENDRE_SAMPLE_EXPONENT_REFINEMENT.md (4), and in the next display
 take \(C_n=YP_n\), \(q_{\rm abs}=P_n\), with that note's explicit
 \(P_n\). Its proof controls the upper-bound expression itself.
 For the larger recurrence-based label allowance, instead use

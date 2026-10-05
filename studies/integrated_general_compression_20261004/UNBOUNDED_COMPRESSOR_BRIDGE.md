@@ -1,5 +1,25 @@
 # Joint sample budgets and the sharp unbounded-activation source bridge
 
+**Interface correspondence (2026-10-05).** The common statement is
+[RESULT.md](RESULT.md). Its compact neuron budget uses this note's
+`q_j <= 9R` selection and `R <= A_n(Y)+2m+d+1` in §9, with the existing
+activation-envelope bounds substituted. Those are upper bounds on
+selected dimensions, not an invertible size/error relation. Sections 9
+and 13 retain source tolerance `1/n`; the runtime has no independent
+Taylor, spatial, or memory order. These preprocessing choices are discarded
+after construction. All original construction gates and equations remain.
+
+The current error comparison is proved in
+[COMPACT_POLYNOMIAL_COMPARISON.md](COMPACT_POLYNOMIAL_COMPARISON.md) and
+[COMPACT_FULL_LABEL_RANGE.md](COMPACT_FULL_LABEL_RANGE.md). It removes
+the sample/gap and activation-depth factors from the comparison
+exponential throughout the original label allowance, without changing
+this source construction. Section 13 below retains its valid source
+pairing/action lemmas and conservative comparison derivation as proof
+support; its additional root-conversion thresholds are **not requirements
+of the current integrated theorem**. Only the construction gates and
+source probability threshold are inherited by the new comparison.
+
 2026-10-04. Scoped derivation for the integrated study. This is new internal
 research relative to the inherited, checked Gaussian insertion interface;
 it is not an independent promotion review. The new part is the separate
@@ -875,8 +895,9 @@ on the minimum selected weight. All first-weight columns are exact source
 members, so the initial selected first-weight operator is bounded as well.
 The corrected readout's orthogonal decomposition and raw-velocity energy
 identity give its independent RMS tube and fitting under its own small-label
-allowance. This source note does not yet specify that numerical runtime
-allowance; it is separately assembled by the root. Condition (10) alone
+allowance, specified in
+[EXPLICIT_COMPRESSOR_RUNTIME_FITTING.md](EXPLICIT_COMPRESSOR_RUNTIME_FITTING.md),
+(5)–(6). Condition (10) alone
 is not asserted to imply the runtime's deterministic fitting hypotheses.
 
 Every pairing and learned-action defect uses source coordinate accuracy
@@ -916,14 +937,12 @@ setup work and precision remain outside the retained-coordinate contract.
 The stochastic width threshold is unquantified; (31) and (34) are additional
 explicit sufficient conditions, not a claim to quantify that threshold.
 
-No exponent audit here establishes the proposed
-\(Y\le\lambda\beta_\partial^{-62L}\),
-\(C_{\rm err}\le\beta_\partial^{124L}Y\lambda^{-3/2}\), or
-the size coefficient \(\beta_\partial^{82Ld}\). The finite recurrences
-(5)--(10), (22), (24)--(25), (35)--(37) are the certified numerical
-objects of this route; benchmarking them against a single power requires
-an additional explicit inequality audit. The all-time error statement
-uses the deterministic runtime interface at its actual data dependence.
+The finite recurrences (5)--(10), (22), (24)--(25), (35)--(37) are the
+numerical source objects. Their explicit activation-power audit is in
+[SIMPLE_CONSTANTS_SOURCE_CHECK.md](SIMPLE_CONSTANTS_SOURCE_CHECK.md).
+The current error theorem uses the coupled readout–residual proof linked
+above, not the conservative unsigned coefficient in (38). All retained
+size/count formulas in this source note are unchanged.
 
 ## 11. Input coverage and correction record
 
@@ -1031,8 +1050,10 @@ mixed-response argument; neither is implied by a coordinate maximum alone.
 
 ## 13. Explicit deterministic source-to-runtime comparison
 
-This section was added after the source candidate was sent for independent
-reconstruction. Its additional input is the complete
+This section supplies the numerical source pairing/action definitions
+used by the current polynomial comparison. Its final unsigned comparison
+is a conservative supporting estimate, not the current error interface.
+Its additional input is the complete
 `EXPLICIT_COMPRESSOR_RUNTIME_FITTING.md`: intersect its explicit allowance
 \(Y\le\lambda/(16H_c\sqrt{F_c})\) with (10) and the dense fitting
 allowance. Here \(H_c,F_c\), the response coefficients \(d_j^c\),

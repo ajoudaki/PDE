@@ -1,459 +1,572 @@
-# General merged result: proved comparisons and the remaining strict-root gap
+# Dense, Legendre and compact models: accuracy and storage
 
-For the latest explicit comparison envelopes, see
-[SAMPLE_POLYNOMIAL_STATEMENT.md](SAMPLE_POLYNOMIAL_STATEMENT.md).
-The signed-energy refinement there places all sample/gap dependence
-outside the dense-copy and Legendre exponential width factors while
-retaining actual Y. It also sharpens, but does not remove, the compact
-comparison's exponential width threshold. The common model and the
-strict-root/probability limitations below remain unchanged.
+2026-10-05. This is the single integrated results statement. It includes
+the sharpened compact comparison on the full original label range, alongside
+the dense upper and lower bounds, Legendre comparison, width conditions,
+and accuracy-to-storage consequences. Complete current proofs are linked
+in §7. These are internally checked research results, not promoted
+manuscript or book results.
 
-The general lower calibration is now part of §6. For every fixed
-admissible dataset with at least two samples and nonzero labels, actual
-dense-copy variability is at least
-\(c_{\phi,L,\delta}Y\sqrt\gamma/
-[\sqrt n\,\log(en)^{5/2}]\) with the specified eventual confidence.
-It applies to the same general activation and geometry class.
-The unchanged compact construction and a logarithmically enlarged
-Legendre order have error asymptotically below that actual variability.
-This validates the width exponent of the compression comparison; it
-does not settle sharp sample dependence or general endpoint variability.
+## 1. Shared setup, notation and qualifications
 
-2026-10-04. This is the entry point for the new, user-authorized merged
-study. The requested program is **not completely resolved**: the compact
-and Legendre comparisons have strict root-width conclusions, while the
-general independent-dense comparison proved here retains a subpolynomial
-width loss. The earlier notes do not contain a proved general strict-root
-independent-dense theorem that can simply be transferred. No counterexample
-to that target has been proved either.
+Fix input dimension \(d\ge1\), sample count \(m\ge1\), hidden depth
+\(L\ge2\), inputs \(x_i\in\mathbb R^d\) with
+\(\|x_i\|_2=\sqrt d\), and real labels \(y_i\). The dense width is
+\(n\). The only compressed-model size/order symbol is \(q\): Legendre
+memory order, or compact per-layer neuron budget. These are different
+resources, not equal-sized models.
 
-The missing comparison has not been replaced by an extra response-moment
-assumption, a special activation, two layers, orthogonal data, clipping,
-or a smaller observation norm. The positive components below retain the
-same general scope. All results remain internally checked research, not
-promotion into the maintained book or manuscript.
+The other numerical parameters used throughout are label RMS \(Y\),
+feature-Gram gap \(\gamma\), activation envelope \(\beta\), failure
+probability \(0<\delta<1\), and requested error \(\varepsilon>0\).
+Their definitions and all shared assumptions follow before the results.
+One indexed family \(E\), with model subscripts
+\(\mathrm{dense},\mathrm{Leg},\mathrm{compact}\), denotes the explicit
+**error certificates** in §3, not the actual discrepancies.
+Their displayed arguments vary width and order; the shared task parameters
+and confidence are held fixed.
 
-## 1. One common model and observation norm
-
-Fix \(L\ge2\), \(d,m\ge1\), unit vectors
-\(v_a=x_a/\sqrt d\), and fixed real labels \(y_a\). Every hidden
-layer of the dense model has width \(n\). Its forward pass is
+The dense model has \(A\in\mathbb R^{n\times d}\),
+\(W^{(\ell)}\in\mathbb R^{n\times n}\) for \(2\le\ell\le L\),
+and \(w\in\mathbb R^n\), with forward pass
 \[
-z^1(v)=Av,\qquad z^\ell(v)=W^\ell h^{\ell-1}(v),\qquad
-h^\ell(v)=\phi_\ell(z^\ell(v)),\qquad f_n(v)=w^{\mathsf T}h^L(v)/n.
+z^{(1)}=Ax/\sqrt d,\qquad
+z^{(\ell)}=W^{(\ell)}h^{(\ell-1)},\qquad
+h^{(\ell)}=\phi_\ell(z^{(\ell)}),\qquad
+f_n=w^\top h^{(L)}/n.
 \]
-Entries of \(A_0\) are independent \(N(0,1)\), entries of every
-\(W_0^\ell\), \(\ell\ge2\), are independent \(N(0,1/n)\),
-all blocks are independent, and \(w_0=0\). Squared mean loss has
-mobilities \((n,1,\ldots,1,n)\), explicitly the equations in
-[GENERAL_EXPLICIT_FITTING.md](GENERAL_EXPLICIT_FITTING.md) (1).
+First-weight entries are independent \(N(0,1)\), hidden-mixer entries
+are independent \(N(0,1/n)\), all blocks are independent, and \(w(0)=0\).
+Training minimizes \(m^{-1}\sum_i(f_n(x_i)-y_i)^2\) by the study's
+gradient flow with block mobilities
+\((n,1,\ldots,1,n)\). Write \(\widetilde f_n\) for an independent
+dense copy trained on the same data; \(f_{\rm Leg,n,q}\) and
+\(f_{\rm compact,n}\) use the initialization of their reference \(f_n\).
 
-The activations may differ across layers. They are real on the real axis,
-holomorphic on a common strip \(|\operatorname{Im}z|<a\), and have
-bounded first derivative there. Their **values need not be bounded**.
-In particular the class includes identity, GELU on every fixed finite
-strip, and nonlinear linearly growing examples such as
-\(z+\varepsilon\tanh z\) on a pole-free strip. No centering or
-Gaussian forward normalization is assumed. A merely smooth real activation
-is not automatically in this analytic compression class.
-
-Define
+Each \(\phi_\ell\) is real on the real axis, holomorphic on a common
+strip \(|\operatorname{Im}z|<a\), and has bounded first derivative
+there. Activation **values may be unbounded**. Define
 \[
-Q^0_{ab}=v_a^{\mathsf T}v_b,\quad
-Q^\ell_{ab}=\mathbb E[\phi_\ell(Z_a)\phi_\ell(Z_b)],
-\quad Z\sim N(0,Q^{\ell-1}),
+\beta=\max\left\{10,\ 1+\max_\ell|\phi_\ell(0)|,\ \frac{16}{a},\
+\max_{1\le\ell\le L,\,j\in\{1,2\}}\sup_{|\operatorname{Im}z|\le a/2}
+|\phi_\ell^{(j)}(z)|\right\},\qquad Y=\frac{\|y\|_2}{\sqrt m}.
 \]
+To define the gap, use the finite covariance recursion
 \[
-\gamma=\lambda_{\min}(Q^L)>0,\quad
-Y=\|y\|_2/\sqrt m,\quad \lambda=\gamma/m.
-\tag{1}
+Q^{(0)}_{ij}=x_i^\top x_j/d,\qquad
+Q^{(\ell)}_{ij}=\mathbb E[\phi_\ell(Z_i)\phi_\ell(Z_j)],
+\quad Z\sim N(0,Q^{(\ell-1)}),\qquad
+\gamma=\lambda_{\min}(Q^{(L)})>0.
 \]
-Here \(\gamma\) is the **unweighted** covariance gap. General data
-means precisely this initialized feature condition, without raw-input
-independence or orthogonality. Any symmetry quotient must retain its
-sample weights; this statement itself uses the displayed unweighted data.
-There is no sign restriction on the labels.
+The gap is **unweighted**: it is not divided by \(m\). No orthogonality,
+centering, input-rank condition, label-sign pattern or clipping is assumed.
 
-All three comparisons use exactly
+The explicit envelopes below share the sufficient label condition
 \[
-\boxed{\|f-g\|_*=\sup_{t\in[0,\infty]}
-                  \sup_{\|x\|_2=\sqrt d}|f(t,x)-g(t,x)|.}
-\tag{2}
+\boxed{\quad 0<Y\le\frac{\gamma}{m}\,\beta^{-30L}.\quad}
+\tag{labels}
 \]
-Time is the same physical time on both sides, and infinity denotes their
-fitted limits. This is fidelity between learned functions, not error
-against unknown test labels or a dense-to-population assertion.
+This explicit specialization does not replace the larger original
+allowance, stated in §6. The sharpened compact comparison holds throughout
+that larger range as well, with universal numerical constants; the
+coefficients 10 and 250 below use the displayed simpler cap. The
+beta-only size/storage envelopes and the displayed dense/Legendre
+envelopes use this simpler cap. If
+\(Y=0\), all predictions are exactly zero and a constant-zero compact
+representation is exact.
 
-## 2. Explicit common label allowance
-
-All numerical constants in this study are finite recurrences, rather than
-unspecified constants renamed \(C_{\rm label}\). The following table is
-also a definition map for the comparison formulas. Every referenced
-equation gives the complete arithmetic or Gaussian-integral definition.
-
-| Numerical object | Complete definition | Depends on |
-|---|---|---|
-| \(H_D,F_D\) | Dense fitting (2), (4) | activation moments/slopes, \(L\) |
-| \(S_*^{\rm Leg}\) | Closure fitting (1)–(2) | \(H_D\), slopes, \(L\) |
-| \(H_C,F_C\) | Corrected-runtime fitting (5) | values at zero, slopes, \(L\) |
-| \(S_*^{\rm src}\) | Source bridge (5)–(10) | half-strip derivative bounds, values at zero, \(L\) |
-
-The corresponding files are
-[dense fitting](GENERAL_EXPLICIT_FITTING.md),
-[closure fitting](GENERAL_EXPLICIT_CLOSURE_FITTING.md),
-[runtime fitting](EXPLICIT_COMPRESSOR_RUNTIME_FITTING.md), and
-[source bridge](UNBOUNDED_COMPRESSOR_BRIDGE.md).
-For clarity, the first objects are
+Every error uses the same physical time and the same norm:
 \[
-q_0=1,\quad q_\ell=\mathbb E\phi_\ell(\sqrt{q_{\ell-1}}Z)^2,
-\quad H_D=\max(1,\sqrt{q_1},\ldots,\sqrt{q_L}),\quad Z\sim N(0,1),
+\boxed{\quad
+\|f-g\|_*:=\sup_{t\in[0,\infty]}
+                  \sup_{\|x\|_2=\sqrt d}|f(t,x)-g(t,x)|.
+\quad}
+\tag{error norm}
 \]
+This is the whole sphere (the circle when \(d=2\)) and the entire
+training trajectory, **including fitted limits**. It measures function
+fidelity, not unknown-label test risk or error against a population limit.
+
+All upper certificates require \(n\ge N_0(\delta)\), where this finite
+threshold may depend on every fixed problem parameter. It includes the
+source-construction gates; its stochastic part is **unquantified**. The
+probability is at least \(1-\delta\) at each individual eligible width,
+not on one event for infinitely many independent widths. Joint comparisons
+use a split failure budget and the corresponding thresholds. The lower
+bound has its own eventual, also unquantified, width threshold.
+
+On the fitting events, all three models interpolate and converge. Their
+training RMS residuals are at most \(Y e^{-\gamma t/(2m)}\) for dense
+and compact, and \(Y e^{-\gamma t/(4m)}\) for every Legendre order
+\(q\ge1\). Accuracy, unlike fitting, imposes the extra order condition
+in §3.
+
+## 2. Model size and storage: before choosing accuracy
+
+Storage counts real coordinates, not bits or computation time. A learned
+coordinate is part of the evolving optimizer state; recomputable caches
+and fixed coefficients are listed separately.
+
+| Model | Meaning of its size/order | Learned state | Additional retained storage |
+|---|---|---|---|
+| Dense | \(n\) neurons per hidden layer | \((L-1)n^2+n(d+1)\) | No fixed mixer separate from the learned weights |
+| Legendre | \(q\) memory modes; still width \(n\) | \(n(d+1)+1+2(L-1)mnq\) | \((L-1)n^2\) fixed initialized mixer entries |
+| Compact | At most \(q\) neurons per hidden layer | At most \((L-1)q^2+q(d+1)+m\) | \(O(Lq^2+qd+Lmq+m^2+m(d+1))\) for metrics, fixed copies, data and caches |
+
+Thus the principal learned-state sizes are \(Ln^2+dn\), \(Lmnq+dn\),
+and \(Lq^2+dq+m\). **The compact quadratic term includes depth.** For
+actual selected layer widths \(q_1,\ldots,q_L\le q\), its exact moving
+count is \(dq_1+\sum_{\ell=2}^Lq_\ell q_{\ell-1}+q_L+m\).
+The dense and Legendre entries count model state, as in the original
+results; ordinary storage of the training data is additional if retained.
+The compact theorem below gives a stronger, fully inclusive inventory.
+Its displayed \(q\) is an enlarged upper budget, so the rough learned-state
+bound obtained by inserting that budget can exceed the sharper direct
+bound on all retained coordinates; neither is asserted to be an equality.
+
+Legendre uses the original residual-RMS clock with unit forward prefix
+and zero backward prefix. Its reconstructed dense matrices are evaluation
+objects, not additional learned state. Compact uses the existing
+**corrected-readout autonomous optimizer**, not ordinary gradient flow
+on an arbitrary smaller network. Its \(m\) internal residual coordinates
+are included above. No original-width matrices or trajectory table are
+retained after compact preprocessing. Neither model has an additional
+independent runtime approximation order.
+
+## 3. Accuracy certificates and their admissible sizes
+
+### Dense versus an independent dense copy
+
+The existing upper certificate, with every coefficient expanded, is
 \[
-F_D=s^2\left[(9s)^{2L-2}+4H_D^2\sum_{j=0}^{L-2}(9s)^{2j}\right],
-\quad s=\max(1,\max_\ell\sup_{|\operatorname{Im}z|\le a/2}|\phi_\ell'(z)|).
+\begin{aligned}
+E_{\rm dense}(n):={}&
+\beta^{100L}Y\left(1+\frac m\gamma\right)^2
+\left(1+\beta^{100L}\frac{Ym}{\gamma}\sqrt{\log(en)}\right)\\
+&\times\left[1+\beta^{100L}\left(\frac{Ym}{\gamma}\right)^2
+                  \left(e^{\sqrt{\log(en)}}-1\right)\right]
+\sqrt{\frac{\log[8(n+1)(1+2n)^d/\delta]}{n}},\\
+\|f_n-\widetilde f_n\|_*\le{}&E_{\rm dense}(n).
+\end{aligned}
+\tag{dense upper}
 \]
-The common sufficient condition is
+For \(m\ge2\), the general lower result also gives, with probability
+at least \(1-\delta\) at every sufficiently large individual width,
 \[
-\boxed{Y\le\frac\gamma m
-\min\left\{\frac1{8H_D\sqrt{F_D}},\quad
-             \frac{S_*^{\rm Leg}}8,\quad
-             \frac1{16H_C\sqrt{F_C}},\quad
-             \frac{S_*^{\rm src}}{16}\right\}.}
-\tag{3}
-\]
-Each allowance is established independently; intersecting them does not
-introduce an unproved trajectory hypothesis. No sample-count or input-
-dimension dependence is hidden in the four activation/depth constants.
-The explicit \(\gamma/m\) factor remains. The previous proposed
-\(\beta_\partial^{-62L}\) envelope is not substituted without an
-inequality audit. The real dense and all-order closure components alone
-admit the simpler proved \(\beta_\partial^{-5L}\) and
-\(\beta_\partial^{-10L}\) caps, respectively; those do not automatically
-certify every source condition.
-
-Zero labels are separate: all dense and Legendre trajectories are stationary
-with zero prediction, and the constant-zero compressed representation is exact.
-The formulas dividing by \(Y\) below concern fixed \(Y>0\).
-
-## 3. Compact autonomous model versus its realized dense run
-
-The representation uses selected neurons, exact source inner products in
-fixed metrics, moving hidden arrays, a raw readout, and an internal residual
-which equals its own prediction residual. Its effective readout is computed
-algebraically from current features. The complete equations are (1)–(4) of
-[EXPLICIT_COMPRESSOR_RUNTIME_FITTING.md](EXPLICIT_COMPRESSOR_RUNTIME_FITTING.md).
-It is an autonomous corrected optimizer; it is not asserted to be ordinary
-gradient flow with the original mobilities. It retains no original-width
-matrix or trajectory table after initialization-only preprocessing.
-
-Put \(\ell_n=\log(en)\), \(S=16Ym/\gamma\). The numerical source
-recurrences give \(U,V,K_{\rm src}\), with
-\(c_q=\min(1/8,a/(8V))\). They are defined in source equations
-(22), (24)–(25), and (30), including their actual \(S\) dependence.
-For \(d\ge2\), set
-\[
-A_n=\frac{2^{20}9^d}{d!}\frac Ua\,c_q^{-(d-1)}
-        \left(\frac{Ym}{\gamma}\right)^2\ell_n^{3d/2+1}.
-\tag{4}
-\]
-For \(d=1\), replace this by source equation (36):
-\(A_n=8\cdot514\cdot1024(U/a)(Ym/\gamma)^2\ell_n^{5/2}\).
-The count of **all retained coordinates**, including fixed metrics,
-moving parameters, data and stated caches, satisfies
-\[
-\boxed{S_C(n)\le2040(L+1)A_n^2
-       +2040(L+1)(2m+d+1)^2+10m(d+1).}
-\tag{5}
-\]
-The logarithmic power is \(3d+2\), independent of depth. Actual \(Y\)
-remains visible; it has not been replaced by the admissibility cap.
-The layer-dependent radius coefficients remain explicit and can be large.
-No claim that they equal the earlier unaudited \(\beta\) powers is made.
-
-The complete numerical comparison recurrences are source equations
-(42)–(47), defining \(C_{\rm out},A,\mathcal K,B_f\). In particular
-\(B_f\) is the explicit runtime tail coefficient, not a hidden error
-constant. Set
-\[
-a_0=AS/2,\qquad b_0=AK_{\rm src}S^2/2,
-\quad T_{\mathrm{tail}}=(Ym/\gamma)(16\mathcal K+4B_f).
-\]
-Then the actual proved all-time bound is
-\[
-\boxed{\|f_C-f_n\|_*
-\le \frac{C_{\rm out}}n e^{a_0+b_0\sqrt{\ell_n}}
-                       +T_{\mathrm{tail}}e^{-8\ell_n}.}
-\tag{6}
-\]
-All its quantities are given by finite explicit formulas. For
-\[
-n\ge N_{\mathrm{det}}:=\left\lceil e^{\max(4a_0,16b_0^2,2)}\right\rceil,
-\]
-it implies
-\[
-\boxed{\|f_C-f_n\|_*
-\le\frac{\sqrt e\,C_{\rm out}+T_{\mathrm{tail}}}{\sqrt n}.}
-\tag{7}
-\]
-The displayed coefficient has polynomial sample/gap dependence; a possibly
-large conditioning cost is in the **displayed** deterministic threshold.
-Source equation (53) also gives an explicit extra threshold for any specified
-positive root coefficient, without claiming it is a sharp stability constant.
-The stochastic source width threshold is still unquantified; see §6 below.
-
-## 4. Original Legendre closure versus the same dense run
-
-The exact moment equations retain the original clock \(\dot\tau=\rho\),
-\(\tau(0)=1\), the constant forward prefix and zero backward prefix.
-They are recorded in `GENERAL_LEGENDRE_TRANSFER.md` (3)–(4), including
-all normalization and learning-rate factors.
-
-[EXPLICIT_LEGENDRE_COMPARISON.md](EXPLICIT_LEGENDRE_COMPARISON.md)
-(1)–(6) gives the numerical coefficients and the concrete order
-\[
-Q_n=\max\{3,q_{\rm abs},n^{1/4}\sqrt{C_n/Y}\},\qquad
-q_n=\left\lceil4Q_n\sqrt{\log(e+Q_n)}\right\rceil.
-\]
-Here \(q_{\rm abs},C_n\) are explicit functions of the actual carrier
-envelope \(2K_{\rm src}S\sqrt{\log(en)}\), the independent fitting
-constants and projection bounds, all defined in those equations.
-They are not fitted from a trajectory or assumed response quantities.
-The conclusion is
-\[
-\boxed{\|f_{n,q_n}-f_n\|_*\le Y/\sqrt n,
-\qquad q_n=n^{1/4+o(1)}.}
-\tag{8}
-\]
-The exact moving-state count is
-\[
-S_{\mathrm{Leg,moving}}=n(d+1)+1+2(L-1)mnq_n.
-\tag{9}
-\]
-It retains an additional \((L-1)n^2\) fixed mixer entries. Thus (9)
-is learned-state compression, while the compact representation's (5)
-counts all retained storage. These different resource statements must
-not be conflated.
-
-## 5. Independent dense copies: the proved rate and exact missing step
-
-For two independently initialized dense copies, the numerical theorem is
-[GENERAL_DENSE_COMPARISON.md](GENERAL_DENSE_COMPARISON.md) (37)–(44).
-In its fully defined notation it reads
-\[
-\boxed{\|f_n-\widetilde f_n\|_*
-\le2\mathcal L_n\sqrt{\log(4N_n/\delta)}
-                   +\frac{2(K_t+K_x)}n,\qquad
-N_n=(n+1)(1+2n)^d,}
-\tag{10}
-\]
-where the explicit \(\mathcal L_n\) is \(n^{-1/2}\) times an
-exponential affine in \(\sqrt{\log(en)}\). Its definitions involve
-only the same derivative/moment bounds, source coefficients, and displayed
-\(Y,m,\gamma,d,L\). This proves \(n^{-1/2+o(1)}\) in exactly the
-same norm (2). It does **not** prove a width-independent coefficient
-times \(n^{-1/2}\).
-
-The corrected proof audit does not mistake an instantaneous-response
-estimate for a transported one. In mobility coordinates
-\(\Theta=(A,\sqrt nW^2,\ldots,\sqrt nW^L,w)\), let
-\(F_v=nf_n(v)\), \(g_v=\nabla_\Theta F_v\),
-\(H_v=D_\Theta^2F_v\), and \(J(t,s)\) be the flow's variational
-propagator. If \(P\) embeds the Gaussian initialization roots, the
-mixed tangent-kernel derivative is exactly
-\[
-\nabla_G K_{va}(t)
-=\frac1nP^{\mathsf T}J(t,0)^{\mathsf T}
-                    [H_v(t)g_a(t)+H_a(t)g_v(t)].
-\tag{11}
-\]
-Under their stated bounded-activation source hypotheses, the earlier
-arguments control instantaneous \(H_ag_v\) and cross-query forward
-responses. The new unbounded source bridge controls training-driven
-responses and proves quadratic-exponential bounds for actual running
-training carriers. The sensitivity note keeps its passive-driver moment
-transfer distinct rather than asserting its entire unbounded extension.
-Even the bounded-class instantaneous bounds do not directly control
-their product with the transported response in (11).
-The remaining adjoint energy term includes
-\[
-\frac1n\sum_i |k_{a,i}^\ell|
-       |(D_\Theta z_a^\ell\,q)_i|^2,
-\qquad q(s)=J(t,s)^{\mathsf T}g_v(t).
-\tag{12}
-\]
-The bounded exploration derives the exact augmented equations, their
-block-triangular structure and backward damping of training projections.
-It identifies new same-root trace and terminal-gradient terms needed to
-control (12). Those terms have not been bounded. There is also a valid
-Gaussian-localization and query-increment obligation for the strict
-whole-sphere theorem. This is an unresolved proof gap, not evidence of an
-actual slower-rate counterexample.
-
-## 6. Probability, explicitness, lower calibration and storage consequences
-
-The initialization probability threshold \(N_{\rm fit}(\delta)\) is
-fully numerical in the dense fitting note. The trained-source probability
-argument proves convergence of its success probability to one, by taking
-width to infinity at each fixed empirical moment degree before taking that
-degree large. It does not provide a numerical rate for that convergence.
-Accordingly (3)–(10) apply at each fixed confidence for every sufficiently
-large individual width, also satisfying their displayed deterministic
-thresholds. They do not assert a single event over infinitely many
-independently initialized widths. **A fully effective numerical success
-width remains unavailable.** This limit of explicitness is not hidden in
-an unnamed multiplicative constant.
-
-To display the confidence dependence in the applicability conditions,
-write this unquantified threshold as \(N_0(\delta)\), with the fixed
-problem parameters suppressed. The Legendre statement requires
-\(n\ge N_0(\delta)\); the compact statement with (7)'s coefficient
-requires \(n\ge\max\{N_0(\delta),N_{\rm det}\}\).
-The order and storage formulas need no explicit delta factor at a given
-width: they hold deterministically on the same source event, whose
-probability tends to one. The numerical deterministic threshold alone
-does not certify a chosen confidence. See the confidence audit in
-[SIMPLE_EXPLICIT_STATEMENT.md](SIMPLE_EXPLICIT_STATEMENT.md).
-
-For \(m\ge2\) and \(Y>0\), the general lower theorem is
-\[
-\boxed{
+\boxed{\quad
 \|f_n-\widetilde f_n\|_*
-\ge c_{\phi,L,\delta}
-       \frac{Y\sqrt\gamma}{\sqrt n\,\log(en)^{5/2}},
-\qquad n\ge N_{\rm lower}(\delta),
-}
-\tag{13}
+\ge c_{\phi,L,\delta}\frac{Y\sqrt\gamma}
+             {\sqrt n\,[\log(en)]^{5/2}}.
+\quad}
+\tag{dense lower}
 \]
-with probability at least \(1-\delta\) at each individual width.
-The positive coefficient depends only on activations, depth and confidence,
-not on \(m,d,\gamma,Y,n\) or time. The finite threshold may depend on
-all fixed problem parameters and is not currently effective. This lower
-theorem retains (3)'s full recurrence-based label allowance and the same
-general geometry and unbounded-value activation class as §§1–5.
-There is no orthogonality or additional variance assumption.
+The positive coefficient depends only on activations, depth and confidence;
+its exact Gaussian-moment formula and full-label-range adjustment are in
+[the lower theorem, §1](GENERAL_VARIABILITY_LOWER_RESULT.md#1-setting-and-conclusion).
+The witness is an actual nonlinear prediction at a positive early time,
+which may shrink with \(n\); this is **not an endpoint lower bound**.
+For \(m=1\), deterministic exceptions prevent this general lower claim.
 
-For its coefficient, use the scalar moments \(q_\ell\) already defined
-in §2 and put
-\(\mu_4=\mathbb E\phi_L(\sqrt{q_{L-1}}Z)^4\), \(Z\sim N(0,1)\).
-Under the already proved simpler sufficient cap
-\(Y\le(\gamma/m)\beta^{-30L}\), one may take
+At fixed task, the upper is \(n^{-1/2+o(1)}\), not a proved strict
+\(n^{-1/2}\) upper bound. The lower calibrates the width exponent, not
+the upper bound's powers of \(m/\gamma\).
+
+### Legendre versus its realized dense reference
+
+The certificate is
 \[
-c_{\phi,L,\delta}
-=\frac{\Phi^{-1}(1/2+\delta/4)}{128}
-       \sqrt{\frac{q_L}{\mu_4}},
-\tag{14}
+\begin{aligned}
+E_{\rm Leg}(n,q):={}&
+\frac{3\beta^{100L}Y}{q^2}
+\left(\frac{Ym}{\gamma}\right)^2\left(1+\frac m\gamma\right)
+\left(1+\beta^{100L}\frac{Ym}{\gamma}\sqrt{\log(en)}\right)\\
+&\times\left[1+\beta^{100L}\left(\frac{Ym}{\gamma}\right)^2
+                  \left(e^{\sqrt{\log(en)}}-1\right)\right]
+\sqrt{\log(eq)},\\
+\|f_{\rm Leg,n,q}-f_n\|_*\le{}&E_{\rm Leg}(n,q).
+\end{aligned}
+\tag{Legendre error}
 \]
-where \(\Phi\) is the standard normal distribution function and \(\beta\)
-is defined in SAMPLE_POLYNOMIAL_STATEMENT.md. In the full range (3),
-multiply (14) by the positive activation/depth-only coefficient (18) of
-[GENERAL_TRAJECTORY_LOWER_BRIDGE.md](GENERAL_TRAJECTORY_LOWER_BRIDGE.md).
-Thus the larger label scope is retained, with no data hidden in this
-coefficient.
-
-The mechanism is a distribution-free inequality. If \(H\) is one
-initialized top-feature vector over the \(m\) training samples and
-\(Q=\mathbb E HH^\top=Q^L\succ0\), then
+It holds on **one event simultaneously** for all integer \(q\ge1\)
+satisfying
 \[
-\operatorname{tr}\operatorname{Cov}\{H(y^\top H)\}
-\ge\frac{\gamma^3q_L}{16\mu_4}\|y\|^2.
+\begin{aligned}
+q\ge{}&3\beta^{100L}\left(\frac{Ym}{\gamma}\right)^2
+\left(1+\frac m\gamma\right)
+\left(1+\beta^{100L}\frac{Ym}{\gamma}\sqrt{\log(en)}\right)\\
+&\times\left[1+\beta^{100L}\left(\frac{Ym}{\gamma}\right)^2
+                  \left(e^{\sqrt{\log(en)}}-1\right)\right].
+\end{aligned}
+\tag{Legendre order}
 \]
-Zero variance would force \(H\) to lie on one fixed line, contradicting
-the positive gap for \(m\ge2\). Fourth-moment truncation makes this
-obstruction quantitative. The initialized Gram CLT then forces a
-nonzero onset derivative fluctuation at some training input.
-A finite-query complex-time source argument and polynomial derivative
-inequality turn it into (13) for actual nonlinear predictions. The
-proof does not estimate the difference by a width-independent
-\(O(Y^3)\) remainder.
+There is no additional order-dependent stochastic threshold. In particular,
+the [explicit order prescription, (4)](LEGENDRE_SAMPLE_EXPONENT_REFINEMENT.md)
+has \(q=n^{1/4+o(1)}\) and certifies error at most \(Y/\sqrt n\).
+Section 4 below specifies the smallest order certified for any requested
+\(\varepsilon\), rather than introducing a second order parameter.
 
-The witnessing positive time is at most
-\(c_{\phi,L}m/[\gamma\sqrt{\log(en)}]\); it may depend on width and
-the initialization. This is a transient lower bound in norm (2).
-It is not an endpoint lower bound: at the training query used in the
-proof, both fitted predictors equal the prescribed label. Initial
-predictions themselves are exactly zero. For \(m=1\), a nonzero
-constant last activation gives a positive uncentered gap and zero
-variability at all times; the exact one-sample exceptions are stated
-separately. No such exception remains for \(m\ge2,\gamma>0,Y>0\).
+### Compact versus its realized dense reference
 
-The complete general statement, proofs and exact limitations are in
-[GENERAL_VARIABILITY_LOWER_RESULT.md](GENERAL_VARIABILITY_LOWER_RESULT.md),
-[GENERAL_INNOVATION_LOWER.md](GENERAL_INNOVATION_LOWER.md), and the
-trajectory bridge linked above. The bridge has a separate
-[internal reconstruction](GENERAL_TRAJECTORY_LOWER_BRIDGE_CHECK.md).
-No special tanh, identity, low-rank-input or orthogonal-data endpoint
-result is used in this general integration.
+The current construction fixes source-coordinate tolerance to \(1/n\).
+An explicit sufficient **per-layer budget**, using the existing selection
+and coefficient bounds, is
+\[
+\boxed{\quad
+q=\left\lceil9\left[
+\beta^{(32+3d)L}\frac{(d+3)^{d/2}}{d!}
+\left(\frac{Ym}{\gamma}\right)^2[\log(en)]^{3d/2+1}
++2m+d+1\right]\right\rceil.
+\quad}
+\tag{compact size}
+\]
+The selected layer widths need only be **at most** this budget. The same
+constructed model satisfies the sharpened certificate
+\[
+\boxed{\quad
+\|f_{\rm compact,n}-f_n\|_*\le E_{\rm compact}(n):=
+10\beta^{40L}Y\frac m\gamma
+\left(1+\sqrt{\frac m\gamma}\right)
+\frac{e^{2\sqrt{\log(en)}}}{n}.
+\quad}
+\tag{compact error}
+\]
+There is no sample, gap, activation or depth multiplier inside the
+exponential. At fixed task the rate is \(n^{-1+o(1)}\). At every
+eligible width, without an additional comparison threshold,
+\[
+\boxed{\quad
+\|f_{\rm compact,n}-f_n\|_*
+\le\frac{250\beta^{40L}Y(1+m/\gamma)^2}{\sqrt n}.
+\quad}
+\tag{compact root certificate}
+\]
+This second bound is convenient for prescribing accuracy; the first has
+the sharper width rate. The same improvement holds on the full original
+label range in §6. The source tolerance, selected spaces, optimizer and
+storage are unchanged.
+The **all-retained** numerical storage bound is unchanged:
+\[
+\begin{aligned}
+\operatorname{storage}(f_{\rm compact,n})\le{}&
+\beta^{(64+6d)L}\frac{(d+3)^d}{(d!)^2}
+\left(\frac{Ym}{\gamma}\right)^4[\log(en)]^{3d+2}\\
+&+2040(L+1)(2m+d+1)^2+10m(d+1).
+\end{aligned}
+\tag{compact storage}
+\]
+The log exponent is independent of depth; its coefficient is not.
 
-The exponent \(1/2\) in width is now calibrated from both sides, up to
-the stated logarithmic/subpolynomial losses. Sharp \(m,\gamma,d\)
-dependence remains unresolved: (13) supplies a general floor, not a
-matching justification for the sample/gap powers in the upper bound.
-The statement is for fixed datasets as width grows, not a uniform
-growing-sample limit.
+The proof couples readout and residual discrepancies through the current
+feature right inverse. Their leading feature-Gram terms cancel; residual
+dissipation controls the remainder. Dense energy supplies the selected
+readout scale \(Y\sqrt{m/\gamma}\). These arguments require feature
+RMS control, not bounded activation values. The existing label allowance
+then absorbs the activation powers in the stability exponent. All these
+comparison variables are proof objects, not additional learned state.
 
-At fixed problem parameters, the sufficient accuracy-to-storage powers
-obtained from the proved upper bounds are:
+**Scope of the size choice.** There is no additional runtime order, but
+the assembled compact theorem does not supply an error law for arbitrary
+\(q\). It certifies the construction above, jointly in its size and
+error. A larger budget accommodates that construction; the current result
+does not certify a smaller error just by increasing that budget. Inverting
+an upper bound on the selected width would not establish such a theorem.
 
-| Representation | Resource counted | Sufficient size as accuracy \(\varepsilon\downarrow0\) |
+## 4. One accuracy-to-learned-state interface at prescribed width
+
+Fix a dense reference width \(n\) satisfying the applicable thresholds.
+The common target is
+\[
+\boxed{\qquad
+\mathbb P\{\|f_{\rm model}-f_n\|_*\le\varepsilon\}\ge1-\delta.
+\qquad}
+\tag{accuracy target}
+\]
+Here \(f_{\rm model}\) is respectively an independent dense copy, the
+Legendre closure, or the constructed compact model. We minimize learned
+state over the choices actually covered by each certificate; compact
+currently supplies only the stated construction. This is not a claim of
+globally optimal compression.
+
+| Model | Choice giving the target | Certified learned state |
 |---|---|---|
-| Dense | all parameters | \(\varepsilon^{-4+o(1)}\), using the proved near-root independent-copy bound |
-| Legendre | moving coordinates | \(\varepsilon^{-5/2+o(1)}\); initialized mixers remain additional |
-| Compact autonomous model | all retained coordinates | \(O(\log^{3d+2}(1/\varepsilon))\), with (4)–(5)'s actual \(Y\) and other fixed-parameter coefficients |
+| Independent dense | No \(q\) to choose; require \(E_{\rm dense}(n)\le\varepsilon\) | \((L-1)n^2+n(d+1)\) |
+| Legendre | Choose the smallest integer \(q\) satisfying (Legendre order) and \(E_{\rm Leg}(n,q)\le\varepsilon\) | \(n(d+1)+1+2(L-1)mnq\) |
+| Compact | Use (compact size); require \(E_{\rm compact}(n)\le\varepsilon\), or use (compact accuracy width) below | At most \((L-1)q^2+q(d+1)+m\); full inventory is (compact storage) |
 
-For every fixed admissible task with \(m\ge2\), the compact comparison
-(6) is \(n^{-1+o(1)}\), hence smaller than (13)'s scale. For Legendre,
-multiply §4's explicit order \(q_n\) by \(\log(en)^{3/2}\), rounding
-up, and call the result \(q'_n\). Under the simpler beta label cap,
-use the sharper \(q_n\) in SAMPLE_POLYNOMIAL_STATEMENT.md (5) instead.
-Either simultaneous-in-order estimate gives
+The Legendre prescription is well-defined for every \(\varepsilon>0\),
+because its error certificate decreases to zero with \(q\). Since its
+moving count increases with \(q\), this is precisely the least moving
+count certified by that bound. The error and admissibility formulas above
+make this an explicit integer selection, with no extra free parameter.
+Fixed Legendre mixers remain additional.
+
+For compact, this table is a **feasibility certificate for the existing
+construction**, not a minimization over arbitrary compact widths. If its
+certificate exceeds \(\varepsilon\), no arbitrary-tolerance retuning at
+this same prescribed \(n\) is supplied by the assembled result. Likewise,
+a dense bound exceeding \(\varepsilon\) means no certificate from that
+bound, not an assertion that the actual discrepancy exceeds the target.
+Increasing \(n\) changes the reference network and belongs to the next
+corollary, not this fixed-reference comparison.
+
+In particular, a sufficient width for compact accuracy is
 \[
-\|f_{n,q'_n}-f_n\|_*
-\le\frac{2Y}{\sqrt n\,\log(en)^3}
+\boxed{\quad
+n\ge\left\lceil\max\left\{1,N_0(\delta),
+62500\beta^{80L}Y^2\left(1+\frac m\gamma\right)^4
+\varepsilon^{-2}\right\}\right\rceil.
+\quad}
+\tag{compact accuracy width}
 \]
-eventually. Its moving-state exponent is still \(5/4+o(1)\).
-Consequently the actual-noise comparisons are
+Only the extra accuracy requirement is polynomial. The inherited
+\(N_0(\delta)\) includes source selection, fitting and construction;
+its stochastic part remains unquantified. For clarity, its existing
+deterministic conditions include
 \[
-\boxed{
-\frac{\|f_C-f_n\|_*}{\|f_n-\widetilde f_n\|_*}
- \xrightarrow{\mathbb P}0,\qquad
-\frac{\|f_{n,q'_n}-f_n\|_*}{\|f_n-\widetilde f_n\|_*}
- \xrightarrow{\mathbb P}0.
-}
-\tag{15}
+n\ge\max\left\{1,\frac1Y,\frac{\gamma}{16mY}\right\},\qquad
+\log(en)\ge\frac{a^2(\gamma/m)^2}{16384Y^4U^2}.
+\tag{inherited width gates}
 \]
-These statements compare the common trajectory norm, not the error
-ratio at each time or at the endpoint. They require no independence
-between comparison events. Compact storage and the accuracy-to-storage
-powers in the table are unchanged; Legendre has the stated additional
-logarithmic order factor. Thus the width-asymptotic compression benefit
-does not rely only on a potentially loose dense upper bound.
+Here \(U\) is only a local source coefficient: it is the explicit
+output of [source recurrences (22)–(25)](UNBOUNDED_COMPRESSOR_BRIDGE.md),
+evaluated at source activity \(16Ym/\gamma\). The remaining
+radius/degree conditions are source (31), (34). They are not replaced by
+these two displayed gates. Thus a polynomial **total construction width**
+has not been proved. The improvement does not hide a bad error coefficient
+inside a newly enlarged threshold.
 
-Conversely, in the large-width regime, requiring independent dense-copy
-discrepancy at most \(\varepsilon\) with fixed failure probability
-less than one half forces
-\(n\log(en)^5\gtrsim_{\phi,L,\delta}Y^2\gamma/\varepsilon^2\).
-At fixed task this gives necessary canonical dense parameter count
-\(\Omega(\varepsilon^{-4}/\log(1/\varepsilon)^{10})\), alongside the
-sufficient \(\varepsilon^{-4+o(1)}\) count. It is not a lower bound
-against arbitrary alternative representations or bit encodings.
-The general strict-root dense upper bound remains open.
+For a relative target \(\varepsilon=\eta Y\), the accuracy term is
+\(62500\beta^{80L}(1+m/\gamma)^4\eta^{-2}\); \(\eta>0\) is
+local to this sentence, and the inherited threshold still depends on
+actual \(Y\). In the size/storage formulas, choosing the least integer
+allowed by (compact accuracy width) permits replacing \(\log(en)\)
+by
+\[
+\log\!\left(2e\max\left\{1,N_0(\delta),
+62500\beta^{80L}Y^2(1+m/\gamma)^4\varepsilon^{-2}\right\}\right).
+\]
+This is an explicit sufficient accuracy-to-storage substitution, including
+confidence, not a bound on preprocessing work or bit complexity.
 
-The exact inversion formulas, confidence allocations, and all-retained
-versus moving-state distinctions are in the ancillary note. Exact-real
-preprocessing work and bit precision are outside the retained-coordinate
-contract; no runtime or bit-complexity improvement is claimed.
+## 5. Compression corollary: dependence on dense width and on accuracy
 
-## 7. What was added in this merge
+Fix the dataset, activations, \(m,d,L,Y,\gamma\), and confidence.
+Only the displayed dependence on \(n\) or \(\varepsilon\) varies;
+All \(O\), \(\Theta\), \(\Omega\) and \(o(1)\) statements below
+refer to this fixed-task regime; their implicit constants may depend on
+these fixed parameters and confidence.
 
-The mathematical bridges are explicit Gaussian initialization without
-forward normalization, the approximate-energy all-order closure fitter,
-the unbounded corrected-runtime fitter and projector tail, separate
-samplewise joint source budgets, the sharp unbounded complex radii,
-quadratic-exponential actual training-carrier control, and numerical
-comparison/order formulas. The proofs and their separate checks are linked
-from the README. Earlier study files and the manuscript are unchanged.
+For a fixed tolerance \(\varepsilon>0\), as the prescribed dense width
+increases, §4 gives sufficient learned-state counts
+\[
+\text{dense: }\Theta(n^2),\qquad
+\text{Legendre: }n^{1+o(1)},\qquad
+\text{compact: }O([\log(en)]^{3d+2}).
+\]
+These apply eventually, after the relevant certificates meet the tolerance.
+In particular, the familiar Legendre exponent \(5/4\) below concerns
+shrinking error of order \(n^{-1/2}\), not fixed error.
 
-The outstanding requested result is the general **strict-root independent-
-dense comparison**, together with any assertion that its numerical
-coefficient equals a prior unproved benchmark. The study records this as
-open rather than presenting a conditional reduction as the completed task.
+At each sufficiently large prescribed width, using the existing root-width
+choices for the compressed models gives:
+
+| Model compared with dense | Certified error | Size/order choice | Learned state | All retained model storage |
+|---|---|---|---|---|
+| Independent dense | \(n^{-1/2+o(1)}\) | Width \(n\) | \(\Theta(n^2)\) | \(\Theta(n^2)\) |
+| Legendre | At most \(Y/\sqrt n\) | \(q=n^{1/4+o(1)}\) | \(n^{5/4+o(1)}\) | \(\Theta(n^2)\), including fixed mixers |
+| Compact | \(n^{-1+o(1)}\), hence at most \(Y/\sqrt n\) eventually | Budget \(q=O([\log(en)]^{3d/2+1})\) | \(O([\log(en)]^{3d+2})\) | \(O([\log(en)]^{3d+2})\) |
+
+If the dense width may be chosen **before initialization as a function
+of accuracy**, select an eligible \(n=n(\varepsilon)\) with
+\(E_{\rm dense}(n)\le\varepsilon\) and
+\(Y/\sqrt n\le\varepsilon\), also satisfying (compact accuracy width).
+The existing results permit
+\(n(\varepsilon)=\varepsilon^{-2+o(1)}\). Each comparison then meets
+the same (accuracy target), and sufficient storage is
+
+| Model | Learned state at error \(\varepsilon\) | All retained model storage |
+|---|---|---|
+| Independent dense | \(\varepsilon^{-4+o(1)}\) | \(\varepsilon^{-4+o(1)}\) |
+| Legendre | \(\varepsilon^{-5/2+o(1)}\) | \(\varepsilon^{-4+o(1)}\), including fixed mixers |
+| Compact | \(O([\log(1/\varepsilon)]^{3d+2})\) | \(O([\log(1/\varepsilon)]^{3d+2})\) |
+
+These are asymptotic sufficient counts, not effective numerical choices
+of a confidence-certified width. They do not replace an already prescribed
+dense network by a different-width one. If a compressed model must instead
+be close to an **independent** dense run, use error budgets
+\(\varepsilon/2\) and failure budgets \(\delta/2\) for the dense-copy
+and compression comparisons. The triangle inequality gives the same
+storage powers; no independence of the comparison events is needed.
+
+For \(m\ge2\), the existing lower result also implies that canonical
+independent-dense accuracy with fixed failure probability below \(1/2\)
+requires, in the large-width regime,
+\[
+n[\log(en)]^5\gtrsim_{\phi,L,\delta}\frac{Y^2\gamma}{\varepsilon^2},
+\qquad
+\text{dense parameters}
+=\Omega\!\left(
+\frac{\varepsilon^{-4}}{[\log(1/\varepsilon)]^{10}}\right).
+\]
+This is not a lower bound against arbitrary compressed representations.
+
+Finally, compact's sharper error is already smaller than the dense lower
+scale. For Legendre, enlarge the existing root-width order by
+\([\log(en)]^{3/2}\), rounding up. Its error is then at most
+\(2Y/[\sqrt n\,\log(en)^3]\) eventually, while its learned-state
+exponent remains \(5/4+o(1)\). For compact and Legendre with these
+choices, when \(m\ge2\),
+\[
+\frac{\|f_{\rm model}-f_n\|_*}
+     {\|f_n-\widetilde f_n\|_*}
+\xrightarrow{\mathbb P}0.
+\]
+The ratio can be defined arbitrarily when the denominator is zero;
+the lower theorem makes the probability of that event tend to zero.
+This compares complete trajectory norms, not pointwise-in-time ratios or
+endpoint errors. Strict-root dense upper bounds, sharp sample/gap/dimension
+dependence, a general endpoint lower bound, and an arbitrary-\(q\) compact
+accuracy theorem remain outside the established result.
+
+## 6. Full original label range
+
+This section retains the larger, recurrence-based allowance; it is not
+an additional restriction on the explicit results above. The numerical
+objects in the next table are **local activation/depth coefficients**,
+not extra global parameters or hidden dataset constants. Their exact
+definitions are the indicated finite recurrences or Gaussian integrals.
+
+| Required component | Maximum allowed \(Ym/\gamma\) | Exact coefficient definitions |
+|---|---|---|
+| Dense fitting | \(1/(8H_D\sqrt{F_D})\) | [Dense fitting](GENERAL_EXPLICIT_FITTING.md), (2), (4) |
+| All-order Legendre fitting | \(S_*^{\rm Leg}/8\) | [Closure fitting](GENERAL_EXPLICIT_CLOSURE_FITTING.md), (1)–(2) |
+| Compact fitting | \(1/(16H_C\sqrt{F_C})\) | [Runtime fitting](EXPLICIT_COMPRESSOR_RUNTIME_FITTING.md), (5) |
+| Analytic source construction | \(S_*^{\rm src}/16\) | [Source bridge](UNBOUNDED_COMPRESSOR_BRIDGE.md), (5)–(10) |
+
+The full common label condition is
+\[
+\boxed{\quad
+0<Y\le\frac\gamma m\min\left\{
+\frac1{8H_D\sqrt{F_D}},\frac{S_*^{\rm Leg}}8,
+\frac1{16H_C\sqrt{F_C}},\frac{S_*^{\rm src}}{16}\right\}.
+\quad}
+\tag{full labels}
+\]
+The simpler (labels) implies this condition. The compact-versus-dense
+theorem itself needs only the dense, compact and source rows; the extra
+Legendre row is needed only for a common three-model statement.
+
+On this **entire original range**, with the same source-eligible widths,
+the same construction and the same probability qualification,
+\[
+\boxed{\quad
+\|f_{\rm compact,n}-f_n\|_*
+\le C\beta^{42L}Y\frac m\gamma
+\max\!\left\{1,\sqrt{\frac m\gamma}\right\}
+\frac{(1+\sqrt{\log(en)})e^{32\sqrt{\log(en)}}}{n}.
+\quad}
+\tag{full-range compact error}
+\]
+Here and in the next display, \(C\) is a universal numerical constant,
+independent of all problem parameters; it can be enlarged to be the same
+in both inequalities. In particular,
+\[
+\|f_{\rm compact,n}-f_n\|_*
+\le\frac{C\beta^{42L}Y(1+m/\gamma)^2}{\sqrt n},\qquad
+n\ge\max\{N_0(\delta),C^2\beta^{84L}Y^2(1+m/\gamma)^4
+\varepsilon^{-2}\}
+\ \Longrightarrow\ \|f_{\rm compact,n}-f_n\|_*\le\varepsilon.
+\tag{full-range accuracy}
+\]
+The second implication holds on the same probability event. No activation
+or sample/gap coefficient occurs inside the exponential, and no new label
+or comparison-width gate is imposed. The proof gives finite numerical
+constants; their conservatism is distinct from parameter dependence.
+
+For size/storage on this larger range, use the **actual original source
+coefficients**, not the beta-only envelopes of §3. Locally, let \(U,V\)
+be source (22)–(25), evaluated at \(16Ym/\gamma\), and define the
+source-rank budget
+\[
+A_n=\begin{cases}
+\displaystyle
+\frac{2^{20}9^d}{d!}\frac Ua
+\left[\min\!\left\{\frac18,\frac a{8V}\right\}\right]^{-(d-1)}
+\left(\frac{Ym}{\gamma}\right)^2[\log(en)]^{3d/2+1},&d\ge2,\\[6pt]
+\displaystyle
+8\cdot514\cdot1024\frac Ua
+\left(\frac{Ym}{\gamma}\right)^2[\log(en)]^{5/2},&d=1.
+\end{cases}
+\]
+Then the same constructed compact model has
+\[
+q=\lceil9(A_n+2m+d+1)\rceil,\qquad
+\operatorname{storage}(f_{\rm compact,n})
+\le2040(L+1)A_n^2+2040(L+1)(2m+d+1)^2+10m(d+1).
+\tag{full-range size and storage}
+\]
+These are source (35)–(37), including the dimension-one case. No extra
+coordinate is added by the sharper comparison. The logarithmic powers
+and all fixed-task compression conclusions in §5 therefore persist.
+
+For the other models on (full labels), use their recurrence-form
+certificates: [dense comparison, (37)–(44)](GENERAL_DENSE_COMPARISON.md)
+gives the same \(n^{-1/2+o(1)}\) rate, and
+[Legendre comparison, (1)–(6)](EXPLICIT_LEGENDRE_COMPARISON.md) gives
+the simultaneous-in-order error, admissibility condition and explicit
+\(q=n^{1/4+o(1)}\) schedule for error \(Y/\sqrt n\). These are
+fully specified coefficients, not the beta-only envelopes of §3 extended
+beyond their proved range. The interface in §4 is unchanged: insert those
+certificates and select an admissible order. Fixed-epsilon Legendre order
+is still \(n^{o(1)}\). Their proofs and exact coefficients remain current
+supporting derivations, not alternative results summaries.
+
+The dense lower bound also holds on (full labels). To make its constant
+explicit under (labels), define locally
+\(q_0=1\), \(q_j=\mathbb E\phi_j(\sqrt{q_{j-1}}Z)^2\), and
+\(\mu_4=\mathbb E\phi_L(\sqrt{q_{L-1}}Z)^4\), with \(Z\sim N(0,1)\).
+One may take
+\[
+c_{\phi,L,\delta}=
+\frac{\Phi^{-1}(1/2+\delta/4)}{128}\sqrt{\frac{q_L}{\mu_4}},
+\]
+where \(\Phi\) is the standard normal distribution function. On the
+larger range multiply this by the positive activation/depth-only
+coefficient in [the trajectory bridge, (18)](GENERAL_TRAJECTORY_LOWER_BRIDGE.md).
+The witnessing positive time is at most
+\(m/[\gamma\sqrt{\log(en)}]\) under (labels); on the larger range
+multiply this time bound by the same coefficient in bridge (18).
+There is no claim that it is bounded away from zero. Positive feature rank
+for \(m\ge2\) rules out
+deterministic label-weighted initialized features; a fourth-moment bound
+and time analyticity turn the initial derivative fluctuation into this
+actual-prediction lower bound. No specialized endpoint example is used.
+
+## 7. Current proof map and claim boundary
+
+The supporting proofs use local notation: their normalized gap
+\(\lambda\), or \(g\) in the dense refinement, is \(\gamma/m\).
+In the dense/Legendre refinements, \(B=\beta^{100L}\) and the activity
+abbreviation \(z\) or \(s\) is \(Ym/\gamma\). Local source ranks,
+moment indices and comparison variables are not additional model orders.
+
+| Component | Complete derivation |
+|---|---|
+| Dense upper | [Signed-energy refinement](DENSE_SAMPLE_EXPONENT_REFINEMENT.md); [general comparison](GENERAL_DENSE_COMPARISON.md) |
+| Dense lower | [General lower theorem](GENERAL_VARIABILITY_LOWER_RESULT.md), with its innovation, onset and trajectory proofs |
+| Legendre error/order | [Signed-energy refinement](LEGENDRE_SAMPLE_EXPONENT_REFINEMENT.md); [full-range coefficients](EXPLICIT_LEGENDRE_COMPARISON.md) |
+| Compact sharpened comparison | [Polynomial comparison](COMPACT_POLYNOMIAL_COMPARISON.md); [full-label-range proof](COMPACT_FULL_LABEL_RANGE.md); [source-energy lemmas](COMPACT_SOURCE_ENERGY.md) |
+| Compact construction/storage | [Source bridge](UNBOUNDED_COMPRESSOR_BRIDGE.md), (30)–(37); [source constant ledger](SIMPLE_CONSTANTS_SOURCE_CHECK.md), (14)–(15) |
+| Exact compact optimizer/fitting/endpoints | [Corrected-runtime equations and proof](EXPLICIT_COMPRESSOR_RUNTIME_FITTING.md) |
+| Current compact proof checks | [Polynomial comparison check](COMPACT_POLYNOMIAL_CHECK.md); [full-range check](COMPACT_FULL_LABEL_RANGE_CHECK.md) |
+
+The compact size budget is not an arbitrary-width approximation theorem.
+Its \(n^{-1+o(1)}\) certificate implies error \(Y/\sqrt n\)
+eventually, not with coefficient \(Y\) at every source-eligible width.
+The dense upper remains near-root; its strict-root replacement, sharp
+sample/gap/dimension dependence, a general endpoint lower bound, and a
+fully effective stochastic source width remain open. Storage counts real
+coordinates; preprocessing work, bit precision and runtime complexity
+are not claimed to improve. Internal reconstruction is not independent
+promotion review, and this integration does not modify the maintained
+book or paper.
