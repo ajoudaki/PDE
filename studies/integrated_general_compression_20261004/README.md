@@ -70,6 +70,115 @@ Numerous existing untracked studies are preserved. No Git mutation.
 
 ## Results and current proof boundary
 
+The latest request is to integrate **only general** lower results into
+the common theorem. This is done in
+[RESULT.md](RESULT.md) §6 and
+[SAMPLE_POLYNOMIAL_STATEMENT.md](SAMPLE_POLYNOMIAL_STATEMENT.md) §6.
+The complete new statement is
+[GENERAL_VARIABILITY_LOWER_RESULT.md](GENERAL_VARIABILITY_LOWER_RESULT.md).
+For every fixed admissible dataset with \(m\ge2\), arbitrary nonzero
+signed labels in the existing allowance, arbitrary fixed depth and the
+same possibly unbounded analytic activation class, the common trajectory
+norm is at least
+\(c_{\phi,L,\delta}Y\sqrt\gamma/[\sqrt n\,\log(en)^{5/2}]\)
+with any fixed eventual confidence. No orthogonality, centered covariance
+gap or additional variance hypothesis is needed. The recurrence-based
+label allowance is retained; the simpler beta cap makes its coefficient
+particularly explicit.
+
+The key new moment inequality is distribution-free:
+\(\operatorname{tr}\operatorname{Cov}(H(y^\top H))
+\ge\gamma^3q_L\|y\|^2/(16\mu_4)\).
+Positive uncentered feature rank prevents every label-weighted feature
+product from being deterministic. The initialized Gram CLT then supplies
+onset variability. A rerun of the source proof for a finite query set
+removes the spatial mesh factor from its complex-time radius. A
+Chebyshev derivative inequality converts onset into an actual-prediction
+lower bound, preserving the physical training timescale.
+
+The unchanged compact model already has error smaller than this
+lower scale. Legendre does too after multiplying the latest order by
+\(\log(en)^{3/2}\); its moving-state exponent stays \(5/4+o(1)\).
+For each fixed admissible task, both compression-error / actual-dense-
+discrepancy ratios tend to zero in probability in the same all-time,
+whole-sphere norm. This calibrates the compression against actual
+variability, without relying solely on its upper bound.
+
+Proofs: [GENERAL_INNOVATION_LOWER.md](GENERAL_INNOVATION_LOWER.md),
+[GENERAL_ONSET_NONDEGENERACY.md](GENERAL_ONSET_NONDEGENERACY.md), and
+[GENERAL_TRAJECTORY_LOWER_BRIDGE.md](GENERAL_TRAJECTORY_LOWER_BRIDGE.md).
+The quantitative moment argument was reconstructed separately by two
+scoped agents; the trajectory bridge has a separate
+[internal check](GENERAL_TRAJECTORY_LOWER_BRIDGE_CHECK.md).
+The coordinator owns the integration and final
+[consistency check](GENERAL_VARIABILITY_LOWER_CHECK.md).
+These are internal checks, not promotion reviews.
+
+The lower witness is at a training input at a positive time that can
+shrink with width; no general endpoint lower is proved. The upper and
+lower width exponents agree, but sharp sample, conditioning and dimension
+dependence remains open. One-sample deterministic exceptions and zero
+labels are expressly excluded from the positive statement. Width
+thresholds are not effective, and no joint growing-data limit is asserted.
+No experiment, manuscript/book edit, or Git-index mutation was made.
+
+The preceding, separately scoped endpoint investigation is retained in
+[ENDPOINT_LOWER_RESULT.md](ENDPOINT_LOWER_RESULT.md). It contains actual
+fixed-label fitted-endpoint results, beyond the earlier onset derivative:
+
+- Two tanh hidden layers, general correlated training data spanning a
+  proper input subspace: at any fixed orthogonal unseen query, the
+  endpoint discrepancy is at least
+  `c sqrt(y^T Q^(-1) y / n)` with a fixed positive probability.
+  The existing integrated label allowance suffices. For labels in the
+  weakest covariance direction, or all label directions on orthogonal
+  data, its scale is `Y sqrt(m/(gamma n))`; a separate fixed-query upper
+  bound matches these powers. Complete proof:
+  [TANH_ENDPOINT_VARIABILITY_LOWER.md](TANH_ENDPOINT_VARIABILITY_LOWER.md).
+- Arbitrary fixed depth with identity activations and `m<d` independent
+  inputs: an exact conditional Gaussian endpoint law yields the
+  full-sphere lower scale
+  `sqrt((d-m) y^T Q^(-1) y / n)`. For the hardest label direction,
+  matching endpoint upper/lower scales are
+  `Y sqrt(m(d-m)/(gamma n))`, with an explicit width threshold.
+  Complete proof:
+  [LINEAR_ENDPOINT_VARIABILITY_LOWER.md](LINEAR_ENDPOINT_VARIABILITY_LOWER.md).
+- A general initialized-onset-to-prediction bridge supplies actual
+  positive-time lower bounds. On orthogonal data, arbitrary fixed depth
+  and permitted odd activations, it gives
+  `c gamma Y / (sqrt(m n) log(en)^(5/2))`.
+  This is a transient near-root result, not an endpoint theorem:
+  [ONSET_TO_TRAJECTORY_LOWER.md](ONSET_TO_TRAJECTORY_LOWER.md).
+
+The tanh endpoint proof uses exactly frozen unused read-in columns, a
+finite-network covariance gap obtained from cubic products of nonlinear
+query responses, and the readout energy forced by interpolation. It does
+not assume a population comparison or use an infinitesimal-label endpoint
+approximation. The simpler independently derived identity--tanh endpoint
+argument is retained in
+[NONLINEAR_ENDPOINT_VARIABILITY_LOWER.md](NONLINEAR_ENDPOINT_VARIABILITY_LOWER.md).
+
+Checks and exact source hashes are in
+[ENDPOINT_LOWER_CHECK.md](ENDPOINT_LOWER_CHECK.md),
+[TANH_ENDPOINT_VARIABILITY_LOWER_CHECK.md](TANH_ENDPOINT_VARIABILITY_LOWER_CHECK.md),
+and
+[LINEAR_ENDPOINT_VARIABILITY_LOWER_CHECK.md](LINEAR_ENDPOINT_VARIABILITY_LOWER_CHECK.md).
+These are internal reconstructions, not promotion reviews.
+The coordinator owns the tanh proof, synthesis and check assembly;
+`merge_general_dense` authored the linear proof and reconstructed the
+tanh proof, `merge_general_legendre` authored identity--tanh and checked
+the synthesis, and `merge_unbounded_compressor` authored the onset bridge
+and reconstructed the linear proof. No experiment was run.
+
+Those endpoint lower bounds transfer to the common all-time norm because it contains
+the endpoint and every positive time. They do not make endpoint upper
+bounds time-uniform, or prove a universal positive lower bound for every
+activation/data pair. Sharp nonlinear whole-sphere dimension dependence,
+full-input-span nonlinear endpoint lower bounds, and the remaining
+general upper-bound gap are still open. The user's preceding request
+authorized this endpoint investigation. Its specialized results are not
+presented as general parts of the latest integrated theorem.
+
 The latest comparison-coefficient refinement is
 [SAMPLE_POLYNOMIAL_STATEMENT.md](SAMPLE_POLYNOMIAL_STATEMENT.md), checked
 in [SAMPLE_POLYNOMIAL_CHECK.md](SAMPLE_POLYNOMIAL_CHECK.md).

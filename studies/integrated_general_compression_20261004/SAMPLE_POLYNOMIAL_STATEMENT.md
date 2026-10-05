@@ -239,6 +239,68 @@ C B^{16/25}\frac{Y^4m^3}{\gamma^4}
 \]
 The label size in (13) is its actual value.
 
+## 6. General lower calibration of the actual dense variability
+
+For every \(m\ge2\), the same setup and label allowance imply, with
+probability at least \(1-\delta\) at each sufficiently large individual
+width,
+\[
+\boxed{
+\|f_n-\widetilde f_n\|_*
+\ge c_{\phi,L,\delta}
+       \frac{Y\sqrt\gamma}{\sqrt n[\log(en)]^{5/2}}.
+}
+\tag{14}
+\]
+The positive coefficient depends only on activation, depth and confidence.
+For an explicit choice, set \(q_0=1\),
+\(q_\ell=\mathbb E\phi_\ell(\sqrt{q_{\ell-1}}Z)^2\) for \(Z\sim N(0,1)\).
+With \(\Phi\) the standard normal distribution function, one may use
+\[
+c_{\phi,L,\delta}
+=\frac{\Phi^{-1}(1/2+\delta/4)}{128}
+\left[\frac{q_L}
+{\mathbb E\phi_L(\sqrt{q_{L-1}}Z)^4}\right]^{1/2}.
+\]
+There is no extra hypothesis on sample correlations, label signs, or
+activation centering. The success-width threshold may depend on all
+fixed problem parameters and is unquantified. It can be incorporated
+into the existing \(N_0(\delta)\) for joint conclusions.
+
+The proof forces a fluctuation at some training query and some time
+\(0<t\le m/[\gamma\sqrt{\log(en)}]\). Its query index is deterministic;
+the witnessing time may depend on the run. It is an actual nonlinear
+prediction lower bound, but is transient. All fitted training values
+equal their labels, and no general endpoint lower is claimed.
+Initial predictor values are identically zero.
+
+For calibration to this lower bound, the compact model is unchanged:
+its sharper raw comparison, RESULT.md (6), is \(n^{-1+o(1)}\).
+For Legendre choose
+\[
+q'_n=\lceil q_n[\log(en)]^{3/2}\rceil
+\]
+using (5). Equation (6) yields error at most
+\(2Y/[\sqrt n\,\log(en)^3]\) eventually.
+Both errors are smaller than (14)'s scale, and therefore
+\[
+\frac{\|f_C-f_n\|_*}{\|f_n-\widetilde f_n\|_*}
+\xrightarrow{\mathbb P}0,\qquad
+\frac{\|f_{n,q'_n}-f_n\|_*}{\|f_n-\widetilde f_n\|_*}
+\xrightarrow{\mathbb P}0
+\tag{15}
+\]
+for each fixed admissible dataset. Compact storage (11) is unchanged.
+The exact Legendre moving count is (8) with \(q'_n\), retaining exponent
+\(n^{5/4+o(1)}\); fixed mixers remain additional.
+
+Thus comparison to a loose dense upper bound is no longer the only
+support for the width-asymptotic compression statement. The general
+proofs and scope are in
+[GENERAL_VARIABILITY_LOWER_RESULT.md](GENERAL_VARIABILITY_LOWER_RESULT.md)
+and its linked internal check. Special activation or input-geometry
+endpoint examples are not used.
+
 ## Exact remaining scope limitations
 
 - Dense-copy strict \(C/\sqrt n\) concentration is still open.
@@ -246,7 +308,11 @@ The label size in (13) is its actual value.
   not known to have polynomial dependence on sample count or geometry.
 - Exponential sample/gap dependence remains in the compact construction's
   displayed comparison threshold and its separate source gate.
-- No matching full-prediction or endpoint variability lower bound is added.
+- The width powers in the general lower (14) and upper (4) agree up to
+  logarithmic/subpolynomial losses. Sharp \(m,d,\gamma\) dependence and
+  a general fitted-endpoint lower remain unresolved. A positive lower
+  for every one-sample task is false in the allowed class: a constant
+  final activation can give a positive gap but deterministic predictions.
 - Fixed positive \(Y,\gamma,B\) and (1) do not permit \(m\to\infty\);
   the fixed-data width limit must not be promoted to a joint growing-data
   theorem.

@@ -8,6 +8,17 @@ retaining actual Y. It also sharpens, but does not remove, the compact
 comparison's exponential width threshold. The common model and the
 strict-root/probability limitations below remain unchanged.
 
+The general lower calibration is now part of §6. For every fixed
+admissible dataset with at least two samples and nonzero labels, actual
+dense-copy variability is at least
+\(c_{\phi,L,\delta}Y\sqrt\gamma/
+[\sqrt n\,\log(en)^{5/2}]\) with the specified eventual confidence.
+It applies to the same general activation and geometry class.
+The unchanged compact construction and a logarithmically enlarged
+Legendre order have error asymptotically below that actual variability.
+This validates the width exponent of the compression comparison; it
+does not settle sharp sample dependence or general endpoint variability.
+
 2026-10-04. This is the entry point for the new, user-authorized merged
 study. The requested program is **not completely resolved**: the compact
 and Legendre comparisons have strict root-width conclusions, while the
@@ -303,40 +314,129 @@ probability tends to one. The numerical deterministic threshold alone
 does not certify a chosen confidence. See the confidence audit in
 [SIMPLE_EXPLICIT_STATEMENT.md](SIMPLE_EXPLICIT_STATEMENT.md).
 
-The ancillary lower calibration is complete in
-[EARLY_VARIABILITY_AND_STORAGE.md](EARLY_VARIABILITY_AND_STORAGE.md).
-Initial predictions are exactly zero. For one query, the difference of
-initial time derivatives satisfies
+For \(m\ge2\) and \(Y>0\), the general lower theorem is
 \[
-\sqrt n[\dot f_n(0,v)-\dot{\widetilde f}_n(0,v)]
-\ \Longrightarrow\quad
-N\!\left(0,\frac8{m^2}\sum_{a,b}y_a C_{L,va,vb}y_b\right).
+\boxed{
+\|f_n-\widetilde f_n\|_*
+\ge c_{\phi,L,\delta}
+       \frac{Y\sqrt\gamma}{\sqrt n\,\log(en)^{5/2}},
+\qquad n\ge N_{\rm lower}(\delta),
+}
 \tag{13}
 \]
-This specifies the limiting Gaussian law, not convergence of finite-width
-variances.
-The covariance \(C_L\) is computed by that note's explicit Gaussian
-innovation/derivative recursion (3)–(7). The resulting positive Gaussian
-quantiles give a root-width onset calibration when this variance is
-nonzero. It can vanish even with positive \(\gamma\), and it supplies
-no fixed-label endpoint lower bound. It also needs a scale-uniform Taylor
-remainder to become a lower bound for (2); this is not silently assumed.
+with probability at least \(1-\delta\) at each individual width.
+The positive coefficient depends only on activations, depth and confidence,
+not on \(m,d,\gamma,Y,n\) or time. The finite threshold may depend on
+all fixed problem parameters and is not currently effective. This lower
+theorem retains (3)'s full recurrence-based label allowance and the same
+general geometry and unbounded-value activation class as §§1–5.
+There is no orthogonality or additional variance assumption.
+
+For its coefficient, use the scalar moments \(q_\ell\) already defined
+in §2 and put
+\(\mu_4=\mathbb E\phi_L(\sqrt{q_{L-1}}Z)^4\), \(Z\sim N(0,1)\).
+Under the already proved simpler sufficient cap
+\(Y\le(\gamma/m)\beta^{-30L}\), one may take
+\[
+c_{\phi,L,\delta}
+=\frac{\Phi^{-1}(1/2+\delta/4)}{128}
+       \sqrt{\frac{q_L}{\mu_4}},
+\tag{14}
+\]
+where \(\Phi\) is the standard normal distribution function and \(\beta\)
+is defined in SAMPLE_POLYNOMIAL_STATEMENT.md. In the full range (3),
+multiply (14) by the positive activation/depth-only coefficient (18) of
+[GENERAL_TRAJECTORY_LOWER_BRIDGE.md](GENERAL_TRAJECTORY_LOWER_BRIDGE.md).
+Thus the larger label scope is retained, with no data hidden in this
+coefficient.
+
+The mechanism is a distribution-free inequality. If \(H\) is one
+initialized top-feature vector over the \(m\) training samples and
+\(Q=\mathbb E HH^\top=Q^L\succ0\), then
+\[
+\operatorname{tr}\operatorname{Cov}\{H(y^\top H)\}
+\ge\frac{\gamma^3q_L}{16\mu_4}\|y\|^2.
+\]
+Zero variance would force \(H\) to lie on one fixed line, contradicting
+the positive gap for \(m\ge2\). Fourth-moment truncation makes this
+obstruction quantitative. The initialized Gram CLT then forces a
+nonzero onset derivative fluctuation at some training input.
+A finite-query complex-time source argument and polynomial derivative
+inequality turn it into (13) for actual nonlinear predictions. The
+proof does not estimate the difference by a width-independent
+\(O(Y^3)\) remainder.
+
+The witnessing positive time is at most
+\(c_{\phi,L}m/[\gamma\sqrt{\log(en)}]\); it may depend on width and
+the initialization. This is a transient lower bound in norm (2).
+It is not an endpoint lower bound: at the training query used in the
+proof, both fitted predictors equal the prescribed label. Initial
+predictions themselves are exactly zero. For \(m=1\), a nonzero
+constant last activation gives a positive uncentered gap and zero
+variability at all times; the exact one-sample exceptions are stated
+separately. No such exception remains for \(m\ge2,\gamma>0,Y>0\).
+
+The complete general statement, proofs and exact limitations are in
+[GENERAL_VARIABILITY_LOWER_RESULT.md](GENERAL_VARIABILITY_LOWER_RESULT.md),
+[GENERAL_INNOVATION_LOWER.md](GENERAL_INNOVATION_LOWER.md), and the
+trajectory bridge linked above. The bridge has a separate
+[internal reconstruction](GENERAL_TRAJECTORY_LOWER_BRIDGE_CHECK.md).
+No special tanh, identity, low-rank-input or orthogonal-data endpoint
+result is used in this general integration.
+
+The exponent \(1/2\) in width is now calibrated from both sides, up to
+the stated logarithmic/subpolynomial losses. Sharp \(m,\gamma,d\)
+dependence remains unresolved: (13) supplies a general floor, not a
+matching justification for the sample/gap powers in the upper bound.
+The statement is for fixed datasets as width grows, not a uniform
+growing-sample limit.
 
 At fixed problem parameters, the sufficient accuracy-to-storage powers
 obtained from the proved upper bounds are:
 
-| Representation | Resource counted | Upper-bound-calibrated size as accuracy \(\varepsilon\downarrow0\) |
+| Representation | Resource counted | Sufficient size as accuracy \(\varepsilon\downarrow0\) |
 |---|---|---|
 | Dense | all parameters | \(\varepsilon^{-4+o(1)}\), using the proved near-root independent-copy bound |
 | Legendre | moving coordinates | \(\varepsilon^{-5/2+o(1)}\); initialized mixers remain additional |
 | Compact autonomous model | all retained coordinates | \(O(\log^{3d+2}(1/\varepsilon))\), with (4)–(5)'s actual \(Y\) and other fixed-parameter coefficients |
 
-The compact and Legendre error contributions can each be chosen below
-the proved independent-dense upper bound by their own explicit parameters.
-This is an **upper-bound calibration**, not a theorem that compression
-error is below the actual intrinsic variance of every task. If the strict
-independent-dense target were proved, its sufficient dense count would
-be \(O(\varepsilon^{-4})\); that improvement is not claimed here.
+For every fixed admissible task with \(m\ge2\), the compact comparison
+(6) is \(n^{-1+o(1)}\), hence smaller than (13)'s scale. For Legendre,
+multiply §4's explicit order \(q_n\) by \(\log(en)^{3/2}\), rounding
+up, and call the result \(q'_n\). Under the simpler beta label cap,
+use the sharper \(q_n\) in SAMPLE_POLYNOMIAL_STATEMENT.md (5) instead.
+Either simultaneous-in-order estimate gives
+\[
+\|f_{n,q'_n}-f_n\|_*
+\le\frac{2Y}{\sqrt n\,\log(en)^3}
+\]
+eventually. Its moving-state exponent is still \(5/4+o(1)\).
+Consequently the actual-noise comparisons are
+\[
+\boxed{
+\frac{\|f_C-f_n\|_*}{\|f_n-\widetilde f_n\|_*}
+ \xrightarrow{\mathbb P}0,\qquad
+\frac{\|f_{n,q'_n}-f_n\|_*}{\|f_n-\widetilde f_n\|_*}
+ \xrightarrow{\mathbb P}0.
+}
+\tag{15}
+\]
+These statements compare the common trajectory norm, not the error
+ratio at each time or at the endpoint. They require no independence
+between comparison events. Compact storage and the accuracy-to-storage
+powers in the table are unchanged; Legendre has the stated additional
+logarithmic order factor. Thus the width-asymptotic compression benefit
+does not rely only on a potentially loose dense upper bound.
+
+Conversely, in the large-width regime, requiring independent dense-copy
+discrepancy at most \(\varepsilon\) with fixed failure probability
+less than one half forces
+\(n\log(en)^5\gtrsim_{\phi,L,\delta}Y^2\gamma/\varepsilon^2\).
+At fixed task this gives necessary canonical dense parameter count
+\(\Omega(\varepsilon^{-4}/\log(1/\varepsilon)^{10})\), alongside the
+sufficient \(\varepsilon^{-4+o(1)}\) count. It is not a lower bound
+against arbitrary alternative representations or bit encodings.
+The general strict-root dense upper bound remains open.
 
 The exact inversion formulas, confidence allocations, and all-retained
 versus moving-state distinctions are in the ancillary note. Exact-real
