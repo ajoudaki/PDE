@@ -1,4 +1,12 @@
-# General dense, Legendre and compact comparison
+# General dense, Legendre and Harmonic comparison
+
+<!-- method-names:start -->
+The current method names are **Legendre compression** and **Harmonic
+compression**. The latter was previously called “compact”; the
+construction, notation for proof-local coefficients, and results are
+unchanged. Historical supporting notes and audit filenames retain their
+original names for traceability.
+<!-- method-names:end -->
 
 ## Single current document
 
@@ -7,9 +15,10 @@ proofs in four layers:
 
 1. Harmonized headline forward and inverse interfaces.
 2. Unsuppressed numerical statements, coefficient recurrences, exact
-   storage inventories, and centralized label/width/confidence conditions.
+   storage inventories, centralized label/width/confidence conditions,
+   and separately qualified initialization/training/query costs.
 3. All specialized proofs, including the shared source foundation and
-   compression construction dependencies.
+   compression construction dependencies and computational-cost derivations.
 4. Internal audit record, source provenance and explicit limitations.
 
 No other note is needed to assemble the mathematical theorem. Earlier
@@ -35,24 +44,38 @@ recurrence label allowance is preserved, alongside its simpler sufficient
 activation-power specialization. Structural parameters remain distinct.
 
 The forward interface takes dense width and model order/budget as inputs.
-Legendre permits every positive integer order. Compact takes a supplied
+Legendre permits every positive integer order. Harmonic takes a supplied
 per-layer neuron budget, has a decreasing error certificate with no floor,
-and retains exact-initialization overhead. Full-width compact selection
+and retains exact-initialization overhead. Full-width Harmonic selection
 is exactly dense. The inverse interface takes accuracy and confidence as
 inputs and chooses dense width or compressed order; its prescriptions are
 sufficient certificate inversions, not minimax optimality claims.
 
-Compact means the corrected-readout autonomous optimizer, not ordinary
+Harmonic means the corrected-readout autonomous optimizer, not ordinary
 gradient flow on an arbitrary smaller network. Finite initial jets,
 quadratures, source degrees, and original-width arrays are setup objects,
 not additional retained runtime orders. The construction does not require
 an observed dense training trajectory.
 
 Storage counts real coordinates. Legendre's moving state and fixed
-quadratic mixers are reported separately. Compact's all-retained inventory
+quadratic mixers are reported separately. Harmonic's all-retained inventory
 includes metrics, fixed copies, data and specified solve caches.
-Preprocessing work, runtime, numerical-integration work and bit precision
-are not bounded by these storage results.
+Storage alone does not bound preprocessing or runtime. The separate
+[computational-cost interface](RESULT.md#computational-costs) now gives
+arithmetic work and peak memory for warmup, a full-batch training stage,
+and a single inference-ready query. Query memory is additional workspace;
+warmup/training memory is total resident peak. Fixed-stage numerical steps,
+activation routines, Gaussian sampling and readout-cache refresh are
+qualified explicitly. Numerical-integration accuracy and bit complexity
+remain outside these results.
+
+The forward cost interface uses supplied orders only. Harmonic warmup
+exposes the initial-jet order, temporal and spatial degrees, both
+quadrature node counts, source rank, and activation-series backend.
+Factored jets, streamed projections and matrix-free update-Gram actions
+avoid unnecessary dense derivative tensors and cubic hidden-matrix
+operations. The inverse tables substitute only the established inverse
+width/order choices; they do not claim a polylogarithmic warmup theorem.
 
 ## Headline consequences
 
@@ -62,10 +85,10 @@ for at least two samples and nonzero labels, a general lower rate
 prediction difference, not a fitted-endpoint lower bound.
 
 At root-width accuracy, Legendre uses \(n^{5/4+o(1)}\) moving coordinates
-in addition to fixed quadratic mixers. Compact retains
+in addition to fixed quadratic mixers. Harmonic retains
 \(O(\log(en)^{3d+2})\) real coordinates, and can achieve
 \(n^{-1+o(1)}\) error with that same qualitative storage order.
-The compact error amplification has only numerical coefficients inside
+The Harmonic error amplification has only numerical coefficients inside
 its growing exponential; sample/gap and activation-depth factors remain
 polynomial outside it.
 
@@ -73,8 +96,13 @@ At a common reference width chosen for accuracy \(\varepsilon\), the
 fixed-problem sufficient learned-storage rates are
 \(\varepsilon^{-4+o(1)}\) for dense,
 \(\varepsilon^{-5/2+o(1)}\) for Legendre, and
-\(O(\log(1/\varepsilon)^{3d+2})\) for compact.
+\(O(\log(1/\varepsilon)^{3d+2})\) for Harmonic.
 RESULT retains the full separate structural factors and qualifications.
+At these inverse choices, fixed dense mixers still dominate Legendre's
+total arithmetic and peak resident storage. Harmonic's per-stage and
+inference arithmetic has the same polylogarithmic order as its retained
+storage under the stated scalar-evaluation convention, but its warmup
+continues to depend explicitly on the setup resolutions.
 
 ## Fresh internal audits
 
@@ -82,15 +110,30 @@ RESULT retains the full separate structural factors and qualifications.
 |---|---|
 | Dense fitting, comparison, variability, confidence and inversion | [Dense](INTEGRATED_DENSE_AUDIT.md) |
 | Shared source, Legendre and all-time extension | [Source/Legendre](INTEGRATED_SOURCE_LEGENDRE_AUDIT.md) |
-| Compact construction, cancellation, supplied-budget and inverse bounds | [Compact](INTEGRATED_COMPACT_AUDIT.md) |
+| Harmonic construction, cancellation, supplied-budget and inverse bounds | [Harmonic](INTEGRATED_COMPACT_AUDIT.md) |
 | Final headline/exact/proof interfaces | [Assembly](INTEGRATED_ASSEMBLY_AUDIT.md) |
 
 The reviewers used separately scoped full frozen inputs. Dense and
-compact local verdicts explicitly inherit the source theorem; its proof
+Harmonic local verdicts explicitly inherit the source theorem; its proof
 received a separate reconstruction. The assembly audit is an interface
 audit, not a replacement for those proof checks. The audit-requested
 source-family definition, all-time bridge, and notation corrections were
 included and rechecked. Reports record exact version bindings.
+
+<!-- method-names:start -->
+The naming-only update is checked separately in
+[TERMINOLOGY_UPDATE_CHECK.md](TERMINOLOGY_UPDATE_CHECK.md), which binds
+the rename-only snapshot to the original audited version. The original
+audit reports are unchanged; their old hashes are not presented as hashes
+of the subsequent cost-extended document.
+<!-- method-names:end -->
+
+The subsequent cost addition has its own scoped derivation/review and
+reproducibility record in
+[COMPUTATIONAL_COST_CHECK.md](COMPUTATIONAL_COST_CHECK.md).
+[cost_algebra_check.py](cost_algebra_check.py) checks the finite-dimensional
+execution identities. These checks do not rerun the full analytic theorem
+audits or establish floating-point stability.
 
 The required canonical-notation skill was inaccessible with permission
 denied. The supplied presentation instructions, maintained notation
@@ -100,7 +143,9 @@ audits, not promotion reviews.
 
 Mechanical checks cover mathematical delimiters, equation tags, explicit
 anchors, local links, control characters and scoped whitespace validation.
-No full Markdown/TeX render or numerical training experiment was run.
+Deterministic numerical algebra checks cover the added execution identities.
+No full Markdown/TeX render, timing benchmark or numerical training experiment
+was run.
 
 ## Remaining limitations
 
@@ -115,8 +160,17 @@ Sharp sample/gap/dimension dependence, a general endpoint variability
 lower bound, a strict-root general dense upper, effective stochastic
 widths, and optimal compression among arbitrary representations remain
 open. Fixed-problem exponents are not simultaneous growing-data theorems.
+Efficient certified setup orders, numerical conditioning, working precision
+and the number of training steps are not supplied by the cost tables.
 
 This update modifies only the integrated study. The user authorized committing
 its completed changes on 2026-10-06. No book promotion or paper modification
 is included. Concurrent changes in other studies and Quarto maintenance are
 outside the commit scope.
+
+<!-- method-names:start -->
+The method-name update is editorial. The subsequent user-requested cost
+addition is a separate execution analysis, not a change to the prediction
+error theorem or its assumptions. Both belong to this scoped study update;
+neither changes the maintained book, paper, or other studies.
+<!-- method-names:end -->

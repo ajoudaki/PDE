@@ -1,4 +1,10 @@
-# Dense, Legendre and compact models: integrated statements and proofs
+# Dense, Legendre and Harmonic models: integrated statements and proofs
+
+<!-- method-names:start -->
+The two methods are named **Legendre compression** and **Harmonic
+compression**. Harmonic compression is the method called “compact” in
+earlier proof and audit records; only its name has changed.
+<!-- method-names:end -->
 
 2026-10-06. This is the current integrated research document. It contains
 the headline interfaces, the unsuppressed numerical statements, and the
@@ -7,7 +13,7 @@ labelled headline layer. They are not definitions of the exact
 certificates. The detailed layer gives finite formulas for every
 deterministic error/storage coefficient and additional width gate.
 
-The one quantitative limitation inherited from the theorems is stated at
+An inherited quantitative limitation of the theorems is stated at
 the outset: the stochastic sufficient-width threshold is existential,
 not numerically evaluated. Restating the result cannot manufacture an
 effective \(n(\delta)\). Each fixed confidence is reached at each
@@ -17,8 +23,8 @@ success over infinitely many independently initialized widths.
 **Navigation.**
 
 - [I. Headline results](#headline-results): the canonical forward and inverse interfaces.
-- [II. Detailed statements](#detailed-statements): exact coefficients, storage and qualifications.
-- [III. Proofs](#integrated-proofs): initialization, source estimates, dense comparison and variability, and both compressions.
+- [II. Detailed statements](#detailed-statements): exact coefficients, storage, qualifications and [computational costs](#computational-costs).
+- [III. Proofs](#integrated-proofs): initialization, source estimates, dense comparison and variability, both compressions and [cost derivations](#computational-cost-proofs).
 - [IV. Audit and provenance](#integrated-audit): checks, source versions and remaining limitations.
 
 This is an internal research consolidation, not promotion to the maintained
@@ -34,7 +40,7 @@ The structural parameters remain separate: dense width \(n\), sample count
 \(m\), input dimension \(d\), and hidden depth \(L\ge2\). Inputs satisfy
 \(\|x_a\|_2=\sqrt d\), and labels are arbitrary fixed real numbers.
 The only compressed-model size/order symbol is \(q\): Legendre memory
-order or compact per-layer neuron budget. The remaining global numerical
+order or Harmonic per-layer neuron budget. The remaining global numerical
 symbols are label RMS \(Y\), feature gap \(\gamma\), activation envelope
 \(\beta\), failure probability \(\delta\), target accuracy \(\varepsilon\),
 and a generic numerical constant \(C\). Different occurrences of \(C\)
@@ -78,7 +84,7 @@ sufficient cap
 \tag{labels}
 \]
 The larger original recurrence allowance is retained explicitly at the
-start of [Part II](#detailed-statements). The compact forward theorem and its new beta-only storage envelope
+start of [Part II](#detailed-statements). The Harmonic forward theorem and its new beta-only storage envelope
 hold on that entire larger range. Zero labels give the stationary zero
 predictor and exact constant-zero compression separately.
 
@@ -96,7 +102,7 @@ problem there is a finite width threshold, depending on all its parameters
 and \(\delta\), above which the stated comparisons hold jointly with
 probability at least \(1-\delta\). It includes inherited source/initialization
 gates, the lower theorem's eventual threshold when used, and the explicit
-[analytic-tail and construction gates](#compact-storage-count). Its stochastic part
+[analytic-tail and construction gates](#harmonic-storage-count). Its stochastic part
 remains unquantified. This concerns each individual width, not one event
 over infinitely many independent initializations. Split failure budgets
 for joint statements. The same event works for every permitted order/budget
@@ -107,7 +113,7 @@ failure-rate formula. Multiplying storage by a fixed constant is not
 claimed to produce exponential confidence amplification.
 
 **Model domains.** Legendre permits every integer \(q\ge1\), with no
-separate accuracy-order condition. The compact family permits every
+separate accuracy-order condition. The Harmonic family permits every
 integer budget \(q\ge18(2m+d+9)\), abbreviated \(q\ge C(m+d)\)
 in the headline counts only. This is exact-initialization overhead:
 positive training Gram forces top width at least \(m\), and exact
@@ -116,26 +122,28 @@ For \(q\ge n\), the full selected space gives exact agreement with dense.
 
 ### Forward interface: supplied size/order gives storage and error
 
-Storage counts real coordinates, not bits, preprocessing work or runtime.
+Storage counts real coordinates, not bits. The separate
+[computational-cost section](#computational-costs) reports initialization,
+per-stage training and single-query costs; storage alone is not a runtime bound.
 For \(n\ge d\), the clean counts are:
 
 | Model | Learned state | All retained model storage |
 |---|---:|---:|
 | Dense | \(O(Ln^2)\) | \(O(Ln^2)\) |
 | Legendre | \(O(n[d+Lmq])\) | \(O(Ln^2+Lmnq)\) |
-| Compact | \(O(Lq^2)\) | \(O(Lq^2)\) |
+| Harmonic | \(O(Lq^2)\) | \(O(Lq^2)\) |
 
 Before simplification, the exact dense moving count is
 \((L-1)n^2+n(d+1)\), the Legendre count is
-\(n(d+1)+1+2(L-1)mnq\), and compact has at most
+\(n(d+1)+1+2(L-1)mnq\), and Harmonic has at most
 \((L-1)q^2+q(d+1)+m\). Legendre additionally retains
 \((L-1)n^2\) fixed mixers; reconstructed matrices are evaluation objects.
-Compact includes metrics, fixed copies, residual coordinates, data and
+Harmonic includes metrics, fixed copies, residual coordinates, data and
 solve caches. Original-width source arrays and jets are discarded.
 Ordinary data storage is additional for the dense/Legendre model-state
 counts if retained.
 
-Legendre uses its original residual-RMS clock and prefixes. Compact uses
+Legendre uses its original residual-RMS clock and prefixes. Harmonic uses
 the corrected-readout autonomous optimizer, not ordinary gradient flow
 on an arbitrary smaller network. All hidden arrays train. Neither has
 a second independent runtime approximation order.
@@ -184,18 +192,18 @@ below it use the all-order fitting/predictor bound. Retaining the small
 label powers shows that the same coefficient covers both regions.
 No second error term or accuracy-order gate is needed on the explicit cap.
 
-#### Compact versus its realized dense reference
+#### Harmonic versus its realized dense reference
 
-For every compact budget in the shared model domain,
+For every Harmonic budget in the shared model domain,
 \[
 \begin{split}
-\|f_{\mathrm{compact},n,q}-f_n\|_*
+\|f_{\mathrm{Harm},n,q}-f_n\|_*
 \le{}&C\beta^{CL}Y\frac m\gamma
 \left(1+\sqrt{\frac m\gamma}\right)n e^{C\sqrt{\log(en)}}\\
 &\times\exp\left[-\frac{\sqrt d}{C\beta^{CL}}
 \left(\frac{q}{(Ym/\gamma)^2\log(en)^{d/2}}\right)^{1/(d+1)}\right].
 \end{split}
-\tag{compact forward}
+\tag{Harmonic forward}
 \]
 This is a genuine decreasing certificate in supplied \(q\). The construction
 takes \(n,q\) as inputs; its internal source tolerance and horizon are
@@ -253,6 +261,14 @@ e^{C\sqrt{\log(e/\varepsilon)}}\right\rceil,
 \qquad \text{storage}=O(Ln^2).
 \tag{dense inverse}
 \]
+Its all-retained model storage has the explicit sufficient envelope
+\[
+\operatorname{storage}(\widetilde f_n)\le
+CL\beta^{CL}Y^4d^2\left(1+\frac m\gamma\right)^{20}
+\varepsilon^{-4}\log(e/\varepsilon)^4
+e^{C\sqrt{\log(e/\varepsilon)}}.
+\tag{dense inverse storage}
+\]
 This is eventual as \(\varepsilon\downarrow0\): the selected width must
 exceed the common threshold. It is not a fully effective confidence-certified
 width, because the stochastic source threshold is unquantified. It selects
@@ -284,7 +300,7 @@ Keeping the two logarithms also keeps the coefficient uniform in the
 fixed polynomial accuracy exponent; replacing them by \(\log(en)^2\)
 would hide a constant depending on that exponent.
 
-#### Compact: choose width budget for the given reference
+#### Harmonic: choose width budget for the given reference
 
 Inverting its stretched-exponential certificate gives
 \[
@@ -292,16 +308,16 @@ q=\left\lceil C(m+d)+
 \frac{\beta^{C(d+1)L}}{d^{(d+1)/2}}
 \left(\frac{Ym}{\gamma}\right)^2
 \log(en)^{d/2}\log(en/\varepsilon)^{d+1}\right\rceil.
-\tag{compact inverse}
+\tag{Harmonic inverse}
 \]
 The corresponding all-retained bound, hence also the learned-state bound, is
 \[
-\operatorname{storage}(f_{\mathrm{compact},n,q})
+\operatorname{storage}(f_{\mathrm{Harm},n,q})
 \le CL(m+d)^2+
 \frac{L\beta^{C(d+1)L}}{d^{d+1}}
 \left(\frac{Ym}{\gamma}\right)^4
 \log(en)^d\log(en/\varepsilon)^{2d+2}.
-\tag{compact inverse storage}
+\tag{Harmonic inverse storage}
 \]
 There is no factorial ratio: Stirling bounds
 \((d+3)^d/(d!)^2\) by \(C^{d+1}/d^{d+1}\), and numerical powers are
@@ -315,7 +331,7 @@ logarithm from the forward certificate: replace
 \[
 \log(en)+\log\left(e+
 \frac{C\beta^{CL}Y(m/\gamma)(1+\sqrt{m/\gamma})}{\varepsilon}\right).
-\tag{compact inverse logarithm}
+\tag{Harmonic inverse logarithm}
 \]
 Enlarging numerical constants absorbs \(\sqrt{\log(en)}\).
 If the sufficient budget exceeds \(n\), the exact full-width branch
@@ -323,7 +339,49 @@ suffices instead. The exact inverse in the proof also handles targets
 already met by the initialization-only model. These are internal choices
 of one width budget, not extra runtime orders.
 
-### Common accuracy-to-storage corollary
+<a id="cost-inverse-interface"></a>
+#### Costs at the prescribed inverse widths/orders
+
+In the next table, \(n\) and \(q\) mean the corresponding prescribed
+inverse choices above (or their exact Part II versions), not new
+optimized quantities. Write \(P=(L-1)n^2+n(d+1)\) only as a
+cost-count abbreviation. The explicit Harmonic warmup envelopes
+\(\mathcal T_{\rm H},\mathcal M_{\rm H}\) are defined in
+[Part II](#harmonic-warmup-cost); evaluate them at that \(n,q\)
+and at supplied, accuracy-certified \(K,p,J,N_x,N_t\).
+No choice of those internal resolutions, or efficient bound on them,
+is inferred merely from the inverse choice of \(q\).
+
+The table counts classical arithmetic, with scalar activation work
+and Gaussian sampling charged as specified in the
+[cost contract](#computational-costs). Training is one full-batch
+vector-field stage, or one fixed-stage explicit step up to its fixed
+stage multiplier. Warmup/training memory is total peak resident
+memory; query memory is additional peak workspace for an already
+loaded, inference-ready model.
+
+| Model and operation | Arithmetic work after the indicated inverse substitution | Peak memory |
+|---|---:|---:|
+| Dense warmup | \(O(P)\), plus Gaussian draws | \(O(P+m(d+1))\) |
+| Dense training stage | \(O(mP)\) | \(O(P+Lmn+m(d+1))\) |
+| Dense query | \(O(P)\) | \(O(n)\) additional |
+| Legendre warmup | \(O(mP+Lmnq)\), plus Gaussian draws | \(O(P+Lmnq+m(d+1))\) |
+| Legendre training stage | \(O(mP+Lnm^2q+Lnmq)\) | \(O(P+Lnmq+m(d+1))\) |
+| Legendre query | \(O(P+Lnmq)\) | \(O(n)\) additional |
+| Harmonic warmup | \(O(\mathcal T_{\rm H})\), plus Gaussian draws | \(O(\mathcal M_{\rm H})\) |
+| Harmonic training stage | \(O(Lmq^2+m^3)\) | \(O(Lq^2)\) |
+| Harmonic query | \(O(Lq^2)\) | \(O(q)\) additional |
+
+The full-width exact fallback uses the dense row. Legendre rows use
+streamed correction factors and cumulative moment prefixes. Harmonic
+rows use fixed metric inverse caches, the necessary moving
+feature-Gram solve and a refreshed effective-readout cache. Cache
+refresh is charged to training/model preparation, not hidden in the
+single-query bound. These are sufficient implementation costs, not
+time-optimal algorithms or numerical-step accuracy guarantees.
+
+<a id="main-compression-consequences"></a>
+### Common accuracy-to-storage and computational-cost corollary
 
 Fix data, activations, \(m,d,L,Y,\gamma\), and confidence. Choose the dense
 reference before initialization to meet its own target:
@@ -334,13 +392,43 @@ Apply the two inverse orders at this same reference width:
 |---|---:|---:|
 | Independent dense | \(\varepsilon^{-4+o(1)}\) | \(\varepsilon^{-4+o(1)}\) |
 | Legendre | \(\varepsilon^{-5/2+o(1)}\) | \(\varepsilon^{-4+o(1)}\), including fixed mixers |
-| Compact | \(O(\log(1/\varepsilon)^{3d+2})\) | \(O(\log(1/\varepsilon)^{3d+2})\) |
+| Harmonic | \(O(\log(1/\varepsilon)^{3d+2})\) | \(O(\log(1/\varepsilon)^{3d+2})\) |
 
 These powers do not suppress growing structural parameters in the explicit
 bounds above. They are sufficient counts, not minimax storage lower bounds
 or a growing-data theorem. For comparison against an independent dense run,
 split accuracy and failure budgets between dense variability and compression;
 the triangle inequality gives the same exponents without event independence.
+
+<a id="cost-common-consequences"></a>
+At these same choices, the cost comparison is:
+
+| Model and operation | Work | Peak memory |
+|---|---:|---:|
+| Dense warmup | \(\varepsilon^{-4+o(1)}\) | \(\varepsilon^{-4+o(1)}\) |
+| Dense training stage | \(\varepsilon^{-4+o(1)}\) | \(\varepsilon^{-4+o(1)}\) |
+| Dense query | \(\varepsilon^{-4+o(1)}\) | \(\varepsilon^{-2+o(1)}\) additional |
+| Legendre warmup | \(\varepsilon^{-4+o(1)}\) | \(\varepsilon^{-4+o(1)}\) |
+| Legendre training stage | \(\varepsilon^{-4+o(1)}\) | \(\varepsilon^{-4+o(1)}\) |
+| Legendre query | \(\varepsilon^{-4+o(1)}\) | \(\varepsilon^{-2+o(1)}\) additional |
+| Harmonic warmup | \(O(\mathcal T_{\rm H})\), with all setup orders retained | \(O(\mathcal M_{\rm H})\), with all setup orders retained |
+| Harmonic training stage | \(O(\log(1/\varepsilon)^{3d+2})\) | \(O(\log(1/\varepsilon)^{3d+2})\) |
+| Harmonic query | \(O(\log(1/\varepsilon)^{3d+2})\) | \(O(\log(1/\varepsilon)^{3d/2+1})\) additional |
+
+Here the warmup envelopes are evaluated at
+\(n=\varepsilon^{-2+o(1)}\) and the Harmonic inverse width
+\(q=O(\log(1/\varepsilon)^{3d/2+1})\), with its other setup
+resolutions still explicit. No epsilon-only warmup rate has been
+established. In the stated resident-dense implementation, warmup
+already holds \(P=\varepsilon^{-4+o(1)}\) dense coordinates;
+it is not polylogarithmic merely because the retained model is.
+All asymptotic rows fix the dataset, depth, dimension, activations
+and confidence and use unit-cost scalar evaluation/sampling.
+The more general arithmetic-plus-oracle-call qualification is in
+Part II. There is no bound here on numerical precision or the number
+of training steps. Legendre's smaller learned state does not eliminate
+its fixed dense-mixer work; Harmonic's small runtime state does not
+bound the cost of constructing it.
 
 For \(m\ge2\) and nonzero labels, canonical independent-dense accuracy
 with fixed failure probability below one half requires, eventually,
@@ -355,11 +443,11 @@ This is not a lower bound against arbitrary compressed representations.
 
 At root-width target \(\varepsilon=Y/\sqrt n\), Legendre has order
 \(n^{1/4+o(1)}\), moving state \(n^{5/4+o(1)}\), and quadratic fixed
-mixers. Compact has width \(O(\log(en)^{3d/2+1})\) and all-retained
+mixers. Harmonic has width \(O(\log(en)^{3d/2+1})\) and all-retained
 storage \(O(\log(en)^{3d+2})\).
 At fixed positive error, Legendre moving storage is instead \(n^{1+o(1)}\).
 
-Compact can target \(n^{-1}\), or use its original \(n^{-1+o(1)}\)
+Harmonic can target \(n^{-1}\), or use its original \(n^{-1+o(1)}\)
 specialization, with the same polylogarithmic storage order.
 For Legendre, enlarge the root-target order by \(\log(en)^{3/2}\);
 its error is then at most \(CY/[\sqrt n\log(en)^3]\) eventually,
@@ -376,12 +464,15 @@ is retained in this probability argument.
 
 
 <a id="detailed-statements"></a>
-## II. Detailed statements: no suppressed deterministic coefficients
+## II. Detailed statements: exact certificates and qualified computational costs
 
-The global quantities are exactly those defined in Part I. The formulas
-in this part, rather than any choice of a headline constant, are the
-numerical certificates. Finite recurrence coefficients are defined locally
-where they are used; none is an independently adjustable parameter.
+The global quantities are exactly those defined in Part I. The error
+and storage formulas in this part, rather than any choice of a headline
+constant, are the numerical certificates. Finite recurrence coefficients
+are defined locally where they are used; none is an independently
+adjustable parameter. The separate cost subsection exposes internal
+setup resolutions and qualifies its arithmetic big-O bounds explicitly;
+it is not an exact floating-point operation or bit-complexity certificate.
 The same physical-time model and the same whole-sphere, all-time norm
 apply throughout. Where a proof writes \(v=x/\sqrt d\), its unit-sphere
 supremum is exactly the original input-sphere supremum.
@@ -402,7 +493,7 @@ The four entries are fully defined in this document:
 |---|---|
 | Dense fitting, \(H_D,F_D\) | [Dense fitting coefficients](#dense-fitting) |
 | Every-order Legendre fitting, \(S_*^{\rm Leg}\) | [Legendre coefficients](#legendre-labels) |
-| Corrected compact fitting, \(H_c,F_c\) | [Compact fitting coefficients](#compact-fitting-coefficients) |
+| Corrected Harmonic fitting, \(H_c,F_c\) | [Harmonic fitting coefficients](#harmonic-fitting-coefficients) |
 | Analytic source control, \(S_*^{\rm src}\) | [Source recurrences](#source-explicit-recurrences) |
 
 The common sufficient specialization is exactly
@@ -410,7 +501,7 @@ The common sufficient specialization is exactly
 entries is proved in the numerical coefficient ledgers, not assumed.
 The simpler dense/Legendre activation-power certificates use this smaller
 cap. Their full recurrence certificates retain the entire displayed
-interval. Compact's explicit full-range certificate and supplied-budget
+interval. Harmonic's explicit full-range certificate and supplied-budget
 theorem use the entire interval. No target-dependent label assumption is
 introduced. If \(Y=0\), all three predictors stay identically zero;
 the positive-label formulas are replaced by that exact stationary case.
@@ -419,7 +510,7 @@ the positive-label formulas are replaced by that exact stationary case.
 
 Each detailed statement is written at its individual confidence input
 \(0<\delta<1\). For a joint assertion of dense upper, dense lower,
-Legendre and compact, use confidence input \(\delta/4\) in each
+Legendre and Harmonic, use confidence input \(\delta/4\) in each
 statement, and take a width satisfying the union of their stated gates.
 The union bound gives joint success at least \(1-\delta\), without
 independence between compressed constructions. The lower assertion is
@@ -434,7 +525,7 @@ The remaining common gates have exactly these origins:
    [source foundations](#source-foundations). Its sufficient width is
    existential and depends on the fixed problem and confidence.
 2. The explicit source complex-radius and counting inequalities and
-   [the analytic-tail gates](#compact-storage-count), including the
+   [the analytic-tail gates](#harmonic-storage-count), including the
    dimension-one temporal count. These are finite formulas independent
    of the supplied model budget and requested tolerance.
 3. When the lower bound is included, the eventual initialized-CLT and
@@ -446,8 +537,8 @@ not give a numerical value for its stochastic portion, or prove that
 the threshold is polynomial in sample count, gap or depth. The exact
 deterministic gates are listed and derived below; none is silently put
 inside an error constant. At a width satisfying these gates, the same
-event covers every permitted Legendre order and compact budget. The
-arbitrary-accuracy compact construction introduces no extra stochastic
+event covers every permitted Legendre order and Harmonic budget. The
+arbitrary-accuracy Harmonic construction introduces no extra stochastic
 event depending on its internal horizon or source tolerance.
 
 When \(\varepsilon,\delta\) are inputs to an inverse statement,
@@ -458,7 +549,7 @@ must likewise meet the implicit source threshold. The eventual
 
 ### Construction domains and what storage means
 
-Legendre order is every integer \(q\ge1\). The compact construction
+Legendre order is every integer \(q\ge1\). The Harmonic construction
 below covers every integer \(q\ge18(2m+d+9)\); its baseline is
 exact-initialization overhead, not an error floor. Full-coordinate
 selection at \(q\ge n\) agrees exactly with dense. In eventual
@@ -468,11 +559,12 @@ full-coordinate branch still exists but is not a compression claim.
 
 All storage counts are numbers of real coordinates. For dense and
 Legendre, state counts are distinguished from data and evaluation
-working memory. For compact, the stated all-retained bound also includes
+working memory. For Harmonic, the stated all-retained bound also includes
 fixed metrics/copies, data and prescribed solve caches. Setup jets and
-original-width arrays are discarded after construction. There is no
-claim about preprocessing work, runtime, bit complexity, or storage
-optimality over all possible representations. “Least certified order”
+original-width arrays are discarded after construction. The separate
+[cost analysis](#computational-costs) supplies arithmetic and peak-memory
+implementation bounds, not bit complexity or storage optimality over all
+possible representations. “Least certified order”
 means the least integer satisfying the particular displayed sufficient
 error bound; it is not an observed or minimax optimum.
 
@@ -1143,8 +1235,10 @@ S_{\rm model}(n,q)=(L-1)n^2+n(d+1)+1+2(L-1)mnq.
 These are retained model-state counts; storing the input data and labels
 adds \(m(d+1)\). Reconstructed dense matrices can be evaluated from the
 displayed state and are not counted as independently retained parameters.
-The counts concern exact real coordinates, without claims about bit
-precision, preprocessing cost, runtime or working-memory caches.
+These inventory counts alone concern exact real coordinates, not bit
+precision or execution cost. The separate
+[cost interface](#computational-costs) includes preprocessing, runtime
+and the specified working-memory caches.
 
 <a id="legendre-labels"></a>
 #### Label allowances and the event used by the error certificates
@@ -1195,7 +1289,7 @@ The larger label allowance needed by the Legendre comparison is
 \tag{Legendre-full-labels}
 \]
 In particular this holds throughout the original common allowance, whose
-additional compact-fitting term only restricts the common range. The
+additional Harmonic-fitting term only restricts the common range. The
 smaller, sufficient cap is exactly
 \[
 0<Y\le\frac\gamma m\beta^{-30L}.
@@ -1490,9 +1584,15 @@ and exact-real qualifications already stated.
 
 
 <a id="compact-construction"></a>
-### Compact neural dynamics with a supplied neuron budget
+<a id="harmonic-construction"></a>
+### Harmonic neural dynamics with a supplied neuron budget
 
-The compact model has its own evolving first weights, hidden mixers, raw
+<!-- method-names:start -->
+The proof-local subscript \(C\) continues to denote the compressed
+Harmonic model; its coefficient labels are unchanged.
+<!-- method-names:end -->
+
+The Harmonic model has its own evolving first weights, hidden mixers, raw
 readout, and label deficit. Its effective readout is reconstructed from its
 current features. The construction below approximates the realized dense
 trajectory at the same physical times, on the whole input sphere, including
@@ -1503,7 +1603,7 @@ jets are setup objects and are discarded.
 The dense architecture, Gaussian initialization with zero readout, loss,
 mobilities, activation strip and unweighted gap \(\gamma\) are the shared
 ones. In particular the residual convention remains \(r=f-y\). The
-compact state variable \(c=y-f=-r\) is called the label deficit below.
+Harmonic state variable \(c=y-f=-r\) is called the label deficit below.
 This section uses the source event and finite coefficients in
 [the source foundations](#source-foundations). It does not convert an
 eventual stochastic width into an effective confidence bound. The
@@ -1518,9 +1618,10 @@ capped gap. Write \(b=\max_j|\phi_j(0)|\), and let \(s\ge1\) and
 \(t_2\ge1\) be the first and second derivative bounds on the safe
 half-strip. Thus \(\beta=\max(10,1+b,16/a,s,t_2)\).
 Superscript \({\rm src}\) distinguishes the source coefficients from
-the compact coefficients defined next.
+the Harmonic coefficients defined next.
 
 <a id="compact-fitting-coefficients"></a>
+<a id="harmonic-fitting-coefficients"></a>
 #### Exact label interval and runtime coefficients
 
 Let \(H_d,F_d\) denote the dense fitting coefficients: if
@@ -1530,9 +1631,9 @@ Let \(H_d,F_d\) denote the dense fitting coefficients: if
 H_d=\max(1,\sqrt{v_1},\ldots,\sqrt{v_L}),\qquad
 F_d=s^2\left[(9s)^{2L-2}
        +4H_d^2\sum_{k=0}^{L-2}(9s)^{2k}\right].
-\tag{Compact dense coefficients}
+\tag{Harmonic dense coefficients}
 \]
-For the compact runtime define
+For the Harmonic runtime define
 \[
 H_1^c=2b+16s,\qquad H_j^c=2b+18sH_{j-1}^c,\qquad H_c=H_L^c,
 \]
@@ -1543,19 +1644,19 @@ F_1^c=2sU_1^c,\quad F_j^c=2s(2H_cU_j^c+9F_{j-1}^c),
 \]
 \[
 F_c=F_L^c=(d_1^c)^2+4H_c^2\sum_{j=2}^L(d_j^c)^2.
-\tag{Compact fitting coefficients}
+\tag{Harmonic fitting coefficients}
 \]
 The omitted maxima with one in these recurrences are inactive because
-\(s\ge1\). The full compact label interval is
+\(s\ge1\). The full Harmonic label interval is
 \[
 0<Y\le\frac\gamma m
 \min\left\{\frac1{8H_d\sqrt{F_d}},
              \frac1{16H_c\sqrt{F_c}},\frac{S_*^{\rm src}}{16}\right\}.
-\tag{Compact full label interval}
+\tag{Harmonic full label interval}
 \]
 Every conclusion below holds on this entire interval. An additional
 Legendre allowance in a joint theorem can be intersected with this
-interval; no smaller compact label cap is required. The scalar Gaussian
+interval; no smaller Harmonic label cap is required. The scalar Gaussian
 moment recursion gives \(\sqrt\lambda\le H_c\). In particular
 \(S\le1\), \(z\le1/16\), and
 \(\alpha\le1/(16\sqrt{F_c})\le1/16\).
@@ -1574,10 +1675,11 @@ B_f^c=2H_cB_w^c+2R_c^2F_c,
  S^2\left[(\tau_1^{\rm src})^2+
  \sum_{j=2}^L(\tau_j^{\rm src})^2(H_{j-1}^{\rm src})^2\right],
 \qquad \mathcal D=z(16\mathcal K+4B_f^c).
-\tag{Compact tail coefficient}
+\tag{Harmonic tail coefficient}
 \]
 
 <a id="compact-runtime-definition"></a>
+<a id="harmonic-runtime-definition"></a>
 #### Selected architecture, exact initialization and optimizer
 
 Fix a source horizon \(T\) and coordinate tolerance \(\eta\), chosen
@@ -1590,7 +1692,7 @@ h_n^{(j)}(t,v),\qquad
 W_0^{(j)}h_n^{(j-1)}(t,v)\ (j\ge2),\qquad
 \delta_n^{(j)}(t,v),\qquad
 W_0^{(j+1)T}\delta_n^{(j+1)}(t,v)\ (j<L).
-\tag{Compact source families}
+\tag{Harmonic source families}
 \]
 Here \(W_0^{(j)}\) is the initialized dense mixer. The forward-image
 family is absent at layer one, and the reverse-image family is absent
@@ -1630,7 +1732,7 @@ the computed approximants obey
 p_h^{(j-1)}\in E_{j-1},\quad W_0^{(j)}p_h^{(j-1)}\in E_j,\qquad
 p_\delta^{(j+1)}\in E_{j+1},\quad
 W_0^{(j+1)T}p_\delta^{(j+1)}\in E_j,
-\tag{Compact paired source membership}
+\tag{Harmonic paired source membership}
 \]
 with a separate coordinate-error bound \(\eta\) for each member of
 each pair. These are the paired actions used in the comparison proof;
@@ -1642,7 +1744,7 @@ metric \(M_j\), with a positive diagonal comparison metric \(\mathsf D_j\):
 \mathsf D_j/4\preceq M_j\preceq\mathsf D_j,
 \qquad \mathbf1^TM_j\mathbf1=1,\qquad
 \mathbf1^T\mathsf D_j\mathbf1\le4.
-\tag{Compact metric conditions}
+\tag{Harmonic metric conditions}
 \]
 Write \(\langle u,v\rangle_{M_j}=u^TM_jv\).
 The moving state is
@@ -1651,7 +1753,7 @@ The moving state is
 \quad A_C\in\mathbb R^{q_1\times d},\quad
 B_C^{(j)}\in\mathbb R^{q_j\times q_{j-1}},\quad
 w_C\in\mathbb R^{q_L},\quad c_C\in\mathbb R^m.
-\tag{Compact state}
+\tag{Harmonic state}
 \]
 For \(v=x/\sqrt d\), set
 \[
@@ -1666,7 +1768,7 @@ readout and predictor are
 \widehat w_C=w_C+V_CQ_C^{-1}
        \left[(y-c_C)/\sqrt m-V_C^*w_C\right],\qquad
 f_C(v)=\langle\widehat w_C,h_C^{(L)}(v)\rangle_{M_L}.
-\tag{Compact corrected readout}
+\tag{Harmonic corrected readout}
 \]
 Multiplication by \(V_C^*\) gives
 \(f_C(v_a)=y_a-c_{C,a}\) exactly.
@@ -1685,7 +1787,7 @@ K_{C,ab}={}&\langle h_{C,a}^{(L)},h_{C,b}^{(L)}\rangle_{M_L}
 &+\sum_{j=2}^L\langle\delta_{C,a}^{(j)},\delta_{C,b}^{(j)}\rangle_{M_j}
                  \langle h_{C,a}^{(j-1)},h_{C,b}^{(j-1)}\rangle_{M_{j-1}}.
 \end{split}
-\tag{Compact update Gram}
+\tag{Harmonic update Gram}
 \]
 The autonomous equations are
 \[
@@ -1697,7 +1799,7 @@ The autonomous equations are
 \[
 \dot w_C=\frac2m\sum_a c_{C,a}h_{C,a}^{(L)},\qquad
 \dot c_C=-2K_Cc_C/m.
-\tag{Compact autonomous optimizer}
+\tag{Harmonic autonomous optimizer}
 \]
 These directions are specified by the optimizer. A coordinate gate need
 not be self-adjoint in \(M_j\), so they are not asserted to be gradients
@@ -1711,7 +1813,7 @@ A_C(0)=(A_0)_{I_1},\qquad w_C(0)=0,\qquad c_C(0)=y,
 \]
 \[
 B_C^{(j)}(0)=P_j\frac{U_j^TW_0^{(j)}U_{j-1}}nP_{j-1}^TM_{j-1}.
-\tag{Compact exact initialization}
+\tag{Harmonic exact initialization}
 \]
 The source spaces include every initialized training feature and its
 initialized forward image, all first-weight columns, and the constant.
@@ -1721,6 +1823,7 @@ norms are at most eight. The basis matrices and dense arrays in this
 formula are discarded after setup.
 
 <a id="compact-explicit-comparison-certificate"></a>
+<a id="harmonic-explicit-comparison-certificate"></a>
 #### Explicit full-range comparison coefficient
 
 Here are finite recurrences for the comparison certificate. They use only
@@ -1737,7 +1840,7 @@ A_f=18+S^2(\tau+3)P_h,\qquad A_b=18+S^2H_rP_\delta,
 F_1^z=1,\quad F_1^h=2s,\quad
 F_j^z=9F_{j-1}^h+H_r+A_f,\quad F_j^h=2sF_j^z,
 \qquad F=\max_jF_j^h.
-\tag{Compact forward subtraction coefficients}
+\tag{Harmonic forward subtraction coefficients}
 \]
 Define
 \[
@@ -1757,7 +1860,7 @@ B_j=18sB_{j+1}+2s(d_{j+1}^EzH_c+A_b)+2t_2F_j^z,
 \[
 B_h=\sqrt L\left[H_C\max_jB_j+(\max_jd_j^E)zH_cF\right],
 \qquad K_1=12F+2B_h+20z(J_C+J_R)B_h+20D_s.
-\tag{Compact backward subtraction coefficients}
+\tag{Harmonic backward subtraction coefficients}
 \]
 The symbols \(J_C,J_R\) in this display are scalar norm coefficients;
 the velocity maps in the proof are written \(\mathcal J_C,\mathcal J_R\).
@@ -1772,7 +1875,7 @@ Set
  (1+\lambda^{-1/2})(e^{\mathcal B_n}-1)\\
 &+6H_CzF+32H_CzP_h/\sqrt\lambda+3\alpha F+16zP_h.
 \end{split}
-\tag{Compact exact error coefficient}
+\tag{Harmonic exact error coefficient}
 \]
 For any finite source horizon \(T\ge32(m/\gamma)\log(en)\) and any
 source coordinate tolerance \(0<\eta\le\min(1,Y,16Ym/\gamma)\), the
@@ -1781,18 +1884,19 @@ constructed runtime satisfies
 \sup_{0\le t\le T,\ \|x\|=\sqrt d}|f_C-f_n|\le\mathcal A_n\eta,
 \qquad
 \|f_C-f_n\|_*\le\mathcal A_n\eta+\mathcal D e^{-\gamma T/(4m)}.
-\tag{Compact horizon and tolerance certificate}
+\tag{Harmonic horizon and tolerance certificate}
 \]
 The same construction also satisfies the fitting bound
 \[
 \|f_C-f_n\|_*\le(10H_c+4H_d)Y\sqrt{m/\gamma}.
-\tag{Compact baseline certificate}
+\tag{Harmonic baseline certificate}
 \]
 All three bounds include the limiting predictors. The factor 64 in
 \(\mathcal B_n\) covers the all-time carrier extension. At the original
 horizon, before that extension is used, it can be replaced by 32.
 
 <a id="compact-variable-budget-theorem"></a>
+<a id="harmonic-variable-budget-theorem"></a>
 #### Every supplied budget and its exact inverse
 
 The following coefficient definitions expose all rounding and finite-width
@@ -1815,7 +1919,7 @@ H(T,\eta)=2\log\frac{16M_nP_T}{\eta},\quad
 N(T,\eta)=\sum_{j=0}^{\lfloor H(T,\eta)/r_q\rfloor}
 \left[{j+d-1\choose d-1}-{j+d-3\choose d-1}\right]
 \left[1+\left\lfloor\frac{H(T,\eta)-r_qj}{\alpha_T}\right\rfloor\right].
-\tag{Compact exact coefficient count}
+\tag{Harmonic exact coefficient count}
 \]
 An impossible binomial coefficient is zero. Define
 \[
@@ -1827,7 +1931,7 @@ For \(d=1\), use the two queries \(-1,1\) and instead define
 H_1(T,\eta)=\log\frac{64M_n}{\alpha_T\eta},\quad
 N_1(T,\eta)=1+\lfloor H_1(T,\eta)/\alpha_T\rfloor,
 \quad h_0=\max\{8\log(en),H_1(T_0,\eta_0)\}.
-\tag{Compact dimension one coefficient count}
+\tag{Harmonic dimension one coefficient count}
 \]
 In both cases set
 \[
@@ -1839,18 +1943,18 @@ B=2m+d+1,\quad B_*=2m+d+9,\qquad
 \mathcal E_0=(10H_c+4H_d)Y\sqrt{m/\gamma},\quad
 \mathcal E_1=\mathcal A_n\eta_0+\mathcal D e^{-8\log(en)},\quad
 \mathcal E=\max(\mathcal E_0,\mathcal E_1).
-\tag{Compact budget coefficients}
+\tag{Harmonic budget coefficients}
 \]
 All coefficients are evaluated at the actual label size \(Y\).
 
-For every integer \(q<n\) with \(q\ge9B\), a compact model with
+For every integer \(q<n\) with \(q\ge9B\), a Harmonic model with
 \(q_j\le q\) exists. Its certificate is the baseline
 \(\mathcal E_0\) when
 \((\max(q/9-B_*,0)/\mathcal C_d)^{1/(d+1)}<h_0\). Otherwise choose
 \[
 u=\left(\frac{q/9-B_*}{\mathcal C_d}\right)^{1/(d+1)}-h_0,
 \qquad T=T_0+4mu/\gamma,\qquad \eta=\eta_0e^{-u}.
-\tag{Compact construction from supplied budget}
+\tag{Harmonic construction from supplied budget}
 \]
 The resulting error is at most \(\mathcal E_1e^{-u}\), as well as
 \(\mathcal E_0\). In particular the uniform convenient certificate is
@@ -1860,7 +1964,7 @@ The resulting error is at most \(\mathcal E_1e^{-u}\), as well as
  \exp\left[h_0-
   \left(\frac{\max(q/9-B_*,0)}{\mathcal C_d}\right)^{1/(d+1)}\right]
 \right\}.
-\tag{Compact exact budget certificate}
+\tag{Harmonic exact budget certificate}
 \]
 For \(q\ge n\), retain every dense coordinate and take \(M_j=I_n/n\);
 then the error is exactly zero. Thus the full-width branch remains
@@ -1871,7 +1975,7 @@ For the simpler domain \(18B_*\le q<n\), the certificate implies
 \[
 \|f_C-f_n\|_*\le\mathcal E
  \min\left\{1,e^{h_0-(q/(18\mathcal C_d))^{1/(d+1)}}\right\}.
-\tag{Compact simplified exact budget certificate}
+\tag{Harmonic simplified exact budget certificate}
 \]
 With the deterministic logarithmic gates below, a completely numerical
 activation-envelope version is
@@ -1882,7 +1986,7 @@ activation-envelope version is
 &\times\exp\left[-\frac{\sqrt d}{294912\beta^{32L}}
  \left(\frac{q}{(Ym/\gamma)^2\log(en)^{d/2}}\right)^{1/(d+1)}\right].
 \end{split}
-\tag{Compact numerical budget certificate}
+\tag{Harmonic numerical budget certificate}
 \]
 The numerical coefficient is conservative. The exact recurrence
 certificate is usually substantially smaller.
@@ -1896,7 +2000,7 @@ u_\varepsilon=\max\{0,\log(\mathcal E_1/\varepsilon)\},\qquad
 q=\min\left\{n,\max\left\{18B_*,
  \left\lceil9[B_*+\mathcal C_d(h_0+u_\varepsilon)^{d+1}]\right\rceil
 \right\}\right\}.
-\tag{Compact exact inverse prescription}
+\tag{Harmonic exact inverse prescription}
 \]
 If the minimum chooses \(n\), use exact retention. Otherwise use the
 analytic construction with \(T=T_0+4mu_\varepsilon/\gamma\) and
@@ -1912,6 +2016,7 @@ explicitly different domain choices. A selected full-width model uses
 width \(n\) even when it is below the headline baseline.
 
 <a id="compact-original-tolerance-specialization"></a>
+<a id="harmonic-original-tolerance-specialization"></a>
 For the original source tolerance \(1/n\) and horizon \(T_0\), replace
 64 by 32 in \(\mathcal B_n\) and consequently in \(\mathcal A_n\);
 call the resulting explicit coefficient \(\mathcal A_n^{(0)}\).
@@ -1919,7 +2024,7 @@ Then
 \[
 \|f_C-f_n\|_*\le\frac{\mathcal A_n^{(0)}}n
                     +\mathcal D e^{-8\log(en)}.
-\tag{Compact original tolerance specialization}
+\tag{Harmonic original tolerance specialization}
 \]
 It needs the original source domain, without the analytic-extension
 gates. For \(d\ge2\) its source rank is at most \(B\) plus
@@ -1937,17 +2042,18 @@ the same original construction also retains the numerical refinements
 \|f_C-f_n\|_*\le10\beta^{40L}\frac{Ym}{\gamma}
   \left(1+\sqrt{\frac m\gamma}\right)\frac{e^{2\sqrt{\log(en)}}}{n}
  \le250\beta^{40L}Y(1+m/\gamma)^2n^{-1/2}.
-\tag{Compact optional small cap refinement}
+\tag{Harmonic optional small cap refinement}
 \]
 
 <a id="compact-storage-count"></a>
+<a id="harmonic-storage-count"></a>
 #### Learned coordinates, fixed storage and gates
 
 For the actual selected dimensions, the exact moving-state count is
 \[
 dq_1+\sum_{j=2}^Lq_jq_{j-1}+q_L+m
 \le(L-1)q^2+q(d+1)+m.
-\tag{Compact exact learned count}
+\tag{Harmonic exact learned count}
 \]
 The effective readout is computed from this state and is not a second
 independent learned vector. The fixed symmetric metrics require
@@ -1958,7 +2064,7 @@ and current Gram/solve caches are included in the following explicit
 upper inventory for an integer source-dimension bound \(R\):
 \[
 \operatorname{storage}\le1020(L+1)R^2+10m(d+1).
-\tag{Compact all retained inventory}
+\tag{Harmonic all retained inventory}
 \]
 This is an upper bound on the named inventory, not an exact equality for
 every possible cache layout. In the analytic branches one can take
@@ -1977,7 +2083,7 @@ the following explicit additions. In particular retain
 \sqrt{\log(en)}\ge c_t\max\{8,\lambda,
               4\mathcal K/\log2,32YSD_W\},\quad
 D_W=\max\{\tau_1^{\rm src},\max_{j\ge2}\tau_j^{\rm src}H_{j-1}^{\rm src}\}.
-\tag{Compact original radius gate}
+\tag{Harmonic original radius gate}
 \]
 For \(d\ge2\), write
 \[
@@ -1989,12 +2095,12 @@ and retain
 \log C_d^*\le\log(en),\quad
 (d+1)\log\log(en)\le\log(en),\quad
 (d-1)c_q/\sqrt{\log(en)}\le1,\quad \alpha_{T_0}\le1.
-\tag{Compact original counting gates}
+\tag{Harmonic original counting gates}
 \]
 For \(d=1\), retain the temporal gate \(\alpha_{T_0}\le1\) and use
 \[
 \log\frac{8192M_0}{c_t\lambda}\le\log(en).
-\tag{Compact dimension one gate}
+\tag{Harmonic dimension one gate}
 \]
 Finally put
 \[
@@ -2013,14 +2119,365 @@ and impose
 \qquad
 \frac{2C_{\rm carrier}Y}{\sqrt\lambda}\,n(en)^{-16}
           \le K_{\rm src}S\sqrt{\log(en)}.
-\tag{Compact analytic extension gates}
+\tag{Harmonic analytic extension gates}
 \]
 These inequalities are eventual at every fixed admissible problem. They
 are independent of \(q\), \(T\), and target accuracy. Thus one event
-at a fixed width supports all the compact budgets and tolerances above;
+at a fixed width supports all the Harmonic budgets and tolerances above;
 there is no union over new horizon-dependent Gaussian events.
 
 
+
+<a id="computational-costs"></a>
+### Computational costs at supplied orders
+
+This section distinguishes three operations. **Warmup** is all one-off
+work needed to create the model, including generation of its dense
+reference when not supplied. **Training** is one full-batch evaluation
+of the autonomous vector field, or a fixed-stage explicit numerical
+step, after the warmup-only arrays have been discarded. **Query** is
+one new passive input at a fixed, inference-ready model state. Warmup
+and training memory mean **total peak resident memory**; query memory
+means **additional peak workspace**, excluding the resident model and
+the supplied input. These definitions apply to every cost table.
+
+#### Arithmetic, activation and numerical qualifications
+
+The bounds count classical dense scalar arithmetic, with scalar square
+root and the fixed elementary functions used in the continuation and
+geometric recurrences treated as unit primitives. They are upper bounds
+for the specified implementations, not optimal complexity or wall-clock
+measurements. Every big-O constant in this section is numerical and
+implementation-dependent only: it hides no dependence on
+\(n,m,d,L,q,K,p,J,N_x,N_t,\gamma,Y,\beta,\delta\), activation
+evaluation cost, solver stage count or working precision.
+
+General activations are not unit-cost oracles by implication of
+analyticity. The tables count non-activation arithmetic; add the
+explicit activation calls and jet-composition costs stated below.
+Generating a fresh reference also requires exactly
+\(nd+(L-1)n^2\) independent Gaussian draws. The displayed arithmetic
+bounds include allocation/filling, but the sampling implementation's
+time and scratch memory must be added. In the customary unit-cost
+sampling model this adds \(O((L-1)n^2+nd)\) work and \(O(1)\)
+sampler scratch. If the reference is supplied, omit generation work
+but not its resident memory.
+
+A numerical step with \(s\) vector-field stages has \(s\) times the
+per-stage work, plus state updates and any cache refresh. Only when
+\(s\) is fixed can it be absorbed in big-O; a fixed-stage method uses
+a fixed number of state-sized work arrays. Implicit solves, adaptive
+rejections, the number of steps, roundoff and the accuracy of numerical
+integration are not bounded here. In particular the trajectory-error
+theorems concern the continuous flows; this section does not promote
+them to finite-step error theorems. Feature-Gram solves are evaluated
+where the stated positive-gap conditions hold. Exact rank detection
+and exact arithmetic in coordinate selection are part of the operation
+model, not floating-point stability assertions.
+
+For the clean common table take \(n\ge\max(m,d)\), allowed by the shared
+eventual-width convention. Retain the existing Harmonic compressed
+domain \(q\ge18(2m+d+9)\) when simplifying its runtime counts.
+No comparison between \(n\) and any internal setup order is assumed.
+Define, locally throughout this cost section,
+\[
+P=(L-1)n^2+n(d+1).
+\tag{cost-dense-size}
+\]
+
+<a id="cost-forward-table"></a>
+#### Common forward cost table: supplied \(n,q\)
+
+The Harmonic warmup envelopes \(\mathcal T_{\rm H},\mathcal M_{\rm H}\)
+are defined completely below and retain all supplied setup orders and
+activation costs. No inverse or optimized order is used in this table.
+
+| Model and operation | Arithmetic work | Peak memory in real words |
+|---|---:|---:|
+| Dense warmup | \(O(P)\), plus Gaussian draws | \(O(P+m(d+1))\) |
+| Dense training stage | \(O(mP)\) | \(O(P+Lmn+m(d+1))\) |
+| Dense single query | \(O(P)\) | \(O(n)\) additional |
+| Legendre warmup | \(O(P+mnd+(L-2)mn^2+(L-1)mn+Lmnq)\), plus Gaussian draws | \(O(P+Lmnq+m(d+1))\) |
+| Legendre training stage | \(O(mP+Lnm^2q+Lnmq)\) | \(O(P+Lnmq+m(d+1))\) |
+| Legendre single query, factor representation | \(O(P+Lnmq)\) | \(O(n)\) additional |
+| Harmonic warmup | \(O(\mathcal T_{\rm H})\), plus Gaussian draws | \(O(\mathcal M_{\rm H})\) |
+| Harmonic training stage, including inference-cache refresh when required | \(O(Lmq^2+m^3)\) | \(O(Lq^2)\) |
+| Harmonic single query, refreshed readout cache | \(O(Lq^2)\) | \(O(q)\) additional |
+
+Dense and Legendre training add at most a fixed numerical multiple of
+\(Lmn\) calls each to activation values and first derivatives. Their
+queries add \(Ln\) activation-value calls and no activation-derivative
+calls. Legendre warmup adds \((L-1)mn\) activation-value calls; it need
+only compute initial features through layer \(L-1\), so at \(L=2\)
+the displayed warmup feature calculation contains no dense-mixer
+application. Harmonic training adds \(m\sum_jq_j\le Lmq\) calls each
+to values and first derivatives per vector-field evaluation, and a
+refresh adds a comparable number of value calls. Its query adds
+\(\sum_jq_j\le Lq\) value calls. Add the chosen routines' work and
+peak scratch for these calls; analyticity alone gives no uniform
+arithmetic bound on those routines.
+
+Legendre applies its fixed mixers plus the \(mq\) correction factors
+without materializing reconstructed dense matrices. Moment-prefix sums
+are accumulated once, not recomputed for every prefix. Factor products
+can be streamed, avoiding an \(m^2q\)-word temporary.
+An optional fixed-snapshot cache of reconstructed dense mixers costs
+\(O((L-1)n^2mq)\) work to refresh and \(O((L-1)n^2)\) additional
+resident memory; afterward queries cost \(O(P)\), with \(O(n)\)
+additional workspace. Refresh whenever moments or the clock change.
+It is not one-off initialization if training continues.
+
+The Harmonic inference-ready cache is the vector
+\(M_L\widehat w_C\), so a query is an ordinary hidden forward pass
+and a final dot product. Refresh it after any relevant model-state
+change. A refresh uses the current training features and feature-Gram
+solve and has at most the order of one training-stage cost. An
+implementation can charge a final refresh to training/model preparation;
+it cannot both omit refresh and claim an \(m\)-independent query cost.
+At initialization the cache is exactly zero.
+
+#### Unsimplified Harmonic runtime and peak workspace
+
+For the actual layer widths \(q_j\le q\), the training arithmetic is
+\[
+O\!\left(
+m\left[q_1d+\sum_{j=2}^Lq_jq_{j-1}+\sum_{j=1}^Lq_j^2\right]
+ +q_Lm^2+m^3\right).
+\tag{cost-harmonic-training}
+\]
+Its total peak memory after discarding warmup-only arrays is
+\[
+O\!\left(
+q_1d+\sum_{j=2}^Lq_jq_{j-1}+\sum_{j=1}^Lq_j^2
+ +m\sum_{j=1}^Lq_j+m^2+m(d+1)\right).
+\tag{cost-harmonic-training-memory}
+\]
+This includes model parameters, fixed metrics and inverse caches,
+data, feature/backward arrays, parameter directions and the moving
+feature-Gram factorization. It does not include any dense-reference
+array, jet, coefficient block or source basis. The \(m^3\) term is
+the ordinary factorization of the current \(m\)-by-\(m\) feature Gram;
+it is not a hidden repeated inversion of the fixed layer metrics.
+Although \(m^3\le mq^2\) in the compressed domain, it remains visible.
+
+For a single inference-ready query, arithmetic and additional peak
+workspace are respectively
+\[
+O\!\left(q_1d+\sum_{j=2}^Lq_jq_{j-1}+q_L\right),
+\qquad O\!\left(\max_jq_j\right).
+\tag{cost-harmonic-query}
+\]
+Use rolling feature buffers; normalize the first preactivation after
+multiplication by the supplied input, avoiding a separate normalized
+input copy. Fixed metrics are applied to batch vectors before
+forming weight directions. Their inverse caches are created during
+warmup, so there is no \(Lq^3\) per-stage cost. The
+[cost proof](#computational-cost-proofs) gives an exact matrix-free
+formula for the update-Gram action; it is not differentiation of the
+corrected predictor.
+
+<a id="harmonic-warmup-cost"></a>
+#### Harmonic warmup with all internal orders exposed
+
+The independent supplied setup resolutions are:
+
+| Symbol | Supplied meaning |
+|---|---|
+| \(K\ge1\) | Highest initial time-derivative order computed |
+| \(p\ge0\) | Highest retained temporal Chebyshev degree |
+| \(J\ge0\) | Highest retained spherical-harmonic degree |
+| \(N_x\ge1\) | Total number of spatial quadrature nodes |
+| \(N_t\ge1\) | Number of temporal quadrature nodes |
+
+The source horizon \(T\), continuation map, quadrature nodes/weights
+and retained joint mode set must also be specified. The default costed
+rule is the elementary angular Riemann rule used in the source proof;
+the additional construction and node/weight storage of a different
+rule must be charged separately. These are not
+additional runtime state after initialization. On the analytic branch
+of the forward theorem, the supplied \(q\) prescribes a horizon and
+source tolerance; a valid implementation must choose the setup
+resolutions to meet that tolerance. This cost analysis does not
+identify \(K,p,J,N_x,N_t\) with \(q\), or choose any of them.
+In particular \(N_x=H\), \(N_t=p+1\), and \(p\le K\) are not
+asserted: the last relation need not hold after continuation in the
+nonlinear time coordinate.
+
+For \(d\ge2\), put
+\[
+h_j={j+d-1\choose d-1}-{j+d-3\choose d-1},\qquad
+H=\sum_{j=0}^Jh_j
+ ={J+d-1\choose d-1}+{J+d-2\choose d-1},
+\tag{cost-harmonic-mode-count}
+\]
+with impossible binomials zero. If the temporal cutoff at spherical
+degree \(j\) is \(p_j\le p\), count all \(h_j\) basis functions there.
+A sufficient source-generator count per layer is
+\[
+R=2m+d+1+4\sum_{j=0}^J(p_j+1)h_j
+ \le2m+d+1+4(p+1)H.
+\tag{cost-source-generator-count}
+\]
+Use the actual smaller number of present source families at boundary
+layers when available. For \(d=1\), there are two input points,
+no nontrivial angular degree, and the corresponding bound is
+\(R=2m+d+1+8(p+1)\); one can use \(H=2\) in the rectangular
+cost bounds. The actual largest source rank is \(r\le\min(n,R)\).
+The deterministic selector guarantees the requested budget when
+\(9r\le q<n\); \(9R\le q\) is a stronger sufficient test, not a
+necessary rank condition. No successful compressed construction is
+asserted for an arbitrary incompatible combination of supplied orders.
+
+The following counts assume all initial dense matrices are resident,
+training jets are shared, and spatial nodes are streamed. Here and
+below using \(K\) instead of \(K+1\) in big-O is valid because
+\(K\ge1\).
+
+| Jet representation | Arithmetic, excluding scalar activation composition | Jet-stage peak memory |
+|---|---:|---:|
+| Materialized dense parameter coefficients | \(O(P(m+N_x)K^2)\) | \(O(PK+LmnK)\) |
+| Factored gradient increments, no contraction cache | \(O(P(m+N_x)K+Lnm(m+N_x)K^3)\) | \(O(P+LmnK)\) |
+| Factored increments with contraction caches | \(O(P(m+N_x)K+Lm(m+N_x)K^2(n+K))\) | \(O(P+LmnK+Lm^2K^2)\) |
+
+These are alternative executions of the same coefficient recursion.
+Choose an implementation for the available memory; no row is claimed
+uniformly fastest. No parameter-Hessian tensor is materialized.
+The \(N_x\) query jets reuse the actual empirical-training jets;
+designed query points do not replace training samples in the gradients.
+Warmup is initialization-only but data- and label-dependent.
+
+For arbitrary activations, define the following **implementation costs**,
+not approximation parameters. Let \(a_{\rm on}(K),b_{\rm on}(K)\)
+bound arithmetic and peak workspace for one scalar activation and
+its derivative in the sequential training-jet recursion, including
+persistent series state and derivative-generation scratch; let
+\(a_{\rm off}(K),b_{\rm off}(K)\) bound full-series composition and
+scratch for a passive query. Each includes the chosen activation's
+scalar-derivative generation algorithm. Then add
+\[
+\mathcal A_{\rm time}
+=Ln[ma_{\rm on}(K)+N_xa_{\rm off}(K)],\qquad
+\mathcal A_{\rm memory}
+=Lmn b_{\rm on}(K)+b_{\rm off}(K).
+\tag{cost-activation-backend}
+\]
+Take maxima over the finitely many layer activations if their
+implementations differ. A fixed-size differential recurrence, such
+as for tanh, permits \(a_{\rm on},a_{\rm off}=O(K^2)\) and
+\(b_{\rm on},b_{\rm off}=O(K)\). For a general analytic activation
+with its scalar Taylor coefficients supplied, a direct online power
+triangle costs \(O(K^3)\) time and \(O(K^2)\) persistent words;
+offline truncated Horner composition costs \(O(K^3)\) time and
+\(O(K)\) scratch. Scalar derivative generation is additional to
+these latter composition bounds. The theorem's analytic envelope
+does not bound that algorithmic cost.
+
+Scalar geometry can be implemented without expanding all harmonics
+in Cartesian monomials. The recursive separated orthonormal basis
+in the cost proof gives the following sufficient overhead envelopes.
+They include the source proof's elementary Riemann nodes/weights,
+generated from supplied grid indices in \(O(d)\) work per spatial
+node and \(O(1)\) per temporal node. They do not bound construction
+of an arbitrary quadrature rule:
+\[
+\mathcal B_{\rm time}=
+\begin{cases}
+N_t+N_x,&d=1,\\
+N_x(J+1)+N_t,&d=2,\\
+d(J+1)^2+dN_x[(J+1)^2+H]+N_t,&d\ge3,
+\end{cases}
+\quad
+\mathcal B_{\rm memory}=
+\begin{cases}
+1,&d=1,\\
+J+1,&d=2,\\
+d[(J+1)^2+H],&d\ge3.
+\end{cases}
+\tag{cost-scalar-geometry}
+\]
+The \(d=1\) case uses the two sphere points, not an angular grid.
+The geometry envelopes are retained explicitly rather than hidden
+inside an activation or data constant.
+
+For cached factored jets and temporal-first streamed projection,
+define the complete arithmetic and peak-memory envelopes
+\[
+\begin{split}
+\mathcal T_{\rm H}={}&
+P+P(m+N_x)K+Lm(m+N_x)K^2(n+K)\\
+&+(p+1)K(N_t+K)
+ +LnN_x(p+1)(K+H)\\
+&+LnRr+Lnr^3+Ln^2r+Lq^2r
+ +\mathcal A_{\rm time}+\mathcal B_{\rm time},
+\end{split}
+\tag{cost-harmonic-warmup-time}
+\]
+\[
+\begin{split}
+\mathcal M_{\rm H}={}&
+P+LmnK+Lm^2K^2+LnR+Lq^2+(p+1)K+m(d+1)\\
+&+\mathcal A_{\rm memory}+\mathcal B_{\rm memory}.
+\end{split}
+\tag{cost-harmonic-warmup-memory}
+\]
+All quantities on the right have been defined. The actual work and
+peak words are \(O(\mathcal T_{\rm H})\) and
+\(O(\mathcal M_{\rm H})\), plus the separately specified Gaussian
+sampling cost/scratch. These envelopes include creation of the dense
+reference, source construction, selection, model assembly and fixed
+metric inverse caches. They are not bounds solely in \(q\).
+
+The universal temporal map costs \(O((p+1)K(N_t+K))\) once,
+not once per neuron. Projection then costs
+\(O(LnN_x(p+1)(K+H))\). Orthogonalization must process all \(R\)
+generators, costing \(O(LnRr)\); the proof's deterministic selector
+costs \(O(Lnr^3)\). Dense basis-to-basis mixer compression costs
+\(O(Ln^2r)\) in general even though some paired actions can be
+reused. Metric and retained-matrix assembly costs \(O(Lq^2r)\).
+The \(LnR\) memory term retains all source-coefficient blocks and
+therefore introduces no unreported query recomputation.
+
+**Alternative executions.** Replace the cached-jet contributions by
+either other row of the jet table when advantageous. Spatial-first
+projection costs \(O(LnK[N_xH+(p+1)H])\), with \(O(LnKH)\)
+intermediate words instead of temporal-first projection. Coefficient
+blocks of size \(b\) can replace \(LnR\) storage by \(Ln(r+b)\);
+without stored nodal jets this requires up to
+\(\lceil R/b\rceil\) passes over the passive-query jet and temporal
+projection calculations, together with streamed node/basis evaluation
+unless separately cached, not repeated training-jet construction.
+On a uniform circle grid supporting the retained modes, FFT angular
+projection takes \(O(Ln(p+1)N_x\log(eN_x))\) work after temporal
+projection; a direct batched implementation additionally stores
+\(O(Ln(p+1)N_x)\) nodal values. These are explicit time-memory
+tradeoffs, not unproved simultaneous minima.
+
+The initialization-only baseline branch can skip source expansions
+that it does not use. The full-width exact branch can simply retain
+the dense network and use the dense costs. The formulas above concern
+the genuine analytic compressed branch and are upper bounds, not
+necessary work for every special dataset.
+
+#### Accuracy inversion does not determine an efficient warmup
+
+Insert the inverse interface's prescribed \(n\) or \(q\) into the
+forward cost table; no other substitution is licensed automatically.
+For Harmonic, the setup orders must additionally satisfy the
+time/spatial-tail, initial-jet and quadrature accuracy conditions in
+the source construction, and the resulting source rank must fit the
+budget. The note proves finite suitable jets and quadrature but does
+not derive an efficient joint choice for \(K,N_x,N_t\). Consequently
+the warmup entries in the inverse and fixed-problem tables retain
+\(\mathcal T_{\rm H},\mathcal M_{\rm H}\) with those arguments
+exposed; they are not renamed polylogarithmic setup bounds.
+
+Nor do arithmetic bounds certify finite-precision execution.
+Continuation coefficients, source rank tests and small positive
+selection weights can require additional precision. No sufficient
+bit precision, overall integration step count, or end-to-end
+wall-clock efficiency follows from the retained-storage theorem.
+The new analysis changes no activation class, label cap, probability
+event or trajectory-error certificate.
 
 <a id="integrated-proofs"></a>
 ## III. Proofs
@@ -2036,10 +2493,10 @@ The dependency order is not circular: dense fitting does not use source
 analyticity; the source starts from dense fitting; the deterministic
 late-time extension uses the source only through its original finite
 horizon. The Legendre comparison uses that extension's real carrier bound,
-and compact's variable-horizon construction uses its full analytic domain.
+and Harmonic's variable-horizon construction uses its full analytic domain.
 The complete extension is in
-[the compact proof](#compact-analytic-extension-proof) and its explicit
-gates are in [the common construction inventory](#compact-storage-count).
+[the Harmonic proof](#harmonic-analytic-extension-proof) and its explicit
+gates are in [the common construction inventory](#harmonic-storage-count).
 
 <a id="source-foundations"></a>
 ### Source foundations: explicit coefficients and the probabilistic bridge
@@ -4696,9 +5153,11 @@ Then \(4Q_na^{1/4}\le q_n\le5Q_na^{1/4}\) and
 \(YP_n/(8Q_n^2)\le Y/(8\sqrt n)\), as stated.
 
 <a id="compact-proofs"></a>
-### Compact proofs
+<a id="harmonic-proofs"></a>
+### Harmonic proofs
 
 <a id="compact-harmonic-proof"></a>
+<a id="harmonic-expansion-proof"></a>
 #### Proof of the source expansion and finite coefficient count
 
 The argument first obtains decay in spherical degree from holomorphy on
@@ -4740,7 +5199,7 @@ the trace of its reproducing kernel give
 \[
 \|P_jg\|_\infty\le h_j\|g\|_\infty,\qquad
 |Y_{j,b}(x)|\le\sqrt{h_j}.
-\tag{Compact harmonic projector bounds}
+\tag{Harmonic projector bounds}
 \]
 To extract exponential decay, average over tangent directions:
 \[
@@ -4790,7 +5249,7 @@ at zero. Together with the projector bound and
 \(h_j\le2d^{d-2}(j+1)^{d-2}\), this proves
 \[
 \|P_jF\|_\infty\le MD_d(j+1)^{b_d}e^{-rj}.
-\tag{Compact harmonic decay}
+\tag{Harmonic decay}
 \]
 For \(d=2\), averaging the two tangent directions has multiplier
 \(\cosh(jr)\ge e^{jr}/2\); the same inequality holds with
@@ -4823,7 +5282,7 @@ Split the omitted exponential into two halves. Outside
 
 Evenness leaves one real cosine coefficient for each \(k\ge0\), and
 each spherical degree has exactly \(h_j\) real coefficients. This is
-the count in [the coefficient formula](#compact-variable-budget-theorem).
+the count in [the coefficient formula](#harmonic-variable-budget-theorem).
 Using \(h_j\le2{j+d-2\choose d-2}\), the count is at most twice
 the number of nonnegative integer \(d\)-tuples satisfying
 \(\alpha_Tk+r_q\sum_{i=1}^{d-1}b_i\le H(T,\eta)\).
@@ -4833,7 +5292,7 @@ simplex enlarged by \(\alpha_T+(d-1)r_q\). Its volume yields
 N(T,\eta)\le
  \frac{2[H(T,\eta)+\alpha_T+(d-1)r_q]^d}
        {d!\alpha_T r_q^{d-1}}.
-\tag{Compact simplex count}
+\tag{Harmonic simplex count}
 \]
 For \(d=1\), positive cosine coefficients are bounded by
 \(2M_ne^{-\alpha_Tk}\). Since
@@ -4844,6 +5303,7 @@ The two points of the sphere require two temporal families, so the
 dimension bound is \(B+8N_1\); it is \(B+4N\) when \(d\ge2\).
 
 <a id="compact-initial-jet-proof"></a>
+<a id="harmonic-initial-jet-proof"></a>
 #### Finite setup from the initialized network
 
 The exact integral coefficients used above serve to prove the error
@@ -4859,7 +5319,7 @@ b_1=\tanh(\chi+\pi/4),\quad \vartheta=b_0/b_1,
 \[
 \mathfrak t(\xi)=\frac T2+\frac{2r_t}{\pi}
              \log\frac{1+b_1\psi(\xi)}{1-b_1\psi(\xi)}.
-\tag{Compact initial jet map}
+\tag{Harmonic initial jet map}
 \]
 The logarithm is the analytic branch zero when its fraction is one.
 The disk automorphism has \(|\psi|<1\). For \(|w|<b_1\), the real
@@ -4875,7 +5335,7 @@ Taylor coefficients are
 \[
 a_j=\sum_{k=0}^j\frac{\partial_t^kg(0)}{k!}
                          [\xi^j]\mathfrak t(\xi)^k.
-\tag{Compact finite initial jet coefficients}
+\tag{Harmonic finite initial jet coefficients}
 \]
 They depend on only finitely many initial derivatives. Those derivatives
 are obtained by finite differentiation of the dense ODE and passive
@@ -4917,6 +5377,7 @@ conversion of one member's coordinate error is used. This proves the
 initialization-only paired-source construction, with finite real setup.
 
 <a id="compact-selection-proof"></a>
+<a id="harmonic-selection-proof"></a>
 #### Coordinate selection and the exact source metric
 
 The finite selection fact needed here is: if vectors \(v_i\in\mathbb R^r\)
@@ -4994,7 +5455,7 @@ Set \(Z=\mathsf D^{1/2}P\), and define
 \[
 M=\mathsf D^{1/2}
  [ZG^{-2}Z^T+I-ZG^{-1}Z^T]\mathsf D^{1/2}.
-\tag{Compact source metric formula}
+\tag{Harmonic source metric formula}
 \]
 The last two terms give the orthogonal projector on
 \(\operatorname{ran}Z^\perp\); on \(\operatorname{ran}Z\) the
@@ -5013,7 +5474,7 @@ Thus activations are \(2s\)-Lipschitz in this metric, and
 minimum-weight factor. The metric adjoint of \(D\) is
 \(M^{-1}DM\), which need not equal \(D\).
 
-The initialized mixer in [the initialization formula](#compact-runtime-definition)
+The initialized mixer in [the initialization formula](#harmonic-runtime-definition)
 is the compression of \(W_0^{(j)}\) between two isometric source
 spaces, so its norm is at most \(\|W_0^{(j)}\|\). If
 \(g\in E_{j-1}\) and \(W_0^{(j)}g\in E_j\), direct substitution
@@ -5023,9 +5484,10 @@ adjoint gives the exact reverse action whenever
 therefore preserve the training forward pass by induction over layers,
 and exact top isometry preserves its Gram. First-weight columns give
 the first operator bound. This establishes every metric and initialization
-property used by the compact runtime.
+property used by the Harmonic runtime.
 
 <a id="compact-fitting-proof"></a>
+<a id="harmonic-fitting-proof"></a>
 #### Independent fitting and endpoint control
 
 Work until the first exit from operator caps nine, sphere feature cap
@@ -5046,7 +5508,7 @@ cross-sample products, gives
        =\|\dot\theta_C\|_{\rm par}^2,
 \qquad \rho_C=\|c_C\|_2/\sqrt m,
 \qquad K_C/m\succeq Q_C.
-\tag{Compact exact energy identity}
+\tag{Harmonic exact energy identity}
 \]
 This identity is algebraic and does not require gradient backpropagation.
 The stopped gap implies \(-\dot\rho_C\ge\lambda\rho_C/2\).
@@ -5057,7 +5519,7 @@ Since \(\|\dot\theta_C\|^2=2\rho_C(-\dot\rho_C)\),
 \int_0^t\rho_C\le2z,\qquad
 \int_0^t\|\dot\theta_C\|\le2\alpha,\qquad
 \|w_C(t)\|\le2\alpha.
-\tag{Compact fitting energy bounds}
+\tag{Harmonic fitting energy bounds}
 \]
 If a zero deficit is reached, all velocities vanish, so the same bounds
 continue with the constant solution.
@@ -5098,7 +5560,7 @@ projectors yields
 \dot T_C=(I-P_C)\dot V_CQ_C^{-1}-T_C\dot V_C^*T_C,
 \qquad
 \dot P_C=(I-P_C)\dot V_CT_C^*+T_C\dot V_C^*(I-P_C).
-\tag{Compact right inverse derivatives}
+\tag{Harmonic right inverse derivatives}
 \]
 The bounds are \(\|T_C\|\le2/\sqrt\lambda\),
 \(\|\dot T_C\|\le8\|\dot V_C\|/\lambda\),
@@ -5115,7 +5577,7 @@ For every unit query,
 \[
 \sup_{\|v\|=1}|f_C(\infty,v)-f_C(t,v)|
         \le2B_f^cz e^{-\lambda t/2}.
-\tag{Compact endpoint tail}
+\tag{Harmonic endpoint tail}
 \]
 Together with the dense source bound \(|\dot f_n(v)|\le2\mathcal K\rho_n\)
 and its fitting tail, comparing the two flows to their values at \(T\)
@@ -5125,6 +5587,7 @@ Finally \(\|\widehat w_C\|\le5\alpha\),
 and \(\|h_n\|_2/\sqrt n\le2H_d\) prove the baseline certificate.
 
 <a id="compact-source-energy-proof"></a>
+<a id="harmonic-source-energy-proof"></a>
 #### Source metric estimates and reference energy
 
 Fix a source horizon and coordinate tolerance \(\eta\le\eta_0\).
@@ -5136,7 +5599,7 @@ quantity \(\|u\|_2/\sqrt n\). If a vector \(u\) has an approximant
 \frac{\|u-p\|_2}{\sqrt n}\le e,\qquad
 \|(u-p)_I\|_M\le2e,\qquad
 \|u_I\|_M\le\frac{\|u\|_2}{\sqrt n}+3e.
-\tag{Compact source norm transfer}
+\tag{Harmonic source norm transfer}
 \]
 The first two statements use the unit empirical mass and the diagonal
 mass at most four; the last uses exact isometry of \(p\).
@@ -5145,7 +5608,7 @@ bounds \(U,V\), insertion of their approximants in both pairings gives
 \[
 |\langle u_I,v_I\rangle_M-u^Tv/n|
           \le3(e_uV+e_vU)+9e_ue_v.
-\tag{Compact source pairing transfer}
+\tag{Harmonic source pairing transfer}
 \]
 For example the dense pairing error is at most
 \(e_uV+e_vU+e_ue_v\), and the selected error at most
@@ -5160,7 +5623,7 @@ B_R^{(j)}(t)=B_C^{(j)}(0)+
  \int_0^t\frac2m\sum_a c_{n,a}(s)
        \delta_{n,a,I_j}^{(j)}(s)
        h_{n,a,I_{j-1}}^{(j-1)}(s)^TM_{j-1}\,ds.
-\tag{Compact proof reference matrices}
+\tag{Harmonic proof reference matrices}
 \]
 The true restricted features and responses need not be the forward and
 backward pass through these matrices. The initial paired actions have
@@ -5174,7 +5637,7 @@ in the raw readout equation gives the observation bound
 \[
 \sup_{\|v\|=1}|\langle w_R,h_{n,I_L}^{(L)}(v)\rangle_{M_L}-f_n(v)|
                        \le16zP_h\eta.
-\tag{Compact source action and observation defects}
+\tag{Harmonic source action and observation defects}
 \]
 This estimate also applies to the normalized vector of training
 observations, with no sample-count factor.
@@ -5199,19 +5662,20 @@ Because \(\eta\le Y\) and
 \(\eta/\sqrt\lambda\le\alpha\le1/16\), these imply
 \[
 \int_0^T\nu\le2\alpha,\qquad \|w_R\|\le3\alpha.
-\tag{Compact selected readout energy}
+\tag{Harmonic selected readout energy}
 \]
 The same transfer applied to true dense responses gives
 \[
 \|\delta_{n,a,I_j}^{(j)}\|
  \le2s(9s)^{L-j}\alpha+3\eta\le d_j^E\alpha.
-\tag{Compact selected response energy}
+\tag{Harmonic selected response energy}
 \]
 Here \(\eta\le Y=\sqrt\lambda\alpha\le H_c\alpha\).
 This step is why no assumption \(\lambda\le1\) is needed. No source
 error was differentiated in any of these arguments.
 
 <a id="compact-cancellation-proof"></a>
+<a id="harmonic-cancellation-proof"></a>
 #### Full-range readout and deficit cancellation
 
 Let \(\mathcal J_C\) map sample space into the direct sum of hidden
@@ -5231,7 +5695,7 @@ K_C/m=V_C^*V_C+\mathcal J_C^*\mathcal J_C,
 \[
 \|\mathcal J_C\|\le J_C\alpha=5\alpha\sqrt{F_c},\qquad
 \|\mathcal J_R\|\le J_R\alpha.
-\tag{Compact hidden velocity identities}
+\tag{Harmonic hidden velocity identities}
 \]
 The norm bounds use the normalized sum of squared column norms, which
 dominates the operator norm and introduces no factor \(\sqrt m\).
@@ -5253,7 +5717,7 @@ Forward subtraction with the paired action defect gives
 \[
 \sup_{j,v}\|h_C^{(j)}(v)-h_{n,I_j}^{(j)}(v)\|\le F(a_h+\eta),
 \qquad \|V_C-V_R\|\le F(a_h+\eta).
-\tag{Compact forward difference}
+\tag{Harmonic forward difference}
 \]
 Layer one costs \(a_h\) in preactivation; later layers cost
 \(9\) times the lower feature difference, \(H_ra_h\) for the
@@ -5271,13 +5735,13 @@ Since \((I-P_C)p=0\), the preceding energy and observation bounds yield
 \[
 \|\widehat w_C-w_R\|
        \le b_e+6zF(a_h+\eta)+32zP_h\eta/\sqrt\lambda.
-\tag{Compact effective readout difference}
+\tag{Harmonic effective readout difference}
 \]
 In particular, for every query,
 \[
 |f_C-f_n|\le
  H_C\|\widehat w_C-w_R\|+3\alpha F(a_h+\eta)+16zP_h\eta.
-\tag{Compact query output difference}
+\tag{Harmonic query output difference}
 \]
 
 The source Gram defect
@@ -5298,7 +5762,7 @@ factorization is
  =V_C^*\Delta V+\Delta V^*V_R
    +\mathcal J_C^*\Delta\mathcal J
    +\Delta\mathcal J^*\mathcal J_R+D.
-\tag{Compact factored Gram difference}
+\tag{Harmonic factored Gram difference}
 \]
 Its second feature term will be controlled by the actual selected
 readout velocity \(\nu\), retaining its energy scale.
@@ -5315,9 +5779,9 @@ the deficit error:
 \dot\zeta=2\Delta Vc_n/\sqrt m+\dot T_Ce
        -2T_C\mathcal J_C^*\mathcal J_Ce
        -2T_C\Delta\mathcal Kc_n/\sqrt m.
-\tag{Compact exact readout cancellation}
+\tag{Harmonic exact readout cancellation}
 \]
-Only the actual compact feature map is differentiated. The derivative
+Only the actual Harmonic feature map is differentiated. The derivative
 identity already proved and \(Q_C^{-1}e=T_C^*p\) imply
 \[
 \|\dot T_Ce\|\le40zF_c\rho_C\|p\|.
@@ -5330,7 +5794,7 @@ absolute contribution is bounded by
 2\|p\|\|T_C\|\|\mathcal J_C\|^2u
  \le8\|\mathcal J_C\|^2u^2/\lambda
  \le200z^2F_cu^2\le\frac{25}{32H_c^2}u^2.
-\tag{Compact hidden Gram absorption}
+\tag{Harmonic hidden Gram absorption}
 \]
 At least \(39u^2/32\) remains dissipative. Thus this absorption uses
 precisely the full runtime label allowance.
@@ -5347,14 +5811,14 @@ Monotone convergence proves
 \[
 \|p(t)\|+\int_0^t\frac{u^2}{\|p\|}\,ds\le I(t),\qquad
 \int_0^tu\,ds\le\frac2{\sqrt\lambda}I(t).
-\tag{Compact lifted error integrals}
+\tag{Harmonic lifted error integrals}
 \]
 The second inequality uses \(\|p\|\le2u/\sqrt\lambda\).
 In the equation for \(\zeta\), the integrated hidden-Gram term
 therefore costs at most \(200z^2F_cI\le25I/32\). Consequently
 \[
 b_e(t)\le2F\int_0^t\rho_n(a_h+\eta)\,ds+3I(t).
-\tag{Compact readout error integral}
+\tag{Harmonic readout error integral}
 \]
 
 Let \(M=1+32zK_{\rm src}\sqrt{\log(en)}\); the all-time carrier
@@ -5375,7 +5839,7 @@ rank-one hidden direction next gives
 \[
 \|\Delta\mathcal J\|
  \le B_h[b_e+M(a_h+\eta)+\eta/\sqrt\lambda].
-\tag{Compact hidden direction difference}
+\tag{Harmonic hidden direction difference}
 \]
 The factor \(M\) is added in the gate forcing, so it appears once,
 rather than being multiplied at every layer.
@@ -5391,7 +5855,7 @@ second term uses \(\nu\). The result is
         [b_e+M(a_h+\eta)+\eta/\sqrt\lambda]
  +4D_s\eta\rho_n/\sqrt\lambda.
 \end{split}
-\tag{Compact factored forcing bound}
+\tag{Harmonic factored forcing bound}
 \]
 The hidden-parameter equation and the lifted-error integral give
 \[
@@ -5405,7 +5869,7 @@ gives
 E(t)\le\int_0^t
  [200zF_c\rho_C+K_1M\rho_n+20F\nu/\sqrt\lambda]
               [E+\eta(1+\lambda^{-1/2})]\,ds.
-\tag{Compact scalar comparison}
+\tag{Harmonic scalar comparison}
 \]
 Here
 \(b_e+M(a_h+\eta)+\eta/\sqrt\lambda
@@ -5420,7 +5884,7 @@ Using \(\int\rho_C,\int\rho_n\le2z\) and
 \(\int\nu\le2\alpha\) therefore proves
 \[
 E(t)\le\eta(1+\lambda^{-1/2})(e^{\mathcal B_n}-1).
-\tag{Compact scalar comparison conclusion}
+\tag{Harmonic scalar comparison conclusion}
 \]
 Insert this bound into the query-output inequality. Its coefficients
 are precisely \(\mathcal A_n\), proving the finite-horizon error
@@ -5428,6 +5892,7 @@ certificate. The separately proved endpoint tails give the all-time
 certificate, including the limiting predictors.
 
 <a id="compact-full-range-domination-proof"></a>
+<a id="harmonic-full-range-domination-proof"></a>
 #### Why the comparison exponent has numerical coefficients
 
 This verification retains the existing source and runtime label caps.
@@ -5445,7 +5910,7 @@ The last entry of the source allowance implies
 \[
 z\le\frac1{16\sqrt{8D_0C_F}}
   \le\frac1{16\sqrt8\,\tau u_0\sqrt s}.
-\tag{Compact source smallness consequence}
+\tag{Harmonic source smallness consequence}
 \]
 Here the source definitions give \(D_0\ge\tau^2\) and
 \(C_F\ge su_0^2\). Since \(P_h\le7u_0\),
@@ -5500,7 +5965,7 @@ last term alone is at most \(7L/(8su_0)\).
 Thus \(D_s\le15Lu_0\), and
 \[
 K_1\le400t_2u_0^2p_0^3.
-\tag{Compact polynomial coefficient bound}
+\tag{Harmonic polynomial coefficient bound}
 \]
 Indeed the coefficients of the terms bounded by
 \(t_2u_0^2p_0^3\) total at most \(12+22+300=334<400\).
@@ -5546,12 +6011,12 @@ coefficient is less than one. Finally the first smallness bound and
 \(zF\le\kappa/(16\sqrt8\,su_0)\le1\). We have proved
 \[
 zK_1\le1,\qquad zF\le1,\qquad z^2K_1K_{\rm src}\le1.
-\tag{Compact full range absorptions}
+\tag{Harmonic full range absorptions}
 \]
 Together with \(400z^2F_c\le25/(16H_c^2)\), these imply
 \[
 \mathcal B_n\le44+64\sqrt{\log(en)}.
-\tag{Compact numerical exponential bound}
+\tag{Harmonic numerical exponential bound}
 \]
 No structural factor has been moved into a width threshold.
 
@@ -5598,7 +6063,7 @@ Using \(e^b-1\le be^b\) proves
 \mathcal A_n\le2000e^{44}\beta^{42L}\frac{Ym}{\gamma}
  \left(1+\sqrt{\frac m\gamma}\right)
  (1+\sqrt{\log(en)})e^{64\sqrt{\log(en)}}.
-\tag{Compact numerical prefactor bound}
+\tag{Harmonic numerical prefactor bound}
 \]
 For the tails, the runtime cap gives
 \(G_c\le5H_c^2\),
@@ -5613,7 +6078,7 @@ Therefore
 \[
 \mathcal D\le236\beta^{9L}\frac{Ym}{\gamma}
                         \left(1+\sqrt{\frac m\gamma}\right).
-\tag{Compact numerical tail bound}
+\tag{Harmonic numerical tail bound}
 \]
 
 The optional original-tolerance refinement follows from the same
@@ -5643,9 +6108,10 @@ Finally, for \(r=\sqrt{\log(en)}\),
 Use \(\lambda^{-1}(1+\lambda^{-1/2})
 \le2(1+\lambda^{-1})^2\) and \(20e^{5/2}<250\) to obtain the
 stated numerical root-width bound. This specialization does not impose
-its smaller cap on the full-range compact theorem.
+its smaller cap on the full-range Harmonic theorem.
 
 <a id="compact-analytic-extension-proof"></a>
+<a id="harmonic-analytic-extension-proof"></a>
 #### All finite source horizons on the same event
 
 The original source event supplies joint time/query holomorphy through
@@ -5662,7 +6128,7 @@ and gap imply, for every real \(t\),
 \int_t^\infty\|\dot\theta(s)\|_{\rm par}\,ds
        \le2\rho_n(t)/\sqrt\lambda
        \le2\alpha e^{-\lambda t/2}.
-\tag{Compact late dense parameter tail}
+\tag{Harmonic late dense parameter tail}
 \]
 This is the same pointwise bound
 \(\|\dot\theta\|\le2(-\dot\rho_n)/\sqrt\lambda\) used in fitting.
@@ -5739,7 +6205,7 @@ at \(T_0\) gives, simultaneously for all real times,
 \[
 \max_{a,j,i}|k_{n,a,i}^{(j)}(t)|
                  \le2K_{\rm src}S\sqrt{\log(en)}.
-\tag{Compact all time carrier bound}
+\tag{Harmonic all time carrier bound}
 \]
 This proves the value of \(M\) used in the comparison. The first
 extension gate is eventual because its left side is a fixed multiple
@@ -5748,6 +6214,7 @@ positive multiple of \(n^{-1/2}\). The second is eventual by the
 same comparison of powers. Neither changes the label interval.
 
 <a id="compact-budget-inversion-proof"></a>
+<a id="harmonic-budget-inversion-proof"></a>
 #### Budget count, inversion and boundary cases
 
 The simplex count and
@@ -5756,13 +6223,13 @@ The simplex count and
 \dim E_j\le B+
  \frac{2^{15}}{d!}\frac Ua z^2(\lambda T)c_q^{-(d-1)}
  \log(en)^{d/2}[H(T,\eta)+\alpha_T+(d-1)r_q]^d.
-\tag{Compact variable rank bound}
+\tag{Harmonic variable rank bound}
 \]
 The factor four counts the four source families. In dimension one,
 \[
 \dim E_j\le B+8+
  2^{15}(U/a)z^2(\lambda T)\sqrt{\log(en)}H_1(T,\eta).
-\tag{Compact variable rank bound in dimension one}
+\tag{Harmonic variable rank bound in dimension one}
 \]
 The extra eight retain all temporal zero modes.
 
@@ -5778,7 +6245,7 @@ Also \(\alpha_{T(u)}\le\alpha_{T_0}\) and
 The variable rank bound therefore gives
 \[
 \dim E_j\le B_*+\mathcal C_d(h_0+u)^{d+1}.
-\tag{Compact one parameter rank bound}
+\tag{Harmonic one parameter rank bound}
 \]
 For \(d=1\),
 \(H_1(T(u),\eta(u))\le H_1(T_0,\eta_0)+9u/8\), so the
@@ -5837,7 +6304,7 @@ Consequently
 \mathcal C_d\le\frac{2^{17}(9/4)^d}{d!}
  \beta^{(32d+6)L}(d+3)^{d/2}
                 (Ym/\gamma)^2\log(en)^{d/2}.
-\tag{Compact full range rank envelope}
+\tag{Harmonic full range rank envelope}
 \]
 Integrating \(\log x\) over \([1,d]\) gives \(d!\ge(d/e)^d\).
 Together with \(d+3\le4d\), \(d^{1/(d+1)}\le2\), and
@@ -5852,7 +6319,7 @@ Use also \((18\cdot2^{17})^{1/(d+1)}\le1536\),
 \left(\frac q{18\mathcal C_d}\right)^{1/(d+1)}
 \ge\frac{\sqrt d}{32768\beta^{32L}}
    \left(\frac q{(Ym/\gamma)^2\log(en)^{d/2}}\right)^{1/(d+1)}.
-\tag{Compact explicit negative exponential rate}
+\tag{Harmonic explicit negative exponential rate}
 \]
 The original counting gates and \(\eta_0\ge1/n\) give
 \(H(T_0,\eta_0)\le7\log(en)\), hence \(h_0\le9\log(en)\),
@@ -5881,7 +6348,7 @@ If \(q\ge n\), take the full source space and \(M_j=I_n/n\),
 and retain the original dense matrices. Along the dense trajectory,
 \(w_C=w_n\), \(c_C=y-f_n\), and the readout correction is zero.
 Metric adjoints are ordinary transposes; the hidden rank-one update has
-exactly the factor \(1/n\) supplied by \(M_{j-1}\). Every compact
+exactly the factor \(1/n\) supplied by \(M_{j-1}\). Every Harmonic
 equation therefore equals its dense counterpart. The positive Gram
 margin and local uniqueness identify the trajectories for all time and
 at the limit. This branch needs only fitting and exact full retention.
@@ -5910,6 +6377,7 @@ force \(q_1\ge\operatorname{rank}A_0=\min(n,d)\) almost surely.
 No conclusion for budgets below these ranks is inferred.
 
 <a id="compact-source-provenance"></a>
+<a id="harmonic-source-provenance"></a>
 #### Read scope and claim boundary
 
 This section consolidates the current study's source bridge, runtime
@@ -5926,12 +6394,12 @@ The maintained notation contract and the rigorous-math instructions
 were read. The separately required canonical-notation skill path was
 unreadable; the accessible skill roots contained no replacement.
 
-The resulting deterministic compact implication is complete relative to
+The resulting deterministic Harmonic implication is complete relative to
 the shared source and dense initialization/fitting theorems. Its success
 width still includes the source theorem's unquantified stochastic
 threshold. The approximation measures predictor fidelity on known inputs,
 not test risk for unknown labels. No claim of optimal rate, bounded-precision
-compression, efficient setup, or ordinary-gradient compact training follows.
+compression, efficient setup, or ordinary-gradient Harmonic training follows.
 
 
 <a id="headline-corollary-proofs"></a>
@@ -5964,7 +6432,7 @@ these two logarithms is needed. At
 \(\varepsilon^{-5/2+o(1)}\). The fixed mixers still have
 \((L-1)n^2=\varepsilon^{-4+o(1)}\) coordinates.
 
-For compact, its exact inverse and exact inventory provide the
+For Harmonic, its exact inverse and exact inventory provide the
 unsuppressed storage formula
 \[
 13(L+1)
@@ -5973,22 +6441,22 @@ unsuppressed storage formula
 \left\lceil9\left[2m+d+9+
 \mathcal C_d(h_0+u_\varepsilon)^{d+1}\right]\right\rceil
 \right\}\right]^2+10m(d+1)
-\tag{corollary-exact-compact-storage}
+\tag{corollary-exact-harmonic-storage}
 \]
 whenever the analytic branch is used. The definitions of
 \(\mathcal C_d,h_0,u_\varepsilon\) are exactly those in
-[the supplied-budget statement](#compact-variable-budget-theorem).
+[the supplied-budget statement](#harmonic-variable-budget-theorem).
 For the loose-target branch use its initialization-only budget instead;
 for the full-width branch use the exact retained dense arrays rather
 than forcing a selected-rank estimate. Both branches are already
-explicitly constructed in the compact theorem.
+explicitly constructed in the Harmonic theorem.
 
 For polynomial accuracy at fixed problem,
 \(h_0=O(\log(en))\) and
 \(u_\varepsilon=O(\log(en/\varepsilon))\).
 The numerical rank envelope proved above gives
 \(\mathcal C_d\) proportional to \(\log(en)^{d/2}\);
-hence the sufficient compact budget is
+hence the sufficient Harmonic budget is
 \(O(\log(en)^{3d/2+1})\). The inventory is quadratic in that budget,
 giving \(O(\log(en)^{3d+2})\).
 The separate \(m,d,L,\gamma\) factors in the headline follow by
@@ -6003,7 +6471,7 @@ d!\ge(d/e)^d,\qquad
 The last step uses \(d\le2^d\); it does not set the structural
 parameters equal. Numerical powers are absorbed only in the headline
 activation-depth exponent. Taking
-\(n=\varepsilon^{-2+o(1)}\) then gives the stated compact
+\(n=\varepsilon^{-2+o(1)}\) then gives the stated Harmonic
 \(O(\log(1/\varepsilon)^{3d+2})\) storage.
 
 For the dense necessary-storage statement, choose lower confidence
@@ -6023,7 +6491,7 @@ family.
 
 Finally fix an arbitrary failure tolerance. Apply the dense lower theorem
 at half that tolerance and the compression upper theorem at the other
-half. Compact's original \(n^{-1+o(1)}\) specialization divided by
+half. Harmonic's original \(n^{-1+o(1)}\) specialization divided by
 \(n^{-1/2}\log(en)^{-5/2}\) tends to zero. For Legendre use the strict
 root-width order in (Legendre-root-width-order), multiplied by
 \(\log(en)^{3/2}\) and rounded up. Its squared denominator gains
@@ -6038,6 +6506,327 @@ This step uses neither event independence nor a confidence-uniform
 lower coefficient, and makes no fitted-endpoint lower claim.
 
 
+<a id="computational-cost-proofs"></a>
+### Proof of the computational-cost bounds
+
+The cost contract and local symbols are those of
+[Part II](#computational-costs). This proof counts explicit executions,
+not all possible algorithms. Matrices use classical multiplication:
+an \(a\)-by-\(b\) matrix acting on \(c\) vectors costs \(O(abc)\)
+arithmetic. Rectangular factors and nodes can be streamed as specified.
+All comparisons here concern arithmetic identities of the defined
+models, not a new numerical approximation theorem.
+
+#### Dense and Legendre execution
+
+Drawing/filling the \(P\) dense coordinates has the stated arithmetic
+and sampling counts. A forward/backward pass over \(m\) inputs and
+the outer-product updates cost \(O(mP)\), plus the listed activation
+calls. Save \(O(Lmn)\) features and signals, along with parameters,
+directions and data. A query uses two width-\(n\) buffers, with
+\(O(P)\) arithmetic; normalization of the first preactivation can
+follow multiplication by the supplied input.
+
+For Legendre, initialize only the \(L-1\) feature layers used as
+zeroth moments. This takes \(mnd+(L-2)mn^2\) matrix arithmetic,
+\((L-1)mn\) nonlinear evaluations, and the associated scalar
+operations. Write the other \(2(L-1)mnq\) moment entries, including
+zeros; their allocation/filling cost is not omitted.
+
+Each reconstructed hidden mixer is its fixed dense matrix plus
+\(mq\) outer-product corrections. For a batch of \(m\) columns,
+first take their inner products with one stored feature vector,
+then accumulate the scaled response vector. Across all factors
+this costs \(O(nm^2q)\) per interface. Streaming those operations
+does not require an \(m^2q\)-word intermediate. The transpose action
+has the same count. All sums
+\(\sum_{i<j}(2i+1)\bar h_{a,i}\) and their response analogues
+are formed with one running prefix per sample and interface;
+there are \(O(Lnmq)\), not \(O(Lnmq^2)\), operations. The
+first-layer/readout updates and residual calculation fit \(O(mP)\).
+Moment storage dominates \(Lmn\) because \(q\ge1,L\ge2\).
+
+At one query, each correction contributes one scalar inner product
+times one stored vector. Accumulate directly into the next layer's
+feature buffer, costing \(O(Lnmq)\) work and \(O(n)\) extra
+words. Explicitly summing all outer products to cache reconstructed
+matrices costs \(O((L-1)n^2mq)\) and creates the stated dense
+cache. It must be refreshed after its defining state changes.
+
+#### Exact factored initial-jet execution
+
+For this paragraph, \([g]_s=\partial_t^sg(0)/s!\) denotes a normalized
+Taylor coefficient. Put \(u_a^{(j)}=r_a\delta_a^{(j)}\), where the
+residual and backward response are the actual dense-training ones.
+Coefficient comparison in the dense ODE gives, for \(s\ge1\),
+\[
+[A]_s=-\frac2{ms}\sum_a[u_a^{(1)}]_{s-1}v_a^T,\qquad
+[W^{(j)}]_s=-\frac2{mns}
+ \sum_a\sum_{b+c=s-1}[u_a^{(j)}]_b[h_a^{(j-1)}]_c^T.
+\tag{cost-factored-weight-jets}
+\]
+Thus initial matrices and \(O(LmnK)\) training coefficients
+determine all parameter jets without retaining \(K\) dense mixers.
+For a batch \(X(t)\) of \(b\) query vectors, write \(U_i,H_j\)
+for the \(n\)-by-\(m\) weighted-response and feature coefficients.
+The increment's coefficient of degree \(s\) is
+\[
+-\frac2{mn}\sum_{i+j+k=s-1}
+ \frac{U_i(H_j^TX_k)}{i+j+1}.
+\tag{cost-factored-query-action}
+\]
+Directly contracting every triple costs \(O(nmbK^3)\). Alternatively,
+cache \(H_j^TX_k\): all these inner products cost \(O(nmbK^2)\);
+their weighted sums for each outer index cost \(O(mbK^3)\);
+the final vector combinations cost \(O(nmbK^2)\). Initialized
+matrix actions cost \(O(n^2bK)\). The transpose calculation
+interchanges the two training factors and has identical counts.
+Every increment at order \(s\) uses lower orders \(i,j,k<s\),
+so this cached calculation is causal during the training recursion.
+New order-\(s\) contractions are saved for later orders.
+
+Use \(b=m\) once for the shared training calculation and \(b=1\)
+for each streamed spatial query. Training contractions occupy
+\(O(Lm^2K^2)\) words, and a query can reuse \(O(mK^2)\)
+scratch layerwise. First-layer coefficients can be formed one at
+a time and discarded, or applied through the training input inner
+products; their cost fits the stated envelopes when \(n\ge m,d\).
+Pointwise residual/response convolutions and readout operations fit
+the same bounds. Saving the initialized-matrix contributions already
+computed in forward/backward propagation also supplies the paired
+source images. The materialized alternative stores all parameter
+coefficients and performs ordinary two-index convolutions, yielding
+the \(P(m+N_x)K^2\) count. None of these recursions advances physical
+training time.
+
+For a general activation, composition with a scalar Taylor series
+can be executed online by a triangular table of power coefficients:
+there are \(O(K^2)\) entries, each updated by at most \(O(K)\)
+terms. This gives the stated \(K^3\) work and \(K^2\) persistent
+words. With the full query series available, truncated Horner
+composition uses \(O(K)\) scratch and \(O(K^3)\) work.
+Fixed-size differential identities, when available for the chosen
+activation, instead use \(O(K^2)\) convolution work and \(O(K)\)
+words. These statements account for composition only; the backend
+cost definition separately includes scalar derivative generation.
+
+#### Compiling the temporal map and accumulating spatial coefficients
+
+For the actual continuation map in the initial-jet proof, write locally
+\[
+\mathfrak t(\xi)=c[\log(1+u\xi)-\log(1-v\xi)],\quad
+c=2r_t/\pi,\quad
+u=\frac{b_1-\vartheta}{1-b_0},\quad
+v=\frac{b_1+\vartheta}{1+b_0}.
+\]
+The constant logarithm cancels because \(\mathfrak t(0)=0\).
+The source quantities \(b_0,b_1,\vartheta\) were defined in the
+[initial-jet proof](#harmonic-initial-jet-proof). This form gives
+\[
+[1+(u-v)\xi-uv\xi^2](\mathfrak t^k)'
+ =kc(u+v)\mathfrak t^{k-1}.
+\]
+Writing \(A_{jk}=[\xi^j]\mathfrak t(\xi)^k\), coefficient comparison
+yields
+\[
+(j+1)A_{j+1,k}
+ =kc(u+v)A_{j,k-1}-(u-v)jA_{jk}
+   +uv(j-1)A_{j-1,k}.
+\tag{cost-continuation-power-recurrence}
+\]
+Use \(A_{00}=1\), zero other entries in column zero and row zero,
+and zero negative-index entries. Generate each column from the
+preceding one, using \(O(K)\) scratch and \(O(K^2)\) total work.
+
+For temporal quadrature nodes, let \(\xi_\ell\) be their coordinates
+under the inverse map and let \(\omega_{a\ell}\) include quadrature
+weight, temporal cosine and its normalization. Form
+\[
+E_{aj}=\sum_{\ell=1}^{N_t}\omega_{a\ell}\xi_\ell^j,\qquad
+B_{ak}=\sum_{j=0}^KE_{aj}A_{jk},
+\quad 0\le a\le p.
+\tag{cost-compiled-temporal-map}
+\]
+Form \(E\) in \(O(N_t(p+1)K)\) work. As each column of \(A\)
+is generated, multiply it by \(E\) and discard it. This adds
+\(O((p+1)K^2)\) work and uses \(O((p+1)K)\) words for \(E,B\)
+and the streamed columns. A source at a spatial node then has
+temporal coefficient \(\sum_k B_{ak}[g]_k\). This is exactly
+the chosen finite initial-jet reconstruction followed by the chosen
+quadrature, not a replacement approximation.
+
+Apply that transform to the source coordinates at one spatial node,
+then accumulate the angular coefficients. This proves temporal-first
+work \(O(LnN_x(p+1)(K+H))\) and \(O(LnR)\) coefficient
+storage. Reversing the two finite sums proves the spatial-first
+alternative and its \(LnKH\) intermediate. The same scalar maps
+are used for paired initialized-matrix images, so their exact
+linear identities are preserved. Blocking complete coefficient
+columns and recomputing nodal jets proves the stated alternative
+peak memory and pass count.
+
+#### Geometric basis overhead
+
+The circle basis is \(1,\sqrt2\cos(j\theta),\sqrt2\sin(j\theta)\);
+angle-addition recurrences evaluate all degrees through \(J\) in
+\(O(J+1)\) arithmetic. In higher dimension split
+\(v=(\cos\theta,\sin\theta\,u)\), \(u\in S^{d-2}\).
+From a degree-\(\ell\) harmonic on \(S^{d-2}\), use
+\[
+(\sin\theta)^\ell
+C_{j-\ell}^{\,\ell+(d-2)/2}(\cos\theta)\,Y_{\ell,b}(u),
+\qquad 0\le\ell\le j,
+\tag{cost-separated-harmonics}
+\]
+with its scalar normalization. Substitution into the separated
+sphere Laplacian shows eigenvalue \(-j(j+d-2)\). Orthogonality
+in \(u\) separates unequal lower modes; for equal lower modes
+the angular integral is the Gegenbauer inner product with weight
+\((1-z^2)^{\ell+(d-3)/2}\). Dimension counting by the harmonic
+decomposition already proved above makes this a complete basis.
+The three-term Gegenbauer recurrence, obtained by differentiating
+its generating function, is
+\[
+(s+1)C_{s+1}^{\lambda}(z)
+ =2(s+\lambda)zC_s^\lambda(z)
+  -(s+2\lambda-1)C_{s-1}^\lambda(z).
+\]
+For each intermediate dimension there are \(O((J+1)^2)\)
+degree/lower-degree pairs. Their polynomial values and normalization
+ratios can be generated recursively, without a gamma-function oracle.
+For the probability-sphere angular measure, denote the squared norm
+of the angular factor locally by \(N_{\ell,s}\), where
+\(\lambda=\ell+(d-2)/2\). The beta integral and the displayed
+Gegenbauer recurrence give
+\[
+N_{0,0}=1,\qquad
+\frac{N_{\ell+1,0}}{N_{\ell,0}}
+ =\frac{2\ell+d-1}{2\ell+d},\qquad
+\frac{N_{\ell,s+1}}{N_{\ell,s}}
+ =\frac{(s+2\lambda)(s+\lambda)}
+ {(s+1)(s+\lambda+1)}.
+\]
+Inverse square roots supply the normalization constants. Combining
+with the lower-dimensional basis costs at most \(O(H)\) additional
+products per dimension and node. This proves
+(cost-scalar-geometry), including \(O(d(J+1)^2)\) reusable scalar
+data and \(O(dN_x)\) node generation. The case \(d=1\) is the
+two-point sphere. No numerical conditioning of these recurrences
+is inferred from their arithmetic count.
+
+#### Source selection and assembly
+
+Process the \(R\) generators by rank-aware orthogonalization against
+at most \(r\) current basis columns, costing \(O(nRr)\) per layer.
+Exact arithmetic distinguishes dependence; a numerical rank tolerance
+would require its own error allowance.
+Each of the selector's \(9r\) barrier iterations can form its shifted
+\(r\)-by-\(r\) inverses in \(O(r^3)\), then test \(n\) row vectors
+by \(O(r^2)\) quadratic forms each. Thus the work is
+\(O(nr^3+r^4)=O(nr^3)\), since \(r\le n\).
+
+Using the proof's selected basis matrix \(P_j\) and diagonal weights
+\(\mathsf D_j\), locally suppress the layer index and put
+\(G=P^T\mathsf DP\). The prescribed metric and its inverse satisfy
+\[
+M=\mathsf D+\mathsf DP(G^{-2}-G^{-1})P^T\mathsf D,\qquad
+M^{-1}=\mathsf D^{-1}+P(I-G^{-1})P^T,\qquad
+P^TM=G^{-1}P^T\mathsf D.
+\tag{cost-metric-factor-identities}
+\]
+For verification, put \(Z=\mathsf D^{1/2}P\), decompose into
+\(\operatorname{ran}Z\) and its orthogonal complement, and use
+\(Z^TZ=G\); multiplication gives each identity. Form the
+\(r\)-dimensional Gram/inverse and materialize both metric caches
+in \(O(qr^2+r^3+q^2r)=O(q^2r)\) work.
+
+The core initialized map \(U_j^TW_0^{(j)}U_{j-1}/n\) costs
+\(O(n^2r+nr^2)\) in general. Paired source actions may save
+some matrix calls, but do not cover the initialized mixer on the
+entire source space. Its remaining assembly through selected bases
+and the last metric identity costs \(O(q^2r+qr^2)\). These
+counts give the assembly terms of \(\mathcal T_{\rm H}\).
+Source bases fit inside the \(LnR\) envelope and the final arrays
+inside \(Lq^2\). Adding the live training jets/caches, scalar
+transform, data and geometry bounds proves
+\(\mathcal M_{\rm H}\). Freeing phase-specific work arrays can
+reduce this safe peak upper bound.
+
+#### Harmonic training without cubic hidden-matrix operations
+
+Let \(H_j,\Delta_j\) have training-feature and backward-response
+columns, and let \(X\) have normalized training inputs as columns.
+The prescribed directions can be evaluated as
+\[
+\dot A_C=\frac2m(\Delta_1\operatorname{diag}c_C)X^T,\qquad
+\dot B_C^{(j)}
+=\frac2m(\Delta_j\operatorname{diag}c_C)(M_{j-1}H_{j-1})^T,
+\qquad \dot w_C=\frac2mH_Lc_C.
+\]
+Apply metrics to the batch arrays first. Multiplying an already
+formed \(q\)-by-\(q\) update by a dense metric would introduce an
+unnecessary \(q^3\) cost. Backward propagation similarly applies
+\(M_{j+1}\), then \(B_C^{(j+1)T}\), then the cached \(M_j^{-1}\)
+to the batch, rather than constructing dense metric adjoints.
+
+The feature Gram is \(Q_C=H_L^TM_LH_L/m\); its construction costs
+\(O(mq_L^2+q_Lm^2)\), and an ordinary fresh factorization costs
+\(O(m^3)\). Its positivity is inherited from the fitting theorem.
+This moving solve is distinct from the fixed metric inverse caches.
+
+The update Gram need not be formed. Direct expansion of the
+directions above gives, sample by sample,
+\[
+\begin{split}
+\frac2m(K_Cc_C)_a={}&
+h_{C,a}^{(L)T}M_L\dot w_C
+ +\delta_{C,a}^{(1)T}M_1\dot A_Cv_a\\
+&+\sum_{j=2}^L
+\delta_{C,a}^{(j)T}M_j\dot B_C^{(j)}
+                         h_{C,a}^{(j-1)}.
+\end{split}
+\tag{cost-update-gram-action}
+\]
+For example, expansion of the \(j\)-th hidden term produces
+\((2/m)\sum_b c_{C,b}
+\langle\delta_{C,a}^{(j)},\delta_{C,b}^{(j)}\rangle_{M_j}
+\langle h_{C,a}^{(j-1)},h_{C,b}^{(j-1)}\rangle_{M_{j-1}}\),
+exactly that term of \(2K_Cc_C/m\). Set \(\dot c_C\) to the
+negative of these contractions. This is an algebraic identity, not
+an assertion that the optimizer is a gradient or that the formula
+is a Jacobian-vector product of the corrected predictor.
+
+Forward passes, these ordered backward/update operations, the
+feature-Gram solve and state directions give
+(cost-harmonic-training) and its peak-memory count. A final
+post-update readout refresh repeats no more than the forward pass
+and top Gram solve, so it has the same order and the stated
+activation calls. With \(M_L\widehat w_C\) resident, query
+evaluation is the ordinary forward pass with rolling buffers,
+which proves (cost-harmonic-query).
+
+#### Cost consequences of the existing inverse choices
+
+Substitution of an inverse width/order is arithmetic only; it
+does not provide a numerical-integration or roundoff bound.
+For fixed data/activations/confidence and
+\(n=\varepsilon^{-2+o(1)}\), dense \(P\) is
+\(\varepsilon^{-4+o(1)}\). The Legendre inverse has
+\(q=\varepsilon^{-1/2+o(1)}\), so its \(Lnmq\) storage/action
+terms are \(\varepsilon^{-5/2+o(1)}\) and the fixed dense
+mixers dominate the total warmup, training and query arithmetic
+envelopes. Its additional query workspace remains
+\(\varepsilon^{-2+o(1)}\).
+The Harmonic inverse has
+\(q=O(\log(1/\varepsilon)^{3d/2+1})\) for fixed structural
+parameters. Its runtime arithmetic and training peak memory are
+therefore \(O(\log(1/\varepsilon)^{3d+2})\), and its query
+workspace is \(O(\log(1/\varepsilon)^{3d/2+1})\), under the
+separate scalar-evaluation convention. No such substitution
+eliminates \(K,N_x,N_t\), activation-series costs or precision
+requirements from Harmonic warmup. This proves exactly the
+qualified cost tables, not a polylogarithmic initialization theorem.
+
 <a id="integrated-audit"></a>
 ## IV. Audit, provenance and remaining limitations
 
@@ -6050,10 +6839,13 @@ The assembly contains the entire specialized source insertion argument,
 the explicit source recurrences and moment-budget removal; dense
 initialization, fitting, signed comparison, Gaussian concentration and
 initialized-Gram fluctuation proofs; the Legendre endpoint projection,
-all-order fitting and signed comparison proofs; and compact coordinate
+all-order fitting and signed comparison proofs; and Harmonic coordinate
 selection, metric/action, harmonic expansion, finite initial-jet setup,
 independent fitting, source energy, readout/deficit cancellation,
 all-time continuation, arbitrary-budget inversion and storage proofs.
+The subsequent computational-cost addition derives initialization,
+per-stage and single-query bounds from these same constructions, exposing
+the Harmonic setup resolutions and activation backend separately.
 Ordinary finite-dimensional calculus, the spectral theorem, compactness
 and the standard elementary limiting theorems used with their stated
 hypotheses are not new model assumptions.
@@ -6068,7 +6860,7 @@ and its two explicit gates are included above, and the source derivative
 bound is now \(t_2\), finite vector RMS factors are written explicitly,
 and parameter differences use typed notation.
 
-The compact audit identified a missing definition of its four source
+The Harmonic audit identified a missing definition of its four source
 families and the spaces they generate. The explicit definition, endpoint
 omissions, exact initialization additions and synchronized coefficient
 operations are now in the runtime statement; the reviewer inspected
@@ -6078,7 +6870,7 @@ vector empirical moment and a locally scoped activation-power
 abbreviation. Both corrections are included.
 
 The separately scoped internal audits found no remaining mathematical
-objection in their combined assigned scope. Dense and compact local
+objection in their combined assigned scope. Dense and Harmonic local
 verdicts are conditional on the shared source theorem; that theorem and
 the Legendre/all-time bridge were reconstructed in the separate source
 audit. No local verdict is presented as an independent proof of a
@@ -6089,13 +6881,37 @@ interfaces, not a second reconstruction of every local proof.
 |---|---|
 | Dense fitting, upper, lower, confidence and inversion | [Dense audit](INTEGRATED_DENSE_AUDIT.md) |
 | Source, all-order Legendre and all-time bridge | [Source/Legendre audit](INTEGRATED_SOURCE_LEGENDRE_AUDIT.md) |
-| Compact construction, comparison, budgets and storage | [Compact audit](INTEGRATED_COMPACT_AUDIT.md) |
+| Harmonic construction, comparison, budgets and storage | [Harmonic audit](INTEGRATED_COMPACT_AUDIT.md) |
 | Headline/exact/proof interfaces and final assembly | [Assembly audit](INTEGRATED_ASSEMBLY_AUDIT.md) |
 
 The reports record frozen-input hashes and final-assembly bindings.
 Temporary section drafts were assembly inputs, not separate current
 results interfaces. Internal review is not a promotion review, formal
 verification, or approval to change the maintained book.
+
+<!-- method-names:start -->
+The user subsequently selected the names Legendre compression and
+Harmonic compression. Original audit reports and historical filenames
+are preserved verbatim; their hashes identify the pre-rename version.
+The [terminology-only check](TERMINOLOGY_UPDATE_CHECK.md) records the
+rename-only snapshot's correspondence to that audited text. That editorial
+step changed no numerical coefficient, assumption, construction or proof
+claim. Current
+fragment links use the new name, while former fragment identifiers remain
+as compatibility aliases.
+<!-- method-names:end -->
+
+The later computational-cost sections and inverse/consequence tables
+are new execution analyses, not part of the frozen original audits.
+Their scoped derivation, subsequent reviews, exact version binding and
+reproducible algebra checks are recorded in
+[COMPUTATIONAL_COST_CHECK.md](COMPUTATIONAL_COST_CHECK.md).
+The accompanying [check script](cost_algebra_check.py) tests the jet
+contractions, temporal compilation, selected-metric identities, Legendre
+prefix/factor execution, matrix-free update-Gram action and inference
+cache. Numerical identity checks support the execution derivations;
+they do not verify the analytic approximation theorem, optimality,
+conditioning or wall-clock complexity.
 
 Mechanical checks cover control characters, paired math delimiters,
 unique equation tags and explicit anchors, resolved local links, and
@@ -6135,8 +6951,13 @@ general theorem.
 The consolidation changes neither the activation class nor the shared
 label interval. It adds no model order, confidence-dependent stored
 trajectory, or fitted-reference oracle. It does not promise efficient
-preprocessing, numerical integrator complexity, bit complexity, or
-ordinary gradient training of an arbitrary smaller network.
+accuracy-certified preprocessing, numerical integrator complexity, bit
+complexity, or ordinary gradient training of an arbitrary smaller network.
+The cost addition uses this integrated construction, not further research
+from another study; its arithmetic envelopes keep the unoptimized setup
+orders, sampling and activation costs explicit. In particular small
+retained Harmonic storage is not a claim of small initialization peak
+memory or work.
 
 ### What remains unresolved
 
