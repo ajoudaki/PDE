@@ -678,7 +678,7 @@ unit tests and CPU-only metric recomputation are separate.
 
 Run from the repository root with `/home/amir/miniconda3/bin/python -B`.
 GPU access requires host execution in this environment. Use a fresh output
-directory for each invocation. `euler-fit` fixes the raw 100/257 split and
+directory for each invocation. By default, `euler-fit` fixes the raw 3/8 100/257 split and
 canonical two-hidden-layer model; `--horizon 81` disables early loss stopping.
 The six configurations are:
 
@@ -775,3 +775,155 @@ must fit the remaining cap; otherwise report the qualification explicitly.
 Keep outputs under fresh `digit_replication_*` directories in the study's
 generated namespace. No theorem, headline asymptotic claim or paper figure
 is changed by this replication.
+
+### Two-pair replication: completed results
+
+The frozen bounded packet initializer improves **endpoint prediction RMS in
+all twelve matched comparisons** (two pairs, three initializations, two
+budgets). This is replication of an empirical endpoint advantage, not a
+theorem or a claim of twelve independent statistical trials. There is one
+fixed data split per pair; seeds are reused across budgets and pairs.
+
+All models reach physical time 100. Final 1/7 results use 32,000 Euler steps
+of size 0.003125; final 4/9 results use 16,000 steps of size 0.00625. Within
+each pair every model and seed uses the same step and horizon. All 36 final
+training MSEs lie in [0.001471875, 0.002376345], below the required 0.01.
+There was no training-horizon extension, changed initializer, order tuning,
+discarded seed, or replacement digit pair.
+
+The following entries are **mean ± sample standard deviation over three
+initialization seeds**. RMS is computed across all 261 held-out images
+against that seed's width-4096 dense reference, not against the labels and
+not as classification error. Maximum-time RMS is the maximum of those
+whole-validation RMS values at the 201 recorded times 0, 0.5, ..., 100;
+it is not a continuous-time or input-sphere supremum.
+
+| Pair | Model | Weight scalars | Endpoint RMS | Maximum recorded-time RMS |
+|---|---|---:|---:|---:|
+| 1/7 | Independent dense | 17,043,456 | 0.00459195 ± 0.00029414 | 0.01868631 ± 0.00478684 |
+| 1/7 | Ordinary 256 | 82,176 | 0.01410267 ± 0.00085141 | 0.04742087 ± 0.02216517 |
+| 1/7 | Packets 256 | 82,176 | 0.01109268 ± 0.00095014 | 0.04803364 ± 0.01281719 |
+| 1/7 | Ordinary 512 | 295,424 | 0.01120915 ± 0.00159846 | 0.04479340 ± 0.02070004 |
+| 1/7 | Packets 512 | 295,424 | 0.00777386 ± 0.00039729 | 0.02373052 ± 0.00379388 |
+| 4/9 | Independent dense | 17,043,456 | 0.00448066 ± 0.00061908 | 0.01500935 ± 0.00344910 |
+| 4/9 | Ordinary 256 | 82,176 | 0.01596575 ± 0.00201312 | 0.04342964 ± 0.01532199 |
+| 4/9 | Packets 256 | 82,176 | 0.01392163 ± 0.00211375 | 0.04238123 ± 0.00480488 |
+| 4/9 | Ordinary 512 | 295,424 | 0.01081039 ± 0.00148916 | 0.02957489 ± 0.00257955 |
+| 4/9 | Packets 512 | 295,424 | 0.00860670 ± 0.00094926 | 0.01932735 ± 0.00561034 |
+
+Every individual primary endpoint outcome is retained here as well as in
+the saved prediction arrays:
+
+| Pair | Base seed | Independent dense | Ordinary 256 | Packets 256 | Ordinary 512 | Packets 512 |
+|---|---:|---:|---:|---:|---:|---:|
+| 1/7 | 201 | 0.00492769 | 0.01319255 | 0.01012733 | 0.01055871 | 0.00735673 |
+| 1/7 | 202 | 0.00437965 | 0.01423575 | 0.01112389 | 0.01303029 | 0.00814776 |
+| 1/7 | 203 | 0.00446850 | 0.01487970 | 0.01202684 | 0.01003846 | 0.00781709 |
+| 4/9 | 201 | 0.00458161 | 0.01466468 | 0.01390252 | 0.01137994 | 0.00911399 |
+| 4/9 | 202 | 0.00504307 | 0.01494802 | 0.01181749 | 0.00912051 | 0.00751158 |
+| 4/9 | 203 | 0.00381732 | 0.01828454 | 0.01604486 | 0.01193072 | 0.00919455 |
+
+Mean endpoint reductions relative to the equal-size Gaussian controls are
+21.34% / 30.65% for 1/7 at widths 256 / 512, and 12.80% / 20.38% for 4/9.
+These percentages compare means; they are not averages of per-seed ratios.
+Each of the four comparisons has three endpoint wins out of three.
+
+The trajectory result is less uniform. At width 256 the packet model wins
+only one of three maximum-time comparisons on **each** pair. Its mean
+maximum-time discrepancy is 1.29% worse on 1/7 and 2.41% better on 4/9.
+The factor-three maximum-time fidelity criterion fails for 1/7 seed 203
+(4.0292 dense-pair units) and 4/9 seed 202 (3.8399 units). At width 512,
+packets win two of three maximum-time comparisons on 1/7 and all three on
+4/9; their mean reductions are 47.02% and 34.65%. Every width-512 packet run is
+within 2.41 times its dense-pair endpoint RMS and within 2.31 times its
+dense-pair maximum-time RMS. These ratios use the corresponding seed's
+denominator, not a ratio to the pooled mean. Width 256 does not universally
+pass an endpoint factor-three criterion either: 4/9 seeds 201 and 203 have
+ratios 3.0344 and 4.2032. The larger frozen budget is therefore the more
+consistent empirical choice; both budgets remain reported.
+
+#### Numerical checks and qualifications
+
+The original 0.0125/0.00625 comparison for 1/7 failed the absolute 0.001
+refinement threshold in four cases: packets256 at seeds 201, 202, 203 and
+ordinary512 at seed 203. In accordance with the frozen rule, all eighteen
+1/7 models were rerun at 0.003125. Their 0.00625/0.003125 maximum-time
+refinement RMS values lie in [0.000415334, 0.000541361], and all pass both
+the absolute and relative gates. All eighteen 4/9 models already passed
+at 0.0125/0.00625, with values in [0.000741213, 0.000993042]. The failed
+coarser 1/7 comparison is preserved, not retroactively marked as passing.
+
+All twelve full-horizon float64 checks at seed 201 and step 0.0125 pass:
+the largest float32/float64 prediction RMS is 3.5207e-7 for 1/7 and
+4.4855e-7 for 4/9, below the 5e-5 precision gate. These checks do **not**
+constitute direct float64 coverage of seeds 202/203 or of the final smaller
+step sizes. The final 1/7 `summary_02` files accordingly have empty direct
+precision coverage and `precision_passed=false`; their successful coarser
+precision checks are separately retained in seed-201 `summary_01`.
+For 4/9, seed-201 `summary_01` has full six-model coverage at its coarse
+step, while the other seeds have no direct precision coverage. An absent
+coverage flag is not a failed precision experiment. Step refinement and
+these precision spot checks are empirical numerical evidence, not rigorous
+continuum-gradient-flow error bounds.
+
+Independent scoped checks reconstruct the raw data splits, verify exact
+default-loader compatibility with 3/8, matched first-layer initialization
+hashes and equal budgets, and re-evaluate small-model checkpoints. All
+reference comparisons use common data, labels, physical times and steps;
+the bounded model retains no dense source arrays or growing response history.
+The same script source hash is used for every model run:
+`bbb53b4e473be7efa079bc7d46fe5a4564e0625630c701fa7a3dd5152e8f69b2`.
+
+The replication uses 102 complete model runs (72 base float32, twelve
+float64 checks, eighteen extra refinements), 2375.00 seconds cumulative
+setup-plus-integration work, and at most 230.16 seconds for one run. Both
+GPUs were used. Maximum recorded PyTorch CUDA tensor allocation is
+490,987,520 bytes; this is not total process RSS or GPU driver reservation.
+The frozen run-count, cumulative-time, individual-time and tensor-memory
+caps all hold. Imports, CPU audits and report generation are outside those
+model-work timings. No model failure or timeout was omitted.
+
+This experiment supports the bounded data-conditioned initializer at these
+two tasks and fixed width 4096. It does not establish logarithmic scaling,
+uniform test-input accuracy, arbitrary-time accuracy, or the original
+Logarithmic theorem for this different empirical construction. The paper
+and its theorem statements are unchanged.
+
+#### Replication artifacts and commands
+
+All paths below are relative to
+`data/generated/compression_empirical_validation_20261007/`:
+
+- `digit_replication_checks_01/`: Euler and bounded-packet unit checks.
+- `digit_replication_{17,49}_s{201,202,203}_{LABEL}_{coarse,fine}_01/`:
+  all base runs and prediction arrays; labels are `dense`, `iid`,
+  `small256`, `small512`, `packets256`, `packets512`.
+- `digit_replication_{17,49}_s201_{LABEL}_precision64_01/`: precision checks.
+- `digit_replication_17_s{201,202,203}_{LABEL}_finer_01/`: extra refinements.
+- Final summaries: `digit_replication_17_s{201,202,203}_summary_02/` and
+  `digit_replication_49_s{201,202,203}_summary_01/`. Each contains
+  `report.json` and `rms.npz`. Earlier 1/7 `summary_01` files retain the
+  failed refinement results and the coarse precision evidence.
+
+Use the preceding six-model CLI table, substituting each base seed and its
+specified offsets, adding `--digits 1 7` or `--digits 4 9`, and changing
+the horizon to 100. Run both base steps in float32 and the six seed-201
+precision cases in float64 at 0.0125. For 1/7 also run every configuration
+in float32 at 0.003125. The default `--digits 3 8` preserves the earlier
+experiment exactly; no extra experiment script is introduced. For example:
+
+```bash
+/home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py euler-fit \
+  --digits 1 7 --model bounded-packets --width 4096 --packet-width 512 \
+  --seed 60201 --source-seed 40201 --horizon 100 --step 0.003125 \
+  --dtype float32 --device cuda:0 --out PATH/TO/FRESH/PACKET512_FINER
+```
+
+For each final `euler-summary`, supply all six `--pair` entries. For 1/7
+these point to `fine` / `finer` runs; for 4/9 they point to `coarse` / `fine`.
+Only the coarse/fine seed-201 summaries receive the six `--precision`
+arguments; do not attach the 0.0125 checks to the finer-step summary as if
+they directly covered its steps. Mean and sample-SD tables above are
+computed from the three final summaries for each pair, with denominator
+two for the sample variance. The underlying arrays allow every reported
+endpoint and recorded-time RMS to be recomputed without rerunning training.
