@@ -1,28 +1,24 @@
 \documentclass[11pt]{article}
-
 \usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb,amsthm,mathtools}
-\usepackage{mathrsfs}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{graphicx}
-\usepackage{placeins}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
+\usepackage{booktabs,array,tabularx,longtable}
+\usepackage{graphicx,placeins}
 \usepackage[font=small,labelfont=bf]{caption}
-\usepackage{microtype}
-\usepackage{natbib}
+\usepackage{microtype,enumitem,natbib}
 \usepackage[hidelinks]{hyperref}
+\usepackage{bookmark}
 \usepackage[nameinlink,noabbrev]{cleveref}
-
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{conjecture}[theorem]{Conjecture}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
-
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\cL}{\mathcal{L}}
@@ -32,1589 +28,342 @@
 \newcommand{\diag}{\operatorname{diag}}
 \newcommand{\Law}{\operatorname{Law}}
 \newcommand{\HS}{\mathrm{HS}}
-
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\setlist{itemsep=3pt,topsep=5pt,parsep=0pt}
+\setlength{\emergencystretch}{1.5em}
+\allowdisplaybreaks[2]
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.7}
+\renewcommand{\textfraction}{0.08}
+\renewcommand{\floatpagefraction}{0.8}
+\setcounter{topnumber}{3}
+\setcounter{tocdepth}{1}
 \title{{\fontsize{14}{17}\selectfont\bfseries
 Compressing Global Dynamics of Deep Nonlinear Feature Learning}}
 \author{Amir Joudaki}
-\date{September 30, 2026}
-
-\renewcommand{\topfraction}{0.85}
-\renewcommand{\bottomfraction}{0.6}
-\renewcommand{\textfraction}{0.1}
-\renewcommand{\floatpagefraction}{0.8}
+\date{October 7, 2026}
 
 \begin{document}
 \maketitle
-
 \begin{abstract}
-How much can the training dynamics of a deep network be compressed?
-Compressing a trained function does not by itself compress its learning:
-networks that agree on every input can diverge once training resumes.
-We retain depth, effective nonlinearity and feature learning, and replace
-each neuron's response history by finitely many evolving Legendre moments
-in a clock driven by residual RMS.  The resulting autonomous dynamics
-reconstruct the learned interactions while retaining the initialized
-matrices exactly.  For fixed depth and training data, canonical Gaussian
-initialization, zero initial readout and sufficiently small fixed labels,
-we prove exponential fitting at every memory order and approximation
-through the entire training trajectory.  Against the dense population
-predictor, the whole-input test error is at most
-$Cq^{-2}\exp\{K\sqrt{\log(e+q)}\}$ plus a width remainder that vanishes
-in probability; the constants are independent of width and time.
-Every diverging order $q=o(n)$ therefore reaches the same population
-learning process with $O(Lmnq)$ evolving history coordinates instead of
-$O(Ln^2)$ learned weights.  Broader-label finite-time guarantees and an
-exact hidden-learning-rate rescaling describe extensions of the central
-regime.  Circle, sphere and MNIST experiments show that small memory
-orders reproduce dense fitted predictions on unseen inputs, while the
-tested frozen-kernel and rank-matched factor baselines can select
-substantially different functions.  The result isolates a compressible
-part of deep learning: the response memory that carries its evolving
-interactions.
+Can a deep network's entire learning trajectory be represented by a much
+smaller state? We study Gaussian-initialized nonlinear networks with learned
+hidden features, fixed depth, a positive initial feature-Gram gap, and small
+fixed labels. Error is uniform over the whole input sphere and all training
+times, including the fitted limit. For $m\ge2$ and nonzero labels,
+independent dense runs have variability of order $n^{-1/2}$ up to
+subpolynomial and logarithmic factors.
+One intrinsic benchmark puts three compression guarantees on the same
+footing: each compressed trajectory is within a constant factor of the
+high-confidence discrepancy between two independent dense runs.
+Legendre compression
+uses $n^{5/4+o(1)}$ moving coordinates while retaining fixed dense mixers.
+Harmonic compression retains $O((\log n)^{3d+2})$ real coordinates and can
+achieve $n^{-1+o(1)}$ error against its coupled dense reference. Its certified
+initialization is near-quadratic with explicit dense matrices, or near-linear
+with an implicit Gaussian reference. A finite-word Logarithmic decoder
+retains $O(\log^6 n\log\log n)$ words and meets the same benchmark against
+an independent dense reference; its query work remains near-linear in width.
+The results separate moving memory, complete retained state, preprocessing
+and inference. Full parameter dependence, numerical qualifications and
+proofs are provided in the appendix.
 \end{abstract}
 
 \section{Introduction}
+\label{sec:introduction}
+Compressing a trained function does not necessarily compress its learning.
+Two parameter states can agree on every input while their backward responses
+differ, so that the same next update separates their predictions. A
+description of learning must retain enough state to continue the dynamics,
+not merely reproduce one fitted snapshot.
 
-\paragraph{A missing model of learning.}
-The Turing machine is the canonical model of computation.  It is idealized---it
-has no fixed bound on memory---and it is simple enough to reason about,
-while physical computers, from the von Neumann architecture onward, are
-understood as its finite-resource implementations.  One might view neural networks
-as playing the role in learning that physical computers play in computation;
-what this analogy still lacks is a counterpart to the Turing machine---a
-canonical idealized model of learning.  Deep neural networks trained by gradient
-descent are the obvious candidates for implementations of such a model, but the
-object they would implement is not yet known.  The obstacle is that their
-training dynamics are enormously complex and have no simple representation.
+Our target keeps depth, nonlinear activations and trained hidden
+representations. Infinite-width descriptions organize these dynamics through
+population variables and responses to reused random matrices
+\citep{yang2021tensor,nguyen2023rigorous,bordelon2022dmft}. They motivate a
+further question: how much finite state is needed to reproduce the actual
+learning trajectory of a finite network? Here both the reference and the
+compressed predictor remain finite. Accuracy is measured on inputs absent
+from the updates, uniformly over the whole sphere and all physical time.
 
-\paragraph{The limit, and why to compress it.}
-A natural place to look for the idealized object is the limit of infinite width.
-Under feature-learning scalings of the type used in tensor-program and mean-field
-theory \citep{yang2021tensor,nguyen2023rigorous}, width-dependent learning rates
-preserve order-one feature evolution, and suitable population observables obey
-deterministic limiting laws.  The limit is the network with no resource
-constraint, as the Turing machine is the computer with none; a finite network
-would then be this limit plus a quantified deviation from it, as in a central
-limit theorem.  Going to infinite width to simplify seems paradoxical, since the
-dynamical system grows with width.  Statistical physics resolves the paradox in
-other settings: a gas of $10^{23}$ molecules is simpler to describe than a gas
-of ten, because its macroscopic behaviour is captured by a few collective
-variables.  Training presents two sources of complexity: the number of neurons,
-and the response history introduced when evolving weights are eliminated from
-the description.  The weights themselves are a Markovian state; response-based
-limits express their learned interactions through the past.  Mean-field and
-tensor-program limits address width.  Whether the response history can also be
-\emph{compressed} is our question.  We do not seek compression for its own
-sake: a compressed description must retain what drives learning and may discard
-the rest, so the state that survives is a candidate for the variables that
-govern learning, and a compressed system that reproduces training would be a
-step toward the idealized model.
+\paragraph{An intrinsic accuracy benchmark.}
+Independent initializations already produce different dense trajectories.
+Our common compression theorem uses a high-confidence quantile of this
+actual discrepancy, not an analytic upper envelope. A constant factor is
+the success criterion. Legendre and Harmonic additionally attain
+negligible relative error, but that stronger property is not required.
+For the Logarithmic decoder, a center-and-median argument gives the
+intrinsic comparison without calculating the quantile. The dense lower
+bound is witnessed during early training; it is not an endpoint lower bound.
 
-\paragraph{What the model must keep.}
-Several influential simplifications isolate different aspects of training.
-Deep linear networks admit exact solutions but remove the
-nonlinearity \citep{saxe2014exact}; one-hidden-layer mean-field models remove
-multilayer hidden interactions \citep{chizat2018global,mei2018meanfield,sirignano2019lln}; and
-the neural tangent kernel keeps depth and nonlinearity but freezes the features
-\citep{jacot2018ntk,lee2019wide,chizat2019lazy}.  Each is simple precisely
-because of what it gives up.  Our target keeps all three: \emph{depth} (more than one
-hidden layer), \emph{nonlinearity} that stays effective during training and in
-the limit, and \emph{feature learning} (hidden representations move at leading
-order).  It must also reproduce the whole trajectory, not a snapshot: two
-networks that compute the same function on every input can have different
-Jacobians and backward responses, and once training resumes the discrepancy
-accumulates.  Together with a specified population limit, this contract fixes
-the object we seek to understand.
+\paragraph{Three resources, three constructions.}
+A learned matrix increment integrates paired forward and backward responses.
+Legendre compression replaces response histories by evolving polynomial
+moments but keeps initialized matrices. Harmonic compression uses time and
+input regularity to select a small coordinate realization of the response
+spaces, with a corrected autonomous optimizer. Logarithmic compression
+stores short random seeds, selected row packets and a finite metric, then
+regenerates the empirical contractions needed by a query.
+A small moving state need not imply small total storage, and a small
+retained model need not imply a cheap query.
 
-\paragraph{The gap, and one axis for every description.}
-Width compression leaves a further resource question.  Tensor Programs
-carry variables indexed by every earlier training step \citep{yang2021tensor},
-and feature-learning dynamical mean-field theory (DMFT) evolves two-time kernels
-whose memory grows quadratically with the number of time points
-\citep{bordelon2022dmft}.  These descriptions encode learned interactions
-through temporal responses rather than explicit learned matrices, a
-substantial reduction in width dependence, but their state grows with the
-number of retained time points.  We ask whether evolving learned interactions
-can instead be carried by a fixed number of neuron-level coordinates, with a
-bound on the error of the complete training trajectory.  The question suggests
-one axis on which every description of training can be placed: fix a horizon
-and an accuracy, and ask how much \emph{evolving} state a description needs to
-reproduce the trajectory to that accuracy, and whether that state grows with
-the number of elapsed steps.  Descriptions that freeze the features, drop depth
-or drop the nonlinearity target a different training regime, and enlarging
-their state alone supplies no general approximation guarantee for ours.  Those
-that keep the contract each pay for the limit in a different currency: the
-dense network in neurons, Tensor Programs and DMFT in stored history, the Neural
-Tangent Hierarchy in tensors indexed by tuples of training samples.  Response
-memory pays in an approximation order: no coordinates are added merely
-because more steps elapse.  Under the small-label conditions proved below,
-one order controls the entire physical-time interval; more generally the
-required order can depend on the horizon and the task.  \Cref{def:global} makes
-the axis precise, \Cref{tab:axis} (\Cref{sec:related}) places the descriptions
-on it once the results are in hand, and \Cref{app:size} works out, under stated
-hypotheses, what each would cost at a prescribed accuracy.
+\paragraph{Scope.}
+The results allow arbitrary fixed depth, compatible finite sphere data,
+and analytic activations with unbounded values. Labels are small but fixed
+as width grows. The feature-learning mobilities are retained rather than
+replaced by a frozen-kernel scaling. This permits hidden learning; it does
+not assert nonzero feature motion for every activation and dataset.
+The guarantees concern prediction fidelity, not risk against unknown test
+labels. Sufficient stochastic widths remain qualitative for Dense,
+Legendre and Harmonic. The finite-word decoder has an explicit but very
+conservative gate for its additive numerical certificate. Its pure
+constant-factor comparison also uses the lower bound's eventual onset.
 
-\paragraph{Key contribution.}
-The learned matrix is a paired memory of forward and backward responses.
-We compress that memory into an autonomous dynamics and control its feedback
-on the signals it records.  Our central theorem makes this statement uniform
-over the whole learning process: in a small-label Gaussian regime, every
-memory order fits exponentially, and order $q$ tracks the dense population
-predictor with error $q^{-2+o(1)}$ plus a vanishing width remainder
-(\Cref{thm:alltime}).  The regime permits any fixed depth and a broad class
-of nonlinear activations; labels are small but fixed as width grows, and
-hidden learning retains its canonical scaling.  As a consequence, any
-diverging order $q=o(n)$ converges to the same limiting predictor while
-using a vanishing fraction of the dense model's evolving state
-(\Cref{cor:compression}).  This is compression of an entire learning
-trajectory, not a factorization of its endpoint.  Small orders reproduce
-the fitted function in experiments where frozen kernels and rank-matched
-trained factors do not (\Cref{sec:experiments}).
-
-\section{Setting}
+\section{Setting and reading conventions}
 \label{sec:setting}
-
-Fix $m$ training pairs $(x_a,y_a)$ with $x_a\in\R^d$, width $n$ and $L\ge2$
-hidden layers:
+There are $m$ training pairs $(x_a,y_a)$, with $\norm{x_a}_2=\sqrt d$,
+width $n$, and $L\ge2$ hidden layers. We use the paper's layer notation:
 \begin{align}
- z_a^{(1)}&=W^{(1)}x_a/\sqrt d,& h_a^{(1)}&=\phi(z_a^{(1)}),\nonumber\\
+ z_a^{(1)}&=W^{(1)}x_a/\sqrt d,&
  z_a^{(\ell)}&=W^{(\ell)}h_a^{(\ell-1)},&
- h_a^{(\ell)}&=\phi(z_a^{(\ell)}),\quad 2\le\ell\le L,\\
- f_a&=\frac{w^\top h_a^{(L)}}{n},& r_a&=f_a-y_a,\qquad
- \rho=\Bigl(\frac1m\sum_a r_a^2\Bigr)^{1/2}.\nonumber
+ h_a^{(\ell)}&=\phi(z_a^{(\ell)}),\nonumber\\
+ f_{n,a}&=\frac{w^\top h_a^{(L)}}n,&
+ r_a&=f_{n,a}-y_a,&
+ \cL&=\frac1m\sum_a r_a^2.
+ \label{eq:network}
 \end{align}
-The activation $\phi$ may differ between layers; the loss is $\cL=\rho^2$.  The
-backward responses, which exclude the residual, are
-$\delta_a^{(L)}=w\od\phi'(z_a^{(L)})$ and
-$\delta_a^{(\ell)}=\phi'(z_a^{(\ell)})\od(W^{(\ell+1)})^\top\delta_a^{(\ell+1)}$.
-With block mobilities $(n,1,\ldots,1,n)$, gradient flow reads
-\begin{equation}
- \dot W^{(1)}=-\frac2m\sum_a r_a\delta_a^{(1)}\frac{x_a^\top}{\sqrt d},\quad
- \dot W^{(\ell)}=-\frac{2}{nm}\sum_a r_a\delta_a^{(\ell)}
- (h_a^{(\ell-1)})^\top\ (2\le\ell\le L),\quad
- \dot w=-\frac2m\sum_a r_a h_a^{(L)}.\label{eq:dense-flow}
-\end{equation}
-We write $\theta=(W^{(1)},\ldots,W^{(L)},w)$ for all parameters and
-$\dot\theta=F(\theta)$ for \eqref{eq:dense-flow}.  Hidden entries are initialized
-as $\mathcal N(0,1/n)$, first-layer entries as $\mathcal N(0,1)$, and the stored
-readout is specified by the result being applied; the central theorem uses
-$w(0)=0$ exactly.
-
-For comparisons across widths we use the normalized parameter distance
-\begin{equation}
- d_n(\widehat\theta,\theta)
- =\frac{\|\widehat W^{(1)}-W^{(1)}\|_F}{\sqrt n}
- +\sum_{\ell=2}^L\|\widehat W^{(\ell)}-W^{(\ell)}\|_F
- +\frac{\|\widehat w-w\|_2}{\sqrt n}.
- \label{eq:normalized-distance}
-\end{equation}
-These scalings agree with the block mobilities and with order-one
-forward predictions.
-
-\paragraph{Population flow.}
-As $n\to\infty$, the neurons of layer $\ell$ become a probability space
-$\Omega_\ell$ with expectation $\E_\ell$: hidden coordinates $z^{(\ell)},h^{(\ell)}$
-become random variables in $L^2(\Omega_\ell)$, the first-layer weights a random
-row $W^{(1)}\in L^2(\Omega_1;\R^d)$, the readout $w\in L^2(\Omega_L)$, and each
-hidden matrix a bounded operator $W^{(\ell)}:L^2(\Omega_{\ell-1})\to L^2(\Omega_\ell)$
-used together with its true adjoint.  The same equations \eqref{eq:dense-flow}
-hold with $\frac1n\sum_i$ replaced by $\E_\ell$ and outer products
-$\delta\,h^\top/n$ by the rank-one operators $g\mapsto\delta\,\E[h\,g]$.  Such
-limits are established in several scopes---for fixed depth on a short horizon,
-and globally in special models---with finite-width gradient flow converging to
-them on compact horizons; a global theorem for general data and depth is open.
-In the small-label regime of \Cref{thm:alltime}, the Gaussian construction
-and the finite-activity estimate identify the dense population predictor
-for all physical time.  The proof is included in \Cref{app:proof-alltime}.
-
-\paragraph{What counts as compression.}
-An exact compression reproduces the reference trajectory; an approximate one
-reproduces it up to a controllable error.  A compression may also match the
-current state and velocity while its small errors compound until the
-trajectories separate; we ask for the stronger, global notion.
-
-\begin{definition}[Global approximation on compact horizons]
-\label{def:global}
-Autonomous systems indexed by an order $q$, with trajectories $\theta_q$,
-\emph{globally approximate} a reference flow $\theta$ if for every $T<\infty$
+Here $w=W^{(L+1)}$ is the output weight; the activation may vary by layer.
+Backward responses exclude the residual:
 \[
-  \sup_{0\le t\le T}\norm{\theta_q(t)-\theta(t)}\longrightarrow0
-  \qquad(q\to\infty).
+ \delta_a^{(L)}=w\od\phi'(z_a^{(L)}),\qquad
+ \delta_a^{(\ell)}
+ =\phi'(z_a^{(\ell)})\od(W^{(\ell+1)})^\top\delta_a^{(\ell+1)}.
 \]
-The rate in $q$ quantifies the trade-off between the size of the compressed
-state and its accuracy.  We call the approximation \emph{all-time} when the
-same conclusion holds with the supremum over $t\ge0$.  Our central result
-establishes this stronger notion, with an additional vanishing width
-remainder when the target is the population flow.
-\end{definition}
-The size in question is the \emph{moving state} of a description: the numbers
-it updates while computing training, excluding fixed sources such as the
-initialization or a frozen kernel.
-
-\section{Closing the training dynamics: exact and approximate}
-\label{sec:memory}
-
-\subsection{Exact closure: operators and an obstruction}
-\label{sec:notions}
-
-A closed description of training evolves a state of one of three kinds: finitely
-many \emph{scalars}, independent of width and training time; finitely many
-\emph{populations} (functions, random variables or laws on fixed spaces, such as
-the law of a neuron's weights), whose particle implementation stores one value
-per particle and field; or \emph{operators} between population spaces, the
-limits of matrices, which record how each row relates to each column, a
-coupling that one-neuron marginal statistics discard.  A finite number of named
-fields or operators need not contain finitely many scalars, so every claim below
-names both the type and the size of the retained state.
-
-Before allowing errors we ask what exact capture of the population flow can look
-like.  A natural candidate without growing history is an operator ODE:
-\eqref{eq:dense-flow} read with the hidden matrices $W^{(\ell)}$ as operators.
-In a deep linear benchmark---one input, three linear hidden layers, order-one
-initialization---this can be proved completely: the learned part of the whole
-network becomes a single trace-class operator that evolves by an explicit
-autonomous cubic equation driven by the residual, and finite gradient flow and
-gradient descent converge to it on every compact horizon in the stated limits
-(\Cref{app:exact}).  But one named operator can contain infinitely many degrees
-of freedom, so an operator equation alone supplies no finite state--accuracy
-trade-off; such a trade-off requires a further approximation of the operator.
-At the other extreme, in the same linear benchmark no encoder formed from a
-fixed finite list of tensor contractions of the weights with width-independent
-bounded degree admits a polynomial autonomous scalar ODE and polynomial readout
-that reproduce the output dynamics on an open set of states at all large widths
-(\Cref{app:exact}).  The reason is that repeated differentiation of the output
-forces ever larger connected contractions: the $(2j-1)$st derivative contains
-$\frac1n\,(W^{(1)})^\top\bigl((W^{(2)})^\top(W^{(3)})^\top W^{(3)}W^{(2)}\bigr)^{j}W^{(1)}$,
-of degree $4j+2$, which no bounded-degree alphabet can express.  The result is
-restricted to this encoder and readout class; it identifies a concrete obstacle
-already present with linear features, not a no-go theorem for all finite scalar
-descriptions.  Between the two, whether the exact operator can be compressed
-into finitely many populations is open: rank-one gradient updates do not by
-themselves imply a fixed rank bound on their time integral.  The main result
-takes a constructive route: accepting controlled error gives an explicit
-autonomous system with a quantitative state--accuracy trade-off.
-
-\subsection{Approximate closure: the idea}
-
-Integrating \eqref{eq:dense-flow}, every hidden matrix is
-\begin{equation}
- W^{(\ell)}(t)=W_0^{(\ell)}-\frac{2}{nm}\sum_a
- \int_0^t r_a(s)\,\delta_a^{(\ell)}(s)\,
- (h_a^{(\ell-1)}(s))^\top\dd s .                        \label{eq:exact-history}
-\end{equation}
-The learned part is an integral of backward against forward responses.  Two
-direct representations are the dense matrix and the accumulated response
-history.  A familiar analogy is a moving ball: under a known force law, its
-current position and velocity can determine the future without storing its past
-positions.  Here we seek history coordinates that retain enough information
-for the network's own law of motion.  Regular response histories suggest that
-a few coefficients can summarize the interaction integral.  Two things must
-hold: the summary must be
-\emph{closed}, so that it evolves autonomously, and \emph{accurate} over the
-whole of training, which alternates between bursts of learning and plateaus.
-
-\subsection{Closure: shifted Legendre moments}
-
-Let $p_k$ be the shifted Legendre polynomials on $[0,1]$, normalized by
-$p_k(1)=1$ and $\int_0^1p_jp_k=\mathbf 1_{j=k}/(2k+1)$.  Their derivatives reduce
-to lower modes,
-\begin{equation}
- x\,p_k'(x)=k\,p_k(x)+\sum_{j<k}(2j+1)\,p_j(x),        \label{eq:triangular}
-\end{equation}
-and this is what makes the moment system close exactly.  The identity underlies
-online polynomial memory in HiPPO \citep{gu2020hippo}; the new element is that
-the memorized signals are the network's own forward and backward responses,
-coupled back through the reconstructed network.
-The first moments of a history are its mean, its linear trend (the first
-polynomial rises from $-1$ at the start to $1$ now) and its quadratic shape;
-each added moment corrects what the previous ones miss (\Cref{fig:moments}, \Cref{app:supp-figs}).
-
-\subsection{Accuracy: a clock that follows learning}
-
-Concentrated variation can require many polynomial modes in physical time.
-We therefore measure history in a clock
-$\tau$ that runs at the speed of learning,
-\begin{equation}
- \dot\tau=\rho,\qquad \tau(0)=1:                        \label{eq:old-clock}
-\end{equation}
-fast when the residual is large and slow as it approaches zero.  This speed is
-the square root of loss, not its time derivative; it need not stop at a
-positive-loss stationary point.  The unit prefix
-$[0,1]$ carries the initial forward responses and no backward response.  For
-each hidden link $\ell\ge2$ and sample $a$ we store the first $q$ Legendre
-moments, in the clock coordinate, of the forward response $h_a^{(\ell-1)}$ and
-of the residual-weighted backward response $r_a\delta_a^{(\ell)}/\rho$:
-\[
- \bar h^{(\ell-1)}_{a,k}=\int_0^{\tau} h_a^{(\ell-1)}\,p_k(\xi/\tau)\dd\xi,\qquad
- \bar\delta^{(\ell)}_{a,k}=\int_0^{\tau}\frac{r_a\delta_a^{(\ell)}}{\rho}\,
- p_k(\xi/\tau)\dd\xi,\qquad 0\le k<q,
-\]
-where $\xi$ is the clock value at which each response was recorded.  By
-\eqref{eq:triangular} these moments obey the closed system
+With block mobilities $(n,1,\ldots,1,n)$ the exact gradient flow is
 \begin{align}
- \dot{\bar h}^{(\ell-1)}_{a,k}&=\rho\,h_a^{(\ell-1)}-\frac{\rho}{\tau}
- \Bigl[k\,\bar h^{(\ell-1)}_{a,k}+\sum_{j<k}(2j+1)\,\bar h^{(\ell-1)}_{a,j}\Bigr],\nonumber\\
- \dot{\bar\delta}^{(\ell)}_{a,k}&=r_a\delta_a^{(\ell)}-\frac{\rho}{\tau}
- \Bigl[k\,\bar\delta^{(\ell)}_{a,k}+\sum_{j<k}(2j+1)\,\bar\delta^{(\ell)}_{a,j}\Bigr],
- \label{eq:old-ode}
+ \dot W^{(1)}
+ &=-\frac2m\sum_a r_a\delta_a^{(1)}x_a^\top/\sqrt d,\nonumber\\
+ \dot W^{(\ell)}
+ &=-\frac{2}{nm}\sum_a r_a\delta_a^{(\ell)}
+                 (h_a^{(\ell-1)})^\top,\quad 2\le\ell\le L,\nonumber\\
+ \dot w&=-\frac2m\sum_a r_a h_a^{(L)}.
+ \label{eq:dense-flow}
 \end{align}
-with $\bar h^{(\ell-1)}_{a,0}(0)=h_a^{(\ell-1)}(0)$ and all other moments zero, and
-the hidden matrices are reconstructed as
-\begin{equation}
- \widehat W^{(\ell)}=W_0^{(\ell)}-\frac{2}{nm\tau}
- \sum_{a=1}^m\sum_{k=0}^{q-1}(2k+1)\,
- \bar\delta^{(\ell)}_{a,k}\,(\bar h^{(\ell-1)}_{a,k})^\top .   \label{eq:old-recon}
-\end{equation}
-All responses in \eqref{eq:old-ode} are evaluated in the current
-\emph{reconstructed} network, and the first layer and readout follow
-\eqref{eq:dense-flow}.  The system is autonomous and never divides by $\rho$.
-Equivalently, with $\Pi_q$ the $L^2(0,\tau)$ projection onto polynomials of
-degree below $q$,
-\begin{equation}
- \widehat W^{(\ell)}=W_0^{(\ell)}-\frac{2}{nm}\sum_a
- \int_0^\tau\Bigl(\Pi_q\frac{r_a\delta_a^{(\ell)}}{\rho}\Bigr)
- \bigl(\Pi_q h_a^{(\ell-1)}\bigr)^\top\dd\xi,               \label{eq:projection-form}
-\end{equation}
-and since cross terms vanish by orthogonality, the error in each matrix update is
-a \emph{product} of a forward and a backward projection error.
-\Cref{fig:mechanism}(b) (\Cref{app:supp-figs}) illustrates this cancellation and distinguishes it from
-the separate stability argument that controls feedback.
+First-layer entries are independent $\mathcal N(0,1)$, hidden entries are
+independent $\mathcal N(0,1/n)$, blocks are independent, and $w(0)=0$.
+Activations are real on the real axis, analytic in a strip about it, and
+have bounded first derivative there. Their values need not be bounded.
 
-\paragraph{The joint feature-learning clock.}
-The learning-speed clock makes forward histories smooth but not every backward
-history.  A second clock advances with the residual \emph{plus} the speed of all
-forward and backward responses,
-\begin{equation}
- \dot\tau=\rho+\Bigl\|\tfrac{d}{dt}\bigl(h_a^{(\ell-1)},\,r_a\delta_a^{(\ell)}/\rho\bigr)_{\ell,a}\Bigr\|_2,
- \qquad\tau(0)=1,                                         \label{eq:new-clock}
-\end{equation}
-so that the whole response path moves at unit speed at most in the clock
-coordinate.  History is placed by this clock but still weighted by the residual
-mass $\rho\dd t$, so the Legendre modes are no longer orthogonal and one shared
-$q\times q$ Gram matrix is tracked alongside the moments; the reconstruction uses
-its inverse, the defect keeps the product form, and the clock speed can be
-evaluated explicitly by one directional forward and backward pass
-(\Cref{app:proof-new}).
-The coordinate change is illustrated in \Cref{fig:clock} (\Cref{app:proof-new}).
+\paragraph{Data and labels.}
+The population initial feature Gram (an uncentered second moment) is defined by
+\[
+ Q^{(0)}_{ab}=x_a^\top x_b/d,\qquad
+ Q^{(\ell)}_{ab}=\E[\phi(Z_a)\phi(Z_b)],
+ \quad Z\sim\mathcal N(0,Q^{(\ell-1)}).
+\]
+Its gap and the label scale are
+\[
+ \gamma=\lambda_{\min}(Q^{(L)})>0,\qquad Y=\norm{y}_2/\sqrt m.
+\]
+The gap is not divided by $m$. The clean main-text bounds use
+$0<Y\le c\gamma/m$, for a sufficiently small activation/depth constant $c$.
+The appendix retains the larger original recurrence-defined allowance and
+its full certificates. $Y$ is fixed, not width-dependent; zero labels give
+the exact zero predictor separately. Dense, Legendre and Harmonic require
+no orthogonality, centering or input-rank assumption. Only the decoder
+additionally requires $m\ge d$ and spanning training inputs.
 
+\paragraph{One observable and one accuracy benchmark.}
+Write
+\begin{equation}
+ \norm{f-g}_*=
+ \sup_{t\in[0,\infty]}\sup_{\norm{x}_2=\sqrt d}|f(t,x)-g(t,x)|.
+ \label{eq:test-norm}
+\end{equation}
+This includes fitted limits. Let $f_n,\widetilde f_n$ be two independently
+initialized ordinary dense runs, and define their high-confidence
+variability by
+\begin{equation}
+ b_n=\inf\{b\ge0:\Pr(\norm{f_n-\widetilde f_n}_*\le b)\ge0.9999\}.
+ \label{eq:intrinsic-benchmark}
+\end{equation}
+The $99.99\%$ quantile is deterministic but need not be known. We seek
+compression error at most $3b_n$ with $99\%$ confidence. Both confidence
+levels are fixed numerical conventions; the appendix gives their general
+failure-probability relation. Discrepancy is assigned $+\infty$ on a
+trajectory lacking the required fitted limit, so the definition does not
+silently condition on a successful run. The qualifying width makes this
+quantile finite. All errors are absolute, with no implicit division by $Y$.
+We do not spend the label cap to reduce powers of
+$m/\gamma$: the learned-storage envelopes remain cubic for Legendre and
+quartic for Harmonic.
+
+\paragraph{Constants, confidence and limits.}
+Main-text $c,C>0$ depend only on activations and fixed depth and can change
+between occurrences. They hide no dependence on $m,n,d,\gamma$.
+To keep the headlines short, confidence is fixed at $99\%$; the appendix
+retains arbitrary failure probability $\delta$, including its effect on
+the lower coefficient, width gates and finite-word costs.
+At each sufficiently large individual width the stated comparisons hold,
+not on one event over infinitely many independent widths.
+The first three models' stochastic width thresholds are not quantified.
+Expressions with $o(1)$ fix the admissible data, depth, activation and
+confidence before $n\to\infty$; they are not uniform growing-data claims.
+
+\paragraph{State and reference.}
+Internal memory and approximation orders are optimized inside the
+constructions. They appear in the mechanism descriptions and appendix,
+not as inputs to the headline theorem. Moving state and complete retained
+state are distinguished.
+Legendre and Harmonic track a coupled dense reference. The implicit
+Harmonic implementation generates that reference jointly instead of
+materializing its hidden matrices. The Logarithmic decoder compares with
+an independent dense run and has no free order $q$.
+
+\section{Quantitative results}
+\label{sec:results}
 \input{results}
+\input{methods}
+\input{costs}
 
-\section{Experiments}
+\section{Existing numerical illustrations}
 \label{sec:experiments}
-
-We integrate finite networks and compare response memory with dense gradient
-flow from the same initialization, using the learning-speed clock unless stated.
-The experiments probe the construction beyond the small-label theorem:
-their label sizes and, in the supplementary sphere task, nonsmooth ReLU
-activation need not satisfy its hypotheses.
-We first examine the developing function at shared physical times, then compare
-fitted functions at each model's first crossing of training MSE $0.001$, and
-then ask whether reproducing that function requires the response-memory
-dynamics.  Shared-time discrepancies address trajectory tracking, while
-individually fitted endpoints test whether the closure reproduces the function
-selected by dense training. The trajectory panel uses a fresh checkpoint
-replay; frozen-kernel controls are evaluated analytically, and the remaining
-experimental panels reuse saved predictions.  No intermediate evolution is
-inferred from endpoints.
-
-\paragraph{Learning in physical time.}
-\Cref{fig:trajectory} follows the paired-label circle task with two hidden tanh
-layers of width $2048$. Dense training and orders $q=1,3,7$ have predictions
-saved at the same 39 physical times between $0$ and $80$, with denser,
-approximately logarithmic spacing from $0.5$ onward. Four snapshots
-show the function developing from the common initialization.  Over all
-shared snapshots, on $2048$ uniform circle queries against the finer dense
-replay, the RMS discrepancy stays below $0.071$ for $q=1$, $0.0059$ for
-$q=3$ and $0.00018$ for $q=7$; the full curves are in \Cref{fig:trajectory-rms}
-(\Cref{app:supp-figs}), together with the numerical sensitivity scale obtained
-by summing the dense and closure coarse/fine prediction changes, which the
-smallest discrepancies approach.  The replay preserves the original
-initialization and uses float64 adaptive Heun integration at two tolerances
-for every model.  These discrete observations illustrate tracking; they do not
-certify the error between observations.
-
-\begin{figure}[!tp]
+These figures retain the existing paper's Legendre response-memory
+illustrations. They are not experiments for Harmonic or Logarithmic
+compression, and their label sizes need not satisfy the small-label theorem.
+Shared physical times and separately fitted endpoints are distinguished.
+No continuous-time supremum, confidence rate or practical setup speedup
+is inferred from these panels.
+\begin{figure}[t]
  \centering
  \includegraphics[width=\textwidth]{figures/trajectory.pdf}
- \caption{\textbf{Learning at common physical times.} Paired-label task, two
- hidden tanh layers, width $2048$: saved functions of dense training and of
- response memory at orders $q=1,3,7$ at the same physical times $t=0,5,20,80$.
- Radius is $3+f(\theta)$, the dashed ring marks $f=0$ and the light rings
- $f=\pm1$; black dots are training labels.  The RMS discrepancies at all $39$
- shared times are in \Cref{fig:trajectory-rms}.}
+ \caption{\textbf{A trajectory, not only an endpoint.}
+ Existing paired-label circle experiment: two hidden tanh layers,
+ width $2048$, and Legendre orders $q=1,3,7$. Predictions are saved at
+ the same physical times $t=0,5,20,80$. Radius is $3+f(\theta)$, the
+ dashed ring marks zero, and black points are training labels.
+ The source replay records $39$ common times and uses float64 adaptive
+ Heun integration at two tolerances. These are discrete observations,
+ not a certificate between the saved times.}
  \label{fig:trajectory}
 \end{figure}
-
-\FloatBarrier
-\paragraph{Fitted functions across tasks.}
-With eight labelled points on a circle, many functions fit the labels, so
-agreement at training points says little. We compare the selected function
-on $8192$ angles for five tasks with alternating labels, clustered points and
-large unlabelled arcs. \Cref{fig:deep} displays the three-hidden-layer results;
-the two-hidden-layer gallery is in \Cref{app:circle-gallery}.
-The same initialization is used within each task and architecture.
-A supplementary four-hidden-layer ReLU example on the sphere appears in
-\Cref{app:sphere-endpoints}.
-
-\begin{figure}[!tp]
+\begin{figure}[t]
  \centering
  \includegraphics[width=\textwidth]{figures/circles_deep.pdf}
- \caption{\textbf{The fitted function across five tasks.} Three hidden tanh
- layers, width $4096$, and memory orders $q=1,2,3$, at each model's training-MSE
- $10^{-3}$ endpoint. Angle represents input direction; radius is $3+f(\theta)$,
- the dashed ring marks $f=0$ and the light rings $f=\pm1$.
- The thick grey curve is dense training, coloured curves are response memory,
- and black dots are training labels. The numbers under each panel are RMS
- differences from dense on $8192$ uniform circle points.}
+ \caption{\textbf{Fitted functions on unseen inputs.}
+ Existing five-task comparison: three hidden tanh layers, width $4096$,
+ and Legendre orders $q=1,2,3$, at each model's own training-MSE
+ $10^{-3}$ endpoint, not a shared time. Grey curves are dense predictions,
+ coloured curves are memory predictions, and black points are labels.
+ Printed discrepancies are RMS differences on $8192$ circle queries,
+ not uniform errors or risk against unseen labels. Fixed initialized
+ matrices remain additional to Legendre's moving state.}
  \label{fig:deep}
 \end{figure}
-
-In two hidden layers (\Cref{fig:shallow}, \Cref{tab:circle} in \Cref{app:circle-gallery}),
-the fitted-function discrepancy falls by 1.5--3 orders
-of magnitude from $q=1$ to $q=7$ on every task. In three hidden layers, $q=2$
-and $q=3$ have RMS differences below $0.06$ on all five tasks, and below
-$0.01$ on three. Order is not monotone at these small values: $q=2$ beats
-$q=3$ on both alternating tasks; the observed numerical sensitivity is two
-orders of magnitude below these differences, and no power law is fitted
-(\Cref{fig:order}, \Cref{app:supp-figs}).  The hidden features move
-substantially: the \emph{absolute} activation RMS
-changes from initialization are $0.35$--$0.65$, $0.38$--$0.74$ and
-$0.46$--$0.68$ in the three layers, across the 20 finest dense and closure runs.
-The moving state at $q=3$ is about $3$\,MiB against $256$\,MiB for the dense
-learned matrices; retained initialized matrices are additional.
-
-Frozen dictionaries built at initialization are a different alternative:
-on the outlier task they reach RMS $0.55$--$1.38$ with about 45 vectors,
-against $0.073$ for 48 response moments. Together with the factor control that
-follows, this motivates both parts of the method: evolving response directions and
-an evolution law derived from the network's own history.
-
+The first panel tests tracking the developing function; the second tests
+selection of a fitted function away from the labels. Neither establishes
+a universal ordering of small memory budgets. Portable source bundles,
+renderers and capture commands remain with the paper. This revision
+reuses the recorded figures without rerunning training.
 \FloatBarrier
 
-\paragraph{Capturing the learned function requires the right dynamics.}
-\Cref{fig:samerank} compares dense training with its full initialization-frozen
-empirical tangent kernel, directly trained factors, and response memory.
-All four fit the training labels to MSE approximately $0.001$, yet select
-different functions between those labels. On the alternating-label quadrant
-task, the frozen kernel has whole-circle RMS discrepancy $171.03$ from dense,
-the two factor seeds have discrepancies $0.6766$ and $1.5413$, and memory at
-$q=3$ has discrepancy $0.04561$. The kernel includes every parameter block with
-the canonical mobilities; its construction and all five task comparisons are
-given in \Cref{app:factors,fig:controls-gallery}.
-
-Both response memory and directly trained factors retain the same $W_0^{(2)}$
-and have evolving low-rank learned corrections. Their dynamics differ:
-ordinary Euclidean factor gradient flow does not induce canonical matrix
-gradient flow. \Cref{fig:samerank-summary} summarizes the comparison across tasks,
-and \Cref{fig:factors} shows the fitted functions on the
-paired-label task at correction rank bound $24$. Memory has whole-circle RMS
-$0.00282$ from dense, against $0.375$ and $0.204$ for the two factor seeds.
-Across all five tasks and three ranks, memory has smaller discrepancy in all
-29 resolved fitted comparisons; one capped factor run is excluded. Twenty-eight
-wins exceed a factor of two. Together, the controls show that the reproduced
-predictor goes beyond the initial tangent model and this rank-matched factor
-flow. They support the response-memory evolution law, without asserting a
-universal comparison with kernels or low-rank algorithms.
-
-\begin{figure}[!tp]
- \centering
- \includegraphics[width=\textwidth]{figures/learning_controls_quadrant_alternating.pdf}
- \caption{\textbf{Fitting the labels does not determine the learned function.}
- Alternating-label quadrant task, eight training inputs, two hidden tanh
- layers and width $2048$. From left: dense training, the full frozen empirical
- NTK, directly trained factors at rank $24$ (two seeds), and response memory
- at $q=3$ with rank bound $24$. All start from the same physical network and
- are evaluated at their own training-MSE $0.001$ endpoints. Gray curves show
- the dense reference in each panel; black dots are training labels.
- Angle is input direction and radius is linear in output. The NTK panel uses
- a $100$-times wider output scale, including its reference curve and labels;
- signed ticks show original output units. RMS values are unscaled discrepancies
- from dense over $8192$ circle queries, not errors against unseen labels.
- The complete five-task comparison appears in \Cref{fig:controls-gallery}.}
- \label{fig:samerank}
-\end{figure}
-
-
-\paragraph{MNIST.}
-With 100 training images and width $4096$, held-out discrepancies are
-$0.00325$, $0.00108$ and $0.00120$ for $q=1,2,3$, retaining the small
-deterioration from $q=2$ to $q=3$; the predictions and their signed residuals
-are shown in \Cref{fig:mnist} (\Cref{app:supp-figs}).
-All models have identical test accuracy ($94.7\%$). With 1000 training images
-and width $1024$, the discrepancies are $0.019$, $0.0019$ and $0.0012$, with
-$97.5\%$ accuracy for dense, $q=2$ and $q=3$. Prediction fidelity and label
-accuracy are separate observables.
-
-\paragraph{Two clocks.}
-The joint clock's better rate is asymptotic. At $q=5$ it improved some cases
-(tanh alternating quadrant $0.0066\to0.0035$; GELU outliers $0.0020\to0.0010$)
-and was much worse on another (GELU alternating quadrant $0.013\to1.00$, reduced
-to $0.10$ by halving the step). Over an 82-configuration sweep, on the 65
-configurations where dense and all orders fit, the joint clock's median
-discrepancies were $0.031$, $0.013$ and $0.0066$ for $q=1,2,3$.
-
-\section{Related work and comparison}
+\section{Related work and discussion}
 \label{sec:related}
-We organize prior work by where it sits on the axis of the introduction: whether
-it targets the specified deep nonlinear feature-learning flow and, when it
-does, how its evolving state is represented.  \Cref{tab:axis} places one
-representation from each description on that axis: what it stores and which
-accuracy certificate addresses the specified target.  \Cref{sec:size} gives
-our all-time trade-off; \Cref{app:size} details the additional hypotheses
-needed to compare numerical solvers at a common tolerance.
-\begin{table}[t]
-\centering
-\small
-\renewcommand{\arraystretch}{1.18}
-\caption{Where descriptions retain the evolving state.  Counts are per
-hidden layer, omitting fixed sources and common outer weights; $N$ is the
-number of retained training times.  Error claims must refer to the same
-deep feature-learning target and horizon before their exponents can be
-compared.  The last column records the available scope rather than
-transferring a theorem from a different scaling.}
-\label{tab:axis}
-\begin{tabular}{@{}p{0.27\textwidth}p{0.20\textwidth}p{0.46\textwidth}@{}}
-\toprule
-Description & Moving state & Accuracy relative to the specified flow\\
-\midrule
-Deep linear; shallow mean field; frozen NTK
-& Model dependent
-& Change at least one of depth, nonlinearity or feature learning.\\
-\midrule
-Canonical dense network
-& $n^2$
-& All-time convergence as $n\to\infty$ in our small-label regime; no numerical width rate here.\\
-Stored update histories
-& $mnN$
-& Exact representation of the chosen discrete updates; continuous-time error requires a numerical estimate.\\
-Tensor Programs
-& Representation dependent
-& Fixed-program population laws; a solver and its numerical error must be specified.\\
-Two-time DMFT solver
-& $m^2N^2$ kernels
-& Path sampling, time discretization and self-consistency errors require separate control.\\
-Tangent hierarchy through $q$
-& $\sum_{j<q}m^j$
-& Published width/horizon estimate is in a different scaling; a matched hierarchy requires its own tail and stability bound.\\
-\midrule
-Response memory, speed clock
-& $mnq$
-& All-time $\omega(q)+o_{\Pr}(1)$ in \Cref{thm:alltime}; $\omega(q)=q^{-2+o(1)}$.\\
-Response memory, joint clock
-& $mnq+q^2$
-& $O_{n,T}(q^{-2})$ on compact horizons (\Cref{thm:new}).\\
-\bottomrule
-\end{tabular}
-\end{table}
+The comparison is between representations of a specified learning process,
+not a claim that other descriptions lack quantitative guarantees.
+Tensor Programs and multilayer mean-field theory provide feature-learning
+population frameworks \citep{yang2021tensor,nguyen2023rigorous};
+dynamical mean-field descriptions organize temporal correlations and
+responses \citep{bordelon2022dmft,bordelon2023finite}. Model assumptions,
+observables and solver representations must be matched before comparing
+their resource costs. Our certificates concern finite Gaussian networks,
+all physical times and the whole passive-input sphere.
 
-\paragraph{Off the axis: descriptions that give up one property.}
-Exact solutions of deep linear networks keep depth and feature learning but not
-nonlinearity \citep{saxe2014exact}; their infinite-width limit is a gradient
-flow on $\ell^2$ operators added to the frozen initialization
-\citep{chizat2024linear}, the cleanest example of an operator description.
-Wasserstein and mean-field limits describe one-hidden-layer networks as the
-gradient flow of a measure over neurons
-\citep{chizat2018global,mei2018meanfield,sirignano2019lln}; they keep nonlinear
-feature learning but not depth.  The neural tangent kernel and lazy training
-keep depth and nonlinearity but freeze the features, reducing training to a
-fixed kernel \citep{jacot2018ntk,lee2019wide,chizat2019lazy}.  Each is simple
-because of what it sacrifices, and each is exact about a different object.
-These regime changes can leave a discrepancy that increasing width does not
-remove.  This concerns the learning dynamics, not whether a shallow or kernel
-model can represent a particular fitted function.
+A frozen neural tangent kernel describes a different limiting regime
+\citep{jacot2018ntk,lee2019wide}. Higher-order responses appear in the neural
+tangent hierarchy \citep{huang2020nth}, whose truncation theorem has its
+own scaling and horizon. Online polynomial memory summarizes an externally
+given signal \citep{gu2020hippo}; here the signals are endogenous, generated
+by the network reconstructed from those memories. Stabilizing that
+feedback is an additional obligation. The appendix also supplies the
+finite-space generator and numerical conditioning arguments used by the
+decoder; no fresh-noise approximation replaces a reused trained matrix.
 
-\paragraph{On the axis, paying in history.}
-Tensor Programs~IV proves feature-learning limits at each fixed number of steps,
-with a recursion that includes variables indexed by every earlier step
-\citep{yang2021tensor}.  Feature-learning DMFT evolves two-time activation,
-gradient and response kernels, with memory quadratic and time cubic in the
-number of time points \citep{bordelon2022dmft}, and its finite-width extension
-adds perturbative fluctuations \citep{bordelon2023finite}.  Direct two-time
-storage is smaller than dense $O(n^2)$ weight storage per layer when the
-number of samples times the number of time steps is well below the width.  Runtime additionally depends on sampled
-single-site paths and self-consistency sweeps (\Cref{app:comparison-dmft}).
-Multilayer mean-field theory and Neural Feature Flow evolve fields on neuronal
-ensembles \citep{nguyen2023rigorous,fang2020features}.  These keep all three
-properties within their respective parameterizations.  They compress width: DMFT, for
-instance, has kernel state independent of the number of neurons.  Direct
-history solvers retain time-indexed state; field descriptions instead retain
-functions on population spaces.  Their representation and approximation
-costs must be specified separately.
-Our result is complementary: it keeps the neurons and compresses time.
+\paragraph{The trade-off is not one-dimensional.}
+Legendre makes the evolving memory small but retains a quadratic fixed
+environment. Harmonic removes that environment from the retained state
+and has polylogarithmic query work at fixed dimension, with near-linear
+implicit setup. The decoder has a dimension-independent logarithmic
+word-storage exponent, but regenerates width-many rows per query.
+It meets the same intrinsic variability benchmark against an independent
+dense reference, rather than tracking a supplied dense realization.
 
-\paragraph{On the axis, paying in tuples of samples.}
-The Neural Tangent Hierarchy \citep{huang2020nth} evolves the outputs together
-with the tangent kernels of order $2,\dots,q$, the $j$-th a function of $j$
-training points, and closes by freezing the top kernel.  The hierarchy is an
-exact identity in any parametrization, and above order two it captures feature
-learning; the neural tangent kernel is its lowest truncation.  What it pays is
-combinatorial in the samples: the moving state through order $q$ is
-$\sum_{j=1}^{q-1}m^j\sim m^{q-1}$ scalars beneath a frozen tensor of $m^q$
-entries (a direct count rather than a statement of that work), against a state
-linear in $m$ here.  Its published guarantee uses width-suppressed higher
-kernels: for even $q$ it gives an $n^{-q/2}$ factor multiplied by
-time-dependent terms, on
-a width-dependent horizon and under specified data and regularity assumptions.
-Those estimates cannot simply be transferred to the present scaling, where
-feature and kernel evolution can remain order one.  The matched hierarchy
-still captures feature learning, but its truncation error must be controlled
-through higher-kernel growth (\Cref{app:comparison-nth}).
-Response memory instead controls the learned parameter trajectory and
-whole-input prediction in \Cref{thm:alltime}, with state linear in $m$ and
-$q$.  NTH's higher orders do capture feature learning; the issue in a
-quantitative comparison is their tail in the same parameterization.
+\paragraph{Open boundaries.}
+The dense lower bound is transient and does not establish sharp
+sample/gap dependence. Small labels are a sufficient stability regime,
+not a sharp necessity or a width-dependent scaling.
+The analytic class includes unbounded values but not exact ReLU.
+Exact-real setup costs do not establish fixed-machine-precision performance
+or superiority at practical widths. Finite-word costs charge activation
+and external-data access explicitly. Finally, trajectory fidelity alone
+does not establish out-of-sample label risk: the usefulness of the
+selected predictor remains a separate question.
 
-\paragraph{Memory and low rank.}
-HiPPO provides online Legendre projection of a given signal \citep{gu2020hippo};
-we apply it to endogenous, coupled training histories and prove stability of the
-resulting feedback loop.  Low-rank training methods constrain the learned
-increment to evolving factors \citep{zhao2023inrank}; response-memory factors are
-causal summaries of the actual forward and backward histories, and a directly
-trained factorization of matched rank performs far worse
-(\Cref{sec:experiments}).
-
-The comparison is therefore between representations and their certificates.
-The proved improvement here is the all-time compression in
-\Cref{cor:compression}.  A numerical ranking by powers of an accuracy
-tolerance additionally needs width, discretization and stability rates for
-each implementation; \Cref{app:size} states those obligations explicitly.
-
-\section{Discussion: toward an idealized model of learning}
-
-We asked whether the limiting process of deep feature learning can be
-approximated by a smaller evolving state.  The central result gives a
-constructive answer in a canonical small-label regime.  Each neuron remembers
-finitely many paired response moments, and these memories evolve with the
-network they reconstruct.  The resulting approximation follows the whole
-training trajectory and its selected test function.  Any diverging sublinear
-order reaches the dense population predictor with a vanishing fraction of
-the dense learned state.
-
-The loss-decay result is part of this mechanism.  Fitting is established for
-every order before comparison with the dense model: it bounds the total
-learning activity, keeps the readout-feature Gram nondegenerate, and makes
-all-time error control possible.  The role of small labels can also be
-expressed as a bound on feature-learning strength through the exact
-rescaling in \Cref{cor:damped}.  This clarifies the regime without replacing
-the canonical theorem by a different training algorithm.
-
-The next questions are quantitative width concentration, a unique
-fixed-order population moment law, and comparable all-time bounds when
-feature movement is no longer small.  The current theorem requires zero
-readout, a positive initial feature-Gram gap and smooth gates; exact ReLU
-is outside its activation class.  Sample dependence remains linear, so a
-continuum of training inputs needs a further representation.  Finally,
-the initialized random operator remains a fixed dense environment:
-compressing that environment while preserving its forward and adjoint reuse
-is a different problem.  These questions concern the remaining parts of
-the learning state; the response history itself already admits an
-autonomous, quantitatively controlled compression.
-
-\begin{thebibliography}{15}
-\providecommand{\natexlab}[1]{#1}
-\providecommand{\url}[1]{\texttt{#1}}
-\expandafter\ifx\csname urlstyle\endcsname\relax
-  \providecommand{\doi}[1]{doi: #1}\else
-  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
-
-\bibitem[Bordelon and Pehlevan(2022)]{bordelon2022dmft}
-Blake Bordelon and Cengiz Pehlevan.
-\newblock Self-consistent dynamical field theory of kernel evolution in wide
-  neural networks, 2022.
-\newblock URL \url{https://arxiv.org/abs/2205.09653}.
-
-\bibitem[Bordelon and Pehlevan(2023)]{bordelon2023finite}
-Blake Bordelon and Cengiz Pehlevan.
-\newblock Dynamics of finite width kernel and prediction fluctuations in mean
-  field neural networks, 2023.
-\newblock URL \url{https://arxiv.org/abs/2304.03408}.
-
-\bibitem[Chizat and Bach(2018)]{chizat2018global}
-L{\'e}na{\"i}c Chizat and Francis Bach.
-\newblock On the global convergence of gradient descent for over-parameterized
-  models using optimal transport.
-\newblock In \emph{Advances in Neural Information Processing Systems},
-  volume~31, 2018.
-
-\bibitem[Chizat et~al.(2024)Chizat, Colombo, Fern\'andez-Real, and
-  Figalli]{chizat2024linear}
-L{\'e}na{\"i}c Chizat, Maria Colombo, Xavier Fern\'andez-Real, and Alessio
-  Figalli.
-\newblock Infinite-width limit of deep linear neural networks.
-\newblock \emph{Communications on Pure and Applied Mathematics}, 2024.
-\newblock \doi{10.1002/cpa.22200}.
-
-\bibitem[Chizat et~al.(2019)Chizat, Oyallon, and Bach]{chizat2019lazy}
-L{\'e}na{\"i}c Chizat, Edouard Oyallon, and Francis Bach.
-\newblock On lazy training in differentiable programming.
-\newblock In \emph{Advances in Neural Information Processing Systems},
-  volume~32, 2019.
-
-\bibitem[Fang et~al.(2020)Fang, Lee, Yang, and Zhang]{fang2020features}
-Cong Fang, Jason~D. Lee, Pengkun Yang, and Tong Zhang.
-\newblock Modeling from features: A mean-field framework for over-parameterized
-  deep neural networks, 2020.
-\newblock URL \url{https://arxiv.org/abs/2007.01452}.
-
-\bibitem[Gu et~al.(2020)Gu, Dao, Ermon, Rudra, and R{\'e}]{gu2020hippo}
-Albert Gu, Tri Dao, Stefano Ermon, Atri Rudra, and Christopher R{\'e}.
-\newblock {HiPPO}: Recurrent memory with optimal polynomial projections, 2020.
-\newblock URL \url{https://arxiv.org/abs/2008.07669}.
-
-\bibitem[Huang and Yau(2020)]{huang2020nth}
-Jiaoyang Huang and Horng-Tzer Yau.
-\newblock Dynamics of deep neural networks and neural tangent hierarchy, 2020.
-\newblock URL \url{https://arxiv.org/abs/1909.08156}.
-
-\bibitem[Jacot et~al.(2018)Jacot, Gabriel, and Hongler]{jacot2018ntk}
-Arthur Jacot, Franck Gabriel, and Cl{\'e}ment Hongler.
-\newblock Neural tangent kernel: Convergence and generalization in neural
-  networks, 2018.
-\newblock URL \url{https://arxiv.org/abs/1806.07572}.
-
-\bibitem[Lee et~al.(2019)Lee, Xiao, Schoenholz, Bahri, Novak, Sohl-Dickstein,
-  and Pennington]{lee2019wide}
-Jaehoon Lee, Lechao Xiao, Samuel~S. Schoenholz, Yasaman Bahri, Roman Novak,
-  Jascha Sohl-Dickstein, and Jeffrey Pennington.
-\newblock Wide neural networks of any depth evolve as linear models under
-  gradient descent, 2019.
-\newblock URL \url{https://arxiv.org/abs/1902.06720}.
-
-\bibitem[Mei et~al.(2018)Mei, Montanari, and Nguyen]{mei2018meanfield}
-Song Mei, Andrea Montanari, and Phan-Minh Nguyen.
-\newblock A mean field view of the landscape of two-layer neural networks,
-  2018.
-\newblock URL \url{https://arxiv.org/abs/1804.06561}.
-
-\bibitem[Nguyen and Pham(2023)]{nguyen2023rigorous}
-Phan-Minh Nguyen and Huy~Tuan Pham.
-\newblock A rigorous framework for the mean field limit of multilayer neural
-  networks.
-\newblock \emph{Mathematical Statistics and Learning}, 6\penalty0
-  (3/4):\penalty0 201--357, 2023.
-\newblock \doi{10.4171/MSL/42}.
-
-\bibitem[Saxe et~al.(2014)Saxe, McClelland, and Ganguli]{saxe2014exact}
-Andrew~M. Saxe, James~L. McClelland, and Surya Ganguli.
-\newblock Exact solutions to the nonlinear dynamics of learning in deep linear
-  neural networks.
-\newblock In \emph{International Conference on Learning Representations}, 2014.
-
-\bibitem[Sirignano and Spiliopoulos(2019)]{sirignano2019lln}
-Justin Sirignano and Konstantinos Spiliopoulos.
-\newblock Mean field analysis of neural networks: A law of large numbers, 2019.
-\newblock URL \url{https://arxiv.org/abs/1805.01053}.
-
-\bibitem[Yang and Hu(2021)]{yang2021tensor}
-Greg Yang and Edward~J. Hu.
-\newblock Tensor programs {IV}: Feature learning in infinite-width neural
-  networks.
-\newblock In \emph{Proceedings of the 38th International Conference on Machine
-  Learning}, volume 139 of \emph{Proceedings of Machine Learning Research},
-  pages 11727--11737. PMLR, 2021.
-\newblock URL \url{https://proceedings.mlr.press/v139/yang21c.html}.
-
-\bibitem[Zhao et~al.(2023)Zhao, Zhang, Chen, Sch{\"a}fer, and
-  Anandkumar]{zhao2023inrank}
-Jiawei Zhao, Yifei Zhang, Beidi Chen, Florian Sch{\"a}fer, and Anima
-  Anandkumar.
-\newblock {InRank}: Incremental low-rank learning, 2023.
-
-\end{thebibliography}
-
+\bibliographystyle{plainnat}
+\bibliography{references}
+\clearpage
 \appendix
+\section*{Guide to the detailed statements and proofs}
+\addcontentsline{toc}{section}{Guide to the detailed statements and proofs}
+The appendices contain the complete parameter-explicit scientific statement
+and proof chain. The main text suppresses activation/depth factors,
+uses absolute prediction error, and internalizes the choice of approximation
+orders. The appendix restores activation/depth
+coefficients explicitly; its numerical $C$ is distinguished from the
+activation/depth envelope denoted by $C$ in the main text.
+Here $A=W^{(1)}$ when the first layer
+is written separately, and $w$ is the same output weight as above.
+Local proof constants, source degrees and numerical orders are not new
+runtime model parameters.
 
-\input{proof_alltime}
-\input{proof_tracking}
-\input{proof_finite_time}
+The full label, width, confidence, storage and cost interfaces are followed
+by numerical certificates and proofs. The shared source construction,
+both efficient Harmonic initializers, and the finite decoder are included
+in the manuscript itself, not left as dependencies on research notes.
+Historical review records and superseded paper theorems are not premises.
 
-
-\section{\texorpdfstring{Proof of \Cref{thm:old}}{Proof of the learning-speed clock theorem}}
-\label{app:proof-old}
-
-\begin{theorem}[Learning-speed clock]
-\label{thm:old}
-Fix finite width, depth $L\ge2$, arbitrary finite data and a finite
-initialization, and let every activation be in $C^{1,1}_{\mathrm{loc}}(\R)$.  For
-every $T<\infty$ and all sufficiently large $q$ the closure exists uniquely on
-$[0,T]$ and
-\[
- \sup_{0\le t\le T}\norm{\widehat\theta_q(t)-\theta(t)}=O_T(q^{-1}),
-\]
-where the threshold on $q$ and the implied constant depend on $T$, the width,
-depth, data and initialization but not on $q$.
-The rate extends to hidden responses and to predictions on any bounded set of
-unseen inputs.  If $\phi$ and $\phi'$ are bounded (tanh, sigmoid, arctangent,
-sine), it holds for every $q\ge1$.  No assumption of successful fitting, Gaussian
-initialization, input geometry or label structure is made.
-\end{theorem}
-
-
-
-In the fixed-width proofs we write $b^{(\ell)}_a=r_a\delta^{(\ell)}_a/\rho$ for the
-residual-weighted backward response, $h^{(\ell-1)}_a(\xi)$ and $b^{(\ell)}_a(\xi)$
-for the forward and backward histories as functions of the clock coordinate
-$\xi$ (extended over the unit prefix as in the main text), $\bar h^{(\ell-1)}_a$
-and $\bar\delta^{(\ell)}_a$ for their moment matrices as in the main text, and
-$h^{(\ell-1)*}_a$, $b^{(\ell)*}_a$ for the values at the current endpoint of the
-degree-$(q-1)$ Legendre projections of the histories.  The only approximation-theoretic input is the following
-Legendre tail bound.
-
-\begin{lemma}[Legendre tail]
-\label{lem:legendre}
-For $u\in H^1(0,\tau;\R^N)$,
-\begin{equation}
- \norm{u-\Pi_q u}_{L^2(0,\tau)}^2
- \le\frac{1}{q(q+1)}\int_0^\tau \xi(\tau-\xi)
- \norm{u'(\xi)}^2\dd\xi
- \le\frac{\tau^2}{4q(q+1)}\norm{u'}_{L^2(0,\tau)}^2. \label{eq:leg-tail}
-\end{equation}
-\end{lemma}
-
-\begin{proof}
-On $[0,1]$, the shifted Legendre equation is
-\[
- -\frac{\dd}{\dd x}\{x(1-x)p_k'(x)\}=k(k+1)p_k(x).
-\]
-Integration by parts shows that the derivatives are orthogonal in the weight
-$x(1-x)$ and have squared norm $k(k+1)/(2k+1)$.  Applying Bessel's inequality
-to $u'$ in this weighted space gives
-\[
- \sum_{k\ge1}k(k+1)\frac{\norm{c_k}^2}{2k+1}
- \le\int_0^1x(1-x)\norm{u'(x)}^2\dd x,
-\]
-where $c_k=(2k+1)\int_0^1u(x)p_k(x)\dd x$.  Parseval, polynomial density and
-$k(k+1)\ge q(q+1)$ for $k\ge q$ give the first bound on $[0,1]$.
-Rescaling and $\xi(\tau-\xi)\le\tau^2/4$ give
-\eqref{eq:leg-tail}; summing componentwise proves the vector statement.
-\end{proof}
-
-\paragraph{Step 1: dense existence and a common compact region.}
-The mobility matrix $\mathcal D$ has largest eigenvalue $n$, and
-$F=-\mathcal D\nabla\cL$.  Hence
-\begin{equation}
- \dot\cL=-\norm{\mathcal D^{-1/2}\dot\theta}^2,
- \qquad \int_0^t\norm{\dot\theta(s)}^2\dd s\le n\rho(0)^2. \label{eq:energy}
-\end{equation}
-Thus $\norm{\theta(t)-\theta(0)}\le\sqrt{nt}\rho(0)$.  A finite maximal
-endpoint would have a finite limiting state, from which local existence would
-extend the solution, so the dense flow is global.
-
-Now fix $T$ and let
-\[
- R=\norm{\theta(0)}+\sqrt{nT}\rho(0)+1,
- \qquad \mathcal B=\{\vartheta:\norm{\vartheta}\le R\}.
-\]
-The dense path stays at distance at least one from $\partial\mathcal B$.  We
-stop the closure at its first exit from $\mathcal B$; the rest of the proof uses
-constants on this explicit ball and eventually rules out that exit.
-
-To make the constants concrete, set $X=\max_a\norm{x_a}/\sqrt d$ and $\alpha_0=X$, and
-choose recursively
-\begin{align}
- s_\ell&=\sup_{|z|\le R\alpha_{\ell-1}}|\phi'(z)|,&
- \alpha_\ell&=\sqrt n\sup_{|z|\le R\alpha_{\ell-1}}|\phi(z)|,\nonumber\\
- \beta_L&=R s_L,& \beta_\ell&=s_\ell R\beta_{\ell+1}\quad(\ell<L).
-                                                               \label{eq:response-bounds}
-\end{align}
-Then $\norm{h_a^{(\ell)}}\le\alpha_\ell$ and
-$\norm{\delta_a^{(\ell)}}\le\beta_\ell$ on $\mathcal B$.  Put
-\begin{align}
- Y&=\left(m^{-1}\sum_a y_a^2\right)^{1/2},&
- \varrho&=R\alpha_L/n+Y,& S&=T\varrho,& \mathsf A&=1+S,\nonumber\\
- v_1&=2\beta_1X,&
- v_\ell&=2\beta_\ell\alpha_{\ell-1}/n,& v_w&=2\alpha_L,\nonumber\\
- V&=\left(v_1^2+\sum_{\ell=2}^Lv_\ell^2+v_w^2\right)^{1/2}. \label{eq:compact-constants}
-\end{align}
-On the stopped interval, $\rho\le \varrho$, $\tau\le\mathsf A$ and
-$\norm{F}\le V\rho$.  Since $F$ is locally Lipschitz, it has some finite
-Lipschitz constant $\Lambda_F$ on $\mathcal B$.
-
-\paragraph{Step 2: an exact projection-error energy.}
-For any single forward or backward history $u$, let
-$D_u(t)=\norm{u-\Pi_q u}_{L^2(0,\tau(t))}^2$, and let $u^*$ be the polynomial
-projection evaluated at the current endpoint.  Differentiating the raw energy
-and the projected energy with \eqref{eq:old-ode}, every basis-dilation term
-cancels, leaving
-\begin{equation}
- \dot D_u=\rho\norm{u-u^*}^2,
- \qquad D_u(t)=\int_0^t\rho(s)\norm{u(s)-u^*(s)}^2\dd s. \label{eq:projection-energy}
-\end{equation}
-The jump at the end of the backward prefix is harmless, since only square
-integrability and growing integrals are used.
-
-Next differentiate \eqref{eq:old-recon}.  The physical closure equation is
-exactly
-\begin{equation}
- \dot{\widehat\theta}_q=F(\widehat\theta_q)+E,\qquad E_1=E_w=0,
-\end{equation}
-with internal defects
-\begin{equation}
- E_\ell=\frac{2\rho}{nm}\sum_a
- (b^{(\ell)}_a-b^{(\ell)*}_a)(h^{(\ell-1)}_a-h^{(\ell-1)*}_a)^\top. \label{eq:defect}
-\end{equation}
-The two mixed projection terms vanish by orthogonality, so the defect is a pure
-product of errors.  Consequently
-\begin{equation}
- \int_0^t\norm{E_\ell(s)}_F\dd s
- \le\frac{2}{nm}\sum_a\sqrt{D_{b,\ell,a}(t)D_{h,\ell,a}(t)}. \label{eq:defect-energy}
-\end{equation}
-This inequality is the bridge from a same-history approximation bound to a
-trajectory theorem.  Define also the proof-only accumulator
-\[
- W^{(\ell)}_{\rm acc}(t)=W_0^{(\ell)}
- -\frac{2}{nm}\sum_a\int_0^t
- \widehat r_a\widehat\delta_a^{(\ell)}
- (\widehat h_a^{(\ell-1)})^\top\dd s,\qquad
- R_\ell=\widehat W^{(\ell)}-W^{(\ell)}_{\rm acc}.
-\]
-Then $R_\ell(0)=0$ and $\dot R_\ell=E_\ell$, so \eqref{eq:defect-energy}
-controls the accumulated absolute velocity error, not only a signed endpoint
-integral.
-
-\paragraph{Step 3: forward histories have a $q$-independent derivative bound.}
-Before changing variables, note that a nonstationary learning-speed solution
-cannot first reach $\rho=0$ at a finite regular state.  Every raw velocity
-vanishes there, and local uniqueness applied backward from that equilibrium
-would force the preceding path to be stationary.  Hence $\xi=\tau(t)$ is a
-valid coordinate on every nonstationary compact segment; the raw algorithm
-itself remains defined at $\rho=0$ without division.
-
-Write primes for derivatives in $\xi=\tau(t)$ and define
-\[
- Z_\ell(t)=\frac1m\sum_a\int_0^{\tau(t)}
- \norm{(h_a^{(\ell)})'(\xi)}^2\dd\xi.
-\]
-The first layer satisfies $\norm{(h_a^{(1)})'}\le s_1v_1X$.  For later layers,
-the chain rule gives
-\begin{equation}
- (h_a^{(\ell)})'=\phi'(z_a^{(\ell)})\od
- \left[(F_\ell/\rho+E_\ell/\rho)h_a^{(\ell-1)}
- +\widehat W^{(\ell)}(h_a^{(\ell-1)})'\right].       \label{eq:forward-chain}
-\end{equation}
-The delicate term is the defect, because endpoint evaluation of a polynomial
-projection can amplify errors by a factor that grows with $q$.  Endpoint
-evaluation of a degree-$(q-1)$ polynomial has operator norm $q/\sqrt\tau$ from
-$L^2(0,\tau)$, because $\sum_{k<q}(2k+1)=q^2$.  Projection contraction and
-$m^{-1}\sum_a\norm{b^{(\ell)}_a}^2\le\beta_\ell^2$ then imply
-\[
- \left(m^{-1}\sum_a\norm{b^{(\ell)*}_a}^2\right)^{1/2}\le q\beta_\ell,
- \quad
- \left(m^{-1}\sum_a\norm{b^{(\ell)}_a-b^{(\ell)*}_a}^2\right)^{1/2}
- \le(q+1)\beta_\ell.
-\]
-Combining this with \Cref{lem:legendre}, \eqref{eq:projection-energy} and
-\eqref{eq:defect} yields
-\begin{equation}
- \int_0^t\rho\norm{E_\ell/\rho}_F^2\dd s
- \le\frac{2\beta_\ell^2\mathsf A^2}{n^2}
- Z_{\ell-1}(t).                                      \label{eq:e-square}
-\end{equation}
-Here the endpoint factor $q+1$ cancels the $q^{-1}$ projection factor.  This
-cancellation is the step that prevents a loss of convergence order with depth.
-
-Define finite, $q$-independent bounds recursively by
-\begin{align}
- \overline Z_1&=S(s_1v_1X)^2,\nonumber\\
- \overline Z_\ell&=3s_\ell^2\left[
- S v_\ell^2\alpha_{\ell-1}^2+
- \left(R^2+\frac{2\beta_\ell^2\mathsf A^2\alpha_{\ell-1}^2}{n^2}\right)
- \overline Z_{\ell-1}\right].                       \label{eq:z-recursion}
-\end{align}
-Integrating \eqref{eq:forward-chain}, and using
-$\norm{x+y+z}^2\le3(\norm{x}^2+\norm{y}^2+\norm{z}^2)$ together with
-\eqref{eq:e-square}, proves inductively that $Z_\ell\le\overline Z_\ell$.
-
-\paragraph{Step 4: accumulated defect and feedback.}
-The zero backward prefix gives $m^{-1}\sum_aD_{b,\ell,a}\le S\beta_\ell^2$, and
-\Cref{lem:legendre} gives
-\[
- \frac1m\sum_aD_{h,\ell,a}
- \le\frac{\mathsf A^2\overline Z_{\ell-1}}{4q(q+1)}.
-\]
-Summing \eqref{eq:defect-energy} over links, we obtain
-\begin{equation}
- \int_0^t\norm{E(s)}\dd s
- \le\frac{B_{\mathrm{LS}}}{\sqrt{q(q+1)}},\qquad
- B_{\mathrm{LS}}=\frac{\mathsf A}{n}
- \sum_{\ell=2}^L\beta_\ell\sqrt{S\overline Z_{\ell-1}}. \label{eq:old-defect-bound}
-\end{equation}
-It remains to account for feedback.  Subtracting the dense flow from the
-perturbed flow and applying the Lipschitz bound on $F$ gives
-\[
- e(t)\le\frac{B_{\mathrm{LS}}}{\sqrt{q(q+1)}}
- +\Lambda_F\int_0^te(s)\dd s,
-\]
-and Gronwall's inequality yields
-\begin{equation}
- \sup_{t\le T}e(t)\le
- \frac{B_{\mathrm{LS}}e^{\Lambda_FT}}{\sqrt{q(q+1)}}.       \label{eq:old-explicit}
-\end{equation}
-Choose $q_0$ so that the right side is less than $1/2$.  The closure then
-cannot reach $\partial\mathcal B$.  Its moment representations,
-$1\le\tau\le\mathsf A$ and the response bounds place its whole finite state in a
-compact subset of the locally Lipschitz domain.  A finite maximal endpoint would
-therefore extend, so the closure exists through $T$.  Lipschitz dependence of
-the network responses on $\theta$ gives the final prediction statement.
-
-\paragraph{Globally bounded activations.}
-Suppose now that every activation and its first derivative are globally
-bounded.  Set
-\[
- \alpha_\ell=\sqrt n\norm{\phi}_\infty,\qquad
- s_\ell=\norm{\phi'}_\infty,\qquad
- B_w=\sqrt{\norm{w(0)}^2+nY^2T}.
-\]
-For both the dense and the closure flows, the unchanged readout equation obeys
-\[
- \frac{\dd}{\dd t}\norm w^2
- =nY^2-4n\frac1m\sum_a(f_a-y_a/2)^2\le nY^2.
-\]
-Therefore $\norm w\le B_w$, $\rho\le \varrho:=B_w\alpha_L/n+Y$, $S=T\varrho$ and
-$\tau\le\mathsf A:=1+S$.  Start with $\beta_L=B_ws_L$ and proceed downward: for
-$\ell=L,\ldots,2$, define
-\[
- D_\ell=\norm{W_0^{(\ell)}}_F+
- \frac{2\mathsf A\beta_\ell\alpha_{\ell-1}}{n},
- \qquad \beta_{\ell-1}=s_{\ell-1}D_\ell\beta_\ell.
-\]
-Projection contraction in \eqref{eq:projection-form} gives
-$\norm{\widehat W^{(\ell)}}_F\le D_\ell$, and the backward recurrence then gives
-$\norm{\delta^{(\ell-1)}}\le\beta_{\ell-1}$.  There is no circularity, because
-the descent starts from the bounded readout.  Finally,
-\[
- \norm{W^{(1)}(t)}_F\le\norm{W^{(1)}(0)}_F+2SX\beta_1.
-\]
-These $q$-independent physical bounds, the moment integral representations and
-$1\le\tau\le\mathsf A$ place the order-$q$ state in a compact set for every
-fixed $q$, so the closure continues through $T$ for every $q\ge1$.  Repeating
-Steps 2--4 with these global constants gives \eqref{eq:old-explicit} for every
-$q$.  This completes the proof. \qed
-
-\section{\texorpdfstring{The joint feature-learning clock: construction and proof of \Cref{thm:new}}{The joint feature-learning clock: construction and proof}}
-\label{app:proof-new}
-
-\begin{theorem}[Joint feature-learning clock]
-\label{thm:new}
-Under the setting of \Cref{thm:old}, assume the activations of layers $\ell\ge2$
-are in $C^{2,1}_{\mathrm{loc}}$ and $\rho(0)>0$.  For every $T$ and all
-sufficiently large $q$ the closure exists uniquely on $[0,T]$, its clock stays
-bounded independently of $q$, and
-$\sup_{t\le T}\norm{\widehat\theta_q(t)-\theta(t)}=O_T(q^{-2})$.
-\end{theorem}
-
-
-
-\begin{figure}[!htbp]
- \centering
- \includegraphics[width=0.92\textwidth]{figures/clocks.pdf}
- \caption{\textbf{Why the clock matters, on a toy signal.}  Two residuals
- decay at different rates, $r_1=e^{-4t}$ and $r_2=0.05\,e^{-t/2}$, so the
- normalized backward signal $b=r/\rho$ switches direction late, when the loss
- is already small.  Its first component is drawn in physical time, in the
- learning-speed clock and in the joint clock, each rescaled to $[0,1]$, with a
- least-squares fit by four Legendre modes; dotted lines join the same physical
- instants.  The learning-speed clock compresses the late phase and sharpens the
- switch; the joint clock spreads it out.  The three fit errors are measured in
- three different coordinates, so they illustrate how smooth the history is in
- each, not a common-metric comparison of closure errors; the joint closure
- itself uses the residual-weighted projection with a Gram matrix.}
- \label{fig:clock}
-\end{figure}
-
-\paragraph{Construction.}
-Let $\Psi$ be the concatenation over $\ell\ge2$ and $a$ of the forward and
-residual-weighted backward responses $(h^{(\ell-1)}_a,b^{(\ell)}_a)$, so that the
-clock \eqref{eq:new-clock} reads $\dot\tau=g=\rho+\norm{\dot\Psi}_2$ and
-$\norm{\dd\Psi/\dd\tau}\le1$.  History is placed at $\xi=\tau(s)$ with mass
-$\rho(s)\dd s$, while the prefix $[0,1]$ carries Lebesgue mass and constant
-initial responses; the resulting measure $\mu_t$ satisfies $\dd\mu_t\le\dd\xi$.
-With $p=(p_0,\ldots,p_{q-1})^\top$ evaluated at $\xi/\tau$, $e=(1,\ldots,1)^\top$,
-and the triangular matrix $\mathsf T_{kk}=k$, $\mathsf T_{kj}=2j+1$ for $j<k$
-(zero above the diagonal), the state consists of the moment matrices
-$\bar h^{(\ell-1)}_a=\int h^{(\ell-1)}_a(\xi)\,p^\top\dd\mu_t$,
-$\bar\delta^{(\ell)}_a=\int b^{(\ell)}_a(\xi)\,p^\top\dd\mu_t$ and one shared
-Gram matrix $G=\int pp^\top\dd\mu_t$, which evolve by
-\begin{align}
- \widehat W^{(\ell)}&=W_0^{(\ell)}-\frac{2}{nm}\sum_a
- \bigl(\bar\delta^{(\ell)}_aG^{-1}(\bar h^{(\ell-1)}_a)^\top
- -b^{(\ell)}_a(0)\,h^{(\ell-1)}_a(0)^\top\bigr),\nonumber\\
- \dot{\bar h}^{(\ell-1)}_a&=\rho\,h^{(\ell-1)}_ae^\top-(g/\tau)\,\bar h^{(\ell-1)}_a\mathsf T^\top,
- \qquad
- \dot{\bar\delta}^{(\ell)}_a=r_a\delta_a^{(\ell)}e^\top-(g/\tau)\,\bar\delta^{(\ell)}_a\mathsf T^\top,
- \nonumber\\
- \dot G&=\rho\,ee^\top-(g/\tau)(\mathsf TG+G\mathsf T^\top),     \label{eq:new-ode}
-\end{align}
-with $G(0)=\diag(1,\tfrac13,\ldots,\tfrac1{2q-1})$, only the zeroth moment
-columns nonzero initially, and the prefix product subtracted so that
-$\widehat W^{(\ell)}(0)=W_0^{(\ell)}$.  With $h^{(\ell-1)*}_a=\bar h^{(\ell-1)}_aG^{-1}e$
-and $b^{(\ell)*}_a=\bar\delta^{(\ell)}_aG^{-1}e$, differentiating the
-reconstruction cancels every $g/\tau$ term and gives the defect
-$E_\ell=\frac{2\rho}{nm}\sum_a(b^{(\ell)}_a-b^{(\ell)*}_a)(h^{(\ell-1)}_a-h^{(\ell-1)*}_a)^\top$,
-of the same product form as \eqref{eq:defect}.
-
-\paragraph{Step 1: a lower bound on the dense residual.}
-Assume $\rho_0>0$ as stated, and use the compact physical ball $\mathcal B$ from
-\Cref{app:proof-old}.  Retain the constants
-$\alpha_\ell,\beta_\ell,\varrho,S,\mathsf A,V,\Lambda_F$ from the proof of \Cref{thm:old}.  On
-this ball the output map has a finite Lipschitz constant $c_f$: prediction and
-residual RMS change by at most $c_f\norm{\theta-\theta'}$.  Along dense flow,
-\[
- |\dot\rho_{\rm dense}|\le c_f\norm{F(\theta)}
- \le c_fV\rho_{\rm dense}.
-\]
-Consequently
-\begin{equation}
- \rho_{\rm dense}(t)\ge
- \mu:=\rho_0e^{-c_fVT}>0,\qquad 0\le t\le T.          \label{eq:dense-rho-lower}
-\end{equation}
-
-\paragraph{Step 2: an exact weighted projection energy.}
-Consider the maximal regular closure interval stopped before either its
-physical state leaves $\mathcal B$ or its residual reaches $\mu/2$.  We first
-derive a clock bound on this stopped interval without assuming small projection
-error.  For any inserted vector history $f$, let
-\[
- D_f=\norm{f-\Pi_t f}_{L^2(\mu_t)}^2
- =\int\norm f^2\dd\mu_t-\operatorname{tr}(B_fG^{-1}B_f^\top).
-\]
-Differentiating $G^{-1}G=I$ gives
-\[
- \frac{\dd}{\dd t}G^{-1}
- =-\rho G^{-1}ee^\top G^{-1}
- +(g/\tau)(G^{-1}\mathsf T+\mathsf T^\top G^{-1}).
-\]
-Together with \eqref{eq:new-ode}, this cancels every dilation term and yields
-\begin{equation}
- \dot D_f=\rho\norm{f-f^*}^2,\qquad
- D_f(t)=\int_0^t\rho\norm{f-f^*}^2\dd s.             \label{eq:new-energy}
-\end{equation}
-The initial error is zero because every prefix is constant.  Thus
-\eqref{eq:defect-energy} holds with the weighted errors in
-\eqref{eq:new-energy}.
-
-\paragraph{Step 3: order-independent coarse bounds.}
-Put
-\[
- Q=m\sum_{\ell=2}^L(\alpha_{\ell-1}^2+\beta_\ell^2),
- \qquad C_0=\frac{\mathsf A Q}{nm}.
-\]
-The total mass of $\mu_t$ is at most $\mathsf A=1+S$.  Projection error is no
-larger than raw history energy, including the matching prefixes.  Applying
-$2\sqrt{uv}\le u+v$ in the defect estimate gives the order-independent bounds
-\begin{equation}
- \int_0^t\norm E\dd s\le C_0,\qquad
- \int_0^t\norm{\dot{\widehat\theta}}\dd s
- \le VS+C_0.                                         \label{eq:coarse-new}
-\end{equation}
-The second inequality uses $\dot{\widehat\theta}=F(\widehat\theta)+E$ and
-$\int_0^t\norm F\dd s\le V\int_0^t\rho\dd s\le VS$.  This total-variation
-estimate is stronger than bounded physical position, and it is obtained before
-any clock bound.
-
-\paragraph{Step 4: a clock bound without a cap.}
-It remains to control the derivative of the normalized response map.  Let
-$\tilde r=r/\rho\in\R^m$.  Then
-\begin{equation}
- \norm{\tilde r}^2=m,\qquad
- D\tilde r[v]=
- \left(I-\frac{\tilde r\tilde r^\top}{m}\right)\frac{Dr[v]}{\rho}. \label{eq:normalized-residual-derivative}
-\end{equation}
-The matrix in parentheses is an orthogonal projector, and $\rho\ge\mu/2$ on the
-stopped interval.  Differentiating the forward and backward recurrences uses
-only bounded physical weights and bounded first two activation derivatives on
-compact preactivation intervals; the first layer uses only $\phi'$.  Hence
-there is a finite, $q$-independent constant $J$ such that
-\[
- \norm{D\Psi(\vartheta)}_{\rm op}\le J
-\]
-throughout the stopped tube.  The stated local smoothness also makes this
-derivative locally Lipschitz.  Since
-$\dot\Psi=D\Psi(\widehat\theta)\dot{\widehat\theta}$, \eqref{eq:coarse-new}
-now gives
-\begin{equation}
- \tau_q(t)=1+\int_0^t(\rho+\norm{\dot\Psi})\dd s
- \le\mathsf A+J(VS+C_0)=:\Lambda_T.                 \label{eq:new-clock-bound}
-\end{equation}
-No clock cap has been assumed or inserted.
-
-\paragraph{Step 5: the sharp joint approximation estimate.}
-We can now use the sharper approximation estimate.  The entire concatenated
-history $\overline\Psi(\xi)$ is constant on the prefix, continuous at its join
-and, on the physical history,
-\[
- \norm{\partial_\xi\overline\Psi}
- =\frac{\norm{\dot\Psi}}{\rho+\norm{\dot\Psi}}\le1.
-\]
-Therefore $\int_0^{\tau_q}\norm{\overline\Psi'}^2\dd\xi\le \tau_q-1$.  The weighted
-projection is a best approximation in $L^2(\mu_t)$, and $\dd\mu_t\le\dd\xi$, so
-comparison with the ordinary Legendre projection and \Cref{lem:legendre} give
-the joint bound
-\begin{equation}
- \sum_{\ell,a}(D_{h,\ell,a}+D_{b,\ell,a})
- \le\frac{\tau_q^2(\tau_q-1)}{4q(q+1)}
- \le\frac{\Lambda_T^2(\Lambda_T-1)}{4q(q+1)}.       \label{eq:new-joint-tail}
-\end{equation}
-This is one estimate for the concatenated path; it does not introduce a
-separate dimension factor per unit or layer.
-
-\paragraph{Step 6: feedback and continuation.}
-Combining \eqref{eq:defect-energy}, \eqref{eq:new-clock-bound},
-\eqref{eq:new-joint-tail} and $2\sqrt{uv}\le u+v$ yields
-\begin{equation}
- \int_0^t\norm E\dd s
- \le\frac{\Gamma_{\mathrm{JF}}}{q(q+1)},\qquad
- \Gamma_{\mathrm{JF}}=\frac{\Lambda_T^2(\Lambda_T-1)}{4nm}.     \label{eq:new-sharp-defect}
-\end{equation}
-Subtracting the dense flow and applying the Lipschitz constant $\Lambda_F$ and Gronwall's
-inequality gives
-\begin{equation}
- \norm{\widehat\theta_q(t)-\theta(t)}
- \le\frac{\Gamma_{\mathrm{JF}}e^{\Lambda_FT}}{q(q+1)}.                  \label{eq:new-feedback}
-\end{equation}
-
-Choose $q_0(T)$ so that, for every $q\ge q_0(T)$,
-\begin{equation}
- \frac{\Gamma_{\mathrm{JF}}e^{\Lambda_FT}}{q(q+1)}\le\frac12,\qquad
- c_f\frac{\Gamma_{\mathrm{JF}}e^{\Lambda_FT}}{q(q+1)}\le\frac\mu4.      \label{eq:new-order-condition}
-\end{equation}
-The first inequality rules out physical exit, because the dense path stays at
-distance one from $\partial\mathcal B$.  The second, together with
-\eqref{eq:dense-rho-lower}, gives $\widehat\rho\ge3\mu/4>\mu/2$, ruling out
-residual exit.
-
-Finally, the matching prefix supplies, at every fixed $q$,
-\begin{equation}
- G(t)\succeq\int_0^1p(\xi/\tau_q(t))p(\xi/\tau_q(t))^\top\dd\xi. \label{eq:prefix-gram}
-\end{equation}
-The right side is positive definite, since a zero quadratic form would make a
-nonzero polynomial vanish on an interval.  Its entries vary continuously with
-$\tau_q$, so on $1\le \tau_q\le\Lambda_T$ its least eigenvalue has a positive minimum
-$\gamma_{q,T}$; this minimum need not be uniform in $q$.  The moment integral
-representations, finite history mass, bounded responses and bounded
-fixed-order polynomials then bound every raw coordinate.  Together with the
-physical, residual, clock and Gram bounds, the full state lies in a compact
-subset of its locally Lipschitz domain.  A finite maximal endpoint therefore
-extends, which proves continuation through $T$ and completes the theorem,
-with implied constant $\Gamma_{\mathrm{JF}}e^{\Lambda_FT}$. \qed
-
-\subsection*{Implementation of the joint clock}
-\label{app:joint-impl}
-
-Equation \eqref{eq:new-clock} appears implicit only because $\dot\Psi$ is
-written compactly; no nonlinear solve for $g$ is needed.  The internal
-velocities do not depend on $g$, so they can be computed first.  Begin with
-$G^{-1}e$, the endpoint fits $h^*,b^*$, and the internal velocities
-\begin{equation}
- V_\ell=\dot{\widehat W}^{(\ell)}=-\frac{2\rho}{nm}\sum_a
- \left[b^{(\ell)}_a(h^{(\ell-1)*}_a)^\top+
- b^{(\ell)*}_a(h^{(\ell-1)}_a-h^{(\ell-1)*}_a)^\top\right]. \label{eq:internal-velocity}
-\end{equation}
-These expressions contain no $g$.  Next compute $V_1=F_1$ and $V_w=F_w$, and run
-a directional forward pass,
-\[
- \dot z_a^{(1)}=V_1x_a/\sqrt d,\qquad
- \dot z_a^{(\ell)}=V_\ell h_a^{(\ell-1)}+
- \widehat W^{(\ell)}\dot h_a^{(\ell-1)},\qquad
- \dot h_a^{(\ell)}=\phi'(z_a^{(\ell)})\od\dot z_a^{(\ell)},
-\]
-which gives $\dot r$ and $\dot\rho$.  A reverse directional pass then
-differentiates the backward recurrence, using $\phi''$ for $\ell\ge2$, and
-yields
-\[
- \dot b^{(\ell)}_a=\frac{\dot r_a\delta_a^{(\ell)}+
- r_a\dot\delta_a^{(\ell)}}{\rho}-b^{(\ell)}_a\frac{\dot\rho}{\rho}.
-\]
-Only then do we evaluate $g=\rho+\norm{\dot\Psi}$ and, finally,
-\eqref{eq:new-ode}.  Matrix and transpose actions use the same reconstructed
-operator.  In practice one factors $G$ and solves linear systems; an explicit
-inverse is unnecessary.
-
-The joint clock is more regular in approximation coordinates, but it is not
-automatically better at low order.  At $q=1$ the polynomial space consists of
-constants, so changing the coordinate alone leaves the physical constant-mode
-closure unchanged.  Higher orders pay for Gram solves and derivative passes,
-and the theoretical constants can be large.
-
-\section{Exact compression in a deep linear benchmark}
-\label{app:exact}
-
-Take one datum $x=1$, a label $y$, three linear hidden layers with order-one
-initialization, mobilities $(n\kappa,\kappa,\kappa,n\kappa)$, and the normalized
-factors $u=W^{(1)}/\sqrt n$, $v=W^{(4)}/\sqrt n$, so that
-$f_n=v^\top W^{(3)}W^{(2)}u$.  Packing the four factors into the cyclic block
-matrix $\mathcal C_n$ with blocks $v^\top,u,W^{(2)},W^{(3)}$ below and above the
-diagonal gives $f_n=\tfrac14\operatorname{Tr}\mathcal C_n^4$, and the feature
-derivative of $\mathcal C_n$ is $(\mathcal C_n^\top)^3$.
-
-\begin{theorem}[Exact operator closure]
-\label{thm:operator}
-There are a separable Hilbert space, a bounded initialized source $\mathcal C_0$
-and a unique global trace-class increment $Q(t)$ with
-\[
- \mathcal C=\mathcal C_0+Q,\qquad f=\tfrac14\operatorname{Tr}\mathcal C^4,\qquad
- \dot Q=-2\kappa(f-y)(\mathcal C_0^*+Q^*)^3,\qquad Q(0)=0 .
-\]
-The kernel is $K=\operatorname{Tr}[\mathcal C^3(\mathcal C^*)^3]$, the residual
-obeys $\dot r=-2\kappa rK$, and $\norm{Q(t)}_1\le2|y|\sqrt{\kappa t}$.  For every
-fixed $T$, finite gradient flow, and gradient descent for every step sequence
-tending to zero, converge in probability to $(f,K,\cL)$ uniformly on $[0,T]$.
-\end{theorem}
-
-The proof builds $\mathcal C_0$ as the limit of initialized word statistics on a
-colored Fock space, obtains global existence from trace-norm control, passes to
-the width limit through finite-word Picard iterates, and treats gradient descent
-as an exact Euler step for $Q$.
-
-\begin{theorem}[Restricted scalar nonclosure]
-\label{thm:nonclosure}
-In the same model, no encoder formed from a fixed finite list of complete tensor
-contractions of $(u,W^{(2)},W^{(3)},v)$ with connected-graph degree bounded
-independently of width admits a width-independent polynomial autonomous ODE (or
-finite-order local polynomial PDE) and a polynomial output readout reproducing
-the output dynamics on a nonempty open set of states for all sufficiently large
-widths.
-\end{theorem}
-
-The $(2j-1)$st feature derivative of the output contains the connected
-contraction
-\[
- u^\top\bigl((W^{(2)})^\top(W^{(3)})^\top W^{(3)}W^{(2)}\bigr)^ju
-\]
-of degree $4j+2$.  Polynomial operations on a bounded-degree alphabet form only
-disjoint unions of connected components already present, and nonisomorphic
-contraction graphs are linearly independent at large width, so this term cannot
-be synthesized.  The theorem does not exclude arbitrary encoders, unrestricted
-fields, or closures tailored to a single initialized trajectory.
-
-\input{comparison_appendix}
-
-\clearpage
-\input{sphere_appendix}
-
-\clearpage
-\section{Supplementary two-hidden-layer circle gallery}
-\label{app:circle-gallery}
-
-\Cref{fig:shallow} shows the full two-hidden-layer task gallery, and
-\Cref{tab:circle} collects the whole-circle RMS discrepancies of both depths
-(the three-hidden-layer gallery is \Cref{fig:deep} in the main text).
-
-\begin{table}[t]
-\centering
-\small
-\caption{Whole-circle RMS difference between response memory and dense
-training at individually fitted endpoints. Left: two hidden tanh layers,
-width $2048$ (\Cref{fig:shallow}). Right: three hidden tanh layers,
-width $4096$ (\Cref{fig:deep}).}
-\label{tab:circle}
-\begin{tabular}{lrrr@{\qquad}rrr}
+\medskip
+\noindent\begin{tabularx}{\textwidth}{@{}Xr@{}}
 \toprule
- & \multicolumn{3}{c}{two layers} & \multicolumn{3}{c}{three layers}\\
-Task & $q=1$ & $q=3$ & $q=7$ & $q=1$ & $q=2$ & $q=3$\\
+Detailed component & Page\\
 \midrule
-Two outliers, alternating & 0.236 & 0.0730 & 0.00466 & 0.108 & 0.0238 & 0.0315\\
-Quadrant, alternating & 0.341 & 0.0456 & 0.00155 & 0.275 & 0.0284 & 0.0585\\
-Quadrant, paired & 0.0193 & 0.00282 & 0.00012 & 0.0122 & 0.00371 & 0.00121\\
-Quadrant, center/edges & 0.0456 & 0.00488 & 0.00131 & 0.0790 & 0.0257 & 0.00725\\
-Equally spaced, mixed & 0.0124 & 0.00053 & $4\times10^{-6}$ & 0.0150 & 0.00241 & 0.00028\\
+\hyperref[int:headline-results]{Complete certificate interfaces and notation}
+& \pageref{int:headline-results}\\
+\hyperref[int:detailed-statements]{Explicit statements, constants and cost inventories}
+& \pageref{int:detailed-statements}\\
+\hyperref[int:intrinsic-variability-comparison]{Actual-variability decoder comparison}
+& \pageref{int:intrinsic-variability-comparison}\\
+\hyperref[int:joint-compression-headline-proof]{Proof of the joint compression theorem}
+& \pageref{int:joint-compression-headline-proof}\\
+\hyperref[int:source-foundations]{Shared source construction and analytic estimates}
+& \pageref{int:source-foundations}\\
+\hyperref[int:dense-proofs]{Dense upper and lower bounds}
+& \pageref{int:dense-proofs}\\
+\hyperref[int:legendre-proofs]{Legendre construction and all-order comparison}
+& \pageref{int:legendre-proofs}\\
+\hyperref[int:harmonic-proofs]{Harmonic geometry, stability and budget inversion}
+& \pageref{int:harmonic-proofs}\\
+\hyperref[int:logarithmic-decoder-proofs]{Logarithmic decoder and confidence bounds}
+& \pageref{int:logarithmic-decoder-proofs}\\
+\hyperref[int:decoder-finite-construction]{Finite source, numerical execution and word backend}
+& \pageref{int:decoder-finite-construction}\\
+\hyperref[int:harmonic-efficient-setup-proofs]{Explicit and implicit Harmonic initialization}
+& \pageref{int:harmonic-efficient-setup-proofs}\\
 \bottomrule
-\end{tabular}
-\end{table}
+\end{tabularx}
 
-\begin{figure}[!htbp]
- \centering
- \includegraphics[width=\textwidth]{figures/circles_shallow.pdf}
- \caption{Fitted circle predictions for two hidden tanh layers, width $2048$,
- and response-memory orders $q=1,3,7$, using the dense references in
- \Cref{tab:circle}. Models are evaluated at their individual training-MSE
- $10^{-3}$ endpoints. Angle is input direction and radius is $3+f(\theta)$;
- rings, training labels and RMS values follow \Cref{fig:deep}. RMS is measured
- on $8192$ uniform circle points.}
- \label{fig:shallow}
-\end{figure}
-
-\section{Supplementary experimental figures}
-\label{app:supp-figs}
-
-\begin{figure}[!htbp]
- \centering
- \includegraphics[width=\textwidth]{figures/mechanism.pdf}
- \caption{\textbf{A learned connection is a paired memory.}  (a)~For each
- hidden link and training sample, the forward response $h_a^{(\ell-1)}$ and the
- residual-weighted backward response $b_a=r_a\delta_a^{(\ell)}/\rho$ are
- recorded in the learning clock and projected onto the first $q$ shifted
- Legendre polynomials ($q=3$ shown).  The polynomial coordinates are fixed; the
- moment vectors $\bar h_{a,k},\bar\delta_{a,k}\in\R^n$ keep moving.  Pairing
- them gives a correction of rank at most $mq$, added to the fixed
- initialization $W_0^{(\ell)}$, and the responses of the reconstructed network
- feed the next memories.  (b)~Splitting each history into its projection
- $\Pi_q$ and remainder, the exact interaction $\int b\,h^\top$ is a sum of four
- pairings; the mixed ones vanish by orthogonality, so the memory misses only
- the product of the two omitted parts.}
- \label{fig:mechanism}
-\end{figure}
-
-\Cref{fig:mechanism} sketches the paired memory and the product form of its defect; \Cref{fig:moments} shows what Legendre moments retain of recorded response
-histories; \Cref{fig:trajectory-rms} shows the RMS discrepancies behind
-\Cref{fig:trajectory} at every shared time; \Cref{fig:order} shows the
-three-hidden-layer order trends of \Cref{tab:circle} next to their numerical
-sensitivity and the movement of the hidden features; \Cref{fig:mnist} shows
-the MNIST predictions and residuals summarized in \Cref{sec:experiments}.
-
-\begin{figure}[!htbp]
- \centering
- \includegraphics[width=\textwidth]{figures/moments.pdf}
- \caption{\textbf{What Legendre moments retain of a history.}  A network with
- two hidden tanh layers of width $512$ is trained by gradient descent on eight
- circle points, and the forward responses $h$ of one training input are
- recorded.  Top: three neurons over the whole of training in the
- learning-speed clock, with their projections onto $q=1,2,3$ Legendre modes
- (mean, linear trend, quadratic shape).  These are projections fitted
- afterwards to the recorded dense histories, not trajectories of the closure.
- Above each panel, the median over all $512$ neurons of the RMS projection
- error divided by the range of that neuron's history; for the backward
- histories $r\delta/\rho$ the same numbers are $26\%$, $12\%$ and $10\%$.
- Bottom: the plotted quantities are the normalized Legendre coefficients
- $(2k+1)\bar h_k/\tau$ of the fitted projection, not the stored moments
- $\bar h_k$; across neurons each coefficient is a population, shown for the
- history up to the midpoint of the learning clock and for the whole history,
- with the three neurons above marked.}
- \label{fig:moments}
-\end{figure}
-
-\begin{figure}[!htbp]
- \centering
- \includegraphics[width=0.8\textwidth]{figures/trajectory_rms.pdf}
- \caption{\textbf{Discrepancy from dense training at common physical times.}
- The paired-label task of \Cref{fig:trajectory}: RMS difference between
- response memory and the finer dense replay on $2048$ circle queries at the
- $38$ positive shared times, on a logarithmic time axis; the common
- initialization at $t=0$ is omitted.  Dots are measured; thin lines guide the
- eye.  Light shading extends from the axis floor to each order's coarse/fine
- sensitivity scale, obtained by summing the dense and closure prediction
- changes between the two integration tolerances; it is a numerical
- diagnostic, not a confidence interval or a certified error bound, and the
- smallest discrepancies of $q=3$ and $q=7$ lie at that scale.}
- \label{fig:trajectory-rms}
-\end{figure}
-
-\begin{figure}[!htbp]
- \centering
- \includegraphics[width=\textwidth]{figures/orders.pdf}
- \caption{\textbf{Measured order trends and substantial feature movement.}
- Three-hidden-layer circle experiments, width $4096$, at individually fitted
- MSE $0.001$ endpoints. Left: discrepancies on $8192$ angles. Middle: sums of
- dense and closure coarse/fine prediction RMS changes, shown on a separate
- scale; these are numerical diagnostics, not confidence intervals or certified
- bounds. Right: ranges of absolute training-activation RMS changes from
- initialization across the 20 finest runs. Neither the endpoint comparisons
- nor the three tested orders establish a temporal tracking exponent.}
- \label{fig:order}
-\end{figure}
-
-\begin{figure}[!htbp]
- \centering
- \includegraphics[width=\textwidth]{figures/mnist.pdf}
- \caption{\textbf{Agreement and its residual structure on MNIST.} Digits 3
- versus 8, 100 training images, two hidden tanh layers of width $4096$.
- Left: memory $q=3$ versus dense predictions on all $1984$ held-out images.
- Right: signed differences $f_q-f_{\mathrm{dense}}$, displayed in units of
- $10^{-3}$ with one vertical scale for all orders. RMS differences are
- $0.003248$, $0.001084$ and $0.001199$. Each model is evaluated at its own
- training-MSE $0.001$ endpoint. These are function discrepancies, not label RMSE.}
- \label{fig:mnist}
-\end{figure}
-
-\clearpage
-\section{Frozen-kernel and same-rank controls}
-\label{app:factors}
-
-The frozen control uses the empirical tangent kernel of the same initialized
-finite network, including the learning-rate metric. If $J_0(x)$ is its row
-parameter Jacobian and $D$ has block mobilities $(n,1,n)$, then
-$K_0(x,x')=J_0(x)D J_0(x')^\top$. For the training list $X$ and unhalved mean
-squared loss, $\dot f(X,t)=-(2/m)K_0(X,X)(f(X,t)-y)$. Writing
-$K_0(X,X)=V\diag(\lambda_j)V^\top$, the test prediction is
-\[
- f_{\mathrm{NTK}}(x,t)=f_0(x)+K_0(x,X)V
- \diag\!\left(\frac{1-e^{-2\lambda_jt/m}}{\lambda_j}\right)
- V^\top(y-f_0(X)).
-\]
-We evaluate this expression directly and locate the training-MSE $0.001$
-crossing by bisection, without ridge regularization or discarded eigenmodes.
-For the equally spaced odd task, the four-representative antipodal quotient
-removes exact redundancy and preserves the original eight-input mean loss.
-Kernel blocks are checked against automatic differentiation, and the spectral
-solution against a matrix exponential and training cross-kernel predictions.
-The center/edges kernel is ill-conditioned (condition number $2.29\times10^9$);
-the two training-prediction formulas agree within $2.1\times10^{-8}$.
-
-\Cref{fig:samerank-summary,fig:factors} retain the compact and detailed
-comparisons with direct factor training. \Cref{fig:controls-gallery} adds
-the frozen kernel on all five tasks, keeping $q=3$ and both factor seeds
-throughout. Memory is closest to the dense endpoint in every row. These are
-fitted-function comparisons at individual stopping times; the kernel is that
-of this feature-learning parameterization, rather than a separately scaled
-infinite-width lazy model. All source predictions, kernel calculations, and
-reproduction commands are retained with the figure scripts.
-
-\begin{figure}[!htbp]
- \centering
- \includegraphics[width=0.9\textwidth]{figures/same_rank.pdf}
- \caption{\textbf{Same rank, different dynamics.} Whole-circle RMS difference
- from dense training for response memory and for a directly trained correction
- $W_0+AB$ of the middle matrix with the same rank (two factor seeds), two
- hidden tanh layers, width $2048$. Rank $24$ corresponds to $q=3$, rank $12$
- to $q=3$ on the four-representative antipodal quotient, and rank $56$ to $q=7$;
- labels give the smaller of the two ratios. Matched-loss endpoint comparisons
- against this specific factor baseline, not against every low-rank method;
- all ranks and the fitted functions are in \Cref{fig:factors}.}
- \label{fig:samerank-summary}
-\end{figure}
-
-\begin{figure}[!htbp]
- \centering
- \includegraphics[width=\textwidth]{figures/factors.pdf}
- \caption{\textbf{Same correction rank, different fitted functions.} Two hidden
- tanh layers of width $2048$. Top: paired-label task, memory $q=3$ and both
- factor seeds at rank $24$, with the dense reference in black. Bottom: all
- five tasks at rank bounds $8,24,56$ (or $4,12,28$ for the exact antipodal
- quotient). Every model is shown at its own MSE $0.001$ endpoint; RMS uses
- $8192$ angles. Factors use $W_2=W_0+AB$, $A(0)=0$, independent
- $B_{ij}(0)\sim N(0,1/\mathrm{rank})$, and unit factor mobilities. Both outer
- layers have their canonical mobilities. Equal rank matches the factor-array
- budget, not total state or runtime. One capped comparison is omitted;
- hollow memory points have limited numerical precision.}
- \label{fig:factors}
-\end{figure}
-
-\clearpage
-\begin{figure}[p]
- \centering
- \includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{figures/learning_controls_gallery_a.pdf}
- \caption{\textbf{Four training descriptions on five circle tasks, part one.}
- Paired-label, alternating-label, and center/edges quadrant tasks. Columns
- show dense, frozen NTK, both directly trained factor seeds, and memory
- $q=3$. The latter two have correction rank bound $24$. Each model is at its
- own training-MSE $0.001$ endpoint. The NTK output scale is wider by the marked
- factor; signed ticks and RMS retain original output units. Gray is the dense
- reference, black dots are training labels, and RMS uses $8192$ circle queries.
- The next page continues with the remaining two tasks.}
- \label{fig:controls-gallery}
-\end{figure}
-
-\begin{figure}[p]
- \ContinuedFloat
- \centering
- \includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{figures/learning_controls_gallery_b.pdf}
- \caption{\textbf{Four training descriptions on five circle tasks, continued.}
- Two-outlier alternating labels and equally spaced mixed labels. The latter
- uses four antipodal representatives and correction rank $12$; the former
- uses rank $24$. All eight physical training inputs are displayed. NTK uses
- a ten-times wider output scale for the outlier task and the same scale as
- the other methods for the equally spaced task. Models, endpoints, seeds,
- colors and RMS definitions follow the preceding page.}
-\end{figure}
-
+\begingroup
+\small
+\input{integrated_appendix}
+\endgroup
 \end{document}

@@ -65,6 +65,66 @@ impossibility theorem for all admissible decoders.
 
 ## Current outcome
 
+### Method cleanup and word-cost refinement, 2026-10-07
+
+The user requests a bounded simplification of the current source-seeded
+construction, a word-memory/word-operation interface with precision stated
+separately, safe exponent reductions, and a realistic implementation plan.
+The full model, original label range, whole-sphere/all-time comparison,
+endpoint, present-state querying and counted decoding memory remain fixed.
+No cheaper historical passive estimator is substituted for the final decoder.
+
+The current resource/method interface is
+[STREAMLINED_METHOD_RESULT.md](STREAMLINED_METHOD_RESULT.md). It combines
+three scoped author refinements with the lead's confidence separation:
+
+- [WORD_COST_REFINEMENT.md](WORD_COST_REFINEMENT.md): numerical-word costs,
+  packed exact hashes, depth-first seed expansion, indexed Jacobi pivots
+  with cached exact residuals, and cached selected-field metric products.
+- [WIDTH_GATE_REFINEMENT.md](WIDTH_GATE_REFINEMENT.md): the source gate's
+  outer power falls from 20,000 to 1,100; a sharper factorized gate is also
+  given. The original scientific estimates remain component assumptions.
+- [CONFIDENCE_SEPARATION_REFINEMENT.md](CONFIDENCE_SEPARATION_REFINEMENT.md):
+  implemented members need fixed source confidence; only the independent
+  reference retains the confidence-dependent moment order in its width.
+- [IMPLEMENTATION_STREAMLINE.md](IMPLEMENTATION_STREAMLINE.md): the
+  three-phase executable structure, exact tiled scheduling, and explicit
+  practical/GPU limitations, without a speedup or implementation claim.
+
+At fixed problem parameters the refined retained size is
+`O(log(n)^6 log log(n))` numerical words, with sufficient word precision
+`O(beta^(110L) Z)` bits. Initialization, complete compact training and one
+unseen-input query take respectively `O(n log(n)^(29/2))`,
+`O(log(n)^12 log log(n))`, and `O(n log(n)^12 + log(n)^14)` word operations.
+The full parameter table, input/evaluator charges, and setup's noncompact
+temporary memory are explicit in the synthesis. Word counts are not bit
+counts or single-instruction hardware estimates.
+
+Separate bounded reconstructions are `WORD_COST_REFINEMENT_CHECK.md`,
+`WIDTH_GATE_REFINEMENT_CHECK.md`, `CONFIDENCE_SEPARATION_CHECK.md`, and
+`IMPLEMENTATION_STREAMLINE_CHECK.md`. These disclose reused contexts and
+accepted scientific boundaries; they are not blind promotion reviews.
+The word check's required tiny-label numerical RMS qualification and the
+width check's carrier-gate citation correction are incorporated. A final
+separate read-only assembly check found no composition mismatch; its
+generated-member independence wording correction is included.
+
+Five deterministic exact-algebra tests pass. Reproduce with
+`python3 -B studies/unseen_query_decoder_20261005/test_streamline_kernels.py`.
+They cover packed hashes, generator sequences/stacks, cached bilinear forms,
+exact tiling and indexed pivots, not full neural transcripts or GPU timing.
+The clean table retains `nY >= 1`; tiny-label resource refinement must also
+retain the Gaussian RMS gate with its enlarged field count. The original
+leading dense-error coefficients remain structural, not fully parameter-
+quantified by this cleanup. Practical width, FP32/FP64 sufficiency, and an
+actually scalable compressor remain unestablished. No scientific scope,
+label allowance, error certificate or old bit envelope is weakened.
+
+This is continuation in the same study, not promotion or a neural training
+campaign. Historical proof files and the two-gap scientific synthesis below
+are retained. No Git commit or maintained-book/API change is made in this
+cleanup round.
+
 ### Closing the two remaining gates, 2026-10-07
 
 The user requests a complete finite-confidence source probability and final

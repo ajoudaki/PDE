@@ -1,96 +1,95 @@
-# Response-memory paper draft
+# Compressing Global Dynamics of Deep Nonlinear Feature Learning
 
-The working manuscript is `main.tex`, compiled to `main.pdf`:
-`Compressing Global Dynamics of Deep Nonlinear Feature Learning`.
-It adopts the user's alternative draft, with targeted corrections to claim
-scope, the more detailed comparison derivations, and the updated figures.
+The working manuscript is [main.tex](main.tex), compiled to [main.pdf](main.pdf).
+The 2026-10-07 revision replaces the former results and proof chain with the
+integrated Dense, Legendre, Harmonic and Logarithmic results. It is a working
+paper, not promotion into the maintained Quarto book.
 
-Build from this directory with:
+## Reading and source structure
+
+- `main.tex`: canonical network setup, motivation, existing numerical
+  illustrations, discussion, and appendix guide.
+- `results.tex`: one prescribed-size compression theorem for all three methods,
+  actual dense variability and the theoretical consequences.
+- `methods.tex`: retained states, update rules and the core theoretical ideas.
+- `costs.tex`: initialization, training and query work, with peak-memory and
+  arithmetic-model qualifications kept separate.
+- `integrated_appendix.tex`: complete parameter-explicit scientific statements,
+  certificates and proofs, statically included in the paper.
+- `references.bib`: literature bibliography.
+
+Main-text constants depend only on activation and fixed depth. Error is
+absolute. The benchmark is the 99.99% quantile of actual independent-dense
+discrepancy, with compression success at least 99%; structural parameters
+remain distinct. The appendix retains label factors, arbitrary
+confidence, full label allowance, width gates, internal setup orders, and
+finite-word evaluator/access costs. Its notation correspondence and a linked
+page guide precede the detailed material.
+
+The following distinctions are intentional:
+
+- Legendre compresses the moving state but retains its fixed dense mixers.
+- Harmonic tracks a coupled dense reference. Its explicit and implicit
+  initializers have different setup costs; the latter samples a fresh latent
+  reference rather than reading a supplied dense matrix cheaply.
+- The Logarithmic decoder has finite-word storage and the same constant-factor
+  actual-variability guarantee against an independent reference. Its explicit
+  finite-width statement has an additional numerical remainder; factor three
+  follows eventually for nonzero labels and at least two samples.
+  No width-independent query guarantee is claimed for it.
+- Dense, Legendre and Harmonic count real coordinates; decoder word lengths
+  and finite execution costs are stated separately.
+- The dense lower bound is transient, not an endpoint result. The first three
+  stochastic width thresholds remain qualitative. The decoder's additive and
+  analytic absolute certificates have an explicit conservative gate; its purely
+  multiplicative intrinsic comparison also uses the lower bound's eventual onset.
+
+The scientific integration source is the owning study's
+[RESULT.md](../studies/integrated_general_compression_20261004/RESULT.md).
+The appendix contains that source's scientific Parts I–III, omitting only
+conversion comments and historical provenance. LaTeX does not read any study
+file. The deterministic study-local converter retains a line/math/reference
+coverage manifest:
 
 ```bash
-latexmk -pdf main.tex
+# From the repository root; regenerates the static appendix and checks it.
+node studies/integrated_general_compression_20261004/paper_appendix_build.mjs --check
 ```
 
-The selected figure editions have been merged into `main`. The current TikZ
-renderer is `scripts/tikz_figures.py`; figures and portable source bundles live
-in `figures/`. The main text includes the mechanism, moment-history illustration,
-shared-time evolution, four-method fitted-function comparison and deep radial overview.
-Detailed rank, numerical-sensitivity and MNIST panels are in the appendices.
-[FIGURE_EXPERIMENT.md](FIGURE_EXPERIMENT.md) preserves the earlier edition's
-evidence and rendering record.
+The rollback version is commit 2c27cbc; its frozen checks remain in
+[PAPER_REWRITE_CHECK.md](../studies/integrated_general_compression_20261004/PAPER_REWRITE_CHECK.md).
+The new intrinsic-benchmark proof and scoped audit are in the owning study;
+the current build record is
+[PAPER_INTRINSIC_REVISION_CHECK.md](../studies/integrated_general_compression_20261004/PAPER_INTRINSIC_REVISION_CHECK.md).
+These are editorial and bounded mathematical integration checks, not formal
+verification or a new independent review of every proof.
 
-The 39-checkpoint replay behind the trajectory figure preserves the original task and initialization and adds genuine shared-time
-predictions at two numerical resolutions. `figures/capture_trajectory.py`
-performs that bounded capture; `scripts/tikz_figures.py trajectory` redraws
-the figure from the bundle without training.
+## Build
 
-Figure 4 uses `figures/learning_controls_quadrant_alternating.pdf` to compare
-dense, frozen NTK, rank-matched factors, and response memory. The previous
-compact factor figure is retained in the appendix, followed by the full
-five-task comparison split into `learning_controls_gallery_a.pdf` and
-`learning_controls_gallery_b.pdf` for readability. The standalone
-`learning_controls_gallery.pdf` contains all five rows together. Individual
-rows, the portable data, and the bounded kernel capture are documented in
-[the figure guide](scripts/README.md#four-method-comparison-across-five-circle-tasks).
+From `paper/`, use an existing output directory to keep auxiliary files out
+of the manuscript folder:
 
-The chosen narrative, early comparison table, low-rank corollary and fixed-width
-size-at-accuracy calculation are retained. Corrections distinguish:
+```bash
+latexmk -pdf -interaction=nonstopmode -halt-on-error \
+  -outdir=/home/amir/Codes/PDE/data/generated/integrated_general_compression_20261004/paper_intrinsic_D3pc1mpR \
+  main.tex
+```
 
-- prescribed finite horizons from all-time or horizon-independent order;
-- restricted exact nonclosure results from universal impossibility claims;
-- proved fixed-width rates from conditional population comparisons;
-- evolving learned state from fixed initialization and total computational cost;
-- RMS/held-out prediction measurements from uniform pointwise error.
+The checked combined PDF is copied to `paper/main.pdf` for convenient reading.
+The static TeX sources, bibliography and included figures suffice to compile
+the manuscript; regenerating the appendix is not a build prerequisite.
 
-`main.tex` is the manuscript; its inputs are `results.tex` (central theorem,
-corollaries, costs), `proof_alltime.tex`, `proof_tracking.tex`,
-`proof_finite_time.tex`, `comparison_appendix.tex` and `sphere_appendix.tex`.
-See [NOTES_alltime_theorem.md](NOTES_alltime_theorem.md) for the status of the
-width-rate obligation.
-`sphere_appendix.tex` is included for the supplementary experiment.
+## Existing illustrations
 
-The population discussion now includes a **conditional learned-state saving**
-corollary. At matched test-prediction accuracy, the explicit hypotheses are a
-root-width dense error estimate and a width-uniform quadratic closure tracking
-estimate, in the same time/probability norm and with uniform order thresholds.
-They give width proportional to epsilon^-2, order proportional to epsilon^-1/2
-(the fourth root of width), and moving-state costs epsilon^-4 versus
-epsilon^-5/2. The appendix derives the factor epsilon^-3/2 saving, the optimal
-error allocation, and the version with a subpolynomial history-rate correction.
-All-time use requires both error hypotheses for the all-time metric; small
-labels alone are not asserted to establish them. These are certified costs,
-not a dense lower bound, and retain the dense fixed initialization and its cost.
-The allocation and subpolynomial correction were checked independently from
-the stated hypotheses, and the resulting typeset argument was inspected.
-The finite-horizon branch with a superpolynomial order threshold was removed
-from the working manuscript at the author's request. The earlier trial files
-remain separate. The restored 41-page manuscript compiles without LaTeX
-warnings; auxiliary build files are kept outside the paper folder.
+Only `figures/trajectory.pdf` and `figures/circles_deep.pdf` are included.
+The first depicts recorded common-time Legendre predictions; the second
+compares individually fitted endpoints. Captions preserve the architecture,
+orders, query count and measurement qualifications. They are illustrations,
+not evidence for Harmonic or Logarithmic compression, confidence rates,
+continuous-time supremum bounds, or practical setup speedups.
 
-Figures and reproduction tools:
-
-- `figures/circle_deep_radial.pdf`: three hidden tanh layers, orders 1/2/3.
-- `figures/circle_shallow_radial.pdf`: two hidden tanh layers, orders 1/3/7.
-- `figures/sphere_orders.pdf`: supplementary four-hidden-layer ReLU case.
-- `figures/experimental_figures.py`: renders the new paper figures in place
-  from `figures/response_memory_source.npz`; no training is required.
-- `figures/experimental_gallery.pdf`: all seven new figures in presentation form.
-- `figures/order_decay.pdf` and `figures/mnist_scatter.pdf`: earlier plots,
-  preserved but replaced in this experimental manuscript.
-- [scripts/README.md](scripts/README.md): consolidated renderer, portable bundles,
-  provenance, dependencies and reproduction commands.
-
-Figure 3 uses the documented new checkpoint replay; the endpoint, rank, MNIST
-and sphere figures reuse their saved predictions. Sphere RMS values were
-checked against the saved arrays. The sphere experiment uses one
-seed and float32 Euler steps of 1/128 at individually fitted endpoints. ReLU
-is outside the smooth-activation theorems, and the figure supplies neither
-common-time trajectory evidence nor a continuous-flow refinement certificate.
-The synthetic training-stage preview is not included.
-
-The compiled manuscript PDFs are intentionally versioned for convenient reading.
-LaTeX auxiliary files are ignored by `paper/.gitignore` and were removed locally
-for both manuscript variants. Before publication, two bibliography build files
-were removed from the unpublished history; the checkpoint IDs above refer to
-that cleaned history. The original commits remain available locally on
-`codex/paper-before-aux-cleanup-20260927`.
+This revision did not rerun training. Portable source bundles, capture
+commands and renderers are documented in [scripts/README.md](scripts/README.md)
+and [FIGURE_EXPERIMENT.md](FIGURE_EXPERIMENT.md). Other figures, old proof
+modules, notes and trial manuscripts are preserved but are not inputs to
+the rewritten paper. They are not alternative current theorem interfaces.
