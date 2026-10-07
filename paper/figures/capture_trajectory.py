@@ -168,7 +168,7 @@ def integrate(model, inputs, labels, queries, times, step, seconds, observer=Non
     if device.type == 'cuda':
         torch.cuda.reset_peak_memory_stats(device)
     state = [value.clone() for value in model.initial_state]
-    predictions, losses, current, steps, query_seconds, training_seconds = [], [], 0., 0, 0., 0.
+    predictions, losses, current, steps, query_seconds, training_seconds, refresh_seconds = [], [], 0., 0, 0., 0., 0.
     for target in times:
         synchronize(device)
         training_started = time.monotonic()
@@ -189,8 +189,12 @@ def integrate(model, inputs, labels, queries, times, step, seconds, observer=Non
         training_seconds += time.monotonic() - training_started
         if steps:
             del k1, k2, k3, k4
+        refresh_started = time.monotonic()
+        prepared = model.prepare_query(state, inputs, labels) if hasattr(model, 'prepare_query') else None
+        synchronize(device)
+        refresh_seconds += time.monotonic()-refresh_started
         query_started = time.monotonic()
-        prediction = model.predict(state, queries, inputs, labels)
+        prediction = prepared(queries) if prepared is not None else model.predict(state, queries, inputs, labels)
         synchronize(device)
         query_seconds += time.monotonic() - query_started
         train = model.predict(state, inputs, inputs, labels)
@@ -206,7 +210,9 @@ def integrate(model, inputs, labels, queries, times, step, seconds, observer=Non
     synchronize(device)
     elapsed = time.monotonic() - started
     return state, np.stack(predictions), dict(
-        seconds=elapsed, query_seconds=query_seconds, training_seconds=training_seconds, steps=steps,
+        seconds=elapsed, query_seconds=query_seconds, query_refresh_seconds=refresh_seconds,
+        query_timing_scope='whole query batch, after readout refresh; amortized, not single-query latency',
+        training_seconds=training_seconds, steps=steps,
         seconds_per_step=training_seconds/max(1, steps),
         moving_scalars=sum(v.numel() for v in state),
         fixed_scalars=int(model.fixed_scalars), losses=losses,
@@ -616,6 +622,16 @@ class Harmonic:
         readout, _, _ = self._readout(state, inputs, labels)
         return (self.metrics[1]@readout)@self._features(state, queries)[1]
 
+    def prepare_query(self, state, inputs, labels):
+        """Refresh once; returned predictor retains only A, B and M_L w_hat."""
+        a, _, mixer, _ = state
+        coefficient = self.metrics[1]@self._readout(state, inputs, labels)[0]
+
+        def predict(queries):
+            return coefficient@(mixer@(a@queries.T).tanh()).tanh()
+
+        return predict
+
     def runtime_checks(self, state, inputs, labels):
         readout, (h1, h2), gram = self._readout(state, inputs, labels)
         _, _, mixer, deficit = state
@@ -672,6 +688,23 @@ def harmonic_small_checks(device='cpu'):
     assert evolving['update_gram_min'] > -1e-11, evolving
     assert evolving['update_gram_symmetry_error'] < 1e-11, evolving
 
+    restored = Harmonic.__new__(Harmonic)
+    restored.metrics = [value.clone() for value in compressed.metrics]
+    restored.metric_inverses = [value.clone() for value in compressed.metric_inverses]
+    restored.initial_state = [value.clone() for value in state]
+    queries = torch.stack((inputs[:, 1], -inputs[:, 0]), dim=1)
+    prediction = compressed.predict(state, queries, inputs, labels)
+    restarted = restored.predict(restored.initial_state, queries, inputs, labels)
+    restart_error = float((prediction-restarted).abs().max())
+    for actual, expected in zip(restored.rhs(restored.initial_state, inputs, labels),
+                                compressed.rhs(state, inputs, labels)):
+        restart_error = max(restart_error, float((actual-expected).abs().max()))
+    ready = restored.prepare_query(restored.initial_state, inputs, labels)
+    permutation = torch.tensor([2, 0, 1], device=device)
+    query_error = float((ready(queries[permutation])-prediction[permutation]).abs().max())
+    assert all(torch.is_tensor(cell.cell_contents) for cell in ready.__closure__)
+    assert restart_error < 1e-11 and query_error < 1e-11, (restart_error, query_error)
+
     full = Harmonic(dense, inputs, labels, budget=64)
     arbitrary = [value+.03*torch.randn(value.shape, generator=generator, dtype=dtype, device=device)
                  for value in dense.initial_state]
@@ -706,6 +739,7 @@ def harmonic_small_checks(device='cpu'):
                 full_retention_rhs_max_abs=rhs_error,
                 full_retention_refinement_errors=refinement,
                 source_projection_max_abs=projection_error,
+                checkpoint_restart_max_abs=restart_error, passive_query_permutation_max_abs=query_error,
                 fixed_scalars=compressed.fixed_scalars)
 
 
@@ -762,6 +796,7 @@ def validation_main(argv):
     parser.add_argument('--small-width', type=int, default=0)
     parser.add_argument('--lora-rank', type=int, default=0)
     parser.add_argument('--lora-step', type=float, default=.01)
+    parser.add_argument('--lora-multiplier', type=float, default=1.)
     parser.add_argument('--harmonic-budget', type=int, default=0)
     parser.add_argument('--source-rank', type=int, default=8)
     parser.add_argument('--time-degree', type=int, default=3)
@@ -808,10 +843,14 @@ def validation_main(argv):
               ('dense_iid', Dense(args.width, args.dimension, args.seed+10000, args.device))]
     if args.small_width:
         models.append(('small_dense', Dense(args.small_width, args.dimension, args.seed+20000, args.device)))
-    if args.lora_rank:
-        models.append(('lora', LoRA(models[0][1], args.lora_rank, args.seed+30000)))
+    if args.lora_rank > 0:
+        models.append(('lora', LoRA(models[0][1], args.lora_rank, args.seed+30000, args.lora_multiplier)))
     try:
         if args.harmonic_budget:
+            synchronize(inputs.device)
+            warmup_started = time.monotonic()
+            if inputs.device.type == 'cuda':
+                torch.cuda.reset_peak_memory_stats(inputs.device)
             coefficients, setup_info = collect_harmonic_sources(models[0][1], inputs, labels, args)
             synchronize(inputs.device)
             assembly_started = time.monotonic()
@@ -820,6 +859,10 @@ def validation_main(argv):
             synchronize(inputs.device)
             setup_info['assembly_seconds'] = time.monotonic()-assembly_started
             setup_info['diagnostics'] = harmonic.diagnostics
+            setup_info['seconds_total_after_dense_allocation'] = time.monotonic()-warmup_started
+            setup_info['whole_process_peak_cuda_bytes'] = (torch.cuda.max_memory_allocated(inputs.device)
+                                                           if inputs.device.type == 'cuda' else None)
+            setup_info['peak_scope'] = 'source rollout, spectral fit and assembly; includes other resident references'
             report['harmonic_setup'] = setup_info
             del coefficients
             models.append(('harmonic', harmonic))
@@ -828,6 +871,18 @@ def validation_main(argv):
             models.append(('matched_dense', Dense(matched_width, args.dimension, args.seed+20000, args.device)))
             report['matched_budget'] = dict(target_total_scalars=budget, dense_width=matched_width,
                                            dense_total_scalars=matched_width**2+matched_width*(args.dimension+1))
+            if args.lora_rank == -1:
+                moving = sum(v.numel() for v in harmonic.initial_state)
+                rank = (moving-args.width*(args.dimension+1))//(2*args.width)
+                if rank < 1:
+                    report['lora_matching'] = dict(feasible=False, reason='Dense outer layers exhaust moving-state budget')
+                else:
+                    models.append(('lora', LoRA(models[0][1], min(rank, args.width),
+                                                args.seed+30000, args.lora_multiplier)))
+                    report['lora_matching'] = dict(feasible=True, target_moving_scalars=moving,
+                        actual_moving_scalars=args.width*(args.dimension+1)+2*args.width*rank,
+                        rank=rank, fixed_dense_scalars=args.width**2,
+                        scope='moving-state matched, not total-state matched')
         for name, model in models:
             with torch.no_grad():
                 model_step = args.lora_step if name == 'lora' else args.step
@@ -844,13 +899,19 @@ def validation_main(argv):
                     info['relative_feature_gram_change'] = float((after.T@after-before.T@before).norm()/(before.T@before).norm())
                     arrays['frozen_ntk'] = frozen_predictions(model, inputs, labels, queries, times)
                 if args.refine:
-                    _, fine, fine_info = integrate(model, inputs, labels, queries, times,
+                    fine_state, fine, fine_info = integrate(model, inputs, labels, queries, times,
                                                    model_step/2, args.per_run_seconds)
                     arrays[name+'_fine'] = fine
                     info['refinement'] = trajectory_rms(prediction, fine)
                     info['refinement_seconds'] = fine_info['seconds']
                     arrays[name+'_coarse'] = prediction
                     arrays[name] = fine
+                    final = fine_state
+                    info['test_label_rms'] = float(rms(torch.as_tensor(fine[-1], device=args.device)-truth))
+                    if args.task == 'digits':
+                        info['test_accuracy'] = float((torch.as_tensor(fine[-1], device=args.device).sign() == truth).double().mean())
+                if name == 'harmonic':
+                    info['runtime_checks'] = model.runtime_checks(final, inputs, labels)
                 report['runs'][name] = info
                 print(json.dumps(dict(event='complete', model=name, **info)), flush=True)
                 save_json(args.out/'report.json', report)
@@ -896,6 +957,27 @@ def validation_main(argv):
                 log_info['dense_variability_same_queries'] = variability
                 log_info['comparison'] = comparison
                 report['comparisons']['logarithmic'] = comparison
+                matched_budget = (log_info['retained']['numerical_words']
+                                  - log_info['retained']['parts']['training_data'])
+                width = int((math.sqrt((args.dimension+1)**2+4*matched_budget)-args.dimension-1)/2)
+                control = Dense(width, args.dimension, args.seed+60000, args.device)
+                with torch.no_grad():
+                    _, control_prediction, control_info = integrate(
+                        control, inputs, labels, queries[:count], np.asarray(times)[log_indices],
+                        args.step, args.per_run_seconds)
+                    if args.refine:
+                        _, control_fine, fine_info = integrate(
+                            control, inputs, labels, queries[:count], np.asarray(times)[log_indices],
+                            args.step/2, args.per_run_seconds)
+                        control_info['refinement'] = trajectory_rms(control_prediction, control_fine)
+                        control_info['refinement_seconds'] = fine_info['seconds']
+                        control_prediction = control_fine
+                control_info.update(width=width, target_model_words=matched_budget)
+                report['runs']['log_matched_dense'] = control_info
+                arrays['log_matched_dense'] = control_prediction
+                control_comparison = trajectory_rms(control_prediction, reference)
+                control_comparison['ratio_to_dense_pair'] = control_comparison['max_time_rms']/scale if scale > 1e-14 else None
+                report['comparisons']['log_matched_dense'] = control_comparison
             print(json.dumps(dict(event='logarithmic_probe', **log_info)), flush=True)
         report['complete'] = True
     except Exception as error:
@@ -1318,6 +1400,116 @@ class _LogarithmicProgram:
         self.tape.check()
         return value, scratch, tape.stream_passes
 
+    def query_many(self, vectors):
+        """Independent passive queries sharing only the regenerated row blocks.
+
+        Each input uses the same reserved innovation as query(input), its own
+        FC.31--34 coefficients and its own empirical contractions. No input is
+        inserted into another input's Gaussian conditioning history.
+        """
+        vectors = np.asarray(vectors, dtype=np.float64)
+        self.tape.check()
+        if vectors.ndim != 2 or vectors.shape[1] != len(self.first):
+            raise ValueError('Logarithmic batched query input shape mismatch')
+        count = len(vectors)
+        if count == 0:
+            return np.empty(0), dict(row_block_words=0, scalar_descriptor_words=0,
+                                     conditional_solve_word_envelope=0, batched_scalar_words=0), 0
+        tape = self.tape.fork_query()
+        V, Y = self.gaussian.forward_queries, self.gaussian.forward_answers
+        U, X = self.gaussian.reverse_queries, self.gaussian.reverse_answers
+        delta = self.gaussian.noise ** 2
+        # Missing old-history moments are acquired in the local fork only.
+        tape.pair_many([(a, b) for a in V for b in V]
+                       + [(a, b) for a in U for b in U]
+                       + [(a, b) for a in U for b in Y]
+                       + [(a, b) for a in X for b in V])
+        Q, K = tape.gram(V, V), tape.gram(U, U)
+        qvalues, qvectors = np.linalg.eigh((Q + Q.T) / 2)
+        kvalues, kvectors = np.linalg.eigh((K + K.T) / 2)
+        qvalues, kvalues = np.maximum(qvalues, 0.), np.maximum(kvalues, 0.)
+        C = (qvectors / (delta + qvalues)) @ qvectors.T
+        D = (kvectors / (delta + kvalues)) @ kvectors.T
+        right = -tape.gram(U, Y) @ C - D @ tape.gram(X, V)
+        E = kvectors @ ((kvectors.T @ right @ qvectors)
+                        / (delta + kvalues[:, None] + qvalues[None, :])) @ qvectors.T
+        tape.check()
+        rank_left = [left for left, _, _ in self.ranks]
+        rank_right = [right for _, right, _ in self.ranks]
+        operands = V + X + rank_right
+        moments = np.zeros((len(operands), count))
+        norms, innovation_pairs = np.zeros(count), np.zeros(len(U))
+        root_index = max(tape.root_count, self.query_root_start)
+
+        def first_features(values, block_size):
+            z = np.zeros((block_size, count))
+            for coordinate, field in enumerate(self.first):
+                z += values[field, :, None] * vectors[None, :, coordinate]
+            return np.tanh(z)
+
+        # Pass one obtains every new empirical contraction and U^T g/n.
+        for start in range(0, tape.width, 128):
+            rows = np.arange(start, min(start + 128, tape.width), dtype=np.int64)
+            values = tape.evaluate_rows(rows)
+            features = first_features(values, len(rows))
+            moments += values[operands] @ features
+            norms += np.sum(features ** 2, axis=0)
+            innovation = tape.root_values(root_index, rows)
+            innovation_pairs += values[U] @ innovation
+            del values, features, innovation
+        moments /= tape.width
+        norms /= tape.width
+        innovation_pairs /= tape.width
+        v = moments[:len(V)]
+        x = moments[len(V):len(V) + len(X)]
+        y_coefficients = C @ v
+        u_coefficients = D @ x + E @ v
+        c = np.empty(count)
+        projected = qvectors.T @ v
+        # The posterior matrix coefficients are prepared once per input,
+        # outside both row streams, with the full reverse-history correction.
+        for column in range(count):
+            ve = projected[:, column]
+            f0 = norms[column] - np.sum(ve ** 2 / (delta + qvalues))
+            fa = delta / (delta + kvalues) * (norms[column] - np.sum(
+                ve[None, :] ** 2 / (delta + kvalues[:, None] + qvalues[None, :]), axis=1))
+            smallest = min(float(f0), float(np.min(fa, initial=0.)))
+            if smallest < -1e-7 * max(1., norms[column]):
+                raise FloatingPointError(f'Inconsistent batched Logarithmic variance: {smallest:g}')
+            f0, fa = max(0., f0), np.maximum(fa, 0.)
+            c[column] = math.sqrt(delta + f0)
+            divided = (-f0 + delta * np.sum(ve[None, :] ** 2 / (
+                (delta + qvalues[None, :])
+                * (delta + kvalues[:, None] + qvalues[None, :])), axis=1))
+            divided /= (delta + kvalues) * (np.sqrt(delta + fa) + c[column])
+            correction = (kvectors * divided) @ kvectors.T
+            u_coefficients[:, column] += correction @ innovation_pairs
+        rank_coefficients = (moments[len(V) + len(X):]
+                             * np.asarray([weight for _, _, weight in self.ranks])[:, None])
+        predictions = np.zeros(count)
+        # Pass two evaluates all initialized/learned actions and readouts.
+        for start in range(0, tape.width, 128):
+            rows = np.arange(start, min(start + 128, tape.width), dtype=np.int64)
+            values = tape.evaluate_rows(rows)
+            innovation = tape.root_values(root_index, rows)
+            preactivation = (values[Y].T @ y_coefficients + values[U].T @ u_coefficients
+                             + innovation[:, None] * c[None, :]
+                             + values[rank_left].T @ rank_coefficients)
+            predictions += values[self.readout] @ np.tanh(preactivation)
+            del values, innovation, preactivation
+        predictions /= tape.width
+        h = max(len(V), len(U), 1)
+        block = min(tape.width, 128)
+        scratch = dict(
+            row_block_words=max(tape.max_stream_words, block * (len(tape.nodes) + 32 + 4 * count
+                                 + len(operands) + len(Y) + len(U) + len(rank_left))),
+            scalar_descriptor_words=len(tape.nodes) + 3 * len(tape.pairs)
+                                    + 4 * (len(V) + len(U) + len(self.ranks)),
+            conditional_solve_word_envelope=96 * h ** 2 + 32 * h,
+            batched_scalar_words=6 * (len(V) + len(U) + len(self.ranks) + 2) * count)
+        self.tape.check()
+        return predictions, scratch, tape.stream_passes + 2
+
 
 def _logarithmic_selected_metric(tape):
     """Full numerical span selection, not a supplied-rank truncation."""
@@ -1444,14 +1636,11 @@ def logarithmic_probe(inputs, labels, queries, width, seed, steps, step, noise,
                   program.readout, tuple(program.ranks),
                   tuple(program.gaussian.forward_queries), tuple(program.gaussian.forward_answers),
                   tuple(program.gaussian.reverse_queries), tuple(program.gaussian.reverse_answers))
-        answers = []
-        for vector in queries:
-            value, scratch, count = program.query(vector)
-            answers.append(value)
-            for key, words in scratch.items():
-                query_scratch[key] = max(query_scratch[key], words)
-            passes += count
-            query_calls += 1
+        answers, scratch, count = program.query_many(queries)
+        for key, words in scratch.items():
+            query_scratch[key] = max(query_scratch.get(key, 0), words)
+        passes += count
+        query_calls += len(queries)
         after = (len(program.tape.nodes), tuple(program.tape.pairs.items()),
                  program.tape.root_count, tuple(program.losses), tuple(program.first),
                  program.readout, tuple(program.ranks),
@@ -1524,6 +1713,8 @@ def logarithmic_probe(inputs, labels, queries, width, seed, steps, step, noise,
         compact.tape.check()
         summary.update(status='complete', completed=True, query_seconds=query_seconds,
                        query_count=len(queries), total_query_calls=query_calls, query_stream_passes=passes,
+                       query_batch_size=len(queries),
+                       query_execution='shared row regeneration; separate posterior coefficients and same reserved innovation per input',
                        query_row_scratch_words=query_scratch['row_block_words'],
                        query_scratch=query_scratch,
                        retained_plus_query_word_envelope=(summary['retained']['numerical_words']
@@ -1594,6 +1785,13 @@ def logarithmic_small_checks():
     selected_query = selected.query(vector)[0]
     repeated_query = selected.query(vector)[0]
     query_error = abs(source_query - selected_query)
+    query_vectors = np.asarray([vector, [-.6, .8], [.6, -.8]])
+    separate = np.asarray([selected.query(point)[0] for point in query_vectors])
+    batched = selected.query_many(query_vectors)[0]
+    permutation = np.asarray([2, 0, 1])
+    permuted = selected.query_many(query_vectors[permutation])[0]
+    batch_error = float(np.max(np.abs(batched - separate)))
+    permutation_error = float(np.max(np.abs(permuted - batched[permutation])))
     # Independently check two Euler updates against loss autodifferentiation.
     # Only this algebra test supplies a fixed dense initialized matrix.
     fixed = _LogarithmicProgram(inputs, labels, 9, 1902, .03, deadline)
@@ -1629,13 +1827,139 @@ def logarithmic_small_checks():
               fixed.tape.values[fixed.readout], reconstructed)
     euler_error = max(float(np.max(np.abs(value - expected.numpy())))
                       for value, expected in zip(actual, exact))
-    assert max(posterior_error, replay_error, regeneration_error, query_error, euler_error) < 1e-10
+    assert max(posterior_error, replay_error, regeneration_error, query_error,
+               euler_error, batch_error, permutation_error) < 1e-10
     assert repeated_query == selected_query
     return dict(gaussian_both_orientation_posterior_max_abs=posterior_error,
                 scalar_replay_max_abs=replay_error, row_regeneration_max_abs=regeneration_error,
                 source_vs_selected_passive_query_max_abs=query_error,
                 fixed_matrix_euler_autograd_max_abs=euler_error,
+                batched_vs_separate_query_max_abs=batch_error,
+                query_permutation_max_abs=permutation_error,
                 repeated_query_identical=True, selected_rank=len(rows), virtual_width=128)
+
+
+def validation_plot_main(argv):
+    """Render only measured results; preserve every run in a portable ledger."""
+    parser = argparse.ArgumentParser(description='Render empirical validation results')
+    parser.add_argument('--root', type=Path, default=ROOT/'data/generated/compression_empirical_validation_20261007')
+    parser.add_argument('--out', type=Path, required=True)
+    args = parser.parse_args(argv)
+    args.out.mkdir(parents=True, exist_ok=False)
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    from matplotlib.ticker import ScalarFormatter
+
+    reports = {}
+    for path in sorted(args.root.glob('*/report.json')):
+        report = json.loads(path.read_text())
+        if 'config' in report:
+            reports[path.parent.name] = report
+    save_json(args.out/'compression_validation_source.json', dict(
+        scope='Finite-grid empirical results, not supremum/asymptotic/confidence certificates',
+        inventory='Harmonic model tensors include metrics; Logarithmic numerical payload includes descriptors/caches',
+        plot_source_sha256=sha(Path(__file__).read_bytes()), reports=reports))
+    plt.rcParams.update({'font.size': 9, 'axes.titlesize': 10, 'axes.labelsize': 9,
+                         'axes.spines.top': False, 'axes.spines.right': False,
+                         'pdf.fonttype': 42, 'savefig.facecolor': 'white'})
+    colors = dict(dense='#30343B', harmonic='#008A89', matched_dense='#D87936', frozen_ntk='#9B6FA2',
+                  logarithmic='#3575B8')
+    labels = dict(dense='Independent dense pair', harmonic='Harmonic',
+                  matched_dense='State-matched MLP', frozen_ntk='Frozen NTK', logarithmic='Logarithmic')
+
+    def save(fig, name):
+        fig.savefig(args.out/(name+'.pdf'), bbox_inches='tight')
+        fig.savefig(args.out/(name+'.png'), bbox_inches='tight', dpi=180)
+        plt.close(fig)
+
+    circle = [r for name, r in reports.items() if name.startswith('confirm_circle_') and r['complete']]
+    if circle:
+        fig, axes = plt.subplots(1, 2, figsize=(9.3, 3.25), layout='constrained')
+        widths = sorted(set(r['config']['width'] for r in circle))
+        for model in ('dense', 'harmonic', 'matched_dense', 'frozen_ntk'):
+            groups = [[r['dense_variability']['max_time_rms'] if model == 'dense' else
+                       r['comparisons'][model]['max_time_rms'] for r in circle if r['config']['width'] == n]
+                      for n in widths]
+            middle = np.asarray([np.median(group) for group in groups])
+            axes[0].plot(widths, middle, 'o-', color=colors[model], label=labels[model], ms=4, lw=1.6)
+            axes[0].fill_between(widths, [min(g) for g in groups], [max(g) for g in groups],
+                                 color=colors[model], alpha=.10, linewidth=0)
+        for model in ('dense', 'harmonic'):
+            groups = [[r['runs']['dense']['moving_scalars'] if model == 'dense' else
+                       r['matched_budget']['target_total_scalars'] for r in circle if r['config']['width'] == n]
+                      for n in widths]
+            axes[1].plot(widths, [np.median(g) for g in groups], 'o-', color=colors[model],
+                         label='Dense' if model == 'dense' else 'Harmonic, including metrics', ms=4, lw=1.6)
+        for axis in axes:
+            axis.set_xscale('log', base=2)
+            axis.set_yscale('log')
+            axis.set_xticks(widths, [str(n) for n in widths])
+            axis.set_xlabel('Dense width n')
+            axis.grid(axis='y', alpha=.16)
+        axes[0].set_title('(a) Unseen-input trajectory fidelity', loc='left')
+        axes[0].set_ylabel('Maximum recorded-time RMS')
+        axes[0].legend(frameon=False, fontsize=8, loc='upper right')
+        axes[1].set_title('(b) Retained model tensors', loc='left')
+        axes[1].set_ylabel('Scalar entries')
+        axes[1].legend(frameon=False, fontsize=8, loc='upper left')
+        save(fig, 'compression_validation')
+
+    fig, axes = plt.subplots(1, 3, figsize=(11.4, 3.25), layout='constrained')
+    sphere = [r for name, r in reports.items() if name.startswith('confirm_sphere_') and r['complete']]
+    sphere.sort(key=lambda r: r['config']['dimension'])
+    for offset, model in zip((-.23, 0., .23), ('harmonic', 'matched_dense', 'frozen_ntk')):
+        axes[0].bar(np.arange(len(sphere))+offset,
+                    [r['comparisons'][model]['ratio_to_dense_pair'] for r in sphere],
+                    width=.22, label=labels[model], color=colors[model])
+    axes[0].set_xticks(np.arange(len(sphere)), [str(r['config']['dimension']) for r in sphere])
+    axes[0].set_xlabel('Input dimension d')
+    axes[0].set_ylabel('Trajectory RMS / dense-pair RMS')
+    axes[0].set_yscale('log')
+    axes[0].axhline(3, color='#555555', ls=':', lw=1)
+    axes[0].set_title('(a) Sphere checks, n = 2048', loc='left')
+    axes[0].legend(frameon=False, fontsize=7)
+
+    digits = [r for name, r in reports.items() if name.startswith('confirm_digits_') and r['complete']]
+    if digits:
+        times = np.asarray(digits[0]['times'])[1:]
+        for model in ('dense', 'harmonic', 'matched_dense', 'frozen_ntk'):
+            values = np.asarray([r['dense_variability']['curve'] if model == 'dense' else
+                                 r['comparisons'][model]['curve'] for r in digits])[:, 1:]
+            axes[1].plot(times, np.median(values, axis=0), 'o-', color=colors[model], ms=3, lw=1.4)
+            axes[1].fill_between(times, values.min(axis=0), values.max(axis=0), color=colors[model], alpha=.1)
+    axes[1].set_yscale('log')
+    axes[1].set_xlabel('Physical training time')
+    axes[1].set_ylabel('Unseen-image RMS versus dense')
+    axes[1].set_title('(b) Embedded digits 3 versus 8', loc='left')
+
+    logs = [r for name, r in reports.items() if name.startswith('confirm_log_') and
+            r.get('logarithmic_probe', {}).get('completed')]
+    if not logs:
+        logs = [r for name, r in reports.items() if name.startswith('pilot_log_trajectory_') and
+                r.get('logarithmic_probe', {}).get('completed')]
+    for r in logs:
+        info = r['logarithmic_probe']
+        if 'comparison' not in info:
+            continue
+        x = info['retained']['numerical_words']/info['dense_parameter_words']
+        y = info['comparison']['ratio_to_dense_pair']
+        axes[2].scatter(x, y, color=colors['logarithmic'], s=30)
+        axes[2].annotate(f"d={r['config']['dimension']}, n={r['config']['width']}", (x, y),
+                          xytext=(5, 4), textcoords='offset points', fontsize=7)
+    axes[2].axvline(1, color='#555555', ls=':', lw=1)
+    axes[2].axhline(3, color='#555555', ls=':', lw=1)
+    axes[2].set_xscale('log')
+    axes[2].set_yscale('log')
+    axes[2].set_xlabel('Retained words / dense parameters')
+    axes[2].set_ylabel('Trajectory RMS / dense-pair RMS')
+    axes[2].set_title('(c) Empirical Logarithmic decoder', loc='left')
+    for axis in axes:
+        axis.grid(axis='y', alpha=.16)
+    save(fig, 'compression_checks')
+    print(json.dumps(dict(reports=len(reports), circle_confirmations=len(circle),
+                          sphere_checks=len(sphere), digits_confirmations=len(digits),
+                          logarithmic_points=len(logs), out=str(args.out))), flush=True)
 
 
 def main():
@@ -1725,5 +2049,7 @@ def main():
 if __name__ == '__main__':
     if len(sys.argv) > 1 and sys.argv[1] == 'validate':
         validation_main(sys.argv[2:])
+    elif len(sys.argv) > 1 and sys.argv[1] == 'plot-validation':
+        validation_plot_main(sys.argv[2:])
     else:
         main()

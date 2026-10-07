@@ -147,3 +147,61 @@ only. No raw-pixel or classification-superiority claim follows automatically.
 
 Existing archived Legendre capture remains unchanged and the new validation
 path does not import other-study code.
+
+### Campaign accounting update
+
+The first implementation checkpoint is `fefd944`. Both methods' algebra and
+mechanism were independently checked against the paper's explicit equations.
+Subsequent changes add causal Logarithmic trajectory observations, remove unused
+Harmonic caches, separate inference readout refresh, and improve accounting.
+
+At the next accounting pass there were 222 recorded model executions including
+source construction, with approximately 606 seconds of recorded solver work.
+The earlier 200-execution allowance underestimated refinements and source
+rollouts; this overrun is recorded rather than retroactively hidden. The final
+campaign is now capped at 320 executions including those items, to complete
+matched LoRA, real-data confirmation and dimensional Logarithmic checks. All
+per-model time caps remain unchanged. No additional tuning grid is authorized
+by this bookkeeping update; the already frozen Harmonic rules stay frozen.
+
+Circle confirmation passed all nine width/seed configurations. At width 4096,
+the three runs use roughly 11.7--11.8 times fewer model-tensor scalars than the
+dense reference, with variability ratios 0.159, 1.617 and 0.505. The matched
+ordinary networks have ratios 0.506, 2.640 and 3.232. This is not a uniform
+ordering: Harmonic loses to the matched network in two lower-width runs.
+
+Single-seed d=3,5,10 Harmonic checks also pass. The first real digits pilot
+passes but does not improve classification accuracy over the controls. The
+first d=5 Logarithmic trajectory pilot passes fidelity, but its 2.63 million
+retained words exceed the width-1024 dense model's 1.05 million parameters.
+Fidelity alone is therefore not a compression success. Wider runs must count
+the full state and query workspace before a compression claim is made.
+
+Digits confirmation is frozen at width 4096, 32 training images, training-only
+PCA dimension eight, source rank 19 per family, time degree five, spatial
+degree three, nine temporal nodes and 256 passive sphere nodes; horizon 20 and
+the same RK4 refinement. Seeds 201,202,203 use only the held-out query partition.
+The pilot's rank-19 model passes fidelity but does not beat the matched ordinary
+network or improve classification accuracy; confirmation will retain that
+comparison whether favorable or unfavorable.
+
+Logarithmic query evaluation has been algebraically batched: each unseen input
+keeps its own conditional coefficients, while all inputs reuse the same two
+or three row-regeneration passes. Tests agree with independent single-query
+execution below 2e-16. Batching does not condition queries on one another or
+change training. Reported workspace now includes the batch, and total query
+work is not a single-input latency measurement.
+
+Logarithmic confirmation now freezes ten Euler panels of length 0.5 through
+time five, observation noise 0.01, one source member, and 32 passive queries.
+This follows the d=10 pilot: twenty panels exceeded the 120-second cap, while
+ten panels passed with ratio 1.62 and roughly 6.2-fold persistent-payload
+savings at width 4096. This failed 20-panel run remains in the ledger. Orders
+are not selected on confirmation seeds. Dimension checks use m=max(d,3),
+d=2,3,5,10 at width4096 and seed201. Dimension five additionally uses widths
+1024 and2048 at seed201 and width4096 at seeds202,203. These limited finite
+widths cannot identify an asymptotic exponent. Each successful decoder run
+also gets a total-payload-matched dense-network control, with common training
+data removed from both model budgets. This final planned batch raises the
+execution allowance to 400, including all references, refinements and setup
+programs; it adds no theorem search or open-ended tuning.
