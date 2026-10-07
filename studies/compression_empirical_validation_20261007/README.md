@@ -2,6 +2,12 @@
 
 ## Scope and claim level
 
+Current continuation: the raw-image two-update run below is only a short-program
+sanity check, not validation of a trained compressed model. The replacement
+experiment requires matched, step-refined Euler training to MSE below 0.01.
+Its protocol and any infeasible comparisons are recorded at the end of this file;
+neither a different integrator nor an early resource stop counts as success.
+
 New empirical investigation requested on 2026-10-07. The scientific inputs are
 the current `paper/` manuscript, its self-contained integrated appendix, and its
 capture/plotting scripts. No other study supplies scientific inputs. The single
@@ -427,3 +433,292 @@ fields, coefficients, pair values/order, losses and queries. Full algebra
 checks pass in `raw_checks_01` and `raw_checks_02`. The recorded 205.24-second
 scientific run predates this cleanup; no improved timing is claimed from it.
 The paper and its earlier figure bundle were not rewritten by this follow-up.
+
+## Corrected full-training Euler experiment (preregistered)
+
+The user now requires actual substantial training, not a fixed short horizon:
+the same small-step Euler rule for the compressed model and dense controls,
+training MSE below 0.01, and prediction RMS on all unseen validation images.
+Retain the raw digits 3-versus-8 split (seed 47), 100 training images, 257
+validation images, all 64 pixels with per-image normalization and no PCA,
+two tanh hidden layers, zero readout, and the existing physical mobilities.
+Large width remains 4096. No validation labels enter training or setup.
+
+Primary question: can the current Logarithmic construction remain smaller
+than dense while matching its trained predictions at dense-pair variability,
+and how does a total-retained-state-matched ordinary network compare?
+The contrary outcome is that the current construction cannot support this
+training schedule in compressed storage; that yields no invented compressed
+RMS and no substitute method relabeled Logarithmic.
+
+Root owns this README, experiment driver and Git transaction. A scoped helper
+may add only the reusable Euler integrator/check functions before
+`validation_main` in the single existing capture script. Another read-only
+helper checks feasibility against that script and the paper's finite decoder
+construction. No other study supplies scientific inputs.
+
+Before any full Logarithmic run, audit state growth for the required update
+count. An exact cache/linear-algebra optimization is allowed; changing the
+mathematical compression, truncating its historical dependencies or substituting
+Harmonic/a smaller Gaussian network requires an explicit new method disclosure
+and user direction. Do not reduce the update count to make storage fit.
+
+Numerical protocol: seed 201 for the large reference and seed 10201 for its
+independent copy. A training-only pilot starts at Euler step 0.05 and stops at
+training MSE 0.005 (margin below the requested 0.01), subject to physical-time
+cap 200 and 300 seconds per model run. Round the final common horizon upward
+to a multiple of 0.5; extend it if either reference/control has not reached
+0.01. This fixes fitting time from training loss, never from validation RMS.
+At that horizon, compare Euler steps 0.05 and 0.025 on the same initialization;
+halve further, no smaller than 0.003125 in this bounded pass, when needed.
+The empirical resolution gate is maximum recorded validation RMS change at
+most 0.001 and at most ten percent of the independent dense-pair discrepancy.
+This is a numerical refinement check, not a rigorous global error bound.
+Observations are at physical intervals of 0.5 plus the exact endpoint.
+
+Float64 is the reference precision. Float32 with TF32 disabled is allowed only
+after a same-initialization full-horizon comparison against float64 has maximum
+recorded prediction RMS difference below 0.00005. Record both results and
+precision provenance. A failed precision gate keeps float64; a resource cap
+is failure/inconclusive, never a license to shorten fitting.
+
+Once a legitimate compressed run supplies its total retained state, choose
+the largest ordinary dense width within that model-only budget, using the
+same data and physical Euler schedule. Match across refinement runs at a
+common physical horizon. All methods' training losses and step counts must
+be reported, even if the compressed or matched model fails to fit. Primary
+measurement is final whole-validation prediction RMS against the same large
+reference; also retain maximum recorded-time RMS and dense-pair variability.
+No classification accuracy may substitute for this observable.
+
+This bounded continuation permits at most 16 model/precision/refinement runs,
+each at most 300 seconds, at most 20 GB GPU memory, at most 2 GB numerical CPU
+payload, and 30 minutes of numerical execution in total. Use both available
+GPUs without oversubscription. Numerical unit tests are separate. If the
+existing Logarithmic representation fails a static storage/feasibility gate,
+complete the dense numerical protocol and record the precise blocked comparison;
+do not launch a predictably oversized transcript. Preserve all historical
+records and do not overwrite prior run folders or silently edit paper figures.
+
+### Authorized bounded-state replacement (before its numerical results)
+
+The user explicitly chose "Develop a bounded-state Logarithmic approximation"
+after the history obstruction was explained. The new experimental model is
+called **bounded Gaussian-action packets**, not the certified Logarithmic
+decoder. It replaces the adaptive history by a fixed nonlinear network with
+data-conditioned, covariance-balanced initialization. Its subsequent transpose
+law and dynamics are not those of the full Gaussian-history decoder, and the
+Logarithmic theorem does not automatically apply. This is a new empirical
+approximation, not a repaired proof or a validated logarithmic scaling law.
+
+Construction uses only an independent width-4096 first-layer initialization
+and the 100 training inputs. Compute its initial feature Gram. At packet
+width q, initialize a q-by-q operator conditioned on prescribed initial
+training actions with that Gram. Balance those action packets with a thin
+Gaussian QR factor so their empirical covariance equals the source Gram.
+Keep the Gaussian complement on the orthogonal complement of the initial
+training features. Both propagation directions use this same operator and
+its transpose; every weight then follows the ordinary physical Euler rule.
+The full source Gram/table and all factorizations are discarded after setup.
+No target dense trajectory, validation input, or validation label enters setup.
+
+The retained state is exactly q*64+q*q+q numerical scalars, with no history
+growth and no separate fixed matrix. Match the ordinary Gaussian control at
+exactly width q, the same first-layer/base initialization seed, same step and
+same final physical time. Source seed is 40201, small/packet base seed is
+60201, independent of reference seeds 201 and 10201. Freeze q=256 and q=512
+as two reported budgets, not a winner selected by validation error. They are
+practical budgets only; this one-width experiment tests no n-asymptotic claim.
+
+All six models (two large references and both packet/small-control budgets)
+must reach training MSE below 0.01 on one common horizon. Their training-only
+fitting pilots use the stricter 0.005 target; the shared horizon is the largest
+pilot stopping time rounded up to 0.5. Refine every final model at the same
+two step sizes and report final and maximum recorded unseen prediction RMS.
+The pass/comparability criterion remains factor three of dense-pair RMS;
+beating the matched small network is a separate observation, never presumed.
+Unit checks require the initializer's action/covariance identities, inherited
+physical gradients, fixed-state restart, and absence of retained source arrays.
+
+This explicit new-method authorization increases the bounded allowance to
+at most 28 model/precision/refinement runs, retaining the 300-second per-model,
+30-minute cumulative execution and memory caps. This covers two packet
+budgets, matched controls, the two dense references and their numerical
+checks. No extra hyperparameter search is permitted after observing results.
+If the approximation performs poorly, report it; do not modify its initializer
+or budget rule using validation performance.
+
+Training-only pilot outcome: the two large networks first reach MSE 0.005
+at times 79.0 and 78.9; ordinary q=256/512 controls at 80.2/80.7; bounded
+q=256/512 models at 80.2/79.7. Therefore freeze common final time **81**.
+The dense 0.05-versus-0.025 comparison has maximum recorded prediction change
+0.003153, failing the 0.001 gate. The final common Euler pair is consequently
+0.0125 and 0.00625 (6,480/12,960 updates); if this pair still fails, apply the
+already declared final halving to 0.003125 to every affected comparison.
+The initial dense float32-vs-float64 check differs by at most 6.165e-8 RMS.
+Final-horizon precision checks remain required. No validation performance
+comparison between packet and small-network models was inspected to choose
+these budgets, the common horizon, or the initializer.
+
+### Bounded packet construction and approximation boundary
+
+Let V have the m unit-normalized training inputs as rows. The deployable state
+is A in R^(q by d), W in R^(q by q), and w in R^q, with prediction
+`f(v) = w.T @ tanh(W @ tanh(A @ v)) / q`. Its architecture and subsequent
+physical gradient flow are exactly those of the ordinary q-width control;
+the only difference is a data-conditioned initial hidden matrix. In particular
+this experiment does not establish anything beyond smaller networks with a
+different initialization, nor does it validate the original decoder's dynamics.
+
+At setup, draw independent source A_n and compute
+`H_n = tanh(A_n @ V.T)`, `K = H_n.T @ H_n / n`. The small model's A and base
+Gaussian G are identical to the ordinary control's initial first/hidden
+matrices. Write `H = tanh(A @ V.T) = Q @ R`, using thin QR. Draw a separate
+Gaussian q-by-m array and take its sign-corrected thin QR factor Q_z, so
+`Q_z.T @ Q_z = I`. The sign correction multiplies columns by the signs of the
+QR triangular diagonal; it removes the library's deterministic QR sign bias.
+Use `Z = sqrt(q) * Q_z @ chol(K).T` and initialize
+
+```
+W = G + (Z - G @ H) @ inverse(R) @ Q.T,   w = 0.
+```
+
+The code uses a triangular solve, never an explicit inverse. Since
+`inverse(R) @ Q.T @ H = I`, it follows exactly that `W @ H = Z` and
+`Z.T @ Z / q = K`. For a vector orthogonal to the columns of H, the correction
+vanishes, so its action remains that of G. Forward and backward propagation
+reuse W and W.T. These are algebraic identities, not a trained-trajectory
+approximation theorem. Covariance balancing makes packet rows dependent and
+not exactly Gaussian; the later adaptive Gaussian history and wide transpose
+law are not preserved. No claim here transfers the Logarithmic theorem.
+
+The source first weights/features, Gram, packet table and QR/Cholesky factors
+are all temporary. Only the three weight arrays are needed for inference and
+restart; `weights.npz` stores exactly those arrays. Ordinary common training
+data add 6,500 scalars to either model if retained. Scalar diagnostics and
+provenance in the report are external experiment metadata. Training peak CUDA
+allocation includes the initial-state copy, current state, derivatives, data
+and diagnostic buffers, and is reported separately from deployable model size.
+No history of responses is an operand of a subsequent update or query.
+
+For q >= m, initialization arithmetic is
+`O(n*d*m + n*m^2 + q*m^2 + q^2*m)`, plus Gaussian generation; temporary numerical
+arrays are `O(n*d + n*m + q^2 + q*m + m^2)`. Subsequent Euler work per step is
+`O(q^2*m + q*d*m)`, with `O(q^2 + q*d + q*m)` model/training workspace (besides
+common data). One new query costs `O(q^2 + q*d)` work and `O(q+d)` extra
+workspace beyond the loaded weights. These costs are for this new empirical
+model, not for the theorem's decoder. The experiment chooses two fixed q
+values and does not infer logarithmic width scaling.
+
+### Corrected full-training outcome
+
+All models use **12,960 full-batch Euler steps of size 0.00625 through time
+81**, with a matched run at 6,480 steps of size 0.0125. Every final training
+MSE is below 0.005. All 257 validation images are evaluated; RMS is prediction
+discrepancy against the same width-4096 reference, not classification error.
+This is one data split and one independent reference pair, not a replicated
+superiority or asymptotic claim.
+
+| Model | Deployable weight scalars | Training MSE | Final validation RMS | Maximum recorded-time RMS |
+|---|---:|---:|---:|---:|
+| Dense reference, n=4096 | 17,043,456 | 0.00475360881 | 0 | 0 |
+| Independent dense, n=4096 | 17,043,456 | 0.00471663009 | 0.00841495569 | 0.01700302784 |
+| Ordinary q=256 | 82,176 | 0.00488593267 | 0.02740924335 | 0.04540505464 |
+| Bounded packets q=256 | 82,176 | 0.00489077176 | 0.01424297188 | 0.05144772833 |
+| Ordinary q=512 | 295,424 | 0.00495973016 | 0.01489553437 | 0.04392802620 |
+| Bounded packets q=512 | 295,424 | 0.00482226606 | 0.00974181286 | 0.02307065355 |
+
+The new initializer improves the endpoint error in both tested budgets. At
+q=256 it performs worse over the recorded trajectory: the maximum-error ratio
+is 3.0258 dense-pair units, narrowly failing the frozen factor-three rule.
+At q=512 the ratio is 1.3569 and both endpoint and trajectory metrics improve
+over the matched control. This does not imply the q=256 failure is robustly
+separated from the numerical/seed uncertainty around that cutoff.
+
+The maximum step-halving RMS for the six models lies between 0.0007483 and
+0.0008853: every model passes the 0.001 absolute and 10-percent dense-pair
+relative resolution gates. These are empirical refinement checks, not a
+rigorous continuum-GF error certificate. Full-horizon precision checks use
+float64 versus float32, with TF32 disabled, on identical initializations;
+the two large models are checked at step 0.0125 and the four small models at
+step 0.00625. The final summary must record complete six-model coverage.
+
+Measured fine-run integration plus recorded diagnostics takes 14.57/14.70
+seconds for the large pair, 10.96/11.16 seconds for the ordinary q=256/512
+controls, and 10.79/11.06 seconds for the bounded counterparts. Packet setup
+takes 0.261/0.265 seconds. Its peak CUDA allocation is 47.41/50.14 million
+bytes during setup and 35.15/38.22 million bytes during the run; large-reference
+run peak is 287.44 million bytes. These are PyTorch allocated tensor peaks,
+not total process RSS or GPU driver reservation; Python/data-loader/import
+overhead is not included. Small models are launch/diagnostic-overhead limited,
+so the parameter reduction is not a comparable measured runtime speedup.
+
+The scoped audit independently reconstructed the raw data split, recomputed
+all twelve runs' MSE/RMS/refinement metrics, checked the matched budgets,
+and reloaded all four fine small-model checkpoints. Re-evaluated predictions
+agree with their GPU records within 1.5e-7. The algebra/gradient/restart checks
+are retained in `euler_bounded_checks_01`. No prior scientific record is
+overwritten, and the paper/theorem/earlier figures are not changed by this
+new-method experiment. The two-update result remains only a sanity check.
+
+Final aggregate: `data/generated/compression_empirical_validation_20261007/
+euler_comparison_02/report.json` and `rms.npz`. All six model initializations
+have full-horizon precision coverage; the largest float32/float64 discrepancy
+is 7.4463e-7 RMS. This supersedes provisional `euler_comparison_01`, whose
+precision flag did not check coverage of the independent dense initialization.
+The summary code now requires actual float64/float32 dtypes and coverage of
+every compared initialization, and reports the tested steps explicitly.
+The continuation executed 26 model runs, approximately 600.23 seconds total
+setup-plus-run work, with maximum individual combined time 186.33 seconds.
+It remained within its amended 28-run, 30-minute and 300-second caps. Counts
+include fitting pilots, reference precision checks and all model refinements;
+unit tests and CPU-only metric recomputation are separate.
+
+### Reproduction of the corrected experiment
+
+Run from the repository root with `/home/amir/miniconda3/bin/python -B`.
+GPU access requires host execution in this environment. Use a fresh output
+directory for each invocation. `euler-fit` fixes the raw 100/257 split and
+canonical two-hidden-layer model; `--horizon 81` disables early loss stopping.
+The six configurations are:
+
+| Label | CLI width | Seed | Extra model arguments |
+|---|---:|---:|---|
+| dense | 4096 | 201 | none |
+| iid | 4096 | 10201 | none |
+| small256 | 256 | 60201 | none |
+| small512 | 512 | 60201 | none |
+| packets256 | 4096 | 60201 | `--model bounded-packets --packet-width 256 --source-seed 40201` |
+| packets512 | 4096 | 60201 | `--model bounded-packets --packet-width 512 --source-seed 40201` |
+
+For every row run both `--step 0.0125` and `--step 0.00625`, with
+`--dtype float32 --horizon 81 --device cuda:0` (or a free second GPU).
+The width argument is the source width only for bounded packets; their
+actual deployable width is `--packet-width`. For example:
+
+```bash
+/home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py euler-fit \
+  --model bounded-packets --width 4096 --packet-width 512 --seed 60201 \
+  --source-seed 40201 --horizon 81 --step 0.00625 --dtype float32 \
+  --device cuda:0 --out PATH/TO/FRESH/PACKET512_FINE
+```
+
+Repeat the two large configurations in float64 at step 0.0125, and all four
+small configurations in float64 at step 0.00625. The construction always uses
+float64 before conversion, so the pre-conversion initialization hashes must
+match. Run `euler-summary` with one `--pair LABEL COARSE_DIR FINE_DIR` per
+table row and one `--precision FLOAT64_DIR FLOAT32_DIR` per precision check,
+plus `--out PATH/TO/FRESH/SUMMARY`. It checks common data, times, seeds through
+initialization hashes, step halving and complete precision coverage, then
+recomputes every RMS and training MSE from saved arrays. Its six-case primary
+labels are `dense`, `iid`, `small256`, `small512`, `packets256`, `packets512`.
+Full environment, commands, source hashes, losses, times, CUDA allocated
+peaks and arrays are retained in each run directory. Small-model checkpoints
+contain only `first`, `readout` and `hidden` arrays.
+
+For unit checks:
+
+```bash
+/home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py euler-fit \
+  --check-only --model bounded-packets --device cpu --out PATH/TO/FRESH/CHECKS
+```

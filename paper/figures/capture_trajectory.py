@@ -784,6 +784,360 @@ def small_checks(base, orthogonal):
     return {"independent_gradient_and_matrix_max_abs": maximum}
 
 
+class BoundedGaussianPackets(Dense):
+    """Empirical covariance-balanced small network, with ordinary Dense flow.
+
+    Training-only source features set the covariance of dependent Gaussian-action
+    packets. This variance-reduction initialization does not preserve the adaptive
+    Logarithmic posterior and carries no theorem guarantee. Only A, c and B remain
+    after construction; source features, packets and factorizations are discarded.
+    """
+
+    @torch.no_grad()
+    def __init__(self, source_width, width, inputs, seed, source_seed):
+        if inputs.ndim != 2 or not len(inputs) or not inputs.shape[1]:
+            raise ValueError('Packet initialization needs nonempty training inputs (m,d)')
+        m, d = inputs.shape
+        if width < m or source_width < m:
+            raise ValueError('Packet and source widths must each be at least the training count')
+        device, dtype = inputs.device, torch.float64
+        training = inputs.detach().to(dtype=dtype)
+        if not bool(torch.isfinite(training).all()):
+            raise FloatingPointError('Packet training inputs contain nonfinite entries')
+        generator = torch.Generator(device=device).manual_seed(seed)
+        first = torch.randn(width, d, generator=generator, dtype=dtype, device=device)
+        readout = torch.zeros(width, dtype=dtype, device=device)
+        gaussian = torch.randn(width, width, generator=generator, dtype=dtype, device=device)/math.sqrt(width)
+        source_generator = torch.Generator(device=device).manual_seed(source_seed)
+        source_first = torch.randn(source_width, d, generator=source_generator, dtype=dtype, device=device)
+        source_features = (source_first@training.T).tanh()
+        covariance = source_features.T@source_features/source_width
+        factor, info = torch.linalg.cholesky_ex(covariance)
+        if int(info) != 0:
+            raise ArithmeticError('Packet source Gram is not positive definite; no ridge is added')
+        packet_gaussian = torch.randn(width, m, generator=source_generator, dtype=dtype, device=device)
+        packet_basis, packet_triangular = torch.linalg.qr(packet_gaussian, mode='reduced')
+        packet_basis *= torch.where(packet_triangular.diagonal() >= 0, 1., -1.)
+        packets = math.sqrt(width)*packet_basis@factor.T
+        features = (first@training.T).tanh()
+        basis, triangular = torch.linalg.qr(features, mode='reduced')
+        singular = torch.linalg.svdvals(triangular)
+        tolerance = max(width, m)*torch.finfo(dtype).eps*float(singular[0])
+        rank = int((singular > tolerance).sum())
+        if rank != m:
+            raise ArithmeticError('Packet small-network feature matrix lacks full column rank; no ridge is added')
+        # (Z-GH) R^{-1} is a right triangular solve, not an explicit inverse.
+        correction = torch.linalg.solve_triangular(
+            triangular.T, (packets-gaussian@features).T, upper=False).T
+        mixer = gaussian+correction@basis.T
+        if not bool(torch.isfinite(mixer).all()):
+            raise FloatingPointError('Packet initialization produced a nonfinite hidden matrix')
+        eigenvalues = torch.linalg.eigvalsh(covariance)
+        self.initial_state, self.fixed_scalars = [first, readout, mixer], 0
+        self.diagnostics = dict(
+            method='empirical_source_conditioned_covariance_balanced_small_network',
+            claim_scope='dependent packets; not the adaptive Logarithmic decoder or its theorem',
+            source_width=int(source_width), width=int(width), samples=m, dimension=d,
+            seed=int(seed), source_seed=int(source_seed), construction_dtype=str(dtype),
+            feature_rank=rank, feature_min_singular=float(singular[-1]),
+            feature_condition=float(singular[0]/singular[-1]),
+            source_gram_min=float(eigenvalues[0]), source_gram_condition=float(eigenvalues[-1]/eigenvalues[0]),
+            initialized_action_max_abs=float((mixer@features-packets).abs().max()),
+            initialized_covariance_max_abs=float((packets.T@packets/width-covariance).abs().max()),
+            mixer_frobenius=float(mixer.norm()), moving_scalars=sum(value.numel() for value in self.initial_state))
+
+
+def bounded_gaussian_packet_small_checks(device='cpu'):
+    """Tiny algebra, inherited-gradient and checkpoint checks for the new model."""
+    device, dtype = torch.device(device), torch.float64
+    inputs = torch.tensor([[1., 0.], [.6, .8], [-.8, .6]], dtype=dtype, device=device)
+    labels = torch.tensor([.2, -.1, .3], dtype=dtype, device=device)
+    model = BoundedGaussianPackets(64, 16, inputs, 17, 29)
+    first, readout, mixer = model.initial_state
+    source_generator = torch.Generator(device=device).manual_seed(29)
+    source_first = torch.randn(64, 2, generator=source_generator, dtype=dtype, device=device)
+    source_features = (source_first@inputs.T).tanh()
+    covariance = source_features.T@source_features/64
+    packet_gaussian = torch.randn(16, 3, generator=source_generator, dtype=dtype, device=device)
+    packet_basis, packet_triangular = torch.linalg.qr(packet_gaussian, mode='reduced')
+    packet_basis *= torch.where(packet_triangular.diagonal() >= 0, 1., -1.)
+    packets = 4*packet_basis@torch.linalg.cholesky(covariance).T
+    features = (first@inputs.T).tanh()
+    action_error = float((mixer@features-packets).abs().max())
+    covariance_error = float((packets.T@packets/16-covariance).abs().max())
+    assert max(action_error, covariance_error) < 1e-12, (action_error, covariance_error)
+    assert model.diagnostics['feature_rank'] == 3 and bool(torch.isfinite(mixer.norm()))
+    assert torch.count_nonzero(readout) == 0
+    assert set(vars(model)) == {'initial_state', 'fixed_scalars', 'diagnostics'}
+    assert all(isinstance(value, (int, float, str)) for value in model.diagnostics.values())
+    assert model.fixed_scalars == 0 and sum(value.numel() for value in model.initial_state) == 16*(2+1)+16**2
+    state = [value.clone().requires_grad_() for value in model.initial_state]
+    state[1] = torch.linspace(-.2, .2, 16, dtype=dtype, device=device).requires_grad_()
+    loss = (model.predict(state, inputs, inputs, labels)-labels).square().mean()
+    gradients = torch.autograd.grad(loss, state)
+    gradient_error = max(float((velocity+mobility*gradient).detach().abs().max())
+                         for velocity, mobility, gradient in
+                         zip(model.rhs(state, inputs, labels), (16, 16, 1), gradients))
+    assert gradient_error < 1e-12, gradient_error
+    with torch.no_grad():
+        endpoint, _, _ = integrate_euler(model, inputs, labels, inputs, .01, 10., horizon=.05)
+        restored = Dense.__new__(Dense)
+        restored.initial_state, restored.fixed_scalars = [value.clone() for value in endpoint], 0
+        restart_error = float((model.predict(endpoint, inputs, inputs, labels)
+                               -restored.predict(restored.initial_state, inputs, inputs, labels)).abs().max())
+        restart_error = max(restart_error, *(float((a-b).abs().max()) for a, b in zip(
+            model.rhs(endpoint, inputs, labels), restored.rhs(restored.initial_state, inputs, labels))))
+    assert restart_error == 0., restart_error
+    return dict(action_max_abs=action_error, covariance_max_abs=covariance_error,
+                inherited_gradient_max_abs=gradient_error, checkpoint_restart_max_abs=restart_error,
+                retained_scalars=sum(value.numel() for value in model.initial_state), diagnostics=model.diagnostics)
+
+
+@torch.no_grad()
+def integrate_euler(model, inputs, labels, queries, step, seconds, horizon=None,
+                    loss_target=None, max_steps=1_000_000, observation_every=100):
+    """Bounded explicit Euler, preserving the caller's state/data precision.
+
+    All blocks use the same pre-update RHS: ``state += h * model.rhs(state)``.
+    A prescribed ``horizon`` takes precedence over loss stopping and is reached
+    with one shortened final Euler step if necessary. Without a horizon, stop
+    at the first sampled training MSE strictly below ``loss_target``. MSE is
+    checked at most eight updates apart; queries are evaluated only every
+    ``observation_every`` updates and at the actual initial/terminal states.
+
+    Return ``(state, predictions, report)``. Rows of ``predictions`` correspond
+    to ``report['times']`` and ``report['observation_steps']``. A wall/step cap
+    returns a partial trajectory with its actual terminal time and stop reason;
+    it does not extrapolate to the requested horizon. The wall budget includes
+    observations and is capped at 300 seconds. A running device operation and
+    the required terminal observation cannot be interrupted, so any overrun is
+    reported. Only the current state/RHS and CPU query observations are retained.
+    """
+    step, seconds = float(step), float(seconds)
+    if not math.isfinite(step) or step <= 0:
+        raise ValueError('Euler step must be finite and positive')
+    if not math.isfinite(seconds) or seconds <= 0:
+        raise ValueError('Euler wall budget must be finite and positive')
+    if isinstance(max_steps, bool) or not isinstance(max_steps, (int, np.integer)) or max_steps < 0:
+        raise ValueError('Euler max_steps must be a nonnegative integer')
+    if (isinstance(observation_every, bool)
+            or not isinstance(observation_every, (int, np.integer)) or observation_every < 1):
+        raise ValueError('Euler observation_every must be a positive integer')
+    if horizon is not None:
+        horizon = float(horizon)
+        if not math.isfinite(horizon) or horizon < 0:
+            raise ValueError('Euler horizon must be finite and nonnegative')
+        ratio = horizon/step
+        if not math.isfinite(ratio):
+            raise ValueError('Euler horizon/step is too large')
+        nearest = round(ratio)
+        horizon_steps = (nearest if abs(ratio-nearest) <= 8*math.ulp(ratio)
+                         else math.ceil(ratio))
+    else:
+        horizon_steps = None
+    if loss_target is not None:
+        loss_target = float(loss_target)
+        if not math.isfinite(loss_target) or loss_target < 0:
+            raise ValueError('Euler loss target must be finite and nonnegative')
+    if inputs.ndim != 2 or labels.ndim != 1 or len(inputs) != len(labels) or not len(labels):
+        raise ValueError('Euler expects nonempty inputs (m,d) and labels (m,)')
+    if queries.ndim != 2 or queries.shape[1] != inputs.shape[1] or not len(queries):
+        raise ValueError('Euler expects nonempty queries with the input dimension')
+    device = inputs.device
+    if not inputs.is_floating_point() or any(
+            value.device != device or value.dtype != inputs.dtype for value in (labels, queries)):
+        raise ValueError('Euler data must share one floating dtype and device')
+    if not model.initial_state or any(
+            not torch.is_tensor(value) or value.dtype != inputs.dtype or value.device != device
+            for value in model.initial_state):
+        raise ValueError('Euler initial state must share the data dtype and device')
+
+    seconds = min(seconds, 300.)
+    max_steps, observation_every = int(max_steps), int(observation_every)
+    check_every = min(8, observation_every)
+    synchronize(device)
+    started = time.monotonic()
+    baseline_bytes = torch.cuda.memory_allocated(device) if device.type == 'cuda' else None
+    if device.type == 'cuda':
+        torch.cuda.reset_peak_memory_stats(device)
+    state = [value.detach().clone() for value in model.initial_state]
+    if not all(bool(torch.isfinite(value).all()) for value in (inputs, labels, queries)):
+        raise FloatingPointError('Euler data contain nonfinite entries')
+    predictions, times, observation_steps, losses = [], [], [], []
+    loss_check_steps, loss_check_times, loss_checks = [], [], []
+    steps, current, last_step = 0, 0., 0.
+    training_seconds = loss_seconds = query_seconds = refresh_seconds = 0.
+
+    def check_training_loss():
+        nonlocal loss_seconds
+        check_started = time.monotonic()
+        if not all(bool(torch.isfinite(value).all()) for value in state):
+            raise FloatingPointError(f'Nonfinite Euler state at step {steps}, t={current:.9g}')
+        prediction = model.predict(state, inputs, inputs, labels)
+        if prediction.shape != labels.shape:
+            raise ValueError('Euler training prediction must have the label shape')
+        loss = float((prediction-labels).square().mean())
+        if not math.isfinite(loss):
+            raise FloatingPointError(f'Nonfinite Euler training MSE at step {steps}, t={current:.9g}')
+        synchronize(device)
+        loss_seconds += time.monotonic()-check_started
+        loss_check_steps.append(steps)
+        loss_check_times.append(current)
+        loss_checks.append(loss)
+        return loss
+
+    def observe(loss):
+        nonlocal query_seconds, refresh_seconds
+        if observation_steps and observation_steps[-1] == steps:
+            return
+        refresh_started = time.monotonic()
+        prepared = model.prepare_query(state, inputs, labels) if hasattr(model, 'prepare_query') else None
+        synchronize(device)
+        refresh_seconds += time.monotonic()-refresh_started
+        query_started = time.monotonic()
+        prediction = (prepared(queries) if prepared is not None
+                      else model.predict(state, queries, inputs, labels))
+        if prediction.shape != (len(queries),):
+            raise ValueError('Euler query prediction must have shape (number_of_queries,)')
+        if not bool(torch.isfinite(prediction).all()):
+            raise FloatingPointError(f'Nonfinite Euler query prediction at step {steps}, t={current:.9g}')
+        predictions.append(prediction.detach().cpu().numpy().copy())
+        synchronize(device)
+        query_seconds += time.monotonic()-query_started
+        times.append(current)
+        observation_steps.append(steps)
+        losses.append(loss)
+
+    def stopping_reason(loss):
+        if time.monotonic()-started >= seconds:
+            return 'wall_time_cap'
+        if horizon_steps is not None and steps == horizon_steps:
+            return 'horizon'
+        if horizon is None and loss_target is not None and loss < loss_target:
+            return 'loss_target'
+        if steps == max_steps:
+            return 'max_steps'
+        return None
+
+    loss = check_training_loss()
+    observe(loss)
+    reason = stopping_reason(loss)
+    while reason is None:
+        next_observation = (steps//observation_every+1)*observation_every
+        block_end = min(steps+check_every, next_observation, max_steps)
+        if horizon_steps is not None:
+            block_end = min(block_end, horizon_steps)
+        training_started = time.monotonic()
+        while steps < block_end:
+            if time.monotonic()-started >= seconds:
+                break
+            last_step = (horizon-steps*step if horizon_steps is not None and steps+1 == horizon_steps
+                         else step)
+            velocity = model.rhs(state, inputs, labels)
+            if len(velocity) != len(state) or any(
+                    derivative.shape != value.shape for value, derivative in zip(state, velocity)):
+                raise ValueError('Euler RHS must provide one matching derivative per state block')
+            # Finish every derivative before mutating any state block.
+            for value, derivative in zip(state, velocity):
+                value.add_(derivative, alpha=last_step)
+            del velocity, derivative
+            steps += 1
+            current = horizon if horizon_steps is not None and steps == horizon_steps else steps*step
+        synchronize(device)
+        training_seconds += time.monotonic()-training_started
+        loss = check_training_loss()
+        reason = stopping_reason(loss)
+        if steps % observation_every == 0 or reason is not None:
+            observe(loss)
+        # Query work belongs to the wall budget as well as the training work.
+        if time.monotonic()-started >= seconds:
+            reason = 'wall_time_cap'
+    observe(loss)
+    synchronize(device)
+    elapsed = time.monotonic()-started
+    peak_bytes = torch.cuda.max_memory_allocated(device) if device.type == 'cuda' else None
+    return state, np.stack(predictions), dict(
+        method='explicit_euler', dtype=str(inputs.dtype), step=step, last_step=last_step,
+        requested_horizon=horizon, actual_horizon=current, steps=steps,
+        times=times, observation_steps=observation_steps, losses=losses,
+        final_training_mse=loss, loss_target=loss_target,
+        loss_target_reached=(loss < loss_target if loss_target is not None else None),
+        horizon_reached=(steps == horizon_steps if horizon_steps is not None else None),
+        stop_reason=reason, complete=reason in ('horizon', 'loss_target'),
+        max_steps=max_steps, observation_every=observation_every,
+        loss_check_every_at_most=check_every, loss_check_steps=loss_check_steps,
+        loss_check_times=loss_check_times, loss_checks=loss_checks,
+        seconds=elapsed, wall_time_cap_seconds=seconds, within_wall_time_cap=elapsed <= seconds,
+        training_seconds=training_seconds, training_loss_seconds=loss_seconds,
+        query_seconds=query_seconds, query_refresh_seconds=refresh_seconds,
+        query_timing_scope='whole sparse query batches plus CPU copies, after readout refresh',
+        seconds_per_step=training_seconds/max(1, steps),
+        moving_scalars=sum(value.numel() for value in state),
+        fixed_scalars=int(model.fixed_scalars), process_peak_cuda_bytes=peak_bytes,
+        incremental_peak_cuda_bytes=(peak_bytes-baseline_bytes if peak_bytes is not None else None),
+        peak_scope='whole process, including other resident references; not isolated model memory')
+
+
+@torch.no_grad()
+def euler_small_checks(device='cpu'):
+    """Deterministic tiny-Dense checks; no data loading or scientific rollout."""
+    device, dtype = torch.device(device), torch.float64
+    inputs = torch.tensor([[1., 0.], [.6, .8], [-.8, .6]], dtype=dtype, device=device)
+    labels = torch.tensor([.7, -.4, .3], dtype=dtype, device=device)
+    queries = torch.tensor([[0., 1.], [-1., 0.]], dtype=dtype, device=device)
+    model = Dense(7, 2, 17, device)
+    model.initial_state = [value.to(dtype=dtype) for value in model.initial_state]
+    model.initial_state[1] = torch.linspace(-.3, .3, 7, dtype=dtype, device=device)
+    original = [value.clone() for value in model.initial_state]
+    manual = [value.clone() for value in original]
+    for h in (.01, .01, .01, .005):
+        velocity = dense_rhs(manual, inputs, labels)
+        manual = [value+h*derivative for value, derivative in zip(manual, velocity)]
+    actual, prediction, report = integrate_euler(
+        model, inputs, labels, queries, .01, 10., horizon=.035,
+        loss_target=10., observation_every=3)
+    manual_error = max(float((a-b).abs().max()) for a, b in zip(actual, manual))
+    assert manual_error < 1e-13, manual_error
+    assert report['steps'] == 4 and report['observation_steps'] == [0, 3, 4], report
+    assert report['times'] == [0., .03, .035] and report['stop_reason'] == 'horizon', report
+    assert abs(report['last_step']-.005) < 1e-15 and report['horizon_reached'], report
+    assert all(torch.equal(a, b) for a, b in zip(model.initial_state, original))
+    assert all(not value.requires_grad and value.grad_fn is None for value in actual)
+    query_error = float(np.abs(prediction[-1]-model.predict(manual, queries, inputs, labels).cpu().numpy()).max())
+    assert query_error < 1e-13, query_error
+
+    endpoints = []
+    for h in (.04, .02, .01):
+        endpoint, _, info = integrate_euler(
+            model, inputs, labels, queries, h, 10., horizon=.4, observation_every=100)
+        assert info['actual_horizon'] == .4 and info['horizon_reached'], info
+        endpoints.append(torch.cat([value.flatten() for value in endpoint]))
+    differences = [float((a-b).norm()) for a, b in zip(endpoints[:-1], endpoints[1:])]
+    ratio = differences[0]/differences[1]
+    assert 1.8 < ratio < 2.2, (differences, ratio)
+
+    initial_loss = float((model.predict(original, inputs, inputs, labels)-labels).square().mean())
+    _, _, eight = integrate_euler(
+        model, inputs, labels, queries, .01, 10., max_steps=8, observation_every=100)
+    assert eight['final_training_mse'] < initial_loss, eight
+    target = (initial_loss+eight['final_training_mse'])/2
+    _, _, stopped = integrate_euler(
+        model, inputs, labels, queries, .01, 10., loss_target=target,
+        max_steps=16, observation_every=100)
+    assert stopped['stop_reason'] == 'loss_target' and stopped['steps'] == 8, stopped
+    assert stopped['observation_steps'] == [0, 8] and stopped['loss_target_reached'], stopped
+    _, _, capped = integrate_euler(
+        model, inputs, labels, queries, .01, 10., horizon=1., max_steps=2, observation_every=100)
+    assert capped['stop_reason'] == 'max_steps' and not capped['horizon_reached'], capped
+    assert capped['times'] == [0., .02] and not capped['complete'], capped
+    _, _, zero = integrate_euler(
+        model, inputs, labels, queries, .01, 10., horizon=0., observation_every=100)
+    assert zero['steps'] == 0 and zero['times'] == [0.] and zero['horizon_reached'], zero
+    return dict(manual_euler_max_abs=manual_error, terminal_query_max_abs=query_error,
+                step_halving_state_differences=differences, step_halving_ratio=ratio,
+                threshold_stop_steps=stopped['steps'], step_cap_terminal_time=capped['actual_horizon'])
+
+
 def validation_main(argv):
     parser = argparse.ArgumentParser(description='Fresh empirical validation; no legacy imports')
     parser.add_argument('--out', type=Path, required=True)
@@ -2148,10 +2502,277 @@ def main():
     print(json.dumps(dict(event='checked_bundle', checkpoints=len(schedule), out=str(args.out))), flush=True)
 
 
+def logarithmic_euler_inventory_floor(width, samples, dimension, steps):
+    """Exact current-code instruction counts, not a bound on all compressions."""
+    calls = samples * (2 * steps + 1)  # Includes terminal training evaluation.
+    fields = dimension + 2 + steps * (13 * samples + dimension + 1) + 6 * samples
+    words = calls * (calls + 1)  # Every Gaussian answer's coefficients and parent IDs.
+    dense = width * width + width * (dimension + 1)
+    return dict(steps=int(steps), gaussian_calls=int(calls), named_fields=int(fields),
+                independent_root_fields=int(dimension + calls),
+                source_cache_values=int(width * fields),
+                gaussian_answer_coefficient_and_parent_words=int(words),
+                dense_parameter_words=int(dense),
+                instruction_floor_exceeds_dense=bool(words >= dense),
+                full_rank_expected_under_iid_roots=bool(dimension + calls >= width),
+                scope='Current unpruned empirical Euler program; not an impossibility theorem. '
+                      'Full-rank statement is almost sure for ideal iid Gaussian roots; '
+                      'the counter-PRNG implementation is not an iid-law certificate.')
+
+
+def euler_fit_main(argv):
+    """One reproducible Euler reference/control run, with no method substitution."""
+    parser = argparse.ArgumentParser(description='Raw-image full-training Euler benchmark')
+    parser.add_argument('--out', type=Path, required=True)
+    parser.add_argument('--device', default='cuda:0')
+    parser.add_argument('--width', type=int, default=4096)
+    parser.add_argument('--model', choices=('dense', 'bounded-packets'), default='dense')
+    parser.add_argument('--packet-width', type=int, default=256)
+    parser.add_argument('--source-seed', type=int, default=40201)
+    parser.add_argument('--seed', type=int, default=201)
+    parser.add_argument('--step', type=float, default=.05)
+    parser.add_argument('--dtype', choices=('float64', 'float32'), default='float64')
+    parser.add_argument('--horizon', type=float)
+    parser.add_argument('--max-horizon', type=float, default=200.)
+    parser.add_argument('--loss-target', type=float, default=.005)
+    parser.add_argument('--per-run-seconds', type=float, default=300.)
+    parser.add_argument('--check-only', action='store_true')
+    args = parser.parse_args(argv)
+    if args.width < 1 or not 0 < args.step <= .5 or args.max_horizon <= 0:
+        parser.error('Positive width/horizon and 0 < step <= 0.5 are required')
+    if not math.isclose(.5 / args.step, round(.5 / args.step), abs_tol=1e-9):
+        parser.error('step must divide 0.5 for shared physical observation times')
+    args.out.mkdir(parents=True, exist_ok=False)
+    torch.set_num_threads(1)
+    torch.set_default_dtype(torch.float64)
+    torch.backends.cuda.matmul.allow_tf32 = False
+    torch.backends.cudnn.allow_tf32 = False
+    config = {key: str(value) if isinstance(value, Path) else value
+              for key, value in vars(args).items()}
+    report = dict(config=config, source_sha256=sha(Path(__file__).read_bytes()),
+                  git_head=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT,
+                                                   text=True).strip(),
+                  command=sys.argv, python=platform.python_version(), torch=torch.__version__,
+                  numpy=np.__version__, threads=torch.get_num_threads(),
+                  device=torch.cuda.get_device_name(args.device) if args.device.startswith('cuda') else 'CPU',
+                  method='ordinary Gaussian dense network; full-batch physical Euler',
+                  preprocessing='raw digits 3 versus 8, all 64 pixels, per-image normalization, no PCA',
+                  complete=False)
+    save_json(args.out / 'report.json', report)
+    if args.check_only:
+        report['checks'] = euler_small_checks('cpu')
+        if args.model == 'bounded-packets':
+            report['checks']['bounded_packets'] = bounded_gaussian_packet_small_checks('cpu')
+        report['complete'] = True
+        save_json(args.out / 'report.json', report)
+        print(json.dumps(report['checks']), flush=True)
+        return
+    inputs, labels, queries, truth = validation_data(64, 100, 257, 47, args.device,
+                                                    'digits', 'test', True, 0)
+    synchronize(inputs.device)
+    setup_started = time.monotonic()
+    if inputs.device.type == 'cuda':
+        torch.cuda.reset_peak_memory_stats(inputs.device)
+    if args.model == 'bounded-packets':
+        model = BoundedGaussianPackets(args.width, args.packet_width, inputs,
+                                       args.seed, args.source_seed)
+        report.update(method='bounded Gaussian-action packets; new empirical approximation',
+                      approximation_scope='covariance-balanced, source-conditioned initialization; '
+                      'not the adaptive-history Logarithmic decoder; no inherited theorem',
+                      setup=model.diagnostics)
+    else:
+        model = Dense(args.width, 64, args.seed, args.device)
+    synchronize(inputs.device)
+    report['setup_seconds'] = time.monotonic() - setup_started
+    report['setup_process_peak_cuda_bytes'] = (torch.cuda.max_memory_allocated(inputs.device)
+                                               if inputs.device.type == 'cuda' else None)
+    # Generate exactly the same float64 initialization before either precision run.
+    initial_hashes = [array_sha(value.cpu().numpy()) for value in model.initial_state]
+    dtype = getattr(torch, args.dtype)
+    model.initial_state = [value.to(dtype=dtype) for value in model.initial_state]
+    inputs, labels, queries, truth = [value.to(dtype=dtype) for value in
+                                    (inputs, labels, queries, truth)]
+    report.update(initial_float64_sha256=initial_hashes,
+                  train_inputs_sha256=array_sha(inputs.cpu().numpy()),
+                  query_inputs_sha256=array_sha(queries.cpu().numpy()),
+                  training_count=len(inputs), validation_count=len(queries),
+                  parameter_words=sum(value.numel() for value in model.initial_state),
+                  common_training_data_words=inputs.numel()+labels.numel(),
+                  retained_state_scope='Three deployable weight arrays; scalar diagnostics/provenance '
+                  'are experiment metadata, not inference state. Training peak also includes '
+                  'the initial-state copy, gradient workspace, data and evaluation buffers.')
+    save_json(args.out / 'report.json', report)
+    print(json.dumps(dict(event='euler_start', seed=args.seed, model=args.model,
+                          width=len(model.initial_state[1]), source_width=args.width,
+                          dtype=args.dtype, step=args.step, horizon=args.horizon,
+                          loss_target=args.loss_target)), flush=True)
+    try:
+        remaining_seconds = args.per_run_seconds - report['setup_seconds']
+        if remaining_seconds <= 0:
+            raise RuntimeError('Euler model setup exhausted the combined setup/training time budget')
+        state, predictions, result = integrate_euler(model, inputs, labels, queries,
+            step=args.step, seconds=remaining_seconds, horizon=args.horizon,
+            loss_target=args.loss_target, max_steps=int(args.max_horizon / args.step),
+            observation_every=round(.5 / args.step))
+        report['run'] = result
+        steps = result['steps']
+        report['logarithmic_current_implementation'] = logarithmic_euler_inventory_floor(
+            args.width, len(inputs), inputs.shape[1], steps)
+        report['complete'] = result['complete']
+        save_json(args.out / 'report.json', report)
+        np.savez_compressed(args.out / 'trajectories.npz', predictions=predictions,
+            times=np.asarray(result['times']), train_inputs=inputs.cpu().numpy(),
+            train_labels=labels.cpu().numpy(), query_inputs=queries.cpu().numpy(),
+            query_labels=truth.cpu().numpy(), train_predictions=model.predict(
+                state, inputs, inputs, labels).detach().cpu().numpy())
+        if len(state[1]) <= 512:
+            np.savez_compressed(args.out / 'weights.npz',
+                                first=state[0].cpu().numpy(), readout=state[1].cpu().numpy(),
+                                hidden=state[2].cpu().numpy())
+        print(json.dumps(dict(event='euler_complete', out=str(args.out),
+                              **{key: result[key] for key in ('steps', 'actual_horizon',
+                                  'final_training_mse', 'seconds', 'stop_reason', 'complete')})), flush=True)
+    except (RuntimeError, ValueError, ArithmeticError) as error:
+        report['error'] = f'{type(error).__name__}: {error}'
+        save_json(args.out / 'report.json', report)
+        raise
+
+
+def euler_summary_main(argv):
+    """Audit matched Euler runs and compute RMS directly from saved predictions."""
+    parser = argparse.ArgumentParser(description='Matched full-training Euler RMS summary')
+    parser.add_argument('--pair', nargs=3, action='append', required=True,
+                        metavar=('LABEL', 'COARSE_DIRECTORY', 'FINE_DIRECTORY'))
+    parser.add_argument('--reference', default='dense')
+    parser.add_argument('--iid', default='iid')
+    parser.add_argument('--precision', nargs=2, action='append', default=[],
+                        metavar=('FLOAT64_DIRECTORY', 'FLOAT32_DIRECTORY'))
+    parser.add_argument('--out', type=Path, required=True)
+    args = parser.parse_args(argv)
+
+    def load(directory):
+        directory = Path(directory)
+        metadata = json.loads((directory/'report.json').read_text())
+        with np.load(directory/'trajectories.npz') as saved:
+            arrays = {key: saved[key].copy() for key in saved.files}
+        if not metadata['complete'] or not metadata['run']['complete']:
+            raise ValueError(f'Incomplete Euler run: {directory}')
+        return metadata, arrays
+
+    def compatible(left, right):
+        for key in ('times', 'train_inputs', 'train_labels', 'query_inputs', 'query_labels'):
+            if not np.array_equal(left[key], right[key]):
+                raise ValueError(f'Mismatched {key} in the Euler comparison')
+
+    pairs = {}
+    for label, coarse_path, fine_path in args.pair:
+        if label in pairs:
+            raise ValueError(f'Duplicate Euler label: {label}')
+        coarse, ca = load(coarse_path)
+        fine, fa = load(fine_path)
+        compatible(ca, fa)
+        if coarse['initial_float64_sha256'] != fine['initial_float64_sha256']:
+            raise ValueError(f'Changed initialization in step refinement: {label}')
+        if not math.isclose(coarse['run']['step'], 2*fine['run']['step']):
+            raise ValueError(f'Refinement is not step halving: {label}')
+        pairs[label] = (coarse, ca, fine, fa)
+    if args.reference not in pairs or args.iid not in pairs:
+        raise ValueError('Both large reference and independent dense pair are required')
+    reference, reference_arrays = pairs[args.reference][2:]
+    for _, _, fine, fa in pairs.values():
+        compatible(reference_arrays, fa)
+        if fine['run']['step'] != reference['run']['step']:
+            raise ValueError('Final models do not share the same Euler step')
+    reference_predictions = reference_arrays['predictions'].astype(np.float64)
+    iid_predictions = pairs[args.iid][3]['predictions'].astype(np.float64)
+    variability = trajectory_rms(iid_predictions, reference_predictions)
+    if variability['max_time_rms'] <= 0:
+        raise ValueError('Zero dense variability makes the relative gate undefined')
+    report = dict(metric='whole-validation prediction RMS; final time is primary',
+                  scope='one split and one reference pair; new bounded packet initialization, '
+                        'not the certified Logarithmic decoder or an asymptotic validation',
+                  source_sha256=sha(Path(__file__).read_bytes()), config=dict(vars(args)),
+                  reference_directory=next(row[2] for row in args.pair if row[0] == args.reference),
+                  common_step=reference['run']['step'], steps=reference['run']['steps'],
+                  horizon=reference['run']['actual_horizon'],
+                  training_count=len(reference_arrays['train_labels']),
+                  validation_count=len(reference_arrays['query_labels']),
+                  dense_variability=variability, models={}, precision=[])
+    report['config']['out'] = str(args.out)
+    arrays = dict(times=reference_arrays['times'])
+    for label, (coarse, ca, fine, fa) in pairs.items():
+        prediction = fa['predictions'].astype(np.float64)
+        sensitivity = trajectory_rms(prediction, ca['predictions'].astype(np.float64))
+        error = trajectory_rms(prediction, reference_predictions)
+        gate = (sensitivity['max_time_rms'] <= .001
+                and sensitivity['max_time_rms'] <= .1*variability['max_time_rms'])
+        mse = float(np.mean((fa['train_predictions'].astype(np.float64)
+                            -fa['train_labels'].astype(np.float64))**2))
+        report['models'][label] = dict(
+            model=fine['method'], parameter_words=fine['parameter_words'],
+            final_training_mse=mse, below_001=mse < .01,
+            discrepancy=error, step_halving=sensitivity, numerical_gate_passed=gate,
+            final_dense_variability_ratio=(error['endpoint_rms']/variability['endpoint_rms']
+                                           if variability['endpoint_rms'] else None),
+            max_dense_variability_ratio=error['max_time_rms']/variability['max_time_rms'],
+            setup_seconds=fine['setup_seconds'], run_seconds=fine['run']['seconds'],
+            setup_process_peak_cuda_bytes=fine['setup_process_peak_cuda_bytes'],
+            run_process_peak_cuda_bytes=fine['run']['process_peak_cuda_bytes'],
+            initial_float64_sha256=fine['initial_float64_sha256'])
+        arrays[label+'_rms'] = np.sqrt(np.mean((prediction-reference_predictions)**2, axis=1))
+    precision_coverage = {label: [] for label in pairs}
+    for high_path, low_path in args.precision:
+        high, ha = load(high_path)
+        low, la = load(low_path)
+        if high['run']['dtype'] != 'torch.float64' or low['run']['dtype'] != 'torch.float32':
+            raise ValueError('Precision pairs must actually compare float64 with float32')
+        if (high['initial_float64_sha256'] != low['initial_float64_sha256']
+                or high['run']['step'] != low['run']['step']
+                or not np.array_equal(ha['times'], la['times'])):
+            raise ValueError('Precision check changed initialization, Euler step or observations')
+        for key in ('train_inputs', 'train_labels', 'query_inputs', 'query_labels'):
+            if not np.array_equal(ha[key].astype(la[key].dtype), la[key]):
+                raise ValueError(f'Precision check changed {key}')
+        error = trajectory_rms(ha['predictions'].astype(np.float64),
+                               la['predictions'].astype(np.float64))
+        matched_labels = []
+        for label, (coarse, _, fine, fa) in pairs.items():
+            if (fine['initial_float64_sha256'] == high['initial_float64_sha256']
+                    and high['run']['step'] in (coarse['run']['step'], fine['run']['step'])):
+                compatible(la, fa)
+                matched_labels.append(label)
+                precision_coverage[label].append(high['run']['step'])
+        if not matched_labels:
+            raise ValueError('Precision check does not cover any final model initialization')
+        report['precision'].append(dict(float64_directory=high_path, float32_directory=low_path,
+                                        tested_step=high['run']['step'], models=matched_labels,
+                                        discrepancy=error, passed=error['max_time_rms'] < .00005))
+    report['all_fitted'] = all(row['below_001'] for row in report['models'].values())
+    report['all_numerically_resolved'] = all(row['numerical_gate_passed'] for row in report['models'].values())
+    report['precision_coverage_steps'] = precision_coverage
+    report['precision_passed'] = (all(precision_coverage.values())
+                                  and all(row['passed'] for row in report['precision']))
+    args.out.mkdir(parents=True, exist_ok=False)
+    save_json(args.out/'report.json', report)
+    np.savez_compressed(args.out/'rms.npz', **arrays)
+    print(json.dumps(dict(all_fitted=report['all_fitted'],
+                          all_numerically_resolved=report['all_numerically_resolved'],
+                          precision_passed=report['precision_passed'],
+                          models={label: dict(mse=row['final_training_mse'],
+                                  endpoint_rms=row['discrepancy']['endpoint_rms'],
+                                  max_time_rms=row['discrepancy']['max_time_rms'],
+                                  step_halving_max=row['step_halving']['max_time_rms'])
+                                  for label, row in report['models'].items()})), flush=True)
+
+
 if __name__ == '__main__':
     if len(sys.argv) > 1 and sys.argv[1] == 'validate':
         validation_main(sys.argv[2:])
     elif len(sys.argv) > 1 and sys.argv[1] == 'plot-validation':
         validation_plot_main(sys.argv[2:])
+    elif len(sys.argv) > 1 and sys.argv[1] == 'euler-fit':
+        euler_fit_main(sys.argv[2:])
+    elif len(sys.argv) > 1 and sys.argv[1] == 'euler-summary':
+        euler_summary_main(sys.argv[2:])
     else:
         main()
