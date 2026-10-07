@@ -1,252 +1,248 @@
 \section{Three ways to retain the learning process}
 \label{sec:methods}
 
-The three constructions compress different objects. Legendre retains a
-short history of the responses that create each learned interaction.
-Harmonic retains selected coordinates of response families over time and
-input space. The Logarithmic decoder retains a finite computation through
-short seeds and empirical scalar contractions. The first two track their
-own realized dense reference; the third is compared with an independent
-dense run. This distinction matters as much as the size of the state.
+A hidden matrix has $n^2$ entries, but training does not write those
+entries independently. Each update pairs a forward feature with a backward
+response. The three constructions exploit different structure in these
+pairs: temporal regularity, joint regularity in time and input, and a finite
+computation whose random rows can be regenerated. Legendre and Harmonic
+track a coupled dense reference; Logarithmic constructs a new predictor
+compared with an independent dense run. Their different reference and
+execution contracts are part of the result.
 
-\subsection{Legendre: the learned matrix is a response memory}
+\subsection{Legendre: smooth histories generate a large matrix}
 \label{sec:legendre-method}
 
-Integrating the hidden-layer equation gives the exact identity
+Integrating the hidden-layer flow in \Cref{eq:dense-flow} gives
 \begin{equation}
- W^{(\ell)}(t)=W_0^{(\ell)}-\frac{2}{mn}\sum_{a=1}^m
+ W^{(\ell)}(t)-W_0^{(\ell)}=-\frac{2}{mn}\sum_{a=1}^m
  \int_0^t r_a(s)\delta_a^{(\ell)}(s)
  h_a^{(\ell-1)}(s)^\top\,\mathrm ds,
  \qquad 2\le\ell\le L.
  \label{eq:methods-history}
 \end{equation}
-A rank-one velocity need not produce a low-rank time integral. The useful
-structure is instead the regularity of its two response histories. We
-approximate those histories and feed their reconstruction back into the
-network, so the result is a closed training system, not an archive of a
-previously observed trajectory.
+The forward feature specifies which incoming directions are active; the
+backward response specifies how changing this layer affects the output.
+The residual sets the strength and sign of the write. As these vectors
+turn during training, their accumulated outer products can have much
+higher rank than any instantaneous update. Legendre compression uses
+the regularity of that motion.
 
-Hats denote quantities evaluated in this reconstructed network. Its
-clock follows residual RMS,
-\[
- \dot\tau=\widehat\rho,
- \qquad \widehat\rho=\left(\frac1m\sum_a\widehat r_a^2\right)^{1/2},
- \qquad \tau(0)=1.
-\]
-Let $p_j$ be the shifted Legendre polynomial with $p_j(1)=1$ and
-$\int_0^1p_ip_j=\mathbf1_{i=j}/(2j+1)$.
-For each hidden link and training sample, retain $q$ forward moments
-$\bar h_{a,j}^{(\ell-1)}\in\mathbb R^n$ and backward moments
-$\bar\delta_{a,j}^{(\ell)}\in\mathbb R^n$, $0\le j<q$. Their historical
-meaning, on the advancing clock, is
-\begin{align*}
- \bar h_{a,j}^{(\ell-1)}
- &=\int_0^\tau \widehat h_a^{(\ell-1)}(\xi)
-                  p_j(\xi/\tau)\,\mathrm d\xi,\\
- \bar\delta_{a,j}^{(\ell)}
- &=\int_0^\tau
-       \frac{\widehat r_a(\xi)\widehat\delta_a^{(\ell)}(\xi)}
-            {\widehat\rho(\xi)}p_j(\xi/\tau)\,\mathrm d\xi.
-\end{align*}
-Here $\xi$ is clock time, not physical time. On the initial prefix
-$[0,1]$ the forward history is its initialized value and the backward
-history is zero. The quotient describes the history only where the clock
-advances; the actual equations below never divide by residual RMS.
+For a toy history with constant residual weighting, take
+$h(s)=u_0+s u_1$ and $\delta(s)=v_0+s v_1$ on $[-1,1]$, where all four
+coefficients are vectors in $\mathbb R^n$. Their average interaction is
+$\frac12\int_{-1}^1\delta(s)h(s)^\top\,\mathrm ds
+=v_0u_0^\top+v_1u_1^\top/3$.
+Four vectors determine a matrix with potentially $n^2$ nonzero entries.
+Keeping only the constant modes drops $v_1u_1^\top/3$; the mixed terms
+$v_0u_1^\top$ and $v_1u_0^\top$ vanish on integration. Keeping both
+polynomial modes recovers this toy interaction exactly. More generally,
+orthogonal projection cancels every retained--discarded cross term.
+The interaction error pairs the two discarded histories, so improving
+both approximations multiplies their gains.
 
-The retained moments reconstruct the hidden matrices as
+The actual model stores $q$ Legendre moments per sample and hidden link.
+Hats denote its own reconstructed network. Its clock obeys
+$\dot\tau=\widehat\rho$, with $\tau(0)=1$ and
+$\widehat\rho=(m^{-1}\sum_a\widehat r_a^2)^{1/2}$.
+This clock measures accumulated learning activity: it slows as residuals
+decay, so the infinite physical training interval has finite clock length.
+On clock time $\xi$, the paired histories are the forward feature
+$\widehat h_a^{(\ell-1)}$ and the weighted backward response
+$\widehat r_a\widehat\delta_a^{(\ell)}/\widehat\rho$.
+The latter is a historical definition only where the clock advances.
+The runtime equations have no residual denominator and stop regularly
+when every residual vanishes.
+
+Let $p_j$ be the shifted Legendre polynomial on $[0,1]$, normalized by
+$p_j(1)=1$ and $\int_0^1p_ip_j=\mathbf1_{i=j}/(2j+1)$.
+The unnormalized integrals of these two histories against
+$p_j(\xi/\tau)$ on $[0,\tau]$, for $0\le j<q$, are the stored vectors
+$\bar h_{a,j}^{(\ell-1)}$ and $\bar\delta_{a,j}^{(\ell)}$.
+On the initial prefix $[0,1]$, the forward history equals its initialized
+value and the backward history is zero. Orthogonality gives the
+reconstruction
 \begin{equation}
  \widehat W^{(\ell)}=W_0^{(\ell)}-
  \frac{2}{mn\tau}\sum_{a=1}^m\sum_{j=0}^{q-1}(2j+1)
  \bar\delta_{a,j}^{(\ell)}\bar h_{a,j}^{(\ell-1)\top}.
  \label{eq:methods-legendre-reconstruction}
 \end{equation}
-The first matrix and readout obey the dense flow at this reconstructed
-state. The remaining updates are the triangular moment equations
-\begin{align}
- \dot{\bar h}_{a,j}^{(\ell-1)}
- &=\widehat\rho\,\widehat h_a^{(\ell-1)}-
- \frac{\widehat\rho}{\tau}
- \left(j\bar h_{a,j}^{(\ell-1)}+
-       \sum_{i<j}(2i+1)\bar h_{a,i}^{(\ell-1)}\right),\nonumber\\
- \dot{\bar\delta}_{a,j}^{(\ell)}
- &=\widehat r_a\widehat\delta_a^{(\ell)}-
- \frac{\widehat\rho}{\tau}
- \left(j\bar\delta_{a,j}^{(\ell)}+
-       \sum_{i<j}(2i+1)\bar\delta_{a,i}^{(\ell)}\right).
- \label{eq:methods-legendre-moments}
-\end{align}
-Initially $\bar h_{a,0}^{(\ell-1)}=h_a^{(\ell-1)}(0)$ and all other
-moments vanish. At zero residual every velocity vanishes regularly.
-These equations follow from
-$x p_j'(x)=j p_j(x)+\sum_{i<j}(2i+1)p_i(x)$.
+The first matrix and readout follow the dense update at this reconstructed
+state. Differentiating the moment integrals supplies a triangular system
+driven by its current features, backward responses and residuals. Thus
+the moments evolve without storing a past trajectory or consulting the
+dense reference. Initially only the zeroth forward moments are nonzero.
 
-The first approximation is the truncation to $q$ moments. Orthogonality
-cancels the cross terms in the reconstructed interaction: its history
-defect is a product of the forward and backward projection tails.
-Controlling that defect is distinct from controlling its feedback through
-training; both enter the all-time comparison with $f_{\rm Leg}$.
-The learned state has at most $Cn(d+mq)$ real coordinates, but the fixed
-mixers still occupy $Cn^2$ more. The history is compressed; the initialized dense action
-is not. The complete construction and proof are in the
-\hyperref[int:legendre-runtime]{Legendre appendix}.
+Truncating the histories is the first approximation. The same cancellation
+as in the toy example makes the instantaneous defect a product of endpoint
+projection errors. Temporal derivative bounds control those errors;
+stability then controls their feedback through subsequent training.
+The moving state uses $Cn(d+mq)$ real coordinates. The initialized mixers
+remain stored, costing another $Cn^2$, and still enter every forward and
+backward pass. Detailed moment equations and the all-time argument are in
+the \hyperref[int:legendre-runtime]{Legendre construction} and
+\hyperref[int:legendre-proofs]{its proofs}.
 
-\subsection{Harmonic: select coordinates that preserve source geometry}
+\subsection{Harmonic: preserve the geometry of a response family}
 \label{sec:harmonic-method}
 
-Harmonic approximates responses jointly in physical time and on the input
-sphere. On a finite source horizon, Chebyshev time polynomials and real
-spherical harmonics
-produce finite-dimensional spaces $E_\ell\subset\mathbb R^n$.
-They include forward features, backward responses, and their paired
-initialized-mixer images. Using the same scalar projection on each pair
-preserves the relation between a source vector and its initialized image.
-Exact initialized training features, first-weight columns and constants
-are added, so the initialized training features are preserved exactly.
+Harmonic exploits regularity in both physical time and input direction.
+For a simple picture on the input circle, a response might have the form
+$h(t,\theta)\approx u_0(t)+u_c(t)\cos\theta+u_s(t)\sin\theta$.
+If these vector coefficients also vary smoothly in time, a short temporal
+expansion describes the whole family. In the construction, Chebyshev time
+polynomials and real spherical harmonics replace this illustrative
+three-mode expansion. Analytic regularity controls their spectral tails.
+Their finitely many coefficient vectors span a source space
+$E_\ell\subset\mathbb R^n$ at each layer.
 
-At each layer select coordinates $I_\ell$, with $|I_\ell|=q_\ell\le q$,
-and a positive metric $M_\ell$ satisfying the key identity
+These spaces contain approximations to forward features, backward
+responses, and the images needed when the initialized mixers act in either
+direction. Applying identical scalar coefficient operations to a vector
+and its initialized image preserves that pairing exactly. Exact initialized
+training features, first-weight columns and constants are also included.
+This records the directions needed by the dynamics even when the full
+initialized matrix has no useful low-rank approximation.
+
+Select neuron coordinates $I_\ell$, with $|I_\ell|=q_\ell\le q$, and
+construct a positive metric $M_\ell$ such that
 \begin{equation}
- u^\top v/n=u(I_\ell)^\top M_\ell v(I_\ell),
+ \frac{u^\top v}{n}=u(I_\ell)^\top M_\ell v(I_\ell),
  \qquad u,v\in E_\ell.
  \label{eq:methods-source-isometry}
 \end{equation}
-The metric reproduces the empirical geometry of the source space exactly;
-the approximation lies in how well that space captures the response
-families. Outside it, the metric is uniformly comparable to a positive
-diagonal metric, which controls coordinatewise activation and gating.
+A few measured coordinates now reproduce every inner product inside the
+source space. The metric contains the geometry lost by discarding the
+other coordinates; it is generally not diagonal. Its comparison with a
+positive diagonal metric also bounds coordinatewise nonlinear operations.
+Spectral truncation and finite coefficient accuracy determine how well
+$E_\ell$ captures the responses; the identity
+\eqref{eq:methods-source-isometry} itself is exact.
 
-The runtime uses selected-coordinate weights $W_H^{(1)}\in
-\mathbb R^{q_1\times d}$ and $W_H^{(\ell)}\in
-\mathbb R^{q_\ell\times q_{\ell-1}}$, a readout $w_H\in\mathbb R^{q_L}$,
-and label deficits $c_H\in\mathbb R^m$. Its forward recursion is the
-original one in these widths, with the original activations. Write
-$\langle u,v\rangle_{M_\ell}=u^\top M_\ell v$ and
-$(W_H^{(\ell)})^*=M_{\ell-1}^{-1}W_H^{(\ell)\top}M_\ell$.
-Let $V$ have columns $h_{H,a}^{(L)}/\sqrt m$, and put $Q=V^\top M_LV$.
+Selecting actual coordinates matters for nonlinear networks. Restriction
+commutes exactly with coordinatewise activation:
+$\phi(z)(I_\ell)=\phi(z(I_\ell))$. A general linear projection does not:
+for example, $\tanh((z_1+z_2)/2)$ generally differs from
+$(\tanh z_1+\tanh z_2)/2$. The selected network therefore keeps the
+original activations. Small matrices implement initialized forward and
+reverse actions on the paired source spaces; the spectral tails and
+stability estimates control the mismatch along its own evolving state.
+
+There is a second essential ingredient: a corrected readout. The model
+stores selected weights $W_H^{(1)},\ldots,W_H^{(L)}$, a raw readout
+$w_H\in\mathbb R^{q_L}$, and label deficits $c_H\in\mathbb R^m$.
+Its forward features $h_H^{(\ell)}$ use the recursion in
+\eqref{eq:network} at the selected widths. Write
+$\langle u,v\rangle_{M_L}=u^\top M_Lv$,
+let $V$ have columns $h_{H,a}^{(L)}/\sqrt m$, and set $Q=V^\top M_LV$.
 The effective readout is
 \begin{equation}
  \begin{aligned}
  \widehat w_H&=w_H+VQ^{-1}
- \left(\frac{y-c_H}{\sqrt m}-V^\top M_Lw_H\right),
- \\
+ \left(\frac{y-c_H}{\sqrt m}-V^\top M_Lw_H\right),\\
  f_{\rm Harm}(x)&=\langle\widehat w_H,h_H^{(L)}(x)\rangle_{M_L}.
  \end{aligned}
  \label{eq:methods-corrected-readout}
 \end{equation}
-Consequently $f_{\rm Harm}(x_a)=y_a-c_{H,a}$ exactly. The theorem keeps
-$Q$ positive definite throughout training. Backward responses use
-$\widehat w_H$ at the top and the metric adjoints at hidden links.
+Multiplying by $V^\top M_L$ shows that
+$f_{\rm Harm}(x_a)=y_a-c_{H,a}$ exactly. The correction lies in the
+span of the training features and removes precisely the discrepancy
+between their current predictions and the retained deficits. The feature
+gap keeps the solve well defined.
 
-For completeness, their update Gram is
-\begin{align*}
- K_{ab}={}&\langle h_{H,a}^{(L)},h_{H,b}^{(L)}\rangle_{M_L}
- +\langle\delta_{H,a}^{(1)},\delta_{H,b}^{(1)}\rangle_{M_1}
-          x_a^\top x_b/d\\
- &+\sum_{\ell=2}^L
- \langle\delta_{H,a}^{(\ell)},\delta_{H,b}^{(\ell)}\rangle_{M_\ell}
- \langle h_{H,a}^{(\ell-1)},h_{H,b}^{(\ell-1)}\rangle_{M_{\ell-1}}.
-\end{align*}
-The autonomous optimizer follows the metric rank-one directions
-\begin{align*}
- \dot W_H^{(1)}&=\frac2m\sum_a c_{H,a}\delta_{H,a}^{(1)}x_a^\top/\sqrt d,\\
- \dot W_H^{(\ell)}&=\frac2m\sum_a c_{H,a}\delta_{H,a}^{(\ell)}
-                         h_{H,a}^{(\ell-1)\top}M_{\ell-1},\\
- \dot w_H&=\frac2m\sum_a c_{H,a}h_{H,a}^{(L)},
- \qquad \dot c_H=-2Kc_H/m.
-\end{align*}
-Here the hidden equation applies for $2\le\ell\le L$.
-Initially $w_H=0$, $c_H=y$, and the selected weights realize the original
-initialized feature geometry. This is a specified corrected-readout
-optimizer, not ordinary gradient flow of an arbitrary smaller network:
-coordinatewise gates need not be self-adjoint in the selected metrics.
-Its $Cq^2$ retained-state bound includes the metrics and solve caches;
-source vectors and dense reference arrays are discarded. See the
-\hyperref[int:harmonic-runtime-definition]{Harmonic runtime appendix}.
+Initially $w_H=0$, $c_H=y$, and the selected weights reproduce selected
+coordinates of the dense initialized training features and their full
+empirical Gram matrix. The optimizer evolves
+the deficits using its response Gram and the weights using metric
+rank-one directions, with $\widehat w_H$ supplying the top backward
+signal. It is a specified autonomous optimizer: coordinatewise gates need
+not be self-adjoint in the selected metric, so ordinary gradient flow on
+an arbitrary smaller network would not give these equations. The readout
+correction also cancels the leading coupling between readout and deficit
+errors in the stability proof. Complete updates are in the
+\hyperref[int:harmonic-runtime-definition]{Harmonic runtime definition}.
 
-\paragraph{Why stability has only polynomial sample/gap dependence.}
-Lift the label-deficit error into feature space using $VQ^{-1}$, and add
-it to the raw-readout difference. The identity $VQ^{-1}Q=V$ cancels their
-leading coupling exactly, while the lifted equation retains a negative
-quadratic term. The existing label allowance absorbs the remaining
-hidden-response contribution. Surviving stability coefficients are weighted
-by residuals and actual readout velocity, whose time integrals fitting
-controls. Together with the source bounds, this leaves
-$e^{C\sqrt{\log(en)}}$ amplification: sample/gap factors remain in the
-prefactor and approximation efficiency, not in an exponentially large
-stability coefficient.
+The source coefficients are computed during setup. Certified local
+expansions advance numerical anchors over the required training horizon;
+passive spatial nodes measure responses without contributing to the
+gradients. One execution stores the dense initialization. The other
+samples its Gaussian actions conditionally as forward and transpose
+requests arrive, reproducing the same joint law without materializing the
+hidden matrices. The latter constructs a fresh coupled reference; it
+does not convert an arbitrary supplied array at the same cost.
+Both initialize the final model at physical time zero and discard their
+setup trajectories and source arrays. Runtime retains $Cq^2$ real
+coordinates, including fixed metrics and solve caches. Its small size
+does not pay for the preceding source construction; both setup costs are
+given in \Cref{sec:costs} and the
+\hyperref[int:harmonic-efficient-initialization]{initialization appendix}.
 
-\paragraph{Constructing the sources without retaining a trained oracle.}
-The source coefficients are computed, not supplied as exact integrals of
-an unknown path. Restarted high-order local expansions advance numerical
-anchors across the required physical horizon. Passive spatial nodes are
-evaluated along this rollout; only the actual training samples contribute
-to its gradients. Temporary activation polynomials require real values,
-not a complex-value or high-derivative oracle. Coefficients are accumulated
-and their initialized-mixer images are formed with exact pairing.
-
-The explicit execution stores the dense initialization. The implicit
-execution instead stores queried Gaussian actions and factored learned
-increments. Conditional Gaussian sampling handles adaptively interleaved
-forward and transpose requests, reproducing the joint law of the explicit
-finite construction without materializing dense hidden matrices.
-It samples a fresh latent reference; it is not a cheap conversion of a
-supplied weight array or an arbitrary entrywise seed.
-Both executions initialize the final Harmonic model at physical time zero,
-with its original activations, then discard their setup trajectories.
-Their setup costs are separate from the small runtime costs; neither
-follows from the final budget $q$ alone. Certified orders and complete
-costs are in the \hyperref[int:harmonic-efficient-initialization]
-{local-initialization appendix}.
-
-\subsection{Logarithmic: retain the computation, regenerate its rows}
+\subsection{Logarithmic: a short description of a finite computation}
 \label{sec:logarithmic-method}
 
-The decoder first constructs a finite numerical source, independently of
-the target dense run. Offline setup may inspect its completed training
-computation. It selects row packets and a positive metric reproducing the
-required empirical contractions, then discards full row tables and future
-answers. A short finite seed regenerates packets; independent scalar marks
-and rounded pair acquisitions make the selected-metric execution replay
-the source's scalar transcript exactly on the certified event.
-The seed theorem controls that transcript distribution, not an arbitrary
-replacement of a matrix by pseudorandom entries.
+The Logarithmic decoder takes a different view of redundancy. A large
+array need not be stored if its entries can be regenerated from a short
+description. Here the description includes both random seeds and the
+scalar interactions through which training changes the network. Storing
+an initialization seed alone would not specify the learned state.
 
-Training acquires scalar answers causally. Previously created fields keep
-their creation-time arguments, and a new query does not acquire future
-training answers. To evaluate an unseen input, the decoder streams the
-original finite rows. For example, an increment represented by
-$n^{-1}\sum_b c_bu_bv_b^\top$ acts through the actual sums
-$n^{-1}\sum_{i=1}^n v_b(i)h(i)$, not population expectations or
-quadrature over newly chosen query fields. Initialized actions use both
-forward and transpose constraints, including the conditional covariance
-correction. A median over complete source models and a finite physical
-input/time coding argument give one event for all queries, including
-adaptively chosen ones. The fitted tail is included.
+The starting point is a prescribed finite numerical training program,
+independent of the target dense run. Each virtual neuron carries a
+packet of random inputs from which its forward features, gates and
+backward responses are computed. The rows communicate through empirical
+scalar contractions. Their rounded values and the program's decisions
+form a finite transcript. A proved finite-space generator replaces the
+independent packets by a short seed while controlling the distribution of
+this transcript. This is a statement about the specified computation;
+it does not assume that an arbitrary pseudorandom matrix reproduces
+Gaussian training.
 
-Unlike the first two methods, the decoder counts numerical words with a
-proved bit length. Activation evaluation and external-input access must
-be charged under that finite-word contract. Its retained state is small,
-but an unseen query still streams $n$ virtual rows; no width-independent
-query cost is claimed. The finite construction and its seed, replay and
-query proofs are in the \hyperref[int:decoder-finite-construction]
-{decoder construction} and \hyperref[int:logarithmic-decoder-proofs]
-{decoder proofs}.
+Offline setup may inspect the completed source computation. It selects
+packets and builds a positive metric that reproduces the empirical pairings
+of its named fields. With controlled metric precision, copied scalar
+random marks and prescribed rounding, compact training acquires exactly
+the same scalar transcript on the certified event. The retained state
+includes those packets, the metric, the seeds, training data and the
+current scalar coefficients. Full row tables and future answers are
+discarded. Future training answers are then acquired causally from this
+state, without an unknown trajectory oracle.
 
-\paragraph{Why the independent-reference distinction cannot be rounded away.}
-Write $b_n$ for the proved dense upper certificate. The decoder comparison
-has the form $2b_n+O(Yn^{-10})$: reducing numerical error alone does not
-remove the dense variability. More generally, if a random predictor $g$
-is independent of iid dense runs $f_n,\widetilde f_n$, the triangle
-inequality gives, for every $a>0$,
-\[
- \mathbb P\{\norm{f_n-\widetilde f_n}_*>2a\}
- \le2\mathbb P\{\norm{g-f_n}_*>a\}.
-\]
-Thus the dense lower bound, for fixed admissible data with $m\ge2$ and
-$Y>0$, rules out independent-reference error
-$o_{\mathbb P}(Y\sqrt\gamma/[\sqrt n\log(en)^{5/2}])$.
-This interpretation does not rule out matching that lower scale, prove
-that the present upper certificate is sharp, or give an endpoint-only
-obstruction. Legendre and Harmonic can track below dense-run variability
-because they share their reference realization; the decoder's current
-contract deliberately asks a different question.
+An unseen input explains both the compression and its computational price.
+Suppose the current hidden increment is represented by old fields
+$u_b,v_b\in\mathbb R^n$ and scalar weights $c_b$ as
+$D=n^{-1}\sum_b c_bu_bv_b^\top$. Its action on a new feature
+$h\in\mathbb R^n$ is
+\begin{equation}
+ Dh=\sum_b c_bu_b
+ \left(\frac1n\sum_{i=1}^n v_b(i)h(i)\right).
+ \label{eq:methods-streamed-contraction}
+\end{equation}
+The decoder regenerates the rows needed for each scalar sum, accumulates
+it, and releases the row workspace. It evaluates the same finite empirical
+interaction as its virtual source. A small training metric cannot simply
+replace this sum for a new $h$ outside its recorded source family; nor
+can a population expectation replace the empirical mean.
+
+Regeneration also has to preserve the computation's history. An old field
+is reevaluated with the scalar arguments from its creation time. Its rows
+are reproduced without rerunning scalar training. Initialized matrix
+actions use the conditional Gaussian law given both earlier forward and
+transpose requests, including its covariance correction. Fresh query
+fields remain local to that query and do not alter the training state.
+A median over complete source models, together with finite input/time
+coding and a fitted-tail estimate, gives the simultaneous query guarantee.
+
+This model counts finite numerical words with a proved bit length. Its
+inventory includes the seeds, selected packets, metrics, ensemble members
+and live query workspace. At fixed admissible parameters that inventory
+is $O(\log^6n\,\log\log n)$ words, but a new input still requires
+streaming $n$ virtual rows. With the counted finite activation evaluator,
+query work is near-linear in width and complete prescribed training uses
+only polylogarithmic word work. Initialization also processes the large
+virtual source. General activation evaluators require their own work and
+scratch charges. Finite arithmetic and these qualifications are explicit in
+\Cref{sec:costs}. The construction and its probability, replay and query
+arguments are in the \hyperref[int:decoder-finite-construction]
+{finite decoder construction} and
+\hyperref[int:logarithmic-decoder-proofs]{decoder proofs}.

@@ -1,285 +1,178 @@
-\subsection{The whole learning trajectory at a prescribed size}
+\subsection{One compression theorem, one intrinsic accuracy scale}
 \label{sec:alltime}
 
-Use the shared setup, normalization and confidence convention of
-\Cref{sec:setting}. The appendix gives unsimplified bounds and retains
-the full recurrence-defined label allowance for Harmonic and Logarithmic
-compression. That allowance implies $Y\le1$: omitting such explicit
-factors only enlarges their bounds and does not reduce sample/gap powers.
+The benchmark $b_n$ is the high-confidence quantile of actual independent
+dense-run discrepancy defined in \Cref{sec:setting}. It need not be known
+or estimated to construct any of the models below. Internal approximation
+orders have already been chosen; the theorem reports the resulting state,
+not a budget that the reader must invert.
 
-\begin{theorem}[Dense variability and compression of a realized trajectory]
-\label{thm:alltime}
-Fix an admissible problem.  For every sufficiently large individual width
-$n\ge d$, the following claims hold jointly with probability at least
-$99\%$.  The required width is finite but its stochastic threshold is not
-quantified.  The event covers every permitted order below.
+\begin{theorem}[Compression at the scale of dense-run variability]
+\label{thm:compression}
+Fix the admissible data, activations and depth of \Cref{sec:setting}, with
+$m\ge2$, $Y>0$ and $m/\gamma\ge1$. For every sufficiently large individual
+width $n$, each of the following constructions satisfies
+\begin{equation}
+ \norm{f_{\mathrm{model}}-f_{\mathrm{reference}}}_*\le3b_n
+ \quad\text{with probability at least }99\%.
+ \label{eq:common-compression}
+\end{equation}
+The event is uniform over all sphere inputs, all physical training times
+and the fitted endpoint. The sufficient retained-state bounds are
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+Construction & Prescribed state bound\\
+\midrule
+Legendre & $\displaystyle C m\left(\frac m\gamma\right)^3
+ n^{5/4+o(1)}$ learned coordinates; $Cn^2$ additional fixed coordinates\\
+Harmonic & $\displaystyle C(m+d)^2+
+ \left(\frac Cd\right)^{d+1}\left(\frac m\gamma\right)^4
+ [\log(en)]^{3d+2}$ total real coordinates\\
+Logarithmic & $\displaystyle C m^2\left(\frac m\gamma\right)^2
+ [\log(em)]^2[\log(en)]^6
+ \bigl[d+\log\log(e^e+n)\bigr]$ total numerical words\\
+\bottomrule
+\end{tabularx}
+\end{center}
+Here $c,C$ depend only on the activations and fixed depth. Legendre's
+displayed $n^{o(1)}$ factor can be taken to be
+$[\log(en)]^2\exp(\sqrt{\log(en)}/2)$, up to $C$.
+The Logarithmic words have at most $C\log(en)$ bits each; its inventory
+also covers live query workspace.
 
-Let $f_n,\widetilde f_n$ be independently initialized dense runs.
-Then
-\begin{equation}
- \frac{\norm{f_n-\widetilde f_n}_*}{Y}
- \le C\left(1+\frac m\gamma\right)^5
- \sqrt{\frac dn}\,\log(en)e^{\sqrt{\log(en)}}.
- \label{eq:dense-upper}
-\end{equation}
-If $m\ge2$, also
-\begin{equation}
- \frac{\norm{f_n-\widetilde f_n}_*}{Y}
- \ge \frac{c\sqrt\gamma}{\sqrt n\,[\log(en)]^{5/2}}.
- \label{eq:dense-lower}
-\end{equation}
-Legendre compression uses the realized initialization of $f_n$ and its own
-residual-driven moment dynamics.  Simultaneously for every integer $q\ge1$,
-\begin{equation}
- \frac{\norm{f_{\mathrm{Leg},n,q}-f_n}_*}{Y}
- \le C\left(1+\frac m\gamma\right)^6
- \frac{\sqrt{\log(en)\log(eq)}}{q^2}e^{\sqrt{\log(en)}}.
- \label{eq:legendre-forward}
-\end{equation}
-There is no additional accuracy-dependent order condition.
-
-Harmonic compression is an autonomous selected-coordinate model with its
-own corrected readout.  For every integer budget
-$C(m+d)\le q<n$, it satisfies
-\begin{equation}
- \begin{split}
- \frac{\norm{f_{\mathrm{Harm},n,q}-f_n}_*}{Y}
- &\le C\frac m\gamma\left(1+\sqrt{\frac m\gamma}\right)
- n e^{C\sqrt{\log(en)}}\\[-2pt]
- &\quad\times\exp\!\left[-\frac{\sqrt d}{C}
- \left(\frac{q}{(m/\gamma)^2[\log(en)]^{d/2}}
- \right)^{1/(d+1)}\right].
- \end{split}
- \label{eq:harmonic-forward}
-\end{equation}
-For $q\ge n$, full retention gives exact agreement, including when $n$
-is below the stated overhead.  No input-rank assumption is needed for
-any assertion of this theorem.
+Legendre and Harmonic use a coupled ordinary dense reference. The
+Logarithmic model is independent of its ordinary dense reference and
+additionally requires $m\ge d$ and spanning training inputs. That
+restriction is not imposed on the other two constructions. All ordinary
+dense references have the prescribed Gaussian initialization and flow.
 \end{theorem}
 
-The lower bound concerns an actual prediction at a positive early time,
-not just a derivative at initialization.  It does not assert endpoint
-variability: at the witnessing training input both fitted runs equal the
-label.  The restriction $m\ge2$ is essential; at arbitrary confidence its
-coefficient also depends on that confidence.  Its coefficient and proof are
-in \hyperref[int:dense-trajectory-lower]{the dense lower-bound appendix}.
-The dense upper bound and all-order Legendre comparison follow from
-\hyperref[int:dense-proofs]{the dense proofs} and
-\hyperref[int:legendre-proofs]{the Legendre proofs}; the arbitrary-budget
-construction is in
-\hyperref[int:harmonic-variable-budget-theorem]{the Harmonic appendix}.
-These are function-fidelity guarantees, not assertions about unknown test labels.
+Dense itself stores $(L-1)n^2+n(d+1)\le Cn^2$ real coordinates for
+$n\ge d$. Legendre reduces moving memory, not the fixed environment:
+its total remains quadratic. Harmonic's inventory includes the training
+data, metrics, initial copies and solve caches. Logarithmic's includes
+data, seeds, selected packets, metrics and all ensemble members.
+Ordinary training data are additional for Dense and Legendre.
+The bounds are constructive sufficient sizes, not lower bounds on the
+best possible compression. In particular, the proved Legendre exponent
+is $5/4$, not $1$.
+
+\paragraph{Meaning of sufficiently large width.}
+For each fixed admissible problem there is a finite threshold, after which
+the theorem holds at each individual width. It includes the source and
+stability thresholds, the internal order overheads, and the dense lower
+bound's onset. The latter is unquantified. This does not assert one event
+covering infinitely many independently initialized widths, or a uniform
+limit when the data grow with $n$.
+The finite-word construction separately has an explicit width gate and
+an explicit additive numerical error; those remain valid without invoking
+the qualitative onset. Their precise distinction is given below and in
+\hyperref[int:intrinsic-variability-comparison]{the intrinsic-comparison proof}.
+
+\paragraph{The optimized choices are internal.}
+Legendre's order is chosen so its error is at most
+$CY/(\sqrt n[\log(en)]^3)$ eventually. Harmonic's internal source budget
+is chosen for error at most $Y/n$. Neither choice needs $b_n$ as input.
+Their original stronger conclusion survives: their errors are negligible,
+in probability, relative to the discrepancy of two independent dense runs.
+That extra property is not required by \eqref{eq:common-compression}.
+The full forward-order estimates, inverse recipes, integer choices and
+label allowance are internal results in the
+\hyperref[int:detailed-statements]{detailed statements}; their derivation
+of this theorem is in
+\hyperref[int:joint-compression-headline-proof]{the joint headline proof}.
+
+\subsection{Why this is a genuine dense-variability certificate}
+\label{sec:variability}
+
+The actual quantile obeys the eventual bounds
+\begin{equation}
+ \frac{cY\sqrt\gamma}{\sqrt n[\log(en)]^{5/2}}
+ \le b_n\le
+ CY\left(\frac m\gamma\right)^5
+ \sqrt{\frac dn}\,\log(en)e^{\sqrt{\log(en)}}.
+ \label{eq:dense-variability}
+\end{equation}
+The same two scales bound the realized dense-pair discrepancy with the
+stated high confidence. Thus the width exponent is $n^{-1/2}$ up to
+logarithmic and subpolynomial factors. No sharp sample/gap dependence is
+claimed. The compression contract uses $b_n$ itself, not the right-hand
+side of \eqref{eq:dense-variability}; it remains meaningful even when that
+explicit upper estimate is loose.
 
 \paragraph{Why dense trajectories genuinely fluctuate.}
-The argument conditions on preceding layers before using row independence.
-A conditional central limit argument propagates empirical-Gram fluctuations
-and adds a Gaussian innovation at each layer. For $m\ge2$, the positive
-feature-Gram gap forces a nonzero final-layer innovation in the label
-direction; earlier fluctuations cannot cancel its variance. Zero initial
-readout converts this into fluctuating prediction velocity. Complex-time
-control and a polynomial endpoint inequality then yield a positive-time
-prediction discrepancy with logarithmic losses.
+Conditioning on preceding layers leaves independent initialized rows.
+An empirical-Gram fluctuation propagates through depth and receives a new
+Gaussian innovation at each layer. For $m\ge2$, the positive feature-Gram
+gap forces a nonzero final innovation in the label direction: if every
+label-weighted feature product had zero variance, all feature vectors
+would lie on one line. Earlier-layer fluctuations cannot cancel this new
+conditional variance. Zero initial readout turns it into fluctuating
+prediction velocity. Analytic-time control then converts velocity
+fluctuation into an actual positive-time prediction discrepancy, with the
+displayed logarithmic losses. The witness is early in training, not at the
+endpoint; two fitted runs agree on every training label.
 
-\paragraph{What is stored.}
-The first three models count exact real coordinates, not finite-precision
-bits.  Their per-model storage is bounded by
-\begin{center}
-\begin{tabular}{@{}lll@{}}
-\toprule
-Model & Learned state & All retained model state\\
-\midrule
-Dense & $Cn^2$ & $Cn^2$\\
-Legendre & $Cn(d+mq)$ & $C(n^2+mnq)$\\
-Harmonic & $Cq^2$ & $Cq^2$\\
-\bottomrule
-\end{tabular}
-\end{center}
-Ordinary retained training data are additional for Dense and Legendre.
-Exact coordinate counts and the Harmonic overhead are given in the appendix.
-Harmonic's last column already includes data, fixed metrics, initial copies
-and solve caches; source arrays and setup histories are discarded.
-Legendre compresses learned increments, not the fixed Gaussian mixers.
-Harmonic compresses both, but uses its specified optimizer rather than
-ordinary gradient flow on an arbitrary smaller network.
+\paragraph{A center exists without being computed.}
+The Logarithmic improvement uses an elementary geometric fact. If two
+independent random functions are usually within distance $b$, averaging
+over one of them identifies a deterministic function around which most
+of the law lies in a radius-$b$ ball. The center can be selected among the
+regular dense trajectories. It is only a proof device: no population
+solution or table of center values is supplied to the algorithm.
 
-\subsection{Accuracy determines order and storage}
+At a fixed input/time code, a virtual source member has a scalar answer
+close to the dense law. Most members therefore lie within $b$ of this
+same center. A median amplifies that statement over all the finite query
+codes; the center's regularity extends it to the full sphere and time
+axis. An independent dense target is also within $b$ of the center.
+Two applications of the triangle inequality give $2b$, plus numerical
+error. This argument needs only the already proved scalar law at each
+code, not a coupling of an entire decoder path to a dense path.
+
+More precisely, the existing finite construction, at its explicit gate,
+satisfies
+\begin{equation}
+ \norm{f_{\mathrm{Log},n}-f_n^{\mathrm{ind}}}_*
+ \le 2b_n+CYn^{-10}
+ \label{eq:decoder-intrinsic}
+\end{equation}
+with the stated confidence. The numerical term is the existing error
+allocation, whose universal coefficient is kept explicit in the appendix.
+For $m\ge2$, \eqref{eq:dense-variability} eventually absorbs this term
+into $b_n$, proving \eqref{eq:common-compression} without changing the
+algorithm or storage. The additive theorem preserves the original
+one-sample scope as well. In that case actual variability can be zero
+despite a nonconstant deterministic training curve, so a finite numerical
+decoder cannot generally promise a purely multiplicative comparison.
+
+\paragraph{What the benchmark does and does not say.}
+A quantile is a property of the actual dense law, not the discrepancy of
+one randomly selected pair. A claim relative to every realized pair would
+be different: that pair can happen to be unusually close. The theorem
+compares the two high-probability accuracy levels and does not make that
+stronger random-denominator assertion for the independent decoder.
+No numerical estimate of $b_n$ is needed in any setup routine.
+
+\subsection{Consequences and the price of representation}
 \label{sec:size}
 
-The next prescriptions invert the displayed sufficient certificates; they
-are not minimax claims.  For fixed structural parameters, with $n$
-sufficiently large and polynomial accuracy $\varepsilon=n^{-\Theta(1)}$,
-a sufficient Legendre order is
-\begin{equation}
- q=\left\lceil C\left(1+\frac m\gamma\right)^3
- \varepsilon^{-1/2}
- [\log(en)\log(en/\varepsilon)]^{1/4}
- e^{\sqrt{\log(en)}/2}\right\rceil.
- \label{eq:legendre-order}
-\end{equation}
-Keeping both logarithms avoids concealing a coefficient depending on the
-chosen polynomial accuracy exponent.  Its learned storage is at most
-\begin{equation}
- Cnd+Cmn\left(1+\frac m\gamma\right)^3\varepsilon^{-1/2}
- [\log(en)\log(en/\varepsilon)]^{1/4}e^{\sqrt{\log(en)}/2}.
- \label{eq:legendre-inverse-storage}
-\end{equation}
-The fixed dense mixers remain additional.
+At fixed admissible parameters, the three state scales are
+$n^{5/4+o(1)}$ moving coordinates, $\log^{3d+2}n$ total real coordinates,
+and $\log^6n\log\log n$ total numerical words, respectively. They now
+share the same constant-factor dense-variability contract. The
+Logarithmic storage exponent is independent of dimension, but its
+coefficients and costs are not. Counting bits adds one logarithmic power;
+the present construction does not prove a fifth-power word bound.
 
-A sufficient Harmonic budget in the same regime is
-\begin{equation}
- \begin{split}
- q=\min\!\Bigl\{n,\Bigl\lceil C(m+d)
- &+\left(\frac C{\sqrt d}\right)^{d+1}
- \left(\frac m\gamma\right)^2\\
- &\quad\times[\log(en)]^{d/2}[\log(en/\varepsilon)]^{d+1}
- \Bigr\rceil\Bigr\},
- \end{split}
- \label{eq:harmonic-order}
-\end{equation}
-using exact retention when the minimum selects $n$.  Consequently its
-learned and total retained state are both bounded by
-\begin{equation}
- C(m+d)^2+\left(\frac Cd\right)^{d+1}
- \left(\frac m\gamma\right)^4
- [\log(en)]^d[\log(en/\varepsilon)]^{2d+2}.
- \label{eq:harmonic-inverse-storage}
-\end{equation}
-For arbitrary targets, replace the last logarithm in the budget by
-$\log(en)+\log\!\bigl(e+C(m/\gamma)(1+\sqrt{m/\gamma})/\varepsilon\bigr)$.
-The exact integer inverse also handles targets met by initialization alone;
-see \hyperref[int:harmonic-variable-budget-theorem]{the budget theorem}.
-
-For an independent dense comparison, width must instead be chosen before
-initialization.  As $\varepsilon\downarrow0$, a sufficient eventual choice is
-\begin{equation}
- n=\left\lceil Cd\left(1+\frac m\gamma\right)^{10}
- \varepsilon^{-2}\log(e/\varepsilon)^2
- e^{C\sqrt{\log(e/\varepsilon)}}\right\rceil,
- \label{eq:dense-inverse}
-\end{equation}
-and its storage is at most
-$Cd^2(1+m/\gamma)^{20}\varepsilon^{-4}
-\log(e/\varepsilon)^4e^{C\sqrt{\log(e/\varepsilon)}}$.
-This is not an effective confidence-certified width rule: it must also
-exceed the unquantified stochastic threshold in \Cref{thm:alltime}.
-For $m\ge2$, the dense lower bound conversely requires
-$n[\log(en)]^5\ge c\gamma/\varepsilon^2$ eventually at the stated confidence.
-Thus independent canonical dense runs need
-$\Omega(\varepsilon^{-4}/\log(1/\varepsilon)^{10})$ stored coordinates
-at a fixed problem.  This is not a lower bound on arbitrary representations.
-
-\begin{corollary}[Compression error below actual dense variability]
-\label{cor:compression}
-Fix an admissible problem with $m\ge2$ and $Y>0$.  Choose
-\[
- q_{\mathrm{Leg}}=\left\lceil C(1+m/\gamma)^3
- n^{1/4}[\log(en)]^2e^{\sqrt{\log(en)}/2}\right\rceil
-\]
-and choose the Harmonic budget in \eqref{eq:harmonic-order} with
-$\varepsilon=n^{-1}$.  For either of these matched-reference constructions,
-\begin{equation}
- \frac{\norm{f_{\mathrm{model}}-f_n}_*}
- {\norm{f_n-\widetilde f_n}_*}\xrightarrow{\Pr}0.
- \label{eq:negligible-compression}
-\end{equation}
-Legendre's learned storage is
-$Cnd+Cm(1+m/\gamma)^3n^{5/4+o(1)}$; Harmonic's total storage is at most
-\begin{equation}
- C(m+d)^2+\left(\frac Cd\right)^{d+1}
- \left(\frac m\gamma\right)^4[\log(en)]^{3d+2}.
- \label{eq:harmonic-negligible-storage}
-\end{equation}
-\end{corollary}
-
-For the stated Legendre order the normalized error is at most
-$C/(\sqrt n\,[\log(en)]^3)$ eventually.  Harmonic's is at most $1/n$.
-The arbitrary-confidence lower theorem in the appendix then gives
-\eqref{eq:negligible-compression}; a fixed $99\%$ event alone would not.
-The ratio compares complete trajectory norms, not pointwise or endpoint
-ratios.  When $m\ge d$ the $nd$ term is eventually smaller; when
-$m/\gamma\ge1$, the displayed cubic Legendre dependence is equivalently
-$(m/\gamma)^3$.  The quartic Harmonic dependence has not been reduced by
-spending the small-label assumption.
-
-\subsection{A finite-word decoder with no supplied order}
-\label{sec:logarithmic}
-
-The Logarithmic decoder constructs a new compressed model, rather than
-compressing a supplied dense realization.  It compares with a fresh
-independent dense reference $f_n^{\mathrm{ind}}$.  Initialization may inspect
-a completed virtual training computation, but retains no dense array or
-future-answer table.  Seeds regenerate source rows for new inputs; queries
-use the current retained state and do not replay scalar training.
-
-\begin{theorem}[Logarithmic decoder]
-\label{thm:logarithmic}
-Assume the full common label allowance, $m\ge d$ and spanning training
-inputs.  There is a finite construction with no tunable order whenever
-\begin{equation}
- n\ge\max\!\left\{Y^{-1},
- \left[C(1+m/\gamma)^4(m+d)^4\right]^{1100}\right\}.
- \label{eq:decoder-width}
-\end{equation}
-This is explicit, although extremely conservative; it has no additional
-existential stochastic-width condition.  Define the local resource logarithm
-\[
- Z=\log(en)+\log\!\left(e+(m+d+2)(1+m/\gamma)\right).
-\]
-All retained state and live query workspace use at most
-\begin{equation}
- C(m+d+2)^2(1+m/\gamma)^2\log(em)^2 Z^6
- [d+1+\log(e+(d+1)Z)]
- \label{eq:decoder-words}
-\end{equation}
-numerical words, with $CZ$ bits per word sufficient.  Seeds, selected
-packets, metrics, training data and all ensemble members are included.
-
-With probability at least $99\%$,
-\begin{equation}
- \norm{f_{\mathrm{Log},n}-f_n^{\mathrm{ind}}}_*\le3b_n,
- \label{eq:decoder-error}
-\end{equation}
-where $b_n$ is the exact dense upper certificate in
-\hyperref[int:logarithmic-decoder-detailed]{the decoder appendix}, with
-$b_n/Y=n^{-1/2+o(1)}$ at fixed problem parameters.
-The structural coefficients of this particular certificate are not further
-quantified; they are not included in the activation/depth-only constants
-$c,C$.  The event covers all physical times, fitted limits, sphere inputs
-and adaptively chosen queries.
-\end{theorem}
-
-The complete construction, arbitrary-confidence gate and finite arithmetic
-proof are in \hyperref[int:logarithmic-decoder-detailed]{the decoder appendix}.
-The proof uses a prescribed fixed-confidence member order of size
-$O(\log(em))$ and amplifies whole source models, not individual query
-answers.  Those orders are internal instructions, not a new model budget.
-At fixed admissible parameters, \eqref{eq:decoder-words} is
-$O(\log^6n\,\log\log n)$ words, or
-$O(\log^7n\,\log\log n)$ bits.  The sixth power counts words, not bits.
-Its error has the independent-dense upper-certificate scale
-$b_n/Y=n^{-1/2+o(1)}$; no negligible-error ratio analogous to
-\eqref{eq:negligible-compression} is proved for this method.
-
-\paragraph{One accuracy scale, four storage costs.}
-At fixed admissible parameters, choose $n=\varepsilon^{-2+o(1)}$
-sufficiently large for the relevant width gates and error certificate,
-and use the preceding inverse orders.  The sufficient storage bounds are
-\begin{center}
-\begin{tabular}{@{}lll@{}}
-\toprule
-Model & Learned storage & All retained storage\\
-\midrule
-Independent dense & $\varepsilon^{-4+o(1)}$ & same\\
-Legendre & $\varepsilon^{-5/2+o(1)}$ & $\varepsilon^{-4+o(1)}$\\
-Harmonic & $O(\log(1/\varepsilon)^{3d+2})$ & same\\
-Logarithmic & bounded by total &
-$O(\log(1/\varepsilon)^6\log\log(e^e+1/\varepsilon))$ words\\
-\bottomrule
-\end{tabular}
-\end{center}
-The decoder uses one additional logarithmic power in bits.  For its inverse
-choose a width meeting both \eqref{eq:decoder-width} and $3b_n\le Y\varepsilon$.
-The inverse rate is eventual because this certificate has fixed-problem
-coefficients.
-Against an independent dense run, splitting accuracy and failure budgets
-between compression and dense variability preserves these exponents.
+These savings reflect different structures, not three versions of the
+same low-rank matrix approximation. Legendre preserves a smooth history
+of writes into a large fixed environment. Harmonic preserves the geometry
+of a jointly regular family of responses. Logarithmic preserves a short
+description of a finite learning computation and regenerates empirical
+interactions when needed. The next section makes these mechanisms
+explicit; \Cref{sec:costs} separates their setup, training and query prices.
+None of these prediction-fidelity claims is a bound on error against
+unknown test labels.

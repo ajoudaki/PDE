@@ -1137,9 +1137,9 @@ queries may be chosen after inspecting the retained model and previous
 answers. Their dependence creates no new union bound or posterior premise.
 
 The resulting comparison with the independent dense reference is
-\(2b_n+A_{\rm num}Yn^{-10}\), with \(A_{\rm num}\) an absolute
-allocated constant. Its explicit mesh coefficient gives \(b_n\ge32Y/n\),
-so the stated numerical gate absorbs the remainder into \(3b_n\).
+\(2B_n+A_{\rm num}Yn^{-10}\), with \(A_{\rm num}\) an absolute
+allocated constant. Its explicit mesh coefficient gives \(B_n\ge32Y/n\),
+so the stated numerical gate absorbs the remainder into \(3B_n\).
 The centers and source events used in this argument are proof objects;
 the retained model never receives them or any unknown test label.
 
@@ -1232,8 +1232,9 @@ Training is causal scalar acquisition. Querying does not advance training.
 The numerical finite source approximates dense gradient flow; it is not
 asserted itself to fit exactly. The comparison remains to an independent
 dense reference over the whole sphere, all physical times and the fitted
-endpoint, and matches the upper certificate rather than the discrepancy
-lower bound.
+endpoint. The analytic upper certificate remains an absolute guarantee.
+The same finite construction also supports the intrinsic-quantile
+comparison proved below, with the original numerical remainder.
 
 Scientific inputs actually read: the integrated decoder statements and
 proof interfaces and quantitative fitting section; the authorized decoder

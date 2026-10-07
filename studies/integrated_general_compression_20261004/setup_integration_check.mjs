@@ -85,6 +85,18 @@ for (const [name, text] of completedBlocks) {
   requireCheck(result.slice(at + begin.length, stop) === expected,
     'Completion fragment differs from integrated text: ' + name);
 }
+// The intrinsic comparison is included in full, with one terminology
+// clarification and deeper headings; the frozen scoped audit keeps its hash.
+const variability = fs.readFileSync(path.join(dir, 'VARIABILITY_DECODER_REFINEMENT.md'), 'utf8');
+const variabilityProof = variability.slice(
+  variability.indexOf('The conclusion is'),
+  variability.indexOf('## Reading and integration boundary')
+).trim().replaceAll('population feature covariance',
+  'population uncentered feature second-moment matrix').replace(/^## /gm, '#### ');
+requireCheck(result.includes(variabilityProof),
+  'Intrinsic comparison proof differs from audited candidate');
+requireCheck(anchors.has('joint-compression-headline-proof'),
+  'Missing joint compression theorem proof');
 const output = {
   result_sha256: crypto.createHash('sha256').update(result).digest('hex'),
   lines: result.split('\n').length - 1,

@@ -234,7 +234,7 @@ changing proof-local notation or introducing a second model.
     const tag = found[0]?.[1];
     if (tag) body = body.replace(/\\tag\{[^{}]+\}\s*/g, '');
     body = modernMath(body);
-    if (tag === 'S.8' || tag === 'FC.7' || body.trim().startsWith('c_t=\\frac{a}{64YSU}') || body.trim().startsWith('\\kappa_L(M)=1,')) {
+    if (tag === 'S.8' || tag === 'FC.7' || tag === 'VD.1' || body.trim().startsWith('c_t=\\frac{a}{64YSU}') || body.trim().startsWith('\\kappa_L(M)=1,')) {
       const parts = body.split(/\\q{1,2}uad\b/).map(s => s.trim());
       body = `\\begin{gathered}\n${parts.join('\\\\\n')}\n\\end{gathered}`;
       displayLayouts.push({sourceLine: start + 1, tag: tag || null, layout: 'Wrap a chain of separate definitions at its existing quad separators; all mathematical tokens preserved.'});
@@ -311,7 +311,7 @@ const uncovered = [];
 for (let n = first; n < last; n++) if (!used.has(n) && !omittedLines.has(n)) uncovered.push(n + 1);
 if (uncovered.length) throw new Error(`Uncovered source lines ${uncovered.join(',')}`);
 if (mathInventory.filter(m => m.tag).length !== tags.length) throw new Error('Lost an equation tag');
-let output = tex.join('\n\n') + '\n';
+let output = tex.join('\n\n').trimEnd() + '\n';
 if (/\\(?:input|include)\s*\{/.test(output)) throw new Error('Static appendix unexpectedly inputs another file');
 if (/ZZINTTOKEN|^#{2,}|<a id=|<!--/m.test(output)) throw new Error('Unsupported markup remains');
 if (/\\(?:over|choose)(?![A-Za-z])/.test(output)) throw new Error('Unmodernized infix fraction or binomial remains');

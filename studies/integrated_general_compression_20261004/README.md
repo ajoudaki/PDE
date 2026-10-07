@@ -9,9 +9,47 @@ unchanged. Historical supporting notes and audit filenames retain their
 original names for traceability.
 <!-- method-names:end -->
 
+## Current revision: a common dense-variability benchmark
+
+The user requested a full rollback checkpoint before a second paper rewrite.
+Commit `2c27cbc68c0da734a921679ed3097bfaa2b44179` records the complete current
+paper and this study's proof sources; unrelated shared-checkout work was not
+included. The new main contract is constant-factor accuracy at actual
+dense-to-dense variability, not an error ratio tending to zero. A fixed-in-width
+high-confidence quantile of the complete dense-pair trajectory discrepancy is
+the deterministic benchmark; it is not an analytic upper envelope or
+the realized discrepancy of a separately sampled pair.
+
+The existing finite decoder's per-query law comparison and whole-model median
+now give error at most twice that quantile plus the original numerical remainder,
+without changing the finite algorithm or retained state. A regular deterministic
+high-mass center provides the bridge. For at least two samples and fixed nonzero
+labels, the existing lower theorem absorbs the remainder eventually; that
+factor-three corollary inherits its unquantified onset. The additive theorem
+keeps the original explicit gates and one-sample scope. Legendre/Harmonic
+scientific bounds remain unchanged. In particular, the existing
+Legendre learned-state rate is `n^(5/4+o(1))`, not linear.
+
+Root owns the joint headline theorem, main manuscript, costs and integrated
+source assembly. Scoped workers own the elementary metric lemma, the decoder
+application proof, and the intuitive method exposition, respectively. No new
+training experiment is being run. This is a working-paper revision, not book
+promotion. The preceding paper-rewrite record remains attached to its frozen
+checkpoint. New results and scoped checks are recorded in
+[PAPER_INTRINSIC_REVISION_CHECK.md](PAPER_INTRINSIC_REVISION_CHECK.md).
+The current paper presents all three prescribed sizes in Theorem 3.1;
+internal forward/inverse certificates and the full new comparison proof
+remain in its static appendix.
+The [current PDF](../../paper/main.pdf) has 194 pages, including 13 main-text
+and reference pages and a linked appendix guide. The final build has no
+LaTeX warnings or overfull boxes. Rendered main and new-proof pages were
+inspected; the revision record gives complete coverage and artifact hashes.
+The user has now authorized committing and pushing this revision together
+with the repository's other stable, uncommitted study files.
+
 ## Integrated accuracy theorem and setup extension
 
-### Working-paper replacement completed
+### Earlier working-paper replacement (rollback checkpoint)
 
 The user explicitly authorized replacing the working manuscript under
 `paper/` by the integrated results, preserving canonical neural notation,
@@ -26,7 +64,7 @@ the old paper supplies style, notation and existing illustrative figures.
 No new empirical claim or training run is authorized by this editorial task.
 Build products and visual checks use
 `data/generated/integrated_general_compression_20261004/paper_rewrite_KFCZPBuv/`.
-The current [paper](../../paper/main.pdf) has 14 main-text pages and the
+The checkpoint paper had 14 main-text pages and the
 complete detailed appendix, with a linked guide: 189 pages total. The final
 build has no LaTeX warnings or overfull boxes. The
 [paper rewrite record](PAPER_REWRITE_CHECK.md) gives source and artifact hashes,

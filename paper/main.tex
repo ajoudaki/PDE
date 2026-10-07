@@ -53,14 +53,17 @@ fixed labels. Error is uniform over the whole input sphere and all training
 times, including the fitted limit. For $m\ge2$ and nonzero labels,
 independent dense runs have variability of order $n^{-1/2}$ up to
 subpolynomial and logarithmic factors.
-We then give three different compression guarantees. Legendre compression
+One intrinsic benchmark puts three compression guarantees on the same
+footing: each compressed trajectory is within a constant factor of the
+high-confidence discrepancy between two independent dense runs.
+Legendre compression
 uses $n^{5/4+o(1)}$ moving coordinates while retaining fixed dense mixers.
 Harmonic compression retains $O((\log n)^{3d+2})$ real coordinates and can
 achieve $n^{-1+o(1)}$ error against its coupled dense reference. Its certified
 initialization is near-quadratic with explicit dense matrices, or near-linear
 with an implicit Gaussian reference. A finite-word Logarithmic decoder
-retains $O(\log^6 n\log\log n)$ words and matches the independent-dense
-upper-certificate scale; its query work remains near-linear in width.
+retains $O(\log^6 n\log\log n)$ words and meets the same benchmark against
+an independent dense reference; its query work remains near-linear in width.
 The results separate moving memory, complete retained state, preprocessing
 and inference. Full parameter dependence, numerical qualifications and
 proofs are provided in the appendix.
@@ -85,10 +88,12 @@ from the updates, uniformly over the whole sphere and all physical time.
 
 \paragraph{An intrinsic accuracy benchmark.}
 Independent initializations already produce different dense trajectories.
-Our dense upper and lower bounds quantify this variability instead of
-comparing compression only with a potentially loose upper estimate.
-Legendre and Harmonic can make their discrepancy from their own dense
-reference negligible relative to the actual dense variation. The lower
+Our common compression theorem uses a high-confidence quantile of this
+actual discrepancy, not an analytic upper envelope. A constant factor is
+the success criterion. Legendre and Harmonic additionally attain
+negligible relative error, but that stronger property is not required.
+For the Logarithmic decoder, a center-and-median argument gives the
+intrinsic comparison without calculating the quantile. The dense lower
 bound is witnessed during early training; it is not an endpoint lower bound.
 
 \paragraph{Three resources, three constructions.}
@@ -111,7 +116,8 @@ not assert nonzero feature motion for every activation and dataset.
 The guarantees concern prediction fidelity, not risk against unknown test
 labels. Sufficient stochastic widths remain qualitative for Dense,
 Legendre and Harmonic. The finite-word decoder has an explicit but very
-conservative gate and a different, independent-reference guarantee.
+conservative gate for its additive numerical certificate. Its pure
+constant-factor comparison also uses the lower bound's eventual onset.
 
 \section{Setting and reading conventions}
 \label{sec:setting}
@@ -149,7 +155,7 @@ Activations are real on the real axis, analytic in a strip about it, and
 have bounded first derivative there. Their values need not be bounded.
 
 \paragraph{Data and labels.}
-The population initial feature Gram is defined by
+The population initial feature Gram (an uncentered second moment) is defined by
 \[
  Q^{(0)}_{ab}=x_a^\top x_b/d,\qquad
  Q^{(\ell)}_{ab}=\E[\phi(Z_a)\phi(Z_b)],
@@ -167,16 +173,28 @@ the exact zero predictor separately. Dense, Legendre and Harmonic require
 no orthogonality, centering or input-rank assumption. Only the decoder
 additionally requires $m\ge d$ and spanning training inputs.
 
-\paragraph{One observable and normalization.}
+\paragraph{One observable and one accuracy benchmark.}
 Write
 \begin{equation}
  \norm{f-g}_*=
  \sup_{t\in[0,\infty]}\sup_{\norm{x}_2=\sqrt d}|f(t,x)-g(t,x)|.
  \label{eq:test-norm}
 \end{equation}
-This includes fitted limits. Main-text error is divided by $Y$, so a target
-$\varepsilon$ means absolute error $Y\varepsilon$. The appendix keeps the
-unnormalized bounds. We do not spend the label cap to reduce powers of
+This includes fitted limits. Let $f_n,\widetilde f_n$ be two independently
+initialized ordinary dense runs, and define their high-confidence
+variability by
+\begin{equation}
+ b_n=\inf\{b\ge0:\Pr(\norm{f_n-\widetilde f_n}_*\le b)\ge0.9999\}.
+ \label{eq:intrinsic-benchmark}
+\end{equation}
+The $99.99\%$ quantile is deterministic but need not be known. We seek
+compression error at most $3b_n$ with $99\%$ confidence. Both confidence
+levels are fixed numerical conventions; the appendix gives their general
+failure-probability relation. Discrepancy is assigned $+\infty$ on a
+trajectory lacking the required fitted limit, so the definition does not
+silently condition on a successful run. The qualifying width makes this
+quantile finite. All errors are absolute, with no implicit division by $Y$.
+We do not spend the label cap to reduce powers of
 $m/\gamma$: the learned-storage envelopes remain cubic for Legendre and
 quartic for Harmonic.
 
@@ -193,9 +211,10 @@ Expressions with $o(1)$ fix the admissible data, depth, activation and
 confidence before $n\to\infty$; they are not uniform growing-data claims.
 
 \paragraph{State and reference.}
-The order $q$ is Legendre memory order or Harmonic per-layer neuron budget.
-Setup degrees, jets and quadrature orders are not additional runtime
-parameters. Moving state and complete retained state are distinguished.
+Internal memory and approximation orders are optimized inside the
+constructions. They appear in the mechanism descriptions and appendix,
+not as inputs to the headline theorem. Moving state and complete retained
+state are distinguished.
 Legendre and Harmonic track a coupled dense reference. The implicit
 Harmonic implementation generates that reference jointly instead of
 materializing its hidden matrices. The Logarithmic decoder compares with
@@ -275,8 +294,9 @@ Legendre makes the evolving memory small but retains a quadratic fixed
 environment. Harmonic removes that environment from the retained state
 and has polylogarithmic query work at fixed dimension, with near-linear
 implicit setup. The decoder has a dimension-independent logarithmic
-word-storage exponent, but regenerates width-many rows per query and
-matches an independent dense run only at its upper-certificate scale.
+word-storage exponent, but regenerates width-many rows per query.
+It meets the same intrinsic variability benchmark against an independent
+dense reference, rather than tracking a supplied dense realization.
 
 \paragraph{Open boundaries.}
 The dense lower bound is transient and does not establish sharp
@@ -296,10 +316,9 @@ selected predictor remains a separate question.
 \section*{Guide to the detailed statements and proofs}
 \addcontentsline{toc}{section}{Guide to the detailed statements and proofs}
 The appendices contain the complete parameter-explicit scientific statement
-and proof chain. The main text suppresses activation/depth factors and
-normalizes prediction error by $Y$. An absolute-error tolerance in the
-detailed certificates is therefore evaluated at $Y\varepsilon$ for the
-main text's normalized target. The appendix restores activation/depth
+and proof chain. The main text suppresses activation/depth factors,
+uses absolute prediction error, and internalizes the choice of approximation
+orders. The appendix restores activation/depth
 coefficients explicitly; its numerical $C$ is distinguished from the
 activation/depth envelope denoted by $C$ in the main text.
 Here $A=W^{(1)}$ when the first layer
@@ -322,6 +341,10 @@ Detailed component & Page\\
 & \pageref{int:headline-results}\\
 \hyperref[int:detailed-statements]{Explicit statements, constants and cost inventories}
 & \pageref{int:detailed-statements}\\
+\hyperref[int:intrinsic-variability-comparison]{Actual-variability decoder comparison}
+& \pageref{int:intrinsic-variability-comparison}\\
+\hyperref[int:joint-compression-headline-proof]{Proof of the joint compression theorem}
+& \pageref{int:joint-compression-headline-proof}\\
 \hyperref[int:source-foundations]{Shared source construction and analytic estimates}
 & \pageref{int:source-foundations}\\
 \hyperref[int:dense-proofs]{Dense upper and lower bounds}

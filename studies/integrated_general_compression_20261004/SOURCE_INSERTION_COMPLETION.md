@@ -1773,7 +1773,7 @@ training samples: its arbitrary-query step is forward RMS subtraction
 in the real operator tube. Its Gaussian extension then uses a real
 sphere net, a real compactified-time grid, and the real fitting tail.
 Thus the signed dense Lipschitz constant, its common extension center,
-and the whole-sphere/all-time certificate \(b_n\) are unchanged
+and the whole-sphere/all-time certificate \(B_n\) are unchanged
 when this finite-training event replaces the original qualitative
 source event. No analyticity or carrier maximum at passive complex
 queries is a hypothesis of that comparison. This explicitly closes

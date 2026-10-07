@@ -19,7 +19,70 @@ algorithm constants; they are parameter-explicit rather than numerically
 instantiated throughout. Their dependence is never silently assigned to
 sample count, gap, dimension, depth or activation bounds.
 
-## Canonical headline results
+## Main theorem: compression at actual dense variability
+
+This block uses the paper convention: \(c,C>0\) depend only on the
+activations and fixed depth. The detailed sections below instead expose
+those factors through \(\beta,L\) and use numerical \(C\)'s. Let \(n\)
+be dense width, \(m\) sample count, \(d\) input dimension, and
+\(\gamma>0\) the uncentered initial feature-Gram gap. Labels have fixed
+RMS \(Y>0\), satisfying the common stability allowance below; the paper's
+clean sufficient cap is \(Y\le c\gamma/m\).
+
+For independent ordinary dense runs define the actual variability quantile
+\[
+b_n=\inf\{b\ge0:\Pr(\|f_n-\widetilde f_n\|_*\le b)\ge0.9999\},
+\qquad
+\|f-g\|_*=\sup_{t\in[0,\infty]}\sup_{\|x\|_2=\sqrt d}|f(t,x)-g(t,x)|.
+\tag{Joint intrinsic benchmark}
+\]
+Assign discrepancy \(+\infty\) when a required complete trajectory or
+uniform fitted limit fails to exist. This definition does not condition
+the dense law. The qualifying width makes the quantile finite.
+
+For each fixed admissible problem with \(m\ge2\) and \(m/\gamma\ge1\),
+at every sufficiently large individual width, each construction has
+\[
+\|f_{\rm model}-f_{\rm reference}\|_*\le3b_n
+\quad\text{with probability at least }99\%.
+\tag{Joint compression contract}
+\]
+All approximation orders have been selected internally. Sufficient state
+sizes are:
+
+| Method | State bound | Reference and accounting |
+|---|---|---|
+| Legendre | \(Cm(m/\gamma)^3n^{5/4+o(1)}\) | learned real coordinates; add \(Cn^2\) fixed mixers; coupled dense reference |
+| Harmonic | \(C(m+d)^2+(C/d)^{d+1}(m/\gamma)^4[\log(en)]^{3d+2}\) | complete retained real coordinates; coupled dense reference |
+| Logarithmic | \(Cm^2(m/\gamma)^2[\log(em)]^2[\log(en)]^6[d+\log\log(e^e+n)]\) | complete retained and live-query numerical words; independent dense reference |
+
+Logarithmic additionally requires \(m\ge d\) and spanning training inputs;
+neither requirement is imposed on the other two methods. Its words need at
+most \(C\log(en)\) bits. Dense itself retains
+\((L-1)n^2+n(d+1)\le Cn^2\) real coordinates for \(n\ge d\).
+Legendre's displayed subpolynomial factor can be taken as
+\([\log(en)]^2e^{\sqrt{\log(en)}/2}\). These are sufficient constructive
+sizes, not minimality claims; Legendre's proved exponent is \(5/4\), not \(1\).
+No model computes or stores \(b_n\).
+
+The common eventual threshold includes the dense lower bound's
+unquantified onset. The original finite decoder keeps its explicit gate
+and, under that gate alone, the stronger intrinsic statement with numerical
+remainder \(2b_n+C Yn^{-10}\), with the confidence convention justified
+in the proof. The lower bound absorbs this remainder eventually when
+\(m\ge2,Y>0\). The finite additive theorem retains the original one-sample
+scope, where actual variability can be zero. No new label cap is used in
+that refinement. Legendre and Harmonic retain their additional
+negligible-relative-error conclusion; it is not the common success criterion.
+
+The complete argument and probability budgets are in
+[the actual-variability proof](#intrinsic-variability-comparison) and
+[the joint theorem derivation](#joint-compression-headline-proof).
+The analytic decoder upper envelope below is denoted \(B_n\), not \(b_n\).
+Unrelated proof-local tube radii also denoted \(b_n\) are explicitly scoped
+to their Harmonic numerical subsections.
+
+## Internal forward and inverse certificate summary
 
 This first block is the canonical short interface. Width is \(n\), sample
 count is \(m\), input dimension is \(d\), hidden depth is \(L\), feature-Gram
@@ -41,7 +104,9 @@ fixed admissible problem they hold with probability at least \(1-\delta\) at
 each qualifying individual width. For Dense, Legendre and Harmonic,
 \(0<\delta<1\) and the stochastic sufficient-width threshold remains
 unquantified. For the Logarithmic decoder, \(0<\delta<1/4\) and the sufficient
-width is explicit but extremely conservative. The notation
+width for the additive intrinsic and analytic absolute certificates is
+explicit but extremely conservative. Pure multiplicative comparison also
+uses the lower bound's eventual onset. The notation
 \(\lesssim\) below suppresses numerical constants and the fixed label scale,
 but no dependence on \(n,m,d,L,\gamma\), or \(\beta\).
 
@@ -180,29 +245,37 @@ O\!\left(\log^7 n\,\log\log n\right)\ \text{bits}.
 \]
 The present proof does not give a fifth-power bound.
 
-For an explicitly defined dense upper certificate \(b_n=n^{-1/2+o(1)}\),
+For the actual dense-pair quantile
+\[
+b_n(\delta)=\inf\{b\ge0:
+\Pr(\|f_n-\widetilde f_n\|_*\le b)\ge1-\delta/32\},
+\]
 the decoder satisfies
 \[
-\|f_{\mathrm{Log},n}-f_n^{\mathrm{ind}}\|_*\le3b_n
+\|f_{\mathrm{Log},n}-f_n^{\mathrm{ind}}\|_*
+\le2b_n(\delta)+A_{\rm num}Yn^{-10}
 \tag{canonical logarithmic forward}
 \]
 with probability at least \(1-\delta\), uniformly over all sphere inputs,
-all physical times and the fitted endpoint. This matches the independent-
-dense upper-certificate scale. It is not proved negligible relative to the
-actual dense discrepancy lower bound.
+all physical times and the fitted endpoint. The coefficient \(A_{\rm num}\)
+is the existing absolute numerical allocation. For \(m\ge2,Y>0\), the
+bound is at most \(3b_n(\delta)\) eventually. This directly compares with
+actual variability, not its analytic upper certificate. The latter remains
+available as the separate absolute bound \(3B_n\).
 
 ### Main compression comparison
 
-For \(m\ge2\) and \(Y>0\), at the accuracy required to be negligible relative to dense-run variability
-for Legendre and Harmonic, and at the proved dense-upper scale for the
-Logarithmic decoder, the canonical retained-state comparison is:
+For \(m\ge2\) and \(Y>0\), all three methods meet the constant-factor
+actual-variability contract at sufficiently large width. The internal
+orders below additionally preserve negligible relative error for Legendre
+and Harmonic:
 
 |  | Legendre compression | Harmonic compression | Logarithmic decoder compression |
 |---|---:|---:|---:|
 | Learned-state upper bound | \(\beta^{CL}Lm(m/\gamma)^3n^{5/4+o(1)}\) real coordinates | \(L(m+d)^2+L(C\beta^{CL}/d)^{d+1}(m/\gamma)^4(\log n)^{3d+2}\) real coordinates | \(p^2\beta^{402L}(m+d+2)^2(1+m/\gamma)^2Z^6[d+1+\log(e+(d+1)Z)]\) numerical words |
 | Total retained state | add \(Ln^2\) fixed mixers | same upper order, including fixed inventory | same upper bound, including seeds and metrics |
 | Width dependence | \(n^{5/4+o(1)}\) | polylogarithmic | polylogarithmic with absolute exponent six in words |
-| Compression error / actual dense discrepancy | \(\longrightarrow0\) in probability | \(\longrightarrow0\) in probability | not proved to vanish; matches the dense upper scale |
+| Additional comparison | negligible / realized dense-pair discrepancy in probability | negligible / realized dense-pair discrepancy in probability | at most three times the actual high-confidence dense-pair quantile eventually |
 
 For prescribed absolute error \(\varepsilon\), with the fixed problem
 parameters suppressed, sufficient storage scales as
@@ -256,8 +329,10 @@ is made.
 For Dense, Legendre and Harmonic, the inherited stochastic sufficient-width
 threshold is existential, not numerically evaluated. Restating the result
 cannot manufacture an effective \(n(\delta)\). The Logarithmic decoder instead
-has the explicit power-\(1100\) enclosing gate below; this is quantitative but
-not practically small. Nothing claims simultaneous success over infinitely
+has the explicit power-\(1100\) enclosing gate below for its additive and
+absolute certificates; the pure multiplicative intrinsic comparison also
+uses the lower theorem's eventual onset. The explicit gate is not
+practically small. Nothing claims simultaneous success over infinitely
 many independently initialized widths.
 
 **Navigation.**
@@ -530,7 +605,7 @@ Part II. This width is fully quantitative but extremely conservative.
 Let
 \[
 \begin{split}
-b_n={}&\frac{c_0Y}{\sqrt n}
+B_n={}&\frac{c_0Y}{\sqrt n}
 e^{c_1Y^2\sqrt{\log(en)}}
 \sqrt{8\log\frac{2048(n+1)(1+2n)^d}{\delta}}
 +c_{2,\rm mesh}\frac Yn,\\
@@ -543,7 +618,7 @@ The positive coefficients \(c_0,c_1\) are the inherited fixed-problem
 coefficients of the dense comparison; this construction does not quantify
 them further. At every width satisfying the stated gates,
 \[
-\|f_{\rm Log,n}-f_n^{\rm ind}\|_*\le3b_n
+\|f_{\rm Log,n}-f_n^{\rm ind}\|_*\le3B_n
 \tag{Logarithmic forward}
 \]
 with probability at least \(1-\delta\). The event is simultaneous over all
@@ -564,9 +639,12 @@ display uses \(nY\ge1\), already enforced by the width gate. For
 \(0<nY<1\), replace \(Z\) everywhere in the numerical counts by
 \(Z+\log_+(1/(nY))\) and retain the enlarged Gaussian-RMS gate.
 
-This method reaches the dense-pair upper-certificate scale, not the Harmonic
-method's stronger matched-reference \(n^{-1+o(1)}\) error. In particular its
-error divided by the actual dense discrepancy is not proved to vanish.
+The independent intrinsic certificate, with exactly the same construction,
+is \(2b_n(\delta)+A_{\rm num}Yn^{-10}\); see
+[its complete proof](#intrinsic-variability-comparison). For \(m\ge2,Y>0\)
+it is at most \(3b_n(\delta)\) eventually. Neither this nor the additional
+analytic bound \(3B_n\) asserts Harmonic's stronger matched-reference
+\(n^{-1+o(1)}\) error or a vanishing random-discrepancy ratio.
 
 <a id="harmonic-setup-headline"></a>
 #### Two efficient initializers for the same Harmonic family
@@ -748,7 +826,7 @@ of one width budget, not extra runtime orders.
 There is no order to optimize after choosing \(n\). For a requested
 \(\varepsilon\), choose the smallest integer width satisfying
 \[
-3b_n\le\varepsilon
+3B_n\le\varepsilon
 \tag{Logarithmic inverse error test}
 \]
 together with (Logarithmic explicit width), and then run the prescribed
@@ -771,7 +849,7 @@ O\!\left([\log(1/\varepsilon)]^7
 \log\log(e^e+1/\varepsilon)\right)
 \tag{Logarithmic inverse bit storage}
 \]
-bits. The inherited positive coefficients \(c_0,c_1\) in \(b_n\) are not
+bits. The inherited positive coefficients \(c_0,c_1\) in \(B_n\) are not
 fully parameter-quantified, so this fixed-problem inverse rate is eventual;
 the separately displayed finite-source width itself is explicit.
 
@@ -915,7 +993,8 @@ The Logarithmic decoder has a dimension-independent logarithmic word-storage
 exponent. Its exponent six is smaller than Harmonic's coordinate exponent
 \(3d+2\) when \(d\ge2\), but not when \(d=1\); these also count
 different storage units. Unlike Harmonic, its certified query work is not
-polylogarithmic and its error is only at the dense upper-certificate scale.
+polylogarithmic. Its error meets the actual dense-pair quantile scale;
+it is not proved negligible relative to a realized dense-pair discrepancy.
 
 For \(m\ge2\) and nonzero labels, canonical independent-dense accuracy
 with fixed failure probability below one half requires, eventually,
@@ -2734,17 +2813,24 @@ c_{2,\rm mesh}=
 \tag{Logarithmic mesh coefficient}
 \]
 With the inherited positive fixed-problem leading coefficients \(c_0,c_1\),
-let \(b_n\) be (Logarithmic dense certificate). Then the complete theorem is
+let \(B_n\) be (Logarithmic dense certificate). The additional absolute
+certificate is
 \[
 \mathbb P\left\{
 \sup_{t\in[0,\infty]}\sup_{\|x\|_2=\sqrt d}
-|f_{\rm Log,n}(t,x)-f_n^{\rm ind}(t,x)|\le3b_n
+|f_{\rm Log,n}(t,x)-f_n^{\rm ind}(t,x)|\le3B_n
 \right\}\ge1-\delta.
 \tag{Logarithmic complete comparison}
 \]
 The event includes unseen and adaptively chosen inputs and the fitted
-endpoint. It matches a dense-pair upper certificate; it is neither a lower-
-bound comparison nor an \(n^{-1+o(1)}\) matched-reference theorem.
+endpoint. In addition, without using this analytic envelope, the same
+finite construction has error at most
+\(2b_n(\delta)+A_{\rm num}Yn^{-10}\) at confidence \(1-\delta\).
+The definition and full proof are in
+[the intrinsic comparison](#intrinsic-variability-comparison).
+The original explicit gates suffice for the additive statement.
+The eventual pure factor-three conclusion for \(m\ge2,Y>0\) inherits the
+lower theorem's unquantified onset; it is not a new explicit-width claim.
 
 The retained model uses at most a universal multiple of
 \[
@@ -9472,7 +9558,7 @@ training samples: its arbitrary-query step is forward RMS subtraction
 in the real operator tube. Its Gaussian extension then uses a real
 sphere net, a real compactified-time grid, and the real fitting tail.
 Thus the signed dense Lipschitz constant, its common extension center,
-and the whole-sphere/all-time certificate \(b_n\) are unchanged
+and the whole-sphere/all-time certificate \(B_n\) are unchanged
 when this finite-training event replaces the original qualitative
 source event. No analyticity or carrier maximum at passive complex
 queries is a hypothesis of that comparison. This explicitly closes
@@ -10607,9 +10693,9 @@ queries may be chosen after inspecting the retained model and previous
 answers. Their dependence creates no new union bound or posterior premise.
 
 The resulting comparison with the independent dense reference is
-\(2b_n+A_{\rm num}Yn^{-10}\), with \(A_{\rm num}\) an absolute
-allocated constant. Its explicit mesh coefficient gives \(b_n\ge32Y/n\),
-so the stated numerical gate absorbs the remainder into \(3b_n\).
+\(2B_n+A_{\rm num}Yn^{-10}\), with \(A_{\rm num}\) an absolute
+allocated constant. Its explicit mesh coefficient gives \(B_n\ge32Y/n\),
+so the stated numerical gate absorbs the remainder into \(3B_n\).
 The centers and source events used in this argument are proof objects;
 the retained model never receives them or any unknown test label.
 
@@ -10702,8 +10788,9 @@ Training is causal scalar acquisition. Querying does not advance training.
 The numerical finite source approximates dense gradient flow; it is not
 asserted itself to fit exactly. The comparison remains to an independent
 dense reference over the whole sphere, all physical times and the fitted
-endpoint, and matches the upper certificate rather than the discrepancy
-lower bound.
+endpoint. The analytic upper certificate remains an absolute guarantee.
+The same finite construction also supports the intrinsic-quantile
+comparison proved below, with the original numerical remainder.
 <!-- decoder-construction:end -->
 
 #### A short seed preserves the finite source transcript
@@ -10780,7 +10867,7 @@ Choose one common precision schedule for the source and the appended query.
 The finite coupling and the physical forward recurrence then put one complete
 member, at every fixed input/time code, within
 \[
-b_n+A_{\rm num}Yn^{-10}
+B_n+A_{\rm num}Yn^{-10}
 \]
 of the deterministic dense proof center with bad probability at most
 \(1/16\). This probability already includes failure of the member's entire
@@ -10801,9 +10888,9 @@ the codes, followed by the physical space/time modulus and the frozen fitted
 tail, gives
 \[
 \|f_{\rm Log,n}-f_n^{\rm ind}\|_*
-\le2b_n+A_{\rm num}Yn^{-10}.
+\le2B_n+A_{\rm num}Yn^{-10}.
 \]
-The explicit mesh term satisfies \(b_n\ge32Y/n\). Hence the numerical gate
+The explicit mesh term satisfies \(B_n\ge32Y/n\). Hence the numerical gate
 \(n\ge(A_{\rm num}/32)^{1/9}\) absorbs the last term and proves
 (Logarithmic complete comparison). This also proves the statement for a
 query chosen adaptively after seeing the retained model, because the final
@@ -10864,8 +10951,8 @@ outer logarithm, in numerical words. Multiplying by the word length adds one
 power of \(Z\) in bits. It does not turn the bit bound into a sixth-power
 claim.
 
-Finally, for fixed problem parameters \(b_n=n^{-1/2+o(1)}\). Thus the
-smallest admissible reference width satisfying \(3b_n\le\varepsilon\) is
+Finally, for fixed problem parameters \(B_n=n^{-1/2+o(1)}\). Thus the
+smallest admissible reference width satisfying \(3B_n\le\varepsilon\) is
 \(n=\varepsilon^{-2+o(1)}\). Substitution in the word count proves the
 inverse logarithmic-storage statement. There is no order \(q\) to optimize,
 and no conclusion that the decoder error is negligible relative to the
@@ -11329,6 +11416,491 @@ finite Gaussian-RMS gate. This includes field counts and external
 codes, not just word length. Zero labels use the exact zero branch.
 <!-- decoder-backend:end -->
 
+
+<a id="intrinsic-variability-comparison"></a>
+### Actual dense variability: the decoder comparison
+
+The conclusion is
+
+\[
+\Pr\!\left\{\|f_{\rm Log,n}-f_n^{\rm ind}\|_*
+ \le 2b_n(\delta)+A_{\rm num}Yn^{-10}\right\}\ge1-\delta,
+\qquad
+b_n(\delta)=\inf\!\left\{b\ge0:
+ \Pr(\|f_n-\widetilde f_n\|_*\le b)\ge1-\delta/32\right\}.
+\tag{VD.1}
+\]
+
+Here the two dense trajectories in the definition are independent, ordinary
+width-\(n\) dense runs. Thus \(b_n(\delta)\) is an actual variability
+quantile, with confidence fixed as width changes. It is not an analytic
+upper certificate. Neither this quantile nor the deterministic center used
+in the proof is an input to the implemented decoder.
+
+The additive numerical term is necessary in the original admissible class.
+In particular the former argument using \(b_n\ge32Y/n\) cannot be reused
+after changing the definition of \(b_n\). A verified example below has
+positive labels and zero actual dense variability.
+
+#### Setup and precise statement
+
+Use the original dense architecture and normalization. For
+\(v=x/\sqrt d\in\mathbb S^{d-1}\), its forward pass is
+
+\[
+z^{(1)}=Av,\qquad z^{(j)}=W^{(j)}h^{(j-1)},\qquad
+h^{(j)}=\phi_j(z^{(j)}),\qquad f_n=w^\top h^{(L)}/n.
+\]
+
+The initial entries of \(A\) are independent \(N(0,1)\), those of
+each hidden mixer are independent \(N(0,1/n)\), all blocks are independent,
+and \(w(0)=0\). Gradient flow minimizes
+\(m^{-1}\sum_a(f_n(x_a)-y_a)^2\) with mobilities
+\((n,1,\ldots,1,n)\). Set \(Y=\|y\|_2/\sqrt m\),
+\(\lambda=\gamma/m\), where \(\gamma>0\) is the minimum
+eigenvalue of the last-layer population uncentered feature second-moment matrix.
+
+Retain all original decoder assumptions: analytic activations with the
+stated strip and derivative bounds, \(L\ge2\), normalized inputs,
+\(m\ge d\), spanning training inputs, and the entire original common
+label interval. In particular no new label cap, covariance nonsingularity,
+or actual-variability lower bound is assumed. Fix \(0<\delta<1/4\).
+Keep the existing decoder orders, complete explicit enclosing width gate
+(or its stated factorized alternative with all physical and implementation
+gates), finite-word interfaces, and numerical error allocation. For the
+clean branch use \(nY\ge1\). The small-label extension is recorded below.
+
+The norm remains
+
+\[
+\|f-g\|_*=
+\sup_{t\in[0,\infty]}\sup_{\|x\|_2=\sqrt d}|f(t,x)-g(t,x)|,
+\]
+
+including the fitted endpoint. To define a quantile before restricting to a
+success event, assign discrepancy \(+\infty\) if either trajectory lacks
+a complete trajectory with the uniform fitted limit required by this norm.
+For every pair where these objects exist, use its actual discrepancy,
+including pairs outside the proof's source-good event. This convention
+does not condition or truncate the dense law and changes no success claim.
+On successful trajectories, continuity and the uniform tail make the
+supremum measurable by a countable dense set of finite times and inputs.
+
+Under these assumptions (VD.1) holds for the existing decoder. In fact the
+proof below bounds its failure by \(3\delta/16\), leaving unused budget
+for a joint statement. The decoder is independent of the comparison dense
+run. Its event covers all times, all sphere inputs, the endpoint, and inputs
+selected after inspecting the model or earlier answers.
+
+#### A regular deterministic center exists at the actual quantile
+
+Write \(\alpha=\delta/32\), and let \(F,F'\) denote independent
+dense trajectories. The finite training-source theorem with reference
+failure \(\rho_{\rm ref}=2^{-20}\delta\) supplies a regularity
+event \(E_{\rm ref}\) of probability at least
+\(1-\rho_{\rm ref}\). Its physical consequences include global fitting,
+the real operator and all-sphere feature bounds, and the uniform endpoint
+tail. The usual readout and feature estimates give
+
+\[
+\sup_{t,x}|F(t,x)|
+ \le (2Y/\sqrt\lambda)(2H_D)=4YH_D/\sqrt\lambda
+\quad\hbox{on }E_{\rm ref},
+\]
+
+where \(H_D\) is the existing dense population feature RMS envelope.
+Consequently
+
+\[
+\Pr\{\|F-F'\|_*\le8YH_D/\sqrt\lambda\}
+ \ge1-2\rho_{\rm ref}>1-\alpha.
+\]
+
+The quantile \(b=b_n(\delta)\) is therefore finite without using any
+dense concentration rate. By continuity of probability along decreasing
+events, its definition implies
+\(\Pr\{\|F-F'\|_*>b\}\le\alpha\), including when \(b=0\).
+
+For each deterministic dense trajectory \(f\), define the ball failure
+
+\[
+a(f)=\Pr\{\|F-f\|_*>b\}.
+\]
+
+Fubini's theorem gives \(\mathbb E[a(F')]
+=\Pr\{\|F-F'\|_*>b\}\le\alpha\).
+Markov's inequality yields \(\Pr\{a(F')>2\alpha\}\le1/2\).
+Since \(\Pr(E_{\rm ref})>1/2\), there exists a realization
+\(F'=f_{\rm c}\) in \(E_{\rm ref}\) with
+
+\[
+\Pr\{\|F-f_{\rm c}\|_*>b\}\le2\alpha=\delta/16<1/64.
+\tag{VD.2}
+\]
+
+Fix this realization for the proof. The center \(f_{\rm c}\) inherits
+the physical input and normalized-time moduli (FC.57)--(FC.58) and the
+fitting tail. These are deterministic bounds with precisely the coefficients
+already used in the decoder grid. Choosing a regular center is essential:
+an arbitrary center obtained from averaging would not automatically have
+these moduli. No algorithm locates, stores, or evaluates \(f_{\rm c}\).
+
+#### The finite law certificate transfers each fixed-code test
+
+Fix an external input/time code \(c\). It specifies an input on the
+sphere and a time in an acquired panel, or the frozen-tail time. The
+existing finite source law has the following sufficient interface:
+
+1. Run the source only through the code's acquired training prefix and
+   append the reserved passive-query calls. At this fixed code the iid
+   finite program can be coupled to one ordinary Gaussian dense
+   initialization. On its physical source, sampler, coupling, and raw-noise
+   events, its scalar prediction differs from that dense prediction by
+   at most \(e_{\rm loc}\), an allocated multiple of \(Yn^{-10}\).
+2. The source-plus-query scalar transcript has \(O(R^2w)\) bits, and
+   its one-pass candidate verifier has \(O(R^2w)\) between-row bits.
+   With inner error \(\varepsilon_{\rm in}=1/64\), its law under the
+   short seed differs from the iid transcript law by at most that total
+   variation. In particular this holds for any fixed success interval
+   of its final scalar answer.
+3. Literal selected-metric replay fails with probability at most
+   \(2^{-12}\), also after replacing iid packets by the short seed.
+   It only requires the separate fresh scalar marks to remain independent
+   of the packet array. It does not require independence among packets.
+
+These interfaces are proved in FC Sections 3--7 and its final transcript
+inventory, and WB Section A. Their derivations matter here. The complete
+Gaussian matrix call has the joint shadow augmentation (FC.39)--(FC.41);
+conditioning only at complete-call boundaries preserves the two-orientation
+posterior. Old and new moments use the same pre-setup precision. The
+unseen-query contractions (FC.54)--(FC.55) are exact empirical reductions,
+and the complete covariance correction is retained. Thus no population
+replacement bias enters \(e_{\rm loc}\).
+
+The private metric is excluded from the Gaussian posterior filtration.
+One first transfers the virtual source transcript and then uses literal
+replay to identify the compact prefix. Revealing the completed source's
+future answers before the passive call, or asking for total variation of
+the metric together with an entire dense path, would not be justified by
+the certificate and is unnecessary here.
+
+By (VD.2), the coupled physical dense answer is within \(b\) of
+\(f_{\rm c}(c)\), except with probability at most \(\delta/16\).
+This follows from a ball event for that coupled dense marginal; it does not
+require the same coupling for two different codes. Apply transcript total
+variation to the fixed interval
+
+\[
+I_c=[f_{\rm c}(c)-b-e_{\rm loc},
+     f_{\rm c}(c)+b+e_{\rm loc}].
+\]
+
+The probability that one seeded, selected, complete member returns a value
+outside \(I_c\) is at most
+
+\[
+\frac{\delta}{16}+\frac1{64}
++\underbrace{\left(2^{-20}+2^{-20}
++2^{-26}+2^{-29}+2^{-12}\right)}_{<1/1024}
+<\frac1{16}.
+\tag{VD.3}
+\]
+
+The five bracketed allocations are source failure, raw-noise RMS failure,
+chronological Gaussian coupling failure, finite sampler failure, and metric
+replay failure. All are unconditional complete-experiment failures. No
+common unamplified source event is imposed across members.
+
+The real endpoints of \(I_c\) cause no computational addition. The
+final scalar answer has a finite alphabet; membership in \(I_c\) is
+a fixed Boolean transition table in the proof test. WB Section A permits
+arbitrary deterministic within-block computation. The implemented decoder
+only computes the median and never tests membership in \(I_c\).
+
+#### Complete-member amplification and all-query transfer
+
+Let \(N_{\rm ext}\) be the finite external code count, with
+\(\log N_{\rm ext}\le C(d+1)Z\) as in (FC.60). Retain the
+existing smallest odd ensemble size
+
+\[
+J\ge\left\lceil\log_2(16N_{\rm ext}/\delta)\right\rceil.
+\]
+
+For independent complete members, if their median lies outside \(I_c\),
+at least \((J+1)/2\) members lie outside \(I_c\). Taking a union
+over such subsets and using (VD.3) gives the conservative bound
+
+\[
+\Pr\{\operatorname{median}_j G_j(c)\notin I_c\}
+ \le2^J(1/16)^{J/2}=2^{-J}
+ \le\delta/(16N_{\rm ext}).
+\]
+
+The outer generator fools this fixed-code bad-member-counter test with
+error at most \(\delta/(16N_{\rm ext})\). It needs only the
+already counted member workspace and counter between member blocks; no
+list of real center values is supplied to the actual model. A union over
+codes proves, with failure at most \(\delta/8\),
+
+\[
+|f_{\rm Log,n}(c)-f_{\rm c}(c)|\le b+e_{\rm loc}
+\quad\hbox{for every external code }c.
+\tag{VD.4}
+\]
+
+The decoder answers an arbitrary query through one of the existing
+qualifying codes. The physical regularity of \(f_{\rm c}\), the
+space/time mesh, and the frozen tail give
+
+\[
+|f_{\rm c}(t,x)-f_{\rm c}(c)|\le e_{\rm mesh}+e_{\rm tail}.
+\]
+
+This holds also for \(t=\infty\), and for either permitted acquired
+panel at a boundary. By the pre-existing numerical allocations,
+\(e_{\rm loc}+e_{\rm mesh}+e_{\rm tail}
+\le A_{\rm num}Yn^{-10}\). Therefore (VD.4) implies
+
+\[
+\|f_{\rm Log,n}-f_{\rm c}\|_*
+ \le b+A_{\rm num}Yn^{-10}.
+\]
+
+An independent dense reference satisfies
+\(\|f_n^{\rm ind}-f_{\rm c}\|_*\le b\) except with probability
+\(\delta/16\), by (VD.2). The triangle inequality and union bound
+give (VD.1), with total failure at most
+\(\delta/8+\delta/16=3\delta/16<\delta\).
+No full-process coupling of a finite member to a dense path, and no
+total-variation statement for an infinite family of queries, has been used.
+Adaptively chosen queries are covered because (VD.4) is simultaneous before
+any query is selected.
+
+#### Resources, confidence, and boundary cases
+
+All implemented orders remain those of the existing construction:
+
+\[
+R\le Cp\beta^{201L}(m+d+2)(1+m/\gamma)Z^{5/2},\qquad
+w\le C\beta^{110L}Z,\qquad J\le C(d+1)Z.
+\]
+
+Nothing in these choices depends on \(b_n(\delta)\) or on the chosen
+center. Thus the retained/live word count remains
+
+\[
+Cp^2\beta^{402L}(m+d+2)^2(1+m/\gamma)^2Z^6
+[d+1+\log(e+(d+1)Z)],
+\]
+
+the initialization work retains its \(1115L\) activation power and
+\(Z^{29/2}\) factor, the training work retains \(914L\) and
+\(Z^{12}\) times its displayed logarithm, and query work retains
+\(914L\) with \((L+1)nZ^{12}+Z^{14}\). Every interface cost and
+setup peak inventory in the original theorem remains charged. The old
+explicit width gates suffice; their numerical absorption gate can simply
+be retained even though this new proof does not use it to absorb the
+additive error.
+
+For \(0<nY<1\), use the existing enlarged orders, code counts, and
+Gaussian-RMS gate (FC.61)--(FC.62), replacing \(Z\) everywhere by
+\(Z+\log(1/(nY))\). The same argument and error formula apply.
+For \(Y=0\), all dense and compressed predictions are identically zero,
+so the quantile and the error are exactly zero.
+
+If a benchmark instead uses one universal failure level
+\(0<\alpha_0\le1/128\), independent of both \(n\) and the requested
+\(\delta\), the same center argument gives a dense-ball failure
+at most \(2\alpha_0\). Assuming that quantile is finite, the unchanged
+amplification gives success at least
+\(1-2\alpha_0-\delta/8\), not arbitrary \(1-\delta\).
+A fixed universal quantile cannot support arbitrarily high confidence for
+an independent target without additional tail information. In (VD.1), the
+confidence level \(\delta/32\) is fixed in width and is explicit.
+
+The nonzero-label zero-variability case is admissible. Take
+\(m=d=1\), \(x_1=1\), \(L\ge2\), and
+\(\phi_j(z)\equiv1\). Then \(Q^{(L)}=[1]\), \(\gamma=1\),
+the input spans, and a sufficiently small nonzero label satisfies the full
+original allowance. All hidden gradients vanish, while
+
+\[
+\dot w_i=-2(f_n-y),\qquad
+\dot f_n=-2(f_n-y),\qquad
+f_n(t)=y(1-e^{-2t}).
+\]
+
+Every dense realization is the same nonconstant path, so
+\(b_n(\delta)=0\). The prescribed finite time-code decoder has finitely
+many scalar output values through its finite horizon and cannot equal this
+nonconstant continuous function at every time. A pure bound
+\(C b_n(\delta)\) would require exact equality and is therefore false
+for this decoder over the complete original admissible class.
+
+Whenever a separately justified lower bound gives
+\(b_n(\delta)\ge A_{\rm num}Yn^{-10}\), (VD.1) does imply
+the pure factor-three bound. The existing actual-trajectory lower theorem
+for fixed admissible problems with \(m\ge2\) and \(Y>0\)
+eventually supplies such domination: its
+\(cY\sqrt\gamma/(\sqrt n\log^{5/2}(en))\) lower scale dominates
+\(Yn^{-10}\). This consequence inherits that theorem's unquantified
+eventual width. It must not be substituted into the explicit finite decoder
+gate or asserted for the \(m=1\) case. Refining numerical precision
+to an arbitrary unknown quantile would instead introduce a new dependence
+on its scale and would require fresh resource accounting.
+
+
+<a id="joint-compression-headline-proof"></a>
+### Proof of the joint optimized-size headline theorem
+
+This subsection derives the paper's common comparison and chosen sizes
+from the complete certificates. Only in this subsection, \(c,C\) may
+depend on the fixed activations and depth. All confidence allocations
+below are fixed numerical values, and no dependence on \(m,n,d,\gamma\)
+is hidden in \(c,C\). Assume \(m/\gamma\ge1\), \(m\ge2\), and fixed
+\(Y>0\) in the common label interval. The paper uses the simpler shared
+subinterval \(Y\le c\gamma/m\). The full recurrence allowance implies
+\(Y\le1\), but is not used to trade powers of \(m/\gamma\).
+
+Let \(b_n=\inf\{b\ge0:\Pr(\|f_n-\widetilde f_n\|_*\le b)\ge0.9999\}\),
+the actual independent-dense discrepancy quantile.
+The source-good amplitude bound in the preceding proof makes it finite
+at qualifying widths. The dense lower theorem, used with failure
+\(1/200\), gives
+\[
+a_n=\frac{cY\sqrt\gamma}{\sqrt n[\log(en)]^{5/2}},
+\qquad \Pr(\|f_n-\widetilde f_n\|_*\ge a_n)\ge199/200.
+\tag{Joint lower quantile scale}
+\]
+If \(b<a_n\), then \(\Pr(\|f_n-\widetilde f_n\|_*\le b)\le1/200\),
+so such a \(b\) cannot attain confidence \(0.9999\). Consequently
+\(b_n\ge a_n\). Applying the dense upper theorem at failure \(10^{-4}\)
+also gives
+\[
+b_n\le CY(m/\gamma)^5\sqrt{d/n}\,
+\log(en)e^{\sqrt{\log(en)}}.
+\tag{Joint upper quantile scale}
+\]
+The factor \(1+m/\gamma\) has been replaced by at most \(2m/\gamma\).
+Both conclusions are eventual. These same lower and upper scales
+simultaneously bound a realized dense pair with probability at least
+\(1-1/200-10^{-4}=0.9949\). The upper inequality is not used to
+certify the decoder's intrinsic accuracy.
+
+For Legendre take the internal integer order
+\[
+q=\left\lceil C(m/\gamma)^3n^{1/4}
+[\log(en)]^2e^{\sqrt{\log(en)}/2}\right\rceil.
+\tag{Joint internal Legendre order}
+\]
+At fixed structural parameters, \(\log(eq)\le C\log(en)\) eventually.
+The all-order forward certificate therefore yields, at confidence at least
+\(99\%\),
+\[
+\begin{split}
+\|f_{\rm Leg,n,q}-f_n\|_*
+&\le CY(m/\gamma)^6
+\frac{\sqrt{\log(en)\log(eq)}}{q^2}e^{\sqrt{\log(en)}}\\
+&\le\frac{CY}{\sqrt n[\log(en)]^3}.
+\end{split}
+\tag{Joint Legendre accuracy}
+\]
+The ratio of this last bound to \(a_n\) is at most
+\(C/(\sqrt\gamma\sqrt{\log(en)})\), and hence is at most one eventually.
+The exact learned count is \(n(d+1)+1+2(L-1)mnq\). Substitution gives
+the stated \(Cm(m/\gamma)^3 n^{5/4}[\log(en)]^2
+e^{\sqrt{\log(en)}/2}\) bound, since the \(nd\) and rounding terms
+are absorbed at a sufficiently large width for each fixed problem.
+This absorption needs no assumption \(m\ge d\). The additional fixed
+inventory is exactly \((L-1)n^2\). The extra logarithmic accuracy margin
+retains the older negligible-relative-error theorem; no assertion that
+this logarithmic margin is minimal for the weaker constant-factor
+contract is made.
+
+For Harmonic use the exact inverse in
+[the supplied-budget theorem](#harmonic-variable-budget-theorem) at
+absolute target \(\varepsilon=Y/n\). The exact minimum/ceiling branches
+remain those of that theorem; no new branch is introduced here.
+At sufficiently large width, their sufficient order obeys
+\[
+q\le C(m+d)+
+\left(\frac C{\sqrt d}\right)^{d+1}
+(m/\gamma)^2[\log(en)]^{3d/2+1}.
+\tag{Joint internal Harmonic budget}
+\]
+This follows by inserting \(\varepsilon=Y/n\) in the full inverse
+logarithm, keeping \(Y\) fixed, and absorbing the fixed structural
+addends into \(\log(en)\) only after enlarging the eventual width.
+The exact rank envelope and factorial-elimination calculation below
+give the displayed \(d\) coefficient. In the original label-explicit
+rank coefficient, retaining \(Y\le1\) only enlarges this bound and does
+not lower its sample/gap exponent.
+The exact retained inventory is
+\(13(L+1)q^2+10m(d+1)\). Squaring the two sufficient budget terms,
+using \((u+v)^2\le2u^2+2v^2\), and absorbing the data inventory gives
+\[
+C(m+d)^2+
+\left(\frac Cd\right)^{d+1}(m/\gamma)^4
+[\log(en)]^{3d+2}.
+\tag{Joint Harmonic retained bound}
+\]
+Its certified error is at most \(Y/n\). Its ratio to \(a_n\) is at most
+\(C[\log(en)]^{5/2}/\sqrt{\gamma n}\), which tends to zero.
+The exact full-retention branch remains available at smaller widths;
+it does not alter the eventual statement.
+
+For Logarithmic use the existing finite construction at failure
+\(\delta=1/100\), with its internal orders and width gate unchanged.
+The fixed-quantile version of the preceding center proof applies with
+\(\alpha_0=10^{-4}\): the regular center has dense-ball failure at most
+\(2\alpha_0=1/5000\), and the median/code failure is at most
+\(\delta/8=1/800\). The single-member failure remains below \(1/16\).
+Hence
+\[
+\Pr\left\{\|f_{\rm Log,n}-f_n^{\rm ind}\|_*
+\le2b_n+A_{\rm num}Yn^{-10}\right\}
+\ge1-\frac1{5000}-\frac1{800}>0.99.
+\tag{Joint decoder confidence}
+\]
+The exact \(A_{\rm num}\) is the absolute coefficient of the original
+numerical allocation. Its ratio to the lower scale obeys
+\[
+\frac{A_{\rm num}Yn^{-10}}{a_n}
+=\frac{A_{\rm num}}{c\sqrt\gamma}\,
+n^{-19/2}[\log(en)]^{5/2}\longrightarrow0.
+\tag{Joint numerical absorption}
+\]
+It is thus at most \(b_n\) eventually, proving the same \(3b_n\)
+contract. No computed quantile, center values, or new precision rule
+is required. The extra eventual threshold is only for this pure
+multiplicative conclusion, not for (Joint decoder confidence).
+
+It remains to simplify its inventory without hiding structural powers.
+The explicit enclosing gate and fixed failure probability give
+\(Z\le C\log(en)\), \(p\le C\log(em)\), and \(nY\ge1\).
+The method's own \(m\ge d\), together with \(m/\gamma\ge1\), gives
+\(m+d+2\le4m\) and \(1+m/\gamma\le2m/\gamma\).
+Finally
+\[
+d+1+\log(e+(d+1)Z)
+\le C[d+\log\log(e^e+n)].
+\tag{Joint decoder logarithm}
+\]
+Indeed the logarithm splits into a numerical constant, \(\log(d+1)\)
+and \(\log(e+Z)\), with \(\log(d+1)\le d\).
+Inserting these inequalities in (Logarithmic retained words) yields
+the stated \(Cm^2(m/\gamma)^2[\log(em)]^2[\log(en)]^6
+[d+\log\log(e^e+n)]\) complete word bound. Word length is at most
+\(C\log(en)\). All ensemble members, seed levels, data, metrics, caches
+and live query workspace remain counted.
+
+These arguments establish the confidence claim for each construction.
+Taking smaller fixed numerical failure budgets would also give a joint
+event for any specified finite collection of them without changing any
+displayed order. They do not assert a uniform event over infinitely many
+widths. For \(Y=0\), the zero predictor is exact; for \(m=1\), use the
+additive intrinsic theorem rather than the nondegenerate lower argument.
 
 <a id="headline-corollary-proofs"></a>
 ### Derivation of the headline inverses and storage corollaries
@@ -16129,6 +16701,15 @@ They do not imply the logarithmic specializations [(Setup-I.37)](#eq-setup-i-37)
 <a id="integrated-audit"></a>
 ## IV. Audit, provenance and remaining limitations
 
+The current intrinsic-variability paper refinement is recorded in
+[PAPER_INTRINSIC_REVISION_CHECK.md](PAPER_INTRINSIC_REVISION_CHECK.md).
+It adds the complete center/median proof and the common prescribed-size
+theorem derivation, retaining the finite additive remainder and eventual
+absorption qualification. The candidate, its scoped internal check, and
+the headline substitution check are preserved separately. Earlier audit
+hashes below belong to their frozen checkpoints and are not retroactively
+claimed to cover the new proof.
+
 This is one results-and-proof document. Earlier within-study derivations
 remain provenance and review inputs, not additional instructions a reader
 must combine with this theorem. No maintained-book or paper promotion is
@@ -16388,8 +16969,10 @@ It is a transient all-trajectory lower bound, not a general fitted-endpoint
 lower bound. Optimal compression among arbitrary representations and
 sharp growing-data dependence remain open. Fixed-problem exponents are
 not uniform theorems for simultaneously growing structural parameters.
-The Logarithmic decoder matches the dense-pair upper certificate, not the
-realized dense discrepancy or an \(n^{-1+o(1)}\) matched-reference error. Its
+The Logarithmic decoder now meets a constant-factor actual dense-pair
+quantile benchmark, with an explicit additive numerical remainder before
+the eventual lower-bound onset. It does not promise a bound against every
+realized pair or an \(n^{-1+o(1)}\) matched-reference error. Its
 setup is offline, its query work remains linear in \(n\) up to logarithms,
 and its sixth-power statement is in variable-length numerical words; bit
 storage has one additional logarithmic precision factor. No fixed-machine-
