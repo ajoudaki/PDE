@@ -243,15 +243,19 @@ def frozen_predictions(dense, inputs, labels, queries, times):
 
 
 def validation_data(dimension, samples, queries, seed, device, task='toy', partition='test',
-                    raw_images=False, tuning_samples=64):
+                    raw_images=False, tuning_samples=64, digit_pair=(3, 8)):
     rng = np.random.default_rng(seed)
     if task == 'digits':
         from sklearn.datasets import load_digits
         from sklearn.model_selection import train_test_split
         from sklearn.decomposition import PCA
+        if (len(digit_pair) != 2 or len(set(digit_pair)) != 2
+                or any(not isinstance(v, (int, np.integer)) or not 0 <= v <= 9
+                       for v in digit_pair)):
+            raise ValueError('digit_pair must contain two distinct digits from 0 through 9')
         data, target = load_digits(return_X_y=True)
-        keep = (target == 3) | (target == 8)
-        data, target = data[keep], np.where(target[keep] == 3, -1., 1.)
+        keep = (target == digit_pair[0]) | (target == digit_pair[1])
+        data, target = data[keep], np.where(target[keep] == digit_pair[0], -1., 1.)
         indices, heldout = train_test_split(np.arange(len(target)), train_size=samples,
                                            stratify=target, random_state=seed)
         if tuning_samples:
@@ -2530,6 +2534,7 @@ def euler_fit_main(argv):
     parser.add_argument('--packet-width', type=int, default=256)
     parser.add_argument('--source-seed', type=int, default=40201)
     parser.add_argument('--seed', type=int, default=201)
+    parser.add_argument('--digits', type=int, nargs=2, default=(3, 8), metavar=('NEGATIVE', 'POSITIVE'))
     parser.add_argument('--step', type=float, default=.05)
     parser.add_argument('--dtype', choices=('float64', 'float32'), default='float64')
     parser.add_argument('--horizon', type=float)
@@ -2540,6 +2545,8 @@ def euler_fit_main(argv):
     args = parser.parse_args(argv)
     if args.width < 1 or not 0 < args.step <= .5 or args.max_horizon <= 0:
         parser.error('Positive width/horizon and 0 < step <= 0.5 are required')
+    if len(set(args.digits)) != 2 or any(not 0 <= v <= 9 for v in args.digits):
+        parser.error('--digits requires two distinct digits from 0 through 9')
     if not math.isclose(.5 / args.step, round(.5 / args.step), abs_tol=1e-9):
         parser.error('step must divide 0.5 for shared physical observation times')
     args.out.mkdir(parents=True, exist_ok=False)
@@ -2556,7 +2563,8 @@ def euler_fit_main(argv):
                   numpy=np.__version__, threads=torch.get_num_threads(),
                   device=torch.cuda.get_device_name(args.device) if args.device.startswith('cuda') else 'CPU',
                   method='ordinary Gaussian dense network; full-batch physical Euler',
-                  preprocessing='raw digits 3 versus 8, all 64 pixels, per-image normalization, no PCA',
+                  preprocessing=f'raw digits {args.digits[0]} versus {args.digits[1]}, '
+                                'all 64 pixels, per-image normalization, no PCA',
                   complete=False)
     save_json(args.out / 'report.json', report)
     if args.check_only:
@@ -2567,8 +2575,8 @@ def euler_fit_main(argv):
         save_json(args.out / 'report.json', report)
         print(json.dumps(report['checks']), flush=True)
         return
-    inputs, labels, queries, truth = validation_data(64, 100, 257, 47, args.device,
-                                                    'digits', 'test', True, 0)
+    inputs, labels, queries, truth = validation_data(64, 100, 0, 47, args.device,
+                                                    'digits', 'test', True, 0, args.digits)
     synchronize(inputs.device)
     setup_started = time.monotonic()
     if inputs.device.type == 'cuda':

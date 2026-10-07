@@ -722,3 +722,56 @@ For unit checks:
 /home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py euler-fit \
   --check-only --model bounded-packets --device cpu --out PATH/TO/FRESH/CHECKS
 ```
+
+### Frozen follow-up: two additional digit pairs (2026-10-08)
+
+Before generating the new model outcomes, freeze **1 versus 7** and **4 versus
+9**, raw 64-pixel inputs with per-image normalization, 100 training images
+and every remaining image for validation (261 for each pair), split seed 47.
+No PCA, validation-based order selection, initializer modification or pair
+replacement is permitted. These are additional datasets with three
+initialization replications each, not three independent data splits.
+
+For each base seed 201, 202, 203, use the same six configurations as above:
+width-4096 reference at the base seed, independent reference at base+10000,
+ordinary widths 256/512 at base+60000, and bounded packets at those same
+widths/base seeds with source width 4096 and source seed base+40000. Thus
+matched controls share the first-layer draw and have exactly equal weight
+counts. The packet initializer and both budgets are frozen from the 3/8
+experiment. This is the empirical, data-conditioned bounded packet model,
+**not** the certified Logarithmic decoder.
+
+Use full-batch Euler, float32 with TF32 disabled, common physical horizon
+100, and steps 0.0125 and 0.00625 for every model and seed. Every model must
+finish with training MSE below 0.01. If any model fails that training-only
+gate, extend the **whole affected digit pair**, including every seed and
+control, to horizon 150, then 200 if necessary and within the compute cap;
+retain the earlier results. Do not select a horizon using validation error.
+The refinement gate remains maximum recorded-time RMS change at most 0.001
+and at most 10% of the corresponding dense-pair maximum RMS. If needed,
+halve both comparison steps once more for the affected pair, budget permitting.
+An unresolved or unfitted run is reported as such, not omitted or relabeled.
+
+Primary outcome: whole-validation endpoint prediction RMS against each
+seed's large reference, reported for every seed and summarized by mean and
+sample standard deviation, with paired packet-versus-control win counts.
+Also report maximum recorded-time RMS (observations every 0.5 time unit),
+the dense-pair baseline, and all training/refinement gates. Do not interpret
+three initialization wins as a statistical guarantee or an asymptotic law.
+
+Numerical precision coverage is explicitly limited: at base seed 201, check
+all six models for each digit pair against float64 over the full selected
+horizon at coarse step 0.0125. Other seeds receive their own step-refinement
+checks but do not inherit a claim of per-initialization float64 coverage.
+If a precision check exceeds its wall-time cap, retain and report it as
+incomplete. Compare only completed, matching-horizon runs. Float64 checks
+are spot checks of this replication, not continuum-gradient-flow certificates.
+
+Use both GPUs, with at most one model process per GPU. Freeze a cap of 120
+model runs, 45 minutes cumulative setup-plus-integration time, 300 seconds
+per run, and 20 GiB allocated CUDA tensors per GPU. The planned base batch
+has 72 float32 runs plus 12 float64 checks. Conditional extensions/refinements
+must fit the remaining cap; otherwise report the qualification explicitly.
+Keep outputs under fresh `digit_replication_*` directories in the study's
+generated namespace. No theorem, headline asymptotic claim or paper figure
+is changed by this replication.
