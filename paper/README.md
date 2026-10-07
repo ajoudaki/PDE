@@ -79,17 +79,29 @@ The checked combined PDF is copied to `paper/main.pdf` for convenient reading.
 The static TeX sources, bibliography and included figures suffice to compile
 the manuscript; regenerating the appendix is not a build prerequisite.
 
-## Existing illustrations
+## Empirical validation
 
-Only `figures/trajectory.pdf` and `figures/circles_deep.pdf` are included.
-The first depicts recorded common-time Legendre predictions; the second
-compares individually fitted endpoints. Captions preserve the architecture,
-orders, query count and measurement qualifications. They are illustrations,
-not evidence for Harmonic or Logarithmic compression, confidence rates,
-continuous-time supremum bounds, or practical setup speedups.
+Fresh experiments implement Harmonic and an empirical finite-program
+Logarithmic decoder in the single script `figures/capture_trajectory.py`.
+The main paper includes their state/fidelity comparisons alongside the
+earlier common-time Legendre illustration. Dimension, embedded-digits and
+negative results appear in the empirical appendix; the older fitted-endpoint
+Legendre gallery is also retained there.
 
-This revision did not rerun training. Portable source bundles, capture
-commands and renderers are documented in [scripts/README.md](scripts/README.md)
-and [FIGURE_EXPERIMENT.md](FIGURE_EXPERIMENT.md). Other figures, old proof
-modules, notes and trial manuscripts are preserved but are not inputs to
-the rewritten paper. They are not alternative current theorem interfaces.
+The new experiments measure maximum recorded-time unseen-input RMS against
+an actual independent dense pair. They do not establish asymptotic exponents,
+continuous-time/sphere supremum bounds, confidence rates, or a setup speedup.
+Harmonic setup uses a full offline dense rollout. The empirical Logarithmic
+backend uses float64 and an ordinary counter PRNG, not the certified finite-bit
+backend. Source construction and query workspace are accounted for separately.
+Matched small networks sometimes do better, including on the digits task.
+
+`figures/compression_validation_source.json` preserves every pilot,
+confirmation, failure, configuration, source hash, timing and plotted curve
+available at export. The three `compression_*.pdf` figures can be regenerated
+from this bundle without the raw runs. Commands are in
+[scripts/README.md](scripts/README.md); the protocol and outcome accounting are
+in [the empirical study](../studies/compression_empirical_validation_20261007/README.md).
+[FIGURE_EXPERIMENT.md](FIGURE_EXPERIMENT.md) retains the historical figure record.
+Other figures, old proof modules, notes and trial manuscripts are preserved
+but are not alternative current theorem interfaces.

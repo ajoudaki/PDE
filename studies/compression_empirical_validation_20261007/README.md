@@ -205,3 +205,90 @@ also gets a total-payload-matched dense-network control, with common training
 data removed from both model budgets. This final planned batch raises the
 execution allowance to 400, including all references, refinements and setup
 programs; it adds no theorem search or open-ended tuning.
+
+### Final controls and real-data decoder check
+
+The moving-state-matched LoRA pilot compared mobility multipliers 0.25, 1 and
+4 at width 2048. Multiplier 0.25 had the best pilot fidelity and was frozen
+before confirmation seed 201. That confirmation has 313,344 moving LoRA
+scalars versus Harmonic's 315,481, with a further 4,194,304 fixed LoRA scalars.
+Its trajectory discrepancy is 7.51 dense-pair units versus Harmonic's 0.479.
+RK4 steps 0.01 and 0.005 resolve the comparison. This is one controlled
+factorization/optimizer comparison, not a lower bound for every low-rank model.
+
+A separate Logarithmic digits pilot uses eight training images, training-only
+PCA dimension five and horizon five. Ten panels fail the practical threshold
+(ratio 3.929); twenty panels of length 0.25 pass on the 64-image tuning split
+(ratio 1.989), but use 6,608,623 words versus 16,801,792 dense parameters.
+Freeze the latter setting, noise 0.01 and one member for one confirmation at
+seed 201 on all 285 held-out images. This is a separate small-data check, not
+the 32-training-image Harmonic task. No more tuning follows this confirmation.
+
+The initial twelve-real-execution allowance was exceeded: the accounting
+before the last confirmation already included 57 real-data executions
+(references, source programs and refinements included). This planning overrun
+is recorded explicitly; the later total campaign allowances superseded the
+initial split, and no individual real-data model is allowed over 300 seconds.
+
+## Final outcomes and publication selection
+
+No further tuning follows the final confirmation. The ledger contains 399
+recorded model/source executions under the accounting convention above,
+including 69 real-data executions and separate refinements. Recorded dense,
+Harmonic, small-network and LoRA solver work totals about 1,254 seconds;
+source assembly and Logarithmic work are additional and recorded separately.
+There are 52 report files, including check-only and failed/partial records;
+driver completion is distinct from every requested method completing.
+The failed d=10 twenty-panel decoder stopped at 120.08 seconds: the
+deadline is checked between numerical operations, not a hard process kill.
+
+| Frozen confirmation | State result | Fidelity result |
+|---|---|---|
+| Harmonic circle, three widths and three seeds | 11.7--11.8-fold model-tensor savings at n=4096 | All nine pass; ratios 0.159--1.617 |
+| Harmonic d=3,5,10, n=2048, one seed each | 0.63--0.76 million tensor scalars | Ratios 0.751, 0.937, 0.997 |
+| Harmonic digits, 32 training images, three seeds | About 4.6-fold tensor savings | Ratios 1.85--2.44; smaller MLP is better in all three |
+| Logarithmic d=5, three widths, five cases total | 688,220 persistent words; 24.4-fold saving at n=4096 | All five pass; ratios 0.909--1.781 |
+| Logarithmic d=3 and d=10, n=4096, one seed each | About 67-fold and 6.2-fold persistent savings | Ratios 1.84 and 1.26 |
+| Logarithmic circle, n=4096 | About 68-fold persistent saving | Fails: ratio 6.95 |
+| Logarithmic digits, eight training images, one seed | 6,608,623 words; 2.54-fold saving | Fails: ratio 4.94; matched MLP 3.02 |
+
+The real-data decoder's query envelope raises its numerical payload to
+11,052,846 words, with 67.9 seconds for source, metric, replay and all queries.
+Its favorable pilot did not carry over to held-out fidelity. That outcome is
+not hidden behind its 94.39% classification accuracy. The Harmonic digits
+task is separate (32 training images and PCA dimension eight): Harmonic and
+dense reach 97.32%, and one matched smaller MLP reaches 97.70%.
+
+The main figure pairs state and fidelity width curves for both methods. The
+appendix figure retains the dimension checks, real-data Harmonic curves and
+the failed circle decoder. The text reports the LoRA confirmation and real
+decoder failure. All pilot/confirmation/failed records, not just plotted
+successes, are exported to `paper/figures/compression_validation_source.json`.
+Its plots can be regenerated without the generated run folders using the
+single script's `plot-validation --bundle` mode.
+
+The evidence supports useful finite-width representations, not a verified
+logarithmic asymptotic or universal advantage over small MLPs. Frozen-NTK
+discrepancies and the resolved matched-moving-state LoRA failure distinguish
+the tested dynamics from those particular controls. Harmonic setup is
+teacher-informed and uses a full finite-horizon rollout; no cheap-warmup or
+end-to-end speedup is inferred from the smaller retained state. Numerical
+payload accounting is not Python/LAPACK process memory.
+
+Final algebra checks in `checks_final_01` pass: dense/LoRA RHS versus autograd,
+Harmonic paired metric and full-retention identities, isolated restart and
+query permutation, Logarithmic both-orientation Gaussian posterior, explicit
+fixed-matrix Euler update, row regeneration, causal replay and batched query
+equivalence. A separate scoped audit recomputed all 23 originally plotted
+confirmation metrics and accuracies from saved predictions with no mismatch;
+its plot-eligibility finding was fixed without dropping failed accuracy cases.
+These are internal implementation and measurement audits, not independent
+validation of the theoretical proof chain.
+
+Publication exports are in `figures_final_01`. Rerendering solely from the
+versioned JSON bundle in `portable_replot_01` produces byte-identical PNGs.
+The manuscript build in `paper_build_ByuJlC` has 199 pages and no final LaTeX
+warnings, unresolved references or overfull boxes. Main-text figure page 13,
+supplementary figure page 18 and the new empirical prose were visually checked;
+the checked PDF is copied to `paper/main.pdf`. The theorem modules and static
+proof appendix were not changed by this empirical integration.

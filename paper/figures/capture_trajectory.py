@@ -956,6 +956,8 @@ def validation_main(argv):
                     log_info['replay_passed'] and scale > 1e-14 and comparison['ratio_to_dense_pair'] <= 3.)
                 log_info['dense_variability_same_queries'] = variability
                 log_info['comparison'] = comparison
+                if args.task == 'digits':
+                    log_info['test_accuracy'] = float(np.mean(np.sign(log_prediction[-1]) == truth[:count].cpu().numpy()))
                 report['comparisons']['logarithmic'] = comparison
                 matched_budget = (log_info['retained']['numerical_words']
                                   - log_info['retained']['parts']['training_data'])
@@ -973,12 +975,15 @@ def validation_main(argv):
                         control_info['refinement_seconds'] = fine_info['seconds']
                         control_prediction = control_fine
                 control_info.update(width=width, target_model_words=matched_budget)
+                if args.task == 'digits':
+                    control_info['test_accuracy'] = float(np.mean(np.sign(control_prediction[-1]) == truth[:count].cpu().numpy()))
                 report['runs']['log_matched_dense'] = control_info
                 arrays['log_matched_dense'] = control_prediction
                 control_comparison = trajectory_rms(control_prediction, reference)
                 control_comparison['ratio_to_dense_pair'] = control_comparison['max_time_rms']/scale if scale > 1e-14 else None
                 report['comparisons']['log_matched_dense'] = control_comparison
             print(json.dumps(dict(event='logarithmic_probe', **log_info)), flush=True)
+        report['requested_methods_completed'] = bool(not args.log_probe or report['logarithmic_probe']['completed'])
         report['complete'] = True
     except Exception as error:
         report['failure'] = dict(type=type(error).__name__, message=str(error))
@@ -1843,19 +1848,22 @@ def validation_plot_main(argv):
     """Render only measured results; preserve every run in a portable ledger."""
     parser = argparse.ArgumentParser(description='Render empirical validation results')
     parser.add_argument('--root', type=Path, default=ROOT/'data/generated/compression_empirical_validation_20261007')
+    parser.add_argument('--bundle', type=Path, help='Portable report ledger; no raw run folders needed')
     parser.add_argument('--out', type=Path, required=True)
     args = parser.parse_args(argv)
     args.out.mkdir(parents=True, exist_ok=False)
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
-    from matplotlib.ticker import ScalarFormatter
 
     reports = {}
-    for path in sorted(args.root.glob('*/report.json')):
-        report = json.loads(path.read_text())
-        if 'config' in report:
-            reports[path.parent.name] = report
+    if args.bundle:
+        reports = json.loads(args.bundle.read_text())['reports']
+    else:
+        for path in sorted(args.root.glob('*/report.json')):
+            report = json.loads(path.read_text())
+            if 'config' in report:
+                reports[path.parent.name] = report
     save_json(args.out/'compression_validation_source.json', dict(
         scope='Finite-grid empirical results, not supremum/asymptotic/confidence certificates',
         inventory='Harmonic model tensors include metrics; Logarithmic numerical payload includes descriptors/caches',
@@ -1873,7 +1881,17 @@ def validation_plot_main(argv):
         fig.savefig(args.out/(name+'.png'), bbox_inches='tight', dpi=180)
         plt.close(fig)
 
-    circle = [r for name, r in reports.items() if name.startswith('confirm_circle_') and r['complete']]
+    def eligible(report, *models):
+        return (report.get('complete', False) and 'dense_variability' in report
+                and all(model in report.get('comparisons', {}) for model in models))
+
+    def log_eligible(report):
+        return (eligible(report, 'logarithmic', 'log_matched_dense', 'frozen_ntk')
+                and report.get('logarithmic_probe', {}).get('completed', False)
+                and report['config'].get('task') == 'toy')
+
+    circle = [r for name, r in reports.items() if name.startswith('confirm_circle_')
+              and eligible(r, 'harmonic', 'matched_dense', 'frozen_ntk')]
     if circle:
         fig, axes = plt.subplots(1, 2, figsize=(9.3, 3.25), layout='constrained')
         widths = sorted(set(r['config']['width'] for r in circle))
@@ -1897,16 +1915,63 @@ def validation_plot_main(argv):
             axis.set_xticks(widths, [str(n) for n in widths])
             axis.set_xlabel('Dense width n')
             axis.grid(axis='y', alpha=.16)
-        axes[0].set_title('(a) Unseen-input trajectory fidelity', loc='left')
+        axes[0].set_title('(a) Harmonic: unseen-input fidelity', loc='left')
         axes[0].set_ylabel('Maximum recorded-time RMS')
-        axes[0].legend(frameon=False, fontsize=8, loc='upper right')
-        axes[1].set_title('(b) Retained model tensors', loc='left')
+        axes[0].legend(frameon=False, fontsize=8, loc='center right')
+        axes[1].set_title('(b) Harmonic: retained model tensors', loc='left')
         axes[1].set_ylabel('Scalar entries')
         axes[1].legend(frameon=False, fontsize=8, loc='upper left')
         save(fig, 'compression_validation')
 
+    logarithmic_width = [r for name, r in reports.items() if name.startswith('confirm_log_d5_')
+                         and log_eligible(r)]
+    if logarithmic_width:
+        fig, axes = plt.subplots(1, 2, figsize=(9.3, 3.25), layout='constrained')
+        widths = sorted(set(r['config']['width'] for r in logarithmic_width))
+        for model in ('dense', 'logarithmic', 'log_matched_dense', 'frozen_ntk'):
+            groups = []
+            for width in widths:
+                group = []
+                for r in logarithmic_width:
+                    if r['config']['width'] != width:
+                        continue
+                    if model == 'dense':
+                        value = r['logarithmic_probe']['dense_variability_same_queries']['max_time_rms']
+                    else:
+                        value = r['comparisons'][model]['max_time_rms']
+                    group.append(value)
+                groups.append(group)
+            style = 'matched_dense' if model == 'log_matched_dense' else model
+            axes[0].plot(widths, [np.median(g) for g in groups], 'o-', color=colors[style],
+                         label=labels[style], ms=4, lw=1.6)
+            axes[0].fill_between(widths, [min(g) for g in groups], [max(g) for g in groups],
+                                 color=colors[style], alpha=.10, linewidth=0)
+        for name, key, color, line in (
+                ('Dense parameters', 'dense_parameter_words', colors['dense'], '-'),
+                ('Logarithmic retained payload', 'numerical_words', colors['logarithmic'], '-'),
+                ('Including query workspace envelope', 'retained_plus_query_word_envelope', colors['logarithmic'], ':')):
+            values = []
+            for width in widths:
+                group = [r['logarithmic_probe'] for r in logarithmic_width if r['config']['width'] == width]
+                values.append(np.median([g['retained'][key] if key == 'numerical_words' else g[key] for g in group]))
+            axes[1].plot(widths, values, marker='o', ls=line, color=color, label=name, ms=4, lw=1.6)
+        for axis in axes:
+            axis.set_xscale('log', base=2)
+            axis.set_yscale('log')
+            axis.set_xticks(widths, [str(n) for n in widths])
+            axis.set_xlabel('Dense width n')
+            axis.grid(axis='y', alpha=.16)
+        axes[0].set_title('(c) Logarithmic: unseen-input fidelity', loc='left')
+        axes[0].set_ylabel('Maximum recorded-time RMS')
+        axes[0].legend(frameon=False, fontsize=8, loc='center right')
+        axes[1].set_title('(d) Logarithmic: retained numerical words', loc='left')
+        axes[1].set_ylabel('64-bit numerical / index payload')
+        axes[1].legend(frameon=False, fontsize=8, loc='upper left')
+        save(fig, 'compression_logarithmic')
+
     fig, axes = plt.subplots(1, 3, figsize=(11.4, 3.25), layout='constrained')
-    sphere = [r for name, r in reports.items() if name.startswith('confirm_sphere_') and r['complete']]
+    sphere = [r for name, r in reports.items() if name.startswith('confirm_sphere_')
+              and eligible(r, 'harmonic', 'matched_dense', 'frozen_ntk')]
     sphere.sort(key=lambda r: r['config']['dimension'])
     for offset, model in zip((-.23, 0., .23), ('harmonic', 'matched_dense', 'frozen_ntk')):
         axes[0].bar(np.arange(len(sphere))+offset,
@@ -1920,38 +1985,41 @@ def validation_plot_main(argv):
     axes[0].set_title('(a) Sphere checks, n = 2048', loc='left')
     axes[0].legend(frameon=False, fontsize=7)
 
-    digits = [r for name, r in reports.items() if name.startswith('confirm_digits_') and r['complete']]
+    digits = [r for name, r in reports.items() if name.startswith('confirm_digits_')
+              and r['config'].get('task') == 'digits'
+              and eligible(r, 'harmonic', 'matched_dense', 'frozen_ntk')]
     if digits:
         times = np.asarray(digits[0]['times'])[1:]
         for model in ('dense', 'harmonic', 'matched_dense', 'frozen_ntk'):
             values = np.asarray([r['dense_variability']['curve'] if model == 'dense' else
                                  r['comparisons'][model]['curve'] for r in digits])[:, 1:]
-            axes[1].plot(times, np.median(values, axis=0), 'o-', color=colors[model], ms=3, lw=1.4)
+            axes[1].plot(times, np.median(values, axis=0), 'o-', color=colors[model], label=labels[model], ms=3, lw=1.4)
             axes[1].fill_between(times, values.min(axis=0), values.max(axis=0), color=colors[model], alpha=.1)
     axes[1].set_yscale('log')
     axes[1].set_xlabel('Physical training time')
     axes[1].set_ylabel('Unseen-image RMS versus dense')
     axes[1].set_title('(b) Embedded digits 3 versus 8', loc='left')
+    axes[1].legend(frameon=False, fontsize=6.5, loc='lower right')
 
-    logs = [r for name, r in reports.items() if name.startswith('confirm_log_') and
-            r.get('logarithmic_probe', {}).get('completed')]
+    logs = [r for name, r in reports.items() if name.startswith('confirm_log_') and log_eligible(r)]
     if not logs:
-        logs = [r for name, r in reports.items() if name.startswith('pilot_log_trajectory_') and
-                r.get('logarithmic_probe', {}).get('completed')]
-    for r in logs:
-        info = r['logarithmic_probe']
-        if 'comparison' not in info:
-            continue
-        x = info['retained']['numerical_words']/info['dense_parameter_words']
-        y = info['comparison']['ratio_to_dense_pair']
-        axes[2].scatter(x, y, color=colors['logarithmic'], s=30)
-        axes[2].annotate(f"d={r['config']['dimension']}, n={r['config']['width']}", (x, y),
-                          xytext=(5, 4), textcoords='offset points', fontsize=7)
-    axes[2].axvline(1, color='#555555', ls=':', lw=1)
+        logs = [r for name, r in reports.items() if name.startswith('pilot_log_trajectory_') and log_eligible(r)]
+    logs = [r for r in logs if r['config']['width'] == 4096]
+    dimensions = sorted(set(r['config']['dimension'] for r in logs))
+    for index, dimension in enumerate(dimensions):
+        group = [r['logarithmic_probe'] for r in logs if r['config']['dimension'] == dimension]
+        values = [g['comparison']['ratio_to_dense_pair'] for g in group]
+        middle = np.median(values)
+        axes[2].bar(index, middle, color=colors['logarithmic'], width=.6)
+        axes[2].errorbar(index, middle, yerr=[[middle-min(values)], [max(values)-middle]],
+                         color=colors['dense'], capsize=3, lw=1)
+        compression = np.median([g['dense_parameter_words']/g['retained']['numerical_words'] for g in group])
+        axes[2].text(index, max(values)*1.13, f'{compression:.0f}x smaller', ha='center', fontsize=7)
     axes[2].axhline(3, color='#555555', ls=':', lw=1)
-    axes[2].set_xscale('log')
     axes[2].set_yscale('log')
-    axes[2].set_xlabel('Retained words / dense parameters')
+    axes[2].set_xticks(range(len(dimensions)), [str(d) for d in dimensions])
+    axes[2].set_ylim(.5, 15)
+    axes[2].set_xlabel('Input dimension d (n = 4096)')
     axes[2].set_ylabel('Trajectory RMS / dense-pair RMS')
     axes[2].set_title('(c) Empirical Logarithmic decoder', loc='left')
     for axis in axes:
