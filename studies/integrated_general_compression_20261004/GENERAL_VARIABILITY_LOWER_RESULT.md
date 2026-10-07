@@ -1,5 +1,10 @@
 # General dense variability and compression below the actual variability
 
+**Interface correspondence (2026-10-05).** [RESULT.md](RESULT.md) gives
+the shared accuracy/storage interface and its full recurrence label
+allowance. The references below point directly to the current proofs.
+The lower theorem and its proof are unchanged.
+
 2026-10-04. Continuation requested by the user: integrate only the general
 lower results, retaining the activation, depth, input-geometry and small-label
 scope of the merged theorem. These are internal research results. The special
@@ -32,8 +37,8 @@ bounded first derivative there. Their values may be unbounded. No
 centering, oddness, input orthogonality, input-space rank condition,
 sign pattern, clipping, or extra nondegeneracy hypothesis is imposed.
 
-Use the existing common label condition (3) of
-[RESULT.md](RESULT.md). In particular the already checked simple
+Use the existing full common label allowance in
+[RESULT.md](RESULT.md), §6. In particular the already checked simple
 sufficient condition is
 \[
 0<Y\le\frac{\gamma}{m}\beta^{-30L},\qquad
@@ -42,8 +47,8 @@ sufficient condition is
 |\phi_\ell^{(j)}(z)|\right\}.
 \tag{1}
 \]
-The theorem also retains the larger recurrence-based allowance in
-RESULT.md; (1) is not a newly imposed restriction.
+The theorem also retains that larger recurrence-based allowance;
+(1) is not a newly imposed restriction.
 
 For every fixed \(0<\delta<1\), at every sufficiently large individual
 width, with probability at least \(1-\delta\),
@@ -175,12 +180,13 @@ The new lower bound can be compared with the sharper compression
 estimates already proved, rather than merely with the dense upper bound.
 Fix any one admissible task with \(m\ge2\).
 
-For the existing compact autonomous model, RESULT.md (6) gives
+For the existing compact autonomous model, the all-time conclusion of
+[COMPACT_FULL_LABEL_RANGE.md](COMPACT_FULL_LABEL_RANGE.md) gives
 \[
 \|f_C-f_n\|_*\le n^{-1+o(1)}.
 \]
-The fixed coefficients and its sharper full bound are explicitly defined
-in that equation; this line states only their width asymptotics. Consequently
+Its full bound retains the actual labels and polynomial task dependence;
+this line states only its fixed-task width asymptotics. Consequently
 \[
 \|f_C-f_n\|_*
 =o\!\left(\frac1{\sqrt n[\log(en)]^{5/2}}\right)
@@ -188,10 +194,11 @@ in that equation; this line states only their width asymptotics. Consequently
 on the existing source event. No change in the compact model or its
 retained-state count is required.
 
-For Legendre, let \(q_n\) be the explicit order in RESULT.md §4
+For Legendre, let \(q_n\) be the explicit order in
+[EXPLICIT_LEGENDRE_COMPARISON.md](EXPLICIT_LEGENDRE_COMPARISON.md), (6),
 under its full recurrence-based allowance. Under the simpler cap (1),
 use the sharper order in
-[SAMPLE_POLYNOMIAL_STATEMENT.md](SAMPLE_POLYNOMIAL_STATEMENT.md) (5).
+[LEGENDRE_SAMPLE_EXPONENT_REFINEMENT.md](LEGENDRE_SAMPLE_EXPONENT_REFINEMENT.md), (4).
 In either case choose
 \[
 q'_n=\left\lceil q_n[\log(en)]^{3/2}\right\rceil.

@@ -1,5 +1,12 @@
 # Dense comparison with polynomial sample dependence
 
+**Interface correspondence (2026-10-05).** [RESULT.md](RESULT.md),
+(dense upper), is this note's bound with `B=beta^(100L)` and
+the normalized gap `g=gamma/m` expanded. Its `E_dense(n)` is a certificate for an
+independent same-width dense copy, not an approximation to a population
+predictor. The local proof notation and numbered arguments below are
+unchanged; their small-label and eventual-width conditions remain required.
+
 2026-10-04. **Internally checked refinement.** A two-endpoint parameter
 energy identity removes the inverse-gap factor caused by feeding an
 integrated residual discrepancy back through scalar Gronwall. The remaining

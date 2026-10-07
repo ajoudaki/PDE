@@ -20,7 +20,13 @@ stochastic source and central-limit width thresholds unquantified.
 
 ## 1. Inputs and exact versions
 
-All files below are in this study. The first eight were read completely;
+The table records the reviewed snapshots under their original names;
+its hashes are not assertions about the edited current files. The former
+sample-polynomial statement was removed during consolidation. Its order
+formula is retained in [LEGENDRE_SAMPLE_EXPONENT_REFINEMENT.md](LEGENDRE_SAMPLE_EXPONENT_REFINEMENT.md),
+(4); the current shared allowance is in [RESULT.md](RESULT.md), §6.
+
+All inputs below belonged to this study. The first eight were read completely;
 the comparison statement was used for its setup and §§1–2, and RESULT was
 used for the common model, common allowance, and its raw compact comparison
 (6). No source outside the supervisor's explicit scope was fetched. The
@@ -39,7 +45,7 @@ review of that theorem's excluded source files.
 | SIMPLE_CONSTANTS_SOURCE_CHECK.md | `cc1096f354e38c97b5cab8fe2000323ca21811c9801a4a33a4c5dbaf0a08938a` |
 | GENERAL_EXPLICIT_FITTING.md | `5c6f12b78847a2b2874c5bc82eb1cea5f4929ee071b114d09b098397c5e2b8d6` |
 | LEGENDRE_SAMPLE_EXPONENT_REFINEMENT.md | `93f09aff3f97b13e0361494ce0c9c1ab89917e7dbef323216c850b6e2d96b8a4` |
-| SAMPLE_POLYNOMIAL_STATEMENT.md | `7e6a71ab6dcde97dcde66716165683a0bd9538a4c76496fb815d14f4ef9a8665` |
+| SAMPLE_POLYNOMIAL_STATEMENT.md (reviewed snapshot; removed) | `7e6a71ab6dcde97dcde66716165683a0bd9538a4c76496fb815d14f4ef9a8665` |
 | RESULT.md | `1e0b1ee589367c1ab9ea69d523f6fff7e58cfa04de12c828bf9f460dce2537ec` |
 
 ## 2. Source localization and the physical time factor

@@ -1,279 +1,247 @@
-# General dense, Legendre, and autonomous-compressor comparison
+# General dense, Legendre and Harmonic comparison
 
-Started 2026-10-04 at the user's explicit request for a **new study**.
-The user expressly authorizes borrowing relevant proofs, notes and arguments
-from all previous studies. That source-access authorization does not promote
-their claims or remove the need to verify interfaces and corrections.
+<!-- method-names:start -->
+The current method names are **Legendre compression** and **Harmonic
+compression**. The latter was previously called “compact”; the
+construction, notation for proof-local coefficients, and results are
+unchanged. Historical supporting notes and audit filenames retain their
+original names for traceability.
+<!-- method-names:end -->
 
-## Fixed research contract
+## Integrated accuracy theorem and setup extension
 
-The task is a merged general theorem for arbitrary fixed hidden depth
-L>=2, finite sphere training data with positive limiting top-feature Gram
-gap gamma, arbitrary signed fixed small labels, canonical Gaussian dense
-initialization with exactly zero readout, and the original mean-loss
-mobilities (n,1,...,1,n). Activations may differ across layers; they are real
-on R, holomorphic on a common strip, and have bounded derivative there.
-Their VALUES MAY BE UNBOUNDED. No orthogonality, special label pattern,
-clipping, frozen features, or additional unproved response hypothesis may
-replace this scope.
+[RESULT.md](RESULT.md) contains the complete current results and their
+proofs in four layers:
 
-The three comparisons are separate: compact autonomous versus its realized
-dense run, independent dense versus dense, and original residual-RMS-clock
-Legendre closure versus its realized dense run. All use equal physical
-time and the norm sup over t in [0,infinity], including fitted endpoints,
-and every query on ||x||=sqrt(d). Target rate is strict C/sqrt(n), with
-explicit data/activation/depth/dimension/confidence dependence. Near-root
-is not silently identified with root. The general Legendre order target is
-n^(1/4+o(1)); the special one-sixth theorem is unnecessary.
+1. Harmonized headline forward and inverse interfaces.
+2. Unsuppressed numerical statements, coefficient recurrences, exact
+   storage inventories, centralized label/width/confidence conditions,
+   and separately qualified initialization/training/query costs.
+3. All specialized proofs, including the shared source foundation and
+   compression construction dependencies and computational-cost derivations.
+4. Internal audit record, source provenance and explicit limitations.
 
-The compact retained-state target has depth-independent logarithmic power
-3d+2, actual label RMS Y visible in its size coefficient, and full accounting
-of moving state, fixed coefficients, metrics, data and caches. Legendre's
-moving and fixed-mixer storage must be reported separately. Improve
-constants separately when supported; do not force three equal prefactors.
+No other note is needed to assemble the mathematical theorem. Earlier
+within-study derivations remain provenance and frozen audit inputs, not
+competing results interfaces. This consolidation was requested by the user;
+the user also authorized inspection of only the specifically cited
+dependencies in closure_sampling_20261003 and
+dense_cutoff_population_rate_20261001. Their relevant arguments are now
+included in RESULT. The maintained book and paper are unchanged.
 
-The preceding conversation proposed numerical envelopes involving
-beta_partial^(-62L), beta_partial^(124L), and beta_partial^(82Ld).
-Those were explicitly labeled **conjectural benchmarks**, not proved
-unbounded-activation constants. Their validity is an obligation here, not
-an imported theorem. The same is true of the sharp unbounded source radii
-and strict-root independent-dense bound. No prior chat assertion is a proof.
+The two lower-cost setup methods are now integrated into RESULT, including
+their full supplied-order costs, deterministic order recipe and proofs:
+[explicit dense local continuation and exact implicit Gaussian execution](RESULT.md#harmonic-efficient-initialization).
+The original zero-time-jet initializer remains a valid alternative.
+[LOCAL_SETUP_RESULT.md](LOCAL_SETUP_RESULT.md) and
+[IMPLICIT_SETUP_RESULT.md](IMPLICIT_SETUP_RESULT.md) are supporting synthesis
+and audit inputs, not additional results a reader must assemble. The implicit
+method has the same joint dense/compressed law as the explicit finite local
+initializer, not necessarily the same finite coefficients as the older
+zero-time-jet program. Both preserve the existing accuracy/storage theorem.
 
-Supporting tasks are bounded: reuse or derive an easy initialized/early-time
-dense lower calibration, then obtain epsilon/state corollaries algebraically.
-Do not spend the main effort on special cases or endpoint lower bounds.
-Do not start an experimental campaign. Do not edit the manuscript or book.
+## Scientific contract
 
-## Work and source ownership
+The theorem covers arbitrary fixed hidden depth at least two, general
+fixed sphere data with positive unweighted initialized feature-Gram gap,
+arbitrary signed small labels, independent Gaussian initialization with
+exactly zero readout, mean squared loss, and mobilities
+\((n,1,\ldots,1,n)\). Activations are strip-analytic with bounded first
+derivative; their values may be unbounded.
 
-Coordinator owns this README, the canonical merged statement and proof
-assembly, deterministic general fitting/constants, and final checks.
-Scoped agents own disjoint files for the general independent-dense bridge,
-sharp unbounded analytic-source/runtime bridge, and general Legendre
-constants transfer. Their source scopes and exact coverage will be recorded
-with their reports. All source claims remain internally checked research
-unless separately promoted by the established workflow.
+Every comparison uses equal physical time, the complete trajectory
+including fitted limits, and the whole input sphere. The full original
+recurrence label allowance is preserved, alongside its simpler sufficient
+activation-power specialization. Structural parameters remain distinct.
 
-Initial source chain: closure_sampling_20261003 (general analytic compressor,
-unbounded extension, spherical/source/runtime refinements, integrated
-variability notes) and dense_cutoff_population_rate_20261001 (general
-small-label joint budgets, tracking and self-averaging). Other studies may
-be used when they supply an actual needed proof, under the user's new
-authorization. Avoid broad unrelated reading.
+The forward interface takes dense width and model order/budget as inputs.
+Legendre permits every positive integer order. Harmonic takes a supplied
+per-layer neuron budget, has a decreasing error certificate with no floor,
+and retains exact-initialization overhead. Full-width Harmonic selection
+is exactly dense. The inverse interface takes accuracy and confidence as
+inputs and chooses dense width or compressed order; its prescriptions are
+sufficient certificate inversions, not minimax optimality claims.
 
-## Repository state and current status
+Harmonic means the corrected-readout autonomous optimizer, not ordinary
+gradient flow on an arbitrary smaller network. Finite initial or local jets,
+quadratures, source degrees, continuation states, matrix-action transcripts
+and original-width arrays are setup objects,
+not additional retained runtime orders. The original initializer does not
+use a dense rollout. The new local-continuation initializer computes a
+disposable reference with all work charged; it does not assume an observed
+trajectory for free. Its implicit execution uses exact adaptive Gaussian
+actions and factored numerical increments instead of hidden dense arrays.
+Every version initializes the final compressed model at original time zero.
 
-Startup HEAD: 4dfa5c1ef2c5b920eda2bbc84316b189b97da92e. Index empty.
-Preexisting tracked changes to paper/main.pdf and
-studies/structured_full_rank_scalar_20260926/README.md are not ours.
-Numerous existing untracked studies are preserved. No Git mutation.
+Storage counts real coordinates. Legendre's moving state and fixed
+quadratic mixers are reported separately. Harmonic's all-retained inventory
+includes metrics, fixed copies, data and specified solve caches.
+Storage alone does not bound preprocessing or runtime. The separate
+[computational-cost interface](RESULT.md#computational-costs) now gives
+arithmetic work and peak memory for warmup, a full-batch training stage,
+and a single inference-ready query. Query memory is additional workspace;
+warmup/training memory is total resident peak. Fixed-stage numerical steps,
+activation routines, Gaussian sampling and readout-cache refresh are
+qualified explicitly. Accuracy of subsequent numerical training and bit
+complexity remain outside those cost tables. The integrated local-continuation
+setup proof supplies its own numerical defect bounds in exact arithmetic;
+finite-precision stability and accuracy of later compressed training steps
+remain separate.
 
-## Results and current proof boundary
+The forward cost interface uses supplied orders only. Harmonic warmup
+exposes the initial-jet order, temporal and spatial degrees, both
+quadrature node counts, source rank, and activation-series backend.
+Factored jets, streamed projections and matrix-free update-Gram actions
+avoid unnecessary dense derivative tensors and cubic hidden-matrix
+operations. The inverse tables use the actual setup orders for a general
+inverse budget. Their simplified accuracy-to-cost corollary uses a sufficient
+stronger-accuracy Harmonic budget with the same logarithmic storage order,
+not necessarily the least integer budget in the inverse formula. No
+polylogarithmic warmup theorem is claimed.
+The local initializer proves near-quadratic warmup with explicit reference
+matrices, and its exact implicit-reference execution proves near-linear warmup.
+Retained runtime storage remains polylogarithmic at fixed structural parameters.
 
-The latest request is to integrate **only general** lower results into
-the common theorem. This is done in
-[RESULT.md](RESULT.md) §6 and
-[SAMPLE_POLYNOMIAL_STATEMENT.md](SAMPLE_POLYNOMIAL_STATEMENT.md) §6.
-The complete new statement is
-[GENERAL_VARIABILITY_LOWER_RESULT.md](GENERAL_VARIABILITY_LOWER_RESULT.md).
-For every fixed admissible dataset with \(m\ge2\), arbitrary nonzero
-signed labels in the existing allowance, arbitrary fixed depth and the
-same possibly unbounded analytic activation class, the common trajectory
-norm is at least
-\(c_{\phi,L,\delta}Y\sqrt\gamma/[\sqrt n\,\log(en)^{5/2}]\)
-with any fixed eventual confidence. No orthogonality, centered covariance
-gap or additional variance hypothesis is needed. The recurrence-based
-label allowance is retained; the simpler beta cap makes its coefficient
-particularly explicit.
+## Headline consequences
 
-The key new moment inequality is distribution-free:
-\(\operatorname{tr}\operatorname{Cov}(H(y^\top H))
-\ge\gamma^3q_L\|y\|^2/(16\mu_4)\).
-Positive uncentered feature rank prevents every label-weighted feature
-product from being deterministic. The initialized Gram CLT then supplies
-onset variability. A rerun of the source proof for a finite query set
-removes the spatial mesh factor from its complex-time radius. A
-Chebyshev derivative inequality converts onset into an actual-prediction
-lower bound, preserving the physical training timescale.
+Dense-copy variability has an upper width rate \(n^{-1/2+o(1)}\) and,
+for at least two samples and nonzero labels, a general lower rate
+\(n^{-1/2}\log(en)^{-5/2}\). The lower witness is an actual early-time
+prediction difference, not a fitted-endpoint lower bound.
 
-The unchanged compact model already has error smaller than this
-lower scale. Legendre does too after multiplying the latest order by
-\(\log(en)^{3/2}\); its moving-state exponent stays \(5/4+o(1)\).
-For each fixed admissible task, both compression-error / actual-dense-
-discrepancy ratios tend to zero in probability in the same all-time,
-whole-sphere norm. This calibrates the compression against actual
-variability, without relying solely on its upper bound.
+At root-width accuracy, Legendre uses \(n^{5/4+o(1)}\) moving coordinates
+in addition to fixed quadratic mixers. Harmonic retains
+\(O(\log(en)^{3d+2})\) real coordinates, and can achieve
+\(n^{-1+o(1)}\) error with that same qualitative storage order.
+The Harmonic error amplification has only numerical coefficients inside
+its growing exponential; sample/gap and activation-depth factors remain
+polynomial outside it.
 
-Proofs: [GENERAL_INNOVATION_LOWER.md](GENERAL_INNOVATION_LOWER.md),
-[GENERAL_ONSET_NONDEGENERACY.md](GENERAL_ONSET_NONDEGENERACY.md), and
-[GENERAL_TRAJECTORY_LOWER_BRIDGE.md](GENERAL_TRAJECTORY_LOWER_BRIDGE.md).
-The quantitative moment argument was reconstructed separately by two
-scoped agents; the trajectory bridge has a separate
-[internal check](GENERAL_TRAJECTORY_LOWER_BRIDGE_CHECK.md).
-The coordinator owns the integration and final
-[consistency check](GENERAL_VARIABILITY_LOWER_CHECK.md).
-These are internal checks, not promotion reviews.
+At a common reference width chosen for accuracy \(\varepsilon\), the
+fixed-problem sufficient learned-storage rates are
+\(\varepsilon^{-4+o(1)}\) for dense,
+\(\varepsilon^{-5/2+o(1)}\) for Legendre, and
+\(O(\log(1/\varepsilon)^{3d+2})\) for Harmonic.
+RESULT retains the full separate structural factors and qualifications.
+At these inverse choices, fixed dense mixers still dominate Legendre's
+total arithmetic and peak resident storage. Harmonic's per-stage and
+inference arithmetic has the same polylogarithmic order as its retained
+storage under the stated scalar-evaluation convention. With the sufficient
+stronger-accuracy setup recipe, its explicit setup work and peak memory are
+\(\varepsilon^{-4+o(1)}\), and its implicit setup work and peak memory are
+\(\varepsilon^{-2+o(1)}\). Full finite costs expose every setup resolution.
 
-The lower witness is at a training input at a positive time that can
-shrink with width; no general endpoint lower is proved. The upper and
-lower width exponents agree, but sharp sample, conditioning and dimension
-dependence remains open. One-sample deterministic exceptions and zero
-labels are expressly excluded from the positive statement. Width
-thresholds are not effective, and no joint growing-data limit is asserted.
-No experiment, manuscript/book edit, or Git-index mutation was made.
+## Fresh internal audits
 
-The preceding, separately scoped endpoint investigation is retained in
-[ENDPOINT_LOWER_RESULT.md](ENDPOINT_LOWER_RESULT.md). It contains actual
-fixed-label fitted-endpoint results, beyond the earlier onset derivative:
+| Assigned scope | Report |
+|---|---|
+| Dense fitting, comparison, variability, confidence and inversion | [Dense](INTEGRATED_DENSE_AUDIT.md) |
+| Shared source, Legendre and all-time extension | [Source/Legendre](INTEGRATED_SOURCE_LEGENDRE_AUDIT.md) |
+| Harmonic construction, cancellation, supplied-budget and inverse bounds | [Harmonic](INTEGRATED_COMPACT_AUDIT.md) |
+| Final headline/exact/proof interfaces | [Assembly](INTEGRATED_ASSEMBLY_AUDIT.md) |
 
-- Two tanh hidden layers, general correlated training data spanning a
-  proper input subspace: at any fixed orthogonal unseen query, the
-  endpoint discrepancy is at least
-  `c sqrt(y^T Q^(-1) y / n)` with a fixed positive probability.
-  The existing integrated label allowance suffices. For labels in the
-  weakest covariance direction, or all label directions on orthogonal
-  data, its scale is `Y sqrt(m/(gamma n))`; a separate fixed-query upper
-  bound matches these powers. Complete proof:
-  [TANH_ENDPOINT_VARIABILITY_LOWER.md](TANH_ENDPOINT_VARIABILITY_LOWER.md).
-- Arbitrary fixed depth with identity activations and `m<d` independent
-  inputs: an exact conditional Gaussian endpoint law yields the
-  full-sphere lower scale
-  `sqrt((d-m) y^T Q^(-1) y / n)`. For the hardest label direction,
-  matching endpoint upper/lower scales are
-  `Y sqrt(m(d-m)/(gamma n))`, with an explicit width threshold.
-  Complete proof:
-  [LINEAR_ENDPOINT_VARIABILITY_LOWER.md](LINEAR_ENDPOINT_VARIABILITY_LOWER.md).
-- A general initialized-onset-to-prediction bridge supplies actual
-  positive-time lower bounds. On orthogonal data, arbitrary fixed depth
-  and permitted odd activations, it gives
-  `c gamma Y / (sqrt(m n) log(en)^(5/2))`.
-  This is a transient near-root result, not an endpoint theorem:
-  [ONSET_TO_TRAJECTORY_LOWER.md](ONSET_TO_TRAJECTORY_LOWER.md).
+The reviewers used separately scoped full frozen inputs. Dense and
+Harmonic local verdicts explicitly inherit the source theorem; its proof
+received a separate reconstruction. The assembly audit is an interface
+audit, not a replacement for those proof checks. The audit-requested
+source-family definition, all-time bridge, and notation corrections were
+included and rechecked. Reports record exact version bindings.
 
-The tanh endpoint proof uses exactly frozen unused read-in columns, a
-finite-network covariance gap obtained from cubic products of nonlinear
-query responses, and the readout energy forced by interpolation. It does
-not assume a population comparison or use an infinitesimal-label endpoint
-approximation. The simpler independently derived identity--tanh endpoint
-argument is retained in
-[NONLINEAR_ENDPOINT_VARIABILITY_LOWER.md](NONLINEAR_ENDPOINT_VARIABILITY_LOWER.md).
+<!-- method-names:start -->
+The naming-only update is checked separately in
+[TERMINOLOGY_UPDATE_CHECK.md](TERMINOLOGY_UPDATE_CHECK.md), which binds
+the rename-only snapshot to the original audited version. The original
+audit reports are unchanged; their old hashes are not presented as hashes
+of the subsequent cost-extended document.
+<!-- method-names:end -->
 
-Checks and exact source hashes are in
-[ENDPOINT_LOWER_CHECK.md](ENDPOINT_LOWER_CHECK.md),
-[TANH_ENDPOINT_VARIABILITY_LOWER_CHECK.md](TANH_ENDPOINT_VARIABILITY_LOWER_CHECK.md),
-and
-[LINEAR_ENDPOINT_VARIABILITY_LOWER_CHECK.md](LINEAR_ENDPOINT_VARIABILITY_LOWER_CHECK.md).
-These are internal reconstructions, not promotion reviews.
-The coordinator owns the tanh proof, synthesis and check assembly;
-`merge_general_dense` authored the linear proof and reconstructed the
-tanh proof, `merge_general_legendre` authored identity--tanh and checked
-the synthesis, and `merge_unbounded_compressor` authored the onset bridge
-and reconstructed the linear proof. No experiment was run.
+The subsequent cost addition has its own scoped derivation/review and
+reproducibility record in
+[COMPUTATIONAL_COST_CHECK.md](COMPUTATIONAL_COST_CHECK.md).
+[cost_algebra_check.py](cost_algebra_check.py) checks the finite-dimensional
+execution identities. These checks do not rerun the full analytic theorem
+audits or establish floating-point stability.
 
-Those endpoint lower bounds transfer to the common all-time norm because it contains
-the endpoint and every positive time. They do not make endpoint upper
-bounds time-uniform, or prove a universal positive lower bound for every
-activation/data pair. Sharp nonlinear whole-sphere dimension dependence,
-full-input-span nonlinear endpoint lower bounds, and the remaining
-general upper-bound gap are still open. The user's preceding request
-authorized this endpoint investigation. Its specialized results are not
-presented as general parts of the latest integrated theorem.
+The efficient-setup integration has a separate
+[final interface/proof-assembly check](SETUP_INTEGRATION_FINAL_CHECK.md).
+Its [mechanical validation script](setup_integration_check.mjs) checks
+the integrated fragments, links, anchors, equation tags and math delimiters.
+The component continuation, backend, assembly, Gaussian and order checks
+are linked in [RESULT's integration record](RESULT.md#integrated-audit).
+Their historical frozen snapshots are not presented as the current file's hash.
 
-The latest comparison-coefficient refinement is
-[SAMPLE_POLYNOMIAL_STATEMENT.md](SAMPLE_POLYNOMIAL_STATEMENT.md), checked
-in [SAMPLE_POLYNOMIAL_CHECK.md](SAMPLE_POLYNOMIAL_CHECK.md).
-It removes sample/gap factors from the dense-copy and Legendre exponential
-width factors while retaining actual label dependence polynomially.
-The new step preserves the negative residual-discrepancy square in
-parameter energy; convexity then moves the remaining activity dependence
-outside the exponential. The label condition, activation/depth/data
-scope, original physical clock, all-query norm and source event are unchanged.
-The dense rate remains near-root. Legendre still attains Y/sqrt(n)
-with order n^(1/4+o(1)), now with polynomial data dependence in the
-displayed order prefactors and a quarter-log inversion.
+The original audit reports disclose that the required canonical-notation
+skill was then inaccessible. It is accessible now and was read, together
+with its neural-network reference, and applied to this integration.
+The original reports remain unchanged historical records. These are
+internal research checks, not promotion reviews.
 
-Complete derivations are DENSE_SAMPLE_EXPONENT_REFINEMENT.md and
-LEGENDRE_SAMPLE_EXPONENT_REFINEMENT.md. The latter explicitly checks
-that terminal projection tails control the absolute integrated physical
-defect, as required by its new forced energy argument.
-COMPACT_SAMPLE_EXPONENT_REFINEMENT.md improves the compact comparison's
-displayed width cost and keeps Y explicit, but does not remove its
-exponential data dependence. It identifies the limitation of the current
-positive-coefficient comparison and a separate exponential source gate;
-neither is an intrinsic model lower bound. The source probability
-threshold remains unquantified. No experiment or manuscript edit was made.
+Mechanical checks cover mathematical delimiters, equation tags, explicit
+anchors, local links, control characters and scoped whitespace validation.
+Deterministic numerical algebra checks cover the added execution identities.
+No full Markdown/TeX render, timing benchmark or numerical training experiment
+was run.
 
-Start with [RESULT.md](RESULT.md) for the assembled scope, numerical
-definition map, three separate comparisons, probability qualifications,
-onset calibration, and accuracy/storage consequences.
+## Integrated setup guarantees and limitations
 
-For the user's requested low-notation statement, see
-[SIMPLE_EXPLICIT_STATEMENT.md](SIMPLE_EXPLICIT_STATEMENT.md). It replaces
-the long numerical recurrences by conservative explicit powers of one
-activation envelope and one data/depth coefficient. The common sufficient
-label cap is `Y <= (gamma/m) beta^(-30L)`; the exact recurrence allowances
-remain available in RESULT.md. Its finite-envelope derivations are
-`SIMPLE_CONSTANTS_SOURCE_CHECK.md`, `SIMPLE_CONSTANTS_DENSE_CHECK.md`, and
-`SIMPLE_CONSTANTS_LEGENDRE_CHECK.md`. The dense-copy coefficient retains
-an explicit factor Y by integrating the initially zero readout difference.
-The strict dense-copy rate and effective stochastic width threshold remain
-open; the simpler statement does not remove those limitations.
-Its confidence audit explicitly includes the unquantified threshold
-`n >= N_0(delta)` in the Legendre applicability condition and compact
-width inequality. At fixed width, the order/error/storage formulas remain
-unchanged; the numerical compact threshold alone supplies no certified
-confidence. Source moment order is proof-only and does not enter storage.
+For separately fixed admissible data, depth, activations and confidence,
+the two certified initializers have the following sufficient bounds:
 
-The requested general strict-root three-comparison theorem is **not yet
-proved**. In particular the inherited general independent-dense theorem
-has a subpolynomial width loss; its strict-root replacement cannot be
-obtained by substituting constants from the compression proof. The actual
-remaining issue is the transported mixed response, not a restriction to
-tanh, two layers, orthogonal data, or bounded activation values.
+| Initializer | Setup arithmetic | Peak setup real words |
+|---|---:|---:|
+| Explicit dense local continuation | \(O(n^2\log(en)^{3d/2+1})\) | \(O(n^2)\) |
+| Exact implicit Gaussian execution | \(O(n\log(en)^{9d/2+3})\) | \(O(n\log(en)^{3d/2+1})\) |
 
-- `GENERAL_EXPLICIT_FITTING.md` and `GENERAL_EXPLICIT_FITTING_CHECK.md`:
-  checked explicit dense initialization, fitting, global convergence and
-  sphere endpoint tail. Values may be unbounded; no forward normalization
-  is assumed. Exact moment constants give the label cap, with the simpler
-  sufficient envelope `Y <= (gamma/m) beta_partial^(-5L)`.
-- `GENERAL_EXPLICIT_CLOSURE_FITTING.md` and
-  `GENERAL_EXPLICIT_CLOSURE_FITTING_CHECK.md`: checked explicit fitting
-  and convergence for **every** original RMS-clock Legendre order. The
-  approximate energy estimate closes the readout bound despite the
-  non-gradient reconstruction defect. A sufficient simplified cap is
-  `Y <= (gamma/m) beta_partial^(-10L)`.
-- `GENERAL_LEGENDRE_TRANSFER.md`: full general inherited same-width
-  comparison, explicit near-quarter order schedule, and numerical
-  deterministic tracking interface. The new closure fitter supplies its
-  physical constants; the trained carrier probability event is a distinct
-  input supplied by the source argument.
-- `EXPLICIT_LEGENDRE_COMPARISON.md` and its `_CHECK.md`: checked numerical
-  assembly and concrete order giving error `Y/sqrt(n)` in the full norm,
-  with `q_n=n^(1/4+o(1))`. Fixed initialized mixers remain quadratic.
-- `UNBOUNDED_COMPRESSOR_BRIDGE.md`: new samplewise joint-budget and sharp
-  complex-source bridge. It preserves the `3d+2` storage logarithmic
-  exponent and actual `Y^4` leading storage dependence, with numerical
-  recurrences. `UNBOUNDED_COMPRESSOR_BRIDGE_CHECK.md` checks source §§1–12.
-  Section 13 adds a fully numerical deterministic comparison and explicit
-  deterministic width/error trade; its separate check is
-  `UNBOUNDED_COMPARISON_CHECK.md`. The probability proof still gives an
-  eventual, unquantified stochastic width threshold.
-- `EXPLICIT_COMPRESSOR_RUNTIME_FITTING.md` and its `_CHECK.md`: exact autonomous corrected
-  optimizer, explicit small-label fitting and sphere endpoint tail for
-  unbounded activations; independent reconstruction passes.
-- `GENERAL_DENSE_COMPARISON.md`: corrected audit and new mixed-response
-  calculations. Existing source estimates do control instantaneous
-  cross-query responses. The adjoint training projections have backward
-  damping. The full transported neuronwise mixed moments, valid Gaussian
-  localization and query increments remain open. This is not evidence of
-  a slower-rate counterexample. Equations (37)–(44) give a numerical
-  all-time whole-sphere near-root bound with all multiplicative constants
-  specified by finite recurrences.
-- `EARLY_VARIABILITY_AND_STORAGE.md`: proved general initialized Gram
-  fluctuation recursion and onset derivative calibration; exact storage
-  algebra with separate comparison constants. It explicitly does not turn
-  an onset derivative into a fixed-label endpoint lower bound, or a
-  requested comparison shape into an established theorem.
+Both retain \(O(\log(en)^{3d+2})\) coordinates and the existing
+\(n^{-1+o(1)}\) whole-sphere/all-time error. The complete
+[supplied-order formulas](RESULT.md#harmonic-efficient-supplied-orders),
+[deterministic recipe](RESULT.md#harmonic-efficient-orders), and
+[proofs](RESULT.md#harmonic-efficient-setup-proofs) are in RESULT.
 
-Checks here are internal reconstructions, not promotion reviews. No
-manuscript, maintained-book, earlier-study, or Git-index changes were made.
+These are exact-real arithmetic/real-word counts under the exposed scalar
+evaluation and ideal Gaussian sampling conventions, not finite-bit or uniform
+growing-parameter guarantees. The implicit method uses a fresh jointly sampled
+reference, not a supplied matrix or prescribed entrywise seed. It is
+near-linear, not strict \(O(n)\). All width-dependent setup arrays are
+discarded, with no dense oracle retained at runtime.
+
+The local construction covers the required source horizon through few
+high-order panels. It is not necessarily a short physical-time prefix, nor
+does it mean a few Euler steps suffice. Its explicit setup/Euler work ratio
+tends to zero for every fixed inverse-polynomial Euler step. No necessity of
+that step or speedup over all high-order dense solvers is claimed. Neither
+method has a measured practical timing advantage at widths 1000--10000.
+
+Earlier exploratory and conditional routes remain study history; the
+integrated proofs do not rely on the unproved complex-label continuation
+route or on the alternative Picard implementation.
+
+### Remaining mathematical and computational limitations
+
+The stochastic source width and initialized-CLT onset remain
+unquantified. Every deterministic coefficient and extra width gate is
+explicit, but the full confidence-certified reference width is not
+computable from these results. Statements hold at each sufficiently large
+individual width, not on one event over infinitely many independent
+initializations.
+
+Sharp sample/gap/dimension dependence, a general endpoint variability
+lower bound, a strict-root general dense upper, effective stochastic
+widths, and optimal compression among arbitrary representations remain
+open. Fixed-problem exponents are not simultaneous growing-data theorems.
+The legacy origin-jet cost formula alone does not supply efficient setup
+orders; the integrated local-continuation recipe does for its own initializer.
+Numerical conditioning, working precision and the number of
+subsequent compressed training steps remain open.
+
+The previously completed cost update was authorized for commit on 2026-10-06.
+The present setup research modifies only this study and remains uncommitted;
+it includes no book promotion or paper modification. Concurrent changes in
+other studies and Quarto maintenance are outside the task's edit scope.
+
+<!-- method-names:start -->
+The method-name update is editorial. The subsequent user-requested cost
+addition is a separate execution analysis, not a change to the prediction
+error theorem or its assumptions. Both belong to this scoped study update;
+neither changes the maintained book, paper, or other studies.
+<!-- method-names:end -->

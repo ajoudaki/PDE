@@ -157,9 +157,10 @@ endpoint or pointwise-in-time ratio statement.
 
 The two admissibility ranges use the appropriate order formulas:
 
-- In the full recurrence-based range, use RESULT §4 and
+- In the full recurrence-based range, use
   EXPLICIT_LEGENDRE_COMPARISON (6), with its square-root logarithm.
-- Under the optional beta cap, use SAMPLE_POLYNOMIAL_STATEMENT (5),
+- Under the optional beta cap, the reviewed sample-polynomial statement's
+  (5) is the formula retained in LEGENDRE_SAMPLE_EXPONENT_REFINEMENT (4),
   whose sharper inversion has a quarter power of the logarithm.
 
 For either prescription, the underlying deterministic upper envelope is
@@ -241,7 +242,12 @@ in the one-sample case are correctly excluded from the positive claim.
 
 ## 5. Final reviewed versions
 
-Hashes are SHA-256 of the study files used in this check. The bridge check
+Hashes are SHA-256 of the snapshots used in this check, under their
+original names; they do not bind the edited current files. The redundant
+sample-polynomial statement has been removed; its retained formula is
+identified in §3 above. References to RESULT's numbered equations in this
+review concern the reviewed snapshot; the full common allowance is now
+in [RESULT.md](RESULT.md), §6. The bridge check
 records an earlier version and its then-pending typographical correction;
 the bridge version below already contains the required plus in (6) and
 the two-range Legendre prescription. Historical hashes in that earlier
@@ -254,6 +260,6 @@ check are not substituted for the versions reviewed here.
 | GENERAL_TRAJECTORY_LOWER_BRIDGE.md | `32da5b9db05797d5f5405c22ad708ecc0f74e4247aabe13ff16cfb9f448fd372` |
 | GENERAL_TRAJECTORY_LOWER_BRIDGE_CHECK.md | `4c7107e0ad489fbd91f9d961798dfbba2e1d3ecd5831c0f3989fae279ead3737` |
 | RESULT.md | `eb039b9b9c006a8f68a3b56d8d05d6f2e2ab9fe9010861d6d54076b254218040` |
-| SAMPLE_POLYNOMIAL_STATEMENT.md | `049fa7094ce8d651bc8952fe26ea0fc660da955962552879a91eb1f88bde0900` |
+| SAMPLE_POLYNOMIAL_STATEMENT.md (reviewed snapshot; removed) | `049fa7094ce8d651bc8952fe26ea0fc660da955962552879a91eb1f88bde0900` |
 | LEGENDRE_SAMPLE_EXPONENT_REFINEMENT.md | `93f09aff3f97b13e0361494ce0c9c1ab89917e7dbef323216c850b6e2d96b8a4` |
 | EXPLICIT_LEGENDRE_COMPARISON.md | `7834b325b31aa667d9c751a2c180439399433d82d77cdd078b38ea54e0168a1c` |

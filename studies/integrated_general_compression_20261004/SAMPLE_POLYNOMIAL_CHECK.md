@@ -5,6 +5,15 @@ derivations were written. The root and authors exchanged candidate
 arguments, so this is an internal reconstruction, not an isolated
 independent review or promotion gate.
 
+Consolidation note, 2026-10-05: this check records the specific snapshots
+below, not a validation of the current edited interface. The redundant
+sample-polynomial statement and compact threshold refinement were removed.
+The dense and Legendre proofs remain; the current compact comparison is
+[COMPACT_POLYNOMIAL_COMPARISON.md](COMPACT_POLYNOMIAL_COMPARISON.md), with its
+own reconstruction. The compact obstruction and open-status comments below
+describe the older unsigned comparison. They do not limit the current
+coupled proof. The source-construction width qualifications still apply.
+
 ## Inputs and coverage
 
 The coordinator read every mathematical line of:
@@ -13,7 +22,7 @@ The coordinator read every mathematical line of:
   bca07e44bd5238bd17384a67714a704a2839bd43ac214db88e5c8bd7b7fe6a9d
 - LEGENDRE_SAMPLE_EXPONENT_REFINEMENT.md:
   93f09aff3f97b13e0361494ce0c9c1ab89917e7dbef323216c850b6e2d96b8a4
-- COMPACT_SAMPLE_EXPONENT_REFINEMENT.md:
+- COMPACT_SAMPLE_EXPONENT_REFINEMENT.md (reviewed snapshot; removed):
   7e777ed6881e339f62576e763bf9b126aa0b69ed8145c1f9cacc7c2eb189c84a
 
 The current source constants, complete dense fitting proof, complete
@@ -171,7 +180,7 @@ improved. No polynomial full-width threshold is claimed.
 
 ## Assembly and outcome
 
-SAMPLE_POLYNOMIAL_STATEMENT.md preserves the common setup and all
+The reviewed SAMPLE_POLYNOMIAL_STATEMENT.md snapshot preserved the common setup and all
 probability qualifications. Stirling's formula removes the factorial;
 the factor \(m^4/d\) becomes \(O(m^3)\) only outside the dimension
 power when \(m\asymp d\). No replacement of \(d\) inside that power

@@ -1,5 +1,13 @@
 # Legendre comparison with polynomial sample dependence
 
+**Interface correspondence (2026-10-05).** [RESULT.md](RESULT.md),
+(Legendre error) and (Legendre order), expand (2)–(3) below using
+`lambda=gamma/m`, `z=Ym/gamma`, and `B=beta^(100L)`. Its `q` is this
+note's memory order. For a requested error, choosing the least admissible
+integer satisfying the existing error inequality is a certificate
+selection, not a change to the closure or its proof. The event remains
+simultaneous in order; the original root-width prescription (4) is retained.
+
 2026-10-04. Scoped continuation of the integrated study. This note replaces
 the unsigned stability estimate in `EXPLICIT_LEGENDRE_COMPARISON.md` by a
 parameter energy estimate. It then uses convexity of the exponential, retaining
