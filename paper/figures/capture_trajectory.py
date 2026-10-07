@@ -242,7 +242,8 @@ def frozen_predictions(dense, inputs, labels, queries, times):
     return np.stack(predictions)
 
 
-def validation_data(dimension, samples, queries, seed, device, task='toy', partition='test'):
+def validation_data(dimension, samples, queries, seed, device, task='toy', partition='test',
+                    raw_images=False, tuning_samples=64):
     rng = np.random.default_rng(seed)
     if task == 'digits':
         from sklearn.datasets import load_digits
@@ -253,11 +254,17 @@ def validation_data(dimension, samples, queries, seed, device, task='toy', parti
         data, target = data[keep], np.where(target[keep] == 3, -1., 1.)
         indices, heldout = train_test_split(np.arange(len(target)), train_size=samples,
                                            stratify=target, random_state=seed)
-        tuning, testing = train_test_split(heldout, train_size=64, stratify=target[heldout],
-                                           random_state=seed+1)
-        heldout = tuning if partition == 'pilot' else testing
-        pca = PCA(n_components=dimension, svd_solver='full').fit(data[indices])
-        train, query = pca.transform(data[indices]), pca.transform(data[heldout])
+        if tuning_samples:
+            tuning, testing = train_test_split(heldout, train_size=tuning_samples,
+                                               stratify=target[heldout], random_state=seed+1)
+            heldout = tuning if partition == 'pilot' else testing
+        if raw_images:
+            if dimension != data.shape[1]:
+                raise ValueError('Raw digits require dimension 64; no projection is applied')
+            train, query = data[indices].copy(), data[heldout].copy()
+        else:
+            pca = PCA(n_components=dimension, svd_solver='full').fit(data[indices])
+            train, query = pca.transform(data[indices]), pca.transform(data[heldout])
         train /= np.linalg.norm(train, axis=1, keepdims=True)
         query /= np.linalg.norm(query, axis=1, keepdims=True)
         labels, truth = target[indices], target[heldout]
@@ -791,6 +798,9 @@ def validation_main(argv):
     parser.add_argument('--step', type=float, default=.125)
     parser.add_argument('--per-run-seconds', type=float, default=120.)
     parser.add_argument('--task', choices=('toy', 'digits'), default='toy')
+    parser.add_argument('--raw-images', action='store_true', help='Use all 64 pixels, with norm scaling but no PCA')
+    parser.add_argument('--tuning-samples', type=int, default=64,
+                        help='Digits tuning split; zero reserves all nontraining images for evaluation')
     parser.add_argument('--check-only', action='store_true')
     parser.add_argument('--refine', action='store_true')
     parser.add_argument('--small-width', type=int, default=0)
@@ -808,7 +818,12 @@ def validation_main(argv):
     parser.add_argument('--log-step', type=float, default=.125)
     parser.add_argument('--log-noise', type=float, default=.01)
     parser.add_argument('--log-queries', type=int, default=8)
+    parser.add_argument('--log-all-times', action='store_true', help='Observe every prescribed decoder panel')
     args = parser.parse_args(argv)
+    if args.raw_images and (args.task != 'digits' or args.dimension != 64):
+        parser.error('--raw-images requires --task digits --dimension 64')
+    if args.tuning_samples < 0:
+        parser.error('--tuning-samples must be nonnegative')
     args.out.mkdir(parents=True, exist_ok=False)
     torch.set_num_threads(1)
     torch.set_default_dtype(torch.float64)
@@ -831,12 +846,18 @@ def validation_main(argv):
         return
     partition = 'pilot' if args.seed in (101, 102) else 'test'
     inputs, labels, queries, truth = validation_data(args.dimension, args.samples, args.queries,
-                                                   args.data_seed, args.device, args.task, partition)
+        args.data_seed, args.device, args.task, partition, args.raw_images, args.tuning_samples)
     times = sorted(set(t for t in [0., .5, 1., 2., 5., 10., 20., args.horizon] if t <= args.horizon))
+    if args.log_probe and args.log_all_times:
+        times = sorted(set(times + [index*args.log_step for index in range(args.log_steps+1)
+                                     if index*args.log_step <= args.horizon+1e-10]))
     report.update(times=times, query_partition=partition, training_rank=int(torch.linalg.matrix_rank(inputs)),
                   label_rms=float(rms(labels)), query_count=len(queries),
                   train_inputs_sha256=array_sha(inputs.cpu().numpy()),
-                  test_inputs_sha256=array_sha(queries.cpu().numpy()))
+                  test_inputs_sha256=array_sha(queries.cpu().numpy()),
+                  preprocessing=('raw pixels, per-image unit-norm scaling, no PCA' if args.raw_images
+                                 else 'training-only PCA and unit-norm scaling' if args.task == 'digits'
+                                 else 'unit sphere directions'))
     arrays = dict(times=times, train_inputs=inputs.cpu().numpy(), train_labels=labels.cpu().numpy(),
                   query_inputs=queries.cpu().numpy(), query_labels=truth.cpu().numpy())
     models = [('dense', Dense(args.width, args.dimension, args.seed, args.device)),
@@ -976,13 +997,16 @@ def validation_main(argv):
                         control, inputs, labels, queries[:count], np.asarray(times)[log_indices],
                         args.step, args.per_run_seconds)
                     if args.refine:
+                        arrays['log_matched_dense_coarse'] = control_prediction
                         _, control_fine, fine_info = integrate(
                             control, inputs, labels, queries[:count], np.asarray(times)[log_indices],
                             args.step/2, args.per_run_seconds)
                         control_info['refinement'] = trajectory_rms(control_prediction, control_fine)
                         control_info['refinement_seconds'] = fine_info['seconds']
+                        arrays['log_matched_dense_fine'] = control_fine
                         control_prediction = control_fine
                 control_info.update(width=width, target_model_words=matched_budget)
+                control_info['smaller_than_dense_reference'] = bool(width < args.width)
                 if args.task == 'digits':
                     control_info['test_accuracy'] = float(np.mean(np.sign(control_prediction[-1]) == truth[:count].cpu().numpy()))
                 report['runs']['log_matched_dense'] = control_info
@@ -1277,13 +1301,15 @@ class _LogarithmicGaussian:
         else:
             V, Y = self.forward_queries, self.forward_answers
             U, X = self.reverse_queries, self.reverse_answers
-        # Acquire all needed moments in one pass when evaluating a passive query.
-        requests = ([(a, b) for a in V for b in V]
-                    + [(a, b) for a in U for b in U]
-                    + [(a, b) for a in U for b in Y]
-                    + [(a, b) for a in X for b in V]
-                    + [(a, operand) for a in V + X] + [(operand, operand)])
-        tape.pair_many(requests)
+        # Streaming queries need a single row pass. Ordinary execution acquires
+        # these same moments below; repeating the lists costs cubic Python work.
+        if tape.stream:
+            requests = ([(a, b) for a in V for b in V]
+                        + [(a, b) for a in U for b in U]
+                        + [(a, b) for a in U for b in Y]
+                        + [(a, b) for a in X for b in V]
+                        + [(a, operand) for a in V + X] + [(operand, operand)])
+            tape.pair_many(requests)
         Q, K = tape.gram(V, V), tape.gram(U, U)
         qvalues, qvectors = np.linalg.eigh((Q + Q.T) / 2)
         kvalues, kvectors = np.linalg.eigh((K + K.T) / 2)

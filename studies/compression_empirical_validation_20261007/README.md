@@ -303,3 +303,127 @@ functional regression (not a scientific scaling run) covering both gates and
 the smaller decoder query subset. The final portable ledger in
 `figures_final_02` includes this check, for 53 reports in total. Historical
 run reports retain their original gate fields rather than being rewritten.
+
+## Requested raw-image, 100-training-image continuation
+
+The user explicitly requested Logarithmic versus dense and total-state-matched
+small dense versus dense on raw images with 100 training examples. This
+continues the same empirical investigation; it does not reopen the earlier
+hyperparameter search or change its conclusions. Use digits 3 versus 8,
+all 64 pixels (no PCA or fitted feature reduction), per-image norm scaling,
+100 stratified training images and all remaining 257 validation images.
+The split seed remains 47, labels are -1/+1, and the reference has two tanh
+hidden layers of width 4096. No evaluation image chooses parameters.
+
+Primary quantity is whole-validation prediction RMS at physical time five;
+also report the maximum over common saved times. Dense and matched MLP use
+RK4 steps 0.125/0.0625. Numerical checks include both dense references and
+the matched model; the decoder is compared as its declared Euler program,
+not relabeled as a converged gradient-flow discretization. Its source is
+independent of the dense target. A useful compression must have smaller total
+retained payload; a large-state decoder does not qualify merely by fitting.
+
+Static feasibility check: with m=100,d=64, the source program names
+64+2+H*(13*100+64+1)+6*100 fields after H panels. At H=10/20 this is
+14,316/27,966 fields, beyond the existing 24-million-value source cache cap
+at n=4096. Independently, all Gaussian roots enter full-span selection;
+their generic ranks already prevent a small payload at those orders.
+These are implementation/witness limitations, not a lower bound on every
+Logarithmic construction. Do not silently replace the full-rank selector.
+
+Precommitted resource-feasible attempt: H=2 panels of length 2.5 through the
+same time five, noise 0.01, one member, all 257 validation queries, seed201.
+This very coarse order is selected for storage/cost, not validation fidelity.
+If it completes below the 300-second decoder cap with smaller-than-dense
+payload, run H=3 (step 5/3) at the same seed for a disclosed order comparison,
+provided static cache and measured resource estimates allow it. Neither
+result is chosen by its validation error: both are reported. At most two
+such primary configurations plus one numerical implementation retry are
+allowed; each model at most 300 seconds, with at most 2 GB CPU source payload
+and 20 GB allocated GPU memory. A failed/capped decoder yields no invented
+RMS or fictitious matched-small control. Ordinary unit tests are separate.
+
+### Raw-image result (one seed; no claim of useful resolved-flow compression)
+
+`raw_digits_m100_h2_s201` completed. All 257 validation images retain their
+64 original pixel coordinates, with independent per-image unit-norm scaling
+only. Training has 51 threes and 49 eights. A scoped independent check
+reconstructed the split and tensors directly from `load_digits`, checked
+disjoint/exhaustive indices and identical inputs across every model, and
+recomputed the saved RMS curves and inventories exactly.
+
+At recorded times 0, 2.5 and 5, the results against refined dense dynamics are:
+
+| Model | RMS at t=2.5 | RMS at t=5 (also the recorded maximum) |
+|---|---:|---:|
+| Independent dense | 0.0071171269 | 0.0169756746 |
+| Logarithmic, two Euler panels | 0.0611283200 | 0.2964844318 |
+| Total-payload-matched dense, width 3701 | 0.0058247144 | 0.0161433175 |
+
+The selected rank is 1865. The decoder retains 13,951,649 numerical/index
+words, including 6,500 common data words. Its matched MLP has 13,937,966
+parameters; width 3702 would exceed the model-only budget. Dense has
+17,043,456 parameters, so the persistent reduction is only 18.14 percent.
+Retained-plus-query workspace is 25,176,147 words, larger than dense parameters.
+These payload figures exclude Python/LAPACK overhead and are not process RAM.
+
+The decoder's source, metric, replay and queries took 61.65, 35.31, 60.23 and
+47.87 seconds, respectively (205.24 seconds total). Replay error is
+1.831e-11; source reconstruction error is 2.620e-13. Dense coarse/fine changes
+are 8.003e-7 and 7.812e-7, independently recomputed from arrays. The matched
+dense change is reported as 7.522e-7; that run did not save its coarse array,
+so the independent archive check cannot reconstruct this last diagnostic.
+Future captures now retain both matched-control resolutions.
+
+No H=3 run was launched: scaling the measured source/replay costs predicts
+more than the 300-second cap, and its expected full-span payload is larger
+than dense. More strongly, at H=10/H=20, scalar-pair history plus immutable
+coefficients/instructions alone require 19,972,316/75,903,216 words, already
+larger than dense before adding any selected fields or metric. This is a
+limitation of the current retained representation at these parameters,
+not an impossibility theorem for the compression idea.
+
+The large RMS above is substantially a temporal-discretization effect.
+A separate diagnostic used the existing `Dense` and `dense_rhs`, the same
+raw tensors, and exactly two Euler steps of length 2.5. At time five:
+
+| Common two-step Euler comparison | Whole-validation RMS |
+|---|---:|
+| Logarithmic versus dense | 0.0165968613 |
+| Matched small dense versus dense | 0.0284335378 |
+| Independent dense pair | 0.0191227462 |
+
+The coarse dense model itself differs from the refined trajectory with the
+same initialization by 0.3102444868. Thus the decoder tracks this coarse
+finite program much better than it tracks resolved gradient flow. The
+matched-integrator result is a single-seed diagnostic, not a recovered
+resolved-training or useful working-memory compression claim. Both tables
+must remain visible together; neither supersedes the other by changing the
+reference integrator. Classification is not the RMS observable.
+
+Reproduction of the primary run (use a fresh output name):
+
+```bash
+/home/amir/miniconda3/bin/python -B paper/figures/capture_trajectory.py validate \
+  --device cuda:0 --task digits --raw-images --dimension 64 --samples 100 \
+  --tuning-samples 0 --width 4096 --seed 201 --horizon 5 --refine \
+  --log-probe --log-steps 2 --log-step 2.5 --log-queries 512 --log-all-times \
+  --per-run-seconds 300 --out PATH/TO/FRESH/RUN
+```
+
+The numerical control initializes `Dense(4096,64,201,device)`, its independent
+copy with seed 10201, and `Dense(3701,64,60201,device)`. Starting from each
+`initial_state`, apply `state = [v + 2.5*dv for v,dv in
+zip(state, model.rhs(state, train_inputs, train_labels))]` twice, evaluating
+`model.predict` on the saved `query_inputs` before and after each step.
+Compare those arrays with each other and with `trajectories.npz`'s
+`logarithmic` and dense arrays at indices for times 0, 2.5, 5. This diagnostic
+uses no alternative implementation of the network or gradient.
+
+An exact implementation cleanup now omits the Gaussian action's duplicate
+moment-request prepass for nonstreaming execution; streaming queries retain
+it. A scoped before/after test was bit-identical for all source/selected
+fields, coefficients, pair values/order, losses and queries. Full algebra
+checks pass in `raw_checks_01` and `raw_checks_02`. The recorded 205.24-second
+scientific run predates this cleanup; no improved timing is claimed from it.
+The paper and its earlier figure bundle were not rewritten by this follow-up.
